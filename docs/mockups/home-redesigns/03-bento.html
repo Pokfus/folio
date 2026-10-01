@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Folio — home redesign 3: Bento</title>
+<link rel="stylesheet" href="../../../fonts.css" />
+<link rel="stylesheet" href="_tokens.css" />
+<style>
+/* ===== 3. BENTO — one mosaic of tiles, each one a destination =====
+   A four-column grid on desktop, three on tablet, two on a phone. The review tile is the biggest and
+   the only filled one; every other tile is a thing to tap. The top bar is a floating pill. */
+.top{position:sticky; top:0; z-index:5; display:flex; justify-content:center; padding:14px 16px 0;}
+.pill{display:flex; align-items:center; gap:4px; background:color-mix(in srgb, var(--card) 86%, transparent); backdrop-filter:blur(14px); border:1px solid var(--rule); border-radius:999px; padding:6px 8px 6px 16px; box-shadow:var(--shadow-md); width:min(100%, 1120px);}
+.pill .brand{font-weight:800; font-size:20px; letter-spacing:-.02em; margin-right:auto;}
+.pill .brand .dot{color:var(--zh);}
+.pill a{display:flex; align-items:center; gap:7px; padding:8px 13px; border-radius:999px; font-size:13.5px; font-weight:700; color:var(--ink-soft);}
+.pill a.on{background:var(--indigo); color:var(--on-indigo);}
+.pill a.admin{color:var(--admin);}
+.pill a.ic{padding:8px;}
+.pill svg{width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+.wrap{max-width:1120px; margin:0 auto; padding:34px 16px 60px;}
+.hello{display:flex; justify-content:space-between; align-items:baseline; margin:0 6px 18px;}
+.hello h1{font-family:var(--serif); font-weight:600; font-size:30px; margin:0; letter-spacing:-.01em;}
+.hello span{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet);}
+.grid{display:grid; grid-template-columns:repeat(4, 1fr); grid-auto-rows:minmax(150px, auto); grid-auto-flow:dense; gap:14px;}
+.tile{position:relative; overflow:hidden; border-radius:22px; background:var(--card); border:1px solid var(--rule); padding:20px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:var(--shadow-sm); transition:transform .18s var(--ease);}
+.tile:hover{transform:translateY(-2px);}
+.tile .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600;}
+.tile .t{font-weight:800; font-size:18px; letter-spacing:-.01em; line-height:1.2;}
+.tile .s{font-size:13px; color:var(--ink-quiet); margin-top:3px; line-height:1.3;}
+.tile .big{font-size:56px; font-weight:800; letter-spacing:-.05em; line-height:.95;}
+.w2{grid-column:span 2;} .h2{grid-row:span 2;}
+/* review tile */
+.review{background:linear-gradient(135deg, var(--indigo) 0%, color-mix(in srgb, var(--indigo) 70%, var(--newterm)) 100%); color:#fff; border:0;}
+.night .review{color:var(--paper-2);}
+.review .k{color:inherit; opacity:.75;}
+.review .n{font-size:92px; font-weight:800; letter-spacing:-.06em; line-height:.9; margin-top:8px;}
+.review .n small{font-size:22px; letter-spacing:0; font-weight:600; opacity:.8; margin-left:8px;}
+.review .pile{display:flex; gap:18px; margin-top:10px; font-size:13px; opacity:.9;}
+.review .pile b{font-size:18px; font-weight:800; margin-right:4px;}
+.review .go{align-self:flex-start; background:#fff; color:var(--indigo); font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; padding:12px 18px; border-radius:12px; margin-top:12px;}
+.night .review .go{background:var(--paper-2); color:var(--indigo);}
+.review .deco{position:absolute; right:-30px; bottom:-40px; width:230px; height:230px; border-radius:50%; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.28), transparent 60%); pointer-events:none;}
+/* quote */
+.quote .q{font-family:var(--serif); font-style:italic; font-size:21px; line-height:1.4;}
+.quote .q::before{content:"“"; color:var(--zh);}
+.quote .q::after{content:"”"; color:var(--zh);}
+/* streak */
+.streak .big{color:var(--good);}
+.streak .dots{display:flex; gap:5px; margin-top:8px;}
+.streak .dots i{width:14px; height:14px; border-radius:50%; background:var(--good);} .streak .dots i.t{background:transparent; border:2px solid var(--good); box-sizing:border-box;}
+/* collections */
+.coll .stack{display:flex; gap:6px; margin-top:6px;}
+.coll .stack i{flex:1; height:56px; border-radius:8px; background:var(--c);}
+/* games */
+.games .mini{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:6px 0 8px;}
+.games .mini i{height:22px; border-radius:7px; background:color-mix(in srgb, var(--c) 28%, var(--card)); border:1px solid color-mix(in srgb, var(--c) 40%, transparent); position:relative;}
+.games .mini i.done::after{content:""; position:absolute; inset:0; margin:auto; width:12px; height:12px; border-radius:50%; background:var(--c);}
+/* library */
+.lib .shelf{display:flex; gap:6px; align-items:flex-end; margin-top:4px; height:62px;}
+.lib .shelf i{width:18px; border-radius:3px; background:var(--c); height:var(--h);}
+/* atlas */
+.atlas{background:radial-gradient(circle at 70% 120%, color-mix(in srgb, var(--geo) 38%, var(--card)), var(--card) 65%);}
+.atlas .globe{position:absolute; right:-26px; bottom:-30px; width:150px; height:150px; border-radius:50%; border:1.5px solid var(--geo); opacity:.7;}
+.atlas .globe::before,.atlas .globe::after{content:""; position:absolute; inset:0; border-radius:50%; border:1px solid var(--geo);}
+.atlas .globe::before{transform:scaleX(.45);} .atlas .globe::after{transform:scaleY(.45);}
+/* search */
+.search{background:var(--paper-2); border-style:dashed;}
+.search .box{display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:10px 12px; font-size:13.5px; color:var(--ink-quiet);}
+.search .box svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2;}
+/* small tiles */
+.icon-tile{align-items:flex-start;}
+.icon-tile svg{width:28px; height:28px; stroke:var(--indigo); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+.foot{margin:26px 6px 0; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); display:flex; justify-content:space-between;}
+.tabbar{display:none;}
+@media (max-width:1024px){
+  .grid{grid-template-columns:repeat(3,1fr); grid-auto-rows:minmax(146px, auto);}
+  .pill a:not(.on):not(.ic) span{display:none;}
+  .pill a{padding:8px 10px;}
+  .review .n{font-size:76px;}
+}
+@media (max-width:640px){
+  .top{display:none;}
+  .wrap{padding:22px 16px 100px;}
+  .mhead{display:flex; justify-content:space-between; align-items:center; margin:0 4px 14px;}
+  .mhead .brand{font-weight:800; font-size:22px; letter-spacing:-.02em;} .mhead .brand .dot{color:var(--zh);}
+  .mhead .brand small{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600; margin-left:8px;}
+  .mhead .adm{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--admin); font-weight:600; border:1px solid var(--rule); border-radius:8px; padding:6px 10px;}
+  .hello h1{font-size:24px;} .hello{flex-direction:column; gap:2px; align-items:flex-start;}
+  .grid{grid-template-columns:1fr 1fr; grid-auto-rows:minmax(140px, auto); gap:10px;}
+  .tile{padding:16px; border-radius:18px;}
+  .review .n{font-size:64px;} .review .pile{gap:12px; font-size:12px;}
+  .quote .q{font-size:17px;}
+  .tile .big{font-size:40px;}
+  .tabbar{display:grid; grid-template-columns:repeat(5,1fr); position:fixed; left:12px; right:12px; bottom:12px; background:color-mix(in srgb, var(--card) 92%, transparent); backdrop-filter:blur(14px); border:1px solid var(--rule); border-radius:22px; padding:8px 6px; box-shadow:var(--shadow-lg);}
+  .tabbar a{display:flex; flex-direction:column; align-items:center; gap:3px; font-size:10px; font-weight:700; color:var(--ink-quiet); padding:5px 0; border-radius:14px;}
+  .tabbar a.on{color:var(--indigo); background:var(--indigo-wash);}
+  .tabbar svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+}
+@media (min-width:641px){ .mhead{display:none;} }
+</style>
+</head>
+<body>
+<div class="top">
+  <nav class="pill">
+    <span class="brand">Folio<span class="dot">.</span></span>
+    <a class="on"><svg viewBox="0 0 24 24"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg><span>Home</span></a>
+    <a><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="14" rx="2"/><path d="M7 4h11a2 2 0 0 1 2 2v11"/></svg><span>Collections</span></a>
+    <a><svg viewBox="0 0 24 24"><path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg><span>Library</span></a>
+    <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>Atlas</span></a>
+    <a class="ic admin" aria-label="Admin"><svg viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></a>
+    <a class="ic" aria-label="Account"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+    <a class="ic" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+  </nav>
+</div>
+
+<main class="wrap">
+  <div class="mhead"><span class="brand">Folio<span class="dot">.</span><small>Memorise anything</small></span><span class="adm">Admin</span></div>
+  <div class="hello"><h1>Good afternoon, Scholar.</h1><span>Wednesday 1 October · v1.906</span></div>
+
+  <div class="grid">
+    <a class="tile review w2 h2">
+      <div><div class="k">Today's review</div><div class="n">29<small>cards · 12 min</small></div>
+        <div class="pile"><span><b>2</b>new</span><span><b>4</b>learning</span><span><b>23</b>review</span></div></div>
+      <span class="go">Start review</span>
+      <div class="deco"></div>
+    </a>
+    <a class="tile quote w2"><div class="k">Quote of the day</div><div class="q">Life has a limit, but knowledge has none.</div><div class="s">Zhuangzi · ch. 3</div></a>
+    <a class="tile streak"><div class="k">Streak</div><div><div class="big">12</div><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i class="t"></i></div></div></a>
+    <a class="tile coll"><div class="k">Collections</div><div><div class="stack"><i style="--c:#4F74C2"></i><i style="--c:#2BA6A0"></i><i style="--c:#D9544C"></i><i style="--c:#DB8B3A"></i></div><div class="t" style="margin-top:8px">4 active</div><div class="s">29 due · + add decks</div></div></a>
+    <a class="tile search w2" style="justify-content:center"><div class="k" style="margin-bottom:8px">Search · press /</div><div class="box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>4,857 cards · 4,776 terms · 48 books</div></a>
+    <a class="tile games w2"><div class="k">Daily games · 3 of 9</div><div class="mini">
+      <i class="done" style="--c:var(--g-challenge)"></i><i class="done" style="--c:var(--g-chrono)"></i><i style="--c:var(--g-truefalse)"></i>
+      <i style="--c:var(--g-whosaid)"></i><i class="done" style="--c:var(--g-findit)"></i><i style="--c:var(--g-thread)"></i>
+      <i style="--c:var(--g-crossword)"></i><i style="--c:var(--g-picture)"></i><i style="--c:var(--g-whatyear)"></i></div><div class="s">Multiple Choice, Timeline and Find it played · six to go</div></a>
+    <a class="tile lib"><div class="k">Library</div><div><div class="shelf"><i style="--c:var(--indigo); --h:62px"></i><i style="--c:var(--ochre); --h:48px"></i><i style="--c:var(--zh); --h:56px"></i><i style="--c:var(--geo); --h:40px"></i><i style="--c:var(--ink-faint); --h:52px"></i></div><div class="t" style="margin-top:8px">The Histories</div><div class="s">Book II · 38%</div></div></a>
+    <a class="tile atlas"><div class="k">Atlas</div><div><div class="t">Every border, every year</div><div class="s">3000 BCE → today</div></div><div class="globe"></div></a>
+    <a class="tile icon-tile"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div><div class="t">Account</div><div class="s">Synced · 2 min ago</div></div></a>
+    <a class="tile icon-tile"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 2"/></svg><div><div class="t">About Folio</div><div class="s">Changelog · v1.906</div></div></a>
+  </div>
+  <div class="foot"><span>Folio · a study companion</span><span>1 Oct 2026, 14:25</span></div>
+</main>
+
+<nav class="tabbar">
+  <a class="on"><svg viewBox="0 0 24 24"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg>Home</a>
+  <a><svg viewBox="0 0 24 24"><path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg>Library</a>
+  <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Atlas</a>
+  <a><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account</a>
+  <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a>
+</nav>
+<script src="_theme.js"></script>
+</body>
+</html>

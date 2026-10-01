@@ -35,15 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.909", released: "2026-10-01T19:23Z" };
+window.FOLIO_VERSION = { v: "1.911", released: "2026-10-01T20:14Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-01",
-    t: "Three hundred new World History cards, from Tikal to the Soviet Union",
+    t: "Four hundred new World History cards, from Tikal to the Anthropocene",
     items: [
-      "<b>Three hundred new cards in the World History collection</b>, from the Americas before Columbus through empire and the First World War to the years between the wars, each with a glossary term.",
+      "<b>Four hundred new cards in the World History collection</b>, from the Americas before Columbus through empire and two world wars to the present, each with a glossary term, completing the collection.",
       "<b>Eighty new cards in the China collection</b>, from the Eastern Han through the Jin to the Northern Zhou, each with a cited glossary term.",
+      "<b>A hundred and twenty new cards in the Ancient Rome collection</b>, from Licinius and Nicaea through the fall of the West to the Roman army and the Senate, with 111 new glossary terms.",
       "<b>Twenty new cards in the Visual Art collection</b>, finishing its Ice Age art and opening the first villages, with 19 new glossary terms.",
       "<b>Seventy more Ancient Greece cards are rewritten</b>, in the Crete and the Cyclades and Mycenaean Greece decks, with more sources, clearer backgrounds and new pictures.",
       "<b>Settings \u2192 Data</b> now says where your progress is kept, asks the browser to keep it, and can restore a backup as well as download one.",

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../../fonts.css" />
+<link rel="stylesheet" href="_tokens.css" />
+<title>Folio — home redesign 5: Desk</title>
+<style>
+/* ===== 5. DESK — the study desk, laid out =====
+   Warm paper, ochre and brass. The day's pile is a fanned stack of real cards you can see the top of;
+   the collections are spines on a shelf; the games are a tray of enamel tokens; the quote is a note
+   pinned to the desk. Playful, but every object is a real control. */
+:root{--wood:#E9DFCF; --wood-2:#D8C8AE; --brass:#B08A4A; --paperwarm:#FBF8F1;}
+.night{--wood:#262033; --wood-2:#1D1829; --brass:#C9A76B; --paperwarm:#221F30;}
+@media (prefers-color-scheme: dark){ :root:not(.light){--wood:#262033; --wood-2:#1D1829; --brass:#C9A76B; --paperwarm:#221F30;} }
+body{background:var(--paperwarm);}
+.top{display:flex; align-items:center; justify-content:space-between; padding:16px 36px; background:var(--wood); border-bottom:2px solid var(--brass);}
+.brand{font-family:var(--serif); font-weight:700; font-size:26px; letter-spacing:-.01em;}
+.brand .dot{color:var(--zh);}
+.brand small{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-quiet); margin-left:12px; font-weight:600;}
+.plates{display:flex; gap:8px;}
+.plate{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; color:var(--ink-soft); background:var(--paperwarm); border:1px solid var(--brass); border-radius:4px; padding:7px 12px; box-shadow:inset 0 1px 0 rgba(255,255,255,.4);}
+.plate.on{background:var(--brass); color:#fff; border-color:var(--brass);}
+.plate.admin{color:var(--admin);}
+.wrap{max-width:1180px; margin:0 auto; padding:34px 36px 70px;}
+.greet{font-family:var(--serif); font-style:italic; font-size:22px; color:var(--ink-soft); margin:0 0 24px;}
+.greet b{font-style:normal; font-weight:600; color:var(--ink);}
+.desk{display:grid; grid-template-columns:1.15fr 1fr; gap:34px; align-items:center; margin-bottom:46px;}
+/* the stack */
+.stack{position:relative; height:300px; perspective:900px;}
+.card{position:absolute; left:50%; top:50%; width:380px; height:240px; margin:-120px 0 0 -190px; background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:var(--shadow-lg); padding:24px 26px; transform-origin:50% 100%; display:flex; flex-direction:column;}
+.card.c3{transform:rotate(-7deg) translate(-18px, 6px); opacity:.85;}
+.card.c2{transform:rotate(4deg) translate(14px, 2px); opacity:.93;}
+.card.c1{transform:rotate(-1deg);}
+.card .eb{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--indigo); font-weight:600; display:flex; justify-content:space-between;}
+.card .eb span:last-child{color:var(--ink-faint);}
+.card .q{font-family:var(--serif); font-size:19px; line-height:1.45; margin-top:14px;}
+.card .q u{text-decoration:none; border-bottom:2px solid var(--ochre); color:var(--ochre); padding:0 10px;}
+.card .ft{margin-top:auto; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
+.count{position:absolute; right:-16px; bottom:-14px; background:var(--zh); color:#fff; font-family:var(--mono); font-weight:600; font-size:12px; letter-spacing:.08em; border-radius:999px; padding:6px 12px; box-shadow:var(--shadow-md); transform:rotate(6deg);}
+/* the pile note */
+.pile h1{font-family:var(--serif); font-weight:600; font-size:38px; line-height:1.15; margin:0 0 10px; letter-spacing:-.01em;}
+.pile p{font-family:var(--serif); font-size:17px; line-height:1.55; color:var(--ink-soft); margin:0 0 18px;}
+.tally{display:flex; gap:22px; margin-bottom:22px;}
+.tally div{font-family:var(--serif);}
+.tally b{display:block; font-size:30px; font-weight:600; line-height:1;}
+.tally span{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet);}
+.tally .n b{color:var(--newterm);} .tally .l b{color:var(--ochre);} .tally .r b{color:var(--indigo);}
+.stamp{display:inline-flex; align-items:center; gap:10px; background:var(--indigo); color:var(--on-indigo); font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; padding:14px 22px; border-radius:6px; box-shadow:0 4px 0 color-mix(in srgb, var(--indigo) 70%, #000);}
+.stamp svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;}
+.streak{display:inline-block; margin-left:16px; font-family:var(--serif); font-style:italic; color:var(--ink-quiet); font-size:15px;}
+.streak b{color:var(--good); font-style:normal;}
+/* shelf */
+.h2{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600; margin:0 0 12px; display:flex; justify-content:space-between;}
+.h2 a{color:var(--indigo);}
+.shelf{display:flex; align-items:flex-end; gap:6px; padding:0 18px; border-bottom:14px solid var(--wood-2); box-shadow:0 14px 0 var(--wood); margin-bottom:46px; height:170px;}
+.spine{width:46px; height:var(--h); background:var(--c); border-radius:3px 3px 0 0; position:relative; box-shadow:inset -4px 0 0 rgba(0,0,0,.15), inset 2px 0 0 rgba(255,255,255,.2); display:flex; align-items:flex-end; justify-content:center; padding-bottom:12px;}
+.spine span{writing-mode:vertical-rl; transform:rotate(180deg); color:#fff; font-family:var(--serif); font-weight:600; font-size:13px; letter-spacing:.02em; white-space:nowrap;}
+.spine i{position:absolute; top:10px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,.92); color:#1D1B29; font-family:var(--mono); font-size:10px; font-weight:600; border-radius:999px; padding:2px 7px;}
+.spine.add{background:transparent; border:2px dashed var(--brass); box-shadow:none; width:60px;}
+.spine.add span{color:var(--brass); font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;}
+/* bottom row */
+.row2{display:grid; grid-template-columns:1.3fr 1fr; gap:34px;}
+.tray{background:var(--wood); border-radius:16px; padding:18px 18px 16px; box-shadow:inset 0 2px 8px rgba(0,0,0,.08);}
+.tokens{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+.tok{display:flex; align-items:center; gap:10px; background:var(--paperwarm); border-radius:12px; padding:10px 12px; font-weight:700; font-size:13.5px; box-shadow:var(--shadow-sm);}
+.tok i{width:30px; height:30px; border-radius:50%; background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.55), transparent 45%), var(--c); box-shadow:inset 0 -2px 0 rgba(0,0,0,.2), 0 1px 2px rgba(0,0,0,.15); flex:none; display:grid; place-content:center;}
+.tok i svg{width:14px; height:14px; stroke:#fff; fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round;}
+.tok.done{opacity:.72;}
+.tray .cap{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet); margin-top:12px; display:flex; justify-content:space-between;}
+.note{position:relative; background:#FFF8D6; color:#2A2415; border-radius:4px; padding:30px 26px 22px; transform:rotate(-1.5deg); box-shadow:var(--shadow-lg); font-family:var(--serif); font-style:italic; font-size:20px; line-height:1.45;}
+.night .note{background:#3B3520; color:#F3EAC8;}
+.note::before{content:""; position:absolute; top:-10px; left:50%; width:18px; height:18px; margin-left:-9px; border-radius:50%; background:var(--zh); box-shadow:0 2px 4px rgba(0,0,0,.3);}
+.note cite{display:block; font-style:normal; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; opacity:.7; margin-top:12px;}
+.side{display:flex; flex-direction:column; gap:22px;}
+.book{display:flex; gap:14px; align-items:center; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:14px 16px;}
+.book .cov{width:44px; height:62px; flex:none; background:linear-gradient(90deg, var(--brass) 0 5px, var(--indigo) 5px); border-radius:3px 6px 6px 3px; box-shadow:var(--shadow-md);}
+.book b{font-family:var(--serif); font-weight:600; font-size:16px; display:block;}
+.book span{font-size:12.5px; color:var(--ink-quiet); display:block;}
+.book em{font-family:var(--mono); font-style:normal; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--brass); margin-top:6px; display:block;}
+.foot{margin-top:40px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint);}
+.tabbar{display:none;}
+@media (max-width:1024px){
+  .top{padding:14px 22px;} .plate{font-size:9.5px; padding:6px 8px; letter-spacing:.1em;} .plates{gap:5px;} .brand small{display:none;}
+  .wrap{padding:26px 22px 60px;}
+  .desk{grid-template-columns:1fr; gap:26px;}
+  .stack{height:270px;} .card{width:340px; height:220px; margin:-110px 0 0 -170px;}
+  .row2{grid-template-columns:1fr; gap:26px;}
+  .shelf{overflow:auto;}
+}
+@media (max-width:640px){
+  .top{padding:12px 16px;} .brand{font-size:22px;} .plates{display:none;}
+  .top .adm{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--admin); font-weight:600; border:1px solid var(--brass); border-radius:4px; padding:6px 10px;}
+  .wrap{padding:22px 16px 110px;}
+  .greet{font-size:18px; margin-bottom:16px;}
+  .stack{height:230px;} .card{width:300px; height:190px; margin:-95px 0 0 -150px; padding:18px 18px;} .card .q{font-size:16px;}
+  .pile h1{font-size:30px;} .pile p{font-size:15.5px;}
+  .tally{gap:16px;} .tally b{font-size:26px;}
+  .streak{display:block; margin:12px 0 0;}
+  .shelf{height:150px; padding:0 10px; gap:5px;} .spine{width:40px;}
+  .tokens{grid-template-columns:1fr 1fr; gap:8px;}
+  .note{font-size:17px; padding:26px 20px 18px;}
+  .tabbar{display:grid; grid-template-columns:repeat(5,1fr); position:fixed; left:0; right:0; bottom:0; background:var(--wood); border-top:2px solid var(--brass); padding:8px 6px calc(8px + env(safe-area-inset-bottom));}
+  .tabbar a{display:flex; flex-direction:column; align-items:center; gap:4px; font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; color:var(--ink-soft); padding:4px 0;}
+  .tabbar a.on{color:var(--brass);}
+  .tabbar svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+}
+@media (min-width:641px){ .top .adm{display:none;} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">Folio<span class="dot">.</span><small>Memorise anything</small></div>
+  <nav class="plates"><a class="plate on">Home</a><a class="plate">Collections</a><a class="plate">Library</a><a class="plate">Atlas</a><a class="plate">Search</a><a class="plate admin">Admin</a><a class="plate">Account</a><a class="plate">Settings</a></nav>
+  <span class="adm">Admin</span>
+</header>
+
+<main class="wrap">
+  <p class="greet">Good afternoon, <b>Scholar</b>. Wednesday 1 October.</p>
+
+  <section class="desk">
+    <div class="stack">
+      <div class="card c3"><div class="eb"><span>World History</span><span>wh-465</span></div><div class="q">Muʿāwiya founded <u>&nbsp;&nbsp;&nbsp;&nbsp;</u> in 661 and ruled it from Damascus…</div><div class="ft">Review · due today</div></div>
+      <div class="card c2"><div class="eb"><span>Ancient Rome</span><span>rm-138</span></div><div class="q">Appius Claudius laid the <u>&nbsp;&nbsp;&nbsp;&nbsp;</u> southward from Rome during his censorship…</div><div class="ft">Review · due today</div></div>
+      <div class="card c1"><div class="eb"><span>Ancient Greece</span><span>gr-990</span></div><div class="q">Open to any Greek who wished, women and slaves included, the <u>&nbsp;&nbsp;&nbsp;&nbsp;</u> promised the initiate a better lot after death.</div><div class="ft">Learning · step 2 of 3</div><span class="count">29 cards</span></div>
+    </div>
+    <div class="pile">
+      <h1>Your pile for today</h1>
+      <p>Twenty-nine cards, about twelve minutes. The top three are showing; the rest are under them in the order the schedule wants.</p>
+      <div class="tally"><div class="n"><b>2</b><span>New</span></div><div class="l"><b>4</b><span>Learning</span></div><div class="r"><b>23</b><span>Review</span></div></div>
+      <a class="stamp"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Start the pile</a>
+      <span class="streak">Streak: <b>12 days</b></span>
+    </div>
+  </section>
+
+  <h2 class="h2"><span>On the shelf · your collections</span><a>All 32 collections →</a></h2>
+  <div class="shelf">
+    <a class="spine" style="--c:#4F74C2; --h:150px"><i>11</i><span>World History</span></a>
+    <a class="spine" style="--c:#2BA6A0; --h:160px"><i>8</i><span>Ancient Greece</span></a>
+    <a class="spine" style="--c:#D9544C; --h:140px"><i>6</i><span>Ancient Rome</span></a>
+    <a class="spine" style="--c:#DB8B3A; --h:120px"><i>4</i><span>Japan</span></a>
+    <a class="spine" style="--c:#8257C2; --h:132px"><span>Psychology</span></a>
+    <a class="spine" style="--c:#4F9D67; --h:146px"><span>Biology</span></a>
+    <a class="spine" style="--c:#5E8802; --h:126px"><span>World Geography</span></a>
+    <a class="spine" style="--c:#CE80A8; --h:138px"><span>Visual Art</span></a>
+    <a class="spine add" style="--h:120px"><span>+ Add decks</span></a>
+  </div>
+
+  <div class="row2">
+    <div>
+      <h2 class="h2"><span>The games tray · 3 of 9 today</span></h2>
+      <div class="tray">
+        <div class="tokens">
+          <a class="tok done" style="--c:var(--g-challenge)"><i><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></i>Multiple Choice</a>
+          <a class="tok done" style="--c:var(--g-chrono)"><i><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></i>Timeline</a>
+          <a class="tok" style="--c:var(--g-truefalse)"><i></i>True or False</a>
+          <a class="tok" style="--c:var(--g-whosaid)"><i></i>Who said it?</a>
+          <a class="tok done" style="--c:var(--g-findit)"><i><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></i>Find it</a>
+          <a class="tok" style="--c:var(--g-thread)"><i></i>Common Thread</a>
+          <a class="tok" style="--c:var(--g-crossword)"><i></i>Crossword</a>
+          <a class="tok" style="--c:var(--g-picture)"><i></i>Picture round</a>
+          <a class="tok" style="--c:var(--g-whatyear)"><i></i>What year?</a>
+        </div>
+        <div class="cap"><span>Play all nine for today's chest</span><span>6 to go</span></div>
+      </div>
+    </div>
+    <div class="side">
+      <blockquote class="note">Life has a limit, but knowledge has none.<cite>Zhuangzi · ch. 3</cite></blockquote>
+      <a class="book"><div class="cov"></div><div><b>The Histories</b><span>Herodotus · Book II · 38% read</span><em>Continue reading →</em></div></a>
+    </div>
+  </div>
+
+  <div class="foot"><span>About Folio · Atlas · Changelog</span><span>v1.906 · 1 Oct 2026, 14:25</span></div>
+</main>
+
+<nav class="tabbar">
+  <a class="on"><svg viewBox="0 0 24 24"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg>Home</a>
+  <a><svg viewBox="0 0 24 24"><path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg>Library</a>
+  <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Atlas</a>
+  <a><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account</a>
+  <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a>
+</nav>
+<script src="_theme.js"></script>
+</body>
+</html>

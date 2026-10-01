@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../../fonts.css" />
+<link rel="stylesheet" href="_tokens.css" />
+<title>Folio — home redesign 6: Rails</title>
+<style>
+/* ===== 6. RAILS — a full-bleed hero and horizontal shelves =====
+   The top of the page is a deep-indigo sky with a line-drawn globe and the day's one number; the
+   nav floats over it. Beneath, every section is a rail that scrolls sideways — collections as covers,
+   games as cards, books as covers — the layout a reader already knows from every media app. */
+:root{--sky:#1E2347; --sky-2:#2C3470; --sky-ink:#F2F3FF;}
+.night{--sky:#0E1024; --sky-2:#1B1F48;}
+@media (prefers-color-scheme: dark){ :root:not(.light){--sky:#0E1024; --sky-2:#1B1F48;} }
+.hero{position:relative; overflow:hidden; background:radial-gradient(ellipse at 80% 110%, var(--sky-2), var(--sky) 60%); color:var(--sky-ink); padding:0 0 60px;}
+.top{display:flex; align-items:center; justify-content:space-between; padding:20px 48px; max-width:1320px; margin:0 auto;}
+.brand{font-weight:800; font-size:24px; letter-spacing:-.02em;}
+.brand .dot{color:#F4B9C8;}
+.brand small{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; margin-left:12px; opacity:.7; font-weight:600;}
+.top nav{display:flex; gap:4px;}
+.top nav a{display:flex; align-items:center; gap:7px; padding:8px 13px; border-radius:999px; font-size:13.5px; font-weight:700; color:rgba(242,243,255,.78);}
+.top nav a.on{background:rgba(255,255,255,.14); color:#fff;}
+.top nav a.admin{color:#E7B6F0;}
+.top nav svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+.hero-in{max-width:1320px; margin:0 auto; padding:40px 48px 0; display:grid; grid-template-columns:1fr auto; align-items:center; gap:40px;}
+.hero .eb{font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; opacity:.7; font-weight:600;}
+.hero h1{font-family:var(--serif); font-weight:500; font-size:58px; line-height:1.05; letter-spacing:-.02em; margin:14px 0 16px;}
+.hero h1 b{font-weight:600; color:#F4B9C8;}
+.hero p{font-size:17px; line-height:1.5; opacity:.82; max-width:52ch; margin:0 0 26px;}
+.hero .acts{display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+.hero .go{background:#fff; color:var(--sky); font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; padding:15px 24px; border-radius:12px; display:inline-flex; gap:10px; align-items:center;}
+.hero .go svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round;}
+.hero .alt{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; padding:15px 20px; border:1px solid rgba(255,255,255,.3); border-radius:12px; color:#fff;}
+.hero .pile{display:flex; gap:26px; margin-top:26px;}
+.hero .pile div b{font-size:28px; font-weight:800; display:block; line-height:1;}
+.hero .pile div span{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; opacity:.65;}
+.globe{width:340px; height:340px; border-radius:50%; position:relative; border:1.5px solid rgba(255,255,255,.55); box-shadow:inset -30px -20px 60px rgba(0,0,0,.35), 0 0 0 18px rgba(255,255,255,.04), 0 0 0 40px rgba(255,255,255,.025);}
+.globe i{position:absolute; inset:0; border-radius:50%; border:1px solid rgba(255,255,255,.35);}
+.globe i:nth-child(1){transform:scaleX(.22);} .globe i:nth-child(2){transform:scaleX(.6);} .globe i:nth-child(3){transform:scaleY(.22);} .globe i:nth-child(4){transform:scaleY(.6);}
+.globe i:nth-child(5){transform:scaleY(.92); border-color:rgba(255,255,255,.18);}
+.globe b{position:absolute; width:8px; height:8px; border-radius:50%; background:#F4B9C8; box-shadow:0 0 0 6px rgba(244,185,200,.25); left:46%; top:31%;}
+.wrap{max-width:1320px; margin:0 auto; padding:28px 48px 70px;}
+.rail{margin-bottom:34px;}
+.rail h2{display:flex; justify-content:space-between; align-items:baseline; font-weight:800; font-size:19px; letter-spacing:-.01em; margin:0 0 12px;}
+.rail h2 a{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--indigo); font-weight:600;}
+.scroller{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 4px 10px; margin:0 -4px;}
+.scroller::-webkit-scrollbar{height:0;}
+.cv{flex:none; width:210px; height:130px; border-radius:16px; padding:16px; position:relative; overflow:hidden; scroll-snap-align:start; color:#fff; background:linear-gradient(145deg, var(--c), color-mix(in srgb, var(--c) 55%, #1D1B29)); display:flex; flex-direction:column; justify-content:flex-end; box-shadow:var(--shadow-md);}
+.cv b{font-size:17px; font-weight:800; line-height:1.15;}
+.cv span{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.8; margin-top:4px;}
+.cv em{position:absolute; top:12px; right:12px; font-style:normal; background:rgba(255,255,255,.92); color:#1D1B29; font-family:var(--mono); font-weight:600; font-size:11px; border-radius:999px; padding:3px 9px;}
+.cv.add{background:var(--card); color:var(--indigo); border:2px dashed var(--rule); box-shadow:none; justify-content:center; align-items:center; text-align:center;}
+.gm{flex:none; width:150px; border-radius:14px; background:var(--card); border:1px solid var(--rule); padding:14px; scroll-snap-align:start; box-shadow:var(--shadow-sm);}
+.gm i{display:block; width:100%; height:64px; border-radius:10px; background:linear-gradient(135deg, color-mix(in srgb, var(--c) 30%, var(--card)), color-mix(in srgb, var(--c) 70%, var(--card))); margin-bottom:10px; position:relative;}
+.gm i::after{content:""; position:absolute; right:10px; bottom:10px; width:26px; height:26px; border-radius:50%; background:var(--c);}
+.gm.done i::before{content:"✓"; position:absolute; left:10px; top:8px; font-weight:800; font-size:13px; color:#fff; background:var(--good); width:22px; height:22px; border-radius:50%; display:grid; place-content:center;}
+.gm b{font-size:13.5px; font-weight:800; display:block;}
+.gm span{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet);}
+.bk{flex:none; width:118px; scroll-snap-align:start;}
+.bk i{display:block; height:160px; border-radius:4px 8px 8px 4px; background:linear-gradient(90deg, rgba(0,0,0,.25) 0 6px, var(--c) 6px); box-shadow:var(--shadow-md); margin-bottom:8px; position:relative;}
+.bk i::after{content:attr(data-t); position:absolute; inset:16px 10px auto 14px; color:#fff; font-family:var(--serif); font-weight:600; font-size:13px; line-height:1.25;}
+.bk b{font-size:12.5px; display:block; font-weight:700; line-height:1.2;}
+.bk span{font-size:11px; color:var(--ink-quiet);}
+.bk .pr{height:3px; background:var(--paper-2); border-radius:2px; margin-top:6px;} .bk .pr b{display:block; height:100%; background:var(--ochre); width:var(--w); border-radius:2px;}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.panel{background:var(--card); border:1px solid var(--rule); border-radius:16px; padding:22px 24px;}
+.panel .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600; margin-bottom:8px;}
+.panel .q{font-family:var(--serif); font-style:italic; font-size:19px; line-height:1.45;}
+.panel .q cite{display:block; font-style:normal; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet); margin-top:8px;}
+.panel.atl{background:linear-gradient(120deg, var(--card), color-mix(in srgb, var(--geo) 22%, var(--card))); display:flex; justify-content:space-between; align-items:center; gap:16px;}
+.panel.atl b{font-size:18px; font-weight:800; display:block;}
+.panel.atl span{font-size:13px; color:var(--ink-quiet);}
+.panel.atl .b{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--on-indigo); background:var(--indigo); padding:11px 16px; border-radius:10px; white-space:nowrap;}
+.foot{margin-top:28px; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); display:flex; justify-content:space-between;}
+.tabbar{display:none;}
+@media (max-width:1024px){
+  .top{padding:18px 28px;} .top nav a span{display:none;} .top nav a{padding:9px;}
+  .hero-in{padding:28px 28px 0; grid-template-columns:1fr; gap:24px;}
+  .hero h1{font-size:46px;}
+  .globe{width:220px; height:220px; position:absolute; right:-40px; top:120px; opacity:.55;}
+  .wrap{padding:24px 28px 60px;}
+}
+@media (max-width:640px){
+  .top{padding:16px 18px;} .top nav{display:none;} .brand small{display:none;}
+  .top .adm{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#E7B6F0; border:1px solid rgba(255,255,255,.3); border-radius:8px; padding:6px 10px;}
+  .hero{padding-bottom:36px;} .hero-in{padding:16px 18px 0;}
+  .hero h1{font-size:36px;} .hero p{font-size:15px;}
+  .hero .pile{gap:18px;} .hero .pile div b{font-size:24px;}
+  .globe{width:260px; height:260px; right:-110px; top:-40px; opacity:.35;}
+  .wrap{padding:22px 18px 110px;}
+  .rail h2{flex-wrap:wrap; gap:2px 12px; font-size:17px;}
+  .cv{width:170px; height:112px;}
+  .two{grid-template-columns:1fr;}
+  .tabbar{display:grid; grid-template-columns:repeat(5,1fr); position:fixed; left:0; right:0; bottom:0; background:var(--sky); color:#fff; padding:8px 6px calc(8px + env(safe-area-inset-bottom));}
+  .tabbar a{display:flex; flex-direction:column; align-items:center; gap:4px; font-size:10px; font-weight:700; color:rgba(242,243,255,.65); padding:4px 0;}
+  .tabbar a.on{color:#fff;}
+  .tabbar svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+}
+@media (min-width:641px){ .top .adm{display:none;} }
+</style>
+</head>
+<body>
+<section class="hero">
+  <header class="top">
+    <span class="brand">Folio<span class="dot">.</span><small>Memorise anything</small></span>
+    <nav>
+      <a class="on"><svg viewBox="0 0 24 24"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg><span>Home</span></a>
+      <a><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="14" rx="2"/><path d="M7 4h11a2 2 0 0 1 2 2v11"/></svg><span>Collections</span></a>
+      <a><svg viewBox="0 0 24 24"><path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg><span>Library</span></a>
+      <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>Atlas</span></a>
+      <a><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></a>
+      <a class="admin"><svg viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><span>Admin</span></a>
+      <a><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Account</span></a>
+      <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Settings</span></a>
+    </nav>
+    <span class="adm">Admin</span>
+  </header>
+  <div class="hero-in">
+    <div>
+      <div class="eb">Wednesday 1 October · Good afternoon, Scholar</div>
+      <h1><b>29 cards</b> are waiting,<br>about twelve minutes.</h1>
+      <p>Folio brings each card back just before you would forget it. Today's pile is the schedule's: two new, four still being learned, twenty-three due for review.</p>
+      <div class="acts"><a class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Start review</a><a class="alt">Try ten cards</a></div>
+      <div class="pile"><div><b>2</b><span>New</span></div><div><b>4</b><span>Learning</span></div><div><b>23</b><span>Review</span></div><div><b>12</b><span>Day streak</span></div></div>
+    </div>
+    <div class="globe"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+  </div>
+</section>
+
+<main class="wrap">
+  <section class="rail"><h2>Continue studying <a>All 32 collections →</a></h2>
+    <div class="scroller">
+      <a class="cv" style="--c:#4F74C2"><em>11 due</em><b>World History</b><span>810 cards · 8 decks</span></a>
+      <a class="cv" style="--c:#2BA6A0"><em>8 due</em><b>Ancient Greece</b><span>1,000 cards · 6 decks</span></a>
+      <a class="cv" style="--c:#D9544C"><em>6 due</em><b>Ancient Rome</b><span>580 cards · 7 decks</span></a>
+      <a class="cv" style="--c:#DB8B3A"><em>4 due</em><b>Japan</b><span>100 cards · 9 decks</span></a>
+      <a class="cv" style="--c:#8257C2"><b>Psychology</b><span>50 cards · 9 decks</span></a>
+      <a class="cv" style="--c:#4F9D67"><b>Biology</b><span>100 cards · 9 decks</span></a>
+      <a class="cv add"><b>+ Add decks</b></a>
+    </div>
+  </section>
+
+  <section class="rail"><h2>Today's games · 3 of 9 <a>Play all nine for the chest</a></h2>
+    <div class="scroller">
+      <a class="gm done" style="--c:var(--g-challenge)"><i></i><b>Multiple Choice</b><span>5 / 5</span></a>
+      <a class="gm done" style="--c:var(--g-chrono)"><i></i><b>Timeline</b><span>4 / 5</span></a>
+      <a class="gm" style="--c:var(--g-truefalse)"><i></i><b>True or False</b><span>Play</span></a>
+      <a class="gm" style="--c:var(--g-whosaid)"><i></i><b>Who said it?</b><span>Play</span></a>
+      <a class="gm done" style="--c:var(--g-findit)"><i></i><b>Find it</b><span>3 / 5</span></a>
+      <a class="gm" style="--c:var(--g-thread)"><i></i><b>Common Thread</b><span>Play</span></a>
+      <a class="gm" style="--c:var(--g-crossword)"><i></i><b>Crossword</b><span>Play</span></a>
+      <a class="gm" style="--c:var(--g-picture)"><i></i><b>Picture round</b><span>Play</span></a>
+      <a class="gm" style="--c:var(--g-whatyear)"><i></i><b>What year?</b><span>Play</span></a>
+    </div>
+  </section>
+
+  <section class="rail"><h2>From the Library <a>All 48 books →</a></h2>
+    <div class="scroller">
+      <a class="bk"><i data-t="The Histories" style="--c:#45549C"></i><b>The Histories</b><span>Herodotus</span><div class="pr"><b style="--w:38%"></b></div></a>
+      <a class="bk"><i data-t="The Peloponnesian War" style="--c:#1E7A85"></i><b>The Peloponnesian War</b><span>Thucydides</span><div class="pr"><b style="--w:12%"></b></div></a>
+      <a class="bk"><i data-t="Meditations" style="--c:#9A7C55"></i><b>Meditations</b><span>Marcus Aurelius</span><div class="pr"><b style="--w:0%"></b></div></a>
+      <a class="bk"><i data-t="The Art of War" style="--c:#AE3350"></i><b>The Art of War</b><span>Sun Tzu</span><div class="pr"><b style="--w:0%"></b></div></a>
+      <a class="bk"><i data-t="The Republic" style="--c:#4F9D67"></i><b>The Republic</b><span>Plato</span><div class="pr"><b style="--w:0%"></b></div></a>
+    </div>
+  </section>
+
+  <div class="two">
+    <div class="panel"><div class="k">Quote of the day</div><div class="q">“Life has a limit, but knowledge has none.”<cite>Zhuangzi · ch. 3</cite></div></div>
+    <div class="panel atl"><div><b>The Atlas</b><span>Every border, every year — 3000 BCE to today.</span></div><a class="b">Open</a></div>
+  </div>
+  <div class="foot"><span>About Folio · Changelog</span><span>v1.906 · 1 Oct 2026, 14:25</span></div>
+</main>
+
+<nav class="tabbar">
+  <a class="on"><svg viewBox="0 0 24 24"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg>Home</a>
+  <a><svg viewBox="0 0 24 24"><path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg>Library</a>
+  <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Atlas</a>
+  <a><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account</a>
+  <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a>
+</nav>
+<script src="_theme.js"></script>
+</body>
+</html>
