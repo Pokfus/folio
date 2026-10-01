@@ -10278,7 +10278,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Soviet_Union": ["USSR"],
 "Warsaw_Pact": ["Warsaw Treaty Organization"],
 "Mao_Zedong": ["Mao Tse-tung","Chairman Mao"],
-"Invasion_of_Poland": ["invasion of Poland"]
+"Invasion_of_Poland": ["invasion of Poland"],
+"Machtergreifung": ["Nazi seizure of power"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
