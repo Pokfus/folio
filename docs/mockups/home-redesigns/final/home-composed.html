@@ -95,6 +95,8 @@
 
 /* the pile's figures sit centred over their labels */
 .study .pile div{text-align:center;} .study .pile .t{text-align:center;}
+/* the pile and the button share one width: a stack as wide as the figures, and the button fills it */
+.study .stack{display:inline-flex; flex-direction:column; align-items:stretch; width:max-content; max-width:100%;} .study .stack .pile{margin-bottom:22px;} .study .stack .go{justify-content:center;}
 .wrap{max-width:1040px; margin:0 auto; padding:26px 24px 60px;}
 .gap{height:22px;}
 /* Keys' active decks: the row's own fill is the share of the collection learned */
@@ -132,8 +134,7 @@
   <div class="study-body">
     <span class="eyebrow">Today's review</span>
     <h2><b>29 cards</b> are waiting.</h2>
-    <div class="pile"><div class="n"><b>2</b><span>New</span></div><div class="l"><b>4</b><span>Learning</span></div><div class="r"><b>23</b><span>Review</span></div><div class="t"><b>≈ 12 min</b><span>Estimated</span></div></div>
-    <a class="go" href="#review"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Start review</a>
+    <div class="stack"><div class="pile"><div class="n"><b>2</b><span>New</span></div><div class="l"><b>4</b><span>Learning</span></div><div class="r"><b>23</b><span>Review</span></div><div class="t"><b>≈ 12 min</b><span>Estimated</span></div></div><a class="go" href="#review"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Start review</a></div>
   </div>
   <div class="preview in-banner">
   <div class="pc c3"><span class="eb">World History</span><p>Muʿāwiya founded <u></u> in 661 and ruled it from Damascus…</p></div>

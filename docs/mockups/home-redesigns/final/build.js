@@ -15,12 +15,15 @@ const helpers4 = R4.slice(R4.indexOf("const GAMES = ["), R4.indexOf("const page 
 const P = new Function("G", "fs", "path", "__dirname", helpers2 + helpers2b + helpers2c + helpers2d + "\n" + helpers4 +
   "\nreturn {I, topbar, tabbar, phoneHead, readingBox, foot, GAMES, DECKS, pct, boxes, legend, quote, globeDeco, banner, ribbon, PARTS};")(G, fs, path, path.join(__dirname, "..", "round-4"));
 
+const bannerStacked = () => P.banner().replace(/(<div class="pile">[\s\S]*?<\/div>)\s*(<a class="go"[\s\S]*?<\/a>)/, '<div class="stack">$1$2</div>');
 const greet = () => `<div class="greet"><span class="eyebrow">Good afternoon, Scholar</span><h1>Today</h1></div>`;
 const thisWeek = () => `<section class="box week"><span class="k">This week</span><div class="stats"><div><b>184</b><span>cards studied</span></div><div><b>71 min</b><span>at the desk</span></div><div class="g"><b>87%</b><span>recalled</span></div></div>${P.globeDeco().replace('class="gdeco "','class="gdeco" style="right:-40px;bottom:-60px;width:150px;height:150px"')}</section>`;
 
 const CSS = `
 /* the pile's figures sit centred over their labels */
 .study .pile div{text-align:center;} .study .pile .t{text-align:center;}
+/* the pile and the button share one width: a stack as wide as the figures, and the button fills it */
+.study .stack{display:inline-flex; flex-direction:column; align-items:stretch; width:max-content; max-width:100%;} .study .stack .pile{margin-bottom:22px;} .study .stack .go{justify-content:center;}
 .wrap{max-width:1040px; margin:0 auto; padding:26px 24px 60px;}
 .gap{height:22px;}
 /* Keys' active decks: the row's own fill is the share of the collection learned */
@@ -66,7 +69,7 @@ ${P.topbar()}
   ${P.phoneHead()}
   ${greet()}
   ${P.quote()}
-  ${P.banner()}
+  ${bannerStacked()}
   <div class="gap"></div>
   ${P.ribbon()}
   <div class="gap"></div>
