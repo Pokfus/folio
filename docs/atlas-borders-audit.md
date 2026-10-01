@@ -414,8 +414,8 @@ against the cited source, run `test-personal-atlas.js` and `test-war-cards.js`, 
 | **1** ✓ | tier-1 states | B2, B3, B5, B6, B9–B12, B14–B16, B18, B19 | 15 |
 | **2** ✓ | tier-1 war sides not already built | Macedon, Seleucid, Pontus, Numidia, Achaean/Aetolian Leagues, Lydia, the seven Warring States, Han, Xiongnu, Jin, Wu, Rashidun, Byzantium, Sasanians, Normandy, England, France | ~20 war cards |
 | **3** ✓ | WW2-era sides by date | Allies/Axis membership by entry/exit date over yearly OHM/Cl borders; Italy, Ethiopia, Finland, USSR, Mongolia, China | ww2-001, 042, 096, 100, 159 |
-| **4** ½ | tier-1 peoples (Cliopatria rows ✓, coastlines to do), then tier-2 site hulls, Bell Beaker first | C3–C5, C15, C19, C25, C29, C32–C38; then C2, C6, C16–C18, C24, C26, C27 | 22 |
-| **5** | tier-2 assembly | B1, B8, B13, B17; the Messenian, Samnite, Etruscan, Illyrian, Spanish and US wars | ~20 |
+| **4** ½ | tier-1 peoples (Cliopatria rows ✓, coastlines ✓), then tier-2 site hulls (Yangshao and Longshan ✓; the European cultures wait for a usable open site list — the AADR was tried and rejected) | C3–C5, C15, C19, C25, C29, C32–C38; then C2, C6, C16–C18, C24, C26, C27 | 22 |
+| **5** ½ | tier-2 assembly (Zhou, Indo-Greeks, the Italian states ✓; Lacedaemon and the Messenian, Samnite and Spanish wars still need a Laconia/Messenia split and Italic and Iberian peoples, which no open dataset has) | B1, B8, B13, B17; the Messenian, Samnite, Etruscan, Illyrian, Spanish and US wars | ~20 |
 | **6** | tier-3 tracing from public-domain plates and cited maps | Athens' empire, the Hellenic League, the Lamian coalition, Italic and Gallic and Iberian peoples, Zhou homeland, Hundred Years' War check | ~15 |
 | **7** | the era maps by year | the OHM pipeline in §4.A, 1886→2010 first, then 1700→1886 | every geography card |
 | **8** | tier 4–5: soft outlines and honest silence | B7, C1, C11, C12, C28, C39 | 6 |
