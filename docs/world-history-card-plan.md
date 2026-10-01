@@ -1228,7 +1228,7 @@ else in the Americas.*
     wh-822  Charles Darwin
     wh-823  On the Origin of Species
     wh-824  Compulsory education
-    wh-825  Mass-circulation press
+    wh-825  Mass-circulation press  — written as *penny press* (glossary key `Penny_press`), the cheap daily of New York, London and Paris
 
 ### Empire and the colonised world — `wh-imperialism`
 
@@ -1286,7 +1286,7 @@ else in the Americas.*
 ### The First World War — `wh-ww1`
 
     wh-871  First World War
-    wh-872  European alliance system
+    wh-872  European alliance system  — written as *Triple Entente* (glossary key `Triple_Entente`), its background covering both blocs
     wh-873  Assassination of Archduke Franz Ferdinand
     wh-874  July Crisis
     wh-875  Schlieffen Plan
