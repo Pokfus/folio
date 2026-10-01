@@ -4885,7 +4885,10 @@ window.GLOSSARY = {
 "Battle_of_Britain": "The Battle of Britain was the struggle for command of the air over southern England in 1940, which British reckoning dates from 10 July to 31 October, between the German Luftwaffe and the fighters of the Royal Air Force.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Germany needed air superiority before it could attempt Operation Sealion, a seaborne invasion, and the destruction of Fighter Command was therefore the Luftwaffe’s essential aim.<sup class=\"fn\" data-fn=\"2\"></sup> After heavy German losses on 15 September, Hitler postponed the invasion until further notice, having been denied the air superiority it required by a defence that rested on radar warning and centralised control.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "The_Blitz": "The Blitz was the German air offensive against British cities, carried out mostly by night from 7 September 1940 to May 1941, after mass attacks in daylight had brought the Luftwaffe heavy losses.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> London was the most heavily and frequently attacked city, but the raids also struck industrial cities and ports such as Liverpool, Birmingham, Coventry, Plymouth, Glasgow and Belfast.<sup class=\"fn\" data-fn=\"1\"></sup> Official figures record about 43,000 civilians killed by enemy action in Great Britain in 1940 and 1941, most of them in these raids, though British industry and communications survived the offensive.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Operation_Barbarossa": "Operation Barbarossa was the code name for the invasion of the Soviet Union by Germany and its allies, launched on 22 June 1941 along a front from the Baltic to the Black Sea.<sup class=\"fn\" data-fn=\"1\"></sup> Planned from December 1940 as a quick campaign and a war of annihilation, it was accompanied by orders to shoot captured political commissars, mass shootings of Jews and the deaths of millions of Soviet prisoners of war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> German forces reached the outskirts of Moscow but failed to destroy the Soviet state, and a Soviet counter-offensive in December 1941 drove them back.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Siege_of_Leningrad": "The Siege of Leningrad was the blockade of the Soviet city of Leningrad, now Saint Petersburg, by German and Finnish forces from 8 September 1941 to 27 January 1944.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Cut off except across Lake Ladoga and by air, the city starved, and from November 1941 most civilians received only 125 grams of bread a day and manual workers 250.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A Soviet commission counted 632,253 deaths from hunger, most of them in the first winter, and a land corridor reached the city in January 1943, though the blockade was broken for good only in January 1944.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Siege_of_Leningrad": "The Siege of Leningrad was the blockade of the Soviet city of Leningrad, now Saint Petersburg, by German and Finnish forces from 8 September 1941 to 27 January 1944.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Cut off except across Lake Ladoga and by air, the city starved, and from November 1941 most civilians received only 125 grams of bread a day and manual workers 250.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A Soviet commission counted 632,253 deaths from hunger, most of them in the first winter, and a land corridor reached the city in January 1943, though the blockade was broken for good only in January 1944.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Stalingrad": "The Battle of Stalingrad was fought between Germany and its allies and the Soviet Union for the city of Stalingrad on the lower Volga from the summer of 1942 to February 1943, during the German offensive towards the oil of the Caucasus.<sup class=\"fn\" data-fn=\"1\"></sup> After months of house-to-house fighting, a Soviet counter-offensive launched on 19 November 1942 encircled the German Sixth Army, whose commander Friedrich Paulus surrendered on 31 January 1943, with the last troops giving up on 2 February.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The defeat ended a run of German victories, began the long German retreat westward and became the most famous symbol of the turn of the war in the east.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Attack_on_Pearl_Harbor": "The attack on Pearl Harbor was the surprise raid by Japanese carrier aircraft on the United States Pacific Fleet at its base on Oahu, Hawaii, on 7 December 1941, which brought the United States into the Second World War.<sup class=\"fn\" data-fn=\"1\"></sup> Planned to put the fleet out of action while Japan seized Southeast Asia, it sank or badly damaged all eight battleships in the harbour and killed 2,402 servicemen and civilians.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The fleet's carriers were at sea and its oil tanks survived, and Congress declared war on Japan the next day, after Roosevelt called 7 December a date which will live in infamy.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pacific_War": "The Pacific War was the war fought from December 1941 to September 1945 between Japan and the Allied powers, above all the United States, the British Empire and China, across East and Southeast Asia and the Pacific Ocean.<sup class=\"fn\" data-fn=\"1\"></sup> Japan, whose government called it the Greater East Asia War, conquered Malaya, Singapore, the Philippines, Burma and the Netherlands Indies within months, but lost the initiative after defeat at Midway in June 1942.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It ended after the atomic bombings of Hiroshima and Nagasaki and the Soviet attack in Manchuria, with Japan's surrender signed in Tokyo Bay on 2 September 1945.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7539,7 +7542,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Britain": "1940",
 "The_Blitz": "1940–1941",
 "Operation_Barbarossa": "1941",
-"Siege_of_Leningrad": "1941–1944"
+"Siege_of_Leningrad": "1941–1944",
+"Battle_of_Stalingrad": "1942–1943",
+"Attack_on_Pearl_Harbor": "1941",
+"Pacific_War": "1941–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10320,7 +10326,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Forced_displacement": ["displaced persons","displaced person","DP","DPs"],
 "Universal_Declaration_of_Human_Rights": ["UDHR","Universal Declaration"],
 "Dunkirk_evacuation": ["Operation Dynamo"],
-"The_Blitz": ["Blitz"]
+"The_Blitz": ["Blitz"],
+"Battle_of_Stalingrad": ["Stalingrad"],
+"Attack_on_Pearl_Harbor": ["attack on Pearl Harbor","Pearl Harbor attack"],
+"Pacific_War": ["Greater East Asia War","Asia-Pacific War"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15259,7 +15268,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Britain": ["battle","history","warfare","second world war","britain","germany"],
 "The_Blitz": ["event","history","warfare","second world war","britain","london"],
 "Operation_Barbarossa": ["event","history","warfare","second world war","russia","germany"],
-"Siege_of_Leningrad": ["event","history","warfare","second world war","russia","famine"]
+"Siege_of_Leningrad": ["event","history","warfare","second world war","russia","famine"],
+"Battle_of_Stalingrad": ["battle","history","warfare","second world war","russia","germany"],
+"Attack_on_Pearl_Harbor": ["battle","history","warfare","second world war","united states","japan"],
+"Pacific_War": ["war","history","warfare","second world war","japan","united states"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
