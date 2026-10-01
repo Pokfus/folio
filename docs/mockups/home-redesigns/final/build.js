@@ -43,7 +43,7 @@ const CSS = `
 .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 @media (max-width:1024px){ .list{grid-template-columns:1fr 1fr;} }
 @media (max-width:640px){ .wrap{padding:18px 16px 100px;} .fr{grid-template-columns:1fr auto; padding:12px 14px 16px;} .fr .pct{display:none;}
-  .fr::before{top:auto; height:5px; border-right:0; background:var(--c); border-radius:0 3px 3px 0;} .fr .m::after{content:" · " attr(data-pct) "%";} .list{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} }`;
+  .fr::before{top:auto; height:5px; border-right:0; background:var(--c); border-radius:0 3px 3px 0;} .fr .m{display:none;} .list{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} }`;
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -68,7 +68,7 @@ ${P.topbar()}
   <div class="gap"></div>
   ${P.ribbon()}
   <div class="gap"></div>
-  <div class="sec-h"><span>Your collections · 29 today</span>${P.legend()}</div>
+  <div class="sec-h"><span>Your collections</span>${P.legend()}</div>
   <div class="fill">${P.DECKS.map(d => `<a class="fr" href="#study" style="--c:${d[1]}; --w:${P.pct(d)}%"><span><b class="name">${d[0]}</b><span class="m" data-pct="${P.pct(d)}">${d[6]} of ${d[5].toLocaleString()} cards learned</span></span><span class="pct">${P.pct(d)}%</span>${P.boxes(d)}</a>`).join("")}</div>
   <div class="gap"></div>
   <div class="sec-h"><span>Minigames · 3 of 9</span><a href="#chest">Play all nine for the chest</a></div>

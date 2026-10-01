@@ -117,7 +117,7 @@
 .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 @media (max-width:1024px){ .list{grid-template-columns:1fr 1fr;} }
 @media (max-width:640px){ .wrap{padding:18px 16px 100px;} .fr{grid-template-columns:1fr auto; padding:12px 14px 16px;} .fr .pct{display:none;}
-  .fr::before{top:auto; height:5px; border-right:0; background:var(--c); border-radius:0 3px 3px 0;} .fr .m::after{content:" · " attr(data-pct) "%";} .list{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} }
+  .fr::before{top:auto; height:5px; border-right:0; background:var(--c); border-radius:0 3px 3px 0;} .fr .m{display:none;} .list{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -142,7 +142,7 @@
   <div class="gap"></div>
   <div class="ribbon "><b>12</b><span class="t">day streak</span><span class="days"><i class="a"></i><i class="b"></i><i class="b"></i><i class="a"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="t"></i></span><span class="t">last 14 days</span><span class="r">Longest · 31 days</span></div>
   <div class="gap"></div>
-  <div class="sec-h"><span>Your collections · 29 today</span><span class="legend"><span class="n"><i></i>New</span><span class="l"><i></i>Learning</span><span class="r"><i></i>Review</span></span></div>
+  <div class="sec-h"><span>Your collections</span><span class="legend"><span class="n"><i></i>New</span><span class="l"><i></i>Learning</span><span class="r"><i></i>Review</span></span></div>
   <div class="fill"><a class="fr" href="#study" style="--c:#4F74C2; --w:51%"><span><b class="name">World History</b><span class="m" data-pct="51">412 of 810 cards learned</span></span><span class="pct">51%</span><span class="boxes"><i class="n">1</i><i class="l">2</i><i class="r">8</i></span></a><a class="fr" href="#study" style="--c:#2BA6A0; --w:66%"><span><b class="name">Ancient Greece</b><span class="m" data-pct="66">655 of 1,000 cards learned</span></span><span class="pct">66%</span><span class="boxes"><i class="n">1</i><i class="l">1</i><i class="r">6</i></span></a><a class="fr" href="#study" style="--c:#D9544C; --w:33%"><span><b class="name">Ancient Rome</b><span class="m" data-pct="33">190 of 580 cards learned</span></span><span class="pct">33%</span><span class="boxes"><i class="z">0</i><i class="l">1</i><i class="r">5</i></span></a><a class="fr" href="#study" style="--c:#DB8B3A; --w:71%"><span><b class="name">Japan</b><span class="m" data-pct="71">71 of 100 cards learned</span></span><span class="pct">71%</span><span class="boxes"><i class="z">0</i><i class="z">0</i><i class="r">4</i></span></a></div>
   <div class="gap"></div>
   <div class="sec-h"><span>Minigames · 3 of 9</span><a href="#chest">Play all nine for the chest</a></div>
