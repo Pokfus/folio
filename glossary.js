@@ -4780,7 +4780,16 @@ window.GLOSSARY = {
 "Licinius": "Licinius was a Roman emperor from 308 to 324 CE, a soldier of peasant family from Dacia whom his old comrade Galerius raised to the highest imperial rank at the conference at Carnuntum.<sup class=\"fn\" data-fn=\"1\"></sup> In 313 he allied with Constantine, marrying his sister Constantia and joining him in a policy of religious toleration, and then defeated Maximinus Daia and took over the eastern provinces.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Beaten by Constantine in two wars, the second ending in 324, he surrendered on a promise that his life would be spared, but he was put to death at Thessalonica, leaving Constantine sole ruler of the empire.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Battle_of_Chrysopolis": "The Battle of Chrysopolis was fought on 18 September 324 CE near Chalcedon in Bithynia, where Constantine defeated his fellow emperor Licinius in the last battle of the civil wars between them.<sup class=\"fn\" data-fn=\"1\"></sup> Licinius had already lost a battle by the river Hebrus near Adrianople in July and much of his fleet in the Hellespont, and he gathered a new army on the far side of the Bosporus, Gothic auxiliaries among it, before being routed with heavy loss.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He surrendered soon afterwards at Nicomedia, and the victory left Constantine sole ruler of the Roman Empire.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Nicene_Creed": "The Nicene Creed is the Christian statement of faith first issued by the bishops gathered at Nicaea in 325 CE, which calls the Son of God begotten and not made, and <i>homoousios</i>, of one substance with the Father.<sup class=\"fn\" data-fn=\"1\"></sup> Its key word was contested for decades, and in 381 the bishops gathered at Constantinople declared that the faith of Nicaea should not be set aside, an enlarged form of the creed with fuller clauses on the Holy Spirit being credited to them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Although revised in this way, the creed has kept the name of Nicaea, and the longer form is the one usually meant by it.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Arianism": "Arianism is the name given to the teaching of Arius, a presbyter of Alexandria in the early 4th century CE, that the Son of God was not eternal like the Father but was called into being by him before all time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Condemned at Nicaea in 325, the name was later stretched to cover many opponents of the Nicene creed, most of whom rejected it and preferred to say that the Son was like the Father.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> This form of Christianity was the faith of the Goths and other Germanic peoples for generations, long after the empire had adopted the Nicene faith in 380 and 381.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Arianism": "Arianism is the name given to the teaching of Arius, a presbyter of Alexandria in the early 4th century CE, that the Son of God was not eternal like the Father but was called into being by him before all time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Condemned at Nicaea in 325, the name was later stretched to cover many opponents of the Nicene creed, most of whom rejected it and preferred to say that the Son was like the Father.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> This form of Christianity was the faith of the Goths and other Germanic peoples for generations, long after the empire had adopted the Nicene faith in 380 and 381.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Constantius_II": "Constantius II was Roman emperor from 337 to 361 CE, the second son of Constantine the Great, who ruled the eastern provinces after his father's death and the whole empire from 353.<sup class=\"fn\" data-fn=\"1\"></sup> He fought repeated wars against the Persians, defeated the usurper Magnentius at Mursa in 351, and governed through his cousins Gallus and Julian as junior emperors, dying in Cilicia while marching against Julian.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A Christian sympathetic to Arianism who summoned many church synods, he is portrayed by Ammianus Marcellinus as dignified and careful in appointments but cruel towards anyone suspected of plotting.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Julian_(emperor)": "Julian, called the Apostate in Christian tradition, was Roman emperor from 360 to 363 CE, a nephew of Constantine the Great and the last ruler of his family, who abandoned Christianity for Neoplatonist philosophy.<sup class=\"fn\" data-fn=\"1\"></sup> Made junior emperor in Gaul in 355, he defeated the Alamanni near Strasbourg, was acclaimed senior emperor by his troops in 360, and became sole emperor when Constantius II died in 361.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He tried to restore the worship of the old gods, left speeches, letters, hymns and satires that still survive, and was killed in 363 during a campaign against Persia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Julian's_School_Edict": "Julian's School Edict is the modern name for the measures of the Roman emperor Julian in 362 CE that in effect barred Christians from teaching the classical authors.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A law of 17 June 362 required every teacher to be approved by a decree of his city's councillors, which was then referred to the emperor, and a rescript argued that those who expounded Homer and Hesiod while rejecting their gods should not teach them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The historian Ammianus Marcellinus, an admirer of Julian, called the measure harsh, and Christian writers treated it as a form of persecution.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Julian's_Persian_expedition": "Julian's Persian expedition was the invasion of the Sasanian Empire led by the Roman emperor Julian in 363 CE, which advanced down the Euphrates towards the Persian capital, Ctesiphon.<sup class=\"fn\" data-fn=\"1\"></sup> After defeating a Persian force before the city, Julian abandoned a siege as too risky, burned most of his supply fleet and turned inland, where scorched earth and constant raids soon forced a retreat.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Julian himself was killed in a skirmish on 26 June 363, and his successor Jovian made a peace that surrendered Nisibis and territory won from Persia in 298.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Valentinian_I": "Valentinian I was Roman emperor from 364 to 375 CE, a Pannonian army officer chosen at Nicaea after the death of Jovian, who made his brother Valens emperor in the East and kept the western provinces for himself.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He spent most of his reign campaigning against the Alamanni and other peoples beyond the Rhine and the Danube, and he fortified both frontiers with new forts.<sup class=\"fn\" data-fn=\"1\"></sup> He died of a stroke at Brigetio in 375 while angrily addressing a deputation of the Quadi, and the historian Ammianus Marcellinus praises him for neutrality in religious matters.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Solidus": "The solidus was the gold coin of the late Roman empire, struck from the reign of Constantine at 72 to the Roman pound, a standard at which it remained for the rest of the empire's history.<sup class=\"fn\" data-fn=\"1\"></sup> It came out of Constantine's reform of the currency, won wide acceptance and stayed the standard gold coin for centuries, and his law of 325 set out how coins of four scruples each were to be weighed when taxes were paid in them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its reliability made it a coin of long-distance trade, and Cosmas Indicopleustes wrote that all nations traded in Roman coinage from one extremity of the earth to the other.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Magister_militum": "The magister militum, 'master of soldiers', was the highest military command of the late Roman empire, a rank created probably under Constantine in the 320s.<sup class=\"fn\" data-fn=\"1\"></sup> Zosimus says that the first masters, some over the cavalry and some over the infantry, took over the discipline of the soldiers from the praetorian prefects, who became civilian ministers.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The <i>Notitia Dignitatum</i>, a register of late Roman offices, lists five such commands in the East, two at the imperial court and three for the regional armies of the Orient, Thrace and Illyricum, though when that system took its settled form is disputed.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Comitatenses": "The comitatenses were the soldiers of the late Roman field armies, mobile forces kept near the emperor or in the regions and set apart from the frontier troops called ripenses and later limitanei.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A law of 325 exempted serving comitatenses and ripenses from poll tax on themselves, their parents and their wives, and let frontier veterans earn their privileges on the model of the field soldiers.<sup class=\"fn\" data-fn=\"3\"></sup> Field troops were often billeted on the households of cities, which brought abuses against their hosts, and in the East the distinction between them and the frontier troops weakened over time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Magister_officiorum": "The magister officiorum, 'master of the offices', was a senior minister of the late Roman court who headed the imperial messengers, the palace guards called scholae and several of the palace departments.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The office existed by the early 320s, when a law of Constantine names Heraclianus as tribune and master of the offices, and its origin has been traced to Diocletian.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its holder came to control much of the public post and the arsenals and arranged imperial audiences and the reception of foreign envoys, powers gained at the praetorian prefect's expense.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7358,7 +7367,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Licinius": "c. 265 – 325 CE",
 "Battle_of_Chrysopolis": "324 CE",
 "Nicene_Creed": "325 – 381 CE",
-"Arianism": "4th – 6th century CE"
+"Arianism": "4th – 6th century CE",
+"Constantius_II": "337–361 CE",
+"Julian_(emperor)": "360–363 CE",
+"Julian's_School_Edict": "362 CE",
+"Julian's_Persian_expedition": "363 CE",
+"Valentinian_I": "364–375 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10110,7 +10124,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Equal-field_system": ["juntian system"],
 "Fubing_system": ["fubing","garrison militia"],
 "Six_Garrisons": ["Six Frontier Towns"],
-"Tuoba": ["Taghbach","Tabgach"]
+"Tuoba": ["Taghbach","Tabgach"],
+"Julian_(emperor)": ["Julian the Apostate"],
+"Julian's_School_Edict": ["School Edict"],
+"Solidus": ["solidi"],
+"Magister_militum": ["magistri militum"],
+"Magister_officiorum": ["master of the offices"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10160,7 +10179,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Meditations": true,
 "Valerian_(emperor)": true,
 "Tetrarchy": true,
-"Dominate": true
+"Dominate": true,
+"Julian's_School_Edict": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -14944,7 +14964,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Licinius": ["person","ruler","history","politics","rome","classical"],
 "Battle_of_Chrysopolis": ["battle","event","history","warfare","rome","classical"],
 "Nicene_Creed": ["text","religion","history","christianity","rome","classical"],
-"Arianism": ["religion","history","christianity","rome","classical"]
+"Arianism": ["religion","history","christianity","rome","classical"],
+"Constantius_II": ["ruler","person","history","politics","rome","classical"],
+"Julian_(emperor)": ["ruler","person","history","religion","rome","classical"],
+"Julian's_School_Edict": ["text","history","religion","law","education","rome","classical"],
+"Julian's_Persian_expedition": ["event","warfare","history","rome","persia","classical"],
+"Valentinian_I": ["ruler","person","history","politics","rome","classical"],
+"Solidus": ["object","economy","coinage","history","rome"],
+"Magister_militum": ["title","warfare","military","history","rome"],
+"Comitatenses": ["institution","warfare","military","history","rome"],
+"Magister_officiorum": ["title","politics","government","history","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
