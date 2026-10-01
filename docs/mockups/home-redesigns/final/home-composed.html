@@ -110,7 +110,8 @@
 .lt .st{width:22px; height:22px; border-radius:50%; border:1.5px solid var(--rule); display:grid; place-content:center; font-size:11px; font-weight:800; color:transparent;}
 .lt.done .st{background:var(--good); border-color:var(--good); color:#fff;} .lt.done .st::after{content:"✓";}
 /* Keys' This Week box */
-.week .stats{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;}
+.week{display:flex; flex-direction:column;} .week .k{align-self:flex-start;}
+.week .stats{flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; align-content:center; justify-items:center; text-align:center;}
 .week .stats b{display:block; font-size:26px; font-weight:800; letter-spacing:-.03em; line-height:1;} .week .stats span{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); margin-top:4px;}
 .week .stats .g b{color:var(--good);}
 .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
