@@ -56,6 +56,7 @@ window.CHANGELOG = [
       "A place several cards share is now <b>one place on the Atlas</b>; open it and swipe, or use the arrows, to browse every card about it.",
       "<b>Sixty states, peoples and sides in wars</b>, from Sumer to the Winter War, now have Atlas borders that change year by year.",
       "War cards that group other wars, such as the Samnite Wars, are no longer drawn on the Atlas; the wars they group still are.",
+      "The Atlas now shows <b>the Second World War's fronts in Europe month by month</b>, from August 1939 to December 1942.",
     ]
   },
   {

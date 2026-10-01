@@ -877,6 +877,14 @@ still shade both sides.
 READ ITS §5 BEFORE TOUCHING ANY OF THEM). A card linked in `POLITY_LINKS` draws its extent or its side from
 the series step for the year on the rail, so the border moves with the slider; anything unlinked or
 unloaded falls back to the authored polygon. Credit for Cliopatria (CC BY 4.0) is in the help card.
+**THE SECOND WORLD WAR IS DRAWN AS ITS FRONTS, MONTH BY MONTH** (`DATA_BUNDLES.fronts`, `frontsShown`,
+`frontKey`, `frontStep`, `drawFronts`, `frontAt`, `#atlasMonth`; on request: "Add front line border maps
+for World War 2"). Its card groups other wars, so it is not shaded as two sides; who held what is drawn
+instead, Axis red and Allied green, occupied fainter. THE RAIL MOVES BY YEARS AND THE FRONTS BY MONTHS, so a
+month control appears for exactly the years `WW2_FRONTS` covers and stepping past December moves the rail;
+the month is in `viewKey`, or a month step would redraw nothing. Europe, Aug 1939 – Dec 1942 only — the
+audit's ledger says what the source lacks and where 1943–45 will come from. Guarded by
+`test-personal-atlas.js` section 12 and `test-polities.js` section 4.
 
 ---
 

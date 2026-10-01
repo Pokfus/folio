@@ -4820,6 +4820,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .cp-stk-btn svg{width:14px; height:14px;}
 .cp-stk-btn:hover, .cp-stk-btn:focus-visible{border-color:var(--indigo); color:var(--indigo);}
 .cp-mine .cp-cols{touch-action:pan-y;}
+/* THE MONTH, for the Second World War's fronts (Oct 2026) — the rail moves by years and the fronts by
+   months, so this appears for exactly the years that have them, under the cartouche that names the month. */
+.atlas-month{position:absolute; top:98px; left:50%; transform:translateX(-50%); z-index:4; display:flex; align-items:center; gap:8px;
+  padding:3px 6px; background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule); border-radius:99px; box-shadow:var(--shadow-sm);}
+.atlas-month[hidden]{display:none;}
+.am-label{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink); min-width:10.5em; text-align:center;}
+.am-btn{display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; appearance:none; border:none; background:none; border-radius:99px; cursor:pointer; color:var(--ink-soft); padding:0;}
+.am-btn svg{width:14px; height:14px;}
+.am-btn:hover:not(:disabled), .am-btn:focus-visible{color:var(--indigo); background:color-mix(in srgb, var(--indigo) 10%, transparent);}
+.am-btn:disabled{opacity:.35; cursor:default;}
+@media (max-width:640px){ .atlas-month{top:58px;} }
 /* The era cartouche is centred at the top of the stage and so is the tab bar — on the personal atlas the
    two were printed over each other. The bar is a control and the cartouche a caption, so the caption is
    the one that moves down. */

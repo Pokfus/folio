@@ -90,5 +90,18 @@ check("the header credits Cliopatria under CC BY 4.0 with a link", /Cliopatria/.
 check("…and says what was changed", /CHANGES MADE/.test(src));
 check("the Atlas's help card credits it where a reader can see it", /Cliopatria<\/a>[\s\S]{0,200}CC BY 4\.0/.test(APP));
 
+console.log("\n4) the Second World War's fronts (fronts.js)");
+{
+  const fsrc = fs.readFileSync(path.join(ROOT, "fronts.js"), "utf8"), fw = {};
+  new Function("window", fsrc)(fw);   // eslint-disable-line no-new-func
+  const F = fw.WW2_FRONTS || {}, keys = Object.keys(F.m || {}).sort();
+  check("fronts.js names the card it belongs to, and that card exists", !!F.card && cards.has(F.card), F.card);
+  check("…and carries months, each YYYY-MM", keys.length > 0 && keys.every((k) => /^\d{4}-(0[1-9]|1[0-2])$/.test(k)), keys.length + " months");
+  check("…each with its four sets — Axis, Axis-occupied, Allied, Allied-occupied — of valid rings",
+    keys.every((k) => Array.isArray(F.m[k]) && F.m[k].length === 4 && F.m[k].every((set) => set.every((r) => r.length >= 3 && r.every((q) => isFinite(q[0]) && isFinite(q[1]) && Math.abs(q[0]) <= 180 && Math.abs(q[1]) <= 90)))));
+  check("…and every month holds some Axis and some Allied ground", keys.every((k) => F.m[k][0].length + F.m[k][1].length > 0 && F.m[k][2].length + F.m[k][3].length > 0));
+  check("its header names the public-domain source", /San Jose/.test(fsrc) && /public\s+domain/i.test(fsrc));
+}
+
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
