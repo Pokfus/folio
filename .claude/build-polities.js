@@ -31,8 +31,8 @@
        bit-identical (build-era.js), and acceptable here: each series is drawn on its own, and two series
        that meet (Rome and Carthage in Sicily) may differ by a hair at the join.
      · SLIVERS DROPPED: a ring left with under 4 points, or a bounding box under `MIN_BOX` square degrees.
-     · CLIPPED IN TIME to the spec's `years`, and consecutive rows identical after simplification are
-       joined into one step.
+     · CLIPPED IN TIME to the spec's `years` AND to the years its linked cards are shown in (a step no card
+       can show is dropped), and consecutive rows identical after simplification are joined into one step.
 
    THE SPEC is `.claude/polity-spec.json` — read its `_about`. A link names a card and either an `area`
    (the card's locator extent is drawn from the series) or `v` / `l` (a war side is). Every link is
@@ -68,6 +68,13 @@ const spec = JSON.parse(fs.readFileSync(SPEC, "utf8"));
 const P = spec.polities || {}, L = spec.links || {};
 
 /* ---- the links are checked against the cards before anything is read from the 165 MB file ---- */
+/* …and each series' NEEDED YEARS are gathered from the cards that link it: a step no linked card can
+   show is never drawn, and France from 990 or Byzantium to 1474 for wars of a few decades was most of
+   the bundle. A war's years are its `war.years` or its date line; an extent's are its date line — the
+   same spans the atlas shows the mark in (app.js's `cardWarYears` / `cardSpanYears`, whose parser is
+   sliced out of app.js here so the two cannot disagree). */
+const cardYears = require("./card-links.js").loadCardYears(fs.readFileSync(path.join(ROOT, "app.js"), "utf8"));
+const need = {};   // slug → [[from, to], …]
 {
   const cards = new Map(loadCards().cards.map((c) => [c.id, c]));
   for (const id of Object.keys(L)) {
@@ -81,6 +88,11 @@ const P = spec.polities || {}, L = spec.links || {};
       if (k === "area" && !(c.locator && c.locator.area)) die(id + " has no locator `area` for a series to replace");
       if ((k === "v" || k === "l") && !c.war) die(id + " has no war block, so it has no `" + k + "` side");
       if ((k === "v" || k === "l") && c.war && c.war.group) die(id + " is a war that GROUPS other wars (`war.group`) and is not drawn on the atlas — link its parts instead");
+      const ys = k !== "area" && c.war && Array.isArray(c.war.years) ? c.war.years.map(Number) : cardYears(c);
+      if (!ys || !ys.length) die(id + " has no years, so nothing of a series could ever be drawn for it");
+      // an extent's mark has no end year when its card gives one date — it then stands to the present
+      const span = [Math.min.apply(null, ys), k === "area" && ys.length < 2 ? Infinity : Math.max.apply(null, ys)];
+      for (const sl of slugs) (need[sl] = need[sl] || []).push(span);
     }
   }
 }
@@ -140,8 +152,42 @@ for (const f of fc.features || []) {
 }
 const out = {};
 let pts = 0;
+/* A COASTLINE SERIES (Oct 2026): a people whose extent IS a set of islands — the Cyclades, Crete — is drawn
+   as those islands' own land rings, not as a blob round them. `coast: { country, points }` takes every ring
+   of that world.js country holding one of the points (or, for a point just offshore, the ring with a vertex
+   nearest it, within 0.25°), as ONE step spanning the years its cards are shown in. world.js is Natural
+   Earth, public domain. The atlas clips a people's wash to the land it draws, so the ring only has to say
+   WHICH land; the coast's precision is the land layer's. */
+let WORLD = null;
+function coastRings(def, slug) {
+  if (!WORLD) { const w = {}; new Function("window", fs.readFileSync(path.join(ROOT, "world.js"), "utf8"))(w); WORLD = w.WORLD_GEO || []; }   // eslint-disable-line no-new-func
+  const c = WORLD.find((x) => x.n === def.coast.country);
+  if (!c) die(slug + ": world.js has no country \"" + def.coast.country + "\"");
+  const pip = (r, x, y) => { let k = false; for (let i = 0, j = r.length - 1; i < r.length; j = i++) { const a = r[i], b = r[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) k = !k; } return k; };
+  const picked = new Set();
+  for (const [x, y] of def.coast.points) {
+    let i = c.p.findIndex((r) => pip(r, x, y));
+    if (i < 0) {
+      let bd = 0.25 * 0.25;
+      c.p.forEach((r, ri) => r.forEach((q) => { const d = (q[0] - x) ** 2 + (q[1] - y) ** 2; if (d < bd) { bd = d; i = ri; } }));
+    }
+    if (i < 0) die(slug + ": no " + def.coast.country + " ring at or near " + x + ", " + y);
+    picked.add(i);
+  }
+  return [...picked].map((i) => c.p[i].map((q) => [Math.round(q[0] * 100) / 100, Math.round(q[1] * 100) / 100]));
+}
 for (const slug of Object.keys(P)) {
   const def = P[slug], lo = def.years ? def.years[0] : -Infinity, hi = def.years ? def.years[1] : Infinity;
+  if (def.coast) {
+    const n = need[slug] || [];
+    if (!n.length) { console.warn("  " + slug.padEnd(14) + "WARNING: no card links it — skipped"); continue; }
+    const a = Math.min.apply(null, n.map((x) => x[0])), b = Math.max.apply(null, n.map((x) => isFinite(x[1]) ? x[1] : x[0]));
+    const rings = coastRings(def, slug);
+    rings.forEach((r) => { pts += r.length; });
+    out[slug] = { n: def.label || slug, s: [[a, b, rings]] };
+    console.log("  " + slug.padEnd(14) + rings.length + " island rings (Natural Earth), " + a + " … " + b);
+    continue;
+  }
   const rows = [];
   for (const nm of def.cliopatria || []) {
     const r = byName.get(nm);
@@ -153,6 +199,7 @@ for (const slug of Object.keys(P)) {
   for (const f of rows) {
     const a = Math.max(lo, f.properties.FromYear), b = Math.min(hi, f.properties.ToYear);
     if (a > b) continue;
+    if (!(need[slug] || []).some((n) => a <= n[1] && b >= n[0])) continue;   // no linked card shows these years
     if (steps.length && a <= steps[steps.length - 1][1]) die(slug + ": rows overlap in time at " + a + " (" + f.properties.Name + ") — a series must be one shape per year");
     const rings = outerRings(f.geometry).map(cleanRing).filter(Boolean);
     if (!rings.length) continue;
@@ -162,7 +209,17 @@ for (const slug of Object.keys(P)) {
     rings.forEach((r) => { pts += r.length; });
     steps.push([a, b, rings]);
   }
-  if (!steps.length) die(slug + ": no rows inside " + JSON.stringify(def.years));
+  /* A series with no step any linked card can show is dropped, WITH A WARNING, and taken out of the links:
+     Han, the first of the six states Qin annexed, has no row inside the war's 230–221 BCE because it fell
+     in 230 — which is history, not a fault, and the other five still draw. */
+  if (!steps.length) {
+    console.warn("  " + slug.padEnd(14) + "WARNING: no row overlaps the years its cards are shown in — dropped from the links");
+    for (const id of Object.keys(L)) for (const k of Object.keys(L[id])) {
+      L[id][k] = L[id][k].filter((x) => x !== slug);
+      if (!L[id][k].length) delete L[id][k];
+    }
+    continue;
+  }
   out[slug] = { n: def.label || slug, s: steps };
   console.log("  " + slug.padEnd(14) + steps.length + " steps, " + steps[0][0] + " … " + steps[steps.length - 1][1]);
 }
@@ -173,6 +230,8 @@ const head = `/* polities.js — GENERATED by .claude/build-polities.js from .cl
    SOURCE: Cliopatria v0.2.0, Seshat Global History Databank (Ed Chalstrey, James Bennett et al.),
    https://github.com/Seshat-Global-History-Databank/cliopatria — doi:10.5281/zenodo.20274630.
    LICENCE: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+   …EXCEPT the coastline series (an island people drawn as its islands), whose rings are world.js's —
+   Natural Earth, public domain.
    CHANGES MADE: outer rings only (holes dropped); each ring simplified (Douglas–Peucker, ${TOL}°) and
    rounded to 0.01°; slivers under ${MIN_BOX} square degrees dropped; consecutive identical rows joined;
    series clipped in time to the years
@@ -182,7 +241,7 @@ const head = `/* polities.js — GENERATED by .claude/build-polities.js from .cl
 let body = head + "window.POLITIES = {\n";
 body += Object.keys(out).map((s) => "  " + JSON.stringify(s) + ": " + JSON.stringify(out[s])).join(",\n");
 body += "\n};\nwindow.POLITY_LINKS = {\n";
-body += Object.keys(L).sort().map((id) => "  " + JSON.stringify(id) + ": " + JSON.stringify(L[id])).join(",\n");
+body += Object.keys(L).filter((id) => Object.keys(L[id]).length).sort().map((id) => "  " + JSON.stringify(id) + ": " + JSON.stringify(L[id])).join(",\n");
 body += "\n};\n";
 console.log(Object.keys(out).length + " series, " + pts + " points, " + (body.length / 1024).toFixed(0) + " KB, " + Object.keys(L).length + " card links");
 if (DRY) { console.log("dry run — nothing written"); process.exit(0); }

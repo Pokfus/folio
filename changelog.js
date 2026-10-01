@@ -54,7 +54,7 @@ window.CHANGELOG = [
       "<b>Historical states</b> on the Atlas are drawn like countries, and <b>peoples and cultures</b> in blue rather than green.",
       "An Atlas popup now ignores taps on its <b>pictures and footnotes</b> for a moment after it opens, as it already did for glossary terms.",
       "A place several cards share is now <b>one place on the Atlas</b>; open it and swipe, or use the arrows, to browse every card about it.",
-      "<b>Rome, Carthage and thirteen more historical states</b>, from the Achaemenids to the Mongols, now have Atlas borders that change year by year.",
+      "<b>Sixty states, peoples and sides in wars</b>, from Sumer to the Winter War, now have Atlas borders that change year by year.",
       "War cards that group other wars, such as the Samnite Wars, are no longer drawn on the Atlas; the wars they group still are.",
     ]
   },

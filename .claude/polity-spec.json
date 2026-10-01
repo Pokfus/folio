@@ -103,6 +103,442 @@
         "Rus'",
         "Kievan Rus'"
       ]
+    },
+    "seleucid": {
+      "label": "Seleucid Empire",
+      "cliopatria": [
+        "Seleucid Empire"
+      ]
+    },
+    "pontus": {
+      "label": "Pontus",
+      "cliopatria": [
+        "Kingdom of Pontus"
+      ]
+    },
+    "numidia": {
+      "label": "Numidia",
+      "cliopatria": [
+        "Kingdom of Numidia"
+      ]
+    },
+    "achaean_league": {
+      "label": "Achaean League",
+      "cliopatria": [
+        "Achaean League"
+      ]
+    },
+    "lydia": {
+      "label": "Lydia",
+      "cliopatria": [
+        "Lydia"
+      ]
+    },
+    "etruscans": {
+      "label": "Etruria",
+      "cliopatria": [
+        "Etruscans"
+      ]
+    },
+    "illyria": {
+      "label": "Illyrian kingdom",
+      "cliopatria": [
+        "Illyrian Kingdom"
+      ]
+    },
+    "peloponnesian_league": {
+      "label": "Peloponnesian League",
+      "cliopatria": [
+        "Peloponnesian League"
+      ]
+    },
+    "athenian_league": {
+      "label": "Second Athenian League",
+      "cliopatria": [
+        "Second Athenian League"
+      ]
+    },
+    "qin": {
+      "label": "Qin",
+      "cliopatria": [
+        "Qin",
+        "Qin Dynasty"
+      ]
+    },
+    "han_state": {
+      "label": "Han (state)",
+      "cliopatria": [
+        "Han"
+      ]
+    },
+    "zhao": {
+      "label": "Zhao",
+      "cliopatria": [
+        "Zhao"
+      ]
+    },
+    "wei": {
+      "label": "Wei",
+      "cliopatria": [
+        "Wei"
+      ]
+    },
+    "chu": {
+      "label": "Chu",
+      "cliopatria": [
+        "Chu"
+      ]
+    },
+    "yan": {
+      "label": "Yan",
+      "cliopatria": [
+        "Yan"
+      ]
+    },
+    "qi": {
+      "label": "Qi",
+      "cliopatria": [
+        "Qi"
+      ]
+    },
+    "han": {
+      "label": "Han dynasty",
+      "cliopatria": [
+        "Han Dynasty"
+      ]
+    },
+    "xiongnu": {
+      "label": "Xiongnu",
+      "cliopatria": [
+        "Xiongnu"
+      ]
+    },
+    "western_jin": {
+      "label": "Western Jin",
+      "cliopatria": [
+        "Western Jin"
+      ]
+    },
+    "eastern_wu": {
+      "label": "Eastern Wu",
+      "cliopatria": [
+        "Eastern Wu"
+      ]
+    },
+    "rashidun": {
+      "label": "Rashidun Caliphate",
+      "cliopatria": [
+        "Rashidun Caliphate"
+      ]
+    },
+    "byzantium": {
+      "label": "Eastern Roman Empire",
+      "cliopatria": [
+        "Eastern Roman Empire",
+        "Byzantine Empire"
+      ]
+    },
+    "sasanian": {
+      "label": "Sasanian Empire",
+      "cliopatria": [
+        "Sasanian Empire"
+      ]
+    },
+    "normandy": {
+      "label": "Normandy",
+      "cliopatria": [
+        "Duchy of Normandy"
+      ]
+    },
+    "england": {
+      "label": "England",
+      "cliopatria": [
+        "Kingdom of England"
+      ]
+    },
+    "france": {
+      "label": "France",
+      "cliopatria": [
+        "Kingdom of France"
+      ]
+    },
+    "usa": {
+      "label": "United States",
+      "cliopatria": [
+        "United States of America"
+      ],
+      "years": [
+        1776,
+        1800
+      ]
+    },
+    "italy": {
+      "label": "Italy",
+      "cliopatria": [
+        "Kingdom of Italy"
+      ],
+      "years": [
+        1861,
+        1946
+      ]
+    },
+    "italian_africa": {
+      "label": "Italian Africa",
+      "cliopatria": [
+        "Italian Africa"
+      ]
+    },
+    "ethiopia": {
+      "label": "Ethiopian Empire",
+      "cliopatria": [
+        "Ethiopian Empire"
+      ],
+      "years": [
+        1900,
+        1935
+      ]
+    },
+    "roc": {
+      "label": "Republic of China",
+      "cliopatria": [
+        "Republic of China"
+      ],
+      "years": [
+        1912,
+        1949
+      ]
+    },
+    "ccp": {
+      "label": "Chinese Communist base areas",
+      "cliopatria": [
+        "Communist Party of China"
+      ]
+    },
+    "ussr": {
+      "label": "Soviet Union",
+      "cliopatria": [
+        "Union of Soviet Socialist Republics"
+      ],
+      "years": [
+        1922,
+        1945
+      ]
+    },
+    "mongolia_pr": {
+      "label": "Mongolian People's Republic",
+      "cliopatria": [
+        "Mongolian People's Republic"
+      ],
+      "years": [
+        1926,
+        1945
+      ]
+    },
+    "finland": {
+      "label": "Finland",
+      "cliopatria": [
+        "Republic of Finland"
+      ],
+      "years": [
+        1918,
+        1945
+      ]
+    },
+    "sumer": {
+      "label": "Sumer",
+      "cliopatria": [
+        "Sumerian City-States"
+      ]
+    },
+    "mycenaean": {
+      "label": "Mycenaean Greece",
+      "cliopatria": [
+        "Mycenaean Greece"
+      ]
+    },
+    "scythia": {
+      "label": "Scythia",
+      "cliopatria": [
+        "Scythia"
+      ]
+    },
+    "galatia": {
+      "label": "Galatia",
+      "cliopatria": [
+        "Galatia"
+      ]
+    },
+    "gothia": {
+      "label": "Gothia",
+      "cliopatria": [
+        "Gothia"
+      ]
+    },
+    "huns": {
+      "label": "Huns",
+      "cliopatria": [
+        "Huns",
+        "Hunnic Empire"
+      ]
+    },
+    "avars": {
+      "label": "Avars",
+      "cliopatria": [
+        "Avar Khaganate"
+      ]
+    },
+    "old_great_bulgaria": {
+      "label": "Old Great Bulgaria",
+      "cliopatria": [
+        "Old Great Bulgaria"
+      ]
+    },
+    "khazaria": {
+      "label": "Khazaria",
+      "cliopatria": [
+        "Khazaria"
+      ]
+    },
+    "magyars": {
+      "label": "Magyars",
+      "cliopatria": [
+        "Magyars"
+      ]
+    },
+    "zhou": {
+      "label": "Zhou",
+      "cliopatria": [
+        "Zhou Dynasty",
+        "Later Zhou"
+      ],
+      "years": [
+        -1046,
+        -256
+      ]
+    },
+    "indo_greeks": {
+      "label": "Indo-Greek kingdom",
+      "cliopatria": [
+        "Indo-Greeks"
+      ]
+    },
+    "venice": {
+      "label": "Venice",
+      "cliopatria": [
+        "Republic of Venice"
+      ]
+    },
+    "genoa": {
+      "label": "Genoa",
+      "cliopatria": [
+        "Republic of Genoa"
+      ]
+    },
+    "pisa": {
+      "label": "Pisa",
+      "cliopatria": [
+        "Republic of Pisa"
+      ]
+    },
+    "florence": {
+      "label": "Florence",
+      "cliopatria": [
+        "Republic of Florence"
+      ]
+    },
+    "milan": {
+      "label": "Milan",
+      "cliopatria": [
+        "Duchy of Milan"
+      ]
+    },
+    "papal_states": {
+      "label": "Papal States",
+      "cliopatria": [
+        "Papal States"
+      ]
+    },
+    "savoy": {
+      "label": "Savoy",
+      "cliopatria": [
+        "County of Savoy"
+      ]
+    },
+    "cyclades": {
+      "label": "Cyclades",
+      "coast": {
+        "country": "Greece",
+        "points": [
+          [
+            25.4,
+            37.05
+          ],
+          [
+            25.15,
+            37.08
+          ],
+          [
+            24.42,
+            36.72
+          ],
+          [
+            24.92,
+            37.44
+          ],
+          [
+            25.15,
+            37.6
+          ],
+          [
+            24.85,
+            37.85
+          ],
+          [
+            25.3,
+            36.72
+          ],
+          [
+            25.88,
+            36.83
+          ],
+          [
+            25.43,
+            36.4
+          ],
+          [
+            24.33,
+            37.63
+          ],
+          [
+            24.42,
+            37.4
+          ],
+          [
+            24.48,
+            37.16
+          ],
+          [
+            24.7,
+            36.97
+          ],
+          [
+            25.35,
+            37.45
+          ]
+        ]
+      }
+    },
+    "crete": {
+      "label": "Crete",
+      "coast": {
+        "country": "Greece",
+        "points": [
+          [
+            24.9,
+            35.2
+          ]
+        ]
+      }
     }
   },
   "links": {
@@ -111,9 +547,68 @@
         "shang"
       ]
     },
+    "cnh-111": {
+      "area": [
+        "zhou"
+      ]
+    },
+    "cnh-188": {
+      "v": [
+        "qin"
+      ],
+      "l": [
+        "han_state",
+        "zhao",
+        "wei",
+        "chu",
+        "yan",
+        "qi"
+      ]
+    },
+    "cnh-205": {
+      "v": [
+        "qin"
+      ]
+    },
+    "cnh-224": {
+      "v": [
+        "han"
+      ],
+      "l": [
+        "xiongnu"
+      ]
+    },
     "cnh-232": {
       "area": [
         "nanyue"
+      ]
+    },
+    "cnh-295": {
+      "v": [
+        "western_jin"
+      ],
+      "l": [
+        "eastern_wu"
+      ]
+    },
+    "gr-002": {
+      "area": [
+        "cyclades"
+      ]
+    },
+    "gr-006": {
+      "area": [
+        "crete"
+      ]
+    },
+    "gr-047": {
+      "area": [
+        "crete"
+      ]
+    },
+    "gr-056": {
+      "area": [
+        "mycenaean"
       ]
     },
     "gr-381": {
@@ -124,11 +619,24 @@
     "gr-383": {
       "v": [
         "achaemenid"
+      ],
+      "l": [
+        "lydia"
       ]
     },
     "gr-448": {
       "l": [
         "carthage"
+      ]
+    },
+    "gr-561": {
+      "v": [
+        "peloponnesian_league"
+      ]
+    },
+    "gr-676": {
+      "l": [
+        "athenian_league"
       ]
     },
     "gr-755": {
@@ -151,6 +659,21 @@
         "bactria"
       ]
     },
+    "gr-784": {
+      "area": [
+        "indo_greeks"
+      ]
+    },
+    "gr-788": {
+      "area": [
+        "galatia"
+      ]
+    },
+    "rm-022": {
+      "area": [
+        "etruscans"
+      ]
+    },
     "rm-152": {
       "v": [
         "rome"
@@ -169,6 +692,9 @@
     "rm-158": {
       "v": [
         "rome"
+      ],
+      "l": [
+        "etruscans"
       ]
     },
     "rm-159": {
@@ -213,6 +739,9 @@
     "rm-237": {
       "v": [
         "rome"
+      ],
+      "l": [
+        "illyria"
       ]
     },
     "rm-240": {
@@ -226,6 +755,9 @@
     "rm-245": {
       "v": [
         "rome"
+      ],
+      "l": [
+        "seleucid"
       ]
     },
     "rm-249": {
@@ -239,6 +771,9 @@
     "rm-255": {
       "v": [
         "rome"
+      ],
+      "l": [
+        "achaean_league"
       ]
     },
     "rm-262": {
@@ -259,16 +794,25 @@
     "rm-292": {
       "v": [
         "rome"
+      ],
+      "l": [
+        "numidia"
       ]
     },
     "rm-310": {
       "v": [
         "rome"
+      ],
+      "l": [
+        "pontus"
       ]
     },
     "rm-333": {
       "v": [
         "rome"
+      ],
+      "l": [
+        "pontus"
       ]
     },
     "rm-350": {
@@ -276,14 +820,49 @@
         "rome"
       ]
     },
+    "ru-005": {
+      "area": [
+        "scythia"
+      ]
+    },
     "ru-010": {
       "area": [
         "bosporus"
       ]
     },
+    "ru-011": {
+      "area": [
+        "gothia"
+      ]
+    },
+    "ru-012": {
+      "area": [
+        "huns"
+      ]
+    },
+    "ru-013": {
+      "area": [
+        "avars"
+      ]
+    },
+    "ru-014": {
+      "area": [
+        "old_great_bulgaria"
+      ]
+    },
     "ru-015": {
       "area": [
         "volga_bulgaria"
+      ]
+    },
+    "ru-016": {
+      "area": [
+        "khazaria"
+      ]
+    },
+    "ru-019": {
+      "area": [
+        "magyars"
       ]
     },
     "ru-036": {
@@ -296,9 +875,29 @@
         "mongol"
       ]
     },
+    "us-071": {
+      "v": [
+        "usa"
+      ]
+    },
+    "us-072": {
+      "v": [
+        "usa"
+      ]
+    },
+    "wh-172": {
+      "area": [
+        "sumer"
+      ]
+    },
     "wh-245": {
       "area": [
         "shang"
+      ]
+    },
+    "wh-262": {
+      "area": [
+        "crete"
       ]
     },
     "wh-301": {
@@ -324,6 +923,31 @@
         "rome"
       ]
     },
+    "wh-463": {
+      "v": [
+        "rashidun"
+      ],
+      "l": [
+        "byzantium",
+        "sasanian"
+      ]
+    },
+    "wh-504": {
+      "v": [
+        "normandy"
+      ],
+      "l": [
+        "england"
+      ]
+    },
+    "wh-518": {
+      "v": [
+        "france"
+      ],
+      "l": [
+        "england"
+      ]
+    },
     "wh-594": {
       "area": [
         "mongol"
@@ -339,9 +963,55 @@
         "inca"
       ]
     },
+    "wh-622": {
+      "area": [
+        "venice",
+        "genoa",
+        "pisa",
+        "florence",
+        "milan",
+        "papal_states",
+        "savoy"
+      ]
+    },
+    "ww2-042": {
+      "v": [
+        "italy",
+        "italian_africa"
+      ],
+      "l": [
+        "ethiopia"
+      ]
+    },
     "ww2-081": {
       "area": [
         "japan"
+      ]
+    },
+    "ww2-096": {
+      "v": [
+        "roc",
+        "ccp"
+      ],
+      "l": [
+        "japan"
+      ]
+    },
+    "ww2-100": {
+      "v": [
+        "ussr",
+        "mongolia_pr"
+      ],
+      "l": [
+        "japan"
+      ]
+    },
+    "ww2-159": {
+      "v": [
+        "ussr"
+      ],
+      "l": [
+        "finland"
       ]
     }
   }

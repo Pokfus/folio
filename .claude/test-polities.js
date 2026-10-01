@@ -75,7 +75,9 @@ for (const id of Object.keys(L).sort()) {
     const ys = yearsOf(c, k);
     if (!ys) { check("[" + id + "." + k + "] the card has years to draw in", false); continue; }
     const hits = slugs.map((s) => [step(s, ys[0]), step(s, ys[1])]);
-    check("[" + id + "." + k + "] a step covers the card's years " + ys.join("…"), hits.some((h) => h[0] || h[1]), JSON.stringify(ys));
+    // a step anywhere INSIDE the card's years — a culture's rows often cover the middle of its span only
+    const overl = slugs.some((sl) => P[sl] && P[sl].s.some((st) => st[0] <= ys[1] && st[1] >= ys[0]));
+    check("[" + id + "." + k + "] a step falls inside the card's years " + ys.join("…"), overl, JSON.stringify(ys));
     // THE FEATURE ITSELF: across a war that spans a step boundary, the border moves
     // (a war side only: a state's card may span rows Cliopatria splits without moving the border, which the
     // builder joins into one step — so for an extent, two different steps is the claim, not two shapes)
