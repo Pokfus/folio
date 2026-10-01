@@ -5068,7 +5068,15 @@ window.GLOSSARY = {
 "Yuwen_Huaji": "Yuwen Huaji was a Sui general, the son of the general Yuwen Shu and a favourite of Emperor Yang despite a name for violence and bribe-taking, who led the coup of 618 at Jiangdu, the modern Yangzhou, in which the emperor was strangled.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He set up a Sui prince as a puppet and led the palace guards north, but after defeat by the rebel Li Mi he poisoned the prince and proclaimed himself emperor of Xu.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> In 619 the rebel king Dou Jiande captured him at Liaocheng and had him beheaded with his two sons.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Emperor_Gaozu_of_Tang": "Emperor Gaozu of Tang, whose personal name was Li Yuan, was the founder of the Tang dynasty, a northern aristocrat who inherited the title Duke of Tang and served the Sui as a governor and as regent of Taiyuan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He rose against the Sui in 617, took Chang'an and ruled through a puppet emperor until he took the throne himself in 618, reigning under the era name Wude.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In 626, after his son Li Shimin had killed his two brothers, the crown prince among them, he abdicated in that son's favour and lived on until 635.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Emperor_Taizong_of_Tang": "Emperor Taizong of Tang, whose personal name was Li Shimin, was the second emperor of the Tang dynasty, the second son of its founder and the leading general of the wars that won his father the throne.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He became heir in 626 by killing his elder brother, the crown prince, at the Xuanwu Gate of the palace, and reigned from that year until his death in 649.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In 630 his armies captured the Eastern Turkish khagan Xieli, after which the rulers of the north-west gave him the title 'Heavenly Khagan'.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Xuanwu_Gate_Incident": "The Xuanwu Gate Incident was the ambush at the Xuanwu Gate of the palace in Chang'an on 2 July 626, in which the Tang prince Li Shimin killed his elder brother, the crown prince Li Jiancheng, and his younger brother Li Yuanji.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The histories present it as a move to forestall a plot by the brothers against him, the climax of a rivalry over the succession that had grown since the founding of the dynasty in 618.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Within days the emperor Gaozu named Li Shimin heir, and two months later he abdicated in his favour.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Xuanwu_Gate_Incident": "The Xuanwu Gate Incident was the ambush at the Xuanwu Gate of the palace in Chang'an on 2 July 626, in which the Tang prince Li Shimin killed his elder brother, the crown prince Li Jiancheng, and his younger brother Li Yuanji.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The histories present it as a move to forestall a plot by the brothers against him, the climax of a rivalry over the succession that had grown since the founding of the dynasty in 618.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Within days the emperor Gaozu named Li Shimin heir, and two months later he abdicated in his favour.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Zhenguan": "The Zhenguan era was the reign period of Emperor Taizong of the Tang dynasty in China, which ran from 627 to 649 CE, when ministers such as Fang Xuanling, Wei Zheng and Du Ruhui served at his court.<sup class=\"fn\" data-fn=\"1\"></sup> Chinese histories record that after famine, locusts and floods in its first three years, the harvest of 630 was so abundant that rice was cheap and only 29 people were sentenced to death in the whole empire.<sup class=\"fn\" data-fn=\"2\"></sup> Its sayings were collected after 720 in the <i>Zhenguan zhengyao</i>, a book long read to later emperors as a model of good government.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Tang_Code": "The Tang Code was the penal law code of the Tang dynasty in China, 500 articles in 12 sections that defined five punishments in 20 grades, the ten abominations and the privileges of eight favoured groups.<sup class=\"fn\" data-fn=\"1\"></sup> Drawn up under Emperor Taizong by a commission led by Zhangsun Wuji and Fang Xuanling and issued in 637 CE, it was revised in 651, and the official commentary of 653 made it the oldest Chinese law code to survive complete.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Later Chinese dynasties built their codes on it, and it served as the model for the Taihō code of Japan.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Koufentian": "Koufentian, or 'mouth-share land', was the arable land allotted for life to each adult man under the Tang dynasty's equal-field system in China, which went back to the state when he died to be granted again.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A statute of 624 CE set it at 80 of the 100 <i>mu</i> granted to an adult man, the other 20 being hereditary land planted with trees, and in crowded districts the share was often halved.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The sale of allotted land was restricted but never stopped, rich families bought it up, and the Tang abandoned the system in 780.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Zuyongdiao": "Zuyongdiao was the three-part tax of the early Tang dynasty in China, made up of a grain tax, a levy of silk or hemp cloth and a labour duty owed by each adult man who held land under the equal-field system.<sup class=\"fn\" data-fn=\"1\"></sup> Fixed in 624 CE, it asked each man for two <i>shi</i> of millet, a length of cloth with floss or hemp, and 20 days of labour a year, which could be paid off in silk.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> It depended on household registers and on the land allotments, and after both broke down it was replaced in 780 by a tax paid twice a year.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Zhengshitang": "The Zhengshitang, or Hall of Government Affairs, was the meeting chamber of the chancellors of the Tang dynasty in China, where the heads of the Secretariat, the Chancellery and the Department of State Affairs and officials given chancellors' titles decided state business together.<sup class=\"fn\" data-fn=\"1\"></sup> It stood at first in the Chancellery and moved to the Secretariat in 683 CE, when Pei Yan became head of that department.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> In 723 Zhang Yue renamed it the Secretariat-Chancellery, gave it a new seal and placed behind it five offices for personnel, secret affairs, war, revenue, and punishments and rites.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Mingjing": "Mingjing, or 'classicist', was a category of Chinese official recruitment for men versed in the Confucian classics, used for recommendations under the Han dynasty and as a regular examination under the Tang until the Song abolished it in 1071 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Under the Tang its candidates filled in missing words in passages of the classics, answered questions on their meaning and wrote essays on current affairs.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> It was much easier than the jinshi examination, with one or two candidates in ten passing against one or two in a hundred for the jinshi, and its graduates enjoyed correspondingly less esteem.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Yinshan": "The Battle of Yinshan was a surprise attack in 630 CE in which a Tang army under Li Jing destroyed the camp of Illig Qaghan of the Eastern Turks at the Yin Mountains, on the northern frontier of China.<sup class=\"fn\" data-fn=\"1\"></sup> Striking while Tang envoys were discussing the khagan's surrender, the Tang cavalry killed more than 10,000 Turks and took over 100,000 captives, and Illig himself was soon caught and sent to Chang'an.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The defeat ended the first Eastern Turkish khaganate, and its nobles served the Tang emperors for about half a century.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Protectorate_General_to_Pacify_the_West": "The Protectorate General to Pacify the West, or Anxi Protectorate, was the office through which the Tang dynasty of China oversaw the oasis states of the Tarim Basin, founded at Jiaohe near Turpan in 640 CE and moved to Kucha in 658.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its lands were known as the Four Garrisons, after its posts at Kucha, Khotan, Kashgar and Suiye, which the Tibetans overran in 670 and a Tang army recovered in 692.<sup class=\"fn\" data-fn=\"2\"></sup> Cut off from China after the Tibetans took the Hexi corridor, its last governors held out at Kucha into the late 780s.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7824,7 +7832,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Yuwen_Huaji": "died 619 CE",
 "Emperor_Gaozu_of_Tang": "566 – 635 CE",
 "Emperor_Taizong_of_Tang": "626 – 649 CE",
-"Xuanwu_Gate_Incident": "626 CE"
+"Xuanwu_Gate_Incident": "626 CE",
+"Zhenguan": "627 – 649 CE",
+"Tang_Code": "637 – 653 CE",
+"Koufentian": "624 – 780 CE",
+"Zuyongdiao": "624 – 780 CE",
+"Battle_of_Yinshan": "630 CE",
+"Protectorate_General_to_Pacify_the_West": "640 – c. 790 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10702,7 +10716,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Yuwen_Huaji": ["Yü-wên Hua-chi","Yu-wen Hua-chi","Yuwen Hua-chi"],
 "Emperor_Gaozu_of_Tang": ["Li Yuan","Li Yüan","Tang Gaozu","T'ang Kao-tsu","Kao Tsu of T'ang"],
 "Emperor_Taizong_of_Tang": ["Li Shimin","Li Shih-min","Tang Taizong","T'ang T'ai-tsung","T'ai Tsung of T'ang"],
-"Xuanwu_Gate_Incident": ["Incident at Xuanwu Gate","Xuanwu Gate incident","Hsüan-wu Gate incident","Xuanwumen Incident"]
+"Xuanwu_Gate_Incident": ["Incident at Xuanwu Gate","Xuanwu Gate incident","Hsüan-wu Gate incident","Xuanwumen Incident"],
+"Zhenguan": ["Zhenguan era","Zhenguan reign","Chen-kuan","Chen-kuan era"],
+"Tang_Code": ["Tanglü","Tang lü","Tanglü shuyi","Tang lü shuyi","T'ang Code"],
+"Koufentian": ["koufen tian","koufentian","k'ou-fen t'ien","mouth-share land","personal-share land"],
+"Zuyongdiao": ["zu yong diao","zu-yong-diao","tsu-yung-tiao","zuyongdiao zhi","tripartite tax system"],
+"Zhengshitang": ["Hall of Government Affairs","Cheng-shih t'ang","Zhengshi tang"],
+"Mingjing": ["ming-ching","mingjing examination","mingjing ke","classicist examination"],
+"Battle_of_Yinshan": ["Battle of Yin Mountain","Tang campaign against the Eastern Turks"],
+"Protectorate_General_to_Pacify_the_West": ["Anxi Protectorate","Protectorate of Anxi","An-hsi Protectorate","Anxi Duhufu","Four Garrisons of Anxi"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10760,7 +10782,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Cohort_(military_unit)": true,
 "Aquila_(Roman)": true,
 "Disciplina": true,
-"Ovation": true
+"Ovation": true,
+"Zhenguan": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -15832,7 +15855,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Yuwen_Huaji": ["person","warfare","politics","history","china","sui dynasty"],
 "Emperor_Gaozu_of_Tang": ["person","ruler","politics","history","china","tang dynasty"],
 "Emperor_Taizong_of_Tang": ["person","ruler","politics","warfare","history","china","tang dynasty"],
-"Xuanwu_Gate_Incident": ["event","politics","history","china","tang dynasty"]
+"Xuanwu_Gate_Incident": ["event","politics","history","china","tang dynasty"],
+"Zhenguan": ["era","politics","history","china","tang dynasty"],
+"Tang_Code": ["text","law","history","china","tang dynasty"],
+"Koufentian": ["institution","agriculture","economy","history","china","tang dynasty"],
+"Zuyongdiao": ["institution","economy","history","china","tang dynasty"],
+"Zhengshitang": ["institution","politics","history","china","tang dynasty"],
+"Mingjing": ["title","education","politics","history","china"],
+"Battle_of_Yinshan": ["battle","warfare","history","china","tang dynasty"],
+"Protectorate_General_to_Pacify_the_West": ["institution","warfare","politics","history","china","central asia","tang dynasty"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
