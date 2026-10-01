@@ -4794,7 +4794,12 @@ window.GLOSSARY = {
 "Archbasilica_of_Saint_John_Lateran": "The Archbasilica of Saint John Lateran is the cathedral of the bishop of Rome, founded by Constantine I around 313 CE on the Caelian Hill as a church dedicated to Christ the Saviour.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was built on the levelled platform of a fort for the emperors' mounted guard, raised by Septimius Severus and abandoned in 312, on imperial land that included a residence known as the house of Fausta.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The first church collapsed in the 9th century and has been rebuilt and remodelled many times, but enough of it survives for its original plan to be reconstructed.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Old_St._Peter's_Basilica": "Old St Peter's Basilica was the church built by Constantine I on the Vatican Hill in Rome over the grave Christians honoured as that of the apostle Peter, whose coffin he is said to have enclosed in bronze.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Begun after 324 on one recent reading and completed by his sons, it was assembled largely from columns taken from older buildings and became a burial place for senators and emperors.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was demolished in stages from 1506 to make way for the present St Peter's, and the last of the old building was cleared away in 1615.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Arch_of_Constantine": "The Arch of Constantine is a triple triumphal arch beside the Colosseum in Rome, dedicated by the senate to Constantine I for his victory over Maxentius in 312 CE and completed in 315 or 316.<sup class=\"fn\" data-fn=\"1\"></sup> Much of its sculpture was taken from older monuments, including roundels of Hadrian's time and panels from a monument of Marcus Aurelius, while a narrow frieze of Constantine's own day shows scenes from his career.<sup class=\"fn\" data-fn=\"1\"></sup> Its inscription credits the victory to the prompting of the divinity, a phrase that names no god and has long been read as a compromise between a Christian emperor and a largely pagan senate.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Constantine_II_(emperor)": "Constantine II was a Roman emperor from 337 to 340 CE, the eldest son of Constantine I and Fausta, given junior imperial rank in 317 as a small child and later sent to hold court in Gaul.<sup class=\"fn\" data-fn=\"1\"></sup> After his father's death and the killing of other men of the dynasty in 337, he and his brothers Constantius and Constans divided the empire, his own share being Britain, Gaul and Spain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In 340 he made war on his youngest brother Constans and was killed near Aquileia, which left the empire to his two surviving brothers.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Constantine_II_(emperor)": "Constantine II was a Roman emperor from 337 to 340 CE, the eldest son of Constantine I and Fausta, given junior imperial rank in 317 as a small child and later sent to hold court in Gaul.<sup class=\"fn\" data-fn=\"1\"></sup> After his father's death and the killing of other men of the dynasty in 337, he and his brothers Constantius and Constans divided the empire, his own share being Britain, Gaul and Spain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In 340 he made war on his youngest brother Constans and was killed near Aquileia, which left the empire to his two surviving brothers.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Thervingi": "The Thervingi or Tervingi were a Gothic people living north of the lower Danube in the 4th century CE, whose leader Athanaric fought the emperor Valens from 367 to 369 and made peace with him on a boat in mid-river.<sup class=\"fn\" data-fn=\"1\"></sup> In 376, under pressure from the Huns, most of them were admitted across the Danube into Thrace under Alavivus and Fritigern, but hunger and the abuses of Roman officers soon drove them into revolt.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> They are often equated with the later Visigoths, though modern historians hold that the division of the Goths into Visigoths and Ostrogoths came only after the crossing.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Adrianople": "The Battle of Adrianople was fought on 9 August 378 CE near Adrianople in Thrace between the army of the eastern Roman emperor Valens and the Goths who had crossed the Danube two years earlier.<sup class=\"fn\" data-fn=\"1\"></sup> Gothic cavalry returning to the field broke the Roman left wing, the crowded infantry were cut down until nightfall, and Valens was killed, his body never found.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Ammianus Marcellinus, the main source for the battle, wrote that barely a third of the Roman army escaped and that the annals recorded no such massacre except at Cannae.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Theodosius_I": "Theodosius I, called the Great by posterity, was Roman emperor from 379 to 395 CE, a Spanish general whom Gratian made ruler of the East after Valens was killed at the Battle of Adrianople in 378.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He ended the Gothic war by a treaty in 382, defeated the western usurpers Magnus Maximus in 388 and Eugenius in 394, and favoured the Nicene form of Christianity against its rivals.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He died at Milan in January 395, leaving the empire to his sons Arcadius and Honorius and founding a dynasty that ruled until 450.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Foederati": "Foederati, from the Latin 'foedus', a treaty, were peoples bound to Rome by a formal agreement that left them self-governing but obliged them to supply soldiers to the Roman army.<sup class=\"fn\" data-fn=\"1\"></sup> In the Roman Republic the name covered allied states, chiefly in Italy, whose demand for Roman citizenship led to the Social War and to its grant in 90 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> In late antiquity it was used of barbarian groups serving the empire under treaty, among them the Goths who made peace with Theodosius I in 382 CE and received land in the diocese of Thrace.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Edict_of_Thessalonica": "The Edict of Thessalonica was a law of the emperors Gratian, Valentinian II and Theodosius I, dated at Thessalonica in February 380 CE and addressed to the people of Constantinople.<sup class=\"fn\" data-fn=\"1\"></sup> Opening with the words 'Cunctos populos', it required all peoples under Roman rule to hold the faith of Bishop Damasus of Rome and Bishop Peter of Alexandria in one deity of Father, Son and Holy Spirit.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its followers were to be called Catholic Christians, while all others were branded heretics, denied the name of churches for their meetings and threatened with divine and imperial punishment.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7380,7 +7385,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Valentinian_I": "364–375 CE",
 "Archbasilica_of_Saint_John_Lateran": "c. 313 CE",
 "Arch_of_Constantine": "315–316 CE",
-"Constantine_II_(emperor)": "c. 316–340 CE"
+"Constantine_II_(emperor)": "c. 316–340 CE",
+"Thervingi": "4th century CE",
+"Battle_of_Adrianople": "378 CE",
+"Theodosius_I": "c. 346–395 CE",
+"Edict_of_Thessalonica": "380 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10141,7 +10150,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Colonus_(person)": ["colonate"],
 "Archbasilica_of_Saint_John_Lateran": ["Lateran Basilica","Saint John Lateran"],
 "Old_St._Peter's_Basilica": ["Old St Peter's Basilica","Old St Peter's"],
-"Constantine_II_(emperor)": ["Constantine II"]
+"Constantine_II_(emperor)": ["Constantine II"],
+"Thervingi": ["Tervingi"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -14990,7 +15000,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Archbasilica_of_Saint_John_Lateran": ["building","religion","architecture","christianity","rome"],
 "Old_St._Peter's_Basilica": ["building","religion","architecture","christianity","rome"],
 "Arch_of_Constantine": ["building","history","art","architecture","rome"],
-"Constantine_II_(emperor)": ["ruler","person","history","politics","rome"]
+"Constantine_II_(emperor)": ["ruler","person","history","politics","rome"],
+"Thervingi": ["people","history","warfare","migration","europe"],
+"Battle_of_Adrianople": ["battle","warfare","history","rome","europe"],
+"Theodosius_I": ["ruler","person","history","politics","rome","classical"],
+"Foederati": ["institution","history","warfare","politics","rome"],
+"Edict_of_Thessalonica": ["text","religion","law","history","christianity","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
