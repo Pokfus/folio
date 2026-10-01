@@ -16080,7 +16080,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // The Admin page is admin-only. querySelectorAll, not querySelector: the entry point has existed in
     // more than one bar before (the phone's bottom bar carried Project W until Aug 2026), and hiding only
     // the first would leave any other live — a defensive sweep costs nothing and a stale count does not.
-    document.querySelectorAll(".tab-admin").forEach((el) => { el.style.display = admin ? "" : "none"; });
+    document.querySelectorAll(".tab-admin").forEach((el) => { el.hidden = !admin; el.style.display = admin ? "" : "none"; });
+    /* …and the markup ships it `hidden` (Oct 2026, out of an outside review that read "Admin" in the
+       navigation off the crawlable shell): it was visible in index.html until this function ran, so a
+       crawler, a no-JS reader and the first frame of every visit all met an editor's tool. It is revealed
+       here, for an admin, rather than hidden here for everybody else. */
     /* THE EDITOR / VISITOR CHIP WAS REMOVED FROM THE MENU BAR (Aug 2026, on request), and `setMode` was
        its only caller — so `S.settings.adminMode` can no longer be set to false by anything, and the
        back-fill beside `themeAuto` clears a stored `false` on load. Without that back-fill an admin who
@@ -24716,8 +24720,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const editActs = fresh || (!activeIds.length && !deckEditOn) ? "" : deckEditBarHTML();
     const footRow = fresh || (!editActs && !dayTime && !nextChest) ? ""
       : `<div class="rv-foot"><span class="rv-timeslot">${dayTime}${nextChest}</span>${editActs}</div>`;
+    /* HOW LONG HAVE YOU GOT? (Oct 2026, out of an outside review: "make 5/10/20/30-minute sessions
+       central"). The time box has existed since Sep 2026 behind the study bar's Time button, which a reader
+       only meets once a session has started — so "I have ten minutes" could not be said before pressing
+       Start. These chips start the same day's review with that box already running. They are a row of
+       their own at the FOOT of the review group, under its footer row, because the banner is a <button> a
+       control cannot nest in, and the banner, the deck list and the Collections button are drawn as one
+       joined card that a row anywhere inside it would split; and
+       they are drawn only while there is work, a time limit on nothing being no offer at all. Every value
+       is one of the study page's own BOX_CHOICES, which is what it accepts. */
+    const TIME_CHIPS = [5, 10, 20, 30];
+    const timeChips = !fresh && dueN + newN > 0
+      ? `<div class="rv-time" role="group" aria-label="Study for a set time"><span class="rv-time-lbl">Short on time?</span>${TIME_CHIPS.map((m) => `<button type="button" class="rv-time-chip" data-box="${m}">${m} min</button>`).join("")}</div>`
+      : "";
+    /* A FIRST VISITOR CAN TRY TEN CARDS BEFORE CHOOSING ANYTHING (Oct 2026, same review: "a first-time
+       user should experience a complete learning cycle before configuring anything"). The sampler already
+       exists and writes nothing — no deck added, no card scheduled, no XP — so it is the one way to show
+       how a card works without asking for a decision first. It is a quiet line under the hero rather than a
+       second button inside it, which keeps the hero's one way in. World History is the default sample,
+       being the broadest collection on the shelf; any other open collection stands in if it is gone. */
+    const sampleColl = fresh ? (NODE_BY_ID["col-8"] && !isComingSoon(NODE_BY_ID["col-8"]) ? NODE_BY_ID["col-8"] : (TREE.collections || []).find((c) => !isComingSoon(c) && sectionOf(c.id) === "History")) : null;
+    const sampleLine = sampleColl && sampleIds(sampleColl.id).length
+      ? `<p class="hero-sample">Not sure yet? <button type="button" class="linkbtn" id="heroSample" data-sample="${esc(sampleColl.id)}">Try ten cards from ${esc(nodeTitle(sampleColl))}</button> — nothing is saved.</p>`
+      : "";
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
+            ${sampleLine}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. Its old corner is where the
                   Edit button sits now, and the `padding-right` it left on the title is what keeps the two
@@ -24733,6 +24761,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   than the space. Restoring it is what "back to where it was before" means; a later
                   session may reasonably ask whether it should still go. */""}
             ${footRow}
+            ${timeChips}
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -24850,6 +24879,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
       else route("decks");
     });
+    root.querySelectorAll(".rv-time-chip").forEach((b) => b.addEventListener("click", () => route("study", { scope: { type: "review" }, box: +b.dataset.box })));
+    { const hs = root.querySelector("#heroSample"); if (hs) hs.addEventListener("click", () => route("sample", { id: hs.dataset.sample })); }
     /* The waiting-chests notice above the banner. It is a real <button> now that it is no longer nested
        inside the banner, so it needs no keydown handler of its own — which is the whole reason for
        getting it out of there. ("+ New group" was wired here too, and went with the control.) */
@@ -31582,6 +31613,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (Number.isFinite(resume.studied)) studiedThisSession = resume.studied;
       }
     }
+    /* A SESSION STARTED FROM THE HOME PAGE'S TIME CHIPS (Oct 2026) arrives with `box` in minutes — the
+       same time box the study bar's own Time button sets, started at the moment the session opens. A
+       resumed session keeps the box it was saved with and ignores this, so a reload never restarts the
+       clock. */
+    if (!resume && params && params.box > 0 && BOX_CHOICES.includes(params.box)) { boxMs = params.box * 60000; boxFrom = Date.now(); }
     function persistStudy() {
       const rec = { scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession, box: boxMs, boxFrom: boxFrom };
       writeStudySession(rec);
@@ -32488,7 +32524,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* Keep studying after a spent box would otherwise end on the very first card, the clock having run
          out before the button was pressed: the box is dropped rather than restarted, since a reader who
          asked for ten minutes and then asked for more has plainly stopped counting. */
-      card.querySelector("#more").addEventListener("click", () => { boxMs = 0; boxFrom = 0; route("study", params); });
+      card.querySelector("#more").addEventListener("click", () => { boxMs = 0; boxFrom = 0; route("study", Object.assign({}, params, { box: 0 })); });
       {
         const nb = card.querySelector("#nextDeck");
         // the scope a row is tapped with on the home page, which is the one place that decides what a row
@@ -47204,6 +47240,61 @@ let prev = null;
      PAGE: SETTINGS
      ============================================================ */
   // settings picker data: [id, name, tag, primary, accent, paper]
+  /* ---------- KEEPING THE READER'S DATA (Oct 2026, out of an outside review) ----------
+     Folio's working copy of a reader's progress is localStorage and IndexedDB, and by default a browser
+     treats both as BEST-EFFORT: it may clear them under storage pressure, and a guest has nothing else.
+     Three things answer that. `storagePersistAsk` asks the browser to keep this site's storage, once per
+     device and only once there is something worth keeping — Chrome and Edge decide silently, but Firefox
+     shows the reader a permission prompt, so asking a first-time visitor who has studied nothing would be
+     a question about nothing. The Settings → Data card says where the progress lives, whether the browser
+     has agreed to keep it, how much room it takes and when this device last downloaded a backup. And the
+     backup can now be IMPORTED as well as exported, which it could not — a download nobody can restore is
+     a file, not a backup. */
+  const PERSIST_ASKED_KEY = "folio_persist_asked_v1";
+  const BACKUP_AT_KEY = "folio_backup_at_v1";
+  function storagePersistAsk(force) {
+    const st = navigator.storage;
+    if (!st || typeof st.persist !== "function") return Promise.resolve(null);
+    if (!force) {
+      try { if (localStorage.getItem(PERSIST_ASKED_KEY)) return Promise.resolve(null); } catch (e) { return Promise.resolve(null); }
+      if (!Object.keys(S.cards || {}).length) return Promise.resolve(null);
+    }
+    try { localStorage.setItem(PERSIST_ASKED_KEY, String(Date.now())); } catch (e) {}
+    return (typeof st.persisted === "function" ? st.persisted() : Promise.resolve(false))
+      .then((already) => already || st.persist())
+      .catch(() => null);
+  }
+  function storageStatus() {
+    const st = navigator.storage;
+    const persisted = st && typeof st.persisted === "function" ? st.persisted().catch(() => null) : Promise.resolve(null);
+    const est = st && typeof st.estimate === "function" ? st.estimate().catch(() => null) : Promise.resolve(null);
+    return Promise.all([persisted, est]).then(([p, e]) => ({ persisted: p, usage: e && e.usage, quota: e && e.quota }));
+  }
+  function backupLastAt() { try { return +localStorage.getItem(BACKUP_AT_KEY) || 0; } catch (e) { return 0; } }
+  /* An import REPLACES this device's progress with the file's — the same install `applyProgress` does for
+     an account's saved progress on sign-in, so the per-review log and its sync mark are handled the one way
+     they are everywhere else. Settings are MERGED rather than replaced, so a backup taken before a setting
+     existed cannot unset it; `user`, and the device-local sync baseline (`_supaTs`, `_supaOwner`), are not
+     touched — a backup is somebody's study, not a record of which account this browser is signed into.
+     When signed in, the ordinary save pushes the imported progress to the account, which is the point of
+     restoring it. */
+  // checked BEFORE the reader is asked to confirm, so a wrong file is refused rather than offered
+  function parseBackup(text) {
+    let data;
+    try { data = JSON.parse(text); } catch (e) { return { error: "That file is not a Folio backup — it could not be read as JSON." }; }
+    if (!data || typeof data !== "object" || Array.isArray(data) || !data.cards || typeof data.cards !== "object" || Array.isArray(data.cards)) {
+      return { error: "That file is not a Folio backup — it has no study record in it." };
+    }
+    return { data };
+  }
+  function importBackup(data) {
+    applyProgress(data);
+    if (data.settings && typeof data.settings === "object" && !Array.isArray(data.settings)) S.settings = Object.assign({}, S.settings, data.settings);
+    uCacheBust();
+    save();
+    return { ok: true, cards: Object.keys(S.cards || {}).length };
+  }
+
   PAGES.settings = function (root) {
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
     const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
@@ -47499,8 +47590,18 @@ let prev = null;
             <div class="ctl"><div class="switch ${lightMode() ? "on" : ""}" id="sw-lightdata" role="switch" aria-label="Use less data" tabindex="0" aria-checked="${lightMode()}"></div></div>
           </div>
           <div class="set-row">
-            <div class="info"><h3>Export data</h3><p>Download your progress as a JSON backup.</p></div>
+            <div class="info"><h3>Where your progress lives</h3><p id="dataWhere">${guestNow()
+              ? "Only in this browser, on this device — you are not signed in, so nothing is copied anywhere else. Sign in, or download a backup now and then."
+              : "In this browser, and synced to your account, so another device signed in as you picks it up."}</p><p class="set-sub" id="dataStore">Checking this browser\u2019s storage\u2026</p></div>
+            <div class="ctl"><button class="btn ghost" id="persistAsk" hidden>Keep it</button></div>
+          </div>
+          <div class="set-row">
+            <div class="info"><h3>Back up</h3><p>Download your progress — every card's schedule, your streak, badges, artefacts and settings — as one file you can restore later.</p><p class="set-sub" id="backupWhen">${backupLastAt() ? "Last downloaded on this device " + esc(new Date(backupLastAt()).toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })) + "." : "No backup has been downloaded on this device yet."}</p></div>
             <div class="ctl"><button class="btn ghost" id="export">Export</button></div>
+          </div>
+          <div class="set-row">
+            <div class="info"><h3>Restore a backup</h3><p>Replace the progress on this device with a backup file. Your settings are merged; nothing else on this device is touched.</p></div>
+            <div class="ctl"><button class="btn ghost" id="importBtn">Import…</button><input type="file" id="importFile" accept="application/json,.json" hidden></div>
           </div>
         </div>
         <div class="set-card danger">
@@ -47690,11 +47791,51 @@ let prev = null;
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "folio-progress.json";
+      // dated, so a folder of them sorts and a reader can tell which is newest without opening one
+      a.download = "folio-progress-" + new Date().toISOString().slice(0, 10) + ".json";
       a.click();
       URL.revokeObjectURL(url);
+      try { localStorage.setItem(BACKUP_AT_KEY, String(Date.now())); } catch (e) {}
+      const bw = root.querySelector("#backupWhen");
+      if (bw) bw.textContent = "Last downloaded on this device " + new Date().toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }) + ".";
       toast("Backup downloaded");
     });
+    {
+      const ib = root.querySelector("#importBtn"), inp = root.querySelector("#importFile");
+      if (ib && inp) {
+        ib.addEventListener("click", () => inp.click());
+        inp.addEventListener("change", () => {
+          const f = inp.files && inp.files[0];
+          inp.value = "";
+          if (!f) return;
+          f.text().then((text) => {
+            const pb = parseBackup(text);
+            if (pb.error) { toast(pb.error, 5000); return; }
+            inlineConfirm("Replace the progress on this device with \u201c" + f.name + "\u201d? Your current study history here is overwritten" + (guestNow() ? "" : ", and the restored progress is synced to your account") + ". Download a backup first if you might want it back.", () => {
+              const r = importBackup(pb.data);
+              toast("Backup restored \u2014 " + r.cards + " card" + (r.cards === 1 ? "" : "s") + " with a study record");
+              render();
+            }, "Restore");
+          }).catch(() => toast("That file could not be read.", 5000));
+        });
+      }
+      // what the browser says about this site's storage — filled in when it answers
+      const ds = root.querySelector("#dataStore"), pa = root.querySelector("#persistAsk");
+      const paint = () => storageStatus().then((st) => {
+        if (!ds || !root.isConnected) return;
+        const parts = [];
+        if (st.persisted === true) parts.push("This browser has agreed to keep Folio\u2019s storage.");
+        else if (st.persisted === false) parts.push("This browser may clear Folio\u2019s storage if it runs short of space.");
+        if (st.usage > 0) parts.push("Folio is using " + (st.usage >= 1048576 ? (st.usage / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(st.usage / 1024)) + " KB") + " here.");
+        ds.textContent = parts.join(" ") || "This browser does not say how it treats Folio\u2019s storage.";
+        if (pa) pa.hidden = st.persisted !== false || !(navigator.storage && navigator.storage.persist);
+      });
+      paint();
+      if (pa) pa.addEventListener("click", () => storagePersistAsk(true).then((ok) => {
+        toast(ok ? "The browser will keep Folio\u2019s storage" : "The browser declined \u2014 a backup is the safe answer", 4000);
+        paint();
+      }));
+    }
   };
 
   /* ============================================================
@@ -51280,6 +51421,25 @@ let prev = null;
     e.preventDefault();
     route("search");
   });
+  /* …AND CTRL/CMD+K, THE OTHER ONE (Oct 2026, out of an outside review). It is the shortcut most readers
+     try first, so it is the same door as `/`. Unlike `/` it fires from INSIDE a text field too — a
+     modifier chord cannot be a character the reader meant to type — except in a contenteditable, where
+     the admin editor's ribbon and the browser's own rich-text keys may want it. Over an overlay it
+     yields, for `/`'s reason. On the search page it puts the caret back in the search box rather than
+     re-rendering the page under a half-typed query. */
+  document.addEventListener("keydown", (e) => {
+    if (!(e.ctrlKey || e.metaKey) || e.altKey || e.shiftKey || String(e.key).toLowerCase() !== "k") return;
+    const t = e.target;
+    if (t && t.isContentEditable) return;
+    if (typeof overlayOpen === "function" && overlayOpen()) return;
+    e.preventDefault();
+    if (current && current.name === "search") {
+      const box = document.getElementById("srchInput");
+      if (box) { box.focus(); box.select && box.select(); }
+      return;
+    }
+    route("search");
+  });
   /* ---------- ? — THE KEYS, WHEREVER YOU ARE (Sep 2026) ----------
      The study page has documented its own keys in the grade bar's `?` bubble since it shipped and the
      Atlas its click drill-down in its coach marks; the card browser, the Library, the reader and the
@@ -51290,7 +51450,7 @@ let prev = null;
      is only true of some. The guards are `/`'s exactly, one line down, and for the same reasons.
      ON A PHONE IT IS UNREACHABLE AND THAT IS FINE: there is no keyboard to describe. */
   const KEY_SHEET = {
-    "": [["/", "Search everything"], ["?", "This list"], ["Esc", "Close whatever is open"]],
+    "": [["/", "Search everything"], ["Ctrl + K", "Search everything, from anywhere"], ["?", "This list"], ["Esc", "Close whatever is open"]],
     study: [["Space", "Reveal the answer"], ["1 – 4", "Again, Hard, Good, Easy"], ["Enter", "Good"],
             ["I", "This card's history and actions"], ["Ctrl + Z", "Take the last grade back"],
             ["Ctrl + 1 – 7", "Flag this card"]],
@@ -51409,6 +51569,7 @@ let prev = null;
      warm still gets both: openGlossWin re-fills its picture and Sources slots when the file lands.
      Skipped under Save-Data, like the mini globe was. */
   whenIdle(() => { if (!lightMode()) ensureData("glossExtra"); });
+  whenIdle(() => { storagePersistAsk(false); });   // see KEEPING THE READER'S DATA
   /* …and the heavy half of the cards in the collections this reader actually studies. Per
      collection, so a reader with two decks warms two files and a reader with none warms nothing
      — see CARD_EXTRA_FIELDS. A reader who opens a card before the warm lands simply waits for
