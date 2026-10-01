@@ -4051,6 +4051,7 @@
     if (i >= 0) glossWins.splice(i, 1);
     persistGlossOpen();
     syncGlossScrim();
+    if (!glossWins.length && _achPending.length && !tourRunning()) setTimeout(() => { if (!glossWins.length && _achPending.length && !tourRunning()) openAchPop(_achPending.splice(0)); }, animate ? 240 : 0);
     if (animate) {
       win.classList.add("closing");
       win.classList.remove("show");
@@ -45771,7 +45772,9 @@ let prev = null;
   }
   function openAchPop(list, fromTour) {
     if (!list || !list.length) return;
-    if (_chestClose || _achClose) { _achPending = _achPending.concat(list); return; }
+    /* A badge earned while a glossary window is open (the first term a reader ever opens earns one) WAITS
+       for the last of them to close, rather than covering the definition they came to read. */
+    if (_chestClose || _achClose || glossWins.length) { _achPending = _achPending.concat(list); return; }
     sfx("win");
     const ov = document.createElement("div");
     ov.className = "ach-pop";
