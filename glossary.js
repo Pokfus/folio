@@ -4888,7 +4888,12 @@ window.GLOSSARY = {
 "Siege_of_Leningrad": "The Siege of Leningrad was the blockade of the Soviet city of Leningrad, now Saint Petersburg, by German and Finnish forces from 8 September 1941 to 27 January 1944.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Cut off except across Lake Ladoga and by air, the city starved, and from November 1941 most civilians received only 125 grams of bread a day and manual workers 250.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A Soviet commission counted 632,253 deaths from hunger, most of them in the first winter, and a land corridor reached the city in January 1943, though the blockade was broken for good only in January 1944.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Stalingrad": "The Battle of Stalingrad was fought between Germany and its allies and the Soviet Union for the city of Stalingrad on the lower Volga from the summer of 1942 to February 1943, during the German offensive towards the oil of the Caucasus.<sup class=\"fn\" data-fn=\"1\"></sup> After months of house-to-house fighting, a Soviet counter-offensive launched on 19 November 1942 encircled the German Sixth Army, whose commander Friedrich Paulus surrendered on 31 January 1943, with the last troops giving up on 2 February.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The defeat ended a run of German victories, began the long German retreat westward and became the most famous symbol of the turn of the war in the east.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Attack_on_Pearl_Harbor": "The attack on Pearl Harbor was the surprise raid by Japanese carrier aircraft on the United States Pacific Fleet at its base on Oahu, Hawaii, on 7 December 1941, which brought the United States into the Second World War.<sup class=\"fn\" data-fn=\"1\"></sup> Planned to put the fleet out of action while Japan seized Southeast Asia, it sank or badly damaged all eight battleships in the harbour and killed 2,402 servicemen and civilians.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The fleet's carriers were at sea and its oil tanks survived, and Congress declared war on Japan the next day, after Roosevelt called 7 December a date which will live in infamy.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Pacific_War": "The Pacific War was the war fought from December 1941 to September 1945 between Japan and the Allied powers, above all the United States, the British Empire and China, across East and Southeast Asia and the Pacific Ocean.<sup class=\"fn\" data-fn=\"1\"></sup> Japan, whose government called it the Greater East Asia War, conquered Malaya, Singapore, the Philippines, Burma and the Netherlands Indies within months, but lost the initiative after defeat at Midway in June 1942.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It ended after the atomic bombings of Hiroshima and Nagasaki and the Soviet attack in Manchuria, with Japan's surrender signed in Tokyo Bay on 2 September 1945.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Pacific_War": "The Pacific War was the war fought from December 1941 to September 1945 between Japan and the Allied powers, above all the United States, the British Empire and China, across East and Southeast Asia and the Pacific Ocean.<sup class=\"fn\" data-fn=\"1\"></sup> Japan, whose government called it the Greater East Asia War, conquered Malaya, Singapore, the Philippines, Burma and the Netherlands Indies within months, but lost the initiative after defeat at Midway in June 1942.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It ended after the atomic bombings of Hiroshima and Nagasaki and the Soviet attack in Manchuria, with Japan's surrender signed in Tokyo Bay on 2 September 1945.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Midway": "The Battle of Midway was a naval and air battle fought around Midway Atoll in the central Pacific between 3 and 7 June 1942, in which American forces defeated a Japanese attempt to seize the island.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Forewarned by codebreakers, three American carriers surprised the Japanese striking force on 4 June, and their dive-bombers wrecked all four of its fleet carriers for the loss of the carrier <i>Yorktown</i>.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The loss of the carriers and many trained pilots ended Japan’s eastward expansion, and a postwar American survey called it perhaps the decisive battle of the war.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"North_African_campaign": "The North African campaign was the fighting between the Axis powers and the British Empire and its allies across Egypt, Libya and French North Africa from June 1940 to May 1943.<sup class=\"fn\" data-fn=\"1\"></sup> It began with an Italian invasion of Egypt from Libya, drew in German forces under Rommel in 1941 and swung back and forth along the coast until the British victory at El Alamein and the Anglo-American landings in Morocco and Algeria in November 1942.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Axis armies, trapped in Tunisia, surrendered on 13 May 1943, and counts of the prisoners taken range from about 240,000 to about 275,000.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Second_Battle_of_El_Alamein": "The Second Battle of El Alamein was fought near Egypt’s western frontier between 23 October and 4 November 1942, when the British Eighth Army under Bernard Montgomery defeated the German and Italian army commanded by Erwin Rommel.<sup class=\"fn\" data-fn=\"1\"></sup> After a long build-up that gave the British a large superiority in men, tanks and guns, the attack cleared lanes through deep minefields and wore down the Axis infantry until a final assault broke through.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The victory drove the Axis out of Egypt and was the British Army’s first clear and lasting success against it, though its fame as a turning point of the whole war is disputed.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"The_Holocaust": "The Holocaust was the systematic, state-sponsored persecution and murder of six million European Jews by Nazi Germany and its allies and collaborators between 1933 and 1945, also known by the Hebrew word Shoah.<sup class=\"fn\" data-fn=\"1\"></sup> Persecution by law and violence in Germany after 1933 became mass murder after the invasion of the Soviet Union in 1941, carried out above all in mass shootings and in five killing centres built in occupied Poland.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Nazi Germany and its allies also murdered millions of non-Jewish victims, among them Soviet prisoners of war, non-Jewish Polish civilians, Roma, people with disabilities and political opponents.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Auschwitz_concentration_camp": "Auschwitz was the largest Nazi German concentration camp, a complex built from 1940 on the edge of the town of Oświęcim in German-occupied Poland, and the only one that also contained a killing centre, at Birkenau.<sup class=\"fn\" data-fn=\"1\"></sup> Almost 1.1 million Jews were deported there from across Europe, most of them murdered in gas chambers on arrival, and about 1.1 million people in all were killed there, roughly one million of them Jews.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Soviet troops reached the camp on 27 January 1945, and the site became a Polish state museum by act of parliament in July 1947.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7545,7 +7550,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Siege_of_Leningrad": "1941–1944",
 "Battle_of_Stalingrad": "1942–1943",
 "Attack_on_Pearl_Harbor": "1941",
-"Pacific_War": "1941–1945"
+"Pacific_War": "1941–1945",
+"Battle_of_Midway": "1942",
+"North_African_campaign": "1940–1943",
+"Second_Battle_of_El_Alamein": "1942",
+"The_Holocaust": "1933–1945",
+"Auschwitz_concentration_camp": "1940–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10329,7 +10339,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "The_Blitz": ["Blitz"],
 "Battle_of_Stalingrad": ["Stalingrad"],
 "Attack_on_Pearl_Harbor": ["attack on Pearl Harbor","Pearl Harbor attack"],
-"Pacific_War": ["Greater East Asia War","Asia-Pacific War"]
+"Pacific_War": ["Greater East Asia War","Asia-Pacific War"],
+"Battle_of_Midway": ["Midway"],
+"North_African_campaign": ["Desert War","Western Desert campaign"],
+"Second_Battle_of_El_Alamein": ["El Alamein","Battle of El Alamein","Second Alamein"],
+"The_Holocaust": ["Holocaust","Shoah"],
+"Auschwitz_concentration_camp": ["Auschwitz","Auschwitz-Birkenau"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15271,7 +15286,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Siege_of_Leningrad": ["event","history","warfare","second world war","russia","famine"],
 "Battle_of_Stalingrad": ["battle","history","warfare","second world war","russia","germany"],
 "Attack_on_Pearl_Harbor": ["battle","history","warfare","second world war","united states","japan"],
-"Pacific_War": ["war","history","warfare","second world war","japan","united states"]
+"Pacific_War": ["war","history","warfare","second world war","japan","united states"],
+"Battle_of_Midway": ["battle","history","warfare","japan","united states"],
+"North_African_campaign": ["war","history","warfare","africa","britain"],
+"Second_Battle_of_El_Alamein": ["battle","history","warfare","egypt","britain"],
+"The_Holocaust": ["event","history","genocide","germany","europe"],
+"Auschwitz_concentration_camp": ["place","history","genocide","poland","germany"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
