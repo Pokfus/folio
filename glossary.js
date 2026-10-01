@@ -4854,7 +4854,12 @@ window.GLOSSARY = {
 "World's_fair": "A world's fair is a large international exhibition at which many countries display their industries, inventions, arts and resources, and the series is usually traced to the Great Exhibition of 1851, staged in London's Crystal Palace.<sup class=\"fn\" data-fn=\"1\"></sup> Later fairs in Paris, Vienna, Philadelphia and Chicago drew millions of visitors, the Paris fair of 1889 and the Chicago fair of 1893 receiving roughly 28 million each.<sup class=\"fn\" data-fn=\"1\"></sup> Many fairs before 1914 also put living people from colonised and other non-Western societies on show in reconstructed villages, presenting them as earlier stages of human development.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Great_power": "A great power is a state strong enough to take part in settling the main questions of international politics rather than only those of its own region.<sup class=\"fn\" data-fn=\"1\"></sup> The modern use of the term goes back to the settlement after the Napoleonic Wars, when Britain, Russia, Austria and Prussia, joined by France in 1818, formed a Pentarchy that took it upon itself to solve the problems of smaller states.<sup class=\"fn\" data-fn=\"1\"></sup> By 1914 the circle also included Germany, Italy, Austria-Hungary, the United States and Japan, and rivalry among them had divided Europe's powers into the Triple Alliance and the Triple Entente.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "American_entry_into_World_War_I": "American entry into the First World War came on 6 April 1917, when the United States went to war with Germany after a period of neutrality in which American bankers had lent the Allies over $2 billion.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> President Woodrow Wilson asked Congress for war on 2 April, citing Germany’s return to unrestricted submarine warfare and its attempt to win Mexico as an ally in a war on the United States.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The country put more than 4 million men into its army, nearly three-quarters of them by conscription, and sent 2 million soldiers to France before the armistice of November 1918.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Spanish_flu": "The Spanish flu was the influenza pandemic of 1918 and 1919, the worst outbreak of disease in modern history, which spread around the world in three waves and killed some 50 million people, although estimates vary widely.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An H1N1 influenza virus caused it, and it was especially deadly for young adults aged about 20 to 40, a pattern not recorded in other influenza outbreaks.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its name came from neutral Spain, where the press was not censored during the First World War and reported the outbreak openly, not from any evidence that the disease had begun there.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Spanish_flu": "The Spanish flu was the influenza pandemic of 1918 and 1919, the worst outbreak of disease in modern history, which spread around the world in three waves and killed some 50 million people, although estimates vary widely.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An H1N1 influenza virus caused it, and it was especially deadly for young adults aged about 20 to 40, a pattern not recorded in other influenza outbreaks.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its name came from neutral Spain, where the press was not censored during the First World War and reported the outbreak openly, not from any evidence that the disease had begun there.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Russian_Revolution": "The Russian Revolution was the pair of revolutions of 1917 in Russia, the first of which, in February by the Old Style calendar then in use, brought down the Romanov monarchy and left power to a Provisional Government and the Petrograd Soviet.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> As the war went on and the country radicalised, Lenin’s Bolsheviks won a majority in the Petrograd Soviet, and in October its Military Revolutionary Committee seized power and arrested the ministers.<sup class=\"fn\" data-fn=\"1\"></sup> When the Constituent Assembly elected that autumn met in January 1918, the new Soviet government dissolved it after a single session, and civil war followed.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Vladimir_Lenin": "Vladimir Lenin, born Vladimir Ulyanov at Simbirsk in 1870, was a Russian Marxist revolutionary who developed a theory of the revolutionary party and founded and led the Bolshevik party.<sup class=\"fn\" data-fn=\"1\"></sup> After the February Revolution of 1917 he returned to Russia, led the Bolsheviks to power in October and headed the Soviet government, which made a separate peace with Germany and held power through repression and terror.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> In 1921 he introduced the New Economic Policy, and after a series of strokes he died near Moscow on 21 January 1924, after which his successors made him the centre of a political cult.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Bolsheviks": "The Bolsheviks were the radical faction of the Russian Social Democratic Labour Party led by Lenin, named from the Russian word for ‘majority’ after the votes they won at the second party congress in 1903, when their opponents became the Mensheviks.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They organised as a separate party from 1912, set themselves the goal of taking power at their congress of July 1917 and seized it in the October Revolution.<sup class=\"fn\" data-fn=\"3\"></sup> In March 1918 they took the name Russian Communist Party, and by 1921 theirs was the only legal party in Soviet Russia, the forerunner of the Communist Party of the Soviet Union.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Russian_Civil_War": "The Russian Civil War was the series of conflicts fought across the former Russian Empire from late 1917 to about 1921, in which the Bolsheviks’ Red Army defeated the White armies, other revolutionary parties, independence movements and rebellious peasants.<sup class=\"fn\" data-fn=\"1\"></sup> Foreign powers intervened, both camps used terror against civilians, and many armed groups carried out pogroms against Jews, the worst of them in Ukraine.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Fighting, epidemics and famine killed millions of people across the former empire, and the war ended with a restored central state in which the Communist Party was the only legal party.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Soviet_Union": "The Soviet Union, formally the Union of Soviet Socialist Republics or USSR, was a communist federal state founded on 30 December 1922 by a treaty joining the Soviet republics of Russia, Ukraine, Belorussia and Transcaucasia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its founding documents promised each republic the right to secede, but power lay with the Communist Party, and the union came to include 15 republics on the lands of the former Russian Empire.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> After more than 40 years as the chief rival of the United States, it broke up after a failed coup in August 1991 and was formally dissolved in December 1991.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7484,7 +7489,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Young_Turk_Revolution": "1908",
 "Transatlantic_telegraph_cable": "1858–1866",
 "American_entry_into_World_War_I": "1917",
-"Spanish_flu": "1918–1919"
+"Spanish_flu": "1918–1919",
+"Russian_Revolution": "1917",
+"Vladimir_Lenin": "1870–1924",
+"Russian_Civil_War": "1917–1921",
+"Soviet_Union": "1922–1991"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10248,7 +10257,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sykes–Picot_Agreement": ["Sykes-Picot Agreement"],
 "Lei_Áurea": ["Golden Law"],
 "Chulalongkorn": ["Rama V"],
-"American_entry_into_World_War_I": ["American entry into the First World War"]
+"American_entry_into_World_War_I": ["American entry into the First World War"],
+"Vladimir_Lenin": ["Lenin"],
+"Bolsheviks": ["Bolshevik"],
+"Soviet_Union": ["USSR"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15156,7 +15168,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "World's_fair": ["event","history","technology","economics"],
 "Great_power": ["concept","history","politics","diplomacy"],
 "American_entry_into_World_War_I": ["event","history","warfare","diplomacy","united states","20th century"],
-"Spanish_flu": ["event","history","medicine","society","20th century"]
+"Spanish_flu": ["event","history","medicine","society","20th century"],
+"Russian_Revolution": ["event","history","politics","revolution","russia","20th century"],
+"Vladimir_Lenin": ["person","history","politics","revolution","russia","20th century"],
+"Bolsheviks": ["party","history","politics","revolution","russia","20th century"],
+"Russian_Civil_War": ["war","history","warfare","politics","russia","20th century"],
+"Soviet_Union": ["state","history","politics","communism","russia","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
