@@ -222,7 +222,7 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
     const page = await browser.newPage();
     const errs = watchErrors(page);
     const clearOverlays = () => page.evaluate(() => {
-      document.querySelectorAll(".levelup-pop, .chest-pop, .chest-ov, .page-help, .folio-tour").forEach((e) => e.remove());
+      document.querySelectorAll(".levelup-pop, .chest-pop, .chest-ov, .ach-pop, .page-help, .folio-tour").forEach((e) => e.remove());
     });
     /* Seeding has to land on the HOME page, and that is not automatic: a study session survives a
        reload (see STUDY_KEY), so reloading while the hash is still `#study` resumes the session instead

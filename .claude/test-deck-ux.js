@@ -89,6 +89,7 @@ const deck = {
   const base = "http://127.0.0.1:" + server.address().port + "/index.html";
   const b = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
   const pg = await b.newPage();
+  const noBadge = async () => { if (await pg.$(".ach-pop")) { await pg.click('.ach-pop [data-act="later"]'); await pg.waitForTimeout(150); } };
   await pg.setViewportSize({ width: 1280, height: 900 });
   const errs = [];
   pg.on("pageerror", (e) => errs.push(String(e)));
@@ -186,9 +187,12 @@ const deck = {
     await pg.waitForTimeout(150);
   };
   // move to the next card and reveal it, which is a fresh cardTypeSideHTML
+  /* A reader's first graded card earns a badge, which since Sep 2026 is a centred overlay (openAchPop) over
+     the next card — keep its chest for later, as a reader who wants to go on studying would. */
   const nextCard = async () => {
     await pg.click(".grade.good");
     await pg.waitForTimeout(500);
+    await noBadge();
     await pg.click("#reveal-btn");
     await pg.waitForTimeout(350);
   };
@@ -505,6 +509,7 @@ const deck = {
          the session, so the queue never empties and the placard never appears. Easy graduates it. */
       await pg.click(".grade.easy");
       await pg.waitForTimeout(450);
+      await noBadge();
     }
     /* THE PLACARD IS REACHED THE WAY THE READER REACHES IT — "Keep studying" on the completion screen,
        which is the phrase in the bug report. The cram branch runs when a session is BUILT with an empty
