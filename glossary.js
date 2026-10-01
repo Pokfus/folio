@@ -4849,7 +4849,12 @@ window.GLOSSARY = {
 "Roman_army": "The Roman army was the land force of the Roman state from its early centuries to late antiquity, passing from an early militia and the manipular legion through the regular army of the late Republic to a standing army under the emperors and the changed forces of the 3rd to 5th centuries CE.<sup class=\"fn\" data-fn=\"1\"></sup> Augustus made it permanent, stationing legions and auxiliaries in the provinces and fixing pay, length of service and discharge rewards for every rank.<sup class=\"fn\" data-fn=\"2\"></sup> By the 4th century it was divided between mobile field troops and frontier troops, whom a law of 325 ranked differently in their privileges.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Cohort_(military_unit)": "A cohort, in Latin <i>cohors</i>, was a Roman infantry unit of several hundred men, which Polybius, describing the battle of Ilipa in 206 BCE, defines as a body of three maniples.<sup class=\"fn\" data-fn=\"1\"></sup> From the late Republic a legion was made up of ten cohorts of roughly 480 men, and under the emperors the guard at Rome was organised in cohorts as well, Tacitus counting nine praetorian and three city cohorts in 23 CE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Much of the auxiliary infantry also served in cohorts, at first sometimes named after their commanders and later after the peoples or provinces that supplied them.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Centurion": "A centurion was an officer of the Roman army who commanded a company of foot soldiers, a legion having sixty of them in Polybius’s description, two to each maniple.<sup class=\"fn\" data-fn=\"1\"></sup> Chosen by the tribunes for steadiness rather than daring, centurions kept discipline and stood between the senior officers and the ranks, and the vine-stick was the badge of their rank.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In the imperial army they also served as police and administrators, were paid far more than their men, and the senior post of primus pilus could lead a few of them to higher command.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Roman_army_of_the_late_Republic": "The Roman army of the late Republic was the citizen army of the last century or so of the Roman Republic, whose legions were organised in ten cohorts of roughly 480 men rather than in lines of maniples.<sup class=\"fn\" data-fn=\"1\"></sup> The change is traditionally credited to Gaius Marius, but it has been argued that it grew out of the way Italian allies were organised and deployed in cohorts during the 2nd and 1st centuries BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Older accounts made it an army of landless volunteers, yet the evidence shows that most of its soldiers were still raised by conscription and that many came from the propertied classes.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Roman_army_of_the_late_Republic": "The Roman army of the late Republic was the citizen army of the last century or so of the Roman Republic, whose legions were organised in ten cohorts of roughly 480 men rather than in lines of maniples.<sup class=\"fn\" data-fn=\"1\"></sup> The change is traditionally credited to Gaius Marius, but it has been argued that it grew out of the way Italian allies were organised and deployed in cohorts during the 2nd and 1st centuries BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Older accounts made it an army of landless volunteers, yet the evidence shows that most of its soldiers were still raised by conscription and that many came from the propertied classes.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Galea_(helmet)": "The galea was the helmet of the Roman soldier, and its shape changed many times over the centuries in which Roman armies wore it, giving modern scholars a series of types named after find-spots.<sup class=\"fn\" data-fn=\"3\"></sup> Ancient grammarians said that the galea was properly made of leather and the cassis of metal plate, though Latin writers used the two words for helmets of bronze and iron alike.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Polybius describes a brass helmet crowned with tall upright feathers, while Vegetius recalls centurions wearing crests set crosswise so that their men could find them in battle.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Caligae": "Caligae were the heavy leather boots of Roman soldiers, worn by the rank and file and by centurions but not by senior officers, with soles thickly studded with iron hobnails.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The boot came to stand for the common soldier, so that the rank and file could be called caligati, and a man who rose to high office from the caliga had begun his career in the ranks.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers mention the nails as a hazard, from Josephus's centurion slipping on a marble pavement at Jerusalem to Juvenal's soldier treading heavily on a civilian's toe in a crowded street.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Roman_military_standards": "Roman military standards were the poles and emblems that units of the Roman army followed in battle and on the march, called in Latin signa, with the eagle as the first and most important standard of the legion.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Standard-bearers were picked men, chosen for honesty and literacy, and Vegetius says they also kept the accounts of the soldiers' savings, which were deposited with the standards.<sup class=\"fn\" data-fn=\"2\"></sup> The standards were objects of worship, housed in a shrine in a permanent camp, and Romans held it a point of honour to keep them out of enemy hands.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Aquila_(Roman)": "The aquila was the eagle standard of a Roman legion, a golden eagle carried on a long shaft with a spike at its foot, kept in a small shrine and moved from winter quarters only when the whole army marched.<sup class=\"fn\" data-fn=\"2\"></sup> Pliny says that the eagle had been one of five animal standards until Marius, in his second consulship, abolished the others and made it the legions' sole emblem.<sup class=\"fn\" data-fn=\"1\"></sup> Tacitus describes the recovery of an eagle lost with Varus from a grove in Germania, and has Germanicus hail real eagles in flight as the guardian spirits of the legions.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Vexillum": "The vexillum was a Roman military flag of cloth carried on a pole, its name a diminutive of the Latin velum, and in particular the red flag raised on a general's tent as the signal for marching or battle.<sup class=\"fn\" data-fn=\"1\"></sup> The word could also mean the company or troop of men serving under such a flag, and late Roman cavalry units were called vexillationes after their cloth banners.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Under Augustus legionary veterans kept on after discharge served under a vexillum of their own, spared routine duties but bound to help repel an enemy.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10249,7 +10254,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ala_(Roman_cavalry_unit)": ["ala","alae"],
 "Cohortes_urbanae": ["urban cohorts","urban cohort","city cohorts"],
 "Cohort_(military_unit)": ["Cohort"],
-"Roman_army_of_the_late_Republic": ["cohortal legion"]
+"Roman_army_of_the_late_Republic": ["cohortal legion"],
+"Galea_(helmet)": ["galea"],
+"Caligae": ["caliga"],
+"Roman_military_standards": ["signum"],
+"Aquila_(Roman)": ["aquila"],
+"Vexillum": ["vexilla"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10304,7 +10314,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "The_City_of_God": true,
 "Gothic_War_(535–554)": true,
 "Ala_(Roman_cavalry_unit)": true,
-"Cohort_(military_unit)": true
+"Cohort_(military_unit)": true,
+"Aquila_(Roman)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -15157,7 +15168,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Roman_army": ["institution","warfare","history","rome","classical"],
 "Cohort_(military_unit)": ["institution","warfare","history","rome","classical"],
 "Centurion": ["title","warfare","history","rome","classical"],
-"Roman_army_of_the_late_Republic": ["institution","warfare","history","rome","classical","republic"]
+"Roman_army_of_the_late_Republic": ["institution","warfare","history","rome","classical","republic"],
+"Galea_(helmet)": ["object","warfare","history","rome","italy","classical"],
+"Caligae": ["object","warfare","history","rome","italy","classical"],
+"Roman_military_standards": ["object","warfare","religion","history","rome"],
+"Aquila_(Roman)": ["object","warfare","religion","history","rome"],
+"Vexillum": ["object","warfare","history","rome","italy","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
