@@ -188,16 +188,16 @@ one changelog line and a version bump; commit and push.
 | B16 | Early Iron Age (`gr-iron`) | `gr-141`–`gr-150` | 10 | **done 2026-10-02** |
 | B17 | Early Iron Age (`gr-iron`) | `gr-151`–`gr-160` | 10 | **done 2026-10-02** |
 | B18 | Early Iron Age (`gr-iron`) | `gr-161`–`gr-170` | 10 | **done 2026-10-02** |
-| B19 | Polis and colonisation (`gr-polis`) | `gr-171`–`gr-180` | 10 | open |
-| B20 | Polis and colonisation (`gr-polis`) | `gr-181`–`gr-190` | 10 | open |
-| B21 | Polis and colonisation (`gr-polis`) | `gr-191`–`gr-200` | 10 | open |
-| B22 | Polis and colonisation (`gr-polis`) | `gr-201`–`gr-210` | 10 | open |
-| B23 | Polis and colonisation (`gr-polis`) | `gr-211`–`gr-220` | 10 | open |
-| B24 | Polis and colonisation (`gr-polis`) | `gr-221`–`gr-230` | 10 | open |
-| B25 | Sparta (`gr-sparta`) | `gr-231`–`gr-240` | 10 | open |
-| B26 | Sparta (`gr-sparta`) | `gr-241`–`gr-250` | 10 | open |
-| B27 | Sparta (`gr-sparta`) | `gr-251`–`gr-260` | 10 | open |
-| B28 | Sparta (`gr-sparta`) | `gr-261`–`gr-270` | 10 | open |
+| B19 | Polis and colonisation (`gr-polis`) | `gr-171`–`gr-180` | 10 | **done 2026-10-02** |
+| B20 | Polis and colonisation (`gr-polis`) | `gr-181`–`gr-190` | 10 | **done 2026-10-02** |
+| B21 | Polis and colonisation (`gr-polis`) | `gr-191`–`gr-200` | 10 | **done 2026-10-02** |
+| B22 | Polis and colonisation (`gr-polis`) | `gr-201`–`gr-210` | 10 | **done 2026-10-02** |
+| B23 | Polis and colonisation (`gr-polis`) | `gr-211`–`gr-220` | 10 | **done 2026-10-02** |
+| B24 | Polis and colonisation (`gr-polis`) | `gr-221`–`gr-230` | 10 | **done 2026-10-02** |
+| B25 | Sparta (`gr-sparta`) | `gr-231`–`gr-240` | 10 | **done 2026-10-02** |
+| B26 | Sparta (`gr-sparta`) | `gr-241`–`gr-250` | 10 | **done 2026-10-02** |
+| B27 | Sparta (`gr-sparta`) | `gr-251`–`gr-260` | 10 | **done 2026-10-02** |
+| B28 | Sparta (`gr-sparta`) | `gr-261`–`gr-270` | 10 | **done 2026-10-02** |
 | B29 | Sparta (`gr-sparta`) | `gr-271`–`gr-275` | 5 | open |
 | B30 | Athens (`gr-athens`) | `gr-276`–`gr-285` | 10 | open |
 | B31 | Athens (`gr-athens`) | `gr-286`–`gr-295` | 10 | open |
@@ -986,3 +986,185 @@ finds):
 **Chronology.** Rows and pins for every date the 35 cards print. The section is now headed as
 confirmed through `gr-170`. Flores's 7th-century *Works and Days* and Waal's 11th-century alphabet are
 recorded as minority views that the cards give in prose only.
+
+### B19–B28 — `gr-171`–`gr-270`, Polis and colonisation and Sparta (2026-10-02)
+
+A hundred cards: the whole `gr-polis` deck (`gr-171`–`gr-230`) and the first forty of `gr-sparta`
+(`gr-231`–`gr-270`). `gr-271`–`gr-275` (B29) are not yet done. **First, B15–B18 was checked:**
+`greece-audit.js --range=gr-101:gr-170` showed only the known leftovers. `gr-122` cist grave now has a
+picture, a jar from an 11th-century BCE cist grave on Salamis. `gr-115`, `gr-139` and `gr-169` still have
+none.
+
+Method: as B15–B18. Twenty research agents drafted five cards each in the scratchpad, with a saved copy of
+every source and one verbatim quote per marker. Six of them were cut off by a session limit and re-run. The
+same two checkers gated every patch: the quote verifier, and the lint wrapper that merges the patch, runs
+`greece-audit` and dry-runs `add-card.js --replace` in a sandbox. Every draft was then read by eye before
+it was written.
+
+Checks:
+- `greece-audit.js --range=gr-171:gr-270` finds nothing but missing pictures (27 cards, below), missing locators on
+  five cards (below) and 34 `S.chip?` flags.
+- Every flagged source's saved copy was word-counted. Each is English, with an English-word ratio of 0.25 –
+  0.38 (a German or Italian text scores near 0). The cards' real foreign sources carry their chips:
+  - Italian: De Rossi (`gr-171`), Di Fazio (`gr-179`), Muccioli (`gr-208`), Struffolino (`gr-222`),
+    Squillace (`gr-254`).
+  - German: Kleu (`gr-190`), Ghetta (`gr-242`).
+  - French: Lafond (`gr-235`, `gr-239`), Lévy (`gr-250`), Pontier (`gr-257`).
+  - Russian: Darvin (`gr-234`).
+- `check-citations --card` matches every checkable citation on all 100. `check-questions`, `check-docs`,
+  `split-cards --check` and `test-card-plans` pass.
+- `check-style` prints only its standing false alarms: the "A. D. Godley" era hits, also on main.
+- `check-cards --prefix=gr-` reports only the known `gr-598`/`gr-950` picture.
+- With all 100 patches merged together, `Q.sibling` fired on none of them.
+- All 524 distinct citation URLs answer 200 when re-curled (up to three tries each; a few OpenEdition and HAL pages answer only a plain curl User-Agent).
+
+**The date-line rules, applied across all 100:**
+- A row is a date. Counts went to the prose: "Members 30", "Number 5 a year", "Six morai", "Length 3 days",
+  "Number 300", "Cities 12", "Length about 1,040 m", "Works 5 books" and "Mess size about 15 men".
+- **Where a source gives only a century, the card says the century.** A review read on this run caught
+  rows that had turned a source's "8th century" or "second half of the 8th century" into "c. 800 –
+  700 BCE" or "c. 750 – 700 BCE" (`gr-180`, `gr-190`, `gr-195`, `gr-197`, `gr-203`, `gr-214`, `gr-218`,
+  `gr-219`, `gr-220`, `gr-231`, `gr-234`, `gr-235`, `gr-239`, `gr-196`).
+  - A line left with only centuries yields no sort year, so it is empty and the century stays in prose
+    (`gr-220`, `gr-232`, `gr-251`, `gr-254`, `gr-259`).
+- **Unsourced years removed:**
+  - `gr-171`: 650 – 600 (its only source answers 403).
+  - `gr-179`: "Dominant c. 700 – 500".
+  - `gr-180`: "Superseded 4th century".
+  - `gr-186`: "Age of tyrants c. 650 – 500".
+  - `gr-198`: "Fought c. 700 – 650".
+  - `gr-204`: "c. 750 – 550".
+  - `gr-211`: a century and a year mixed.
+  - Founding rows on `gr-209`, `gr-212`, `gr-213`, `gr-223`.
+  - `gr-228`: "complete by 573".
+  - `gr-230`, `gr-229`: "393 CE"; the games are now dated to Theodosius II, 408 – 450 CE, after Kennell's
+    review of Remijsen, who calls 393 baseless.
+  - `gr-232`: "c. 1000".
+  - `gr-235`: "c. 460".
+  - `gr-237`: "c. 635".
+  - `gr-238`: "633".
+  - `gr-240`: "7th century".
+  - "Attributed to Lycurgus, c. 700 BCE" on `gr-242`, `gr-250`, `gr-251` and `gr-252`.
+  - `gr-248`: "754 BCE".
+  - `gr-258`: "until c. 250".
+  - `gr-261`: "c. 900".
+  - `gr-263`: "c. 630".
+  - `gr-265`: "c. 550" and "366".
+  - `gr-266`: "556/555".
+  - `gr-268`: "c. 515 – 491".
+  - `gr-269`: "c. 550".
+- **`gr-234` carried the misreading the B15–B18 ledger flagged.** Its line said "In the genealogy by c. 700
+  BCE", where Larson's review says "perhaps as early as". It now reads "Earliest claim c. 700 BCE", as
+  `gr-155` does.
+- **Cyrene's 631 BCE** (`gr-206`, `gr-207`) rested on a bare "B. C. 631" in an 1854 translator's footnote. Both
+  cards now give Larson's "around 630 BCE", and Larson was added to `gr-207`.
+- **Lechaeum:** Hawkins gives 391 BCE, but Xenophon's Perseus edition and `gr-180` give 390. `gr-256` keeps
+  390.
+
+**Corrected in the old cards:**
+- **Wrong citations:**
+  - `gr-203`: Delp's volume was "ed. Lieve Donnellan"; its editors are Colombi and others.
+  - `gr-214`: Larson's review was credited as of "Massimo Nafissi and others"; the book is by Mait Kõiv.
+  - `gr-215`: the author is Margherita Catucci, not "Marina".
+  - `gr-222`: Struffolino's article is in Italian, on pp. 7–18.
+  - BMCR misprints Adolfo Domínguez as "Dominquez"; the cards spell him correctly.
+  - BMCR 2002.02.13 (`gr-231`) prints no reviewer, so that citation names none rather than a guessed one.
+- **Wrong facts:**
+  - `gr-171` called the Dreros law the first *text* to use the word polis (Homer has it); it is the first
+    inscription.
+  - `gr-210` and the glossary's `Acragas` said Acragas had no named founders; Thucydides 6.4 names
+    Aristonous and Pystilus.
+  - `gr-232` applied a four-zone *Lakonike* and an 8,000 km² territory that belong to Laconia *and* Messenia.
+  - `gr-185`'s 60 m mound and 230 objects came from a source behind a bot wall, and were cut.
+  - `gr-259`'s "cheesecakes given out instead" contradicts Gulick's Athenaeus.
+  - `gr-269`'s "the city lies further on" misread Pausanias.
+  - `gr-217`'s abstract carried three broken `+m[1]+` placeholders where Greek letters had been lost.
+  - `gr-179` had a claim contradicting `gr-363` (the symposium's Eastern origin).
+- **Sources dropped as unreachable, with the claims only they carried:** Carugati et al. (`gr-171`),
+  ascsa.net (`gr-189`), Pettegrew and Saitis (`gr-190`), Kuciak (`gr-192`), Parker's *Chiron* article
+  (`gr-236`–`gr-238`), Girard (`gr-247`), Kulesza's OAPEN copy (`gr-266`–`gr-270`; archive.org serves it to
+  the other Sparta cards), and every Wikisource citation (a Wikimedia site).
+- **Scope:**
+  - `gr-189` Corinth, `gr-208` Syracuse, `gr-215` Cumae, `gr-216` Massalia and `gr-231` Sparta now cover each
+    city's whole ancient history.
+  - `gr-223` Magna Graecia is the region, not single sites.
+  - `gr-224` is coinage in general and `gr-225` the Lydian coins.
+  - `gr-233` is the state and `gr-232` the region.
+  - `gr-234` is the kings' claim, not the myth (`gr-155`).
+  - `gr-245` is the institution and `gr-246` the two houses.
+- **Plan lines:** `gr-269` "Sparta and Croesus" → Thornax and `gr-270` "Sparta against the tyrants" → Socles,
+  the cards' actual subjects.
+
+**Read by eye, and changed in review:**
+- `gr-195`'s second answer repeated `gr-196`'s (a building inscription naming no builder, from the same
+  Vance chapter). It now asks about Argos's fourth tribe, and Vance left the card.
+- `gr-269`'s third question described the *other* Mount Thornax, near Hermione. It now asks about Pausanias's
+  version of Croesus's gold.
+- `gr-174`'s first answer asked why ancient writers call the agora the Kerameikos, which no source on the card
+  says. It now asks why its ground is called a potters' field.
+- `gr-201` placed the Panionion "in the Mycale"; it now says "on Mount Mycale".
+- `gr-176`'s "fought grouped by phyle" became "fought beside men of their own phyle".
+- Date-line values that carried commentary were split or cut: "…, on one view", ", at Cumae", "483 BCE or
+  482 BCE", "Fought, one view".
+- `gr-245`'s 17-character label became "Abolished".
+- `gr-181` (phalanx) and `gr-254` changed their `undatable` flags to match their date lines.
+- Edmonds's *Lyra Graeca* page numbers on `gr-263` came from an unchecked OCR and were dropped. The quotes
+  were read against the OCR text, which is clean.
+
+**Pictures.**
+- 73 of the 100 cards now carry one. Every picture has a description of what is shown, a visual alt and an
+  author-and-licence credit; nearly all of the 62 old pictures had carried a file name or a bare Commons URL instead.
+- **Replaced:**
+  - `gr-174`: the Stoa of Attalos at Athens (`gr-514`'s subject) → the agora of Thasos.
+  - `gr-180`: a phalanx amphora → a bronze hoplite statuette; the amphora moved to `gr-181`, replacing the
+    Sumerian Stele of the Vultures.
+  - `gr-185`: a detail → the whole Chigi vase.
+  - `gr-190`: an ISS photograph of the Isthmus → the excavated Diolkos.
+  - `gr-195`: Coronelli's printed plan of 1688 → the theatre of Argos.
+  - `gr-198`: a map with a printed title → the river Lelas in the Lelantine plain.
+  - `gr-199`: an 1837 engraving → a Wild Goat style jug.
+  - `gr-202`: a 1572 engraving → the Artemision site.
+  - `gr-209`: a coin with a French caption → the site.
+  - `gr-210`: none → the temple of Concordia at Acragas, moved from `gr-223`; `gr-223` now shows the temple
+    of Hera at Poseidonia.
+  - `gr-214`: jewellery → the Doric columns of Taras.
+  - `gr-215`: Clérisseau's painting → the acropolis of Cumae.
+  - `gr-219`: a 1784 map → a coin of Byzantium.
+  - `gr-235`: an 1882 engraving of `gr-237`'s hero → the walls on Ithome.
+- **Added where there was none:** `gr-122` (B15–B18's leftover), `gr-172`, `gr-191`, `gr-194` (an Aeginetan
+  stater), `gr-197`, `gr-204`, `gr-222`, `gr-225` and `gr-230`.
+- **Kept with new captions and credits:** 49 cards. Paintings and engravings were kept only where no
+  ancient likeness or site exists (`gr-192`, `gr-237`–`gr-239`, `gr-246`, `gr-248`, `gr-266`), and each
+  description dates the artwork. Three labelled maps stay (`gr-203`, `gr-218` and `gr-240`):
+  a movement across a whole sea has no single site to photograph.
+- **Refused as already on another card:**
+  - the Erechtheid casualty list (`gr-473`);
+  - the kleroterion (`wh-318`, `gr-466`);
+  - an Olbia view (`ru-009`);
+  - the Leonidas statue (`gr-423`);
+  - the Ithome walls photograph (`gr-461`);
+  - a Diolkos photograph (`gr-657`);
+  - a Lelantine plain view (glossary `Cleruchy`);
+  - a Thasos agora photograph (glossary `Thasos`).
+- **Refused on sight:** the Pylos shield and a Laconian banqueter, each photographed with its museum label;
+  graffiti photographs from Abu Simbel showing only modern names.
+- **27 cards have no picture** (`gr-175`–`gr-178`, `gr-187`, `gr-205`, `gr-207`, `gr-220`, `gr-227`,
+  `gr-242`, `gr-244`, `gr-245`, `gr-247`, `gr-249`–`gr-252`, `gr-254`–`gr-259`, `gr-267`–`gr-270`). Most are
+  institutions and practices with no honest photograph. For the rest, Commons has no free picture that
+  is not already on another card.
+- `gr-115`, `gr-139` and `gr-169` from B15–B18 still have none: further searches found no Greek photograph.
+
+**Locators.** Fetched through `add-locators.js`: `gr-190` Diolkos, `gr-193` Tunnel of Eupalinos,
+`gr-206` Cyrene, `gr-208` Syracuse, `gr-209` Megara Hyblaea, `gr-210` (at Gela, labelled Gela),
+`gr-211` Selinus (← Selinunte), `gr-212` Sybaris, `gr-213` Croton (← Crotone), `gr-214` Taras (← Taranto)
+and `gr-215` Cumae. Still without: `gr-173` acropolis, `gr-174` agora and `gr-228` Panhellenic sanctuary
+(each a kind of place, not one), `gr-223` Magna Graecia (a region wanting a drawn area) and `gr-269` Thornax
+(no article carries a coordinate).
+
+**Chronology.** A new section, "The polis, colonisation and Sparta", holds the rows for every date the 100
+cards print, with pins for all 83 that print a year. The provisional Croesus row is corrected (Sardis taken
+547 BCE by the Nabonidus Chronicle, 546 BCE in Eusebius). The Heracleidae row's B25 note is closed.
+
+**Glossary.** Candidates are added to the backlog list in `docs/greece-audit-2026-09.md` (Olympiad,
+Theopompus, Thurii and others), and that list notes that `Thrasybulus` auto-links the Athenian democrat on
+`gr-188`, whose Thrasybulus is the tyrant of Miletus.

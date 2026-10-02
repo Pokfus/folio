@@ -834,8 +834,8 @@ body.night .banner{
    nothing studied yet rather than sliding across to the left. It WRAPS, which is what a phone in the
    editor mode needs: four controls and a sentence do not fit on one 313px line, so the controls drop to
    their own line under the time rather than being squeezed to nothing. */
-.rv-foot{display:flex; align-items:center; justify-content:space-between; gap:10px 12px; min-height:34px; flex-wrap:wrap;}
-.rv-foot .rv-timeslot{flex:0 1 auto; min-width:0;}   /* holds the row's left end open on a morning with no time yet */
+/* …AND `.rv-foot` IS NOT DRAWN AT ALL SINCE OCT 2026 (on request): the timer is a Today section of the
+   This week box (`.home-week`), and the Edit control stands in the collections header (`.rv-sec-l`). */
 /* THE ABSOLUTE CORNER ROW (`.rv-topacts`) STOOD HERE AND IS GONE (Sep 2026, on request). It laid the
    Edit control over the banner's top right, which had to be an overlay rather than markup — the banner is
    a `<button>` and cannot contain one — with `pointer-events:none` on the row and `auto` on its children,
@@ -921,16 +921,7 @@ body.night .rv-edit-icons.on{color:#E6C765; border-color:color-mix(in srgb,#E6C7
    ("studied 13m today", on request) so it reads as a sentence rather than as a labelled statistic. The
    inset and the top padding are what put its line where the row's other items used to sit — measured on
    the rendered page, not derived. */
-.rv-time{
-  display:inline-flex; align-items:baseline; gap:6px; flex:0 1 auto; min-width:0;
-  margin-inline-start:20px; padding:7px 0 0;
-  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase;
-  color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-}
-.rv-time b{
-  font-family:var(--display); font-weight:600; font-size:calc(13px * var(--fs)); line-height:1;
-  letter-spacing:0; text-transform:none; color:var(--ink-soft); font-variant-numeric:tabular-nums;
-}
+/* (`.rv-time`, the timer's own rule, is gone with the timer — Oct 2026.) */
 /* WHAT THE NEXT ARTEFACT NEEDS (Sep 2026), set exactly as the day's timer beside it: the same mono
    caption, the same baseline, the same quiet ink. It is a small pleasure rather than a target, so it
    is a caption and not a meter — and the FIGURE leads here where the word leads in the timer, because
@@ -944,18 +935,11 @@ body.night .rv-edit-icons.on{color:#E6C765; border-color:color-mix(in srgb,#E6C7
 }
 .rv-chestnext span{font-family:var(--display); font-weight:600; font-size:calc(13px * var(--fs)); line-height:1; letter-spacing:0; text-transform:none; color:var(--ink-soft);}
 @media (max-width:430px){ .rv-chestnext{display:none;} }
-/* HOW LONG HAVE YOU GOT? (Oct 2026) — the home page's time chips under the deck list, which start the
-   day's review with the study page's own time box running. Quiet pills on the page's own paper: they are
-   a second way into the same session the banner already offers, so they must not compete with it. */
-.rv-time{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:12px 0 0;}
-.rv-time-lbl{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-inline-end:4px;}
-.rv-time-chip{font:inherit; font-size:calc(13px * var(--fs)); padding:6px 12px; min-height:32px; border-radius:999px; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer;}
-.rv-time-chip:hover{border-color:var(--indigo); color:var(--indigo);}
-.rv-time-chip:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
-/* …and a first visitor's way to try ten cards without choosing anything (Oct 2026). */
+/* (the "Short on time?" chips under the deck list lasted a day — Oct 2026, removed on request) */
+/* a first visitor's way to try ten cards without choosing anything (Oct 2026). */
 .hero-sample{margin:12px 2px 0; font-size:calc(14px * var(--fs)); color:var(--ink-soft);}
 .hero-sample button{font:inherit; color:var(--indigo); background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px;}
-@media (max-width:640px){ .rv-time{justify-content:center;} .hero-sample{text-align:center;} }
+@media (max-width:640px){ .hero-sample{text-align:center;} }
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:calc(150px * var(--fs)); line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -1892,8 +1876,10 @@ body{--crit-slot:head;}
    still override the colour with the gold: "Learned" is a state rather than a caption, and the gold is
    how finishing something reads everywhere else on the site. */
 .crit-lbl{font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--indigo); opacity:.5; white-space:nowrap;}
-/* all three filled: the deep "learned" blue of the deck bar (Sep 2026, on request — it was gold) */
-.crit-row.done .crit-pip{background:var(--prog-learned); border-color:var(--prog-learned);}
+/* all three filled: the deep "learned" blue of the deck bar (Sep 2026, on request — it was gold); the DOTS
+   alone turn GREEN (Oct 2026, on request) — `--good` is set per theme. The caption keeps the blue: it is
+   10px text, and the light theme's green does not clear 4.5:1 on the card. */
+.crit-row.done .crit-pip{background:var(--good); border-color:var(--good);}
 .crit-row.done .crit-lbl{color:var(--prog-learned); opacity:1;}
 body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 /* ...and in the header a PHONE gets the pips alone (Sep 2026, on request: "only display the text on
@@ -4323,6 +4309,11 @@ textarea.ds-params{width:100%; font-family:var(--mono); font-size:calc(11.5px * 
 .dm-field .dm-num{width:88px; flex:none; appearance:auto; font-family:var(--mono); font-size:calc(14px * var(--fs)); padding:6px 8px; border:1px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink);}
 .dm-note{margin:2px 14px 4px; font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint);}
 .dm-actions{display:flex; justify-content:flex-end; gap:8px; padding:10px 14px 8px;}
+/* the update popup's per-deck summary (Oct 2026, on request) — see openDeckUpdateSheet */
+.dm-upd{margin:4px 14px 8px;}
+.dm-upd-t{display:block; font-family:var(--display); font-size:calc(14px * var(--fs)); color:var(--ink);}
+.dm-upd-l{margin:4px 0 0; padding-left:18px; font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-quiet);}
+.dm-upd-none{margin:4px 0 0; font-size:calc(13px * var(--fs)); color:var(--ink-quiet);}
 .dm-actions .btn{font-size:calc(13px * var(--fs)); padding:8px 16px;}
 @media (max-width:560px){
   .deck-menu{padding:16px;}
@@ -6676,7 +6667,6 @@ button.game-tile .gt-glyph{opacity:.14;}
      screen, and at Very large text on a 390px one, and ellipsises, which says less than the shorter
      sentence does. Nothing is lost: the block it sits in is called Daily study, so the day is not what
      the line is carrying. Measured at both, in the medium and largest text sizes. */
-  .rv-time .rv-today{display:none;}
 }
 
 /* ---------- the global motion killswitch ----------
@@ -9898,7 +9888,8 @@ body[data-theme="carnelian"].night .collection-deco{
        their own colours plus the estimate, a Start button as wide as the pile row, and the top three cards
        of the pile fanned beside it (`.rv-preview`, desktop and tablet only);
      · the streak ribbon (`.streak-ribbon`): the run in weeks, each ending in its chest;
-     · the collections header (`.rv-sec-h`) with the legend and the "+ Add decks" link, then the deck rows
+     · the collections header (`.rv-sec-h`) with the deck list's Edit control and the legend (the "+ Add
+       decks" link stood at its right until Oct 2026; the Collections tab is the route now), then the deck rows
        as FILL ROWS — the row's own tint is the share of the deck learned (the existing `.dk-prog .fill-l`,
        stretched to the row's height), with the three piles as colour boxes at the right;
      · the games as LIST-TILES (icon disc, full name, score, a tick), three across;
@@ -9940,11 +9931,17 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{margin-top:0;}
 .page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
-.rv-banner .xp-lvl{color:var(--sky-rose);} .rv-banner .xp-count{color:rgba(242,243,255,.6);}
+/* THE LEVEL BAR IS GOLD IN BOTH THEMES (Oct 2026, on request: "make the level bar gold in day mode like it
+   already is in dark mode") — it was rose by day because this rule outranked `.banner .xp-fill` while the
+   night rule outranked this one. The night gold, since the banner is deep indigo in both themes. */
+.rv-banner .xp-lvl{color:#E6C765;} .rv-banner .xp-count{color:rgba(242,243,255,.6);}
 .rv-banner .xp-track{background:rgba(255,255,255,.14); border-color:transparent; height:6px;}
-.rv-banner .xp-fill{background:var(--sky-rose);}
+.rv-banner .xp-fill{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}
 .rv-banner .glyph{display:none;}
 .review-group .rv-banner .gt-check{top:14px; right:14px;}
+/* the banner keeps all four corners (Oct 2026, on request: "the corners are too sharp") — the rule that
+   squared its foot dates from when the deck list was joined to it, and the rows are separate cards now */
+.review-group.has-active > #b-review.rv-banner{border-bottom-left-radius:20px; border-bottom-right-radius:20px;}
 /* the fanned preview of the pile's top three */
 .rv-preview{position:relative; width:300px; height:200px; flex:none;}
 .pv-card{position:absolute; inset:0; background:var(--card); color:var(--ink); border:1px solid var(--rule); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow-lg); transform-origin:50% 100%; display:flex; flex-direction:column; text-align:left;}
@@ -9970,15 +9967,14 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .sr-note b{color:#C39A2E; font-weight:800;} body.night .sr-note b{color:#E6C765;}
 .sr-best{margin-left:auto; white-space:nowrap;}
 /* the collections header and the deck rows */
-.rv-sec-h{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin:24px 0 10px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600;}
-.rv-sec-r{display:inline-flex; align-items:center; gap:14px;}
+.rv-sec-h{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px 12px; margin:24px 0 10px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600;}
+/* the heading with the deck list's Edit control just behind it (Oct 2026, on request); open, the four
+   editor buttons stand in the same place and the legend wraps under them on a phone */
+.rv-sec-l{display:inline-flex; align-items:center; flex-wrap:wrap; gap:6px 10px; min-width:0;}
+.rv-sec-l .rv-edit{letter-spacing:.08em;}
 .rv-legend{display:inline-flex; gap:10px; font-size:calc(10px * var(--fs)); letter-spacing:.12em;}
 .rv-legend i{display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:4px; vertical-align:1px;}
 .rv-legend .n i{background:var(--indigo-bright);} .rv-legend .l i{background:var(--zh);} .rv-legend .r i{background:var(--good);}
-.review-group .home-collections, .review-group .home-collections:hover, .review-group > #b-review + .home-collections{
-  all:unset; cursor:pointer; font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:700; letter-spacing:0; text-transform:none; color:var(--indigo); white-space:nowrap;
-}
-.review-group .home-collections:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px; border-radius:4px;}
 .review-group .active-decks{display:grid; gap:8px;}
 .review-group .active-deck, body.night .review-group .active-deck, .review-group .active-deck:last-child, .review-group .active-deck.dk-last{
   background:var(--card); border:1px solid var(--rule); border-left:4px solid var(--dk-accent); border-radius:12px; padding-top:12px; padding-bottom:12px; padding-right:16px; gap:14px; animation:none;
@@ -9995,15 +9991,16 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-deck .dk-counts{display:inline-grid; grid-template-columns:repeat(3, 32px); gap:4px; min-width:0;}
 /* a deck finished for the day shows its tick and nothing to count (Oct 2026, on request) */
 .review-group .active-deck.dk-done .dk-counts{display:none;}
-.review-group .active-deck .dkc{display:grid; place-content:center; height:28px; border-radius:7px; font-family:var(--mono); font-size:calc(13px * var(--fs)); font-weight:700; color:#fff;}
-.review-group .active-deck .dkc-new{background:var(--indigo-bright); color:#fff;}
-.review-group .active-deck .dkc-learn{background:var(--zh); color:#fff;}
-.review-group .active-deck .dkc-rev{background:var(--good, #4F9D67); color:#fff;}
-body.night .review-group .active-deck .dkc{color:var(--paper-2);}
-.review-group .active-deck .dkc.dkc-zero, body.night .review-group .active-deck .dkc.dkc-zero{background:var(--paper-2); color:var(--ink-faint); font-weight:500; box-shadow:inset 0 0 0 1px var(--rule);}
+/* the three piles are COLOURED FIGURES, not colour boxes (Oct 2026, on request: "remove the boxes and make
+   the numbers themselves coloured") — the same blue / red / green, now on the figure; a zero stays grey */
+.review-group .active-deck .dkc{display:grid; place-content:center; height:28px; font-family:var(--mono); font-size:calc(14px * var(--fs)); font-weight:700; background:none;}
+.review-group .active-deck .dkc-new{color:var(--indigo-bright);}
+.review-group .active-deck .dkc-learn{color:var(--zh);}
+.review-group .active-deck .dkc-rev{color:var(--good, #4F9D67);}
+.review-group .active-deck .dkc.dkc-zero, body.night .review-group .active-deck .dkc.dkc-zero{color:var(--ink-faint); font-weight:500;}
 /* the fill: the learned share tints the row from the left (the studied share's line is not drawn here) */
 .review-group .active-deck .dk-prog .track{position:absolute; left:0; top:0; bottom:0; right:0; height:auto; background:transparent; border-radius:0; z-index:-1; pointer-events:none;}
-.review-group .active-deck .dk-prog .fill{position:absolute; left:0; top:0; bottom:0; height:auto; border-radius:0; background:color-mix(in srgb, var(--dk-accent) 7%, transparent);}
+.review-group .active-deck .dk-prog .fill{position:absolute; left:0; top:0; bottom:0; height:auto; border-radius:0; background:color-mix(in srgb, var(--dk-accent) 10%, transparent);}
 .review-group .active-deck .dk-prog .fill-l{background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 20%, var(--card)), color-mix(in srgb, var(--dk-accent) 9%, var(--card))); border-right:3px solid var(--dk-accent);}
 .review-group .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, color-mix(in srgb, #C39A2E 24%, var(--card)), color-mix(in srgb, #E6C765 10%, var(--card))); border-right-color:#C39A2E;}
 /* the games */
@@ -10068,6 +10065,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .hb-empty{display:block; font-size:calc(13.5px * var(--fs)); color:var(--ink-quiet); line-height:1.5;}
 .home-week{display:flex; flex-direction:column;}
 .home-week .hb-k{align-self:flex-start;}
+.home-week .hw-stats + .hb-k{margin-top:16px;}   /* the week's heading under the day's figures (Oct 2026) */
 .hw-stats{flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; align-content:center; justify-items:center; text-align:center;}
 .hw-stats b{display:block; font-size:calc(26px * var(--fs)); font-weight:800; letter-spacing:-.03em; line-height:1; font-variant-numeric:tabular-nums;}
 .hw-stats span{display:block; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); margin-top:4px;}
@@ -10081,7 +10079,9 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .home-foot .home-about:hover{color:var(--ink-soft);}
 .home-foot .site-ver{margin:0 0 0 auto; font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase;}
 @media (min-width:641px){ .home-foot .home-about{padding-top:0;} }
-.streak-ribbon{display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:8px 12px;}
+/* the middle column is the flexible one (Oct 2026, on request: the gap after the number was too wide) — with
+   `auto auto 1fr` the week of dots spanning the first two columns stretched the number's column to fit */
+.streak-ribbon{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:8px 8px;}
 .streak-ribbon > .sr-n{grid-column:1; grid-row:1;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1;} .streak-ribbon > .sr-best{grid-column:3; grid-row:1; justify-self:end; margin:0;}
 .streak-ribbon > .sr-days{grid-column:1 / 3; grid-row:2;} .streak-ribbon > .sr-note{grid-column:3; grid-row:2; justify-self:end; text-align:right;}
 @media (max-width:1024px){
@@ -10090,6 +10090,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 }
 @media (max-width:640px){
   .page .rv-banner, .page .rv-banner:hover{padding:22px 20px; border-radius:16px; flex-direction:column; align-items:stretch;}
+  .review-group.has-active > #b-review.rv-banner{border-bottom-left-radius:16px; border-bottom-right-radius:16px;}
   .page .rv-banner h2.review-title{font-size:calc(32px * var(--fs));}
   .rv-preview{display:none;}
   .page .rv-banner .rv-stack{width:100%;}
@@ -10098,12 +10099,13 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .page .rv-banner .stat.st-est{padding-left:10px;}
   .streak-ribbon{padding:12px 14px;}
   .sr-wk:not(.cur){display:none;} .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
-  .rv-sec-h .rv-legend{display:none;}
   .review-group .active-deck{padding-right:12px; gap:10px;}
   .review-group .active-deck .dk-counts{grid-template-columns:repeat(3, 28px);}
   .review-group .active-deck .dkc{height:26px; font-size:calc(12px * var(--fs));}
   .review-group .active-deck .dk-prog .track{top:auto; height:5px;}
   .review-group .active-deck .dk-prog .fill-l{border-right:0; background:var(--dk-accent); border-radius:0 3px 3px 0;}
+  /* the studied share is a bar here too, and at the row tint's 7% it vanished against the card (Oct 2026, on request) */
+  .review-group .active-deck .dk-prog .fill{background:color-mix(in srgb, var(--dk-accent) 30%, transparent);}
   .games-sec .game-grid{grid-template-columns:1fr;}
   .home-two{grid-template-columns:1fr;}
   .home-foot{justify-content:center; text-align:center;}

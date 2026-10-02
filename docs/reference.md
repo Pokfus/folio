@@ -4464,6 +4464,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the mode, which reverses an older rule deliberately: it cannot sit "opposite" a control that is not
     drawn. The mode gained a **switch for the gold icons** (`S.settings.deckIcons`, asked in `adIcon`),
     which is a STATE rather than an action and so is deliberately not on the Undo stack beside it.
+    **SINCE OCT 2026 (on request) THE CONTROL STANDS IN THE "YOUR COLLECTIONS" HEADER** (`.rv-sec-l`,
+    beside the heading, with the legend at the header's right), `.rv-foot` is no longer drawn, and the
+    "studied 13m today" timer it held is a **Today section of the This week box** (`homeWeekHTML`) — the
+    same three figures as the week's, over `dayKey(now)`. The "Short on time?" chips went the same day.
   · On a phone a played minigame tile's check or seal fills its top-right quarter, sized as a FRACTION of
     the tile so it stays a quarter at every width; and the Atlas timeline runs the full width with the
     year centred, the 74px right padding it gave up having been reserving room for buttons that stop
@@ -7043,11 +7047,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   It is **static markup in index.html** and reuses `.tab` + `data-route`, so `setActiveTab` and the
   boot-time `querySelectorAll(".tab")` wiring cover it with no new code — but that query runs ONCE over
   the static DOM, so **a nav item added later still has to live in index.html**.
-  **COLLECTIONS is on the DESKTOP's top bar and not the phone's** (`#decks`, Sep 2026, on request): a
-  SECOND route rather than a replacement, the home page's Collections button being untouched and still
-  shipping at every width. The phone's bar deliberately has none — five cells for five destinations, and
-  **the page swipe was narrowed to what that bar can reach**, so a sixth tab there would put the two out of
-  step again; the lip is the only route. Seven tabs do not fit the desktop bar between 641 and 900px, so
+  **COLLECTIONS is on the DESKTOP's top bar** (`#decks`, Sep 2026, on request), **and on the phone's bar
+  again since Oct 2026** (on request), between Home and Library on both: the home page's "+ Add decks"
+  link was taken out the same day (the legend of the three colours stands in its place in `.rv-sec-h`),
+  so the tab is the ONE route to the collections at every width. The phone's bar has six cells, and
+  **the page swipe follows the bar** — `SWIPE_ORDER` carries `decks` again, and `test-layout` derives the
+  expected order from the bar itself. Seven tabs do not fit the desktop bar between 641 and 900px, so
   that band tightens the padding and the tracking **rather than dropping a name**; `setActiveTab` also
   lights this tab on `#studio` and `#deck`.
   (The tab labelled **Library** is the books one, `#library`, which is a different page — see the Library

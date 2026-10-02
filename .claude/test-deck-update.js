@@ -243,6 +243,16 @@ const ROWS = (() => { const w = {}; new Function("window", catSrc)(w); return w.
   check("…with the deck no bigger or smaller than the file it came from",
     !!after && after.notes === small.notes, (after && after.notes) + " vs " + small.notes);
 
+  /* THE UPDATE SAYS WHAT CHANGED in a popup (Oct 2026, on request) — measured against the copy that was
+     here, so the one card this suite corrupted is the one card it reports corrected. */
+  const pop = await page.evaluate(() => {
+    const m = document.querySelector(".deck-menu .dm-box");
+    return m ? m.textContent.replace(/\s+/g, " ") : "";
+  });
+  check("a popup summarises the update", /What\u2019s new/.test(pop), JSON.stringify(pop.slice(0, 160)));
+  check("…naming the one corrected card", /(^|\D)1 card corrected(?!s)/.test(pop), JSON.stringify(pop.slice(0, 240)));
+  check("…and promising the reader's progress is kept", /progress on every card is kept/.test(pop));
+
   const gone = await page.evaluate(() => document.querySelectorAll("[data-langup]").length);
   check("and the Update button goes once there is nothing to update", gone === 0, String(gone));
 
@@ -346,8 +356,8 @@ const ROWS = (() => { const w = {}; new Function("window", catSrc)(w); return w.
     JSON.stringify(after2 && after2.sched));
   /* IT REPORTS WHAT IT DID rather than that it did something — "Redownloaded" cannot tell a deck that
      gained a repair from one that gained nothing, and the count is the only honest answer. */
-  const said = await page.evaluate(() => (document.querySelector("#toast") || {}).textContent || "");
-  check("…and says how many cards it refreshed", /\d/.test(said) && /card/i.test(said), JSON.stringify(said));
+  const said = await page.evaluate(() => { const m = document.querySelector(".deck-menu .dm-box"); return m ? m.textContent.replace(/\s+/g, " ") : ""; });
+  check("…and its popup says what changed", /(^|\D)1 card corrected(?!s)/.test(said), JSON.stringify(said.slice(0, 240)));
 
   check("no uncaught page errors", errs.length === 0, errs.join(" | "));
 

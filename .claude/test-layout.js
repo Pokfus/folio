@@ -208,8 +208,10 @@ function scrimCheck() {
     check("...spanning the full width, pinned to the bottom", bar.w === PHONE.width && bar.bottom === PHONE.height, JSON.stringify({ w: bar.w, bottom: bar.bottom }));
     check("...carrying every destination it is meant to",
       ["home", "map", "account", "settings"].every((r) => bar.tabs.includes(r)), bar.tabs.join(","));
-    // Library left the bar for the home page's own banner — the tab bar is not where it is reached now
-    check("...and NOT the Library, which the home page's review lip carries", !bar.tabs.includes("decks"), bar.tabs.join(","));
+    // Collections left the bar in Aug 2026 for the home page's own link, and is BACK (Oct 2026, on request)
+    // now that the link is gone — between Home and Library, as on the desktop's bar
+    check("...and Collections, between Home and Library, since the home page's Add decks link is gone",
+      bar.tabs.indexOf("decks") === bar.tabs.indexOf("home") + 1 && bar.tabs.indexOf("library") === bar.tabs.indexOf("decks") + 1, bar.tabs.join(","));
     // …and About left it the same way, for the grey line under that banner
     check("...nor About, which the home page's own link carries", !bar.tabs.includes("mission"), bar.tabs.join(","));
     check("...every one of them NAMED, not just the active one", bar.labelled.every((l) => l.w > 8), JSON.stringify(bar.labelled.map((l) => l.w)));
@@ -1165,6 +1167,7 @@ function scrimCheck() {
     const h = await page.evaluate(() => {
       const grp = document.querySelector(".review-group"), grid = document.querySelector(".game-grid");
       const head = document.querySelector(".games-head"), lip = document.querySelector(".home-collections");
+      const secH = document.querySelector(".review-group .rv-sec-h");
       const quote = document.querySelector(".daily-quote, .dq, figure");
       const tiles = [...document.querySelectorAll(".game-tile")];
       const top = (el) => Math.round(el.getBoundingClientRect().top);
@@ -1183,16 +1186,11 @@ function scrimCheck() {
            that was put there on purpose. It must be a DESCENDANT of the group, it must sit under the deck
            list rather than above it, and it must span the card rather than floating in the middle of it. */
         lip: lip ? lip.textContent.trim() : "",
-        lipInCard: !!(lip && grp && grp.contains(lip)),
-        lipInHead: !!(lip && lip.closest(".rv-sec-h")),
-        lipBelowDecks: (() => {
-          const l = document.querySelector(".active-decks");
-          if (!lip) return false;
-          if (!l) return true;   // no decks added yet — there is no list for it to be below
-          return Math.round(lip.getBoundingClientRect().top) >= Math.round(l.getBoundingClientRect().bottom) - 1;
-        })(),
-        lipCentreOff: lip && grp ? Math.round(Math.abs((lip.getBoundingClientRect().left + lip.getBoundingClientRect().width / 2)
-          - (grp.getBoundingClientRect().left + grp.getBoundingClientRect().width / 2))) : 999,
+        /* …AND THE LINK IS GONE (Oct 2026, on request): the header holds the heading and the legend of the
+           three colours at every width, and the phone's bottom bar carries a Collections tab again. */
+        secHead: secH ? secH.textContent.trim() : "",
+        legendShown: !!(secH && secH.querySelector(".rv-legend") && secH.querySelector(".rv-legend").checkVisibility()),
+        decksTab: !!document.querySelector('.tabbar .tab[data-route="decks"]'),
         /* THE CHEST AND "+ NEW GROUP" HAVE BOTH LEFT THE BANNER (Aug 2026, on request). Each is asserted
            in both directions, since a control that has merely stopped rendering looks the same from one
            side as one that has moved: the chip must be GONE from the banner and the notice must be a real
@@ -1208,21 +1206,6 @@ function scrimCheck() {
         // the group function left the daily study block altogether in Aug 2026 (on request) — it is not
         // in the banner, and it is not under the deck list either
         newGroupAnywhere: !!document.querySelector("#b-newgroup, .rv-newgroup, [data-newgroup]"),
-        // …and it spans the card, which is what makes it read as the card's own bottom edge rather than as
-        // something dropped on top of it
-        lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 0,
-        /* …and BLUE (Aug 2026, on request): the site's own primary-button indigo, read off a probe rather
-           than hard-coded, so a theme that re-tones --indigo moves the button with it. Paper-on-paper it
-           read as part of the card's bottom edge, which is the failure this pins. */
-        lipBlue: (() => {
-          if (!lip) return "";
-          const p = document.createElement("i");
-          p.style.cssText = "background:var(--indigo);position:absolute;left:-9999px";
-          document.body.appendChild(p);
-          const want = getComputedStyle(p).backgroundColor; p.remove();
-          const got = getComputedStyle(lip).backgroundColor;
-          return got === want ? "ok" : got + " ≠ " + want;
-        })(),
         aboutPad: (() => {
           const a = document.querySelector(".home-about"); if (!a) return [0, 0];
           const cs = getComputedStyle(a); return [parseFloat(cs.paddingTop), parseFloat(cs.paddingBottom)];
@@ -1270,22 +1253,20 @@ function scrimCheck() {
     check("the phone's home page is one column again — no pager", !h.pager && !h.dots, JSON.stringify({ pager: h.pager, dots: h.dots }));
     check("...with no card of the day and no gloss of the day", !h.cod && !h.tod && !h.explore, JSON.stringify(h));
     check("...and no Atlas teaser: a phone never fetches the globe for an ornament", !h.atlasTile);
-    // "+ Add decks" since the Oct 2026 redesign: a link in the collections header rather than a bar under the list
-    check("the collections banner is gone, replaced by an Add decks link in the review",
-      !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, label: h.lip }));
-    // in the collections header INSIDE the review card (Oct 2026): this reader has no decks, so whether it
-    // sits above or below a list is not a question here; its place in the header row is
-    check("...in the collections header inside the card, not loose beneath it",
-      h.lipInCard && h.lipInHead, JSON.stringify({ inCard: h.lipInCard, inHead: h.lipInHead }));
+    // the collections banner went in the Oct 2026 redesign, and the "+ Add decks" link that replaced it went
+    // a week later (on request): the phone's bottom bar has a Collections tab again, and the header shows
+    // the legend of the three colours at every width instead
+    check("the collections banner and the Add decks link are both gone from the review",
+      !h.libBanner && !h.lip, JSON.stringify({ banner: h.libBanner, label: h.lip }));
+    check("...the header shows the New / Learning / Review legend on a phone",
+      /your collections/i.test(h.secHead) && h.legendShown, JSON.stringify({ head: h.secHead, legend: h.legendShown }));
+    check("...and Collections is a tab in the phone's bottom bar", h.decksTab);
     check("the banner never counts chests: the notice is a slot above it instead",
       !h.chestChip && h.chestSlotAbove, JSON.stringify({ chip: h.chestChip, above: h.chestSlotAbove }));
     check("...and the group function is gone from the daily study block entirely", !h.newGroupAnywhere);
-    /* CENTRED AND FULL WIDTH — the two together are what "the card's bottom edge" means. A row that has
-       lost its width reads as a button dropped inside the card, which is the placement this replaced, and
-       the centre test alone cannot see that: a narrow centred button is centred too. */
-    check("...a link beside the heading, not a bar across the card", h.lipFrac < 0.5, JSON.stringify({ frac: h.lipFrac }));
-    check("...and routing to the collections", await page.evaluate(async () => {
-      document.querySelector(".home-collections").click();
+    // …and that tab is the route (Oct 2026): the link it replaced used to be clicked here
+    check("...and the tab routes to the collections", await page.evaluate(async () => {
+      document.querySelector('.tabbar .tab[data-route="decks"]').click();
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
     }) === "#decks");
@@ -1939,17 +1920,9 @@ function scrimCheck() {
         subs: [...document.querySelectorAll(".game-tile")].filter((t) => t.querySelector(".gt-sub")).length,
         mgHead: head ? head.textContent.trim() : "",
         lip: lip ? lip.textContent.trim() : "",
-        // …a SIBLING of the review group drawn directly after it — see the phone block above for why
-        // it went INSIDE the review group in Aug 2026, on request, as the card's own bottom row — so what
-        // is asserted is that it is a descendant sitting under the deck list, not a sibling after the card
-        lipInCard: !!(lip && grp && grp.contains(lip)),
-        lipInHead: !!(lip && lip.closest(".rv-sec-h")),
-        lipBelowDecks: (() => {
-          const l = document.querySelector(".active-decks");
-          if (!lip) return false;
-          if (!l) return true;
-          return Math.round(lip.getBoundingClientRect().top) >= Math.round(l.getBoundingClientRect().bottom) - 1;
-        })(),
+        // the link is gone (Oct 2026, on request) — the header is the heading and the legend, and the
+        // Collections tab (asserted below) is the route
+        legendShown: (() => { const l = document.querySelector(".review-group .rv-sec-h .rv-legend"); return !!(l && l.checkVisibility()); })(),
         about: !!document.querySelector(".home-about"),
         // Collections left the top bar with the tile row; that button is the only way to it now
         decksTab: !!document.querySelector('.topbar [data-route="decks"]'),
@@ -1964,9 +1937,8 @@ function scrimCheck() {
       !asked.some((u) => /\/world\.js/.test(u)), asked.filter((u) => /\/world\.js/.test(u)).join(","));
     check("[desktop] ...the games three to a row, and no taglines on them", d.cols === 3 && d.subs === 0, JSON.stringify({ cols: d.cols, subs: d.subs }));
     check("[desktop] ...under a Minigames heading, under the review", /minigames/i.test(d.mgHead) && d.order[0] < d.order[1] && d.order[1] < d.order[2], JSON.stringify(d.order));
-    check("[desktop] ...with the Add decks link in the review, in the collections header",
-      /add decks/i.test(d.lip) && d.lipInCard && d.lipInHead,
-      JSON.stringify({ label: d.lip, inCard: d.lipInCard, inHead: d.lipInHead }));
+    check("[desktop] ...with no Add decks link in the review, and the legend in the collections header",
+      !d.lip && d.legendShown, JSON.stringify({ label: d.lip, legend: d.legendShown }));
     /* COLLECTIONS IS BACK IN THE TOP BAR (Sep 2026, on request: "put a tab for the Collections page in
        the website's main menu bar, between Home and Library"). It left both bars in Aug 2026 and the
        home page's button became the only route; the button is still there and still works, so this is a
@@ -2300,17 +2272,16 @@ function scrimCheck() {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1500);
     await swipe(-120);
-    check("a swipe left moves to the next page", (await where()) === "#library", await where());
-    check("...and that page is NOT Collections, which has no tab and is out of the order",
-      (await where()) !== "#decks", await where());
+    // Collections is the page after Home again (Oct 2026): it has a tab in the phone's bar once more
+    check("a swipe left moves to the next page", (await where()) === "#decks", await where());
     await swipe(-120);
-    check("...and on to the one after it", (await where()) === "#account", await where());
+    check("...and on to the one after it", (await where()) === "#library", await where());
     await swipe(120);
-    check("...a swipe right comes back", (await where()) === "#library", await where());
+    check("...a swipe right comes back", (await where()) === "#decks", await where());
     await swipe(-30);
-    check("...a short drag is not a swipe", (await where()) === "#library", await where());
+    check("...a short drag is not a swipe", (await where()) === "#decks", await where());
     await swipe(-120, 220);
-    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#library", await where());
+    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#decks", await where());
     await swipe(120);
     await swipe(120);
     check("...and the ends are ends, not a carousel", (await where()) === "#", await where());
@@ -2333,8 +2304,11 @@ function scrimCheck() {
     /* IT IS A SLIDE, NOT A CUT — measured 60ms into the transition, since by the end the two are
        indistinguishable. Both halves have to be there: the outgoing page must still exist (a ghost, or
        there is nothing to slide off) and the incoming one must be genuinely off to the side rather than
-       nudged. `page-next` means the finger went left, so the arriving page starts to the RIGHT. */
-    await page.goto(base + "#home", { waitUntil: "load" });
+       nudged. `page-next` means the finger went left, so the arriving page starts to the RIGHT.
+       MEASURED FROM THE LIBRARY, NOT HOME (Oct 2026): the page after Home is Collections again, whose
+       render holds the main thread past the ghost's own lifetime, so a 60ms timer fires after the copy
+       is gone — a fact about that page's weight, not about the slide. */
+    await page.goto(base + "#library", { waitUntil: "load" });
     await page.waitForTimeout(1400);
     const mid = await page.evaluate(async () => {
       const send = (t, x, y) => document.dispatchEvent(new PointerEvent(t, { pointerId: 8, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
@@ -2386,7 +2360,7 @@ function scrimCheck() {
       await page.waitForTimeout(700);
     };
     await realSwipe(320, 500, -170);
-    check("a REAL touch swipe moves page, not just a synthesised one", (await where()) === "#library", await where());
+    check("a REAL touch swipe moves page, not just a synthesised one", (await where()) === "#decks", await where());
     await realSwipe(80, 500, 170);
     check("...and back the other way", /^#(home)?$/.test(await where()), await where());
     await page.evaluate(() => window.scrollTo(0, 0));
