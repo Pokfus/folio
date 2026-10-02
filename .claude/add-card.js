@@ -818,15 +818,21 @@ if (card.locator) {
   }
   const shape = kind === "region" || kind === "sea" || kind === "shelf" ? "area" : kind === "range" ? "spine" : null;
   if (shape) {
-    const pts = card.locator[shape];
+    /* An `area` may be a list of rings (add-locators.js writes one for a place in separate blocks, e.g.
+       wh-185's Akkadian Empire with Magan); each ring is validated on its own (Oct 2026). */
+    const v = card.locator[shape];
+    const nested = shape === "area" && Array.isArray(v) && Array.isArray(v[0]) && Array.isArray(v[0][0]);
+    for (const [ri, pts] of (nested ? v : [v]).entries()) {
+    const at = nested ? "[" + ri + "]" : "";
     if (!Array.isArray(pts) || pts.length < 3) {
       console.error("ERROR: a locator of kind \"" + kind + "\" needs a `" + shape + "` of at least three [lon, lat] points — without it the card falls back to a dot, which is the mark this kind exists to replace.");
       process.exit(1);
     }
     const bad = pts.findIndex((q) => !Array.isArray(q) || q.length !== 2 || !isFinite(q[0]) || !isFinite(q[1]) || Math.abs(q[0]) > 180 || Math.abs(q[1]) > 90);
     if (bad >= 0) {
-      console.error("ERROR: card.locator." + shape + "[" + bad + "] is not a [lon, lat] pair within the globe: " + JSON.stringify(pts[bad]) + ".");
+      console.error("ERROR: card.locator." + shape + at + "[" + bad + "] is not a [lon, lat] pair within the globe: " + JSON.stringify(pts[bad]) + ".");
       process.exit(1);
+    }
     }
   }
   for (const extra of ["area", "spine"]) {
