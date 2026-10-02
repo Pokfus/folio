@@ -1017,6 +1017,44 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-701`–`rm-800`: the tribal assembly to the grammaticus — what this batch found
+
+A hundred cards in ten batches of ten: `rm-701`–`rm-750` close `rm-government`, `rm-751`–`rm-785` are the whole of
+`rm-provinces`, and `rm-786`–`rm-800` open `rm-society`. 92 new glossary terms; `Praetor`, `Aedile`, `Quaestor`,
+`Roman_censor`, `Roman_citizenship`, `Roman_law`, `Carthage`, `Alexandria` and `Achaea_(Roman_province)` are reused,
+each card written as the existing card's pair. Every cited URL was fetched; the three numismatics.org coin records
+(rm-747/748) were refusing connections on the final sweep but had been fetched when written. Essay-shaped lines are
+answered by a concrete term, as in `rm-army`:
+
+- **`rm-701`–`rm-710`.** rm-702 voting procedure → leges tabellariae (the ballot laws); rm-703 elections →
+  Commentariolum Petitionis (authorship left disputed); rm-705 magistrate → curule chair; rm-706 consul → suffect
+  consul (the consulship itself is long carded).
+- **`rm-711`–`rm-720`.** rm-714 patronage → clientela; rm-717 rights of a citizen → provocatio; rm-718 grant of
+  citizenship → lex Plautia Papiria; rm-719 keys the new `Peregrinus_(Roman)`.
+- **`rm-721`–`rm-730`.** rm-723 praetor's edict → edictum perpetuum; rm-724 legal procedure → formulary procedure,
+  and rm-725 jurists → ius respondendi.
+- **`rm-731`–`rm-740`.** property → mancipatio; contract → stipulatio; inheritance → testamentum (descriptive key);
+  criminal law → lex Cornelia de sicariis et veneficis (82 BCE as Smith gives it; 81 is common and in notes);
+  punishment → poena cullei; rescripts → `Rescript_(Roman_law)`, so the Japanese Imperial Rescripts stay unlinked;
+  emperor as judge → appellatio (descriptive key); governor → proconsul.
+- **`rm-741`–`rm-750`.** staff → legatus; taxation → portorium; census → Census of Quirinius; currency →
+  sestertius; public finance → vectigal; corruption → lex Julia de repetundis.
+- **`rm-751`–`rm-760`.** province → senatorial province; Rhine frontier → Lower Germanic Limes; Danube frontier →
+  Danubian Limes; rm-755 → Germania Superior, with Inferior named as its twin; Roman Gaul → Gallia Narbonensis.
+- **`rm-761`–`rm-770`.** rm-767 grain supply → cura annonae, so **rm-815's line is retitled "The grain dole"**
+  below to keep the term free of a second card.
+- **`rm-771`–`rm-780`.** rm-772 → Roman–Parthian Wars (no locator); Asia Minor → Bithynia and Pontus; Achaea →
+  Roman Achaea, an alias of the existing term, written as gr-877's imperial pair; Danubian provinces → Pannonia;
+  Sicily → lex Hieronica; self-government → concilium provinciae.
+- **`rm-781`–`rm-790`.** urbanism → Calleva Atrebatum; resistance → Tacfarinas (Boudica, Arminius, Caratacus,
+  Vercingetorix, the Batavi and the Jewish wars are carded); trade → Muziris; Silk Road → Seres; rm-786 Roman
+  society → capitis deminutio, the law's three statuses of freedom, citizenship and family (a first draft on
+  peregrinus duplicated rm-719); marriage → matrimonium, keyed on Marriage_in_ancient_Rome; `Patria_potestas` is a
+  descriptive key, since Wikipedia redirects it.
+- **`rm-791`–`rm-800`.** manus → conventio in manum; dowry → res uxoria; divorce → divortium; women → matrona;
+  women and property → tutela mulierum (5 sources only); childhood → bulla; adoption → adrogatio; education →
+  ludi magister.
+
 ## `rm-601`–`rm-700`: the Gothic crossing to the Roman assemblies — what this batch found
 
 A hundred cards in twenty batches of five: `rm-601`–`rm-620` close `rm-christian-empire`, `rm-621`–`rm-640`
@@ -2210,7 +2248,7 @@ and author the whole time.
     rm-812  Plebs urbana
     rm-813  Collegium
     rm-814  Salutatio
-    rm-815  Cura annonae
+    rm-815  The grain dole
     rm-816  Poverty at Rome
     rm-817  Roman dress
     rm-818  Toga
