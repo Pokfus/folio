@@ -263,16 +263,17 @@ for (const k of GLOSS) (glossByName[norm(noQual(spaced(k)))] = glossByName[norm(
 /* The QUESTION and tags only, never the background: a 300-word abstract mentions plants, films and
    bands often enough that "Croton (plant)" and "The Middle Kingdom (album)" were once chosen from it. */
 function cardText(c) { return " " + norm([c.question, (c.tags || []).join(" ")].map(strip).join(" ")) + " "; }
-const STOP = new Set(["the", "and", "of", "in", "for", "from", "with", "city", "town", "modern", "also", "a", "an", "at", "on", "de", "la", "le"]);
-// a qualifier that says the link is a work, a taxon or a person's name is never the answer to a history card
-const BAD_QUAL = /\b(album|band|song|single|film|movie|novel|book|play|opera|game|series|magazine|newspaper|journal|company|brand|ship|hms|uss|horse|butterfly|trilobite|moth|genus|plant|fungus|beetle|spider|fish|bird|insect|given name|surname|name|singer|musician|rapper|actor|actress|footballer|cricketer|tv|television|video|comics|character|episode|record label|software|programming|crater|asteroid|star|constellation|restaurant|wrestler|racehorse|theatre|theater|hotel|school|railway station)\b/i;
+// words that say nothing about WHICH subject a title is ("state" and "capital" are in every capital card's question)
+const STOP = new Set(["the", "and", "of", "in", "for", "from", "with", "city", "town", "modern", "also", "a", "an", "at", "on", "de", "la", "le", "state", "capital", "county", "district"]);
+// a word that says the link is a work, a taxon, an institution or a person's name is never the answer to a history card
+const BAD_WORD = /\b(album|band|song|single|film|movie|novel|book|play|opera|game|series|magazine|newspaper|journal|company|brand|corporation|holdings|ship|hms|uss|horse|butterfly|trilobite|moth|genus|plant|fungus|beetle|spider|fish|bird|insect|given name|surname|name|singer|musician|rapper|actor|actress|footballer|cricketer|tv|television|video|comics|character|episode|record label|software|programming|crater|asteroid|star|constellation|restaurant|wrestler|racehorse|theatre|theater|hotel|school|university|college|academy|railway station|station|park|airport|parish|municipality|township|borough|electoral|constituency|stadium|arena|festival|award)\b/i;
 const tokens = (s) => canon(s).split(" ").filter((w) => w && !STOP.has(w));
 /* How well a candidate article title fits THIS card, counted over the words the title has that the answer
    does not (its qualifier and any extra words): +3 for a word in the card's own question or tags, +2 for a
-   word of the collection's hints, and −∞ for a qualifier naming a work, a taxon or a person's name. */
+   word of the collection's hints, and −∞ for a word naming a work, a taxon, an institution or a name. */
 function hintScore(title, c, answer) {
   const extras = [...new Set([...tokens(noQual(title)), ...tokens(qualOf(title))])].filter((w) => !tokens(answer || "").includes(w));
-  if (BAD_QUAL.test(qualOf(title))) return -1;
+  if (BAD_WORD.test(qualOf(title)) || BAD_WORD.test(extras.join(" ")) || /: /.test(title)) return -1;
   const text = cardText(c), hints = (HINTS[prefixOf(c.id)] || []).map((h) => canon(h));
   let s = 0;
   for (const w of extras) {
@@ -282,6 +283,7 @@ function hintScore(title, c, answer) {
   }
   return s;
 }
+const extrasOf = (title, answer) => [...new Set([...tokens(noQual(title)), ...tokens(qualOf(title))])].filter((w) => !tokens(answer || "").includes(w)).length;
 function candidatesFor(c) {
   const answer = titleOf(c.answerText || c.answer);
   const out = [];
@@ -297,21 +299,24 @@ function candidatesFor(c) {
 /* The loosest key two names are compared under: no accents, American spelling, every word in the
    singular, no punctuation. "Behavioural modernity" and "Behavioral modernity" are one key; so are
    "Minoan sealstones" and "Minoan seals"? No — and that is right, a human looks at that one. */
-const canon = (s) => deacc(norm(s)).replace(/isation/g, "ization").replace(/ise\b/g, "ize").replace(/our/g, "or").replace(/ae/g, "e").replace(/oe/g, "e")
+const canon = (s) => deacc(norm(s)).replace(/\bst\b/g, "saint").replace(/isation/g, "ization").replace(/ise\b/g, "ize").replace(/our/g, "or").replace(/ae/g, "e").replace(/oe/g, "e")
   .replace(/[^a-z0-9 ]/g, "").split(" ").filter(Boolean).map((w) => w.replace(/ies$/, "y").replace(/(ch|sh|x|s)es$/, "$1").replace(/([^s])s$/, "$1")).join(" ");
-// an extra word the redirect target may carry and still be the same subject
-const GENERIC = new Set(["language", "greek", "people", "culture", "civilization", "period", "style", "river", "dynasty", "kingdom", "empire", "ancient", "site", "archeological", "script", "tribe", "island", "battle", "war", "theory", "hypothesi", "event", "state", "province", "region", "mountain", "lake", "sea"]);
-// "redirect-variant" when the target is the same name modulo spelling / plural / qualifier / "the", or
-// the answer minus its "of Samos", or the answer plus one generic word ("Eteocretan" → "Eteocretan language")
-function sameName(a, b, hints) {
+/* …and the key under which two TRANSLITERATIONS of one Greek or Latin name meet: Kalaureia and Calauria,
+   Herakleidai and Heracleidae, Hephaisteion and Hephaestion. k→c, every diphthong to one vowel, no doubled
+   letters. Only ever applied to a redirect's two ends, which Wikipedia already says are one page. */
+const translit = (s) => canon(s).replace(/kh|ch/g, "c").replace(/k/g, "c").replace(/ph/g, "f").replace(/th/g, "t").replace(/ai|ei|oi|ae|oe/g, "e").replace(/ou/g, "u").replace(/y/g, "i").replace(/(.)\1/g, "$1").replace(/[aeiou]+/g, "a");
+// "redirect-variant" when the target is the same name modulo spelling / plural / qualifier / "the", a
+// transliteration, the answer minus its "of Samos", or the answer plus one word ("Eteocretan" → "Eteocretan
+// language", "Tarquinius Priscus" → "Lucius Tarquinius Priscus"). A target MISSING a word of the answer is
+// never a variant: "Laetoli footprints" → "Laetoli" is a broader page, and a human looks at it.
+function sameName(a, b) {
   const ca = canon(noQual(a)), cb = canon(noQual(b));
-  if (ca === cb) return true;
+  if (ca === cb || translit(ca) === translit(cb)) return true;
   const head = (s) => s.split(/ (of|at|in|on|from) /)[0];
   if (canon(head(noQual(a))) === cb || ca === canon(head(noQual(b)))) return true;
   const ta = new Set(ca.split(" ")), tb = new Set(cb.split(" "));
   const extra = [...tb].filter((w) => !ta.has(w)), missing = [...ta].filter((w) => !tb.has(w));
-  const hs = (hints || []).map((h) => canon(h));
-  return missing.length === 0 && extra.length <= 1 && extra.every((w) => GENERIC.has(w) || hs.includes(w));
+  return missing.length === 0 && extra.length <= 1;
 }
 const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(title.replace(/ /g, "_")).replace(/%2C/g, ",").replace(/%3A/g, ":");
 
@@ -336,8 +341,7 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
       const r = cache[titleOf(t)]; if (!r) continue;
       if (r.status === "ok") { Object.assign(entry, { title: r.title, via, status: "ok" }); break; }
       if (r.status === "redirect") {
-        const hints = HINTS[prefixOf(c.id)] || [];
-        Object.assign(entry, { title: r.title, via, from: r.from, status: sameName(r.from, r.title, hints) || sameName(answer, r.title, hints) ? "redirect-variant" : "redirect-broader" });
+        Object.assign(entry, { title: r.title, via, from: r.from, status: sameName(r.from, r.title) || sameName(answer, r.title) ? "redirect-variant" : "redirect-broader" });
         break;
       }
       if (r.status === "disambig" && !dabHit) dabHit = { r, via };
@@ -348,8 +352,9 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
       // the links that CONTAIN the answer's words ("Olympia, Greece", "Ancient Corinth"), scored by what they add
       const at = tokens(answer);
       const links = (await dabLinks(dabHit.r.title)).filter((l) => at.length && at.every((w) => tokens(noQual(l)).includes(w)) && !/^List of /.test(l));
-      const scored = links.map((l) => ({ l, s: hintScore(l, c, answer) })).sort((a, b) => b.s - a.s);
-      if (scored.length && scored[0].s >= 2 && (scored.length === 1 || scored[0].s > scored[1].s)) {
+      // best score first; on a tie the title that ADDS least ("St. George's, Grenada" over "Saint George Parish, Grenada")
+      const scored = links.map((l) => ({ l, s: hintScore(l, c, answer), x: extrasOf(l, answer) })).sort((a, b) => (b.s - a.s) || (a.x - b.x));
+      if (scored.length && scored[0].s >= 2 && (scored.length === 1 || scored[0].s > scored[1].s || scored[0].x < scored[1].x)) {
         const r = (await resolve([scored[0].l]))[0];
         if (r && (r.status === "ok" || r.status === "redirect")) Object.assign(entry, { title: r.title, via: "disambiguation", from: dabHit.r.title, status: "disambig-resolved" });
       }
@@ -363,7 +368,7 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
       const same = hits && hits.find((h) => norm(noQual(h)) === norm(answer));
       // …or the same words in another order or punctuation ("Throne Room, Knossos" for "Throne Room at Knossos"):
       // taken, but filed as `search-match` so the report shows every one for a glance
-      const close = hits && !same && hits.find((h) => { const b = tokens(noQual(h)); return at.length && at.length === b.length && at.every((w) => b.includes(w)) && !BAD_QUAL.test(qualOf(h)); });
+      const close = hits && !same && hits.find((h) => { const b = tokens(noQual(h)); return at.length && at.length === b.length && at.every((w) => b.includes(w)) && !BAD_WORD.test(h); });
       if (same || close) {
         const r = (await resolve([same || close]))[0];
         if (r && r.status === "ok") Object.assign(entry, { title: r.title, via: "search", status: same ? "ok" : "search-match" });
