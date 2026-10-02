@@ -7453,6 +7453,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   maps unusable.
 - **COMMUNITY DECKS — the reader's own decks, and other people's** (the `COMMUNITY DECKS` block in
   app.js; `PAGES.studio` / `PAGES.deck`; the shared-decks section at the foot of the Collections page).
+  **Since Oct 2026 the Studio is a section of the Collections page** — see `docs/collections-page.md`.
   Nine phases were built between July and Aug 2026: **Phase 0** the seams (`sanitizeHTML`, the separate
   `UCARDS` store, scoped glossary indexes, the shared card surface), **Phase 1** local decks and
   `.folio-deck.json` files, **Phase 2** publishing and moderation, **Phase 3** ratings and staff picks,

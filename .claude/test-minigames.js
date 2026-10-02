@@ -309,8 +309,9 @@ function crosswordForPage(cells) {
       home.tiles.length === r.daily.length && home.tiles.every((t) => r.daily.indexOf(t.id.replace(/^g-/, "")) >= 0),
       home.tiles.length + " tiles vs " + r.daily.length + " in DAILY_GAMES");
     // nine tiles must not turn the grid into a scrolling strip, and must not grow taglines the row gave up
-    check("[home] …still three to a row, no taglines, nothing overflowing",
-      home.cols === 3 && !home.tiles.some((t) => t.sub) && home.docW <= home.winW,
+    // ONE to a row on a phone since the Oct 2026 redesign: the tiles are list-tiles (icon, name, tick)
+    check("[home] …one to a row on a phone, no taglines, nothing overflowing",
+      home.cols === 1 && !home.tiles.some((t) => t.sub) && home.docW <= home.winW,
       JSON.stringify({ cols: home.cols, subs: home.tiles.filter((t) => t.sub).length, docW: home.docW, winW: home.winW }));
     // one colour per tile: two games washing the same hue read as one game the reader has already played
     const cols = home.tiles.map((t) => t.colour.toLowerCase());
@@ -355,14 +356,15 @@ function crosswordForPage(cells) {
       // the left bar is painted FROM that property — the half of the request that is not the wash
       check("[home] …and the left bar is painted from it", st.played.bar !== st.idle.bar && st.perfect.bar !== st.played.bar,
         [st.idle.bar, st.played.bar, st.perfect.bar].join(" / "));
-      check("[home] the watermark tick is drawn on both", st.played.tick > 30 && st.perfect.tick > 30, st.played.tick + " / " + st.perfect.tick);
-      check("[home] …and not on an untouched tile", st.idle.tick === 0, String(st.idle.tick));
-      check("[home] the corner ornament stands down for it", st.played.glyph === "none" && st.idle.glyph !== "none", st.played.glyph + " / " + st.idle.glyph);
+      /* THE MARK IS A REAL TICK AT THE RIGHT OF THE LIST-TILE (Oct 2026 redesign): the watermark went with
+         the letterbox tile, and an untouched tile carries an empty ring there instead. */
+      check("[home] the tick is drawn on both", st.played.markW >= 18 && st.perfect.markW >= 18, st.played.markW + " / " + st.perfect.markW);
+      check("[home] …and not on an untouched tile", st.idle.markW === -1, String(st.idle.markW));
+      check("[home] the icon disc stays on a played tile", st.played.glyph !== "none" && st.idle.glyph !== "none", st.played.glyph + " / " + st.idle.glyph);
       /* CLIPPED, NOT REMOVED: the tick is decoration and says nothing to a screen reader, so the state
          has to keep the one element that names it. */
       check("[home] the state is still stated in words", /played/i.test(st.played.named) && /perfect/i.test(st.perfect.named),
         st.played.named + " / " + st.perfect.named);
-      check("[home] …while taking no room on the tile", st.played.markW <= 2 && st.perfect.markW <= 2, st.played.markW + " / " + st.perfect.markW);
       await c2.close();
     }
     for (const g of NEW_GAMES) {

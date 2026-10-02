@@ -120,8 +120,9 @@ const CARD = () => {
     check("...INLINE, never a modal over the first paint", !!(o && o.pos === "static" && !o.overlay), o && o.pos);
     check("...at the head of the day's work", !!(o && o.first));
     // the page's OWN first element is still the version line — the test-layout assertion this must not break
-    check("...and the version line is still the page's first child",
-      await page.evaluate(() => { const p = document.querySelector(".page"); const v = document.querySelector(".site-ver"); return !!v && p.firstElementChild === v; }));
+    // …and the version line is in the page's foot (Oct 2026 redesign, on request: no date at the top left)
+    check("...and the version line sits in the page's foot",
+      await page.evaluate(() => { const v = document.querySelector(".site-ver"); return !!v && !!v.closest(".home-foot"); }));
 
     // "No thanks" retires it — and a reload is the only way to catch a card that comes back
     await page.click("#b-tour-no");

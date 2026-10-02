@@ -35,9 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.906", released: "2026-10-01T14:25Z" };
+window.FOLIO_VERSION = { v: "1.907", released: "2026-10-02T01:32Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-10-02",
+    t: "A new home page, a new Collections page, and the Studio folded into it",
+    items: [
+      "<b>The home page is redesigned</b>: the daily study banner now previews your next cards and estimates the minutes from your own pace, with Start review beneath.",
+      "<b>Your streak</b> has a ribbon of its own under the banner, showing the chest every seventh day brings; the Account page's streak box is gone.",
+      "<b>Your collections</b> on the home page are tinted rows with blue, red and green counts; the minigames are a list; <b>Continue reading</b> and <b>This week</b> close the page.",
+      "<b>The Collections page is redesigned</b> to match, each collection a row with its progress painted across it.",
+      "<b>The Studio page is gone</b>: your own decks are written, imported, exported and edited on the Collections page's Your decks tab, in place.",
+      "<b>The tour</b> walks the new pages, and the version line moved from the top of the home page to its foot.",
+    ],
+  },
   {
     d: "2026-10-01",
     t: "Two hundred and ten new World History cards, from Tikal to serfdom",
