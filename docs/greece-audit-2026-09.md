@@ -611,6 +611,26 @@ rewritten. Earlier entries (Leuctra, Plataea, panoply, othismos, *Eunomia*) are 
 `Thrasybulus` is keyed to the Athenian democrat of 403 BCE and auto-links the tyrant of Miletus on `gr-188`;
 the tyrant wants his own key (`Thrasybulus_of_Miletus`), and the bare name a decision.
 
+**Added by the refinement's B29–B33 (2026-10-02)**, counted the same way after `gr-271`–`gr-300` were
+rewritten.
+
+| cards | term | note |
+|---|---|---|
+| 19 | Tegea | |
+| 12 | polemarch | the Athenian archon; Spartan polemarchs also appear on these cards |
+| 8 | Megacles | the Alcmaeonid of `gr-282` (the Cylonian affair) and his grandson, leader of the Coast (`gr-296`, `gr-298`); two keys |
+| 6 | Cecrops | |
+| 5 | Pallene · Thyrea | Pallene the battle site in Attica, not the peninsula of Chalcidice |
+| 4 | Sigeum | |
+| 3 | Lygdamis · Erichthonius · medimnos | |
+| 2 | Cynuria · Damasias | |
+| 1 | ephetai · axones · horos · Royal Stoa · apophasis · Androtion · Othryades · Telesilla · Philocyprus · Tisamenus · Gymnopaedia | |
+
+The Athenian `Lycurgus` (leader of the Plain, `gr-296`, `gr-298`) and Peisistratus's father `Hippocrates`
+(`gr-297`) would auto-link the Spartan lawgiver and the physician; both are written inside
+`<span class="ans-term">`, which the linker steps over. `gr-275`'s Pausanias carries a hand-written
+`data-k="Pausanias_the_regent"`.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
