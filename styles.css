@@ -9910,7 +9910,8 @@ body[data-theme="carnelian"].night .collection-deco{
 body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --sky-2:#0F1230; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
 .page .rv-banner.done, .page .rv-banner.won{background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
 .rv-banner .body{flex:1; min-width:0;}
-.rv-banner .hero-eyebrow{display:block; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; font-weight:600; color:var(--sky-rose);}
+/* the eyebrow is GREY (Oct 2026, on request) — at .62 it still clears 4.5:1 on the gradient's lighter end */
+.rv-banner .hero-eyebrow{display:block; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; font-weight:600; color:rgba(242,243,255,.62);}
 .page .rv-banner h2.review-title{font-family:var(--serif); font-weight:500; font-size:calc(38px * var(--fs)); line-height:1.08; letter-spacing:-.015em; margin:8px 0 16px; color:#fff;}
 .page .rv-banner h2.review-title .rv-n{font-weight:600; color:var(--sky-rose);}
 .page .rv-banner.hero h2.review-title{font-size:calc(34px * var(--fs));}

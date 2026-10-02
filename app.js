@@ -26235,10 +26235,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function collectionReachHTML(id, have) {
     const target = COLLECTION_TARGET[id];
     if (!target || !have) return "";
-    if (have >= target) return '<span class="coll-reach is-done"><span class="cr-long">Complete</span><span class="cr-short">100%</span></span>';
-    /* THE "N OF M PLANNED" LINE IS NOT DRAWN ANY MORE (Oct 2026 redesign, on request): a row says its
-       size once, on its own line, and "Complete" is the one reach that is news. The target table and
-       the percentage stay for the admin's audits and the tests. */
+    /* NEITHER THE "N OF M PLANNED" LINE NOR "COMPLETE" IS DRAWN ANY MORE (Oct 2026 redesign, on request):
+       a row says its size once, on its own line, and a finished collection's size line says so by
+       itself. The target table and the percentage stay for the admin's audits and the tests. */
     return "";
     const pct = Math.round((have / target) * 100);
     /* TWO FORMS, AND THE STYLESHEET PICKS ONE — the shape `.gtb-brief` already uses on a flipped game
