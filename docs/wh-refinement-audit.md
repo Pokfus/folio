@@ -124,8 +124,8 @@ in plan order unless the user says otherwise.
 | B8 | The Palaeolithic (`wh-paleolithic`) | `wh-071`–`wh-080` | 10 | 98 | **done 2026-10-02** |
 | B9 | The Palaeolithic (`wh-paleolithic`) / Peopling the planet (`wh-peopling`) | `wh-081`–`wh-090` | 10 | 94 | **done 2026-10-02** |
 | B10 | Peopling the planet (`wh-peopling`) | `wh-091`–`wh-100` | 10 | 101 | **done 2026-10-02** |
-| B11 | Peopling the planet (`wh-peopling`) | `wh-101`–`wh-110` | 10 | 96 | open |
-| B12 | The Neolithic transition (`wh-neolithic`) | `wh-111`–`wh-120` | 10 | 95 | open |
+| B11 | Peopling the planet (`wh-peopling`) | `wh-101`–`wh-110` | 10 | 96 | **done 2026-10-02** |
+| B12 | The Neolithic transition (`wh-neolithic`) | `wh-111`–`wh-120` | 10 | 95 | **done 2026-10-02** |
 | B13 | The Neolithic transition (`wh-neolithic`) | `wh-121`–`wh-130` | 10 | 93 | open |
 | B14 | The Neolithic transition (`wh-neolithic`) | `wh-131`–`wh-140` | 10 | 101 | open |
 | B15 | Neolithic worlds (`wh-early-villages`) | `wh-141`–`wh-150` | 10 | 94 | open |
@@ -650,6 +650,67 @@ both lack a primary coordinate on Wikipedia.
 `W.not-why` (29 cards with an FAQ opening "How", "What" or "Did") is a note the rule reports and does not refuse.
 What remains open from these hundred is the **picture pass** (the table below) and `wh-041`'s locator.
 
+### B11 — `wh-101`–`wh-110`, Peopling the planet (2026-10-02)
+
+Run as B1 with picture work paused (Commons still refused this sandbox on the day); no picture changed.
+Checks: `wh-audit.js --range=wh-101:wh-110` clean on all ten. `check-questions`, `check-style` (no new
+finding), `check-cards`, `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations
+--card` 0 mismatched; all 68 distinct URLs 200. Two locators were rewritten by `add-locators.js`
+(`wh-109` Star Carr, `wh-110` Bhimbetka); `wh-103`'s request ("Folsom site") found no coordinate, so its
+old Folsom point stands.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-101` Clovis culture | 7 | 6 → 7 | **"More than 10,000 points at some 1,500 places", "about a dozen" mammoth sites and a range "into Central America"** had no source. The card was mostly about the point (`wh-102`'s), with four sources by one author; now the people: mobility, caches, kill sites against the Gault base camp, the Anzick child. A "1930s" row dropped. |
+| `wh-102` Clovis point | 7 | 5 → 9 | The 900 km toolstone distance and a sentence on fakes had no source. **The East Wenatchee giant is 24.5 cm, but no source calls it agate.** Size range now the North Carolina sample (58.1 mm mean, 22 – 142 mm). Added the hafting, thrusting-spear and braced-pike readings and a 2026 study finding no spear-thrower as old as Clovis. |
+| `wh-103` Folsom tradition | 6 | 8 → 6 | **"Up to three in four ruined by fluting" is the paper's 10.5 – 22.2 per cent, and for Clovis**; dropped. "32 bison" is Cordell's 19 points and 23 bison. **The type find is 1926**, not 1927 (the in-place point). The Cooper skull is "the first Paleoindian art outside a burial", not "the oldest painted object in North America". Dates now the modelled start and end. |
+| `wh-104` Younger Dryas | 7 | 5 → 8 | **Named after *Dryas octopetala* leaves in lake clays, not its pollen** (named 1912, before pollen analysis). Onset 12,870 BP (Cheng 2020). Greenland swings of 9 – 14 °C and a 40 – 50-year exit had no openable source. The impact idea is a minority view with its critics; "it coincided with the end of Clovis" dropped. |
+| `wh-105` Holocene | 8 | 5 → 8 | Questions carried Gervais, the 1860s, 2018, 2024 and the ice-core depth. **The depth is 1,492 m (4,895 ft), not 1,493 m.** "A few million to eight billion people" had no source; the climate-and-farming link is now one view. The Anthropocene's details left to `wh-1000`; its 2024 rejection kept. |
+| `wh-106` Mesolithic | 7 | 15 → 7 | **"9700 – 4000 BCE in Europe" was the Holocene's start, not a Mesolithic date**; no source gives a Europe-wide span, so the line is Britain's 9600 – 4000 BCE. Greek etymology, Clark 1932, "broad spectrum revolution" and the Pesse canoe had no openable source. Westropp's 1866 coinage now read from his own text; a Robson DOI and issue corrected. |
+| `wh-107` Epipalaeolithic | 5 | 10 → 7 | **Why the term is preferred to "Mesolithic", the Taforalt link and "kept the dog"** had no source (the dog is disputed). 'Ain Mallaha figures moved to `wh-116`. Questions had used `wh-116`'s clues and a figure of years. Added Ohalo II, Kharaneh IV and the 'Uyun al-Hammam fox burial. |
+| `wh-108` Doggerland | 7 | 5 → 7 | **"Dry land 16,000 – 8,000 BP" had no source**; now Walker 2020's islands by c. 9000 BP, gone c. 7000 BP. The "doggers" etymology, four rivers and the mammoth and lion bones had no source. The 2020 view restated as what it says (the wave's harm varied; islands survived). Its namer no longer named in prose. |
+| `wh-109` Star Carr | 6 | 5 → 6 | **The lake-edge timber platform was called "the earliest post-built structures in Britain"**: those are three separate structures on dry ground. "33 headdresses, nine pierced" rest on a chapter that will not open; now "about 90 per cent of Europe's". Headdress purpose stated as interpretation; "oldest house" hedged. |
+| `wh-110` Bhimbetka rock shelters | 7 | 5 → 7 | **"Occupied from c. 100,000 years ago" was the ASI's date for the Auditorium cupules**, given to the whole site. The first paintings now a dispute with whose each figure is (8000 years, Upper Palaeolithic, over 30,000); a journal title for Misra 1981 that no page confirms dropped from the citation. UNESCO is 403. |
+
+**Read by eye.** *Article:* "the Clovis culture", "the Younger Dryas", "the Holocene", "the Mesolithic",
+"the Epipalaeolithic", "the Bhimbetka rock shelters"; Clovis point ("a"), Doggerland, Star Carr bare.
+*Confusability:* `wh-101`/`wh-102` split people from artefact; `wh-106`/`wh-107` are kept apart by region
+(Europe against the Levant), and `wh-107` off `wh-116`'s Natufian clues; `wh-104`/`wh-105`/`wh-113`/`wh-114`
+are a cold snap, an epoch, a warm phase and a second cold snap, each by its own evidence. One question on
+`wh-101` read "the makers of the Clovis culture" and was reworded.
+
+**Glossary.** All ten terms rewritten to agree with their cards.
+
+### B12 — `wh-111`–`wh-120`, The Neolithic transition (2026-10-02)
+
+Run as B11. Checks: `wh-audit.js --range=wh-111:wh-120` clean but for `W.not-why` on `wh-112` (two FAQs
+are yes-or-no questions about Childe and about farming's cost). `check-questions`, `check-style` (no new
+finding), `check-cards`, `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations
+--card` 0 mismatched. **Four DOIs (`wh-113`, `wh-114`) answered 403 to curl from the publishers' bot walls**;
+each was swapped for its open PMC copy, and all URLs now answer 200.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-111` Neolithic | 8 | 5 → 8 | **Lubbock defined it by polished stone and no metal, not by farming**, and was cited from a later edition (now 1865). "Land tenure and elites" belonged to urbanisation in its source. **"c. 10,000 – 3300 BCE" had no source**; now c. 12,000 – 8000 years ago in Southwest Asia and c. 4000 – 2300 BCE in Britain. |
+| `wh-112` Neolithic Revolution | 8 | 5 → 8 | **The card now says Childe pictured a rapid, deliberate change, and that it was gradual.** Its elites claim was misattributed; the eleven-centres and brucellosis clues belong to `wh-132` and `wh-134`. A question on Shubayqa bread (`wh-116`'s clue) replaced by Childe's burial count. "Term popularised", not "coined", since the first use was not checked. |
+| `wh-113` Holocene climatic optimum | 6 | 5 → 6 | **"c. 9,000 – 5,000 BP" had no source**; Cartapanis 2022 gives 10,000 – 5,000. "11,000 – 4,000 at sites" is the source's seas-first, land-later split. Precession, the molluscs and the Green Sahara (`wh-151`'s) dropped; the warmest 200 years, 0.7 °C above the 19th century at c. 6,500 BP, checked on the page. |
+| `wh-114` 8.2-kiloyear event | 5 | 6 → 6 | **"3 °C over the ice" and "1 to 3 °C" across the north** are Parker and Harrison's more than 2 °C in Greenland and 1 – 1.5 °C in Europe. **"6,200 BCE" is in no source.** The collapse of Pre-Pottery Neolithic B villages was stated as fact; now an older proposal against later evidence of continuity, with Çatalhöyük's local signal. |
+| `wh-115` Fertile Crescent | 8 | 5 → 8 | **Its date line "Farming begins c. 12,000 – 11,000 BP" was the world's figure (Larson), not the region's**; a region takes no line, so `undatable` and the Near East's 10,000 – 9000 BCE in prose. Breasted coined the term in 1914 and capitalised it in 1916 (both read on archive.org). Locator (a drawn region) kept. |
+| `wh-116` Natufian culture | 6 | 5 → 6 | **The lead question misread 'Ain Mallaha: "50 to 100 lived for 3,000 years"** is a population at one time and a site occupied over 3,000 years. Dates now c. 15,000 – 11,700 BP, with one study's 14,600 start in prose. **"Began domesticating animals" dropped**; cultivation hedged as one study's argument. Shubayqa bread added. |
+| `wh-117` domestication | 9 | 5 → 9 | A date-line row was a species count. **"Natufians reaped for 4,500 years before domestication" is the paper's 4.5 to 1 millennia.** The text no longer implies "domestication syndrome" is Darwin's phrase. Added the dog first (c. 14,500 BP), the three pathways, the rarity of the full syndrome, the slow-or-fast debate. A question that duplicated `wh-120`'s pathways clue replaced. |
+| `wh-118` Neolithic founder crops | 6 | 5 → 7 | **Bread wheat was listed as a founder wheat**; it is a later emmer–goatgrass hybrid. The card now names the eight and says the grouping is a scholarly label of the 1990s. "c. 10,000 BP" is now c. 10,700 – 8300 BP by region; core-area and protracted views both given. |
+| `wh-119` cereal domestication | 7 | 5 → 8 | **The Karaca Dağ and Iranian-barley origins were cited to a South Asia paper that does not carry them**; replaced by barley's mosaic ancestry (Guo 2025). The same 4,500-year overstatement corrected to a range. "The most critical event" is the source's "perhaps". |
+| `wh-120` animal domestication | 8 | 5 → 8 | **"A fifth of Ganj Dareh's goats lived past four" is not in the source** (the near-70 per cent figure is another site's). The pathways are named as a modern framework. Line now c. 11,000 – 10,000 BP and pigs in China by c. 8,000 BP; llama and horse rows dropped. |
+
+**Read by eye.** *Article:* "the Neolithic", "the Neolithic Revolution", "the Holocene climatic optimum",
+"the 8.2-kiloyear event", "the Fertile Crescent", "the Natufian culture", "the Neolithic founder crops";
+domestication, cereal and animal domestication bare. *Confusability:* `wh-111`/`wh-112` a period and a
+model of it; `wh-117`/`wh-119`/`wh-120` the concept, the plants, the animals, each with its own evidence
+(`wh-117`'s routes question moved to the dog, since `wh-120` owns the pathways). *Undatable:* `wh-115`
+true (a region); `wh-111`, `wh-117`, `wh-120` false (each has a dated first instance).
+
+**Glossary.** All ten terms rewritten to agree with their cards.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -693,3 +754,15 @@ pass once it answers. Filled batch by batch.
 | `wh-094` | **first**: may show human remains; replace with the lunette |
 | `wh-097` | a map with burned-in labels |
 | `wh-098`, `wh-099`, `wh-100` | description and alt are raw captions |
+| `wh-101`, `wh-102` | fine subjects, but description and alt are copied captions naming a museum and giving dates the cards no longer carry |
+| `wh-103` | a landscape of another Folsom site, no artefacts |
+| `wh-104`, `wh-105`, `wh-113`, `wh-114` | labelled charts (`wh-114`'s title gives a BC date) |
+| `wh-106` | a Kebaran mortar from Israel: Epipalaeolithic, not Mesolithic |
+| `wh-107` | one Natufian figurine; weak description and alt |
+| `wh-108` | probably a map of the Dogger Bank; description "Doggerbank" only |
+| `wh-109`, `wh-111`, `wh-116` | fine, but description and alt carry museum or promotional text or a file name |
+| `wh-112` | an Egyptian dynastic milking scene, not the Neolithic |
+| `wh-115` | a 1486 Ptolemy map of part of the region |
+| `wh-117` | a labelled wheat display; plants only |
+| `wh-118` | a 19th-century plate of einkorn, one of the eight |
+| `wh-120` | a 1937 encyclopedia plate, probably captioned |

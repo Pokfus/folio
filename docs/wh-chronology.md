@@ -121,6 +121,26 @@ Filled batch by batch, from the source each row names.
 | Americas: split from Asia / White Sands footprints / Clovis | c. 36,000 – 24,000 BP / c. 23,000 – 21,000 BP / 13,050 – 12,750 BP | `wh-098`, `wh-100` |
 | Monte Verde main layer | c. 14,500 BP (challenged 2026) | `wh-099` |
 | Paleo-Indian period ends | c. 9000 – 8000 BCE | New Georgia Encyclopedia (`wh-100`) |
+| Clovis culture and points | 13,050 – 12,750 BP | Waters et al. 2020 (`wh-101`, `wh-102`; agrees with `wh-100`) |
+| Folsom tradition | began 12,845 – 12,770 BP, ended 12,400 – 12,255 BP (modelled); type site dug 1926 | Buchanan et al.; Cordell (`wh-103`) |
+| Younger Dryas | c. 12,870 – 11,700 BP; named 1912 | Cheng et al. 2020; Mangerud 2021 (`wh-104`) |
+| Holocene | 11,700 BP – present (11,700 b2k at the NGRIP2 GSSP); Northgrippian c. 8,200 and Meghalayan c. 4,200 years ago, ratified 2018 | Walker et al. 2009, 2018 (`wh-105`) |
+| Mesolithic, Britain | c. 9600 – 4000 BCE; named 1866 | Ashmolean; Westropp (`wh-106`) |
+| Epipalaeolithic, southern Levant | c. 23,000 – 11,600 BP | Maher et al. 2011 (`wh-107`) |
+| Doggerland | islands by c. 9000 BP; Storegga tsunami c. 8150 BP; last islands gone c. 7000 BP | Walker et al. 2020 (`wh-108`) |
+| Star Carr | c. 9300 – 8500 BCE | Bates et al. 2024 (`wh-109`) |
+| Bhimbetka first paintings | estimates c. 30,000 – 8000 years ago (disputed); last 6th – 7th century CE | Misra; Dubey-Pathak; Govt of MP (`wh-110`) |
+| Neolithic: Southwest Asia / Britain; named | c. 12,000 – 8000 years ago / c. 4000 – 2300 BCE; 1865 | Watkins; English Heritage; Lubbock (`wh-111`) |
+| domestication for food begins | c. 12,000 – 11,000 years ago | Larson et al. 2014 (`wh-111`, `wh-112`, `wh-117`) |
+| farming begins in the Near East | 10,000 – 9000 BCE | Lazaridis et al. (`wh-115`) |
+| "Neolithic Revolution" in Childe's *Man Makes Himself* | 1936 | Childe (`wh-112`) |
+| Holocene climatic optimum; warmest 200 years | c. 10,000 – 5,000 BP; c. 6,500 BP | Cartapanis et al. 2022; Kaufman et al. 2020 (`wh-113`) |
+| 8.2-kiloyear event | c. 8,200 BP | Parker and Harrison 2022 (`wh-114`) |
+| Natufian culture; Shubayqa 1 bread | c. 15,000 – 11,700 BP (one study c. 14,600 start); c. 14,400 – 14,200 BP | Groman-Yaroslavski et al. 2026; Arranz-Otaegui et al. 2018 (`wh-116`) |
+| oldest dog-shaped bones | c. 14,500 BP (older claims disputed) | Bergström et al. 2020 (`wh-117`) |
+| founder crops: domestic-type cereals | c. 10,700 – 8300 BP, by region | Arranz-Otaegui et al. 2016 (`wh-118`) |
+| cereals: wild cultivation / first tough ears | c. 13,000 / c. 10,000 BP | Levy and Feldman (`wh-119`) |
+| livestock in Southwest Asia / pigs in China | c. 11,000 – 10,000 BP / by c. 8,000 BP | Zeder 2008; Wang et al. (`wh-120`) |
 
 ## Chronology pins
 
@@ -225,4 +245,23 @@ wh-097: 35,700; 11,000; 1937
 wh-098: 36,000; 24,000; 23,000; 13,050
 wh-099: 14,500; 1997
 wh-100: 14,000; 13,050; 9000; 8000
+wh-101: 13,050; 12,750
+wh-102: 13,050; 12,750
+wh-103: 12,845; 12,770; 12,400; 12,255; 1926
+wh-104: 12,870; 11,700; 1912
+wh-105: 11,700
+wh-106: 9600; 4000; 1866
+wh-107: 23,000; 11,600
+wh-108: 9000; 7000; 8150; 1998
+wh-109: 9300; 8500
+wh-110: 30,000; 8000
+wh-111: 12,000; 8000; 4000; 2300; 1865
+wh-112: 12,000; 11,000; 1936
+wh-113: 10,000; 5,000; 6,500
+wh-114: 8,200; 2018
+wh-116: 15,000; 11,700; 14,400; 14,200
+wh-117: 14,500; 12,000; 11,000
+wh-118: 10,700; 8300
+wh-119: 13,000; 10,000
+wh-120: 11,000; 10,000; 8,000
 ```
