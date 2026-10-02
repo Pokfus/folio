@@ -35,14 +35,25 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.911", released: "2026-10-02T00:19Z" };
+window.FOLIO_VERSION = { v: "1.918", released: "2026-10-02T03:25Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-02",
-    t: "Ninety new Ancient Egypt cards, from the Sahara to the first pyramids",
+    t: "New home and Collections pages, more China and Rome cards, Macbeth",
     items: [
-      "<b>Ninety new cards in the Ancient Egypt collection</b>, from the drying of the Sahara through the Predynastic and the first dynasties to Sneferu, each with a cited glossary term."
+      "<b>Ninety new cards in the Ancient Egypt collection</b>, from the drying of the Sahara through the Predynastic and the first dynasties to Sneferu, each with a cited glossary term.",
+      "<b>The home page is redesigned</b>: the daily study banner now previews your next cards and estimates the minutes from your own pace, with Start review beneath.",
+      "<b>Your streak</b> has a ribbon of its own under the banner, showing the chest every seventh day brings; the Account page's streak box is gone.",
+      "<b>Your collections</b> on the home page are tinted rows with blue, red and green counts; the minigames are a list; <b>Continue reading</b> and <b>This week</b> close the page.",
+      "<b>The Collections page is redesigned</b> to match, each collection a row with its progress painted across it.",
+      "<b>The Studio page is gone</b>: your own decks are written, imported, exported and edited on the Collections page's Your decks tab, in place.",
+      "<b>The tour</b> walks the new pages, and the version line moved from the top of the home page to its foot.",
+      "<b>Sixty-one new cards in the China collection</b>, from the Sui reunification through the Tang to the Five Dynasties, with 56 new glossary terms.",
+      "<b>Shakespeare\u2019s <i>Macbeth</i> is in the Library</b> \u2014 the 1918 Yale edition, act by act, with the editor\u2019s glosses and notes.",
+      "<b>A hundred new cards in the Ancient Rome collection</b>, finishing government and law and the provinces and opening family life, each with a glossary term.",
+      "<b>Seventy more Ancient Greece cards are rewritten</b>, finishing the Mycenaean Greece and Early Iron Age decks, with more sources and new pictures.",
+      "<b>A hundred World History cards are rewritten</b>, in the Human origins, Palaeolithic and Peopling the planet decks, with more sources and corrected dates."
     ]
   },
   {
@@ -53,7 +64,7 @@ window.CHANGELOG = [
       "<b>Eighty new cards in the China collection</b>, from the Eastern Han through the Jin to the Northern Zhou, each with a cited glossary term.",
       "<b>A hundred and twenty new cards in the Ancient Rome collection</b>, from Licinius and Nicaea through the fall of the West to the Roman army and the Senate, with 111 new glossary terms.",
       "<b>Twenty new cards in the Visual Art collection</b>, finishing its Ice Age art and opening the first villages, with 19 new glossary terms.",
-      "<b>Twenty-five more cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
+      "<b>Seventy more Ancient Greece cards are rewritten</b>, in the Crete and the Cyclades and Mycenaean Greece decks, with more sources, clearer backgrounds and new pictures.",
       "<b>Settings \u2192 Data</b> now says where your progress is kept, asks the browser to keep it, and can restore a backup as well as download one.",
       "<b>Short on time?</b> Chips under your decks start the day's review for 5, 10, 20 or 30 minutes.",
       "<b>Ctrl+K</b> (or Cmd+K) now opens search from anywhere, and a first visit offers ten sample cards to try before choosing anything.",

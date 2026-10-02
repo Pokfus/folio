@@ -5933,6 +5933,7 @@
     const kept = S.streak.last === yest;
     S.streak.count = kept ? S.streak.count + 1 : 1;
     S.streak.last = t;
+    S.streak.best = Math.max(S.streak.best | 0, S.streak.count);   // the longest run, for the home page's ribbon
     /* A BROKEN STREAK FORGETS WHAT IT WAS PAID AT, and this is the one line the whole thing turns on.
        `S.streakChest` is a COUNT rather than a date, so a reader who reached seven, broke the run and
        climbed back to seven would find it already recorded and earn nothing — silently, and then be paid
@@ -11759,6 +11760,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      not read as a set even at 26, and it reads 6.60:1 on the tightest of the sixteen light papers
      where the alternatives that clear the kinship by more scrape 4.75. */
   "Marco Polo": "#5A009C",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-four colours placed (Oct 2026, adding Macbeth). Inside
+     the shipped band — L 12.3–47.8, chroma 18–85 since the Marco Polo row, 22 from every light
+     theme's ink, 4.5:1 on every light paper, card and second paper — the best-separated colour
+     anywhere is a magenta at 19.5, and its nearest neighbour is EURIPIDES — two tragedians in
+     neighbouring colours is the kinship claim the Euripides test exists to refuse, so it decides. This deep navy clears its nearest, Marco Polo, by 17.1 and Homer by 17.4 —
+     both above the shelf's own tightest pair at 16.6, so nothing tighter than that minimum was
+     taken — and sits 31.8 or more from all five books a reader takes as a set with it (Sophocles,
+     Euripides, Aristophanes, Chaucer, Malory). It reads 9.6:1 on the tightest light paper. */
+  "William Shakespeare": "#000081",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -14620,6 +14630,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 2, label: "Purgatorio", note: "Cantos I–XXXIII" },
         { n: 3, label: "Paradiso", note: "Cantos I–XXXIII" },
       ],
+    },
+    {
+      id: "macbeth",
+      title: "Macbeth",
+      subtitle: "The Tragedy of Macbeth",
+      author: "William Shakespeare",
+      /* "c." because the date is an inference: no record names the year of writing, the First Folio
+         of 1623 is the first printing, and 1606 is where the Porter's jokes on equivocation and the
+         play's verse both point. */
+      written: "c. 1606",
+      year: 1606,
+      /* NO `translator` — written in English, as Le Morte d'Arthur was, so the rights box names the
+         edition instead. */
+      edition: "The Yale Shakespeare, ed. Charlton M. Lewis, Yale University Press, New Haven, 1918",
+      /* A LIMIT ON NOTHING. The play has never been in copyright; the Yale edition was published in
+         1918 and its editor died in 1923, so it clears the pre-1929 rule and, since the start of 2024,
+         life plus a hundred as well. See .claude/fetch-book.js for the editions looked at and why
+         this one. */
+      rights:
+        "Public domain. Shakespeare wrote the play around 1606 and it was first printed in the First " +
+        "Folio of 1623, so the work itself has never been in copyright. The text here is the Yale " +
+        "Shakespeare edition edited by Charlton M. Lewis and published by Yale University Press in 1918; " +
+        "Lewis lived from 1866 to 1923, so the edition is out of copyright in the United States under the " +
+        "rule for works published before 1929, and everywhere the term is the editor's life plus a hundred " +
+        "years or less. What is taken is the play, the edition's list of characters, Lewis's glosses " +
+        "from the foot of each page and his end notes, which are set with the glosses that point to them; " +
+        "his appendices and index are not reproduced. (The modern editions by Nicholas Brooke, 1990, " +
+        "A. R. Braunmuller, 1997, and Sandra Clark and Pamela Mason, 2015, are still in copyright and " +
+        "are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Macbeth_(1918)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. */
+      /* The play's own division: five acts, each a tab, its scenes headed inside it. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+      /* WHAT THE GLOSSARY MUST NOT LINK — Le Morte d'Arthur's rule, swept against the rendered text
+         of all five acts and the front matter rather than written from imagination. Norway and
+         Ireland are where Macbeth's enemies come from and flee to, the "rugged Russian bear" is
+         Macbeth's figure of speech, and the three entries are modern states with modern
+         populations; `Gunpowder` is the explosive, which the front matter's Gunpowder Plot is not
+         about. `Castle` and `Mark_Antony` are left linked: both say something true about the line
+         they sit in. */
+      glossOff: ["Norway", "Ireland", "Russia", "Gunpowder"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -17939,14 +17993,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "kind of card waiting: <b class=\"tour-pile-new\">New</b> ones you have never seen, " +
         "<b class=\"tour-pile-learn\">Learning</b> ones you are still getting wrong, and " +
         "<b class=\"tour-pile-rev\">Review</b> ones that have come round again.<p>Press it and Folio deals " +
-        "them in order. When the three reach zero the day is done, and there is no benefit in pushing on.</p>",
+        "them in order. When the three reach zero the day is done, and there is no benefit in pushing on.</p>" +
+        "<p>The minutes beside the counts are an estimate from your own pace in each collection, so a " +
+        "history card and a vocabulary word are not counted alike.</p>",
       target: ["#b-review"],
     },
     {
       route: "home",
       title: "Nothing is scheduled until you choose it",
       body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>The " +
-        "<b>Collections</b> button under the banner is the way to them.</p>",
+        "<b>+ Add decks</b> link beside <b>Your collections</b> is the way to them; on a wide screen the " +
+        "Collections tab in the bar goes to the same page.</p>",
       target: [".home-collections", "#b-addDecks"],
     },
     {
@@ -17970,17 +18027,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     {
       route: "home",
       title: "Your decks, once they are added",
-      body: "Your new deck has a row under the banner, with its own bar and its own share of the day. Tapping " +
-        "a row studies that deck alone.<p><b>Hold a row</b>, or right-click it, for its own options: extra " +
-        "cards today, daily limits of its own, sitting the day out, or removing it again.</p>",
+      body: "Your new deck has a row under <b>Your collections</b>. The tint across the row is how much of it " +
+        "you have learned, and the three coloured boxes are its share of today's new, learning and review " +
+        "cards. Tapping a row studies that deck alone.<p><b>Hold a row</b>, or right-click it, for its own " +
+        "options: extra cards today, daily limits of its own, sitting the day out, or removing it again.</p>",
       target: () => { const r = tourDeckRow(); return r ? [r] : [".active-decks", "#b-review"]; },
+    },
+    {
+      route: "home",
+      title: "Your streak",
+      /* THE RIBBON (Oct 2026 redesign): a day with any study keeps the streak, each week of it ends in a
+         chest, and the ribbon under the banner is where that is said — it took over the Account page's
+         "Next streak chest" box, so this step is where a reader first meets the chest. */
+      body: "A day with any study at all keeps your <b>streak</b>. Every seventh day in a row earns a " +
+        "<b>chest</b>, and each week after that is worth one more; the ribbon under the banner shows the " +
+        "week's chest filling up, gold once it is paid.",
+      target: [".streak-ribbon", "#b-review"],
     },
     {
       route: "home",
       title: "A game a day",
       // the count is deliberately not spelled out: the grid has grown from four to nine, and a number here
       // is one more place to forget when it grows again
-      body: "Under your decks sits a grid of <b>minigames</b>, one round of each per day, dealt from the " +
+      body: "Under your decks sits a list of <b>minigames</b>, one round of each per day, dealt from the " +
         "best-known cards on the site.<p>The <b>Atlas</b> is a globe you can wind back to 1000 BCE, and the " +
         "<b>Library</b> holds whole books to read. Both explain themselves the first time you open them.</p>",
       target: [".games-sec", ".game-grid"],
@@ -18034,9 +18103,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       title: "What a chest can hold",
       body: "A chest holds a real object from the past, with its story and its sources, and now and then a new " +
         "look for the whole site instead. Some objects are far rarer than others, and the colour says which.<p>" +
-        "Chests come with every badge and every new Folio level, every seventh day of a study streak, and for " +
-        "finishing all nine minigames in a day. Everything you find is kept in your <b>Reliquary</b>, on the " +
-        "account page.</p>",
+        "Chests come with every badge and every new Folio level, every seventh day of a study streak (the " +
+        "ribbon on the home page shows that one filling up), and for finishing all nine minigames in a day. " +
+        "Everything you find is kept in your <b>Reliquary</b>, on the account page.</p>",
       demo: () => tourRarityDemo(),
       noBack: true,
     },
@@ -22990,6 +23059,118 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="tag">Memorise anything</span></div>';
   }
 
+  /* ---------- THE HOME PAGE'S NEW PIECES (Oct 2026 redesign) ----------
+     THE ESTIMATE IS THE READER'S OWN PACE IN EACH COLLECTION, not a constant per card: a history card reads
+     longer than a vocabulary word, so the minutes for today's pile are summed card by card from the mean
+     seconds this reader has spent on the newest `S.revlog` rows of the same collection (or the same deck of
+     their own). A collection with no rows yet takes the reader's overall mean, and a reader with none at all a
+     flat 20 s. Each row is clamped to 3–180 s so one walk away from the desk does not become an hour. One pass
+     over the newest rows per render, nothing stored: the log IS the record. */
+  const PACE_DEFAULT_S = 20, PACE_ROWS = 3000;
+  function paceKeyOf(cardId) {
+    const uc = UCARDS && UCARDS[cardId];
+    if (uc) return "u:" + (uc.deckId || "");
+    const root = cardCollectionRoot(cardId);
+    return root ? root.id : "";
+  }
+  function paceTable() {
+    const log = S.revlog || [], sums = {}, ns = {};
+    let allSum = 0, allN = 0;
+    for (let i = log.length - 1, seen = 0; i >= 0 && seen < PACE_ROWS; i--, seen++) {
+      const r = revRead(log[i]);
+      if (!r || !r.id || !(r.secs > 0)) continue;
+      const sec = Math.max(3, Math.min(180, r.secs)), k = paceKeyOf(r.id);
+      sums[k] = (sums[k] || 0) + sec; ns[k] = (ns[k] || 0) + 1; allSum += sec; allN++;
+    }
+    const mean = allN ? allSum / allN : PACE_DEFAULT_S;
+    return { of: (k) => (ns[k] ? sums[k] / ns[k] : mean), mean };
+  }
+  function reviewEstimateMs(ids) {
+    const pace = paceTable();
+    let sec = 0;
+    ids.forEach((id) => { sec += pace.of(paceKeyOf(id)); });
+    return Math.round(sec * 1000);
+  }
+  function fmtEstimate(ms) {
+    const m = Math.max(1, Math.round(ms / 60000));
+    return m >= 60 ? "\u2248 " + Math.floor(m / 60) + " h" + (m % 60 ? " " + (m % 60) + " min" : "") : "\u2248 " + m + " min";
+  }
+  /* THE STREAK RIBBON. It took over the banner's fire chip AND the Account page's "Next streak chest" box,
+     so the chest is said once. The run is shown in weeks: each week's seven days end in the chest they earn
+     (STREAK_CHEST_EVERY; maybeStreakChest pays it), gold once paid, quiet while being earned, and the week
+     after the current one is always drawn so the next chest is in sight. The phone shows the current week
+     alone (styles.css hides the other). `S.streak.best` is the longest run, kept by bumpStreak. */
+  function streakRibbonHTML() {
+    const st = S.streak || {};
+    const live = st.last === todayStr() || st.last === dayKey(Date.now() - DAY);
+    const n = live ? (st.count | 0) : 0;
+    const p = streakChestProgress(S), every = STREAK_CHEST_EVERY;
+    const weeks = Math.max(1, Math.ceil(n / every)), paid = Math.floor(n / every), shown = Math.max(2, weeks);
+    let days = "";
+    for (let w = shown - 2; w < shown; w++) {
+      const cells = [];
+      for (let i = 0; i < every; i++) { const d = w * every + i + 1; cells.push('<i class="' + (d <= n ? (d === n ? "t" : "b") : "o") + '"></i>'); }
+      days += '<span class="sr-wk' + (w === weeks - 1 ? " cur" : "") + '">' + cells.join("") +
+        '<span class="sr-chest' + (w < paid ? " won" : "") + '" aria-hidden="true">' + CHEST_SVG + "</span></span>";
+    }
+    const prize = p.worth === 1 ? "a chest" : p.worth + " chests";
+    const note = n <= 0 ? "Study on any day to start a streak \u2014 seven days in a row earns a chest."
+      : p.left === 0 ? "Seven days in a row \u2014 paid. Seven more earns " + esc(prize) + "."
+      : p.left + (p.left === 1 ? " more day" : " more days") + " for <b>" + esc(prize) + "</b>";
+    const best = Math.max(st.best | 0, n);
+    return '<div class="streak-ribbon" role="group" aria-label="' + n + ' day streak">' +
+      '<b class="sr-n">' + n + '</b><span class="sr-t">day streak</span>' +
+      '<span class="sr-days" role="img" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + days + "</span>" +
+      '<span class="sr-note">' + note + "</span>" +
+      (best > 0 ? '<span class="sr-best">Longest \u00b7 ' + best + (best === 1 ? " day" : " days") + "</span>" : "") +
+      "</div>";
+  }
+  /* The book the reader stopped in most recently, as the Library's own shelf would draw it. */
+  function homeReadingHTML() {
+    const R = S.reading || {};
+    let best = null, at = 0;
+    Object.keys(R).forEach((id) => { const r = R[id]; const t = r ? (+r.at || 0) : 0; if (t > at && BOOKS.some((b) => b.id === id)) { at = t; best = id; } });
+    const b = best ? BOOKS.find((x) => x.id === best) : null;
+    if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Continue reading</span>' +
+      '<span class="hb-empty">Nothing open yet \u2014 the Library holds ' + BOOKS.length + ' whole books, free to read.</span></button>';
+    const pct = readingPct(b), pos = readingPos(b.id);
+    const where = pos && pos.ch > 0 ? b.chapterWord + " " + pos.ch : "About this book";
+    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" style="--tile:' + esc(bookColor(b)) + '">' +
+      '<span class="hb-k">Continue reading</span>' +
+      '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
+        "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + " \u00b7 " + esc(where) + "</span>" +
+        '<span class="hb-bar"><span style="width:' + pct + '%"></span></span><em>' + pct + "% read</em></span></span></button>";
+  }
+  /* The week's figures: cards from the daily totals, time and recall from the per-answer log. */
+  function homeWeekHTML() {
+    const now = Date.now();
+    let cards = 0, secs = 0, right = 0, total = 0;
+    for (let d = 0; d < 7; d++) { const e = (S.reviewLog || {})[dayKey(now - d * DAY)]; if (e) cards += e[0] | 0; }
+    const log = S.revlog || [], cut = now - 7 * DAY;
+    for (let i = log.length - 1; i >= 0; i--) { const r = revRead(log[i]); if (!r) continue; if (r.t < cut) break; secs += r.secs || 0; total++; if (r.correct) right++; }
+    const mins = Math.round(secs / 60);
+    const time = mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min";
+    const recall = total ? Math.round((right / total) * 100) + "%" : "\u2014";
+    return '<div class="home-box home-week"><span class="hb-k">This week</span><div class="hw-stats">' +
+      "<div><b>" + cards + "</b><span>cards studied</span></div>" +
+      "<div><b>" + esc(time) + "</b><span>at the desk</span></div>" +
+      '<div class="g"><b>' + recall + "</b><span>recalled</span></div></div>" +
+      '<span class="gdeco" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>';
+  }
+  /* The top three cards of today's pile, fanned beside the banner (desktop and tablet only; see styles.css).
+     Site cards only: a community card's text lives per note and may not be loaded yet. */
+  function reviewPreviewHTML(ids) {
+    const pick = [];
+    for (const id of ids) { const c = CARD_BY_ID[id]; if (c && c.question) pick.push(c); if (pick.length === 3) break; }
+    if (!pick.length) return "";
+    const txt = (q) => esc(String(q).replace(/<[^>]+>/g, "")).replace(/_{3,}/g, '<u class="pv-blank"></u>');
+    const name = (c) => { const r = cardCollectionRoot(c.id); return r ? nodeTitle(r) : ""; };
+    const state = (c) => { const rec = S.cards[c.id]; return !rec ? "New" : schedIsLearning(rec.status) ? "Learning" : "Review"; };
+    return '<div class="rv-preview" aria-hidden="true">' + pick.map((c, i) =>
+      '<div class="pv-card pv' + (i + 1) + '"><span class="pv-eb">' + esc(name(c)) + (i === 0 ? "<em>next up</em>" : "") + "</span>" +
+      "<p>" + txt(c.question) + '</p><span class="pv-ft">' + state(c) + "</span></div>").reverse().join("") + "</div>";
+  }
+
   /* ---------- the review list's SUBDECK FOLD (Aug 2026, on request) ----------
      Adding a collection brings its whole subtree into the review (see addActive), and a 1,000-card plan's
      tree runs to thirty or forty leaves — so the list under the banner had become by a wide margin the
@@ -23689,17 +23870,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const pileSet = new Set(pileIds);
     const pileCounts = (ids) => {
       let nw = 0, lr = 0, rv = 0;
+      const got = [];
       ids.forEach((id) => {
         if (!pileSet.has(id)) return;
         const c = S.cards[id];
+        const was = nw + lr + rv;
         // a LEARNING card counts from the moment it is answered wrong until it graduates, whether or not its
         // ten-minute step has come round yet — the pile is what is still being learned, not what is playable
         // this second, and a count that emptied while the card was on its timer would say the work was done
         if (!c) { if (freshSet.has(id)) nw++; }
         else if (schedIsLearning(c.status)) lr++;
         else if (dueSet.has(id)) rv++;
+        if (nw + lr + rv > was) got.push(id);
       });
-      return { nw, lr, rv };
+      return { nw, lr, rv, ids: got };
     };
     const pile = pileCounts(pileIds);
     const activeIds = activeEntryIds();
@@ -24505,12 +24689,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        other, is a first visit spending its attention twice. */
 
     // streak chip: shown once a run of 2+ days is alive (studied today, or yesterday with today still open)
-    const streakChip = (() => {
-      const st = S.streak || {};
-      const yest = dayKey(Date.now() - DAY);
-      if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
-      return "";
-    })();
     /* THE DAY'S TIME ON CARDS SITS UNDER THE DECK LIST, NOT IN THE BANNER (Aug 2026, on request — it was a
        fourth `.stat` in the meta row beside New / Learning / Review). It is not a pile: those three say
        what is left to do today and this says what has been done, so standing it among them made a reader
@@ -24546,24 +24724,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        this session?". It is silent while a chest is already WAITING — `chestBannerHTML` is on screen
        directly above saying so, and "two cards to the next" beside "a chest is waiting" reads as two
        different claims about the same thing. */
-    const nextChest = (() => {
-      if ((S.chests | 0) > 0) return "";
-      const lv = levelFromXP(folioXP());
-      const cards = Math.max(0, lv.need - lv.into);
-      const played = gamesPlayedTodayCount(S), games = DAILY_GAMES.length;
-      const toPlay = S.playChest === todayStr() ? Infinity : games - played;
-      const st = streakChestProgress(S);
-      const days = st.count > 0 ? st.left : Infinity;
-      const opts = [
-        [cards, cards === 1 ? "one more card" : cards + " more cards"],
-        [toPlay, toPlay === 1 ? "one more game today" : toPlay + " more games today"],
-        [days, days === 1 ? "one more day's streak" : days + " more days' streak"],
-      ].filter((o) => o[0] > 0 && o[0] !== Infinity);
-      if (!opts.length) return "";
-      opts.sort((a, b) => a[0] - b[0]);
-      return '<div class="rv-chestnext" title="A level, a day of all nine games, or every seventh day of a streak — each earns an artefact chest">' +
-        '<span>' + esc(opts[0][1]) + "</span><b>to a chest</b></div>";
-    })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
        standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
        something that is not a pile of cards at all — and it is gone from both branches. What replaces it is
@@ -24578,7 +24738,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const reviewWon = reviewDone && rday.miss === 0;
     // first-run hero: one sentence of purpose and a single way in — the normal banner takes over after the first card
     const bannerHTML = fresh
-      ? `<button class="banner hero" id="b-review" style="--tile:${esc(reviewHue())}">
+      ? `<button class="banner rv-banner hero" id="b-review" style="--tile:${esc(reviewHue())}">
           <div class="body">
             <span class="hero-eyebrow">Start here</span>
             ${/* The break is written in the markup rather than left to the wrap (Aug 2026, on request):
@@ -24597,7 +24757,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
-      : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" style="--tile:${esc(reviewHue())}">
+      : `<button class="banner rv-banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" style="--tile:${esc(reviewHue())}">
           ${doneMarkHTML(reviewDone, reviewWon)}
           ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
                 carried the day's whole pile and nothing on the banner said so — the three counts below it
@@ -24605,7 +24765,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 actually after, so the numeral was a fourth unlabelled number competing with three
                 labelled ones. */""}
           <div class="body">
-            <h2 class="review-title">${REVIEW_TITLE}</h2>
+            <span class="hero-eyebrow">${REVIEW_TITLE}</span>
+            <h2 class="review-title">${pile.nw + pile.lr + pile.rv > 0
+              ? `<b class="rv-n">${pile.nw + pile.lr + pile.rv} ${pile.nw + pile.lr + pile.rv === 1 ? "card" : "cards"}</b> ${pile.nw + pile.lr + pile.rv === 1 ? "is" : "are"} waiting.`
+              : activeIds.length ? "All caught up." : "Nothing dealt yet."}</h2>
             ${/* …and with it the "Cards scheduled for today, plus a few new ones" line, which described the
                   three counts underneath it in words. The other two branches are kept: one says the day is
                   finished and the other says there is nothing here yet, and neither is visible anywhere
@@ -24626,18 +24789,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <div class="stat st-new${pile.nw ? "" : " stat-zero"}"><b>${pile.nw}</b><span>New</span></div>
               <div class="stat st-learn${pile.lr ? "" : " stat-zero"}"><b>${pile.lr}</b><span>Learning</span></div>
               <div class="stat st-rev${pile.rv ? "" : " stat-zero"}"><b>${pile.rv}</b><span>Review</span></div>
+              ${pile.ids.length ? `<div class="stat st-est" title="From your own pace in each collection"><b>${esc(fmtEstimate(reviewEstimateMs(pile.ids)))}</b><span>Estimated</span></div>` : ""}
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
               ${/* the day's time on cards stood here and is now under the deck list — see `dayTime` above */""}
-              ${streakChip}
               ${/* THE CTA IS DRAWN ONLY WHILE THERE IS WORK (Aug 2026, on request). A cleared day used to
                     swap "Start" for a ghost "Browse collections", which is a second route to a page the
                     Collections button under this group already names — and it named it in the one place a
                     reader looks for what to STUDY. The banner's own click still falls through to the
                     collections when the day is empty, so nothing that could be pressed becomes a dead
                     no-op; only the redundant chrome goes. */""}
-              ${dueN + newN ? `<span class="cta"><span class="btn">Start</span></span>` : ""}
+              ${dueN + newN ? `<span class="cta"><span class="btn">Start review</span></span>` : ""}
             </div>
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
@@ -24645,7 +24808,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   control inside a button had to be a `role="button"` span the banner's own handler deferred
                   to. */""}
           </div>
-          <span class="glyph glyph-svg">${ICON.review}</span>
+          ${reviewPreviewHTML(q.all)}
         </button>`;
     /* THE WAY TO THE COLLECTIONS IS A BUTTON OF ITS OWN, STANDING UNDER THE REVIEW GROUP (Aug 2026, on
        request). It has been three things: a full-width banner, then a small "+ Add decks" tab hanging off
@@ -24655,7 +24818,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        It ships at EVERY width and in every state the review can be in, first run included, because the
        Collections tab has left the desktop's top bar too: this is the ONLY route to the collections
        anywhere on the site, so it must not be gated on having decks or on a breakpoint. */
-    const collectionsBtn = `<button class="home-collections" id="b-addDecks" type="button">Collections</button>`;
+    const collectionsBtn = `<div class="rv-sec-h"><span>Your collections</span><span class="rv-sec-r">` +
+      `<span class="rv-legend" aria-hidden="true"><span class="n"><i></i>New</span><span class="l"><i></i>Learning</span><span class="r"><i></i>Review</span></span>` +
+      `<button class="home-collections" id="b-addDecks" type="button">+ Add decks</button></span></div>`;
     /* …AND IT IS THE CARD'S BOTTOM EDGE AGAIN (Aug 2026, on request: "I don't like the positioning of the
        home page Collections button below the active decks list on tablet and mobile"). Standing free under
        the group, it ended up between the last deck row and the Minigames heading with a gap on either side
@@ -24708,8 +24873,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Revert reachable after the last deck has been removed, and is why this is not simply gated on
        `dayTime` as the timer alone was. */
     const editActs = fresh || (!activeIds.length && !deckEditOn) ? "" : deckEditBarHTML();
-    const footRow = fresh || (!editActs && !dayTime && !nextChest) ? ""
-      : `<div class="rv-foot"><span class="rv-timeslot">${dayTime}${nextChest}</span>${editActs}</div>`;
+    const footRow = fresh || (!editActs && !dayTime) ? ""
+      : `<div class="rv-foot"><span class="rv-timeslot">${dayTime}</span>${editActs}</div>`;
     /* HOW LONG HAVE YOU GOT? (Oct 2026, out of an outside review: "make 5/10/20/30-minute sessions
        central"). The time box has existed since Sep 2026 behind the study bar's Time button, which a reader
        only meets once a session has started — so "I have ten minutes" could not be said before pressing
@@ -24736,12 +24901,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${sampleLine}
+            ${fresh ? "" : streakRibbonHTML()}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. Its old corner is where the
                   Edit button sits now, and the `padding-right` it left on the title is what keeps the two
                   apart. */""}
-            ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
             ${collectionsBtn}
+            ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
             ${/* The footer row BELOW the card — the day's time studied, on the page's own paper rather
                   than on the card, against the left end of the group's own bottom edge. It is STILL
                   hidden while the editor mode is open, which is what the mode's own request asked for
@@ -24760,7 +24926,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        other way round. The one remaining difference is the About line at the foot, which a desktop reaches
        from its top bar. */
     root.innerHTML = `
-      ${versionLineHTML()}
       ${homeBrandHTML()}
       <div class="page-head">
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
@@ -24804,11 +24969,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
         <section class="games-sec">
-          <h2 class="games-head">Minigames</h2>
-          ${sweepRowHTML()}
+          <div class="games-top"><h2 class="games-head">Minigames</h2>${sweepRowHTML()}</div>
           ${gameGrid}
         </section>
-        ${aboutLink}
+        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}</div>
+        <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button>${versionLineHTML()}</footer>
       </div>`;
 
     /* ONE WALK OVER THE TILES, rather than nine `querySelector` lines that a tenth game would have to be
@@ -24891,6 +25056,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // width now, each being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
+    { const cl = root.querySelector("#b-changelog"); if (cl) cl.addEventListener("click", () => route("mission", { scrollTo: "changelog" })); }
+    { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", () => { if (rd.dataset.book) route("book", { id: rd.dataset.book }); else route("library"); }); }
     /* THE BREAKPOINT NO LONGER CHANGES WHAT THIS PAGE IS, and the listener below is retired with the last
        thing that did (Aug 2026): the About line was the one block built on a phone and not on a desktop,
        and now that the desktop's About tab has gone it ships at both widths like everything else here. So
@@ -26023,7 +26190,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "geography", label: "Geography", sections: ["Geography"] },
     { id: "language", label: "Language", sections: [] },       // the Languages shelf is its own builder
     { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts", "Special"] },
-    { id: "community", label: "Community", sections: [] },     // your own decks, then everyone else's
+    { id: "community", label: "Your decks", sections: [] },     // your own decks, then everyone else's
     { id: "all", label: "All", sections: null },               // null = every section; the default
   ];
   let collTab = "all";
@@ -26065,6 +26232,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const target = COLLECTION_TARGET[id];
     if (!target || !have) return "";
     if (have >= target) return '<span class="coll-reach is-done"><span class="cr-long">Complete</span><span class="cr-short">100%</span></span>';
+    /* THE "N OF M PLANNED" LINE IS NOT DRAWN ANY MORE (Oct 2026 redesign, on request): a row says its
+       size once, on its own line, and "Complete" is the one reach that is news. The target table and
+       the percentage stay for the admin's audits and the tests. */
+    return "";
     const pct = Math.round((have / target) * 100);
     /* TWO FORMS, AND THE STYLESHEET PICKS ONE — the shape `.gtb-brief` already uses on a flipped game
        tile. "199 of 1,000 planned" is the useful sentence and it does not fit beside a title on a
@@ -26251,8 +26422,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const entry = uDeckEntry(d.id), on = isActive(entry);
     const installed = !uDeckIsMine(d);
     const subs = udeckSubRowsHTML(d);   // "" where the deck has nothing under it — see the chevron below
-    return '<div class="collection udeck' + (installed ? " udeck-installed" : "") + '">' +
-      '<div class="collection-row" role="button" tabindex="0" data-udeck="' + esc(d.id) + '">' +
+    // `.studio-deck` and `.sd-title` are the old Studio list's hooks, kept on the row the list became (Oct 2026)
+    return '<div class="collection udeck studio-deck' + (installed ? " udeck-installed" : "") + (studioState.deck === d.id ? " udeck-editing" : "") + '" data-sd="' + esc(d.id) + '">' +
+      '<div class="collection-row" role="button" tabindex="0" data-udeck="' + esc(d.id) + '" style="--w:' + (n ? ((studied / n) * 100).toFixed(1) : 0) + '%">' +
         collectionIconMarkup(d.id) +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
@@ -26266,9 +26438,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '</div>' +
         '<div class="collection-actions">' +
           (n ? '<button class="collection-add' + (on ? " added" : "") + '" data-uadd="' + esc(d.id) + '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + '</button>' : "") +
-          '<button class="udeck-edit" type="button" data-uedit="' + esc(d.id) + '" title="Edit in the Studio" aria-label="Edit in the Studio">' +
+          '<button class="udeck-edit studio-deck-open" type="button" data-uedit="' + esc(d.id) + '" data-open="' + esc(d.id) + '" title="' + (studioState.deck === d.id ? "Close the editor" : "Edit this deck") + '" aria-label="' + (studioState.deck === d.id ? "Close the editor" : "Edit " + esc(d.title)) + '">' +
+            '<span class="vh sd-title">' + esc(d.title) + '</span>' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>' +
           '</button>' +
+          '<button class="btn tiny ghost udeck-act" type="button" data-export="' + esc(d.id) + '">Export</button>' +
+          (uDeckIsMine(d) ? '<button class="btn tiny danger udeck-act" type="button" data-del="' + esc(d.id) + '">Delete</button>' : "") +
           /* THE CHEVRON, drawn only where there is something under the row to fold (Aug 2026, on request).
              A deck with no subdecks and one template has no children at all, and a chevron over nothing is
              a control that answers a press with nothing happening. */
@@ -26358,45 +26533,72 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      IT IS THIS SECTION ONLY. The Studio still lists every mounted deck, since a deck on the device is a
      deck the Studio may open, and the Daily-study row, the Download button and the language's own banner
      are all untouched. */
+  /* ---------- YOUR DECKS, WITH THE STUDIO FOLDED IN (Oct 2026 redesign, on request) ----------
+     The Studio was a page of its own: a list of the reader's decks, and a deck editor. Both now live here,
+     under the Collections page's own Your decks heading — the list is the same rows the page already drew,
+     with the Studio's Export and Delete beside the add and the edit, and the EDITOR OPENS IN PLACE under the
+     row being edited (`#stInline`, filled by studioRenderDeck, which is unchanged and still repaints through
+     render()). `studioState.deck` says which deck is open, exactly as it did on the old page; `#stAll`, the
+     editor's own way out, clears it. The hooks the suites and the old links read are kept: `#stNew`,
+     `#stImport`, `.studio-deck-open[data-open]`, `[data-export]`, `[data-del]`, `.studio-list`,
+     `.studio-empty`, `data-sd`, and the `#studio` route itself (see PAGES.studio). */
   function communityLibraryHTML() {
     const mounted = uDeckList();
     const decks = mounted.filter((d) => !langCatalogById(d.id));
-    return '<div class="collection-group community-group">' +
+    if (studioState.deck && !UDECKS[studioState.deck]) { studioState.deck = null; studioState.card = null; }
+    return '<div class="collection-group community-group" id="yourDecks">' +
       '<div class="group-head"><span class="group-label">Your decks</span><span class="group-line"></span><span class="group-count">' + decks.length + '</span></div>' +
-      '<p class="udeck-intro">Decks you write yourself, and decks you install from other people. They study exactly like Folio’s own, but they are <b>not fact-checked by Folio</b>.</p>' +
-      '<div class="udeck-actions">' +
-        '<button class="btn" type="button" id="udNew">New deck</button>' +
+      '<p class="udeck-intro">Decks you write yourself, and decks you install from other people. They study exactly like Folio’s own, but they are <b>not fact-checked by Folio</b>. Everything here stays on this device unless you share it.</p>' +
+      '<div class="udeck-actions studio-actions">' +
+        '<button class="btn" type="button" id="stNew">New deck</button>' +
+        '<button class="btn ghost" type="button" id="stImport">Import a deck…</button>' +
         '<button class="btn ghost" type="button" id="udBrowse">Browse shared decks</button>' +
-        '<button class="btn ghost" type="button" id="udImport">Import a deck…</button>' +
-        /* the Studio opens whatever is MOUNTED, language decks included — hiding the way in from a reader
-           whose only deck is a downloaded language would take a route away rather than remove a duplicate */
-        (mounted.length ? '<button class="btn ghost" type="button" id="udStudio">Open the Studio</button>' : "") +
       '</div>' +
-      '<div class="collection-list">' +
-        (decks.length ? decks.map(udeckRowHTML).join("") : '<div class="lib-empty">No decks yet. Write one, or import a deck file someone sent you.</div>') +
+      '<div class="collection-list studio-list">' +
+        (decks.length
+          ? decks.map((d) => udeckRowHTML(d) + (studioState.deck === d.id ? '<div class="studio-inline" id="stInline"></div>' : "")).join("")
+          : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>') +
       '</div>' +
+      orphanSectionHTML() +
     '</div>';
   }
   function wireCommunityLibrary(root) {
-    const nw = root.querySelector("#udNew");
-    if (nw) nw.addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); studioState.deck = d.id; studioState.card = null; route("studio"); });
-    const im = root.querySelector("#udImport");
+    /* Ask the server, once a session, which decks this account owns — the orphan list shows whichever of
+       them this device has no copy of. Never blocks the page: it paints without them and repaints when
+       they land, and a failed or offline request leaves the section absent. (Lifted from the Studio.) */
+    if (!_myRemoteAsked && supaLoggedIn()) {
+      _myRemoteAsked = true;
+      /* …and patched IN PLACE when they land, never through render(): a whole-page repaint here would
+         throw away the inline editor's state (and anything being typed in it), and would detach what
+         other wiring on this page has appended since (the admin's reports queue, for one). */
+      myRemoteDecksLoad().then(() => {
+        if (!current || (current.name !== "decks" && current.name !== "studio")) return;
+        const grp = document.querySelector("#yourDecks");
+        if (!grp) return;
+        const old = grp.querySelector(".studio-orphans");
+        if (old) old.remove();
+        const html = orphanSectionHTML();
+        if (!html) return;
+        grp.insertAdjacentHTML("beforeend", html);
+        wireOrphans(grp);
+      });
+    }
+    // under `#studio` the tab is set by the route itself (PAGES.studio), so the reader's own tab choice stands
+    const openInline = (id) => { studioState.deck = id; studioState.card = null; if (!collTabIs("community") && !(current && current.name === "studio")) collTab = "community"; render(); };
+    const nw = root.querySelector("#stNew");
+    if (nw) nw.addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); openInline(d.id); });
+    const im = root.querySelector("#stImport");
     if (im) im.addEventListener("click", () => uDeckPickFile((r) => { uImportDone(r); }));
-    const st = root.querySelector("#udStudio");
-    if (st) st.addEventListener("click", () => route("studio"));
-    /* "Browse shared decks" no longer leaves the page — the list is a section further down it (Aug 2026).
-       It scrolls there instead, and honours the reader's motion setting like every other movement here. */
     const br = root.querySelector("#udBrowse");
     if (br) br.addEventListener("click", () => {
       const sec = document.querySelector("#sharedDecks");
       if (sec) sec.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
     });
     root.querySelectorAll("[data-uadd]").forEach((b) => wireAddButton(b, uDeckEntry(b.dataset.uadd)));
-    // a subdeck's + carries its whole entry id, the deck and the title already joined
     root.querySelectorAll("[data-uaddsub]").forEach((b) => wireAddButton(b, b.dataset.uaddsub));
     root.querySelectorAll("[data-usub]").forEach((rowEl) => {
       const go = (e) => {
-        if (e && e.target.closest && e.target.closest(".collection-actions")) return;   // the + is its own control
+        if (e && e.target.closest && e.target.closest(".collection-actions")) return;
         const d = UDECKS[rowEl.dataset.usub];
         if (!d) return;
         route("study", { scope: { type: "udeck", id: d.id, sub: rowEl.dataset.usubname,
@@ -26407,20 +26609,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     root.querySelectorAll("[data-uedit]").forEach((b) => b.addEventListener("click", (e) => {
       e.stopPropagation();
-      studioState.deck = b.dataset.uedit; studioState.card = null; route("studio");
+      if (studioState.deck === b.dataset.uedit) { studioState.deck = null; studioState.card = null; render(); }
+      else openInline(b.dataset.uedit);
     }));
+    root.querySelectorAll("[data-export]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); uDeckExport(b.dataset.export); }));
+    root.querySelectorAll("[data-del]").forEach((b) => b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const d = UDECKS[b.dataset.del]; if (!d) return;
+      confirmDeleteDeck(d);
+    }));
+    wireOrphans(root);
     root.querySelectorAll("[data-udeck]").forEach((rowEl) => {
       const go = () => {
         const d = UDECKS[rowEl.dataset.udeck];
         if (!d) return;
-        if (!(d.cardIds || []).length) { studioState.deck = d.id; studioState.card = null; route("studio"); return; }   // nothing to study yet — go and write it
+        if (!(d.cardIds || []).length) { openInline(d.id); return; }   // nothing to study yet — open it to write
         route("study", { scope: { type: "udeck", id: d.id } });
       };
-      /* A deck with children is wired by `wireExpander`, exactly as a curated collection is: the ROW
-         studies the whole deck and the CHEVRON folds its subdecks, the chevron's own stopPropagation
-         keeping one press from doing both. It must be one or the other and never both handlers — the
-         plain listeners below would fire alongside the expander's and study the deck out from under a
-         reader who had only asked to see what was inside it. */
       const coll = rowEl.closest(".collection");
       const childrenEl = coll ? coll.querySelector(":scope > .node-children") : null;
       const chev = rowEl.querySelector(".collection-actions > .chev");
@@ -26428,10 +26633,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       rowEl.addEventListener("click", go);
       rowEl.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
     });
+    /* the editor, in place. A deck's text lives per note and is fetched when needed; the editor lists every
+       card's title, so it is one of the few surfaces that wants the whole deck, behind a placard. */
+    const inline = root.querySelector("#stInline");
+    if (inline && studioState.deck && UDECKS[studioState.deck]) {
+      const d = UDECKS[studioState.deck];
+      if (!uWarmed(d.cardIds || [])) {
+        inline.innerHTML = '<div class="data-loading">Loading this deck…</div>';
+        uWarmDeck(d.id).then(() => { if (current && (current.name === "decks" || current.name === "studio")) render(); });
+      } else studioRenderDeck(inline, d);
+    }
   }
-
-  // admin drag-to-reorder on the library: reorder collections, move them between All decks / Coming soon,
-  // and reorder decks within a collection. Drag starts from the grip on the very left of each banner.
+  // the "published, but not on this device" rows — wired apart from the rest because they can land late
+  function wireOrphans(root) {
+    root.querySelectorAll("[data-orphopen]").forEach((b) => b.addEventListener("click", () => { location.hash = "#deck/" + encodeURIComponent(b.dataset.orphopen); }));
+    root.querySelectorAll("[data-orphdel]").forEach((b) => b.addEventListener("click", () => {
+      const row = (_myRemote || []).find((x) => x.id === b.dataset.orphdel); if (!row) return;
+      inlineConfirm("Remove “" + (row.title || "Untitled deck") + "” from the shared decks page? This deletes it and its cards, ratings and reviews for good. Anyone who already installed it keeps their copy.", async () => {
+        b.disabled = true;
+        const r = await uDeckRemoteDelete(row.id);
+        if (r.error) { b.disabled = false; toast(r.error); return; }
+        myRemoteReset();
+        toast("Removed from the shared decks page");
+        render();
+      }, "Remove");
+    }));
+  }
   function wireLibraryDnd(root) {
     if (!isAdmin()) return;
     let dragId = null;
@@ -27148,7 +27375,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const collEl = document.createElement("div");
     collEl.className = "collection" + (soon ? " placeholder" : "");
     collEl.innerHTML = `
-        <div class="collection-row" tabindex="${hasSubs ? 0 : -1}" role="button" data-libitem="${esc(d.id)}" data-libkind="col">
+        <div class="collection-row" tabindex="${hasSubs ? 0 : -1}" role="button" data-libitem="${esc(d.id)}" data-libkind="col" style="--w:${total ? ((studied / total) * 100).toFixed(1) : 0}%">
           <div class="collection-deco" aria-hidden="true"></div>
           ${libGripHTML(d.id)}
           ${soon ? "" : collectionIconMarkup(d.id)}
@@ -29206,94 +29433,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       'it, and the address turns them back to the home page.</p></div>';
   };
   PAGES.studio = function (root) {
-    if (!communityReady()) { root.innerHTML = '<div class="page-head"><span class="eyebrow">Studio</span><h1>Your decks</h1></div><div class="data-loading">Loading your decks…</div>'; return; }
-    if (studioState.deck && !UDECKS[studioState.deck]) { studioState.deck = null; studioState.card = null; }
-    /* The Studio lists every card's title and edits their prose, so it is one of the few surfaces that
-       genuinely wants the whole deck rather than a session's worth — it reads it in one pass through the
-       notes store (~0.6 s for 10,896 notes) behind the placard the page already has for its own boot. The
-       SHELF above does not: a deck row shows a title and a card count, both of which the index carries. */
-    if (studioState.deck && !uWarmed(UDECKS[studioState.deck].cardIds || [])) {
-      root.innerHTML = '<div class="page-head"><span class="eyebrow">Studio</span><h1>' + esc(UDECKS[studioState.deck].title || "") + '</h1></div><div class="data-loading">Loading this deck…</div>';
-      uWarmDeck(studioState.deck).then(() => { if (current && current.name === "studio") render(); });
-      return;
-    }
-    if (studioState.deck) studioRenderDeck(root, UDECKS[studioState.deck]);
-    else studioRenderList(root);
+    /* THE STUDIO IS A SECTION OF THE COLLECTIONS PAGE NOW (Oct 2026 redesign, on request) — see
+       communityLibraryHTML. The route is kept so every old link and the suites' `#studio` still land
+       somewhere true: on Your decks, with the deck being edited open in place. */
+    const was = collTab;
+    collTab = "community";
+    try { return PAGES.decks(root); }
+    finally { collTab = was; }   // for this route only: `#decks` afterwards shows the tab the reader chose
   };
-
-  function studioRenderList(root) {
-    const decks = uDeckList();
-    /* Ask the server, once a session, which decks this account owns — the list below shows whichever of
-       them this device has no copy of. Never blocks the page: it paints without them and repaints when
-       they land, which is the pattern the update check already uses, and a failed or offline request just
-       leaves the section absent rather than showing an empty heading. */
-    if (!_myRemoteAsked && supaLoggedIn()) {
-      _myRemoteAsked = true;
-      myRemoteDecksLoad().then(() => { if (current && current.name === "studio" && !studioState.deck) render(); });
-    }
-    /* The way back stands at the TOP LEFT of the page, above the heading, rather than in the row of actions
-       under it (Aug 2026, on request) — a back link belongs where a reader looks for one, and standing in a
-       line beside "New deck" and "Import" it read as a third thing to do rather than as the way out. It also
-       says COLLECTIONS: the page it returns to was renamed from Library, and the Library is now the books. */
-    root.innerHTML =
-      '<button class="back-link" type="button" id="stBack">← Back to Collections</button>' +
-      '<div class="page-head"><span class="eyebrow">Studio</span><h1>Your decks</h1>' +
-        '<p>Write your own flashcards. Everything here stays on this device — export a deck to a file to keep it safe or pass it on.</p></div>' +
-      '<div class="udeck-actions studio-actions">' +
-        '<button class="btn" type="button" id="stNew">New deck</button>' +
-        '<button class="btn ghost" type="button" id="stImport">Import a deck…</button>' +
-      '</div>' +
-      (decks.length
-        ? '<div class="studio-list">' + decks.map((d) => {
-            const n = (d.cardIds || []).length;
-            return '<div class="studio-deck" data-sd="' + esc(d.id) + '">' +
-              '<button class="studio-deck-open" type="button" data-open="' + esc(d.id) + '">' +
-                '<span class="sd-title">' + esc(d.title) + '</span>' +
-                '<span class="sd-meta">' + n + " " + (n === 1 ? "card" : "cards") + " &middot; edited " + esc(fmtWhen(d.updatedAt)) + '</span>' +
-                (d.subtitle ? '<span class="sd-sub">' + esc(d.subtitle) + '</span>' : "") +
-              '</button>' +
-              '<div class="studio-deck-actions">' +
-                (n ? '<button class="btn tiny ghost" type="button" data-study="' + esc(d.id) + '">Study</button>' : "") +
-                '<button class="btn tiny ghost" type="button" data-export="' + esc(d.id) + '">Export</button>' +
-                '<button class="btn tiny danger" type="button" data-del="' + esc(d.id) + '">Delete</button>' +
-              '</div></div>';
-          }).join("") + '</div>'
-        : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>') +
-      orphanSectionHTML();
-
-    root.querySelector("#stNew").addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); studioState.deck = d.id; studioState.card = null; render(); });
-    root.querySelector("#stBack").addEventListener("click", () => route("decks"));
-    root.querySelector("#stImport").addEventListener("click", () => uDeckPickFile((r) => { uImportDone(r); }));
-    root.querySelectorAll("[data-open]").forEach((b) => b.addEventListener("click", () => { studioState.deck = b.dataset.open; studioState.card = null; render(); }));
-    root.querySelectorAll("[data-study]").forEach((b) => b.addEventListener("click", () => route("study", { scope: { type: "udeck", id: b.dataset.study } })));
-    root.querySelectorAll("[data-export]").forEach((b) => b.addEventListener("click", () => uDeckExport(b.dataset.export)));
-    root.querySelectorAll("[data-del]").forEach((b) => b.addEventListener("click", () => {
-      const d = UDECKS[b.dataset.del]; if (!d) return;
-      confirmDeleteDeck(d);
-    }));
-    root.querySelectorAll("[data-orphopen]").forEach((b) => b.addEventListener("click", () => { location.hash = "#deck/" + encodeURIComponent(b.dataset.orphopen); }));
-    root.querySelectorAll("[data-orphdel]").forEach((b) => b.addEventListener("click", () => {
-      const row = (_myRemote || []).find((x) => x.id === b.dataset.orphdel); if (!row) return;
-      inlineConfirm("Remove “" + (row.title || "Untitled deck") + "” from the shared decks page? This deletes it and its cards, ratings and reviews for good. Anyone who already installed it keeps their copy.", async () => {
-        b.disabled = true;
-        const r = await uDeckRemoteDelete(row.id);
-        if (r.error) { b.disabled = false; toast(r.error); return; }
-        myRemoteReset();
-        toast("Removed from the shared decks page");
-        render();
-      }, "Remove");
-    }));
-  }
-
-  /* Deleting a deck of your own that is on the shared page takes the shared copy with it — see
-     `uDeckRemoteDelete`. Three cases, and each is said out loud rather than left to be discovered:
-
-     · not shared → the message it always had;
-     · shared, signed in → the shared copy goes FIRST, and a failure stops the whole thing. That is
-       deliberate: the local record is the only handle on the remote row, so throwing it away while the
-       delete is failing manufactures the very orphan this exists to prevent. Nothing is lost by retrying.
-     · shared, signed out → the local copy can go and the shared one cannot, so the confirmation says so
-       BEFORE the reader agrees and names where to finish the job, rather than reporting it afterwards. */
   function confirmDeleteDeck(d) {
     const n = (d.cardIds || []).length;
     const shared = !!(uDeckIsMine(d) && d.remoteId);
@@ -46927,7 +47074,6 @@ let prev = null;
             entirely on this device, so walling the progress towards one behind a sign-in would hide the
             thing they are working towards. Shown only once a streak exists — on a first visit there is
             nothing to show. */""}
-      ${(S.streak && S.streak.count > 0) ? streakChestHTML(S) : ""}
       ${(Object.keys(S.artefacts || {}).length || chestCount())
         ? `<div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
         : ""}
@@ -47091,7 +47237,6 @@ let prev = null;
       ${/* HOW FAR TO THE NEXT STREAK CHEST (Aug 2026, on request). It sits under the stat tiles, beside the
             streak figure it counts from — the tile says how long the run is and this says what the run is
             worth, which are two halves of one fact and read badly a section apart. */""}
-      ${streakChestHTML(S)}
       ${/* THE REMOVE-PHOTO ROW STOOD HERE AND IS GONE (Sep 2026, on request: "instead, make it so that
             clicking your own profile picture offers two options: edit photo and remove photo"). It was a
             button in a section of its own, a screen away from the picture it acted on, and it existed only

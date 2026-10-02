@@ -528,6 +528,72 @@ puts him second only to the *Constitution of the Athenians*.
 | 2 | Staphylus · Postpalatial · Kavousi · Curetes | `Curetes` and `Kouretes` want one key and an alias; `Postpalatial` was already listed at B1 |
 | 1 | Warrior Graves · Building P · Vronda · Nida plateau · Cydonians · Dictaean Zeus · ship shed · Amaltheia · Room of the Chariot Tablets · Porphyry | `Dictaean Zeus` and B4's `Diktaean Zeus` are one god, so one key with the other spelling as an alias |
 
+**Added by the refinement's B7 (2026-10-01)**, counted the same way after `gr-056`–`gr-065` were
+rewritten. Wanax, Ahhiyawa, Dromos, Electrum, Tholos tomb, Cyclopean masonry, Treasury of Atreus and
+Heinrich Schliemann already have keys. **Bare `Perseus` links nowhere**: the hero is keyed
+`Perseus_(mythology)` and a king `Perseus_of_Macedon`, so the bare word cannot be an alias of either and
+wants a case-sensitive rule or a hand-written `data-k`. `Lerna` is not `Lernaean_Hydra`.
+
+| cards | term | note |
+|---|---|---|
+| 9 | chamber tomb | listed at B4 with 3; now nine Greece cards use it |
+| 6 | Atreus | the king of myth, distinct from the `Treasury_of_Atreus` key |
+| 5 | Troad · Lord Elgin | |
+| 3 | Lerna | the Argolid site, not the Hydra |
+| 2 | Panagiotis Stamatakis · Menidi · Michael Ventris | Stamatakis is also spelt Panayotis by the Athens museum; key one form, alias the other |
+| 1 | Wilhelm Dörpfeld · Frank Calvert · Hisarlik · Priam's Treasure · Treasury of Minyas · Kom el-Hetan · Plasi · Lord Sligo · Palamidi | `Treasury of Minyas` is the tholos at Orchomenos |
+
+**Added by the refinement's B8–B11 (2026-10-01)**, counted the same way after `gr-066`–`gr-100` were
+rewritten. Orchomenos, Nichoria, Enkomi, Amarna, Wilusa, Hattusa, Phylakopi, Ayia Irini, Nefertiti, Cape
+Gelidonya and the Hittites already have keys. **Bare `Hittite` (15 cards) links nowhere**: the key is
+`Hittites`, and the adjective wants an alias.
+
+| cards | term | note |
+|---|---|---|
+| 15 | Hittite | alias of the `Hittites` key |
+| 5 | Eurystheus · Cadmus | the king of Tiryns or Mycenae in the Heracles myth; the founder of Thebes |
+| 4 | Dendra | the cemetery by Midea, distinct from the `Dendra_panoply` key |
+| 3 | Millawanda · Kopais · Carl Blegen | Millawanda is the Hittite name of Miletus; Kopais is also spelt Copais |
+| 2 | Wilhelm Dörpfeld · Proetus · Hattusili III · Griffin Warrior · Trianda · Berbati | Dörpfeld was listed at B7 with 1 |
+| 1 | Piyamaradu · Krates · Keramopoullos · Kadmeia · Iklaina · Iasos · Emil Forrer · Axel Persson · Electryon · Amenhotep III | |
+
+**Added by the refinement's B11–B14 (2026-10-02)**, counted the same way after `gr-101`–`gr-135` were
+rewritten. Hellespont, Dorians, Ionians, Muses, Pithekoussai, Troy (with Hisarlık), the Toumba building,
+Nichoria and Zagora already have keys or aliases. **`Aristarchus` (10 cards) links nowhere**: the keys are
+`Aristarchus_of_Samothrace` and `Aristarchus_of_Samos`, so the bare name wants a hand-written `data-k`
+rather than an alias of either. `Panathenaea` (5) is the spelling the cards use, and the key is
+`Panathenaia`, so it wants an alias.
+
+| cards | term | note |
+|---|---|---|
+| 19 | Ephesus | the Ionian city; `Artemision_at_Ephesus` claims only the temple |
+| 15 | Epirus | |
+| 14 | Tegea | |
+| 10 | Sicyon · Chersonese · Aristarchus | the Chersonese is the Thracian (Gallipoli) peninsula on these cards; Aristarchus as above |
+| 8 | Ithaca · Abydos | Abydos on the Hellespont, not the Egyptian Abydos; key it with its region |
+| 7 | Priam · Phaeacians · Diomedes | |
+| 6 | Propontis · Sindos | Propontis is the Sea of Marmara; Sindos is the Macedonian cemetery whose radiocarbon dates `gr-113`, `gr-114` and `gr-125` cite |
+| 5 | Panathenaea · Sardinia · Andros · Brauron · Demodocus · Aegisthus | `Panathenaea` as above |
+| 4 | Sestos · Ischia · Peleus · Karphi | Karphi was listed at B6 with 3 |
+| 3 | Perati · Megiddo · Xeropolis | |
+
+**Added by the refinement's B15–B18 (2026-10-02)**, counted the same way after `gr-136`–`gr-170` were
+rewritten. Terms already listed at B11–B14 (Ephesus, Tegea, Aristarchus, Priam, Phaeacians, Demodocus,
+Sindos, Ischia, Megiddo) are not repeated, and their counts have risen by one or two.
+
+| cards | term | note |
+|---|---|---|
+| 27 | Plataea | the town; the battle has its own key and does not claim the bare name |
+| 12 | Leuctra | the same case as Plataea |
+| 11 | Messene · Phocians | |
+| 10 | Parian | the marble of Paros |
+| 9 | Menelaus · Nemea | |
+| 8 | Helicon · Chalcidians · Samothrace · Amphictyons | `Mount Helicon` (6) as an alias of `Helicon` |
+| 7 | Tartarus · Smyrna · Naupactus | Smyrna is Old Smyrna on these cards, not the Roman or modern city |
+| 6 | Cyzicus · Aetolia | |
+| 5 | Cyme · Eros · Teos · Locris · Ephorus · Isthmia · Corinthian Gulf | Cyme is Aeolian Cyme, not Cumae in Italy |
+| 3 | Methone · Orontes · Alcinous · Kumarbi · Hyllus · Neleus · Hecuba | Methone is the Macedonian port of the early inscriptions, not Messenian Methone |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
