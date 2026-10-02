@@ -122,7 +122,7 @@ in plan order unless the user says otherwise.
 | B6 | The Palaeolithic (`wh-paleolithic`) | `wh-051`–`wh-060` | 10 | 96 | **done 2026-10-02** |
 | B7 | The Palaeolithic (`wh-paleolithic`) | `wh-061`–`wh-070` | 10 | 97 | **done 2026-10-02** |
 | B8 | The Palaeolithic (`wh-paleolithic`) | `wh-071`–`wh-080` | 10 | 98 | **done 2026-10-02** |
-| B9 | The Palaeolithic (`wh-paleolithic`) / Peopling the planet (`wh-peopling`) | `wh-081`–`wh-090` | 10 | 94 | open |
+| B9 | The Palaeolithic (`wh-paleolithic`) / Peopling the planet (`wh-peopling`) | `wh-081`–`wh-090` | 10 | 94 | **done 2026-10-02** |
 | B10 | Peopling the planet (`wh-peopling`) | `wh-091`–`wh-100` | 10 | 101 | open |
 | B11 | Peopling the planet (`wh-peopling`) | `wh-101`–`wh-110` | 10 | 96 | open |
 | B12 | The Neolithic transition (`wh-neolithic`) | `wh-111`–`wh-120` | 10 | 95 | open |
@@ -523,6 +523,40 @@ its find); `wh-075`–`wh-078` are the practice against three caves, each asked 
 
 **Glossary.** Eight terms rewritten (*Lascaux* and *Cave of Altamira* already agreed).
 
+### B9 — `wh-081`–`wh-090`, The Palaeolithic and Peopling the planet (2026-10-02)
+
+Run as B1 with picture work paused; no picture changed. Checks: `wh-audit.js --range=wh-081:wh-090` clean
+but for `I.none` on `wh-088` (it never had one) and `W.not-why` notes on eight cards (several FAQs open
+"How" or "What"; the rule reports, it does not refuse). `check-questions`, `check-style`, `check-cards`,
+`check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched. 77 of
+78 distinct URLs answer 200; **the Australian National Maritime Museum's woomera record (`wh-081` and its
+glossary term) answered when the agent saved it and timed out twice afterwards** — kept, to re-curl in
+the next batch. The `wh-087` locator needed the article title "Qafzeh Cave" ("Qafzeh" has no coordinate).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-081` spear-thrower | 7 | 6 → 7 | **"The extra force drives a point through hide"**: Bebber et al. report a hand-thrown javelin still carries more energy than a dart; dropped, and the trade-off is now a FAQ. "Two-thirds faster" is the 108-person test's 65 per cent. **Combe-Saunière as "the oldest securely dated hook" is wrong**: Coppe et al. call its dating uncertain. Added Maisières-Canal's c. 31,000-year use evidence, hedged. |
+| `wh-082` bow and arrow | 9 | 10 → 11 | "Kneeling" and "a dozen arrows" had no source; the Holmegaard dates' only source is behind a bot wall. **Stellmoor is 12,200 – 11,400 BP, not "about 11,500".** Sibudu hedged; "oldest bows c. 9,000 BP" replaced. |
+| `wh-083` microlith | 6 | 8 → 7 | **"Rarely more than 3 cm" and "25 – 50 mm" had no source**; one study's 40 mm limit, and no agreed definition. The Greek word origin and the microburin method had no openable source. **"The oldest are at Pinnacle Point" is "among the oldest"**: Sibudu has backed pieces by 77,000 years ago. |
+| `wh-084` woolly mammoth | 9 | 5 → 11 | Tusk, hair and fat measurements, the hump, the cave paintings and the pyramids comparison had no source. **The old sizes did not match the size study** (Larramendi's figures now). **"1.2-million-year woolly mammoth DNA" is wrong**: those specimens are older mammoth lineages. The mainland end is c. 10,000 years ago, sourced. |
+| `wh-085` Quaternary extinction event | 6 | 8 → 8 | **Per-continent dates in no source** replaced by Koch and Barnosky's c. 50,000 – 10,000 years ago. **"Selected almost entirely by body size"**: slow breeders were hit whatever their size. A question carried 2025 and "360 papers". The spore and nutrient claims dropped (Doughty would not open). A PLoS ONE issue number corrected. |
+| `wh-086` recent African origin of modern humans | 7 | 5 → 7 | All three questions and the FAQs used `wh-045`'s and `wh-089`'s angles; rewritten. The date line now gives the species (c. 300,000), the main dispersal (c. 60,000) and the 1987 study. |
+| `wh-087` Skhul and Qafzeh hominins | 5 | 7 → 7 | **120,000 – 90,000** is now **130,000 – 90,000** (Groucutt 2019; Coqueugniot). "27 people", a 1965 excavation start, flint-dating details and shells "at both caves" had no source. **"Ended without issue" hedged**: Pagani 2016 finds at least 2 per cent of Papuan genomes from an early, extinct dispersal. |
+| `wh-088` southern dispersal route | 5 | 5 → 6 | **The genetic dates credited to Shipton are not in that paper.** The Skhul and Qafzeh paragraph (`wh-087`'s) removed. Both sides added: mtDNA studies for the southern route, Egyptian genomes and Neanderthal ancestry for the northern, with the strait's width and the coastal caveats. |
+| `wh-089` archaic human admixture | 6 | 5 → 8 | **Denisova 11 "c. 90,000 BP" is not in Slon 2018**, which gives "over 50,000" by radiocarbon. **The Neanderthal share is 1 – 4 per cent, not "a per cent or two".** Rows: earliest trace c. 100,000 (one study), main mixing c. 49,000 – 45,000 (Sümer et al. 2025), first shown 2010. |
+| `wh-090` ancient DNA | 8 | 5 → 8 | **The card rested on one 2026 review**; now primary papers and the Nobel pages. Added the quagga (1984). **The petrous bone's "up to 100 times more"** softened to "far more". `undatable` now false (it has a first date). |
+
+**Read by eye.** *Article:* "the spear-thrower", "the bow and arrow", "the microlith", "the woolly
+mammoth", "the Quaternary extinction event", "the recent African origin…", "the Skhul and Qafzeh
+hominins", "the southern dispersal route"; archaic human admixture and ancient DNA bare. *Confusability:*
+`wh-086`/`wh-088`/`wh-089` are the model, one route and one consequence, each kept to its own evidence;
+`wh-081`/`wh-082`/`wh-083` are three weapon technologies with no shared clue. *Coverage:* the gaps were
+the northern route (`wh-088`) and the quagga (`wh-090`).
+
+**Locators.** `wh-087` (Qafzeh Cave).
+
+**Glossary.** All ten terms rewritten to agree with their cards.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -554,3 +588,9 @@ pass once it answers. Filled batch by batch.
 | `wh-076`, `wh-077` | replicas, not the caves |
 | `wh-078` | a modern drawing |
 | `wh-080` | the disputed Divje Babe bone, not a secure flute |
+| `wh-081`, `wh-083`, `wh-085` | fine, but description and alt need writing |
+| `wh-082` | a postcard captioned "Indian with bow & arrow" |
+| `wh-084` | an old drawing |
+| `wh-086` | a labelled map |
+| `wh-088` | no picture |
+| `wh-089` | a Neanderthal skull, not admixture |

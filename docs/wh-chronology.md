@@ -104,6 +104,13 @@ Filled batch by batch, from the source each row names.
 | Lascaux occupation | c. 21,500 – 21,000 BP (the paintings' age still argued) | `wh-077` |
 | Altamira painting | c. 35,550 – 15,200 BP (uranium-series minimums) | `wh-078` |
 | Swabian flutes / Marsoulas shell horn | c. 43,000 – 35,000 / c. 18,000 years ago | `wh-080` |
+| spear-thrower: earliest trace / oldest hooks | c. 31,000 / c. 20,000 years ago | `wh-081` |
+| bow and arrow: earliest claim / oldest arrows (Stellmoor) | c. 64,000 years ago / 12,200 – 11,400 BP | `wh-082` |
+| woolly mammoth: arose / gone on the mainland / last on Wrangel | c. 800,000 – 600,000 / c. 10,000 / c. 4,000 years ago | `wh-084` |
+| Quaternary extinctions, main losses | c. 50,000 – 10,000 years ago | Koch and Barnosky (`wh-085`) |
+| main dispersal out of Africa | c. 60,000 years ago | `wh-086` |
+| Skhul and Qafzeh | c. 130,000 – 90,000 years ago | Groucutt 2019 (`wh-087`) |
+| main Neanderthal mixing | c. 49,000 – 45,000 years ago | Sümer et al. 2025 (`wh-089`) |
 
 ## Chronology pins
 
@@ -188,4 +195,14 @@ wh-076: 37,000; 33,500; 31,000; 28,000; 1994
 wh-077: 21,500; 21,000; 1940; 1963
 wh-078: 35,550; 15,200; 1879
 wh-080: 43,000; 35,000; 18,000
+wh-081: 31,000; 20,000
+wh-082: 64,000; 12,200; 11,400
+wh-083: 71,000; 65,000; 59,000
+wh-084: 800,000; 600,000; 10,000; 4,000
+wh-085: 50,000; 10,000
+wh-086: 300,000; 60,000; 1987
+wh-087: 130,000; 90,000; 1933
+wh-088: 75,000; 50,000; 65,000; 30,000
+wh-089: 100,000; 49,000; 45,000; 2010
+wh-090: 1984; 2010
 ```
