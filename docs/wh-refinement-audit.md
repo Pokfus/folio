@@ -120,7 +120,7 @@ in plan order unless the user says otherwise.
 | B4 | Human origins (`wh-evolution`) | `wh-031`–`wh-040` | 10 | 101 | **done 2026-10-02** |
 | B5 | Human origins (`wh-evolution`) / The Palaeolithic (`wh-paleolithic`) | `wh-041`–`wh-050` | 10 | 90 | **done 2026-10-02** |
 | B6 | The Palaeolithic (`wh-paleolithic`) | `wh-051`–`wh-060` | 10 | 96 | **done 2026-10-02** |
-| B7 | The Palaeolithic (`wh-paleolithic`) | `wh-061`–`wh-070` | 10 | 97 | open |
+| B7 | The Palaeolithic (`wh-paleolithic`) | `wh-061`–`wh-070` | 10 | 97 | **done 2026-10-02** |
 | B8 | The Palaeolithic (`wh-paleolithic`) | `wh-071`–`wh-080` | 10 | 98 | open |
 | B9 | The Palaeolithic (`wh-paleolithic`) / Peopling the planet (`wh-peopling`) | `wh-081`–`wh-090` | 10 | 94 | open |
 | B10 | Peopling the planet (`wh-peopling`) | `wh-091`–`wh-100` | 10 | 101 | open |
@@ -463,6 +463,35 @@ workshop on Blombos alone; `wh-055`/`wh-059`/`wh-060` are the stage against two 
 
 **Glossary.** Eight terms rewritten (*Late Stone Age* and *Ochre* already agreed).
 
+### B7 — `wh-061`–`wh-070`, The Palaeolithic (2026-10-02)
+
+Run as B1 with picture work paused; no picture changed. Checks: `wh-audit.js --range=wh-061:wh-070` clean
+but for one `W.not-why` note. `check-questions`, `check-style`, `check-cards`, `check-docs`, `split-cards
+--check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 73 distinct URLs 200.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-061` Behavioural modernity | 6 | 7 → 7 | The figures are now the sourced African range (300,000 – 70,000 years) and the European start (c. 45,000). Klein's unfetchable paper, a duplicate Zilhão paper and the unsourced "checklist set aside" dropped; questions carrying a year rewritten. Glossary "nearly every item" → "many". |
+| `wh-062` shell beads | 7 | 5 → 7 | **The Qafzeh shells were called "pierced"**, and the card said a deliberate hole marks a bead; the source says they were holed by nature. **Bizmoune (at least 142,000 years) was missing** and is now the oldest. An unsourced superlative and an off-topic Zhoukoudian sentence dropped. |
+| `wh-063` Palaeolithic burial | 7 | 5 → 8 | **The card was a tour of three sites leaning on Mal'ta (`wh-096`)**; it now says what counts as a burial and how one is recognised, then Qafzeh, Panga ya Saidi (the oldest in Africa), the Neanderthal debate, Sunghir and Dolní Věstonice. **Border Cave's 74,000 dates the layers, not the burial.** "2,500 hours" and the Sikora DNA claim could not be re-verified and went. |
+| `wh-064` Toba catastrophe theory | 6 | 6 → 6 | The proposer's name and years out of the questions. **"A few thousand breeding individuals" is not in Ambrose's abstract**; "thick ash beds" at Dhaba are glass shards; Pinnacle Point's "busier, new tools" could not be read (403). Lake Toba locator kept. |
+| `wh-065` Neanderthal extinction | 8 | 5 → 10 | **"Extinct within 10,000 years" was only how long the 2019 model's runs lasted.** **"A band of a couple of dozen" was a modelling assumption, not a finding**; now the sourced father–daughter pair. The eruption's effects and "demography strongest" had no source; a "Redating 2014" date row cut. |
+| `wh-066` Châtelperronian | 5 | 9 → 5 | Questions named Breuil and **gave 1906; the year is 1909**. **"Named 1938, by Dorothy Garrod", the Aurignacian filing and hafting** had no fetchable source. Gicqueau 2023 swapped for Djakovic 2024 for the modern-human hip fragment. |
+| `wh-067` Aurignacian | 6 | 12 → 8 | **The 42,000-year flute date and the figurine's "nearer 40,000" were in no source that opened**; both now "at least 35,000". "Named 1906" goes to Cartailhac (the Monaco congress). The Chauvet attribution dropped; the 1852 road-mender story rests on Lyell. Added the spread to Portugal, a population of about 1,500, few burials and the Kulturpumpe debate. |
+| `wh-068` Cro-Magnon | 8 | 6 → 8 | **Railway against road**: Lartet's own account has workmen taking rubble for a road beside the railway. **At least eight people (three newborns), not five.** The tumour reading of a skull lesion and a genetics sentence dropped; the burials are c. 32,000 – 31,000 years ago, early Gravettian. |
+| `wh-069` Lion-man | 6 | 5 → 8 | **"Lay unstudied thirty years" is wrong**: the Museum Ulm record says the team knew in 1939 the splinters were an ivory figure. The Hahn credit, "hundreds of hours" for a flint replica and "no older sculpture of an imagined creature" had no source. Dated 40,000 – 35,000 (the museum); the 2012 – 13 rebuild replaces a 1969 row. Added the recess at the back of the cave and the Hohle Fels figure. |
+| `wh-070` Gravettian | 6 | 11 → 8 | **Garrod naming it in 1938** and **the Kostenki mammoth-bone houses** had no open source. **"The great painted caves are not Gravettian" is wrong**: Cussac and Gargas are. "First woven cloth" softened to textile prints in clay. Two glossary author names had been wrongly expanded from initials, and are corrected. The La Gravette naming rests on a French popular page, the only open source found. |
+
+**Read by eye.** *Article:* "the Châtelperronian", "the Aurignacian", "the Gravettian", "the Lion-man",
+"the Toba catastrophe theory", "the Neanderthal extinction", "a Palaeolithic burial"; Cro-Magnon and
+behavioural modernity bare. *Confusability:* `wh-066`/`wh-067`/`wh-070` are told apart by their tools and
+sites; `wh-065` stays off `wh-035`'s ground (no anatomy); `wh-063` dropped Mal'ta for `wh-096`.
+*Coverage:* the gaps were what a burial is (`wh-063`) and the painted caves of the Gravettian.
+
+**Locators.** `wh-068` (Abri de Cro-Magnon, labelled Les Eyzies) and `wh-069` (Hohlenstein-Stadel).
+
+**Glossary.** All ten terms rewritten to agree with their cards.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -486,3 +515,7 @@ pass once it answers. Filled batch by batch.
 | `wh-057`, `wh-060` | fine, but description and alt need writing in English |
 | `wh-058` | a stratigraphy diagram with printed, outdated ages |
 | `wh-059` | a 1929 plate of line drawings |
+| `wh-061`, `wh-062` | weak fits |
+| `wh-064`, `wh-065` | maps |
+| `wh-066` | description and alt are the file name |
+| `wh-067` | to replace |

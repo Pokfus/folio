@@ -88,6 +88,14 @@ Filled batch by batch, from the source each row names.
 | Blombos Cave MSA layers | c. 101,000 – 73,000 years ago | `wh-058` |
 | Howiesons Poort | c. 64,800 – 59,500 BP | `wh-059` |
 | Aterian | c. 145,000 – 30,000 BP | `wh-060` |
+| behavioural modernity: gradual (Africa) / sudden (Europe) views | c. 300,000 / c. 50,000 – 40,000 years ago | `wh-061` |
+| oldest shell beads (Bizmoune) | c. 142,000 years ago | `wh-062` |
+| burials: Qafzeh / Panga ya Saidi / Sunghir | c. 100,000 / c. 78,300 / c. 34,000 years ago | `wh-063` |
+| Toba eruption | c. 74,000 years ago | `wh-064` |
+| Neanderthals disappear (Europe) | c. 41,000 – 39,000 BP | Higham et al. 2014 (`wh-065`; also `wh-037`, `wh-048`) |
+| Châtelperronian / Aurignacian / Gravettian | c. 44,000 – 40,000 BP / c. 42,000 – 33,000 BP / c. 34,000 – 24,000 years ago | `wh-066`, `wh-067`, `wh-070` |
+| Cro-Magnon burials | c. 32,000 – 31,000 years ago (early Gravettian) | `wh-068` |
+| Lion-man carved | c. 40,000 – 35,000 years ago | Museum Ulm (`wh-069`) |
 
 ## Chronology pins
 
@@ -153,4 +161,14 @@ wh-057: 300,000
 wh-058: 101,000; 73,000; 1991
 wh-059: 64,800; 59,500
 wh-060: 145,000; 30,000
+wh-061: 300,000; 50,000; 40,000
+wh-062: 142,000
+wh-063: 100,000; 78,300; 34,000
+wh-064: 74,000; 1998
+wh-065: 41,000; 39,000
+wh-066: 44,000; 40,000; 1909
+wh-067: 42,000; 33,000; 1906
+wh-068: 32,000; 31,000; 1868
+wh-069: 40,000; 35,000; 1939; 2012
+wh-070: 34,000; 24,000
 ```
