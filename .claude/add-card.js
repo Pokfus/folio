@@ -791,6 +791,15 @@ if (card.locator) {
     console.error("ERROR: card.locator.name opens on \"The\" — a map label names a place rather than reading as a phrase, so write " + JSON.stringify(String(card.locator.name).trim().replace(/^the\s+/i, "")) + ".");
     process.exit(1);
   }
+  /* ---- AND A PERSON IS NOT A PLACE (Oct 2026, on request: "'Benito Mussolini' should not be an Atlas
+     location") ---- a person's or a ruler's locator labelled with their own name passes `atlasNameFits` and
+     lands on the Atlas as a place; twelve did. The label names the place; add-locators.js refuses the same. */
+  const _tags = (card.tags || []).map((t) => String(t).toLowerCase());
+  if ((_tags.indexOf("person") >= 0 || _tags.indexOf("ruler") >= 0) &&
+      String(card.locator.name).trim().toLowerCase() === String(card.answerText || card.answer || "").trim().toLowerCase()) {
+    console.error("ERROR: card.locator.name is the person's own name — a person is not a place, so label the locator with the PLACE (\"Predappio\", not \"Benito Mussolini\").");
+    process.exit(1);
+  }
   /* ---- AND WHAT SORT OF PLACE IT IS (Aug 2026, with the locator kinds) ----
      A dot is the right mark for a cave and the wrong one for a river, a range or a region, so a locator
      may declare a `kind` and — for the two that have extent — the shape to draw. Both are hand-authored,

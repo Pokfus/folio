@@ -114,6 +114,14 @@ for (const id of Object.keys(want)) {
      "The Apennines" beside the range. Refused rather than stripped, for the reason add-card.js gives: The
      Hague and The Valley are real names this same window draws. */
   if (/^the\s/i.test(name)) die(id + ": `name` opens on \"The\" — write " + JSON.stringify(name.replace(/^the\s+/i, "")));
+  /* A PERSON IS NOT A PLACE (Oct 2026, on request: "'Benito Mussolini' should not be an Atlas location").
+     The label defaults to the answer, which is right for a place card and wrong for a person's: twelve
+     person and ruler cards were pinned on the Atlas under their own names (Mussolini at Predappio, Djer at
+     Umm el-Qa'ab). A person's card names the PLACE — and so stays off the Atlas, which draws a mark only
+     under its own card's name (`atlasNameFits`). add-card.js refuses the same. */
+  const tags = (card.tags || []).map((t) => String(t).toLowerCase());
+  if ((tags.indexOf("person") >= 0 || tags.indexOf("ruler") >= 0) && name.toLowerCase() === String(card.answerText || "").trim().toLowerCase())
+    die(id + ": a person's locator is labelled with the person — give a `name` naming the PLACE (\"Predappio\", not \"Benito Mussolini\")");
   /* The authored half, validated before a single request is made — the same rule this file already
      follows for everything else: a half-applied batch is worse than a refused one, and here a refusal
      after the fetches would also have wasted them. */
