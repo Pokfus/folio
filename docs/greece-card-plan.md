@@ -520,8 +520,8 @@ the alias are the same string.
     gr-266  Chilon of Sparta
     gr-267  Cleomenes I
     gr-268  Demaratus
-    gr-269  Sparta and Croesus
-    gr-270  Sparta against the tyrants
+    gr-269  Thornax
+    gr-270  Socles
     gr-271  Battle of the Fetters
     gr-272  Battle of the Champions
     gr-273  Sparta and Argos
