@@ -247,6 +247,21 @@ body[data-fs="tiny"]{--fs:.8;}
 body[data-fs="small"]{--fs:.9;}
 body[data-fs="large"]{--fs:1.14;}
 body[data-fs="huge"]{--fs:1.32;}
+/* ON A PHONE THE WHOLE SCALE SITS ONE STOP LOWER (Oct 2026, on request: "the 'Small' text size should be
+   the new default; shift the other sizes accordingly"). Medium — the default, and what every reader who
+   has never touched the slider is on — renders at what Small was, and each other stop moves down one
+   with it: Small takes Very small's value, Very small steps one more .1 below, Large is the old Medium,
+   Very large the old Large. The STORED value and the slider's five names are untouched, so nothing
+   migrates and a phone and a desktop sharing one account each show the setting at their own size. The
+   breakpoint is the phone's, the one the bottom tab bar appears at. */
+@media (max-width:640px){
+  :root{--fs:.9;}
+  body[data-fs="tiny"]{--fs:.7;}
+  body[data-fs="small"]{--fs:.8;}
+  body[data-fs="medium"]{--fs:.9;}
+  body[data-fs="large"]{--fs:1;}
+  body[data-fs="huge"]{--fs:1.14;}
+}
 body::before{
   content:""; position:fixed; inset:-15%; z-index:-1; pointer-events:none;
   background:
@@ -835,7 +850,8 @@ body.night .banner{
    editor mode needs: four controls and a sentence do not fit on one 313px line, so the controls drop to
    their own line under the time rather than being squeezed to nothing. */
 /* …AND `.rv-foot` IS NOT DRAWN AT ALL SINCE OCT 2026 (on request): the timer is a Today section of the
-   This week box (`.home-week`), and the Edit control stands in the collections header (`.rv-sec-l`). */
+   This week box (`.home-week`), and the Edit control — which then stood in the collections header for a
+   day — is gone with its whole editor mode (Oct 2026, on request). */
 /* THE ABSOLUTE CORNER ROW (`.rv-topacts`) STOOD HERE AND IS GONE (Sep 2026, on request). It laid the
    Edit control over the banner's top right, which had to be an overlay rather than markup — the banner is
    a `<button>` and cannot contain one — with `pointer-events:none` on the row and `auto` on its children,
@@ -843,75 +859,21 @@ body.night .banner{
    media queries shrinking the three editor buttons so they and the word "Daily" could share a 313px line.
    All of that existed to put a button somewhere a button cannot go. In `.rv-foot` it is an ordinary
    button in an ordinary row and none of it is needed. */
-/* ---------- THE DECK LIST'S EDITOR MODE (Aug 2026, on request) ----------
-   "Rather than the drag handles being visible at all times, make them invisible by default … Add a button
-   in the bottom left, just below the active decks list, vertically centered to the study timer."
-   The bottom left is where it began; it went to the banner's top right in Aug 2026 and is back at the
-   foot of the list — on the RIGHT of it — since Sep 2026, opposite the timer, on request. Open, the one
-   button becomes four IN THE SAME PLACE, so nothing on the page moves under the press. */
-.rv-edit{
-  appearance:none; display:inline-flex; align-items:center; gap:5px; flex:none;
-  padding:5px 10px; border:1px solid var(--rule); border-radius:999px; background:var(--card);
-  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
-  color:var(--ink-faint); cursor:pointer; white-space:nowrap;
-  transition:color .15s var(--ease), border-color .15s var(--ease), background .15s var(--ease);
-}
-.rv-edit svg{width:11px; height:11px; flex:none;}
-.rv-edit:hover:not(:disabled){color:var(--ink); border-color:var(--indigo);}
-.rv-edit:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
-.rv-edit:disabled{opacity:.45; cursor:default;}
-/* the four sit together at the row's right end; they wrap as a group rather than one at a time */
-.rv-editacts{display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;}
-.rv-edit-done{border-color:var(--indigo); color:var(--indigo);}
-.rv-edit-revert:not(:disabled){color:var(--danger,#c8453c);}
-/* THE ICON SWITCH (Sep 2026, on request), which is a state rather than an action — so it says which state
-   it is in by being FILLED when on, in the same gold the marks it governs are drawn in, rather than by
-   looking like the three commands beside it. Off, it is an ordinary quiet button like them. */
-.rv-edit-icons.on{color:#9A7A22; border-color:color-mix(in srgb,#C39A2E 55%, var(--rule)); background:color-mix(in srgb,#C39A2E 12%, var(--card));}
-body.night .rv-edit-icons.on{color:#E6C765; border-color:color-mix(in srgb,#E6C765 45%, var(--rule)); background:color-mix(in srgb,#E6C765 14%, var(--card));}
-.rv-edit-icons.on svg{fill:currentColor;}
-/* a phone in the mode holds four controls and a sentence: the words come in rather than the buttons going */
-@media (max-width:430px){
-  .rv-editacts{gap:4px;}
-  .rv-editacts .rv-edit{padding:5px 7px; letter-spacing:.05em;}
-  .rv-edit-undo svg, .rv-edit-icons svg{display:none;}
-}
-/* ---------- the handles, which are what the mode is FOR ----------
-   They sat at `.32` on every row at rest and the request is that they not be there at all until asked
-   for. Hidden with `opacity` rather than `display:none` so the column they occupy is still reserved —
-   the row's `padding-left` allows for it, and removing the box would shift every title 20px left on
-   entering the mode and back again on leaving. `visibility` is what takes them out of hit-testing, or an
-   invisible handle would still swallow the press that should be studying the deck. */
-/* …AND THE ROW RECLAIMS THE COLUMN THEY WERE TAKING, which is the other half of the request ("make them
-   invisible by default and shift the contents of the banners to the left"). The row's `padding-left` is
-   written as `calc(<depth>px + var(--dk-grip-w))`, so the depth arithmetic stays in app.js and the
-   handle's own width stays here, where it is declared. `.active-deck` has transitioned `padding-left`
-   since the fold shipped, so entering and leaving the mode SLIDES at no cost written here. */
+/* THE DECK LIST'S EDITOR MODE (Aug 2026 – Oct 2026) STOOD HERE AND IS GONE, on request ("remove that
+   button and its system entirely"): the Edit pill (`.rv-edit`), the four controls it became
+   (`.rv-editacts`, Icons / Undo / Revert / Done), the `.rv-editing` state that showed the handles and
+   stepped the chevron aside, the red cross (`.dk-del`) and the in-place rename field (`.dk-rename`).
+   See the note beside `adOwnTitle` in app.js. */
+/* ---------- the handles ----------
+   They sat at `.32` on every row at rest until Aug 2026, when the request was that they not be there at
+   all until asked for — and the editor mode that then showed them is gone (Oct 2026), so they are hidden
+   at rest and nothing shows them. Hidden with `opacity` rather than `display:none` so the column they
+   occupy is still reserved — the row's `padding-left` allows for it — and with `visibility`, which is
+   what takes them out of hit-testing, or an invisible handle would still swallow the press that should
+   be studying the deck. The row's `padding-left` is written as `calc(<depth>px + var(--dk-grip-w))`,
+   so the depth arithmetic stays in app.js and the handle's own width stays here, where it is declared. */
 .active-decks{--dk-grip-w:8px;}
-.rv-editing .active-decks{--dk-grip-w:20px;}
 .active-deck .dk-grip{opacity:0; visibility:hidden;}
-.rv-editing .active-deck .dk-grip{opacity:.75; visibility:visible;}
-.rv-editing .active-deck .dk-grip:hover, .rv-editing .active-deck .dk-grip:focus-visible{opacity:1;}
-/* the red cross, at the row's own right edge, inside the chevron's column so the two never collide */
-.dk-del{
-  appearance:none; position:absolute; inset-inline-end:2px; top:50%; transform:translateY(-50%);
-  width:26px; height:26px; display:grid; place-items:center; padding:0;
-  border:0; border-radius:8px; background:transparent; color:var(--danger,#c8453c);
-  cursor:pointer; opacity:.8; transition:opacity .15s var(--ease), background .15s var(--ease);
-}
-.dk-del svg{width:13px; height:13px;}
-.dk-del:hover{opacity:1; background:color-mix(in srgb, var(--danger,#c8453c) 14%, transparent);}
-.dk-del:focus-visible{outline:2px solid var(--danger,#c8453c); outline-offset:-2px; opacity:1;}
-/* …and the chevron steps aside for it rather than being covered by it */
-.rv-editing .active-deck .dk-chev, .rv-editing .active-deck .dk-chev-gap{margin-inline-end:26px;}
-/* a title that can be clicked has to LOOK clickable, or the affordance is a secret */
-.rv-editing .dk-title-edit{cursor:text; border-bottom:1px dashed color-mix(in srgb, currentColor 45%, transparent);}
-.rv-editing .dk-title-edit:hover{border-bottom-color:currentColor;}
-.dk-rename{
-  font:inherit; color:inherit; min-width:0; max-width:100%; flex:1 1 auto;
-  padding:1px 4px; border:1px solid var(--indigo); border-radius:5px; background:var(--paper);
-}
-.dk-rename:focus{outline:none; box-shadow:0 0 0 2px var(--indigo-wash);}
 /* THE DAY'S TIME ON CARDS, at the left end of the group's own bottom edge (Aug 2026, on request — it was
    a stat in the banner's meta row beside the three piles, and it briefly went up to the banner's corner
    with the Edit button before being asked back the same day). Out here it is on the page's own paper
@@ -1554,20 +1516,9 @@ body[data-theme="folio"].night .collection-deco{
    hover states are unchanged. Only an admin ever sees one: `wireLibraryDnd` returns before the grips are
    built for anybody else. */
 .collection-row, .node{position:relative;}
-.lib-grip{
-  position:absolute; left:2px; top:7px; bottom:7px; width:16px; z-index:3;
-  display:flex; align-items:center; justify-content:center; border-radius:6px;
-  color:var(--ink-faint); cursor:grab; opacity:.32;
-  transition:opacity .15s var(--ease), color .15s, background .15s;
-}
-.collection-row:hover .lib-grip, .node:hover .lib-grip{opacity:.6;}
-.lib-grip:hover{opacity:1; color:var(--indigo); background:var(--indigo-wash);}
-.lib-grip:active{cursor:grabbing;}
-.collection.placeholder .collection-row .lib-grip, .node.placeholder .lib-grip{opacity:.55;}
-.collection.placeholder .collection-row:hover .lib-grip, .node.placeholder:hover .lib-grip{opacity:.8;}
-.lib-dragging{opacity:.4 !important; transform:none !important;}
-.lib-drop-before{box-shadow:inset 0 3px 0 -1px var(--indigo-bright);}
-.lib-drop-into{outline:2px dashed color-mix(in srgb, var(--indigo) 45%, transparent); outline-offset:4px; border-radius:14px;}
+/* `.lib-grip`, `.lib-dragging`, `.lib-drop-before` and `.lib-drop-into` — the admin's drag over this page — are
+   gone (Oct 2026, on request); see `wireLibraryDnd`'s note in app.js. `position:relative` above stays: the
+   row's fill (`.collection-deco`) is laid out against it. */
 .lib-empty{padding:22px; text-align:center; border:1.5px dashed var(--rule); border-radius:14px; color:var(--ink-quiet); font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; text-transform:uppercase;}
 .lib-empty::before{content:"✦"; display:block; font-size:calc(18px * var(--fs)); margin-bottom:6px; opacity:.55; color:var(--indigo);}
 .node.branch{cursor:pointer; border-left-color:var(--ochre); background:var(--card);}
@@ -9902,8 +9853,9 @@ body[data-theme="carnelian"].night .collection-deco{
        their own colours plus the estimate, a Start button as wide as the pile row, and the top three cards
        of the pile fanned beside it (`.rv-preview`, desktop and tablet only);
      · the streak ribbon (`.streak-ribbon`): the run in weeks, each ending in its chest;
-     · the collections header (`.rv-sec-h`) with the deck list's Edit control and the legend (the "+ Add
-       decks" link stood at its right until Oct 2026; the Collections tab is the route now), then the deck rows
+     · the collections header (`.rv-sec-h`) with the legend (the "+ Add decks" link stood at its right
+       until Oct 2026, and the deck list's Edit control beside the heading for a day after that; the
+       Collections tab is the route now), then the deck rows
        as FILL ROWS — the row's own tint is the share of the deck learned (the existing `.dk-prog .fill-l`,
        stretched to the row's height), with the three piles as colour boxes at the right;
      · the games as LIST-TILES (icon disc, full name, score, a tick), three across;
@@ -9982,10 +9934,9 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .sr-best{margin-left:auto; white-space:nowrap;}
 /* the collections header and the deck rows */
 .rv-sec-h{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px 12px; margin:24px 0 10px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600;}
-/* the heading with the deck list's Edit control just behind it (Oct 2026, on request); open, the four
-   editor buttons stand in the same place and the legend wraps under them on a phone */
+/* the heading (the deck list's Edit control stood just behind it for a day in Oct 2026 and is gone with
+   its whole editor mode, on request) */
 .rv-sec-l{display:inline-flex; align-items:center; flex-wrap:wrap; gap:6px 10px; min-width:0;}
-.rv-sec-l .rv-edit{letter-spacing:.08em;}
 .rv-legend{display:inline-flex; gap:10px; font-size:calc(10px * var(--fs)); letter-spacing:.12em;}
 .rv-legend i{display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:4px; vertical-align:1px;}
 .rv-legend .n i{background:var(--indigo-bright);} .rv-legend .l i{background:var(--zh);} .rv-legend .r i{background:var(--good);}
@@ -10071,7 +10022,9 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .hb-book{display:flex; gap:14px; align-items:center;}
 .hb-spine{width:44px; height:62px; flex:none; border-radius:4px 7px 7px 4px; background:linear-gradient(90deg, var(--tile, var(--indigo)) 0 6px, color-mix(in srgb, var(--tile, var(--indigo)) 78%, var(--card)) 6px); box-shadow:var(--shadow-md);}
 .hb-body{min-width:0;}
-.hb-body b{display:block; font-family:var(--serif); font-weight:600; font-size:calc(16px * var(--fs)); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+/* the title is ALWAYS whole (Oct 2026, on request): it wraps rather than ending in an ellipsis, which on a phone
+   cut "The History of the Peloponnesian War" to its first five words */
+.hb-body b{display:block; font-family:var(--serif); font-weight:600; font-size:calc(16px * var(--fs)); line-height:1.3; overflow-wrap:anywhere;}
 .hb-body > span{display:block; font-size:calc(12.5px * var(--fs)); color:var(--ink-quiet);}
 .hb-bar{display:block; height:4px; border-radius:2px; background:var(--paper-2); margin-top:8px; width:150px; max-width:100%; overflow:hidden;}
 .hb-bar span{display:block; height:100%; background:var(--ochre);}
@@ -10194,7 +10147,17 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
   body .collection .collection-row > .collection-deco, body[data-theme] .collection .collection-row > .collection-deco{top:auto; height:5px; border-right:0; background:var(--coll-bg, #888); border-radius:0 3px 3px 0;}
   .page .udeck-actions{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
   .page .udeck-actions .btn{justify-content:center;} .page .udeck-actions .btn:first-child{grid-column:1 / -1;}
-  .page .collection.udeck .collection-actions{flex-wrap:wrap; justify-content:flex-end; max-width:120px; gap:6px;}
+  /* NO "STUDIED N / M CARDS" LINE ON A PHONE (Oct 2026, on request): the row's tint already says how much of
+     it is studied, and the line was what made a language row taller than the band under it allowed for */
+  .page .collection-row .xp{display:none;}
+  /* A READER'S OWN DECK ROW BREAKS INTO TWO LINES (Oct 2026, on request — the title had been squeezed into a
+     column three words wide beside its pill, its count and five controls): the icon and the title's block
+     take the first line, and the controls sit right-aligned on a line of their own beneath. The title row
+     wraps too, so the pill and the count drop under a long title rather than shortening it. */
+  .page .collection.udeck > .collection-row{flex-wrap:wrap;}
+  .page .collection.udeck .collection-title-row{flex-wrap:wrap; row-gap:4px;}
+  .page .collection.udeck .collection-actions{flex:0 0 100%; max-width:none; flex-wrap:wrap; justify-content:flex-end; gap:6px;}
+  .page .collection.udeck .collection-actions .studio-deck-open{flex:0 0 auto;}   /* the pencil keeps the Studio list's `flex:1` elsewhere; here it would spread the controls out */
   .studio-inline{padding:14px 12px 18px;}
 }
 .page .coll-reach .cr-short{display:none;}
