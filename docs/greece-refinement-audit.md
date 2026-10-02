@@ -198,10 +198,10 @@ one changelog line and a version bump; commit and push.
 | B26 | Sparta (`gr-sparta`) | `gr-241`–`gr-250` | 10 | **done 2026-10-02** |
 | B27 | Sparta (`gr-sparta`) | `gr-251`–`gr-260` | 10 | **done 2026-10-02** |
 | B28 | Sparta (`gr-sparta`) | `gr-261`–`gr-270` | 10 | **done 2026-10-02** |
-| B29 | Sparta (`gr-sparta`) | `gr-271`–`gr-275` | 5 | open |
-| B30 | Athens (`gr-athens`) | `gr-276`–`gr-285` | 10 | open |
-| B31 | Athens (`gr-athens`) | `gr-286`–`gr-295` | 10 | open |
-| B32 | Athens (`gr-athens`) | `gr-296`–`gr-305` | 10 | open |
+| B29 | Sparta (`gr-sparta`) | `gr-271`–`gr-275` | 5 | **done 2026-10-02** |
+| B30 | Athens (`gr-athens`) | `gr-276`–`gr-285` | 10 | **done 2026-10-02** |
+| B31 | Athens (`gr-athens`) | `gr-286`–`gr-295` | 10 | **done 2026-10-02** |
+| B32 | Athens (`gr-athens`) | `gr-296`–`gr-305` | 10 | `gr-296`–`gr-300` **done 2026-10-02**; `gr-301`–`gr-305` open |
 | B33 | Athens (`gr-athens`) | `gr-306`–`gr-315` | 10 | open |
 | B34 | Athens (`gr-athens`) | `gr-316`–`gr-320` | 5 | open |
 | B35 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-321`–`gr-330` | 10 | open |
@@ -1168,3 +1168,133 @@ cards print, with pins for all 83 that print a year. The provisional Croesus row
 **Glossary.** Candidates are added to the backlog list in `docs/greece-audit-2026-09.md` (Olympiad,
 Theopompus, Thurii and others), and that list notes that `Thrasybulus` auto-links the Athenian democrat on
 `gr-188`, whose Thrasybulus is the tyrant of Miletus.
+
+### B29–B32 — `gr-271`–`gr-300`, the end of Sparta and Athens to the fall of the tyrants (2026-10-02)
+
+Thirty cards: B29 (`gr-271`–`gr-275`), which finishes `gr-sparta`, and the first twenty-five of `gr-athens`
+(B30, B31 and the first half of B32). **First, B19–B28 was checked:** `greece-audit.js --range=gr-171:gr-270`
+shows only the known leftovers (27 `I.none`, 5 `L.missing`, and `S.chip?` flags on English reviews). No new
+search was made for those 27 pictures in this run.
+
+Method: as B19–B28. Six research agents drafted five cards each in the scratchpad, with a saved copy of every
+source and one verbatim quote per marker. The quote verifier and the lint wrapper gated every patch, and with all
+30 patches merged together `Q.sibling` fired on none. Every draft was read by eye before it was written.
+
+Checks:
+- `greece-audit.js --range=gr-271:gr-300` finds nothing but ten missing pictures (below) and seven `S.chip?`
+  flags.
+- The flagged sources are English reviews or articles of foreign-titled books (Rhodes on Sève, Geraci,
+  Joyce on Schmitz, Arrington on Filser, Ambrose on Braun, Wallace on de Bruyn), and Valdés Guía's 2025
+  *Gerión* article, which is in English though the journal's metadata says Spanish. The cards' real foreign
+  sources carry their chips:
+  - Italian: Di Fazio (`gr-281`), Cecchet (`gr-291`).
+  - French: Bartzoka (`gr-292`).
+  - Spanish: Valdés Guía 2005 (`gr-293`).
+  - Portuguese: Carvalho and Jácome Neto (`gr-291`).
+- `check-citations --card` matches every checkable citation on all 30. Cecchet's *Erga-Logoi* issue is labelled
+  2025 but Crossref dates it 2026, so the citation says "2025, published 2026".
+- `check-questions`, `check-docs`, `split-cards --check`, `test-card-plans` and `check-gloss-links --card` pass.
+  `check-style` prints only its standing alarms on other collections; `check-cards --prefix=gr-` only the known
+  `gr-598`/`gr-950` picture.
+- All 150 distinct citation URLs answer 200 when re-curled.
+
+**Date lines:**
+- **Solon's year is 594/593 BCE on every card that prints it** (`gr-279`, `gr-281`, `gr-283`, `gr-285`–`gr-293`,
+  `gr-295`, `gr-296`). `gr-279` and `gr-296` had a bare 594; the cards now cite Whitehead's "probably 594/3".
+- **Unsourced years removed:**
+  - `gr-271`: "c. 560" became Kulesza's c. 575 – 560 BCE, the reigns in which Herodotus sets the defeat.
+  - `gr-274`: "Attributed to Lycurgus, c. 700 BCE".
+  - `gr-276`: "Occupied from c. 5000 BCE" and "One polis by the 7th century BCE".
+  - `gr-277`: "Theseus, before 1200 BCE" and "Complete by c. 700 BCE"; the date is disputed and both views are in prose.
+  - `gr-279`: 683/682 BCE and "c. 580".
+  - `gr-281`: the ten archons' "580 BCE", which was Poste's own insertion into his 1891 translation.
+  - `gr-282`: "c. 632", which rested on a translator's note to Pausanias.
+  - `gr-286`: "Lived c. 630 – c. 560".
+  - `gr-294`: "c. 594 – 560".
+  - `gr-296`: the anarchy years 590/589 and 586/585 BCE, which were the card's own arithmetic on "the fifth year".
+  - `gr-297`: the birth "c. 600".
+  - `gr-298`: "c. 556" for the second bid, which is genuinely disputed (560/559 to 545) and now stated in prose.
+  - `gr-299`: years with no source on the card.
+  - `gr-300`: "Died c. 490".
+- **Counts and durations out of date rows:** "Factions 3" (`gr-296`), "Classes 4" (`gr-288`), "Threshold 500
+  measures" (`gr-289`), "under 200 measures" (`gr-291`), "Abroad 10 years" (`gr-286`, `gr-295`).
+- **Rows that dated another subject:** `gr-278`'s citizenship-law row (that is `gr-474`'s), `gr-284`'s "409/8" in a
+  question, and `gr-288`'s "Introduced 594/593", although the *Constitution of the Athenians* says Solon kept a
+  division that already existed (now "Solon's reform").
+- `gr-290` said the zeugitai reached the archonship in 457/456 BCE; both its sources say 457.
+- Disputed dates are two rows saying whose each is: `gr-273` (usually 494 BCE; Pausanias c. 520 BCE) and
+  `gr-298` (Pallene 546/545 BCE; also dated c. 534/533 BCE).
+
+**Corrected in the old cards:**
+- **Ancient sources over the cap, modern under half:** most old Athens cards cited four or five chapters of the
+  *Constitution of the Athenians* and nothing modern. Each card now cites Aristotle at most twice and is at least
+  half modern scholarship.
+- **Wikisource and dead links:** `gr-272`'s Thucydides moved to Perseus; Bershadsky's and Kulesza's OAPEN handles
+  became archive.org and the DOI.
+- **Wrong details:**
+  - `gr-272`: Kulesza's pages were 176–77; they are 174–75.
+  - `gr-273`: Macaulay's Gutenberg volume 2 is the 1914 edition, not 1890.
+  - `gr-281` said office went by birth and wealth "before Solon"; the source says before Draco.
+  - `gr-285` called Solon's *horoi* mortgage stones, which no source on the card says; what they were is now a
+    why-answer.
+  - `gr-275` had a "she-goat" (Xenophon and Kulesza say goat), "diabateria" (no source uses the word) and Agis at
+    Caryae (Thucydides names him only at Leuctra).
+  - `gr-274` named the Kerameikos tomb and a manuscripts-against-emendation dispute that no saved source carries.
+- **Scope:**
+  - `gr-276` and `gr-277` had the same two sentences on when Attica became one state; the debate is now only
+    `gr-277`'s.
+  - `gr-277` keeps to the Theseus tradition and does not repeat `gr-160`.
+  - `gr-280` and `gr-279` dropped questions that duplicated `gr-465`, `gr-466` and `gr-315`.
+  - `gr-286` is the man and his reforms as a whole. The poems (`gr-294`), the travels (`gr-295`) and the
+    seisachtheia (`gr-287`) keep their own ground, and each class card (`gr-289`–`gr-291`) keeps to its own class.
+- **Plan lines:** `gr-273` "Sparta and Argos" → Battle of Sepeia and `gr-278` "Athenian foundation traditions" →
+  Athenian autochthony, the cards' actual subjects.
+
+**Read by eye, and changed in review:**
+- `gr-276`'s sentences on the unification debate repeated `gr-277`'s nearly word for word, from the same two
+  reviews. They were replaced with the Attic countryside sites and the 4th-century frontier forts.
+- `gr-299` wrote 546 BCE where `gr-297` and `gr-298` write 546/545 BCE. It now has 546/545, after Loomis's review.
+- `gr-292`'s "501/0 BCE" became 501/500 BCE, and `gr-293`'s "Heliaea" became Heliaia.
+- `gr-275`'s "Cinadon" became Kinadon, as on `gr-241`.
+- **Wrong glossary links stopped:**
+  - The Athenian Lycurgus (`gr-296`, `gr-298`) would have opened the Spartan lawgiver.
+  - Peisistratus's father Hippocrates (`gr-297`) would have opened the physician.
+  - The regent Pausanias at Plataea (`gr-275`) would have opened the travel writer.
+  - The first two are inside `<span class="ans-term">`, which the linker skips; the third carries a hand-written
+    `data-k`.
+- `gr-295` dated Amasis from "about 569 BCE" (Branscome) against `gr-221`'s 570 BCE; it now prints no year for him.
+
+**Pictures.**
+- 20 of the 30 cards carry one. Each has a description of what is shown, a visual alt and an author-and-licence
+  credit, and every painting and engraving is dated.
+- **New or replaced:**
+  - `gr-275`: none → the Kleophrades Painter's warrior reading the entrails.
+  - `gr-277`: none → Theseus and the Minotaur on a red-figure cup.
+  - `gr-280`: an albumen print → the bare rock of the Areopagus.
+  - `gr-282`: none → the Acropolis from the Areopagus.
+  - `gr-283`: none → an engraved portrait of 1833, described as imagined.
+  - `gr-284`: a drawing of two words → the top of the stele itself.
+  - `gr-286`: none → Blondel's *Solon* of 1828.
+  - `gr-287`: none → a 5th-century BCE *horos* from Lemnos.
+  - `gr-291`: none → the rowers of the Lenormant relief (a different photograph from `gr-490`'s).
+  - `gr-295`: none → Knüpfer's *Solon before Croesus*.
+- **Kept with new captions and credits:** `gr-271`–`gr-273`, `gr-276`, `gr-278`, `gr-279`, `gr-293`, `gr-294`,
+  `gr-298` and `gr-299`.
+- **Dropped:** `gr-274`'s Tomb of the Lacedaemonians, which is `gr-241`'s subject and no longer named on the card.
+- **Refused:** a ploughing cup in the British Museum and the full Draco stele, each photographed with its museum label;
+  the Olympieion drums, with a site sign; the Baalbek mosaic of the Seven Sages and a Lenormant photograph, already
+  on other cards; a Kroisos kouros, which is `gr-336`'s subject.
+- **Ten cards have no picture:** `gr-274`, `gr-281`, `gr-285`, `gr-288`–`gr-290`, `gr-292`, `gr-296`, `gr-297` and
+  `gr-300`. They are classes, councils, customs and men with no ancient likeness, and Commons has no honest picture
+  of any of them that is free.
+
+**Locators.** Fetched through `add-locators.js`: `gr-271` (at Tegea), `gr-273` (at Tiryns, since the site of
+Sepeia is unknown), `gr-280` Areopagus, and `gr-272` Thyrea (← "Thyrea (Greece)" by way of "Thyreatis").
+
+**Chronology.** The Sparta table takes the three battles. A new section, "Athens to the fall of the tyrants", holds
+the rows for every date the Athens cards print, with pins for all 24 cards that print a year. The provisional
+Draco, Solon, Peisistratus, Hipparchus and Hippias rows are confirmed.
+
+**Glossary.** Candidates are added to the backlog in `docs/greece-audit-2026-09.md` (Tegea, polemarch, Megacles,
+Cecrops and others). `Acragas` still says Acragas had no named founders, and `Thrasybulus` still auto-links the
+tyrant of Miletus on `gr-188`; the glossary was not touched in this run.

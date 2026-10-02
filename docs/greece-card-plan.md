@@ -524,7 +524,7 @@ the alias are the same string.
     gr-270  Socles
     gr-271  Battle of the Fetters
     gr-272  Battle of the Champions
-    gr-273  Sparta and Argos
+    gr-273  Battle of Sepeia
     gr-274  Spartan burial custom
     gr-275  Spartan divination
 
@@ -532,7 +532,7 @@ the alias are the same string.
 
     gr-276  Attica
     gr-277  Synoecism of Attica
-    gr-278  Athenian foundation traditions
+    gr-278  Athenian autochthony
     gr-279  The Athenian archons
     gr-280  Areopagus
     gr-281  Eupatridae

@@ -217,7 +217,7 @@ as each card's first row; the radiocarbon figures, where a card gives them, are 
 | Warrior burials | bent swords at Athens c. 950 – 850 BCE; the Eretria West Gate plot c. 710 – 680 BCE | Lloyd 2014 (`gr-169`) |
 | Eighth-century revival | turning point c. 750 BCE | Owen's review (`gr-170`) |
 
-## The polis, colonisation and Sparta (confirmed by B19–B28, `gr-171` – `gr-270`)
+## The polis, colonisation and Sparta (confirmed by B19–B29, `gr-171` – `gr-275`)
 
 **Where a source gives only a century, the card says the century**, on the date line and in prose, and never
 turns it into a year range (`gr-190`, `gr-195`, `gr-197`, `gr-203`, `gr-214`, `gr-219`, `gr-231`, `gr-235`,
@@ -292,6 +292,33 @@ the century stays in prose (`gr-220`, `gr-251`, `gr-254`, `gr-259`).
 | Cleomenes I | reigned c. 520 – 489 BCE; to Aegina 491 BCE | Papalas's review; Pausanias 3.4 (`gr-267`) |
 | Demaratus | Eleusis 506 BCE; with Xerxes 480 BCE | Domínguez's review; Herodotus (`gr-268`) |
 | Socles' speech | c. 504 BCE | DeVore's review (`gr-270`) |
+| Battle of the Fetters | c. 575 – 560 BCE (the reigns of Leon and Agasicles, in which Herodotus sets it) | Kulesza 2022 (`gr-271`) |
+| Battle of the Champions | c. 546 BCE (Herodotus's tie to Croesus's appeal); the replay clause 420 BCE | Bershadsky 2012; Thucydides 5.41, Franchi 2025 (`gr-272`). Kulesza gives 545 BCE, not used |
+| Battle of Sepeia | usually 494 BCE; c. 520 BCE by Pausanias's placing at the start of Cleomenes' reign | Kulesza 2022, Kierstead's review; Franchi 2025 (`gr-273`), confirming the Archaic Argos row above |
+
+## Athens to the fall of the tyrants (confirmed by B30–B32, `gr-276` – `gr-300`)
+
+**An Athenian archon year straddles two of ours**, so the cards write Solon's year as 594/593 BCE, as their
+sources do ("probably 594/3", de Ste. Croix via Whitehead's review). A source writing a bare "594" or "621"
+means the same year, and the cards that cite such a source keep its form (`gr-283`'s 621 BCE beside
+`gr-284`'s 621/620 BCE).
+
+| period or event | the collection says | source |
+|---|---|---|
+| Synoecism of Attica | no date: an 8th-century BCE union on one reading, Cleisthenes' reforms of 508/507 BCE on another; both in prose, the line empty | Rönnberg's review of Osborne; Pritchard's review of Anderson (`gr-277`) |
+| Archons chosen by lot | from 487 BCE | Ambrose's review of Braun (`gr-279`) |
+| Areopagus | powers cut by Ephialtes 462/461 BCE; last inscription early 390s CE; perhaps stopped meeting after 396 CE | Carawan 1985; Rohmann 2023 (`gr-280`) |
+| Cylon | Olympic victor 640 BCE; coup attempt 636 BCE | Rhodes's review of Sève; Papakonstantinou's review of Gagarin (`gr-282`). The old "c. 632" rested on a translator's note to Pausanias and is not used |
+| Draco's laws | 621 BCE (621/620 BCE as an archon year) | Joyce's review of Schmitz (`gr-283`); Attic Inscriptions Online, IG I³ 104 (`gr-284`) |
+| Draco's homicide law republished | 409/408 BCE | IG I³ 104 (`gr-284`) |
+| Solon's archonship and laws | 594/593 BCE; a minority dates the reforms to the 570s BCE | Whitehead's review of de Ste. Croix; Joyce's review of Schmitz; Domínguez's review of Almeida (`gr-281` – `gr-296`) |
+| Zeugitai | on the council from 508/507 BCE; archonship from 457 BCE (not 457/456); Brea colonists 445 BCE | Schmitz's review of Campa; Valdés Guía 2022 and Valdés Guía and Gallego 2010 (`gr-290`) |
+| Top two classes exempt from a fleet levy | 428 BCE | Valdés Guía and Gallego 2010 (`gr-289`) |
+| Councillors' oath | 501/500 BCE (prose only) | Bartzoka 2012, after the *Constitution of the Athenians* (`gr-292`) |
+| Croesus | came to the throne c. 560 BCE | Bremer's review (`gr-295`), confirming the Croesus row below. Branscome gives Amasis c. 569 – 525 BCE against the 570 – 526 BCE of `gr-221`; `gr-295` prints no year for him |
+| Peisistratus | first seized power 561/560 BCE; final return after Pallene 546/545 BCE, or c. 534/533 BCE on one reconstruction; died 528/527 BCE | Anderson's and Loomis's reviews of Lavelle; Ruebel 1973 (`gr-296` – `gr-299`) |
+| Peisistratid Athens | c. 560 – 510 BCE | Lavelle's book, as Loomis's review gives it (`gr-299`) |
+| Hippias | tyrant 528/527 – 510 BCE; archon 526/525 BCE; at Marathon 490 BCE | Ruebel 1973; Forrest 1969; Pritchard's review of Anderson (`gr-300`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -300,11 +327,11 @@ sources when its batch comes round, and a disputed one given as a range.
 
 | event or person | date |
 |---|---|
-| Draco's laws | c. 621 BCE |
-| Solon's archonship | 594 BCE |
-| Peisistratus tyrant | 561 – 528 BCE (with two exiles) |
-| Hipparchus killed by Harmodius and Aristogeiton | 514 BCE |
-| Hippias expelled | 510 BCE |
+| Draco's laws | 621 BCE (621/620 BCE as an archon year; confirmed by B30–B32, `gr-283`, `gr-284`) |
+| Solon's archonship | 594/593 BCE (confirmed by B30–B32, `gr-281` – `gr-296`) |
+| Peisistratus tyrant | 561/560 – 528/527 BCE, with two exiles (confirmed by B30–B32, `gr-297`) |
+| Hipparchus killed by Harmodius and Aristogeiton | 514 BCE (confirmed for `gr-300` by Forrest 1969) |
+| Hippias expelled | 510 BCE (confirmed by `gr-300`; Ruebel gives 511/510) |
 | Cleisthenes' reforms | 508 – 507 BCE |
 | Croesus king of Lydia | from c. 560 BCE; Sardis taken 547 BCE by the Nabonidus Chronicle, 546 BCE in Eusebius (confirmed by B24: Cahill, `gr-226`; `gr-269` gives his reign as c. 560 – 546 BCE after Jones's note to Pausanias) |
 | Cyrus II | c. 559 – 530 BCE |
@@ -574,4 +601,28 @@ gr-267: 520; 489; 491
 gr-268: 506; 480
 gr-269: 560; 546
 gr-270: 504
+gr-271: 575; 560
+gr-272: 546; 420
+gr-273: 494; 520
+gr-279: 594; 593; 487
+gr-280: 462; 461
+gr-281: 594; 593
+gr-282: 640; 636
+gr-283: 621; 594; 593
+gr-284: 621; 620; 409; 408
+gr-285: 594; 593
+gr-286: 594; 593
+gr-287: 594; 593
+gr-288: 594; 593
+gr-289: 594; 593; 428
+gr-290: 594; 593; 508; 507; 457; 445
+gr-291: 594; 593
+gr-292: 594; 593
+gr-293: 594; 593
+gr-295: 594; 593; 560
+gr-296: 594; 593; 561; 560
+gr-297: 561; 560; 546; 545; 528; 527
+gr-298: 561; 560; 546; 545; 534; 533
+gr-299: 560; 510; 546; 545
+gr-300: 528; 527; 510; 526; 525; 490
 ```
