@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.910", released: "2026-10-01T19:57Z" };
+window.FOLIO_VERSION = { v: "1.911", released: "2026-10-01T20:14Z" };
 
 window.CHANGELOG = [
   {
@@ -46,7 +46,7 @@ window.CHANGELOG = [
       "<b>Eighty new cards in the China collection</b>, from the Eastern Han through the Jin to the Northern Zhou, each with a cited glossary term.",
       "<b>A hundred and twenty new cards in the Ancient Rome collection</b>, from Licinius and Nicaea through the fall of the West to the Roman army and the Senate, with 111 new glossary terms.",
       "<b>Twenty new cards in the Visual Art collection</b>, finishing its Ice Age art and opening the first villages, with 19 new glossary terms.",
-      "<b>Twenty-five more cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
+      "<b>Seventy more Ancient Greece cards are rewritten</b>, in the Crete and the Cyclades and Mycenaean Greece decks, with more sources, clearer backgrounds and new pictures.",
       "<b>Settings \u2192 Data</b> now says where your progress is kept, asks the browser to keep it, and can restore a backup as well as download one.",
       "<b>Short on time?</b> Chips under your decks start the day's review for 5, 10, 20 or 30 minutes.",
       "<b>Ctrl+K</b> (or Cmd+K) now opens search from anywhere, and a first visit offers ten sample cards to try before choosing anything.",

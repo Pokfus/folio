@@ -66,7 +66,7 @@ already cites, taking the earlier of each of its paired figures where it gives t
 | Early Cycladic II (Keros-Syros) | c. 2650 – 2400 BCE | |
 | Keros and Dhaskalio in use | c. 2750 – 2250 BCE | the British School gives 2750 – 2240; Carter et al. 2025 end Phase C at 2250 |
 | Knossos first settled | c. 6900 – 6600 BCE | Douka et al. 2017, modelled radiocarbon |
-| Mycenaean palaces | c. 1400 – 1200 BCE | |
+| Mycenaean palaces | c. 1400 – 1200 BCE | Rutter, Lesson 20: Mycenae, Tiryns and Thebes no earlier than LH IIIA2 (ca. 1400 – 1340), Pylos and Gla LH IIIB; all destroyed at the end of LH IIIB, and no LH IIIC palace is known (`gr-056`) |
 | Malia: Old / New palace; reoccupied | c. 1900 – 1700 / 1700 – 1450; c. 1375 – 1200 BCE | the École française d'Athènes' own periodisation, which puts Malia's break at 1700 rather than 1750 |
 | Phaistos: Old / New palace | c. 1900 – 1750 / 1750 – 1470 BCE | Rutter's pair; the Hellenistic town was razed by Gortyn in the mid-2nd century BCE (Strabo 10.4.14) |
 | Zakros: older building; palace | c. 1900 BCE; c. 1750 – 1470 BCE | Odysseus (Greek ministry) for the older building; the palace is MM IIIA – LM IB |
@@ -86,7 +86,25 @@ already cites, taking the earlier of each of its paired figures where it gives t
 | Palaikastro LM IB destruction | c. 1450 BCE | the British School's own figure, which `gr-040` gives; Poursat's review puts the kouros's context at about 1475 |
 | Mochlos | settled c. 3100 – 1200 BCE; town burnt c. 1470 BCE | INSTAP Study Center; the LM III cemetery at Limenaria runs c. 1400 – 1250 BCE (Galanakis's review), which `gr-034` uses |
 | Pseira | early town destroyed c. 1750 BCE; rebuilt town destroyed c. 1470 BCE | INSTAP Study Center: destroyed in MM IIB, rebuilt in LM IA, burnt at the end of LM IB |
-| Shaft graves at Mycenae | c. 1650 – 1500 BCE | |
+| Shaft graves at Mycenae | c. 1650 – 1500 BCE | Rutter, Lesson 16: Grave Circle B ca. 1650 – 1550, Grave Circle A ca. 1600 – 1500 (Dickinson shortens both to 1600 – 1500) |
+| Mycenaean civilisation | c. 1650 – 1100 BCE | the Dickinson College Mycenae Excavations page dates LH I from ca. 1650; the Athens museum gives 1600 – 1100 and puts the end in the 11th century BCE (`gr-056`) |
+| Grave Circle B | c. 1650 – 1550 BCE; the ministry dates its first rulers c. 1700 BCE | Rutter's range, and Odysseus ("approximately 1700 BC"); `gr-061` gives both, and `gr-058` dates Mycenae's first rulers to the ministry's c. 1700 BCE |
+| Grave Circle A | burials c. 1600 – 1500 BCE; refurbished c. 1250 BCE | Rutter, Lesson 16; Odysseus: taken inside the new wall of LH IIIB1 with the Lion Gate and "refurbished and used for ancestral cults" (`gr-060`) |
+| Mycenae | Bronze Age rule c. 1700 – 1100 BCE; palace and walls c. 1350 – 1200 BCE; Lion Gate c. 1250 BCE; razed by Argos 468 BCE | Odysseus (history tab): walls from c. 1350, the Lion Gate about a century later, abandonment c. 1100; Mycenae Excavations: Lion Gate 1250 BC; Diodorus 11.65 with the Loeb date for the sack (`gr-058`, `gr-059`) |
+| Tholos tombs at Mycenae | c. 1525 – 1275 BCE; great new tholoi end by c. 1250 BCE | Rutter, Lesson 19 ("ca. 1525 to 1300/1275"); Galanakis 2021, p. 599 (`gr-064`) |
+| Treasury of Atreus | c. 1350 – 1250 BCE (disputed) | the ministry (Psychogiou) says ca. 1250 BC; the Athens museum dates a façade epistyle ca. 1350 BC; Rutter puts the group in LH IIIB. `gr-065` gives the range and says whose each end is |
+| Heinrich Schliemann | born 6 January 1822; Hisarlik from April 1870; Mycenae 1876; died 26 December 1890 | Calder 1972 and *Ilios* for the birth; *Ilios* p. 20 for Hisarlik; Schuchhardt p. 16 n. for the death at Naples (`gr-057`) |
+| Cyclopean walls of the Argolid | c. 1350 – 1200 BCE; last great circuits c. 1250 BCE | Odysseus (Mycenae, history tab): first Cyclopean wall c. 1350 BC; Rutter, Lesson 21: earliest systems later LH IIIA, the final ones "ca. 1250 B.C."; Odysseus (Tiryns): begun in the 14th century, finished at the end of the 13th (`gr-066`, `gr-067`) |
+| Fall of the mainland palaces | c. 1200 BCE; Pylos c. 1200 – 1180 BCE | Tiryns and Midea "around 1200 BC" (Odysseus; Swedish Institute); Thebes "not long after 1225 BC" (Aravantinos et al., via Dickey's BMCR review) or c. 1200 (Thebes museum); Pylos c. 1200 – 1180 BCE, early LH IIIC (Judson 2023) and LH IIIC Early (Middleton 2024) (`gr-067` – `gr-070`) |
+| Gla | in use c. 1300 – 1190 BCE | the excavators (Lane and Kountouri, MYNEKO 2016): LH IIIB fortress ca. 1300 – 1190 BCE, burnt once, rebuilt, burnt again ca. 1190; the Thebes museum "close to 1200 BC". Rutter's early-LH IIIB destruction is superseded (`gr-071`) |
+| Kopais dyke | c. 1250 BCE (mid-13th century); modern drainage 1882 – 1931 | Kountouri et al. 2013: pottery from the dyke is LH IIIB, "the middle of the 13th century BC"; AROURA for the French (1882) and British (1887 – 1931) companies. The old card's "reflooded c. 1100 BCE" traces to Mamassis's misreading of Strabo and is dropped; the card gives "perhaps between 1200 and 1100 BCE" after Lauffer (via AROURA) in prose only (`gr-099`) |
+| Linear B tablets on the mainland | c. 1400 – 1200 BCE | the convention of the B8 cards on Linear B and Mycenaean institutions (`gr-074` – `gr-087`, `gr-095`, `gr-096`); Palaima 1999 gives "end of LM II (ca. 1400 B.C.) to the end of LH IIIB (ca. 1200 B.C.)" |
+| Decipherment of Linear B | announced 1 July 1952; first paper 1953; *Documents* 1956 | the Cambridge Mycenaean Epigraphy Group and the British Academy memoir of Chadwick (`gr-075`) |
+| Dendra cuirass tomb (chamber tomb 12) | c. 1400 BCE; found 1960 | the Swedish Institute at Athens: "end of the 15th century BC"; the old "c. 1500 BCE" is dropped (`gr-088`) |
+| Vapheio tholos | 15th century BCE (c. 1500 – 1400 BCE); found 1889 | the Athens museum's date for the Vapheio amethyst seal; Tsountas and Manatt, p. 7, for the 1889 dig. No open source dates the cups themselves (`gr-092`) |
+| Uluburun ship | sank c. 1320 BCE (c. 1335 – 1300 debated); excavated 1984 – 1994 | INA: ca. 1320 ± 15 BC; Smith 2023: ca. 1335 – 1305; Rutter ca. 1310; Bachhuber 2006: the 1305 dendro date was too early, the Nefertiti scarab sets the earliest limit (`gr-094`) |
+| Cape Gelidonya ship | c. 1200 BCE | INA ("late 13th c."; "about 1200 B.C."); Rutter "around 1200 B.C. or a little later" (`gr-093`) |
+| Mycenaean Miletus | Minoan from c. 1700 BCE; Mycenaean from c. 1400 BCE; Hittite conquests end of the 14th century and c. 1200 BCE | Gorman (via Smith's BMCR review) for 1700; Kelder 2010 for 1400; the Hamburg excavation's history page for the two conquests (`gr-098`) |
 | Petras | settled before 3000 BCE; palatial town c. 1900 – 1470 BCE | Late Neolithic on the eastern slope (Chronique 1793); the leading centre of its district by MM IB – IIA (Caloi's review); burnt in LM IB and reoccupied |
 | Kastri, Kythera | Cretan in character c. 1900 – 1470 BCE | Graziadio 2025, p. 80, for the Protopalatial; the end is the collection's LM IB figure |
 | Keftiu in Theban tombs | c. 1479 – 1425 BCE | the Metropolitan Museum's date for the Rekhmire copy, Thutmose III to early Amenhotep II |
@@ -223,4 +241,49 @@ gr-052: 1390; 1370; 1375; 1250
 gr-053: 1375; 1200; 1075
 gr-054: 650; 145; 140
 gr-055: 1700; 900; 600; 361; 363
+gr-056: 1650; 1500; 1400; 1200; 1100
+gr-057: 6 January 1822; 26 December 1890
+gr-058: 1700; 1100; 1350; 1200; 468
+gr-059: 1250
+gr-060: 1600; 1500; 1250
+gr-061: 1650; 1550; 1700
+gr-062: 1600; 1500
+gr-063: 1650; 1500
+gr-064: 1525; 1275; 1250
+gr-065: 1350; 1250
+gr-066: 1350; 1200; 1250
+gr-067: 1200; 1884; 1885
+gr-068: 1200; 1180; 1939
+gr-069: 1200; 1993; 1995
+gr-070: 1200; 1983
+gr-071: 1300; 1190
+gr-072: 1350; 1200
+gr-073: 1250; 1200
+gr-074: 1400; 1200
+gr-075: 1952; 1953; 1956
+gr-076: 1400; 1200
+gr-077: 1939; 1200
+gr-078: 1400; 1200
+gr-079: 1400; 1200
+gr-080: 1400; 1200
+gr-081: 1400; 1200
+gr-082: 1400; 1200
+gr-083: 1400; 1200
+gr-084: 1400; 1200
+gr-085: 1400; 1200
+gr-086: 1400; 1200
+gr-087: 1400; 1200
+gr-088: 1400; 1960
+gr-089: 1600; 1500
+gr-090: 1600; 1500
+gr-091: 1300; 1200
+gr-092: 1500; 1400; 1889
+gr-093: 1725; 1675; 1200
+gr-094: 1320; 1984; 1994
+gr-095: 1400; 1200
+gr-096: 1400; 1200
+gr-097: 1375
+gr-098: 1700; 1400
+gr-099: 1250; 1882; 1931
+gr-100: 1300
 ```
