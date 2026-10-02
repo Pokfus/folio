@@ -149,7 +149,7 @@ have not this session.
   (report only), `test-card-plans.js`.
 - **Wikipedia links** (the "Learn more" box at the foot of a card): `.claude/wiki-links.json` maps each card to its
   dedicated article; `node .claude/find-wiki-links.js` regenerates it (cached, re-run after adding cards; needs
-  `NODE_USE_ENV_PROXY=1`). 📖 `docs/wikipedia-links-audit.md` — the cards still needing a human decision.
+  `NODE_USE_ENV_PROXY=1`). 📖 `docs/wikipedia-links-audit.md` — READ BEFORE CHANGING A CARD'S LINK OR THE RESOLVER (the cards still needing a human decision).
 
 ### The planned collections
 
