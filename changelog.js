@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.923", released: "2026-10-02T13:27Z" };
+window.FOLIO_VERSION = { v: "1.924", released: "2026-10-02T13:49Z" };
 
 window.CHANGELOG = [
   {
@@ -56,7 +56,10 @@ window.CHANGELOG = [
       "<b>Shakespeare\u2019s <i>Macbeth</i> is in the Library</b> \u2014 the 1918 Yale edition, act by act, with the editor\u2019s glosses and notes.",
       "<b>A hundred new cards in the Ancient Rome collection</b>, finishing government and law and the provinces and opening family life, each with a glossary term.",
       "<b>Seventy more Ancient Greece cards are rewritten</b>, finishing the Mycenaean Greece and Early Iron Age decks, with more sources and new pictures.",
-      "<b>A hundred and seventy World History cards are rewritten</b>, from Human origins to the first Mesopotamian cards, with more sources and corrected dates."
+      "<b>A hundred and seventy World History cards are rewritten</b>, from Human origins to the first Mesopotamian cards, with more sources and corrected dates.",
+      "<b>Collections is a tab in the phone\u2019s bottom bar again</b>, replacing the home page\u2019s + Add decks link; the colour legend shows at every width.",
+      "<b>The home page is tidied</b>: a gold level bar, rounded banner corners, the Edit control beside Your collections, and a <b>Today</b> section in This week.",
+      "<b>The Short on time? chips and the studied-today line are gone</b> from under the deck list, and the Changelog link now lands on the changelog itself."
     ]
   },
   {
