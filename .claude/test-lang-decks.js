@@ -720,22 +720,9 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     await page.evaluate(() => { location.hash = "#home"; });
     await page.waitForTimeout(700);
 
-    /* AND THE EDIT MODE'S CROSS REACHES IT (Sep 2026, on a bug report: "language collections don't have an
-       X to remove them"). The row is not itself in `S.active` — it is synthesised from the decks gathered
-       under it — which is why it was skipped when the mode was built, and `removeActive` has known what
-       removing one means all along. A row that can be removed from its own options sheet and not from the
-       mode built for removing rows is the mode having a hole in it, and a missing control looks exactly
-       like a control that was never meant to be there, which is why it is asserted rather than eyed. */
-    const crosses = async () => page.evaluate((sel) => {
-      const e = document.querySelector(sel);
-      return e ? !!e.querySelector(".dk-del") : null;
-    }, headSel);
-    check("a language header carries no remove cross at rest", (await crosses()) === false);
-    await page.evaluate(() => { const b = document.querySelector("#dkEdit"); if (b) b.click(); });
-    await page.waitForTimeout(500);
-    check("…and does once the deck list is being edited", (await crosses()) === true);
-    await page.evaluate(() => { const b = document.querySelector("#dkEditDone"); if (b) b.click(); });
-    await page.waitForTimeout(400);
+    /* The deck list's editor mode put a remove cross on this row from Sep 2026 (on a bug report), and the
+       mode is gone with its crosses (Oct 2026, on request); the row's own options sheet still carries
+       Remove, which is asserted below. */
 
     /* THE COLOUR REACHES EVERY DECK OF THE LANGUAGE, which is what makes the row a container rather than a
        label: the hue is passed DOWN the list's build, so a header that took a colour and kept it to itself

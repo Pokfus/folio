@@ -1193,14 +1193,8 @@
     if (T && T.soon && (node.id in T.soon)) return !!T.soon[node.id];
     return !!node.placeholder || subtreeCardIds(node).length === 0;
   }
-  // pin a node into a section (true = coming soon, false = all decks); clears the pin when it matches the automatic state
-  function setNodeSoon(id, soon) {
-    const n = NODE_BY_ID[id]; if (!n) return;
-    const auto = !!n.placeholder || subtreeCardIds(n).length === 0;
-    if (!ADMIN_EDITS.tree.soon) ADMIN_EDITS.tree.soon = {};
-    if (soon === auto) delete ADMIN_EDITS.tree.soon[id];
-    else ADMIN_EDITS.tree.soon[id] = soon;
-  }
+  // `setNodeSoon` (pinning a node into Planned or out of it) stood here; the Collections page's admin drag was
+  // its only caller and is gone (Oct 2026) — the stored `ADMIN_EDITS.tree.soon` pins are still read by isComingSoon
   // persist a custom order for a parent's children ("" = top-level collections)
   function reorderSiblings(parentKey, orderedIds) {
     if (!ADMIN_EDITS.tree.order) ADMIN_EDITS.tree.order = {};
@@ -23326,102 +23320,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     return null;
   }
-  /* ---------- THE DECK LIST'S EDITOR MODE (Aug 2026, on request) ----------
-     "Rather than the drag handles being visible at all times, make them invisible by default and shift
-     the contents of the banners to the left. Add a button in the bottom left, just below the active decks
-     list, vertically centered to the study timer. Pressing it opens an editor mode where the drag handles
-     appear on the left, red crosses on the right, and titles can be renamed by clicking on them. The
-     button becomes three buttons (save, exit, undo), and the study timer disappears until the editing
-     mode is closed."
-
-     · **THE MODE IS LIVE, WITH AN UNDO STACK** — the reader's own choice when asked. Every edit lands at
-       once, exactly as it did before this mode existed, and the stack is what makes that safe: the drag
-       and the remove already write through `save()`, so a STAGED editor would have meant rendering the
-       whole list from a working copy rather than from state, which is a rewrite of the list rather than a
-       mode over it.
-     · **THREE BUTTONS, AND ONE OF THEM IS NOT CALLED WHAT WAS ASKED FOR.** In a live editor "save" and
-       "exit" are the same button pressed twice — there is nothing staged for one to keep and the other to
-       throw away — so the pair is **Done** (close) and **Revert** (put back everything this session of the
-       mode changed, then close), with **Undo** stepping back one. Same three controls, but no button whose
-       name promises a decision it is not making.
-     · **THE STACK IS A SNAPSHOT OF THE FIVE FIELDS THE LIST CAN WRITE**, taken BEFORE each edit, which is
-       `adminCheckpoint`'s shape and for its reason: a reorder and a removal are both lossy — a removed
-       deck takes its subdeck rows, its nesting and its place in the order with it, and none of that can be
-       derived back out of what is left. JSON of five small objects is a few hundred bytes.
-     · **IT IS A MODE, NOT A SETTING**: module-level, so it survives a repaint of the page and resets on
-       reload. A reader who leaves the mode open, closes the tab and comes back should meet the ordinary
-       list, not an editor they have forgotten they opened.
-     · **AND IT IS WHY THE GRIPS WENT QUIET.** They used to sit at `.32` on every row at rest; the request
-       is that they not be there at all until asked for, which is also what lets the row's contents move
-       left into the column they were reserving. */
-  const DECK_EDIT_FIELDS = ["active", "cotd", "deckOrder", "deckGroups", "deckNest"];
-  let deckEditOn = false, deckEditUndo = [];
-  const DECK_EDIT_CAP = 60;
-  function deckEditSnapshot() {
-    const o = {};
-    DECK_EDIT_FIELDS.forEach((k) => { o[k] = JSON.stringify(S[k] === undefined ? null : S[k]); });
-    return o;
-  }
-  /* Taken BEFORE the edit, by every path that can change the list while the mode is open — and by NOTHING
-     when it is shut, so an ordinary drag outside the mode costs nothing and cannot leave a stack behind for
-     the next opening to pop. */
-  function deckEditCheckpoint() {
-    if (!deckEditOn) return;
-    deckEditUndo.push(deckEditSnapshot());
-    if (deckEditUndo.length > DECK_EDIT_CAP) deckEditUndo.shift();
-  }
-  function deckEditRestore(snap) {
-    if (!snap) return;
-    DECK_EDIT_FIELDS.forEach((k) => {
-      let v = null;
-      try { v = JSON.parse(snap[k]); } catch (e) { v = null; }
-      // a field that was absent goes back to absent rather than to null, which `defaultState`'s own
-      // back-fills would then have to answer for on the next load
-      if (v === null) delete S[k]; else S[k] = v;
-    });
-    save();
-  }
+  /* THE DECK LIST'S EDITOR MODE STOOD HERE AND IS GONE (Oct 2026, on request: "remove that button and
+     its system entirely"). From Aug 2026 an Edit button — at the foot of the list, then the banner's
+     corner, then beside the "Your collections" heading — opened a live mode with an undo stack
+     (`deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML`): the drag handles appeared, a red cross
+     on every row removed it, a title could be clicked to rename it, and Undo / Revert / Done closed it;
+     an Icons switch beside them hid the gold marks. All of it is removed, with its CSS (`.rv-edit*`,
+     `.rv-editing`, `.dk-del`, `.dk-rename`). What stays is what was never the mode's: a deck is still
+     removed and a group or language header still renamed from its own options sheet (`openDeckMenu`),
+     `setEntryTitle` and `adOwnTitle` serving that sheet; and `setupDeckDrag` with the `.dk-grip` markup
+     is left in place but, the handles being hidden at rest since Aug 2026 and the mode having been the
+     one thing that showed them, no reader can reach a drag now — see docs/daily-study.md. */
   // a rename the reader has made, on ANY row. `groupTitle` already reads it for a group and falls through
   // to the node's own title; this is the same read for the rows that are not groups, so one override field
   // serves the whole list and nothing has to learn a second place to look.
   function adOwnTitle(id) { const r = groupRec(id); return (r && r.title) || ""; }
-  const DECK_EDIT_PENCIL =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
-  // the icon switch's own mark: a small star, which is what the gold marks in the list read as at 22px
-  const DECK_EDIT_ICON_SVG =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.5 5.6 6.1.6-4.6 4.1 1.3 6-5.3-3.1-5.3 3.1 1.3-6L3.4 9.8l6.1-.6z"/></svg>';
-  const DECK_EDIT_UNDO_SVG =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7v6h6"/><path d="M3.5 13a9 9 0 1 0 2.1-5.7L3 10"/></svg>';
-  /* The row of controls at the foot of the deck list. Shut, it is one quiet button; open, it is three —
-     and the three sit where the one was, so nothing on the page moves under the press that opens them.
-     Undo and Revert are DISABLED rather than hidden while there is nothing to undo: a control that comes
-     and goes as the reader works is a control they have to look for, and a greyed one says "this is what
-     this mode can do" before it has anything to do it to. */
-  function deckEditBarHTML() {
-    if (!deckEditOn) {
-      return '<button type="button" class="rv-edit" id="dkEdit" title="Reorder, rename or remove the decks below">' +
-        DECK_EDIT_PENCIL + "<span>Edit</span></button>";
-    }
-    const n = deckEditUndo.length;
-    const dis = n ? "" : " disabled";
-    /* THE ICON SWITCH (Sep 2026, on request). It is a `role="switch"` rather than a fourth push-button,
-       because it is a STATE the reader is setting and not an action performed once — the three beside it
-       do something and this one is on or off. It is deliberately NOT undoable by the Undo beside it:
-       `deckEditUndo` snapshots `DECK_EDIT_FIELDS`, which are facts about the decks, and how the reader
-       likes to look at the list is not one of them — Revert putting the icons back would be a surprise. */
-    const icons = S.settings.deckIcons !== false;
-    return '<div class="rv-editacts">' +
-      '<button type="button" class="rv-edit rv-edit-icons' + (icons ? " on" : "") + '" id="dkEditIcons" role="switch"' +
-        ' aria-checked="' + (icons ? "true" : "false") + '" title="' + (icons ? "Hide the icons beside each deck" : "Show an icon beside each deck") + '">' +
-        DECK_EDIT_ICON_SVG + "<span>Icons</span></button>" +
-      '<button type="button" class="rv-edit rv-edit-undo" id="dkEditUndo"' + dis +
-        ' title="' + (n ? "Step back one change" : "Nothing to undo yet") + '">' + DECK_EDIT_UNDO_SVG + "<span>Undo</span></button>" +
-      '<button type="button" class="rv-edit rv-edit-revert" id="dkEditRevert"' + dis +
-        ' title="' + (n ? "Put back everything changed since Edit was pressed, and close" : "Nothing has been changed") + '">' +
-        "<span>Revert</span></button>" +
-      '<button type="button" class="rv-edit rv-edit-done" id="dkEditDone" title="Close the editor and keep the changes">' +
-        "<span>Done</span></button></div>";
-  }
   const AD_OPEN_KEY = "folio_ad_open_v1", AD_OPEN_CAP = 400;
   let _adOpenMap = null;
   function adFoldMap() {
@@ -23598,9 +23511,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return true;
     }
     function commit(el) {
-      // one snapshot per gesture, taken before `S` is touched — the DOM has already moved, but the DOM is
-      // not the state, and this is the line that writes it. A no-op unless the editor mode is open.
-      deckEditCheckpoint();
+      // the DOM has already moved, but the DOM is not the state, and this is the line that writes it
       setDeckOrder(el.dataset.parent || "", siblingsOf(el).map((r) => r.dataset.drag));
       adSyncFold(listEl);   // the rounded bottom corner belongs to whichever row is last NOW
       if (onDrop) onDrop();
@@ -23736,7 +23647,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (d.moved && target) {
         const parent = target.dataset.drag;
         d.vis.forEach((el) => el.classList.remove("dk-dragging", "dk-settling"));
-        deckEditCheckpoint();   // as in `commit` — before the write, and a no-op outside the editor mode
         if (setNestParent(d.el.dataset.drag, parent)) {
           adOpen.add(parent);
           adFoldSet(parent, true);   // …and it stays open: a container that re-swallowed its new contents
@@ -24086,14 +23996,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (dId && UDECKS[dId] && !uSubOf(entryId)) return "cards";
       return "";
     };
-    /* …AND THE WHOLE LAYER CAN BE SWITCHED OFF (Sep 2026, on request: "in the Edit mode, there should be
-       a toggle to switch the (gold) icons in the list on/off"). It is a way of looking at the list rather
-       than a fact about any deck, so it is one setting in `S.settings` rather than a flag per row — and it
-       is asked HERE, at the one place a row's mark is built, so nothing else has to know about it. A
-       reader who has set an icon on a row by hand loses it with the rest: the switch is about the column,
-       and leaving one row's mark standing would read as a switch that half worked. */
-    const adIcon = (entryId, parentKey) =>
-      S.settings.deckIcons === false ? "" : entryIconMarkup(entryId, adIconKey(entryId, parentKey), "dk-ic");
+    /* The whole layer COULD be switched off from Sep 2026 (an Icons switch in the deck list's editor
+       mode wrote `S.settings.deckIcons`); the mode and its switch are gone (Oct 2026, on request), so the
+       column is always drawn — a setting with no control left to change it would strand whoever had
+       turned it off. The stored flag is simply no longer read. */
+    const adIcon = (entryId, parentKey) => entryIconMarkup(entryId, adIconKey(entryId, parentKey), "dk-ic");
     /* TWO PROGRESSES ON ONE BAR (Sep 2026, on request: "the first general bar should be light
        blue/teal (same color as undiscovered gloss) and show progress for cards studied once, the darker
        blue progress bar on top of it should show how many cards have been studied 3 days"). The light
@@ -24428,10 +24335,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const grip = canDrag ? gripHTML(rowTitle(r)) : "";
           /* `data-shipname` is the row's OWN name — the collection's, the deck author's, the group's —
              before any rename the reader has made over it, and it rides on the shared attribute string so
-             all six row templates carry it from one edit. The editor mode needs it to tell a real rename
-             from a reader typing the existing name back, which clears the override rather than storing a
-             copy of it (see setEntryTitle); without it the only way to recover the shipped name would be a
-             second copy of the build's own title logic, which is the thing that drifts. */
+             all six row templates carry it from one edit. The deck list's editor mode (gone Oct 2026) read it
+             to tell a real rename from a reader typing the existing name back, which clears the override
+             rather than storing a copy of it (see setEntryTitle); it is kept on the row because the only
+             other way to recover the shipped name would be a second copy of the build's own title logic,
+             which is the thing that drifts. */
           const drag = ` data-drag="${esc(r.drag)}" data-parent="${esc(r.parent)}" data-shipname="${esc(r.title || (r.node ? nodeTitle(r.node) : r.drag))}"`;
           // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
           // collapse in the reader's face on every visit to the page
@@ -24897,11 +24805,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* THE LINK IS GONE AND THE LEGEND IS BACK AT EVERY WIDTH (Oct 2026, on request: "the add decks button
        should be removed and replaced with the new/learning/review dots and labels again"). The route to
        the collections is the Collections TAB now — the desktop's top bar has had one since Sep 2026, and
-       the phone's bottom bar gained one with this change (index.html) — so the header is a heading, the
-       deck list's Edit control beside it (see `editActs`), and the legend of the three colours at the
-       right. The tour's step and the About page's first FAQ step name the tab. */
-    const editActs = fresh || (!activeIds.length && !deckEditOn) ? "" : deckEditBarHTML();
-    const collectionsBtn = `<div class="rv-sec-h"><span class="rv-sec-l"><span>Your collections</span>${editActs}</span>` +
+       the phone's bottom bar gained one with this change (index.html) — so the header is a heading and
+       the legend of the three colours at the right. The tour's step and the About page's first FAQ step
+       name the tab. The deck list's Edit control stood beside the heading for a day and is gone with its
+       whole editor mode (Oct 2026, on request) — see the note where `adOwnTitle` is defined. */
+    const collectionsBtn = `<div class="rv-sec-h"><span class="rv-sec-l"><span>Your collections</span></span>` +
       `<span class="rv-legend" aria-hidden="true"><span class="n"><i></i>New</span><span class="l"><i></i>Learning</span><span class="r"><i></i>Review</span></span></div>`;
     /* …AND IT IS THE CARD'S BOTTOM EDGE AGAIN (Aug 2026, on request: "I don't like the positioning of the
        home page Collections button below the active decks list on tablet and mobile"). Standing free under
@@ -25298,122 +25206,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         });
       });
     }
-    /* ---------- the editor mode's own wiring ----------
-       A repaint here is `renderInPlace()`: the mode changes what almost every row carries, so there is no
-       smaller surface to redraw than the page — and that call already drops the scroll-to-top and the
-       entrance animation, which are the two things a reader reads as a refresh (see `renderInPlace`).
-       The fold state and the drag order both survive it, having survived a repaint since they existed. */
-    root.classList.toggle("rv-editing", deckEditOn);
-    { const eb = root.querySelector("#dkEdit"); if (eb) eb.addEventListener("click", () => { deckEditOn = true; deckEditUndo = []; renderInPlace(); }); }
-    { const ub = root.querySelector("#dkEditUndo"); if (ub) ub.addEventListener("click", () => {
-        const snap = deckEditUndo.pop();
-        if (!snap) return;
-        deckEditRestore(snap);
-        renderInPlace();
-      }); }
-    { const rb2 = root.querySelector("#dkEditRevert"); if (rb2) rb2.addEventListener("click", () => {
-        // the BOTTOM of the stack is the list as it stood when Edit was pressed, so one restore undoes the
-        // whole session of the mode — popping repeatedly would do the same thing N times over
-        const first = deckEditUndo[0];
-        deckEditUndo = [];
-        deckEditOn = false;
-        if (first) deckEditRestore(first);
-        toast(first ? "Put back the way it was." : "Nothing had been changed.");
-        renderInPlace();
-      }); }
-    { const db = root.querySelector("#dkEditDone"); if (db) db.addEventListener("click", () => { deckEditOn = false; deckEditUndo = []; renderInPlace(); }); }
-    /* The icon switch. `renderInPlace` rather than `render()`, like every other control in this mode: the
-       list is being edited, and scrolling the reader to the top of the page to repaint one column of marks
-       is the "each time a deck is downloaded, the page refreshes" complaint again. */
-    { const ib = root.querySelector("#dkEditIcons"); if (ib) ib.addEventListener("click", () => {
-        S.settings.deckIcons = S.settings.deckIcons === false;
-        save();
-        renderInPlace();
-      }); }
-    if (deckEditOn && adList) {
-      /* THE CROSS IS INJECTED RATHER THAN WRITTEN INTO THE SIX ROW TEMPLATES. It exists only in this
-         mode, so putting it in the markup would mean six branches each carrying a control that is absent
-         from the page 99% of the time — and every one of them would have to be kept in step. A CONTEXT
-         row (an unadded ancestor drawn only to show where a deck hangs) gets none: it is not in
-         `S.active`, so there is nothing there to remove. */
-      adList.querySelectorAll(".active-deck[data-drag]").forEach((row) => {
-        const id = row.dataset.drag;
-        /* A LANGUAGE HEADER GETS ONE (Sep 2026, on a bug report: "language collections don't have an X to
-           remove them"). It was skipped here because it is not itself in `S.active` — but `removeActive`
-           has always known what removing one means (take out the decks gathered under it, free anything
-           dragged in), which is exactly what its row stands for, and its options sheet has carried a
-           Remove all along. A row that can be removed from a menu and not from the mode built for
-           removing rows is the mode having a hole in it. A CONTEXT row still gets none: it is not in
-           `S.active` AND nothing under it is, so there is nothing there to remove. */
-        if (!id || row.classList.contains("context")) return;
-        const x = document.createElement("button");
-        x.type = "button";
-        x.className = "dk-del";
-        x.title = "Remove " + (row.querySelector(".dk-title") ? row.querySelector(".dk-title").textContent : "this") + " from the daily study";
-        x.setAttribute("aria-label", x.title);
-        x.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
-        // capture, and both events: the row itself is a button that starts a study session, and
-        // `wireHoldMenu` arms its own timer on pointerdown
-        x.addEventListener("pointerdown", (e) => e.stopPropagation());
-        x.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") e.stopPropagation(); });
-        x.addEventListener("click", (e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          deckEditCheckpoint();
-          if (isGroupId(id)) groupDelete(id); else removeActive(id);
-          renderInPlace();
-        });
-        row.appendChild(x);
-      });
-      /* CLICK A TITLE TO RENAME IT. The field replaces the title in place rather than raising a prompt —
-         the reader is looking at the list they are arranging, and a modal over it would take the thing
-         being renamed off the screen. Enter and blur commit, Escape abandons; the row's own click is
-         stopped throughout, or naming a deck would deal its first card. */
-      adList.querySelectorAll(".active-deck[data-drag] .dk-title").forEach((el) => {
-        const row = el.closest(".active-deck");
-        const id = row && row.dataset.drag;
-        if (!id) return;
-        el.classList.add("dk-title-edit");
-        el.setAttribute("tabindex", "0");
-        el.setAttribute("role", "button");
-        el.setAttribute("title", "Click to rename");
-        el.addEventListener("pointerdown", (e) => e.stopPropagation());
-        const start = (e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          if (row.querySelector(".dk-rename")) return;
-          const shipped = row.dataset.shipname || "";
-          const inp = document.createElement("input");
-          inp.type = "text";
-          inp.className = "dk-rename";
-          inp.value = el.textContent;
-          inp.maxLength = 80;
-          inp.setAttribute("aria-label", "Rename this deck");
-          el.replaceWith(inp);
-          inp.focus();
-          inp.select();
-          let done = false;
-          const finish = (keep) => {
-            if (done) return;
-            done = true;
-            if (keep) {
-              const want = inp.value.trim();
-              if (want !== el.textContent.trim()) { deckEditCheckpoint(); setEntryTitle(id, want, shipped); }
-            }
-            renderInPlace();
-          };
-          inp.addEventListener("keydown", (ev) => {
-            ev.stopPropagation();
-            if (ev.key === "Enter") { ev.preventDefault(); finish(true); }
-            else if (ev.key === "Escape") { ev.preventDefault(); finish(false); }
-          });
-          inp.addEventListener("pointerdown", (ev) => ev.stopPropagation());
-          inp.addEventListener("blur", () => finish(true));
-        };
-        el.addEventListener("click", start);
-        el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.stopPropagation(); start(e); } });
-      });
-    }
+    // the editor mode's wiring (Edit / Undo / Revert / Done, the Icons switch, the injected crosses and the
+    // click-to-rename titles) stood here until Oct 2026 — see the note where `adOwnTitle` is defined
     // …and the banner above them holds open the review's OWN options (the Ordered/Random pair that used to
     // sit in its corner). Its click is already wired above, so no tap handler is passed here — the shared
     // `held` guard is what keeps the hold from also starting a session.
@@ -26468,7 +26262,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       try { lit.scrollIntoView({ inline: "nearest", block: "nearest" }); }
       catch (e) { lit.parentElement.scrollLeft = lit.offsetLeft - 12; }
     }
-    wireLibraryDnd(root);
     wireLangDecks(root);
     wireCommunityLibrary(root);
     wireSharedDecks(root);
@@ -26724,138 +26517,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }, "Remove");
     }));
   }
-  function wireLibraryDnd(root) {
-    if (!isAdmin()) return;
-    let dragId = null;
-    const kindOf = () => (dragId && NODE_BY_ID[dragId] ? (NODE_BY_ID[dragId].parentId ? "node" : "col") : null);
-    const parentOf = () => (dragId && NODE_BY_ID[dragId] ? (NODE_BY_ID[dragId].parentId || "") : "");
-    function clearFx() { root.querySelectorAll(".lib-drop-before, .lib-drop-into").forEach((x) => x.classList.remove("lib-drop-before", "lib-drop-into")); }
-    function endDrag() { dragId = null; clearFx(); root.querySelectorAll(".lib-dragging").forEach((x) => x.classList.remove("lib-dragging")); }
-
-    root.querySelectorAll("[data-grip]").forEach((grip) => {
-      grip.addEventListener("click", (e) => e.stopPropagation());
-      grip.addEventListener("mousedown", (e) => e.stopPropagation());
-      grip.addEventListener("dragstart", (e) => {
-        dragId = grip.dataset.grip;
-        const banner = grip.closest("[data-libitem]");
-        if (banner) { banner.classList.add("lib-dragging"); try { e.dataTransfer.setDragImage(banner, 28, 18); } catch (x) {} }
-        try { e.dataTransfer.setData("text/plain", dragId); e.dataTransfer.effectAllowed = "move"; } catch (x) {}
-      });
-      grip.addEventListener("dragend", endDrag);
-    });
-
-    // banner targets: insert the dragged item BEFORE this one
-    root.querySelectorAll("[data-libitem]").forEach((el) => {
-      const valid = () => {
-        if (!dragId || el.dataset.libitem === dragId) return false;
-        /* A collection whose SECTION comes from `COLLECTION_SECTION` is neither dragged nor dropped onto.
-           This order decides a collection's place WITHIN its section and nothing here decides which
-           section it is in, so such a drag could only ever appear to do nothing — the row would be
-           re-ordered in the tree and drawn exactly where it was. Reordering History, and moving a
-           collection to and from Coming soon, are untouched. */
-        if (COLLECTION_SECTION[dragId] || COLLECTION_SECTION[el.dataset.libitem]) return false;
-        if (kindOf() === "col" && el.dataset.libkind === "col") return true;
-        if (kindOf() === "node" && el.dataset.libkind === "node" && el.dataset.libparent === parentOf()) return true;
-        return false;
-      };
-      el.addEventListener("dragover", (e) => {
-        if (!valid()) return;
-        e.preventDefault(); e.stopPropagation();
-        if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
-        clearFx(); el.classList.add("lib-drop-before");
-        if (kindOf() === "col") { const list = el.closest(".collection-list"); if (list) list.classList.add("lib-drop-into"); }
-      });
-      el.addEventListener("dragleave", () => el.classList.remove("lib-drop-before"));
-      el.addEventListener("drop", (e) => {
-        if (!valid()) return;
-        e.preventDefault(); e.stopPropagation();
-        const tid = el.dataset.libitem;
-        if (kindOf() === "col") dropTopLevel(dragId, el.closest("#collection-list-soon") ? "soon" : "all", tid);
-        else dropSibling(dragId, parentOf(), tid);
-      });
-    });
-
-    // section containers: append a dragged collection to that section (and move it there)
-    ["collection-list-all", "collection-list-soon"].forEach((slot) => {
-      const list = root.querySelector("#" + slot); if (!list) return;
-      const sec = slot === "collection-list-soon" ? "soon" : "all";
-      list.addEventListener("dragover", (e) => {
-        if (!dragId || kindOf() !== "col") return;
-        if (e.target.closest("[data-libitem]")) return; // a banner handles it
-        e.preventDefault(); clearFx(); list.classList.add("lib-drop-into");
-      });
-      list.addEventListener("drop", (e) => {
-        if (!dragId || kindOf() !== "col" || e.target.closest("[data-libitem]")) return;
-        e.preventDefault(); dropTopLevel(dragId, sec, null);
-      });
-    });
-
-    // pads: append a dragged deck to the end of its parent's children
-    root.querySelectorAll("[data-libpad]").forEach((pad) => {
-      const pid = pad.dataset.libpad;
-      pad.addEventListener("dragover", (e) => {
-        if (!dragId || kindOf() !== "node" || parentOf() !== pid) return;
-        if (e.target.closest("[data-libitem]")) return;
-        e.preventDefault(); clearFx(); pad.classList.add("lib-drop-into");
-      });
-      pad.addEventListener("drop", (e) => {
-        if (!dragId || kindOf() !== "node" || parentOf() !== pid || e.target.closest("[data-libitem]")) return;
-        e.preventDefault(); dropSibling(dragId, pid, null);
-      });
-    });
-
-    function dropTopLevel(id, sec, beforeId) {
-      const targetSoon = sec === "soon";
-      setNodeSoon(id, targetSoon);
-      const avail = [], soon = [];
-      TREE.collections.forEach((c) => { if (c.id === id) return; (isComingSoon(c) ? soon : avail).push(c.id); });
-      const list = targetSoon ? soon : avail;
-      const i = beforeId ? list.indexOf(beforeId) : -1;
-      if (i >= 0) list.splice(i, 0, id); else list.push(id);
-      reorderSiblings("", avail.concat(soon));
-      commitLib();
-    }
-    function dropSibling(id, pid, beforeId) {
-      const parent = NODE_BY_ID[pid]; if (!parent) return;
-      const sibs = nodeChildren(parent).map((c) => c.id).filter((x) => x !== id);
-      const i = beforeId ? sibs.indexOf(beforeId) : -1;
-      if (i >= 0) sibs.splice(i, 0, id); else sibs.push(id);
-      reorderSiblings(pid, sibs);
-      commitLib();
-    }
-    function commitLib() {
-      // remember which collections/branches are open and the scroll position, then rebuild in place
-      const openIds = [];
-      root.querySelectorAll("[data-libitem]").forEach((el) => {
-        if (el.dataset.libkind === "col") { const c = el.closest(".collection"); if (c && c.classList.contains("open")) openIds.push(el.dataset.libitem); }
-        else if (el.classList.contains("branch")) { const g = el.closest(".node-group"); const nc = g && [...g.children].find((x) => x.classList.contains("node-children")); if (nc && nc.classList.contains("open")) openIds.push(el.dataset.libitem); }
-      });
-      const sy = window.scrollY;
-      _treeChanged();
-      view.innerHTML = '<div class="page"></div>';
-      PAGES.decks(view.firstElementChild);
-      reopenLib(openIds);
-      window.scrollTo({ top: sy });
-      toast("Library updated");
-    }
-    function reopenLib(openIds) {
-      openIds.forEach((id) => {
-        const el = view.querySelector('[data-libitem="' + id + '"]');
-        if (!el) return;
-        if (el.dataset.libkind === "col") {
-          const coll = el.closest(".collection");
-          const nc = coll && [...coll.children].find((x) => x.classList.contains("node-children"));
-          const chev = coll && coll.querySelector(".collection-actions > .chev");
-          if (nc && chev) openExpander(nc, chev, coll);
-        } else {
-          const group = el.closest(".node-group");
-          const nc = group && [...group.children].find((x) => x.classList.contains("node-children"));
-          const chev = el.querySelector(".chev");
-          if (nc && chev) openExpander(nc, chev, group);
-        }
-      });
-    }
-  }
+  /* THE ADMIN'S DRAG OVER THIS PAGE IS GONE (Oct 2026, on request: "the dragging system … doesn't work at
+     all and should be removed"). `wireLibraryDnd` hung HTML5 drag events off a `.lib-grip` on every curated
+     row for an admin, reordering collections within History, moving them to and from Planned, and reordering
+     a collection's decks, each written into `ADMIN_EDITS` through `reorderSiblings` / `setNodeSoon`. HTML5
+     drag never fires on a touch screen, so on a phone the handles were six dots that did nothing. The
+     admin page's own tree editor still reorders the tree. The `data-libitem` / `data-libkind` /
+     `data-libparent` attributes stay on the rows: four test files address rows by them. */
 
   function chevBtn(extra) {
     return `<button class="chev${extra ? " " + extra : ""}" aria-label="Expand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>`;
@@ -26863,11 +26531,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function nodeAddHTML(node) {
     if (isComingSoon(node)) return "";
     return `<button class="node-add${isActive(node.id) ? " added" : ""}" data-id="${node.id}" aria-label="${isActive(node.id) ? "Remove from review" : "Add to review"}">${addIcon(isActive(node.id))}</button>`;
-  }
-  // small drag handle on the very left of a banner (admins only) — used to reorder the library
-  function libGripHTML(id) {
-    if (!isAdmin()) return "";
-    return '<span class="lib-grip" draggable="true" data-grip="' + esc(id) + '" title="Drag to reorder" aria-hidden="true"><svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor"><circle cx="5" cy="3" r="1.35"/><circle cx="11" cy="3" r="1.35"/><circle cx="5" cy="8" r="1.35"/><circle cx="11" cy="8" r="1.35"/><circle cx="5" cy="13" r="1.35"/><circle cx="11" cy="13" r="1.35"/></svg></span>';
   }
   // rowClick (optional): what a click on the ROW body does — defaults to toggling the children. The chevron ALWAYS just toggles
   // (its stopPropagation keeps it from also firing rowClick), so a collection can study-on-click while its chevron still expands.
@@ -26937,7 +26600,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       group.className = "node-group";
       group.innerHTML = `
         <div class="node branch${soon ? " placeholder" : ""}" tabindex="0" role="button" data-libitem="${esc(node.id)}" data-libkind="node" data-libparent="${esc(pid)}">
-          ${libGripHTML(node.id)}
           <span class="node-num">${num}</span>
           <div class="node-main">
             <div class="node-title-row">
@@ -26972,7 +26634,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     subEl.style.cursor = "pointer";
     subEl.dataset.libitem = node.id; subEl.dataset.libkind = "node"; subEl.dataset.libparent = pid;
     subEl.innerHTML = `
-      ${libGripHTML(node.id)}
       <span class="node-num">${num}</span>
       <div class="node-main">
         <div class="node-title-row">
@@ -27442,7 +27103,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     collEl.innerHTML = `
         <div class="collection-row" tabindex="${hasSubs ? 0 : -1}" role="button" data-libitem="${esc(d.id)}" data-libkind="col" style="--w:${total ? ((studied / total) * 100).toFixed(1) : 0}%">
           <div class="collection-deco" aria-hidden="true"></div>
-          ${libGripHTML(d.id)}
           ${soon ? "" : collectionIconMarkup(d.id)}
           <div class="collection-main">
             <div class="collection-title-row">
