@@ -133,7 +133,7 @@ in plan order unless the user says otherwise.
 | B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | **done 2026-10-02** |
 | B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | **done 2026-10-02** |
 | B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | **done 2026-10-02** |
-| B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | open |
+| B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | **done 2026-10-02** |
 | B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | open |
 | B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | open |
 | B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | open |
@@ -947,6 +947,34 @@ ends `wh-179`'s Early Dynastic; Ur III 2112 – 2004 as in `wh-172`.
 already agreed. The *Hammurabi* and *Code of Hammurabi* entries carry malformed picture fields (licence in
 the description, a bare URL as credit): picture pass.
 
+### B20 — `wh-191`–`wh-200`, Mesopotamia (2026-10-02)
+
+Run as B19. Checks: `wh-audit.js --range=wh-191:wh-200` clean but for `W.not-why` notes on five; the rest as
+B19; all citation URLs 2xx and `check-citations --card` 0 mismatched. New locators: `wh-191` (Babylon) and
+`wh-198` (Dur-Kurigalzu); `wh-199` and `wh-200` keep their drawn regions. **The Mesopotamia deck is now done.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-191` Babylon | 9 | 5 → 9 | **Two citations did not carry their claims**: one never mentions Esagila, another does not say Cyrus took the city. Rebuilt over the city's whole life, Hammurabi to Alexander; the Hanging Gardens as unlocated; Nebuchadnezzar II 605 – 562 BCE, some sources starting at 604. |
+| `wh-192` Mesopotamian religion | 7 | 5 → 7 | **"The high priestess was usually the king's daughter"** had no source; a second French Louvre page dropped. Cult statues, Marduk's rise, divination and the underworld added. Its date line had two arbitrary anchors (a votive statue, Shulgi's reign); now empty and `undatable`. |
+| `wh-193` Enuma Elish | 6 | 5 → 6 | **The poem was dated by its Nineveh copies (c. 670 BCE)** and given 994 lines; the 2024 edition gives 1,095, composition by 1082 BCE, the Nebuchadnezzar I link as a hypothesis, and a last dated copy of 495 BCE. New Year recital and the Assyrian Ashur version added. |
+| `wh-194` Babylonian mathematics | 7 | 5 → 7 | Four of five sources were one exhibition's pages. Place value c. 2100 BCE in the Ur III state; the Old Babylonian bounds differ by source and both are given; Plimpton 322's purpose as a debate. |
+| `wh-195` Babylonian astronomy | 7 | 5 → 7 | **"Diaries 750 BCE – 75 CE" was the span of observing; the surviving diaries run 652 – 61 BCE**, now two rows. A zodiac-tablet row and a planet-name list dropped; temple funding, water-clock eclipse timings, Halley's Comet in 164 BCE and the Venus cycle added. |
+| `wh-196` edubba | 6 | 5 → 6 | **"c. 1730 BCE" had no source**, and the "mother of orators" hymn is from a copy of c. 650 BCE. A century-only row dropped. |
+| `wh-197` Mesopotamian trade | 7 | 6 → 7 | **"c. 3100 BCE" was in no source.** Gulf trade c. 2900 – 1700 BCE, Ur III exports to Magan, Assur's tin and cloth at Kanesh, silver weighed as money. The glossary's Anatolian route had no support in its source. A Sargon row (another event's date) dropped from the line. |
+| `wh-198` Kassites | 6 | 6 → 6 | Mostly a 1915 book; now five of six modern. "Curses" and a French-expedition claim had no source. First attested 1770 BCE; the dynasty's end c. 1155 – 1150 BCE, sources differing. |
+| `wh-199` Elam | 7 | 5 → 8 | **Proto-Elamite "2900 – 2600 BCE" came from a 1968 note**; now c. 3050 – 2900. Susa's sack is 646 BCE, not "c. 640"; "the largest ziggurat" and an outdated succession sentence dropped. |
+| `wh-200` Mitanni | 6 | 5 → 8 | **"A vassal treaty" and "gold the commonest complaint" had no source**; filler on Tell al-Rimah frit dropped. Empire c. 1550 – 1350 BCE; a century-only Hittite-defeat row dropped. |
+
+**Read by eye.** *Article:* "the Kassites"; the rest bare or "the edubba". *Confusability:* `wh-191`/`wh-188`/
+`wh-189` the city, the period and the king; `wh-192`/`wh-193` the religion and its creation poem;
+`wh-194`/`wh-195`/`wh-196` the numbers, the sky and the school. *Consistency:* the dynasty's fall c. 1155 BCE
+and the stele taken to Susa c. 1150 agree across `wh-190`/`wh-193`/`wh-198`; the Hittite sack of Babylon 1595
+BCE (`wh-191`, `wh-198`); Nippur destroyed 1722 BCE (`wh-196`) is on its source's own chronology, which it
+does not name. *Coverage:* `wh-200` gives no year for Mitanni's defeat, its sources differing.
+
+**Glossary.** Nine terms rewritten; *Edubba* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1026,3 +1054,5 @@ pass once it answers. Filled batch by batch.
 | `wh-182` | the king-list prism, not Gilgamesh |
 | `wh-183`, `wh-185`, `wh-186` | fine, but description names the photographer |
 | `wh-189`, `wh-190` | glossary picture fields malformed; `wh-190` shows a museum panel at one edge |
+| `wh-194` | a labelled derivative of YBC 7289; prefer the unlabelled photograph |
+| `wh-197`, `wh-198` | fine, but description names a museum number or excavator |

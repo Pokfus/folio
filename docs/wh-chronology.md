@@ -194,6 +194,15 @@ Filled batch by batch, from the source each row names.
 | Shulgi | c. 2094 – 2047 BCE | `wh-186` |
 | Old Babylonian period / Hammurabi | c. 2000 – 1500 BCE / 1792 – 1750 BCE | `wh-188`, `wh-189` |
 | Hammurabi stele taken to Susa / found | c. 1150 BCE / 1901 – 1902 | `wh-190` |
+| Babylon: sacked by the Hittites / razed by Sennacherib / Nebuchadnezzar II / taken by Cyrus | 1595 / 689 / 605 – 562 / 539 BCE | `wh-191` |
+| Enuma Elish composed by / last dated copy | 1082 BCE / 495 BCE | `wh-193` |
+| Babylonian place value / mathematics, Old Babylonian | c. 2100 BCE / c. 2000 – 1600 BCE (c. 1900 – 1700 in one museum) | `wh-194` |
+| astronomy observed / diaries extant / Halley's Comet | c. 750 BCE – 75 CE / 652 – 61 BCE / 164 BCE | `wh-195` |
+| Nippur destroyed | 1722 BCE (chronology unnamed by its source) | `wh-196` |
+| Gulf trade / Kanesh tablets | c. 2900 – 1700 BCE / 1930 – 1775 BCE | `wh-197` |
+| Kassites: first attested / Nippur archive / dynasty ends | 1770 / c. 1360 – 1220 / c. 1155 – 1150 BCE | `wh-198` |
+| Elam: Proto-Elamite / first named / Middle Elamite / Susa sacked | c. 3050 – 2900 / c. 2650 / c. 1500 – 1100 / 646 BCE | `wh-199` |
+| Mitanni empire | c. 1550 – 1350 BCE | `wh-200` |
 | maize: domesticated / in South America / Guilá Naquitz cobs | c. 9,000 / by c. 7,000 / c. 6,250 years ago | Matsuoka 2002; Kistler 2020; Piperno and Flannery (`wh-131`) |
 | Neolithic demographic transition, south-eastern Europe | from c. 8,500 years ago | Shennan et al. 2013 (`wh-133`) |
 | zoonotic pathogens in Eurasian remains / Baikal plague / flea-borne plague | from c. 6,500 / c. 5,500 / by c. 3,800 years ago | Sikora et al. 2025; Macleod et al. 2026 (`wh-134`) |
@@ -390,4 +399,13 @@ wh-187: 2112; 2100; 1600
 wh-188: 2000; 1500; 1792; 1750
 wh-189: 1792; 1750
 wh-190: 1792; 1750; 1150; 1901; 1902
+wh-191: 1792; 1750; 605; 562; 539
+wh-193: 1082; 495
+wh-194: 2100; 2000; 1600; 1900; 1700
+wh-195: 750; 75; 652; 61; 164
+wh-196: 2000; 1500; 1722
+wh-197: 2900; 1700; 1930; 1775
+wh-198: 1770; 1360; 1220; 1155; 1150
+wh-199: 2650; 1500; 1100; 646; 539
+wh-200: 1550; 1350
 ```
