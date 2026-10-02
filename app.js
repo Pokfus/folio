@@ -24778,6 +24778,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 ? "All caught up — nothing due right now. Come back tomorrow; the schedule does the rest."
                 : "No decks in your daily review yet — add one from the collections to build your pile."
             }</p>`}
+            ${/* the level bar and the piles share one column (`.rv-stack`), so the bar is exactly as wide as
+                  the pile row and the Start button under it (Oct 2026, on request) */""}
+            <div class="rv-stack">
             ${xpBarMarkup(folioXP())}
             <div class="meta">
               ${/* Anki's three piles, in Anki's order and Anki's colours: blue new, red learning, green
@@ -24801,6 +24804,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     collections when the day is empty, so nothing that could be pressed becomes a dead
                     no-op; only the redundant chrome goes. */""}
               ${dueN + newN ? `<span class="cta"><span class="btn">Start review</span></span>` : ""}
+            </div>
             </div>
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
@@ -26231,10 +26235,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function collectionReachHTML(id, have) {
     const target = COLLECTION_TARGET[id];
     if (!target || !have) return "";
-    if (have >= target) return '<span class="coll-reach is-done"><span class="cr-long">Complete</span><span class="cr-short">100%</span></span>';
-    /* THE "N OF M PLANNED" LINE IS NOT DRAWN ANY MORE (Oct 2026 redesign, on request): a row says its
-       size once, on its own line, and "Complete" is the one reach that is news. The target table and
-       the percentage stay for the admin's audits and the tests. */
+    /* NEITHER THE "N OF M PLANNED" LINE NOR "COMPLETE" IS DRAWN ANY MORE (Oct 2026 redesign, on request):
+       a row says its size once, on its own line, and a finished collection's size line says so by
+       itself. The target table and the percentage stay for the admin's audits and the tests. */
     return "";
     const pct = Math.round((have / target) * 100);
     /* TWO FORMS, AND THE STYLESHEET PICKS ONE — the shape `.gtb-brief` already uses on a flipped game
