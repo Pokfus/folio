@@ -1184,6 +1184,7 @@ function scrimCheck() {
            list rather than above it, and it must span the card rather than floating in the middle of it. */
         lip: lip ? lip.textContent.trim() : "",
         lipInCard: !!(lip && grp && grp.contains(lip)),
+        lipInHead: !!(lip && lip.closest(".rv-sec-h")),
         lipBelowDecks: (() => {
           const l = document.querySelector(".active-decks");
           if (!lip) return false;
@@ -1269,20 +1270,20 @@ function scrimCheck() {
     check("the phone's home page is one column again — no pager", !h.pager && !h.dots, JSON.stringify({ pager: h.pager, dots: h.dots }));
     check("...with no card of the day and no gloss of the day", !h.cod && !h.tod && !h.explore, JSON.stringify(h));
     check("...and no Atlas teaser: a phone never fetches the globe for an ornament", !h.atlasTile);
-    check("the collections banner is gone, replaced by a Collections button under the review",
-      !h.libBanner && /^collections$/i.test(h.lip), JSON.stringify({ banner: h.libBanner, label: h.lip }));
-    check("...as the card's own bottom row, under the deck list rather than loose beneath the card",
-      h.lipInCard && h.lipBelowDecks, JSON.stringify({ inCard: h.lipInCard, belowDecks: h.lipBelowDecks }));
+    // "+ Add decks" since the Oct 2026 redesign: a link in the collections header rather than a bar under the list
+    check("the collections banner is gone, replaced by an Add decks link in the review",
+      !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, label: h.lip }));
+    // in the collections header INSIDE the review card (Oct 2026): this reader has no decks, so whether it
+    // sits above or below a list is not a question here; its place in the header row is
+    check("...in the collections header inside the card, not loose beneath it",
+      h.lipInCard && h.lipInHead, JSON.stringify({ inCard: h.lipInCard, inHead: h.lipInHead }));
     check("the banner never counts chests: the notice is a slot above it instead",
       !h.chestChip && h.chestSlotAbove, JSON.stringify({ chip: h.chestChip, above: h.chestSlotAbove }));
     check("...and the group function is gone from the daily study block entirely", !h.newGroupAnywhere);
     /* CENTRED AND FULL WIDTH — the two together are what "the card's bottom edge" means. A row that has
        lost its width reads as a button dropped inside the card, which is the placement this replaced, and
        the centre test alone cannot see that: a narrow centred button is centred too. */
-    check("...spanning the card, which is what makes it the bottom edge rather than a button on it",
-      h.lipCentreOff <= 2 && h.lipFrac > 0.9,
-      JSON.stringify({ offCentre: h.lipCentreOff, frac: h.lipFrac }));
-    check("...filled in the same indigo as Start review, not paper on paper", h.lipBlue === "ok", h.lipBlue);
+    check("...a link beside the heading, not a bar across the card", h.lipFrac < 0.5, JSON.stringify({ frac: h.lipFrac }));
     check("...and routing to the collections", await page.evaluate(async () => {
       document.querySelector(".home-collections").click();
       await new Promise((r) => setTimeout(r, 700));
@@ -1292,25 +1293,26 @@ function scrimCheck() {
     await page.waitForTimeout(1500);
     check("the games sit under the review, under a Minigames heading",
       /minigames/i.test(h.mgHead) && h.headBelowReview && h.gridBelowHead, JSON.stringify({ head: h.mgHead, below: h.headBelowReview, grid: h.gridBelowHead }));
-    check("...centred over the grid it names", Math.abs(h.headOff) <= 2, h.headOff);
+    // left-aligned since the Oct 2026 redesign: the heading and the day's meter share one row over the list
+    check("...set left over the grid it names", h.headOff < 0, h.headOff);
     /* Three to a row, in FULL rows — the count is derived from the tiles rather than written down, because
        the grid has gone from four games to six to nine and a hard-coded 6 is one more thing to remember
        when it grows again. What matters at this width is that it stays three wide (a fourth column at
        390px is unreadable) and that the last row is not a ragged one or two. */
-    check("...three to a row, in full rows",
-      h.cols === 3 && h.tiles >= 6 && h.tiles % 3 === 0 && h.rows === h.tiles / 3,
+    check("...one to a row on a phone, as list-tiles",
+      h.cols === 1 && h.tiles >= 6 && h.rows === h.tiles,
       JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
     check("...with the description sentences gone", h.subs === 0, h.subs + " tiles still carry one");
     check("...the quote above the day's study, where it opens the page", h.quoteAbove);
     check("...and the quote still above the games", h.quoteAboveGames);
     check("...and the About link last, About having left the tab bar", /about/i.test(h.about) && h.aboutLast, JSON.stringify({ about: h.about, last: h.aboutLast }));
+    // …in a foot of its own under the page (Oct 2026 redesign), read BEFORE the click takes the page away
+    check("...in a foot of its own under the page", await page.evaluate(() => !!document.querySelector(".home-foot .home-about")));
     check("...routing to the About page", await page.evaluate(async () => {
       document.querySelector(".home-about").click();
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
     }) === "#mission");
-    // …with room around it (Aug 2026, on request): it was 4px over 2px, crowded against the game grid
-    check("...with room above and below it", h.aboutPad[0] >= 14 && h.aboutPad[1] >= 12, JSON.stringify(h.aboutPad));
     // removed on request: the xp bar right above it already counts the distinct cards studied
     check("the review banner no longer carries a Seen total", !h.seenTotal.some((t) => /total/i.test(t)), h.seenTotal.join("|"));
 
@@ -1364,7 +1366,11 @@ function scrimCheck() {
       })(),
     }));
     check("the review banner counts Anki's three piles, in order",
-      piles.stats.map((p) => p.label.toLowerCase()).join(",") === "new,learning,review", JSON.stringify(piles.stats.map((p) => p.label)));
+      piles.stats.slice(0, 3).map((p) => p.label.toLowerCase()).join(",") === "new,learning,review", JSON.stringify(piles.stats.map((p) => p.label)));
+    // …and the estimate beside them (Oct 2026): the reader's own pace in each collection, summed over the pile
+    check("...and an estimate of the minutes beside them",
+      /estimated/i.test((piles.stats[3] || {}).label || ""), JSON.stringify(piles.stats.map((p) => p.label)));
+    piles.stats = piles.stats.slice(0, 3);
     /* No two piles that HAVE work share a colour — and a pile at zero is grey, which is the point of the
        colours: they say where the day's work is, so they have nothing to say on a 0 (Aug 2026, on request).
        Before that rule all three were always coloured and this simply counted three distinct ones. */
@@ -1382,11 +1388,12 @@ function scrimCheck() {
        is grey wherever it appears, and each of the three positions keeps one colour of its own across the
        banner and every row — which is what "the same colours" meant. */
     {
-      const grey = piles.stats.concat(piles.row).filter((p) => p.n === 0).map((p) => p.col);
+      /* The banner is deep indigo since the Oct 2026 redesign and paints its three in lighter tints of the
+         same hues, so the colours are compared ACROSS THE ROWS, where every position keeps one of its own. */
+      const grey = piles.row.filter((p) => p.n === 0).map((p) => p.col);
       const greySet = new Set(grey);
       const byPos = [0, 1, 2].map((i) =>
-        [...new Set(piles.stats.filter((_, j) => j === i).concat(piles.row.filter((_, j) => j % 3 === i))
-          .filter((p) => p.n > 0).map((p) => p.col))]);
+        [...new Set(piles.row.filter((_, j) => j % 3 === i).filter((p) => p.n > 0).map((p) => p.col))]);
       check("...and the same three, unlabelled, open each added deck's row in the same colours",
         piles.row.length >= 3 && piles.row.length % 3 === 0 &&
         greySet.size <= 1 &&                                   // one grey, whichever pile happens to be empty
@@ -1396,8 +1403,8 @@ function scrimCheck() {
     }
     check("...naming themselves only in the row's tooltip", /\S/.test(piles.rowLabels), piles.rowLabels);
     check("...each figure centred over its own label", piles.centred.every((d) => d <= 1), JSON.stringify(piles.centred));
-    check("...and the three of them on the button's own line", piles.onCtaRow);
-    check("...with the button centred against them, not on their baseline", piles.ctaOffset <= 1.5, piles.ctaOffset);
+    // the button sits UNDER the piles since the Oct 2026 redesign, as wide as their row
+    check("...and the button on its own line under them", !piles.onCtaRow);
     check("the banner carries no big gold numeral over them", !piles.badge);
     check("...nor the sentence that described them in words", !/scheduled/i.test(piles.desc), piles.desc);
     check("...with the level still spelled out in the xp bar", /level/i.test(piles.xpLevel), piles.xpLevel);
@@ -1836,8 +1843,8 @@ function scrimCheck() {
       check("...behind a chevron that says which way it points", f.topChev && f.expanded === "false" && /\S/.test(f.named),
         JSON.stringify({ chev: f.topChev, expanded: f.expanded, name: f.named }));
       check("...every row reserving the chevron's width, folded or not", !f.leafChev);
-      check("...and the card still ending in a rounded corner, carried by whatever is last in it",
-        f.cardRounded > 0 && (f.rowIsTail ? f.lastRounded > 0 : f.lastRounded === 0),
+      // every row is a rounded card of its own since the Oct 2026 redesign
+      check("...and every row ending in a rounded corner", f.lastRounded > 0,
         JSON.stringify({ card: f.cardRounded, lastRow: f.lastRounded, rowIsTail: f.rowIsTail }));
 
       // the KEYBOARD half — the bug a mouse cannot see
@@ -1850,8 +1857,7 @@ function scrimCheck() {
         f.hash !== "#study" && !/study/.test(f.hash), f.hash || "(none)");
       check("...and the chevron's name flips with its state", f.expanded === "true" && /\S/.test(f.named),
         JSON.stringify({ expanded: f.expanded, name: f.named }));
-      check("...and the card's foot still rounded once the decks are showing",
-        f.cardRounded > 0 && (f.rowIsTail ? f.lastRounded > 0 : f.lastRounded === 0),
+      check("...and the rows still rounded once the decks are showing", f.lastRounded > 0,
         JSON.stringify({ card: f.cardRounded, lastRow: f.lastRounded, rowIsTail: f.rowIsTail }));
 
       // a click on the chevron must not start one either
@@ -1937,6 +1943,7 @@ function scrimCheck() {
         // it went INSIDE the review group in Aug 2026, on request, as the card's own bottom row — so what
         // is asserted is that it is a descendant sitting under the deck list, not a sibling after the card
         lipInCard: !!(lip && grp && grp.contains(lip)),
+        lipInHead: !!(lip && lip.closest(".rv-sec-h")),
         lipBelowDecks: (() => {
           const l = document.querySelector(".active-decks");
           if (!lip) return false;
@@ -1957,9 +1964,9 @@ function scrimCheck() {
       !asked.some((u) => /\/world\.js/.test(u)), asked.filter((u) => /\/world\.js/.test(u)).join(","));
     check("[desktop] ...the games three to a row, and no taglines on them", d.cols === 3 && d.subs === 0, JSON.stringify({ cols: d.cols, subs: d.subs }));
     check("[desktop] ...under a Minigames heading, under the review", /minigames/i.test(d.mgHead) && d.order[0] < d.order[1] && d.order[1] < d.order[2], JSON.stringify(d.order));
-    check("[desktop] ...with the Collections button closing the review card, under the deck list",
-      /^collections$/i.test(d.lip) && d.lipInCard && d.lipBelowDecks,
-      JSON.stringify({ label: d.lip, inCard: d.lipInCard, belowDecks: d.lipBelowDecks }));
+    check("[desktop] ...with the Add decks link in the review, in the collections header",
+      /add decks/i.test(d.lip) && d.lipInCard && d.lipInHead,
+      JSON.stringify({ label: d.lip, inCard: d.lipInCard, inHead: d.lipInHead }));
     /* COLLECTIONS IS BACK IN THE TOP BAR (Sep 2026, on request: "put a tab for the Collections page in
        the website's main menu bar, between Home and Library"). It left both bars in Aug 2026 and the
        home page's button became the only route; the button is still there and still works, so this is a
@@ -1999,6 +2006,7 @@ function scrimCheck() {
       const v = await page.evaluate(() => {
         const el = document.querySelector(".page .site-ver");
         if (!el) return null;
+        el.scrollIntoView({ block: "center" });   // the foot is below the fold; elementFromPoint needs it on screen
         const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
         const head = document.querySelector(".page .page-head").getBoundingClientRect();
         return {
@@ -2006,6 +2014,7 @@ function scrimCheck() {
           x: Math.round(r.left), y: Math.round(r.top), bottom: Math.round(r.bottom),
           headX: Math.round(head.left), headY: Math.round(head.top),
           first: document.querySelector(".page").firstElementChild === el,
+          inFoot: !!el.closest(".home-foot"),
           notranslate: el.classList.contains("notranslate"),
           // the site's own quiet token, so High contrast re-tones it with every other caption (test-a11y)
           faint: (() => {
@@ -2026,8 +2035,8 @@ function scrimCheck() {
       /* TOP-LEFT in both layouts, and the left half is the one that breaks: below 640px `.page-head` is
          CENTRED, and a version line that inherited that would sit in the middle of the page reading as a
          title rather than as a stamp. It is a sibling before the head, so it must clear it upward too. */
-      check("[" + label + "] ...first on the page, above the head", v.first && v.bottom <= v.headY, JSON.stringify({ first: v.first, bottom: v.bottom, head: v.headY }));
-      check("[" + label + "] ...and flush LEFT with it, not centred", v.x === v.headX, JSON.stringify({ x: v.x, headX: v.headX }));
+      // IN THE FOOT since the Oct 2026 redesign (on request: never a date at the top left of the page)
+      check("[" + label + "] ...last on the page, in its foot, under the head", !v.first && v.inFoot && v.y > v.headY, JSON.stringify({ first: v.first, foot: v.inFoot, y: v.y, head: v.headY }));
       check("[" + label + "] ...with nothing painted over it", v.clear);
       check("[" + label + "] ...and marked notranslate", v.notranslate);
       await page.close();

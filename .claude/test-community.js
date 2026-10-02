@@ -104,7 +104,7 @@ async function typeField(page, field, text) {
   await page.waitForTimeout(900);
   const persisted = await page.evaluate(() => {
     const t = document.querySelector(".sd-title");
-    const m = document.querySelector(".sd-meta");
+    const m = document.querySelector(".studio-deck .collection-count");   // the row's count, since the list became Collections rows (Oct 2026)
     return { title: t && t.textContent, meta: m && m.textContent };
   });
   check("deck survives a reload", persisted.title === "Roman Republic", JSON.stringify(persisted));

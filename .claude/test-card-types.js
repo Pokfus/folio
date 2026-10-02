@@ -313,7 +313,8 @@ async function presetChecks(page, base) {
   await page.goto(base + "/#studio");
   await page.waitForTimeout(700);
   // the Studio remembers which deck was open, so it may land on the deck itself rather than on the list
-  if (await page.$(".studio-deck-open")) { await page.click(".studio-deck-open"); await page.waitForTimeout(600); }
+  // …and since the editor opens IN the list (Oct 2026), the row's button is a toggle: pressed only when the deck is shut
+  if (!(await page.$('[data-tab="types"]')) && await page.$(".studio-deck-open")) { await page.click(".studio-deck-open"); await page.waitForTimeout(600); }
   check("the Studio came back to the deck", await page.$('[data-tab="types"]') !== null);
   await page.click('[data-tab="types"]');
   await page.waitForTimeout(350);
