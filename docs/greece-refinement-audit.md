@@ -188,16 +188,16 @@ one changelog line and a version bump; commit and push.
 | B16 | Early Iron Age (`gr-iron`) | `gr-141`–`gr-150` | 10 | **done 2026-10-02** |
 | B17 | Early Iron Age (`gr-iron`) | `gr-151`–`gr-160` | 10 | **done 2026-10-02** |
 | B18 | Early Iron Age (`gr-iron`) | `gr-161`–`gr-170` | 10 | **done 2026-10-02** |
-| B19 | Polis and colonisation (`gr-polis`) | `gr-171`–`gr-180` | 10 | open |
-| B20 | Polis and colonisation (`gr-polis`) | `gr-181`–`gr-190` | 10 | open |
-| B21 | Polis and colonisation (`gr-polis`) | `gr-191`–`gr-200` | 10 | open |
-| B22 | Polis and colonisation (`gr-polis`) | `gr-201`–`gr-210` | 10 | open |
-| B23 | Polis and colonisation (`gr-polis`) | `gr-211`–`gr-220` | 10 | open |
-| B24 | Polis and colonisation (`gr-polis`) | `gr-221`–`gr-230` | 10 | open |
-| B25 | Sparta (`gr-sparta`) | `gr-231`–`gr-240` | 10 | open |
-| B26 | Sparta (`gr-sparta`) | `gr-241`–`gr-250` | 10 | open |
-| B27 | Sparta (`gr-sparta`) | `gr-251`–`gr-260` | 10 | open |
-| B28 | Sparta (`gr-sparta`) | `gr-261`–`gr-270` | 10 | open |
+| B19 | Polis and colonisation (`gr-polis`) | `gr-171`–`gr-180` | 10 | **done 2026-10-02** |
+| B20 | Polis and colonisation (`gr-polis`) | `gr-181`–`gr-190` | 10 | **done 2026-10-02** |
+| B21 | Polis and colonisation (`gr-polis`) | `gr-191`–`gr-200` | 10 | **done 2026-10-02** |
+| B22 | Polis and colonisation (`gr-polis`) | `gr-201`–`gr-210` | 10 | **done 2026-10-02** |
+| B23 | Polis and colonisation (`gr-polis`) | `gr-211`–`gr-220` | 10 | **done 2026-10-02** |
+| B24 | Polis and colonisation (`gr-polis`) | `gr-221`–`gr-230` | 10 | **done 2026-10-02** |
+| B25 | Sparta (`gr-sparta`) | `gr-231`–`gr-240` | 10 | **done 2026-10-02** |
+| B26 | Sparta (`gr-sparta`) | `gr-241`–`gr-250` | 10 | **done 2026-10-02** |
+| B27 | Sparta (`gr-sparta`) | `gr-251`–`gr-260` | 10 | **done 2026-10-02** |
+| B28 | Sparta (`gr-sparta`) | `gr-261`–`gr-270` | 10 | **done 2026-10-02** |
 | B29 | Sparta (`gr-sparta`) | `gr-271`–`gr-275` | 5 | open |
 | B30 | Athens (`gr-athens`) | `gr-276`–`gr-285` | 10 | open |
 | B31 | Athens (`gr-athens`) | `gr-286`–`gr-295` | 10 | open |
