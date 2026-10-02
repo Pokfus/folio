@@ -116,6 +116,17 @@ already cites, taking the earlier of each of its paired figures where it gives t
 | Eteocretan inscriptions | c. 650 BCE to the 3rd century BCE | the Dreros text mid-7th century, the five from Praisos 6th – 3rd century (Zitelli 2024, after Duhoux 1982); Mnamon gives 7th – 3rd century |
 | Praisos destroyed by Hierapytna | 145 – 140 BCE | Whitley 2023, between the death of Ptolemy Philometor and the consulship of C. Laelius (Strabo 10.4.12 for the event) |
 | Idaean Cave | sheltering from the late 4th millennium BCE; cult from c. 1700 BCE; greatest age 900 – 600 BCE; last known rite 361 – 363 CE | Mikrakis (DECF 2016): cult from the early Late Bronze Age, "c. 1700 – 1450 BC"; the bronze shields 8th century BCE; an initiation under Julian. **Kamares ware is named after the Kamares cave, a different cave on Ida**, and is no evidence for this one (`gr-055` carried that error before B6) |
+| Isthmian wall | c. 1250 – 1200 BCE | Rutter, Lessons 21 and 28: of the age of the last Argolid circuits, c. 1250 BCE, and apparently unfinished when the palaces fell c. 1200 BCE (`gr-101`) |
+| Troy VI; Troy VIIa | Troy VI from c. 1750 BCE, wrecked c. 1300 BCE; Troy VIIa destroyed c. 1230 – 1180 BCE (the general figure c. 1200 BCE) | Easton and Weninger and Rutter, Lesson 23, for the start; Hope Simpson for the earthquake c. 1300 and the sack c. 1200; Rutter, Lesson 27, for 1230 – 1180, adding that Blegen came to put it a generation earlier (`gr-102`, `gr-103`) |
+| Troy made a city | 334 BCE | Strabo 13.1.26: Alexander's visit (`gr-102`) |
+| Lower city of Troy: the ditches | inner ditch c. 1500 – 1400 BCE; outer ditch c. 1250 – 1175 BCE (Troy VIIa) | Jablonka and Rose 2004 (`gr-104`) |
+| Beşik Bay graves | c. 1360 – 1320 BCE | Rutter, Lesson 23, and Kolb 2004 (`gr-105`) |
+| Wilusa in Hittite texts | c. 1400 – 1209 BCE; the Alaksandu treaty c. 1280 BCE | Hope Simpson: from Tudhaliya I/II, c. 1400, to the end of Tudhaliya IV, c. 1209; Rose and Kolb for Muwatalli II's treaty (`gr-106`) |
+| Late Bronze Age collapse | c. 1250 – 1150 BCE; Ugarit burned c. 1200 – 1175 BCE | Knapp and Manning 2016 (`gr-107`) |
+| Ramesses III's war with the Sea Peoples | his 8th year, 1177 BCE, or 1188 BCE on a revised chronology | Breasted's *Ancient Records* for the year; Knapp and Manning for the two chronologies. A date line gives the range c. 1188 – 1177 BCE (`gr-108`) |
+| Destruction of the Palace of Nestor | c. 1200 – 1180 BCE | early LH IIIC: Van Damme's review of Jung and Kardamaki, and Judson 2023 (`gr-109`; agrees with the "Fall of the mainland palaces" row) |
+| Postpalatial Greece (LH IIIC) | c. 1200 – 1050 BCE; Mycenae burnt again c. 1150 – 1125 BCE | Rutter, Lesson 29; Mikrakis's review of Middleton for the regional patchwork (`gr-110`) |
+| Depopulation of southern Greece | steepest c. 1200 – 1100 BCE | Rutter, Lesson 28 (`gr-115`) |
 
 **Three standing notes.** (1) "Neopalatial" and "Postpalatial" do not describe KNOSSOS, which went on
 functioning as an administrative centre after the other palaces fell (Rutter says so in terms); a Knossos
@@ -143,14 +154,41 @@ and each card's prose gives both ends, with the 1540 BCE end resting on Rutter's
 
 | | |
 |---|---|
-| Postpalatial / Submycenaean end | c. 1075 – 1050 BCE |
-| Protogeometric | c. 1050 – 900 BCE |
+| Submycenaean | c. 1070 – 1000 BCE (corrected in B11–B14; see the next section) |
+| Protogeometric | c. 1050 – 900 BCE; start c. 1020 – 1000 BCE by radiocarbon |
 | Geometric | c. 900 – 700 BCE |
 | Orientalising | c. 720 – 620 BCE |
 | Archaic period | c. 800 – 480 BCE (from 776 BCE where a card counts from the first Olympiad) |
 | First Olympic Games (traditional) | 776 BCE |
 | Classical period | 480 – 323 BCE |
 | Hellenistic period | 323 – 31 BCE |
+
+## The Early Iron Age (confirmed by B11–B14, `gr-111` – `gr-135`)
+
+**The periods are pottery phases, and their absolute dates are moving.** The conventional figures are kept
+as each card's first row; the radiocarbon figures, where a card gives them, are a second row saying so.
+
+| period or event | the collection says | source |
+|---|---|---|
+| Greek Dark Ages (the old name) | c. 1050 – 700 BCE | Rutter, Lesson 29; the Protogeometric stage after Papadopoulos's review of Lemos and Scotton's of Dickinson (`gr-111`) |
+| Submycenaean | c. 1070 – 1000 BCE | **corrected in B11–B14** from the provisional "c. 1075 – 1050". Toffolo et al. 2013 end it c. 1020 – 1000 BCE by radiocarbon from Lefkandi, Kalapodi and Corinth; the start, c. 1070 BCE, is another team's figure, which they take as likely (`gr-112`). The ministry's Kerameikos page starts it c. 1100 BCE, and `gr-123` says whose that is |
+| Protogeometric | c. 1050 – 900 BCE; start c. 1020 – 1000 BCE by radiocarbon | **corrected in B11–B14**: the conventional 1050 is kept, and Toffolo et al. 2013 put the start at c. 1020 – 1000 BCE, "probably too high" being their verdict on 1050 (`gr-111`, `gr-113`) |
+| Geometric | c. 900 – 700 BCE; Late Geometric from c. 760 BCE | Kotsonas 2016 and Gimatzidis and Weninger 2020; radiocarbon from Zagora and Sindos would start Late Geometric more than a century earlier (Alagich et al. 2024), which `gr-114` gives as a debate |
+| Lefkandi | first settled c. 2100 BCE; cemeteries c. 1050 – 825 BCE | the Lefkandi Excavation Project (`gr-116`) |
+| Toumba building at Lefkandi | built c. 950 BCE; found 1981 | the Lefkandi Excavation Project and the British School (`gr-117`) |
+| Nichoria | Mycenaean town c. 1600 – 1200 BCE; Dark Age village c. 1075 – 750 BCE | the Messenian ephorate for the first; the excavators' Dark Age I – III, as Kotsonas gives them, for the second (`gr-118`) |
+| Zagora on Andros | settled c. 900 – 700 BCE; first settlement c. 1015 – 925 BCE by radiocarbon | the Zagora Archaeological Project; Alagich et al. 2024 for the radiocarbon (`gr-119`, `gr-114`) |
+| Iron in Greece | in graves from c. 1200 BCE; commonplace in the western Aegean by c. 900 BCE | Nerantzis et al.; Mokrišová and Verčík (`gr-120`) |
+| Cremation and cist graves on the mainland | c. 1150 – 1100 BCE; the Kavousi cist pyres c. 750 – 700 BCE | Rutter, Lesson 29, for the second half of the 12th century; Lagia et al. for Kavousi (`gr-121`, `gr-122`) |
+| Kerameikos cemetery | grows from the Submycenaean (c. 1100 BCE on the ministry's page) to c. 700 BCE; excavated from 1870 | Iliopoulos (Odysseus); see the Submycenaean row (`gr-123`) |
+| Dipylon Amphora | c. 760 – 750 BCE; the ministry's catalogue c. 755 – 750 BCE | the National Archaeological Museum and Odysseus (`gr-124`) |
+| Geometric pottery | c. 900 – 700 BCE | as the Geometric row (`gr-125`) |
+| Hero cult at Bronze Age tombs | mainly c. 900 – 700 BCE; at Menidi into c. 500 – 400 BCE | the Geometric row; the West Attica ephorate for Menidi (`gr-126`) |
+| The Homeric poems composed | c. 700 BCE ("not much before 700") | Pisano's review of Graziosi; the convention of every card that dates the poems (`gr-127`, `gr-128`, `gr-130` – `gr-133`, `gr-135`). Pre-eminent over the rest of epic by c. 500 BCE (Holmberg, `gr-128`) |
+| Nestor's Cup buried | c. 750 – 700 BCE | Gigante et al. 2021 (`gr-132`) |
+| Homeric Question, modern | Wolf's *Prolegomena* 1795; Parry's fieldwork 1933 – 1935; *The Singer of Tales* 1960; Parry's thesis 1928 | the reviews on `gr-129`; the Milman Parry Collection's own page (`gr-129`, `gr-133`) |
+| Rhapsodes at Athens and Syracuse | the Panathenaic rule c. 560 – 510 BCE; Cynaethus at Syracuse 504 – 501 BCE; Lycurgus's speech 330 BCE | Lycurgus, *Against Leocrates* 102, and Nagy for the rule; Collins for Cynaethus (`gr-134`) |
+| Homeric society: the Dark Age reading | c. 1100 – 800 BCE | one reading among several, as Elmer's and Papadopoulos's reviews give it (`gr-135`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -286,4 +324,39 @@ gr-097: 1375
 gr-098: 1700; 1400
 gr-099: 1250; 1882; 1931
 gr-100: 1300
+gr-101: 1250; 1200
+gr-102: 1750; 1200; 334
+gr-103: 1300; 1230; 1180
+gr-104: 1500; 1400; 1250; 1175
+gr-105: 1360; 1320
+gr-106: 1400; 1209; 1280
+gr-107: 1250; 1150; 1200; 1175
+gr-108: 1188; 1177
+gr-109: 1200; 1180
+gr-110: 1200; 1050; 1150; 1125
+gr-111: 1050; 700; 900
+gr-112: 1070; 1000
+gr-113: 1050; 900; 1020; 1000
+gr-114: 900; 700; 760
+gr-115: 1200; 1100
+gr-116: 2100; 1050; 825
+gr-117: 950; 1981
+gr-118: 1600; 1200; 1075; 750
+gr-119: 900; 700; 1015; 925
+gr-120: 1200; 900
+gr-121: 1150; 1100
+gr-122: 1150; 1100; 750; 700
+gr-123: 1100; 700; 1870
+gr-124: 760; 750; 755
+gr-125: 900; 700
+gr-126: 900; 700; 500; 400
+gr-127: 700
+gr-128: 700; 500
+gr-129: 1795; 1933; 1935; 1960
+gr-130: 700
+gr-131: 700
+gr-132: 750; 700
+gr-133: 700; 1928; 1933; 1935
+gr-134: 560; 510; 504; 501; 330
+gr-135: 1100; 800; 700
 ```

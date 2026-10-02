@@ -180,10 +180,10 @@ one changelog line and a version bump; commit and push.
 | B8 | Mycenaean Greece (`gr-mycenae`) | `gr-066`–`gr-075` | 10 | **done 2026-10-01** |
 | B9 | Mycenaean Greece (`gr-mycenae`) | `gr-076`–`gr-085` | 10 | **done 2026-10-01** |
 | B10 | Mycenaean Greece (`gr-mycenae`) | `gr-086`–`gr-095` | 10 | **done 2026-10-01** |
-| B11 | Mycenaean Greece (`gr-mycenae`) | `gr-096`–`gr-105` | 10 | `gr-096`–`gr-100` done 2026-10-01; `gr-101`–`gr-105` open |
-| B12 | Mycenaean Greece (`gr-mycenae`) | `gr-106`–`gr-110` | 5 | open |
-| B13 | Early Iron Age (`gr-iron`) | `gr-111`–`gr-120` | 10 | open |
-| B14 | Early Iron Age (`gr-iron`) | `gr-121`–`gr-130` | 10 | open |
+| B11 | Mycenaean Greece (`gr-mycenae`) | `gr-096`–`gr-105` | 10 | **done 2026-10-02** |
+| B12 | Mycenaean Greece (`gr-mycenae`) | `gr-106`–`gr-110` | 5 | **done 2026-10-02** |
+| B13 | Early Iron Age (`gr-iron`) | `gr-111`–`gr-120` | 10 | **done 2026-10-02** |
+| B14 | Early Iron Age (`gr-iron`) | `gr-121`–`gr-130` | 10 | **done 2026-10-02** |
 | B15 | Early Iron Age (`gr-iron`) | `gr-131`–`gr-140` | 10 | open |
 | B16 | Early Iron Age (`gr-iron`) | `gr-141`–`gr-150` | 10 | open |
 | B17 | Early Iron Age (`gr-iron`) | `gr-151`–`gr-160` | 10 | open |
@@ -776,3 +776,88 @@ reworded off `gr-093`'s Gelidonya question (Q.sibling 44%).
 **Locators.** `gr-099` points at Lake Copais and `gr-100` at the Kazarma (Arkadiko) bridge, neither
 title a redirect. `gr-072` megaron and `gr-095` Ahhiyawa take none: a building type, and a land with no
 agreed place.
+
+### B11–B14 — `gr-101`–`gr-135`, Mycenaean Greece and the Early Iron Age (2026-10-02)
+
+Thirty-five cards: the last ten of `gr-mycenae` (`gr-101`–`gr-110`) and the first twenty-five of `gr-iron`
+(`gr-111`–`gr-135`). The text was rewritten in the four WIP commits on `claude/greece-refinement-b12`
+(merged as #381): questions, date lines, backgrounds, sources and Think-it-through, quote-checked against
+saved copies. This entry closes the batch with the pictures, the last two locators, one correction to
+`gr-123`, the chronology and this record.
+
+Checks:
+- `greece-audit.js --range=gr-101:gr-135` reads clean on 31 of 35 cards. The other four:
+  - `gr-115` depopulation and `gr-122` cist grave have no picture (see below).
+  - `gr-121`, `gr-122` and `gr-123` keep `S.chip?` flags, read by eye and all English. Two are chapters in
+    the Austrian Academy volume *Brandbestattungen von der mittleren Donau bis zur Ägäis* (Lagia et al.;
+    Palaiologou). The third is Papadopoulos's BMCR review of *Kerameikos* 18.
+- `check-citations --card` matches every checkable citation on all 35 cards. `check-questions`,
+  `check-style`, `check-cards --prefix=gr-1`, `check-docs` and `split-cards --check` pass.
+- All 144 distinct citation URLs were re-curled:
+  - The eCampusOntario chapters answer 403 to a bare User-Agent and 200 to a browser one.
+  - The Perseus passages answered 503 while seven research agents were also reading Perseus. They
+    answered 200 on a later retry.
+
+**Pictures.** Every one of the 35 old pictures carried its file name as caption and alt, and a bare
+Commons URL as credit. All 33 cards with a picture now carry a description of what is shown, a visual
+alt, and a credit naming the author and the licence.
+
+Replaced:
+- **`gr-101`**: a labelled German map → a satellite view of the Isthmus.
+- **`gr-103`**: a plan → a 1937 photograph of the dig, with the storage jars sunk in a house floor. The
+  Troy VII wall photograph stays on the glossary's `Troy_VII`.
+- **`gr-105`**: a 1915 war map → the strait.
+- **`gr-106`**: a plan → the clay tablet of the Alaksandu treaty.
+- **`gr-107`**: a Medinet Habu drawing → the ruins of Ugarit.
+- **`gr-108`**: Champollion's printed list → the Philistine captives relief.
+- **`gr-109`**: a gold seal → the palace ruins.
+- **`gr-110`**: a pair of terracotta boots → a 12th-century figurine from the Tiryns lower citadel.
+- **`gr-111`**: Early Geometric jewellery → the Lefkandi centaur, released by `gr-116`, which now shows
+  the Xeropolis promontory.
+- **`gr-112`**: a Protogeometric lekythos labelled Submycenaean → a Submycenaean amphora.
+- **`gr-113`**: BM A1123 (PD, catalogue-number caption) → BM A1124 with its concentric circles.
+- **`gr-114`**: a pot → a Geometric bronze horse, so the period and `gr-125`'s pottery differ.
+- **`gr-120`**: a French furnace diagram → a Kerameikos cremation burial of 950 – 900 BCE with its iron sword.
+- **`gr-121`**: a Hungarian Vatya urn → a Protogeometric cremation amphora from Attica.
+- **`gr-123`**: a 1915 dig photograph → the site today.
+- **`gr-125`**: a skyphos → an Attic Late Geometric ekphora krater.
+- **`gr-126`**: a relief from a later hero cult → the Menidi tholos passage.
+- **`gr-127`**: an illustration of the *Odyssey* → the Protogeometric bronze lyre-player from Crete, chosen over the Pylos lyre
+  fresco, which is a watercolour reconstruction.
+- **`gr-128`**: the Townley Homer manuscript, which is not Homer, → the British Museum bust. The
+  manuscript stays on the glossary's `Homer`.
+- **`gr-129`**: a Rembrandt painting → a page of the Venetus A.
+- **`gr-131`**: a crop of a 15th-century manuscript → the Penelope Painter's Odysseus drawing his bow on
+  the suitors. The Sirens stamnos BM E440 was refused: it is already on `gr-960`.
+- **`gr-132`**: a scansion diagram with printed text → P. Oxy. 551. The Hawara papyrus was refused: it is
+  already on `wh-314`.
+- **`gr-133`**: none → Murko's 1925 photograph of the Bosniak guslar Osman-beg Selmanović with his gusle.
+- **`gr-134`**: a Tiepolo picture → the Kleophrades Painter's rhapsode.
+- **`gr-135`**: none → the Met's Hirschfeld krater, with chariots and soldiers.
+
+Kept with new captions and credits: `gr-102`, `gr-117`, `gr-118`, `gr-119`, `gr-124` and `gr-130`.
+
+Pictures still missing:
+- **`gr-115` depopulation has no picture**: an absence of people has no honest photograph.
+- **`gr-122` cist grave has none either.** Three Commons searches found only northern European cists
+  (Denmark, Scotland, Jersey). A Greek card should not show one, so the card waits for a Greek photograph.
+
+**Locators.**
+- `gr-106` Wilusa now points at Troy, labelled "Troy". The text says Troy is widely identified as its
+  capital, and the dot is not the kingdom.
+- `gr-119` was re-fetched from Wikidata `Q140345` ("archaeological site in Andros island"). English
+  Wikipedia has no article. The dot moved from [24.9, 37.8333], a rounded figure, to [24.8656, 37.7742].
+
+**`gr-117`'s second question opened on "Its"**, which `check-questions` refuses; it now opens "The owner of the land". **Corrected.** `gr-123` said the Submycenaean "began about 1100 BCE", against `gr-112`'s c. 1070. The
+figure is the ministry's (Iliopoulos), and the card now says so ("dated by the ministry from about 1100
+BCE"). Two words were trimmed elsewhere to hold the sentence mean.
+
+**Chronology.** Rows added for every date the 35 cards print, and pins for all 35. The provisional Early
+Iron Age rows are corrected:
+- **Submycenaean** c. 1075 – 1050 → **c. 1070 – 1000 BCE**. The end is Toffolo et al.'s radiocarbon date;
+  the start is another team's figure, which they take as likely.
+- **Protogeometric** keeps the conventional c. 1050 – 900 BCE, with its radiocarbon start of c. 1020 –
+  1000 BCE as a second row.
+
+**Read by eye.** Each new picture was looked at on a contact sheet before it was chosen. The article,
+sibling and coverage reading of the text was done when it was written, in the WIP commits.
