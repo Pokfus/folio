@@ -46,6 +46,7 @@ window.CHANGELOG = [
       "<b>The three dots atop a card</b> turn green once all three are filled, and your collections\u2019 counts are coloured figures rather than boxes.",
       "<b>The Atlas shows only real places</b>: 35 cards about people, ideas, eras and nationwide events were pinned under their own name; their globes now name the place.",
       "<b>A hundred and ninety new cards in the Ancient Egypt collection</b>, from the drying of the Sahara through the pyramid age to the Middle Kingdom, each with a cited glossary term.",
+      "<b>Seven date lines are corrected</b> in the Rome, World History and Korea collections, so those cards sort and map by the right years.",
       "<b>The home page is redesigned</b>: the daily study banner now previews your next cards and estimates the minutes from your own pace, with Start review beneath.",
       "<b>Your streak</b> has a ribbon of its own under the banner, showing the chest every seventh day brings; the Account page's streak box is gone.",
       "<b>Your collections</b> on the home page are tinted rows with blue, red and green counts; the minigames are a list; <b>Continue reading</b> and <b>This week</b> close the page.",
