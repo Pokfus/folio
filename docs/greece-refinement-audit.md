@@ -848,7 +848,7 @@ Pictures still missing:
 - `gr-119` was re-fetched from Wikidata `Q140345` ("archaeological site in Andros island"). English
   Wikipedia has no article. The dot moved from [24.9, 37.8333], a rounded figure, to [24.8656, 37.7742].
 
-**`gr-117`'s second question opened on "Its"**, which `check-questions` refuses; it now opens "The owner of the land". **Corrected.** `gr-123` said the Submycenaean "began about 1100 BCE", against `gr-112`'s c. 1070. The
+**`gr-117`'s second question opened on "Its"**, which `check-questions` refuses; it now opens "The owner of the site" (the same fix had reached main from another session, and the merge keeps its wording). **Corrected.** `gr-123` said the Submycenaean "began about 1100 BCE", against `gr-112`'s c. 1070. The
 figure is the ministry's (Iliopoulos), and the card now says so ("dated by the ministry from about 1100
 BCE"). Two words were trimmed elsewhere to hold the sentence mean.
 
