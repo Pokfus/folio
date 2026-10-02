@@ -132,7 +132,7 @@ in plan order unless the user says otherwise.
 | B16 | Neolithic worlds (`wh-early-villages`) | `wh-151`–`wh-160` | 10 | 99 | **done 2026-10-02** |
 | B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | **done 2026-10-02** |
 | B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | **done 2026-10-02** |
-| B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | open |
+| B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | **done 2026-10-02** |
 | B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | open |
 | B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | open |
 | B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | open |
@@ -914,6 +914,39 @@ picture pass deferred all but six cards whose pictures were sound and whose text
 `wh-085`, `wh-098`, `wh-102`, `wh-111` and `wh-169` keep their files with a new description and alt.
 `wh-041`'s locator is still open: "Rising Star Cave" has no primary coordinate.
 
+### B19 — `wh-181`–`wh-190`, Mesopotamia (2026-10-02)
+
+Run as B18, middle chronology throughout. Checks: `wh-audit.js --range=wh-181:wh-190` clean on all ten;
+`check-questions`, `check-cards --prefix` per card, `check-style` (no new finding), `check-docs`,
+`split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 67 distinct URLs 2xx.
+New locators: `wh-181` and `wh-186` (both at Ur, labelled Tell el-Muqayyar). `add-card.js --replace` refused
+`wh-185`'s existing two-ring region (Akkad and Magan), which `add-locators.js` had written; it now validates
+each ring of a multi-ring `area`, and the region stands.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-181` Royal Cemetery at Ur | 7 | 5 → 7 | A phrasing carried a year. The royal tombs are c. 2600 – 2500 BCE with Puabi put near 2450 by one account, and the line says c. 2600 – 2450. **The servants "drank poison" was the excavator's reading**; CT scans of two skulls point to blows, heating and mercury. Kungas on the Standard added. |
+| `wh-182` Gilgamesh | 9 | 5 → 9 | **"The fifth king of Uruk" was in no source.** Now a probable reign c. 2600 BCE from later writings, the Nippur temple record, worship by c. 2500, and the Sumerian poems (Aga of Kish, the death poem); the king-list reign as legend. |
+| `wh-183` Epic of Gilgamesh | 9 | 5 → 9 | Two phrasings carried centuries or 1872. The old card leaned on one review and misdated the Penn tablet; now oldest copies c. 1800 – 1500 BCE, the Standard version c. 800 – 100 BCE, the Sumerian poems behind it, the flood tablet and the missing third. |
+| `wh-184` Sargon of Akkad | 8 | 6 → 8 | **The card said the Louvre dates the reign "on the conventional chronology"**; its page gives only the years. A phrasing carried the 56-year reign; the reign is now doubted as the king list gives Naram-Sin the same. An omen was misread ("the Persian Gulf" for "the Sea in the East"). |
+| `wh-185` Akkadian Empire | 8 | 5 → 10 | The card gave no date for the empire; now c. 2350 – 2150 BCE, Old Akkadian administration, reach to Susa, the Gutian overthrow, and drought against continuity as a debate. The *Curse of Agade* is set against the king list. |
+| `wh-186` Third Dynasty of Ur | 7 | 5 → 8 | No date for the dynasty and three phrasings on its siblings' ziggurat, stela and Nabonidus; now 2112 – 2004 BCE, Shulgi 2094 – 2047 with one excavation report's lower dates as the debate, merchants, Drehem and Susa. |
+| `wh-187` Code of Ur-Nammu | 7 | 5 → 8 | **"Ur-Nammu killed Namhani of Lagash"**: the composite has him make Namhani governor. The "ten shekels for a foot" reading rested on a 1952 restoration; the questions now use the half-mina eye law. Later copies and the Schøyen cylinder added. |
+| `wh-188` Old Babylonian period | 7 | 5 → 7 | **Amorites seizing power at Ur's fall is one view**, a later and gradual takeover another. "Kings who lived in tents", Akkadian as the spoken tongue and a count of 172 graves had no source. A phrasing on Ur's housing moved off `wh-180`'s clue. |
+| `wh-189` Hammurabi | 8 | 7 → 9 | **"His people spoke Akkadian"** (card and glossary) had no source. His wars, his letters to Larsa and the fate of his realm added. |
+| `wh-190` Code of Hammurabi | 8 | 5 → 9 | The 34-paragraph gap is hedged; a prologue-tablet claim dropped with the second French page. Taken to Susa c. 1150 BCE; found 1901 – 1902. |
+
+**Read by eye.** *Article:* "the Royal Cemetery at Ur", "the Epic of Gilgamesh", "the Akkadian Empire", "the
+Third Dynasty of Ur", "the Code of Ur-Nammu", "the Old Babylonian period", "the Code of Hammurabi"; the three
+kings bare. *Confusability:* `wh-182`/`wh-183` the king and the poem, kept apart (Sumerian poems and cult
+against the Babylonian epic); `wh-184`/`wh-185` the founder and his state; `wh-189`/`wh-190` the king and
+his laws; `wh-180`/`wh-181`/`wh-186` the city, its cemetery and its dynasty. *Consistency:* Sargon 2334 BCE
+ends `wh-179`'s Early Dynastic; Ur III 2112 – 2004 as in `wh-172`.
+
+**Glossary.** Seven terms rewritten; *Epic of Gilgamesh*, *Third Dynasty of Ur* and *Code of Hammurabi*
+already agreed. The *Hammurabi* and *Code of Hammurabi* entries carry malformed picture fields (licence in
+the description, a bare URL as credit): picture pass.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -990,3 +1023,6 @@ pass once it answers. Filled batch by batch.
 | `wh-173` | a cone-mosaic detail; a view of the site would show the city |
 | `wh-178` | description names the photographer and an unverified brick stamp |
 | `wh-180` | the Ram in a Thicket, a Royal Cemetery object (`wh-181`'s), not the city |
+| `wh-182` | the king-list prism, not Gilgamesh |
+| `wh-183`, `wh-185`, `wh-186` | fine, but description names the photographer |
+| `wh-189`, `wh-190` | glossary picture fields malformed; `wh-190` shows a museum panel at one edge |

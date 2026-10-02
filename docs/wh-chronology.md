@@ -187,6 +187,13 @@ Filled batch by batch, from the source each row names.
 | Eridu occupied | c. 6000 – 1000 BCE | Quenet et al. 2025 (`wh-178`) |
 | Early Dynastic period | c. 2900 – 2334 BCE | `wh-179` |
 | Ur: first village / last dated tablets | c. 5500 BCE / c. 500 – 400 BCE | `wh-180` |
+| Royal Cemetery at Ur, royal tombs | c. 2600 – 2450 BCE (c. 2600 – 2500; Puabi c. 2450) | `wh-181` |
+| Gilgamesh: probable reign / deified by | c. 2600 BCE / c. 2500 BCE | Kramer 1963 (`wh-182`) |
+| Epic of Gilgamesh: oldest copies / Standard version current | c. 1800 – 1500 BCE / c. 800 – 100 BCE | Robson (`wh-183`) |
+| Sargon of Akkad / Akkadian period | c. 2334 – 2279 BCE / c. 2350 – 2150 BCE | Louvre; Williams et al. 2026 (`wh-184`, `wh-185`) |
+| Shulgi | c. 2094 – 2047 BCE | `wh-186` |
+| Old Babylonian period / Hammurabi | c. 2000 – 1500 BCE / 1792 – 1750 BCE | `wh-188`, `wh-189` |
+| Hammurabi stele taken to Susa / found | c. 1150 BCE / 1901 – 1902 | `wh-190` |
 | maize: domesticated / in South America / Guilá Naquitz cobs | c. 9,000 / by c. 7,000 / c. 6,250 years ago | Matsuoka 2002; Kistler 2020; Piperno and Flannery (`wh-131`) |
 | Neolithic demographic transition, south-eastern Europe | from c. 8,500 years ago | Shennan et al. 2013 (`wh-133`) |
 | zoonotic pathogens in Eurasian remains / Baikal plague / flea-borne plague | from c. 6,500 / c. 5,500 / by c. 3,800 years ago | Sikora et al. 2025; Macleod et al. 2026 (`wh-134`) |
@@ -373,4 +380,14 @@ wh-177: 2100; 1250; 556; 539
 wh-178: 6000; 1000; 1946; 1949
 wh-179: 2900; 2334
 wh-180: 5500; 500; 400; 1922; 1934
+wh-181: 2600; 2450; 1922; 1926
+wh-182: 2600; 2500
+wh-183: 1800; 1500; 800; 100; 1872
+wh-184: 2334; 2279
+wh-185: 2350; 2150; 2334
+wh-186: 2112; 2004; 2094; 2047
+wh-187: 2112; 2100; 1600
+wh-188: 2000; 1500; 1792; 1750
+wh-189: 1792; 1750
+wh-190: 1792; 1750; 1150; 1901; 1902
 ```
