@@ -147,6 +147,9 @@ have not this session.
   `set-facts.js`, `add-images.js` — each documents itself in its header.
 - After a batch: `check-style.js`, `check-questions.js`, `node .claude/check-cards.js --prefix=<p>`
   (report only), `test-card-plans.js`.
+- **Wikipedia links** (the "Learn more" box at the foot of a card): `.claude/wiki-links.json` maps each card to its
+  dedicated article; `node .claude/find-wiki-links.js` regenerates it (cached, re-run after adding cards; needs
+  `NODE_USE_ENV_PROXY=1`). 📖 `docs/wikipedia-links-audit.md` — the cards still needing a human decision.
 
 ### The planned collections
 
