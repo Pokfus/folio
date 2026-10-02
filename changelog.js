@@ -35,15 +35,25 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.921", released: "2026-10-02T01:23Z" };
+window.FOLIO_VERSION = { v: "1.917", released: "2026-10-02T03:02Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-02",
-    t: "World History cards rewritten, starting with human origins",
+    t: "New home and Collections pages, more China and Rome cards, Macbeth",
     items: [
-      "<b>A hundred World History cards are rewritten</b>, in the Human origins, Palaeolithic and Peopling the planet decks, with more sources, corrected dates and new pictures.",
-    ],
+      "<b>The home page is redesigned</b>: the daily study banner now previews your next cards and estimates the minutes from your own pace, with Start review beneath.",
+      "<b>Your streak</b> has a ribbon of its own under the banner, showing the chest every seventh day brings; the Account page's streak box is gone.",
+      "<b>Your collections</b> on the home page are tinted rows with blue, red and green counts; the minigames are a list; <b>Continue reading</b> and <b>This week</b> close the page.",
+      "<b>The Collections page is redesigned</b> to match, each collection a row with its progress painted across it.",
+      "<b>The Studio page is gone</b>: your own decks are written, imported, exported and edited on the Collections page's Your decks tab, in place.",
+      "<b>The tour</b> walks the new pages, and the version line moved from the top of the home page to its foot.",
+      "<b>Sixty-one new cards in the China collection</b>, from the Sui reunification through the Tang to the Five Dynasties, with 56 new glossary terms.",
+      "<b>Shakespeare\u2019s <i>Macbeth</i> is in the Library</b> \u2014 the 1918 Yale edition, act by act, with the editor\u2019s glosses and notes.",
+      "<b>A hundred new cards in the Ancient Rome collection</b>, finishing government and law and the provinces and opening family life, each with a glossary term.",
+      "<b>Seventy more Ancient Greece cards are rewritten</b>, finishing the Mycenaean Greece and Early Iron Age decks, with more sources and new pictures.",
+      "<b>A hundred World History cards are rewritten</b>, in the Human origins, Palaeolithic and Peopling the planet decks, with more sources and corrected dates."
+    ]
   },
   {
     d: "2026-10-01",

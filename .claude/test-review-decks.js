@@ -389,7 +389,8 @@ const SETTINGS = {
         // the banner's own heading, read off the page rather than written down here: this assertion is
         // "the sheet opened on the REVIEW and not on a deck", and hard-coding the title made it fail on
         // the Aug 2026 rename ("Daily review" → "Daily study") while the behaviour was perfectly correct
-        title: (document.querySelector(".review-title") || {}).textContent || "",
+        // the banner's eyebrow since the Oct 2026 redesign (the title itself now counts the pile)
+        title: (document.querySelector("#b-review .hero-eyebrow") || document.querySelector(".review-title") || {}).textContent || "",
       } : null;
     });
     check("the review's Daily limits opens on the review, not a deck",
@@ -712,7 +713,7 @@ const SETTINGS = {
       const b = document.querySelector("#b-review .cta .btn");
       return { txt: b ? b.textContent.trim() : null, hero: !!document.querySelector(".review-hero") };
     });
-    check("the review's button reads 'Start'", cta.txt === "Start", JSON.stringify(cta));
+    check("the review's button reads 'Start review'", cta.txt === "Start review", JSON.stringify(cta));
     await page.close();
   }
 
@@ -768,6 +769,11 @@ const SETTINGS = {
     // carry the first row of that level to the foot of it
     const geo = await page.evaluate(([id, p]) => {
       const rows = [...document.querySelectorAll(".active-deck")].filter((r) => r.dataset.parent === p);
+      /* THE LIST IS BROUGHT ON SCREEN FIRST (Oct 2026): the redesigned banner and the streak ribbon above
+         it put the deck list under the fold of a 900px window, and a mouse driven to a point below the
+         viewport presses nothing — which read as "the reorder does nothing" until the geometry was
+         printed. A reader scrolls to the rows before taking hold of one; so does this. */
+      rows[0].scrollIntoView({ block: "center" });
       const g = document.querySelector(`.active-deck[data-drag="${id}"] .dk-grip`).getBoundingClientRect();
       const last = rows[rows.length - 1].getBoundingClientRect();
       return { x: g.x + g.width / 2, y: g.y + g.height / 2, ty: last.y + last.height - 4 };
@@ -1059,6 +1065,7 @@ const SETTINGS = {
       const src = rows.find((r) => r !== g && !r.classList.contains("deck-group") && r.querySelector(".dk-grip") &&
         r.dataset.parent && kidsOf(r.dataset.drag) === 0 && kidsOf(r.dataset.parent) > 1);
       if (!g || !src) return null;
+      src.scrollIntoView({ block: "center" });   // on screen first — see the reorder drag above
       const s = src.querySelector(".dk-grip").getBoundingClientRect(), d = g.getBoundingClientRect();
       return { id: src.dataset.drag, gid: g.dataset.drag, parent: src.dataset.parent,
         x: s.x + s.width / 2, y: s.y + s.height / 2, tx: d.x + d.width / 2, ty: d.y + d.height / 2 };
@@ -1757,7 +1764,8 @@ const SETTINGS = {
     await page.waitForTimeout(1400);
 
     const snap = () => page.evaluate(() => ({
-      piles: [...document.querySelectorAll(".banner .stat b")].map((e) => e.textContent).join("/"),
+      // the three piles, without the estimate that sits beside them since the Oct 2026 redesign
+      piles: [...document.querySelectorAll(".banner .stat:not(.st-est) b")].map((e) => e.textContent).join("/"),
       start: !!document.querySelector(".banner .cta"),
       row: [...document.querySelectorAll(".dk-counts")].map((e) => [...e.querySelectorAll("span")].map((x) => x.textContent).join("/"))[0] || "",
     }));
@@ -1798,7 +1806,9 @@ const SETTINGS = {
       const got = await page.evaluate(() => ({
         question: !!document.querySelector(".question"),
         reveal: !!document.querySelector("#reveal-btn"),
-        text: (document.body.textContent || "").slice(0, 3000),
+        // the PAGE's text, not the body's: the <noscript> fallback after it says "already", and a short
+        // question brings that within reach of the slice
+        text: ((document.querySelector(".page") || document.body).textContent || "").slice(0, 3000),
       }));
       check("tapping the deck row deals the card rather than a completion screen",
         got.question && got.reveal && !/caught up|already/i.test(got.text),

@@ -753,68 +753,68 @@ already shipped before adding it.
     cnh-338  Eastern Wei and Western Wei
     cnh-339  Northern Qi and Northern Zhou
     cnh-340  Fubing system
-    cnh-341  Southern literary culture
+    cnh-341  Shen Yue
     cnh-342  Wen Xuan
 
 ### Sui — `col-22`
 
     cnh-343  Sui dynasty
     cnh-344  Emperor Wen of Sui
-    cnh-345  The Sui reunification
-    cnh-346  The Sui administrative reforms
+    cnh-345  Sui conquest of Chen
+    cnh-346  Kaihuang Code
     cnh-347  Three Departments and Six Ministries
-    cnh-348  The beginning of the examination system
+    cnh-348  Jinshi
     cnh-349  Emperor Yang of Sui
     cnh-350  Grand Canal
-    cnh-351  The Sui campaigns against Goguryeo
-    cnh-352  The Sui walls
-    cnh-353  The Sui rebellions
-    cnh-354  The fall of the Sui
+    cnh-351  Goguryeo–Sui War
+    cnh-352  Sui long walls
+    cnh-353  Wagang Army
+    cnh-354  Yuwen Huaji
 
 ### Tang — `col-23`
 
     cnh-355  Tang dynasty
     cnh-356  Emperor Gaozu of Tang
     cnh-357  Emperor Taizong of Tang
-    cnh-358  Incident at Xuanwu Gate
-    cnh-359  The Zhenguan reign
+    cnh-358  Xuanwu Gate Incident
+    cnh-359  Zhenguan era
     cnh-360  Tang Code
-    cnh-361  The Tang equal-field system
+    cnh-361  Koufentian
     cnh-362  Zu yong diao
-    cnh-363  Tang central government
-    cnh-364  The Tang examinations
-    cnh-365  The Tang defeat of the Eastern Turks
-    cnh-366  The Tang protectorates in Central Asia
+    cnh-363  Zhengshitang
+    cnh-364  Mingjing
+    cnh-365  Battle of Yinshan
+    cnh-366  Anxi Protectorate
     cnh-367  Chang'an under the Tang
-    cnh-368  The markets of Tang Chang'an
-    cnh-369  Foreign communities in Tang China
-    cnh-370  Tang cosmopolitanism
+    cnh-368  West Market of Chang'an
+    cnh-369  Sabao
+    cnh-370  Sogdian Whirl
     cnh-371  Wu Zetian
-    cnh-372  The Zhou interregnum
+    cnh-372  Wu Zhou
     cnh-373  Emperor Xuanzong of Tang
-    cnh-374  The Kaiyuan era
+    cnh-374  Kaiyuan era
     cnh-375  Yang Guifei
     cnh-376  Battle of Talas
     cnh-377  An Lushan
     cnh-378  An Lushan Rebellion
-    cnh-379  The consequences of the An Lushan Rebellion
+    cnh-379  Three Fanzhen of Hebei
     cnh-380  Jiedushi
     cnh-381  Two-tax system
     cnh-382  Yang Yan
-    cnh-383  The Tang salt monopoly
-    cnh-384  The Tibetan Empire and the Tang
-    cnh-385  The Uyghur Khaganate and the Tang
+    cnh-383  Liu Yan
+    cnh-384  Tibetan Empire
+    cnh-385  Uyghur Khaganate
     cnh-386  Nanzhao
-    cnh-387  Tang Buddhism at its height
+    cnh-387  Famen Temple
     cnh-388  Xuanzang
     cnh-389  Great Anti-Buddhist Persecution
-    cnh-390  Tang poetry
+    cnh-390  Regulated verse
     cnh-391  Li Bai
     cnh-392  Du Fu
     cnh-393  Bai Juyi
     cnh-394  Han Yu
     cnh-395  Huang Chao Rebellion
-    cnh-396  The fall of the Tang
+    cnh-396  Zhu Wen
 
 ### Five Dynasties and Ten Kingdoms — `col-24`
 

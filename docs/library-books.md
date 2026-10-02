@@ -12,7 +12,22 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty-eight:
+  matter (chapter 0 — see the Library bullet). Currently forty-nine:
+  `macbeth` (~206 KB, all 5 acts, **484 notes**, no original — Shakespeare's own English in the
+  Yale Shakespeare of 1918, ed. Charlton M. Lewis, **the first play here in English and the first
+  page of VERSE with its own line numbers**; `layout: "yale"` → `extractYale` / `yaleEndnotes` /
+  `yaleCast`). Three things it settled. **The page prints a number on every fourth line and the
+  glosses cite the other three**, so every line is counted — a line opened by an indent gap shares
+  the number of the verse line it completes — and the count is re-anchored on each printed number:
+  20 of 499 drift by a line or two, all of them a shared line the transcription does not mark, and
+  the run warns only past two. **A gloss lands on its word, not its line**: the transcription wraps
+  each glossed word in a hover tooltip, so the note goes after the tooltip whose words are its
+  lemma — 464 of 484 — and the rest are the glosses with no lemma (a note on a whole line, set at
+  its end). **An end note is folded into the gloss that points at it** ("cf. n." is a pointer a
+  chapter cannot follow), and the run checks all 65 reach the page — one with no gloss pointing at
+  it is hung on the line its anchor cites (`Iii15` is I. ii. 15). Lewis's brackets on a speaker he
+  supplied are kept (`[First] Mur`). Its `BOOK_AUTHOR_COLOR` row is where the Euripides test chose
+  a deep navy over the band's best, a magenta whose nearest neighbour is Euripides.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because

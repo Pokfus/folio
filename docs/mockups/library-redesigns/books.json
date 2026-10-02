@@ -1,0 +1,434 @@
+[
+ {
+  "author": "Aesop",
+  "title": "Aesop's Fables",
+  "when": "c. 6th century BCE, collected later",
+  "parts": "313 fables",
+  "lang": "",
+  "c": "#324A2C",
+  "year": -550
+ },
+ {
+  "author": "Sophocles",
+  "title": "Antigone",
+  "when": "c. 441 BCE",
+  "parts": "16 parts",
+  "lang": "Greek",
+  "c": "#7A2E2E",
+  "year": -441
+ },
+ {
+  "author": "Anonymous",
+  "title": "Beowulf",
+  "when": "c. 700\u20131000",
+  "parts": "42 fitts",
+  "lang": "Old English",
+  "c": "#55303C",
+  "year": 850
+ },
+ {
+  "author": "Augustine of Hippo",
+  "title": "Confessions",
+  "when": "c. 397\u2013400 CE",
+  "parts": "13 books",
+  "lang": "Latin",
+  "c": "#3F1800",
+  "year": 398
+ },
+ {
+  "author": "Miguel de Cervantes",
+  "title": "Don Quixote",
+  "when": "1605 & 1615",
+  "parts": "126 chapters",
+  "lang": "",
+  "c": "#B10960",
+  "year": 1605
+ },
+ {
+  "author": "Wu Cheng'en",
+  "title": "Journey to the West",
+  "when": "first printed 1592",
+  "parts": "100 chapters",
+  "lang": "Chinese",
+  "c": "#7B0050",
+  "year": 1592
+ },
+ {
+  "author": "Thomas Malory",
+  "title": "Le Morte d'Arthur",
+  "when": "c. 1469\u201370, printed 1485",
+  "parts": "21 books",
+  "lang": "",
+  "c": "#9E1402",
+  "year": 1470
+ },
+ {
+  "author": "Seneca",
+  "title": "Letters from a Stoic",
+  "when": "c. 62\u201365 CE",
+  "parts": "124 letters",
+  "lang": "Latin",
+  "c": "#8257C2",
+  "year": 63
+ },
+ {
+  "author": "Aristophanes",
+  "title": "Lysistrata",
+  "when": "411 BCE",
+  "parts": "2 parts",
+  "lang": "",
+  "c": "#A50030",
+  "year": -411
+ },
+ {
+  "author": "Euripides",
+  "title": "Medea",
+  "when": "431 BCE",
+  "parts": "13 parts",
+  "lang": "Greek",
+  "c": "#72187F",
+  "year": -431
+ },
+ {
+  "author": "Marcus Aurelius",
+  "title": "Meditations",
+  "when": "c. 170\u2013180 CE",
+  "parts": "12 books",
+  "lang": "Greek",
+  "c": "#2F7D6E",
+  "year": 175
+ },
+ {
+  "author": "Ovid",
+  "title": "Metamorphoses",
+  "when": "completed c. 8 CE",
+  "parts": "15 books",
+  "lang": "Latin",
+  "c": "#9C3557",
+  "year": 8
+ },
+ {
+  "author": "Aristotle",
+  "title": "Nicomachean Ethics",
+  "when": "c. 340 BCE",
+  "parts": "10 books",
+  "lang": "Greek",
+  "c": "#3F6E8C",
+  "year": -340
+ },
+ {
+  "author": "Sophocles",
+  "title": "Oedipus Rex",
+  "when": "c. 429 BCE",
+  "parts": "15 parts",
+  "lang": "Greek",
+  "c": "#7A2E2E",
+  "year": -429
+ },
+ {
+  "author": "Lucretius",
+  "title": "On the Nature of Things",
+  "when": "c. 55 BCE",
+  "parts": "6 books",
+  "lang": "Latin",
+  "c": "#4F7A3A",
+  "year": -55
+ },
+ {
+  "author": "Luo Guanzhong",
+  "title": "Romance of the Three Kingdoms",
+  "when": "14th century, first printed 1522",
+  "parts": "120 chapters",
+  "lang": "Chinese",
+  "c": "#2438A8",
+  "year": 1380
+ },
+ {
+  "author": "Kalidasa",
+  "title": "Sacontala",
+  "when": "c. 4th\u20135th century CE",
+  "parts": "9 parts",
+  "lang": "",
+  "c": "#004248",
+  "year": 450
+ },
+ {
+  "author": "Thomas Aquinas",
+  "title": "Summa Theologica",
+  "when": "1265\u20131274, unfinished",
+  "parts": "614 questions",
+  "lang": "",
+  "c": "#006C00",
+  "year": 1270
+ },
+ {
+  "author": "Virgil",
+  "title": "The Aeneid",
+  "when": "c. 29\u201319 BCE",
+  "parts": "12 books",
+  "lang": "Latin",
+  "c": "#4A0418",
+  "year": -24
+ },
+ {
+  "author": "Confucius",
+  "title": "The Analects",
+  "when": "c. 5th\u20133rd century BCE",
+  "parts": "20 books",
+  "lang": "Chinese",
+  "c": "#6B4D2E",
+  "year": -400
+ },
+ {
+  "author": "Sun Tzu",
+  "title": "The Art of War",
+  "when": "c. 5th century BCE",
+  "parts": "13 chapters",
+  "lang": "Chinese",
+  "c": "#A6452F",
+  "year": -450
+ },
+ {
+  "author": "Vyasa",
+  "title": "The Bhagavad Gita",
+  "when": "c. 2nd century BCE \u2013 2nd century CE",
+  "parts": "18 discourses",
+  "lang": "Sanskrit",
+  "c": "#743C00",
+  "year": -100
+ },
+ {
+  "author": "Anonymous",
+  "title": "The Book of Documents",
+  "when": "c. 11th\u20134th century BCE",
+  "parts": "59 documents",
+  "lang": "",
+  "c": "#0F4503",
+  "year": -700
+ },
+ {
+  "author": "Anonymous",
+  "title": "The Book of Rites",
+  "when": "c. 3rd\u20131st century BCE",
+  "parts": "10 of 46 books",
+  "lang": "",
+  "c": "#460030",
+  "year": -200
+ },
+ {
+  "author": "Geoffrey Chaucer",
+  "title": "The Canterbury Tales",
+  "when": "c. 1387\u20131400",
+  "parts": "25 tales",
+  "lang": "Middle English",
+  "c": "#00603A",
+  "year": 1390
+ },
+ {
+  "author": "Augustine of Hippo",
+  "title": "The City of God",
+  "when": "413\u2013426 CE",
+  "parts": "22 books",
+  "lang": "Latin",
+  "c": "#3F1800",
+  "year": 420
+ },
+ {
+  "author": "Anonymous",
+  "title": "The Classic of Poetry",
+  "when": "c. 11th\u20137th century BCE",
+  "parts": "102 of 305 odes",
+  "lang": "",
+  "c": "#845A63",
+  "year": -900
+ },
+ {
+  "author": "Boethius",
+  "title": "The Consolation of Philosophy",
+  "when": "c. 523\u2013524, in prison at Pavia",
+  "parts": "5 books",
+  "lang": "Latin",
+  "c": "#002700",
+  "year": 523
+ },
+ {
+  "author": "Plato",
+  "title": "The Dialogues",
+  "when": "c. 399\u2013347 BCE",
+  "parts": "35 of 36 dialogues",
+  "lang": "Greek",
+  "c": "#7A3B6B",
+  "year": -370
+ },
+ {
+  "author": "Dante Alighieri",
+  "title": "The Divine Comedy",
+  "when": "c. 1308\u20131321",
+  "parts": "100 cantos",
+  "lang": "",
+  "c": "#002B6B",
+  "year": 1315
+ },
+ {
+  "author": "Bede",
+  "title": "The Ecclesiastical History of the English People",
+  "when": "731",
+  "parts": "5 books",
+  "lang": "Latin",
+  "c": "#3C3000",
+  "year": 731
+ },
+ {
+  "author": "Anonymous",
+  "title": "The Epic of Gilgamesh",
+  "when": "c. 1200 BCE",
+  "parts": "12 tablets",
+  "lang": "",
+  "c": "#484B00",
+  "year": -1200
+ },
+ {
+  "author": "Julius Caesar",
+  "title": "The Gallic War",
+  "when": "c. 58\u201350 BCE",
+  "parts": "8 books",
+  "lang": "Latin",
+  "c": "#AE5A02",
+  "year": -54
+ },
+ {
+  "author": "Herodotus",
+  "title": "The Histories",
+  "when": "c. 430 BCE",
+  "parts": "9 books",
+  "lang": "Greek",
+  "c": "#43479C",
+  "year": -430
+ },
+ {
+  "author": "Thucydides",
+  "title": "The History of the Peloponnesian War",
+  "when": "c. 431\u2013400 BCE",
+  "parts": "8 books",
+  "lang": "Greek",
+  "c": "#AE3688",
+  "year": -415
+ },
+ {
+  "author": "Homer",
+  "title": "The Iliad",
+  "when": "composed c. 750\u2013700 BCE",
+  "parts": "24 books",
+  "lang": "Greek",
+  "c": "#001270",
+  "year": -725
+ },
+ {
+  "author": "Ptahhotep",
+  "title": "The Maxims of Ptahhotep",
+  "when": "c. 2400 BCE, or the Middle Kingdom",
+  "parts": "47 sections",
+  "lang": "",
+  "c": "#00486C",
+  "year": -2400
+ },
+ {
+  "author": "Homer",
+  "title": "The Odyssey",
+  "when": "composed c. 725\u2013675 BCE",
+  "parts": "24 books",
+  "lang": "Greek",
+  "c": "#001270",
+  "year": -700
+ },
+ {
+  "author": "Anonymous",
+  "title": "The Poetic Edda",
+  "when": "c. 900\u20131250",
+  "parts": "35 poems",
+  "lang": "",
+  "c": "#720000",
+  "year": 1050
+ },
+ {
+  "author": "Niccol\u00f2 Machiavelli",
+  "title": "The Prince",
+  "when": "1513",
+  "parts": "26 chapters",
+  "lang": "Italian",
+  "c": "#2C74BC",
+  "year": 1513
+ },
+ {
+  "author": "Snorri Sturluson",
+  "title": "The Prose Edda",
+  "when": "c. 1220",
+  "parts": "3 of 4 parts",
+  "lang": "",
+  "c": "#401A5C",
+  "year": 1220
+ },
+ {
+  "author": "Valmiki",
+  "title": "The Ramayana",
+  "when": "c. 500 BCE \u2013 200 CE",
+  "parts": "493 of 645 cantos",
+  "lang": "Sanskrit",
+  "c": "#814E99",
+  "year": -150
+ },
+ {
+  "author": "Plato",
+  "title": "The Republic",
+  "when": "c. 375 BCE",
+  "parts": "10 books",
+  "lang": "Greek",
+  "c": "#7A3B6B",
+  "year": -375
+ },
+ {
+  "author": "Anonymous",
+  "title": "The Rigveda",
+  "when": "c. 1500\u20131000 BCE",
+  "parts": "1028 hymns",
+  "lang": "Sanskrit",
+  "c": "#5A6F00",
+  "year": -1250
+ },
+ {
+  "author": "Petronius",
+  "title": "The Satyricon",
+  "when": "c. 60s CE",
+  "parts": "141 sections",
+  "lang": "Latin",
+  "c": "#66693C",
+  "year": 65
+ },
+ {
+  "author": "Anonymous",
+  "title": "The Song of Roland",
+  "when": "c. 1100",
+  "parts": "291 laisses",
+  "lang": "Old French",
+  "c": "#42426F",
+  "year": 1100
+ },
+ {
+  "author": "Marco Polo",
+  "title": "The Travels of Marco Polo",
+  "when": "c. 1298",
+  "parts": "235 chapters",
+  "lang": "",
+  "c": "#5A009C",
+  "year": 1298
+ },
+ {
+  "author": "Suetonius",
+  "title": "The Twelve Caesars",
+  "when": "c. 121 CE",
+  "parts": "12 lives",
+  "lang": "Latin",
+  "c": "#8C6D1F",
+  "year": 121
+ }
+]
