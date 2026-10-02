@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.929", released: "2026-10-02T17:08Z" };
+window.FOLIO_VERSION = { v: "1.930", released: "2026-10-02T18:11Z" };
 
 window.CHANGELOG = [
   {
@@ -56,7 +56,7 @@ window.CHANGELOG = [
       "<b>161 new cards in the China collection</b>, from the Sui reunification through the Tang, the Five Dynasties, the Liao, Song, Western Xia and Jin to the Yuan, with 153 new glossary terms.",
       "<b>Shakespeare\u2019s <i>Macbeth</i> is in the Library</b> \u2014 the 1918 Yale edition, act by act, with the editor\u2019s glosses and notes.",
       "<b>A hundred new cards in the Ancient Rome collection</b>, finishing government and law and the provinces and opening family life, each with a glossary term.",
-      "<b>A hundred and seventy more Ancient Greece cards are rewritten</b>, finishing the Mycenaean, Early Iron Age and Polis and colonisation decks and most of Sparta, with more sources and new pictures.",
+      "<b>Two hundred more Ancient Greece cards are rewritten</b>, finishing the Mycenaean, Early Iron Age, Polis and colonisation and Sparta decks and starting Athens, with more sources and new pictures.",
       "<b>A hundred and seventy World History cards are rewritten</b>, from Human origins to the first Mesopotamian cards, with more sources and corrected dates.",
       "<b>Collections is a tab in the phone\u2019s bottom bar again</b>, replacing the home page\u2019s + Add decks link; the colour legend shows at every width.",
       "<b>The deck list\u2019s Edit button is gone</b>, with its editor mode; a deck is still removed, and a group renamed, from its own options sheet.",
