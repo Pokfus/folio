@@ -2272,17 +2272,16 @@ function scrimCheck() {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1500);
     await swipe(-120);
-    check("a swipe left moves to the next page", (await where()) === "#library", await where());
-    check("...and that page is NOT Collections, which has no tab and is out of the order",
-      (await where()) !== "#decks", await where());
+    // Collections is the page after Home again (Oct 2026): it has a tab in the phone's bar once more
+    check("a swipe left moves to the next page", (await where()) === "#decks", await where());
     await swipe(-120);
-    check("...and on to the one after it", (await where()) === "#account", await where());
+    check("...and on to the one after it", (await where()) === "#library", await where());
     await swipe(120);
-    check("...a swipe right comes back", (await where()) === "#library", await where());
+    check("...a swipe right comes back", (await where()) === "#decks", await where());
     await swipe(-30);
-    check("...a short drag is not a swipe", (await where()) === "#library", await where());
+    check("...a short drag is not a swipe", (await where()) === "#decks", await where());
     await swipe(-120, 220);
-    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#library", await where());
+    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#decks", await where());
     await swipe(120);
     await swipe(120);
     check("...and the ends are ends, not a carousel", (await where()) === "#", await where());
@@ -2305,8 +2304,11 @@ function scrimCheck() {
     /* IT IS A SLIDE, NOT A CUT — measured 60ms into the transition, since by the end the two are
        indistinguishable. Both halves have to be there: the outgoing page must still exist (a ghost, or
        there is nothing to slide off) and the incoming one must be genuinely off to the side rather than
-       nudged. `page-next` means the finger went left, so the arriving page starts to the RIGHT. */
-    await page.goto(base + "#home", { waitUntil: "load" });
+       nudged. `page-next` means the finger went left, so the arriving page starts to the RIGHT.
+       MEASURED FROM THE LIBRARY, NOT HOME (Oct 2026): the page after Home is Collections again, whose
+       render holds the main thread past the ghost's own lifetime, so a 60ms timer fires after the copy
+       is gone — a fact about that page's weight, not about the slide. */
+    await page.goto(base + "#library", { waitUntil: "load" });
     await page.waitForTimeout(1400);
     const mid = await page.evaluate(async () => {
       const send = (t, x, y) => document.dispatchEvent(new PointerEvent(t, { pointerId: 8, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
@@ -2358,7 +2360,7 @@ function scrimCheck() {
       await page.waitForTimeout(700);
     };
     await realSwipe(320, 500, -170);
-    check("a REAL touch swipe moves page, not just a synthesised one", (await where()) === "#library", await where());
+    check("a REAL touch swipe moves page, not just a synthesised one", (await where()) === "#decks", await where());
     await realSwipe(80, 500, 170);
     check("...and back the other way", /^#(home)?$/.test(await where()), await where());
     await page.evaluate(() => window.scrollTo(0, 0));
