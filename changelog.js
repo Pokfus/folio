@@ -112,7 +112,7 @@ window.CHANGELOG = [
       "Where wars overlap on the Atlas, <b>tap again</b> to reach the one underneath; wider wars are hatched, and the panel lists each year's wars.",
       "The <b>Full atlas has a search</b> again, and Your atlas shows how many of each collection's places you have found.",
       "<b>Over a hundred historical states</b> now appear on the Atlas with moving borders, each with its <b>capital in that year</b>.",
-      "<b>Learn more on Wikipedia</b>: a tile at the foot of a card now links straight to the answer’s own Wikipedia article, on the 4,680 cards that have one.",
+      "<b>Learn more on Wikipedia</b>: a tile at the foot of a card now links straight to the answer’s own Wikipedia article, on the 4,870 cards that have one.",
     ],
   },
   {

@@ -14,17 +14,6 @@ can click to be redirected straight to that dedicated wikipedia page") links to 
 article **on the answer term itself**. A Wikipedia article is a destination here, never a source: it is
 not counted in the Sources fold and nothing on a card is cited to it.
 
-## How the link reaches the card
-
-`node .claude/apply-wiki-links.js` copies each entry's `title` onto its card as the heavy field `wiki` (it lives
-in `data-extra/<prefix>.js`, beside the abstract, because the tile is the only reader and it renders after the
-lazy half has arrived). `learnMoreHTML` in `app.js` draws the tile — the Answer box's own wash, the article's
-title, the Wikipedia logo — after the Sources fold in `buildBack`, and only when `wiki` is set. To change a
-card's link, edit this file's JSON twin (`.claude/wiki-links.json`: put the right `title` and `url` in, or set
-both to `null` to take the tile away) and run the applier again; it is idempotent. The logo is a self-hosted
-copy of Wikipedia's puzzle globe (`wikipedia-logo.png`, CC BY-SA 3.0, a Wikimedia Foundation trademark used
-here to link to Wikipedia), credited on the Mission page.
-
 ## How a card was matched
 
 The script's header documents the full method. In short: the glossary key with the answer's name (the
@@ -37,20 +26,20 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 3977 | the title is the article |
-| `redirect-variant` | 279 | spelling / plural / qualifier differed; same subject |
+| `ok` | 4156 | the title is the article |
+| `redirect-variant` | 281 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 67 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 352 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 361 | redirected to a differently named article — listed below, a glance each |
 | `section-redirect` | 81 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 117 | only a disambiguation page; no link could be chosen |
-| `none` | 540 | nothing matched; no link |
+| `none` | 550 | nothing matched; no link |
 
-**4680 of 5418 cards get a link.** The three "no link" rows are the honest state: a card whose
+**4870 of 5618 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (352)
+## Redirected to a differently named article — check each (361)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -83,6 +72,13 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-366` **Anxi Protectorate** → [Protectorate General to Pacify the West](https://en.wikipedia.org/wiki/Protectorate_General_to_Pacify_the_West) (from `Anxi Protectorate`)
 - `cnh-374` **Kaiyuan era** → [Emperor Xuanzong of Tang](https://en.wikipedia.org/wiki/Emperor_Xuanzong_of_Tang) (from `Kaiyuan era`)
 - `cnh-389` **Great Anti-Buddhist Persecution** → [Huichang persecution of Buddhism](https://en.wikipedia.org/wiki/Huichang_persecution_of_Buddhism) (from `Great Anti-Buddhist Persecution`)
+- `cnh-438` **watertight compartment** → [Compartment (ship)](https://en.wikipedia.org/wiki/Compartment_(ship)) (from `Watertight compartment`)
+- `cnh-467` **Li Yuanhao** → [Emperor Jingzong of Western Xia](https://en.wikipedia.org/wiki/Emperor_Jingzong_of_Western_Xia) (from `Li Yuanhao`)
+- `cnh-473` **Jurchen Jin** → [Jin dynasty (1115–1234)](https://en.wikipedia.org/wiki/Jin_dynasty_(1115%E2%80%931234)) (from `Jurchen Jin`)
+- `cnh-475` **Wanyan Aguda** → [Emperor Taizu of Jin](https://en.wikipedia.org/wiki/Emperor_Taizu_of_Jin) (from `Wanyan Aguda`)
+- `cnh-481` **Battle of Yehuling** → [Yehuling Campaign](https://en.wikipedia.org/wiki/Yehuling_Campaign) (from `Battle of Yehuling`)
+- `cnh-487` **Khanbaliq** → [Dadu (Beijing)](https://en.wikipedia.org/wiki/Dadu_(Beijing)) (from `Khanbaliq`)
+- `cnh-491` **Ayurbarwada** → [Ayurbarwada Buyantu Khan](https://en.wikipedia.org/wiki/Ayurbarwada_Buyantu_Khan) (from `Ayurbarwada`)
 - `eg-003` **inundation** → [Flood](https://en.wikipedia.org/wiki/Flood) (from `Inundation`)
 - `eg-004` **Two Lands** → [Upper and Lower Egypt](https://en.wikipedia.org/wiki/Upper_and_Lower_Egypt) (from `Two Lands`)
 - `eg-063` **Umm el-Qa'ab** → [Umm El Qa'ab](https://en.wikipedia.org/wiki/Umm_El_Qa'ab) (from `Umm el-Qa'ab`)
@@ -91,6 +87,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-069` **Shunet el-Zebib** → [Shunet El Zebib](https://en.wikipedia.org/wiki/Shunet_El_Zebib) (from `Shunet el-Zebib`)
 - `eg-072` **royal titulary** → [Ancient Egyptian royal titulary](https://en.wikipedia.org/wiki/Ancient_Egyptian_royal_titulary) (from `Royal titulary`)
 - `eg-084` **epagomenal days** → [Intercalation (timekeeping)](https://en.wikipedia.org/wiki/Intercalation_(timekeeping)) (from `Epagomenal days`)
+- `eg-160` **Admonitions of Ipuwer** → [Ipuwer Papyrus](https://en.wikipedia.org/wiki/Ipuwer_Papyrus) (from `Admonitions of Ipuwer`)
+- `eg-187` **Lahun Papyri** → [Kahun Papyri](https://en.wikipedia.org/wiki/Kahun_Papyri) (from `Lahun Papyri`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -697,7 +695,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (540)
+## No article found (550)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -813,6 +811,15 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-363` **Zhengshitang** — search suggests `Hanfu`, `List of premiers of the Republic of China`, `Three Departments and Six Ministries`, `Menxia Sheng`, `Zhongshu Sheng`
 - `cnh-364` **mingjing** — search suggests `Tu Mingjing`, `Kingdom of the Little People`, `Mingjing News`, `The Flame's Daughter`, `Empress Dugu (Northern Zhou)`
 - `cnh-368` **West Market** — search suggests `Huanan Seafood Wholesale Market`, `China`, `2015–2016 Chinese stock market turbulence`, `Marketplace`, `Socialist market economy`
+- `cnh-427` **palace examination** — search suggests `Imperial examination`, `Forbidden City`, `Jinshi`, `Jiangnan Examination Hall`, `Story of Yanxi Palace`
+- `cnh-458` **Mengliang lu** — search suggests `Dongjing Meng Hua Lu`, `Lu Yin (writer)`, `Menglianggu campaign`, `List of sources of Chinese culinary history`, `Architecture of the Song dynasty`
+- `cnh-469` **Tangut Tripitaka** — search suggests `Western Xia`, `Tangutology`, `Chinese Buddhist canon`, `Tangut numerals`, `Manjushri`
+- `cnh-470` **Battle of Haoshuichuan** — search suggests `Western Xia`, `Han Qi (Song dynasty)`, `Song–Xia wars`
+- `cnh-476` **Battle of Hubudagang** — search suggests `Emperor Taizu of Jin`
+- `cnh-477` **Da Qi** — search suggests `Qi`, `Qi Jingyi`, `Bai Qi`, `Diceros gansuensis`, `Outline of ancient China`
+- `cnh-478` **Meng'an mouke** — search suggests `Military of the Jin dynasty (1115–1234)`, `Jin dynasty (1115–1234)`, `Emperor Zhangzong of Jin`, `List of Jurchen inscriptions`
+- `cnh-488` **Four-class system** — search suggests `Four occupations`, `Chinese city tier system`, `Sovremenny-class destroyer`, `Four Symbols`, `Social structure of China`
+- `cnh-489` **Xingsheng** — search suggests `Xingsheng Community`, `Xingsheng station`, `Old Chinese`, `China proper`, `Chinese characters`
 - `eg-017` **El Omari** — search suggests `Prehistoric Egypt`, `Mohamed Atta`, `Al-Omari`, `Safia El Emari`, `Al-Omari Grand Mosque`
 - `eg-026` **Predynastic period** — search suggests `Prehistoric Egypt`, `Predynastic Egyptian mummies`, `Naqada III`, `Gebelein predynastic mummies`, `Ancient Egypt`
 - `eg-028` **Naqada expansion** — search suggests `Naqada III`, `Naqada II`, `Naqada culture`, `Prehistoric Egypt`, `Ancient Egypt`
@@ -828,6 +835,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-077` **Following of Horus** — search suggests `Gods of Egypt (film)`, `Horus Sa`, `Djoser`, `Horus Bird (pharaoh)`, `Set (deity)`
 - `eg-078` **jar sealing** — search suggests `Early Dynastic Period of Egypt`, `Narmer`, `Egypt–Mesopotamia relations`, `Mausoleum at Halicarnassus`, `Baghdad Battery`
 - `eg-080` **Egyptian stone vessels** — search suggests `Stone vessels in ancient Egypt`, `First Dynasty of Egypt`, `Egyptian faience`, `Prehistoric Egypt`, `Ancient Egyptian technology`
+- `eg-113` **Heit el-Ghurab** — search suggests `Fourth Dynasty of Egypt`, `Memphite Necropolis`, `Great Pyramid of Giza`, `List of Egyptian pyramidia`, `Kanefer`
 - `gr-005` **Early Minoan Crete** — search suggests `Minoan civilization`, `Crete`, `Minoan pottery`, `History of Crete`, `Minoan palaces`
 - `gr-010` **Throne Room at Knossos** — search suggests `Throne Room, Knossos`, `Knossos`, `Modern history of Knossos`, `Bull-Leaping Fresco`, `Émile Gilliéron`
 - `gr-015` **Protopalatial period** — search suggests `Minoan chronology`, `Minoan palaces`, `Malia (archaeological site)`, `Petsofas`, `Papoura Hill Circular Structure`

@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-02T16:05Z",
+ "generated": "2026-10-02T17:07Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 3977,
-  "redirect-broader": 352,
-  "redirect-variant": 279,
+  "ok": 4156,
+  "redirect-broader": 361,
+  "redirect-variant": 281,
   "section-redirect": 81,
   "disambiguation": 117,
-  "none": 540,
+  "none": 550,
   "disambig-resolved": 67,
   "search-match": 5
  },
@@ -43309,6 +43309,1480 @@
    "status": "section-redirect",
    "from": "Meidum Pyramid",
    "target": "Meidum#Pyramid"
+  },
+  "cnh-402": {
+   "answer": "Later Zhou",
+   "title": "Later Zhou",
+   "url": "https://en.wikipedia.org/wiki/Later_Zhou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-403": {
+   "answer": "Chai Rong",
+   "title": "Chai Rong",
+   "url": "https://en.wikipedia.org/wiki/Chai_Rong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-404": {
+   "answer": "Former Shu",
+   "title": "Former Shu",
+   "url": "https://en.wikipedia.org/wiki/Former_Shu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-405": {
+   "answer": "Wuyue",
+   "title": "Wuyue",
+   "url": "https://en.wikipedia.org/wiki/Wuyue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-406": {
+   "answer": "Southern Tang",
+   "title": "Southern Tang",
+   "url": "https://en.wikipedia.org/wiki/Southern_Tang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-407": {
+   "answer": "Li Yu",
+   "title": "Li Yu (Southern Tang)",
+   "url": "https://en.wikipedia.org/wiki/Li_Yu_(Southern_Tang)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-408": {
+   "answer": "Yue ware",
+   "title": "Yue ware",
+   "url": "https://en.wikipedia.org/wiki/Yue_ware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-409": {
+   "answer": "Feng Dao",
+   "title": "Feng Dao",
+   "url": "https://en.wikipedia.org/wiki/Feng_Dao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-410": {
+   "answer": "Northern Han",
+   "title": "Northern Han",
+   "url": "https://en.wikipedia.org/wiki/Northern_Han",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-411": {
+   "answer": "Liao dynasty",
+   "title": "Liao dynasty",
+   "url": "https://en.wikipedia.org/wiki/Liao_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-412": {
+   "answer": "Khitan people",
+   "title": "Khitan people",
+   "url": "https://en.wikipedia.org/wiki/Khitan_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-413": {
+   "answer": "Abaoji",
+   "title": "Abaoji",
+   "url": "https://en.wikipedia.org/wiki/Abaoji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-414": {
+   "answer": "Bureau of Military Affairs",
+   "title": "Bureau of Military Affairs",
+   "url": "https://en.wikipedia.org/wiki/Bureau_of_Military_Affairs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-415": {
+   "answer": "Khitan scripts",
+   "title": "Khitan scripts",
+   "url": "https://en.wikipedia.org/wiki/Khitan_scripts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-416": {
+   "answer": "Battle of Gaoliang River",
+   "title": "Battle of Gaoliang River",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Gaoliang_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-417": {
+   "answer": "Chanyuan Treaty",
+   "title": "Chanyuan Treaty",
+   "url": "https://en.wikipedia.org/wiki/Chanyuan_Treaty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-418": {
+   "answer": "Pagoda of Fogong Temple",
+   "title": "Pagoda of Fogong Temple",
+   "url": "https://en.wikipedia.org/wiki/Pagoda_of_Fogong_Temple",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-419": {
+   "answer": "Alliance Conducted at Sea",
+   "title": "Alliance Conducted at Sea",
+   "url": "https://en.wikipedia.org/wiki/Alliance_Conducted_at_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-420": {
+   "answer": "Emperor Tianzuo of Liao",
+   "title": "Emperor Tianzuo of Liao",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Tianzuo_of_Liao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-421": {
+   "answer": "Song dynasty",
+   "title": "Song dynasty",
+   "url": "https://en.wikipedia.org/wiki/Song_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-422": {
+   "answer": "Emperor Taizu of Song",
+   "title": "Emperor Taizu of Song",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Taizu_of_Song",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-423": {
+   "answer": "Shi Shouxin",
+   "title": "Shi Shouxin",
+   "url": "https://en.wikipedia.org/wiki/Shi_Shouxin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-424": {
+   "answer": "Emperor Renzong of Song",
+   "title": "Emperor Renzong of Song",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Renzong_of_Song",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-425": {
+   "answer": "Kaifeng",
+   "title": "Kaifeng",
+   "url": "https://en.wikipedia.org/wiki/Kaifeng",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-426": {
+   "answer": "Qingli Reforms",
+   "title": "Qingli Reforms",
+   "url": "https://en.wikipedia.org/wiki/Qingli_Reforms",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-427": {
+   "answer": "palace examination",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Imperial examination",
+    "Forbidden City",
+    "Jinshi",
+    "Jiangnan Examination Hall",
+    "Story of Yanxi Palace"
+   ]
+  },
+  "cnh-428": {
+   "answer": "Ouyang Xiu",
+   "title": "Ouyang Xiu",
+   "url": "https://en.wikipedia.org/wiki/Ouyang_Xiu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-429": {
+   "answer": "Di Qing",
+   "title": "Di Qing",
+   "url": "https://en.wikipedia.org/wiki/Di_Qing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-430": {
+   "answer": "Wang Anshi",
+   "title": "Wang Anshi",
+   "url": "https://en.wikipedia.org/wiki/Wang_Anshi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-431": {
+   "answer": "New Policies",
+   "title": "New Policies (Song dynasty)",
+   "url": "https://en.wikipedia.org/wiki/New_Policies_(Song_dynasty)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-432": {
+   "answer": "Sima Guang",
+   "title": "Sima Guang",
+   "url": "https://en.wikipedia.org/wiki/Sima_Guang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-433": {
+   "answer": "Zizhi Tongjian",
+   "title": "Zizhi Tongjian",
+   "url": "https://en.wikipedia.org/wiki/Zizhi_Tongjian",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-434": {
+   "answer": "Cai Jing",
+   "title": "Cai Jing",
+   "url": "https://en.wikipedia.org/wiki/Cai_Jing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-435": {
+   "answer": "Dongjing Meng Hua Lu",
+   "title": "Dongjing Meng Hua Lu",
+   "url": "https://en.wikipedia.org/wiki/Dongjing_Meng_Hua_Lu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-436": {
+   "answer": "jiaozi",
+   "title": "Jiaozi (currency)",
+   "url": "https://en.wikipedia.org/wiki/Jiaozi_(currency)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-437": {
+   "answer": "Xuzhou",
+   "title": "Xuzhou",
+   "url": "https://en.wikipedia.org/wiki/Xuzhou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-438": {
+   "answer": "watertight compartment",
+   "title": "Compartment (ship)",
+   "url": "https://en.wikipedia.org/wiki/Compartment_(ship)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Watertight compartment"
+  },
+  "cnh-439": {
+   "answer": "Bi Sheng",
+   "title": "Bi Sheng",
+   "url": "https://en.wikipedia.org/wiki/Bi_Sheng",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-440": {
+   "answer": "Kaibao Canon",
+   "title": "Kaibao Canon",
+   "url": "https://en.wikipedia.org/wiki/Kaibao_Canon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-441": {
+   "answer": "Su Shi",
+   "title": "Su Shi",
+   "url": "https://en.wikipedia.org/wiki/Su_Shi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-442": {
+   "answer": "Li Qingzhao",
+   "title": "Li Qingzhao",
+   "url": "https://en.wikipedia.org/wiki/Li_Qingzhao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-443": {
+   "answer": "Along the River During the Qingming Festival",
+   "title": "Along the River During the Qingming Festival",
+   "url": "https://en.wikipedia.org/wiki/Along_the_River_During_the_Qingming_Festival",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-444": {
+   "answer": "Guo Xi",
+   "title": "Guo Xi",
+   "url": "https://en.wikipedia.org/wiki/Guo_Xi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-445": {
+   "answer": "Emperor Huizong of Song",
+   "title": "Emperor Huizong of Song",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Huizong_of_Song",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-446": {
+   "answer": "Jingkang incident",
+   "title": "Jingkang incident",
+   "url": "https://en.wikipedia.org/wiki/Jingkang_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-447": {
+   "answer": "Battle of Huangtiandang",
+   "title": "Battle of Huangtiandang",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Huangtiandang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-448": {
+   "answer": "Emperor Gaozong of Song",
+   "title": "Emperor Gaozong of Song",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Gaozong_of_Song",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-449": {
+   "answer": "West Lake",
+   "title": "West Lake",
+   "url": "https://en.wikipedia.org/wiki/West_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-450": {
+   "answer": "Yue Fei",
+   "title": "Yue Fei",
+   "url": "https://en.wikipedia.org/wiki/Yue_Fei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-451": {
+   "answer": "Qin Hui",
+   "title": "Qin Hui",
+   "url": "https://en.wikipedia.org/wiki/Qin_Hui",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-452": {
+   "answer": "Treaty of Shaoxing",
+   "title": "Treaty of Shaoxing",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Shaoxing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-453": {
+   "answer": "Battle of Caishi",
+   "title": "Battle of Caishi",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Caishi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-454": {
+   "answer": "huizi",
+   "title": "Huizi (currency)",
+   "url": "https://en.wikipedia.org/wiki/Huizi_(currency)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-455": {
+   "answer": "Quanzhou",
+   "title": "Quanzhou",
+   "url": "https://en.wikipedia.org/wiki/Quanzhou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-456": {
+   "answer": "Guan ware",
+   "title": "Guan ware",
+   "url": "https://en.wikipedia.org/wiki/Guan_ware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-457": {
+   "answer": "Jian ware",
+   "title": "Jian ware",
+   "url": "https://en.wikipedia.org/wiki/Jian_ware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-458": {
+   "answer": "Mengliang lu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Dongjing Meng Hua Lu",
+    "Lu Yin (writer)",
+    "Menglianggu campaign",
+    "List of sources of Chinese culinary history",
+    "Architecture of the Song dynasty"
+   ]
+  },
+  "cnh-459": {
+   "answer": "Zhu Xi",
+   "title": "Zhu Xi",
+   "url": "https://en.wikipedia.org/wiki/Zhu_Xi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-460": {
+   "answer": "Neo-Confucianism",
+   "title": "Neo-Confucianism",
+   "url": "https://en.wikipedia.org/wiki/Neo-Confucianism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-461": {
+   "answer": "Battle of Tangdao",
+   "title": "Battle of Tangdao",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Tangdao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-462": {
+   "answer": "Fire lance",
+   "title": "Fire lance",
+   "url": "https://en.wikipedia.org/wiki/Fire_lance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-463": {
+   "answer": "Battle of Xiangyang",
+   "title": "Battle of Xiangyang",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Xiangyang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-464": {
+   "answer": "Battle of Yamen",
+   "title": "Battle of Yamen",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Yamen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-465": {
+   "answer": "Western Xia",
+   "title": "Western Xia",
+   "url": "https://en.wikipedia.org/wiki/Western_Xia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-466": {
+   "answer": "Tangut people",
+   "title": "Tangut people",
+   "url": "https://en.wikipedia.org/wiki/Tangut_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-467": {
+   "answer": "Li Yuanhao",
+   "title": "Emperor Jingzong of Western Xia",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Jingzong_of_Western_Xia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Li Yuanhao"
+  },
+  "cnh-468": {
+   "answer": "Tangut script",
+   "title": "Tangut script",
+   "url": "https://en.wikipedia.org/wiki/Tangut_script",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-469": {
+   "answer": "Tangut Tripitaka",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Western Xia",
+    "Tangutology",
+    "Chinese Buddhist canon",
+    "Tangut numerals",
+    "Manjushri"
+   ]
+  },
+  "cnh-470": {
+   "answer": "Battle of Haoshuichuan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Western Xia",
+    "Han Qi (Song dynasty)",
+    "Song–Xia wars"
+   ]
+  },
+  "cnh-471": {
+   "answer": "Khara-Khoto",
+   "title": "Khara-Khoto",
+   "url": "https://en.wikipedia.org/wiki/Khara-Khoto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-472": {
+   "answer": "Mongol conquest of Western Xia",
+   "title": "Mongol conquest of Western Xia",
+   "url": "https://en.wikipedia.org/wiki/Mongol_conquest_of_Western_Xia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-473": {
+   "answer": "Jurchen Jin",
+   "title": "Jin dynasty (1115–1234)",
+   "url": "https://en.wikipedia.org/wiki/Jin_dynasty_(1115%E2%80%931234)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jurchen Jin"
+  },
+  "cnh-474": {
+   "answer": "Jurchen people",
+   "title": "Jurchen people",
+   "url": "https://en.wikipedia.org/wiki/Jurchen_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-475": {
+   "answer": "Wanyan Aguda",
+   "title": "Emperor Taizu of Jin",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Taizu_of_Jin",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Wanyan Aguda"
+  },
+  "cnh-476": {
+   "answer": "Battle of Hubudagang",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Emperor Taizu of Jin"
+   ]
+  },
+  "cnh-477": {
+   "answer": "Da Qi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Qi",
+    "Qi Jingyi",
+    "Bai Qi",
+    "Diceros gansuensis",
+    "Outline of ancient China"
+   ]
+  },
+  "cnh-478": {
+   "answer": "Meng'an mouke",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Military of the Jin dynasty (1115–1234)",
+    "Jin dynasty (1115–1234)",
+    "Emperor Zhangzong of Jin",
+    "List of Jurchen inscriptions"
+   ]
+  },
+  "cnh-479": {
+   "answer": "Jurchen script",
+   "title": "Jurchen script",
+   "url": "https://en.wikipedia.org/wiki/Jurchen_script",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-480": {
+   "answer": "Emperor Shizong of Jin",
+   "title": "Emperor Shizong of Jin",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Shizong_of_Jin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-481": {
+   "answer": "Battle of Yehuling",
+   "title": "Yehuling Campaign",
+   "url": "https://en.wikipedia.org/wiki/Yehuling_Campaign",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Battle of Yehuling"
+  },
+  "cnh-482": {
+   "answer": "Siege of Caizhou",
+   "title": "Siege of Caizhou",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Caizhou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-483": {
+   "answer": "Yuan dynasty",
+   "title": "Yuan dynasty",
+   "url": "https://en.wikipedia.org/wiki/Yuan_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-484": {
+   "answer": "Yelü Chucai",
+   "title": "Yelü Chucai",
+   "url": "https://en.wikipedia.org/wiki/Yel%C3%BC_Chucai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-485": {
+   "answer": "Kublai Khan",
+   "title": "Kublai Khan",
+   "url": "https://en.wikipedia.org/wiki/Kublai_Khan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-486": {
+   "answer": "Bayan of the Baarin",
+   "title": "Bayan of the Baarin",
+   "url": "https://en.wikipedia.org/wiki/Bayan_of_the_Baarin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-487": {
+   "answer": "Khanbaliq",
+   "title": "Dadu (Beijing)",
+   "url": "https://en.wikipedia.org/wiki/Dadu_(Beijing)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Khanbaliq"
+  },
+  "cnh-488": {
+   "answer": "Four-class system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Four occupations",
+    "Chinese city tier system",
+    "Sovremenny-class destroyer",
+    "Four Symbols",
+    "Social structure of China"
+   ]
+  },
+  "cnh-489": {
+   "answer": "Xingsheng",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Xingsheng Community",
+    "Xingsheng station",
+    "Old Chinese",
+    "China proper",
+    "Chinese characters"
+   ]
+  },
+  "cnh-490": {
+   "answer": "Semu",
+   "title": "Semu",
+   "url": "https://en.wikipedia.org/wiki/Semu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-491": {
+   "answer": "Ayurbarwada",
+   "title": "Ayurbarwada Buyantu Khan",
+   "url": "https://en.wikipedia.org/wiki/Ayurbarwada_Buyantu_Khan",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Ayurbarwada"
+  },
+  "cnh-492": {
+   "answer": "Jiaochao",
+   "title": "Jiaochao",
+   "url": "https://en.wikipedia.org/wiki/Jiaochao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-493": {
+   "answer": "Guo Shoujing",
+   "title": "Guo Shoujing",
+   "url": "https://en.wikipedia.org/wiki/Guo_Shoujing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-494": {
+   "answer": "Mongol invasion of Java",
+   "title": "Mongol invasion of Java",
+   "url": "https://en.wikipedia.org/wiki/Mongol_invasion_of_Java",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-495": {
+   "answer": "Travels of Marco Polo",
+   "title": "The Travels of Marco Polo",
+   "url": "https://en.wikipedia.org/wiki/The_Travels_of_Marco_Polo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-496": {
+   "answer": "John of Montecorvino",
+   "title": "John of Montecorvino",
+   "url": "https://en.wikipedia.org/wiki/John_of_Montecorvino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-497": {
+   "answer": "Drogön Chögyal Phagpa",
+   "title": "Drogön Chögyal Phagpa",
+   "url": "https://en.wikipedia.org/wiki/Drog%C3%B6n_Ch%C3%B6gyal_Phagpa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-498": {
+   "answer": "Zaju",
+   "title": "Zaju",
+   "url": "https://en.wikipedia.org/wiki/Zaju",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-499": {
+   "answer": "Romance of the Western Chamber",
+   "title": "Romance of the Western Chamber",
+   "url": "https://en.wikipedia.org/wiki/Romance_of_the_Western_Chamber",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-500": {
+   "answer": "David Vases",
+   "title": "David Vases",
+   "url": "https://en.wikipedia.org/wiki/David_Vases",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-501": {
+   "answer": "Red Turban Rebellions",
+   "title": "Red Turban Rebellions",
+   "url": "https://en.wikipedia.org/wiki/Red_Turban_Rebellions",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-101": {
+   "answer": "Bent Pyramid",
+   "title": "Bent Pyramid",
+   "url": "https://en.wikipedia.org/wiki/Bent_Pyramid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-102": {
+   "answer": "Red Pyramid",
+   "title": "Red Pyramid",
+   "url": "https://en.wikipedia.org/wiki/Red_Pyramid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-103": {
+   "answer": "Khufu",
+   "title": "Khufu",
+   "url": "https://en.wikipedia.org/wiki/Khufu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-104": {
+   "answer": "Hemiunu",
+   "title": "Hemiunu",
+   "url": "https://en.wikipedia.org/wiki/Hemiunu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-105": {
+   "answer": "Giza pyramid complex",
+   "title": "Giza pyramid complex",
+   "url": "https://en.wikipedia.org/wiki/Giza_pyramid_complex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-106": {
+   "answer": "Khufu ship",
+   "title": "Khufu ship",
+   "url": "https://en.wikipedia.org/wiki/Khufu_ship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-107": {
+   "answer": "Djedefre",
+   "title": "Djedefre",
+   "url": "https://en.wikipedia.org/wiki/Djedefre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-108": {
+   "answer": "Khafre",
+   "title": "Khafre",
+   "url": "https://en.wikipedia.org/wiki/Khafre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-109": {
+   "answer": "Pyramid of Khafre",
+   "title": "Pyramid of Khafre",
+   "url": "https://en.wikipedia.org/wiki/Pyramid_of_Khafre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-110": {
+   "answer": "Khafre Enthroned",
+   "title": "Khafre Enthroned",
+   "url": "https://en.wikipedia.org/wiki/Khafre_Enthroned",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-111": {
+   "answer": "Menkaure",
+   "title": "Menkaure",
+   "url": "https://en.wikipedia.org/wiki/Menkaure",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-112": {
+   "answer": "Pyramid of Menkaure",
+   "title": "Pyramid of Menkaure",
+   "url": "https://en.wikipedia.org/wiki/Pyramid_of_Menkaure",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-113": {
+   "answer": "Heit el-Ghurab",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Fourth Dynasty of Egypt",
+    "Memphite Necropolis",
+    "Great Pyramid of Giza",
+    "List of Egyptian pyramidia",
+    "Kanefer"
+   ]
+  },
+  "eg-114": {
+   "answer": "construction of the Egyptian pyramids",
+   "title": "Construction of the Egyptian pyramids",
+   "url": "https://en.wikipedia.org/wiki/Construction_of_the_Egyptian_pyramids",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-115": {
+   "answer": "Diary of Merer",
+   "title": "Diary of Merer",
+   "url": "https://en.wikipedia.org/wiki/Diary_of_Merer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-116": {
+   "answer": "Hetepheres I",
+   "title": "Hetepheres I",
+   "url": "https://en.wikipedia.org/wiki/Hetepheres_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-117": {
+   "answer": "Khentkaus I",
+   "title": "Khentkaus I",
+   "url": "https://en.wikipedia.org/wiki/Khentkaus_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-118": {
+   "answer": "Fifth Dynasty of Egypt",
+   "title": "Fifth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Fifth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-119": {
+   "answer": "Userkaf",
+   "title": "Userkaf",
+   "url": "https://en.wikipedia.org/wiki/Userkaf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-120": {
+   "answer": "Abu Gorab",
+   "title": "Abu Gorab",
+   "url": "https://en.wikipedia.org/wiki/Abu_Gorab",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-121": {
+   "answer": "Westcar Papyrus",
+   "title": "Westcar Papyrus",
+   "url": "https://en.wikipedia.org/wiki/Westcar_Papyrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-122": {
+   "answer": "Sahure",
+   "title": "Sahure",
+   "url": "https://en.wikipedia.org/wiki/Sahure",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-123": {
+   "answer": "Abusir",
+   "title": "Abusir",
+   "url": "https://en.wikipedia.org/wiki/Abusir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-124": {
+   "answer": "Abusir Papyri",
+   "title": "Abusir Papyri",
+   "url": "https://en.wikipedia.org/wiki/Abusir_Papyri",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-125": {
+   "answer": "Nyuserre Ini",
+   "title": "Nyuserre Ini",
+   "url": "https://en.wikipedia.org/wiki/Nyuserre_Ini",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-126": {
+   "answer": "Unas",
+   "title": "Unas",
+   "url": "https://en.wikipedia.org/wiki/Unas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-127": {
+   "answer": "Pyramid Texts",
+   "title": "Pyramid Texts",
+   "url": "https://en.wikipedia.org/wiki/Pyramid_Texts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-128": {
+   "answer": "Sixth Dynasty of Egypt",
+   "title": "Sixth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Sixth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-129": {
+   "answer": "Teti",
+   "title": "Teti",
+   "url": "https://en.wikipedia.org/wiki/Teti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-130": {
+   "answer": "Pepi I",
+   "title": "Pepi I Meryre",
+   "url": "https://en.wikipedia.org/wiki/Pepi_I_Meryre",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Pepi I"
+  },
+  "eg-131": {
+   "answer": "Pepi II",
+   "title": "Pepi II Neferkare",
+   "url": "https://en.wikipedia.org/wiki/Pepi_II_Neferkare",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Pepi II"
+  },
+  "eg-132": {
+   "answer": "Autobiography of Harkhuf",
+   "title": "Autobiography of Harkhuf",
+   "url": "https://en.wikipedia.org/wiki/Autobiography_of_Harkhuf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-133": {
+   "answer": "Yam",
+   "title": "Yam (Nubia)",
+   "url": "https://en.wikipedia.org/wiki/Yam_(Nubia)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-134": {
+   "answer": "Autobiography of Weni",
+   "title": "Autobiography of Weni",
+   "url": "https://en.wikipedia.org/wiki/Autobiography_of_Weni",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-135": {
+   "answer": "Overseer of Upper Egypt",
+   "title": "Overseer of Upper Egypt",
+   "url": "https://en.wikipedia.org/wiki/Overseer_of_Upper_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-136": {
+   "answer": "Nomarch",
+   "title": "Nomarch",
+   "url": "https://en.wikipedia.org/wiki/Nomarch",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-137": {
+   "answer": "False door",
+   "title": "False door",
+   "url": "https://en.wikipedia.org/wiki/False_door",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-138": {
+   "answer": "Giza West Field",
+   "title": "Giza West Field",
+   "url": "https://en.wikipedia.org/wiki/Giza_West_Field",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-139": {
+   "answer": "4.2-kiloyear event",
+   "title": "4.2-kiloyear event",
+   "url": "https://en.wikipedia.org/wiki/4.2-kiloyear_event",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-140": {
+   "answer": "Coptos Decrees",
+   "title": "Coptos Decrees",
+   "url": "https://en.wikipedia.org/wiki/Coptos_Decrees",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-141": {
+   "answer": "Heracleopolis Magna",
+   "title": "Heracleopolis Magna",
+   "url": "https://en.wikipedia.org/wiki/Heracleopolis_Magna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-142": {
+   "answer": "Seventh Dynasty of Egypt",
+   "title": "Seventh Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Seventh_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-143": {
+   "answer": "Eighth Dynasty of Egypt",
+   "title": "Eighth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Eighth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-144": {
+   "answer": "Meryibre Khety",
+   "title": "Meryibre Khety",
+   "url": "https://en.wikipedia.org/wiki/Meryibre_Khety",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-145": {
+   "answer": "Tenth Dynasty of Egypt",
+   "title": "Tenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Tenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-146": {
+   "answer": "Intef the Elder",
+   "title": "Intef the Elder",
+   "url": "https://en.wikipedia.org/wiki/Intef_the_Elder",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-147": {
+   "answer": "Eleventh Dynasty of Egypt",
+   "title": "Eleventh Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Eleventh_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-148": {
+   "answer": "Intef II",
+   "title": "Intef II",
+   "url": "https://en.wikipedia.org/wiki/Intef_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-149": {
+   "answer": "Tefibi",
+   "title": "Tefibi",
+   "url": "https://en.wikipedia.org/wiki/Tefibi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-150": {
+   "answer": "Ankhtifi",
+   "title": "Ankhtifi",
+   "url": "https://en.wikipedia.org/wiki/Ankhtifi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-151": {
+   "answer": "Khety I",
+   "title": "Khety I (nomarch)",
+   "url": "https://en.wikipedia.org/wiki/Khety_I_(nomarch)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-152": {
+   "answer": "Gebelein",
+   "title": "Gebelein",
+   "url": "https://en.wikipedia.org/wiki/Gebelein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-153": {
+   "answer": "Societal collapse",
+   "title": "Societal collapse",
+   "url": "https://en.wikipedia.org/wiki/Societal_collapse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-154": {
+   "answer": "Dendera",
+   "title": "Dendera",
+   "url": "https://en.wikipedia.org/wiki/Dendera",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-155": {
+   "answer": "Ancient Egyptian funerary texts",
+   "title": "Ancient Egyptian funerary texts",
+   "url": "https://en.wikipedia.org/wiki/Ancient_Egyptian_funerary_texts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-156": {
+   "answer": "Coffin Texts",
+   "title": "Coffin Texts",
+   "url": "https://en.wikipedia.org/wiki/Coffin_Texts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-157": {
+   "answer": "Qaw el-Kebir",
+   "title": "Qaw el-Kebir",
+   "url": "https://en.wikipedia.org/wiki/Qaw_el-Kebir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-158": {
+   "answer": "MMA 507",
+   "title": "MMA 507",
+   "url": "https://en.wikipedia.org/wiki/MMA_507",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-159": {
+   "answer": "Complaints of Khakheperraseneb",
+   "title": "Complaints of Khakheperraseneb",
+   "url": "https://en.wikipedia.org/wiki/Complaints_of_Khakheperraseneb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-160": {
+   "answer": "Admonitions of Ipuwer",
+   "title": "Ipuwer Papyrus",
+   "url": "https://en.wikipedia.org/wiki/Ipuwer_Papyrus",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Admonitions of Ipuwer"
+  },
+  "eg-161": {
+   "answer": "Dispute Between a Man and His Ba",
+   "title": "Dispute Between a Man and His Ba",
+   "url": "https://en.wikipedia.org/wiki/Dispute_Between_a_Man_and_His_Ba",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-162": {
+   "answer": "Teaching for King Merykara",
+   "title": "Teaching for King Merykara",
+   "url": "https://en.wikipedia.org/wiki/Teaching_for_King_Merykara",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-163": {
+   "answer": "Eloquent Peasant",
+   "title": "The Eloquent Peasant",
+   "url": "https://en.wikipedia.org/wiki/The_Eloquent_Peasant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-164": {
+   "answer": "Wepwawet",
+   "title": "Wepwawet",
+   "url": "https://en.wikipedia.org/wiki/Wepwawet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-165": {
+   "answer": "Aamu",
+   "title": "Aamu",
+   "url": "https://en.wikipedia.org/wiki/Aamu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-166": {
+   "answer": "Medjay",
+   "title": "Medjay",
+   "url": "https://en.wikipedia.org/wiki/Medjay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-167": {
+   "answer": "C-Group culture",
+   "title": "C-Group culture",
+   "url": "https://en.wikipedia.org/wiki/C-Group_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-168": {
+   "answer": "Mentuhotep II",
+   "title": "Mentuhotep II",
+   "url": "https://en.wikipedia.org/wiki/Mentuhotep_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-169": {
+   "answer": "Thinis",
+   "title": "Thinis",
+   "url": "https://en.wikipedia.org/wiki/Thinis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-170": {
+   "answer": "Hatnub",
+   "title": "Hatnub",
+   "url": "https://en.wikipedia.org/wiki/Hatnub",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-171": {
+   "answer": "Prophecy of Neferti",
+   "title": "Prophecy of Neferti",
+   "url": "https://en.wikipedia.org/wiki/Prophecy_of_Neferti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-172": {
+   "answer": "Meketre",
+   "title": "Meketre",
+   "url": "https://en.wikipedia.org/wiki/Meketre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-173": {
+   "answer": "Kawit",
+   "title": "Kawit",
+   "url": "https://en.wikipedia.org/wiki/Kawit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-174": {
+   "answer": "Mentuhotep IV",
+   "title": "Mentuhotep IV",
+   "url": "https://en.wikipedia.org/wiki/Mentuhotep_IV",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-175": {
+   "answer": "Twelfth Dynasty of Egypt",
+   "title": "Twelfth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twelfth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-176": {
+   "answer": "Amenemhat I",
+   "title": "Amenemhat I",
+   "url": "https://en.wikipedia.org/wiki/Amenemhat_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-177": {
+   "answer": "Itjtawy",
+   "title": "Itjtawy",
+   "url": "https://en.wikipedia.org/wiki/Itjtawy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-178": {
+   "answer": "Instructions of Amenemhat",
+   "title": "Instructions of Amenemhat",
+   "url": "https://en.wikipedia.org/wiki/Instructions_of_Amenemhat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-179": {
+   "answer": "Satire of the Trades",
+   "title": "The Satire of the Trades",
+   "url": "https://en.wikipedia.org/wiki/The_Satire_of_the_Trades",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-180": {
+   "answer": "Senusret I",
+   "title": "Senusret I",
+   "url": "https://en.wikipedia.org/wiki/Senusret_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-181": {
+   "answer": "Story of Sinuhe",
+   "title": "Story of Sinuhe",
+   "url": "https://en.wikipedia.org/wiki/Story_of_Sinuhe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-182": {
+   "answer": "White Chapel",
+   "title": "White Chapel",
+   "url": "https://en.wikipedia.org/wiki/White_Chapel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-183": {
+   "answer": "Amenemhat II",
+   "title": "Amenemhat II",
+   "url": "https://en.wikipedia.org/wiki/Amenemhat_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-184": {
+   "answer": "Senusret II",
+   "title": "Senusret II",
+   "url": "https://en.wikipedia.org/wiki/Senusret_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-185": {
+   "answer": "Lake Moeris",
+   "title": "Lake Moeris",
+   "url": "https://en.wikipedia.org/wiki/Lake_Moeris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-186": {
+   "answer": "El Lahun",
+   "title": "El Lahun",
+   "url": "https://en.wikipedia.org/wiki/El_Lahun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-187": {
+   "answer": "Lahun Papyri",
+   "title": "Kahun Papyri",
+   "url": "https://en.wikipedia.org/wiki/Kahun_Papyri",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Lahun Papyri"
+  },
+  "eg-188": {
+   "answer": "Senusret III",
+   "title": "Senusret III",
+   "url": "https://en.wikipedia.org/wiki/Senusret_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-189": {
+   "answer": "Khnumhotep III",
+   "title": "Khnumhotep III",
+   "url": "https://en.wikipedia.org/wiki/Khnumhotep_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-190": {
+   "answer": "Djehutihotep",
+   "title": "Djehutihotep",
+   "url": "https://en.wikipedia.org/wiki/Djehutihotep",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-191": {
+   "answer": "Wawat",
+   "title": "Wawat",
+   "url": "https://en.wikipedia.org/wiki/Wawat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-192": {
+   "answer": "Mirgissa",
+   "title": "Mirgissa",
+   "url": "https://en.wikipedia.org/wiki/Mirgissa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-193": {
+   "answer": "Buhen",
+   "title": "Buhen",
+   "url": "https://en.wikipedia.org/wiki/Buhen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-194": {
+   "answer": "Semna",
+   "title": "Semna (Nubia)",
+   "url": "https://en.wikipedia.org/wiki/Semna_(Nubia)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-195": {
+   "answer": "Semna Despatches",
+   "title": "Semna Despatches",
+   "url": "https://en.wikipedia.org/wiki/Semna_Despatches",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-196": {
+   "answer": "Amenemhat III",
+   "title": "Amenemhat III",
+   "url": "https://en.wikipedia.org/wiki/Amenemhat_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-197": {
+   "answer": "Labyrinth of Egypt",
+   "title": "Labyrinth of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Labyrinth_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-198": {
+   "answer": "Tanite sphinxes",
+   "title": "Tanite sphinxes",
+   "url": "https://en.wikipedia.org/wiki/Tanite_sphinxes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-199": {
+   "answer": "Sobekneferu",
+   "title": "Sobekneferu",
+   "url": "https://en.wikipedia.org/wiki/Sobekneferu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-200": {
+   "answer": "Thirteenth Dynasty of Egypt",
+   "title": "Thirteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Thirteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
