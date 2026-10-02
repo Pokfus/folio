@@ -99,6 +99,30 @@ card actually answers. The reasons fall into four kinds:
   Red and White Crowns → Pschent, which wears both (so `eg-796 Crowns of Egypt` needs another answer);
   the royal tombs at Abydos → Djet, one tomb, since `eg-063` is the cemetery.
 
+**`eg-101`–`eg-200` (written together, in ten parallel batches) retitled 56 lines**, and the list below
+shows the term each card answers. The same four kinds again:
+
+- **Already taken**: the Great Pyramid (`wh-212`) → Hemiunu, its probable overseer; the Great Sphinx
+  (`wh-213`) → Khafre Enthroned, from the valley temple beside it (the Sphinx Temple has no article); the
+  First Intermediate Period (`wh-217`) → Heracleopolis Magna; the Middle Kingdom (`wh-218`) → the
+  Prophecy of Neferti; the cult of Ra (Ra is `eg-663`) → the Westcar Papyrus; the rise of Thebes (Thebes
+  is `eg-391`) → Intef the Elder; the mortuary temple of Mentuhotep II (Deir el-Bahari is `eg-414`) →
+  Kawit, buried inside it. The Instruction of Amenemhat moved up to `eg-178`, which had no term of its
+  own for the assassination it tells, and `eg-179` took the Satire of the Trades beside it.
+- **The line named an area**: `eg-113`, `eg-114`, `eg-117`, `eg-135`–`eg-138`, `eg-140`, `eg-142`,
+  `eg-144`, `eg-148`, `eg-149`, `eg-151`–`eg-155`, `eg-157`–`eg-159`, `eg-164`–`eg-166`, `eg-169`,
+  `eg-170`, `eg-172`, `eg-185`, `eg-189`–`eg-192`, `eg-198`.
+- **Two subjects on one line**: the Seventh and Eighth Dynasties → the Seventh at `eg-142` and the Eighth
+  at `eg-143`; the Ninth and Tenth → the Tenth (the Ninth through its founder, Meryibre Khety, `eg-144`);
+  Mentuhotep III and IV → Mentuhotep IV; Hawara and the Labyrinth → the Labyrinth.
+- **Wikipedia's head word differs**: Harkhuf and Weni → their Autobiographies; Yam keys as `Yam_(Nubia)`
+  so the bare word cannot auto-link; Lahun → El Lahun; the Lahun papyri key as `Kahun_Papyri`; the
+  Merikare and Ba texts take Wikipedia's titles. `Heit_el-Ghurab` has no Wikipedia article and keys under
+  the excavators' name for the site.
+
+Two answer terms collided between batches before import and were moved: Wawat stays at `eg-191`, so
+`eg-166` took the Medjay; the Prophecy of Neferti stays at `eg-171`, so `eg-170` took Hatnub.
+
 `Naqada_culture` gave up its bare `Naqada`, `Amratian` and `Gerzean` aliases in the same commit, to the
 new `Naqada` (the site), `Naqada_I` and `Naqada_II` terms.
 
@@ -506,109 +530,109 @@ safe.
     eg-101  Bent Pyramid
     eg-102  Red Pyramid
     eg-103  Khufu
-    eg-104  Great Pyramid of Giza
+    eg-104  Hemiunu
     eg-105  Giza pyramid complex
     eg-106  Khufu ship
     eg-107  Djedefre
     eg-108  Khafre
     eg-109  Pyramid of Khafre
-    eg-110  Great Sphinx of Giza
+    eg-110  Khafre Enthroned
     eg-111  Menkaure
     eg-112  Pyramid of Menkaure
-    eg-113  The pyramid builders' settlement at Giza
-    eg-114  How the pyramids were built
+    eg-113  Heit el-Ghurab
+    eg-114  The construction of the Egyptian pyramids
     eg-115  Diary of Merer
     eg-116  Hetepheres I
-    eg-117  Old Kingdom queens
+    eg-117  Khentkaus I
     eg-118  Fifth Dynasty of Egypt
     eg-119  Userkaf
-    eg-120  The sun temples of Abu Gurab
-    eg-121  The rise of the cult of Ra
+    eg-120  Abu Gorab
+    eg-121  Westcar Papyrus
     eg-122  Sahure
     eg-123  Abusir
     eg-124  Abusir Papyri
-    eg-125  Nyuserre and the Fifth Dynasty court
+    eg-125  Nyuserre Ini
     eg-126  Unas
     eg-127  Pyramid Texts
     eg-128  Sixth Dynasty of Egypt
     eg-129  Teti
     eg-130  Pepi I
     eg-131  Pepi II
-    eg-132  Harkhuf
-    eg-133  The expeditions to Yam
-    eg-134  Weni
-    eg-135  Old Kingdom provincial government
-    eg-136  The rise of the nomarchs
-    eg-137  Old Kingdom tomb decoration
-    eg-138  The mastaba fields of Giza and Saqqara
-    eg-139  The 4.2-kiloyear event and Egypt
-    eg-140  The collapse of the Old Kingdom
+    eg-132  Autobiography of Harkhuf
+    eg-133  Yam
+    eg-134  Autobiography of Weni
+    eg-135  Overseer of Upper Egypt
+    eg-136  Nomarch
+    eg-137  False door
+    eg-138  Giza West Field
+    eg-139  4.2-kiloyear event
+    eg-140  Coptos Decrees
 
 ### The First Intermediate Period — `eg-first-intermediate`
 
-    eg-141  First Intermediate Period of Egypt
-    eg-142  Dating the First Intermediate Period
-    eg-143  Seventh and Eighth Dynasties of Egypt
-    eg-144  The Herakleopolitan kings
-    eg-145  Ninth and Tenth Dynasties of Egypt
-    eg-146  The rise of Thebes
+    eg-141  Heracleopolis Magna
+    eg-142  Seventh Dynasty of Egypt
+    eg-143  Eighth Dynasty of Egypt
+    eg-144  Meryibre Khety
+    eg-145  Tenth Dynasty of Egypt
+    eg-146  Intef the Elder
     eg-147  Eleventh Dynasty of Egypt
-    eg-148  The Intef kings
-    eg-149  The war between Thebes and Herakleopolis
+    eg-148  Intef II
+    eg-149  Tefibi
     eg-150  Ankhtifi
-    eg-151  The nomarchs' autobiographies
-    eg-152  Famine in the First Intermediate Period
-    eg-153  Was there a collapse?
-    eg-154  Provincial art of the First Intermediate Period
-    eg-155  The democratisation of the afterlife
+    eg-151  Khety I
+    eg-152  Gebelein
+    eg-153  Societal collapse
+    eg-154  Dendera
+    eg-155  Ancient Egyptian funerary texts
     eg-156  Coffin Texts
-    eg-157  First Intermediate Period burial
-    eg-158  The soldiers' tomb at Deir el-Bahari
-    eg-159  Egyptian pessimistic literature
+    eg-157  Qaw el-Kebir
+    eg-158  MMA 507
+    eg-159  Complaints of Khakheperraseneb
     eg-160  Admonitions of Ipuwer
-    eg-161  The Dialogue of a Man with His Ba
-    eg-162  Instructions of Merikare
+    eg-161  Dispute Between a Man and His Ba
+    eg-162  Teaching for King Merykara
     eg-163  The Eloquent Peasant
-    eg-164  Local temples and local gods
-    eg-165  Egypt's foreign contacts in the First Intermediate Period
-    eg-166  Nubia in the First Intermediate Period
+    eg-164  Wepwawet
+    eg-165  Aamu
+    eg-166  Medjay
     eg-167  C-Group culture
     eg-168  Mentuhotep II
-    eg-169  The reunification of Egypt
-    eg-170  What the First Intermediate Period changed
+    eg-169  Thinis
+    eg-170  Hatnub
 
 ## The Middle Kingdom
 
 ### The Middle Kingdom — `eg-middle-kingdom`
 
-    eg-171  Middle Kingdom of Egypt
-    eg-172  The Eleventh Dynasty after the reunification
-    eg-173  The mortuary temple of Mentuhotep II
-    eg-174  Mentuhotep III and Mentuhotep IV
+    eg-171  Prophecy of Neferti
+    eg-172  Meketre
+    eg-173  Kawit
+    eg-174  Mentuhotep IV
     eg-175  Twelfth Dynasty of Egypt
     eg-176  Amenemhat I
     eg-177  Itjtawy
-    eg-178  The assassination of Amenemhat I
-    eg-179  The Instruction of Amenemhat
+    eg-178  Instructions of Amenemhat
+    eg-179  Satire of the Trades
     eg-180  Senusret I
     eg-181  Story of Sinuhe
-    eg-182  The White Chapel of Senusret I
+    eg-182  White Chapel
     eg-183  Amenemhat II
     eg-184  Senusret II
-    eg-185  The Faiyum irrigation works
-    eg-186  Lahun
+    eg-185  Lake Moeris
+    eg-186  El Lahun
     eg-187  The Lahun papyri
     eg-188  Senusret III
-    eg-189  The Middle Kingdom administrative reform
-    eg-190  The end of the great nomarchs
-    eg-191  The Middle Kingdom conquest of Nubia
-    eg-192  The Second Cataract fortresses
+    eg-189  Khnumhotep III
+    eg-190  Djehutihotep
+    eg-191  Wawat
+    eg-192  Mirgissa
     eg-193  Buhen
     eg-194  Semna
-    eg-195  The Semna dispatches
+    eg-195  Semna Despatches
     eg-196  Amenemhat III
-    eg-197  Hawara and the Labyrinth
-    eg-198  Middle Kingdom royal portraiture
+    eg-197  Labyrinth of Egypt
+    eg-198  Tanite sphinxes
     eg-199  Sobekneferu
     eg-200  Thirteenth Dynasty of Egypt
     eg-201  Middle Kingdom literature
