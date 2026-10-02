@@ -15054,9 +15054,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      sequence a subset of the bar rather than a pass over the pages — is exactly backwards once the tab bar
      is what a reader has to go on: the swipe was landing them on a page the bar cannot reach, with nothing
      lit in it to say where they were, and no gesture in the same family to get back except the one that had
-     just taken them there. It is reached from the review's own lip ("+ Add decks"), which is the route the
-     home page advertises, and that is now the only one. **A page belongs in this order when it has a tab**;
-     that is the whole rule, and it is why the books LIBRARY is here and Collections is not.
+     just taken them there. **A page belongs in this order when it has a tab**; that is the whole rule, and
+     it is why the books LIBRARY is here. COLLECTIONS IS BACK IN THE ORDER (Oct 2026, on request) for the
+     same reason, the phone's bar having gained a Collections tab again when the home page's "+ Add decks"
+     link was taken out — see index.html.
 
      The guards are the whole of the difficulty, because a false positive here TAKES A PAGE AWAY:
        · touch only. A trackpad's horizontal scroll arrives as wheel, and a mouse drag is a selection.
@@ -15066,7 +15067,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        · never while an overlay is up, never mid-gesture on a control, never while grading.
      And it is deliberately generous on distance (SWIPE_MIN) and strict on angle: a diagonal is a scroll that
      wandered, and reading the page vertically is what a finger is mostly doing. */
-  const SWIPE_ORDER = ["home", "library", "account", "settings"];
+  const SWIPE_ORDER = ["home", "decks", "library", "account", "settings"];
   const SWIPE_MIN = 64, SWIPE_RATIO = 1.6, SWIPE_MS = 700;
   let _navDir = "";        // which way the next render() should come in from
   /* A REPAINT IS NOT A NAVIGATION (Aug 2026, on a bug report: "each time a new active deck is downloaded,
@@ -18065,9 +18066,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       route: "home",
       title: "Nothing is scheduled until you choose it",
       body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>The " +
-        "<b>+ Add decks</b> link beside <b>Your collections</b> is the way to them; on a wide screen the " +
-        "Collections tab in the bar goes to the same page.</p>",
-      target: [".home-collections", "#b-addDecks"],
+        "<b>Collections</b> tab in the bar is the way to them \u2014 the top bar on a wide screen, the bar " +
+        "along the bottom on a phone.</p>",
+      target: [".topbar .tab[data-route='decks']", ".tabbar .tab[data-route='decks']", ".rv-sec-h"],
     },
     {
       route: "decks",
@@ -23197,27 +23198,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Continue reading</span>' +
       '<span class="hb-empty">Nothing open yet \u2014 the Library holds ' + BOOKS.length + ' whole books, free to read.</span></button>';
     const pct = readingPct(b), pos = readingPos(b.id);
-    const where = pos && pos.ch > 0 ? b.chapterWord + " " + pos.ch : "About this book";
+    // the chapter the reader is in; a book still on its front matter names the author alone (Oct 2026, on
+    // request: the "About this book" line is gone)
+    const where = pos && pos.ch > 0 ? " \u00b7 " + b.chapterWord + " " + pos.ch : "";
     return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" style="--tile:' + esc(bookColor(b)) + '">' +
       '<span class="hb-k">Continue reading</span>' +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
-        "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + " \u00b7 " + esc(where) + "</span>" +
+        "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + esc(where) + "</span>" +
         '<span class="hb-bar"><span style="width:' + pct + '%"></span></span><em>' + pct + "% read</em></span></span></button>";
   }
-  /* The week's figures: cards from the daily totals, time and recall from the per-answer log. */
+  /* The day's and the week's figures: cards from the daily totals, time and recall from the per-answer
+     log. TODAY IS A SECTION OF THIS BOX (Oct 2026, on request), where it replaces the "studied 13m today"
+     line that stood under the deck list: the same three figures over the same day the streak counts
+     (`dayKey`, so the reader's own day cut-off applies), read off the one log in one pass. */
   function homeWeekHTML() {
-    const now = Date.now();
-    let cards = 0, secs = 0, right = 0, total = 0;
-    for (let d = 0; d < 7; d++) { const e = (S.reviewLog || {})[dayKey(now - d * DAY)]; if (e) cards += e[0] | 0; }
+    const now = Date.now(), today = dayKey(now);
+    const day = { cards: 0, secs: 0, right: 0, total: 0 }, week = { cards: 0, secs: 0, right: 0, total: 0 };
+    for (let d = 0; d < 7; d++) { const e = (S.reviewLog || {})[dayKey(now - d * DAY)]; if (e) { week.cards += e[0] | 0; if (d === 0) day.cards += e[0] | 0; } }
     const log = S.revlog || [], cut = now - 7 * DAY;
-    for (let i = log.length - 1; i >= 0; i--) { const r = revRead(log[i]); if (!r) continue; if (r.t < cut) break; secs += r.secs || 0; total++; if (r.correct) right++; }
-    const mins = Math.round(secs / 60);
-    const time = mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min";
-    const recall = total ? Math.round((right / total) * 100) + "%" : "\u2014";
-    return '<div class="home-box home-week"><span class="hb-k">This week</span><div class="hw-stats">' +
-      "<div><b>" + cards + "</b><span>cards studied</span></div>" +
-      "<div><b>" + esc(time) + "</b><span>at the desk</span></div>" +
-      '<div class="g"><b>' + recall + "</b><span>recalled</span></div></div>" +
+    for (let i = log.length - 1; i >= 0; i--) {
+      const r = revRead(log[i]); if (!r) continue; if (r.t < cut) break;
+      week.secs += r.secs || 0; week.total++; if (r.correct) week.right++;
+      if (dayKey(r.t) === today) { day.secs += r.secs || 0; day.total++; if (r.correct) day.right++; }
+    }
+    const stats = (f) => {
+      const mins = Math.round(f.secs / 60);
+      const time = mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min";
+      const recall = f.total ? Math.round((f.right / f.total) * 100) + "%" : "\u2014";
+      return '<div class="hw-stats">' +
+        "<div><b>" + f.cards + "</b><span>cards studied</span></div>" +
+        "<div><b>" + esc(time) + "</b><span>at the desk</span></div>" +
+        '<div class="g"><b>' + recall + "</b><span>recalled</span></div></div>";
+    };
+    return '<div class="home-box home-week"><span class="hb-k">Today</span>' + stats(day) +
+      '<span class="hb-k">This week</span>' + stats(week) +
       '<span class="gdeco" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>';
   }
   /* The top three cards of today's pile, fanned beside the banner (desktop and tablet only; see styles.css).
@@ -24767,16 +24781,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        first card is a clock reporting that nothing has happened, which the empty row already says — and it
        counts the study page alone, so the minigames are outside it by construction rather than by a rule
        (see studyTimeAdd). */
-    const dayTime = (() => {
-      const ms = studyTimeToday();
-      /* THE WORD LEADS AND THE FIGURE FOLLOWS — "studied 13m today", not "13m studied today" (Aug 2026, on
-         request). It reads as a sentence about the day rather than as a labelled statistic, which is what
-         the three piles in the banner are and what this deliberately stopped being when it left them.
-         Three flex children rather than two, so the gap spaces them and no text node carries a space of
-         its own; "today" is last and is its own span so the narrowest phones can drop it (see .rv-today),
-         where the longest this prints — "studied 3h 07m today" — runs past the row and ellipsises. */
-      return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><span>studied</span><b>${esc(fmtStudyTime(ms))}</b><span class="rv-today">today</span></div>` : "";
-    })();
+    /* …AND THE TIMER IS GONE FROM HERE ALTOGETHER (Oct 2026, on request: "remove the 'Studied X' timer
+       bottom left of the active decks"). The day's figures are a TODAY section of the This week box at
+       the foot of the page now (homeWeekHTML), beside the week's — the same place for the same kind of
+       number. `studyTimeToday` itself stays: the study page reads it. */
     /* ---------- WHAT THE NEXT ARTEFACT NEEDS (Sep 2026) ----------
        FOUR CHANNELS GRANT A CHEST and only the streak has ever shown its progress — a level, a clean
        sweep of the day's games, finishing all nine whatever the score, and every seventh day of a run.
@@ -24859,7 +24867,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
-              ${/* the day's time on cards stood here and is now under the deck list — see `dayTime` above */""}
+              ${/* the day's time on cards stood here, then under the deck list, and is a Today section of
+                    the This week box since Oct 2026 — see homeWeekHTML */""}
               ${/* THE CTA IS DRAWN ONLY WHILE THERE IS WORK (Aug 2026, on request). A cleared day used to
                     swap "Start" for a ghost "Browse collections", which is a second route to a page the
                     Collections button under this group already names — and it named it in the one place a
@@ -24885,9 +24894,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        It ships at EVERY width and in every state the review can be in, first run included, because the
        Collections tab has left the desktop's top bar too: this is the ONLY route to the collections
        anywhere on the site, so it must not be gated on having decks or on a breakpoint. */
-    const collectionsBtn = `<div class="rv-sec-h"><span>Your collections</span><span class="rv-sec-r">` +
-      `<span class="rv-legend" aria-hidden="true"><span class="n"><i></i>New</span><span class="l"><i></i>Learning</span><span class="r"><i></i>Review</span></span>` +
-      `<button class="home-collections" id="b-addDecks" type="button">+ Add decks</button></span></div>`;
+    /* THE LINK IS GONE AND THE LEGEND IS BACK AT EVERY WIDTH (Oct 2026, on request: "the add decks button
+       should be removed and replaced with the new/learning/review dots and labels again"). The route to
+       the collections is the Collections TAB now — the desktop's top bar has had one since Sep 2026, and
+       the phone's bottom bar gained one with this change (index.html) — so the header is a heading, the
+       deck list's Edit control beside it (see `editActs`), and the legend of the three colours at the
+       right. The tour's step and the About page's first FAQ step name the tab. */
+    const editActs = fresh || (!activeIds.length && !deckEditOn) ? "" : deckEditBarHTML();
+    const collectionsBtn = `<div class="rv-sec-h"><span class="rv-sec-l"><span>Your collections</span>${editActs}</span>` +
+      `<span class="rv-legend" aria-hidden="true"><span class="n"><i></i>New</span><span class="l"><i></i>Learning</span><span class="r"><i></i>Review</span></span></div>`;
     /* …AND IT IS THE CARD'S BOTTOM EDGE AGAIN (Aug 2026, on request: "I don't like the positioning of the
        home page Collections button below the active decks list on tablet and mobile"). Standing free under
        the group, it ended up between the last deck row and the Minigames heading with a gap on either side
@@ -24937,24 +24952,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        of them is not drawn. The row wraps rather than squeezing, so a phone in the mode puts the four
        controls on their own line under the time.
        IT IS DRAWN WHENEVER THERE ARE DECKS, or while the mode is open — that second clause is what keeps
-       Revert reachable after the last deck has been removed, and is why this is not simply gated on
-       `dayTime` as the timer alone was. */
-    const editActs = fresh || (!activeIds.length && !deckEditOn) ? "" : deckEditBarHTML();
-    const footRow = fresh || (!editActs && !dayTime) ? ""
-      : `<div class="rv-foot"><span class="rv-timeslot">${dayTime}</span>${editActs}</div>`;
-    /* HOW LONG HAVE YOU GOT? (Oct 2026, out of an outside review: "make 5/10/20/30-minute sessions
-       central"). The time box has existed since Sep 2026 behind the study bar's Time button, which a reader
-       only meets once a session has started — so "I have ten minutes" could not be said before pressing
-       Start. These chips start the same day's review with that box already running. They are a row of
-       their own at the FOOT of the review group, under its footer row, because the banner is a <button> a
-       control cannot nest in, and the banner, the deck list and the Collections button are drawn as one
-       joined card that a row anywhere inside it would split; and
-       they are drawn only while there is work, a time limit on nothing being no offer at all. Every value
-       is one of the study page's own BOX_CHOICES, which is what it accepts. */
-    const TIME_CHIPS = [5, 10, 20, 30];
-    const timeChips = !fresh && dueN + newN > 0
-      ? `<div class="rv-time" role="group" aria-label="Study for a set time"><span class="rv-time-lbl">Short on time?</span>${TIME_CHIPS.map((m) => `<button type="button" class="rv-time-chip" data-box="${m}">${m} min</button>`).join("")}</div>`
-      : "";
+       Revert reachable after the last deck has been removed.
+       …AND IT HAS LEFT THE FOOT OF THE LIST FOR THE "YOUR COLLECTIONS" HEADER (Oct 2026, on request: the
+       foot row did not sit right on a phone, and "move the button to just behind the 'Your collections'
+       header"). `editActs` is built above, beside `collectionsBtn`, and `.rv-foot` is no longer drawn: the
+       timer it held is a section of the This week box now, and the row had nothing else to hold.
+       THE "SHORT ON TIME?" CHIPS THAT FOLLOWED THE ROW ARE GONE TOO (Oct 2026, on request, a day after
+       they arrived). The study bar's own Time button still opens the same box once a session has begun. */
     /* A FIRST VISITOR CAN TRY TEN CARDS BEFORE CHOOSING ANYTHING (Oct 2026, same review: "a first-time
        user should experience a complete learning cycle before configuring anything"). The sampler already
        exists and writes nothing — no deck added, no card scheduled, no XP — so it is the one way to show
@@ -24983,8 +24987,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   buttons have since left for the banner's corner, so the reason is now the request rather
                   than the space. Restoring it is what "back to where it was before" means; a later
                   session may reasonably ask whether it should still go. */""}
-            ${footRow}
-            ${timeChips}
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -25101,7 +25103,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
       else route("decks");
     });
-    root.querySelectorAll(".rv-time-chip").forEach((b) => b.addEventListener("click", () => route("study", { scope: { type: "review" }, box: +b.dataset.box })));
     { const hs = root.querySelector("#heroSample"); if (hs) hs.addEventListener("click", () => route("sample", { id: hs.dataset.sample })); }
     /* The waiting-chests notice above the banner. It is a real <button> now that it is no longer nested
        inside the banner, so it needs no keydown handler of its own — which is the whole reason for
@@ -25121,7 +25122,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     // the Collections button under the review group and the About line under the games — both at every
     // width now, each being the only route to the page it names anywhere on the site
-    { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
     { const cl = root.querySelector("#b-changelog"); if (cl) cl.addEventListener("click", () => route("mission", { scrollTo: "changelog" })); }
     { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", () => { if (rd.dataset.book) route("book", { id: rd.dataset.book }); else route("library"); }); }
@@ -48200,9 +48200,9 @@ let prev = null;
           <ol class="msn-steps">
             ${/* Step 1 said "Open the Library and choose a collection" — the Library is the room of BOOKS,
                   and has been since the deck page was renamed Collections; two pages called Library is how a
-                  reader ends up on the wrong one. The collections are reached from the "+ Add decks" tab
-                  under the home banner, which is their only route anywhere on the site. */""}
-            ${step(1, "Pick a subject", "Press <b>+ Add decks</b> under the banner on the Home page and choose a collection. Its cards join your daily review.")}
+                  reader ends up on the wrong one. The collections are reached from the Collections tab,
+                  in the top bar on a wide screen and the bottom bar on a phone (Oct 2026). */""}
+            ${step(1, "Pick a subject", "Open <b>Collections</b> from the bar and choose a collection. Its cards join your daily review.")}
             ${step(2, "Study today's cards", "The Home page deals you a small stack every day: new cards, plus any that are due to come back.")}
             ${step(3, "Try to remember", "Every card is a sentence with a blank. Say the answer to yourself first — really try — then press <b>Reveal answer</b>. The trying is what builds the memory.")}
             ${step(4, "Grade yourself", "Press <b>Again</b> if you missed it, <b>Hard</b> if it was a struggle, <b>Good</b> if you got it, <b>Easy</b> if it took no effort. Be honest: the buttons are not points, they set the schedule.")}
@@ -48269,7 +48269,7 @@ let prev = null;
           </div>
           <p class="ai-foot">Folio&rsquo;s own cards are researched from published scholarship and cited; a deck you write is yours and is not held to that. If you share it, say where it came from — and never publish a deck you have not read through yourself.</p>
         </div>
-        <div class="msn-card msn-clog">
+        <div class="msn-card msn-clog" id="changelog">
           <div class="msn-head">${CHIP.clog}<h2>Changelog</h2></div>
           <div class="clog">${logHTML}</div>
         </div>

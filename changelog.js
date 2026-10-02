@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.923", released: "2026-10-02T16:23Z" };
+window.FOLIO_VERSION = { v: "1.928", released: "2026-10-02T17:05Z" };
 
 window.CHANGELOG = [
   {
@@ -45,18 +45,22 @@ window.CHANGELOG = [
       "<b>Updating a downloaded language deck</b> now opens a short summary of what changed: new cards, corrected cards and glossary terms.",
       "<b>The three dots atop a card</b> turn green once all three are filled, and your collections\u2019 counts are coloured figures rather than boxes.",
       "<b>The Atlas shows only real places</b>: 35 cards about people, ideas, eras and nationwide events were pinned under their own name; their globes now name the place.",
-      "<b>Ninety new cards in the Ancient Egypt collection</b>, from the drying of the Sahara through the Predynastic and the first dynasties to Sneferu, each with a cited glossary term.",
+      "<b>A hundred and ninety new cards in the Ancient Egypt collection</b>, from the drying of the Sahara through the pyramid age to the Middle Kingdom, each with a cited glossary term.",
+      "<b>Seven date lines are corrected</b> in the Rome, World History and Korea collections, so those cards sort and map by the right years.",
       "<b>The home page is redesigned</b>: the daily study banner now previews your next cards and estimates the minutes from your own pace, with Start review beneath.",
       "<b>Your streak</b> has a ribbon of its own under the banner, showing the chest every seventh day brings; the Account page's streak box is gone.",
       "<b>Your collections</b> on the home page are tinted rows with blue, red and green counts; the minigames are a list; <b>Continue reading</b> and <b>This week</b> close the page.",
       "<b>The Collections page is redesigned</b> to match, each collection a row with its progress painted across it.",
       "<b>The Studio page is gone</b>: your own decks are written, imported, exported and edited on the Collections page's Your decks tab, in place.",
       "<b>The tour</b> walks the new pages, and the version line moved from the top of the home page to its foot.",
-      "<b>Sixty-one new cards in the China collection</b>, from the Sui reunification through the Tang to the Five Dynasties, with 56 new glossary terms.",
+      "<b>161 new cards in the China collection</b>, from the Sui reunification through the Tang, the Five Dynasties, the Liao, Song, Western Xia and Jin to the Yuan, with 153 new glossary terms.",
       "<b>Shakespeare\u2019s <i>Macbeth</i> is in the Library</b> \u2014 the 1918 Yale edition, act by act, with the editor\u2019s glosses and notes.",
       "<b>A hundred new cards in the Ancient Rome collection</b>, finishing government and law and the provinces and opening family life, each with a glossary term.",
-      "<b>Seventy more Ancient Greece cards are rewritten</b>, finishing the Mycenaean Greece and Early Iron Age decks, with more sources and new pictures.",
-      "<b>A hundred World History cards are rewritten</b>, in the Human origins, Palaeolithic and Peopling the planet decks, with more sources and corrected dates."
+      "<b>A hundred and seventy more Ancient Greece cards are rewritten</b>, finishing the Mycenaean, Early Iron Age and Polis and colonisation decks and most of Sparta, with more sources and new pictures.",
+      "<b>A hundred and seventy World History cards are rewritten</b>, from Human origins to the first Mesopotamian cards, with more sources and corrected dates.",
+      "<b>Collections is a tab in the phone\u2019s bottom bar again</b>, replacing the home page\u2019s + Add decks link; the colour legend shows at every width.",
+      "<b>The home page is tidied</b>: a gold level bar, rounded banner corners, the Edit control beside Your collections, and a <b>Today</b> section in This week.",
+      "<b>The Short on time? chips and the studied-today line are gone</b> from under the deck list, and the Changelog link now lands on the changelog itself."
     ]
   },
   {

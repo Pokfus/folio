@@ -200,7 +200,7 @@ as each card's first row; the radiocarbon figures, where a card gives them, are 
 | Phoenicians at Kommos | from c. 900 BCE; over before c. 600 BCE | Haggis's review of *Kommos IV*; Lamaze's review of Muñoz Sogas (`gr-151`) |
 | Ionian migration | Miletus settled c. 1050 BCE; Ephesus founded in the mid-11th century BCE | Smith's review of Gorman; Rzepka's review, reporting Kerschner (`gr-152`) |
 | Aeolian migration | no BCE date: Strabo dates it only as four generations before the Ionian migration | `gr-153` keeps an empty date line |
-| Return of the Heracleidae in Spartan genealogy | perhaps as early as c. 700 BCE (an earliest date, not "by") | Larson's review of Kõiv (`gr-155`); **`gr-234` may carry the same misreading as "by" and should be checked in B25** |
+| Return of the Heracleidae in Spartan genealogy | perhaps as early as c. 700 BCE (an earliest date, not "by") | Larson's review of Kõiv (`gr-155`); `gr-234` carried the same misreading as "by" and was corrected in B25 ("Earliest claim c. 700 BCE") |
 | Koine spreads | c. 400 – 300 BCE | Buck 1910 (`gr-156`) |
 | Opheltas spit | c. 1050 – 950 BCE; Megalopolis decree in Arcadian c. 200 BCE | Petrakis's review of Steele; Buck (`gr-157`) |
 | Cypriot city-kingdoms | first recorded c. 707 BCE (Sargon II); Kition's last king killed 312 BCE | Körner's and Gill's reviews (`gr-158`) |
@@ -217,6 +217,82 @@ as each card's first row; the radiocarbon figures, where a card gives them, are 
 | Warrior burials | bent swords at Athens c. 950 – 850 BCE; the Eretria West Gate plot c. 710 – 680 BCE | Lloyd 2014 (`gr-169`) |
 | Eighth-century revival | turning point c. 750 BCE | Owen's review (`gr-170`) |
 
+## The polis, colonisation and Sparta (confirmed by B19–B28, `gr-171` – `gr-270`)
+
+**Where a source gives only a century, the card says the century**, on the date line and in prose, and never
+turns it into a year range (`gr-190`, `gr-195`, `gr-197`, `gr-203`, `gr-214`, `gr-219`, `gr-231`, `gr-235`,
+`gr-239`, `gr-250`). A line holding only centuries yields no sort year, so such a card's line is left empty and
+the century stays in prose (`gr-220`, `gr-251`, `gr-254`, `gr-259`).
+
+| period or event | the collection says | source |
+|---|---|---|
+| Dreros law | inscribed c. 650 BCE | Youni; Papakonstantinou's review of Gagarin (`gr-171`) |
+| Hoplite panoply | common by the mid-7th century BCE; bronze panoply worn from c. 725 BCE; Corinthian helmet most worn c. 580 – 500 BCE, going out c. 500 – 475 BCE | Howe's review of Snodgrass (`gr-180`); Lanphier 2025 (`gr-183`) |
+| Massed phalanx | by 700 BCE | Lanphier 2025 (`gr-181`) |
+| Double-grip shield | emerged c. 720 – 700 BCE | Daly's review of van Wees (`gr-182`) |
+| Hoplite reform | arms visible c. 700 BCE; decisive change c. 650 – 640 BCE on one view; the orthodox account from 1947 | Lloyd 2014; Sears's review (`gr-184`) |
+| Chigi vase | painted c. 650 – 640 BCE; excavated 1882 | Powell's review of Giuliani; Rasmussen 2013 (`gr-185`) |
+| Orthagorids of Sicyon; Cypselids of Corinth | from c. 670 BCE; from c. 655 BCE | Rackham's notes to Aristotle, *Politics* 1315b (`gr-186`, `gr-187`) |
+| Periander | ruled c. 626 – 585 BCE; a lower chronology ends the dynasty c. 550 – 540 BCE | Rackham's note to *Politics* 1284a; Mosshammer's review of Lapini (`gr-188`) |
+| Corinth | Neolithic c. 6500 – 3250 BCE; temple of Apollo c. 560 BCE; razed 146 BCE; refounded 44 BCE | Koursoumis (Odysseus) (`gr-189`) |
+| Diolkos | built in the 6th century BCE; Roman fleet hauled 102 BCE; Nero's canal 66 – 68 CE | the ministry's Diolkos page; Slane's review of Pettegrew (`gr-190`) |
+| Cleisthenes of Sicyon | ruled c. 600 – 569 BCE; Agariste married c. 575 BCE; the dynasty ended c. 520 – 505 BCE | Parker, *Tyche* 1992 (`gr-191`) |
+| Polycrates | tyrant of Samos 538 – 522 BCE | Viglaki-Sofianou (Odysseus), as `gr-165` (`gr-192`) |
+| Tunnel of Eupalinos | cut c. 550 – 540 BCE; rediscovered 1853 | Chatzidakis (Odysseus); Viglaki-Sofianou (`gr-193`) |
+| Pheidon of Argos | usually c. 675 BCE; Pausanias's eighth Olympiad, 748 BCE (`gr-244` gives Fragkaki's c. 670 BCE in an answer) | Lavelle's review of de Libero; Pausanias 6.22.2 (`gr-194`) |
+| Archaic Argos | dominant in the north-east Argolid in the late 8th century BCE; Sepeia often dated 494 BCE; a fourth tribe from c. 460 BCE | Larson's review of Kõiv; Franchi; Kierstead's review of Grote (`gr-195`) |
+| Aegina | independent c. 618 – 613 BCE; Salamis 480 BCE; walls and fleet taken c. 456 BCE; people expelled 431 BCE | Loomis's and Crane's reviews of Figueira (`gr-196`) |
+| Chalcis and Eretria | Chalcis founded in the 11th century BCE, Eretria in the 9th; Chalcis beaten by Athens 507 – 506 BCE; Eretria sacked 490 BCE | Domínguez's review of Parker; Munn's review (`gr-197`) |
+| Lelantine War | proposed dates c. 750 – 550 BCE; one reconstruction c. 710 – 650 BCE; Lefkandi burnt c. 700 BCE; Chalcis taken by Athens 506 BCE | Domínguez's review of Parker; Bershadsky (`gr-198`) |
+| Archaic Miletus | Ionians settle c. 1050 BCE (as `gr-152`); Ionian Revolt 499 – 494 BCE | Smith's review of Gorman (`gr-199`, `gr-200`) |
+| Ionia | classical Ionia 480 – 294 BCE | Mac Sweeney's review of Nudell (`gr-200`) |
+| Panionion | the League perhaps founded c. 600 BCE, if the site near Melia is right | Demetriou's review (`gr-201`) |
+| Artemision at Ephesus | archaic temple c. 560 – 550 BCE; burnt 356 BCE; Goths 262 CE; found 1870 | Townsend's and Naerebout's reviews; Wendt (`gr-202`) |
+| Greek colonisation | began in the 8th century BCE; Corcyra 733 BCE; most Black Sea cities in the 7th – 6th centuries BCE | Hodos's review; Thucydides 6.3–4; Baebler's review (`gr-203`, `gr-218`) |
+| Cyrene | founded c. 630 BCE; Demonax c. 550 BCE; Jewish revolt 116 – 117 CE | Larson's review of Brock and Hodkinson; Barron's review of Capponi (`gr-206`, `gr-207`) |
+| Syracuse | founded c. 733 BCE by tradition, c. 680 – 675 BCE on one low dating; taken by Rome 212 BCE | Evans's review; Muccioli's review of Evans (`gr-208`) |
+| Megara Hyblaea | founded c. 728 BCE; taken by Gelon 483 or 482 BCE | Tréziny 2016; Smith's review of De Angelis (`gr-209`) |
+| Gela and Acragas | Gela 688 BCE; Acragas taken 406 BCE; Gela destroyed 405 BCE | Evans's review; McConnell's review (`gr-210`) |
+| Selinus | Diodorus 651 – 650 BCE, Thucydides 628 – 627 BCE; temples c. 600 – 460 BCE; sacked 409 BCE | Smith's and Barletta's reviews; Diodorus 13.57 (`gr-211`) |
+| Sybaris; Croton | Sybaris c. 720 BCE and Croton c. 709 or 703 BCE (the translators' notes to Strabo, after Eusebius); Sybaris taken 510 BCE; Thurii 444 – 443 BCE; Croton's Olympic century 588 – 488 BCE | Strabo 6.1.12–13 (Hamilton and Falconer); Nielsen's review of Mann (`gr-212`, `gr-213`) |
+| Taras | founded in the 8th century BCE; beaten by the Iapygians 473 BCE; war with Rome 282 – 281 BCE; lost its freedom 209 BCE | Larson's review; Diodorus 11.52; Strabo 6.3.4 (`gr-214`) |
+| Cumae | founded no later than c. 730 – 720 BCE, perhaps c. 750 BCE; Etruscans routed 524 BCE; Hieron's sea victory 474 BCE; Campanians 421 BCE | Evans's review; Dionysius of Halicarnassus 7.3–7; Diodorus 11.51 (`gr-215`, `gr-223`) |
+| Massalia | founded c. 600 BCE; sided with Pompey 49 BCE | Davidson's review; Krotscheck (`gr-216`) |
+| Emporion | settled c. 575 – 550 BCE; Roman landing 218 BCE | Miró and Santos (`gr-217`) |
+| Berezan | 647 BCE in Eusebius; c. 625 – 600 BCE by its finds | Baebler's review of Solovyov (`gr-218`) |
+| Byzantium | founded from Megara in the 7th century BCE; left Athens 411 BCE; war with Rhodes 220 BCE; Constantine's new bounds 11 May 330 CE | Kimball's review of Russell; Polybius 4.38; Feeney's review (`gr-219`) |
+| Olbia | founded in the second quarter of the 6th century BCE; sacked by the Getae in the mid-1st century BCE (prose only) | Rusjaeva (`gr-220`) |
+| Naucratis | occupied from c. 615 – 610 BCE; Amasis 570 – 526 BCE | Bozkuş 2023 (`gr-221`) |
+| Greek mercenaries in Egypt | Psammetichus I 664 – 610 BCE; Abu Simbel 593 – 592 BCE | Nadig's review; Struffolino (`gr-222`) |
+| Coinage | invented c. 660 – 630 BCE; Athens minting c. 525 – 500 BCE; the Ephesus deposit c. 640 – 620 BCE | Meadows 2021; Monson's review of van Wees (`gr-224`, `gr-225`) |
+| Olympic Games and truce | first games 776 BCE by tradition; Hippias's list c. 400 BCE; Sparta barred 420 BCE; still held 385 CE; ended c. 408 – 450 CE, not 393 | Brunet's review of Christesen; Thucydides 5.49–50; Kennell's review of Remijsen (`gr-229`, `gr-230`) |
+| Pythian games | founded 586 or 582 BCE | Childs's review (`gr-228`) |
+| Sparta | state formed in the 8th century BCE; empire 404 – 371 BCE; independence ended 192 BCE; taken by Alaric 396 CE | Larson's review; Smith's review of Matyszak; Humble's review (`gr-231`) |
+| Messenia | conquered in the 8th – 7th centuries BCE; freed 370 – 369 BCE | Lafond's and Roy's reviews of Luraghi (`gr-233`, `gr-235`, `gr-239`, `gr-240`) |
+| First and Second Messenian Wars | traditionally 743 – 724 and 685 – 668 BCE (Pausanias, by the Loeb notes); lowered to c. 690 – 670 and c. 640 – 600 BCE on one reconstruction | Pausanias 4.5, 4.13, 4.15, 4.23; van Wees's review of Meier (`gr-236`, `gr-237`) |
+| Tyrtaeus | prime 640 – 637 BCE (the Suda's 35th Olympiad) | Edmonds, *Elegy and Iambus* (`gr-238`) |
+| Perioikic towns | defected 370 – 369 BCE; freed from Sparta c. 195 BCE | Hawkins; Shipley's review (`gr-240`) |
+| Great earthquake; Kinadon | 464 BCE; 399 BCE | Doran's review of Thommen; Xenophon, *Hellenica* 3.3 (`gr-241`) |
+| Krypteia | first named in the 4th century BCE; a unit at Sellasia c. 222 BCE | Newman 2021 (`gr-242`) |
+| Great Rhetra | 7th century BCE; c. 650 BCE on one reading | Fragkaki 2015 (`gr-244`, `gr-245`, `gr-247`, `gr-249`) |
+| Spartan kingship | abolished under Nabis, 207 – 192 BCE; Agis IV 245 – 241 BCE; Cleomenes III 235 – 222 BCE | Pedersen's review of Michalopoulos (`gr-245`, `gr-246`, `gr-252`) |
+| Ephorate | in place by c. 700 BCE on one view, from the 6th century BCE on another; abolished 227 BCE | Figueira's review of Richer; Domínguez's review of Thommen (`gr-248`) |
+| Spartan war vote | 432 BCE | Thucydides 1.87; Fragkaki (`gr-249`) |
+| Agoge | basics by the 7th century BCE; the word not before the mid-3rd century BCE; lapsed 188 – 146 BCE | Larson's review; Keen's review of Kennell (`gr-250`) |
+| Cynisca's Olympic wins | possibly 396 and 392 BCE; Laconia invaded 369 BCE | Kulesza 2022; Aristotle, *Politics* 2.1269b (`gr-253`) |
+| Plataea; Leuctra | 479 BCE; 371 BCE | Kulesza 2022 (`gr-255`, `gr-241`, `gr-256`, `gr-265`) |
+| Mantinea; Lechaeum | 418 BCE; 390 BCE (Hawkins gives 391; the collection keeps 390 with Xenophon's Perseus edition and `gr-180`) | Thucydides 5.68–72; Xenophon, *Hellenica* 4.5 (`gr-181`, `gr-256`, `gr-257`) |
+| Menelaion | mansion c. 1450 – 1400 BCE; final ruin c. 1200 BCE; cult from c. 700 BCE | Rutter, Lesson 20; Kulesza 2022 (`gr-260`) |
+| Artemis Orthia | first temple c. 700 BCE at the earliest; rebuilt in the 6th century BCE; amphitheatre 3rd century CE | Kulesza 2022 (`gr-261`) |
+| Laconian black-figure | c. 580 – 530 BCE; peak c. 575 – 550 BCE | Pavlides's review; Bergeron (`gr-262`) |
+| Alcman | born 672 – 669 BCE in the Suda, a disputed date; active in the 7th century BCE | Suda On Line (`gr-263`) |
+| Spartan mirage | the term from 1933 | Doran's review of Thommen; Kulesza 2022 (`gr-264`) |
+| Peloponnesian League | took shape in the 6th century BCE; against Samos c. 525 BCE; decayed after Leuctra | Kulesza 2022 (`gr-265`) |
+| Chilon | c. 560 BCE | Hicks's Diogenes Laertius (`gr-266`) |
+| Cleomenes I | reigned c. 520 – 489 BCE; to Aegina 491 BCE | Papalas's review; Pausanias 3.4 (`gr-267`) |
+| Demaratus | Eleusis 506 BCE; with Xerxes 480 BCE | Domínguez's review; Herodotus (`gr-268`) |
+| Socles' speech | c. 504 BCE | DeVore's review (`gr-270`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -230,7 +306,7 @@ sources when its batch comes round, and a disputed one given as a range.
 | Hipparchus killed by Harmodius and Aristogeiton | 514 BCE |
 | Hippias expelled | 510 BCE |
 | Cleisthenes' reforms | 508 – 507 BCE |
-| Croesus king of Lydia | c. 560 – 546 BCE (the fall of Sardis is conventionally 546 BCE; disputed) |
+| Croesus king of Lydia | from c. 560 BCE; Sardis taken 547 BCE by the Nabonidus Chronicle, 546 BCE in Eusebius (confirmed by B24: Cahill, `gr-226`; `gr-269` gives his reign as c. 560 – 546 BCE after Jones's note to Pausanias) |
 | Cyrus II | c. 559 – 530 BCE |
 | Darius I | 522 – 486 BCE |
 | Xerxes I | 486 – 465 BCE |
@@ -415,4 +491,87 @@ gr-167: 750; 700; 675
 gr-168: 900; 700; 600
 gr-169: 950; 850; 710; 680
 gr-170: 750
+gr-171: 650
+gr-180: 390
+gr-181: 700; 418; 371
+gr-182: 720; 700; 425
+gr-183: 725; 580; 500; 475
+gr-184: 700; 650; 640; 1947
+gr-185: 650; 640; 1882
+gr-186: 670; 655
+gr-187: 655
+gr-188: 626; 585
+gr-189: 6500; 3250; 560; 146; 44
+gr-190: 102; 66; 68
+gr-191: 600; 569; 575; 520; 505
+gr-192: 538; 522
+gr-193: 550; 540; 1853
+gr-194: 675; 748
+gr-195: 494
+gr-196: 618; 613; 480; 431
+gr-197: 507; 506; 490
+gr-198: 750; 550; 710; 650; 700
+gr-199: 1050; 499; 494
+gr-200: 499; 494; 480; 294
+gr-201: 600
+gr-202: 560; 550; 356; 1870
+gr-203: 733
+gr-206: 630; 550; 116; 117
+gr-207: 630
+gr-208: 733; 680; 675; 212
+gr-209: 728; 483; 482
+gr-210: 688; 406; 405
+gr-211: 651; 650; 628; 627; 600; 460; 409
+gr-212: 720; 510; 444; 443
+gr-213: 709; 703; 588; 488; 510
+gr-214: 473; 282; 281; 209
+gr-215: 750; 720; 524; 474; 421
+gr-216: 600; 49
+gr-217: 575; 550; 218
+gr-218: 647; 625; 600
+gr-219: 411; 220; 330
+gr-221: 615; 610; 570; 526
+gr-222: 664; 610; 593; 592
+gr-223: 730; 720; 444; 443
+gr-224: 660; 630; 525; 500
+gr-225: 660; 630; 640; 620
+gr-226: 560; 547; 546
+gr-228: 776; 586; 582
+gr-229: 776; 400; 385; 408; 450
+gr-230: 776; 420
+gr-231: 404; 371; 192; 396
+gr-233: 370; 369
+gr-234: 700
+gr-235: 370; 369
+gr-236: 743; 724; 690; 670
+gr-237: 685; 668; 640; 600
+gr-238: 640; 637
+gr-239: 370; 369
+gr-240: 370; 369; 195
+gr-241: 464; 399; 371
+gr-242: 222
+gr-244: 650
+gr-245: 650; 207; 192
+gr-246: 207; 192
+gr-247: 650
+gr-248: 700; 227
+gr-249: 650; 432
+gr-250: 188; 146
+gr-252: 244; 241
+gr-253: 396; 392; 369
+gr-255: 479; 371
+gr-256: 418; 390; 371
+gr-257: 418
+gr-258: 404
+gr-260: 1450; 1400; 1200; 700
+gr-261: 700
+gr-262: 580; 530; 575; 550
+gr-263: 672; 669
+gr-264: 1933
+gr-265: 525; 371
+gr-266: 560
+gr-267: 520; 489; 491
+gr-268: 506; 480
+gr-269: 560; 546
+gr-270: 504
 ```

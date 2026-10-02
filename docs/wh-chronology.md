@@ -121,6 +121,69 @@ Filled batch by batch, from the source each row names.
 | Americas: split from Asia / White Sands footprints / Clovis | c. 36,000 – 24,000 BP / c. 23,000 – 21,000 BP / 13,050 – 12,750 BP | `wh-098`, `wh-100` |
 | Monte Verde main layer | c. 14,500 BP (challenged 2026) | `wh-099` |
 | Paleo-Indian period ends | c. 9000 – 8000 BCE | New Georgia Encyclopedia (`wh-100`) |
+| Clovis culture and points | 13,050 – 12,750 BP | Waters et al. 2020 (`wh-101`, `wh-102`; agrees with `wh-100`) |
+| Folsom tradition | began 12,845 – 12,770 BP, ended 12,400 – 12,255 BP (modelled); type site dug 1926 | Buchanan et al.; Cordell (`wh-103`) |
+| Younger Dryas | c. 12,870 – 11,700 BP; named 1912 | Cheng et al. 2020; Mangerud 2021 (`wh-104`) |
+| Holocene | 11,700 BP – present (11,700 b2k at the NGRIP2 GSSP); Northgrippian c. 8,200 and Meghalayan c. 4,200 years ago, ratified 2018 | Walker et al. 2009, 2018 (`wh-105`) |
+| Mesolithic, Britain | c. 9600 – 4000 BCE; named 1866 | Ashmolean; Westropp (`wh-106`) |
+| Epipalaeolithic, southern Levant | c. 23,000 – 11,600 BP | Maher et al. 2011 (`wh-107`) |
+| Doggerland | islands by c. 9000 BP; Storegga tsunami c. 8150 BP; last islands gone c. 7000 BP | Walker et al. 2020 (`wh-108`) |
+| Star Carr | c. 9300 – 8500 BCE | Bates et al. 2024 (`wh-109`) |
+| Bhimbetka first paintings | estimates c. 30,000 – 8000 years ago (disputed); last 6th – 7th century CE | Misra; Dubey-Pathak; Govt of MP (`wh-110`) |
+| Neolithic: Southwest Asia / Britain; named | c. 12,000 – 8000 years ago / c. 4000 – 2300 BCE; 1865 | Watkins; English Heritage; Lubbock (`wh-111`) |
+| domestication for food begins | c. 12,000 – 11,000 years ago | Larson et al. 2014 (`wh-111`, `wh-112`, `wh-117`) |
+| farming begins in the Near East | 10,000 – 9000 BCE | Lazaridis et al. (`wh-115`) |
+| "Neolithic Revolution" in Childe's *Man Makes Himself* | 1936 | Childe (`wh-112`) |
+| Holocene climatic optimum; warmest 200 years | c. 10,000 – 5,000 BP; c. 6,500 BP | Cartapanis et al. 2022; Kaufman et al. 2020 (`wh-113`) |
+| 8.2-kiloyear event | c. 8,200 BP | Parker and Harrison 2022 (`wh-114`) |
+| Natufian culture; Shubayqa 1 bread | c. 15,000 – 11,700 BP (one study c. 14,600 start); c. 14,400 – 14,200 BP | Groman-Yaroslavski et al. 2026; Arranz-Otaegui et al. 2018 (`wh-116`) |
+| oldest dog-shaped bones | c. 14,500 BP (older claims disputed) | Bergström et al. 2020 (`wh-117`) |
+| founder crops: domestic-type cereals | c. 10,700 – 8300 BP, by region | Arranz-Otaegui et al. 2016 (`wh-118`) |
+| cereals: wild cultivation / first tough ears | c. 13,000 / c. 10,000 BP | Levy and Feldman (`wh-119`) |
+| livestock in Southwest Asia / pigs in China | c. 11,000 – 10,000 BP / by c. 8,000 BP | Zeder 2008; Wang et al. (`wh-120`) |
+| dogs: probable dog bones (Europe) / oldest nuclear dog DNA (Pınarbaşı) / Bonn-Oberkassel | c. 17,000 – 14,000 / c. 15,800 / c. 14,300 years ago | Bergström 2026; Marsh 2026 (`wh-121`; `wh-117` says "conservatively c. 14,500") |
+| Pre-Pottery Neolithic: PPNA / PPNB / PPNC | c. 11,700 – 10,500 / c. 10,500 – 8,250 years ago / c. 7100 – 6400 BCE | Shipton 2026; Bocquentin 2020 (`wh-122`) |
+| Göbekli Tepe: in use / oldest layer | c. 9600 – 8000 / c. 9600 – 8800 BCE | Dietrich and Wagner; Caletti (`wh-123`) |
+| Jericho: first use / Bronze Age city destroyed | from c. 10,500 BCE / c. 1550 BCE | Sapienza expedition (`wh-124`) |
+| Çatalhöyük East Mound | c. 7100 – 5950 BCE | Schotsmans 2022; Yaka 2021 (`wh-125`) |
+| 'Ain Ghazal: MPPNB / PPNC decline | c. 10,200 – 9,500 / c. 8,900 – 8,600 BP | Zielhofer et al. 2012 (`wh-126`) |
+| sedentism: Kharaneh IV / house mice in the Levant / north-east China | c. 20,000 / c. 14,500 / c. 7,900 BP | `wh-127` |
+| pottery: oldest (South China, contested) / Sahara / European foragers | c. 20,000 – 17,000 BP / c. 11,000 – 10,000 BP / from c. 5900 BCE | `wh-128` |
+| rice domestication, Lower Yangtze | c. 10,000 – 4400 BP | Wang et al. 2022 (`wh-129`) |
+| millet domestication, northern China | c. 8300 – 4300 BCE (Cishan pits disputed) | Stevens et al. 2024 (`wh-130`) |
+| Neolithic Europe: farming spreads / decline | c. 6600 – 4000 BCE / c. 3000 BCE | `wh-141` |
+| Skara Brae houses | c. 2900 – 2500 BCE | Historic Environment Scotland (`wh-142`) |
+| Newgrange built / pig feasts | c. 3200 BCE / c. 2600 – 2450 BCE | `wh-143` |
+| Varna necropolis in use / region abandoned | c. 4590 – 4340 BCE / c. 4250 – 4200 BCE | `wh-144` |
+| Chalcolithic: Balkans / southern Levant | c. 5000 – 3700 BCE / c. 4500 – 3800 BCE | `wh-145` |
+| metallurgy: native copper worked / earliest secure smelting | c. 9000 – 8000 BCE / c. 5000 BCE (Belovode) | `wh-146` |
+| Yangshao / Longshan | c. 5000 – 3000 BCE / c. 3000 – 2000 BCE (main phase c. 2500 – 1800) | `wh-147`, `wh-148` |
+| Jōmon period / rice in Kyushu | c. 16,500 – 2,400 years ago / c. 1251 – 872 BCE (the `jp-` cards differ) | `wh-149` |
+| Mehrgarh: excavators' date / redated | c. 8000 BCE / c. 5200 – 4900 BCE | `wh-150` |
+| African humid period / peak | c. 14,500 – 5,000 BP / c. 11,000 – 5,000 BP | `wh-151` |
+| Saharan rock art: earliest / Round Heads / Pastoral / Camel | c. 12,000 / 9,500 – 7,000 / 7,200 – 3,000 / from 2,000 BP (disputed) | `wh-152` |
+| African cattle: first livestock / Lake Turkana / southern Africa | c. 8,000 / c. 5,000 / c. 2,000 BP | `wh-153` |
+| Nabta Playa occupied / cow tumulus | c. 8600 – 3300 BCE / c. 5400 BCE | `wh-154` |
+| Kuk: first phase / mounds / ditches | c. 10,000 BP / c. 6950 – 6440 BP / c. 4350 – 3980 BP | `wh-155` |
+| Austronesian: into Taiwan / out of Taiwan / Remote Oceania / East Polynesia | c. 5,500 – 5,000 / 4,200 – 4,000 / 3,500 – 2,800 BP / c. 1025 – 1290 CE | `wh-156` |
+| Lapita: Bismarcks / Remote Oceania / Tonga | c. 3,350 – 3,150 / 3,000 – 2,800 / 2,850 – 2,700 BP | `wh-157` |
+| Eastern Agricultural Complex: first crop / complex / maize | c. 5,025 / by 3,800 / from 1,100 BP | `wh-158` |
+| Poverty Point built | c. 3,700 – 3,100 BP | `wh-159` |
+| Andes: farming system / alpaca / guinea pig / potato | by c. 8,600 BP / 7,000 – 6,000 BP / 6000 – 2000 BCE / 3400 – 1600 BCE | `wh-160` |
+| Chinchorro mummification | c. 7,000 – 3,500 BP | `wh-161` |
+| oldest cord (Abri du Maras) / Shizitan fibres | c. 52,000 – 41,000 / c. 28,000 – 18,000 BP | `wh-164` |
+| Ubaid period / wide spread | c. 6000 – 4000 BCE / from c. 4500 BCE | `wh-169` |
+| urban revolution: Uruk period / named / ten criteria | c. 4000 – 3200 BCE / 1936 / 1950 | Childe (`wh-170`) |
+| first writing, Mesopotamia / China | c. 3300 – 3200 BCE (c. 3200 conventional) / c. 1200 BCE | `wh-175`; agrees with `wh-001` |
+| cylinder seals in use | c. 3500 – 330 BCE | `wh-176` |
+| maize: domesticated / in South America / Guilá Naquitz cobs | c. 9,000 / by c. 7,000 / c. 6,250 years ago | Matsuoka 2002; Kistler 2020; Piperno and Flannery (`wh-131`) |
+| Neolithic demographic transition, south-eastern Europe | from c. 8,500 years ago | Shennan et al. 2013 (`wh-133`) |
+| zoonotic pathogens in Eurasian remains / Baikal plague / flea-borne plague | from c. 6,500 / c. 5,500 / by c. 3,800 years ago | Sikora et al. 2025; Macleod et al. 2026 (`wh-134`) |
+| lactase persistence: modelled start / earliest carrier / rise in Europe | c. 7,500 BP / 5,960 BP / after 3,000 BP | Itan 2009; Ségurel 2020 (`wh-135`) |
+| secondary products revolution proposed | 1981 | Sherratt (`wh-136`) |
+| Linear Pottery culture / fades | c. 5500 – 5000 BCE / c. 5000 – 4900 BCE | Gelabert et al. (`wh-137`) |
+| Stonehenge: ditch / sarsens / last pits | c. 3000 / c. 2500 / c. 1800 – 1500 BCE | English Heritage (`wh-139`) |
+| Ötzi died | c. 3350 – 3120 BCE; found 1991 | Wang et al. 2023 (`wh-140`) |
 
 ## Chronology pins
 
@@ -225,4 +288,68 @@ wh-097: 35,700; 11,000; 1937
 wh-098: 36,000; 24,000; 23,000; 13,050
 wh-099: 14,500; 1997
 wh-100: 14,000; 13,050; 9000; 8000
+wh-101: 13,050; 12,750
+wh-102: 13,050; 12,750
+wh-103: 12,845; 12,770; 12,400; 12,255; 1926
+wh-104: 12,870; 11,700; 1912
+wh-105: 11,700
+wh-106: 9600; 4000; 1866
+wh-107: 23,000; 11,600
+wh-108: 9000; 7000; 8150; 1998
+wh-109: 9300; 8500
+wh-110: 30,000; 8000
+wh-111: 12,000; 8000; 4000; 2300; 1865
+wh-112: 12,000; 11,000; 1936
+wh-113: 10,000; 5,000; 6,500
+wh-114: 8,200; 2018
+wh-116: 15,000; 11,700; 14,400; 14,200
+wh-117: 14,500; 12,000; 11,000
+wh-118: 10,700; 8300
+wh-119: 13,000; 10,000
+wh-120: 11,000; 10,000; 8,000
+wh-121: 17,000; 14,000; 15,800; 14,300
+wh-122: 11,700; 10,500; 8,250
+wh-123: 9600; 8000; 8800
+wh-124: 10,500; 1550
+wh-125: 7100; 5950
+wh-126: 10,200; 9,500; 8,900; 8,600
+wh-127: 20,000; 14,500; 7,900
+wh-128: 20,000; 17,000; 11,000; 10,000; 5900
+wh-129: 10,000; 4400
+wh-130: 8300; 4300
+wh-131: 9,000; 7,000; 6,250
+wh-132: 12,000; 11,000
+wh-133: 8,500; 1100; 1300
+wh-134: 6,500; 5,500; 3,800
+wh-135: 7,500; 5,960; 3,000
+wh-136: 1981
+wh-137: 5500; 5000; 4900
+wh-139: 3000; 2500; 1800; 1500
+wh-140: 3350; 3120; 1991
+wh-141: 6600; 4000; 3000
+wh-142: 2900; 2500; 1850
+wh-143: 3200; 2600; 2450
+wh-144: 4590; 4340; 4250; 4200
+wh-145: 5000; 3700; 4500; 3800
+wh-146: 9000; 8000; 5000
+wh-147: 5000; 3000; 3500
+wh-148: 3000; 2000; 2500; 1800
+wh-149: 16,500; 2,400; 1251; 872
+wh-150: 8000; 5200; 4900
+wh-151: 14,500; 5,000; 11,000
+wh-152: 12,000; 9,500; 7,000; 7,200; 3,000; 2,000
+wh-153: 8,000; 5,000; 2,000
+wh-154: 8600; 3300; 5400
+wh-155: 10,000; 1900; 6950; 6440; 4350; 3980
+wh-156: 5,500; 5,000; 4,200; 4,000; 3,500; 2,800; 1025; 1290
+wh-157: 3,350; 3,150; 3,000; 2,800; 2,850; 2,700
+wh-158: 5,025; 3,800; 1,100
+wh-159: 3,700; 3,100; 2014
+wh-160: 8,600; 7,000; 6,000; 6000; 2000; 3400; 1600
+wh-161: 7,000; 3,500
+wh-164: 52,000; 41,000; 28,000; 18,000
+wh-169: 6000; 4000; 4500
+wh-170: 4000; 3200; 1936; 1950
+wh-175: 3300; 3200; 1200
+wh-176: 3500; 330
 ```

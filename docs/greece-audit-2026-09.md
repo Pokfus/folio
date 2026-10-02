@@ -594,6 +594,23 @@ Sindos, Ischia, Megiddo) are not repeated, and their counts have risen by one or
 | 5 | Cyme · Eros · Teos · Locris · Ephorus · Isthmia · Corinthian Gulf | Cyme is Aeolian Cyme, not Cumae in Italy |
 | 3 | Methone · Orontes · Alcinous · Kumarbi · Hyllus · Neleus · Hecuba | Methone is the Macedonian port of the early inscriptions, not Messenian Methone |
 
+**Added by the refinement's B19–B28 (2026-10-02)**, counted the same way after `gr-171`–`gr-270` were
+rewritten. Earlier entries (Leuctra, Plataea, panoply, othismos, *Eunomia*) are not repeated.
+
+| cards | term | note |
+|---|---|---|
+| 13 | Olympiad | the four-year count from 776 BCE; not the modern Olympics |
+| 7 | Theopompus · Thurii | Theopompus is the Spartan king of the first Messenian war, **not** the 4th-century historian of Chios, who appears on `gr-269`; needs two keys |
+| 6 | Agathocles | of Syracuse |
+| 5 | Amyclae | |
+| 4 | Aristomenes · Theron · Sellasia | Theron of Acragas; `gr-211` names a different Theron, the tyrant of Selinus |
+| 3 | Gyges · Psammetichus I · lochos · kosmos | `kosmos` the Cretan office; the key must not take the bare word, which `gr-374` uses for the philosophers' ordered world |
+| 2 | Alyattes · Phalaris · Kinadon · enomotia · Therapne | |
+| 1 | Archytas · Ortygia · silphium · hippagretai · Partheniai · Apaturia · Eumolpidae · Kerykes · Hellenion · porpax · antilabe | |
+
+`Thrasybulus` is keyed to the Athenian democrat of 403 BCE and auto-links the tyrant of Miletus on `gr-188`;
+the tyrant wants his own key (`Thrasybulus_of_Miletus`), and the bare name a decision.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
