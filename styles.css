@@ -10025,6 +10025,28 @@ body.night .review-group .active-deck .dkc{color:var(--paper-2);}
 .games-sec .game-tile.done .gt-face::after, .games-sec .game-tile.won .gt-face::after{display:none;}
 .games-sec .game-tile .gt-check, .games-sec .game-tile .gt-seal{position:static; order:3; margin-left:auto; flex:none; width:21px; height:21px; clip-path:none; overflow:visible; background:var(--good, #4F9D67); box-shadow:none;}
 .games-sec .game-tile .gt-seal{width:24px; height:24px; background:none;}
+/* A FINISHED GAME FILLS ITS WHOLE TILE (Oct 2026, on request): green once played, gold once perfect, with a
+   white tick at the right. The fills are the state hues deepened a step (`--gt-fill`), because white text on
+   the raw green or gold is under 4.5:1; the accent itself is untouched, so the chips and marks elsewhere
+   that read `--gt-accent` keep their colour. The seal's wax and sweep stand down here — on a gold tile the
+   tick is the mark, and the wax would be gold on gold. */
+.games-sec .game-tile.done{--gt-fill:color-mix(in srgb, var(--gt-accent) 80%, #0B2A14);}
+.games-sec .game-tile.won{--gt-fill:color-mix(in srgb, var(--gt-accent) 75%, #2B1D00);}
+body.night .games-sec .game-tile.done{--gt-fill:color-mix(in srgb, var(--gt-accent) 68%, #0B2A14);}
+body.night .games-sec .game-tile.won{--gt-fill:color-mix(in srgb, var(--gt-accent) 58%, #2B1D00);}
+.games-sec .game-tile.done, .games-sec .game-tile.won, body.night .games-sec .game-tile.done, body.night .games-sec .game-tile.won,
+.games-sec button.game-tile.done:hover, .games-sec button.game-tile.won:hover{
+  background:var(--gt-fill); border-color:var(--gt-fill); border-left-color:var(--gt-fill);
+}
+.games-sec .game-tile.done .gt-title, .games-sec .game-tile.won .gt-title{color:#fff;}
+.games-sec .game-tile.done .gt-sub, .games-sec .game-tile.won .gt-sub{color:rgba(255,255,255,.85);}
+.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:rgba(255,255,255,.22); color:#fff;}
+.games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{
+  width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:#fff;
+  background:none; background-image:none; clip-path:none; filter:none; animation:none;
+}
+.games-sec .game-tile .gt-check svg, .games-sec .game-tile .gt-seal-face svg{width:22px; height:22px; display:block;}
+.games-sec .game-tile .gt-seal-face{color:#fff; filter:none;}
 .games-sec .game-tile:not(.done):not(.won) .gt-face::after{content:""; display:block; order:3; margin-left:auto; flex:none; width:20px; height:20px; border-radius:50%; border:1.5px solid var(--rule); position:static; transform:none; background:none; -webkit-mask:none; mask:none; opacity:1;}
 /* reading beside the week */
 .home-two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
