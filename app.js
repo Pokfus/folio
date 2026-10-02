@@ -11759,6 +11759,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      not read as a set even at 26, and it reads 6.60:1 on the tightest of the sixteen light papers
      where the alternatives that clear the kinship by more scrape 4.75. */
   "Marco Polo": "#5A009C",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-four colours placed (Oct 2026, adding Macbeth). Inside
+     the shipped band — L 12.3–47.8, chroma 18–85 since the Marco Polo row, 22 from every light
+     theme's ink, 4.5:1 on every light paper, card and second paper — the best-separated colour
+     anywhere is a magenta at 19.5, and its nearest neighbour is EURIPIDES — two tragedians in
+     neighbouring colours is the kinship claim the Euripides test exists to refuse, so it decides. This deep navy clears its nearest, Marco Polo, by 17.1 and Homer by 17.4 —
+     both above the shelf's own tightest pair at 16.6, so nothing tighter than that minimum was
+     taken — and sits 31.8 or more from all five books a reader takes as a set with it (Sophocles,
+     Euripides, Aristophanes, Chaucer, Malory). It reads 9.6:1 on the tightest light paper. */
+  "William Shakespeare": "#000081",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -14620,6 +14629,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 2, label: "Purgatorio", note: "Cantos I–XXXIII" },
         { n: 3, label: "Paradiso", note: "Cantos I–XXXIII" },
       ],
+    },
+    {
+      id: "macbeth",
+      title: "Macbeth",
+      subtitle: "The Tragedy of Macbeth",
+      author: "William Shakespeare",
+      /* "c." because the date is an inference: no record names the year of writing, the First Folio
+         of 1623 is the first printing, and 1606 is where the Porter's jokes on equivocation and the
+         play's verse both point. */
+      written: "c. 1606",
+      year: 1606,
+      /* NO `translator` — written in English, as Le Morte d'Arthur was, so the rights box names the
+         edition instead. */
+      edition: "The Yale Shakespeare, ed. Charlton M. Lewis, Yale University Press, New Haven, 1918",
+      /* A LIMIT ON NOTHING. The play has never been in copyright; the Yale edition was published in
+         1918 and its editor died in 1923, so it clears the pre-1929 rule and, since the start of 2024,
+         life plus a hundred as well. See .claude/fetch-book.js for the editions looked at and why
+         this one. */
+      rights:
+        "Public domain. Shakespeare wrote the play around 1606 and it was first printed in the First " +
+        "Folio of 1623, so the work itself has never been in copyright. The text here is the Yale " +
+        "Shakespeare edition edited by Charlton M. Lewis and published by Yale University Press in 1918; " +
+        "Lewis lived from 1866 to 1923, so the edition is out of copyright in the United States under the " +
+        "rule for works published before 1929, and everywhere the term is the editor's life plus a hundred " +
+        "years or less. What is taken is the play, the edition's list of characters, Lewis's glosses " +
+        "from the foot of each page and his end notes, which are set with the glosses that point to them; " +
+        "his appendices and index are not reproduced. (The modern editions by Nicholas Brooke, 1990, " +
+        "A. R. Braunmuller, 1997, and Sandra Clark and Pamela Mason, 2015, are still in copyright and " +
+        "are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Macbeth_(1918)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. */
+      /* The play's own division: five acts, each a tab, its scenes headed inside it. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+      /* WHAT THE GLOSSARY MUST NOT LINK — Le Morte d'Arthur's rule, swept against the rendered text
+         of all five acts and the front matter rather than written from imagination. Norway and
+         Ireland are where Macbeth's enemies come from and flee to, the "rugged Russian bear" is
+         Macbeth's figure of speech, and the three entries are modern states with modern
+         populations; `Gunpowder` is the explosive, which the front matter's Gunpowder Plot is not
+         about. `Castle` and `Mark_Antony` are left linked: both say something true about the line
+         they sit in. */
+      glossOff: ["Norway", "Ireland", "Russia", "Gunpowder"],
     },
   ];
   const BOOK_BY_ID = {};
