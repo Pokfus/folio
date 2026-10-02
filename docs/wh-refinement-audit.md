@@ -215,6 +215,42 @@ in plan order unless the user says otherwise.
 | B99 | Decolonisation and the new nations (`wh-decolonisation`) / The contemporary world (`wh-contemporary`) | `wh-981`–`wh-990` | 10 | 99 | open |
 | B100 | The contemporary world (`wh-contemporary`) | `wh-991`–`wh-1000` | 10 | 96 | open |
 
+## Running a batch (the harness, `.claude/wh-refine/`)
+
+The first hundred were run with a small harness that is now in the repo, so a later session does not
+rebuild it. It keeps its working files in a scratch directory **outside the repo** (`WH_S`).
+
+1. `WH_S=/path/to/scratch node .claude/wh-refine/prep.js 101 200` writes `cur/<id>.json` (the card and its
+   glossary entry as they stand), `index.tsv` (every card's answer and question, for sibling checks) and
+   empty `out/` and `pages/`.
+2. One research agent per **two** cards, ten at a time, each told to read `.claude/wh-refine/BRIEF.md` and
+   to follow it exactly. An agent saves every cited page to `pages/<id>-s<N>.txt`, writes
+   `out/<id>.json` (a patch, a locator request, a glossary draft, and for each source the passages that
+   carry its claims) and runs `WH_S=… node .claude/wh-refine/precheck.js <id>` until it says OK. Precheck
+   runs the real `add-card.js --replace --dry-run` and `wh-audit.js` on the merged card, matches every
+   quoted passage against the saved page, and checks the glossary draft.
+3. **Read every draft yourself before applying** (questions, date line, the change notes): agents get
+   things wrong, and the ledger's "what changed" column is the record of what they found wrong on the old
+   card.
+4. `WH_S=… .claude/wh-refine/batch.sh 101 110` curls every citation URL, applies the ten drafts
+   (`apply.js`: text, then picture, then glossary, then one `add-locators.js` batch), and runs the audit,
+   `check-questions`, `check-cards` and `check-citations`. Then the ledger, chronology rows and pins,
+   changelog and version, `check-docs`, `split-cards --check`, `test-card-plans`; commit and push.
+
+**Lessons from the first hundred.**
+- Wikimedia rate-limits this sandbox hard once ten agents share its IP, and it did not recover. Give each
+  agent at most ~10 Commons calls with 10-second gaps and a single retry (it is in the brief), and expect
+  to defer pictures to a pass of their own (the "Pictures to redo" table below).
+- `check-questions.js` refuses a phrasing that opens on a pronoun (`Its`, `His`…), and the audit's sibling
+  check catches near-identical phrasings across a deck's definitional cards; both showed up only at apply
+  time, so precheck now runs the first.
+- `add-locators.js` needs a Wikipedia article with a primary coordinate: "Qafzeh" had none, "Qafzeh Cave"
+  did. A card whose locator has none is listed in the ledger rather than given a typed one.
+- Style rules the checker enforces on the *merged* tree (`check-style.js`): no spelled-out ordinal
+  millennia, no "AD".
+- A card that sits in a deck of definitional cards (the Palaeolithic divisions) needs its three phrasings
+  moved off the shared "division of the Old Stone Age" clue, or the sibling check fires.
+
 ## Glossary candidates
 
 Terms the batches meet that have no entry, ranked by how many cards use them. Grep the keys AND the aliases
