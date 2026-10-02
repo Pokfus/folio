@@ -7879,6 +7879,9 @@
        would write its notes over unrelated ids, so it is refused rather than reconciled — the reader
        keeps exactly what they have and can remove and re-download if they mean to. */
     if (norm.id !== deckId) return { error: "That deck file is for a different deck." };
+    // what is about to change, read BEFORE the merge overwrites it — for the update's summary popup
+    try { await uWarmDeck(deckId); } catch (e) { /* unwarmed notes are counted as unknown, not as revised */ }
+    const changes = langDeckChanges(cur, norm);
     uCacheBust();
     const kept = [];
     const fresh = new Set((norm.index || []).map((e) => e.id));
@@ -7896,7 +7899,69 @@
     cur.updatedAt = Date.now();
     // the subdecks a reader already had may have been renamed under them; the cascade is the download's
     const saved = uDeckSaveAll(deckId);
-    return { ok: true, deck: cur, saved: saved, kept: kept.length, notes: (norm.index || []).length };
+    return { ok: true, deck: cur, saved: saved, kept: kept.length, notes: (norm.index || []).length, changes: changes };
+  }
+  /* WHAT AN UPDATE CHANGED, as counts (Oct 2026, on request: "when users update one of their downloaded
+     collections, a popup should appear with a very summarised changelog"). A deck file carries no
+     changelog of its own, so this one is MEASURED rather than written: the shipped file against the copy on
+     this device, note by note and term by term, compared in their stored form with keys sorted so a
+     re-serialisation cannot read as an edit. A note whose content could not be read back from the store is
+     counted as `unread` rather than guessed either way. */
+  function langCanon(v) {
+    if (Array.isArray(v)) return "[" + v.map(langCanon).join(",") + "]";
+    if (v && typeof v === "object") return "{" + Object.keys(v).sort().map((k) => JSON.stringify(k) + ":" + langCanon(v[k])).join(",") + "}";
+    return JSON.stringify(v === undefined ? null : v);
+  }
+  function langDeckChanges(cur, norm) {
+    const out = { added: 0, revised: 0, retired: 0, unread: 0, termsAdded: 0, termsRevised: 0, termsRemoved: 0, renamed: "" };
+    const had = new Set(cur.cardIds || []), fresh = new Set();
+    const full = {};
+    (norm.cards || []).forEach((c) => { full[c.id] = c; });
+    (norm.index || []).forEach((e) => {
+      fresh.add(e.id);
+      if (!had.has(e.id)) { out.added++; return; }
+      const was = UCARDS[e.id], now = full[e.id];
+      if (!was || !now) return;
+      if (uIsLazy(was)) { out.unread++; return; }
+      if (langCanon(uCardStored(was)) !== langCanon(uCardStored(now))) out.revised++;
+    });
+    had.forEach((id) => { if (!fresh.has(id) && UCARDS[id]) out.retired++; });
+    const g0 = UGLOSS[cur.id] || {}, g1 = norm.gloss || {};
+    Object.keys(g1).forEach((k) => {
+      if (!(k in g0)) out.termsAdded++;
+      else if (langCanon(g0[k]) !== langCanon(g1[k])) out.termsRevised++;
+    });
+    Object.keys(g0).forEach((k) => { if (!(k in g1)) out.termsRemoved++; });
+    if (norm.meta && norm.meta.title && norm.meta.title !== cur.title) out.renamed = cur.title || "";
+    return out;
+  }
+  /* The popup itself: one short line per kind of change, per deck, and the promise that matters most to
+     the reader — their progress is kept — said once at the foot. `results` is [{ deck, changes, kept }]. */
+  function openDeckUpdateSheet(results) {
+    const line = (n, one, many) => n ? "<li>" + plural(n, one, many) + "</li>" : "";
+    const blocks = results.map((r) => {
+      const c = r.changes || {};
+      const items =
+        (c.renamed ? "<li>Renamed from \u201c" + esc(c.renamed) + "\u201d</li>" : "") +
+        line(c.added, "new card", "new cards") +
+        line(c.revised, "card corrected", "cards corrected") +
+        line(c.retired, "card dropped from the list (kept here, with its progress)", "cards dropped from the list (kept here, with their progress)") +
+        line(c.termsAdded, "new glossary term", "new glossary terms") +
+        line(c.termsRevised, "glossary term corrected", "glossary terms corrected") +
+        line(c.termsRemoved, "glossary term removed", "glossary terms removed") +
+        (c.unread ? "<li>" + plural(c.unread, "card", "cards") + " refreshed that could not be compared</li>" : "");
+      return '<div class="dm-upd"><b class="dm-upd-t">' + esc(r.deck.title) + "</b>" +
+        (items ? '<ul class="dm-upd-l">' + items + "</ul>" : '<p class="dm-upd-none">Already up to date \u2014 nothing changed.</p>') + "</div>";
+    }).join("");
+    const html =
+      '<div class="dm-head"><span class="dm-title">What\u2019s new</span><span class="dm-where">' +
+      (results.length === 1 ? "Deck updated" : plural(results.length, "deck", "decks") + " updated") + "</span></div>" +
+      blocks +
+      '<p class="dm-note">Your progress on every card is kept.</p>' +
+      '<div class="dm-actions"><button type="button" class="btn" data-act="close">Done</button></div>';
+    deckSheet("What\u2019s new", html, (ov, close) => {
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+    });
   }
   // the immediate children of a path ("" for the top level), in card order
   function uSubChildren(deckId, prefix) {
@@ -16774,18 +16839,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              one failure leaves the reader told a mixed result they cannot act on. */
           (async () => {
             toast(redlDecks.length > 1 ? "Fetching " + redlDecks.length + " deck files…" : "Fetching the deck file…");
-            let notes = 0, kept = 0;
+            const done = [];
             for (const d of redlDecks) {
               const r = await langDeckUpdate(d);
               if (r.error) { toast(r.error); return; }
               if (r.saved) await r.saved;
-              notes += r.notes || 0; kept += r.kept || 0;
+              done.push(r);
             }
             renderInPlace();
-            toast("Refreshed " + notes.toLocaleString() + " card" + (notes === 1 ? "" : "s") +
-              " from " + redlDecks.length + " file" + (redlDecks.length === 1 ? "" : "s") +
-              ", your progress kept" + (kept ? ", " + kept + " retired card" + (kept === 1 ? "" : "s") + " left alone" : ""),
-              4200);
+            // the summary is a popup now (Oct 2026, on request) — see openDeckUpdateSheet
+            openDeckUpdateSheet(done);
           })();
           return;
         }
@@ -24778,6 +24841,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 ? "All caught up — nothing due right now. Come back tomorrow; the schedule does the rest."
                 : "No decks in your daily review yet — add one from the collections to build your pile."
             }</p>`}
+            ${/* the level bar and the piles share one column (`.rv-stack`), so the bar is exactly as wide as
+                  the pile row and the Start button under it (Oct 2026, on request) */""}
+            <div class="rv-stack">
             ${xpBarMarkup(folioXP())}
             <div class="meta">
               ${/* Anki's three piles, in Anki's order and Anki's colours: blue new, red learning, green
@@ -24801,6 +24867,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     collections when the day is empty, so nothing that could be pressed becomes a dead
                     no-op; only the redundant chrome goes. */""}
               ${dueN + newN ? `<span class="cta"><span class="btn">Start review</span></span>` : ""}
+            </div>
             </div>
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
@@ -25180,11 +25247,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         }
         if (r.saved) await r.saved;
         renderInPlace();
-        // the count is the honest report: a reader who is told "Updated" and nothing else cannot tell a
-        // deck that gained a repair from one that gained nothing
-        toast("Updated \u201c" + r.deck.title + "\u201d \u2014 " + r.notes.toLocaleString() +
-          " cards refreshed, your progress kept" + (r.kept ? ", " + r.kept + " retired card" + (r.kept === 1 ? "" : "s") + " left alone" : ""),
-          4200);   // it reports two or three facts about the reader's own progress; see `toast`'s note on dwell
+        /* the counts are the honest report: a reader who is told "Updated" and nothing else cannot tell a
+           deck that gained a repair from one that gained nothing. They were a toast; they are a popup now
+           (Oct 2026, on request), which says what changed rather than how many cards were re-read. */
+        openDeckUpdateSheet([r]);
       });
     });
     /* The subdeck fold. The chevron sits INSIDE a row whose own click starts a session and whose own hold
@@ -26231,10 +26297,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function collectionReachHTML(id, have) {
     const target = COLLECTION_TARGET[id];
     if (!target || !have) return "";
-    if (have >= target) return '<span class="coll-reach is-done"><span class="cr-long">Complete</span><span class="cr-short">100%</span></span>';
-    /* THE "N OF M PLANNED" LINE IS NOT DRAWN ANY MORE (Oct 2026 redesign, on request): a row says its
-       size once, on its own line, and "Complete" is the one reach that is news. The target table and
-       the percentage stay for the admin's audits and the tests. */
+    /* NEITHER THE "N OF M PLANNED" LINE NOR "COMPLETE" IS DRAWN ANY MORE (Oct 2026 redesign, on request):
+       a row says its size once, on its own line, and a finished collection's size line says so by
+       itself. The target table and the percentage stay for the admin's audits and the tests. */
     return "";
     const pct = Math.round((have / target) * 100);
     /* TWO FORMS, AND THE STYLESHEET PICKS ONE — the shape `.gtb-brief` already uses on a flipped game

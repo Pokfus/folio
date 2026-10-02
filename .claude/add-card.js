@@ -3,6 +3,7 @@
 // (it parses + rewrites the array programmatically — no whole-file Edit). See CLAUDE.md.
 //
 //   node .claude/add-card.js <card.json> [deckId]
+//   node .claude/add-card.js <patch.json> --replace [--no-image] [--dry-run]   (--dry-run: check, write nothing)
 //
 // <card.json>  a file holding ONE card object (all 13 fields), PLUS a `questions` array of 2 extra
 //              question phrasings (3 in all — the site asks one at random), PLUS a `sources` array of
@@ -790,6 +791,15 @@ if (card.locator) {
     console.error("ERROR: card.locator.name opens on \"The\" — a map label names a place rather than reading as a phrase, so write " + JSON.stringify(String(card.locator.name).trim().replace(/^the\s+/i, "")) + ".");
     process.exit(1);
   }
+  /* ---- AND A PERSON IS NOT A PLACE (Oct 2026, on request: "'Benito Mussolini' should not be an Atlas
+     location") ---- a person's or a ruler's locator labelled with their own name passes `atlasNameFits` and
+     lands on the Atlas as a place; twelve did. The label names the place; add-locators.js refuses the same. */
+  const _tags = (card.tags || []).map((t) => String(t).toLowerCase());
+  if ((_tags.indexOf("person") >= 0 || _tags.indexOf("ruler") >= 0) &&
+      String(card.locator.name).trim().toLowerCase() === String(card.answerText || card.answer || "").trim().toLowerCase()) {
+    console.error("ERROR: card.locator.name is the person's own name — a person is not a place, so label the locator with the PLACE (\"Predappio\", not \"Benito Mussolini\").");
+    process.exit(1);
+  }
   /* ---- AND WHAT SORT OF PLACE IT IS (Aug 2026, with the locator kinds) ----
      A dot is the right mark for a cave and the wrong one for a river, a range or a region, so a locator
      may declare a `kind` and — for the two that have extent — the shape to draw. Both are hand-authored,
@@ -941,6 +951,9 @@ if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", lea
   { const ew = checkWar(card, loadCardYears(appSrc)); if (ew) { console.error(/^ERROR/.test(ew) ? ew : "ERROR: " + ew); process.exit(1); } }
 }
 
+/* --dry-run (Oct 2026, the World History audit): every guard above, and no write. Research agents
+   drafting patches in parallel check a draft against the real rules without touching data.js. */
+if (process.argv.includes("--dry-run")) { console.log("dry run: " + card.id + " passes every guard (nothing written)"); process.exit(0); }
 if (REPLACE) {
   const at = cards.findIndex((c) => c.id === card.id);
   cards[at] = card;

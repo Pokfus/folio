@@ -1892,8 +1892,10 @@ body{--crit-slot:head;}
    still override the colour with the gold: "Learned" is a state rather than a caption, and the gold is
    how finishing something reads everywhere else on the site. */
 .crit-lbl{font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--indigo); opacity:.5; white-space:nowrap;}
-/* all three filled: the deep "learned" blue of the deck bar (Sep 2026, on request — it was gold) */
-.crit-row.done .crit-pip{background:var(--prog-learned); border-color:var(--prog-learned);}
+/* all three filled: the deep "learned" blue of the deck bar (Sep 2026, on request — it was gold); the DOTS
+   alone turn GREEN (Oct 2026, on request) — `--good` is set per theme. The caption keeps the blue: it is
+   10px text, and the light theme's green does not clear 4.5:1 on the card. */
+.crit-row.done .crit-pip{background:var(--good); border-color:var(--good);}
 .crit-row.done .crit-lbl{color:var(--prog-learned); opacity:1;}
 body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 /* ...and in the header a PHONE gets the pips alone (Sep 2026, on request: "only display the text on
@@ -4323,6 +4325,11 @@ textarea.ds-params{width:100%; font-family:var(--mono); font-size:calc(11.5px * 
 .dm-field .dm-num{width:88px; flex:none; appearance:auto; font-family:var(--mono); font-size:calc(14px * var(--fs)); padding:6px 8px; border:1px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink);}
 .dm-note{margin:2px 14px 4px; font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint);}
 .dm-actions{display:flex; justify-content:flex-end; gap:8px; padding:10px 14px 8px;}
+/* the update popup's per-deck summary (Oct 2026, on request) — see openDeckUpdateSheet */
+.dm-upd{margin:4px 14px 8px;}
+.dm-upd-t{display:block; font-family:var(--display); font-size:calc(14px * var(--fs)); color:var(--ink);}
+.dm-upd-l{margin:4px 0 0; padding-left:18px; font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-quiet);}
+.dm-upd-none{margin:4px 0 0; font-size:calc(13px * var(--fs)); color:var(--ink-quiet);}
 .dm-actions .btn{font-size:calc(13px * var(--fs)); padding:8px 16px;}
 @media (max-width:560px){
   .deck-menu{padding:16px;}
@@ -5282,6 +5289,9 @@ canvas{-webkit-tap-highlight-color:transparent;}
   .globe-search.open .gs-toggle{display:none;}
   .globe-search.open input{display:block;}
   .globe-legend{top:calc(12px + env(safe-area-inset-top)); right:56px;}
+  /* …and INTO the corner when there is no search chip to sit beside: Your atlas hides the search, and the
+     chip was left 44px short of the edge with nothing in the gap (Oct 2026, on a report) */
+  .globe-search[hidden] ~ .globe-legend{right:12px;}
   .globe-legend.collapsed{width:34px; height:34px; padding:0; border-radius:50%; overflow:hidden;}
   .globe-legend.collapsed .legend-head{margin:0; height:100%; justify-content:center; gap:0; cursor:pointer;}
   .globe-legend.collapsed .legend-title{display:none;}
@@ -9910,7 +9920,8 @@ body[data-theme="carnelian"].night .collection-deco{
 body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --sky-2:#0F1230; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
 .page .rv-banner.done, .page .rv-banner.won{background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
 .rv-banner .body{flex:1; min-width:0;}
-.rv-banner .hero-eyebrow{display:block; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; font-weight:600; color:var(--sky-rose);}
+/* the eyebrow is GREY (Oct 2026, on request) — at .62 it still clears 4.5:1 on the gradient's lighter end */
+.rv-banner .hero-eyebrow{display:block; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; font-weight:600; color:rgba(242,243,255,.62);}
 .page .rv-banner h2.review-title{font-family:var(--serif); font-weight:500; font-size:calc(38px * var(--fs)); line-height:1.08; letter-spacing:-.015em; margin:8px 0 16px; color:#fff;}
 .page .rv-banner h2.review-title .rv-n{font-weight:600; color:var(--sky-rose);}
 .page .rv-banner.hero h2.review-title{font-size:calc(34px * var(--fs));}
@@ -9928,7 +9939,14 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .page .rv-banner .cta{grid-column:1 / -1; margin:18px 0 0; display:block; width:100%;}
 .page .rv-banner .cta .btn{display:flex; justify-content:center; background:#fff; color:var(--sky); border:0; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; font-weight:700; padding:13px 20px; border-radius:11px;}
 .page .rv-banner.hero .meta{display:flex;} .page .rv-banner.hero .cta{width:auto; margin:0;}
-.rv-banner .xp{margin-top:16px; max-width:380px; gap:5px;}
+/* the level bar: in the stack with the piles, as wide as they are, with air above and below it (Oct 2026, on request) */
+.page .rv-banner .rv-stack{display:grid; grid-template-columns:minmax(0, max-content); width:max-content; max-width:100%;}
+.page .rv-banner .rv-stack > .meta{width:100%;}
+.page .rv-banner .xp{margin:20px 0; max-width:none; width:100%; gap:7px;}
+/* …and the title and the caught-up line above it carry no bottom margin of their own, so the air above the
+   bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
+.page .rv-banner .rv-stack{margin-top:0;}
+.page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
 .rv-banner .xp-lvl{color:var(--sky-rose);} .rv-banner .xp-count{color:rgba(242,243,255,.6);}
 .rv-banner .xp-track{background:rgba(255,255,255,.14); border-color:transparent; height:6px;}
 .rv-banner .xp-fill{background:var(--sky-rose);}
@@ -9982,12 +10000,15 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-deck > .dk-chev, .review-group .active-deck > .dk-chev-gap{order:5;}
 .review-group .active-deck .dk-title{font-weight:700; font-size:calc(15px * var(--fs));}
 .review-group .active-deck .dk-counts{display:inline-grid; grid-template-columns:repeat(3, 32px); gap:4px; min-width:0;}
-.review-group .active-deck .dkc{display:grid; place-content:center; height:28px; border-radius:7px; font-family:var(--mono); font-size:calc(13px * var(--fs)); font-weight:700; color:#fff;}
-.review-group .active-deck .dkc-new{background:var(--indigo-bright); color:#fff;}
-.review-group .active-deck .dkc-learn{background:var(--zh); color:#fff;}
-.review-group .active-deck .dkc-rev{background:var(--good, #4F9D67); color:#fff;}
-body.night .review-group .active-deck .dkc{color:var(--paper-2);}
-.review-group .active-deck .dkc.dkc-zero, body.night .review-group .active-deck .dkc.dkc-zero{background:var(--paper-2); color:var(--ink-faint); font-weight:500; box-shadow:inset 0 0 0 1px var(--rule);}
+/* a deck finished for the day shows its tick and nothing to count (Oct 2026, on request) */
+.review-group .active-deck.dk-done .dk-counts{display:none;}
+/* the three piles are COLOURED FIGURES, not colour boxes (Oct 2026, on request: "remove the boxes and make
+   the numbers themselves coloured") — the same blue / red / green, now on the figure; a zero stays grey */
+.review-group .active-deck .dkc{display:grid; place-content:center; height:28px; font-family:var(--mono); font-size:calc(14px * var(--fs)); font-weight:700; background:none;}
+.review-group .active-deck .dkc-new{color:var(--indigo-bright);}
+.review-group .active-deck .dkc-learn{color:var(--zh);}
+.review-group .active-deck .dkc-rev{color:var(--good, #4F9D67);}
+.review-group .active-deck .dkc.dkc-zero, body.night .review-group .active-deck .dkc.dkc-zero{color:var(--ink-faint); font-weight:500;}
 /* the fill: the learned share tints the row from the left (the studied share's line is not drawn here) */
 .review-group .active-deck .dk-prog .track{position:absolute; left:0; top:0; bottom:0; right:0; height:auto; background:transparent; border-radius:0; z-index:-1; pointer-events:none;}
 .review-group .active-deck .dk-prog .fill{position:absolute; left:0; top:0; bottom:0; height:auto; border-radius:0; background:color-mix(in srgb, var(--dk-accent) 7%, transparent);}
@@ -10015,6 +10036,28 @@ body.night .review-group .active-deck .dkc{color:var(--paper-2);}
 .games-sec .game-tile.done .gt-face::after, .games-sec .game-tile.won .gt-face::after{display:none;}
 .games-sec .game-tile .gt-check, .games-sec .game-tile .gt-seal{position:static; order:3; margin-left:auto; flex:none; width:21px; height:21px; clip-path:none; overflow:visible; background:var(--good, #4F9D67); box-shadow:none;}
 .games-sec .game-tile .gt-seal{width:24px; height:24px; background:none;}
+/* A FINISHED GAME FILLS ITS WHOLE TILE (Oct 2026, on request): green once played, gold once perfect, with a
+   white tick at the right. The fills are the state hues deepened a step (`--gt-fill`), because white text on
+   the raw green or gold is under 4.5:1; the accent itself is untouched, so the chips and marks elsewhere
+   that read `--gt-accent` keep their colour. The seal's wax and sweep stand down here — on a gold tile the
+   tick is the mark, and the wax would be gold on gold. */
+.games-sec .game-tile.done{--gt-fill:color-mix(in srgb, var(--gt-accent) 80%, #0B2A14);}
+.games-sec .game-tile.won{--gt-fill:color-mix(in srgb, var(--gt-accent) 75%, #2B1D00);}
+body.night .games-sec .game-tile.done{--gt-fill:color-mix(in srgb, var(--gt-accent) 68%, #0B2A14);}
+body.night .games-sec .game-tile.won{--gt-fill:color-mix(in srgb, var(--gt-accent) 58%, #2B1D00);}
+.games-sec .game-tile.done, .games-sec .game-tile.won, body.night .games-sec .game-tile.done, body.night .games-sec .game-tile.won,
+.games-sec button.game-tile.done:hover, .games-sec button.game-tile.won:hover{
+  background:var(--gt-fill); border-color:var(--gt-fill); border-left-color:var(--gt-fill);
+}
+.games-sec .game-tile.done .gt-title, .games-sec .game-tile.won .gt-title{color:#fff;}
+.games-sec .game-tile.done .gt-sub, .games-sec .game-tile.won .gt-sub{color:rgba(255,255,255,.85);}
+.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:rgba(255,255,255,.22); color:#fff;}
+.games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{
+  width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:#fff;
+  background:none; background-image:none; clip-path:none; filter:none; animation:none;
+}
+.games-sec .game-tile .gt-check svg, .games-sec .game-tile .gt-seal-face svg{width:22px; height:22px; display:block;}
+.games-sec .game-tile .gt-seal-face{color:#fff; filter:none;}
 .games-sec .game-tile:not(.done):not(.won) .gt-face::after{content:""; display:block; order:3; margin-left:auto; flex:none; width:20px; height:20px; border-radius:50%; border:1.5px solid var(--rule); position:static; transform:none; background:none; -webkit-mask:none; mask:none; opacity:1;}
 /* reading beside the week */
 .home-two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
@@ -10057,6 +10100,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .page .rv-banner, .page .rv-banner:hover{padding:22px 20px; border-radius:16px; flex-direction:column; align-items:stretch;}
   .page .rv-banner h2.review-title{font-size:calc(32px * var(--fs));}
   .rv-preview{display:none;}
+  .page .rv-banner .rv-stack{width:100%;}
   .page .rv-banner .meta{width:100%; grid-template-columns:1fr 1fr 1fr 1fr; gap:0 10px;}
   .page .rv-banner .stat b{font-size:calc(24px * var(--fs));}
   .page .rv-banner .stat.st-est{padding-left:10px;}
@@ -10095,15 +10139,20 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .page .group-line{display:none;}
 .page .group-count{color:var(--ink-faint); margin-right:auto;}
 .page .collection-list{gap:0;}
-.page .collection, .page .collection.open, .page .collection.placeholder{border-radius:0; box-shadow:none; border-top:0; background:var(--card);}
-.page .collection-group:last-of-type .collection-list > .collection:last-child, .page .collection-group-soon .collection-list > .collection:last-child{border-radius:0 0 14px 14px;}
+/* every row is square-cornered — stated over `body[data-theme]` because the folio theme rounds `.collection` to
+   20px at a higher specificity — and only the LAST row of the list rounds, at the bottom (Oct 2026, on request) */
+.page .collection, .page .collection.open, .page .collection.placeholder,
+body[data-theme] .page .collection, body[data-theme] .page .collection.open, body[data-theme] .page .collection.placeholder{border-radius:0; box-shadow:none; border-top:0; background:var(--card);}
+.page .collection-group:last-of-type .collection-list > .collection:last-child, .page .collection-group-soon .collection-list > .collection:last-child,
+body[data-theme] .page .collection-group:last-of-type .collection-list > .collection:last-child, body[data-theme] .page .collection-group-soon .collection-list > .collection:last-child{border-radius:0 0 14px 14px;}
 .page .collection-row, .page .collection.placeholder .collection-row{padding:12px 16px; gap:14px;}
 body .collection .collection-row > .collection-deco, body[data-theme] .collection .collection-row > .collection-deco, body[data-theme].night .collection .collection-row > .collection-deco{
   width:var(--w, 0%); background:linear-gradient(90deg, color-mix(in srgb, var(--coll-bg, #888) 20%, var(--card)), color-mix(in srgb, var(--coll-bg, #888) 9%, var(--card)));
   border-right:3px solid var(--coll-bg, #888);
 }
 .collection-row[style*="--w:0%"] > .collection-deco{display:none;}
-.page .coll-ic{min-width:44px; width:44px; height:44px; border-radius:12px; background:color-mix(in srgb, var(--coll-bg, #888) 16%, var(--card)); color:var(--coll-bg, #888);}
+/* the icon on its own, in the collection's hue — no tinted square behind it (Oct 2026, on request: the square hid the fill row) */
+.page .coll-ic{min-width:44px; width:44px; height:44px; border-radius:0; background:transparent; color:var(--coll-bg, #888);}
 .page .coll-ic svg{width:26px; height:26px;}
 .page .collection-title-row{margin-bottom:2px; gap:8px;}
 .page .collection-title{font-family:var(--sans); font-weight:700; font-size:calc(15.5px * var(--fs));}

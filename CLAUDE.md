@@ -153,6 +153,9 @@ have not this session.
 | collection or deck | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | complete |
+
+📖 `docs/wh-refinement-audit.md` — READ BEFORE TOUCHING ANY `wh-` CARD (the Oct 2026 refinement: Greece's rules plus deep time, batches, ledger; `node .claude/wh-audit.js`). 📖 `docs/wh-chronology.md` — READ BEFORE WRITING A DATE ON A `wh-` CARD.
+
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | complete |
 
 📖 `docs/greece-refinement-audit.md` — READ BEFORE TOUCHING ANY `gr-` CARD (the Sep 2026 refinement: rules, batches, ledger; `node .claude/greece-audit.js`, and `add-card.js --replace`). 📖 `docs/greece-chronology.md` — READ BEFORE WRITING A DATE ON A `gr-` CARD. A card's source bar is tiered by difficulty (`srcTargetFor`: 1 → 9 … 5 → 5). `node .claude/test-why-markers.js` guards Think-it-through markers.
