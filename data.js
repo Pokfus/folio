@@ -1,6 +1,6 @@
 /* Card data — the LIGHT half. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]`.
  *
- * The heavy half of every card — abstract, sources, why, quote, and a non-artwork card's image —
+ * The heavy half of every card — abstract, sources, why, quote, wiki, and a non-artwork card's image —
  * lives in data-extra/<collection>.js and is fetched only when a reader reveals a card in that
  * collection. Nothing here reads those fields; nothing there is needed to deal or draw a card FRONT.
  * Read .claude/card-io.js before touching either file, and never require this one directly from a

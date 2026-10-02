@@ -5,7 +5,8 @@
 
    WHY IT EXISTS. `data.js` is split: the light half (id, question, answer, date
    line, tags, difficulty, facts, map, locator …) stays there on the eager load
-   path, and the heavy half — `abstract`, `sources`, `why`, `quote`, and every
+   path, and the heavy half — `abstract`, `sources`, `why`, `quote`, `wiki` (the answer's
+   Wikipedia article title, read only by the Learn-more tile) and every
    non-artwork card's `image` — lives in `data-extra/<prefix>.js`, one file per
    collection, fetched only when a reader actually reveals a card in it.
 
@@ -53,7 +54,7 @@ const EXTRA_DIR = path.join(ROOT, "data-extra");
    — the two are compared by .claude/split-cards.js --check, which fails if they
    have drifted, because a field app.js expects lazily and the splitter leaves
    eager is a field that silently doubles. */
-const EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image"];
+const EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki"];
 
 /* An artwork card's picture is its question, so it never moves. */
 const keepsImage = (c) => !!c.artwork;
@@ -224,7 +225,7 @@ try {
   const head =
     "/* Card data — the LIGHT half. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]`.\n" +
     " *\n" +
-    " * The heavy half of every card — abstract, sources, why, quote, and a non-artwork card's image —\n" +
+    " * The heavy half of every card — abstract, sources, why, quote, wiki, and a non-artwork card's image —\n" +
     " * lives in data-extra/<collection>.js and is fetched only when a reader reveals a card in that\n" +
     " * collection. Nothing here reads those fields; nothing there is needed to deal or draw a card FRONT.\n" +
     " * Read .claude/card-io.js before touching either file, and never require this one directly from a\n" +
@@ -242,7 +243,7 @@ try {
     const body =
       "/* The heavy half of the " + p + " cards — GENERATED, never hand-edited.\n" +
       " *\n" +
-      " * abstract / sources / why / quote / image, for the cards whose ids begin `" + p + "-`. None of it is\n" +
+      " * abstract / sources / why / quote / wiki / image, for the cards whose ids begin `" + p + "-`. None of it is\n" +
       " * read until a reader REVEALS a card in this collection, so it is fetched then (bundle\n" +
       " * `cardExtra:" + p + "`) rather than downloaded by every visitor before they can flip one.\n" +
       " *\n" +

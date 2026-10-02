@@ -147,9 +147,10 @@ have not this session.
   `set-facts.js`, `add-images.js` — each documents itself in its header.
 - After a batch: `check-style.js`, `check-questions.js`, `node .claude/check-cards.js --prefix=<p>`
   (report only), `test-card-plans.js`.
-- **Wikipedia links** (the "Learn more" box at the foot of a card): `.claude/wiki-links.json` maps each card to its
-  dedicated article; `node .claude/find-wiki-links.js` regenerates it (cached, re-run after adding cards; needs
-  `NODE_USE_ENV_PROXY=1`). 📖 `docs/wikipedia-links-audit.md` — READ BEFORE CHANGING A CARD'S LINK OR THE RESOLVER (the cards still needing a human decision).
+- **Wikipedia links** (the "Learn more" tile at the foot of a card, `learnMoreHTML`): `.claude/wiki-links.json` maps
+  each card to its dedicated article; `node .claude/find-wiki-links.js` regenerates it (cached, re-run after adding
+  cards; needs `NODE_USE_ENV_PROXY=1`), then `node .claude/apply-wiki-links.js` writes it onto the cards as the heavy
+  field `wiki` — the only writer of that field; never set it by hand. 📖 `docs/wikipedia-links-audit.md` — READ BEFORE CHANGING A CARD'S LINK OR THE RESOLVER (the cards still needing a human decision).
 
 ### The planned collections
 

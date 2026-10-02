@@ -14,6 +14,17 @@ can click to be redirected straight to that dedicated wikipedia page") links to 
 article **on the answer term itself**. A Wikipedia article is a destination here, never a source: it is
 not counted in the Sources fold and nothing on a card is cited to it.
 
+## How the link reaches the card
+
+`node .claude/apply-wiki-links.js` copies each entry's `title` onto its card as the heavy field `wiki` (it lives
+in `data-extra/<prefix>.js`, beside the abstract, because the tile is the only reader and it renders after the
+lazy half has arrived). `learnMoreHTML` in `app.js` draws the tile — the Answer box's own wash, the article's
+title, the Wikipedia logo — after the Sources fold in `buildBack`, and only when `wiki` is set. To change a
+card's link, edit this file's JSON twin (`.claude/wiki-links.json`: put the right `title` and `url` in, or set
+both to `null` to take the tile away) and run the applier again; it is idempotent. The logo is a self-hosted
+copy of Wikipedia's puzzle globe (`wikipedia-logo.png`, CC BY-SA 3.0, a Wikimedia Foundation trademark used
+here to link to Wikipedia), credited on the Mission page.
+
 ## How a card was matched
 
 The script's header documents the full method. In short: the glossary key with the answer's name (the
