@@ -29,13 +29,15 @@
     3. variants   American spellings (Palaeolithic → Paleolithic, civilisation → civilization,
                   colour → color), the singular, the text without a leading "the".
     4. search     For a card nothing above resolved: Wikipedia's own search, top 5. A hit is ACCEPTED
-                  only when its title is the answer under normalisation; the rest are written to the
-                  report as suggestions for a human. Nothing else is ever guessed.
+                  only when its title is the answer under normalisation (`ok`), or has exactly the
+                  answer's words in another order ("Throne Room, Knossos" — `search-match`, listed in
+                  the report); the rest are written to the report as suggestions for a human. Nothing
+                  else is ever guessed.
 
   Every candidate is resolved through the API with redirects followed, so a glossary key that is
   itself a redirect (`Denisovans` → `Denisovan`) lands on the real article, and a key that is a
   disambiguation page (the glossary's `Olympia` is one) is caught rather than linked. When a
-  disambiguation page is hit, its outgoing links that begin with the answer are scored against the
+  disambiguation page is hit, its outgoing links that contain the answer's words are scored against the
   collection's hint words and the card's own text; a single clear winner is taken and said so.
 
   STATUSES (wiki-links.json → cards[id].status)
@@ -43,6 +45,7 @@
     redirect-variant   redirected, but only spelling / plural / a qualifier changed — same subject
     redirect-broader   redirected to a differently named article — a human should glance at it
     disambig-resolved  the answer was a disambiguation page; one of its links was chosen by hint words
+    search-match       a search hit with the answer's words in another order (listed in the report)
     section-redirect   the only match is a redirect INTO A SECTION of another article: NOT a dedicated
                        page. No link is recorded.
     disambiguation     only a disambiguation page matched and no link could be chosen. No link.
@@ -257,13 +260,26 @@ const GLOSS = Object.keys(window.GLOSSARY || {});
 const glossByName = {};
 for (const k of GLOSS) (glossByName[norm(noQual(spaced(k)))] = glossByName[norm(noQual(spaced(k)))] || []).push(spaced(k));
 
-function cardText(c) { return norm([c.question, c.abstract, (c.tags || []).join(" ")].map(strip).join(" ")); }
-function hintScore(title, c) {
-  const q = qualOf(title); if (!q) return 0;
-  const words = norm(q).split(" ").filter((w) => w.length > 2);
-  const text = cardText(c), hints = (HINTS[prefixOf(c.id)] || []).map(norm);
+/* The QUESTION and tags only, never the background: a 300-word abstract mentions plants, films and
+   bands often enough that "Croton (plant)" and "The Middle Kingdom (album)" were once chosen from it. */
+function cardText(c) { return " " + norm([c.question, (c.tags || []).join(" ")].map(strip).join(" ")) + " "; }
+const STOP = new Set(["the", "and", "of", "in", "for", "from", "with", "city", "town", "modern", "also", "a", "an", "at", "on", "de", "la", "le"]);
+// a qualifier that says the link is a work, a taxon or a person's name is never the answer to a history card
+const BAD_QUAL = /\b(album|band|song|single|film|movie|novel|book|play|opera|game|series|magazine|newspaper|journal|company|brand|ship|hms|uss|horse|butterfly|trilobite|moth|genus|plant|fungus|beetle|spider|fish|bird|insect|given name|surname|name|singer|musician|rapper|actor|actress|footballer|cricketer|tv|television|video|comics|character|episode|record label|software|programming|crater|asteroid|star|constellation|restaurant|wrestler|racehorse|theatre|theater|hotel|school|railway station)\b/i;
+const tokens = (s) => canon(s).split(" ").filter((w) => w && !STOP.has(w));
+/* How well a candidate article title fits THIS card, counted over the words the title has that the answer
+   does not (its qualifier and any extra words): +3 for a word in the card's own question or tags, +2 for a
+   word of the collection's hints, and −∞ for a qualifier naming a work, a taxon or a person's name. */
+function hintScore(title, c, answer) {
+  const extras = [...new Set([...tokens(noQual(title)), ...tokens(qualOf(title))])].filter((w) => !tokens(answer || "").includes(w));
+  if (BAD_QUAL.test(qualOf(title))) return -1;
+  const text = cardText(c), hints = (HINTS[prefixOf(c.id)] || []).map((h) => canon(h));
   let s = 0;
-  for (const w of words) { if (text.includes(w)) s += 2; if (hints.some((h) => h.includes(w) || w.includes(h))) s += 1; }
+  for (const w of extras) {
+    if (w.length < 3) continue;
+    if (text.includes(" " + w + " ") || text.includes(" " + w)) s += 3;
+    else if (hints.some((h) => h === w || h.split(" ").includes(w))) s += 2;
+  }
   return s;
 }
 function candidatesFor(c) {
@@ -278,14 +294,24 @@ function candidatesFor(c) {
   variants(answer).forEach((v) => push(v, "variant"));
   return { answer, cands: out };
 }
-// "redirect-variant" when the target is the same name modulo spelling / plural / qualifier / "the"
-function sameName(a, b) {
-  const na = norm(noQual(a)), nb = norm(noQual(b));
-  if (na === nb) return true;
-  const am = norm(noQual(variants(a).concat(a).map((v) => v).find((v) => norm(noQual(v)) === nb) || "")) === nb;
-  if (am) return true;
-  const sing = (s) => s.replace(/ies$/, "y").replace(/(ch|sh|x|s)es$/, "$1").replace(/s$/, "");
-  return sing(na) === sing(nb) || deacc(na).replace(/ae/g, "e") === deacc(nb).replace(/ae/g, "e");
+/* The loosest key two names are compared under: no accents, American spelling, every word in the
+   singular, no punctuation. "Behavioural modernity" and "Behavioral modernity" are one key; so are
+   "Minoan sealstones" and "Minoan seals"? No — and that is right, a human looks at that one. */
+const canon = (s) => deacc(norm(s)).replace(/isation/g, "ization").replace(/ise\b/g, "ize").replace(/our/g, "or").replace(/ae/g, "e").replace(/oe/g, "e")
+  .replace(/[^a-z0-9 ]/g, "").split(" ").filter(Boolean).map((w) => w.replace(/ies$/, "y").replace(/(ch|sh|x|s)es$/, "$1").replace(/([^s])s$/, "$1")).join(" ");
+// an extra word the redirect target may carry and still be the same subject
+const GENERIC = new Set(["language", "greek", "people", "culture", "civilization", "period", "style", "river", "dynasty", "kingdom", "empire", "ancient", "site", "archeological", "script", "tribe", "island", "battle", "war", "theory", "hypothesi", "event", "state", "province", "region", "mountain", "lake", "sea"]);
+// "redirect-variant" when the target is the same name modulo spelling / plural / qualifier / "the", or
+// the answer minus its "of Samos", or the answer plus one generic word ("Eteocretan" → "Eteocretan language")
+function sameName(a, b, hints) {
+  const ca = canon(noQual(a)), cb = canon(noQual(b));
+  if (ca === cb) return true;
+  const head = (s) => s.split(/ (of|at|in|on|from) /)[0];
+  if (canon(head(noQual(a))) === cb || ca === canon(head(noQual(b)))) return true;
+  const ta = new Set(ca.split(" ")), tb = new Set(cb.split(" "));
+  const extra = [...tb].filter((w) => !ta.has(w)), missing = [...ta].filter((w) => !tb.has(w));
+  const hs = (hints || []).map((h) => canon(h));
+  return missing.length === 0 && extra.length <= 1 && extra.every((w) => GENERIC.has(w) || hs.includes(w));
 }
 const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(title.replace(/ /g, "_")).replace(/%2C/g, ",").replace(/%3A/g, ":");
 
@@ -310,7 +336,8 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
       const r = cache[titleOf(t)]; if (!r) continue;
       if (r.status === "ok") { Object.assign(entry, { title: r.title, via, status: "ok" }); break; }
       if (r.status === "redirect") {
-        Object.assign(entry, { title: r.title, via, from: r.from, status: sameName(r.from, r.title) || sameName(answer, r.title) ? "redirect-variant" : "redirect-broader" });
+        const hints = HINTS[prefixOf(c.id)] || [];
+        Object.assign(entry, { title: r.title, via, from: r.from, status: sameName(r.from, r.title, hints) || sameName(answer, r.title, hints) ? "redirect-variant" : "redirect-broader" });
         break;
       }
       if (r.status === "disambig" && !dabHit) dabHit = { r, via };
@@ -318,9 +345,11 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
     }
     // a disambiguation page: pick the one link that begins with the answer and matches the hints
     if (!entry.title && dabHit) {
-      const links = (await dabLinks(dabHit.r.title)).filter((l) => norm(noQual(l)) === norm(answer) || norm(l).startsWith(norm(answer) + " "));
-      const scored = links.map((l) => ({ l, s: hintScore(l, c) + (norm(noQual(l)) === norm(answer) ? 1 : 0) })).sort((a, b) => b.s - a.s);
-      if (scored.length && scored[0].s > 0 && (scored.length === 1 || scored[0].s > scored[1].s)) {
+      // the links that CONTAIN the answer's words ("Olympia, Greece", "Ancient Corinth"), scored by what they add
+      const at = tokens(answer);
+      const links = (await dabLinks(dabHit.r.title)).filter((l) => at.length && at.every((w) => tokens(noQual(l)).includes(w)) && !/^List of /.test(l));
+      const scored = links.map((l) => ({ l, s: hintScore(l, c, answer) })).sort((a, b) => b.s - a.s);
+      if (scored.length && scored[0].s >= 2 && (scored.length === 1 || scored[0].s > scored[1].s)) {
         const r = (await resolve([scored[0].l]))[0];
         if (r && (r.status === "ok" || r.status === "redirect")) Object.assign(entry, { title: r.title, via: "disambiguation", from: dabHit.r.title, status: "disambig-resolved" });
       }
@@ -328,12 +357,16 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
     }
     if (!entry.title && !dabHit && secHit) { entry.status = "section-redirect"; entry.from = secHit.r.from; entry.target = secHit.r.title + "#" + secHit.r.fragment; }
     // nothing at all: ask search, accept only a title that IS the answer, keep the rest as suggestions
+    const at = tokens(answer);
     if (!entry.title && DO_SEARCH && entry.status === "none") {
       const hits = await search(answer + " " + (HINTS[prefixOf(c.id)] || [""])[0]);
       const same = hits && hits.find((h) => norm(noQual(h)) === norm(answer));
-      if (same) {
-        const r = (await resolve([same]))[0];
-        if (r && r.status === "ok") Object.assign(entry, { title: r.title, via: "search", status: "ok" });
+      // …or the same words in another order or punctuation ("Throne Room, Knossos" for "Throne Room at Knossos"):
+      // taken, but filed as `search-match` so the report shows every one for a glance
+      const close = hits && !same && hits.find((h) => { const b = tokens(noQual(h)); return at.length && at.length === b.length && at.every((w) => b.includes(w)) && !BAD_QUAL.test(qualOf(h)); });
+      if (same || close) {
+        const r = (await resolve([same || close]))[0];
+        if (r && r.status === "ok") Object.assign(entry, { title: r.title, via: "search", status: same ? "ok" : "search-match" });
       }
       if (!entry.title && hits) entry.suggestions = hits;
     }
@@ -363,6 +396,7 @@ function writeReport(all, counts) {
       const e = all[id];
       if (status === "redirect-broader") return `${line(id)} → [${e.title}](${e.url}) (from \`${e.from}\`)`;
       if (status === "disambig-resolved") return `${line(id)} → [${e.title}](${e.url}) (via the disambiguation page \`${e.from}\`)`;
+      if (status === "search-match") return `${line(id)} → [${e.title}](${e.url})`;
       if (status === "disambiguation") return `${line(id)} — \`${e.from}\` is a disambiguation page${e.suggestions && e.suggestions.length ? "; its links: " + e.suggestions.map((s) => `\`${s}\``).join(", ") : ""}`;
       if (status === "section-redirect") return `${line(id)} — \`${e.from}\` only redirects into \`${e.target}\``;
       return `${line(id)}${e.suggestions && e.suggestions.length ? " — search suggests " + e.suggestions.map((s) => `\`${s}\``).join(", ") : ""}`;
@@ -399,6 +433,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 | \`ok\` | ${counts.ok || 0} | the title is the article |
 | \`redirect-variant\` | ${counts["redirect-variant"] || 0} | spelling / plural / qualifier differed; same subject |
 | \`disambig-resolved\` | ${counts["disambig-resolved"] || 0} | chosen from a disambiguation page by hint words — listed below |
+| \`search-match\` | ${counts["search-match"] || 0} | a search hit with the answer's words in another order — listed below |
 | \`redirect-broader\` | ${counts["redirect-broader"] || 0} | redirected to a differently named article — listed below, a glance each |
 | \`section-redirect\` | ${counts["section-redirect"] || 0} | only a redirect into a section exists: no dedicated page, no link |
 | \`disambiguation\` | ${counts.disambiguation || 0} | only a disambiguation page; no link could be chosen |
@@ -407,6 +442,6 @@ accepted only when the title IS the answer. Nothing is guessed.
 **${linked} of ${total} cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
-${sec("Redirected to a differently named article — check each", "redirect-broader", "The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.")}${sec("Settled from a disambiguation page", "disambig-resolved", "The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's text or the collection's hints.")}${sec("Disambiguation pages that could not be settled", "disambiguation", "Pick the right article by hand, or leave the card without a link.")}${sec("Section redirects — no dedicated page", "section-redirect", "Wikipedia treats these as part of another article. No link.")}${sec("No article found", "none", "Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.")}`;
+${sec("Redirected to a differently named article — check each", "redirect-broader", "The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.")}${sec("Settled from a disambiguation page", "disambig-resolved", "The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.")}${sec("Matched by search — check each", "search-match", "No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.")}${sec("Disambiguation pages that could not be settled", "disambiguation", "Pick the right article by hand, or leave the card without a link.")}${sec("Section redirects — no dedicated page", "section-redirect", "Wikipedia treats these as part of another article. No link.")}${sec("No article found", "none", "Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.")}`;
   fs.writeFileSync(REPORT, md);
 }
