@@ -123,7 +123,7 @@ in plan order unless the user says otherwise.
 | B7 | The Palaeolithic (`wh-paleolithic`) | `wh-061`–`wh-070` | 10 | 97 | **done 2026-10-02** |
 | B8 | The Palaeolithic (`wh-paleolithic`) | `wh-071`–`wh-080` | 10 | 98 | **done 2026-10-02** |
 | B9 | The Palaeolithic (`wh-paleolithic`) / Peopling the planet (`wh-peopling`) | `wh-081`–`wh-090` | 10 | 94 | **done 2026-10-02** |
-| B10 | Peopling the planet (`wh-peopling`) | `wh-091`–`wh-100` | 10 | 101 | open |
+| B10 | Peopling the planet (`wh-peopling`) | `wh-091`–`wh-100` | 10 | 101 | **done 2026-10-02** |
 | B11 | Peopling the planet (`wh-peopling`) | `wh-101`–`wh-110` | 10 | 96 | open |
 | B12 | The Neolithic transition (`wh-neolithic`) | `wh-111`–`wh-120` | 10 | 95 | open |
 | B13 | The Neolithic transition (`wh-neolithic`) | `wh-121`–`wh-130` | 10 | 93 | open |
@@ -557,6 +557,63 @@ the northern route (`wh-088`) and the quagga (`wh-090`).
 
 **Glossary.** All ten terms rewritten to agree with their cards.
 
+### B10 — `wh-091`–`wh-100`, Peopling the planet (2026-10-02)
+
+Run as B1 with picture work paused; only `wh-092`'s picture block changed (its old description named a
+file, so the description and alt were rewritten from the file's title; the map itself is on the redo
+list). Checks: `wh-audit.js --range=wh-091:wh-100` clean but for `I.none` on `wh-093` (it never had one)
+and `W.not-why` notes. `check-questions`, `check-style`, `check-cards`, `check-docs`, `split-cards --check`,
+`test-card-plans` pass; `check-citations --card` 0 mismatched; all 67 distinct URLs 200. The *Sahul*
+glossary date had picked up a parenthetical; it now reads c. 65,000 – 47,000 years ago.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-091` Y-chromosomal Adam | 7 | 5 → 8 | **The 2013 find "pushed the date back by roughly two hundred thousand years"** is in no source; the press release says almost 70 per cent, and the papers give 338,000, a critique's 208,300 and later 254,000 and 275,000. Three old citations did not carry their claims; the family sending the sample and a "2015 estimate" row had no source. |
+| `wh-092` Sahul | 6 | 5 → 7 | **"25,000 – 40,000 years ago" for the Papuan–Aboriginal split was the error range of one c. 37,000 estimate.** Added the Bass Strait flooding and the deep channels that always kept Sahul apart. Questions carried figures of years. A Torres Strait locator added, since the audit asks a place card for one; a former landmass is a point only by convention. |
+| `wh-093` Madjedbebe | 5 | 5 → 6 | **The Jabiluka lease and "an agreement giving the Mirarr control"** had no source; now Mirarr and Gundjeihmi permission and a keeping place. **"Yams" are roots and tubers, fruits, pandanus kernels and palm stems.** "5,000 – 15,000 years earlier" had no source; the genetic c. 50,000 against c. 60,000 debate replaces a 2016 sentence. Modern scholars out of the prose. |
+| `wh-094` Lake Mungo remains | 6 | 9 → 8 | "Crushed bones", "red" ochre, a contaminant "matching the 2001 author" and "dry for more than 10,000 years" had no source (the lake began drying about 19,000 years ago). **"Hands folded" are "crossed".** The 1981 listing and 2022 reburial now sourced. |
+| `wh-095` peopling of Europe | 7 | 5 → 7 | Questions carried figures of years. Added Grotte Mandrin's earlier visit (hedged, 56,800 – 51,700), the Ice Age refuge and replacement from c. 14,000 years ago (Posth 2023), and the Ranis group with no living descendants (Sümer 2025). |
+| `wh-096` Mal'ta–Buret' culture | 5 | 5 → 6 | **"Slender, hooded, unlike western Venus figures" was cited to a Willendorf paper** that says only that Mal'ta's are a regional type. "Ritual corners" and the excavator's name dropped. Added the camps' dates (c. 26,500 – 24,500, Shichi 2023), the 14 – 38 per cent Native American ancestry and the boy's genome. |
+| `wh-097` Beringia | 7 | 8 → 8 | **"Hultén, a Swedish botanist" and "Bering sailed through in 1728"** are not in the source cited; cut to what Hoffecker carries (the name proposed in 1937). **The mammoth-steppe sentence cited an unrelated saiga paper**; now Hoffecker's dry Arctic steppe against the wetter southern bridge. Added the strait's depth, the standstill counter-view and St Paul Island's mammoths. |
+| `wh-098` Settlement of the Americas | 7 | 10 → 9 | **The split-from-Asia range was cited to one paper**; 36,000 – 24,000 from two, and the prose says estimates vary. Cooper's Ferry's date and source corrected; the ice-free corridor 12,600 → 13,000. **The glossary's "no human had set foot"** conflicted with the card. |
+| `wh-099` Monte Verde | 6 | 7 → 7 | **The discovery years 1975 and 1977 are in no source that opened**; dropped. The 2026 challenge follows Surovell et al.'s abstract and Waters et al.'s reply. The gomphotheres sit in the wishbone-shaped structure. |
+| `wh-100` Paleo-Indians | 7 | 7 → 8 | **"Roberts never defined the term" and "everyone before 8000 BCE"** had no source; the period's end, c. 9000 – 8000 BCE, comes from the New Georgia Encyclopedia. Bison size and "stone from hundreds of km" dropped. The diet debate (Chatters 2024, Potter 2026) added; angles that belong to `wh-101`–`wh-103` cut. |
+
+**Read by eye.** *Article:* "the peopling of Europe", "the Mal'ta–Buret' culture", "the settlement of the
+Americas", "the Lake Mungo remains", "the Paleo-Indians"; Sahul, Beringia, Madjedbebe, Monte Verde and
+Y-chromosomal Adam bare. *Confusability:* `wh-091` against `wh-045` (Y against mitochondria);
+`wh-092`/`wh-093`/`wh-094` a continent, a shelter and a burial; `wh-097`/`wh-098`/`wh-099`/`wh-100` the
+bridge, the process, one site and the people. *Sensitivity:* `wh-094`'s picture may show the remains of
+Aboriginal ancestors, which communities ask people not to display; it is first on the redo list.
+
+**Locators.** `wh-092` (Torres Strait), `wh-093` (Madjedbebe), `wh-094` (Lake Mungo), `wh-096` (Mal'ta–Buret'
+culture), `wh-099` (Monte Verde). **`wh-041` still has none**: "Rising Star Cave" and "Cradle of Humankind"
+both lack a primary coordinate on Wikipedia.
+
+**Glossary.** Nine terms rewritten (*Beringia* already agreed).
+
+### The first hundred, in sum
+
+`wh-audit.js --range=wh-001:wh-100` after B10, against the baseline:
+
+| rule | before | after |
+|---|---|---|
+| `Q.date` (a date or span of years in a question) | 94 | 0 |
+| `B.sentence-length` | 90 | 0 |
+| `S.bar` (under the difficulty's source bar) | 60 | 0 |
+| `W.no-marker` / `W.overlap` / `W.overlap-high` | 100 / 100 / 59 | 0 / 0 / 0 |
+| `S.modern-cap` | 10 | 0 |
+| `D.not-a-date` / `D.not-in-prose` / `D.era` | 18 / 16 / 1 | 0 / 0 / 0 |
+| `Q.sibling` | 12 | 0 |
+| `S.chip?` | 5 | 0 |
+| `G.none` / `G.date` | 1 / 3 | 0 / 0 |
+| `L.missing` | 7 | 0 |
+| `I.caption-source` / `I.duplicate` | 4 / 1 | 0 / 0 |
+| `I.none` | 6 | 4 (`wh-029`, `wh-030`, `wh-088`, `wh-093`; picture pass) |
+
+`W.not-why` (29 cards with an FAQ opening "How", "What" or "Did") is a note the rule reports and does not refuse.
+What remains open from these hundred is the **picture pass** (the table below) and `wh-041`'s locator.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -594,3 +651,9 @@ pass once it answers. Filled batch by batch.
 | `wh-086` | a labelled map |
 | `wh-088` | no picture |
 | `wh-089` | a Neanderthal skull, not admixture |
+| `wh-091` | a crowded labelled map |
+| `wh-092` | a labelled map; description written from its title, unseen |
+| `wh-093` | no picture |
+| `wh-094` | **first**: may show human remains; replace with the lunette |
+| `wh-097` | a map with burned-in labels |
+| `wh-098`, `wh-099`, `wh-100` | description and alt are raw captions |

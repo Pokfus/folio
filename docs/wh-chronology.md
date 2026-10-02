@@ -111,6 +111,16 @@ Filled batch by batch, from the source each row names.
 | main dispersal out of Africa | c. 60,000 years ago | `wh-086` |
 | Skhul and Qafzeh | c. 130,000 – 90,000 years ago | Groucutt 2019 (`wh-087`) |
 | main Neanderthal mixing | c. 49,000 – 45,000 years ago | Sümer et al. 2025 (`wh-089`) |
+| Y-chromosomal Adam | c. 300,000 – 200,000 years ago (estimates 208,300 – 338,000) | `wh-091` |
+| Sahul first settled / broke apart | c. 65,000 – 47,000 / c. 9000 years ago | `wh-092` |
+| Madjedbebe first occupied | c. 65,000 years ago (disputed) | `wh-093` |
+| Lake Mungo burials | c. 40,000 years ago | `wh-094` |
+| Europe: first arrivals / farmers / steppe migration | c. 45,000 / c. 8,000 / c. 4,500 years ago | `wh-095` |
+| Mal'ta camps | c. 26,500 – 24,500 years ago | Shichi et al. 2023 (`wh-096`) |
+| last Bering land bridge | c. 35,700 – 11,000 BP | Hoffecker (`wh-097`) |
+| Americas: split from Asia / White Sands footprints / Clovis | c. 36,000 – 24,000 BP / c. 23,000 – 21,000 BP / 13,050 – 12,750 BP | `wh-098`, `wh-100` |
+| Monte Verde main layer | c. 14,500 BP (challenged 2026) | `wh-099` |
+| Paleo-Indian period ends | c. 9000 – 8000 BCE | New Georgia Encyclopedia (`wh-100`) |
 
 ## Chronology pins
 
@@ -205,4 +215,14 @@ wh-087: 130,000; 90,000; 1933
 wh-088: 75,000; 50,000; 65,000; 30,000
 wh-089: 100,000; 49,000; 45,000; 2010
 wh-090: 1984; 2010
+wh-091: 300,000; 200,000
+wh-092: 65,000; 47,000; 9000
+wh-093: 65,000; 1973
+wh-094: 40,000; 1968; 2022
+wh-095: 45,000; 8,000; 4,500
+wh-096: 26,500; 24,500; 24,000
+wh-097: 35,700; 11,000; 1937
+wh-098: 36,000; 24,000; 23,000; 13,050
+wh-099: 14,500; 1997
+wh-100: 14,000; 13,050; 9000; 8000
 ```
