@@ -75,6 +75,33 @@ term, and "the oases" is not one. Kharga is the southernmost of the chain and th
 called simply the Great Oasis; the card carries the chain, the ten-day spacing Herodotus gives it and the
 fossil aquifer under all of them.
 
+**`eg-011`–`eg-100` (written together) retitled 49 lines**, and the list below now shows the term each
+card actually answers. The reasons fall into four kinds:
+
+- **The plan's term was already taken** by a World History card or an earlier line, so the card took the
+  term beside it: Palaeolithic (`wh-046`) → Wadi Kubbaniya; Saharan rock art (`wh-152`) → Gilf Kebir;
+  Nabta Playa (`wh-154`) → Gebel Ramlah; African cattle pastoralism (`wh-153`) → Bir Kiseiba; Neolithic
+  (`wh-111`) → El Omari; emmer (`wh-202`) → barley; Naqada culture (`wh-203`) → the Naqada expansion;
+  unification (`wh-205`) → Menes; Egyptian hieroglyphs (`wh-206`) → Tomb U-j; Memphis (`gr-719`) →
+  Inebu-hedj; the Two Lands (`eg-004`) → Sema-tawy; cylinder seal (`wh-176`) → jar sealings; Old Kingdom
+  (`wh-210`) → the Egyptian pyramids; the Step Pyramid (`wh-211`) → the serdab, with `eg-096` taking the
+  Heb-sed court so the two stay apart.
+- **The line named an area, not a term**: `eg-013`, `eg-020`, `eg-022`, `eg-023` (written from
+  linguistics, archaeology and ancient DNA as the "Race and Egypt" paragraph asks), `eg-024`, `eg-025`,
+  `eg-032`, `eg-033`, `eg-042`, `eg-043`, `eg-044`, `eg-077`, `eg-083`, `eg-086`, `eg-088`, `eg-089`,
+  `eg-090`.
+- **A later line already owns the general term**: the king lists → the Turin King List (Abydos is
+  `eg-340`); Manetho → his *Aegyptiaca* (the man is `eg-598`); the calendar → the epagomenal days
+  (`eg-980`/`eg-981` hold the civil calendar and the Sothic cycle); ivory carving → Tell el-Farkha, whose
+  votive deposit is the best-sourced body of Early Dynastic ivories (the U-j tags are `eg-046`, the year
+  labels `eg-047`).
+- **Two subjects on one line**: Peribsen and Khasekhemwy → Peribsen (Khasekhemwy carries `eg-069`); the
+  Red and White Crowns → Pschent, which wears both (so `eg-796 Crowns of Egypt` needs another answer);
+  the royal tombs at Abydos → Djet, one tomb, since `eg-063` is the cemetery.
+
+`Naqada_culture` gave up its bare `Naqada`, `Amratian` and `Gerzean` aliases in the same commit, to the
+new `Naqada` (the site), `Naqada_I` and `Naqada_II` terms.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -375,54 +402,54 @@ safe.
     eg-008  The Eastern Desert and the Red Sea
     eg-009  Kharga Oasis and the oasis chain
     eg-010  The African Humid Period
-    eg-011  The drying of the Sahara
-    eg-012  Palaeolithic Egypt
-    eg-013  The Nile terraces and the earliest stone tools
-    eg-014  Saharan rock art
-    eg-015  Nabta Playa
-    eg-016  The first cattle herders of the Sahara
-    eg-017  The Neolithic in Egypt
-    eg-018  The Faiyum Neolithic
+    eg-011  The Sahara
+    eg-012  Wadi Kubbaniya
+    eg-013  Nazlet Khater
+    eg-014  The Gilf Kebir
+    eg-015  Gebel Ramlah
+    eg-016  Bir Kiseiba
+    eg-017  El Omari
+    eg-018  Faiyum A culture
     eg-019  Merimde Beni Salama
-    eg-020  The origins of Egyptian agriculture
-    eg-021  Emmer and barley on the Nile
-    eg-022  The domestic animals of ancient Egypt
-    eg-023  Egypt and its African context
-    eg-024  Egypt and the Levant before the pharaohs
-    eg-025  Why a state arose on the Nile
+    eg-020  Kom K and Kom W
+    eg-021  Barley
+    eg-022  The donkey
+    eg-023  Afroasiatic languages
+    eg-024  The Levantine corridor
+    eg-025  State formation
 
 ### Predynastic Egypt — `eg-predynastic`
 
-    eg-026  Predynastic Egypt
+    eg-026  The Predynastic period
     eg-027  Badarian culture
-    eg-028  Naqada culture
+    eg-028  The Naqada expansion
     eg-029  Naqada I
     eg-030  Naqada II
     eg-031  Naqada III
-    eg-032  Predynastic burial
-    eg-033  Predynastic pottery
+    eg-032  Contracted burial
+    eg-033  Black-topped pottery
     eg-034  Predynastic figurines
     eg-035  The Gebelein predynastic mummies
     eg-036  Hierakonpolis
-    eg-037  The Painted Tomb at Hierakonpolis
+    eg-037  Tomb 100 at Hierakonpolis
     eg-038  Naqada
-    eg-039  Abydos before the kings
-    eg-040  Buto and the Delta cultures
+    eg-039  Cemetery U at Abydos
+    eg-040  Buto
     eg-041  Maadi
-    eg-042  Predynastic trade with the Levant
-    eg-043  Egypt and Mesopotamia in the fourth millennium
-    eg-044  Predynastic stoneworking
+    eg-042  Tell es-Sakan
+    eg-043  Gebel el-Arak Knife
+    eg-044  The ripple-flaked knife
     eg-045  Egyptian faience
-    eg-046  The origins of Egyptian writing
-    eg-047  The Abydos labels
+    eg-046  Tomb U-j
+    eg-047  The year label
     eg-048  Scorpion Macehead
-    eg-049  Egyptian ceremonial palettes
+    eg-049  Ceremonial palettes
     eg-050  Narmer Palette
     eg-051  Narmer
-    eg-052  The unification of Egypt
+    eg-052  Menes
     eg-053  Dynasty 0
-    eg-054  The Egyptian king lists
-    eg-055  Manetho and the dynasties
+    eg-054  Turin King List
+    eg-055  Manetho's Aegyptiaca
 
 ## The Old Kingdom
 
@@ -434,44 +461,44 @@ safe.
     eg-059  Djer
     eg-060  Den
     eg-061  Merneith
-    eg-062  The royal tombs at Abydos
+    eg-062  Djet
     eg-063  Umm el-Qa'ab
     eg-064  Retainer sacrifice in the First Dynasty
     eg-065  Mastaba
-    eg-066  Saqqara in the Early Dynastic period
+    eg-066  Saqqara
     eg-067  Second Dynasty of Egypt
-    eg-068  Peribsen and Khasekhemwy
+    eg-068  Peribsen
     eg-069  Shunet el-Zebib
-    eg-070  Memphis
-    eg-071  The Two Lands
+    eg-070  Inebu-hedj, the White Walls of Memphis
+    eg-071  Sema-tawy, the Union of the Two Lands
     eg-072  Ancient Egyptian royal titulary
     eg-073  Serekh
     eg-074  The Horus name
-    eg-075  The Red Crown and the White Crown
+    eg-075  Pschent, the Double Crown
     eg-076  Sed festival
-    eg-077  Early Dynastic administration
-    eg-078  Egyptian sealings and the early bureaucracy
+    eg-077  The Following of Horus
+    eg-078  Jar sealings
     eg-079  Nome
     eg-080  Egyptian stone vessels
-    eg-081  Early Dynastic ivory carving
+    eg-081  Tell el-Farkha and its ivories
     eg-082  Palermo Stone
-    eg-083  Egyptian annals and the counting of cattle
-    eg-084  The Egyptian calendar
+    eg-083  The cattle count
+    eg-084  The epagomenal days
     eg-085  Nilometer
-    eg-086  The earliest Egyptian boats
-    eg-087  The Abydos boat graves
-    eg-088  Egypt's earliest quarries
-    eg-089  Sinai and the turquoise expeditions
-    eg-090  Egypt at the end of the Second Dynasty
+    eg-086  Reed boats
+    eg-087  The Abydos boats
+    eg-088  Wadi Hammamat
+    eg-089  Wadi Maghareh
+    eg-090  Gisr el-Mudir
 
 ### The Old Kingdom — `eg-old-kingdom`
 
-    eg-091  Old Kingdom of Egypt
+    eg-091  The Egyptian pyramids
     eg-092  Third Dynasty of Egypt
     eg-093  Djoser
-    eg-094  Pyramid of Djoser
+    eg-094  The serdab
     eg-095  Imhotep
-    eg-096  The Saqqara step pyramid complex
+    eg-096  The Heb-sed court
     eg-097  Sekhemkhet and the unfinished pyramids
     eg-098  Fourth Dynasty of Egypt
     eg-099  Sneferu
