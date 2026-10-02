@@ -130,10 +130,10 @@ in plan order unless the user says otherwise.
 | B14 | The Neolithic transition (`wh-neolithic`) | `wh-131`–`wh-140` | 10 | 101 | **done 2026-10-02** |
 | B15 | Neolithic worlds (`wh-early-villages`) | `wh-141`–`wh-150` | 10 | 94 | **done 2026-10-02** |
 | B16 | Neolithic worlds (`wh-early-villages`) | `wh-151`–`wh-160` | 10 | 99 | **done 2026-10-02** |
-| B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | **8 of 10 done** (`wh-165`, `wh-166` open) |
-| B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | **2 of 10 done** (`wh-175`, `wh-176`) |
-| B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | open |
-| B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | open |
+| B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | **done 2026-10-02** |
+| B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | **done 2026-10-02** |
+| B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | **done 2026-10-02** |
+| B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | **done 2026-10-02** |
 | B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | open |
 | B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | open |
 | B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | open |
@@ -876,6 +876,105 @@ period", "the urban revolution"; the rest bare or "a" (writing system, cylinder 
 
 **Glossary.** Nine terms rewritten; *urban revolution* already agreed.
 
+### B17 and B18, completed — the other twelve of `wh-161`–`wh-180` (2026-10-02)
+
+Run as B16 from fresh `prep.js` drafts, with Commons calls forbidden to the research agents. Mesopotamian
+dates before c. 1500 BCE now follow the **middle chronology** (Hammurabi 1792 – 1750 BCE), and each card
+giving such a date says so once in its prose. Checks: `wh-audit.js --card` clean on all ten but a `W.not-why`
+note on `wh-166`; `check-questions`, `check-cards --prefix` per card, `check-style` (no new finding),
+`check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 61
+distinct URLs 2xx. PMC served a CAPTCHA all run, so PMC articles are cited at their Europe PMC full-text URL.
+New locators: `wh-178` (Eridu, labelled Abu Shahrayn), `wh-180` (Ur, labelled Tell el-Muqayyar), `wh-177`
+(the Ur ziggurat, labelled Ur: a building card needs one, and Ur's is the best-preserved). New glossary
+term: **Wheel** (`G.none` closed).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-165` plough | 9 | 5 → 9 | **"From c. 3600 BCE" was the South Street marks; the oldest European ard marks, at Sion, are c. 5100 – 4700 BCE.** An arm-bone paper about metallurgy, not ploughing, dropped. Added the Arbon yoke, the Sumerian seeder plough and *Farmer's Instructions*, the mouldboard, and the inequality and gender-roles views, each as a view. |
+| `wh-166` wheel | 9 | 5 → 10 | **"3 to 16 kilometres an hour" was in no source**, and the copper-miners theory of the wheel's invention was the card's own claim; now "one recent theory". The wagon mugs are dated by their culture (formed by 3600 BCE), not as made by then. Ljubljana, Mesoamerica's wheeled toys and Ireland's late wheel added. |
+| `wh-171` Mesopotamia | 9 | 5 → 9 | A run of single-site findings (Khani Masi millet, zinc isotopes, a Neolithic "focaccia") that never said who lived there or when; now the land, its peoples, c. 3200 – 331 BCE, canals against an ill-timed flood, and cuneiform. A "cuneiform until 100 CE" row dropped for `wh-174`'s 75 CE. |
+| `wh-172` Sumer | 8 | 5 → 8 | Shekel weights, brick stamps and cattle fodder dropped; the Sumerian language, writing, the earliest readable poetry and the end of Sumerian primacy added. Ur III 2112 – 2004 BCE. |
+| `wh-173` Uruk | 7 | 5 → 8 | **An "expansion c. 3550 BCE" row was a conversion of one paper's 5,500 BP.** Half the old background was Susa, Arslantepe and Tell Brak; now the city: growth from 15 villages, 250 hectares and 25,000 people, its dispersed plan, Eanna, writing. Uruk period ends 3200, not 3250. |
+| `wh-174` cuneiform | 8 | 5 → 9 | **A corpus-size comparison was cited to a Neo-Assyrian emotion study that does not make it**; an "Akkadian c. 2700 BCE" row dated a language, not the script. Glossary's end "c. 100 CE" is 75 CE. Rebuilt around how the script worked: stylus, rebus, about 80 sound-signs, 600,000 tablets. |
+| `wh-177` ziggurat | 8 | 5 → 8 | The old card described only Ur's tower; now the type, with Eridu's terrace, Chogha Zanbil, Herodotus and Babel. A magnetic-brick sentence (true of any fired brick) dropped, and a figurine whose page is gone. |
+| `wh-178` Eridu | 7 | 5 → 7 | **The first-season Ubaid temple was called "the earliest shrine"**, which its report does not say. The level count is "18 or 19", the two reports differing; a non-date row dropped. |
+| `wh-179` Sumerian city-state | 7 | 5 → 7 | **"A city upstream held its rival's water" was in no source.** Eridu and Ur housing moved off to their own cards; now dynasty, patron god, the king list and war, with Lagash as the worked example. |
+| `wh-180` Ur | 8 | 5 → 8 | Three sentences and every FAQ rested on a zinc-isotope study of Abu Tbeirah, another site; 5500 BCE was cited to the wrong source; the glossary garbled Shulgi. Now the city's whole life to its last tablets c. 500 – 400 BCE, the river shift hedged as the excavators'. |
+
+**Read by eye.** *Article:* "a ziggurat", "a Sumerian city-state"; the rest bare. *Confusability:*
+`wh-171`/`wh-172`/`wh-179` the land, its southern culture and its political unit; `wh-173`/`wh-178`/`wh-180`
+three cities, each on its own god and story; `wh-180` kept off `wh-181`'s cemetery and `wh-186`'s dynasty.
+*Consistency:* cuneiform c. 3300 BCE – 75 CE across `wh-171`/`wh-174`; Uruk period c. 4000 – 3200 BCE as in
+`wh-170`.
+
+**Glossary.** Eight terms rewritten and *Wheel* added; *Ziggurat* and *Sumerian city-state* already agreed.
+
+**Pictures.** Commons answered one call at the start of the run and then refused the sandbox again, so the
+picture pass deferred all but six cards whose pictures were sound and whose text was not: `wh-060`,
+`wh-085`, `wh-098`, `wh-102`, `wh-111` and `wh-169` keep their files with a new description and alt.
+`wh-041`'s locator is still open: "Rising Star Cave" has no primary coordinate.
+
+### B19 — `wh-181`–`wh-190`, Mesopotamia (2026-10-02)
+
+Run as B18, middle chronology throughout. Checks: `wh-audit.js --range=wh-181:wh-190` clean on all ten;
+`check-questions`, `check-cards --prefix` per card, `check-style` (no new finding), `check-docs`,
+`split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 67 distinct URLs 2xx.
+New locators: `wh-181` and `wh-186` (both at Ur, labelled Tell el-Muqayyar). `add-card.js --replace` refused
+`wh-185`'s existing two-ring region (Akkad and Magan), which `add-locators.js` had written; it now validates
+each ring of a multi-ring `area`, and the region stands.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-181` Royal Cemetery at Ur | 7 | 5 → 7 | A phrasing carried a year. The royal tombs are c. 2600 – 2500 BCE with Puabi put near 2450 by one account, and the line says c. 2600 – 2450. **The servants "drank poison" was the excavator's reading**; CT scans of two skulls point to blows, heating and mercury. Kungas on the Standard added. |
+| `wh-182` Gilgamesh | 9 | 5 → 9 | **"The fifth king of Uruk" was in no source.** Now a probable reign c. 2600 BCE from later writings, the Nippur temple record, worship by c. 2500, and the Sumerian poems (Aga of Kish, the death poem); the king-list reign as legend. |
+| `wh-183` Epic of Gilgamesh | 9 | 5 → 9 | Two phrasings carried centuries or 1872. The old card leaned on one review and misdated the Penn tablet; now oldest copies c. 1800 – 1500 BCE, the Standard version c. 800 – 100 BCE, the Sumerian poems behind it, the flood tablet and the missing third. |
+| `wh-184` Sargon of Akkad | 8 | 6 → 8 | **The card said the Louvre dates the reign "on the conventional chronology"**; its page gives only the years. A phrasing carried the 56-year reign; the reign is now doubted as the king list gives Naram-Sin the same. An omen was misread ("the Persian Gulf" for "the Sea in the East"). |
+| `wh-185` Akkadian Empire | 8 | 5 → 10 | The card gave no date for the empire; now c. 2350 – 2150 BCE, Old Akkadian administration, reach to Susa, the Gutian overthrow, and drought against continuity as a debate. The *Curse of Agade* is set against the king list. |
+| `wh-186` Third Dynasty of Ur | 7 | 5 → 8 | No date for the dynasty and three phrasings on its siblings' ziggurat, stela and Nabonidus; now 2112 – 2004 BCE, Shulgi 2094 – 2047 with one excavation report's lower dates as the debate, merchants, Drehem and Susa. |
+| `wh-187` Code of Ur-Nammu | 7 | 5 → 8 | **"Ur-Nammu killed Namhani of Lagash"**: the composite has him make Namhani governor. The "ten shekels for a foot" reading rested on a 1952 restoration; the questions now use the half-mina eye law. Later copies and the Schøyen cylinder added. |
+| `wh-188` Old Babylonian period | 7 | 5 → 7 | **Amorites seizing power at Ur's fall is one view**, a later and gradual takeover another. "Kings who lived in tents", Akkadian as the spoken tongue and a count of 172 graves had no source. A phrasing on Ur's housing moved off `wh-180`'s clue. |
+| `wh-189` Hammurabi | 8 | 7 → 9 | **"His people spoke Akkadian"** (card and glossary) had no source. His wars, his letters to Larsa and the fate of his realm added. |
+| `wh-190` Code of Hammurabi | 8 | 5 → 9 | The 34-paragraph gap is hedged; a prologue-tablet claim dropped with the second French page. Taken to Susa c. 1150 BCE; found 1901 – 1902. |
+
+**Read by eye.** *Article:* "the Royal Cemetery at Ur", "the Epic of Gilgamesh", "the Akkadian Empire", "the
+Third Dynasty of Ur", "the Code of Ur-Nammu", "the Old Babylonian period", "the Code of Hammurabi"; the three
+kings bare. *Confusability:* `wh-182`/`wh-183` the king and the poem, kept apart (Sumerian poems and cult
+against the Babylonian epic); `wh-184`/`wh-185` the founder and his state; `wh-189`/`wh-190` the king and
+his laws; `wh-180`/`wh-181`/`wh-186` the city, its cemetery and its dynasty. *Consistency:* Sargon 2334 BCE
+ends `wh-179`'s Early Dynastic; Ur III 2112 – 2004 as in `wh-172`.
+
+**Glossary.** Seven terms rewritten; *Epic of Gilgamesh*, *Third Dynasty of Ur* and *Code of Hammurabi*
+already agreed. The *Hammurabi* and *Code of Hammurabi* entries carry malformed picture fields (licence in
+the description, a bare URL as credit): picture pass.
+
+### B20 — `wh-191`–`wh-200`, Mesopotamia (2026-10-02)
+
+Run as B19. Checks: `wh-audit.js --range=wh-191:wh-200` clean but for `W.not-why` notes on five; the rest as
+B19; all citation URLs 2xx and `check-citations --card` 0 mismatched. New locators: `wh-191` (Babylon) and
+`wh-198` (Dur-Kurigalzu); `wh-199` and `wh-200` keep their drawn regions. **The Mesopotamia deck is now done.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-191` Babylon | 9 | 5 → 9 | **Two citations did not carry their claims**: one never mentions Esagila, another does not say Cyrus took the city. Rebuilt over the city's whole life, Hammurabi to Alexander; the Hanging Gardens as unlocated; Nebuchadnezzar II 605 – 562 BCE, some sources starting at 604. |
+| `wh-192` Mesopotamian religion | 7 | 5 → 7 | **"The high priestess was usually the king's daughter"** had no source; a second French Louvre page dropped. Cult statues, Marduk's rise, divination and the underworld added. Its date line had two arbitrary anchors (a votive statue, Shulgi's reign); now empty and `undatable`. |
+| `wh-193` Enuma Elish | 6 | 5 → 6 | **The poem was dated by its Nineveh copies (c. 670 BCE)** and given 994 lines; the 2024 edition gives 1,095, composition by 1082 BCE, the Nebuchadnezzar I link as a hypothesis, and a last dated copy of 495 BCE. New Year recital and the Assyrian Ashur version added. |
+| `wh-194` Babylonian mathematics | 7 | 5 → 7 | Four of five sources were one exhibition's pages. Place value c. 2100 BCE in the Ur III state; the Old Babylonian bounds differ by source and both are given; Plimpton 322's purpose as a debate. |
+| `wh-195` Babylonian astronomy | 7 | 5 → 7 | **"Diaries 750 BCE – 75 CE" was the span of observing; the surviving diaries run 652 – 61 BCE**, now two rows. A zodiac-tablet row and a planet-name list dropped; temple funding, water-clock eclipse timings, Halley's Comet in 164 BCE and the Venus cycle added. |
+| `wh-196` edubba | 6 | 5 → 6 | **"c. 1730 BCE" had no source**, and the "mother of orators" hymn is from a copy of c. 650 BCE. A century-only row dropped. |
+| `wh-197` Mesopotamian trade | 7 | 6 → 7 | **"c. 3100 BCE" was in no source.** Gulf trade c. 2900 – 1700 BCE, Ur III exports to Magan, Assur's tin and cloth at Kanesh, silver weighed as money. The glossary's Anatolian route had no support in its source. A Sargon row (another event's date) dropped from the line. |
+| `wh-198` Kassites | 6 | 6 → 6 | Mostly a 1915 book; now five of six modern. "Curses" and a French-expedition claim had no source. First attested 1770 BCE; the dynasty's end c. 1155 – 1150 BCE, sources differing. |
+| `wh-199` Elam | 7 | 5 → 8 | **Proto-Elamite "2900 – 2600 BCE" came from a 1968 note**; now c. 3050 – 2900. Susa's sack is 646 BCE, not "c. 640"; "the largest ziggurat" and an outdated succession sentence dropped. |
+| `wh-200` Mitanni | 6 | 5 → 8 | **"A vassal treaty" and "gold the commonest complaint" had no source**; filler on Tell al-Rimah frit dropped. Empire c. 1550 – 1350 BCE; a century-only Hittite-defeat row dropped. |
+
+**Read by eye.** *Article:* "the Kassites"; the rest bare or "the edubba". *Confusability:* `wh-191`/`wh-188`/
+`wh-189` the city, the period and the king; `wh-192`/`wh-193` the religion and its creation poem;
+`wh-194`/`wh-195`/`wh-196` the numbers, the sky and the school. *Consistency:* the dynasty's fall c. 1155 BCE
+and the stele taken to Susa c. 1150 agree across `wh-190`/`wh-193`/`wh-198`; the Hittite sack of Babylon 1595
+BCE (`wh-191`, `wh-198`); Nippur destroyed 1722 BCE (`wh-196`) is on its source's own chronology, which it
+does not name. *Coverage:* `wh-200` gives no year for Mitanni's defeat, its sources differing.
+
+**Glossary.** Nine terms rewritten; *Edubba* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -896,7 +995,7 @@ pass once it answers. Filled batch by batch.
 | `wh-054` | an 18th-century engraving; alt is the file name |
 | `wh-055` | one Blombos point (a sibling's site); caption gives "71,000 BCE" |
 | `wh-056` | a leaf point that looks Middle Stone Age |
-| `wh-057`, `wh-060` | fine, but description and alt need writing in English |
+| `wh-057` | fine, but description and alt need writing in English |
 | `wh-058` | a stratigraphy diagram with printed, outdated ages |
 | `wh-059` | a 1929 plate of line drawings |
 | `wh-061`, `wh-062` | weak fits |
@@ -907,7 +1006,7 @@ pass once it answers. Filled batch by batch.
 | `wh-076`, `wh-077` | replicas, not the caves |
 | `wh-078` | a modern drawing |
 | `wh-080` | the disputed Divje Babe bone, not a secure flute |
-| `wh-081`, `wh-083`, `wh-085` | fine, but description and alt need writing |
+| `wh-081`, `wh-083` | fine, but description and alt need writing |
 | `wh-082` | a postcard captioned "Indian with bow & arrow" |
 | `wh-084` | an old drawing |
 | `wh-086` | a labelled map |
@@ -918,14 +1017,14 @@ pass once it answers. Filled batch by batch.
 | `wh-093` | no picture |
 | `wh-094` | **first**: may show human remains; replace with the lunette |
 | `wh-097` | a map with burned-in labels |
-| `wh-098`, `wh-099`, `wh-100` | description and alt are raw captions |
-| `wh-101`, `wh-102` | fine subjects, but description and alt are copied captions naming a museum and giving dates the cards no longer carry |
+| `wh-099`, `wh-100` | description and alt are raw captions |
+| `wh-101` | fine subject, but description and alt are copied captions naming a museum and giving dates the cards no longer carry |
 | `wh-103` | a landscape of another Folsom site, no artefacts |
 | `wh-104`, `wh-105`, `wh-113`, `wh-114` | labelled charts (`wh-114`'s title gives a BC date) |
 | `wh-106` | a Kebaran mortar from Israel: Epipalaeolithic, not Mesolithic |
 | `wh-107` | one Natufian figurine; weak description and alt |
 | `wh-108` | probably a map of the Dogger Bank; description "Doggerbank" only |
-| `wh-109`, `wh-111`, `wh-116` | fine, but description and alt carry museum or promotional text or a file name |
+| `wh-109`, `wh-116` | fine, but description and alt carry museum or promotional text or a file name |
 | `wh-112` | an Egyptian dynastic milking scene, not the Neolithic |
 | `wh-115` | a 1486 Ptolemy map of part of the region |
 | `wh-117` | a labelled wheat display; plants only |
@@ -945,6 +1044,15 @@ pass once it answers. Filled batch by batch.
 | `wh-156` | a map with burned-in labels and dates |
 | `wh-157` | description is a caption |
 | `wh-163` | Varna grave 43, which is `wh-144`'s |
-| `wh-169` | caption carries a museum number |
 | `wh-170` | one Trypillia site only |
 | `wh-175` | a Rongorongo tablet, one undeciphered script |
+| `wh-171` | NASA view of the two rivers: fine, but description is a file caption |
+| `wh-172` | Standard of Ur: credit names no author, description carries licence text |
+| `wh-173` | a cone-mosaic detail; a view of the site would show the city |
+| `wh-178` | description names the photographer and an unverified brick stamp |
+| `wh-180` | the Ram in a Thicket, a Royal Cemetery object (`wh-181`'s), not the city |
+| `wh-182` | the king-list prism, not Gilgamesh |
+| `wh-183`, `wh-185`, `wh-186` | fine, but description names the photographer |
+| `wh-189`, `wh-190` | glossary picture fields malformed; `wh-190` shows a museum panel at one edge |
+| `wh-194` | a labelled derivative of YBC 7289; prefer the unlabelled photograph |
+| `wh-197`, `wh-198` | fine, but description names a museum number or excavator |
