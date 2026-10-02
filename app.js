@@ -24778,6 +24778,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 ? "All caught up — nothing due right now. Come back tomorrow; the schedule does the rest."
                 : "No decks in your daily review yet — add one from the collections to build your pile."
             }</p>`}
+            ${/* the level bar and the piles share one column (`.rv-stack`), so the bar is exactly as wide as
+                  the pile row and the Start button under it (Oct 2026, on request) */""}
+            <div class="rv-stack">
             ${xpBarMarkup(folioXP())}
             <div class="meta">
               ${/* Anki's three piles, in Anki's order and Anki's colours: blue new, red learning, green
@@ -24801,6 +24804,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     collections when the day is empty, so nothing that could be pressed becomes a dead
                     no-op; only the redundant chrome goes. */""}
               ${dueN + newN ? `<span class="cta"><span class="btn">Start review</span></span>` : ""}
+            </div>
             </div>
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
