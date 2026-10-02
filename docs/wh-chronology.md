@@ -63,6 +63,13 @@ Filled batch by batch, from the source each row names.
 | Wonderwerk Cave: oldest tools / fire | c. 1.8 Mya / c. 1 Mya | `wh-030` |
 | Java Man deposits | c. 830,000 – 380,000 BP | Pop et al. 2023 (`wh-024`) |
 | Zhoukoudian Locality 1 / Upper Cave | c. 780,000 – 400,000 / c. 35,100 – 33,500 years ago | Smithsonian; Li et al. 2018 (`wh-025`, `wh-026`) |
+| Homo antecessor (TD6 tooth, direct) | c. 949,000 – 772,000 years ago | `wh-032` |
+| Homo heidelbergensis | c. 700,000 – 200,000 years ago | Smithsonian (`wh-034`) |
+| Neanderthals | c. 400,000 – 40,000 years ago | `wh-035` |
+| Levallois spread / Mousterian | c. 400,000 – 200,000 / c. 300,000 – 40,000 years ago | `wh-036`, `wh-037` |
+| Mousterian's end at Le Moustier and across Europe | 41,030 – 39,260 cal BP | Higham et al. 2014 (`wh-037`) |
+| Denisovans diverged / oldest remains | more than 390,000 / c. 200,000 years ago | `wh-038` |
+| Homo floresiensis skeletons / tools | c. 100,000 – 60,000 / c. 190,000 – 50,000 years ago | Sutikna et al. 2016 (`wh-040`) |
 
 ## Chronology pins
 
@@ -99,4 +106,14 @@ wh-027: 1.76; 125,000; 1872
 wh-028: 1.76; 1800; 1859
 wh-029: 1.5; 400,000
 wh-030: 1.8; 1
+wh-031: 1.9; 1.7; 1999
+wh-032: 949,000; 772,000; 1997
+wh-033: 1.4; 1.1; 1978; 2000
+wh-034: 700,000; 200,000; 1907; 1908
+wh-035: 400,000; 40,000; 1856; 1864
+wh-036: 400,000; 200,000; 295,000; 50,000
+wh-037: 300,000; 40,000; 1873
+wh-038: 390,000; 200,000; 2010
+wh-039: 300,000; 45,000; 2008
+wh-040: 700,000; 100,000; 60,000; 2003
 ```

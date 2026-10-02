@@ -117,7 +117,7 @@ in plan order unless the user says otherwise.
 | B1 | Human origins (`wh-evolution`) | `wh-001`–`wh-010` | 10 | 96 | **done 2026-10-02** |
 | B2 | Human origins (`wh-evolution`) | `wh-011`–`wh-020` | 10 | 100 | **done 2026-10-02** |
 | B3 | Human origins (`wh-evolution`) | `wh-021`–`wh-030` | 10 | 104 | **done 2026-10-02** |
-| B4 | Human origins (`wh-evolution`) | `wh-031`–`wh-040` | 10 | 101 | open |
+| B4 | Human origins (`wh-evolution`) | `wh-031`–`wh-040` | 10 | 101 | **done 2026-10-02** |
 | B5 | Human origins (`wh-evolution`) / The Palaeolithic (`wh-paleolithic`) | `wh-041`–`wh-050` | 10 | 90 | open |
 | B6 | The Palaeolithic (`wh-paleolithic`) | `wh-051`–`wh-060` | 10 | 96 | open |
 | B7 | The Palaeolithic (`wh-paleolithic`) | `wh-061`–`wh-070` | 10 | 97 | open |
@@ -367,6 +367,38 @@ filled were the later reanalyses (`wh-021`), several dispersals (`wh-022`) and t
 
 **Glossary.** Nine of the ten terms rewritten to agree with their cards (*Hand axe* already did).
 
+### B4 — `wh-031`–`wh-040`, Human origins (2026-10-02)
+
+Run as B1; the pictures that changed were chosen before the Wikimedia block.
+
+Checks: `wh-audit.js --range=wh-031:wh-040` clean but for a `W.not-why` note on `wh-031`. `check-questions`,
+`check-style`, `check-cards --prefix=wh-03`/`wh-040`, `check-docs`, `split-cards --check`, `test-card-plans`
+pass; `check-citations --card` 0 mismatched; all 74 distinct citation URLs answer 200.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-031` cooking hypothesis | 6 | 6 → 8 | **The date was the later accounts' c. 1.7 Mya**; the founding paper (1999) put the shift at c. 1.9 Mya, so the line is c. 1.9 – 1.7 Mya. An unclear "1,200 calories an hour" figure (the paper writes "ca/h") and an over-read bite-force argument dropped. Added the feeding-time evidence, the food-theft side of the idea, the stone-tool alternative and the critique of the brain argument. A picture added (it had none). |
+| `wh-032` Homo antecessor | 6 | 5 → 8 | **860,000 – 780,000 had no source**; now the direct date of a TD6 tooth, 949,000 – 772,000 years ago. **"Boy" is "child"**: no source gives the sex. "The oldest cannibalism" softened to arguably the earliest firm evidence of systematic cannibalism; an unsupported claim about skull growth dropped. |
+| `wh-033` Atapuerca | 6 | 5 → 7 | "Limestone", the "Pink" nickname, a 2022 find year and "about 4,000 specimens in 2004" had no source. Two questions carried figures of years. Added the El Portalón farmers and their genetic closeness to today's Basques. |
+| `wh-034` Homo heidelbergensis | 7 | 5 → 7 | **700,000 – 300,000 is in no source**; the Smithsonian gives c. 700,000 – 200,000. **The Mauer jaw's "almost modern teeth"** were smaller than earlier species' but larger than ours. "Most workers use the term narrowly" had no source; the *Homo bodoensis* proposal and its critics (Delson and Stringer 2022) replace it. A radiograph replaced by the jaw itself. |
+| `wh-035` Neanderthal | 9 | 6 → 10 | **"Neander" as a Greek form of Neumann** and **extinction by "absorption into newcomers"** were in no source read. The 1856 find now follows Schmitz et al. 2002; the 1 – 4 per cent DNA figure is Green et al.'s, unnamed. Questions carried years and figures. Boule's monograph (unchecked) dropped. |
+| `wh-036` Levallois technique | 6 | 6 → 7 | **"c. 300,000 – 40,000 BP" had no source at either end**; three sourced rows now (spread, early Italy, East Asia). Dropped gravel quarries, Nor Geghi's date, the end at 40,000 when blades "took over", and Umm el Tlel. "Invented more than once" is one view set against rapid spread. The picture had a printed centimetre scale; now a core in the Louvre. |
+| `wh-037` Mousterian | 6 | 9 → 8 | **"Published by Lartet and Christy"** is wrong: de Mortillet defined it in 1873. The 63 types, five facies, North Africa and birch-tar shafts had no source; the Levant softened. Le Moustier's bitumen-ochre grips added; the end is Higham et al.'s 41,030 – 39,260 cal BP. |
+| `wh-038` Denisovans | 7 | 6 → 9 | **"Denny is 90,000 years old"** is not in Slon et al.; dropped with the hermit story. The c. 400,000 split is "more than 390,000 years ago"; **4 – 6 per cent is Melanesians, not Australians**. Added the c. 200,000-year-old remains and the Taiwan jaw. The glossary entry gains the alias "Denisovans", which closes the collection's one `G.none` in these hundred. Picture (a chart) on the redo list. |
+| `wh-039` Denisova Cave | 6 | 6 → 8 | **"Its cool, steady temperature explains the DNA" is in no source**: Reich 2010 calls the finger bone's 70 per cent endogenous DNA exceptional, notes a tooth from the same cave at 0.17 per cent, and leaves the reason open. Dropped the hermit, "1977, dug from 1982", the needle and the bracelet. Jacobs 2019 (abstract only) replaced by Jacobs 2025 (open). Russian description and alt rewritten in English. |
+| `wh-040` Homo floresiensis | 7 | 5 → 8 | **The tools are c. 190,000 – 50,000 years old, not "around 50,000"** (Sutikna 2016), and **extinction on modern humans' arrival** is an open question there, not a fact. The Wallace-line and giant-rat sentence and the chimpanzee brain comparison dropped; the 700,000-year jaw now cites the paper reporting it. |
+
+**Read by eye.** *Article:* "the cooking hypothesis", "the Levallois technique", "the Mousterian", "the
+Neanderthal" where the sentence needs one, "the Denisovans"; the rest bare. *Confusability:* `wh-038`/
+`wh-039` are people against place (the cave clues are its chambers and its dirt DNA); `wh-036`/`wh-037`
+technique against industry; `wh-032`/`wh-033` share Atapuerca and are species against hills.
+*Coverage:* the gaps were the later reanalyses (`wh-034`'s *bodoensis*, `wh-040`'s dates) and the people
+after the fossils (`wh-033`'s farmers).
+
+**Locators.** `wh-033` (Sierra de Atapuerca) and `wh-039` (Denisova Cave).
+
+**Glossary.** All but *Mousterian* rewritten to agree with their cards; *Denisovan* gains its alias.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -378,3 +410,4 @@ pass once it answers. Filled batch by batch.
 | `wh-014` | not re-viewed |
 | `wh-016` | one chopper stands for the whole kit |
 | `wh-029`, `wh-030` | no picture |
+| `wh-038` | a chart, not a photograph |
