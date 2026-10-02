@@ -823,40 +823,40 @@ already shipped before adding it.
     cnh-399  Later Tang
     cnh-400  Sixteen Prefectures
     cnh-401  Shi Jingtang
-    cnh-402  Later Han and Later Zhou
-    cnh-403  Emperor Shizong of Later Zhou
-    cnh-404  The Ten Kingdoms
+    cnh-402  Later Zhou
+    cnh-403  Chai Rong
+    cnh-404  Former Shu
     cnh-405  Wuyue
     cnh-406  Southern Tang
     cnh-407  Li Yu
-    cnh-408  The southern economy in the tenth century
-    cnh-409  Printing in the Five Dynasties
-    cnh-410  The Song reunification
+    cnh-408  Yue ware
+    cnh-409  Feng Dao
+    cnh-410  Northern Han
 
 ### Liao — `col-25`
 
     cnh-411  Liao dynasty
     cnh-412  Khitan people
     cnh-413  Abaoji
-    cnh-414  The Liao dual administration
+    cnh-414  Bureau of Military Affairs
     cnh-415  Khitan scripts
-    cnh-416  The Liao and the Sixteen Prefectures
-    cnh-417  Treaty of Chanyuan
-    cnh-418  Liao Buddhism and architecture
-    cnh-419  Liao relations with the Song
-    cnh-420  The fall of the Liao
+    cnh-416  Battle of Gaoliang River
+    cnh-417  Chanyuan Treaty
+    cnh-418  Pagoda of Fogong Temple
+    cnh-419  Alliance Conducted at Sea
+    cnh-420  Emperor Tianzuo of Liao
 
 ### Northern Song — `col-27`
 
     cnh-421  Song dynasty
     cnh-422  Emperor Taizu of Song
-    cnh-423  The cup of wine that released the generals
-    cnh-424  Northern Song
+    cnh-423  Shi Shouxin
+    cnh-424  Emperor Renzong of Song
     cnh-425  Kaifeng
-    cnh-426  The Song civil service
-    cnh-427  The Song examinations
-    cnh-428  The scholar-official under the Song
-    cnh-429  Song military weakness
+    cnh-426  Qingli Reforms
+    cnh-427  Palace examination
+    cnh-428  Ouyang Xiu
+    cnh-429  Di Qing
     cnh-430  Wang Anshi
     cnh-431  New Policies
     cnh-432  Sima Guang
