@@ -1017,6 +1017,54 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-801`–`rm-900`: declamation to Spurinna — what this batch found
+
+A hundred cards in ten batches of ten: `rm-801`–`rm-825` close `rm-society`, `rm-826`–`rm-865` are the whole of
+`rm-daily-life`, `rm-866`–`rm-890` are the whole of `rm-spectacle`, and `rm-891`–`rm-900` open `rm-religion`.
+96 new glossary terms; `Amphora`, `Campus_Martius`, `Pontifex_Maximus` and `Auspices` already existed without a
+card and are reused. Every cited URL was fetched by its writer and again by the lead (all returned 200). The
+brief carried a list of every taken answer and slug plus a table of reservations for lines two batches could
+both claim; one clash still got through (a crafts card first took collegium, which is `rm-813`'s own line) and
+was rewritten as fullonica before import. Essay-shaped lines are answered by a concrete term:
+
+- **`rm-801`–`rm-810`.** rhetorical education → declamation; slavery → servus (keyed on Slavery_in_ancient_Rome);
+  sources of slaves → sub corona; slave market → catasta (no locator: the Saepta Julia article publishes no
+  coordinate); household slaves → verna; agriculture and mining → ergastulum; freedmen → libertus (the bare
+  word "freedman" is not claimed); slave resistance → senatus consultum Silanianum; social orders → ordo
+  decurionum, keyed on Decurion_(administrative) so the cavalry decurion stays unlinked.
+- **`rm-811`–`rm-820`.** the equestrian order under the empire → prefect of Egypt (the order is rm-287's);
+  the grain dole → frumentatio; poverty → puticuli; dress → tunica (Tunic is caseSensitive, so the Tunica people
+  in geo-038 stay unlinked); food and drink → garum; banquet → convivium.
+- **`rm-821`–`rm-830`.** medicine → medicus (caseSensitive, keeping the title Medicus unlinked); demography →
+  Ulpian's life table; funerary commemoration → imagines maiorum; death and burial → columbarium; Rome as a
+  city → Campus Martius; population → Regionary Catalogues, with the estimate given as one estimate.
+- **`rm-831`–`rm-840`.** garden → hortus; streets → Tabula Heracleensis; fire → Marcus Egnatius Rufus; Tiber
+  floods → curatores alvei Tiberis; sanitation → Cloacina; latrines → forica; water supply → castellum aquae;
+  the Roman day → hora (keyed on Roman_timekeeping, caseSensitive so the Horae stay unlinked). The lead took
+  out solstice hour lengths in modern minutes, which the writer had computed from a table.
+- **`rm-841`–`rm-850`.** timekeeping → Horologium Augusti (keyed on Solarium_Augusti); markets → macellum;
+  shops → taberna; crafts → fullonica; trade → lex Claudia of 218 BCE; merchant shipping → navicularius.
+- **`rm-851`–`rm-860`.** glass → glassblowing; prices and wages → as (keyed on As_(Roman_coin), so the
+  word "as" is never claimed); banking → argentarius; literacy → Roman cursive; Pompeii's graffiti →
+  programma (a painted notice, and the card says so); writing materials → wax tablet; travel → itinerarium;
+  inns → popina (Wikipedia's Caupona redirects to Mansio); agriculture → De agri cultura.
+- **`rm-861`–`rm-870`.** farm → villa rustica; viticulture → Falernian wine; olive oil → trapetum; mining →
+  Las Médulas; brick and tile → tegula; spectacle → lex Roscia theatralis (68 or 67 BCE, both given); ludi →
+  ludi Romani; gladiator school → Ludus Magnus; types of gladiator → retiarius.
+- **`rm-871`–`rm-880`.** executions → damnatio ad bestias; circus → Circus of Maxentius; charioteers →
+  Gaius Appuleius Diocles; theatre building → Theatre of Pompey. The new `Amphitheatre` term claimed three
+  natural bowls of hills (gru-520, the Saratov gloss, gw-757) and Caral's "Temple of the Amphitheatre" in
+  wh-435, all reworded; the `Chariot_racing` gloss now opens generally rather than as a Roman sport.
+- **`rm-881`–`rm-890`.** mime → Decimus Laberius; baths → thermae; imperial baths → Baths of Diocletian;
+  board games → ludus duodecim scriptorum; festival calendar → Fasti Praenestini; bread and circuses →
+  panem et circenses; the emperor at the games → pulvinar; criticism of the games → Seneca's Epistulae
+  Morales (De spectaculis is already an alias of Liber_Spectaculorum).
+- **`rm-891`–`rm-900`.** religion → religio; sacrifice → suovetaurilia; temple → Temple of Castor and Pollux;
+  priesthoods → quindecimviri sacris faciundis; haruspex → Spurinna, the haruspex of the Ides (haruspicy and
+  its aliases are rm-029's). "pontifex" and "pontiffs" moved from Pontifex_Maximus to the new
+  College_of_Pontiffs, since every shipped use means a member of the college. The new `Augur` claimed General
+  C. C. Augur on a railroad card and `Domus` the bull title Zelo domus Dei in wh-647; both were reworded.
+
 ## `rm-701`–`rm-800`: the tribal assembly to the grammaticus — what this batch found
 
 A hundred cards in ten batches of ten: `rm-701`–`rm-750` close `rm-government`, `rm-751`–`rm-785` are the whole of
