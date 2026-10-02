@@ -59,6 +59,7 @@ before changing the thing it names.
 | `library-importer.md` | `.claude/fetch-book.js` — the 22 layouts, the extraction faults, the per-book options. |
 | `lang-decks.md` | The community and language decks' generators, and every pipeline's findings. |
 | `tests.md` | What each of the regression suites guards, and the silence it was written for. |
+| `mockups/learn-more-designs.html` (+ `.js`, `.png`) | Six mock-ups of the "Learn more" Wikipedia link at the foot of a card, below the Sources fold (Oct 2026); open the file in a browser. The chosen design is implemented in `buildBack`. |
 
 ## The card plans — one per collection
 

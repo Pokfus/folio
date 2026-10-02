@@ -1,0 +1,351 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>Learn more designs</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito+Sans:wght@400;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: a short brief, then six replicas of the foot of one Folio study card (its last sentence, the
+   Sources fold, then the new block), two abreast on a desktop and stacked on a phone. Every token below is
+   copied from Folio's own `styles.css` (the default "folio" theme, light and night), so the mock-ups show
+   the designs in the colours and faces the real card has. */
+:root{
+  --paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF;
+  --ink:#1D1B29; --ink-soft:#514D68; --ink-faint:#918CA8; --rule:#DEDAEE;
+  --indigo:#45549C; --indigo-bright:#5263B0; --indigo-wash:#E9ECFA; --ochre:#9A7C55;
+  --zh:#AE3350; --zh-wash:#F9E9EC; --good:#4E9B7E;
+  --shadow-md:0 1px 2px rgba(29,27,41,.05), 0 8px 28px rgba(29,27,41,.06);
+  --shadow-lg:0 2px 4px rgba(29,27,41,.06), 0 18px 50px rgba(29,27,41,.10);
+  --serif:"Lora", Georgia, "Times New Roman", serif;
+  --display:"Nunito Sans", system-ui, sans-serif;
+  --sans:"Nunito Sans", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --fs:1;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C;
+    --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-faint:#827CA0; --rule:#302C48;
+    --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A; --ochre:#C3A47A;
+    --zh:#EFA8B8; --zh-wash:#32202A; --good:#75C6A4;
+    --shadow-md:0 1px 2px rgba(0,0,0,.3), 0 8px 28px rgba(0,0,0,.35);
+    --shadow-lg:0 2px 4px rgba(0,0,0,.35), 0 18px 50px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C;
+  --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-faint:#827CA0; --rule:#302C48;
+  --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A; --ochre:#C3A47A;
+  --zh:#EFA8B8; --zh-wash:#32202A; --good:#75C6A4;
+  --shadow-md:0 1px 2px rgba(0,0,0,.3), 0 8px 28px rgba(0,0,0,.35);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.35), 0 18px 50px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding-inline:clamp(16px,3vw,32px); padding-block:28px 64px;}
+
+/* ---- brief ---- */
+.brief{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:16px 28px; margin-bottom:26px;}
+.brief h1{font-family:var(--display); font-weight:900; font-size:clamp(24px,3vw,30px); letter-spacing:-.01em; margin:0 0 8px; text-wrap:balance;}
+.kicker{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--indigo); opacity:.7; margin-bottom:10px;}
+.brief p{margin:0; max-width:62ch; font-size:15px; line-height:1.6; color:var(--ink-soft);}
+.toggle{display:inline-flex; border:1px solid var(--rule); border-radius:999px; padding:3px; background:var(--card); gap:2px;}
+.toggle button{appearance:none; border:0; background:none; font:600 12px var(--display); letter-spacing:.04em; color:var(--ink-faint); padding:6px 14px; border-radius:999px; cursor:pointer; transition:background .18s var(--ease), color .18s;}
+.toggle button[aria-pressed="true"]{background:var(--indigo-wash); color:var(--indigo);}
+.toggle button:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+
+/* ---- the gallery ---- */
+.gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr)); gap:40px 32px;}
+figure{margin:0; min-width:0; display:flex; flex-direction:column; gap:14px;}
+figcaption{padding-inline:4px; max-width:60ch;}
+.fig-n{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; display:block; margin-bottom:4px;}
+figcaption b{font-family:var(--display); font-weight:700; font-size:16px; color:var(--ink); display:block; margin-bottom:5px;}
+figcaption p{margin:0; font-size:13.5px; line-height:1.55; color:var(--ink-soft);}
+
+/* ---- the card replica (copied from .study-card and the source apparatus) ---- */
+.study-card{
+  position:relative; background:var(--card); border:1px solid var(--rule); border-radius:12px;
+  padding:30px 32px 26px; box-shadow:var(--shadow-md); text-align:left;
+  font-family:var(--serif); font-size:calc(18px * var(--fs)); line-height:1.62; color:var(--ink);
+}
+.study-card .fade{position:absolute; left:0; right:0; top:0; height:44px; border-radius:12px 12px 0 0;
+  background:linear-gradient(var(--card), transparent); pointer-events:none;}
+.abstract{font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft); margin:0 0 20px;}
+sup.fn{font-family:var(--mono); font-size:.62em; color:var(--ochre); margin-left:1px; font-weight:600;}
+.src-note{margin:22px 0 0; padding-top:12px; border-top:1px solid var(--rule);}
+.src-head{display:inline-flex; align-items:center; gap:7px; appearance:none; background:none; border:0; padding:0; cursor:pointer; font:inherit; color:var(--ink-faint); text-align:left;}
+.src-label{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.13em; text-transform:uppercase;}
+.src-count{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); line-height:1; padding:3px 5px; border-radius:4px; background:color-mix(in srgb,var(--ink) 8%,transparent); color:var(--ink-faint);}
+.src-toggle{display:inline-flex; align-items:center; color:var(--ink-faint);}
+.src-toggle svg{width:13px; height:13px;}
+.src-list{margin:10px 0 0; padding:0; list-style:none;}
+.src-item{display:flex; gap:.55em; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-faint); margin:0 0 6px; padding:2px 5px; border-radius:4px; overflow-wrap:anywhere;}
+.src-text{min-width:0; flex:1;}
+.src-n{flex:none; min-width:1.4em; text-align:right; font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); user-select:none;}
+.src-item a{color:var(--indigo-bright); text-decoration:none; border-bottom:1px solid rgba(78,76,176,.32);}
+.src-access{display:inline-block; font-family:var(--mono); font-size:calc(9px * var(--fs)); font-weight:600; letter-spacing:.07em; text-transform:uppercase; line-height:1.6; white-space:nowrap; padding:0 6px; margin-left:5px; border-radius:999px; border:1px solid color-mix(in srgb,var(--good) 30%,transparent); color:var(--good); background:color-mix(in srgb,var(--good) 11%,transparent); vertical-align:1px;}
+
+/* ---- shared bits of the six designs ---- */
+.lm a{color:inherit; text-decoration:none;}
+.lm-eyebrow{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.13em; text-transform:uppercase; color:var(--ink-faint); display:block;}
+.lm-ext{width:13px; height:13px; flex:none; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;}
+.wmark{font-family:var(--serif); font-weight:600; line-height:1; letter-spacing:-.04em;}
+.lm *:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:6px;}
+
+/* 1 · the rule — one more line of the apparatus */
+.lm1{margin-top:18px; padding-top:12px; border-top:1px solid var(--rule);}
+.lm1 a{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+.lm1 .lm-title{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); color:var(--indigo); display:inline-flex; align-items:center; gap:6px; transition:color .18s;}
+.lm1 .lm-site{margin-left:auto; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; color:var(--ink-faint);}
+.lm1 a:hover .lm-title{color:var(--zh);}
+
+/* 2 · the wash tile — the Answer box's own frame, closing the card the way it opened */
+.lm2{margin-top:22px;}
+.lm2 a{display:flex; align-items:center; justify-content:space-between; gap:16px; background:var(--indigo-wash); border-radius:8px; padding:15px 20px; transition:transform .22s var(--ease), box-shadow .22s var(--ease);}
+.lm2 a:hover{transform:translateY(-1px); box-shadow:var(--shadow-md);}
+.lm2 .lm-eyebrow{color:var(--indigo); letter-spacing:.2em; font-size:calc(11px * var(--fs)); font-weight:600; opacity:.6; margin-bottom:5px;}
+.lm2 .lm-title{font-family:var(--display); font-weight:600; font-size:calc(20px * var(--fs)); line-height:1.2; color:var(--ink); display:block;}
+.lm2 .lm-sub{font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-soft); margin-top:3px; display:block;}
+.lm2 .wmark{flex:none; width:44px; height:44px; border-radius:50%; display:grid; place-items:center; background:var(--card); border:1px solid var(--rule); color:var(--indigo); font-size:22px;}
+
+/* 3 · the footer banner — bleeds to the card's own edges and takes its bottom corners */
+.lm3{margin:22px -32px -26px; padding:14px 32px; background:var(--paper-2); border-top:1px solid var(--rule); border-radius:0 0 12px 12px; display:flex; align-items:center; justify-content:space-between; gap:14px 20px; flex-wrap:wrap;}
+.lm3 .lm-eyebrow{margin-bottom:3px;}
+.lm3 .lm-title{font-family:var(--serif); font-size:calc(16px * var(--fs)); color:var(--ink); display:block;}
+.lm3 .lm-title i{color:var(--ink-faint);}
+.lm3 .lm-btn{display:inline-flex; align-items:center; gap:8px; background:var(--indigo); color:var(--paper); font-family:var(--mono); font-size:calc(11px * var(--fs)); font-weight:600; letter-spacing:.12em; text-transform:uppercase; padding:9px 14px 9px 16px; border-radius:999px; white-space:nowrap; transition:background .18s;}
+.lm3 .lm-btn:hover{background:var(--indigo-bright);}
+
+/* 4 · the strip row — the "What came of this" idiom, one more row at the foot */
+.lm4{margin-top:18px;}
+.lm4 a{display:flex; flex-direction:column; gap:2px; border-left:2px solid var(--rule); padding:7px 0 7px 12px; transition:border-color .22s var(--ease);}
+.lm4 a:hover{border-left-color:var(--zh);}
+.lm4 .lm-title{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); color:var(--zh); display:inline-flex; align-items:center; gap:6px;}
+.lm4 .lm-how{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.lm4 .wmark{display:inline-grid; place-items:center; width:18px; height:18px; border-radius:4px; background:var(--zh-wash); color:var(--zh); font-size:11px; margin-right:4px; vertical-align:-3px;}
+
+/* 5 · the pill — a label on the left, one proper button on the right */
+.lm5{margin-top:18px; padding-top:12px; border-top:1px solid var(--rule); display:flex; align-items:center; justify-content:space-between; gap:12px 16px; flex-wrap:wrap;}
+.lm5 .lm-btn{display:inline-flex; align-items:center; gap:9px; border:1px solid var(--indigo); color:var(--indigo); border-radius:999px; padding:8px 14px 8px 10px; font-family:var(--display); font-weight:600; font-size:calc(13.5px * var(--fs)); line-height:1.2; transition:background .18s, color .18s; min-width:0;}
+.lm5 .lm-btn:hover{background:var(--indigo-wash);}
+.lm5 .wmark{display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--indigo); color:var(--paper); font-size:13px; flex:none;}
+.lm5 .lm-btn span.t{min-width:0; overflow-wrap:anywhere;}
+@media (max-width:440px){ .lm5 .lm-btn{width:100%; justify-content:center;} }
+
+/* 6 · the bookmark tab — hangs below the card like a ribbon marker */
+.has-tab{margin-bottom:58px;}
+.lm6{position:absolute; left:32px; top:100%; margin-top:-1px;}
+.lm6 a{display:inline-flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--rule); border-top:0; border-radius:0 0 10px 10px; padding:10px 16px 11px; box-shadow:var(--shadow-md); transition:transform .22s var(--ease), box-shadow .22s var(--ease); max-width:calc(100vw - 80px);}
+.lm6 a:hover{transform:translateY(3px); box-shadow:var(--shadow-lg);}
+.lm6 .lm-eyebrow{color:var(--ochre); font-weight:500;}
+.lm6 .lm-title{font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--ink); display:inline-flex; align-items:center; gap:6px; min-width:0; flex-wrap:wrap;}
+.lm6 .ribbon{width:4px; align-self:stretch; background:var(--ochre); border-radius:0 0 2px 2px; margin:-10px 0 -11px; flex:none;}
+
+/* ---- the note under the gallery ---- */
+.notes{margin-top:48px; padding-top:22px; border-top:1px solid var(--rule); max-width:70ch;}
+.notes h2{font-family:var(--display); font-weight:700; font-size:17px; margin:0 0 10px;}
+.notes ul{margin:0; padding-left:18px; font-size:14px; line-height:1.6; color:var(--ink-soft);}
+.notes li{margin-bottom:6px;}
+.notes code{font-family:var(--mono); font-size:12px; background:var(--paper-2); padding:1px 5px; border-radius:4px; color:var(--ink);}
+@media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+</style>
+
+<div class="wrap">
+  <header class="brief">
+    <div>
+      <span class="kicker">Folio · card foot</span>
+      <h1>Six treatments for “Learn more”</h1>
+      <p>A link to the answer’s own Wikipedia article, placed below the Sources fold at the very foot of a card. Each mock-up is the end of card gr-010 (Throne Room at Knossos) in the default Folio theme. Hover or tap a block to see its live state.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Theme">
+      <button type="button" id="th-light" aria-pressed="true">Light</button>
+      <button type="button" id="th-dark" aria-pressed="false">Night</button>
+    </div>
+  </header>
+
+  <div class="gallery">
+
+    <!-- 1 -->
+    <figure>
+      <div class="study-card">
+        <div class="fade"></div>
+        <p class="abstract">The palace was finally destroyed around 1375 BCE, and much of the room that visitors see today, including its bright wall paintings, is Evans’s restoration.<sup class="fn">6</sup><sup class="fn">5</sup></p>
+        <section class="src-note">
+          <button class="src-head" type="button" aria-expanded="true"><span class="src-label">Sources</span><span class="src-count">3</span><span class="src-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+          <ol class="src-list">
+            <li class="src-item"><span class="src-n">1</span><span class="src-text">Arthur J. Evans, “Knossos: Summary Report of the Excavations in 1900. I. The Palace,” <i>Annual of the British School at Athens</i> 6 (1899–1900): 35–41, <a href="https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6">https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">2</span><span class="src-text">Arthur Evans, <i>The Palace of Minos</i>, vol. 1 (London: Macmillan, 1921), 204, <a href="https://archive.org/details/palaceofminoscom01evanuoft">https://archive.org/details/palaceofminoscom01evanuoft</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">3</span><span class="src-text">Jeremy B. Rutter, “Lesson 12: Minoan Architecture: The Palaces,” Aegean Prehistoric Archaeology (Hanover, NH: Dartmouth College), <a href="https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/">https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/</a>. <span class="src-access">Open access</span></span></li>
+          </ol>
+        </section>
+        <div class="lm lm1">
+          <a href="https://en.wikipedia.org/wiki/Throne_Room_(Knossos)" target="_blank" rel="noopener noreferrer">
+            <span class="lm-eyebrow">Learn more</span>
+            <span class="lm-title">Throne Room at Knossos <svg class="lm-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            <span class="lm-site">en.wikipedia.org</span>
+          </a>
+        </div>
+      </div>
+      <figcaption>
+        <span class="fig-n">Design 1</span>
+        <b>The rule</b>
+        <p>One more line of the apparatus: the same hairline, the same mono label as “Sources”, the article title in the card’s link colour. The quietest of the six. It never competes with the answer, and on a phone it costs one line.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 2 -->
+    <figure>
+      <div class="study-card">
+        <div class="fade"></div>
+        <p class="abstract">The palace was finally destroyed around 1375 BCE, and much of the room that visitors see today, including its bright wall paintings, is Evans’s restoration.<sup class="fn">6</sup><sup class="fn">5</sup></p>
+        <section class="src-note">
+          <button class="src-head" type="button" aria-expanded="true"><span class="src-label">Sources</span><span class="src-count">3</span><span class="src-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+          <ol class="src-list">
+            <li class="src-item"><span class="src-n">1</span><span class="src-text">Arthur J. Evans, “Knossos: Summary Report of the Excavations in 1900. I. The Palace,” <i>Annual of the British School at Athens</i> 6 (1899–1900): 35–41, <a href="https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6">https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">2</span><span class="src-text">Arthur Evans, <i>The Palace of Minos</i>, vol. 1 (London: Macmillan, 1921), 204, <a href="https://archive.org/details/palaceofminoscom01evanuoft">https://archive.org/details/palaceofminoscom01evanuoft</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">3</span><span class="src-text">Jeremy B. Rutter, “Lesson 12: Minoan Architecture: The Palaces,” Aegean Prehistoric Archaeology (Hanover, NH: Dartmouth College), <a href="https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/">https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/</a>. <span class="src-access">Open access</span></span></li>
+          </ol>
+        </section>
+        <div class="lm lm2">
+          <a href="https://en.wikipedia.org/wiki/Throne_Room_(Knossos)" target="_blank" rel="noopener noreferrer">
+            <span>
+              <span class="lm-eyebrow">Learn more</span>
+              <span class="lm-title">Throne Room at Knossos</span>
+              <span class="lm-sub">The full article on Wikipedia</span>
+            </span>
+            <span class="wmark" aria-hidden="true">W</span>
+          </a>
+        </div>
+      </div>
+      <figcaption>
+        <span class="fig-n">Design 2</span>
+        <b>The wash tile</b>
+        <p>The Answer box’s own indigo wash, radius and padding, so the card closes the way it opened: a tinted box at the top names the term, a tinted box at the foot sends the reader on. The biggest tap target of the six and the easiest to notice.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 3 -->
+    <figure>
+      <div class="study-card">
+        <div class="fade"></div>
+        <p class="abstract">The palace was finally destroyed around 1375 BCE, and much of the room that visitors see today, including its bright wall paintings, is Evans’s restoration.<sup class="fn">6</sup><sup class="fn">5</sup></p>
+        <section class="src-note">
+          <button class="src-head" type="button" aria-expanded="true"><span class="src-label">Sources</span><span class="src-count">3</span><span class="src-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+          <ol class="src-list">
+            <li class="src-item"><span class="src-n">1</span><span class="src-text">Arthur J. Evans, “Knossos: Summary Report of the Excavations in 1900. I. The Palace,” <i>Annual of the British School at Athens</i> 6 (1899–1900): 35–41, <a href="https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6">https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">2</span><span class="src-text">Arthur Evans, <i>The Palace of Minos</i>, vol. 1 (London: Macmillan, 1921), 204, <a href="https://archive.org/details/palaceofminoscom01evanuoft">https://archive.org/details/palaceofminoscom01evanuoft</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">3</span><span class="src-text">Jeremy B. Rutter, “Lesson 12: Minoan Architecture: The Palaces,” Aegean Prehistoric Archaeology (Hanover, NH: Dartmouth College), <a href="https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/">https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/</a>. <span class="src-access">Open access</span></span></li>
+          </ol>
+        </section>
+        <div class="lm lm3">
+          <span>
+            <span class="lm-eyebrow">Learn more</span>
+            <span class="lm-title">Throne Room at Knossos <i>· Wikipedia</i></span>
+          </span>
+          <a class="lm-btn" href="https://en.wikipedia.org/wiki/Throne_Room_(Knossos)" target="_blank" rel="noopener noreferrer">Open article <svg class="lm-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+      </div>
+      <figcaption>
+        <span class="fig-n">Design 3</span>
+        <b>The footer banner</b>
+        <p>A band that runs to the card’s own edges and takes its bottom corners, in the page’s second paper tone, with a solid button on the right. Reads as the card’s footer rather than one more section inside it. The only design with a filled button.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 4 -->
+    <figure>
+      <div class="study-card">
+        <div class="fade"></div>
+        <p class="abstract">The palace was finally destroyed around 1375 BCE, and much of the room that visitors see today, including its bright wall paintings, is Evans’s restoration.<sup class="fn">6</sup><sup class="fn">5</sup></p>
+        <section class="src-note">
+          <button class="src-head" type="button" aria-expanded="true"><span class="src-label">Sources</span><span class="src-count">3</span><span class="src-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+          <ol class="src-list">
+            <li class="src-item"><span class="src-n">1</span><span class="src-text">Arthur J. Evans, “Knossos: Summary Report of the Excavations in 1900. I. The Palace,” <i>Annual of the British School at Athens</i> 6 (1899–1900): 35–41, <a href="https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6">https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">2</span><span class="src-text">Arthur Evans, <i>The Palace of Minos</i>, vol. 1 (London: Macmillan, 1921), 204, <a href="https://archive.org/details/palaceofminoscom01evanuoft">https://archive.org/details/palaceofminoscom01evanuoft</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">3</span><span class="src-text">Jeremy B. Rutter, “Lesson 12: Minoan Architecture: The Palaces,” Aegean Prehistoric Archaeology (Hanover, NH: Dartmouth College), <a href="https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/">https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/</a>. <span class="src-access">Open access</span></span></li>
+          </ol>
+        </section>
+        <div class="lm lm4">
+          <a href="https://en.wikipedia.org/wiki/Throne_Room_(Knossos)" target="_blank" rel="noopener noreferrer">
+            <span class="lm-eyebrow">Learn more</span>
+            <span class="lm-title"><span class="wmark" aria-hidden="true">W</span>Throne Room at Knossos <svg class="lm-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            <span class="lm-how">The full Wikipedia article, with its own pictures and references.</span>
+          </a>
+        </div>
+      </div>
+      <figcaption>
+        <span class="fig-n">Design 4</span>
+        <b>The strip row</b>
+        <p>The idiom of “What came of this”: a left rule that turns red on hover, the title in the answer’s red, a line of explanation under it. A reader already knows this shape means “go to another page”, so nothing new has to be learnt.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 5 -->
+    <figure>
+      <div class="study-card">
+        <div class="fade"></div>
+        <p class="abstract">The palace was finally destroyed around 1375 BCE, and much of the room that visitors see today, including its bright wall paintings, is Evans’s restoration.<sup class="fn">6</sup><sup class="fn">5</sup></p>
+        <section class="src-note">
+          <button class="src-head" type="button" aria-expanded="true"><span class="src-label">Sources</span><span class="src-count">3</span><span class="src-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+          <ol class="src-list">
+            <li class="src-item"><span class="src-n">1</span><span class="src-text">Arthur J. Evans, “Knossos: Summary Report of the Excavations in 1900. I. The Palace,” <i>Annual of the British School at Athens</i> 6 (1899–1900): 35–41, <a href="https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6">https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">2</span><span class="src-text">Arthur Evans, <i>The Palace of Minos</i>, vol. 1 (London: Macmillan, 1921), 204, <a href="https://archive.org/details/palaceofminoscom01evanuoft">https://archive.org/details/palaceofminoscom01evanuoft</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">3</span><span class="src-text">Jeremy B. Rutter, “Lesson 12: Minoan Architecture: The Palaces,” Aegean Prehistoric Archaeology (Hanover, NH: Dartmouth College), <a href="https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/">https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/</a>. <span class="src-access">Open access</span></span></li>
+          </ol>
+        </section>
+        <div class="lm lm5">
+          <span class="lm-eyebrow">Learn more</span>
+          <a class="lm-btn" href="https://en.wikipedia.org/wiki/Throne_Room_(Knossos)" target="_blank" rel="noopener noreferrer"><span class="wmark" aria-hidden="true">W</span><span class="t">Throne Room at Knossos on Wikipedia</span><svg class="lm-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+      </div>
+      <figcaption>
+        <span class="fig-n">Design 5</span>
+        <b>The pill</b>
+        <p>A plain outlined button beside the usual mono label, with a W monogram for the destination. It looks exactly like what it is, a button that leaves the site, and on a narrow phone it drops under the label and goes full width.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 6 -->
+    <figure>
+      <div class="study-card has-tab">
+        <div class="fade"></div>
+        <p class="abstract">The palace was finally destroyed around 1375 BCE, and much of the room that visitors see today, including its bright wall paintings, is Evans’s restoration.<sup class="fn">6</sup><sup class="fn">5</sup></p>
+        <section class="src-note">
+          <button class="src-head" type="button" aria-expanded="true"><span class="src-label">Sources</span><span class="src-count">3</span><span class="src-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+          <ol class="src-list">
+            <li class="src-item"><span class="src-n">1</span><span class="src-text">Arthur J. Evans, “Knossos: Summary Report of the Excavations in 1900. I. The Palace,” <i>Annual of the British School at Athens</i> 6 (1899–1900): 35–41, <a href="https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6">https://archive.org/details/annual-of-the-british-school-at-athens_1899-1900_6</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">2</span><span class="src-text">Arthur Evans, <i>The Palace of Minos</i>, vol. 1 (London: Macmillan, 1921), 204, <a href="https://archive.org/details/palaceofminoscom01evanuoft">https://archive.org/details/palaceofminoscom01evanuoft</a>. <span class="src-access">Open access</span></span></li>
+            <li class="src-item"><span class="src-n">3</span><span class="src-text">Jeremy B. Rutter, “Lesson 12: Minoan Architecture: The Palaces,” Aegean Prehistoric Archaeology (Hanover, NH: Dartmouth College), <a href="https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/">https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-12-narrative/</a>. <span class="src-access">Open access</span></span></li>
+          </ol>
+        </section>
+        <div class="lm lm6">
+          <a href="https://en.wikipedia.org/wiki/Throne_Room_(Knossos)" target="_blank" rel="noopener noreferrer">
+            <span class="ribbon" aria-hidden="true"></span>
+            <span>
+              <span class="lm-eyebrow">Learn more</span>
+              <span class="lm-title">Throne Room at Knossos <svg class="lm-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <figcaption>
+        <span class="fig-n">Design 6</span>
+        <b>The bookmark tab</b>
+        <p>A tab that hangs off the bottom edge of the card, with a ribbon in the footnote markers’ ochre. The one design that sits outside the card, which keeps the card’s own foot unchanged and makes the link read as a marker left in a book.</p>
+      </figcaption>
+    </figure>
+
+  </div>
+
+  <section class="notes">
+    <h2>Common to all six</h2>
+    <ul>
+      <li>The block renders only when a card carries a Wikipedia slug, and the article is the term in the answer itself, never a broader topic. The glossary already keys its terms on Wikipedia slugs, so most answers can be matched from existing data.</li>
+      <li>It is appended after the Sources fold in <code>buildBack</code>, outside the Background fold, and the link opens in a new tab like every citation, so following it never ends a study session.</li>
+      <li>Every colour is a theme token, so each design follows all of Folio’s themes and the night mode. A “W” set in the card’s serif stands for the destination; Wikipedia’s own logo is not used.</li>
+      <li>A Wikipedia article is not a source and is not counted in the Sources chip. The label says “Learn more”, which is what the link is for.</li>
+    </ul>
+  </section>
+</div>
+
+<script src="learn-more-designs.js"></script>
+</body></html>
