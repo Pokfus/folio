@@ -116,7 +116,7 @@ in plan order unless the user says otherwise.
 |---|---|---|---|---|---|
 | B1 | Human origins (`wh-evolution`) | `wh-001`–`wh-010` | 10 | 96 | **done 2026-10-02** |
 | B2 | Human origins (`wh-evolution`) | `wh-011`–`wh-020` | 10 | 100 | **done 2026-10-02** |
-| B3 | Human origins (`wh-evolution`) | `wh-021`–`wh-030` | 10 | 104 | open |
+| B3 | Human origins (`wh-evolution`) | `wh-021`–`wh-030` | 10 | 104 | **done 2026-10-02** |
 | B4 | Human origins (`wh-evolution`) | `wh-031`–`wh-040` | 10 | 101 | open |
 | B5 | Human origins (`wh-evolution`) / The Palaeolithic (`wh-paleolithic`) | `wh-041`–`wh-050` | 10 | 90 | open |
 | B6 | The Palaeolithic (`wh-paleolithic`) | `wh-051`–`wh-060` | 10 | 96 | open |
@@ -329,3 +329,52 @@ toolmaker question on the Oldowan.
 re-fetched).
 
 **Glossary.** Nine of the ten terms rewritten to agree with their cards (the *Oldowan* entry already did).
+
+### B3 — `wh-021`–`wh-030`, Human origins (2026-10-02)
+
+Run as B1. **Wikimedia began refusing this sandbox outright during the batch** ("too many requests" on
+every call, retries included), so from here picture work is paused: a draft keeps the card's current
+picture, notes whether it looks wrong, and pictures get a pass of their own (see "Pictures to redo"
+below). The pictures that did change in B3 were chosen and licence-checked before the block.
+
+Checks: `wh-audit.js --range=wh-021:wh-030` clean but for `I.none` on `wh-029` and `wh-030` (neither had a
+picture before; both are on the redo list) and `W.not-why` notes. `check-questions`, `check-style`,
+`check-cards --prefix=wh-02`, `check-docs`, `split-cards --check`, `test-card-plans` pass;
+`check-citations --card` 0 mismatched on every card; all 65 distinct citation URLs answer 200.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-021` Turkana Boy | 7 | 6 → 9 | **Age at death "about 12" was the 1985 reading**; tooth growth lines revised it to eight or nine. The adult height (163 cm against about 180) is a dispute, not a fact, and the "diseased spine" now rests on the reanalysis (an injured disc). The date is c. 1.6 – 1.5 Mya because sources split. A Czech-labelled skull photo replaced by a cast of the whole skeleton. |
+| `wh-022` Out of Africa I | 7 | 6 → 9 | **"Java by 1.5 Mya" was cited to a paper about the LAST Homo erectus**; now cited to papers that carry it, and softened to "may have". Dmanisi corrected to 1.85 – 1.78 Mya. Added the traces before 2 Mya (Romania, China), the Sinai route, and several dispersals rather than one. An Italian-labelled arrow map replaced by an orbital photograph of the Africa–Asia junction. |
+| `wh-023` Dmanisi | 6 | 5 → 8 | **One date, 1.8 Mya, was given to everything**; occupation is c. 1.85 – 1.78 Mya and the fossils c. 1.77 Mya (Ferring et al. 2011). Dropped "tools found 1983", the soft-food reading of the toothless skull and the claim that Skull 5's authors named three species as one lineage, none sourced. |
+| `wh-024` Java Man | 7 | 7 → 8 | **"The first Homo erectus fossils ever found" is in no source read**; the card now says the Trinil skullcap defines the species. **Two Dutch sources** broke the one-per-language rule; the government news item, the 2025 handover and "Java's hell" went with it. Dated c. 830,000 – 380,000 BP (Pop et al. 2023). |
+| `wh-025` Peking Man | 7 | 6 → 8 | **The deposit date 750,000 – 230,000 BP had no source**; now c. 780,000 – 400,000 years ago (Smithsonian, with a dating paper for c. 770,000 at the base). "More than 40 individuals" is "about 40"; "Canadian", "reckless" and "December 1941" had no source. Davidson Black out of the questions. A drawing replaced by a photograph of the replica skull. |
+| `wh-026` Zhoukoudian | 6 | 6 → 8 | **The Upper Cave's 38,300 – 33,500 came from a paper that could not be opened**; now "at least 35,100 – 33,500 years ago" (Li et al. 2018, abstract). Dropped the World Heritage row (UNESCO unreachable), the fauna list, "at least eight" people and "three ochre-coated skulls". The fire debate gives both sides. |
+| `wh-027` Acheulean | 7 | 5 → 8 | The end now varies by region (350,000 – 200,000 years ago in western Europe and South Asia, later in East Asia, 125,000 in one review), and the line reads c. 1.76 Mya – 125,000 years ago. **"Credited to Homo heidelbergensis" dropped**: a 2026 review calls the species strongly debated. "Pushed back 300,000 years" had no source. A captioned engraving replaced by a Saint-Acheul hand axe. |
+| `wh-028` Hand axe | 8 | 5 → 8 | **The thunderstone opening was cited to a paper about Neolithic axes**, and is gone. "12–20 cm typical", "pocket knife" and Lyell's part in the 1859 visit had no source. **The giant hand axe article had the wrong title and authors**; read off the article's own "Cite this as" (Crossref's record differs). Frere 1800 and Prestwich 1860 added as primary sources. |
+| `wh-029` control of fire | 8 | 5 → 8 | The cooking-hypothesis angle (that is `wh-031`) taken out. "Three feats, each harder than the last" was an unsourced framing; Gesher Benot Ya'aqov is c. 780,000, not 790,000. Earliest traces c. 1.5 Mya against habitual use c. 400,000 years ago. `undatable` now false. |
+| `wh-030` Wonderwerk Cave | 5 | 5 → 6 | **"The oldest cave occupation anywhere" softened** to a candidate, and **"the earliest solid evidence of fire"** hedged with the sceptical view. Dropped the 4-metre depth, the art dates and "Homo erectus brought fire in from outside". |
+
+**Read by eye.** *Article:* "the Turkana Boy", "the Acheulean", "the hand axe", "the control of fire";
+Dmanisi, Java Man, Peking Man, Zhoukoudian, Wonderwerk Cave and Out of Africa I bare. *Confusability:*
+`wh-025` and `wh-026` share Locality 1, so Peking Man is asked through the lost fossils and the casts, and
+Zhoukoudian through its hyenas, Upper Cave and fire debate. `wh-027`/`wh-028` are tradition against object;
+`wh-029`/`wh-030`/`wh-031` share fire, told apart by practice, place and hypothesis. *Coverage:* the gaps
+filled were the later reanalyses (`wh-021`), several dispersals (`wh-022`) and the end of the Acheulean.
+
+**Locators.** `wh-021` (Lake Turkana, labelled Nariokotome; the article has no findspot of its own),
+`wh-023` (Dmanisi), `wh-024` (Trinil), `wh-025`/`wh-026` (Zhoukoudian), `wh-030` (Wonderwerk Cave).
+
+**Glossary.** Nine of the ten terms rewritten to agree with their cards (*Hand axe* already did).
+
+### Pictures to redo
+
+Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
+pass once it answers. Filled batch by batch.
+
+| card | why |
+|---|---|
+| `wh-005` | display with two non-hominin skulls and small exhibit labels |
+| `wh-014` | not re-viewed |
+| `wh-016` | one chopper stands for the whole kit |
+| `wh-029`, `wh-030` | no picture |

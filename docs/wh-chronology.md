@@ -56,6 +56,13 @@ Filled batch by batch, from the source each row names.
 | Homo erectus | c. 2 Mya – 110,000 BP | Hammond et al. 2021 (Drimolen); Smithsonian; Rizal et al. 2020 (`wh-019`) |
 | Homo ergaster fossils | c. 1.9 – 1.5 Mya | Australian Museum (`wh-020`) |
 | Oldowan first described | 1934 (Leakey; 1936 also seen) | de la Torre 2011 (`wh-016`) |
+| Out of Africa I: earliest trace beyond Africa / Dmanisi / Java | c. 1.95 Mya / c. 1.85 – 1.78 Mya / c. 1.5 Mya | `wh-022`, Ferring et al. 2011 (`wh-023`) |
+| Turkana Boy | died c. 1.6 – 1.5 Mya (sources split) | Smithsonian; Australian Museum (`wh-021`) |
+| Acheulean | c. 1.76 Mya – 125,000 years ago; the end varies by region | `wh-027` |
+| control of fire: earliest traces / habitual | c. 1.5 Mya / c. 400,000 years ago | `wh-029` |
+| Wonderwerk Cave: oldest tools / fire | c. 1.8 Mya / c. 1 Mya | `wh-030` |
+| Java Man deposits | c. 830,000 – 380,000 BP | Pop et al. 2023 (`wh-024`) |
+| Zhoukoudian Locality 1 / Upper Cave | c. 780,000 – 400,000 / c. 35,100 – 33,500 years ago | Smithsonian; Li et al. 2018 (`wh-025`, `wh-026`) |
 
 ## Chronology pins
 
@@ -82,4 +89,14 @@ wh-017: 2.03; 2; 1959
 wh-018: 2.4; 1.4; 1964
 wh-019: 2; 110,000; 1891
 wh-020: 1.9; 1.5; 1975
+wh-021: 1.6; 1.5; 1984
+wh-022: 1.95; 1.85; 1.78; 1.5
+wh-023: 1.85; 1.78; 1.77; 1991
+wh-024: 830,000; 380,000; 1891; 1894
+wh-025: 780,000; 400,000; 1927; 1941
+wh-026: 780,000; 400,000; 35,100; 33,500
+wh-027: 1.76; 125,000; 1872
+wh-028: 1.76; 1800; 1859
+wh-029: 1.5; 400,000
+wh-030: 1.8; 1
 ```
