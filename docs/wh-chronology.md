@@ -141,6 +141,16 @@ Filled batch by batch, from the source each row names.
 | founder crops: domestic-type cereals | c. 10,700 – 8300 BP, by region | Arranz-Otaegui et al. 2016 (`wh-118`) |
 | cereals: wild cultivation / first tough ears | c. 13,000 / c. 10,000 BP | Levy and Feldman (`wh-119`) |
 | livestock in Southwest Asia / pigs in China | c. 11,000 – 10,000 BP / by c. 8,000 BP | Zeder 2008; Wang et al. (`wh-120`) |
+| dogs: probable dog bones (Europe) / oldest nuclear dog DNA (Pınarbaşı) / Bonn-Oberkassel | c. 17,000 – 14,000 / c. 15,800 / c. 14,300 years ago | Bergström 2026; Marsh 2026 (`wh-121`; `wh-117` says "conservatively c. 14,500") |
+| Pre-Pottery Neolithic: PPNA / PPNB / PPNC | c. 11,700 – 10,500 / c. 10,500 – 8,250 years ago / c. 7100 – 6400 BCE | Shipton 2026; Bocquentin 2020 (`wh-122`) |
+| Göbekli Tepe: in use / oldest layer | c. 9600 – 8000 / c. 9600 – 8800 BCE | Dietrich and Wagner; Caletti (`wh-123`) |
+| Jericho: first use / Bronze Age city destroyed | from c. 10,500 BCE / c. 1550 BCE | Sapienza expedition (`wh-124`) |
+| Çatalhöyük East Mound | c. 7100 – 5950 BCE | Schotsmans 2022; Yaka 2021 (`wh-125`) |
+| 'Ain Ghazal: MPPNB / PPNC decline | c. 10,200 – 9,500 / c. 8,900 – 8,600 BP | Zielhofer et al. 2012 (`wh-126`) |
+| sedentism: Kharaneh IV / house mice in the Levant / north-east China | c. 20,000 / c. 14,500 / c. 7,900 BP | `wh-127` |
+| pottery: oldest (South China, contested) / Sahara / European foragers | c. 20,000 – 17,000 BP / c. 11,000 – 10,000 BP / from c. 5900 BCE | `wh-128` |
+| rice domestication, Lower Yangtze | c. 10,000 – 4400 BP | Wang et al. 2022 (`wh-129`) |
+| millet domestication, northern China | c. 8300 – 4300 BCE (Cishan pits disputed) | Stevens et al. 2024 (`wh-130`) |
 | maize: domesticated / in South America / Guilá Naquitz cobs | c. 9,000 / by c. 7,000 / c. 6,250 years ago | Matsuoka 2002; Kistler 2020; Piperno and Flannery (`wh-131`) |
 | Neolithic demographic transition, south-eastern Europe | from c. 8,500 years ago | Shennan et al. 2013 (`wh-133`) |
 | zoonotic pathogens in Eurasian remains / Baikal plague / flea-borne plague | from c. 6,500 / c. 5,500 / by c. 3,800 years ago | Sikora et al. 2025; Macleod et al. 2026 (`wh-134`) |
@@ -272,6 +282,16 @@ wh-117: 14,500; 12,000; 11,000
 wh-118: 10,700; 8300
 wh-119: 13,000; 10,000
 wh-120: 11,000; 10,000; 8,000
+wh-121: 17,000; 14,000; 15,800; 14,300
+wh-122: 11,700; 10,500; 8,250
+wh-123: 9600; 8000; 8800
+wh-124: 10,500; 1550
+wh-125: 7100; 5950
+wh-126: 10,200; 9,500; 8,900; 8,600
+wh-127: 20,000; 14,500; 7,900
+wh-128: 20,000; 17,000; 11,000; 10,000; 5900
+wh-129: 10,000; 4400
+wh-130: 8300; 4300
 wh-131: 9,000; 7,000; 6,250
 wh-132: 12,000; 11,000
 wh-133: 8,500; 1100; 1300

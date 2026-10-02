@@ -126,7 +126,7 @@ in plan order unless the user says otherwise.
 | B10 | Peopling the planet (`wh-peopling`) | `wh-091`–`wh-100` | 10 | 101 | **done 2026-10-02** |
 | B11 | Peopling the planet (`wh-peopling`) | `wh-101`–`wh-110` | 10 | 96 | **done 2026-10-02** |
 | B12 | The Neolithic transition (`wh-neolithic`) | `wh-111`–`wh-120` | 10 | 95 | **done 2026-10-02** |
-| B13 | The Neolithic transition (`wh-neolithic`) | `wh-121`–`wh-130` | 10 | 93 | open |
+| B13 | The Neolithic transition (`wh-neolithic`) | `wh-121`–`wh-130` | 10 | 93 | **done 2026-10-02** |
 | B14 | The Neolithic transition (`wh-neolithic`) | `wh-131`–`wh-140` | 10 | 101 | **done 2026-10-02** |
 | B15 | Neolithic worlds (`wh-early-villages`) | `wh-141`–`wh-150` | 10 | 94 | open |
 | B16 | Neolithic worlds (`wh-early-villages`) | `wh-151`–`wh-160` | 10 | 99 | open |
@@ -711,6 +711,41 @@ true (a region); `wh-111`, `wh-117`, `wh-120` false (each has a dated first inst
 
 **Glossary.** All ten terms rewritten to agree with their cards.
 
+### B13 — `wh-121`–`wh-130`, The Neolithic transition (2026-10-02)
+
+Run as B11; six of the ten drafts were cut off by a usage limit and finished by fresh agents, which
+re-checked the saved pages before reusing them. Checks: `wh-audit.js --range=wh-121:wh-130` clean but for
+`W.not-why` on `wh-129`/`wh-130` and **`I.duplicate` on `wh-122`**, whose old picture URL ends in a generic
+`1920px-thumbnail.jpg` that 21 other cards share by name (a picture-pass item, not a shared file).
+`check-questions`, `check-style` (no new finding), `check-cards`, `check-docs`, `split-cards --check`,
+`test-card-plans` pass; `check-citations --card` 0 mismatched. Three publisher DOIs (`wh-127`, `wh-128`)
+answered 403 and were swapped for their PMC copies; all URLs then 200. **`wh-117` was re-applied**: its
+"oldest dog-like bones about 14,500 years old" is now "conservatively dated to about 14,500", to agree with
+`wh-121`'s probable dog bones of c. 17,000 – 14,000 years ago. Locators: `wh-124` moved from the modern town
+to Tell es-Sultan, about 2 km away; `wh-123`, `wh-125` re-fetched.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-121` dog domestication | 8 | 6 → 8 | **Kesslerloch (14,200) was "the oldest dog DNA" only within one study's sample**; Pınarbaşı's nuclear DNA is c. 15,800 years old. The Siberian c. 23,000 origin and "64 per cent wolf ancestry" rested on papers that would not open. Goyet and Razboinichya now named as extinct wolves; Bonn-Oberkassel's nursed puppy added. |
+| `wh-122` Pre-Pottery Neolithic | 6 | 5 → 8 | PPNA and PPNB dates kept from Shipton 2026; PPNC added in prose. Jericho's mobility figure is `wh-124`'s; naviform cores, mega-sites and obsidian had no openable source. No source states outright that the period had no pottery, so the card says only that pottery came after it. |
+| `wh-123` Göbekli Tepe | 7 | 5 → 8 | **"In use c. 9600 – 8800 BCE" is only the oldest layer**; the site c. 9600 – 8000 BCE. **The "sanctuary nobody lived in" is the excavator's view, now set against later houses, 7,000 grinding tools and possible cisterns.** A 153 m³ cistern figure had no source; a question carried a millennium. |
+| `wh-124` Jericho | 9 | 5 → 9 | **"With no clear break" is wrong**: the site was deserted for centuries after the Bronze Age destruction. The tower's "8300 BCE" is off the line (two sources disagree); the fall c. 1550 BCE, not "1600 – 1520", and "rules out 1400" is in no source. Joshua is a text, not a finding. |
+| `wh-125` Çatalhöyük | 8 | 5 → 8 | **The end is 5950 BCE, not 6000.** The kinship study sampled only children, so the card no longer says everyone under a house was unrelated. **"Several hundred to a few thousand people" had no source**; now the project's own 3,500 – 8,000, attributed. Equality and the mother goddess are both interpretations. |
+| `wh-126` 'Ain Ghazal | 6 | 5 → 6 | **"8000 – 6600 BCE" had no source**; now the calibrated phases (c. 10,200 – 9,500 and 8,900 – 8,600 BP). The 12 – 13 ha sizes and a soil-erosion explanation sat on unreadable pages; decline now a hedged drying-climate reading. Statue details from Tubb 2001. |
+| `wh-127` sedentism | 7 | 5 → 8 | The card now says plainly that **the first settlers of Southwest Asia were hunter-gatherers**, and that how settled they were is argued; the reasons people settled are three competing hypotheses, not fact. Added the house mice of c. 14,500 BP and Kharaneh IV. |
+| `wh-128` pottery | 9 | 5 → 9 | The oldest pots' 20,000 – 17,000 BP is hedged as contested. **Added the distinction the old card lacked: Moravia's fired-clay figurines are c. 30,000 years old, yet Ice Age Europe made no vessels.** Pottery reached Southwest Asia only c. 7000 – 6800 BCE. |
+| `wh-129` rice domestication | 8 | 5 → 8 | **"12 per cent non-shattering at Shangshan" was a second-hand micro-CT figure**; the Huxi 8.7 per cent kept. A "reached Europe c. 2,000 years ago" row was a rounding with no year. Added the indica-from-japonica account (hedged) and African rice. |
+| `wh-130` millet domestication | 7 | 5 → 7 | **Dadiwan's c. 7,900 BP was "the oldest secure millet" only for Dadiwan and the East Silk Road.** Cishan's pits now shown as disputed (c. 10,300 – 8700 against 8000 – 7500 cal BP). Pearl millet added; an Iberia row dropped. |
+
+**Read by eye.** *Article:* "the Pre-Pottery Neolithic"; dog domestication, Göbekli Tepe, Jericho,
+Çatalhöyük, 'Ain Ghazal, sedentism, pottery, rice and millet domestication bare. *Confusability:*
+`wh-122`/`wh-123`/`wh-124`/`wh-126` a period and three of its sites, each by its own finds; `wh-127`/`wh-128`
+kept off `wh-116`'s Natufian clues; `wh-122` took one question off a redundant "as well as cereals …
+alongside cereals". `wh-123`'s pillar height gained its imperial conversion.
+
+**Glossary.** Six terms rewritten (*Göbekli Tepe*, *Jericho*, *Çatalhöyük*, *'Ain Ghazal*, rice and
+millet domestication); dog domestication, Pre-Pottery Neolithic, sedentism and pottery already agreed.
+
 ### B14 — `wh-131`–`wh-140`, The Neolithic transition (2026-10-02)
 
 Run as B11. Checks: `wh-audit.js --range=wh-131:wh-140` clean but for `W.not-why` on `wh-139` (one FAQ
@@ -802,3 +837,5 @@ pass once it answers. Filled batch by batch.
 | `wh-136` | the Bronocice pot: one strand of the model |
 | `wh-138`, `wh-139` | fine, but description (and `wh-139`'s glossary credit) need rewriting |
 | `wh-140` | an Ötztal landscape, not the man, his kit or the findspot |
+| `wh-122` | fine subject, but its URL ends in a generic `1920px-thumbnail.jpg` (audit `I.duplicate`) and its description is a museum caption |
+| `wh-128` | a late wheel-made Liangzhu pot, not early pottery |
