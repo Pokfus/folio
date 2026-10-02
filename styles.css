@@ -5282,6 +5282,9 @@ canvas{-webkit-tap-highlight-color:transparent;}
   .globe-search.open .gs-toggle{display:none;}
   .globe-search.open input{display:block;}
   .globe-legend{top:calc(12px + env(safe-area-inset-top)); right:56px;}
+  /* …and INTO the corner when there is no search chip to sit beside: Your atlas hides the search, and the
+     chip was left 44px short of the edge with nothing in the gap (Oct 2026, on a report) */
+  .globe-search[hidden] ~ .globe-legend{right:12px;}
   .globe-legend.collapsed{width:34px; height:34px; padding:0; border-radius:50%; overflow:hidden;}
   .globe-legend.collapsed .legend-head{margin:0; height:100%; justify-content:center; gap:0; cursor:pointer;}
   .globe-legend.collapsed .legend-title{display:none;}
