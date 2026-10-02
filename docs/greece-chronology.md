@@ -163,7 +163,7 @@ and each card's prose gives both ends, with the 1540 BCE end resting on Rutter's
 | Classical period | 480 – 323 BCE |
 | Hellenistic period | 323 – 31 BCE |
 
-## The Early Iron Age (confirmed by B11–B14, `gr-111` – `gr-135`)
+## The Early Iron Age (confirmed by B11–B18, `gr-111` – `gr-170`)
 
 **The periods are pottery phases, and their absolute dates are moving.** The conventional figures are kept
 as each card's first row; the radiocarbon figures, where a card gives them, are a second row saying so.
@@ -189,6 +189,33 @@ as each card's first row; the radiocarbon figures, where a card gives them, are 
 | Homeric Question, modern | Wolf's *Prolegomena* 1795; Parry's fieldwork 1933 – 1935; *The Singer of Tales* 1960; Parry's thesis 1928 | the reviews on `gr-129`; the Milman Parry Collection's own page (`gr-129`, `gr-133`) |
 | Rhapsodes at Athens and Syracuse | the Panathenaic rule c. 560 – 510 BCE; Cynaethus at Syracuse 504 – 501 BCE; Lycurgus's speech 330 BCE | Lycurgus, *Against Leocrates* 102, and Nagy for the rule; Collins for Cynaethus (`gr-134`) |
 | Homeric society: the Dark Age reading | c. 1100 – 800 BCE | one reading among several, as Elmer's and Papadopoulos's reviews give it (`gr-135`) |
+| basileus rises from palace headman to leading man | c. 1200 – 1000 BCE | Rutter, Lesson 25 (`gr-139`) |
+| Hesiod; *Theogony*; *Works and Days* | c. 700 BCE | Howe's review of Edwards and Scodel's of Koning for the poet; Cook's review of Latacz for the poems (`gr-140` – `gr-143`). Flores (via `gr-143`'s source 5) puts *Works and Days* in the 7th century; the collection keeps c. 700 |
+| Greek alphabet | adopted c. 800 BCE (the usual date); oldest finds c. 750 – 700 BCE | Lang's review of Powell; Waal 2018, who argues for an arrival by the 11th century BCE, which `gr-144` gives in prose only |
+| Phoenician alphabet | its own script on the Phoenician coast by c. 1000 BCE; Ugarit's cuneiform alphabet from c. 1400 BCE | Waal 2018 (`gr-145`) |
+| Dipylon inscription | the jug c. 740 BCE; found 1871 | Cardin 2017; Galanakis for the 1871 dig (`gr-146`) |
+| Nestor's Cup | made c. 730 BCE; buried c. 720 BCE | Gigante et al. 2021 (`gr-147`); `gr-132`'s "c. 750 – 700 BCE" is the same tomb's broader bracket |
+| Pithekoussai | Greek goods in Campania by c. 780 BCE; large settlement by c. 750 BCE | Turfa's review of Ridgway (`gr-148`, `gr-150`) |
+| Al Mina | earliest Greek pots c. 800 BCE; founded a little before 750 BCE; Unqi made an Assyrian province 738 BCE | Vacek 2012 (`gr-149`) |
+| Phoenicians at Kommos | from c. 900 BCE; over before c. 600 BCE | Haggis's review of *Kommos IV*; Lamaze's review of Muñoz Sogas (`gr-151`) |
+| Ionian migration | Miletus settled c. 1050 BCE; Ephesus founded in the mid-11th century BCE | Smith's review of Gorman; Rzepka's review, reporting Kerschner (`gr-152`) |
+| Aeolian migration | no BCE date: Strabo dates it only as four generations before the Ionian migration | `gr-153` keeps an empty date line |
+| Return of the Heracleidae in Spartan genealogy | perhaps as early as c. 700 BCE (an earliest date, not "by") | Larson's review of Kõiv (`gr-155`); **`gr-234` may carry the same misreading as "by" and should be checked in B25** |
+| Koine spreads | c. 400 – 300 BCE | Buck 1910 (`gr-156`) |
+| Opheltas spit | c. 1050 – 950 BCE; Megalopolis decree in Arcadian c. 200 BCE | Petrakis's review of Steele; Buck (`gr-157`) |
+| Cypriot city-kingdoms | first recorded c. 707 BCE (Sargon II); Kition's last king killed 312 BCE | Körner's and Gill's reviews (`gr-158`) |
+| Cypriot syllabary | c. 800 – 300 BCE; gone by the 1st century BCE | Willi's and Körner's reviews (`gr-159`) |
+| Synoecisms | Elis c. 471 BCE; Rhodes 408/7 BCE; Megalopolis 371 BCE | the reviews on `gr-160` (prose only; the card is undatable) |
+| Rise of the polis | c. 800 – 700 BCE on one view; the Copenhagen inventory covers c. 650 – 323 BCE | Vlassopoulos's review of Hall; the reviews of Hansen and Nielsen (`gr-161`) |
+| Olympia | cult from c. 900 BCE; first games 776 BCE by tradition; Elis in charge from at least 550 BCE; temple of Zeus 470 – 456 BCE | Giaccone's and Kennell's reviews; Odysseus (Vikatou) (`gr-163`) |
+| Delphi | first offerings just before 800 BCE, cult c. 800 – 700 BCE; first stone temple c. 600 BCE; burnt 548 BCE | Childs's and Kennell's reviews; Odysseus (Partida), whose "394 BC" for the precinct's destruction is a misprint and is not used (`gr-164`) |
+| Heraion of Samos | Rhoikos temple c. 570 – 560 BCE; great altar c. 560 BCE; Polycrates' temple 538 – 522 BCE | Viglaki-Sofianou (Odysseus) and Herodotus 3.60 (`gr-165`) |
+| Perachora | Corinth takes it c. 750 – 725 BCE; Limenia precinct c. 750 BCE; declines after 146 BCE | Stroud, *Princeton Encyclopedia*; Tomlinson (`gr-166`) |
+| Wealth moves from graves to sanctuaries | c. 750 BCE (the Corinthia) | Owen's review (`gr-167`, `gr-170`) |
+| Mantiklos "Apollo" | c. 700 – 675 BCE | the Museum of Fine Arts, Boston (`gr-167`) |
+| Tripod dedications | grow from c. 900 BCE, fast after 800; fade at Olympia c. 700 – 600 BCE | Jones's, Hochscheid's and Hamilton's reviews (`gr-168`) |
+| Warrior burials | bent swords at Athens c. 950 – 850 BCE; the Eretria West Gate plot c. 710 – 680 BCE | Lloyd 2014 (`gr-169`) |
+| Eighth-century revival | turning point c. 750 BCE | Owen's review (`gr-170`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -359,4 +386,33 @@ gr-132: 750; 700
 gr-133: 700; 1928; 1933; 1935
 gr-134: 560; 510; 504; 501; 330
 gr-135: 1100; 800; 700
+gr-139: 1200; 1000
+gr-140: 700
+gr-141: 700
+gr-142: 700
+gr-143: 700
+gr-144: 800; 750; 700
+gr-145: 1000
+gr-146: 740; 1871
+gr-147: 730; 720
+gr-148: 780; 750
+gr-149: 800; 738; 539; 301
+gr-150: 950; 780
+gr-151: 900; 600
+gr-152: 1050
+gr-154: 1200
+gr-155: 700
+gr-156: 400; 300
+gr-157: 1050; 950; 200
+gr-158: 707; 312
+gr-159: 800; 300
+gr-161: 800; 700; 650; 323
+gr-163: 900; 776; 470; 456
+gr-164: 800; 700; 600; 548
+gr-165: 570; 560; 538; 522
+gr-166: 750; 725; 146
+gr-167: 750; 700; 675
+gr-168: 900; 700; 600
+gr-169: 950; 850; 710; 680
+gr-170: 750
 ```

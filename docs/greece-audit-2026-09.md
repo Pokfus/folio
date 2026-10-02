@@ -577,6 +577,23 @@ rather than an alias of either. `Panathenaea` (5) is the spelling the cards use,
 | 4 | Sestos · Ischia · Peleus · Karphi | Karphi was listed at B6 with 3 |
 | 3 | Perati · Megiddo · Xeropolis | |
 
+**Added by the refinement's B15–B18 (2026-10-02)**, counted the same way after `gr-136`–`gr-170` were
+rewritten. Terms already listed at B11–B14 (Ephesus, Tegea, Aristarchus, Priam, Phaeacians, Demodocus,
+Sindos, Ischia, Megiddo) are not repeated, and their counts have risen by one or two.
+
+| cards | term | note |
+|---|---|---|
+| 27 | Plataea | the town; the battle has its own key and does not claim the bare name |
+| 12 | Leuctra | the same case as Plataea |
+| 11 | Messene · Phocians | |
+| 10 | Parian | the marble of Paros |
+| 9 | Menelaus · Nemea | |
+| 8 | Helicon · Chalcidians · Samothrace · Amphictyons | `Mount Helicon` (6) as an alias of `Helicon` |
+| 7 | Tartarus · Smyrna · Naupactus | Smyrna is Old Smyrna on these cards, not the Roman or modern city |
+| 6 | Cyzicus · Aetolia | |
+| 5 | Cyme · Eros · Teos · Locris · Ephorus · Isthmia · Corinthian Gulf | Cyme is Aeolian Cyme, not Cumae in Italy |
+| 3 | Methone · Orontes · Alcinous · Kumarbi · Hyllus · Neleus · Hecuba | Methone is the Macedonian port of the early inscriptions, not Messenian Methone |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and

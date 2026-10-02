@@ -184,10 +184,10 @@ one changelog line and a version bump; commit and push.
 | B12 | Mycenaean Greece (`gr-mycenae`) | `gr-106`–`gr-110` | 5 | **done 2026-10-02** |
 | B13 | Early Iron Age (`gr-iron`) | `gr-111`–`gr-120` | 10 | **done 2026-10-02** |
 | B14 | Early Iron Age (`gr-iron`) | `gr-121`–`gr-130` | 10 | **done 2026-10-02** |
-| B15 | Early Iron Age (`gr-iron`) | `gr-131`–`gr-140` | 10 | open |
-| B16 | Early Iron Age (`gr-iron`) | `gr-141`–`gr-150` | 10 | open |
-| B17 | Early Iron Age (`gr-iron`) | `gr-151`–`gr-160` | 10 | open |
-| B18 | Early Iron Age (`gr-iron`) | `gr-161`–`gr-170` | 10 | open |
+| B15 | Early Iron Age (`gr-iron`) | `gr-131`–`gr-140` | 10 | **done 2026-10-02** |
+| B16 | Early Iron Age (`gr-iron`) | `gr-141`–`gr-150` | 10 | **done 2026-10-02** |
+| B17 | Early Iron Age (`gr-iron`) | `gr-151`–`gr-160` | 10 | **done 2026-10-02** |
+| B18 | Early Iron Age (`gr-iron`) | `gr-161`–`gr-170` | 10 | **done 2026-10-02** |
 | B19 | Polis and colonisation (`gr-polis`) | `gr-171`–`gr-180` | 10 | open |
 | B20 | Polis and colonisation (`gr-polis`) | `gr-181`–`gr-190` | 10 | open |
 | B21 | Polis and colonisation (`gr-polis`) | `gr-191`–`gr-200` | 10 | open |
@@ -861,3 +861,128 @@ Iron Age rows are corrected:
 
 **Read by eye.** Each new picture was looked at on a contact sheet before it was chosen. The article,
 sibling and coverage reading of the text was done when it was written, in the WIP commits.
+
+### B15–B18 — `gr-136`–`gr-170`, the Early Iron Age (2026-10-02)
+
+Thirty-five cards: the rest of B15 (`gr-136`–`gr-140`), B16, B17 and B18. Together with B11–B14 they
+finish the `gr-iron` deck.
+
+Method:
+- Seven research agents drafted the patches in the scratchpad, five cards each. Each patch came with a
+  saved copy of every source and one verbatim quote per marker. No agent touched Wikimedia.
+- Two scratch checkers gated every patch: a quote verifier (every quote occurs in its saved copy, every
+  marker has a quote behind it) and a lint wrapper (greece-audit on the merged card, then a dry run of
+  `add-card.js --replace` in a private sandbox).
+- Every draft was then read by eye before it was written with `add-card.js --replace --no-image`.
+- Pictures were applied with a second `--replace`, after Commons searches run one at a time and a
+  contact sheet.
+
+Checks:
+- `greece-audit.js --range=gr-136:gr-170` finds nothing but two missing pictures and eleven `S.chip?`
+  flags.
+- The chip flags were read by eye. Each saved copy was word-counted, and all are English reviews and
+  chapters of French-, German-, Italian- or Greek-titled books. The cards' one Italian source
+  (`gr-137`, Gazzano) and one German source (`gr-161`, Schmidt) carry their chips.
+- `check-citations --card` matches every checkable citation. `check-questions`, `check-style`,
+  `check-cards --prefix=gr-1`, `check-docs` and `split-cards --check` pass.
+- All 243 distinct citation URLs answer 200 (curled with up to three tries; Perseus answers 503 under
+  load).
+- With all 35 patches merged together, `Q.sibling` fired on none of them.
+
+**Corrected or dropped in the old cards** (the full notes per card are in the run's scratchpad; the main
+finds):
+- **Unsourced date-line years removed:**
+  - `gr-139` "c. 1050 – 700 BCE" is now Rutter's c. 1200 – 1000 BCE for the title's rise.
+  - `gr-141` and `gr-142`: the "1,022 lines" and "828 lines" rows went.
+  - `gr-149`'s "c. 800 – 700" became Vacek's dates.
+  - `gr-153`'s "c. 1100 – 1000 BCE" was in no source, and no open source gives a BCE date, so the line is
+    now empty.
+  - `gr-156`: "8th century" and "c. 300" are now Buck's c. 400 – 300 for the koine.
+  - `gr-158`: "Abolished 312 BCE" was Kition's last king, and is now labelled so.
+  - `gr-159`'s end of 200 BCE became c. 300 BCE.
+  - `gr-165`: "Cult from c. 1100 BCE" went.
+  - `gr-170`'s "c. 800 – 700" became c. 750 BCE.
+- **Claims their sources did not carry:**
+  - `gr-136`: the swineherd's hut, and the suitors' burial as the last scene.
+  - `gr-137`: the gift-exchange and swineherd claims.
+  - `gr-138`: "kleos means something heard".
+  - `gr-142`: "the best evidence" for the calendar; the source says "a better idea" than Homer.
+  - `gr-143`: Mariaud's review carries Ascra only in a footnote.
+  - `gr-146`: "ypsilon and chi are on the pot" was cited to a review that never mentions the jug.
+  - `gr-145` treated Ugarit's cuneiform alphabet as the Phoenician script.
+  - `gr-155` read Larson's "perhaps as early as" the 7th century as "by". **`gr-234` may carry the same
+    misreading and should be checked in B25.**
+  - `gr-168`'s citation called the author "Athanasios Christou Papalexandrou". He is Nassos Papalexandrou.
+- **Modern scholars named in prose or questions** (Ridgway, Woolley and Boardman on `gr-148` and
+  `gr-149`; López-Ruiz on `gr-151`; Nagy on `gr-138`; Piérart and Thompson in questions on `gr-157` and
+  `gr-160`): gone.
+- **Every old Think-it-through answer opened "Because" and restated the background.** All 105 are new,
+  each with its markers.
+- **Scope:**
+  - `gr-150` mostly repeated `gr-197` (Chalcis and Eretria) and `gr-198` (the Lelantine War), and is now
+    about the trade network itself.
+  - `gr-169` had drifted to Macedonia and Cyprus.
+  - `gr-163` and `gr-164` are about each place as a whole and its early history, and ask nothing that
+    the cult deck's cards on the games, the Pythia or the oracle ask.
+
+**Read by eye, and changed in review:**
+- `gr-140`'s first question mirrored `gr-143`'s (father from Cyme, a miserable hamlet). It now asks
+  about Hesiod paired with Homer as an expert on justice.
+- `gr-153`'s third question leaned on an unnamed modern linguist. It now asks about Strabo's four
+  generations.
+- `gr-164` spelled Pisistratus. It now spells Peisistratus, as the chronology does.
+- Three date-line labels said nothing about the date: `gr-145` "Phoenician coast", `gr-149` "Late Greek
+  ware" and `gr-166` "Corinthian". They now read "In use by", "Still trading" and "Taken by Corinth".
+- `gr-137`'s first why-answer read "as well understood as burglars as guests". It now reads "as burglars
+  at least as much as guests".
+- *Article:* "the Greek alphabet", "the Phoenician alphabet", "the Dorian invasion", "the Ionian/Aeolian
+  migration", "the Return of the Heracleidae" and "the Cypriot syllabary" take "the" before the blank.
+  "Hesiod", "Ascra", "Olympia", "Delphi", "Pithekoussai" and "Al Mina" are bare. "An oikos", "an ethnos",
+  "a polis" and "a synoecism" take what the sentence needs.
+- *Confusability:*
+  - The four migration and invasion cards are split into the eastward traditions (`gr-152`, `gr-153`),
+    the modern theory (`gr-154`) and the myth (`gr-155`).
+  - `gr-157`, `gr-158` and `gr-159` are the dialect, the states and the script.
+  - `gr-140` asks about neither poem nor the village, which are `gr-141`–`gr-143`'s.
+  - `gr-167`, `gr-168` and `gr-170` share the 8th-century shift of wealth from graves to sanctuaries,
+    and their questions each hold to their own object: the dedication, the tripod, the revival.
+
+**Pictures.**
+- Eleven cards had none; 33 of 35 now carry one, each with a description, a visual alt and an
+  author-and-licence credit.
+- **Replaced:**
+  - `gr-136`: Classical Olynthos → a clay house model from the Kerameikos.
+  - `gr-140`: Moreau's painting → the Monnus mosaic portrait, the only one with his name.
+  - `gr-142`: an old print captioned in German → a ploughing scene.
+  - `gr-143`: a map → the Valley of the Muses.
+  - `gr-144`: the Dipylon jug, which is `gr-146`'s subject → the Marsiliana abecedarium.
+  - `gr-145`: Barthélemy's 18th-century letter chart → the Nora Stone.
+  - `gr-146`: a small photograph → the whole jug.
+  - `gr-148`: a 17th-century atlas map of Ischia → Monte Vico.
+  - `gr-156`: a Triphylian decree → the Gortyn law code.
+  - `gr-159`: a decipherment plate → the Idalion tablet.
+  - `gr-164`: Edward Lear's watercolour → the sanctuary from the Phaedriades.
+  - `gr-165`: a kore in the Louvre → the site.
+  - `gr-166`: a village photograph → the sanctuary.
+  - `gr-167`: an Etruscan votive head of the 3rd century BCE → the Mantiklos bronze.
+  - `gr-168`: a Late Helladic IIIC tripod → the oldest tripod cauldron at Olympia.
+- **Kept with new captions and credits:** `gr-141`, `gr-147`, `gr-157`, `gr-161` and `gr-163`.
+- **Refused as already on another card:** the Ahiram inscription (`wh-294`), the Panionion theatre
+  (`gr-201`), a Megalopolis theatre photograph (`gr-863`) and Bini's photograph of the Idalion tablet
+  (glossary `Idalion`).
+- **Refused on sight:** a reconstruction drawing of the Lefkandi building, for its printed caption, and
+  a Samos photograph that turned out to be an information board.
+- **`gr-139` basileus and `gr-169` warrior burial have no picture.** Commons has no free photograph of
+  the Toumba burial or of a Greek warrior grave or bent sword. The bent swords it has are Celtic, Polish
+  and Viking.
+
+**Locators.**
+- Re-fetched through `add-locators.js`: `gr-143` Ascra, `gr-149` Al Mina (← "Al-Mina"), `gr-163` Olympia
+  (title "Olympia, Greece"), `gr-164` Delphi and `gr-165` Heraion of Samos.
+- `gr-148`'s article redirects to Ischia, which would put the dot in the middle of the island. It is now
+  fetched from Lacco Ameno, where Monte Vico stands: [13.8833, 40.75].
+- `gr-166` now points at the Heraion of Perachora, [22.8525, 38.0281], not the modern village.
+
+**Chronology.** Rows and pins for every date the 35 cards print. The section is now headed as
+confirmed through `gr-170`. Flores's 7th-century *Works and Days* and Waal's 11th-century alphabet are
+recorded as minority views that the cards give in prose only.
