@@ -170,6 +170,12 @@ Filled batch by batch, from the source each row names.
 | Eastern Agricultural Complex: first crop / complex / maize | c. 5,025 / by 3,800 / from 1,100 BP | `wh-158` |
 | Poverty Point built | c. 3,700 – 3,100 BP | `wh-159` |
 | Andes: farming system / alpaca / guinea pig / potato | by c. 8,600 BP / 7,000 – 6,000 BP / 6000 – 2000 BCE / 3400 – 1600 BCE | `wh-160` |
+| Chinchorro mummification | c. 7,000 – 3,500 BP | `wh-161` |
+| oldest cord (Abri du Maras) / Shizitan fibres | c. 52,000 – 41,000 / c. 28,000 – 18,000 BP | `wh-164` |
+| Ubaid period / wide spread | c. 6000 – 4000 BCE / from c. 4500 BCE | `wh-169` |
+| urban revolution: Uruk period / named / ten criteria | c. 4000 – 3200 BCE / 1936 / 1950 | Childe (`wh-170`) |
+| first writing, Mesopotamia / China | c. 3300 – 3200 BCE (c. 3200 conventional) / c. 1200 BCE | `wh-175`; agrees with `wh-001` |
+| cylinder seals in use | c. 3500 – 330 BCE | `wh-176` |
 | maize: domesticated / in South America / Guilá Naquitz cobs | c. 9,000 / by c. 7,000 / c. 6,250 years ago | Matsuoka 2002; Kistler 2020; Piperno and Flannery (`wh-131`) |
 | Neolithic demographic transition, south-eastern Europe | from c. 8,500 years ago | Shennan et al. 2013 (`wh-133`) |
 | zoonotic pathogens in Eurasian remains / Baikal plague / flea-borne plague | from c. 6,500 / c. 5,500 / by c. 3,800 years ago | Sikora et al. 2025; Macleod et al. 2026 (`wh-134`) |
@@ -340,4 +346,10 @@ wh-157: 3,350; 3,150; 3,000; 2,800; 2,850; 2,700
 wh-158: 5,025; 3,800; 1,100
 wh-159: 3,700; 3,100; 2014
 wh-160: 8,600; 7,000; 6,000; 6000; 2000; 3400; 1600
+wh-161: 7,000; 3,500
+wh-164: 52,000; 41,000; 28,000; 18,000
+wh-169: 6000; 4000; 4500
+wh-170: 4000; 3200; 1936; 1950
+wh-175: 3300; 3200; 1200
+wh-176: 3500; 330
 ```

@@ -130,8 +130,8 @@ in plan order unless the user says otherwise.
 | B14 | The Neolithic transition (`wh-neolithic`) | `wh-131`–`wh-140` | 10 | 101 | **done 2026-10-02** |
 | B15 | Neolithic worlds (`wh-early-villages`) | `wh-141`–`wh-150` | 10 | 94 | **done 2026-10-02** |
 | B16 | Neolithic worlds (`wh-early-villages`) | `wh-151`–`wh-160` | 10 | 99 | **done 2026-10-02** |
-| B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | open |
-| B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | open |
+| B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | **8 of 10 done** (`wh-165`, `wh-166` open) |
+| B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | **2 of 10 done** (`wh-175`, `wh-176`) |
 | B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | open |
 | B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | open |
 | B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | open |
@@ -841,6 +841,41 @@ a climate, an art, a way of life and a site of the same green Sahara, each with 
 
 **Glossary.** Nine terms rewritten; *Poverty Point* already agreed.
 
+### B17 and B18, in part — ten of `wh-161`–`wh-180` (2026-10-02)
+
+**The run stopped here.** The research agents hit the account's weekly usage limit (it resets on 8 October),
+so B17 and B18 are each partly done and B19 – B20 are not started. What is applied below was finished,
+read by eye and checked like every earlier batch; nothing half-researched was written. **Still open:**
+`wh-165` plough, `wh-166` wheel (which still has no glossary entry, `G.none`), `wh-171`–`wh-174`,
+`wh-177`–`wh-200`. The scratch harness had partial drafts for some of these; a later session should start
+them again from `prep.js`, not from those drafts.
+
+Checks on the ten: `wh-audit.js --card` clean but for `W.not-why` notes on three; `check-questions`,
+`check-cards`, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans` pass;
+`check-citations --card` 0 mismatched; all 76 distinct URLs 200. `wh-167` cites a 1968 report that is a
+scanned PDF with no text layer: its saved page is an agent's transcription, and the quoted passages were
+checked by eye against the rendered scan. New locator: `wh-161` (Arica).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-161` Chinchorro mummies | 7 | 5 → 7 | **"Culture 10,000 – 4,000 BP" and "mummification 8,000 – 4,400 BP" are in no source read**; three give c. 7,000 BP to an end c. 3,700 – 3,500 BP. A 200 µg/L arsenic figure dropped with the review that carried it (which also calls the Chinchorro "an Incan colony"); arsenic is now one of two hypotheses for why the practice began. |
+| `wh-162` prehistoric warfare | 8 | 5 → 8 | **Jebel Sahaba was "raids and ambushes"; it is now read as recurring clashes over years.** Nataruk added with the challenge to it, and the "peaceful foragers" debate without naming scholars. Potočani's "from two years old" had no source. `undatable` true. |
+| `wh-163` origins of social inequality | 8 | 5 → 9 | The card retold one 2025 house-size study as if it were the history; rebuilt around foragers against early states, the Sunghir children, granaries before farming, inheritance, and the lag of inequality behind farming. Graeber and Wengrow's challenge named as their view. The glossary now describes inequality generally. |
+| `wh-164` fibre technology | 7 | 5 → 7 | **A citation expanded an author's initials to "Bruce"**, which the paper does not print. A Shizitan title corrected; its dye counts and colours are not in the source. Dzudzuana flax added as debated; looms added. |
+| `wh-167` irrigation | 9 | 5 → 9 | **Five recent case studies with no history of irrigation**; now Choga Mami's Samarran ditches (no year: no source fetched dates them), Sumer's dated canals from c. 4,500 years ago, Nile basin irrigation and the Scorpion mace head, and the hydraulic hypothesis as a criticised modern theory. |
+| `wh-168` prehistoric trade | 8 | 5 → 9 | **The down-the-line and "longest journey" claims were cited to a paper that says neither.** Refocused on Anatolian obsidian in the Levant and Zagros, *Spondylus* and Badakhshan lapis lazuli; the date line emptied (`undatable`). |
+| `wh-169` Ubaid period | 7 | 5 → 9 | **Tell Zeidan's 5300 – 3850 BCE was one site's date**, given to the period; a Levantine copper awl dropped. No source gives "6500 – 3800 BCE", so the line keeps c. 6000 – 4000 BCE. Pottery, tripartite houses and the debate over the label added. |
+| `wh-170` urban revolution | 7 | 6 → 8 | **The term is from 1936**, a chapter title in Childe's *Man Makes Himself*; 1950 is the article with the ten criteria. The card opens by calling it a modern model; its first date is the Uruk period, not Trypillia. The ten criteria rest on a 2021 preprint — the one non-peer-reviewed source. |
+| `wh-175` writing system | 8 | 5 → 8 | **Rongorongo "before any outside influence" overclaimed** (its source warns the wood may be older than the carving). Off-topic counts dropped; the four independent inventions, the rebus principle and the token theory (one view, with critics) added. |
+| `wh-176` cylinder seal | 7 | 5 → 7 | **"Cut without metal" was the authors' own guess**, and their own paper reports bronze seal-cutting tools of the Akkadian period. The 2,000-seal figure and the Ninishkun seal dropped. In use c. 3500 – 330 BCE, with the middle-chronology clause. |
+
+**Read by eye.** *Article:* "the Chinchorro mummies", "the origins of social inequality", "the Ubaid
+period", "the urban revolution"; the rest bare or "a" (writing system, cylinder seal). *Confusability:*
+`wh-162`/`wh-163` violence and rank, each with its own sites; `wh-167`/`wh-168` water and exchange, kept off
+`wh-170`'s and `wh-197`'s clues.
+
+**Glossary.** Nine terms rewritten; *urban revolution* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -909,3 +944,7 @@ pass once it answers. Filled batch by batch.
 | `wh-154` | a museum reconstruction titled "calendar" |
 | `wh-156` | a map with burned-in labels and dates |
 | `wh-157` | description is a caption |
+| `wh-163` | Varna grave 43, which is `wh-144`'s |
+| `wh-169` | caption carries a museum number |
+| `wh-170` | one Trypillia site only |
+| `wh-175` | a Rongorongo tablet, one undeciphered script |
