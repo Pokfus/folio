@@ -146,7 +146,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`. **Lazy**
   (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it
   pushes onto a QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is
-  the book's own front matter (chapter 0). **Currently forty-eight books.**
+  the book's own front matter (chapter 0). **Currently forty-nine books.**
   · **`count` and `total` are different figures and both are kept**: what Folio holds against what
     the work contains. They part company the moment a book arrives in instalments, or where a
     translator stopped short of his original.

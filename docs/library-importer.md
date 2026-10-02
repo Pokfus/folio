@@ -2390,3 +2390,26 @@ which is the other half of `check-cutoff.js`'s warning.
 because `correctRaw` runs before the scan's DOUBLE SPACES are collapsed. The `fixes` row six lines
 above it says so in its own text (`Shipman's  Tale .`) and was not read. The importer's dead-row
 report is the only thing that catches this, so **read it after every run**.
+
+## The `yale` layout — a Shakespeare play in the Yale edition (Oct 2026, Macbeth)
+
+`extractYale` / `yaleEndnotes` / `yaleCast`; one wiki page per act, the end notes and the list of
+characters on pages of their own, all cached under `.claude/book-cache/macbeth/`. The book-level
+findings are in `docs/library-books.md`; what is worth carrying to the next play from this series:
+
+- **Count every line, show only the printed numbers.** Lewis prints a number on every fourth line and
+  keys his glosses to all of them, so the extractor counts — a line opened by an indent gap
+  (`wst-gap`) is the second half of a shared verse line and takes the number of the line it
+  completes — and re-anchors on each printed number. A drift of one or two is Lewis counting a
+  shared line the transcription does not mark; anything wider is warned.
+- **Place a gloss on its word.** The transcription wraps each glossed word in a `wst-tooltip` span;
+  the note goes after the tooltip on its line (±2) whose words are the lemma, then after the lemma's
+  own words, then at the line's end — and the run prints how many landed each way.
+- **Fold an end note into its gloss, and prove they all arrive.** A "cf. n." link names its end note
+  by anchor (`Iii15` = I. ii. 15; a note on a whole scene is `IIIv`, with no line). The run reports
+  how many of the Notes page's notes reached the page; one no gloss points at is hung on its line.
+- **The `wst-pline` number floats right at the END of the line it numbers**; it is moved to the
+  line's start as `bk-n`, where the other verse books set theirs.
+- Fetching: the API rate-limited a fresh walk hard (Oct 2026). The cache was primed by a slow loop
+  with long backoff; `action=render` answers when `api.php` will not, but returns Parsoid markup,
+  which this extractor was not written against.
