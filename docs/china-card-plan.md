@@ -823,77 +823,77 @@ already shipped before adding it.
     cnh-399  Later Tang
     cnh-400  Sixteen Prefectures
     cnh-401  Shi Jingtang
-    cnh-402  Later Han and Later Zhou
-    cnh-403  Emperor Shizong of Later Zhou
-    cnh-404  The Ten Kingdoms
+    cnh-402  Later Zhou
+    cnh-403  Chai Rong
+    cnh-404  Former Shu
     cnh-405  Wuyue
     cnh-406  Southern Tang
     cnh-407  Li Yu
-    cnh-408  The southern economy in the tenth century
-    cnh-409  Printing in the Five Dynasties
-    cnh-410  The Song reunification
+    cnh-408  Yue ware
+    cnh-409  Feng Dao
+    cnh-410  Northern Han
 
 ### Liao — `col-25`
 
     cnh-411  Liao dynasty
     cnh-412  Khitan people
     cnh-413  Abaoji
-    cnh-414  The Liao dual administration
+    cnh-414  Bureau of Military Affairs
     cnh-415  Khitan scripts
-    cnh-416  The Liao and the Sixteen Prefectures
-    cnh-417  Treaty of Chanyuan
-    cnh-418  Liao Buddhism and architecture
-    cnh-419  Liao relations with the Song
-    cnh-420  The fall of the Liao
+    cnh-416  Battle of Gaoliang River
+    cnh-417  Chanyuan Treaty
+    cnh-418  Pagoda of Fogong Temple
+    cnh-419  Alliance Conducted at Sea
+    cnh-420  Emperor Tianzuo of Liao
 
 ### Northern Song — `col-27`
 
     cnh-421  Song dynasty
     cnh-422  Emperor Taizu of Song
-    cnh-423  The cup of wine that released the generals
-    cnh-424  Northern Song
+    cnh-423  Shi Shouxin
+    cnh-424  Emperor Renzong of Song
     cnh-425  Kaifeng
-    cnh-426  The Song civil service
-    cnh-427  The Song examinations
-    cnh-428  The scholar-official under the Song
-    cnh-429  Song military weakness
+    cnh-426  Qingli Reforms
+    cnh-427  Palace examination
+    cnh-428  Ouyang Xiu
+    cnh-429  Di Qing
     cnh-430  Wang Anshi
     cnh-431  New Policies
     cnh-432  Sima Guang
     cnh-433  Zizhi Tongjian
-    cnh-434  The factional struggles of the Northern Song
-    cnh-435  The Song commercial revolution
+    cnh-434  Cai Jing
+    cnh-435  Dongjing Meng Hua Lu
     cnh-436  Jiaozi
-    cnh-437  Song iron and coal
-    cnh-438  Song shipbuilding
+    cnh-437  Xuzhou
+    cnh-438  Watertight compartment
     cnh-439  Bi Sheng
-    cnh-440  Song printing and the spread of books
+    cnh-440  Kaibao Canon
     cnh-441  Su Shi
-    cnh-442  Song ci poetry
+    cnh-442  Li Qingzhao
     cnh-443  Along the River During the Qingming Festival
-    cnh-444  Song landscape painting
-    cnh-445  Emperor Huizong
+    cnh-444  Guo Xi
+    cnh-445  Emperor Huizong of Song
     cnh-446  Jingkang incident
 
 ### Southern Song — `col-28`
 
-    cnh-447  Southern Song
+    cnh-447  Battle of Huangtiandang
     cnh-448  Emperor Gaozong of Song
-    cnh-449  Lin'an
+    cnh-449  West Lake
     cnh-450  Yue Fei
     cnh-451  Qin Hui
     cnh-452  Treaty of Shaoxing
     cnh-453  Battle of Caishi
-    cnh-454  The Southern Song economy
+    cnh-454  Huizi
     cnh-455  Quanzhou
-    cnh-456  Song porcelain
-    cnh-457  Song tea culture
-    cnh-458  The cities of the Southern Song
+    cnh-456  Guan ware
+    cnh-457  Jian ware
+    cnh-458  Mengliang lu
     cnh-459  Zhu Xi
     cnh-460  Neo-Confucianism
-    cnh-461  The Southern Song navy
-    cnh-462  Gunpowder weapons under the Song
-    cnh-463  The Mongol conquest of the Southern Song
+    cnh-461  Battle of Tangdao
+    cnh-462  Fire lance
+    cnh-463  Battle of Xiangyang
     cnh-464  Battle of Yamen
 
 ### Western Xia — `col-29`
@@ -902,44 +902,44 @@ already shipped before adding it.
     cnh-466  Tangut people
     cnh-467  Li Yuanhao
     cnh-468  Tangut script
-    cnh-469  Western Xia Buddhism
-    cnh-470  Western Xia and its neighbours
+    cnh-469  Tangut Tripitaka
+    cnh-470  Battle of Haoshuichuan
     cnh-471  Khara-Khoto
-    cnh-472  The Mongol destruction of the Western Xia
+    cnh-472  Mongol conquest of Western Xia
 
 ### Jurchen Jin — `col-30`
 
     cnh-473  Jurchen Jin
     cnh-474  Jurchen people
     cnh-475  Wanyan Aguda
-    cnh-476  The Jin conquest of the Liao
-    cnh-477  The Jin conquest of northern China
+    cnh-476  Battle of Hubudagang
+    cnh-477  Da Qi
     cnh-478  Meng'an mouke
     cnh-479  Jurchen script
-    cnh-480  Jin rule over the Han population
-    cnh-481  The Jin and the Mongols
-    cnh-482  The fall of the Jurchen Jin
+    cnh-480  Emperor Shizong of Jin
+    cnh-481  Battle of Yehuling
+    cnh-482  Siege of Caizhou
 
 ### Yuan — `col-31`
 
     cnh-483  Yuan dynasty
-    cnh-484  Genghis Khan and China
+    cnh-484  Yelü Chucai
     cnh-485  Kublai Khan
-    cnh-486  The Mongol conquest of China
+    cnh-486  Bayan of the Baarin
     cnh-487  Khanbaliq
-    cnh-488  The Yuan four-class system
-    cnh-489  Yuan administration
+    cnh-488  Four-class system
+    cnh-489  Xingsheng
     cnh-490  Semu
-    cnh-491  The Yuan and the examinations
-    cnh-492  Yuan paper money
-    cnh-493  The Grand Canal under the Yuan
-    cnh-494  The Yuan seaborne expeditions
-    cnh-495  Marco Polo in China
-    cnh-496  Foreign religions under the Yuan
-    cnh-497  Tibetan Buddhism and the Yuan court
-    cnh-498  Yuan drama
+    cnh-491  Ayurbarwada
+    cnh-492  Jiaochao
+    cnh-493  Guo Shoujing
+    cnh-494  Mongol invasion of Java
+    cnh-495  Travels of Marco Polo
+    cnh-496  John of Montecorvino
+    cnh-497  Drogön Chögyal Phagpa
+    cnh-498  Zaju
     cnh-499  Romance of the Western Chamber
-    cnh-500  Yuan blue-and-white porcelain
+    cnh-500  David Vases
     cnh-501  Red Turban Rebellions
     cnh-502  The fall of the Yuan
 

@@ -233,6 +233,10 @@ const CROSSREF_WRONG = [
   // the byline "Chingis Ts. Tsyrenov" in English and "Цыренов Ч. Ц." in its copyright line, so
   // Tsyrenov is the surname and the record is the thing that is wrong.
   ["10.21209/1996-7853-2020-15-6-189-197", "Chingis Ts. Tsyrenov", "Tsyrenov Chingis Ts."],
+  // Renwen Zhongguo xuebao deposits this byline in characters only, given "希清" before family "張",
+  // so a romanised citation can never match it. The journal's own page prints "張希清 (ZHANG Xiqing)";
+  // the citation gives the pinyin name in Chinese order with the characters beside it (cnh-426).
+  ["10.24112/sinohumanitas.142503", "Zhang Xiqing 張希清", "希清 張"],
   // Kavkazologiya deposits its bylines surname-first with no family/given split, so
   // Crossref carries "Yakhutl Yuri A." The journal's own English article page
   // (caucasology.ru/jour/article/view/588?locale=en_US) prints "Yuri A. Yakhutl".
