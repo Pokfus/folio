@@ -70,6 +70,15 @@ Filled batch by batch, from the source each row names.
 | Mousterian's end at Le Moustier and across Europe | 41,030 – 39,260 cal BP | Higham et al. 2014 (`wh-037`) |
 | Denisovans diverged / oldest remains | more than 390,000 / c. 200,000 years ago | `wh-038` |
 | Homo floresiensis skeletons / tools | c. 100,000 – 60,000 / c. 190,000 – 50,000 years ago | Sutikna et al. 2016 (`wh-040`) |
+| Homo naledi (Dinaledi fossils) | 335,000 – 236,000 years ago | `wh-041` |
+| Homo sapiens, oldest fossils (Jebel Irhoud) | c. 315,000 years ago; the species "c. 300,000 years ago" | Hublin et al. 2017 (`wh-042`, `wh-043`) |
+| Omo I | minimum c. 233,000 years ago (overlying ash) | Vidal et al. 2022 (`wh-044`) |
+| Mitochondrial Eve | c. 200,000 – 100,000 years ago (studies range 99,000 – 197,000) | `wh-045` |
+| Palaeolithic | c. 2.6 Mya – 11,500 BP (end of Europe's final Palaeolithic phase) | `wh-046` |
+| Lower Palaeolithic ends | c. 400,000 – 250,000 years ago, by region | `wh-047` |
+| Middle Palaeolithic | c. 300,000 – 40,000 years ago (nearer 50,000 in places) | Ruan et al. (`wh-048`) |
+| Upper Palaeolithic begins (Eurasia) | c. 45,000 years ago | Hublin 2020 (`wh-049`) |
+| Pleistocene | c. 2.58 Mya – 11,700 BP (base redefined 2009) | ICS (`wh-050`) |
 
 ## Chronology pins
 
@@ -116,4 +125,14 @@ wh-037: 300,000; 40,000; 1873
 wh-038: 390,000; 200,000; 2010
 wh-039: 300,000; 45,000; 2008
 wh-040: 700,000; 100,000; 60,000; 2003
+wh-041: 335,000; 236,000; 2015
+wh-042: 300,000; 1758
+wh-043: 315,000; 1961
+wh-044: 233,000; 1967
+wh-045: 200,000; 100,000; 1987
+wh-046: 2.6; 11,500; 1865
+wh-047: 2.6; 400,000; 250,000
+wh-048: 300,000; 40,000; 41,000; 39,000
+wh-049: 45,000; 19,000; 14,000
+wh-050: 2.58; 11,700; 2009
 ```

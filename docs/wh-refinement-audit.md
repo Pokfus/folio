@@ -118,7 +118,7 @@ in plan order unless the user says otherwise.
 | B2 | Human origins (`wh-evolution`) | `wh-011`–`wh-020` | 10 | 100 | **done 2026-10-02** |
 | B3 | Human origins (`wh-evolution`) | `wh-021`–`wh-030` | 10 | 104 | **done 2026-10-02** |
 | B4 | Human origins (`wh-evolution`) | `wh-031`–`wh-040` | 10 | 101 | **done 2026-10-02** |
-| B5 | Human origins (`wh-evolution`) / The Palaeolithic (`wh-paleolithic`) | `wh-041`–`wh-050` | 10 | 90 | open |
+| B5 | Human origins (`wh-evolution`) / The Palaeolithic (`wh-paleolithic`) | `wh-041`–`wh-050` | 10 | 90 | **done 2026-10-02** |
 | B6 | The Palaeolithic (`wh-paleolithic`) | `wh-051`–`wh-060` | 10 | 96 | open |
 | B7 | The Palaeolithic (`wh-paleolithic`) | `wh-061`–`wh-070` | 10 | 97 | open |
 | B8 | The Palaeolithic (`wh-paleolithic`) | `wh-071`–`wh-080` | 10 | 98 | open |
@@ -399,6 +399,41 @@ after the fossils (`wh-033`'s farmers).
 
 **Glossary.** All but *Mousterian* rewritten to agree with their cards; *Denisovan* gains its alias.
 
+### B5 — `wh-041`–`wh-050`, Human origins and The Palaeolithic (2026-10-02)
+
+Run as B1, with picture work paused (see B3): only `wh-046`'s picture changed, a Met Museum Open Access
+photograph confirmed CC0 through the Met's own collection API, credited to the museum with its licence.
+
+Checks: `wh-audit.js --range=wh-041:wh-050` clean but for `W.not-why` notes on `wh-045`/`wh-046`. The
+audit's sibling check caught three near-identical "division of the Old Stone Age" phrasings on `wh-046`,
+`wh-047` and `wh-048`; `wh-047`'s and `wh-048`'s were rewritten to Dmanisi, Qafzeh, the Mousterian
+tools and the Neanderthal/Denisovan makers. `check-questions`, `check-style`, `check-cards`, `check-docs`,
+`split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 74 distinct URLs 200.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-041` Homo naledi | 7 | 6 → 8 | **The chute was "18 cm wide"**; the cave paper gives squeezes of about 20 cm. Dropped the excavators recruited on Facebook and all women, "September 2013" and the Netflix launch. Added the Lesedi Chamber (source of the 610 cc figure) and a critics' paper, so the burial claim is a dispute. **No locator**: `add-locators.js` reads Wikipedia, which refuses this sandbox. |
+| `wh-042` Homo sapiens | 9 | 10 → 11 | **The Linnaeus citation pointed at volume 2 (plants)**; now volume 1. **"Linnaeus is the type specimen" is wrong**: the Smithsonian says the species has no true type. **315,000 belonged to Jebel Irhoud alone**; the species is c. 300,000. Dropped "the only human left for ~40,000 years" and the disputed 65,000-year Australia date. |
+| `wh-043` Jebel Irhoud | 6 | 6 → 8 | **"22 more fossils in 2004" misread the release**: the total rose from six to 22. "100 km west of Marrakesh" had no source. Added the early "Neanderthal, c. 40,000" reading, the gazelles and the child's modern tooth development. The find year is 1961 (Stringer 2016; Meneganzin et al. 2022 say 1960). |
+| `wh-044` Omo remains | 6 | 5 → 7 | **"Kamoya's Hominid Site is named after Kamoya Kimeu"** is in no source read; dropped, with Omo II as "thicker-walled". The date line is a *minimum* age, c. 233,000 years ago, from the overlying ash (Vidal et al. 2022). |
+| `wh-045` Mitochondrial Eve | 7 | 5 → 7 | **"c. 200,000 – 150,000 BP" narrowed the studies' 99,000 – 197,000**; now c. 200,000 – 100,000 years ago. Dropped the Newsweek cover, "the name was never in the paper", the date "sliding forward" and "a method applied badly" (now "several analytical limitations"). **Ragsdale 2023 was cited for something it does not say.** A question used "147 people" and a year. |
+| `wh-046` Palaeolithic | 8 | 10 → 10 | **The end "11,700 years ago / 9700 BCE" is the start of the Holocene**, not a date any source gives for the Palaeolithic; the end is now 11,500 BP. "99 per cent of human history", the Greek etymology, flutes, figurines and language had no source. |
+| `wh-047` Lower Palaeolithic | 7 | 7 → 9 | **A single "ends 300,000 BP"** is now the region-dependent c. 400,000 – 250,000 years ago. Dmanisi as "the oldest fossils beyond Africa", a hunter-gatherer sentence and Lubbock's naming had no source. Lomekwi hedged. The picture (museum labels in shot) replaced by one flaked tool. |
+| `wh-048` Middle Palaeolithic | 7 | 11 → 8 | Blombos, cooking and large game, tar hafting and cave art were cited to papers that would not open or do not say it, and are gone. Added Skhul and Qafzeh and the Qafzeh burials; the Mousterian's end is c. 41,000 – 39,000 BP. |
+| `wh-049` Upper Palaeolithic | 7 | 8 → 9 | **"c. 50,000 – 11,700 BP" had no source**; the line gives the start (c. 45,000 years ago, Hublin 2020) and the Magdalenian (Posth 2023). Harpoons, the spear-thrower, the Swabian finds, named caves and blade efficiency had no source; the "revolution" is contested. |
+| `wh-050` Pleistocene | 8 | 6 → 8 | **The sea-level fall was 130 m in the background and 120 m in a question**; both now about 130 m (Spratt and Lisiecki). The 2009 redefinition and both boundary sites rest on the ICS table. "Dozens" of swings is "many". |
+
+**Read by eye.** *Article:* the Palaeolithic and its divisions, the Pleistocene and the Omo remains take
+"the"; Homo naledi, Homo sapiens, Jebel Irhoud and Mitochondrial Eve bare. *Confusability:* the three
+Palaeolithic divisions are now told apart by sites and makers, not by their position in the sequence;
+`wh-042`/`wh-043`/`wh-044` are species against two find-sites; `wh-045` stays off `wh-086`'s ground (no
+"out of Africa" clue). *Coverage:* the gaps were the second chamber at Rising Star, the end of the
+Middle Palaeolithic and how deep time is dated (`wh-046`).
+
+**Locators.** `wh-043` (Jebel Irhoud) and `wh-044` (Omo Kibish); `wh-041` waits for Wikipedia.
+
+**Glossary.** All ten terms rewritten to agree with their cards.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -411,3 +446,6 @@ pass once it answers. Filled batch by batch.
 | `wh-016` | one chopper stands for the whole kit |
 | `wh-029`, `wh-030` | no picture |
 | `wh-038` | a chart, not a photograph |
+| `wh-045` | a labelled tree diagram |
+| `wh-050` | a 1921 drawing |
+| `wh-041` | **locator** not written (Wikipedia refused) |
