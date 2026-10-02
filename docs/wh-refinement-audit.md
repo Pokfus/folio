@@ -127,7 +127,7 @@ in plan order unless the user says otherwise.
 | B11 | Peopling the planet (`wh-peopling`) | `wh-101`–`wh-110` | 10 | 96 | **done 2026-10-02** |
 | B12 | The Neolithic transition (`wh-neolithic`) | `wh-111`–`wh-120` | 10 | 95 | **done 2026-10-02** |
 | B13 | The Neolithic transition (`wh-neolithic`) | `wh-121`–`wh-130` | 10 | 93 | open |
-| B14 | The Neolithic transition (`wh-neolithic`) | `wh-131`–`wh-140` | 10 | 101 | open |
+| B14 | The Neolithic transition (`wh-neolithic`) | `wh-131`–`wh-140` | 10 | 101 | **done 2026-10-02** |
 | B15 | Neolithic worlds (`wh-early-villages`) | `wh-141`–`wh-150` | 10 | 94 | open |
 | B16 | Neolithic worlds (`wh-early-villages`) | `wh-151`–`wh-160` | 10 | 99 | open |
 | B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | open |
@@ -711,6 +711,37 @@ true (a region); `wh-111`, `wh-117`, `wh-120` false (each has a dated first inst
 
 **Glossary.** All ten terms rewritten to agree with their cards.
 
+### B14 — `wh-131`–`wh-140`, The Neolithic transition (2026-10-02)
+
+Run as B11. Checks: `wh-audit.js --range=wh-131:wh-140` clean but for `W.not-why` on `wh-139` (one FAQ
+opens "How"). `check-questions`, `check-style` (no new finding), `check-cards`, `check-docs`,
+`split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 74 distinct
+URLs 200. **`wh-140`'s locator**: neither "Ötzi" nor "Tisenjoch" has a Wikipedia coordinate, so the pin
+is the Similaun, the peak beside the findspot, labelled as such. `wh-139`'s request was dropped (it named
+the region, Salisbury Plain); the old Stonehenge pin stands.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-131` maize domestication | 8 | 5 → 9 | Half the card was one selection study and site detail from Brazil and Belize; now Balsas teosinte and its stony fruitcase, one domestication c. 9,000 years ago, Xihuatoxtla by 8,700, **the Guilá Naquitz cobs "the earliest found in Mexico", not "the oldest in the Americas"**, the spread south half-domesticated, a staple by c. 4,300. |
+| `wh-132` independent origins of agriculture | 7 | 5 → 7 | **"At least eleven centres" was one review's count, stated as the finding**; now the range with whose: Vavilov's eight plus three, more than 20, perhaps 24 – 28. Its second half was `wh-155`'s and `wh-158`'s subjects. No source giving "7" or "10" centres was found, so neither is stated. |
+| `wh-133` Neolithic demographic transition | 6 | 5 → 6 | **Stated as fact; now a model** read from the share of 5 – 19-year-olds in cemeteries, with its proposed cause, the mortality that must follow, the Agta trade-off and its critics. **"From c. 9,000 BP in Europe" had no source and predates farming there**; now from c. 8,500 years ago. "Boom" and "bust" rows were not dates. |
+| `wh-134` zoonotic disease | 8 | 5 → 8 | The card never stated the idea it tested. Now the livestock-and-crowd-disease hypothesis, the ancient-DNA test (1,313 genomes; Salmonella) and the counter-evidence: **tuberculosis older than farming, measles splitting from rinderpest only in the 6th century BCE, plague among Baikal hunter-gatherers**. `undatable` false (it carries a dated line). |
+| `wh-135` lactase persistence | 7 | 5 → 7 | **"Selection began c. 7,500 BP" was one model's estimate stated as fact**; now labelled as modelled, then the earliest carrier (5,960 BP, Ukraine) and the rise after 3,000 BP. **"Only about 12 per cent" of Central Asian herders is the source's 12 – 30.** |
+| `wh-136` secondary products revolution | 6 | 5 → 6 | **Sherratt put the uses in the 4th millennium in the Near East and the 3rd in Europe**, not one 4th-millennium horizon. "The Arbon yoke on Lake Constance" is not in the source; yoke, furrow and wheel claims left to `wh-165`/`wh-166`. Added dairying by the 7th millennium BCE and early draught, hedged. |
+| `wh-137` Linear Pottery culture | 6 | 5 → 7 | Hung on one 2025 paper, with a "second wave" row carrying no year and **a cheese finding the source only offers as possible**. Now c. 5500 – 5000 BCE, fading c. 5000 – 4900; Transdanubian origin, Anatolian ancestry, loess, oak-lined wells (5099 BCE). Massacres hedged; Herxheim "perhaps ritual". |
+| `wh-138` megalith | 8 | 5 → 8 | **"Where they begin was settled" by a 2019 model**: the model puts the first graves in France, the Mediterranean and Iberia within two or three centuries and only infers a French origin; now one view among three. **"50 tonnes (55 tons)"** is a conversion the source does not give. `undatable` true, no line (a type found in many ages). |
+| `wh-139` Stonehenge | 9 | 5 → 9 | **The glossary's "c. 3100 – 2400 BCE" shared no figure with the card**; both now English Heritage's phases (ditch c. 3000, sarsens c. 2500, last pits c. 1800 – 1500 BCE). The card said nothing of what it was for; added the solstice axis, the bluestone quarries and pig feasts drawn from across Britain. Altar Stone "probably", not "almost certainly", by sea. |
+| `wh-140` Ötzi | 8 | 5 → 8 | Questions carried "some 5,300 years ago"; a row "the early Copper Age" had no year. Added who he was (age, height, 61 tattoos, kit, last meal, route) and the copper's Tuscan source; the arrow's downward path is "suggests". The glossary's "best-recorded" had no source. |
+
+**Read by eye.** *Article:* "the Neolithic demographic transition", "the secondary products revolution",
+"the Linear Pottery culture", "the megalith"; maize domestication, the independent origins (the question
+supplies "the"), zoonotic disease, lactase persistence, Stonehenge, Ötzi bare. *Confusability:*
+`wh-131`/`wh-132` one crop and the comparison; `wh-135`/`wh-136` a gene and a model of animal use, kept off
+each other's milk-residue clues; `wh-138`/`wh-139` a type and its most famous member. *Sensitivity:*
+`wh-140` is written about a man, not an exhibit.
+
+**Glossary.** Eight terms rewritten; *Linear Pottery culture* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -766,3 +797,8 @@ pass once it answers. Filled batch by batch.
 | `wh-117` | a labelled wheat display; plants only |
 | `wh-118` | a 19th-century plate of einkorn, one of the eight |
 | `wh-120` | a 1937 encyclopedia plate, probably captioned |
+| `wh-132` | a world map with burned-in labels |
+| `wh-134` | a flea, plague's vector only |
+| `wh-136` | the Bronocice pot: one strand of the model |
+| `wh-138`, `wh-139` | fine, but description (and `wh-139`'s glossary credit) need rewriting |
+| `wh-140` | an Ötztal landscape, not the man, his kit or the findspot |

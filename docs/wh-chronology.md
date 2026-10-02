@@ -141,6 +141,14 @@ Filled batch by batch, from the source each row names.
 | founder crops: domestic-type cereals | c. 10,700 – 8300 BP, by region | Arranz-Otaegui et al. 2016 (`wh-118`) |
 | cereals: wild cultivation / first tough ears | c. 13,000 / c. 10,000 BP | Levy and Feldman (`wh-119`) |
 | livestock in Southwest Asia / pigs in China | c. 11,000 – 10,000 BP / by c. 8,000 BP | Zeder 2008; Wang et al. (`wh-120`) |
+| maize: domesticated / in South America / Guilá Naquitz cobs | c. 9,000 / by c. 7,000 / c. 6,250 years ago | Matsuoka 2002; Kistler 2020; Piperno and Flannery (`wh-131`) |
+| Neolithic demographic transition, south-eastern Europe | from c. 8,500 years ago | Shennan et al. 2013 (`wh-133`) |
+| zoonotic pathogens in Eurasian remains / Baikal plague / flea-borne plague | from c. 6,500 / c. 5,500 / by c. 3,800 years ago | Sikora et al. 2025; Macleod et al. 2026 (`wh-134`) |
+| lactase persistence: modelled start / earliest carrier / rise in Europe | c. 7,500 BP / 5,960 BP / after 3,000 BP | Itan 2009; Ségurel 2020 (`wh-135`) |
+| secondary products revolution proposed | 1981 | Sherratt (`wh-136`) |
+| Linear Pottery culture / fades | c. 5500 – 5000 BCE / c. 5000 – 4900 BCE | Gelabert et al. (`wh-137`) |
+| Stonehenge: ditch / sarsens / last pits | c. 3000 / c. 2500 / c. 1800 – 1500 BCE | English Heritage (`wh-139`) |
+| Ötzi died | c. 3350 – 3120 BCE; found 1991 | Wang et al. 2023 (`wh-140`) |
 
 ## Chronology pins
 
@@ -264,4 +272,13 @@ wh-117: 14,500; 12,000; 11,000
 wh-118: 10,700; 8300
 wh-119: 13,000; 10,000
 wh-120: 11,000; 10,000; 8,000
+wh-131: 9,000; 7,000; 6,250
+wh-132: 12,000; 11,000
+wh-133: 8,500; 1100; 1300
+wh-134: 6,500; 5,500; 3,800
+wh-135: 7,500; 5,960; 3,000
+wh-136: 1981
+wh-137: 5500; 5000; 4900
+wh-139: 3000; 2500; 1800; 1500
+wh-140: 3350; 3120; 1991
 ```
