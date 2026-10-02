@@ -79,6 +79,15 @@ Filled batch by batch, from the source each row names.
 | Middle Palaeolithic | c. 300,000 – 40,000 years ago (nearer 50,000 in places) | Ruan et al. (`wh-048`) |
 | Upper Palaeolithic begins (Eurasia) | c. 45,000 years ago | Hublin 2020 (`wh-049`) |
 | Pleistocene | c. 2.58 Mya – 11,700 BP (base redefined 2009) | ICS (`wh-050`) |
+| ice age: Antarctic ice / northern ice / Cryogenian | from c. 34 Mya / from c. 2.7 Mya / c. 720 – 635 Mya | Hansen; Batchelor; Hoffman (`wh-051`) |
+| Last Glacial Period | c. 115,000 – 11,700 BP | NEEM 2013; Walker et al. 2009 (`wh-052`) |
+| Last Glacial Maximum | c. 26,500 – 19,000 BP | Clark et al. 2009 (`wh-052`, `wh-053`) |
+| Middle Stone Age | c. 300,000 – 30,000 years ago (c. 40,000 in southern Africa) | Scerri et al. 2021 (`wh-055`) |
+| Later Stone Age | from c. 40,000 years ago | Villa et al. 2012 (`wh-056`) |
+| ochre, earliest use | c. 300,000 years ago | `wh-057` |
+| Blombos Cave MSA layers | c. 101,000 – 73,000 years ago | `wh-058` |
+| Howiesons Poort | c. 64,800 – 59,500 BP | `wh-059` |
+| Aterian | c. 145,000 – 30,000 BP | `wh-060` |
 
 ## Chronology pins
 
@@ -135,4 +144,13 @@ wh-047: 2.6; 400,000; 250,000
 wh-048: 300,000; 40,000; 41,000; 39,000
 wh-049: 45,000; 19,000; 14,000
 wh-050: 2.58; 11,700; 2009
+wh-051: 34; 2.7; 720; 635
+wh-052: 115,000; 11,700; 26,500; 19,000
+wh-053: 26,500; 19,000
+wh-055: 300,000; 30,000; 1928
+wh-056: 40,000; 1929
+wh-057: 300,000
+wh-058: 101,000; 73,000; 1991
+wh-059: 64,800; 59,500
+wh-060: 145,000; 30,000
 ```

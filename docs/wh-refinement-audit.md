@@ -119,7 +119,7 @@ in plan order unless the user says otherwise.
 | B3 | Human origins (`wh-evolution`) | `wh-021`–`wh-030` | 10 | 104 | **done 2026-10-02** |
 | B4 | Human origins (`wh-evolution`) | `wh-031`–`wh-040` | 10 | 101 | **done 2026-10-02** |
 | B5 | Human origins (`wh-evolution`) / The Palaeolithic (`wh-paleolithic`) | `wh-041`–`wh-050` | 10 | 90 | **done 2026-10-02** |
-| B6 | The Palaeolithic (`wh-paleolithic`) | `wh-051`–`wh-060` | 10 | 96 | open |
+| B6 | The Palaeolithic (`wh-paleolithic`) | `wh-051`–`wh-060` | 10 | 96 | **done 2026-10-02** |
 | B7 | The Palaeolithic (`wh-paleolithic`) | `wh-061`–`wh-070` | 10 | 97 | open |
 | B8 | The Palaeolithic (`wh-paleolithic`) | `wh-071`–`wh-080` | 10 | 98 | open |
 | B9 | The Palaeolithic (`wh-paleolithic`) / Peopling the planet (`wh-peopling`) | `wh-081`–`wh-090` | 10 | 94 | open |
@@ -434,6 +434,35 @@ Middle Palaeolithic and how deep time is dated (`wh-046`).
 
 **Glossary.** All ten terms rewritten to agree with their cards.
 
+### B6 — `wh-051`–`wh-060`, The Palaeolithic (2026-10-02)
+
+Run as B1 with picture work paused; no picture changed. Checks: `wh-audit.js --range=wh-051:wh-060` clean
+but for `W.not-why` notes on three cards. `check-questions`, `check-style`, `check-cards`, `check-docs`,
+`split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 71 distinct URLs 200.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-051` Ice age | 9 | 5 → 9 | **"Milankovitch cycles far too weak to start an ice age" is in no source**; the card now says carbon dioxide and drifting continents set the long trend and orbital cycles time the advances. **"Ice ages since at least 2.4 billion years ago" as their start** dropped. The date line was one definition's 2.6 Mya; now Antarctic ice c. 34 Mya, northern ice c. 2.7 Mya, the Cryogenian c. 720 – 635 Mya. **The glossary dated "the current ice age" to 2.58 Mya**, the Quaternary's base. |
+| `wh-052` Last Glacial Period | 7 | 5 → 9 | Five of ten sentences carried no marker. The Würm name, "a third of the land", the land bridges and the Chauvet and Lascaux dates were uncited. Now every sentence is sourced: c. 115,000 years ago (the Eemian's end) to 11,700, the regional names, the coldest phase, the 130 m fall, the 25 Dansgaard–Oeschger swings. |
+| `wh-053` Last Glacial Maximum | 7 | 5 → 8 | **The sea fall of 125 m is about 134 m** (Lambeck 2014); dates are Clark et al.'s 26,500 – 19,000. **"Almost 4 km thick"** is not in the paper cited for it. **CO2 was 190 ppm in the background and 180 in a question**; both dropped. Doggerland, the Cantabrian coast, needles and the ice-core "dirty band" dropped; dust, Beringia and Europe's population low added. |
+| `wh-054` Hunter-gatherer | 9 | 5 → 9 | **Larson 2014 was cited for "everyone foraged until farming"** and does not say it. Bands "of a few dozen", the Tlingit and Haida details and "land nobody else wanted" had no source (the last is now a disputed view). Added demand sharing, the women-hunters debate and the Ju/'hoansi today. **The date line is removed**: a practice found in every age. |
+| `wh-055` Middle Stone Age | 7 | 7 → 7 | **300,000 – 40,000 was the southern African range** given to the whole continent; now c. 300,000 – 30,000 (Scerri et al. 2021), with Senegal's to c. 11,000. **Malan was cited for "corresponds to the Middle Palaeolithic" and argues against it**; now Scerri et al. 2018's "broadly similar". Added Olorgesailie. |
+| `wh-056` Late Stone Age | 7 | 5 → 7 | **Malan was cited for why the 1929 names were chosen and for "ends when metal or writing arrived"**; neither is there. Added Border Cave's start (Villa et al. 2012, d'Errico et al. 2012), the links to the San, and coastal Kenya. |
+| `wh-057` Ochre | 8 | 6 → 9 | Two questions carried figures of years and one took the Blombos workshop (`wh-058`'s). The old dates and claims rested on a Springer review that will not open, and are gone; replaced by sourced earliest use, Olorgesailie, Neanderthal haematite at Maastricht-Belvédère, glue, sunscreen and graves. |
+| `wh-058` Blombos Cave | 6 | 6 → 6 | **The Still Bay date came from Jacobs et al. 2008, whose sites do not include Blombos**; the card now says dating teams disagree. The tooth and point counts and "41 shells" were not in the source cited. The excavator's name out of the prose. |
+| `wh-059` Howiesons Poort | 5 | 5 → 7 | **The naming story had no source** (Hewitt and Stapleton, the misspelled Mr Howison, Makhanda, the 1927 – 28 digs), nor "fingernail-sized". Added plant poison on backed pieces at Umhlatuzana, heat-treated silcrete, more than 20 sites, and the long Diepkloof chronology as a minority view. |
+| `wh-060` Aterian | 5 | 5 → 8 | **Hearths and "built structures" were cited to a paper on bone tools**, which does not say it. "Skulls and jaws" is three jaws from named caves. "The oldest arrowheads" became the debate over tanged weapon tips against hafted knives and scrapers (Iovita 2011; Sisk and Shea 2011). The Bir el Ater naming rests on the cited title of Morel's report on the "station éponyme". |
+
+**Read by eye.** *Article:* "an ice age", "the Last Glacial Period", "the Middle/Late Stone Age", "the
+Aterian"; ochre and Blombos Cave bare. *Confusability:* `wh-052`/`wh-053` are the period against its peak
+(the LGM clues are the ice sheets at their furthest and the refuges); `wh-057`/`wh-058` keep the ochre
+workshop on Blombos alone; `wh-055`/`wh-059`/`wh-060` are the stage against two industries within it.
+*Coverage:* the gaps were the drivers of glaciation (`wh-051`), Africa's own terms (`wh-055`, `wh-056`).
+
+**Locators.** `wh-058` (Blombos Cave).
+
+**Glossary.** Eight terms rewritten (*Late Stone Age* and *Ochre* already agreed).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -449,3 +478,11 @@ pass once it answers. Filled batch by batch.
 | `wh-045` | a labelled tree diagram |
 | `wh-050` | a 1921 drawing |
 | `wh-041` | **locator** not written (Wikipedia refused) |
+| `wh-051` | White Sands footprints, not an ice age |
+| `wh-052`, `wh-053` | regional or labelled maps |
+| `wh-054` | an 18th-century engraving; alt is the file name |
+| `wh-055` | one Blombos point (a sibling's site); caption gives "71,000 BCE" |
+| `wh-056` | a leaf point that looks Middle Stone Age |
+| `wh-057`, `wh-060` | fine, but description and alt need writing in English |
+| `wh-058` | a stratigraphy diagram with printed, outdated ages |
+| `wh-059` | a 1929 plate of line drawings |
