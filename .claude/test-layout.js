@@ -1206,21 +1206,6 @@ function scrimCheck() {
         // the group function left the daily study block altogether in Aug 2026 (on request) — it is not
         // in the banner, and it is not under the deck list either
         newGroupAnywhere: !!document.querySelector("#b-newgroup, .rv-newgroup, [data-newgroup]"),
-        // …and it spans the card, which is what makes it read as the card's own bottom edge rather than as
-        // something dropped on top of it
-        lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 0,
-        /* …and BLUE (Aug 2026, on request): the site's own primary-button indigo, read off a probe rather
-           than hard-coded, so a theme that re-tones --indigo moves the button with it. Paper-on-paper it
-           read as part of the card's bottom edge, which is the failure this pins. */
-        lipBlue: (() => {
-          if (!lip) return "";
-          const p = document.createElement("i");
-          p.style.cssText = "background:var(--indigo);position:absolute;left:-9999px";
-          document.body.appendChild(p);
-          const want = getComputedStyle(p).backgroundColor; p.remove();
-          const got = getComputedStyle(lip).backgroundColor;
-          return got === want ? "ok" : got + " ≠ " + want;
-        })(),
         aboutPad: (() => {
           const a = document.querySelector(".home-about"); if (!a) return [0, 0];
           const cs = getComputedStyle(a); return [parseFloat(cs.paddingTop), parseFloat(cs.paddingBottom)];
@@ -1279,12 +1264,9 @@ function scrimCheck() {
     check("the banner never counts chests: the notice is a slot above it instead",
       !h.chestChip && h.chestSlotAbove, JSON.stringify({ chip: h.chestChip, above: h.chestSlotAbove }));
     check("...and the group function is gone from the daily study block entirely", !h.newGroupAnywhere);
-    /* CENTRED AND FULL WIDTH — the two together are what "the card's bottom edge" means. A row that has
-       lost its width reads as a button dropped inside the card, which is the placement this replaced, and
-       the centre test alone cannot see that: a narrow centred button is centred too. */
-    check("...a link beside the heading, not a bar across the card", h.lipFrac < 0.5, JSON.stringify({ frac: h.lipFrac }));
-    check("...and routing to the collections", await page.evaluate(async () => {
-      document.querySelector(".home-collections").click();
+    // …and that tab is the route (Oct 2026): the link it replaced used to be clicked here
+    check("...and the tab routes to the collections", await page.evaluate(async () => {
+      document.querySelector('.tabbar .tab[data-route="decks"]').click();
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
     }) === "#decks");
