@@ -96,6 +96,14 @@ Filled batch by batch, from the source each row names.
 | Châtelperronian / Aurignacian / Gravettian | c. 44,000 – 40,000 BP / c. 42,000 – 33,000 BP / c. 34,000 – 24,000 years ago | `wh-066`, `wh-067`, `wh-070` |
 | Cro-Magnon burials | c. 32,000 – 31,000 years ago (early Gravettian) | `wh-068` |
 | Lion-man carved | c. 40,000 – 35,000 years ago | Museum Ulm (`wh-069`) |
+| Venus figurines | c. 38,000 – 14,000 BP | Johnson et al. (`wh-071`) |
+| Venus of Willendorf | c. 30,000 years ago | `wh-072` |
+| Solutrean / Magdalenian | c. 25,000 – 19,000 BP / c. 20,500 – 14,000 BP | `wh-073`, `wh-074` |
+| oldest dated cave painting (Muna, Sulawesi) | before 67,800 BP (a minimum) | Nature, January 2026 (`wh-075`) |
+| Chauvet Cave visits | c. 37,000 – 33,500 BP and c. 31,000 – 28,000 BP | `wh-076` |
+| Lascaux occupation | c. 21,500 – 21,000 BP (the paintings' age still argued) | `wh-077` |
+| Altamira painting | c. 35,550 – 15,200 BP (uranium-series minimums) | `wh-078` |
+| Swabian flutes / Marsoulas shell horn | c. 43,000 – 35,000 / c. 18,000 years ago | `wh-080` |
 
 ## Chronology pins
 
@@ -171,4 +179,13 @@ wh-067: 42,000; 33,000; 1906
 wh-068: 32,000; 31,000; 1868
 wh-069: 40,000; 35,000; 1939; 2012
 wh-070: 34,000; 24,000
+wh-071: 38,000; 14,000; 1864
+wh-072: 30,000; 1908
+wh-073: 25,000; 19,000; 1869
+wh-074: 20,500; 14,000
+wh-075: 67,800; 51,200; 40,800
+wh-076: 37,000; 33,500; 31,000; 28,000; 1994
+wh-077: 21,500; 21,000; 1940; 1963
+wh-078: 35,550; 15,200; 1879
+wh-080: 43,000; 35,000; 18,000
 ```

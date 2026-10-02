@@ -121,7 +121,7 @@ in plan order unless the user says otherwise.
 | B5 | Human origins (`wh-evolution`) / The Palaeolithic (`wh-paleolithic`) | `wh-041`–`wh-050` | 10 | 90 | **done 2026-10-02** |
 | B6 | The Palaeolithic (`wh-paleolithic`) | `wh-051`–`wh-060` | 10 | 96 | **done 2026-10-02** |
 | B7 | The Palaeolithic (`wh-paleolithic`) | `wh-061`–`wh-070` | 10 | 97 | **done 2026-10-02** |
-| B8 | The Palaeolithic (`wh-paleolithic`) | `wh-071`–`wh-080` | 10 | 98 | open |
+| B8 | The Palaeolithic (`wh-paleolithic`) | `wh-071`–`wh-080` | 10 | 98 | **done 2026-10-02** |
 | B9 | The Palaeolithic (`wh-paleolithic`) / Peopling the planet (`wh-peopling`) | `wh-081`–`wh-090` | 10 | 94 | open |
 | B10 | Peopling the planet (`wh-peopling`) | `wh-091`–`wh-100` | 10 | 101 | open |
 | B11 | Peopling the planet (`wh-peopling`) | `wh-101`–`wh-110` | 10 | 96 | open |
@@ -492,6 +492,37 @@ sites; `wh-065` stays off `wh-035`'s ground (no anatomy); `wh-063` dropped Mal't
 
 **Glossary.** All ten terms rewritten to agree with their cards.
 
+### B8 — `wh-071`–`wh-080`, The Palaeolithic (2026-10-02)
+
+Run as B1 with picture work paused; no picture changed. Checks: `wh-audit.js --range=wh-071:wh-080` clean
+but for `W.not-why` notes on three cards. `check-questions`, `check-style`, `check-cards`, `check-docs`,
+`split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 71 distinct URLs 200.
+One phrasing on `wh-073` asserted that the Volgu points are too thin to use, which the background gives as
+one view; it now says "may have been".
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-071` Venus figurines | 7 | 5 → 7 | **"From the Pyrenees to Lake Baikal, 6,000 km" and "mostly 30,000 – 23,000 BP" had no source**; the line is now c. 38,000 – 14,000 BP (Johnson et al.) and Named 1864. Mal'ta's figures are no longer "slender", and now show clothing, hoods and children. |
+| `wh-072` Venus of Willendorf | 7 | 5 → 7 | **The height is 110 mm, not 11.1 cm.** **"Braided hair or a netted snood" had no source**; now "a headdress or hairstyle". **The 730 km is a possible route through the Alps, not the distance to the outcrop.** "Legs taper to no feet" dropped. Two OpenEdition sources dropped (bot wall). |
+| `wh-073` Solutrean | 6 | 8 → 8 | **The Volgu points were "35 cm" in a question and "over 30 cm" in the background**; now the measured 23.4 – 34.3 cm by 0.6 – 1.2 cm. **"Named by Mortillet in 1869" had no source**; the Solutré museum gives 1869 and 1872 and names no one. A question carried "22,000 – 17,000 years ago" against a 25,000 – 19,000 line. The horse-drive legend is traced to the excavator's illustrated novel. Added the refuge, Malalmuerzo's DNA and Peña Capón's stone carried 600 – 700 km. |
+| `wh-074` Magdalenian | 6 | 9 → 7 | **21,000 – 14,000 had no source**; c. 20,500 – 14,000 BP. "The age of the reindeer", Mortillet as namer, the harpoon sequence, Altamira, Montastruc and El Mirón were unsourced or miscited. Added La Madeleine, whale-bone weapons, Gough's Cave (c. 14,950 – 14,750 cal BP) and its ritual cannibalism, and a disputed Maszycka study. |
+| `wh-075` cave painting | 9 | 7 → 11 | **"The oldest painting" (Leang Tedongnge's pig, 45,500) is out of date**: a January 2026 Nature paper dates a Muna Island hand stencil to at least 67,800 years ago. Moss and fur pads, blowpipes of bone or reed, stencils "to Argentina" and "people rare" had no source; the Altamira and Lascaux material is `wh-077`/`wh-078`'s. Ages are minimums, said so. |
+| `wh-076` Chauvet Cave | 7 | 5 → 7 | **Both phases were marked "Painted"**; nearly all dated drawings fall in the first, so the rows are first and later visits. The child footprints, bear skulls, Herzog's film and the replica's opening had no source. World Heritage 22 June 2014 added. |
+| `wh-077` Lascaux | 8 | 9 → 8 | **Eight sources were one ministry's pages**; now two of them, lascaux.fr and five papers. **"Painted c. 21,500 – 21,000 BP" is "Occupied"**: the reindeer-bone dates are the occupation, and a Solutrean age for the paintings is still argued. The "Sistine Chapel" nickname, 19 m depth, scaffolding and "reindeer not on the walls" had no source. Added the 1,800 visitors a day, Malraux's 1963 closure, UNESCO 1979, the juniper wick, the stain sequence and the 1983 and 2016 replicas. |
+| `wh-078` Cave of Altamira | 7 | 5 → 7 | The line uses the 2013 uranium-series minimums, 35,550 – 15,200 BP, for "from 36,000". The closure is 1978 – 1982 (a 2024 paper; the museum page says 1979). Sautuola's 1888 death, a suspect painter, the hind, a 2001 replica date and visitors picked by lot had no source. |
+| `wh-079` petroglyph | 7 | 5 → 9 | **The date line gave the Côa Valley's span to the whole form**; petroglyphs run from prehistory to now, so the line is empty. **The dam was abandoned in 1996, not 1995.** "Petroglyphs cannot swim", "a change of government" and "decades of campaigning" dropped; the dating difficulty now cites a paper that says it. |
+| `wh-080` Palaeolithic music | 6 | 6 → 8 | **The museum record says "griffon vulture bone"**, not wing bone. **Divje Babe's bone has four holes and is 11.4 cm long**, not "two holes, about 11 cm" (the Ljubljana museum). The line covers all eight Swabian flutes, 43,000 – 35,000 years ago, and the Marsoulas shell horn, c. 18,000. Turk 2020 (403) dropped. |
+
+**Read by eye.** *Article:* "the Venus figurines", "the Venus of Willendorf", "the Solutrean", "the
+Magdalenian", "the Cave of Altamira", "a petroglyph", "a cave painting"; Chauvet Cave and Lascaux bare.
+*Confusability:* `wh-071`/`wh-072` are the type against one figure (Willendorf's clues are its stone and
+its find); `wh-075`–`wh-078` are the practice against three caves, each asked through its own story;
+`wh-079` keeps to rock engraving. *Coverage:* the gaps were Sulawesi (`wh-075`) and conservation (`wh-077`).
+
+**Locators.** `wh-072` (Willendorf), `wh-076` (Chauvet Cave), `wh-077` (Lascaux), `wh-078` (Altamira).
+
+**Glossary.** Eight terms rewritten (*Lascaux* and *Cave of Altamira* already agreed).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -519,3 +550,7 @@ pass once it answers. Filled batch by batch.
 | `wh-064`, `wh-065` | maps |
 | `wh-066` | description and alt are the file name |
 | `wh-067` | to replace |
+| `wh-075` | credit and licence look doubtful |
+| `wh-076`, `wh-077` | replicas, not the caves |
+| `wh-078` | a modern drawing |
+| `wh-080` | the disputed Divje Babe bone, not a secure flute |
