@@ -1478,8 +1478,8 @@ of them (Aug 2026). **Re-run after touching `reviewQueue` / `reviewLimits` / `RE
 `setDeckOrderMode` / `sortByDifficulty` / `refillAfterSuspend` / `UNDO_GUARD_MS` / `studyHold` /
 `clearStudySession` / `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` /
 `openDeckLimits` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` /
-`orderedIds` / `setupDeckDrag` / `deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML` /
-`setEntryTitle` / `adOwnTitle` / `rowTitle` / `.rv-editing` / `.rv-topacts` / `.rv-foot` / `.dk-del` /
+`orderedIds` / `setupDeckDrag` /
+`setEntryTitle` / `adOwnTitle` / `rowTitle` / `.dk-grip` /
 `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
 `setNestParent` / `nestChildren` / `openDeckSched` / `setDeckSched` / `setDeckRetention` /
 `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`

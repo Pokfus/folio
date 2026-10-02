@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.926", released: "2026-10-02T14:21Z" };
+window.FOLIO_VERSION = { v: "1.927", released: "2026-10-02T14:48Z" };
 
 window.CHANGELOG = [
   {
@@ -58,6 +58,10 @@ window.CHANGELOG = [
       "<b>A hundred and seventy more Ancient Greece cards are rewritten</b>, finishing the Mycenaean, Early Iron Age and Polis and colonisation decks and most of Sparta, with more sources and new pictures.",
       "<b>A hundred and seventy World History cards are rewritten</b>, from Human origins to the first Mesopotamian cards, with more sources and corrected dates.",
       "<b>Collections is a tab in the phone\u2019s bottom bar again</b>, replacing the home page\u2019s + Add decks link; the colour legend shows at every width.",
+      "<b>The deck list\u2019s Edit button is gone</b>, with its editor mode; a deck is still removed, and a group renamed, from its own options sheet.",
+      "<b>Text is one size smaller on a phone</b>: the default now reads at what Small was, and every text-size setting shifts down one step with it.",
+      "<b>The Collections page\u2019s drag handles are gone</b>; on a phone its rows drop the Studied line and your own decks\u2019 buttons sit on a line of their own.",
+      "<b>Continue reading</b> on the home page now shows the whole book title, over two lines if it needs them.",
       "<b>The home page is tidied</b>: a gold level bar, rounded banner corners, the Edit control beside Your collections, and a <b>Today</b> section in This week.",
       "<b>The Short on time? chips and the studied-today line are gone</b> from under the deck list, and the Changelog link now lands on the changelog itself."
     ]

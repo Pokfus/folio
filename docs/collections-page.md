@@ -53,7 +53,10 @@ offering, where a "Geography" heading over nothing would advertise a section a d
 into, the section coming from the table and never from where a row is dropped. History keeps the slot id
 **`collection-list-all`**, which five test files and the admin drag both name; Geography is
 `collection-list-geo`.
-**AND THE ADMIN DRAG STANDS DOWN ON A SECTIONED COLLECTION** (`valid()` in `wireLibraryDnd`): a collection
+**THE ADMIN DRAG IS GONE** (Oct 2026, on request: "the dragging system … doesn't work at all and should be
+removed" — HTML5 drag never fires on a touch screen; `wireLibraryDnd`, `libGripHTML`, `.lib-grip` and
+`setNodeSoon` are removed, the admin page's tree editor still reorders the tree). What follows is how it stood.
+**AND THE ADMIN DRAG STOOD DOWN ON A SECTIONED COLLECTION** (`valid()` in `wireLibraryDnd`): a collection
 named in `COLLECTION_SECTION` is neither dragged nor dropped onto, because that order decides a
 collection's place WITHIN its section and nothing there decides which section it is in — so such a drag
 could only ever appear to do nothing, the row being re-ordered in the tree and re-drawn exactly where it
@@ -74,7 +77,7 @@ opens this page most often always met it expanded; an admin moving a collection 
 first, and the drop targets are reachable the moment it is open). This exists because
 the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
 the Library read as empty.
-**THE DRAG HANDLE IS VISIBLE AT REST** (`.lib-grip`, Aug 2026, on a report that admin reordering had
+**THE DRAG HANDLE WAS VISIBLE AT REST** — gone with the drag, Oct 2026 (`.lib-grip`, Aug 2026, on a report that admin reordering had
 stopped working there). It had NOT: every row rendered its grip and carried `draggable="true"` the whole
 time — the grip sat at `opacity:0` until the row was hovered, so on a live collection there was nothing
 to reach for, while a **Planned** row showed its own at rest as a side effect of the overrides that

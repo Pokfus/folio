@@ -4743,22 +4743,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **ADDING A COLLECTION ADDS EVERY DECK INSIDE IT**, removing takes the node, its subtree AND its
     ancestors, and `refreshAddButtons` re-reads every `+` on the page rather than the one pressed. **There is
     no deck cap.**
-  · **THE HANDLES, THE CROSSES AND THE RENAMES LIVE IN AN EDITOR MODE** (`deckEditOn` /
-    `deckEditCheckpoint` / `deckEditBarHTML` / `setEntryTitle` / `.rv-editing`). The grips are
-    `visibility:hidden` until **Edit** is pressed — hidden that way rather than with `display:none`, so the
-    column the row's padding reserves does not collapse and re-open, and `visibility` rather than `opacity`
-    because an invisible control that still swallows the press meant for the row underneath is the worse
-    failure. **IT IS LIVE, WITH AN UNDO STACK**: a STAGED editor would mean rendering the list from a working
-    copy rather than from state. **THE SNAPSHOT IS OF FIVE FIELDS** (`DECK_EDIT_FIELDS`), taken BEFORE each
-    edit, `adminCheckpoint`'s shape, because a removal is lossy. **THE THREE BUTTONS ARE Undo / Revert /
-    Done**, since in a live editor "save" and "exit" are the same button pressed twice. **A rename works on
-    every row** through `groupTitle`'s existing override, and `data-shipname` is what lets `setEntryTitle`
-    tell a real rename from the reader typing the existing name back, which CLEARS the override. **The
-    button is at the banner's top right** (`.rv-topacts`), a SIBLING of the banner rather than a child,
-    since the banner is a `<button>` and the parser hoists a real `<button>` straight out; the vertical
-    centring is the title's own line box, and the title's `padding-right` **must be kept in step with the
-    row's width**. **It is DRAWN WHENEVER THERE ARE DECKS**, and survives the list emptying while the mode is
-    open. **AND IT IS A MODE, NOT A SETTING**: module-level, so it survives a repaint and resets on reload.
+  · **THE DECK LIST'S EDITOR MODE IS GONE** (Oct 2026, on request: "remove that button and its system
+    entirely"). From Aug 2026 an Edit button (at the foot of the list, then the banner's corner, then
+    beside the "Your collections" heading) opened a live mode with an undo stack — `deckEditOn` /
+    `deckEditCheckpoint` / `deckEditBarHTML` / `.rv-editing` — in which the handles showed, a red cross
+    removed a row, a title renamed on click, and Undo / Revert / Done closed it, with an Icons switch
+    (`S.settings.deckIcons`, no longer read) beside them. **What stays is what was never the mode's**: the
+    options sheet still removes a deck and renames a group or language header (`setEntryTitle` /
+    `adOwnTitle`); the handles (`.dk-grip`) are still `visibility:hidden` at rest and `setupDeckDrag` is
+    still wired, but **nothing on the page shows the handles now, so no reader can reach a drag** —
+    `test-review-decks.js` reveals them with a stylesheet of its own to keep the gesture guarded.
+    `docs/daily-study.md` keeps the mode's full history.
   · **Guarded by `test-review-decks.js`** (sections 1–5, 8–11, 17–21) **and `test-layout.js`.**
   **📖 `docs/daily-study.md` — READ BEFORE TOUCHING THE REVIEW OR A DECK'S OPTIONS.** Why each rule above
   exists, what every sheet row is for, the sheet's arming window and its ×, the group machinery in full, and
@@ -6139,7 +6134,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `S.settings.fontSize`): **very small / small / medium / large / very large**, written by `applyTheme` as
   `body[data-fs]` — so it is re-applied on every `render()` and at boot with no call site of its own — and
   read by styles.css as the multiplier **`--fs`**. The stored value is the NAME, so **no save is migrated**;
-  the steps are deliberately UNEVEN, the middle three keeping the values they always had. **It scales EVERY
+  the steps are deliberately UNEVEN, the middle three keeping the values they always had. **ON A PHONE
+  (≤640px, the tab bar's breakpoint) THE WHOLE SCALE SITS ONE STOP LOWER** (Oct 2026, on request: "the
+  'Small' text size should be the new default; shift the other sizes accordingly") — Medium renders at
+  what Small is on a desktop, and so on down, a `@media` block beside the five `body[data-fs]` rules; the
+  stored name and the slider are untouched. **It scales EVERY
   px font-size in the stylesheet** (519 of them, each `calc(<px> * var(--fs))`), and deliberately does NOT
   move the LAYOUT — which is what keeps a four-cell grade bar four cells at Large. **There is ONE declared
   exception and it is the crossword's letter** (`.xw-cell`, sized off the grid's width); **if a second is
@@ -6899,10 +6898,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   ADMIN** — that one has a drop target worth offering, where a "Geography" heading over nothing would
   advertise a section a drag cannot put anything into. History keeps the slot id **`collection-list-all`**,
   which five test files and the admin drag both name; Geography is `collection-list-geo`.
-  **AND THE ADMIN DRAG STANDS DOWN ON A SECTIONED COLLECTION** (`valid()` in `wireLibraryDnd`): that order
-  decides a collection's place WITHIN its section and nothing there decides which section it is in, so
-  such a drag could only ever appear to do nothing. Reordering History, and moving a collection to and
-  from Planned, are untouched.
+  **THE ADMIN DRAG OVER THIS PAGE IS GONE** (Oct 2026, on request: "the dragging system … doesn't work at
+  all and should be removed"): `wireLibraryDnd`, `libGripHTML`, `.lib-grip` and `setNodeSoon` are removed.
+  It was HTML5 drag, which never fires on a touch screen, so on a phone the handles did nothing; the admin
+  page's own tree editor still reorders the tree. The `data-libitem` family of attributes stays on the
+  rows because the tests address rows by them.
   **THE SECTION IS CALLED "PLANNED"**, and so is the status pill on every row in it. **The INTERNAL names
   are deliberately unchanged** — `isComingSoon`, `setNodeSoon`, the `soon` flag,
   `.collection-group-soon`, `.pill.soon` and `ADMIN_EDITS.tree.soon` — for the reason the
@@ -6910,9 +6910,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   test files and the admin drag name. So **"coming-soon" survives in this file and in the code as the name
   of the STATE**, and "Planned" is what is on screen. It is a `<details>` disclosure, **collapsed for
   everyone, admins included**.
-  **THE DRAG HANDLE IS VISIBLE AT REST** (`.lib-grip`) — `.32`, `.6` on hover. **A discoverability fault
-  reads exactly like a broken feature**: check whether the affordance is on the page before looking for
-  the handler.
+  **THE DRAG HANDLE (`.lib-grip`) IS GONE WITH THE DRAG** (Oct 2026, above); the lesson it taught stands —
+  **a discoverability fault reads exactly like a broken feature**: check whether the affordance is on the
+  page before looking for the handler.
+  **ON A PHONE (≤640px) A ROW HAS NO "STUDIED N / M CARDS" LINE** (`.page .collection-row .xp` is hidden;
+  Oct 2026, on request) — the tint is the figure — **and a reader's own deck row wraps into two lines**, the
+  controls right-aligned beneath the title's block. **The home page's Continue reading title always shows
+  WHOLE** (`.hb-body b` wraps; Oct 2026, on request).
   **A COLLECTION STATES ITS SIZE ONCE, ON THE BAR**, the count behind the title having said the same
   number in a second register. **The DECK rows inside keep theirs** (`.node-count`) precisely because they
   have no bar; a coming-soon collection keeps its pill for the same reason.
@@ -9077,9 +9081,9 @@ division-capital city tier are inert dead code.
     `setDeckOrderMode` / `sortByDifficulty` / `refillAfterSuspend` / `UNDO_GUARD_MS` / `studyHold` /
     `clearStudySession` / `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` /
     `openDeckLimits` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` /
-    `orderedIds` / `setupDeckDrag` / `deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML` /
+    `orderedIds` / `setupDeckDrag` /
     `setEntryTitle` / `adOwnTitle` / `rowTitle` / `adDay` / `doneMarkHTML` / `--dk-accent` /
-    `.dk-done` / `.dk-won` / `.rv-editing` / `.rv-topacts` / `.rv-foot` / `.dk-del` /
+    `.dk-done` / `.dk-won` / `.dk-grip` /
     `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
     `setNestParent` / `nestChildren` / `openDeckSched` / `setDeckSched` / `setDeckRetention` /
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`

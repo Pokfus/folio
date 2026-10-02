@@ -2403,6 +2403,12 @@ function scrimCheck() {
   {
     const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
     await watch(page);
+    /* AT THE PHONE'S OWN TEXT SIZE THE FIXTURE NO LONGER OVERFLOWS (Oct 2026: a phone renders every stop one
+       lower, so Medium is .9). This section's shape is "fold one section, still too much, fold the other, now
+       it fits", and France's sheet at .9 fitted after the FIRST fold — a fixture failure, not a sheet one.
+       Large is the old Medium on a phone, so the measurements below stand on the numbers they were written
+       against; what is being measured is the two-stage re-fit, not the size of the type. */
+    await page.addInitScript(() => { try { localStorage.setItem("folio_v1", JSON.stringify({ settings: { fontSize: "large" } })); } catch (e) {} });
     await atlas(page, base);
     await page.evaluate(() => { location.hash = "#map/2026/france"; });
     await page.waitForTimeout(2500);

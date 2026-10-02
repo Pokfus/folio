@@ -562,7 +562,14 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
     of the buttons rather than a `render()` because the collections page is a tree the reader has expanded
     by hand, and rebuilding it would fold that back up.
 
-## The editor mode (Aug 2026, on request)
+## The editor mode (Aug 2026, on request) — REMOVED Oct 2026
+
+> **Gone, on request (Oct 2026): "remove that button and its system entirely."** The Edit button, the
+> mode, its undo stack, the crosses, the click-to-rename, the Icons switch and their CSS are all removed.
+> The options sheet still removes a deck and renames a group or language header. The handles stay hidden at
+> rest and `setupDeckDrag` stays wired, but nothing shows the handles now, so a reader cannot reach a drag;
+> `test-review-decks.js` reveals them itself to keep the gesture guarded. The rest of this section is the
+> history of the mode as it was built.
 
 > "Rather than the drag handles being visible at all times, make them invisible by default and shift the
 > contents of the banners to the left. Add a button in the bottom left, just below the active decks list,
@@ -971,7 +978,8 @@ header is drawn twice, once under it and once loose). Guarded by `test-lang-deck
 · **ADDING A COLLECTION ADDS EVERY DECK INSIDE IT**, removing takes the node, its subtree AND its
 ancestors, and `refreshAddButtons` re-reads every `+` on the page rather than the one pressed. **There is
 no deck cap** — the Folio level used to be one, and it was the only thing a level decided.
-· **THE HANDLES, THE CROSSES AND THE RENAMES LIVE IN AN EDITOR MODE** (`deckEditOn` /
+· **THE HANDLES, THE CROSSES AND THE RENAMES LIVED IN AN EDITOR MODE — REMOVED Oct 2026, on request; see
+the note at the head of "The editor mode" above** (`deckEditOn` /
 `deckEditCheckpoint` / `deckEditBarHTML` / `setEntryTitle` / `.rv-editing`; Aug 2026, on request). The
 grips used to sit at `.32` on every row at rest, which is six handles competing with six deck names;
 they are `visibility:hidden` until an **Edit** button is pressed — hidden that
