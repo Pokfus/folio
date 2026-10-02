@@ -462,7 +462,7 @@
      Keep this list in step with EXTRA_FIELDS in .claude/card-io.js — split-cards.js --check slices
      this declaration out by text and fails if the two have drifted, because a field app.js expects
      lazily and the splitter leaves eager is a field that ships twice. */
-  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image"];
+  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki"];
   const cardExtraPrefix = (id) => String(id || "").replace(/-\d+$/, "");
   /* Has this card's heavy half arrived? A community card never has one (its whole record is in the
      deck file), and a card with no prefix we ship simply answers yes so nothing waits for ever. */
@@ -36879,7 +36879,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the citations behind the background, at the very foot of the card — outside the Background fold, so
     // they can be checked without re-opening prose the reader has already read
     html += sourcesHTML(cardSources(c));
+    // …and, last of all, the way on: the answer's own Wikipedia article (see learnMoreHTML)
+    html += learnMoreHTML(c);
     return html;
+  }
+  /* LEARN MORE — the link to the answer term's own Wikipedia article (Oct 2026, on request: "for cards
+     whose answer term has a dedicated wikipedia page, at the bottom of the card (below the sources)
+     should be a tile … that the user can click to be redirected straight to that dedicated wikipedia
+     page"). `card.wiki` is the article's EXACT title, found and verified against Wikipedia by
+     .claude/find-wiki-links.js (redirects followed, disambiguation pages caught, nothing guessed) and
+     written onto the cards by .claude/apply-wiki-links.js; it rides in the lazy half (CARD_EXTRA_FIELDS)
+     because this is the only place that reads it, after cardFillExtra has run. A card without one — a
+     descriptive answer with no article of its own — simply has no tile. THE ARTICLE IS A DESTINATION,
+     NEVER A SOURCE: it is not in the Sources fold, is not counted in its chip, and nothing cites it.
+     The tile takes the Answer box's own wash, radius and padding, so the card closes the way it opened,
+     and shows the ARTICLE's title rather than the answer's, so a reader whose answer redirects ("Homo
+     sapiens" → "Human") sees where the link lands. Opens in a new tab like every citation, or following
+     it would end the study session. `notranslate` keeps the title out of the spelling pass. The logo is
+     a self-hosted copy of Wikipedia's puzzle globe, credited on the Mission page. */
+  function learnMoreHTML(c) {
+    const t = c && typeof c.wiki === "string" ? c.wiki.trim() : "";
+    if (!t) return "";
+    const href = "https://en.wikipedia.org/wiki/" + encodeURIComponent(t.replace(/ /g, "_")).replace(/%2C/g, ",").replace(/%3A/g, ":");
+    return '<a class="learn-more" href="' + href + '" target="_blank" rel="noopener noreferrer" aria-label="Learn more: ' + esc(t) + ' on Wikipedia">' +
+      '<span class="learn-more-text"><span class="learn-more-eyebrow">Learn more</span><span class="learn-more-title notranslate">' + esc(t) + "</span>" +
+      '<span class="learn-more-sub">The full article on Wikipedia</span></span>' +
+      '<img class="learn-more-logo" src="wikipedia-logo.png" alt="" width="44" height="44" loading="lazy" decoding="async">' +
+      "</a>";
   }
   /* ==========================================================================================
      ELABORATION — "why?" AND "how does this connect?" (Sep 2026)
@@ -47911,6 +47937,7 @@ let prev = null;
           <div class="msn-head">${CHIP.credits}<h2>Credits &amp; sources</h2></div>
           <ul class="credits-list">
             <li><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a> <span class="cr-lic">CC BY-SA 4.0</span> — research base for the cards, glossary definitions and country summaries.</li>
+            <li><a href="https://commons.wikimedia.org/wiki/File:Wikipedia-logo-v2.svg" target="_blank" rel="noopener">Wikipedia logo</a> <span class="cr-lic">CC BY-SA 3.0, a trademark of the Wikimedia Foundation</span> — on the “Learn more” tile that links a card to its article.</li>
             <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>

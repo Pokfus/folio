@@ -44,6 +44,7 @@ const SHELL = [
   "./mission.js",
   "./manifest.json",
   "./icon.svg",
+  "./wikipedia-logo.png",
 ];
 
 self.addEventListener("install", (e) => {
