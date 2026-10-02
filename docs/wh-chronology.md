@@ -48,6 +48,14 @@ Filled batch by batch, from the source each row names.
 | *Homo sapiens* | c. 300,000 years ago | Smithsonian (`wh-004`) |
 | first writing, Mesopotamia | c. 3200 BCE (conventional) | Woods, *Visible Language* (`wh-001`) |
 | three-age system printed / in English | 1836 / 1848 | Nationalmuseet; Rowley-Conwy (`wh-002`) |
+| Taung Child | c. 2.8 – 2.3 Mya (the estimates disagree) | Smithsonian; Australian Museum (`wh-012`) |
+| Paranthropus | c. 2.7 – 1 Mya | Smithsonian; Australian Museum; Quinn and Lepre 2021 (`wh-013`) |
+| Oldowan in use | c. 2.6 – 1.7 Mya, possibly from c. 2.9 Mya (Nyayanga) | Plummer et al. 2025; Braun et al. (`wh-016`) |
+| Homo habilis | c. 2.4 – 1.4 Mya (Smithsonian); 2.3 – 1.5 Mya (Australian Museum) | `wh-018` gives both |
+| Olduvai's oldest tools | c. 2.03 Mya | `wh-017` |
+| Homo erectus | c. 2 Mya – 110,000 BP | Hammond et al. 2021 (Drimolen); Smithsonian; Rizal et al. 2020 (`wh-019`) |
+| Homo ergaster fossils | c. 1.9 – 1.5 Mya | Australian Museum (`wh-020`) |
+| Oldowan first described | 1934 (Leakey; 1936 also seen) | de la Torre 2011 (`wh-016`) |
 
 ## Chronology pins
 
@@ -64,4 +72,14 @@ wh-007: 7; 6; 3.6; 1.9
 wh-008: 5.8; 4.4; 1995; 2009
 wh-009: 4.2; 2; 1925
 wh-010: 3.2; 1974
+wh-011: 3.66; 1978
+wh-012: 2.8; 2.3; 1924
+wh-013: 2.7; 1; 1938
+wh-014: 3.3; 2011
+wh-015: 3.3
+wh-016: 2.6; 1.7; 2.9; 1934
+wh-017: 2.03; 2; 1959
+wh-018: 2.4; 1.4; 1964
+wh-019: 2; 110,000; 1891
+wh-020: 1.9; 1.5; 1975
 ```
