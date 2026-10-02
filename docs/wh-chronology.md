@@ -151,6 +151,25 @@ Filled batch by batch, from the source each row names.
 | pottery: oldest (South China, contested) / Sahara / European foragers | c. 20,000 – 17,000 BP / c. 11,000 – 10,000 BP / from c. 5900 BCE | `wh-128` |
 | rice domestication, Lower Yangtze | c. 10,000 – 4400 BP | Wang et al. 2022 (`wh-129`) |
 | millet domestication, northern China | c. 8300 – 4300 BCE (Cishan pits disputed) | Stevens et al. 2024 (`wh-130`) |
+| Neolithic Europe: farming spreads / decline | c. 6600 – 4000 BCE / c. 3000 BCE | `wh-141` |
+| Skara Brae houses | c. 2900 – 2500 BCE | Historic Environment Scotland (`wh-142`) |
+| Newgrange built / pig feasts | c. 3200 BCE / c. 2600 – 2450 BCE | `wh-143` |
+| Varna necropolis in use / region abandoned | c. 4590 – 4340 BCE / c. 4250 – 4200 BCE | `wh-144` |
+| Chalcolithic: Balkans / southern Levant | c. 5000 – 3700 BCE / c. 4500 – 3800 BCE | `wh-145` |
+| metallurgy: native copper worked / earliest secure smelting | c. 9000 – 8000 BCE / c. 5000 BCE (Belovode) | `wh-146` |
+| Yangshao / Longshan | c. 5000 – 3000 BCE / c. 3000 – 2000 BCE (main phase c. 2500 – 1800) | `wh-147`, `wh-148` |
+| Jōmon period / rice in Kyushu | c. 16,500 – 2,400 years ago / c. 1251 – 872 BCE (the `jp-` cards differ) | `wh-149` |
+| Mehrgarh: excavators' date / redated | c. 8000 BCE / c. 5200 – 4900 BCE | `wh-150` |
+| African humid period / peak | c. 14,500 – 5,000 BP / c. 11,000 – 5,000 BP | `wh-151` |
+| Saharan rock art: earliest / Round Heads / Pastoral / Camel | c. 12,000 / 9,500 – 7,000 / 7,200 – 3,000 / from 2,000 BP (disputed) | `wh-152` |
+| African cattle: first livestock / Lake Turkana / southern Africa | c. 8,000 / c. 5,000 / c. 2,000 BP | `wh-153` |
+| Nabta Playa occupied / cow tumulus | c. 8600 – 3300 BCE / c. 5400 BCE | `wh-154` |
+| Kuk: first phase / mounds / ditches | c. 10,000 BP / c. 6950 – 6440 BP / c. 4350 – 3980 BP | `wh-155` |
+| Austronesian: into Taiwan / out of Taiwan / Remote Oceania / East Polynesia | c. 5,500 – 5,000 / 4,200 – 4,000 / 3,500 – 2,800 BP / c. 1025 – 1290 CE | `wh-156` |
+| Lapita: Bismarcks / Remote Oceania / Tonga | c. 3,350 – 3,150 / 3,000 – 2,800 / 2,850 – 2,700 BP | `wh-157` |
+| Eastern Agricultural Complex: first crop / complex / maize | c. 5,025 / by 3,800 / from 1,100 BP | `wh-158` |
+| Poverty Point built | c. 3,700 – 3,100 BP | `wh-159` |
+| Andes: farming system / alpaca / guinea pig / potato | by c. 8,600 BP / 7,000 – 6,000 BP / 6000 – 2000 BCE / 3400 – 1600 BCE | `wh-160` |
 | maize: domesticated / in South America / Guilá Naquitz cobs | c. 9,000 / by c. 7,000 / c. 6,250 years ago | Matsuoka 2002; Kistler 2020; Piperno and Flannery (`wh-131`) |
 | Neolithic demographic transition, south-eastern Europe | from c. 8,500 years ago | Shennan et al. 2013 (`wh-133`) |
 | zoonotic pathogens in Eurasian remains / Baikal plague / flea-borne plague | from c. 6,500 / c. 5,500 / by c. 3,800 years ago | Sikora et al. 2025; Macleod et al. 2026 (`wh-134`) |
@@ -301,4 +320,24 @@ wh-136: 1981
 wh-137: 5500; 5000; 4900
 wh-139: 3000; 2500; 1800; 1500
 wh-140: 3350; 3120; 1991
+wh-141: 6600; 4000; 3000
+wh-142: 2900; 2500; 1850
+wh-143: 3200; 2600; 2450
+wh-144: 4590; 4340; 4250; 4200
+wh-145: 5000; 3700; 4500; 3800
+wh-146: 9000; 8000; 5000
+wh-147: 5000; 3000; 3500
+wh-148: 3000; 2000; 2500; 1800
+wh-149: 16,500; 2,400; 1251; 872
+wh-150: 8000; 5200; 4900
+wh-151: 14,500; 5,000; 11,000
+wh-152: 12,000; 9,500; 7,000; 7,200; 3,000; 2,000
+wh-153: 8,000; 5,000; 2,000
+wh-154: 8600; 3300; 5400
+wh-155: 10,000; 1900; 6950; 6440; 4350; 3980
+wh-156: 5,500; 5,000; 4,200; 4,000; 3,500; 2,800; 1025; 1290
+wh-157: 3,350; 3,150; 3,000; 2,800; 2,850; 2,700
+wh-158: 5,025; 3,800; 1,100
+wh-159: 3,700; 3,100; 2014
+wh-160: 8,600; 7,000; 6,000; 6000; 2000; 3400; 1600
 ```

@@ -128,8 +128,8 @@ in plan order unless the user says otherwise.
 | B12 | The Neolithic transition (`wh-neolithic`) | `wh-111`–`wh-120` | 10 | 95 | **done 2026-10-02** |
 | B13 | The Neolithic transition (`wh-neolithic`) | `wh-121`–`wh-130` | 10 | 93 | **done 2026-10-02** |
 | B14 | The Neolithic transition (`wh-neolithic`) | `wh-131`–`wh-140` | 10 | 101 | **done 2026-10-02** |
-| B15 | Neolithic worlds (`wh-early-villages`) | `wh-141`–`wh-150` | 10 | 94 | open |
-| B16 | Neolithic worlds (`wh-early-villages`) | `wh-151`–`wh-160` | 10 | 99 | open |
+| B15 | Neolithic worlds (`wh-early-villages`) | `wh-141`–`wh-150` | 10 | 94 | **done 2026-10-02** |
+| B16 | Neolithic worlds (`wh-early-villages`) | `wh-151`–`wh-160` | 10 | 99 | **done 2026-10-02** |
 | B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | open |
 | B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | open |
 | B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | open |
@@ -777,6 +777,70 @@ each other's milk-residue clues; `wh-138`/`wh-139` a type and its most famous me
 
 **Glossary.** Eight terms rewritten; *Linear Pottery culture* already agreed.
 
+### B15 — `wh-141`–`wh-150`, Neolithic worlds (2026-10-02)
+
+Run as B11; all ten drafts were cut off by a usage limit and finished by fresh agents. Checks:
+`wh-audit.js --range=wh-141:wh-150` clean on all ten. `check-questions`, `check-style` (no new finding),
+`check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 72
+distinct URLs 200. **`check-cards` refused one phrasing of `wh-143`**: its scholar-in-question rule read
+"River Boyne" as a person's name; reworded to "the Boyne valley". (Precheck does not run `check-cards`;
+it is the one guard that still shows up only at apply time.) Locators re-fetched for Skara Brae,
+Newgrange, Varna and Mehrgarh.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-141` Neolithic Europe | 8 | 5 → 8 | **Modelled figures stated as fact** (50 against 70 km a generation, 3.6 per cent intermarriage, five-to-one numbers) dropped. The 6600, 4000 and 3000 BCE dates now each rest on a source; the sea route's Impressa and Cardial pottery named; booms and busts, and farmers living beside foragers for 3,000 years, added. |
+| `wh-142` Skara Brae | 7 | 5 → 7 | **"Abandoned in the 24th century BCE" was a date for Orkney villages generally**; Historic Environment Scotland gives c. 2500 BCE. Two ideas HES now calls outdated (midden-buried houses, drains "not for sewage") dropped. |
+| `wh-143` Newgrange | 7 | 5 → 7 | Genetics padding (`wh-138`'s) out; **"200,000 tonnes" is the source's figure for "the largest cairns"**, not this one. A row dating one bone replaced by the pig feasts, 2600 – 2450 BCE. The "dynastic elite" is one study's reading, followed by its critics. |
+| `wh-144` Varna necropolis | 6 | 5 → 7 | **"Some 270 burials" is the museum's 301 graves, 47 symbolic.** **"The oldest gold in the world" is "the earliest large collection of gold objects known".** Grave 43 is a man over 60; "no newcomers" softened. |
+| `wh-145` Chalcolithic | 7 | 5 → 7 | **"c. 6200 – 3700 BCE" began with the first use of copper minerals in the Neolithic**; the period runs c. 5000 – 3700 BCE in the Balkans. Smelting moved to `wh-146`; the Greek roots, "Eneolithic", the Ghassulian and the Hungarian Copper Age added. |
+| `wh-146` early metallurgy | 7 | 5 → 7 | Rebuilt around native copper at Çayönü, smelting at Belovode c. 5000 BCE, **the Tal-i Iblis claim dated only relatively, the Çatalhöyük "slag" not slag**, and the Old Copper tradition. Andean gold dropped (source would not open). A "9th millennium BCE" row written as c. 9000 – 8000 BCE so the card sorts. |
+| `wh-147` Yangshao culture | 7 | 5 → 9 | **"Largest sites 10 – 12 ha before 5000 BCE" belonged to the earlier Laoguantai and Houli cultures**; now c. 15 – 70 ha around 4000 BCE. Manuring limited to the Baishui valley where it was measured. Dancers, fermentation moulds and "twelve burials" dropped. |
+| `wh-148` Longshan culture | 7 | 5 → 9 | **Cattle's arrival was one site's date (4200 – 3900 BP)**; now 4300 – 3900 BP for the Central Plains. "Heated until cracked" and "before the Shang" had no source. Now a family of regional cultures and a "Longshan era"; eggshell pottery added. No source reached calls Taosi walled. |
+| `wh-149` Jōmon period | 7 | 5 → 8 | **Its start came from a paper whose same sentence calls Jōmon pottery "the earliest in the world"**, which it is not (South China's is older). Span c. 16,500 – 2,400 years ago; rice in Kyushu c. 1251 – 872 BCE. The glossary cited a DOI that answers 403. |
+| `wh-150` Mehrgarh | 6 | 5 → 6 | **The 2024 redating to 5200 – 4900 BCE was stated as settled**; the line now gives the excavators' c. 8000 BCE beside it. No source read gives "7000 BCE". Drilled molars and cotton thread added, undated. |
+
+**Read by eye.** *Article:* "Neolithic Europe" bare (a place-like name), "the Chalcolithic", "the
+Yangshao culture", "the Longshan culture", "the Jōmon period", "the Varna necropolis"; Skara Brae,
+Newgrange, Mehrgarh, early metallurgy bare. *Confusability:* `wh-145`/`wh-146` a period and a craft, the
+smelting evidence on one card only; `wh-147`/`wh-148` kept apart by phase and by finds. *Other
+collections:* `wh-149` gives the Jōmon start as c. 16,500 years ago and rice in Kyushu as c. 1251 – 872 BCE;
+the `jp-` cards use c. 13,000 BCE and `jp-023` 1176 – 845 BCE — the two disagree and are left for a `jp-`
+pass to reconcile.
+
+**Glossary.** Nine terms rewritten; *Yangshao culture* already agreed.
+
+### B16 — `wh-151`–`wh-160`, Neolithic worlds (2026-10-02)
+
+Run as B15 (eight of the ten drafts finished after the usage limit). Checks: `wh-audit.js
+--range=wh-151:wh-160` clean but for `W.not-why` on `wh-160`. `check-questions`, `check-style` (no new
+finding), `check-cards`, `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations
+--card` 0 mismatched; all 65 distinct URLs 200. New locators: `wh-154` Nabta Playa, `wh-155` Kuk,
+`wh-159` Poverty Point. One agent ran `add-glossary.js` while testing (it has no dry run), then restored
+both entries; the diff was checked and the later prompts forbid it.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-151` African humid period | 6 | 9 → 7 | **"15,000 – 5,500 BP" is c. 14,500 – 5,000** (peak 11,000 – 5,000). **An "arid pause 8,200 – 7,200" row was the 8.2-ka event's date put on Gobero.** The Megachad 361,000 km² figure (paper would not open) and "ten times today's rain" (no source) dropped. |
+| `wh-152` Saharan rock art | 7 | 7 → 7 | **The period dates had no source**; now one common chronology, and the card says the sequence is a modern construct with disputed dates. 707 Acacus sites, failed pigment dating and Messak platform dates rested on papers that would not open. Cave of Swimmers added. |
+| `wh-153` African cattle pastoralism | 7 | 7 → 7 | **"First livestock 7,000 BP" was one Libyan site's date**; now c. 8,000 BP for north-eastern Africa. **"Whole cattle buried at Messak" were disarticulated remains.** Local taming of the aurochs is an older view weighed against genetics; Lothagam North and the spread south added. |
+| `wh-154` Nabta Playa | 5 | 5 → 6 | Dates now the excavators' calibrated phases (c. 8600 – 3300 BCE; cow tumulus c. 5400 BCE). **The astronomy is the excavators' modern interpretation**, and the oldest-domestic-cattle claim is set against critics who measured the bones as wild. A tumulus count and the standing stones' spacing had no source. |
+| `wh-155` Kuk Swamp | 6 | 5 → 6 | **The 10,220 – 9,910 BP first phase came from a paywalled paper that could not be checked**; now "c. 10,000 BP", and whether that phase is farming is argued. The mounds of 6950 – 6440 BP are the first undisputed farming. A Vanuatu taro sentence was off topic. |
+| `wh-156` Austronesian expansion | 7 | 5 → 7 | **"4,800 BP" for the move into Taiwan had no source**; the handbook gives 5,500 – 5,000. Remote Oceania starts c. 3,500 BP with the Marianas; Madagascar hedged to 1,450 – 1,350 BP; the "Out of Sundaland" rival view added. |
+| `wh-157` Lapita culture | 6 | 5 → 8 | **The start "c. 3,450 BP" is c. 3,350 – 3,150 BP** (the 2025 synthesis; Posth 2018). Added Teouma (skulls removed from every adult, almost no Papuan ancestry, the giant tortoise hunted out), Tonga by c. 2,850 and plain wares by c. 2,700. |
+| `wh-158` Eastern Agricultural Complex | 6 | 5 → 7 | **Goosefoot's "3,700 BP" is the Riverton complex at 3,800.** "Domesticated marshelder is extinct" is in no source. The crop list now said to vary by author; population growth as the cause is one view. |
+| `wh-159` Poverty Point | 6 | 5 → 6 | **Mound A's 90-day build was stated as fact**; now one study's argument. Figures no source gave dropped; a "90 days" row removed. A recent redating of most earthworks to 3,300 – 3,200 BP added, hedged. |
+| `wh-160` Andean domestication | 7 | 6 → 8 | **Its camelid row (9,000 – 8,000 BP) and guinea-pig row (c. 4,000 BP) came from a one-line editorial summary**; now the Ñanchoc farming system by c. 8,600 BP, alpaca 7,000 – 6,000 BP, guinea pig 6000 – 2000 BCE, potato 3400 – 1600 BCE. |
+
+**Read by eye.** *Article:* "the African humid period", "the Austronesian expansion", "the Lapita
+culture", "the Eastern Agricultural Complex"; Saharan rock art, African cattle pastoralism, Nabta Playa,
+Kuk Swamp, Poverty Point, Andean domestication bare. *Confusability:* `wh-151`/`wh-152`/`wh-153`/`wh-154`
+a climate, an art, a way of life and a site of the same green Sahara, each with its own clues;
+`wh-156`/`wh-157` a migration and one culture of it. *Consistency:* `wh-156`'s Remote Oceania c. 3,000 –
+2,800 agrees with `wh-157`'s.
+
+**Glossary.** Nine terms rewritten; *Poverty Point* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -839,3 +903,9 @@ pass once it answers. Filled batch by batch.
 | `wh-140` | an Ötztal landscape, not the man, his kit or the findspot |
 | `wh-122` | fine subject, but its URL ends in a generic `1920px-thumbnail.jpg` (audit `I.duplicate`) and its description is a museum caption |
 | `wh-128` | a late wheel-made Liangzhu pot, not early pottery |
+| `wh-141` | a labelled map |
+| `wh-145` | description shows mortars, not the copper hoard |
+| `wh-149` | description and alt describe different pots |
+| `wh-154` | a museum reconstruction titled "calendar" |
+| `wh-156` | a map with burned-in labels and dates |
+| `wh-157` | description is a caption |
