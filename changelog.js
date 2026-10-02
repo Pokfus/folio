@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.924", released: "2026-10-02T13:45Z" };
+window.FOLIO_VERSION = { v: "1.925", released: "2026-10-02T14:02Z" };
 
 window.CHANGELOG = [
   {
@@ -52,7 +52,7 @@ window.CHANGELOG = [
       "<b>The Collections page is redesigned</b> to match, each collection a row with its progress painted across it.",
       "<b>The Studio page is gone</b>: your own decks are written, imported, exported and edited on the Collections page's Your decks tab, in place.",
       "<b>The tour</b> walks the new pages, and the version line moved from the top of the home page to its foot.",
-      "<b>Sixty-one new cards in the China collection</b>, from the Sui reunification through the Tang to the Five Dynasties, with 56 new glossary terms.",
+      "<b>161 new cards in the China collection</b>, from the Sui reunification through the Tang, the Five Dynasties, the Liao, Song, Western Xia and Jin to the Yuan, with 153 new glossary terms.",
       "<b>Shakespeare\u2019s <i>Macbeth</i> is in the Library</b> \u2014 the 1918 Yale edition, act by act, with the editor\u2019s glosses and notes.",
       "<b>A hundred new cards in the Ancient Rome collection</b>, finishing government and law and the provinces and opening family life, each with a glossary term.",
       "<b>A hundred and seventy more Ancient Greece cards are rewritten</b>, finishing the Mycenaean, Early Iron Age and Polis and colonisation decks and most of Sparta, with more sources and new pictures.",
