@@ -176,6 +176,17 @@ Filled batch by batch, from the source each row names.
 | urban revolution: Uruk period / named / ten criteria | c. 4000 – 3200 BCE / 1936 / 1950 | Childe (`wh-170`) |
 | first writing, Mesopotamia / China | c. 3300 – 3200 BCE (c. 3200 conventional) / c. 1200 BCE | `wh-175`; agrees with `wh-001` |
 | cylinder seals in use | c. 3500 – 330 BCE | `wh-176` |
+| Mesopotamian absolute dates before c. 1500 BCE | the middle chronology (Hammurabi 1792 – 1750 BCE) | Manning et al. 2016 (`wh-171`, `wh-173`) |
+| ard marks: oldest in Europe (Sion) / Arbon yoke | c. 5100 – 4700 BCE / 3384 – 3370 BCE | van Willigen et al. 2024; Pigière and Smyth 2023 (`wh-165`) |
+| wagon-mug culture (Boleráz) formed / Ljubljana wheel / spoked wheels | by 3600 BCE / 3350 – 3100 BCE / c. 2000 BCE | `wh-166` |
+| Mesopotamian civilisation, first cities to Alexander | c. 3200 – 331 BCE | Getty (`wh-171`) |
+| Third Dynasty of Ur | 2112 – 2004 BCE | `wh-172` |
+| Uruk period / Uruk writing | c. 4000 – 3200 BCE / from c. 3300 BCE | `wh-173`; agrees with `wh-170` |
+| cuneiform in use / proto-cuneiform | c. 3300 BCE – 75 CE / c. 3300 – 2900 BCE | Ottaviano et al. 2026; Gutherz et al. 2023 (`wh-174`) |
+| Ur ziggurat begun / Chogha Zanbil / Ur ziggurat rebuilt | c. 2100 BCE / c. 1250 BCE / 556 – 539 BCE | `wh-177` |
+| Eridu occupied | c. 6000 – 1000 BCE | Quenet et al. 2025 (`wh-178`) |
+| Early Dynastic period | c. 2900 – 2334 BCE | `wh-179` |
+| Ur: first village / last dated tablets | c. 5500 BCE / c. 500 – 400 BCE | `wh-180` |
 | maize: domesticated / in South America / Guilá Naquitz cobs | c. 9,000 / by c. 7,000 / c. 6,250 years ago | Matsuoka 2002; Kistler 2020; Piperno and Flannery (`wh-131`) |
 | Neolithic demographic transition, south-eastern Europe | from c. 8,500 years ago | Shennan et al. 2013 (`wh-133`) |
 | zoonotic pathogens in Eurasian remains / Baikal plague / flea-borne plague | from c. 6,500 / c. 5,500 / by c. 3,800 years ago | Sikora et al. 2025; Macleod et al. 2026 (`wh-134`) |
@@ -352,4 +363,14 @@ wh-169: 6000; 4000; 4500
 wh-170: 4000; 3200; 1936; 1950
 wh-175: 3300; 3200; 1200
 wh-176: 3500; 330
+wh-165: 5100; 4700; 3384; 3370
+wh-166: 3600; 3350; 3100; 2000
+wh-171: 3200; 331
+wh-172: 3200; 2112; 2004
+wh-173: 4000; 3200; 3300
+wh-174: 3300; 75; 2900
+wh-177: 2100; 1250; 556; 539
+wh-178: 6000; 1000; 1946; 1949
+wh-179: 2900; 2334
+wh-180: 5500; 500; 400; 1922; 1934
 ```

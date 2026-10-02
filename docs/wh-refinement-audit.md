@@ -130,8 +130,8 @@ in plan order unless the user says otherwise.
 | B14 | The Neolithic transition (`wh-neolithic`) | `wh-131`–`wh-140` | 10 | 101 | **done 2026-10-02** |
 | B15 | Neolithic worlds (`wh-early-villages`) | `wh-141`–`wh-150` | 10 | 94 | **done 2026-10-02** |
 | B16 | Neolithic worlds (`wh-early-villages`) | `wh-151`–`wh-160` | 10 | 99 | **done 2026-10-02** |
-| B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | **8 of 10 done** (`wh-165`, `wh-166` open) |
-| B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | **2 of 10 done** (`wh-175`, `wh-176`) |
+| B17 | Neolithic worlds (`wh-early-villages`) | `wh-161`–`wh-170` | 10 | 95 | **done 2026-10-02** |
+| B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | **done 2026-10-02** |
 | B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | open |
 | B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | open |
 | B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | open |
@@ -876,6 +876,44 @@ period", "the urban revolution"; the rest bare or "a" (writing system, cylinder 
 
 **Glossary.** Nine terms rewritten; *urban revolution* already agreed.
 
+### B17 and B18, completed — the other twelve of `wh-161`–`wh-180` (2026-10-02)
+
+Run as B16 from fresh `prep.js` drafts, with Commons calls forbidden to the research agents. Mesopotamian
+dates before c. 1500 BCE now follow the **middle chronology** (Hammurabi 1792 – 1750 BCE), and each card
+giving such a date says so once in its prose. Checks: `wh-audit.js --card` clean on all ten but a `W.not-why`
+note on `wh-166`; `check-questions`, `check-cards --prefix` per card, `check-style` (no new finding),
+`check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 61
+distinct URLs 2xx. PMC served a CAPTCHA all run, so PMC articles are cited at their Europe PMC full-text URL.
+New locators: `wh-178` (Eridu, labelled Abu Shahrayn), `wh-180` (Ur, labelled Tell el-Muqayyar), `wh-177`
+(the Ur ziggurat, labelled Ur: a building card needs one, and Ur's is the best-preserved). New glossary
+term: **Wheel** (`G.none` closed).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-165` plough | 9 | 5 → 9 | **"From c. 3600 BCE" was the South Street marks; the oldest European ard marks, at Sion, are c. 5100 – 4700 BCE.** An arm-bone paper about metallurgy, not ploughing, dropped. Added the Arbon yoke, the Sumerian seeder plough and *Farmer's Instructions*, the mouldboard, and the inequality and gender-roles views, each as a view. |
+| `wh-166` wheel | 9 | 5 → 10 | **"3 to 16 kilometres an hour" was in no source**, and the copper-miners theory of the wheel's invention was the card's own claim; now "one recent theory". The wagon mugs are dated by their culture (formed by 3600 BCE), not as made by then. Ljubljana, Mesoamerica's wheeled toys and Ireland's late wheel added. |
+| `wh-171` Mesopotamia | 9 | 5 → 9 | A run of single-site findings (Khani Masi millet, zinc isotopes, a Neolithic "focaccia") that never said who lived there or when; now the land, its peoples, c. 3200 – 331 BCE, canals against an ill-timed flood, and cuneiform. A "cuneiform until 100 CE" row dropped for `wh-174`'s 75 CE. |
+| `wh-172` Sumer | 8 | 5 → 8 | Shekel weights, brick stamps and cattle fodder dropped; the Sumerian language, writing, the earliest readable poetry and the end of Sumerian primacy added. Ur III 2112 – 2004 BCE. |
+| `wh-173` Uruk | 7 | 5 → 8 | **An "expansion c. 3550 BCE" row was a conversion of one paper's 5,500 BP.** Half the old background was Susa, Arslantepe and Tell Brak; now the city: growth from 15 villages, 250 hectares and 25,000 people, its dispersed plan, Eanna, writing. Uruk period ends 3200, not 3250. |
+| `wh-174` cuneiform | 8 | 5 → 9 | **A corpus-size comparison was cited to a Neo-Assyrian emotion study that does not make it**; an "Akkadian c. 2700 BCE" row dated a language, not the script. Glossary's end "c. 100 CE" is 75 CE. Rebuilt around how the script worked: stylus, rebus, about 80 sound-signs, 600,000 tablets. |
+| `wh-177` ziggurat | 8 | 5 → 8 | The old card described only Ur's tower; now the type, with Eridu's terrace, Chogha Zanbil, Herodotus and Babel. A magnetic-brick sentence (true of any fired brick) dropped, and a figurine whose page is gone. |
+| `wh-178` Eridu | 7 | 5 → 7 | **The first-season Ubaid temple was called "the earliest shrine"**, which its report does not say. The level count is "18 or 19", the two reports differing; a non-date row dropped. |
+| `wh-179` Sumerian city-state | 7 | 5 → 7 | **"A city upstream held its rival's water" was in no source.** Eridu and Ur housing moved off to their own cards; now dynasty, patron god, the king list and war, with Lagash as the worked example. |
+| `wh-180` Ur | 8 | 5 → 8 | Three sentences and every FAQ rested on a zinc-isotope study of Abu Tbeirah, another site; 5500 BCE was cited to the wrong source; the glossary garbled Shulgi. Now the city's whole life to its last tablets c. 500 – 400 BCE, the river shift hedged as the excavators'. |
+
+**Read by eye.** *Article:* "a ziggurat", "a Sumerian city-state"; the rest bare. *Confusability:*
+`wh-171`/`wh-172`/`wh-179` the land, its southern culture and its political unit; `wh-173`/`wh-178`/`wh-180`
+three cities, each on its own god and story; `wh-180` kept off `wh-181`'s cemetery and `wh-186`'s dynasty.
+*Consistency:* cuneiform c. 3300 BCE – 75 CE across `wh-171`/`wh-174`; Uruk period c. 4000 – 3200 BCE as in
+`wh-170`.
+
+**Glossary.** Eight terms rewritten and *Wheel* added; *Ziggurat* and *Sumerian city-state* already agreed.
+
+**Pictures.** Commons answered one call at the start of the run and then refused the sandbox again, so the
+picture pass deferred all but six cards whose pictures were sound and whose text was not: `wh-060`,
+`wh-085`, `wh-098`, `wh-102`, `wh-111` and `wh-169` keep their files with a new description and alt.
+`wh-041`'s locator is still open: "Rising Star Cave" has no primary coordinate.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -896,7 +934,7 @@ pass once it answers. Filled batch by batch.
 | `wh-054` | an 18th-century engraving; alt is the file name |
 | `wh-055` | one Blombos point (a sibling's site); caption gives "71,000 BCE" |
 | `wh-056` | a leaf point that looks Middle Stone Age |
-| `wh-057`, `wh-060` | fine, but description and alt need writing in English |
+| `wh-057` | fine, but description and alt need writing in English |
 | `wh-058` | a stratigraphy diagram with printed, outdated ages |
 | `wh-059` | a 1929 plate of line drawings |
 | `wh-061`, `wh-062` | weak fits |
@@ -907,7 +945,7 @@ pass once it answers. Filled batch by batch.
 | `wh-076`, `wh-077` | replicas, not the caves |
 | `wh-078` | a modern drawing |
 | `wh-080` | the disputed Divje Babe bone, not a secure flute |
-| `wh-081`, `wh-083`, `wh-085` | fine, but description and alt need writing |
+| `wh-081`, `wh-083` | fine, but description and alt need writing |
 | `wh-082` | a postcard captioned "Indian with bow & arrow" |
 | `wh-084` | an old drawing |
 | `wh-086` | a labelled map |
@@ -918,14 +956,14 @@ pass once it answers. Filled batch by batch.
 | `wh-093` | no picture |
 | `wh-094` | **first**: may show human remains; replace with the lunette |
 | `wh-097` | a map with burned-in labels |
-| `wh-098`, `wh-099`, `wh-100` | description and alt are raw captions |
-| `wh-101`, `wh-102` | fine subjects, but description and alt are copied captions naming a museum and giving dates the cards no longer carry |
+| `wh-099`, `wh-100` | description and alt are raw captions |
+| `wh-101` | fine subject, but description and alt are copied captions naming a museum and giving dates the cards no longer carry |
 | `wh-103` | a landscape of another Folsom site, no artefacts |
 | `wh-104`, `wh-105`, `wh-113`, `wh-114` | labelled charts (`wh-114`'s title gives a BC date) |
 | `wh-106` | a Kebaran mortar from Israel: Epipalaeolithic, not Mesolithic |
 | `wh-107` | one Natufian figurine; weak description and alt |
 | `wh-108` | probably a map of the Dogger Bank; description "Doggerbank" only |
-| `wh-109`, `wh-111`, `wh-116` | fine, but description and alt carry museum or promotional text or a file name |
+| `wh-109`, `wh-116` | fine, but description and alt carry museum or promotional text or a file name |
 | `wh-112` | an Egyptian dynastic milking scene, not the Neolithic |
 | `wh-115` | a 1486 Ptolemy map of part of the region |
 | `wh-117` | a labelled wheat display; plants only |
@@ -945,6 +983,10 @@ pass once it answers. Filled batch by batch.
 | `wh-156` | a map with burned-in labels and dates |
 | `wh-157` | description is a caption |
 | `wh-163` | Varna grave 43, which is `wh-144`'s |
-| `wh-169` | caption carries a museum number |
 | `wh-170` | one Trypillia site only |
 | `wh-175` | a Rongorongo tablet, one undeciphered script |
+| `wh-171` | NASA view of the two rivers: fine, but description is a file caption |
+| `wh-172` | Standard of Ur: credit names no author, description carries licence text |
+| `wh-173` | a cone-mosaic detail; a view of the site would show the city |
+| `wh-178` | description names the photographer and an unverified brick stamp |
+| `wh-180` | the Ram in a Thicket, a Royal Cemetery object (`wh-181`'s), not the city |
