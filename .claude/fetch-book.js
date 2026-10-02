@@ -16439,6 +16439,101 @@ const BOOKS = {
     ],
   },
 
+  macbeth: {
+    title: "Macbeth",
+    subtitle: "The Tragedy of Macbeth",
+    author: "William Shakespeare",
+    /* NO `translator`: written in English, as Le Morte d'Arthur was, so the run header and the rights
+       box name the EDITION instead. */
+    edition: "The Yale Shakespeare, ed. Charlton M. Lewis, Yale University Press, New Haven, 1918",
+    written: "c. 1606",
+    year: 1606,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The play is four centuries old and free everywhere; the only question is the edition's. Lewis
+       lived 1866–1923 (his Wikisource author page), so the 1918 volume clears the pre-1929 rule in the
+       United States and has cleared life plus a hundred everywhere since the start of 2024. His text is
+       W. J. Craig's Oxford Shakespeare corrected back towards the First Folio, which his own Appendix C
+       says and lists line by line.
+
+       WHAT ELSE WAS LOOKED AT. Wikisource's versions page for the play lists eight printings and carries
+       TWO as transcribed text: this one and the 1910 First Folio facsimile. The Folio is the only early
+       witness and is the wrong page for a reader — original spelling and punctuation, no line numbers,
+       and the misprints Lewis's appendix says this play suffered from more than most — so it is the source of record
+       here, not the text served. The Yale volume is proofread to the highest status throughout, and
+       it brings what the Folio cannot: modern spelling, act and scene, line numbers, and a gloss on
+       every hard word. The modern editions a reader is likeliest to own — Nicholas Brooke's Oxford of
+       1990, A. R. Braunmuller's New Cambridge of 1997, Sandra Clark and Pamela Mason's Arden of 2015 —
+       are in copyright and are named so nobody reaches for one.
+
+       WHAT IS TAKEN: the play, Lewis's list of characters, his glosses from the foot of each page and
+       his end notes, folded into the glosses that point at them (see extractYale). His four appendices
+       and the index of words glossed are the editor's apparatus to the volume and are left behind, as
+       an editor's front matter is throughout this library. */
+    rights:
+      "Public domain. Shakespeare wrote the play around 1606 and it was first printed in the First " +
+      "Folio of 1623, so the work itself has never been in copyright. The text here is the Yale " +
+      "Shakespeare edition edited by Charlton M. Lewis and published by Yale University Press in 1918; " +
+      "Lewis lived from 1866 to 1923, so the edition is out of copyright in the United States under the " +
+      "rule for works published before 1929, and everywhere the term is the editor's life plus a hundred " +
+      "years or less. What is taken is the play, the edition's list of characters, Lewis's glosses " +
+      "from the foot of each page and his end notes, which are set with the glosses that point to them; " +
+      "his appendices and index are not reproduced. (The modern editions by Nicholas Brooke, 1990, " +
+      "A. R. Braunmuller, 1997, and Sandra Clark and Pamela Mason, 2015, are still in copyright and " +
+      "are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Macbeth_(1918)_Yale",
+
+    about: [
+      "<b>Macbeth</b> is the shortest of Shakespeare's tragedies and the fastest. A Scottish general, " +
+        "coming home from a victory, meets three witches on a heath who greet him by a title he already " +
+        "has, by a title he is about to be given, and as the king he will be. The second prophecy comes " +
+        "true within the hour. With his wife driving him on, he murders King Duncan, a guest in his " +
+        "house, and takes the crown — and then has to go on killing to keep it: his friend Banquo, " +
+        "whose descendants the witches promised would be kings, and the wife and children of Macduff, " +
+        "the nobleman who has fled to England to raise an army against him.",
+      "What the play watches is the cost of the first murder to the people who did it. Macbeth " +
+        "cannot sleep, sees a dagger in the air before the killing and the dead Banquo at his own " +
+        "table after it, and ends the play so emptied out that the news of his wife's death draws " +
+        "only the speech that begins <i>To-morrow, and to-morrow, and to-morrow</i>. Lady Macbeth, " +
+        "who called on spirits to unsex her and mocked his fear, is found walking in her sleep and " +
+        "washing hands that will not come clean. Whether the witches cause anything, or only name " +
+        "what Macbeth already wanted, the play never settles.",
+      "It was probably written in 1606, three years after James VI of Scotland had also become king " +
+        "of England. James claimed descent from Banquo, wrote a book on witchcraft, and had survived " +
+        "the Gunpowder Plot of 1605; the play flatters the first, takes the second seriously, and its " +
+        "drunken Porter jokes about an <i>equivocator</i> in a way generally read as glancing at the " +
+        "plotters' trial. The story comes from Holinshed's <i>Chronicles</i>, which Shakespeare " +
+        "rearranged freely. The real Macbeth ruled Scotland from 1040 to 1057, took the throne by " +
+        "killing Duncan in battle rather than in his bed, and reigned for seventeen years — none of " +
+        "which the play has any use for.",
+      "There is only one early text. Macbeth was not printed in Shakespeare's lifetime; it first " +
+        "appeared in the collected First Folio of 1623, seven years after his death, and every edition " +
+        "since rests on that printing. It is not quite the play as first written: the scenes with " +
+        "Hecate and their songs are widely thought to be later additions by another hand, most often " +
+        "taken to be Thomas Middleton.",
+      "The text here is the <i>Yale Shakespeare</i> edition of 1918, edited by Charlton M. Lewis of " +
+        "Yale University, in modernised spelling and divided into acts and scenes. Its line " +
+        "numbers are the edition's own, printed against every fourth line or so, " +
+        "and can differ by a line or two from another edition's. The numbered notes are Lewis's: the " +
+        "short glosses he printed at the foot of each page, and, where a gloss sent the reader to the " +
+        "back of the book, the longer note it pointed to. The notes are in American spelling " +
+        "(<i>armored</i>, <i>flavor</i>), and the speakers' names are abbreviated as his page prints them.",
+    ],
+
+    /* ---------- A SHAKESPEARE PLAY IN THE YALE EDITION: the "yale" layout ----------
+       One wiki page per act, the glosses at the foot of each act's page and the end notes on a page of
+       their own. See extractYale for how a line is counted and a note placed. */
+    layout: "yale",
+    page: (n) => "Macbeth (1918) Yale/Text/Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    notesPage: "Macbeth (1918) Yale/Notes",
+    // the list of characters, printed on the page that leads into the acts — set at the head of Act I
+    castPage: "Macbeth (1918) Yale/Text",
+    chapterWord: "Act",
+    titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -21393,6 +21488,393 @@ function extractPlay(h, book, warn) {
     warn("the page carries " + got.notes.length + " notes and " + seen.size + " are cited — " +
          (got.notes.length - seen.size) + " reached no chapter");
   return out;
+}
+
+/* ---------- A SHAKESPEARE PLAY IN THE YALE EDITION — `layout: "yale"` ----------
+   (Oct 2026, adding Macbeth — the first play on the shelf written in English, and the first whose
+   page is VERSE with its own line numbers.) See the BOOKS entry for why this edition. Three things
+   about its transcription decide the reader, and each fails quietly if it is ignored.
+
+   · THE LINE NUMBERS ARE PRINTED EVERY FOURTH LINE, AND THE NOTES CITE THE OTHER THREE. Lewis's
+     glosses sit at the foot of each page keyed by line ("13 kerns: light infantry"), and the page
+     prints a number only against lines 4, 8, 12 … So every line is COUNTED — the speeches split at
+     their line breaks, stage directions not counted, and a line opened by an indent gap (the second
+     half of a verse line shared between two speakers, "Upon the heath.") given the number of the
+     line it completes — and the count is RE-ANCHORED on every printed number, so a miscount can
+     never run further than the next one. Every disagreement is reported, so a count that drifts is
+     seen rather than shipped. Only the printed numbers are SHOWN; the counted ones only place notes.
+   · A GLOSS IS PLACED ON ITS WORD, NOT ON ITS LINE. The transcription also wraps each glossed word
+     in a hover tooltip, so a note is put after the tooltip on its line whose words are the gloss's
+     lemma, then after the lemma's own words where no tooltip matches, and only then at the line's
+     end — and the three outcomes are counted, so a note that lands only on its line says so.
+   · AN END NOTE IS FOLDED INTO ITS GLOSS. Lewis's "cf. n." sends the reader to a note at the back of
+     the volume, which a Folio chapter has no way to reach; the note it names is read off the Notes
+     page by its anchor (`Iii15` is I. ii. 15) and printed in place of the pointer. An end note no
+     gloss points at is hung on the line its own label cites, so none is lost, and both kinds are
+     counted. */
+
+/* The Notes page: anchor id -> the note's text, the printed label ("I. ii. 15.") removed. A note may
+   run to several paragraphs, so everything up to the next anchor belongs to it. */
+function yaleEndnotes(h, warn) {
+  const out = {};
+  const body = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link [^>]*>/g, "")
+    .replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>/g, "");
+  const rx = /<span id="([A-Z][A-Za-z]*\d*[a-z]?)" title="Anchor:[^"]*" class="wst-anchor"><b>[^<]*<\/b><\/span>/g;
+  const hits = [];
+  let m;
+  while ((m = rx.exec(body))) hits.push({ id: m[1], at: m.index, end: rx.lastIndex });
+  hits.forEach((x, k) => {
+    const stop = k + 1 < hits.length ? hits[k + 1].at : body.length;
+    let seg = body.slice(x.end, stop);
+    if (k + 1 === hits.length) seg = seg.split(/<div class="printfooter|<\/div>\s*<\/div>\s*$/)[0];
+    const paras = seg.replace(/&#32;/g, " ").split(/<\/p>\s*<p>/).map(noteText).filter(Boolean);
+    const txt = paras.join(" ");
+    if (!txt) warn("end note " + x.id + " came back empty");
+    else out[x.id] = txt;
+  });
+  return out;
+}
+
+/* "Iii15" -> { act: 1, scene: 2, line: 15 }: an end note's anchor is its citation. */
+const YALE_ROMAN = { i: 1, ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9, x: 10 };
+function yaleCite(id) {
+  const m = id.match(/^(V|IV|III|II|I)([ivx]+)(\d*)/);
+  if (!m) return null;
+  return { act: { I: 1, II: 2, III: 3, IV: 4, V: 5 }[m[1]], scene: YALE_ROMAN[m[2]], line: +m[3] };
+}
+
+const YALE_SCENE = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
+
+// the words of a fragment, for matching a lemma against the text it glosses
+function yaleWords(s) {
+  return s.replace(/<[^>]+>/g, " ").replace(/&#39;|&#x27;|[’‘]/g, "'").replace(/&[a-z#0-9]+;/gi, " ")
+    .toLowerCase().replace(/[^a-z' -]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function extractYale(h, act, endnotes, used, warn) {
+  const cut = h.indexOf('id="Footnotes"');
+  if (cut < 0) throw new Error("no Footnotes section — the transcription has moved");
+  const start = h.indexOf('<div class="prp-pages-output"');
+  if (start < 0 || start > cut) throw new Error("no prp-pages-output body");
+  const bodyEnd = h.lastIndexOf('<div class="wst-center', cut);
+  let body = h.slice(start, bodyEnd);
+  const foot = h.slice(cut);
+
+  /* ---- the text: tokens for the four things the transcription marks in its own markup ---- */
+  body = body
+    .replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link [^>]*>/g, "")
+    .replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>/g, "")
+    .replace(/<span class="anchor" id="[^"]*"><\/span>/g, "")
+    .replace(/<span class="wst-pagebreak[\s\S]*?<\/span><\/span><\/span>/g, "")
+    .replace(/<div class="wst-dhr"[^>]*>[\s\S]*?<\/div>/g, "")
+    .replace(/<div class="[^"]*wst-nop"><\/div>/g, "")
+    .replace(/&#32;/g, " ")
+    .replace(/<span class="wst-pline[^"]*">\s*(\d+)\s*<\/span>/g, "\u0003$1\u0004")
+    .replace(/<span class="wst-gap[^"]*"[^>]*><\/span>/g, "\u0005")
+    .replace(/<span class="wst-floatright"[^>]*>([\s\S]*?)<\/span>/g, " $1")
+    .replace(/<span class="wst-tooltip[^"]*" title="[^"]*">([\s\S]*?)<\/span>/g, "\u0001$1\u0002");
+  if (/<span class="wst-(?:tooltip|pline)/.test(body)) warn("a tooltip or line number survived tokenising");
+
+  /* ---- the blocks, in reading order, each with the kind of div it sits in ---- */
+  const paras = [];
+  const stack = [];
+  let buf = "";
+  const ctx = () => {
+    for (let k = stack.length - 1; k >= 0; k--) if (stack[k]) return stack[k];
+    return "dent";
+  };
+  const flush = () => {
+    const t = buf.replace(/^\s+|\s+$/g, "");
+    buf = "";
+    if (t && t.replace(/<br\s*\/?>|\s|\u0005/g, "")) paras.push({ kind: ctx(), html: t });
+  };
+  const tagRx = /<(\/?)(div|p)\b([^>]*)>/g;
+  let pos = 0, m;
+  while ((m = tagRx.exec(body))) {
+    buf += body.slice(pos, m.index);
+    pos = tagRx.lastIndex;
+    flush();
+    if (m[2] === "p") continue;
+    if (m[1]) { stack.pop(); continue; }
+    const cls = (m[3].match(/class="([^"]*)"/) || [])[1] || "";
+    stack.push(/wst-center/.test(cls) ? "center" : /wst-right/.test(cls) ? "right"
+      : /wst-hanging-indent/.test(cls) ? "hang" : /wst-dent/.test(cls) ? "dent" : null);
+  }
+  buf += body.slice(pos);
+  flush();
+
+  /* ---- the scenes: heads, stage directions, speeches split into counted lines ---- */
+  const scenes = [];
+  let sc = null, last = null, n = 0, drift = 0, printed = 0;
+  /* The speaker, as the page prints it: "<i>Macb</i>.", a name the editor supplied in brackets
+     ("[<i>Sec. Witch</i>.]"), and a number he supplied in front of one ("[<i>First</i>] <i>Mur</i>.").
+     The brackets are kept — they are Lewis saying the Folio does not name this speaker. */
+  const SPEAKER = /^(\[?)<i>([^<]{1,40})<\/i>(\]?)\s*(?:<i>([^<]{1,20})<\/i>)?\.?(\]?)\.?\s*/;
+  for (const p of paras) {
+    const plain = p.html.replace(/<[^>]+>/g, "").replace(/[\u0001-\u0005]/g, "").trim();
+    if (p.kind === "center" && /^ACT\b/.test(plain)) continue;   // the act's own head: the tab says it
+    const sm = p.kind === "center" && plain.match(/^Scene (\w+)$/);
+    if (sm) {
+      const k = YALE_SCENE.indexOf(sm[1]);
+      if (k !== scenes.length + 1) warn("scene '" + sm[1] + "' out of sequence");
+      sc = { k: k, head: "Scene " + sm[1], items: [], lines: [] };
+      scenes.push(sc);
+      n = 0; last = null;
+      continue;
+    }
+    if (!sc) { warn("text before the first scene: " + plain.slice(0, 60)); continue; }
+    if (p.kind !== "dent") {
+      sc.items.push({ stage: true, html: p.html, after: n });
+      last = null;
+      continue;
+    }
+    const sp = p.html.match(SPEAKER);
+    let who = "", rest = p.html;
+    if (sp && /^[A-Z]/.test(sp[2])) {
+      const name = sp[2].trim().replace(/\.$/, "");
+      who = sp[4] ? sp[1] + name + sp[3] + " " + sp[4].trim() + sp[5] : sp[1] + name + sp[3] + sp[5];
+      rest = p.html.slice(sp[0].length);
+    }
+    const item = { who: who, cont: !who, lines: [] };
+    rest.split(/<br\s*\/?>/).forEach((seg, j) => {
+      const s = seg.replace(/^\s+|\s+$/g, "");
+      if (!s.replace(/\u0005/g, "").trim()) return;
+      const shared = /^\u0005/.test(s) && (j === 0 ? true : false);
+      if (!(shared && n)) n++;
+      const pm = s.match(/\u0003(\d+)\u0004/);
+      if (pm) {
+        printed++;
+        /* Lewis counts a verse line shared between speakers once, and the transcription does not
+           always mark the share, so a drift of a line or two is the edition's counting rather than a
+           fault; anything wider is. */
+        if (+pm[1] !== n) { drift++; if (Math.abs(+pm[1] - n) > 2) warn(sc.head + ": counted line " + n + " where the page prints " + pm[1]); }
+        n = +pm[1];
+      }
+      const line = { n: n, html: s.replace(/\u0005/g, " ").replace(/\s*\u0003(\d+)\u0004\s*/, " ").trim(),
+                     shown: pm ? +pm[1] : 0, notes: [] };
+      item.lines.push(line);
+      sc.lines.push(line);
+    });
+    if (item.lines.length) { sc.items.push(item); last = item; }
+  }
+
+  /* ---- the glosses, per scene, off the foot of the page ---- */
+  const footScenes = foot.split(/<span id="A\d+S(\d+)" title="Anchor:[^"]*" class="wst-anchor">/).slice(1);
+  const gloss = {};
+  for (let k = 0; k + 1 < footScenes.length; k += 2) {
+    const num = +footScenes[k];
+    const txt = footScenes[k + 1]
+      .replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link [^>]*>/g, "")
+      .replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>/g, "")
+      .replace(/&#32;/g, " ");
+    const pp = txt.split(/<div class="prp-pages-output"[^>]*>/)[1] || "";
+    const entries = [];
+    let cur = 0, curS = false;
+    pp.split(/<br\s*\/?>/).forEach((raw) => {
+      let e = raw.replace(/<\/?p>|<\/div>[\s\S]*$/g, "").replace(/^\s+|\s+$/g, "");
+      e = e.replace(/^<span class="wst-gap[^"]*"[^>]*><\/span>/, "");
+      if (!e.replace(/<[^>]+>/g, "").trim()) return;
+      const hm = e.match(/^<b>([^<]*)<\/b>\s*/);
+      if (hm) {
+        e = e.slice(hm[0].length);
+        curS = /S\.\s*d\./.test(hm[1]);
+        const nm = hm[1].match(/(\d+)(?:\s*[–,-]\s*(\d+))?/);
+        cur = nm ? +nm[1] : 0;
+      }
+      const ref = (e.match(/Notes#([A-Za-z]+\d*[a-z]?)"/) || [])[1] || "";
+      // "lemma: gloss" — the colon OUTSIDE the italic is the divider; a bare italic is a gloss alone
+      let lemma = "", g = e;
+      const it = e.indexOf("<i>");
+      const head = it < 0 ? e : e.slice(0, it);
+      const col = head.lastIndexOf(":");
+      if (col >= 0) { lemma = head.slice(0, col); g = e.slice(col + 1); }
+      else if (it > 0) { lemma = head.replace(/[;,]\s*$/, ""); g = e.slice(it); }
+      g = g.replace(/<a [^>]*>\s*[Cc]f\. n\.\s*<\/a>/g, "\u0006");
+      g = noteText(g.replace(/[;,]?\s*\u0006/g, "")).replace(/<i>\s*<\/i>/g, "")
+        .replace(/[;,]\s*(<\/i>)?\s*$/, "$1").trim();
+      lemma = noteText(lemma).replace(/<[^>]+>/g, "").trim();
+      entries.push({ line: cur, sd: curS, lemma: lemma, gloss: g, ref: ref });
+    });
+    gloss[num] = entries;
+  }
+
+  /* ---- place each gloss on its word ---- */
+  let onWord = 0, onText = 0, onLine = 0, lost = 0;
+  const place = (line, lemma, note) => {
+    const words = yaleWords(lemma).split(/[ -]+/).filter((w) => w.length > 1 || /^[a-z]$/.test(lemma));
+    // 1. a tooltip on the line whose words start with the lemma's
+    const tips = [];
+    line.html.replace(/\u0001([\s\S]*?)\u0002/g, (all, t, off) => { tips.push({ t: yaleWords(t), end: off + all.length }); });
+    const lw = yaleWords(lemma);
+    let hit = lw ? tips.find((x) => x.t === lw) || tips.find((x) => x.t.startsWith(lw) || lw.startsWith(x.t) && x.t.length > 2)
+      || tips.find((x) => words.length && x.t.split(" ").includes(words[0])) : null;
+    if (hit) { line.notes.push({ at: hit.end, note: note }); return 1; }
+    // 2. the lemma's own words on the line
+    if (words.length) {
+      const plainIdx = findWords(line.html, words[words.length - 1]);
+      if (plainIdx >= 0) { line.notes.push({ at: plainIdx, note: note }); return 2; }
+    }
+    return 0;
+  };
+  for (const s of scenes) {
+    for (const e of gloss[s.k] || []) {
+      let note = "";
+      const end = e.ref && endnotes[e.ref];
+      if (e.ref && !end) warn(s.head + " " + e.line + ": the gloss points at end note " + e.ref + ", which the Notes page has not got");
+      if (end) used.add(e.ref);
+      /* An end note opens on its own lemma in italics ("<i>flout</i>. Ross uses …"); where that is the
+         gloss's lemma it is said once, and where there is no gloss the end note stands alone. */
+      let tail = end || "";
+      const own = tail.match(/^<i>([^<]*)<\/i>\.\s*/);
+      if (own && e.lemma && yaleWords(own[1]) === yaleWords(e.lemma)) tail = tail.slice(own[0].length);
+      if (e.gloss) note = (e.lemma ? e.lemma + ": " : "") + e.gloss;
+      if (tail) {
+        if (note) note += (/[.?!)]\s*(<\/i>)?$/.test(note) ? " " : ". ") + tail;
+        else note = own || !e.lemma ? end : "<i>" + e.lemma + "</i>. " + tail;
+      }
+      if (!note) note = e.lemma;
+      if (!note) { warn(s.head + " " + e.line + ": an empty gloss"); continue; }
+      if (!e.line && !e.sd) {
+        // a note on the whole scene ("Scene Five; cf. n."): it hangs on the scene's own head
+        s.notes = s.notes || [];
+        s.notes.push({ at: s.head.length, note: note });
+        onWord++;
+        continue;
+      }
+      if (e.sd) {
+        // a gloss on a stage direction: the first direction after the line it follows
+        const st = s.items.find((x) => x.stage && x.after >= e.line && (!e.lemma || yaleWords(x.html).includes(yaleWords(e.lemma).split(" ")[0])))
+          || s.items.find((x) => x.stage && x.after >= e.line);
+        if (!st) { lost++; warn(s.head + " S. d. " + e.line + ": no stage direction for '" + e.lemma + "'"); continue; }
+        st.notes = st.notes || [];
+        const w = e.lemma ? findWords(st.html, yaleWords(e.lemma).split(/[ -]+/).pop()) : -1;
+        st.notes.push({ at: w >= 0 ? w : st.html.length, note: note });
+        onWord++;
+        continue;
+      }
+      const cands = s.lines.filter((l) => l.n === e.line);
+      const near = s.lines.filter((l) => Math.abs(l.n - e.line) >= 1 && Math.abs(l.n - e.line) <= 2).sort((a, b) => Math.abs(a.n - e.line) - Math.abs(b.n - e.line));
+      let how = 0;
+      for (const l of cands.concat(near)) { how = e.lemma ? place(l, e.lemma, note) : 0; if (how) break; }
+      if (how === 1) onWord++;
+      else if (how === 2) onText++;
+      else if (cands.length) {
+        const l = cands[cands.length - 1];
+        l.notes.push({ at: l.html.length, note: note });
+        onLine++;
+        if (e.lemma) warn(s.head + " " + e.line + ": '" + e.lemma + "' not found on its line — the note is set at the line's end");
+      } else { lost++; warn(s.head + ": no line " + e.line + " for the gloss '" + (e.lemma || e.gloss).slice(0, 40) + "'"); }
+    }
+  }
+  // the end notes no gloss points at, hung on the line their own label cites
+  let hung = 0;
+  Object.keys(endnotes).forEach((id) => {
+    const c = yaleCite(id);
+    if (!c || c.act !== act || used.has(id)) return;
+    const s = scenes.find((x) => x.k === c.scene);
+    const l = s && (s.lines.filter((x) => x.n === c.line).pop());
+    if (!l) { warn("end note " + id + " cites a line this act has not got"); return; }
+    l.notes.push({ at: l.html.length, note: endnotes[id] });
+    used.add(id);
+    hung++;
+  });
+
+  /* ---- write ---- */
+  const notes = [];
+  const mark = (html, list) => {
+    if (!list || !list.length) return html;
+    list.slice().sort((a, b) => b.at - a.at).forEach((x) => { x.mark = true; });
+    // insert from the end so earlier offsets hold; equal offsets keep their order
+    const sorted = list.map((x, i) => ({ ...x, i })).sort((a, b) => b.at - a.at || b.i - a.i);
+    let out = html;
+    const ids = [];
+    sorted.forEach((x) => { ids.push(x); });
+    // number in READING order, so the chapter's list runs 1..N down the page
+    const reading = list.map((x, i) => ({ ...x, i })).sort((a, b) => a.at - b.at || a.i - b.i);
+    const num = new Map();
+    reading.forEach((x) => { notes.push(x.note); num.set(x.i, notes.length); });
+    sorted.forEach((x) => {
+      out = out.slice(0, x.at) + '<sup class="fn" data-fn="' + num.get(x.i) + '"></sup>' + out.slice(x.at);
+    });
+    return out;
+  };
+  const tidy = (s) => stripTags(s.replace(/[\u0001\u0002]/g, "")).replace(/\s+/g, " ").replace(/\s+(<br>|<\/p>)/g, "$1").trim();
+  const html = [];
+  for (const s of scenes) {
+    // the scene head is bold as well as the class's italic: it is what a reader scans the act for
+    html.push('<p class="bk-head"><b>' + mark(s.head, s.notes) + "</b></p>");
+    for (const it of s.items) {
+      if (it.stage) {
+        const t = tidy(mark(it.html, it.notes)).replace(/<\/?i>/g, "");
+        html.push('<p class="bk-stage">' + t + "</p>");
+        continue;
+      }
+      const lines = it.lines.map((l, j) => {
+        const body = tidy(mark(l.html, l.notes));
+        const num = l.shown ? '<span class="bk-n">' + l.shown + "</span>" : "";
+        if (j === 0 && it.who) return num + '<b class="bk-who">' + it.who + "</b> " + body;
+        return num + body;
+      });
+      html.push('<p class="bk-sp' + (it.cont ? " bk-cont" : "") + '">' + lines.join("<br>") + "</p>");
+    }
+  }
+  const glosses = Object.values(gloss).reduce((a, x) => a + x.length, 0);
+  console.log("  Act " + act + ": " + scenes.length + " scenes, " +
+    scenes.reduce((a, s) => a + s.lines.length, 0) + " lines (" + printed + " printed numbers, " + drift + " re-anchored), " +
+    glosses + " glosses — " + onWord + " on their word, " + onText + " on their text, " + onLine + " at a line's end, " + lost + " lost; " +
+    hung + " end notes hung on their line");
+  return { html: html.join("\n"), notes: notes, scenes: scenes.length };
+}
+
+// the offset just after the first whole-word occurrence of `w` in the html's TEXT (never inside a tag)
+function findWords(html, w) {
+  if (!w) return -1;
+  const rx = /<[^>]*>|[\u0001-\u0005]|&[a-z#0-9]+;|[A-Za-z’'‘]+|[^<A-Za-z’'‘&\u0001-\u0005]+/g;
+  let m;
+  while ((m = rx.exec(html))) {
+    if (/^[A-Za-z’'‘]+$/.test(m[0]) && yaleWords(m[0]) === w) {
+      let at = rx.lastIndex;
+      // keep a closing tag or tooltip end that wraps the word on the word's side of the marker
+      const tail = html.slice(at).match(/^(?:\u0002|<\/i>|<\/b>)*/);
+      return at + (tail ? tail[0].length : 0);
+    }
+  }
+  return -1;
+}
+
+/* The list of characters, off the page that leads into the acts. Lewis braces groups of names
+   ("Malcolm, / Donalbain, } his Sons"), which the transcription builds as a table with the brace drawn
+   in TeX; the brace is dropped and the group read as one line, names first and their description
+   after, which is what the brace says. A cell holding neither a name nor a description is the brace. */
+function yaleCast(h, warn) {
+  let s = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link [^>]*>/g, "")
+    .replace(/<math[\s\S]*?<\/math>/g, "").replace(/<img [^>]*>/g, "")
+    .replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>/g, "");
+  const at = s.indexOf("DRAMATIS PERSON");
+  if (at < 0) { warn("no list of characters found"); return ""; }
+  s = s.slice(s.indexOf("</div>", at) + 6);
+  const end = s.search(/<\/div>\s*<\/div>\s*(?:<!--|$)|class="printfooter"/);
+  if (end > 0) s = s.slice(0, end);
+  const text = (x) => noteText(x.replace(/&#32;/g, " ").replace(/<span class="smallcaps"[^>]*>([\s\S]*?)<\/span>/g, "$1"))
+    .replace(/^\[|\]$/g, "").trim();
+  const out = [];
+  const rx = /<table[\s\S]*?<\/table>|<p>[\s\S]*?<\/p>|<div class="wst-hanging-indent[^"]*"[^>]*>[\s\S]*?<\/div>/g;
+  let m;
+  while ((m = rx.exec(s))) {
+    const blk = m[0];
+    if (/^<table/.test(blk)) {
+      const cells = blk.split(/<td[^>]*>/).slice(1).map((c) => c.split(/<\/td>/)[0]);
+      const names = cells.filter((c) => /smallcaps/.test(c)).map(text);
+      const desc = cells.filter((c) => !/smallcaps/.test(c) && /<i>/.test(c)).map(text);
+      if (!names.length) { warn("a cast table with no names"); continue; }
+      out.push(names.join(" ").replace(/,$/, "") + (desc.length ? ", " + desc.join(" ") : ""));
+      continue;
+    }
+    const t = text(blk);
+    if (t) out.push(t);
+  }
+  if (out.length < 10) warn("only " + out.length + " lines of the list of characters were read");
+  return '<p class="bk-head">Dramatis Personæ</p>\n' + out.map((x) => "<p>" + x + "</p>").join("\n");
 }
 
 /* ---------- the chapter titles, from the book's own contents page ---------- */
@@ -26428,6 +26910,40 @@ async function fetchEnglish() {
         (c.html.match(/class="bk-who"/g) || []).length + " speeches, " + c.notes.length + " notes (" +
         (c.html.length / 1024).toFixed(0) + " KB)");
     });
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* A SHAKESPEARE PLAY IN THE YALE EDITION — one wiki page per act, the end notes on a page of their
+     own and the list of characters on the page leading into the acts. Every page is cached, so
+     --from/--to and a re-extract cost no requests. See extractYale. */
+  if (BOOK.layout === "yale") {
+    const warn = (m) => warnings.push(m);
+    const cached = async (file, page) => {
+      const cf = path.join(CACHE, file);
+      if (!FORCE && fs.existsSync(cf)) return fs.readFileSync(cf, "utf8");
+      const h = await api(page);
+      fs.writeFileSync(cf, h);
+      await sleep(900);
+      return h;
+    };
+    const endnotes = yaleEndnotes(await cached("en-notes.html", BOOK.notesPage), warn);
+    const cast = BOOK.castPage ? yaleCast(await cached("en-cast.html", BOOK.castPage), warn) : "";
+    const used = new Set();
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const h = await cached("en-" + String(n).padStart(2, "0") + ".html", BOOK.page(n));
+      const got = correctGot(extractYale(h, n, endnotes, used, warn));
+      if (got.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + n + " came back short (" + got.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n),
+        html: (n === 1 && cast ? cast + "\n" : "") + got.html, notes: got.notes });
+    }
+    // every end note reaches the page, through a gloss or on its own line — checked, not assumed
+    if (FROM <= BOOK.chapters[0] && TO >= BOOK.chapters[BOOK.chapters.length - 1]) {
+      const left = Object.keys(endnotes).filter((k) => !used.has(k));
+      console.log("  " + used.size + " of " + Object.keys(endnotes).length + " end notes placed");
+      if (left.length) warn("end notes that reached no act: " + left.join(", "));
+    }
     return writeEnglish(chapters, warnings);
   }
 

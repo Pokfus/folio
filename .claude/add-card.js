@@ -517,7 +517,7 @@ const ARTICLE_IS_NAME = new Set([
   /* AND ONE THAT IS NOT A PLACE: "An Lushan" is the Chinese surname An (安), and the check cannot
      tell it from the English indefinite article. Same rule as the four above — the term is a NAME,
      and a matcher clever enough to see that would let a real article through. */
-  "an lushan rebellion",
+  "an lushan", "an lushan rebellion",
 ]);
 for (const f of ["answer", "answerText"]) {
   if (ARTICLE_IS_NAME.has(String(card[f] || "").trim().toLowerCase())) continue;
