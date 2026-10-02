@@ -9932,7 +9932,11 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 /* the level bar: in the stack with the piles, as wide as they are, with air above and below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{display:grid; grid-template-columns:minmax(0, max-content); width:max-content; max-width:100%;}
 .page .rv-banner .rv-stack > .meta{width:100%;}
-.page .rv-banner .xp{margin:22px 0 20px; max-width:none; width:100%; gap:7px;}
+.page .rv-banner .xp{margin:20px 0; max-width:none; width:100%; gap:7px;}
+/* …and the title and the caught-up line above it carry no bottom margin of their own, so the air above the
+   bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
+.page .rv-banner .rv-stack{margin-top:0;}
+.page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
 .rv-banner .xp-lvl{color:var(--sky-rose);} .rv-banner .xp-count{color:rgba(242,243,255,.6);}
 .rv-banner .xp-track{background:rgba(255,255,255,.14); border-color:transparent; height:6px;}
 .rv-banner .xp-fill{background:var(--sky-rose);}
