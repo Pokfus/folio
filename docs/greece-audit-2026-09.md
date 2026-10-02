@@ -557,6 +557,43 @@ Gelidonya and the Hittites already have keys. **Bare `Hittite` (15 cards) links 
 | 2 | Wilhelm Dörpfeld · Proetus · Hattusili III · Griffin Warrior · Trianda · Berbati | Dörpfeld was listed at B7 with 1 |
 | 1 | Piyamaradu · Krates · Keramopoullos · Kadmeia · Iklaina · Iasos · Emil Forrer · Axel Persson · Electryon · Amenhotep III | |
 
+**Added by the refinement's B11–B14 (2026-10-02)**, counted the same way after `gr-101`–`gr-135` were
+rewritten. Hellespont, Dorians, Ionians, Muses, Pithekoussai, Troy (with Hisarlık), the Toumba building,
+Nichoria and Zagora already have keys or aliases. **`Aristarchus` (10 cards) links nowhere**: the keys are
+`Aristarchus_of_Samothrace` and `Aristarchus_of_Samos`, so the bare name wants a hand-written `data-k`
+rather than an alias of either. `Panathenaea` (5) is the spelling the cards use, and the key is
+`Panathenaia`, so it wants an alias.
+
+| cards | term | note |
+|---|---|---|
+| 19 | Ephesus | the Ionian city; `Artemision_at_Ephesus` claims only the temple |
+| 15 | Epirus | |
+| 14 | Tegea | |
+| 10 | Sicyon · Chersonese · Aristarchus | the Chersonese is the Thracian (Gallipoli) peninsula on these cards; Aristarchus as above |
+| 8 | Ithaca · Abydos | Abydos on the Hellespont, not the Egyptian Abydos; key it with its region |
+| 7 | Priam · Phaeacians · Diomedes | |
+| 6 | Propontis · Sindos | Propontis is the Sea of Marmara; Sindos is the Macedonian cemetery whose radiocarbon dates `gr-113`, `gr-114` and `gr-125` cite |
+| 5 | Panathenaea · Sardinia · Andros · Brauron · Demodocus · Aegisthus | `Panathenaea` as above |
+| 4 | Sestos · Ischia · Peleus · Karphi | Karphi was listed at B6 with 3 |
+| 3 | Perati · Megiddo · Xeropolis | |
+
+**Added by the refinement's B15–B18 (2026-10-02)**, counted the same way after `gr-136`–`gr-170` were
+rewritten. Terms already listed at B11–B14 (Ephesus, Tegea, Aristarchus, Priam, Phaeacians, Demodocus,
+Sindos, Ischia, Megiddo) are not repeated, and their counts have risen by one or two.
+
+| cards | term | note |
+|---|---|---|
+| 27 | Plataea | the town; the battle has its own key and does not claim the bare name |
+| 12 | Leuctra | the same case as Plataea |
+| 11 | Messene · Phocians | |
+| 10 | Parian | the marble of Paros |
+| 9 | Menelaus · Nemea | |
+| 8 | Helicon · Chalcidians · Samothrace · Amphictyons | `Mount Helicon` (6) as an alias of `Helicon` |
+| 7 | Tartarus · Smyrna · Naupactus | Smyrna is Old Smyrna on these cards, not the Roman or modern city |
+| 6 | Cyzicus · Aetolia | |
+| 5 | Cyme · Eros · Teos · Locris · Ephorus · Isthmia · Corinthian Gulf | Cyme is Aeolian Cyme, not Cumae in Italy |
+| 3 | Methone · Orontes · Alcinous · Kumarbi · Hyllus · Neleus · Hecuba | Methone is the Macedonian port of the early inscriptions, not Messenian Methone |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
