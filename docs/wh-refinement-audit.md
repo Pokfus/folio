@@ -114,7 +114,7 @@ in plan order unless the user says otherwise.
 
 | batch | deck | cards | n | findings | state |
 |---|---|---|---|---|---|
-| B1 | Human origins (`wh-evolution`) | `wh-001`–`wh-010` | 10 | 96 | open |
+| B1 | Human origins (`wh-evolution`) | `wh-001`–`wh-010` | 10 | 96 | **done 2026-10-02** |
 | B2 | Human origins (`wh-evolution`) | `wh-011`–`wh-020` | 10 | 100 | open |
 | B3 | Human origins (`wh-evolution`) | `wh-021`–`wh-030` | 10 | 104 | open |
 | B4 | Human origins (`wh-evolution`) | `wh-031`–`wh-040` | 10 | 101 | open |
@@ -233,3 +233,61 @@ and coverage against the term's own article.
 
 Shipped `wh-audit.js`, the `AUDIT_CFG` hook in `greece-audit.js` (its own output unchanged, diffed), this
 file and `docs/wh-chronology.md`. Nothing on any card changed.
+
+### B1 — `wh-001`–`wh-010`, Human origins (2026-10-02)
+
+All ten re-researched from scratch and rewritten in the rule order, applied with `add-card.js --replace
+--no-image` and the picture in a second `--replace`. Research went to five agents working two cards each;
+each saved every cited page as text and listed, per source, the passages carrying its claims. A
+script then checked every listed passage against its saved page (substring match), ran the draft
+through `add-card.js --dry-run` and the audit, and curled every URL. The drafts were then read by eye.
+
+Checks:
+- `wh-audit.js --range=wh-001:wh-010` reads clean on nine cards; `wh-010` keeps a `W.not-why` note (two of
+  its FAQs open "How" and "Where").
+- `check-questions`, `check-style`, `check-cards --prefix=wh-00`, `check-docs`, `split-cards --check` and
+  `test-card-plans` pass; `check-citations --card` reports 0 mismatched on every card.
+- Every citation URL answers 200.
+
+**What changed, card by card** (sources before → after).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-001` Prehistory | 9 | 5 → 9 | **"Writing reached some regions only within the last few centuries" had no source**, and is gone; writing's four independent inventions and their dates now come from Woods, *Visible Language*. The start is the Smithsonian's "at least 2.6 million years ago", with Lomekwi's 3.3 Mya as an "Also dated" row (Braun et al. 2019 could not be opened). Added how prehistory is dated, the 1806 "thick fog", Wilson's 1851 coinage and the decolonising critique of the word. |
+| `wh-002` Three-age system | 7 | 6 → 8 | **"Thomsen worked the scheme out from the objects" was wrong**: the Nationalmuseet says Vedel Simonsen proposed the three ages a decade before Thomsen's 1825 letter, which already called it "the old idea"; Thomsen's achievement was testing it on the collection. **The date line "1810s–1820s" had no source**; it is now Published 1836 / In English 1848. Hesiod and Lucretius added as forerunners. A question naming Thomsen and carrying 1836 rewritten. The picture was the Thomsen glossary term's portrait; now iron, bronze and stone axes. |
+| `wh-003` Stone Age | 9 | 5 → 10 | **"Devised in the 1820s", "c. 3300 BCE" as the end, "99 per cent of human history" and "Lubbock named the Mesolithic" were all in no source**, and are gone. The start is now c. 3.3 Mya (Lomekwi) with the Oldowan c. 2.6 Mya as a second row. The African Early, Middle and Later Stone Age added. The single dolmen (one Neolithic tomb) replaced by flaked stone tools. |
+| `wh-004` human evolution | 9 | 8 → 9 | **Five of eight sources were Smithsonian pages** (cap 2); now two. **"Under 500 cc" for Australopithecus** is gone with its source; walking upright is now dated by Laetoli (Raichlen et al. 2010). Added Darwin 1871 on Africa, the limit of ancient DNA, Reich et al. 2010 on Neanderthal and Denisovan admixture. A question carrying "millions of years ago" rewritten. |
+| `wh-005` hominin | 7 | 6 → 7 | Three Smithsonian pages cut to two; Wood and Richmond 2000 (the tribe Hominini) and Pontzer 2012 added. **The glossary's "only Homo sapiens survives" was cited to sources that do not say it.** The Huxley frontispiece showed great apes, i.e. hominids, not hominins; replaced by a museum display of hominin skulls (it includes a chimpanzee and an orangutan skull for comparison and small exhibit labels; the one label-free alternative is `wh-004`'s own). The Australian Museum citation's date and author corrected. |
+| `wh-006` Sahelanthropus | 6 | 5 → 7 | Date line now Lebatard et al.'s cosmogenic c. 7.2 – 6.8 Mya; a question carrying "7 million years" rewritten. **The case was one-sided**: Wolpoff et al. 2006 ("an ape") now sits against Williams et al. 2026. **The glossary tied the small canines to upright walking**, which no source does. The map was replaced by a cast of the Toumaï skull. |
+| `wh-007` bipedalism | 8 | 5 → 8 | **"The oldest of the traits" is "one of the earliest"** (Smithsonian); **the lower-back curve "found in no other animal" had no source**. **Sockol et al.'s "75 per cent less energy" could not be read** (PNAS and PMC walled) and is gone. Laetoli cut to one sentence (it is `wh-011`'s). Added the disputed Sahelanthropus/Orrorin evidence, the c. 30 hypotheses (Niemitz 2010) and the arboreal-origin view. Questions carried "3.6 million years" and "75 per cent". |
+| `wh-008` Ardipithecus | 6 | 5 → 6 | **"Well over 100 further individuals" had no source** (the museums give over 100 specimens). "Greek for ape" is "Latinised Greek". **The glossary's "straddle the human–chimp split" contradicts the split date** the collection now uses (8–6 Mya). Added the 1994/1995 naming and the dissenting foot and ankle studies (Prang 2019, 2025). Finger bones replaced by the whole Ardi skeleton. |
+| `wh-009` Australopithecus | 8 | 7 → 8 | The 4.2 – 2 Mya range is now sourced end to end. Raymond Dart's name and 1925 out of the questions. Sentences that were `wh-010`–`wh-014`'s subjects cut; added the tooth-chemistry diets, the twenty-year wait for acceptance, and whether the genus is a natural group. |
+| `wh-010` Lucy | 8 | 6 → 8 | **"Several hundred fragments" was cited to Wiseman 2023, which does not say it**; now the Institute of Human Origins, which also carries the 40 per cent, her age at death and the dating. **The brain figure was the species average (446 cc)**, now her own 388 ml (Gunz et al. 2020). Cause of death is now an open question (Kappelman 2016 against "no cause determined"). **The glossary cited a Smithsonian page for "kept at the National Museum of Ethiopia"**, which it does not say. "1974" out of a question; a Hadar locator added. |
+
+The Think-it-through sets were all written fresh, with markers; the old sets were the background's own
+sentences.
+
+**Not usable from here:** PNAS (Cloudflare), PMC article pages (reCAPTCHA; Europe PMC full text used
+where it exists, HTTP 500 on several), hal.science (Anubis), science.org, Springer (`wh-015`'s Li et al.).
+Two paywalled papers (Dart 1925, Kappelman et al. 2016) were read at abstract or first paragraph only and
+are cited for nothing beyond what that page says. **Wikimedia rate-limited the batch hard**, so the
+picture work ran slow; every picture still has its licence and author from the Commons API.
+
+**Read by eye.**
+- *Article:* "the three-age system", "the Stone Age"; prehistory, human evolution, bipedalism, Lucy and
+  the four genera bare; "a hominin".
+- *Confusability:* `wh-002` and `wh-003` both used the no-Bronze-Age Africa clue, and the audit's sibling
+  check caught it; `wh-003`'s now asks about its regional end. `wh-007` keeps Laetoli to one clause and no
+  question, since `wh-011` owns it. `wh-005` and `wh-004` are told apart by classification against process.
+- *Image depicts the whole term:* yes, except `wh-005` (a display, with two non-hominin skulls for
+  comparison) and `wh-001`, where a museum's prehistory gallery stands for a period nothing can show whole.
+- *Coverage:* against each term's Wikipedia article as a checklist; the gaps filled were dating (`wh-001`,
+  `wh-010`), the forerunners and the non-European misfit (`wh-002`), and Africa's own Stone Age terms
+  (`wh-003`).
+
+**Locators.** `wh-006` (Djurab Desert; Toros-Menalla has no article, and the article's centroid is about
+100 km from the site), `wh-008` (Middle Awash) and `wh-010` (Hadar) added through `add-locators.js`. The
+other seven are periods, concepts or genera, with no place to stand.
+
+**Glossary.** Every term for `wh-001`–`wh-010` but *Australopithecus* was rewritten to agree with its card
+and to drop claims its sources did not carry (named above). No new candidate terms.
