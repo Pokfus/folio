@@ -303,3 +303,39 @@ The two bullets below are as they stood in CLAUDE.md, verbatim.
     wide window has the room to let the last line of the page read plainly as the end of it. It is
     `padding-top` rather than a margin so the space stays part of the button's own target.
     Guarded by `test-layout.js`.
+
+## The Oct 2026 redesign
+
+Composed on request from six rounds of mockups (`docs/mockups/home-redesigns/`, the chosen parts in
+`final/`): the daily study banner and the streak ribbon from "Compass", the minigame list and Continue
+reading from "Tabular", the This week box and the active-deck rows from "Keys". What it changed in
+`PAGES.home`, and the rules that came with it:
+
+- **The banner** (`.banner.rv-banner`) counts the three piles with an **estimate beside them**:
+  `reviewEstimateMs(ids)` sums, per card, the reader's own median seconds in that card's collection
+  (`paceTable()`, read off the last `PACE_ROWS` rows of `S.revlog`; `PACE_DEFAULT_S` where there is no
+  history) — never a flat per-card constant, which was the first review's objection. The right-hand
+  side is a **preview of the next three cards** (`reviewPreviewHTML`) rather than a glyph. The CTA is
+  "Start review", as wide as the pile row and full width on a phone.
+- **The streak ribbon** (`streakRibbonHTML`) sits under the banner on every non-fresh page: a 3-column
+  grid at every width (a flex row wrapped at desktop and looked broken), a week per row with the
+  **chest cell at the end of each week** (`streakChestProgress`, `STREAK_CHEST_EVERY`); a phone shows
+  the current week only. The Account page's streak box went with it (on request).
+- **"Your collections"** is a header row (`.rv-sec-h`) with the legend and the **"+ Add decks" link**;
+  it never counts cards (on request). Each row is tinted by its own progress: the `.dk-prog .track` is
+  absolutely positioned under the row and is `pointer-events:none` — it sat over the drag grip and
+  silently broke reordering (`test-review-decks`'s drag sections). A phone row never says "X of Y
+  studied".
+- **The minigames** are list-tiles: icon disc, full name, a tick ring; one to a row on a phone, with a
+  real `border-left` for the accent (the tests read the bar's colour, an inset shadow is invisible to
+  them).
+- **Continue reading** (`homeReadingHTML`, from `S.reading[id].at` — `+r.at || 0`, since `| 0` wraps a
+  millisecond stamp) and **This week** (`homeWeekHTML`, from `S.reviewLog`; its contents centred, its
+  title not, on request).
+- **Nothing dated at the top left** (on request): the version line lives in the page's foot with the
+  About and Changelog links, centred on a phone. The tagline under the logo is hidden on a phone.
+
+Guarded by `test-layout.js`, `test-minigames.js`, `test-review-decks.js`, `test-tour.js` and
+`test-a11y.js` (the banner carries a solid `background-color` under its gradient, which is what the
+contrast sweep reads).
+

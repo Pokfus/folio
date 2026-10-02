@@ -133,3 +133,24 @@ bottom margin** (Aug 2026, on request): that margin separates the title from the
 was 9px of nothing inside a flex item the row centres as a whole, so the title rode ~4.5px above the middle
 of its own banner. A flex item establishes its own formatting context, so the margin cannot collapse away by
 itself — it has to be zeroed.
+
+## The Oct 2026 redesign, and the Studio folded in
+
+Composed from the "Ledger" mockup with "Shelf"'s fill rows (`docs/mockups/collections-redesigns/`,
+chosen parts in `final/`), in the home page's style. Each collection is a row whose progress is
+**painted across it** (`.collection-row` carries `--w`, drawn by `.collection-deco`); the written/planned
+figures are gone from the rows (on request) and `collectionReachHTML` renders nothing until a collection
+is complete.
+
+**The Studio page is gone** (on request). Everything it did lives on the **Your decks** tab
+(`communityLibraryHTML` / `wireCommunityLibrary`): New deck, Import, Browse shared decks; a row per deck
+with Export and (for the reader's own) Delete; the pencil opens `studioRenderDeck` **in place** under
+the row (`#stInline`, warmed first), and `#stAll` closes it. `PAGES.studio` stays as a route — it renders
+the Collections page on that tab for that render only, so `#decks` afterwards shows the tab the reader
+chose. The old list's hooks are kept on the new rows (`.studio-deck`, `.sd-title`, `.studio-deck-open`,
+`.studio-actions`, `.studio-list`, `.studio-empty`) because six suites name them; `.orphan-deck` carries
+the look `.studio-deck` used to. The orphan section lands **in place** when the server answers, never
+through `render()`, which would discard the inline editor's state and anything appended to the page since
+(the admin's reports queue). Guarded by `test-community.js`, `test-card-types.js`, `test-deck-ux.js`,
+`test-publish.js`, `test-deck-glossary.js`, `test-deck-lazy.js`.
+
