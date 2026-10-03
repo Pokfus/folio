@@ -24606,9 +24606,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        description: it is the one thing on the tile that changes during the day, so it stays — and it stays
        in its bare figures, which is all a tile that no longer carries a sentence has room to say. */
     const gameSub = (key) => {
-      const g = S.games && S.games[key];
-      if (!(g && g.date === todayStr() && g.played && typeof g.s === "number" && typeof g.n === "number")) return "";
-      return g.s + "/" + g.n;
+      return "";   // the X/X score was taken off the tiles on request (Oct 2026); the tile's state mark says played / perfect
     };
     /* ---------- THE DAY'S NINE, AND THE CHEST THEY EARN (Sep 2026, on request) ----------
        "On the home page, below the minigame header put a counter X/9 and a locked chest which becomes
