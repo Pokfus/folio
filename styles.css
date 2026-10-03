@@ -3871,6 +3871,14 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
    into two columns once there is room for two. The wide ones (the theme picker, and the danger zone, which
    should never sit quietly beside something else) span both. */
 .settings{display:grid; grid-template-columns:1fr; gap:14px; align-items:start;}
+/* THE TWO COLUMNS ARE EXPLICIT STACKS (Oct 2026, on a report: "on desktop the Settings page is formatted
+   poorly and has big empty spaces"). Auto-placing the cards straight into the grid pairs them by ROW, and a
+   row is as tall as its taller card — so the one-row Audio card sat beside the ten-row Study card over
+   ~1900px of nothing, and Atlas beside Data the same way. Each `.set-col` is now one column's own stack
+   (PAGES.settings groups the cards so the two come out about level), and the grid only places the two
+   columns and the two wide cards. On a phone a `.set-col` is just a stack inside a stack: same order, same
+   gaps, nothing to see. */
+.set-col{display:grid; grid-template-columns:1fr; gap:14px; align-items:start; min-width:0;}
 @media (min-width:900px){
   .settings{grid-template-columns:1fr 1fr;}
   .settings > .set-card.set-wide, .settings > .set-card.danger{grid-column:1 / -1;}

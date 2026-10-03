@@ -48473,26 +48473,6 @@ let prev = null;
             <div class="info"><h3>Night mode</h3><p>Switch to the deck's dark paper palette.</p></div>
             <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}${S.settings.themeAuto ? " switch-locked" : ""}" id="sw-night" role="switch" aria-label="Night mode" tabindex="0" aria-checked="${S.settings.night}"></div></div>
           </div>
-          <div class="set-row set-row-block">
-            ${/* Measurements — one system, not both (Aug 2026, on request). The content is written metric
-                  first with the imperial equivalent in brackets; this decides which of the two a reader
-                  sees. See the units block by applyTheme for how the swap is made. */""}
-            <div class="info"><h3>Measurements</h3><p>Which system distances, heights, areas and weights are shown in. Scientific figures — cranial capacities, isotope ratios, radiocarbon ages — keep their own units in both.</p></div>
-            <div class="ctl"><div class="fs-pick units-pick" id="unitPick" role="group" aria-label="Measurement units">${
-              [["metric", "Metric", "km"], ["imperial", "Imperial", "mi"]].map((u) => `<button type="button" data-units="${u[0]}" class="${unitsNow === u[0] ? "on" : ""}" aria-pressed="${unitsNow === u[0]}"><span class="fs-a" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
-            }</div></div>
-          </div>
-          <div class="set-row set-row-block">
-            ${/* Spelling — one system, not both (Aug 2026, on request: "just as users can switch between
-                  metric and imperial units, they should also be able to switch between British and
-                  American English"). Modelled on Measurements directly above it, and sitting beside it
-                  for the same reason: both decide how the SAME authored prose is rendered, and neither
-                  touches what is stored. See the spelling block by applyTheme. */""}
-            <div class="info"><h3>Spelling</h3><p>Which spellings the cards, the glossary and the site's own words are shown in. Quoted sources, citations and the Library's books keep the spelling their author used.</p></div>
-            <div class="ctl"><div class="fs-pick units-pick" id="spellPick" role="group" aria-label="Spelling">${
-              [["en-GB", "British", "colour"], ["en-US", "American", "color"]].map((u) => `<button type="button" data-spelling="${u[0]}" class="${spellNow === u[0] ? "on" : ""}" aria-pressed="${spellNow === u[0]}"><span class="fs-a notranslate" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
-            }</div></div>
-          </div>
           <div class="set-row">
             ${/* Aug 2026, on request: "a user should be able to turn off all animations (since they may
                   cause lag on some devices)". ON by default; turning it off drives BOTH halves — the
@@ -48545,6 +48525,13 @@ let prev = null;
             ${langPickerHTML()}
           </div>
         </div>` : ""}
+        ${/* TWO EXPLICIT COLUMNS, NOT ONE AUTO-PLACED GRID (Oct 2026, on a report: "on desktop the Settings page
+              is formatted poorly and has big empty spaces"). Auto-placement pairs cards by ROW, so a one-row
+              Audio card sat beside the ten-row Study card with ~1900px of nothing under it, and Atlas beside
+              Data the same way. Each column is now its own stack, grouped so the two come out about level:
+              Study and Audio on the left; Reading, Atlas, Data and the two guides on the right. On a phone
+              the columns simply stack in this order. See .settings / .set-col in styles.css. */""}
+        <div class="set-col">
         <div class="set-card">
           ${setHead("#4F9D67", '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', "Study")}
           ${/* "New cards per day" stood here until Aug 2026 and was REMOVED on request, with the rest of the
@@ -48627,20 +48614,6 @@ let prev = null;
             <div class="info"><h3>Whiteboard marker</h3><p>The floating pen that draws over a study card, a book page or the Atlas globe. Turn it off and it stops appearing anywhere; marks you have already made on a book are kept.</p></div>
             <div class="ctl"><div class="switch ${S.settings.marker !== false ? "on" : ""}" id="sw-marker" role="switch" aria-label="Whiteboard marker" tabindex="0" aria-checked="${S.settings.marker !== false}"></div></div>
           </div>
-          <div class="set-row">
-            ${/* The walkthrough is offered once, on the home page, to a reader who has never graded a card
-                  — so without this it would be unreachable the moment either answer was given. The Atlas
-                  and the Library keep their own "?" for the same reason. */""}
-            <div class="info"><h3>Walkthrough</h3><p>The three-minute tour of how cards are scheduled, how to add a deck to your daily study, and how to study one.</p></div>
-            <div class="ctl"><button class="btn ghost" id="replayTour">Take the tour</button></div>
-          </div>
-          <div class="set-row">
-            ${/* THE PAGE THAT EXPLAINS THE DIFFICULTY (Sep 2026) — see PAGES.how. It is reached from here
-                  rather than from the home page because this is where a reader stands when they are about
-                  to switch one of these settings OFF, which is the moment the explanation is worth most. */""}
-            <div class="info"><h3>How Folio studies you</h3><p>Several of the settings on this page make studying feel harder on purpose. This says which, and what the evidence behind each of them actually is.</p></div>
-            <div class="ctl"><button class="btn ghost" id="howLink">Read it</button></div>
-          </div>
         </div>
         <div class="set-card">
           ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
@@ -48649,9 +48622,35 @@ let prev = null;
             <div class="ctl"><div class="switch ${S.settings.sfx !== false ? "on" : ""}" id="sw-sfx" role="switch" aria-label="Sound effects" tabindex="0" aria-checked="${S.settings.sfx !== false}"></div></div>
           </div>
         </div>
+        </div>
+        <div class="set-col">
+        <div class="set-card">
+          ${setHead("#B8862B", '<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>', "Reading")}
+          <div class="set-row set-row-block">
+            ${/* Measurements — one system, not both (Aug 2026, on request). The content is written metric
+                  first with the imperial equivalent in brackets; this decides which of the two a reader
+                  sees. See the units block by applyTheme for how the swap is made. */""}
+            <div class="info"><h3>Measurements</h3><p>Which system distances, heights, areas and weights are shown in. Scientific figures — cranial capacities, isotope ratios, radiocarbon ages — keep their own units in both.</p></div>
+            <div class="ctl"><div class="fs-pick units-pick" id="unitPick" role="group" aria-label="Measurement units">${
+              [["metric", "Metric", "km"], ["imperial", "Imperial", "mi"]].map((u) => `<button type="button" data-units="${u[0]}" class="${unitsNow === u[0] ? "on" : ""}" aria-pressed="${unitsNow === u[0]}"><span class="fs-a" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
+            }</div></div>
+          </div>
+          <div class="set-row set-row-block">
+            ${/* Spelling — one system, not both (Aug 2026, on request: "just as users can switch between
+                  metric and imperial units, they should also be able to switch between British and
+                  American English"). Modelled on Measurements directly above it, and sitting beside it
+                  for the same reason: both decide how the SAME authored prose is rendered, and neither
+                  touches what is stored. See the spelling block by applyTheme. */""}
+            <div class="info"><h3>Spelling</h3><p>Which spellings the cards, the glossary and the site's own words are shown in. Quoted sources, citations and the Library's books keep the spelling their author used.</p></div>
+            <div class="ctl"><div class="fs-pick units-pick" id="spellPick" role="group" aria-label="Spelling">${
+              [["en-GB", "British", "colour"], ["en-US", "American", "color"]].map((u) => `<button type="button" data-spelling="${u[0]}" class="${spellNow === u[0] ? "on" : ""}" aria-pressed="${spellNow === u[0]}"><span class="fs-a notranslate" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
+            }</div></div>
+          </div>
+        </div>
         <div class="set-card">
           ${setHead("var(--geo)", '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/>', "Atlas")}
-          <div class="set-row">
+          <div class="set-row set-row-stack">
+            ${/* stacked: at the column's ~350px the country select beside the prose wrapped "Home location" to two lines */""}
             <div class="info"><h3>Home location</h3><p>The Atlas globe opens centred on this place.</p></div>
             <div class="ctl"><select class="set-sel" id="homeSel" aria-label="Atlas home location">${homeOpts}</select></div>
           </div>
@@ -48681,6 +48680,24 @@ let prev = null;
             <div class="info"><h3>Restore a backup</h3><p>Replace the progress on this device with a backup file. Your settings are merged; nothing else on this device is touched.</p></div>
             <div class="ctl"><button class="btn ghost" id="importBtn">Import…</button><input type="file" id="importFile" accept="application/json,.json" hidden></div>
           </div>
+        </div>
+        <div class="set-card">
+          ${setHead("var(--indigo)", '<circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>', "Guides")}
+          <div class="set-row">
+            ${/* The walkthrough is offered once, on the home page, to a reader who has never graded a card
+                  — so without this it would be unreachable the moment either answer was given. The Atlas
+                  and the Library keep their own "?" for the same reason. */""}
+            <div class="info"><h3>Walkthrough</h3><p>The three-minute tour of how cards are scheduled, how to add a deck to your daily study, and how to study one.</p></div>
+            <div class="ctl"><button class="btn ghost" id="replayTour">Take the tour</button></div>
+          </div>
+          <div class="set-row">
+            ${/* THE PAGE THAT EXPLAINS THE DIFFICULTY (Sep 2026) — see PAGES.how. It is reached from here
+                  rather than from the home page because this is where a reader stands when they are about
+                  to switch one of these settings OFF, which is the moment the explanation is worth most. */""}
+            <div class="info"><h3>How Folio studies you</h3><p>Several of the settings on this page make studying feel harder on purpose. This says which, and what the evidence behind each of them actually is.</p></div>
+            <div class="ctl"><button class="btn ghost" id="howLink">Read it</button></div>
+          </div>
+        </div>
         </div>
         <div class="set-card danger">
           ${setHead("var(--zh)", '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/>', "Danger zone")}
