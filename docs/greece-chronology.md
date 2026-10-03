@@ -380,8 +380,35 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Sappho and Alcaeus | the Suda's 42nd Olympiad, 612 – 609 BCE (Sappho's date; the fall of Melanchrus); Sappho's exile in Sicily 598 BCE (Parian Chronicle); Pittacus rules 587 – 579 BCE | Suda; Edmonds 1922; Rackham's note to Aristotle, *Politics* (`gr-354`, `gr-355`) |
 | Mimnermus | the Suda's floruit, 37th Olympiad, 632 – 629 BCE; one edition prefers the mid-7th century BCE | Suda; Brown's review of Allen (`gr-357`) |
 | Theognis | the Suda's date 544 – 541 BCE; poems reaching back to the later 7th century BCE and forward to the Persian invasion | Suda; De Martin 2022 (`gr-358`) |
-| Anacreon | left Teos with its people for Abdera 545 BCE | Smyth 1900 (`gr-359`) |
+| Anacreon | left Teos with its people for Abdera when Harpagus took it; no year, since Smyth's 545 BCE disagrees with the c. 540 BCE that `gr-384` gives the conquest | Smyth 1900; Dandamayev, "Harpagos" (`gr-359`, `gr-384`) |
 | Ibycus | the Suda's 54th Olympiad, 564 – 561 BCE; Eusebius's 536 – 533 BCE | Suda On Line (`gr-360`) |
+| Stesichorus | the Suda's birth 632 – 629 BCE and death 556 – 553 BCE; his career in the first half of the 6th century BCE | Suda; D'Alessio's review of Davies and Finglass (`gr-361`) |
+| Simonides | the Suda's birth 556 – 553 BCE (or 532 – 529 BCE) and death 468 – 465 BCE; an elegy papyrus published 1992 CE | Suda; Nobili 2011 (`gr-362`) |
+| Symposium | no year: reclining at a feast known to Alcman in the 7th century BCE; the line is empty | Hamilton's review of Murray (`gr-363`) |
+| Skolion | the Harmodius song c. 500 BCE; the Attic collection shortly before 450 BCE | Smyth 1900 (`gr-364`) |
+| Aesop | no year: a semi-legendary figure; the *Life of Aesop* written between the 1st century BCE and the 2nd century CE. Konstantakos cites ancient dates (a prime of 572 – 569 BCE, death 564 BCE) that the card leaves out | Herodotus 2.134; Konstantakos 2013 (`gr-365`) |
+| Presocratics | the 6th and 5th centuries BCE; no year | Curd, SEP (`gr-366`) |
+| Thales | the eclipse 585 BCE (28 May); named first of the Sages in the archonship of Damasias, 582/581 BCE | O'Grady, IEP; Herodotus 1.74 (`gr-367`) |
+| Anaximander | 64 in 547/546 BCE and died soon after (Apollodorus); one study redates him | Diogenes Laertius 2.2, with Hicks's note; Moore's review (`gr-368`) |
+| Anaximenes | died in the 63rd Olympiad, 528 – 525 BCE (Apollodorus); one study puts him half a century later | Diogenes Laertius 2.3; Moore's review (`gr-369`, `gr-370`) |
+| Pythagoras | prime in the 60th Olympiad (Diogenes), 540 – 536 BCE in Hicks's note; 532 – 528 BCE (Clement) | Diogenes Laertius 8.45, with Hicks's notes (`gr-371`). Hicks converts the same Olympiad as 540 – 537 BCE for Xenophanes (`gr-373`); each card prints its own source's figure |
+| Pythagoreanism | the clubs attacked c. 450 BCE; the communities died out in the mid-4th century BCE | Huffman, SEP (`gr-372`) |
+| Xenophanes | prime 540 – 537 BCE (Diogenes) | Diogenes Laertius 9.20, with Hicks's note (`gr-373`) |
+| Heraclitus, Parmenides | prime 504 – 500 BCE (Diogenes, 69th Olympiad); Parmenides active in the early 5th century BCE on the modern view | Diogenes Laertius 9.1, 9.23; Palmer, SEP (`gr-374`, `gr-375`, `gr-377`) |
+| Zeno of Elea | prime 464 – 460 BCE (Diogenes, 79th Olympiad) | Diogenes Laertius 9.29 (`gr-376`) |
+| Melissus, Empedocles | the 84th Olympiad: 444 – 440 BCE in Hicks's note for Melissus, 444 – 441 BCE in his note for Empedocles; each card prints its own note's figure | Diogenes Laertius 9.24, 8.74 (`gr-377`, `gr-378`) |
+| Hecataeus | the Suda's 65th Olympiad, 520 – 516 BCE | Suda (`gr-379`) |
+| Alcmaeon | his book between 500 and 450 BCE | Huffman, SEP (`gr-380`) |
+
+## The Persian Wars (confirmed by B41–B42, `gr-381` – `gr-400`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Achaemenid Empire | c. 550 – 330 BCE; Astyages defeated 550 BCE | Draycott's review of Waters; Dandamayev, Iranica (`gr-381`, `gr-382`) |
+| Cyrus II | born c. 600 BCE; king c. 559 BCE; took Babylon 539 BCE; died 530 BCE | Dandamayev, Iranica; Babylonian chronicles (`gr-382`) |
+| Sardis taken | 547 BCE (Nabonidus Chronicle) or 546 BCE (later chronographers), two rows | Cahill 2010; Shahbazi, Iranica; Grayson (`gr-383`) |
+| Harpagus subdues Ionia | c. 540 BCE | Dandamayev, "Harpagos" (`gr-384`) |
+| Cambyses II | king 530 – 522 BCE; took Egypt 525 BCE | Jacobs, Iranica; Papalas's review of Ruzicka (`gr-385`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -397,7 +424,7 @@ sources when its batch comes round, and a disputed one given as a range.
 | Hippias expelled | 510 BCE (confirmed by `gr-300` and `gr-305`; Ruebel gives the archon year of Harpactides as 511/510 BCE) |
 | Cleisthenes' reforms | 508/507 BCE (confirmed by B32–B34, `gr-306` – `gr-314`) |
 | Croesus king of Lydia | from c. 560 BCE; Sardis taken 547 BCE by the Nabonidus Chronicle, 546 BCE in Eusebius (confirmed by B24: Cahill, `gr-226`; `gr-269` gives his reign as c. 560 – 546 BCE after Jones's note to Pausanias) |
-| Cyrus II | c. 559 – 530 BCE |
+| Cyrus II | c. 559 – 530 BCE (confirmed by B41, `gr-382`) |
 | Darius I | 522 – 486 BCE |
 | Xerxes I | 486 – 465 BCE |
 | Ionian Revolt | 499 – 494 BCE (Lade 494 BCE) |
@@ -741,6 +768,27 @@ gr-355: 612; 609; 587; 579
 gr-356: 676
 gr-357: 632; 629
 gr-358: 544; 541
-gr-359: 545
 gr-360: 564; 561; 536; 533
+gr-361: 632; 629; 556; 553
+gr-362: 556; 553; 468; 465
+gr-364: 500
+gr-367: 585; 582; 581
+gr-368: 547; 546
+gr-369: 528; 525
+gr-370: 585; 528; 525
+gr-371: 540; 536; 532; 528
+gr-372: 450
+gr-373: 540; 537
+gr-374: 504; 500
+gr-375: 504; 500
+gr-376: 464; 460
+gr-377: 504; 500; 444; 440
+gr-378: 444; 441
+gr-379: 520; 516
+gr-380: 500; 450
+gr-381: 550; 330
+gr-382: 600; 559; 539; 530
+gr-383: 547; 546
+gr-384: 540
+gr-385: 530; 525; 522
 ```
