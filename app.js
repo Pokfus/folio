@@ -26124,6 +26124,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "all", label: "All", sections: null },               // null = every section; the default
   ];
   let collTab = "all";
+  /* WHICH SUBJECT SECTIONS THE READER HAS FOLDED (Oct 2026, on request: each section collapses like Planned).
+     Module-level for `collTab`'s reason — a way of looking at one page — and it has to live OUTSIDE the
+     markup because a tab change repaints the page in place and would otherwise reopen every fold. Keyed by
+     the section's label. Planned is not in it: it is a bare <details> that is closed for everyone. */
+  const collFolded = new Set();
   const collTabIs = (id) => collTab === "all" || collTab === id;
   // which of COLLECTION_SECTIONS the current tab draws — every one of them under All
   function collTabSections() {
@@ -26218,10 +26223,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const empty = !soonShown.length && !langShown && !commShown && !shown.some((lab) => (bySection[lab] || []).length);
     const slot = (slotId, count) => `<div class="collection-list" id="${slotId}">${count === 0 && admin ? '<div class="lib-empty">Drag a collection here</div>' : ""}</div>`;
     const section = (label, n, slotId, count) =>
-      `<div class="collection-group">
-        <div class="group-head"><span class="group-label">${label}</span><span class="group-line"></span><span class="group-count">${n}</span></div>
+      `<details class="collection-group collection-group-fold" data-fold="${label}"${collFolded.has(label) ? "" : " open"}>
+        <summary class="group-head group-head-toggle"><span class="group-label">${label}</span><span class="group-line"></span><span class="group-count">${n}</span>
+          <svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
         ${slot(slotId, count)}
-      </div>`;
+      </details>`;
     // The collections still being written far outnumber the finished ones, so listing them flat makes the
     // Library read as empty. They fold into a disclosure that is CLOSED FOR EVERYONE, admins included
     // (Aug 2026, on request). It used to open itself for an admin so the library's drag-and-drop had its
@@ -26305,6 +26312,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const list = root.querySelector("#" + sec.slot);
       if (list) (bySection[sec.label] || []).forEach((d) => list.appendChild(buildCollection(d)));
     });
+    root.querySelectorAll("details[data-fold]").forEach((d) => d.addEventListener("toggle", () => {
+      if (d.open) collFolded.delete(d.dataset.fold); else collFolded.add(d.dataset.fold);
+    }));
     const soonList = root.querySelector("#collection-list-soon");
     if (soonList) soonShown.forEach((d) => soonList.appendChild(buildCollection(d)));
     /* The bar itself. `renderInPlace` rather than `render()`: changing a filter is not a navigation, and
@@ -30697,11 +30707,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!rows.length) return "";
     const langs = [];
     rows.forEach((r) => { if (langs.indexOf(r.lang) < 0) langs.push(r.lang); });
-    return '<div class="collection-group community-group" id="langDecks">' +
-      '<div class="group-head"><span class="group-label">Languages</span><span class="group-line"></span>' +
-        '<span class="group-count">' + langs.length + "</span></div>" +
+    return '<details class="collection-group collection-group-fold community-group" id="langDecks" data-fold="Languages"' + (collFolded.has("Languages") ? "" : " open") + ">" +
+      '<summary class="group-head group-head-toggle"><span class="group-label">Languages</span><span class="group-line"></span>' +
+        '<span class="group-count">' + langs.length + "</span>" + '<svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>' + "</summary>" +
       '<div class="collection-list">' + langs.map((l) => langCollectionHTML(l, rows.filter((r) => r.lang === l))).join("") + "</div>" +
-    "</div>";
+    "</details>";
   }
   function wireLangDecks(root) {
     /* The banner's own fold, wired through the curated tree's `wireExpander` rather than a listener of its
