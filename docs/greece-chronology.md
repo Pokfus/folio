@@ -494,6 +494,20 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Egyptian expedition | c. 460 – 454 BCE, or 465 – 457 BCE on Kahn's dating | Bresciani, Iranica; Nudell 2023 (`gr-478`) |
 | Treasury moved to Athens | 454 BCE; the first quota list 454/453 BCE | Nudell 2023; Attic Inscriptions Online, IG I³ 259 (`gr-479`) |
 | Peace of Callias | 449 BCE; an earlier peace about 465 BCE on one view | Schmitt, Iranica; Badian, Iranica (`gr-480`) |
+| Thirty Years' Peace | sworn 446/445 BCE; voted broken at Sparta 432 BCE; ended 431 BCE | Pausanias 5.23 with Jones's note; Thucydides; Lendon 1994 (`gr-481`) |
+| Cleruchies | the first known, at Chalcis, 507 – 506 BCE; the Chersonese 447 BCE; renounced 378/377 BCE; Samos settled 365 BCE | Munn's review; Perrin's note to Plutarch; Attic Inscriptions Online (`gr-482`) |
+| Tribute lists | first stone 454/453 – 440/439 BCE; regional headings from 443/442 BCE; second stone 439/438 – 432/431 BCE | Attic Inscriptions Online, IG I³ 259 and 270 (`gr-483`) |
+| Coinage Decree | the mid-440s BCE (the older view), the 420s BCE, or c. 415 – 414 BCE (now favoured); three rows | Nudell 2023; Figueira's review; Attic Inscriptions Online (`gr-484`) |
+| Revolt of Samos | 440 – 439 BCE, or 441 – 439 BCE; surrender 439 BCE | Perrin's notes; Eddy 1968; Nudell 2023; Attic Inscriptions Online (`gr-485`) |
+| Athenian empire | took shape 454 – 449 BCE; the Chalcis decree 446/445 BCE (or 424/423 BCE); ended 404 BCE | Nudell 2023; Attic Inscriptions Online (`gr-486`) |
+| Piraeus | port begun 493/492 BCE; 372 ship-sheds counted 330/329 BCE; taken by Sulla 86 BCE (the siege 87 – 86 BCE) | Princeton Encyclopedia; Frazer; Di Nicuolo's review (`gr-487`) |
+| Long Walls | begun c. 460 BCE; pulled down 404 BCE; rebuilt 394/393 – 392/391 BCE | Frazer; Matijašić 2026 (`gr-488`) |
+| Hippodamus | Miletus rebuilt from 479 BCE; Thurii founded 443 BCE (inside the 444 – 443 BCE of `gr-440`); Rhodes founded 408 BCE | Princeton Encyclopedia; Coulson (`gr-489`) |
+| Trireme | the first great war fleets 525 BCE | Potter's review of Wallinga (`gr-490`) |
+| Trierarchy | law on handing over gear 410 – 404 BCE; joint trierarchs by 405 BCE; Periander's law 357 BCE; Demosthenes' law 340 BCE | Attic Inscriptions Online; Cecchet 2023 (`gr-491`) |
+| Liturgies | the Anagyrous choregic base after c. 440 BCE; Lysias' speaker's choruses 411/410 BCE | Attic Inscriptions Online, IG I³ 969; Lysias 21 (`gr-492`) |
+| Navy and the thetes | no line: an idea | (`gr-493`) |
+| Periclean building programme; Parthenon | accounts from c. 450 BCE; the Parthenon 447 – 438 BCE, its gables finished 432 BCE; the Propylaea 437 – 432 BCE; the Parthenon blown up 1687 CE, Elgin's removals from 1801 CE, restored 1896 – 1902 and 1923 – 1933 CE | Attic Inscriptions Online; Acropolis Museum; YSMA; St Clair 2022 (`gr-494`, `gr-495`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -967,4 +981,18 @@ gr-477: 457; 458; 446
 gr-478: 460; 454; 465; 457
 gr-479: 454
 gr-480: 449; 465
+gr-481: 446; 432; 431
+gr-482: 507; 506; 447; 378; 365
+gr-483: 454; 440; 443; 439; 432
+gr-484: 415; 414
+gr-485: 440; 439; 441
+gr-486: 454; 449; 446; 404
+gr-487: 493; 330; 86
+gr-488: 460; 404; 394; 392
+gr-489: 479; 443; 408
+gr-490: 525
+gr-491: 410; 404; 405; 357; 340
+gr-492: 440; 411
+gr-494: 450; 447; 432; 437
+gr-495: 447; 432; 1687; 1801; 1896; 1933
 ```
