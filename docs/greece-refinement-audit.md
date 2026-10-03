@@ -1664,7 +1664,25 @@ Checks:
 - `gr-404` wrote "Pheidias"; the house form is Phidias.
 
 **Pictures and locators:** `gr-407` the Soros (← Marathon tumuli) and `gr-416` the Athos canal (← Xerxes Canal) now
-carry locators. The pictures follow in the next commit.
+carry locators.
+
+**Pictures.** 29 of the 30 carry one, each with a description of what is shown, a visual alt and an
+author-and-licence credit; the old credits read "Photograph by X, via Wikimedia Commons (licence)", several
+licences were wrong (`gr-434` said CC0 for a CC BY-SA 2.0 file), and several descriptions named a museum number.
+- **New or replaced:**
+  - `gr-405`: a museum hall with visitors and a sign in frame → the reassembled Nike of Callimachus alone.
+  - `gr-410`: a silver owl → the reconstructed trireme *Olympias*; the owl moved to `gr-411`, whose washery
+    picture shows 4th-century works.
+  - `gr-413`: a museum case of numbered sherds → a single ostrakon of Aristides son of Lysimachus.
+  - `gr-416`: none → an Austro-Hungarian survey map marking the canal's traces across the isthmus.
+  - `gr-417`: none → Persian soldiers in relief at Persepolis.
+- **Kept with new captions and credits:** the rest. `gr-418` keeps a photograph of the Serpent Column (a different
+  file from `gr-438`'s), since the column lists the League's members; `gr-430` keeps a modern diagram of the fleets
+  drawn over an aerial photograph, described as such.
+- **Refused:** the photograph of the strait of Salamis without the diagram, already the glossary's `Salamis`; a
+  drawing of Datis and Callimachus with printed names; the Athos canal from a roadside with a site sign; a labelled
+  simulation of the canal.
+- **No picture:** `gr-431` Eurybiades, a man with no ancient likeness.
 
 **Chronology.** A new section, "The Persian Wars, Marathon to Salamis", holds the rows for every date the 30 cards
 print, with pins for every card that prints a year. The Marathon, Xerxes I, Thermopylae, Artemisium and Salamis rows
