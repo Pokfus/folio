@@ -64,7 +64,7 @@ only when the local progress is unclaimed or already this account's, and otherwi
 `supaClaimGuestStash()` marks the stash claimed at the moment it migrates (or signing out and into a THIRD account
 would inherit it again), the stash carries its `owner` back on sign-out, and `supaBoot` back-fills ownership for
 sessions signed in before the field existed. Guarded by `.claude/test-account-switch.js`. Auth = email+password (`/auth/v1/*`); emailed links (confirm/reset)
-land with tokens in the URL hash → `supaBoot` adopts them (requires the Supabase **Site URL** to point at the deployed app).
+land with tokens in the URL hash → `supaBoot` adopts them (requires the Supabase **Site URL** to point at the deployed app). The live site is **https://folio.study** (Cloudflare Pages custom domain, DNS on Cloudflare), so that is the Site URL, with `https://folio.study/**` in the Redirect URLs. The old `folio-756.pages.dev` address stays up and shows a "Folio has moved" strip (`movedStripBoot` in `app.js`): browser storage is per hostname, so a guest is offered the backup download (`downloadBackupFile`) before following the link, and a signed-in reader is told to sign in again. Previews (`<branch>.folio-756.pages.dev`) get no strip.
 The account page (auth/self/friends views) is fully server-backed; friends use the `friends` table (request → accept, RLS lets
 accepted friends read each other's `progress` for the badges view). **Admin gating** (`adminEligible()` / `isAdmin()`): a
 signed-in user is admin-eligible iff `profiles.role === 'admin'` (set via the dashboard Table Editor); a signed-in non-admin is

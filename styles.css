@@ -4008,6 +4008,14 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
    max-width puts a sane ceiling back. Measured before/after at 360 / 390 / 768 / 1280: the long message
    goes 5 lines to 2 on a phone and 2 lines to 1 at 768, no toast overflows at any width, and nothing that
    already fitted on one line moved. */
+/* "Folio has moved" strip — shown only on the old pages.dev address (movedStripBoot in app.js). It sits above the
+   sticky top bar in normal flow, so it scrolls away with the page. */
+.moved-strip{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; padding:12px clamp(16px,4vw,40px); background:var(--indigo-wash); color:var(--ink); border-bottom:1px solid var(--rule); font-size:calc(14px * var(--fs)); line-height:1.45;}
+.moved-strip p{margin:0; flex:1 1 320px;}
+.moved-strip .btn{padding:10px 16px;}
+.moved-x{appearance:none; cursor:pointer; border:0; background:none; color:var(--ink-soft); font-size:calc(22px * var(--fs)); line-height:1; padding:4px 8px; border-radius:6px;}
+.moved-x:hover{color:var(--ink); background:var(--paper-2);}
+.moved-x:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .toast{
   position:fixed; left:50%; bottom:30px; transform:translateX(-50%) translateY(20px);
   width:max-content; max-width:min(92vw, 560px);
