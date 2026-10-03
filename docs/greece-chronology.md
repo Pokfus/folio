@@ -157,8 +157,8 @@ and each card's prose gives both ends, with the 1540 BCE end resting on Rutter's
 | Submycenaean | c. 1070 – 1000 BCE (corrected in B11–B14; see the next section) |
 | Protogeometric | c. 1050 – 900 BCE; start c. 1020 – 1000 BCE by radiocarbon |
 | Geometric | c. 900 – 700 BCE |
-| Orientalising | c. 720 – 620 BCE |
-| Archaic period | c. 800 – 480 BCE (from 776 BCE where a card counts from the first Olympiad) |
+| Orientalising | the end of the 8th century BCE through the 7th (corrected by B35, `gr-322`: no reachable source gives the old c. 720 – 620 BCE, so the card's line is empty and its prose says the centuries) |
+| Archaic period | c. 800 – 479 BCE; the older start 700 BCE (corrected by B35, `gr-321`: its histories end at 479 BCE, the year of Plataea and Mycale; from 776 BCE where a card counts from the first Olympiad) |
 | First Olympic Games (traditional) | 776 BCE |
 | Classical period | 480 – 323 BCE |
 | Hellenistic period | 323 – 31 BCE |
@@ -320,6 +320,42 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Peisistratid Athens | c. 560 – 510 BCE | Lavelle's book, as Loomis's review gives it (`gr-299`) |
 | Hippias | tyrant 528/527 – 510 BCE; archon 526/525 BCE; at Marathon 490 BCE | Ruebel 1973; Forrest 1969; Pritchard's review of Anderson (`gr-300`) |
 
+## Athens from the tyrant-slayers to Aegina (confirmed by B32–B34, `gr-301` – `gr-320`)
+
+| period or event | the collection says | source |
+|---|---|---|
+| Hipparchus killed by Harmodius and Aristogeiton | 514 BCE, at the Panathenaia | Lateiner's review of Azoulay; AIO, IG I³ 1023 (`gr-301`, `gr-302`) |
+| The Hipparchan herm from Koropi | c. 525 – 514 BCE | AIO, IG I³ 1023 (`gr-301`) |
+| Tyrant-slayer statues | Antenor's pair soon after 510 BCE on the usual view, after Marathon on one; carried off by Xerxes 480 BCE; Critius and Nesiotes' pair 477/476 BCE | AIO, IG I³ 502; Keesling's review of Azoulay (`gr-303`) |
+| Cleisthenes archon under the tyrants | 525/524 BCE | Loomis's review of Lavelle; Lavelle 2014 (`gr-304`) |
+| Cylon's coup | the 7th century BCE (prose; `gr-282` keeps 636 BCE from its own sources) | Nakassis 2011 (`gr-304`) |
+| Fall of the Peisistratids | 510 BCE; the archon year of Harpactides 511/510 BCE | Forrest 1969; Ruebel 1973 (`gr-305`) |
+| Cleomenes and Isagoras besieged on the Acropolis | 508/507 BCE | Kulesza 2022 (`gr-306`, `gr-307`) |
+| Peloponnesian army at Eleusis | spring 506 BCE | Kulesza 2022 (`gr-306`, `gr-307`) |
+| Cleisthenes' reforms: tribes, demes, trittyes, Council of 500 | 508/507 BCE | Pritchard's review of Anderson; Rhodes's review of Raaflaub, Ober and Wallace (`gr-308` – `gr-312`) |
+| Councillors' oath first imposed | 501/500 BCE (now on `gr-312`'s line as well as in `gr-292`'s prose) | AIO, IG I³ 105; *Constitution of the Athenians* 22 (`gr-312`) |
+| Ostracism | law 508/507 BCE or soon after; first used 488/487 BCE (Hipparchus son of Charmus); Xanthippus 484 BCE; the Kerameikos vote against Megacles spring 471 BCE; last used c. 416 BCE (Hyperbolus) | Hooper's review of Węcowski; Hunt's review of Forsdyke; Sickinger's review of Brenne (`gr-314`, `gr-315`) |
+| Olympieion | begun 515 BCE on one account; abandoned 510 BCE; resumed 174 BCE; finished 124/125 CE | Kyriakou (Odysseus); Wycherley 1964 (`gr-316`) |
+| Old Temple of Athena | built c. 525 – 500 BCE (the last quarter of the 6th century BCE); burned 480 BCE; the "old temple" burned again 406 BCE | Acropolis Museum; D'Ooge 1908; Xenophon, *Hellenica* 1.6.1 (`gr-317`) |
+| Laurion | mined from the 4th millennium BCE (silver only from the mid-1st millennium BCE on one study); the third-contact strike 483/482 BCE; mines reopened 1870 CE | Vaxevanopoulos et al. 2023; Wood, Hsu and Bell 2021; Lohmann 2023 (`gr-318`) |
+| Athenian owls | usually c. 520 – 515 BCE; after 510 BCE on one study | Davis et al. 2025 (`gr-319`) |
+| Athens and Aegina | first war c. 595 – 590 BCE on one study; undeclared war c. 506 – 481 BCE; walls and fleet surrendered after c. 456 BCE; the islanders expelled 431 BCE | Loomis's and Crane's reviews of Figueira; Herodotus; Thucydides (`gr-320`) |
+
+## Archaic art, verse and thought (confirmed by B35–B40, `gr-321` – `gr-380`)
+
+| period or work | the collection says | source |
+|---|---|---|
+| Archaic period | c. 800 – 479 BCE; the traditional start 700 BCE | Rönnberg's review of Osborne; King's review of Osborne (`gr-321`) |
+| Orientalising period | the end of the 8th century BCE through the 7th (no year) | López-Ruiz's review of Brisart (`gr-322`) |
+| Corinthian pottery | c. 720 – 550 BCE; Early and Middle Corinthian to c. 590/580 BCE | Belfiore et al. 2022; Moore's reviews (`gr-323`) |
+| Black-figure | invented at Corinth early in the 7th century BCE; early Attic c. 630 – 570 BCE; overtaken by c. 500 BCE | Beazley 1986; Stissi's review of Alexandridou (`gr-324`) |
+| Exekias | the third quarter of the 6th century BCE; the Vatican amphora c. 540 BCE, the Munich cup c. 530 BCE | Beazley 1986; Perseus (`gr-325`) |
+| François Vase | made c. 570 BCE; found 1844 – 1845 CE; smashed 1900 CE | Moore's review; Bianco 2018 (`gr-326`, `gr-327`) |
+| Gordion cup by Kleitias and Ergotimos | c. 565 – 560 BCE | Perseus, Berlin V.I. 4604 (`gr-327`) |
+| Amasis Painter | the mid-6th century BCE; the Agora alabastron c. 560 BCE, the Boston amphora c. 525 – 515 BCE | Whitley 2018; Moore's review; Perseus (`gr-328`) |
+| Attic pottery trade | Athenian ware ousts Corinthian c. 550 BCE; the Vulci tombs yield 3,000 vases in 1829 CE | Moore's review of Boardman; Walters 1905 (`gr-329`) |
+| Red-figure | invented at Athens c. 530 BCE; declines c. 330 BCE | Neils's review of Robertson; Moore's review of Boardman (`gr-330`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -331,8 +367,8 @@ sources when its batch comes round, and a disputed one given as a range.
 | Solon's archonship | 594/593 BCE (confirmed by B30–B32, `gr-281` – `gr-296`) |
 | Peisistratus tyrant | 561/560 – 528/527 BCE, with two exiles (confirmed by B30–B32, `gr-297`) |
 | Hipparchus killed by Harmodius and Aristogeiton | 514 BCE (confirmed for `gr-300` by Forrest 1969) |
-| Hippias expelled | 510 BCE (confirmed by `gr-300`; Ruebel gives 511/510) |
-| Cleisthenes' reforms | 508 – 507 BCE |
+| Hippias expelled | 510 BCE (confirmed by `gr-300` and `gr-305`; Ruebel gives the archon year of Harpactides as 511/510 BCE) |
+| Cleisthenes' reforms | 508/507 BCE (confirmed by B32–B34, `gr-306` – `gr-314`) |
 | Croesus king of Lydia | from c. 560 BCE; Sardis taken 547 BCE by the Nabonidus Chronicle, 546 BCE in Eusebius (confirmed by B24: Cahill, `gr-226`; `gr-269` gives his reign as c. 560 – 546 BCE after Jones's note to Pausanias) |
 | Cyrus II | c. 559 – 530 BCE |
 | Darius I | 522 – 486 BCE |
@@ -625,4 +661,31 @@ gr-297: 561; 560; 546; 545; 528; 527
 gr-298: 561; 560; 546; 545; 534; 533
 gr-299: 560; 510; 546; 545
 gr-300: 528; 527; 510; 526; 525; 490
+gr-301: 525; 514
+gr-302: 514
+gr-303: 480; 477; 476
+gr-304: 525; 524; 510
+gr-305: 510; 511
+gr-306: 508; 507; 506
+gr-307: 508; 507
+gr-308: 508; 507
+gr-309: 508; 507
+gr-310: 508; 507
+gr-311: 508; 507
+gr-312: 508; 507; 501; 500
+gr-314: 508; 507; 488; 487; 416
+gr-316: 515; 510
+gr-317: 525; 500; 480; 406
+gr-318: 483; 482; 1870
+gr-319: 520; 515; 510
+gr-320: 506; 481; 431
+gr-321: 800; 479; 700
+gr-323: 720; 550
+gr-324: 630; 570; 500
+gr-325: 540; 530
+gr-326: 570; 1844; 1845; 1900
+gr-327: 570; 565; 560
+gr-328: 560; 525; 515
+gr-329: 550; 1829
+gr-330: 530; 330
 ```

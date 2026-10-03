@@ -631,6 +631,23 @@ The Athenian `Lycurgus` (leader of the Plain, `gr-296`, `gr-298`) and Peisistrat
 `<span class="ans-term">`, which the linker steps over. `gr-275`'s Pausanias carries a hand-written
 `data-k="Pausanias_the_regent"`.
 
+**Added by the refinement's B32–B35 (2026-10-03)**, counted the same way after `gr-301`–`gr-330` were
+rewritten. Earlier entries (polemarch, Megacles, Sigeum and others) are not repeated.
+
+| cards | term | note |
+|---|---|---|
+| 6 | herm | the pillar-statue of Hermes; only the god has a key |
+| 5 | Agariste | two women: the daughter of Cleisthenes of Sicyon and Pericles' mother; two keys |
+| 3 | bilingual vase | |
+| 2 | Leocoreum · Leipsydrion · Ergotimos · Psiax · Protocorinthian · ostrakon · demarch | |
+| 1 | Gephyraeans · Onomacritus · Antenor (sculptor) · Critius and Nesiotes · Pelasgian wall · Epakrians · Cleidemus · Hyperbolus · Enneacrunos · Archaios Neos · Damia and Auxesia · Penteskouphia · Little Master cup · Nettos Painter | |
+
+Wrong auto-links stopped on these cards with `<span class="ans-term">`: `Alcmaeon` (the Alcmaeonid, `gr-304`,
+would open Alcmaeon of Croton), `Hipparchus` son of Charmus and `Hippocrates` father of Megacles (`gr-314`),
+`Lysimachus` (`gr-312`, the Athenian, not the Successor king), `prytaneis` of the naukraroi (`gr-315`) and
+`Thebes` (`gr-320`, the Classical city, which would open Mycenaean Thebes). `gr-321`'s Learn-more link pointed
+at the North American Archaic period and now opens Archaic Greece.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
