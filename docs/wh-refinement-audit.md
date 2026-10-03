@@ -134,7 +134,7 @@ in plan order unless the user says otherwise.
 | B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | **done 2026-10-02** |
 | B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | **done 2026-10-02** |
 | B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | **done 2026-10-02** |
-| B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | open |
+| B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | **done 2026-10-03** |
 | B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | open |
 | B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | open |
 | B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | open |
@@ -975,6 +975,45 @@ does not name. *Coverage:* `wh-200` gives no year for Mitanni's defeat, its sour
 
 **Glossary.** Nine terms rewritten; *Edubba* already agreed.
 
+### B21 — `wh-201`–`wh-210`, Ancient Egypt (2026-10-03)
+
+Run as B20, with Commons and Wikipedia refusing this sandbox (429 on the one test call), so no picture changed.
+Egyptian dates are the conventional ones of Egypt's Ministry of Tourism and Antiquities and the Australian
+Museum; where a source gives another chronology the prose gives both. **UCL's Digital Egypt pages, which the
+old Egypt cards leaned on, now sit behind a Cloudflare challenge** and could not be re-read, so every claim
+resting only on them was re-sourced or dropped. Checks: `wh-audit.js --range=wh-201:wh-210` clean but for
+`wh-205`'s `I.duplicate` (its picture is also `eg-077`'s: picture pass); `check-questions`, `check-cards
+--prefix` per card, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans`
+pass; `check-citations --card` 0 mismatched; all 71 distinct URLs 2xx.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-201` Ancient Egypt | 9 | 6 → 9 | Six date-line years were in no sentence of the background; now one dynastic-era row and the two Kingdoms, all in the prose. "A divine king whose office kept chaos out" was not in its source; now the famine-as-chaos ideal, cited. The flood angle moved to `wh-202`. |
+| `wh-202` ancient Egyptian agriculture | 7 | 6 → 9 | **The card had drifted from the plan's "The Nile and Egyptian agriculture" to "emmer wheat"**, with an emmer-genome date line (9700 BCE; 1130 – 1000 BCE). Realigned: the flood's timing, basin farming, emmer, barley and flax, the three seasons, nilometers and the harvest tax. New answer and glossary term. |
+| `wh-203` Naqada culture | 7 | 8 → 8 | **"Nearly three thousand graves in a single season of 1895"**: the source gives over 2,000 in just over three months, and the year differs by source (1894, 1895/96), so none is given. A Naqada III row the Ministry dates differently dropped; "first writing" claim dropped. |
+| `wh-204` Narmer Palette | 7 | 6 → 8 | **"Greywacke, 63 cm" is siltstone, 63.5 cm; "two long-necked leopards" are serpopards; the "Hathor heads" are only cow-eared heads**, the goddess disputed. An Early Dynastic row (another event's date) became "Dedicated c. 3150 – 3000 BCE"; the Menes identification dropped. |
+| `wh-205` unification of Egypt | 8 | 6 → 8 | **Aha's radiocarbon accession (3111 – 3045 BCE) and a comparison with southwest Asia rested on a paper no host would serve**, so they dropped. The line is now the process, c. 3350 – 3050 BCE, and the usual c. 3100; the Narmer Palette's war read as one view. |
+| `wh-206` Egyptian hieroglyphs | 9 | 7 → 9 | **All seven old sources were unreachable**; re-sourced from *Visible Language* and the UCLA encyclopedia. A non-date "by the 3rd Dynasty" row dropped; in use c. 3320 BCE – 394 CE (Tomb U-j to Philae), another account's c. 3200 in the prose; deciphered 1822. |
+| `wh-207` Rosetta Stone | 9 | 5 → 9 | Three French sources became one. **"News reached the Institut d’Égypte on 29 July" and demotic at Philae "into the 5th century" had no source.** A phrasing carried 196 BCE. Granodiorite, the revolt from 207 BCE and the Damanhur and Philae copies added. |
+| `wh-208` papyrus | 9 | 8 → 9 | UCL-only claims (sheet sizes, exports, the codex, a 1087 CE end) dropped. The Hemaka roll is c. 3200 BCE in one study and "3rd millennium" in another; both given. Merer's logbook (c. 2600 BCE) added as the oldest written papyrus. |
+| `wh-209` pharaoh | 9 | 7 → 9 | **"c. 3000 BCE – 300 CE" had an end no source gave**; now c. 3100 – 30 BCE. Claims on Ra-texts, the five names "by the Middle Kingdom" and Sobekneferu as "daughter of Ra" rested only on UCL and dropped. |
+| `wh-210` Old Kingdom | 8 | 10 → 9 | **"20,000 – 30,000 workers" had no source.** Two dynasty rows dropped for the period, c. 2686 – 2181 BCE, with ends of 2160 and 2125 in the prose. The Khufu branch of the Nile, Merer's papyri, the Pyramid Texts and the famine-or-trade debate added. |
+
+**Read by eye.** *Article:* "the Narmer Palette", "the Rosetta Stone", "the unification of Egypt", "the Naqada
+culture", "the Old Kingdom", "a pharaoh"; the rest bare. *Confusability:* `wh-201`/`wh-202` the civilisation
+and its farming, the flood moved to `wh-202`; `wh-203`/`wh-204`/`wh-205` the culture, the palette and the
+process, `wh-205` naming Narmer only beside Ka; `wh-206`/`wh-207`/`wh-208` the script, the key and the
+material; `wh-209`/`wh-210` the office and the age, `wh-210`'s Giza clue kept off `wh-212`'s. *Consistency:*
+hieroglyphs' last inscription 394 CE and the decipherment of 1822 agree across `wh-206`/`wh-207`; the dynastic
+era c. 3100 – 30 BCE across `wh-201`/`wh-205`/`wh-209`. `wh-201` gives the 1st and 2nd Dynasties from c. 3050,
+its Abydos source's figure, beside the conventional c. 3100. *Against the eg- cards:* `eg-026` dates the Naqada
+phases by radiocarbon (c. 3800 – 3085 BCE) where `wh-203` keeps the conventional dates; `eg-050` dates the
+palette from c. 3100, `wh-204` from c. 3150. *Not done:* `wh-202`'s "Learn more" link still points at
+*Emmer*, since `find-wiki-links.js` needs Wikipedia, which refused the sandbox.
+
+**Glossary.** Eight terms rewritten and *Ancient Egyptian agriculture* added; *Rosetta Stone* already agreed.
+The old *Emmer* entry stands.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1056,3 +1095,7 @@ pass once it answers. Filled batch by batch.
 | `wh-189`, `wh-190` | glossary picture fields malformed; `wh-190` shows a museum panel at one edge |
 | `wh-194` | a labelled derivative of YBC 7289; prefer the unlabelled photograph |
 | `wh-197`, `wh-198` | fine, but description names a museum number or excavator |
+| `wh-201` | a labelled map of the Nile valley; a photograph may serve better |
+| `wh-202` | fits (Nakht's tomb scenes), but its title still names emmer |
+| `wh-203` | fine, but description names a museum and a museum number |
+| `wh-205` | the Palermo Stone (the annals, not the union), and the same file as `eg-077`; the glossary's *sema-tawy* relief fits better |
