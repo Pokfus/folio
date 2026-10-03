@@ -180,7 +180,7 @@ async function openAnyGloss(page) {
    rather than timing out inside a locator: if that term is ever retired from glossary.js there is no
    `.ttip` on the page and every popup assertion in section 1 goes unrun. */
 async function requireTerm(page) {
-  const ok = await page.evaluate((k) => !!(window.GLOSSARY && window.GLOSSARY[k]), GLOSS_TERM);
+  const ok = await page.evaluate((k) => !!(window.GLOSSARY && (k in window.GLOSSARY)), GLOSS_TERM);   // `in`: the texts are lazy (glossary-extra.js), the keys are not
   if (!ok) throw new Error("GLOSS_TERM '" + GLOSS_TERM + "' is no longer in the glossary — pick another");
 }
 

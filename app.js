@@ -459,10 +459,20 @@
      IS the question (cardArtSpec draws it on the FRONT), where every other card's picture
      illustrates its answer. Six cards, ~10 KB.
 
+     THE QUESTION POOL WENT LAZY TOO (Oct 2026). `questions` -- the two EXTRA phrasings every card
+     carries beside `question` -- was the largest field left in the light half, about 540 KB gzipped
+     over 5,800 cards, and the only thing a FRONT reads from it is the ‹ › phrasing chevrons. So the
+     front is drawn from `question` alone until the collection's file lands, and renderCard then
+     grows the pool in place (see `growPool` there) rather than waiting on the fetch: the first
+     phrasing is pool[0] either way, so what arrives is the chevrons, never a different question.
+     Multiple Choice always asked the first phrasing and needs nothing. A reader who studies a deck
+     has its file warmed at idle (warmActiveCardExtra), so in practice the pool is there before the
+     first card is dealt.
+
      Keep this list in step with EXTRA_FIELDS in .claude/card-io.js — split-cards.js --check slices
      this declaration out by text and fails if the two have drifted, because a field app.js expects
      lazily and the splitter leaves eager is a field that ships twice. */
-  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki"];
+  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions"];
   const cardExtraPrefix = (id) => String(id || "").replace(/-\d+$/, "");
   /* Has this card's heavy half arrived? A community card never has one (its whole record is in the
      deck file), and a card with no prefix we ship simply answers yes so nothing waits for ever. */
@@ -484,6 +494,14 @@
   const PRISTINE_CARDS = Object.fromEntries(CARDS.map((c) => [c.id, Object.assign({}, c)]));
   const BASE_CARD_IDS = new Set(Object.keys(PRISTINE_CARDS));   // shipped card ids (before any admin-created cards) — used to rebuild the deck from base on undo
   const PRISTINE_GLOSS = Object.assign({}, window.GLOSSARY || {});
+  /* THE DEFINITIONS ARE LAZY (Oct 2026). glossary.js carries every KEY with an empty text; the texts
+     ride glossary-extra.js (bundle "glossExtra", warmed at idle) and glossExtraIngest writes them in
+     and re-seeds PRISTINE_GLOSS, which was just snapshotted empty. Until then `k in window.GLOSSARY`
+     is the question to ask of a term, never `window.GLOSSARY[k]`'s truth. This flag is what the two
+     readers that must tell "no text yet" from "no text" consult: glossText, which says nothing rather
+     than a manufactured sentence, and the tombstone sweep in applyAdminEdits. */
+  let _glossTextsIn = false;
+  const _glossTombPending = {};   // slug -> the aux rows dropped with a tombstone the sweep could not settle at boot
   window.GLOSSARY_DATES = window.GLOSSARY_DATES || {};
   window.GLOSSARY_TITLES = window.GLOSSARY_TITLES || {};   // optional per-term display-title override (key stays the Wikipedia slug)
   window.GLOSSARY_ALIASES = window.GLOSSARY_ALIASES || {}; // optional alternative background spellings that also open a term's popup (slug -> [forms])
@@ -754,7 +772,13 @@
       Object.keys(ADMIN_EDITS.glossaryDeleted || {}).forEach((k) => {
         const rec = ADMIN_EDITS.glossaryDeleted[k];
         if (!(k in window.GLOSSARY)) { delete ADMIN_EDITS.glossaryDeleted[k]; gdChanged = true; return; }   // nothing to hide
-        if (rec === true || window.GLOSSARY[k] === rec) { delete window.GLOSSARY[k]; if (window.GLOSSARY_DATES) delete window.GLOSSARY_DATES[k]; if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[k]; if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[k]; if (window.GLOSSARY_VIDEOS) delete window.GLOSSARY_VIDEOS[k]; if (window.GLOSSARY_SOURCES) delete window.GLOSSARY_SOURCES[k]; }
+        /* THE TEXT MAY NOT BE HERE YET: the definitions are lazy, so at boot every shipped term reads ""
+           and a tombstone recorded against the old text can match nothing. The term is hidden now — a
+           deleted term must not show for the second the file takes — and glossExtraIngest settles it
+           against the real text when that lands, putting it back whole if it was changed out-of-band. */
+        const pending = window.GLOSSARY[k] === "" && rec !== true && !_glossTextsIn;
+        if (pending) _glossTombPending[k] = { dates: (window.GLOSSARY_DATES || {})[k], titles: (window.GLOSSARY_TITLES || {})[k], aliases: (window.GLOSSARY_ALIASES || {})[k], tags: (window.GLOSSARY_TAGS || {})[k], videos: (window.GLOSSARY_VIDEOS || {})[k] };
+        if (pending || rec === true || window.GLOSSARY[k] === rec) { delete window.GLOSSARY[k]; if (window.GLOSSARY_DATES) delete window.GLOSSARY_DATES[k]; if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[k]; if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[k]; if (window.GLOSSARY_VIDEOS) delete window.GLOSSARY_VIDEOS[k]; if (window.GLOSSARY_SOURCES) delete window.GLOSSARY_SOURCES[k]; }
         else { delete ADMIN_EDITS.glossaryDeleted[k]; gdChanged = true; }   // re-added/changed → let it show again
       });
       if (gdChanged) saveAdminEdits();
@@ -1445,7 +1469,9 @@
   // remove a glossary term: drop it from the live glossary, clear any of its edits, and record the deletion delta
   function deleteGloss(key) {
     // remember the deleted text so the tombstone can tell a still-deleted term from one that was re-added/changed out-of-band
-    const txt = (window.GLOSSARY && window.GLOSSARY[key] != null) ? window.GLOSSARY[key] : true;
+    // `true` rather than "" when the lazy text has not landed: a tombstone against an empty string would
+    // read as "changed out-of-band" at the next boot and quietly bring the term back
+    const txt = (window.GLOSSARY && window.GLOSSARY[key]) ? window.GLOSSARY[key] : true;
     if (window.GLOSSARY) delete window.GLOSSARY[key];
     if (window.GLOSSARY_DATES) delete window.GLOSSARY_DATES[key];
     if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[key];
@@ -1806,7 +1832,7 @@
      glossary is not. (The account meter always intended this; it just never filtered.) */
   function glossSeenCount(prog) {
     const G = window.GLOSSARY || {}, reg = (prog && prog.glossSeen) || {};
-    return Object.keys(reg).filter((k) => G[k]).length;
+    return Object.keys(reg).filter((k) => k in G).length;   // `in`, not truth: a shipped text is "" until the lazy file lands
   }
   function glossTotalCount() { return Object.keys(window.GLOSSARY || {}).length; }
   /* Present-day countries opened on the Atlas. placesSeen also holds the historical eras' territories —
@@ -3536,7 +3562,11 @@
       const tr = (window.GLOSSARY_I18N || {})[k];
       if (tr && tr[uiLang()]) return tr[uiLang()];
     }
-    return G[k] || fallbackSentence(k);
+    if (G[k]) return G[k];
+    // a shipped term whose lazy text has not landed: "" rather than a manufactured sentence — openGlossWin
+    // re-fills the description when the bundle arrives, and a game's note simply stays silent
+    if ((k in G) && !_glossTextsIn) return "";
+    return fallbackSentence(k);
   }
   // localized view of a card: whole-field translations ride on card.i18n[lang] (question / answer / answerDate /
   // abstract / answerText, same formatting rules as English). Missing language → the English card unchanged.
@@ -3560,6 +3590,14 @@
       (Array.isArray(c.questions) ? c.questions : []).forEach((q) => { if (String(q || "").trim()) out.push(q); });
     }
     return out;
+  }
+  // the ‹ 1 / 3 › phrasing chevrons beside the study card's Question label. One function because the study
+  // page draws them twice: in the card's template, and again when a pool lands after the deal (growPool).
+  function qCycleHTML(idx, n) {
+    const chev = (pts) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="' + pts + '"/></svg>';
+    return '<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question">' + chev("15 18 9 12 15 6") + "</button>" +
+      '<span class="qc-n" id="qcN">' + (idx + 1) + " / " + n + "</span>" +
+      '<button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question">' + chev("9 18 15 12 9 6") + "</button></span>";
   }
   /* `cardWithQuestion(c, pickIdx?)` — a copy of the card with `question` set to one phrasing out of the pool
      — is GONE (Aug 2026), and it is worth saying where its three callers went rather than leaving the
@@ -4306,18 +4344,21 @@
        the definition. It sits after the floated image slot in the flow, so it clears the picture. */
     win.querySelector(".gloss-bookslot").innerHTML = glossBookHTML(glossBook(key));
     win.querySelector(".gloss-srcslot").innerHTML = sourcesHTML(glossSources(key), { compact: true });
-    /* Those two slots are the ONLY things in this popup fed by the lazy `glossExtra` bundle
-       (glossary-extra.js: GLOSSARY_IMAGES + GLOSSARY_SOURCES, 1.29 MB kept off the eager path).
+    /* The description, the picture and the Sources fold are fed by the lazy `glossExtra` bundle
+       (glossary-extra.js: the texts since Oct 2026, GLOSSARY_IMAGES + GLOSSARY_SOURCES since Sep).
        It is warmed at idle after boot, so in practice it is already here — but a reader who opens
-       a term within a second of first paint would otherwise get a popup with no picture and no
-       Sources fold, and NOTHING would say so or ever put them there. So: fill now with whatever is
-       loaded, and fill the two slots again if the bundle lands afterwards.
+       a term within a second of first paint would otherwise get a popup with an empty paragraph, no
+       picture and no Sources fold, and NOTHING would say so or ever put them there. So: fill now with
+       whatever is loaded, and fill the three slots again if the bundle lands afterwards.
        It re-fills the SLOTS rather than re-opening the popup, which would take away a scroll
        position, a drag and any nested term the reader had already opened. `win.isConnected`
        because the popup may be long closed by the time the file arrives. */
     if (!dataReady("glossExtra")) {
       ensureData("glossExtra").then(() => {
         if (!win.isConnected) return;
+        let late = glossText(key);
+        if (dates) late = stripDupDates(late, glossDatesFlat(dates));
+        renderGlossDesc(win.querySelector(".gloss-desc"), key, late);
         renderGlossImage(win.querySelector(".gloss-imgslot"), key);
         const sl = win.querySelector(".gloss-srcslot");
         sl.innerHTML = sourcesHTML(glossSources(key), { compact: true });
@@ -10760,10 +10801,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and the water sharpens when the file lands. ~89 KB and ~47 KB. */
     river_italy: { files: ["rivers/italy.js"], after: hiresRiverIngest },
     river_greece: { files: ["rivers/greece.js"], after: hiresRiverIngest },
-    /* The glossary's citations + illustrations. Warmed at IDLE after boot (see the warm below) rather
-       than fetched on the first popup, because popups are common and a reader should not wait: the
-       point is only to keep 1.29 MB off the path that blocks first paint. openGlossWin awaits it for
-       the reader who beats the warm. */
+    /* The glossary's definitions, citations + illustrations (the texts since Oct 2026, the two
+       tables since Sep). Warmed at IDLE after boot (see the warm below) rather than fetched on the
+       first popup, because popups are common and a reader should not wait: the point is only to keep
+       them off the path that blocks first paint. openGlossWin fills what is here and re-fills when the
+       file lands, for the reader who beats the warm; glossary.js keeps every KEY, so nothing that asks
+       `k in window.GLOSSARY` waits at all. */
     glossExtra: { files: ["glossary-extra.js"], after: glossExtraIngest },
     /* An artefact's description, citations and picture — 94% of artefacts.js, which is EAGER, and not
        one of the three read until a chest opens or the Reliquary is visited. Warmed at idle after boot
@@ -10868,9 +10911,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // writing the live table itself: the shipped text is the baseline revert/undo compares against, so it
   // has to reach PRISTINE_GLOSS_I18N *before* any admin edits are layered back on top. Draining a QUEUE
   // (not a single handoff slot) keeps that correct when two languages' scripts land before either hook.
-  /* The glossary's CITATIONS and ILLUSTRATIONS are LAZY (glossary-extra.js, bundle "glossExtra").
-     They were 54% of glossary.js -- 786 KB of citations and 523 KB of picture metadata on the EAGER
-     path -- and neither is read until a popup opens. See the bundle table in CLAUDE.md.
+  /* The glossary's DEFINITIONS, CITATIONS and ILLUSTRATIONS are LAZY (glossary-extra.js, bundle
+     "glossExtra"). The two tables were 54% of glossary.js -- 786 KB of citations and 523 KB of
+     picture metadata on the EAGER path -- and the texts were 87% of what was left; none is read
+     until a popup opens. The KEYS stay eager with an empty text. See docs/eager-path.md.
 
      IT DRAINS A QUEUE AND RE-SEEDS THE BASELINES, and both halves are load-bearing. The file lands
      AFTER boot, where PRISTINE_GLOSS_SOURCES / PRISTINE_GLOSS_IMAGES were snapshotted from empty
@@ -10947,11 +10991,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const q = window.GLOSSARY_EXTRA_IN || [];
     window.GLOSSARY_EXTRA_IN = [];
     q.forEach((inc) => {
+      /* THE TEXTS (Oct 2026): written in for the keys glossary.js carries — a text for a key it has
+         dropped is a retired term and stays out, as a retired card's prose does — and the overlay's
+         own text wins, as it does for every table below. PRISTINE_GLOSS is re-seeded for every
+         shipped key, deleted or not: it is what Revert compares against. */
+      const T = inc.GLOSSARY || {};
+      Object.keys(T).forEach((k) => {
+        if (k in PRISTINE_GLOSS) PRISTINE_GLOSS[k] = T[k];
+        if (!(k in window.GLOSSARY)) return;
+        if ((ADMIN_EDITS.glossary || {})[k] !== undefined) return;
+        window.GLOSSARY[k] = T[k];
+      });
       Object.assign(window.GLOSSARY_IMAGES, inc.GLOSSARY_IMAGES || {});
       Object.assign(window.GLOSSARY_SOURCES, inc.GLOSSARY_SOURCES || {});
       Object.assign(PRISTINE_GLOSS_IMAGES, inc.GLOSSARY_IMAGES || {});
       Object.assign(PRISTINE_GLOSS_SOURCES, inc.GLOSSARY_SOURCES || {});
+      /* A tombstone the boot sweep could not settle (see applyAdminEdits): the file now says whether
+         the shipped text is still the one the admin deleted — then it stays deleted — or was re-written
+         out-of-band since, in which case the term comes back whole and the tombstone retires, which
+         is what the sweep does for a term whose text was there to compare at boot. */
+      Object.keys(_glossTombPending).forEach((k) => {
+        const rec = (ADMIN_EDITS.glossaryDeleted || {})[k], aux = _glossTombPending[k];
+        delete _glossTombPending[k];
+        if (!(k in T) || rec === undefined || T[k] === rec) return;
+        window.GLOSSARY[k] = T[k];
+        if (aux.dates !== undefined) (window.GLOSSARY_DATES = window.GLOSSARY_DATES || {})[k] = aux.dates;
+        if (aux.titles !== undefined) (window.GLOSSARY_TITLES = window.GLOSSARY_TITLES || {})[k] = aux.titles;
+        if (aux.aliases !== undefined) (window.GLOSSARY_ALIASES = window.GLOSSARY_ALIASES || {})[k] = aux.aliases;
+        if (aux.tags !== undefined) (window.GLOSSARY_TAGS = window.GLOSSARY_TAGS || {})[k] = aux.tags;
+        if (aux.videos !== undefined) (window.GLOSSARY_VIDEOS = window.GLOSSARY_VIDEOS || {})[k] = aux.videos;
+        delete ADMIN_EDITS.glossaryDeleted[k];
+        saveAdminEdits();
+        invalidateGlossIndex();
+      });
     });
+    _glossTextsIn = true;
     // the overlay again, on top of what just arrived
     Object.keys(ADMIN_EDITS.glossaryImages || {}).forEach((k) => {
       const v = ADMIN_EDITS.glossaryImages[k];
@@ -10962,7 +11036,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (v && v.length) window.GLOSSARY_SOURCES[k] = v; else delete window.GLOSSARY_SOURCES[k];
     });
     // a term the overlay deleted must not come back with the file
-    Object.keys(ADMIN_EDITS.glossary || {}).forEach((k) => {
+    Object.keys(ADMIN_EDITS.glossary || {}).concat(Object.keys(ADMIN_EDITS.glossaryDeleted || {})).forEach((k) => {
       if (!(k in window.GLOSSARY)) { delete window.GLOSSARY_IMAGES[k]; delete window.GLOSSARY_SOURCES[k]; }
     });
   }
@@ -25876,7 +25950,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   PAGES.glossary = function (root) {
     const G = window.GLOSSARY || {};
     const reg = S.glossSeen || {};
-    const keys = Object.keys(reg).filter((k) => G[k] && !uGlossParse(k));
+    const keys = Object.keys(reg).filter((k) => (k in G) && !uGlossParse(k));   // `in`: the texts are lazy, the keys are not
     const total = glossTotalCount();
     const pct = total ? Math.min(100, Math.round((keys.length / total) * 100)) : 0;
     /* localeCompare, not `<`, so an accented head word files where a reader expects it — Nüwa belongs
@@ -31908,11 +31982,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // card's first phrasing. Cutting the pool rather than fixing qIdx is what makes the rest fall out:
       // the ‹ › chevrons and the "1 / 3" counter are drawn from `pool.length`, so they simply do not
       // appear, and there is no second state in which the counter says 1 / 3 and the arrows do nothing.
-      const pool = cardTypeOf(base) ? [] : (varietyOn ? cardQuestions(base) : cardQuestions(base).slice(0, 1));
+      let pool = cardTypeOf(base) ? [] : (varietyOn ? cardQuestions(base) : cardQuestions(base).slice(0, 1));
+      /* THE POOL MAY STILL BE ON ITS WAY (Oct 2026). `questions` lives in the collection's lazy file
+         (see CARD_EXTRA_FIELDS), so a card dealt before that file lands has a pool of one: its first
+         phrasing, which is pool[0] whenever the pool is whole. The front is drawn from that at once
+         rather than held for the fetch, and `growPool` below adds the chevrons when the file arrives.
+         `c` is a COPY in that case for the reason it is a copy when the pool is already there: the
+         chevrons write `c.question`, and writing it on the live card would rename the card itself. */
+      const poolPending = !cardTypeOf(base) && varietyOn && !isCommunityCard(id) && !cardExtraLoaded(id);
+      const wantQi = qIdx;   // a resumed session's saved phrasing, which the pool may not yet be long enough to honour
       if (!Number.isInteger(qIdx) || qIdx < 0 || qIdx >= pool.length) {
         qIdx = pool.length <= 1 ? 0 : (codPick ? codPick(pool.length) : Math.floor(Math.random() * pool.length));
       }
-      const c = pool.length > 1 ? Object.assign({}, base, { question: pool[qIdx] }) : base;
+      const c = (pool.length > 1 || poolPending) ? Object.assign({}, base, { question: pool[qIdx] || base.question }) : base;
       const rc = remainingCounts();
       /* WHERE THE SUCCESSIVE-RELEARNING ROW GOES (Sep 2026, on request: "on mobile, put the three days
          dots and label instead on the same line as the three colored dots and numbers above the card").
@@ -31967,7 +32049,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     know the other's offset. The successive-relearning row sits BETWEEN them (Sep 2026,
                     on request) — see critPipsHTML for why it moved and how it shortens on a phone. */""}
               <div class="q-head">
-              <div class="q-lead">${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span></div>
+              <div class="q-lead">${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? qCycleHTML(qIdx, pool.length) : ""}${ttsPlayHTML("question", true)}</span></div>
               ${critInBar ? "" : critHTML}
               ${cardStarsHTML(c)}
               </div>
@@ -32002,9 +32084,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          card: the answer may already be showing, and a reader who cycles to compare two wordings has not
          asked for the answer to be taken away again. `c` is a copy whenever there is a pool to cycle, so
          updating its question keeps read-aloud and the cloze grader on the words that are on screen. */
-      cardRoot.querySelectorAll(".qc-btn").forEach((b) => b.addEventListener("click", (e) => {
-        e.stopPropagation();
-        qIdx = (qIdx + (+b.dataset.qc) + pool.length) % pool.length;
+      const stepQ = (delta) => {
+        qIdx = (qIdx + delta + pool.length) % pool.length;
         c.question = pool[qIdx];
         const qEl = cardRoot.querySelector(".question");
         // cardFrontHTML rather than the bare question: on a map card the window is part of the front, and
@@ -32018,7 +32099,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (syncAttempt) syncAttempt();               // a fresh blank is an unattempted one (see deckAttempt)
         const n = cardRoot.querySelector("#qcN"); if (n) n.textContent = (qIdx + 1) + " / " + pool.length;
         persistStudy();
-      }));
+      };
+      // wired by a flag on the button rather than once, because growPool adds the chevrons after the fact
+      const wireQCycle = () => cardRoot.querySelectorAll(".qc-btn").forEach((b) => {
+        if (b.dataset.wired) return;
+        b.dataset.wired = "1";
+        b.addEventListener("click", (e) => { e.stopPropagation(); stepQ(+b.dataset.qc); });
+      });
+      wireQCycle();
+      /* The pool arriving after the deal (see `poolPending` above). The question on screen is pool[0]
+         already, so nothing the reader is looking at changes: the chevrons and the "1 / 3" counter are
+         slotted into the label, and a resumed session steps to the phrasing it saved. A random pick of
+         its own is NOT made here — swapping the words a moment after they appeared would read as a
+         different card — so a cold first card asks its first phrasing and the next card draws its own. */
+      const growPool = () => {
+        if (queue[0] !== id || !cardRoot.isConnected) return;   // the reader has moved on
+        const grown = cardQuestions(base);
+        if (grown.length <= pool.length) return;
+        pool = grown;
+        const label = cardRoot.querySelector(".q-lead .label");
+        if (label && !label.querySelector(".q-cycle")) {
+          const tpl = document.createElement("template");
+          tpl.innerHTML = qCycleHTML(qIdx, pool.length);
+          const txt = Array.from(label.childNodes).find((n) => n.nodeType === 3);
+          if (txt) txt.after(tpl.content); else label.appendChild(tpl.content);
+        }
+        wireQCycle();
+        if (Number.isInteger(wantQi) && wantQi > 0 && wantQi < pool.length && !revealed) stepQ(wantQi - qIdx);
+      };
+      if (poolPending) ensureCardExtra(id).then(growPool);
       setupWhiteboard();
       showWBTools();
       mountDrawCard(cardRoot, c);   // a draw card puts the pen down and pins the marker to its pad
@@ -49317,11 +49426,51 @@ let prev = null;
       "window.CARD_DATA = [\n" + cards.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n\n" +
       "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 2) + ";\n";
   }
+  /* The Node-only tail glossary.js carries so a helper's plain `require` of it sees whole terms.
+     Kept in step with REJOIN_TAIL in .claude/gloss-io.js BY HAND — the two write the same file. */
+  const GLOSS_REJOIN_TAIL =
+    "\n/* ============================================================================\n" +
+    "   NODE-ONLY: rejoin the lazy half, so a helper that requires this file sees WHOLE terms.\n" +
+    "\n" +
+    "   In a BROWSER this block does nothing — there is no `require` and no `__dirname`, and the texts,\n" +
+    "   citations and pictures arrive through the `glossExtra` bundle (glossary-extra.js), warmed at\n" +
+    "   idle after boot and awaited by whatever needs one before the warm lands.\n" +
+    "\n" +
+    "   Under NODE it is what stops the split silently blinding the helpers that `require` this file:\n" +
+    "   without it every term reads as an empty string and a checker passes over nothing. A helper that\n" +
+    "   evaluates the file through `new Function` or `vm` has no `require` here and must go through\n" +
+    "   .claude/gloss-io.js instead, which merges the two files itself.\n" +
+    "\n" +
+    "   IT DOES NOT MAKE WRITING SAFE, and nothing here can: every WRITER goes through gloss-io.js's\n" +
+    "   writeGlossary(), which blanks the texts in this file and writes them to the lazy one, and\n" +
+    "   `node .claude/split-glossary.js --check` (which CI runs) fails if a text reappears here.\n" +
+    "   ============================================================================ */\n" +
+    "try {\n" +
+    "  if (typeof require === \"function\" && typeof __dirname === \"string\" && typeof document === \"undefined\") {\n" +
+    "    var _fs = require(\"fs\"), _p = require(\"path\"), _f = _p.join(__dirname, \"glossary-extra.js\");\n" +
+    "    if (_fs.existsSync(_f)) {\n" +
+    "      var _w = { GLOSSARY_EXTRA_IN: [] };\n" +
+    "      new Function(\"window\", _fs.readFileSync(_f, \"utf8\"))(_w);\n" +
+    "      _w.GLOSSARY_EXTRA_IN.forEach(function (inc) {\n" +
+    "        var G = window.GLOSSARY || {}, T = inc.GLOSSARY || {};\n" +
+    "        // texts for the keys this file carries — a key it has dropped is a retired term and stays out\n" +
+    "        Object.keys(T).forEach(function (k) { if (k in G && !G[k]) G[k] = T[k]; });\n" +
+    "        [\"GLOSSARY_IMAGES\", \"GLOSSARY_SOURCES\"].forEach(function (k) { window[k] = Object.assign(window[k] || {}, inc[k] || {}); });\n" +
+    "      });\n" +
+    "    }\n" +
+    "  }\n" +
+    "} catch (e) { /* a helper running this through new Function has no require — it uses gloss-io.js */ }\n";
   function serializeGlossary() {
     const ob = (o) => "{\n" + Object.keys(o).map((k) => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
     const G = window.GLOSSARY || {}, D = window.GLOSSARY_DATES || {}, Tt = window.GLOSSARY_TITLES || {}, Al = window.GLOSSARY_ALIASES || {};
-    let s = "/* Glossary, saved from the in-app editor (keyed by Wikipedia slug). */\n" +
-      "window.GLOSSARY = " + ob(G) + ";\n\n" +
+    /* THE TEXTS ARE NOT WRITTEN HERE (Oct 2026): every key with an empty string, and the definitions
+       go to glossary-extra.js through serializeGlossaryExtra below — the same rule as the citations
+       and illustrations, for the same reason. Writing them here would put 1.3 MB gzipped back onto the
+       eager path on the first admin save, and the only symptom would be a slower site. */
+    const keysOnly = {}; Object.keys(G).forEach((k) => { keysOnly[k] = ""; });
+    let s = "/* Glossary, saved from the in-app editor (keyed by Wikipedia slug). The KEYS live here and the\n" +
+      "   texts in the lazy glossary-extra.js — see .claude/split-glossary.js. */\n" +
+      "window.GLOSSARY = " + ob(keysOnly) + ";\n\n" +
       "window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, " + ob(D) + ");\n";
     if (Object.keys(Tt).length) s += "\nwindow.GLOSSARY_TITLES = Object.assign(window.GLOSSARY_TITLES || {}, " + ob(Tt) + ");\n";
     if (Object.keys(Al).length) s += "\nwindow.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, " + ob(Al) + ");\n";   // preserve aliases (shipped + edited) — they live only in the overlay otherwise
@@ -49338,7 +49487,7 @@ let prev = null;
     const Im = window.GLOSSARY_IMAGES || {};
     const Vd = {}; Object.keys(window.GLOSSARY_VIDEOS || {}).forEach((k) => { if (!Im[k]) Vd[k] = window.GLOSSARY_VIDEOS[k]; });
     if (Object.keys(Vd).length) s += "\nwindow.GLOSSARY_VIDEOS = Object.assign(window.GLOSSARY_VIDEOS || {}, " + ob(Vd) + ");\n";
-    return s;
+    return s + GLOSS_REJOIN_TAIL;
   }
   /* glossary-extra.js — the glossary's citations and illustrations, which are LAZY (bundle
      "glossExtra") because together they were 54% of glossary.js on the EAGER path and neither is
@@ -49348,25 +49497,33 @@ let prev = null;
      the same rule editedGlossI18nLangs() applies to the per-language files, for the same reason. */
   function serializeGlossaryExtra() {
     const ob = (o) => "{\n" + Object.keys(o).map((k) => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
-    return "/* The glossary's CITATIONS and ILLUSTRATIONS — split out of glossary.js and LAZY.\n" +
+    const texts = {}; Object.keys(window.GLOSSARY || {}).forEach((k) => { texts[k] = window.GLOSSARY[k] || ""; });   // live: the overlay's edits are what gets baked
+    return "/* The glossary's DEFINITIONS, CITATIONS and ILLUSTRATIONS — split out of glossary.js and LAZY.\n" +
       " *\n" +
       " * WHY THIS FILE EXISTS. glossary.js is on the eager load path, so every visitor downloads it\n" +
-      " * before flipping a card, and these two tables were 54% of it. Neither is read until a glossary\n" +
-      " * popup OPENS. They are fetched now by the `glossExtra` data bundle: warmed at idle after boot,\n" +
-      " * and awaited by openGlossWin for the reader who opens a popup before the warm lands.\n" +
+      " * before flipping a card. The citations and illustrations were 54% of it and moved here in Sep\n" +
+      " * 2026; the definitions were 87% of what remained and followed in Oct 2026. None of the three is\n" +
+      " * read until a glossary popup OPENS, the glossary page or the search is used, or a game shows a\n" +
+      " * term's note. glossary.js keeps every KEY (with an empty text), which is what the auto-linker and\n" +
+      " * `k in window.GLOSSARY` need at boot. All three are fetched by the `glossExtra` data bundle:\n" +
+      " * warmed at idle after boot, and awaited by openGlossWin and the pages for the reader who gets\n" +
+      " * there before the warm lands.\n" +
       " *\n" +
       " * IT STAGES ONTO A QUEUE RATHER THAN ASSIGNING, for the same reason i18n/gloss-<lang>.js does.\n" +
-      " * app.js snapshots PRISTINE_GLOSS_SOURCES / PRISTINE_GLOSS_IMAGES at boot — which is BEFORE this\n" +
-      " * file lands — so a plain assignment would leave the admin editor's revert baseline empty and\n" +
-      " * \"Revert\" would silently delete a shipped citation list instead of restoring it. The bundle's\n" +
-      " * `after` hook (glossExtraIngest) drains the queue, re-seeds those baselines and re-applies the\n" +
-      " * admin overlay on top.\n" +
+      " * app.js snapshots PRISTINE_GLOSS / PRISTINE_GLOSS_SOURCES / PRISTINE_GLOSS_IMAGES at boot — which\n" +
+      " * is BEFORE this file lands — so a plain assignment would leave the admin editor's revert baseline\n" +
+      " * empty and \"Revert\" would silently delete a shipped definition instead of restoring it. The\n" +
+      " * bundle's `after` hook (glossExtraIngest) drains the queue, re-seeds those baselines and re-applies\n" +
+      " * the admin overlay on top.\n" +
       " *\n" +
-      " * GENERATED — do not hand-edit. `node .claude/split-glossary.js --check` verifies the split. */\n" +
+      " * GENERATED — do not hand-edit. Written by .claude/gloss-io.js (the helper scripts) and by\n" +
+      " * app.js's serializeGlossaryExtra (the in-app editor). `node .claude/split-glossary.js --check`\n" +
+      " * verifies the split is still intact. */\n" +
       "(function () {\n" +
+      "  var GLOSSARY = " + ob(texts) + ";\n" +
       "  var GLOSSARY_IMAGES = " + ob(window.GLOSSARY_IMAGES || {}) + ";\n" +
       "  var GLOSSARY_SOURCES = " + ob(window.GLOSSARY_SOURCES || {}) + ";\n" +
-      "  (window.GLOSSARY_EXTRA_IN = window.GLOSSARY_EXTRA_IN || []).push({ GLOSSARY_IMAGES: GLOSSARY_IMAGES, GLOSSARY_SOURCES: GLOSSARY_SOURCES });\n" +
+      "  (window.GLOSSARY_EXTRA_IN = window.GLOSSARY_EXTRA_IN || []).push({ GLOSSARY: GLOSSARY, GLOSSARY_IMAGES: GLOSSARY_IMAGES, GLOSSARY_SOURCES: GLOSSARY_SOURCES });\n" +
       "})();\n";
   }
   // Only bake glossary-extra.js when its bundle has actually loaded — otherwise the in-memory tables
@@ -49460,6 +49617,9 @@ let prev = null;
   // "Save to project": write data.js + glossary.js directly (File System Access API), then clear the delta overlay and reload.
   // Fallback (file:// or unsupported browser): download the two generated files so they can be placed manually.
   async function adminExport() {
+    // the definitions are baked from the lazy file's tables (glossExtraFiles is gated on the bundle) and
+    // the overlay is dropped after the save — so a text edit saved before the warm landed would be lost
+    if (!dataReady("glossExtra")) await ensureData("glossExtra");
     const dataJs = serializeCardData(), glossJs = serializeGlossary();
     const hasTl = Array.isArray(ADMIN_EDITS.timeline);
     // fallback for any path where direct write isn't available: download the generated files so they can be placed manually.
@@ -50363,6 +50523,18 @@ let prev = null;
     if (adminState.tab === "cards" && adminState.card && !cardExtraLoaded(adminState.card)) {
       host.innerHTML = '<div class="admin-editor-empty">Loading this card…</div>';
       ensureCardExtra(adminState.card).then(() => { if (current && current.name === "admin") adminRenderEditor(); });
+      return;
+    }
+    /* …AND A TERM'S TEXT, for the same reason (Oct 2026): the definitions are lazy, the description box
+       is filled FROM window.GLOSSARY, and the editor saves on every keystroke. Drawn before the file lands,
+       the first keypress would write an empty description into the overlay as a deliberate edit. The
+       `ok` guard is what keeps a file that will not load from looping render → fetch → render. */
+    if (adminState.tab === "glossary" && adminState.glossKey && !isDeckGlossKey(adminState.glossKey) && !dataReady("glossExtra")) {
+      host.innerHTML = '<div class="admin-editor-empty">Loading this term…</div>';
+      ensureData("glossExtra").then((ok) => {
+        if (!(current && current.name === "admin")) return;
+        if (ok) adminRenderEditor(); else host.innerHTML = '<div class="admin-editor-empty">The glossary file could not be loaded — reload to try again.</div>';
+      });
       return;
     }
     saveAdminUI();   // remember the open card/deck/tab across reloads

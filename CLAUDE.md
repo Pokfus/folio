@@ -76,10 +76,12 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
   them). A new theme adds no webfont and must override `.collection-deco`.
 - `data.js` + `data-extra/<collection>.js` — the cards, **split in two**: `data.js` holds the light
   half (question, answer, date line, tags, difficulty, locator, war…), `data-extra/` the heavy half
-  (abstract, sources, why, quote, image). **Every helper goes through `.claude/card-io.js`**
+  (abstract, sources, why, quote, image, and the `questions` phrasing pool). **Every helper goes through `.claude/card-io.js`**
   (`loadCards`/`writeCards`); a helper that evaluates `data.js` alone sees empty abstracts and does not
   fail. `writeCards` ignores tree edits — edit `COLLECTION_TREE` as text.
-- `glossary.js` + `glossary-extra.js` — the glossary, split the same way; go through `.claude/gloss-io.js`.
+- `glossary.js` + `glossary-extra.js` — the glossary, split the same way: `glossary.js` holds every KEY (with
+  an empty text) plus dates, aliases, tags; `glossary-extra.js` the definitions, citations and pictures. Ask
+  `k in window.GLOSSARY`, never whether its text is truthy. Go through `.claude/gloss-io.js`.
 - `artefacts.js` + `artefacts-extra.js` — the Reliquary pool; go through `.claude/artefact-io.js`.
 - `timeline.js`, `world.js`, `countries.js`, `cities.js`, `rivers.js`, `lakes.js`, `us-states.js`,
   `china-provinces.js`, `russia-subjects.js`, `world-capitals.js`, `coast/`, `rivers/` — map data,

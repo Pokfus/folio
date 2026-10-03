@@ -38,7 +38,7 @@ const W = loadWindow(["data.js", "glossary.js", "glossary-extra.js", "artefacts.
   const by = {}; (W.ARTEFACTS || []).forEach((a) => { if (a && a.id) by[a.id] = a; });
   Object.keys(inc.ARTEFACTS_EXTRA || {}).forEach((id) => { if (by[id]) Object.assign(by[id], inc.ARTEFACTS_EXTRA[id]); });
 });
-for (const inc of W.GLOSSARY_EXTRA_IN || []) { Object.assign(W.GLOSSARY_IMAGES = W.GLOSSARY_IMAGES || {}, inc.GLOSSARY_IMAGES || {}); Object.assign(W.GLOSSARY_SOURCES = W.GLOSSARY_SOURCES || {}, inc.GLOSSARY_SOURCES || {}); }
+for (const inc of W.GLOSSARY_EXTRA_IN || []) { Object.assign(W.GLOSSARY_IMAGES = W.GLOSSARY_IMAGES || {}, inc.GLOSSARY_IMAGES || {}); Object.assign(W.GLOSSARY_SOURCES = W.GLOSSARY_SOURCES || {}, inc.GLOSSARY_SOURCES || {}); Object.keys(inc.GLOSSARY || {}).forEach((k) => { if (W.GLOSSARY && k in W.GLOSSARY) W.GLOSSARY[k] = inc.GLOSSARY[k]; }); }   // the texts are lazy too (Oct 2026): keys only for keys glossary.js still carries
 const CARDS = W.CARD_DATA || [], byId = Object.fromEntries(CARDS.map(c => [c.id, c]));
 const text = s => String(s == null ? "" : s).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
 const markers = s => (String(s == null ? "" : s).match(/<sup class="fn"/g) || []).length;
