@@ -6046,9 +6046,8 @@
      cards are consumed: the position is the card's place in its own subdeck, not its place in whatever
      is left unseen today.
 
-     It applies to Folio's own collections too (on request), where the groups are the leaf decks: a
-     collection is met a few cards from each of its decks at a time, each deck a day behind the one
-     before it, rather than one deck worked through end to end.
+     It applies to Folio's own collections too, where the groups are the leaf decks — except under
+     Ordered, which deals a collection one deck at a time, end to end (see `studyOrder`).
 
      A card's group is its LEAF SUBDECK, not its card template. A note's own reverse card is a separate
      axis with a separate answer already — bury-siblings — and interleaving it here would be two
@@ -6088,30 +6087,17 @@
       a.push(id);
     });
     if (groups.size < 2) return pair ? pairOrder(ids) : ids;   // one group: the round robin is the identity
-    /* "EASED IN" — the hybrid order (see HYBRID_N). The subdecks the reader has not started come FIRST and
-       come WHOLE, in the deck's own order; the ones they know are round-robined behind them exactly as
-       they always were. Fresh-first rather than fresh-last is what makes it work: the new-card allowance
-       is sliced off the front of the unseen cards, so a fresh subdeck at the front is the one being
-       learned, and the moment it goes green it drops back into the robin and the next one takes its
-       place. Nothing here is stored — "fresh" and "green" are read off the card records every time. */
-    if (deckOrderMode(entryId) === "hybrid") {
-      const fresh = [], green = new Map();
-      groups.forEach((arr, g) => {
-        let seen = 0;
-        for (let i = 0; i < arr.length && seen < HYBRID_N; i++) if (isSeen(arr[i])) seen++;
-        if (seen >= HYBRID_N) green.set(g, arr); else fresh.push(arr);
-      });
-      let out = [];
-      fresh.forEach((arr) => { out = out.concat(arr); });
-      if (green.size) out = out.concat(robinOrder(green, entryId));
-      return pair ? pairOrder(out) : out;
-    }
+    /* ORDERED, ON FOLIO'S OWN COLLECTIONS, IS FRONT TO BACK (Oct 2026, on request): one subdeck finished
+       before the next begins, which is the order the collection is written in. The round robin below
+       stays for community and language decks, where it is what keeps a two-direction deck from dealing
+       one direction for a hundred days; and for Random and By difficulty, which sort or shuffle the
+       day's cards afterwards and want those cards drawn from across the collection. */
+    if (deckOrderMode(entryId) === "ordered" && !ids.some(isCommunityCard)) return pair ? pairOrder(ids) : ids;
     return robinOrder(groups, entryId, pair);
   }
-  /* The round robin itself, lifted out of `studyOrder` so the hybrid above can use it on a SUBSET of the
-     groups. Each group's cards are keyed by their index within it plus a per-group offset of one day's
-     new-card allowance, so group 2 starts a day behind group 1 — which is what makes a two-way deck ask
-     the reverse the NEXT day rather than a second later. */
+  /* The round robin itself. Each group's cards are keyed by their index within it plus a per-group offset
+     of one day's new-card allowance, so group 2 starts a day behind group 1 — which is what makes a
+     two-way deck ask the reverse the NEXT day rather than a second later. */
   function robinOrder(groups, entryId, pair) {
     if (groups.size < 2) {
       const only = [];
@@ -7009,38 +6995,23 @@
      sentences to count at all, and the cycler steps straight past this order where it has not — a curated
      deck, or a community deck with no examples. An option that is drawn and does nothing is worse than an
      option that is not drawn, because a reader who chooses it concludes the ordering is broken. */
-  const DECK_ORDERS = ["ordered", "random", "difficulty", "hybrid", "frequency"];
+  const DECK_ORDERS = ["ordered", "random", "difficulty", "frequency"];
   /* …AND THE CONTROL IS A CYCLER, NOT A SWITCH (Aug 2026, on request). Two orders were a switch and three
      will not fit in one: what replaces it is a single row naming the order in force, which steps to the
      next on every press and wraps. Three rows with a tick would say the same thing in three times the
      height, on a sheet a phone already has to scroll — and the switch's own reasoning was that a setting
      with a name for each state reads as a sentence, which a cycler keeps. */
-  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty", hybrid: "Eased in", frequency: "By frequency" };
+  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty", frequency: "By frequency" };
   const DECK_ORDER_NOTE = {
     ordered: "Cards come up in their deck order, oldest history first",
     random: "The session is shuffled each day",
     difficulty: "The best-known terms first, working outward",
-    hybrid: "A new subdeck at a time; once you know one, it mixes in with the rest",
     frequency: "The words this deck uses most, first",
   };
   // the orders this entry can actually be given, in cycle order — see DECK_ORDERS' own note
   function deckOrdersFor(id) {
     return DECK_ORDERS.filter((m) => m !== "frequency" || entryCanFreq(id));
   }
-  /* THE FOURTH ORDER — BLOCKED FIRST, INTERLEAVED AFTER (Sep 2026).
-     Interleaving beats blocking at long delay and is the best-supported way to tell CONFUSABLE things
-     apart, which is most of what a history collection asks of a reader. But the recent work is careful
-     about a second finding: a HYBRID beats either on its own, because a novice needs to see what a
-     category has in common before discriminating between categories means anything — so blocked practice
-     while a subdeck is new, interleaved once there is something to discriminate. Folio's round robin
-     (`studyOrder`) has always interleaved from the very first card, so a reader ten cards into Ancient
-     Greece met ten cards from six different subdecks.
-     GREEN IS MEASURED, NOT DECLARED. A subdeck is "known well enough to mix in" once HYBRID_N of its
-     cards have a record in `S.cards` — the reader's own history, so it needs no field and no bookkeeping,
-     and it answers correctly for a deck they worked through months ago.
-     TWELVE, because the default new-card allowance is five: it is about two or three days on a subdeck
-     before it joins the rest, which is the interval the blocked half of the finding is about. */
-  const HYBRID_N = 12;
   function deckOrderMode(id) {
     if (id === REVIEW_ENTRY) {
       if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
@@ -23161,15 +23132,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      so the chest is said once. The run is shown in weeks: each week's seven days end in the chest they earn
      (STREAK_CHEST_EVERY; maybeStreakChest pays it), gold once paid, quiet while being earned, and the week
      after the current one is always drawn so the next chest is in sight. The phone shows the current week
-     alone (styles.css hides the other). `S.streak.best` is the longest run, kept by bumpStreak. */
+     alone (styles.css hides the other). `S.streak.best` is the longest run, kept by bumpStreak.
+     ONE WEEK AT EVERY WIDTH (Oct 2026, on request: "the weekly streak banner should never depict more than
+     one week on any of the website formats") — the current week and its chest only, so the ribbon is a single
+     row: the count, the week, then Longest over the note at the right. */
   function streakRibbonHTML() {
     const st = S.streak || {};
     const live = st.last === todayStr() || st.last === dayKey(Date.now() - DAY);
     const n = live ? (st.count | 0) : 0;
     const p = streakChestProgress(S), every = STREAK_CHEST_EVERY;
-    const weeks = Math.max(1, Math.ceil(n / every)), paid = Math.floor(n / every), shown = Math.max(2, weeks);
+    const weeks = Math.max(1, Math.ceil(n / every)), paid = Math.floor(n / every);
     let days = "";
-    for (let w = shown - 2; w < shown; w++) {
+    for (let w = weeks - 1; w < weeks; w++) {
       const cells = [];
       for (let i = 0; i < every; i++) { const d = w * every + i + 1; cells.push('<i class="' + (d <= n ? (d === n ? "t" : "b") : "o") + '"></i>'); }
       days += '<span class="sr-wk' + (w === weeks - 1 ? " cur" : "") + '">' + cells.join("") +
@@ -23233,10 +23207,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="gdeco" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>';
   }
   /* The top three cards of today's pile, fanned beside the banner (desktop and tablet only; see styles.css).
-     Site cards only: a community card's text lives per note and may not be loaded yet. */
+     Site cards only: a community card's text lives per note and may not be loaded yet.
+     NEVER A CARD WHOSE QUESTION NEEDS ITS PICTURE (Oct 2026, on request: "the preview doesn't include an
+     image or atlas box and the question makes no sense by itself"): a map card's question points at the
+     atlas, a flag or draw-the-flag card's at the flag, an artwork card's at the picture — "The country or
+     territory whose flag is shown is ___" is nothing on a card that shows no flag. The preview holds text
+     only, so it skips past those to the next card whose question stands alone. */
+  function previewable(c) {
+    return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c);
+  }
   function reviewPreviewHTML(ids) {
     const pick = [];
-    for (const id of ids) { const c = CARD_BY_ID[id]; if (c && c.question) pick.push(c); if (pick.length === 3) break; }
+    for (const id of ids) { const c = CARD_BY_ID[id]; if (previewable(c)) pick.push(c); if (pick.length === 3) break; }
     if (!pick.length) return "";
     const txt = (q) => esc(String(q).replace(/<[^>]+>/g, "")).replace(/_{3,}/g, '<u class="pv-blank"></u>');
     const name = (c) => { const r = cardCollectionRoot(c.id); return r ? nodeTitle(r) : ""; };
@@ -23452,6 +23434,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     [...listEl.children].forEach((el) => { if (el.classList.contains("active-deck") && !el.classList.contains("dk-shut")) last = el; });
     listEl.querySelectorAll(".dk-last").forEach((el) => el.classList.remove("dk-last"));
     if (last) last.classList.add("dk-last");
+    /* AN UNFOLDED COLLECTION IS ONE BLOCK (Oct 2026, on request): on a phone its subdecks attach to it as
+       a tight list — the top row rounded above, the last subdeck rounded below, nothing in between — so
+       they read as INSIDE it rather than as more collections. `dk-att` is a row of depth > 0, joined to
+       the row above it; `dk-cont` is a row the block continues below. Read off the visible rows in order,
+       for the reason `dk-last` is. The CSS is in the phone block of styles.css, by `.review-group`. */
+    const vis = [...listEl.children].filter((el) => el.classList.contains("active-deck") && !el.classList.contains("dk-shut"));
+    const depth = (el) => (el ? +el.dataset.depth || 0 : 0);
+    vis.forEach((el, i) => {
+      el.classList.toggle("dk-att", depth(el) > 0);
+      el.classList.toggle("dk-cont", depth(vis[i + 1]) > 0);
+    });
+    [...listEl.children].forEach((el) => { if (el.classList.contains("dk-shut")) el.classList.remove("dk-att", "dk-cont"); });
   }
   /* ---------- DRAGGING A ROW OF THE REVIEW LIST INTO PLACE (Aug 2026, on request) ----------
      Anki lets a reader arrange their deck list; this is the same thing done by dragging, which is what
@@ -27322,11 +27316,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const q = reviewQueue();
       queue = q.all.slice();
       if (deckRandom(REVIEW_ENTRY)) shuffle(queue);                                            // daily-review order toggle (hold the banner)
-      /* "Eased in" keeps the order each DECK's own `studyOrder` chose, which is where the hybrid actually
-         happens — the Ordered branch below re-sorts the whole pooled queue into the tree's global
-         sequence and would undo it. Both piles are already in that order; all that is left is the
-         due/new interleave every branch does. */
-      else if (deckOrderMode(REVIEW_ENTRY) === "hybrid") queue = mixPiles(q.due, q.fresh);
       else if (deckByDifficulty(REVIEW_ENTRY)) queue = mixPiles(sortByDifficulty(q.due), sortByDifficulty(q.fresh));
       else {                                                                                   // "Ordered" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
         const seq = TREE.collections.flatMap(subtreeCardIds), oi = {};
@@ -28172,7 +28161,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          It goes in the ARIA LABEL as well: that label REPLACES the banner's own text for a screen
          reader, so a chip left out of it is a chip only the sighted reader is told about. */
       const orig = b.origLang ? (b.origName || "Original") + " original" : "";
-      return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}"
+      /* `--w` is how far the book is read, painted ACROSS the banner from the left the way a deck row on
+         the home page paints its day (Oct 2026 Timeline design, on request) — in place of the thin bar
+         along the bottom edge, which is gone. */
+      return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}; --w:${pos ? pct : 0}%"
                 aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", with the " + esc(orig) : ""}${fav ? ", a favourite" : ""}">
         <span class="bk-spine" aria-hidden="true"></span>
         ${/* the star is a MARK, not a control: the way to set and clear one is the long-press sheet, so a
@@ -28196,10 +28188,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             ${pos ? `<span class="bk-tile-resume">${esc(where)}</span>` : `<span class="bk-tile-new">Start reading</span>`}
           </span>
         </span>
-        ${/* the reading bar runs along the banner's own bottom EDGE (Aug 2026, on request) — it costs the
-              row no width at all, which is what lets the banner stay short, and a bar drawn across the
-              whole width of a book is the one place a fraction reads as a fraction */""}
-        ${pos ? `<span class="bk-tile-bar"><span style="width:${pct}%"></span></span>` : ""}
       </button>`;
     };
     // a book never opened has no `at`, so it files below every book that has been — which is what
@@ -28222,10 +28210,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        headed honestly ("Everything else") whenever anything has been starred, and both headings disappear
        when nothing has: an unstarred shelf is exactly the page it always was. The favourites keep the
        chosen sort rather than the order they were starred in — it is the same shelf, split. */
+    /* THE SHELF IS A LINE THROUGH TIME (Oct 2026, on request — the "Timeline" of the six Library designs
+       in docs/mockups/library-redesigns/): a rule down the left, each banner hung off it by a dot in the
+       book's colour, and, when the shelf is sorted by date, an ERA MARK on the line wherever the period
+       changes — so the order the reader chose is still the order, and the marks simply name where on it
+       they are. Any other sort keeps the line and the dots and draws no marks: "Before 500 BCE" over a
+       shelf sorted by title would be a heading that lies. The marks follow the direction too, because
+       they are emitted wherever the era CHANGES in the sorted list rather than from a fixed table.
+       Two banners to a row on a wide screen, as the design has it; the second column's dot and tie are
+       not drawn (`bk-c2`), since the line is on the first column's side. The column is counted in JS
+       because CSS cannot tell which column an auto-placed item landed in once a full-width mark has
+       reset the row. */
+    const ERAS = [["Before 500 BCE", (y) => y < -500], ["500 BCE to 1 CE", (y) => y < 1], ["1 CE to 500", (y) => y < 500], ["500 to 1300", (y) => y < 1300], ["After 1300", () => true]];
+    const eraOf = (b) => (b.year == null ? "Undated" : ERAS.find((e) => e[1](b.year))[0]);
+    const timelineHTML = (list) => {
+      const marks = key === "written";
+      const counts = {};
+      if (marks) list.forEach((b) => { const e = eraOf(b); counts[e] = (counts[e] || 0) + 1; });
+      let last = null, col = 0, out = "";
+      list.forEach((b) => {
+        if (marks) { const e = eraOf(b); if (e !== last) { out += `<div class="bk-mark">${esc(e)} <em>${counts[e]}</em></div>`; last = e; col = 0; } }
+        out += `<div class="bk-slot bk-c${(col % 2) + 1}" style="--tile:${bookColor(b)}">${tile(b)}</div>`;
+        col++;
+      });
+      return `<div class="book-timeline"><div class="book-grid">${out}</div></div>`;
+    };
     const section = (label, list) =>
       list.length
-        ? `<section class="lib-sec">${label ? `<h2 class="lib-sec-head">${label}</h2>` : ""}` +
-          `<div class="book-grid">${list.map(tile).join("")}</div></section>`
+        ? `<section class="lib-sec">${label ? `<h2 class="lib-sec-head">${label}</h2>` : ""}` + timelineHTML(list) + `</section>`
         : "";
     /* The shelf itself, for a given query. It is a function rather than a string because the search box
        repaints it IN PLACE — a full render() on every keystroke would take the caret out of the box being
@@ -31106,14 +31118,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ],
       who: "Best for a subject you are new to, or for coming back to one after a long time away.",
     },
-    hybrid: {
-      lead: "A new subdeck at a time; once you know one, it mixes in with the rest.",
-      body: [
-        "Blocked practice and mixed practice are each better than the other at different moments. While a subdeck is new, its cards come together, so you can see what they have in common — which is what has to happen before telling them apart means anything. Once about a dozen of its cards have been met, that subdeck joins the shuffle and the next new one takes its place.",
-        "This is the hybrid the recent research points at, and it is the closest thing here to what a good teacher does: introduce one thing properly, then start mixing it with everything that came before.",
-      ],
-      who: "Best for a large collection you intend to work all the way through.",
-    },
     /* A LANGUAGE DECK'S ORDER, AND SO ONE THIS PAGE CANNOT CURRENTLY REACH — `orderAskEntry` excludes
        community and language decks, which is its own stated gap. The copy is written all the same,
        because the alternative is a page that throws the day that gap closes: it maps over the orders the
@@ -31188,7 +31192,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
      IT IS OFFERED ONLY WHERE THE DECK IS DEALT BY DIFFICULTY, on request — and that is not an arbitrary
      gate, it is the only order whose ordering the result can change. "Ordered" is the deck's own
-     sequence, "Random" is a shuffle and "Eased in" is decided by subdeck; only the difficulty order sorts
+     sequence and "Random" is a shuffle; only the difficulty order sorts
      the new pile by a property of the card, which is where "and put the ones they already knew last"
      can be spliced in without contradicting what the reader chose.
 
@@ -31437,7 +31441,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     },
     {
       h: "Mixing decks up hurts today’s score and helps next month’s.",
-      p: "Practising one subject in a block feels fluent and reliably teaches less than mixing subjects together, because a card answered from its neighbours is not being answered at all. The one qualification worth knowing is that blocking helps at the very start, while a subject is new — which is what the “Eased in” order does: one new subdeck at a time, then mixed in.",
+      p: "Practising one subject in a block feels fluent and reliably teaches less than mixing subjects together, because a card answered from its neighbours is not being answered at all. The one qualification worth knowing is that blocking helps at the very start, while a subject is new — which is why Ordered works through a collection one subdeck at a time, and Random mixes them.",
       w: "So the daily review pools every deck, and the deck order can be set per deck.",
     },
   ];

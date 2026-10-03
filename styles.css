@@ -9982,8 +9982,15 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-deck .dk-prog .fill{position:absolute; left:0; top:0; bottom:0; height:auto; border-radius:0; background:color-mix(in srgb, var(--dk-accent) 10%, transparent);}
 /* the learned share is a clearly deeper tint than the studied one's 10% (Oct 2026, on request: at 20% fading to 9% it
    read as uncoloured) */
-.review-group .active-deck .dk-prog .fill-l{background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 34%, var(--card)), color-mix(in srgb, var(--dk-accent) 24%, var(--card))); border-right:3px solid var(--dk-accent);}
-.review-group .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, color-mix(in srgb, #C39A2E 24%, var(--card)), color-mix(in srgb, #E6C765 10%, var(--card))); border-right-color:#C39A2E;}
+/* …AND IT IS ONE FLAT TINT WITH NO DARK EDGE (Oct 2026, on request: the deeper share "still does not look
+   properly", and "the line to mark it should not be darker than the progress left to it"). It faded from 34% to
+   24% towards its right end and then stopped at a 3px line of the full accent, so the band grew paler exactly
+   where it met the darkest stroke on the row. It is one even tint now and its own edge is the marker.
+   …AND DEEPER AGAIN, 28% → 40% (Oct 2026, on request: against the studied share's 10% it "sometimes has so
+   little contrast … that it is almost impossible to see" — Russia's, on a tablet). Still well short of the full
+   accent on the row's left edge, which it must not match. */
+.review-group .active-deck .dk-prog .fill-l{background:color-mix(in srgb, var(--dk-accent) 40%, var(--card)); border-right:0;}
+.review-group .active-deck .dk-prog.prog-done .fill-l{background:color-mix(in srgb, #C39A2E 22%, var(--card));}
 /* the games */
 .games-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
 .games-sec .games-head{text-align:left; margin:0; color:var(--ink-quiet);}
@@ -10006,28 +10013,32 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .games-sec .game-tile.done .gt-face::after, .games-sec .game-tile.won .gt-face::after{display:none;}
 .games-sec .game-tile .gt-check, .games-sec .game-tile .gt-seal{position:static; order:3; margin-left:auto; flex:none; width:21px; height:21px; clip-path:none; overflow:visible; background:var(--good, #4F9D67); box-shadow:none;}
 .games-sec .game-tile .gt-seal{width:24px; height:24px; background:none;}
-/* A FINISHED GAME FILLS ITS WHOLE TILE (Oct 2026, on request): green once played, gold once perfect, with a
-   white tick at the right. The fills are the state hues deepened a step (`--gt-fill`), because white text on
-   the raw green or gold is under 4.5:1; the accent itself is untouched, so the chips and marks elsewhere
-   that read `--gt-accent` keep their colour. The seal's wax and sweep stand down here — on a gold tile the
-   tick is the mark, and the wax would be gold on gold. */
-.games-sec .game-tile.done{--gt-fill:color-mix(in srgb, var(--gt-accent) 80%, #0B2A14);}
-.games-sec .game-tile.won{--gt-fill:color-mix(in srgb, var(--gt-accent) 75%, #2B1D00);}
-body.night .games-sec .game-tile.done{--gt-fill:color-mix(in srgb, var(--gt-accent) 68%, #0B2A14);}
-body.night .games-sec .game-tile.won{--gt-fill:color-mix(in srgb, var(--gt-accent) 58%, #2B1D00);}
-.games-sec .game-tile.done, .games-sec .game-tile.won, body.night .games-sec .game-tile.done, body.night .games-sec .game-tile.won,
-.games-sec button.game-tile.done:hover, .games-sec button.game-tile.won:hover{
-  background:var(--gt-fill); border-color:var(--gt-fill); border-left-color:var(--gt-fill);
+/* A FINISHED GAME IS NAMED BY A CHIP, NOT PAINTED (Oct 2026, on request: the filled tiles were "way too dark").
+   The tile FILLED with its state colour, and the fill was the accent mixed three-quarters into a near-black so that
+   white text could pass 4.5:1 — which is what turned the gold olive and the green teal; a solid fill cannot hold
+   white words without going dark. Chosen from six rendered alternatives: the tile takes only a faint tint of the
+   accent, the icon disc fills solid, and the mark at the right becomes a small pill that SAYS the state — Played
+   in green, Perfect in gold — with the score staying beside the title as on an unplayed tile. The accent itself
+   is untouched, so the chips and marks elsewhere that read `--gt-accent` keep their colour.
+   THE WORD IS CSS `content`: the mark already carries the state as its aria-label (doneMarkHTML), so the visible
+   word is a duplicate for sighted readers and the label stays the one spoken; a second text node would be read
+   twice. The seal's wax, sweep and star stand down here — the pill is the mark. By night the pale accents are
+   too light for white, so the pill's word and the disc's glyph take the paper colour instead. */
+.games-sec .game-tile.done, .games-sec .game-tile.won, body.night .games-sec .game-tile.done, body.night .games-sec .game-tile.won{
+  background:color-mix(in srgb, var(--gt-accent) 9%, var(--card));
 }
-.games-sec .game-tile.done .gt-title, .games-sec .game-tile.won .gt-title{color:#fff;}
-.games-sec .game-tile.done .gt-sub, .games-sec .game-tile.won .gt-sub{color:rgba(255,255,255,.85);}
-.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:rgba(255,255,255,.22); color:#fff;}
+.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:var(--gt-accent); color:#fff;}
 .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{
-  width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:#fff;
-  background:none; background-image:none; clip-path:none; filter:none; animation:none;
+  width:auto; height:auto; display:inline-flex; align-items:center; gap:5px; padding:4px 9px 4px 7px; border-radius:999px;
+  background:var(--gt-accent); background-image:none; color:#fff; clip-path:none; filter:none; animation:none;
+  font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600; letter-spacing:.1em; text-transform:uppercase; line-height:1;
 }
-.games-sec .game-tile .gt-check svg, .games-sec .game-tile .gt-seal-face svg{width:22px; height:22px; display:block;}
-.games-sec .game-tile .gt-seal-face{color:#fff; filter:none;}
+.games-sec .game-tile.done .gt-check::after{content:"Played";}
+.games-sec .game-tile.won .gt-seal::after{content:"Perfect";}
+body.night .games-sec .game-tile.done .gt-glyph, body.night .games-sec .game-tile.won .gt-glyph,
+body.night .games-sec .game-tile.done .gt-check, body.night .games-sec .game-tile.won .gt-seal{color:var(--paper);}
+.games-sec .game-tile .gt-check svg, .games-sec .game-tile .gt-seal-face svg{width:12px; height:12px; display:block;}
+.games-sec .game-tile .gt-seal-face{color:inherit; filter:none;}
 .games-sec .game-tile:not(.done):not(.won) .gt-face::after{content:""; display:block; order:3; margin-left:auto; flex:none; width:20px; height:20px; border-radius:50%; border:1.5px solid var(--rule); position:static; transform:none; background:none; -webkit-mask:none; mask:none; opacity:1;}
 /* reading beside the week */
 .home-two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
@@ -10064,18 +10075,62 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 @media (min-width:641px){ .home-foot .home-about{padding-top:0;} }
 /* the middle column is the flexible one (Oct 2026, on request: the gap after the number was too wide) — with
    `auto auto 1fr` the week of dots spanning the first two columns stretched the number's column to fit */
-.streak-ribbon{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:8px 8px;}
-.streak-ribbon > .sr-n{grid-column:1; grid-row:1;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1;} .streak-ribbon > .sr-best{grid-column:3; grid-row:1; justify-self:end; margin:0;}
-.streak-ribbon > .sr-days{grid-column:1 / 3; grid-row:2;} .streak-ribbon > .sr-note{grid-column:3; grid-row:2; justify-self:end; text-align:right;}
+/* ONE ROW (Oct 2026, on request, with the ribbon cut to the current week): the count and its label, then the
+   week and its chest, each centred on the box's height, and Longest over the note filling the right */
+.streak-ribbon{display:grid; grid-template-columns:auto auto auto 1fr; grid-template-rows:auto auto; align-items:center; gap:4px 10px;}
+.streak-ribbon > .sr-n{grid-column:1; grid-row:1 / 3;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1 / 3;}
+.streak-ribbon > .sr-days{grid-column:3; grid-row:1 / 3; margin-left:12px;}
+.streak-ribbon > .sr-best{grid-column:4; grid-row:1; justify-self:end; align-self:end; margin:0;}
+.streak-ribbon > .sr-note{grid-column:4; grid-row:2; justify-self:end; align-self:start; text-align:right;}
+.streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-row:1 / 3; align-self:center;}
+/* THE PREVIEW SITS IN THE MIDDLE OF ITS ROOM (Oct 2026, on request: "as much empty space to the left as to the
+   right of it"). The text column took every spare pixel and pushed the fan to the banner's right edge; now the
+   column keeps its natural width and the fan splits what is left with auto margins. The banner's 24px gap is
+   given up for this pair (it would count on the left only) and the fan carries 12px of its own each side
+   instead, so the two can never touch; the cards are drawn inside that padding. */
+@media (min-width:641px){
+  .page .rv-banner:has(> .rv-preview){column-gap:0;}
+  .page .rv-banner:has(> .rv-preview) > .body{flex:0 1 auto;}
+  .rv-preview{margin:0 auto; padding:0 12px; box-sizing:content-box;}
+  .pv-card{left:12px; right:12px;}
+}
+/* THE WEEK FILLS THE ROW on a tablet and desktop (Oct 2026, on request: "there is currently still a lot of
+   empty space … grow the coloured boxes and the chest to fill as much of this empty space as possible"). The
+   week's column is the flexible one and Longest-over-the-note takes only what it needs at the right; each day
+   is a square that grows with the room it is given, up to 48px, and the chest grows with it, so the ribbon
+   stays about as tall as its two-line note. A phone keeps its 12px days (its own block, below). */
+@media (min-width:641px){
+  .streak-ribbon{grid-template-columns:auto auto minmax(0, 1fr) auto;}
+  .streak-ribbon > .sr-days{min-width:0;}
+  .sr-wk{flex:1 1 auto; gap:8px; max-width:100%;}
+  /* smaller than the slot it sits in (Oct 2026, on request, twice: "make the green squares a little smaller
+     but keep them in their current places") — the 7px margins give back what the square gave up, so each day
+     keeps its centre and the week keeps its spread */
+  .sr-wk i{flex:1 1 14px; min-width:14px; max-width:34px; width:auto; height:auto; aspect-ratio:1 / 1; border-radius:7px; margin:0 7px;}
+  .sr-wk i.t{border-width:3px;}
+  /* …and air to the chest's right (Oct 2026, on request), between it and Longest */
+  .sr-chest{flex:1.6 1 22px; min-width:30px; max-width:76px; width:auto; margin:0 20px 0 8px;}
+  /* the chest is drawn in the lower part of its own viewBox (its lid's arc starts a sixth of the way down and
+     its box ends near the foot), so a centred box is a chest sitting low — nudged up by that difference */
+  .sr-chest .chest-svg{transform:translateY(-5%);}
+}
 @media (max-width:1024px){
   .rv-preview{width:260px; height:180px;}
   .games-sec .game-grid{grid-template-columns:repeat(2, 1fr);}
-  /* the note column is capped, so a long note wraps instead of running over the week of dots (Oct 2026, tablet) */
-  .streak-ribbon{grid-template-columns:auto 1fr fit-content(40%);}
 }
 /* A NARROW TABLET DROPS THE FANNED PREVIEW (Oct 2026, on request): beside it the piles and the estimate ran
-   under the cards, "≈ 1 h 9 min" cut off at the edge. The piles keep their own width. */
+   under the cards, "≈ 1 h 9 min" cut off at the edge. The piles keep their own width.
+   …AND A PORTRAIT TABLET HAS IT BACK (Oct 2026, on request: "a large empty space on the right … put the card
+   preview there"). The overlap came from a FIXED 260px beside a column that would not shrink; here the text
+   column keeps its natural width and the preview takes what is left, between 150px and 240px, so it can
+   never run under the piles. Below 720px there is no 150px left over and it stays hidden. */
 @media (min-width:641px) and (max-width:900px){
+  .page .rv-banner .body{flex:0 1 auto;}
+  .rv-preview{flex:1 1 0; width:auto; min-width:150px; max-width:240px; height:170px; margin:0 auto;}
+  .pv-card{padding:14px 15px;}
+  .pv-card p{font-size:13.5px;}
+}
+@media (min-width:641px) and (max-width:719px){
   .rv-preview{display:none;}
 }
 @media (max-width:640px){
@@ -10088,7 +10143,14 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .page .rv-banner .stat b{font-size:calc(24px * var(--fs));}
   .page .rv-banner .stat.st-est{padding-left:10px;}
   .streak-ribbon{padding:12px 14px;}
-  .sr-wk:not(.cur){display:none;} .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
+  .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
+  /* a phone keeps its two-row layout (Oct 2026, on request: "don't apply the streak changes to mobile"):
+     the count, label and Longest on top, the week under them and the note at its right */
+  .streak-ribbon{grid-template-columns:auto 1fr fit-content(40%); gap:8px 8px;}
+  .streak-ribbon > .sr-n{grid-column:1; grid-row:1;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1;}
+  .streak-ribbon > .sr-best{grid-column:3; grid-row:1; align-self:center;}
+  .streak-ribbon > .sr-days{grid-column:1 / 3; grid-row:2; margin-left:0;}
+  .streak-ribbon > .sr-note, .streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-column:3; grid-row:2; align-self:center;}
   .review-group .active-deck{padding-right:12px; gap:10px;}
   .review-group .active-deck .dk-counts{grid-template-columns:repeat(3, 28px);}
   .review-group .active-deck .dkc{height:26px; font-size:calc(12px * var(--fs));}
@@ -10096,6 +10158,13 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .review-group .active-deck .dk-prog .fill-l{border-right:0; background:var(--dk-accent); border-radius:0 3px 3px 0;}
   /* the studied share is a bar here too, and at the row tint's 7% it vanished against the card (Oct 2026, on request) */
   .review-group .active-deck .dk-prog .fill{background:color-mix(in srgb, var(--dk-accent) 30%, transparent);}
+  /* an unfolded collection and its subdecks are ONE tight block (Oct 2026, on request — see `dk-att` in
+     adSyncFold): no gap and no corners between them, one hairline as the divider (the -9px is the grid's
+     8px gap plus the 1px border the two rows would otherwise double), and a little extra room under the
+     last subdeck so the next collection reads as the next thing rather than a part of this one */
+  .review-group .active-deck.dk-att{margin-top:-9px; border-top-left-radius:0; border-top-right-radius:0;}
+  .review-group .active-deck.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
+  .review-group .active-deck.dk-att:not(.dk-cont){margin-bottom:6px;}
   .games-sec .game-grid{grid-template-columns:1fr;}
   .home-two{grid-template-columns:1fr;}
   .home-foot{justify-content:center; text-align:center;}
@@ -10205,3 +10274,48 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .page .collection-group-soon:not([open]) > summary.group-head{border-radius:14px; border-bottom:1px solid var(--rule);}
 .page .collection-group-soon[open] > summary.group-head{border-radius:14px 14px 0 0;}
 .page .collection-group + .collection-group.community-group:not(#langDecks){margin-top:22px;}
+
+/* ============================================================
+   LIBRARY PAGE — the Oct 2026 Timeline (see docs/mockups/library-redesigns/l-5-timeline.html)
+   ============================================================
+   The shelf as a line through time: a rule down the left of each section, era marks on it when the shelf
+   is sorted by date, and every banner hung off it by a dot in the book's colour and a short tie. Two
+   banners to a row on a wide screen, one below 1025px. The banner itself is the home page's FILL ROW: how
+   far the book is read is painted across it from the left (`--w`, set by PAGES.library), with no edge
+   line and no bar — the fill is the figure. The markup is in PAGES.library (timelineHTML). */
+.book-timeline{position:relative; padding-left:34px;}
+.book-timeline::before{content:""; position:absolute; left:11px; top:0; bottom:0; width:2px; background:var(--rule);}
+.book-timeline .book-grid{gap:8px;}
+.bk-mark{position:relative; grid-column:1 / -1; margin:14px 0 2px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; color:var(--indigo); font-weight:700;}
+.bk-mark:first-child{margin-top:2px;}
+.bk-mark em{font-style:normal; color:var(--ink-faint); margin-left:6px;}
+.bk-mark::before{content:""; position:absolute; left:-29px; top:3px; width:12px; height:12px; border-radius:50%; background:var(--indigo); box-shadow:0 0 0 4px var(--paper);}
+.bk-slot{position:relative; min-width:0;}
+.bk-slot > .book-tile{width:100%;}
+.bk-slot::before{content:""; position:absolute; left:-27px; top:50%; width:8px; height:8px; margin-top:-4px; border-radius:50%; background:var(--tile, var(--indigo)); z-index:1;}
+.bk-slot::after{content:""; position:absolute; left:-19px; top:50%; width:18px; height:1px; background:var(--rule);}
+/* the banner: plain paper under a fill that is the reading progress, the wash and the bottom bar gone */
+.page .book-tile, body.night .page .book-tile{background:var(--card);}
+.page .book-tile::before{content:""; position:absolute; left:0; top:0; bottom:0; width:var(--w, 0%); pointer-events:none;
+  background:linear-gradient(90deg, color-mix(in srgb, var(--bk-accent) 22%, var(--card)), color-mix(in srgb, var(--bk-accent) 9%, var(--card)));}
+.page .book-tile[style*="--w:0%"]::before{display:none;}
+.page .book-tile > .bk-spine, .page .book-tile > .bk-tile-body, .page .book-tile > .bk-star{position:relative; z-index:1;}
+.page .book-tile > .bk-star{position:absolute;}
+.page .bk-tile-bar{display:none;}
+@media (min-width:1025px){
+  .book-timeline .book-grid{grid-template-columns:1fr 1fr; column-gap:14px;}
+  .bk-slot.bk-c2::before, .bk-slot.bk-c2::after{display:none;}
+  /* at half the page's width the title block asks for less before the right-hand block drops under it —
+     a long title wraps, where a dropped block made the banner half as tall again (157px against 120) */
+  .book-timeline .bk-tile-main{flex-basis:140px;}
+  .book-timeline .bk-tile-body{padding:12px 14px; gap:4px 14px;}
+  .book-timeline .bk-tile-title{font-size:calc(17.5px * var(--fs));}
+}
+@media (max-width:640px){
+  .book-timeline{padding-left:26px;}
+  .book-timeline::before{left:7px;}
+  .bk-mark::before{left:-25px; width:10px; height:10px;}
+  .bk-slot::before{left:-23px;}
+  .bk-slot::after{left:-15px; width:14px;}
+}
+

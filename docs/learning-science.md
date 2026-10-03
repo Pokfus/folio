@@ -241,6 +241,8 @@ fighting `mixPiles`'s interleave — it must only touch the head of the queue, n
 
 ### 3. Blocked first, interleaved after — a fourth deck order
 
+> **REMOVED (Oct 2026, on request).** Ordered now deals Folio's own collections one subdeck at a time, front to back, and the fourth order is gone. What follows is the record of what shipped.
+>
 > **SHIPPED (Sep 2026) as `hybrid`, labelled "Eased in".** `HYBRID_N` is 12. The round robin was lifted out of `studyOrder` into `robinOrder` so the hybrid can run it on a subset, and the pooled review needed a case of its own — its Ordered branch re-sorts the whole queue into the tree's global sequence and would have undone the per-deck order.
 
 **Finding.** Interleaving wins at long delay; hybrid may beat both, because a novice needs to see what
@@ -881,7 +883,7 @@ retrieving earlier material improves the learning of new material studied afterw
 promise survives except at the head, and **running BEFORE the sibling pass**, which is the one that can
 fix a note's two sides being pushed together. A first-ever session has nothing to warm up with and is
 left alone.
-· **`hybrid` — A FOURTH DECK ORDER, "Eased in".** Interleaving wins at long delay; a hybrid may beat
+· **(REMOVED Oct 2026 — see #3.)** **`hybrid` — A FOURTH DECK ORDER, "Eased in".** Interleaving wins at long delay; a hybrid may beat
 both, because a novice needs to see what a category has in common before discriminating means anything.
 A subdeck is GREEN once `HYBRID_N` (12) of its cards have a record — measured off `S.cards`, so it needs
 no field. **Fresh subdecks come first and come whole**: the new-card allowance is sliced off the front

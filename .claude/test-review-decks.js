@@ -252,12 +252,9 @@ const SETTINGS = {
     check("...a second reaches By difficulty, the order that had no control until now",
       c2.chip === "By difficulty" && c2.order === "difficulty" && c2.random === false, JSON.stringify(c2));
     const c3 = await cyc();
-    check("...a third reaches Eased in, the blocked-then-interleaved order (Sep 2026)",
-      c3.chip === "Eased in" && c3.order === "hybrid" && c3.random === false, JSON.stringify(c3));
+    check("...and a third wraps back to Ordered (Eased in was removed, Oct 2026)", c3.chip === "Ordered" && c3.order === "ordered", JSON.stringify(c3));
     const c4 = await cyc();
-    check("...and a fourth wraps back to Ordered", c4.chip === "Ordered" && c4.order === "ordered", JSON.stringify(c4));
-    const c5 = await cyc();
-    check("...leaving it on Random for the rest of this section", c5.order === "random" && c5.random === true, JSON.stringify(c5));
+    check("...leaving it on Random for the rest of this section", c4.order === "random" && c4.random === true, JSON.stringify(c4));
     /* …and the SHEET STAYS OPEN, which is the whole difference between a switch and a command: every
        other row here closes behind itself, and taking the sheet away is what makes a reader wonder
        whether the throw landed. (It must also not repaint — render() closes this very sheet.) */

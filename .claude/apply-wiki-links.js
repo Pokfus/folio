@@ -3,6 +3,7 @@
   apply-wiki-links.js — write each card's Wikipedia article title onto the card, from wiki-links.json.
 
     node .claude/apply-wiki-links.js [--dry]
+    node .claude/apply-wiki-links.js --check     # offline, writes nothing; exit 1 if the cards are out of step
 
   Reads  .claude/wiki-links.json   (made by find-wiki-links.js: one entry per card, with `title` and
                                     `url` where a dedicated article was found)
@@ -21,6 +22,7 @@ const path = require("path");
 const { loadCards, writeCards } = require(path.join(__dirname, "card-io.js"));
 
 const DRY = process.argv.includes("--dry");
+const CHECK = process.argv.includes("--check");
 const links = JSON.parse(fs.readFileSync(path.join(__dirname, "wiki-links.json"), "utf8")).cards || {};
 const { cards, tree } = loadCards();
 
@@ -36,4 +38,24 @@ for (const c of cards) {
   }
 }
 console.log(`${cards.length} cards: ${set} set, ${cleared} cleared, ${kept} unchanged, ${unknown} not in wiki-links.json (run find-wiki-links.js for them)`);
-if (!DRY) { writeCards(cards, tree); console.log("written"); }
+/* --check is the CI gate that makes "every card comes with its Learn-more link, where one exists" true
+   of the whole corpus and not just of the sessions that remembered. Two ways to fail, both naming the
+   command that fixes them: a card with NO entry (it was added without add-card.js's Wikipedia step, or
+   that step could not reach Wikipedia), and a card whose `wiki` differs from its entry (wiki-links.json
+   was edited and the applier not re-run). A card with an entry and no article passes: "none" is an
+   answer. Nothing is written. */
+if (CHECK) {
+  const missing = cards.filter((c) => !links[c.id]).map((c) => c.id);
+  if (missing.length) {
+    console.error("FAIL  " + missing.length + " card(s) have no entry in .claude/wiki-links.json: " + missing.slice(0, 12).join(", ") + (missing.length > 12 ? ", …" : ""));
+    const prefixes = [...new Set(missing.map((id) => id.replace(/\d+[a-z]?$/, "")))];
+    const scope = missing.length <= 40 ? "--cards=" + missing.join(",") : prefixes.length <= 3 ? prefixes.map((p) => "--prefix=" + p).join(" (once each) ") : "(--prefix=<p>- for each collection listed)";
+    console.error("      fix: NODE_USE_ENV_PROXY=1 node .claude/find-wiki-links.js " + scope + " && node .claude/apply-wiki-links.js");
+  }
+  if (set || cleared) console.error("FAIL  " + (set + cleared) + " card(s) carry a `wiki` that differs from wiki-links.json — fix: node .claude/apply-wiki-links.js");
+  if (missing.length || set || cleared) process.exit(1);
+  console.log("ok  every card has a Wikipedia entry and its `wiki` matches it");
+  process.exit(0);
+}
+if (!DRY && (set || cleared)) { writeCards(cards, tree); console.log("written"); }
+else if (!DRY) console.log("nothing to write");
