@@ -246,6 +246,16 @@ Filled batch by batch, from the source each row names.
 | Late Harappan phase | c. 1900 – 1300 BCE | Robbins Schug et al. (`wh-238`) |
 | steppe ancestry: in Central Asia / in South Asia | c. 2100 – 1700 / c. 2000 – 1500 BCE | Narasimhan et al. 2019 (`wh-239`) |
 | Vedic period | c. 1500 – 500 BCE (every date an estimate from the texts); oldest Upanishads c. 700 – 500 BCE | Macdonell; Black (`wh-240`) |
+| Rigveda composed | c. 1500 – 1000 BCE (a 1900 estimate); the middle books c. 1200 BCE (a modern study) | Macdonell 1900; Kolipakam et al. (`wh-241`) |
+| Old Indo-Aryan / Panini's grammar | c. 1750 – 250 BCE / c. 400 BCE | Kolipakam et al.; Deshpande (`wh-242`) |
+| Erlitou culture / the site at its height / found | c. 1800 – 1530 BCE (older accounts c. 1900 – 1500) / c. 1750 – 1530 BCE / 1959 | Xie et al. 2020 (`wh-243`) |
+| Xia dynasty, three reckonings | 2205 – 1767 BCE (later imperial annals) / from 1989 BCE (Bamboo Annals) / c. 2070 – 1600 BCE (chronology project) | Chavannes; Chen (`wh-244`) |
+| Shang dynasty / at Anyang | c. 1600 – 1046 BCE (chronology project) / c. 1250 – 1046 BCE | Tang et al.; Zhang et al. (`wh-245`) |
+| oracle bone script / found | c. 1250 – 1046 BCE / 1899; eclipses fix c. 1201 – 1181 BCE | Ottaviano et al. (`wh-246`) |
+| Yinxu occupied | c. 1250 – 1045 BCE (the Zhou conquest 1046 on the standard chronology) | Liu et al. (`wh-247`) |
+| Chinese ritual bronzes | c. 1600 – 221 BCE (Shang and Zhou) | Liu et al. (`wh-248`) |
+| Wu Ding's reign (Fu Hao) | c. 1250 – 1192 BCE | Lee 2002 (`wh-249`) |
+| Sanxingdui centre / pits / found | c. 1700 – 1000 BCE / c. 1200 – 1000 BCE (Pit 4 1199 – 1017) / 1929 | Yan et al. (`wh-250`) |
 
 ## Chronology pins
 
@@ -481,4 +491,14 @@ wh-237: 2500; 1500; 1000
 wh-238: 1900; 1300
 wh-239: 2100; 1700; 2000; 1500
 wh-240: 1500; 500
+wh-241: 1500; 1000
+wh-242: 1750; 250; 400
+wh-243: 1800; 1530; 1750; 1959
+wh-244: 2205; 1767; 1989; 2070; 1600
+wh-245: 1600; 1046; 1250
+wh-246: 1250; 1046; 1899
+wh-247: 1250; 1045
+wh-248: 1600; 221
+wh-249: 1250; 1192
+wh-250: 1700; 1000; 1200; 1929
 ```

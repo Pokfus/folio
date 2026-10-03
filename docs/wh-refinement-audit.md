@@ -138,7 +138,7 @@ in plan order unless the user says otherwise.
 | B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | **done 2026-10-03** |
 | B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | **done 2026-10-03** |
 | B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | **done 2026-10-03** |
-| B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | open |
+| B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | **done 2026-10-03** |
 | B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | open |
 | B27 | The Bronze Age world (`wh-bronze-age`) | `wh-261`–`wh-270` | 10 | 117 | open |
 | B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | open |
@@ -1114,6 +1114,41 @@ linguistic consensus and names the dissenting views; its phrasings name no schol
 
 **Glossary.** Nine terms rewritten; *decline of the Indus civilisation* already agreed.
 
+### B25 — `wh-241`–`wh-250`, The Indus and early China (2026-10-03)
+
+Run as B24. Checks: `wh-audit.js --range=wh-241:wh-250` clean on all ten; `check-questions`, `check-cards
+--prefix` per card, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans` pass;
+`check-citations --card` 0 mismatched; all 52 distinct URLs 2xx. New locators: `wh-247` (Yinxu, labelled Anyang) and `wh-250`
+(Sanxingdui, labelled Guanghan). **Harness lesson:** two glossary drafts (`wh-241`, `wh-242`) numbered their
+markers by the card's source list, not the entry's own shorter one; `precheck.js` does not catch it and
+`add-glossary.js` refused at apply time. Both were renumbered by hand against the entry's list.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-241` Rigveda | 8 | 5 → 8 | **The Song of Creation (10.129) was cited to a Griffith volume that stops before book 10.** A Niya Prakrit paper and a Thar Desert study dropped, and "the oldest book of the subcontinent" with them. The 1500 – 1000 BCE dating is credited as Macdonell's early estimate beside a modern c. 1200 BCE. |
+| `wh-242` Sanskrit | 9 | 5 → 9 | **A "Vedic Sanskrit" row carried the Rigveda's dates**; now Old Indo-Aryan c. 1750 – 250 BCE and Panini c. 400 BCE. Steppe-ancestry claims (`wh-239`'s subject) dropped; the name, the Prakrits, the Mitanni loanwords and Panini added. |
+| `wh-243` Erlitou culture | 6 | 5 → 6 | The culture is c. 1800 – 1530 BCE on new radiocarbon, the older c. 1900 – 1500 in prose. **"No fortifications" is wrong for the culture**, and with other claims cited to off-subject papers dropped. The Luoyang basin, the four-tier settlements and the walled bronze workshop added. |
+| `wh-244` Xia dynasty | 7 | 6 → 7 | **The Erlitou–Xia link was stated as fact; now a modern, unproven claim.** Each date says whose: later imperial annals 2205 – 1767 BCE, the Bamboo Annals from 1989 BCE, the chronology project c. 2070 – 1600 BCE. A "Xinzhai capital" claim and an unread flood paper dropped. |
+| `wh-245` Shang dynasty | 7 | 5 → 8 | The old card was three narrow studies (a skull ditch, a cemetery's genomes, typhoons); now the whole dynasty, c. 1600 – 1046 BCE as the chronology project's dates. **A "Late Shang c. 1300" row had no source.** |
+| `wh-246` oracle bone script | 7 | 5 → 8 | **The end was 1045 BCE; the standard date is 1046**, as on `wh-245`. Dataset details given as general facts dropped; divination, the 1899 discovery and the eclipses of 1201 – 1181 BCE added. |
+| `wh-247` Yinxu | 6 | 5 → 6 | Water-buffalo, typhoon and oracle-bone dataset claims dropped, and a row dating one tomb. Occupied c. 1250 – 1045 BCE as its source gives it; the four-ramp tombs, lineage cemeteries and the captives' origins (hedged) added. "500 km" now carries its miles. |
+| `wh-248` Chinese ritual bronzes | 7 | 5 → 7 | A row giving the dynasty's own dates dropped for c. 1600 – 221 BCE, the span of the vessels; **the mould-location claim cut back to what its source says**. Two sources are Art Institute of Chicago API records, its pages answering 403. |
+| `wh-249` Fu Hao | 6 | 5 → 6 | Three off-subject sources dropped. **The line gave Yinxu's span, not hers**; no source gives her birth or death, so it gives Wu Ding's reign, c. 1250 – 1192 BCE, as debated. Tomb M5, the Hou Mu Xin cauldrons and her role as a warrior consort added. |
+| `wh-250` Sanxingdui | 6 | 5 → 6 | **A row dated one pit (K4) in BP**; now the centre c. 1700 – 1000 BCE, the pits c. 1200 – 1000 BCE and the find of 1929. **"Ivory over the bronzes" in every pit had no source.** |
+
+**Read by eye.** *Article:* "the Rigveda", "the Erlitou culture", "the Xia dynasty", "the Shang dynasty", "the
+oracle bone script"; Sanskrit, Yinxu, Fu Hao and Sanxingdui bare; "Chinese ritual bronzes" plural. 
+*Confusability:* `wh-243`/`wh-244` the excavated culture and the dynasty of the texts, each naming the other only
+as a claim; `wh-245`/`wh-246`/`wh-247`/`wh-249` the dynasty, its writing, its capital and its queen, the
+sacrifice clue only on `wh-245`, the tombs on `wh-247` and `wh-249` told apart by Xibeigang and M5;
+`wh-248`/`wh-249` both mention pure copper, on the vessels as a class and on her own. *Consistency:* the Zhou
+conquest is 1046 BCE on `wh-245` and `wh-246`; `wh-247` keeps its source's occupation end of 1045 BCE and gives
+1046 for the conquest in its prose. `wh-249`'s line is her consort's reign, the only date a source fixes her by.
+*Against the cnh- cards:* `cnh-062` dates Erlitou c. 2000 – 1600 BCE; `cnh-066` ends Late Shang at 1050 BCE;
+`cnh-069` ends Yinxu at 1046; `cnh-081` dates the bronzes 1600 – 771 BCE.
+
+**Glossary.** Seven terms rewritten; *Shang dynasty*, *Yinxu* and *Chinese ritual bronzes* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1210,3 +1245,6 @@ pass once it answers. Filled batch by batch.
 | `wh-229` | the Western Deffufa, Kerma only; a cataract landscape would show the region (and **locator**: "Nubia" has no coordinate) |
 | `wh-238` | a labelled plate of finds from Khirsara |
 | `wh-239` | a drawn map with burned-in dates and arrows |
+| `wh-241`, `wh-242` | fit, but credits lack the author, licence and Commons URL form |
+| `wh-244` | a 1903 map sheet with pencilled notes and a library stamp |
+| `wh-247` | one chariot pit; a wider view of the site would serve better |
