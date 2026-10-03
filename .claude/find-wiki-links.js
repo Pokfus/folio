@@ -58,6 +58,8 @@
     redirect-broader   redirected to a differently named article — a human should glance at it
     disambig-resolved  the answer was a disambiguation page; one of its links was chosen by hint words
     search-match       a search hit with the answer's words in another order (listed in the report)
+    list-page          the only match is a list, timeline, glossary or index page ("List of governors of
+                       Roman Egypt"): an index of many things, not an article about this one. No link.
     section-redirect   the only match is a redirect INTO A SECTION of another article: NOT a dedicated
                        page. No link is recorded.
     disambiguation     only a disambiguation page matched and no link could be chosen. No link.
@@ -340,6 +342,7 @@ function sameName(a, b) {
   const extra = [...tb].filter((w) => !ta.has(w)), missing = [...ta].filter((w) => !tb.has(w));
   return missing.length === 0 && extra.length <= 1;
 }
+const LIST_RX = /^(List|Lists|Timeline|Glossary|Index|Outline) of /i;
 const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(title.replace(/ /g, "_")).replace(/%2C/g, ",").replace(/%3A/g, ":");
 
 /* ---------- main ---------- */
@@ -402,6 +405,9 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
       }
       if (!entry.title && hits) entry.suggestions = hits;
     }
+    // A redirect INTO an index page ("prefect of Egypt" → "List of governors of Roman Egypt") is not a
+    // dedicated article about the term: it is the same case as a section redirect, so no link is recorded
+    if (entry.title && LIST_RX.test(entry.title)) { entry.target = entry.title; entry.title = null; entry.status = "list-page"; }
     if (entry.title) entry.url = urlFor(entry.title);
     result.cards[c.id] = entry;
     if (n % 250 === 0) process.stderr.write(`  ${n}/${cards.length} cards decided\n`);
@@ -430,6 +436,7 @@ function writeReport(all, counts) {
       if (status === "disambig-resolved") return `${line(id)} → [${e.title}](${e.url}) (via the disambiguation page \`${e.from}\`)`;
       if (status === "search-match") return `${line(id)} → [${e.title}](${e.url})`;
       if (status === "disambiguation") return `${line(id)} — \`${e.from}\` is a disambiguation page${e.suggestions && e.suggestions.length ? "; its links: " + e.suggestions.map((s) => `\`${s}\``).join(", ") : ""}`;
+      if (status === "list-page") return `${line(id)} — only an index page matched: \`${e.target}\``;
       if (status === "section-redirect") return `${line(id)} — \`${e.from}\` only redirects into \`${e.target}\``;
       return `${line(id)}${e.suggestions && e.suggestions.length ? " — search suggests " + e.suggestions.map((s) => `\`${s}\``).join(", ") : ""}`;
     }).join("\n") + "\n";
@@ -467,6 +474,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 | \`disambig-resolved\` | ${counts["disambig-resolved"] || 0} | chosen from a disambiguation page by hint words — listed below |
 | \`search-match\` | ${counts["search-match"] || 0} | a search hit with the answer's words in another order — listed below |
 | \`redirect-broader\` | ${counts["redirect-broader"] || 0} | redirected to a differently named article — listed below, a glance each |
+| \`list-page\` | ${counts["list-page"] || 0} | only a list / timeline / index page matched: no dedicated article, no link |
 | \`section-redirect\` | ${counts["section-redirect"] || 0} | only a redirect into a section exists: no dedicated page, no link |
 | \`disambiguation\` | ${counts.disambiguation || 0} | only a disambiguation page; no link could be chosen |
 | \`none\` | ${counts.none || 0} | nothing matched; no link |
@@ -474,6 +482,6 @@ accepted only when the title IS the answer. Nothing is guessed.
 **${linked} of ${total} cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
-${sec("Redirected to a differently named article — check each", "redirect-broader", "The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.")}${sec("Settled from a disambiguation page", "disambig-resolved", "The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.")}${sec("Matched by search — check each", "search-match", "No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.")}${sec("Disambiguation pages that could not be settled", "disambiguation", "Pick the right article by hand, or leave the card without a link.")}${sec("Section redirects — no dedicated page", "section-redirect", "Wikipedia treats these as part of another article. No link.")}${sec("No article found", "none", "Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.")}`;
+${sec("Redirected to a differently named article — check each", "redirect-broader", "The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.")}${sec("Settled from a disambiguation page", "disambig-resolved", "The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.")}${sec("Matched by search — check each", "search-match", "No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.")}${sec("Disambiguation pages that could not be settled", "disambiguation", "Pick the right article by hand, or leave the card without a link.")}${sec("Index pages — no dedicated article", "list-page", "The only match is a list, timeline or index page. Not a dedicated article, so no link; if a better article exists, put its title and URL in the entry and add `\"manual\": true`.")}${sec("Section redirects — no dedicated page", "section-redirect", "Wikipedia treats these as part of another article. No link.")}${sec("No article found", "none", "Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.")}`;
   fs.writeFileSync(REPORT, md);
 }
