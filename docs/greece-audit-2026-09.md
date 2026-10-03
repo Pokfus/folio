@@ -700,6 +700,31 @@ rewritten. `Areopagus`, `Thespiae`, `Eurybiades` and `Medism` already have keys.
 `Mali` carries the alias `Malian`, so the Malians of Trachis open the African country; `gr-422` rewords and
 `gr-424` wraps the word in `<span class="ans-term">`. A key for the Malians (or `Malis`) would end it.
 
+**Added by the refinement's B46–B52 (2026-10-03)**, counted the same way after `gr-431`–`gr-500` were
+rewritten. `hypothesis`, `phratry`, `Amorges`, `emporion`, `choregos`, `opisthodomos` and `entasis` already have keys.
+
+| cards | term | note |
+|---|---|---|
+| 10 | Naupactus · Munychia | |
+| 9 | Halicarnassus | |
+| 8 | Xanthippus | the father of Pericles; Xanthippus son of Pericles is a different man |
+| 7 | Thurii · arbitration | |
+| 5 | Leotychides (Leotychidas) | one key, the other spelling an alias |
+| 4 | Adeimantus · Dipylon | Adeimantus the Corinthian admiral of 480 BCE |
+| 3 | Artabazus · Pleistoanax · Lygdamis · Rhamnous · Pamphylia · Nisaea · Elpinice · Pnyx | Lygdamis of Halicarnassus, not the tyrant of Naxos |
+| 2 | Lycidas · Aleuadae · Sacred Gate · Zea · Terillus · Anaxilas · Nemesis · Phaselis · Drabescus · Pegae · Pissuthnes · Melissus · Bendis · antidosis · Myronides | Melissus the Samian philosopher-admiral |
+| 1 | Asopus · Cithaeron · Colonae · scytale · Argilus · Tigranes · Panormus · Boges · Lycomedes · Dolopians · Stenyclerus · epistates · pinakion · nothos · Inaros · Megabyzus · Prosopitis · Deigma · Hippodameia · diekplous · Hekatompedon | |
+| 0 | navarch · aparche · logistai · eikoste · synedrion · proxenos · dokimasia · euthyna · kleroterion · klepsydra · thranite · symmory | institution words used on these cards only as glosses in the prose |
+
+Keys that open the wrong sense, stopped on these cards with `<span class="ans-term">`: `Hamilcar` (keyed to
+Hamilcar Barca; `gr-446` – `gr-448` mean the general of 480 BCE), `Tholos` (keyed to the Mycenaean tomb; `gr-470`
+means the Agora building), `kleros` (keyed to the Spartan allotment; `gr-482` means the Athenian cleruch's lot),
+`Allotment` (a US policy; `gr-471`, `gr-482`), `Pylos` (the Palace of Nestor; `gr-471`, `gr-481` mean the battle of
+425 BCE), `Olympias` (Alexander's mother; `gr-490` means the ship), `Periander` (the tyrant of Corinth; `gr-491`
+means the Athenian law-giver), `Conon` (the admiral; `gr-465`, `gr-466` mean the archon) and `Mali` (alias
+`Malian`; the Malians of Trachis). New keys for the Athenian `Tholos`, for the
+Carthaginian `Hamilcar` of 480 BCE and for the ship `Olympias` would end most of them.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
