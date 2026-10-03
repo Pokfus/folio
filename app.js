@@ -15006,7 +15006,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     browse:    ["Card browser — Folio", "Search every card you could study by state, flag, deck, tag or how often you have forgotten it."],
     warofages: ["Project W — Folio", "A game in the making. Not yet open to readers."],
     settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
-    challenge: ["Multiple Choice — Folio", "Today's five-question history quiz."],
+    challenge: ["ABCD — Folio", "Today's five-question history quiz."],
     chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
     truefalse: ["True or False — Folio", "Today's historical myths and surprising truths."],
     whosaid:   ["Who said it? — Folio", "Match today's famous quotations to the people who said them."],
@@ -24661,7 +24661,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "</button></div>";
     };
     const gameGrid = `<div class="game-grid">
-      ${tile({ id: "g-challenge", key: "challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge"), done: playedChallengeToday, won: wonToday.challenge })}
+      ${tile({ id: "g-challenge", key: "challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "ABCD", sub: gameSub("challenge"), done: playedChallengeToday, won: wonToday.challenge })}
       ${tile({ id: "g-chrono", key: "chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono"), done: playedChronoToday, won: wonToday.chrono })}
       ${tile({ id: "g-truefalse", key: "truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse"), done: playedTrueFalseToday, won: wonToday.truefalse })}
       ${tile({ id: "g-whosaid", key: "whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid"), done: playedWhoSaidToday, won: wonToday.whosaid })}
@@ -37957,7 +37957,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      page — a character that says nothing about Timeline or Find it. Using the tile's own mark also means
      the screen answers in the hand the reader pressed. */
   const GAME_NAMES = {
-    challenge: ["Multiple Choice", ICON.choices], truefalse: ["True or False", ICON.truefalse], whosaid: ["Who said it?", ICON.whosaid],
+    challenge: ["ABCD", ICON.choices], truefalse: ["True or False", ICON.truefalse], whosaid: ["Who said it?", ICON.whosaid],
     chrono: ["Timeline", ICON.timeline], thread: ["Common Thread", ICON.thread], findit: ["Find it", ICON.findit],
     crossword: ["Crossword", ICON.crossword], picture: ["Picture round", ICON.picture], whatyear: ["What year?", ICON.whatyear],
   };

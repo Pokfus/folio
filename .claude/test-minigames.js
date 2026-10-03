@@ -1074,7 +1074,7 @@ function crosswordForPage(cells) {
     };
     const GAMES = [
       ["True or False",   "#truefalse", { q: ".qtext", o: "#tfopts .opt", next: "#tf-next" }],
-      ["Multiple Choice", "#challenge", { q: ".qtext", o: "#opts .opt",   next: "#mc-next" }],
+      ["ABCD", "#challenge", { q: ".qtext", o: "#opts .opt",   next: "#mc-next" }],
       ["Who said it?",    "#whosaid",   { q: ".ws-quote", o: "#opts .opt", next: "#ws-next" }],
     ];
     for (const [name, hash, sel] of GAMES) {
