@@ -9948,6 +9948,12 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
 .review-group .active-deck > :not(.dk-body):not(.dk-grip):not(.gt-check):not(.gt-seal){position:relative; z-index:1;}
 .review-group .active-deck > .dk-grip{z-index:2;}
+/* THE ICON AND THE GRIP STAND ABOVE THE TITLE'S BLOCK (Oct 2026, on a bug report: the deck's icon vanished once any
+   card was learned). `.dk-body` is a stacking context and the fill under the row lives inside it, so the opaque
+   learned fill painted over the icon to its left; the icon at z-index 1 came earlier in the order and lost. */
+.review-group .active-deck > .dk-grip{z-index:3;}
+/* the :not() chain only matches the specificity of the z-index:1 rule above, which it has to beat */
+.review-group .active-deck > .dk-ic:not(.dk-body):not(.dk-grip):not(.gt-check):not(.gt-seal){z-index:3;}
 .review-group .active-deck > .dk-body{z-index:1; order:2; flex:1;}
 .review-group .active-deck > .dk-grip{order:0;} .review-group .active-deck > .dk-ic{order:1;}
 .review-group .active-deck > .dk-counts{order:3;} .review-group .active-deck > .dk-dl{order:4;}
@@ -9966,7 +9972,9 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 /* the fill: the learned share tints the row from the left (the studied share's line is not drawn here) */
 .review-group .active-deck .dk-prog .track{position:absolute; left:0; top:0; bottom:0; right:0; height:auto; background:transparent; border-radius:0; z-index:-1; pointer-events:none;}
 .review-group .active-deck .dk-prog .fill{position:absolute; left:0; top:0; bottom:0; height:auto; border-radius:0; background:color-mix(in srgb, var(--dk-accent) 10%, transparent);}
-.review-group .active-deck .dk-prog .fill-l{background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 20%, var(--card)), color-mix(in srgb, var(--dk-accent) 9%, var(--card))); border-right:3px solid var(--dk-accent);}
+/* the learned share is a clearly deeper tint than the studied one's 10% (Oct 2026, on request: at 20% fading to 9% it
+   read as uncoloured) */
+.review-group .active-deck .dk-prog .fill-l{background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 34%, var(--card)), color-mix(in srgb, var(--dk-accent) 24%, var(--card))); border-right:3px solid var(--dk-accent);}
 .review-group .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, color-mix(in srgb, #C39A2E 24%, var(--card)), color-mix(in srgb, #E6C765 10%, var(--card))); border-right-color:#C39A2E;}
 /* the games */
 .games-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
