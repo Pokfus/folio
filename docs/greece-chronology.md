@@ -480,6 +480,20 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Eurymedon | 466 BCE (Schmitt); 470/469 BCE (Di Cesare); about 468 BCE (Lendering) | Schmitt, Iranica; Girella's review; Lendering, Livius (`gr-458`) |
 | Revolt of Naxos | put down 470 BCE | Lendering, Livius (`gr-459`) |
 | Revolt of Thasos | 465 BCE, or 464 BCE in Oldfather's note to Diodorus; surrendered in the third year | Blackman 1969; Diodorus 11.70 (`gr-460`) |
+| Spartan earthquake; Third Messenian War | earthquake 464 BCE (469 BCE in Diodorus); the revolt from 464 BCE (469/468 BCE in Diodorus); surrender 455 BCE, or 458/457 BCE on another reckoning | Kulesza 2022; Cole 1974; Lang 1967 (`gr-461`, `gr-462`) |
+| Dismissal from Ithome; ostracism of Cimon | dismissed 462 BCE; Cimon ostracised 461 BCE; his trial over Thasos 463 BCE; recalled after Tanagra (no year) | Cole 1974; Goušchin 2019; Plutarch (`gr-463`, `gr-464`) |
+| Ephialtes and the Areopagus | the reform 462/461 BCE, the archonship of Conon; the *Eumenides* 458 BCE | *Constitution of the Athenians* 25; Wallace 1974; Ambrose's review (`gr-465`, `gr-466`) |
+| Pericles | born about 495 BCE (prose only, an estimate); choregos 472 BCE; general 448/447 – 429/428 BCE; deposed and fined 430 BCE; died 429 BCE | Lendering, Livius; Payen's review of Azoulay; Thucydides 2.65 (`gr-467`) |
+| Radical democracy | from 462/461 BCE; restored 403 BCE | Rhodes's review; Correa 2022 (`gr-468`) |
+| Pnyx; Tholos | the Pnyx auditorium c. 500 BCE, or c. 460 BCE on a later dating; the Tholos 470 BCE; the last prytany decrees c. 120 – 130 CE | Hansen 1982; Odysseus; Attic Inscriptions Online (`gr-469`, `gr-470`) |
+| Courts and pay | jury pay from the 450s BCE; 3 obols from 425 BCE; allotment machines soon after 388 BCE; assembly pay soon after 403 BCE | Pritchard 2014; Gkikaki 2023; Kierstead 2023; Kroll 2023 (`gr-471`, `gr-472`) |
+| Board of generals | 501/500 BCE | *Constitution of the Athenians* 22, with Attic Inscriptions Online's dating (`gr-473`) |
+| Citizenship law | 451/450 BCE; the grain scrutiny 445 BCE; Pericles' son enrolled about 429 BCE | LaForse's and Phelan's reviews; Tritle's review; Cromey 1982 (`gr-474`) |
+| First Peloponnesian War | c. 460 – 445 BCE, or 458 – 446 BCE in one study; Coronea 446 BCE | Lendering, Livius; Joyce's review of van Wijk (`gr-475`, `gr-477`) |
+| Tanagra; Oenophyta | 457 BCE (August 457 BCE for Oenophyta, 62 days after Tanagra), or 458 BCE | Kulesza 2022; Attic Inscriptions Online; Joyce's review (`gr-476`, `gr-477`) |
+| Egyptian expedition | c. 460 – 454 BCE, or 465 – 457 BCE on Kahn's dating | Bresciani, Iranica; Nudell 2023 (`gr-478`) |
+| Treasury moved to Athens | 454 BCE; the first quota list 454/453 BCE | Nudell 2023; Attic Inscriptions Online, IG I³ 259 (`gr-479`) |
+| Peace of Callias | 449 BCE; an earlier peace about 465 BCE on one view | Schmitt, Iranica; Badian, Iranica (`gr-480`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -933,4 +947,24 @@ gr-457: 476; 374
 gr-458: 466; 470
 gr-459: 470
 gr-460: 465; 464
+gr-461: 464; 469; 455; 458
+gr-462: 464; 469
+gr-463: 462; 461
+gr-464: 461
+gr-465: 462
+gr-466: 462; 458
+gr-467: 472; 448; 429
+gr-468: 462; 403
+gr-469: 500; 460
+gr-470: 470; 120; 130
+gr-471: 388
+gr-472: 425; 403
+gr-473: 501
+gr-474: 451; 445; 429
+gr-475: 460; 445; 458; 446
+gr-476: 457; 458
+gr-477: 457; 458; 446
+gr-478: 460; 454; 465; 457
+gr-479: 454
+gr-480: 449; 465
 ```
