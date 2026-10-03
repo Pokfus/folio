@@ -9982,8 +9982,12 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-deck .dk-prog .fill{position:absolute; left:0; top:0; bottom:0; height:auto; border-radius:0; background:color-mix(in srgb, var(--dk-accent) 10%, transparent);}
 /* the learned share is a clearly deeper tint than the studied one's 10% (Oct 2026, on request: at 20% fading to 9% it
    read as uncoloured) */
-.review-group .active-deck .dk-prog .fill-l{background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 34%, var(--card)), color-mix(in srgb, var(--dk-accent) 24%, var(--card))); border-right:3px solid var(--dk-accent);}
-.review-group .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, color-mix(in srgb, #C39A2E 24%, var(--card)), color-mix(in srgb, #E6C765 10%, var(--card))); border-right-color:#C39A2E;}
+/* …AND IT IS ONE FLAT TINT WITH NO DARK EDGE (Oct 2026, on request: the deeper share "still does not look
+   properly", and "the line to mark it should not be darker than the progress left to it"). It faded from 34% to
+   24% towards its right end and then stopped at a 3px line of the full accent, so the band grew paler exactly
+   where it met the darkest stroke on the row. It is one even 28% now and its own edge is the marker. */
+.review-group .active-deck .dk-prog .fill-l{background:color-mix(in srgb, var(--dk-accent) 28%, var(--card)); border-right:0;}
+.review-group .active-deck .dk-prog.prog-done .fill-l{background:color-mix(in srgb, #C39A2E 22%, var(--card));}
 /* the games */
 .games-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
 .games-sec .games-head{text-align:left; margin:0; color:var(--ink-quiet);}
@@ -10064,18 +10068,31 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 @media (min-width:641px){ .home-foot .home-about{padding-top:0;} }
 /* the middle column is the flexible one (Oct 2026, on request: the gap after the number was too wide) — with
    `auto auto 1fr` the week of dots spanning the first two columns stretched the number's column to fit */
-.streak-ribbon{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:8px 8px;}
-.streak-ribbon > .sr-n{grid-column:1; grid-row:1;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1;} .streak-ribbon > .sr-best{grid-column:3; grid-row:1; justify-self:end; margin:0;}
-.streak-ribbon > .sr-days{grid-column:1 / 3; grid-row:2;} .streak-ribbon > .sr-note{grid-column:3; grid-row:2; justify-self:end; text-align:right;}
+/* ONE ROW (Oct 2026, on request, with the ribbon cut to the current week): the count and its label, then the
+   week and its chest, each centred on the box's height, and Longest over the note filling the right */
+.streak-ribbon{display:grid; grid-template-columns:auto auto auto 1fr; grid-template-rows:auto auto; align-items:center; gap:4px 10px;}
+.streak-ribbon > .sr-n{grid-column:1; grid-row:1 / 3;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1 / 3;}
+.streak-ribbon > .sr-days{grid-column:3; grid-row:1 / 3; margin-left:12px;}
+.streak-ribbon > .sr-best{grid-column:4; grid-row:1; justify-self:end; align-self:end; margin:0;}
+.streak-ribbon > .sr-note{grid-column:4; grid-row:2; justify-self:end; align-self:start; text-align:right;}
+.streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-row:1 / 3; align-self:center;}
 @media (max-width:1024px){
   .rv-preview{width:260px; height:180px;}
   .games-sec .game-grid{grid-template-columns:repeat(2, 1fr);}
-  /* the note column is capped, so a long note wraps instead of running over the week of dots (Oct 2026, tablet) */
-  .streak-ribbon{grid-template-columns:auto 1fr fit-content(40%);}
 }
 /* A NARROW TABLET DROPS THE FANNED PREVIEW (Oct 2026, on request): beside it the piles and the estimate ran
-   under the cards, "≈ 1 h 9 min" cut off at the edge. The piles keep their own width. */
+   under the cards, "≈ 1 h 9 min" cut off at the edge. The piles keep their own width.
+   …AND A PORTRAIT TABLET HAS IT BACK (Oct 2026, on request: "a large empty space on the right … put the card
+   preview there"). The overlap came from a FIXED 260px beside a column that would not shrink; here the text
+   column keeps its natural width and the preview takes what is left, between 150px and 240px, so it can
+   never run under the piles. Below 720px there is no 150px left over and it stays hidden. */
 @media (min-width:641px) and (max-width:900px){
+  .page .rv-banner .body{flex:0 1 auto;}
+  .rv-preview{flex:1 1 0; width:auto; min-width:150px; max-width:240px; height:170px; margin:0 6px 0 14px;}
+  .pv-card{padding:14px 15px;}
+  .pv-card p{font-size:13.5px;}
+}
+@media (min-width:641px) and (max-width:719px){
   .rv-preview{display:none;}
 }
 @media (max-width:640px){
@@ -10088,7 +10105,14 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .page .rv-banner .stat b{font-size:calc(24px * var(--fs));}
   .page .rv-banner .stat.st-est{padding-left:10px;}
   .streak-ribbon{padding:12px 14px;}
-  .sr-wk:not(.cur){display:none;} .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
+  .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
+  /* a phone keeps its two-row layout (Oct 2026, on request: "don't apply the streak changes to mobile"):
+     the count, label and Longest on top, the week under them and the note at its right */
+  .streak-ribbon{grid-template-columns:auto 1fr fit-content(40%); gap:8px 8px;}
+  .streak-ribbon > .sr-n{grid-column:1; grid-row:1;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1;}
+  .streak-ribbon > .sr-best{grid-column:3; grid-row:1; align-self:center;}
+  .streak-ribbon > .sr-days{grid-column:1 / 3; grid-row:2; margin-left:0;}
+  .streak-ribbon > .sr-note, .streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-column:3; grid-row:2; align-self:center;}
   .review-group .active-deck{padding-right:12px; gap:10px;}
   .review-group .active-deck .dk-counts{grid-template-columns:repeat(3, 28px);}
   .review-group .active-deck .dkc{height:26px; font-size:calc(12px * var(--fs));}
