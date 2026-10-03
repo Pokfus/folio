@@ -212,9 +212,9 @@ one changelog line and a version bump; commit and push.
 | B40 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-371`–`gr-380` | 10 | **done 2026-10-03** |
 | B41 | Persian Wars (`gr-persian-wars`) | `gr-381`–`gr-390` | 10 | **done 2026-10-03** |
 | B42 | Persian Wars (`gr-persian-wars`) | `gr-391`–`gr-400` | 10 | **done 2026-10-03** |
-| B43 | Persian Wars (`gr-persian-wars`) | `gr-401`–`gr-410` | 10 | open |
-| B44 | Persian Wars (`gr-persian-wars`) | `gr-411`–`gr-420` | 10 | open |
-| B45 | Persian Wars (`gr-persian-wars`) | `gr-421`–`gr-430` | 10 | open |
+| B43 | Persian Wars (`gr-persian-wars`) | `gr-401`–`gr-410` | 10 | **done 2026-10-03** |
+| B44 | Persian Wars (`gr-persian-wars`) | `gr-411`–`gr-420` | 10 | **done 2026-10-03** |
+| B45 | Persian Wars (`gr-persian-wars`) | `gr-421`–`gr-430` | 10 | **done 2026-10-03** |
 | B46 | Persian Wars (`gr-persian-wars`) | `gr-431`–`gr-440` | 10 | open |
 | B47 | Persian Wars (`gr-persian-wars`) | `gr-441`–`gr-450` | 10 | open |
 | B48 | Athenian Empire (`gr-athenian-empire`) | `gr-451`–`gr-460` | 10 | open |
@@ -1602,3 +1602,75 @@ Artaphernes and others). Three glossary faults were fixed in the same PR: the al
 `Milesian_school` (the bare word now opens `Miletus`); `Acragas` now names its founders, Aristonous and Pystilus,
 from Thucydides 6.4, which is added to its sources; and `gr-188`'s Thrasybulus of Miletus is wrapped in
 `<span class="ans-term">` so it no longer opens the Athenian democrat.
+
+### B43–B45 — `gr-401`–`gr-430`, Marathon to Salamis (2026-10-03)
+
+Thirty cards of `gr-persian-wars`: the expedition of 490 BCE and Marathon, Themistocles and the fleet, Aristides,
+Xerxes and his preparations, the Greek alliance, Thermopylae, Artemisium, the evacuation and sack of Athens and
+Salamis. **First, B32–B42 was checked:** `greece-audit.js --range=gr-301:gr-400 --summary` shows only the known
+leftovers (17 `I.none`, `L.missing` on `gr-338` and `gr-388`, and `S.chip?` flags on English reviews).
+
+Method: as B39–B42. Six research agents drafted five cards each, with a saved copy of every source and one verbatim
+quote per marker; the quote verifier and the lint wrapper gated every patch, and with every patch of the run merged
+together `Q.sibling` fired on none. Every draft was read by eye before it was written.
+
+Checks:
+- `greece-audit.js --range=gr-401:gr-430` finds nothing but missing pictures and `S.chip?` flags on English BMCR
+  reviews of foreign-titled books (`gr-406`, `gr-412`, `gr-413`, `gr-418`, `gr-429`).
+- `check-citations --card` matches every checkable citation on all 30, the three Laurion chapters (`gr-411`)
+  against their Crossref records.
+- `check-questions`, `check-docs`, `split-cards --check`, `test-card-plans` and `check-gloss-links --card` pass;
+  `check-style` adds nothing to main's standing alarms. Every citation URL answers 200 when re-curled.
+
+**Date lines:**
+- **Rows that were not dates went to the prose:** "Fleet 600 triremes", "Siege of Eretria 6 days", "At Delos 300
+  talents of frankincense", "Persian dead about 6,400", "Athenian dead 192", "Charge 8 stades", "Force 10,000",
+  "Spartans 300", "Fine 50 talents", the fleet counts at Artemisium and Salamis, Troezen's 2 obols and their like.
+- **A disputed day is not a second row** when both readings fall in one year: Marathon (mid-August or
+  mid-September 490 BCE), Thermopylae (12 – 14 August or September 480 BCE) and Salamis (late September) give the
+  year, and the prose or a why gives the dispute.
+- **Disputed years are two rows:** the wooden wall oracle (481 or spring 480 BCE, `gr-420`) and the Troezen stone
+  (c. 300 BCE, or the 3rd century BCE, `gr-428`).
+- **Rows dating other subjects or estimates removed:** `gr-406`'s "Browning's poem 1879" and "First marathon
+  1896" (the prose keeps both); Themistocles' and Miltiades' birth years (estimates; `gr-409` keeps "about 525 BCE"
+  in prose); Xerxes' birth (an estimate); `gr-405`'s "504" for the reform of the generals, which the
+  *Constitution of the Athenians* gives only as the archonship of Hermocreon; `gr-428`'s find and publication
+  years, whose only source (a BCH article on persee.fr) cannot be read.
+- `gr-418` dates Athens' break with Sparta 463 – 461 BCE (Loomis, citing Thucydides 1.102.4); `gr-455` and
+  `gr-463` say c. 462 BCE, which falls inside it, and are settled when their batch comes.
+- `gr-423` dates Leonidas's reign c. 490 – 480 BCE after the Suda On Line's editors; Livius's 488 – 480 BCE is noted
+  in the chronology, and the old card's unsourced figures are gone.
+
+**Corrected in the old cards:**
+- **No modern scholarship:** every one of the 30 cited only ancient texts, most below the bar. Each now meets the
+  bar, the caps and the modern half, much of it from the open *Marathon – 2,500 Years* (each chapter's author
+  counted separately), Encyclopaedia Iranica, Livius, Kulesza's *Sparta* and BMCR.
+- **Wrong facts:** `gr-423`'s second question gave Leonidas the "fight in the shade" line, which Herodotus (7.226)
+  gives to Dieneces; it is now a why. `gr-430` cited a Perseus page of the *Persians* that does not carry the
+  "thousand ships" line; the figure is now cited through Tuplin.
+- **Other cards' ground given back:** `gr-401` gave up the siege of Eretria and the battle; `gr-403` the burial
+  and the Spartan delay (`gr-406`, `gr-407`); `gr-409` the oracle, the decree and the wall (`gr-420`, `gr-428`,
+  `gr-444`); `gr-410` the 10 drachmas and Maroneia (`gr-411`); `gr-411` Nicias, Decelea and the slag (`gr-318`);
+  `gr-418` the meetings of 481 BCE (`gr-419`) and the Serpent Column couplet (`gr-438`); `gr-419` the whole of 480
+  BCE; `gr-420` the snake and honey cake (`gr-427`); `gr-422` the epitaphs (`gr-443`); `gr-424` Brennus's Gauls.
+- **Questions that copied other cards:** `gr-405`'s third (the Painted Stoa, `gr-515`), `gr-418`'s first (the
+  medisers' oath, `gr-442`), `gr-420`'s first (Aristonice, close to `gr-979`).
+
+**Read by eye, and changed in review:**
+- `gr-410`'s first why (Athenian memory merging several assemblies, from Steinbock's review of Blösel) repeated
+  `gr-420`'s third; it now asks why old-fashioned Athenians accepted the plan.
+- `gr-417`'s first why (Persia alarmed only by the new Athenian fleet, from Potter's review of Wallinga) repeated
+  `gr-410`'s second; it now asks why 10 years passed between Marathon and the invasion, and Potter gave way to Rous.
+- `gr-404` wrote "Pheidias"; the house form is Phidias.
+
+**Pictures and locators:** `gr-407` the Soros (← Marathon tumuli) and `gr-416` the Athos canal (← Xerxes Canal) now
+carry locators. The pictures follow in the next commit.
+
+**Chronology.** A new section, "The Persian Wars, Marathon to Salamis", holds the rows for every date the 30 cards
+print, with pins for every card that prints a year. The Marathon, Xerxes I, Thermopylae, Artemisium and Salamis rows
+of "Events and reigns" are confirmed.
+
+**Glossary.** Candidates are added to the backlog in `docs/greece-audit-2026-09.md`. Wrong auto-links stopped with
+`<span class="ans-term">` or a hand-written key: `Malian` (opens Mali, `gr-422`, `gr-424`), `Thebes` (`gr-425`),
+`Pausanias` the regent (`gr-418`, `gr-423`), `Hippocrates` father of Megacles (`gr-408`), `Aeschines` son of Nothon
+(`gr-402`), the elder `Cimon` (`gr-404`), "Older Parthenon" (`gr-429`), and `gr-404`'s Salamis keyed to the battle.

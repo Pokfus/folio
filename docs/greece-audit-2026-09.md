@@ -684,6 +684,22 @@ links stopped here: `Himera` (Stesichorus's city, not the battle), `Pharsalus` (
 (the town, not Gaugamela), `Thebes` in Egypt (`gr-379`), the title *Genealogies* (`gr-379`) and Plato's
 *Sophist* (`gr-377`).
 
+**Added by the refinement's B43–B45 (2026-10-03)**, counted the same way after `gr-401`–`gr-430` were
+rewritten. `Areopagus`, `Thespiae`, `Eurybiades` and `Medism` already have keys.
+
+| cards | term | note |
+|---|---|---|
+| 9 | Abydos | the Hellespont town; Abydos in Egypt needs its own key, so `Abydos_(Hellespont)` |
+| 7 | Amphictyony | the league of Delphi and Anthela; `Amphictyons` as an alias |
+| 6 | Troezen · Isthmia · Dorieus | |
+| 4 | Thracian Chersonese · Sestos · Tempe · Euripus · Cleombrotus · Lucian | Cleombrotus the regent, brother of Leonidas, not the king of 371 BCE |
+| 3 | Oropus · Acanthus · hegemony · Gorgo · Pleistarchus · Delium | |
+| 2 | Carystus · Sacae · stade · Carneia · Maroneia · Psyttaleia · Atossa · Hydarnes · Hegesipyle | Maroneia the Laurion district, not the Thracian city |
+| 1 | Pan (the god) · Ardericca · datismos · Aphidna · Sicinnus · Aegaleus · Artabanus · Peneus · Aleuadae · Kolonos · Anopaea · Dieneces · Demophilus · Dithyrambus · Bubares · Artachaees · Doriscus · Masistes · Euaenetus · Perrhaebi · Aglaurus · Older Parthenon | |
+
+`Mali` carries the alias `Malian`, so the Malians of Trachis open the African country; `gr-422` rewords and
+`gr-424` wraps the word in `<span class="ans-term">`. A key for the Malians (or `Malis`) would end it.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and

@@ -418,6 +418,32 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Mardonius' expedition | 492 BCE | Herodotus 6.43 – 45 (`gr-399`) |
 | Earth and water | the Athenian embassy at Sardis c. 507 BCE; Darius' heralds 491 BCE, or 493/492 BCE on one view | Herodotus; Schmitt, Iranica; Rhodes on Marathon (`gr-400`) |
 
+## The Persian Wars, Marathon to Salamis (confirmed by B43–B45, `gr-401` – `gr-430`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Datis and Artaphernes | Datis carries a sealed document from Sardis early in 494 BCE; the expedition 490 BCE; Artaphernes and Datis' sons in Xerxes' army 480 BCE | Schmitt, "Datis", Iranica; Rhodes 2013; Lendering, Livius (`gr-401`) |
+| Sack of Eretria | 490 BCE, after a 6-day siege; the captives settled at Ardericca afterwards | Schmitt, "Arderikka", Iranica; Lendering, Livius (`gr-402`) |
+| Marathon | late summer 490 BCE; the day is disputed (mid-August or mid-September), so the line gives the year only | Rhodes 2013; Lendering, Livius (`gr-403`, `gr-405` – `gr-408`) |
+| Miltiades | archon 524/523 BCE; tried for tyranny 493/492 BCE; condemned after Paros and died 489 BCE | Lendering, Livius; Loomis's review of Lavelle (`gr-404`) |
+| Callimachus | polemarch and killed at Marathon, 490 BCE | Herodotus; Acropolis Museum; Harrison 1971 (`gr-405`) |
+| The Soros | raised 490 BCE; dug 1890 – 1891 CE | Petrovic 2013; Frazer 1898 (`gr-407`) |
+| Themistocles | born about 525 BCE (prose only, an estimate); archon 493/492 BCE; ostracised 471 BCE (Perrin's note to Plutarch: about 472 BCE); died at Magnesia 459 BCE | Lendering, Livius; Steinbock's review of Blösel (`gr-409`) |
+| Laurion strike and naval bill | 483/482 BCE, the archonship of Nicodemus | *Constitution of the Athenians* 22; Vaxevanopoulos et al. 2023; Lendering, Livius (`gr-410`, `gr-411`) |
+| Aristides | ostracised 483/482 BCE; recalled 480 BCE; at Plataea 479 BCE; died 467 BCE | Lendering, "Ostracism"; Perrin's notes to Plutarch; Nudell 2023 (`gr-412`, `gr-413`) |
+| Xerxes I | king 486 BCE; Babylonia revolts 484 BCE; invades Greece 480 BCE; murdered August 465 BCE | Lendering, Livius; Waerzeggers 2018; Ossendrijver 2018 (`gr-414`) |
+| Preparations for 480 | from 483 BCE (the Athos canal begun, the Hellespont bridged); the army crosses in spring 480 BCE; the invasion ends 479 BCE | Schmitt, "Greece i", Iranica; Herodotus 7.22, 7.37 (`gr-415` – `gr-417`) |
+| Hellenic League | formed 481 BCE; Athens breaks off the alliance 463 – 461 BCE | Schmitt; Loomis (`gr-418`) |
+| Congress at the Isthmus | autumn 481 BCE; meeting again in spring 480 BCE | Kulesza 2022; Smith (`gr-419`) |
+| Wooden wall oracle | 481 BCE, or spring 480 BCE (two rows) | Evans, by Giangiulio's review (`gr-420`) |
+| Tempe expedition | 480 BCE (May, in Kulesza) | Kulesza 2022; Herodotus (`gr-421`) |
+| Thermopylae and Artemisium | 480 BCE; the days are disputed (12 – 14 August, or September), so the lines give the year only | Kulesza 2022; Lendering, Livius; Schmitt (`gr-422`, `gr-424` – `gr-426`) |
+| Leonidas I | king c. 490 – 480 BCE (the Suda On Line's editors; Livius gives 488 – 480 BCE); killed 480 BCE | Suda On Line; Herodotus (`gr-423`) |
+| Thespians | at the pass 480 BCE; survivors at Plataea 479 BCE | Herodotus; Lendering, Livius (`gr-425`) |
+| Evacuation of Athens; sack of the Acropolis | 480 BCE; the Acropolis stormed in September 480 BCE | Herodotus; Rous's review of Garland (`gr-427`, `gr-429`) |
+| Troezen decree | claims to be of 480 BCE (autumn 481 BCE, if genuine); the stone c. 300 BCE, or the 3rd century BCE | Lendering, Livius; Cristofani (`gr-428`) |
+| Salamis | late September 480 BCE | Tuplin, "Salamis", Iranica (`gr-430`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -434,10 +460,10 @@ sources when its batch comes round, and a disputed one given as a range.
 | Croesus king of Lydia | from c. 560 BCE; Sardis taken 547 BCE by the Nabonidus Chronicle, 546 BCE in Eusebius (confirmed by B24: Cahill, `gr-226`; `gr-269` gives his reign as c. 560 – 546 BCE after Jones's note to Pausanias) |
 | Cyrus II | c. 559 – 530 BCE (confirmed by B41, `gr-382`) |
 | Darius I | 522 – 486 BCE (confirmed by B41, `gr-386`) |
-| Xerxes I | 486 – 465 BCE |
+| Xerxes I | 486 – 465 BCE (confirmed by B44, `gr-414`) |
 | Ionian Revolt | 499 – 494 BCE (Lade 494 BCE); the last resistance crushed 493 BCE (confirmed by B42, `gr-394`, `gr-396`; Badian dates Lade 495 BCE) |
-| Marathon | 490 BCE |
-| Thermopylae, Artemisium, Salamis | 480 BCE |
+| Marathon | 490 BCE (confirmed by B43, `gr-403`) |
+| Thermopylae, Artemisium, Salamis | 480 BCE (confirmed by B45, `gr-422`, `gr-426`, `gr-430`) |
 | Plataea, Mycale | 479 BCE |
 | Delian League founded | 478 – 477 BCE |
 | Eurymedon | c. 466 BCE (469 – 466 BCE) |
@@ -812,4 +838,34 @@ gr-397: 494
 gr-398: 511; 508; 476
 gr-399: 492
 gr-400: 507; 491; 493; 492
+gr-401: 490; 480
+gr-402: 490
+gr-403: 490
+gr-404: 524; 493; 490; 489
+gr-405: 490
+gr-406: 490
+gr-407: 490; 1890; 1891
+gr-408: 490
+gr-409: 493; 480; 471; 459
+gr-410: 483
+gr-411: 483
+gr-412: 483; 479; 467
+gr-413: 483; 480
+gr-414: 486; 484; 480; 465
+gr-415: 480
+gr-416: 483; 480
+gr-417: 483; 480; 479
+gr-418: 481; 479; 463; 461
+gr-419: 481; 480
+gr-420: 481; 480
+gr-421: 480
+gr-422: 480
+gr-423: 490; 480
+gr-424: 480
+gr-425: 480; 479
+gr-426: 480
+gr-427: 480
+gr-428: 480; 300
+gr-429: 480
+gr-430: 480
 ```
