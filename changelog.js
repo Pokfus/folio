@@ -48,6 +48,7 @@ window.CHANGELOG = [
       "<b>Your collections</b> on the home page keep their icons as you learn cards, and the learned share of each row is a deeper tint.",
       "<b>Hold a collection</b> on the Collections page to see its size, what you have studied and learned, when you added it and how many readers have.",
       "<b>A hundred more Ancient Greece cards are rewritten</b>, finishing the Athens and Archaic art, verse and thought decks and starting the Persian Wars, with more sources and new pictures.",
+      "<b>Three Greek glossary links are corrected</b>: Acragas now names its founders, and two names no longer open the wrong entry.",
     ],
   },
   {
