@@ -3,7 +3,8 @@
   find-wiki-links.js — which cards have a DEDICATED English Wikipedia article for their answer term,
   and what its exact title is.
 
-    node .claude/find-wiki-links.js [--prefix=gr-] [--card=gr-010] [--refresh] [--no-search] [--limit=N]
+    node .claude/find-wiki-links.js [--prefix=gr-] [--card=gr-010] [--cards=gr-010,gr-011] [--refresh]
+                                    [--no-search] [--limit=N] [--max-wait=SECONDS]
 
   Writes  .claude/wiki-links.json        one entry per card: the article title, URL, how it was found
                                          and the status (see STATUSES below) — the memory the
@@ -13,6 +14,17 @@
           docs/wikipedia-links-audit.md  the human-readable report: counts, and the cards that need a
                                          decision (no article found, a redirect to a broader article,
                                          a disambiguation page that could not be settled).
+
+  A NEW CARD NEEDS NONE OF THIS BY HAND: `add-card.js` and `import-batch.js` run it for the cards they
+  write (through wiki-step.js: `--cards=<ids> --max-wait=90`, then apply-wiki-links.js), so a card ships
+  with its Learn-more tile the way it ships with its citations. `--max-wait` caps the total seconds spent
+  waiting out Wikipedia's rate limit or a dead network; past it the cache is saved and the run exits 2,
+  which the caller reports as "not resolved yet — run this command" rather than hanging a card add.
+
+  AN ENTRY MARKED `"manual": true` IS NEVER RECOMPUTED. That is how a human decision survives a re-run:
+  put the right `title` and `url` in (or `null` for both to take the tile away), add `"manual": true`,
+  and neither this script nor a later prefix run will overwrite it. `apply-wiki-links.js --check` is the
+  CI gate: every card must have an entry, and every card's `wiki` must match its entry.
 
   Needs the network (NODE_USE_ENV_PROXY=1 in a cloud session). Wikipedia rate-limits the shared proxy
   address in bursts: a 429 is waited out for the seconds it names, and if it will not lift the cache
@@ -46,6 +58,8 @@
     redirect-broader   redirected to a differently named article — a human should glance at it
     disambig-resolved  the answer was a disambiguation page; one of its links was chosen by hint words
     search-match       a search hit with the answer's words in another order (listed in the report)
+    list-page          the only match is a list, timeline, glossary or index page ("List of governors of
+                       Roman Egypt"): an index of many things, not an article about this one. No link.
     section-redirect   the only match is a redirect INTO A SECTION of another article: NOT a dedicated
                        page. No link is recorded.
     disambiguation     only a disambiguation page matched and no link could be chosen. No link.
@@ -65,6 +79,9 @@ const args = Object.fromEntries(process.argv.slice(2).map((a) => {
 }));
 const PREFIX = args.prefix || "";
 const ONLY = args.card || "";
+const IDS = args.cards ? new Set(String(args.cards).split(",").map((x) => x.trim()).filter(Boolean)) : null;
+const MAX_WAIT_MS = args["max-wait"] ? parseInt(args["max-wait"], 10) * 1000 : Infinity;
+let waitedMs = 0;
 const LIMIT = args.limit ? parseInt(args.limit, 10) : Infinity;
 const DO_SEARCH = !args["no-search"];
 
@@ -132,6 +149,13 @@ if (!args.refresh && fs.existsSync(CACHE)) { try { cache = JSON.parse(fs.readFil
 let dirty = 0;
 const saveCache = () => { fs.writeFileSync(CACHE, JSON.stringify(cache, null, 0)); dirty = 0; };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// every wait on Wikipedia (a rate limit, a dead network) is spent from one budget; past --max-wait the
+// cache is saved and the run stops, so a caller that is only linking one new card is never held up
+async function backoff(ms) {
+  waitedMs += ms;
+  if (waitedMs > MAX_WAIT_MS) { saveCache(); console.error("Wikipedia did not answer within --max-wait=" + Math.round(MAX_WAIT_MS / 1000) + "s; progress is saved."); process.exit(2); }
+  await sleep(ms);
+}
 let lastCall = 0;
 async function paced() { const gap = 250 - (Date.now() - lastCall); if (gap > 0) await sleep(gap); lastCall = Date.now(); }
 /* TWO CHANNELS. `api.php` answers fifty titles a call but the shared proxy address trips its rate limit
@@ -151,13 +175,13 @@ async function api(params, optional) {
     await paced();
     let res;
     try { res = await fetch(u, { headers: { "User-Agent": UA, "Api-User-Agent": UA } }); }
-    catch (e) { process.stderr.write(`  network: ${e.message}; retrying\n`); await sleep(3000 * (attempt + 1)); continue; }
+    catch (e) { process.stderr.write(`  network: ${e.message}; retrying\n`); await backoff(3000 * (attempt + 1)); continue; }
     if (res.status === 429 || res.status === 503) {
       limited++;
       if (limited >= 2) { apiCooldownUntil = Date.now() + 10 * 60 * 1000; process.stderr.write(`  API rate-limited twice; using raw wikitext for 10 min\n`); return null; }
       const ra = Math.min(60, parseInt(res.headers.get("retry-after") || "20", 10) || 20);
       process.stderr.write(`  ${res.status} from the API; waiting ${ra}s\n`);
-      await sleep(ra * 1000 + 500); continue;
+      await backoff(ra * 1000 + 500); continue;
     }
     if (!res.ok) { if (optional) return null; throw new Error(`HTTP ${res.status} for ${u}`); }
     return res.json();
@@ -171,9 +195,9 @@ async function rawText(title) {
     await paced();
     let res;
     try { res = await fetch(u, { headers: { "User-Agent": UA } }); }
-    catch (e) { process.stderr.write(`  network: ${e.message}; retrying\n`); await sleep(3000 * (attempt + 1)); continue; }
+    catch (e) { process.stderr.write(`  network: ${e.message}; retrying\n`); await backoff(3000 * (attempt + 1)); continue; }
     if (res.status === 404) return null;
-    if (res.status === 429 || res.status === 503) { const ra = Math.min(60, parseInt(res.headers.get("retry-after") || "20", 10) || 20); process.stderr.write(`  ${res.status} from raw; waiting ${ra}s\n`); await sleep(ra * 1000 + 500); continue; }
+    if (res.status === 429 || res.status === 503) { const ra = Math.min(60, parseInt(res.headers.get("retry-after") || "20", 10) || 20); process.stderr.write(`  ${res.status} from raw; waiting ${ra}s\n`); await backoff(ra * 1000 + 500); continue; }
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${u}`);
     return res.text();
   }
@@ -253,7 +277,7 @@ async function search(q) {
 
 /* ---------- the cards and the glossary ---------- */
 const loaded = loadCards();
-const cards = (loaded.cards || loaded).filter((c) => (!PREFIX || c.id.startsWith(PREFIX)) && (!ONLY || c.id === ONLY)).slice(0, LIMIT);
+const cards = (loaded.cards || loaded).filter((c) => (!PREFIX || c.id.startsWith(PREFIX)) && (!ONLY || c.id === ONLY) && (!IDS || IDS.has(c.id))).slice(0, LIMIT);
 global.window = global.window || {};
 require(path.join(ROOT, "glossary.js"));
 const GLOSS = Object.keys(window.GLOSSARY || {});
@@ -318,12 +342,18 @@ function sameName(a, b) {
   const extra = [...tb].filter((w) => !ta.has(w)), missing = [...ta].filter((w) => !tb.has(w));
   return missing.length === 0 && extra.length <= 1;
 }
+const LIST_RX = /^(List|Lists|Timeline|Glossary|Index|Outline) of /i;
 const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(title.replace(/ /g, "_")).replace(/%2C/g, ",").replace(/%3A/g, ":");
 
 /* ---------- main ---------- */
 (async () => {
   const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : { cards: {} };
   const result = { cards: {} };
+  // a hand-decided entry is kept exactly as it is, and its card is not even looked up
+  for (const c of cards.slice()) {
+    const pv = prev.cards && prev.cards[c.id];
+    if (pv && pv.manual) { result.cards[c.id] = pv; cards.splice(cards.indexOf(c), 1); }
+  }
   // ask about every candidate of every card in bulk first, 50 to a call
   const all = [];
   const plans = cards.map((c) => { const p = candidatesFor(c); p.cands.forEach((x) => all.push(x.t)); return { c, ...p }; });
@@ -375,13 +405,16 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
       }
       if (!entry.title && hits) entry.suggestions = hits;
     }
+    // A redirect INTO an index page ("prefect of Egypt" → "List of governors of Roman Egypt") is not a
+    // dedicated article about the term: it is the same case as a section redirect, so no link is recorded
+    if (entry.title && LIST_RX.test(entry.title)) { entry.target = entry.title; entry.title = null; entry.status = "list-page"; }
     if (entry.title) entry.url = urlFor(entry.title);
     result.cards[c.id] = entry;
     if (n % 250 === 0) process.stderr.write(`  ${n}/${cards.length} cards decided\n`);
   }
   saveCache();
   // merge with a previous run when this one was partial (--prefix / --card)
-  const merged = (PREFIX || ONLY || isFinite(LIMIT)) ? { ...prev.cards, ...result.cards } : result.cards;
+  const merged = (PREFIX || ONLY || IDS || isFinite(LIMIT)) ? { ...prev.cards, ...result.cards } : result.cards;
   const counts = {};
   Object.values(merged).forEach((e) => { counts[e.status] = (counts[e.status] || 0) + 1; });
   fs.writeFileSync(OUT, JSON.stringify({ generated: new Date().toISOString().slice(0, 16) + "Z", source: "en.wikipedia.org", counts, cards: merged }, null, 1));
@@ -403,6 +436,7 @@ function writeReport(all, counts) {
       if (status === "disambig-resolved") return `${line(id)} → [${e.title}](${e.url}) (via the disambiguation page \`${e.from}\`)`;
       if (status === "search-match") return `${line(id)} → [${e.title}](${e.url})`;
       if (status === "disambiguation") return `${line(id)} — \`${e.from}\` is a disambiguation page${e.suggestions && e.suggestions.length ? "; its links: " + e.suggestions.map((s) => `\`${s}\``).join(", ") : ""}`;
+      if (status === "list-page") return `${line(id)} — only an index page matched: \`${e.target}\``;
       if (status === "section-redirect") return `${line(id)} — \`${e.from}\` only redirects into \`${e.target}\``;
       return `${line(id)}${e.suggestions && e.suggestions.length ? " — search suggests " + e.suggestions.map((s) => `\`${s}\``).join(", ") : ""}`;
     }).join("\n") + "\n";
@@ -440,6 +474,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 | \`disambig-resolved\` | ${counts["disambig-resolved"] || 0} | chosen from a disambiguation page by hint words — listed below |
 | \`search-match\` | ${counts["search-match"] || 0} | a search hit with the answer's words in another order — listed below |
 | \`redirect-broader\` | ${counts["redirect-broader"] || 0} | redirected to a differently named article — listed below, a glance each |
+| \`list-page\` | ${counts["list-page"] || 0} | only a list / timeline / index page matched: no dedicated article, no link |
 | \`section-redirect\` | ${counts["section-redirect"] || 0} | only a redirect into a section exists: no dedicated page, no link |
 | \`disambiguation\` | ${counts.disambiguation || 0} | only a disambiguation page; no link could be chosen |
 | \`none\` | ${counts.none || 0} | nothing matched; no link |
@@ -447,6 +482,6 @@ accepted only when the title IS the answer. Nothing is guessed.
 **${linked} of ${total} cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
-${sec("Redirected to a differently named article — check each", "redirect-broader", "The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.")}${sec("Settled from a disambiguation page", "disambig-resolved", "The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.")}${sec("Matched by search — check each", "search-match", "No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.")}${sec("Disambiguation pages that could not be settled", "disambiguation", "Pick the right article by hand, or leave the card without a link.")}${sec("Section redirects — no dedicated page", "section-redirect", "Wikipedia treats these as part of another article. No link.")}${sec("No article found", "none", "Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.")}`;
+${sec("Redirected to a differently named article — check each", "redirect-broader", "The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.")}${sec("Settled from a disambiguation page", "disambig-resolved", "The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.")}${sec("Matched by search — check each", "search-match", "No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.")}${sec("Disambiguation pages that could not be settled", "disambiguation", "Pick the right article by hand, or leave the card without a link.")}${sec("Index pages — no dedicated article", "list-page", "The only match is a list, timeline or index page. Not a dedicated article, so no link; if a better article exists, put its title and URL in the entry and add `\"manual\": true`.")}${sec("Section redirects — no dedicated page", "section-redirect", "Wikipedia treats these as part of another article. No link.")}${sec("No article found", "none", "Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.")}`;
   fs.writeFileSync(REPORT, md);
 }

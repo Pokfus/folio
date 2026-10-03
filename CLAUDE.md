@@ -132,7 +132,9 @@ have not this session.
 - **The next cards**: `node .claude/next-cards.js <prefix> [n]` prints the next `n` unwritten plan
   lines with their deck ids — no need to open the plan file to find them.
 - **Write one card**: `node .claude/add-card.js <card.json> <deckId>` (**always pass the deck id**, or
-  it files into China). **Write one term**: `node .claude/add-glossary.js <entry.json>` — it
+  it files into China). **It also resolves the card's Wikipedia article** and writes it as `wiki` (see
+  "Wikipedia links" below) — read its output: a link marked CHECK wants a glance, "no dedicated article"
+  is a normal answer, and "NOT RESOLVED" prints the command that finishes it. **Write one term**: `node .claude/add-glossary.js <entry.json>` — it
   **overwrites an existing term in silence**, so grep `glossary.js` for the slug first.
 - **Import a batch** (from ChatGPT or written in bulk): `node .claude/import-batch.js <batch.json>` —
   adds the glossary terms (refusing existing slugs), then each card, and writes anything refused to a
@@ -148,9 +150,14 @@ have not this session.
 - After a batch: `check-style.js`, `check-questions.js`, `node .claude/check-cards.js --prefix=<p>`
   (report only), `test-card-plans.js`.
 - **Wikipedia links** (the "Learn more" tile at the foot of a card, `learnMoreHTML`): `.claude/wiki-links.json` maps
-  each card to its dedicated article; `node .claude/find-wiki-links.js` regenerates it (cached, re-run after adding
-  cards; needs `NODE_USE_ENV_PROXY=1`), then `node .claude/apply-wiki-links.js` writes it onto the cards as the heavy
-  field `wiki` — the only writer of that field; never set it by hand. 📖 `docs/wikipedia-links-audit.md` — READ BEFORE CHANGING A CARD'S LINK OR THE RESOLVER (the cards still needing a human decision).
+  each card to its dedicated article and `node .claude/apply-wiki-links.js` writes it onto the cards as the heavy
+  field `wiki` — the only writer of that field; never set it by hand. **A new card gets its link automatically**:
+  `add-card.js` and `import-batch.js` run `find-wiki-links.js` + the applier for the cards they write (needs the
+  network; `--no-wiki` skips it; a `--replace` re-resolves only if the answer changed). A card whose answer is a
+  descriptive phrase has no article and shows no tile — that is an answer, not a fault. If Wikipedia could not be
+  reached the output prints the command to run later, and CI's `node .claude/apply-wiki-links.js --check` (offline)
+  fails until it is. To correct a link, edit its entry in `wiki-links.json`, add `"manual": true` (a re-run then never
+  overwrites it) and run the applier. 📖 `docs/wikipedia-links-audit.md` — READ BEFORE CHANGING A CARD'S LINK OR THE RESOLVER (the cards still needing a human decision).
 
 ### The planned collections
 
