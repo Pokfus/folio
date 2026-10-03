@@ -10236,3 +10236,48 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .page .collection-group-soon:not([open]) > summary.group-head{border-radius:14px; border-bottom:1px solid var(--rule);}
 .page .collection-group-soon[open] > summary.group-head{border-radius:14px 14px 0 0;}
 .page .collection-group + .collection-group.community-group:not(#langDecks){margin-top:22px;}
+
+/* ============================================================
+   LIBRARY PAGE — the Oct 2026 Timeline (see docs/mockups/library-redesigns/l-5-timeline.html)
+   ============================================================
+   The shelf as a line through time: a rule down the left of each section, era marks on it when the shelf
+   is sorted by date, and every banner hung off it by a dot in the book's colour and a short tie. Two
+   banners to a row on a wide screen, one below 1025px. The banner itself is the home page's FILL ROW: how
+   far the book is read is painted across it from the left (`--w`, set by PAGES.library), with no edge
+   line and no bar — the fill is the figure. The markup is in PAGES.library (timelineHTML). */
+.book-timeline{position:relative; padding-left:34px;}
+.book-timeline::before{content:""; position:absolute; left:11px; top:0; bottom:0; width:2px; background:var(--rule);}
+.book-timeline .book-grid{gap:8px;}
+.bk-mark{position:relative; grid-column:1 / -1; margin:14px 0 2px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; color:var(--indigo); font-weight:700;}
+.bk-mark:first-child{margin-top:2px;}
+.bk-mark em{font-style:normal; color:var(--ink-faint); margin-left:6px;}
+.bk-mark::before{content:""; position:absolute; left:-29px; top:3px; width:12px; height:12px; border-radius:50%; background:var(--indigo); box-shadow:0 0 0 4px var(--paper);}
+.bk-slot{position:relative; min-width:0;}
+.bk-slot > .book-tile{width:100%;}
+.bk-slot::before{content:""; position:absolute; left:-27px; top:50%; width:8px; height:8px; margin-top:-4px; border-radius:50%; background:var(--tile, var(--indigo)); z-index:1;}
+.bk-slot::after{content:""; position:absolute; left:-19px; top:50%; width:18px; height:1px; background:var(--rule);}
+/* the banner: plain paper under a fill that is the reading progress, the wash and the bottom bar gone */
+.page .book-tile, body.night .page .book-tile{background:var(--card);}
+.page .book-tile::before{content:""; position:absolute; left:0; top:0; bottom:0; width:var(--w, 0%); pointer-events:none;
+  background:linear-gradient(90deg, color-mix(in srgb, var(--bk-accent) 22%, var(--card)), color-mix(in srgb, var(--bk-accent) 9%, var(--card)));}
+.page .book-tile[style*="--w:0%"]::before{display:none;}
+.page .book-tile > .bk-spine, .page .book-tile > .bk-tile-body, .page .book-tile > .bk-star{position:relative; z-index:1;}
+.page .book-tile > .bk-star{position:absolute;}
+.page .bk-tile-bar{display:none;}
+@media (min-width:1025px){
+  .book-timeline .book-grid{grid-template-columns:1fr 1fr; column-gap:14px;}
+  .bk-slot.bk-c2::before, .bk-slot.bk-c2::after{display:none;}
+  /* at half the page's width the title block asks for less before the right-hand block drops under it —
+     a long title wraps, where a dropped block made the banner half as tall again (157px against 120) */
+  .book-timeline .bk-tile-main{flex-basis:140px;}
+  .book-timeline .bk-tile-body{padding:12px 14px; gap:4px 14px;}
+  .book-timeline .bk-tile-title{font-size:calc(17.5px * var(--fs));}
+}
+@media (max-width:640px){
+  .book-timeline{padding-left:26px;}
+  .book-timeline::before{left:7px;}
+  .bk-mark::before{left:-25px; width:10px; height:10px;}
+  .bk-slot::before{left:-23px;}
+  .bk-slot::after{left:-15px; width:14px;}
+}
+
