@@ -1598,5 +1598,7 @@ the rows for every date the twenty Persian cards print, with pins for every card
 Darius and Ionian Revolt rows of "Events and reigns" are confirmed.
 
 **Glossary.** Candidates are added to the backlog (Apollodorus the chronographer, Diogenes Laertius,
-Artaphernes and others), with a note that the alias `Milesians` sends the people of Miletus to the
-philosophers.
+Artaphernes and others). Three glossary faults were fixed in the same PR: the alias `Milesians` is gone from
+`Milesian_school` (the bare word now opens `Miletus`); `Acragas` now names its founders, Aristonous and Pystilus,
+from Thucydides 6.4, which is added to its sources; and `gr-188`'s Thrasybulus of Miletus is wrapped in
+`<span class="ans-term">` so it no longer opens the Athenian democrat.

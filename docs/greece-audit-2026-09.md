@@ -609,7 +609,8 @@ rewritten. Earlier entries (Leuctra, Plataea, panoply, othismos, *Eunomia*) are 
 | 1 | Archytas · Ortygia · silphium · hippagretai · Partheniai · Apaturia · Eumolpidae · Kerykes · Hellenion · porpax · antilabe | |
 
 `Thrasybulus` is keyed to the Athenian democrat of 403 BCE and auto-links the tyrant of Miletus on `gr-188`;
-the tyrant wants his own key (`Thrasybulus_of_Miletus`), and the bare name a decision.
+the tyrant wants his own key (`Thrasybulus_of_Miletus`), and the bare name a decision. **Stopped 2026-10-03:** `gr-188`'s tyrant is wrapped in
+`<span class="ans-term">`; a key of his own is still a candidate.
 
 **Added by the refinement's B29–B33 (2026-10-02)**, counted the same way after `gr-271`–`gr-300` were
 rewritten.
@@ -677,7 +678,8 @@ rewritten.
 
 The bare word `Milesians` is an alias of `Milesian_school` and auto-links the philosophers wherever a card means
 the people of Miletus (`gr-221`, `gr-437`, `gr-485`, `gr-566` among the unrefined cards). This run wrapped it in
-`<span class="ans-term">` on `gr-384`, `gr-392`, `gr-396` and `gr-397`; the alias wants removing. Other wrong
+`<span class="ans-term">` on `gr-384`, `gr-392`, `gr-396` and `gr-397`, and the alias was then removed (2026-10-03), so the
+bare word now resolves to `Miletus` everywhere. Other wrong
 links stopped here: `Himera` (Stesichorus's city, not the battle), `Pharsalus` (not Caesar's war), `Arbela`
 (the town, not Gaugamela), `Thebes` in Egypt (`gr-379`), the title *Genealogies* (`gr-379`) and Plato's
 *Sophist* (`gr-377`).
