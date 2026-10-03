@@ -215,9 +215,9 @@ one changelog line and a version bump; commit and push.
 | B43 | Persian Wars (`gr-persian-wars`) | `gr-401`–`gr-410` | 10 | **done 2026-10-03** |
 | B44 | Persian Wars (`gr-persian-wars`) | `gr-411`–`gr-420` | 10 | **done 2026-10-03** |
 | B45 | Persian Wars (`gr-persian-wars`) | `gr-421`–`gr-430` | 10 | **done 2026-10-03** |
-| B46 | Persian Wars (`gr-persian-wars`) | `gr-431`–`gr-440` | 10 | open |
-| B47 | Persian Wars (`gr-persian-wars`) | `gr-441`–`gr-450` | 10 | open |
-| B48 | Athenian Empire (`gr-athenian-empire`) | `gr-451`–`gr-460` | 10 | open |
+| B46 | Persian Wars (`gr-persian-wars`) | `gr-431`–`gr-440` | 10 | **done 2026-10-03** |
+| B47 | Persian Wars (`gr-persian-wars`) | `gr-441`–`gr-450` | 10 | **done 2026-10-03** |
+| B48 | Athenian Empire (`gr-athenian-empire`) | `gr-451`–`gr-460` | 10 | **done 2026-10-03** |
 | B49 | Athenian Empire (`gr-athenian-empire`) | `gr-461`–`gr-470` | 10 | open |
 | B50 | Athenian Empire (`gr-athenian-empire`) | `gr-471`–`gr-480` | 10 | open |
 | B51 | Athenian Empire (`gr-athenian-empire`) | `gr-481`–`gr-490` | 10 | open |
@@ -1692,3 +1692,79 @@ of "Events and reigns" are confirmed.
 `<span class="ans-term">` or a hand-written key: `Malian` (opens Mali, `gr-422`, `gr-424`), `Thebes` (`gr-425`),
 `Pausanias` the regent (`gr-418`, `gr-423`), `Hippocrates` father of Megacles (`gr-408`), `Aeschines` son of Nothon
 (`gr-402`), the elder `Cimon` (`gr-404`), "Older Parthenon" (`gr-429`), and `gr-404`'s Salamis keyed to the battle.
+
+### B46–B48 — `gr-431`–`gr-460`, Salamis's aftermath, the Sicilian war and the first Athenian Empire cards (2026-10-03)
+
+Thirty cards: B46 and B47, which finish `gr-persian-wars` (Eurybiades and Artemisia to the idea of the barbarian),
+and B48, the first ten of `gr-athenian-empire` (the Delian League to the revolt of Thasos).
+
+Method: as B43–B45. Six research agents drafted five cards each, with a saved copy of every source and one verbatim
+quote per marker; the verifier and the lint wrapper gated every patch, and with every patch merged `Q.sibling` fired
+on none. Every draft was read by eye before it was written.
+
+Checks:
+- `greece-audit.js --range=gr-431:gr-460` finds nothing but `gr-431`'s missing picture and `S.chip?` flags on
+  English work with foreign titles (`gr-435`'s English chapter in a German-titled volume, `gr-443` and `gr-448`'s
+  BMCR reviews). The real foreign sources carry their chips: Italian on `gr-447` (Castiglioni).
+- `check-citations --card` matches every checkable citation on all 30. `check-questions`, `check-docs`,
+  `split-cards --check`, `test-card-plans` and `check-gloss-links --card` pass; `check-style` adds nothing to
+  main's standing alarms. All 162 distinct citation URLs of `gr-431`–`gr-470` answer 200 when re-curled.
+
+**Date lines:**
+- **Rows that were not dates went to the prose:** fleet and army sizes at Mycale, Plataea and Himera, "Tegeans 16",
+  "Tribute 460 talents", "Ships 200", "Talents 2,000", "Height 5.35 m" and their like.
+- **Disputed years are two rows, saying whose:** Eion 476/475 or 477/476 BCE (`gr-456`), the Eurymedon 466 or
+  470/469 BCE (`gr-458`), Thasos 465 or 464 BCE (`gr-460`), the Piraeus wall begun 493/492 BCE with Diodorus's 477
+  BCE (`gr-445`). The chronology's Eurymedon row is widened to 470/469 – 466 BCE.
+- **Lines without a year:** `gr-443` (a genre) and `gr-450` (an idea) are empty and `undatable`.
+- **Estimated and unsourced years removed:** Herodotus's birth stays only as Gellius's 484 BCE, labelled; Cimon's old
+  "c. 450" now rests on Blackman's 451/450 campaign; `gr-459`'s "c. 469" had no source and is Livius's 470 BCE.
+- **Within one dispute:** Plataea's day (August or September 479 BCE) and Pausanias's death (about 471 BCE, with
+  474 to 466 BCE also proposed) stay in prose.
+
+**Corrected in the old cards:**
+- **No modern scholarship:** all 30 cited only ancient texts, most below the bar and many over the ancient cap
+  (Diodorus five times on `gr-446` and `gr-448`, Herodotus five times on `gr-447` and `gr-442`, six Aeschylus pages
+  on `gr-441`, Thucydides cited as three separate sources on `gr-459`).
+- **Wrong facts:** `gr-431` gave Eurybiades the "runners who start too soon" jibe, which in Herodotus is the
+  Corinthian Adeimantus's (it is now a why); `gr-432` gave Artemisia I a stratagem of Artemisia II; `gr-435` said
+  17 Tegeans fell where Herodotus and Plutarch say 16; `gr-438` gave the column a height of 5.7 m (5.35 m).
+- **Other cards' ground given back:** `gr-436` dropped Plataea in detail and the erased couplet (`gr-435`, `gr-438`);
+  `gr-441` the Strymon, the ship numbers and Phrynichus's fine; `gr-443` the Chalcidian chariot and the tripod
+  names; `gr-449` the Marathon and Plataea tithes; `gr-450` the Delian League; `gr-452` the history of Delos;
+  `gr-453` Lysicles and the Pericles "gilding" answer (`gr-479`); `gr-455` Ithome and jury pay.
+
+**Read by eye, and changed in review:**
+- `gr-440`'s second why (Pritchett's defence of Herodotus's travels) was the same debate as `gr-439`'s second
+  from the other side; it now asks why he wrote in Ionic.
+- `gr-436`'s first why and `gr-438`'s third both explained Constantine's moving the column; `gr-436` now asks only
+  why Byzantium honoured Pausanias.
+- `gr-457`'s first why (Athens calling the islanders medisers as a pretext) repeated `gr-442`'s; it now asks why a
+  rocky island was worth keeping, from its grain harvest of 329 BCE.
+
+**Pictures.** 29 of the 30 carry one, each with a description, a visual alt and an author-and-licence credit.
+- **New or replaced:**
+  - `gr-432`: none → Kaulbach's imagined Artemisia at Salamis, painted in 1868.
+  - `gr-445`: a numbered plan → a tower of the rebuilt Piraeus sea wall.
+  - `gr-451`: a 1912 map → Delos.
+  - `gr-453`: a stone already on `wh-323` → the second stele of the tribute lists.
+  - `gr-455`: a modern bust silhouetted at sunset → the south wall of the Acropolis, built from his spoils.
+  - `gr-456`: herm heads in a case with a museum label → the site of the Persian fort at Eion from Amphipolis.
+  - `gr-458`: the river's upper gorge → the Eurymedon on the plain near Aspendos.
+  - `gr-464`: a sherd painted with inventory numbers → a clean ostrakon of Cimon from the Agora.
+- **Kept with new captions and credits:** the rest; `gr-448` keeps a modern map of Sicily, `gr-443` a page of the
+  Byzantine manuscript of the Greek Anthology.
+- **Refused:** an engraving of the Serpent Column with printed captions; the snake's head photographed with its
+  museum label; a modern bust of Cimon; a map of Sulla's siege for the Piraeus wall.
+- **No picture:** `gr-431` Eurybiades.
+
+**Locators.** Fetched through `add-locators.js`: `gr-444` (← Kerameikos) and `gr-445` (← Munichia).
+
+**Chronology.** New sections "The Persian Wars, Salamis to the aftermath" and "The Athenian Empire" hold the rows for
+every date the 30 cards print, with pins for every card that prints a year. The Plataea, Mycale, Delian League and
+Eurymedon rows of "Events and reigns" are confirmed.
+
+**Glossary.** Wrong auto-links stopped with `<span class="ans-term">`: `Hamilcar` (opened Hamilcar Barca, `gr-446` –
+`gr-448`), `Hannibal` (`gr-448`), `Hippocrates` of Gela (`gr-447`), `Himera` the city (`gr-448`), `Pausanias` the
+regent (`gr-435`, `gr-438`, `gr-442`, `gr-451`), `Thebes` (`gr-442`), `Democritus` of Naxos (`gr-459`), `Salamis`
+the battle (`gr-458`).
