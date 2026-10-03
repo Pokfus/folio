@@ -27118,6 +27118,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      existed — the first time they open the site. Off on a dev origin and latched off on a 404, like the
      book counts: until the block is run the two rows say the figures are not collected yet. */
   const COLLECTION_SINCE = {
+    china: "2026-07-11", "col-8": "2026-07-20", "col-13": "2026-08-03", "col-40": "2026-08-07",
+    "geo-us": "2026-08-15", "geo-world": "2026-08-28", psych: "2026-08-28", "geo-china": "2026-08-29",
+    ww2: "2026-09-05", bio: "2026-09-05", "col-42": "2026-09-05", korea: "2026-09-06", "col-41": "2026-09-06",
+    japan: "2026-09-06", art: "2026-09-06", "geo-russia": "2026-09-14", pea: "2026-09-17", egypt: "2026-09-18",
+    flags: "2026-09-18",
   };
   function fmtYmd(s) {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ""));

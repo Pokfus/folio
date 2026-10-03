@@ -3047,7 +3047,11 @@ body.grading .stage{padding-bottom:150px;}
    indigo the site uses for "somewhere to go" rather than in a colour that competes with the banner. */
 /* READY BY A DATE (Sep 2026). The number is the answer, so it leads; the caveats are the point of the
    feature and are set as prose under it rather than as a footnote. */
-.dl-out{margin:2px 0 4px;}
+/* the plan sits on the sheet's own 14px gutter, as the date row above it does (Oct 2026, on a bug report: the
+   headline and the warning ran to the box's edge while the note between them was indented) */
+.dl-out{margin:2px 0 4px; padding:0 14px;}
+.dl-out .dm-note{margin-left:0; margin-right:0;}
+.dm-field .dm-num.dl-date{width:auto; min-width:150px;}   /* a date needs room for all of dd/mm/yyyy and its picker */
 .dl-big{margin:0 0 4px; font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); color:var(--ink);}
 .dm-warn{margin:6px 0 0; font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--geo);}
 /* THE KEYBOARD SHEET (Sep 2026). One overlay on the body, so `render()` closes it like every other;
@@ -4138,7 +4142,10 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
    Clicking anywhere on the row throws it — the switch is a 40px target on a 390px line, and a reader
    aiming at the label means the same thing — while the switch itself takes the tab stop and the keys. */
 .dm-switch{flex-direction:row; align-items:center; justify-content:space-between; gap:12px; cursor:pointer;}
-.dm-switch .dm-switchmain{display:flex; flex-direction:column; gap:2px; min-width:0;}
+.dm-switch .dm-switchmain, .dm-cycle .dm-switchmain{display:flex; flex-direction:column; gap:2px; min-width:0;}
+/* the cycler is a <button>, which centres its text and would set the label, note and "Set here" on one line
+   (Oct 2026, on a bug report: the Review order row ran its three parts together) */
+.dm-cycle .dm-switchmain{align-items:flex-start; text-align:left;}
 .dm-switch .switch{flex:none;}
 /* THE REVIEW-ORDER CYCLER (Aug 2026, on request, when a third order arrived). Laid out exactly like a
    switch row — the same two-line main block, the same right-hand control slot — so the sheet reads as one
@@ -10184,3 +10191,17 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .page .community-group .studio-list > .collection{border-left:0; border-right:0; border-radius:0;}
 .page .community-group .studio-list > .collection:first-child{border-top:0;}
 .page .community-group .studio-list > .lib-empty{border:0; margin:0;}
+/* THE LEDGER'S ENDS (Oct 2026, on a bug report from a phone). Languages is a section of the ledger like History
+   or Special, so its head is a band joined to its rows rather than the floating pill the community groups wear,
+   and its last row closes the block. Planned is a block of its own below it: 16px clear of the ledger, every
+   corner rounded while it is folded, and the top two only once it is open (its last row rounds then). And
+   "Your decks" keeps its own 22px, which the ledger's `.collection-group + .collection-group{margin-top:0}`
+   had been taking away, leaving its head pressed against Planned's. */
+.page #langDecks{margin-top:0;}
+.page #langDecks > .group-head{border-radius:0; border-bottom:0; margin-bottom:0;}
+.page .coll-tabrow + #langDecks > .group-head{border-radius:14px 14px 0 0;}
+.page #langDecks .collection-list > .collection:last-child, body[data-theme] .page #langDecks .collection-list > .collection:last-child{border-radius:0 0 14px 14px;}
+.page .collection-group + .collection-group-soon{margin-top:16px;}
+.page .collection-group-soon:not([open]) > summary.group-head{border-radius:14px; border-bottom:1px solid var(--rule);}
+.page .collection-group-soon[open] > summary.group-head{border-radius:14px 14px 0 0;}
+.page .collection-group + .collection-group.community-group:not(#langDecks){margin-top:22px;}
