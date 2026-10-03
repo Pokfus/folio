@@ -9985,8 +9985,11 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 /* …AND IT IS ONE FLAT TINT WITH NO DARK EDGE (Oct 2026, on request: the deeper share "still does not look
    properly", and "the line to mark it should not be darker than the progress left to it"). It faded from 34% to
    24% towards its right end and then stopped at a 3px line of the full accent, so the band grew paler exactly
-   where it met the darkest stroke on the row. It is one even 28% now and its own edge is the marker. */
-.review-group .active-deck .dk-prog .fill-l{background:color-mix(in srgb, var(--dk-accent) 28%, var(--card)); border-right:0;}
+   where it met the darkest stroke on the row. It is one even tint now and its own edge is the marker.
+   …AND DEEPER AGAIN, 28% → 40% (Oct 2026, on request: against the studied share's 10% it "sometimes has so
+   little contrast … that it is almost impossible to see" — Russia's, on a tablet). Still well short of the full
+   accent on the row's left edge, which it must not match. */
+.review-group .active-deck .dk-prog .fill-l{background:color-mix(in srgb, var(--dk-accent) 40%, var(--card)); border-right:0;}
 .review-group .active-deck .dk-prog.prog-done .fill-l{background:color-mix(in srgb, #C39A2E 22%, var(--card));}
 /* the games */
 .games-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
@@ -10076,6 +10079,19 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .streak-ribbon > .sr-best{grid-column:4; grid-row:1; justify-self:end; align-self:end; margin:0;}
 .streak-ribbon > .sr-note{grid-column:4; grid-row:2; justify-self:end; align-self:start; text-align:right;}
 .streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-row:1 / 3; align-self:center;}
+/* THE WEEK FILLS THE ROW on a tablet and desktop (Oct 2026, on request: "there is currently still a lot of
+   empty space … grow the coloured boxes and the chest to fill as much of this empty space as possible"). The
+   week's column is the flexible one and Longest-over-the-note takes only what it needs at the right; each day
+   is a square that grows with the room it is given, up to 48px, and the chest grows with it, so the ribbon
+   stays about as tall as its two-line note. A phone keeps its 12px days (its own block, below). */
+@media (min-width:641px){
+  .streak-ribbon{grid-template-columns:auto auto minmax(0, 1fr) auto;}
+  .streak-ribbon > .sr-days{min-width:0;}
+  .sr-wk{flex:1 1 auto; gap:8px; max-width:100%;}
+  .sr-wk i{flex:1 1 0; min-width:14px; max-width:48px; width:auto; height:auto; aspect-ratio:1 / 1; border-radius:8px;}
+  .sr-wk i.t{border-width:3px;}
+  .sr-chest{flex:1.6 1 0; min-width:30px; max-width:76px; width:auto; margin-left:8px;}
+}
 @media (max-width:1024px){
   .rv-preview{width:260px; height:180px;}
   .games-sec .game-grid{grid-template-columns:repeat(2, 1fr);}
