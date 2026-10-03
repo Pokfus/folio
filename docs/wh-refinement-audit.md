@@ -135,7 +135,7 @@ in plan order unless the user says otherwise.
 | B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | **done 2026-10-02** |
 | B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | **done 2026-10-02** |
 | B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | **done 2026-10-03** |
-| B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | open |
+| B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | **done 2026-10-03** |
 | B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | open |
 | B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | open |
 | B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | open |
@@ -1014,6 +1014,43 @@ palette from c. 3100, `wh-204` from c. 3150. *Not done:* `wh-202`'s "Learn more"
 **Glossary.** Eight terms rewritten and *Ancient Egyptian agriculture* added; *Rosetta Stone* already agreed.
 The old *Emmer* entry stands.
 
+### B22 — `wh-211`–`wh-220`, Ancient Egypt (2026-10-03)
+
+Run as B21. Checks: `wh-audit.js --range=wh-211:wh-220` clean but for a `W.not-why` note on `wh-213` and
+`wh-217`'s `I.duplicate`, a false positive (its URL ends in the generic `1920px-thumbnail.jpg`, as `wh-122`'s
+does); the rest as B21; all 72 distinct URLs 2xx and `check-citations --card` 0 mismatched. New locators:
+`wh-211` (Saqqara), `wh-212` (Giza) and `wh-213` (Giza plateau). An agent's glossary draft for `wh-220` made a
+second key, "New Kingdom", beside the existing `New_Kingdom_of_Egypt`; it was removed and the existing entry
+rewritten with "New Kingdom" as its alias.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-211` Step Pyramid of Djoser | 8 | 6 → 8 | **"His standing as architect appears only in Late Period sources"**: a few short inscriptions about Imhotep survive from near his lifetime, and he was a god by the New Kingdom. A 277 by 544 m enclosure had no source; now about 16 hectares. The 1992 earthquake added; a Second Dynasty row dropped. |
+| `wh-212` Great Pyramid of Giza | 9 | 6 → 9 | **"Twenty to thirty thousand workers" had no source**; now "tens of thousands" with the workers' town. Phrasings carried "twenty years" and "3,800 years". The Khufu branch of the Nile, Merer's papyri and the 2023 corridor added; a Fourth Dynasty row dropped. |
+| `wh-213` Great Sphinx of Giza | 9 | 5 → 9 | **The Dream Stela as "a much later copy" was a 1906 view.** "Paws dug clear in 1818" dropped, sources splitting 1817 and 1818. The line dated the carving by Khafre's reign; since the card gives the Khufu view too, it now gives the Fourth Dynasty, c. 2613 – 2494 BCE. Size and groundwater added. |
+| `wh-214` mummification | 9 | 5 → 9 | **A c. 4300 BCE row had no source**; the prehistoric balms are c. 4500 – 3350 BCE. Budge's canopic-jar account dropped; **the Saqqara workshop's "myrrh" alone proved conifer-based**, which the card had overstated. |
+| `wh-215` Book of the Dead | 9 | 5 → 9 | "More than 190 spells" is "about 190". **"Flourished c. 1580 – 1069 BCE" stopped with the New Kingdom, but the spells were used to the end of the Ptolemaic Period**; now c. 1580 – 30 BCE, and a century-only row dropped. |
+| `wh-216` ancient Egyptian religion | 9 | 7 → 10 | The date line held three other events; now empty and `undatable`. "No founder, creed or scripture", "three thousand years" and Amun-Re as state god had no source. Maat, temple and household cult, Akhenaten and animal offerings rebuilt from fetched sources. |
+| `wh-217` First Intermediate Period | 7 | 7 → 7 | **"Seventy kings in seventy days" was given to Manetho; it is now a later tradition.** The Ipuwer dating, the ninth and tenth dynasties as "one list in two columns" and a Theban start of c. 2160 rested only on UCL and dropped. Two datings on the line, a third and the drought debate in prose. |
+| `wh-218` Middle Kingdom | 8 | 6 → 9 | **The Nubian forts "built in 32 years" contradicts its own source's reign dates**, and dropped. A reign row became the 12th Dynasty; the 2025 radiocarbon start, the Fayum and Abydos added. |
+| `wh-219` Hyksos | 7 | 6 → 7 | An "Expelled c. 1550" row was in no source read; one row, c. 1638 – 1530 BCE. Manetho's invasion story is set against the strontium evidence of an elite that rose inside Egypt; the severed hands at Avaris and Seqenenre's wounds added. |
+| `wh-220` New Kingdom | 8 | 7 → 8 | Five UCL sources were over the institution cap and gone; their vizier and viceroy claims dropped. **A kohl citation carried the wrong article number.** Two reign rows (another event's dates) became the three dynasties; Ahmose's start, 1580 – 1524 BCE by estimate, in prose. |
+
+**Read by eye.** *Article:* "the Step Pyramid of Djoser", "the Great Pyramid of Giza", "the Great Sphinx of
+Giza", "the Book of the Dead", "the First Intermediate Period", "the Middle Kingdom", "the Hyksos", "the New
+Kingdom"; mummification and the religion bare. *Confusability:* `wh-210`/`wh-211`/`wh-212` the age and its two
+pyramids, the Herodotus clue only on `wh-212`; `wh-214`/`wh-215`/`wh-216` the body, the spells and the
+religion, the weighing of the heart only on `wh-215`; `wh-217`/`wh-218` both name Mentuhotep II, one as the
+end and one as the start; `wh-219`/`wh-220` Avaris taken by Ahmose on both, the Hyksos' own story only on
+`wh-219`. *Consistency:* Khufu c. 2589 – 2566 BCE on `wh-212` and in `wh-213`'s prose; the First Intermediate
+Period ends and the Middle Kingdom begins at 2055 BCE. *Against the eg- cards:* `eg-175` dates the 12th
+Dynasty c. 1981 – 1800 BCE, against the Ministry's c. 1985 – 1795 used on `wh-218`.
+
+**Glossary.** Eight terms rewritten (*Pyramid of Djoser*, *Great Sphinx of Giza*, *Mummification*, *Book of
+the Dead*, *Ancient Egyptian religion*, *First Intermediate Period*, *Hyksos*, *New Kingdom of Egypt*);
+*Great Pyramid of Giza* and *Middle Kingdom of Egypt* already agreed. The *Great Pyramid of Giza* and *Great
+Sphinx of Giza* entries carry malformed or licence-bearing picture fields: picture pass.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1099,3 +1136,9 @@ pass once it answers. Filled batch by batch.
 | `wh-202` | fits (Nakht's tomb scenes), but its title still names emmer |
 | `wh-203` | fine, but description names a museum and a museum number |
 | `wh-205` | the Palermo Stone (the annals, not the union), and the same file as `eg-077`; the glossary's *sema-tawy* relief fits better |
+| `wh-212` | shows one corner only; description names the photographer; glossary picture fields malformed |
+| `wh-213` | a 19th-century half-buried view, not re-checked (title and description rewritten from the old fields) |
+| `wh-214` | fine, but description names a museum |
+| `wh-215` | apt, but a Met-hosted file, not Commons; description carries an accession number |
+| `wh-216` | an ear stela, one practice only; description carries an accession number |
+| `wh-217` | one provincial stela; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
