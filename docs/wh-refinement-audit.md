@@ -136,7 +136,7 @@ in plan order unless the user says otherwise.
 | B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | **done 2026-10-02** |
 | B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | **done 2026-10-03** |
 | B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | **done 2026-10-03** |
-| B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | open |
+| B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | **done 2026-10-03** |
 | B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | open |
 | B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | open |
 | B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | open |
@@ -1051,6 +1051,38 @@ the Dead*, *Ancient Egyptian religion*, *First Intermediate Period*, *Hyksos*, *
 *Great Pyramid of Giza* and *Middle Kingdom of Egypt* already agreed. The *Great Pyramid of Giza* and *Great
 Sphinx of Giza* entries carry malformed or licence-bearing picture fields: picture pass.
 
+### B23 — `wh-221`–`wh-230`, Ancient Egypt (2026-10-03)
+
+Run as B22. Checks: `wh-audit.js --range=wh-221:wh-230` clean but for `W.not-why` notes on two and `wh-229`'s
+`L.missing` (below); the rest as B22; all 63 distinct URLs 2xx. `check-citations --card` reports one mismatch,
+on `wh-224`: Crossref runs Seshadri's initial into his given name ("KrishnaG"), while the article itself prints
+"Krishna G. Seshadri", which the citation follows. New locators: `wh-226` (Kadesh, labelled Tell Nebi Mend),
+`wh-227` and `wh-228`. `wh-229` Nubia asked for "Nubia", which has no primary coordinate; a region is not drawn
+by hand, so the card stays without one. **The Ancient Egypt deck is now done.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-221` Hatshepsut | 8 | 5 → 8 | **"The Hyksos expelled a century before" and "left out of the king lists" had no source**; the throne name dropped, no fetched source spelling it as the card did. A Thutmose III row (another person's dates) became her crowned reign, c. 1473 – 1458 BCE. Punt's baboons and the Speos Artemidos boast added from their texts. |
+| `wh-222` Thutmose III | 7 | 5 → 8 | **The Annals' figures (7,942 foreigners, 340 captives) rested on a paper behind a bot wall** and dropped. A campaigns row (not a date) dropped; he ruled alone from c. 1458 BCE; the 1504 and 1468 – 1415 datings in prose. Henket-ankh and KV34 added. |
+| `wh-223` Akhenaten | 8 | 7 → 8 | **Akhetaten was chosen in his fifth year, not his sixth.** "Nearly 400 tablets" and a Late Egyptian claim had no source. Reign c. 1352 – 1336 BCE, another dating in prose; an Akhetaten row dropped. The colossi's bodies as illness against imagery, and the lost Levant, added. |
+| `wh-224` Tutankhamun | 9 | 5 → 11 | **"Restoration stelae" is one stela**, and the throne name had no source. "Died in his teens" is "died young". Reign c. 1336 – 1327 BCE with other reckonings in prose; Tutankhaten, the KV55 parentage view and the tomb's contents added. |
+| `wh-225` Ramesses II | 9 | 5 → 9 | KV7, Piramesse at Qantir and "a bigger mark than any other king" rested only on UCL and dropped. Reign c. 1279 – 1213 BCE with one recent view's accession of 1290 BCE. The phrasings moved off the battle to Abu Simbel, Ozymandias and the treaty. |
+| `wh-226` Battle of Kadesh | 7 | 5 → 7 | **The "Papyrus of Pentaur" and a Shemu-season date could not be verified** and dropped. 1274 BCE, c. 1286 on the higher chronology. The two Bedouin, the god-named divisions and 2,000 chariots or more a side added; both sides' claims of victory hedged. |
+| `wh-227` Valley of the Kings | 9 | 5 → 9 | A four-row line, three of them not dates (dynasties, "over 60 tombs", a king), became one: in use c. 1504 – 1069 BCE. Thebes "never the administrative capital" dropped. The Ramesses IX robbery trials, the reburials and the KV62 radar scans added. |
+| `wh-228` Karnak | 8 | 5 → 8 | **"In use c. 2112 BCE – 306 CE": 306 CE is the end of the Ministry's Roman Period, not of Karnak.** Three non-date rows dropped; the line is the first temple and the Hypostyle Hall. **"Begun perhaps by Amenhotep III"** is contested, and dropped. The Opet procession and the cachette added. |
+| `wh-229` Nubia | 8 | 7 → 9 | A Snefru year and a place "Miam" had no source; **"Kerma destroyed"** is "subdued". **A kohl citation carried the wrong article number** (as on `wh-220`). Date line empty and `undatable`; two phrasings no longer name Senusret III and Thutmose I. |
+| `wh-230` Third Intermediate Period | 7 | 5 → 7 | **"Kushite rule from about 725 BCE" clashed with Piye's c. 747 – 716**, and dropped. The line gives c. 1069 – 664 BCE and the Ministry's end of 747 BCE, the prose saying why they differ. |
+
+**Read by eye.** *Article:* "the Valley of the Kings", "the Battle of Kadesh", "the Third Intermediate Period";
+the kings, Karnak and Nubia bare. *Confusability:* `wh-221`/`wh-222` each names the other as co-ruler, told
+apart by Punt and the divine birth against the Annals and Henket-ankh; `wh-223`/`wh-224` both touch Akhetaten,
+one founding and one leaving it; `wh-225`/`wh-226` the king kept off the battle; `wh-227`/`wh-228` the west-bank
+tombs and the east-bank temple; `wh-229` kept off `wh-416` Kush and `wh-417` Meroë. *Consistency:* Akhenaten's
+end and Tutankhamun's start at 1336 BCE; Kadesh in Ramesses II's fifth year and the treaty in his 21st on both
+`wh-225` and `wh-226`; the New Kingdom's end at 1069 BCE on `wh-220`, `wh-227` and `wh-230`.
+
+**Glossary.** All ten terms rewritten.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1142,3 +1174,6 @@ pass once it answers. Filled batch by batch.
 | `wh-215` | apt, but a Met-hosted file, not Commons; description carries an accession number |
 | `wh-216` | an ear stela, one practice only; description carries an accession number |
 | `wh-217` | one provincial stela; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
+| `wh-226` | a 1927 line drawing of the Ramesseum reliefs; description names the publication |
+| `wh-227` | yellow arrows and tomb numbers drawn onto the photograph |
+| `wh-229` | the Western Deffufa, Kerma only; a cataract landscape would show the region (and **locator**: "Nubia" has no coordinate) |
