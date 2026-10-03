@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.948", released: "2026-10-03T14:47Z" };
+window.FOLIO_VERSION = { v: "1.949", released: "2026-10-03T14:55Z" };
 
 window.CHANGELOG = [
   {
@@ -53,7 +53,7 @@ window.CHANGELOG = [
       "<b>Hold a collection</b> on the Collections page to see its size, what you have studied and learned, when you added it and how many readers have.",
       "<b>The Ordered deck order</b> now works through a collection front to back, one subdeck at a time, and the Eased in order is gone.",
       "<b>On a phone</b>, an unfolded collection and its subdecks on the home page join into one tight list.",
-      "<b>A hundred more Ancient Greece cards are rewritten</b>, finishing the Athens and Archaic art, verse and thought decks and starting the Persian Wars, with more sources and new pictures.",
+      "<b>200 more Ancient Greece cards are rewritten</b>, finishing Athens, Archaic art and thought and the Persian Wars and starting the Athenian Empire, with more sources and new pictures.",
       "<b>Three Greek glossary links are corrected</b>: Acragas now names its founders, and two names no longer open the wrong entry.",
       "<b>Learn more on Wikipedia</b> now reaches the 200 newest Ancient Rome cards, and a link that would only land on a list page is dropped.",
       "<b>A hundred more World History cards are rewritten</b>: Ancient Egypt, the Indus and early China, the Bronze Age world and the Iron Age Near East, with more sources and corrected dates.",

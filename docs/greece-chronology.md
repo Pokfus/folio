@@ -418,6 +418,102 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Mardonius' expedition | 492 BCE | Herodotus 6.43 – 45 (`gr-399`) |
 | Earth and water | the Athenian embassy at Sardis c. 507 BCE; Darius' heralds 491 BCE, or 493/492 BCE on one view | Herodotus; Schmitt, Iranica; Rhodes on Marathon (`gr-400`) |
 
+## The Persian Wars, Marathon to Salamis (confirmed by B43–B45, `gr-401` – `gr-430`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Datis and Artaphernes | Datis carries a sealed document from Sardis early in 494 BCE; the expedition 490 BCE; Artaphernes and Datis' sons in Xerxes' army 480 BCE | Schmitt, "Datis", Iranica; Rhodes 2013; Lendering, Livius (`gr-401`) |
+| Sack of Eretria | 490 BCE, after a 6-day siege; the captives settled at Ardericca afterwards | Schmitt, "Arderikka", Iranica; Lendering, Livius (`gr-402`) |
+| Marathon | late summer 490 BCE; the day is disputed (mid-August or mid-September), so the line gives the year only | Rhodes 2013; Lendering, Livius (`gr-403`, `gr-405` – `gr-408`) |
+| Miltiades | archon 524/523 BCE; tried for tyranny 493/492 BCE; condemned after Paros and died 489 BCE | Lendering, Livius; Loomis's review of Lavelle (`gr-404`) |
+| Callimachus | polemarch and killed at Marathon, 490 BCE | Herodotus; Acropolis Museum; Harrison 1971 (`gr-405`) |
+| The Soros | raised 490 BCE; dug 1890 – 1891 CE | Petrovic 2013; Frazer 1898 (`gr-407`) |
+| Themistocles | born about 525 BCE (prose only, an estimate); archon 493/492 BCE; ostracised 471 BCE (Perrin's note to Plutarch: about 472 BCE); died at Magnesia 459 BCE | Lendering, Livius; Steinbock's review of Blösel (`gr-409`) |
+| Laurion strike and naval bill | 483/482 BCE, the archonship of Nicodemus | *Constitution of the Athenians* 22; Vaxevanopoulos et al. 2023; Lendering, Livius (`gr-410`, `gr-411`) |
+| Aristides | ostracised 483/482 BCE; recalled 480 BCE; at Plataea 479 BCE; died 467 BCE | Lendering, "Ostracism"; Perrin's notes to Plutarch; Nudell 2023 (`gr-412`, `gr-413`) |
+| Xerxes I | king 486 BCE; Babylonia revolts 484 BCE; invades Greece 480 BCE; murdered August 465 BCE | Lendering, Livius; Waerzeggers 2018; Ossendrijver 2018 (`gr-414`) |
+| Preparations for 480 | from 483 BCE (the Athos canal begun, the Hellespont bridged); the army crosses in spring 480 BCE; the invasion ends 479 BCE | Schmitt, "Greece i", Iranica; Herodotus 7.22, 7.37 (`gr-415` – `gr-417`) |
+| Hellenic League | formed 481 BCE; Athens breaks off the alliance 463 – 461 BCE | Schmitt; Loomis (`gr-418`) |
+| Congress at the Isthmus | autumn 481 BCE; meeting again in spring 480 BCE | Kulesza 2022; Smith (`gr-419`) |
+| Wooden wall oracle | 481 BCE, or spring 480 BCE (two rows) | Evans, by Giangiulio's review (`gr-420`) |
+| Tempe expedition | 480 BCE (May, in Kulesza) | Kulesza 2022; Herodotus (`gr-421`) |
+| Thermopylae and Artemisium | 480 BCE; the days are disputed (12 – 14 August, or September), so the lines give the year only | Kulesza 2022; Lendering, Livius; Schmitt (`gr-422`, `gr-424` – `gr-426`) |
+| Leonidas I | king c. 490 – 480 BCE (the Suda On Line's editors; Livius gives 488 – 480 BCE); killed 480 BCE | Suda On Line; Herodotus (`gr-423`) |
+| Thespians | at the pass 480 BCE; survivors at Plataea 479 BCE | Herodotus; Lendering, Livius (`gr-425`) |
+| Evacuation of Athens; sack of the Acropolis | 480 BCE; the Acropolis stormed in September 480 BCE | Herodotus; Rous's review of Garland (`gr-427`, `gr-429`) |
+| Troezen decree | claims to be of 480 BCE (autumn 481 BCE, if genuine); the stone c. 300 BCE, or the 3rd century BCE | Lendering, Livius; Cristofani (`gr-428`) |
+| Salamis | late September 480 BCE | Tuplin, "Salamis", Iranica (`gr-430`) |
+
+## The Persian Wars, Salamis to the aftermath (confirmed by B46–B47, `gr-431` – `gr-450`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Eurybiades | admiral 480 BCE; replaced by Leotychidas in spring 479 BCE | Kulesza 2022 (`gr-431`) |
+| Artemisia I | at Salamis 480 BCE; her later years unknown | Schmitt, Iranica (`gr-432`) |
+| Persian retreat | 480 BCE, a few days after Salamis | Herodotus 8.113; Schmitt (`gr-433`) |
+| Mardonius in Greece | wintered in Thessaly 480/479 BCE; Athens retaken 479 BCE, 10 months after Xerxes took it | Schmitt, "Mardonius", Iranica; Kulesza 2022; Herodotus 9.3 (`gr-434`) |
+| Plataea | summer 479 BCE; the Oath of Plataea stele about 350 – 325 BCE | Maher's review of Cartledge; Kulesza 2022 (`gr-435`) |
+| Pausanias the regent | regent from 480 BCE; recalled 477 BCE; died probably about 471 BCE (dates from 474 to 466 BCE also proposed) | Lendering, Livius; Kulesza 2022 (`gr-436`) |
+| Mycale | 479 BCE; whether on the same day as Plataea is doubted | Herodotus; Lendering, Livius (`gr-437`) |
+| Serpent Column | dedicated 479 BCE; its gold taken by the Phocians 356 BCE; moved to Constantinople in the 4th century CE; heads lost 1700 CE | Herodotus 9.81; Bassett's review of Stephenson (`gr-438`) |
+| Herodotus | born 484 BCE (Gellius); went to Thurii 444 – 443 BCE; still writing 430/429 BCE; died before 413 BCE; the *Histories* published in the 420s BCE | Godley; Lendering, Livius; Rollinger, Iranica (`gr-439`, `gr-440`) |
+| Aeschylus' *Persians* | produced 472 BCE, with Pericles as choregos | the play's ancient summary, via Hammond 1988 (`gr-441`) |
+| Medism | Darius' heralds 491 BCE; Thebes besieged and punished 479 BCE | Schmitt, Iranica; Herodotus (`gr-442`) |
+| War epigrams | no line: a genre; the Agora fragments found 1932 CE, the Corinthian stone on Salamis 1895 CE | West 1970; Boegehold 1965 (`gr-443`) |
+| Themistoclean Wall | built 479/478 BCE | Thucydides 1.89 – 93; Ridgway's and Bäbler's reviews (`gr-444`) |
+| Piraeus wall | begun 493/492 BCE (Themistocles' archonship); 477 BCE in Diodorus; pulled down 404 BCE; razed by Sulla 87 – 86 BCE | Thucydides 1.93; Frazer; Buckler (`gr-445`) |
+| Himera; the Carthaginian invasion | 480 BCE | Lendering, Livius; Sorg; Barletta (`gr-446`, `gr-448`) |
+| Gelon | tyrant of Gela 491 BCE; Olympic victory 488 BCE; took Syracuse 485 BCE; Himera 480 BCE; died 478 BCE | Castiglioni; Fialho 2022 (`gr-447`) |
+| Marathon trophy | 490 BCE | Rhodes 2013 (`gr-449`) |
+| Barbarian | no line: an idea | (`gr-450`) |
+
+## The Athenian Empire, to the Parthenon (confirmed by B48–B52, `gr-451` – `gr-500`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Delian League | founded 478/477 BCE; treasury moved to Athens 454 BCE; ended with Athens' fall in 404 BCE | Attic Inscriptions Online, IG I³ 259; Schmitt, Iranica; Nudell 2023 (`gr-451`) |
+| Hellenotamiai | created 478/477 BCE; at Athens from 454 BCE; outlived the tribute after 413 BCE | Thucydides 1.96; AIO, IG I³ 375 and 259 (`gr-452`) |
+| Phoros | first fixed 478/477 BCE; reassessed 425/424 BCE; replaced by a harbour tax 413 BCE | AIO, IG I³ 259 and 71; Nudell 2023; Thucydides 7.28 (`gr-453`) |
+| Assessment of Aristides | 478/477 BCE, the archonship of Timosthenes | *Constitution of the Athenians* 23; Blackman 1969; AIO, IG I³ 71 (`gr-454`) |
+| Cimon | first general 478 BCE; ostracised 461 BCE; died besieging Citium about 450 BCE | Girella's review of Di Cesare; Blackman 1969 (`gr-455`) |
+| Eion and Scyros | taken 476/475 BCE (477/476 BCE by Di Cesare); Scyros still Athenian under the grain-tax law of 374/373 BCE | Lendering, Livius; Girella's review; Rhodes's review of Stroud (`gr-456`, `gr-457`) |
+| Eurymedon | 466 BCE (Schmitt); 470/469 BCE (Di Cesare); about 468 BCE (Lendering) | Schmitt, Iranica; Girella's review; Lendering, Livius (`gr-458`) |
+| Revolt of Naxos | put down 470 BCE | Lendering, Livius (`gr-459`) |
+| Revolt of Thasos | 465 BCE, or 464 BCE in Oldfather's note to Diodorus; surrendered in the third year | Blackman 1969; Diodorus 11.70 (`gr-460`) |
+| Spartan earthquake; Third Messenian War | earthquake 464 BCE (469 BCE in Diodorus); the revolt from 464 BCE (469/468 BCE in Diodorus); surrender 455 BCE, or 458/457 BCE on another reckoning | Kulesza 2022; Cole 1974; Lang 1967 (`gr-461`, `gr-462`) |
+| Dismissal from Ithome; ostracism of Cimon | dismissed 462 BCE; Cimon ostracised 461 BCE; his trial over Thasos 463 BCE; recalled after Tanagra (no year) | Cole 1974; Goušchin 2019; Plutarch (`gr-463`, `gr-464`) |
+| Ephialtes and the Areopagus | the reform 462/461 BCE, the archonship of Conon; the *Eumenides* 458 BCE | *Constitution of the Athenians* 25; Wallace 1974; Ambrose's review (`gr-465`, `gr-466`) |
+| Pericles | born about 495 BCE (prose only, an estimate); choregos 472 BCE; general 448/447 – 429/428 BCE; deposed and fined 430 BCE; died 429 BCE | Lendering, Livius; Payen's review of Azoulay; Thucydides 2.65 (`gr-467`) |
+| Radical democracy | from 462/461 BCE; restored 403 BCE | Rhodes's review; Correa 2022 (`gr-468`) |
+| Pnyx; Tholos | the Pnyx auditorium c. 500 BCE, or c. 460 BCE on a later dating; the Tholos 470 BCE; the last prytany decrees c. 120 – 130 CE | Hansen 1982; Odysseus; Attic Inscriptions Online (`gr-469`, `gr-470`) |
+| Courts and pay | jury pay from the 450s BCE; 3 obols from 425 BCE; allotment machines soon after 388 BCE; assembly pay soon after 403 BCE | Pritchard 2014; Gkikaki 2023; Kierstead 2023; Kroll 2023 (`gr-471`, `gr-472`) |
+| Board of generals | 501/500 BCE | *Constitution of the Athenians* 22, with Attic Inscriptions Online's dating (`gr-473`) |
+| Citizenship law | 451/450 BCE; the grain scrutiny 445 BCE; Pericles' son enrolled about 429 BCE | LaForse's and Phelan's reviews; Tritle's review; Cromey 1982 (`gr-474`) |
+| First Peloponnesian War | c. 460 – 445 BCE, or 458 – 446 BCE in one study; Coronea 446 BCE | Lendering, Livius; Joyce's review of van Wijk (`gr-475`, `gr-477`) |
+| Tanagra; Oenophyta | 457 BCE (August 457 BCE for Oenophyta, 62 days after Tanagra), or 458 BCE | Kulesza 2022; Attic Inscriptions Online; Joyce's review (`gr-476`, `gr-477`) |
+| Egyptian expedition | c. 460 – 454 BCE, or 465 – 457 BCE on Kahn's dating | Bresciani, Iranica; Nudell 2023 (`gr-478`) |
+| Treasury moved to Athens | 454 BCE; the first quota list 454/453 BCE | Nudell 2023; Attic Inscriptions Online, IG I³ 259 (`gr-479`) |
+| Peace of Callias | 449 BCE; an earlier peace about 465 BCE on one view | Schmitt, Iranica; Badian, Iranica (`gr-480`) |
+| Thirty Years' Peace | sworn 446/445 BCE; voted broken at Sparta 432 BCE; ended 431 BCE | Pausanias 5.23 with Jones's note; Thucydides; Lendon 1994 (`gr-481`) |
+| Cleruchies | the first known, at Chalcis, 507 – 506 BCE; the Chersonese 447 BCE; renounced 378/377 BCE; Samos settled 365 BCE | Munn's review; Perrin's note to Plutarch; Attic Inscriptions Online (`gr-482`) |
+| Tribute lists | first stone 454/453 – 440/439 BCE; regional headings from 443/442 BCE; second stone 439/438 – 432/431 BCE | Attic Inscriptions Online, IG I³ 259 and 270 (`gr-483`) |
+| Coinage Decree | the mid-440s BCE (the older view), the 420s BCE, or c. 415 – 414 BCE (now favoured); three rows | Nudell 2023; Figueira's review; Attic Inscriptions Online (`gr-484`) |
+| Revolt of Samos | 440 – 439 BCE, or 441 – 439 BCE; surrender 439 BCE | Perrin's notes; Eddy 1968; Nudell 2023; Attic Inscriptions Online (`gr-485`) |
+| Athenian empire | took shape 454 – 449 BCE; the Chalcis decree 446/445 BCE (or 424/423 BCE); ended 404 BCE | Nudell 2023; Attic Inscriptions Online (`gr-486`) |
+| Piraeus | port begun 493/492 BCE; 372 ship-sheds counted 330/329 BCE; taken by Sulla 86 BCE (the siege 87 – 86 BCE) | Princeton Encyclopedia; Frazer; Di Nicuolo's review (`gr-487`) |
+| Long Walls | begun c. 460 BCE; pulled down 404 BCE; rebuilt 394/393 – 392/391 BCE | Frazer; Matijašić 2026 (`gr-488`) |
+| Hippodamus | Miletus rebuilt from 479 BCE; Thurii founded 443 BCE (inside the 444 – 443 BCE of `gr-440`); Rhodes founded 408 BCE | Princeton Encyclopedia; Coulson (`gr-489`) |
+| Trireme | the first great war fleets 525 BCE | Potter's review of Wallinga (`gr-490`) |
+| Trierarchy | law on handing over gear 410 – 404 BCE; joint trierarchs by 405 BCE; Periander's law 357 BCE; Demosthenes' law 340 BCE | Attic Inscriptions Online; Cecchet 2023 (`gr-491`) |
+| Liturgies | the Anagyrous choregic base after c. 440 BCE; Lysias' speaker's choruses 411/410 BCE | Attic Inscriptions Online, IG I³ 969; Lysias 21 (`gr-492`) |
+| Navy and the thetes | no line: an idea | (`gr-493`) |
+| Periclean building programme; Parthenon | accounts from c. 450 BCE; the Parthenon 447 – 438 BCE, its gables finished 432 BCE; the Propylaea 437 – 432 BCE; the Parthenon blown up 1687 CE, Elgin's removals from 1801 CE, restored 1896 – 1902 and 1923 – 1933 CE | Attic Inscriptions Online; Acropolis Museum; YSMA; St Clair 2022 (`gr-494`, `gr-495`) |
+| Phidias | overseer of the works from 447 BCE; to Olympia 438 BCE; the Zeus set up 430 BCE; no birth or death year | Acropolis Museum; Bauer 2024; Princeton Encyclopedia (`gr-496`) |
+| Athena Parthenos | installed 438/437 BCE | Attic Inscriptions Online, IG I³ 460 (`gr-497`) |
+| Parthenon frieze | set in place 443 – 438 BCE; Elgin's removal 1802; the west end taken indoors 1993 | YSMA (`gr-498`) |
+| Parthenon metopes | carved 445 – 440 BCE; bombarded 1687; the east side taken down 1987 – 1989 | Acropolis Museum (`gr-499`) |
+| Ictinus and Callicrates | the Parthenon built 447 – 438 BCE (its gables finished 432 BCE, `gr-495`); the Nike decree c. 450 BCE or c. 438 BCE | YSMA; Attic Inscriptions Online (`gr-500`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -434,13 +530,13 @@ sources when its batch comes round, and a disputed one given as a range.
 | Croesus king of Lydia | from c. 560 BCE; Sardis taken 547 BCE by the Nabonidus Chronicle, 546 BCE in Eusebius (confirmed by B24: Cahill, `gr-226`; `gr-269` gives his reign as c. 560 – 546 BCE after Jones's note to Pausanias) |
 | Cyrus II | c. 559 – 530 BCE (confirmed by B41, `gr-382`) |
 | Darius I | 522 – 486 BCE (confirmed by B41, `gr-386`) |
-| Xerxes I | 486 – 465 BCE |
+| Xerxes I | 486 – 465 BCE (confirmed by B44, `gr-414`) |
 | Ionian Revolt | 499 – 494 BCE (Lade 494 BCE); the last resistance crushed 493 BCE (confirmed by B42, `gr-394`, `gr-396`; Badian dates Lade 495 BCE) |
-| Marathon | 490 BCE |
-| Thermopylae, Artemisium, Salamis | 480 BCE |
-| Plataea, Mycale | 479 BCE |
-| Delian League founded | 478 – 477 BCE |
-| Eurymedon | c. 466 BCE (469 – 466 BCE) |
+| Marathon | 490 BCE (confirmed by B43, `gr-403`) |
+| Thermopylae, Artemisium, Salamis | 480 BCE (confirmed by B45, `gr-422`, `gr-426`, `gr-430`) |
+| Plataea, Mycale | 479 BCE (confirmed by B46, `gr-435`, `gr-437`) |
+| Delian League founded | 478 – 477 BCE, written 478/477 BCE as an archon year (confirmed by B48, `gr-451`) |
+| Eurymedon | c. 466 BCE (470/469 – 466 BCE; confirmed by B49, `gr-458`, which gives 466 and 470/469 BCE as two rows) |
 | Peloponnesian War | 431 – 404 BCE |
 | Peace of Nicias | 421 BCE |
 | Sicilian Expedition | 415 – 413 BCE |
@@ -812,4 +908,101 @@ gr-397: 494
 gr-398: 511; 508; 476
 gr-399: 492
 gr-400: 507; 491; 493; 492
+gr-401: 490; 480
+gr-402: 490
+gr-403: 490
+gr-404: 524; 493; 490; 489
+gr-405: 490
+gr-406: 490
+gr-407: 490; 1890; 1891
+gr-408: 490
+gr-409: 493; 480; 471; 459
+gr-410: 483
+gr-411: 483
+gr-412: 483; 479; 467
+gr-413: 483; 480
+gr-414: 486; 484; 480; 465
+gr-415: 480
+gr-416: 483; 480
+gr-417: 483; 480; 479
+gr-418: 481; 479; 463; 461
+gr-419: 481; 480
+gr-420: 481; 480
+gr-421: 480
+gr-422: 480
+gr-423: 490; 480
+gr-424: 480
+gr-425: 480; 479
+gr-426: 480
+gr-427: 480
+gr-428: 480; 300
+gr-429: 480
+gr-430: 480
+gr-431: 480; 479
+gr-432: 480
+gr-433: 480
+gr-434: 480; 479
+gr-435: 479
+gr-436: 480; 479; 477; 471
+gr-437: 479
+gr-438: 479; 356; 1700
+gr-439: 479
+gr-440: 484; 444; 443; 430; 413
+gr-441: 472
+gr-442: 491; 479
+gr-444: 479
+gr-445: 493; 477; 404; 87; 86
+gr-446: 480
+gr-447: 491; 485; 480; 478
+gr-448: 480
+gr-449: 490
+gr-451: 478; 454; 404
+gr-452: 478; 454; 413
+gr-453: 478; 425; 413
+gr-454: 478
+gr-455: 478; 461; 450
+gr-456: 476; 477
+gr-457: 476; 374
+gr-458: 466; 470
+gr-459: 470
+gr-460: 465; 464
+gr-461: 464; 469; 455; 458
+gr-462: 464; 469
+gr-463: 462; 461
+gr-464: 461
+gr-465: 462
+gr-466: 462; 458
+gr-467: 472; 448; 429
+gr-468: 462; 403
+gr-469: 500; 460
+gr-470: 470; 120; 130
+gr-471: 388
+gr-472: 425; 403
+gr-473: 501
+gr-474: 451; 445; 429
+gr-475: 460; 445; 458; 446
+gr-476: 457; 458
+gr-477: 457; 458; 446
+gr-478: 460; 454; 465; 457
+gr-479: 454
+gr-480: 449; 465
+gr-481: 446; 432; 431
+gr-482: 507; 506; 447; 378; 365
+gr-483: 454; 440; 443; 439; 432
+gr-484: 415; 414
+gr-485: 440; 439; 441
+gr-486: 454; 449; 446; 404
+gr-487: 493; 330; 86
+gr-488: 460; 404; 394; 392
+gr-489: 479; 443; 408
+gr-490: 525
+gr-491: 410; 404; 405; 357; 340
+gr-492: 440; 411
+gr-494: 450; 447; 432; 437
+gr-495: 447; 432; 1687; 1801; 1896; 1933
+gr-496: 447; 438; 430
+gr-497: 438
+gr-498: 443; 438; 1802; 1993
+gr-499: 445; 440; 1687; 1987; 1989
+gr-500: 447; 438; 450
 ```
