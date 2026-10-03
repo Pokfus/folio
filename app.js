@@ -23132,15 +23132,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      so the chest is said once. The run is shown in weeks: each week's seven days end in the chest they earn
      (STREAK_CHEST_EVERY; maybeStreakChest pays it), gold once paid, quiet while being earned, and the week
      after the current one is always drawn so the next chest is in sight. The phone shows the current week
-     alone (styles.css hides the other). `S.streak.best` is the longest run, kept by bumpStreak. */
+     alone (styles.css hides the other). `S.streak.best` is the longest run, kept by bumpStreak.
+     ONE WEEK AT EVERY WIDTH (Oct 2026, on request: "the weekly streak banner should never depict more than
+     one week on any of the website formats") — the current week and its chest only, so the ribbon is a single
+     row: the count, the week, then Longest over the note at the right. */
   function streakRibbonHTML() {
     const st = S.streak || {};
     const live = st.last === todayStr() || st.last === dayKey(Date.now() - DAY);
     const n = live ? (st.count | 0) : 0;
     const p = streakChestProgress(S), every = STREAK_CHEST_EVERY;
-    const weeks = Math.max(1, Math.ceil(n / every)), paid = Math.floor(n / every), shown = Math.max(2, weeks);
+    const weeks = Math.max(1, Math.ceil(n / every)), paid = Math.floor(n / every);
     let days = "";
-    for (let w = shown - 2; w < shown; w++) {
+    for (let w = weeks - 1; w < weeks; w++) {
       const cells = [];
       for (let i = 0; i < every; i++) { const d = w * every + i + 1; cells.push('<i class="' + (d <= n ? (d === n ? "t" : "b") : "o") + '"></i>'); }
       days += '<span class="sr-wk' + (w === weeks - 1 ? " cur" : "") + '">' + cells.join("") +
