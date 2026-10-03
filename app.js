@@ -28150,7 +28150,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          It goes in the ARIA LABEL as well: that label REPLACES the banner's own text for a screen
          reader, so a chip left out of it is a chip only the sighted reader is told about. */
       const orig = b.origLang ? (b.origName || "Original") + " original" : "";
-      return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}"
+      /* `--w` is how far the book is read, painted ACROSS the banner from the left the way a deck row on
+         the home page paints its day (Oct 2026 Timeline design, on request) — in place of the thin bar
+         along the bottom edge, which is gone. */
+      return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}; --w:${pos ? pct : 0}%"
                 aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", with the " + esc(orig) : ""}${fav ? ", a favourite" : ""}">
         <span class="bk-spine" aria-hidden="true"></span>
         ${/* the star is a MARK, not a control: the way to set and clear one is the long-press sheet, so a
@@ -28174,10 +28177,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             ${pos ? `<span class="bk-tile-resume">${esc(where)}</span>` : `<span class="bk-tile-new">Start reading</span>`}
           </span>
         </span>
-        ${/* the reading bar runs along the banner's own bottom EDGE (Aug 2026, on request) — it costs the
-              row no width at all, which is what lets the banner stay short, and a bar drawn across the
-              whole width of a book is the one place a fraction reads as a fraction */""}
-        ${pos ? `<span class="bk-tile-bar"><span style="width:${pct}%"></span></span>` : ""}
       </button>`;
     };
     // a book never opened has no `at`, so it files below every book that has been — which is what
@@ -28200,10 +28199,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        headed honestly ("Everything else") whenever anything has been starred, and both headings disappear
        when nothing has: an unstarred shelf is exactly the page it always was. The favourites keep the
        chosen sort rather than the order they were starred in — it is the same shelf, split. */
+    /* THE SHELF IS A LINE THROUGH TIME (Oct 2026, on request — the "Timeline" of the six Library designs
+       in docs/mockups/library-redesigns/): a rule down the left, each banner hung off it by a dot in the
+       book's colour, and, when the shelf is sorted by date, an ERA MARK on the line wherever the period
+       changes — so the order the reader chose is still the order, and the marks simply name where on it
+       they are. Any other sort keeps the line and the dots and draws no marks: "Before 500 BCE" over a
+       shelf sorted by title would be a heading that lies. The marks follow the direction too, because
+       they are emitted wherever the era CHANGES in the sorted list rather than from a fixed table.
+       Two banners to a row on a wide screen, as the design has it; the second column's dot and tie are
+       not drawn (`bk-c2`), since the line is on the first column's side. The column is counted in JS
+       because CSS cannot tell which column an auto-placed item landed in once a full-width mark has
+       reset the row. */
+    const ERAS = [["Before 500 BCE", (y) => y < -500], ["500 BCE to 1 CE", (y) => y < 1], ["1 CE to 500", (y) => y < 500], ["500 to 1300", (y) => y < 1300], ["After 1300", () => true]];
+    const eraOf = (b) => (b.year == null ? "Undated" : ERAS.find((e) => e[1](b.year))[0]);
+    const timelineHTML = (list) => {
+      const marks = key === "written";
+      const counts = {};
+      if (marks) list.forEach((b) => { const e = eraOf(b); counts[e] = (counts[e] || 0) + 1; });
+      let last = null, col = 0, out = "";
+      list.forEach((b) => {
+        if (marks) { const e = eraOf(b); if (e !== last) { out += `<div class="bk-mark">${esc(e)} <em>${counts[e]}</em></div>`; last = e; col = 0; } }
+        out += `<div class="bk-slot bk-c${(col % 2) + 1}" style="--tile:${bookColor(b)}">${tile(b)}</div>`;
+        col++;
+      });
+      return `<div class="book-timeline"><div class="book-grid">${out}</div></div>`;
+    };
     const section = (label, list) =>
       list.length
-        ? `<section class="lib-sec">${label ? `<h2 class="lib-sec-head">${label}</h2>` : ""}` +
-          `<div class="book-grid">${list.map(tile).join("")}</div></section>`
+        ? `<section class="lib-sec">${label ? `<h2 class="lib-sec-head">${label}</h2>` : ""}` + timelineHTML(list) + `</section>`
         : "";
     /* The shelf itself, for a given query. It is a function rather than a string because the search box
        repaints it IN PLACE — a full render() on every keystroke would take the caret out of the box being

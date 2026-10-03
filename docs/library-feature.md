@@ -1181,3 +1181,23 @@ the highlights.**
       is a target inside a target on a phone.
   · TTS is otherwise **not** wired: `ttsEnabled()` returns false site-wide (see the read-aloud bullet), so a
     play control here would render and do nothing.
+
+## The Timeline shelf (Oct 2026)
+
+Chosen from the six Library designs in `docs/mockups/library-redesigns/` (the "Timeline", `l-5`), on
+request. `PAGES.library` draws each section's shelf as `timelineHTML(list)`: a `.book-timeline` with a
+rule down its left, and inside it the `.book-grid` of `.bk-slot`s, each holding one `.book-tile` and
+hung off the rule by a dot in the book's colour (`--tile` on the slot) and a short tie. **Era marks**
+(`.bk-mark`: Before 500 BCE · 500 BCE to 1 CE · 1 CE to 500 · 500 to 1300 · After 1300) are emitted
+only when the sort is by date, wherever the era changes in the sorted list — so they follow the
+direction, and no other sort gets a heading that would lie about the order. Two banners to a row from
+1025px (the second column's dot and tie are not drawn: `bk-c2`, counted in JS because CSS cannot tell
+which column an auto-placed item took once a full-width mark reset the row); one below.
+
+**The banner is the home page's fill row** (on request): `--w` on the tile is the reading percentage,
+painted across it from the left by `.book-tile::before`, with no edge line and no bar — the bottom
+`.bk-tile-bar` is gone from the markup. The tile's old wash is replaced by plain paper so the fill is
+the only tint. Everything else on the banner (spine, author, title, date, length, original-language
+chip, reads, resume line, star), the hold menu, the search, the sort, the favourites split and the
+read-count repaint are unchanged. `test-library.js`'s one-per-row assertion at desktop became two.
+
