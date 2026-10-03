@@ -2,7 +2,7 @@
 
 Folio is a study companion: an Anki-style flashcard site with spaced repetition, daily games, a
 glossary, a library of whole books, an admin editor and an interactive globe. It is a plain static
-website — open `index.html` and it runs. Hosted on Cloudflare Pages; merging to `main` deploys.
+website — open `index.html` and it runs. Hosted on Cloudflare Pages at https://folio.study; merging to `main` deploys.
 
 **This file is deliberately short.** It used to be 930 KB and every session paid for all of it on every
 step. Everything it used to say is in **`docs/reference.md`** — the archive of why every rule exists.

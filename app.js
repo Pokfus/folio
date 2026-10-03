@@ -48329,6 +48329,18 @@ let prev = null;
     return Promise.all([persisted, est]).then(([p, e]) => ({ persisted: p, usage: e && e.usage, quota: e && e.quota }));
   }
   function backupLastAt() { try { return +localStorage.getItem(BACKUP_AT_KEY) || 0; } catch (e) { return 0; } }
+  // the one place a backup file is written — Settings → Back up and the "Folio has moved" strip both call it
+  function downloadBackupFile() {
+    const blob = new Blob([JSON.stringify(S, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    // dated, so a folder of them sorts and a reader can tell which is newest without opening one
+    a.download = "folio-progress-" + new Date().toISOString().slice(0, 10) + ".json";
+    a.click();
+    URL.revokeObjectURL(url);
+    try { localStorage.setItem(BACKUP_AT_KEY, String(Date.now())); } catch (e) {}
+  }
   /* An import REPLACES this device's progress with the file's — the same install `applyProgress` does for
      an account's saved progress on sign-in, so the per-review log and its sync mark are handled the one way
      they are everywhere else. Settings are MERGED rather than replaced, so a backup taken before a setting
@@ -48845,15 +48857,7 @@ let prev = null;
     });
 
     root.querySelector("#export").addEventListener("click", () => {
-      const blob = new Blob([JSON.stringify(S, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      // dated, so a folder of them sorts and a reader can tell which is newest without opening one
-      a.download = "folio-progress-" + new Date().toISOString().slice(0, 10) + ".json";
-      a.click();
-      URL.revokeObjectURL(url);
-      try { localStorage.setItem(BACKUP_AT_KEY, String(Date.now())); } catch (e) {}
+      downloadBackupFile();
       const bw = root.querySelector("#backupWhen");
       if (bw) bw.textContent = "Last downloaded on this device " + new Date().toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }) + ".";
       toast("Backup downloaded");
@@ -52709,6 +52713,52 @@ let prev = null;
      either. The four surfaces that render an artefact's prose or picture await the bundle for the
      reader who beats the warm. Skipped under Save-Data. */
   whenIdle(() => { if (!lightMode()) ensureData("artefactExtra"); });
+
+  /* THE OLD ADDRESS SENDS READERS TO THE NEW ONE (Oct 2026, on request — Folio moved to folio.study).
+     A strip, not an automatic redirect, because browser storage belongs to one hostname: a reader who
+     never signed in keeps their whole study record in this browser for THIS address, and a silent jump
+     would strand it. So a guest is offered the backup download first (the same file Settings → Back up
+     writes, restored on the new address under Settings → Restore a backup); a signed-in reader is told
+     to sign in again, their progress being in their account. It matches the ONE production hostname
+     exactly — a Cloudflare preview (`<branch>.folio-756.pages.dev`) is a developer's page and gets
+     nothing. Dismissed for the tab, not for good, because the old address is meant to be left. */
+  const MOVED_FROM_HOST = "folio-756.pages.dev", MOVED_TO_ORIGIN = "https://folio.study", MOVED_DISMISS_KEY = "folio_moved_dismissed_v1";
+  function movedStripBoot() {
+    if (location.hostname !== MOVED_FROM_HOST) return;
+    try { if (sessionStorage.getItem(MOVED_DISMISS_KEY)) return; } catch (e) {}
+    const guest = guestNow();
+    const bar = document.createElement("div");
+    bar.className = "moved-strip";
+    bar.setAttribute("role", "region");
+    bar.setAttribute("aria-label", "Folio has moved");
+    const msg = document.createElement("p");
+    const lead = document.createElement("b");
+    lead.textContent = "Folio has moved to folio.study.";
+    msg.appendChild(lead);
+    msg.appendChild(document.createTextNode(guest
+      ? " You are not signed in, so your progress is stored only in this browser. Download a backup first, then restore it on the new address under Settings \u2192 Restore a backup."
+      : " Sign in again there and your progress comes with your account."));
+    bar.appendChild(msg);
+    if (guest) {
+      const dl = document.createElement("button");
+      dl.type = "button"; dl.className = "btn ghost"; dl.textContent = "Download backup";
+      dl.addEventListener("click", () => { downloadBackupFile(); toast("Backup downloaded"); });
+      bar.appendChild(dl);
+    }
+    const go = document.createElement("button");
+    go.type = "button"; go.className = "btn"; go.textContent = "Go to folio.study";
+    go.addEventListener("click", () => { location.assign(MOVED_TO_ORIGIN + location.pathname + location.search + location.hash); });
+    bar.appendChild(go);
+    const x = document.createElement("button");
+    x.type = "button"; x.className = "moved-x"; x.setAttribute("aria-label", "Dismiss"); x.textContent = "\u00d7";
+    x.addEventListener("click", () => {
+      bar.remove();
+      try { sessionStorage.setItem(MOVED_DISMISS_KEY, "1"); } catch (e) {}
+    });
+    bar.appendChild(x);
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
+  movedStripBoot();
 
   // Service worker (sw.js) — makes Folio installable and usable offline. Registered after boot so
   // it never competes with first paint, and NEVER on a dev origin: a file-watching dev server's
