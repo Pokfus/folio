@@ -122,6 +122,13 @@ jobs:
       - name: facts-echo
         run: node .claude/facts-echo.js
 
+      # EVERY CARD COMES WITH ITS LEARN-MORE LINK, WHERE ONE EXISTS (Oct 2026). add-card.js and
+      # import-batch.js resolve a new card's Wikipedia article as they write it; this is what catches a
+      # card that was written some other way, or whose lookup could not reach Wikipedia. Offline, writes
+      # nothing, and its failure message names the command that fixes it.
+      - name: wikipedia links in step
+        run: node .claude/apply-wiki-links.js --check
+
       # THE SIZE GOES IN THE JOB SUMMARY, NOT ONLY IN THE LOG (Sep 2026). It ran here with
       # continue-on-error from the start, which is right -- a size is not a failure -- and
       # NOBODY READS A GREEN JOB'S LOG. The eager path grew 2.6x past the largest figure

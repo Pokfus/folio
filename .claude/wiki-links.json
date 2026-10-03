@@ -1,14 +1,15 @@
 {
- "generated": "2026-10-02T17:07Z",
+ "generated": "2026-10-03T13:11Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4156,
-  "redirect-broader": 361,
-  "redirect-variant": 281,
-  "section-redirect": 81,
-  "disambiguation": 117,
-  "none": 550,
-  "disambig-resolved": 67,
+  "ok": 4298,
+  "redirect-broader": 373,
+  "redirect-variant": 288,
+  "section-redirect": 89,
+  "disambiguation": 126,
+  "none": 565,
+  "disambig-resolved": 68,
+  "list-page": 6,
   "search-match": 5
  },
  "cards": {
@@ -2628,21 +2629,29 @@
    "status": "disambiguation",
    "from": "Battus",
    "suggestions": [
+    "Battus (mythology)",
+    "Battus of Malta",
     "Battus III of Cyrene",
     "Battus II of Cyrene",
     "Battus IV of Cyrene",
-    "Battus I of Cyrene",
-    "Battus (mythology)",
-    "Battus of Malta"
+    "Battus I of Cyrene"
    ]
   },
   "gr-208": {
    "answer": "Syracuse",
-   "title": "Syracuse, Sicily",
-   "url": "https://en.wikipedia.org/wiki/Syracuse,_Sicily",
-   "via": "disambiguation",
-   "status": "disambig-resolved",
-   "from": "Syracuse"
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Syracuse",
+   "suggestions": [
+    "Count of Syracuse",
+    "Downtown Syracuse",
+    "Duke of Syracuse",
+    "Province of Syracuse",
+    "Sports in Syracuse",
+    "Syracuse, Indiana"
+   ]
   },
   "gr-209": {
    "answer": "Megara Hyblaea",
@@ -3035,11 +3044,12 @@
   },
   "rm-001": {
    "answer": "Ancient Italy",
-   "title": "List of ancient peoples of Italy",
-   "url": "https://en.wikipedia.org/wiki/List_of_ancient_peoples_of_Italy",
+   "title": null,
+   "url": null,
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Ancient Italy"
+   "status": "list-page",
+   "from": "Ancient Italy",
+   "target": "List of ancient peoples of Italy"
   },
   "rm-002": {
    "answer": "Apennines",
@@ -4535,7 +4545,7 @@
    "answer": "wheel",
    "title": "Wheel",
    "url": "https://en.wikipedia.org/wiki/Wheel",
-   "via": "answer",
+   "via": "glossary",
    "status": "ok"
   },
   "wh-167": {
@@ -4626,11 +4636,12 @@
   },
   "wh-179": {
    "answer": "Sumerian city-state",
-   "title": "List of cities of the ancient Near East",
-   "url": "https://en.wikipedia.org/wiki/List_of_cities_of_the_ancient_Near_East",
+   "title": null,
+   "url": null,
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Sumerian city-state"
+   "status": "list-page",
+   "from": "Sumerian city-state",
+   "target": "List of cities of the ancient Near East"
   },
   "wh-180": {
    "answer": "Ur",
@@ -7759,11 +7770,12 @@
   },
   "cnh-041": {
    "answer": "Neolithic China",
-   "title": "List of Neolithic cultures of China",
-   "url": "https://en.wikipedia.org/wiki/List_of_Neolithic_cultures_of_China",
+   "title": null,
+   "url": null,
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Neolithic China"
+   "status": "list-page",
+   "from": "Neolithic China",
+   "target": "List of Neolithic cultures of China"
   },
   "cnh-043": {
    "answer": "millet and rice farming",
@@ -10092,11 +10104,15 @@
   },
   "gr-352": {
    "answer": "iambus",
-   "title": "Iambus (genre)",
-   "url": "https://en.wikipedia.org/wiki/Iambus_(genre)",
-   "via": "disambiguation",
-   "status": "disambig-resolved",
-   "from": "Iamb"
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Iamb",
+   "suggestions": [
+    "Dionysius Iambus",
+    "Iambus (genre)"
+   ]
   },
   "gr-353": {
    "answer": "Archilochus",
@@ -25677,11 +25693,12 @@
   },
   "wh-517": {
    "answer": "peasant revolt",
-   "title": "List of peasant revolts",
-   "url": "https://en.wikipedia.org/wiki/List_of_peasant_revolts",
+   "title": null,
+   "url": null,
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Peasant revolt"
+   "status": "list-page",
+   "from": "Peasant revolt",
+   "target": "List of peasant revolts"
   },
   "wh-518": {
    "answer": "Hundred Years' War",
@@ -27780,11 +27797,12 @@
   },
   "pea-041": {
    "answer": "Liberal Democratic Party",
-   "title": "List of Liberal Democratic parties",
-   "url": "https://en.wikipedia.org/wiki/List_of_Liberal_Democratic_parties",
+   "title": null,
+   "url": null,
    "via": "answer",
-   "status": "redirect-broader",
-   "from": "Liberal Democratic Party"
+   "status": "list-page",
+   "from": "Liberal Democratic Party",
+   "target": "List of Liberal Democratic parties"
   },
   "pea-042": {
    "answer": "Democratic Party of Japan",
@@ -44783,6 +44801,1576 @@
    "url": "https://en.wikipedia.org/wiki/Thirteenth_Dynasty_of_Egypt",
    "via": "glossary",
    "status": "ok"
+  },
+  "rm-801": {
+   "answer": "declamation",
+   "title": "Declamation",
+   "url": "https://en.wikipedia.org/wiki/Declamation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-802": {
+   "answer": "servus",
+   "title": "Servus",
+   "url": "https://en.wikipedia.org/wiki/Servus",
+   "via": "answer",
+   "status": "ok"
+  },
+  "rm-803": {
+   "answer": "sub corona",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pompey",
+    "Succession of the Roman Empire",
+    "Roman imperial cult",
+    "Slavery in ancient Rome",
+    "Saint Maurice"
+   ]
+  },
+  "rm-804": {
+   "answer": "catasta",
+   "title": "Catasta",
+   "url": "https://en.wikipedia.org/wiki/Catasta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-805": {
+   "answer": "verna",
+   "title": "Slavery in ancient Rome",
+   "url": "https://en.wikipedia.org/wiki/Slavery_in_ancient_Rome",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Verna"
+  },
+  "rm-806": {
+   "answer": "ergastulum",
+   "title": "Ergastulum",
+   "url": "https://en.wikipedia.org/wiki/Ergastulum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-807": {
+   "answer": "manumission",
+   "title": "Manumission",
+   "url": "https://en.wikipedia.org/wiki/Manumission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-808": {
+   "answer": "libertus",
+   "title": "Slavery in ancient Rome",
+   "url": "https://en.wikipedia.org/wiki/Slavery_in_ancient_Rome",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Libertus"
+  },
+  "rm-809": {
+   "answer": "senatus consultum Silanianum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Senatus consultum",
+    "10s",
+    "Historiography of the Christianization of the Roman Empire"
+   ]
+  },
+  "rm-810": {
+   "answer": "ordo decurionum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Ordo decurionum",
+   "target": "Curiales#Decurions"
+  },
+  "rm-811": {
+   "answer": "prefect of Egypt",
+   "title": null,
+   "url": null,
+   "via": "glossary",
+   "status": "list-page",
+   "from": "Prefect of Egypt",
+   "target": "List of governors of Roman Egypt"
+  },
+  "rm-812": {
+   "answer": "plebs urbana",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Plebeians",
+    "Gaius Marius",
+    "Jupiter (god)",
+    "Ancient Roman architecture",
+    "Slavery in ancient Rome"
+   ]
+  },
+  "rm-813": {
+   "answer": "collegium",
+   "title": "Collegium (ancient Rome)",
+   "url": "https://en.wikipedia.org/wiki/Collegium_(ancient_Rome)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-814": {
+   "answer": "salutatio",
+   "title": "Patronage in ancient Rome",
+   "url": "https://en.wikipedia.org/wiki/Patronage_in_ancient_Rome",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Salutatio"
+  },
+  "rm-815": {
+   "answer": "frumentatio",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Roman Republic",
+    "Food in ancient Rome",
+    "Ancient Roman cuisine"
+   ]
+  },
+  "rm-816": {
+   "answer": "puticuli",
+   "title": "Puticuli",
+   "url": "https://en.wikipedia.org/wiki/Puticuli",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-817": {
+   "answer": "tunica",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Tunica",
+   "suggestions": [
+    "Tunica, Louisiana",
+    "Tunica, Mississippi",
+    "Tunica (biology)",
+    "Tunica County, Mississippi",
+    "Tunica Lake",
+    "Tunica externa"
+   ]
+  },
+  "rm-818": {
+   "answer": "toga",
+   "title": "Toga",
+   "url": "https://en.wikipedia.org/wiki/Toga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-819": {
+   "answer": "garum",
+   "title": "Garum",
+   "url": "https://en.wikipedia.org/wiki/Garum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-820": {
+   "answer": "convivium",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Convivium",
+   "suggestions": []
+  },
+  "rm-821": {
+   "answer": "medicus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Medicus",
+   "suggestions": [
+    "Dieter Medicus",
+    "Fritz Medicus",
+    "Henry Medicus",
+    "Index Medicus",
+    "Medicus Long",
+    "Medicus Mundi International"
+   ]
+  },
+  "rm-822": {
+   "answer": "Galen",
+   "title": "Galen",
+   "url": "https://en.wikipedia.org/wiki/Galen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-823": {
+   "answer": "Ulpian's life table",
+   "title": "Ulpian's life table",
+   "url": "https://en.wikipedia.org/wiki/Ulpian's_life_table",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-824": {
+   "answer": "imagines maiorum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Imagines maiorum",
+   "target": "Roman funerary practices#Imagines (\"images\")"
+  },
+  "rm-825": {
+   "answer": "columbarium",
+   "title": "Columbarium",
+   "url": "https://en.wikipedia.org/wiki/Columbarium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-826": {
+   "answer": "Campus Martius",
+   "title": "Campus Martius",
+   "url": "https://en.wikipedia.org/wiki/Campus_Martius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-827": {
+   "answer": "Regionary Catalogues",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Palatine Hill",
+    "Topography of ancient Rome",
+    "Forum Pistorium",
+    "Amphitheatrum Castrense",
+    "Vicus"
+   ]
+  },
+  "rm-828": {
+   "answer": "fourteen regions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "14 regions of Augustan Rome",
+    "14 regions of Medieval Rome",
+    "Rome",
+    "Ancient Rome",
+    "Roman Empire"
+   ]
+  },
+  "rm-829": {
+   "answer": "insula",
+   "title": "Insula (building)",
+   "url": "https://en.wikipedia.org/wiki/Insula_(building)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-830": {
+   "answer": "domus",
+   "title": "Domus",
+   "url": "https://en.wikipedia.org/wiki/Domus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-831": {
+   "answer": "atrium",
+   "title": "Atrium (architecture)",
+   "url": "https://en.wikipedia.org/wiki/Atrium_(architecture)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-832": {
+   "answer": "Roman villa",
+   "title": "Roman villa",
+   "url": "https://en.wikipedia.org/wiki/Roman_villa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-833": {
+   "answer": "hortus",
+   "title": "Hortus",
+   "url": "https://en.wikipedia.org/wiki/Hortus",
+   "via": "answer",
+   "status": "ok"
+  },
+  "rm-834": {
+   "answer": "Tabula Heracleensis",
+   "title": "Heraclean Tablets",
+   "url": "https://en.wikipedia.org/wiki/Heraclean_Tablets",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tabula Heracleensis"
+  },
+  "rm-835": {
+   "answer": "Marcus Egnatius Rufus",
+   "title": "Marcus Egnatius Rufus",
+   "url": "https://en.wikipedia.org/wiki/Marcus_Egnatius_Rufus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-836": {
+   "answer": "curatores alvei Tiberis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sergius Paulus",
+    "Pliny the Younger",
+    "Lucius Vitrasius Flamininus",
+    "Consularis",
+    "Lucius Caninius Gallus (consul 2 BC)"
+   ]
+  },
+  "rm-837": {
+   "answer": "Cloacina",
+   "title": "Cloacina",
+   "url": "https://en.wikipedia.org/wiki/Cloacina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-838": {
+   "answer": "forica",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Baths at Ostia"
+   ]
+  },
+  "rm-839": {
+   "answer": "castellum aquae",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Castellum",
+    "Mauretania Caesariensis",
+    "Index of ancient Rome–related articles",
+    "Roman aqueduct",
+    "Acqua Vergine"
+   ]
+  },
+  "rm-840": {
+   "answer": "hora",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Hora",
+   "suggestions": [
+    "Hora (astrology)",
+    "Hora (dance)",
+    "Hora (company)",
+    "Hora (musician)",
+    "Hora (surname)"
+   ]
+  },
+  "rm-841": {
+   "answer": "Horologium Augusti",
+   "title": "Solarium Augusti",
+   "url": "https://en.wikipedia.org/wiki/Solarium_Augusti",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Horologium Augusti"
+  },
+  "rm-842": {
+   "answer": "macellum",
+   "title": "Macellum",
+   "url": "https://en.wikipedia.org/wiki/Macellum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-843": {
+   "answer": "taberna",
+   "title": "Taberna",
+   "url": "https://en.wikipedia.org/wiki/Taberna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-844": {
+   "answer": "fullonica",
+   "title": "Fullo",
+   "url": "https://en.wikipedia.org/wiki/Fullo",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Fullonica"
+  },
+  "rm-845": {
+   "answer": "lex Claudia",
+   "title": "Lex Claudia de nave senatoris",
+   "url": "https://en.wikipedia.org/wiki/Lex_Claudia_de_nave_senatoris",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Lex Claudia"
+  },
+  "rm-846": {
+   "answer": "navicularius",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Lupinus"
+   ]
+  },
+  "rm-847": {
+   "answer": "Ostia",
+   "title": "Ostia (Rome)",
+   "url": "https://en.wikipedia.org/wiki/Ostia_(Rome)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Ostia"
+  },
+  "rm-848": {
+   "answer": "Portus",
+   "title": "Portus",
+   "url": "https://en.wikipedia.org/wiki/Portus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-849": {
+   "answer": "amphora",
+   "title": "Amphora",
+   "url": "https://en.wikipedia.org/wiki/Amphora",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-850": {
+   "answer": "terra sigillata",
+   "title": "Terra sigillata",
+   "url": "https://en.wikipedia.org/wiki/Terra_sigillata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-851": {
+   "answer": "glassblowing",
+   "title": "Glassblowing",
+   "url": "https://en.wikipedia.org/wiki/Glassblowing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-852": {
+   "answer": "as",
+   "title": "As (Roman coin)",
+   "url": "https://en.wikipedia.org/wiki/As_(Roman_coin)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-853": {
+   "answer": "argentarius",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Lautumiae",
+    "Capitoline Hill",
+    "Arch of Marcus Aurelius (Rome)",
+    "Roman economy",
+    "Banking in ancient Rome"
+   ]
+  },
+  "rm-854": {
+   "answer": "Roman cursive",
+   "title": "Roman cursive",
+   "url": "https://en.wikipedia.org/wiki/Roman_cursive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-855": {
+   "answer": "programma",
+   "title": "Programma International",
+   "url": "https://en.wikipedia.org/wiki/Programma_International",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Programma"
+  },
+  "rm-856": {
+   "answer": "wax tablet",
+   "title": "Wax tablet",
+   "url": "https://en.wikipedia.org/wiki/Wax_tablet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-857": {
+   "answer": "itinerarium",
+   "title": "Itinerarium",
+   "url": "https://en.wikipedia.org/wiki/Itinerarium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-858": {
+   "answer": "cursus publicus",
+   "title": "Cursus publicus",
+   "url": "https://en.wikipedia.org/wiki/Cursus_publicus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-859": {
+   "answer": "popina",
+   "title": "Popina",
+   "url": "https://en.wikipedia.org/wiki/Popina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-860": {
+   "answer": "De agri cultura",
+   "title": "De agri cultura",
+   "url": "https://en.wikipedia.org/wiki/De_agri_cultura",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-861": {
+   "answer": "villa rustica",
+   "title": "Villa rustica",
+   "url": "https://en.wikipedia.org/wiki/Villa_rustica",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-862": {
+   "answer": "Falernian wine",
+   "title": "Falernian wine",
+   "url": "https://en.wikipedia.org/wiki/Falernian_wine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-863": {
+   "answer": "trapetum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Food in ancient Rome",
+    "Millstone",
+    "Olive oil"
+   ]
+  },
+  "rm-864": {
+   "answer": "Las Médulas",
+   "title": "Las Médulas",
+   "url": "https://en.wikipedia.org/wiki/Las_M%C3%A9dulas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-865": {
+   "answer": "tegula",
+   "title": "Imbrex and tegula",
+   "url": "https://en.wikipedia.org/wiki/Imbrex_and_tegula",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Tegula"
+  },
+  "rm-866": {
+   "answer": "lex Roscia theatralis",
+   "title": "Lex Roscia theatralis",
+   "url": "https://en.wikipedia.org/wiki/Lex_Roscia_theatralis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-867": {
+   "answer": "ludi Romani",
+   "title": "Ludi Romani",
+   "url": "https://en.wikipedia.org/wiki/Ludi_Romani",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-868": {
+   "answer": "gladiator",
+   "title": "Gladiator",
+   "url": "https://en.wikipedia.org/wiki/Gladiator",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-869": {
+   "answer": "Ludus Magnus",
+   "title": "Ludus Magnus",
+   "url": "https://en.wikipedia.org/wiki/Ludus_Magnus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-870": {
+   "answer": "retiarius",
+   "title": "Retiarius",
+   "url": "https://en.wikipedia.org/wiki/Retiarius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-871": {
+   "answer": "munus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Munus",
+   "suggestions": [
+    "MUNUS"
+   ]
+  },
+  "rm-872": {
+   "answer": "amphitheatre",
+   "title": "Amphitheatre",
+   "url": "https://en.wikipedia.org/wiki/Amphitheatre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-873": {
+   "answer": "venatio",
+   "title": "Venatio",
+   "url": "https://en.wikipedia.org/wiki/Venatio",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-874": {
+   "answer": "damnatio ad bestias",
+   "title": "Damnatio ad bestias",
+   "url": "https://en.wikipedia.org/wiki/Damnatio_ad_bestias",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-875": {
+   "answer": "naumachia",
+   "title": "Naumachia",
+   "url": "https://en.wikipedia.org/wiki/Naumachia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-876": {
+   "answer": "chariot racing",
+   "title": "Chariot racing",
+   "url": "https://en.wikipedia.org/wiki/Chariot_racing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-877": {
+   "answer": "Circus of Maxentius",
+   "title": "Circus of Maxentius",
+   "url": "https://en.wikipedia.org/wiki/Circus_of_Maxentius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-878": {
+   "answer": "circus factions",
+   "title": "Demes in the Byzantine Empire",
+   "url": "https://en.wikipedia.org/wiki/Demes_in_the_Byzantine_Empire",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Circus factions"
+  },
+  "rm-879": {
+   "answer": "Gaius Appuleius Diocles",
+   "title": "Gaius Appuleius Diocles",
+   "url": "https://en.wikipedia.org/wiki/Gaius_Appuleius_Diocles",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-880": {
+   "answer": "Theatre of Pompey",
+   "title": "Theatre of Pompey",
+   "url": "https://en.wikipedia.org/wiki/Theatre_of_Pompey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-881": {
+   "answer": "pantomimus",
+   "title": "Mime artist",
+   "url": "https://en.wikipedia.org/wiki/Mime_artist",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Pantomimus"
+  },
+  "rm-882": {
+   "answer": "Decimus Laberius",
+   "title": "Decimus Laberius",
+   "url": "https://en.wikipedia.org/wiki/Decimus_Laberius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-883": {
+   "answer": "thermae",
+   "title": "Thermae",
+   "url": "https://en.wikipedia.org/wiki/Thermae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-884": {
+   "answer": "Baths of Diocletian",
+   "title": "Baths of Diocletian",
+   "url": "https://en.wikipedia.org/wiki/Baths_of_Diocletian",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-885": {
+   "answer": "ludus duodecim scriptorum",
+   "title": "Ludus duodecim scriptorum",
+   "url": "https://en.wikipedia.org/wiki/Ludus_duodecim_scriptorum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-886": {
+   "answer": "palaestra",
+   "title": "Palaestra",
+   "url": "https://en.wikipedia.org/wiki/Palaestra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-887": {
+   "answer": "Fasti Praenestini",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Fasti Praenestini",
+   "target": "Fasti#Extant fasti"
+  },
+  "rm-888": {
+   "answer": "panem et circenses",
+   "title": "Bread and circuses",
+   "url": "https://en.wikipedia.org/wiki/Bread_and_circuses",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Panem et circenses"
+  },
+  "rm-889": {
+   "answer": "pulvinar",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Pulvinar",
+   "suggestions": [
+    "Pulvinar nuclei"
+   ]
+  },
+  "rm-890": {
+   "answer": "Epistulae Morales ad Lucilium",
+   "title": "Epistulae Morales ad Lucilium",
+   "url": "https://en.wikipedia.org/wiki/Epistulae_Morales_ad_Lucilium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-891": {
+   "answer": "religio",
+   "title": "Religio",
+   "url": "https://en.wikipedia.org/wiki/Religio",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-892": {
+   "answer": "pax deorum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Pax deorum",
+   "target": "Glossary of ancient Roman religion#pax deorum"
+  },
+  "rm-893": {
+   "answer": "suovetaurilia",
+   "title": "Suovetaurilia",
+   "url": "https://en.wikipedia.org/wiki/Suovetaurilia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-894": {
+   "answer": "Temple of Castor and Pollux",
+   "title": "Temple of Castor and Pollux",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Castor_and_Pollux",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-895": {
+   "answer": "quindecimviri sacris faciundis",
+   "title": "Quindecimviri sacris faciundis",
+   "url": "https://en.wikipedia.org/wiki/Quindecimviri_sacris_faciundis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-896": {
+   "answer": "pontifex maximus",
+   "title": "Pontifex maximus",
+   "url": "https://en.wikipedia.org/wiki/Pontifex_maximus",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Pontifex Maximus"
+  },
+  "rm-897": {
+   "answer": "College of Pontiffs",
+   "title": "College of Pontiffs",
+   "url": "https://en.wikipedia.org/wiki/College_of_Pontiffs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-898": {
+   "answer": "augur",
+   "title": "Augur",
+   "url": "https://en.wikipedia.org/wiki/Augur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-899": {
+   "answer": "auspices",
+   "title": "Augury",
+   "url": "https://en.wikipedia.org/wiki/Augury",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Auspices"
+  },
+  "rm-900": {
+   "answer": "Spurinna",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Spurinna",
+   "suggestions": [
+    "Titus Vestricius Spurinna"
+   ]
+  },
+  "rm-901": {
+   "answer": "Vestal Virgin",
+   "title": "Vestal Virgin",
+   "url": "https://en.wikipedia.org/wiki/Vestal_Virgin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-902": {
+   "answer": "flamen",
+   "title": "Flamen",
+   "url": "https://en.wikipedia.org/wiki/Flamen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-903": {
+   "answer": "Arval Brethren",
+   "title": "Arval Brethren",
+   "url": "https://en.wikipedia.org/wiki/Arval_Brethren",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-904": {
+   "answer": "Jupiter",
+   "title": "Jupiter (god)",
+   "url": "https://en.wikipedia.org/wiki/Jupiter_(god)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-905": {
+   "answer": "Juno",
+   "title": "Juno (mythology)",
+   "url": "https://en.wikipedia.org/wiki/Juno_(mythology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-906": {
+   "answer": "Minerva",
+   "title": "Minerva",
+   "url": "https://en.wikipedia.org/wiki/Minerva",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-907": {
+   "answer": "Capitoline Triad",
+   "title": "Capitoline Triad",
+   "url": "https://en.wikipedia.org/wiki/Capitoline_Triad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-908": {
+   "answer": "Mars",
+   "title": "Mars (mythology)",
+   "url": "https://en.wikipedia.org/wiki/Mars_(mythology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-909": {
+   "answer": "Venus",
+   "title": "Venus (mythology)",
+   "url": "https://en.wikipedia.org/wiki/Venus_(mythology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-910": {
+   "answer": "Vesta",
+   "title": "Vesta (mythology)",
+   "url": "https://en.wikipedia.org/wiki/Vesta_(mythology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-911": {
+   "answer": "Janus",
+   "title": "Janus",
+   "url": "https://en.wikipedia.org/wiki/Janus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-912": {
+   "answer": "Temple of Saturn",
+   "title": "Temple of Saturn",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Saturn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-913": {
+   "answer": "Lares",
+   "title": "Lares",
+   "url": "https://en.wikipedia.org/wiki/Lares",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-914": {
+   "answer": "Genius",
+   "title": "Genius (mythology)",
+   "url": "https://en.wikipedia.org/wiki/Genius_(mythology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-915": {
+   "answer": "lararium",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Lararium",
+   "target": "Lares#Lararia"
+  },
+  "rm-916": {
+   "answer": "feriae",
+   "title": "Feria",
+   "url": "https://en.wikipedia.org/wiki/Feria",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Feriae"
+  },
+  "rm-917": {
+   "answer": "Saturnalia",
+   "title": "Saturnalia",
+   "url": "https://en.wikipedia.org/wiki/Saturnalia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-918": {
+   "answer": "Lupercalia",
+   "title": "Lupercalia",
+   "url": "https://en.wikipedia.org/wiki/Lupercalia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-919": {
+   "answer": "Parentalia",
+   "title": "Parentalia",
+   "url": "https://en.wikipedia.org/wiki/Parentalia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-920": {
+   "answer": "prodigium",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Prodigium",
+   "target": "Glossary of ancient Roman religion#prodigium"
+  },
+  "rm-921": {
+   "answer": "Tiber Island",
+   "title": "Tiber Island",
+   "url": "https://en.wikipedia.org/wiki/Tiber_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-922": {
+   "answer": "Magna Mater",
+   "title": "Cybele",
+   "url": "https://en.wikipedia.org/wiki/Cybele",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Magna Mater"
+  },
+  "rm-923": {
+   "answer": "Iseum Campense",
+   "title": "Temple of Isis and Serapis",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Isis_and_Serapis",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Iseum Campense"
+  },
+  "rm-924": {
+   "answer": "Mithraism",
+   "title": "Mithraism",
+   "url": "https://en.wikipedia.org/wiki/Mithraism",
+   "via": "answer",
+   "status": "ok"
+  },
+  "rm-925": {
+   "answer": "Augustales",
+   "title": "Sodales Augustales",
+   "url": "https://en.wikipedia.org/wiki/Sodales_Augustales",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Augustales"
+  },
+  "rm-926": {
+   "answer": "consecratio",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Roman Empire",
+    "Pope",
+    "Arch of Titus",
+    "Roman imperial cult",
+    "Apotheosis"
+   ]
+  },
+  "rm-927": {
+   "answer": "God-fearers",
+   "title": "God-fearer",
+   "url": "https://en.wikipedia.org/wiki/God-fearer",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "God-fearers"
+  },
+  "rm-928": {
+   "answer": "Dura-Europos church",
+   "title": "Dura-Europos church",
+   "url": "https://en.wikipedia.org/wiki/Dura-Europos_church",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-929": {
+   "answer": "Decian persecution",
+   "title": "Decian persecution",
+   "url": "https://en.wikipedia.org/wiki/Decian_persecution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-930": {
+   "answer": "superstitio",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Superstitio",
+   "target": "Glossary of ancient Roman religion#superstitio"
+  },
+  "rm-931": {
+   "answer": "Golden Age of Latin literature",
+   "title": "Classical Latin",
+   "url": "https://en.wikipedia.org/wiki/Classical_Latin",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Golden Age of Latin literature"
+  },
+  "rm-932": {
+   "answer": "Old Latin",
+   "title": "Old Latin",
+   "url": "https://en.wikipedia.org/wiki/Old_Latin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-933": {
+   "answer": "Livius Andronicus",
+   "title": "Livius Andronicus",
+   "url": "https://en.wikipedia.org/wiki/Livius_Andronicus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-934": {
+   "answer": "Ennius",
+   "title": "Ennius",
+   "url": "https://en.wikipedia.org/wiki/Ennius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-935": {
+   "answer": "fabula palliata",
+   "title": "Fabula palliata",
+   "url": "https://en.wikipedia.org/wiki/Fabula_palliata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-936": {
+   "answer": "Plautus",
+   "title": "Plautus",
+   "url": "https://en.wikipedia.org/wiki/Plautus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-937": {
+   "answer": "Terence",
+   "title": "Terence",
+   "url": "https://en.wikipedia.org/wiki/Terence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-938": {
+   "answer": "satura",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Satura",
+   "target": "Satire#Term"
+  },
+  "rm-939": {
+   "answer": "Gaius Lucilius",
+   "title": "Gaius Lucilius",
+   "url": "https://en.wikipedia.org/wiki/Gaius_Lucilius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-940": {
+   "answer": "Quintus Fabius Pictor",
+   "title": "Quintus Fabius Pictor",
+   "url": "https://en.wikipedia.org/wiki/Quintus_Fabius_Pictor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-941": {
+   "answer": "Philippicae",
+   "title": "Philippicae",
+   "url": "https://en.wikipedia.org/wiki/Philippicae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-942": {
+   "answer": "Epistulae ad Atticum",
+   "title": "Epistulae ad Atticum",
+   "url": "https://en.wikipedia.org/wiki/Epistulae_ad_Atticum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-943": {
+   "answer": "De officiis",
+   "title": "De Officiis",
+   "url": "https://en.wikipedia.org/wiki/De_Officiis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-944": {
+   "answer": "Rhetorica ad Herennium",
+   "title": "Rhetorica ad Herennium",
+   "url": "https://en.wikipedia.org/wiki/Rhetorica_ad_Herennium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-945": {
+   "answer": "De rerum natura",
+   "title": "De rerum natura",
+   "url": "https://en.wikipedia.org/wiki/De_rerum_natura",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-946": {
+   "answer": "Catullus",
+   "title": "Catullus",
+   "url": "https://en.wikipedia.org/wiki/Catullus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-947": {
+   "answer": "neoterics",
+   "title": "Neoterics",
+   "url": "https://en.wikipedia.org/wiki/Neoterics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-948": {
+   "answer": "Sallust",
+   "title": "Sallust",
+   "url": "https://en.wikipedia.org/wiki/Sallust",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-949": {
+   "answer": "Virgil",
+   "title": "Virgil",
+   "url": "https://en.wikipedia.org/wiki/Virgil",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-950": {
+   "answer": "Aeneid",
+   "title": "Aeneid",
+   "url": "https://en.wikipedia.org/wiki/Aeneid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-951": {
+   "answer": "Georgics",
+   "title": "Georgics",
+   "url": "https://en.wikipedia.org/wiki/Georgics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-952": {
+   "answer": "Horace",
+   "title": "Horace",
+   "url": "https://en.wikipedia.org/wiki/Horace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-953": {
+   "answer": "Ovid",
+   "title": "Ovid",
+   "url": "https://en.wikipedia.org/wiki/Ovid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-954": {
+   "answer": "Metamorphoses",
+   "title": "Metamorphoses",
+   "url": "https://en.wikipedia.org/wiki/Metamorphoses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-955": {
+   "answer": "Tristia",
+   "title": "Tristia",
+   "url": "https://en.wikipedia.org/wiki/Tristia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-956": {
+   "answer": "Livy",
+   "title": "Livy",
+   "url": "https://en.wikipedia.org/wiki/Livy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-957": {
+   "answer": "Propertius",
+   "title": "Propertius",
+   "url": "https://en.wikipedia.org/wiki/Propertius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-958": {
+   "answer": "Cornelius Gallus",
+   "title": "Cornelius Gallus",
+   "url": "https://en.wikipedia.org/wiki/Cornelius_Gallus",
+   "via": "answer",
+   "status": "ok"
+  },
+  "rm-959": {
+   "answer": "Seneca the Younger",
+   "title": "Seneca the Younger",
+   "url": "https://en.wikipedia.org/wiki/Seneca_the_Younger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-960": {
+   "answer": "Musonius Rufus",
+   "title": "Gaius Musonius Rufus",
+   "url": "https://en.wikipedia.org/wiki/Gaius_Musonius_Rufus",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Musonius Rufus"
+  },
+  "rm-961": {
+   "answer": "Pharsalia",
+   "title": "Pharsalia",
+   "url": "https://en.wikipedia.org/wiki/Pharsalia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-962": {
+   "answer": "Satyricon",
+   "title": "Satyricon",
+   "url": "https://en.wikipedia.org/wiki/Satyricon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-963": {
+   "answer": "Martial",
+   "title": "Martial",
+   "url": "https://en.wikipedia.org/wiki/Martial",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-964": {
+   "answer": "Juvenal",
+   "title": "Juvenal",
+   "url": "https://en.wikipedia.org/wiki/Juvenal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-965": {
+   "answer": "Institutio Oratoria",
+   "title": "Institutio Oratoria",
+   "url": "https://en.wikipedia.org/wiki/Institutio_Oratoria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-966": {
+   "answer": "Tacitus",
+   "title": "Tacitus",
+   "url": "https://en.wikipedia.org/wiki/Tacitus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-967": {
+   "answer": "Lives of the Caesars",
+   "title": "The Twelve Caesars",
+   "url": "https://en.wikipedia.org/wiki/The_Twelve_Caesars",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Lives of the Caesars"
+  },
+  "rm-968": {
+   "answer": "Golden Ass",
+   "title": "The Golden Ass",
+   "url": "https://en.wikipedia.org/wiki/The_Golden_Ass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-969": {
+   "answer": "Ammianus Marcellinus",
+   "title": "Ammianus Marcellinus",
+   "url": "https://en.wikipedia.org/wiki/Ammianus_Marcellinus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-970": {
+   "answer": "Poggio Bracciolini",
+   "title": "Poggio Bracciolini",
+   "url": "https://en.wikipedia.org/wiki/Poggio_Bracciolini",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-971": {
+   "answer": "Tomb of Eurysaces the Baker",
+   "title": "Tomb of Eurysaces the Baker",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Eurysaces_the_Baker",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-972": {
+   "answer": "Capitoline Brutus",
+   "title": "Capitoline Brutus",
+   "url": "https://en.wikipedia.org/wiki/Capitoline_Brutus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-973": {
+   "answer": "verism",
+   "title": "Verism",
+   "url": "https://en.wikipedia.org/wiki/Verism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-974": {
+   "answer": "Cancelleria Reliefs",
+   "title": "Cancelleria Reliefs",
+   "url": "https://en.wikipedia.org/wiki/Cancelleria_Reliefs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-975": {
+   "answer": "Farnese Hercules",
+   "title": "Farnese Hercules",
+   "url": "https://en.wikipedia.org/wiki/Farnese_Hercules",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-976": {
+   "answer": "House of the Vettii",
+   "title": "House of the Vettii",
+   "url": "https://en.wikipedia.org/wiki/House_of_the_Vettii",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-977": {
+   "answer": "Pompeian styles",
+   "title": "Pompeian Styles",
+   "url": "https://en.wikipedia.org/wiki/Pompeian_Styles",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-978": {
+   "answer": "Villa Romana del Casale",
+   "title": "Villa Romana del Casale",
+   "url": "https://en.wikipedia.org/wiki/Villa_Romana_del_Casale",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-979": {
+   "answer": "Maison Carrée",
+   "title": "Maison carrée",
+   "url": "https://en.wikipedia.org/wiki/Maison_carr%C3%A9e",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Maison Carrée"
+  },
+  "rm-980": {
+   "answer": "opus caementicium",
+   "title": "Roman concrete",
+   "url": "https://en.wikipedia.org/wiki/Roman_concrete",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Opus caementicium"
+  },
+  "rm-981": {
+   "answer": "voussoir",
+   "title": "Voussoir",
+   "url": "https://en.wikipedia.org/wiki/Voussoir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-982": {
+   "answer": "barrel vault",
+   "title": "Barrel vault",
+   "url": "https://en.wikipedia.org/wiki/Barrel_vault",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-983": {
+   "answer": "Composite order",
+   "title": "Composite order",
+   "url": "https://en.wikipedia.org/wiki/Composite_order",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-984": {
+   "answer": "Basilica Aemilia",
+   "title": "Basilica Aemilia",
+   "url": "https://en.wikipedia.org/wiki/Basilica_Aemilia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-985": {
+   "answer": "forum",
+   "title": "Forum (Roman)",
+   "url": "https://en.wikipedia.org/wiki/Forum_(Roman)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-986": {
+   "answer": "Arch of Septimius Severus",
+   "title": "Arch of Septimius Severus",
+   "url": "https://en.wikipedia.org/wiki/Arch_of_Septimius_Severus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-987": {
+   "answer": "Column of Antoninus Pius",
+   "title": "Column of Antoninus Pius",
+   "url": "https://en.wikipedia.org/wiki/Column_of_Antoninus_Pius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-988": {
+   "answer": "Aqua Marcia",
+   "title": "Aqua Marcia",
+   "url": "https://en.wikipedia.org/wiki/Aqua_Marcia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-989": {
+   "answer": "Pont du Gard",
+   "title": "Pont du Gard",
+   "url": "https://en.wikipedia.org/wiki/Pont_du_Gard",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-990": {
+   "answer": "Frontinus",
+   "title": "Frontinus",
+   "url": "https://en.wikipedia.org/wiki/Frontinus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-991": {
+   "answer": "Milliarium Aureum",
+   "title": "Milliarium Aureum",
+   "url": "https://en.wikipedia.org/wiki/Milliarium_Aureum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-992": {
+   "answer": "Via Domitiana",
+   "title": "Via Domiziana",
+   "url": "https://en.wikipedia.org/wiki/Via_Domiziana",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Via Domitiana"
+  },
+  "rm-993": {
+   "answer": "Pons Fabricius",
+   "title": "Pons Fabricius",
+   "url": "https://en.wikipedia.org/wiki/Pons_Fabricius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-994": {
+   "answer": "centuriation",
+   "title": "Centuriation",
+   "url": "https://en.wikipedia.org/wiki/Centuriation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-995": {
+   "answer": "groma",
+   "title": "Groma (surveying)",
+   "url": "https://en.wikipedia.org/wiki/Groma_(surveying)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-996": {
+   "answer": "Vitruvius",
+   "title": "Vitruvius",
+   "url": "https://en.wikipedia.org/wiki/Vitruvius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-997": {
+   "answer": "fabri tignarii",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "rm-998": {
+   "answer": "Barbegal mills",
+   "title": "Barbegal aqueduct and mills",
+   "url": "https://en.wikipedia.org/wiki/Barbegal_aqueduct_and_mills",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Barbegal mills"
+  },
+  "rm-999": {
+   "answer": "Portus Julius",
+   "title": "Portus Julius",
+   "url": "https://en.wikipedia.org/wiki/Portus_Julius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "rm-1000": {
+   "answer": "Four Books of Architecture",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "I quattro libri dell'architettura",
+    "Ancient Roman architecture",
+    "Rome",
+    "Biblical canon",
+    "Etruscan architecture"
+   ]
   }
  }
 }

@@ -201,17 +201,17 @@ one changelog line and a version bump; commit and push.
 | B29 | Sparta (`gr-sparta`) | `gr-271`–`gr-275` | 5 | **done 2026-10-02** |
 | B30 | Athens (`gr-athens`) | `gr-276`–`gr-285` | 10 | **done 2026-10-02** |
 | B31 | Athens (`gr-athens`) | `gr-286`–`gr-295` | 10 | **done 2026-10-02** |
-| B32 | Athens (`gr-athens`) | `gr-296`–`gr-305` | 10 | `gr-296`–`gr-300` **done 2026-10-02**; `gr-301`–`gr-305` open |
-| B33 | Athens (`gr-athens`) | `gr-306`–`gr-315` | 10 | open |
-| B34 | Athens (`gr-athens`) | `gr-316`–`gr-320` | 5 | open |
-| B35 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-321`–`gr-330` | 10 | open |
-| B36 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-331`–`gr-340` | 10 | open |
-| B37 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-341`–`gr-350` | 10 | open |
-| B38 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-351`–`gr-360` | 10 | open |
-| B39 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-361`–`gr-370` | 10 | open |
-| B40 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-371`–`gr-380` | 10 | open |
-| B41 | Persian Wars (`gr-persian-wars`) | `gr-381`–`gr-390` | 10 | open |
-| B42 | Persian Wars (`gr-persian-wars`) | `gr-391`–`gr-400` | 10 | open |
+| B32 | Athens (`gr-athens`) | `gr-296`–`gr-305` | 10 | `gr-296`–`gr-300` **done 2026-10-02**; `gr-301`–`gr-305` **done 2026-10-03** |
+| B33 | Athens (`gr-athens`) | `gr-306`–`gr-315` | 10 | **done 2026-10-03** |
+| B34 | Athens (`gr-athens`) | `gr-316`–`gr-320` | 5 | **done 2026-10-03** |
+| B35 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-321`–`gr-330` | 10 | **done 2026-10-03** |
+| B36 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-331`–`gr-340` | 10 | **done 2026-10-03** |
+| B37 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-341`–`gr-350` | 10 | **done 2026-10-03** |
+| B38 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-351`–`gr-360` | 10 | **done 2026-10-03** |
+| B39 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-361`–`gr-370` | 10 | **done 2026-10-03** |
+| B40 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-371`–`gr-380` | 10 | **done 2026-10-03** |
+| B41 | Persian Wars (`gr-persian-wars`) | `gr-381`–`gr-390` | 10 | **done 2026-10-03** |
+| B42 | Persian Wars (`gr-persian-wars`) | `gr-391`–`gr-400` | 10 | **done 2026-10-03** |
 | B43 | Persian Wars (`gr-persian-wars`) | `gr-401`–`gr-410` | 10 | open |
 | B44 | Persian Wars (`gr-persian-wars`) | `gr-411`–`gr-420` | 10 | open |
 | B45 | Persian Wars (`gr-persian-wars`) | `gr-421`–`gr-430` | 10 | open |
@@ -1298,3 +1298,307 @@ Draco, Solon, Peisistratus, Hipparchus and Hippias rows are confirmed.
 **Glossary.** Candidates are added to the backlog in `docs/greece-audit-2026-09.md` (Tegea, polemarch, Megacles,
 Cecrops and others). `Acragas` still says Acragas had no named founders, and `Thrasybulus` still auto-links the
 tyrant of Miletus on `gr-188`; the glossary was not touched in this run.
+
+### B32–B35 — `gr-301`–`gr-330`, the end of Athens and the first of Archaic art (2026-10-03)
+
+Thirty cards: the second half of B32, B33 and B34, which finish `gr-athens`, and B35, the first ten of
+`gr-archaic-culture`. **First, B29–B32 was checked:** `greece-audit.js --range=gr-171:gr-300 --summary` shows
+only the known leftovers (37 `I.none`, the five `L.missing`, and `S.chip?` flags on English reviews). No new
+search was made for those pictures in this run.
+
+Method: as B29–B32. Six research agents drafted five cards each in the scratchpad, with a saved copy of every
+source and one verbatim quote per marker. The quote verifier and the lint wrapper gated every patch, and with all
+30 patches merged together `Q.sibling` fired on none. Every draft was read by eye before it was written.
+Several OCR copies (GRBS, Walters, Gardner) print an opening quotation mark as `<`, which the verifier read as
+a tag; the agents replaced it in the saved copies only, and say so in their notes.
+
+Checks:
+- `greece-audit.js --range=gr-301:gr-330` finds nothing but seven missing pictures (below) and eight `S.chip?`
+  flags, every one an English review or article of a foreign-titled book (word-counted). The cards' real
+  foreign sources carry their chips: French on `gr-323` (Márton) and `gr-325` (Pailler), Italian on `gr-326`
+  (Bianco).
+- `check-citations --card` matches every checkable citation on all 30. Crossref orders the authors of the
+  Laurion chapter (`gr-318`) with Vaxevanopoulos first, as the volume's contents do, so the card follows it.
+- `check-questions`, `check-docs`, `split-cards --check`, `test-card-plans` and `check-gloss-links --card` pass.
+  `check-style` adds nothing to main's standing alarms, after four number-words and century-words were put
+  in figures. `check-cards --prefix=gr-` reports only the known `gr-598`/`gr-950` picture.
+- All 156 distinct citation URLs answer 200 when re-curled.
+
+**Date lines:**
+- **Rows that were not dates went to the prose:** "Tribes 10, replacing 4" (`gr-308`, `gr-309`), "Number about
+  140" (`gr-310`), "Number 30, three to a tribe" (`gr-311`), "Members 500, 50 a tribe" (`gr-312`), "Quorum
+  6,000" (`gr-314`), "Number 48 by tradition" (`gr-315`), "Main coin the 4-drachma tetradrachm" (`gr-319`).
+- **Rows that dated another subject:** `gr-306` opened on "Expelled Hippias 510 BCE", which is `gr-305`'s
+  event.
+- **Unsourced or invented years removed:**
+  - `gr-304`: "Cursed c. 632 BCE"; Cylon's coup is the 7th century BCE in prose, and `gr-282` keeps its own 636.
+  - `gr-307`: "Archon 508/507 BCE"; Kenyon dates Isagoras's archonship only by its distance from the expulsion.
+  - `gr-313`: "Current from c. 525 BCE" and "In Herodotus 5th century BCE"; the line is empty.
+  - `gr-314`: "Last used 417 BCE"; Hooper's review gives c. 416 BCE, and the first ostracism is now 488/487 BCE
+    after the *Constitution of the Athenians* and Forsdyke.
+  - `gr-315`: "Attested before 508/507 BCE"; the line is empty.
+  - `gr-322`: "c. 700 – 600 BCE"; no reachable source gives the years, so the line is empty and the chronology
+    file's c. 720 – 620 BCE row now gives the centuries.
+  - `gr-327` "Active c. 570 – 560 BCE" and `gr-328` "Active c. 560 – 515 BCE"; each line now dates two of the
+    painter's works.
+  - `gr-329`: "Reaches Etruria c. 620 BCE" and "In most tombs c. 550 – 400 BCE".
+  - `gr-330`: the century-only "Still made 4th century BCE" became Neils's c. 330 BCE.
+- **The Archaic period ends in 479 BCE** on `gr-321`, as its histories do; the chronology row is corrected.
+
+**Corrected in the old cards:**
+- **No modern scholarship:** every Athens card cited only ancient texts, and most broke the cap of two sources
+  per ancient author (eight Herodotus chapters on `gr-306`, five on `gr-313`, six on `gr-320`). Herodotus and
+  Thucydides are now cited as one Gutenberg source each for several chapters, as Kenyon's *Constitution* is.
+- **Wrong citations:**
+  - `gr-331`'s BMCR 2018.05.17 is Brendle's review of Morais, not the book it was credited as.
+  - `gr-314` cited Plutarch from Wikisource; it now cites Perrin on Perseus.
+  - `gr-313` put the word *isonomia* into Godley's translation, which reads "equality".
+  - `gr-329`'s Franceschini review is in Italian and carried no chip; it was dropped.
+  - `gr-327`, `gr-328` and `gr-325` cited metmuseum.org pages, which cannot be reached; their claims went
+    with them.
+- **Wrong facts:**
+  - `gr-319`'s second question gave the owls an incuse-square reverse, which belongs to the earlier heraldic
+    coins.
+  - `gr-324`'s firing chemistry rested on an MDPI paper and a paywalled one; the card now says only that the
+    colours took their final look in a three-stage firing.
+- **Scope:**
+  - `gr-301` is Hipparchus's court, the herms and Onomacritus; `gr-302` the two men and the killing; `gr-303` the
+    statues and the honours; `gr-305` the expulsion of 510 BCE; `gr-306` the intervention of 508/507 and 506 BCE.
+  - `gr-308`'s second question copied `gr-304`'s Agariste question, `gr-309` used `gr-311`'s twelve-or-ten
+    argument and `gr-310` used `gr-315`'s demarch–naukrary point; all are gone.
+  - `gr-317` carried `gr-429`'s sack and `gr-502`'s sea-water and trident; it is now the building.
+  - `gr-318` dropped two questions on `gr-411`'s ground and is the district over its whole history.
+  - `gr-319` and `gr-320` dropped `gr-227`'s Solonian standard, `gr-224`'s *Frogs* passage and `gr-196`'s
+    Corinthian ships.
+  - `gr-326` is the vase and `gr-327` the painter; `gr-330` dropped Euthymides' boast, which is `gr-653`'s.
+
+**Read by eye, and changed in review:**
+- `gr-306` and `gr-317` had the same why-answer (Cleomenes' occupation defiling the Acropolis, from van Wijk's
+  review of Paga). `gr-306` now asks why Athens ignored the Boeotian and Chalcidian raiders.
+- `gr-308` and `gr-311` had the same sentence on Cleisthenes' simple arithmetic (Eckert's review). `gr-308` now
+  says his aim was a new civic identity across Attica, and `gr-309` dropped a sentence on the aim of mixing
+  the citizens that repeated `gr-308`'s.
+- `gr-303`'s opening sentence said the Tyrannicides "were" the two men; it now says they are the statues.
+- `gr-304`'s "seventh-century coup" became "a coup in the 7th century BCE"; `gr-310`'s deme row became "Reformed",
+  since demes existed before Cleisthenes.
+- `gr-329`'s "Adolfo Dominguez" is Domínguez.
+
+**Pictures.**
+- 23 of the 30 cards carry one, each with a description of what is shown, a visual alt and an
+  author-and-licence credit; the old ones carried a bare Commons or Met URL, a photographer's name in the
+  caption, or "Public domain" as the description.
+- **New or replaced:**
+  - `gr-302`: none → the murder of Hipparchus from the Würzburg stamnos, in a drawing of 1884.
+  - `gr-311`: none → a Piraeus boundary stone of two trittyes.
+  - `gr-315`: none → an ostrakon against Xanthippus.
+  - `gr-316`: an early photograph of the Hadrianic columns → the unfluted Peisistratid column drums.
+  - `gr-318`: miners of 1903 → the ore-washery beside the theatre at Thorikos.
+  - `gr-320`: none → the temple of Aphaia on Aegina.
+  - `gr-321`: none → the temple of Apollo at Syracuse.
+  - `gr-322`: `gr-168`'s kind of griffin protome → a Protocorinthian jug with an animal frieze.
+  - `gr-323`: an 1889 drawing → a photograph of the Macmillan aryballos.
+  - `gr-324`: a thumbnail shared with 21 cards → a black-figure amphora by Lydos.
+  - `gr-325`: a Met photograph → Exekias' Dionysus cup in Munich (the Vatican amphora is already `gr-138`'s).
+  - `gr-327`: the Met stand, no longer in the text → a handle of the François Vase.
+  - `gr-328`: the Met loom lekythos, no longer in the text → Dionysus and maenads on the Paris amphora.
+- **Kept with new captions and credits:** `gr-303`, `gr-309`, `gr-310`, `gr-312`, `gr-314`, `gr-317`, `gr-319`,
+  `gr-326`, `gr-329`, `gr-330`.
+- **Refused:** the Delphi pediment torsos of the Alcmaeonid temple, photographed with a museum label; the
+  Gigantomachy gallery, which shows the hall rather than the pediment; a modern bust called Cleisthenes.
+- **Seven cards have no picture:** `gr-301`, `gr-304` – `gr-308` and `gr-313`. They are men with no ancient
+  likeness, an event and an ideal.
+
+**Locators.** Fetched through `add-locators.js`: `gr-317` Old Temple of Athena and `gr-318` Laurion
+(← Lavrio).
+
+**Chronology.** New sections, "Athens from the tyrant-slayers to Aegina" and "Archaic art, verse and thought",
+hold the rows for every date the 30 cards print, with pins for the 27 that print a year. The Archaic period,
+Orientalising, Hippias and Cleisthenes rows are corrected or confirmed.
+
+**Glossary.** Candidates are added to the backlog in `docs/greece-audit-2026-09.md` (herm, Agariste, Leocoreum
+and others), with the five wrong auto-links stopped. `gr-321`'s Learn-more link pointed at the North American
+Archaic period; `wiki-links.json` now gives Archaic Greece.
+
+### B36–B38 — `gr-331`–`gr-360`, Archaic sculpture, building and early verse (2026-10-03)
+
+Thirty cards of `gr-archaic-culture`: the red-figure pioneer, the kouros and kore, the archaic temple and its
+orders and parts, the treasuries at Delphi, bronze casting, and the lyric, elegiac and iambic poets to Ibycus.
+
+Method: as B32–B35. Six research agents drafted five cards each, with a saved copy of every source and one
+verbatim quote per marker; the quote verifier and the lint wrapper gated every patch, and with all 60 patches
+of the run merged together `Q.sibling` fired on none. Every draft was read by eye before it was written.
+
+Checks:
+- `greece-audit.js --range=gr-331:gr-360` finds nothing but three missing pictures (`gr-348`, `gr-352`,
+  `gr-357`), one missing locator (`gr-338`, a building type) and seven `S.chip?` flags, every one an English BMCR
+  review of a foreign-titled book. The real foreign sources carry their chips: French on `gr-336` (Lemerle),
+  `gr-337` (Lechat), `gr-348` (des Courtils) and `gr-349` (Zimmer); Italian on `gr-342` (Giaccone); German on
+  `gr-350` (Bitto).
+- `check-citations --card` matches every checkable citation on all 30.
+- `check-questions`, `check-docs`, `split-cards --check`, `test-card-plans` and `check-gloss-links --card` pass.
+  `check-style` adds nothing to main's standing alarms; `check-cards --prefix=gr-` reports only the known
+  `gr-598`/`gr-950` picture.
+- All 200 distinct citation URLs answer 200 when re-curled. Estrin's dissertation (`gr-336`) answers a bot
+  check (202) at its item page, so the card cites the PDF, which answers 200.
+
+**Date lines:**
+- **Rows that were not dates went to the prose:** every height ("Height 1.18 m", "1.94 m", "1.65 m"), plan and
+  footprint (`gr-342` – `gr-344`), "Canon 9 melic poets", "Edition 9 books", "Exile 15 years", "Corpus c. 1,400
+  elegiac lines", "Edition 5 books", "Wandered 67 years", "Poem c. 800 verses" and their like.
+- **Rows that dated other buildings:** `gr-338` had four rows each dating a different temple and `gr-339`
+  ended on the Parthenon and Vitruvius; each line now dates its own subject.
+- **Unsourced or invented years removed:**
+  - `gr-331` "Active c. 530 – 515 BCE"; the line dates three of the painter's vases.
+  - `gr-341` (the peripteral plan) and `gr-349` (lost-wax casting): their sources give only centuries, so
+    both lines are empty and the prose says the centuries.
+  - `gr-345`'s "c. 700 – 601 BCE" and unsourced 413 BCE.
+  - `gr-347`'s Temple C dates were the building's; Marconi, by Barletta's review, dates the metopes
+    c. 550 – 530 BCE.
+  - `gr-348`'s "c. 550 – 500 BCE" was built from a source's "second half of the 6th century"; the line now
+    holds the excavators' Old Smyrna date and the prose gives both views.
+  - Estimated life dates on the poets: every remaining row is a source's own date and says whose
+    ("Suda's date", "Suda's floruit", "Eusebius", "Pittacus rules").
+- `gr-342`'s superseded "c. 650 BCE" stays in the prose only.
+
+**Corrected in the old cards:**
+- **Ancient sources over the cap, modern under half:** most cards leaned on 1898–1917 handbooks and three or
+  more chapters of one ancient author (Vitruvius three times on `gr-339`); each now meets the bar and the caps.
+- **Wrong citations:** `gr-336` had two French sources; `gr-347` listed Gardner twice.
+- **Wrong facts:** `gr-332`'s "Dipylon head about 3 m" (Ridgway calls it erroneous); `gr-344`'s footprint and
+  marble; `gr-342`'s Polemo claim, which had no source; `gr-346`'s Aegina figure counts, not in the source it
+  cited.
+- **Dates in questions:** `gr-337`, `gr-348`, `gr-349` and `gr-350` each had one, now gone.
+- **Scope:** `gr-338` gave up the Heraion's wooden columns (`gr-342`) and the Dreros altar (`gr-171`);
+  `gr-332` no longer leads with Kroisos (`gr-336`) and `gr-333` not with the Peplos Kore (`gr-335`); `gr-335`
+  dropped its Moschophoros comparison (`gr-337`'s ground).
+
+**Read by eye, and changed in review:**
+- `gr-331` and `gr-328` had the same why-answer (Psiax and the Amasis Painter's outline women, from Neils's
+  review of Robertson). `gr-331` now asks why the white ground mattered for outline drawing, and Neils left it.
+- `gr-341` and `gr-338` shared a question and a sentence on mould-made roof tiles (Patay-Horváth's review of
+  Wilson Jones). `gr-341` now asks about the later, shorter plans of Olympia and the Parthenon.
+- `gr-356` and `gr-355` both said Pittacus gave Mytilene back its independence; `gr-356` now says only that
+  the citizens gave him sole power to end the strife.
+- `gr-357`, `gr-358` and `gr-360` wrote unspaced year ranges in prose; `gr-358`'s "Born (Suda)" became
+  "Suda's date" and `gr-357`'s "Flourished" "Suda's floruit", since the Suda's word can mean either.
+- `gr-333` and `gr-340` wrote numbers as words ("seventeen", "twenty-four"); they are figures.
+
+**Pictures.**
+- 27 of the 30 cards carry one, each with a description, a visual alt and an author-and-licence credit.
+- **New or replaced:**
+  - `gr-335`: an 1887 watercolour plate with a printed caption → a photograph of the Peplos Kore.
+  - `gr-339`: a labelled diagram → the first temple of Hera at Poseidonia.
+  - `gr-340`: Vitruvius's engraved Ionic order → an archaic Ionic capital from Naxos.
+  - `gr-342`: an 1878 plate whose caption named its source → the Heraion from the east.
+  - `gr-344`: a 1910 photograph with printed captions → the giants' battle on the north frieze.
+  - `gr-345`: a 1910 view with printed captions → the rebuilt Athenian treasury.
+  - `gr-346`: the Classical Olympia pediment → the Archaic west pediment of Aegina.
+  - `gr-349`: a casting mould photographed with its museum signs → the Piraeus Apollo.
+- **Dropped:** `gr-348`'s Aeolic capital, photographed with its museum label (the only other free picture is a
+  drawing with printed words); `gr-352`'s revellers, which show nothing of iambus.
+- **Kept with new captions and credits:** 19 cards. `gr-341` keeps an 1849 dictionary plan, since the subject
+  is a plan; `gr-360` keeps Schwemminger's 19th-century painting, described as an imagined legend.
+- **Refused:** the Siphnian east pediment and the Alcmaeonid torsos at Delphi, each with a label in frame; a
+  drawing of the Neandria capital with its title lettered on it.
+
+**Locators.** Fetched through `add-locators.js`: `gr-343` Temple of Artemis at Corfu, `gr-344` Siphnian
+Treasury and `gr-345` (at Delphi). `gr-342` keeps its Olympia locator.
+
+**Chronology.** The "Archaic art, verse and thought" section takes rows for every date the 30 cards print, with
+pins for the 28 that print a year.
+
+**Glossary.** Candidates are added to the backlog (Gorgon, Pittacus, Terpander and others), with the wrong
+auto-links stopped.
+
+### B39–B42 — `gr-361`–`gr-400`, later lyric, the Presocratics and the Persian Wars to Marathon's eve (2026-10-03)
+
+Forty cards: B39 and B40, which finish `gr-archaic-culture`, and B41 and B42, the first twenty of
+`gr-persian-wars`. Eight research agents drafted five cards each; the quote verifier and the lint wrapper gated
+every patch, and with all 100 patches of the run merged together `Q.sibling` fired on none. Every draft was read
+by eye before it was written. `gr-361`–`gr-385` were pushed first as a checkpoint; this entry covers all forty.
+
+Checks:
+- `greece-audit.js --range=gr-361:gr-400` finds nothing but seven missing pictures (`gr-362`, `gr-364`,
+  `gr-366`, `gr-369`, `gr-373`, `gr-383` and `gr-393`), the Royal Road's missing locator (a
+  route, not a place) and `S.chip?` flags on English reviews of foreign-titled books.
+- `check-citations --card` matches every checkable citation on all forty. `check-questions`, `check-docs`,
+  `split-cards --check`, `test-card-plans` and `check-gloss-links --card` pass; `check-style` adds nothing to
+  main's standing alarms; `check-cards --prefix=gr-` reports only the known `gr-598`/`gr-950` picture.
+- Every distinct citation URL answers 200 when re-curled. Encyclopaedia Iranica pages sometimes answer a bot
+  challenge; each answered 200 on retry.
+
+**Date lines:**
+- **Every poet's and philosopher's row is a source's own date and says whose** ("Suda: born", "Prime
+  (Diogenes)", "Prime (Clement)", "Suda's date"). Estimated life dates are gone: Phrynichus's "c. 540" and
+  "c. 470" (an editor's note) stay in prose only, and Aesop (`gr-365`), a semi-legendary figure, has an empty
+  line although one source cites ancient dates for him.
+- **Lines with only centuries are empty:** `gr-363` symposium, `gr-366` the Presocratics, `gr-389` and `gr-390`
+  (institutions, `undatable`).
+- **Rows that were not dates went to the prose:** "Strength 10,000, per Herodotus", "Land force 1,700,000",
+  "Provinces 20", "Stations 111", "Ionian fleet 353 triremes", "Fine 1,000 drachmas", "Army 700,000",
+  "At Sparta offered 50 talents", "Lands claimed 23", "30 years less one", "Members 4", "Works 2, both lost",
+  "Book 1, in 3 discourses" and their like.
+- **Disputed dates are two rows:** Sardis taken 547 BCE / 546 BCE (`gr-383`), Sardis burned 498 / 499 BCE
+  (`gr-395`), Lade 494 / 495 BCE (`gr-396`), Darius's heralds 491 / 493/492 BCE (`gr-400`), Pythagoras's
+  prime by Diogenes and by Clement (`gr-371`), Ibycus by the Suda and by Eusebius (`gr-360`, B38).
+- **The Ionian Revolt** is 499 BCE to its crushing in 493 BCE, with Miletus taken in 494 BCE (`gr-394`); the
+  chronology row keeps 499 – 494 BCE for the cities' revolt and adds the 493 BCE settlement, so `gr-199` and
+  `gr-200` still agree with it.
+- **`gr-384` dates Harpagus's conquest c. 540 BCE** after Dandamayev's Iranica entry; the old card's c. 545 BCE
+  had no source. `gr-359` had Anacreon leave Teos "in 545 BCE" after Smyth's handbook of 1900; to keep the two
+  cards from contradicting each other it now gives no year.
+- Two of Hicks's Olympiad conversions differ by a year between his notes (the 60th as 540 – 536 BCE for
+  Pythagoras, 540 – 537 BCE for Xenophanes; the 84th as 444 – 440 BCE for Melissus, 444 – 441 BCE for
+  Empedocles). Each card prints its own source's figure and the chronology says so.
+
+**Corrected in the old cards:**
+- **No modern scholarship, or too much of one ancient author:** the poet cards leaned on Smyth and Murray;
+  the Persian cards on four or five Herodotus chapters each. Every card now meets the bar, the caps and the
+  modern half.
+- **Wrong citations:** the BMCR misprints "Simplico" and "Vladmir" are corrected in the citations; `gr-379`'s
+  Suda translator is William Hutton, as the Suda On Line credits him.
+- **Other cards' ground given back:** `gr-367` dropped Thales's Teos council (`gr-200`'s question); `gr-370`'s main
+  question was nearly `gr-199`'s, and it dropped the fall of Miletus (`gr-397`, `gr-398`); `gr-368` dropped
+  Herodotus laughing at the mapmakers (`gr-379`); `gr-361` dropped a palinode why that repeated `gr-943`;
+  `gr-388` dropped Aristagoras's map (`gr-392`). `gr-365`'s Wojciechowski source no longer answers and went,
+  with the one claim it carried.
+- Two old questions on `gr-371` – `gr-375` carried a year or opened on a pronoun; both are rewritten.
+
+**Read by eye, and changed in review:**
+- `gr-373`'s why on Xenophanes mocking Pythagoras and the puppy repeated `gr-371`'s question; it now asks
+  about his honey-and-figs fragment.
+- `gr-306` (B32–B35) had a why on the Athenian envoys at Sardis giving earth and water, which is `gr-400`'s
+  ground. It now asks how the rising against Cleomenes may have shaped ostracism and the fleet.
+- `gr-361`'s first why ended on an unmarked claim; it now carries its marker.
+- `gr-376` and `gr-377` repeated the same marker in a row ("[8][8]"); runs are de-duplicated.
+- `gr-394`'s opening sentence and line were reshaped so the revolt's end in 493 BCE does not contradict the
+  494 BCE that `gr-199` and `gr-200` give the fall of Miletus.
+- `gr-387`'s "In use 550 – 330 BCE" became "Achaemenid era" (the institution outlived the empire) and
+  `gr-388`'s "Built up" became "Under Darius I".
+- Number-words and unspaced year ranges were put in house style throughout.
+
+**Pictures.**
+- 33 of the 40 carry one, each with a description, a visual alt and an author-and-licence credit.
+- **New or replaced:** `gr-372` (a labelled 1492 woodcut → Bronnikov's imagined Pythagoreans of 1869),
+  `gr-384` (none → a satrap's coin struck at Phocaea), `gr-386` (`gr-381`'s Behistun relief → Darius's tomb at
+  Naqsh-e Rustam), `gr-391` – `gr-400` given descriptions of what they show.
+- **Dropped:** `gr-362`'s modern plaque of the Thermopylae epitaph (`gr-443`'s subject); `gr-366`'s Derveni
+  papyrus case, photographed with its museum cards; `gr-373`'s engraving with the name lettered on it;
+  `gr-393`'s Temple of Artemis at Sardis, which shows nothing of Histiaeus.
+- **Kept with new captions:** the rest, each dated where it is a later artwork (`gr-376`'s Escorial fresco of
+  1588 – 1595, `gr-379`'s 1879 reconstruction of Hecataeus's map, `gr-360`'s 19th-century painting).
+- **Refused:** a modern bust of Cleisthenes (B33); the Myson amphora of Croesus on the pyre, already `gr-226`'s;
+  the front view of Darius's tomb, already `wh-301`'s.
+
+**Locators.** None new: the forty are people, works, institutions and events, and `gr-396` keeps Lade.
+`gr-388` the Royal Road is a route and has none.
+
+**Chronology.** The "Archaic art, verse and thought" table is finished, and a new "Persian Wars" section holds
+the rows for every date the twenty Persian cards print, with pins for every card that prints a year. The Cyrus,
+Darius and Ionian Revolt rows of "Events and reigns" are confirmed.
+
+**Glossary.** Candidates are added to the backlog (Apollodorus the chronographer, Diogenes Laertius,
+Artaphernes and others). Three glossary faults were fixed in the same PR: the alias `Milesians` is gone from
+`Milesian_school` (the bare word now opens `Miletus`); `Acragas` now names its founders, Aristonous and Pystilus,
+from Thucydides 6.4, which is added to its sources; and `gr-188`'s Thrasybulus of Miletus is wrapped in
+`<span class="ans-term">` so it no longer opens the Athenian democrat.

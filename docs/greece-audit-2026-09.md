@@ -609,7 +609,8 @@ rewritten. Earlier entries (Leuctra, Plataea, panoply, othismos, *Eunomia*) are 
 | 1 | Archytas · Ortygia · silphium · hippagretai · Partheniai · Apaturia · Eumolpidae · Kerykes · Hellenion · porpax · antilabe | |
 
 `Thrasybulus` is keyed to the Athenian democrat of 403 BCE and auto-links the tyrant of Miletus on `gr-188`;
-the tyrant wants his own key (`Thrasybulus_of_Miletus`), and the bare name a decision.
+the tyrant wants his own key (`Thrasybulus_of_Miletus`), and the bare name a decision. **Stopped 2026-10-03:** `gr-188`'s tyrant is wrapped in
+`<span class="ans-term">`; a key of his own is still a candidate.
 
 **Added by the refinement's B29–B33 (2026-10-02)**, counted the same way after `gr-271`–`gr-300` were
 rewritten.
@@ -630,6 +631,58 @@ The Athenian `Lycurgus` (leader of the Plain, `gr-296`, `gr-298`) and Peisistrat
 (`gr-297`) would auto-link the Spartan lawgiver and the physician; both are written inside
 `<span class="ans-term">`, which the linker steps over. `gr-275`'s Pausanias carries a hand-written
 `data-k="Pausanias_the_regent"`.
+
+**Added by the refinement's B32–B35 (2026-10-03)**, counted the same way after `gr-301`–`gr-330` were
+rewritten. Earlier entries (polemarch, Megacles, Sigeum and others) are not repeated.
+
+| cards | term | note |
+|---|---|---|
+| 6 | herm | the pillar-statue of Hermes; only the god has a key |
+| 5 | Agariste | two women: the daughter of Cleisthenes of Sicyon and Pericles' mother; two keys |
+| 3 | bilingual vase | |
+| 2 | Leocoreum · Leipsydrion · Ergotimos · Psiax · Protocorinthian · ostrakon · demarch | |
+| 1 | Gephyraeans · Onomacritus · Antenor (sculptor) · Critius and Nesiotes · Pelasgian wall · Epakrians · Cleidemus · Hyperbolus · Enneacrunos · Archaios Neos · Damia and Auxesia · Penteskouphia · Little Master cup · Nettos Painter | |
+
+Wrong auto-links stopped on these cards with `<span class="ans-term">`: `Alcmaeon` (the Alcmaeonid, `gr-304`,
+would open Alcmaeon of Croton), `Hipparchus` son of Charmus and `Hippocrates` father of Megacles (`gr-314`),
+`Lysimachus` (`gr-312`, the Athenian, not the Successor king), `prytaneis` of the naukraroi (`gr-315`) and
+`Thebes` (`gr-320`, the Classical city, which would open Mycenaean Thebes). `gr-321`'s Learn-more link pointed
+at the North American Archaic period and now opens Archaic Greece.
+
+**Added by the refinement's B36–B38 (2026-10-03)**, counted the same way after `gr-331`–`gr-360` were
+rewritten. `Caryatid`, `Triglyph`, `Volute`, `Echinus` and `Medusa` already have keys.
+
+| cards | term | note |
+|---|---|---|
+| 6 | Gorgon | an alias of `Medusa` would do, but the Corfu gable's Gorgon is not named Medusa on every card |
+| 4 | Pittacus | of Mytilene, one of the Seven Sages |
+| 3 | Terpander · bilingual vase | |
+| 2 | Carneia · Lycambes · Theodorus of Samos | Theodorus the Samian founder, not the mathematician of Cyrene |
+| 1 | Psiax · Lysippides Painter · Kleobis and Biton · Phrasikleia · Nikandre · ependytes · abacus · mutule · dentil · tympanum · acroterion · sphyrelaton · Rhoecus · pentameter · iambic trimeter · Hipponax · Semonides · Neobule · Charaxus · Phaon · Myrsilus · hetaireia · Arion · Nanno · Cyrnus · Anacreontea · Rhegion · Old Smyrna · Neandria · Heraea | |
+
+Wrong auto-links stopped with `<span class="ans-term">`: Terpander's `nome`, the musical form (`gr-356`, would open the
+Egyptian province); `Megara` in Sicily (`gr-358`); `Antipater` of Sidon (`gr-360`); `Paris` and `Leucippus` on
+the Siphnian frieze (`gr-344`); `Thebes` (`gr-345`).
+
+**Added by the refinement's B39–B42 (2026-10-03)**, counted the same way after `gr-361`–`gr-400` were
+rewritten.
+
+| cards | term | note |
+|---|---|---|
+| 28 | Apollodorus | the Athenian chronographer whose Olympiad dates the philosopher cards cite, **not** the mythographer of the *Library* or the architect of Damascus; needs a disambiguated key |
+| 27 | Diogenes Laertius | |
+| 9 | Artaphernes · Theophrastus | Artaphernes the satrap of Sardis, brother of Darius; his son of the same name commands at Marathon (`gr-401`) |
+| 3 | Harpagus · Simplicius · Callistratus · Damasias | Harpagus the Mede of `gr-382` – `gr-384`; `gr-393`'s Harpagus is a different general |
+| 2 | Gaumata (Bardiya, Smerdis) · Hydarnes · Megabazus · Gobryas · Pasargadae · Myrcinus · Branchidae · Melissus · Archytas | |
+| 1 | daric · angareion · Udjahorresnet · Tomyris · Massagetae · Mandrocles · Dionysius of Phocaea · Megabates · Brygi · Sperthias and Bulis · Philolaus | |
+
+The bare word `Milesians` is an alias of `Milesian_school` and auto-links the philosophers wherever a card means
+the people of Miletus (`gr-221`, `gr-437`, `gr-485`, `gr-566` among the unrefined cards). This run wrapped it in
+`<span class="ans-term">` on `gr-384`, `gr-392`, `gr-396` and `gr-397`, and the alias was then removed (2026-10-03), so the
+bare word now resolves to `Miletus` everywhere. Other wrong
+links stopped here: `Himera` (Stesichorus's city, not the battle), `Pharsalus` (not Caesar's war), `Arbela`
+(the town, not Gaugamela), `Thebes` in Egypt (`gr-379`), the title *Genealogies* (`gr-379`) and Plato's
+*Sophist* (`gr-377`).
 
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial

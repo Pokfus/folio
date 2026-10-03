@@ -136,15 +136,15 @@ head("4) the defining sentence, lifted safely");
 
 head("5) the wiring that cannot be seen from the page");
 {
-  /* The list is asserted by MEMBERSHIP and by the hybrid's PLACE in it, not as a literal: this branch's
-     merge added a fifth order ("frequency", a language deck's), and a check pinned to the whole array
-     fails on any addition — which is a test reporting that the list changed rather than that the hybrid
-     went missing. What matters here is that the hybrid is there and that it still follows the other
-     three, since the cycler's own suite counts presses to reach it. */
-  check("the deck orders include the hybrid, after the original three",
-    /DECK_ORDERS = \["ordered", "random", "difficulty", "hybrid"[,\]]/.test(src));
-  check("every order has a label", ["ordered", "random", "difficulty", "hybrid"].every((k) => new RegExp(k + ':\\s*"').test(src.slice(src.indexOf("DECK_ORDER_LABEL"), src.indexOf("DECK_ORDER_LABEL") + 300))));
-  check("every order has a note", ["ordered", "random", "difficulty", "hybrid"].every((k) => new RegExp("^\\s+" + k + ":", "m").test(src.slice(src.indexOf("const DECK_ORDER_NOTE"), src.indexOf("const HYBRID_N")))));
+  /* The list is asserted by MEMBERSHIP, not as a literal: a check pinned to the whole array fails on any
+     addition. "Eased in" (`hybrid`) was removed in Oct 2026, on request — Ordered now deals Folio's own
+     collections one subdeck at a time, which is the blocked half it offered, and asserted below. */
+  check("the deck orders are the three originals, in cycle order, and no longer the hybrid",
+    /DECK_ORDERS = \["ordered", "random", "difficulty"[,\]]/.test(src) && !/HYBRID_N|"hybrid"/.test(src));
+  check("every order has a label", ["ordered", "random", "difficulty"].every((k) => new RegExp(k + ':\\s*"').test(src.slice(src.indexOf("DECK_ORDER_LABEL"), src.indexOf("DECK_ORDER_LABEL") + 300))));
+  check("every order has a note", ["ordered", "random", "difficulty"].every((k) => new RegExp("^\\s+" + k + ":", "m").test(src.slice(src.indexOf("const DECK_ORDER_NOTE"), src.indexOf("function deckOrdersFor")))));
+  check("Ordered deals Folio's own collections front to back, not round-robin",
+    /function studyOrder[\s\S]{0,1400}deckOrderMode\(entryId\) === "ordered" && !ids\.some\(isCommunityCard\)\) return pair \? pairOrder\(ids\) : ids;\s*\n\s*return robinOrder/.test(src));
   check("`attempt` is a POLICY, so it cascades", /DECK_OPT_INHERIT = \[[^\]]*"attempt"/.test(src));
   check("the three new registers are in PROGRESS_FIELDS",
     /PROGRESS_FIELDS = \[[^\]]*"confused"[^\]]*"pretest"[^\]]*"orderPicked"/.test(src));
@@ -254,7 +254,7 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
     await seed({ active: ["wh-evolution"], cards: {}, orderPicked: {}, pretest: {}, confused: {} });
     check("a deck row is on the home page to study", await studyDeck());
     check("the first study of a deck asks how to study it", (await page.evaluate(() => location.hash)) === "#order");
-    check("all four orders are offered", (await page.$$(".op-card")).length === 4);
+    check("all three orders are offered (Eased in was removed, Oct 2026)", (await page.$$(".op-card")).length === 3);
     check("each carries a real explanation, not a label",
       (await page.$$eval(".op-card .op-p", (n) => n.map((x) => x.textContent.length))).every((l) => l > 120));
     check("the current default is marked", (await page.$$(".op-card.op-cur")).length === 1);

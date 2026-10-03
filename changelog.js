@@ -35,18 +35,26 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.948", released: "2026-10-03T13:52Z" };
+window.FOLIO_VERSION = { v: "1.946", released: "2026-10-03T13:54Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-03",
     t: "The Ancient Rome collection is complete",
     items: [
+      "<b>The Library is a timeline</b>: books hang off a line through time, oldest first when sorted by date, and each banner fills with how far you have read.",
       "<b>A hundred new cards in the Ancient Rome collection</b>, finishing religion and writing all of Latin literature and art, architecture and engineering, with 98 new glossary terms.",
-      "<b>On a tablet</b>, the daily study banner no longer runs its counts under the card preview, and the streak note wraps clear of the days.",
+      "<b>On a tablet</b>, the daily study banner shows the card preview in its empty right half without covering the counts, and the streak note wraps clear of the days.",
       "<b>On a phone</b>, a deck\u2019s Review order row and the Ready by a date sheet are laid out properly, and the Collections page\u2019s sections have their rounded ends back.",
-      "<b>Your collections</b> on the home page keep their icons as you learn cards, and the learned share of each row is a deeper tint.",
+      "<b>Your collections</b> on the home page keep their icons as you learn cards, and the learned share of each row is one even tint, now deep enough to see against the studied share.",
+      "<b>On a tablet and desktop</b>, the home page streak box shows only the current week and its chest, in one row, with the days spread to fill it and the chest centred.",
+      "<b>The daily study banner\u2019s card preview</b> sits in the middle of its empty space, and no longer shows a flag, map or artwork card, whose question means nothing without its picture.",
       "<b>Hold a collection</b> on the Collections page to see its size, what you have studied and learned, when you added it and how many readers have.",
+      "<b>The Ordered deck order</b> now works through a collection front to back, one subdeck at a time, and the Eased in order is gone.",
+      "<b>On a phone</b>, an unfolded collection and its subdecks on the home page join into one tight list.",
+      "<b>A hundred more Ancient Greece cards are rewritten</b>, finishing the Athens and Archaic art, verse and thought decks and starting the Persian Wars, with more sources and new pictures.",
+      "<b>Three Greek glossary links are corrected</b>: Acragas now names its founders, and two names no longer open the wrong entry.",
+      "<b>Learn more on Wikipedia</b> now reaches the 200 newest Ancient Rome cards, and a link that would only land on a list page is dropped.",
       "<b>A hundred more World History cards are rewritten</b>: Ancient Egypt, the Indus and early China, the Bronze Age world and the Iron Age Near East, with more sources and corrected dates.",
     ],
   },
