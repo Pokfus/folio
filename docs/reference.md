@@ -4656,7 +4656,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THREE ORDERS** (`DECK_ORDERS`): Ordered, Random, By difficulty, per entry with a global default,
     reached by a CYCLER on the deck's long-press sheet. **`studyOrder` deals a multi-subdeck entry
     round-robin, each subdeck a day behind the last**, so a two-way deck asks the reverse the NEXT day rather
-    than a second later.
+    than a second later. **Except Ordered on Folio's own collections (Oct 2026, on request), which is FRONT TO
+    BACK** — one subdeck finished before the next; community and language decks keep the robin under every order.
+  · **AN UNFOLDED COLLECTION IS ONE TIGHT BLOCK ON A PHONE** (Oct 2026, on request): `adSyncFold` marks visible
+    rows `dk-att` (depth > 0, joined to the row above) and `dk-cont` (the block continues below); the CSS is in
+    the ≤640px block by `.review-group`.
   · **THE ROW IS ONE LINE, WEARS ITS COLLECTION'S HUE, AND IS DRAGGED INTO THE READER'S OWN ORDER**
     (`S.deckOrder`, per level, keyed by parent). Holding it opens the sheet — Custom study, Daily limits,
     Scheduling, Skip today, Colour, Icon, Remove. **NEVER NAME A CLASS `ad-…`**: `.ad-body` and `.ad-title`
@@ -4845,7 +4849,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     tail pass in `buildSession` on `spreadNoteSiblings`'s model, **deferring rather than shuffling** so
     every ordering promise survives except at the head, and **running BEFORE the sibling pass**. A
     first-ever session has nothing to warm up with and is left alone.
-  · **`hybrid` — A FOURTH DECK ORDER, "Eased in".** Interleaving wins at long delay, but a novice needs to
+  · **REMOVED Oct 2026, on request** — Ordered now deals Folio's own collections one subdeck at a time (below), so the order and `HYBRID_N` are gone; a saved `"hybrid"` falls back to Ordered through `deckOrderMode`'s boolean. What it was: **`hybrid` — A FOURTH DECK ORDER, "Eased in".** Interleaving wins at long delay, but a novice needs to
     see what a category has in common before discriminating means anything. A subdeck is GREEN once
     `HYBRID_N` (12) of its cards have a record, measured off `S.cards` so it needs no field. **Fresh
     subdecks come first and come whole.** The round robin is `robinOrder`, lifted out of `studyOrder` so
@@ -4948,7 +4952,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     difficulty is just a worse website.
   · **Guarded by `.claude/test-learning.js`** (sections 1–5 need no browser). **Re-run after touching
     `CRIT_DAYS` / `critMark` / `critDays` / `critPipsHTML` / `critLearnedCount` / `byDue` / `warmUpFirst` /
-    `WARMUP_N` / `robinOrder` / `studyOrder` / `HYBRID_N` / `DECK_ORDERS` / `deckAttempt` / `PAGES.order` /
+    `WARMUP_N` / `robinOrder` / `studyOrder` / `DECK_ORDERS` / `deckAttempt` / `PAGES.order` /
     `orderAskEntry` / `setOrderPicked` / `PAGES.pretest` / `pretestOffer` / `pretestPick` / `pretestMatch` /
     `nearMiss` / `editDistanceLE1` / `pretestKnownSet` / `sortByDifficulty` / `elabPromptHTML` /
     `wireElabPrompt` / `cardWhy` / `cardFirstSentence` / `openCardPeek` / `cardLeadsTo` /
