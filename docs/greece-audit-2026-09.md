@@ -663,6 +663,25 @@ Wrong auto-links stopped with `<span class="ans-term">`: Terpander's `nome`, the
 Egyptian province); `Megara` in Sicily (`gr-358`); `Antipater` of Sidon (`gr-360`); `Paris` and `Leucippus` on
 the Siphnian frieze (`gr-344`); `Thebes` (`gr-345`).
 
+**Added by the refinement's B39–B42 (2026-10-03)**, counted the same way after `gr-361`–`gr-400` were
+rewritten.
+
+| cards | term | note |
+|---|---|---|
+| 28 | Apollodorus | the Athenian chronographer whose Olympiad dates the philosopher cards cite, **not** the mythographer of the *Library* or the architect of Damascus; needs a disambiguated key |
+| 27 | Diogenes Laertius | |
+| 9 | Artaphernes · Theophrastus | Artaphernes the satrap of Sardis, brother of Darius; his son of the same name commands at Marathon (`gr-401`) |
+| 3 | Harpagus · Simplicius · Callistratus · Damasias | Harpagus the Mede of `gr-382` – `gr-384`; `gr-393`'s Harpagus is a different general |
+| 2 | Gaumata (Bardiya, Smerdis) · Hydarnes · Megabazus · Gobryas · Pasargadae · Myrcinus · Branchidae · Melissus · Archytas | |
+| 1 | daric · angareion · Udjahorresnet · Tomyris · Massagetae · Mandrocles · Dionysius of Phocaea · Megabates · Brygi · Sperthias and Bulis · Philolaus | |
+
+The bare word `Milesians` is an alias of `Milesian_school` and auto-links the philosophers wherever a card means
+the people of Miletus (`gr-221`, `gr-437`, `gr-485`, `gr-566` among the unrefined cards). This run wrapped it in
+`<span class="ans-term">` on `gr-384`, `gr-392`, `gr-396` and `gr-397`; the alias wants removing. Other wrong
+links stopped here: `Himera` (Stesichorus's city, not the battle), `Pharsalus` (not Caesar's war), `Arbela`
+(the town, not Gaugamela), `Thebes` in Egypt (`gr-379`), the title *Genealogies* (`gr-379`) and Plato's
+*Sophist* (`gr-377`).
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and

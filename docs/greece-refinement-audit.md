@@ -208,10 +208,10 @@ one changelog line and a version bump; commit and push.
 | B36 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-331`–`gr-340` | 10 | **done 2026-10-03** |
 | B37 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-341`–`gr-350` | 10 | **done 2026-10-03** |
 | B38 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-351`–`gr-360` | 10 | **done 2026-10-03** |
-| B39 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-361`–`gr-370` | 10 | open |
-| B40 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-371`–`gr-380` | 10 | open |
-| B41 | Persian Wars (`gr-persian-wars`) | `gr-381`–`gr-390` | 10 | open |
-| B42 | Persian Wars (`gr-persian-wars`) | `gr-391`–`gr-400` | 10 | open |
+| B39 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-361`–`gr-370` | 10 | **done 2026-10-03** |
+| B40 | Archaic art, verse and thought (`gr-archaic-culture`) | `gr-371`–`gr-380` | 10 | **done 2026-10-03** |
+| B41 | Persian Wars (`gr-persian-wars`) | `gr-381`–`gr-390` | 10 | **done 2026-10-03** |
+| B42 | Persian Wars (`gr-persian-wars`) | `gr-391`–`gr-400` | 10 | **done 2026-10-03** |
 | B43 | Persian Wars (`gr-persian-wars`) | `gr-401`–`gr-410` | 10 | open |
 | B44 | Persian Wars (`gr-persian-wars`) | `gr-411`–`gr-420` | 10 | open |
 | B45 | Persian Wars (`gr-persian-wars`) | `gr-421`–`gr-430` | 10 | open |
@@ -1509,3 +1509,94 @@ pins for the 28 that print a year.
 
 **Glossary.** Candidates are added to the backlog (Gorgon, Pittacus, Terpander and others), with the wrong
 auto-links stopped.
+
+### B39–B42 — `gr-361`–`gr-400`, later lyric, the Presocratics and the Persian Wars to Marathon's eve (2026-10-03)
+
+Forty cards: B39 and B40, which finish `gr-archaic-culture`, and B41 and B42, the first twenty of
+`gr-persian-wars`. Eight research agents drafted five cards each; the quote verifier and the lint wrapper gated
+every patch, and with all 100 patches of the run merged together `Q.sibling` fired on none. Every draft was read
+by eye before it was written. `gr-361`–`gr-385` were pushed first as a checkpoint; this entry covers all forty.
+
+Checks:
+- `greece-audit.js --range=gr-361:gr-400` finds nothing but seven missing pictures (`gr-362`, `gr-364`,
+  `gr-366`, `gr-369`, `gr-373`, `gr-383` and `gr-393`), the Royal Road's missing locator (a
+  route, not a place) and `S.chip?` flags on English reviews of foreign-titled books.
+- `check-citations --card` matches every checkable citation on all forty. `check-questions`, `check-docs`,
+  `split-cards --check`, `test-card-plans` and `check-gloss-links --card` pass; `check-style` adds nothing to
+  main's standing alarms; `check-cards --prefix=gr-` reports only the known `gr-598`/`gr-950` picture.
+- Every distinct citation URL answers 200 when re-curled. Encyclopaedia Iranica pages sometimes answer a bot
+  challenge; each answered 200 on retry.
+
+**Date lines:**
+- **Every poet's and philosopher's row is a source's own date and says whose** ("Suda: born", "Prime
+  (Diogenes)", "Prime (Clement)", "Suda's date"). Estimated life dates are gone: Phrynichus's "c. 540" and
+  "c. 470" (an editor's note) stay in prose only, and Aesop (`gr-365`), a semi-legendary figure, has an empty
+  line although one source cites ancient dates for him.
+- **Lines with only centuries are empty:** `gr-363` symposium, `gr-366` the Presocratics, `gr-389` and `gr-390`
+  (institutions, `undatable`).
+- **Rows that were not dates went to the prose:** "Strength 10,000, per Herodotus", "Land force 1,700,000",
+  "Provinces 20", "Stations 111", "Ionian fleet 353 triremes", "Fine 1,000 drachmas", "Army 700,000",
+  "At Sparta offered 50 talents", "Lands claimed 23", "30 years less one", "Members 4", "Works 2, both lost",
+  "Book 1, in 3 discourses" and their like.
+- **Disputed dates are two rows:** Sardis taken 547 BCE / 546 BCE (`gr-383`), Sardis burned 498 / 499 BCE
+  (`gr-395`), Lade 494 / 495 BCE (`gr-396`), Darius's heralds 491 / 493/492 BCE (`gr-400`), Pythagoras's
+  prime by Diogenes and by Clement (`gr-371`), Ibycus by the Suda and by Eusebius (`gr-360`, B38).
+- **The Ionian Revolt** is 499 BCE to its crushing in 493 BCE, with Miletus taken in 494 BCE (`gr-394`); the
+  chronology row keeps 499 – 494 BCE for the cities' revolt and adds the 493 BCE settlement, so `gr-199` and
+  `gr-200` still agree with it.
+- **`gr-384` dates Harpagus's conquest c. 540 BCE** after Dandamayev's Iranica entry; the old card's c. 545 BCE
+  had no source. `gr-359` had Anacreon leave Teos "in 545 BCE" after Smyth's handbook of 1900; to keep the two
+  cards from contradicting each other it now gives no year.
+- Two of Hicks's Olympiad conversions differ by a year between his notes (the 60th as 540 – 536 BCE for
+  Pythagoras, 540 – 537 BCE for Xenophanes; the 84th as 444 – 440 BCE for Melissus, 444 – 441 BCE for
+  Empedocles). Each card prints its own source's figure and the chronology says so.
+
+**Corrected in the old cards:**
+- **No modern scholarship, or too much of one ancient author:** the poet cards leaned on Smyth and Murray;
+  the Persian cards on four or five Herodotus chapters each. Every card now meets the bar, the caps and the
+  modern half.
+- **Wrong citations:** the BMCR misprints "Simplico" and "Vladmir" are corrected in the citations; `gr-379`'s
+  Suda translator is William Hutton, as the Suda On Line credits him.
+- **Other cards' ground given back:** `gr-367` dropped Thales's Teos council (`gr-200`'s question); `gr-370`'s main
+  question was nearly `gr-199`'s, and it dropped the fall of Miletus (`gr-397`, `gr-398`); `gr-368` dropped
+  Herodotus laughing at the mapmakers (`gr-379`); `gr-361` dropped a palinode why that repeated `gr-943`;
+  `gr-388` dropped Aristagoras's map (`gr-392`). `gr-365`'s Wojciechowski source no longer answers and went,
+  with the one claim it carried.
+- Two old questions on `gr-371` – `gr-375` carried a year or opened on a pronoun; both are rewritten.
+
+**Read by eye, and changed in review:**
+- `gr-373`'s why on Xenophanes mocking Pythagoras and the puppy repeated `gr-371`'s question; it now asks
+  about his honey-and-figs fragment.
+- `gr-306` (B32–B35) had a why on the Athenian envoys at Sardis giving earth and water, which is `gr-400`'s
+  ground. It now asks how the rising against Cleomenes may have shaped ostracism and the fleet.
+- `gr-361`'s first why ended on an unmarked claim; it now carries its marker.
+- `gr-376` and `gr-377` repeated the same marker in a row ("[8][8]"); runs are de-duplicated.
+- `gr-394`'s opening sentence and line were reshaped so the revolt's end in 493 BCE does not contradict the
+  494 BCE that `gr-199` and `gr-200` give the fall of Miletus.
+- `gr-387`'s "In use 550 – 330 BCE" became "Achaemenid era" (the institution outlived the empire) and
+  `gr-388`'s "Built up" became "Under Darius I".
+- Number-words and unspaced year ranges were put in house style throughout.
+
+**Pictures.**
+- 33 of the 40 carry one, each with a description, a visual alt and an author-and-licence credit.
+- **New or replaced:** `gr-372` (a labelled 1492 woodcut → Bronnikov's imagined Pythagoreans of 1869),
+  `gr-384` (none → a satrap's coin struck at Phocaea), `gr-386` (`gr-381`'s Behistun relief → Darius's tomb at
+  Naqsh-e Rustam), `gr-391` – `gr-400` given descriptions of what they show.
+- **Dropped:** `gr-362`'s modern plaque of the Thermopylae epitaph (`gr-443`'s subject); `gr-366`'s Derveni
+  papyrus case, photographed with its museum cards; `gr-373`'s engraving with the name lettered on it;
+  `gr-393`'s Temple of Artemis at Sardis, which shows nothing of Histiaeus.
+- **Kept with new captions:** the rest, each dated where it is a later artwork (`gr-376`'s Escorial fresco of
+  1588 – 1595, `gr-379`'s 1879 reconstruction of Hecataeus's map, `gr-360`'s 19th-century painting).
+- **Refused:** a modern bust of Cleisthenes (B33); the Myson amphora of Croesus on the pyre, already `gr-226`'s;
+  the front view of Darius's tomb, already `wh-301`'s.
+
+**Locators.** None new: the forty are people, works, institutions and events, and `gr-396` keeps Lade.
+`gr-388` the Royal Road is a route and has none.
+
+**Chronology.** The "Archaic art, verse and thought" table is finished, and a new "Persian Wars" section holds
+the rows for every date the twenty Persian cards print, with pins for every card that prints a year. The Cyrus,
+Darius and Ionian Revolt rows of "Events and reigns" are confirmed.
+
+**Glossary.** Candidates are added to the backlog (Apollodorus the chronographer, Diogenes Laertius,
+Artaphernes and others), with a note that the alias `Milesians` sends the people of Miletus to the
+philosophers.

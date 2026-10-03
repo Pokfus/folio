@@ -409,6 +409,14 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Sardis taken | 547 BCE (Nabonidus Chronicle) or 546 BCE (later chronographers), two rows | Cahill 2010; Shahbazi, Iranica; Grayson (`gr-383`) |
 | Harpagus subdues Ionia | c. 540 BCE | Dandamayev, "Harpagos" (`gr-384`) |
 | Cambyses II | king 530 – 522 BCE; took Egypt 525 BCE | Jacobs, Iranica; Papalas's review of Ruzicka (`gr-385`) |
+| Darius I | king 522 – 486 BCE; Behistun carved 521 – 519 BCE; Persepolis begun 520 – 515 BCE | Lendering, Livius; Altaweel and Squitieri 2018; Matthews and Fazeli 2022 (`gr-386` – `gr-388`) |
+| Persepolis Fortification travel texts | 509 – 493 BCE | Hallock 1969; Matthews and Fazeli 2022 (`gr-388`) |
+| Persian army, Immortals | no year: the cards describe institutions (Herodotus's 1,700,000 only as his claim) | (`gr-389`, `gr-390`) |
+| Scythian campaign | most likely 513 BCE; dates from 520 to 507 BCE proposed | Ivantchik and Shahbazi, Iranica; Lendering (`gr-391`, `gr-393`) |
+| Ionian Revolt | broke out 499 BCE; Sardis burned 498 BCE (499 BCE in the Sardis Expedition essays); Aristagoras killed 497 BCE (497/496 BCE in Badian); Histiaeus sent west 497 BCE; Lade 494 BCE (495 BCE in Badian); Miletus taken 494 BCE; last resistance crushed and the settlement of Artaphernes 493 BCE | Badian, Iranica; Tozzi; Cahill and Greenewalt (`gr-392` – `gr-397`) |
+| Phrynichus | first victory 511 – 508 BCE; *Capture of Miletus* produced after 494 BCE (soon after 480 BCE on one view); last victory 476 BCE | Suda On Line; Badian; Plutarch (`gr-398`) |
+| Mardonius' expedition | 492 BCE | Herodotus 6.43 – 45 (`gr-399`) |
+| Earth and water | the Athenian embassy at Sardis c. 507 BCE; Darius' heralds 491 BCE, or 493/492 BCE on one view | Herodotus; Schmitt, Iranica; Rhodes on Marathon (`gr-400`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -425,9 +433,9 @@ sources when its batch comes round, and a disputed one given as a range.
 | Cleisthenes' reforms | 508/507 BCE (confirmed by B32–B34, `gr-306` – `gr-314`) |
 | Croesus king of Lydia | from c. 560 BCE; Sardis taken 547 BCE by the Nabonidus Chronicle, 546 BCE in Eusebius (confirmed by B24: Cahill, `gr-226`; `gr-269` gives his reign as c. 560 – 546 BCE after Jones's note to Pausanias) |
 | Cyrus II | c. 559 – 530 BCE (confirmed by B41, `gr-382`) |
-| Darius I | 522 – 486 BCE |
+| Darius I | 522 – 486 BCE (confirmed by B41, `gr-386`) |
 | Xerxes I | 486 – 465 BCE |
-| Ionian Revolt | 499 – 494 BCE (Lade 494 BCE) |
+| Ionian Revolt | 499 – 494 BCE (Lade 494 BCE); the last resistance crushed 493 BCE (confirmed by B42, `gr-394`, `gr-396`; Badian dates Lade 495 BCE) |
 | Marathon | 490 BCE |
 | Thermopylae, Artemisium, Salamis | 480 BCE |
 | Plataea, Mycale | 479 BCE |
@@ -791,4 +799,17 @@ gr-382: 600; 559; 539; 530
 gr-383: 547; 546
 gr-384: 540
 gr-385: 530; 525; 522
+gr-386: 522; 486; 521; 519; 520; 515
+gr-387: 550; 330; 522; 486
+gr-388: 522; 486; 509; 493
+gr-391: 513
+gr-392: 499; 497
+gr-393: 513; 497
+gr-394: 499; 494; 493
+gr-395: 498; 499
+gr-396: 494; 495
+gr-397: 494
+gr-398: 511; 508; 476
+gr-399: 492
+gr-400: 507; 491; 493; 492
 ```
