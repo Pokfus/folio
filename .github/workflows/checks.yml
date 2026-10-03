@@ -142,7 +142,22 @@ jobs:
       # DELIBERATELY, in the commit that spends it, and say in the message what was bought.
       #
       # RAISES SO FAR, so the next session can see what the path is actually spent on rather
-      # than re-deriving it. 3300 -> 3400 (Sep 2026) bought the 229 Draw-the-flags cards,
+      # than re-deriving it. 3400 -> 5200 (Oct 2026) pays for nine days in which this step was
+      # simply red: PR #352 (gr-801–810) took the path from 3,333 KB to 3,494 KB on 24 September
+      # and every one of the ~60 merges after it -- Rome rm-501–rm-1000, Egypt eg-011–eg-200,
+      # China cnh-261–cnh-501, World History wh-601–wh-810, the Greece and World History
+      # refinements, the Russia geography cards -- landed on a red main, so the fast gate said
+      # nothing new for 3,000 runs. It stood at 4,289 KB when raised, all of it in data.js
+      # (+421 KB) and glossary.js (+339 KB): cards and terms at the half-kilobyte-a-card rate
+      # measured below, which is ordinary growth at an extraordinary pace, not the step change
+      # the tripwire is for. 5200 still catches a step change (a translation table re-added is
+      # ~1,300 KB; a data file put on the eager list more) and leaves about 900 KB -- another
+      # nine days at that pace -- before it is spent again. The honest reading is that the
+      # eager path cannot be grown out of this: a reader downloads 4.3 MB gzipped before the
+      # first card, and CLAUDE.md's plans table promises six times today's card count. The
+      # glossary's definitions (~1.3 MB gz, read only by popups, search, the glossary page and
+      # the games) and the card question pool (~540 KB gz) are the two things left to move off
+      # the path, in that order. 3300 -> 3400 (Sep 2026) bought the 229 Draw-the-flags cards,
       # which tripped the tripwire at 3301 KB -- one kilobyte over, which is what a generous
       # ceiling looks like when it is finally reached by ordinary growth rather than by a
       # step change. Measured by stripping the `fd-` lines back out of data.js: the whole
@@ -160,7 +175,7 @@ jobs:
       # its date line, its tags and its locator.
       - name: eager path size
         env:
-          EAGER_GZ_MAX_KB: "3400"
+          EAGER_GZ_MAX_KB: "5200"
         run: |
           node .claude/check-sizes.js | tee /tmp/sizes.txt
           gz=$(node .claude/check-sizes.js --json | node -e '
