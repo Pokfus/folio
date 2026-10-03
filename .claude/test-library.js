@@ -1097,7 +1097,9 @@ function aeneidChecks() {
     check("...with the year it was written, where the blurb used to be",
       /\d/.test(d.tiles[0].when) && !d.tiles.some((t) => t.blurb), JSON.stringify({ when: d.tiles[0].when, blurb: d.tiles.some((t) => t.blurb) }));
     check("...and short with it", d.tiles.every((t) => t.h <= 120), JSON.stringify(d.tiles.map((t) => t.h)));
-    check("the shelf is one full-width banner per row", d.cols === 1, String(d.cols));
+    // TWO to a row on a wide screen since the Oct 2026 Timeline design (on request), hung off one line down
+    // the left; the phone section below still holds the banner to the full width there
+    check("the shelf is two banners to a row on a wide screen, off the timeline", d.cols === 2, String(d.cols));
     check("...and can be sorted, by title, author and date as well as by reading",
       ["title", "author", "written"].every((v) => d.sortOpts.includes(v)), d.sortOpts.join(","));
     /* EVERY ORDER REVERSES, and the choice is REMEMBERED (Aug 2026, on request). Three things are asserted
