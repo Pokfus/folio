@@ -218,10 +218,10 @@ one changelog line and a version bump; commit and push.
 | B46 | Persian Wars (`gr-persian-wars`) | `gr-431`–`gr-440` | 10 | **done 2026-10-03** |
 | B47 | Persian Wars (`gr-persian-wars`) | `gr-441`–`gr-450` | 10 | **done 2026-10-03** |
 | B48 | Athenian Empire (`gr-athenian-empire`) | `gr-451`–`gr-460` | 10 | **done 2026-10-03** |
-| B49 | Athenian Empire (`gr-athenian-empire`) | `gr-461`–`gr-470` | 10 | open |
-| B50 | Athenian Empire (`gr-athenian-empire`) | `gr-471`–`gr-480` | 10 | open |
-| B51 | Athenian Empire (`gr-athenian-empire`) | `gr-481`–`gr-490` | 10 | open |
-| B52 | Athenian Empire (`gr-athenian-empire`) | `gr-491`–`gr-500` | 10 | open |
+| B49 | Athenian Empire (`gr-athenian-empire`) | `gr-461`–`gr-470` | 10 | **done 2026-10-03** |
+| B50 | Athenian Empire (`gr-athenian-empire`) | `gr-471`–`gr-480` | 10 | **done 2026-10-03** |
+| B51 | Athenian Empire (`gr-athenian-empire`) | `gr-481`–`gr-490` | 10 | **done 2026-10-03** |
+| B52 | Athenian Empire (`gr-athenian-empire`) | `gr-491`–`gr-500` | 10 | **done 2026-10-03** |
 | B53 | Athenian Empire (`gr-athenian-empire`) | `gr-501`–`gr-510` | 10 | open |
 | B54 | Athenian Empire (`gr-athenian-empire`) | `gr-511`–`gr-520` | 10 | open |
 | B55 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-521`–`gr-530` | 10 | open |
@@ -1768,3 +1768,87 @@ Eurymedon rows of "Events and reigns" are confirmed.
 `gr-448`), `Hannibal` (`gr-448`), `Hippocrates` of Gela (`gr-447`), `Himera` the city (`gr-448`), `Pausanias` the
 regent (`gr-435`, `gr-438`, `gr-442`, `gr-451`), `Thebes` (`gr-442`), `Democritus` of Naxos (`gr-459`), `Salamis`
 the battle (`gr-458`).
+
+### B49–B52 — `gr-461`–`gr-500`, Ithome to the Parthenon (2026-10-03)
+
+Forty cards of `gr-athenian-empire`: the helot revolt and the break with Sparta, Ephialtes and the radical democracy
+and its institutions, Pericles, the First Peloponnesian War and the Peace of Callias, the instruments of empire,
+Piraeus, the fleet and its financing, and the Periclean buildings to the architects of the Parthenon.
+
+Method: as B43–B48. Eight research agents drafted five cards each; the verifier and the lint wrapper gated every
+patch, and with every patch of the run merged `Q.sibling` fired on none. Every draft was read by eye before it was
+written.
+
+Checks:
+- `greece-audit.js --range=gr-461:gr-500` finds nothing but four cards without a picture (`gr-473` strategos,
+  `gr-486` Athenian empire, `gr-491` trierarchy, `gr-493` the navy and the thetes) and `S.chip?`
+  flags on English reviews of foreign-titled books. The real foreign sources carry their chips: French on `gr-461`
+  (Lafond), `gr-467` (Payen), `gr-468`, `gr-474` (Guicharrousse) and `gr-498`; Italian on `gr-482`, `gr-483` and
+  `gr-486` (Squillace); Spanish on `gr-469`; German on `gr-496` (Bauer).
+- `check-citations --card` matches every checkable citation on all 40. `check-questions`, `check-docs`,
+  `split-cards --check`, `test-card-plans` and `check-gloss-links --card` pass; `check-style` adds nothing to
+  main's standing alarms. All 168 distinct citation URLs of `gr-461`–`gr-500` answer 200 when re-curled.
+
+**Date lines:**
+- **Rows that were not dates went to the prose:** "Dead over 20,000", "Houses left 5", "Hoplites 4,000", "Quorum
+  6,000", "Jurors 6,000", "Rate 3 obols", "1 per cent", "Lasted 14 years", "7 cities", "10,000 drachmas", "Ships
+  200", "Sheds 372", "Cost 700 – 1,000 talents" and their like; two values that carried words ("432 BCE, at
+  Sparta", "507 – 506 BCE, Chalcis") were split into label and date.
+- **Disputed years are two rows, saying whose:** the earthquake 464 or 469 BCE (`gr-462`); the helot war 464 or
+  469/468 BCE to 455 or 458/457 BCE (`gr-461`); Tanagra and Oenophyta 457 or 458 BCE (`gr-476`, `gr-477`); the
+  Egyptian expedition c. 460 – 454 or 465 – 457 BCE (`gr-478`); the Peace of Callias 449 BCE or an earlier peace
+  about 465 BCE (`gr-480`); the revolt of Samos 440 – 439 or 441 – 439 BCE (`gr-485`); the Pnyx c. 500 or c. 460 BCE
+  (`gr-469`); the Nike decree c. 450 or c. 438 BCE (`gr-500`); the Coinage Decree in three rows, mid-440s, 420s and
+  c. 415 – 414 BCE (`gr-484`).
+- **Lines without a year:** `gr-493` (an idea) is empty.
+- **Estimated and unsourced years removed:** Pericles' "c. 495" birth (prose only); Ephialtes' "c. 461" death;
+  Cimon's recall "c. 457"; the Long Walls' "c. 458"; Hippodamus's "c. 500 – 400" life span (the line now dates three
+  of his cities); the trireme's "c. 700 BCE"; Coronea's unsourced "447". `gr-490`'s rows for Salamis and Arginusae
+  dated battles rather than the ship and went; `gr-470` keeps the late prytany decree of c. 120 – 130 CE because
+  the board's long life is part of its subject.
+
+**Corrected in the old cards:**
+- **No modern scholarship:** all 40 cited only ancient texts, most below the bar; Aristotle's *Constitution* was
+  cited up to five times on one card, Plutarch four or five times on `gr-464` and `gr-465`, Pausanias five times on
+  `gr-496`, Thucydides six times on `gr-481`, and Lambert as translator of four Attic Inscriptions Online pages on
+  `gr-483`.
+- **Wrong facts:** `gr-466` built a question on the *Constitution*'s story of Themistocles joining Ephialtes, which
+  cannot be true since he had already been ostracised; `gr-479` said no surviving historian narrates the treasury's
+  move (Diodorus and Plutarch both do); `gr-498` dated the frieze by the gables' 432 BCE.
+- **Other cards' ground given back:** `gr-461` the earthquake and the dismissal; `gr-466` the zeugitai and jury pay;
+  `gr-468` the Old Oligarch (`gr-518`); `gr-482` Chalcis's fetters (`gr-197`); `gr-483` the Thoudippos decree;
+  `gr-487` the Eetioneia wall (`gr-445`); `gr-490` pay and the Mytilene race (`gr-491`, `gr-537`); `gr-495` Vitruvius
+  (`gr-500`); `gr-499` the myths of the Lapiths (`gr-919`).
+- **Questions that copied other cards:** `gr-467`'s "first citizen" (close to `wh-324`), `gr-473`'s Amphipolis exile
+  (`gr-522`), `gr-476`'s plot against the democracy (`gr-488`), `gr-481`'s arbitration (`gr-528`), `gr-482`'s
+  Chalcis settlers (`gr-197`), `gr-483`'s sixtieth (`gr-479`), `gr-500`'s Nike temple (`gr-504`).
+
+**Read by eye, and changed in review:**
+- `gr-462`'s second why rested on Herodotus's 300 Spartans killed at Stenyclerus, which is `gr-461`'s first question;
+  it now asks only why historians think the damage lasted. `gr-462` also takes the house spelling Taenarum.
+- `gr-470`'s third why asked whether the Arginusae trial was legal, which is `gr-575`'s ground; it now asks about the
+  state tokens found round the Tholos.
+- `gr-498` ran to 291 words and was cut to 284; number-words were put in figures on `gr-475`, `gr-477`, `gr-478`,
+  `gr-482` and `gr-485`.
+
+**Pictures.** 35 of the 40 carry one, each with a description, a visual alt and an author-and-licence credit.
+- **New or replaced:**
+  - `gr-466`: a kleroterion already on `wh-318` → the summit of the Areopagus.
+  - `gr-471`: none → a juror's bronze ticket.
+  - `gr-478`: Memphis ruins already on `eg-070` → the Erechtheid casualty list naming the dead in Egypt (from
+    `gr-473`).
+  - `gr-485`: a view of the modern town → the ancient walls of Samos.
+  - `gr-489`: none → a street of the Piraeus grid.
+  - `gr-490`: the Lenormant relief already on `wh-317` → a model of a 5th-century trireme.
+- **Kept with new captions and credits:** the rest; `gr-488` keeps towers of the rebuilt Piraeus circuit, described
+  as such, since almost nothing of the Long Walls stands.
+- **Refused:** a 19th-century photograph of Memphis with a printed caption; an engraving of Piraeus and the Long
+  Walls with a printed caption; a map of Sulla's siege; colossal pharaonic statues at Memphis, which show nothing of
+  the expedition.
+- **No picture:** `gr-473`, `gr-486`, `gr-491`, `gr-493`, institutions and an idea with no fitting free image.
+
+**Locators.** Fetched through `add-locators.js`: `gr-415` (← Abydos), `gr-488` (← Kallithea, on the walls' line)
+and `gr-495` (← Parthenon). The battle and island cards keep theirs.
+
+**Chronology.** The "Athenian Empire, to the Parthenon" section holds the rows for every date the 50 cards of
+B48–B52 print, with pins for every card that prints a year.

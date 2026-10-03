@@ -467,7 +467,7 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Marathon trophy | 490 BCE | Rhodes 2013 (`gr-449`) |
 | Barbarian | no line: an idea | (`gr-450`) |
 
-## The Athenian Empire (confirmed by B48 –, `gr-451` – )
+## The Athenian Empire, to the Parthenon (confirmed by B48–B52, `gr-451` – `gr-500`)
 
 | event or person | the collection says | source |
 |---|---|---|
@@ -508,6 +508,11 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Liturgies | the Anagyrous choregic base after c. 440 BCE; Lysias' speaker's choruses 411/410 BCE | Attic Inscriptions Online, IG I³ 969; Lysias 21 (`gr-492`) |
 | Navy and the thetes | no line: an idea | (`gr-493`) |
 | Periclean building programme; Parthenon | accounts from c. 450 BCE; the Parthenon 447 – 438 BCE, its gables finished 432 BCE; the Propylaea 437 – 432 BCE; the Parthenon blown up 1687 CE, Elgin's removals from 1801 CE, restored 1896 – 1902 and 1923 – 1933 CE | Attic Inscriptions Online; Acropolis Museum; YSMA; St Clair 2022 (`gr-494`, `gr-495`) |
+| Phidias | overseer of the works from 447 BCE; to Olympia 438 BCE; the Zeus set up 430 BCE; no birth or death year | Acropolis Museum; Bauer 2024; Princeton Encyclopedia (`gr-496`) |
+| Athena Parthenos | installed 438/437 BCE | Attic Inscriptions Online, IG I³ 460 (`gr-497`) |
+| Parthenon frieze | set in place 443 – 438 BCE; Elgin's removal 1802; the west end taken indoors 1993 | YSMA (`gr-498`) |
+| Parthenon metopes | carved 445 – 440 BCE; bombarded 1687; the east side taken down 1987 – 1989 | Acropolis Museum (`gr-499`) |
+| Ictinus and Callicrates | the Parthenon built 447 – 438 BCE (its gables finished 432 BCE, `gr-495`); the Nike decree c. 450 BCE or c. 438 BCE | YSMA; Attic Inscriptions Online (`gr-500`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -995,4 +1000,9 @@ gr-491: 410; 404; 405; 357; 340
 gr-492: 440; 411
 gr-494: 450; 447; 432; 437
 gr-495: 447; 432; 1687; 1801; 1896; 1933
+gr-496: 447; 438; 430
+gr-497: 438
+gr-498: 443; 438; 1802; 1993
+gr-499: 445; 440; 1687; 1987; 1989
+gr-500: 447; 438; 450
 ```
