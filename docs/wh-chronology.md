@@ -211,6 +211,99 @@ Filled batch by batch, from the source each row names.
 | Linear Pottery culture / fades | c. 5500 – 5000 BCE / c. 5000 – 4900 BCE | Gelabert et al. (`wh-137`) |
 | Stonehenge: ditch / sarsens / last pits | c. 3000 / c. 2500 / c. 1800 – 1500 BCE | English Heritage (`wh-139`) |
 | Ötzi died | c. 3350 – 3120 BCE; found 1991 | Wang et al. 2023 (`wh-140`) |
+| Egypt: dynastic era / Old Kingdom / New Kingdom | c. 3100 – 30 BCE / c. 2686 – 2181 BCE (some end it 2160 or 2125) / c. 1550 – 1069 BCE | Australian Museum; Egyptian Ministry of Tourism and Antiquities (`wh-201`, `wh-210`) |
+| Near Eastern crops in Egypt | from c. 5000 BCE (5th millennium; none in the 6th) | Linseele et al. (`wh-202`) |
+| Naqada culture / Naqada I / Naqada II | c. 4000 – 3100 / c. 4000 – 3500 / c. 3500 – 3200 BCE (eg- cards give a radiocarbon c. 3800 – 3085) | Egyptian Ministry (`wh-203`) |
+| Narmer Palette dedicated / found | c. 3150 – 3000 BCE (two scholars' figures) / 1898 | Anđelković; O'Connor (`wh-204`) |
+| unification of Egypt: the process / the usual date | c. 3350 – 3050 BCE / c. 3100 BCE | Campagno; Egyptian Ministry (`wh-205`) |
+| hieroglyphs: Tomb U-j / last inscription / deciphered | c. 3320 BCE (c. 3200 in another account) / 394 CE / 1822 | Visible Language (`wh-206`) |
+| Rosetta Stone: decree / found | 27 March 196 BCE / July 1799 | Bevan 1927; Leclant 1999 (`wh-207`) |
+| papyrus: Hemaka roll / Merer's logbook | c. 3200 BCE (one study; another "3rd millennium") / c. 2600 BCE | Autran et al.; Łojewska et al. (`wh-208`) |
+| Step Pyramid of Djoser built | c. 2686 – 2667 BCE (Djoser's reign) | Egyptian Ministry (`wh-211`) |
+| Great Pyramid built | c. 2589 – 2566 BCE (Khufu's reign; other starts 2554 and later) | Egyptian Ministry (`wh-212`) |
+| Great Sphinx carved / Dream Stela | c. 2613 – 2494 BCE (Fourth Dynasty; usually given to Khafre, c. 2558 – 2532) / c. 1400 – 1390 BCE | Egyptian Ministry (`wh-213`) |
+| earliest embalming balms (Mostagedda) | c. 4500 – 3350 BCE | Jones et al. (`wh-214`) |
+| Book of the Dead: first spells / main use | c. 1773 – 1650 BCE (13th Dynasty) / c. 1580 – 30 BCE | Scalf (`wh-215`) |
+| First Intermediate Period | c. 2181 – 2055 BCE; also c. 2160 – 2050 and 2250 – 2045 | Egyptian Ministry; Moreno García; Weiss (`wh-217`) |
+| Middle Kingdom / 12th Dynasty | c. 2055 – 1650 / c. 1985 – 1795 BCE (`eg-175`: c. 1981 – 1800); radiocarbon start c. 2070 – 2037 | Egyptian Ministry; Erdil et al. 2025 (`wh-218`) |
+| Hyksos rule (15th Dynasty) | c. 1638 – 1530 BCE | Stantis et al. (`wh-219`) |
+| New Kingdom / 18th / 19th / 20th Dynasty | c. 1550 – 1069 / 1550 – 1295 / 1295 – 1186 / 1186 – 1069 BCE; Ahmose's accession estimated 1580 – 1524 | Egyptian Ministry; Bruins and van der Plicht (`wh-220`) |
+| Hatshepsut: ruled / as crowned king | c. 1479 – 1458 / c. 1473 – 1458 BCE | Saleem and Hawass; Egyptian Ministry (`wh-221`) |
+| Thutmose III: reign / alone | c. 1479 – 1425 BCE (others 1504 – or 1468 – 1415) / from c. 1458 BCE | Saleem and Hawass; Manning; Bruins and van der Plicht (`wh-222`) |
+| Akhenaten's reign | c. 1352 – 1336 BCE (another dating c. 1340 – 1323); Akhetaten chosen in year 5 | Digital Karnak; Amarna Project (`wh-223`) |
+| Tutankhamun's reign / tomb found | c. 1336 – 1327 BCE (others c. 1328 – 1319) / 1922 | Egyptian Ministry; Getty Conservation Institute (`wh-224`) |
+| Ramesses II's reign | c. 1279 – 1213 BCE; accession 1290 BCE on one recent view | Manning 2023 (`wh-225`) |
+| Battle of Kadesh | 1274 BCE (c. 1286 on a higher chronology) | Al-Harbi; Servajean (`wh-226`) |
+| Valley of the Kings in use | c. 1504 – 1069 BCE (Thutmose I to the end of the 20th Dynasty) | Egyptian Ministry (`wh-227`) |
+| Karnak: first firm temple / Hypostyle Hall | c. 2112 – 2063 BCE (Intef II) / c. 1294 – 1213 BCE (Sety I, Ramesses II) | Egyptian Ministry (`wh-228`) |
+| Third Intermediate Period | c. 1069 – 664 BCE; the Ministry ends it c. 747 BCE | Australian Museum; Egyptian Ministry (`wh-230`) |
+| Indus civilisation, urban (Mature Harappan) phase | c. 2600 – 1900 BCE | Green 2022; Parikh and Petrie (`wh-231`, `wh-233`–`wh-235`) |
+| Harappa occupied / Kot Diji phase | c. 3700 – 1300 / c. 2800 – 2600 BCE | James et al. 2025 (`wh-232`) |
+| Mohenjo-daro excavated | 1922 – 1931 | Marshall 1931 (`wh-233`) |
+| Indus script, first seal found | 1872 – 1873 | Farmer, Sproat and Witzel (`wh-234`) |
+| Dholavira occupied / excavated | c. 3000 – 1500 BCE (one account ends it c. 1700) / 1989 – 2005 | Prasad and Prabhakar (`wh-236`) |
+| Lothal, Rao's Periods I / II | c. 2500 – 1500 / c. 1500 – 1000 BCE (early radiocarbon put the later levels older) | Kusumgar, Lal and Sarna 1963 (`wh-237`) |
+| Late Harappan phase | c. 1900 – 1300 BCE | Robbins Schug et al. (`wh-238`) |
+| steppe ancestry: in Central Asia / in South Asia | c. 2100 – 1700 / c. 2000 – 1500 BCE | Narasimhan et al. 2019 (`wh-239`) |
+| Vedic period | c. 1500 – 500 BCE (every date an estimate from the texts); oldest Upanishads c. 700 – 500 BCE | Macdonell; Black (`wh-240`) |
+| Rigveda composed | c. 1500 – 1000 BCE (a 1900 estimate); the middle books c. 1200 BCE (a modern study) | Macdonell 1900; Kolipakam et al. (`wh-241`) |
+| Old Indo-Aryan / Panini's grammar | c. 1750 – 250 BCE / c. 400 BCE | Kolipakam et al.; Deshpande (`wh-242`) |
+| Erlitou culture / the site at its height / found | c. 1800 – 1530 BCE (older accounts c. 1900 – 1500) / c. 1750 – 1530 BCE / 1959 | Xie et al. 2020 (`wh-243`) |
+| Xia dynasty, three reckonings | 2205 – 1767 BCE (later imperial annals) / from 1989 BCE (Bamboo Annals) / c. 2070 – 1600 BCE (chronology project) | Chavannes; Chen (`wh-244`) |
+| Shang dynasty / at Anyang | c. 1600 – 1046 BCE (chronology project) / c. 1250 – 1046 BCE | Tang et al.; Zhang et al. (`wh-245`) |
+| oracle bone script / found | c. 1250 – 1046 BCE / 1899; eclipses fix c. 1201 – 1181 BCE | Ottaviano et al. (`wh-246`) |
+| Yinxu occupied | c. 1250 – 1045 BCE (the Zhou conquest 1046 on the standard chronology) | Liu et al. (`wh-247`) |
+| Chinese ritual bronzes | c. 1600 – 221 BCE (Shang and Zhou) | Liu et al. (`wh-248`) |
+| Wu Ding's reign (Fu Hao) | c. 1250 – 1192 BCE | Lee 2002 (`wh-249`) |
+| Sanxingdui centre / pits / found | c. 1700 – 1000 BCE / c. 1200 – 1000 BCE (Pit 4 1199 – 1017) / 1929 | Yan et al. (`wh-250`) |
+| Western Zhou / firm year-by-year dates | c. 1046 – 771 BCE (the project also gave 1044 and 1027; others 1045 or 1047) / from 841 BCE | Lee 2002 (`wh-251`) |
+| Mandate of Heaven, earliest texts | c. 1046 – 771 BCE (Western Zhou bronzes and Documents chapters) | Kosec; Schaberg; Poo (`wh-252`) |
+| Chinese characters: first attested / Qin standard / simplified | c. 1250 BCE / 221 BCE / 1956 | Ottaviano et al.; Han et al.; Wang et al. (`wh-253`) |
+| silk: earliest trace (Jiahu) / first cloth / cocoons in Uzbekistan | c. 8500 BP / c. 5000 BP / 1940 – 1765 BCE | Gong et al.; Zhou et al. (`wh-254`) |
+| jade in China: first worked (Xinglongwa) / Hongshan peak / Liangzhu | c. 6200 – 5400 / c. 3500 – 3000 / c. 3200 – 2000 BCE (`cnh-049`: 3300 – 2300) | Liu (`wh-255`) |
+| Bronze Age by region: Anatolia / Low Countries / East Asia | c. 3300 – 1200 / c. 2200 – 800 / c. 1700 – 300 BCE | Aşınmaz et al.; Merkel et al.; Cooper and Grebnev (`wh-256`) |
+| bronze: earliest known (Pločnik) / widespread | c. 4650 BCE / by 1500 BCE | Radivojević et al.; Powell et al. (`wh-257`) |
+| Yamnaya culture / widest extent | c. 3300 – 2500 BCE / by 3000 BCE | Wilkin et al.; Lazaridis et al. 2025 (`wh-258`) |
+| Indo-European: proposed origins / first written (Anatolian) / steppe spread | c. 9500 – 6000 years ago (the theories differ) / c. 2000 BCE / c. 3300 – 1500 BCE | Tassi et al.; Lazaridis et al. 2025 (`wh-259`) |
+| horses: Botai / modern domestic line | c. 3500 – 3100 BCE / c. 2200 BCE | Anthony et al.; Librado et al. (`wh-260`) |
+| chariot: earliest (Sintashta) / in China | c. 2000 – 1800 BCE / from c. 1200 BCE (late Shang) | Librado et al.; Anthony et al. (`wh-261`) |
+| Minoan civilisation / first palaces / palaces fall | c. 3100 – 1050 BCE / c. 1900 BCE / c. 1490 – 1470 BCE | Rutter (`wh-262`) |
+| Mycenaean shaft graves / collapse | c. 1650 – 1500 BCE / c. 1250 – 1050 BCE (`gr-056` ends c. 1100) | Rutter (`wh-263`) |
+| Minoan eruption | c. 1627 – 1600 BCE (radiocarbon) against c. 1540 – 1500 BCE (archaeology); `gr-043` gives one range, c. 1610 – 1540 | Karátson et al.; Pearson et al. (`wh-264`) |
+| Linear B in use / deciphered | c. 1450 – 1200 BCE (`gr-074` from c. 1400) / 1952 | Clemente et al.; Mycenaean Epigraphy Group (`wh-265`) |
+| Hittite kingdom / Hattusa conquered / tablets found / language deciphered | c. 1650 – 1200 BCE / c. 1730 BCE (one genetic study) / 1906 / 1915 | Manning et al.; Lazaridis et al. 2025; Muhly (`wh-266`, `wh-267`) |
+| Ugarit at its height / destroyed / found | c. 1600 – 1200 BCE / c. 1192 – 1190 BCE / 1928 | Fuller et al.; Kaniewski et al.; Gordon (`wh-268`) |
+| Proto-Sinaitic: Sinai texts / Wadi el-Hol / minority date | c. 1900 – 1800 / c. 1850 – 1700 / c. 1400 – 1300 BCE | Höflmayer et al.; Lam (`wh-269`) |
+| Amarna letters written / found | c. 1365 – 1330 BCE / 1887 | Aissaoui; Scoville (`wh-270`) |
+| Uluburun ship sank / found / excavated | c. 1320 BCE (± 15; others c. 1310 or 1300) / 1982 / 1984 – 1994 | Institute of Nautical Archaeology (`wh-271`) |
+| tin: Assur caravans to Anatolia | c. 1950 – 1750 BCE (`wh-272` is `undatable`; prose only) | (`wh-272`) |
+| Bell Beaker: spread / fades | c. 2750 – 2500 BCE / 2200 – 1800 BCE; Britain from c. 2450 | Olalde et al. 2018 (`wh-273`) |
+| Únětice culture (central Germany) | c. 2200 – 1550 BCE; Leubingen oak 1942 ± 10 BCE | Penske et al. (`wh-274`) |
+| Nebra sky disc made / buried / found | c. 1800 – 1700 / c. 1600 BCE / 1999 (an Iron Age date proposed in 2020, rebutted) | Dieck et al. (`wh-275`) |
+| Nordic Bronze Age / Period I | c. 1700 – 500 / c. 1700 – 1500 BCE | Díaz-Guardamino et al.; Frei et al. (`wh-276`) |
+| Oxus civilisation: Gonur North / final phase | c. 2200 – 1950 / c. 1800 – 1500 BCE | Berger et al.; Guarino-Vignon et al. (`wh-277`) |
+| Sea Peoples under Merneptah / Ramesses III's Delta battle | c. 1213 – 1203 BCE / c. 1188 – 1176 BCE (datings differ) | Kaniewski et al. (`wh-278`) |
+| Late Bronze Age collapse / Hittite drought | c. 1250 – 1150 BCE / c. 1198 – 1196 BCE | Knapp and Manning; Manning et al. (`wh-279`) |
+| iron: first used / main metal in the southern Levant | before 2100 BCE / c. 1000 – 800 BCE | Mokrišová and Verčík; Yahalom-Mack and Eliyahu-Behar (`wh-280`) |
+| Iron Age by region: southern Levant / early Aegean / England and Wales / southern Africa (Early Iron Age) | c. 1200 – 586 BCE / c. 1050 – 700 BCE / c. 800 BCE – 50 CE / c. 200 – 900 CE | Regev et al.; Mokrišová and Verčík; Cassidy et al.; Mathoho et al. (`wh-281`) |
+| Neo-Assyrian Empire / Nineveh falls / Harran lost / last bid | c. 912 – 609 BCE / 612 / 610 / 609 BCE; eponym eclipse 15 June 763 BCE | Sinha et al.; Gadd 1923 (`wh-282`) |
+| Nineveh capital | c. 705 – 612 BCE (first attack 614) | Luckenbill; Ur (`wh-283`) |
+| Ashurbanipal's reign | 668 – 631 BCE (older works 626); civil war 652 – 648 | Bach (RINAP 5); Zaia (`wh-284`) |
+| Assyrian mass deportation / Judah | c. 850 – 612 BCE (systematic from Tiglath-pileser III, 745 – 727) / 701 BCE | Sazonov; Tsakanyan; Vaknin et al. (`wh-285`) |
+| Neo-Babylonian Empire | 626 – 539 BCE | Novotny and Weiershäuser (`wh-286`) |
+| Nebuchadnezzar II / Carchemish / Jerusalem burned | 605 – 562 BCE (604 counting the first full year) / 605 / 586 BCE (`wh-289`: 587 or 586) | Regev et al.; ABC 5 (`wh-287`) |
+| Babylonian captivity: deportations / conventional end / Al-Yahudu tablets | 597 – 582 / 539 BCE / 572 – 477 BCE | Makuwa; Alstola (`wh-289`) |
+| Israel and Judah / Samaria falls / Jerusalem falls | c. 950 – 586 BCE / 722 or 720 BCE / 586 BCE; Qarqar 853 BCE | Vishne et al.; Nissinen; Vaknin et al. (`wh-290`) |
+| Hebrew Bible: composition / Ketef Hinnom amulets / in Greek | c. 800 – 160 BCE (scholars' reconstructions) / c. 600 BCE (most; one later) / by 132 BCE | Faigenbaum-Golovin et al.; Popović et al.; Waaler; Swete (`wh-291`) |
+| Judaism: Elephantine temple destroyed / Second Temple destroyed | 411 BCE / 70 CE (`wh-292` is `undatable`) | Cowley (`wh-292`) |
+| Phoenicia takes shape / Tyre falls to Alexander | c. 1200 – 1150 BCE / 332 BCE | Clark; MacDonald (`wh-293`) |
+| Phoenician alphabet fixed / Ahiram epitaph | c. 1000 BCE | Lam (`wh-294`) |
+| Carthage founded | 814/813 BCE (Timaeus) against radiocarbon c. 895 – 795 BCE (disputed); destroyed 146 BCE | van der Plicht et al.; Fantalkin et al. (`wh-295`) |
+| Urartu at its height / Sargon's eighth campaign | c. 800 – 550 BCE / 714 BCE | Matthews et al. 2025 (`wh-296`) |
+| Lydia: Mermnad kings / Sardis taken | c. 680 – 547 BCE / 547 BCE (Nabonidus Chronicle, if read as Lydia) or 546 (Eusebius) | Greenewalt; Cahill (`wh-297`) |
+| first coins (Lydia and Ionia) / China (Guanzhuang) / India (punch-marked) | c. 660 – 630 BCE (Artemision deposit before c. 640 – 620) / c. 640 – 550 / c. 600 – 400 BCE | Meadows; Zhao et al.; Upadhyay (`wh-298`) |
+| Medes in Assyrian records / Nineveh falls / Astyages falls | c. 858 – 656 BCE / 612 / 550 BCE | Lendering; Radner; Gadd; Nabonidus Chronicle (`wh-299`) |
+| Cyrus the Great: reign / Ecbatana / Babylon | 559 – 530 BCE / 550 / 539 BCE | Lendering; Nabonidus Chronicle (`wh-300`) |
 
 ## Chronology pins
 
@@ -408,4 +501,99 @@ wh-197: 2900; 1700; 1930; 1775
 wh-198: 1770; 1360; 1220; 1155; 1150
 wh-199: 2650; 1500; 1100; 646; 539
 wh-200: 1550; 1350
+wh-201: 3100; 30; 2686; 2181; 1550; 1069
+wh-202: 5000
+wh-203: 4000; 3500; 3200; 3100
+wh-204: 3150; 3000; 1898
+wh-205: 3350; 3050; 3100
+wh-206: 3320; 394; 1822
+wh-207: 196; 1799; 1822
+wh-208: 3200; 2600
+wh-209: 3100; 30
+wh-210: 2686; 2181
+wh-211: 2686; 2667
+wh-212: 2589; 2566
+wh-213: 2613; 2494; 1400; 1390
+wh-214: 4500; 3350
+wh-215: 1773; 1650; 1580; 30
+wh-217: 2181; 2055; 2160; 2050
+wh-218: 2055; 1650; 1985; 1795
+wh-219: 1638; 1530
+wh-220: 1550; 1069; 1295; 1186
+wh-221: 1479; 1458; 1473
+wh-222: 1479; 1425; 1458
+wh-223: 1352; 1336
+wh-224: 1336; 1327; 1922
+wh-225: 1279; 1213; 1290
+wh-226: 1274; 1286
+wh-227: 1504; 1069
+wh-228: 2112; 2063; 1294; 1213
+wh-230: 1069; 664; 747
+wh-231: 2600; 1900
+wh-232: 3700; 1300; 2800; 2600; 1900
+wh-233: 2600; 1900; 1922; 1931
+wh-234: 2600; 1900; 1872; 1873
+wh-235: 2600; 1900
+wh-236: 3000; 1500; 1989; 2005
+wh-237: 2500; 1500; 1000
+wh-238: 1900; 1300
+wh-239: 2100; 1700; 2000; 1500
+wh-240: 1500; 500
+wh-241: 1500; 1000
+wh-242: 1750; 250; 400
+wh-243: 1800; 1530; 1750; 1959
+wh-244: 2205; 1767; 1989; 2070; 1600
+wh-245: 1600; 1046; 1250
+wh-246: 1250; 1046; 1899
+wh-247: 1250; 1045
+wh-248: 1600; 221
+wh-249: 1250; 1192
+wh-250: 1700; 1000; 1200; 1929
+wh-251: 1046; 771; 841
+wh-252: 1046; 771
+wh-253: 1250; 221; 1956
+wh-254: 8500; 5000; 1940; 1765
+wh-255: 6200; 5400; 3500; 3000; 3200; 2000
+wh-256: 3300; 1200; 2200; 800; 1700; 300
+wh-257: 4650; 1500
+wh-258: 3300; 2500; 3000
+wh-259: 9500; 6000; 2000; 3300; 1500
+wh-260: 3500; 3100; 2200
+wh-261: 2000; 1800; 1200
+wh-262: 3100; 1050; 1900; 1490; 1470
+wh-263: 1650; 1500; 1250; 1050
+wh-264: 1627; 1600; 1540; 1500
+wh-265: 1450; 1200; 1952
+wh-266: 1650; 1200; 1915
+wh-267: 1730; 1650; 1200; 1906
+wh-268: 1600; 1200; 1192; 1190; 1928
+wh-269: 1900; 1800; 1850; 1700; 1400; 1300
+wh-270: 1365; 1330; 1887
+wh-271: 1320; 1982; 1984; 1994
+wh-273: 2750; 2500; 2200; 1800
+wh-274: 2200; 1550
+wh-275: 1800; 1700; 1600; 1999
+wh-276: 1700; 500; 1500
+wh-277: 2200; 1950; 1800; 1500
+wh-278: 1213; 1203; 1188; 1176
+wh-279: 1250; 1150; 1198; 1196
+wh-280: 2100; 1000; 800
+wh-281: 1200; 586; 1050; 700; 800; 50; 200; 900
+wh-282: 912; 609; 612
+wh-283: 705; 612
+wh-284: 668; 631
+wh-285: 850; 612; 701
+wh-286: 626; 539
+wh-287: 605; 562; 586
+wh-289: 597; 582; 539
+wh-290: 950; 586; 722; 720
+wh-291: 800; 160; 600; 132
+wh-293: 1200; 1150; 332
+wh-294: 1000
+wh-295: 814; 813; 895; 795
+wh-296: 800; 550
+wh-297: 680; 547; 546
+wh-298: 660; 630; 640; 550; 600; 400
+wh-299: 858; 656; 612; 550
+wh-300: 559; 530; 550; 539
 ```
