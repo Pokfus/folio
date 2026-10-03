@@ -23207,10 +23207,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="gdeco" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>';
   }
   /* The top three cards of today's pile, fanned beside the banner (desktop and tablet only; see styles.css).
-     Site cards only: a community card's text lives per note and may not be loaded yet. */
+     Site cards only: a community card's text lives per note and may not be loaded yet.
+     NEVER A CARD WHOSE QUESTION NEEDS ITS PICTURE (Oct 2026, on request: "the preview doesn't include an
+     image or atlas box and the question makes no sense by itself"): a map card's question points at the
+     atlas, a flag or draw-the-flag card's at the flag, an artwork card's at the picture — "The country or
+     territory whose flag is shown is ___" is nothing on a card that shows no flag. The preview holds text
+     only, so it skips past those to the next card whose question stands alone. */
+  function previewable(c) {
+    return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c);
+  }
   function reviewPreviewHTML(ids) {
     const pick = [];
-    for (const id of ids) { const c = CARD_BY_ID[id]; if (c && c.question) pick.push(c); if (pick.length === 3) break; }
+    for (const id of ids) { const c = CARD_BY_ID[id]; if (previewable(c)) pick.push(c); if (pick.length === 3) break; }
     if (!pick.length) return "";
     const txt = (q) => esc(String(q).replace(/<[^>]+>/g, "")).replace(/_{3,}/g, '<u class="pv-blank"></u>');
     const name = (c) => { const r = cardCollectionRoot(c.id); return r ? nodeTitle(r) : ""; };

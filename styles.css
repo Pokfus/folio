@@ -9985,8 +9985,11 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 /* …AND IT IS ONE FLAT TINT WITH NO DARK EDGE (Oct 2026, on request: the deeper share "still does not look
    properly", and "the line to mark it should not be darker than the progress left to it"). It faded from 34% to
    24% towards its right end and then stopped at a 3px line of the full accent, so the band grew paler exactly
-   where it met the darkest stroke on the row. It is one even 28% now and its own edge is the marker. */
-.review-group .active-deck .dk-prog .fill-l{background:color-mix(in srgb, var(--dk-accent) 28%, var(--card)); border-right:0;}
+   where it met the darkest stroke on the row. It is one even tint now and its own edge is the marker.
+   …AND DEEPER AGAIN, 28% → 40% (Oct 2026, on request: against the studied share's 10% it "sometimes has so
+   little contrast … that it is almost impossible to see" — Russia's, on a tablet). Still well short of the full
+   accent on the row's left edge, which it must not match. */
+.review-group .active-deck .dk-prog .fill-l{background:color-mix(in srgb, var(--dk-accent) 40%, var(--card)); border-right:0;}
 .review-group .active-deck .dk-prog.prog-done .fill-l{background:color-mix(in srgb, #C39A2E 22%, var(--card));}
 /* the games */
 .games-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
@@ -10076,6 +10079,37 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .streak-ribbon > .sr-best{grid-column:4; grid-row:1; justify-self:end; align-self:end; margin:0;}
 .streak-ribbon > .sr-note{grid-column:4; grid-row:2; justify-self:end; align-self:start; text-align:right;}
 .streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-row:1 / 3; align-self:center;}
+/* THE PREVIEW SITS IN THE MIDDLE OF ITS ROOM (Oct 2026, on request: "as much empty space to the left as to the
+   right of it"). The text column took every spare pixel and pushed the fan to the banner's right edge; now the
+   column keeps its natural width and the fan splits what is left with auto margins. The banner's 24px gap is
+   given up for this pair (it would count on the left only) and the fan carries 12px of its own each side
+   instead, so the two can never touch; the cards are drawn inside that padding. */
+@media (min-width:641px){
+  .page .rv-banner:has(> .rv-preview){column-gap:0;}
+  .page .rv-banner:has(> .rv-preview) > .body{flex:0 1 auto;}
+  .rv-preview{margin:0 auto; padding:0 12px; box-sizing:content-box;}
+  .pv-card{left:12px; right:12px;}
+}
+/* THE WEEK FILLS THE ROW on a tablet and desktop (Oct 2026, on request: "there is currently still a lot of
+   empty space … grow the coloured boxes and the chest to fill as much of this empty space as possible"). The
+   week's column is the flexible one and Longest-over-the-note takes only what it needs at the right; each day
+   is a square that grows with the room it is given, up to 48px, and the chest grows with it, so the ribbon
+   stays about as tall as its two-line note. A phone keeps its 12px days (its own block, below). */
+@media (min-width:641px){
+  .streak-ribbon{grid-template-columns:auto auto minmax(0, 1fr) auto;}
+  .streak-ribbon > .sr-days{min-width:0;}
+  .sr-wk{flex:1 1 auto; gap:8px; max-width:100%;}
+  /* smaller than the slot it sits in (Oct 2026, on request, twice: "make the green squares a little smaller
+     but keep them in their current places") — the 7px margins give back what the square gave up, so each day
+     keeps its centre and the week keeps its spread */
+  .sr-wk i{flex:1 1 14px; min-width:14px; max-width:34px; width:auto; height:auto; aspect-ratio:1 / 1; border-radius:7px; margin:0 7px;}
+  .sr-wk i.t{border-width:3px;}
+  /* …and air to the chest's right (Oct 2026, on request), between it and Longest */
+  .sr-chest{flex:1.6 1 22px; min-width:30px; max-width:76px; width:auto; margin:0 20px 0 8px;}
+  /* the chest is drawn in the lower part of its own viewBox (its lid's arc starts a sixth of the way down and
+     its box ends near the foot), so a centred box is a chest sitting low — nudged up by that difference */
+  .sr-chest .chest-svg{transform:translateY(-5%);}
+}
 @media (max-width:1024px){
   .rv-preview{width:260px; height:180px;}
   .games-sec .game-grid{grid-template-columns:repeat(2, 1fr);}
@@ -10088,7 +10122,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
    never run under the piles. Below 720px there is no 150px left over and it stays hidden. */
 @media (min-width:641px) and (max-width:900px){
   .page .rv-banner .body{flex:0 1 auto;}
-  .rv-preview{flex:1 1 0; width:auto; min-width:150px; max-width:240px; height:170px; margin:0 6px 0 14px;}
+  .rv-preview{flex:1 1 0; width:auto; min-width:150px; max-width:240px; height:170px; margin:0 auto;}
   .pv-card{padding:14px 15px;}
   .pv-card p{font-size:13.5px;}
 }
