@@ -134,16 +134,16 @@ in plan order unless the user says otherwise.
 | B18 | Mesopotamia (`wh-mesopotamia`) | `wh-171`–`wh-180` | 10 | 104 | **done 2026-10-02** |
 | B19 | Mesopotamia (`wh-mesopotamia`) | `wh-181`–`wh-190` | 10 | 117 | **done 2026-10-02** |
 | B20 | Mesopotamia (`wh-mesopotamia`) | `wh-191`–`wh-200` | 10 | 105 | **done 2026-10-02** |
-| B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | open |
-| B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | open |
-| B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | open |
-| B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | open |
-| B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | open |
-| B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | open |
-| B27 | The Bronze Age world (`wh-bronze-age`) | `wh-261`–`wh-270` | 10 | 117 | open |
-| B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | open |
-| B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | open |
-| B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | open |
+| B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | **done 2026-10-03** |
+| B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | **done 2026-10-03** |
+| B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | **done 2026-10-03** |
+| B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | **done 2026-10-03** |
+| B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | **done 2026-10-03** |
+| B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | **done 2026-10-03** |
+| B27 | The Bronze Age world (`wh-bronze-age`) | `wh-261`–`wh-270` | 10 | 117 | **done 2026-10-03** |
+| B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | **done 2026-10-03** |
+| B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | **done 2026-10-03** |
+| B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | **done 2026-10-03** |
 | B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | open |
 | B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | open |
 | B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | open |
@@ -975,6 +975,338 @@ does not name. *Coverage:* `wh-200` gives no year for Mitanni's defeat, its sour
 
 **Glossary.** Nine terms rewritten; *Edubba* already agreed.
 
+### B21 — `wh-201`–`wh-210`, Ancient Egypt (2026-10-03)
+
+Run as B20, with Commons and Wikipedia refusing this sandbox (429 on the one test call), so no picture changed.
+Egyptian dates are the conventional ones of Egypt's Ministry of Tourism and Antiquities and the Australian
+Museum; where a source gives another chronology the prose gives both. **UCL's Digital Egypt pages, which the
+old Egypt cards leaned on, now sit behind a Cloudflare challenge** and could not be re-read, so every claim
+resting only on them was re-sourced or dropped. Checks: `wh-audit.js --range=wh-201:wh-210` clean but for
+`wh-205`'s `I.duplicate` (its picture is also `eg-077`'s: picture pass); `check-questions`, `check-cards
+--prefix` per card, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans`
+pass; `check-citations --card` 0 mismatched; all 71 distinct URLs 2xx.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-201` Ancient Egypt | 9 | 6 → 9 | Six date-line years were in no sentence of the background; now one dynastic-era row and the two Kingdoms, all in the prose. "A divine king whose office kept chaos out" was not in its source; now the famine-as-chaos ideal, cited. The flood angle moved to `wh-202`. |
+| `wh-202` ancient Egyptian agriculture | 7 | 6 → 9 | **The card had drifted from the plan's "The Nile and Egyptian agriculture" to "emmer wheat"**, with an emmer-genome date line (9700 BCE; 1130 – 1000 BCE). Realigned: the flood's timing, basin farming, emmer, barley and flax, the three seasons, nilometers and the harvest tax. New answer and glossary term. |
+| `wh-203` Naqada culture | 7 | 8 → 8 | **"Nearly three thousand graves in a single season of 1895"**: the source gives over 2,000 in just over three months, and the year differs by source (1894, 1895/96), so none is given. A Naqada III row the Ministry dates differently dropped; "first writing" claim dropped. |
+| `wh-204` Narmer Palette | 7 | 6 → 8 | **"Greywacke, 63 cm" is siltstone, 63.5 cm; "two long-necked leopards" are serpopards; the "Hathor heads" are only cow-eared heads**, the goddess disputed. An Early Dynastic row (another event's date) became "Dedicated c. 3150 – 3000 BCE"; the Menes identification dropped. |
+| `wh-205` unification of Egypt | 8 | 6 → 8 | **Aha's radiocarbon accession (3111 – 3045 BCE) and a comparison with southwest Asia rested on a paper no host would serve**, so they dropped. The line is now the process, c. 3350 – 3050 BCE, and the usual c. 3100; the Narmer Palette's war read as one view. |
+| `wh-206` Egyptian hieroglyphs | 9 | 7 → 9 | **All seven old sources were unreachable**; re-sourced from *Visible Language* and the UCLA encyclopedia. A non-date "by the 3rd Dynasty" row dropped; in use c. 3320 BCE – 394 CE (Tomb U-j to Philae), another account's c. 3200 in the prose; deciphered 1822. |
+| `wh-207` Rosetta Stone | 9 | 5 → 9 | Three French sources became one. **"News reached the Institut d’Égypte on 29 July" and demotic at Philae "into the 5th century" had no source.** A phrasing carried 196 BCE. Granodiorite, the revolt from 207 BCE and the Damanhur and Philae copies added. |
+| `wh-208` papyrus | 9 | 8 → 9 | UCL-only claims (sheet sizes, exports, the codex, a 1087 CE end) dropped. The Hemaka roll is c. 3200 BCE in one study and "3rd millennium" in another; both given. Merer's logbook (c. 2600 BCE) added as the oldest written papyrus. |
+| `wh-209` pharaoh | 9 | 7 → 9 | **"c. 3000 BCE – 300 CE" had an end no source gave**; now c. 3100 – 30 BCE. Claims on Ra-texts, the five names "by the Middle Kingdom" and Sobekneferu as "daughter of Ra" rested only on UCL and dropped. |
+| `wh-210` Old Kingdom | 8 | 10 → 9 | **"20,000 – 30,000 workers" had no source.** Two dynasty rows dropped for the period, c. 2686 – 2181 BCE, with ends of 2160 and 2125 in the prose. The Khufu branch of the Nile, Merer's papyri, the Pyramid Texts and the famine-or-trade debate added. |
+
+**Read by eye.** *Article:* "the Narmer Palette", "the Rosetta Stone", "the unification of Egypt", "the Naqada
+culture", "the Old Kingdom", "a pharaoh"; the rest bare. *Confusability:* `wh-201`/`wh-202` the civilisation
+and its farming, the flood moved to `wh-202`; `wh-203`/`wh-204`/`wh-205` the culture, the palette and the
+process, `wh-205` naming Narmer only beside Ka; `wh-206`/`wh-207`/`wh-208` the script, the key and the
+material; `wh-209`/`wh-210` the office and the age, `wh-210`'s Giza clue kept off `wh-212`'s. *Consistency:*
+hieroglyphs' last inscription 394 CE and the decipherment of 1822 agree across `wh-206`/`wh-207`; the dynastic
+era c. 3100 – 30 BCE across `wh-201`/`wh-205`/`wh-209`. `wh-201` gives the 1st and 2nd Dynasties from c. 3050,
+its Abydos source's figure, beside the conventional c. 3100. *Against the eg- cards:* `eg-026` dates the Naqada
+phases by radiocarbon (c. 3800 – 3085 BCE) where `wh-203` keeps the conventional dates; `eg-050` dates the
+palette from c. 3100, `wh-204` from c. 3150. *Not done:* `wh-202`'s "Learn more" link still points at
+*Emmer*, since `find-wiki-links.js` needs Wikipedia, which refused the sandbox.
+
+**Glossary.** Eight terms rewritten and *Ancient Egyptian agriculture* added; *Rosetta Stone* already agreed.
+The old *Emmer* entry stands.
+
+### B22 — `wh-211`–`wh-220`, Ancient Egypt (2026-10-03)
+
+Run as B21. Checks: `wh-audit.js --range=wh-211:wh-220` clean but for a `W.not-why` note on `wh-213` and
+`wh-217`'s `I.duplicate`, a false positive (its URL ends in the generic `1920px-thumbnail.jpg`, as `wh-122`'s
+does); the rest as B21; all 72 distinct URLs 2xx and `check-citations --card` 0 mismatched. New locators:
+`wh-211` (Saqqara), `wh-212` (Giza) and `wh-213` (Giza plateau). An agent's glossary draft for `wh-220` made a
+second key, "New Kingdom", beside the existing `New_Kingdom_of_Egypt`; it was removed and the existing entry
+rewritten with "New Kingdom" as its alias.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-211` Step Pyramid of Djoser | 8 | 6 → 8 | **"His standing as architect appears only in Late Period sources"**: a few short inscriptions about Imhotep survive from near his lifetime, and he was a god by the New Kingdom. A 277 by 544 m enclosure had no source; now about 16 hectares. The 1992 earthquake added; a Second Dynasty row dropped. |
+| `wh-212` Great Pyramid of Giza | 9 | 6 → 9 | **"Twenty to thirty thousand workers" had no source**; now "tens of thousands" with the workers' town. Phrasings carried "twenty years" and "3,800 years". The Khufu branch of the Nile, Merer's papyri and the 2023 corridor added; a Fourth Dynasty row dropped. |
+| `wh-213` Great Sphinx of Giza | 9 | 5 → 9 | **The Dream Stela as "a much later copy" was a 1906 view.** "Paws dug clear in 1818" dropped, sources splitting 1817 and 1818. The line dated the carving by Khafre's reign; since the card gives the Khufu view too, it now gives the Fourth Dynasty, c. 2613 – 2494 BCE. Size and groundwater added. |
+| `wh-214` mummification | 9 | 5 → 9 | **A c. 4300 BCE row had no source**; the prehistoric balms are c. 4500 – 3350 BCE. Budge's canopic-jar account dropped; **the Saqqara workshop's "myrrh" alone proved conifer-based**, which the card had overstated. |
+| `wh-215` Book of the Dead | 9 | 5 → 9 | "More than 190 spells" is "about 190". **"Flourished c. 1580 – 1069 BCE" stopped with the New Kingdom, but the spells were used to the end of the Ptolemaic Period**; now c. 1580 – 30 BCE, and a century-only row dropped. |
+| `wh-216` ancient Egyptian religion | 9 | 7 → 10 | The date line held three other events; now empty and `undatable`. "No founder, creed or scripture", "three thousand years" and Amun-Re as state god had no source. Maat, temple and household cult, Akhenaten and animal offerings rebuilt from fetched sources. |
+| `wh-217` First Intermediate Period | 7 | 7 → 7 | **"Seventy kings in seventy days" was given to Manetho; it is now a later tradition.** The Ipuwer dating, the ninth and tenth dynasties as "one list in two columns" and a Theban start of c. 2160 rested only on UCL and dropped. Two datings on the line, a third and the drought debate in prose. |
+| `wh-218` Middle Kingdom | 8 | 6 → 9 | **The Nubian forts "built in 32 years" contradicts its own source's reign dates**, and dropped. A reign row became the 12th Dynasty; the 2025 radiocarbon start, the Fayum and Abydos added. |
+| `wh-219` Hyksos | 7 | 6 → 7 | An "Expelled c. 1550" row was in no source read; one row, c. 1638 – 1530 BCE. Manetho's invasion story is set against the strontium evidence of an elite that rose inside Egypt; the severed hands at Avaris and Seqenenre's wounds added. |
+| `wh-220` New Kingdom | 8 | 7 → 8 | Five UCL sources were over the institution cap and gone; their vizier and viceroy claims dropped. **A kohl citation carried the wrong article number.** Two reign rows (another event's dates) became the three dynasties; Ahmose's start, 1580 – 1524 BCE by estimate, in prose. |
+
+**Read by eye.** *Article:* "the Step Pyramid of Djoser", "the Great Pyramid of Giza", "the Great Sphinx of
+Giza", "the Book of the Dead", "the First Intermediate Period", "the Middle Kingdom", "the Hyksos", "the New
+Kingdom"; mummification and the religion bare. *Confusability:* `wh-210`/`wh-211`/`wh-212` the age and its two
+pyramids, the Herodotus clue only on `wh-212`; `wh-214`/`wh-215`/`wh-216` the body, the spells and the
+religion, the weighing of the heart only on `wh-215`; `wh-217`/`wh-218` both name Mentuhotep II, one as the
+end and one as the start; `wh-219`/`wh-220` Avaris taken by Ahmose on both, the Hyksos' own story only on
+`wh-219`. *Consistency:* Khufu c. 2589 – 2566 BCE on `wh-212` and in `wh-213`'s prose; the First Intermediate
+Period ends and the Middle Kingdom begins at 2055 BCE. *Against the eg- cards:* `eg-175` dates the 12th
+Dynasty c. 1981 – 1800 BCE, against the Ministry's c. 1985 – 1795 used on `wh-218`.
+
+**Glossary.** Eight terms rewritten (*Pyramid of Djoser*, *Great Sphinx of Giza*, *Mummification*, *Book of
+the Dead*, *Ancient Egyptian religion*, *First Intermediate Period*, *Hyksos*, *New Kingdom of Egypt*);
+*Great Pyramid of Giza* and *Middle Kingdom of Egypt* already agreed. The *Great Pyramid of Giza* and *Great
+Sphinx of Giza* entries carry malformed or licence-bearing picture fields: picture pass.
+
+### B23 — `wh-221`–`wh-230`, Ancient Egypt (2026-10-03)
+
+Run as B22. Checks: `wh-audit.js --range=wh-221:wh-230` clean but for `W.not-why` notes on two and `wh-229`'s
+`L.missing` (below); the rest as B22; all 63 distinct URLs 2xx. `check-citations --card` reports one mismatch,
+on `wh-224`: Crossref runs Seshadri's initial into his given name ("KrishnaG"), while the article itself prints
+"Krishna G. Seshadri", which the citation follows. New locators: `wh-226` (Kadesh, labelled Tell Nebi Mend),
+`wh-227` and `wh-228`. `wh-229` Nubia asked for "Nubia", which has no primary coordinate; a region is not drawn
+by hand, so the card stays without one. **The Ancient Egypt deck is now done.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-221` Hatshepsut | 8 | 5 → 8 | **"The Hyksos expelled a century before" and "left out of the king lists" had no source**; the throne name dropped, no fetched source spelling it as the card did. A Thutmose III row (another person's dates) became her crowned reign, c. 1473 – 1458 BCE. Punt's baboons and the Speos Artemidos boast added from their texts. |
+| `wh-222` Thutmose III | 7 | 5 → 8 | **The Annals' figures (7,942 foreigners, 340 captives) rested on a paper behind a bot wall** and dropped. A campaigns row (not a date) dropped; he ruled alone from c. 1458 BCE; the 1504 and 1468 – 1415 datings in prose. Henket-ankh and KV34 added. |
+| `wh-223` Akhenaten | 8 | 7 → 8 | **Akhetaten was chosen in his fifth year, not his sixth.** "Nearly 400 tablets" and a Late Egyptian claim had no source. Reign c. 1352 – 1336 BCE, another dating in prose; an Akhetaten row dropped. The colossi's bodies as illness against imagery, and the lost Levant, added. |
+| `wh-224` Tutankhamun | 9 | 5 → 11 | **"Restoration stelae" is one stela**, and the throne name had no source. "Died in his teens" is "died young". Reign c. 1336 – 1327 BCE with other reckonings in prose; Tutankhaten, the KV55 parentage view and the tomb's contents added. |
+| `wh-225` Ramesses II | 9 | 5 → 9 | KV7, Piramesse at Qantir and "a bigger mark than any other king" rested only on UCL and dropped. Reign c. 1279 – 1213 BCE with one recent view's accession of 1290 BCE. The phrasings moved off the battle to Abu Simbel, Ozymandias and the treaty. |
+| `wh-226` Battle of Kadesh | 7 | 5 → 7 | **The "Papyrus of Pentaur" and a Shemu-season date could not be verified** and dropped. 1274 BCE, c. 1286 on the higher chronology. The two Bedouin, the god-named divisions and 2,000 chariots or more a side added; both sides' claims of victory hedged. |
+| `wh-227` Valley of the Kings | 9 | 5 → 9 | A four-row line, three of them not dates (dynasties, "over 60 tombs", a king), became one: in use c. 1504 – 1069 BCE. Thebes "never the administrative capital" dropped. The Ramesses IX robbery trials, the reburials and the KV62 radar scans added. |
+| `wh-228` Karnak | 8 | 5 → 8 | **"In use c. 2112 BCE – 306 CE": 306 CE is the end of the Ministry's Roman Period, not of Karnak.** Three non-date rows dropped; the line is the first temple and the Hypostyle Hall. **"Begun perhaps by Amenhotep III"** is contested, and dropped. The Opet procession and the cachette added. |
+| `wh-229` Nubia | 8 | 7 → 9 | A Snefru year and a place "Miam" had no source; **"Kerma destroyed"** is "subdued". **A kohl citation carried the wrong article number** (as on `wh-220`). Date line empty and `undatable`; two phrasings no longer name Senusret III and Thutmose I. |
+| `wh-230` Third Intermediate Period | 7 | 5 → 7 | **"Kushite rule from about 725 BCE" clashed with Piye's c. 747 – 716**, and dropped. The line gives c. 1069 – 664 BCE and the Ministry's end of 747 BCE, the prose saying why they differ. |
+
+**Read by eye.** *Article:* "the Valley of the Kings", "the Battle of Kadesh", "the Third Intermediate Period";
+the kings, Karnak and Nubia bare. *Confusability:* `wh-221`/`wh-222` each names the other as co-ruler, told
+apart by Punt and the divine birth against the Annals and Henket-ankh; `wh-223`/`wh-224` both touch Akhetaten,
+one founding and one leaving it; `wh-225`/`wh-226` the king kept off the battle; `wh-227`/`wh-228` the west-bank
+tombs and the east-bank temple; `wh-229` kept off `wh-416` Kush and `wh-417` Meroë. *Consistency:* Akhenaten's
+end and Tutankhamun's start at 1336 BCE; Kadesh in Ramesses II's fifth year and the treaty in his 21st on both
+`wh-225` and `wh-226`; the New Kingdom's end at 1069 BCE on `wh-220`, `wh-227` and `wh-230`.
+
+**Glossary.** All ten terms rewritten.
+
+### B24 — `wh-231`–`wh-240`, The Indus and early China (2026-10-03)
+
+Run as B23. The India collection (`in-`) is still empty, so there was no sibling card to compare. Checks:
+`wh-audit.js --range=wh-231:wh-240` clean but for `W.not-why` notes on three; the rest as B23; all 53 distinct
+URLs 2xx and `check-citations --card` 0 mismatched. New locators: `wh-232` Harappa, `wh-233` Mohenjo-daro,
+`wh-236` Dholavira and `wh-237` Lothal.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-231` Indus Valley Civilisation | 8 | 5 → 8 | **The old list gave a single-authored 2018 paper four co-authors and dropped four of another's seven.** Covered drains, "from the Himalaya to the Arabian Sea", aridity "from 2100 BCE" and a fish-bone detail had no fetched source. The line is the urban phase alone; the phrasings kept off planning and decline. |
+| `wh-232` Harappa | 8 | 6 → 8 | The same miscounted authors, and a missing one on Robbins Schug 2013. Occupied c. 3700 – 1300 BCE through the Ravi, Kot Diji and urban phases (James et al. 2025); brick-robbing under colonial rule, the walled neighbourhoods and the incomers' tooth isotopes added. |
+| `wh-233` Mohenjo-daro | 8 | 5 → 8 | **Four of five sources were one author**; two global surveys dropped with an unsourced Pillared Hall size, a "cosmic order" line and a "largest houses c. 2500 BCE" row. The Mound of the Dead, the Great Bath, the missing cemetery, the floods and **the "massacre" as a discredited story** added. |
+| `wh-234` Indus script | 7 | 5 → 7 | **"3,000 – 3,800 texts" and "14 signs a line" rested on a paper that would not open**; now under 6,000 objects and 17 signs at most. "Eighty years of decipherments" had no source, and a West Asia claim was not in the paper cited. The non-writing view and the administrative-tag view each as a view. |
+| `wh-235` Indus urban planning | 7 | 5 → 7 | **Drains ran in the wide streets, not under the lanes**; weights go from under 1 gram. One author in three sources cut to two; a gateway-tax claim dropped. The Indus weight unit and Harappa's late disorder added; public goods as one view. |
+| `wh-236` Dholavira | 6 | 6 → 7 | **"The Indus weights descend from one shared unit": the source says the opposite.** A BP line and an earthquake row became c. 3000 – 1500 BCE and the 1989 – 2005 excavation; two phrasings carried figures of years; a Khirsara aside dropped. |
+| `wh-237` Lothal | 6 | 6 → 7 | **The line gave the whole civilisation's 2600 – 1900 BCE to one town**; now the excavator's two periods from the 1963 radiocarbon report. The dock is one view, set against the 1968 irrigation-tank reading and a 2024 river study. |
+| `wh-238` decline of the Indus civilisation | 7 | 6 → 7 | A drought row (another event's date) became the Late Harappan phase, c. 1900 – 1300 BCE. Every cause is now a view, and **the river view meets a 2017 dating showing Kalibangan's river had gone long before the city**. |
+| `wh-239` Indo-Aryan migrations | 7 | 5 → 8 | Claims cited to an unverifiable 2026 paper dropped. The genetic evidence (steppe ancestry c. 2100 – 1700 BCE in Central Asia, c. 2000 – 1500 BCE in South Asia, carried mainly by men) and the linguistic evidence (the Mitanni gods, Finno-Ugric loans) added, with the Hindu nationalist and the 2012 dissenting views each named as whose. |
+| `wh-240` Vedic period | 8 | 5 → 8 | An irrelevant citation dropped; **two rows dated another event and the `wh-241` Rigveda's composition**. Now c. 1500 – 500 BCE, every date an estimate from the texts; oral transmission, the Kuru realm, iron and the Upanishads added. |
+
+**Read by eye.** *Article:* "the Indus Valley Civilisation", "the Indus script", "the decline of the Indus
+civilisation", "the Indo-Aryan migrations", "the Vedic period"; the sites and planning bare. *Confusability:*
+`wh-231`/`wh-235`/`wh-238` the civilisation, its planning and its end, each phrasing kept off the others'
+clues; the four sites each by its own feature (Ravi and walled wards; Great Bath and stupa; reservoirs on
+Khadir; the basin and Gulf seal); `wh-239`/`wh-240` the arrival and the age, the Rigveda kept for `wh-241`.
+*Consistency:* the urban phase c. 2600 – 1900 BCE on all six Indus cards; the five great cities named alike on
+`wh-231`, `wh-232`, `wh-233` and `wh-236`. *Contested:* `wh-239` gives the migration as the genetic and
+linguistic consensus and names the dissenting views; its phrasings name no scholar.
+
+**Glossary.** Nine terms rewritten; *decline of the Indus civilisation* already agreed.
+
+### B25 — `wh-241`–`wh-250`, The Indus and early China (2026-10-03)
+
+Run as B24. Checks: `wh-audit.js --range=wh-241:wh-250` clean on all ten; `check-questions`, `check-cards
+--prefix` per card, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans` pass;
+`check-citations --card` 0 mismatched; all 52 distinct URLs 2xx. New locators: `wh-247` (Yinxu, labelled Anyang) and `wh-250`
+(Sanxingdui, labelled Guanghan). **Harness lesson:** two glossary drafts (`wh-241`, `wh-242`) numbered their
+markers by the card's source list, not the entry's own shorter one; `precheck.js` does not catch it and
+`add-glossary.js` refused at apply time. Both were renumbered by hand against the entry's list.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-241` Rigveda | 8 | 5 → 8 | **The Song of Creation (10.129) was cited to a Griffith volume that stops before book 10.** A Niya Prakrit paper and a Thar Desert study dropped, and "the oldest book of the subcontinent" with them. The 1500 – 1000 BCE dating is credited as Macdonell's early estimate beside a modern c. 1200 BCE. |
+| `wh-242` Sanskrit | 9 | 5 → 9 | **A "Vedic Sanskrit" row carried the Rigveda's dates**; now Old Indo-Aryan c. 1750 – 250 BCE and Panini c. 400 BCE. Steppe-ancestry claims (`wh-239`'s subject) dropped; the name, the Prakrits, the Mitanni loanwords and Panini added. |
+| `wh-243` Erlitou culture | 6 | 5 → 6 | The culture is c. 1800 – 1530 BCE on new radiocarbon, the older c. 1900 – 1500 in prose. **"No fortifications" is wrong for the culture**, and with other claims cited to off-subject papers dropped. The Luoyang basin, the four-tier settlements and the walled bronze workshop added. |
+| `wh-244` Xia dynasty | 7 | 6 → 7 | **The Erlitou–Xia link was stated as fact; now a modern, unproven claim.** Each date says whose: later imperial annals 2205 – 1767 BCE, the Bamboo Annals from 1989 BCE, the chronology project c. 2070 – 1600 BCE. A "Xinzhai capital" claim and an unread flood paper dropped. |
+| `wh-245` Shang dynasty | 7 | 5 → 8 | The old card was three narrow studies (a skull ditch, a cemetery's genomes, typhoons); now the whole dynasty, c. 1600 – 1046 BCE as the chronology project's dates. **A "Late Shang c. 1300" row had no source.** |
+| `wh-246` oracle bone script | 7 | 5 → 8 | **The end was 1045 BCE; the standard date is 1046**, as on `wh-245`. Dataset details given as general facts dropped; divination, the 1899 discovery and the eclipses of 1201 – 1181 BCE added. |
+| `wh-247` Yinxu | 6 | 5 → 6 | Water-buffalo, typhoon and oracle-bone dataset claims dropped, and a row dating one tomb. Occupied c. 1250 – 1045 BCE as its source gives it; the four-ramp tombs, lineage cemeteries and the captives' origins (hedged) added. "500 km" now carries its miles. |
+| `wh-248` Chinese ritual bronzes | 7 | 5 → 7 | A row giving the dynasty's own dates dropped for c. 1600 – 221 BCE, the span of the vessels; **the mould-location claim cut back to what its source says**. Two sources are Art Institute of Chicago API records, its pages answering 403. |
+| `wh-249` Fu Hao | 6 | 5 → 6 | Three off-subject sources dropped. **The line gave Yinxu's span, not hers**; no source gives her birth or death, so it gives Wu Ding's reign, c. 1250 – 1192 BCE, as debated. Tomb M5, the Hou Mu Xin cauldrons and her role as a warrior consort added. |
+| `wh-250` Sanxingdui | 6 | 5 → 6 | **A row dated one pit (K4) in BP**; now the centre c. 1700 – 1000 BCE, the pits c. 1200 – 1000 BCE and the find of 1929. **"Ivory over the bronzes" in every pit had no source.** |
+
+**Read by eye.** *Article:* "the Rigveda", "the Erlitou culture", "the Xia dynasty", "the Shang dynasty", "the
+oracle bone script"; Sanskrit, Yinxu, Fu Hao and Sanxingdui bare; "Chinese ritual bronzes" plural. 
+*Confusability:* `wh-243`/`wh-244` the excavated culture and the dynasty of the texts, each naming the other only
+as a claim; `wh-245`/`wh-246`/`wh-247`/`wh-249` the dynasty, its writing, its capital and its queen, the
+sacrifice clue only on `wh-245`, the tombs on `wh-247` and `wh-249` told apart by Xibeigang and M5;
+`wh-248`/`wh-249` both mention pure copper, on the vessels as a class and on her own. *Consistency:* the Zhou
+conquest is 1046 BCE on `wh-245` and `wh-246`; `wh-247` keeps its source's occupation end of 1045 BCE and gives
+1046 for the conquest in its prose. `wh-249`'s line is her consort's reign, the only date a source fixes her by.
+*Against the cnh- cards:* `cnh-062` dates Erlitou c. 2000 – 1600 BCE; `cnh-066` ends Late Shang at 1050 BCE;
+`cnh-069` ends Yinxu at 1046; `cnh-081` dates the bronzes 1600 – 771 BCE.
+
+**Glossary.** Seven terms rewritten; *Shang dynasty*, *Yinxu* and *Chinese ritual bronzes* already agreed.
+
+### B26 — `wh-251`–`wh-260`, The Indus and early China and The Bronze Age world (2026-10-03)
+
+Run as B25. Checks: `wh-audit.js --range=wh-251:wh-260` clean but for `W.not-why` notes on two and `wh-252`'s
+`I.duplicate` (its rubbing is also `cnh-105`'s: picture pass); `check-questions`, `check-cards --prefix` per
+card, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans` pass;
+`check-citations --card` 0 mismatched; all 76 distinct URLs 2xx. No new locators: none of the ten is a place. **The Indus and early China deck is now done.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-251` Western Zhou | 7 | 5 → 7 | **An "877 – 771 BCE" row was one kiln study's date.** The line is c. 1046 – 771 BCE with the firm dates from 841; the project's own alternatives (1044, 1027) and others' starts (1045, 1047) in prose. The fall in 771 and the hoards buried as the court fled added. |
+| `wh-252` Mandate of Heaven | 8 | 5 → 8 | **"Xunzi rejected the idea outright"**: its own source says he denied its premise. Heaven's command is attested on Western Zhou bronzes and in the Documents chapters dated to the period; Mencius and Dong Zhongshu's fuller theory added as later. |
+| `wh-253` Chinese characters | 9 | 5 → 9 | **"One of only three scripts invented from scratch"**: the source also names Mesoamerica. Late Shang ends 1046, as on `wh-246`. A background of metaphor theory and the simplification debate became the script's whole story: stages, the Qin standard of 221 BCE, meaning-and-sound pairs, the 1956 reform. |
+| `wh-254` silk | 9 | 5 → 9 | **"The Palmyra silk was Indian tasar"**: some of it was Chinese, so "some". A Sanxingdui row dropped; the Jiahu proteins, the Uzbek cocoons of 1940 – 1765 BCE, degumming and pebrine added; `undatable` false. |
+| `wh-255` jade | 9 | 5 → 9 | **Xinglongwa as "the earliest" jade was one survey's view, stated as fact**; now credited. The heaven-and-earth reading of the cong and bi marked as possibly later, the bi-from-spindle-whorl idea as one view. Runs to the Shang and Western Zhou; `undatable` false. |
+| `wh-256` Bronze Age | 9 | 5 → 9 | **The glossary's "3300 BCE" was cited to a source that does not give it.** An Israeli tin study and a 291-million-year ore age dropped; the line gives three regional spans, each read off a source; the collapse cut to one sentence for `wh-279`. |
+| `wh-257` bronze | 9 | 5 → 9 | Balkan lead pollution, a "3600 BCE" row and two phrasings on Anyang and Serbia dropped. Earliest known c. 4650 BCE (the Pločnik foil), widespread by 1500 BCE. **A citation's issue number (6 for 7) and another's page range corrected.** |
+| `wh-258` Yamnaya culture | 7 | 5 → 7 | **"435 individuals": the paper gives 428**, so no count is given. Riding on DOM2 horses (contested) and off-topic Ukrainian genomes dropped. c. 3300 – 2500 BCE, widest by 3000; dairying, wagon graves and the riding evidence (hedged) added. |
+| `wh-259` Indo-European languages | 8 | 5 → 8 | **"25,731 lexemes": the paper gives 25,781**, and the card recited dataset statistics; now the family itself. The homeland a modern reconstruction, each view named: steppe, Anatolian farmers, Caucasus–Lower Volga, and a hybrid. |
+| `wh-260` domestication of the horse | 8 | 5 → 8 | **Botai's horse-keeping was stated as fact**; now hedged with the Przewalski's-line finding and the wild-harvest view. The c. 2200 BCE modern line and its critics' reply both given; figures of years out of the phrasings. |
+
+**Read by eye.** *Article:* "the Western Zhou", "the Mandate of Heaven", "the Bronze Age", "the Yamnaya culture",
+"the Indo-European languages", "the domestication of the horse"; characters, silk, jade and bronze bare.
+*Confusability:* `wh-253`/`wh-246` the script against its oldest form, the five stages only on `wh-253`;
+`wh-256`/`wh-257` the period and the alloy, regions against recipe; `wh-258`/`wh-259`/`wh-260` the culture, the
+languages and the horse, the steppe spread kept on `wh-259`, riding on `wh-258` only as one study's reading.
+*Consistency:* the Zhou conquest c. 1046 BCE across `wh-245`, `wh-251` and `wh-252`; Yamnaya from c. 3300 BCE on
+`wh-258` and `wh-259`. *Against the cnh- cards:* `cnh-112` agrees on 1046 – 771 and 841; `cnh-049` dates Liangzhu
+3300 – 2300 BCE against Liu's 3200 – 2000 on `wh-255`.
+
+**Glossary.** Eight terms rewritten; *Silk* and *Jade* already agreed. The *Bronze* and *Indo-European* entries'
+picture fields carry licence text or an edit summary: picture pass.
+
+### B27 — `wh-261`–`wh-270`, The Bronze Age world (2026-10-03)
+
+Run as B26. Checks: `wh-audit.js --range=wh-261:wh-270` clean but for `W.not-why` notes on three and `wh-268`'s
+`L.missing`: neither "Ugarit" nor "Ras Shamra" has a primary coordinate, so it stays without one. The rest as
+B26; all 66 distinct URLs 2xx and `check-citations --card` 0 mismatched. New locators: `wh-264` (Santorini,
+labelled Thera), `wh-266` and `wh-267` (both Hattusa).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-261` chariot | 9 | 5 → 9 | **The old card was about riding and the Yamnaya debate, `wh-260`'s ground.** Now the vehicle itself: Sintashta c. 2000 – 1800 BCE, the steppe-or-Near-East argument, the Kikkuli text, Mycenae's grave markers and *Iliad* 23, Shang China from c. 1200 BCE, Caesar's Britons and Rome's races. |
+| `wh-262` Minoan civilisation | 8 | 5 → 9 | **A "Knossos burnt c. 1375" row had no source**, and a phrasing put the Kommos imports in the wrong period. Now the name, the palace ages, Knossos, Linear A, the sea network as trade or empire, the genomes and the palaces' fall c. 1490 – 1470 BCE. |
+| `wh-263` Mycenaean Greece | 8 | 5 → 8 | The old card was trade (ingots, Gelidonya, amber), and **its era and palace rows had no source**. Now the whole culture: the shaft graves c. 1650 – 1500 BCE, rule over Crete, the ancestry, the collapse c. 1250 – 1050 BCE; Linear B one clause, for `wh-265`. |
+| `wh-264` Minoan eruption | 7 | 5 → 7 | One author in three sources cut to two; **a Therasia-shrub row had no source**. The two camps given apart: radiocarbon c. 1627 – 1600 BCE, archaeology after c. 1540 and traditionally c. 1500, with the regional offset and the newer tree-ring results. |
+| `wh-265` Linear B | 7 | 5 → 8 | **"Archives c. 1250 – 1200 BCE" was one scholar's view as fact; "writing returns c. 800 BCE" another event's date.** In use from c. 1450 BCE with the Knossos dispute (c. 1385 or the 13th century) in prose; deciphered 1952. The glossary misread a "more than 3,000 years" claim. |
+| `wh-266` Hittites | 8 | 5 → 8 | Capital and collapse rows became the kingdom, c. 1650 – 1200 BCE, and the decipherment of 1915. Genetics that belong to `wh-258`/`wh-259` cut to one sentence; the 1730 BCE conquest and the burned-or-abandoned debate added. |
+| `wh-267` Hattusa | 7 | 5 → 7 | **A drought study that never mentions Hattusa** dropped; a phrasing carried a year. Drought and Yazılıkaya rows (other events) dropped; Hattic Hattush, the 1906 tablets, the grain supply and the city emptied before it burned added. |
+| `wh-268` Ugarit | 6 | 5 → 8 | **A Ramesses III row and an unsourced "zenith 1300 – 1200"** dropped. The phrasings moved off the alphabet; the four harbours, olive-oil wages, the 1928 find, the last king's letter and the eclipse-anchored end c. 1192 – 1190 BCE added. The glossary cited a CAPTCHA page and said "script" where its source says "dialect". |
+| `wh-269` Proto-Sinaitic script | 6 | 5 → 6 | **Two book reviews never mention the script.** The line opened on Wadi el-Hol; now the Sinai texts c. 1900 – 1800 BCE first, Wadi el-Hol second and the late dating as a minority view. |
+| `wh-270` Amarna letters | 7 | 5 → 7 | **"A woman found nearly 400" and a Mycenaean pottery claim had no source**, nor a 1352 – 1338 BCE city row. Rib-Hadda's bias is one study's sample, and **a phrasing that made Byblos dominate the whole archive was rewritten** to that study. |
+
+**Read by eye.** *Article:* "the Minoan civilisation", "the Minoan eruption", "the Hittites", "the Proto-Sinaitic
+script", "the Amarna letters"; the rest bare or "a chariot". *Confusability:* `wh-262`/`wh-263`/`wh-264`/`wh-265`
+the island, the mainland, the eruption and the script, Linear A only on `wh-262`; `wh-266`/`wh-267` the people
+and their capital, the archive's language on `wh-266`, the gates and the emptying on `wh-267`; `wh-268`/`wh-269`
+the port and the first alphabet, the alphabetic cuneiform kept to one sentence on `wh-268`. *Consistency:* the
+Hittite kingdom c. 1650 – 1200 BCE and the 1730 BCE conquest agree across `wh-266`/`wh-267`; the Amarna
+letters' kings match `wh-223`. *Against the gr- cards:* `gr-043` gives the eruption one range, c. 1610 – 1540
+BCE, where `wh-264` gives the two camps apart; `gr-074` starts Linear B c. 1400 BCE against c. 1450 here; `gr-056`
+ends the Mycenaean world c. 1100 against c. 1050.
+
+**Glossary.** Six terms rewritten; *Hittites*, *Hattusa*, *Proto-Sinaitic script* and *Amarna letters* already
+agreed.
+
+### B28 — `wh-271`–`wh-280`, The Bronze Age world (2026-10-03)
+
+Run as B27. Checks: `wh-audit.js --range=wh-271:wh-280` clean but for `W.not-why` notes on three, `wh-272`'s
+`I.duplicate` (the generic `1920px-thumbnail.jpg` false positive) and a `Q.sibling` on `wh-280` against `wh-281`'s old phrasings, which cleared when B29 rewrote them; the rest as B27; all 67 distinct
+URLs 2xx and `check-citations --card` 0 mismatched. New locators: `wh-271` (Uluburun, near Kaş) and `wh-275`
+(the Mittelberg near Nebra). **The Bronze Age world deck is now done.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-271` Uluburun shipwreck | 6 | 5 → 7 | **"360 copper and 160 tin ingots, 12 tons" was one older count the other sources contradict**; dropped with an ingot weight, a Sicily and Sardinia spread and a *mekku*-stone link. Sank c. 1320 BCE ± 15, other accounts nearer 1310 or 1300; the find, the dig and the tin-source dispute added. The glossary called a scholar "the excavator". |
+| `wh-272` tin | 9 | 5 → 9 | **"Seven wars, 1895 – 1835 BCE" rested on an article whose page shows only its abstract.** `undatable` true; stream tin, the Assur caravans c. 1950 – 1750 BCE, Gudea's Meluhha and the unresolved sources added. |
+| `wh-273` Bell Beaker culture | 7 | 5 → 7 | **"Little outside influence" on Iberia** is reversed by the genomes: about 40 per cent of its ancestry and nearly all its Y-chromosomes replaced by c. 2000 BCE. "Flint, barbed" arrowheads are only arrowheads in the source. Britain's turnover and the idea-or-people debate added. |
+| `wh-274` Únětice culture | 6 | 5 → 6 | **Łęki Małe began c. 2150 BCE, not 2130**, and "fourteen generations" had no source. "Sons inherited the farmstead" was earlier research the paper cites, not its finding; an etymology and "first ranked society" dropped. The line is the culture's span. |
+| `wh-275` Nebra sky disc | 7 | 5 → 7 | **A paper on Leubingen that never mentions Nebra** dropped. Made c. 1800 – 1700, buried c. 1600 BCE, found 1999, replacing a non-date row and an antler-pick row; the 2020 Iron Age dating and its rebuttal each named. |
+| `wh-276` Nordic Bronze Age | 7 | 6 → 7 | **"The richest culture with no metal of its own" and "the Egtved grave reopened"** had no source. In use c. 1700 – 500 BCE; imported metal, rock-carved boats, oak-coffin burials and the amber-for-metal view added. |
+| `wh-277` Oxus civilisation | 6 | 5 → 6 | **A main phase c. 2300 – 1950 BCE and a "mid-2nd millennium" row had no source**; **the bronze "from Mushiston" was overstated.** Gonur North c. 2200 – 1950 and the final phase c. 1800 – 1500 BCE; a phrasing that repeated `wh-254`'s Sapalli silk clue moved to grapes. |
+| `wh-278` Sea Peoples | 7 | 5 → 7 | **A "14th – 11th century" span had no source**; an Ashkelon burial row and the 1192 – 1190 BCE destruction (`wh-279`'s and `wh-268`'s) dropped. The line is Merneptah's war and Ramesses III's battle; Medinet Habu's text and the Ashkelon genomes added. |
+| `wh-279` Late Bronze Age collapse | 7 | 5 → 8 | The old card was a drought and one jar, **with years in a phrasing**. Now the whole collapse, c. 1250 – 1150 BCE, the survivors, and each cause as a view, with the review that found 94 of 153 claimed destructions unproven. |
+| `wh-280` ironworking | 8 | 5 → 9 | **The tin-scarcity argument for iron is in no source read**, and Africa's figures came from a page that would not open. The bloomery, meteoritic iron doubted, first iron before 2100 BCE, the Levant c. 1000 – 800 BCE, Han cast iron and Africa without a Bronze Age added. |
+
+**Read by eye.** *Article:* "the Uluburun shipwreck", "the Bell Beaker culture", "the Únětice culture", "the Nebra sky
+disc", "the Nordic Bronze Age", "the Oxus civilisation", "the Sea Peoples", "the Late Bronze Age collapse"; tin and
+ironworking bare. *Confusability:* `wh-271`/`wh-272`/`wh-257` the wreck, the metal and the alloy, the tin-source
+dispute on the first two told apart by ingots and caravans; `wh-273`/`wh-274`/`wh-275`/`wh-276` four Europeans,
+the Leubingen mound only on `wh-274`; `wh-278`/`wh-279` the raiders and the crisis, the 1192 – 1190 BCE date kept
+on `wh-268`. *Consistency:* the Sapalli cocoons 1940 – 1765 BCE agree on `wh-254` and `wh-277`; Merneptah c. 1213
+– 1203 BCE; Hattusa abandoned on `wh-267` and `wh-279`.
+
+**Glossary.** Seven terms rewritten; *Uluburun shipwreck*, *Late Bronze Age collapse* and *Ironworking* already
+agreed.
+
+### B29 — `wh-281`–`wh-290`, Iron Age Near East and Persia (2026-10-03)
+
+Run as B28, and applied with B30 in one commit. Checks: `wh-audit.js --range=wh-281:wh-290` clean but for a
+`W.not-why` note on one; `check-questions`, `check-cards --prefix` per card, `check-style` (no new finding),
+`check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 66
+distinct URLs 2xx (one KASKAL PDF reset the connection twice and answered 200 on the third try). New locators:
+`wh-283` Nineveh and `wh-288` (Babylon, where the ancient writers put the gardens).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-281` Iron Age | 9 | 5 → 10 | **"c. 1200 BCE, Near East" had no source**, nor "over 3,000 years" of African iron. An Aegean steel sentence with a century-only row and a Finnish pottery sentence dropped. Now four sourced regional spans, the three-age scheme and Hesiod's age of iron. |
+| `wh-282` Neo-Assyrian Empire | 8 | 5 → 8 | **All three phrasings carried a century, a year or figures.** **"Held out at Harran until 610"**: the chronicle has Harran lost in 610 and a bid to retake it in 609. Roads and irrigation had no source; the 763 BCE eclipse is now cited to the eponym list. |
+| `wh-283` Nineveh | 8 | 5 → 8 | **The capital moved in 705 BCE, not 704.** Impaling over a doorway, "the largest city in two millennia" and "Mount Tas on the Urartian border" had no source; an Arabic paper whose text extracts garbled dropped. Canals per Jacobsen and Lloyd; walls, Nebi Yunus and the 2014 – 2016 destruction added. |
+| `wh-284` Ashurbanipal | 7 | 5 → 7 | **"The largest empire" and "30,000 tablets" rested on sources that would not open.** Reign 668 – 631 BCE from the standard edition, the older 626 in prose; the civil war of 652 – 648 and the library's make-up added. No birth or death row: no source gives them. |
+| `wh-285` mass deportation | 9 | 6 → 9 | The old card was Sennacherib's violence and relief art; **its Ekron and captive-burning claims rested on pages behind a bot wall.** Now the policy c. 850 – 612 BCE, the army that ran it, families moved together, the kings' totals with a 1916 warning that they are inflated, and the 4.4 million estimate. |
+| `wh-286` Neo-Babylonian Empire | 8 | 5 → 8 | The old card dwelt on one glazed lion; now the state, 626 – 539 BCE, from the two open royal-inscription volumes: Nabopolassar, Nineveh, Nabonidus at Tema, Belshazzar, Opis and the Nippur archives. A Nebuchadnezzar row dropped. |
+| `wh-287` Nebuchadnezzar II | 8 | 5 → 9 | **A phrasing carried a year and "43 years"**; **a 1923 chronicle covering 616 – 609 BCE was cited for Carchemish**, now ABC 5. Reign 605 – 562 BCE as on `wh-191`, with the 604 count in prose. Half the old card was the Ishtar Gate; now the whole reign. |
+| `wh-288` Hanging Gardens of Babylon | 9 | 6 → 9 | **The line gave Nebuchadnezzar's reign**, another person's date; now empty and `undatable`. Berossus, Diodorus, Strabo and Koldewey's caveat added, and the debate named: never built, exaggerated, Dalley's Nineveh, and Stronach's objection. |
+| `wh-289` Babylonian captivity | 8 | 5 → 9 | **The Bible's counts were misstated**: Kings gives 10,000 and 8,000, Jeremiah 3,023, 832 and 745. An Ishtar Gate source dropped. The chronicle's 16 March 597 BCE, Jehoiachin's ration tablets and the Al-Yahudu tablets (572 – 477 BCE) added; Jerusalem's fall 587 or 586. |
+| `wh-290` Israel and Judah | 8 | 7 → 9 | **"Samaria taken in the 720s"** is 722 or 720 BCE. The United Monarchy debate added with whose view is whose; **the first outside record of the kingdom is the Kurkh Monolith of 853 BCE**, before the Mesha and Tel Dan stones, also added. |
+
+**Read by eye.** *Article:* "the Iron Age", "the Neo-Assyrian Empire", "the Neo-Babylonian Empire", "the Hanging
+Gardens of Babylon", "the Babylonian captivity"; the cities, kings and "Israel and Judah" bare. *Confusability:*
+`wh-282`/`wh-283`/`wh-284`/`wh-285` the empire, its capital, its king and its practice, the eclipse only on
+`wh-282`, Sennacherib's walls on `wh-283`, the library on `wh-284`; `wh-286`/`wh-287`/`wh-288` the state, the king and
+the gardens, Nebuchadnezzar named on `wh-288` only as the builder Berossus gives; `wh-289`/`wh-290` the exile and the
+kingdoms. *Consistency:* Nineveh 612 BCE on `wh-282`, `wh-283`, `wh-286` and `wh-299`; Jerusalem burned 586 BCE on
+`wh-286`, `wh-287` and `wh-290`, with `wh-289` giving "587 or 586" from its source; the Hebrew Bible handled as a
+source for its writers' beliefs.
+
+**Glossary.** Six terms rewritten; *Mass deportation*, *Neo-Babylonian Empire*, *Babylonian captivity* and *Israel and
+Judah* already agreed.
+
+### B30 — `wh-291`–`wh-300`, Iron Age Near East and Persia (2026-10-03)
+
+Run and checked with B29: `wh-audit.js --range=wh-291:wh-300` clean but for `W.not-why` notes on four; all 71
+distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators: `wh-293` (Tyre) and `wh-299` (Ecbatana).
+`wh-295` asked for "Carthage", which has no primary coordinate; an event card, it is not flagged.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-291` Hebrew Bible | 8 | 5 → 8 | **A "c. 630 – 600 BCE" layers row was in no source.** Composition is now scholars' reconstructions, each named: the Jacob story c. 800 – 700 BCE, Deuteronomy's core in the late 7th century, the Priestly writings in or after the exile, Daniel's end in the 160s BCE. Ketef Hinnom and the Dead Sea Scrolls added. |
+| `wh-292` Judaism | 9 | 7 → 9 | Rewritten neutrally from the living religion; **its growth from Iron Age religion is a modern reconstruction, so said**. The line held three other events and is empty (`undatable`); Elephantine re-sourced to the papyri; the glossary's third sentence had no source. |
+| `wh-293` Phoenicia | 8 | 6 → 9 | **The 2025 genome study was overstated**: it covers western Punic sites of the 6th – 2nd centuries BCE and leaves the first settlers' origin open. Two single-site rows became c. 1200 – 1150 BCE to Tyre's fall in 332 BCE. |
+| `wh-294` Phoenician alphabet | 8 | 6 → 8 | The lead phrasing (Herodotus and Cadmus) is `wh-315`'s. **Ahiram's epitaph was dated by its first excavator's 13th century**; now c. 1000 BCE, the old view as his. A Greek-adoption row dropped. |
+| `wh-295` founding of Carthage | 8 | 5 → 9 | A century-only row and **an Utica-rent and Gadir claim** had no source. Timaeus's 814/813 BCE and the radiocarbon c. 895 – 795 BCE (with the critics' objection) on the line; Menander's king-list reckoning and Elissa as legend added. The shared *Carthage* glossary entry kept its key and gained the alias. |
+| `wh-296` Urartu | 7 | 5 → 8 | **"Height c. 800 – 600 BCE" was one site's dates (Artaxata) given to the kingdom**; now c. 800 – 550 BCE. A 13th-century row dropped to the prose; Sargon's eighth campaign of 714 BCE and the disputed end added. |
+| `wh-297` Lydia | 8 | 5 → 8 | Claims resting on a page with no text dropped; **a wall's 65 ft is 66**. Sardis's fall both ways: 547 BCE (Nabonidus Chronicle, if the broken name is Lydia) and 546 (Eusebius). Gyges in Assyrian records and Bin Tepe added. |
+| `wh-298` coinage | 8 | 5 → 8 | **An Ashoka debasement claim and a misread Samaria hoard** dropped; "independent invention" softened, no source stating it. The Artemision deposit's date as a debate (late 7th century against before c. 640 – 620 BCE); China and India each with a sourced row. |
+| `wh-299` Medes | 7 | 5 → 8 | **"28 city lords" and "65,000" had no modern source.** The Median-empire debate from 1988 named; Assyrian records c. 858 – 656 BCE, Nineveh 612 and Astyages' fall 550 BCE on the line. |
+| `wh-300` Cyrus the Great | 8 | 5 → 8 | **The "first charter of human rights" label is now a modern claim an Assyriologist rejects**; the cylinder's silence on Judah and Jerusalem and the doubt over Lydia's date added. No birth row: no source gives one. |
+
+**Read by eye.** *Article:* "the Hebrew Bible", "the Phoenician alphabet", "the founding of Carthage", "the Medes";
+the rest bare. *Confusability:* `wh-291`/`wh-292` the book and the religion, the Dead Sea Scrolls on both but as
+manuscripts on one and a library on the other; `wh-293`/`wh-294`/`wh-295` the land, its script and its colony;
+`wh-297`/`wh-298` the kingdom and the invention, the Artemision only on `wh-298`; `wh-299`/`wh-300` the Medes and
+their conqueror, the chronicle's handover on both, each naming the other. *Consistency:* Astyages' fall 550 BCE on
+`wh-299` and `wh-300`; Sardis 547 or 546 on `wh-297` and `wh-300`.
+
+**Glossary.** Six terms rewritten (*Judaism*, *Phoenicia*, *Carthage*, *Urartu*, *Lydia*, *Medes*); the rest already
+agreed. **The Iron Age Near East and Persia deck is two-thirds done; B31 (`wh-301`–`wh-310`) finishes it.**
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1056,3 +1388,37 @@ pass once it answers. Filled batch by batch.
 | `wh-189`, `wh-190` | glossary picture fields malformed; `wh-190` shows a museum panel at one edge |
 | `wh-194` | a labelled derivative of YBC 7289; prefer the unlabelled photograph |
 | `wh-197`, `wh-198` | fine, but description names a museum number or excavator |
+| `wh-201` | a labelled map of the Nile valley; a photograph may serve better |
+| `wh-202` | fits (Nakht's tomb scenes), but its title still names emmer |
+| `wh-203` | fine, but description names a museum and a museum number |
+| `wh-205` | the Palermo Stone (the annals, not the union), and the same file as `eg-077`; the glossary's *sema-tawy* relief fits better |
+| `wh-212` | shows one corner only; description names the photographer; glossary picture fields malformed |
+| `wh-213` | a 19th-century half-buried view, not re-checked (title and description rewritten from the old fields) |
+| `wh-214` | fine, but description names a museum |
+| `wh-215` | apt, but a Met-hosted file, not Commons; description carries an accession number |
+| `wh-216` | an ear stela, one practice only; description carries an accession number |
+| `wh-217` | one provincial stela; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
+| `wh-226` | a 1927 line drawing of the Ramesseum reliefs; description names the publication |
+| `wh-227` | yellow arrows and tomb numbers drawn onto the photograph |
+| `wh-229` | the Western Deffufa, Kerma only; a cataract landscape would show the region (and **locator**: "Nubia" has no coordinate) |
+| `wh-238` | a labelled plate of finds from Khirsara |
+| `wh-239` | a drawn map with burned-in dates and arrows |
+| `wh-241`, `wh-242` | fit, but credits lack the author, licence and Commons URL form |
+| `wh-244` | a 1903 map sheet with pencilled notes and a library stamp |
+| `wh-247` | one chariot pit; a wider view of the site would serve better |
+| `wh-252` | the Da Yu ding rubbing, also `cnh-105`'s |
+| `wh-253` | a labelled chart of one character through the scripts |
+| `wh-257` | a hoard photographed against a ruler with handwritten labels |
+| `wh-260` | a multi-panel research figure |
+| `wh-261` | a distribution map with numbered symbols |
+| `wh-262` | the Akrotiri ship fresco, from Thera not Crete |
+| `wh-263` | one stirrup jar; description refers to the old card's trade |
+| `wh-268` | **locator**: neither "Ugarit" nor "Ras Shamra" has a coordinate |
+| `wh-269` | a 1916 line drawing where photographs exist |
+| `wh-270` | a 1915 printed hand copy with line numbers |
+| `wh-272` | fits, but description names a museum; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
+| `wh-276` | the Egtved clothing, one grave; description names a museum |
+| `wh-281` | a lump of casting waste of uncertain age |
+| `wh-288` | a 1679 Kircher engraving |
+| `wh-295` | the Byrsa panorama, also used by the glossary's *Peace of 201 BCE*; **locator**: "Carthage" has no coordinate |
+| `wh-298` | Chinese spade coins only; an early electrum coin would show the western strand |

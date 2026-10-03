@@ -17,8 +17,9 @@
  * opens another way.
  */
 const fs = require("fs"), path = require("path");
-function loadWindow(f) { const w = {}; new Function("window", fs.readFileSync(f, "utf8"))(w); return w; }
-const win = loadWindow(path.join(__dirname, "..", "glossary.js"));
+// through gloss-io, never a loader of its own: the texts live in the lazy glossary-extra.js (Oct 2026), and a
+// `new Function` over glossary.js alone reads every definition as "" — and then finds nothing wrong with any of them
+const win = require("./gloss-io.js").loadGlossary();
 const G = win.GLOSSARY || {}, TAGS = win.GLOSSARY_TAGS || {}, TITLES = win.GLOSSARY_TITLES || {};
 
 const args = process.argv.slice(2);

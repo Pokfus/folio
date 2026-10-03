@@ -1,4 +1,4 @@
-# The eager load path, and the three splits taken off it
+# The eager load path, and the splits taken off it
 
 **Read this before splitting anything off the eager path.** `CLAUDE.md`'s File map carries the rules —
 what each split file holds, the queue-not-assignment rule, the single-IO-module rule and the `--check`
@@ -132,6 +132,74 @@ anything was written, so the bytes that ship are the bytes that were reviewed.
 · **A test that seeds `window.GLOSSARY_SOURCES` must wait for the bundle first** — `test-sources.js`
 seeded before the warm landed and had its fixture Object.assign'd away, which fails as "the popup
 lists 5 citations" and reads like a rendering bug rather than a race.
+
+---
+
+## The glossary definitions and the card question pool (2026-10-03)
+
+**Why.** The two splits above were done on 24 September with the eager path at 2.63 MB gzipped. Nine days
+later it was 4.29 MB: the Rome, Egypt, China and World History batches and the Greece and World History
+refinements had added some 800 cards and their terms, and the CI tripwire (`EAGER_GZ_MAX_KB` in
+`.github/workflows/checks.yml`) had been red on every push since PR #352 without anyone acting on it.
+Measured that day, the two largest things left on the path that nothing reads before first paint were
+**the glossary's definition texts** (4.3 MB raw, about 1.3 MB gzipped — 87% of what remained of
+`glossary.js`) and **the card question pool** (`questions`, about 540 KB gzipped — the largest field left
+in the light half of `data.js`). Both moved. The path went **4.29 → 2.50 MB gzipped**.
+
+- **The definitions ride `glossary-extra.js` under the global's own name, `GLOSSARY`.** `glossary.js` keeps
+`window.GLOSSARY = {…}` with **every key and an empty string for its text**: the KEY SET is what boot needs
+— the auto-linker (`glossSourcesFor` / `buildGlossIndex`), the progress meters, the search, and `k in
+window.GLOSSARY` in some thirty places — and none of them reads a text. The lazy file stages
+`{ GLOSSARY, GLOSSARY_IMAGES, GLOSSARY_SOURCES }` onto the same queue, and `glossExtraIngest` writes the
+texts in **for the keys `glossary.js` carries** (a text for a retired key stays out, as a retired card's
+prose does), re-seeds `PRISTINE_GLOSS` (snapshotted empty at boot — Revert compares against it) and lets the
+overlay's own text win.
+· **ASK `k in window.GLOSSARY`, NEVER WHETHER `window.GLOSSARY[k]` IS TRUTHY.** Three readers did and
+would have gone blank for the second the file takes: `glossSeenCount`, `PAGES.glossary`'s key filter and
+`test-sources.js`'s "the term exists" probe. `_glossTextsIn` is the flag for the two readers that must tell
+"no text yet" from "no text": `glossText` returns `""` for a shipped key rather than the manufactured
+`fallbackSentence`, and the tombstone sweep below.
+· **THE POPUP FILLS NOW AND RE-FILLS**, as it already did for the picture and the Sources fold: a reader
+who opens a term before the idle warm lands gets the title and dates at once and the description when the
+file arrives (`openGlossWin`'s `ensureData("glossExtra").then` block now renders the description too). The
+glossary page needs no text (title, dates, tags), nor does the search (keys and aliases); a game's note
+(`gameAnswerNote`) is silent until the texts land, which the comment there already preferred to a
+manufactured sentence.
+· **THE ADMIN TOMBSTONES NEEDED THE TEXT TO COMPARE AGAINST.** `applyAdminEdits` retires a deletion
+tombstone when the shipped text no longer matches the one recorded — the "re-added out-of-band" case —
+and at boot every shipped text is now `""`, so every tombstone would have read as changed and every
+deleted term would have come back. The sweep now hides a term whose text has not landed and parks its aux
+rows in `_glossTombPending`; `glossExtraIngest` settles each against the real text, putting the term back
+whole only when the file proves it was re-written. `deleteGloss` records `true` rather than `""` when it
+cannot see the text, for the mirror-image reason. The admin term editor waits for the bundle before
+drawing its form, exactly as the card editor waits for the heavy half: it saves on every keystroke, and an
+empty box drawn early would be written back as a deliberate deletion.
+· **`glossary.js` CARRIES A NODE-ONLY REJOIN TAIL**, the shape `data.js` has, so a plain `require` of it
+sees whole terms (texts, citations, pictures). A helper that evaluates the file through `new Function` or
+`vm` has no `require` and reads every text as `""` — `gloss-general.js` did, and would have found nothing
+wrong with any definition; it goes through `gloss-io.js` now, and `check-overlay.js` merges the texts from
+the queue. **`writeGlossary` owns the split**: the caller still serialises `glossary.js` texts and all, and
+the writer blanks them (one entry per line, refusing any line in another shape), appends the tail if the
+caller's template lacks it, and writes the texts into the lazy file. It **REFUSES a window whose GLOSSARY
+holds text for fewer than half its keys** — the only other outcome is a `glossary-extra.js` with every
+definition deleted. `serializeGlossary` / `serializeGlossaryExtra` in app.js write the same two shapes;
+`adminExport` awaits the bundle first, since the overlay is dropped after the save.
+· `node .claude/split-glossary.js --check` (CI) asserts: no table block and no text in `glossary.js`, the
+tail present, every key's text staged, no text for a retired key. `check-style.js` sweeps
+`glossary-extra.js` with every rule (it is not in `ERA_ONLY`), so the definitions are checked where they
+now live — measured at 447 findings before and after, the same sweep.
+
+- **The question pool is a heavy field.** `"questions"` joined `CARD_EXTRA_FIELDS` / `EXTRA_FIELDS`, so
+`split-cards.js` filed it with the abstract. The one thing a card FRONT reads from it is the ‹ › phrasing
+chevrons, and the first phrasing is `question` itself. So `renderCard` draws the front at once from a pool
+of one and **grows the pool in place** when the collection's file lands (`growPool`: the chevrons and the
+"1 / 3" counter are slotted into the label and a resumed session steps to the phrasing it saved); it does
+NOT pick a random phrasing then, because swapping the words a moment after they appeared reads as a
+different card. `c` is a copy whenever the pool may still grow, for the reason it is a copy when the pool
+is there: the chevrons write `c.question`. In practice the file is there before the first deal —
+`renderCard` warms the whole queue's collections on every render and `warmActiveCardExtra` warms a
+reader's decks at idle. Multiple Choice always asked the first phrasing and needed nothing;
+`check-questions.js` requires `data.js`, whose rejoin tail hands it the pools.
 
 ---
 

@@ -54,7 +54,7 @@ const EXTRA_DIR = path.join(ROOT, "data-extra");
    — the two are compared by .claude/split-cards.js --check, which fails if they
    have drifted, because a field app.js expects lazily and the splitter leaves
    eager is a field that silently doubles. */
-const EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki"];
+const EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions"];
 
 /* An artwork card's picture is its question, so it never moves. */
 const keepsImage = (c) => !!c.artwork;
