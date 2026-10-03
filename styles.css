@@ -10013,28 +10013,32 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .games-sec .game-tile.done .gt-face::after, .games-sec .game-tile.won .gt-face::after{display:none;}
 .games-sec .game-tile .gt-check, .games-sec .game-tile .gt-seal{position:static; order:3; margin-left:auto; flex:none; width:21px; height:21px; clip-path:none; overflow:visible; background:var(--good, #4F9D67); box-shadow:none;}
 .games-sec .game-tile .gt-seal{width:24px; height:24px; background:none;}
-/* A FINISHED GAME FILLS ITS WHOLE TILE (Oct 2026, on request): green once played, gold once perfect, with a
-   white tick at the right. The fills are the state hues deepened a step (`--gt-fill`), because white text on
-   the raw green or gold is under 4.5:1; the accent itself is untouched, so the chips and marks elsewhere
-   that read `--gt-accent` keep their colour. The seal's wax and sweep stand down here — on a gold tile the
-   tick is the mark, and the wax would be gold on gold. */
-.games-sec .game-tile.done{--gt-fill:color-mix(in srgb, var(--gt-accent) 80%, #0B2A14);}
-.games-sec .game-tile.won{--gt-fill:color-mix(in srgb, var(--gt-accent) 75%, #2B1D00);}
-body.night .games-sec .game-tile.done{--gt-fill:color-mix(in srgb, var(--gt-accent) 68%, #0B2A14);}
-body.night .games-sec .game-tile.won{--gt-fill:color-mix(in srgb, var(--gt-accent) 58%, #2B1D00);}
-.games-sec .game-tile.done, .games-sec .game-tile.won, body.night .games-sec .game-tile.done, body.night .games-sec .game-tile.won,
-.games-sec button.game-tile.done:hover, .games-sec button.game-tile.won:hover{
-  background:var(--gt-fill); border-color:var(--gt-fill); border-left-color:var(--gt-fill);
+/* A FINISHED GAME IS NAMED BY A CHIP, NOT PAINTED (Oct 2026, on request: the filled tiles were "way too dark").
+   The tile FILLED with its state colour, and the fill was the accent mixed three-quarters into a near-black so that
+   white text could pass 4.5:1 — which is what turned the gold olive and the green teal; a solid fill cannot hold
+   white words without going dark. Chosen from six rendered alternatives: the tile takes only a faint tint of the
+   accent, the icon disc fills solid, and the mark at the right becomes a small pill that SAYS the state — Played
+   in green, Perfect in gold — with the score staying beside the title as on an unplayed tile. The accent itself
+   is untouched, so the chips and marks elsewhere that read `--gt-accent` keep their colour.
+   THE WORD IS CSS `content`: the mark already carries the state as its aria-label (doneMarkHTML), so the visible
+   word is a duplicate for sighted readers and the label stays the one spoken; a second text node would be read
+   twice. The seal's wax, sweep and star stand down here — the pill is the mark. By night the pale accents are
+   too light for white, so the pill's word and the disc's glyph take the paper colour instead. */
+.games-sec .game-tile.done, .games-sec .game-tile.won, body.night .games-sec .game-tile.done, body.night .games-sec .game-tile.won{
+  background:color-mix(in srgb, var(--gt-accent) 9%, var(--card));
 }
-.games-sec .game-tile.done .gt-title, .games-sec .game-tile.won .gt-title{color:#fff;}
-.games-sec .game-tile.done .gt-sub, .games-sec .game-tile.won .gt-sub{color:rgba(255,255,255,.85);}
-.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:rgba(255,255,255,.22); color:#fff;}
+.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:var(--gt-accent); color:#fff;}
 .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{
-  width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:#fff;
-  background:none; background-image:none; clip-path:none; filter:none; animation:none;
+  width:auto; height:auto; display:inline-flex; align-items:center; gap:5px; padding:4px 9px 4px 7px; border-radius:999px;
+  background:var(--gt-accent); background-image:none; color:#fff; clip-path:none; filter:none; animation:none;
+  font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600; letter-spacing:.1em; text-transform:uppercase; line-height:1;
 }
-.games-sec .game-tile .gt-check svg, .games-sec .game-tile .gt-seal-face svg{width:22px; height:22px; display:block;}
-.games-sec .game-tile .gt-seal-face{color:#fff; filter:none;}
+.games-sec .game-tile.done .gt-check::after{content:"Played";}
+.games-sec .game-tile.won .gt-seal::after{content:"Perfect";}
+body.night .games-sec .game-tile.done .gt-glyph, body.night .games-sec .game-tile.won .gt-glyph,
+body.night .games-sec .game-tile.done .gt-check, body.night .games-sec .game-tile.won .gt-seal{color:var(--paper);}
+.games-sec .game-tile .gt-check svg, .games-sec .game-tile .gt-seal-face svg{width:12px; height:12px; display:block;}
+.games-sec .game-tile .gt-seal-face{color:inherit; filter:none;}
 .games-sec .game-tile:not(.done):not(.won) .gt-face::after{content:""; display:block; order:3; margin-left:auto; flex:none; width:20px; height:20px; border-radius:50%; border:1.5px solid var(--rule); position:static; transform:none; background:none; -webkit-mask:none; mask:none; opacity:1;}
 /* reading beside the week */
 .home-two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
