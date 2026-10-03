@@ -1049,7 +1049,8 @@ function scrimCheck() {
     await page.waitForTimeout(1400);
     const s = await page.evaluate(() => {
       const head = document.querySelector(".page-head").getBoundingClientRect();
-      const cards = [...document.querySelectorAll(".settings > .set-card")].map((c) => { const b = c.getBoundingClientRect(); return { l: Math.round(b.left), r: Math.round(b.right), top: Math.round(b.top), wide: c.classList.contains("set-wide") || c.classList.contains("danger") }; });
+      // the paired cards sit inside the two .set-col stacks (Oct 2026), so not direct children of .settings
+      const cards = [...document.querySelectorAll(".settings .set-card")].map((c) => { const b = c.getBoundingClientRect(); return { l: Math.round(b.left), r: Math.round(b.right), top: Math.round(b.top), wide: c.classList.contains("set-wide") || c.classList.contains("danger") }; });
       const grid = document.querySelector(".settings").getBoundingClientRect();
       // two cards sharing a row is the two-column layout
       const rows = {};

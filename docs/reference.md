@@ -6866,7 +6866,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   sign-in form 340px short — so each page read as half-drawn on a laptop. `.settings` is now a grid that fills
   the stage and pairs the cards into two columns at ≥900px (`.set-wide` for the theme picker and `.danger`,
   which should never sit quietly beside something else, span both). Centring the column instead would have
-  broken the left edge's alignment with the heading, which is why it isn't done that way. The signed-out
+  broken the left edge's alignment with the heading, which is why it isn't done that way. **The pairing is two
+  explicit `.set-col` stacks, not auto-placement** (Oct 2026, on a report of "big empty spaces" on desktop):
+  auto-placed cards pair by row, so a one-row card beside the ten-row Study card left ~1900px blank; Study
+  now fills the left column with Audio under it, and Reading (units and spelling, moved out of Appearance), Atlas, Data
+  and a Guides card (the tour and "How Folio studies you", moved out of Study) stack on the right. Re-run
+  `test-layout.js` §6 after touching it. The signed-out
   account page splits into `.auth-split`: the form on the left and the three `.auth-perks` bullets — already
   written, previously stacked under it — in a column beside it at ≥820px, saying what an account is for at the
   moment a reader is deciding whether to make one.

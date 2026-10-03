@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.953", released: "2026-10-03T19:30Z" };
+window.FOLIO_VERSION = { v: "1.954", released: "2026-10-03T19:42Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-03",
     t: "The Ancient Rome collection is complete",
     items: [
+      "<b>Settings reorganised for desktop</b>: the cards sit in two level columns, with Reading (measurements, spelling) and Guides sections of their own.",
       "<b>Collections sections fold</b>: History, Geography, Science, the Arts, Special and Languages are separate rounded blocks, each collapsible like Planned.",
       "<b>Cleaner collection rows</b>: the coloured line at the end of each row’s progress fill is gone.",
       "<b>Tidier home page</b>: unplayed minigame tiles lose their empty ring, and the study banner\u2019s card preview sits with equal space either side.",
