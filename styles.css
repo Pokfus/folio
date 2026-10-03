@@ -3243,6 +3243,7 @@ body.grading .stage{padding-bottom:150px;}
 .ci-leech{color:var(--zh);}
 .ci-id{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft);}
 .ci-of{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; color:var(--ink-faint); margin-left:6px;}
+.ci-of.ci-solo{margin-left:0;}   /* a note standing in for a figure (the collection info sheet) has nothing to sit beside */
 .ci-h{font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs)); color:var(--ink); margin:6px 0 0; padding:11px 14px 0; border-top:1px solid var(--rule);}
 
 /* The actions row inside Card info — flag, set due date, forget, suspend. It wraps rather than scrolling,

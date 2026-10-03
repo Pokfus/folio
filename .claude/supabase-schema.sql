@@ -1100,3 +1100,53 @@ end $$;
 
 revoke all on function public.bump_book_read(text) from public;
 grant execute on function public.bump_book_read(text) to anon, authenticated;
+
+-- ============================================================================================
+-- 17) HOW MANY READERS HAVE ADDED, AND FINISHED, EACH COLLECTION  (run once)
+-- ============================================================================================
+-- Oct 2026, on request: a collection's info sheet (hold its row on the Collections page) says "how many
+-- users have added the deck, how many have completed it".  Section 16's shape a fourth time, and for its
+-- reason: `progress` is readable only by its owner and their friends, so nothing can count across it.
+-- One row per collection, two counters, joined to nobody.
+--
+-- The client calls this ONCE per collection per reader for each figure — 'add' when the collection is in
+-- their daily study, 'done' when every card in it is learned — and records that it has in the reader's own
+-- synced progress (`collAdded`), so a second device does not count them twice.  Removing a collection does
+-- not subtract: the figure is readers who HAVE added it.  Counting starts the day this block is run; a
+-- reader who added a collection earlier is counted the next time they open the site.
+--
+-- UNTIL THIS BLOCK IS RUN the sheet says the figures are not collected yet: the fetch 404s and the client
+-- latches off, rather than every collection claiming nobody.
+
+create table if not exists public.collection_stats (
+  coll text primary key,
+  adds int not null default 0,
+  completes int not null default 0,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.collection_stats enable row level security;
+
+drop policy if exists "collection stats are public" on public.collection_stats;
+create policy "collection stats are public" on public.collection_stats for select using (true);
+-- and no write policy: RLS denies by default, so the table is read-only to every client
+
+create or replace function public.bump_collection(c text, k text)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if coalesce(c, '') !~ '^[a-z0-9][a-z0-9-]{0,48}$' then return; end if;
+  if k = 'add' then
+    insert into public.collection_stats as t (coll, adds, updated_at) values (c, 1, now())
+    on conflict (coll) do update set adds = t.adds + 1, updated_at = now();
+  elsif k = 'done' then
+    insert into public.collection_stats as t (coll, completes, updated_at) values (c, 1, now())
+    on conflict (coll) do update set completes = t.completes + 1, updated_at = now();
+  end if;
+end $$;
+
+revoke all on function public.bump_collection(text, text) from public;
+grant execute on function public.bump_collection(text, text) to anon, authenticated;

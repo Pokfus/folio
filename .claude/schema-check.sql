@@ -36,6 +36,12 @@ select * from (values
         where table_schema='public' and table_name='profiles' and column_name='theme')),
   ('15 · game statistics',   to_regclass('public.game_stats') is not null and exists (
        select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
-        where n.nspname='public' and p.proname='bump_game_score'))
+        where n.nspname='public' and p.proname='bump_game_score')),
+  ('16 · book reads',        to_regclass('public.book_stats') is not null and exists (
+       select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+        where n.nspname='public' and p.proname='bump_book_read')),
+  ('17 · collection readers', to_regclass('public.collection_stats') is not null and exists (
+       select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+        where n.nspname='public' and p.proname='bump_collection'))
 ) as t(block, present)
 order by block;
