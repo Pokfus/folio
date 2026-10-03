@@ -10047,7 +10047,6 @@ body.night .games-sec .game-tile.done .gt-glyph, body.night .games-sec .game-til
 body.night .games-sec .game-tile.done .gt-check, body.night .games-sec .game-tile.won .gt-seal{color:var(--paper);}
 .games-sec .game-tile .gt-check svg, .games-sec .game-tile .gt-seal-face svg{width:12px; height:12px; display:block;}
 .games-sec .game-tile .gt-seal-face{color:inherit; filter:none;}
-.games-sec .game-tile:not(.done):not(.won) .gt-face::after{content:""; display:block; order:3; margin-left:auto; flex:none; width:20px; height:20px; border-radius:50%; border:1.5px solid var(--rule); position:static; transform:none; background:none; -webkit-mask:none; mask:none; opacity:1;}
 /* reading beside the week */
 .home-two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 .home-box{position:relative; overflow:hidden; display:block; width:100%; background:var(--card); border:1px solid var(--rule); border-radius:16px; padding:18px 20px; box-shadow:var(--shadow-sm); min-width:0; text-align:left; color:var(--ink); font:inherit;}
@@ -10099,8 +10098,11 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 @media (min-width:641px){
   .page .rv-banner:has(> .rv-preview){column-gap:0;}
   .page .rv-banner:has(> .rv-preview) > .body{flex:0 1 auto;}
-  .rv-preview{margin:0 auto; padding:0 12px; box-sizing:content-box;}
-  .pv-card{left:12px; right:12px;}
+  /* the fan's cards swing out past the box: the back-left one ~33px (rotate -6deg, 12px shift), the back-right
+     one ~20px (rotate 3deg, 10px shift). The padding covers that overhang on each side, so the auto margins
+     split the room between the cards' VISIBLE edges (Oct 2026, on request: the fan sat too close to the text). */
+  .rv-preview{margin:0 auto; padding:0 24px 0 36px; box-sizing:content-box;}
+  .pv-card{left:36px; right:24px;}
 }
 /* THE WEEK FILLS THE ROW on a tablet and desktop (Oct 2026, on request: "there is currently still a lot of
    empty space … grow the coloured boxes and the chest to fill as much of this empty space as possible"). The
