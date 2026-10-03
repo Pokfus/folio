@@ -285,6 +285,25 @@ Filled batch by batch, from the source each row names.
 | Sea Peoples under Merneptah / Ramesses III's Delta battle | c. 1213 – 1203 BCE / c. 1188 – 1176 BCE (datings differ) | Kaniewski et al. (`wh-278`) |
 | Late Bronze Age collapse / Hittite drought | c. 1250 – 1150 BCE / c. 1198 – 1196 BCE | Knapp and Manning; Manning et al. (`wh-279`) |
 | iron: first used / main metal in the southern Levant | before 2100 BCE / c. 1000 – 800 BCE | Mokrišová and Verčík; Yahalom-Mack and Eliyahu-Behar (`wh-280`) |
+| Iron Age by region: southern Levant / early Aegean / England and Wales / southern Africa (Early Iron Age) | c. 1200 – 586 BCE / c. 1050 – 700 BCE / c. 800 BCE – 50 CE / c. 200 – 900 CE | Regev et al.; Mokrišová and Verčík; Cassidy et al.; Mathoho et al. (`wh-281`) |
+| Neo-Assyrian Empire / Nineveh falls / Harran lost / last bid | c. 912 – 609 BCE / 612 / 610 / 609 BCE; eponym eclipse 15 June 763 BCE | Sinha et al.; Gadd 1923 (`wh-282`) |
+| Nineveh capital | c. 705 – 612 BCE (first attack 614) | Luckenbill; Ur (`wh-283`) |
+| Ashurbanipal's reign | 668 – 631 BCE (older works 626); civil war 652 – 648 | Bach (RINAP 5); Zaia (`wh-284`) |
+| Assyrian mass deportation / Judah | c. 850 – 612 BCE (systematic from Tiglath-pileser III, 745 – 727) / 701 BCE | Sazonov; Tsakanyan; Vaknin et al. (`wh-285`) |
+| Neo-Babylonian Empire | 626 – 539 BCE | Novotny and Weiershäuser (`wh-286`) |
+| Nebuchadnezzar II / Carchemish / Jerusalem burned | 605 – 562 BCE (604 counting the first full year) / 605 / 586 BCE (`wh-289`: 587 or 586) | Regev et al.; ABC 5 (`wh-287`) |
+| Babylonian captivity: deportations / conventional end / Al-Yahudu tablets | 597 – 582 / 539 BCE / 572 – 477 BCE | Makuwa; Alstola (`wh-289`) |
+| Israel and Judah / Samaria falls / Jerusalem falls | c. 950 – 586 BCE / 722 or 720 BCE / 586 BCE; Qarqar 853 BCE | Vishne et al.; Nissinen; Vaknin et al. (`wh-290`) |
+| Hebrew Bible: composition / Ketef Hinnom amulets / in Greek | c. 800 – 160 BCE (scholars' reconstructions) / c. 600 BCE (most; one later) / by 132 BCE | Faigenbaum-Golovin et al.; Popović et al.; Waaler; Swete (`wh-291`) |
+| Judaism: Elephantine temple destroyed / Second Temple destroyed | 411 BCE / 70 CE (`wh-292` is `undatable`) | Cowley (`wh-292`) |
+| Phoenicia takes shape / Tyre falls to Alexander | c. 1200 – 1150 BCE / 332 BCE | Clark; MacDonald (`wh-293`) |
+| Phoenician alphabet fixed / Ahiram epitaph | c. 1000 BCE | Lam (`wh-294`) |
+| Carthage founded | 814/813 BCE (Timaeus) against radiocarbon c. 895 – 795 BCE (disputed); destroyed 146 BCE | van der Plicht et al.; Fantalkin et al. (`wh-295`) |
+| Urartu at its height / Sargon's eighth campaign | c. 800 – 550 BCE / 714 BCE | Matthews et al. 2025 (`wh-296`) |
+| Lydia: Mermnad kings / Sardis taken | c. 680 – 547 BCE / 547 BCE (Nabonidus Chronicle, if read as Lydia) or 546 (Eusebius) | Greenewalt; Cahill (`wh-297`) |
+| first coins (Lydia and Ionia) / China (Guanzhuang) / India (punch-marked) | c. 660 – 630 BCE (Artemision deposit before c. 640 – 620) / c. 640 – 550 / c. 600 – 400 BCE | Meadows; Zhao et al.; Upadhyay (`wh-298`) |
+| Medes in Assyrian records / Nineveh falls / Astyages falls | c. 858 – 656 BCE / 612 / 550 BCE | Lendering; Radner; Gadd; Nabonidus Chronicle (`wh-299`) |
+| Cyrus the Great: reign / Ecbatana / Babylon | 559 – 530 BCE / 550 / 539 BCE | Lendering; Nabonidus Chronicle (`wh-300`) |
 
 ## Chronology pins
 
@@ -559,4 +578,22 @@ wh-277: 2200; 1950; 1800; 1500
 wh-278: 1213; 1203; 1188; 1176
 wh-279: 1250; 1150; 1198; 1196
 wh-280: 2100; 1000; 800
+wh-281: 1200; 586; 1050; 700; 800; 50; 200; 900
+wh-282: 912; 609; 612
+wh-283: 705; 612
+wh-284: 668; 631
+wh-285: 850; 612; 701
+wh-286: 626; 539
+wh-287: 605; 562; 586
+wh-289: 597; 582; 539
+wh-290: 950; 586; 722; 720
+wh-291: 800; 160; 600; 132
+wh-293: 1200; 1150; 332
+wh-294: 1000
+wh-295: 814; 813; 895; 795
+wh-296: 800; 550
+wh-297: 680; 547; 546
+wh-298: 660; 630; 640; 550; 600; 400
+wh-299: 858; 656; 612; 550
+wh-300: 559; 530; 550; 539
 ```

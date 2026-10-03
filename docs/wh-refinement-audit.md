@@ -142,8 +142,8 @@ in plan order unless the user says otherwise.
 | B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | **done 2026-10-03** |
 | B27 | The Bronze Age world (`wh-bronze-age`) | `wh-261`–`wh-270` | 10 | 117 | **done 2026-10-03** |
 | B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | **done 2026-10-03** |
-| B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | open |
-| B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | open |
+| B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | **done 2026-10-03** |
+| B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | **done 2026-10-03** |
 | B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | open |
 | B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | open |
 | B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | open |
@@ -1217,7 +1217,7 @@ agreed.
 ### B28 — `wh-271`–`wh-280`, The Bronze Age world (2026-10-03)
 
 Run as B27. Checks: `wh-audit.js --range=wh-271:wh-280` clean but for `W.not-why` notes on three, `wh-272`'s
-`I.duplicate` (the generic `1920px-thumbnail.jpg` false positive) and a `Q.sibling` on `wh-280` against `wh-281`'s old phrasings, which B29 rewrites; the rest as B27; all 67 distinct
+`I.duplicate` (the generic `1920px-thumbnail.jpg` false positive) and a `Q.sibling` on `wh-280` against `wh-281`'s old phrasings, which cleared when B29 rewrote them; the rest as B27; all 67 distinct
 URLs 2xx and `check-citations --card` 0 mismatched. New locators: `wh-271` (Uluburun, near Kaş) and `wh-275`
 (the Mittelberg near Nebra). **The Bronze Age world deck is now done.**
 
@@ -1244,6 +1244,68 @@ on `wh-268`. *Consistency:* the Sapalli cocoons 1940 – 1765 BCE agree on `wh-2
 
 **Glossary.** Seven terms rewritten; *Uluburun shipwreck*, *Late Bronze Age collapse* and *Ironworking* already
 agreed.
+
+### B29 — `wh-281`–`wh-290`, Iron Age Near East and Persia (2026-10-03)
+
+Run as B28, and applied with B30 in one commit. Checks: `wh-audit.js --range=wh-281:wh-290` clean but for a
+`W.not-why` note on one; `check-questions`, `check-cards --prefix` per card, `check-style` (no new finding),
+`check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched; all 66
+distinct URLs 2xx (one KASKAL PDF reset the connection twice and answered 200 on the third try). New locators:
+`wh-283` Nineveh and `wh-288` (Babylon, where the ancient writers put the gardens).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-281` Iron Age | 9 | 5 → 10 | **"c. 1200 BCE, Near East" had no source**, nor "over 3,000 years" of African iron. An Aegean steel sentence with a century-only row and a Finnish pottery sentence dropped. Now four sourced regional spans, the three-age scheme and Hesiod's age of iron. |
+| `wh-282` Neo-Assyrian Empire | 8 | 5 → 8 | **All three phrasings carried a century, a year or figures.** **"Held out at Harran until 610"**: the chronicle has Harran lost in 610 and a bid to retake it in 609. Roads and irrigation had no source; the 763 BCE eclipse is now cited to the eponym list. |
+| `wh-283` Nineveh | 8 | 5 → 8 | **The capital moved in 705 BCE, not 704.** Impaling over a doorway, "the largest city in two millennia" and "Mount Tas on the Urartian border" had no source; an Arabic paper whose text extracts garbled dropped. Canals per Jacobsen and Lloyd; walls, Nebi Yunus and the 2014 – 2016 destruction added. |
+| `wh-284` Ashurbanipal | 7 | 5 → 7 | **"The largest empire" and "30,000 tablets" rested on sources that would not open.** Reign 668 – 631 BCE from the standard edition, the older 626 in prose; the civil war of 652 – 648 and the library's make-up added. No birth or death row: no source gives them. |
+| `wh-285` mass deportation | 9 | 6 → 9 | The old card was Sennacherib's violence and relief art; **its Ekron and captive-burning claims rested on pages behind a bot wall.** Now the policy c. 850 – 612 BCE, the army that ran it, families moved together, the kings' totals with a 1916 warning that they are inflated, and the 4.4 million estimate. |
+| `wh-286` Neo-Babylonian Empire | 8 | 5 → 8 | The old card dwelt on one glazed lion; now the state, 626 – 539 BCE, from the two open royal-inscription volumes: Nabopolassar, Nineveh, Nabonidus at Tema, Belshazzar, Opis and the Nippur archives. A Nebuchadnezzar row dropped. |
+| `wh-287` Nebuchadnezzar II | 8 | 5 → 9 | **A phrasing carried a year and "43 years"**; **a 1923 chronicle covering 616 – 609 BCE was cited for Carchemish**, now ABC 5. Reign 605 – 562 BCE as on `wh-191`, with the 604 count in prose. Half the old card was the Ishtar Gate; now the whole reign. |
+| `wh-288` Hanging Gardens of Babylon | 9 | 6 → 9 | **The line gave Nebuchadnezzar's reign**, another person's date; now empty and `undatable`. Berossus, Diodorus, Strabo and Koldewey's caveat added, and the debate named: never built, exaggerated, Dalley's Nineveh, and Stronach's objection. |
+| `wh-289` Babylonian captivity | 8 | 5 → 9 | **The Bible's counts were misstated**: Kings gives 10,000 and 8,000, Jeremiah 3,023, 832 and 745. An Ishtar Gate source dropped. The chronicle's 16 March 597 BCE, Jehoiachin's ration tablets and the Al-Yahudu tablets (572 – 477 BCE) added; Jerusalem's fall 587 or 586. |
+| `wh-290` Israel and Judah | 8 | 7 → 9 | **"Samaria taken in the 720s"** is 722 or 720 BCE. The United Monarchy debate added with whose view is whose; **the first outside record of the kingdom is the Kurkh Monolith of 853 BCE**, before the Mesha and Tel Dan stones, also added. |
+
+**Read by eye.** *Article:* "the Iron Age", "the Neo-Assyrian Empire", "the Neo-Babylonian Empire", "the Hanging
+Gardens of Babylon", "the Babylonian captivity"; the cities, kings and "Israel and Judah" bare. *Confusability:*
+`wh-282`/`wh-283`/`wh-284`/`wh-285` the empire, its capital, its king and its practice, the eclipse only on
+`wh-282`, Sennacherib's walls on `wh-283`, the library on `wh-284`; `wh-286`/`wh-287`/`wh-288` the state, the king and
+the gardens, Nebuchadnezzar named on `wh-288` only as the builder Berossus gives; `wh-289`/`wh-290` the exile and the
+kingdoms. *Consistency:* Nineveh 612 BCE on `wh-282`, `wh-283`, `wh-286` and `wh-299`; Jerusalem burned 586 BCE on
+`wh-286`, `wh-287` and `wh-290`, with `wh-289` giving "587 or 586" from its source; the Hebrew Bible handled as a
+source for its writers' beliefs.
+
+**Glossary.** Six terms rewritten; *Mass deportation*, *Neo-Babylonian Empire*, *Babylonian captivity* and *Israel and
+Judah* already agreed.
+
+### B30 — `wh-291`–`wh-300`, Iron Age Near East and Persia (2026-10-03)
+
+Run and checked with B29: `wh-audit.js --range=wh-291:wh-300` clean but for `W.not-why` notes on four; all 71
+distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators: `wh-293` (Tyre) and `wh-299` (Ecbatana).
+`wh-295` asked for "Carthage", which has no primary coordinate; an event card, it is not flagged.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-291` Hebrew Bible | 8 | 5 → 8 | **A "c. 630 – 600 BCE" layers row was in no source.** Composition is now scholars' reconstructions, each named: the Jacob story c. 800 – 700 BCE, Deuteronomy's core in the late 7th century, the Priestly writings in or after the exile, Daniel's end in the 160s BCE. Ketef Hinnom and the Dead Sea Scrolls added. |
+| `wh-292` Judaism | 9 | 7 → 9 | Rewritten neutrally from the living religion; **its growth from Iron Age religion is a modern reconstruction, so said**. The line held three other events and is empty (`undatable`); Elephantine re-sourced to the papyri; the glossary's third sentence had no source. |
+| `wh-293` Phoenicia | 8 | 6 → 9 | **The 2025 genome study was overstated**: it covers western Punic sites of the 6th – 2nd centuries BCE and leaves the first settlers' origin open. Two single-site rows became c. 1200 – 1150 BCE to Tyre's fall in 332 BCE. |
+| `wh-294` Phoenician alphabet | 8 | 6 → 8 | The lead phrasing (Herodotus and Cadmus) is `wh-315`'s. **Ahiram's epitaph was dated by its first excavator's 13th century**; now c. 1000 BCE, the old view as his. A Greek-adoption row dropped. |
+| `wh-295` founding of Carthage | 8 | 5 → 9 | A century-only row and **an Utica-rent and Gadir claim** had no source. Timaeus's 814/813 BCE and the radiocarbon c. 895 – 795 BCE (with the critics' objection) on the line; Menander's king-list reckoning and Elissa as legend added. The shared *Carthage* glossary entry kept its key and gained the alias. |
+| `wh-296` Urartu | 7 | 5 → 8 | **"Height c. 800 – 600 BCE" was one site's dates (Artaxata) given to the kingdom**; now c. 800 – 550 BCE. A 13th-century row dropped to the prose; Sargon's eighth campaign of 714 BCE and the disputed end added. |
+| `wh-297` Lydia | 8 | 5 → 8 | Claims resting on a page with no text dropped; **a wall's 65 ft is 66**. Sardis's fall both ways: 547 BCE (Nabonidus Chronicle, if the broken name is Lydia) and 546 (Eusebius). Gyges in Assyrian records and Bin Tepe added. |
+| `wh-298` coinage | 8 | 5 → 8 | **An Ashoka debasement claim and a misread Samaria hoard** dropped; "independent invention" softened, no source stating it. The Artemision deposit's date as a debate (late 7th century against before c. 640 – 620 BCE); China and India each with a sourced row. |
+| `wh-299` Medes | 7 | 5 → 8 | **"28 city lords" and "65,000" had no modern source.** The Median-empire debate from 1988 named; Assyrian records c. 858 – 656 BCE, Nineveh 612 and Astyages' fall 550 BCE on the line. |
+| `wh-300` Cyrus the Great | 8 | 5 → 8 | **The "first charter of human rights" label is now a modern claim an Assyriologist rejects**; the cylinder's silence on Judah and Jerusalem and the doubt over Lydia's date added. No birth row: no source gives one. |
+
+**Read by eye.** *Article:* "the Hebrew Bible", "the Phoenician alphabet", "the founding of Carthage", "the Medes";
+the rest bare. *Confusability:* `wh-291`/`wh-292` the book and the religion, the Dead Sea Scrolls on both but as
+manuscripts on one and a library on the other; `wh-293`/`wh-294`/`wh-295` the land, its script and its colony;
+`wh-297`/`wh-298` the kingdom and the invention, the Artemision only on `wh-298`; `wh-299`/`wh-300` the Medes and
+their conqueror, the chronicle's handover on both, each naming the other. *Consistency:* Astyages' fall 550 BCE on
+`wh-299` and `wh-300`; Sardis 547 or 546 on `wh-297` and `wh-300`.
+
+**Glossary.** Six terms rewritten (*Judaism*, *Phoenicia*, *Carthage*, *Urartu*, *Lydia*, *Medes*); the rest already
+agreed. **The Iron Age Near East and Persia deck is two-thirds done; B31 (`wh-301`–`wh-310`) finishes it.**
 
 ### Pictures to redo
 
@@ -1356,3 +1418,7 @@ pass once it answers. Filled batch by batch.
 | `wh-270` | a 1915 printed hand copy with line numbers |
 | `wh-272` | fits, but description names a museum; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
 | `wh-276` | the Egtved clothing, one grave; description names a museum |
+| `wh-281` | a lump of casting waste of uncertain age |
+| `wh-288` | a 1679 Kircher engraving |
+| `wh-295` | the Byrsa panorama, also used by the glossary's *Peace of 201 BCE*; **locator**: "Carthage" has no coordinate |
+| `wh-298` | Chinese spade coins only; an early electrum coin would show the western strand |
