@@ -140,7 +140,7 @@ in plan order unless the user says otherwise.
 | B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | **done 2026-10-03** |
 | B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | **done 2026-10-03** |
 | B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | **done 2026-10-03** |
-| B27 | The Bronze Age world (`wh-bronze-age`) | `wh-261`–`wh-270` | 10 | 117 | open |
+| B27 | The Bronze Age world (`wh-bronze-age`) | `wh-261`–`wh-270` | 10 | 117 | **done 2026-10-03** |
 | B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | open |
 | B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | open |
 | B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | open |
@@ -1181,6 +1181,39 @@ languages and the horse, the steppe spread kept on `wh-259`, riding on `wh-258` 
 **Glossary.** Eight terms rewritten; *Silk* and *Jade* already agreed. The *Bronze* and *Indo-European* entries'
 picture fields carry licence text or an edit summary: picture pass.
 
+### B27 — `wh-261`–`wh-270`, The Bronze Age world (2026-10-03)
+
+Run as B26. Checks: `wh-audit.js --range=wh-261:wh-270` clean but for `W.not-why` notes on three and `wh-268`'s
+`L.missing`: neither "Ugarit" nor "Ras Shamra" has a primary coordinate, so it stays without one. The rest as
+B26; all 66 distinct URLs 2xx and `check-citations --card` 0 mismatched. New locators: `wh-264` (Santorini,
+labelled Thera), `wh-266` and `wh-267` (both Hattusa).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-261` chariot | 9 | 5 → 9 | **The old card was about riding and the Yamnaya debate, `wh-260`'s ground.** Now the vehicle itself: Sintashta c. 2000 – 1800 BCE, the steppe-or-Near-East argument, the Kikkuli text, Mycenae's grave markers and *Iliad* 23, Shang China from c. 1200 BCE, Caesar's Britons and Rome's races. |
+| `wh-262` Minoan civilisation | 8 | 5 → 9 | **A "Knossos burnt c. 1375" row had no source**, and a phrasing put the Kommos imports in the wrong period. Now the name, the palace ages, Knossos, Linear A, the sea network as trade or empire, the genomes and the palaces' fall c. 1490 – 1470 BCE. |
+| `wh-263` Mycenaean Greece | 8 | 5 → 8 | The old card was trade (ingots, Gelidonya, amber), and **its era and palace rows had no source**. Now the whole culture: the shaft graves c. 1650 – 1500 BCE, rule over Crete, the ancestry, the collapse c. 1250 – 1050 BCE; Linear B one clause, for `wh-265`. |
+| `wh-264` Minoan eruption | 7 | 5 → 7 | One author in three sources cut to two; **a Therasia-shrub row had no source**. The two camps given apart: radiocarbon c. 1627 – 1600 BCE, archaeology after c. 1540 and traditionally c. 1500, with the regional offset and the newer tree-ring results. |
+| `wh-265` Linear B | 7 | 5 → 8 | **"Archives c. 1250 – 1200 BCE" was one scholar's view as fact; "writing returns c. 800 BCE" another event's date.** In use from c. 1450 BCE with the Knossos dispute (c. 1385 or the 13th century) in prose; deciphered 1952. The glossary misread a "more than 3,000 years" claim. |
+| `wh-266` Hittites | 8 | 5 → 8 | Capital and collapse rows became the kingdom, c. 1650 – 1200 BCE, and the decipherment of 1915. Genetics that belong to `wh-258`/`wh-259` cut to one sentence; the 1730 BCE conquest and the burned-or-abandoned debate added. |
+| `wh-267` Hattusa | 7 | 5 → 7 | **A drought study that never mentions Hattusa** dropped; a phrasing carried a year. Drought and Yazılıkaya rows (other events) dropped; Hattic Hattush, the 1906 tablets, the grain supply and the city emptied before it burned added. |
+| `wh-268` Ugarit | 6 | 5 → 8 | **A Ramesses III row and an unsourced "zenith 1300 – 1200"** dropped. The phrasings moved off the alphabet; the four harbours, olive-oil wages, the 1928 find, the last king's letter and the eclipse-anchored end c. 1192 – 1190 BCE added. The glossary cited a CAPTCHA page and said "script" where its source says "dialect". |
+| `wh-269` Proto-Sinaitic script | 6 | 5 → 6 | **Two book reviews never mention the script.** The line opened on Wadi el-Hol; now the Sinai texts c. 1900 – 1800 BCE first, Wadi el-Hol second and the late dating as a minority view. |
+| `wh-270` Amarna letters | 7 | 5 → 7 | **"A woman found nearly 400" and a Mycenaean pottery claim had no source**, nor a 1352 – 1338 BCE city row. Rib-Hadda's bias is one study's sample, and **a phrasing that made Byblos dominate the whole archive was rewritten** to that study. |
+
+**Read by eye.** *Article:* "the Minoan civilisation", "the Minoan eruption", "the Hittites", "the Proto-Sinaitic
+script", "the Amarna letters"; the rest bare or "a chariot". *Confusability:* `wh-262`/`wh-263`/`wh-264`/`wh-265`
+the island, the mainland, the eruption and the script, Linear A only on `wh-262`; `wh-266`/`wh-267` the people
+and their capital, the archive's language on `wh-266`, the gates and the emptying on `wh-267`; `wh-268`/`wh-269`
+the port and the first alphabet, the alphabetic cuneiform kept to one sentence on `wh-268`. *Consistency:* the
+Hittite kingdom c. 1650 – 1200 BCE and the 1730 BCE conquest agree across `wh-266`/`wh-267`; the Amarna
+letters' kings match `wh-223`. *Against the gr- cards:* `gr-043` gives the eruption one range, c. 1610 – 1540
+BCE, where `wh-264` gives the two camps apart; `gr-074` starts Linear B c. 1400 BCE against c. 1450 here; `gr-056`
+ends the Mycenaean world c. 1100 against c. 1050.
+
+**Glossary.** Six terms rewritten; *Hittites*, *Hattusa*, *Proto-Sinaitic script* and *Amarna letters* already
+agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1284,3 +1317,9 @@ pass once it answers. Filled batch by batch.
 | `wh-253` | a labelled chart of one character through the scripts |
 | `wh-257` | a hoard photographed against a ruler with handwritten labels |
 | `wh-260` | a multi-panel research figure |
+| `wh-261` | a distribution map with numbered symbols |
+| `wh-262` | the Akrotiri ship fresco, from Thera not Crete |
+| `wh-263` | one stirrup jar; description refers to the old card's trade |
+| `wh-268` | **locator**: neither "Ugarit" nor "Ras Shamra" has a coordinate |
+| `wh-269` | a 1916 line drawing where photographs exist |
+| `wh-270` | a 1915 printed hand copy with line numbers |
