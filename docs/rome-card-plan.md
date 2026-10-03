@@ -1017,6 +1017,60 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-901`–`rm-1000`: the Vestal Virgins to Palladio — what this batch found
+
+A hundred cards in ten batches of ten: `rm-901`–`rm-930` close `rm-religion`, `rm-931`–`rm-970` are the whole of
+`rm-literature`, and `rm-971`–`rm-1000` are the whole of `rm-arts`, which completes the collection. 98 new
+glossary terms; `Vestal_Virgin` and `Livy` already existed without a card and are reused, and the existing
+`Pozzolana` is left as it was. `rm-1000` is the first four-digit id; add-card, next-cards,
+test-card-plans, check-gloss-links and check-citations were each run against it before writing began. Every
+cited URL was fetched by its writer and again by the lead (all returned 200; four slow hosts on a retry). The
+brief carried every taken answer and slug, and a reservation table for the terms two batches could both claim;
+no clash got through this time. Essay-shaped lines are answered by a concrete term:
+
+- **`rm-901`–`rm-910`.** Every line keeps its own term. The gods are keyed on parenthesised slugs
+  (`Jupiter_(god)`, `Juno_(mythology)`, `Mars_(mythology)`, `Venus_(mythology)`) with epithet aliases only
+  (Jupiter Feretrius, Juno Moneta, Mars Ultor, Venus Genetrix…), because the bare names are planets, a beach and
+  missiles in shipped texts; `Minerva` and `Vesta` are caseSensitive.
+- **`rm-911`–`rm-920`.** Saturn → Temple of Saturn; Lares and Penates → Lares; household religion → lararium;
+  the religious calendar → feriae (keyed on `Roman_festivals`, since Wikipedia's Feriae is the Catholic
+  weekday); prodigies and expiation → prodigium. The lead narrowed `Genius_(mythology)` to "Genius Augusti",
+  "his Genius" and "Genius of the Roman people": a bare Genius claimed Galton's Hereditary Genius and the
+  Genius of the Mountain in the Nine Songs, and lowercase "genius" means brilliance everywhere else.
+- **`rm-921`–`rm-930`.** foreign cults → Tiber Island (Aesculapius, 293–292 BCE; evocatio is rm-177's);
+  Isis → Iseum Campense, keyed on `Temple_of_Isis_and_Serapis`, leaving Isis free for the Egypt plan; imperial
+  cult → Augustales (the cult itself is rm-528's); apotheosis → consecratio (descriptive slug); Judaism → the
+  God-fearers; the rise of Christianity → the Dura-Europos church; persecution → the Decian persecution.
+- **`rm-931`–`rm-940`.** Latin literature → Golden Age of Latin literature; Latin → Old Latin (caseSensitive;
+  `rm-614`'s "Old Latin" Bible versions are now called the Vetus Latina); comedy → fabula palliata; satire →
+  satura; Lucilius → Gaius Lucilius, with no bare alias, since Seneca's Lucilius is on rm-890; early
+  historiography → Fabius Pictor.
+- **`rm-941`–`rm-950`.** Cicero's speeches → Philippicae (bare "Philippics" stays gr-693's, which still catches
+  `rm-376`'s "the hands that wrote the Philippics"); letters → Epistulae ad Atticum; philosophy → De officiis;
+  rhetoric → Rhetorica ad Herennium; Lucretius → De rerum natura; neoteric poets → neoterics.
+- **`rm-951`–`rm-960`.** Eclogues and Georgics → Georgics; exile → Tristia; Propertius and Tibullus →
+  Propertius; love elegy → Cornelius Gallus; Roman Stoicism → Musonius Rufus; Livy reuses the existing slug.
+  "Horace Greeley" (geo-516) and "Horace Rumbold" (ww2-010) were reworded so the poet's term does not claim them.
+- **`rm-961`–`rm-970`.** Lucan → Pharsalia; Petronius → Satyricon; Quintilian → Institutio Oratoria;
+  Suetonius → Lives of the Caesars; Apuleius → Golden Ass (its why no longer says "Metamorphoses", which is
+  Ovid's term); transmission → Poggio Bracciolini. `Martial` claimed "Martial law" at the start of two
+  sentences, a Chinese "Martial Emperor" and a Greek why; `Tacitus` claimed the emperor of 276 on rm-565. All
+  were reworded.
+- **`rm-971`–`rm-980`.** Roman art → Tomb of Eurysaces the Baker; portraiture → Capitoline Brutus; historical
+  relief → Cancelleria Reliefs; copies of Greek sculpture → Farnese Hercules; wall painting → House of the
+  Vettii; the four styles → Pompeian styles; mosaic → Villa Romana del Casale; architecture → Maison Carrée
+  (dated by the century, as its custodians give only "the early years of the 1st century"; a second French
+  source was swapped for Livius); concrete → opus caementicium, keyed on `Roman_concrete`, which arch-061 will
+  meet when the Architecture plan is written.
+- **`rm-981`–`rm-990`.** arch → voussoir; vault and dome → barrel vault; orders → Composite order; basilica →
+  Basilica Aemilia; forum → `Forum_(Roman)`, with "fora" its only alias, since a bare "forum" would have
+  taken some forty mentions of the Forum Romanum and "a forum against corruption"; triumphal arch → Arch of
+  Septimius Severus; column → Column of Antoninus Pius; aqueduct → Aqua Marcia; water engineering → Frontinus.
+- **`rm-991`–`rm-1000`.** roads → Milliarium Aureum; road construction → Via Domitiana (keyed on
+  `Via_Domiziana`); bridges → Pons Fabricius; surveying → centuriation; building trades → fabri tignarii
+  (descriptive slug); machines → Barbegal mills; harbours → Portus Julius; the afterlife of Roman
+  architecture → Palladio's Four Books of Architecture.
+
 ## `rm-801`–`rm-900`: declamation to Spurinna — what this batch found
 
 A hundred cards in ten batches of ten: `rm-801`–`rm-825` close `rm-society`, `rm-826`–`rm-865` are the whole of

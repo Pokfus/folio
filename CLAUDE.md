@@ -164,7 +164,7 @@ have not this session.
 
 📖 `docs/greece-refinement-audit.md` — READ BEFORE TOUCHING ANY `gr-` CARD (the Sep 2026 refinement: rules, batches, ledger; `node .claude/greece-audit.js`, and `add-card.js --replace`). 📖 `docs/greece-chronology.md` — READ BEFORE WRITING A DATE ON A `gr-` CARD. A card's source bar is tiered by difficulty (`srcTargetFor`: 1 → 9 … 5 → 5). `node .claude/test-why-markers.js` guards Think-it-through markers.
 
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | live |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | complete |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | live |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | live |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
