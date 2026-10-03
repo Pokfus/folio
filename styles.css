@@ -5990,12 +5990,12 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
    until Aug 2026 and the CLASS NAMES were deliberately left alone: `soon` is in five test files and in
    `isComingSoon`, and renaming a selector to match a label is how a stylesheet and a suite drift. */
 .collection-group-soon{margin-top:32px;}
-.collection-group-soon > summary{cursor:pointer; list-style:none; border-radius:8px; transition:opacity .18s var(--ease);}
-.collection-group-soon > summary::-webkit-details-marker{display:none;}
-.collection-group-soon > summary:hover{opacity:.72;}
-.collection-group-soon > summary:focus-visible{outline:2px solid var(--indigo); outline-offset:4px;}
+.collection-group-soon > summary, .collection-group-fold > summary{cursor:pointer; list-style:none; border-radius:8px; transition:opacity .18s var(--ease);}
+.collection-group-soon > summary::-webkit-details-marker, .collection-group-fold > summary::-webkit-details-marker{display:none;}
+.collection-group-soon > summary:hover, .collection-group-fold > summary:hover{opacity:.72;}
+.collection-group-soon > summary:focus-visible, .collection-group-fold > summary:focus-visible{outline:2px solid var(--indigo); outline-offset:4px;}
 .group-chev{width:15px; height:15px; flex:none; color:var(--ink-faint); transition:transform .2s var(--ease);}
-.collection-group-soon[open] > summary .group-chev{transform:rotate(180deg);}
+.collection-group-soon[open] > summary .group-chev, .collection-group-fold[open] > summary .group-chev{transform:rotate(180deg);}
 @media (prefers-reduced-motion:reduce){ .group-chev{transition:none;} }
 /* The Languages section (Aug 2026, on request — "presented as official curated collections, with the
    same type of banners … as the history collections"). It was seven <details> folds of deck rows and is
@@ -10191,12 +10191,18 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
    line under the title is the old studied/total bar's head, with the bar itself hidden. The Studio's list
    and editor sit under Your decks (communityLibraryHTML), the editor opening in place (`.studio-inline`). */
 .vh{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
-.page .collection-group + .collection-group{margin-top:0;}
+/* EVERY SECTION IS A BLOCK OF ITS OWN (Oct 2026, on request: "a thin empty space between … like between the
+   planned section and your decks section … corners of each section rounded … each section collapsable like the
+   planned section"). They were one joined ledger with only the first head and the last row rounded; now each
+   is a <details> like Planned — 16px clear of its neighbour, all four corners rounded, and all four still
+   rounded while it is folded. */
+.page .collection-group + .collection-group{margin-top:16px;}
 .page .collection-group > .group-head, .page .collection-group > summary.group-head{
   margin:0; padding:8px 16px; background:var(--paper-2); border:1px solid var(--rule); border-bottom:0;
   font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600; gap:10px;
 }
-.page .collection-group:first-of-type > .group-head, .page .coll-tabrow + .collection-group > .group-head{border-radius:14px 14px 0 0;}
+.page .collection-group-fold > .group-head{border-radius:14px 14px 0 0;}
+.page .collection-group-fold:not([open]) > .group-head{border-radius:14px; border-bottom:1px solid var(--rule);}
 .page .group-label::before{display:none;}
 .page .group-label{letter-spacing:.14em; color:var(--ink-quiet);}
 .page .group-line{display:none;}
@@ -10206,12 +10212,11 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
    20px at a higher specificity — and only the LAST row of the list rounds, at the bottom (Oct 2026, on request) */
 .page .collection, .page .collection.open, .page .collection.placeholder,
 body[data-theme] .page .collection, body[data-theme] .page .collection.open, body[data-theme] .page .collection.placeholder{border-radius:0; box-shadow:none; border-top:0; background:var(--card);}
-.page .collection-group:last-of-type .collection-list > .collection:last-child, .page .collection-group-soon .collection-list > .collection:last-child,
-body[data-theme] .page .collection-group:last-of-type .collection-list > .collection:last-child, body[data-theme] .page .collection-group-soon .collection-list > .collection:last-child{border-radius:0 0 14px 14px;}
+.page .collection-group-fold .collection-list > .collection:last-child, .page .collection-group-soon .collection-list > .collection:last-child,
+body[data-theme] .page .collection-group-fold .collection-list > .collection:last-child, body[data-theme] .page .collection-group-soon .collection-list > .collection:last-child{border-radius:0 0 14px 14px;}
 .page .collection-row, .page .collection.placeholder .collection-row{padding:12px 16px; gap:14px;}
 body .collection .collection-row > .collection-deco, body[data-theme] .collection .collection-row > .collection-deco, body[data-theme].night .collection .collection-row > .collection-deco{
   width:var(--w, 0%); background:linear-gradient(90deg, color-mix(in srgb, var(--coll-bg, #888) 20%, var(--card)), color-mix(in srgb, var(--coll-bg, #888) 9%, var(--card)));
-  border-right:3px solid var(--coll-bg, #888);
 }
 .collection-row[style*="--w:0%"] > .collection-deco{display:none;}
 /* the icon on its own, in the collection's hue — no tinted square behind it (Oct 2026, on request: the square hid the fill row) */
@@ -10276,10 +10281,10 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
    corner rounded while it is folded, and the top two only once it is open (its last row rounds then). And
    "Your decks" keeps its own 22px, which the ledger's `.collection-group + .collection-group{margin-top:0}`
    had been taking away, leaving its head pressed against Planned's. */
-.page #langDecks{margin-top:0;}
-.page #langDecks > .group-head{border-radius:0; border-bottom:0; margin-bottom:0;}
-.page .coll-tabrow + #langDecks > .group-head{border-radius:14px 14px 0 0;}
-.page #langDecks .collection-list > .collection:last-child, body[data-theme] .page #langDecks .collection-list > .collection:last-child{border-radius:0 0 14px 14px;}
+.page #langDecks{margin-top:16px;}
+.page .coll-tabrow + #langDecks{margin-top:0;}
+.page #langDecks > .group-head{margin-bottom:0;}
+.page #langDecks[open] > .group-head{border-radius:14px 14px 0 0; border-bottom:0;}
 .page .collection-group + .collection-group-soon{margin-top:16px;}
 .page .collection-group-soon:not([open]) > summary.group-head{border-radius:14px; border-bottom:1px solid var(--rule);}
 .page .collection-group-soon[open] > summary.group-head{border-radius:14px 14px 0 0;}
