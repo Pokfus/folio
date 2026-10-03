@@ -355,6 +355,33 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Amasis Painter | the mid-6th century BCE; the Agora alabastron c. 560 BCE, the Boston amphora c. 525 – 515 BCE | Whitley 2018; Moore's review; Perseus (`gr-328`) |
 | Attic pottery trade | Athenian ware ousts Corinthian c. 550 BCE; the Vulci tombs yield 3,000 vases in 1829 CE | Moore's review of Boardman; Walters 1905 (`gr-329`) |
 | Red-figure | invented at Athens c. 530 BCE; declines c. 330 BCE | Neils's review of Robertson; Moore's review of Boardman (`gr-330`) |
+| Andokides Painter | the first regular red-figure painter; his Louvre amphora c. 530 – 520 BCE, Munich bilingual c. 530 – 510 BCE, Berlin amphora c. 525 BCE; the potters' Acropolis dedication about 525 BCE | Perseus; AIO, IG I³ 620 (`gr-331`) |
+| Kouros | earliest examples c. 610 – 600 BCE (the New York kouros); late c. 500 – 490 BCE (the Aristodikos); Kleobis and Biton c. 580 BCE | Perseus; Ridgway's review of Niemeier (`gr-332`) |
+| Kore | Nikandre's c. 640 – 630 BCE; Euthydikos Kore c. 490 – 480 BCE; Phrasikleia found 1972 CE | Perseus; Ridgway's reviews (`gr-333`) |
+| Archaic smile | Acropolis 654 c. 560 BCE; faded by c. 490 – 480 BCE | Perseus (`gr-334`) |
+| Peplos Kore | c. 530 – 525 BCE; found February 1886 CE | Perseus; Dickins 1912 (`gr-335`) |
+| Anavysos Kouros | c. 530 – 520 BCE; smuggled out 1932 CE; returned 1937 CE | Perseus; Thompson's review essay; Philadelpheus 1936 (`gr-336`) |
+| Moschophoros | c. 570 – 560 BCE; statue found 1864 CE, base 1887 CE | Acropolis Museum; Dickins 1912 (`gr-337`) |
+| Archaic temple | earliest known the 8th century BCE (Dreros, Samos, Thermos); first monumental c. 700 BCE (Isthmia) | Princeton Encyclopedia; Townsend's review of Barletta (`gr-338`) |
+| Doric and Ionic orders | first Doric features late in the 7th century BCE; both orders settled c. 580 – 570 BCE (the Ionic temple at Yria on Naxos) | Townsend's review of Barletta; Barletta's review of Gruben (`gr-339`, `gr-340`) |
+| Temple of Zeus at Olympia, Parthenon | 470 – 456 BCE; 447 – 432 BCE (prose on `gr-341`; the Classical cards own them) | Perseus building records (`gr-341`) |
+| Heraion of Olympia | c. 600 BCE, built in one campaign (an older view c. 650 BCE, in prose) | Yalouris, Princeton Encyclopedia (`gr-342`) |
+| Temple of Artemis at Corfu | c. 580 BCE | Perseus; Cambridge cast gallery (`gr-343`) |
+| Siphnian Treasury | c. 530 – 525 BCE; the Samian raid 525 BCE | Delphi site; Odysseus; Herodotus 3.57–58 (`gr-344`) |
+| Treasuries at Delphi | the earliest (Corinth's) at the end of the 7th century BCE; the Athenian after 490 BCE (or the late 6th century BCE, disputed); the Theban after 371 BCE | Roux, Princeton Encyclopedia; Pausanias 10.11; Odysseus (`gr-345`) |
+| Pediment sculpture | the Hekatompedon gable c. 570 BCE; the Aegina gables c. 500 – 480 BCE | Acropolis Museum; Perseus (`gr-346`) |
+| Selinus metopes | small metopes c. 550 – 540 BCE; Temple C's c. 540 – 530 BCE | Barletta's review of Marconi (`gr-347`) |
+| Aeolic capital | the Old Smyrna temple of Athena c. 610 – 600 BCE; most of the group the second half of the 6th century BCE | Miles's review; des Courtils 2011 (`gr-348`) |
+| Lost-wax casting | no year: large hollow bronzes by the 6th century BCE | Gardner 1915; Grossman's review (`gr-349`) |
+| Lyric poetry | Terpander's Carneia victory 676 BCE; the Bacchylides papyrus reaches London 1896 CE | Smyth 1900; Kowerski's review (`gr-350`, `gr-356`) |
+| Elegy | first poets early in the 7th century BCE; Echembrotus at the first Pythian music contest 586 BCE | Hardie 1920; Nobili 2011 (`gr-351`) |
+| Iambus | the trimeter appears in the mid-7th century BCE; abuse its main sense from the mid-6th; Hipponax in the 60th Olympiad, 540 – 537 BCE | Hardie 1920; Lomiento's review; Pliny 36.4 (`gr-352`) |
+| Archilochus | the eclipse usually dated 648 BCE (647 and 660 also proposed); Mnesiepes inscription 3rd century BCE; Cologne epode published 1974 CE | Edmonds 1931; MacPhail's review; Marcovich 1975 (`gr-353`) |
+| Sappho and Alcaeus | the Suda's 42nd Olympiad, 612 – 609 BCE (Sappho's date; the fall of Melanchrus); Sappho's exile in Sicily 598 BCE (Parian Chronicle); Pittacus rules 587 – 579 BCE | Suda; Edmonds 1922; Rackham's note to Aristotle, *Politics* (`gr-354`, `gr-355`) |
+| Mimnermus | the Suda's floruit, 37th Olympiad, 632 – 629 BCE; one edition prefers the mid-7th century BCE | Suda; Brown's review of Allen (`gr-357`) |
+| Theognis | the Suda's date 544 – 541 BCE; poems reaching back to the later 7th century BCE and forward to the Persian invasion | Suda; De Martin 2022 (`gr-358`) |
+| Anacreon | left Teos with its people for Abdera 545 BCE | Smyth 1900 (`gr-359`) |
+| Ibycus | the Suda's 54th Olympiad, 564 – 561 BCE; Eusebius's 536 – 533 BCE | Suda On Line (`gr-360`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -688,4 +715,32 @@ gr-327: 570; 565; 560
 gr-328: 560; 525; 515
 gr-329: 550; 1829
 gr-330: 530; 330
+gr-331: 530; 520; 510; 525
+gr-332: 610; 600; 500; 490
+gr-333: 640; 630; 490; 480
+gr-334: 560; 490; 480
+gr-335: 530; 525; 1886
+gr-336: 530; 520; 1932; 1937
+gr-337: 570; 560; 1864; 1887
+gr-338: 700
+gr-339: 580; 570
+gr-340: 580; 570
+gr-342: 600
+gr-343: 580
+gr-344: 530; 525
+gr-345: 490; 371
+gr-346: 570; 500; 480
+gr-347: 550; 540; 530
+gr-348: 610; 600
+gr-350: 676; 1896
+gr-351: 586
+gr-352: 540; 537
+gr-353: 648; 1974
+gr-354: 612; 609; 598
+gr-355: 612; 609; 587; 579
+gr-356: 676
+gr-357: 632; 629
+gr-358: 544; 541
+gr-359: 545
+gr-360: 564; 561; 536; 533
 ```

@@ -648,6 +648,21 @@ would open Alcmaeon of Croton), `Hipparchus` son of Charmus and `Hippocrates` fa
 `Thebes` (`gr-320`, the Classical city, which would open Mycenaean Thebes). `gr-321`'s Learn-more link pointed
 at the North American Archaic period and now opens Archaic Greece.
 
+**Added by the refinement's B36–B38 (2026-10-03)**, counted the same way after `gr-331`–`gr-360` were
+rewritten. `Caryatid`, `Triglyph`, `Volute`, `Echinus` and `Medusa` already have keys.
+
+| cards | term | note |
+|---|---|---|
+| 6 | Gorgon | an alias of `Medusa` would do, but the Corfu gable's Gorgon is not named Medusa on every card |
+| 4 | Pittacus | of Mytilene, one of the Seven Sages |
+| 3 | Terpander · bilingual vase | |
+| 2 | Carneia · Lycambes · Theodorus of Samos | Theodorus the Samian founder, not the mathematician of Cyrene |
+| 1 | Psiax · Lysippides Painter · Kleobis and Biton · Phrasikleia · Nikandre · ependytes · abacus · mutule · dentil · tympanum · acroterion · sphyrelaton · Rhoecus · pentameter · iambic trimeter · Hipponax · Semonides · Neobule · Charaxus · Phaon · Myrsilus · hetaireia · Arion · Nanno · Cyrnus · Anacreontea · Rhegion · Old Smyrna · Neandria · Heraea | |
+
+Wrong auto-links stopped with `<span class="ans-term">`: Terpander's `nome`, the musical form (`gr-356`, would open the
+Egyptian province); `Megara` in Sicily (`gr-358`); `Antipater` of Sidon (`gr-360`); `Paris` and `Leucippus` on
+the Siphnian frieze (`gr-344`); `Thebes` (`gr-345`).
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
