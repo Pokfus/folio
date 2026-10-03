@@ -139,7 +139,7 @@ in plan order unless the user says otherwise.
 | B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | **done 2026-10-03** |
 | B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | **done 2026-10-03** |
 | B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | **done 2026-10-03** |
-| B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | open |
+| B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | **done 2026-10-03** |
 | B27 | The Bronze Age world (`wh-bronze-age`) | `wh-261`–`wh-270` | 10 | 117 | open |
 | B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | open |
 | B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | open |
@@ -1149,6 +1149,38 @@ conquest is 1046 BCE on `wh-245` and `wh-246`; `wh-247` keeps its source's occup
 
 **Glossary.** Seven terms rewritten; *Shang dynasty*, *Yinxu* and *Chinese ritual bronzes* already agreed.
 
+### B26 — `wh-251`–`wh-260`, The Indus and early China and The Bronze Age world (2026-10-03)
+
+Run as B25. Checks: `wh-audit.js --range=wh-251:wh-260` clean but for `W.not-why` notes on two and `wh-252`'s
+`I.duplicate` (its rubbing is also `cnh-105`'s: picture pass); `check-questions`, `check-cards --prefix` per
+card, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans` pass;
+`check-citations --card` 0 mismatched; all 76 distinct URLs 2xx. No new locators: none of the ten is a place. **The Indus and early China deck is now done.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-251` Western Zhou | 7 | 5 → 7 | **An "877 – 771 BCE" row was one kiln study's date.** The line is c. 1046 – 771 BCE with the firm dates from 841; the project's own alternatives (1044, 1027) and others' starts (1045, 1047) in prose. The fall in 771 and the hoards buried as the court fled added. |
+| `wh-252` Mandate of Heaven | 8 | 5 → 8 | **"Xunzi rejected the idea outright"**: its own source says he denied its premise. Heaven's command is attested on Western Zhou bronzes and in the Documents chapters dated to the period; Mencius and Dong Zhongshu's fuller theory added as later. |
+| `wh-253` Chinese characters | 9 | 5 → 9 | **"One of only three scripts invented from scratch"**: the source also names Mesoamerica. Late Shang ends 1046, as on `wh-246`. A background of metaphor theory and the simplification debate became the script's whole story: stages, the Qin standard of 221 BCE, meaning-and-sound pairs, the 1956 reform. |
+| `wh-254` silk | 9 | 5 → 9 | **"The Palmyra silk was Indian tasar"**: some of it was Chinese, so "some". A Sanxingdui row dropped; the Jiahu proteins, the Uzbek cocoons of 1940 – 1765 BCE, degumming and pebrine added; `undatable` false. |
+| `wh-255` jade | 9 | 5 → 9 | **Xinglongwa as "the earliest" jade was one survey's view, stated as fact**; now credited. The heaven-and-earth reading of the cong and bi marked as possibly later, the bi-from-spindle-whorl idea as one view. Runs to the Shang and Western Zhou; `undatable` false. |
+| `wh-256` Bronze Age | 9 | 5 → 9 | **The glossary's "3300 BCE" was cited to a source that does not give it.** An Israeli tin study and a 291-million-year ore age dropped; the line gives three regional spans, each read off a source; the collapse cut to one sentence for `wh-279`. |
+| `wh-257` bronze | 9 | 5 → 9 | Balkan lead pollution, a "3600 BCE" row and two phrasings on Anyang and Serbia dropped. Earliest known c. 4650 BCE (the Pločnik foil), widespread by 1500 BCE. **A citation's issue number (6 for 7) and another's page range corrected.** |
+| `wh-258` Yamnaya culture | 7 | 5 → 7 | **"435 individuals": the paper gives 428**, so no count is given. Riding on DOM2 horses (contested) and off-topic Ukrainian genomes dropped. c. 3300 – 2500 BCE, widest by 3000; dairying, wagon graves and the riding evidence (hedged) added. |
+| `wh-259` Indo-European languages | 8 | 5 → 8 | **"25,731 lexemes": the paper gives 25,781**, and the card recited dataset statistics; now the family itself. The homeland a modern reconstruction, each view named: steppe, Anatolian farmers, Caucasus–Lower Volga, and a hybrid. |
+| `wh-260` domestication of the horse | 8 | 5 → 8 | **Botai's horse-keeping was stated as fact**; now hedged with the Przewalski's-line finding and the wild-harvest view. The c. 2200 BCE modern line and its critics' reply both given; figures of years out of the phrasings. |
+
+**Read by eye.** *Article:* "the Western Zhou", "the Mandate of Heaven", "the Bronze Age", "the Yamnaya culture",
+"the Indo-European languages", "the domestication of the horse"; characters, silk, jade and bronze bare.
+*Confusability:* `wh-253`/`wh-246` the script against its oldest form, the five stages only on `wh-253`;
+`wh-256`/`wh-257` the period and the alloy, regions against recipe; `wh-258`/`wh-259`/`wh-260` the culture, the
+languages and the horse, the steppe spread kept on `wh-259`, riding on `wh-258` only as one study's reading.
+*Consistency:* the Zhou conquest c. 1046 BCE across `wh-245`, `wh-251` and `wh-252`; Yamnaya from c. 3300 BCE on
+`wh-258` and `wh-259`. *Against the cnh- cards:* `cnh-112` agrees on 1046 – 771 and 841; `cnh-049` dates Liangzhu
+3300 – 2300 BCE against Liu's 3200 – 2000 on `wh-255`.
+
+**Glossary.** Eight terms rewritten; *Silk* and *Jade* already agreed. The *Bronze* and *Indo-European* entries'
+picture fields carry licence text or an edit summary: picture pass.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1248,3 +1280,7 @@ pass once it answers. Filled batch by batch.
 | `wh-241`, `wh-242` | fit, but credits lack the author, licence and Commons URL form |
 | `wh-244` | a 1903 map sheet with pencilled notes and a library stamp |
 | `wh-247` | one chariot pit; a wider view of the site would serve better |
+| `wh-252` | the Da Yu ding rubbing, also `cnh-105`'s |
+| `wh-253` | a labelled chart of one character through the scripts |
+| `wh-257` | a hoard photographed against a ruler with handwritten labels |
+| `wh-260` | a multi-panel research figure |
