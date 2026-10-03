@@ -157,3 +157,20 @@ through `render()`, which would discard the inline editor's state and anything a
 (the admin's reports queue). Guarded by `test-community.js`, `test-card-types.js`, `test-deck-ux.js`,
 `test-publish.js`, `test-deck-glossary.js`, `test-deck-lazy.js`.
 
+
+## Holding a collection opens its info sheet (Oct 2026)
+
+On request: a **long press** on a collection's row (or a right-click, or the ContextMenu key) opens a
+sheet (`openCollectionInfo`, through `wireHoldMenu` and `deckSheet`, so a tap still studies and a scroll
+still scrolls). It shows the card count and decks, cards studied and learned (`atCriterion`), **On Folio
+since**, when the reader added it, and how many readers have added and finished it.
+- **On Folio since** is `COLLECTION_SINCE` in app.js: the day the collection's first card reached `main`,
+  from `git log --reverse -S'"<first card id>"' origin/main`. A new collection needs its line; one
+  without a line has no row rather than a guessed date.
+- **Added by you** is `S.collAdded[id].at`, a PROGRESS_FIELD (synced, kept by Reset), stamped by
+  `addActive`. A collection added before Oct 2026 has no stamp, so the sheet shows **First studied** (the
+  earliest `first` on its cards) instead, labelled as that.
+- **The reader counts** are `collection_stats` / `bump_collection`, **schema section 17**, pooled counters
+  like the book reads (section 16). `collStatsSync` counts a reader once per collection for an add and
+  once for finishing it, marking `a` / `d` on the same record. It runs after boot, on an add and when the
+  sheet opens. Off on a dev origin; latched off on a 404, when the rows say "not collected yet".

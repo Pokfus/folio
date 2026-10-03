@@ -1543,6 +1543,9 @@
          shelf a phone shows is the shelf the laptop shows. The timestamp rather than `true` is what lets
          the Favourites section keep the order they were starred in. */
       bookFavs: {},
+      /* Per collection: { at: the day the reader added it, a: counted as an add, d: counted as finished } —
+         see openCollectionInfo. A choice and its date rather than study history, so Reset keeps it. */
+      collAdded: {},
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0 },   // `podiums` retired with the rival-bot race — nothing ever read it
       chrono: { date: "", best: 0, plays: 0, solved: false }, // timeline game daily record
       games: {}, // minigame id ("challenge"/"chrono"/"truefalse"/"whosaid") -> { date, played, won } for today's tile checkmarks + the daily-sweep badge
@@ -2148,7 +2151,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2240,7 +2243,7 @@
      streak and the badges, and an unlocked theme is an appearance the reader is wearing — clearing it
      would take the site's own look away from somebody who reset a card schedule, and would leave them
      wearing a theme they no longer own. `chestsOpened` and `published` are history and go. */
-  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags", "notes", "themes", "theme"];
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "collAdded", "deckGroups", "deckNest", "flags", "notes", "themes", "theme"];
   /* ---------- RESETTING ONE DECK (Sep 2026, on request: "in the long press menu of active decks, there
      should be an option to reset all the user's progress in that particular deck") ----------
      `resetProgress` above is the whole save; this is one entry's share of it, and the two answer the same
@@ -6327,6 +6330,7 @@
                                        .map((p) => uSubEntry(usubId, p)))
       : [id];
     S.active = a.concat(wanted.filter((x) => a.indexOf(x) === -1));
+    if (n) collStatsSync(rootCollectionOf(n).id, true);   // the day it was added, and the reader counts
     save();
     tourNotify("added", id);   // the walkthrough's "Pick a subject" step moves on the moment a deck is added
     return true;
@@ -27090,6 +27094,119 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
   //  removed on request; collection banners stay static, coloured only by --coll-bg + the seal)
 
+  /* ---------- A COLLECTION'S INFO SHEET (Oct 2026, on request: "long pressing a collection in the Collections
+     page should show a popup with some information about the collection") ----------
+     Held down on a collection's row (or right-clicked, or its ContextMenu key) — `wireHoldMenu`, the same
+     classifier the review's deck rows use, so a tap still studies and a scroll still scrolls. It says how big
+     the collection is, how much of it the reader has studied and learned, when it reached Folio, when the
+     reader added it, and how many readers have added and finished it.
+
+     WHEN IT REACHED FOLIO is the day its first card shipped, read off the repository's history rather than
+     typed from memory: `git log --reverse -S'"<first card id>"' origin/main`. A collection added later needs
+     its line here; one without a line simply has no row, which is better than a guessed date.
+
+     WHEN THE READER ADDED IT is recorded from Oct 2026 on, in `S.collAdded[collectionId].at` (a PROGRESS_FIELD,
+     so it syncs). A collection added before then has no record, and the sheet says when its first card was
+     STUDIED instead, labelled as that — the card records carry `first`, so that date is real.
+
+     THE READER COUNTS are pooled counters (`collection_stats`, block 17 of supabase-schema.sql), for the
+     reason sections 13, 15 and 16 give: `progress` is readable only by its owner and their friends, so nothing
+     can count across it. A reader is counted once per collection for adding it and once for finishing it
+     (every card at criterion — `atCriterion`), and that they have been is written into the same synced
+     record (`a`, `d`), so a second device does not count them twice. The check runs at boot, after an add,
+     and when the sheet opens, which is also what counts readers who added a collection before the counter
+     existed — the first time they open the site. Off on a dev origin and latched off on a 404, like the
+     book counts: until the block is run the two rows say the figures are not collected yet. */
+  const COLLECTION_SINCE = {
+    china: "2026-07-11", "col-8": "2026-07-20", "col-13": "2026-08-03", "col-40": "2026-08-07",
+    "geo-us": "2026-08-15", "geo-world": "2026-08-28", psych: "2026-08-28", "geo-china": "2026-08-29",
+    ww2: "2026-09-05", bio: "2026-09-05", "col-42": "2026-09-05", korea: "2026-09-06", "col-41": "2026-09-06",
+    japan: "2026-09-06", art: "2026-09-06", "geo-russia": "2026-09-14", pea: "2026-09-17", egypt: "2026-09-18",
+    flags: "2026-09-18",
+  };
+  function fmtYmd(s) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ""));
+    if (!m) return "";
+    return new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+  }
+  function collRec(id) {
+    if (!S.collAdded || typeof S.collAdded !== "object") S.collAdded = {};
+    if (!S.collAdded[id] || typeof S.collAdded[id] !== "object") S.collAdded[id] = {};
+    return S.collAdded[id];
+  }
+  const collIsAdded = (c) => nodeSubtreeIds(c).some((x) => isActive(x));
+  function collIsDone(c) {
+    const ids = subtreeCardIds(c);
+    return ids.length > 0 && ids.every(atCriterion);
+  }
+  let _collStatsOff = false;
+  const _collStats = Object.create(null);
+  function collStatsPost(id, kind) {
+    if (_collStatsOff || isDevOrigin()) return;
+    supaFetch("/rest/v1/rpc/bump_collection", { method: "POST", body: { c: String(id), k: kind } })
+      .then((r) => { if (r && r.status === 404) _collStatsOff = true; });
+  }
+  async function collStatsLoad(id) {
+    if (_collStatsOff || isDevOrigin()) return null;
+    const r = await supaFetch("/rest/v1/collection_stats?select=adds,completes&coll=eq." + encodeURIComponent(id));
+    if (!r || !r.ok) { if (r && r.status === 404) _collStatsOff = true; return null; }
+    const row = Array.isArray(r.data) && r.data[0];
+    return (_collStats[id] = { adds: row ? row.adds | 0 : 0, completes: row ? row.completes | 0 : 0 });
+  }
+  /* Records today as the day a collection was added (the first time only), and counts this reader towards
+     its two figures if they have not been yet. `only` narrows it to one collection; `stamp` is set by the
+     add itself, the one moment the date is known to be today. */
+  function collStatsSync(only, stamp) {
+    let changed = false;
+    ((TREE && TREE.collections) || []).forEach((c) => {
+      if (only && c.id !== only) return;
+      if (isComingSoon(c) || !collIsAdded(c)) return;
+      const rec = collRec(c.id);
+      if (!rec.at && stamp) { rec.at = todayStr(); changed = true; }
+      if (_collStatsOff || isDevOrigin()) return;
+      if (!rec.a) { rec.a = 1; changed = true; collStatsPost(c.id, "add"); }
+      if (!rec.d && collIsDone(c)) { rec.d = 1; changed = true; collStatsPost(c.id, "done"); }
+    });
+    if (changed) save();
+  }
+  function openCollectionInfo(c) {
+    const ids = subtreeCardIds(c);
+    const total = ids.length, studied = ids.filter(isSeen).length, learned = ids.filter(atCriterion).length;
+    const decks = nodeChildren(c).length;
+    const pct = (n) => total ? ' <span class="ci-of">' + Math.round((n / total) * 100) + "%</span>" : "";
+    const rows = [];
+    const add = (k, v, attr) => rows.push('<div class="ci-k">' + esc(k) + '</div><div class="ci-v"' + (attr || "") + ">" + v + "</div>");
+    add("Cards", total + (decks > 1 ? ' <span class="ci-of">in ' + decks + " decks</span>" : ""));
+    add("Studied", String(studied) + pct(studied));
+    add("Learned", String(learned) + pct(learned) + (learned ? "" : ' <span class="ci-of">recalled on ' + CRIT_DAYS + " separate days</span>"));
+    const since = fmtYmd(COLLECTION_SINCE[c.id]);
+    if (since) add("On Folio since", esc(since));
+    const rec = (S.collAdded && S.collAdded[c.id]) || {};
+    if (!collIsAdded(c)) add("Added by you", "Not added");
+    else if (rec.at) add("Added by you", esc(fmtYmd(rec.at)));
+    else {
+      const firsts = ids.map((id) => S.cards[id] && S.cards[id].first).filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d || "")).sort();
+      add(firsts.length ? "First studied" : "Added by you", firsts.length ? esc(fmtYmd(firsts[0])) : "Before Oct 2026");
+    }
+    const off = _collStatsOff || isDevOrigin();
+    const known = _collStats[c.id];
+    const fig = (k) => off ? '<span class="ci-of ci-solo">not collected yet</span>' : known ? String(known[k]) : "…";
+    add("Readers who added it", fig("adds"), ' data-cs="adds"');
+    add("Readers who finished it", fig("completes"), ' data-cs="completes"');
+    const html =
+      '<div class="dm-head"><span class="dm-title">' + esc(nodeTitle(c)) + '</span><span class="dm-where">Collection</span></div>' +
+      '<div class="ci-grid">' + rows.join("") + "</div>" +
+      '<p class="dm-note">Finished means every card learned. Reader counts are kept from Oct 2026, and count each reader once.</p>';
+    collStatsSync(c.id);
+    deckSheet("About " + nodeTitle(c), html, (ov) => {
+      if (off) return;
+      collStatsLoad(c.id).then((st) => {
+        ov.querySelectorAll("[data-cs]").forEach((el) => {
+          el.innerHTML = st ? String(st[el.dataset.cs]) : '<span class="ci-of ci-solo">not collected yet</span>';
+        });
+      });
+    });
+  }
   function buildCollection(d) {
     const studied = studiedInNode(d);
     const total = subtreeCardIds(d).length;
@@ -27149,6 +27266,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       } else if (deco) { deco.remove(); }
       const collAddBtn = collEl.querySelector(".collection-add");
       if (collAddBtn) wireAddButton(collAddBtn, d.id);
+      // held down, the row opens the collection's info sheet (see openCollectionInfo); a tap still studies
+      if (!soon) wireHoldMenu(collEl.querySelector(".collection-row"), () => openCollectionInfo(d));
       {
         // stopPropagation, or the row's own click (which studies the whole subtree) fires with it
         const tb = collEl.querySelector(".collection-try");
@@ -52384,7 +52503,7 @@ let prev = null;
   scheduleDayRoll();   // …and a page left open across the day boundary picks the new day up on its own
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
   communityBoot();   // async: the user's own decks load from IndexedDB, then the deck pages re-render
-  supaBoot().then(cloudBootOverrides);   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
+  supaBoot().then(cloudBootOverrides).then(() => collStatsSync());   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
   // …and the pooled card counters behind the community difficulty rating, at idle: nothing on the first
   // paint depends on them, and a card without them simply shows the editorial rating it always did
   whenIdle(() => { cardStatsLoad(); });
