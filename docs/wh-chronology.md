@@ -275,6 +275,16 @@ Filled batch by batch, from the source each row names.
 | Ugarit at its height / destroyed / found | c. 1600 – 1200 BCE / c. 1192 – 1190 BCE / 1928 | Fuller et al.; Kaniewski et al.; Gordon (`wh-268`) |
 | Proto-Sinaitic: Sinai texts / Wadi el-Hol / minority date | c. 1900 – 1800 / c. 1850 – 1700 / c. 1400 – 1300 BCE | Höflmayer et al.; Lam (`wh-269`) |
 | Amarna letters written / found | c. 1365 – 1330 BCE / 1887 | Aissaoui; Scoville (`wh-270`) |
+| Uluburun ship sank / found / excavated | c. 1320 BCE (± 15; others c. 1310 or 1300) / 1982 / 1984 – 1994 | Institute of Nautical Archaeology (`wh-271`) |
+| tin: Assur caravans to Anatolia | c. 1950 – 1750 BCE (`wh-272` is `undatable`; prose only) | (`wh-272`) |
+| Bell Beaker: spread / fades | c. 2750 – 2500 BCE / 2200 – 1800 BCE; Britain from c. 2450 | Olalde et al. 2018 (`wh-273`) |
+| Únětice culture (central Germany) | c. 2200 – 1550 BCE; Leubingen oak 1942 ± 10 BCE | Penske et al. (`wh-274`) |
+| Nebra sky disc made / buried / found | c. 1800 – 1700 / c. 1600 BCE / 1999 (an Iron Age date proposed in 2020, rebutted) | Dieck et al. (`wh-275`) |
+| Nordic Bronze Age / Period I | c. 1700 – 500 / c. 1700 – 1500 BCE | Díaz-Guardamino et al.; Frei et al. (`wh-276`) |
+| Oxus civilisation: Gonur North / final phase | c. 2200 – 1950 / c. 1800 – 1500 BCE | Berger et al.; Guarino-Vignon et al. (`wh-277`) |
+| Sea Peoples under Merneptah / Ramesses III's Delta battle | c. 1213 – 1203 BCE / c. 1188 – 1176 BCE (datings differ) | Kaniewski et al. (`wh-278`) |
+| Late Bronze Age collapse / Hittite drought | c. 1250 – 1150 BCE / c. 1198 – 1196 BCE | Knapp and Manning; Manning et al. (`wh-279`) |
+| iron: first used / main metal in the southern Levant | before 2100 BCE / c. 1000 – 800 BCE | Mokrišová and Verčík; Yahalom-Mack and Eliyahu-Behar (`wh-280`) |
 
 ## Chronology pins
 
@@ -540,4 +550,13 @@ wh-267: 1730; 1650; 1200; 1906
 wh-268: 1600; 1200; 1192; 1190; 1928
 wh-269: 1900; 1800; 1850; 1700; 1400; 1300
 wh-270: 1365; 1330; 1887
+wh-271: 1320; 1982; 1984; 1994
+wh-273: 2750; 2500; 2200; 1800
+wh-274: 2200; 1550
+wh-275: 1800; 1700; 1600; 1999
+wh-276: 1700; 500; 1500
+wh-277: 2200; 1950; 1800; 1500
+wh-278: 1213; 1203; 1188; 1176
+wh-279: 1250; 1150; 1198; 1196
+wh-280: 2100; 1000; 800
 ```

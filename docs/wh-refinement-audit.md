@@ -141,7 +141,7 @@ in plan order unless the user says otherwise.
 | B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | **done 2026-10-03** |
 | B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | **done 2026-10-03** |
 | B27 | The Bronze Age world (`wh-bronze-age`) | `wh-261`–`wh-270` | 10 | 117 | **done 2026-10-03** |
-| B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | open |
+| B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | **done 2026-10-03** |
 | B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | open |
 | B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | open |
 | B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | open |
@@ -1214,6 +1214,37 @@ ends the Mycenaean world c. 1100 against c. 1050.
 **Glossary.** Six terms rewritten; *Hittites*, *Hattusa*, *Proto-Sinaitic script* and *Amarna letters* already
 agreed.
 
+### B28 — `wh-271`–`wh-280`, The Bronze Age world (2026-10-03)
+
+Run as B27. Checks: `wh-audit.js --range=wh-271:wh-280` clean but for `W.not-why` notes on three, `wh-272`'s
+`I.duplicate` (the generic `1920px-thumbnail.jpg` false positive) and a `Q.sibling` on `wh-280` against `wh-281`'s old phrasings, which B29 rewrites; the rest as B27; all 67 distinct
+URLs 2xx and `check-citations --card` 0 mismatched. New locators: `wh-271` (Uluburun, near Kaş) and `wh-275`
+(the Mittelberg near Nebra). **The Bronze Age world deck is now done.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-271` Uluburun shipwreck | 6 | 5 → 7 | **"360 copper and 160 tin ingots, 12 tons" was one older count the other sources contradict**; dropped with an ingot weight, a Sicily and Sardinia spread and a *mekku*-stone link. Sank c. 1320 BCE ± 15, other accounts nearer 1310 or 1300; the find, the dig and the tin-source dispute added. The glossary called a scholar "the excavator". |
+| `wh-272` tin | 9 | 5 → 9 | **"Seven wars, 1895 – 1835 BCE" rested on an article whose page shows only its abstract.** `undatable` true; stream tin, the Assur caravans c. 1950 – 1750 BCE, Gudea's Meluhha and the unresolved sources added. |
+| `wh-273` Bell Beaker culture | 7 | 5 → 7 | **"Little outside influence" on Iberia** is reversed by the genomes: about 40 per cent of its ancestry and nearly all its Y-chromosomes replaced by c. 2000 BCE. "Flint, barbed" arrowheads are only arrowheads in the source. Britain's turnover and the idea-or-people debate added. |
+| `wh-274` Únětice culture | 6 | 5 → 6 | **Łęki Małe began c. 2150 BCE, not 2130**, and "fourteen generations" had no source. "Sons inherited the farmstead" was earlier research the paper cites, not its finding; an etymology and "first ranked society" dropped. The line is the culture's span. |
+| `wh-275` Nebra sky disc | 7 | 5 → 7 | **A paper on Leubingen that never mentions Nebra** dropped. Made c. 1800 – 1700, buried c. 1600 BCE, found 1999, replacing a non-date row and an antler-pick row; the 2020 Iron Age dating and its rebuttal each named. |
+| `wh-276` Nordic Bronze Age | 7 | 6 → 7 | **"The richest culture with no metal of its own" and "the Egtved grave reopened"** had no source. In use c. 1700 – 500 BCE; imported metal, rock-carved boats, oak-coffin burials and the amber-for-metal view added. |
+| `wh-277` Oxus civilisation | 6 | 5 → 6 | **A main phase c. 2300 – 1950 BCE and a "mid-2nd millennium" row had no source**; **the bronze "from Mushiston" was overstated.** Gonur North c. 2200 – 1950 and the final phase c. 1800 – 1500 BCE; a phrasing that repeated `wh-254`'s Sapalli silk clue moved to grapes. |
+| `wh-278` Sea Peoples | 7 | 5 → 7 | **A "14th – 11th century" span had no source**; an Ashkelon burial row and the 1192 – 1190 BCE destruction (`wh-279`'s and `wh-268`'s) dropped. The line is Merneptah's war and Ramesses III's battle; Medinet Habu's text and the Ashkelon genomes added. |
+| `wh-279` Late Bronze Age collapse | 7 | 5 → 8 | The old card was a drought and one jar, **with years in a phrasing**. Now the whole collapse, c. 1250 – 1150 BCE, the survivors, and each cause as a view, with the review that found 94 of 153 claimed destructions unproven. |
+| `wh-280` ironworking | 8 | 5 → 9 | **The tin-scarcity argument for iron is in no source read**, and Africa's figures came from a page that would not open. The bloomery, meteoritic iron doubted, first iron before 2100 BCE, the Levant c. 1000 – 800 BCE, Han cast iron and Africa without a Bronze Age added. |
+
+**Read by eye.** *Article:* "the Uluburun shipwreck", "the Bell Beaker culture", "the Únětice culture", "the Nebra sky
+disc", "the Nordic Bronze Age", "the Oxus civilisation", "the Sea Peoples", "the Late Bronze Age collapse"; tin and
+ironworking bare. *Confusability:* `wh-271`/`wh-272`/`wh-257` the wreck, the metal and the alloy, the tin-source
+dispute on the first two told apart by ingots and caravans; `wh-273`/`wh-274`/`wh-275`/`wh-276` four Europeans,
+the Leubingen mound only on `wh-274`; `wh-278`/`wh-279` the raiders and the crisis, the 1192 – 1190 BCE date kept
+on `wh-268`. *Consistency:* the Sapalli cocoons 1940 – 1765 BCE agree on `wh-254` and `wh-277`; Merneptah c. 1213
+– 1203 BCE; Hattusa abandoned on `wh-267` and `wh-279`.
+
+**Glossary.** Seven terms rewritten; *Uluburun shipwreck*, *Late Bronze Age collapse* and *Ironworking* already
+agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1323,3 +1354,5 @@ pass once it answers. Filled batch by batch.
 | `wh-268` | **locator**: neither "Ugarit" nor "Ras Shamra" has a coordinate |
 | `wh-269` | a 1916 line drawing where photographs exist |
 | `wh-270` | a 1915 printed hand copy with line numbers |
+| `wh-272` | fits, but description names a museum; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
+| `wh-276` | the Egtved clothing, one grave; description names a museum |
