@@ -321,7 +321,7 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   grid at every width (a flex row wrapped at desktop and looked broken), drawing **the current week
   only, at every width** (Oct 2026, on request), with its **chest cell at the end**
   (`streakChestProgress`, `STREAK_CHEST_EVERY`): one row of count, week, then Longest over the note at
-  the right; a phone puts the label over the week. The Account page's streak box went with it (on request).
+  the right on a tablet and desktop; a phone keeps its two-row layout (on request). The Account page's streak box went with it (on request).
 - **"Your collections"** is a header row (`.rv-sec-h`) with the legend and the **"+ Add decks" link**;
   it never counts cards (on request). Each row is tinted by its own progress: the `.dk-prog .track` is
   absolutely positioned under the row and is `pointer-events:none` — it sat over the drag grip and
