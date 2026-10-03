@@ -5,6 +5,13 @@
 //   node .claude/add-card.js <card.json> [deckId]
 //   node .claude/add-card.js <patch.json> --replace [--no-image] [--dry-run]   (--dry-run: check, write nothing)
 //
+//   A NEW CARD LOOKS FOR ITS WIKIPEDIA ARTICLE HERE (Oct 2026): once the card is written this resolves the
+//   answer term's dedicated English Wikipedia article and writes it onto the card as `wiki`, which the
+//   Learn-more tile at the foot of the card links to. Where the answer has no article (a descriptive phrase)
+//   it says so and the card simply shows no tile. See .claude/wiki-step.js. `--no-wiki` skips it (import-batch
+//   does, and resolves its whole batch in one go); a --replace re-resolves only when the ANSWER changed.
+//   Never put a `wiki` field in the card file: apply-wiki-links.js is its only writer.
+//
 // <card.json>  a file holding ONE card object (all 13 fields), PLUS a `questions` array of 2 extra
 //              question phrasings (3 in all — the site asks one at random), PLUS a `sources` array of
 //              Chicago note-form citations referenced from the abstract, PLUS an `i18n` block with
@@ -188,8 +195,13 @@ const REPLACE = process.argv.includes("--replace");
 const posArgs = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 const cardFile = posArgs[0], deckId = posArgs[1];
 if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [deckId]   |   node .claude/add-card.js <patch.json> --replace"); process.exit(1); }
+const NO_WIKI = process.argv.includes("--no-wiki");
 const card = (() => {
   const raw = JSON.parse(fs.readFileSync(cardFile, "utf8"));
+  if ("wiki" in raw) {
+    console.warn("WARNING: the card carries a `wiki` field — DROPPED. It is written only by .claude/apply-wiki-links.js, from the entry find-wiki-links.js resolved; to change a card's link, edit its entry in .claude/wiki-links.json (see docs/wikipedia-links-audit.md).");
+    delete raw.wiki;
+  }
   if (!REPLACE) return raw;
   const cur = require("./card-io").loadCards().cards.find((c) => c.id === raw.id);
   if (!cur) { console.error("ERROR: --replace names " + raw.id + ", which is not a card."); process.exit(1); }
@@ -962,10 +974,15 @@ if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", lea
 if (process.argv.includes("--dry-run")) { console.log("dry run: " + card.id + " passes every guard (nothing written)"); process.exit(0); }
 if (REPLACE) {
   const at = cards.findIndex((c) => c.id === card.id);
+  const answerOf = (c) => String(c.answerText || c.answer || "").replace(/<[^>]*>/g, "").trim();
+  const answerChanged = answerOf(cards[at]) !== answerOf(card);
   cards[at] = card;
   require("./card-io").writeCards(cards, tree);
   loadWindow(dataPath);
   console.log("replaced card " + card.id + " in place (deck " + deck.id + ")");
+  // a changed ANSWER may have a different article (or none); an unchanged one keeps the link it has, which
+  // may be a hand-corrected entry in wiki-links.json that a re-resolve would only repeat
+  if (answerChanged && !NO_WIKI) require("./wiki-step.js").linkNewCards([card.id]);
   process.exit(0);
 }
 cards.push(card);
@@ -985,6 +1002,12 @@ fs.writeFileSync(dataPath, out);
 require("./card-io").resplit();
 loadWindow(dataPath);   // re-parse to confirm the written file is valid JS
 console.log("added card " + card.id + " -> deck " + deck.id + " | total cards: " + cards.length);
+
+/* …AND ITS WIKIPEDIA ARTICLE (see the header and .claude/wiki-step.js). Synchronous and best-effort: the
+   card is already written, so a rate-limited or unreachable Wikipedia prints the command that finishes
+   the job and changes no exit status — `apply-wiki-links.js --check` (a CI step) is what catches a card
+   that was left without. */
+if (!NO_WIKI) require("./wiki-step.js").linkNewCards([card.id]);
 
 /* A NEW CARD LOOKS FOR ITS PICTURE HERE, not in a later sweep.  The picture pass that put an
    illustration on several hundred cards was a batch over the whole corpus, and a batch is a thing

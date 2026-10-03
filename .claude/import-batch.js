@@ -15,6 +15,10 @@
  *      no `at` are taken off first. A refusal does not stop the batch.
  *   3. Cards that were added and asked for a locator ({ title, name?, zoom?, kind? }) are passed to
  *      add-locators.js, which fetches the real coordinate (needs the network).
+ *   3b. Each added card's dedicated Wikipedia article is resolved in ONE pass (wiki-step.js) and written
+ *      onto the card as `wiki`, which the Learn-more tile at the foot of the card links to. A card whose
+ *      answer has no article gets none and shows no tile; if Wikipedia does not answer, the exact command
+ *      that finishes the job is printed (CI's `apply-wiki-links.js --check` fails until it is run).
  *   4. Everything refused is written to <batch>.rejected.json with the validator's message beside it,
  *      so it can be fixed and re-imported. Each card's `notes` are printed.
  *
@@ -72,7 +76,7 @@ for (const c0 of cards) {
   if (!deck) { rejected.cards.push({ ...c0, error: "no `deck` — add-card.js would file it into China" }); continue; }
   const p = path.join(tmp, "c-" + String(c.id).replace(/[^\w-]/g, "_") + ".json");
   fs.writeFileSync(p, JSON.stringify(c));
-  const r = run("add-card.js", [p, deck, "--no-image"]);
+  const r = run("add-card.js", [p, deck, "--no-image", "--no-wiki"]);   // the batch's Wikipedia links are resolved together below
   if (!r.ok) { rejected.cards.push({ ...c0, error: errOf(r.out) }); continue; }
   cAdded.push(c.id);
   if (loc && loc.title) locBatch.cards[c.id] = loc;
@@ -88,10 +92,19 @@ if (!NO_LOC && Object.keys(locBatch.cards).length) {
                 : "add-locators.js refused — fix and re-run with " + p + ":\n" + errOf(r.out);
 }
 
+/* ---- 3b. Wikipedia links: one pass for the whole batch (see wiki-step.js) ---- */
+let wikiOut = "";
+if (cAdded.length) {
+  const w = require("./wiki-step.js").linkNewCards(cAdded, { quiet: true });
+  if (w.ok) wikiOut = "Learn-more link on " + w.linked.length + " of " + cAdded.length + " card(s)" + (w.none.length ? "; no dedicated article for " + w.none.join(", ") : "") + (w.glance.length ? "\n          CHECK these links (redirect / disambiguation / search match): " + w.glance.join(", ") + " — see docs/wikipedia-links-audit.md" : "");
+  else wikiOut = "NOT RESOLVED (Wikipedia did not answer) — the cards are written. Finish with:\n          " + w.retry;
+}
+
 /* ---- 4. report ---- */
 console.log("\nglossary: " + gAdded + " added" + (gSkipped.length ? ", " + gSkipped.length + " skipped as already present (" + gSkipped.join(", ") + ")" : "") + ", " + rejected.glossary.length + " refused");
 console.log("cards:    " + cAdded.length + " added (" + cAdded.join(", ") + "), " + rejected.cards.length + " refused");
 if (locOut) console.log("locators: " + locOut);
+if (wikiOut) console.log("wikipedia: " + wikiOut);
 for (const [id, n] of notes) console.log("notes " + id + ": " + (Array.isArray(n) ? n.join(" | ") : n));
 for (const r of rejected.glossary) console.log("\nREFUSED term " + r.slug + ":\n  " + r.error.replace(/\n/g, "\n  "));
 for (const r of rejected.cards) console.log("\nREFUSED card " + r.id + ":\n  " + r.error.replace(/\n/g, "\n  "));

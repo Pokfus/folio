@@ -14,6 +14,18 @@ can click to be redirected straight to that dedicated wikipedia page") links to 
 article **on the answer term itself**. A Wikipedia article is a destination here, never a source: it is
 not counted in the Sources fold and nothing on a card is cited to it.
 
+## New cards get their link automatically
+
+`add-card.js` (one card) and `import-batch.js` (a batch, resolved in one pass) call `.claude/wiki-step.js` straight
+after the write: it runs `find-wiki-links.js --cards=<ids> --max-wait=90`, then the applier, and prints one line per
+card — the article it links to, or "no dedicated article — no tile". It never fails the card: if Wikipedia cannot be
+reached in time it prints the command that finishes the job, and `node .claude/apply-wiki-links.js --check` (a CI step,
+offline) fails until that has been run. A `--replace` re-resolves only when the card's answer changed. Three statuses
+are flagged CHECK in the output (`redirect-broader`, `disambig-resolved`, `search-match`): each can be a link to a
+neighbour of the right article. To correct one, edit its entry in `.claude/wiki-links.json` — the right `title` and
+`url`, or `null` for both to remove the tile — and add `"manual": true`; the resolver never recomputes a manual entry,
+so a later prefix run cannot undo the decision. Then run `node .claude/apply-wiki-links.js`.
+
 ## How a card was matched
 
 The script's header documents the full method. In short: the glossary key with the answer's name (the

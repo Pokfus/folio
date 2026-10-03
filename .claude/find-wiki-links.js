@@ -3,7 +3,8 @@
   find-wiki-links.js — which cards have a DEDICATED English Wikipedia article for their answer term,
   and what its exact title is.
 
-    node .claude/find-wiki-links.js [--prefix=gr-] [--card=gr-010] [--refresh] [--no-search] [--limit=N]
+    node .claude/find-wiki-links.js [--prefix=gr-] [--card=gr-010] [--cards=gr-010,gr-011] [--refresh]
+                                    [--no-search] [--limit=N] [--max-wait=SECONDS]
 
   Writes  .claude/wiki-links.json        one entry per card: the article title, URL, how it was found
                                          and the status (see STATUSES below) — the memory the
@@ -13,6 +14,17 @@
           docs/wikipedia-links-audit.md  the human-readable report: counts, and the cards that need a
                                          decision (no article found, a redirect to a broader article,
                                          a disambiguation page that could not be settled).
+
+  A NEW CARD NEEDS NONE OF THIS BY HAND: `add-card.js` and `import-batch.js` run it for the cards they
+  write (through wiki-step.js: `--cards=<ids> --max-wait=90`, then apply-wiki-links.js), so a card ships
+  with its Learn-more tile the way it ships with its citations. `--max-wait` caps the total seconds spent
+  waiting out Wikipedia's rate limit or a dead network; past it the cache is saved and the run exits 2,
+  which the caller reports as "not resolved yet — run this command" rather than hanging a card add.
+
+  AN ENTRY MARKED `"manual": true` IS NEVER RECOMPUTED. That is how a human decision survives a re-run:
+  put the right `title` and `url` in (or `null` for both to take the tile away), add `"manual": true`,
+  and neither this script nor a later prefix run will overwrite it. `apply-wiki-links.js --check` is the
+  CI gate: every card must have an entry, and every card's `wiki` must match its entry.
 
   Needs the network (NODE_USE_ENV_PROXY=1 in a cloud session). Wikipedia rate-limits the shared proxy
   address in bursts: a 429 is waited out for the seconds it names, and if it will not lift the cache
@@ -65,6 +77,9 @@ const args = Object.fromEntries(process.argv.slice(2).map((a) => {
 }));
 const PREFIX = args.prefix || "";
 const ONLY = args.card || "";
+const IDS = args.cards ? new Set(String(args.cards).split(",").map((x) => x.trim()).filter(Boolean)) : null;
+const MAX_WAIT_MS = args["max-wait"] ? parseInt(args["max-wait"], 10) * 1000 : Infinity;
+let waitedMs = 0;
 const LIMIT = args.limit ? parseInt(args.limit, 10) : Infinity;
 const DO_SEARCH = !args["no-search"];
 
@@ -132,6 +147,13 @@ if (!args.refresh && fs.existsSync(CACHE)) { try { cache = JSON.parse(fs.readFil
 let dirty = 0;
 const saveCache = () => { fs.writeFileSync(CACHE, JSON.stringify(cache, null, 0)); dirty = 0; };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// every wait on Wikipedia (a rate limit, a dead network) is spent from one budget; past --max-wait the
+// cache is saved and the run stops, so a caller that is only linking one new card is never held up
+async function backoff(ms) {
+  waitedMs += ms;
+  if (waitedMs > MAX_WAIT_MS) { saveCache(); console.error("Wikipedia did not answer within --max-wait=" + Math.round(MAX_WAIT_MS / 1000) + "s; progress is saved."); process.exit(2); }
+  await sleep(ms);
+}
 let lastCall = 0;
 async function paced() { const gap = 250 - (Date.now() - lastCall); if (gap > 0) await sleep(gap); lastCall = Date.now(); }
 /* TWO CHANNELS. `api.php` answers fifty titles a call but the shared proxy address trips its rate limit
@@ -151,13 +173,13 @@ async function api(params, optional) {
     await paced();
     let res;
     try { res = await fetch(u, { headers: { "User-Agent": UA, "Api-User-Agent": UA } }); }
-    catch (e) { process.stderr.write(`  network: ${e.message}; retrying\n`); await sleep(3000 * (attempt + 1)); continue; }
+    catch (e) { process.stderr.write(`  network: ${e.message}; retrying\n`); await backoff(3000 * (attempt + 1)); continue; }
     if (res.status === 429 || res.status === 503) {
       limited++;
       if (limited >= 2) { apiCooldownUntil = Date.now() + 10 * 60 * 1000; process.stderr.write(`  API rate-limited twice; using raw wikitext for 10 min\n`); return null; }
       const ra = Math.min(60, parseInt(res.headers.get("retry-after") || "20", 10) || 20);
       process.stderr.write(`  ${res.status} from the API; waiting ${ra}s\n`);
-      await sleep(ra * 1000 + 500); continue;
+      await backoff(ra * 1000 + 500); continue;
     }
     if (!res.ok) { if (optional) return null; throw new Error(`HTTP ${res.status} for ${u}`); }
     return res.json();
@@ -171,9 +193,9 @@ async function rawText(title) {
     await paced();
     let res;
     try { res = await fetch(u, { headers: { "User-Agent": UA } }); }
-    catch (e) { process.stderr.write(`  network: ${e.message}; retrying\n`); await sleep(3000 * (attempt + 1)); continue; }
+    catch (e) { process.stderr.write(`  network: ${e.message}; retrying\n`); await backoff(3000 * (attempt + 1)); continue; }
     if (res.status === 404) return null;
-    if (res.status === 429 || res.status === 503) { const ra = Math.min(60, parseInt(res.headers.get("retry-after") || "20", 10) || 20); process.stderr.write(`  ${res.status} from raw; waiting ${ra}s\n`); await sleep(ra * 1000 + 500); continue; }
+    if (res.status === 429 || res.status === 503) { const ra = Math.min(60, parseInt(res.headers.get("retry-after") || "20", 10) || 20); process.stderr.write(`  ${res.status} from raw; waiting ${ra}s\n`); await backoff(ra * 1000 + 500); continue; }
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${u}`);
     return res.text();
   }
@@ -253,7 +275,7 @@ async function search(q) {
 
 /* ---------- the cards and the glossary ---------- */
 const loaded = loadCards();
-const cards = (loaded.cards || loaded).filter((c) => (!PREFIX || c.id.startsWith(PREFIX)) && (!ONLY || c.id === ONLY)).slice(0, LIMIT);
+const cards = (loaded.cards || loaded).filter((c) => (!PREFIX || c.id.startsWith(PREFIX)) && (!ONLY || c.id === ONLY) && (!IDS || IDS.has(c.id))).slice(0, LIMIT);
 global.window = global.window || {};
 require(path.join(ROOT, "glossary.js"));
 const GLOSS = Object.keys(window.GLOSSARY || {});
@@ -324,6 +346,11 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
 (async () => {
   const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : { cards: {} };
   const result = { cards: {} };
+  // a hand-decided entry is kept exactly as it is, and its card is not even looked up
+  for (const c of cards.slice()) {
+    const pv = prev.cards && prev.cards[c.id];
+    if (pv && pv.manual) { result.cards[c.id] = pv; cards.splice(cards.indexOf(c), 1); }
+  }
   // ask about every candidate of every card in bulk first, 50 to a call
   const all = [];
   const plans = cards.map((c) => { const p = candidatesFor(c); p.cands.forEach((x) => all.push(x.t)); return { c, ...p }; });
@@ -381,7 +408,7 @@ const urlFor = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(
   }
   saveCache();
   // merge with a previous run when this one was partial (--prefix / --card)
-  const merged = (PREFIX || ONLY || isFinite(LIMIT)) ? { ...prev.cards, ...result.cards } : result.cards;
+  const merged = (PREFIX || ONLY || IDS || isFinite(LIMIT)) ? { ...prev.cards, ...result.cards } : result.cards;
   const counts = {};
   Object.values(merged).forEach((e) => { counts[e.status] = (counts[e.status] || 0) + 1; });
   fs.writeFileSync(OUT, JSON.stringify({ generated: new Date().toISOString().slice(0, 16) + "Z", source: "en.wikipedia.org", counts, cards: merged }, null, 1));
