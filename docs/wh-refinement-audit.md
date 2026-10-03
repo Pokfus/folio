@@ -137,7 +137,7 @@ in plan order unless the user says otherwise.
 | B21 | Ancient Egypt (`wh-egypt`) | `wh-201`–`wh-210` | 10 | 105 | **done 2026-10-03** |
 | B22 | Ancient Egypt (`wh-egypt`) | `wh-211`–`wh-220` | 10 | 125 | **done 2026-10-03** |
 | B23 | Ancient Egypt (`wh-egypt`) | `wh-221`–`wh-230` | 10 | 125 | **done 2026-10-03** |
-| B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | open |
+| B24 | The Indus and early China (`wh-indus-china`) | `wh-231`–`wh-240` | 10 | 93 | **done 2026-10-03** |
 | B25 | The Indus and early China (`wh-indus-china`) | `wh-241`–`wh-250` | 10 | 101 | open |
 | B26 | The Indus and early China (`wh-indus-china`) / The Bronze Age world (`wh-bronze-age`) | `wh-251`–`wh-260` | 10 | 99 | open |
 | B27 | The Bronze Age world (`wh-bronze-age`) | `wh-261`–`wh-270` | 10 | 117 | open |
@@ -1083,6 +1083,37 @@ end and Tutankhamun's start at 1336 BCE; Kadesh in Ramesses II's fifth year and 
 
 **Glossary.** All ten terms rewritten.
 
+### B24 — `wh-231`–`wh-240`, The Indus and early China (2026-10-03)
+
+Run as B23. The India collection (`in-`) is still empty, so there was no sibling card to compare. Checks:
+`wh-audit.js --range=wh-231:wh-240` clean but for `W.not-why` notes on three; the rest as B23; all 53 distinct
+URLs 2xx and `check-citations --card` 0 mismatched. New locators: `wh-232` Harappa, `wh-233` Mohenjo-daro,
+`wh-236` Dholavira and `wh-237` Lothal.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-231` Indus Valley Civilisation | 8 | 5 → 8 | **The old list gave a single-authored 2018 paper four co-authors and dropped four of another's seven.** Covered drains, "from the Himalaya to the Arabian Sea", aridity "from 2100 BCE" and a fish-bone detail had no fetched source. The line is the urban phase alone; the phrasings kept off planning and decline. |
+| `wh-232` Harappa | 8 | 6 → 8 | The same miscounted authors, and a missing one on Robbins Schug 2013. Occupied c. 3700 – 1300 BCE through the Ravi, Kot Diji and urban phases (James et al. 2025); brick-robbing under colonial rule, the walled neighbourhoods and the incomers' tooth isotopes added. |
+| `wh-233` Mohenjo-daro | 8 | 5 → 8 | **Four of five sources were one author**; two global surveys dropped with an unsourced Pillared Hall size, a "cosmic order" line and a "largest houses c. 2500 BCE" row. The Mound of the Dead, the Great Bath, the missing cemetery, the floods and **the "massacre" as a discredited story** added. |
+| `wh-234` Indus script | 7 | 5 → 7 | **"3,000 – 3,800 texts" and "14 signs a line" rested on a paper that would not open**; now under 6,000 objects and 17 signs at most. "Eighty years of decipherments" had no source, and a West Asia claim was not in the paper cited. The non-writing view and the administrative-tag view each as a view. |
+| `wh-235` Indus urban planning | 7 | 5 → 7 | **Drains ran in the wide streets, not under the lanes**; weights go from under 1 gram. One author in three sources cut to two; a gateway-tax claim dropped. The Indus weight unit and Harappa's late disorder added; public goods as one view. |
+| `wh-236` Dholavira | 6 | 6 → 7 | **"The Indus weights descend from one shared unit": the source says the opposite.** A BP line and an earthquake row became c. 3000 – 1500 BCE and the 1989 – 2005 excavation; two phrasings carried figures of years; a Khirsara aside dropped. |
+| `wh-237` Lothal | 6 | 6 → 7 | **The line gave the whole civilisation's 2600 – 1900 BCE to one town**; now the excavator's two periods from the 1963 radiocarbon report. The dock is one view, set against the 1968 irrigation-tank reading and a 2024 river study. |
+| `wh-238` decline of the Indus civilisation | 7 | 6 → 7 | A drought row (another event's date) became the Late Harappan phase, c. 1900 – 1300 BCE. Every cause is now a view, and **the river view meets a 2017 dating showing Kalibangan's river had gone long before the city**. |
+| `wh-239` Indo-Aryan migrations | 7 | 5 → 8 | Claims cited to an unverifiable 2026 paper dropped. The genetic evidence (steppe ancestry c. 2100 – 1700 BCE in Central Asia, c. 2000 – 1500 BCE in South Asia, carried mainly by men) and the linguistic evidence (the Mitanni gods, Finno-Ugric loans) added, with the Hindu nationalist and the 2012 dissenting views each named as whose. |
+| `wh-240` Vedic period | 8 | 5 → 8 | An irrelevant citation dropped; **two rows dated another event and the `wh-241` Rigveda's composition**. Now c. 1500 – 500 BCE, every date an estimate from the texts; oral transmission, the Kuru realm, iron and the Upanishads added. |
+
+**Read by eye.** *Article:* "the Indus Valley Civilisation", "the Indus script", "the decline of the Indus
+civilisation", "the Indo-Aryan migrations", "the Vedic period"; the sites and planning bare. *Confusability:*
+`wh-231`/`wh-235`/`wh-238` the civilisation, its planning and its end, each phrasing kept off the others'
+clues; the four sites each by its own feature (Ravi and walled wards; Great Bath and stupa; reservoirs on
+Khadir; the basin and Gulf seal); `wh-239`/`wh-240` the arrival and the age, the Rigveda kept for `wh-241`.
+*Consistency:* the urban phase c. 2600 – 1900 BCE on all six Indus cards; the five great cities named alike on
+`wh-231`, `wh-232`, `wh-233` and `wh-236`. *Contested:* `wh-239` gives the migration as the genetic and
+linguistic consensus and names the dissenting views; its phrasings name no scholar.
+
+**Glossary.** Nine terms rewritten; *decline of the Indus civilisation* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1177,3 +1208,5 @@ pass once it answers. Filled batch by batch.
 | `wh-226` | a 1927 line drawing of the Ramesseum reliefs; description names the publication |
 | `wh-227` | yellow arrows and tomb numbers drawn onto the photograph |
 | `wh-229` | the Western Deffufa, Kerma only; a cataract landscape would show the region (and **locator**: "Nubia" has no coordinate) |
+| `wh-238` | a labelled plate of finds from Khirsara |
+| `wh-239` | a drawn map with burned-in dates and arrows |

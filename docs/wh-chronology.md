@@ -237,6 +237,15 @@ Filled batch by batch, from the source each row names.
 | Valley of the Kings in use | c. 1504 – 1069 BCE (Thutmose I to the end of the 20th Dynasty) | Egyptian Ministry (`wh-227`) |
 | Karnak: first firm temple / Hypostyle Hall | c. 2112 – 2063 BCE (Intef II) / c. 1294 – 1213 BCE (Sety I, Ramesses II) | Egyptian Ministry (`wh-228`) |
 | Third Intermediate Period | c. 1069 – 664 BCE; the Ministry ends it c. 747 BCE | Australian Museum; Egyptian Ministry (`wh-230`) |
+| Indus civilisation, urban (Mature Harappan) phase | c. 2600 – 1900 BCE | Green 2022; Parikh and Petrie (`wh-231`, `wh-233`–`wh-235`) |
+| Harappa occupied / Kot Diji phase | c. 3700 – 1300 / c. 2800 – 2600 BCE | James et al. 2025 (`wh-232`) |
+| Mohenjo-daro excavated | 1922 – 1931 | Marshall 1931 (`wh-233`) |
+| Indus script, first seal found | 1872 – 1873 | Farmer, Sproat and Witzel (`wh-234`) |
+| Dholavira occupied / excavated | c. 3000 – 1500 BCE (one account ends it c. 1700) / 1989 – 2005 | Prasad and Prabhakar (`wh-236`) |
+| Lothal, Rao's Periods I / II | c. 2500 – 1500 / c. 1500 – 1000 BCE (early radiocarbon put the later levels older) | Kusumgar, Lal and Sarna 1963 (`wh-237`) |
+| Late Harappan phase | c. 1900 – 1300 BCE | Robbins Schug et al. (`wh-238`) |
+| steppe ancestry: in Central Asia / in South Asia | c. 2100 – 1700 / c. 2000 – 1500 BCE | Narasimhan et al. 2019 (`wh-239`) |
+| Vedic period | c. 1500 – 500 BCE (every date an estimate from the texts); oldest Upanishads c. 700 – 500 BCE | Macdonell; Black (`wh-240`) |
 
 ## Chronology pins
 
@@ -462,4 +471,14 @@ wh-226: 1274; 1286
 wh-227: 1504; 1069
 wh-228: 2112; 2063; 1294; 1213
 wh-230: 1069; 664; 747
+wh-231: 2600; 1900
+wh-232: 3700; 1300; 2800; 2600; 1900
+wh-233: 2600; 1900; 1922; 1931
+wh-234: 2600; 1900; 1872; 1873
+wh-235: 2600; 1900
+wh-236: 3000; 1500; 1989; 2005
+wh-237: 2500; 1500; 1000
+wh-238: 1900; 1300
+wh-239: 2100; 1700; 2000; 1500
+wh-240: 1500; 500
 ```
