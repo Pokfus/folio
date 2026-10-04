@@ -225,9 +225,9 @@ one changelog line and a version bump; commit and push.
 | B53 | Athenian Empire (`gr-athenian-empire`) | `gr-501`–`gr-510` | 10 | **done 2026-10-04** |
 | B54 | Athenian Empire (`gr-athenian-empire`) | `gr-511`–`gr-520` | 10 | **done 2026-10-04** |
 | B55 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-521`–`gr-530` | 10 | **done 2026-10-04** |
-| B56 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-531`–`gr-540` | 10 | open |
-| B57 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-541`–`gr-550` | 10 | open |
-| B58 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-551`–`gr-560` | 10 | open |
+| B56 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-531`–`gr-540` | 10 | **done 2026-10-04** |
+| B57 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-541`–`gr-550` | 10 | **done 2026-10-04** |
+| B58 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-551`–`gr-560` | 10 | **done 2026-10-04** |
 | B59 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-561`–`gr-570` | 10 | open |
 | B60 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-571`–`gr-580` | 10 | open |
 | B61 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-581`–`gr-585` | 5 | open |
@@ -1947,3 +1947,63 @@ Checks on `gr-531`–`gr-556`: `greece-audit.js` finds nothing but missing pictu
 on English BMCR reviews of foreign-titled books; `check-citations --card`, `check-gloss-links --card`,
 `check-questions`, `split-cards --check` and `test-card-plans` pass; `check-style` adds nothing to main's standing
 alarms; all 114 distinct citation URLs answer 200.
+
+`gr-557`–`gr-560` pass the same checks, and their citation URLs answer 200 as well.
+
+**Date lines:**
+- **Rows that were not dates went to the prose:** "Athens had 300 galleys, 13,000 hoplites", "Its hoplites 3,000",
+  "Dead 4,400 hoplites, 300 horse", "Trophies 9, per Plutarch", "Executed just over 1,000", "Garrison 400 Plataeans, 80
+  Athenians", "Blockaded 72 days", "Athenian dead 600", "Term 50 years", "Oath-takers 17", "Term 100 years", "Relief
+  pay 3 obols", "Promised pay 60 ships", "Harbour mouth c. 1.6 km", "On the march c. 40,000 men" and their like;
+  values that carried words ("422 BCE, at Amphipolis", "425 BCE, to Cleon", "Saved 424 BCE, by a night") were split.
+- **Every row dates the card's own subject:** on a person their own acts (Cleon's Mytilene decree, Brasidas saving
+  Methone, Nicias taking Minoa); `gr-544` Eion lost its row for Thucydides' 20-year exile (`gr-522`'s).
+- **Lines without a year:** `gr-531` (a plan) is empty and `undatable`; `gr-562` epiteichismos, a method, gave up a row
+  dating Decelea, which is `gr-561`'s.
+- **Disputed years:** Amphipolis founded 437/436 BCE (437 BCE and 438/437 BCE noted in the chronology); the treaty
+  with Egesta 418/417 BCE (now favoured) or 458 BCE, two rows; Archidamus' accession (469 BCE, or 475 BCE in a why).
+- **Wrong years corrected:** `gr-556` dated the siege of Syracuse from 415 BCE (the investment began with Epipolae
+  in 414 BCE); `gr-553` dated Egesta's appeal 416 BCE (the sources say 415 BCE); `gr-551` had the second Melian sortie
+  in the following summer (Thucydides puts it in the winter).
+- **Estimates removed:** Alcibiades' "born c. 450" and Nicias' birth (both now "about" in prose only).
+
+**Corrected in the old cards:**
+- **No modern scholarship:** all 30 cited only single chapters of Thucydides (five to seven separate Perseus pages a
+  card) with a little Plutarch and Diodorus; each is now built on Crawley's Thucydides as one source, the other
+  ancient writers once each, and modern scholarship (BMCR, GRBS, Livius, Kulesza, Nudell, the Princeton Encyclopedia,
+  Attic Inscriptions Online). Andocides, the main witness, was not cited on `gr-554` at all.
+- **Wrong facts:** `gr-549` said relieving troops were fed by the city they came to (Thucydides 5.47 and the stone say
+  the sending city), and named the wrong translators of IG I³ 83; `gr-540` had the generals burn Sphacteria's scrub
+  (Thucydides 4.30: a soldier's accidental fire); `gr-558` gave the Great Harbour's mouth as a mile and a half (nearly
+  a mile in Crawley); `gr-552` cited Thucydides 6.8 for events of 6.53 – 7.87.
+- **Other cards' ground given back:** `gr-532` the later invasions (`gr-529`); `gr-534` the ravaging of the Megarid;
+  `gr-535` Cleon's boast and Nicias calling it (`gr-546`); `gr-538` the Plataeans' oaths to Archidamus (`gr-530`);
+  `gr-539` the 292 prisoners (`gr-540`) and Demosthenes' reasons for the headland (`gr-562`); `gr-540` Cleon's
+  twenty days; `gr-541` the hero cult as a question (`gr-205`); `gr-542` the treaty clause (`gr-545`); `gr-544`
+  Thucydides' command and exile (`gr-522`); `gr-545` the 27 years as one war (`gr-521`); `gr-550` the siege and the
+  killings (`gr-551`); `gr-554` and `gr-555` Alcibiades' recall in detail (`gr-547`); `gr-556` Gylippus and
+  Demosthenes; `gr-559` Pylos; `gr-560` Thucydides' verdict on the disaster (`gr-552`).
+
+**Read by eye, and changed in review:**
+- `gr-541`'s second why (how Thucydides knew his private thoughts) repeated `gr-547`'s; it now asks why Sparta sent
+  him no reinforcements.
+- `gr-544`'s second question and a sentence (the Persian capital in Europe; the League's first deed) were `gr-456`'s
+  ground; the card now asks about the delta site and keeps the capture to one clause.
+- `gr-536`'s second why ended on Lysicles killed in Caria, already `gr-520`'s third why; cut. `gr-539`'s second why
+  ended on the shield set on the trophy, the card's own third question; cut.
+- `gr-537`'s first question opened on "Its"; `gr-535` misread "after its reversal over 1,000 prisoners"; `gr-553`
+  wrote Akragas (the house form is Acragas) and labelled a sack "Destroyed"; `gr-538` cites *Against Neaera* as
+  [Demosthenes] 59.
+- **Wrong auto-links** stopped with a hand-written key or `<span class="ans-term">`: `Demosthenes` (keyed to
+  `Demosthenes_(general)` on `gr-539`, `gr-540`, `gr-556`, `gr-558` – `gr-560`), `Pylos` (to the battle),
+  `Mantinea` (to the battle of 418 BCE on `gr-545`, `gr-549`), "alliance with Argos" (to `Argive_alliance`),
+  `Thebes`, `Phyle` (opened the tribe), `Orchomenus` (the Boeotian city), `Aetolians` (the later League), `Olpae`
+  (opened the jug), `Perdiccas`, `Heraclea`, `Himera`, `Antiphon` (the archon, not the orator), `Nicias` father of
+  Hagnon, "cynicism" (opened the Cynics), "odes" (opened the Chinese *Classic of Poetry*), "Attic Stelai".
+- **Open:** the glossary key `Siege_of_Syracuse` is Rome's siege of 212 BCE, so the surface "siege of Syracuse" would
+  open it; no card in this batch links it, and the key wants a parenthetical.
+
+Pictures and locators for `gr-531`–`gr-560` follow with the pictures commit.
+
+**Chronology.** "The Peloponnesian War" section holds rows for every date the 30 cards print, with pins; the Peace of
+Nicias and Sicilian Expedition rows of "Events and reigns" are confirmed.

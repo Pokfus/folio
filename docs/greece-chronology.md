@@ -568,6 +568,10 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Egesta | the treaty with Athens 418/417 BCE (now favoured) or 458 BCE; the appeal 415 BCE; Carthage's invasion 409 BCE; sacked by Agathocles 307 BCE | Attic Inscriptions Online, IG I³ 11; Figueira's review; Princeton Encyclopedia (`gr-553`) |
 | Herms; Salaminia | the herms mutilated in the spring of 415 BCE; the Salaminia sent to Sicily 415 BCE; Andocides' defence about 400/399 BCE | Thucydides 6.27–61; Andocides 1 (`gr-554`, `gr-555`) |
 | Siege of Syracuse | 414 – 413 BCE; the night attack on Epipolae 413 BCE; Dionysius' walls 402 – 397 BCE | Thucydides 6–7; Diodorus 13; Princeton Encyclopedia (`gr-556`) |
+| Gylippus | in Sicily 414 – 413 BCE; his theft of Lysander's silver after Aegospotami (no year: 405/404 BCE in Diodorus, after the fall of Athens in Plutarch) | Thucydides 6–7; Kulesza 2022; Diodorus 13.106 (`gr-557`) |
+| Battle of the Great Harbour | 413 BCE | Thucydides 7.59–71; Diodorus 13 (`gr-558`) |
+| Demosthenes the general | first named in command 426 BCE; Pylos 425 BCE; Megara and Delium 424 BCE; to Sicily and put to death 413 BCE | Thucydides; Lendering, Livius (`gr-559`) |
+| Assinarus | the army destroyed 413 BCE; the Asinaria kept on 27 Carneius | Thucydides 7.78–87; Plutarch, *Nicias* 28 (`gr-560`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -593,8 +597,8 @@ sources when its batch comes round, and a disputed one given as a range.
 | Delian League founded | 478 – 477 BCE, written 478/477 BCE as an archon year (confirmed by B48, `gr-451`) |
 | Eurymedon | c. 466 BCE (470/469 – 466 BCE; confirmed by B49, `gr-458`, which gives 466 and 470/469 BCE as two rows) |
 | Peloponnesian War | 431 – 404 BCE (confirmed by B55, `gr-521`) |
-| Peace of Nicias | 421 BCE |
-| Sicilian Expedition | 415 – 413 BCE |
+| Peace of Nicias | 421 BCE (confirmed by B56, `gr-545`) |
+| Sicilian Expedition | 415 – 413 BCE (confirmed by B57, `gr-552`) |
 | Aegospotami | 405 BCE |
 | Socrates executed | 399 BCE |
 | Leuctra | 371 BCE |
@@ -1112,4 +1116,8 @@ gr-553: 418; 458; 415; 307
 gr-554: 415
 gr-555: 415
 gr-556: 414; 413
+gr-557: 414; 413
+gr-558: 413
+gr-559: 426; 425; 413
+gr-560: 413
 ```
