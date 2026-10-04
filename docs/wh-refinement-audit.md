@@ -151,7 +151,7 @@ in plan order unless the user says otherwise.
 | B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | **done 2026-10-04** |
 | B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | **done 2026-10-04** |
 | B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | **done 2026-10-04** |
-| B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | open |
+| B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | **done 2026-10-04** |
 | B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | open |
 | B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | open |
 | B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | open |
@@ -1553,6 +1553,37 @@ where `wh-362` has c. 70; `rm-506` gives 15 forts on the Wall where `wh-368` giv
 
 **Glossary.** Eight terms rewritten; *Roman aqueduct* and *Roman law* already agreed.
 
+### B38 — `wh-371`–`wh-380`, Rome and Ancient India (2026-10-04)
+
+Run as B37, most agents relaunched after the usage limit. The India collection (`in-`) is still empty, so the India
+cards had no sibling to compare. Checks: `wh-audit.js --range=wh-371:wh-380` clean but for a `W.not-why` note on
+`wh-374` and `L.missing` on `wh-376` (sixteen states: a region request was refused as a locator, and no single capital
+stands for them all); the rest as B31; all 75 distinct URLs 2xx; `check-citations --card` 0 mismatched. New locator:
+`wh-374` (Nicaea, at İznik). **The *Christianity* glossary entry was kept**: the `wh-373` draft rewrote the site-wide
+term around the Roman Empire, and the old entry is general and agrees with the card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-371` Diocletian | 8 | 5 → 9 | "Tetrarchy" is now said to be the modern scholars' word; the "unique abdication" Eutropius's claim. **Aper was no source's prefect**: now Numerian's father-in-law. Born c. 236 – 245 and died 313 – 316 CE, two accounts each. |
+| `wh-372` Constantine the Great | 9 | 7 → 9 | **The vision is now two stories**: Lactantius's dream, the only contemporary one, and Eusebius's midday cross told 25 years later. **The "Edict of Milan" was neither an edict nor issued at Milan**; the deathbed baptism is Eusebius's report. |
+| `wh-373` Christianity | 9 | 5 → 11 | **"Made official 380 CE" was the state-religion myth**: the law of 380 defined orthodoxy, and pagan worship was banned only in 391 – 392. A "17th year of Antoninus Verus" row dropped; the 5 per cent by 300 an estimate, whose. |
+| `wh-374` First Council of Nicaea | 8 | 5 → 8 | **"Subscribed 318 bishops" was a symbolic figure stated as fact**; now Eusebius's more than 250 and Constantine's more than 300, with the 318 first appearing c. 358. The council did not settle the Bible, now said in an FAQ. |
+| `wh-375` fall of the Western Roman Empire | 9 | 5 → 9 | **Odoacer's 13 years and Theoderic's 493 were other events on the line.** 476 CE as a convention, Nepos alive until 480 and the date's choice in 6th-century Constantinople; Gibbon's cause his, the transformation school and its critics named. |
+| `wh-376` mahajanapadas | 6 | 5 → 7 | **The "mote hall, elected raja" clan-state picture came from the Sakiyas, who are not one of the sixteen.** The list from AN 3.70 with the Jain list beside it; "c. 600 – 500 BCE" had no source, now a climate study's c. 550 – 322 BCE (converted from its BP). |
+| `wh-377` Upanishads | 7 | 5 → 7 | **"Sitting down near" was stated as the name's meaning**; in the oldest passages it means a hidden connection. Olivelle's c. 700 – 500 and c. 300 – 100 BCE replace "no later than 550"; the salt lesson is Uddalaka's, not Yajnavalkya's; the Muktika's 108 a late canon. |
+| `wh-378` Hinduism | 9 | 5 → 9 | Pew's 2010 figures replaced by its 2025 report (1.2 billion in 2020); the colonial-era origin of "Hinduism" as one religion's name stated neutrally. `""` and `undatable` kept. |
+| `wh-379` varna | 7 | 6 → 7 | **A 1922 view was settled fact, and "varna means colour" rested only on the old racial reading** (dropped). Varna and jati now told apart; Dirks's census argument as his; three named genetic studies of endogamy. |
+| `wh-380` Gautama Buddha | 9 | 6 → 10 | **"44 years" of teaching had no source.** The line gives the old c. 563 – 483 BCE (from the chronicles' 218 years) and the newer death c. 405 BCE; the sheltered-prince tale as tradition; the Lumbini pillar quoted. |
+
+**Read by eye.** *Article:* "the First Council of Nicaea", "the fall of the Western Roman Empire", "the mahajanapadas",
+"the Upanishads"; "Christianity", "Hinduism", "varna" and the persons bare. *Confusability:* `wh-371`/`wh-372` the
+persecutor and the convert, the Great Persecution only on `wh-371`; `wh-372`/`wh-373`/`wh-374` the emperor, the faith and
+the council, Milan only on `wh-372`, Pliny and Decius only on `wh-373`; `wh-377`/`wh-378`/`wh-379` text, tradition and
+social order, the Purusha hymn only on `wh-379`; `wh-380`/`wh-381` the man and the religion, Lumbini only on `wh-380`.
+*Against the rm- cards:* `rm-573` dates the persecution's start to February 303 where Eusebius has March. None edited.
+
+**Glossary.** Nine terms rewritten; *Christianity* kept as above.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1699,3 +1730,6 @@ pass once it answers. Filled batch by batch.
 | `wh-358` | a labelled modern map |
 | `wh-360` | fine, but the description asserts the unsupported four-layer build |
 | `wh-367` | a 19th-century plate of a Column relief, not the emperor |
+| `wh-371` | the porphyry tetrarchs, all four rather than Diocletian |
+| `wh-372` | the Arch of Constantine, a monument, not the man |
+| `wh-380` | the Lumbini pillar, evidence about him rather than the Buddha |

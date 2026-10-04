@@ -368,6 +368,14 @@ Filled batch by batch, from the source each row names.
 | Hadrian's Wall: begun / latest coins | c. 122 CE / 403 – 406 CE | Breeze (`wh-368`) |
 | Marcus Aurelius: born / reigned / died | 26 April 121 CE / 161 – 180 CE / 17 March 180 CE | Benario (`wh-369`) |
 | Crisis of the Third Century (a convention) / crisis proper / Plague of Cyprian | 235 – 284 CE / 249 – 268 CE (de Blois) / c. 251 – 266 CE | Marussi et al.; Sancinito on de Blois; Zonneveld et al. (`wh-370`) |
+| Diocletian: born / reigned / died | c. 236 – 245 CE / 284 – 305 CE / 313 or 316 CE | Mathisen; Lendering (`wh-371`) |
+| Constantine: born / reigned / died | c. 271 – 273 CE / 306 – 337 CE / 22 May 337 CE | Pohlsander (`wh-372`) |
+| Christianity in the empire: Pilate's prefecture / Great Persecution / Nicene law / pagan cults banned | 26 – 36 CE / 303 – 313 / 380 / 391 – 392 CE | Lendering; DeVore (`wh-373`) |
+| First Council of Nicaea opens | 20 May 325 CE | Pohlsander (`wh-374`) |
+| fall of the Western Roman Empire | 476 CE (a convention; Nepos lived to 480) | Mathisen and Nathan; O'Donnell (`wh-375`) |
+| mahajanapadas (one estimate) | c. 550 – 322 BCE (the source's 2500 – 2272 BP) | Kathayat et al. (`wh-376`) |
+| Upanishads: older group / later group | c. 700 – 500 BCE / c. 300 – 100 BCE (Olivelle; Macdonell 1900: earliest by c. 600) | Black; Macdonell (`wh-377`) |
+| Gautama Buddha: older dating / newer death | c. 563 – 483 BCE / c. 405 BCE (Gombrich c. 404) | Rapson; Siderits (`wh-380`) |
 
 ## Chronology pins
 
@@ -724,4 +732,12 @@ wh-367: 53; 98; 117
 wh-368: 122; 403; 406
 wh-369: 121; 161; 180
 wh-370: 235; 284; 249; 268
+wh-371: 236; 245; 284; 305; 313; 316
+wh-372: 271; 273; 306; 337
+wh-373: 26; 36; 303; 313; 380; 391; 392
+wh-374: 325
+wh-375: 476
+wh-376: 550; 322
+wh-377: 700; 500; 300; 100
+wh-380: 563; 483; 405
 ```
