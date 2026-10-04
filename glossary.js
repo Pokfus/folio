@@ -8008,7 +8008,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ancus_Marcius": "traditionally from 638 BCE",
 "Tarquinius_Priscus": "traditionally 616 – 579 BCE",
 "Servius_Tullius": "traditionally 578 – 534 BCE",
-"Tarquinius_Superbus": "traditionally 535 – 509 BCE",
+"Tarquinius_Superbus": "traditionally 532 – 507 BCE",
 "Pannonian_Avars": "567 – 796 CE",
 "Bulgars": "c. 450 – 800 CE",
 "Volga_Bulgaria": "c. 900 – 1236 CE",
@@ -8790,7 +8790,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Kuomintang": "1912 – present",
 "Treaty_ports": "1842–1943",
 "Shanghai_International_Settlement": "1863–1943",
-"Cotton_mill": "1771 – present"
+"Cotton_mill": "1771 – present",
+"Expulsion_of_the_kings": "traditionally 509 BCE",
+"Lucretia": "traditionally 509 BCE",
+"Lucius_Junius_Brutus": "traditionally 509 BCE",
+"Rex_Sacrorum": "traditionally 509 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */

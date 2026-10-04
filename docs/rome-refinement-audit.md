@@ -139,7 +139,7 @@ order unless the user says otherwise.
 | B5 | Italy before Rome (`rm-italy`) / Rome under the kings (`rm-kings`) | `rm-041`–`rm-050` | 10 | 112 | **done 2026-10-04** |
 | B6 | Rome under the kings (`rm-kings`) | `rm-051`–`rm-060` | 10 | 118 | **done 2026-10-04** |
 | B7 | Rome under the kings (`rm-kings`) | `rm-061`–`rm-070` | 10 | 132 | **done 2026-10-04** |
-| B8 | Rome under the kings (`rm-kings`) | `rm-071`–`rm-080` | 10 | 123 | open |
+| B8 | Rome under the kings (`rm-kings`) | `rm-071`–`rm-080` | 10 | 123 | **done 2026-10-04** |
 | B9 | Rome under the kings (`rm-kings`) | `rm-081`–`rm-090` | 10 | 125 | open |
 | B10 | The early Republic (`rm-early-republic`) | `rm-091`–`rm-100` | 10 | 126 | open |
 | B11 | The early Republic (`rm-early-republic`) | `rm-101`–`rm-110` | 10 | 126 | open |
@@ -339,6 +339,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-068` Circus Maximus | Platner's printed plan | a plan where a photograph of the valley would do |
 | `rm-069` Servius Tullius | a painting by Kauffmann | acceptable; trim the source detail from its desc |
 | `rm-070` Servian constitution | a stretch of the Servian Wall | `rm-072`'s subject |
+| `rm-071` comitia centuriata | a denarius | also on `wh-343` (`I.duplicate`); the card's own glossary coin would serve |
+| `rm-072` Servian Wall | a stretch on the Esquiline | acceptable; the desc quotes Dionysius |
+| `rm-073` Roman census | the census frieze of the "Altar of Domitius Ahenobarbus" | acceptable; soften the disputed "late 2nd century BCE" in its desc |
+| `rm-074` Tarquinius Superbus | a painting by Alma-Tadema | the desc names Livy 1.54 |
+| `rm-075` Temple of Jupiter Optimus Maximus | a relief of a sacrifice before the temple | acceptable; the desc names the museum; a photograph of the foundations would suit better |
+| `rm-076` Sibylline Books | a painting by Abildgaard | acceptable; the desc names the museum |
+| `rm-077` Lucretia | a panel by Botticelli | acceptable; the desc names the painter |
+| `rm-078` expulsion of the kings | a painting by Gavin Hamilton | acceptable; the desc names the painter |
+| `rm-079` Lucius Junius Brutus | the Capitoline bronze head | called Brutus only by convention; the 54 BCE denarius would be safer |
+| `rm-080` rex sacrorum | a bucchero sherd with REX | doubtful: the graffito may name a king, not the priest |
 
 ## Glossary candidates
 
@@ -660,3 +670,34 @@ the blank takes a king on one and a city on the other. `check-questions`, `check
   673 – 642 BCE**, a figure no source gives — for B9.
 - *Overlap with `wh-`:* `wh-339` says flatly that Servius's mother was a slave; `rm-069` gives it as one
   ancient version among several.
+
+### B8 — `rm-071`–`rm-080`, Rome under the kings: the Servian state to the first consuls (2026-10-04)
+
+Run as B7. Applied with `rm-078` ahead of `rm-077` (by hand rather than `batch.sh`), because `rm-077`'s link
+to `rm-078` is checked against `rm-078`'s date line and the shipped one still read "after 753 BCE".
+
+Checks: `rm-audit.js --range=rm-071:rm-080` reads clean on six cards. **`rm-074` had a phrasing sharing
+80 per cent of its content words with `rm-044`'s** (Tarquin's death at Cumae, in the same words of Livy);
+it was rewritten from the card's own background (the first king to make war and treaties without the senate)
+and re-applied. Left as leads, read by eye: `rm-078` against `rm-046` (44 per cent; both have the last king
+shut out of Rome, but one blank takes the kingdom and the other its expulsion), `rm-071`'s picture shared
+with `wh-343`, and `W.not-why` on four cards. `check-questions`, `check-cards`, `check-style`, `check-docs`,
+`split-cards --check`, `test-card-plans` pass; every citation URL answers 2xx; `check-citations --card`
+0 mismatched on every card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-071` comitia centuriata | 6 | 6 → 7 | "The reign of Servius Tullius, after 753 BCE" and the counts (193, 244 years) were the line; it is now the first consuls (509 BCE, tradition) and the reform of 241 – 218 BCE (Botsford's reading of Livy, with an Augustan dating as another view). Servius as founder is what Roman writers said; the gradual growth of the 193 centuries is one modern view. Kept to how the assembly worked. |
+| `rm-072` Servian Wall | 7 | 5 → 7 | **"Rebuilt from 377 BCE" was Platner's year for the war tax**; the Loeb margin at Livy 6.31 gives 378. The line is now the earliest wall c. 600 – 500 BCE, the rebuilding from 378 and the repairs of 353. Servius as builder is tradition; the Grotta Oscura wall is after the Gallic sack; Bernard's doubt that one wall ringed all the hills before the 4th century added. |
+| `rm-073` Roman census | 8 | 5 → 9 | "After 753 BCE" and counts on the line; now the censors from 443 BCE, Augustus's first census (28 BCE) and the last lustrum (74 CE). Servius's census is tradition, and the 80,000 and 84,700 are Livy's and Dionysius's figures. The *Res Gestae* cited as the inscription it is. Two questions fitting `rm-893` and `rm-117` rebuilt. |
+| `rm-074` Tarquinius Superbus | 7 | 6 → 9 | **"535 – 509 BCE": no source opened prints 535**; the line is Dionysius's 532 – 507 (as his translator converts it) and the usual end, 509. The counts (25, 244) are in prose. Livy was cited four times. His death at Cumae and the modern doubts added. One phrasing rewritten at apply time (above). |
+| `rm-075` Temple of Jupiter Optimus Maximus | 7 | 5 → 7 | **All five sources were ancient, and the omen and the expulsion were stated as fact (glossary too).** The vowing, the Terminus story, the head and Horatius's dedication are Livy's. The line is built c. 550 – 500 BCE (pottery from the foundation trench, per the Capitoline Museums), dedicated 509 by tradition, burnt 83 BCE, 69 and 80 CE. The 55 × 60 m base is the museum's figure; the smaller-temple reconstruction is a modern debate. |
+| `rm-076` Sibylline Books | 7 | 5 → 8 | "After 753 BCE" and counts of books and keepers off the line; now the college enlarged c. 367 BCE, the books burnt in 83 and moved to the Palatine in 12 BCE. The sale to Tarquin is Gellius's and Dionysius's story; no source opened prints a traditional year for it, so there is none. |
+| `rm-077` Lucretia | 7 | 5 → 9 | "After 753 BCE" is now Traditional 509 BCE. Ovid's Regifugium version, the absence of any source from her own time, *pudicitia* and Augustine's verdict added; the story is Livy's. |
+| `rm-078` expulsion of the kings | 7 | 5 → 8 | "After 753 BCE" and counts; now Traditional 509 BCE and Dionysius's 507. Polybius's first treaty and the censorian records added as the evidence that Romans dated the event; Wiseman's and Armstrong's views given as theirs. Its link to `rm-080` (same year) dropped; the link to `rm-091` kept. `wh-340` prints 509 without the traditional label. |
+| `rm-079` Lucius Junius Brutus | 7 | 6 → 8 | "After 753 BCE"; now Traditional 509 BCE, Dionysius's 507 and the 54 BCE denarius of Marcus Brutus. Livy was cited five times; every act is now Livy's or Dionysius's, Cicero's version is set against theirs, and the legend's growth is described. |
+| `rm-080` rex sacrorum | 6 | 5 → 8 | The office's creation at the end of the monarchy is Livy's and Dionysius's explanation, against one modern view that it existed under the last kings. The bar on office and on addressing the people, the first holder Manius Papirius, and an inscription from Histonium (EDR175972, 43 – 70 CE) added. |
+
+**Read by eye.** *Legend as legend:* Lucretia, Brutus, the expulsion and the Sibyl's sale are each the
+ancient author's. *Confusability:* `rm-077`–`rm-079` share one night; each blank takes a different term
+(the woman, the event, the man). *Consistency:* 509 BCE is labelled tradition on all five cards that carry it.

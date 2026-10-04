@@ -139,6 +139,14 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | a reform of the centuriate order | perhaps 241 BCE | `rm-070` |
 | Cloaca Maxima: oldest walls / vaulted / mouth arches / Agrippa's survey | c. 550 – 500 BCE / after 200 BCE / c. 100 BCE / 33 BCE | `rm-067` |
 | Circus Maximus: starting gates / enlarged / great fire / reopened | 329 BCE / 46 BCE / 64 CE / 103 CE | `rm-068` |
+| comitia centuriata: first consuls elected / centuriate reform | 509 BCE (tradition) / 241 – 218 BCE (Botsford's reading of Livy; an Augustan dating is another view) | `rm-071` |
+| Servian Wall: earliest wall / rebuilt / repaired | c. 600 – 500 BCE / from 378 BCE (the Loeb margin at Livy 6.31; the old 377 was Platner's year for the tax) / 353 BCE | `rm-072` |
+| censors take over the census / Augustus's first census / the last lustrum | 443 BCE / 28 BCE / 74 CE | `rm-073` |
+| Tarquinius Superbus's reign / the monarchy's end | 532 – 507 BCE (Dionysius, as his translator converts it) / 509 BCE (the usual modern year) | `rm-074` |
+| Capitoline temple built / dedicated / burnt | c. 550 – 500 BCE (pottery from the foundation trench) / 509 BCE (tradition) / 83 BCE, 69 CE, 80 CE | `rm-075`, `rm-050` |
+| Sibylline keepers enlarged / books burnt / moved to the Palatine | c. 367 BCE / 83 BCE / 12 BCE | `rm-076` |
+| Lucretia; the expulsion of the kings; Brutus's consulship; the rex sacrorum created | 509 BCE (tradition); 507 BCE in Dionysius | `rm-077`–`rm-080` |
+| Brutus on Marcus Brutus's denarius / an inscription naming a rex sacrorum | 54 BCE / 43 – 70 CE | `rm-079`, `rm-080` |
 
 ## The middle and late Republic
 
@@ -225,4 +233,14 @@ rm-067: 550; 500; 200; 100; 33
 rm-068: 329; 46; 64; 103
 rm-069: 578; 534; 576
 rm-070: 578; 534; 241
+rm-071: 509; 241; 218
+rm-072: 600; 500; 378; 353
+rm-073: 443; 28; 74
+rm-074: 532; 507; 509
+rm-075: 550; 500; 509; 83; 69; 80
+rm-076: 367; 83; 12
+rm-077: 509
+rm-078: 509; 507
+rm-079: 509; 507; 54
+rm-080: 509; 43; 70
 ```
