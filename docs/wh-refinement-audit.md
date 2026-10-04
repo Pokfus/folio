@@ -251,6 +251,26 @@ rebuild it. It keeps its working files in a scratch directory **outside the repo
 - A card that sits in a deck of definitional cards (the Palaeolithic divisions) needs its three phrasings
   moved off the shared "division of the Old Stone Age" clue, or the sibling check fires.
 
+**The agent files are in the repo too** (added with B40): `.claude/wh-refine/ADDENDUM.md` (the rules every agent
+reads after `BRIEF.md`; where they differ it wins), `STEPS.md` (the per-agent steps, for a pair of cards),
+`related.js` (the gr-/rm-/cnh-/in- cards beside a subject: `node .claude/wh-refine/related.js "<regex>"` or
+`--card <id>`), and `commons.py` / `commons-write.py` (a rate-limit-aware Commons helper for the picture pass).
+
+**Lessons from `wh-301`–`wh-400`.**
+- **Commit and push after every batch.** A usage limit killed nine agents mid-batch once; the relaunch told each to reuse
+  a saved page only after re-checking it, and nothing but the unfinished drafts was lost.
+- **Commons throttles by call count, downloads included.** One card was done before it refused three times, even at 45 s
+  gaps; Wikipedia answered in bursts, so a locator run is worth repeating later in the day.
+- **`check-citations` quirks:** it wants an author's initials as Crossref prints them ("AG", not "A. G."), and a journal
+  issue labelled one year but dated another by Crossref wants "(2025, published 2026)".
+- **A glossary draft may not alias another entry's own key** (*Pharsalus*, *Rubicon*, *Vercingetorix*), and a draft that
+  rewrites a general term around one collection (*Christianity* around Rome) is dropped: keep the old entry.
+- **Two cards of one deck can trip the audit's sibling check** on their lead phrasings (`wh-396` and `wh-397`); reword the
+  later one.
+- **Merging main:** glossary files conflict on end-of-object appends (keep both sides; give the last line of ours a
+  comma); take main's `changelog.js` day and re-add this branch's line; take main's `wiki-links.json`,
+  `wiki-title-cache.json` and `wikipedia-links-audit.md` and re-resolve any card of ours with `find-wiki-links.js`.
+
 ## Glossary candidates
 
 Terms the batches meet that have no entry, ranked by how many cards use them. Grep the keys AND the aliases
