@@ -13,7 +13,7 @@ for (const d of ["cur", "out", "pages"]) fs.mkdirSync(path.join(S, d), { recursi
 const { cards } = loadCards(), G = loadGlossary();
 const norm = (s) => String(s || "").replace(/<[^>]*>/g, "").replace(/_/g, " ").replace(/\s*\([^)]*\)\s*$/, "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
 const T = new Map();
-for (const k of Object.keys(G.GLOSSARY)) { T.set(norm(k), k); (G.GLOSSARY_ALIASES[k] || []).forEach((a) => T.set(norm(a), k)); }
+for (const k of Object.keys(G.GLOSSARY)) { if (!k.includes("(") || !T.has(norm(k))) T.set(norm(k), k); (G.GLOSSARY_ALIASES[k] || []).forEach((a) => T.set(norm(a), k)); }
 const idx = [];
 for (let i = 1; i <= 1000; i++) {
   const id = "wh-" + String(i).padStart(3, "0"), c = cards.find((x) => x.id === id); if (!c) continue;

@@ -304,6 +304,16 @@ Filled batch by batch, from the source each row names.
 | first coins (Lydia and Ionia) / China (Guanzhuang) / India (punch-marked) | c. 660 – 630 BCE (Artemision deposit before c. 640 – 620) / c. 640 – 550 / c. 600 – 400 BCE | Meadows; Zhao et al.; Upadhyay (`wh-298`) |
 | Medes in Assyrian records / Nineveh falls / Astyages falls | c. 858 – 656 BCE / 612 / 550 BCE | Lendering; Radner; Gadd; Nabonidus Chronicle (`wh-299`) |
 | Cyrus the Great: reign / Ecbatana / Babylon | 559 – 530 BCE / 550 / 539 BCE | Lendering; Nabonidus Chronicle (`wh-300`) |
+| Achaemenid Empire | c. 550 – 330 BCE | Matthews and Fazeli Nashli (`wh-301`) |
+| Persepolis founded / fortification tablets / treasury tablets / burned | c. 520 – 515 BCE / 509 – 493 / 492 – 457 / 330 BCE | Shahbazi; Matthews et al.; Dandamayev (`wh-302`) |
+| Darius I's reign / Marathon | 522 – 486 BCE / 490 BCE | Lendering; Altaweel and Squitieri (`wh-303`) |
+| Royal Road: travel-ration tablets | 509 – 493 BCE (Hallock gives 509 – 494) | Matthews and Fazeli Nashli; Hallock (`wh-304`) |
+| Satraps' Revolt (Diodorus) / Parthia and Bactria break away | 362 – 361 BCE / around 250 BCE (`wh-305` is `undatable`; prose only) | Diodorus; Canali De Rossi (`wh-305`) |
+| Zoroaster's date / Sasanian state religion / Parsis reach Gujarat | c. 1200 BCE (most) to the 7th – 6th century BCE, disputed / 224 – 651 CE / 785 – 936 CE (estimates from a legend) (`wh-306` is `undatable`) | López et al.; Hall (`wh-306`) |
+| Behistun Inscription carved / copied | c. 520 – 518 BCE (`gr-386`: 521 – 519) / 1835 – 1847 | Schmitt (`wh-307`) |
+| Xerxes I's reign / invasion of Greece | 486 – 465 BCE / 480 – 479 BCE | Iliakis (`wh-308`) |
+| Aramaic: first inscriptions / Egyptian papyri / Neo-Aramaic | c. 900 – 800 BCE / c. 500 – 400 BCE / from c. 1200 CE | Aioanei et al.; Cowley; Endangered Language Alliance (`wh-309`) |
+| fall of the Achaemenid Empire / Gaugamela / Darius III killed | 334 – 330 BCE / 1 October 331 BCE / 330 BCE | Lendering (`wh-310`) |
 
 ## Chronology pins
 
@@ -596,4 +606,12 @@ wh-297: 680; 547; 546
 wh-298: 660; 630; 640; 550; 600; 400
 wh-299: 858; 656; 612; 550
 wh-300: 559; 530; 550; 539
+wh-301: 550; 330
+wh-302: 520; 515; 509; 457; 330
+wh-303: 522; 486
+wh-304: 509; 493
+wh-307: 520; 518; 1835; 1847
+wh-308: 486; 465; 480; 479
+wh-309: 900; 800; 500; 400; 1200
+wh-310: 334; 331; 330
 ```

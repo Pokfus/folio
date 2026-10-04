@@ -144,7 +144,7 @@ in plan order unless the user says otherwise.
 | B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | **done 2026-10-03** |
 | B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | **done 2026-10-03** |
 | B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | **done 2026-10-03** |
-| B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | open |
+| B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | **done 2026-10-04** |
 | B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | open |
 | B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | open |
 | B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | open |
@@ -1307,6 +1307,45 @@ their conqueror, the chronicle's handover on both, each naming the other. *Consi
 **Glossary.** Six terms rewritten (*Judaism*, *Phoenicia*, *Carthage*, *Urartu*, *Lydia*, *Medes*); the rest already
 agreed. **The Iron Age Near East and Persia deck is two-thirds done; B31 (`wh-301`–`wh-310`) finishes it.**
 
+### B31 — `wh-301`–`wh-310`, Iron Age Near East and Persia (2026-10-04)
+
+Run as B30, five agents of two cards each, with the agent addendum of `docs/wh-refinement-audit.md` B21–B30 written
+out as a file (no Wikimedia calls, precheck the only repo tool, Europe PMC for PMC). Commons answered one test call
+and then refused the picture agent on its second (429 twice), so no picture changed; Wikipedia refused outright, so
+`wh-302` (Persepolis) and `wh-307` (Behistun Inscription) asked for locators that could not be written. Checks:
+`wh-audit.js --range=wh-301:wh-310` clean but for `wh-302`'s `L.missing`; `check-questions`, `check-cards --prefix`
+per card, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations
+--card` 0 mismatched; all 65 distinct URLs 2xx. New locator: `wh-304` (Sardis, where the road began). **Tooling:**
+`wh-audit.js` and `prep.js` let a qualified glossary key shadow its bare namesake (`Battle_of_Thermopylae_(191_BCE)`
+over `Battle_of_Thermopylae`), so a card could be checked against the wrong entry; a bare key now wins.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-301` Achaemenid Empire | 7 | 5 → 7 | "Took over conquered places rather than remaking them" was a modern reading stated as fact. A Babylon row (Cyrus's, `wh-300`) and a second Darius III row dropped; now c. 550 – 330 BCE. **"29 lands" was the drafting agent's own count of the Naqsh-i Rustam list**, softened to "the many lands". |
+| `wh-302` Persepolis | 8 | 5 → 8 | **"Founded before c. 513 BCE" had no source**; now c. 520 – 515 BCE, as `gr-386`. The fortification (509 – 493) and treasury (492 – 457) archives told apart; the burning as Diodorus's story, the fire possibly planned. |
+| `wh-303` Darius the Great | 8 | 5 → 8 | **Herodotus has Necho begin the Red Sea canal and Darius finish it**, not Necho instead of Darius. A "36 years" row dropped. The accession, Gaumata or Bardiya as the winner's account, the nine rebel kings (Gaumata among them) and Marathon added. |
+| `wh-304` Royal Road | 7 | 5 → 8 | **The card had Herodotus measure the road himself; he reports its stages.** "About three hundred tablets" had no source; Strabo's 4,200 stadia and an unsourced c. 500 BCE row dropped. The line is now the Persepolis travel texts, 509 – 493 BCE. |
+| `wh-305` satrap | 7 | 6 → 8 | **The Satraps' Revolt of 362 BCE was Diodorus's account stated as fact**; now his, with the modern doubt that it was one rising. "In use c. 550 – 330 BCE" ended the office with the dynasty though Alexander and the Seleucids kept it: `""`, `undatable`. |
+| `wh-306` Zoroastrianism | 8 | 5 → 9 | **The line held three other events** (royal inscriptions, Greek accounts, the Parsi landing) and is empty, `undatable`. Zoroaster's date is a range of views, each whose; the 716 CE landing became 785 – 936 CE, estimates from a legendary account. |
+| `wh-307` Behistun Inscription | 7 | 5 → 7 | **The lead phrasing's "tenth figure" was wrong**: Skunkha is the ninth captive, added later. **The 150 m height was a 1907 estimate from the plain**; now 66 m above the springs. Carved c. 520 – 518 BCE (Schmitt); Herodotus's horseman story, about another monument, dropped. |
+| `wh-308` Xerxes I | 8 | 5 → 9 | **Diodorus's Artabanus murder was stated as fact**; now beside the Babylonian report that his son killed him. Herodotus's 1.7 million is his, beside a modern c. 100,000. Babylon's temples "wrecked" is now an older view the cuneiform evidence does not bear out. |
+| `wh-309` Aramaic | 7 | 5 → 7 | **"Before 727 BCE, at Zenjirli" came from a 1903 book**; first inscribed c. 900 – 800 BCE, Egyptian papyri c. 500 – 400 BCE, Neo-Aramaic from c. 1200 CE. A guess that the Persepolis orders were drafted in Aramaic dropped; the Elephantine phrasing (`wh-292`'s) replaced. |
+| `wh-310` fall of the Achaemenid Empire | 7 | 5 → 8 | **Arrian has Nabarzanes and Barsaentes wound Darius, not Bessus.** Curtius's 40,000 dead had no source. The line starts with the invasion, 334 BCE; the Babylonian diary's account of Gaugamela set against Arrian's. New glossary term. |
+
+**Read by eye.** *Article:* "the Achaemenid Empire", "the Royal Road", "the Behistun Inscription", "the fall of the
+Achaemenid Empire", "a satrap"; the rest bare. *Confusability:* `wh-301`/`wh-302`/`wh-303` the empire, its palace
+and its king, Naqsh-i Rustam only on `wh-301`, the canal only on `wh-303`; `wh-303`/`wh-307` the king and his
+inscription, the horse story on one and the captives on the other; `wh-305`'s "shopkeeper" FAQ repeats `wh-303`'s third
+phrasing in a Think-it-through answer only; `wh-309`/`wh-310` both mention the end of cuneiform in Iran, as a phrasing
+on one and an FAQ on the other. *Consistency:* the empire c. 550 – 330 BCE, Darius I 522 – 486, Persepolis begun
+520 – 515 and burned 330 across `wh-301`–`wh-304`, `wh-310`. *Against the gr- cards:* `gr-386` dates the Behistun carving
+521 – 519 BCE, `wh-307` c. 520 – 518 (Schmitt); `gr-716` has Bessus kill Darius III, where Arrian names two others;
+`gr-725` dates treasury staff to 467 BCE from tablets that end in 493, and gives the Apadana's columns 25 m where
+Matthews and Fazeli Nashli give 19 m. None edited.
+
+**Glossary.** Eight terms rewritten and *Fall of the Achaemenid Empire* added; *Satrapy* and *Xerxes I* already
+agreed. **The Iron Age Near East and Persia deck is done.**
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1422,3 +1461,9 @@ pass once it answers. Filled batch by batch.
 | `wh-288` | a 1679 Kircher engraving |
 | `wh-295` | the Byrsa panorama, also used by the glossary's *Peace of 201 BCE*; **locator**: "Carthage" has no coordinate |
 | `wh-298` | Chinese spade coins only; an early electrum coin would show the western strand |
+| `wh-302` | **locator**: "Persepolis" not written (Wikipedia refused) |
+| `wh-303` | glazed-brick archers from Susa, not Darius |
+| `wh-304` | a generic Persepolis tablet, not the road |
+| `wh-307` | **locator**: "Behistun Inscription" not written (Wikipedia refused) |
+| `wh-308` | the Gate of All Nations, not the king |
+| `wh-310` | a crop of the Alexander Mosaic, also `wh-333`'s |

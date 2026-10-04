@@ -5762,7 +5762,8 @@ window.GLOSSARY = {
 "Kuomintang": "",
 "Treaty_ports": "",
 "Shanghai_International_Settlement": "",
-"Cotton_mill": ""
+"Cotton_mill": "",
+"Fall_of_the_Achaemenid_Empire": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6494,9 +6495,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lydia": "c. 680 – 547 BCE",
 "Phocaea": "Ionian city, from c. 600 BCE",
 "Cambyses_II": "reigned c. 530 – 522 BCE",
-"Darius_I": "reigned c. 522 – 486 BCE",
+"Darius_I": "reigned 522 – 486 BCE",
 "Satrapy": "c. 550 – 330 BCE",
-"Royal_Road": "in use by c. 500 BCE",
+"Royal_Road": "recorded in use 509 – 493 BCE",
 "Achaemenid_army": "c. 550 – 330 BCE",
 "Immortals": "c. 5th century BCE",
 "Scythian_campaign_of_Darius_I": "c. 513 BCE",
@@ -7038,10 +7039,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Qin_standardisation": "221 BCE",
 "Standardisation_of_the_Chinese_script": "from 221 BCE",
 "Unification_of_221_BCE": "221 BCE",
-"Persepolis": "built from the late 6th century BCE; burned 330 BCE",
+"Persepolis": "c. 520 – 330 BCE",
 "Zoroastrianism": "attested in Greek accounts from the 5th century BCE",
-"Behistun_Inscription": "cut c. 520 BCE",
-"Aramaic": "attested from before 727 BCE",
+"Behistun_Inscription": "carved c. 520 – 518 BCE",
+"Aramaic": "first written c. 900 – 800 BCE",
 "Darius_III": "reigned c. 336 – 330 BCE",
 "Ancient_Greece": "c. 800 – 146 BCE",
 "Classical_Athens": "c. 480 – 323 BCE",
@@ -8790,7 +8791,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Kuomintang": "1912 – present",
 "Treaty_ports": "1842–1943",
 "Shanghai_International_Settlement": "1863–1943",
-"Cotton_mill": "1771 – present"
+"Cotton_mill": "1771 – present",
+"Fall_of_the_Achaemenid_Empire": "334 – 330 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -12268,7 +12270,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Kuomintang": ["Guomindang","Kuo-min-tang","KMT","Chinese Nationalist Party","Zhongguo Guomindang"],
 "Treaty_ports": ["treaty port","treaty-port","tongshang kou'an"],
 "Shanghai_International_Settlement": ["International Settlement","Shanghai Municipal Council","International Settlement of Shanghai"],
-"Cotton_mill": ["cotton mills","cotton spinning mill"]
+"Cotton_mill": ["cotton mills","cotton spinning mill"],
+"Fall_of_the_Achaemenid_Empire": ["fall of the Persian Empire"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -18136,7 +18139,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kuomintang": ["party","history","politics","china","republic of china"],
 "Treaty_ports": ["institution","history","trade","china","qing dynasty","republic of china"],
 "Shanghai_International_Settlement": ["place","history","city","politics","china","shanghai"],
-"Cotton_mill": ["industry","history","technology","economics"]
+"Cotton_mill": ["industry","history","technology","economics"],
+"Fall_of_the_Achaemenid_Empire": ["event","history","warfare","iran","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
