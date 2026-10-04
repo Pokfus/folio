@@ -396,6 +396,13 @@ const NOT_A_SCHOLAR = new Set([
   "Standing Committee", // the Politburo body, which decides and meets
   "Central Committee",  // the party body, which elects and meets in plenum
   "Party Congress",     // the five-yearly assembly, which elects and revises
+  /* LATE IMPERIAL AND REPUBLICAN ACTORS, each a figure of his card's own period whom the question credits
+     with an act of the time, not a modern scholar credited with a reading of it. */
+  "Huang Zongxi",       // cnh-531: the Ming loyalist who compiled the Donglin case histories
+  "Xu Naiji",           // cnh-559: the Qing official who proposed legalising opium in 1836
+  "Feng Guifen",        // cnh-568: the 1860s reformer of the Self-Strengthening essays
+  "Governor Yuxian",    // cnh-572: the Shandong and Shanxi governor of the Boxer year
+  "Wellington Koo",     // cnh-584: China's delegate at Paris in 1919
 ]);
 
 /* ============================================================================

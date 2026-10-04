@@ -4117,3 +4117,59 @@ hare `cnh-015` needs — plus the BEFEO's "Jardins en miniature d'Extrême-Orien
 answer 403 behind an altcha proof-of-work page**, so none of the three could be verified and none was
 cited. `node .claude/check-reach.js` now probes Persée twice, article and PDF, so the split is a
 command rather than a sentence in one doc.
+
+## cnh-502 – cnh-601, the fall of the Yuan to the Republic's cotton mills (Oct 2026)
+
+A hundred cards in one session, written as twenty batches of five by parallel research passes and
+imported in order: the end of `col-31`, all of `col-32` (Ming) and `col-33` (Qing), and `col-35` up to
+`cnh-601`. **84 glossary terms** were written; the other sixteen answers already had one (`Ming_dynasty`,
+`Qing_dynasty`, `Forbidden_City`, `Zheng_He`, `Haijin`, `Tributary_system`, `Kangxi_Emperor`,
+`Qianlong_Emperor`, `Macartney_Embassy`, `Canton_System`, `Taiping_Rebellion`, `Unequal_treaties`,
+`First_Sino-Japanese_War`, `Boxer_Rebellion`, `Shandong_Problem`, `Beijing`). Thirty-seven plan lines
+were retitled to the answer the sources supported; the line is now the answer.
+
+**What carried the batch.**
+- The standard histories on Chinese Wikisource — *Ming shi*, *Qing shi gao*, *Yuan shi* — and beside
+  them three open primary shelves this collection had not used before: Gu Yingtai's *Mingshi jishi
+  benmo* (1658), the founder's *Huang Ming zuxun*, and the Republican documents (edicts, organic laws,
+  constitutions, manifestos, the abdication edicts of 1912). **Juan URLs are not zero-padded**: `卷6`,
+  never `卷006`.
+- **Hummel's *Eminent Chinese of the Ch'ing Period* is open as the Digital Library of India scans**
+  `in.ernet.dli.2015.280001` (vol. 1) and `.280002` (vol. 2); the other archive.org copies are
+  lending-only. Signatures are often illegible in the OCR, so several entries are cited without an
+  author rather than with a guessed one. **Many of its inquisition entries are by Goodrich**, whose own
+  book is also cited — watch the two-per-author cap.
+- Morse's *International Relations* (three volumes), Couling's *Encyclopaedia Sinica*, the *China Year
+  Book*, Theobald, the Office of the Historian and FRUS (history.state.gov), Geoff Wade's *Ming Shi-lu*
+  translation at `epress.nus.edu.sg`, and 1914-1918-online for the First World War cards. **1914-1918-online
+  answers plain curl and blocks a browser user agent.**
+
+**Where the sources disagreed, the cards give both or neither** — the full lists are in each card's
+batch notes; the ones a later writer will meet again:
+- Theobald slips repeatedly in this stretch: the Guangxi clique as "Guizhou", Cao Kun's election in
+  1924, the Northern Yuan ending "with Tögüs Temür" in 1402, Zhu Yuanzhang joining Guo Zixing at
+  "12 sui", the Examination Yuan as an "audit court". None was used.
+- Cordier dates parts of the Jingnan war a year late; Couling and Cordier put Ricci at Macao in 1583.
+- The move of the capital to Beijing is 1409 in the Western handbooks; the cards follow the *Ming shi*
+  (renamed 1403, capital from 1421, confirmed only in 1441).
+- **Contested death tolls are given as figures with owners**: Wang Xiuchu's 800,000 for Yangzhou, the
+  *Ming shi*'s 30,000 and 15,000 for the Hu and Lan cases, Wei Yuan's fractions and Skobelev's range for
+  the Dzungars, 20 to 50 million for the Taiping, the foreign press, Sokolsky and the Communist count for
+  Shanghai in April 1927.
+- **Backhouse is not used for any claim about Cixi or the court.** Backhouse and Bland appear only on
+  `cnh-555` for an edict translation checked against the Chinese, and for the later inflation of Heshen's
+  hoard; Morse's account of the 1900 flight leans on the forged Ching-shan diary, so it is cited to the
+  *Qing shi gao* instead.
+
+**Left for a human decision.**
+- `check-cards.js` rule 1 reports two cards resting three times on one primary series: `cnh-562` on the
+  treaty texts themselves (English and Chinese Nanking, and the Bogue supplement) and `cnh-573` on three
+  FRUS dispatches. Both are the card's own documents rather than one scholar's opinion, and were left.
+- `cnh-587`–`cnh-591` lean in three places on weaker sources: the party's own site `12371.cn`, a
+  repost of a *Yanhuang chunqiu* article, and a 2025 *Beijing Daily* feature. They carry dates only.
+- Glossary surfaces held back on purpose: `Queue_(hairstyle)` does not claim the bare word "queue"
+  (46 uses elsewhere, gr- to ww2-), and `Grand_Council_(Qing_dynasty)` does not claim "Grand Council"
+  (Savonarola's and the Fascist councils). `Republic_of_China_(1912–1949)` DOES claim "Republic of
+  China", and `China` now carries "People's Republic of China" so the longer phrase wins rather than
+  linking the 1912 state inside it.
+- **No pictures** were added to any of the hundred.
