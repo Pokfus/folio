@@ -1,5 +1,8 @@
 # Brief: refine World History cards (Folio) — research + draft patch
 
+**Another collection?** The harness takes `REFINE_PREFIX` (e.g. `rm-`; see `cfg.js`). Then read `$S/ADDENDUM.md`
+after this brief: it names the collection's own rules, and where it and this brief differ, it wins.
+
 Repo: the folio checkout. Scratch: $S = $WH_S, a directory OUTSIDE the repo holding cur/, out/, pages/, index.tsv
 You draft; you do NOT write to the repo (no add-card.js, no git, no edits under /home/user/folio).
 Current card + its glossary entry: $S/cur/<id>.json. One-line index of all 1000 wh- cards (id, answer,

@@ -3,7 +3,7 @@
    Run from /home/user/folio. */
 "use strict";
 const fs = require("fs"), path = require("path"), cp = require("child_process");
-const S = process.env.WH_S || require("path").join(require("os").tmpdir(), "wh"), REPO = require("path").resolve(__dirname, "..", "..");
+const { S } = require("./cfg.js"), REPO = require("path").resolve(__dirname, "..", "..");
 const id = process.argv[2];
 if (!id) { console.error("usage: precheck.js <id>"); process.exit(2); }
 const out = JSON.parse(fs.readFileSync(path.join(S, "out", id + ".json"), "utf8"));
@@ -28,8 +28,9 @@ cio.loadCards = function () {
 };
 const log = console.log, lines = [];
 console.log = (...a) => lines.push(a.join(" "));
-process.argv = [process.argv[0], "wh-audit.js", "--card=" + id];
-require(path.join(REPO, ".claude", "wh-audit.js"));
+const { AUDIT } = require("./cfg.js");
+process.argv = [process.argv[0], AUDIT, "--card=" + id];
+require(path.join(REPO, ".claude", AUDIT));
 console.log = log;
 lines.filter((l) => /^\s{4}\S/.test(l)).forEach((l) => {
   if (/W\.not-why|Q\.sibling/.test(l)) console.log("  note " + l.trim()); else fail("audit " + l.trim());

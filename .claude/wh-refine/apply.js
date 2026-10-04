@@ -3,7 +3,7 @@
    then picture), the glossary entry, and one add-locators batch. Run from /home/user/folio. */
 "use strict";
 const fs = require("fs"), path = require("path"), cp = require("child_process");
-const S = process.env.WH_S || require("path").join(require("os").tmpdir(), "wh"), REPO = require("path").resolve(__dirname, "..", "..");
+const { S } = require("./cfg.js"), REPO = require("path").resolve(__dirname, "..", "..");
 const run = (args) => { const r = cp.spawnSync("node", args, { cwd: REPO, encoding: "utf8" });
   const t = (r.stdout + r.stderr).trim(); if (r.status !== 0) { console.log(t); throw new Error(args.join(" ") + " failed"); }
   return t.split("\n").filter((l) => /replaced|updated|added|locator|WARN/i.test(l)).slice(0, 4).join(" | "); };
