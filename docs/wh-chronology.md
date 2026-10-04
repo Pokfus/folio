@@ -304,6 +304,96 @@ Filled batch by batch, from the source each row names.
 | first coins (Lydia and Ionia) / China (Guanzhuang) / India (punch-marked) | c. 660 – 630 BCE (Artemision deposit before c. 640 – 620) / c. 640 – 550 / c. 600 – 400 BCE | Meadows; Zhao et al.; Upadhyay (`wh-298`) |
 | Medes in Assyrian records / Nineveh falls / Astyages falls | c. 858 – 656 BCE / 612 / 550 BCE | Lendering; Radner; Gadd; Nabonidus Chronicle (`wh-299`) |
 | Cyrus the Great: reign / Ecbatana / Babylon | 559 – 530 BCE / 550 / 539 BCE | Lendering; Nabonidus Chronicle (`wh-300`) |
+| Achaemenid Empire | c. 550 – 330 BCE | Matthews and Fazeli Nashli (`wh-301`) |
+| Persepolis founded / fortification tablets / treasury tablets / burned | c. 520 – 515 BCE / 509 – 493 / 492 – 457 / 330 BCE | Shahbazi; Matthews et al.; Dandamayev (`wh-302`) |
+| Darius I's reign / Marathon | 522 – 486 BCE / 490 BCE | Lendering; Altaweel and Squitieri (`wh-303`) |
+| Royal Road: travel-ration tablets | 509 – 493 BCE (Hallock gives 509 – 494) | Matthews and Fazeli Nashli; Hallock (`wh-304`) |
+| Satraps' Revolt (Diodorus) / Parthia and Bactria break away | 362 – 361 BCE / around 250 BCE (`wh-305` is `undatable`; prose only) | Diodorus; Canali De Rossi (`wh-305`) |
+| Zoroaster's date / Sasanian state religion / Parsis reach Gujarat | c. 1200 BCE (most) to the 7th – 6th century BCE, disputed / 224 – 651 CE / 785 – 936 CE (estimates from a legend) (`wh-306` is `undatable`) | López et al.; Hall (`wh-306`) |
+| Behistun Inscription carved / copied | c. 520 – 518 BCE (`gr-386`: 521 – 519) / 1835 – 1847 | Schmitt (`wh-307`) |
+| Xerxes I's reign / invasion of Greece | 486 – 465 BCE / 480 – 479 BCE | Iliakis (`wh-308`) |
+| Aramaic: first inscriptions / Egyptian papyri / Neo-Aramaic | c. 900 – 800 BCE / c. 500 – 400 BCE / from c. 1200 CE | Aioanei et al.; Cowley; Endangered Language Alliance (`wh-309`) |
+| fall of the Achaemenid Empire / Gaugamela / Darius III killed | 334 – 330 BCE / 1 October 331 BCE / 330 BCE | Lendering (`wh-310`) |
+| Ancient Greece: Archaic / Classical / Hellenistic | c. 800 – 479 / 479 – 323 / 323 – 30 BCE (`docs/greece-chronology.md`: Classical from 480, Hellenistic to 31) | Rönnberg; Vlassopoulos on Hall; Gaukroger on Hornblower; Worthington on Shipley (`wh-311`) |
+| polis, rise (one view) | c. 800 – 700 BCE | Vlassopoulos on Hall (`wh-312`) |
+| Greek colonisation, main phase / Syracuse founded | c. 800 – 500 BCE / c. 733 BCE (both on Thucydides' count) | Delp; Evans (`wh-313`) |
+| Homeric poems composed / West's Iliad / pre-eminent | c. 700 BCE / c. 680 – 640 BCE (one view) / by c. 500 BCE | Pisano; Ford; Holmberg (`wh-314`) |
+| Greek alphabet adopted / oldest finds | c. 800 BCE (one case for the 11th century) / c. 750 – 700 BCE | Lang; Waal (`wh-315`) |
+| Spartan state formed / dominant | c. 800 – 700 BCE / 404 – 371 BCE | Larson on Kõiv; Kulesza (`wh-316`) |
+| Classical Athens: sacked / falls / period ends | 480 / 404 / 323 BCE | Lendering; National Archaeological Museum (`wh-317`) |
+| Athenian democracy: Cleisthenes / Areopagus curbed / restored / abolished | 508/507 / 462/461 / 403 / 322 BCE | Rhodes; Attic Inscriptions Online (`wh-318`) |
+| Greco-Persian Wars / invasions / Peace of Callias | 499 – 479 BCE / 490; 480 – 479 BCE / probably 449 BCE | Branscome; Jung (`wh-319`) |
+| Battle of Marathon | 490 BCE (the day, mid-August or mid-September, a modern reckoning) | Rhodes (`wh-320`) |
+| Battles of Thermopylae and Salamis | 480 BCE (the days modern reckonings: Thermopylae 12 – 14 August or mid-September; Salamis late September) | Lendering; Kulesza; Tuplin (`wh-321`, `wh-322`) |
+| Delian League: founded / treasury to Athens / broke up | 478/477 BCE / 454 BCE (from the tribute lists) / 404 BCE | Lendering; Attic Inscriptions Online (`wh-323`) |
+| Pericles: born / funeral speech / died | c. 495 BCE (another estimate 494) / 431 / 429 BCE | Lendering; Cromey (`wh-324`) |
+| Parthenon: built / blown up | 447 – 432 BCE / 1687 CE | Acropolis Restoration Service; St Clair (`wh-325`) |
+| Thespis (Parian Marble) / stone theatres | c. 534 BCE (`gr-590`: c. 560) / c. 350 – 300 BCE | the Suda; Poli Palladini; Xanthaki-Karamanou (`wh-326`) |
+| Socrates: born / tried and died | c. 469 BCE (`gr-627`: c. 470) / 399 BCE | Nails and Monoson; Ambury (`wh-327`) |
+| Plato: born / Academy / died | c. 428 BCE (424/423 on one biography) / after 387 BCE / 348/347 BCE | Brickhouse and Smith; Kraut (`wh-328`) |
+| Aristotle: born / Lyceum / died | 384 / 335 / 322 BCE | Shields (`wh-329`) |
+| Peloponnesian War / Sicily / Aegospotami | 431 – 404 BCE / 415 – 413 BCE / 405 BCE | Lendering; Hughes (`wh-330`) |
+| Herodotus: born / still writing / died | c. 484 BCE (Gellius) / 429 BCE / before 413 BCE | Godley; Lendering (`wh-331`) |
+| Philip II: born / reigned / Chaeronea / killed | c. 382 BCE / 359 – 336 BCE / 338 / 336 BCE | Lendering; Bury (`wh-332`) |
+| Alexander the Great: born / king / died | 356 BCE / 336 – 323 BCE / June 323 BCE | Lendering (`wh-333`) |
+| Hellenistic period / also dated | 323 – 30 BCE / 334 – 31 BCE (Green) | Kosmetatou; Bauschatz (`wh-334`) |
+| Library of Alexandria: founded / Caesar's fire / palace quarter wrecked / Serapeum razed | c. 304 – 282 BCE (disputed) / 48 BCE / 273 CE / 391 CE | Berti and Costa; Bagnall; Encyclopaedia Romana (`wh-335`) |
+| Ancient Rome: founded / emperors / west ends / east ends | 753 BCE (Varro's reckoning) / from 27 BCE / 476 CE (a convention) / 1453 CE | Lendering; Keegan; O'Donnell; Neville (`wh-336`) |
+| Etruscan civilisation: emerges / Veii falls / Roman conquest | c. 900 BCE (`rm-022`: c. 1000) / 396 BCE (the ancient date) / c. 300 – 100 BCE | Posth et al.; Potts and Smith (`wh-337`) |
+| founding of Rome: traditional / other ancient dates / one state / Palatine wall | 753 BCE (Varro) / 813 – 728 BCE (Timaeus to Cincius) / c. 700 – 600 BCE / c. 730 – 720 BCE (excavators' dating) | Velleius; Dionysius; Forsythe; Walt (`wh-338`) |
+| Roman Kingdom (traditional) / Dionysius's own count | 753 – 509 BCE / 751 – 507 BCE | Diodato et al.; Bailey on Flower; Dionysius (`wh-339`) |
+| Roman Republic (traditional) / Caesar dictator | 509 – 27 BCE / from 49 BCE | Ravasini et al.; Bailey on Flower (`wh-340`) |
+| Twelve Tables: drafted / ratified | 451 – 450 BCE / 449 BCE (by tradition) | Johnson, Coleman-Norton and Bourne (`wh-342`) |
+| Conflict of the Orders (the tradition) / Licinian–Sextian law / last secession | 494 – 287 BCE / 367 BCE / 287 BCE | Koptev; Livy, *Periochae* (`wh-343`) |
+| Punic Wars: all / first / second / third | 264 – 146 / 264 – 241 / 218 – 201 / 149 – 146 BCE | Ringbauer et al.; Drogula (`wh-345`) |
+| Hannibal: born / invades Italy / exiled / died | c. 247 BCE / 218 / 195 / 183, 182 or 181 BCE (Nepos's sources disagree) | Mulligan; Berti and Vollrath; Burton (`wh-346`) |
+| Battle of Cannae | 216 BCE (2 August by the Roman calendar, from Quintus Claudius) | Mulligan; Strauss (`wh-347`) |
+| destruction of Carthage | spring 146 BCE (Third Punic War from 149) | Appian; Jacobs (`wh-348`) |
+| Roman conquest of Greece / Isthmian proclamation / Corinth sacked / province of Achaea | 229 – 146 BCE / 196 BCE / 146 BCE / 27 BCE | Burton; Bloy; Palamidis (`wh-349`) |
+| Gracchi: Tiberius tribune and killed / Gaius tribune / Gaius dies | 133 BCE / 123 BCE (re-elected for 122) / 121 BCE | Probst; Livy, *Periochae* (`wh-350`) |
+| Marius's consulships / Sulla's march on Rome / Sulla dies | 107 – 86 BCE / 88 BCE / 78 BCE | Plutarch, *Marius* and *Sulla* (`wh-351`) |
+| Third Servile War | 73 – 71 BCE | Plutarch, *Crassus* (`wh-352`) |
+| Julius Caesar: born / consul / killed | c. 100 BCE (Mommsen 102) / 59 BCE / 15 March 44 BCE | Suetonius; Wickham; Lendering (`wh-353`, `wh-356`) |
+| Gallic Wars / Alesia | 58 – 50 BCE / 52 BCE | Westall; Lendering (`wh-354`) |
+| Caesar's civil war / Pharsalus / Thapsus | 49 – 45 BCE (the Rubicon 10/11 January 49 on one reckoning) / 48 BCE / 46 BCE | Lendering (`wh-355`) |
+| Augustus: born / sole ruler / named Augustus / died | 23 September 63 BCE / 31 BCE / 16 January 27 BCE / 19 August 14 CE | Fagan; Lendering (`wh-357`) |
+| Roman Empire: emperors / west ends / east ends | from 27 BCE / 476 CE (by convention) / 1453 CE | Lendering; Mathisen; Neville (`wh-358`) |
+| Pax Romana (a convention) | 27 BCE – 180 CE (another reading c. 150 BCE – 235 CE) | Drake (`wh-359`) |
+| Roman roads: the Appian Way begun | 312 BCE | Livy (`wh-360`) |
+| aqueducts at Rome: first / last | 312 BCE (Aqua Appia) / 226 CE (Aqua Alexandrina) | Deming (`wh-361`) |
+| Colosseum: begun / opened / last hunts | c. 70 CE / 80 CE / 523 CE | Podestà et al.; Platner and Ashby (`wh-362`) |
+| Pompeii: first walls / Roman colony / buried | c. 600 – 500 BCE / 80 BCE / 79 CE (24 August in Pliny; 24 October argued from a 2018 find) | Anguissola; Lendering (`wh-365`) |
+| Nero: born / emperor / died | 15 December 37 CE / 54 – 68 CE / 9 June 68 CE | Lendering (`wh-366`) |
+| Trajan: born / emperor / died | 18 September 53 CE / 98 – 117 CE / August 117 CE (7 or 9 August) | Benario (`wh-367`) |
+| Hadrian's Wall: begun / latest coins | c. 122 CE / 403 – 406 CE | Breeze (`wh-368`) |
+| Marcus Aurelius: born / reigned / died | 26 April 121 CE / 161 – 180 CE / 17 March 180 CE | Benario (`wh-369`) |
+| Crisis of the Third Century (a convention) / crisis proper / Plague of Cyprian | 235 – 284 CE / 249 – 268 CE (de Blois) / c. 251 – 266 CE | Marussi et al.; Sancinito on de Blois; Zonneveld et al. (`wh-370`) |
+| Diocletian: born / reigned / died | c. 236 – 245 CE / 284 – 305 CE / 313 or 316 CE | Mathisen; Lendering (`wh-371`) |
+| Constantine: born / reigned / died | c. 271 – 273 CE / 306 – 337 CE / 22 May 337 CE | Pohlsander (`wh-372`) |
+| Christianity in the empire: Pilate's prefecture / Great Persecution / Nicene law / pagan cults banned | 26 – 36 CE / 303 – 313 / 380 / 391 – 392 CE | Lendering; DeVore (`wh-373`) |
+| First Council of Nicaea opens | 20 May 325 CE | Pohlsander (`wh-374`) |
+| fall of the Western Roman Empire | 476 CE (a convention; Nepos lived to 480) | Mathisen and Nathan; O'Donnell (`wh-375`) |
+| mahajanapadas (one estimate) | c. 550 – 322 BCE (the source's 2500 – 2272 BP) | Kathayat et al. (`wh-376`) |
+| Upanishads: older group / later group | c. 700 – 500 BCE / c. 300 – 100 BCE (Olivelle; Macdonell 1900: earliest by c. 600) | Black; Macdonell (`wh-377`) |
+| Gautama Buddha: older dating / newer death | c. 563 – 483 BCE / c. 405 BCE (Gombrich c. 404) | Rapson; Siderits (`wh-380`) |
+| Buddhism emerges / Mahayana doctrines | c. 600 – 400 BCE / roughly the 1st century BCE | Velez; Siderits; Ronkin (`wh-381`) |
+| Mahavira: traditional dates / scholars' death | 599 – 527 BCE / c. 468 BCE (`wh-382` is `undatable`) | Gorisse; Charpentier (`wh-382`) |
+| Maurya Empire | c. 321 – 184 BCE (both ends reconstructed) | Hopkins; Rapson (`wh-383`) |
+| Chandragupta Maurya: reign / meets Seleucus | c. 321 – 297 BCE / c. 305 – 303 BCE | Thomas; Jansari (`wh-384`) |
+| Arthashastra: composed / expanded / rediscovered | c. 50 BCE – 125 CE / c. 175 – 300 CE (Olivelle) / 1905 | Davis on Olivelle; Fleet (`wh-385`) |
+| Ashoka: born / reigned / Kalinga / died | c. 304 BCE / c. 268 – 232 BCE / c. 260 BCE / c. 232 BCE | Dhammika; Singh; Trautmann (`wh-386`) |
+| Edicts of Ashoka: issued / deciphered / Maski find | c. 259 – 242 BCE (Thomas; Hultzsch puts the coronation 264) / 1837 / 1915 | Thomas; Prinsep (`wh-387`) |
+| Buddhism reaches Sri Lanka / China / Korea / Japan | c. 246 BCE / by c. 65 CE / 372 CE / 538 or 552 CE | Barnett; Hill; Muller (`wh-388`) |
+| Indo-Greek kingdoms / Menander | c. 200 BCE – c. 10 CE / c. 165 – 130 BCE (`gr-785`: c. 155 – 130) | Rapson; Bopearachchi (`wh-390`) |
+| Kushan Empire: Kujula in dated texts / Kanishka's year one / Sasanian vassals | c. 75 – 89 CE / 127 CE (most; 78 CE also held) / c. 224 – 270 CE | Falk; Rienjang and Stewart; Cribb (`wh-391`) |
+| Gandharan (Greco-Buddhist) art | c. 50 – 500 CE | Rienjang and Stewart (`wh-392`) |
+| Gupta Empire / Gupta era begins | c. 320 – 550 CE / 319 – 320 CE | Smith; Fleet (`wh-393`) |
+| Hindu–Arabic numerals: full system / Gwalior zero / Liber Abaci | c. 550 CE / 876 CE / 1202 | Plofker et al.; Casselman; Smith and Karpinski (`wh-394`) |
+| Classical Sanskrit court poetry (Macdonell) / poets named in an inscription | c. 200 BCE – 1100 CE / 634 CE | Macdonell (`wh-395`) |
+| Eastern Zhou / its halves divided / remnant annexed | 770 – 256 BCE / 481, 475, 453 or 403 BCE / 249 BCE | Wu et al.; Chavannes; Miller et al.; Pines; Hirth (`wh-396`) |
+| Spring and Autumn period / the Annals | c. 770 – 475 BCE (`cnh-142`: c. 476) / 722 – 481 BCE | Asia for Educators; Chavannes (`wh-397`) |
+| Warring States period / other starts | c. 475 – 221 BCE / 453 or 403 BCE (`cnh-163`: 480, 403 or 376) | Asia for Educators; Pines (`wh-398`) |
+| Confucius: born / died | 551 (Sima Qian) or 552 BCE (the commentaries) / 479 BCE | Kononchuk; Sima Qian (`wh-399`) |
 
 ## Chronology pins
 
@@ -596,4 +686,93 @@ wh-297: 680; 547; 546
 wh-298: 660; 630; 640; 550; 600; 400
 wh-299: 858; 656; 612; 550
 wh-300: 559; 530; 550; 539
+wh-301: 550; 330
+wh-302: 520; 515; 509; 457; 330
+wh-303: 522; 486
+wh-304: 509; 493
+wh-307: 520; 518; 1835; 1847
+wh-308: 486; 465; 480; 479
+wh-309: 900; 800; 500; 400; 1200
+wh-310: 334; 331; 330
+wh-311: 800; 479; 323; 30
+wh-312: 800; 700
+wh-313: 800; 500; 733
+wh-314: 700; 680; 640; 500
+wh-315: 800; 750; 700
+wh-316: 800; 700; 404; 371
+wh-317: 480; 404; 323
+wh-318: 508; 507; 462; 461; 403; 322
+wh-319: 499; 479; 490; 480
+wh-320: 490
+wh-321: 480
+wh-322: 480
+wh-323: 478; 477; 454; 404
+wh-324: 495; 431; 429
+wh-325: 447; 432; 1687
+wh-326: 534; 350; 300
+wh-327: 469; 399
+wh-328: 428; 387; 348; 347
+wh-329: 384; 335; 322
+wh-330: 431; 404; 415; 413; 405
+wh-331: 484; 429; 413
+wh-332: 382; 359; 336; 338
+wh-333: 356; 336; 323
+wh-334: 323; 30; 334; 31
+wh-335: 304; 282; 48; 273; 391
+wh-336: 753; 27; 476; 1453
+wh-337: 900; 396; 300; 100
+wh-338: 753; 813; 728; 700; 600
+wh-339: 753; 509
+wh-340: 509; 27
+wh-342: 451; 450; 449
+wh-343: 494; 287; 367
+wh-345: 264; 241; 218; 201; 149; 146
+wh-346: 247; 218; 195; 183; 181
+wh-347: 216
+wh-348: 146
+wh-349: 229; 146; 196
+wh-350: 133; 123; 121
+wh-351: 107; 86; 88; 78
+wh-352: 73; 71
+wh-353: 100; 59; 44
+wh-354: 58; 50; 52
+wh-355: 49; 45; 48; 46
+wh-356: 44
+wh-357: 63; 31; 27; 14
+wh-358: 27; 476; 1453
+wh-359: 27; 180
+wh-360: 312
+wh-361: 312; 226
+wh-362: 70; 80; 523
+wh-365: 600; 500; 80; 79
+wh-366: 37; 54; 68
+wh-367: 53; 98; 117
+wh-368: 122; 403; 406
+wh-369: 121; 161; 180
+wh-370: 235; 284; 249; 268
+wh-371: 236; 245; 284; 305; 313; 316
+wh-372: 271; 273; 306; 337
+wh-373: 26; 36; 303; 313; 380; 391; 392
+wh-374: 325
+wh-375: 476
+wh-376: 550; 322
+wh-377: 700; 500; 300; 100
+wh-380: 563; 483; 405
+wh-381: 600; 400
+wh-383: 321; 184
+wh-384: 321; 297; 305; 303
+wh-385: 50; 125; 175; 300; 1905
+wh-386: 304; 268; 232; 260
+wh-387: 259; 242; 1837; 1915
+wh-388: 246; 65; 372; 538; 552
+wh-390: 200; 10
+wh-391: 75; 89; 127; 78; 224; 270
+wh-392: 50; 500
+wh-393: 320; 550; 319
+wh-394: 550; 876; 1202
+wh-395: 200; 1100; 634
+wh-396: 770; 256; 481; 475; 453; 403; 249
+wh-397: 770; 475; 722; 481
+wh-398: 475; 221; 453; 403
+wh-399: 551; 552; 479
 ```

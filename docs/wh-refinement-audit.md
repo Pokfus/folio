@@ -144,16 +144,16 @@ in plan order unless the user says otherwise.
 | B28 | The Bronze Age world (`wh-bronze-age`) | `wh-271`–`wh-280` | 10 | 98 | **done 2026-10-03** |
 | B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | **done 2026-10-03** |
 | B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | **done 2026-10-03** |
-| B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | open |
-| B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | open |
-| B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | open |
-| B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | open |
-| B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | open |
-| B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | open |
-| B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | open |
-| B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | open |
-| B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | open |
-| B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | open |
+| B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | **done 2026-10-04** |
+| B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | **done 2026-10-04** |
+| B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | **done 2026-10-04** |
+| B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | **done 2026-10-04** |
+| B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | **done 2026-10-04** |
+| B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | **done 2026-10-04** |
+| B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | **done 2026-10-04** |
+| B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | **done 2026-10-04** |
+| B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | **done 2026-10-04** |
+| B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | **done 2026-10-04** |
 | B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | open |
 | B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | open |
 | B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | open |
@@ -250,6 +250,26 @@ rebuild it. It keeps its working files in a scratch directory **outside the repo
   millennia, no "AD".
 - A card that sits in a deck of definitional cards (the Palaeolithic divisions) needs its three phrasings
   moved off the shared "division of the Old Stone Age" clue, or the sibling check fires.
+
+**The agent files are in the repo too** (added with B40): `.claude/wh-refine/ADDENDUM.md` (the rules every agent
+reads after `BRIEF.md`; where they differ it wins), `STEPS.md` (the per-agent steps, for a pair of cards),
+`related.js` (the gr-/rm-/cnh-/in- cards beside a subject: `node .claude/wh-refine/related.js "<regex>"` or
+`--card <id>`), and `commons.py` / `commons-write.py` (a rate-limit-aware Commons helper for the picture pass).
+
+**Lessons from `wh-301`–`wh-400`.**
+- **Commit and push after every batch.** A usage limit killed nine agents mid-batch once; the relaunch told each to reuse
+  a saved page only after re-checking it, and nothing but the unfinished drafts was lost.
+- **Commons throttles by call count, downloads included.** One card was done before it refused three times, even at 45 s
+  gaps; Wikipedia answered in bursts, so a locator run is worth repeating later in the day.
+- **`check-citations` quirks:** it wants an author's initials as Crossref prints them ("AG", not "A. G."), and a journal
+  issue labelled one year but dated another by Crossref wants "(2025, published 2026)".
+- **A glossary draft may not alias another entry's own key** (*Pharsalus*, *Rubicon*, *Vercingetorix*), and a draft that
+  rewrites a general term around one collection (*Christianity* around Rome) is dropped: keep the old entry.
+- **Two cards of one deck can trip the audit's sibling check** on their lead phrasings (`wh-396` and `wh-397`); reword the
+  later one.
+- **Merging main:** glossary files conflict on end-of-object appends (keep both sides; give the last line of ours a
+  comma); take main's `changelog.js` day and re-add this branch's line; take main's `wiki-links.json`,
+  `wiki-title-cache.json` and `wikipedia-links-audit.md` and re-resolve any card of ours with `find-wiki-links.js`.
 
 ## Glossary candidates
 
@@ -1307,6 +1327,350 @@ their conqueror, the chronicle's handover on both, each naming the other. *Consi
 **Glossary.** Six terms rewritten (*Judaism*, *Phoenicia*, *Carthage*, *Urartu*, *Lydia*, *Medes*); the rest already
 agreed. **The Iron Age Near East and Persia deck is two-thirds done; B31 (`wh-301`–`wh-310`) finishes it.**
 
+### B31 — `wh-301`–`wh-310`, Iron Age Near East and Persia (2026-10-04)
+
+Run as B30, five agents of two cards each, with the agent addendum of `docs/wh-refinement-audit.md` B21–B30 written
+out as a file (no Wikimedia calls, precheck the only repo tool, Europe PMC for PMC). Commons answered one test call
+and then refused the picture agent on its second (429 twice), so no picture changed; Wikipedia refused at first, and
+the locators of `wh-302` (Persepolis) and `wh-307` (Behistun) were written later in the run, when it answered. Checks:
+`wh-audit.js --range=wh-301:wh-310` clean; `check-questions`, `check-cards --prefix`
+per card, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations
+--card` 0 mismatched; all 65 distinct URLs 2xx. New locator: `wh-304` (Sardis, where the road began). **Tooling:**
+`wh-audit.js` and `prep.js` let a qualified glossary key shadow its bare namesake (`Battle_of_Thermopylae_(191_BCE)`
+over `Battle_of_Thermopylae`), so a card could be checked against the wrong entry; a bare key now wins.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-301` Achaemenid Empire | 7 | 5 → 7 | "Took over conquered places rather than remaking them" was a modern reading stated as fact. A Babylon row (Cyrus's, `wh-300`) and a second Darius III row dropped; now c. 550 – 330 BCE. **"29 lands" was the drafting agent's own count of the Naqsh-i Rustam list**, softened to "the many lands". |
+| `wh-302` Persepolis | 8 | 5 → 8 | **"Founded before c. 513 BCE" had no source**; now c. 520 – 515 BCE, as `gr-386`. The fortification (509 – 493) and treasury (492 – 457) archives told apart; the burning as Diodorus's story, the fire possibly planned. |
+| `wh-303` Darius the Great | 8 | 5 → 8 | **Herodotus has Necho begin the Red Sea canal and Darius finish it**, not Necho instead of Darius. A "36 years" row dropped. The accession, Gaumata or Bardiya as the winner's account, the nine rebel kings (Gaumata among them) and Marathon added. |
+| `wh-304` Royal Road | 7 | 5 → 8 | **The card had Herodotus measure the road himself; he reports its stages.** "About three hundred tablets" had no source; Strabo's 4,200 stadia and an unsourced c. 500 BCE row dropped. The line is now the Persepolis travel texts, 509 – 493 BCE. |
+| `wh-305` satrap | 7 | 6 → 8 | **The Satraps' Revolt of 362 BCE was Diodorus's account stated as fact**; now his, with the modern doubt that it was one rising. "In use c. 550 – 330 BCE" ended the office with the dynasty though Alexander and the Seleucids kept it: `""`, `undatable`. |
+| `wh-306` Zoroastrianism | 8 | 5 → 9 | **The line held three other events** (royal inscriptions, Greek accounts, the Parsi landing) and is empty, `undatable`. Zoroaster's date is a range of views, each whose; the 716 CE landing became 785 – 936 CE, estimates from a legendary account. |
+| `wh-307` Behistun Inscription | 7 | 5 → 7 | **The lead phrasing's "tenth figure" was wrong**: Skunkha is the ninth captive, added later. **The 150 m height was a 1907 estimate from the plain**; now 66 m above the springs. Carved c. 520 – 518 BCE (Schmitt); Herodotus's horseman story, about another monument, dropped. |
+| `wh-308` Xerxes I | 8 | 5 → 9 | **Diodorus's Artabanus murder was stated as fact**; now beside the Babylonian report that his son killed him. Herodotus's 1.7 million is his, beside a modern c. 100,000. Babylon's temples "wrecked" is now an older view the cuneiform evidence does not bear out. |
+| `wh-309` Aramaic | 7 | 5 → 7 | **"Before 727 BCE, at Zenjirli" came from a 1903 book**; first inscribed c. 900 – 800 BCE, Egyptian papyri c. 500 – 400 BCE, Neo-Aramaic from c. 1200 CE. A guess that the Persepolis orders were drafted in Aramaic dropped; the Elephantine phrasing (`wh-292`'s) replaced. |
+| `wh-310` fall of the Achaemenid Empire | 7 | 5 → 8 | **Arrian has Nabarzanes and Barsaentes wound Darius, not Bessus.** Curtius's 40,000 dead had no source. The line starts with the invasion, 334 BCE; the Babylonian diary's account of Gaugamela set against Arrian's. New glossary term. |
+
+**Read by eye.** *Article:* "the Achaemenid Empire", "the Royal Road", "the Behistun Inscription", "the fall of the
+Achaemenid Empire", "a satrap"; the rest bare. *Confusability:* `wh-301`/`wh-302`/`wh-303` the empire, its palace
+and its king, Naqsh-i Rustam only on `wh-301`, the canal only on `wh-303`; `wh-303`/`wh-307` the king and his
+inscription, the horse story on one and the captives on the other; `wh-305`'s "shopkeeper" FAQ repeats `wh-303`'s third
+phrasing in a Think-it-through answer only; `wh-309`/`wh-310` both mention the end of cuneiform in Iran, as a phrasing
+on one and an FAQ on the other. *Consistency:* the empire c. 550 – 330 BCE, Darius I 522 – 486, Persepolis begun
+520 – 515 and burned 330 across `wh-301`–`wh-304`, `wh-310`. *Against the gr- cards:* `gr-386` dates the Behistun carving
+521 – 519 BCE, `wh-307` c. 520 – 518 (Schmitt); `gr-716` has Bessus kill Darius III, where Arrian names two others;
+`gr-725` dates treasury staff to 467 BCE from tablets that end in 493, and gives the Apadana's columns 25 m where
+Matthews and Fazeli Nashli give 19 m. None edited.
+
+**Glossary.** Eight terms rewritten and *Fall of the Achaemenid Empire* added; *Satrapy* and *Xerxes I* already
+agreed. **The Iron Age Near East and Persia deck is done.**
+
+### B32 — `wh-311`–`wh-320`, Greece and the Hellenistic world (2026-10-04)
+
+Run with B31. Wikipedia answered from the middle of this batch, so its locators were written, and the run also
+settled three old items: `wh-202`'s "Learn more" link now points at *Ancient Egyptian agriculture* rather than
+*Emmer*, and `wh-229` (at Kerma) and `wh-295` (at Byrsa) have locators; `wh-041` and `wh-268` still have none (no
+article tried has a primary coordinate). Checks: `wh-audit.js --range=wh-311:wh-320` clean; the rest as B31; all
+82 distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators: `wh-316` Sparta, `wh-317` Athens and
+`wh-320` Marathon (battle). The Greece collection's own settled rules and chronology were read for each card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-311` Ancient Greece | 9 | 5 → 11 | **"c. 800 – 146 BCE" had a source for neither end**, and the Chaeronea and Corinth rows were other events' dates; now the three periods, Archaic c. 800 – 479, Classical 479 – 323, Hellenistic 323 – 30 BCE. The 1,035 poleis are the Copenhagen inventory's and the 7.5 – 10 million one estimate's. |
+| `wh-312` polis | 7 | 5 → 9 | "Flourished c. 800 – 300 BCE" had no source and ended the polis centuries early; a Pausanias row was another event. Now "Rise, one view c. 800 – 700 BCE", with the slow-growth view beside it; the city-ethnic as the test; dependent poleis and the ethne. |
+| `wh-313` Greek colonisation | 7 | 5 → 8 | **"Naxos, about 734 BCE" is a modern year Thucydides never gives**, and "Naucratis granted by Amasis" dated a grant, not the port. Main phase c. 800 – 500 BCE and Syracuse c. 733 BCE, both said to rest on Thucydides' count; the word "colonisation" as debated. |
+| `wh-314` Homer | 9 | 5 → 9 | **A 481 BCE row dated an embassy that quoted Homer.** Composition c. 700 BCE as scholars' estimate, West's c. 680 – 640 as one view, pre-eminence by c. 500 BCE; oral composition, the Ionic dialect, the Lives as non-history. The glossary cited a review of a book that is not about Homer. |
+| `wh-315` Greek alphabet | 9 | 5 → 9 | The card was ancient tales of who brought the letters; **a Claudius row (41 – 54 CE) was Latin's history**. Now the vowels, c. 800 BCE against the case for the 11th century, Euboea or Cyprus, the oldest finds c. 750 – 700 BCE, the Ionic takeover and Athens in 403/2 BCE. |
+| `wh-316` Sparta | 9 | 8 → 9 | **No word of the Spartan mirage**, and Lycurgus as a lawgiver of fact; a Leuctra death toll as a row. Lycurgus semi-legendary, Plutarch writing of a largely Roman-era agoge; state formed c. 800 – 700 BCE, dominant 404 – 371 BCE. |
+| `wh-317` Classical Athens | 9 | 7 → 9 | **"Thucydides counted" the fleet and tribute: they are Pericles' reckoning as he reports it**; two non-date rows (fleet and money, plague dead) dropped for 480, 404 and 323 BCE. Laurion silver and Akrigg's population estimate added, each as his. |
+| `wh-318` Athenian democracy | 9 | 6 → 9 | Pay and "20,000 fed" rows were not dates; now 508/507, 462/461, 403 and 322 BCE. When "democracy" first fits is a debate; Hansen's attendance and citizen estimates as his; Antipater's ending with Diodorus's "more than 12,000" excluded. |
+| `wh-319` Greco-Persian Wars | 8 | 7 → 8 | **Herodotus's 1,700,000-man army was a date-line row**, and two phrasings carried numerals. Now 499 – 479 BCE with the invasions of 490 and 480 – 479; the Peace of Callias "probably" 449 BCE in prose; Cawkwell's Persian-failure view as a view. |
+| `wh-320` Battle of Marathon | 9 | 8 → 9 | Eight Herodotus chapters became six modern sources and three ancient. **6,400 and 192 are Herodotus's**, with the 33⅓ ratio doubt in an FAQ; the day is a modern moon reckoning (mid-August or mid-September); the run to Athens as later legend. |
+
+**Read by eye.** *Article:* "Ancient Greece", "Sparta", "Homer", "Classical Athens", "Athenian democracy" bare; "a
+polis", "Greek colonisation", "the Greek alphabet", "the Greco-Persian Wars", "the Battle of Marathon". *Confusability:*
+`wh-311`/`wh-312` both cite the 1,035 inventory in the background, neither in a phrasing; `wh-313`/`wh-315` share
+Pithekoussai, a FAQ on one and a phrasing on the other; `wh-315`'s phrasings keep off `wh-294`'s Cadmus; `wh-317`/`wh-318`
+the city and its constitution, the funeral speech only on `wh-317`; `wh-319`/`wh-320` the war and its first battle,
+Marathon named in `wh-319`'s background only. *Consistency:* the Classical period 479 – 323 BCE (`wh-311`, Hornblower)
+where `docs/greece-chronology.md` and `wh-317` start it at the sack of 480; the Hellenistic end 30 BCE (Shipley) where
+the Greece chronology gives 31 (Actium); both pairs stated with their sources. *Against the gr- cards:* `gr-203` gives
+Corcyra 733 BCE where `wh-313` uses Syracuse c. 733; `gr-403` gives up to 25,000 Persians at Marathon where `wh-320`
+follows Rhodes's c. 20,000. None edited.
+
+**Glossary.** Six terms rewritten (*Ancient Greece*, *Greek colonisation*, *Homer*, *Classical Athens*,
+*Greco-Persian Wars*, *Battle of Marathon*); *Polis* kept its text and gained correct picture fields; *Greek
+alphabet*, *Sparta* and *Athenian democracy* already agreed.
+
+### B33 — `wh-321`–`wh-330`, Greece and the Hellenistic world (2026-10-04)
+
+Run as B32. Checks: `wh-audit.js --range=wh-321:wh-330` clean but for `W.not-why` notes on four (an FAQ opening "Do",
+"Was" or "Were"); the rest as B31; all 87 distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators:
+`wh-321` (the pass), `wh-322` (the strait) and `wh-325` (labelled for the Acropolis, the card's own term being the
+building). **Nine of the ten old cards cited no modern work at all**: their source lists were chapters of Herodotus,
+Thucydides, Plutarch and Aristotle, and each now meets its bar with at least half modern scholarship.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-321` Battle of Thermopylae | 9 | 10 → 9 | **"300 Spartans" and "2 days of assaults" were Herodotus's figures set as date-line rows.** His 1.7 million beside a reviewer's at most 75,000; the days as two modern reckonings (12 – 14 August, mid-September); the oracle as possibly invented afterwards. |
+| `wh-322` Battle of Salamis | 9 | 9 → 9 | **"Greek fleet 378 triremes" was Herodotus's count stated as fact and as a row**; now beside Aeschylus's 310 against a thousand and a modern c. 150 a side. "Aeschylus fought there" had no source on the card and dropped. Late September as a modern reckoning. |
+| `wh-323` Delian League | 8 | 6 → 9 | A "460 talents" row was not a date. **The treasury's move in 454 BCE is not in Thucydides**: it is inferred from the tribute lists, so said. Founding 478/477, the Eurymedon c. 466 (possibly inflated) and the break-up in 404 BCE. |
+| `wh-324` Pericles | 9 | 5 → 9 | No birth row; now c. 495 BCE as one estimate, 494 another. **The Funeral Oration is Thucydides' composition**, how much Pericles said disputed; reforms perhaps Ephialtes'. The glossary called Agariste Cleisthenes' granddaughter: she was his niece. |
+| `wh-325` Parthenon | 9 | 5 → 10 | **"Paid for by tribute": the money came mostly from Athena's treasury, which a share of the tribute filled.** A "40 talents" row dropped; the line is the building, 447 – 432 BCE and 1687 CE. The glossary's "stood whole until 1687" ignored a late-Roman fire. |
+| `wh-326` Greek theatre | 9 | 5 → 9 | "Flourished c. 500 – 400 BCE" and "Actors 1, 2, 3" had no source. **534 BCE is the Parian Marble's**, perhaps marking only Thespis at work, and the Suda's "first tragedian" is its report. Stone theatres c. 350 – 300 BCE across the Greek world. |
+| `wh-327` Socrates | 9 | 7 → 10 | **Plato's and Aristophanes' portraits were stated as fact**; now the Socratic problem, with the three witnesses who differ, and the Delphic oracle as a story biographers split over. Born c. 469 BCE, tried and executed 399 BCE. |
+| `wh-328` Plato | 9 | 5 → 9 | **"Burned 1 tragedy" was a row with no source and no date**; it is now Diogenes Laertius's story in an FAQ. Born c. 428 (424/423 on one biography), Academy after 387, died 348/347 BCE; the Forms as Aristotle reports them. |
+| `wh-329` Aristotle | 9 | 6 → 9 | **Diogenes Laertius was taken as fact**: twenty years with Plato, Stagira restored at his request, the "pacing" origin of Peripatetic. Now he stayed until Plato died in 347; the covered walk as the likelier origin; the tutoring of Alexander hedged. |
+| `wh-330` Peloponnesian War | 8 | 8 → 8 | **Thucydides' "truest cause" was stated as fact**; now his judgement, with the modern debate. The plague's 25 – 30 per cent as one historian's estimate; the war-count row dropped for Sicily 415 – 413 and Aegospotami 405 BCE. |
+
+**Read by eye.** *Article:* "the Battle of Thermopylae", "the Battle of Salamis", "the Delian League", "the
+Parthenon", "the Peloponnesian War"; "Greek theatre" and the four persons bare. *Confusability:* `wh-319`–`wh-322`
+the war and its three battles, Thermopylae and Salamis named in each other's backgrounds only; `wh-323`/`wh-324`/`wh-325`
+the league, the statesman and the temple, the tribute appearing on all three but as a phrasing only on `wh-323`;
+`wh-327`/`wh-328`/`wh-329` teacher, pupil and pupil's pupil, the Forms only on `wh-328` (and in `wh-327`'s FAQ as the
+reason they are not his), the Clouds only on `wh-327`. *Consistency:* the Classical dates agree with
+`docs/greece-chronology.md` throughout. *Against the gr- cards:* `gr-590` puts Thespis c. 560 BCE in Solon's old age
+(Plutarch), `wh-326` c. 534 (Parian Marble); `gr-467` calls Agariste a "close relative" where `wh-324` says niece;
+`gr-695` credits Philip with the phalanx outright (for `wh-332`, B34). None edited.
+
+**Glossary.** Eight terms rewritten (*Battle of Thermopylae*, *Delian League*, *Pericles*, *Parthenon*, *Greek
+theatre*, *Socrates*, *Plato*, *Peloponnesian War*); *Battle of Salamis* and *Aristotle* already agreed.
+
+### B34 — `wh-331`–`wh-340`, Greece and the Hellenistic world and Rome (2026-10-04)
+
+Run as B33, the Rome cards read against the `rm-` collection. Checks: `wh-audit.js --range=wh-331:wh-340` clean but
+for `I.duplicate` on `wh-339` and `wh-340`, whose pictures are also `rm-045`'s and `rm-133`'s (picture pass); the rest
+as B31; all 86 distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators: `wh-335` Alexandria, `wh-336`
+Rome and `wh-338` the Palatine; `wh-337` asked for "Etruria", which has no primary coordinate. Again **almost every
+old card cited ancient writers only** (Herodotus, Diodorus, Plutarch, Florus, Polybius, Gellius), retelling them as
+fact.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-331` Herodotus | 9 | 7 → 9 | **"Died c. 425 BCE" was in no source**; now born c. 484 (Gellius's figure), still writing in 429, dead before 413 BCE. "Father of history" is Cicero's; the nine books are a Hellenistic division; how far he travelled is debated. |
+| `wh-332` Philip II of Macedon | 8 | 7 → 8 | **That he invented the phalanx is Diodorus's claim**, with the modern case for Alexander II beside it; the Vergina Tomb II attribution as disputed, whose each side is. Born c. 382, reigned 359 – 336 BCE, Chaeronea 338. |
+| `wh-333` Alexander the Great | 9 | 9 → 9 | **Plutarch's Ganges refusal and army figures were stated as fact**; Arrian has the army stop at the Hyphasis, both now given. The cause of death unknown, poison, typhoid and West Nile as views; born 356, king 336, died at Babylon in June 323 BCE. |
+| `wh-334` Hellenistic period | 7 | 6 → 8 | **The lead phrasing hung the period on Polybius's "organic whole", which he dates to 220 – 216 BCE**; the 306 and 168 BCE rows were other events. "Hellenistic" is Droysen's term; 323 – 30 BCE with Green's 334 – 31 also dated. |
+| `wh-335` Library of Alexandria | 9 | 5 → 9 | **The card ended the library in Caesar's fire of 48 BCE**, with a dynasty row and a "700,000 books" row. The counts are the ancient writers' and inconsistent; the end is rival stories (48 BCE, 273, 391 CE) and the Arab burning a legend first told c. 1200. |
+| `wh-336` Ancient Rome | 9 | 5 → 10 | 753 BCE is Varro's reckoning, 509 BCE perhaps a few years early, 476 CE a convention fixed later; the eastern half to 1453. **A phrasing carried a figure of years** and another a numeral. |
+| `wh-337` Etruscan civilisation | 8 | 5 → 9 | **"Flourished c. 800 – 300 BCE" had no source**; now emerged c. 900, Veii's fall 396 (the ancient date; the site lived on), Roman conquest c. 300 – 100 BCE. The Lydian origin is Herodotus's, the native one Dionysius's, and the DNA studies are named both ways. |
+| `wh-338` founding of Rome | 9 | 5 → 11 | 753 BCE is labelled traditional and Varro's, beside Timaeus's 813, Fabius's 747, Cato's 751 and Cincius's 728. **A "15 generations" row and a vultures row were not dates.** The Palatine wall of c. 730 – 720 BCE is evidence, not proof of the legend. |
+| `wh-339` Roman Kingdom | 8 | 6 → 8 | **The card was Florus's moral history retold as fact.** 753 – 509 BCE is traditional; the 244 years and seven kings are Livy's and Dionysius's; Lucretia and Brutus are Livy's story; the Forum's drainage and two modern views added. Dionysius's own count gives 751 – 507. |
+| `wh-340` Roman Republic | 9 | 6 → 10 | **The card was Polybius alone**, with "3 parts" and "1 tribune" as date-line rows. 509 – 27 BCE as traditional, and the end disputed: Flower's last republic c. 60 BCE, Caesar's dictatorship 49, the settlement of 27. |
+
+**Read by eye.** *Article:* "the Library of Alexandria", "the Hellenistic period", "the Etruscan civilisation", "the
+founding of Rome", "the Roman Kingdom", "the Roman Republic"; the persons and "Ancient Rome" bare. *Confusability:*
+`wh-332`/`wh-333` father and son, Chaeronea only on `wh-332`, Aristotle only on `wh-333`; `wh-310`/`wh-333` the fall of
+Persia and its conqueror, Gaugamela named in both backgrounds, the Hyphasis only on `wh-333`; `wh-336`/`wh-338`/`wh-339`/
+`wh-340` the civilisation, its founding, its kings and its republic, 753 BCE on three lines but Varro's reckoning
+explained on `wh-336` and `wh-338`, Lucretia only on `wh-339`, Polybius's mixed constitution only on `wh-340`.
+*Consistency:* 509 and 27 BCE agree across `wh-336`, `wh-339` and `wh-340`; the Hellenistic 323 – 30 BCE with `wh-311`.
+*Against the gr- and rm- cards:* `gr-695` credits Philip with the phalanx outright; `gr-802` ends the library in 48 BCE;
+`rm-022` starts the Etruscans c. 1000 BCE (Stoddart) where `wh-337` has c. 900 (Posth); `rm-049` dates its Palatine
+wall c. 600 – 500 BCE, apparently another structure. None edited.
+
+**Glossary.** Five terms rewritten (*Herodotus*, *Philip II of Macedon*, *Alexander the Great*, *Library of
+Alexandria*, *Ancient Rome*); *Hellenistic period*, *Etruscan civilisation*, *Founding of Rome*, *Roman Kingdom* and
+*Roman Republic* already agreed. **The Greece and the Hellenistic world deck is done.**
+
+### B35 — `wh-341`–`wh-350`, Rome (2026-10-04)
+
+Run as B34. Checks: `wh-audit.js --range=wh-341:wh-350` clean but for `I.duplicate` on six cards whose pictures are
+also `rm-` cards' (`wh-342`, `wh-343`, `wh-344`, `wh-345`, `wh-346`, `wh-349`: picture pass); the rest as B31; all 84
+distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators: `wh-347` Cannae (battle) and `wh-348` Byrsa
+hill. **Every old card's date line carried at least one row that was not a date** (meeting houses, "10, then 2 more"
+tables, "3 commissioners", "24 years", "700 years old", "provinces 2", "500 iugera"), and most cited Livy, Polybius,
+Appian or Plutarch alone.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-341` Roman Senate | 9 | 6 → 9 | **"Decrees as law from 27 BCE" had no source**, and the Republic's dates stood for the Senate's. Now `""` and `undatable`: Romulus's founding is Livy's legend, the end a fading in the 7th century CE. Sizes of 300, 600 and 900 each given as whose. |
+| `wh-342` Twelve Tables | 8 | 6 → 8 | **Livy's Athens embassy was told as fact**, with four Livy citations; now "Livy says", the years "by tradition" (451 – 450, ratified 449 BCE), the text known only from later quotations, and a modern warning against the story of its making. |
+| `wh-343` Conflict of the Orders | 7 | 6 → 8 | **Livy's secession story was fact, and 286 BCE for the last secession was an 1875 dictionary's figure**; now 287. The name and the 494 – 287 frame are modern, the early secessions doubted, the old soldier a recurring motif. |
+| `wh-344` Roman legion | 9 | 8 → 10 | **"A standing army" under the Republic: Polybius describes a fresh levy each year.** 4,200 and 5,000 are his; the "Marian reforms" as a modern construct; the line `""` and `undatable`, no source dating the legion's start or end. |
+| `wh-345` Punic Wars | 8 | 7 → 9 | **No row dated the wars**, and a 201 BCE peace-terms row was another event's. Now 264 – 146 and each war; Polybius's ship losses as his, with the Aegates rams suggesting he overstated; the salted-earth story a modern fable. |
+| `wh-346` Hannibal | 9 | 7 → 9 | **The oath at the altar, the 15 days in the Alps and the army figures were rows of fact**; now Polybius's, the oath disputed, the pass unknown. Born c. 247, exiled 195, died 183 – 181 BCE as Nepos's sources disagree. |
+| `wh-347` Battle of Cannae | 8 | 6 → 9 | Every casualty figure is now its writer's: Polybius 70,000, Livy 45,500 foot and 2,700 horse, modern nearer 30,000. **The day, 2 August, is Quintus Claudius's Roman date via Gellius.** The glossary misquoted Livy as 40,000, as `rm-218` does. |
+| `wh-348` destruction of Carthage | 8 | 6 → 10 | **The order of events was wrong** (surrender, hostages and arms came before the order to leave the city). "700 years old" and "3 years" rows dropped; the salting a later legend; Cato in Plutarch's words, not the Latin slogan. |
+| `wh-349` Roman conquest of Greece | 7 | 6 → 7 | **Philip's 1,000 talents were half at once and half over ten years**, not "over 10 years"; **Achaea became a province only in 27 BCE**, not 146. Now 229 – 146 BCE, the Isthmian proclamation of 196, Corinth 146. |
+| `wh-350` Gracchi brothers | 7 | 7 → 9 | **Gaius did not die on the Aventine**: Appian has him flee across the river and have a slave kill him. The 500-iugera limit is Appian's against Livy's summary's 1,000; Plutarch's rival motives his. No birth rows: no source gives one. |
+
+**Read by eye.** *Article:* "the Roman Senate", "the Twelve Tables", "the Conflict of the Orders", "the Roman legion",
+"the Punic Wars", "the Battle of Cannae", "the destruction of Carthage", "the Roman conquest of Greece"; "Hannibal"
+bare; "the Gracchi brothers" (each phrasing says "the elder" or "the younger of the"). *Confusability:* `wh-341`/`wh-342`/
+`wh-343` the council, the code and the struggle, the tribunes only on `wh-343`; `wh-345`/`wh-346`/`wh-347`/`wh-348` the
+wars, the general, the battle and the end, the precheck's sibling note between `wh-345` and `wh-348` read and found to be
+shared vocabulary only; `wh-348`/`wh-349` both end in 146 BCE, Carthage only on one and Corinth only on the other.
+*Against the rm- cards:* `rm-218` quotes Livy's Cannae dead as 40,000 foot (he gives 45,500); `rm-283` states the
+500-iugera cap as fact; `rm-119` and `rm-155` date things Livy dates (4,200 men in 346 BCE, the maniple in 340) that this
+card leaves to a modern "mid-4th century". None edited.
+
+**Glossary.** Ten terms rewritten: every card's entry had an unsourced claim or a sentence with no marker.
+
+### B36 — `wh-351`–`wh-360`, Rome (2026-10-04)
+
+Run as B35. Checks: `wh-audit.js --range=wh-351:wh-360` clean but for `I.duplicate` on `wh-351` and `wh-354` (pictures
+also `rm-094`'s and `rm-352`'s) and a `W.not-why` note on `wh-354`; the rest as B31; all 80 distinct URLs 2xx;
+`check-citations --card` 0 mismatched. New locator: `wh-356` (the Curia of Pompey, at Largo di Torre Argentina).
+Glossary aliases that named another entry's own key were dropped (*Caesar's civil war* had carried "Pharsalus",
+"Battle of Pharsalus" and "Rubicon"; *Gallic Wars* "Vercingetorix" and "Alesia"), since each has its own entry.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-351` Marius and Sulla | 7 | 9 → 8 | **"Office unused 120 years" was cited to Appian, who says 400** (120 is Plutarch's). "Dictator from 82 BCE" had no source and the proscription counts were not a date; now 107 – 86, 88 and 78 BCE. The Marian reforms as a modern debate. |
+| `wh-352` Third Servile War | 7 | 7 → 7 | **The 6,000 crucified and the 70,000 and 120,000 armies were stated as fact**; now Appian's. The breakout's three counts (78, about 70, 30 or more) each its writer's; the debate over Spartacus's aims added. 73 – 71 BCE only. |
+| `wh-353` Julius Caesar | 9 | 7 → 9 | The old card was Suetonius and Plutarch, with **pirate ransom and calendar rows that were not dates** and "perhaps 102" unattributed. Born c. 100 BCE on the ancient "56th year", Mommsen's 102 as his; consul 59; died 15 March 44 BCE. |
+| `wh-354` Gallic Wars | 8 | 6 → 10 | **Plutarch's million killed and "800 cities, 300 nations" were stated as fact**; now beside Velleius's 400,000 and Caesar's counts, with the modern view that such numbers are rhetoric. 58 – 50 BCE and Alesia 52. |
+| `wh-355` Caesar's civil war | 7 | 6 → 8 | **"The die is cast" is Suetonius's report**, Plutarch has it in Greek, and one account traces it to Menander; 10/11 January is one modern dating on a drifting calendar. A "6,000 dead" row dropped, Pollio's count now in prose; a phrasing carried 49 BCE. |
+| `wh-356` assassination of Julius Caesar | 9 | 5 → 10 | **"Et tu, Brute" is Shakespeare's**, and the 23 wounds are Suetonius's and Plutarch's (Nicolaus gives 35 and more than 80 plotters). Two figure rows dropped; the Curia of Pompey and its surviving base added. |
+| `wh-357` Augustus | 9 | 5 → 9 | **Suetonius's "44 years alone" counts from Actium, 31 BCE**, not from 27. Born 23 September 63 BCE, named Augustus 16 January 27 BCE, died 19 August 14 CE; the Res Gestae as self-presentation, "brick to marble" as Suetonius's report. |
+| `wh-358` Roman Empire | 9 | 5 → 9 | **Appian's reckonings ("500 years to master Italy") were date-line rows.** From 27 BCE, with the ancient writers' other starting points; 476 CE a convention; the 75 million population one modern estimate. |
+| `wh-359` Pax Romana | 8 | 5 → 10 | **The name and the span were stated as ancient**; the phrase is ancient (Pliny), the period name and 27 BCE – 180 CE a modern convention, beside a c. 150 BCE – 235 CE reading. The Greenland lead record and Calgacus's charge, as Tacitus's speech, added. |
+| `wh-360` Roman roads | 9 | 5 → 10 | **The four-layer build was an 1875 inference from Vitruvius's rules for floors**; excavation shows layers varying with the ground. Network length as three modern figures, each whose (299,171, 188,555 and c. 100,000 km). |
+
+**Read by eye.** *Article:* "the Third Servile War", "the Gallic Wars", "Caesar's civil war", "the assassination of
+Julius Caesar", "the Roman Empire", "the Pax Romana", "Roman roads"; the persons bare. *Confusability:* `wh-353`–`wh-356`
+the man, his conquest, his war and his death, the Rubicon only on `wh-355`, the Ides only on `wh-356`, the pirates
+only on `wh-353`; `wh-336`/`wh-358` share the 27 BCE, 476 and 1453 CE rows, the civilisation and the imperial state, with
+no phrasing in common; `wh-357`/`wh-358` the emperor and the empire, Res Gestae only on `wh-357`; `wh-304`/`wh-360` the
+Persian and the Roman roads. *Against the rm- cards:* `rm-175` gives the four courses with thicknesses as fact and
+`rm-138` the Appian Way paved in 312 BCE, where Livy has its stone paving later; `rm-313` has the legions come from
+Nola where the old card had Capua; `rm-319` dates Sulla's dictatorship to 82 BCE, which no source here prints. None
+edited.
+
+**Glossary.** Nine terms rewritten; *Julius Caesar* already agreed.
+
+### B37 — `wh-361`–`wh-370`, Rome (2026-10-04)
+
+Run as B36. **A usage limit stopped the run mid-batch**: six agents died with drafts unfinished; they were relaunched
+after the reset with a note to reuse saved pages only after re-checking them (`STEPS.md` in the scratch directory).
+Checks: `wh-audit.js --range=wh-361:wh-370` clean but for `W.not-why` notes on `wh-362` and `wh-366`; the rest as B31;
+all 85 distinct URLs 2xx. `check-citations --card` first found one mismatch: `wh-368`'s HiMA article is in the issue
+labelled 2025 but Crossref dates it 2026, so the citation now reads "no. 14 (2025, published 2026)" and the check is
+0. New locators: `wh-362` (the Colosseum, labelled Rome), `wh-365` Pompeii and `wh-368` (Hadrian's Wall, labelled
+Northumberland).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-361` Roman aqueduct | 9 | 5 → 9 | **The card was really the Aqua Appia's**, with "9 aqueducts" a row. Now the technology, its first and last at Rome (312 BCE, 226 CE); Frontinus's 441 years and flow figures as his, measured by pipe size not volume, and his book read as self-promotion. |
+| `wh-362` Colosseum | 9 | 5 → 9 | **"50,000 spectators" was stated as fact**; now the low end of modern estimates beside the catalogue's 87,000 places. Begun c. 70, opened 80, last hunts 523 CE; Dio's flooded sea-fight is his, with no archaeological trace. |
+| `wh-363` Roman law | 9 | 5 → 9 | **The line put three other events' dates on a long tradition** (Gaius's list, Julian's edict, the Digest); now `""` and `undatable`. Two old phrasings also fitted `wh-439`'s Corpus Juris Civilis and were replaced. |
+| `wh-364` Roman citizenship | 9 | 5 → 10 | **"The lex Julia gave all Italy citizenship in 90 BCE" came from an 1875 dictionary**; Appian has only the loyal allies admitted at first. Now `""`; Dio's tax motive for 212 CE as his view, with others'. |
+| `wh-365` Pompeii | 9 | 5 → 10 | **The line held only Pliny's 24 August**; now the town's own history (walls c. 600 – 500 BCE, colony 80 BCE, buried 79 CE), and both eruption dates with whose: Pliny's August and the park's 2018 case for 24 October. The full toll unknown, about 1,300 victims found. |
+| `wh-366` Nero | 9 | 5 → 9 | "Great fire 6 days and 7 nights" and "his 32nd year" were not dates. **The singing is a rumour in Tacitus and fact in Suetonius and Dio**, and the fiddle a later outgrowth; the Christians' punishment is Tacitus's report. Born 15 December 37, died 9 June 68 CE. |
+| `wh-367` Trajan | 8 | 5 → 8 | **"The furthest extent" was a modern reckoning stated as fact**; Eutropius is now quoted and named. Dio's reign length dropped for born 18 September 53, emperor 98 – 117 and died August 117 CE (the day disputed). The Pliny-and-Christians phrasing was `wh-373`'s. |
+| `wh-368` Hadrian's Wall | 9 | 5 → 9 | **The Jarrow stone's "80 miles" and "divine precept" are editors' restorations**, called far from certain. The Historia Augusta's "separate the barbarians" is attributed; defence or control a debate; begun c. 122, latest coins 403 – 406 CE. |
+| `wh-369` Marcus Aurelius | 9 | 5 → 10 | **The title "to himself" was presented as his**; one view makes it a later addition. Plague tolls as Gilliam's and Scheidel's estimates; "five good emperors" Machiavelli's and Gibbon's; a "12 books" row dropped. Born 26 April 121, died 17 March 180 CE. |
+| `wh-370` Crisis of the Third Century | 7 | 5 → 9 | **The card leant on the Historia Augusta**, with a "30 named, 22 after padding" row. 235 – 284 CE is a convention, de Blois's 249 – 268 and a climate study's c. 250 – 275 beside it, and the label itself questioned; the claimants as the Augustan History's thirty and Gibbon's nineteen. |
+
+**Read by eye.** *Article:* "the Roman aqueduct" (phrased "a Roman aqueduct"), "the Colosseum", "Roman law", "Roman
+citizenship", "Hadrian's Wall", "the Crisis of the Third Century"; the persons and Pompeii bare. *Confusability:*
+`wh-342`/`wh-363` the code and the law, the Twelve Tables named on `wh-363` only in the background; `wh-364`/`wh-370`
+both in the 3rd century, 212 CE only on `wh-364`; `wh-367`/`wh-368`/`wh-369` emperor, frontier, emperor, Hadrian named
+on `wh-367` only as successor. *Against the rm- cards:* `rm-475` begins the Colosseum "under Vespasian, 69 – 79 CE"
+where `wh-362` has c. 70; `rm-506` gives 15 forts on the Wall where `wh-368` gives 14 added before completion. None edited.
+
+**Glossary.** Eight terms rewritten; *Roman aqueduct* and *Roman law* already agreed.
+
+### B38 — `wh-371`–`wh-380`, Rome and Ancient India (2026-10-04)
+
+Run as B37, most agents relaunched after the usage limit. The India collection (`in-`) is still empty, so the India
+cards had no sibling to compare. Checks: `wh-audit.js --range=wh-371:wh-380` clean but for a `W.not-why` note on
+`wh-374` and `L.missing` on `wh-376` (sixteen states: a region request was refused as a locator, and no single capital
+stands for them all); the rest as B31; all 75 distinct URLs 2xx; `check-citations --card` 0 mismatched. New locator:
+`wh-374` (Nicaea, at İznik). **The *Christianity* glossary entry was kept**: the `wh-373` draft rewrote the site-wide
+term around the Roman Empire, and the old entry is general and agrees with the card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-371` Diocletian | 8 | 5 → 9 | "Tetrarchy" is now said to be the modern scholars' word; the "unique abdication" Eutropius's claim. **Aper was no source's prefect**: now Numerian's father-in-law. Born c. 236 – 245 and died 313 – 316 CE, two accounts each. |
+| `wh-372` Constantine the Great | 9 | 7 → 9 | **The vision is now two stories**: Lactantius's dream, the only contemporary one, and Eusebius's midday cross told 25 years later. **The "Edict of Milan" was neither an edict nor issued at Milan**; the deathbed baptism is Eusebius's report. |
+| `wh-373` Christianity | 9 | 5 → 11 | **"Made official 380 CE" was the state-religion myth**: the law of 380 defined orthodoxy, and pagan worship was banned only in 391 – 392. A "17th year of Antoninus Verus" row dropped; the 5 per cent by 300 an estimate, whose. |
+| `wh-374` First Council of Nicaea | 8 | 5 → 8 | **"Subscribed 318 bishops" was a symbolic figure stated as fact**; now Eusebius's more than 250 and Constantine's more than 300, with the 318 first appearing c. 358. The council did not settle the Bible, now said in an FAQ. |
+| `wh-375` fall of the Western Roman Empire | 9 | 5 → 9 | **Odoacer's 13 years and Theoderic's 493 were other events on the line.** 476 CE as a convention, Nepos alive until 480 and the date's choice in 6th-century Constantinople; Gibbon's cause his, the transformation school and its critics named. |
+| `wh-376` mahajanapadas | 6 | 5 → 7 | **The "mote hall, elected raja" clan-state picture came from the Sakiyas, who are not one of the sixteen.** The list from AN 3.70 with the Jain list beside it; "c. 600 – 500 BCE" had no source, now a climate study's c. 550 – 322 BCE (converted from its BP). |
+| `wh-377` Upanishads | 7 | 5 → 7 | **"Sitting down near" was stated as the name's meaning**; in the oldest passages it means a hidden connection. Olivelle's c. 700 – 500 and c. 300 – 100 BCE replace "no later than 550"; the salt lesson is Uddalaka's, not Yajnavalkya's; the Muktika's 108 a late canon. |
+| `wh-378` Hinduism | 9 | 5 → 9 | Pew's 2010 figures replaced by its 2025 report (1.2 billion in 2020); the colonial-era origin of "Hinduism" as one religion's name stated neutrally. `""` and `undatable` kept. |
+| `wh-379` varna | 7 | 6 → 7 | **A 1922 view was settled fact, and "varna means colour" rested only on the old racial reading** (dropped). Varna and jati now told apart; Dirks's census argument as his; three named genetic studies of endogamy. |
+| `wh-380` Gautama Buddha | 9 | 6 → 10 | **"44 years" of teaching had no source.** The line gives the old c. 563 – 483 BCE (from the chronicles' 218 years) and the newer death c. 405 BCE; the sheltered-prince tale as tradition; the Lumbini pillar quoted. |
+
+**Read by eye.** *Article:* "the First Council of Nicaea", "the fall of the Western Roman Empire", "the mahajanapadas",
+"the Upanishads"; "Christianity", "Hinduism", "varna" and the persons bare. *Confusability:* `wh-371`/`wh-372` the
+persecutor and the convert, the Great Persecution only on `wh-371`; `wh-372`/`wh-373`/`wh-374` the emperor, the faith and
+the council, Milan only on `wh-372`, Pliny and Decius only on `wh-373`; `wh-377`/`wh-378`/`wh-379` text, tradition and
+social order, the Purusha hymn only on `wh-379`; `wh-380`/`wh-381` the man and the religion, Lumbini only on `wh-380`.
+*Against the rm- cards:* `rm-573` dates the persecution's start to February 303 where Eusebius has March. None edited.
+
+**Glossary.** Nine terms rewritten; *Christianity* kept as above.
+
+### B39 — `wh-381`–`wh-390`, Ancient India (2026-10-04)
+
+Run as B38. Checks: `wh-audit.js --range=wh-381:wh-390` clean but for `W.not-why` notes on `wh-389` and `wh-390`; the
+rest as B31; all 59 distinct URLs 2xx. `check-citations --card` first found one mismatch: `wh-382` expanded an author's
+initials as "A. G." where Crossref prints "AG", now as Crossref has it, and the check is 0. New locator: `wh-389`
+(Sanchi, where the card's stupa stands). **Many old date lines were F. W. Thomas's provisional "at latest" years of
+1922 printed as settled**; the new lines say whose reckoning each is.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-381` Buddhism | 9 | 7 → 9 | **"Founder died 483 BCE" and "canon by about 250 BCE" were an old Western dating and a 1922 view stated as fact.** Now "emerged c. 600 – 400 BCE", the prose giving three datings and whose; adherents from Pew's 2025 report; a phrasing that overlapped `wh-380` replaced. |
+| `wh-382` Jainism | 8 | 7 → 8 | Now `""` and `undatable`, since Jains hold the teaching has no founder; Mahavira's traditional 599 – 527 and the scholars' c. 468 BCE each whose; the split of c. 300 BCE as tradition; Parshva possibly real, unprovable. A phrasing carried a numeral. |
+| `wh-383` Maurya Empire | 7 | 6 → 9 | **"Dynasty lasted 137 years" was a row**; it is the Puranas' figure. Both ends are reconstructions: the start from the Sandrocottus match (one study allows only c. 311 – 305), the end from the 137 years; Megasthenes' details each credited to whoever quotes him. |
+| `wh-384` Chandragupta Maurya | 7 | 7 → 8 | **The Jain abdication and death at Shravanabelagola was stated as fact**; it is a tradition grown up after c. 600 CE. Chanakya credited to later texts; the 500 elephants to Strabo and Plutarch (Appian gives none); the armies to Megasthenes and Plutarch; no source names a victor over Seleucus. |
+| `wh-385` Arthashastra | 7 | 6 → 7 | **"Traditionally c. 300 BCE" was the only date**; now Olivelle's layered dating as his, composed c. 50 BCE – 125 CE and expanded c. 175 – 300 CE, then rediscovered in 1905; Kautilya as Chanakya a tradition. |
+| `wh-386` Ashoka | 8 | 7 → 8 | **The old card said he never names himself, but the Maski edict does.** Reign c. 268 – 232 BCE as Upinder Singh gives it; the Kalinga toll Ashoka's own figure in Rock Edict 13; the conversion stories the Mahavamsa's and the Ashokavadana's. |
+| `wh-387` Edicts of Ashoka | 7 | 6 → 7 | **Thomas's 1922 "at latest" dates were printed as settled**; now issued c. 259 – 242 BCE on his reckoning, with Hultzsch's coronation of 264 beside it. Prakrit, Brahmi and Kharosthi, the Greek and Aramaic at Kandahar, and dhamma rather than Buddhism added. |
+| `wh-388` spread of Buddhism | 8 | 6 → 9 | **The missions, Mahinda's included, are known only from the Sri Lankan chronicles**; the edicts never mention them. Emperor Ming's dream is the Hou Hanshu's "current tradition". Sri Lanka c. 246 BCE, Korea 372, Japan 538 or 552 CE, agreeing with `cnh-267` and `jp-063`. |
+| `wh-389` stupa | 7 | 6 → 9 | **A 19th-century view (the stupa cult as lay, not monastic) was fact**; dropped. The Vedic-mound origin as a widely held view; the 84,000 stupas a legend Faxian heard; Ashoka's Nigali Sagar pillar added. Sanchi's dates off the line, which is `""` and `undatable`. |
+| `wh-390` Indo-Greek kingdoms | 6 | 9 → 7 | **Greek rule ended c. 10 CE, when a Scythian governor took Sagala**, not c. 20 CE with the Kushans. Both ends reconstructions, whose; the history rebuilt from coins; the Milindapanha a Buddhist author's portrait. |
+
+**Read by eye.** *Article:* "Buddhism", "Jainism", "Ashoka", "Chandragupta Maurya" bare; "the Maurya Empire", "the
+Arthashastra", "the Edicts of Ashoka", "the spread of Buddhism", "a stupa", "the Indo-Greek kingdoms". *Confusability:*
+`wh-383`/`wh-384` the state and its founder, Megasthenes on both but the capital only on `wh-383`, Seleucus only on
+`wh-384`; `wh-386`/`wh-387` the man and his edicts, Kalinga's toll only on `wh-386`, the Greek kings and the scripts
+only on `wh-387`; `wh-381`/`wh-388` the religion and its spread, the branches only on `wh-381`, Mahinda only on `wh-388`.
+*Against the gr- cards:* `gr-768` has the elephants decide Ipsus and Seleucus cede "the eastern provinces"; `gr-785`
+dates Menander c. 155 – 130 BCE where `wh-390` has c. 165 – 130 (from his coins). None edited.
+
+**Glossary.** Nine terms rewritten; *Buddhism* and the *spread of Buddhism* alias already agreed.
+
+### B40 — `wh-391`–`wh-400`, Ancient India and Ancient China (2026-10-04)
+
+Run as B39, the China cards read against the `cnh-` collection. Checks: `wh-audit.js --range=wh-391:wh-400` clean but
+for `I.duplicate` on `wh-398` (its picture is also `cnh-111`'s); the audit's sibling check first caught `wh-396` and
+`wh-397` sharing half their content words in their lead phrasings ("an age when the king … the real power"), so
+`wh-397`'s lead phrasing was rewritten onto Mencius's story of the chronicle; the rest as B31; all 53 distinct URLs 2xx.
+`check-citations --card` reports one mismatch it cannot resolve: `wh-394` cites the Bakhshali response with the
+article's own byline, Plofker first, where Crossref lists the five authors in another order, and the work itself wins.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-391` Kushan Empire | 6 | 5 → 7 | **"Kanishka's era long read as 78 CE" sat on the line as if unresolved, and "in Kabul after 25 CE" had no source.** Year one is now 127 CE (Falk; Cribb's coins; most specialists), 78 CE also dated; the Yuezhi origin the Chinese histories'; the Rabatak line and the Sasanian vassal kings added. |
+| `wh-392` Greco-Buddhist art | 6 | 5 → 7 | **"Dated pieces 0 of many thousands" was wrong**: five Gandharan Buddhist images carry years. The name a modern label (specialists say Gandharan art); made c. 50 – 500 CE; Gandhara or Mathura as the Buddha image's birthplace an open question, with whose. |
+| `wh-393` Gupta Empire | 7 | 8 → 7 | **Samudragupta's poem was said to share a stone with Ashoka's "conquest by dhamma", which is Rock Edict 13, not on the Allahabad pillar.** The exact coronation day hedged; Faxian a pilgrim's report; the Hunnic wars and the "golden age" as Vincent Smith's phrase and a colonial and nationalist idea. |
+| `wh-394` Hindu–Arabic numerals | 7 | 6 → 7 | Century-only rows replaced by c. 550 CE (the first full system), the Gwalior zero of 876 CE and the Liber Abaci of 1202; **the Bakhshali radiocarbon dates of 2017 and the reply that contests them** added; al-Khwarizmi's lost book through its Latin version. |
+| `wh-395` Classical Sanskrit literature | 6 | 8 → 6 | **The line held three other events' dates**; now Macdonell's c. 200 BCE – 1100 CE as his, and the inscription of 634 CE naming the famous poets. Kalidasa's date credited to tradition and to scholars; **Keith's history was miscited as 1920** (it is 1928). |
+| `wh-396` Eastern Zhou | 7 | 5 → 7 | **The phrasings carried years and figures**, and the eclipse material was `wh-397`'s. 770 – 256 BCE, the remnant annexed in 249; the break between its halves as 481 (Chavannes), 475, 453 (Pines) or 403, each whose. A source that called 770 – 476 BCE the "Warring States" dropped. |
+| `wh-397` Spring and Autumn period | 7 | 5 → 8 | **The line used other terms' dates** (the Eastern Zhou's span, Duke Huan's reign, 403 BCE). Now c. 770 – 475 BCE and the chronicle's own 722 – 481; the five presiding chiefs as a disputed list; Confucius as the chronicle's maker as Mencius's story. A mint figure cited to a genetics paper dropped. |
+| `wh-398` Warring States period | 7 | 5 → 7 | **The phrasings carried years.** Starts of 475, 453 or 403 BCE; the name given in retrospect and carried by the Zhanguo ce; the 400,000 dead after Changping Sima Qian's figure, with a modern study on why it looks too large. "Hundred schools" is in the Zhuangzi; only the school labels are Han. |
+| `wh-399` Confucius | 9 | 5 → 9 | **551 BCE was stated as fact**; now 551 – 479 BCE as Sima Qian's traditional dates, with the commentaries' 552. The Analects as compiled by disciples; the Five Classics as later tradition; a "70 generations" row and a pigment paper that said nothing of him dropped. |
+| `wh-400` Confucianism | 9 | 5 → 9 | **"Ren peaks" and "li peaks" rows came from a word-count paper, and the man's and the dynasty's dates stood for the tradition's**; now `""` and `undatable`. "Confucianism" as the English label for Ru; the Han adoption of 136 BCE with the debate over its reach. |
+
+**Read by eye.** *Article:* "the Kushan Empire", "the Gupta Empire", "the Eastern Zhou", "the Spring and Autumn
+period", "the Warring States period"; "Greco-Buddhist art", "Hindu–Arabic numerals", "Classical Sanskrit literature",
+"Confucianism" and "Confucius" bare. *Confusability:* `wh-390`/`wh-391`/`wh-392` the Greek kings, the Kushans and the
+art, coins on all three but bilingual only on `wh-390`, Rabatak only on `wh-391`; `wh-396`/`wh-397`/`wh-398` the whole
+and its two halves, the dividing years on `wh-396` and the Lu chronicle only on `wh-397`, Changping only on `wh-398`;
+`wh-399`/`wh-400` the man and the tradition, the Han's 136 BCE on both but as a phrasing only on `wh-400`. *Against the
+cnh- cards:* `cnh-163` starts the Warring States "from 480, 403 or 376 BCE" (480 against Chavannes's 481); `cnh-142`
+ends the Spring and Autumn c. 476 BCE against `wh-397`'s c. 475, a one-year convention difference. None edited.
+
+**Glossary.** Ten terms rewritten (*Kushan Empire*, *Greco-Buddhist art*, *Gupta Empire*, *Hindu-Arabic numerals*,
+*Sanskrit literature*, *Eastern Zhou*, *Spring and Autumn period*, *Warring States period*, *Confucius*,
+*Confucianism*); the shared Zhou entries now agree with both collections. **`wh-301`–`wh-400` are done: the Greece,
+Rome and Ancient India decks are complete, and Ancient China continues at `wh-401` (B41).**
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1321,7 +1685,7 @@ pass once it answers. Filled batch by batch.
 | `wh-038` | a chart, not a photograph |
 | `wh-045` | a labelled tree diagram |
 | `wh-050` | a 1921 drawing |
-| `wh-041` | **locator** not written (Wikipedia refused) |
+| `wh-041` | **locator** not written: neither "Homo naledi" nor "Rising Star Cave" has a primary coordinate |
 | `wh-051` | White Sands footprints, not an ice age |
 | `wh-052`, `wh-053` | regional or labelled maps |
 | `wh-054` | an 18th-century engraving; alt is the file name |
@@ -1347,7 +1711,6 @@ pass once it answers. Filled batch by batch.
 | `wh-091` | a crowded labelled map |
 | `wh-092` | a labelled map; description written from its title, unseen |
 | `wh-093` | no picture |
-| `wh-094` | **first**: may show human remains; replace with the lunette |
 | `wh-097` | a map with burned-in labels |
 | `wh-099`, `wh-100` | description and alt are raw captions |
 | `wh-101` | fine subject, but description and alt are copied captions naming a museum and giving dates the cards no longer carry |
@@ -1400,7 +1763,7 @@ pass once it answers. Filled batch by batch.
 | `wh-217` | one provincial stela; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
 | `wh-226` | a 1927 line drawing of the Ramesseum reliefs; description names the publication |
 | `wh-227` | yellow arrows and tomb numbers drawn onto the photograph |
-| `wh-229` | the Western Deffufa, Kerma only; a cataract landscape would show the region (and **locator**: "Nubia" has no coordinate) |
+| `wh-229` | the Western Deffufa, Kerma only; a cataract landscape would show the region (locator now at Kerma, 2026-10-04) |
 | `wh-238` | a labelled plate of finds from Khirsara |
 | `wh-239` | a drawn map with burned-in dates and arrows |
 | `wh-241`, `wh-242` | fit, but credits lack the author, licence and Commons URL form |
@@ -1413,12 +1776,51 @@ pass once it answers. Filled batch by batch.
 | `wh-261` | a distribution map with numbered symbols |
 | `wh-262` | the Akrotiri ship fresco, from Thera not Crete |
 | `wh-263` | one stirrup jar; description refers to the old card's trade |
-| `wh-268` | **locator**: neither "Ugarit" nor "Ras Shamra" has a coordinate |
+| `wh-268` | **locator**: none of "Ugarit", "Ras Shamra" or "Minet el-Beida" has a coordinate |
 | `wh-269` | a 1916 line drawing where photographs exist |
 | `wh-270` | a 1915 printed hand copy with line numbers |
 | `wh-272` | fits, but description names a museum; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
 | `wh-276` | the Egtved clothing, one grave; description names a museum |
 | `wh-281` | a lump of casting waste of uncertain age |
 | `wh-288` | a 1679 Kircher engraving |
-| `wh-295` | the Byrsa panorama, also used by the glossary's *Peace of 201 BCE*; **locator**: "Carthage" has no coordinate |
+| `wh-295` | the Byrsa panorama, also used by the glossary's *Peace of 201 BCE* (locator now at Byrsa, 2026-10-04) |
 | `wh-298` | Chinese spade coins only; an early electrum coin would show the western strand |
+| `wh-303` | glazed-brick archers from Susa, not Darius |
+| `wh-304` | a generic Persepolis tablet, not the road |
+| `wh-308` | the Gate of All Nations, not the king |
+| `wh-310` | a crop of the Alexander Mosaic, also `wh-333`'s |
+| `wh-313` | the Temple of Zeus at Cyrene, one building in one colony |
+| `wh-314` | the Hawara papyrus: fair, but description ties it to a dropped claim and the credit names no author |
+| `wh-316` | the Menelaion, a shrine outside the city |
+| `wh-317` | a relief of trireme rowers, not the city |
+| `wh-318` | fine, but description says the slots hold tickets; they are empty |
+| `wh-319` | one serpent head from the Plataea tripod |
+| `wh-320` | fine, but description says the Soros covers the 192; it is the mound traditionally held to |
+| `wh-323` | a fragment of the tribute lists, titled as such, not the league |
+| `wh-325` | an 1842 daguerreotype, dim, titled "The colonnade in 1842" |
+| `wh-329` | fine, but its title should read simply Aristotle |
+| `wh-330` | one Syracusan quarry, not the war |
+| `wh-331` | a papyrus of the Histories, not the man |
+| `wh-337` | the Piacenza liver, one divination object (`rm-029`'s subject); **locator**: "Etruria" has no coordinate |
+| `wh-339` | a relief of lictors (also `rm-045`'s, audit `I.duplicate`) |
+| `wh-340` | the Curia Julia (also `rm-133`'s, audit `I.duplicate`), the senate house rather than the Republic |
+| `wh-342` | a 1555 woodcut, also `rm-110`'s (audit `I.duplicate`) |
+| `wh-343` | a Nerva denarius showing a later vote, also `rm-071`'s (audit `I.duplicate`) |
+| `wh-344` | a census relief, not a legion, also `rm-117`'s (audit `I.duplicate`) |
+| `wh-345` | an Aegates ram: apt, but also `rm-199`'s (audit `I.duplicate`) |
+| `wh-346` | Barcid coins, also `rm-205`'s (audit `I.duplicate`) |
+| `wh-349` | the temple of Apollo at Corinth, also `rm-256`'s (audit `I.duplicate`) |
+| `wh-351` | a coin of Sulla alone, also `rm-094`'s (audit `I.duplicate`) |
+| `wh-352` | the later amphitheatre at Santa Maria Capua Vetere |
+| `wh-354` | a Vercingetorix stater, also `rm-352`'s (audit `I.duplicate`) |
+| `wh-355` | a coin of Caesar's celebrating Gaul, not the civil war |
+| `wh-358` | a labelled modern map |
+| `wh-360` | fine, but the description asserts the unsupported four-layer build |
+| `wh-367` | a 19th-century plate of a Column relief, not the emperor |
+| `wh-371` | the porphyry tetrarchs, all four rather than Diocletian |
+| `wh-372` | the Arch of Constantine, a monument, not the man |
+| `wh-380` | the Lumbini pillar, evidence about him rather than the Buddha |
+| `wh-384` | a generic punch-marked coin; description names a museum |
+| `wh-386` | the Dhauli elephant, a site rather than the king |
+| `wh-394` | the Gwalior temple building, not the numerals |
+| `wh-398` | a 1935 atlas plate with dated labels, also `cnh-111`'s (audit `I.duplicate`) |

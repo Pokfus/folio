@@ -2,7 +2,7 @@
 /* urlcheck.js <id> … — curl every citation URL in the drafts (card + glossary); print non-200s. */
 "use strict";
 const fs = require("fs"), path = require("path"), cp = require("child_process");
-const S = process.env.WH_S || require("path").join(require("os").tmpdir(), "wh"); let n = 0, badN = 0; const seen = new Map();
+const { S } = require("./cfg.js"); let n = 0, badN = 0; const seen = new Map();
 for (const id of process.argv.slice(2)) {
   const out = JSON.parse(fs.readFileSync(path.join(S, "out", id + ".json"), "utf8"));
   const srcs = (out.patch.sources || []).concat((out.glossary && out.glossary.sources) || []);

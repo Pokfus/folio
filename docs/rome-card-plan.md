@@ -249,7 +249,7 @@ sites than by scholarship and the cited source has to be chosen with care.
 ### Italy before Rome — `rm-italy`
 
     rm-001  Ancient Italy
-    rm-002  The geography of Italy
+    rm-002  The Apennines
     rm-003  The Tiber
     rm-004  Latium
     rm-005  The Alban Hills
