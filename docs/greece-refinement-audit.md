@@ -2007,3 +2007,40 @@ Pictures and locators for `gr-531`–`gr-560` follow with the pictures commit.
 
 **Chronology.** "The Peloponnesian War" section holds rows for every date the 30 cards print, with pins; the Peace of
 Nicias and Sicilian Expedition rows of "Events and reigns" are confirmed.
+
+**Pictures for `gr-501`–`gr-560`** (one commit after the text). 46 of the 60 carry one, each with a description of
+what is shown, a visual alt and an author-and-licence credit; the old credits read "Photograph by X, via Wikimedia
+Commons (licence)" and several descriptions named a museum. Every candidate was checked with `check-image-free.js`
+and looked at on a contact sheet.
+- **New or replaced:**
+  - `gr-519`: none → the stone of the Callias decrees. `gr-520`: none → a fragment of the Kleinias decree.
+  - `gr-523`: none → a page of the oldest manuscript of Thucydides (10th century CE).
+  - `gr-524`: none → the Roman amphitheatre of Dyrrachium. `gr-525`: a relief map labelled in Russian → the bay of Sybota.
+  - `gr-527`: an engraving with a banner lettered MEGARA → the fountain house of Megara.
+  - `gr-528`: none → the acropolis of Sparta, where the Brazen House stood.
+  - `gr-531`: none → an engraving of 1900 imagining Piraeus and the Long Walls.
+  - `gr-533`: none → a painting of about 1652 – 1654 CE imagining a city struck by plague.
+  - `gr-537`: none → the Pnyx. `gr-543`: none → the walls of Amphipolis.
+  - `gr-540`: the Pylos shield above its museum label → the same shield photographed without one.
+  - `gr-547`: none → the Capitoline head later labelled Alcibiades, described as an idealised head on a modern
+    inscribed pillar. `gr-551`: none → Klima, below the site of ancient Melos.
+  - `gr-552`: none → the Syracuse quarry, moved from `gr-560`, which now shows the river Asinaro itself.
+  - `gr-555`: none → the Lenormant relief fragments, thought to show the Paralus. `gr-556`: none → Syracuse from
+    Epipolae. `gr-558`: none → the Great Harbour of Syracuse.
+- **Kept with new captions and credits:** the rest.
+- **Refused:** a reconstruction drawing of Polygnotus' *Nekyia* with a printed title; book illustrations of
+  Eurybiades with printed captions; Roman busts of Archidamus III (a different king) for `gr-530`; an invented
+  engraved portrait of Nicias; stick insects of the genus *Brasidas*; the Plataea wall photograph already on
+  `gr-435`; the Pnyx bema photographs already on `gr-805` and the glossary's `Democracy`; the Mycenaean tomb at
+  Menidi for `gr-532` (the deme is not the tomb); a theatre of Argos for the Argive alliance.
+- **No picture:** `gr-516`, `gr-529`, `gr-530`, `gr-532`, `gr-535`, `gr-538`, `gr-541`, `gr-544`–`gr-546`,
+  `gr-549`, `gr-550`, `gr-557`, `gr-559`: men with no ancient likeness, treaties and texts, and places with nothing
+  fitting free. The B43–B52 leftovers (`gr-431`, `gr-473`, `gr-486`, `gr-491`, `gr-493`) were searched again and
+  stay without one: the candidates were captioned illustrations, a tribute-list stele already on `gr-483`, or a
+  trireme model that its file calls a relief.
+
+**Locators for `gr-501`–`gr-560`**, fetched through `add-locators.js`: `gr-501` (← Propylaea (Acropolis of Athens)),
+`gr-502`, `gr-504`, `gr-506`, `gr-507`, `gr-514`, `gr-515`, `gr-524` (← Epidamnos), `gr-525` (← Syvota), `gr-526`,
+`gr-532`, `gr-536`, `gr-539`, `gr-540`, `gr-542`, `gr-543`, `gr-544`, `gr-548` (← Battle of Mantinea (418 BC)),
+`gr-553` (← Segesta), `gr-558` (← Ortygia) and `gr-560` (← Asinaro). `gr-505`'s article publishes no coordinate, so
+the Hephaisteion has none yet.
