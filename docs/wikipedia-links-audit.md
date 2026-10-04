@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4382 | the title is the article |
-| `redirect-variant` | 291 | spelling / plural / qualifier differed; same subject |
+| `ok` | 4475 | the title is the article |
+| `redirect-variant` | 295 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 68 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 382 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 90 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 567 | nothing matched; no link |
+| `section-redirect` | 89 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 126 | only a disambiguation page; no link could be chosen |
+| `none` | 570 | nothing matched; no link |
 
-**5128 of 5918 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5225 of 6018 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -80,14 +80,18 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-487` **Khanbaliq** → [Dadu (Beijing)](https://en.wikipedia.org/wiki/Dadu_(Beijing)) (from `Khanbaliq`)
 - `cnh-491` **Ayurbarwada** → [Ayurbarwada Buyantu Khan](https://en.wikipedia.org/wiki/Ayurbarwada_Buyantu_Khan) (from `Ayurbarwada`)
 - `cnh-506` **Hu Weiyong case** → [Four Major Cases of the early Ming dynasty](https://en.wikipedia.org/wiki/Four_Major_Cases_of_the_early_Ming_dynasty) (from `Hu Weiyong case`)
-- `cnh-519` **tributary system** → [Tribute](https://en.wikipedia.org/wiki/Tribute) (from `Tributary system`)
 - `cnh-523` **tael** → [Liang (mass)](https://en.wikipedia.org/wiki/Liang_(mass)) (from `Tael`)
-- `cnh-529` **Sanyan** → [Sanyan-e Sofla](https://en.wikipedia.org/wiki/Sanyan-e_Sofla) (from `Sanyan`)
 - `cnh-573` **Late Qing reforms** → [New Policies](https://en.wikipedia.org/wiki/New_Policies) (from `Late Qing reforms`)
 - `cnh-574` **Xinhai Revolution** → [1911 Revolution](https://en.wikipedia.org/wiki/1911_Revolution) (from `Xinhai Revolution`)
 - `cnh-588` **Hu Shi** → [Hu Shih](https://en.wikipedia.org/wiki/Hu_Shih) (from `Hu Shi`)
 - `cnh-590` **First National Congress of the Chinese Communist Party** → [1st National Congress of the Chinese Communist Party](https://en.wikipedia.org/wiki/1st_National_Congress_of_the_Chinese_Communist_Party) (from `First National Congress of the Chinese Communist Party`)
 - `cnh-592` **Whampoa Military Academy** → [Republic of China Military Academy](https://en.wikipedia.org/wiki/Republic_of_China_Military_Academy) (from `Whampoa Military Academy`)
+- `cnh-614` **Mao Zedong Thought** → [Maoism](https://en.wikipedia.org/wiki/Maoism) (from `Mao Zedong Thought`)
+- `cnh-655` **Nanjing Massacre Memorial Hall** → [Memorial Hall of the Victims in Nanjing Massacre by Japanese Invaders](https://en.wikipedia.org/wiki/Memorial_Hall_of_the_Victims_in_Nanjing_Massacre_by_Japanese_Invaders) (from `Nanjing Massacre Memorial Hall`)
+- `cnh-656` **People's Republic of China** → [China](https://en.wikipedia.org/wiki/China) (from `People's Republic of China`)
+- `cnh-680` **Chinese economic reform** → [Reform and opening up](https://en.wikipedia.org/wiki/Reform_and_opening_up) (from `Chinese economic reform`)
+- `cnh-684` **Tiananmen Square protests of 1989** → [1989 Tiananmen Square protests and massacre](https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre) (from `Tiananmen Square protests of 1989`)
+- `cnh-699` **Taiwanese identity** → [Taiwanese people](https://en.wikipedia.org/wiki/Taiwanese_people) (from `Taiwanese identity`)
 - `eg-003` **inundation** → [Flood](https://en.wikipedia.org/wiki/Flood) (from `Inundation`)
 - `eg-004` **Two Lands** → [Upper and Lower Egypt](https://en.wikipedia.org/wiki/Upper_and_Lower_Egypt) (from `Two Lands`)
 - `eg-063` **Umm el-Qa'ab** → [Umm El Qa'ab](https://en.wikipedia.org/wiki/Umm_El_Qa'ab) (from `Umm el-Qa'ab`)
@@ -150,13 +154,10 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gr-471` **dikasteria** → [Dikasterion](https://en.wikipedia.org/wiki/Dikasterion) (from `Dikasteria`)
 - `gr-483` **Athenian tribute lists** → [Members of the Delian League](https://en.wikipedia.org/wiki/Members_of_the_Delian_League) (from `Athenian tribute lists`)
 - `gr-486` **Athenian empire** → [Delian League](https://en.wikipedia.org/wiki/Delian_League) (from `Athenian empire`)
-- `gr-501` **Propylaea** → [Propylon](https://en.wikipedia.org/wiki/Propylon) (from `Propylaea`)
 - `gr-505` **Hephaisteion** → [Temple of Hephaestus](https://en.wikipedia.org/wiki/Temple_of_Hephaestus) (from `Hephaisteion`)
 - `gr-508` **Pericles' funeral oration** → [Pericles's Funeral Oration](https://en.wikipedia.org/wiki/Pericles's_Funeral_Oration) (from `Pericles' Funeral Oration`)
 - `gr-514` **Athenian Agora** → [Ancient Agora of Athens](https://en.wikipedia.org/wiki/Ancient_Agora_of_Athens) (from `Athenian Agora`)
-- `gr-534` **first citizen** → [Princeps](https://en.wikipedia.org/wiki/Princeps) (from `First citizen`)
 - `gr-553` **Egesta** → [Segesta](https://en.wikipedia.org/wiki/Segesta) (from `Egesta`)
-- `gr-568` **Four Hundred** → [400 (number)](https://en.wikipedia.org/wiki/400_(number)) (from `Four Hundred`)
 - `gr-586` **Classical period** → [Classical Greece](https://en.wikipedia.org/wiki/Classical_Greece) (from `Classical period (Greece)`)
 - `gr-596` **Oedipus Tyrannus** → [Oedipus Rex](https://en.wikipedia.org/wiki/Oedipus_Rex) (from `Oedipus Tyrannus`)
 - `gr-613` **theatron** → [Theatre of ancient Greece](https://en.wikipedia.org/wiki/Theatre_of_ancient_Greece) (from `Theatron`)
@@ -366,7 +367,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `wh-134` **zoonotic disease** → [Zoonosis](https://en.wikipedia.org/wiki/Zoonosis) (from `Zoonotic disease`)
 - `wh-188` **Old Babylonian period** → [Old Babylonian Empire](https://en.wikipedia.org/wiki/Old_Babylonian_Empire) (from `Old Babylonian period`)
 - `wh-193` **Enuma Elish** → [Enūma Eliš](https://en.wikipedia.org/wiki/En%C5%ABma_Eli%C5%A1) (from `Enuma Elish`)
-- `wh-202` **emmer wheat** → [Emmer](https://en.wikipedia.org/wiki/Emmer) (from `Emmer wheat`)
 - `wh-205` **unification of Egypt** → [Upper and Lower Egypt](https://en.wikipedia.org/wiki/Upper_and_Lower_Egypt) (from `Unification of Egypt`)
 - `wh-211` **Step Pyramid of Djoser** → [Pyramid of Djoser](https://en.wikipedia.org/wiki/Pyramid_of_Djoser) (from `Step Pyramid of Djoser`)
 - `wh-214` **mummification** → [Mummy](https://en.wikipedia.org/wiki/Mummy) (from `Mummification`)
@@ -510,7 +510,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 
-## Disambiguation pages that could not be settled (127)
+## Disambiguation pages that could not be settled (126)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -523,7 +523,6 @@ Pick the right article by hand, or leave the card without a link.
 - `cnh-166` **Li Kui** — `Li Kui` is a disambiguation page; its links: `Li Kui (legalist)`, `Li Kui (chancellor)`, `Li Kui (Water Margin)`
 - `cnh-194` **huangdi** — `Huangdi` is a disambiguation page; its links: `Huangdi, Henan`, `Huangdi, Liaoning`, `Huangdi, Xinjiang`, `Huangdi Township`
 - `cnh-359` **Zhenguan era** — `Zhenguan` is a disambiguation page
-- `cnh-507` **Central Secretariat** — `Central Secretariat` is a disambiguation page; its links: `Central Secretariat Service`, `Central Secretariat metro station`
 - `eg-001` **Kemet** — `Kemet` is a disambiguation page; its links: `Sons of Kemet`, `Km and Km.t (Kemet) (hieroglyphs)`, `KEMET Corporation`
 - `geo-502` **Austin** — `Austin` is a disambiguation page; its links: `Austin, Arkansas`, `Austin, Chicago`, `Austin, Colorado`, `Austin, Indiana`, `Austin, Kentucky`, `Austin, Manitoba`
 - `geo-504` **Providence** — `Providence` is a disambiguation page; its links: `Divine providence`, `Eye of Providence`, `Fort Providence`, `HMS Providence`, `Old Providence`, `Providence, Alabama`
@@ -653,7 +652,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (90)
+## Section redirects — no dedicated page (89)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -665,7 +664,6 @@ Wikipedia treats these as part of another article. No link.
 - `cnh-253` **Eastern Han** — `Eastern Han` only redirects into `Han dynasty#Eastern Han (25–220 AD)`
 - `cnh-313` **Eastern Jin** — `Eastern Jin` only redirects into `Jin dynasty (266–420)#Eastern Jin (317–420)`
 - `cnh-345` **Sui conquest of Chen** — `Sui conquest of Chen` only redirects into `Chen dynasty#Sui conquest`
-- `cnh-559` **opium trade** — `Opium trade` only redirects into `Opium#Modern production and use`
 - `eg-018` **Faiyum A culture** — `Faiyum A culture` only redirects into `Prehistoric Egypt#Faiyum A culture`
 - `eg-096` **Heb-sed court** — `Heb-sed court` only redirects into `Pyramid of Djoser#Heb-sed court`
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
@@ -748,7 +746,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (567)
+## No article found (570)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -875,6 +873,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-489` **Xingsheng** — search suggests `Xingsheng Community`, `Xingsheng station`, `Old Chinese`, `China proper`, `Chinese characters`
 - `cnh-505` **lijia system** — search suggests `Urban rail transit in China`, `Grand Canal (China)`, `Cultural Revolution`, `China at the Olympics`, `Human rights in China`
 - `cnh-524` **Huizhou merchants** — search suggests `Huizhou Chinese`, `Huizhou, Anhui`, `Ten Great Merchant Guilds`, `Hui Style architecture`, `Huizhou University`
+- `cnh-529` **Sanyan**
+- `cnh-604` **Chinese women's suffrage movement** — search suggests `Feminism in China`, `Chinese American women's suffrage in Oregon`, `Women in China`, `Women's Suffrage Alliance`, `Women's suffrage`
+- `cnh-619` **Outline Land Law** — search suggests `Land Reform Movement`, `Outline of China`, `Outline of commercial law`, `Outline of the Chinese Civil War`, `Outline of Taiwan`
+- `cnh-629` **peasant nationalism** — search suggests `Chinese nationalism`, `State nationalism`, `New Three Principles of the People`, `Korean nationalism`, `Chinese Communist Revolution`
 - `eg-017` **El Omari** — search suggests `Prehistoric Egypt`, `Mohamed Atta`, `Al-Omari`, `Safia El Emari`, `Al-Omari Grand Mosque`
 - `eg-026` **Predynastic period** — search suggests `Prehistoric Egypt`, `Predynastic Egyptian mummies`, `Naqada III`, `Gebelein predynastic mummies`, `Ancient Egypt`
 - `eg-028` **Naqada expansion** — search suggests `Naqada III`, `Naqada II`, `Naqada culture`, `Prehistoric Egypt`, `Ancient Egypt`
@@ -1050,7 +1052,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gr-579` **surrender of Athens** — search suggests `Noemvriana`, `Constantine I of Greece`, `Ancient Greece`, `Greek capture of Thessaloniki`, `Parthenon`
 - `gr-580` **demolition of the Long Walls** — search suggests `White Tower of Thessaloniki`, `Corinth Canal`, `Frankish Tower (Acropolis of Athens)`, `Underwater Demolition Command`, `Athens`
 - `gr-585` **amnesty of 403** — search suggests `Thirty Tyrants`, `Callixenus`, `Greece–Turkey relations`, `Against Eratosthenes`, `403 BC`
-- `gr-589` **tragic chorus** — search suggests `Greek chorus`, `Greek tragedy`, `Theatre of ancient Greece`, `Tragedy`, `Aeschylus`
 - `gr-615` **tragic mask** — search suggests `Theatre of ancient Greece`, `Melpomene`, `Sock and buskin`, `Mask`, `Greek chorus`
 - `gr-618` **ktēma es aei** — search suggests `List of Classical Greek phrases`, `Hegesias of Magnesia`
 - `gr-655` **white-ground lekythos** — search suggests `Lekythos`, `White-ground technique`, `Pottery of ancient Greece`, `Achilles Painter`, `Thanatos Painter`
