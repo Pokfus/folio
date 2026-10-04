@@ -1528,7 +1528,6 @@ pass once it answers. Filled batch by batch.
 | `wh-091` | a crowded labelled map |
 | `wh-092` | a labelled map; description written from its title, unseen |
 | `wh-093` | no picture |
-| `wh-094` | **first**: may show human remains; replace with the lunette |
 | `wh-097` | a map with burned-in labels |
 | `wh-099`, `wh-100` | description and alt are raw captions |
 | `wh-101` | fine subject, but description and alt are copied captions naming a museum and giving dates the cards no longer carry |
