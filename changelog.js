@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.958", released: "2026-10-04T14:31Z" };
+window.FOLIO_VERSION = { v: "1.959", released: "2026-10-04T15:21Z" };
 
 window.CHANGELOG = [
   {
@@ -46,6 +46,12 @@ window.CHANGELOG = [
       "<b>Common Thread</b>: Literature is no longer one of the day\u2019s four groups; the other categories take its place.",
       "<b>Progress on phones</b>: an active collection's progress on a phone now tints the whole row, the same as on a tablet or desktop, instead of a thin bar along its foot.",
       "<b>A hundred new cards in the China collection</b>, from the fall of the Yuan through the Ming and Qing to the early Republic, with 84 new glossary terms.",
+      "<b>Mesopotamia on the Atlas</b>: the region's outline now follows the Euphrates, the Taurus and Zagros foothills and the edge of the alluvium, not a rough strip between the rivers.",
+      "<b>Collections start folded</b>: a language or community collection in your active decks now opens folded, like every other collection; a fold you set is still remembered.",
+      "<b>Download all</b>: a language whose decks are all still to be fetched offers one button on its own row that downloads every deck in it at once.",
+      "<b>Unfolded collections</b>: a collection's decks now attach to it as one block on desktop and tablet, as they already did on a phone.",
+      "<b>Session complete</b>: Keep studying, Undo the last card and Back home now sit as three equal buttons on one line.",
+      "<b>Continue with</b>: the completion screen now shows the next banner of your active decks list as that banner, skipping anything folded away or finished for the day.",
     ],
   },
   {
