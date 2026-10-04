@@ -156,6 +156,13 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Forum basin filled / tribal assembly moves into the Forum / earthquake / cleared from | c. 650 – 600 BCE / 145 BCE / 847 CE / 1803 | `rm-088` |
 | Lapis Niger inscription / also dated / found | c. 580 – 550 BCE (BMCR 2026.09.26) / c. 500 BCE / 1899 | `rm-089` |
 | the annales maximi edited in 80 books | c. 130 – 120 BCE (Mommsen, Forsythe; Frier and Drews differ) | `rm-090` |
+| the Republic | 509 BCE (tradition) – 27 BCE (a convention: the senate names Octavian Augustus) | `rm-091` |
+| consuls take office on 1 January | from 153 BCE | `rm-092`. **"Named consuls from 305 BCE"** was AUC 305 (= 449 BCE) in Zonaras 7.19 misread as a BCE year; gone |
+| Fasti Capitolini: last entry / found | 13 CE / 1547 | `rm-093` |
+| fasces: the Vetulonia tomb / a state emblem | c. 700 – 600 BCE / 1926 | `rm-095` |
+| Horatius at the bridge; the war with Porsena | 508 BCE; 508 – 507 BCE (tradition; the Loeb Livy's margin and Livius) | `rm-097`, `rm-098` |
+| Lake Regillus / the Castor temple dedicated | 499 BCE (Livy) or 496 BCE (Dionysius), tradition / 484 BCE | `rm-099` |
+| Foedus Cassianum | 493 BCE (tradition), to the Latin War, 340 – 338 BCE | `rm-100`, `rm-011` |
 
 ## The middle and late Republic
 
@@ -261,4 +268,13 @@ rm-087: 753; 49; 75; 121
 rm-088: 650; 600; 145; 847; 1803
 rm-089: 580; 550; 500; 1899
 rm-090: 130; 120
+rm-091: 509; 27
+rm-092: 509; 153
+rm-093: 509; 13; 1547
+rm-095: 700; 600; 1926
+rm-096: 509
+rm-097: 508
+rm-098: 508; 507
+rm-099: 499; 496; 484
+rm-100: 493; 340; 338
 ```

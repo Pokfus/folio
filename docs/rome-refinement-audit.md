@@ -141,7 +141,7 @@ order unless the user says otherwise.
 | B7 | Rome under the kings (`rm-kings`) | `rm-061`–`rm-070` | 10 | 132 | **done 2026-10-04** |
 | B8 | Rome under the kings (`rm-kings`) | `rm-071`–`rm-080` | 10 | 123 | **done 2026-10-04** |
 | B9 | Rome under the kings (`rm-kings`) | `rm-081`–`rm-090` | 10 | 125 | **done 2026-10-04** |
-| B10 | The early Republic (`rm-early-republic`) | `rm-091`–`rm-100` | 10 | 126 | open |
+| B10 | The early Republic (`rm-early-republic`) | `rm-091`–`rm-100` | 10 | 126 | **done 2026-10-04** |
 | B11 | The early Republic (`rm-early-republic`) | `rm-101`–`rm-110` | 10 | 126 | open |
 | B12 | The early Republic (`rm-early-republic`) | `rm-111`–`rm-120` | 10 | 121 | open |
 | B13 | The early Republic (`rm-early-republic`) | `rm-121`–`rm-130` | 10 | 121 | open |
@@ -359,6 +359,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-088` Forum Romanum | the Forum from above | acceptable; no Commons URL; the glossary's is a labelled 1828 plan |
 | `rm-089` Lapis Niger | a 19th-century engraving | photographs of the site exist |
 | `rm-090` annales maximi | a 1493 printed Livy | shows nothing of the record |
+| `rm-091` Roman Republic | an anonymous denarius | acceptable; no Commons URL in the credit |
+| `rm-092` consul | a denarius of 54 BCE | acceptable; no Commons URL in the credit |
+| `rm-093` Fasti Consulares | the fragments in the Capitoline wall | acceptable; its title should be the term, and the credit lacks the Commons URL |
+| `rm-094` imperium | a Sulla denarius | one coin for a concept, and also on `wh-351` (`I.duplicate`) |
+| `rm-095` fasces | a relief from Auximum | acceptable; no Commons URL in the credit |
+| `rm-096` collegiality | a curule chair on a funerary relief | stands for magistracy, not collegiality; the desc names the museum |
+| `rm-097` Horatius Cocles | a painting by Le Brun | acceptable, labelled an imagining |
+| `rm-098` Lars Porsena | a Rubens-workshop Mucius Scaevola | shows Mucius rather than Porsena |
+| `rm-099` Battle of Lake Regillus | a fresco by Laureti | shows the room's plaques and statues too |
+| `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
 
 ## Glossary candidates
 
@@ -736,3 +746,51 @@ answers 2xx; `check-citations --card` 0 mismatched on every card.
 Lapis Niger's tomb stories are each the ancient author's. *Confusability:* `rm-081`/`rm-082` and
 `rm-083`/`rm-084` are pairs; each phrasing names something only its own term has. *Chronology:* Romulus's
 end year (717 BCE, Foster's margins) now stands on four cards; `rm-060` gives only his start, and agrees.
+
+### B10 — `rm-091`–`rm-100`, the early Republic: offices and first wars (2026-10-04)
+
+Run as B9. Applied in an order that puts `rm-096` ahead of `rm-092`, whose link to it is kept (both start in
+509 BCE). Checks: `rm-audit.js --range=rm-091:rm-100` reads clean on seven cards; the rest are `W.not-why`
+notes and `rm-094`'s picture shared with `wh-351`. `check-questions`, `check-cards`, `check-style`,
+`check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched on every
+card. One citation URL did not answer at apply time: the CRRO record of RRC 335/10a on numismatics.org
+(`rm-099`), fetched earlier in the run with its date range and type saved; kept, re-curl when next touched.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-091` Roman Republic | 9 | 5 → 9 | 509 BCE labelled tradition and 27 BCE labelled a convention (the senate naming Octavian Augustus); two count rows into prose. The founding told as Livy's tradition; Varro's dating problem and the different views of when the Republic ended added. `wh-340` gives 509 – 27 BCE unlabelled with counts on its line. |
+| `rm-092` consul | 8 | 5 → 8 | **"Named consuls from 305 BCE" was Smith citing Zonaras 7.19, which is about 449 BCE: 305 is the year from the founding, misread as a BCE year.** Gone. 153 BCE (office from 1 January) kept on a modern source. Lictors, fasces and the colleague's veto left to `rm-095` and `rm-096`. Two phrasings read wrongly with the singular answer in the blank ("the first two consul") and were reworded by hand. |
+| `rm-093` Fasti Consulares | 6 | 5 → 8 | **The Regia as its site was stated as fact**; the debate is now named (Simpson for the Regia; Rose, the Capitoline Museums and `rm-046` for Augustus's arch). Two sentences on Flavius's calendar, the other meaning of *fasti*, cut. The early names are a reconstruction, with Lendering's charge that Varro padded the years. The inscription cited from the Capitoline Museums' record. |
+| `rm-094` imperium | 7 | 5 → 8 | "From 509 BCE" and counts off the line; the concept is undated (`undatable`). The kings' curiate laws are what Cicero says. |
+| `rm-095` fasces | 8 | 5 → 8 | The line held lictor counts and an unlabelled 509; now the Vetulonia tomb (c. 700 – 600 BCE) and the state emblem of 1926. **The Etruscan origin is what Livy 1.8 and Dionysius 3.61 report**; the Vetulonia find is separate, with a study arguing that modern restorers assembled the bundle. A phrasing telling Valerius's lowered fasces in the card's voice now opens "Livy says". |
+| `rm-096` collegiality | 7 | 6 → 7 | Count rows off the line; now Traditional 509 BCE. The colleague's veto, Livy 2.1, 2.18 and 2.44, Tiberius Gracchus deposing Octavius, the later revivals and the modern debate on its purpose added. |
+| `rm-097` Horatius Cocles | 7 | 7 → 8 | **All seven sources were ancient** (Dionysius three times). Count rows gone; Traditional 508 BCE, the Loeb Livy's margin. Both endings: Livy has him swim to safety, Polybius has him drown on purpose. The glossary no longer treats him as a historical person. A phrasing in the card's voice now opens "In Livy's story". |
+| `rm-098` Lars Porsena | 6 | 7 → 8 | All seven sources were ancient (Livy four times). Traditional 508 – 507 BCE. **The version in which Porsena took Rome** is Tacitus's and Pliny's, reported as theirs. |
+| `rm-099` Battle of Lake Regillus | 6 | 6 → 7 | Livy was cited three times. The twin horsemen are Dionysius's (Livy leaves them out). The line gives Livy's 499 and Dionysius's 496 (tradition) and the Castor temple's dedication, 484. **"Coins four centuries later"** is the coin record's own 95 – 92 BCE. The lake's site is uncertain; the locator kept as approximate. |
+| `rm-100` Foedus Cassianum | 5 | 5 → 7 | All five sources were ancient. Traditional 493 BCE, as on `rm-011`, lasting until the Latin War. **"Four centuries" of the bronze column was a figure no source gives.** Bringmann's mid-4th-century dating (on `rm-011`) is not on this card: its agent dropped the English review because of the audit's language-chip false positive, and the addendum now says not to; worth restoring when the card is next touched. |
+
+**Read by eye.** *Legend as legend:* Horatius, Porsena, Mucius and the Dioscuri are each an ancient author's.
+*Confusability:* `rm-092`, `rm-094`, `rm-095` and `rm-096` are one cluster (consul, imperium, fasces,
+collegiality); each phrasing names what only its term has, and `rm-092` gave up its lictor and veto
+clues to the siblings.
+
+### The first hundred, in sum
+
+`rm-001`–`rm-100` (Italy before Rome, Rome under the kings, the first of the early Republic) are done:
+537 sources became 767, every card's Think-it-through was written fresh with markers, and 89 glossary
+entries were rewritten. `rm-audit.js --range=rm-001:rm-100` now reads 62 of 100 cards clean; what remains is
+26 `W.not-why` notes (an FAQ opening "How" or "Who"), 8 picture duplicates (most the false thumbnail key),
+3 cards with no picture, 4 sibling leads read by eye and one language-chip false positive. Every picture is
+still the bulk-written one; the "Pictures to redo" table holds a verdict for all hundred.
+
+What the hundred found, again and again:
+- **Legend told as history, and dated as if recorded.** "After 753 BCE" stood on some twenty date lines; every
+  one is gone, and every regal or early-Republic year is now labelled tradition with whose reckoning it is.
+- **Years no source prints.** 716, 673 – 642, 642 – 617, 535, 305 and others: a bulk-written card's regnal span
+  is to be distrusted until a page is found that prints it. One (305) was an AUC year read as BCE.
+- **Livy as the whole source.** Most cards cited only ancient authors, Livy up to five times; the ancient-author
+  cap and the half-modern rule moved every card onto modern scholarship.
+- **A modern scholar's inference as ancient fact.** Niebuhr's 300 clans and his plebeian reconstruction, a
+  single excavator's Palatine wall, one genetics paper's Umbrian identity.
+- **Persée.** A large share of the old sources sat on Persée, which this sandbox cannot open; every claim
+  resting only there was re-sourced or dropped.
