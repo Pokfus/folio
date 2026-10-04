@@ -825,7 +825,9 @@ cache is keyed on the corpus size, not the progress count, and is busted by `uCa
 reader's. **`atlasPlaceIsNew` passes `false` explicitly** — it asks about the READER's register, and over
 the full one nothing would ever be new. The empty-register note is not drawn on the full tab.
 **THE WORLD ATLAS'S DRAW PATH STAYS IN `PAGES.map`**, unreachable from any tab: the Find-it game is built
-on it (`GAME` still sets `MINE` false). Deleting it would be deleting the game. `#map/<year>/<slug>` and a
+on it (`GAME` sets `MINE` false for a country's or a place's round; since Oct 2026 a state's round flips
+`MINE` true through `gameBoard`, so the board is the Full Atlas in that year — see `docs/minigames.md`
+"A state or people is found on the Full Atlas in its year"). Deleting it would be deleting the game. `#map/<year>/<slug>` and a
 glossary term's map marker already landed on the personal tab before this change and still do.
 **WHERE MARKS CROWD, THE EASIER CARD'S MARK SURVIVES** (`mineDiff`, in `mineDotsShown` and
 `mineWaterShown`; on request: "the cards difficulty should be guiding. Easier cards locations should be

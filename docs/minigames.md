@@ -594,11 +594,21 @@ reveal opens that place's whole stack of cards, easiest first, with the same swi
 and "within 150 km" would mark Rome right and the Palatine wrong in the same breath, so the easier card's
 place keeps the neighbourhood (180 of 387 places survive) and the rest are left to its reveal.
 
-**The board is today's map for every kind**, and that is a loss to name: the old historical rounds were
-asked on the era maps, which begin in 1500, so a state of 500 BCE had no map and neither does a place;
-today's coast and rivers are what it is found against and the question says which year a state is asked in.
-A wrong guess at a state is given the distance to the nearest point of its outline, not to a centre that an
-empire's width makes meaningless.
+**A state or people is found on the Full Atlas in its year; a country or a place on today's map** (Oct
+2026, on a bug report: "When the Find It minigame asks for historical places, it currently still shows the
+modern map; it shouldn't. It should show the full atlas borders of that specific year"). The board was
+today's map for every kind, so a reader asked for a state as it stood in 300 BCE was looking at the
+countries of today. `gameBoard` now flips the page onto the Full Atlas's draw path for a state's round —
+`MINE` is a `let` in `PAGES.map` for this one reason, `_atlasFull` is true for the whole game, and the
+Full tab's lazy bundles (`polities`, `countrysteps`, `fronts`) ride with the game — at the year the question
+names, so the globe draws what the Full tab draws there: every state, people, country and war of that
+year, the target among them. It is unlabelled: `drawMineMarks` is skipped in the game, as the world board's
+capitals and country names are, and the hover chip stays silent. A wrong guess there is marked by the rings
+of whatever `mineStackAt` finds under it (a state, a people or a country of that year) and opens its card; a
+war side or a front has no single outline and is not marked. The world board keeps its country hit-test
+(`countryAt`), which a state's round skips. The cartouche reads "FULL ATLAS · <year>" on a state's round and
+"TODAY" on the others, which is what `test-minigames.js` reads. A wrong guess at a state is given the
+distance to the nearest point of its outline, not to a centre that an empire's width makes meaningless.
 
 **The rounds are built after two lazy bundles have landed** — `worldcaps` (a capital is a row of it) and
 `polities` (the dated outlines) — because built before them the pool is smaller on a cold load than a
