@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.963", released: "2026-10-04T21:30Z" };
+window.FOLIO_VERSION = { v: "1.964", released: "2026-10-04T21:51Z" };
 
 window.CHANGELOG = [
   {
@@ -55,6 +55,12 @@ window.CHANGELOG = [
       "<b>100 more Ancient Greece cards are rewritten</b>, finishing the Athenian Empire and the Peloponnesian War and starting Classical arts and thought, with more sources and new pictures.",
       "<b>A hundred more World History cards are rewritten</b>, from Persia through Greece, Rome and Ancient India to early China, with more sources and corrected dates.",
       "<b>A hundred Ancient Rome cards are rewritten</b>, in Italy before Rome, Rome under the kings and the early Republic, with more sources, corrected dates and legend told as legend.",
+      "<b>Daily study banner</b>: no Start button and nothing to press; its counts and time estimate now total what every active collection still has left today.",
+      "<b>Card preview on tablets</b>: the fanned cards beside the banner stay on narrower tablets and follow the whole list\u2019s pile; on a phone the estimate has a line of its own.",
+      "<b>Time at the desk</b>: the Today and This week times on the home page no longer reset part-way through a study day when your account syncs.",
+      "<b>Unfolded collections in dark mode</b>: the decks inside now join their collection with straight edges, as in daylight; only the collection\u2019s top and the last deck\u2019s bottom are rounded.",
+      "<b>Download buttons on phones</b>: a language\u2019s Download all now sits on its own line under the name and counts, and each deck\u2019s Download moves right into the spare space.",
+      "<b>Community collections</b> in your active decks are now drawn at the same height and in the same header wash as the official collections, and a deck still to be fetched no longer says \u201cnot on this device\u201d.",
     ],
   },
   {

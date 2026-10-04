@@ -266,7 +266,10 @@ const PROBE = () => {
   });
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.waitForTimeout(1400);
-  await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+  // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+  await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
   await page.waitForTimeout(1500);
   await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
   /* WAIT FOR THE BACK, DON'T GUESS AT IT. A card's heavy half is fetched per collection (see
@@ -346,7 +349,10 @@ const PROBE = () => {
     });
     await hcPage.goto(base + "#home", { waitUntil: "load" });
     await hcPage.waitForTimeout(1400);
-    await hcPage.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await hcPage.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await hcPage.waitForTimeout(900);
+    await hcPage.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await hcPage.waitForTimeout(1500);
     await hcPage.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await hcPage.waitForTimeout(800);

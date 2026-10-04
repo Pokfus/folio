@@ -60,7 +60,7 @@ function serve() {
   const readHome = () => page.evaluate(() => ({
     hero: !!document.querySelector(".banner.hero"),
     decks: document.querySelectorAll(".active-deck[data-review]").length,
-    cta: (document.querySelector("#b-review .cta") || {}).textContent,
+    title: (document.querySelector("#b-review .review-title") || {}).textContent,
   }));
   // A hash-only goto is a SAME-DOCUMENT navigation — the app keeps running and its in-memory S survives,
   // so anything written into localStorage behind its back has to be read back through a real reload or the
@@ -156,7 +156,7 @@ function serve() {
   v = await home();
   check("a reset does NOT turn the home page into a first-time visitor's", !v.hero, v);
   check("…the Daily study decks are still listed", v.decks >= 2, v.decks);
-  check("…and there is something to start", /start/i.test(v.cta || ""), v.cta);
+  check("…and the banner counts cards waiting", /waiting/i.test(v.title || ""), v.title);
 
   /* ================= 5. …and all of it survives a reload ================= */
   await page.reload({ waitUntil: "load" });

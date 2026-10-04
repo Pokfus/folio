@@ -5607,7 +5607,9 @@ body.night .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90
    review list's build — only the header is darkened, which is what the request asks for and what keeps the
    decks inside legible.
    An added COLLECTION is drawn this way too: it holds no cards itself, only the decks inside it do. */
-.active-deck.deck-group, .active-deck.dk-langhead{
+/* …and `.dk-coll`, a community collection — a whole deck of the reader's own — which is a collection header in
+   every respect and was the one header drawn as a deck row (Oct 2026, on request) */
+.active-deck.deck-group, .active-deck.dk-langhead, .active-deck.dk-coll{
   /* its own fallback hue, which is not the deck row's — set on `--dk-accent` rather than written into the
      gradient, so `.dk-done` can still re-point it (see the dk-done block up by `.active-deck`) */
   --dk-accent:var(--coll-bg, var(--tile, #5AA9DC));
@@ -5617,10 +5619,10 @@ body.night .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90
 /* …and its own night pair, for the reason `.active-deck.context` needs one: `body.night .active-deck`
    (0,2,1) outranks this (0,2,0) whatever the source order, so without it a group header on every dark
    theme silently lost the darkening that makes it a header at all. */
-body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
+body.night .active-deck.deck-group, body.night .active-deck.dk-langhead, body.night .active-deck.dk-coll{
   background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 28%, transparent), color-mix(in srgb, var(--dk-accent) 9%, transparent) 78%) var(--card);
 }
-.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
+.active-deck.deck-group[data-review]:hover, .active-deck.dk-coll[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
 /* …and a LANGUAGE header hovers the same way, its press opening its options rather than a session (Aug
    2026). It must NOT be folded into `.active-deck[data-review]:hover` further down: that one deepens the
    DECK's resting wash, which is weaker than a header's, so hovering a header would LIGHTEN it. The
@@ -9893,8 +9895,9 @@ body[data-theme="carnelian"].night .collection-deco{
    overrides and at equal or higher specificity, so the earlier blocks keep working for the states this
    page does not draw. The parts, in page order:
      · the study banner (`.rv-banner`): deep indigo in both themes, "N cards" in rose, the three piles in
-       their own colours plus the estimate, a Start button as wide as the pile row, and the top three cards
-       of the pile fanned beside it (`.rv-preview`, desktop and tablet only);
+       their own colours plus the estimate, and the top three cards of the list's pile fanned beside it
+       (`.rv-preview`, desktop and tablet only). The Start button and the click went in Oct 2026, on request:
+       the banner states the day and the rows under it start the sessions;
      · the streak ribbon (`.streak-ribbon`): the run in weeks, each ending in its chest;
      · the collections header (`.rv-sec-h`) with the legend (the "+ Add decks" link stood at its right
        until Oct 2026, and the deck list's Edit control beside the heading for a day after that; the
@@ -9947,6 +9950,9 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .rv-banner .xp-track{background:rgba(255,255,255,.14); border-color:transparent; height:6px;}
 .rv-banner .xp-fill{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}
 .rv-banner .glyph{display:none;}
+/* NOTHING TO PRESS (Oct 2026, on request): the ordinary banner is a <div> that states the day, so it takes no
+   pointer cursor and no hover lift — those are a button's promises. The first-run hero keeps both. */
+.page .rv-banner:not(.hero), .page .rv-banner:not(.hero):hover, .page .rv-banner:not(.hero):active{cursor:default; transform:none; box-shadow:var(--shadow-md);}
 .review-group .rv-banner .gt-check{top:14px; right:14px;}
 /* the banner keeps all four corners (Oct 2026, on request: "the corners are too sharp") — the rule that
    squared its foot dates from when the deck list was joined to it, and the rows are separate cards now */
@@ -9994,12 +10000,17 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    the phone block first and moved here for every width ("this should also be the case on desktop and
    tablet"); it stands AFTER the row rule above, which re-rounds `.dk-last` and `:last-child` at the same specificity,
    and the `.dk-last` pairs outrank it besides — a deck row that is both the last visible row and attached
-   keeps only its bottom corners. */
-.review-group .active-deck.dk-att, .review-group .active-deck.dk-last.dk-att{margin-top:-9px; border-top-left-radius:0; border-top-right-radius:0;}
-.review-group .active-deck.dk-cont, .review-group .active-deck.dk-last.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
+   keeps only its bottom corners.
+   …AND IT NEEDS `.active-decks` IN THE SELECTOR (Oct 2026, on a bug report with a screenshot: every row of an
+   unfolded collection still had rounded corners on a phone). The row rule above carries a `body.night` pair,
+   and `body.night .review-group .active-deck` is (0,3,1) — one more than `.review-group .active-deck.dk-att`
+   at (0,3,0) — so in dark mode its 12px corners won and the block fell apart, while the daylight theme, where
+   the two are equal and this stands later, looked right. Four classes outrank it in both modes. */
+.review-group .active-decks .active-deck.dk-att, .review-group .active-decks .active-deck.dk-last.dk-att{margin-top:-9px; border-top-left-radius:0; border-top-right-radius:0;}
+.review-group .active-decks .active-deck.dk-cont, .review-group .active-decks .active-deck.dk-last.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .review-group .active-deck.dk-att:not(.dk-cont){margin-bottom:6px;}
 /* a GROUP's header row is shorter than the rows under it and painted in a deeper wash of its colour */
-.review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
+.review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, .review-group .active-deck.dk-coll, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.dk-coll{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
 .review-group .active-deck > :not(.dk-body):not(.dk-grip):not(.gt-check):not(.gt-seal){position:relative; z-index:1;}
 .review-group .active-deck > .dk-grip{z-index:2;}
 /* THE ICON AND THE GRIP STAND ABOVE THE TITLE'S BLOCK (Oct 2026, on a bug report: the deck's icon vanished once any
@@ -10178,18 +10189,31 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .pv-card{padding:14px 15px;}
   .pv-card p{font-size:13.5px;}
 }
+/* …AND IT STAYS DOWN TO 641px NOW THAT THE START BUTTON IS GONE (Oct 2026, on a report that the preview had
+   "just disappeared" on a tablet): the title steps down to the phone's 32px and the fan gives up most of its
+   side padding, so a 650px banner holds both without the piles running under the cards. */
 @media (min-width:641px) and (max-width:719px){
-  .rv-preview{display:none;}
+  .page .rv-banner h2.review-title{font-size:calc(32px * var(--fs));}
+  .rv-preview{min-width:120px; padding:0 12px 0 28px;}
+  .pv-card{left:28px; right:12px;}
+  .page .rv-banner .meta{gap:0 16px;}
+  .page .rv-banner .stat.st-est{padding-left:16px;}
 }
 @media (max-width:640px){
   .page .rv-banner, .page .rv-banner:hover{padding:22px 20px; border-radius:16px; flex-direction:column; align-items:stretch;}
   .review-group.has-active > #b-review.rv-banner{border-bottom-left-radius:16px; border-bottom-right-radius:16px;}
   .page .rv-banner h2.review-title{font-size:calc(32px * var(--fs));}
   .rv-preview{display:none;}
-  .page .rv-banner .rv-stack{width:100%;}
-  .page .rv-banner .meta{width:100%; grid-template-columns:1fr 1fr 1fr 1fr; gap:0 10px;}
+  /* …and the stack's one track fills the banner, or the level bar would stop where the three piles do now that
+     nothing full-width sits under them (the Start button did) */
+  .page .rv-banner .rv-stack{width:100%; grid-template-columns:minmax(0, 1fr);}
+  /* THE ESTIMATE IS A LINE OF ITS OWN ON A PHONE (Oct 2026, on request: "reorganise the information inside on
+     all screen formats to fit properly"). Four columns across a 318px row left "≈ 1 h 9 min" spilling out of
+     its quarter; the three piles share the row now and the estimate stands under them, ruled off above the
+     way it was ruled off at the left, still a figure over its label like the three. */
+  .page .rv-banner .meta{width:100%; grid-template-columns:1fr 1fr 1fr; gap:0 10px;}
   .page .rv-banner .stat b{font-size:calc(24px * var(--fs));}
-  .page .rv-banner .stat.st-est{padding-left:10px;}
+  .page .rv-banner .stat.st-est{grid-column:1 / -1; justify-self:stretch; margin-top:12px; padding:10px 0 0; border-left:0; border-top:1px solid rgba(255,255,255,.18);}
   .streak-ribbon{padding:12px 14px;}
   .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
   /* a phone keeps its two-row layout (Oct 2026, on request: "don't apply the streak changes to mobile"):
@@ -10202,6 +10226,13 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .review-group .active-deck{padding-right:12px; gap:10px;}
   .review-group .active-deck .dk-counts{grid-template-columns:repeat(3, 28px);}
   .review-group .active-deck .dkc{height:26px; font-size:calc(12px * var(--fs));}
+  /* THE DOWNLOAD BUTTONS ON A PHONE (Oct 2026, on request, with a screenshot: "the collection download button
+     is so big I can no longer see the collection name"). A language header's "Download all" takes a line of
+     its own under the title and the counts, the full width of the row, so the name has its line back; a deck's
+     own Download slides right into the chevron's empty column, which a row that cannot be studied never uses. */
+  .review-group .active-deck.dk-langhead:has(> [data-langdlall]){flex-wrap:wrap;}
+  .review-group .active-deck.dk-langhead > .dk-dl[data-langdlall]{flex:1 1 100%; order:6; margin:8px 0 6px; justify-content:center; white-space:nowrap;}
+  .review-group .active-deck.dk-pending > .dk-chev-gap{width:0;}
   /* the progress is the same full-row tint as on a tablet or desktop (Oct 2026, on request) — the phone's own
      5px bar along the row's foot is gone */
   /* an unfolded collection and its subdecks are one tight block here as at every width — the `dk-att` rules

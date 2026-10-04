@@ -89,8 +89,11 @@ async function studyEasy(page, base, n) {
   await addFirstCollection(page, base);
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.waitForTimeout(1300);
-  await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
-  await page.waitForTimeout(1500);
+  // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+  await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
+  await page.waitForTimeout(1200);
   for (let i = 0; i < n; i++) {
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(450);
@@ -997,8 +1000,11 @@ function scrimCheck() {
       await addFirstCollection(page, base);
       await page.goto(base + "#home", { waitUntil: "load" });
       await page.waitForTimeout(1200);
-      await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
-      await page.waitForTimeout(1400);
+      // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+      await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+      await page.waitForTimeout(900);
+      await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
+      await page.waitForTimeout(1200);
       await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
       await page.waitForTimeout(600);
       return page.evaluate(() => {
@@ -1330,22 +1336,9 @@ function scrimCheck() {
         const w = s.getBoundingClientRect(), n = s.querySelector("b").getBoundingClientRect(), l = s.querySelector("span").getBoundingClientRect();
         return Math.round(Math.abs((n.left + n.width / 2) - (l.left + l.width / 2)) * 10) / 10;
       }),
-      onCtaRow: (() => {
-        const cta = document.querySelector(".review-group .banner .cta").getBoundingClientRect();
-        return [...document.querySelectorAll(".review-group .banner .stat:not(.streak):not(.chest-chip)")]
-          .every((s) => { const b = s.getBoundingClientRect(); return b.top < cta.bottom && b.bottom > cta.top; });
-      })(),
-      // …and centred against them rather than sat on their baseline (Aug 2026, on request). The row was
-      // align-items:flex-end on a phone, so a one-line button lined up with the bottom of a two-line column
-      // and read as having slipped down.
-      ctaOffset: (() => {
-        const cta = document.querySelector(".review-group .banner .cta .btn").getBoundingClientRect();
-        const st = [...document.querySelectorAll(".review-group .banner .stat:not(.streak):not(.chest-chip)")]
-          .map((s) => s.getBoundingClientRect());
-        if (!st.length) return 999;
-        const mid = (Math.min(...st.map((b) => b.top)) + Math.max(...st.map((b) => b.bottom))) / 2;
-        return Math.round(Math.abs((cta.top + cta.bottom) / 2 - mid) * 10) / 10;
-      })(),
+      // the Start button is gone (Oct 2026, on request) and the banner is not a control
+      cta: !!document.querySelector(".review-group .banner .cta"),
+      isButton: (document.querySelector("#b-review") || {}).tagName === "BUTTON",
     }));
     check("the review banner counts Anki's three piles, in order",
       piles.stats.slice(0, 3).map((p) => p.label.toLowerCase()).join(",") === "new,learning,review", JSON.stringify(piles.stats.map((p) => p.label)));
@@ -1386,7 +1379,7 @@ function scrimCheck() {
     check("...naming themselves only in the row's tooltip", /\S/.test(piles.rowLabels), piles.rowLabels);
     check("...each figure centred over its own label", piles.centred.every((d) => d <= 1), JSON.stringify(piles.centred));
     // the button sits UNDER the piles since the Oct 2026 redesign, as wide as their row
-    check("...and the button on its own line under them", !piles.onCtaRow);
+    check("...and no Start button under them, on a banner that is not a button", !piles.cta && !piles.isButton, JSON.stringify({ cta: piles.cta, isButton: piles.isButton }));
     check("the banner carries no big gold numeral over them", !piles.badge);
     check("...nor the sentence that described them in words", !/scheduled/i.test(piles.desc), piles.desc);
     check("...with the level still spelled out in the xp bar", /level/i.test(piles.xpLevel), piles.xpLevel);
@@ -1595,7 +1588,8 @@ function scrimCheck() {
       await page.goto(base + "#home", { waitUntil: "load" });
       await page.reload({ waitUntil: "load" });
       await page.waitForTimeout(1300);
-      await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+      // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+      await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
       await page.waitForTimeout(1500);
       await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
       await page.waitForTimeout(800);

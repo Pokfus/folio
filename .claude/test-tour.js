@@ -454,7 +454,10 @@ const CARD = () => {
        this that sent every press to the collections would leave them going round in a circle. */
     await page.evaluate(() => { location.hash = "home"; });
     await page.waitForTimeout(1300);
-    await page.evaluate(() => document.querySelector(".banner .cta .btn").click());
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(1400);
     check("...and with a collection added the banner deals a card after all",
       await page.evaluate(() => location.hash === "#study" && !!document.querySelector("#reveal-btn")),

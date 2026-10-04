@@ -70,7 +70,10 @@ async function openStudyCard(page) {
   await ensureReviewDeck(page);
   await page.evaluate(() => { location.hash = "home"; });
   await page.waitForTimeout(450);
-  await page.evaluate(() => { const b = document.querySelector("#b-review"); if (b) b.click(); });
+  // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+  await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
   await page.waitForTimeout(1000);
 }
 /* `:visible`, for the reason `test-sources.js` sets out at length and `test-gloss-image.js` repeats:

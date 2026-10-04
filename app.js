@@ -2229,13 +2229,21 @@
      into a second account on one device would leave the first reader's card-by-card history sitting in Card
      info under somebody else's name. The high-water mark goes with it, or the new account's first push would
      start from where the old one stopped and skip everything before it. */
-  function applyProgress(p) {
+  /* …UNLESS THE BLOB IS THIS SAME ACCOUNT'S (`keepLog`, Oct 2026, on a bug report: "the 'at the desk'
+     timers at the bottom of the home page suddenly reset when I was hours into my study"). The boot
+     reconcile and a sign-in by the account that already owns this device both arrive here with a
+     progress row that never carries `revlog` — it has a table of its own — so the line below replaced the
+     day's rows with an empty array, and every figure read off the log (the Today and This week time,
+     the pace behind the estimate, Card info) went to zero while the day's card counts, which ride in the
+     blob, stood. There is no leak to close on the same account, so its log and its high-water mark stay. */
+  function applyProgress(p, keepLog) {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); });
     /* An adopted blob carries its own `themes`, so a reader signing in on a fresh device must not have
        the theme they are wearing pulled out from under them: grandfather again on the new set, exactly as
        boot does. `themeGrandfather` only ever unlocks, so this can never take one away. */
     themeGrandfather();
+    if (keepLog) { if (!Array.isArray(S.revlog)) S.revlog = []; return; }
     S.revlog = Array.isArray(p && p.revlog) ? JSON.parse(JSON.stringify(p.revlog)) : [];
     try { localStorage.removeItem(REV_SYNC_KEY); } catch (e) {}
   }
@@ -2910,7 +2918,8 @@
     // signing into a fresh account on a device that has studied must start at level 1 with no badges, or the
     // new account silently adopts — and then permanently owns, since we push it up — a stranger's history.
     const claimedByOther = !!(S._supaOwner && S._supaOwner !== SUPA.user.id);
-    if (serverHas) { applyProgress(serverP); S._supaTs = row.updated_at; }   // the account's saved progress wins on sign-in
+    // the account's saved progress wins on sign-in — and the device's review log stays if it is this account's own
+    if (serverHas) { applyProgress(serverP, S._supaOwner === SUPA.user.id); S._supaTs = row.updated_at; }
     else if (localHas && !claimedByOther) {
       await supaPush();                       // first sign-in with unclaimed local study history → migrate it up
       supaClaimGuestStash();                  // …and mark the stash claimed, so signing out and into a THIRD account starts clean
@@ -3222,7 +3231,7 @@
           if (stableJson(afterPull[k]) !== stableJson(beforePull[k])) merged[k] = afterPull[k];
         });
       }
-      applyProgress(merged);
+      applyProgress(merged, true);   // the same account on the same device: its review log is not in the row and must not go
       S._supaTs = row.updated_at;
       if (SUPA_PROFILE && SUPA_PROFILE.name) S.user.name = SUPA_PROFILE.name;
       save();   // …which queues the debounced push, so a kept field reaches the server on its own
@@ -7390,14 +7399,51 @@
     const avail = availableCardIdSet();
     // buried too: a card put off until tomorrow is not part of what this deck offers today
     const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c) && !isBuried(c));
-    let lr = 0, rv = 0, unseen = 0;
+    const lrIds = [], rvIds = [], nwIds = [];
     ids.forEach((cid) => {
       const c = S.cards[cid];
-      if (!c) { unseen++; return; }
-      if (schedIsLearning(c.status)) lr++;
-      else if (isDueNow(cid)) rv++;
+      if (!c) { nwIds.push(cid); return; }
+      if (schedIsLearning(c.status)) lrIds.push(cid);
+      else if (isDueNow(cid)) rvIds.push(cid);
     });
-    return { nw: Math.min(deckNewRemaining(id), unseen), lr: lr, rv: Math.min(rv, deckReviewRemaining(id)), skip: false };
+    const nw = Math.min(deckNewRemaining(id), nwIds.length), rvCap = deckReviewRemaining(id);
+    /* …AND THE CARDS BEHIND THE THREE COUNTS (Oct 2026), for the banner's estimate and preview, which read
+       the list's piles since the banner stopped starting the pooled review (see listPiles). The reviews that
+       have waited longest are the ones a cap keeps, which is the order capReviews deals them in; the sort is
+       paid only when the cap bites, since a row is drawn for every entry on the page. */
+    if (rvIds.length > rvCap) rvIds.sort(byDue);
+    return { nw: nw, lr: lrIds.length, rv: Math.min(rvIds.length, rvCap), skip: false,
+      ids: rvIds.slice(0, rvCap).concat(lrIds, nwIds.slice(0, nw)) };
+  }
+  /* THE BANNER'S FIGURES ARE THE LIST'S (Oct 2026, on request: "the cards-are-waiting line and the time
+     estimate should simply reflect all new/learning/review remaining in the entire active collections
+     list"). They are summed over the list's TOP-LEVEL rows — an added entry with no added container above
+     it — because a container's row already counts its whole subtree under its own allowance (entryPiles),
+     so adding the rows folded beneath it would count the same cards twice. A language's decks are read
+     once, through the language's own container, which is the row the list draws them under and the cap
+     they are dealt by. This replaced the pooled review's own draw (reviewQueue) as what the banner shows:
+     that draw was today's SESSION, capped by the review's allowance, and the banner no longer starts one. */
+  function listPiles() {
+    const active = activeEntryIds(), activeSet = new Set(active);
+    const top = [], taken = new Set();
+    active.forEach((id) => {
+      const lc = langCtxOf(id), key = lc || id;
+      if (taken.has(key)) return;
+      if (!lc) {
+        const np = nestParentOf(id);
+        if (np && activeSet.has(np)) return;
+        let n = NODE_BY_ID[id];
+        while (n && n.parentId) { if (activeSet.has(n.parentId)) return; n = NODE_BY_ID[n.parentId]; }
+      }
+      taken.add(key); top.push(key);
+    });
+    const out = { nw: 0, lr: 0, rv: 0, ids: [] };
+    top.forEach((id) => {
+      const p = entryPiles(id);
+      out.nw += p.nw; out.lr += p.lr; out.rv += p.rv;
+      if (p.ids) p.ids.forEach((c) => out.ids.push(c));
+    });
+    return out;
   }
   /* What the DAILY REVIEW still has left of its own new-card allowance. It is the same derivation the decks
      use, one level up (deckNewRemaining over REVIEW_ENTRY) — and that is the fix, not a tidy-up. It used to
@@ -18099,8 +18145,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       body: "This banner is the day's work. Once you have added a deck it carries three numbers, one for each " +
         "kind of card waiting: <b class=\"tour-pile-new\">New</b> ones you have never seen, " +
         "<b class=\"tour-pile-learn\">Learning</b> ones you are still getting wrong, and " +
-        "<b class=\"tour-pile-rev\">Review</b> ones that have come round again.<p>Press it and Folio deals " +
-        "them in order. When the three reach zero the day is done, and there is no benefit in pushing on.</p>" +
+        "<b class=\"tour-pile-rev\">Review</b> ones that have come round again.<p>Tap a collection in the " +
+        "list under it to study. When the three reach zero the day is done, and there is no benefit in pushing on.</p>" +
         "<p>The minutes beside the counts are an estimate from your own pace in each collection, so a " +
         "history card and a vocabulary word are not counted alike.</p>",
       target: ["#b-review"],
@@ -24062,8 +24108,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        cross (see the foot of this function); what still differs is layout, and the stylesheet answers for
        that on its own. */
     const q = reviewQueue();
-    const dueN = q.due.length;
-    const newN = q.fresh.length;
     /* Load the day's community-deck cards while the reader is looking at this page. Their content lives per
        note and is fetched when needed, and the moment it is needed is the moment Start is pressed — so
        fetching it at idle here is what keeps the study page's loading placard a fallback rather than
@@ -24075,27 +24119,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        of. Both the banner and each deck row under it read the SAME two sets, so a row can never claim work
        the banner does not — the sets already exclude suspended and coming-soon cards, and `fresh` is today's
        allowance rather than the whole unseen backlog. */
-    const freshSet = new Set(q.fresh), dueSet = new Set(q.due);
-    const pileIds = activeCardIds().filter((id) => !isSuspended(id) && !isBuried(id));
-    const pileSet = new Set(pileIds);
-    const pileCounts = (ids) => {
-      let nw = 0, lr = 0, rv = 0;
-      const got = [];
-      ids.forEach((id) => {
-        if (!pileSet.has(id)) return;
-        const c = S.cards[id];
-        const was = nw + lr + rv;
-        // a LEARNING card counts from the moment it is answered wrong until it graduates, whether or not its
-        // ten-minute step has come round yet — the pile is what is still being learned, not what is playable
-        // this second, and a count that emptied while the card was on its timer would say the work was done
-        if (!c) { if (freshSet.has(id)) nw++; }
-        else if (schedIsLearning(c.status)) lr++;
-        else if (dueSet.has(id)) rv++;
-        if (nw + lr + rv > was) got.push(id);
-      });
-      return { nw, lr, rv, ids: got };
-    };
-    const pile = pileCounts(pileIds);
+    /* …AND SINCE OCT 2026 (on request) THE BANNER'S THREE PILES ARE THE LIST'S OWN — the sum of the rows
+       under it (listPiles), not the pooled review's capped draw. The banner starts nothing now, so what it
+       states is what the list still holds for today, and `pile.ids` is the cards behind the figures, for
+       the estimate and the preview. A LEARNING card counts from the moment it is answered wrong until it
+       graduates, whether or not its step has come round — entryPiles has always read it that way. */
+    const pile = listPiles();
+    const pileN = pile.nw + pile.lr + pile.rv;
     const activeIds = activeEntryIds();
     /* A DECK FINISHED FOR THE DAY GOES GREEN, AND GOLD IF NOTHING WAS MISSED (Sep 2026, on request:
        "when an active deck has been completed for the day, (i.e. no new/review cards remaining), it
@@ -24306,7 +24336,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            See langDeckUpdate. */
         const stale = !!(ud && langDeckStale(ud.id) && !staleShown.has(ud.id));
         if (stale) staleShown.add(ud.id);
-        rows.push({ flat: id, id, depth, parent: parentKey, drag: id, update: stale ? ud.id : "",
+        /* `coll`: a WHOLE deck of the reader's own — a community collection, drawn header-sized like a curated
+           collection or a language (Oct 2026, on a report that it sat "slightly taller than official
+           collections"); its subdecks and directions are ordinary rows */
+        rows.push({ flat: id, id, depth, parent: parentKey, drag: id, update: stale ? ud.id : "", coll: !!(ud && !sub && tplHere < 0),
                     title: ud ? (uTplName(id) || uSubName(sub) || adTitle(ud.title, parentKey)) : COTD_TITLE,
                     // the context line names what CONTAINS the row, which for a nested path is the
                     // subdeck above it rather than the deck at the top of it
@@ -24558,7 +24591,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${grip}
               ${adIcon(r.drag, r.parent)}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(title)}</span><span class="dk-sup">not on this device</span></div>
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>${/* the "not on this device" note went (Oct 2026, on request): the Download button beside the name says it */""}
               </div>
               ${r.shared
                 /* A SHARED deck's button carries no size, deliberately: it is published as rows rather
@@ -24576,7 +24609,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                taking that away to advertise an update would be the worse trade. The button stops its own
                press, like Download's, or holding it would open the options sheet over the fetch. */
             const up = r.update ? `<button class="btn tiny dk-dl dk-up" type="button" data-langup="${esc(r.update)}" title="A newer copy of this deck has been published. Updating keeps your progress.">Update</button>` : "";
-            return `<div class="active-deck${shut}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
+            return `<div class="active-deck${r.coll ? " dk-coll" : ""}${shut}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
               ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
@@ -24849,7 +24882,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // is still open, the full bronze fill once it's cleared (something was studied today and nothing is left
     // due or new), and the same shining gold as a perfect game when every card today was right on the first try.
     const rday = reviewDayRec();
-    const reviewDone = !!rday && dueN + newN === 0;
+    const reviewDone = !!rday && pileN === 0;
     const reviewWon = reviewDone && rday.miss === 0;
     // first-run hero: one sentence of purpose and a single way in — the normal banner takes over after the first card
     const bannerHTML = fresh
@@ -24872,7 +24905,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
-      : `<button class="banner rv-banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" style="--tile:${esc(reviewHue())}">
+      /* NOT A BUTTON ANY MORE (Oct 2026, on request: "the daily study banner should no longer have a 'start
+         review' button, nor be clickable"). It is a <div> that states the day — the hero above stays a
+         button, being a first-time visitor's one way in. The tab stop and the role are for the options sheet
+         it still opens on a hold, a right-click or the context-menu key (wireHoldMenu below): the review's
+         order, limits, Skip today and colour live nowhere else, and a keyboard needs a way to them. */
+      : `<div class="banner rv-banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" role="group" aria-label="${REVIEW_TITLE}" tabindex="0" style="--tile:${esc(reviewHue())}">
           ${doneMarkHTML(reviewDone, reviewWon)}
           ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
                 carried the day's whole pile and nothing on the banner said so — the three counts below it
@@ -24881,14 +24919,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 labelled ones. */""}
           <div class="body">
             <span class="hero-eyebrow">${REVIEW_TITLE}</span>
-            <h2 class="review-title">${pile.nw + pile.lr + pile.rv > 0
-              ? `<b class="rv-n">${pile.nw + pile.lr + pile.rv} ${pile.nw + pile.lr + pile.rv === 1 ? "card" : "cards"}</b> ${pile.nw + pile.lr + pile.rv === 1 ? "is" : "are"} waiting.`
+            <h2 class="review-title">${pileN > 0
+              ? `<b class="rv-n">${pileN} ${pileN === 1 ? "card" : "cards"}</b> ${pileN === 1 ? "is" : "are"} waiting.`
               : activeIds.length ? "All caught up." : "Nothing dealt yet."}</h2>
             ${/* …and with it the "Cards scheduled for today, plus a few new ones" line, which described the
                   three counts underneath it in words. The other two branches are kept: one says the day is
                   finished and the other says there is nothing here yet, and neither is visible anywhere
                   else on the banner. */""}
-            ${dueN + newN > 0 ? "" : `<p class="desc">${
+            ${pileN > 0 ? "" : `<p class="desc">${
               activeIds.length
                 ? "All caught up — nothing due right now. Come back tomorrow; the schedule does the rest."
                 : "No decks in your daily review yet — add one from the collections to build your pile."
@@ -24919,7 +24957,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     reader looks for what to STUDY. The banner's own click still falls through to the
                     collections when the day is empty, so nothing that could be pressed becomes a dead
                     no-op; only the redundant chrome goes. */""}
-              ${dueN + newN ? `<span class="cta"><span class="btn">Start review</span></span>` : ""}
+              ${/* …AND THE START BUTTON IS GONE WITH THE CLICK (Oct 2026, on request). The rows under the
+                    banner are the way into a session — each studies its own deck — and the completion
+                    screen's "Continue with" carries the reader on to the next. */""}
             </div>
             </div>
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
@@ -24928,8 +24968,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   control inside a button had to be a `role="button"` span the banner's own handler deferred
                   to. */""}
           </div>
-          ${reviewPreviewHTML(q.all)}
-        </button>`;
+          ${reviewPreviewHTML(pile.ids)}
+        </div>`;
     /* THE WAY TO THE COLLECTIONS IS A BUTTON OF ITS OWN, STANDING UNDER THE REVIEW GROUP (Aug 2026, on
        request). It has been three things: a full-width banner, then a small "+ Add decks" tab hanging off
        the BOTTOM EDGE of the group (`.rv-lip`), and now an unattached button below it. The lip said two
@@ -25122,12 +25162,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         route(key);
       });
     });
-    root.querySelector("#b-review").addEventListener("click", (e) => {
+    /* THE ORDINARY BANNER TAKES NO CLICK (Oct 2026, on request) — see its markup. Only the first-run hero
+       is wired, and it goes to the collections. */
+    if (fresh) root.querySelector("#b-review").addEventListener("click", () => {
       /* The chest chip and the "+ New group" span both used to be targets INSIDE this button and were
          deferred to here. Both have left it (Aug 2026, on request) — the chest to `#chestSlot` above the
          banner, and the group control first to the row under the last deck and then off the page
          altogether — so the banner is one button again with nothing nested in it to step around. */
-      if (fresh) {
+      {
         /* THE FIRST PRESS GOES TO THE COLLECTIONS (Aug 2026, on request). It used to pick the first
            collection that was not coming soon, add it on the reader's behalf and deal them a card —
            which is quick, and makes for them the one decision this page exists to hand over. They are
@@ -25142,10 +25184,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            the guard that used to stand here (`if (!pileIds.length)`) is redundant now rather than
            wrong — kept as a sentence rather than as a line that can never be false. */
         route("decks");
-        return;
       }
-      if (dueN + newN > 0) route("study", { scope: { type: "review" } });
-      else route("decks");
     });
     { const hs = root.querySelector("#heroSample"); if (hs) hs.addEventListener("click", () => route("sample", { id: hs.dataset.sample })); }
     /* The waiting-chests notice above the banner. It is a real <button> now that it is no longer nested

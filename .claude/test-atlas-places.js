@@ -150,7 +150,11 @@ const check = (name, ok, extra) => {
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(1600);
-  await page.evaluate(async () => { const b = document.querySelector("#b-review"); if (b) b.click(); await new Promise((r) => setTimeout(r, 1200)); });
+  // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+  await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
+  await page.waitForTimeout(1200);
   const marks = await page.evaluate(async () => {
     const out = {}, PL = window.GLOSSARY_PLACES || {}, MC = window.GLOSSARY_MAP_COUNTRY || {};
     for (let n = 0; n < 14 && Object.keys(out).length < 3; n++) {

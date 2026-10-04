@@ -5242,7 +5242,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     but deliberately **no update policy**. `revlog` came OUT of `PROGRESS_FIELDS` and **`progressBlob()` is
     what the push now sends**; `extractProgress()` still includes it, the guest stash being a whole device
     state. **That split opened an account-switch leak**, so `applyProgress` clears `S.revlog` and removes
-    `REV_SYNC_KEY`. The push is incremental on a high-water timestamp with
+    `REV_SYNC_KEY` — **except on the SAME account** (`applyProgress(p, keepLog)`, Oct 2026, on a bug report:
+    the home page's at-the-desk times "suddenly reset" hours into a study day). The boot reconcile and a
+    sign-in by the device's own account pass `keepLog`: the progress row never carries the log, so adopting
+    it wiped the day's rows and zeroed every figure read off them (Today / This week time, the pace behind
+    the banner's estimate, Card info) while the card counts in the blob stood. The push is incremental on a high-water timestamp with
     `Prefer: resolution=ignore-duplicates`, and `resetProgress` calls `revWipeRemote()`. `REV_CAP` (20000)
     is a LOCAL bound, not a limit on the archive. **This is the bullet to read before adding anything else
     that grows per review: give it a table.**
