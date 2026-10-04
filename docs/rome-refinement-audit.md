@@ -138,7 +138,7 @@ order unless the user says otherwise.
 | B4 | Italy before Rome (`rm-italy`) | `rm-031`–`rm-040` | 10 | 104 | **done 2026-10-04** |
 | B5 | Italy before Rome (`rm-italy`) / Rome under the kings (`rm-kings`) | `rm-041`–`rm-050` | 10 | 112 | **done 2026-10-04** |
 | B6 | Rome under the kings (`rm-kings`) | `rm-051`–`rm-060` | 10 | 118 | **done 2026-10-04** |
-| B7 | Rome under the kings (`rm-kings`) | `rm-061`–`rm-070` | 10 | 132 | open |
+| B7 | Rome under the kings (`rm-kings`) | `rm-061`–`rm-070` | 10 | 132 | **done 2026-10-04** |
 | B8 | Rome under the kings (`rm-kings`) | `rm-071`–`rm-080` | 10 | 123 | open |
 | B9 | Rome under the kings (`rm-kings`) | `rm-081`–`rm-090` | 10 | 125 | open |
 | B10 | The early Republic (`rm-early-republic`) | `rm-091`–`rm-100` | 10 | 126 | open |
@@ -329,6 +329,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-058` rape of the Sabine women | the Basilica Aemilia frieze | acceptable; the credit is not in house form |
 | `rm-059` Titus Tatius | a denarius of Titurius Sabinus | acceptable |
 | `rm-060` Romulus | a painting by Ingres | acceptable |
+| `rm-061` Numa Pompilius | a denarius of Pomponius Molo | acceptable; its title carries an unsourced "97 BCE" |
+| `rm-062` calendar of Numa | a reconstruction drawing of the Antium calendar | a lettered drawing where a photograph of the fragments exists |
+| `rm-063` Tullus Hostilius | a painting by Lo Scheggia | shows Alba's fall rather than the king; credit not in house form |
+| `rm-064` Horatii and Curiatii | a fresco by Cesari | acceptable; credit not in house form |
+| `rm-065` Ancus Marcius | a denarius of Marcius Censorinus | acceptable |
+| `rm-066` Tarquinius Priscus | a painting by Ricci | acceptable; desc names the Getty and the credit a museum number |
+| `rm-067` Cloaca Maxima | a 19th-century photograph of the mouth | acceptable |
+| `rm-068` Circus Maximus | Platner's printed plan | a plan where a photograph of the valley would do |
+| `rm-069` Servius Tullius | a painting by Kauffmann | acceptable; trim the source detail from its desc |
+| `rm-070` Servian constitution | a stretch of the Servian Wall | `rm-072`'s subject |
 
 ## Glossary candidates
 
@@ -617,3 +627,36 @@ founded thirty years after Lavinium) was itself a legendary count, so it was del
   the year is Varro's; read together when `wh-338` is refined.
 
 **Locators.** All kept.
+
+### B7 — `rm-061`–`rm-070`, Rome under the kings: Numa to Servius (2026-10-04)
+
+Run as B6, with B8's agents alongside. Agents were told, after B6, never to convert a regnal year into a BCE
+year themselves: each reign on these cards is the span a source prints.
+
+Checks: `rm-audit.js --range=rm-061:rm-070` reads clean on nine cards; `rm-069` keeps a `Q.sibling` lead
+(44 per cent of a phrasing's content words shared with `rm-036`, both on Claudius's Mastarna) — read by eye:
+the blank takes a king on one and a city on the other. `check-questions`, `check-cards`, `check-style`,
+`check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL answers 2xx;
+`check-citations --card` 0 mismatched on every card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-061` Numa Pompilius | 7 | 5 → 8 | **"715 – 673 BCE" is printed by no source opened**; the line is Traditional 715 – 672 BCE (Foster's Loeb Livy, Fulminante), with Dionysius's 713 in prose, and the books found in 181 BCE. Two count rows ("43 years", "aged over 80") into prose. All five sources were ancient. The modern doubts added: the regal dates, Egeria perhaps Ennius's invention, the Pythagoras tale late. A century out of a question. |
+| `rm-062` calendar of Numa | 6 | 5 → 7 | "After 753 BCE" cut; the line is Numa's traditional reign, the painted calendar of Antium (84 – 55 BCE) and its replacement on 1 January 45 BCE. Counts into prose; recent work dropping the ten-month year covered. **The Censorinus citation named the wrong editor** (the page is Cholodniak's 1889 Latin text) and lacked its language chip. |
+| `rm-063` Tullus Hostilius | 7 | 6 → 8 | **"673 – 642 BCE" is printed by no source opened**; now Traditional 672 – 640 BCE (the Loeb Livy's margins), as `rm-056` and `rm-064` have it. Livy was cited five times. **The old card said Dionysius reports the arson story; he also rejects it**, and a FAQ says why. |
+| `rm-064` Horatii and Curiatii | 7 | 5 → 9 | "After 753 BCE" and "1 of the 6" off the line; now Tullus's traditional reign. The fetial-treaty material left for its own card. **The glossary's "the earliest such appeal Livy records" is not in Livy.** The festival-performance view, the Horatii's monuments and David's invented oath scene added. |
+| `rm-065` Ancus Marcius | 7 | 5 → 7 | **"642 – 617 BCE" is printed by no source opened**; now Dionysius's 638 BCE accession and Ostia's traditional 620. **"Salt pits on both banks"**: Livy says only that there were salt-works nearby. Nothing at Ostia is that early (its walled fort is 4th or early 3rd century BCE), and the card says so. |
+| `rm-066` Tarquinius Priscus | 7 | 5 → 7 | **All five sources were Livy.** The line is Traditional 616 – 579 BCE and Dionysius's 614 accession, as on `rm-045`. **"The first king from outside Latium"**: Livy makes him the third foreign king. Claudius's Lyon tablet and the absence of a building boom under the first Etruscan kings added. A phrasing overlapping `rm-867` and `rm-068` replaced. |
+| `rm-067` Cloaca Maxima | 7 | 5 → 8 | "After 753 BCE" cut; the line carries only archaeology (oldest walls c. 550 – 500 BCE, vaulted after 200, the mouth's arches c. 100, Agrippa's survey 33 BCE). **"Little if anything of the first drain survives" was one 1929 view**; later masonry studies date an open stone-walled channel to the late 6th century, and the card gives both. Livy and Pliny ascribe it to different Tarquins, and the questions say whose is whose. |
+| `rm-068` Circus Maximus | 8 | 5 → 8 | "After 753 BCE" cut; the line is the starting gates (329 BCE), Caesar's enlargement (46 BCE), the fire of 64 CE and Trajan's reopening (103 CE). The later history the old card left out added; the disputed seat counts given as disputed. |
+| `rm-069` Servius Tullius | 7 | 5 → 7 | **"578 – 535 BCE" had no source for 535**; now Traditional 578 – 534 (Foster's Livy) and Dionysius's 576 accession. Count and prose rows off the line. The birth legends are Livy's and Dionysius's; the modern views on his origin and Claudius's Mastarna added. |
+| `rm-070` Servian constitution | 7 | 6 → 7 | **The audit's third fault exactly: one king's programme presented as fact.** "After 753 BCE" and the count rows gone; the line is Servius's traditional reign and a possible reform of 241 BCE. Each modern view is given to the scholar who holds it (no source opened supports "most scholars"). |
+
+**Read by eye.**
+- *Two reckonings for the regal years.* Numa, Tullus and Servius follow the Varronian years printed in
+  the Loeb Livy; Ancus follows Dionysius (638 BCE), since no opened source prints a Varronian year for
+  him; Priscus a common modern reckoning, with Dionysius's 614 beside it. Every row is labelled and the
+  prose says whose; `docs/rome-chronology.md` carries both. **`rm-083` and `rm-085` still print Tullus as
+  673 – 642 BCE**, a figure no source gives — for B9.
+- *Overlap with `wh-`:* `wh-339` says flatly that Servius's mother was a slave; `rm-069` gives it as one
+  ancient version among several.

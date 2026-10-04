@@ -130,6 +130,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Aeneas in Etruscan images / on Caesar's coin | c. 600 – 400 BCE / 47 – 46 BCE | `rm-055` |
 | Alba Longa: the Latin culture / its fall under Tullus (tradition) | c. 1050 – 950 BCE / c. 672 – 640 BCE | `rm-056` |
 | Rome's 800th year (Claudius) / its 1000th | 47 CE / 248 CE | `rm-057` |
+| Numa's reign / his books found | 715 – 672 BCE (tradition; Foster's Loeb Livy, Fulminante; Dionysius 713) / 181 BCE | `rm-061`, `rm-062` |
+| the calendar of Antium / the Julian calendar from | 84 – 55 BCE / 1 January 45 BCE | `rm-062` |
+| Tullus Hostilius's reign | 672 – 640 BCE (tradition; the Loeb Livy's margins) | `rm-063`, `rm-064`, `rm-056`. **`rm-083` and `rm-085` still print 673 – 642 BCE**, which no source opened gives: fix in B9 |
+| Ancus Marcius made king / Ostia founded | 638 BCE (Dionysius's reckoning) / 620 BCE (tradition) | `rm-065`; note that Varro's reckoning, used for the reigns either side, gives a different start, and the two rows say whose each is |
+| Tarquinius Priscus's reign | 616 – 579 BCE (a common modern reckoning of the tradition); 614 BCE accession in Dionysius | `rm-066`, `rm-045` |
+| Servius Tullius's reign | 578 – 534 BCE (tradition; Foster's Livy); 576 BCE accession in Dionysius | `rm-069`, `rm-070` |
+| a reform of the centuriate order | perhaps 241 BCE | `rm-070` |
+| Cloaca Maxima: oldest walls / vaulted / mouth arches / Agrippa's survey | c. 550 – 500 BCE / after 200 BCE / c. 100 BCE / 33 BCE | `rm-067` |
+| Circus Maximus: starting gates / enlarged / great fire / reopened | 329 BCE / 46 BCE / 64 CE / 103 CE | `rm-068` |
 
 ## The middle and late Republic
 
@@ -206,4 +215,14 @@ rm-056: 1050; 950; 672; 640
 rm-057: 753; 47; 248
 rm-058: 753
 rm-060: 753
+rm-061: 715; 672; 181
+rm-062: 715; 672; 84; 55; 45
+rm-063: 672; 640
+rm-064: 672; 640
+rm-065: 638; 620
+rm-066: 616; 579; 614
+rm-067: 550; 500; 200; 100; 33
+rm-068: 329; 46; 64; 103
+rm-069: 578; 534; 576
+rm-070: 578; 534; 241
 ```
