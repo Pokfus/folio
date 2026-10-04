@@ -548,6 +548,26 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Archidamian War | 431 – 421 BCE; plague 430 BCE; Pylos 425 BCE; Brasidas north 424 BCE; the year's truce 423 BCE (423/422 BCE); the peace in the spring of 421 BCE | Foster's review of Geske; Kulesza 2022; Thucydides 5.20 (`gr-529`) |
 | Archidamus II | reigned 469 – 427 BCE (perhaps from 475 BCE; death 426 BCE in Oldfather's note to Diodorus); the earthquake 464 BCE; invasions 431, 430 and 428 BCE; Plataea 429 BCE | Kulesza 2022; Lendering, Livius; Oldfather's note (`gr-530`) |
 | Periclean strategy | no line: a plan (the first invasion 431 BCE in prose) | Lendering, Livius (`gr-531`) |
+| Acharnae | the first invasion camped there in midsummer 431 BCE; the Thirty's army camped near it 404 – 403 BCE | Thucydides 2.19–20; Trevett's review; Eliot, Princeton Encyclopedia (`gr-532`) |
+| Plague of Athens | broke out 430 BCE; returned 427/426 BCE | Thucydides 2.47, 3.87; Lendering, Livius; Kulesza 2022 (`gr-533`) |
+| Pericles' last year | deposed and fined 430 BCE; died 429 BCE, 2 years and 6 months into the war | Thucydides 2.65; Lendering, Livius (`gr-534`) |
+| Cleon | the Mytilene decree 427 BCE; Sphacteria 425 BCE; the *Knights* 424 BCE; killed at Amphipolis 422 BCE | Lendering, Livius; Thucydides (`gr-535`) |
+| Revolt of Mytilene; the debate | revolt 428 BCE; surrender and the debate 427 BCE (the spear butt from Lesbos 428/427 BCE) | Thucydides 3.2–50; Princeton Encyclopedia; Ostwald 1979; Attic Inscriptions Online (`gr-536`, `gr-537`) |
+| Siege of Plataea | 429 – 427 BCE; the breakout in the second winter | Thucydides 2.71 – 3.68; Kulesza 2022 (`gr-538`) |
+| Pylos; Sphacteria | 425 BCE; Pylos held by Athens until 409/408 BCE | Thucydides 4.2–41; McAllister, Princeton Encyclopedia (`gr-539`, `gr-540`) |
+| Brasidas | saved Methone 431 BCE; marched north 424 BCE; killed at Amphipolis 422 BCE | Thucydides; Lendering, Livius (`gr-541`) |
+| Amphipolis; Eion | the Nine Ways disaster 465 BCE; Amphipolis founded 437/436 BCE (437 BCE in the Princeton Encyclopedia, 438/437 BCE on Odysseus); taken by Brasidas 424 BCE; by Philip II 357 BCE; Eion taken by Cimon 476/475 BCE (`gr-456`), held by Thucydides 424 BCE, Cleon's base 422 BCE | Lendering, Livius; Princeton Encyclopedia; Thucydides (`gr-542`, `gr-544`) |
+| Battle of Amphipolis | the end of summer 422 BCE | Thucydides 5.6–11; Kulesza 2022 (`gr-543`) |
+| Peace of Nicias | sworn in the spring of 421 BCE, for 50 years | Thucydides 5.18–20; Kulesza 2022 (`gr-545`) |
+| Nicias | born about 470 BCE (prose only); took Minoa 427 BCE; Kythera 424 BCE; in Sicily 415 – 413 BCE; the eclipse 27 August 413 BCE; put to death 413 BCE | Lendering, Livius; Foster's review of Geske; Thucydides 7.50, 7.86 (`gr-546`) |
+| Alcibiades | born about 450 BCE (prose only); the Argive alliance 420 BCE; Olympia 416 BCE; recalled 415 BCE; back with the fleet 411 BCE; home 407 BCE; Notium 406 BCE; killed 404 BCE | Lendering, Livius; Plutarch; Thucydides (`gr-547`) |
+| Battle of Mantinea | 418 BCE | Thucydides 5.64–74 (`gr-548`) |
+| Argive alliance | sworn 420 BCE, for 100 years; Argos withdrew in the winter of 418/417 BCE | Thucydides 5.47; Attic Inscriptions Online, IG I³ 83 (`gr-549`) |
+| Melos | the dialogue and the siege 416 BCE; surrender in the winter of 416/415 BCE; the Melians restored 405 BCE | Thucydides 5.84–116; Attic Inscriptions Online, OR 170; Xenophon (`gr-550`, `gr-551`) |
+| Sicilian Expedition | sailed 415 BCE; destroyed 413 BCE | Thucydides 6–7; Lendering, Livius (`gr-552`) |
+| Egesta | the treaty with Athens 418/417 BCE (now favoured) or 458 BCE; the appeal 415 BCE; Carthage's invasion 409 BCE; sacked by Agathocles 307 BCE | Attic Inscriptions Online, IG I³ 11; Figueira's review; Princeton Encyclopedia (`gr-553`) |
+| Herms; Salaminia | the herms mutilated in the spring of 415 BCE; the Salaminia sent to Sicily 415 BCE; Andocides' defence about 400/399 BCE | Thucydides 6.27–61; Andocides 1 (`gr-554`, `gr-555`) |
+| Siege of Syracuse | 414 – 413 BCE; the night attack on Epipolae 413 BCE; Dionysius' walls 402 – 397 BCE | Thucydides 6–7; Diodorus 13; Princeton Encyclopedia (`gr-556`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -1067,4 +1087,29 @@ gr-527: 432
 gr-528: 432; 431
 gr-529: 431; 421; 423
 gr-530: 469; 427; 426
+gr-532: 431; 404; 403
+gr-533: 430; 427
+gr-534: 430; 429
+gr-535: 427; 425; 422
+gr-536: 428; 427
+gr-537: 427
+gr-538: 429; 427
+gr-539: 425
+gr-540: 425
+gr-541: 431; 424; 422
+gr-542: 437; 424; 357
+gr-543: 422
+gr-544: 476; 424; 422
+gr-545: 421
+gr-546: 427; 415; 413
+gr-547: 415; 407; 404
+gr-548: 418
+gr-549: 420; 418
+gr-550: 416
+gr-551: 416
+gr-552: 415; 413
+gr-553: 418; 458; 415; 307
+gr-554: 415
+gr-555: 415
+gr-556: 414; 413
 ```

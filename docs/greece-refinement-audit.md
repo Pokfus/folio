@@ -1935,3 +1935,15 @@ Pictures and locators for these 30 follow in the next commit.
 **Chronology.** The "Athenian Empire" section now covers B48–B54 and holds rows for `gr-501` – `gr-520`; a new
 section, "The Peloponnesian War", holds `gr-521` onward, with pins for every card that prints a year. The
 Peloponnesian War row of "Events and reigns" is confirmed.
+
+### B56–B58 — `gr-531`–`gr-560`, from Pericles' war plan to the destruction in Sicily (2026-10-04)
+
+Thirty cards of `gr-peloponnesian-war`, written in two commits: `gr-531`–`gr-556` first, then `gr-557`–`gr-560` with
+the rest of this entry. Method as B53–B55: six research agents, a saved copy of every source with one verbatim quote
+per marker, the verifier and the lint wrapper on every patch, `Q.sibling` checked with every patch merged, and every
+draft read by eye before it was written.
+
+Checks on `gr-531`–`gr-556`: `greece-audit.js` finds nothing but missing pictures and locators and `S.chip?` flags
+on English BMCR reviews of foreign-titled books; `check-citations --card`, `check-gloss-links --card`,
+`check-questions`, `split-cards --check` and `test-card-plans` pass; `check-style` adds nothing to main's standing
+alarms; all 114 distinct citation URLs answer 200.
