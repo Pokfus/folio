@@ -5607,7 +5607,9 @@ body.night .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90
    review list's build — only the header is darkened, which is what the request asks for and what keeps the
    decks inside legible.
    An added COLLECTION is drawn this way too: it holds no cards itself, only the decks inside it do. */
-.active-deck.deck-group, .active-deck.dk-langhead{
+/* …and `.dk-coll`, a community collection — a whole deck of the reader's own — which is a collection header in
+   every respect and was the one header drawn as a deck row (Oct 2026, on request) */
+.active-deck.deck-group, .active-deck.dk-langhead, .active-deck.dk-coll{
   /* its own fallback hue, which is not the deck row's — set on `--dk-accent` rather than written into the
      gradient, so `.dk-done` can still re-point it (see the dk-done block up by `.active-deck`) */
   --dk-accent:var(--coll-bg, var(--tile, #5AA9DC));
@@ -5617,10 +5619,10 @@ body.night .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90
 /* …and its own night pair, for the reason `.active-deck.context` needs one: `body.night .active-deck`
    (0,2,1) outranks this (0,2,0) whatever the source order, so without it a group header on every dark
    theme silently lost the darkening that makes it a header at all. */
-body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
+body.night .active-deck.deck-group, body.night .active-deck.dk-langhead, body.night .active-deck.dk-coll{
   background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 28%, transparent), color-mix(in srgb, var(--dk-accent) 9%, transparent) 78%) var(--card);
 }
-.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
+.active-deck.deck-group[data-review]:hover, .active-deck.dk-coll[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
 /* …and a LANGUAGE header hovers the same way, its press opening its options rather than a session (Aug
    2026). It must NOT be folded into `.active-deck[data-review]:hover` further down: that one deepens the
    DECK's resting wash, which is weaker than a header's, so hovering a header would LIGHTEN it. The
@@ -10008,7 +10010,7 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-decks .active-deck.dk-cont, .review-group .active-decks .active-deck.dk-last.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .review-group .active-deck.dk-att:not(.dk-cont){margin-bottom:6px;}
 /* a GROUP's header row is shorter than the rows under it and painted in a deeper wash of its colour */
-.review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
+.review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, .review-group .active-deck.dk-coll, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.dk-coll{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
 .review-group .active-deck > :not(.dk-body):not(.dk-grip):not(.gt-check):not(.gt-seal){position:relative; z-index:1;}
 .review-group .active-deck > .dk-grip{z-index:2;}
 /* THE ICON AND THE GRIP STAND ABOVE THE TITLE'S BLOCK (Oct 2026, on a bug report: the deck's icon vanished once any

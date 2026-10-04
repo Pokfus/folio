@@ -24336,7 +24336,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            See langDeckUpdate. */
         const stale = !!(ud && langDeckStale(ud.id) && !staleShown.has(ud.id));
         if (stale) staleShown.add(ud.id);
-        rows.push({ flat: id, id, depth, parent: parentKey, drag: id, update: stale ? ud.id : "",
+        /* `coll`: a WHOLE deck of the reader's own — a community collection, drawn header-sized like a curated
+           collection or a language (Oct 2026, on a report that it sat "slightly taller than official
+           collections"); its subdecks and directions are ordinary rows */
+        rows.push({ flat: id, id, depth, parent: parentKey, drag: id, update: stale ? ud.id : "", coll: !!(ud && !sub && tplHere < 0),
                     title: ud ? (uTplName(id) || uSubName(sub) || adTitle(ud.title, parentKey)) : COTD_TITLE,
                     // the context line names what CONTAINS the row, which for a nested path is the
                     // subdeck above it rather than the deck at the top of it
@@ -24588,7 +24591,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${grip}
               ${adIcon(r.drag, r.parent)}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(title)}</span><span class="dk-sup">not on this device</span></div>
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>${/* the "not on this device" note went (Oct 2026, on request): the Download button beside the name says it */""}
               </div>
               ${r.shared
                 /* A SHARED deck's button carries no size, deliberately: it is published as rows rather
@@ -24606,7 +24609,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                taking that away to advertise an update would be the worse trade. The button stops its own
                press, like Download's, or holding it would open the options sheet over the fetch. */
             const up = r.update ? `<button class="btn tiny dk-dl dk-up" type="button" data-langup="${esc(r.update)}" title="A newer copy of this deck has been published. Updating keeps your progress.">Update</button>` : "";
-            return `<div class="active-deck${shut}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
+            return `<div class="active-deck${r.coll ? " dk-coll" : ""}${shut}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
               ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
