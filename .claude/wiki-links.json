@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-03T13:11Z",
+ "generated": "2026-10-04T14:27Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4298,
-  "redirect-broader": 373,
-  "redirect-variant": 288,
-  "section-redirect": 89,
-  "disambiguation": 126,
-  "none": 565,
+  "ok": 4382,
+  "redirect-broader": 382,
+  "redirect-variant": 291,
+  "section-redirect": 90,
+  "disambiguation": 127,
+  "none": 567,
   "disambig-resolved": 68,
   "list-page": 6,
   "search-match": 5
@@ -46369,6 +46369,734 @@
     "Biblical canon",
     "Etruscan architecture"
    ]
+  },
+  "cnh-502": {
+   "answer": "Northern Yuan",
+   "title": "Northern Yuan",
+   "url": "https://en.wikipedia.org/wiki/Northern_Yuan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-503": {
+   "answer": "Ming dynasty",
+   "title": "Ming dynasty",
+   "url": "https://en.wikipedia.org/wiki/Ming_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-504": {
+   "answer": "Hongwu Emperor",
+   "title": "Hongwu Emperor",
+   "url": "https://en.wikipedia.org/wiki/Hongwu_Emperor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-505": {
+   "answer": "lijia system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Urban rail transit in China",
+    "Grand Canal (China)",
+    "Cultural Revolution",
+    "China at the Olympics",
+    "Human rights in China"
+   ]
+  },
+  "cnh-506": {
+   "answer": "Hu Weiyong case",
+   "title": "Four Major Cases of the early Ming dynasty",
+   "url": "https://en.wikipedia.org/wiki/Four_Major_Cases_of_the_early_Ming_dynasty",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Hu Weiyong case"
+  },
+  "cnh-507": {
+   "answer": "Central Secretariat",
+   "title": "Zhongshu Sheng",
+   "url": "https://en.wikipedia.org/wiki/Zhongshu_Sheng",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-508": {
+   "answer": "Grand Secretariat",
+   "title": "Grand Secretariat",
+   "url": "https://en.wikipedia.org/wiki/Grand_Secretariat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-509": {
+   "answer": "Jingnan campaign",
+   "title": "Jingnan campaign",
+   "url": "https://en.wikipedia.org/wiki/Jingnan_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-510": {
+   "answer": "Yongle Emperor",
+   "title": "Yongle Emperor",
+   "url": "https://en.wikipedia.org/wiki/Yongle_Emperor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-511": {
+   "answer": "Beijing",
+   "title": "Beijing",
+   "url": "https://en.wikipedia.org/wiki/Beijing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-512": {
+   "answer": "Forbidden City",
+   "title": "Forbidden City",
+   "url": "https://en.wikipedia.org/wiki/Forbidden_City",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-513": {
+   "answer": "Yongle Encyclopedia",
+   "title": "Yongle Encyclopedia",
+   "url": "https://en.wikipedia.org/wiki/Yongle_Encyclopedia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-514": {
+   "answer": "Zheng He",
+   "title": "Zheng He",
+   "url": "https://en.wikipedia.org/wiki/Zheng_He",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-515": {
+   "answer": "Ming treasure voyages",
+   "title": "Ming treasure voyages",
+   "url": "https://en.wikipedia.org/wiki/Ming_treasure_voyages",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-516": {
+   "answer": "Hongxi Emperor",
+   "title": "Hongxi Emperor",
+   "url": "https://en.wikipedia.org/wiki/Hongxi_Emperor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-517": {
+   "answer": "Tumu Crisis",
+   "title": "Tumu Crisis",
+   "url": "https://en.wikipedia.org/wiki/Tumu_Crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-518": {
+   "answer": "Ming Great Wall",
+   "title": "Ming Great Wall",
+   "url": "https://en.wikipedia.org/wiki/Ming_Great_Wall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-519": {
+   "answer": "tributary system",
+   "title": "Tributary system of China",
+   "url": "https://en.wikipedia.org/wiki/Tributary_system_of_China",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-520": {
+   "answer": "Wokou",
+   "title": "Wokou",
+   "url": "https://en.wikipedia.org/wiki/Wokou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-521": {
+   "answer": "haijin",
+   "title": "Haijin",
+   "url": "https://en.wikipedia.org/wiki/Haijin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-522": {
+   "answer": "Single whip law",
+   "title": "Single whip law",
+   "url": "https://en.wikipedia.org/wiki/Single_whip_law",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-523": {
+   "answer": "tael",
+   "title": "Liang (mass)",
+   "url": "https://en.wikipedia.org/wiki/Liang_(mass)",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Tael"
+  },
+  "cnh-524": {
+   "answer": "Huizhou merchants",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Huizhou Chinese",
+    "Huizhou, Anhui",
+    "Ten Great Merchant Guilds",
+    "Hui Style architecture",
+    "Huizhou University"
+   ]
+  },
+  "cnh-525": {
+   "answer": "Kraak ware",
+   "title": "Kraak ware",
+   "url": "https://en.wikipedia.org/wiki/Kraak_ware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-526": {
+   "answer": "Jesuit China missions",
+   "title": "Jesuit missions in China",
+   "url": "https://en.wikipedia.org/wiki/Jesuit_missions_in_China",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Jesuit China missions"
+  },
+  "cnh-527": {
+   "answer": "Matteo Ricci",
+   "title": "Matteo Ricci",
+   "url": "https://en.wikipedia.org/wiki/Matteo_Ricci",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-528": {
+   "answer": "Wang Yangming",
+   "title": "Wang Yangming",
+   "url": "https://en.wikipedia.org/wiki/Wang_Yangming",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-529": {
+   "answer": "Sanyan",
+   "title": null,
+   "url": null,
+   "via": "manual",
+   "status": "none",
+   "manual": true
+  },
+  "cnh-530": {
+   "answer": "Imjin War",
+   "title": "Imjin War",
+   "url": "https://en.wikipedia.org/wiki/Imjin_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-531": {
+   "answer": "Donglin movement",
+   "title": "Donglin movement",
+   "url": "https://en.wikipedia.org/wiki/Donglin_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-532": {
+   "answer": "Wei Zhongxian",
+   "title": "Wei Zhongxian",
+   "url": "https://en.wikipedia.org/wiki/Wei_Zhongxian",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-533": {
+   "answer": "Li Zicheng",
+   "title": "Li Zicheng",
+   "url": "https://en.wikipedia.org/wiki/Li_Zicheng",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-534": {
+   "answer": "Chongzhen Emperor",
+   "title": "Chongzhen Emperor",
+   "url": "https://en.wikipedia.org/wiki/Chongzhen_Emperor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-535": {
+   "answer": "Qing dynasty",
+   "title": "Qing dynasty",
+   "url": "https://en.wikipedia.org/wiki/Qing_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-536": {
+   "answer": "Nurhaci",
+   "title": "Nurhaci",
+   "url": "https://en.wikipedia.org/wiki/Nurhaci",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-537": {
+   "answer": "Eight Banners",
+   "title": "Eight Banners",
+   "url": "https://en.wikipedia.org/wiki/Eight_Banners",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-538": {
+   "answer": "Hong Taiji",
+   "title": "Hong Taiji",
+   "url": "https://en.wikipedia.org/wiki/Hong_Taiji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-539": {
+   "answer": "Southern Ming",
+   "title": "Southern Ming",
+   "url": "https://en.wikipedia.org/wiki/Southern_Ming",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-540": {
+   "answer": "Dorgon",
+   "title": "Dorgon",
+   "url": "https://en.wikipedia.org/wiki/Dorgon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-541": {
+   "answer": "queue",
+   "title": "Queue (hairstyle)",
+   "url": "https://en.wikipedia.org/wiki/Queue_(hairstyle)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-542": {
+   "answer": "Yangzhou massacre",
+   "title": "Yangzhou massacre",
+   "url": "https://en.wikipedia.org/wiki/Yangzhou_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-543": {
+   "answer": "Revolt of the Three Feudatories",
+   "title": "Revolt of the Three Feudatories",
+   "url": "https://en.wikipedia.org/wiki/Revolt_of_the_Three_Feudatories",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-544": {
+   "answer": "Battle of Penghu",
+   "title": "Battle of Penghu",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Penghu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-545": {
+   "answer": "Kangxi Emperor",
+   "title": "Kangxi Emperor",
+   "url": "https://en.wikipedia.org/wiki/Kangxi_Emperor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-546": {
+   "answer": "Treaty of Nerchinsk",
+   "title": "Treaty of Nerchinsk",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Nerchinsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-547": {
+   "answer": "Dzungar Khanate",
+   "title": "Dzungar Khanate",
+   "url": "https://en.wikipedia.org/wiki/Dzungar_Khanate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-548": {
+   "answer": "Amban",
+   "title": "Amban",
+   "url": "https://en.wikipedia.org/wiki/Amban",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-549": {
+   "answer": "Yongzheng Emperor",
+   "title": "Yongzheng Emperor",
+   "url": "https://en.wikipedia.org/wiki/Yongzheng_Emperor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-550": {
+   "answer": "Grand Council",
+   "title": "Grand Council (Qing dynasty)",
+   "url": "https://en.wikipedia.org/wiki/Grand_Council_(Qing_dynasty)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-551": {
+   "answer": "Qianlong Emperor",
+   "title": "Qianlong Emperor",
+   "url": "https://en.wikipedia.org/wiki/Qianlong_Emperor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-552": {
+   "answer": "Siku Quanshu",
+   "title": "Siku Quanshu",
+   "url": "https://en.wikipedia.org/wiki/Siku_Quanshu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-553": {
+   "answer": "literary inquisition",
+   "title": "Literary inquisition",
+   "url": "https://en.wikipedia.org/wiki/Literary_inquisition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-554": {
+   "answer": "Hong Liangji",
+   "title": "Hong Liangji",
+   "url": "https://en.wikipedia.org/wiki/Hong_Liangji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-555": {
+   "answer": "Heshen",
+   "title": "Heshen",
+   "url": "https://en.wikipedia.org/wiki/Heshen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-556": {
+   "answer": "Macartney Embassy",
+   "title": "Macartney Embassy",
+   "url": "https://en.wikipedia.org/wiki/Macartney_Embassy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-557": {
+   "answer": "Canton System",
+   "title": "Canton System",
+   "url": "https://en.wikipedia.org/wiki/Canton_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-558": {
+   "answer": "White Lotus Rebellion",
+   "title": "White Lotus Rebellion",
+   "url": "https://en.wikipedia.org/wiki/White_Lotus_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-559": {
+   "answer": "opium trade",
+   "title": "History of opium in China",
+   "url": "https://en.wikipedia.org/wiki/History_of_opium_in_China",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-560": {
+   "answer": "Lin Zexu",
+   "title": "Lin Zexu",
+   "url": "https://en.wikipedia.org/wiki/Lin_Zexu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-561": {
+   "answer": "First Opium War",
+   "title": "First Opium War",
+   "url": "https://en.wikipedia.org/wiki/First_Opium_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-562": {
+   "answer": "Treaty of Nanking",
+   "title": "Treaty of Nanking",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Nanking",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-563": {
+   "answer": "unequal treaty",
+   "title": "Unequal treaties",
+   "url": "https://en.wikipedia.org/wiki/Unequal_treaties",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Unequal treaty"
+  },
+  "cnh-564": {
+   "answer": "Taiping Rebellion",
+   "title": "Taiping Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Taiping_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-565": {
+   "answer": "Hong Xiuquan",
+   "title": "Hong Xiuquan",
+   "url": "https://en.wikipedia.org/wiki/Hong_Xiuquan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-566": {
+   "answer": "Nian Rebellion",
+   "title": "Nian Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Nian_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-567": {
+   "answer": "Second Opium War",
+   "title": "Second Opium War",
+   "url": "https://en.wikipedia.org/wiki/Second_Opium_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-568": {
+   "answer": "Self-Strengthening Movement",
+   "title": "Self-Strengthening Movement",
+   "url": "https://en.wikipedia.org/wiki/Self-Strengthening_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-569": {
+   "answer": "Empress Dowager Cixi",
+   "title": "Empress Dowager Cixi",
+   "url": "https://en.wikipedia.org/wiki/Empress_Dowager_Cixi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-570": {
+   "answer": "First Sino-Japanese War",
+   "title": "First Sino-Japanese War",
+   "url": "https://en.wikipedia.org/wiki/First_Sino-Japanese_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-571": {
+   "answer": "Hundred Days' Reform",
+   "title": "Hundred Days' Reform",
+   "url": "https://en.wikipedia.org/wiki/Hundred_Days'_Reform",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-572": {
+   "answer": "Boxer Rebellion",
+   "title": "Boxer Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Boxer_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-573": {
+   "answer": "Late Qing reforms",
+   "title": "New Policies",
+   "url": "https://en.wikipedia.org/wiki/New_Policies",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Late Qing reforms"
+  },
+  "cnh-574": {
+   "answer": "Xinhai Revolution",
+   "title": "1911 Revolution",
+   "url": "https://en.wikipedia.org/wiki/1911_Revolution",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Xinhai Revolution"
+  },
+  "cnh-575": {
+   "answer": "Sun Yat-sen",
+   "title": "Sun Yat-sen",
+   "url": "https://en.wikipedia.org/wiki/Sun_Yat-sen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-576": {
+   "answer": "Puyi",
+   "title": "Puyi",
+   "url": "https://en.wikipedia.org/wiki/Puyi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-577": {
+   "answer": "Republic of China",
+   "title": "Republic of China (1912–1949)",
+   "url": "https://en.wikipedia.org/wiki/Republic_of_China_(1912%E2%80%931949)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-578": {
+   "answer": "Yuan Shikai",
+   "title": "Yuan Shikai",
+   "url": "https://en.wikipedia.org/wiki/Yuan_Shikai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-579": {
+   "answer": "Empire of China",
+   "title": "Empire of China (1915–1916)",
+   "url": "https://en.wikipedia.org/wiki/Empire_of_China_(1915%E2%80%931916)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-580": {
+   "answer": "Warlord Era",
+   "title": "Warlord Era",
+   "url": "https://en.wikipedia.org/wiki/Warlord_Era",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-581": {
+   "answer": "Beiyang government",
+   "title": "Beiyang government",
+   "url": "https://en.wikipedia.org/wiki/Beiyang_government",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-582": {
+   "answer": "Chinese Labour Corps",
+   "title": "Chinese Labour Corps",
+   "url": "https://en.wikipedia.org/wiki/Chinese_Labour_Corps",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-583": {
+   "answer": "Twenty-One Demands",
+   "title": "Twenty-One Demands",
+   "url": "https://en.wikipedia.org/wiki/Twenty-One_Demands",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-584": {
+   "answer": "Shandong Problem",
+   "title": "Shandong Problem",
+   "url": "https://en.wikipedia.org/wiki/Shandong_Problem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-585": {
+   "answer": "May Fourth Movement",
+   "title": "May Fourth Movement",
+   "url": "https://en.wikipedia.org/wiki/May_Fourth_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-586": {
+   "answer": "New Culture Movement",
+   "title": "New Culture Movement",
+   "url": "https://en.wikipedia.org/wiki/New_Culture_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-587": {
+   "answer": "Chen Duxiu",
+   "title": "Chen Duxiu",
+   "url": "https://en.wikipedia.org/wiki/Chen_Duxiu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-588": {
+   "answer": "Hu Shi",
+   "title": "Hu Shih",
+   "url": "https://en.wikipedia.org/wiki/Hu_Shih",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Hu Shi"
+  },
+  "cnh-589": {
+   "answer": "Lu Xun",
+   "title": "Lu Xun",
+   "url": "https://en.wikipedia.org/wiki/Lu_Xun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-590": {
+   "answer": "First National Congress of the Chinese Communist Party",
+   "title": "1st National Congress of the Chinese Communist Party",
+   "url": "https://en.wikipedia.org/wiki/1st_National_Congress_of_the_Chinese_Communist_Party",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "First National Congress of the Chinese Communist Party"
+  },
+  "cnh-591": {
+   "answer": "First United Front",
+   "title": "First United Front",
+   "url": "https://en.wikipedia.org/wiki/First_United_Front",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-592": {
+   "answer": "Whampoa Military Academy",
+   "title": "Republic of China Military Academy",
+   "url": "https://en.wikipedia.org/wiki/Republic_of_China_Military_Academy",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Whampoa Military Academy"
+  },
+  "cnh-593": {
+   "answer": "Chiang Kai-shek",
+   "title": "Chiang Kai-shek",
+   "url": "https://en.wikipedia.org/wiki/Chiang_Kai-shek",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-594": {
+   "answer": "Northern Expedition",
+   "title": "Northern Expedition",
+   "url": "https://en.wikipedia.org/wiki/Northern_Expedition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-595": {
+   "answer": "Shanghai massacre",
+   "title": "Shanghai massacre",
+   "url": "https://en.wikipedia.org/wiki/Shanghai_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-596": {
+   "answer": "Nanjing decade",
+   "title": "Nanjing decade",
+   "url": "https://en.wikipedia.org/wiki/Nanjing_decade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-597": {
+   "answer": "Nationalist government",
+   "title": "Nationalist government",
+   "url": "https://en.wikipedia.org/wiki/Nationalist_government",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-598": {
+   "answer": "Kuomintang",
+   "title": "Kuomintang",
+   "url": "https://en.wikipedia.org/wiki/Kuomintang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-599": {
+   "answer": "treaty port",
+   "title": "Treaty ports",
+   "url": "https://en.wikipedia.org/wiki/Treaty_ports",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Treaty port"
+  },
+  "cnh-600": {
+   "answer": "Shanghai International Settlement",
+   "title": "Shanghai International Settlement",
+   "url": "https://en.wikipedia.org/wiki/Shanghai_International_Settlement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-601": {
+   "answer": "cotton mill",
+   "title": "Cotton mill",
+   "url": "https://en.wikipedia.org/wiki/Cotton_mill",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

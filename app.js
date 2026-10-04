@@ -23351,10 +23351,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      what it drew — the studiable rows, in the order they appear, top to bottom — and the completion screen
      reads it.
 
-     Only rows the reader can actually tap are recorded: a group header, one of their own decks and an
-     added tree node are studiable, while an ancestor CONTEXT signpost, a language header and a deck not
-     yet on this device are not, and offering any of those would be offering something the list itself
-     refuses to open.
+     Only rows the reader can actually tap are recorded — every row carrying `data-review`: a collection,
+     a deck, a group header, a language header, their own deck — while an ancestor CONTEXT signpost and a
+     deck not yet on this device are not, and offering either would be offering something the list itself
+     refuses to open. AND ONLY ROWS ON SCREEN (Oct 2026, on request): `adSyncFold` rewrites it from the
+     rows that are not folded away whenever a fold changes, so a deck inside a shut collection is never
+     offered, and is the moment the collection is unfolded. Each record carries what the completion screen
+     needs to draw the row as a banner (see adRowBannerHTML): id, title, parent, hue, and its kind.
 
      It is a module-level array rather than state, like `adOpen` beside it — it describes a page that was
      drawn, not a preference — so a reader who reloads straight onto `#study` has an empty one and simply
@@ -23376,7 +23379,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const r = adRowOrder[(((at + k) % n) + n) % n];
       if (!r || r.id === afterId) continue;
       const p = entryPiles(r.id);
-      if (!p.skip && p.nw + p.lr + p.rv > 0) return r;
+      if (p.skip || !(p.nw + p.lr + p.rv > 0)) continue;
+      // …and a row the list marks finished for the day (or gold for every card learned) is skipped
+      // too, whatever its piles say (Oct 2026, on request): the offer walks the banners as drawn
+      if (adDay(r.id).cls) continue;
+      return r;
     }
     return null;
   }
@@ -23508,11 +23515,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     [...listEl.children].forEach((el) => { if (el.classList.contains("active-deck") && !el.classList.contains("dk-shut")) last = el; });
     listEl.querySelectorAll(".dk-last").forEach((el) => el.classList.remove("dk-last"));
     if (last) last.classList.add("dk-last");
-    /* AN UNFOLDED COLLECTION IS ONE BLOCK (Oct 2026, on request): on a phone its subdecks attach to it as
-       a tight list — the top row rounded above, the last subdeck rounded below, nothing in between — so
-       they read as INSIDE it rather than as more collections. `dk-att` is a row of depth > 0, joined to
-       the row above it; `dk-cont` is a row the block continues below. Read off the visible rows in order,
-       for the reason `dk-last` is. The CSS is in the phone block of styles.css, by `.review-group`. */
+    /* AN UNFOLDED COLLECTION IS ONE BLOCK (Oct 2026, on request): its subdecks attach to it as a tight
+       list — the top row rounded above, the last subdeck rounded below, nothing in between — so they read
+       as INSIDE it rather than as more collections. `dk-att` is a row of depth > 0, joined to the row above
+       it; `dk-cont` is a row the block continues below. Read off the visible rows in order, for the reason
+       `dk-last` is. It was the phone's alone at first and is every width's since (Oct 2026, on request:
+       "this should also be the case on desktop and tablet"); the CSS is by `.review-group .active-decks`
+       in styles.css. */
     const vis = [...listEl.children].filter((el) => el.classList.contains("active-deck") && !el.classList.contains("dk-shut"));
     const depth = (el) => (el ? +el.dataset.depth || 0 : 0);
     vis.forEach((el, i) => {
@@ -23520,6 +23529,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       el.classList.toggle("dk-cont", depth(vis[i + 1]) > 0);
     });
     [...listEl.children].forEach((el) => { if (el.classList.contains("dk-shut")) el.classList.remove("dk-att", "dk-cont"); });
+    /* …AND THE ORDER THE COMPLETION SCREEN READS IS THE ORDER ON SCREEN (Oct 2026, on request: "if I have a
+       collection folded, the 'continue with' button banner should never display a deck within that folded
+       collection; if I unfold it on the home page, it should be displayed"). It used to be recorded from the
+       build, folded rows and all; here it is read off the same `vis` the corners were, every time a fold
+       changes, so it can only ever name a row the reader can see. Every tappable row counts — a collection,
+       a deck, a group, a language header — since each is a banner on this list. */
+    adRowOrder = vis.filter((el) => el.hasAttribute("data-review")).map((el) => ({
+      id: el.dataset.review,
+      title: ((el.querySelector(".dk-title") || {}).textContent || el.dataset.review).trim(),
+      parent: el.dataset.parent || "",
+      hue: (el.style.getPropertyValue("--coll-bg") || "").trim(),
+      langhead: el.classList.contains("dk-langhead"),
+      group: el.classList.contains("deck-group"),
+    }));
   }
   /* ---------- DRAGGING A ROW OF THE REVIEW LIST INTO PLACE (Aug 2026, on request) ----------
      Anki lets a reader arrange their deck list; this is the same thing done by dragging, which is what
@@ -23902,6 +23925,134 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         : "";
   };
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
+  /* The same three numbers on a deck row, without their labels — the banner above has just named them.
+     They are THIS DECK'S OWN piles (entryPiles), not its share of the pooled review: after the daily
+     review has drawn its five at random from across the added decks, each row still shows whatever is
+     left of that deck's own allowance, which is the "2 new / 3 new" a reader meets under a cleared banner. */
+  const adCounts = (c) => {
+    // the title is built from the SAME three words the banner labels itself with, run through t() here —
+    // a title attribute assembled from numbers is not a string the exact table could ever match
+    const tip = c.skip
+      ? t("Skipped today")
+      : t("New") + " " + c.nw + " · " + t("Learning") + " " + c.lr + " · " + t("Review") + " " + c.rv;
+    // a pile at zero goes GREY (Aug 2026, on request) — the colour means "there is work of this kind
+    // here", so keeping it on a 0 spends the reader's attention on nothing
+    const z = (n) => (n ? "" : " dkc-zero");
+    return `<div class="dk-counts" title="${esc(tip)}">
+      <span class="dkc dkc-new${z(c.nw)}">${c.nw}</span><span class="dkc dkc-learn${z(c.lr)}">${c.lr}</span><span class="dkc dkc-rev${z(c.rv)}">${c.rv}</span>
+    </div>`;
+  };
+  const DK_DAY_LABELS = { done: "Finished for today", won: "Every card learned" };
+  /* ONE call to `entryPiles` per row rather than two: the counts and the day's state are the same
+     measurement read twice, and that function walks every card in the entry. */
+  const adDay = (entryId) => {
+    const c = entryPiles(entryId);
+    const counts = adCounts(c);
+    const all = entryCardIds(entryId) || [];
+    const won = all.length > 0 && all.every(atCriterion);
+    const ids = won ? all : (c.skip || c.nw + c.lr + c.rv > 0 ? null : all);
+    if (!ids || !ids.length) return { counts: counts, cls: "", mark: "" };
+    return {
+      counts: counts,
+      cls: won ? " dk-done dk-won" : " dk-done",
+      mark: doneMarkHTML(true, won, DK_DAY_LABELS),
+    };
+  };
+  /* Every row in the review list carries how far through it the reader is — the bar replaced a bare blue
+     dot. The FIGURE beside it moved into the row's options sheet in Aug 2026, on request: a bar says
+     "some of the way" at a glance, which is all a row of a list is for, and the exact count is a thing
+     you go looking for — which is what holding the row is. It also gives the deck's name back the width
+     the figure was taking on a 390px line. */
+  /* THE MARK AT THE LEFT OF A ROW (Aug 2026, on request: a reader's own images "will appear on the left
+     of their banners in the Active Decks list and on the Collections page"). The Collections page has
+     drawn one since collections lost their levels; this list never has, and adding the readers' without
+     adding the site's own would leave one screen answering the same question two ways.
+     WHAT A ROW IS ENTITLED TO BY ITSELF is deliberately narrow: a curated COLLECTION gets its subject
+     symbol and one of the reader's own DECKS gets the card stack — the two rows that are collections —
+     and everything else (a deck inside a collection, a subdeck, a group, the Card-of-the-day list) gets
+     nothing unless the reader has set one. That is the Collections page's own rule, where a .node deck
+     row carries no icon either, and it is what stops a forty-row subtree becoming forty pagodas.
+     It is drawn SMALLER here (22px against 34) and only where there is something to draw, because at
+     390px the row is three piles, a name, a bar and a chevron, and the name is the only part of it with
+     a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
+  const adIconKey = (entryId, parentKey) => {
+    const n = NODE_BY_ID[entryId];
+    // …and the mark is the SECTION's rather than the collection's own subject symbol — see SECTION_ICON
+    if (n) return n.parentId ? "" : (SECTION_ICON[sectionOf(entryId)] || "cards");
+    // a LANGUAGE container is the row that is a collection, so it wears the speech bubble its own
+    // banner wears on the Collections page — the one place seven collections share a mark
+    if (isLangCtxId(entryId)) return "speech";
+    /* …AND A DECK DRAWN INSIDE ONE GETS NOTHING (Aug 2026, on request: "decks within language
+       collections shouldn't get their own icons in the active decks section, only the collection
+       itself should"). A language deck is a community deck, so without this it takes the card stack
+       below — and a reader who adds seven levels of Spanish gets one speech bubble over seven
+       identical stacks, which is the forty-pagoda case the rule above exists to prevent, one store
+       over. It is the SAME rule as the curated side's, where a deck inside a collection carries no
+       icon either; what differs is only that a language's decks are its members rather than its
+       children in a tree, so the test has to be on the ROW'S PARENT rather than on the deck. A deck
+       the reader has dragged OUT of its language sits at the top level with nothing above it to say
+       what it is, and keeps its stack. An icon the reader has set themselves still wins — this is
+       the automatic mark, and `entryIconMarkup` reads it as a fallback. */
+    if (isLangCtxId(parentKey)) return "";
+    const dId = uDeckIdOf(entryId);
+    if (dId && UDECKS[dId] && !uSubOf(entryId)) return "cards";
+    return "";
+  };
+  /* The whole layer COULD be switched off from Sep 2026 (an Icons switch in the deck list's editor
+     mode wrote `S.settings.deckIcons`); the mode and its switch are gone (Oct 2026, on request), so the
+     column is always drawn — a setting with no control left to change it would strand whoever had
+     turned it off. The stored flag is simply no longer read. */
+  const adIcon = (entryId, parentKey) => entryIconMarkup(entryId, adIconKey(entryId, parentKey), "dk-ic");
+  /* TWO PROGRESSES ON ONE BAR (Sep 2026, on request: "the first general bar should be light
+     blue/teal (same color as undiscovered gloss) and show progress for cards studied once, the darker
+     blue progress bar on top of it should show how many cards have been studied 3 days"). The light
+     fill is `--newterm`, the undiscovered glossary term's own teal, and the dark one is laid over it
+     from the same left edge, so the gap between the two ends is the cards met but not yet learned. The
+     bar goes GOLD when every card is learned, which is the row's gold above — not when every card has
+     merely been seen once. */
+  const adProg = (ids) => {
+    const total = ids.length, studied = ids.filter(isSeen).length, learned = ids.filter(atCriterion).length;
+    /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
+       percentage. Nothing renders them — the figure itself lives in the row's options sheet — but a
+       percentage alone cannot say how many cards a row is counting, and that is exactly what has to be
+       readable when a deck is dragged from one container into another (see test-review-decks). */
+    // …and the same gold on the review list's own rows — see deckProgMarkup for why it rides on the bar
+    const done = total > 0 && learned >= total;
+    return `<div class="prog dk-prog${done ? " prog-done" : ""}" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-pctl="${total ? ((learned / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}" data-learned="${learned}">
+      <div class="track"><div class="fill"></div><div class="fill-l"></div></div>
+    </div>`;
+  };
+  /* Each added deck's row wears its COLLECTION's identity hue rather than the review's own (Aug 2026, on
+     request), so the list under the banner reads as the same decks the reader picked out of the Library.
+     The hue is the one COLL_THEME gives the root collection, set as `--coll-bg` on the row; a community
+     deck and the Card-of-the-day list belong to no collection and keep the neutral wash.
+     SINCE GROUPS (Aug 2026) THE HUE IS INHERITED DOWN THE CONTAINER CHAIN rather than looked up per row:
+     a colour set on a group has to reach every deck inside it, which is the whole of what that control
+     was asked for, and a collection's own hue is simply the case where the container is a collection. So
+     the walk PASSES a colour down and a row only computes one when nothing above it has. */
+  const hueStyle = (hue) => (hue ? ' style="--coll-bg:' + esc(hue) + ";" : ' style="');
+
+  /* THE NEXT ROW, DRAWN AS THE ROW IT IS (Oct 2026, on request: the completion screen's "continue with"
+     "should instead be a banner of the next collection or deck displayed in the active collections
+     list"). One function draws it with the home list's own helpers — same hue, icon, piles, bar and
+     done mark — so the banner on the completion screen IS the row the reader would have tapped on the
+     home page, read fresh at the moment it is drawn rather than copied from a list drawn before the
+     session. No grip and no chevron: it is a single row standing alone, not a list to fold or reorder.
+     `r` is a record of `adRowOrder` (id, title, parent, hue, langhead, group). */
+  function adRowBannerHTML(r) {
+    const day = adDay(r.id);
+    const kind = r.langhead ? " dk-langhead" : r.group ? " deck-group" : "";
+    return `<div class="active-deck sc-next-row${kind}${day.cls}" data-review="${esc(r.id)}" role="button" tabindex="0" title="${esc(t("Continue with"))} ${esc(r.title)}"${hueStyle(r.hue)}padding-left:calc(2px + var(--dk-grip-w))">
+      ${day.mark}
+      ${adIcon(r.id, r.parent)}
+      ${day.counts}
+      <div class="dk-body">
+        <div class="dk-line"><span class="dk-title">${esc(r.title)}</span></div>
+        ${adProg(entryCardIds(r.id))}
+      </div>
+      <span class="dk-chev-gap" aria-hidden="true"></span>
+    </div>`;
+  }
   PAGES.home = function (root) {
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
        used to differ by three swiped panes, then by the discovery row, then by the lip to the collections,
@@ -23946,23 +24097,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     };
     const pile = pileCounts(pileIds);
     const activeIds = activeEntryIds();
-    /* The same three numbers on a deck row, without their labels — the banner above has just named them.
-       They are THIS DECK'S OWN piles (entryPiles), not its share of the pooled review: after the daily
-       review has drawn its five at random from across the added decks, each row still shows whatever is
-       left of that deck's own allowance, which is the "2 new / 3 new" a reader meets under a cleared banner. */
-    const adCounts = (c) => {
-      // the title is built from the SAME three words the banner labels itself with, run through t() here —
-      // a title attribute assembled from numbers is not a string the exact table could ever match
-      const tip = c.skip
-        ? t("Skipped today")
-        : t("New") + " " + c.nw + " · " + t("Learning") + " " + c.lr + " · " + t("Review") + " " + c.rv;
-      // a pile at zero goes GREY (Aug 2026, on request) — the colour means "there is work of this kind
-      // here", so keeping it on a 0 spends the reader's attention on nothing
-      const z = (n) => (n ? "" : " dkc-zero");
-      return `<div class="dk-counts" title="${esc(tip)}">
-        <span class="dkc dkc-new${z(c.nw)}">${c.nw}</span><span class="dkc dkc-learn${z(c.lr)}">${c.lr}</span><span class="dkc dkc-rev${z(c.rv)}">${c.rv}</span>
-      </div>`;
-    };
     /* A DECK FINISHED FOR THE DAY GOES GREEN, AND GOLD IF NOTHING WAS MISSED (Sep 2026, on request:
        "when an active deck has been completed for the day, (i.e. no new/review cards remaining), it
        should turn green and have a checkmark in the right of the deck background, in the same way as a
@@ -24011,96 +24145,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        exactly the day the last card's third dot fills, and it stays gold whatever the day's piles say. The
        green mark for a day's work finished is unchanged. `dayAnswered` / `dayMissed` above are no longer
        read by the row and are kept for nothing else; they are left because the walk is cheap and the
-       banner's own reading of "perfectly" is the same rule, stated in one place. */
-    const DK_DAY_LABELS = { done: "Finished for today", won: "Every card learned" };
-    /* ONE call to `entryPiles` per row rather than two: the counts and the day's state are the same
-       measurement read twice, and that function walks every card in the entry. */
-    const adDay = (entryId) => {
-      const c = entryPiles(entryId);
-      const counts = adCounts(c);
-      const all = entryCardIds(entryId) || [];
-      const won = all.length > 0 && all.every(atCriterion);
-      const ids = won ? all : (c.skip || c.nw + c.lr + c.rv > 0 ? null : all);
-      if (!ids || !ids.length) return { counts: counts, cls: "", mark: "" };
-      return {
-        counts: counts,
-        cls: won ? " dk-done dk-won" : " dk-done",
-        mark: doneMarkHTML(true, won, DK_DAY_LABELS),
-      };
-    };
-    /* Every row in the review list carries how far through it the reader is — the bar replaced a bare blue
-       dot. The FIGURE beside it moved into the row's options sheet in Aug 2026, on request: a bar says
-       "some of the way" at a glance, which is all a row of a list is for, and the exact count is a thing
-       you go looking for — which is what holding the row is. It also gives the deck's name back the width
-       the figure was taking on a 390px line. */
-    /* THE MARK AT THE LEFT OF A ROW (Aug 2026, on request: a reader's own images "will appear on the left
-       of their banners in the Active Decks list and on the Collections page"). The Collections page has
-       drawn one since collections lost their levels; this list never has, and adding the readers' without
-       adding the site's own would leave one screen answering the same question two ways.
-       WHAT A ROW IS ENTITLED TO BY ITSELF is deliberately narrow: a curated COLLECTION gets its subject
-       symbol and one of the reader's own DECKS gets the card stack — the two rows that are collections —
-       and everything else (a deck inside a collection, a subdeck, a group, the Card-of-the-day list) gets
-       nothing unless the reader has set one. That is the Collections page's own rule, where a .node deck
-       row carries no icon either, and it is what stops a forty-row subtree becoming forty pagodas.
-       It is drawn SMALLER here (22px against 34) and only where there is something to draw, because at
-       390px the row is three piles, a name, a bar and a chevron, and the name is the only part of it with
-       a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
-    const adIconKey = (entryId, parentKey) => {
-      const n = NODE_BY_ID[entryId];
-      // …and the mark is the SECTION's rather than the collection's own subject symbol — see SECTION_ICON
-      if (n) return n.parentId ? "" : (SECTION_ICON[sectionOf(entryId)] || "cards");
-      // a LANGUAGE container is the row that is a collection, so it wears the speech bubble its own
-      // banner wears on the Collections page — the one place seven collections share a mark
-      if (isLangCtxId(entryId)) return "speech";
-      /* …AND A DECK DRAWN INSIDE ONE GETS NOTHING (Aug 2026, on request: "decks within language
-         collections shouldn't get their own icons in the active decks section, only the collection
-         itself should"). A language deck is a community deck, so without this it takes the card stack
-         below — and a reader who adds seven levels of Spanish gets one speech bubble over seven
-         identical stacks, which is the forty-pagoda case the rule above exists to prevent, one store
-         over. It is the SAME rule as the curated side's, where a deck inside a collection carries no
-         icon either; what differs is only that a language's decks are its members rather than its
-         children in a tree, so the test has to be on the ROW'S PARENT rather than on the deck. A deck
-         the reader has dragged OUT of its language sits at the top level with nothing above it to say
-         what it is, and keeps its stack. An icon the reader has set themselves still wins — this is
-         the automatic mark, and `entryIconMarkup` reads it as a fallback. */
-      if (isLangCtxId(parentKey)) return "";
-      const dId = uDeckIdOf(entryId);
-      if (dId && UDECKS[dId] && !uSubOf(entryId)) return "cards";
-      return "";
-    };
-    /* The whole layer COULD be switched off from Sep 2026 (an Icons switch in the deck list's editor
-       mode wrote `S.settings.deckIcons`); the mode and its switch are gone (Oct 2026, on request), so the
-       column is always drawn — a setting with no control left to change it would strand whoever had
-       turned it off. The stored flag is simply no longer read. */
-    const adIcon = (entryId, parentKey) => entryIconMarkup(entryId, adIconKey(entryId, parentKey), "dk-ic");
-    /* TWO PROGRESSES ON ONE BAR (Sep 2026, on request: "the first general bar should be light
-       blue/teal (same color as undiscovered gloss) and show progress for cards studied once, the darker
-       blue progress bar on top of it should show how many cards have been studied 3 days"). The light
-       fill is `--newterm`, the undiscovered glossary term's own teal, and the dark one is laid over it
-       from the same left edge, so the gap between the two ends is the cards met but not yet learned. The
-       bar goes GOLD when every card is learned, which is the row's gold above — not when every card has
-       merely been seen once. */
-    const adProg = (ids) => {
-      const total = ids.length, studied = ids.filter(isSeen).length, learned = ids.filter(atCriterion).length;
-      /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
-         percentage. Nothing renders them — the figure itself lives in the row's options sheet — but a
-         percentage alone cannot say how many cards a row is counting, and that is exactly what has to be
-         readable when a deck is dragged from one container into another (see test-review-decks). */
-      // …and the same gold on the review list's own rows — see deckProgMarkup for why it rides on the bar
-      const done = total > 0 && learned >= total;
-      return `<div class="prog dk-prog${done ? " prog-done" : ""}" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-pctl="${total ? ((learned / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}" data-learned="${learned}">
-        <div class="track"><div class="fill"></div><div class="fill-l"></div></div>
-      </div>`;
-    };
-    /* Each added deck's row wears its COLLECTION's identity hue rather than the review's own (Aug 2026, on
-       request), so the list under the banner reads as the same decks the reader picked out of the Library.
-       The hue is the one COLL_THEME gives the root collection, set as `--coll-bg` on the row; a community
-       deck and the Card-of-the-day list belong to no collection and keep the neutral wash.
-       SINCE GROUPS (Aug 2026) THE HUE IS INHERITED DOWN THE CONTAINER CHAIN rather than looked up per row:
-       a colour set on a group has to reach every deck inside it, which is the whole of what that control
-       was asked for, and a collection's own hue is simply the case where the container is a collection. So
-       the walk PASSES a colour down and a row only computes one when nothing above it has. */
-    const hueStyle = (hue) => (hue ? ' style="--coll-bg:' + esc(hue) + ";" : ' style="');
+       banner's own reading of "perfectly" is the same rule, stated in one place.
+       (`adDay`, `adCounts` and the row's other drawing helpers now sit at MODULE level, just above
+       PAGES.home, so the completion screen can draw the next row exactly as this list does — see
+       adRowBannerHTML. Oct 2026.) */
     /* THE HANDLE a row is dragged by (Aug 2026, on request — see setupDeckDrag for the gesture). It is a
        real <button>, not a decorative span: the grip is the only way to reorder, and a control reachable
        by pointer alone is one a keyboard reader is simply shut out of — so it takes a tab stop and answers
@@ -24171,7 +24219,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const members = (langCtx.get(id) || []).filter((e) => !nestParentOf(e));
           const kids = members.concat(kidsOf(id));
           const h = groupColor(id) || langCtxHue(id) || hue;
-          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids });
+          /* WHEN EVERY DECK UNDER IT IS STILL TO BE DOWNLOADED, THE LANGUAGE ROW OFFERS TO FETCH THEM ALL
+             (Oct 2026, on request: "when all decks in an active collection need to be downloaded, the
+             collection itself should also display a download button which downloads every deck within it
+             at once"). The decks are collected by DECK id, once each, however many entries of a deck the
+             reader holds; the button carries the sum of the catalogue's sizes, as each row's own does. A
+             container with one deck already here offers nothing — the remaining rows have their own button. */
+          const dlAll = [], dlSeen = new Set();
+          let dlBytes = 0, dlEvery = kids.length > 0;
+          kids.forEach((e) => {
+            const dId = uDeckIdOf(e), cat = dId && !UDECKS[dId] && entryPending(e) ? langCatalogById(dId) : null;
+            if (!cat) { dlEvery = false; return; }
+            if (dlSeen.has(dId)) return;
+            dlSeen.add(dId); dlAll.push(dId); dlBytes += cat.bytes || 0;
+          });
+          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids,
+                      dlAll: dlEvery ? dlAll : [], dlBytes });
           orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
           return;
         }
@@ -24373,27 +24436,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         /* An added deck of the reader's OWN opens: its subdecks are the reason it has rows at all, and a
            deck that swallows them the moment it is added is exactly what this was reported as. A curated
            collection still starts shut — those run to forty-odd rows, where a deck's subdecks are a handful. */
-        const ownDeck = r.flat && UDECKS[uDeckIdOf(r.flat)] && !uSubOf(r.flat);
-        /* A LANGUAGE container starts OPEN, which is what `seedOpen` would say of it if it had a node to
-           be asked about: it lies entirely above everything the reader added — they added the decks, not
-           the language — so folding it would hide their own choice behind a row they cannot even tap. */
-        if (isGroupId(r.drag) || isLangCtxId(r.drag) || ownDeck || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
+        /* A LANGUAGE container and an added deck of the reader's own — a community deck with subdecks —
+           start SHUT, like a curated collection (Oct 2026, on request: "language and community collections
+           should by default appear collapsed in the active decks list, like the other collections already
+           do"). Both used to start open: the language because it lies above everything the reader added,
+           an own deck because its subdecks are the reason it has rows at all. The reader's one tap on the
+           chevron is remembered (`adFoldSet`), so a container they want open stays open. A GROUP still
+           starts open — they have just built it and put things in it. */
+        if (isGroupId(r.drag) || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
       });
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
       rows.forEach((r) => parentOf.set(r.drag, r.parent || ""));
-      /* ONE reading of a row's name, for the three places that had grown their own copy of the same
-         expression — the drag handle's label, the row's own title, and `adRowOrder`'s record for the
-         completion screen. A reader's rename beats everything (see `adOwnTitle`), then whatever the build
-         put on the row, then the node's title; a group's `r.title` is already `groupTitle(id)`, which
-         reads the same override, so the two agree by construction rather than by coincidence. */
+      /* ONE reading of a row's name, for the two places that had grown their own copy of the same
+         expression — the drag handle's label and the row's own title. A reader's rename beats everything
+         (see `adOwnTitle`), then whatever the build put on the row, then the node's title; a group's
+         `r.title` is already `groupTitle(id)`, which reads the same override, so the two agree by
+         construction rather than by coincidence. (The completion screen's "continue with" order used to be
+         recorded here too; since Oct 2026 `adSyncFold` reads it off the rows actually on screen.) */
       const rowTitle = (r) => adOwnTitle(r.drag) || r.title || (r.node ? nodeTitle(r.node) : r.drag);
-      /* …and the studiable rows in the order they are about to be drawn, for the completion screen's
-         "continue with" offer. Recorded HERE rather than in the markup pass below so it cannot fall out of
-         step with the three branches that emit a `data-review` row — group, own deck, added node — which
-         is exactly the three tested for. See adRowOrder. */
-      adRowOrder = rows.filter((r) => r.group || r.flat || r.active)
-        .map((r) => ({ id: r.drag, title: rowTitle(r) }));
       return rows
         .map((r) => {
           /* The indent that carries the hierarchy, plus whatever column the drag handle is currently
@@ -24456,6 +24517,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
+              ${r.dlAll && r.dlAll.length
+                /* every deck of the language is still to be fetched: one button for the lot (see the row builder),
+                   wired by `[data-langdlall]` beside the per-deck `[data-langdl]` */
+                ? `<button class="btn tiny dk-dl" type="button" data-langdlall="${esc(r.drag)}" data-decks="${esc(r.dlAll.join(" "))}">Download all ${esc(fmtDeckSize(r.dlBytes))}</button>`
+                : ""}
               ${chev}
             </div>`;
           }
@@ -25193,6 +25259,49 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (ins.error) { toast(ins.error); back(); return; }
         toast("Downloaded — " + got.row.title);   // toast sets textContent, so the title is not escaped here
         renderInPlace();   // the reader is standing on this list: the row turns into the deck under them
+      });
+    });
+    /* EVERY DECK OF A LANGUAGE IN ONE PRESS (Oct 2026, on request) — the button the language's own row
+       carries while all of its decks are still to be fetched (see the row builder). The decks are fetched
+       ONE AFTER ANOTHER through the same `langDeckDownload` each row's button uses, so a deck arriving this
+       way is in every respect the deck that would have arrived from its own row — same import, same
+       `langRev`, same cascade of subdeck entries. The page is repainted ONCE, after the last of them, rather
+       than once per deck through `uImportDone`: that repaint rebuilds this very list and would take the
+       button, and the bar in it, away under the reader after the first file. The bar counts decks as well as
+       bytes ("2/5 · 40%"), each deck's own percentage filling its share of the whole. A deck that fails is
+       reported and the rest still land; its row keeps its own button for another try. */
+    root.querySelectorAll("[data-langdlall]").forEach((b) => {
+      b.addEventListener("pointerdown", (e) => e.stopPropagation());
+      b.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        if (b.disabled) return;
+        const ids = String(b.dataset.decks || "").split(" ").filter(Boolean);
+        if (!ids.length) return;
+        b.disabled = true;
+        const was = b.textContent;
+        b.classList.add("dk-dl-busy");
+        b.innerHTML = '<span class="dkdl-t">Downloading…</span><i class="dkdl-fill" style="width:0%"></i>';
+        const fill = b.querySelector(".dkdl-fill"), lab = b.querySelector(".dkdl-t");
+        const saves = [], failed = [];
+        let got = 0;
+        for (let i = 0; i < ids.length; i++) {
+          const r = await langDeckDownload(ids[i], (have, total) => {
+            if (!b.isConnected) return;
+            const part = total > 0 ? Math.min(1, have / total) : 0;   // this file's share, or none where the server sends no length
+            fill.style.width = (((i + part) / ids.length) * 100).toFixed(1) + "%";
+            lab.textContent = (i + 1) + "/" + ids.length + (total > 0 ? " · " + Math.round(part * 100) + "%" : "");
+          });
+          if (r.error) failed.push(r.error);
+          else { got++; if (r.saved) saves.push(r.saved); }
+        }
+        if (!got) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; toast(failed[0] || "Those decks couldn't be read."); return; }
+        renderInPlace();   // the reader is standing on this list: the rows turn into the decks under them
+        if (saves.length) {
+          const slow = setTimeout(() => toast("Saving the decks to this device…"), 400);
+          await Promise.all(saves);
+          clearTimeout(slow);
+        }
+        toast(failed.length ? "Downloaded " + got + " of " + ids.length + " decks — " + failed[0] : "Downloaded " + got + (got === 1 ? " deck" : " decks"));
       });
     });
     /* THE SAME BUTTON, FETCHING THE SAME FILE, FOR A DECK ALREADY HERE (Sep 2026, on the 蛋糕 report).
@@ -32597,23 +32706,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <div class="big">${how && how.timeUp ? "⏱" : "✓"}</div>
         <h2>${how && how.timeUp ? "Time's up" : "Session complete"}</h2>
         <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}${how && how.timeUp ? " in " + Math.round(boxMs / 60000) + " minutes" : ""}. Your progress is saved.</p>
-        <div class="row">
+        ${/* THREE EQUAL BUTTONS ON ONE LINE (Oct 2026, on request: "these three should be formatted more
+              neatly"). They were a wrapping flex row, which on most widths put two on one line and the
+              third alone under them. `.sc-actions` is a grid of equal columns, however many of the three
+              are drawn, stacking to one column on a phone. */""}
+        <div class="row sc-actions">
           <button class="btn" id="more">Keep studying</button>
           ${canUndo() ? '<button class="btn ghost" id="undoLast" title="${esc(undoLabel())}">Undo the last card</button>' : ""}
           <button class="btn ghost" id="home">Back home</button>
         </div>`;
-      /* …AND THE NEXT DECK DOWN THE LIST (Aug 2026, on request). A reader working through their active
+      /* …AND THE NEXT ROW DOWN THE LIST (Aug 2026, on request). A reader working through their active
          decks in order had to go back to the home page between every one of them, which for four decks is
-         four round trips through a page they have already read. The row sits BELOW the three above rather
-         than among them, as asked, and it NAMES the deck — "Continue with Spanish A1" — because a button
-         that says only "Next" is asking the reader to trust it about where they are going. It is drawn
-         only when there is somewhere to go: see nextStudyRow, which reads the order the home page last
-         drew and skips anything with no work left in it. */
+         four round trips through a page they have already read. It sits BELOW the three above rather than
+         among them, as asked. It was a button naming the deck — "Continue with Spanish A1" — and is now
+         THE ROW ITSELF (Oct 2026, on request: "a banner of the next collection or deck displayed in the
+         active collections list"), drawn by adRowBannerHTML exactly as the home list draws it, under a
+         small "Continue with" label. It is drawn only when there is somewhere to go: see nextStudyRow,
+         which walks the rows the home page is showing and skips anything folded away, finished for the
+         day, or with no work left in it. */
       const nextRow = nextStudyRow(scopeEntryId(params.scope));
       if (nextRow) {
         const nx = document.createElement("div");
-        nx.className = "row sc-next";
-        nx.innerHTML = '<button class="btn ghost" id="nextDeck">Continue with ' + esc(nextRow.title) + "</button>";
+        nx.className = "sc-next";
+        nx.innerHTML = '<span class="sc-next-label">' + esc(t("Continue with")) + '</span>'
+          + '<div class="review-group sc-next-list"><div class="active-decks">' + adRowBannerHTML(nextRow) + "</div></div>";
         card.appendChild(nx);
       }
       root.appendChild(card);
@@ -32628,10 +32744,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          asked for ten minutes and then asked for more has plainly stopped counting. */
       card.querySelector("#more").addEventListener("click", () => { boxMs = 0; boxFrom = 0; route("study", Object.assign({}, params, { box: 0 })); });
       {
-        const nb = card.querySelector("#nextDeck");
+        const nb = card.querySelector(".sc-next [data-review]");
         // the scope a row is tapped with on the home page, which is the one place that decides what a row
         // means: a community deck, a subdeck and a direction all ride in on the same entry id
-        if (nb) nb.addEventListener("click", () => route("study", { scope: entryScope(nextRow.id) }));
+        if (nb) {
+          const go = () => route("study", { scope: entryScope(nextRow.id) });
+          nb.addEventListener("click", go);
+          nb.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+        }
       }
     }
   };
@@ -38917,11 +39037,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      51 terms — a naval battle, a volcanic eruption, the decipherment of a script, a flood myth and the
      founding of Rome, which have nothing in common a solver could see. A group is a category only if a
      reader can say why the four tiles belong together, and "these are all things that happened" is true
-     of most of the grid. It is the same test the sixteen already here fail. */
+     of most of the grid. It is the same test the sixteen already here fail.
+     `literature` FOLLOWED IN OCT 2026, ON REQUEST ("Remove the Literature category from the game"). The
+     tag reaches past the works themselves to the myths and figures inside them — the Judgement of Paris,
+     Orestes, Deucalion and Patroclus made one day's row — and a solver is not told whether the group wants
+     the poem, the character or the story, which is the ambiguity the other rules exist to remove. */
   const THREAD_BROAD = new Set([
     "history", "place", "archaeology", "geography", "science", "prehistory", "concept", "object",
     "era", "person", "nature", "palaeontology", "geology", "evolution", "politics", "technology",
-    "event",
+    "event", "literature",
   ]);
   // At most ONE group per family, because these are the tags that NEST — a region inside a region, a period
   // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
@@ -39126,7 +39250,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const THREAD_LABELS = {
     title: "Titles and offices", text: "Texts", ruler: "Rulers", industry: "Stone industries",
     building: "Buildings", art: "Art", fossil: "Fossils", animal: "Animals",
-    practice: "Practices", people: "Peoples", culture: "Cultures", literature: "Literature",
+    practice: "Practices", people: "Peoples", culture: "Cultures",
     warfare: "Warfare", religion: "Religion", biology: "Biology", hominin: "Hominins",
     deity: "Deities", city: "Cities", state: "States", institution: "Institutions",
   };
@@ -40452,10 +40576,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* YOUR OWN ATLAS (Sep 2026, on request) — the same globe with its political layer replaced by what
        this reader has studied. See `atlasUnlocks` for the register and `drawMine` for what is drawn.
        Never in the game, which needs the whole world to ask a question about it. */
-    const MINE = !GAME;
-    // which register the globe draws — the reader's, or every card's (see `atlasRegisterAll`)
+    /* …except that a state's or a people's round plays on the Full Atlas in its year (Oct 2026), so in the
+       game `MINE` is flipped per round by `gameBoard` — the one place it is ever reassigned. */
+    let MINE = !GAME;
+    // which register the globe draws — the reader's, or every card's (see `atlasRegisterAll`); the game's is every card's
     const FULL = MINE && atlasTab === "full";
-    _atlasFull = FULL;
+    _atlasFull = FULL || GAME;
     /* IT REACHES BACK TO 4000 BCE, where the world atlas stops at 1000 BCE. The request asks for the
        empty earth "in every year since 4000 BCE", and it can be offered here precisely because nothing
        there depends on an era map: before 1500 the personal globe is landscape and the reader's own
@@ -40480,7 +40606,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       { y: 1900, ticks: [1900, 1950, 2000] },
     ];
     let mineStart = 0;
-    let MINY = MINE ? MINE_STARTS[mineStart].y : -1000;
+    let MINY = GAME ? -100000 : MINE ? MINE_STARTS[mineStart].y : -1000;   // the game's board is pinned to the round's own year, whatever a card dates
     const MAXY = new Date().getFullYear();
     const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
     const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
@@ -40895,7 +41021,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          `hoverIdx`, which is the WORLD atlas's territory index and is not maintained here — so it went on
          naming whatever country had last been under the cursor, which on this tab is a place the reader
          may never have studied. */
-      if (MINE) {
+      if (MINE && !GAME) {   // GAME: the chip is hidden by CSS, and the name would be the answer anyway
         const h = (hoverOn && !dragging && !mapEdit && !WB.enabled) ? mineAt(hoverPx, hoverPy) : null;
         const hn = h ? gameCapFirst(h.title || h.name || "") : "";
         if (!hn) { ghnEl.hidden = true; _ghnSig = ""; return; }
@@ -44044,7 +44170,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (waterOn && WATER.length) drawWaterLabels();
         ctx.restore();
         drawLimb();
-        drawMineMarks();
+        if (!GAME) drawMineMarks();   // the game board carries no dots or names, as the world board carries no capitals or country names — a label would be the answer
         return;
       }
       if (!era) {   // no map for this year → empty ocean + graticule (the WIP note overlays it)
@@ -44227,7 +44353,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         drawSelectionOverlay();   // selection (cached offscreen while settled — pulse/fade animation frames blit instead of re-blurring dozens of territories)
         drawGameMarks();          // the game's own marks, over the selection and under the borders, as the selection is
         if (hoverIdx >= 0 && !selSet.has(hoverIdx)) paintFill(hoverIdx, false);
-      }
+      } else if (MINE) drawGameMarks();   // the game's Full Atlas board: a state round's misses and answer are painted as on the world board (no-op outside the game)
       drawStrokes();
       ctx.restore();
       // cities — hard zoom cutoffs (no fade), each tier independently toggled; present-day map only
@@ -44943,7 +45069,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* A READER'S OWN STATES AND PROVINCES ARE IN THEIR OWN BUNDLES, warmed at IDLE and never awaited —
        the locator windows' bargain (see the note beside `CMAP_HIRES`). The globe paints at once with the
        countries, which are in `world` and already here, and the fifty states arrive a moment later. */
-    if (MINE) {
+    if (MINE || GAME) {   // …and the game, whose state rounds play on the Full Atlas's board (see gameBoard)
       // the dated borders ride with the reader's own bundles — see DATA_BUNDLES.polities
       const needs = Array.from(atlasUnlocks().need).concat(["polities", "fronts", "countrysteps", "statecaps"]).filter((b) => !dataReady(b));
       if (needs.length) whenIdle(() => { Promise.all(needs.map((b) => ensureData(b))).then(() => { if (!canvas.isConnected) return; _mineFor = ""; _mineWarFor = ""; baseValid = false; paintYear(); draw(); }); });
@@ -45215,7 +45341,7 @@ let prev = null;
       // year's plate is "THE WORLD · <year>", so on this one the two words before the date were the only
       // part carrying no information — the globe under it is the world either way.
       // on the personal atlas the cartouche names whose map it is, since that is the thing that differs
-      if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : (FULL ? "FULL ATLAS · " : MINE ? "YOUR ATLAS · " : "THE WORLD · ") + ff.n + (ff.e === "BCE" ? " BCE" : "");
+      if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : (FULL || GAME ? "FULL ATLAS · " : MINE ? "YOUR ATLAS · " : "THE WORLD · ") + ff.n + (ff.e === "BCE" ? " BCE" : "");
       if (MINE && !GAME) refreshWarList();
       // show the work-in-progress note only when no map (present-day or a historical era) covers this year
       // …and never on the personal atlas, where a year with no era map is not a gap but the empty earth
@@ -45558,7 +45684,7 @@ let prev = null;
       const used = new Set();
       const pick = (pool) => { for (let i = 0; i < pool.length; i++) { const k = pool[i].n.toLowerCase(); if (!used.has(k)) { used.add(k); return pool[i]; } } return null; };
       const c1 = pick(countries), a1 = pick(areas), c2 = pick(countries), a2 = pick(areas), p1 = pick(places);
-      const area = (a) => a && { kind: "area", n: a.n, year: MAXY, shown: a.shown, rings: a.rings, lon: a.lon, lat: a.lat, ids: a.ids };
+      const area = (a) => a && { kind: "area", n: a.n, year: a.shown, shown: a.shown, rings: a.rings, lon: a.lon, lat: a.lat, ids: a.ids };
       const rounds = [
         c1 && { kind: "entity", n: c1.n, year: MAXY },
         area(a1),
@@ -45634,10 +45760,30 @@ let prev = null;
       "spratly is.": "Spratly Islands",
     };
     const finditName = (n) => FINDIT_NAMES[String(n || "").trim().toLowerCase()] || n;
+    /* ---------- A STATE OR PEOPLE IS FOUND ON THE FULL ATLAS IN ITS YEAR (Oct 2026, on a bug report) ----------
+       "When the Find It minigame asks for historical places, it currently still shows the modern map; it
+       shouldn't. It should show the full atlas borders of that specific year." The board was today's map
+       for every kind of round, so a reader asked for a state as it stood in 300 BCE was looking at the
+       countries of today and had to imagine the year. A state's round now flips the page onto the Full
+       Atlas's own draw path — `MINE` is a `let` for this one reason — at the year the question names, so
+       the globe draws exactly what the Full tab draws there: every state, people, country and war of that
+       year, the target among them and unlabelled (`drawMineMarks` is skipped in the game, as the world
+       board's capitals and country names are). A country or a place round flips it back to today's world
+       map, which is where its country hit-testing lives. A flip changes what every cached frame was drawn
+       from, so the caches are cleared outright rather than trusting their keys. */
+    function gameBoard(r) {
+      const full = r.kind === "area";
+      if (full !== MINE) {
+        MINE = full;
+        _mineFor = ""; _mineWarFor = ""; baseValid = false;
+        hoverIdx = -1; mineSel = ""; mineCyc = null;
+      }
+      setYear(r.year);
+    }
     function gameShowRound() {
       const r = gameRounds[gameRi]; gameTries = 0; gameLock = false; pulsePin = null;
       hideCountryPopup();   // the previous round's learn-panel closes with the round
-      setYear(r.year);
+      gameBoard(r);
       mgRoundEl.textContent = "Round " + (gameRi + 1) + " / " + gameRounds.length;
       mgScoreEl.textContent = gameFound + " found";
       mgQEl.innerHTML = r.kind === "area" ? "Find <b>" + esc(r.n) + "</b> — as it stood in " + fmtYearG(r.shown)
@@ -45663,7 +45809,7 @@ let prev = null;
           if (tgt) popPointLL = [tgt[0], tgt[1]];
           showCountryPopup(idxs[0]);   // the answer's info panel — the round ends on something learned
         }
-      } else if (r.kind === "area") {   // a state or people: its extent, laid over today's map, and its cards
+      } else if (r.kind === "area") {   // a state or people: its extent, laid over the Full Atlas in its year, and its cards
         gameMarks.push({ idxs: [], rings: r.rings, tint: tint });
         showMinePopup({ ids: r.ids, title: r.n });
       } else {   // a place: a geo-anchored ring marker (the fly alone is cancellable — the marker isn't) + the place's cards
@@ -45706,7 +45852,7 @@ let prev = null;
       if (!GAME || gameOver || gameLock || gameRi >= gameRounds.length) return;
       const r = gameRounds[gameRi];
       const ll = screenToLonLat(px, py); if (!ll) return;   // clicked the sky
-      const clickedIdx = countryAt(px, py);
+      const clickedIdx = MINE ? -1 : countryAt(px, py);   // on the Full Atlas board (a state's round) there is no world territory to hit
       /* A place or a state is answered with a POINT, so a tap in the open sea is a legitimate guess there
          and a country round's is not — tapping the ocean when asked for a country is a miss of the
          globe rather than a wrong answer, and spending a guess on it would be the mis-tap this change
@@ -45761,10 +45907,20 @@ let prev = null;
          which is the one moment the reader is looking at their own finger rather than at the map — and by
          the reveal there was nothing left to say where they had been. Both guesses are marked, so the
          second try can see where the first went, and the answer's own mark lands over them. */
+      /* On the Full Atlas board what is under a wrong guess is that year's state, people or country, read
+         off the same ladder a tap on the Full tab climbs (`mineStackAt`); it is marked red by its own rings
+         and its card opens, so a miss still teaches. A war side or a front has no single outline to tint. */
+      let mineHit = null;
+      if (MINE) {
+        mineHit = mineStackAt(ll[0], ll[1], false)[0] || null;
+        const rings = mineHit ? (mineHit.rings || (mineHit.kind === "area" && mineHit.area ? mineAreaOf(mineHit) : null)) : null;
+        if (rings) gameMarks.push({ idxs: [], rings: rings, tint: TINT_MISS });
+      }
       if (clickedIdx >= 0 && !gameMarks.some((m) => m.idxs[0] === clickedIdx)) gameMarks.push({ idxs: [clickedIdx], tint: TINT_MISS });
       if (gameTries === 0) {
         gameTries = 1; sfx("bad");
-        if (clickedIdx >= 0) {   // the wrong pick flashes red and its info panel opens — a miss still teaches something
+        if (mineHit) showMinePopup(mineHit);
+        else if (clickedIdx >= 0) {   // the wrong pick flashes red and its info panel opens — a miss still teaches something
           pulseSet = [clickedIdx]; pulseCol = GAME_RED; pulseT0 = performance.now();
           showCountryPopup(clickedIdx);   // popPointLL was set by the tap handler, so "Through the ages" works too
         }

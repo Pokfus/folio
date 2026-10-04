@@ -941,42 +941,42 @@ already shipped before adding it.
     cnh-499  Romance of the Western Chamber
     cnh-500  David Vases
     cnh-501  Red Turban Rebellions
-    cnh-502  The fall of the Yuan
+    cnh-502  Northern Yuan
 
 ### Ming — `col-32`
 
     cnh-503  Ming dynasty
     cnh-504  Hongwu Emperor
-    cnh-505  The Ming founding settlement
-    cnh-506  The Hongwu purges
-    cnh-507  The abolition of the chancellorship
+    cnh-505  Lijia system
+    cnh-506  Hu Weiyong case
+    cnh-507  Central Secretariat
     cnh-508  Grand Secretariat
     cnh-509  Jingnan campaign
     cnh-510  Yongle Emperor
-    cnh-511  The move of the capital to Beijing
+    cnh-511  Beijing
     cnh-512  Forbidden City
     cnh-513  Yongle Encyclopedia
     cnh-514  Zheng He
     cnh-515  Ming treasure voyages
-    cnh-516  The end of the treasure voyages
+    cnh-516  Hongxi Emperor
     cnh-517  Tumu Crisis
-    cnh-518  The Ming Great Wall
-    cnh-519  The Ming tribute system
+    cnh-518  Ming Great Wall
+    cnh-519  Tributary system
     cnh-520  Wokou
     cnh-521  Haijin
     cnh-522  Single whip law
-    cnh-523  Silver and the Ming economy
-    cnh-524  The Ming commercial economy
-    cnh-525  Ming porcelain and the export trade
-    cnh-526  The Jesuit China missions
+    cnh-523  Tael
+    cnh-524  Huizhou merchants
+    cnh-525  Kraak ware
+    cnh-526  Jesuit China missions
     cnh-527  Matteo Ricci
     cnh-528  Wang Yangming
-    cnh-529  Ming vernacular fiction
-    cnh-530  The Ming intervention in the Imjin War
+    cnh-529  Sanyan
+    cnh-530  Imjin War
     cnh-531  Donglin movement
     cnh-532  Wei Zhongxian
     cnh-533  Li Zicheng
-    cnh-534  The fall of the Ming
+    cnh-534  Chongzhen Emperor
 
 ### Qing — `col-33`
 
@@ -984,34 +984,34 @@ already shipped before adding it.
     cnh-536  Nurhaci
     cnh-537  Eight Banners
     cnh-538  Hong Taiji
-    cnh-539  The Manchu conquest of China
+    cnh-539  Southern Ming
     cnh-540  Dorgon
-    cnh-541  The queue order
-    cnh-542  The Yangzhou massacre
+    cnh-541  Queue
+    cnh-542  Yangzhou massacre
     cnh-543  Revolt of the Three Feudatories
-    cnh-544  The Qing annexation of Taiwan
+    cnh-544  Battle of Penghu
     cnh-545  Kangxi Emperor
     cnh-546  Treaty of Nerchinsk
-    cnh-547  The Qing conquest of the Dzungars
-    cnh-548  The Qing and Tibet
+    cnh-547  Dzungar Khanate
+    cnh-548  Amban
     cnh-549  Yongzheng Emperor
     cnh-550  Grand Council
     cnh-551  Qianlong Emperor
     cnh-552  Siku Quanshu
-    cnh-553  The Qing literary inquisition
-    cnh-554  Qing population growth
+    cnh-553  Literary inquisition
+    cnh-554  Hong Liangji
     cnh-555  Heshen
     cnh-556  Macartney Embassy
     cnh-557  Canton System
     cnh-558  White Lotus Rebellion
-    cnh-559  The opium trade
+    cnh-559  Opium trade
     cnh-560  Lin Zexu
     cnh-561  First Opium War
     cnh-562  Treaty of Nanking
     cnh-563  Unequal treaty
     cnh-564  Taiping Rebellion
     cnh-565  Hong Xiuquan
-    cnh-566  Nian Rebellion and the Muslim revolts
+    cnh-566  Nian Rebellion
     cnh-567  Second Opium War
     cnh-568  Self-Strengthening Movement
     cnh-569  Empress Dowager Cixi
@@ -1023,35 +1023,35 @@ already shipped before adding it.
 
 ### Early Republic — `col-35`
 
-    cnh-573  The Qing New Policies
+    cnh-573  Late Qing reforms
     cnh-574  Xinhai Revolution
     cnh-575  Sun Yat-sen
-    cnh-576  The abdication of Puyi
-    cnh-577  Republic of China (1912–1949)
+    cnh-576  Puyi
+    cnh-577  Republic of China
     cnh-578  Yuan Shikai
-    cnh-579  The Empire of China of 1915
+    cnh-579  Empire of China
     cnh-580  Warlord Era
-    cnh-581  The Beiyang government
-    cnh-582  China in the First World War
+    cnh-581  Beiyang government
+    cnh-582  Chinese Labour Corps
     cnh-583  Twenty-One Demands
-    cnh-584  The Shandong question
+    cnh-584  Shandong Problem
     cnh-585  May Fourth Movement
     cnh-586  New Culture Movement
     cnh-587  Chen Duxiu
     cnh-588  Hu Shi
     cnh-589  Lu Xun
-    cnh-590  The founding of the Chinese Communist Party
+    cnh-590  First National Congress of the Chinese Communist Party
     cnh-591  First United Front
     cnh-592  Whampoa Military Academy
     cnh-593  Chiang Kai-shek
     cnh-594  Northern Expedition
     cnh-595  Shanghai massacre
     cnh-596  Nanjing decade
-    cnh-597  The Nationalist government
+    cnh-597  Nationalist government
     cnh-598  Kuomintang
-    cnh-599  Treaty ports in China
-    cnh-600  Shanghai in the Republican era
-    cnh-601  Chinese industry in the Republican era
+    cnh-599  Treaty port
+    cnh-600  Shanghai International Settlement
+    cnh-601  Cotton mill
     cnh-602  Rural China in the Republican era
     cnh-603  Chinese students abroad
     cnh-604  The Chinese women's movement
