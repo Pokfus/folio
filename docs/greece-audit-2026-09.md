@@ -725,6 +725,33 @@ means the Athenian law-giver), `Conon` (the admiral; `gr-465`, `gr-466` mean the
 `Malian`; the Malians of Trachis). New keys for the Athenian `Tholos`, for the
 Carthaginian `Hamilcar` of 480 BCE and for the ship `Olympias` would end most of them.
 
+**Added by the refinement's B53–B63 (2026-10-04)**, counted the same way after `gr-501`–`gr-600` were
+rewritten (prose, questions and Think-it-through answers; a count by name, so a bare name shared by two men is
+counted once for both and marked).
+
+| cards | term | note |
+|---|---|---|
+| 28 | Suda | the Byzantine lexicon, cited across the collection |
+| 10 | Theramenes | the moderate of 411 and 404 BCE |
+| 9 | Hiero I | the tyrant of Syracuse (Pindar, Aeschylus) |
+| 8 | Thurii · Parian Marble | |
+| 7 | Decelea | only `Decelean_War` exists; the place itself has no key |
+| 6 | Andocides | |
+| 5 | Peisander · Neoptolemus | Peisander the oligarch of 411 BCE (the Spartan admiral of 394 BCE shares the name); Neoptolemus son of Achilles, though `gr-702` means a king of Epirus |
+| 4 | Scione · Paralus | the ship and its crew |
+| 3 | proxenos · Thrasyllus · Cleophon · Pissuthnes · Notium · Eteocles · Polynices · Euphorion · Cratinus | Euphorion is both the father and a son of Aeschylus, and `gr-809` names a later poet of the same name |
+| 2 | Cyrus the Younger · Mindarus · Lamachus · Hermocrates · Epipolae · Elymians · Mnesicles · Alcamenes · Lysicles · Creon · Tiresias · Jocasta · Ismene | bare "Cyrus" opens `Cyrus_the_Great`, so `gr-561`, `gr-564`, `gr-565` and `gr-576` wrap it |
+| 1 | Libation Bearers · Lenaia · coryphaeus · Agathon · Iophon · Haemon · Dexion | |
+
+`Agis II` (the bare name opens `Agis_IV`) and `Phrynichus` the oligarch (the bare name opens
+`Phrynichus_(tragic_poet)`) want keys of their own; both are wrapped where they appear. Keys that open the wrong
+sense: `Siege_of_Syracuse` is Rome's siege of 212 BCE; `Paris` is the French capital (`gr-599` means the Trojan
+prince, wrapped); `Archelaus` is Mithridates' general (`gr-600` means the king of Macedon, wrapped); `Lycurgus` is
+the Spartan lawgiver (`gr-587`, `gr-600` mean the Athenian statesman, wrapped); `Thebes` is `Mycenaean_Thebes`
+(classical Thebes has no key). None of these is fixed here, on purpose: `Siege_of_Syracuse` is the answer term of
+`rm-222`, and the Athenian siege and classical Thebes each need an entry of their own, written and sourced, plus
+hand-keys on the cards that now wrap them; a rename alone would only move the claim to the bare name.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
