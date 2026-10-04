@@ -76,6 +76,16 @@ Filled batch by batch, from the source each row names.
 | Social War | 91 – 88 BCE | Raggi, BMCR 2014; García González (`rm-001`, `rm-009`) |
 | Lex Roscia (citizenship north of the Po) | 49 BCE | Negrini (`rm-001`) |
 | Latin War | 340 – 338 BCE (Varro's reckoning) | Lendering, Livius.org (`rm-004`, `rm-010`) |
+| Latin League: treaty with all the Latins / dissolved | 493 BCE (tradition: the *foedus Cassianum*) / 338 BCE | Livy 8.14 and a modern account (`rm-011`) |
+| Sabines: Eretum a town / conquered | c. 650 – 550 BCE / 290 BCE (Manius Curius Dentatus) | Emiliozzi et al.; Loeb note to Velleius 1.14 (`rm-012`) |
+| Samnite Wars | 343 – 290 BCE (the conventional years) | BMCR review (`rm-013`) |
+| Oscan written | c. 600 BCE – 79 CE (graffiti at Pompeii) | Mnamon (`rm-014`) |
+| Umbrians: Early Iron Age / final surrender | c. 900 – 700 BCE / 268 – 265 BCE | Modi et al.; Zapelloni Pavia (`rm-015`) |
+| Iguvine Tables inscribed / reported found / deeded to Gubbio | c. 300 – 1 BCE / 1444 / 1456 | Gubbio Civic Museum; MeTU (`rm-016`) |
+| Satricum taken by the Volsci / Antium's ships taken | 488 BCE (tradition) / 338 BCE | Satricum Project; Platner (`rm-017`) |
+| Ligurians take shape / Apuani deported to Samnium / Polcevera ruling | c. 1600 – 900 BCE / 180 – 179 BCE / 117 BCE | MUDIF; Lehnig and Babucic; Piegdoń (`rm-018`) |
+| Veneti: dated burials / inscriptions | c. 900 – 50 BCE / c. 550 BCE – 50 CE | Perego 2010 (`rm-019`) |
+| Messapic inscriptions / triumph over the Sallentini | c. 550 – 100 BCE / 266 BCE | Mnamon; Leucci et al. (`rm-020`) |
 
 ## The regal period and the early Republic
 
@@ -111,4 +121,14 @@ rm-007: 1650; 1150
 rm-008: 900; 700
 rm-009: 1000; 91
 rm-010: 1050; 950; 340; 338
+rm-011: 493; 338
+rm-012: 650; 550; 290
+rm-013: 343; 290
+rm-014: 600; 79
+rm-015: 900; 700; 268; 265
+rm-016: 300; 1444; 1456
+rm-017: 488; 338
+rm-018: 1600; 900; 180; 179; 117
+rm-019: 900; 50; 550
+rm-020: 550; 100; 266
 ```

@@ -133,7 +133,7 @@ order unless the user says otherwise.
 | batch | deck | cards | n | findings | state |
 |---|---|---|---|---|---|
 | B1 | Italy before Rome (`rm-italy`) | `rm-001`–`rm-010` | 10 | 94 | **done 2026-10-04** |
-| B2 | Italy before Rome (`rm-italy`) | `rm-011`–`rm-020` | 10 | 100 | open |
+| B2 | Italy before Rome (`rm-italy`) | `rm-011`–`rm-020` | 10 | 100 | **done 2026-10-04** |
 | B3 | Italy before Rome (`rm-italy`) | `rm-021`–`rm-030` | 10 | 95 | open |
 | B4 | Italy before Rome (`rm-italy`) | `rm-031`–`rm-040` | 10 | 104 | open |
 | B5 | Italy before Rome (`rm-italy`) / Rome under the kings (`rm-kings`) | `rm-041`–`rm-050` | 10 | 112 | open |
@@ -279,6 +279,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-008` Villanovan culture | a horse bit | one object for a culture; desc is a museum catalogue entry; a biconical urn with its bowl lid would show it |
 | `rm-009` Italic peoples | a labelled atlas map of Samnium | a map with burned-in labels, of one region only |
 | `rm-010` Latins | none | no picture (`I.none`) |
+| `rm-011` Latin League | a map of Latium | burned-in French labels |
+| `rm-012` Sabines | a 1781 painting | the legend of the Sabine women, not the people |
+| `rm-013` Samnites | a cuirass at the Getty Villa | one object for a people; the caption names the museum and a website |
+| `rm-014` Oscan | an inscribed stele | acceptable subject; the caption names the British Museum and garbles a date; the alt is the file name |
+| `rm-015` Umbrians | a chart of votive-figurine types | a labelled diagram, not the people |
+| `rm-016` Iguvine Tables | the tablets | acceptable (CC BY); desc and alt are thin |
+| `rm-017` Volsci | a modern history painting | a painting of an imagined battle; the desc names the painter |
+| `rm-018` Ligurians | a map of pre-Roman Iberia | the wrong country; burned-in labels; no author in the credit |
+| `rm-019` Veneti | a writing tablet from Este | acceptable subject, though one object stands for a people; the desc and alt want rewriting |
+| `rm-020` Messapians | a reference map of southern Italy | a map with burned-in labels, not specific to the Messapians |
 
 ## Glossary candidates
 
@@ -361,3 +371,44 @@ they had: regions and ranges keep their hand-drawn shapes, and `rm-006`, `rm-009
 or peoples spread over a region with no shape drawn yet.
 
 **Chronology.** The new "Italy before Rome" section carries ten rows; pins added for `rm-001`, `rm-006`–`rm-010`.
+
+### B2 — `rm-011`–`rm-020`, Italy before Rome (2026-10-04)
+
+Run as B1 was, and in parallel with its last agents (ten at once): five agents, two cards each, every quote
+checked against its saved page, every draft read by eye before `batch.sh` applied it. Pictures untouched
+(Wikimedia still refused); verdicts in "Pictures to redo" (eight of ten want replacing).
+
+Checks: `rm-audit.js --range=rm-011:rm-020` reads **10 of 10 clean**. `check-questions`, `check-cards`,
+`check-style`, `check-docs`, `split-cards --check` and `test-card-plans` pass; every citation URL answers
+2xx. `check-citations --card` first reported 3 mismatches on `rm-015`/`rm-016`: the drafts dated Zapelloni
+Pavia's book 2024 (its open-access e-book) where Crossref and the print say 2023; corrected to 2023 and
+re-applied, now 0 mismatched on every card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-011` Latin League | 6 | 5 → 6 | **The background rested on three Persée articles of which only a first page loads**; their claims (Ferentina placed at the Laghetto di Turno, a "federal army and courts" in 338) are gone, and Ferentina's grove is now "never found". The 338 settlement uses Livy 8.14's own terms; Tarquin's acts are Livy's story. The line read "late 6th century – 338 BCE"; now Traditional 493 BCE (the *foedus Cassianum*, said to be disputed) and Dissolved 338. Questions moved off the Latin Festival, `rm-143`'s subject. |
+| `rm-012` Sabines | 7 | 5 → 7 | **"c. 900 BCE" as the start had no source**; the line is now Eretum as a town c. 650 – 550 BCE and the conquest of 290 BCE. The 271 BCE drainage year and the 2,200 m channel rested on one source and are gone, as is a speculative link between Cures' decline and the 174 BCE earthquake. Author first names cut back to the initials the works print. A question carried years. |
+| `rm-013` Samnites | 8 | 5 → 8 | **Four old sources would not open** (a lidar paper and three OAPEN books); every claim on them is gone, including "299 hillforts unrecorded", the *meddix tuticus* and the Pietrabbondante armour. The sacred-spring origin is Strabo's story. The line's century row is now Wars with Rome, 343 – 290 BCE, the conventional years. |
+| `rm-014` Oscan | 6 | 5 → 6 | **"The first Social War coins read ITALIA in Latin" and "Oscan legends followed in 90 BCE" rested on a page that resets the connection**, and are gone. Strabo on Oscan plays at Rome and Ennius's "three hearts" (through Gellius) added. A question carried dates. The glossary's text stands; its Mnamon citation is corrected. |
+| `rm-015` Umbrians | 6 | 5 → 6 | **"A well-defined identity by the 9th century BCE" was one genetics paper's summary**; it is now one view against the main archaeological study, which calls the evidence slender. "Under Rome by c. 260 BCE" is now the final surrender of 268 – 265 BCE. The claim that Livy and Polybius put the Umbrians absent at Sentinum had no source and is gone; the Gubbio sanctuary details went with an MDPI page that answers 403. Two phrasings were about `rm-016`'s tablets. |
+| `rm-016` Iguvine Tables | 5 | 5 → 6 | **"c. 200 BCE" on the line had no source** (the sources say the plates were cut at different times from the 3rd to the 1st century); now c. 300 – 1 BCE. "4,000 words" is 4,000 – 5,000. The find is split into the tradition of 1444 and the first secure record, a deed of 1456. |
+| `rm-017` Volsci | 5 | 5 → 7 | The capture of Satricum in 488 BCE stood as fact though its source gives it as what ancient writers say; now labelled By tradition, with Antium's ships, 338 BCE, added. Two sentences on Alba Fucens (off the subject) and Satricum's size (not in the cited page) cut. Livy's own voice, Coriolanus as tradition, and the debate over whether any finds mark the Volsci out added. **The glossary said the language survives mainly on the Satricum axe**; it is the one text from a securely Volscian setting. |
+| `rm-018` Ligurians | 7 | 5 → 7 | **Everything built on Cato (the Ligurians as unlettered liars, his speech of 190 BCE) came from an article on Persée**, which this run cannot open, and is gone. "A market building" hedged to "perhaps a market", as the survey says. Strabo on the coast road, Livy 40.38 on the deportation to Samnium and the Polcevera ruling of 117 BCE added. |
+| `rm-019` Veneti | 6 | 5 → 6 | A century on the line ("Annexed 1st century BCE") is gone; the line is now dated burials c. 900 – 50 BCE and inscriptions c. 550 BCE – 50 CE. Livy's Antenor legend told as his; Polybius on the Veneti drawing the Gauls home from Rome added. **The glossary's "close to Latin" is "slightly similar" in its source.** |
+| `rm-020` Messapians | 5 | 5 → 6 | **"Writing ends c. 200 BCE" was a figure no source gives**, and is gone; the 266 BCE triumph over the Sallentini added. **"The house ended in arrowheads, catapult balls and fire" misread its source**, which puts that evidence by a later wall. The *trozzella* claims rested on a Padua page that would not open, and are gone. Herodotus's Cretan origin and the Tarentine defeat told as his; Polybius's manpower figure given as his. |
+
+**Not usable from here:** Persée (first page only), OAPEN (bot wall; Brill chapter DOIs used instead),
+numismatics.org (connection reset), De Gruyter (Cloudflare), MDPI, ScienceDirect, the Oxford Classical
+Dictionary, Taylor and Francis, Livius.org's Latin League page (404), Gellius on LacusCurtius (404).
+
+**Read by eye.**
+- *Article:* every term in B2 is bare or a people's plural taking "the" from the question.
+- *Legend as legend:* Tarquin and Ferentina (`rm-011`), the sacred spring (`rm-013`), Coriolanus (`rm-017`),
+  Antenor (`rm-019`) and the Cretans at Hyria (`rm-020`) are told in the ancient author's voice.
+- *Confusability:* `rm-015` no longer asks about the tablets that are `rm-016`'s; `rm-011`'s questions left
+  the Latin Festival to `rm-143`.
+- *Overlap with `gr-`/`wh-`:* `gr-214` Taras dates the Tarentine defeat by the Iapygians to 473 BCE; `rm-020`
+  leaves it undated, since Herodotus gives no year and Diodorus only an archon year — not a contradiction,
+  but the two should be read together when `gr-214` is next touched. No other overlap.
+
+**Locators.** All ten kept what they had (regions keep their shapes; `rm-016` its Gubbio point).
