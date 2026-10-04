@@ -6980,11 +6980,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Decline_of_Zhou_royal_authority": "8th – 3rd centuries BCE",
 "Duke_Huan_of_Qi": "ruled 685 – 643 BCE",
 "Duke_Wen_of_Jin": "696 – 628 BCE",
-"Eastern_Zhou": "c. 770 – 256 BCE",
+"Eastern_Zhou": "770 – 256 BCE",
 "Guan_Zhong": "died 645 BCE",
 "Hegemon_system": "c. 685 – 590 BCE",
 "Spring_and_Autumn_Annals": "entries 722 – 481 BCE",
-"Spring_and_Autumn_period": "722 – 481 BCE",
+"Spring_and_Autumn_period": "c. 770 – 475 BCE",
 "Western_Zhou_legacy": "after 771 BCE",
 "Zuo_Zhuan": "covering 722 – 468 BCE",
 "Battle_of_Chengpu": "632 BCE",
@@ -7006,7 +7006,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Seven_warring_states": "c. 403 – 221 BCE",
 "Shang_Yang": "d. 338 BCE",
 "Spring_and_Autumn_warfare": "722 – 481 BCE",
-"Warring_States_period": "c. 480 – 221 BCE",
+"Warring_States_period": "c. 475 – 221 BCE",
 "Chinese_crossbow": "from the 6th century BCE",
 "Iron_in_the_Warring_States": "c. 513 – 221 BCE",
 "King_Wuling_of_Zhao": "r. 325 – 299 BCE",
@@ -7086,8 +7086,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Edicts_of_Ashoka": "c. 259 – 242 BCE",
 "Third_Buddhist_Council": "3rd century BCE",
 "Indo-Greek_Kingdom": "c. 200 BCE – c. 10 CE",
-"Kushan_Empire": "1st – 3rd century CE",
-"Gupta_Empire": "from 320 CE",
+"Kushan_Empire": "c. 75 – 270 CE",
+"Gupta_Empire": "c. 320 – 550 CE",
 "Confucius": "c. 551 – 479 BCE",
 "Confucianism": "from the 5th century BCE",
 "Taoism": "from the 6th century BCE",
@@ -8793,7 +8793,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shanghai_International_Settlement": "1863–1943",
 "Cotton_mill": "1771 – present",
 "Fall_of_the_Achaemenid_Empire": "334 – 330 BCE",
-"Roman_roads": "from 312 BCE"
+"Roman_roads": "from 312 BCE",
+"Greco-Buddhist_art": "c. 50 – 500 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */

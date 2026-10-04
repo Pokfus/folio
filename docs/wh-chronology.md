@@ -385,6 +385,15 @@ Filled batch by batch, from the source each row names.
 | Edicts of Ashoka: issued / deciphered / Maski find | c. 259 – 242 BCE (Thomas; Hultzsch puts the coronation 264) / 1837 / 1915 | Thomas; Prinsep (`wh-387`) |
 | Buddhism reaches Sri Lanka / China / Korea / Japan | c. 246 BCE / by c. 65 CE / 372 CE / 538 or 552 CE | Barnett; Hill; Muller (`wh-388`) |
 | Indo-Greek kingdoms / Menander | c. 200 BCE – c. 10 CE / c. 165 – 130 BCE (`gr-785`: c. 155 – 130) | Rapson; Bopearachchi (`wh-390`) |
+| Kushan Empire: Kujula in dated texts / Kanishka's year one / Sasanian vassals | c. 75 – 89 CE / 127 CE (most; 78 CE also held) / c. 224 – 270 CE | Falk; Rienjang and Stewart; Cribb (`wh-391`) |
+| Gandharan (Greco-Buddhist) art | c. 50 – 500 CE | Rienjang and Stewart (`wh-392`) |
+| Gupta Empire / Gupta era begins | c. 320 – 550 CE / 319 – 320 CE | Smith; Fleet (`wh-393`) |
+| Hindu–Arabic numerals: full system / Gwalior zero / Liber Abaci | c. 550 CE / 876 CE / 1202 | Plofker et al.; Casselman; Smith and Karpinski (`wh-394`) |
+| Classical Sanskrit court poetry (Macdonell) / poets named in an inscription | c. 200 BCE – 1100 CE / 634 CE | Macdonell (`wh-395`) |
+| Eastern Zhou / its halves divided / remnant annexed | 770 – 256 BCE / 481, 475, 453 or 403 BCE / 249 BCE | Wu et al.; Chavannes; Miller et al.; Pines; Hirth (`wh-396`) |
+| Spring and Autumn period / the Annals | c. 770 – 475 BCE (`cnh-142`: c. 476) / 722 – 481 BCE | Asia for Educators; Chavannes (`wh-397`) |
+| Warring States period / other starts | c. 475 – 221 BCE / 453 or 403 BCE (`cnh-163`: 480, 403 or 376) | Asia for Educators; Pines (`wh-398`) |
+| Confucius: born / died | 551 (Sima Qian) or 552 BCE (the commentaries) / 479 BCE | Kononchuk; Sima Qian (`wh-399`) |
 
 ## Chronology pins
 
@@ -757,4 +766,13 @@ wh-386: 304; 268; 232; 260
 wh-387: 259; 242; 1837; 1915
 wh-388: 246; 65; 372; 538; 552
 wh-390: 200; 10
+wh-391: 75; 89; 127; 78; 224; 270
+wh-392: 50; 500
+wh-393: 320; 550; 319
+wh-394: 550; 876; 1202
+wh-395: 200; 1100; 634
+wh-396: 770; 256; 481; 475; 453; 403; 249
+wh-397: 770; 475; 722; 481
+wh-398: 475; 221; 453; 403
+wh-399: 551; 552; 479
 ```

@@ -153,7 +153,7 @@ in plan order unless the user says otherwise.
 | B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | **done 2026-10-04** |
 | B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | **done 2026-10-04** |
 | B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | **done 2026-10-04** |
-| B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | open |
+| B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | **done 2026-10-04** |
 | B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | open |
 | B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | open |
 | B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | open |
@@ -1615,6 +1615,42 @@ dates Menander c. 155 – 130 BCE where `wh-390` has c. 165 – 130 (from his co
 
 **Glossary.** Nine terms rewritten; *Buddhism* and the *spread of Buddhism* alias already agreed.
 
+### B40 — `wh-391`–`wh-400`, Ancient India and Ancient China (2026-10-04)
+
+Run as B39, the China cards read against the `cnh-` collection. Checks: `wh-audit.js --range=wh-391:wh-400` clean but
+for `I.duplicate` on `wh-398` (its picture is also `cnh-111`'s); the audit's sibling check first caught `wh-396` and
+`wh-397` sharing half their content words in their lead phrasings ("an age when the king … the real power"), so
+`wh-397`'s lead phrasing was rewritten onto Mencius's story of the chronicle; the rest as B31; all 53 distinct URLs 2xx.
+`check-citations --card` reports one mismatch it cannot resolve: `wh-394` cites the Bakhshali response with the
+article's own byline, Plofker first, where Crossref lists the five authors in another order, and the work itself wins.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-391` Kushan Empire | 6 | 5 → 7 | **"Kanishka's era long read as 78 CE" sat on the line as if unresolved, and "in Kabul after 25 CE" had no source.** Year one is now 127 CE (Falk; Cribb's coins; most specialists), 78 CE also dated; the Yuezhi origin the Chinese histories'; the Rabatak line and the Sasanian vassal kings added. |
+| `wh-392` Greco-Buddhist art | 6 | 5 → 7 | **"Dated pieces 0 of many thousands" was wrong**: five Gandharan Buddhist images carry years. The name a modern label (specialists say Gandharan art); made c. 50 – 500 CE; Gandhara or Mathura as the Buddha image's birthplace an open question, with whose. |
+| `wh-393` Gupta Empire | 7 | 8 → 7 | **Samudragupta's poem was said to share a stone with Ashoka's "conquest by dhamma", which is Rock Edict 13, not on the Allahabad pillar.** The exact coronation day hedged; Faxian a pilgrim's report; the Hunnic wars and the "golden age" as Vincent Smith's phrase and a colonial and nationalist idea. |
+| `wh-394` Hindu–Arabic numerals | 7 | 6 → 7 | Century-only rows replaced by c. 550 CE (the first full system), the Gwalior zero of 876 CE and the Liber Abaci of 1202; **the Bakhshali radiocarbon dates of 2017 and the reply that contests them** added; al-Khwarizmi's lost book through its Latin version. |
+| `wh-395` Classical Sanskrit literature | 6 | 8 → 6 | **The line held three other events' dates**; now Macdonell's c. 200 BCE – 1100 CE as his, and the inscription of 634 CE naming the famous poets. Kalidasa's date credited to tradition and to scholars; **Keith's history was miscited as 1920** (it is 1928). |
+| `wh-396` Eastern Zhou | 7 | 5 → 7 | **The phrasings carried years and figures**, and the eclipse material was `wh-397`'s. 770 – 256 BCE, the remnant annexed in 249; the break between its halves as 481 (Chavannes), 475, 453 (Pines) or 403, each whose. A source that called 770 – 476 BCE the "Warring States" dropped. |
+| `wh-397` Spring and Autumn period | 7 | 5 → 8 | **The line used other terms' dates** (the Eastern Zhou's span, Duke Huan's reign, 403 BCE). Now c. 770 – 475 BCE and the chronicle's own 722 – 481; the five presiding chiefs as a disputed list; Confucius as the chronicle's maker as Mencius's story. A mint figure cited to a genetics paper dropped. |
+| `wh-398` Warring States period | 7 | 5 → 7 | **The phrasings carried years.** Starts of 475, 453 or 403 BCE; the name given in retrospect and carried by the Zhanguo ce; the 400,000 dead after Changping Sima Qian's figure, with a modern study on why it looks too large. "Hundred schools" is in the Zhuangzi; only the school labels are Han. |
+| `wh-399` Confucius | 9 | 5 → 9 | **551 BCE was stated as fact**; now 551 – 479 BCE as Sima Qian's traditional dates, with the commentaries' 552. The Analects as compiled by disciples; the Five Classics as later tradition; a "70 generations" row and a pigment paper that said nothing of him dropped. |
+| `wh-400` Confucianism | 9 | 5 → 9 | **"Ren peaks" and "li peaks" rows came from a word-count paper, and the man's and the dynasty's dates stood for the tradition's**; now `""` and `undatable`. "Confucianism" as the English label for Ru; the Han adoption of 136 BCE with the debate over its reach. |
+
+**Read by eye.** *Article:* "the Kushan Empire", "the Gupta Empire", "the Eastern Zhou", "the Spring and Autumn
+period", "the Warring States period"; "Greco-Buddhist art", "Hindu–Arabic numerals", "Classical Sanskrit literature",
+"Confucianism" and "Confucius" bare. *Confusability:* `wh-390`/`wh-391`/`wh-392` the Greek kings, the Kushans and the
+art, coins on all three but bilingual only on `wh-390`, Rabatak only on `wh-391`; `wh-396`/`wh-397`/`wh-398` the whole
+and its two halves, the dividing years on `wh-396` and the Lu chronicle only on `wh-397`, Changping only on `wh-398`;
+`wh-399`/`wh-400` the man and the tradition, the Han's 136 BCE on both but as a phrasing only on `wh-400`. *Against the
+cnh- cards:* `cnh-163` starts the Warring States "from 480, 403 or 376 BCE" (480 against Chavannes's 481); `cnh-142`
+ends the Spring and Autumn c. 476 BCE against `wh-397`'s c. 475, a one-year convention difference. None edited.
+
+**Glossary.** Ten terms rewritten (*Kushan Empire*, *Greco-Buddhist art*, *Gupta Empire*, *Hindu-Arabic numerals*,
+*Sanskrit literature*, *Eastern Zhou*, *Spring and Autumn period*, *Warring States period*, *Confucius*,
+*Confucianism*); the shared Zhou entries now agree with both collections. **`wh-301`–`wh-400` are done: the Greece,
+Rome and Ancient India decks are complete, and Ancient China continues at `wh-401` (B41).**
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1766,3 +1802,5 @@ pass once it answers. Filled batch by batch.
 | `wh-380` | the Lumbini pillar, evidence about him rather than the Buddha |
 | `wh-384` | a generic punch-marked coin; description names a museum |
 | `wh-386` | the Dhauli elephant, a site rather than the king |
+| `wh-394` | the Gwalior temple building, not the numerals |
+| `wh-398` | a 1935 atlas plate with dated labels, also `cnh-111`'s (audit `I.duplicate`) |
