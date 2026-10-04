@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-04T14:27Z",
+ "generated": "2026-10-04T15:19Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4382,
-  "redirect-broader": 382,
+  "ok": 4386,
+  "redirect-broader": 379,
   "redirect-variant": 291,
-  "section-redirect": 90,
-  "disambiguation": 127,
-  "none": 567,
+  "section-redirect": 89,
+  "disambiguation": 126,
+  "none": 568,
   "disambig-resolved": 68,
   "list-page": 6,
   "search-match": 5
@@ -5679,12 +5679,11 @@
    "status": "ok"
   },
   "wh-202": {
-   "answer": "emmer wheat",
-   "title": "Emmer",
-   "url": "https://en.wikipedia.org/wiki/Emmer",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Emmer wheat"
+   "answer": "ancient Egyptian agriculture",
+   "title": "Ancient Egyptian agriculture",
+   "url": "https://en.wikipedia.org/wiki/Ancient_Egyptian_agriculture",
+   "via": "glossary",
+   "status": "ok"
   },
   "wh-203": {
    "answer": "Naqada culture",

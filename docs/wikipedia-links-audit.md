@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4382 | the title is the article |
+| `ok` | 4386 | the title is the article |
 | `redirect-variant` | 291 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 68 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 382 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 379 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 90 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 567 | nothing matched; no link |
+| `section-redirect` | 89 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 126 | only a disambiguation page; no link could be chosen |
+| `none` | 568 | nothing matched; no link |
 
-**5128 of 5918 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5129 of 5918 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (382)
+## Redirected to a differently named article — check each (379)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -80,9 +80,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-487` **Khanbaliq** → [Dadu (Beijing)](https://en.wikipedia.org/wiki/Dadu_(Beijing)) (from `Khanbaliq`)
 - `cnh-491` **Ayurbarwada** → [Ayurbarwada Buyantu Khan](https://en.wikipedia.org/wiki/Ayurbarwada_Buyantu_Khan) (from `Ayurbarwada`)
 - `cnh-506` **Hu Weiyong case** → [Four Major Cases of the early Ming dynasty](https://en.wikipedia.org/wiki/Four_Major_Cases_of_the_early_Ming_dynasty) (from `Hu Weiyong case`)
-- `cnh-519` **tributary system** → [Tribute](https://en.wikipedia.org/wiki/Tribute) (from `Tributary system`)
 - `cnh-523` **tael** → [Liang (mass)](https://en.wikipedia.org/wiki/Liang_(mass)) (from `Tael`)
-- `cnh-529` **Sanyan** → [Sanyan-e Sofla](https://en.wikipedia.org/wiki/Sanyan-e_Sofla) (from `Sanyan`)
 - `cnh-573` **Late Qing reforms** → [New Policies](https://en.wikipedia.org/wiki/New_Policies) (from `Late Qing reforms`)
 - `cnh-574` **Xinhai Revolution** → [1911 Revolution](https://en.wikipedia.org/wiki/1911_Revolution) (from `Xinhai Revolution`)
 - `cnh-588` **Hu Shi** → [Hu Shih](https://en.wikipedia.org/wiki/Hu_Shih) (from `Hu Shi`)
@@ -366,7 +364,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `wh-134` **zoonotic disease** → [Zoonosis](https://en.wikipedia.org/wiki/Zoonosis) (from `Zoonotic disease`)
 - `wh-188` **Old Babylonian period** → [Old Babylonian Empire](https://en.wikipedia.org/wiki/Old_Babylonian_Empire) (from `Old Babylonian period`)
 - `wh-193` **Enuma Elish** → [Enūma Eliš](https://en.wikipedia.org/wiki/En%C5%ABma_Eli%C5%A1) (from `Enuma Elish`)
-- `wh-202` **emmer wheat** → [Emmer](https://en.wikipedia.org/wiki/Emmer) (from `Emmer wheat`)
 - `wh-205` **unification of Egypt** → [Upper and Lower Egypt](https://en.wikipedia.org/wiki/Upper_and_Lower_Egypt) (from `Unification of Egypt`)
 - `wh-211` **Step Pyramid of Djoser** → [Pyramid of Djoser](https://en.wikipedia.org/wiki/Pyramid_of_Djoser) (from `Step Pyramid of Djoser`)
 - `wh-214` **mummification** → [Mummy](https://en.wikipedia.org/wiki/Mummy) (from `Mummification`)
@@ -510,7 +507,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 
-## Disambiguation pages that could not be settled (127)
+## Disambiguation pages that could not be settled (126)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -523,7 +520,6 @@ Pick the right article by hand, or leave the card without a link.
 - `cnh-166` **Li Kui** — `Li Kui` is a disambiguation page; its links: `Li Kui (legalist)`, `Li Kui (chancellor)`, `Li Kui (Water Margin)`
 - `cnh-194` **huangdi** — `Huangdi` is a disambiguation page; its links: `Huangdi, Henan`, `Huangdi, Liaoning`, `Huangdi, Xinjiang`, `Huangdi Township`
 - `cnh-359` **Zhenguan era** — `Zhenguan` is a disambiguation page
-- `cnh-507` **Central Secretariat** — `Central Secretariat` is a disambiguation page; its links: `Central Secretariat Service`, `Central Secretariat metro station`
 - `eg-001` **Kemet** — `Kemet` is a disambiguation page; its links: `Sons of Kemet`, `Km and Km.t (Kemet) (hieroglyphs)`, `KEMET Corporation`
 - `geo-502` **Austin** — `Austin` is a disambiguation page; its links: `Austin, Arkansas`, `Austin, Chicago`, `Austin, Colorado`, `Austin, Indiana`, `Austin, Kentucky`, `Austin, Manitoba`
 - `geo-504` **Providence** — `Providence` is a disambiguation page; its links: `Divine providence`, `Eye of Providence`, `Fort Providence`, `HMS Providence`, `Old Providence`, `Providence, Alabama`
@@ -653,7 +649,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (90)
+## Section redirects — no dedicated page (89)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -665,7 +661,6 @@ Wikipedia treats these as part of another article. No link.
 - `cnh-253` **Eastern Han** — `Eastern Han` only redirects into `Han dynasty#Eastern Han (25–220 AD)`
 - `cnh-313` **Eastern Jin** — `Eastern Jin` only redirects into `Jin dynasty (266–420)#Eastern Jin (317–420)`
 - `cnh-345` **Sui conquest of Chen** — `Sui conquest of Chen` only redirects into `Chen dynasty#Sui conquest`
-- `cnh-559` **opium trade** — `Opium trade` only redirects into `Opium#Modern production and use`
 - `eg-018` **Faiyum A culture** — `Faiyum A culture` only redirects into `Prehistoric Egypt#Faiyum A culture`
 - `eg-096` **Heb-sed court** — `Heb-sed court` only redirects into `Pyramid of Djoser#Heb-sed court`
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
@@ -748,7 +743,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (567)
+## No article found (568)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -875,6 +870,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-489` **Xingsheng** — search suggests `Xingsheng Community`, `Xingsheng station`, `Old Chinese`, `China proper`, `Chinese characters`
 - `cnh-505` **lijia system** — search suggests `Urban rail transit in China`, `Grand Canal (China)`, `Cultural Revolution`, `China at the Olympics`, `Human rights in China`
 - `cnh-524` **Huizhou merchants** — search suggests `Huizhou Chinese`, `Huizhou, Anhui`, `Ten Great Merchant Guilds`, `Hui Style architecture`, `Huizhou University`
+- `cnh-529` **Sanyan**
 - `eg-017` **El Omari** — search suggests `Prehistoric Egypt`, `Mohamed Atta`, `Al-Omari`, `Safia El Emari`, `Al-Omari Grand Mosque`
 - `eg-026` **Predynastic period** — search suggests `Prehistoric Egypt`, `Predynastic Egyptian mummies`, `Naqada III`, `Gebelein predynastic mummies`, `Ancient Egypt`
 - `eg-028` **Naqada expansion** — search suggests `Naqada III`, `Naqada II`, `Naqada culture`, `Prehistoric Egypt`, `Ancient Egypt`

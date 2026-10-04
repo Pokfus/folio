@@ -314,6 +314,16 @@ Filled batch by batch, from the source each row names.
 | Xerxes I's reign / invasion of Greece | 486 – 465 BCE / 480 – 479 BCE | Iliakis (`wh-308`) |
 | Aramaic: first inscriptions / Egyptian papyri / Neo-Aramaic | c. 900 – 800 BCE / c. 500 – 400 BCE / from c. 1200 CE | Aioanei et al.; Cowley; Endangered Language Alliance (`wh-309`) |
 | fall of the Achaemenid Empire / Gaugamela / Darius III killed | 334 – 330 BCE / 1 October 331 BCE / 330 BCE | Lendering (`wh-310`) |
+| Ancient Greece: Archaic / Classical / Hellenistic | c. 800 – 479 / 479 – 323 / 323 – 30 BCE (`docs/greece-chronology.md`: Classical from 480, Hellenistic to 31) | Rönnberg; Hall; Hornblower; Shipley (`wh-311`) |
+| polis, rise (one view) | c. 800 – 700 BCE | Vlassopoulos on Hall (`wh-312`) |
+| Greek colonisation, main phase / Syracuse founded | c. 800 – 500 BCE / c. 733 BCE (both on Thucydides' count) | Delp; Evans (`wh-313`) |
+| Homeric poems composed / West's Iliad / pre-eminent | c. 700 BCE / c. 680 – 640 BCE (one view) / by c. 500 BCE | Pisano; Ford; Holmberg (`wh-314`) |
+| Greek alphabet adopted / oldest finds | c. 800 BCE (one case for the 11th century) / c. 750 – 700 BCE | Lang; Waal (`wh-315`) |
+| Spartan state formed / dominant | c. 800 – 700 BCE / 404 – 371 BCE | Larson on Kõiv; Kulesza (`wh-316`) |
+| Classical Athens: sacked / falls / period ends | 480 / 404 / 323 BCE | Lendering; National Archaeological Museum (`wh-317`) |
+| Athenian democracy: Cleisthenes / Areopagus curbed / restored / abolished | 508/507 / 462/461 / 403 / 322 BCE | Rhodes; Attic Inscriptions Online (`wh-318`) |
+| Greco-Persian Wars / invasions / Peace of Callias | 499 – 479 BCE / 490; 480 – 479 BCE / probably 449 BCE | Branscome; Jung (`wh-319`) |
+| Battle of Marathon | 490 BCE (the day, mid-August or mid-September, a modern reckoning) | Rhodes (`wh-320`) |
 
 ## Chronology pins
 
@@ -614,4 +624,14 @@ wh-307: 520; 518; 1835; 1847
 wh-308: 486; 465; 480; 479
 wh-309: 900; 800; 500; 400; 1200
 wh-310: 334; 331; 330
+wh-311: 800; 479; 323; 30
+wh-312: 800; 700
+wh-313: 800; 500; 733
+wh-314: 700; 680; 640; 500
+wh-315: 800; 750; 700
+wh-316: 800; 700; 404; 371
+wh-317: 480; 404; 323
+wh-318: 508; 507; 462; 461; 403; 322
+wh-319: 499; 479; 490; 480
+wh-320: 490
 ```

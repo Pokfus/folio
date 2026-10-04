@@ -145,7 +145,7 @@ in plan order unless the user says otherwise.
 | B29 | Iron Age Near East and Persia (`wh-near-east`) | `wh-281`–`wh-290` | 10 | 108 | **done 2026-10-03** |
 | B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | **done 2026-10-03** |
 | B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | **done 2026-10-04** |
-| B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | open |
+| B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | **done 2026-10-04** |
 | B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | open |
 | B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | open |
 | B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | open |
@@ -1311,9 +1311,9 @@ agreed. **The Iron Age Near East and Persia deck is two-thirds done; B31 (`wh-30
 
 Run as B30, five agents of two cards each, with the agent addendum of `docs/wh-refinement-audit.md` B21–B30 written
 out as a file (no Wikimedia calls, precheck the only repo tool, Europe PMC for PMC). Commons answered one test call
-and then refused the picture agent on its second (429 twice), so no picture changed; Wikipedia refused outright, so
-`wh-302` (Persepolis) and `wh-307` (Behistun Inscription) asked for locators that could not be written. Checks:
-`wh-audit.js --range=wh-301:wh-310` clean but for `wh-302`'s `L.missing`; `check-questions`, `check-cards --prefix`
+and then refused the picture agent on its second (429 twice), so no picture changed; Wikipedia refused at first, and
+the locators of `wh-302` (Persepolis) and `wh-307` (Behistun) were written later in the run, when it answered. Checks:
+`wh-audit.js --range=wh-301:wh-310` clean; `check-questions`, `check-cards --prefix`
 per card, `check-style` (no new finding), `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations
 --card` 0 mismatched; all 65 distinct URLs 2xx. New locator: `wh-304` (Sardis, where the road began). **Tooling:**
 `wh-audit.js` and `prep.js` let a qualified glossary key shadow its bare namesake (`Battle_of_Thermopylae_(191_BCE)`
@@ -1346,6 +1346,43 @@ Matthews and Fazeli Nashli give 19 m. None edited.
 **Glossary.** Eight terms rewritten and *Fall of the Achaemenid Empire* added; *Satrapy* and *Xerxes I* already
 agreed. **The Iron Age Near East and Persia deck is done.**
 
+### B32 — `wh-311`–`wh-320`, Greece and the Hellenistic world (2026-10-04)
+
+Run with B31. Wikipedia answered from the middle of this batch, so its locators were written, and the run also
+settled three old items: `wh-202`'s "Learn more" link now points at *Ancient Egyptian agriculture* rather than
+*Emmer*, and `wh-229` (at Kerma) and `wh-295` (at Byrsa) have locators; `wh-041` and `wh-268` still have none (no
+article tried has a primary coordinate). Checks: `wh-audit.js --range=wh-311:wh-320` clean; the rest as B31; all
+82 distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators: `wh-316` Sparta, `wh-317` Athens and
+`wh-320` Marathon (battle). The Greece collection's own settled rules and chronology were read for each card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-311` Ancient Greece | 9 | 5 → 11 | **"c. 800 – 146 BCE" had a source for neither end**, and the Chaeronea and Corinth rows were other events' dates; now the three periods, Archaic c. 800 – 479, Classical 479 – 323, Hellenistic 323 – 30 BCE. The 1,035 poleis are the Copenhagen inventory's and the 7.5 – 10 million one estimate's. |
+| `wh-312` polis | 7 | 5 → 9 | "Flourished c. 800 – 300 BCE" had no source and ended the polis centuries early; a Pausanias row was another event. Now "Rise, one view c. 800 – 700 BCE", with the slow-growth view beside it; the city-ethnic as the test; dependent poleis and the ethne. |
+| `wh-313` Greek colonisation | 7 | 5 → 8 | **"Naxos, about 734 BCE" is a modern year Thucydides never gives**, and "Naucratis granted by Amasis" dated a grant, not the port. Main phase c. 800 – 500 BCE and Syracuse c. 733 BCE, both said to rest on Thucydides' count; the word "colonisation" as debated. |
+| `wh-314` Homer | 9 | 5 → 9 | **A 481 BCE row dated an embassy that quoted Homer.** Composition c. 700 BCE as scholars' estimate, West's c. 680 – 640 as one view, pre-eminence by c. 500 BCE; oral composition, the Ionic dialect, the Lives as non-history. The glossary cited a review of a book that is not about Homer. |
+| `wh-315` Greek alphabet | 9 | 5 → 9 | The card was ancient tales of who brought the letters; **a Claudius row (41 – 54 CE) was Latin's history**. Now the vowels, c. 800 BCE against the case for the 11th century, Euboea or Cyprus, the oldest finds c. 750 – 700 BCE, the Ionic takeover and Athens in 403/2 BCE. |
+| `wh-316` Sparta | 9 | 8 → 9 | **No word of the Spartan mirage**, and Lycurgus as a lawgiver of fact; a Leuctra death toll as a row. Lycurgus semi-legendary, Plutarch writing of a largely Roman-era agoge; state formed c. 800 – 700 BCE, dominant 404 – 371 BCE. |
+| `wh-317` Classical Athens | 9 | 7 → 9 | **"Thucydides counted" the fleet and tribute: they are Pericles' reckoning as he reports it**; two non-date rows (fleet and money, plague dead) dropped for 480, 404 and 323 BCE. Laurion silver and Akrigg's population estimate added, each as his. |
+| `wh-318` Athenian democracy | 9 | 6 → 9 | Pay and "20,000 fed" rows were not dates; now 508/507, 462/461, 403 and 322 BCE. When "democracy" first fits is a debate; Hansen's attendance and citizen estimates as his; Antipater's ending with Diodorus's "more than 12,000" excluded. |
+| `wh-319` Greco-Persian Wars | 8 | 7 → 8 | **Herodotus's 1,700,000-man army was a date-line row**, and two phrasings carried numerals. Now 499 – 479 BCE with the invasions of 490 and 480 – 479; the Peace of Callias "probably" 449 BCE in prose; Cawkwell's Persian-failure view as a view. |
+| `wh-320` Battle of Marathon | 9 | 8 → 9 | Eight Herodotus chapters became six modern sources and three ancient. **6,400 and 192 are Herodotus's**, with the 33⅓ ratio doubt in an FAQ; the day is a modern moon reckoning (mid-August or mid-September); the run to Athens as later legend. |
+
+**Read by eye.** *Article:* "Ancient Greece", "Sparta", "Homer", "Classical Athens", "Athenian democracy" bare; "a
+polis", "Greek colonisation", "the Greek alphabet", "the Greco-Persian Wars", "the Battle of Marathon". *Confusability:*
+`wh-311`/`wh-312` both cite the 1,035 inventory in the background, neither in a phrasing; `wh-313`/`wh-315` share
+Pithekoussai, a FAQ on one and a phrasing on the other; `wh-315`'s phrasings keep off `wh-294`'s Cadmus; `wh-317`/`wh-318`
+the city and its constitution, the funeral speech only on `wh-317`; `wh-319`/`wh-320` the war and its first battle,
+Marathon named in `wh-319`'s background only. *Consistency:* the Classical period 479 – 323 BCE (`wh-311`, Hornblower)
+where `docs/greece-chronology.md` and `wh-317` start it at the sack of 480; the Hellenistic end 30 BCE (Shipley) where
+the Greece chronology gives 31 (Actium); both pairs stated with their sources. *Against the gr- cards:* `gr-203` gives
+Corcyra 733 BCE where `wh-313` uses Syracuse c. 733; `gr-403` gives up to 25,000 Persians at Marathon where `wh-320`
+follows Rhodes's c. 20,000. None edited.
+
+**Glossary.** Six terms rewritten (*Ancient Greece*, *Greek colonisation*, *Homer*, *Classical Athens*,
+*Greco-Persian Wars*, *Battle of Marathon*); *Polis* kept its text and gained correct picture fields; *Greek
+alphabet*, *Sparta* and *Athenian democracy* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1360,7 +1397,7 @@ pass once it answers. Filled batch by batch.
 | `wh-038` | a chart, not a photograph |
 | `wh-045` | a labelled tree diagram |
 | `wh-050` | a 1921 drawing |
-| `wh-041` | **locator** not written (Wikipedia refused) |
+| `wh-041` | **locator** not written: neither "Homo naledi" nor "Rising Star Cave" has a primary coordinate |
 | `wh-051` | White Sands footprints, not an ice age |
 | `wh-052`, `wh-053` | regional or labelled maps |
 | `wh-054` | an 18th-century engraving; alt is the file name |
@@ -1439,7 +1476,7 @@ pass once it answers. Filled batch by batch.
 | `wh-217` | one provincial stela; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
 | `wh-226` | a 1927 line drawing of the Ramesseum reliefs; description names the publication |
 | `wh-227` | yellow arrows and tomb numbers drawn onto the photograph |
-| `wh-229` | the Western Deffufa, Kerma only; a cataract landscape would show the region (and **locator**: "Nubia" has no coordinate) |
+| `wh-229` | the Western Deffufa, Kerma only; a cataract landscape would show the region (locator now at Kerma, 2026-10-04) |
 | `wh-238` | a labelled plate of finds from Khirsara |
 | `wh-239` | a drawn map with burned-in dates and arrows |
 | `wh-241`, `wh-242` | fit, but credits lack the author, licence and Commons URL form |
@@ -1452,18 +1489,23 @@ pass once it answers. Filled batch by batch.
 | `wh-261` | a distribution map with numbered symbols |
 | `wh-262` | the Akrotiri ship fresco, from Thera not Crete |
 | `wh-263` | one stirrup jar; description refers to the old card's trade |
-| `wh-268` | **locator**: neither "Ugarit" nor "Ras Shamra" has a coordinate |
+| `wh-268` | **locator**: none of "Ugarit", "Ras Shamra" or "Minet el-Beida" has a coordinate |
 | `wh-269` | a 1916 line drawing where photographs exist |
 | `wh-270` | a 1915 printed hand copy with line numbers |
 | `wh-272` | fits, but description names a museum; generic `1920px-thumbnail.jpg` URL (audit `I.duplicate`) |
 | `wh-276` | the Egtved clothing, one grave; description names a museum |
 | `wh-281` | a lump of casting waste of uncertain age |
 | `wh-288` | a 1679 Kircher engraving |
-| `wh-295` | the Byrsa panorama, also used by the glossary's *Peace of 201 BCE*; **locator**: "Carthage" has no coordinate |
+| `wh-295` | the Byrsa panorama, also used by the glossary's *Peace of 201 BCE* (locator now at Byrsa, 2026-10-04) |
 | `wh-298` | Chinese spade coins only; an early electrum coin would show the western strand |
-| `wh-302` | **locator**: "Persepolis" not written (Wikipedia refused) |
 | `wh-303` | glazed-brick archers from Susa, not Darius |
 | `wh-304` | a generic Persepolis tablet, not the road |
-| `wh-307` | **locator**: "Behistun Inscription" not written (Wikipedia refused) |
 | `wh-308` | the Gate of All Nations, not the king |
 | `wh-310` | a crop of the Alexander Mosaic, also `wh-333`'s |
+| `wh-313` | the Temple of Zeus at Cyrene, one building in one colony |
+| `wh-314` | the Hawara papyrus: fair, but description ties it to a dropped claim and the credit names no author |
+| `wh-316` | the Menelaion, a shrine outside the city |
+| `wh-317` | a relief of trireme rowers, not the city |
+| `wh-318` | fine, but description says the slots hold tickets; they are empty |
+| `wh-319` | one serpent head from the Plataea tripod |
+| `wh-320` | fine, but description says the Soros covers the 192; it is the mound traditionally held to |
