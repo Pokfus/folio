@@ -40452,10 +40452,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* YOUR OWN ATLAS (Sep 2026, on request) — the same globe with its political layer replaced by what
        this reader has studied. See `atlasUnlocks` for the register and `drawMine` for what is drawn.
        Never in the game, which needs the whole world to ask a question about it. */
-    const MINE = !GAME;
-    // which register the globe draws — the reader's, or every card's (see `atlasRegisterAll`)
+    /* …except that a state's or a people's round plays on the Full Atlas in its year (Oct 2026), so in the
+       game `MINE` is flipped per round by `gameBoard` — the one place it is ever reassigned. */
+    let MINE = !GAME;
+    // which register the globe draws — the reader's, or every card's (see `atlasRegisterAll`); the game's is every card's
     const FULL = MINE && atlasTab === "full";
-    _atlasFull = FULL;
+    _atlasFull = FULL || GAME;
     /* IT REACHES BACK TO 4000 BCE, where the world atlas stops at 1000 BCE. The request asks for the
        empty earth "in every year since 4000 BCE", and it can be offered here precisely because nothing
        there depends on an era map: before 1500 the personal globe is landscape and the reader's own
@@ -40480,7 +40482,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       { y: 1900, ticks: [1900, 1950, 2000] },
     ];
     let mineStart = 0;
-    let MINY = MINE ? MINE_STARTS[mineStart].y : -1000;
+    let MINY = GAME ? -100000 : MINE ? MINE_STARTS[mineStart].y : -1000;   // the game's board is pinned to the round's own year, whatever a card dates
     const MAXY = new Date().getFullYear();
     const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
     const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
@@ -40895,7 +40897,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          `hoverIdx`, which is the WORLD atlas's territory index and is not maintained here — so it went on
          naming whatever country had last been under the cursor, which on this tab is a place the reader
          may never have studied. */
-      if (MINE) {
+      if (MINE && !GAME) {   // GAME: the chip is hidden by CSS, and the name would be the answer anyway
         const h = (hoverOn && !dragging && !mapEdit && !WB.enabled) ? mineAt(hoverPx, hoverPy) : null;
         const hn = h ? gameCapFirst(h.title || h.name || "") : "";
         if (!hn) { ghnEl.hidden = true; _ghnSig = ""; return; }
@@ -44044,7 +44046,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (waterOn && WATER.length) drawWaterLabels();
         ctx.restore();
         drawLimb();
-        drawMineMarks();
+        if (!GAME) drawMineMarks();   // the game board carries no dots or names, as the world board carries no capitals or country names — a label would be the answer
         return;
       }
       if (!era) {   // no map for this year → empty ocean + graticule (the WIP note overlays it)
@@ -44227,7 +44229,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         drawSelectionOverlay();   // selection (cached offscreen while settled — pulse/fade animation frames blit instead of re-blurring dozens of territories)
         drawGameMarks();          // the game's own marks, over the selection and under the borders, as the selection is
         if (hoverIdx >= 0 && !selSet.has(hoverIdx)) paintFill(hoverIdx, false);
-      }
+      } else if (MINE) drawGameMarks();   // the game's Full Atlas board: a state round's misses and answer are painted as on the world board (no-op outside the game)
       drawStrokes();
       ctx.restore();
       // cities — hard zoom cutoffs (no fade), each tier independently toggled; present-day map only
@@ -44943,7 +44945,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* A READER'S OWN STATES AND PROVINCES ARE IN THEIR OWN BUNDLES, warmed at IDLE and never awaited —
        the locator windows' bargain (see the note beside `CMAP_HIRES`). The globe paints at once with the
        countries, which are in `world` and already here, and the fifty states arrive a moment later. */
-    if (MINE) {
+    if (MINE || GAME) {   // …and the game, whose state rounds play on the Full Atlas's board (see gameBoard)
       // the dated borders ride with the reader's own bundles — see DATA_BUNDLES.polities
       const needs = Array.from(atlasUnlocks().need).concat(["polities", "fronts", "countrysteps", "statecaps"]).filter((b) => !dataReady(b));
       if (needs.length) whenIdle(() => { Promise.all(needs.map((b) => ensureData(b))).then(() => { if (!canvas.isConnected) return; _mineFor = ""; _mineWarFor = ""; baseValid = false; paintYear(); draw(); }); });
@@ -45215,7 +45217,7 @@ let prev = null;
       // year's plate is "THE WORLD · <year>", so on this one the two words before the date were the only
       // part carrying no information — the globe under it is the world either way.
       // on the personal atlas the cartouche names whose map it is, since that is the thing that differs
-      if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : (FULL ? "FULL ATLAS · " : MINE ? "YOUR ATLAS · " : "THE WORLD · ") + ff.n + (ff.e === "BCE" ? " BCE" : "");
+      if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : (FULL || GAME ? "FULL ATLAS · " : MINE ? "YOUR ATLAS · " : "THE WORLD · ") + ff.n + (ff.e === "BCE" ? " BCE" : "");
       if (MINE && !GAME) refreshWarList();
       // show the work-in-progress note only when no map (present-day or a historical era) covers this year
       // …and never on the personal atlas, where a year with no era map is not a gap but the empty earth
@@ -45558,7 +45560,7 @@ let prev = null;
       const used = new Set();
       const pick = (pool) => { for (let i = 0; i < pool.length; i++) { const k = pool[i].n.toLowerCase(); if (!used.has(k)) { used.add(k); return pool[i]; } } return null; };
       const c1 = pick(countries), a1 = pick(areas), c2 = pick(countries), a2 = pick(areas), p1 = pick(places);
-      const area = (a) => a && { kind: "area", n: a.n, year: MAXY, shown: a.shown, rings: a.rings, lon: a.lon, lat: a.lat, ids: a.ids };
+      const area = (a) => a && { kind: "area", n: a.n, year: a.shown, shown: a.shown, rings: a.rings, lon: a.lon, lat: a.lat, ids: a.ids };
       const rounds = [
         c1 && { kind: "entity", n: c1.n, year: MAXY },
         area(a1),
@@ -45634,10 +45636,30 @@ let prev = null;
       "spratly is.": "Spratly Islands",
     };
     const finditName = (n) => FINDIT_NAMES[String(n || "").trim().toLowerCase()] || n;
+    /* ---------- A STATE OR PEOPLE IS FOUND ON THE FULL ATLAS IN ITS YEAR (Oct 2026, on a bug report) ----------
+       "When the Find It minigame asks for historical places, it currently still shows the modern map; it
+       shouldn't. It should show the full atlas borders of that specific year." The board was today's map
+       for every kind of round, so a reader asked for a state as it stood in 300 BCE was looking at the
+       countries of today and had to imagine the year. A state's round now flips the page onto the Full
+       Atlas's own draw path — `MINE` is a `let` for this one reason — at the year the question names, so
+       the globe draws exactly what the Full tab draws there: every state, people, country and war of that
+       year, the target among them and unlabelled (`drawMineMarks` is skipped in the game, as the world
+       board's capitals and country names are). A country or a place round flips it back to today's world
+       map, which is where its country hit-testing lives. A flip changes what every cached frame was drawn
+       from, so the caches are cleared outright rather than trusting their keys. */
+    function gameBoard(r) {
+      const full = r.kind === "area";
+      if (full !== MINE) {
+        MINE = full;
+        _mineFor = ""; _mineWarFor = ""; baseValid = false;
+        hoverIdx = -1; mineSel = ""; mineCyc = null;
+      }
+      setYear(r.year);
+    }
     function gameShowRound() {
       const r = gameRounds[gameRi]; gameTries = 0; gameLock = false; pulsePin = null;
       hideCountryPopup();   // the previous round's learn-panel closes with the round
-      setYear(r.year);
+      gameBoard(r);
       mgRoundEl.textContent = "Round " + (gameRi + 1) + " / " + gameRounds.length;
       mgScoreEl.textContent = gameFound + " found";
       mgQEl.innerHTML = r.kind === "area" ? "Find <b>" + esc(r.n) + "</b> — as it stood in " + fmtYearG(r.shown)
@@ -45663,7 +45685,7 @@ let prev = null;
           if (tgt) popPointLL = [tgt[0], tgt[1]];
           showCountryPopup(idxs[0]);   // the answer's info panel — the round ends on something learned
         }
-      } else if (r.kind === "area") {   // a state or people: its extent, laid over today's map, and its cards
+      } else if (r.kind === "area") {   // a state or people: its extent, laid over the Full Atlas in its year, and its cards
         gameMarks.push({ idxs: [], rings: r.rings, tint: tint });
         showMinePopup({ ids: r.ids, title: r.n });
       } else {   // a place: a geo-anchored ring marker (the fly alone is cancellable — the marker isn't) + the place's cards
@@ -45706,7 +45728,7 @@ let prev = null;
       if (!GAME || gameOver || gameLock || gameRi >= gameRounds.length) return;
       const r = gameRounds[gameRi];
       const ll = screenToLonLat(px, py); if (!ll) return;   // clicked the sky
-      const clickedIdx = countryAt(px, py);
+      const clickedIdx = MINE ? -1 : countryAt(px, py);   // on the Full Atlas board (a state's round) there is no world territory to hit
       /* A place or a state is answered with a POINT, so a tap in the open sea is a legitimate guess there
          and a country round's is not — tapping the ocean when asked for a country is a miss of the
          globe rather than a wrong answer, and spending a guess on it would be the mis-tap this change
@@ -45761,10 +45783,20 @@ let prev = null;
          which is the one moment the reader is looking at their own finger rather than at the map — and by
          the reveal there was nothing left to say where they had been. Both guesses are marked, so the
          second try can see where the first went, and the answer's own mark lands over them. */
+      /* On the Full Atlas board what is under a wrong guess is that year's state, people or country, read
+         off the same ladder a tap on the Full tab climbs (`mineStackAt`); it is marked red by its own rings
+         and its card opens, so a miss still teaches. A war side or a front has no single outline to tint. */
+      let mineHit = null;
+      if (MINE) {
+        mineHit = mineStackAt(ll[0], ll[1], false)[0] || null;
+        const rings = mineHit ? (mineHit.rings || (mineHit.kind === "area" && mineHit.area ? mineAreaOf(mineHit) : null)) : null;
+        if (rings) gameMarks.push({ idxs: [], rings: rings, tint: TINT_MISS });
+      }
       if (clickedIdx >= 0 && !gameMarks.some((m) => m.idxs[0] === clickedIdx)) gameMarks.push({ idxs: [clickedIdx], tint: TINT_MISS });
       if (gameTries === 0) {
         gameTries = 1; sfx("bad");
-        if (clickedIdx >= 0) {   // the wrong pick flashes red and its info panel opens — a miss still teaches something
+        if (mineHit) showMinePopup(mineHit);
+        else if (clickedIdx >= 0) {   // the wrong pick flashes red and its info panel opens — a miss still teaches something
           pulseSet = [clickedIdx]; pulseCol = GAME_RED; pulseT0 = performance.now();
           showCountryPopup(clickedIdx);   // popPointLL was set by the tap handler, so "Through the ages" works too
         }
