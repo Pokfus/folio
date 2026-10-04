@@ -241,7 +241,8 @@ The World History harness, run with `REFINE_PREFIX=rm-`. It keeps its working fi
 1. `REFINE_PREFIX=rm- WH_S=/path/to/scratch node .claude/wh-refine/prep.js 1 10` writes `cur/<id>.json` (the
    card and its glossary entry as they stand), `index.tsv` (every `rm-` card's answer and question, for
    sibling checks) and empty `out/` and `pages/`.
-2. Write `ADDENDUM.md` in the scratch dir: what this collection adds to `.claude/wh-refine/BRIEF.md`
+2. Copy `.claude/wh-refine/ADDENDUM-rm.md` (the Rome addendum as it stood after B10, with the lessons of the first
+   hundred) to `$WH_S/ADDENDUM.md` and add to it as lessons arrive. It is what this collection adds to `.claude/wh-refine/BRIEF.md`
    (which was written for World History — the addendum overrides it where they differ): the Rome rules
    above, the `rm-` prefix and env var, the hosts that answer and the ones that do not, and "for a subject
    a `gr-` or `wh-` card also covers, read it and note disagreements; never edit it".
