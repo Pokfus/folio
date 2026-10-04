@@ -351,6 +351,15 @@ Filled batch by batch, from the source each row names.
 | destruction of Carthage | spring 146 BCE (Third Punic War from 149) | Appian; Jacobs (`wh-348`) |
 | Roman conquest of Greece / Isthmian proclamation / Corinth sacked / province of Achaea | 229 – 146 BCE / 196 BCE / 146 BCE / 27 BCE | Burton; Bloy; Palamidis (`wh-349`) |
 | Gracchi: Tiberius tribune and killed / Gaius tribune / Gaius dies | 133 BCE / 123 BCE (re-elected for 122) / 121 BCE | Probst; Livy, *Periochae* (`wh-350`) |
+| Marius's consulships / Sulla's march on Rome / Sulla dies | 107 – 86 BCE / 88 BCE / 78 BCE | Plutarch, *Marius* and *Sulla* (`wh-351`) |
+| Third Servile War | 73 – 71 BCE | Plutarch, *Crassus* (`wh-352`) |
+| Julius Caesar: born / consul / killed | c. 100 BCE (Mommsen 102) / 59 BCE / 15 March 44 BCE | Suetonius; Wickham; Lendering (`wh-353`, `wh-356`) |
+| Gallic Wars / Alesia | 58 – 50 BCE / 52 BCE | Westall; Lendering (`wh-354`) |
+| Caesar's civil war / Pharsalus / Thapsus | 49 – 45 BCE (the Rubicon 10/11 January 49 on one reckoning) / 48 BCE / 46 BCE | Lendering (`wh-355`) |
+| Augustus: born / sole ruler / named Augustus / died | 23 September 63 BCE / 31 BCE / 16 January 27 BCE / 19 August 14 CE | Fagan; Lendering (`wh-357`) |
+| Roman Empire: emperors / west ends / east ends | from 27 BCE / 476 CE (by convention) / 1453 CE | Lendering; Mathisen; Neville (`wh-358`) |
+| Pax Romana (a convention) | 27 BCE – 180 CE (another reading c. 150 BCE – 235 CE) | Drake (`wh-359`) |
+| Roman roads: the Appian Way begun | 312 BCE | Livy (`wh-360`) |
 
 ## Chronology pins
 
@@ -689,4 +698,14 @@ wh-347: 216
 wh-348: 146
 wh-349: 229; 146; 196
 wh-350: 133; 123; 121
+wh-351: 107; 86; 88; 78
+wh-352: 73; 71
+wh-353: 100; 59; 44
+wh-354: 58; 50; 52
+wh-355: 49; 45; 48; 46
+wh-356: 44
+wh-357: 63; 31; 27; 14
+wh-358: 27; 476; 1453
+wh-359: 27; 180
+wh-360: 312
 ```

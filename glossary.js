@@ -7055,15 +7055,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Library_of_Alexandria": "founded c. 304 – 282 BCE",
 "Ancient_Rome": "753 BCE – 1453 CE",
 "Gracchi_brothers": "133 – 121 BCE",
-"Marius_and_Sulla": "107 – 82 BCE",
+"Marius_and_Sulla": "107 – 78 BCE",
 "Third_Servile_War": "73 – 71 BCE",
 "Julius_Caesar": "c. 100 – 44 BCE",
-"Gallic_Wars": "from 58 BCE",
+"Gallic_Wars": "58 – 50 BCE",
 "Caesars_civil_war": "49 – 45 BCE",
 "Assassination_of_Julius_Caesar": "15 March 44 BCE",
-"Augustus": "27 BCE – 14 CE",
-"Roman_Empire": "from 27 BCE",
-"Pax_Romana": "from 27 BCE",
+"Augustus": "63 BCE – 14 CE",
+"Roman_Empire": "27 BCE – 1453 CE",
+"Pax_Romana": "27 BCE – 180 CE",
 "Roman_aqueduct": "from 312 BCE",
 "Colosseum": "dedicated before 79 CE",
 "Pompeii": "buried 79 CE",
@@ -8792,7 +8792,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Treaty_ports": "1842–1943",
 "Shanghai_International_Settlement": "1863–1943",
 "Cotton_mill": "1771 – present",
-"Fall_of_the_Achaemenid_Empire": "334 – 330 BCE"
+"Fall_of_the_Achaemenid_Empire": "334 – 330 BCE",
+"Roman_roads": "from 312 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10597,8 +10598,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Marius_and_Sulla": ["Gaius Marius","Lucius Cornelius Sulla","Sulla"],
 "Third_Servile_War": ["Spartacus","war of Spartacus","Spartacus revolt"],
 "Julius_Caesar": ["Caesar","Gaius Julius Caesar"],
-"Gallic_Wars": ["Gallic War","Vercingetorix","Alesia"],
-"Caesars_civil_war": ["Caesar's civil war","Pharsalus","Battle of Pharsalus","Rubicon"],
+"Gallic_Wars": ["Gallic War"],
+"Caesars_civil_war": ["Caesar's civil war"],
 "Assassination_of_Julius_Caesar": ["Ides of March","assassination of Caesar"],
 "Augustus": ["Octavian","Gaius Octavius","Caesar Augustus"],
 "Roman_Empire": ["Roman empire"],

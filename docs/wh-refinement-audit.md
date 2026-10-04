@@ -149,7 +149,7 @@ in plan order unless the user says otherwise.
 | B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | **done 2026-10-04** |
 | B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | **done 2026-10-04** |
 | B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | **done 2026-10-04** |
-| B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | open |
+| B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | **done 2026-10-04** |
 | B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | open |
 | B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | open |
 | B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | open |
@@ -1488,6 +1488,39 @@ card leaves to a modern "mid-4th century". None edited.
 
 **Glossary.** Ten terms rewritten: every card's entry had an unsourced claim or a sentence with no marker.
 
+### B36 — `wh-351`–`wh-360`, Rome (2026-10-04)
+
+Run as B35. Checks: `wh-audit.js --range=wh-351:wh-360` clean but for `I.duplicate` on `wh-351` and `wh-354` (pictures
+also `rm-094`'s and `rm-352`'s) and a `W.not-why` note on `wh-354`; the rest as B31; all 80 distinct URLs 2xx;
+`check-citations --card` 0 mismatched. New locator: `wh-356` (the Curia of Pompey, at Largo di Torre Argentina).
+Glossary aliases that named another entry's own key were dropped (*Caesar's civil war* had carried "Pharsalus",
+"Battle of Pharsalus" and "Rubicon"; *Gallic Wars* "Vercingetorix" and "Alesia"), since each has its own entry.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-351` Marius and Sulla | 7 | 9 → 8 | **"Office unused 120 years" was cited to Appian, who says 400** (120 is Plutarch's). "Dictator from 82 BCE" had no source and the proscription counts were not a date; now 107 – 86, 88 and 78 BCE. The Marian reforms as a modern debate. |
+| `wh-352` Third Servile War | 7 | 7 → 7 | **The 6,000 crucified and the 70,000 and 120,000 armies were stated as fact**; now Appian's. The breakout's three counts (78, about 70, 30 or more) each its writer's; the debate over Spartacus's aims added. 73 – 71 BCE only. |
+| `wh-353` Julius Caesar | 9 | 7 → 9 | The old card was Suetonius and Plutarch, with **pirate ransom and calendar rows that were not dates** and "perhaps 102" unattributed. Born c. 100 BCE on the ancient "56th year", Mommsen's 102 as his; consul 59; died 15 March 44 BCE. |
+| `wh-354` Gallic Wars | 8 | 6 → 10 | **Plutarch's million killed and "800 cities, 300 nations" were stated as fact**; now beside Velleius's 400,000 and Caesar's counts, with the modern view that such numbers are rhetoric. 58 – 50 BCE and Alesia 52. |
+| `wh-355` Caesar's civil war | 7 | 6 → 8 | **"The die is cast" is Suetonius's report**, Plutarch has it in Greek, and one account traces it to Menander; 10/11 January is one modern dating on a drifting calendar. A "6,000 dead" row dropped, Pollio's count now in prose; a phrasing carried 49 BCE. |
+| `wh-356` assassination of Julius Caesar | 9 | 5 → 10 | **"Et tu, Brute" is Shakespeare's**, and the 23 wounds are Suetonius's and Plutarch's (Nicolaus gives 35 and more than 80 plotters). Two figure rows dropped; the Curia of Pompey and its surviving base added. |
+| `wh-357` Augustus | 9 | 5 → 9 | **Suetonius's "44 years alone" counts from Actium, 31 BCE**, not from 27. Born 23 September 63 BCE, named Augustus 16 January 27 BCE, died 19 August 14 CE; the Res Gestae as self-presentation, "brick to marble" as Suetonius's report. |
+| `wh-358` Roman Empire | 9 | 5 → 9 | **Appian's reckonings ("500 years to master Italy") were date-line rows.** From 27 BCE, with the ancient writers' other starting points; 476 CE a convention; the 75 million population one modern estimate. |
+| `wh-359` Pax Romana | 8 | 5 → 10 | **The name and the span were stated as ancient**; the phrase is ancient (Pliny), the period name and 27 BCE – 180 CE a modern convention, beside a c. 150 BCE – 235 CE reading. The Greenland lead record and Calgacus's charge, as Tacitus's speech, added. |
+| `wh-360` Roman roads | 9 | 5 → 10 | **The four-layer build was an 1875 inference from Vitruvius's rules for floors**; excavation shows layers varying with the ground. Network length as three modern figures, each whose (299,171, 188,555 and c. 100,000 km). |
+
+**Read by eye.** *Article:* "the Third Servile War", "the Gallic Wars", "Caesar's civil war", "the assassination of
+Julius Caesar", "the Roman Empire", "the Pax Romana", "Roman roads"; the persons bare. *Confusability:* `wh-353`–`wh-356`
+the man, his conquest, his war and his death, the Rubicon only on `wh-355`, the Ides only on `wh-356`, the pirates
+only on `wh-353`; `wh-336`/`wh-358` share the 27 BCE, 476 and 1453 CE rows, the civilisation and the imperial state, with
+no phrasing in common; `wh-357`/`wh-358` the emperor and the empire, Res Gestae only on `wh-357`; `wh-304`/`wh-360` the
+Persian and the Roman roads. *Against the rm- cards:* `rm-175` gives the four courses with thicknesses as fact and
+`rm-138` the Appian Way paved in 312 BCE, where Livy has its stone paving later; `rm-313` has the legions come from
+Nola where the old card had Capua; `rm-319` dates Sulla's dictatorship to 82 BCE, which no source here prints. None
+edited.
+
+**Glossary.** Nine terms rewritten; *Julius Caesar* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1627,3 +1660,9 @@ pass once it answers. Filled batch by batch.
 | `wh-345` | an Aegates ram: apt, but also `rm-199`'s (audit `I.duplicate`) |
 | `wh-346` | Barcid coins, also `rm-205`'s (audit `I.duplicate`) |
 | `wh-349` | the temple of Apollo at Corinth, also `rm-256`'s (audit `I.duplicate`) |
+| `wh-351` | a coin of Sulla alone, also `rm-094`'s (audit `I.duplicate`) |
+| `wh-352` | the later amphitheatre at Santa Maria Capua Vetere |
+| `wh-354` | a Vercingetorix stater, also `rm-352`'s (audit `I.duplicate`) |
+| `wh-355` | a coin of Caesar's celebrating Gaul, not the civil war |
+| `wh-358` | a labelled modern map |
+| `wh-360` | fine, but the description asserts the unsupported four-layer build |
