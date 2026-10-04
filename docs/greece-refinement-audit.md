@@ -222,9 +222,9 @@ one changelog line and a version bump; commit and push.
 | B50 | Athenian Empire (`gr-athenian-empire`) | `gr-471`–`gr-480` | 10 | **done 2026-10-03** |
 | B51 | Athenian Empire (`gr-athenian-empire`) | `gr-481`–`gr-490` | 10 | **done 2026-10-03** |
 | B52 | Athenian Empire (`gr-athenian-empire`) | `gr-491`–`gr-500` | 10 | **done 2026-10-03** |
-| B53 | Athenian Empire (`gr-athenian-empire`) | `gr-501`–`gr-510` | 10 | open |
-| B54 | Athenian Empire (`gr-athenian-empire`) | `gr-511`–`gr-520` | 10 | open |
-| B55 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-521`–`gr-530` | 10 | open |
+| B53 | Athenian Empire (`gr-athenian-empire`) | `gr-501`–`gr-510` | 10 | **done 2026-10-04** |
+| B54 | Athenian Empire (`gr-athenian-empire`) | `gr-511`–`gr-520` | 10 | **done 2026-10-04** |
+| B55 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-521`–`gr-530` | 10 | **done 2026-10-04** |
 | B56 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-531`–`gr-540` | 10 | open |
 | B57 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-541`–`gr-550` | 10 | open |
 | B58 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-551`–`gr-560` | 10 | open |
@@ -1852,3 +1852,86 @@ and `gr-495` (← Parthenon). The battle and island cards keep theirs.
 
 **Chronology.** The "Athenian Empire, to the Parthenon" section holds the rows for every date the 50 cards of
 B48–B52 print, with pins for every card that prints a year.
+
+### B53–B55 — `gr-501`–`gr-530`, the end of the Athenian Empire and the outbreak of the Peloponnesian War (2026-10-04)
+
+Thirty cards: B53 and B54, which finish `gr-athenian-empire` (the Propylaea to the Kleinias decree: the rest of the
+Periclean Acropolis, the Agora and its buildings, metics, slaves and the public finances), and B55, the first ten of
+`gr-peloponnesian-war` (the overview, Thucydides, the causes and the crises of 435 – 431 BCE, the Archidamian War and
+its king). **First, B43–B52 was checked:** `greece-audit.js --range=gr-401:gr-500 --summary` shows only `I.none` on
+`gr-431`, `gr-473`, `gr-486`, `gr-491` and `gr-493` and `S.chip?` flags on English reviews of foreign-titled books.
+
+Method: as B43–B52. Six research agents drafted five cards each, with a saved copy of every source and one verbatim
+quote per marker; the verifier and the lint wrapper gated every patch, and with every patch of the run merged
+`Q.sibling` fired on none. Every draft was read by eye before it was written.
+
+Checks:
+- `greece-audit.js --range=gr-501:gr-530` finds nothing but missing pictures and locators (both the next commit's)
+  and `S.chip?` flags on English BMCR reviews of foreign-titled books (`gr-501`, `gr-506`, `gr-529`). The real
+  foreign sources carry their chips: German on `gr-511` (Vaucher), French on `gr-518`.
+- `check-citations --card` matches every checkable citation on all 30. `check-questions`, `check-docs`,
+  `split-cards --check`, `test-card-plans` and `check-gloss-links --card` pass; `check-style` adds nothing to
+  main's standing alarms and loses two (`gr-505`'s spelled-out century). All 180 distinct citation URLs of
+  `gr-501`–`gr-531` answer 200 when re-curled.
+
+**Date lines:**
+- **Rows that were not dates went to the prose:** "Completed in 5 years, per Plutarch", "Figures 6, one taken by
+  Elgin", "Architects 3 by Plutarch, 1 by Strabo", "Raised by them 500 – 1,000 talents", "Black Sea corn c. 400,000
+  bushels a year", "Paintings 4 subjects", "Ostraka 2 found in the agora", "War reserve 1,000 talents", "Length 27
+  years", "Corinthian fleet 150 ships" and their like.
+- **Every row dates the card's own subject.** `gr-509`'s draft dated Pericles' death, Lysicles' death and a play; it
+  now dates her own life (with Lysicles 429 – 428/427 BCE, mocked on stage 425 BCE). `gr-516`'s old line dated the
+  Painted Stoa, not the painter; `gr-520`'s a neighbouring reassessment.
+- **Lines without a year:** `gr-510` metic, `gr-511` slavery (institutions), `gr-523` prophasis (a word, whose draft
+  dated the war instead) and `gr-531` the Periclean strategy (a plan) are empty and `undatable`.
+- **Disputed years are two rows, saying whose:** the Erechtheion begun 421 or 425/424 BCE (`gr-502`); the
+  Hephaisteion 449 – 444 or 460 – 420 BCE (`gr-505`); the Lesche paintings before 467 or 458 – 447 BCE (`gr-516`);
+  Thucydides son of Melesias ostracised 444/443 or 442 BCE (`gr-517`); the Old Oligarch 425 – 424 or 431 – 413 BCE
+  (`gr-518`); Archidamus' death 427 or 426 BCE (`gr-530`). The Kleinias decree keeps one row (425/424 BCE): no
+  reachable source gives the old 448/447 BCE, so the earlier dating stays in prose as "the early 440s or 430s BCE".
+- **Unsourced and estimated years removed:** the Odeon's and the Telesterion's "c. 450 – 430 BCE" (no source gives
+  them; the glossary entries carry the same ranges); the caryatids' carving years; Thucydides' "c. 460 – c. 400 BCE";
+  the Stoa Poikile's "500 – 450 BCE" (from the Agora database, no longer cited); "Corn ships seen 480 BCE" (Herodotus
+  gives no year).
+- **Within one dispute:** the Nike temple pulled down 1686 CE (YSMA) or 1687 CE (the Acropolis Museum); Thucydides'
+  banishment in 424 or 423 BCE; Epidamnus' war 435 BCE (Oldfather) against Lendering's 436 BCE.
+
+**Corrected in the old cards:**
+- **No modern scholarship:** almost all of the 30 cited only ancient texts, inscriptions or excavation database pages, most below the bar; Thucydides
+  was cited as five to seven separate Perseus chapters on `gr-521` – `gr-525`, Plutarch twice for one chapter on
+  `gr-506`, Vitruvius twice on `gr-503`, Xenophon's *Ways and Means* twice on `gr-510`, and three Lambert pages on
+  `gr-504` and `gr-520`.
+- **Wrong facts and citations:** `gr-509` named the *Menexenus* translator as Bury (Perseus gives Lamb); `gr-526`
+  named Lambert and Osborne as translators of IG I³ 1179 (the page gives Robert Pitt); `gr-527` credited the
+  *Acharnians* translation to O'Neill (it is anonymous); `gr-520` cited Thucydides 2.13 for a silence it cannot show;
+  `gr-506` had Sulla burn the Odeon, which Vitruvius dates only to the Mithridatic war.
+- **Other cards' ground given back:** `gr-502` the 406 BCE fire (`gr-317`) and Herodotus' olive shoot (`gr-429`);
+  `gr-504` the decree's architect clause (`gr-500`); `gr-507` the Mysteries' secrecy and first-fruits (`gr-990`);
+  `gr-508` the coffins and the empty bier (`gr-999`); `gr-511` the Old Oligarch (`gr-518`); `gr-512` the Herms
+  scandal (`gr-554`) and Laurion (`gr-318`); `gr-513` the funeral oration and the Odeon's barley queue; `gr-514` the
+  Tholos (`gr-470`) and the Painted Stoa; `gr-515` Polygnotus' unpaid work (`gr-516`) and the Stoics' name
+  (`gr-838`, `gr-839`); `gr-517` Pericles' offer to pay for the works (`gr-494`); `gr-518` the ships and the slaves
+  (`gr-493`, `gr-511`); `gr-519` the 6,000 talents and the iron reserve (`gr-494`, `gr-531`); `gr-520` Thoudippos'
+  reassessment (`gr-453`); `gr-521` the night raid on Plataea and the surrender terms; `gr-522` the method statement
+  of 1.22 (`gr-618`) and Eion (`gr-544`); `gr-523` the details of Potidaea and Megara (`gr-526`, `gr-527`).
+- **Spellings:** Mnesicles, Callicrates, Agoracritus, Cecrops, Cimon and Callias (not the K- forms) in prose; the
+  cited titles keep theirs.
+
+**Read by eye, and changed in review:**
+- `gr-510`'s third why (the silver-bowl lists, tithes or manumissions) was the same inscriptions as `gr-511`'s last
+  sentence; it now asks why the metic class faded after the Classical age.
+- `gr-508`'s second question read "Pericles told the widows in Pericles' funeral oration" with the answer in place.
+- `gr-519` wrote Kallias; the house form is Callias.
+- **Wrong auto-links**, stopped with a hand-written key, `<span class="ans-term">` or a rewording: the Athenian
+  `Council` (opened a generic entry; now `Council_of_Five_Hundred` on `gr-505`, `gr-511`, `gr-512`, `gr-514`, `gr-518`
+  – `gr-520`), `Sulla` (`gr-502`, `gr-506`, keyed to `Marius_and_Sulla`), "reconstruction" (opened the American
+  Reconstruction era, `gr-515`), `Callicrates` (opened Callicrates of Leontium, `gr-504`), `Acharnians` (opened
+  Acharnae, `gr-509`, `gr-517`, `gr-527`), "British Museum" (`gr-520`, `gr-526`), `Dyrrachium` (opened the battle,
+  `gr-524`), `Republic` (`gr-510`), `Pausanias` the regent (`gr-528`), `Pylos` (keyed to the battle, `gr-529`),
+  "an Italian study" (`gr-518`), every bare `Thucydides` on `gr-517`, the Tholos (`gr-514`).
+
+Pictures and locators for these 30 follow in the next commit.
+
+**Chronology.** The "Athenian Empire" section now covers B48–B54 and holds rows for `gr-501` – `gr-520`; a new
+section, "The Peloponnesian War", holds `gr-521` onward, with pins for every card that prints a year. The
+Peloponnesian War row of "Events and reigns" is confirmed.

@@ -467,7 +467,7 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Marathon trophy | 490 BCE | Rhodes 2013 (`gr-449`) |
 | Barbarian | no line: an idea | (`gr-450`) |
 
-## The Athenian Empire, to the Parthenon (confirmed by B48–B52, `gr-451` – `gr-500`)
+## The Athenian Empire (confirmed by B48–B54, `gr-451` – `gr-520`)
 
 | event or person | the collection says | source |
 |---|---|---|
@@ -513,6 +513,41 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Parthenon frieze | set in place 443 – 438 BCE; Elgin's removal 1802; the west end taken indoors 1993 | YSMA (`gr-498`) |
 | Parthenon metopes | carved 445 – 440 BCE; bombarded 1687; the east side taken down 1987 – 1989 | Acropolis Museum (`gr-499`) |
 | Ictinus and Callicrates | the Parthenon built 447 – 438 BCE (its gables finished 432 BCE, `gr-495`); the Nike decree c. 450 BCE or c. 438 BCE | YSMA; Attic Inscriptions Online (`gr-500`) |
+| Propylaea | built 437 – 432 BCE; an older gateway in place by 485 BCE; blown up 1645 CE; restored 1909 – 1917 CE | YSMA; Travlos, Princeton Encyclopedia (`gr-501`) |
+| Erechtheion | begun 421 BCE (425/424 BCE on Shear's dating); work resumed 409/408 BCE; finished 406 BCE, accounts to 405/404 BCE; restored 1902 – 1909 CE | YSMA; Acropolis Museum; Attic Inscriptions Online, IG I³ 474; Closterman's review (`gr-502`) |
+| Caryatids | in place by 409/408 BCE (the survey's "maidens"); one taken by Elgin 1804 CE; the rest indoors 1979 CE, in the new museum 2009 CE | Attic Inscriptions Online, IG I³ 474; Acropolis Museum (`gr-503`) |
+| Temple of Athena Nike | built 427 – 424 BCE; pulled down 1686 CE (1687 in the Acropolis Museum's pages); rebuilt 1835 – 1845 CE; restored 2000 – 2010 CE | YSMA; Acropolis Museum (`gr-504`) |
+| Hephaisteion | built 449 – 444 BCE (Travlos), or 460 – 420 BCE (Odysseus); the cult statues 421 – 415 BCE; a church from the 7th century CE | Princeton Encyclopedia; Odysseus; Attic Inscriptions Online, IG I³ 82 (`gr-505`) |
+| Odeon of Pericles | the mid-5th century BCE (prose only); burned 86 BCE in Sulla's siege, then rebuilt by Ariobarzanes | Odysseus; Rogers's review of Parigi; Vitruvius 5.9.1 (`gr-506`) |
+| Telesterion | the Peisistratid hall 550 – 510 BCE; sacked by the Persians 480 – 479 BCE; the Periclean hall undated; destroyed by Alaric 395 CE | Mylonas, Princeton Encyclopedia (`gr-507`) |
+| Pericles' funeral oration | 431 BCE, the winter of the war's first year | Thucydides 2.34; Baebler's review (`gr-508`) |
+| Aspasia | with Lysicles 429 – 428/427 BCE (he was killed in Caria in 428/427 BCE); mocked in the *Acharnians* 425 BCE; no life dates | Lendering, Livius (`gr-509`) |
+| Metics; slavery | no line: institutions (the auction of 414 BCE, Nikophon's coin law 375/374 BCE and the manumission lists of about 336 – 322 BCE in prose) | Attic Inscriptions Online (`gr-510`, `gr-511`) |
+| Poletai | the Attic Stelai 414 BCE; the Agora account with the first mine leases 367/366 BCE | Attic Inscriptions Online, IG I³ 421 and Agora XIX P5 (`gr-512`) |
+| Grain trade | Demosthenes' *Against Leptines* 355/354 BCE; the grain-tax law 374/373 BCE (`gr-457`) | Faraguna's review of Harris (`gr-513`) |
+| Athenian Agora | public from the early 6th century BCE (prose); remodelled 508/507 – 490 BCE on one view; damaged by the Persians 480/479 BCE; excavated from 1931 CE | Odysseus; van Wijk's review of Paga (`gr-514`) |
+| Stoa Poikile | no building year; shields from Sphacteria 425 BCE and Scione 421 BCE hung there | Jones's notes to Pausanias 1.15.4 (`gr-515`) |
+| Polygnotus | the Delphi Lesche before 467 BCE (the usual view), or 458 – 447 BCE (Robert); no life dates | Frazer 1898 (`gr-516`) |
+| Thucydides son of Melesias | ostracised 444/443 BCE, or 442 BCE; back by 433 BCE on one view | Lendering, Livius; Perrin's note; Loomis's review of Figueira (`gr-517`) |
+| Old Oligarch | written 425 – 424 BCE (Marr and Rhodes), or 431 – 413 BCE (the Bearzot volume); proposals run from the 440s BCE into the 4th century BCE | Leão's and Rhodes's reviews (`gr-518`) |
+| Treasury of the Other Gods | the Callias decrees 434/433 BCE (probably); loans recorded 433/432 – 423/422 BCE | Attic Inscriptions Online, IG I³ 52 and 369 (`gr-519`) |
+| Kleinias decree | 425/424 BCE or a little later (formerly the early 440s or 430s BCE) | Attic Inscriptions Online; Lambert, AIUK 4.2 (`gr-520`) |
+
+## The Peloponnesian War (confirmed by B55–B61, `gr-521` – `gr-585`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Peloponnesian War | 431 – 404 BCE; the Corcyra alliance 433 BCE; the Peace of Nicias 421 BCE; the Sicilian expedition sailed 415 BCE; Sparta renewed the war 413 BCE; Aegospotami 405 BCE; Athens surrendered in the spring of 404 BCE | Lendering, Livius (`gr-521`) |
+| Thucydides | no life dates; general in Thrace when Amphipolis fell 424 BCE; banished for 20 years (423 BCE on one reckoning); the history breaks off in 411 BCE | Thucydides 4.104–106, 5.26; Lendering, Livius; Stronk's review (`gr-522`) |
+| Prophasis | no line: a word | (`gr-523`) |
+| Epidamnus | founded 627 BCE; the war with Corcyra 435 BCE (436 BCE on Lendering's dating, used on no card) | Sestieri, Princeton Encyclopedia; Oldfather's note to Diodorus 12.30 (`gr-524`) |
+| Battle of Sybota | 433 BCE | Lendering, Livius; Sferruzza's review (`gr-525`) |
+| Potidaea | founded about 600 BCE; revolted 432 BCE; surrendered in the winter of 430/429 BCE; taken by Philip II 356 BCE (Diodorus files the revolt under 435/434 BCE) | Alexander, Princeton Encyclopedia; Attic Inscriptions Online, IG I³ 1179; Hoffmann 1975 (`gr-526`) |
+| Megarian Decree | passed before the summer of 432 BCE, perhaps as early as 439 BCE; repeal refused 432/431 BCE; Megara's revolt 446 BCE | Thucydides 1.67, 1.114, 1.139; Stadter 1984 (`gr-527`) |
+| Spartan ultimatum | the embassies 432 – 431 BCE, after the allies' vote in the autumn of 432 BCE; the first invasion 431 BCE | Thucydides 1.125–139; Kulesza 2022 (`gr-528`) |
+| Archidamian War | 431 – 421 BCE; plague 430 BCE; Pylos 425 BCE; Brasidas north 424 BCE; the year's truce 423 BCE (423/422 BCE); the peace in the spring of 421 BCE | Foster's review of Geske; Kulesza 2022; Thucydides 5.20 (`gr-529`) |
+| Archidamus II | reigned 469 – 427 BCE (perhaps from 475 BCE; death 426 BCE in Oldfather's note to Diodorus); the earthquake 464 BCE; invasions 431, 430 and 428 BCE; Plataea 429 BCE | Kulesza 2022; Lendering, Livius; Oldfather's note (`gr-530`) |
+| Periclean strategy | no line: a plan (the first invasion 431 BCE in prose) | Lendering, Livius (`gr-531`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -537,7 +572,7 @@ sources when its batch comes round, and a disputed one given as a range.
 | Plataea, Mycale | 479 BCE (confirmed by B46, `gr-435`, `gr-437`) |
 | Delian League founded | 478 – 477 BCE, written 478/477 BCE as an archon year (confirmed by B48, `gr-451`) |
 | Eurymedon | c. 466 BCE (470/469 – 466 BCE; confirmed by B49, `gr-458`, which gives 466 and 470/469 BCE as two rows) |
-| Peloponnesian War | 431 – 404 BCE |
+| Peloponnesian War | 431 – 404 BCE (confirmed by B55, `gr-521`) |
 | Peace of Nicias | 421 BCE |
 | Sicilian Expedition | 415 – 413 BCE |
 | Aegospotami | 405 BCE |
@@ -1005,4 +1040,31 @@ gr-497: 438
 gr-498: 443; 438; 1802; 1993
 gr-499: 445; 440; 1687; 1987; 1989
 gr-500: 447; 438; 450
+gr-501: 437; 432; 1645; 1909; 1917
+gr-502: 421; 425; 409; 406
+gr-503: 409; 1804; 1979
+gr-504: 427; 424; 1686; 1835; 1845; 2000; 2010
+gr-505: 449; 444; 460; 420; 421; 415
+gr-506: 86
+gr-507: 550; 510; 480; 479; 395
+gr-508: 431
+gr-509: 429; 428; 425
+gr-512: 414; 367
+gr-513: 355
+gr-514: 508; 490; 480; 1931
+gr-515: 425; 421
+gr-516: 467; 458; 447
+gr-517: 444; 442; 433
+gr-518: 425; 424; 431; 413
+gr-519: 434; 433; 423
+gr-520: 425
+gr-521: 431; 404; 421; 405
+gr-522: 424; 411
+gr-524: 627; 435
+gr-525: 433
+gr-526: 600; 432; 430
+gr-527: 432
+gr-528: 432; 431
+gr-529: 431; 421; 423
+gr-530: 469; 427; 426
 ```
