@@ -4173,3 +4173,66 @@ batch notes; the ones a later writer will meet again:
   China", and `China` now carries "People's Republic of China" so the longer phrase wins rather than
   linking the 1912 state inside it.
 - **No pictures** were added to any of the hundred.
+
+## cnh-602 – cnh-701, the Republic's last years to Taiwan and the imperial state (Oct 2026)
+
+A second hundred in one session, again twenty batches of five imported in id order: the end of `col-35`,
+all of `col-36` (Civil War), `col-37` (war with Japan), `col-38` (People's Republic) and `col-39`
+(Taiwan), and `cnh-701` opening `cn-government`. **87 glossary terms** were written; the other answers
+already had one. Forty-four plan lines were retitled to the answer the sources supported.
+
+**What carried the batch.**
+- FRUS on history.state.gov, Mao's *Selected Works* and the Party resolutions of 1945, 1981 and 2021 on
+  the Marxists Internet Archive and Chinese Wikisource (each cited as the Party's own account), the CWIHP
+  Bulletin PDFs on `www.wilsoncenter.org`, CIA documents through their archive.org mirrors, and the
+  Digital Library of India scans of Snow, Guillermaz, Belden and Bertram.
+- **Shut from here**: the Wilson Center Digital Archive (`digitalarchive.wilsoncenter.org`, proxy 502),
+  the CIA reading room (redirects to its home page), `history.army.mil` (403; the HyperWar mirrors of the
+  Romanus and Sunderland volumes answer), `apjjf.org`, Sage, Taylor & Francis, Duke, Brill, Project MUSE
+  and JSTOR. OpenEdition article pages are bot-walled from curl but read through a browser fetch.
+- **The Wikimedia API rate-limits a batch this size**: four locators and several title checks gave up
+  with 429 and were re-run afterwards. A batch that reports "gave up (rate limited)" has not failed.
+
+**Contested figures are given with owners, never as one number.** The ones a later writer will meet again:
+- Civil War: Rummel's battle and civilian deaths (`cnh-606`, the only owner found); Changchun 150,000
+  (Zhang Zhenglu's banned PLA history) against 58,063 (Li Fasuo, state media) on `cnh-630`, and
+  Tanner's 120,000 on `cnh-623`; the Communist campaign totals beside Bjorge's and Taiwan's.
+- War with Japan: the PRC's "more than 35 million casualties" against Mitter's 14 million dead; the
+  Nationalist army's 3,177,973 (*China Handbook*) against 3,650,405 (Executive Yuan, 1947); Nanjing as
+  the Tokyo tribunal's 200,000, the Nanjing tribunal's and the PRC's 300,000, and the two Japanese
+  scholarly bands. Denial is stated as unsupported, not as a side.
+- People's Republic: the Great Famine from the 1981 Resolution's "serious losses" through 16.5–23,
+  23–30, 18–32.5, 36 and 45 million, with why they differ; the Cultural Revolution from Walder and Su
+  to Rummel; Tiananmen 1989 from Chen Xitong's report to the British cable; the counter-revolutionary
+  campaign from Mao's own 700,000 and the 1954 Public Security report.
+- Taiwan: 28 February 1947 as 10,000–20,000 (National Human Rights Museum, citing the 1992 report),
+  "thousands or potentially tens of thousands" (the 228 Foundation's summary of the same report) and
+  "up to 28,000" (Brookings). **The 18,000–28,000 range often attributed to the 1992 report was not
+  found in any source opened.**
+- **Land reform (`cnh-657`) carries only the high estimate**, 3–5 million (Gao Wangling and Liu Yang,
+  from Ray Huang), worded as "one of the highest". The lower ones — Stavis 1978, the *Cambridge History
+  of China* vol. 14, Meisner, Roberts — could not be opened. **Add one with its owner when a library copy
+  can be reached.**
+
+**Recurring source slips.**
+- The Office of the Historian's "Chinese Revolution of 1949" page and Belden (p. 160) date the Xi'an
+  Incident to 1937; it was December 1936. Neither is cited for the date.
+- Mao's editors' notes call Song Zheyuan's force the 28th Army once; it was the 29th.
+- Crossref and OpenEdition's metadata spell Chen Ziming "Zeming Chen"; the journal's own page says Chen
+  Ziming, and `check-citations.js` now declares the row.
+
+**Left for a human decision.**
+- **"First Five-Year Plan" is an alias of `Five-year_plans_of_the_Soviet_Union`**, so `cnh-660`'s answer
+  and the sentence in `data-extra/gc.js` link the Soviet entry. Not moved: it is the more common use.
+- `cnh-660` and `cnh-627` first resolved their Learn-more link to the Soviet plan and the Russian Great
+  Retreat; they, `cnh-653`, `cnh-661`, `cnh-685` and `cnh-686` are now set by hand (`"manual": true`).
+  `cnh-619` (Outline Land Law), `cnh-629` (peasant nationalism) and `cnh-604` have no dedicated article.
+- `check-cards.js` reports, and these were left: `cnh-646` and `cnh-693` rest three times on FRUS and
+  `cnh-686` four times on WTO documents (the cards' own primary record); "scholar in question" on
+  `cnh-609`, `cnh-680`, `cnh-682` and `cnh-700` names Chiang, Deng and the DPP, actors rather than
+  scholars; `cnh-612` cites two French reviews (Persée first pages).
+- `Taiwanese_identity` and `Women's_suffrage_in_China` are keyed to titles that redirect on Wikipedia.
+- Glossary surfaces held back on purpose: bare "White Terror" (1927 and 1966 uses), "Great Famine"
+  (Holodomor), "Double Tenth" (the National Day), "southern tour" (the Qing emperors'), "Huaihai"
+  (a Wuyue title), "zhiqing" (personal names). `Long_March` is case-sensitive ("long march" in `rm.js`).
+- **No pictures** were added to any of the hundred.
