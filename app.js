@@ -7417,32 +7417,35 @@
   }
   /* THE BANNER'S FIGURES ARE THE LIST'S (Oct 2026, on request: "the cards-are-waiting line and the time
      estimate should simply reflect all new/learning/review remaining in the entire active collections
-     list"). They are summed over the list's TOP-LEVEL rows — an added entry with no added container above
-     it — because a container's row already counts its whole subtree under its own allowance (entryPiles),
-     so adding the rows folded beneath it would count the same cards twice. A language's decks are read
-     once, through the language's own container, which is the row the list draws them under and the cap
-     they are dealt by. This replaced the pooled review's own draw (reviewQueue) as what the banner shows:
-     that draw was today's SESSION, capped by the review's allowance, and the banner no longer starts one. */
+     list"). This replaced the pooled review's own draw (reviewQueue) as what the banner shows: that draw was
+     today's SESSION, capped by the review's allowance, and the banner no longer starts one.
+     …AND THEY ARE THE FIGURES THE READER CAN SEE (Oct 2026, on request: "the daily study banner at the top
+     should only measure the information of displayed decks and collections"). A container's row counts its
+     whole subtree under its own allowance (entryPiles) and shows that figure while it is FOLDED; unfolded,
+     its own counts are hidden (`dk-open`) and the rows inside it carry theirs — so the banner sums whichever
+     of the two is on screen: a folded container once, or each row drawn under an open one. The walk is over
+     `adRows`, the rows the list last built, in the fold state `adOpen` holds, which is why it must run
+     AFTER the list is built on the page and again on every fold (refreshReviewBanner in PAGES.home).
+     A row with no figure of its own — a greyed context signpost, a deck still to be downloaded — is walked
+     THROUGH whether or not it is folded: it displays nothing the banner could count, so what stands for it
+     is the rows under it, which is what its own fold hides. Nothing is counted twice: a row is added only
+     where the walk stops, and it stops at the first row down each branch that is drawn with counts. */
+  let adRows = [];   // { drag, parent, review, kids } per row, in list order — written by the list's build
   function listPiles() {
-    const active = activeEntryIds(), activeSet = new Set(active);
-    const top = [], taken = new Set();
-    active.forEach((id) => {
-      const lc = langCtxOf(id), key = lc || id;
-      if (taken.has(key)) return;
-      if (!lc) {
-        const np = nestParentOf(id);
-        if (np && activeSet.has(np)) return;
-        let n = NODE_BY_ID[id];
-        while (n && n.parentId) { if (activeSet.has(n.parentId)) return; n = NODE_BY_ID[n.parentId]; }
-      }
-      taken.add(key); top.push(key);
-    });
     const out = { nw: 0, lr: 0, rv: 0, ids: [] };
-    top.forEach((id) => {
+    const add = (id) => {
       const p = entryPiles(id);
       out.nw += p.nw; out.lr += p.lr; out.rv += p.rv;
       if (p.ids) p.ids.forEach((c) => out.ids.push(c));
-    });
+    };
+    const under = new Map();
+    adRows.forEach((r) => { const k = r.parent || ""; if (!under.has(k)) under.set(k, []); under.get(k).push(r); });
+    const walk = (r, hops) => {
+      if (hops > 64) return;   // a cycle out of an older save draws a wrong total rather than hanging the page
+      if (r.review && !(r.kids && adOpen.has(r.drag))) { add(r.review); return; }
+      (under.get(r.drag) || []).forEach((c) => walk(c, hops + 1));
+    };
+    (under.get("") || []).forEach((r) => walk(r, 0));
     return out;
   }
   /* What the DAILY REVIEW still has left of its own new-card allowance. It is the same derivation the decks
@@ -23546,6 +23549,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (chev) {
         const open = adOpen.has(el.dataset.drag);
         chev.classList.toggle("open", open);
+        el.classList.toggle("dk-open", open);   // an unfolded container hides its own counts (styles.css)
         chev.setAttribute("aria-expanded", open ? "true" : "false");
         const label = t(open ? "Hide the decks inside" : "Show the decks inside");
         chev.setAttribute("aria-label", label);
@@ -24123,9 +24127,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        under it (listPiles), not the pooled review's capped draw. The banner starts nothing now, so what it
        states is what the list still holds for today, and `pile.ids` is the cards behind the figures, for
        the estimate and the preview. A LEARNING card counts from the moment it is answered wrong until it
-       graduates, whether or not its step has come round — entryPiles has always read it that way. */
-    const pile = listPiles();
-    const pileN = pile.nw + pile.lr + pile.rv;
+       graduates, whether or not its step has come round — entryPiles has always read it that way.
+       …and since the banner counts the rows AS FOLDED (listPiles), `pile` is read below, once `activeHTML`
+       has built the list and seeded its fold — see the line after that build. */
     const activeIds = activeEntryIds();
     /* A DECK FINISHED FOR THE DAY GOES GREEN, AND GOLD IF NOTHING WAS MISSED (Sep 2026, on request:
        "when an active deck has been completed for the day, (i.e. no new/review cards remaining), it
@@ -24438,6 +24442,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const drawn = new Set(rows.map((r) => r.drag));
       const hasKids = new Set();
       rows.forEach((r) => { if (r.parent && drawn.has(r.parent)) hasKids.add(r.parent); });
+      /* …and the shape of the list for the banner's sum (listPiles): each row's fold key, its container,
+         the entry its counts are read from — the same id its `data-review` carries, "" for a context or
+         pending row that shows none — and whether anything is drawn under it. */
+      const reviewIdOf = (r) => (r.pending ? "" : r.active ? r.node.id : (r.langhead || r.group || r.flat) ? r.drag : "");
+      adRows = rows.map((r) => ({ drag: r.drag, parent: r.parent || "", review: reviewIdOf(r), kids: hasKids.has(r.drag) }));
       /* The grip used to be drawn only where a level held a second row to trade places with. Since a row can
          be dropped INTO a group or another deck (Aug 2026) that test is too narrow: the only row in its
          level still has somewhere to go, and without a handle there is no way to take it there. So it is
@@ -24510,6 +24519,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
           // collapse in the reader's face on every visit to the page
           const shut = adChainVisible(r.parent, parentOf, drawn) ? "" : " dk-shut";
+          /* AN UNFOLDED CONTAINER SHOWS NO COUNTS OF ITS OWN (Oct 2026, on request: "when an active
+             collection is unfolded, the collection's three numbers should no longer be displayed, only the
+             decks within it"). The rows inside it carry theirs, and the banner above sums whichever is on
+             screen (listPiles). Rendered on the row here and kept in step by adSyncFold on every fold; the
+             counts are still built, so folding it back shows them without a rebuild. */
+          const open = hasKids.has(r.drag) && adOpen.has(r.drag) ? " dk-open" : "";
           // a row with nothing to fold still reserves the chevron's width, or the progress bars either side
           // of a leaf deck would stop at two different places and the list's right edge would go ragged
           const chev = hasKids.has(r.drag) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
@@ -24542,7 +24557,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              row would have opened the sheet twice. (The earlier fix that walk was written for still
              stands: holding it must do something, and now it does what holding every other row does.) */
           if (r.langhead) {
-            return `<div class="active-deck dk-langhead${shut}${day.cls}"${nodeAttr} data-review="${esc(r.drag)}" role="button" tabindex="0" title="Study everything in ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+            return `<div class="active-deck dk-langhead${shut}${open}${day.cls}"${nodeAttr} data-review="${esc(r.drag)}" role="button" tabindex="0" title="Study everything in ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
               ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
@@ -24568,7 +24583,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              answer the same question two different ways. What still marks it as a header is the wash and the
              deeper indent of the rows beneath it. */
           if (r.group) {
-            return `<div class="active-deck deck-group${shut}${day.cls}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Study everything in ${esc(title)}">
+            return `<div class="active-deck deck-group${shut}${open}${day.cls}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Study everything in ${esc(title)}">
               ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
@@ -24609,7 +24624,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                taking that away to advertise an update would be the worse trade. The button stops its own
                press, like Download's, or holding it would open the options sheet over the fetch. */
             const up = r.update ? `<button class="btn tiny dk-dl dk-up" type="button" data-langup="${esc(r.update)}" title="A newer copy of this deck has been published. Updating keeps your progress.">Update</button>` : "";
-            return `<div class="active-deck${r.coll ? " dk-coll" : ""}${shut}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
+            return `<div class="active-deck${r.coll ? " dk-coll" : ""}${shut}${open}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
               ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
@@ -24622,7 +24637,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             </div>`;
           }
           if (r.active) {
-            return `<div class="active-deck${shut}${day.cls}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(r.node.title)}">
+            return `<div class="active-deck${shut}${open}${day.cls}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(r.node.title)}">
               ${grip}${day.mark}
               ${adIcon(r.node.id, r.parent)}
               ${day.counts}
@@ -24644,6 +24659,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         })
         .join("");
     })();
+    // the banner's three piles, read now that the list above has been built and its fold seeded (see listPiles)
+    const pile = listPiles();
+    const pileN = pile.nw + pile.lr + pile.rv;
     const greeting = (() => {
       const h = new Date().getHours();
       return h < 5 ? "Late night" : h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
@@ -24882,8 +24900,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // is still open, the full bronze fill once it's cleared (something was studied today and nothing is left
     // due or new), and the same shining gold as a perfect game when every card today was right on the first try.
     const rday = reviewDayRec();
-    const reviewDone = !!rday && pileN === 0;
-    const reviewWon = reviewDone && rday.miss === 0;
+    /* …read from a PILE rather than from `pileN` alone, because a fold redraws the banner with a fresh one
+       (refreshReviewBanner below) and the done / won reading has to move with the figures it is read from. */
+    const rvState = (p) => {
+      const n = p.nw + p.lr + p.rv, done = !!rday && n === 0;
+      return { n: n, done: done, won: done && rday.miss === 0 };
+    };
+    const reviewDone = rvState(pile).done;
+    const reviewWon = rvState(pile).won;
     // first-run hero: one sentence of purpose and a single way in — the normal banner takes over after the first card
     const bannerHTML = fresh
       ? `<button class="banner rv-banner hero" id="b-review" style="--tile:${esc(reviewHue())}">
@@ -24910,8 +24934,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          button, being a first-time visitor's one way in. The tab stop and the role are for the options sheet
          it still opens on a hold, a right-click or the context-menu key (wireHoldMenu below): the review's
          order, limits, Skip today and colour live nowhere else, and a keyboard needs a way to them. */
-      : `<div class="banner rv-banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" role="group" aria-label="${REVIEW_TITLE}" tabindex="0" style="--tile:${esc(reviewHue())}">
-          ${doneMarkHTML(reviewDone, reviewWon)}
+      : `<div class="banner rv-banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" role="group" aria-label="${REVIEW_TITLE}" tabindex="0" style="--tile:${esc(reviewHue())}">${rvBannerInner(pile)}</div>`;
+    /* THE BANNER REDRAWS WHEN A ROW IS FOLDED (Oct 2026, on request): its figures are the figures on screen
+       (listPiles), and a fold changes which those are without rebuilding the page. The element itself is
+       kept — its hold menu is wired on it and the tour points at it — and only what is inside is replaced.
+       The level bar is set to its width at once rather than through animateProgs: nothing about it changed,
+       and a bar filling from empty on every chevron would say that something had. */
+    function refreshReviewBanner() {
+      const rb = root.querySelector("#b-review"), rg = root.querySelector(".review-group");
+      if (!rb || rb.classList.contains("hero")) return;
+      const p = listPiles(), st = rvState(p);
+      rb.innerHTML = rvBannerInner(p);
+      rb.querySelectorAll(".xp[data-pct]").forEach((x) => { const f = x.querySelector(".xp-fill"); if (f) f.style.width = x.dataset.pct + "%"; });
+      rb.classList.toggle("done", st.done); rb.classList.toggle("won", st.won);
+      if (rg) { rg.classList.toggle("rv-done", st.done); rg.classList.toggle("rv-won", st.won); }
+    }
+    function rvBannerInner(pile) {
+      const pileN = pile.nw + pile.lr + pile.rv, st = rvState(pile);
+      return `${doneMarkHTML(st.done, st.won)}
           ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
                 carried the day's whole pile and nothing on the banner said so — the three counts below it
                 already break the same total into New / Learning / Review, which is the answer a reader is
@@ -24968,8 +25008,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   control inside a button had to be a `role="button"` span the banner's own handler deferred
                   to. */""}
           </div>
-          ${reviewPreviewHTML(pile.ids)}
-        </div>`;
+          ${reviewPreviewHTML(pile.ids)}`;
+    }
     /* THE WAY TO THE COLLECTIONS IS A BUTTON OF ITS OWN, STANDING UNDER THE REVIEW GROUP (Aug 2026, on
        request). It has been three things: a full-width banner, then a small "+ Add decks" tab hanging off
        the BOTTOM EDGE of the group (`.rv-lip`), and now an unattached button below it. The lip said two
@@ -25415,6 +25455,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           adFoldSet(id, open);   // the reader's own answer, and the one thing a reload must not undo
           const before = new Set([...adList.querySelectorAll(".active-deck[data-node]:not(.dk-shut)")]);
           adSyncFold(adList);
+          refreshReviewBanner();   // the figures on screen have changed, so the banner's sum has
           if (open) {
             adList.querySelectorAll(".active-deck[data-node]:not(.dk-shut)").forEach((el) => {
               if (before.has(el)) return;

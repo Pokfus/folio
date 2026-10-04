@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.964", released: "2026-10-04T21:51Z" };
+window.FOLIO_VERSION = { v: "1.966", released: "2026-10-04T23:11Z" };
 
 window.CHANGELOG = [
   {
@@ -56,7 +56,8 @@ window.CHANGELOG = [
       "<b>A hundred more World History cards are rewritten</b>, from Persia through Greece, Rome and Ancient India to early China, with more sources and corrected dates.",
       "<b>A hundred Ancient Rome cards are rewritten</b>, in Italy before Rome, Rome under the kings and the early Republic, with more sources, corrected dates and legend told as legend.",
       "<b>Daily study banner</b>: no Start button and nothing to press; its counts and time estimate now total what every active collection still has left today.",
-      "<b>Card preview on tablets</b>: the fanned cards beside the banner stay on narrower tablets and follow the whole list\u2019s pile; on a phone the estimate has a line of its own.",
+      "<b>Unfolded collections show no counts of their own</b>: only the decks inside carry them, and the daily study banner now totals just the rows you can see.",
+      "<b>Card preview</b>: the fanned cards beside the daily study banner are now shown on desktop only; on a tablet the banner's level bar and figures spread across the full width instead.",
       "<b>Time at the desk</b>: the Today and This week times on the home page no longer reset part-way through a study day when your account syncs.",
       "<b>Unfolded collections in dark mode</b>: the decks inside now join their collection with straight edges, as in daylight; only the collection\u2019s top and the last deck\u2019s bottom are rounded.",
       "<b>Download buttons on phones</b>: a language\u2019s Download all now sits on its own line under the name and counts, and each deck\u2019s Download moves right into the spare space.",
