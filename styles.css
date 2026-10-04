@@ -10172,10 +10172,8 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .review-group .active-deck{padding-right:12px; gap:10px;}
   .review-group .active-deck .dk-counts{grid-template-columns:repeat(3, 28px);}
   .review-group .active-deck .dkc{height:26px; font-size:calc(12px * var(--fs));}
-  .review-group .active-deck .dk-prog .track{top:auto; height:5px;}
-  .review-group .active-deck .dk-prog .fill-l{border-right:0; background:var(--dk-accent); border-radius:0 3px 3px 0;}
-  /* the studied share is a bar here too, and at the row tint's 7% it vanished against the card (Oct 2026, on request) */
-  .review-group .active-deck .dk-prog .fill{background:color-mix(in srgb, var(--dk-accent) 30%, transparent);}
+  /* the progress is the same full-row tint as on a tablet or desktop (Oct 2026, on request) — the phone's own
+     5px bar along the row's foot is gone */
   /* an unfolded collection and its subdecks are ONE tight block (Oct 2026, on request — see `dk-att` in
      adSyncFold): no gap and no corners between them, one hairline as the divider (the -9px is the grid's
      8px gap plus the 1px border the two rows would otherwise double), and a little extra room under the
