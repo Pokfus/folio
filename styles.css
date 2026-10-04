@@ -9968,6 +9968,17 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-deck, body.night .review-group .active-deck, .review-group .active-deck:last-child, .review-group .active-deck.dk-last{
   background:var(--card); border:1px solid var(--rule); border-left:4px solid var(--dk-accent); border-radius:12px; padding-top:12px; padding-bottom:12px; padding-right:16px; gap:14px; animation:none;
 }
+/* AN UNFOLDED COLLECTION AND ITS SUBDECKS ARE ONE TIGHT BLOCK (Oct 2026, on request — see `dk-att` in
+   adSyncFold): no gap and no corners between them, one hairline as the divider (the -9px is the grid's 8px
+   gap plus the 1px border the two rows would otherwise double), and a little extra room under the last
+   subdeck so the next collection reads as the next thing rather than a part of this one. It was written in
+   the phone block first and moved here for every width ("this should also be the case on desktop and
+   tablet"); it stands AFTER the row rule above, which re-rounds `.dk-last` and `:last-child` at the same specificity,
+   and the `.dk-last` pairs outrank it besides — a deck row that is both the last visible row and attached
+   keeps only its bottom corners. */
+.review-group .active-deck.dk-att, .review-group .active-deck.dk-last.dk-att{margin-top:-9px; border-top-left-radius:0; border-top-right-radius:0;}
+.review-group .active-deck.dk-cont, .review-group .active-deck.dk-last.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
+.review-group .active-deck.dk-att:not(.dk-cont){margin-bottom:6px;}
 /* a GROUP's header row is shorter than the rows under it and painted in a deeper wash of its colour */
 .review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
 .review-group .active-deck > :not(.dk-body):not(.dk-grip):not(.gt-check):not(.gt-seal){position:relative; z-index:1;}
@@ -10174,13 +10185,8 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .review-group .active-deck .dkc{height:26px; font-size:calc(12px * var(--fs));}
   /* the progress is the same full-row tint as on a tablet or desktop (Oct 2026, on request) — the phone's own
      5px bar along the row's foot is gone */
-  /* an unfolded collection and its subdecks are ONE tight block (Oct 2026, on request — see `dk-att` in
-     adSyncFold): no gap and no corners between them, one hairline as the divider (the -9px is the grid's
-     8px gap plus the 1px border the two rows would otherwise double), and a little extra room under the
-     last subdeck so the next collection reads as the next thing rather than a part of this one */
-  .review-group .active-deck.dk-att{margin-top:-9px; border-top-left-radius:0; border-top-right-radius:0;}
-  .review-group .active-deck.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
-  .review-group .active-deck.dk-att:not(.dk-cont){margin-bottom:6px;}
+  /* an unfolded collection and its subdecks are one tight block here as at every width — the `dk-att` rules
+     by `.review-group .active-decks` (Oct 2026, on request: "this should also be the case on desktop and tablet") */
   .games-sec .game-grid{grid-template-columns:1fr;}
   .home-two{grid-template-columns:1fr;}
   .home-foot{justify-content:center; text-align:center;}

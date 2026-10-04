@@ -4658,9 +4658,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     round-robin, each subdeck a day behind the last**, so a two-way deck asks the reverse the NEXT day rather
     than a second later. **Except Ordered on Folio's own collections (Oct 2026, on request), which is FRONT TO
     BACK** — one subdeck finished before the next; community and language decks keep the robin under every order.
-  · **AN UNFOLDED COLLECTION IS ONE TIGHT BLOCK ON A PHONE** (Oct 2026, on request): `adSyncFold` marks visible
-    rows `dk-att` (depth > 0, joined to the row above) and `dk-cont` (the block continues below); the CSS is in
-    the ≤640px block by `.review-group`.
+  · **AN UNFOLDED COLLECTION IS ONE TIGHT BLOCK AT EVERY WIDTH** (Oct 2026, on request — a phone first, then
+    "this should also be the case on desktop and tablet"): `adSyncFold` marks visible rows `dk-att` (depth > 0,
+    joined to the row above) and `dk-cont` (the block continues below); the CSS is by `.review-group
+    .active-decks`, after the row rule that re-rounds `.dk-last`.
   · **THE ROW IS ONE LINE, WEARS ITS COLLECTION'S HUE, AND IS DRAGGED INTO THE READER'S OWN ORDER**
     (`S.deckOrder`, per level, keyed by parent). Holding it opens the sheet — Custom study, Daily limits,
     Scheduling, Skip today, Colour, Icon, Remove. **NEVER NAME A CLASS `ad-…`**: `.ad-body` and `.ad-title`
@@ -4733,7 +4734,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     deliberately: it is an arrangement holding decks from anywhere, so a figure on it would cap several
     collections at once from a row that names none of them.
   · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND IT IS STUDIED AND REMOVED LIKE ANY OTHER**
-    (`langCtxId`, `.dk-langhead`, `data-langhead`). It claims cards — `entryCardIds` unions its members,
+    (`langCtxId`, `.dk-langhead`, `data-langhead`). **It seeds SHUT, like a collection and like a community
+    deck with subdecks (Oct 2026, on request), and while EVERY deck under it is still to be fetched it carries
+    `Download all <size>` (`[data-langdlall]`, `data-decks`)**, which runs the per-row `langDeckDownload` over
+    the decks one after another and repaints once at the end, so the button and its deck-counting bar survive
+    the first file landing. It claims cards — `entryCardIds` unions its members,
     which is what draws its pile counts and its bar — and **a row that claims cards and refuses to deal them
     is the only one on the list that does**, so it carries `data-review` and takes the generic
     tap-studies / hold-opens-the-options pair. **It studies as a GROUP, not as a deck** (`entryScope`), both

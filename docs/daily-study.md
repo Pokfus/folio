@@ -291,7 +291,12 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
     **THE FOLD NOW WALKS THE CONTAINER CHAIN, NOT THE TREE** (`adChainVisible`, and `adSyncFold` reading
     `data-parent`/`data-drag` off the DOM). It used to walk `node.parentId`, which stopped being the whole
     answer the moment a row could be drawn somewhere the tree does not put it. A group seeds OPEN where an
-    added collection seeds shut: the reader has just built it and put things in it.
+    added collection seeds shut: the reader has just built it and put things in it. **A LANGUAGE CONTAINER
+    AND A COMMUNITY DECK WITH SUBDECKS SEED SHUT TOO** (Oct 2026, on request: "language and community
+    collections should by default appear collapsed in the active decks list, like the other collections
+    already do") — both used to seed open, the language because it lay above everything the reader added and
+    an own deck because its subdecks are the reason it has rows; a fold the reader sets is remembered
+    (`adFoldSet`) and still beats the default.
     **UNGROUP DISSOLVES, IT DOES NOT DELETE.** The members are freed to the level the group stood at, keeping
     the order they had inside it — losing a deck because you tidied a container away is the one outcome a
     grouping feature must never produce — and `removeActive` re-homes a container's children one level up for

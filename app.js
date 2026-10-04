@@ -23508,11 +23508,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     [...listEl.children].forEach((el) => { if (el.classList.contains("active-deck") && !el.classList.contains("dk-shut")) last = el; });
     listEl.querySelectorAll(".dk-last").forEach((el) => el.classList.remove("dk-last"));
     if (last) last.classList.add("dk-last");
-    /* AN UNFOLDED COLLECTION IS ONE BLOCK (Oct 2026, on request): on a phone its subdecks attach to it as
-       a tight list — the top row rounded above, the last subdeck rounded below, nothing in between — so
-       they read as INSIDE it rather than as more collections. `dk-att` is a row of depth > 0, joined to
-       the row above it; `dk-cont` is a row the block continues below. Read off the visible rows in order,
-       for the reason `dk-last` is. The CSS is in the phone block of styles.css, by `.review-group`. */
+    /* AN UNFOLDED COLLECTION IS ONE BLOCK (Oct 2026, on request): its subdecks attach to it as a tight
+       list — the top row rounded above, the last subdeck rounded below, nothing in between — so they read
+       as INSIDE it rather than as more collections. `dk-att` is a row of depth > 0, joined to the row above
+       it; `dk-cont` is a row the block continues below. Read off the visible rows in order, for the reason
+       `dk-last` is. It was the phone's alone at first and is every width's since (Oct 2026, on request:
+       "this should also be the case on desktop and tablet"); the CSS is by `.review-group .active-decks`
+       in styles.css. */
     const vis = [...listEl.children].filter((el) => el.classList.contains("active-deck") && !el.classList.contains("dk-shut"));
     const depth = (el) => (el ? +el.dataset.depth || 0 : 0);
     vis.forEach((el, i) => {
@@ -24171,7 +24173,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const members = (langCtx.get(id) || []).filter((e) => !nestParentOf(e));
           const kids = members.concat(kidsOf(id));
           const h = groupColor(id) || langCtxHue(id) || hue;
-          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids });
+          /* WHEN EVERY DECK UNDER IT IS STILL TO BE DOWNLOADED, THE LANGUAGE ROW OFFERS TO FETCH THEM ALL
+             (Oct 2026, on request: "when all decks in an active collection need to be downloaded, the
+             collection itself should also display a download button which downloads every deck within it
+             at once"). The decks are collected by DECK id, once each, however many entries of a deck the
+             reader holds; the button carries the sum of the catalogue's sizes, as each row's own does. A
+             container with one deck already here offers nothing — the remaining rows have their own button. */
+          const dlAll = [], dlSeen = new Set();
+          let dlBytes = 0, dlEvery = kids.length > 0;
+          kids.forEach((e) => {
+            const dId = uDeckIdOf(e), cat = dId && !UDECKS[dId] && entryPending(e) ? langCatalogById(dId) : null;
+            if (!cat) { dlEvery = false; return; }
+            if (dlSeen.has(dId)) return;
+            dlSeen.add(dId); dlAll.push(dId); dlBytes += cat.bytes || 0;
+          });
+          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids,
+                      dlAll: dlEvery ? dlAll : [], dlBytes });
           orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
           return;
         }
@@ -24373,11 +24390,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         /* An added deck of the reader's OWN opens: its subdecks are the reason it has rows at all, and a
            deck that swallows them the moment it is added is exactly what this was reported as. A curated
            collection still starts shut — those run to forty-odd rows, where a deck's subdecks are a handful. */
-        const ownDeck = r.flat && UDECKS[uDeckIdOf(r.flat)] && !uSubOf(r.flat);
-        /* A LANGUAGE container starts OPEN, which is what `seedOpen` would say of it if it had a node to
-           be asked about: it lies entirely above everything the reader added — they added the decks, not
-           the language — so folding it would hide their own choice behind a row they cannot even tap. */
-        if (isGroupId(r.drag) || isLangCtxId(r.drag) || ownDeck || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
+        /* A LANGUAGE container and an added deck of the reader's own — a community deck with subdecks —
+           start SHUT, like a curated collection (Oct 2026, on request: "language and community collections
+           should by default appear collapsed in the active decks list, like the other collections already
+           do"). Both used to start open: the language because it lies above everything the reader added,
+           an own deck because its subdecks are the reason it has rows at all. The reader's one tap on the
+           chevron is remembered (`adFoldSet`), so a container they want open stays open. A GROUP still
+           starts open — they have just built it and put things in it. */
+        if (isGroupId(r.drag) || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
       });
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
@@ -24456,6 +24476,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
+              ${r.dlAll && r.dlAll.length
+                /* every deck of the language is still to be fetched: one button for the lot (see the row builder),
+                   wired by `[data-langdlall]` beside the per-deck `[data-langdl]` */
+                ? `<button class="btn tiny dk-dl" type="button" data-langdlall="${esc(r.drag)}" data-decks="${esc(r.dlAll.join(" "))}">Download all ${esc(fmtDeckSize(r.dlBytes))}</button>`
+                : ""}
               ${chev}
             </div>`;
           }
@@ -25193,6 +25218,49 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (ins.error) { toast(ins.error); back(); return; }
         toast("Downloaded — " + got.row.title);   // toast sets textContent, so the title is not escaped here
         renderInPlace();   // the reader is standing on this list: the row turns into the deck under them
+      });
+    });
+    /* EVERY DECK OF A LANGUAGE IN ONE PRESS (Oct 2026, on request) — the button the language's own row
+       carries while all of its decks are still to be fetched (see the row builder). The decks are fetched
+       ONE AFTER ANOTHER through the same `langDeckDownload` each row's button uses, so a deck arriving this
+       way is in every respect the deck that would have arrived from its own row — same import, same
+       `langRev`, same cascade of subdeck entries. The page is repainted ONCE, after the last of them, rather
+       than once per deck through `uImportDone`: that repaint rebuilds this very list and would take the
+       button, and the bar in it, away under the reader after the first file. The bar counts decks as well as
+       bytes ("2/5 · 40%"), each deck's own percentage filling its share of the whole. A deck that fails is
+       reported and the rest still land; its row keeps its own button for another try. */
+    root.querySelectorAll("[data-langdlall]").forEach((b) => {
+      b.addEventListener("pointerdown", (e) => e.stopPropagation());
+      b.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        if (b.disabled) return;
+        const ids = String(b.dataset.decks || "").split(" ").filter(Boolean);
+        if (!ids.length) return;
+        b.disabled = true;
+        const was = b.textContent;
+        b.classList.add("dk-dl-busy");
+        b.innerHTML = '<span class="dkdl-t">Downloading…</span><i class="dkdl-fill" style="width:0%"></i>';
+        const fill = b.querySelector(".dkdl-fill"), lab = b.querySelector(".dkdl-t");
+        const saves = [], failed = [];
+        let got = 0;
+        for (let i = 0; i < ids.length; i++) {
+          const r = await langDeckDownload(ids[i], (have, total) => {
+            if (!b.isConnected) return;
+            const part = total > 0 ? Math.min(1, have / total) : 0;   // this file's share, or none where the server sends no length
+            fill.style.width = (((i + part) / ids.length) * 100).toFixed(1) + "%";
+            lab.textContent = (i + 1) + "/" + ids.length + (total > 0 ? " · " + Math.round(part * 100) + "%" : "");
+          });
+          if (r.error) failed.push(r.error);
+          else { got++; if (r.saved) saves.push(r.saved); }
+        }
+        if (!got) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; toast(failed[0] || "Those decks couldn't be read."); return; }
+        renderInPlace();   // the reader is standing on this list: the rows turn into the decks under them
+        if (saves.length) {
+          const slow = setTimeout(() => toast("Saving the decks to this device…"), 400);
+          await Promise.all(saves);
+          clearTimeout(slow);
+        }
+        toast(failed.length ? "Downloaded " + got + " of " + ids.length + " decks — " + failed[0] : "Downloaded " + got + (got === 1 ? " deck" : " decks"));
       });
     });
     /* THE SAME BUTTON, FETCHING THE SAME FILE, FOR A DECK ALREADY HERE (Sep 2026, on the 蛋糕 report).
