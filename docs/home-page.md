@@ -318,10 +318,15 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   side is a **preview of the next three cards** (`reviewPreviewHTML`) rather than a glyph. **Since Oct 2026
   (on request) the banner is a `<div>` with no Start button and no click** — it states the day, and the
   rows under it start the sessions (the pooled `{type:"review"}` session has no route any more). Its
-  three piles, the estimate and the preview read **`listPiles()`**: the sum of the list's TOP-LEVEL rows
+  three piles, the estimate and the preview read **`listPiles()`**: the sum of the rows the reader can SEE
   (`entryPiles`, which now also hands back the card ids behind its counts), not the pooled draw of
-  `reviewQueue` — a container's row already counts its subtree under its own allowance, and a language's
-  decks are read once through the language's container. The hold / right-click / context-menu-key sheet
+  `reviewQueue`. **Since Oct 2026 (on request) an UNFOLDED container shows no counts of its own** (`dk-open`,
+  set by the build and by `adSyncFold`) and the rows inside it carry theirs — so `listPiles` walks `adRows`,
+  the shape the list was last built in, and stops at the first row down each branch that is drawn with
+  counts: a folded container once (its row counts its subtree under its own allowance), or each row under
+  an open one. A context or pending row shows nothing and is walked through whatever its fold. It is read
+  AFTER the list is built (the fold is seeded there) and the chevron redraws the banner's inside in place
+  (`refreshReviewBanner`, keeping the element its hold menu is wired on). The hold / right-click / context-menu-key sheet
   stays (`wireHoldMenu`), which is why the div keeps a tab stop and a `group` role. On a phone the
   estimate is a line of its own under the three piles; between 641 and 719px the preview now stays, at a
   32px title and a tighter fan.

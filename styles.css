@@ -10027,6 +10027,10 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-deck .dk-counts{display:inline-grid; grid-template-columns:repeat(3, 32px); gap:4px; min-width:0;}
 /* a deck finished for the day shows its tick and nothing to count (Oct 2026, on request) */
 .review-group .active-deck.dk-done .dk-counts{display:none;}
+/* …and an UNFOLDED container shows no counts of its own (Oct 2026, on request): the rows drawn inside it
+   carry theirs, and the banner above sums whichever is on screen. `dk-open` is set by the list's build and
+   kept in step by adSyncFold on every fold. */
+.review-group .active-deck.dk-open .dk-counts{display:none;}
 /* the three piles are COLOURED FIGURES, not colour boxes (Oct 2026, on request: "remove the boxes and make
    the numbers themselves coloured") — the same blue / red / green, now on the figure; a zero stays grey */
 .review-group .active-deck .dkc{display:grid; place-content:center; height:28px; font-family:var(--mono); font-size:calc(14px * var(--fs)); font-weight:700; background:none;}
