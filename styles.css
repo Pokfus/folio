@@ -9896,7 +9896,7 @@ body[data-theme="carnelian"].night .collection-deco{
    page does not draw. The parts, in page order:
      · the study banner (`.rv-banner`): deep indigo in both themes, "N cards" in rose, the three piles in
        their own colours plus the estimate, and the top three cards of the list's pile fanned beside it
-       (`.rv-preview`, desktop and tablet only). The Start button and the click went in Oct 2026, on request:
+       (`.rv-preview`, desktop only since Oct 2026). The Start button and the click went in Oct 2026, on request:
        the banner states the day and the rows under it start the sessions;
      · the streak ribbon (`.streak-ribbon`): the run in weeks, each ending in its chest;
      · the collections header (`.rv-sec-h`) with the legend (the "+ Add decks" link stood at its right
@@ -10178,30 +10178,19 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .sr-chest .chest-svg{transform:translateY(-5%);}
 }
 @media (max-width:1024px){
-  .rv-preview{width:260px; height:180px;}
   .games-sec .game-grid{grid-template-columns:repeat(2, 1fr);}
 }
-/* A NARROW TABLET DROPS THE FANNED PREVIEW (Oct 2026, on request): beside it the piles and the estimate ran
-   under the cards, "≈ 1 h 9 min" cut off at the edge. The piles keep their own width.
-   …AND A PORTRAIT TABLET HAS IT BACK (Oct 2026, on request: "a large empty space on the right … put the card
-   preview there"). The overlap came from a FIXED 260px beside a column that would not shrink; here the text
-   column keeps its natural width and the preview takes what is left, between 150px and 240px, so it can
-   never run under the piles. Below 720px there is no 150px left over and it stays hidden. */
-@media (min-width:641px) and (max-width:900px){
-  .page .rv-banner .body{flex:0 1 auto;}
-  .rv-preview{flex:1 1 0; width:auto; min-width:150px; max-width:240px; height:170px; margin:0 auto;}
-  .pv-card{padding:14px 15px;}
-  .pv-card p{font-size:13.5px;}
-}
-/* …AND IT STAYS DOWN TO 641px NOW THAT THE START BUTTON IS GONE (Oct 2026, on a report that the preview had
-   "just disappeared" on a tablet): the title steps down to the phone's 32px and the fan gives up most of its
-   side padding, so a 650px banner holds both without the piles running under the cards. */
-@media (min-width:641px) and (max-width:719px){
-  .page .rv-banner h2.review-title{font-size:calc(32px * var(--fs));}
-  .rv-preview{min-width:120px; padding:0 12px 0 28px;}
-  .pv-card{left:28px; right:12px;}
-  .page .rv-banner .meta{gap:0 16px;}
-  .page .rv-banner .stat.st-est{padding-left:16px;}
+/* A TABLET DRAWS NO FANNED PREVIEW (Oct 2026, on request: "remove the card preview from the daily study banner
+   on tablet format and reorganise the remaining contents accordingly"). It had gone from a narrow tablet, come
+   back on a portrait one, and then stayed down to 641px at a smaller title and a tighter fan; it is the
+   desktop's alone now, and the rules that squeezed the title, the piles and the estimate in beside it went
+   with it. What is left is laid out for the whole width: the text column takes the banner, and the level bar
+   and the four figures spread across it rather than huddling at the left of an empty row. */
+@media (min-width:641px) and (max-width:1024px){
+  .rv-preview{display:none;}
+  .page .rv-banner > .body, .page .rv-banner:has(> .rv-preview) > .body{flex:1 1 auto;}
+  .page .rv-banner .rv-stack{width:100%; grid-template-columns:minmax(0, 1fr);}
+  .page .rv-banner .meta{width:100%; justify-content:space-between;}
 }
 @media (max-width:640px){
   .page .rv-banner, .page .rv-banner:hover{padding:22px 20px; border-radius:16px; flex-direction:column; align-items:stretch;}

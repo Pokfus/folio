@@ -328,8 +328,10 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   AFTER the list is built (the fold is seeded there) and the chevron redraws the banner's inside in place
   (`refreshReviewBanner`, keeping the element its hold menu is wired on). The hold / right-click / context-menu-key sheet
   stays (`wireHoldMenu`), which is why the div keeps a tab stop and a `group` role. On a phone the
-  estimate is a line of its own under the three piles; between 641 and 719px the preview now stays, at a
-  32px title and a tighter fan.
+  estimate is a line of its own under the three piles. **The preview is the desktop's alone (min-width 1025px)
+  since Oct 2026, on request**: a tablet (641–1024px) hides it and lays the rest out for the whole width —
+  the text column takes the banner, and the level bar and the four figures spread across it (the stack and
+  the meta row at 100%, `justify-content:space-between`).
 - **The streak ribbon** (`streakRibbonHTML`) sits under the banner on every non-fresh page: a 3-column
   grid at every width (a flex row wrapped at desktop and looked broken), drawing **the current week
   only, at every width** (Oct 2026, on request), with its **chest cell at the end**
