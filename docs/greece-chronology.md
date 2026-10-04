@@ -160,7 +160,7 @@ and each card's prose gives both ends, with the 1540 BCE end resting on Rutter's
 | Orientalising | the end of the 8th century BCE through the 7th (corrected by B35, `gr-322`: no reachable source gives the old c. 720 – 620 BCE, so the card's line is empty and its prose says the centuries) |
 | Archaic period | c. 800 – 479 BCE; the older start 700 BCE (corrected by B35, `gr-321`: its histories end at 479 BCE, the year of Plataea and Mycale; from 776 BCE where a card counts from the first Olympiad) |
 | First Olympic Games (traditional) | 776 BCE |
-| Classical period | 480 – 323 BCE |
+| Classical period | 480 – 323 BCE (confirmed by B62, `gr-586`: some histories start at 479 BCE, and one ends it at Philip's murder in 336 BCE, both in prose only) |
 | Hellenistic period | 323 – 31 BCE |
 
 ## The Early Iron Age (confirmed by B11–B18, `gr-111` – `gr-170`)
@@ -587,6 +587,26 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Thirty Tyrants; Critias | ruled 404 – 403 BCE, about 8 months; Critias killed at Munychia 403 BCE | Xenophon, *Hellenica* 2.3–4; *Constitution of the Athenians* 34–38 (`gr-581`, `gr-582`) |
 | Thrasybulus | seized Phyle 404/403 BCE; moved the Theban alliance 395 BCE; killed at Aspendus 389 BCE (the glossary entry's 388 BCE wants correcting) | Nudell 2023; Brownson's note to Xenophon 4.8.30; Princeton Encyclopedia (`gr-583`) |
 | Munychia; the amnesty | Munychia 403 BCE (May 403 BCE in the IEP); the amnesty sworn 403 BCE, with Xenophon mentioning the oaths only after Eleusis was retaken in 401 BCE | Xenophon, *Hellenica* 2.4; *Constitution of the Athenians* 39–40 (`gr-584`, `gr-585`) |
+
+## Classical arts (confirmed by B62–B63, `gr-586` – `gr-600`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Classical period | 480 – 323 BCE; Early Classical 480 – 450 BCE in art history | Hansen's and Major's reviews; Greenland's review (`gr-586`) |
+| Greek tragedy | no line: a genre; *Frogs* 405 BCE; old tragedies restaged from 386 BCE; Lycurgus' statues and official texts after 338 BCE | Lambert's review of Hanink (`gr-587`) |
+| City Dionysia | begun in the third quarter of the 6th century BCE (one study, prose only); the Fasti's first preserved year 473/472 BCE | Delattre's review; Lambert's review of Millis and Olson (`gr-588`) |
+| Tragic chorus | no line: an institution; the chorus of the 4th century BCE (prose only) | Hanink's review of Jackson (`gr-589`) |
+| Thespis | first performed about 534 BCE on the Parian Marble; 536/535 – 533/532 BCE (the 61st Olympiad) in the Suda (two rows, each said whose); Peisistratus' tyranny from 561/560 BCE (prose only) | Palladini's and Martin's reviews; Suda On Line; Perrin's note to Plutarch, *Solon* 32 (`gr-590`) |
+| Aeschylus | born about 525/524 BCE (prose only); first competed 499 BCE; Marathon 490 BCE; first won 484 BCE; the surviving plays 472 – 458 BCE; died at Gela 456/455 BCE | Suda On Line and its notes; Hammond 1972; Smith's *Dictionary* (`gr-591`) |
+| *Oresteia* | produced 458 BCE | Smith's *Dictionary*; Hammond 1972; Halleran's review (`gr-592`) |
+| *Prometheus Bound* | 460 – 450 BCE if Aeschylus wrote it; 440 – 430 BCE on a stylometric study that denies him the play (two rows, each said whose) | Sutton 1983; Barrios-Lech's review of Manousakis (`gr-593`) |
+| *Seven Against Thebes* | produced 467 BCE | Stama's review (in Italian); Hammond 1972 (`gr-594`) |
+| Sophocles | born about 497 BCE (prose only); first won 468 BCE; hellenotamias 443/442 BCE; general 441/440 BCE; proboulos 413 BCE; died 406/405 BCE | Hammond 1988; Le Guen's review; Lendering, Livius; Hetrick's review (`gr-595`) |
+| *Oedipus Tyrannus* | no line: the 430s BCE on one edition, the 420s BCE on another (prose only) | Wallace's and Mahoney's reviews (`gr-596`; `gr-938` and `gr-939` still carry an unsourced "c. 429 BCE" row) |
+| *Antigone* | staged 442 – 441 BCE; a prize for old tragedies from 387/386 BCE | Jebb's introduction; Norwood; Gastaldi's review (in Spanish) (`gr-597`) |
+| *Ajax* | no line: undatable (probably the 440s BCE, prose only) | Norwood; Jebb (`gr-598`) |
+| *Philoctetes* | staged 409 BCE, first prize | Jebb's introduction (`gr-599`) |
+| Euripides | born 485 BCE on the Parian Marble, 480 BCE by the tradition (two rows); first staged 455 BCE; died 406 BCE | Norwood; Suda; Lendering, Livius (`gr-600`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -1159,4 +1179,15 @@ gr-582: 404; 403
 gr-583: 404; 395; 389
 gr-584: 403
 gr-585: 403; 401
+gr-586: 480; 323
+gr-588: 473
+gr-590: 534; 536; 533
+gr-591: 499; 490; 484; 456
+gr-592: 458
+gr-593: 460; 450; 440; 430
+gr-594: 467
+gr-595: 468; 441; 413; 406
+gr-597: 442; 441
+gr-599: 409
+gr-600: 485; 480; 455; 406
 ```

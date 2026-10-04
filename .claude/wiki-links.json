@@ -22956,17 +22956,11 @@
   },
   "gr-589": {
    "answer": "tragic chorus",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Greek chorus",
-    "Greek tragedy",
-    "Theatre of ancient Greece",
-    "Tragedy",
-    "Aeschylus"
-   ]
+   "title": "Greek chorus",
+   "url": "https://en.wikipedia.org/wiki/Greek_chorus",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-590": {
    "answer": "Thespis",
@@ -23021,10 +23015,11 @@
   },
   "gr-597": {
    "answer": "Antigone",
-   "title": "Antigone",
-   "url": "https://en.wikipedia.org/wiki/Antigone",
-   "via": "glossary",
-   "status": "ok"
+   "title": "Antigone (Sophocles play)",
+   "url": "https://en.wikipedia.org/wiki/Antigone_(Sophocles_play)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-598": {
    "answer": "Ajax",
@@ -23035,10 +23030,11 @@
   },
   "gr-599": {
    "answer": "Philoctetes",
-   "title": "Philoctetes",
-   "url": "https://en.wikipedia.org/wiki/Philoctetes",
-   "via": "glossary",
-   "status": "ok"
+   "title": "Philoctetes (Sophocles play)",
+   "url": "https://en.wikipedia.org/wiki/Philoctetes_(Sophocles_play)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-600": {
    "answer": "Euripides",

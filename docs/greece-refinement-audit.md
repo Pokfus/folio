@@ -156,7 +156,7 @@ carry a row stating a fact ("1 god, Heracles", "eight years after Salamis") rath
 
 | batch | what | state |
 |---|---|---|
-| A1 | language chips on non-English sources; the duplicate picture `gr-598`/`gr-950`; captions naming their source | open |
+| A1 | language chips on non-English sources; the duplicate picture `gr-598`/`gr-950` (resolved by B63: `gr-598` now shows an Etruscan vase); captions naming their source | open |
 | A2 | glossary backlog, starting with *Constitution of the Athenians* | open |
 | A3 | date lines reconciled against `docs/greece-chronology.md` | open |
 | A4 | missing locators | open |
@@ -231,8 +231,8 @@ one changelog line and a version bump; commit and push.
 | B59 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-561`–`gr-570` | 10 | **done 2026-10-04** |
 | B60 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-571`–`gr-580` | 10 | **done 2026-10-04** |
 | B61 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-581`–`gr-585` | 5 | **done 2026-10-04** |
-| B62 | Classical arts and thought (`gr-classical-culture`) | `gr-586`–`gr-595` | 10 | open |
-| B63 | Classical arts and thought (`gr-classical-culture`) | `gr-596`–`gr-605` | 10 | open |
+| B62 | Classical arts and thought (`gr-classical-culture`) | `gr-586`–`gr-595` | 10 | **done 2026-10-04** |
+| B63 | Classical arts and thought (`gr-classical-culture`) | `gr-596`–`gr-605` | 10 | **`gr-596`–`gr-600` done 2026-10-04**; `gr-601`–`gr-605` open |
 | B64 | Classical arts and thought (`gr-classical-culture`) | `gr-606`–`gr-615` | 10 | open |
 | B65 | Classical arts and thought (`gr-classical-culture`) | `gr-616`–`gr-625` | 10 | open |
 | B66 | Classical arts and thought (`gr-classical-culture`) | `gr-626`–`gr-635` | 10 | open |
@@ -2107,3 +2107,79 @@ alarms; every citation URL answers 200.
 **Chronology.** "The Peloponnesian War" section holds rows for every date the 65 cards of the deck print, with pins;
 the Peloponnesian War and Aegospotami rows of "Events and reigns" are confirmed.
 
+### B62–B63 — `gr-586`–`gr-600`, the Classical period and tragedy from Thespis to Euripides (2026-10-04)
+
+Fifteen cards that open `gr-classical-culture`: the period itself, tragedy as a form, the City Dionysia, the chorus,
+Thespis, and the three tragedians with eight of their plays. Method as before: three research agents, saved
+sources and verbatim quotes, the verifier and the lint wrapper with every patch merged, every draft read by eye.
+B63 stops at `gr-600`; `gr-601`–`gr-605` are the next session's.
+
+Checks: `greece-audit.js` over `gr-586`–`gr-600` finds only `S.chip?` flags on English BMCR reviews of German-titled
+books and on the LSJ entry for `gr-589` (read and confirmed English). `check-citations --card`, `check-gloss-links
+--card`, `check-questions`, `check-cards --prefix=gr-`, `split-cards --check`, `apply-wiki-links --check` and
+`test-card-plans` pass; `check-style` adds nothing to main's standing alarms; every citation URL answers 200.
+
+**Date lines:**
+- **Lines without a year:** `gr-587` Greek tragedy (a genre) and `gr-589` the tragic chorus (an institution) are
+  empty and `undatable`; so are `gr-596` *Oedipus Tyrannus* (no year recorded: the 430s BCE on one edition, the 420s
+  BCE on another, both in prose) and `gr-598` *Ajax* (probably the 440s BCE, prose only).
+- **Disputed years, two rows each said whose:** Thespis (the Parian Marble about 534 BCE, the Suda's Olympiad
+  536/535 – 533/532 BCE); *Prometheus Bound* (460 – 450 BCE if Aeschylus wrote it, 440 – 430 BCE on a stylometric study
+  that denies him the play); Euripides' birth (485 BCE on the Parian Marble, 480 BCE by the tradition).
+- **Estimated life dates kept off the lines:** Aeschylus' birth (about 525/524 BCE) and Sophocles' (about 497 BCE)
+  are in prose only.
+- **Unsourced years left out:** Euripides' first victory in 441 BCE (no reachable source gives it); `gr-938` and
+  `gr-939` still carry an unsourced "c. 429 BCE" row for *Oedipus Tyrannus*, which this card does not support.
+
+**Corrected in the old cards:**
+- **No modern scholarship, or too little:** the old cards leant on Aristotle and the play texts; each now meets the bar
+  and the modern half with BMCR, GRBS, the Stanford Encyclopedia and Jebb's and Norwood's introductions.
+- **Other cards' ground given back:** the actor count and Aristotle on the dithyramb to `gr-587` from `gr-591`; the
+  chorus of 15 to `gr-589` (one clause on `gr-595`); the 468 BCE contest to `gr-595` from `gr-591`; the Samian
+  generalship tied to *Antigone* used once, on `gr-597`; the *Medea* to `gr-601`; the myth of Oedipus to `gr-938`.
+
+**Read by eye, and changed in review:**
+- `gr-600` counted 6 surviving plays of Aeschylus against `gr-591` and `gr-593`'s 7 (the count turns on *Prometheus
+  Bound*); reworded to a comparison both counts support. `gr-595`'s third question wrote "ten generals"; `gr-589`'s first
+  wrote "twelve … fifteen"; set as figures (`gr-595`'s "a hundred plays" stays in words, which the audit would read as a
+  date). `gr-597`'s line dropped "c." from a 2-year range.
+- **Wrong auto-links** stopped with a hand-written key or `<span class="ans-term">`: the bold `Ajax` (keyed to
+  `Ajax_(play)`), `Frogs` (keyed to `Frogs_(play)`), `Thebes` (to `Theban_hegemony` on `gr-586`, wrapped on the
+  plays), `Lycurgus` the Athenian, `Archelaus` the king, `Paris` the Trojan, `Lydian`, and `Oedipus`, `Antigone`,
+  `Agamemnon` and `Phoenician Women` on the play cards, and "Parian Marble" (the bare "Marble" opened the stone).
+- **Wikipedia links corrected** in `.claude/wiki-links.json` (marked `manual`): `gr-597` Antigone → Antigone
+  (Sophocles play); `gr-599` Philoctetes → Philoctetes (Sophocles play); `gr-589` none → Greek chorus.
+
+**Chronology.** A new "Classical arts" section holds rows for every date the 15 cards print, with pins; the
+Early Iron Age table's Classical period row is confirmed.
+
+**Pictures for `gr-561`–`gr-600`** (with the text, in one commit). 26 of the 40 carry one, each with a description of
+what is shown, a visual alt and an author-and-licence credit. Every candidate was checked with `check-image-free.js`
+and looked at on a contact sheet.
+- **New or replaced:**
+  - `gr-568`: none → a tower at Eetioneia, where the Four Hundred built their fort. `gr-571`: none → the narrows of
+    the Hellespont at Kilitbahir. `gr-572`: none → the ruins of Cyzicus. `gr-574`: none → the Arginusae islands on
+    an 1890s map. `gr-577`: none → a coin of Aegospotami with its goat. `gr-584`: none → the hill of Munychia.
+  - `gr-586`: none → the temple of Apollo at Bassae in a print of 1821 (the Kritios Boy was refused: it is
+    `gr-644`'s picture). `gr-587`: none → the Pompeii mosaic of actors preparing. `gr-589`: none → a drawing of the
+    Pronomos Vase. `gr-590`: none → the 14th-century relief of Thespis' cart from Florence.
+  - `gr-591`: a labelled bust → the Berlin portrait of Aeschylus. `gr-592`: none → Python's vase of Orestes at Delphi.
+    `gr-593`: none → Rubens's *Prometheus Bound*, dated and described as imagined. `gr-594`: none → Capaneus scaling the
+    walls on a Campanian vase. `gr-595`: none → the Capitoline bust of Sophocles. `gr-596`: none → the Vatican cup of
+    Oedipus and the Sphinx. `gr-597`: none → Lenepveu's drawing of Antigone. `gr-599`: none → the New York flask of
+    Philoctetes on Lemnos.
+  - **`gr-598`: Exekias' Ajax, also on `gr-950`, → an Etruscan vase of Ajax's death** (the A1 duplicate, resolved).
+- **Kept with new captions and credits:** `gr-563`, `gr-564`, `gr-565`, `gr-580` (its licence corrected to CC0),
+  `gr-583`, `gr-588`, `gr-600`.
+- **Open:** `gr-588` shows the Lysicrates monument and `gr-616` another photograph of it; `gr-589`'s drawing and
+  `gr-605`'s photograph show the same Pronomos Vase. Neither is the same file, and the sites of Dionysus' sanctuary
+  offered only views with signboards; the refiner of `gr-605` and `gr-616` should choose.
+- **Refused:** a book illustration of a mounted man in a crowd filed as Lysander (nothing on its page ties the
+  rider to Lysander); an 1880 engraving for `gr-580` (the real Long Walls stay); a photo
+  of the Orestes vase with its museum label; views of Dionysus' sanctuary with signboards.
+- **No picture:** `gr-561`, `gr-562`, `gr-566`, `gr-567`, `gr-569`, `gr-570`, `gr-573`, `gr-575`, `gr-576`, `gr-578`,
+  `gr-579`, `gr-581`, `gr-582`, `gr-585`: men with no ancient likeness, decrees, regimes and the places of 411 BCE
+  with nothing fitting free.
+
+**Locators for `gr-561`–`gr-600`**, fetched through `add-locators.js`: `gr-567` (← Colonus (Attica)), `gr-571`,
+`gr-572`, `gr-574`, `gr-577` and `gr-584`, the last five as battles.
