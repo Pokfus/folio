@@ -37,6 +37,8 @@ pair of stops (perfect), as on the desktop's pips.
 
 ## Files
 
+- `interactive.html` — all twelve designs on one page with device and light/night switches; tap a game to play it,
+  again for a perfect run, and every design follows (the ready and claimed chest states included). Open it directly.
 - `build.js` writes `tablet.html` and `phone.html`, and with Playwright on `NODE_PATH` (as the CI suites
   run it) the shots. Open either page from a server at the repo root; `?theme=dark` forces night mode.
 - `shots/<device>-<light|dark>.png` — each page whole, in context above the first tiles.
