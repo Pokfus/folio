@@ -146,7 +146,7 @@ in plan order unless the user says otherwise.
 | B30 | Iron Age Near East and Persia (`wh-near-east`) | `wh-291`–`wh-300` | 10 | 97 | **done 2026-10-03** |
 | B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | **done 2026-10-04** |
 | B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | **done 2026-10-04** |
-| B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | open |
+| B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | **done 2026-10-04** |
 | B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | open |
 | B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | open |
 | B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | open |
@@ -1383,6 +1383,40 @@ follows Rhodes's c. 20,000. None edited.
 *Greco-Persian Wars*, *Battle of Marathon*); *Polis* kept its text and gained correct picture fields; *Greek
 alphabet*, *Sparta* and *Athenian democracy* already agreed.
 
+### B33 — `wh-321`–`wh-330`, Greece and the Hellenistic world (2026-10-04)
+
+Run as B32. Checks: `wh-audit.js --range=wh-321:wh-330` clean but for `W.not-why` notes on four (an FAQ opening "Do",
+"Was" or "Were"); the rest as B31; all 87 distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators:
+`wh-321` (the pass), `wh-322` (the strait) and `wh-325` (labelled for the Acropolis, the card's own term being the
+building). **Nine of the ten old cards cited no modern work at all**: their source lists were chapters of Herodotus,
+Thucydides, Plutarch and Aristotle, and each now meets its bar with at least half modern scholarship.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-321` Battle of Thermopylae | 9 | 10 → 9 | **"300 Spartans" and "2 days of assaults" were Herodotus's figures set as date-line rows.** His 1.7 million beside a reviewer's at most 75,000; the days as two modern reckonings (12 – 14 August, mid-September); the oracle as possibly invented afterwards. |
+| `wh-322` Battle of Salamis | 9 | 9 → 9 | **"Greek fleet 378 triremes" was Herodotus's count stated as fact and as a row**; now beside Aeschylus's 310 against a thousand and a modern c. 150 a side. "Aeschylus fought there" had no source on the card and dropped. Late September as a modern reckoning. |
+| `wh-323` Delian League | 8 | 6 → 9 | A "460 talents" row was not a date. **The treasury's move in 454 BCE is not in Thucydides**: it is inferred from the tribute lists, so said. Founding 478/477, the Eurymedon c. 466 (possibly inflated) and the break-up in 404 BCE. |
+| `wh-324` Pericles | 9 | 5 → 9 | No birth row; now c. 495 BCE as one estimate, 494 another. **The Funeral Oration is Thucydides' composition**, how much Pericles said disputed; reforms perhaps Ephialtes'. The glossary called Agariste Cleisthenes' granddaughter: she was his niece. |
+| `wh-325` Parthenon | 9 | 5 → 10 | **"Paid for by tribute": the money came mostly from Athena's treasury, which a share of the tribute filled.** A "40 talents" row dropped; the line is the building, 447 – 432 BCE and 1687 CE. The glossary's "stood whole until 1687" ignored a late-Roman fire. |
+| `wh-326` Greek theatre | 9 | 5 → 9 | "Flourished c. 500 – 400 BCE" and "Actors 1, 2, 3" had no source. **534 BCE is the Parian Marble's**, perhaps marking only Thespis at work, and the Suda's "first tragedian" is its report. Stone theatres c. 350 – 300 BCE across the Greek world. |
+| `wh-327` Socrates | 9 | 7 → 10 | **Plato's and Aristophanes' portraits were stated as fact**; now the Socratic problem, with the three witnesses who differ, and the Delphic oracle as a story biographers split over. Born c. 469 BCE, tried and executed 399 BCE. |
+| `wh-328` Plato | 9 | 5 → 9 | **"Burned 1 tragedy" was a row with no source and no date**; it is now Diogenes Laertius's story in an FAQ. Born c. 428 (424/423 on one biography), Academy after 387, died 348/347 BCE; the Forms as Aristotle reports them. |
+| `wh-329` Aristotle | 9 | 6 → 9 | **Diogenes Laertius was taken as fact**: twenty years with Plato, Stagira restored at his request, the "pacing" origin of Peripatetic. Now he stayed until Plato died in 347; the covered walk as the likelier origin; the tutoring of Alexander hedged. |
+| `wh-330` Peloponnesian War | 8 | 8 → 8 | **Thucydides' "truest cause" was stated as fact**; now his judgement, with the modern debate. The plague's 25 – 30 per cent as one historian's estimate; the war-count row dropped for Sicily 415 – 413 and Aegospotami 405 BCE. |
+
+**Read by eye.** *Article:* "the Battle of Thermopylae", "the Battle of Salamis", "the Delian League", "the
+Parthenon", "the Peloponnesian War"; "Greek theatre" and the four persons bare. *Confusability:* `wh-319`–`wh-322`
+the war and its three battles, Thermopylae and Salamis named in each other's backgrounds only; `wh-323`/`wh-324`/`wh-325`
+the league, the statesman and the temple, the tribute appearing on all three but as a phrasing only on `wh-323`;
+`wh-327`/`wh-328`/`wh-329` teacher, pupil and pupil's pupil, the Forms only on `wh-328` (and in `wh-327`'s FAQ as the
+reason they are not his), the Clouds only on `wh-327`. *Consistency:* the Classical dates agree with
+`docs/greece-chronology.md` throughout. *Against the gr- cards:* `gr-590` puts Thespis c. 560 BCE in Solon's old age
+(Plutarch), `wh-326` c. 534 (Parian Marble); `gr-467` calls Agariste a "close relative" where `wh-324` says niece;
+`gr-695` credits Philip with the phalanx outright (for `wh-332`, B34). None edited.
+
+**Glossary.** Eight terms rewritten (*Battle of Thermopylae*, *Delian League*, *Pericles*, *Parthenon*, *Greek
+theatre*, *Socrates*, *Plato*, *Peloponnesian War*); *Battle of Salamis* and *Aristotle* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1509,3 +1543,7 @@ pass once it answers. Filled batch by batch.
 | `wh-318` | fine, but description says the slots hold tickets; they are empty |
 | `wh-319` | one serpent head from the Plataea tripod |
 | `wh-320` | fine, but description says the Soros covers the 192; it is the mound traditionally held to |
+| `wh-323` | a fragment of the tribute lists, titled as such, not the league |
+| `wh-325` | an 1842 daguerreotype, dim, titled "The colonnade in 1842" |
+| `wh-329` | fine, but its title should read simply Aristotle |
+| `wh-330` | one Syracusan quarry, not the war |

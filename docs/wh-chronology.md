@@ -314,7 +314,7 @@ Filled batch by batch, from the source each row names.
 | Xerxes I's reign / invasion of Greece | 486 – 465 BCE / 480 – 479 BCE | Iliakis (`wh-308`) |
 | Aramaic: first inscriptions / Egyptian papyri / Neo-Aramaic | c. 900 – 800 BCE / c. 500 – 400 BCE / from c. 1200 CE | Aioanei et al.; Cowley; Endangered Language Alliance (`wh-309`) |
 | fall of the Achaemenid Empire / Gaugamela / Darius III killed | 334 – 330 BCE / 1 October 331 BCE / 330 BCE | Lendering (`wh-310`) |
-| Ancient Greece: Archaic / Classical / Hellenistic | c. 800 – 479 / 479 – 323 / 323 – 30 BCE (`docs/greece-chronology.md`: Classical from 480, Hellenistic to 31) | Rönnberg; Hall; Hornblower; Shipley (`wh-311`) |
+| Ancient Greece: Archaic / Classical / Hellenistic | c. 800 – 479 / 479 – 323 / 323 – 30 BCE (`docs/greece-chronology.md`: Classical from 480, Hellenistic to 31) | Rönnberg; Vlassopoulos on Hall; Gaukroger on Hornblower; Worthington on Shipley (`wh-311`) |
 | polis, rise (one view) | c. 800 – 700 BCE | Vlassopoulos on Hall (`wh-312`) |
 | Greek colonisation, main phase / Syracuse founded | c. 800 – 500 BCE / c. 733 BCE (both on Thucydides' count) | Delp; Evans (`wh-313`) |
 | Homeric poems composed / West's Iliad / pre-eminent | c. 700 BCE / c. 680 – 640 BCE (one view) / by c. 500 BCE | Pisano; Ford; Holmberg (`wh-314`) |
@@ -324,6 +324,15 @@ Filled batch by batch, from the source each row names.
 | Athenian democracy: Cleisthenes / Areopagus curbed / restored / abolished | 508/507 / 462/461 / 403 / 322 BCE | Rhodes; Attic Inscriptions Online (`wh-318`) |
 | Greco-Persian Wars / invasions / Peace of Callias | 499 – 479 BCE / 490; 480 – 479 BCE / probably 449 BCE | Branscome; Jung (`wh-319`) |
 | Battle of Marathon | 490 BCE (the day, mid-August or mid-September, a modern reckoning) | Rhodes (`wh-320`) |
+| Battles of Thermopylae and Salamis | 480 BCE (the days modern reckonings: Thermopylae 12 – 14 August or mid-September; Salamis late September) | Lendering; Kulesza; Tuplin (`wh-321`, `wh-322`) |
+| Delian League: founded / treasury to Athens / broke up | 478/477 BCE / 454 BCE (from the tribute lists) / 404 BCE | Lendering; Attic Inscriptions Online (`wh-323`) |
+| Pericles: born / funeral speech / died | c. 495 BCE (another estimate 494) / 431 / 429 BCE | Lendering; Cromey (`wh-324`) |
+| Parthenon: built / blown up | 447 – 432 BCE / 1687 CE | Acropolis Restoration Service; St Clair (`wh-325`) |
+| Thespis (Parian Marble) / stone theatres | c. 534 BCE (`gr-590`: c. 560) / c. 350 – 300 BCE | the Suda; Poli Palladini; Xanthaki-Karamanou (`wh-326`) |
+| Socrates: born / tried and died | c. 469 BCE (`gr-627`: c. 470) / 399 BCE | Nails and Monoson; Ambury (`wh-327`) |
+| Plato: born / Academy / died | c. 428 BCE (424/423 on one biography) / after 387 BCE / 348/347 BCE | Brickhouse and Smith; Kraut (`wh-328`) |
+| Aristotle: born / Lyceum / died | 384 / 335 / 322 BCE | Shields (`wh-329`) |
+| Peloponnesian War / Sicily / Aegospotami | 431 – 404 BCE / 415 – 413 BCE / 405 BCE | Lendering; Hughes (`wh-330`) |
 
 ## Chronology pins
 
@@ -634,4 +643,14 @@ wh-317: 480; 404; 323
 wh-318: 508; 507; 462; 461; 403; 322
 wh-319: 499; 479; 490; 480
 wh-320: 490
+wh-321: 480
+wh-322: 480
+wh-323: 478; 477; 454; 404
+wh-324: 495; 431; 429
+wh-325: 447; 432; 1687
+wh-326: 534; 350; 300
+wh-327: 469; 399
+wh-328: 428; 387; 348; 347
+wh-329: 384; 335; 322
+wh-330: 431; 404; 415; 413; 405
 ```
