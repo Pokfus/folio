@@ -2605,12 +2605,31 @@ body.grading .stage{padding-bottom:150px;}
 .placard h2{font-family:var(--display); font-weight:600; font-size:calc(26px * var(--fs)); margin:10px 0 8px;}
 .placard p{color:var(--ink-soft); margin:0 auto 20px; max-width:42ch; font-size:calc(15.5px * var(--fs));}
 .placard .row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
-/* "Continue with <the next deck>" on the completion screen (Aug 2026, on request). It sits BELOW the three
-   above it and is separated by a hairline rather than by a gap alone: the row above answers "what do I do
-   with THIS session" and this one answers "what next", and without a division the four read as one row of
-   choices in which the longest is the odd one out. The rule is drawn on the block rather than as a border
-   on the button so it spans the placard at every text size. */
-.placard .row.sc-next{margin-top:14px; padding-top:14px; border-top:1px solid var(--rule);}
+/* THE COMPLETION SCREEN'S THREE BUTTONS (Oct 2026, on request: "formatted more neatly"). A wrapping flex row
+   put two on one line and the third alone beneath; this is a grid of EQUAL columns — three, or two when there
+   is no card to undo — each button filling its column and its label allowed a second line, so the three read
+   as one choice of three. On a phone they stack, full width. */
+.placard .row.sc-actions{display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0, 1fr); gap:10px; max-width:500px; margin:0 auto;}
+/* a touch smaller and tighter than `.btn`, so "Undo the last card" holds one line in a third of the placard at
+   the default text size; a larger text size may still wrap it, which the line-height allows for */
+.placard .sc-actions .btn{width:100%; padding-left:10px; padding-right:10px; font-size:calc(11.5px * var(--fs)); letter-spacing:.04em; white-space:normal; line-height:1.3;}
+@media (max-width:480px){ .placard .row.sc-actions{grid-auto-flow:row; grid-auto-columns:auto; grid-template-columns:1fr;} }
+/* "Continue with" on the completion screen (Aug 2026, on request) sits BELOW the three above it and is
+   separated by a hairline rather than by a gap alone: the row above answers "what do I do with THIS session"
+   and this one answers "what next". It was a button naming the deck; since Oct 2026 (on request) it is THE
+   NEXT ROW OF THE HOME LIST ITSELF, drawn by adRowBannerHTML with the list's own markup under a small label,
+   so it takes `.review-group .active-deck`'s styling through the wrapper and needs only the few lines below:
+   the row is one block standing alone (its own top border, since a list row has none under the banner),
+   left-aligned where the placard centres, and a pointer because it is tapped like the row it copies. */
+.placard .sc-next{margin-top:18px; padding-top:16px; border-top:1px solid var(--rule); text-align:left;}
+.placard .sc-next-label{display:block; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 8px 2px;}
+.placard .sc-next .review-group{display:block;}
+.placard .sc-next .active-deck.sc-next-row{cursor:pointer; margin:0; border-top:1px solid var(--rule); border-radius:12px;}
+.placard .sc-next .active-deck.sc-next-row:hover{border-color:var(--indigo);}
+/* no chevron column on a row standing alone — the gap exists to line a list's bars up, and here it only took
+   width from the title on a phone */
+.placard .sc-next .active-deck.sc-next-row > .dk-chev-gap{display:none;}
+.placard .sc-next .active-deck.sc-next-row:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 
 /* lazy-data loading state — shown while a DATA_BUNDLES fetch is in flight (currently only the Atlas,
    whose map layers are several MB and no longer ship with the page). */

@@ -4658,6 +4658,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     round-robin, each subdeck a day behind the last**, so a two-way deck asks the reverse the NEXT day rather
     than a second later. **Except Ordered on Folio's own collections (Oct 2026, on request), which is FRONT TO
     BACK** — one subdeck finished before the next; community and language decks keep the robin under every order.
+  · **THE COMPLETION SCREEN'S "CONTINUE WITH" IS THE NEXT ROW ON SCREEN, DRAWN AS THAT ROW** (Oct 2026, on
+    request; `adRowOrder` is rewritten by `adSyncFold` from the rows not folded away, `nextStudyRow` skips the
+    row just left, skipped rows, rows with no work and rows `adDay` marks done, and `adRowBannerHTML` draws
+    the winner with the home list's own helpers — `adCounts`, `adDay`, `adIcon`, `adProg`, `hueStyle`, now at
+    module level above `PAGES.home`). A deck inside a folded collection is never offered; unfold it on the home
+    page and it is. The three buttons above it are an equal-column grid (`.sc-actions`).
   · **AN UNFOLDED COLLECTION IS ONE TIGHT BLOCK AT EVERY WIDTH** (Oct 2026, on request — a phone first, then
     "this should also be the case on desktop and tablet"): `adSyncFold` marks visible rows `dk-att` (depth > 0,
     joined to the row above) and `dk-cont` (the block continues below); the CSS is by `.review-group
