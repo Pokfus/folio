@@ -135,7 +135,7 @@ order unless the user says otherwise.
 | B1 | Italy before Rome (`rm-italy`) | `rm-001`–`rm-010` | 10 | 94 | **done 2026-10-04** |
 | B2 | Italy before Rome (`rm-italy`) | `rm-011`–`rm-020` | 10 | 100 | **done 2026-10-04** |
 | B3 | Italy before Rome (`rm-italy`) | `rm-021`–`rm-030` | 10 | 95 | **done 2026-10-04** |
-| B4 | Italy before Rome (`rm-italy`) | `rm-031`–`rm-040` | 10 | 104 | open |
+| B4 | Italy before Rome (`rm-italy`) | `rm-031`–`rm-040` | 10 | 104 | **done 2026-10-04** |
 | B5 | Italy before Rome (`rm-italy`) / Rome under the kings (`rm-kings`) | `rm-041`–`rm-050` | 10 | 112 | open |
 | B6 | Rome under the kings (`rm-kings`) | `rm-051`–`rm-060` | 10 | 118 | open |
 | B7 | Rome under the kings (`rm-kings`) | `rm-061`–`rm-070` | 10 | 132 | open |
@@ -299,6 +299,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-028` Etruscan religion | votive heads | acceptable; the desc "IV-II cen BC" wants rewording |
 | `rm-029` haruspicy | a 19th-century line diagram of the Piacenza liver | a diagram where a photograph of the bronze exists |
 | `rm-030` Etrusca disciplina | a mirror of Menrva | does not show the discipline; the desc names the museum |
+| `rm-031` Etruscan tomb painting | the Tomb of the Augurs | acceptable subject; the desc is a bare Italian label and the alt the file name |
+| `rm-032` Tarquinia | a painting in the Tomb of the Leopards | one painting for the city; the desc names the photographer |
+| `rm-033` Caere | a Caeretan hydria in the Louvre | one vase for the city |
+| `rm-034` Banditaccia necropolis | a sarcophagus relief | one object from one tomb; the desc names the museum. Also a false `I.duplicate` (below) |
+| `rm-035` Veii | an 1848 map drawing | burned-in labels; a view of the plateau would show it |
+| `rm-036` Vulci | a gold fibula | one object for the city |
+| `rm-037` Etruscan bronzework | a cista handle | one handle for the craft; the desc is Commons boilerplate ("public domain", `I.caption-source`) |
+| `rm-038` bucchero | a kantharos from Osteria dell'Osa | from a Latin cemetery; alt is the file name; no photographer in the credit |
+| `rm-039` Apollo of Veii | the statue | acceptable |
+| `rm-040` Etruscan Campania | a Corinthian-style cup | one cup for a region. Also a false `I.duplicate` (below) |
 
 ## Glossary candidates
 
@@ -467,3 +477,44 @@ needs JavaScript), Springer (JS challenge; Europe PMC used), hrcak.srce.hr (bot 
 
 **Locators.** All kept. `rm-037`'s agent (B4) notes that a craft card carries an Etruria region locator it
 does not need; left for the B4 entry.
+
+### B4 — `rm-031`–`rm-040`, Italy before Rome: Etruscan cities and crafts (2026-10-04)
+
+Run as B3; B5's agents researched alongside. Pictures untouched; verdicts in "Pictures to redo".
+
+Checks: `rm-audit.js --range=rm-031:rm-040` reads clean on three cards. The rest are `W.not-why` notes on
+five cards (FAQs opening "What", "How", "Where"), `I.caption-source` on `rm-037` (its current picture's desc
+says "public domain"; a picture-pass fix) and **a false `I.duplicate` on `rm-034` and `rm-040`**: their
+pictures' thumbnail URLs end in `1920px-thumbnail.jpg`, and the audit keys a picture by its last URL segment,
+so every such card (twenty across the site, among them `gr-895`) looks like one picture. Reported, not fixed
+here: the fix belongs in `greece-audit.js`, keying on the file-name segment before `thumbnail.jpg`.
+`check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass;
+every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-031` Etruscan tomb painting | 6 | 5 → 7 | **Four French articles on Persée broke the one-per-language cap**, and their full texts would not open; every claim resting only on them (the shrubs as a sacred precinct, the Augurs' false door, the François Tomb scene, the Charun description) is gone. Line: painted c. 675 – 200 BCE. Tarquinia's four-fifths share and the under-3-per-cent painted figure added. |
+| `rm-032` Tarquinia | 6 | 5 → 8 | **"Gave Rome the Tarquins" is Livy's tradition** and is told as such (Demaratus and Lucumo). "200,000 finds" and "510–470 BCE" at Gravisca had no source; the *municipium* claim likewise. The Roman colony at Gravisca, 181 BCE, is now Livy 40.29. |
+| `rm-033` Caere | 5 | 5 → 6 | **Herodotus 1.167 has Delphi order the Caeretans to honour the stoned Phocaeans with rites, games and horse races**; the old card said it ordered a sanctuary. The Athenian colony, the Caeretan hydriae (an old question rested on them) and the years 353 and 390 BCE had no readable source. Locator re-resolved on Cerveteri (it was the necropolis's point). |
+| `rm-034` Banditaccia necropolis | 5 | 5 → 6 | Five old sources on Persée; tomb regulation, the Campana dispersal and the inscriptions had no source that opens. **The old line dated nothing**; now in use c. 900 – 200 BCE, the Sarcophagus of the Spouses c. 530 – 520 BCE, World Heritage 2004. |
+| `rm-035` Veii | 6 | 5 → 7 | **"Among the oldest Etruscan walls" at Piazza d'Armi**: Potts and Smith say those walls are now thought medieval; the wall dates are a hedged FAQ. 396 BCE labelled tradition. The 190 ha and 9 km figures, the Fabii, the Delphi krater and the 46 BCE veterans had no source that opens. A question carried a year. |
+| `rm-036` Vulci | 5 | 5 → 5 | **The Lyon tablet names only Caelius Vivenna, not "the Vibenna brothers of Vulci"**; the Vulci link rests on a restored text of Festus and the François Tomb. The tomb is 340 – 310 BCE in its source, not 350 – 325. The 1828 Bonaparte finds and the gods list dropped. |
+| `rm-037` Etruscan bronzework | 6 | 5 → 7 | **"Travelled further than anything else the Etruscans made" had no source.** The tin-mine paragraph and its question went with pages that would not fetch. The beaked-jug figures (about 150 in Italy, over 100 outside, most 525 – 400 BCE) re-read and kept; bossed basins, Vulci's workshops, the metal trade with southern France, mirrors and Pliny on Volsinii added. |
+| `rm-038` bucchero | 5 | 6 → 6 | **The firing temperature was 600 – 700 °C; Longoni 2023 gives a maximum of 750 – 800 °C**, in a reducing firing. An unsourced "5th – 4th century" row and the clamp or pit-kiln claim dropped. Line: c. 700 BCE / 680 – 630 BCE. |
+| `rm-039` Apollo of Veii | 6 | 5 → 7 | **"Dismantled and ritually buried c. 300 BCE" had no source**, nor the assembly marks, "twenty acroteria", "first Tuscan-type temple" or the Pindar bronzes. The date is the museum's 510 – 500 BCE, not c. 500; Found 1916 added; the Menerva dedication and the Niobe reading (hedged) added. A locator on the Portonaccio sanctuary added. |
+| `rm-040` Etruscan Campania | 5 | 5 → 7 | **The 438 BCE "Campanian oath" and "writing began c. 700 BCE" had no source.** Line: Pontecagnano c. 900 BCE, the Tabula Capuana c. 470, Capua falls 423 (one modern dating, said so). **The draft stated Pontecagnano's founding by Villanovan groups as fact; its own source says "reportedly" and that some see a local growth, as `rm-008` already does.** Corrected by hand in the abstract, a question and the glossary before applying. |
+
+**Not usable from here:** Persée (only one agent reached a full PDF), the Cambridge repository, De Gruyter.
+
+**Read by eye.**
+- *Article:* the city names, "Etruscan tomb painting", "Etruscan bronzework", "bucchero" and "Etruscan Campania"
+  bare; "the Banditaccia necropolis" and "the Apollo of Veii" take "the".
+- *Confusability:* `rm-031`, `rm-032` and `rm-034` share tombs; each question names what only its term has
+  (the cloth ceilings and Tarquinia's share for painting, the Ara della Regina and Demaratus for Tarquinia,
+  the Five Chairs and the Sarcophagus of the Spouses for the Banditaccia). `rm-033` and `rm-042` share
+  Alalia; `rm-033`'s question asks about Delphi's order and the games, not the battle. `rm-036`'s first two
+  phrasings both use Mastarna and Vibenna (identity, then the tomb).
+- *Consistency:* `rm-040` brought into line with `rm-008` on Pontecagnano (above).
+
+**Locators.** `rm-033` (Caere, on Cerveteri) and `rm-039` (Portonaccio sanctuary, Veii) through
+`add-locators.js`; the rest kept. `rm-037` (a craft) keeps an Etruria region locator it does not need.

@@ -95,6 +95,16 @@ Filled batch by batch, from the source each row names.
 | Etruscan votive texts / Portonaccio deposit at Veii / temple of Thesan at Pyrgi | from c. 750 BCE / c. 600 – 530 BCE / c. 470 – 460 BCE | `rm-028` |
 | haruspicy first depicted / Piacenza liver / haruspices offered against Alaric | c. 430 – 400 BCE / c. 100 BCE / 409 CE | `rm-029`, `rm-030` |
 | Cicero, *On Divination* | 45 – 44 BCE | `rm-030` |
+| Etruscan tomb painting | c. 675 – 200 BCE | Steingräber, via a BMCR review (`rm-031`) |
+| Tarquinia occupied / Roman colony at Gravisca | from c. 1000 – 900 BCE / 181 BCE | Livy 40.29 (`rm-032`) |
+| Caere's oldest graves / the sea battle off Alalia | c. 900 – 800 BCE / c. 540 – 535 BCE | `rm-033` (the battle's own card is `rm-042`) |
+| Banditaccia in use / Sarcophagus of the Spouses / World Heritage | c. 900 – 200 BCE / c. 530 – 520 BCE / 2004 | `rm-034` |
+| Veii settled / taken by Rome / revival | c. 900 BCE / 396 BCE (tradition, Varronian) / 350 – 250 BCE | Potts and Smith 2022 (`rm-035`) |
+| Vulci forms / Roman triumph / municipium | c. 900 – 750 BCE / 280 BCE / from 90 BCE | `rm-036` |
+| bossed bronze basins / beaked jugs | c. 750 – 500 BCE / c. 525 – 400 BCE | `rm-037` |
+| bucchero first made / thin-walled phase | c. 700 BCE / 680 – 630 BCE | Longoni 2023 (`rm-038`) |
+| Apollo of Veii made / found | c. 510 – 500 BCE / 1916 | `rm-039` |
+| Pontecagnano founded / Tabula Capuana / Capua taken by the Samnites | c. 900 BCE / c. 470 BCE / 423 BCE (one modern dating) | `rm-040` |
 
 ## The regal period and the early Republic
 
@@ -150,4 +160,14 @@ rm-027: 500; 510; 1964
 rm-028: 750; 600; 530; 470; 460
 rm-029: 430; 400; 100; 409
 rm-030: 100; 45; 44
+rm-031: 675; 200
+rm-032: 1000; 900; 181
+rm-033: 900; 800; 540; 535
+rm-034: 900; 200; 530; 520; 2004
+rm-035: 900; 396; 350; 250
+rm-036: 900; 750; 280; 90
+rm-037: 750; 500; 525; 400
+rm-038: 700; 680; 630
+rm-039: 510; 500; 1916
+rm-040: 900; 470; 423
 ```
