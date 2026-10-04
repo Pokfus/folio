@@ -1532,6 +1532,13 @@ function scrimCheck() {
     await studyEasy(page, base, 6);
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1600);
+    /* …READ WITH THE COLLECTION FOLDED BACK (Oct 2026, on request). The banner sums the rows ON SCREEN
+       (listPiles): an unfolded collection shows no counts of its own and each deck inside carries — and is
+       counted for — its own allowance, which the six grades on the collection's row did not spend. The folds
+       were opened above to measure a deck row, so they are shut again here; folded, the collection's row is
+       what the banner counts, and that is the allowance the six Easy grades cleared. */
+    await page.evaluate(() => document.querySelectorAll(".active-deck:not(.dk-shut) .dk-chev.open").forEach((c) => c.click()));
+    await page.waitForTimeout(500);
     const cleared = await page.evaluate(() => ({
       badge: !!document.querySelector(".review-group .banner .level-badge"),
       // the THREE pile stats only: the banner's row also carries the streak chip and the chest chip, whose
