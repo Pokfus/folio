@@ -1,16 +1,17 @@
 {
- "generated": "2026-10-04T15:19Z",
+ "generated": "2026-10-04T20:01Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4386,
-  "redirect-broader": 379,
-  "redirect-variant": 291,
+  "ok": 4475,
+  "redirect-broader": 382,
+  "redirect-variant": 295,
   "section-redirect": 89,
   "disambiguation": 126,
-  "none": 568,
+  "none": 570,
   "disambig-resolved": 68,
   "list-page": 6,
-  "search-match": 5
+  "search-match": 5,
+  "no-article": 2
  },
  "cards": {
   "wh-001": {
@@ -22211,11 +22212,11 @@
   },
   "gr-501": {
    "answer": "Propylaea",
-   "title": "Propylon",
-   "url": "https://en.wikipedia.org/wiki/Propylon",
+   "title": "Propylaea (Acropolis of Athens)",
+   "url": "https://en.wikipedia.org/wiki/Propylaea_(Acropolis_of_Athens)",
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Propylaea"
+   "status": "ok",
+   "manual": true
   },
   "gr-502": {
    "answer": "Erechtheion",
@@ -22480,11 +22481,11 @@
   },
   "gr-534": {
    "answer": "first citizen",
-   "title": "Princeps",
-   "url": "https://en.wikipedia.org/wiki/Princeps",
+   "title": null,
+   "url": null,
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "First citizen"
+   "status": "no-article",
+   "manual": true
   },
   "gr-535": {
    "answer": "Cleon",
@@ -22758,18 +22759,19 @@
   },
   "gr-567": {
    "answer": "Colonus",
-   "title": "Colonus (person)",
-   "url": "https://en.wikipedia.org/wiki/Colonus_(person)",
+   "title": "Colonus (Attica)",
+   "url": "https://en.wikipedia.org/wiki/Colonus_(Attica)",
    "via": "glossary",
-   "status": "ok"
+   "status": "ok",
+   "manual": true
   },
   "gr-568": {
    "answer": "Four Hundred",
-   "title": "400 (number)",
-   "url": "https://en.wikipedia.org/wiki/400_(number)",
+   "title": "Athenian coup of 411 BC",
+   "url": "https://en.wikipedia.org/wiki/Athenian_coup_of_411_BC",
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Four Hundred"
+   "status": "ok",
+   "manual": true
   },
   "gr-569": {
    "answer": "Five Thousand",
@@ -22852,10 +22854,11 @@
   },
   "gr-578": {
    "answer": "siege of Athens",
-   "title": "Siege of Athens",
-   "url": "https://en.wikipedia.org/wiki/Siege_of_Athens",
+   "title": null,
+   "url": null,
    "via": "answer",
-   "status": "ok"
+   "status": "no-article",
+   "manual": true
   },
   "gr-579": {
    "answer": "surrender of Athens",
@@ -22953,17 +22956,11 @@
   },
   "gr-589": {
    "answer": "tragic chorus",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Greek chorus",
-    "Greek tragedy",
-    "Theatre of ancient Greece",
-    "Tragedy",
-    "Aeschylus"
-   ]
+   "title": "Greek chorus",
+   "url": "https://en.wikipedia.org/wiki/Greek_chorus",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-590": {
    "answer": "Thespis",
@@ -23018,10 +23015,11 @@
   },
   "gr-597": {
    "answer": "Antigone",
-   "title": "Antigone",
-   "url": "https://en.wikipedia.org/wiki/Antigone",
-   "via": "glossary",
-   "status": "ok"
+   "title": "Antigone (Sophocles play)",
+   "url": "https://en.wikipedia.org/wiki/Antigone_(Sophocles_play)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-598": {
    "answer": "Ajax",
@@ -23032,10 +23030,11 @@
   },
   "gr-599": {
    "answer": "Philoctetes",
-   "title": "Philoctetes",
-   "url": "https://en.wikipedia.org/wiki/Philoctetes",
-   "via": "glossary",
-   "status": "ok"
+   "title": "Philoctetes (Sophocles play)",
+   "url": "https://en.wikipedia.org/wiki/Philoctetes_(Sophocles_play)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-600": {
    "answer": "Euripides",
@@ -47096,6 +47095,743 @@
    "answer": "cotton mill",
    "title": "Cotton mill",
    "url": "https://en.wikipedia.org/wiki/Cotton_mill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-602": {
+   "answer": "Rural Reconstruction Movement",
+   "title": "Rural Reconstruction Movement",
+   "url": "https://en.wikipedia.org/wiki/Rural_Reconstruction_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-603": {
+   "answer": "Diligent Work–Frugal Study Movement",
+   "title": "Diligent Work–Frugal Study Movement",
+   "url": "https://en.wikipedia.org/wiki/Diligent_Work%E2%80%93Frugal_Study_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-604": {
+   "answer": "Chinese women's suffrage movement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Feminism in China",
+    "Chinese American women's suffrage in Oregon",
+    "Women in China",
+    "Women's Suffrage Alliance",
+    "Women's suffrage"
+   ]
+  },
+  "cnh-605": {
+   "answer": "Cai Yuanpei",
+   "title": "Cai Yuanpei",
+   "url": "https://en.wikipedia.org/wiki/Cai_Yuanpei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-606": {
+   "answer": "Chinese Civil War",
+   "title": "Chinese Civil War",
+   "url": "https://en.wikipedia.org/wiki/Chinese_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-607": {
+   "answer": "Jiangxi Soviet",
+   "title": "Jiangxi Soviet",
+   "url": "https://en.wikipedia.org/wiki/Jiangxi_Soviet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-608": {
+   "answer": "Mao Zedong",
+   "title": "Mao Zedong",
+   "url": "https://en.wikipedia.org/wiki/Mao_Zedong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-609": {
+   "answer": "encirclement campaigns",
+   "title": "Encirclement campaigns (Chinese Civil War)",
+   "url": "https://en.wikipedia.org/wiki/Encirclement_campaigns_(Chinese_Civil_War)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-610": {
+   "answer": "Long March",
+   "title": "Long March",
+   "url": "https://en.wikipedia.org/wiki/Long_March",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-611": {
+   "answer": "Zunyi Conference",
+   "title": "Zunyi Conference",
+   "url": "https://en.wikipedia.org/wiki/Zunyi_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-612": {
+   "answer": "Yan'an",
+   "title": "Yan'an",
+   "url": "https://en.wikipedia.org/wiki/Yan'an",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-613": {
+   "answer": "Yan'an Rectification Movement",
+   "title": "Yan'an Rectification Movement",
+   "url": "https://en.wikipedia.org/wiki/Yan'an_Rectification_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-614": {
+   "answer": "Mao Zedong Thought",
+   "title": "Maoism",
+   "url": "https://en.wikipedia.org/wiki/Maoism",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Mao Zedong Thought"
+  },
+  "cnh-615": {
+   "answer": "Zhou Enlai",
+   "title": "Zhou Enlai",
+   "url": "https://en.wikipedia.org/wiki/Zhou_Enlai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-616": {
+   "answer": "Zhu De",
+   "title": "Zhu De",
+   "url": "https://en.wikipedia.org/wiki/Zhu_De",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-617": {
+   "answer": "Xi'an Incident",
+   "title": "Xi'an Incident",
+   "url": "https://en.wikipedia.org/wiki/Xi'an_Incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-618": {
+   "answer": "Second United Front",
+   "title": "Second United Front",
+   "url": "https://en.wikipedia.org/wiki/Second_United_Front",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-619": {
+   "answer": "Outline Land Law",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Land Reform Movement",
+    "Outline of China",
+    "Outline of commercial law",
+    "Outline of the Chinese Civil War",
+    "Outline of Taiwan"
+   ]
+  },
+  "cnh-620": {
+   "answer": "Double Tenth Agreement",
+   "title": "Double Tenth Agreement",
+   "url": "https://en.wikipedia.org/wiki/Double_Tenth_Agreement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-621": {
+   "answer": "Marshall Mission",
+   "title": "Marshall Mission",
+   "url": "https://en.wikipedia.org/wiki/Marshall_Mission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-622": {
+   "answer": "gold yuan",
+   "title": "Chinese gold yuan",
+   "url": "https://en.wikipedia.org/wiki/Chinese_gold_yuan",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Gold yuan"
+  },
+  "cnh-623": {
+   "answer": "Liaoshen campaign",
+   "title": "Liaoshen campaign",
+   "url": "https://en.wikipedia.org/wiki/Liaoshen_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-624": {
+   "answer": "Huaihai campaign",
+   "title": "Huaihai campaign",
+   "url": "https://en.wikipedia.org/wiki/Huaihai_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-625": {
+   "answer": "Pingjin campaign",
+   "title": "Pingjin campaign",
+   "url": "https://en.wikipedia.org/wiki/Pingjin_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-626": {
+   "answer": "Yangtze River Crossing campaign",
+   "title": "Yangtze River Crossing campaign",
+   "url": "https://en.wikipedia.org/wiki/Yangtze_River_Crossing_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-627": {
+   "answer": "Great Retreat",
+   "title": "Retreat of the government of the Republic of China to Taiwan",
+   "url": "https://en.wikipedia.org/wiki/Retreat_of_the_government_of_the_Republic_of_China_to_Taiwan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-628": {
+   "answer": "Proclamation of the People's Republic of China",
+   "title": "Proclamation of the People's Republic of China",
+   "url": "https://en.wikipedia.org/wiki/Proclamation_of_the_People's_Republic_of_China",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-629": {
+   "answer": "peasant nationalism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Chinese nationalism",
+    "State nationalism",
+    "New Three Principles of the People",
+    "Korean nationalism",
+    "Chinese Communist Revolution"
+   ]
+  },
+  "cnh-630": {
+   "answer": "Siege of Changchun",
+   "title": "Siege of Changchun",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Changchun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-631": {
+   "answer": "Second Sino-Japanese War",
+   "title": "Second Sino-Japanese War",
+   "url": "https://en.wikipedia.org/wiki/Second_Sino-Japanese_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-632": {
+   "answer": "Mukden Incident",
+   "title": "Mukden incident",
+   "url": "https://en.wikipedia.org/wiki/Mukden_incident",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Mukden Incident"
+  },
+  "cnh-633": {
+   "answer": "Manchukuo",
+   "title": "Manchukuo",
+   "url": "https://en.wikipedia.org/wiki/Manchukuo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-634": {
+   "answer": "Northeast Anti-Japanese United Army",
+   "title": "Northeast Anti-Japanese United Army",
+   "url": "https://en.wikipedia.org/wiki/Northeast_Anti-Japanese_United_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-635": {
+   "answer": "Marco Polo Bridge Incident",
+   "title": "Marco Polo Bridge incident",
+   "url": "https://en.wikipedia.org/wiki/Marco_Polo_Bridge_incident",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Marco Polo Bridge Incident"
+  },
+  "cnh-636": {
+   "answer": "Battle of Shanghai",
+   "title": "Battle of Shanghai",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Shanghai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-637": {
+   "answer": "Nanjing Massacre",
+   "title": "Nanjing Massacre",
+   "url": "https://en.wikipedia.org/wiki/Nanjing_Massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-638": {
+   "answer": "Battle of Wuhan",
+   "title": "Battle of Wuhan",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Wuhan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-639": {
+   "answer": "Free China",
+   "title": "Free China (Second Sino-Japanese War)",
+   "url": "https://en.wikipedia.org/wiki/Free_China_(Second_Sino-Japanese_War)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-640": {
+   "answer": "Bombing of Chongqing",
+   "title": "Bombing of Chongqing",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Chongqing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-641": {
+   "answer": "Battle of Taierzhuang",
+   "title": "Battle of Taierzhuang",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Taierzhuang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-642": {
+   "answer": "1938 Yellow River flood",
+   "title": "1938 Yellow River flood",
+   "url": "https://en.wikipedia.org/wiki/1938_Yellow_River_flood",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-643": {
+   "answer": "Wang Jingwei regime",
+   "title": "Wang Jingwei regime",
+   "url": "https://en.wikipedia.org/wiki/Wang_Jingwei_regime",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-644": {
+   "answer": "Hundred Regiments Offensive",
+   "title": "Hundred Regiments Offensive",
+   "url": "https://en.wikipedia.org/wiki/Hundred_Regiments_Offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-645": {
+   "answer": "Jin-Cha-Ji Border Region",
+   "title": "Jin-Cha-Ji Border Region",
+   "url": "https://en.wikipedia.org/wiki/Jin-Cha-Ji_Border_Region",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-646": {
+   "answer": "New Fourth Army incident",
+   "title": "New Fourth Army Incident",
+   "url": "https://en.wikipedia.org/wiki/New_Fourth_Army_Incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-647": {
+   "answer": "Burma Road",
+   "title": "Burma Road",
+   "url": "https://en.wikipedia.org/wiki/Burma_Road",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-648": {
+   "answer": "Joseph Stilwell",
+   "title": "Joseph Stilwell",
+   "url": "https://en.wikipedia.org/wiki/Joseph_Stilwell",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-649": {
+   "answer": "Operation Ichi-Go",
+   "title": "Operation Ichi-Go",
+   "url": "https://en.wikipedia.org/wiki/Operation_Ichi-Go",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-650": {
+   "answer": "Unit 731",
+   "title": "Unit 731",
+   "url": "https://en.wikipedia.org/wiki/Unit_731",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-651": {
+   "answer": "Chinese famine of 1942–1943",
+   "title": "Chinese famine of 1942–1943",
+   "url": "https://en.wikipedia.org/wiki/Chinese_famine_of_1942%E2%80%931943",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-652": {
+   "answer": "refugee crisis",
+   "title": "Refugee crisis",
+   "url": "https://en.wikipedia.org/wiki/Refugee_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-653": {
+   "answer": "Nanjing surrender ceremony",
+   "title": "Surrender ceremony of the Second Sino-Japanese War",
+   "url": "https://en.wikipedia.org/wiki/Surrender_ceremony_of_the_Second_Sino-Japanese_War",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-654": {
+   "answer": "Four Policemen",
+   "title": "Four Policemen",
+   "url": "https://en.wikipedia.org/wiki/Four_Policemen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-655": {
+   "answer": "Nanjing Massacre Memorial Hall",
+   "title": "Memorial Hall of the Victims in Nanjing Massacre by Japanese Invaders",
+   "url": "https://en.wikipedia.org/wiki/Memorial_Hall_of_the_Victims_in_Nanjing_Massacre_by_Japanese_Invaders",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Nanjing Massacre Memorial Hall"
+  },
+  "cnh-656": {
+   "answer": "People's Republic of China",
+   "title": "China",
+   "url": "https://en.wikipedia.org/wiki/China",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "People's Republic of China"
+  },
+  "cnh-657": {
+   "answer": "Land Reform Movement",
+   "title": "Land Reform Movement",
+   "url": "https://en.wikipedia.org/wiki/Land_Reform_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-658": {
+   "answer": "Campaign to Suppress Counterrevolutionaries",
+   "title": "Campaign to Suppress Counterrevolutionaries",
+   "url": "https://en.wikipedia.org/wiki/Campaign_to_Suppress_Counterrevolutionaries",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-659": {
+   "answer": "People's Volunteer Army",
+   "title": "People's Volunteer Army",
+   "url": "https://en.wikipedia.org/wiki/People's_Volunteer_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-660": {
+   "answer": "First Five-Year Plan",
+   "title": "1st Five-Year Plan (China)",
+   "url": "https://en.wikipedia.org/wiki/1st_Five-Year_Plan_(China)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-661": {
+   "answer": "Socialist transformation",
+   "title": "Socialist transformation of ownership of the means of production",
+   "url": "https://en.wikipedia.org/wiki/Socialist_transformation_of_ownership_of_the_means_of_production",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-662": {
+   "answer": "Hundred Flowers Campaign",
+   "title": "Hundred Flowers Campaign",
+   "url": "https://en.wikipedia.org/wiki/Hundred_Flowers_Campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-663": {
+   "answer": "Anti-Rightist Campaign",
+   "title": "Anti-Rightist Campaign",
+   "url": "https://en.wikipedia.org/wiki/Anti-Rightist_Campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-664": {
+   "answer": "Great Leap Forward",
+   "title": "Great Leap Forward",
+   "url": "https://en.wikipedia.org/wiki/Great_Leap_Forward",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-665": {
+   "answer": "people's commune",
+   "title": "People's commune",
+   "url": "https://en.wikipedia.org/wiki/People's_commune",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-666": {
+   "answer": "Great Chinese Famine",
+   "title": "Great Chinese Famine",
+   "url": "https://en.wikipedia.org/wiki/Great_Chinese_Famine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-667": {
+   "answer": "Lushan Conference",
+   "title": "Lushan Conference",
+   "url": "https://en.wikipedia.org/wiki/Lushan_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-668": {
+   "answer": "Sino-Soviet split",
+   "title": "Sino-Soviet split",
+   "url": "https://en.wikipedia.org/wiki/Sino-Soviet_split",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-669": {
+   "answer": "Seven Thousand Cadres Conference",
+   "title": "Seven Thousand Cadres Conference",
+   "url": "https://en.wikipedia.org/wiki/Seven_Thousand_Cadres_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-670": {
+   "answer": "Cultural Revolution",
+   "title": "Cultural Revolution",
+   "url": "https://en.wikipedia.org/wiki/Cultural_Revolution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-671": {
+   "answer": "Red Guards",
+   "title": "Red Guards",
+   "url": "https://en.wikipedia.org/wiki/Red_Guards",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-672": {
+   "answer": "Quotations from Chairman Mao Tse-tung",
+   "title": "Quotations from Chairman Mao Tse-tung",
+   "url": "https://en.wikipedia.org/wiki/Quotations_from_Chairman_Mao_Tse-tung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-673": {
+   "answer": "Down to the Countryside Movement",
+   "title": "Down to the Countryside Movement",
+   "url": "https://en.wikipedia.org/wiki/Down_to_the_Countryside_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-674": {
+   "answer": "Lin Biao",
+   "title": "Lin Biao",
+   "url": "https://en.wikipedia.org/wiki/Lin_Biao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-675": {
+   "answer": "Gang of Four",
+   "title": "Gang of Four",
+   "url": "https://en.wikipedia.org/wiki/Gang_of_Four",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-676": {
+   "answer": "Shanghai Communiqué",
+   "title": "Shanghai Communiqué",
+   "url": "https://en.wikipedia.org/wiki/Shanghai_Communiqu%C3%A9",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-677": {
+   "answer": "Hua Guofeng",
+   "title": "Hua Guofeng",
+   "url": "https://en.wikipedia.org/wiki/Hua_Guofeng",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-678": {
+   "answer": "Deng Xiaoping",
+   "title": "Deng Xiaoping",
+   "url": "https://en.wikipedia.org/wiki/Deng_Xiaoping",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-679": {
+   "answer": "Boluan Fanzheng",
+   "title": "Boluan Fanzheng",
+   "url": "https://en.wikipedia.org/wiki/Boluan_Fanzheng",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-680": {
+   "answer": "Chinese economic reform",
+   "title": "Reform and opening up",
+   "url": "https://en.wikipedia.org/wiki/Reform_and_opening_up",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Chinese economic reform"
+  },
+  "cnh-681": {
+   "answer": "household responsibility system",
+   "title": "Household responsibility system",
+   "url": "https://en.wikipedia.org/wiki/Household_responsibility_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-682": {
+   "answer": "special economic zone",
+   "title": "Special economic zone",
+   "url": "https://en.wikipedia.org/wiki/Special_economic_zone",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-683": {
+   "answer": "one-child policy",
+   "title": "One-child policy",
+   "url": "https://en.wikipedia.org/wiki/One-child_policy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-684": {
+   "answer": "Tiananmen Square protests of 1989",
+   "title": "1989 Tiananmen Square protests and massacre",
+   "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tiananmen Square protests of 1989"
+  },
+  "cnh-685": {
+   "answer": "southern tour",
+   "title": "Deng Xiaoping's southern tour",
+   "url": "https://en.wikipedia.org/wiki/Deng_Xiaoping's_southern_tour",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-686": {
+   "answer": "Protocol on the Accession of the People's Republic of China",
+   "title": "China and the World Trade Organization",
+   "url": "https://en.wikipedia.org/wiki/China_and_the_World_Trade_Organization",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-687": {
+   "answer": "floating population",
+   "title": "Floating population",
+   "url": "https://en.wikipedia.org/wiki/Floating_population",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-688": {
+   "answer": "hukou",
+   "title": "Hukou",
+   "url": "https://en.wikipedia.org/wiki/Hukou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-689": {
+   "answer": "handover of Hong Kong",
+   "title": "Handover of Hong Kong",
+   "url": "https://en.wikipedia.org/wiki/Handover_of_Hong_Kong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-690": {
+   "answer": "Belt and Road Initiative",
+   "title": "Belt and Road Initiative",
+   "url": "https://en.wikipedia.org/wiki/Belt_and_Road_Initiative",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-691": {
+   "answer": "Government-General of Taiwan",
+   "title": "Government-General of Taiwan",
+   "url": "https://en.wikipedia.org/wiki/Government-General_of_Taiwan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-692": {
+   "answer": "Retrocession Day",
+   "title": "Retrocession Day",
+   "url": "https://en.wikipedia.org/wiki/Retrocession_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-693": {
+   "answer": "February 28 incident",
+   "title": "February 28 incident",
+   "url": "https://en.wikipedia.org/wiki/February_28_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-694": {
+   "answer": "White Terror",
+   "title": "White Terror (Taiwan)",
+   "url": "https://en.wikipedia.org/wiki/White_Terror_(Taiwan)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-695": {
+   "answer": "Martial law in Taiwan",
+   "title": "Martial law in Taiwan",
+   "url": "https://en.wikipedia.org/wiki/Martial_law_in_Taiwan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-696": {
+   "answer": "Taiwan Miracle",
+   "title": "Taiwan Miracle",
+   "url": "https://en.wikipedia.org/wiki/Taiwan_Miracle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-697": {
+   "answer": "Wild Lily student movement",
+   "title": "Wild Lily student movement",
+   "url": "https://en.wikipedia.org/wiki/Wild_Lily_student_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-698": {
+   "answer": "Cross-Strait relations",
+   "title": "Cross-strait relations",
+   "url": "https://en.wikipedia.org/wiki/Cross-strait_relations",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Cross-Strait relations"
+  },
+  "cnh-699": {
+   "answer": "Taiwanese identity",
+   "title": "Taiwanese people",
+   "url": "https://en.wikipedia.org/wiki/Taiwanese_people",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Taiwanese identity"
+  },
+  "cnh-700": {
+   "answer": "political status of Taiwan",
+   "title": "Political status of Taiwan",
+   "url": "https://en.wikipedia.org/wiki/Political_status_of_Taiwan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-701": {
+   "answer": "Chinese Empire",
+   "title": "Chinese Empire",
+   "url": "https://en.wikipedia.org/wiki/Chinese_Empire",
    "via": "glossary",
    "status": "ok"
   }
