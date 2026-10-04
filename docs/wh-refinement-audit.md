@@ -148,7 +148,7 @@ in plan order unless the user says otherwise.
 | B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | **done 2026-10-04** |
 | B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | **done 2026-10-04** |
 | B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | **done 2026-10-04** |
-| B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | open |
+| B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | **done 2026-10-04** |
 | B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | open |
 | B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | open |
 | B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | open |
@@ -1454,6 +1454,40 @@ wall c. 600 – 500 BCE, apparently another structure. None edited.
 Alexandria*, *Ancient Rome*); *Hellenistic period*, *Etruscan civilisation*, *Founding of Rome*, *Roman Kingdom* and
 *Roman Republic* already agreed. **The Greece and the Hellenistic world deck is done.**
 
+### B35 — `wh-341`–`wh-350`, Rome (2026-10-04)
+
+Run as B34. Checks: `wh-audit.js --range=wh-341:wh-350` clean but for `I.duplicate` on six cards whose pictures are
+also `rm-` cards' (`wh-342`, `wh-343`, `wh-344`, `wh-345`, `wh-346`, `wh-349`: picture pass); the rest as B31; all 84
+distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators: `wh-347` Cannae (battle) and `wh-348` Byrsa
+hill. **Every old card's date line carried at least one row that was not a date** (meeting houses, "10, then 2 more"
+tables, "3 commissioners", "24 years", "700 years old", "provinces 2", "500 iugera"), and most cited Livy, Polybius,
+Appian or Plutarch alone.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-341` Roman Senate | 9 | 6 → 9 | **"Decrees as law from 27 BCE" had no source**, and the Republic's dates stood for the Senate's. Now `""` and `undatable`: Romulus's founding is Livy's legend, the end a fading in the 7th century CE. Sizes of 300, 600 and 900 each given as whose. |
+| `wh-342` Twelve Tables | 8 | 6 → 8 | **Livy's Athens embassy was told as fact**, with four Livy citations; now "Livy says", the years "by tradition" (451 – 450, ratified 449 BCE), the text known only from later quotations, and a modern warning against the story of its making. |
+| `wh-343` Conflict of the Orders | 7 | 6 → 8 | **Livy's secession story was fact, and 286 BCE for the last secession was an 1875 dictionary's figure**; now 287. The name and the 494 – 287 frame are modern, the early secessions doubted, the old soldier a recurring motif. |
+| `wh-344` Roman legion | 9 | 8 → 10 | **"A standing army" under the Republic: Polybius describes a fresh levy each year.** 4,200 and 5,000 are his; the "Marian reforms" as a modern construct; the line `""` and `undatable`, no source dating the legion's start or end. |
+| `wh-345` Punic Wars | 8 | 7 → 9 | **No row dated the wars**, and a 201 BCE peace-terms row was another event's. Now 264 – 146 and each war; Polybius's ship losses as his, with the Aegates rams suggesting he overstated; the salted-earth story a modern fable. |
+| `wh-346` Hannibal | 9 | 7 → 9 | **The oath at the altar, the 15 days in the Alps and the army figures were rows of fact**; now Polybius's, the oath disputed, the pass unknown. Born c. 247, exiled 195, died 183 – 181 BCE as Nepos's sources disagree. |
+| `wh-347` Battle of Cannae | 8 | 6 → 9 | Every casualty figure is now its writer's: Polybius 70,000, Livy 45,500 foot and 2,700 horse, modern nearer 30,000. **The day, 2 August, is Quintus Claudius's Roman date via Gellius.** The glossary misquoted Livy as 40,000, as `rm-218` does. |
+| `wh-348` destruction of Carthage | 8 | 6 → 10 | **The order of events was wrong** (surrender, hostages and arms came before the order to leave the city). "700 years old" and "3 years" rows dropped; the salting a later legend; Cato in Plutarch's words, not the Latin slogan. |
+| `wh-349` Roman conquest of Greece | 7 | 6 → 7 | **Philip's 1,000 talents were half at once and half over ten years**, not "over 10 years"; **Achaea became a province only in 27 BCE**, not 146. Now 229 – 146 BCE, the Isthmian proclamation of 196, Corinth 146. |
+| `wh-350` Gracchi brothers | 7 | 7 → 9 | **Gaius did not die on the Aventine**: Appian has him flee across the river and have a slave kill him. The 500-iugera limit is Appian's against Livy's summary's 1,000; Plutarch's rival motives his. No birth rows: no source gives one. |
+
+**Read by eye.** *Article:* "the Roman Senate", "the Twelve Tables", "the Conflict of the Orders", "the Roman legion",
+"the Punic Wars", "the Battle of Cannae", "the destruction of Carthage", "the Roman conquest of Greece"; "Hannibal"
+bare; "the Gracchi brothers" (each phrasing says "the elder" or "the younger of the"). *Confusability:* `wh-341`/`wh-342`/
+`wh-343` the council, the code and the struggle, the tribunes only on `wh-343`; `wh-345`/`wh-346`/`wh-347`/`wh-348` the
+wars, the general, the battle and the end, the precheck's sibling note between `wh-345` and `wh-348` read and found to be
+shared vocabulary only; `wh-348`/`wh-349` both end in 146 BCE, Carthage only on one and Corinth only on the other.
+*Against the rm- cards:* `rm-218` quotes Livy's Cannae dead as 40,000 foot (he gives 45,500); `rm-283` states the
+500-iugera cap as fact; `rm-119` and `rm-155` date things Livy dates (4,200 men in 346 BCE, the maniple in 340) that this
+card leaves to a modern "mid-4th century". None edited.
+
+**Glossary.** Ten terms rewritten: every card's entry had an unsourced claim or a sentence with no marker.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1588,3 +1622,9 @@ pass once it answers. Filled batch by batch.
 | `wh-337` | the Piacenza liver, one divination object (`rm-029`'s subject); **locator**: "Etruria" has no coordinate |
 | `wh-339` | a relief of lictors (also `rm-045`'s, audit `I.duplicate`) |
 | `wh-340` | the Curia Julia (also `rm-133`'s, audit `I.duplicate`), the senate house rather than the Republic |
+| `wh-342` | a 1555 woodcut, also `rm-110`'s (audit `I.duplicate`) |
+| `wh-343` | a Nerva denarius showing a later vote, also `rm-071`'s (audit `I.duplicate`) |
+| `wh-344` | a census relief, not a legion, also `rm-117`'s (audit `I.duplicate`) |
+| `wh-345` | an Aegates ram: apt, but also `rm-199`'s (audit `I.duplicate`) |
+| `wh-346` | Barcid coins, also `rm-205`'s (audit `I.duplicate`) |
+| `wh-349` | the temple of Apollo at Corinth, also `rm-256`'s (audit `I.duplicate`) |

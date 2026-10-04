@@ -6598,7 +6598,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ebro_treaty": "c. 226 BCE",
 "Saguntum": "besieged 219 BCE",
 "Second_Punic_War": "218 – 201 BCE",
-"Hannibal": "born c. 247 BCE",
+"Hannibal": "c. 247 – 183/181 BCE",
 "Hannibal's_crossing_of_the_Alps": "218 BCE",
 "Battle_of_the_Ticinus": "218 BCE",
 "Battle_of_the_Trebia": "218 BCE",

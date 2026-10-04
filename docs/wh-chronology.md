@@ -343,6 +343,14 @@ Filled batch by batch, from the source each row names.
 | founding of Rome: traditional / other ancient dates / one state / Palatine wall | 753 BCE (Varro) / 813 – 728 BCE (Timaeus to Cincius) / c. 700 – 600 BCE / c. 730 – 720 BCE (excavators' dating) | Velleius; Dionysius; Forsythe; Walt (`wh-338`) |
 | Roman Kingdom (traditional) / Dionysius's own count | 753 – 509 BCE / 751 – 507 BCE | Diodato et al.; Bailey on Flower; Dionysius (`wh-339`) |
 | Roman Republic (traditional) / Caesar dictator | 509 – 27 BCE / from 49 BCE | Ravasini et al.; Bailey on Flower (`wh-340`) |
+| Twelve Tables: drafted / ratified | 451 – 450 BCE / 449 BCE (by tradition) | Johnson, Coleman-Norton and Bourne (`wh-342`) |
+| Conflict of the Orders (the tradition) / Licinian–Sextian law / last secession | 494 – 287 BCE / 367 BCE / 287 BCE | Koptev; Livy, *Periochae* (`wh-343`) |
+| Punic Wars: all / first / second / third | 264 – 146 / 264 – 241 / 218 – 201 / 149 – 146 BCE | Ringbauer et al.; Drogula (`wh-345`) |
+| Hannibal: born / invades Italy / exiled / died | c. 247 BCE / 218 / 195 / 183, 182 or 181 BCE (Nepos's sources disagree) | Mulligan; Berti and Vollrath; Burton (`wh-346`) |
+| Battle of Cannae | 216 BCE (2 August by the Roman calendar, from Quintus Claudius) | Mulligan; Strauss (`wh-347`) |
+| destruction of Carthage | spring 146 BCE (Third Punic War from 149) | Appian; Jacobs (`wh-348`) |
+| Roman conquest of Greece / Isthmian proclamation / Corinth sacked / province of Achaea | 229 – 146 BCE / 196 BCE / 146 BCE / 27 BCE | Burton; Bloy; Palamidis (`wh-349`) |
+| Gracchi: Tiberius tribune and killed / Gaius tribune / Gaius dies | 133 BCE / 123 BCE (re-elected for 122) / 121 BCE | Probst; Livy, *Periochae* (`wh-350`) |
 
 ## Chronology pins
 
@@ -673,4 +681,12 @@ wh-337: 900; 396; 300; 100
 wh-338: 753; 813; 728; 700; 600
 wh-339: 753; 509
 wh-340: 509; 27
+wh-342: 451; 450; 449
+wh-343: 494; 287; 367
+wh-345: 264; 241; 218; 201; 149; 146
+wh-346: 247; 218; 195; 183; 181
+wh-347: 216
+wh-348: 146
+wh-349: 229; 146; 196
+wh-350: 133; 123; 121
 ```
