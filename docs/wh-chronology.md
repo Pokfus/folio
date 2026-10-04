@@ -376,6 +376,15 @@ Filled batch by batch, from the source each row names.
 | mahajanapadas (one estimate) | c. 550 – 322 BCE (the source's 2500 – 2272 BP) | Kathayat et al. (`wh-376`) |
 | Upanishads: older group / later group | c. 700 – 500 BCE / c. 300 – 100 BCE (Olivelle; Macdonell 1900: earliest by c. 600) | Black; Macdonell (`wh-377`) |
 | Gautama Buddha: older dating / newer death | c. 563 – 483 BCE / c. 405 BCE (Gombrich c. 404) | Rapson; Siderits (`wh-380`) |
+| Buddhism emerges / Mahayana doctrines | c. 600 – 400 BCE / roughly the 1st century BCE | Velez; Siderits; Ronkin (`wh-381`) |
+| Mahavira: traditional dates / scholars' death | 599 – 527 BCE / c. 468 BCE (`wh-382` is `undatable`) | Gorisse; Charpentier (`wh-382`) |
+| Maurya Empire | c. 321 – 184 BCE (both ends reconstructed) | Hopkins; Rapson (`wh-383`) |
+| Chandragupta Maurya: reign / meets Seleucus | c. 321 – 297 BCE / c. 305 – 303 BCE | Thomas; Jansari (`wh-384`) |
+| Arthashastra: composed / expanded / rediscovered | c. 50 BCE – 125 CE / c. 175 – 300 CE (Olivelle) / 1905 | Davis on Olivelle; Fleet (`wh-385`) |
+| Ashoka: born / reigned / Kalinga / died | c. 304 BCE / c. 268 – 232 BCE / c. 260 BCE / c. 232 BCE | Dhammika; Singh; Trautmann (`wh-386`) |
+| Edicts of Ashoka: issued / deciphered / Maski find | c. 259 – 242 BCE (Thomas; Hultzsch puts the coronation 264) / 1837 / 1915 | Thomas; Prinsep (`wh-387`) |
+| Buddhism reaches Sri Lanka / China / Korea / Japan | c. 246 BCE / by c. 65 CE / 372 CE / 538 or 552 CE | Barnett; Hill; Muller (`wh-388`) |
+| Indo-Greek kingdoms / Menander | c. 200 BCE – c. 10 CE / c. 165 – 130 BCE (`gr-785`: c. 155 – 130) | Rapson; Bopearachchi (`wh-390`) |
 
 ## Chronology pins
 
@@ -740,4 +749,12 @@ wh-375: 476
 wh-376: 550; 322
 wh-377: 700; 500; 300; 100
 wh-380: 563; 483; 405
+wh-381: 600; 400
+wh-383: 321; 184
+wh-384: 321; 297; 305; 303
+wh-385: 50; 125; 175; 300; 1905
+wh-386: 304; 268; 232; 260
+wh-387: 259; 242; 1837; 1915
+wh-388: 246; 65; 372; 538; 552
+wh-390: 200; 10
 ```

@@ -152,7 +152,7 @@ in plan order unless the user says otherwise.
 | B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | **done 2026-10-04** |
 | B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | **done 2026-10-04** |
 | B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | **done 2026-10-04** |
-| B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | open |
+| B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | **done 2026-10-04** |
 | B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | open |
 | B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | open |
 | B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | open |
@@ -1584,6 +1584,37 @@ social order, the Purusha hymn only on `wh-379`; `wh-380`/`wh-381` the man and t
 
 **Glossary.** Nine terms rewritten; *Christianity* kept as above.
 
+### B39 — `wh-381`–`wh-390`, Ancient India (2026-10-04)
+
+Run as B38. Checks: `wh-audit.js --range=wh-381:wh-390` clean but for `W.not-why` notes on `wh-389` and `wh-390`; the
+rest as B31; all 59 distinct URLs 2xx. `check-citations --card` first found one mismatch: `wh-382` expanded an author's
+initials as "A. G." where Crossref prints "AG", now as Crossref has it, and the check is 0. New locator: `wh-389`
+(Sanchi, where the card's stupa stands). **Many old date lines were F. W. Thomas's provisional "at latest" years of
+1922 printed as settled**; the new lines say whose reckoning each is.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-381` Buddhism | 9 | 7 → 9 | **"Founder died 483 BCE" and "canon by about 250 BCE" were an old Western dating and a 1922 view stated as fact.** Now "emerged c. 600 – 400 BCE", the prose giving three datings and whose; adherents from Pew's 2025 report; a phrasing that overlapped `wh-380` replaced. |
+| `wh-382` Jainism | 8 | 7 → 8 | Now `""` and `undatable`, since Jains hold the teaching has no founder; Mahavira's traditional 599 – 527 and the scholars' c. 468 BCE each whose; the split of c. 300 BCE as tradition; Parshva possibly real, unprovable. A phrasing carried a numeral. |
+| `wh-383` Maurya Empire | 7 | 6 → 9 | **"Dynasty lasted 137 years" was a row**; it is the Puranas' figure. Both ends are reconstructions: the start from the Sandrocottus match (one study allows only c. 311 – 305), the end from the 137 years; Megasthenes' details each credited to whoever quotes him. |
+| `wh-384` Chandragupta Maurya | 7 | 7 → 8 | **The Jain abdication and death at Shravanabelagola was stated as fact**; it is a tradition grown up after c. 600 CE. Chanakya credited to later texts; the 500 elephants to Strabo and Plutarch (Appian gives none); the armies to Megasthenes and Plutarch; no source names a victor over Seleucus. |
+| `wh-385` Arthashastra | 7 | 6 → 7 | **"Traditionally c. 300 BCE" was the only date**; now Olivelle's layered dating as his, composed c. 50 BCE – 125 CE and expanded c. 175 – 300 CE, then rediscovered in 1905; Kautilya as Chanakya a tradition. |
+| `wh-386` Ashoka | 8 | 7 → 8 | **The old card said he never names himself, but the Maski edict does.** Reign c. 268 – 232 BCE as Upinder Singh gives it; the Kalinga toll Ashoka's own figure in Rock Edict 13; the conversion stories the Mahavamsa's and the Ashokavadana's. |
+| `wh-387` Edicts of Ashoka | 7 | 6 → 7 | **Thomas's 1922 "at latest" dates were printed as settled**; now issued c. 259 – 242 BCE on his reckoning, with Hultzsch's coronation of 264 beside it. Prakrit, Brahmi and Kharosthi, the Greek and Aramaic at Kandahar, and dhamma rather than Buddhism added. |
+| `wh-388` spread of Buddhism | 8 | 6 → 9 | **The missions, Mahinda's included, are known only from the Sri Lankan chronicles**; the edicts never mention them. Emperor Ming's dream is the Hou Hanshu's "current tradition". Sri Lanka c. 246 BCE, Korea 372, Japan 538 or 552 CE, agreeing with `cnh-267` and `jp-063`. |
+| `wh-389` stupa | 7 | 6 → 9 | **A 19th-century view (the stupa cult as lay, not monastic) was fact**; dropped. The Vedic-mound origin as a widely held view; the 84,000 stupas a legend Faxian heard; Ashoka's Nigali Sagar pillar added. Sanchi's dates off the line, which is `""` and `undatable`. |
+| `wh-390` Indo-Greek kingdoms | 6 | 9 → 7 | **Greek rule ended c. 10 CE, when a Scythian governor took Sagala**, not c. 20 CE with the Kushans. Both ends reconstructions, whose; the history rebuilt from coins; the Milindapanha a Buddhist author's portrait. |
+
+**Read by eye.** *Article:* "Buddhism", "Jainism", "Ashoka", "Chandragupta Maurya" bare; "the Maurya Empire", "the
+Arthashastra", "the Edicts of Ashoka", "the spread of Buddhism", "a stupa", "the Indo-Greek kingdoms". *Confusability:*
+`wh-383`/`wh-384` the state and its founder, Megasthenes on both but the capital only on `wh-383`, Seleucus only on
+`wh-384`; `wh-386`/`wh-387` the man and his edicts, Kalinga's toll only on `wh-386`, the Greek kings and the scripts
+only on `wh-387`; `wh-381`/`wh-388` the religion and its spread, the branches only on `wh-381`, Mahinda only on `wh-388`.
+*Against the gr- cards:* `gr-768` has the elephants decide Ipsus and Seleucus cede "the eastern provinces"; `gr-785`
+dates Menander c. 155 – 130 BCE where `wh-390` has c. 165 – 130 (from his coins). None edited.
+
+**Glossary.** Nine terms rewritten; *Buddhism* and the *spread of Buddhism* alias already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1733,3 +1764,5 @@ pass once it answers. Filled batch by batch.
 | `wh-371` | the porphyry tetrarchs, all four rather than Diocletian |
 | `wh-372` | the Arch of Constantine, a monument, not the man |
 | `wh-380` | the Lumbini pillar, evidence about him rather than the Buddha |
+| `wh-384` | a generic punch-marked coin; description names a museum |
+| `wh-386` | the Dhauli elephant, a site rather than the king |
