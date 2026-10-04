@@ -105,6 +105,11 @@ Filled batch by batch, from the source each row names.
 | bucchero first made / thin-walled phase | c. 700 BCE / 680 – 630 BCE | Longoni 2023 (`rm-038`) |
 | Apollo of Veii made / found | c. 510 – 500 BCE / 1916 | `rm-039` |
 | Pontecagnano founded / Tabula Capuana / Capua taken by the Samnites | c. 900 BCE / c. 470 BCE / 423 BCE (one modern dating) | `rm-040` |
+| the fight off Alalia / also dated / Alalia founded / Velia's Athena temple | c. 540 – 535 BCE / c. 545 BCE (Colonna, via a BMCR review) / c. 565 BCE / c. 540 – 530 BCE | `rm-033`, `rm-041`, `rm-042` |
+| Giens wreck lost / defeat off Cumae | c. 500 – 475 BCE / 474 BCE | the excavators' report; a modern account, since Diodorus gives an archon year (`rm-041`) |
+| Greek colonies in southern Italy / Tarentum falls to Rome | c. 750 – 443 BCE (Pithekoussai to Thurii) / 272 BCE | `rm-043` |
+| Cumae founded / Etruscans routed / taken by the Campanians / citizens without the vote | c. 750 – 720 BCE / 524 BCE / 421 – 420 BCE / 338 BCE | `rm-044`; `gr-215` gives 421 BCE, this card Livy's 420 as well |
+| Tarquinius Priscus king (Dionysius) / Etruscans made citizens | 614 BCE (tradition) / 90 – 88 BCE | `rm-045` |
 
 ## The regal period and the early Republic
 
@@ -112,6 +117,11 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 
 | event | the collection says | source |
 |---|---|---|
+| the regal period | 753 – 509 BCE by tradition (Varro); 751 – 507 BCE in Dionysius | `rm-046` |
+| the Forum valley filled in | c. 650 – 600 BCE | `rm-046` |
+| the Forum Boarium's first temple / temples burnt / rebuilt | c. 600 – 550 BCE / 213 BCE / 212 BCE | `rm-047` |
+| Palatine wall (Carandini; disputed) / later wall remains | c. 775 – 750 BCE / c. 600 – 500 BCE | Lefkowitz's review (`rm-049`) |
+| Capitoline settled / temple of Jupiter dedicated / Gallic siege / temple burnt | c. 1500 – 600 BCE / 509 BCE (tradition) / 390 BCE (Varronian) / 83 BCE | `rm-050` |
 
 ## The middle and late Republic
 
@@ -170,4 +180,13 @@ rm-037: 750; 500; 525; 400
 rm-038: 700; 680; 630
 rm-039: 510; 500; 1916
 rm-040: 900; 470; 423
+rm-041: 540; 535; 500; 475; 474
+rm-042: 540; 535; 545; 565; 530
+rm-043: 750; 443; 272
+rm-044: 750; 720; 524; 421; 420; 338
+rm-045: 614; 396; 90; 88
+rm-046: 753; 509; 751; 507; 650; 600
+rm-047: 600; 550; 213; 212
+rm-049: 775; 750; 600; 500
+rm-050: 1500; 600; 509; 390; 83
 ```

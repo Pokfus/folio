@@ -136,7 +136,7 @@ order unless the user says otherwise.
 | B2 | Italy before Rome (`rm-italy`) | `rm-011`–`rm-020` | 10 | 100 | **done 2026-10-04** |
 | B3 | Italy before Rome (`rm-italy`) | `rm-021`–`rm-030` | 10 | 95 | **done 2026-10-04** |
 | B4 | Italy before Rome (`rm-italy`) | `rm-031`–`rm-040` | 10 | 104 | **done 2026-10-04** |
-| B5 | Italy before Rome (`rm-italy`) / Rome under the kings (`rm-kings`) | `rm-041`–`rm-050` | 10 | 112 | open |
+| B5 | Italy before Rome (`rm-italy`) / Rome under the kings (`rm-kings`) | `rm-041`–`rm-050` | 10 | 112 | **done 2026-10-04** |
 | B6 | Rome under the kings (`rm-kings`) | `rm-051`–`rm-060` | 10 | 118 | open |
 | B7 | Rome under the kings (`rm-kings`) | `rm-061`–`rm-070` | 10 | 132 | open |
 | B8 | Rome under the kings (`rm-kings`) | `rm-071`–`rm-080` | 10 | 123 | open |
@@ -309,6 +309,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-038` bucchero | a kantharos from Osteria dell'Osa | from a Latin cemetery; alt is the file name; no photographer in the credit |
 | `rm-039` Apollo of Veii | the statue | acceptable |
 | `rm-040` Etruscan Campania | a Corinthian-style cup | one cup for a region. Also a false `I.duplicate` (below) |
+| `rm-041` Etruscan sea power | a ship in the Tomb of the Ship | acceptable |
+| `rm-042` Battle of Alalia | a 1915 imagined illustration | an imagined scene; replace if a free photograph of the Velia helmets exists |
+| `rm-043` Magna Graecia | the Temple of Hera at Paestum | acceptable |
+| `rm-044` Cumae | the approach to the Sibyl's cave | acceptable; the glossary's 1769 painting has a faulty credit |
+| `rm-045` Etruscan influence on Rome | a relief of three lictors | also on `wh-339` (`I.duplicate`) |
+| `rm-046` Roman Kingdom | a stretch of the Servian Wall | `rm-072`'s subject |
+| `rm-047` Forum Boarium | an 1859 watercolour | a painting where a photograph of the temples would do |
+| `rm-048` Seven Hills of Rome | none | no picture (`I.none`) |
+| `rm-049` Palatine Hill | the hill from the Circus Maximus | acceptable; the glossary copy's credit was moved out of its desc in this batch |
+| `rm-050` Capitoline Hill | an 1850 engraving of the Tarpeian Rock | one cliff for the hill; the desc names its source; the glossary copy likewise |
 
 ## Glossary candidates
 
@@ -518,3 +528,42 @@ every citation URL answers 2xx; `check-citations --card` 0 mismatched on every c
 
 **Locators.** `rm-033` (Caere, on Cerveteri) and `rm-039` (Portonaccio sanctuary, Veii) through
 `add-locators.js`; the rest kept. `rm-037` (a craft) keeps an Etruria region locator it does not need.
+
+### B5 — `rm-041`–`rm-050`, Italy before Rome and the first of the kings (2026-10-04)
+
+The first run of B5 and B6 died when the session hit its usage limit (all ten agents stopped before
+writing a draft); both batches were relaunched after the reset. Otherwise run as B4.
+
+Checks: `rm-audit.js --range=rm-041:rm-050` reads clean on four cards; the rest are `W.not-why` notes on
+four cards, `rm-048`'s missing picture and `rm-045`'s picture shared with `wh-339`. `check-questions`,
+`check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations
+--card` 0 mismatched on every card. **Two citation URLs did not answer at apply time** (connection dropped,
+twice each): the Velia press release on cultura.gov.it (`rm-042`) and the Colosseum Archaeological Park's
+Palatine page (`rm-049`). Both were fetched earlier in the run, their saved text holds every quoted passage,
+and they are kept; re-curl them when next touched.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-041` Etruscan sea power | 6 | 7 → 8 | The Persée and OpenEdition sources could not be fetched; the Gravisca inscriptions and their date row, piracy as a Greek invention, Genoa and Provence went with them. **474 BCE for Cumae was cited to Diodorus, who gives an archon year**; a modern source now carries it. The Giens wreck's figures come from the excavators' own report. Two phrasings carried dates. |
+| `rm-042` Battle of Alalia | 6 | 6 → 8 | The Aléria claims on unfetchable sources dropped. The line is c. 540 – 535 BCE, as on `rm-033`, with Colonna's c. 545, the founding c. 565 and the Velia temple. **"Italic" helmets** is not what the source says; the reading of the helmets as offerings is credited to the park's director. The modern doubts added: where Herodotus got the story, sixty ships as a stock number, the view that the Greeks lost. A phrasing too close to `rm-033` replaced. |
+| `rm-043` Magna Graecia | 7 | 5 → 7 | **"Taras leads c. 385 – 355" and "under Rome from c. 350" had no source**; the line is now the colonies c. 750 – 443 BCE and Tarentum's fall, 272. Written from Rome's side: Pliny's statues of Pythagoras and Alcibiades in the Comitium, Greek surviving at Naples, Velia and Rhegium, the cities that went over to Hannibal. A Gulf of Tarentum locator added. |
+| `rm-044` Cumae | 7 | 7 → 7 | **The Aricia date (c. 504 BCE, worked out from 524) and Tarquin's death (495) are conversions of Livy's consular years that the sources make differently**, and are gone. The Campanian capture (421 – 420) and citizenship without the vote (338) added. The legends are Livy's and Dionysius's. The glossary's cited author was "Marina" Catucci; she is Margherita. |
+| `rm-045` Etruscan influence on Rome | 7 | 9 → 9 | **Livy was cited four times** (cap 2). The Persée sources, "23 letters" and two unsourced rows are gone. The alphabet coming through the Etruscans is hedged against the Osteria dell'Osa inscription. The line is now Tarquin's accession (614 BCE, Dionysius's tradition), Veii 396 (tradition) and the Etruscans made citizens, 90 – 88. Questions moved off `rm-705`'s lictors, curule chair and toga. |
+| `rm-046` Roman Kingdom | 8 | 7 → 9 | **Livy was cited five times.** "244 years" and a "7th century" row came off the line, and "244" out of a question; the line is now 753 – 509 BCE (Varro, labelled tradition), 751 – 507 (Dionysius) and the Forum filled c. 650 – 600. **The old card and glossary stated as fact one scholar's view that Romans wrote history only from c. 200 BCE**; it is now one sceptical view. The archaeology is kept apart from the story. |
+| `rm-047` Forum Boarium | 6 | 7 → 8 | **"First temples c. 650 – 550 BCE" was the span of a whole book chapter**, not this site; now c. 600 – 550 BCE (the source's "early 6th century"). The fire and rebuilding rows name their temples. The river harbour, the Late Bronze Age settlement and the Portunus temple added; Hercules, Cacus and Romulus's rite told as Livy's or tradition. An editor's name and a year no fetched page shows were cut from two citations. |
+| `rm-048` Seven Hills of Rome | 8 | 5 → 8 | **"The list of seven came later" and a census figure had no source.** Strabo's and Livy's accounts of the kings walling the hills are tradition; the volcanic tuff, the Iron Age burials and the ancient dispute over which seven are added. No date line (a geographic feature, `undatable`). |
+| `rm-049` Palatine Hill | 8 | 5 → 9 | **"Perhaps 378 BCE" for a fort rested on a guess in Platner and Ashby.** The line is now Carandini's north-west wall (c. 775 – 750 BCE, labelled disputed) and the 6th-century wall. Livy was cited three times; now twice. The augury and the fortifying are Livy's. |
+| `rm-050` Capitoline Hill | 8 | 5 → 9 | Livy was cited four times. The head-in-the-foundations question was `rm-075`'s and the geese `rm-126`'s; both replaced. Tarpeia is Plutarch's. The line is now settlement c. 1500 – 600 BCE, the temple's dedication (tradition, 509), the Gallic siege (390) and the burning of 83 BCE. |
+
+**Read by eye.**
+- *Legend as legend:* Tarquin's accession (`rm-045`), the seven kings (`rm-046`), Hercules and Cacus (`rm-047`),
+  the kings walling the hills (`rm-048`), Romulus's augury (`rm-049`) and Tarpeia (`rm-050`) are each told in
+  an ancient author's voice; `rm-046` keeps the excavated Forum separate from the story.
+- *Confusability:* `rm-041`, `rm-042` and `rm-033` all touch Alalia; each now asks something only it has (the
+  sea names and Giens for sea power, the forty lost ships and Velia for the battle, Delphi's order for Caere).
+  `rm-049` and `rm-050` asked about `rm-075` and `rm-126`'s subjects and no longer do.
+- *Overlap with `gr-`/`wh-`:* `gr-215` dates the Campanian capture of Cumae 421 BCE, `rm-044` 421 – 420
+  (Livy's 420 reported by Smith); `gr-223` agrees with `rm-043` but for its start date; `wh-339` agrees on
+  753 – 509 BCE but puts counts on its date line (a fault for its own audit).
+
+**Locators.** `rm-043` gained a Gulf of Tarentum point (a drawn region would be better). The rest kept theirs.
