@@ -38917,11 +38917,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      51 terms — a naval battle, a volcanic eruption, the decipherment of a script, a flood myth and the
      founding of Rome, which have nothing in common a solver could see. A group is a category only if a
      reader can say why the four tiles belong together, and "these are all things that happened" is true
-     of most of the grid. It is the same test the sixteen already here fail. */
+     of most of the grid. It is the same test the sixteen already here fail.
+     `literature` FOLLOWED IN OCT 2026, ON REQUEST ("Remove the Literature category from the game"). The
+     tag reaches past the works themselves to the myths and figures inside them — the Judgement of Paris,
+     Orestes, Deucalion and Patroclus made one day's row — and a solver is not told whether the group wants
+     the poem, the character or the story, which is the ambiguity the other rules exist to remove. */
   const THREAD_BROAD = new Set([
     "history", "place", "archaeology", "geography", "science", "prehistory", "concept", "object",
     "era", "person", "nature", "palaeontology", "geology", "evolution", "politics", "technology",
-    "event",
+    "event", "literature",
   ]);
   // At most ONE group per family, because these are the tags that NEST — a region inside a region, a period
   // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
@@ -39126,7 +39130,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const THREAD_LABELS = {
     title: "Titles and offices", text: "Texts", ruler: "Rulers", industry: "Stone industries",
     building: "Buildings", art: "Art", fossil: "Fossils", animal: "Animals",
-    practice: "Practices", people: "Peoples", culture: "Cultures", literature: "Literature",
+    practice: "Practices", people: "Peoples", culture: "Cultures",
     warfare: "Warfare", religion: "Religion", biology: "Biology", hominin: "Hominins",
     deity: "Deities", city: "Cities", state: "States", institution: "Institutions",
   };
