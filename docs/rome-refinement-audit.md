@@ -140,7 +140,7 @@ order unless the user says otherwise.
 | B6 | Rome under the kings (`rm-kings`) | `rm-051`–`rm-060` | 10 | 118 | **done 2026-10-04** |
 | B7 | Rome under the kings (`rm-kings`) | `rm-061`–`rm-070` | 10 | 132 | **done 2026-10-04** |
 | B8 | Rome under the kings (`rm-kings`) | `rm-071`–`rm-080` | 10 | 123 | **done 2026-10-04** |
-| B9 | Rome under the kings (`rm-kings`) | `rm-081`–`rm-090` | 10 | 125 | open |
+| B9 | Rome under the kings (`rm-kings`) | `rm-081`–`rm-090` | 10 | 125 | **done 2026-10-04** |
 | B10 | The early Republic (`rm-early-republic`) | `rm-091`–`rm-100` | 10 | 126 | open |
 | B11 | The early Republic (`rm-early-republic`) | `rm-101`–`rm-110` | 10 | 126 | open |
 | B12 | The early Republic (`rm-early-republic`) | `rm-111`–`rm-120` | 10 | 121 | open |
@@ -349,6 +349,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-078` expulsion of the kings | a painting by Gavin Hamilton | acceptable; the desc names the painter |
 | `rm-079` Lucius Junius Brutus | the Capitoline bronze head | called Brutus only by convention; the 54 BCE denarius would be safer |
 | `rm-080` rex sacrorum | a bucchero sherd with REX | doubtful: the graffito may name a king, not the priest |
+| `rm-081` comitia curiata | a 19th-century drawing of a Trajanic relief | a drawing of a later relief |
+| `rm-082` patres | a bust of an unknown citizen | generic |
+| `rm-083` patricians | an Ara Pacis procession fragment | acceptable; no Commons URL in the credit. Also a false `I.duplicate` |
+| `rm-084` plebeians | a wash drawing by Vernet | fits only the dropped settlement story |
+| `rm-085` gens | the Scipio Barbatus sarcophagus | the desc names the museum and misdescribes which name is painted; the sarcophagus would suit `rm-086` better |
+| `rm-086` cognomen | a soldier's tombstone | acceptable. Also a false `I.duplicate` |
+| `rm-087` pomerium | a Claudian boundary stone | acceptable; no Commons URL; the desc names the museum; the glossary's is a coin drawing |
+| `rm-088` Forum Romanum | the Forum from above | acceptable; no Commons URL; the glossary's is a labelled 1828 plan |
+| `rm-089` Lapis Niger | a 19th-century engraving | photographs of the site exist |
+| `rm-090` annales maximi | a 1493 printed Livy | shows nothing of the record |
 
 ## Glossary candidates
 
@@ -701,3 +711,28 @@ with `wh-343`, and `W.not-why` on four cards. `check-questions`, `check-cards`, 
 **Read by eye.** *Legend as legend:* Lucretia, Brutus, the expulsion and the Sibyl's sale are each the
 ancient author's. *Confusability:* `rm-077`–`rm-079` share one night; each blank takes a different term
 (the woman, the event, the man). *Consistency:* 509 BCE is labelled tradition on all five cards that carry it.
+
+### B9 — `rm-081`–`rm-090`, Rome under the kings: the institutions and the Forum (2026-10-04)
+
+Run as B8, with B10's agents alongside. Checks: `rm-audit.js --range=rm-081:rm-090` reads clean on five cards;
+the rest are `W.not-why` notes and the false thumbnail `I.duplicate` on `rm-083` and `rm-086`. `check-questions`,
+`check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL
+answers 2xx; `check-citations --card` 0 mismatched on every card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-081` comitia curiata | 6 | 5 → 8 | "After 753 BCE" and counts off the line; now Romulus's traditional reign and 63 BCE, when Cicero says thirty lictors stood in for the assembly. **"Sixteen curiae a majority" and "by the Punic Wars" rested only on Smith's 1875 Dictionary**, and are gone. The comitium excavation (early 7th century BCE) added as archaeology. |
+| `rm-082` patres | 6 | 5 → 7 | **The old card said Livy and Dionysius both put the rise to 300 senators under Tarquinius Priscus**; each is now given as he tells it. Foster's note that the *patres*/*conscripti* split may be Livy's misunderstanding added. |
+| `rm-083` patricians | 8 | 6 → 10 | **"Fewer than 50 families" came from Smith citing Dionysius 1.85, which is about families of Trojan descent**, not patricians; gone. The unsourced "c. 673 – 642 BCE" for Tullus is now 672 – 640 by tradition, as on `rm-063`. The theories of the orders are each given to their holders. Smith's Dictionary article credited to its author, Leonhard Schmitz. |
+| `rm-084` plebeians | 8 | 6 → 9 | **Niebuhr's 19th-century reconstruction was told as fact**; it is one view beside Cornell's and C. J. Smith's. The line is Romulus's traditional reign, the first secession (494 BCE) and the Hortensian law (287 BCE). |
+| `rm-085` gens | 7 | 6 → 8 | **"300 clans, the figure the sources use" is Niebuhr's inference from Dionysius 2.7**, as Smith's Dictionary itself says: a modern idea given as ancient fact, and gone (from the glossary too). The unsourced "c. 673 BCE" and "after 753 BCE" gone; the line is the Twelve Tables, 451 – 450 BCE by tradition. |
+| `rm-086` cognomen | 7 | 5 → 7 | **The old background was mostly about the first name, not the cognomen**, and its line held counts and an unsourced "c. 642 – 617 BCE" Lucumo row. Now undated (`undatable`). The Scipio Barbatus epitaph added as inscriptional evidence. |
+| `rm-087` pomerium | 6 | 5 → 8 | "Round the Palatine, after 753 BCE" and Servius's reign as a date gone; the line is Traditional 753 BCE and the extensions of 49 and 75 CE and Hadrian's re-marking of 121 CE. **The Claudius and Vespasian boundary stones are cited from the open EDR records.** Tacitus (Sulla and Augustus only) set against Gellius (Caesar too). **The glossary cited Smith for a claim Smith does not make.** |
+| `rm-088` Forum Romanum | 8 | 5 → 8 | **"Drained under Tarquinius Priscus, c. 616 – 579 BCE" and "7 iugera"** gone; Livy's and Dionysius's stories are tradition, set apart from the landfill dated c. 650 – 600 BCE. The line runs to the earthquake of 847 CE and the clearing from 1803. |
+| `rm-089` Lapis Niger | 6 | 5 → 7 | **"c. 500 BCE" and "the oldest Latin writing"**: the newest excavation study dates the pillar c. 580 – 550 BCE and calls it Rome's earliest legal text; c. 500 kept as an older dating. The tomb stories (Festus, Dionysius) apart from the archaeology; *recei*, *kalator* and *sakros esed* added; the black paving is later, probably Sullan but disputed. |
+| `rm-090` annales maximi | 6 | 5 → 8 | **"133 BCE" had no source.** The line is the 80-book edition, c. 130 – 120 BCE (Mommsen's view, defended by Forsythe, against Frier and Drews). How far back the record reached is given as a debate. |
+
+**Read by eye.** *Legend as legend:* Romulus's curiae, senators and orders (`rm-081`–`rm-084`) and the
+Lapis Niger's tomb stories are each the ancient author's. *Confusability:* `rm-081`/`rm-082` and
+`rm-083`/`rm-084` are pairs; each phrasing names something only its own term has. *Chronology:* Romulus's
+end year (717 BCE, Foster's margins) now stands on four cards; `rm-060` gives only his start, and agrees.

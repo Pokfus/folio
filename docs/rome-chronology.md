@@ -132,7 +132,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Rome's 800th year (Claudius) / its 1000th | 47 CE / 248 CE | `rm-057` |
 | Numa's reign / his books found | 715 – 672 BCE (tradition; Foster's Loeb Livy, Fulminante; Dionysius 713) / 181 BCE | `rm-061`, `rm-062` |
 | the calendar of Antium / the Julian calendar from | 84 – 55 BCE / 1 January 45 BCE | `rm-062` |
-| Tullus Hostilius's reign | 672 – 640 BCE (tradition; the Loeb Livy's margins) | `rm-063`, `rm-064`, `rm-056`. **`rm-083` and `rm-085` still print 673 – 642 BCE**, which no source opened gives: fix in B9 |
+| Tullus Hostilius's reign | 672 – 640 BCE (tradition; the Loeb Livy's margins) | `rm-063`, `rm-064`, `rm-056`, `rm-083` (B9 removed the unsourced 673 – 642 from `rm-083` and `rm-085`) |
 | Ancus Marcius made king / Ostia founded | 638 BCE (Dionysius's reckoning) / 620 BCE (tradition) | `rm-065`; note that Varro's reckoning, used for the reigns either side, gives a different start, and the two rows say whose each is |
 | Tarquinius Priscus's reign | 616 – 579 BCE (a common modern reckoning of the tradition); 614 BCE accession in Dionysius | `rm-066`, `rm-045` |
 | Servius Tullius's reign | 578 – 534 BCE (tradition; Foster's Livy); 576 BCE accession in Dionysius | `rm-069`, `rm-070` |
@@ -147,6 +147,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Sibylline keepers enlarged / books burnt / moved to the Palatine | c. 367 BCE / 83 BCE / 12 BCE | `rm-076` |
 | Lucretia; the expulsion of the kings; Brutus's consulship; the rex sacrorum created | 509 BCE (tradition); 507 BCE in Dionysius | `rm-077`–`rm-080` |
 | Brutus on Marcus Brutus's denarius / an inscription naming a rex sacrorum | 54 BCE / 43 – 70 CE | `rm-079`, `rm-080` |
+| Romulus's reign | 753 – 717 BCE (tradition; the margins of Foster's Loeb Livy). `rm-060` prints only 753, since its agent found no page with an end year; the two agree | `rm-081`–`rm-084` |
+| curiate assembly reduced to thirty lictors (Cicero) | 63 BCE | `rm-081` |
+| senate refilled by Brutus | 509 BCE (tradition) | `rm-082` |
+| consulship opened to plebeians / first secession / the Hortensian law | 367 BCE / 494 BCE / 287 BCE | `rm-083`, `rm-084` |
+| Twelve Tables | 451 – 450 BCE (tradition) | `rm-085` |
+| pomerium extended by Claudius / by Vespasian and Titus / re-marked by Hadrian | 49 CE / 75 CE / 121 CE (boundary stones, EDR105763, EDR032555) | `rm-087` |
+| Forum basin filled / tribal assembly moves into the Forum / earthquake / cleared from | c. 650 – 600 BCE / 145 BCE / 847 CE / 1803 | `rm-088` |
+| Lapis Niger inscription / also dated / found | c. 580 – 550 BCE (BMCR 2026.09.26) / c. 500 BCE / 1899 | `rm-089` |
+| the annales maximi edited in 80 books | c. 130 – 120 BCE (Mommsen, Forsythe; Frier and Drews differ) | `rm-090` |
 
 ## The middle and late Republic
 
@@ -243,4 +252,13 @@ rm-077: 509
 rm-078: 509; 507
 rm-079: 509; 507; 54
 rm-080: 509; 43; 70
+rm-081: 753; 717; 63
+rm-082: 753; 717; 509
+rm-083: 753; 717; 672; 640; 367
+rm-084: 753; 717; 494; 287
+rm-085: 451; 450
+rm-087: 753; 49; 75; 121
+rm-088: 650; 600; 145; 847; 1803
+rm-089: 580; 550; 500; 1899
+rm-090: 130; 120
 ```
