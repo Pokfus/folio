@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4454 | the title is the article |
-| `redirect-variant` | 295 | spelling / plural / qualifier differed; same subject |
+| `ok` | 4467 | the title is the article |
+| `redirect-variant` | 296 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 68 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 385 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 386 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 89 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 126 | only a disambiguation page; no link could be chosen |
 | `none` | 575 | nothing matched; no link |
 
-**5207 of 6003 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5222 of 6018 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (385)
+## Redirected to a differently named article — check each (386)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -91,6 +91,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-656` **People's Republic of China** → [China](https://en.wikipedia.org/wiki/China) (from `People's Republic of China`)
 - `cnh-680` **Chinese economic reform** → [Reform and opening up](https://en.wikipedia.org/wiki/Reform_and_opening_up) (from `Chinese economic reform`)
 - `cnh-684` **Tiananmen Square protests of 1989** → [1989 Tiananmen Square protests and massacre](https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre) (from `Tiananmen Square protests of 1989`)
+- `cnh-699` **Taiwanese identity** → [Taiwanese people](https://en.wikipedia.org/wiki/Taiwanese_people) (from `Taiwanese identity`)
 - `eg-003` **inundation** → [Flood](https://en.wikipedia.org/wiki/Flood) (from `Inundation`)
 - `eg-004` **Two Lands** → [Upper and Lower Egypt](https://en.wikipedia.org/wiki/Upper_and_Lower_Egypt) (from `Two Lands`)
 - `eg-063` **Umm el-Qa'ab** → [Umm El Qa'ab](https://en.wikipedia.org/wiki/Umm_El_Qa'ab) (from `Umm el-Qa'ab`)

@@ -5834,7 +5834,22 @@ window.GLOSSARY = {
 "Special_economic_zone": "",
 "One-child_policy": "",
 "Deng_Xiaoping's_southern_tour": "",
-"China_and_the_World_Trade_Organization": ""
+"China_and_the_World_Trade_Organization": "",
+"Floating_population": "",
+"Hukou": "",
+"Handover_of_Hong_Kong": "",
+"Belt_and_Road_Initiative": "",
+"Government-General_of_Taiwan": "",
+"Retrocession_Day": "",
+"February_28_incident": "",
+"White_Terror_(Taiwan)": "",
+"Martial_law_in_Taiwan": "",
+"Taiwan_Miracle": "",
+"Wild_Lily_student_movement": "",
+"Cross-Strait_relations": "",
+"Taiwanese_identity": "",
+"Political_status_of_Taiwan": "",
+"Chinese_Empire": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -8922,7 +8937,19 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Boluan_Fanzheng": "1976–1981",
 "One-child_policy": "1980–2015",
 "Deng_Xiaoping's_southern_tour": "1992",
-"China_and_the_World_Trade_Organization": "2001"
+"China_and_the_World_Trade_Organization": "2001",
+"Floating_population": "1984–",
+"Hukou": "1958–",
+"Handover_of_Hong_Kong": "1997",
+"Belt_and_Road_Initiative": "2013–",
+"Government-General_of_Taiwan": "1895–1945",
+"Retrocession_Day": "1945",
+"February_28_incident": "1947",
+"White_Terror_(Taiwan)": "1949–1987",
+"Martial_law_in_Taiwan": "1949–1987",
+"Taiwan_Miracle": "1950s–1990s",
+"Wild_Lily_student_movement": "1990",
+"Chinese_Empire": "221 BCE – 1912 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -12468,7 +12495,22 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Special_economic_zone": ["special economic zones","SEZ"],
 "One-child_policy": ["one child policy"],
 "Deng_Xiaoping's_southern_tour": ["Nanxun","1992 southern tour","Deng's southern tour"],
-"China_and_the_World_Trade_Organization": ["Protocol on the Accession of the People's Republic of China","China's accession to the World Trade Organization","China's WTO accession"]
+"China_and_the_World_Trade_Organization": ["Protocol on the Accession of the People's Republic of China","China's accession to the World Trade Organization","China's WTO accession"],
+"Floating_population": ["liudong renkou"],
+"Hukou": ["hukou system","huji zhidu"],
+"Handover_of_Hong_Kong": ["transfer of sovereignty over Hong Kong","Hong Kong handover","return of Hong Kong"],
+"Belt_and_Road_Initiative": ["One Belt, One Road","Silk Road Economic Belt","Yidai Yilu"],
+"Government-General_of_Taiwan": ["Taiwan Sōtokufu","Taiwan Sotokufu"],
+"Retrocession_Day": ["Taiwan Retrocession Day"],
+"February_28_incident": ["228 Incident","228 Massacre","February 28 Massacre"],
+"White_Terror_(Taiwan)": ["Taiwanese White Terror"],
+"Martial_law_in_Taiwan": ["Taiwan under martial law"],
+"Taiwan_Miracle": ["Taiwan Economic Miracle","Miracle on Taiwan"],
+"Wild_Lily_student_movement": ["Wild Lily movement","March student movement","Yebaihe xueyun"],
+"Cross-Strait_relations": ["cross-Strait relationship","liang'an guanxi"],
+"Taiwanese_identity": ["Taiwanese national identity","Taiwanese consciousness"],
+"Political_status_of_Taiwan": ["Taiwan question","status of Taiwan","Taiwan wenti"],
+"Chinese_Empire": ["imperial China"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -18409,7 +18451,22 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Special_economic_zone": ["institution","economics","geography","trade"],
 "One-child_policy": ["practice","politics","history","china","population"],
 "Deng_Xiaoping's_southern_tour": ["event","politics","economics","history","china"],
-"China_and_the_World_Trade_Organization": ["text","economics","law","china","trade"]
+"China_and_the_World_Trade_Organization": ["text","economics","law","china","trade"],
+"Floating_population": ["people","society","migration","china","people's republic"],
+"Hukou": ["institution","history","politics","society","china"],
+"Handover_of_Hong_Kong": ["event","history","politics","china","hong kong","britain"],
+"Belt_and_Road_Initiative": ["policy","politics","economics","china"],
+"Government-General_of_Taiwan": ["institution","history","politics","imperialism","taiwan","japan"],
+"Retrocession_Day": ["event","history","politics","taiwan","china"],
+"February_28_incident": ["event","history","politics","taiwan","china"],
+"White_Terror_(Taiwan)": ["event","history","politics","taiwan","china"],
+"Martial_law_in_Taiwan": ["era","history","politics","law","taiwan"],
+"Taiwan_Miracle": ["era","history","economics","taiwan"],
+"Wild_Lily_student_movement": ["event","politics","history","taiwan","democracy"],
+"Cross-Strait_relations": ["concept","politics","diplomacy","china","taiwan"],
+"Taiwanese_identity": ["concept","politics","society","taiwan"],
+"Political_status_of_Taiwan": ["concept","politics","law","taiwan","china"],
+"Chinese_Empire": ["empire","history","politics","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
