@@ -23261,14 +23261,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      row: the count, the week, then Longest over the note at the right. */
   function streakRibbonHTML() {
     const st = S.streak || {};
-    const live = st.last === todayStr() || st.last === dayKey(Date.now() - DAY);
+    const today = st.last === todayStr();
+    const live = today || st.last === dayKey(Date.now() - DAY);
     const n = live ? (st.count | 0) : 0;
     const p = streakChestProgress(S), every = STREAK_CHEST_EVERY;
-    const weeks = Math.max(1, Math.ceil(n / every)), paid = Math.floor(n / every);
+    /* TODAY IS GREEN THE MOMENT A CARD IS STUDIED (Oct 2026, on request: "as soon as one card has been
+       studied on a day, that day should turn green"). The ring used to mark the LAST day of the run, so a
+       reader who had already studied today looked at a hollow today all day, and one who had not yet looked
+       at a hollow yesterday. The ring is the day still to be kept: it stands on the slot AFTER the run while
+       today is unstudied (bumpStreak has not run — `st.last` is yesterday, or the run is dead and today
+       would be day one), and nowhere once it is. The week shown is the one that slot falls in, so a run of
+       seven kept yesterday shows next week's first ring rather than a full week with nothing to do. */
+    const slot = today ? n : n + 1;
+    const weeks = Math.max(1, Math.ceil(slot / every)), paid = Math.floor(n / every);
     let days = "";
     for (let w = weeks - 1; w < weeks; w++) {
       const cells = [];
-      for (let i = 0; i < every; i++) { const d = w * every + i + 1; cells.push('<i class="' + (d <= n ? (d === n ? "t" : "b") : "o") + '"></i>'); }
+      for (let i = 0; i < every; i++) { const d = w * every + i + 1; cells.push('<i class="' + (d <= n ? "b" : (d === slot ? "t" : "o")) + '"></i>'); }
       days += '<span class="sr-wk' + (w === weeks - 1 ? " cur" : "") + '">' + cells.join("") +
         '<span class="sr-chest' + (w < paid ? " won" : "") + '" aria-hidden="true">' + CHEST_SVG + "</span></span>";
     }
@@ -24931,13 +24940,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         </button>`
       /* NOT A BUTTON ANY MORE (Oct 2026, on request: "the daily study banner should no longer have a 'start
          review' button, nor be clickable"). It is a <div> that states the day — the hero above stays a
-         button, being a first-time visitor's one way in. The tab stop and the role are for the options sheet
-         it still opens on a hold, a right-click or the context-menu key (wireHoldMenu below): the review's
-         order, limits, Skip today and colour live nowhere else, and a keyboard needs a way to them. */
-      : `<div class="banner rv-banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" role="group" aria-label="${REVIEW_TITLE}" tabindex="0" style="--tile:${esc(reviewHue())}">${rvBannerInner(pile)}</div>`;
+         button, being a first-time visitor's one way in. AND NO HOLD MENU EITHER (Oct 2026, on request: "the
+         daily study banner should have no long press menu"): it opened the pooled review's own sheet (order,
+         limits, Skip today, colour), but the banner starts no session since the Start button went and no
+         other control reaches the pooled review, so the sheet set options nothing could use. With nothing
+         to open, the tab stop went too; the role and label stay so the group still names itself. */
+      : `<div class="banner rv-banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" role="group" aria-label="${REVIEW_TITLE}" style="--tile:${esc(reviewHue())}">${rvBannerInner(pile)}</div>`;
     /* THE BANNER REDRAWS WHEN A ROW IS FOLDED (Oct 2026, on request): its figures are the figures on screen
        (listPiles), and a fold changes which those are without rebuilding the page. The element itself is
-       kept — its hold menu is wired on it and the tour points at it — and only what is inside is replaced.
+       kept — the tour points at it — and only what is inside is replaced.
        The level bar is set to its width at once rather than through animateProgs: nothing about it changed,
        and a bar filling from empty on every chevron would say that something had. */
     function refreshReviewBanner() {
@@ -25098,7 +25109,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             ${sampleLine}
             ${fresh ? "" : streakRibbonHTML()}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
-                  long-press sheet (openReviewMenu) — see the comment there. Its old corner is where the
+                  long-press sheet (openReviewMenu, gone since Oct 2026) — see the comment there. Its old corner is where the
                   Edit button sits now, and the `padding-right` it left on the title is what keeps the two
                   apart. */""}
             ${collectionsBtn}
@@ -25467,10 +25478,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     // the editor mode's wiring (Edit / Undo / Revert / Done, the Icons switch, the injected crosses and the
     // click-to-rename titles) stood here until Oct 2026 — see the note where `adOwnTitle` is defined
-    // …and the banner above them holds open the review's OWN options (the Ordered/Random pair that used to
-    // sit in its corner). Its click is already wired above, so no tap handler is passed here — the shared
-    // `held` guard is what keeps the hold from also starting a session.
-    { const rb = root.querySelector("#b-review"); if (rb) wireHoldMenu(rb, openReviewMenu, null); }
+    // the banner above them held open the review's OWN options sheet (wireHoldMenu → openReviewMenu) until
+    // Oct 2026, on request: "the daily study banner should have no long press menu" — see its markup
     animateProgs(root);
   };
 

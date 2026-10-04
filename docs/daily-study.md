@@ -64,8 +64,10 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
   shuffles the DECK and UDECK branches too**: those queues were never shuffled at all, so without that the
   switch would appear on a deck's sheet and do nothing — the piles are chosen first and shuffled after, so the
   setting decides presentation order and never which cards the day's allowances let through.
-  **It is chosen by HOLDING THE BANNER** (`openReviewMenu` → `openDeckMenu(REVIEW_ENTRY)`, Aug 2026, on request),
-  plus the Settings page's own "Random review order" switch. **The banner's sheet IS the deck sheet now** (Aug 2026,
+  **It was chosen by HOLDING THE BANNER** (`openReviewMenu` → `openDeckMenu(REVIEW_ENTRY)`, Aug 2026, on request)
+  until Oct 2026, when the banner lost its hold menu on request ("the daily study banner should have no long press
+  menu") — it starts no session any more, so the sheet set options nothing could use; `openReviewMenu` is kept but
+  nothing wires it. What is left is the Settings page's own "Random review order" switch. **The banner's sheet IS the deck sheet now** (Aug 2026,
   on request: "the same menu, without the delete option"): Custom study, Daily limits and Skip today above it, no
   Remove — there is nothing to take the review out OF. It was a `.review-order` pill absolutely positioned in the banner's top-right
   corner: a permanent control, in the corner of the one block on the home page that has something to say, for a
