@@ -269,7 +269,7 @@ the rest of the collection late — so it must not be the default; offer it, exp
 
 ### 4. Attempt before reveal
 
-> **SHIPPED (Sep 2026), as described.** `deckAttempt`, a policy in `DECK_OPT_INHERIT` with a global default in Settings → Study, off by default. One guard in `showAnswer` keyed on `fromReader`, so the button, Enter and Space are all covered and the reload-restore path is never refused. `syncAttempt` had to be declared above the phrasing cycler, which replaces every `.blank-input` on the card.
+> **SHIPPED (Sep 2026), as described.** `deckAttempt`, a policy in `DECK_OPT_INHERIT` with a global default in Settings → Study, off by default (one site-wide switch since Oct 2026, on request — the per-deck override is gone). One guard in `showAnswer` keyed on `fromReader`, so the button, Enter and Space are all covered and the reload-restore path is never refused. `syncAttempt` had to be declared above the phrasing cycler, which replaces every `.blank-input` on the card.
 
 **Finding.** Retrieval *effort* is the mechanism. Pressing Space and reading the answer is a rereading
 trial wearing a flashcard's clothes.
@@ -915,8 +915,8 @@ is the quietest way a guard can stop guarding. Both now press `#opSkip` if it is
 would, guarded so it is a no-op if the page stops asking. **A SUITE THAT REACHES A CARD THROUGH THE
 COLLECTIONS PAGE HAS TO PRESS THROUGH THIS**, and a check that counts what it found should assert
 that it found ANY.
-· **`deckAttempt` — ANSWER BEFORE REVEALING.** A policy (in `DECK_OPT_INHERIT`) with a global default in
-Settings, **off by default**. **ONE guard, in `showAnswer`, keyed on `fromReader`** — the button, Enter
+· **`deckAttempt` — ANSWER BEFORE REVEALING.** The Settings page's switch, one for every deck (it was a policy
+in `DECK_OPT_INHERIT` with that switch as its default until Oct 2026, on request), **off by default**. **ONE guard, in `showAnswer`, keyed on `fromReader`** — the button, Enter
 and Space all go through it, and the restore path that re-opens an already-revealed card after a reload
 must never be refused. **The escape hatch is not optional**: "I don't know" reveals and rings Again
 without submitting it. It never focuses the blank — `setupCloze` deliberately leaves a touch reader's

@@ -300,11 +300,11 @@ const SETTINGS = {
     /* COLOUR is on EVERY row's sheet since Aug 2026, on request ("both decks and subdecks individually,
        both curated and imported") — it used to be containers only. It sits before Remove, which stays
        last, being the one row that takes the deck off the list. */
-    /* ICON joined both sheets in Aug 2026, on request: a reader may put a symbol or a small picture of
-       their own on a collection, and it is stored beside the colour in the same S.deckGroups record — so
-       it sits directly after it, and before Remove, which stays last. */
+    /* COLOUR AND ICON LEFT BOTH SHEETS in Oct 2026 (on request: "remove the following options. Icon. Color."), and
+       ANSWER BEFORE REVEALING, RECALL IN FULL and SCHEDULING went to the Settings page as one choice for every
+       deck (same request) — so the list is the session rows, the browser, the allowance rows and Remove. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Answer before revealing", "Recall in full", "Browse your cards", "Custom study", "Daily limits", "Ready by a date", "Scheduling", "Skip today", "Colour", "Icon", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Ready by a date", "Skip today", "Remove"]),
       JSON.stringify(menu.items));
 
     /* THE ORDER IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they are
@@ -785,14 +785,14 @@ const SETTINGS = {
     check("an added collection with decks under it is drawn as a group header",
       cols.length > 0 && cols.every((c) => c.group === c.kids > 0), JSON.stringify(cols));
 
-    // …and it is offered a colour, being a container
+    // …and it is offered NO colour (Oct 2026, on request: the Colour and Icon rows are gone from every sheet)
     await page.evaluate(() => {
       const r = document.querySelector(".active-deck.deck-group") || document.querySelector(".active-deck");
       r.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true }));
     });
     await page.waitForTimeout(350);
-    check("holding a container offers its colour",
-      await page.evaluate(() => document.querySelectorAll(".deck-menu .dm-swatch").length > 4));
+    check("holding a container offers no colour and no icon",
+      await page.evaluate(() => !!document.querySelector(".deck-menu") && !document.querySelector(".deck-menu .dm-swatch, .deck-menu [data-act=\"icon\"]")));
     await page.keyboard.press("Escape");
     await page.waitForTimeout(300);
 
@@ -919,25 +919,17 @@ const SETTINGS = {
       rootBefore != null && counts.rootAfter != null && rootBefore - counts.rootAfter === counts.group,
       JSON.stringify({ rootBefore, ...counts }));
 
-    // the colour reaches every deck inside, not just the header
+    // the group's sheet: Rename and Ungroup, and no Colour or Icon since Oct 2026 (on request)
     await page.evaluate((gid) => {
       document.querySelector(`.active-deck[data-drag="${gid}"]`).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true }));
     }, geo && geo.gid);
     await page.waitForTimeout(350);
     const sheet = await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item b")].map((b) => b.textContent));
-    check("a group's sheet offers Rename, Colour and Ungroup",
-      ["Rename", "Colour", "Ungroup"].every((k) => sheet.indexOf(k) >= 0), JSON.stringify(sheet));
+    check("a group's sheet offers Rename and Ungroup, and no Colour or Icon",
+      ["Rename", "Ungroup"].every((k) => sheet.indexOf(k) >= 0) && sheet.indexOf("Colour") < 0 && sheet.indexOf("Icon") < 0, JSON.stringify(sheet));
     // …and NOT the daily-allowance rows, which belong to something the review actually iterates
     check("...and not the daily limits, which a group does not have",
       sheet.indexOf("Daily limits") < 0 && sheet.indexOf("Custom study") < 0, JSON.stringify(sheet));
-    await page.evaluate(() => { const s = document.querySelectorAll(".dm-swatch"); s[3].click(); });
-    await page.waitForTimeout(300);
-    const hue = await page.evaluate(([gid, id]) => {
-      const v = (d) => { const r = document.querySelector(`.active-deck[data-drag="${d}"]`); return r ? r.style.getPropertyValue("--coll-bg").trim() : ""; };
-      return { header: v(gid), inside: v(id) };
-    }, [geo && geo.gid, geo && geo.id]);
-    check("a colour set on the group reaches every deck inside it",
-      !!hue.header && hue.header === hue.inside, JSON.stringify(hue));
     await page.keyboard.press("Escape");
     await page.waitForTimeout(300);
 
@@ -1004,29 +996,21 @@ const SETTINGS = {
     await page.close();
   }
 
-  /* ================= 12. FSRS, chosen per deck =================
+  /* ================= 12. FSRS, chosen for the whole site =================
      The maths is pinned against the reference implementation in test-scheduler.js section 10; what is pinned
      HERE is the wiring, which fails in ways arithmetic cannot see:
-       · the choice is per DECK, and a card is scheduled by ITS OWN deck's choice wherever it was studied
-         from — a card that schedules one way from its row and another from the pooled review has two
-         schedules and nothing on screen to say which is in force;
+       · the choice is ONE for every deck since Oct 2026 (on request: "those on the settings page should apply
+         to all cards on the website ... need not be deck-specific settings") — it was per deck, on each deck's
+         own sheet, from Aug 2026 — so the Scheduling row is gone from the deck sheet and the same sheet opens
+         from the Settings page, writing S.settings rather than a deck's record;
        · the grade buttons show what the grade will apply, which under FSRS is a different number;
        · a card studied under SM-2 keeps what it has: its interval becomes its stability, and turning FSRS on
-         must not read as having reset the deck;
-       · and the review's own sheet must NOT offer the switch, since it schedules nothing. */
+         must not read as having reset anything. */
   {
     const page = await newPage({ active: [deckA, deckB], settings: SETTINGS, cards: { a: done(), b: done(), c: done() } });
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
-
-    // the review's sheet has no Scheduling row; a deck's has
-    await page.evaluate(() => document.querySelector(".review-group .banner")?.dispatchEvent(new Event("contextmenu", { bubbles: true })));
-    await page.waitForTimeout(500);
-    const rows = await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].map((x) => (x.querySelector("b") || x).textContent.trim()));
-    check("the pooled review's sheet does NOT offer Scheduling", rows.length > 0 && !rows.includes("Scheduling"), rows.join(" / "));
-    await page.keyboard.press("Escape");
-    await page.waitForTimeout(300);
     const deckRows = await page.evaluate((d) => {
       const row = document.querySelector('[data-review="' + d + '"]');
       if (!row) return null;
@@ -1036,8 +1020,21 @@ const SETTINGS = {
     check("a deck's row opens its own sheet", deckRows === true);
     await page.waitForTimeout(500);
     const dRows = await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].map((x) => (x.querySelector("b") || x).textContent.trim()));
-    check("…and a deck's sheet DOES offer Scheduling", dRows.includes("Scheduling"), dRows.join(" / "));
-    await page.evaluate(() => document.querySelector('[data-act="sched"]')?.click());
+    check("a deck's sheet no longer offers Scheduling, Answer before revealing or Recall in full",
+      dRows.length > 0 && !dRows.includes("Scheduling") && !dRows.includes("Answer before revealing") && !dRows.includes("Recall in full"), dRows.join(" / "));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(300);
+
+    // …the Settings page has the row, and its button says what is in force
+    await page.evaluate(() => { location.hash = "#settings"; });
+    await page.waitForTimeout(900);
+    const setRow = await page.evaluate(() => {
+      const b = document.querySelector("#schedOpen");
+      return { present: !!b, label: b ? b.textContent.trim() : "", attempt: !!document.querySelector("#sw-attempt"), recall: !!document.querySelector("#sw-recall") };
+    });
+    check("Settings carries a Scheduling row reading SM-2, beside Answer before revealing and Recall in full",
+      setRow.present && setRow.label === "SM-2" && setRow.attempt && setRow.recall, JSON.stringify(setRow));
+    await page.evaluate(() => document.querySelector("#schedOpen")?.click());
     await page.waitForTimeout(500);
     const both = await page.evaluate(() => [...document.querySelectorAll("[data-sched]")].map((x) => x.querySelector("b").textContent + (x.classList.contains("on") ? "*" : "")));
     check("SM-2 is the default and is marked", both.join(",") === "SM-2*,FSRS", both.join(","));
@@ -1056,11 +1053,11 @@ const SETTINGS = {
     await page.evaluate(() => { const r = document.querySelector("#dsRet"); r.value = "80"; r.dispatchEvent(new Event("input", { bubbles: true })); });
     await page.evaluate(() => document.querySelector('[data-act="save"]')?.click());
     await page.waitForTimeout(500);
-    const refused = await page.evaluate((d) => ({
+    const refused = await page.evaluate(() => ({
       open: !!document.querySelector(".ds-sheet"),
       toast: (document.querySelector("#toast") || {}).textContent || "",
-      ret: ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).retention,
-    }), deckA);
+      ret: (JSON.parse(localStorage.folio_v1 || "{}").settings || {}).retention,
+    }));
     check("21 numbers or nothing — a short list is refused", refused.open && /21 numbers/.test(refused.toast), JSON.stringify(refused));
     check("…and the retention beside it is NOT saved by a refused list", refused.ret === undefined || refused.ret === 0.9, String(refused.ret));
     // …and a real list of 21 is taken
@@ -1068,26 +1065,49 @@ const SETTINGS = {
     await page.evaluate((v) => { const t = document.querySelector("#dsParams"); t.value = v; t.dispatchEvent(new Event("input", { bubbles: true })); }, twentyOne);
     await page.evaluate(() => document.querySelector('[data-act="save"]')?.click());
     await page.waitForTimeout(700);
-    const opts = await page.evaluate((d) => (JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d], deckA);
-    check("a list of 21 parameters is kept", !!opts && Array.isArray(opts.fsrsParams) && opts.fsrsParams.length === 21, JSON.stringify(opts && opts.fsrsParams && opts.fsrsParams.length));
-    check("…with the retention saved beside it", !!opts && Math.abs(opts.retention - 0.8) < 1e-9, String(opts && opts.retention));
-    check("…and the deck is on FSRS", !!opts && opts.sched === "fsrs", String(opts && opts.sched));
-    /* ONE DECK ONLY. The other added deck must be untouched — that is the whole of "deck-specific", and it is
-       the assertion that would catch the setting being written somewhere global by mistake. */
-    const otherOpts = await page.evaluate((d) => (JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d], deckB);
-    check("the OTHER deck is left on SM-2", !otherOpts || otherOpts.sched !== "fsrs", JSON.stringify(otherOpts));
+    const st = await page.evaluate(() => JSON.parse(localStorage.folio_v1 || "{}").settings || {});
+    check("a list of 21 parameters is kept, in the settings", Array.isArray(st.fsrsParams) && st.fsrsParams.length === 21, JSON.stringify(st.fsrsParams && st.fsrsParams.length));
+    check("…with the retention saved beside it", Math.abs(st.retention - 0.8) < 1e-9, String(st.retention));
+    check("…and the site is on FSRS", st.sched === "fsrs", String(st.sched));
+    /* NOTHING IS WRITTEN UNDER A DECK: that is the whole of "need not be deck-specific", and it is the assertion
+       that would catch the setting still going to a deck's record by habit. */
+    const perDeck = await page.evaluate((ds) => ds.map((d) => (JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || null), [deckA, deckB]);
+    check("…and no deck's own record carries a scheduler", perDeck.every((o) => !o || (o.sched === undefined && o.retention === undefined && o.fsrsParams === undefined)), JSON.stringify(perDeck));
+    // …and the Settings row now says so
+    const after = await page.evaluate(() => (document.querySelector("#schedOpen") || {}).textContent || "");
+    check("the Settings row's button now reads FSRS with the retention", /FSRS/.test(after) && /80%/.test(after), after);
     await page.close();
   }
 
-  /* ================= 13. an FSRS deck is scheduled by FSRS, from either route ================= */
+  /* ================= 12b. a deck put on FSRS before the choice became site-wide keeps it =================
+     The Oct 2026 move is a one-shot back-fill at boot: a save that has no site-wide key yet but a deck on FSRS
+     adopts that deck's choice, retention and parameters, so nobody wakes up on SM-2. A save with the key is
+     left alone, whatever its decks still carry. */
   {
-    /* Deck A on FSRS, deck B not, and one card of each already studied under SM-2 so the seeding path is
-       exercised too. Studied through the POOLED review, which is the case that matters: the card must be
-       scheduled by its own deck's choice, not by the review's. */
+    const page = await newPage({ active: [deckA], settings: SETTINGS, deckOpts: { [deckA]: { sched: "fsrs", retention: 0.85 } }, cards: { a: done() } });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const st = await page.evaluate(() => JSON.parse(localStorage.folio_v1 || "{}").settings || {});
+    check("an older save's FSRS deck hands its choice up to the site, retention and all", st.sched === "fsrs" && Math.abs(st.retention - 0.85) < 1e-9, JSON.stringify({ sched: st.sched, retention: st.retention }));
+    await page.close();
+    const p2 = await newPage({ active: [deckA], settings: Object.assign({}, SETTINGS, { sched: "sm2" }), deckOpts: { [deckA]: { sched: "fsrs" } }, cards: { a: done() } });
+    await p2.goto(base + "#home", { waitUntil: "load" });
+    await p2.reload({ waitUntil: "load" });
+    await p2.waitForTimeout(1400);
+    check("…but a save that has already chosen is left on its choice", (await p2.evaluate(() => (JSON.parse(localStorage.folio_v1 || "{}").settings || {}).sched)) === "sm2");
+    await p2.close();
+  }
+
+
+  /* ================= 13. with FSRS chosen, every card is scheduled by FSRS, from either row ================= */
+  {
+    /* The site on FSRS (one choice since Oct 2026), and one card of each deck already studied under SM-2 so
+       the seeding path is exercised too. Studied from BOTH rows: a card must be scheduled by the site's
+       choice whichever row dealt it. */
     const state = {
       active: [deckA, deckB],
-      settings: SETTINGS,
-      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      settings: Object.assign({}, SETTINGS, { sched: "fsrs", retention: 0.9 }),
       cards: { a: done(), b: done(), c: done() },
     };
     const page = await newPage(state);
@@ -1125,10 +1145,8 @@ const SETTINGS = {
     check("both decks dealt cards", seen.length >= 4, JSON.stringify(seen.length));
     const fromA = seen.filter((x) => x.id.indexOf("wh-") === 0);
     void fromA;
-    /* The load-bearing pair: some cards came out with a memory state and some did not, and which is which
-       follows the DECK. If the review's own setting were deciding, every card would be one or the other. */
-    check("some cards were scheduled by FSRS", seen.some((x) => x.fsrs), JSON.stringify(seen));
-    check("…and some by SM-2, each deck's own choice", seen.some((x) => !x.fsrs), JSON.stringify(seen));
+    /* EVERY card came out with a memory state, from either row: the choice is the site's and not a deck's. */
+    check("every card was scheduled by FSRS, whichever row dealt it", seen.every((x) => x.fsrs), JSON.stringify(seen));
     await page.close();
   }
 
@@ -1136,12 +1154,12 @@ const SETTINGS = {
   {
     const mature = { reps: 9, lapses: 1, ease: 2.6, interval: 34, due: Date.now() - 36e5, status: "review", last: Date.now() - 34 * 864e5, step: 0, first: "2026-05-01" };
     const page = await newPage({
-      active: [deckA], settings: SETTINGS,
+      active: [deckA], settings: Object.assign({}, SETTINGS, { sched: "fsrs", retention: 0.9 }),
       /* newPerDay 0 so the day offers NOTHING but the mature card. The session used to be the mature card
          followed by the day's new ones, so reading `queue[0]` found it; since `mixPiles` interleaves the
          two piles (Aug 2026) a fresh card can legitimately come first, and this section is about SEEDING
          rather than about order — so the pile is narrowed instead of the head being guessed at. */
-      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9, newPerDay: 0 } },
+      deckOpts: { [deckA]: { newPerDay: 0 } },
       cards: { a: done(), b: done(), c: done(), [MATURE_ID]: mature },
     });
     await page.goto(base + "#home", { waitUntil: "load" });
@@ -1191,11 +1209,11 @@ const SETTINGS = {
   {
     const t = Date.now();
     const page = await newPage({
-      active: [deckA], settings: SETTINGS,
+      active: [deckA], settings: Object.assign({}, SETTINGS, { sched: "fsrs", retention: 0.85 }),
       // 85%, deliberately NOT 90 — the two numbers on that panel mean different things and must read as it.
       // newPerDay 0 for section 14's reason: since `mixPiles` interleaves the due and new piles (Aug 2026)
       // the seeded card is no longer guaranteed to be the queue's head, and this section is about the PANEL.
-      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.85, newPerDay: 0 } },
+      deckOpts: { [deckA]: { newPerDay: 0 } },
       cards: { a: done(), b: done(), c: done(), [MATURE_ID]: {
         status: "review", step: 0, reps: 6, lapses: 1, interval: 34, ease: 2.6,
         stability: 34.2, difficulty: 6.4, due: t - 36e5, last: t - 34 * 864e5, first: "2026-05-01",
@@ -1260,21 +1278,18 @@ const SETTINGS = {
       }
     }
     const page = await newPage({
-      active: [deckA], settings: SETTINGS,
-      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      active: [deckA], settings: Object.assign({}, SETTINGS, { sched: "fsrs", retention: 0.9 }),
       cards: { a: done(), b: done(), c: done() },
       revlog: revlog,
     });
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
+    // the sheet opens from the Settings page since Oct 2026 (one scheduler for every deck)
     const openSched = async () => {
-      await page.evaluate((d) => {
-        const row = [...document.querySelectorAll("[data-review]")].find((x) => x.dataset.review === d);
-        if (row) row.dispatchEvent(new Event("contextmenu", { bubbles: true }));
-      }, deckA);
-      await page.waitForTimeout(450);
-      await page.evaluate(() => document.querySelector('[data-act="sched"]')?.click());
+      await page.goto(base + "#settings", { waitUntil: "load" });
+      await page.waitForTimeout(1100);
+      await page.evaluate(() => document.querySelector("#schedOpen")?.click());
       await page.waitForTimeout(550);
     };
     await openSched();
@@ -1297,47 +1312,41 @@ const SETTINGS = {
     /* IT MUST NOT HAVE SAVED ANYTHING YET. Pressing Optimise asks a question; Save answers it — the same two
        steps every other field on this sheet has, and the difference between offering a schedule and changing
        one behind the reader's back. */
-    const staged = await page.evaluate((d) => ({
+    const staged = await page.evaluate(() => ({
       box: (document.querySelector("#dsParams") || {}).value || "",
-      stored: ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).fsrsParams || null,
+      stored: (JSON.parse(localStorage.folio_v1 || "{}").settings || {}).fsrsParams || null,
       enabled: !(document.querySelector("#dsOpt") || {}).disabled,
-    }), deckA);
+    }));
     const nums = staged.box.split(",").map((s) => parseFloat(s)).filter((x) => !isNaN(x));
     check("…staging 21 parameters in the box", nums.length === 21, nums.length + " · " + staged.box.slice(0, 60));
     check("…and saving NOTHING until Save is pressed", staged.stored === null, JSON.stringify(staged.stored));
     check("…with the button usable again", staged.enabled);
     await page.evaluate(() => document.querySelector('[data-act="save"]')?.click());
     await page.waitForTimeout(800);
-    const kept = await page.evaluate((d) => ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).fsrsParams, deckA);
-    check("Save keeps the fitted parameters, on that deck", Array.isArray(kept) && kept.length === 21, kept && kept.length);
+    const kept = await page.evaluate(() => (JSON.parse(localStorage.folio_v1 || "{}").settings || {}).fsrsParams);
+    check("Save keeps the fitted parameters, for every deck", Array.isArray(kept) && kept.length === 21, kept && kept.length);
     check("…all finite", Array.isArray(kept) && kept.every((x) => isFinite(x)));
 
     /* THE REFUSAL A READER IS FAR LIKELIER TO MEET: almost nobody has 512 usable reviews on their first day,
        and "nothing happened" would read as a broken button. It says the number it has and the number it
        wants, and it says WHY a review might not count. */
     const page2 = await newPage({
-      active: [deckA], settings: SETTINGS,
-      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      active: [deckA], settings: Object.assign({}, SETTINGS, { sched: "fsrs", retention: 0.9 }),
       cards: { a: done(), b: done(), c: done() },
       revlog: revlog.slice(0, 40),
     });
-    await page2.goto(base + "#home", { waitUntil: "load" });
+    await page2.goto(base + "#settings", { waitUntil: "load" });
     await page2.reload({ waitUntil: "load" });
     await page2.waitForTimeout(1400);
-    await page2.evaluate((d) => {
-      const row = [...document.querySelectorAll("[data-review]")].find((x) => x.dataset.review === d);
-      if (row) row.dispatchEvent(new Event("contextmenu", { bubbles: true }));
-    }, deckA);
-    await page2.waitForTimeout(450);
-    await page2.evaluate(() => document.querySelector('[data-act="sched"]')?.click());
+    await page2.evaluate(() => document.querySelector("#schedOpen")?.click());
     await page2.waitForTimeout(550);
     await page2.evaluate(() => document.querySelector("#dsOpt")?.click());
     await page2.waitForTimeout(1200);
-    const few = await page2.evaluate((d) => ({
+    const few = await page2.evaluate(() => ({
       msg: (document.querySelector("#dsOptMsg") || {}).textContent || "",
-      stored: ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).fsrsParams || null,
+      stored: (JSON.parse(localStorage.folio_v1 || "{}").settings || {}).fsrsParams || null,
       box: (document.querySelector("#dsParams") || {}).value || "",
-    }), deckA);
+    }));
     check("too little history is refused in words, with the numbers", /Not enough history/.test(few.msg) && /\d+ of the 512/.test(few.msg), few.msg.slice(0, 120));
     check("…and nothing is staged or saved", few.stored === null && few.box === "", JSON.stringify(few).slice(0, 80));
     await page2.close();

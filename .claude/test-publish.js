@@ -972,7 +972,7 @@ async function typeField(page, field, text) {
     if (ov && ov.querySelector(".dm-x")) ov.querySelector(".dm-x").click();
     return out;
   }, "Typed Deck");
-  check("an installed deck is offered a colour, like any of the reader's own", instColour.hasColour === true,
+  check("an installed deck's sheet offers no colour, like every row since Oct 2026", instColour.hasColour === false,
     JSON.stringify(instColour));
   check("...and its options sheet carries the close button", instColour.hasX === true, JSON.stringify(instColour));
 

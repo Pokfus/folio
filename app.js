@@ -1709,6 +1709,20 @@
      someone who had already decided — so an older settings object (which cannot carry the key) is pinned
      to manual, and defaultState()'s `true` reaches first-time visitors alone. */
   if (S.settings && S.settings.themeAuto === undefined) S.settings.themeAuto = false;
+  /* THE SCHEDULER BECAME ONE SETTING FOR THE WHOLE SITE (Oct 2026, on request) after two months of being chosen
+     per deck. A reader who had put a deck on FSRS must not wake up on SM-2: the first load without the site-wide
+     key looks through the per-deck records once and adopts the first FSRS choice it finds — its retention and
+     its fitted parameters with it — and writes "sm2" otherwise, so the look is never repeated and the per-deck
+     keys, which nothing reads any more, are left where they are. */
+  if (S.settings && S.settings.sched === undefined) {
+    const o = S.deckOpts || {};
+    const k = Object.keys(o).find((id) => o[id] && o[id].sched === "fsrs");
+    S.settings.sched = k ? "fsrs" : "sm2";
+    if (k) {
+      if (Number(o[k].retention) > 0) S.settings.retention = Number(o[k].retention);
+      if (Array.isArray(o[k].fsrsParams) && o[k].fsrsParams.length === 21) S.settings.fsrsParams = o[k].fsrsParams;
+    }
+  }
   /* QUESTION VARIETY SHIPS OFF (Sep 2026, on request: "ensure that Question Variety is turned off on all
      decks by default"). It shipped ON, so every save made before today carries `questionVariety: true` —
      and flipping `defaultState()` alone would have reached first-time visitors and nobody else, which is
@@ -5166,23 +5180,24 @@
      passed in — which is what lets test-scheduler.js slice the two schedulers out and run them as
      arithmetic. Deciding WHICH scheduler a card is on has to read the reader's own deck options, so it
      lives on this side of the line and the purity assertion stays true.
-     PER DECK, and it is the CARD'S OWN deck that decides — never the pooled review's setting. A card
-     scheduled one way from its own row and another way from the daily review would have two schedules and no
-     way to tell which was in force, which is the one thing a per-deck choice must not produce. So the daily
-     review's own sheet does not offer the switch: it schedules nothing of its own, it deals what its decks
-     hand it. A card in more than one deck takes the first, deterministically. */
+     ONE SCHEDULER FOR THE WHOLE SITE since Oct 2026 (on request: "those on the settings page should apply to
+     all cards on the website ... need not be deck-specific settings"). It was per deck from Aug 2026, chosen
+     on a deck's own sheet and cascading to its subdecks; it is `S.settings.sched`, with `retention` and
+     `fsrsParams` beside it, chosen on the Settings page (openSchedSheet). The entry id is still taken so that
+     `schedCfgFor`, Card info and the grade all ask the same question the same way, and a `deckOpts[id].sched`
+     an older save carries is ignored — except once, at boot, where a deck already on FSRS hands its choice up
+     to the site (see the back-fill beside `themeAuto`'s), so nobody's schedule changes under them. */
   function schedModeOf(entryId) {
-    // …and it cascades to subdecks, like every other policy in the sheet — see entryChain
-    const v = deckOpt(entryId, "sched");
-    return v && v.value === "fsrs" ? "fsrs" : "sm2";
+    void entryId;
+    return S.settings && S.settings.sched === "fsrs" ? "fsrs" : "sm2";
   }
   function deckSchedCfg(entryId) {
-    const ret = deckOpt(entryId, "retention"), par = deckOpt(entryId, "fsrsParams");
+    const st = S.settings || {}, par = st.fsrsParams;
     const cfg = Object.assign({}, SCHED, {
       mode: schedModeOf(entryId),
-      retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, (ret && Number(ret.value)) || FSRS_RETENTION)),
+      retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(st.retention) || FSRS_RETENTION)),
     });
-    if (par && Array.isArray(par.value) && par.value.length === 21) cfg.fsrsParams = par.value;
+    if (Array.isArray(par) && par.length === 21) cfg.fsrsParams = par;
     /* The load map rides on the cfg so the pure scheduler can read it and so the preview and the grade are
        handed the SAME one — see schedSpread. It is null unless the reader has asked for one of the two
        settings, which is what keeps every existing schedule exactly as it was. */
@@ -5217,9 +5232,9 @@
   }
   function schedCfgFor(id) {
     const e = cardEntryId(id);
-    // no entry (a card studied outside any deck) still gets the day anchor — SCHED itself must stay null,
-    // being the shipped default every test builds from
-    return e ? deckSchedCfg(e) : Object.assign({}, SCHED, { dayAnchor: dayStartTs() });
+    // the scheduler is one choice for the whole site (Oct 2026), so a card studied outside any deck is on it
+    // too; the entry is passed on for the callers that still read it
+    return deckSchedCfg(e);
   }
   /* ---------- the load map (Aug 2026) ----------
      The impure half of load balancing: how many cards are already due on each of the next few weeks' days,
@@ -6897,8 +6912,11 @@
      reads as a control that did nothing: `deckOptFrom` reports the entry a value was found on, the sheet
      marks a row it INHERITS with the name of the deck above it, and throwing the switch there writes an
      override on this row and says so. */
-  const DECK_OPT_INHERIT = ["order", "random", "variety", "autoSpeak", "burySiblings", "pairNew",
-                            "attempt", "recall", "sched", "retention", "fsrsParams"];
+  /* `attempt`, `recall`, `sched`, `retention` and `fsrsParams` were in this list until Oct 2026: they are
+     site-wide settings now (on request: "those on the settings page should apply to all cards on the website
+     ... need not be deck-specific settings"), read from S.settings alone, so a value an older save left
+     under a deck is neither read nor counted as an override here. */
+  const DECK_OPT_INHERIT = ["order", "random", "variety", "autoSpeak", "burySiblings", "pairNew"];
   function entryChain(id) {
     const out = [], seen = new Set();
     const push = (e) => { if (e && typeof e === "string" && !seen.has(e)) { seen.add(e); out.push(e); } };
@@ -6926,7 +6944,7 @@
     return out;
   }
   // the value in force for this entry, and the entry it was found on. `null` is read as "not set here",
-  // which is what `setDeckFsrsParams` writes to clear an override.
+  // which is what a clearing writer may store for an override.
   function deckOpt(id, key) {
     const ch = DECK_OPT_INHERIT.indexOf(key) < 0 ? [id] : entryChain(id);
     for (let i = 0; i < ch.length; i++) {
@@ -6995,13 +7013,14 @@
      IT IS OFF BY DEFAULT AND IT HAS AN ESCAPE HATCH, both deliberately. An unskippable prompt is how
      studying becomes a chore, and a reader who genuinely cannot remember must be able to say so — see
      the "I don't know" button, which reveals and pre-selects Again. What the switch removes is the
-     ACCIDENTAL reveal, not the deliberate one. */
+     ACCIDENTAL reveal, not the deliberate one.
+     ONE ANSWER FOR EVERY DECK since Oct 2026 (on request): the per-entry switch and its cascade are gone,
+     and the Settings page's switch is the whole of it. The entry id is still taken so that every caller
+     reads the same way; a `deckOpts[id].attempt` an older save carries is ignored. */
   function deckAttempt(id) {
-    const o = deckOpt(id, "attempt");
-    if (o && typeof o.value === "boolean") return o.value;
+    void id;
     return !!(S.settings && S.settings.attemptFirst);
   }
-  function setDeckAttempt(id, on) { setDeckLimits(id, { attempt: !!on }); }
   /* RECALL IN FULL (Sep 2026) — the second half of the same finding, and a POLICY beside `attempt` for
      the same reason. A cloze blank sits inside a sentence that has already narrowed the answer to one
      word; free recall — write down everything you can remember, then look — is the harder retrieval and
@@ -7011,11 +7030,9 @@
      NOTHING IS STORED. It is not a note (see cardNoteHTML, which is), it is the attempt itself, and an
      attempt is worth exactly as long as it takes to compare it with the answer. */
   function deckRecall(id) {
-    const o = deckOpt(id, "recall");
-    if (o && typeof o.value === "boolean") return o.value;
+    void id;   // one answer for every deck since Oct 2026 — see deckAttempt
     return !!(S.settings && S.settings.recallFirst);
   }
-  function setDeckRecall(id, on) { setDeckLimits(id, { recall: !!on }); }
   /* ---------- A THIRD ORDER: BY DIFFICULTY (Aug 2026, on request) ----------
      Ordered and Random were a BOOLEAN, and a third answer will not fit in one — so `order` is a string
      beside it and the boolean stays the fallback, which is what keeps every existing save working
@@ -7194,25 +7211,28 @@
     return entryCatalogPairs(id);
   }
   function setDeckPairNew(id, on) { setDeckLimits(id, { pairNew: !!on }); }
-  /* WHICH SCHEDULER, per entry — SM-2 or FSRS (Aug 2026, on request). Read by deckSchedCfg beside the
-     scheduler itself; these two are the writers. `retention` is what a reader is asking FSRS for: the
-     fraction of cards they want to still remember when each one comes back. */
-  function setDeckSched(id, mode) { setDeckLimits(id, { sched: mode === "fsrs" ? "fsrs" : "sm2" }); }
-  function setDeckRetention(id, r) {
-    setDeckLimits(id, { retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(r) || FSRS_RETENTION)) });
+  /* WHICH SCHEDULER — SM-2 or FSRS (Aug 2026, on request; one choice for the whole site since Oct 2026, see
+     schedModeOf). Read by deckSchedCfg beside the scheduler itself; these are the writers, into S.settings.
+     `retention` is what a reader is asking FSRS for: the fraction of cards they want to still remember when
+     each one comes back. */
+  function setSched(mode) { S.settings.sched = mode === "fsrs" ? "fsrs" : "sm2"; save(); }
+  function setRetention(r) {
+    S.settings.retention = Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(r) || FSRS_RETENTION));
+    save();
   }
   /* A reader's own FSRS parameters, pasted from Anki. Folio has no optimiser yet, and somebody who has
      already had Anki fit their 21 numbers to their own review history should not have to give that up to
      study here — so they can be entered as text and are held to exactly 21 finite numbers, or refused.
      Clearing the box returns the deck to the reference defaults. */
-  function setDeckFsrsParams(id, text) {
+  function setFsrsParams(text) {
     const raw = String(text || "").trim();
-    if (!raw) { setDeckLimits(id, { fsrsParams: null }); return { ok: true, cleared: true }; }
+    if (!raw) { delete S.settings.fsrsParams; save(); return { ok: true, cleared: true }; }
     const nums = raw.replace(/[\[\]]/g, " ").split(/[,\s]+/).filter(Boolean).map(Number);
     if (nums.length !== 21 || nums.some((n) => !isFinite(n))) {
       return { ok: false, error: "FSRS parameters are 21 numbers. That was " + nums.length + "." };
     }
-    setDeckLimits(id, { fsrsParams: nums });
+    S.settings.fsrsParams = nums;
+    save();
     return { ok: true };
   }
   /* Has this entry anything to say? The switch is offered only where the answer is yes, because a control
@@ -16640,7 +16660,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<span class="dm-cyval">' + esc(value) + "</span>" +
       "</button>";
     const order = deckOrderMode(id);
-    const variety = deckVariety(id), attemptFirst = deckAttempt(id), recallFirst = deckRecall(id);
+    const variety = deckVariety(id);
     // shown only where something in this entry can actually speak — see entryHasSpeech
     const canSpeak = entryHasSpeech(id), autoSpeak = deckAutoSpeak(id);
     /* How far through the deck the reader is, on the title's own line (Aug 2026, on request). It used to
@@ -16660,21 +16680,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        what the three switches above govern, plus the things a group is for: a name, a colour and a way to
        take it apart again. */
     const nestedIn = nestParentOf(id);
-    /* THE COLOUR ROW IS ON EVERY SHEET (Aug 2026, on request) — every deck, every subdeck, curated and
-       imported alike, and the daily-study banner with them. See the note above `containerHasChildren` for
-       why the old containers-only gate was the wrong reading. The NOTE is what still differs: a row with
-       something under it hands its colour down, and a leaf simply takes it. */
-    const colorRow =
-      '<div class="dm-item dm-colors"><b>Colour</b>' +
-        '<div class="dm-swatches">' +
-          '<button type="button" class="dm-swatch dm-swatch-off' + (groupColor(id) ? "" : " on") + '" data-color="" aria-label="Default colour" title="Default colour"></button>' +
-          GROUP_COLORS.map((c) =>
-            '<button type="button" class="dm-swatch' + (groupColor(id).toLowerCase() === c.toLowerCase() ? " on" : "") +
-            '" data-color="' + esc(c) + '" style="--sw:' + esc(c) + '" aria-label="Colour ' + esc(c) + '" title="' + esc(c) + '"></button>').join("") +
-        "</div>" +
-        "<small>" + (isReview ? "The banner keeps this colour instead of changing daily"
-                    : containerHasChildren(id) ? "Every deck inside takes this colour"
-                                               : "This row takes this colour") + "</small></div>";
+    /* THE COLOUR ROW AND THE ICON ROW ARE GONE (Oct 2026, on request: "in the Active Collections long press
+       menus, remove the following options. Icon. Color."). They were on every sheet from Aug 2026; a colour or
+       icon a reader set before stays in S.deckGroups and is still drawn (groupColor / entryIcon), there being
+       no request to forget it — only the controls went. openIconPicker, iconRowNote and setGroupColor stay
+       defined and unwired. */
     const html =
       '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(info.title) + "</span>" +
         (isReview ? '<span class="dm-where">Applies to every added deck</span>'
@@ -16685,12 +16695,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       swRow("variety", "Question variety",
         "Each card asks one of its phrasings at random",
         "Every card always asks its first phrasing", variety, false, fromMark(["variety"])) +
-      swRow("attempt", "Answer before revealing",
-        "You have to type something, or say you don’t know",
-        "Reveal is always available", attemptFirst, false, fromMark(["attempt"])) +
-      swRow("recall", "Recall in full",
-        "A box asks what you remember before the answer is shown",
-        "The blank is the only thing you fill in", recallFirst, false, fromMark(["recall"])) +
+      /* ANSWER BEFORE REVEALING and RECALL IN FULL stood here as per-entry switches from Sep 2026 until Oct
+         2026 (on request: "those on the settings page should apply to all cards on the website ... need not
+         be deck-specific settings") — they are the Settings page's two switches alone now, see deckAttempt. */
       (canSpeak ? swRow("speak", "Read aloud automatically",
         "The answer is spoken as soon as it is revealed",
         "Press the speaker on a card to hear it", autoSpeak, false, fromMark(["autoSpeak"])) : "") +
@@ -16737,34 +16744,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            a pooled review's sheet: the review is every deck at once, so "ready by" would be a date for a
            body of work that has no end. */
         (isReview ? "" : item("deadline", "Ready by a date", "Work backwards from an exam or a deadline")) +
-        /* WHICH SCHEDULER — on a deck, and on a LANGUAGE since Aug 2026. Unlike the two rows above it
-           this one is a POLICY and genuinely cascades: `sched`, `retention` and `fsrsParams` are
-           `DECK_OPT_INHERIT` keys and `entryChain` reaches a deck's language, so choosing FSRS here puts
-           every deck of that language on it and nothing had to be built for it.
-           THE POOLED REVIEW IS STILL THE EXCEPTION, and for its own reason rather than a container's: it
-           schedules nothing of its own, dealing what its decks hand it, each on its deck's schedule — so
-           the choice would govern nothing there. (A GROUP never reaches this line at all, the whole block
-           being off a group's sheet; its own reason is under the allowance rows above.) */
-        (isReview ? "" : item("sched", "Scheduling",
-          schedModeOf(id) === "fsrs"
-            ? "FSRS · aiming to remember " + Math.round(deckSchedCfg(id).retention * 100) + "%"
-            /* NO OTHER APP IS NAMED IN A SETTINGS SHEET (Aug 2026, on request). A reader choosing how their
-               own deck is scheduled is not helped by being told whose default it is, and the two algorithms
-               have names of their own. Anki is credited where a credit belongs — on the About page. */
-            : "SM-2, the classic interval schedule")) +
+        /* WHICH SCHEDULER was a row here from Aug 2026 until Oct 2026 (on request, with Answer before revealing
+           and Recall in full): it is one choice for every deck now, on the Settings page — see openSchedSheet. */
         item("skip", skipped ? "Study today after all" : "Skip today",
           skipped ? "This " + thing + " is sitting today out"
                   : (isReview ? "Leave today's review out altogether"
                               : "Leave this " + thing + " out of today's review"))) +
-      /* The colour row sits AFTER the commands rather than among them, and that placement is load-bearing
-         for more than reading order: `deckSheet` focuses the sheet's first button, and with the swatches
-         first the sheet would open with the caret on a colour nobody asked to change. */
-      colorRow +
-      /* THE ICON ROW, beside the colour and for the same reason: both are the reader saying how they want
-         this row presented, and both live in the same S.deckGroups record. It is a command rather than a
-         control — the picker is a sub-sheet of its own — so it sits with the commands’ own wording and
-         says what the row is wearing NOW, which for most rows is the mark the site gives them. */
-      item("icon", "Icon", iconRowNote(id)) +
       (nestedIn ? item("unnest", "Move out of " + groupTitle(nestedIn), "Put it back at the top of the list") : "") +
       /* FETCH THE FILE AGAIN (Sep 2026, on request — see entryLangDecks for why a stale check is not
          enough). It is NOT in the danger block: the merge keeps every card id, so the schedule, the flags
@@ -16861,14 +16846,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             setDeckBurySiblings(id, on);
             note.textContent = on ? "A note's other cards wait until tomorrow" : "Every card of a note can come up the same day";
             toast(on ? "Burying siblings" : "Siblings can come up together");
-          } else if (rowEl.dataset.act === "attempt") {
-            setDeckAttempt(id, on);
-            note.textContent = on ? "You have to type something, or say you don’t know" : "Reveal is always available";
-            toast(on ? "Answer before revealing" : "Reveal is always available");
-          } else if (rowEl.dataset.act === "recall") {
-            setDeckRecall(id, on);
-            note.textContent = on ? "A box asks what you remember before the answer is shown" : "The blank is the only thing you fill in";
-            toast(on ? "Recall in full" : "Recall box off");
           } else if (rowEl.dataset.act === "speak") {
             setDeckAutoSpeak(id, on);
             note.textContent = on ? "The answer is spoken as soon as it is revealed" : "Press the speaker on a card to hear it";
@@ -16882,15 +16859,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         rowEl.addEventListener("click", flip);
         sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); flip(); } });
       });
-      /* The colour swatches stay put when pressed, like the switches above them: choosing a colour is a
-         setting, and the reader may well want to try a second one. They repaint the PAGE (unlike a switch,
-         which changes only what a session deals out) — but render() closes this sheet, so the list behind
-         is repainted in place instead, by hand, and the sheet survives to be pressed again. */
-      ov.querySelectorAll(".dm-swatch").forEach((sw) => sw.addEventListener("click", () => {
-        setGroupColor(id, sw.dataset.color || "");
-        ov.querySelectorAll(".dm-swatch").forEach((o) => o.classList.toggle("on", o === sw));
-        repaintReviewHues();
-      }));
       ov.querySelectorAll(".dm-item:not(.dm-switch):not(.dm-colors):not(.dm-cycle)").forEach((b) => b.addEventListener("click", () => {
         const act = b.dataset.act;
         if (act === "browse") { close(); route("browse"); return; }
@@ -16900,7 +16868,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           toast("Following " + entryInfo(followFrom).title);
           return;
         }
-        if (act === "icon") { close(); openIconPicker(id); return; }
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "deadline") { close(); openDeadline(id); return; }
@@ -16952,7 +16919,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           }, "Ungroup");
           return;
         }
-        if (act === "sched") { close(); openDeckSched(id); return; }
         if (act === "resetprog") {
           close();
           /* THE LEVEL IS NAMED WHEN IT WOULD ACTUALLY MOVE, and only then. Folio's XP is the count of
@@ -17662,15 +17628,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (closeBtn) closeBtn.addEventListener("click", () => { close(); render(); });
     });
   }
-  function openDeckSched(id) {
-    const info = entryInfo(id), cfg = deckSchedCfg(id);
+  /* THE SCHEDULING SHEET, for the whole site (Oct 2026, on request — it was `openDeckSched(id)`, a deck's own
+     from Aug 2026, reached from its long-press options; it is reached from Settings → Study now and writes
+     S.settings through setSched / setRetention / setFsrsParams). */
+  function openSchedSheet() {
+    const cfg = deckSchedCfg(null);
     const fsrs = cfg.mode === "fsrs";
-    const own = (S.deckOpts || {})[id] || {};
+    const own = S.settings || {};
     const custom = Array.isArray(own.fsrsParams) && own.fsrsParams.length === 21;
     const pct = Math.round(cfg.retention * 100);
     const html =
       '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Scheduling</span>' +
-        '<span class="dm-where">' + esc(info.title) + "</span></div></div>" +
+        '<span class="dm-where">Every deck you study</span></div></div>' +
       /* Two ROWS rather than a switch, deliberately against the house preference: these are two named
          algorithms rather than one setting being on or off, and each needs a sentence of its own. */
       '<button type="button" class="dm-item dm-choice' + (fsrs ? "" : " on") + '" data-sched="sm2"' + (fsrs ? "" : " data-dmfocus") + ">" +
@@ -17711,10 +17680,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ov.querySelectorAll("[data-sched]").forEach((b) => b.addEventListener("click", () => {
         const mode = b.dataset.sched;
         if (mode === cfg.mode) return;
-        setDeckSched(id, mode);
-        toast("This " + entryNoun(id) + " is on " + (mode === "fsrs" ? "FSRS" : "SM-2"));
+        setSched(mode);
+        toast("Every deck is on " + (mode === "fsrs" ? "FSRS" : "SM-2"));
         close();
-        openDeckSched(id);
+        openSchedSheet();
       }));
       const closeBtn = ov.querySelector('[data-act="close"]');
       if (closeBtn) closeBtn.addEventListener("click", close);
@@ -17722,12 +17691,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (saveBtn) saveBtn.addEventListener("click", () => {
         const r = ov.querySelector("#dsRet"), pEl = ov.querySelector("#dsParams");
         // the parameters first: a refusal must not leave the retention saved and the sheet shut
-        const res = setDeckFsrsParams(id, pEl ? pEl.value : "");
+        const res = setFsrsParams(pEl ? pEl.value : "");
         if (!res.ok) { toast(res.error); return; }
-        setDeckRetention(id, (Number(r && r.value) || pct) / 100);
+        setRetention((Number(r && r.value) || pct) / 100);
         close();
         render();
-        toast(res.cleared && Array.isArray(own.fsrsParams)
+        toast(res.cleared && custom
           ? "Saved — back to the default parameters"
           : "Scheduling saved");
       });
@@ -48824,14 +48793,19 @@ let prev = null;
             }</div></div>
           </div>
           <div class="set-row">
-            ${/* ANSWER BEFORE REVEALING (Sep 2026) — the GLOBAL DEFAULT behind the per-deck policy, in the
-                  same relationship as the daily new-card allowance and its per-deck figure: any deck that
-                  has been given an answer of its own keeps it, and this decides every deck that has not.
-                  It is off by default because it makes studying harder on purpose, which is a thing to be
+            ${/* SCHEDULING (Oct 2026, on request) — one scheduler for every deck, chosen here. It was a row on
+                  each deck's own sheet (openDeckSched) from Aug 2026; the sheet is the same one, site-wide now.
+                  The button's label says what is in force, so the row reads as a setting and not a link. */""}
+            <div class="info"><h3>Scheduling</h3><p>How Folio decides when each card comes back. SM-2 is the classic interval schedule; FSRS models how fast you forget each card and aims for the retention you ask for, usually from fewer reviews. One choice for every deck you study.</p></div>
+            <div class="ctl"><button class="btn ghost" id="schedOpen">${schedModeOf(null) === "fsrs" ? "FSRS \u00b7 " + Math.round(deckSchedCfg(null).retention * 100) + "%" : "SM-2"}</button></div>
+          </div>
+          <div class="set-row">
+            ${/* ANSWER BEFORE REVEALING (Sep 2026) — the one switch for every deck (a per-deck override stood
+                  beside it until Oct 2026, on request). It is off by default because it makes studying harder on purpose, which is a thing to be
                   opted into rather than done to somebody — the same line the site-wide read-aloud switch
                   draws. The copy states the finding rather than the mechanism, since the mechanism ("the
                   Reveal button is disabled") is visible on the card and the reason is not. */""}
-            <div class="info"><h3>Answer before revealing</h3><p>Hold back the Reveal button until you have typed something into the blank, or pressed “I don’t know”. Trying to remember and failing teaches you more than reading the answer does — reading it feels like studying and is closer to rereading. Any deck you have set this on individually keeps its own answer.</p></div>
+            <div class="info"><h3>Answer before revealing</h3><p>Hold back the Reveal button until you have typed something into the blank, or pressed “I don’t know”. Trying to remember and failing teaches you more than reading the answer does — reading it feels like studying and is closer to rereading.</p></div>
             <div class="ctl"><div class="switch ${S.settings.attemptFirst ? "on" : ""}" id="sw-attempt" role="switch" aria-label="Answer before revealing" tabindex="0" aria-checked="${!!S.settings.attemptFirst}"></div></div>
           </div>
           <div class="set-row">
@@ -49050,6 +49024,7 @@ let prev = null;
     /* The marker. Turning it OFF while the panel is on screen has to take it away there and then — the
        Settings page is not one of the three that mount it, so nothing would repaint it away by itself, and a
        panel still floating over the page a switch has just disabled reads as a switch that did nothing. */
+    { const sb = root.querySelector("#schedOpen"); if (sb) sb.addEventListener("click", openSchedSheet); }
     wireSwitch("#sw-attempt", () => !!S.settings.attemptFirst, (v) => { S.settings.attemptFirst = v; });
     wireSwitch("#sw-recall", () => !!S.settings.recallFirst, (v) => { S.settings.recallFirst = v; });
     wireSwitch("#sw-lightdata", () => lightMode(), (v) => { S.settings.saveData = v; });

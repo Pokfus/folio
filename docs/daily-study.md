@@ -769,9 +769,13 @@ taken apart, being derived from `S.active` rather than stored.
   under the language and once loose at the top of the list — with no way back out, the sheet's
   "Move out of…" row being offered on the same answer.
 
-`containerHasChildren` learned it too, so the Colour row says "Every deck inside takes this colour" rather
+`containerHasChildren` learned it too, so the Colour row said "Every deck inside takes this colour" rather
 than "This row takes this colour" — which on a language is simply true, the hue being passed down the
-list's own build.
+list's own build. **The Colour and Icon rows are gone from every sheet since Oct 2026** (on request: "in the
+Active Collections long press menus, remove the following options. Icon. Color."); a colour or icon set before
+is still stored and drawn, only the controls went. **Answer before revealing, Recall in full and Scheduling
+left the sheet the same day** (on request): each is one setting for every deck, on the Settings page —
+`deckAttempt` / `deckRecall` read `S.settings` alone and the five keys are out of `DECK_OPT_INHERIT`.
 
 ## The four allowance rows on a language, and the third level of the draw (Aug 2026, on request)
 

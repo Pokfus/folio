@@ -145,7 +145,7 @@ head("5) the wiring that cannot be seen from the page");
   check("every order has a note", ["ordered", "random", "difficulty"].every((k) => new RegExp("^\\s+" + k + ":", "m").test(src.slice(src.indexOf("const DECK_ORDER_NOTE"), src.indexOf("function deckOrdersFor")))));
   check("Ordered deals Folio's own collections front to back, not round-robin",
     /function studyOrder[\s\S]{0,1400}deckOrderMode\(entryId\) === "ordered" && !ids\.some\(isCommunityCard\)\) return pair \? pairOrder\(ids\) : ids;\s*\n\s*return robinOrder/.test(src));
-  check("`attempt` is a POLICY, so it cascades", /DECK_OPT_INHERIT = \[[^\]]*"attempt"/.test(src));
+  check("`attempt` is one switch for every deck, not a per-deck policy (Oct 2026)", !/DECK_OPT_INHERIT = \[[^\]]*"attempt"/.test(src));
   check("the three new registers are in PROGRESS_FIELDS",
     /PROGRESS_FIELDS = \[[^\]]*"confused"[^\]]*"pretest"[^\]]*"orderPicked"/.test(src));
   check("the three new registers have defaults", /confused: \{\}/.test(src) && /pretest: \{\}/.test(src) && /orderPicked: \{\}/.test(src));
