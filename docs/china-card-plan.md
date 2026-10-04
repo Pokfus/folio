@@ -1052,17 +1052,17 @@ already shipped before adding it.
     cnh-599  Treaty port
     cnh-600  Shanghai International Settlement
     cnh-601  Cotton mill
-    cnh-602  Rural China in the Republican era
-    cnh-603  Chinese students abroad
-    cnh-604  The Chinese women's movement
-    cnh-605  Education reform in Republican China
+    cnh-602  Rural Reconstruction Movement
+    cnh-603  Diligent Work–Frugal Study Movement
+    cnh-604  Chinese women's suffrage movement
+    cnh-605  Cai Yuanpei
 
 ### Civil War — `col-36`
 
     cnh-606  Chinese Civil War
     cnh-607  Jiangxi Soviet
     cnh-608  Mao Zedong
-    cnh-609  The encirclement campaigns
+    cnh-609  Encirclement campaigns
     cnh-610  Long March
     cnh-611  Zunyi Conference
     cnh-612  Yan'an
@@ -1072,55 +1072,55 @@ already shipped before adding it.
     cnh-616  Zhu De
     cnh-617  Xi'an Incident
     cnh-618  Second United Front
-    cnh-619  Communist land policy in the base areas
-    cnh-620  The resumption of the civil war in 1946
+    cnh-619  Outline Land Law
+    cnh-620  Double Tenth Agreement
     cnh-621  Marshall Mission
-    cnh-622  Nationalist hyperinflation
+    cnh-622  Gold yuan
     cnh-623  Liaoshen campaign
     cnh-624  Huaihai campaign
     cnh-625  Pingjin campaign
-    cnh-626  The fall of Nanjing in 1949
-    cnh-627  The Nationalist retreat to Taiwan
-    cnh-628  The founding of the People's Republic
-    cnh-629  Why the Communists won
-    cnh-630  The cost of the civil war
+    cnh-626  Yangtze River Crossing campaign
+    cnh-627  Great Retreat
+    cnh-628  Proclamation of the People's Republic of China
+    cnh-629  Peasant nationalism
+    cnh-630  Siege of Changchun
 
 ### World War II — `col-37`
 
     cnh-631  Second Sino-Japanese War
     cnh-632  Mukden Incident
     cnh-633  Manchukuo
-    cnh-634  The Japanese occupation of Manchuria
+    cnh-634  Northeast Anti-Japanese United Army
     cnh-635  Marco Polo Bridge Incident
     cnh-636  Battle of Shanghai
     cnh-637  Nanjing Massacre
-    cnh-638  The retreat to Chongqing
-    cnh-639  Chongqing as wartime capital
-    cnh-640  The bombing of Chongqing
+    cnh-638  Battle of Wuhan
+    cnh-639  Free China
+    cnh-640  Bombing of Chongqing
     cnh-641  Battle of Taierzhuang
     cnh-642  1938 Yellow River flood
-    cnh-643  Wang Jingwei and the Nanjing regime
+    cnh-643  Wang Jingwei regime
     cnh-644  Hundred Regiments Offensive
-    cnh-645  The Communist base areas in wartime
+    cnh-645  Jin-Cha-Ji Border Region
     cnh-646  New Fourth Army incident
-    cnh-647  The Burma Road and the Hump
-    cnh-648  Joseph Stilwell and the China theatre
+    cnh-647  Burma Road
+    cnh-648  Joseph Stilwell
     cnh-649  Operation Ichi-Go
     cnh-650  Unit 731
     cnh-651  Chinese famine of 1942–1943
-    cnh-652  Chinese casualties in the war
-    cnh-653  The Japanese surrender in China
-    cnh-654  China and the founding of the United Nations
-    cnh-655  The memory of the war in China
+    cnh-652  Refugee crisis
+    cnh-653  Nanjing surrender ceremony
+    cnh-654  Four Policemen
+    cnh-655  Nanjing Massacre Memorial Hall
 
 ### People's Republic of China — `col-38`
 
     cnh-656  People's Republic of China
-    cnh-657  The land reform campaign
-    cnh-658  The campaign to suppress counter-revolutionaries
-    cnh-659  China in the Korean War
-    cnh-660  The First Five-Year Plan
-    cnh-661  The socialist transformation of industry and commerce
+    cnh-657  Land Reform Movement
+    cnh-658  Campaign to Suppress Counterrevolutionaries
+    cnh-659  People's Volunteer Army
+    cnh-660  First Five-Year Plan
+    cnh-661  Socialist transformation
     cnh-662  Hundred Flowers Campaign
     cnh-663  Anti-Rightist Campaign
     cnh-664  Great Leap Forward
@@ -1128,15 +1128,15 @@ already shipped before adding it.
     cnh-666  Great Chinese Famine
     cnh-667  Lushan Conference
     cnh-668  Sino-Soviet split
-    cnh-669  Liu Shaoqi and the recovery
+    cnh-669  Seven Thousand Cadres Conference
     cnh-670  Cultural Revolution
     cnh-671  Red Guards
     cnh-672  Quotations from Chairman Mao Tse-tung
     cnh-673  Down to the Countryside Movement
     cnh-674  Lin Biao
     cnh-675  Gang of Four
-    cnh-676  The Sino-American rapprochement
-    cnh-677  The death of Mao Zedong
+    cnh-676  Shanghai Communiqué
+    cnh-677  Hua Guofeng
     cnh-678  Deng Xiaoping
     cnh-679  Boluan Fanzheng
     cnh-680  Chinese economic reform
@@ -1145,30 +1145,30 @@ already shipped before adding it.
     cnh-683  One-child policy
     cnh-684  Tiananmen Square protests of 1989
     cnh-685  Southern tour
-    cnh-686  China's accession to the World Trade Organization
-    cnh-687  Chinese urbanisation since 1978
+    cnh-686  Protocol on the Accession of the People's Republic of China
+    cnh-687  Floating population
     cnh-688  Hukou
-    cnh-689  The handover of Hong Kong and Macau
-    cnh-690  China in the twenty-first century
+    cnh-689  Handover of Hong Kong
+    cnh-690  Belt and Road Initiative
 
 ### Republic of China (Taiwan) — `col-39`
 
-    cnh-691  Taiwan under Japanese rule
-    cnh-692  The retrocession of Taiwan
+    cnh-691  Government-General of Taiwan
+    cnh-692  Retrocession Day
     cnh-693  February 28 incident
     cnh-694  White Terror
-    cnh-695  Taiwan under martial law
-    cnh-696  The Taiwan economic miracle
-    cnh-697  The democratisation of Taiwan
+    cnh-695  Martial law in Taiwan
+    cnh-696  Taiwan Miracle
+    cnh-697  Wild Lily student movement
     cnh-698  Cross-Strait relations
     cnh-699  Taiwanese identity
-    cnh-700  The political status of Taiwan
+    cnh-700  Political status of Taiwan
 
 ## State, Society and Economy
 
 ### The imperial state — `cn-government`
 
-    cnh-701  The Chinese imperial state
+    cnh-701  Chinese Empire
     cnh-702  Emperor of China
     cnh-703  The dynastic cycle
     cnh-704  Imperial examination

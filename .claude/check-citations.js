@@ -377,6 +377,11 @@ const CROSSREF_WRONG = [
   // claim that Crossref is wrong about the man — it is a note that Folio follows the
   // spelling a reader will meet at the top of the PDF the citation points at.
   ["10.31168/2305-6754.2018.7.2.19", "Boris N. Florya", "Boris Floria"],
+  // China Perspectives' deposit, and OpenEdition's own author metadata for the page, spell the
+  // author "Zeming Chen", but the issue's editorial introduction on the same page names him four
+  // times as Chen Ziming (陈子明), the historian of 1957 and former political prisoner. "Zeming" is a
+  // mis-romanisation of 子明 in the metadata; the citation follows the name the journal prints.
+  ["10.4000/chinaperspectives.2553", "Chen Ziming", "Zeming Chen"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
