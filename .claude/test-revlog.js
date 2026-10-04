@@ -139,7 +139,10 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
     }, { deck: DECK, extra: extra });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(700);
-    await page.evaluate(() => document.querySelector("#b-review")?.click());
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(700);
   };
 
@@ -251,7 +254,10 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
     }, { deck: DECK, ids: CARDS, rows: rows });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(850);
-    await page.evaluate(() => document.querySelector("#b-review")?.click());
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(750);
     const live = await page.evaluate(() => !!document.querySelector("#cardInfo"));
     await page.evaluate(() => document.querySelector("#cardInfo")?.click());

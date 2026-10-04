@@ -653,7 +653,10 @@ async function clozeChecks(page, base) {
   await page.goto(base + "/#home");
   await page.reload();
   await page.waitForTimeout(1200);
-  await page.evaluate(() => { const b = document.querySelector(".review-group .banner .cta .btn"); if (b) b.click(); });
+  // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+  await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
   await page.waitForTimeout(1000);
 
   const seen = [];
@@ -818,7 +821,10 @@ async function reverseChecks(page, base) {
      expanded too. */
   check("three two-way notes and one one-way note deal SEVEN cards", /\b7\s*New/.test(pile) || /7New/.test(pile), pile.slice(0, 90));
 
-  await page.evaluate(() => document.querySelector("#b-review")?.click());
+  // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+  await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
   await page.waitForTimeout(900);
   const queue = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || []));
   check("the queue holds seven cards", queue.length === 7, JSON.stringify(queue));
@@ -1058,7 +1064,10 @@ async function buryChecks(page, base) {
   const before = await page.evaluate(() => (document.querySelector(".review-group .banner") || {}).textContent.replace(/\s+/g, " "));
   check("two two-way notes deal four cards", /\b4\s*New|4New/.test(before), before.slice(0, 80));
 
-  await page.evaluate(() => document.querySelector("#b-review")?.click());
+  // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+  await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
   await page.waitForTimeout(800);
   const first = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0]);
   await page.evaluate(() => {
@@ -1106,7 +1115,10 @@ async function buryChecks(page, base) {
   }, "u:burydeck");
   await page.reload();
   await page.waitForTimeout(900);
-  await page.evaluate(() => document.querySelector("#b-review")?.click());
+  // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+  await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
   await page.waitForTimeout(800);
   await page.evaluate(() => {
     const b = [...document.querySelectorAll(".actions button, .study-card button")]

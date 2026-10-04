@@ -315,8 +315,16 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   `reviewEstimateMs(ids)` sums, per card, the reader's own median seconds in that card's collection
   (`paceTable()`, read off the last `PACE_ROWS` rows of `S.revlog`; `PACE_DEFAULT_S` where there is no
   history) — never a flat per-card constant, which was the first review's objection. The right-hand
-  side is a **preview of the next three cards** (`reviewPreviewHTML`) rather than a glyph. The CTA is
-  "Start review", as wide as the pile row and full width on a phone.
+  side is a **preview of the next three cards** (`reviewPreviewHTML`) rather than a glyph. **Since Oct 2026
+  (on request) the banner is a `<div>` with no Start button and no click** — it states the day, and the
+  rows under it start the sessions (the pooled `{type:"review"}` session has no route any more). Its
+  three piles, the estimate and the preview read **`listPiles()`**: the sum of the list's TOP-LEVEL rows
+  (`entryPiles`, which now also hands back the card ids behind its counts), not the pooled draw of
+  `reviewQueue` — a container's row already counts its subtree under its own allowance, and a language's
+  decks are read once through the language's container. The hold / right-click / context-menu-key sheet
+  stays (`wireHoldMenu`), which is why the div keeps a tab stop and a `group` role. On a phone the
+  estimate is a line of its own under the three piles; between 641 and 719px the preview now stays, at a
+  32px title and a tighter fan.
 - **The streak ribbon** (`streakRibbonHTML`) sits under the banner on every non-fresh page: a 3-column
   grid at every width (a flex row wrapped at desktop and looked broken), drawing **the current week
   only, at every width** (Oct 2026, on request), with its **chest cell at the end**

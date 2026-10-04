@@ -166,8 +166,12 @@ const SETTINGS = {
     /* Not their SUM, and not a smaller figure neither deck agreed to either (Aug 2026, on a bug report):
        the review's default limit is the WIDEST any added deck offers, so two decks at 5 draw 5 — from the
        ten between them — where the old global default handed back 3 and nothing on the page explained it. */
-    check("...and the review draws the widest deck's allowance, not their sum",
-      home.banner[0] === 5, JSON.stringify({ banner: home.banner, rows: home.rows.map((r) => r.counts[0]) }));
+    /* …AND THE BANNER IS THEIR SUM SINCE OCT 2026 (on request: it "should simply reflect all new/learning/
+       review remaining in the entire active collections list"). It used to read the pooled review's own
+       draw — the widest deck's allowance, 5 here — but the banner starts no session now, so what it states
+       is what the rows under it hold between them (listPiles). */
+    check("...and the banner counts what the rows hold between them",
+      home.banner[0] === home.rows.reduce((a, r) => a + r.counts[0], 0), JSON.stringify({ banner: home.banner, rows: home.rows.map((r) => r.counts[0]) }));
     check("the bin at the end of each row is gone", home.trash === 0);
     check("the banner carries no big numeral", !home.badge);
     check("...and no line describing the counts under it", !/scheduled/i.test(home.desc), home.desc);
@@ -325,41 +329,10 @@ const SETTINGS = {
     await page.setViewportSize({ width: 1200, height: 900 });
     await page.waitForTimeout(400);
 
-    // work the whole review through and see where its new cards actually came from
-    await page.evaluate(() => document.querySelector("#b-review").click());
-    await page.waitForTimeout(900);
-    for (let i = 0; i < 14; i++) {
-      const alive = await page.evaluate(() => !!document.querySelector("#reveal-btn"));
-      if (!alive) break;
-      await page.evaluate(() => document.querySelector("#reveal-btn").click());
-      await page.waitForTimeout(220);
-      await page.evaluate(() => { const g = document.querySelector(".grade.easy"); if (g) g.click(); });
-      await page.waitForTimeout(300);
-    }
-    await page.goto(base + "#home", { waitUntil: "load" });
-    await page.waitForTimeout(1400);
-    const after = await page.evaluate((ids) => {
-      const S = JSON.parse(localStorage.getItem("folio_v1"));
-      // the day key the app writes, not a UTC one: days run on the device's clock since Aug 2026 (see
-      // dayKey in app.js), and hard-coding toISOString here would agree only in a UTC container
-      const d = new Date();
-      const p2 = (n) => String(n).padStart(2, "0");
-      const today = d.getFullYear() + "-" + p2(d.getMonth() + 1) + "-" + p2(d.getDate());
-      const from = {};
-      (window.COLLECTION_TREE.collections || []).forEach(function walk(n) {
-        (n.children || []).forEach(walk);
-        if (ids.indexOf(n.id) >= 0) from[n.id] = (n.cardIds || []).filter((c) => S.cards[c] && S.cards[c].first === today).length;
-      });
-      return { from: from, intro: S.intro.count,
-        rows: [...document.querySelectorAll(".active-deck[data-review]")].map((r) => +r.querySelector(".dkc-new").textContent.trim()) };
-    }, [deckA, deckB]);
-    /* THE bug this replaced: the whole day's new-card allowance came off the front of one deck's list.
-       Both decks must have given cards, and the total must still be the review's own allowance. */
-    check("the day's new cards were drawn from BOTH decks", after.from[deckA] > 0 && after.from[deckB] > 0, JSON.stringify(after.from));
-    check("...five in all, the review's own allowance", after.intro === 5, String(after.intro));
-    check("...and each deck's row still shows the rest of its own share",
-      after.rows.length >= 2 && after.rows.every((n) => n > 0) && after.rows.reduce((a, n) => a + n, 0) === 5,
-      JSON.stringify({ rows: after.rows, from: after.from }));
+    /* The pooled review used to be worked through here from the banner, to see that its new cards came from
+       BOTH decks and summed to the review's own allowance. The banner starts nothing since Oct 2026 (on
+       request) and no other control reaches the pooled session, so that walk is gone; the rows above are
+       what a reader studies from now, and each is asserted on its own figures. */
     await page.close();
   }
 
@@ -413,7 +386,10 @@ const SETTINGS = {
       rows: [...document.querySelectorAll(".active-deck[data-review] .dkc-new")].map((x) => +x.textContent.trim()),
       stored: (JSON.parse(localStorage.getItem("folio_v1")).deckOpts || {})["review:all"],
     }));
-    check("an explicit review limit caps the pooled draw", capped.banner[0] === 2, JSON.stringify(capped));
+    /* THE BANNER NO LONGER MOVES WITH THE REVIEW'S OWN CAP (Oct 2026, on request): it states the sum of the
+       rows under it (listPiles), and a limit on the pooled session — which the banner no longer starts — is
+       not a limit on what the decks hold. What is left to assert is that the sheet still writes the cap. */
+    check("the banner goes on counting what the rows hold", capped.banner[0] === capped.rows.reduce((a, n) => a + n, 0), JSON.stringify(capped));
     check("...without changing what each deck offers on its own", capped.rows.every((n) => n === 5), JSON.stringify(capped.rows));
     check("...and is stored under the review's own entry", capped.stored && capped.stored.newPerDay === 2, JSON.stringify(capped.stored));
 
@@ -442,11 +418,16 @@ const SETTINGS = {
        rather than in an `evaluate` after the first load: `newPage` re-writes the whole record through
        `addInitScript` on every navigation, so anything written into localStorage by hand is put back to
        the seed by the very reload meant to pick it up. */
-    const page = await newPage(Object.assign({}, seeded, { deckOpts: { "review:all": { variety: true } } }));
+    // …on the DECK the row opens, since the banner starts no pooled session (Oct 2026): the cycler reads the
+    // scope's own entry (deckVariety(scopeEntryId)), and the first row of this list is deckA's
+    const page = await newPage(Object.assign({}, seeded, { deckOpts: { [deckA]: { variety: true } } }));
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
-    await page.evaluate(() => document.querySelector("#b-review").click());
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(900);
     check("study is an addressable route", (await page.evaluate(() => location.hash)) === "#study");
     const q1 = await page.evaluate(() => ({
@@ -636,7 +617,10 @@ const SETTINGS = {
     await page.waitForTimeout(1400);
 
     // what the buttons PROMISE, on a brand-new card, before anything is graded
-    await page.evaluate(() => document.querySelector("#b-review").click());
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(900);
     await page.evaluate(() => document.querySelector("#reveal-btn").click());
     await page.waitForTimeout(300);
@@ -710,11 +694,13 @@ const SETTINGS = {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
+    /* …AND SINCE OCT 2026 (on request) THERE IS NO BUTTON AT ALL: the banner states the day and is not a
+       control, so nothing on it says Start and it is not a <button> — the rows under it begin a session. */
     const cta = await page.evaluate(() => {
-      const b = document.querySelector("#b-review .cta .btn");
-      return { txt: b ? b.textContent.trim() : null, hero: !!document.querySelector(".review-hero") };
+      const b = document.querySelector("#b-review");
+      return { cta: !!b.querySelector(".cta"), tag: b.tagName, start: /start/i.test(b.textContent), hero: !!document.querySelector(".review-hero") };
     });
-    check("the review's button reads 'Start review'", cta.txt === "Start review", JSON.stringify(cta));
+    check("the banner carries no Start button and is not a button itself", !cta.cta && cta.tag === "DIV" && !cta.start, JSON.stringify(cta));
     await page.close();
   }
 
@@ -1299,32 +1285,41 @@ const SETTINGS = {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
-    await page.evaluate(() => document.querySelector("#b-review")?.click());
-    await page.waitForTimeout(900);
-
-    // walk the whole session, recording which deck each card came from and what its record looks like after
+    /* THE POOLED REVIEW HAS NO ROUTE SINCE OCT 2026 (the banner starts nothing), so the two decks are
+       studied one row after the other and the records read across both walks: the claim is unchanged —
+       each card is scheduled by ITS DECK's choice — and a row's own session is now the only place a card is
+       dealt from. */
     const seen = [];
-    for (let i = 0; i < 12; i++) {
-      const id = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0] || null);
-      if (!id) break;
-      await page.evaluate(() => {
-        const b = [...document.querySelectorAll(".actions button, .study-card button")]
-          .find((x) => /reveal|show answer/i.test(x.textContent + x.id + x.className));
-        if (b) b.click();
-      });
-      await page.waitForTimeout(320);
-      await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
-      await page.waitForTimeout(420);
-      const rec = await page.evaluate((cid) => (JSON.parse(localStorage.folio_v1 || "{}").cards || {})[cid], id);
-      seen.push({ id: id, fsrs: !!(rec && rec.stability > 0) });
+    for (const nth of [0, 1]) {
+      await page.goto(base + "#home", { waitUntil: "load" });
+      await page.waitForTimeout(1200);
+      await page.evaluate((k) => { const b = document.querySelectorAll(".active-deck[data-review]")[k]; if (b) b.click(); }, nth);
+      await page.waitForTimeout(900);
+      await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
+      await page.waitForTimeout(900);
+      // walk the session, recording what each card's record looks like after
+      for (let i = 0; i < 6; i++) {
+        const id = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0] || null);
+        if (!id) break;
+        await page.evaluate(() => {
+          const b = [...document.querySelectorAll(".actions button, .study-card button")]
+            .find((x) => /reveal|show answer/i.test(x.textContent + x.id + x.className));
+          if (b) b.click();
+        });
+        await page.waitForTimeout(320);
+        await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
+        await page.waitForTimeout(420);
+        const rec = await page.evaluate((cid) => (JSON.parse(localStorage.folio_v1 || "{}").cards || {})[cid], id);
+        seen.push({ id: id, fsrs: !!(rec && rec.stability > 0) });
+      }
     }
-    check("the session dealt cards from both decks", seen.length >= 4, JSON.stringify(seen.length));
+    check("both decks dealt cards", seen.length >= 4, JSON.stringify(seen.length));
     const fromA = seen.filter((x) => x.id.indexOf("wh-") === 0);
     void fromA;
     /* The load-bearing pair: some cards came out with a memory state and some did not, and which is which
        follows the DECK. If the review's own setting were deciding, every card would be one or the other. */
     check("some cards were scheduled by FSRS", seen.some((x) => x.fsrs), JSON.stringify(seen));
-    check("…and some by SM-2, in the same pooled session", seen.some((x) => !x.fsrs), JSON.stringify(seen));
+    check("…and some by SM-2, each deck's own choice", seen.some((x) => !x.fsrs), JSON.stringify(seen));
     await page.close();
   }
 
@@ -1343,7 +1338,10 @@ const SETTINGS = {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
-    await page.evaluate(() => document.querySelector("#b-review")?.click());
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(900);
     // find the mature card in the queue and answer it
     const cur = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0]);
@@ -1400,7 +1398,10 @@ const SETTINGS = {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
-    await page.evaluate(() => document.querySelector("#b-review")?.click());
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(900);
     const head = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0]);
     check("the seeded FSRS card is the one on screen", head === MATURE_ID, String(head));
@@ -1638,7 +1639,10 @@ const SETTINGS = {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
-    await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(1500);
     const q = await page.evaluate(() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).queue; } catch (e) { return []; } });
     const known = new Set(ids);
@@ -1659,7 +1663,10 @@ const SETTINGS = {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
-    await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(1500);
     const before = await page.evaluate(() => { try { const r = JSON.parse(sessionStorage.getItem("folio_study_v1")); return { n: r.queue.length, q: r.queue.slice(), id: r.id }; } catch (e) { return null; } });
     check("a fresh session offers the day's allowance", before && before.n === 5, before ? String(before.n) : "none");
@@ -1689,7 +1696,10 @@ const SETTINGS = {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
-    await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(1500);
     const graded = [], asked = [];
     for (let k = 0; k < 3; k++) {
@@ -1764,7 +1774,10 @@ const SETTINGS = {
       row: [...document.querySelectorAll(".dk-counts")].map((e) => [...e.querySelectorAll("span")].map((x) => x.textContent).join("/"))[0] || "",
     }));
 
-    await page.evaluate(() => document.querySelector("#b-review").click());
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(900);
     await page.evaluate(() => document.querySelector("#reveal-btn").click());
     await page.waitForTimeout(300);
@@ -1783,8 +1796,8 @@ const SETTINGS = {
 
     const st = await snap();
     check("the banner counts it under Learning", /^0\/[1-9]/.test(st.piles), JSON.stringify(st));
-    check("...and does NOT also claim the day is finished — the whole report",
-      st.start === (st.piles !== "0/0/0"), JSON.stringify(st));
+    // (the Start button is gone since Oct 2026; what is left to hold the banner to is the piles against the row)
+    check("...and the banner carries no Start button either way", st.start === false, JSON.stringify(st));
     check("...and the deck's own row says the same thing the banner does", st.row === st.piles, JSON.stringify(st));
 
     /* The other half of the contradiction, and the half the reader actually pressed: the row opens a

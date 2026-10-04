@@ -9893,8 +9893,9 @@ body[data-theme="carnelian"].night .collection-deco{
    overrides and at equal or higher specificity, so the earlier blocks keep working for the states this
    page does not draw. The parts, in page order:
      · the study banner (`.rv-banner`): deep indigo in both themes, "N cards" in rose, the three piles in
-       their own colours plus the estimate, a Start button as wide as the pile row, and the top three cards
-       of the pile fanned beside it (`.rv-preview`, desktop and tablet only);
+       their own colours plus the estimate, and the top three cards of the list's pile fanned beside it
+       (`.rv-preview`, desktop and tablet only). The Start button and the click went in Oct 2026, on request:
+       the banner states the day and the rows under it start the sessions;
      · the streak ribbon (`.streak-ribbon`): the run in weeks, each ending in its chest;
      · the collections header (`.rv-sec-h`) with the legend (the "+ Add decks" link stood at its right
        until Oct 2026, and the deck list's Edit control beside the heading for a day after that; the
@@ -9947,6 +9948,9 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .rv-banner .xp-track{background:rgba(255,255,255,.14); border-color:transparent; height:6px;}
 .rv-banner .xp-fill{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}
 .rv-banner .glyph{display:none;}
+/* NOTHING TO PRESS (Oct 2026, on request): the ordinary banner is a <div> that states the day, so it takes no
+   pointer cursor and no hover lift — those are a button's promises. The first-run hero keeps both. */
+.page .rv-banner:not(.hero), .page .rv-banner:not(.hero):hover, .page .rv-banner:not(.hero):active{cursor:default; transform:none; box-shadow:var(--shadow-md);}
 .review-group .rv-banner .gt-check{top:14px; right:14px;}
 /* the banner keeps all four corners (Oct 2026, on request: "the corners are too sharp") — the rule that
    squared its foot dates from when the deck list was joined to it, and the rows are separate cards now */
@@ -10178,18 +10182,31 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .pv-card{padding:14px 15px;}
   .pv-card p{font-size:13.5px;}
 }
+/* …AND IT STAYS DOWN TO 641px NOW THAT THE START BUTTON IS GONE (Oct 2026, on a report that the preview had
+   "just disappeared" on a tablet): the title steps down to the phone's 32px and the fan gives up most of its
+   side padding, so a 650px banner holds both without the piles running under the cards. */
 @media (min-width:641px) and (max-width:719px){
-  .rv-preview{display:none;}
+  .page .rv-banner h2.review-title{font-size:calc(32px * var(--fs));}
+  .rv-preview{min-width:120px; padding:0 12px 0 28px;}
+  .pv-card{left:28px; right:12px;}
+  .page .rv-banner .meta{gap:0 16px;}
+  .page .rv-banner .stat.st-est{padding-left:16px;}
 }
 @media (max-width:640px){
   .page .rv-banner, .page .rv-banner:hover{padding:22px 20px; border-radius:16px; flex-direction:column; align-items:stretch;}
   .review-group.has-active > #b-review.rv-banner{border-bottom-left-radius:16px; border-bottom-right-radius:16px;}
   .page .rv-banner h2.review-title{font-size:calc(32px * var(--fs));}
   .rv-preview{display:none;}
-  .page .rv-banner .rv-stack{width:100%;}
-  .page .rv-banner .meta{width:100%; grid-template-columns:1fr 1fr 1fr 1fr; gap:0 10px;}
+  /* …and the stack's one track fills the banner, or the level bar would stop where the three piles do now that
+     nothing full-width sits under them (the Start button did) */
+  .page .rv-banner .rv-stack{width:100%; grid-template-columns:minmax(0, 1fr);}
+  /* THE ESTIMATE IS A LINE OF ITS OWN ON A PHONE (Oct 2026, on request: "reorganise the information inside on
+     all screen formats to fit properly"). Four columns across a 318px row left "≈ 1 h 9 min" spilling out of
+     its quarter; the three piles share the row now and the estimate stands under them, ruled off above the
+     way it was ruled off at the left, still a figure over its label like the three. */
+  .page .rv-banner .meta{width:100%; grid-template-columns:1fr 1fr 1fr; gap:0 10px;}
   .page .rv-banner .stat b{font-size:calc(24px * var(--fs));}
-  .page .rv-banner .stat.st-est{padding-left:10px;}
+  .page .rv-banner .stat.st-est{grid-column:1 / -1; justify-self:stretch; margin-top:12px; padding:10px 0 0; border-left:0; border-top:1px solid rgba(255,255,255,.18);}
   .streak-ribbon{padding:12px 14px;}
   .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
   /* a phone keeps its two-row layout (Oct 2026, on request: "don't apply the streak changes to mobile"):

@@ -237,7 +237,10 @@ const SETTINGS = {
     const page = await newPage(seeded());
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1200);
-    await page.evaluate(() => { const b = document.querySelector(".review-group .banner .cta .btn"); if (b) b.click(); });
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(1200);
     check("a study session starts", (await page.locator(".study-card").count()) > 0);
     check("the study bar carries a Flag button", (await page.locator("#flagBtn").count()) === 1);
@@ -287,7 +290,10 @@ const SETTINGS = {
     const page = await newPage(seeded());
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1200);
-    await page.evaluate(() => { const b = document.querySelector(".review-group .banner .cta .btn"); if (b) b.click(); });
+    // the banner starts nothing since Oct 2026 — a session begins from a deck's row, past the order picker
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
     await page.waitForTimeout(1200);
     await page.evaluate(() => document.querySelector("#cardInfo").click());
     await page.waitForTimeout(700);
