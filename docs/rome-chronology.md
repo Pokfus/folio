@@ -60,6 +60,23 @@ most, which is the familiar English form for the famous and the Latin form for e
 | Etruscan | Tyrrhenian, except inside a quotation of a Greek source |
 | plebeians (the order), the plebs (the people) | |
 
+## Italy before Rome
+
+Filled batch by batch, from the source each row names.
+
+| event | the collection says | source |
+|---|---|---|
+| Ancient Italy, as a period | c. 1000 – 49 BCE (a handbook's convention: the Iron Age to the Lex Roscia) | Negrini, BMCR 2025, on the *Oxford Handbook of Pre-Roman Italy* (`rm-001`) |
+| Bronze Age Italy | c. 2200 – 950 BCE (the usual Italian scheme: Early, Middle, Recent, Final) | Varalli et al. 2022 (`rm-006`) |
+| Terramare culture | c. 1650 – 1150 BCE; one account starts it c. 1550 BCE | Cavazzuti et al. 2019; Cremaschi 2017 (`rm-006`, `rm-007`) |
+| Sardinian nuraghi | c. 1700 – 1100 BCE | `rm-006` |
+| Latin culture (Roma–Colli Albani I) | c. 1050 – 950 BCE | Alessandri 2026 (`rm-010`) |
+| Italic peoples take shape | c. 1000 BCE (the Bronze–Iron Age turn) | Negrini, BMCR 2025 (`rm-009`) |
+| Villanovan culture | c. 900 – 700 BCE (end of the 10th to the 8th century) | Esposito et al. (`rm-008`) |
+| Social War | 91 – 88 BCE | Raggi, BMCR 2014; García González (`rm-001`, `rm-009`) |
+| Lex Roscia (citizenship north of the Po) | 49 BCE | Negrini (`rm-001`) |
+| Latin War | 340 – 338 BCE (Varro's reckoning) | Lendering, Livius.org (`rm-004`, `rm-010`) |
+
 ## The regal period and the early Republic
 
 Filled batch by batch, from the source each row names. The legendary dates are given AS tradition.
@@ -88,4 +105,10 @@ The figures each refined card's date line must carry. One line per card, `rm-NNN
 figure that is on the date line is pinned.
 
 ```chronology-pins
+rm-001: 1000; 91; 88; 49
+rm-006: 2200; 950; 1650; 1150; 1700; 1100
+rm-007: 1650; 1150
+rm-008: 900; 700
+rm-009: 1000; 91
+rm-010: 1050; 950; 340; 338
 ```

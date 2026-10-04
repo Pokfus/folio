@@ -132,7 +132,7 @@ order unless the user says otherwise.
 
 | batch | deck | cards | n | findings | state |
 |---|---|---|---|---|---|
-| B1 | Italy before Rome (`rm-italy`) | `rm-001`–`rm-010` | 10 | 94 | open |
+| B1 | Italy before Rome (`rm-italy`) | `rm-001`–`rm-010` | 10 | 94 | **done 2026-10-04** |
 | B2 | Italy before Rome (`rm-italy`) | `rm-011`–`rm-020` | 10 | 100 | open |
 | B3 | Italy before Rome (`rm-italy`) | `rm-021`–`rm-030` | 10 | 95 | open |
 | B4 | Italy before Rome (`rm-italy`) | `rm-031`–`rm-040` | 10 | 104 | open |
@@ -269,6 +269,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 
 | card | the current picture | what is wrong, or "not re-checked" |
 |---|---|---|
+| `rm-001` Ancient Italy | a hut-shaped cinerary urn | one object stands for the peninsula (and fits `rm-008` better); the credit names no author |
+| `rm-002` Apennines | Monte Pollino | one peak for a 1,200 km chain; desc and alt are the Italian Commons caption; the glossary copy's desc names its licence |
+| `rm-003` Tiber | a painting by van Lint | a painting where a photograph would do; desc and alt repeat the file title |
+| `rm-004` Latium | the Alban Hills | `rm-005`'s subject standing for the region; the glossary copy is a labelled map |
+| `rm-005` Alban Hills | a painting by Gurlitt | a painting where a photograph would do; desc and alt are the file name |
+| `rm-006` Bronze Age Italy | a nuraghe and its village | acceptable (CC0); one region stands for the whole peninsula |
+| `rm-007` Terramare culture | an 1877 excavation photograph | shows a dig, not the culture; desc in Italian and names its source; alt is the file name |
+| `rm-008` Villanovan culture | a horse bit | one object for a culture; desc is a museum catalogue entry; a biconical urn with its bowl lid would show it |
+| `rm-009` Italic peoples | a labelled atlas map of Samnium | a map with burned-in labels, of one region only |
+| `rm-010` Latins | none | no picture (`I.none`) |
 
 ## Glossary candidates
 
@@ -290,3 +300,64 @@ Shipped `rm-audit.js`, the prefix switch in `.claude/wh-refine/` (`cfg.js`), thi
 `docs/rome-chronology.md`. `greece-audit.js` run directly, `wh-audit.js` and `wh-audit.js --worst` give
 byte-identical output before and after; `prep.js 301 302` for `wh-` writes byte-identical files. Nothing on
 any card changed.
+
+### B1 — `rm-001`–`rm-010`, Italy before Rome (2026-10-04)
+
+All ten re-researched from scratch by five agents, two cards each, under `.claude/wh-refine/BRIEF.md` and a
+Rome addendum; every quoted passage was matched against its saved page by `precheck.js`, every draft went
+through `add-card.js --dry-run` and the audit, and every draft was then read by eye before `batch.sh`
+applied it. **Pictures were not touched**: Wikimedia answered 429 to the session's one test call, so each
+card keeps its picture and the agents' verdicts are in "Pictures to redo" (nine of ten want replacing).
+
+Checks:
+- `rm-audit.js --range=rm-001:rm-010` reads clean on seven cards; `rm-010` has no picture (`I.none`), and
+  `rm-007` and `rm-008` keep a `W.not-why` note (one FAQ each opens "What").
+- `check-questions`, `check-cards --prefix=rm-0NN` (every card), `check-style`, `check-docs`,
+  `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card.
+- Every citation URL answers 2xx except Posth et al. 2021's DOI (`10.1126/sciadv.abi7673`, cited on
+  `rm-009` and `rm-010`): science.org answers 403 to this sandbox; the paper is open access and was read in
+  full on Europe PMC.
+
+**What changed, card by card** (sources before → after).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-001` Ancient Italy | 8 | 7 → 8 | **A question had Strabo picturing Italy as a triangle; Strabo 5.1.2 reports other writers' triangle and rejects it.** The population row ("6 – 16 million, disputed") was not a date; the line is now Iron Age c. 1000 BCE, Social War 91–88, Lex Roscia 49 BCE, the span a recent handbook uses (said as such). The population, Po-plain and Umbrian claims, which their citations did not carry, are gone. A locator (Italian peninsula) added. |
+| `rm-002` Apennines | 8 | 5 → 8 | Two questions carried figures the audit reads as dates (1,200 km, 2,912 m). The two Smithsonian volcano pages were about Vesuvius and Campi Flegrei, not the chain, and are gone; Polybius on the water-parting, Varro on transhumance and the Saepinum inscription on the drove roads added. An author's first name cut back to the initial the paper prints. Plan line retitled "The Apennines". |
+| `rm-003` Tiber | 8 | 5 → 8 | **A geology card in a history collection** (discharge, glacial incision, terrace heights); now the river's history — Pliny on its old names, the Forum Boarium harbour, the sandbank at the mouth, the Claudian and Trajanic basins, the flood record and the Senate debate in Tacitus. A question carried a century. |
+| `rm-004` Latium | 7 | 5 → 7 | The volcanic chronology belonged to `rm-005`; the Acheulian finds, cave burials and salt workshop to no history card; **"drained in the 1930s" had no source**. Now the land of the Latins: its borders, the name's derivations, its spread south as Rome conquered, the Augustan first region. A question carried "millennia". |
+| `rm-005` Alban Hills | 6 | 5 → 6 | **The 949 m height and "20 km from Rome" rested on a page that no longer opens**; the height is gone and the distance is the ~30 km the 2025 *Bulletin of Volcanology* paper gives for the caldera. Livy's Alba Longa and Alban Lake stories added, told as his. A question carried "000" (36,000). |
+| `rm-006` Bronze Age Italy | 7 | 5 → 7 | The date line read "2nd millennium BCE", which is not a date; now c. 2200 – 950 BCE on the usual Italian scheme, with Terramare and nuraghi rows. A question carried 1700–1100 BCE. Two single-site sources (Calabria, Monte Croce Guardia) gave way to the four phases, diet, Aegean-style pottery and the copper trade to the Balkans. |
+| `rm-007` Terramare culture | 7 | 6 → 7 | **The *terra marna* fertiliser etymology was cited to a Reggio Emilia urban paper that is not about the terramare**; now Peet 1909 and Cremaschi 2017 (in Italian, chipped). Oppeano and a general diet paper, neither shown to be about this culture, dropped. "Densest population" rests on one radiocarbon study and says so. Two questions carried years. |
+| `rm-008` Villanovan culture | 6 | 5 → 6 | Added that "Villanovan" is a modern name from a hamlet near Bologna (1853), now read as a set of objects rather than a people; Pontecagnano's foundation by Villanovan groups hedged against the local-origin view. Questions carried "120" and a century. |
+| `rm-009` Italic peoples | 7 | 5 → 8 | **The old card called the Peligni, Vestini, Marsi, Volsci and Aequi Oscan peoples**; its source lists them as separate Middle-Italic traditions. "Italic" is now said to be a modern linguists' label; Strabo's sacred-spring tale told as his. The line "c. 1000 – 200 BCE" had no event behind its end; now c. 1000 BCE and the Social War, 91 BCE. |
+| `rm-010` Latins | 7 | 5 → 8 | **"78–107 settlements" misread one study's network-node counts**, and is gone. The line ended on the traditional 509 BCE unlabelled; it is now the Latin culture's emergence (c. 1050 – 950 BCE) and the Latin War (340 – 338 BCE, Varro's reckoning, said in prose). Livy's Aeneas and the Aborigines told as legend. |
+
+Every glossary entry but `Apennines` (which agreed with its card and was re-verified) was rewritten to agree
+with its card and to drop what its sources did not carry; `Ancient_Italy`, `Italic_peoples` and `Latins`
+gained dates.
+The Think-it-through sets were all written fresh, with markers.
+
+**Not usable from here:** science.org and Springer landing pages (JS challenge; Europe PMC full text used),
+MDPI and OUP landing pages (403; Europe PMC copies used), the Smithsonian Global Volcanism Program
+(Cloudflare 500), Taylor and Francis, OpenAlex (rate-limited), Livius.org's Social War page (404).
+
+**Read by eye.**
+- *Article:* "Ancient Italy", "Latium" and the people names bare; "the Tiber", "the Apennines", "the Alban
+  Hills", "the Terramare culture", "the Villanovan culture" take "the" from the question; "Bronze Age Italy"
+  bare.
+- *Legend as legend:* Livy's Aeneas (`rm-010`), Alba Longa and the Alban Lake (`rm-005`), Strabo's sacred
+  spring (`rm-009`) and the triangle (`rm-001`) are each told in the ancient author's voice.
+- *Confusability:* checked against `index.tsv`; `rm-004` and `rm-010` share a Think-it-through point (the
+  kings' traditional dates as improbable, from one BMCR review) but no question; `rm-006` keeps the
+  Terramare to two sentences and no question, leaving `rm-007` its ground.
+- *Coverage:* against each term's Wikipedia article as a checklist; the real gaps were history on the
+  three geography cards (`rm-002`–`rm-004`) and the name's modernity on `rm-008`/`rm-009`.
+- *Overlap with `gr-`/`wh-`:* `wh-256` Bronze Age gives no span for Italy, so no conflict; no other
+  `gr-`/`wh-` card covers these ten.
+
+**Locators.** `rm-001` gained one (Italian peninsula) through `add-locators.js`. The other nine keep what
+they had: regions and ranges keep their hand-drawn shapes, and `rm-006`, `rm-009` and `rm-010` are periods
+or peoples spread over a region with no shape drawn yet.
+
+**Chronology.** The new "Italy before Rome" section carries ten rows; pins added for `rm-001`, `rm-006`–`rm-010`.
