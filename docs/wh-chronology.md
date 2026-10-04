@@ -360,6 +360,14 @@ Filled batch by batch, from the source each row names.
 | Roman Empire: emperors / west ends / east ends | from 27 BCE / 476 CE (by convention) / 1453 CE | Lendering; Mathisen; Neville (`wh-358`) |
 | Pax Romana (a convention) | 27 BCE – 180 CE (another reading c. 150 BCE – 235 CE) | Drake (`wh-359`) |
 | Roman roads: the Appian Way begun | 312 BCE | Livy (`wh-360`) |
+| aqueducts at Rome: first / last | 312 BCE (Aqua Appia) / 226 CE (Aqua Alexandrina) | Deming (`wh-361`) |
+| Colosseum: begun / opened / last hunts | c. 70 CE / 80 CE / 523 CE | Podestà et al.; Platner and Ashby (`wh-362`) |
+| Pompeii: first walls / Roman colony / buried | c. 600 – 500 BCE / 80 BCE / 79 CE (24 August in Pliny; 24 October argued from a 2018 find) | Anguissola; Lendering (`wh-365`) |
+| Nero: born / emperor / died | 15 December 37 CE / 54 – 68 CE / 9 June 68 CE | Lendering (`wh-366`) |
+| Trajan: born / emperor / died | 18 September 53 CE / 98 – 117 CE / August 117 CE (7 or 9 August) | Benario (`wh-367`) |
+| Hadrian's Wall: begun / latest coins | c. 122 CE / 403 – 406 CE | Breeze (`wh-368`) |
+| Marcus Aurelius: born / reigned / died | 26 April 121 CE / 161 – 180 CE / 17 March 180 CE | Benario (`wh-369`) |
+| Crisis of the Third Century (a convention) / crisis proper / Plague of Cyprian | 235 – 284 CE / 249 – 268 CE (de Blois) / c. 251 – 266 CE | Marussi et al.; Sancinito on de Blois; Zonneveld et al. (`wh-370`) |
 
 ## Chronology pins
 
@@ -708,4 +716,12 @@ wh-357: 63; 31; 27; 14
 wh-358: 27; 476; 1453
 wh-359: 27; 180
 wh-360: 312
+wh-361: 312; 226
+wh-362: 70; 80; 523
+wh-365: 600; 500; 80; 79
+wh-366: 37; 54; 68
+wh-367: 53; 98; 117
+wh-368: 122; 403; 406
+wh-369: 121; 161; 180
+wh-370: 235; 284; 249; 268
 ```

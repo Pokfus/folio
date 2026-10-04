@@ -150,7 +150,7 @@ in plan order unless the user says otherwise.
 | B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | **done 2026-10-04** |
 | B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | **done 2026-10-04** |
 | B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | **done 2026-10-04** |
-| B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | open |
+| B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | **done 2026-10-04** |
 | B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | open |
 | B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | open |
 | B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | open |
@@ -1521,6 +1521,38 @@ edited.
 
 **Glossary.** Nine terms rewritten; *Julius Caesar* already agreed.
 
+### B37 — `wh-361`–`wh-370`, Rome (2026-10-04)
+
+Run as B36. **A usage limit stopped the run mid-batch**: six agents died with drafts unfinished; they were relaunched
+after the reset with a note to reuse saved pages only after re-checking them (`STEPS.md` in the scratch directory).
+Checks: `wh-audit.js --range=wh-361:wh-370` clean but for `W.not-why` notes on `wh-362` and `wh-366`; the rest as B31;
+all 85 distinct URLs 2xx. `check-citations --card` first found one mismatch: `wh-368`'s HiMA article is in the issue
+labelled 2025 but Crossref dates it 2026, so the citation now reads "no. 14 (2025, published 2026)" and the check is
+0. New locators: `wh-362` (the Colosseum, labelled Rome), `wh-365` Pompeii and `wh-368` (Hadrian's Wall, labelled
+Northumberland).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-361` Roman aqueduct | 9 | 5 → 9 | **The card was really the Aqua Appia's**, with "9 aqueducts" a row. Now the technology, its first and last at Rome (312 BCE, 226 CE); Frontinus's 441 years and flow figures as his, measured by pipe size not volume, and his book read as self-promotion. |
+| `wh-362` Colosseum | 9 | 5 → 9 | **"50,000 spectators" was stated as fact**; now the low end of modern estimates beside the catalogue's 87,000 places. Begun c. 70, opened 80, last hunts 523 CE; Dio's flooded sea-fight is his, with no archaeological trace. |
+| `wh-363` Roman law | 9 | 5 → 9 | **The line put three other events' dates on a long tradition** (Gaius's list, Julian's edict, the Digest); now `""` and `undatable`. Two old phrasings also fitted `wh-439`'s Corpus Juris Civilis and were replaced. |
+| `wh-364` Roman citizenship | 9 | 5 → 10 | **"The lex Julia gave all Italy citizenship in 90 BCE" came from an 1875 dictionary**; Appian has only the loyal allies admitted at first. Now `""`; Dio's tax motive for 212 CE as his view, with others'. |
+| `wh-365` Pompeii | 9 | 5 → 10 | **The line held only Pliny's 24 August**; now the town's own history (walls c. 600 – 500 BCE, colony 80 BCE, buried 79 CE), and both eruption dates with whose: Pliny's August and the park's 2018 case for 24 October. The full toll unknown, about 1,300 victims found. |
+| `wh-366` Nero | 9 | 5 → 9 | "Great fire 6 days and 7 nights" and "his 32nd year" were not dates. **The singing is a rumour in Tacitus and fact in Suetonius and Dio**, and the fiddle a later outgrowth; the Christians' punishment is Tacitus's report. Born 15 December 37, died 9 June 68 CE. |
+| `wh-367` Trajan | 8 | 5 → 8 | **"The furthest extent" was a modern reckoning stated as fact**; Eutropius is now quoted and named. Dio's reign length dropped for born 18 September 53, emperor 98 – 117 and died August 117 CE (the day disputed). The Pliny-and-Christians phrasing was `wh-373`'s. |
+| `wh-368` Hadrian's Wall | 9 | 5 → 9 | **The Jarrow stone's "80 miles" and "divine precept" are editors' restorations**, called far from certain. The Historia Augusta's "separate the barbarians" is attributed; defence or control a debate; begun c. 122, latest coins 403 – 406 CE. |
+| `wh-369` Marcus Aurelius | 9 | 5 → 10 | **The title "to himself" was presented as his**; one view makes it a later addition. Plague tolls as Gilliam's and Scheidel's estimates; "five good emperors" Machiavelli's and Gibbon's; a "12 books" row dropped. Born 26 April 121, died 17 March 180 CE. |
+| `wh-370` Crisis of the Third Century | 7 | 5 → 9 | **The card leant on the Historia Augusta**, with a "30 named, 22 after padding" row. 235 – 284 CE is a convention, de Blois's 249 – 268 and a climate study's c. 250 – 275 beside it, and the label itself questioned; the claimants as the Augustan History's thirty and Gibbon's nineteen. |
+
+**Read by eye.** *Article:* "the Roman aqueduct" (phrased "a Roman aqueduct"), "the Colosseum", "Roman law", "Roman
+citizenship", "Hadrian's Wall", "the Crisis of the Third Century"; the persons and Pompeii bare. *Confusability:*
+`wh-342`/`wh-363` the code and the law, the Twelve Tables named on `wh-363` only in the background; `wh-364`/`wh-370`
+both in the 3rd century, 212 CE only on `wh-364`; `wh-367`/`wh-368`/`wh-369` emperor, frontier, emperor, Hadrian named
+on `wh-367` only as successor. *Against the rm- cards:* `rm-475` begins the Colosseum "under Vespasian, 69 – 79 CE"
+where `wh-362` has c. 70; `rm-506` gives 15 forts on the Wall where `wh-368` gives 14 added before completion. None edited.
+
+**Glossary.** Eight terms rewritten; *Roman aqueduct* and *Roman law* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1666,3 +1698,4 @@ pass once it answers. Filled batch by batch.
 | `wh-355` | a coin of Caesar's celebrating Gaul, not the civil war |
 | `wh-358` | a labelled modern map |
 | `wh-360` | fine, but the description asserts the unsupported four-layer build |
+| `wh-367` | a 19th-century plate of a Column relief, not the emperor |

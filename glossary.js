@@ -7065,13 +7065,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Roman_Empire": "27 BCE – 1453 CE",
 "Pax_Romana": "27 BCE – 180 CE",
 "Roman_aqueduct": "from 312 BCE",
-"Colosseum": "dedicated before 79 CE",
+"Colosseum": "begun c. 70 CE, opened 80 CE",
 "Pompeii": "buried 79 CE",
-"Nero": "reigned 54-68 CE",
-"Trajan": "reigned 98-117 CE",
-"Hadrians_Wall": "built from about 122 CE",
-"Marcus_Aurelius": "reigned 161-180 CE",
-"Crisis_of_the_Third_Century": "235-284 CE",
+"Nero": "reigned 54 – 68 CE",
+"Trajan": "reigned 98 – 117 CE",
+"Hadrians_Wall": "built from c. 122 CE",
+"Marcus_Aurelius": "reigned 161 – 180 CE",
+"Crisis_of_the_Third_Century": "235 – 284 CE",
 "Diocletian": "reigned 284-305 CE",
 "Constantine_the_Great": "reigned 32 years from 306 CE",
 "First_Council_of_Nicaea": "325 CE",
@@ -12272,7 +12272,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Treaty_ports": ["treaty port","treaty-port","tongshang kou'an"],
 "Shanghai_International_Settlement": ["International Settlement","Shanghai Municipal Council","International Settlement of Shanghai"],
 "Cotton_mill": ["cotton mills","cotton spinning mill"],
-"Fall_of_the_Achaemenid_Empire": ["fall of the Persian Empire"]
+"Fall_of_the_Achaemenid_Empire": ["fall of the Persian Empire"],
+"Colosseum": ["Flavian Amphitheatre"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
