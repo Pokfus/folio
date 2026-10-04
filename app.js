@@ -23390,15 +23390,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      drawn, not a preference — so a reader who reloads straight onto `#study` has an empty one and simply
      gets no offer, which is honest: nothing knows what their list looks like until it has been drawn. */
   let adRowOrder = [];
-  /* The next row with work in it, wrapping to the top of the list. Wrapping is deliberate: a reader who
-     tapped into the third deck of five would otherwise be offered nothing once they reached the bottom,
-     and the button NAMES the deck it will open, so there is nothing to be surprised by in coming back
-     round to the first. The row just finished is always skipped — it can still report work (a learning
-     card on its ten-minute step, see the Still learning placard), and offering "continue with" the deck
-     the reader has just left is the one answer that helps nobody. */
-  function nextStudyRow(afterId) {
-    if (!adRowOrder.length) return null;
-    const n = adRowOrder.length;
+  /* EVERY row with work still in it, in the list's order starting after the row just finished and wrapping
+     to the top. Wrapping is deliberate: a reader who tapped into the third deck of five would otherwise be
+     offered nothing from the two above it, and each row NAMES the deck it opens, so there is nothing to be
+     surprised by in coming back round to the first. The row just finished is always skipped — it can still
+     report work (a learning card on its ten-minute step, see the Still learning placard), and offering
+     "continue with" the deck the reader has just left is the one answer that helps nobody.
+     ALL OF THEM, NOT THE NEXT ONE (Oct 2026, on request: "the continue with part should not only show the
+     very next collection to study, but every active collection that has not yet been completed for that
+     day") — the completion screen stacks them as the home list would, so a reader can go anywhere unfinished
+     from where they are; `nextStudyRow` is the head of the same walk, for anything that wants one. */
+  function nextStudyRows(afterId) {
+    if (!adRowOrder.length) return [];
+    const n = adRowOrder.length, out = [];
     // -1 for a scope with no row of its own (the pooled review, the Card of the day reached from its
     // tile), so the walk starts at the TOP of the list rather than nowhere
     const at = adRowOrder.findIndex((r) => r.id === afterId);
@@ -23410,10 +23414,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // …and a row the list marks finished for the day (or gold for every card learned) is skipped
       // too, whatever its piles say (Oct 2026, on request): the offer walks the banners as drawn
       if (adDay(r.id).cls) continue;
-      return r;
+      out.push(r);
     }
-    return null;
+    return out;
   }
+  function nextStudyRow(afterId) { return nextStudyRows(afterId)[0] || null; }
   /* THE DECK LIST'S EDITOR MODE STOOD HERE AND IS GONE (Oct 2026, on request: "remove that button and
      its system entirely"). From Aug 2026 an Edit button — at the foot of the list, then the banner's
      corner, then beside the "Your collections" heading — opened a live mode with an undo stack
@@ -32779,15 +32784,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          among them, as asked. It was a button naming the deck — "Continue with Spanish A1" — and is now
          THE ROW ITSELF (Oct 2026, on request: "a banner of the next collection or deck displayed in the
          active collections list"), drawn by adRowBannerHTML exactly as the home list draws it, under a
-         small "Continue with" label. It is drawn only when there is somewhere to go: see nextStudyRow,
+         small "Continue with" label. It is drawn only when there is somewhere to go: see nextStudyRows,
          which walks the rows the home page is showing and skips anything folded away, finished for the
-         day, or with no work left in it. */
-      const nextRow = nextStudyRow(scopeEntryId(params.scope));
-      if (nextRow) {
+         day, or with no work left in it. EVERY SUCH ROW IS DRAWN, not the next alone (Oct 2026, on
+         request), stacked in the list's order from the row after this one. */
+      const nextRows = nextStudyRows(scopeEntryId(params.scope));
+      if (nextRows.length) {
         const nx = document.createElement("div");
         nx.className = "sc-next";
         nx.innerHTML = '<span class="sc-next-label">' + esc(t("Continue with")) + '</span>'
-          + '<div class="review-group sc-next-list"><div class="active-decks">' + adRowBannerHTML(nextRow) + "</div></div>";
+          + '<div class="review-group sc-next-list"><div class="active-decks">' + nextRows.map(adRowBannerHTML).join("") + "</div></div>";
         card.appendChild(nx);
       }
       root.appendChild(card);
@@ -32801,16 +32807,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          out before the button was pressed: the box is dropped rather than restarted, since a reader who
          asked for ten minutes and then asked for more has plainly stopped counting. */
       card.querySelector("#more").addEventListener("click", () => { boxMs = 0; boxFrom = 0; route("study", Object.assign({}, params, { box: 0 })); });
-      {
-        const nb = card.querySelector(".sc-next [data-review]");
-        // the scope a row is tapped with on the home page, which is the one place that decides what a row
-        // means: a community deck, a subdeck and a direction all ride in on the same entry id
-        if (nb) {
-          const go = () => route("study", { scope: entryScope(nextRow.id) });
-          nb.addEventListener("click", go);
-          nb.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
-        }
-      }
+      // the scope a row is tapped with on the home page, which is the one place that decides what a row
+      // means: a community deck, a subdeck and a direction all ride in on the same entry id
+      card.querySelectorAll(".sc-next [data-review]").forEach((nb) => {
+        const go = () => route("study", { scope: entryScope(nb.dataset.review) });
+        nb.addEventListener("click", go);
+        nb.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+      });
     }
   };
 

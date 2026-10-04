@@ -301,7 +301,10 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
     (`adFoldSet`) and still beats the default. **THE FOLD ALSO DECIDES WHAT THE COMPLETION SCREEN OFFERS NEXT**
     (Oct 2026, on request): `adSyncFold` rewrites `adRowOrder` from the rows on screen, so "Continue with" names
     the next banner the reader can see — never a deck inside a folded collection — skipping rows finished for the
-    day, and draws it as that banner (`adRowBannerHTML`) rather than as a button naming it.
+    day, and draws it as that banner (`adRowBannerHTML`) rather than as a button naming it. **Since Oct 2026 it
+    offers EVERY unfinished row, not the next alone** (on request: "every active collection that has not yet
+    been completed for that day"): `nextStudyRows` is the same walk returning all of them, stacked in the
+    list's order from the row after the one just finished; `nextStudyRow` is its head.
     **UNGROUP DISSOLVES, IT DOES NOT DELETE.** The members are freed to the level the group stood at, keeping
     the order they had inside it — losing a deck because you tidied a container away is the one outcome a
     grouping feature must never produce — and `removeActive` re-homes a container's children one level up for

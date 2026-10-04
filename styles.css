@@ -2626,6 +2626,9 @@ body.grading .stage{padding-bottom:150px;}
 .placard .sc-next .review-group{display:block;}
 .placard .sc-next .active-deck.sc-next-row{cursor:pointer; margin:0; border-top:1px solid var(--rule); border-radius:12px;}
 .placard .sc-next .active-deck.sc-next-row:hover{border-color:var(--indigo);}
+/* every unfinished row is offered, not the next alone (Oct 2026, on request) — stacked with a little air, each
+   its own block rather than a list's touching rows */
+.placard .sc-next .active-deck.sc-next-row + .active-deck.sc-next-row{margin-top:8px;}
 /* no chevron column on a row standing alone — the gap exists to line a list's bars up, and here it only took
    width from the title on a phone */
 .placard .sc-next .active-deck.sc-next-row > .dk-chev-gap{display:none;}
