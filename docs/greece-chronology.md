@@ -572,6 +572,21 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Battle of the Great Harbour | 413 BCE | Thucydides 7.59–71; Diodorus 13 (`gr-558`) |
 | Demosthenes the general | first named in command 426 BCE; Pylos 425 BCE; Megara and Delium 424 BCE; to Sicily and put to death 413 BCE | Thucydides; Lendering, Livius (`gr-559`) |
 | Assinarus | the army destroyed 413 BCE; the Asinaria kept on 27 Carneius | Thucydides 7.78–87; Plutarch, *Nicias* 28 (`gr-560`) |
+| Decelean War | 413 – 404 BCE; the fort at Decelea held to the end; Chios and Miletus revolted 412 BCE | Lendering, Livius; Kulesza 2022; Thucydides 7.19, 8 (`gr-561`) |
+| Epiteichismos | no line: a method (Pylos from 425 BCE and Decelea 413 – 404 BCE in prose) | Thucydides; Lendering, Livius (`gr-562`) |
+| Amorges | took Iasus 413 BCE; captured 412 BCE (winter 412/411 BCE in Lendering's order); Pissuthnes' fall about 415 BCE (about 413 BCE in Schmitt) | Thucydides 8.28; Lendering, Livius; Shahbazi, Iranica (`gr-563`) |
+| Tissaphernes | satrap at Sardis from about 413 BCE; the first treaty with Sparta 412 BCE; Cunaxa 401 BCE; executed 395 BCE | Schmitt, Iranica; Thucydides 8.18 (`gr-564`) |
+| Pharnabazus | satrap at Dascylium from at least 413 BCE to 388/387 BCE; Cnidus 394 BCE | Weiskopf, Iranica; Xenophon (`gr-565`) |
+| Lichas; the treaties with Persia | his Olympic victory 420 BCE; the 3 treaties 412 – 411 BCE; his rebuke of Miletus 411 BCE | Thucydides 5.50, 8.18, 8.37, 8.58, 8.84 (`gr-566`) |
+| Colonus; the Four Hundred; the Five Thousand | the assembly at Colonus 411 BCE; the Four Hundred ruled about 4 months of 411 BCE, deposed in September; the Five Thousand from September 411 BCE to June 410 BCE | Thucydides 8.67–97; *Constitution of the Athenians* 29–34; Kulesza 2022 (`gr-567` – `gr-569`) |
+| Fleet at Samos; Cynossema; Cyzicus | the fleet defied the city 411 BCE; Cynossema 411 BCE; Cyzicus 410 BCE | Thucydides 8.73–106; Xenophon, *Hellenica* 1.1 (`gr-570` – `gr-572`) |
+| Decree of Demophantus | passed 410/409 BCE; read out in court 400 BCE | Andocides 1.95–99; Attic Inscriptions Online, IG I³ 375 (`gr-573`) |
+| Arginusae; the trial | 406 BCE; the decree of Cannonus set aside the same year | Xenophon, *Hellenica* 1.6–7; Diodorus 13.97–103 (`gr-574`, `gr-575`) |
+| Lysander | Notium 406 BCE; Aegospotami 405 BCE; Athens taken 404 BCE; killed at Haliartus 395 BCE | Plutarch, *Lysander*; Kulesza 2022 (`gr-576`) |
+| Aegospotami; the siege; the surrender; the walls | Aegospotami 405 BCE; the siege 405 – 404 BCE (Piraeus closed in November 405 BCE on Kulesza's dating); surrender and the walls pulled down in the spring of 404 BCE | Xenophon, *Hellenica* 2.1–2; Plutarch, *Lysander*; Kulesza 2022 (`gr-577` – `gr-580`) |
+| Thirty Tyrants; Critias | ruled 404 – 403 BCE, about 8 months; Critias killed at Munychia 403 BCE | Xenophon, *Hellenica* 2.3–4; *Constitution of the Athenians* 34–38 (`gr-581`, `gr-582`) |
+| Thrasybulus | seized Phyle 404/403 BCE; moved the Theban alliance 395 BCE; killed at Aspendus 389 BCE (the glossary entry's 388 BCE wants correcting) | Nudell 2023; Brownson's note to Xenophon 4.8.30; Princeton Encyclopedia (`gr-583`) |
+| Munychia; the amnesty | Munychia 403 BCE (May 403 BCE in the IEP); the amnesty sworn 403 BCE, with Xenophon mentioning the oaths only after Eleusis was retaken in 401 BCE | Xenophon, *Hellenica* 2.4; *Constitution of the Athenians* 39–40 (`gr-584`, `gr-585`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -596,10 +611,10 @@ sources when its batch comes round, and a disputed one given as a range.
 | Plataea, Mycale | 479 BCE (confirmed by B46, `gr-435`, `gr-437`) |
 | Delian League founded | 478 – 477 BCE, written 478/477 BCE as an archon year (confirmed by B48, `gr-451`) |
 | Eurymedon | c. 466 BCE (470/469 – 466 BCE; confirmed by B49, `gr-458`, which gives 466 and 470/469 BCE as two rows) |
-| Peloponnesian War | 431 – 404 BCE (confirmed by B55, `gr-521`) |
+| Peloponnesian War | 431 – 404 BCE (confirmed by B55 – B61, `gr-521` – `gr-585`) |
 | Peace of Nicias | 421 BCE (confirmed by B56, `gr-545`) |
 | Sicilian Expedition | 415 – 413 BCE (confirmed by B57, `gr-552`) |
-| Aegospotami | 405 BCE |
+| Aegospotami | 405 BCE (confirmed by B60, `gr-577`) |
 | Socrates executed | 399 BCE |
 | Leuctra | 371 BCE |
 | Philip II | 359 – 336 BCE |
@@ -1120,4 +1135,28 @@ gr-557: 414; 413
 gr-558: 413
 gr-559: 426; 425; 413
 gr-560: 413
+gr-561: 413; 404
+gr-563: 413; 412
+gr-564: 412; 401; 395
+gr-565: 413; 388; 394
+gr-566: 420; 411
+gr-567: 411
+gr-568: 411
+gr-569: 411; 410
+gr-570: 411
+gr-571: 411
+gr-572: 410
+gr-573: 410; 400
+gr-574: 406
+gr-575: 406
+gr-576: 406; 405; 404; 395
+gr-577: 405
+gr-578: 405; 404
+gr-579: 404
+gr-580: 404
+gr-581: 404; 403
+gr-582: 404; 403
+gr-583: 404; 395; 389
+gr-584: 403
+gr-585: 403; 401
 ```

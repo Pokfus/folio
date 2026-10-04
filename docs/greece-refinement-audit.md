@@ -228,9 +228,9 @@ one changelog line and a version bump; commit and push.
 | B56 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-531`–`gr-540` | 10 | **done 2026-10-04** |
 | B57 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-541`–`gr-550` | 10 | **done 2026-10-04** |
 | B58 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-551`–`gr-560` | 10 | **done 2026-10-04** |
-| B59 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-561`–`gr-570` | 10 | open |
-| B60 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-571`–`gr-580` | 10 | open |
-| B61 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-581`–`gr-585` | 5 | open |
+| B59 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-561`–`gr-570` | 10 | **done 2026-10-04** |
+| B60 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-571`–`gr-580` | 10 | **done 2026-10-04** |
+| B61 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-581`–`gr-585` | 5 | **done 2026-10-04** |
 | B62 | Classical arts and thought (`gr-classical-culture`) | `gr-586`–`gr-595` | 10 | open |
 | B63 | Classical arts and thought (`gr-classical-culture`) | `gr-596`–`gr-605` | 10 | open |
 | B64 | Classical arts and thought (`gr-classical-culture`) | `gr-606`–`gr-615` | 10 | open |
@@ -2044,3 +2044,66 @@ and looked at on a contact sheet.
 `gr-532`, `gr-536`, `gr-539`, `gr-540`, `gr-542`, `gr-543`, `gr-544`, `gr-548` (← Battle of Mantinea (418 BC)),
 `gr-553` (← Segesta), `gr-558` (← Ortygia) and `gr-560` (← Asinaro). `gr-505`'s article publishes no coordinate, so
 the Hephaisteion has none yet.
+
+### B59–B61 — `gr-561`–`gr-585`, the Decelean War to the amnesty of 403 (2026-10-04)
+
+Twenty-five cards that finish `gr-peloponnesian-war`: the last phase and its strategy, Persia's satraps and treaties,
+the coup of 411 and the fleet at Samos, the sea battles of 411 – 405 BCE, the trial of the generals, the fall of
+Athens, the Thirty and the restoration. Method as before: five research agents, saved sources and verbatim quotes,
+the verifier and the lint wrapper, `Q.sibling` with every patch merged, every draft read by eye.
+
+Checks: `greece-audit.js --range=gr-561:gr-585` finds nothing but missing pictures (the next commit's), `gr-567`'s
+locator, and `S.chip?` flags on English BMCR reviews of German-, French- and Italian-titled books and on the LSJ entry
+for `gr-562` (all read and confirmed English). `check-citations --card`, `check-gloss-links --card`,
+`check-questions`, `split-cards --check` and `test-card-plans` pass; `check-style` adds nothing to main's standing
+alarms; every citation URL answers 200.
+
+**Date lines:**
+- **Rows that were not dates went to the prose:** "Fort at Decelea, c. 22 km from Athens", "Rejected 2 treaties",
+  "Outside the wall c. 1.6 km", "Voted 400 councillors", "Lasted c. 4 months", "Members c. 5,000", "Ships c. 100",
+  "Athenian ships 76", "Spartan ships 60", "Tithe 1 tenth", "Generals tried 8", "Executed 6", "Escaped 9 ships",
+  "Spared 1 man", "Ships kept 12", "Members 30", "Roll of citizens 3,000", "Depth of line 50 shields", "Envoys sent 15"
+  and their like; values that carried words ("Died at Miletus, 411 BCE", "Seized 403 BCE, with c. 70 men", "Pulled
+  down to the music of flute-girls") were split.
+- **Lines without a year:** `gr-562` epiteichismos (a method) is empty and `undatable`.
+- **Disputed or two-source years:** the amnesty sworn 403 BCE, with Xenophon mentioning the oaths only after 401 BCE
+  (two rows); Pharnabazus satrap from at least 413 BCE to 388/387 BCE; Amorges' capture 412 BCE (Lendering's order
+  gives winter 412/411 BCE, in the chronology).
+- **Wrong or unsourced years removed:** `gr-562`'s "Proposed 431 BCE" (the Corinthian speech is 432 BCE and no source
+  on the card dated it); `gr-566`'s "Commissioner 412 BCE" and Lichas' death year (Thucydides gives none; the
+  glossary's "d. 411 BCE" is unsourced); `gr-564`'s "c." before an exact year; `gr-565`'s "Met Agesilaus 395 BCE"
+  (winter 395/394 BCE).
+- **Thrasybulus died in 389 BCE** on every source reached (Nudell, Brownson's note to Xenophon, the Princeton
+  Encyclopedia); the glossary entry's 388 BCE wants correcting.
+
+**Corrected in the old cards:**
+- **No modern scholarship:** all 25 cited only ancient texts, Thucydides or Xenophon chapter by chapter; each now
+  meets the bar and the modern half with Iranica, Kulesza, Nudell, BMCR, GRBS and Attic Inscriptions Online.
+- **Wrong facts:** `gr-563` claimed a Spartan envoy said the war began over Amorges' revolt (Thucydides 8.54 does not
+  say so); `gr-584` asserted without a source that depth counted for little uphill; `gr-580`'s old third why asserted
+  Xenophon's reticence without a source; the Paralus, not the Salaminia, seized the oligarchs' envoys (Thucydides 8.86;
+  Kulesza's "Salaminia" is a slip, not followed on `gr-570`).
+- **Other cards' ground given back:** `gr-561` Decelea's effects (`gr-562`) and the harbour tax (`gr-453`); `gr-562`
+  Demosthenes' reasons at Pylos (`gr-559`); `gr-563` Pharnabazus' embassy (`gr-565`); `gr-564` the garrisons thrown out
+  (`gr-565`); `gr-565` Cyzicus (`gr-572`); `gr-566` Alcibiades' use of the quarrel (`gr-547`); `gr-567`–`gr-569` each
+  keep their own regime; `gr-572` the cloak-and-timber consolation (`gr-565`); `gr-574` the trial (`gr-575`); `gr-576`
+  the siege, terms and walls (`gr-578`–`gr-580`); `gr-578` the fear of Melian treatment (`gr-551`); `gr-579` the flute
+  girls (`gr-580`); `gr-580` the strategy the walls served (`gr-488`); `gr-582` Theramenes' death and Munychia
+  (`gr-581`, `gr-584`); `gr-583` the Samos oath (`gr-570`); `gr-585` the war and the herald (`gr-584`).
+
+**Read by eye, and changed in review:**
+- `gr-579`'s first why ended on Lysander's rivals fearing his wealth, the same point as `gr-576`'s second why; cut.
+- `gr-562` gave up a line dating Decelea.
+- **Wrong auto-links** stopped: `satrap` (keyed to `Satrapy`), `Cyrus` (opened Cyrus the Great; wrapped on `gr-561`,
+  `gr-564`, `gr-565`, `gr-576`), `Phrynichus` (opened the tragic poet; `gr-563`, `gr-568`, `gr-573`), `Agis` (opened
+  Agis IV), `Academy` (Plato's school), `Pausanias` the king, `Lycurgus` the orator, "public enemy" (the Roman term),
+  `Pericles` the younger, `Thebes`, `Phyle`, `Prometheus` the Thessalian, "castle", `Salamis` (keyed to the battle) and
+  `Sulla`.
+- **Wikipedia links corrected** in `.claude/wiki-links.json` (marked `manual`): `gr-501` Propylon → Propylaea
+  (Acropolis of Athens); `gr-567` Colonus (person) → Colonus (Attica); `gr-568` 400 (number) → Athenian coup of 411 BC;
+  `gr-534` (Princeps, the Roman title) and `gr-578` (an index page) now carry none. The new title "Athenian coup of 411 BC" joins
+  the 9 Wikipedia titles with "BC" that `check-style` already reports on main; it is the article's name, not prose.
+
+**Chronology.** "The Peloponnesian War" section holds rows for every date the 65 cards of the deck print, with pins;
+the Peloponnesian War and Aegospotami rows of "Events and reigns" are confirmed.
+

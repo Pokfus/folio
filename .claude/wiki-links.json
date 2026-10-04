@@ -22212,11 +22212,11 @@
   },
   "gr-501": {
    "answer": "Propylaea",
-   "title": "Propylon",
-   "url": "https://en.wikipedia.org/wiki/Propylon",
+   "title": "Propylaea (Acropolis of Athens)",
+   "url": "https://en.wikipedia.org/wiki/Propylaea_(Acropolis_of_Athens)",
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Propylaea"
+   "status": "ok",
+   "manual": true
   },
   "gr-502": {
    "answer": "Erechtheion",
@@ -22481,11 +22481,11 @@
   },
   "gr-534": {
    "answer": "first citizen",
-   "title": "Princeps",
-   "url": "https://en.wikipedia.org/wiki/Princeps",
+   "title": null,
+   "url": null,
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "First citizen"
+   "status": "no-article",
+   "manual": true
   },
   "gr-535": {
    "answer": "Cleon",
@@ -22759,18 +22759,19 @@
   },
   "gr-567": {
    "answer": "Colonus",
-   "title": "Colonus (person)",
-   "url": "https://en.wikipedia.org/wiki/Colonus_(person)",
+   "title": "Colonus (Attica)",
+   "url": "https://en.wikipedia.org/wiki/Colonus_(Attica)",
    "via": "glossary",
-   "status": "ok"
+   "status": "ok",
+   "manual": true
   },
   "gr-568": {
    "answer": "Four Hundred",
-   "title": "400 (number)",
-   "url": "https://en.wikipedia.org/wiki/400_(number)",
+   "title": "Athenian coup of 411 BC",
+   "url": "https://en.wikipedia.org/wiki/Athenian_coup_of_411_BC",
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Four Hundred"
+   "status": "ok",
+   "manual": true
   },
   "gr-569": {
    "answer": "Five Thousand",
@@ -22853,10 +22854,11 @@
   },
   "gr-578": {
    "answer": "siege of Athens",
-   "title": "Siege of Athens",
-   "url": "https://en.wikipedia.org/wiki/Siege_of_Athens",
+   "title": null,
+   "url": null,
    "via": "answer",
-   "status": "ok"
+   "status": "no-article",
+   "manual": true
   },
   "gr-579": {
    "answer": "surrender of Athens",
