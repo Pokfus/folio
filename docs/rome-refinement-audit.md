@@ -137,7 +137,7 @@ order unless the user says otherwise.
 | B3 | Italy before Rome (`rm-italy`) | `rm-021`–`rm-030` | 10 | 95 | **done 2026-10-04** |
 | B4 | Italy before Rome (`rm-italy`) | `rm-031`–`rm-040` | 10 | 104 | **done 2026-10-04** |
 | B5 | Italy before Rome (`rm-italy`) / Rome under the kings (`rm-kings`) | `rm-041`–`rm-050` | 10 | 112 | **done 2026-10-04** |
-| B6 | Rome under the kings (`rm-kings`) | `rm-051`–`rm-060` | 10 | 118 | open |
+| B6 | Rome under the kings (`rm-kings`) | `rm-051`–`rm-060` | 10 | 118 | **done 2026-10-04** |
 | B7 | Rome under the kings (`rm-kings`) | `rm-061`–`rm-070` | 10 | 132 | open |
 | B8 | Rome under the kings (`rm-kings`) | `rm-071`–`rm-080` | 10 | 123 | open |
 | B9 | Rome under the kings (`rm-kings`) | `rm-081`–`rm-090` | 10 | 125 | open |
@@ -319,6 +319,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-048` Seven Hills of Rome | none | no picture (`I.none`) |
 | `rm-049` Palatine Hill | the hill from the Circus Maximus | acceptable; the glossary copy's credit was moved out of its desc in this batch |
 | `rm-050` Capitoline Hill | an 1850 engraving of the Tarpeian Rock | one cliff for the hill; the desc names its source; the glossary copy likewise |
+| `rm-051` casa Romuli | a model of the Palatine huts | acceptable; the glossary copy's credit is malformed |
+| `rm-052` founding of Rome | a relief of the founding furrow | shows the furrow at Aquileia, not Rome; the glossary's is a labelled 1902 plan |
+| `rm-053` Romulus and Remus | a terracotta relief of Faustulus | acceptable subject; the desc names the museum and photographer. Also a false `I.duplicate` |
+| `rm-054` Capitoline Wolf | the statue | acceptable; the glossary's is a coin, not the statue |
+| `rm-055` Aeneas | an Ara Pacis panel | who it shows is disputed (Aeneas or Numa) |
+| `rm-056` Alba Longa | Lake Albano | acceptable |
+| `rm-057` ab urbe condita | a detail of the Fasti | acceptable; the desc ends with the photographer's name |
+| `rm-058` rape of the Sabine women | the Basilica Aemilia frieze | acceptable; the credit is not in house form |
+| `rm-059` Titus Tatius | a denarius of Titurius Sabinus | acceptable |
+| `rm-060` Romulus | a painting by Ingres | acceptable |
 
 ## Glossary candidates
 
@@ -567,3 +577,43 @@ and they are kept; re-curl them when next touched.
   753 – 509 BCE but puts counts on its date line (a fault for its own audit).
 
 **Locators.** `rm-043` gained a Gulf of Tarentum point (a drawn region would be better). The rest kept theirs.
+
+### B6 — `rm-051`–`rm-060`, Rome under the kings: the founding legends (2026-10-04)
+
+The batch the audit's fourth fault was written for. Every card is a legend or a date reckoned from one, and
+every one told it as history: Livy was cited up to four times a card, and five cards had no modern source.
+Run as B5, relaunched after the usage limit.
+
+Checks: `rm-audit.js --range=rm-051:rm-060` reads clean on six cards; the rest are `W.not-why` notes on three,
+the false `I.duplicate` on `rm-053` (the B4 thumbnail key), and `S.chip?` on `rm-055`, an English BMCR review
+of a book with an Italian title — the proxy the Greece audit already documents as misfiring there.
+`check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass;
+every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card.
+
+**The apply stopped at `rm-055`**: its `leadsTo` pointed at `rm-056`, which the new date lines put *earlier*
+(c. 1050 BCE against c. 600 BCE), and `add-card.js` refuses a link that runs backwards. The link (Alba
+founded thirty years after Lavinium) was itself a legendary count, so it was deleted with
+`add-card-links.js` (`leadsTo: null`) and the last six cards re-applied. `precheck.js` did not catch it.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-051` casa Romuli | 6 | 6 → 8 | **"The rite got out of hand" and "the fire sent the Romans to the Sibylline books" are not in Dio**, who lists the hut fires among portents; nor does he say which hut burned in 38 BCE, so the card says "a hut of Romulus". A year out of a question; a "4th century CE" row off the line. The Palatine huts are a separate sentence that proves nothing about Romulus. |
+| `rm-052` founding of Rome | 9 | 5 → 10 | The line is now 21 April 753 BCE labelled tradition (Varro's, in prose), Cato's 751 and a single state c. 700 – 600 BCE. Four years out of a question. **The Palatine wall as confirmation of the legend is one excavator's view**, set against reviewers who deny it. |
+| `rm-053` Romulus and Remus | 9 | 6 → 10 | **The old card had one ending, Remus killed for leaping the wall; Livy gives two** (killed in the brawl over the omens, or for the leap), and both are in. "By the 290s" (a decade) is now First attested 296 BCE, the Ogulnii's statue group. Told in Livy's and Plutarch's voice. |
+| `rm-054` Capitoline Wolf | 8 | 5 → 9 | **The old card treated the medieval date as settled.** The museum and Colonna still date it to the 5th century BCE; Carruba's single-piece casting and Martini and Galli's clay dates put it in the 8th – 14th centuries CE. Both are on the line and in prose, with whose each is. An unsourced "radiocarbon 2007" cut. |
+| `rm-055` Aeneas | 9 | 6 → 10 | **"Troy falls 1183 BCE" and "Alba founded 30 years after Lavinium" were the line**: a mythical figure takes no dates. The line now dates the evidence for him in Italy (Etruscan images c. 600 – 400 BCE, Caesar's coin 47 – 46 BCE). All six old sources were ancient; now 3 of 10. The `leadsTo` link above deleted. |
+| `rm-056` Alba Longa | 7 | 6 → 7 | **"After 753 BCE"** is gone; the line is the Latin culture (c. 1050 – 950 BCE, as on `rm-010`) and the fall under Tullus, c. 672 – 640 BCE by tradition. Livy's manuscripts read *Tullii* where the Loeb prints the editor's *Julii*; the card says so. |
+| `rm-057` ab urbe condita | 7 | 5 → 9 | Two phrasings carried 47 CE and 753 BCE. **"April 248"**: no source gives the month; now 248 CE. "The era belonged to scholars, not clerks" had no source. Varro's method (Censorinus 21) and the rival founding years (Fabius, Cato, Polybius, Timaeus, from the Loeb notes to Dionysius 1.74) added. |
+| `rm-058` rape of the Sabine women | 8 | 5 → 10 | "753 BCE or a few years after" and "683, on one count" replaced by Traditional 753 BCE. **The draft also gave "Also dated 750 BCE"**, its own conversion of Gnaeus Gellius's "fourth year of Romulus" through Varro's era; no source prints 750, so it was cut by hand before applying. |
+| `rm-059` Titus Tatius | 7 | 6 → 9 | **"5 years, after 753 BCE / in the 6th year" dated nothing**, and no source gives Tatius a year of his own: the line is now empty. Each act is Livy's, Dionysius's or Plutarch's, and where they differ the card says whose is whose. A modern doubt that Rome ever had a joint kingship added. |
+| `rm-060` Romulus | 9 | 6 → 10 | **No fetched page gives 716 BCE** for his end; the line is Traditional 753 BCE, and the prose names Varro's 753 and Cato's 751. The counts (37 years, aged 54 or 55) are in prose. Few historians accept him as historical, and the 8th-century Palatine wall is one excavator's disputed claim. Questions moved off `rm-082` and `rm-083`. |
+
+**Read by eye.**
+- *Legend as legend:* every one of the ten; the archaeology of the Palatine (`rm-051`, `rm-052`, `rm-060`) is
+  in its own sentences and never offered as proof.
+- *Confusability:* `rm-052`, `rm-053` and `rm-060` all carry 753 BCE; their questions ask about the rite and
+  the year's reckoning, the twins' upbringing and Remus's death, and Romulus's asylum and disappearance.
+- *Overlap with `wh-`:* `wh-338` gives 753 BCE and the vultures, agreeing with `rm-052`, but does not say
+  the year is Varro's; read together when `wh-338` is refined.
+
+**Locators.** All kept.

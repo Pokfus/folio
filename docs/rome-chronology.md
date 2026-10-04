@@ -122,6 +122,14 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Forum Boarium's first temple / temples burnt / rebuilt | c. 600 – 550 BCE / 213 BCE / 212 BCE | `rm-047` |
 | Palatine wall (Carandini; disputed) / later wall remains | c. 775 – 750 BCE / c. 600 – 500 BCE | Lefkowitz's review (`rm-049`) |
 | Capitoline settled / temple of Jupiter dedicated / Gallic siege / temple burnt | c. 1500 – 600 BCE / 509 BCE (tradition) / 390 BCE (Varronian) / 83 BCE | `rm-050` |
+| Palatine hilltop villages / a hut of Romulus burnt / burnt again | c. 800 – 600 BCE / 38 BCE / 12 BCE | Cassius Dio (`rm-051`) |
+| the founding | 21 April 753 BCE by tradition (Varro); 751 BCE (Cato) | `rm-052`, `rm-053`, `rm-057`, `rm-058`, `rm-060` |
+| a single state at Rome | c. 700 – 600 BCE | `rm-052` |
+| wolf and twins first attested (the Ogulnii's group) | 296 BCE | Livy 10.23 (`rm-053`) |
+| the Capitoline Wolf | c. 500 – 400 BCE (the museum; Colonna) against c. 700 – 1400 CE (Carruba; Martini and Galli 2021) | `rm-054` |
+| Aeneas in Etruscan images / on Caesar's coin | c. 600 – 400 BCE / 47 – 46 BCE | `rm-055` |
+| Alba Longa: the Latin culture / its fall under Tullus (tradition) | c. 1050 – 950 BCE / c. 672 – 640 BCE | `rm-056` |
+| Rome's 800th year (Claudius) / its 1000th | 47 CE / 248 CE | `rm-057` |
 
 ## The middle and late Republic
 
@@ -189,4 +197,13 @@ rm-046: 753; 509; 751; 507; 650; 600
 rm-047: 600; 550; 213; 212
 rm-049: 775; 750; 600; 500
 rm-050: 1500; 600; 509; 390; 83
+rm-051: 800; 600; 38; 12
+rm-052: 753; 751; 700; 600
+rm-053: 753; 296
+rm-054: 500; 400; 700; 1400
+rm-055: 600; 400; 47; 46
+rm-056: 1050; 950; 672; 640
+rm-057: 753; 47; 248
+rm-058: 753
+rm-060: 753
 ```

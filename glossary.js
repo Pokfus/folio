@@ -8002,7 +8002,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Alimenta": "99 CE - 3rd century CE",
 "Sarmizegetusa_Regia": "c. 1st century BCE - 106 CE",
 "Latin_War": "340 – 338 BCE",
-"Romulus": "traditionally 753 – 716 BCE",
+"Romulus": "traditionally 753 BCE",
 "Numa_Pompilius": "traditionally 715 – 673 BCE",
 "Tullus_Hostilius": "traditionally 673 – 642 BCE",
 "Ancus_Marcius": "traditionally 642 – 617 BCE",
