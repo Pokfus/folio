@@ -29,7 +29,7 @@ const norm = (s) => String(s || "").replace(/<[^>]*>/g, "").replace(/_/g, " ").r
   .normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[’']/g, "'").replace(/\s+/g, " ").trim();
 const TERM = new Map();   // normalised surface → glossary key
 for (const k of Object.keys(G.GLOSSARY || {})) {
-  TERM.set(norm(k), k);
+  if (!k.includes("(") || !TERM.has(norm(k))) TERM.set(norm(k), k);   // a bare key beats a qualified namesake ("Battle_of_Thermopylae" vs "…_(191_BCE)")
   const t = (G.GLOSSARY_TITLES || {})[k]; if (t) TERM.set(norm(t), k);
   ((G.GLOSSARY_ALIASES || {})[k] || []).forEach((a) => TERM.set(norm(a), k));
 }

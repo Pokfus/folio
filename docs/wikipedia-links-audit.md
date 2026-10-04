@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4467 | the title is the article |
-| `redirect-variant` | 296 | spelling / plural / qualifier differed; same subject |
+| `ok` | 4475 | the title is the article |
+| `redirect-variant` | 295 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 68 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 386 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 382 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 89 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 126 | only a disambiguation page; no link could be chosen |
-| `none` | 575 | nothing matched; no link |
+| `none` | 570 | nothing matched; no link |
 
-**5222 of 6018 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5225 of 6018 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (386)
+## Redirected to a differently named article — check each (382)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -154,13 +154,10 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gr-471` **dikasteria** → [Dikasterion](https://en.wikipedia.org/wiki/Dikasterion) (from `Dikasteria`)
 - `gr-483` **Athenian tribute lists** → [Members of the Delian League](https://en.wikipedia.org/wiki/Members_of_the_Delian_League) (from `Athenian tribute lists`)
 - `gr-486` **Athenian empire** → [Delian League](https://en.wikipedia.org/wiki/Delian_League) (from `Athenian empire`)
-- `gr-501` **Propylaea** → [Propylon](https://en.wikipedia.org/wiki/Propylon) (from `Propylaea`)
 - `gr-505` **Hephaisteion** → [Temple of Hephaestus](https://en.wikipedia.org/wiki/Temple_of_Hephaestus) (from `Hephaisteion`)
 - `gr-508` **Pericles' funeral oration** → [Pericles's Funeral Oration](https://en.wikipedia.org/wiki/Pericles's_Funeral_Oration) (from `Pericles' Funeral Oration`)
 - `gr-514` **Athenian Agora** → [Ancient Agora of Athens](https://en.wikipedia.org/wiki/Ancient_Agora_of_Athens) (from `Athenian Agora`)
-- `gr-534` **first citizen** → [Princeps](https://en.wikipedia.org/wiki/Princeps) (from `First citizen`)
 - `gr-553` **Egesta** → [Segesta](https://en.wikipedia.org/wiki/Segesta) (from `Egesta`)
-- `gr-568` **Four Hundred** → [400 (number)](https://en.wikipedia.org/wiki/400_(number)) (from `Four Hundred`)
 - `gr-586` **Classical period** → [Classical Greece](https://en.wikipedia.org/wiki/Classical_Greece) (from `Classical period (Greece)`)
 - `gr-596` **Oedipus Tyrannus** → [Oedipus Rex](https://en.wikipedia.org/wiki/Oedipus_Rex) (from `Oedipus Tyrannus`)
 - `gr-613` **theatron** → [Theatre of ancient Greece](https://en.wikipedia.org/wiki/Theatre_of_ancient_Greece) (from `Theatron`)
@@ -370,7 +367,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `wh-134` **zoonotic disease** → [Zoonosis](https://en.wikipedia.org/wiki/Zoonosis) (from `Zoonotic disease`)
 - `wh-188` **Old Babylonian period** → [Old Babylonian Empire](https://en.wikipedia.org/wiki/Old_Babylonian_Empire) (from `Old Babylonian period`)
 - `wh-193` **Enuma Elish** → [Enūma Eliš](https://en.wikipedia.org/wiki/En%C5%ABma_Eli%C5%A1) (from `Enuma Elish`)
-- `wh-202` **emmer wheat** → [Emmer](https://en.wikipedia.org/wiki/Emmer) (from `Emmer wheat`)
 - `wh-205` **unification of Egypt** → [Upper and Lower Egypt](https://en.wikipedia.org/wiki/Upper_and_Lower_Egypt) (from `Unification of Egypt`)
 - `wh-211` **Step Pyramid of Djoser** → [Pyramid of Djoser](https://en.wikipedia.org/wiki/Pyramid_of_Djoser) (from `Step Pyramid of Djoser`)
 - `wh-214` **mummification** → [Mummy](https://en.wikipedia.org/wiki/Mummy) (from `Mummification`)
@@ -750,7 +746,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (575)
+## No article found (570)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -881,10 +877,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-604` **Chinese women's suffrage movement** — search suggests `Feminism in China`, `Chinese American women's suffrage in Oregon`, `Women in China`, `Women's Suffrage Alliance`, `Women's suffrage`
 - `cnh-619` **Outline Land Law** — search suggests `Land Reform Movement`, `Outline of China`, `Outline of commercial law`, `Outline of the Chinese Civil War`, `Outline of Taiwan`
 - `cnh-629` **peasant nationalism** — search suggests `Chinese nationalism`, `State nationalism`, `New Three Principles of the People`, `Korean nationalism`, `Chinese Communist Revolution`
-- `cnh-653` **Nanjing surrender ceremony** — search suggests `Surrender ceremony of the Second Sino-Japanese War`, `1945 Zhijiang surrender ceremony`, `Nanjing`, `Japanese Instrument of Surrender`, `Battle of Nanking`
-- `cnh-661` **Socialist transformation** — search suggests `Socialist transformation of ownership of the means of production`, `Socialism with Chinese characteristics`, `1st Five-Year Plan (China)`, `Ideology of the Chinese Communist Party`, `Socialist realism`
-- `cnh-685` **southern tour** — search suggests `Deng Xiaoping's southern tour`, `Xi Jinping's southern tour`, `China Open (tennis)`, `Muni He`, `Extraterrestrial World Tour`
-- `cnh-686` **Protocol on the Accession of the People's Republic of China** — search suggests `Order of precedence in China`, `Madrid Protocol`, `Geneva Protocol`, `China–United States relations`, `Foreign relations of China`
 - `eg-017` **El Omari** — search suggests `Prehistoric Egypt`, `Mohamed Atta`, `Al-Omari`, `Safia El Emari`, `Al-Omari Grand Mosque`
 - `eg-026` **Predynastic period** — search suggests `Prehistoric Egypt`, `Predynastic Egyptian mummies`, `Naqada III`, `Gebelein predynastic mummies`, `Ancient Egypt`
 - `eg-028` **Naqada expansion** — search suggests `Naqada III`, `Naqada II`, `Naqada culture`, `Prehistoric Egypt`, `Ancient Egypt`
@@ -1060,7 +1052,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gr-579` **surrender of Athens** — search suggests `Noemvriana`, `Constantine I of Greece`, `Ancient Greece`, `Greek capture of Thessaloniki`, `Parthenon`
 - `gr-580` **demolition of the Long Walls** — search suggests `White Tower of Thessaloniki`, `Corinth Canal`, `Frankish Tower (Acropolis of Athens)`, `Underwater Demolition Command`, `Athens`
 - `gr-585` **amnesty of 403** — search suggests `Thirty Tyrants`, `Callixenus`, `Greece–Turkey relations`, `Against Eratosthenes`, `403 BC`
-- `gr-589` **tragic chorus** — search suggests `Greek chorus`, `Greek tragedy`, `Theatre of ancient Greece`, `Tragedy`, `Aeschylus`
 - `gr-615` **tragic mask** — search suggests `Theatre of ancient Greece`, `Melpomene`, `Sock and buskin`, `Mask`, `Greek chorus`
 - `gr-618` **ktēma es aei** — search suggests `List of Classical Greek phrases`, `Hegesias of Magnesia`
 - `gr-655` **white-ground lekythos** — search suggests `Lekythos`, `White-ground technique`, `Pottery of ancient Greece`, `Achilles Painter`, `Thanatos Painter`
