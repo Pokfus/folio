@@ -147,7 +147,7 @@ in plan order unless the user says otherwise.
 | B31 | Iron Age Near East and Persia (`wh-near-east`) | `wh-301`–`wh-310` | 10 | 100 | **done 2026-10-04** |
 | B32 | Greece and the Hellenistic world (`wh-greece`) | `wh-311`–`wh-320` | 10 | 121 | **done 2026-10-04** |
 | B33 | Greece and the Hellenistic world (`wh-greece`) | `wh-321`–`wh-330` | 10 | 123 | **done 2026-10-04** |
-| B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | open |
+| B34 | Greece and the Hellenistic world (`wh-greece`) / Rome (`wh-rome`) | `wh-331`–`wh-340` | 10 | 126 | **done 2026-10-04** |
 | B35 | Rome (`wh-rome`) | `wh-341`–`wh-350` | 10 | 126 | open |
 | B36 | Rome (`wh-rome`) | `wh-351`–`wh-360` | 10 | 104 | open |
 | B37 | Rome (`wh-rome`) | `wh-361`–`wh-370` | 10 | 106 | open |
@@ -1417,6 +1417,43 @@ reason they are not his), the Clouds only on `wh-327`. *Consistency:* the Classi
 **Glossary.** Eight terms rewritten (*Battle of Thermopylae*, *Delian League*, *Pericles*, *Parthenon*, *Greek
 theatre*, *Socrates*, *Plato*, *Peloponnesian War*); *Battle of Salamis* and *Aristotle* already agreed.
 
+### B34 — `wh-331`–`wh-340`, Greece and the Hellenistic world and Rome (2026-10-04)
+
+Run as B33, the Rome cards read against the `rm-` collection. Checks: `wh-audit.js --range=wh-331:wh-340` clean but
+for `I.duplicate` on `wh-339` and `wh-340`, whose pictures are also `rm-045`'s and `rm-133`'s (picture pass); the rest
+as B31; all 86 distinct URLs 2xx; `check-citations --card` 0 mismatched. New locators: `wh-335` Alexandria, `wh-336`
+Rome and `wh-338` the Palatine; `wh-337` asked for "Etruria", which has no primary coordinate. Again **almost every
+old card cited ancient writers only** (Herodotus, Diodorus, Plutarch, Florus, Polybius, Gellius), retelling them as
+fact.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-331` Herodotus | 9 | 7 → 9 | **"Died c. 425 BCE" was in no source**; now born c. 484 (Gellius's figure), still writing in 429, dead before 413 BCE. "Father of history" is Cicero's; the nine books are a Hellenistic division; how far he travelled is debated. |
+| `wh-332` Philip II of Macedon | 8 | 7 → 8 | **That he invented the phalanx is Diodorus's claim**, with the modern case for Alexander II beside it; the Vergina Tomb II attribution as disputed, whose each side is. Born c. 382, reigned 359 – 336 BCE, Chaeronea 338. |
+| `wh-333` Alexander the Great | 9 | 9 → 9 | **Plutarch's Ganges refusal and army figures were stated as fact**; Arrian has the army stop at the Hyphasis, both now given. The cause of death unknown, poison, typhoid and West Nile as views; born 356, king 336, died at Babylon in June 323 BCE. |
+| `wh-334` Hellenistic period | 7 | 6 → 8 | **The lead phrasing hung the period on Polybius's "organic whole", which he dates to 220 – 216 BCE**; the 306 and 168 BCE rows were other events. "Hellenistic" is Droysen's term; 323 – 30 BCE with Green's 334 – 31 also dated. |
+| `wh-335` Library of Alexandria | 9 | 5 → 9 | **The card ended the library in Caesar's fire of 48 BCE**, with a dynasty row and a "700,000 books" row. The counts are the ancient writers' and inconsistent; the end is rival stories (48 BCE, 273, 391 CE) and the Arab burning a legend first told c. 1200. |
+| `wh-336` Ancient Rome | 9 | 5 → 10 | 753 BCE is Varro's reckoning, 509 BCE perhaps a few years early, 476 CE a convention fixed later; the eastern half to 1453. **A phrasing carried a figure of years** and another a numeral. |
+| `wh-337` Etruscan civilisation | 8 | 5 → 9 | **"Flourished c. 800 – 300 BCE" had no source**; now emerged c. 900, Veii's fall 396 (the ancient date; the site lived on), Roman conquest c. 300 – 100 BCE. The Lydian origin is Herodotus's, the native one Dionysius's, and the DNA studies are named both ways. |
+| `wh-338` founding of Rome | 9 | 5 → 11 | 753 BCE is labelled traditional and Varro's, beside Timaeus's 813, Fabius's 747, Cato's 751 and Cincius's 728. **A "15 generations" row and a vultures row were not dates.** The Palatine wall of c. 730 – 720 BCE is evidence, not proof of the legend. |
+| `wh-339` Roman Kingdom | 8 | 6 → 8 | **The card was Florus's moral history retold as fact.** 753 – 509 BCE is traditional; the 244 years and seven kings are Livy's and Dionysius's; Lucretia and Brutus are Livy's story; the Forum's drainage and two modern views added. Dionysius's own count gives 751 – 507. |
+| `wh-340` Roman Republic | 9 | 6 → 10 | **The card was Polybius alone**, with "3 parts" and "1 tribune" as date-line rows. 509 – 27 BCE as traditional, and the end disputed: Flower's last republic c. 60 BCE, Caesar's dictatorship 49, the settlement of 27. |
+
+**Read by eye.** *Article:* "the Library of Alexandria", "the Hellenistic period", "the Etruscan civilisation", "the
+founding of Rome", "the Roman Kingdom", "the Roman Republic"; the persons and "Ancient Rome" bare. *Confusability:*
+`wh-332`/`wh-333` father and son, Chaeronea only on `wh-332`, Aristotle only on `wh-333`; `wh-310`/`wh-333` the fall of
+Persia and its conqueror, Gaugamela named in both backgrounds, the Hyphasis only on `wh-333`; `wh-336`/`wh-338`/`wh-339`/
+`wh-340` the civilisation, its founding, its kings and its republic, 753 BCE on three lines but Varro's reckoning
+explained on `wh-336` and `wh-338`, Lucretia only on `wh-339`, Polybius's mixed constitution only on `wh-340`.
+*Consistency:* 509 and 27 BCE agree across `wh-336`, `wh-339` and `wh-340`; the Hellenistic 323 – 30 BCE with `wh-311`.
+*Against the gr- and rm- cards:* `gr-695` credits Philip with the phalanx outright; `gr-802` ends the library in 48 BCE;
+`rm-022` starts the Etruscans c. 1000 BCE (Stoddart) where `wh-337` has c. 900 (Posth); `rm-049` dates its Palatine
+wall c. 600 – 500 BCE, apparently another structure. None edited.
+
+**Glossary.** Five terms rewritten (*Herodotus*, *Philip II of Macedon*, *Alexander the Great*, *Library of
+Alexandria*, *Ancient Rome*); *Hellenistic period*, *Etruscan civilisation*, *Founding of Rome*, *Roman Kingdom* and
+*Roman Republic* already agreed. **The Greece and the Hellenistic world deck is done.**
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1547,3 +1584,7 @@ pass once it answers. Filled batch by batch.
 | `wh-325` | an 1842 daguerreotype, dim, titled "The colonnade in 1842" |
 | `wh-329` | fine, but its title should read simply Aristotle |
 | `wh-330` | one Syracusan quarry, not the war |
+| `wh-331` | a papyrus of the Histories, not the man |
+| `wh-337` | the Piacenza liver, one divination object (`rm-029`'s subject); **locator**: "Etruria" has no coordinate |
+| `wh-339` | a relief of lictors (also `rm-045`'s, audit `I.duplicate`) |
+| `wh-340` | the Curia Julia (also `rm-133`'s, audit `I.duplicate`), the senate house rather than the Republic |

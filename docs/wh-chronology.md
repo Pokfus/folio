@@ -333,6 +333,16 @@ Filled batch by batch, from the source each row names.
 | Plato: born / Academy / died | c. 428 BCE (424/423 on one biography) / after 387 BCE / 348/347 BCE | Brickhouse and Smith; Kraut (`wh-328`) |
 | Aristotle: born / Lyceum / died | 384 / 335 / 322 BCE | Shields (`wh-329`) |
 | Peloponnesian War / Sicily / Aegospotami | 431 – 404 BCE / 415 – 413 BCE / 405 BCE | Lendering; Hughes (`wh-330`) |
+| Herodotus: born / still writing / died | c. 484 BCE (Gellius) / 429 BCE / before 413 BCE | Godley; Lendering (`wh-331`) |
+| Philip II: born / reigned / Chaeronea / killed | c. 382 BCE / 359 – 336 BCE / 338 / 336 BCE | Lendering; Bury (`wh-332`) |
+| Alexander the Great: born / king / died | 356 BCE / 336 – 323 BCE / June 323 BCE | Lendering (`wh-333`) |
+| Hellenistic period / also dated | 323 – 30 BCE / 334 – 31 BCE (Green) | Kosmetatou; Bauschatz (`wh-334`) |
+| Library of Alexandria: founded / Caesar's fire / palace quarter wrecked / Serapeum razed | c. 304 – 282 BCE (disputed) / 48 BCE / 273 CE / 391 CE | Berti and Costa; Bagnall; Encyclopaedia Romana (`wh-335`) |
+| Ancient Rome: founded / emperors / west ends / east ends | 753 BCE (Varro's reckoning) / from 27 BCE / 476 CE (a convention) / 1453 CE | Lendering; Keegan; O'Donnell; Neville (`wh-336`) |
+| Etruscan civilisation: emerges / Veii falls / Roman conquest | c. 900 BCE (`rm-022`: c. 1000) / 396 BCE (the ancient date) / c. 300 – 100 BCE | Posth et al.; Potts and Smith (`wh-337`) |
+| founding of Rome: traditional / other ancient dates / one state / Palatine wall | 753 BCE (Varro) / 813 – 728 BCE (Timaeus to Cincius) / c. 700 – 600 BCE / c. 730 – 720 BCE (excavators' dating) | Velleius; Dionysius; Forsythe; Walt (`wh-338`) |
+| Roman Kingdom (traditional) / Dionysius's own count | 753 – 509 BCE / 751 – 507 BCE | Diodato et al.; Bailey on Flower; Dionysius (`wh-339`) |
+| Roman Republic (traditional) / Caesar dictator | 509 – 27 BCE / from 49 BCE | Ravasini et al.; Bailey on Flower (`wh-340`) |
 
 ## Chronology pins
 
@@ -653,4 +663,14 @@ wh-327: 469; 399
 wh-328: 428; 387; 348; 347
 wh-329: 384; 335; 322
 wh-330: 431; 404; 415; 413; 405
+wh-331: 484; 429; 413
+wh-332: 382; 359; 336; 338
+wh-333: 356; 336; 323
+wh-334: 323; 30; 334; 31
+wh-335: 304; 282; 48; 273; 391
+wh-336: 753; 27; 476; 1453
+wh-337: 900; 396; 300; 100
+wh-338: 753; 813; 728; 700; 600
+wh-339: 753; 509
+wh-340: 509; 27
 ```
