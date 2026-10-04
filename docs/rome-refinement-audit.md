@@ -134,7 +134,7 @@ order unless the user says otherwise.
 |---|---|---|---|---|---|
 | B1 | Italy before Rome (`rm-italy`) | `rm-001`–`rm-010` | 10 | 94 | **done 2026-10-04** |
 | B2 | Italy before Rome (`rm-italy`) | `rm-011`–`rm-020` | 10 | 100 | **done 2026-10-04** |
-| B3 | Italy before Rome (`rm-italy`) | `rm-021`–`rm-030` | 10 | 95 | open |
+| B3 | Italy before Rome (`rm-italy`) | `rm-021`–`rm-030` | 10 | 95 | **done 2026-10-04** |
 | B4 | Italy before Rome (`rm-italy`) | `rm-031`–`rm-040` | 10 | 104 | open |
 | B5 | Italy before Rome (`rm-italy`) / Rome under the kings (`rm-kings`) | `rm-041`–`rm-050` | 10 | 112 | open |
 | B6 | Rome under the kings (`rm-kings`) | `rm-051`–`rm-060` | 10 | 118 | open |
@@ -289,6 +289,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-018` Ligurians | a map of pre-Roman Iberia | the wrong country; burned-in labels; no author in the credit |
 | `rm-019` Veneti | a writing tablet from Este | acceptable subject, though one object stands for a people; the desc and alt want rewriting |
 | `rm-020` Messapians | a reference map of southern Italy | a map with burned-in labels, not specific to the Messapians |
+| `rm-021` Cisalpine Gauls | a 1911 atlas map | burned-in labels; Italian desc names the atlas |
+| `rm-022` Etruscan civilisation | a bronze chariot | weak: one object for a civilisation |
+| `rm-023` Etruscan origins | a drawing of an Orvieto inscription | a drawing of one text; the Lemnos stele or a genome figure would fit better |
+| `rm-024` Etruscan cities | a map of Etruria | a labelled map; a plateau city (Orvieto, Civita) would show it |
+| `rm-025` Etruscan league | none | no picture (`I.none`); the Campo della Fiera excavations would show it |
+| `rm-026` Etruscan language | the Orator statue | shows a statue, not the language; alt is the file name |
+| `rm-027` Pyrgi Tablets | sheet A alone | one of the three sheets; the desc names the museum |
+| `rm-028` Etruscan religion | votive heads | acceptable; the desc "IV-II cen BC" wants rewording |
+| `rm-029` haruspicy | a 19th-century line diagram of the Piacenza liver | a diagram where a photograph of the bronze exists |
+| `rm-030` Etrusca disciplina | a mirror of Menrva | does not show the discipline; the desc names the museum |
 
 ## Glossary candidates
 
@@ -412,3 +422,48 @@ Dictionary, Taylor and Francis, Livius.org's Latin League page (404), Gellius on
   but the two should be read together when `gr-214` is next touched. No other overlap.
 
 **Locators.** All ten kept what they had (regions keep their shapes; `rm-016` its Gubbio point).
+
+### B3 — `rm-021`–`rm-030`, Italy before Rome: the Etruscans (2026-10-04)
+
+Run as B2: five agents, two cards each, every draft read by eye, applied with `batch.sh`; B4's agents
+researched alongside. Pictures untouched (Wikimedia refused); verdicts in "Pictures to redo".
+
+Checks: `rm-audit.js --range=rm-021:rm-030` reads clean on six cards; `rm-025` has no picture (`I.none`), and
+`rm-021`, `rm-022` and `rm-028` keep a `W.not-why` note ("How", "Did", "Where"). `check-questions`,
+`check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL
+answers 2xx; `check-citations --card` 0 mismatched on every card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-021` Cisalpine Gauls | 6 | 5 → 8 | A century range on the line ("4th – 1st century BCE"); now Arrived c. 400 BCE and Citizenship 49 BCE (the Lex Roscia, as on `rm-001`). Livy's Bellovesus told as Livy's, undated. The Monte Bibele claims went with a source of which only the abstract opens. Polybius's tribes, Etruscan Bologna and Marzabotto, and Rome's absorption added; the old half-card on epigraphy cut to one FAQ. |
+| `rm-022` Etruscan civilisation | 8 | 5 → 8 | **"c. 800 – 1 BCE" as the inscriptions' span was read as the civilisation's**; the line is now c. 1000 BCE, the defeat off Cumae 474 and Veii 396 (Varronian, said in prose). A chapter whose repository page shows no text and a wine paper behind a 403 are gone. The name Rasenna (Dionysius), the origins question, trade, decline and Latin's replacement of the language added. |
+| `rm-023` Etruscan origins | 8 | 5 → 8 | **The old card had Herodotus and Hellanicus both deriving the Etruscans from Anatolia**; Hellanicus, as Dionysius quotes him, made them Pelasgians driven from Greece. Each version is now told in its author's voice. **"Argued after Fascism" had no source.** The 2021 and 2013 genome studies added. Years out of the questions. |
+| `rm-024` Etruscan cities | 7 | 5 → 8 | **"549/1,248/914 known sites" were the totals of one study's data set**, not all known sites, and are gone. The line is now the move to plateaus c. 1020 – 900 BCE, full cities c. 750 – 480, and Veii 396 (labelled tradition). A phrasing that overlapped `rm-120` (the siege of Veii) replaced. |
+| `rm-025` Etruscan league | 6 | 5 → 8 | A century on the line; now the shrine in use c. 550 BCE – 400 CE and Volsinii taken 264 BCE. **"Tradition credits Porsenna" was cited to a Louvre page that does not say it.** The Campo della Fiera = Fanum Voltumnae identification is now credited to its excavators; Livy's words *concilium* and *foedus*, not "league", are said. The glossary's unsourced "attested from the 4th century BCE" gone. |
+| `rm-026` Etruscan language | 7 | 5 → 8 | **The *Liber Linteus* was dated "about 390 BCE" as a book; that is a radiocarbon date for the linen**, and the text is dated by its letters to c. 200 – 150 BCE; the line carries both. A Croatian chapter had been cited under an English title with no chip; both fixed. |
+| `rm-027` Pyrgi Tablets | 6 | 5 → 6 | Heurgon 1965 (Persée, first page only) replaced by Wikander 2008 and Herodotus 1.166–67. **The Phoenician "statue" is a disputed reading**, and "500–490" and the "Phoenician calendar" had no source; all gone. "Temple B c. 510" is the sanctuary's monumentalisation in its source, and is relabelled. |
+| `rm-028` Etruscan religion | 7 | 5 → 7 | **The Portonaccio deposit was 600–530 with "aristocratic dedicators"**; the source gives 600 – 540/530 and only "limited conclusions" on families. "Life-size" terracottas had no source. The Thesan sentence was about a head; it is about the temple. The gods, the lateness of the written evidence, the afterlife and Livy added. |
+| `rm-029` haruspicy | 7 | 5 → 7 | The old sources were Persée papers and a Piacenza museum page, none of which could be re-read; every claim re-sourced. **The liver's "41 names / 27 gods", the Mesopotamian clay-model details and "responsa favoured expansion from c. 300 BCE" had no source that opens**, and are gone. The Assyrian link is one view. New line: first depicted c. 430 – 400 BCE, the Piacenza liver c. 100 BCE, against Alaric 409 CE. |
+| `rm-030` Etrusca disciplina | 6 | 5 → 7 | Four Persée sources replaced. **"Latin version c. 56 – 44 BCE" had no source for those years**; the line now dates the Piacenza liver and Cicero's *On Divination* (45 – 44 BCE). Tages told as Cicero's report of the Etruscans' own tale. The Seneca, Livy and sarcophagus claims dropped with their sources. |
+
+**Not usable from here:** Persée (first page only, though one B4 agent read a full PDF there), Cambridge
+repository (embargoed or metadata only), PNAS (Cloudflare; Europe PMC 500), Livius.org (timeouts), EDCS (now
+needs JavaScript), Springer (JS challenge; Europe PMC used), hrcak.srce.hr (bot check), polipapers.upv.es (TLS).
+
+**Read by eye.**
+- *Article:* "the Etruscan civilisation", "the Etruscan league", "the Etruscan language", "the Pyrgi Tablets"
+  take "the" from the question; "Etruscan religion", "haruspicy", "Etruscan origins" and "Etruscan cities"
+  bare; "the Etrusca disciplina" takes it.
+- *Confusability:* the Etruscan cards share vocabulary; each question names what only its term has (Rasenna
+  for the civilisation, Hellanicus and Lemnos for origins, the plateaus and Marzabotto for the cities,
+  Voltumna for the league, the dropped Greek letters and the linen book for the language). `rm-029` and
+  `rm-030` both use the Piacenza liver on the date line, but only `rm-029` asks about it.
+- *Overlap with `gr-`/`wh-`:* `wh-337` Etruscan civilisation starts c. 800 BCE where `rm-022` now starts
+  c. 1000 BCE (Potts and Smith: a distinct community from the start of the 1st millennium); `wh-337` also asks
+  the Herodotus/Dionysius question, so `rm-023` leads with Hellanicus, Lemnos and the genomes. Read
+  together when `wh-337` is refined.
+- *Chronology:* `rm-024`'s move to plateaus (c. 1020 – 900 BCE) starts before the Villanovan row (c. 900)
+  — the two sources date the Final Bronze Age differently, and the rows say whose each is.
+
+**Locators.** All kept. `rm-037`'s agent (B4) notes that a craft card carries an Etruria region locator it
+does not need; left for the B4 entry.

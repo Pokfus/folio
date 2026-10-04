@@ -86,6 +86,15 @@ Filled batch by batch, from the source each row names.
 | Ligurians take shape / Apuani deported to Samnium / Polcevera ruling | c. 1600 – 900 BCE / 180 – 179 BCE / 117 BCE | MUDIF; Lehnig and Babucic; Piegdoń (`rm-018`) |
 | Veneti: dated burials / inscriptions | c. 900 – 50 BCE / c. 550 BCE – 50 CE | Perego 2010 (`rm-019`) |
 | Messapic inscriptions / triumph over the Sallentini | c. 550 – 100 BCE / 266 BCE | Mnamon; Leucci et al. (`rm-020`) |
+| Cisalpine Gauls arrive / citizenship north of the Po | c. 400 BCE / 49 BCE (Lex Roscia) | Mnamon (Lepontic); Negrini (`rm-021`) |
+| Etruscan civilisation takes shape / defeat off Cumae / Veii falls | c. 1000 BCE / 474 BCE / 396 BCE (Varronian) | Potts and Smith 2022 (`rm-022`) |
+| Etruscan cities: move to plateaus / full cities | c. 1020 – 900 BCE / c. 750 – 480 BCE | Stoddart et al. 2020 (`rm-024`); note that the plateau row starts before the Villanovan row above |
+| Fanum Voltumnae (Campo della Fiera) in use / Volsinii taken | c. 550 BCE – 400 CE / 264 BCE | Gillett; Stopponi via the Louvre; Stek (`rm-025`) |
+| Etruscan inscriptions / Liber Linteus linen (radiocarbon) / its text (letter forms) | c. 800 – 1 BCE / c. 390 BCE / c. 200 – 150 BCE | Mnamon; Uranić; Turfa's BMCR review of van der Meer (`rm-026`) |
+| Pyrgi Tablets inscribed / sanctuary monumentalised / found | c. 500 BCE / c. 510 BCE / 8 July 1964 | Museo Nazionale Etrusco; Baglione et al. (`rm-027`) |
+| Etruscan votive texts / Portonaccio deposit at Veii / temple of Thesan at Pyrgi | from c. 750 BCE / c. 600 – 530 BCE / c. 470 – 460 BCE | `rm-028` |
+| haruspicy first depicted / Piacenza liver / haruspices offered against Alaric | c. 430 – 400 BCE / c. 100 BCE / 409 CE | `rm-029`, `rm-030` |
+| Cicero, *On Divination* | 45 – 44 BCE | `rm-030` |
 
 ## The regal period and the early Republic
 
@@ -131,4 +140,14 @@ rm-017: 488; 338
 rm-018: 1600; 900; 180; 179; 117
 rm-019: 900; 50; 550
 rm-020: 550; 100; 266
+rm-021: 400; 49
+rm-022: 1000; 474; 396
+rm-023: 900; 800; 1000
+rm-024: 1020; 900; 750; 480; 396
+rm-025: 550; 400; 264
+rm-026: 800; 390; 200; 150
+rm-027: 500; 510; 1964
+rm-028: 750; 600; 530; 470; 460
+rm-029: 430; 400; 100; 409
+rm-030: 100; 45; 44
 ```
