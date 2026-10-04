@@ -9998,9 +9998,14 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    the phone block first and moved here for every width ("this should also be the case on desktop and
    tablet"); it stands AFTER the row rule above, which re-rounds `.dk-last` and `:last-child` at the same specificity,
    and the `.dk-last` pairs outrank it besides — a deck row that is both the last visible row and attached
-   keeps only its bottom corners. */
-.review-group .active-deck.dk-att, .review-group .active-deck.dk-last.dk-att{margin-top:-9px; border-top-left-radius:0; border-top-right-radius:0;}
-.review-group .active-deck.dk-cont, .review-group .active-deck.dk-last.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
+   keeps only its bottom corners.
+   …AND IT NEEDS `.active-decks` IN THE SELECTOR (Oct 2026, on a bug report with a screenshot: every row of an
+   unfolded collection still had rounded corners on a phone). The row rule above carries a `body.night` pair,
+   and `body.night .review-group .active-deck` is (0,3,1) — one more than `.review-group .active-deck.dk-att`
+   at (0,3,0) — so in dark mode its 12px corners won and the block fell apart, while the daylight theme, where
+   the two are equal and this stands later, looked right. Four classes outrank it in both modes. */
+.review-group .active-decks .active-deck.dk-att, .review-group .active-decks .active-deck.dk-last.dk-att{margin-top:-9px; border-top-left-radius:0; border-top-right-radius:0;}
+.review-group .active-decks .active-deck.dk-cont, .review-group .active-decks .active-deck.dk-last.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .review-group .active-deck.dk-att:not(.dk-cont){margin-bottom:6px;}
 /* a GROUP's header row is shorter than the rows under it and painted in a deeper wash of its colour */
 .review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
