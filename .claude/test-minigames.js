@@ -1289,15 +1289,15 @@ function crosswordForPage(cells) {
       const t = (s) => { const e = document.querySelector(s); return e ? (e.textContent || "").trim() : ""; };
       const h = (s) => { const e = document.querySelector(s); return !e || e.hidden; };
       const pop = document.getElementById("countryPop");
-      return { q: t("#mgQ"), round: t("#mgRound"), fb: t("#mgFeedback"), confirmHidden: h("#mgConfirm"), nextHidden: h("#mgNext"),
+      return { q: t("#mgQ"), round: t("#mgRound"), fb: t("#mgFeedback"), confirmHidden: h("#mgConfirm"), nextHidden: h("#mgNext"), cart: t("#mapCartouche"),
                card: !!(pop && !pop.hidden && pop.querySelector(".cp-cardback")), cardPanel: !!(pop && !pop.hidden && pop.classList.contains("cp-mine")) };
     });
     // the right-hand half of the stage only: the card panel a reveal opens covers the left third, and a tap
     // there opens one of ITS glossary terms (and that window sits over the Next button)
     const grid = []; for (let a = 0; a < 10; a++) for (let b = 0; b < 10; b++) grid.push([0.46 + a * 0.05, 0.32 + b * 0.06]);
-    const asked = [], ended = [];
+    const asked = [], ended = [], boards = [];
     for (let r = 0; r < 5; r++) {
-      const s0 = await st(); asked.push(s0.q);
+      const s0 = await st(); asked.push(s0.q); boards.push(s0.cart);
       for (let go = 0; go < 2; go++) {
         let picked = false;
         for (const [fx, fy] of grid) { await page.mouse.click(box.x + box.width * fx, box.y + box.height * fy); if (!(await st()).confirmHidden) { picked = true; break; } }
@@ -1313,6 +1313,13 @@ function crosswordForPage(cells) {
     check("[fi-atlas] a day is five rounds", asked.length === 5 && asked.every(Boolean), JSON.stringify(asked));
     check("[fi-atlas] …a country, a state or people, a country, a state or people, then a place",
       isToday(asked[0]) && isState(asked[1]) && isToday(asked[2]) && isState(asked[3]) && isToday(asked[4]), JSON.stringify(asked));
+    /* A STATE IS FOUND ON THE FULL ATLAS IN ITS YEAR (Oct 2026, on a bug report: "it currently still shows
+       the modern map"): the plate cartouche names the board, and on a state's round it is the Full Atlas's
+       at the year the question asks for; a country's or a place's round is back on today's map. */
+    const yearOf = (q) => (q.match(/as it stood in (\d+(?: BCE)?)$/) || [])[1];
+    check("[fi-atlas] a state or people is found on the Full Atlas in the year it is asked for",
+      boards[1] === "FULL ATLAS · " + yearOf(asked[1]) && boards[3] === "FULL ATLAS · " + yearOf(asked[3]), JSON.stringify([asked[1], boards[1], asked[3], boards[3]]));
+    check("[fi-atlas] …and a country or a place on today's map", boards[0] === "TODAY" && boards[2] === "TODAY" && boards[4] === "TODAY", JSON.stringify(boards));
     check("[fi-atlas] …every round was played to its end", ended.every((e) => /Found it|It was here/.test(e.fb)), JSON.stringify(ended.map((e) => e.fb)));
     check("[fi-atlas] a state or people ends on the study card about it, not on a country's panel",
       ended[1].card && ended[1].cardPanel && ended[3].card && ended[3].cardPanel, JSON.stringify([ended[1], ended[3]]));
