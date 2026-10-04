@@ -748,9 +748,9 @@ counted once for both and marked).
 sense: `Siege_of_Syracuse` is Rome's siege of 212 BCE; `Paris` is the French capital (`gr-599` means the Trojan
 prince, wrapped); `Archelaus` is Mithridates' general (`gr-600` means the king of Macedon, wrapped); `Lycurgus` is
 the Spartan lawgiver (`gr-587`, `gr-600` mean the Athenian statesman, wrapped); `Thebes` is `Mycenaean_Thebes`
-(classical Thebes has no key). The `Thrasybulus` entry gives his death as 388 BCE against the sources' 389 BCE; the
-`Lichas` entry's "d. 411 BCE" and the `Odeon_of_Pericles` and `Telesterion` dates are unsourced. `Ajax_(play)`
-still carries the old abstract.
+(classical Thebes has no key). None of these is fixed here, on purpose: `Siege_of_Syracuse` is the answer term of
+`rm-222`, and the Athenian siege and classical Thebes each need an entry of their own, written and sourced, plus
+hand-keys on the cards that now wrap them; a rename alone would only move the claim to the bare name.
 
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial

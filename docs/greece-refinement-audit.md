@@ -2071,10 +2071,11 @@ alarms; every citation URL answers 200.
   gives winter 412/411 BCE, in the chronology).
 - **Wrong or unsourced years removed:** `gr-562`'s "Proposed 431 BCE" (the Corinthian speech is 432 BCE and no source
   on the card dated it); `gr-566`'s "Commissioner 412 BCE" and Lichas' death year (Thucydides gives none; the
-  glossary's "d. 411 BCE" is unsourced); `gr-564`'s "c." before an exact year; `gr-565`'s "Met Agesilaus 395 BCE"
+  glossary's "d. 411 BCE" is unsourced and is now gone); `gr-564`'s "c." before an exact year; `gr-565`'s "Met Agesilaus 395 BCE"
   (winter 395/394 BCE).
 - **Thrasybulus died in 389 BCE** on every source reached (Nudell, Brownson's note to Xenophon, the Princeton
-  Encyclopedia); the glossary entry's 388 BCE wants correcting.
+  Encyclopedia); the glossary entry's 388 BCE now reads 389. The same pass took the unsourced "c. 450 – 430 BCE" off
+  the `Odeon_of_Pericles` and `Telesterion` entries and set `Classical_period_(Greece)` to the house 480 – 323 BCE.
 
 **Corrected in the old cards:**
 - **No modern scholarship:** all 25 cited only ancient texts, Thucydides or Xenophon chapter by chapter; each now
@@ -2128,8 +2129,9 @@ books and on the LSJ entry for `gr-589` (read and confirmed English). `check-cit
   that denies him the play); Euripides' birth (485 BCE on the Parian Marble, 480 BCE by the tradition).
 - **Estimated life dates kept off the lines:** Aeschylus' birth (about 525/524 BCE) and Sophocles' (about 497 BCE)
   are in prose only.
-- **Unsourced years left out:** Euripides' first victory in 441 BCE (no reachable source gives it); `gr-938` and
-  `gr-939` still carry an unsourced "c. 429 BCE" row for *Oedipus Tyrannus*, which this card does not support.
+- **Unsourced years left out:** Euripides' first victory in 441 BCE (no reachable source gives it); the unsourced
+  "Sophocles' play c. 429 BCE" row came off the date lines of `gr-938` and `gr-939` (their prose still says 429 BCE,
+  for their own batch to source).
 
 **Corrected in the old cards:**
 - **No modern scholarship, or too little:** the old cards leant on Aristotle and the play texts; each now meets the bar
@@ -2170,10 +2172,12 @@ and looked at on a contact sheet.
     Philoctetes on Lemnos.
   - **`gr-598`: Exekias' Ajax, also on `gr-950`, → an Etruscan vase of Ajax's death** (the A1 duplicate, resolved).
 - **Kept with new captions and credits:** `gr-563`, `gr-564`, `gr-565`, `gr-580` (its licence corrected to CC0),
-  `gr-583`, `gr-588`, `gr-600`.
-- **Open:** `gr-588` shows the Lysicrates monument and `gr-616` another photograph of it; `gr-589`'s drawing and
-  `gr-605`'s photograph show the same Pronomos Vase. Neither is the same file, and the sites of Dionysus' sanctuary
-  offered only views with signboards; the refiner of `gr-605` and `gr-616` should choose.
+  `gr-583`, `gr-600`. `gr-588` moved from the Lysicrates monument (`gr-616`'s) to the choregic monument of
+  Thrasyllus. Every image link was re-checked after the first pass hit Wikimedia's rate limit on full-size files:
+  all of them are now 960-, 1280- or 1920-pixel thumbnails and answer 200.
+- **Open:** `gr-589`'s drawing and `gr-605`'s photograph show the same Pronomos Vase (different files, one object);
+  four more searches found no other picture of a tragic chorus that is free and unlabelled. The refiner of
+  `gr-605` may prefer another vase.
 - **Refused:** a book illustration of a mounted man in a crowd filed as Lysander (nothing on its page ties the
   rider to Lysander); an 1880 engraving for `gr-580` (the real Long Walls stay); a photo
   of the Orestes vase with its museum label; views of Dionysus' sanctuary with signboards.

@@ -585,7 +585,7 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Lysander | Notium 406 BCE; Aegospotami 405 BCE; Athens taken 404 BCE; killed at Haliartus 395 BCE | Plutarch, *Lysander*; Kulesza 2022 (`gr-576`) |
 | Aegospotami; the siege; the surrender; the walls | Aegospotami 405 BCE; the siege 405 – 404 BCE (Piraeus closed in November 405 BCE on Kulesza's dating); surrender and the walls pulled down in the spring of 404 BCE | Xenophon, *Hellenica* 2.1–2; Plutarch, *Lysander*; Kulesza 2022 (`gr-577` – `gr-580`) |
 | Thirty Tyrants; Critias | ruled 404 – 403 BCE, about 8 months; Critias killed at Munychia 403 BCE | Xenophon, *Hellenica* 2.3–4; *Constitution of the Athenians* 34–38 (`gr-581`, `gr-582`) |
-| Thrasybulus | seized Phyle 404/403 BCE; moved the Theban alliance 395 BCE; killed at Aspendus 389 BCE (the glossary entry's 388 BCE wants correcting) | Nudell 2023; Brownson's note to Xenophon 4.8.30; Princeton Encyclopedia (`gr-583`) |
+| Thrasybulus | seized Phyle 404/403 BCE; moved the Theban alliance 395 BCE; killed at Aspendus 389 BCE (the glossary entry agrees) | Nudell 2023; Brownson's note to Xenophon 4.8.30; Princeton Encyclopedia (`gr-583`) |
 | Munychia; the amnesty | Munychia 403 BCE (May 403 BCE in the IEP); the amnesty sworn 403 BCE, with Xenophon mentioning the oaths only after Eleusis was retaken in 401 BCE | Xenophon, *Hellenica* 2.4; *Constitution of the Athenians* 39–40 (`gr-584`, `gr-585`) |
 
 ## Classical arts (confirmed by B62–B63, `gr-586` – `gr-600`)
