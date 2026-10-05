@@ -1170,114 +1170,114 @@ already shipped before adding it.
 
     cnh-701  Chinese Empire
     cnh-702  Emperor of China
-    cnh-703  The dynastic cycle
-    cnh-704  Imperial examination
-    cnh-705  The examination curriculum
-    cnh-706  The examination degrees
-    cnh-707  The scholar-official
-    cnh-708  The Chinese bureaucracy
-    cnh-709  Six Ministries
-    cnh-710  The censorate
-    cnh-711  The Chinese county magistrate
-    cnh-712  Yamen
-    cnh-713  Chinese legal codes
-    cnh-714  Punishment in imperial China
-    cnh-715  Chinese household registration
-    cnh-716  Taxation in imperial China
-    cnh-717  Corvée labour in China
-    cnh-718  The Chinese state monopolies
-    cnh-719  The Chinese granary system
-    cnh-720  Chinese armies through the dynasties
-    cnh-721  Chinese military organisation
-    cnh-722  Great Wall of China
-    cnh-723  Chinese frontier defence
-    cnh-724  Tributary system of China
-    cnh-725  The kowtow and Chinese diplomacy
-    cnh-726  Chinese cartography
-    cnh-727  The Chinese imperial capital as an idea
-    cnh-728  Chinese palace architecture and the court
-    cnh-729  Chinese court ritual
-    cnh-730  Eunuchs in China
-    cnh-731  The imperial harem and the inner court
-    cnh-732  Imperial succession in China
-    cnh-733  Regencies and empress dowagers
-    cnh-734  Rebellion in Chinese history
-    cnh-735  Chinese secret societies
-    cnh-736  Chinese historiography
+    cnh-703  dynastic cycle
+    cnh-704  Jiangnan Examination Hall
+    cnh-705  eight-legged essay
+    cnh-706  juren
+    cnh-707  rule of avoidance
+    cnh-708  palace memorial
+    cnh-709  Ministry of Rites
+    cnh-710  Censorate
+    cnh-711  county magistrate
+    cnh-712  yamen
+    cnh-713  Great Qing Legal Code
+    cnh-714  Five Punishments
+    cnh-715  Yellow Registers
+    cnh-716  lijin
+    cnh-717  corvée
+    cnh-718  kaizhong system
+    cnh-719  ever-normal granary
+    cnh-720  weisuo system
+    cnh-721  Green Standard Army
+    cnh-722  Shanhai Pass
+    cnh-723  Nine Border Garrisons
+    cnh-724  Siyi Guan
+    cnh-725  kowtow
+    cnh-726  Yu ji tu
+    cnh-727  Kaogong ji
+    cnh-728  Hall of Mental Cultivation
+    cnh-729  Temple of Agriculture
+    cnh-730  Eastern Depot
+    cnh-731  Imperial Household Department
+    cnh-732  secret succession
+    cnh-733  Empress Dowager Feng
+    cnh-734  Dazexiang uprising
+    cnh-735  Tiandihui
+    cnh-736  Shitong
     cnh-737  Twenty-Four Histories
-    cnh-738  The standard history as a genre
-    cnh-739  The Chinese archive and the loss of records
-    cnh-740  Writing Chinese history today
+    cnh-738  annals-biography form
+    cnh-739  Eight Thousand Sacks incident
+    cnh-740  Qing History Project
 
 ### Society and everyday life — `cn-society`
 
-    cnh-741  Chinese society
-    cnh-742  The Chinese family
-    cnh-743  Filial piety
-    cnh-744  Chinese lineage organisation
-    cnh-745  The Chinese gentry
-    cnh-746  The Chinese peasantry
-    cnh-747  Merchants in Chinese society
-    cnh-748  Chinese artisans and guilds
-    cnh-749  Bondservitude in China
-    cnh-750  Women in Chinese history
-    cnh-751  Marriage in China
-    cnh-752  Concubinage in China
-    cnh-753  Foot binding
-    cnh-754  Childhood and schooling in China
-    cnh-755  Chinese kinship terms
-    cnh-756  Chinese funerary practice
-    cnh-757  Chinese ancestral halls
-    cnh-758  Chinese festivals
+    cnh-741  four occupations
+    cnh-742  household division
+    cnh-743  filial piety
+    cnh-744  charitable estate
+    cnh-745  gentry
+    cnh-746  one field, two masters
+    cnh-747  Shanxi merchants
+    cnh-748  huiguan
+    cnh-749  booi
+    cnh-750  widow chastity
+    cnh-751  Marriage Law of 1950
+    cnh-752  concubinage in China
+    cnh-753  foot binding
+    cnh-754  Three Character Classic
+    cnh-755  Chinese kinship
+    cnh-756  five grades of mourning
+    cnh-757  Chen Clan Ancestral Hall
+    cnh-758  Dragon Boat Festival
     cnh-759  Chinese New Year
     cnh-760  Chinese calendar
-    cnh-761  Chinese cuisine
-    cnh-762  Rice and wheat in Chinese life
-    cnh-763  Tea in China
-    cnh-764  Chinese alcohol and drinking customs
-    cnh-765  Chinese clothing
-    cnh-766  The Chinese courtyard house
-    cnh-767  Chinese city walls
-    cnh-768  Chinese markets and street life
-    cnh-769  Chinese games and pastimes
-    cnh-770  Chinese martial arts
-    cnh-771  Chinese population history
-    cnh-772  Migration within China
+    cnh-761  Suiyuan shidan
+    cnh-762  Champa rice
+    cnh-763  Classic of Tea
+    cnh-764  baijiu
+    cnh-765  mandarin square
+    cnh-766  siheyuan
+    cnh-767  Nanjing City Wall
+    cnh-768  ward-and-market system
+    cnh-769  xiangqi
+    cnh-770  tai chi
+    cnh-771  1953 Chinese census
+    cnh-772  Huguang fills Sichuan
 
 ### The peoples and frontiers of China — `cn-peoples`
 
-    cnh-773  The peoples of China
+    cnh-773  Ethnic Classification Project
     cnh-774  Han Chinese
     cnh-775  Hua–Yi distinction
-    cnh-776  Sinicisation
-    cnh-777  The steppe frontier
-    cnh-778  Nomads and settled China
-    cnh-779  The Xiongnu and their successors
-    cnh-780  Turkic peoples and China
-    cnh-781  The Mongols and China
+    cnh-776  sinicisation
+    cnh-777  Ordos Loop
+    cnh-778  jimi system
+    cnh-779  Rouran Khaganate
+    cnh-780  Shatuo
+    cnh-781  Altan Khan
     cnh-782  Manchu people
-    cnh-783  Tibet and China
+    cnh-783  Golden Urn
     cnh-784  Tibetan people
-    cnh-785  Xinjiang
+    cnh-785  Xinjiang Production and Construction Corps
     cnh-786  Uyghurs
     cnh-787  Hui people
-    cnh-788  Islam in China
-    cnh-789  The peoples of the southwest
-    cnh-790  Miao and Yao peoples
+    cnh-788  Great Mosque of Xi'an
+    cnh-789  Dian kingdom
+    cnh-790  Miao people
     cnh-791  Zhuang people
     cnh-792  Yi people
-    cnh-793  The southward expansion of Han settlement
-    cnh-794  Tusi
-    cnh-795  Manchuria as a frontier
-    cnh-796  Mongolia and China
-    cnh-797  Korea and China
-    cnh-798  Vietnam and China
-    cnh-799  Japan and China
-    cnh-800  Nationality policy in the People's Republic
+    cnh-793  Baiyue
+    cnh-794  tusi
+    cnh-795  Willow Palisade
+    cnh-796  Lifan Yuan
+    cnh-797  yeonhaengsa
+    cnh-798  Ming–Hồ War
+    cnh-799  King of Na gold seal
+    cnh-800  regional ethnic autonomy
 
 ### Land, trade and money — `cn-economy`
 
-    cnh-801  The economic history of China
+    cnh-801  Song economic revolution
     cnh-802  Chinese agriculture
     cnh-803  Rice cultivation in China
     cnh-804  Chinese irrigation and water control
