@@ -1192,6 +1192,10 @@ body.night .game-tile{ --gt-gold:#D8B355; }
   76%{transform:translateY(-2px) rotate(-3deg);}
   86%{transform:translateY(-1px) rotate(3deg);}
 }
+/* THE TABLET'S AND THE PHONE'S RAIL (Oct 2026, on request — see sweepRowHTML). Desktop-first: the rail is
+   not drawn here at all and the miniature is; the two breakpoint blocks by `.games-sec` further down swap them,
+   dress `.sweep-row` as a card on a tablet and strip it back to a bare row on a phone. */
+.sweep-rail{display:none;}
 
 /* ---------- home: how-it-works strip — REMOVED (Aug 2026, on request) ----------
    `.howit` / `.hi-step` / `.hi-num` / `.hi-body` were the three-beat first-run strip under the review
@@ -2626,6 +2630,9 @@ body.grading .stage{padding-bottom:150px;}
 .placard .sc-next .review-group{display:block;}
 .placard .sc-next .active-deck.sc-next-row{cursor:pointer; margin:0; border-top:1px solid var(--rule); border-radius:12px;}
 .placard .sc-next .active-deck.sc-next-row:hover{border-color:var(--indigo);}
+/* every unfinished row is offered, not the next alone (Oct 2026, on request) — stacked with a little air, each
+   its own block rather than a list's touching rows */
+.placard .sc-next .active-deck.sc-next-row + .active-deck.sc-next-row{margin-top:8px;}
 /* no chevron column on a row standing alone — the gap exists to line a list's bars up, and here it only took
    width from the title on a phone */
 .placard .sc-next .active-deck.sc-next-row > .dk-chev-gap{display:none;}
@@ -10136,7 +10143,8 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 /* the middle column is the flexible one (Oct 2026, on request: the gap after the number was too wide) — with
    `auto auto 1fr` the week of dots spanning the first two columns stretched the number's column to fit */
 /* ONE ROW (Oct 2026, on request, with the ribbon cut to the current week): the count and its label, then the
-   week and its chest, each centred on the box's height, and Longest over the note filling the right */
+   week and its chest, each centred on the box's height, and Longest over the note filling the right — from
+   768px up; narrower, the two-row layout (further down) takes over */
 .streak-ribbon{display:grid; grid-template-columns:auto auto auto 1fr; grid-template-rows:auto auto; align-items:center; gap:4px 10px;}
 .streak-ribbon > .sr-n{grid-column:1; grid-row:1 / 3;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1 / 3;}
 .streak-ribbon > .sr-days{grid-column:3; grid-row:1 / 3; margin-left:12px;}
@@ -10161,24 +10169,70 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
    empty space … grow the coloured boxes and the chest to fill as much of this empty space as possible"). The
    week's column is the flexible one and Longest-over-the-note takes only what it needs at the right; each day
    is a square that grows with the room it is given, up to 48px, and the chest grows with it, so the ribbon
-   stays about as tall as its two-line note. A phone keeps its 12px days (its own block, below). */
-@media (min-width:641px){
+   stays about as tall as its two-line note. A phone keeps its 12px days (its own block, below).
+   THE NOTE WRAPS (Oct 2026, on request, with a tablet screenshot: the chest sat on top of the sentence). An
+   `auto` column is sized to its content's one-line width before the flexible column gets anything, so the
+   note's ~315px came off the top at every width and the week was left less than its minimum: the chest spilt
+   out of its column across the note on a tablet, and even at the page's 800px cap the days stood at their 14px
+   floor with nothing to grow into. Capped at 32ch the note takes two lines, under Longest, and the week is
+   given the rest. The days' margins and gaps are a little tighter for the same reason, so the week's minimum
+   fits beside a two-line note at 768px (the narrowest tablet). From 641 to 767px — a phone on its side — the
+   phone's two-row layout is kept (below), since one row cannot hold a week and a sentence at that width. */
+@media (min-width:768px){
   .streak-ribbon{grid-template-columns:auto auto minmax(0, 1fr) auto;}
   .streak-ribbon > .sr-days{min-width:0;}
-  .sr-wk{flex:1 1 auto; gap:8px; max-width:100%;}
+  .streak-ribbon > .sr-note{max-width:32ch;}
+  .sr-wk{flex:1 1 auto; gap:6px; max-width:100%;}
   /* smaller than the slot it sits in (Oct 2026, on request, twice: "make the green squares a little smaller
-     but keep them in their current places") — the 7px margins give back what the square gave up, so each day
+     but keep them in their current places") — the margins give back what the square gave up, so each day
      keeps its centre and the week keeps its spread */
-  .sr-wk i{flex:1 1 14px; min-width:14px; max-width:34px; width:auto; height:auto; aspect-ratio:1 / 1; border-radius:7px; margin:0 7px;}
+  .sr-wk i{flex:1 1 14px; min-width:14px; max-width:34px; width:auto; height:auto; aspect-ratio:1 / 1; border-radius:7px; margin:0 5px;}
   .sr-wk i.t{border-width:3px;}
   /* …and air to the chest's right (Oct 2026, on request), between it and Longest */
-  .sr-chest{flex:1.6 1 22px; min-width:30px; max-width:76px; width:auto; margin:0 20px 0 8px;}
+  .sr-chest{flex:1.6 1 22px; min-width:30px; max-width:76px; width:auto; margin:0 16px 0 6px;}
   /* the chest is drawn in the lower part of its own viewBox (its lid's arc starts a sixth of the way down and
      its box ends near the foot), so a centred box is a chest sitting low — nudged up by that difference */
   .sr-chest .chest-svg{transform:translateY(-5%);}
 }
+/* the two-row layout, for a phone and for a phone on its side (641–767px): the count, label and Longest on top,
+   the week under them and the note at its right — the phone's own block below adds its smaller days and padding */
+@media (max-width:767px){
+  .streak-ribbon{grid-template-columns:auto 1fr fit-content(40%); gap:8px 8px;}
+  .streak-ribbon > .sr-n{grid-column:1; grid-row:1;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1;}
+  .streak-ribbon > .sr-best{grid-column:3; grid-row:1; align-self:center;}
+  .streak-ribbon > .sr-days{grid-column:1 / 3; grid-row:2; margin-left:0;}
+  .streak-ribbon > .sr-note, .streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-column:3; grid-row:2; align-self:center;}
+}
 @media (max-width:1024px){
   .games-sec .game-grid{grid-template-columns:repeat(2, 1fr);}
+  /* THE GLYPH RAIL (Oct 2026, on request; design T4 of docs/mockups/chest-meter-designs). The tiles are two to a
+     row from here down, so the 3×3 miniature stops being a picture of them and the chest meter becomes a strip of
+     its own under the heading: the count in words, nine discs in DAILY_GAMES order wearing each game's glyph — lit
+     in the tile's own hue once played, the seal's gold when perfect — joined by a line that turns green between
+     two played neighbours, and the chest capping the right end. The row is a card like the tiles beneath it. */
+  .games-sec .games-top{gap:10px 12px;}
+  .games-sec .sweep-meter{display:none;}
+  .games-sec .sweep-row{
+    flex:1 1 100%; justify-content:flex-start; gap:12px; padding:10px 14px;
+    border:1px solid var(--rule); border-radius:12px; background:var(--card); box-shadow:var(--shadow-sm);
+  }
+  .games-sec .sweep-rail{display:flex; align-items:center; flex:1 1 auto; min-width:0; gap:16px;}
+  .games-sec .sr-count{font-size:calc(12px * var(--fs)); white-space:nowrap;}
+  .games-sec .sr-steps{flex:1 1 auto; display:flex; align-items:center; min-width:0;}
+  .games-sec .sr-step{
+    display:grid; place-items:center; flex:none; width:calc(30px * var(--fs)); height:calc(30px * var(--fs)); border-radius:50%;
+    border:1.5px solid var(--rule); color:var(--ink-faint); background:var(--card);
+    transition:background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+  }
+  .games-sec .sr-step svg{width:calc(15px * var(--fs)); height:calc(15px * var(--fs)); display:block;}
+  .games-sec .sr-step.on{border-color:var(--c); background:color-mix(in srgb, var(--c) 16%, var(--card)); color:var(--c);}
+  /* gold is the seal's pair of stops, as on the desktop's pips (`.sw-chip.won`) */
+  .games-sec .sr-step.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47; border-color:#BE9829; color:#fff;}
+  body.night .games-sec .sr-step.won{color:var(--paper);}
+  .games-sec .sr-link{flex:1 1 8px; min-width:6px; height:2px; background:var(--rule); transition:background .25s var(--ease);}
+  .games-sec .sr-link.on{background:var(--good, #4F9D67);}
+  .games-sec .sweep-chest{width:calc(40px * var(--fs)); height:calc(34px * var(--fs));}
+  .games-sec .sweep-chest .lock-svg{background:var(--card);}   /* the lock's disc sits on the card now, not the paper */
 }
 /* A TABLET DRAWS NO FANNED PREVIEW (Oct 2026, on request: "remove the card preview from the daily study banner
    on tablet format and reorganise the remaining contents accordingly"). It had gone from a narrow tablet, come
@@ -10209,13 +10263,8 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .page .rv-banner .stat.st-est{grid-column:1 / -1; justify-self:stretch; margin-top:12px; padding:10px 0 0; border-left:0; border-top:1px solid rgba(255,255,255,.18);}
   .streak-ribbon{padding:12px 14px;}
   .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
-  /* a phone keeps its two-row layout (Oct 2026, on request: "don't apply the streak changes to mobile"):
-     the count, label and Longest on top, the week under them and the note at its right */
-  .streak-ribbon{grid-template-columns:auto 1fr fit-content(40%); gap:8px 8px;}
-  .streak-ribbon > .sr-n{grid-column:1; grid-row:1;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1;}
-  .streak-ribbon > .sr-best{grid-column:3; grid-row:1; align-self:center;}
-  .streak-ribbon > .sr-days{grid-column:1 / 3; grid-row:2; margin-left:0;}
-  .streak-ribbon > .sr-note, .streak-ribbon:not(:has(> .sr-best)) > .sr-note{grid-column:3; grid-row:2; align-self:center;}
+  /* a phone keeps its two-row layout (Oct 2026, on request: "don't apply the streak changes to mobile") — the
+     grid itself is in the max-width:767px block above, shared with a phone on its side */
   .review-group .active-deck{padding-right:12px; gap:10px;}
   .review-group .active-deck .dk-counts{grid-template-columns:repeat(3, 28px);}
   .review-group .active-deck .dkc{height:26px; font-size:calc(12px * var(--fs));}
@@ -10231,6 +10280,27 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   /* an unfolded collection and its subdecks are one tight block here as at every width — the `dk-att` rules
      by `.review-group .active-decks` (Oct 2026, on request: "this should also be the case on desktop and tablet") */
   .games-sec .game-grid{grid-template-columns:1fr;}
+  /* THE FULL-WIDTH RAIL (Oct 2026, on request; design P4 of docs/mockups/chest-meter-designs). A phone has no room
+     for nine glyph discs, so the tablet's rail sheds its card and its glyphs: the same nine steps become plain
+     segments stretched across the row under the heading, the count at the left and the chest capping the right. */
+  .games-sec .sweep-row{padding:0; border:0; border-radius:0; background:none; box-shadow:none; gap:10px;}
+  .games-sec .sweep-rail{gap:10px;}
+  .games-sec .sr-count{font-size:calc(11.5px * var(--fs));}
+  .games-sec .sr-steps{gap:3px;}
+  .games-sec .sr-step{flex:1 1 0; width:auto; height:calc(6px * var(--fs)); border-radius:99px; border:0; background:var(--rule);}
+  .games-sec .sr-step:first-child{border-radius:99px 3px 3px 99px;}
+  .games-sec .sr-step:last-child{border-radius:3px 99px 99px 3px;}
+  .games-sec .sr-step svg{display:none;}
+  .games-sec .sr-step.on{background:var(--good, #4F9D67);}
+  .games-sec .sr-step.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47;}
+  .games-sec .sr-link{display:none;}
+  .games-sec .sweep-chest{width:calc(34px * var(--fs)); height:calc(28px * var(--fs));}
+  .games-sec .sweep-chest .lock-svg{background:var(--paper);}
+  /* PLAYED AND PERFECT ARE ONE WIDTH ON A PHONE (Oct 2026, on request: "ensure on mobile that the Perfect and
+     Played chips are horizontally aligned"). The tiles stand in one column here, so the pills sit in one column
+     too, and two words of different length gave them a ragged left edge. The width is in the pill's own em so it
+     follows the reader's text size: "Perfect" with its star measures 8.25em, so 8.4em holds either word. */
+  .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{min-width:8.4em; justify-content:center;}
   .home-two{grid-template-columns:1fr;}
   .home-foot{justify-content:center; text-align:center;}
   .home-foot .home-about{text-align:center;}

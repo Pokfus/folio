@@ -410,8 +410,8 @@ clock in the study bar). Folio budgets a session in CARDS, which is the unit it 
 unit a commute is measured in. **It is checked at the GRADE, never on the tick**: a session that
 closed itself while the reader was reading an answer would be a feature that takes work away. Session
 -scoped and not in `S`, and it rides in the `STUDY_KEY` record so a reload keeps it.
-· **RECALL IN FULL** (`deckRecall` / `setDeckRecall` / `.freerecall` / `.fr-said`), a POLICY beside
-`deckAttempt` in `DECK_OPT_INHERIT` with a global default in Settings, off by default. A cloze blank
+· **RECALL IN FULL** (`deckRecall` / `.freerecall` / `.fr-said`), the Settings page's switch, one for every
+deck — it was a POLICY beside `deckAttempt` in `DECK_OPT_INHERIT` until Oct 2026 (on request) — off by default. A cloze blank
 sits inside a sentence that has already narrowed the answer to one word; free recall is the harder
 retrieval and the one an exam asks for. **WHAT IS WRITTEN IS SHOWN BESIDE THE ANSWER AND THEN THROWN
 AWAY** — a matcher over free prose would mark a right answer wrong, which is the one failure that

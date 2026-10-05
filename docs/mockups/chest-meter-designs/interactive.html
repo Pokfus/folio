@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0">
+<title>Chest Indicator Designs</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: a control bar on top (device · theme · the day's nine), then the six designs for the chosen device,
+   each drawn inside a device-wide frame forced to light or night and scaled to fit. Page chrome follows the
+   viewer's theme; the frames carry Folio's own palette. */
+:root{
+  --bg:#F2F0F7; --fg:#1D1B29; --fg-2:#69657E; --line:#D8D4E6; --panel:#FBFAFE; --acc:#45549C; --acc-wash:#E9ECFA;
+  --display:"Lora", Georgia, serif; --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace; --sans:"Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#15131F; --fg:#EFEDFA; --fg-2:#9A95B4; --line:#2E2A42; --panel:#1E1B2E; --acc:#A6B4F0; --acc-wash:#23223A; color-scheme:dark; } }
+:root[data-theme="dark"]{ --bg:#15131F; --fg:#EFEDFA; --fg-2:#9A95B4; --line:#2E2A42; --panel:#1E1B2E; --acc:#A6B4F0; --acc-wash:#23223A; color-scheme:dark; }
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:15px; line-height:1.45; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding-block:22px 60px; padding-inline:16px;}
+h1{font-family:var(--display); font-weight:600; font-size:clamp(22px,3vw,30px); letter-spacing:-.01em; margin:0 0 4px; text-wrap:balance;}
+.lede{margin:0 0 18px; color:var(--fg-2); max-width:68ch;}
+.lede b{color:var(--fg); font-weight:600;}
+/* controls */
+.bar{position:static; z-index:5; display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; padding:12px 14px; margin:0 0 22px; background:var(--panel); border:1px solid var(--line); border-radius:14px; box-shadow:0 6px 24px rgba(29,27,41,.08);}
+@media (min-width:700px){ .bar{position:sticky; top:env(safe-area-inset-top, 0px);} }
+.grp{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.grp > span{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-2); font-weight:600;}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:2px; background:var(--bg);}
+.seg button{appearance:none; border:0; background:none; color:var(--fg-2); font:600 13px var(--sans); padding:5px 12px; border-radius:999px; cursor:pointer;}
+.seg button[aria-pressed="true"]{background:var(--acc); color:var(--panel);}
+.seg button:focus-visible, .gchip:focus-visible, .lnk:focus-visible{outline:2px solid var(--acc); outline-offset:2px;}
+.nine{display:flex; gap:6px; flex-wrap:wrap;}
+.gchip{appearance:none; display:inline-flex; align-items:center; gap:6px; border:1.5px solid var(--line); border-radius:999px; background:var(--bg); color:var(--fg-2); font:600 12px var(--sans); padding:4px 10px 4px 6px; cursor:pointer; --c:#888;}
+.gchip svg{width:14px; height:14px; color:var(--c);}
+.gchip i{font-style:normal; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; opacity:.7;}
+.gchip.done{border-color:var(--c); background:color-mix(in srgb, var(--c) 14%, var(--bg)); color:var(--fg);}
+.gchip.won{border-color:#BE9829; background:linear-gradient(100deg, #E5C765, #BE9829); color:#1D1B29;} .gchip.won svg{color:#1D1B29;}
+.lnk{appearance:none; border:0; background:none; color:var(--acc); font:600 13px var(--sans); cursor:pointer; padding:4px 6px; text-decoration:underline; text-underline-offset:3px;}
+.hint{font-size:12.5px; color:var(--fg-2); flex-basis:100%;}
+/* a design */
+.design{margin:0 0 30px;}
+.dh{display:grid; grid-template-columns:auto 1fr; gap:2px 12px; align-items:baseline; margin:0 0 10px;}
+.dh b{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--acc); font-weight:600;}
+.dh h2{margin:0; font-family:var(--display); font-weight:600; font-size:18px;}
+.dh p{grid-column:2; margin:0; font-size:13.5px; color:var(--fg-2); max-width:78ch;}
+.frames{display:grid; gap:14px; grid-template-columns:1fr;}
+.frames.both{grid-template-columns:repeat(auto-fit, minmax(min(100%, 420px), 1fr));}
+.fit{position:relative; overflow:hidden; border-radius:14px; border:1px solid var(--line); min-width:0;}
+.frame{transform-origin:0 0; padding:18px 24px 6px; }
+.frame.tablet{width:834px;} .frame.phone{width:390px;}
+/* ===== Folio tokens, forced per frame ===== */
+.frame{--paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF; --ink:#1D1B29; --ink-soft:#514D68; --ink-faint:#918CA8; --ink-quiet:#69657E; --rule:#DEDAEE;
+  --good:#4E9B7E; --gold:#C08A2E; --gold-a:#E5C765; --gold-b:#BE9829; --shadow-sm:0 1px 2px rgba(29,27,41,.05);
+  background:var(--paper); color:var(--ink); font-family:var(--sans); color-scheme:light;}
+.frame.night{--paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C; --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-faint:#827CA0; --ink-quiet:#8C87A8; --rule:#302C48;
+  --good:#75C6A4; --gold:#E6C765; --gold-a:#F0D98A; --gold-b:#D2AE47; --shadow-sm:none; color-scheme:dark;}
+/* the games section as it ships */
+.games-sec{display:flex; flex-direction:column; gap:10px;} .ind{display:flex; flex-direction:column; gap:10px; padding:6px 0;}
+.games-top{display:flex; justify-content:space-between; align-items:center; gap:8px 12px; flex-wrap:wrap;}
+.games-head{margin:0; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; font-weight:600; color:var(--ink-quiet);}
+.game-grid{display:grid; gap:10px; grid-template-columns:repeat(2,1fr);} .phone .game-grid{grid-template-columns:1fr;}
+.game-tile{display:flex; align-items:center; gap:12px; padding:10px 12px 10px 10px; border-radius:12px; background:var(--card); border:1px solid var(--rule); border-left:4px solid var(--tile); box-shadow:var(--shadow-sm); color:var(--ink);}
+.game-tile.done, .game-tile.won{background:color-mix(in srgb, var(--tile) 9%, var(--card));}
+.gt-glyph{display:grid; place-content:center; width:40px; height:40px; border-radius:50%; background:color-mix(in srgb, var(--tile) 18%, var(--card)); color:var(--tile); flex:none;} .gt-glyph svg{width:22px; height:22px;}
+.game-tile.done .gt-glyph, .game-tile.won .gt-glyph{background:var(--tile); color:#fff;} .night .game-tile.done .gt-glyph, .night .game-tile.won .gt-glyph{color:var(--paper);}
+.gt-title{flex:1; font-size:15px; font-weight:600; min-width:0;}
+.pill{display:inline-flex; align-items:center; gap:5px; padding:4px 9px 4px 7px; border-radius:999px; background:var(--tile); color:#fff; font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; line-height:1;}
+.night .pill{color:var(--paper);} .pill svg{width:12px; height:12px;}
+.fade{position:relative; max-height:118px; overflow:hidden;} .phone .fade{max-height:150px;}
+.fade::after{content:""; position:absolute; inset:auto 0 0 0; height:70px; background:linear-gradient(to bottom, transparent, var(--paper));}
+/* the chest, in its three states */
+.chest{position:relative; display:inline-flex; align-items:center; justify-content:center; flex:none; width:38px; height:32px; padding:0; background:none; border:0; color:var(--ink-faint); opacity:.5; cursor:default; transition:color .25s, opacity .25s;}
+.chest .chest-svg{width:100%; height:100%;}
+.chest .lock-svg{position:absolute; right:-2px; bottom:-1px; width:13px; height:13px; background:var(--paper); border-radius:50%; padding:1px;}
+.chest.ready{opacity:1; color:var(--gold); cursor:pointer; animation:nod 2.4s ease-in-out infinite;} .chest.claimed{opacity:.62; color:var(--good);}
+@keyframes nod{0%,68%,100%{transform:none} 76%{transform:translateY(-2px) rotate(-3deg)} 86%{transform:translateY(-1px) rotate(3deg)}}
+@media (prefers-reduced-motion: reduce){ .chest.ready{animation:none;} }
+.count{font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.04em; white-space:nowrap;} .count b{color:var(--ink); font-weight:600;}
+i.on{background:var(--good) !important;} i.won{background:linear-gradient(100deg, var(--gold-a) 0%, var(--gold-b) 100%) !important;}
+.ring .rx{stroke:var(--rule);} .ring .ro{stroke:var(--good);} .ring .rw{stroke:url(#gg);}
+/* T1 */ .t1.row{display:flex; align-items:center; gap:14px;} .t1 .meter{display:flex; align-items:center; gap:10px;} .t1 .mini{display:grid; grid-template-columns:repeat(2, auto); gap:3px;}
+.t1 .mini i{display:block; width:22px; height:4px; border-radius:99px; background:var(--rule);} .t1 .mini i:last-child{grid-column:1 / -1;}
+/* T2 */ .t2.row{display:flex; align-items:center; gap:12px;} .t2 .bar{display:flex; gap:3px;} .t2 .bar i{display:block; width:18px; height:6px; border-radius:99px; background:var(--rule);}
+.t2 .bar i:first-child{border-radius:99px 3px 3px 99px;} .t2 .bar i:last-child{border-radius:3px 99px 99px 3px;} .t2 .count{font-size:12px;}
+/* T3 */ .t3.row{display:flex; align-items:center; gap:10px;} .ringwrap{position:relative; display:grid; place-items:center;} .ringwrap .ring{position:absolute; inset:0;}
+.t3 .ringwrap{width:52px; height:52px;} .t3 .chest{width:28px; height:24px;} .t3 .chest .lock-svg{display:none;}
+.t3 .lbl{display:flex; flex-direction:column; line-height:1.15; text-align:right;} .t3 .lbl b{font-family:var(--mono); font-size:13px; font-weight:600; color:var(--ink);} .t3 .lbl span{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+/* T4 */ .t4 .rail{display:flex; align-items:center; margin:2px 0 4px; padding:10px 14px; border:1px solid var(--rule); border-radius:12px; background:var(--card); box-shadow:var(--shadow-sm);}
+.t4 .rail .count{margin-right:16px; font-size:12px;} .t4 .steps{flex:1; display:flex; align-items:center;}
+.t4 .step{display:grid; place-items:center; width:30px; height:30px; border-radius:50%; border:1.5px solid var(--rule); color:var(--ink-faint); background:var(--card); flex:none;}
+.t4 .step svg{width:15px; height:15px;} .t4 .step.done{border-color:var(--c); background:color-mix(in srgb, var(--c) 16%, var(--card)); color:var(--c);}
+.t4 .step.won{background:linear-gradient(100deg, var(--gold-a), var(--gold-b)); border-color:var(--gold-b); color:#fff;} .night .t4 .step.won{color:var(--paper);}
+.t4 .link{flex:1; height:2px; background:var(--rule); min-width:8px;} .t4 .link.on{background:var(--good);} .t4 .rail .chest{margin-left:12px; width:40px; height:34px;}
+/* T5 */ .t5.row{display:flex; align-items:center; gap:12px;} .t5 .trail{display:flex; align-items:center;}
+.t5 .dot{width:9px; height:9px; border-radius:50%; background:var(--rule); flex:none;} .t5 .dot.on{background:var(--good);} .t5 .dot.won{background:linear-gradient(135deg, var(--gold-a), var(--gold-b)); width:11px; height:11px; margin:0 -1px;}
+.t5 .seg{width:10px; height:2px; background:var(--rule);} .t5 .seg.on{background:var(--good);} .t5 .seg.dash{background:repeating-linear-gradient(90deg, var(--rule) 0 3px, transparent 3px 5px);} .t5 .seg.last{width:14px;}
+.t5 .togo{font-size:12.5px; color:var(--ink-quiet);} .t5 .togo b{color:var(--ink); font-weight:700;}
+/* T6 */ .t6.row{display:flex; align-items:center; gap:14px;} .t6 .fillchest{position:relative; width:46px; height:38px; color:var(--ink-faint);}
+.t6 .fillchest .chest-svg{position:absolute; inset:0; width:100%; height:100%;} .t6 .fillchest .liquid .chest-svg{color:var(--good); clip-path:inset(var(--lv) 0 0 0); transition:clip-path .4s;} .t6 .fillchest .liquid path{fill-opacity:.6;}
+.t6 .fillchest.ready{color:var(--gold);} .t6 .fillchest.ready .liquid .chest-svg{color:var(--gold);} .t6 .fillchest.claimed .liquid .chest-svg{color:var(--good);}
+.t6 .fillchest .lock-svg{position:absolute; right:-3px; bottom:-2px; width:14px; height:14px; background:var(--paper); border-radius:50%; padding:1px; color:var(--ink-faint);}
+.t6 .words{display:flex; flex-direction:column; line-height:1.2; text-align:right;} .t6 .words b{font-family:var(--mono); font-size:13px; font-weight:600; color:var(--ink);} .t6 .words span{font-size:12.5px; color:var(--ink-quiet);}
+.t6 .words em{font-style:normal; color:var(--gold-b); font-weight:600;} .night .t6 .words em{color:var(--gold);}
+/* P1 */ .p1.row{display:flex; align-items:center; gap:10px;} .p1 .ladder{display:grid; gap:2px;} .p1 .ladder i{display:block; width:16px; height:3px; border-radius:99px; background:var(--rule);}
+/* P2 */ .p2.row{display:flex; align-items:center; gap:9px;} .p2 .bar{display:flex; gap:2.5px;} .p2 .bar i{display:block; width:11px; height:5px; border-radius:99px; background:var(--rule);}
+.p2 .bar i:first-child{border-radius:99px 2px 2px 99px;} .p2 .bar i:last-child{border-radius:2px 99px 99px 2px;}
+/* P3 */ .p3.row{display:flex; align-items:center; gap:8px;} .p3 .ringwrap{width:40px; height:40px;} .p3 .chest{width:21px; height:18px;} .p3 .chest .lock-svg{display:none;}
+.p3 .cpill{font-family:var(--mono); font-size:11px; font-weight:600; color:var(--ink); padding:3px 8px; border-radius:999px; background:var(--paper-2); border:1px solid var(--rule);} .p3 .cpill small{font-weight:500; color:var(--ink-faint); font-size:11px;}
+/* P4 */ .p4 .rail{display:flex; align-items:center; gap:10px;} .p4 .track{flex:1; display:flex; gap:3px;} .p4 .track i{flex:1; height:6px; border-radius:99px; background:var(--rule);}
+.p4 .track i:first-child{border-radius:99px 3px 3px 99px;} .p4 .track i:last-child{border-radius:3px 99px 99px 3px;} .p4 .rail .count{font-size:11.5px;} .p4 .rail .chest{width:34px; height:28px;}
+/* P5 */ .p5.row{display:flex; align-items:center; padding:4px 6px 0 14px;} .p5 .badge{position:relative; display:inline-grid; place-items:center;} .p5 .badge .chest{width:40px; height:34px;}
+.p5 .num{position:absolute; top:-8px; left:-16px; font-family:var(--mono); font-size:10px; font-weight:600; color:#fff; background:var(--good); border-radius:999px; padding:2px 6px; line-height:1.2; box-shadow:0 0 0 2px var(--paper);} .night .p5 .num{color:var(--paper);}
+.p5 .num.gold{background:linear-gradient(100deg, var(--gold-a), var(--gold-b)); color:#1D1B29;}
+.p5 .arc{position:absolute; inset:-4px; width:auto; height:auto;}
+/* P6 */ .p6.row{display:flex; align-items:center; gap:10px;} .p6 .words{font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.02em;}
+.p6 .words b{color:var(--ink); font-weight:600;} .p6 .words em{font-style:normal; color:var(--gold-b); font-weight:600;} .night .p6 .words em{color:var(--gold);}
+.p6 .hair{position:relative; height:3px; border-radius:2px; background:var(--rule); margin:-2px 0 4px; overflow:hidden;}
+.p6 .hair i{position:absolute; left:0; top:0; bottom:0; width:var(--w); background:var(--good); border-radius:2px; transition:width .4s;}
+.p6 .hair i::after{content:""; position:absolute; right:0; top:0; bottom:0; width:var(--g); background:linear-gradient(90deg, var(--gold-a), var(--gold-b));}
+.foot{margin-top:24px; font-size:13px; color:var(--fg-2); max-width:72ch;}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E5C765"/><stop offset="1" stop-color="#BE9829"/></linearGradient></defs></svg>
+<div class="wrap">
+  <h1>The nine-games chest indicator on tablet and phone</h1>
+  <p class="lede">Six designs for each device, drawn in Folio's own tokens, marks and tile hues. <b>Tap a game below to play it, tap again for a perfect run</b>, and every design follows; play all nine and the chest unlocks. Proposals only, nothing here is shipped.</p>
+  <div class="bar">
+    <div class="grp"><span>Device</span><div class="seg" id="devSeg"><button type="button" data-v="tablet" aria-pressed="true">Tablet · 834px</button><button type="button" data-v="phone" aria-pressed="false">Phone · 390px</button></div></div>
+    <div class="grp"><span>Mode</span><div class="seg" id="modeSeg"><button type="button" data-v="light" aria-pressed="false">Light</button><button type="button" data-v="night" aria-pressed="false">Night</button><button type="button" data-v="both" aria-pressed="true">Both</button></div></div>
+    <div class="grp"><span>Today's nine</span><div class="nine" id="nine"></div><button type="button" class="lnk" id="playAll">Play all</button><button type="button" class="lnk" id="reset">Reset</button><button type="button" class="lnk" id="claim" hidden>Open the chest</button></div>
+    <div class="hint" id="hint"></div>
+  </div>
+  <div id="designs"></div>
+  <p class="foot">The chest stays a real button in every design, so its three states carry over unchanged: locked with the padlock, <b>ready</b> in gold once all nine are played (it nods, as today's does), and <b>claimed</b> in green once opened. Green is the site's completion colour and the gold is the tile seal's own pair of stops, as on the desktop's pips.</p>
+</div>
+<script>
+(function(){
+"use strict";
+const CHEST = '<svg class="chest-svg" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="M14 40V30a46 16 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 40h108v11H6z" fill="currentColor" fill-opacity=".22"/></g><g><path d="M14 51h92v35a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 51h16v17H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 60v6"/></g></svg>';
+const LOCK = '<svg class="lock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>';
+const SV = (b) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + b + '</svg>';
+const I = {
+  choices: SV('<circle cx="5" cy="6" r="2"/><line x1="10" y1="6" x2="20" y2="6"/><circle cx="5" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="10" y1="12" x2="20" y2="12"/><circle cx="5" cy="18" r="2"/><line x1="10" y1="18" x2="20" y2="18"/>'),
+  timeline: SV('<line x1="3" y1="12" x2="21" y2="12"/><circle cx="6" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="2.4" fill="currentColor" stroke="none"/>'),
+  truefalse: SV('<polyline points="2 13 6 17 11 8"/><line x1="15" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="15" y2="15"/>'),
+  whosaid: SV('<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>'),
+  findit: SV('<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>'),
+  thread: SV('<rect x="3" y="3" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/>'),
+  crossword: SV('<rect x="2" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="9" y="16" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" stroke="none"/>'),
+  picture: SV('<rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.6" cy="10" r="1.8" fill="currentColor" stroke="none"/><polyline points="21 16.5 15.4 10.9 6.2 19.5"/>'),
+  whatyear: SV('<line x1="3" y1="18" x2="21" y2="18"/><line x1="7" y1="15.2" x2="7" y2="20.8"/><line x1="12" y1="15.2" x2="12" y2="20.8"/><line x1="17" y1="15.2" x2="17" y2="20.8"/><path d="M9.3 5.9a2.9 2.9 0 0 1 5.4 1.5c0 2-2.7 2.4-2.7 4"/><line x1="12" y1="13.2" x2="12" y2="13.2"/>'),
+};
+const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"/></svg>';
+const STAR = '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.8l2.7 5.9 6.4.7-4.8 4.4 1.3 6.3L12 17l-5.6 3.1 1.3-6.3L2.9 9.4l6.4-.7z"/></svg>';
+const GAMES = [
+  { key: "challenge", name: "Multiple Choice", c: "#D9544C", g: I.choices },
+  { key: "chrono",    name: "Timeline",        c: "#4F74C2", g: I.timeline },
+  { key: "truefalse", name: "True or False",   c: "#4F9D67", g: I.truefalse },
+  { key: "whosaid",   name: "Who said it?",    c: "#8257C2", g: I.whosaid },
+  { key: "findit",    name: "Find it",         c: "#2BA6A0", g: I.findit },
+  { key: "thread",    name: "Common Thread",   c: "#DB8B3A", g: I.thread },
+  { key: "crossword", name: "Crossword",       c: "#00A4D6", g: I.crossword },
+  { key: "picture",   name: "Picture round",   c: "#CE80A8", g: I.picture },
+  { key: "whatyear",  name: "What year?",      c: "#5E8802", g: I.whatyear },
+];
+const ALL = GAMES.length;
+// state: 0 unplayed, 1 played, 2 perfect — the sample day is 5 of 9, two of them perfect
+const S = { st: [1, 2, 1, 0, 2, 1, 0, 0, 0], claimed: false, device: "tablet", mode: "both" };
+try { const s = JSON.parse(localStorage.getItem("chest-designs") || "null"); if (s && s.st && s.st.length === ALL) Object.assign(S, s); } catch (e) {}
+const save = () => { try { localStorage.setItem("chest-designs", JSON.stringify(S)); } catch (e) {} };
+const cls = (i) => S.st[i] === 2 ? "won" : S.st[i] === 1 ? "done" : "";
+const pipCls = (i) => S.st[i] === 2 ? "won" : S.st[i] === 1 ? "on" : "";
+const N = () => S.st.filter(Boolean).length, NW = () => S.st.filter(v => v === 2).length;
+const chestState = () => N() === ALL ? (S.claimed ? "claimed" : "ready") : "";
+const chestTitle = () => chestState() === "claimed" ? "Today's chest is opened — it is in your account" : chestState() === "ready" ? "Open the chest for finishing all nine today" : "Finish all nine of today's minigames to unlock a chest";
+const chest = () => { const st = chestState(); return '<button type="button" class="chest ' + st + '"' + (st === "ready" ? "" : " disabled") + ' title="' + chestTitle() + '" data-chest="1">' + CHEST + (st ? "" : '<span aria-hidden="true">' + LOCK + "</span>") + "</button>"; };
+const pips = () => GAMES.map((g, i) => '<i class="' + pipCls(i) + '" title="' + g.name + '"></i>').join("");
+const tiles = (n) => GAMES.slice(0, n).map((g, i) => '<div class="game-tile ' + cls(i) + '" style="--tile:' + g.c + '"><span class="gt-glyph">' + g.g + '</span><span class="gt-title">' + g.name + '</span>' + (S.st[i] === 2 ? '<span class="pill">' + STAR + 'Perfect</span>' : S.st[i] === 1 ? '<span class="pill">' + CHECK + 'Played</span>' : "") + "</div>").join("");
+const sec = (device, indicator, below) => '<section class="games-sec"><div class="ind"><div class="games-top"><h2 class="games-head">Minigames</h2>' + indicator + "</div>" + (below || "") + '</div><div class="fade"><div class="game-grid">' + tiles(device === "phone" ? 3 : 4) + "</div></div></section>";
+const ring = (size, r, w, extra) => {
+  const c = size / 2, gapDeg = 7, seg = 360 / ALL - gapDeg;
+  const arc = (i, k) => { const a0 = (-90 + i * 360 / ALL + gapDeg / 2) * Math.PI / 180, a1 = a0 + seg * Math.PI / 180;
+    return '<path class="' + k + '" d="M' + (c + r * Math.cos(a0)).toFixed(2) + " " + (c + r * Math.sin(a0)).toFixed(2) + " A" + r + " " + r + " 0 0 1 " + (c + r * Math.cos(a1)).toFixed(2) + " " + (c + r * Math.sin(a1)).toFixed(2) + '"/>'; };
+  return '<svg class="ring ' + (extra || "") + '" viewBox="0 0 ' + size + " " + size + '" width="' + size + '" height="' + size + '" fill="none" stroke-width="' + w + '" stroke-linecap="round" aria-hidden="true">' + GAMES.map((g, i) => arc(i, S.st[i] === 2 ? "rw" : S.st[i] ? "ro" : "rx")).join("") + "</svg>";
+};
+const count = (sep) => '<span class="count"><b>' + N() + "</b>" + (sep || "/") + ALL + "</span>";
+const lbl = (n) => n + " of " + ALL + " minigames finished today";
+const DESIGNS = {
+  tablet: [
+    ["T1", "Two-by-five miniature", "The honest mirror: pips laid out as the tablet lays out the tiles, two to a row with the ninth alone, so the lit pip is still the tile it names.",
+      () => sec("tablet", '<div class="t1 row"><div class="meter" role="img" aria-label="' + lbl(N()) + '"><div class="mini">' + pips() + "</div>" + count() + "</div>" + chest() + "</div>")],
+    ["T2", "Nine-segment bar", "One meter in reading order, left to right, top to bottom: the tile order without pretending to be the tile layout.",
+      () => sec("tablet", '<div class="t2 row"><div class="bar" role="img" aria-label="' + lbl(N()) + '">' + pips() + "</div>" + count() + chest() + "</div>")],
+    ["T3", "Ring around the chest", "Nine arcs wrap the chest itself; the count stands beside it in words.",
+      () => sec("tablet", '<div class="t3 row"><div class="lbl"><b>' + N() + " of " + ALL + '</b><span>played today</span></div><div class="ringwrap">' + ring(52, 23, 3.5) + chest() + "</div></div>")],
+    ["T4", "Glyph rail", "Uses the width a tablet has: a strip under the heading with each game's own glyph in its hue once played, gold when perfect, joined by a line that runs to the chest.",
+      () => sec("tablet", "", '<div class="t4"><div class="rail"><span class="count"><b>' + N() + "</b> of " + ALL + '</span><div class="steps">' + GAMES.map((g, i) => '<span class="step ' + cls(i) + '" style="--c:' + g.c + '" title="' + g.name + '">' + g.g + "</span>" + (i < ALL - 1 ? '<span class="link ' + (S.st[i] && S.st[i + 1] ? "on" : "") + '"></span>' : "")).join("") + "</div>" + chest() + "</div></div>")],
+    ["T5", "Trail to the chest", "Nine stations on a path, the played stretch solid and the rest dashed; the words say how many are left.",
+      () => sec("tablet", '<div class="t5 row"><span class="togo">' + (N() === ALL ? (S.claimed ? "<b>Opened</b> today" : "<b>Unlocked</b>") : "<b>" + (ALL - N()) + "</b> to go") + '</span><div class="trail" role="img" aria-label="' + lbl(N()) + '">' + GAMES.map((g, i) => '<span class="dot ' + pipCls(i) + '" title="' + g.name + '"></span><span class="seg ' + (i === ALL - 1 ? (S.st[i] ? "on last" : "last dash") : S.st[i] && S.st[i + 1] ? "on" : "dash") + '"></span>').join("") + "</div>" + chest() + "</div>")],
+    ["T6", "The chest fills", "The chest is the meter: it fills from the floor as games are played, with the figures and the perfect count beside it.",
+      () => sec("tablet", '<div class="t6 row"><div class="words"><b>' + N() + " / " + ALL + "</b><span>" + (N() === ALL ? (S.claimed ? "opened today" : "tap to open") : (ALL - N()) + " more to unlock") + (NW() ? " · <em>" + NW() + " perfect</em>" : "") + '</span></div><div class="fillchest ' + chestState() + '" role="img" aria-label="' + lbl(N()) + '" style="--lv:' + (100 - Math.round(N() / ALL * 100)) + '%">' + CHEST + '<span class="liquid">' + CHEST + "</span>" + (chestState() ? "" : LOCK) + "</div></div>")],
+  ],
+  phone: [
+    ["P1", "The ladder", "The honest mirror of a phone's single column: nine short rungs, one per tile, top to bottom.",
+      () => sec("phone", '<div class="p1 row"><div class="ladder" role="img" aria-label="' + lbl(N()) + '">' + pips() + "</div>" + count() + chest() + "</div>")],
+    ["P2", "Compact segmented bar", "The nine as one small meter on the heading row, with the figures and the chest.",
+      () => sec("phone", '<div class="p2 row"><div class="bar" role="img" aria-label="' + lbl(N()) + '">' + pips() + "</div>" + count() + chest() + "</div>")],
+    ["P3", "Ring and pill", "The arcs wrap the chest; the count is a pill beside it.",
+      () => sec("phone", '<div class="p3 row"><span class="cpill">' + N() + "<small>/" + ALL + '</small></span><div class="ringwrap">' + ring(40, 17.5, 3) + chest() + "</div></div>")],
+    ["P4", "Full-width rail", "The heading keeps its own line; under it the meter runs the whole width and the chest caps its right end.",
+      () => sec("phone", "", '<div class="p4"><div class="rail"><span class="count"><b>' + N() + "</b> of " + ALL + '</span><div class="track" role="img" aria-label="' + lbl(N()) + '">' + pips() + "</div>" + chest() + "</div></div>")],
+    ["P5", "Chest with a badge", "The smallest footprint: the chest alone, a count badge on its shoulder, a thin segmented arc round it.",
+      () => sec("phone", '<div class="p5 row"><span class="badge">' + ring(50, 22, 2.5, "arc") + chest() + '<span class="num' + (N() === ALL ? " gold" : "") + '">' + N() + "/" + ALL + "</span></span></div>")],
+    ["P6", "Words, and the rule is the meter", "The count in words on the heading row; the hairline beneath fills green with a gold tail for the perfect runs.",
+      () => sec("phone", '<div class="p6 row"><span class="words"><b>' + N() + "</b> of " + ALL + " played" + (NW() ? " · <em>" + NW() + " perfect</em>" : "") + "</span>" + chest() + "</div>", '<div class="p6"><div class="hair" role="img" aria-label="' + lbl(N()) + '" style="--w:' + (N() / ALL * 100).toFixed(1) + "%;--g:" + (N() ? (NW() / N() * 100).toFixed(1) : 0) + '%"><i></i></div></div>')],
+  ],
+};
+const $ = (s) => document.querySelector(s);
+const designsEl = $("#designs"), nineEl = $("#nine"), hintEl = $("#hint"), claimBtn = $("#claim");
+function renderNine() {
+  nineEl.innerHTML = GAMES.map((g, i) => '<button type="button" class="gchip ' + cls(i) + '" style="--c:' + g.c + '" data-i="' + i + '" aria-pressed="' + (S.st[i] ? "true" : "false") + '" title="' + (S.st[i] === 2 ? "Perfect today. Tap to clear" : S.st[i] === 1 ? "Played today. Tap for a perfect run" : "Not played. Tap to play") + '">' + g.g + g.name + (S.st[i] === 2 ? "<i>perfect</i>" : S.st[i] === 1 ? "<i>played</i>" : "") + "</button>").join("");
+  const n = N(), st = chestState();
+  hintEl.textContent = st === "claimed" ? "All nine played and the chest opened: the claimed state, as the rest of the day shows it." : st === "ready" ? "All nine played: the chest is unlocked and waiting. Tap it in any design, or use Open the chest." : n + " of " + ALL + " played" + (NW() ? ", " + NW() + " perfectly" : "") + ". " + (ALL - n) + " more to unlock the chest.";
+  claimBtn.hidden = st !== "ready";
+}
+function renderDesigns() {
+  const modes = S.mode === "both" ? ["light", "night"] : [S.mode];
+  designsEl.innerHTML = DESIGNS[S.device].map((d) => '<article class="design"><div class="dh"><b>' + d[0] + "</b><h2>" + d[1] + "</h2><p>" + d[2] + '</p></div><div class="frames ' + (S.mode === "both" ? "both" : "") + '">' +
+    modes.map((m) => '<div class="fit"><div class="frame ' + S.device + " " + m + '">' + d[3]() + "</div></div>").join("") + "</div></article>").join("");
+  fit();
+}
+function fit() {
+  document.querySelectorAll(".fit").forEach((box) => {
+    const f = box.firstElementChild, w = f.offsetWidth, k = Math.min(1, box.clientWidth / w);
+    f.style.transform = "scale(" + k + ")"; box.style.height = Math.ceil(f.offsetHeight * k) + "px";
+  });
+}
+function render() { renderNine(); renderDesigns(); save(); }
+nineEl.addEventListener("click", (e) => { const b = e.target.closest(".gchip"); if (!b) return; const i = +b.dataset.i; S.st[i] = (S.st[i] + 1) % 3; if (N() < ALL) S.claimed = false; render(); });
+$("#playAll").addEventListener("click", () => { S.st = S.st.map((v) => v || 1); render(); });
+$("#reset").addEventListener("click", () => { S.st = [1, 2, 1, 0, 2, 1, 0, 0, 0]; S.claimed = false; render(); });
+claimBtn.addEventListener("click", () => { S.claimed = true; render(); });
+designsEl.addEventListener("click", (e) => { const c = e.target.closest(".chest.ready, .fillchest.ready"); if (!c) return; S.claimed = true; render(); });
+const segs = { devSeg: "device", modeSeg: "mode" };
+Object.keys(segs).forEach((id) => $("#" + id).addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; S[segs[id]] = b.dataset.v; $("#" + id).querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b ? "true" : "false")); render(); }));
+["devSeg", "modeSeg"].forEach((id) => $("#" + id).querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x.dataset.v === S[segs[id]] ? "true" : "false")));
+let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(fit, 60); });
+render();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body></html>

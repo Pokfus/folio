@@ -4548,6 +4548,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A PERFECT MINIGAME TURNS ITS PIP GOLD** (`sweepRowHTML`, `.sw-chip.won`). The meter's nine pips said
     played-or-not where the tile above says played, won or neither, so the two disagreed about the day;
     the aria-label names how many were perfect, a colour being no answer for a reader who cannot see it.
+  · **A TABLET AND A PHONE GET A RAIL, NOT THE 3×3** (`sweepRowHTML`'s `.sweep-rail`, the two `.games-sec`
+    breakpoint blocks in `styles.css`; Oct 2026, on request, chosen from six rendered designs for each in
+    `docs/mockups/chest-meter-designs/`). The miniature mirrors the DESKTOP's three-across grid; the tiles go
+    two to a row below 1024px and one to a row below 640px, so there it mirrored nothing. The rail is ONE
+    markup rendered always and swapped by CSS — glyph discs in a card on a tablet (T4), bare segments across
+    the row on a phone (P4) — so there is still one `#sweepChest` button and one click handler; the discs
+    read their hue from `GAME_HUE`, the same map the tiles are painted from. **Keep the rail's steps in
+    `DAILY_GAMES` order and keep `.sweep-rail` display:none above 1024px**: two meters on one page is the
+    arithmetic the meter exists to make checkable, twice.
   · **THE TUTORIAL NO LONGER CALLS FOLIO A HISTORY SITE** (`TOUR_STEPS[0]`, `PAGE_META.home`, and the
     three matching strings in `index.html`, which are the static baseline a link-preview crawler reads).
     **And it no longer BLURS what it is pointing at**: `.folio-tour`'s backdrop filter dimmed the whole
@@ -4659,9 +4668,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     than a second later. **Except Ordered on Folio's own collections (Oct 2026, on request), which is FRONT TO
     BACK** — one subdeck finished before the next; community and language decks keep the robin under every order.
   · **THE COMPLETION SCREEN'S "CONTINUE WITH" IS THE NEXT ROW ON SCREEN, DRAWN AS THAT ROW** (Oct 2026, on
-    request; `adRowOrder` is rewritten by `adSyncFold` from the rows not folded away, `nextStudyRow` skips the
-    row just left, skipped rows, rows with no work and rows `adDay` marks done, and `adRowBannerHTML` draws
-    the winner with the home list's own helpers — `adCounts`, `adDay`, `adIcon`, `adProg`, `hueStyle`, now at
+    request; `adRowOrder` is rewritten by `adSyncFold` from the rows not folded away, `nextStudyRows` skips the
+    row just left, skipped rows, rows with no work and rows `adDay` marks done — and returns EVERY row left,
+    all of which the completion screen stacks (Oct 2026, on request; `nextStudyRow` is its head) — and `adRowBannerHTML` draws
+    each with the home list's own helpers — `adCounts`, `adDay`, `adIcon`, `adProg`, `hueStyle`, now at
     module level above `PAGES.home`). A deck inside a folded collection is never offered; unfold it on the home
     page and it is. The three buttons above it are an equal-column grid (`.sc-actions`).
   · **AN UNFOLDED COLLECTION IS ONE TIGHT BLOCK AT EVERY WIDTH** (Oct 2026, on request — a phone first, then

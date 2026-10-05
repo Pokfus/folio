@@ -145,7 +145,7 @@ head("5) the wiring that cannot be seen from the page");
   check("every order has a note", ["ordered", "random", "difficulty"].every((k) => new RegExp("^\\s+" + k + ":", "m").test(src.slice(src.indexOf("const DECK_ORDER_NOTE"), src.indexOf("function deckOrdersFor")))));
   check("Ordered deals Folio's own collections front to back, not round-robin",
     /function studyOrder[\s\S]{0,1400}deckOrderMode\(entryId\) === "ordered" && !ids\.some\(isCommunityCard\)\) return pair \? pairOrder\(ids\) : ids;\s*\n\s*return robinOrder/.test(src));
-  check("`attempt` is a POLICY, so it cascades", /DECK_OPT_INHERIT = \[[^\]]*"attempt"/.test(src));
+  check("`attempt` is one switch for every deck, not a per-deck policy (Oct 2026)", !/DECK_OPT_INHERIT = \[[^\]]*"attempt"/.test(src));
   check("the three new registers are in PROGRESS_FIELDS",
     /PROGRESS_FIELDS = \[[^\]]*"confused"[^\]]*"pretest"[^\]]*"orderPicked"/.test(src));
   check("the three new registers have defaults", /confused: \{\}/.test(src) && /pretest: \{\}/.test(src) && /orderPicked: \{\}/.test(src));
@@ -265,9 +265,14 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
     await page.evaluate(() => (location.hash = "")); await page.waitForTimeout(600);
     await studyDeck();
     check("it is asked ONCE, not on every session", (await page.evaluate(() => location.hash)) === "#study");
-    await page.evaluate(() => (location.hash = "")); await page.waitForTimeout(600);
-    await page.click("#b-review"); await page.waitForTimeout(700);
-    check("the pooled daily review is never interrupted by it", (await page.evaluate(() => location.hash)) === "#study");
+    /* "the pooled daily review is never interrupted by it" was asserted here by pressing the banner; the
+       banner starts nothing since Oct 2026 (on request) and no control reaches the pooled review, so the
+       sections below start their sessions from the deck's own row, past the picker if it is asked. */
+    const startStudy = async () => {
+      await page.evaluate(() => (location.hash = "")); await page.waitForTimeout(600);
+      await studyDeck();
+      if (await page.$("#opSkip")) { await page.click("#opSkip"); await page.waitForTimeout(700); }
+    };
 
     head("7) the deck pretest gives no XP");
     await seed({ active: ["wh-evolution"], cards: {}, orderPicked: {}, pretest: {} });
@@ -289,7 +294,7 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
 
     head("8) answer before revealing");
     await seed({ active: ["wh-evolution"], cards: {}, orderPicked: { "review:all": "" }, settings: Object.assign({}, await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).settings), { attemptFirst: true }) });
-    await page.click("#b-review"); await page.waitForTimeout(800);
+    await startStudy();
     check("Reveal is held back", await page.$eval("#reveal-btn", (e) => e.disabled));
     check("an escape hatch is offered beside it", !!(await page.$("#dunno-btn")));
     check("and the hint says why", /Type your answer/.test(await page.$eval("#revealHint", (e) => e.textContent)));
@@ -307,7 +312,7 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
     head("9) the confusion register, and an elaboration prompt on every card");
     await seed({ active: ["wh-evolution"], cards: {}, confused: {}, orderPicked: { "review:all": "" },
                  settings: Object.assign({}, await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).settings), { attemptFirst: false }) });
-    await page.click("#b-review"); await page.waitForTimeout(800);
+    await startStudy();
     const elab = [];
     for (let i = 0; i < 6; i++) {
       await clearOverlays();
@@ -333,7 +338,7 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
 
     head("10) the criterion, the causal strip and the explanation page");
     await seed({ active: ["wh-evolution"], cards: {}, orderPicked: { "review:all": "" } });
-    await page.click("#b-review"); await page.waitForTimeout(800);
+    await startStudy();
     await page.click("#reveal-btn"); await page.waitForTimeout(300);
     check("a card met for the first time shows no pips", (await page.$$(".crit-pip")).length === 0);
     await page.click('.grade[data-g="good"]'); await page.waitForTimeout(400);
@@ -357,7 +362,7 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
     await seed({ active: ["wh-evolution"], cards: { "wh-015": { due: Date.now() - 86400000, ivl: 5, ease: 2.5,
                    status: "review", reps: 4, lapses: 0, first: "2026-01-01", crit: ["2026-01-01", "2026-01-02"],
                    seen: 4, last: 3 } }, orderPicked: { "review:all": "" } });
-    await page.click("#b-review"); await page.waitForTimeout(800);
+    await startStudy();
     const hd = await page.evaluate(() => {
       const qh = document.querySelector(".study-card .q-head");
       if (!qh) return { none: true };
