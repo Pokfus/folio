@@ -7,7 +7,9 @@ the tile grid, and on the desktop that is honest: the lit pip in the middle of t
 the middle of the top row. A tablet lays the tiles **two to a row** (641–1024px) and a phone **one to a
 row** (≤640px), so there the 3×3 is a miniature of nothing. Six designs for each.
 
-**They are proposals, not the site.** Nothing in `app.js` or `styles.css` changed. Every design is drawn in
+**The chosen pair is T4 for tablets and P4 for phones** (Oct 2026): implemented as the `.sweep-rail` that
+`sweepRowHTML` renders beside the desktop's miniature, with the CSS in the two `.games-sec` breakpoint blocks
+choosing which is drawn. The rest are proposals. Every design is drawn in
 the real tokens (copied from the top of `styles.css`), the real fonts (`../../../fonts.css`), the real chest
 and padlock marks, the real game glyphs and tile hues, and one sample state: 5 of 9 played, 2 of them
 perfect (Timeline, Find it), chest still locked. Green is `--good` (played) and the gold is the tile seal's

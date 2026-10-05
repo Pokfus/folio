@@ -24742,6 +24742,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        THE CHEST IS A REAL BUTTON IN EVERY STATE, never a `<div>` that becomes one: it is `disabled` while
        locked, so the keyboard and the screen reader both learn it exists and is not yet available, and
        the title says what would unlock it. */
+    /* THE NINE TILE HUES, IN ONE PLACE (Oct 2026): the grid below reads them for its tiles and the
+       tablet's rail (sweepRowHTML) reads them for its glyph discs, so a re-coloured game changes in both. The
+       values and the reasoning for each are unchanged — see the tile calls in gameGrid. */
+    const GAME_HUE = { challenge: "#D9544C", chrono: "#4F74C2", truefalse: "#4F9D67", whosaid: "#8257C2", findit: "#2BA6A0", thread: "#DB8B3A", crossword: "#00A4D6", picture: "#CE80A8", whatyear: "#5E8802" };
     const sweepRowHTML = () => {
       const done = DAILY_GAMES.map(gamePlayedToday);
       /* …AND A PERFECT RUN LIGHTS ITS CHIP GOLD (Sep 2026, on request: "if the minigame is completed
@@ -24766,6 +24770,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<div class="sweep-chips">' + chips + "</div>" +
           '<span class="sweep-count"><b>' + n + "</b>/" + all + "</span>" +
         "</div>" +
+        /* A TABLET AND A PHONE GET A RAIL INSTEAD OF THE MINIATURE (Oct 2026, on request — chosen from six
+           rendered designs for each, docs/mockups/chest-meter-designs). The 3×3 above is a miniature of the
+           DESKTOP's grid; a tablet lays the tiles two to a row and a phone one to a row, so there it was a
+           miniature of nothing. The rail is one strip in DAILY_GAMES order with the chest capping its right
+           end: on a tablet (T4) nine glyph discs, each lit in its own tile's hue once played and gold when
+           perfect, joined by a line that turns green between two played neighbours; on a phone (P4) the same
+           nine as plain segments stretched across the row under the heading, the glyphs hidden. It is ONE
+           markup and the CSS decides which it is — `.sweep-rail` is display:none on the desktop and the
+           miniature is hidden below 1024px — so there is one chest button and one click handler. */
+        '<div class="sweep-rail" role="img" aria-label="' + n + " of " + all + ' minigames finished today' +
+          (nWon ? ", " + nWon + " of them perfectly" : "") + '">' +
+          '<span class="sweep-count sr-count"><b>' + n + "</b> of " + all + "</span>" +
+          '<div class="sr-steps">' + done.map((d, i) => {
+            const key = DAILY_GAMES[i], name = (GAME_NAMES[key] || [])[0] || key;
+            return '<span class="sr-step' + (d ? " on" : "") + (won[i] ? " won" : "") + '" style="--c:' + (GAME_HUE[key] || "currentColor") + '" title="' +
+              esc(name) + (won[i] ? " — a perfect run today" : d ? " — finished today" : "") + '">' + ((GAME_NAMES[key] || [])[1] || "") + "</span>" +
+              (i < all - 1 ? '<span class="sr-link' + (d && done[i + 1] ? " on" : "") + '"></span>' : "");
+          }).join("") + "</div>" +
+        "</div>" +
         '<button type="button" class="sweep-chest' + (ready ? " ready" : "") + (claimed ? " claimed" : "") + '"' +
           ' id="sweepChest" data-sweepchest="1"' + (ready ? "" : " disabled") +
           ' title="' + (claimed ? "Today's chest is opened — it is in your account"
@@ -24778,12 +24801,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "</button></div>";
     };
     const gameGrid = `<div class="game-grid">
-      ${tile({ id: "g-challenge", key: "challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge"), done: playedChallengeToday, won: wonToday.challenge })}
-      ${tile({ id: "g-chrono", key: "chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono"), done: playedChronoToday, won: wonToday.chrono })}
-      ${tile({ id: "g-truefalse", key: "truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse"), done: playedTrueFalseToday, won: wonToday.truefalse })}
-      ${tile({ id: "g-whosaid", key: "whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid"), done: playedWhoSaidToday, won: wonToday.whosaid })}
-      ${tile({ id: "g-findit", key: "findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it", sub: gameSub("findit"), done: playedFindItToday, won: wonToday.findit })}
-      ${tile({ id: "g-thread", key: "thread", cls: "g-thread", color: "#DB8B3A", glyph: ICON.thread, title: "Common Thread", sub: gameSub("thread"), done: playedThreadToday, won: wonToday.thread })}
+      ${tile({ id: "g-challenge", key: "challenge", cls: "g-challenge", color: GAME_HUE.challenge, glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge"), done: playedChallengeToday, won: wonToday.challenge })}
+      ${tile({ id: "g-chrono", key: "chrono", cls: "g-chrono", color: GAME_HUE.chrono, glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono"), done: playedChronoToday, won: wonToday.chrono })}
+      ${tile({ id: "g-truefalse", key: "truefalse", cls: "g-truefalse", color: GAME_HUE.truefalse, glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse"), done: playedTrueFalseToday, won: wonToday.truefalse })}
+      ${tile({ id: "g-whosaid", key: "whosaid", cls: "g-whosaid", color: GAME_HUE.whosaid, glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid"), done: playedWhoSaidToday, won: wonToday.whosaid })}
+      ${tile({ id: "g-findit", key: "findit", cls: "g-findit", color: GAME_HUE.findit, glyph: ICON.findit, title: "Find it", sub: gameSub("findit"), done: playedFindItToday, won: wonToday.findit })}
+      ${tile({ id: "g-thread", key: "thread", cls: "g-thread", color: GAME_HUE.thread, glyph: ICON.thread, title: "Common Thread", sub: gameSub("thread"), done: playedThreadToday, won: wonToday.thread })}
       ${/* THE THREE ADDED IN AUG 2026 FILL THE GRID'S THIRD ROW, and their colours are MEASURED rather
             than picked: swept over the RGB cube inside the six shipped tiles' own lightness and chroma band
             (L 48–63, C 36–58) and held to no worse a white-on-fill contrast than the weakest of them, each
@@ -24820,9 +24843,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             plainly apart from Crossword's cyan and Picture round's pink, which is the whole test.
             THE RULE FOR THE NEXT TILE: sweep for the shortlist, then RENDER it beside its neighbours in
             the unplayed state before believing the winner. */""}
-      ${tile({ id: "g-crossword", key: "crossword", cls: "g-crossword", color: "#00A4D6", glyph: ICON.crossword, title: "Crossword", sub: gameSub("crossword"), done: playedCrosswordToday, won: wonToday.crossword })}
-      ${tile({ id: "g-picture", key: "picture", cls: "g-picture", color: "#CE80A8", glyph: ICON.picture, title: "Picture round", sub: gameSub("picture"), done: playedPictureToday, won: wonToday.picture })}
-      ${tile({ id: "g-whatyear", key: "whatyear", cls: "g-whatyear", color: "#5E8802", glyph: ICON.whatyear, title: "What year?", sub: gameSub("whatyear"), done: playedWhatYearToday, won: wonToday.whatyear })}
+      ${tile({ id: "g-crossword", key: "crossword", cls: "g-crossword", color: GAME_HUE.crossword, glyph: ICON.crossword, title: "Crossword", sub: gameSub("crossword"), done: playedCrosswordToday, won: wonToday.crossword })}
+      ${tile({ id: "g-picture", key: "picture", cls: "g-picture", color: GAME_HUE.picture, glyph: ICON.picture, title: "Picture round", sub: gameSub("picture"), done: playedPictureToday, won: wonToday.picture })}
+      ${tile({ id: "g-whatyear", key: "whatyear", cls: "g-whatyear", color: GAME_HUE.whatyear, glyph: ICON.whatyear, title: "What year?", sub: gameSub("whatyear"), done: playedWhatYearToday, won: wonToday.whatyear })}
     </div>`;
 
     /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
