@@ -145,14 +145,16 @@ The seven bullets below are as they stood in CLAUDE.md, verbatim.
     scale with a different meaning, so a seeded card starts at the **Good initial difficulty** and lets its next few
     reviews say what it really is; a confident wrong difficulty is worse than an honest default. A card with no interval
     at all is simply new to FSRS.
-  · **PER-DECK, and the pooled review honours each card's OWN deck** (`schedModeOf` / `deckSchedCfg` / `cardEntryId` /
-    `schedCfgFor`, all below the purity marker). The mode lives in `S.deckOpts[entryId].sched`, beside the daily limits
-    and question variety and written by the same `setDeckLimits`, so it syncs and needs no field of its own and **nothing
-    migrates** — an absent key is SM-2, which is every existing deck. `cardEntryId` is what makes a card studied from the
-    pooled review, from its own row or from a deep link get the same scheduler. Being in `deckOpts` also means the choice
-    **survives Settings → Reset progress** (`deckOpts` is in `RESET_KEEPS`), which is right: the schedule is cleared and
-    every card's stability goes with it, but how the reader wants their decks scheduled is a preference, not history.
-  · **A READER'S OWN PARAMETERS ARE ACCEPTED OR REFUSED, never half-taken** (`setDeckFsrsParams`): 21 finite numbers or an
+  · **ONE SCHEDULER FOR THE WHOLE SITE since Oct 2026** (on request: "those on the settings page should apply to all
+    cards on the website ... need not be deck-specific settings"). It was PER DECK from Aug 2026 — `S.deckOpts[entryId].sched`,
+    cascading to subdecks, with the pooled review honouring each card's own deck. The mode is `S.settings.sched` now, with
+    `retention` and `fsrsParams` beside it (`setSched` / `setRetention` / `setFsrsParams`); `schedModeOf` / `deckSchedCfg` /
+    `schedCfgFor` keep their entry argument so every caller still asks the same way, and ignore it. **ONE MIGRATION, at
+    boot** (beside the `themeAuto` back-fill): a save without the key adopts the first deck found on FSRS — its retention
+    and parameters with it — and writes "sm2" otherwise, so nobody's schedule changes under them and the per-deck keys,
+    which nothing reads any more, are left in place. A card outside any deck is on the site's scheduler too (it used to
+    fall back to SM-2). Being in `settings` the choice survives Settings → Reset progress as before.
+  · **A READER'S OWN PARAMETERS ARE ACCEPTED OR REFUSED, never half-taken** (`setFsrsParams`): 21 finite numbers or an
     error naming the count, and an empty box clears them back to the defaults. Somebody who has had FSRS optimised in Anki
     should not have to lose that; Folio fits its own from the review archive (see THE FSRS OPTIMISER below).
   · **ELAPSED DAYS ARE WHOLE AND FLOORED**, which is the reference's convention (`(now - last).days`) and which Folio got
@@ -169,7 +171,8 @@ The seven bullets below are as they stood in CLAUDE.md, verbatim.
     are both credited in the About page's "Credits & sources" list, naming what Folio's schedule is modelled on and
     that it shares no code with either. The code COMMENTS in the scheduler blocks still name Anki freely — they are
     where the reasoning lives and are not user-facing.
-  · **The sheet is `openDeckSched(id)`**, reached from a deck's own long-press options ("Scheduling"). The retention box
+  · **The sheet is `openSchedSheet()`**, reached from Settings → Study ("Scheduling", whose button names the mode in force).
+    It was `openDeckSched(id)` on a deck's own long-press options until Oct 2026. The retention box
     and the parameters box are drawn only under FSRS, since neither means anything under SM-2. **`deckSheet` honours
     `[data-dmfocus]`** because of this sheet: its own `setTimeout(0)` focus ran after the caller's and left a focus ring on
     the un-chosen row beside a tick on the chosen one — a general fix, so any sheet may nominate its initial focus now.

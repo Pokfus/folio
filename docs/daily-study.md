@@ -64,8 +64,10 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
   shuffles the DECK and UDECK branches too**: those queues were never shuffled at all, so without that the
   switch would appear on a deck's sheet and do nothing — the piles are chosen first and shuffled after, so the
   setting decides presentation order and never which cards the day's allowances let through.
-  **It is chosen by HOLDING THE BANNER** (`openReviewMenu` → `openDeckMenu(REVIEW_ENTRY)`, Aug 2026, on request),
-  plus the Settings page's own "Random review order" switch. **The banner's sheet IS the deck sheet now** (Aug 2026,
+  **It was chosen by HOLDING THE BANNER** (`openReviewMenu` → `openDeckMenu(REVIEW_ENTRY)`, Aug 2026, on request)
+  until Oct 2026, when the banner lost its hold menu on request ("the daily study banner should have no long press
+  menu") — it starts no session any more, so the sheet set options nothing could use; `openReviewMenu` is kept but
+  nothing wires it. What is left is the Settings page's own "Random review order" switch. **The banner's sheet IS the deck sheet now** (Aug 2026,
   on request: "the same menu, without the delete option"): Custom study, Daily limits and Skip today above it, no
   Remove — there is nothing to take the review out OF. It was a `.review-order` pill absolutely positioned in the banner's top-right
   corner: a permanent control, in the corner of the one block on the home page that has something to say, for a
@@ -299,7 +301,10 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
     (`adFoldSet`) and still beats the default. **THE FOLD ALSO DECIDES WHAT THE COMPLETION SCREEN OFFERS NEXT**
     (Oct 2026, on request): `adSyncFold` rewrites `adRowOrder` from the rows on screen, so "Continue with" names
     the next banner the reader can see — never a deck inside a folded collection — skipping rows finished for the
-    day, and draws it as that banner (`adRowBannerHTML`) rather than as a button naming it.
+    day, and draws it as that banner (`adRowBannerHTML`) rather than as a button naming it. **Since Oct 2026 it
+    offers EVERY unfinished row, not the next alone** (on request: "every active collection that has not yet
+    been completed for that day"): `nextStudyRows` is the same walk returning all of them, stacked in the
+    list's order from the row after the one just finished; `nextStudyRow` is its head.
     **UNGROUP DISSOLVES, IT DOES NOT DELETE.** The members are freed to the level the group stood at, keeping
     the order they had inside it — losing a deck because you tidied a container away is the one outcome a
     grouping feature must never produce — and `removeActive` re-homes a container's children one level up for
@@ -767,9 +772,13 @@ taken apart, being derived from `S.active` rather than stored.
   under the language and once loose at the top of the list — with no way back out, the sheet's
   "Move out of…" row being offered on the same answer.
 
-`containerHasChildren` learned it too, so the Colour row says "Every deck inside takes this colour" rather
+`containerHasChildren` learned it too, so the Colour row said "Every deck inside takes this colour" rather
 than "This row takes this colour" — which on a language is simply true, the hue being passed down the
-list's own build.
+list's own build. **The Colour and Icon rows are gone from every sheet since Oct 2026** (on request: "in the
+Active Collections long press menus, remove the following options. Icon. Color."); a colour or icon set before
+is still stored and drawn, only the controls went. **Answer before revealing, Recall in full and Scheduling
+left the sheet the same day** (on request): each is one setting for every deck, on the Settings page —
+`deckAttempt` / `deckRecall` read `S.settings` alone and the five keys are out of `DECK_OPT_INHERIT`.
 
 ## The four allowance rows on a language, and the third level of the draw (Aug 2026, on request)
 

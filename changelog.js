@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.967", released: "2026-10-05T00:06Z" };
+window.FOLIO_VERSION = { v: "1.970", released: "2026-10-05T00:10Z" };
 
 window.CHANGELOG = [
   {
@@ -58,7 +58,7 @@ window.CHANGELOG = [
       "<b>Download all</b>: a language whose decks are all still to be fetched offers one button on its own row that downloads every deck in it at once.",
       "<b>Unfolded collections</b>: a collection's decks now attach to it as one block on desktop and tablet, as they already did on a phone.",
       "<b>Session complete</b>: Keep studying, Undo the last card and Back home now sit as three equal buttons on one line.",
-      "<b>Continue with</b>: the completion screen now shows the next banner of your active decks list as that banner, skipping anything folded away or finished for the day.",
+      "<b>Continue with</b>: the completion screen now shows every banner of your active decks list still unfinished today, as those banners, skipping anything folded away.",
       "<b>100 more Ancient Greece cards are rewritten</b>, finishing the Athenian Empire and the Peloponnesian War and starting Classical arts and thought, with more sources and new pictures.",
       "<b>A hundred more World History cards are rewritten</b>, from Persia through Greece, Rome and Ancient India to early China, with more sources and corrected dates.",
       "<b>A hundred Ancient Rome cards are rewritten</b>, in Italy before Rome, Rome under the kings and the early Republic, with more sources, corrected dates and legend told as legend.",
@@ -69,6 +69,8 @@ window.CHANGELOG = [
       "<b>Unfolded collections in dark mode</b>: the decks inside now join their collection with straight edges, as in daylight; only the collection\u2019s top and the last deck\u2019s bottom are rounded.",
       "<b>Download buttons on phones</b>: a language\u2019s Download all now sits on its own line under the name and counts, and each deck\u2019s Download moves right into the spare space.",
       "<b>Community collections</b> in your active decks are now drawn at the same height and in the same header wash as the official collections, and a deck still to be fetched no longer says \u201cnot on this device\u201d.",
+      "<b>Streak ribbon</b>: today turns green as soon as one card is studied, the sentence wraps instead of running under the chest on a tablet, and the daily study banner has no long-press menu.",
+      "<b>Deck options</b>: the Colour and Icon rows are gone from a deck\u2019s long-press menu, and Scheduling, Answer before revealing and Recall in full are now one setting each for every deck, on the Settings page.",
     ],
   },
   {

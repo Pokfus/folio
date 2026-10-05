@@ -326,8 +326,10 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   counts: a folded container once (its row counts its subtree under its own allowance), or each row under
   an open one. A context or pending row shows nothing and is walked through whatever its fold. It is read
   AFTER the list is built (the fold is seeded there) and the chevron redraws the banner's inside in place
-  (`refreshReviewBanner`, keeping the element its hold menu is wired on). The hold / right-click / context-menu-key sheet
-  stays (`wireHoldMenu`), which is why the div keeps a tab stop and a `group` role. On a phone the
+  (`refreshReviewBanner`, keeping the element the tour points at). **The hold / right-click / context-menu-key
+  sheet is gone too (Oct 2026, on request: "the daily study banner should have no long press menu")**: it opened
+  the pooled review's own options (`openReviewMenu`), which nothing can start a session with any more, so the
+  div lost its tab stop and keeps only its `group` role and label. On a phone the
   estimate is a line of its own under the three piles. **The preview is the desktop's alone (min-width 1025px)
   since Oct 2026, on request**: a tablet (641–1024px) hides it and lays the rest out for the whole width —
   the text column takes the banner, and the level bar and the four figures spread across it (the stack and
@@ -336,7 +338,12 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   grid at every width (a flex row wrapped at desktop and looked broken), drawing **the current week
   only, at every width** (Oct 2026, on request), with its **chest cell at the end**
   (`streakChestProgress`, `STREAK_CHEST_EVERY`): one row of count, week, then Longest over the note at
-  the right on a tablet and desktop; a phone keeps its two-row layout (on request). The Account page's streak box went with it (on request).
+  the right from 768px up; a phone, and a phone on its side (641–767px), keeps its two-row layout (on request). The Account page's streak box went with it (on request).
+  **The note is capped at 32ch so it wraps** (Oct 2026, on request, with a tablet screenshot): an `auto` grid
+  column is sized to its content's one-line width before the flexible week column gets anything, so the
+  sentence took ~315px off the top at every width and the chest spilt across it on a tablet. **Today's cell is
+  green the moment a card is studied** (same request): the ring marks the day still to be kept — the slot after
+  the run while `S.streak.last` is not today — and nowhere once `bumpStreak` has run.
 - **"Your collections"** is a header row (`.rv-sec-h`) with the legend and the **"+ Add decks" link**;
   it never counts cards (on request). Each row is tinted by its own progress: the `.dk-prog .track` is
   absolutely positioned under the row and is `pointer-events:none` — it sat over the drag grip and

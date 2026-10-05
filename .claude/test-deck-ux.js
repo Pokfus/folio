@@ -254,81 +254,16 @@ const deck = {
   }, DECK);
   await pg.waitForTimeout(300);
 
+  /* THE COLOUR ROW AND THE ICON ROW ARE GONE (Oct 2026, on request: "in the Active Collections long press
+     menus, remove the following options. Icon. Color."). The parity this section used to assert — a deck
+     coloured like a collection, the hue reaching its subdecks — is now parity in their absence: no row
+     offers either. The sheet is left open for the × assertions below. */
   const sheet = await pg.evaluate(() => {
     const ov = document.querySelector(".deck-menu");
     if (!ov) return null;
-    return {
-      hasColour: !!ov.querySelector(".dm-colors"),
-      swatches: ov.querySelectorAll(".dm-swatch").length,
-      note: (ov.querySelector(".dm-colors small") || {}).textContent || "",
-    };
+    return { colour: !!ov.querySelector(".dm-colors, .dm-swatch"), icon: !!ov.querySelector('[data-act="icon"]') };
   });
-  ok(sheet && sheet.hasColour, "its options sheet offers a Colour, as a collection's does", sheet);
-  ok(sheet && sheet.swatches >= 9, "…with the same palette and a default swatch", sheet && sheet.swatches);
-  ok(sheet && /inside/.test(sheet.note),
-    "…and the note promises what a deck WITH subdecks can keep", sheet && sheet.note);
-
-  const applied = await pg.evaluate(async (deckId) => {
-    const ov = document.querySelector(".deck-menu");
-    [...ov.querySelectorAll(".dm-swatch")].find((s) => s.dataset.color === "#7A8A2E").click();
-    await new Promise((r) => setTimeout(r, 300));
-    const pick = (id) => {
-      const el = [...document.querySelectorAll(".active-deck[data-drag]")]
-        .find((r) => decodeURIComponent(r.dataset.drag) === id);
-      return el ? getComputedStyle(el).getPropertyValue("--coll-bg").trim().toLowerCase() : null;
-    };
-    const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
-    return { stored: ((S.deckGroups || {})["u:" + deckId] || {}).color || "",
-             deck: pick("u:" + deckId),
-             sub1: pick("u:" + deckId + "/Level 1"), sub2: pick("u:" + deckId + "/Level 2") };
-  }, DECK);
-  ok(applied.stored.toLowerCase() === "#7a8a2e", "the colour is stored against the deck's own entry", applied);
-  ok(applied.deck === "#7a8a2e", "the deck's row takes it", applied);
-  ok(applied.sub1 === "#7a8a2e" && applied.sub2 === "#7a8a2e",
-    "…and so does every subdeck under it — the whole point of setting it on the deck", applied);
-
-  /* PARITY IS THE WHOLE REQUEST — "the same way they can with curated ones" — so the curated side is
-     asserted too. A collection is the row a colour is inherited FROM on that side, exactly as the
-     whole-deck row is on this one, and its note has to read the same. */
-  const curated = await pg.evaluate(async (collId) => {
-    const ov0 = document.querySelector(".deck-menu");
-    if (ov0) ov0.querySelector(".dm-x").click();
-    await new Promise((r) => setTimeout(r, 340));
-    const row = [...document.querySelectorAll(".active-deck[data-drag]")]
-      .find((x) => x.dataset.drag === collId);
-    if (!row) return { skipped: true };
-    row.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
-    await new Promise((r) => setTimeout(r, 260));
-    const ov = document.querySelector(".deck-menu");
-    const out = { id: row.dataset.drag, hasColour: !!ov.querySelector(".dm-colors"),
-                  note: (ov.querySelector(".dm-colors small") || {}).textContent || "" };
-    ov.querySelector(".dm-x").click();
-    await new Promise((r) => setTimeout(r, 340));
-    return out;
-  }, COLL);
-  ok(!curated.skipped, "a curated collection is on the home page to compare against", curated);
-  ok(curated.hasColour, "a curated collection is offered the same Colour row — that is the parity asked for", curated);
-  ok(/inside/.test(curated.note), "…worded the same way", curated);
-
-  // re-open the deck's own sheet for the clear-and-× assertions below
-  await pg.evaluate((deckId) => {
-    const r = [...document.querySelectorAll(".active-deck[data-drag]")]
-      .find((x) => decodeURIComponent(x.dataset.drag) === "u:" + deckId);
-    r.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
-  }, DECK);
-  await pg.waitForTimeout(280);
-
-  const cleared = await pg.evaluate(async (deckId) => {
-    const ov = document.querySelector(".deck-menu");
-    ov.querySelector(".dm-swatch-off").click();
-    await new Promise((r) => setTimeout(r, 300));
-    const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
-    const el = [...document.querySelectorAll(".active-deck[data-drag]")]
-      .find((r) => decodeURIComponent(r.dataset.drag) === "u:" + deckId);
-    return { stored: ((S.deckGroups || {})["u:" + deckId] || {}).color || "",
-             row: el ? getComputedStyle(el).getPropertyValue("--coll-bg").trim() : "?" };
-  }, DECK);
-  ok(!cleared.stored, "the default swatch clears it again", cleared);
+  ok(sheet && !sheet.colour && !sheet.icon, "its options sheet offers neither a Colour nor an Icon row", sheet);
 
   /* ---- 5. THE × ------------------------------------------------------------------------------- */
   console.log("\n=== 5. every options sheet carries a × that closes it");
@@ -387,9 +322,9 @@ const deck = {
       await new Promise((s) => setTimeout(s, 340));
       return has;
     };
-    return { limits: await open("limits"), custom: await open("custom"), sched: await open("sched") };
+    return { limits: await open("limits"), custom: await open("custom") };
   }, DECK);
-  ok(others.limits === true && others.custom === true && others.sched === true,
+  ok(others.limits === true && others.custom === true,
     "…and so does every sheet it opens onto, because deckSheet builds it", others);
 
   /* ---- 6. THE PINYIN IS SET IN A FACE THAT HAS THE THIRD TONE ----------------------------------
