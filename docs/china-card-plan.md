@@ -1296,8 +1296,8 @@ already shipped before adding it.
     cnh-817  The Chinese porcelain trade
     cnh-818  Chinese maritime trade
     cnh-819  The Chinese junk
-    cnh-820  Chinese merchant networks
-    cnh-821  Chinese banking and remittance
+    cnh-820  Ningbo merchants
+    cnh-821  Qianzhuang
     cnh-822  The Chinese salt administration
     cnh-823  Chinese mining
     cnh-824  Chinese textile production

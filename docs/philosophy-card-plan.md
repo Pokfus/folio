@@ -740,7 +740,7 @@ other's, so that rule does more work here than anywhere.
     ph-290  Ren
     ph-291  Li in Confucian thought
     ph-292  The junzi
-    ph-293  Filial piety
+    ph-293  The Five Relationships
     ph-294  The rectification of names
     ph-295  Mencius
     ph-296  Human nature is good

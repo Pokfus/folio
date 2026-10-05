@@ -1460,7 +1460,7 @@ where its findings go.
     ko-469  The Joseon household register
     ko-470  Confucian law and punishment
     ko-471  The Joseon bureaucracy
-    ko-472  The Joseon censorate
+    ko-472  Saheonbu
     ko-473  Royal lectures
     ko-474  The Veritable Records of the Joseon Dynasty
     ko-475  Historians and the record in Joseon
