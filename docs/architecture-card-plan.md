@@ -803,7 +803,7 @@ Nine decks, thirty-nine subdecks, one thousand cards.
     arch-348  Yingzao Fashi
     arch-349  The Chinese roof
     arch-350  The Chinese courtyard house
-    arch-351  Siheyuan
+    arch-351  The hutong
     arch-352  The Chinese city plan
     arch-353  Chang'an
     arch-354  The Forbidden City

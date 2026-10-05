@@ -1299,7 +1299,7 @@ safe.
     eg-807  The Egyptian scribal bureaucracy
     eg-808  The Egyptian treasury and granaries
     eg-809  Taxation in ancient Egypt
-    eg-810  The Egyptian census and the corvée
+    eg-810  The Wilbour Papyrus
     eg-811  Ancient Egyptian law
     eg-812  Egyptian courts and legal documents
     eg-813  Punishment in ancient Egypt

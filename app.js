@@ -18150,7 +18150,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       route: "home",
       title: "Nothing is scheduled until you choose it",
       body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>The " +
-        "<b>Collections</b> tab in the bar is the way to them \u2014 the top bar on a wide screen, the bar " +
+        "<b>Collections</b> tab in the bar is the way to them: the top bar on a wide screen, the bar " +
         "along the bottom on a phone.</p>",
       target: [".topbar .tab[data-route='decks']", ".tabbar .tab[data-route='decks']", ".rv-sec-h"],
     },
@@ -18472,14 +18472,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     try { window.scrollBy({ top: Math.round(r.top - want), behavior: smooth }); }
     catch (e) { window.scrollBy(0, Math.round(r.top - want)); }
   }
+  /* A TARGET BEHIND THE DOCKED CARD IS PASSED OVER FOR THE NEXT ONE IN THE LIST (Oct 2026). On a phone
+     the card sits against the foot of the screen, and so does the tab bar — FIXED, so tourReveal cannot
+     scroll it into the band above the card the way it scrolls everything else. The Collections step named
+     the tab bar's own Collections tab second and the page's Your collections header third, and on a phone
+     the tab won: a ring drawn under the card, which is something pointed at with none of it in view
+     (test-tour, "nor sits entirely behind the card"). Only a fixed target is passed over, since anything
+     in the page is scrolled clear; and if nothing in the list is clear the first visible one is kept, so a
+     step with a single target still rings it rather than nothing. */
   function tourTarget() {
     const st = TOUR_STEPS[tourAt];
     const list = typeof st.target === "function" ? st.target() : st.target;
+    const ov = tourEl, cardEl = ov && ov.querySelector(".tour-card");
+    const ovCS = ov && getComputedStyle(ov);
+    const dockTop = cardEl && ovCS.alignItems === "flex-end"
+      ? innerHeight - (parseFloat(ovCS.paddingBottom) || 0) - cardEl.offsetHeight : Infinity;
+    const fixed = (el) => { for (let n = el; n && n !== document.body; n = n.parentElement) if (getComputedStyle(n).position === "fixed") return true; return false; };
+    let first = null;
     for (const sel of list || []) {
       const el = typeof sel === "string" ? document.querySelector(sel) : sel;
-      if (el && el.isConnected && el.getBoundingClientRect().width) return el;
+      if (!(el && el.isConnected && el.getBoundingClientRect().width)) continue;
+      if (!first) first = el;
+      if (dockTop !== Infinity && el.getBoundingClientRect().top >= dockTop && fixed(el)) continue;
+      return el;
     }
-    return null;
+    return first;
   }
   /* THE HOLE AND THE BLOCKS. The hole is a rounded box over the target whose box-shadow is the scrim, so
      everything but the target is darkened; with no target the overlay's own background is the scrim, as it
