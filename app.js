@@ -5607,7 +5607,7 @@
     if (_infoBub) { _infoBub.remove(); _infoBub = null; }
     if (_infoAnchor) { _infoAnchor.setAttribute("aria-expanded", "false"); _infoAnchor = null; }
   }
-  function infoBubbleHTML(kind, id) {
+  function infoBubbleHTML(kind, id, anchor) {
     const c = cardById(id);
     if (kind === "stars") {
       const d = c ? cardDifficultyShown(c) : null;
@@ -5630,13 +5630,22 @@
         '<span class="ib-row">After ' + CRIT_DAYS + " separate days the card counts as learned: recalling something on different days is what makes it last, and the evidence says the gains level off at about three.</span>" +
         '<span class="ib-row ib-quiet">The dots do not change when the card is next due — the schedule decides that on its own.</span>';
     }
+    /* ONE DAY OF THE HOME PAGE'S WEEK (Oct 2026, on request) — the bar carries its own three figures (homeWeekHTML),
+       in the order and the words the box uses, so the bubble is the box's row for that day and nothing more. */
+    if (kind === "day" && anchor) {
+      const d = anchor.dataset, n = d.n | 0;
+      return '<span class="ib-title">' + esc(d.dl || "") + "</span>" +
+        '<span class="ib-row ib-day"><b>' + n + "</b> " + (n === 1 ? "card" : "cards") + " studied</span>" +
+        '<span class="ib-row ib-day"><b>' + esc(d.time || "0 min") + "</b> time studied</span>" +
+        '<span class="ib-row ib-day"><b>' + esc(d.recall || "\u2014") + "</b> recalled</span>";
+    }
     return "";
   }
   function openInfoBubble(anchor) {
     const same = _infoAnchor === anchor;
     closeInfoBubble();
     if (same) return;
-    const html = infoBubbleHTML(anchor.dataset.info, anchor.dataset.cid);
+    const html = infoBubbleHTML(anchor.dataset.info, anchor.dataset.cid, anchor);
     if (!html) return;
     const b = document.createElement("div");
     b.className = "info-bubble";
@@ -23440,10 +23449,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const day = { cards: 0, secs: 0, right: 0, total: 0 }, week = { cards: 0, secs: 0, right: 0, total: 0 };
     for (let d = 0; d < 7; d++) { const e = (S.reviewLog || {})[dayKey(now - d * DAY)]; if (e) { week.cards += e[0] | 0; if (d === 0) day.cards += e[0] | 0; } }
     const log = S.revlog || [], cut = now - 7 * DAY;
+    const per = {};   // each of the seven days' time and recall, for the bar's bubble (below)
     for (let i = log.length - 1; i >= 0; i--) {
       const r = revRead(log[i]); if (!r) continue; if (r.t < cut) break;
       week.secs += r.secs || 0; week.total++; if (r.correct) week.right++;
-      if (dayKey(r.t) === today) { day.secs += r.secs || 0; day.total++; if (r.correct) day.right++; }
+      const k = dayKey(r.t), pd = per[k] || (per[k] = { secs: 0, right: 0, total: 0 });
+      pd.secs += r.secs || 0; pd.total++; if (r.correct) pd.right++;
+      if (k === today) { day.secs += r.secs || 0; day.total++; if (r.correct) day.right++; }
     }
     const figs = (f) => {
       const mins = Math.round(f.secs / 60);
@@ -23456,7 +23468,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const g = figs(f);
       return '<div class="hw-stats">' +
         "<div><b>" + f.cards + "</b><span>cards studied</span></div>" +
-        "<div><b>" + esc(g.time) + "</b><span>at the desk</span></div>" +
+        "<div><b>" + esc(g.time) + "</b><span>time studied</span></div>" +   // "Time studied" (Oct 2026, on request; was "at the desk")
         '<div class="g"><b>' + g.recall + "</b><span>recalled</span></div></div>";
     };
     // the week's figures as one small line, each beside its word (Oct 2026, on request: "smaller and next to their
@@ -23473,12 +23485,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `.home-week`). The globe ornament that stood in the corner is gone. */
     const days = [];
     for (let d = 6; d >= 0; d--) {
-      const t = now - d * DAY, e = (S.reviewLog || {})[dayKey(t)];
-      days.push({ n: e ? e[0] | 0 : 0, l: new Date(t).toLocaleDateString(undefined, { weekday: "short" }).slice(0, 2), cur: d === 0 });
+      const t = now - d * DAY, k = dayKey(t), e = (S.reviewLog || {})[k], pd = per[k] || { secs: 0, right: 0, total: 0 };
+      const g = figs(pd);
+      days.push({ n: e ? e[0] | 0 : 0, l: new Date(t).toLocaleDateString(undefined, { weekday: "short" }).slice(0, 2), cur: d === 0,
+        full: d === 0 ? "Today" : new Date(t).toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "short" }),
+        time: g.time, recall: g.recall });
     }
     const max = Math.max(1, ...days.map((x) => x.n));
-    const bars = '<div class="hw-bars" role="img" aria-label="' + esc("Cards studied each day this week: " + days.map((x) => x.l + " " + x.n).join(", ")) + '">' +
-      days.map((x) => '<i class="' + (x.cur ? "cur" : x.n ? "on" : "") + '" style="height:' + Math.max(4, Math.round((x.n / max) * 100)) + '%" title="' + esc(x.l + " \u00b7 " + x.n + (x.n === 1 ? " card" : " cards")) + '"></i>').join("") + "</div>" +
+    /* EACH BAR IS PRESSABLE (Oct 2026, on request: "clicking one of those bars should pop up a tiny text bubble
+       which says the cards studied, time studied and correct rate of that particular day"). It is the stars'
+       and the dots' own bubble (openInfoBubble, `data-info="day"`), since a tooltip is the one thing a phone
+       cannot show; the day's three figures ride on the bar as data attributes, read off the same pass as the
+       week's totals, so the bubble recomputes nothing and cannot disagree with the figures under it. A
+       labelled GROUP rather than role="img", which would hide the bars inside it from a screen reader. */
+    const bars = '<div class="hw-bars" role="group" aria-label="' + esc("Cards studied each day this week: " + days.map((x) => x.l + " " + x.n).join(", ")) + '">' +
+      days.map((x) => '<i class="' + (x.cur ? "cur" : x.n ? "on" : "") + '" style="height:' + Math.max(4, Math.round((x.n / max) * 100)) + '%"' +
+        ' role="button" tabindex="0" data-info="day" data-dl="' + esc(x.full) + '" data-n="' + x.n + '" data-time="' + esc(x.time) + '" data-recall="' + esc(x.recall) + '"' +
+        ' aria-label="' + esc(x.full + ": " + x.n + (x.n === 1 ? " card" : " cards") + " studied, " + x.time + ", " + (x.recall === "\u2014" ? "no answers" : x.recall + " recalled")) + '"></i>').join("") + "</div>" +
       '<div class="hw-days" aria-hidden="true">' + days.map((x) => '<span class="' + (x.cur ? "cur" : "") + '">' + esc(x.l) + "</span>").join("") + "</div>";
     return '<div class="home-box home-week">' +
       '<div class="hw-today"><span class="hb-k">Today</span>' + stats(day) + "</div>" +

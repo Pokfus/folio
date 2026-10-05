@@ -10203,6 +10203,12 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .hw-bars i{display:block; background:var(--paper-2); border-radius:3px 3px 1px 1px; min-height:3px; border-top:2px solid var(--rule);}
 .hw-bars i.on{background:color-mix(in srgb, var(--indigo) 22%, var(--card)); border-top-color:var(--indigo);}
 .hw-bars i.cur{background:var(--indigo); border-top-color:var(--indigo);}
+/* each bar is pressable (Oct 2026, on request) and opens the stars' info bubble with that day's three figures:
+   the pointer and the focus ring come with [data-info]; a hover only deepens the bar so a press has somewhere to land */
+.hw-bars i[data-info]{border-radius:3px 3px 1px 1px; min-width:6px; transition:filter .15s var(--ease);}
+.hw-bars i[data-info]:hover{filter:brightness(.92);}
+.info-bubble .ib-day{font-variant-numeric:tabular-nums;}
+.info-bubble .ib-day + .ib-day{margin-top:3px;}
 .hw-days{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; margin-top:5px; text-align:center;}
 .hw-days span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; color:var(--ink-faint);}
 .hw-days span.cur{color:var(--indigo); font-weight:600;}

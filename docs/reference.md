@@ -4473,6 +4473,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     beside the heading, with the legend at the header's right), `.rv-foot` is no longer drawn, and the
     "studied 13m today" timer it held is a **Today section of the This week box** (`homeWeekHTML`) — the
     same three figures as the week's, over `dayKey(now)`. The "Short on time?" chips went the same day.
+    Its time figure is labelled **"Time studied"** (Oct 2026, on request; it read "at the desk"), and **EACH OF
+    THE WEEK'S SEVEN BARS IS PRESSABLE**: a press opens the stars' info bubble (`openInfoBubble`,
+    `data-info="day"`) with that day's cards, time and recall, which ride on the bar as data attributes read
+    off the same pass over `S.revlog` as the week's totals — so the bubble recomputes nothing. The bars are a
+    labelled `role="group"`, not `role="img"`, which would hide the buttons inside it from a screen reader.
   · On a phone a played minigame tile's check or seal fills its top-right quarter, sized as a FRACTION of
     the tile so it stays a quarter at every width; and the Atlas timeline runs the full width with the
     year centred, the 74px right padding it gave up having been reserving room for buttons that stop
