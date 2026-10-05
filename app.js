@@ -42355,29 +42355,60 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const limbAng = (px, py) => Math.atan2(py - cy, px - cx);
     // sweep the limb circle the SHORT way from angle `a` to `b` (the hidden side of a country
     // almost always subtends < 180°, so the shorter arc is the correct boundary).
-    function limbArc(a, b) { let d = b - a; while (d > Math.PI) d -= TAU; while (d < -Math.PI) d += TAU; ctx.arc(cx, cy, R, a, b, d < 0); }
+    function limbArc(a, b) { let d = b - a; while (d > Math.PI) d -= TAU; while (d < -Math.PI) d += TAU; (_pt || ctx).arc(cx, cy, R, a, b, d < 0); }
+    /* ---------- ONE PROJECTION OF THE COAST PER FRAME (Oct 2026, on a bug report: "The historical maps in the
+       Find It minigame are extremely laggy") ----------
+       The world coastline is ~117,000 points and a Full Atlas frame was projecting it FOUR times: once to
+       fill the land, once more as the clip for the states' washes, again as the clip for the wars', and a
+       last time to stroke the coast — the states themselves, at a few hundred points each, were never the
+       cost. So `addClipped` can now build into a `Path2D` instead of the context (`_pt`), the land fill
+       records each country's path as it is drawn and folds it into `_land`, and every later pass that
+       needs "clip to the land" takes `clipLand()`, which is the recorded path and no projection at all.
+       The fill itself is still one country at a time under the even-odd rule, as before: a single merged
+       even-odd fill would punch a hole wherever a country lies inside another with no hole ring for it
+       (the Vatican, a Uruguay river island), which the merged CLIP already does and nobody can see at a
+       clip's scale, but a hole in the land fill is ocean.
+       AND A MOVING FRAME IS THINNED: while the globe is being dragged or spun, a point that lands within
+       `THIN` of the last point drawn is not drawn (the horizon test still walks every point, so a ring
+       enters and leaves the limb exactly where it did). At the zooms a game is played at, most coast points
+       are a fraction of a pixel apart, so the frames that have to be fast carry a fraction of the segments
+       and the rasteriser's round joins; the settled frame, the one that is cached, is still exact. */
+    let _pt = null, _land = null;
+    const THIN = 0.8;   // CSS px; motion frames only
+    // confine what follows to the land: by compositing when painting into the land layer, by a clip anywhere else
+    function onLand() { if (_onLand) ctx.globalCompositeOperation = "source-atop"; else clipLand(); }
+    function clipLand() {
+      if (_land) { ctx.clip(_land, "evenodd"); return; }
+      ctx.beginPath();
+      for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
+      ctx.clip("evenodd");
+    }
     // append a lon/lat ring to the path, split at the horizon. When `arc` is set (filled land),
     // exit→entry pairs are joined along the limb circle so the fill never chords across the disk;
     // for plain polylines (graticule) the visible spans are left open.
     function addClipped(coords, arc) {
-      let started = false, pvv = 0, pvx = 0, pvy = 0, pvz = 0;
+      const g = _pt || ctx, thin = moving ? THIN : 0;
+      let started = false, pvv = 0, pvx = 0, pvy = 0, pvz = 0, lx = 0, ly = 0;
       let exitAng = null, firstAng = null;
       for (let i = 0; i < coords.length; i++) {
         proj(coords[i][0], coords[i][1]);
         const vx = P3x, vy = P3y, vz = P3z, vv = PV, sx = PX, sy = PY;
-        if (i === 0) { if (vv >= 0) { ctx.moveTo(sx, sy); started = true; } }
-        else if (pvv >= 0 && vv >= 0) { if (!started) { ctx.moveTo(ppx, ppy); started = true; } ctx.lineTo(sx, sy); }
+        if (i === 0) { if (vv >= 0) { g.moveTo(sx, sy); started = true; lx = sx; ly = sy; } }
+        else if (pvv >= 0 && vv >= 0) {
+          if (!started) { g.moveTo(ppx, ppy); started = true; lx = ppx; ly = ppy; }
+          if (sx - lx > thin || lx - sx > thin || sy - ly > thin || ly - sy > thin) { g.lineTo(sx, sy); lx = sx; ly = sy; }
+        }
         else if (pvv >= 0 && vv < 0) { // exit through the horizon
           crossing(pvx, pvy, pvz, pvv, vx, vy, vz, vv);
-          if (started) ctx.lineTo(HP.x, HP.y); else { ctx.moveTo(HP.x, HP.y); started = true; }
+          if (started) g.lineTo(HP.x, HP.y); else { g.moveTo(HP.x, HP.y); started = true; }
           if (arc) exitAng = limbAng(HP.x, HP.y);
         }
         else if (pvv < 0 && vv >= 0) { // re-entry
           crossing(pvx, pvy, pvz, pvv, vx, vy, vz, vv);
           const ea = limbAng(HP.x, HP.y);
           if (arc && exitAng !== null) limbArc(exitAng, ea);
-          else { if (arc && firstAng === null) firstAng = ea; ctx.moveTo(HP.x, HP.y); }
-          ctx.lineTo(sx, sy); started = true; exitAng = null;
+          else { if (arc && firstAng === null) firstAng = ea; g.moveTo(HP.x, HP.y); }
+          g.lineTo(sx, sy); started = true; exitAng = null; lx = sx; ly = sy;
         }
         pvv = vv; pvx = vx; pvy = vy; pvz = vz; ppx = sx; ppy = sy;
       }
@@ -42943,6 +42974,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // cached "static" globe (ocean + graticule + land + lakes + borders + rim) for the settled view,
     // so hover/select/ink redraws only blit it + overlays instead of re-stroking ~117k points
     const baseCv = document.createElement("canvas");
+    /* THE LAND IS A LAYER, SO "ON THE LAND" IS A COMPOSITE RULE RATHER THAN A CLIP (Oct 2026, the Find it lag,
+       see `clipLand`). A clip against the 100,000-vertex coast costs the rasteriser a full mask each time,
+       and a Full Atlas frame asked for two or three; measured, those clips were the largest single cost of
+       a dragged frame, larger than all the projection. So the Full Atlas now draws its land, and everything
+       that must stay on the land — a state's wash, a war's, the fronts — into `mineCv`, where
+       `globalCompositeOperation = "source-atop"` paints only where land already is, and blits the layer
+       once. The same pixels for one drawImage instead of a clip per pass. */
+    const mineCv = document.createElement("canvas");
+    let _onLand = false;   // true while renderStatic is painting into mineCv (see onLand)
     let baseKey = "", baseValid = false;
     // land compositing layer for GEO (historical, non-merger) eras — see the `_wild` branch in renderStatic. Allocated only
     // while such an era is on screen and released the moment one isn't, so the present-day map carries no extra backing.
@@ -43345,9 +43385,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!all.length) return;
       const states = all.filter((m) => m.state), areas = all.filter((m) => !m.state);
       ctx.save();
-      ctx.beginPath();
-      for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
-      ctx.clip("evenodd");
+      onLand();
       if (states.length) {
         // the fill first and every edge after it, so one state's land never paints over its neighbour's border —
         // and before both, every coast band, so a band reaching across a strait lies under the neighbour's fill
@@ -43562,9 +43600,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const k = frontKey(); if (!k) return;
       const sets = window.WW2_FRONTS.y[k]; if (!sets) return;
       ctx.save();
-      ctx.beginPath();
-      for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
-      ctx.clip("evenodd");
+      onLand();
       // [axis, axis-occupied, allied, allied-occupied]: the held ground full strength, the occupied fainter
       const look = [[TINT_LOSE, 1], [TINT_LOSE, 0.55], [TINT_WIN, 1], [TINT_WIN, 0.55]];
       for (let s = 0; s < 4; s++) {
@@ -43709,9 +43745,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const rest = list.filter((w) => w.area || w.poly);
       if (rest.length) {
         ctx.save();
-        ctx.beginPath();
-        for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
-        ctx.clip("evenodd");
+        onLand();
         for (let i = 0; i < rest.length; i++) {
           const w = rest[i], t = w.m.side === "v" ? TINT_WIN : TINT_LOSE;
           if (w.poly) {
@@ -43775,7 +43809,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ctx.save();
       // a batch-7 shape's coast is Cliopatria's: its gold is kept to the land and its line to its land borders
       const ser = shapes.some((sh) => sh.series);
-      if (ser) { ctx.save(); ctx.beginPath(); for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); } ctx.clip("evenodd"); }
+      if (ser) { ctx.save(); clipLand(); }
       ctx.beginPath();
       for (let i = 0; i < shapes.length; i++) for (let r = 0; r < shapes[i].rings.length; r++) addClipped(shapes[i].rings[r], true);
       ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill("nonzero");
@@ -44149,6 +44183,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return m._bb;
     }
     function renderStatic(bw) {
+      _land = null;   // last frame's land path is the wrong globe for this one (see clipLand)
       ctx.clearRect(0, 0, W, H);
       countryLabelRects.length = 0;   // repopulated by drawCountryNames() below if the layer is on; empty otherwise so cities don't avoid stale boxes
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fillStyle = ocean; ctx.fill();   // ocean
@@ -44171,8 +44206,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            own selection gold is spent on the one shape that has just been clicked, exactly as it is on the
            world atlas. There is no stipple and no offscreen layer here: the era branch needs both because
            it paints a pattern over the wilderness, and two flat fills need neither. */
+        // from here to the fronts the frame is painted into the land layer (see mineCv), then blitted below
+        const mainCtx = ctx;
+        if (mineCv.width !== canvas.width || mineCv.height !== canvas.height) { mineCv.width = canvas.width; mineCv.height = canvas.height; }
+        ctx = mineCv.getContext("2d");
+        ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, mineCv.width, mineCv.height); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip(); ctx.lineJoin = "round"; ctx.lineCap = "round";
+        _onLand = true;
+        try {
         ctx.lineWidth = Math.max(0.8, bw); ctx.fillStyle = landDim;
-        for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
+        // each country's path is filled as before and ALSO recorded into `_land`, the one land clip every later pass takes (see `clipLand`)
+        _land = new Path2D();
+        for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; const pp = new Path2D(); _pt = pp; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); _pt = null; ctx.fill(pp, "evenodd"); _land.addPath(pp); }
         if (!moving) { ctx.strokeStyle = landDim; for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], false); ctx.stroke(); } }   // close world.js's own seams in the LAND colour, so no country outline shows through as a hairline border
         {
           const mine0 = mineShapes();
@@ -44182,9 +44227,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const mine = mine0.filter((m) => !m.series), mser = mine0.filter((m) => m.series);
           if (mser.length) {
             ctx.save();
-            ctx.beginPath();
-            for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
-            ctx.clip("evenodd");
+            onLand();
             // the coast bands FIRST and the fills over them, so a band that reaches across a strait onto a
             // neighbour's shore is covered by that neighbour's own fill wherever it is drawn (see `stepEdges`)
             for (let i = 0; i < mser.length; i++) snapBand(mser[i].coasts, land);
@@ -44231,6 +44274,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         drawMineAreas(bw);
         drawMineWar(bw);
         drawFronts(bw);
+        } finally { _onLand = false; _pt = null; ctx.restore(); ctx = mainCtx; }
+        ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(mineCv, 0, 0); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         if (heightmapOn) drawHeightmap();
         ctx.fillStyle = ocean;
         for (let p = 0; p < LAKES.length; p++) { const rings = LAKES[p]; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
