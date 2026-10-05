@@ -28485,12 +28485,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the same field the reader page reads, so a book can never advertise a column it has not got.
          It goes in the ARIA LABEL as well: that label REPLACES the banner's own text for a screen
          reader, so a chip left out of it is a chip only the sighted reader is told about. */
-      const orig = b.origLang ? (b.origName || "Original") + " original" : "";
+      const orig = b.origLang ? "with original " + (b.origName || "text") : "";   // "with original Greek" (Oct 2026, on request; was "Greek original")
       /* `--w` is how far the book is read, painted ACROSS the banner from the left the way a deck row on
          the home page paints its day (Oct 2026 Timeline design, on request) — in place of the thin bar
          along the bottom edge, which is gone. */
       return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}; --w:${pos ? pct : 0}%"
-                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", with the " + esc(orig) : ""}${fav ? ", a favourite" : ""}">
+                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", " + esc(orig) : ""}${fav ? ", a favourite" : ""}">
         <span class="bk-spine" aria-hidden="true"></span>
         ${/* the star is a MARK, not a control: the way to set and clear one is the long-press sheet, so a
               second target here would be a second answer to the same question sitting 8px from the first */""}
