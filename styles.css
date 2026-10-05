@@ -10266,13 +10266,14 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   /* …and the stack's one track fills the banner, or the level bar would stop where the three piles do now that
      nothing full-width sits under them (the Start button did) */
   .page .rv-banner .rv-stack{width:100%; grid-template-columns:minmax(0, 1fr);}
-  /* THE ESTIMATE IS A LINE OF ITS OWN ON A PHONE (Oct 2026, on request: "reorganise the information inside on
-     all screen formats to fit properly"). Four columns across a 318px row left "≈ 1 h 9 min" spilling out of
-     its quarter; the three piles share the row now and the estimate stands under them, ruled off above the
-     way it was ruled off at the left, still a figure over its label like the three. */
-  .page .rv-banner .meta{width:100%; grid-template-columns:1fr 1fr 1fr; gap:0 10px;}
-  .page .rv-banner .stat b{font-size:calc(24px * var(--fs));}
-  .page .rv-banner .stat.st-est{grid-column:1 / -1; justify-self:stretch; margin-top:12px; padding:10px 0 0; border-left:0; border-top:1px solid rgba(255,255,255,.18);}
+  /* THE ESTIMATE STAYS ON THE ROW (Oct 2026, on request: "it should stay on the same level to the right of
+     [the three numbers], just like it does on tablets and desktop"). It had a line of its own here since
+     "≈ 1 h 9 min" spilt out of a quarter of a 318px row; it is a fourth column again, sized to its text with
+     the three piles sharing the rest, its figure a size smaller than theirs and never wrapping. */
+  .page .rv-banner .meta{width:100%; grid-template-columns:1fr 1fr 1fr auto; gap:0 8px;}
+  .page .rv-banner .stat b{font-size:calc(22px * var(--fs));}
+  .page .rv-banner .stat.st-est{padding-left:12px;}
+  .page .rv-banner .stat.st-est b{font-size:calc(18px * var(--fs));}
   .streak-ribbon{padding:12px 14px;}
   .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
   /* a phone keeps its two-row layout (Oct 2026, on request: "don't apply the streak changes to mobile") — the
