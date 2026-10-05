@@ -17764,9 +17764,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
      THE PER-DECK TAB SHOWS THE INHERITED FIGURE WHERE NOTHING HAS BEEN SET, and says so — `deckLimits`
      already falls back to the global, so the box would otherwise show a number the reader might take for
-     something they had chosen. **Clear it back to the default** does that (it deletes the keys rather than
-     writing the global's current value into them, so a later change to the default still reaches this deck),
-     and is offered only where there is something to clear. */
+     something they had chosen. A SWITCH AT THE TOP OF THE TAB SAYS WHICH IT IS (Oct 2026, on request: "it
+     should be more clear when the collection follows its collection specific settings or when it follows the
+     default settings, perhaps through a toggle switch"): off, the deck follows "All decks" and the figures are
+     dimmed to what it follows; on, they are its own. Typing a figure turns it on; turning it off puts the
+     default's figures back; Save with it off DELETES the keys (rather than writing the global's current value
+     into them, so a later change to the default still reaches this deck) — the job the "Clear back to the
+     default" button did until the switch replaced it. */
   function openDeckLimits(id) {
     const info = entryInfo(id), L = deckLimits(id);
     const noun = entryNoun(id), isLang = isLangCtxId(id);
@@ -17779,13 +17783,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const swRow2 = (key, on) =>
       '<div class="dm-field dm-switchrow"><span>New cards ignore review limit</span>' +
       '<div class="switch' + (on ? " on" : "") + '" data-lim="' + key + '" role="switch" aria-label="New cards ignore review limit" tabindex="0" aria-checked="' + (on ? "true" : "false") + '"></div></div>';
+    /* the two notes the switch chooses between, and the switch itself — a language's own figure CAPS its
+       decks rather than replacing the default (see the note below), so its label says so */
+    const noteOwn = isLang ? "This language deals at most this much a day, whatever its decks allow between them."
+      : "Set for this " + noun + " alone. \u201cAll decks\u201d no longer reaches it.";
+    const noteDefault = isLang ? "What the decks of this language currently offer between them. Turn the cap on to limit the whole language."
+      : "Following the default for all decks. Turn the switch on, or change a figure, to give this " + noun + " limits of its own.";
+    const ownLabel = isLang ? "Cap this language" : "Own limits for this " + noun;
+    const ownRow =
+      '<div class="dm-field dm-switchrow dm-ownrow"><span><b>' + esc(ownLabel) + '</b><small id="dlOwnNote">' + esc(hasOwn ? noteOwn : noteDefault) + '</small></span>' +
+      '<div class="switch' + (hasOwn ? " on" : "") + '" data-lim="dOwn" role="switch" aria-label="' + esc(ownLabel) + '" tabindex="0" aria-checked="' + (hasOwn ? "true" : "false") + '"></div></div>';
     const html =
       '<div class="dm-head"><span class="dm-title">Daily limits</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
       '<div class="dm-tabs" role="tablist">' +
         '<button type="button" class="dm-tab active" role="tab" aria-selected="true" data-pane="deck">This ' + noun + '</button>' +
         '<button type="button" class="dm-tab" role="tab" aria-selected="false" data-pane="all">All decks</button>' +
       '</div>' +
-      '<div class="dm-pane" data-pane="deck">' +
+      '<div class="dm-pane' + (hasOwn ? "" : " dm-following") + '" data-pane="deck">' +
+        ownRow +
         numRow("dNew", "New cards/day", L.newPerDay, 999) +
         numRow("dRev", "Maximum reviews/day", L.maxReviews, 9999) +
         swRow2("dIgn", L.newIgnoresReview) +
@@ -17793,15 +17808,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            showing what its decks already offer between them, which is the sum of their allowances (see
            langCtxLimits). Saying "following the default for all decks" there would name a number that has
            nothing to do with the one in the box. And what a figure set here DOES is cap, not cascade, so
-           the note says so: the decks keep their own allowances underneath. */
-        '<p class="dm-note">' + (hasOwn
-          ? (isLang ? "This language deals at most this much a day, whatever its decks allow between them."
-                    : "Set for this " + noun + " alone.")
-          : (isLang ? "What the decks of this language currently offer between them. Set a figure here and it caps the whole language."
-                    : "Following the default for all decks. Change a figure here and only this " + noun + " follows it.")) + '</p>' +
-        (hasOwn ? '<button type="button" class="dm-item dm-clear" data-act="clear"><b>Clear back to the default</b>' +
-          '<small>' + (isLang ? "Stop capping this language — its decks keep their own allowances"
-                              : "Follow whatever “All decks” says, now and later") + '</small></button>' : "") +
+           the note under the switch says so: the decks keep their own allowances underneath. */
       '</div>' +
       '<div class="dm-pane" data-pane="all" hidden>' +
         numRow("gNew", "New cards/day", G.newPerDay, 999) +
@@ -17823,12 +17830,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ov.querySelectorAll(".dm-tab").forEach((o) => { o.classList.toggle("active", o === t); o.setAttribute("aria-selected", o === t ? "true" : "false"); });
         ov.querySelectorAll(".dm-pane").forEach((p) => { p.hidden = p.dataset.pane !== t.dataset.pane; });
       }));
-      const clear = ov.querySelector('[data-act="clear"]');
-      if (clear) clear.addEventListener("click", () => {
-        clearDeckLimits(id);
-        close(); render();
-        toast(isLang ? "No longer capping " + info.title : "Following the default for all decks");
-      });
+      /* THE OWN-LIMITS SWITCH. Off dims the fields and puts the default's figures back in them (a language
+         keeps what it shows, its "default" being its decks' sum); on leaves them as they are; typing in a
+         field turns it on, since a figure typed is a figure chosen. */
+      const own = num("dOwn"), pane = ov.querySelector('.dm-pane[data-pane="deck"]'), note = ov.querySelector("#dlOwnNote");
+      // what the fields were last SET to, so Save can tell a figure the reader typed from one the sheet put there
+      const base = { n: L.newPerDay, r: L.maxReviews, i: L.newIgnoresReview };
+      const setOwn = (on) => {
+        own.classList.toggle("on", on); own.setAttribute("aria-checked", on ? "true" : "false");
+        pane.classList.toggle("dm-following", !on);
+        note.textContent = on ? noteOwn : noteDefault;
+        if (!on && !isLang) {
+          num("dNew").value = G.newPerDay; num("dRev").value = G.maxReviews; if (!sw.classList.contains("on")) flip();
+          base.n = G.newPerDay; base.r = G.maxReviews; base.i = true;
+        }
+      };
+      own.addEventListener("click", () => setOwn(!own.classList.contains("on")));
+      own.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOwn(!own.classList.contains("on")); } });
+      ["dNew", "dRev"].forEach((k) => num(k).addEventListener("input", () => { if (!own.classList.contains("on")) setOwn(true); }));
+      sw.addEventListener("click", () => { if (!own.classList.contains("on")) setOwn(true); });
       ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
       ov.querySelector('[data-act="save"]').addEventListener("click", () => {
         const n = (k, cap) => Math.max(0, Math.min(cap, Math.round(+num(k).value || 0)));
@@ -17838,11 +17858,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const gN = n("gNew", 999), gR = n("gRev", 9999);
         if (gN !== G.newPerDay || gR !== G.maxReviews) setGlobalLimits({ newPerDay: gN, maxReviews: gR });
         const dN = n("dNew", 999), dR = n("dRev", 9999), dI = sw.classList.contains("on");
-        if (hasOwn || dN !== L.newPerDay || dR !== L.maxReviews || dI !== L.newIgnoresReview)
-          setDeckLimits(id, { newPerDay: dN, maxReviews: dR, newIgnoresReview: dI });
+        const wantOwn = own.classList.contains("on");
+        const changed = dN !== base.n || dR !== base.r || dI !== base.i;
+        /* the switch decides, and a figure changed is the same statement as the switch: on, or a figure not
+           what the sheet last put there → written; off and untouched while the deck had figures → the keys
+           are DELETED, so a later change to the default reaches it again */
+        const cleared = !wantOwn && !changed && hasOwn;
+        if (cleared) clearDeckLimits(id);
+        else if (wantOwn || changed) setDeckLimits(id, { newPerDay: dN, maxReviews: dR, newIgnoresReview: dI });
         close();
         render();
-        toast("Daily limits saved");
+        toast(cleared ? (isLang ? "No longer capping " + info.title : "Following the default for all decks") : "Daily limits saved");
       });
     });
   }

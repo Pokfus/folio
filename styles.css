@@ -4286,6 +4286,13 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
    `.ces-imgpanel[hidden]` and `.gs-results[hidden]` already carry */
 .dm-pane[hidden]{display:none;}
 .dm-clear{width:100%;}
+/* the own-limits switch at the top of the Daily limits sheet's deck tab (Oct 2026, on request): its note on a line
+   of its own, and the fields under it dimmed while the deck follows "All decks" */
+.dm-field.dm-ownrow{border-bottom:1px solid var(--rule); padding-top:11px; padding-bottom:11px; margin-bottom:4px;}
+.dm-field.dm-ownrow > span{display:flex; flex-direction:column; gap:3px; min-width:0;}
+.dm-field.dm-ownrow > span b{font-weight:600;}
+.dm-field.dm-ownrow > span small{line-height:1.35;}
+.dm-pane.dm-following > .dm-field:not(.dm-ownrow){opacity:.55;}
 .dm-field{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); color:var(--ink);}
 /* the Scheduling sheet: a wider box than an options sheet (it carries two paragraphs of explanation and a
    parameter box), and one field that stacks because a 21-number list has nowhere to sit beside its label */
