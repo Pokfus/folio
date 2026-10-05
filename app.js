@@ -5993,14 +5993,19 @@
     if (S.streak.last === t) return;
     const yest = dayKey(Date.now() - DAY);
     const kept = S.streak.last === yest;
-    S.streak.count = kept ? S.streak.count + 1 : 1;
-    S.streak.last = t;
-    S.streak.best = Math.max(S.streak.best | 0, S.streak.count);   // the longest run, for the home page's ribbon
     /* A BROKEN STREAK FORGETS WHAT IT WAS PAID AT, and this is the one line the whole thing turns on.
        `S.streakChest` is a COUNT rather than a date, so a reader who reached seven, broke the run and
        climbed back to seven would find it already recorded and earn nothing — silently, and then be paid
        normally at fourteen, which is the shape nobody would ever report as a bug. */
-    if (!kept) S.streakChest = 0;
+    /* …AND A CHEST NEVER PRESSED IS PAID WHEN THE RUN ENDS (Oct 2026). Since the ribbon's chest is CLAIMED
+       by a press rather than granted (claimStreakChest), a reader who reached seven, never pressed it and
+       then missed a day would otherwise lose the week's reward with the run. So the owed count is paid into
+       the account here, before the length it was owed for is forgotten — read BEFORE the count resets, since
+       `owedStreakChests` counts off the run that just ended. */
+    if (!kept) { const owed = owedStreakChests(); if (owed) grantChest(owed); S.streakChest = 0; }
+    S.streak.count = kept ? S.streak.count + 1 : 1;
+    S.streak.last = t;
+    S.streak.best = Math.max(S.streak.best | 0, S.streak.count);   // the longest run, for the home page's ribbon
     maybeStreakChest();
   }
   /* ---------- A WEEK'S STREAK IS A CHEST (Aug 2026, on request) ----------
@@ -6021,14 +6026,41 @@
      for, and comes out right for a reader whose streak was already long when this shipped: they are paid
      the full amount at their next multiple of seven rather than everything they have missed at once. */
   function streakChestWeeks(n) { return Math.max(1, Math.floor(n / STREAK_CHEST_EVERY)); }
+  /* THE STREAK CHEST IS CLAIMED, NOT GRANTED (Oct 2026, on request: "when the weekly streak chest has been
+     unlocked and clicked, the chest icon should turn green in the same manner as the minigame chest").
+     It used to be paid the moment the seventh day was studied — silently, into the account, with a toast —
+     and the ribbon's chest only turned gold to say so. Now it works as the home page's minigame chest does
+     (claimPlayChest): the seventh day UNLOCKS the chest at the end of the ribbon's week, a press on it pays
+     and opens it, and the chest then turns green for the day. `S.streakChest` keeps its meaning — the
+     length last paid at — and the press is what writes it, so a double press cannot pay twice.
+     What is owed is every complete week not yet paid for, each worth its number (the seventh day one, the
+     fourteenth two…), summed: a reader who reaches fourteen without ever pressing collects three in one
+     press rather than losing the first. And a chest never pressed before the run breaks is paid into the
+     account by bumpStreak, so the worst case is the old behaviour, not a lost week. */
+  function owedStreakChests() {
+    const n = (S.streak && S.streak.count) | 0;
+    const earned = Math.floor(n / STREAK_CHEST_EVERY), paid = Math.floor((S.streakChest | 0) / STREAK_CHEST_EVERY);
+    let owed = 0;
+    for (let w = paid + 1; w <= earned; w++) owed += streakChestWeeks(w * STREAK_CHEST_EVERY);
+    return owed;
+  }
+  function claimStreakChest() {
+    const owed = owedStreakChests();
+    if (!owed) return false;
+    const n = (S.streak && S.streak.count) | 0;
+    S.streakChest = Math.floor(n / STREAK_CHEST_EVERY) * STREAK_CHEST_EVERY;   // stamped BEFORE the grant, as claimPlayChest does
+    grantChest(owed);   // grantChest saves
+    return true;
+  }
+  /* The day's word on it: a toast pointing at the ribbon on the day a week completes. It no longer pays
+     anything — the press does — so it is only ever a sentence. */
   function maybeStreakChest() {
     const n = (S.streak && S.streak.count) | 0;
-    if (n <= 0 || n % STREAK_CHEST_EVERY !== 0 || S.streakChest === n) return;
-    S.streakChest = n;
-    const many = streakChestWeeks(n);
-    grantChest(many);
-    toast("🔥 " + n + "-day streak — " + (many === 1 ? "a chest is" : many + " chests are") +
-      " waiting in your account.");
+    if (n <= 0 || n % STREAK_CHEST_EVERY !== 0) return;
+    const owed = owedStreakChests();
+    if (!owed) return;
+    toast("🔥 " + n + "-day streak — " + (owed === 1 ? "a chest is" : owed + " chests are") +
+      " unlocked on the home page. Press it to open it.");
   }
   /* How far through the current week the reader is. Day seven reads 7 of 7 rather than 0 of 7, which is
      what a meter should say on the day the thing is earned — hence the offset rather than a bare modulo. */
@@ -18189,7 +18221,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          "Next streak chest" box, so this step is where a reader first meets the chest. */
       body: "A day with any study at all keeps your <b>streak</b>. Every seventh day in a row earns a " +
         "<b>chest</b>, and each week after that is worth one more; the ribbon under the banner shows the " +
-        "week's chest filling up, gold once it is paid.",
+        "week filling up, and on the seventh day its chest unlocks \u2014 press it to open it.",
       target: [".streak-ribbon", "#b-review"],
     },
     {
@@ -23283,7 +23315,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* THE STREAK RIBBON. It took over the banner's fire chip AND the Account page's "Next streak chest" box,
      so the chest is said once. The run is shown in weeks: each week's seven days end in the chest they earn
-     (STREAK_CHEST_EVERY; maybeStreakChest pays it), gold once paid, quiet while being earned, and the week
+     (STREAK_CHEST_EVERY), quiet behind a padlock while being earned, gold and pressable once the week is
+     complete (claimStreakChest pays it on the press and opens it), green for the rest of the day once
+     opened — the home page's minigame chest, one row up, works the same way — and the week
      after the current one is always drawn so the next chest is in sight. The phone shows the current week
      alone (styles.css hides the other). `S.streak.best` is the longest run, kept by bumpStreak.
      ONE WEEK AT EVERY WIDTH (Oct 2026, on request: "the weekly streak banner should never depict more than
@@ -23303,13 +23337,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        would be day one), and nowhere once it is. The week shown is the one that slot falls in, so a run of
        seven kept yesterday shows next week's first ring rather than a full week with nothing to do. */
     const slot = today ? n : n + 1;
-    const weeks = Math.max(1, Math.ceil(slot / every)), paid = Math.floor(n / every);
+    const weeks = Math.max(1, Math.ceil(slot / every));
+    /* THE CHEST AT THE END OF THE WEEK IS A BUTTON (Oct 2026, on request) with the minigame chest's three
+       states: `ready` (gold, nodding, pressable) while a completed week is owed, `claimed` (green) on the day
+       a week completed once its chest has been pressed, and otherwise locked — a disabled button wearing the
+       padlock. `owed` reads the raw count rather than the live one, so a chest earned on the last day of a
+       run that has since lapsed stays pressable until the next study pays it into the account anyway. */
+    const owed = owedStreakChests(), count = (st.count | 0);
+    const claimed = !owed && n > 0 && n % every === 0;
+    const art = /^(8|11|18|8\d|8\d\d)$/.test(String(count)) ? "an " : "a ";   // "an 8-day streak"
+    const chestLabel = owed ? (owed === 1 ? "Open the chest for " + art + count + "-day streak" : "Open " + owed + " chests for " + art + count + "-day streak")
+      : claimed ? "This week's streak chest is opened \u2014 it is in your account"
+      : "Locked: " + (n <= 0 ? "seven days in a row unlock a chest" : p.left + (p.left === 1 ? " more day" : " more days") + " in a row unlock a chest");
     let days = "";
     for (let w = weeks - 1; w < weeks; w++) {
       const cells = [];
       for (let i = 0; i < every; i++) { const d = w * every + i + 1; cells.push('<i class="' + (d <= n ? "b" : (d === slot ? "t" : "o")) + '"></i>'); }
       days += '<span class="sr-wk' + (w === weeks - 1 ? " cur" : "") + '">' + cells.join("") +
-        '<span class="sr-chest' + (w < paid ? " won" : "") + '" aria-hidden="true">' + CHEST_SVG + "</span></span>";
+        '<button type="button" class="sr-chest' + (owed ? " ready" : claimed ? " claimed" : "") + '" id="streakChest"' + (owed ? "" : " disabled") +
+          ' title="' + esc(chestLabel) + '" aria-label="' + esc(chestLabel) + '">' + CHEST_SVG + (owed || claimed ? "" : LOCK_SVG) + "</button></span>";
     }
     const prize = p.worth === 1 ? "a chest" : p.worth + " chests";
     const note = n <= 0 ? "Study on any day to start a streak \u2014 seven days in a row earns a chest."
@@ -23318,7 +23364,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const best = Math.max(st.best | 0, n);
     return '<div class="streak-ribbon" role="group" aria-label="' + n + ' day streak">' +
       '<b class="sr-n">' + n + '</b><span class="sr-t">day streak</span>' +
-      '<span class="sr-days" role="img" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + days + "</span>" +
+      '<span class="sr-days" role="group" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + days + "</span>" +
       '<span class="sr-note">' + note + "</span>" +
       (best > 0 ? '<span class="sr-best">Longest \u00b7 ' + best + (best === 1 ? " day" : " days") + "</span>" : "") +
       "</div>";
@@ -25339,6 +25385,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     // the level chest at the end of the bar (levelChestHTML); the overlay's close repaints the banner
     { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (chestCount()) openChestPop(); }); }
+    // the streak ribbon's chest (streakRibbonHTML): claimed on the press like the sweep chest above, in the same
+    // load-bearing order — claim, repaint (ready → claimed), THEN the overlay
+    { const sc = root.querySelector("#streakChest"); if (sc) sc.addEventListener("click", () => { if (!claimStreakChest()) return; renderInPlace(); openChestPop(); }); }
     root.querySelectorAll(".game-tile[data-game]").forEach((el) => {
       const key = el.dataset.game;
       if (!key) return;

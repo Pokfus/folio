@@ -4381,7 +4381,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **FOUR CHANNELS**: a level; the **daily sweep** (all games WON in one day, `S.sweepChest` recording
     the DAY rather than a boolean, since nothing runs at midnight); the **STREAK, every seventh day**
     (`S.streakChest` is the streak length last PAID, so the test is arithmetic and can never pay twice for
-    one day); and the **daily PLAY** — all nine minigames *finished*, whatever the score (`S.playChest`,
+    one day — and SINCE OCT 2026 IT IS CLAIMED, NOT GRANTED, on request: the seventh day only makes a chest
+    OWED (`owedStreakChests`, every complete week not yet paid for, each worth its number); the press on the
+    streak ribbon's chest pays it (`claimStreakChest`, stamping the length BEFORE the grant, with the sweep
+    chest's claim → `renderInPlace()` → `openChestPop()` order) and the chest turns green for the day; and a
+    chest never pressed is paid into the account by `bumpStreak` when the run breaks, so no week is lost); and the **daily PLAY** — all nine minigames *finished*, whatever the score (`S.playChest`,
     the same day-string shape for the same reason).
   · **THE SWEEP PAYS THREE AND THE PLAY PAYS ONE** (`SWEEP_CHESTS = 3`, Sep 2026, on request). Finishing
     all nine whatever the score is the habit the daily games exist to build; a PERFECT run in all nine is
@@ -9080,9 +9084,9 @@ division-capital city tier are inert dead code.
     **Re-run after adding or removing quotes** (a fifth Confucius line tightens the pool) as well as
     after touching `quoteRunningOrder` — the rule is a property of the ARRANGEMENT, so it breaks
     silently.
-  · `node .claude/test-streak-chest.js` — 24 assertions on the weekly streak chest (Aug 2026). **Re-run
-    after touching `bumpStreak` / `maybeStreakChest` / `streakChestProgress` / `STREAK_CHEST_EVERY` /
-    `S.streak`.**
+  · `node .claude/test-streak-chest.js` — 34 assertions on the weekly streak chest (Aug 2026; the press
+    since Oct 2026). **Re-run after touching `bumpStreak` / `owedStreakChests` / `claimStreakChest` /
+    `maybeStreakChest` / `streakChestProgress` / `STREAK_CHEST_EVERY` / `S.streak`.**
   · `node .claude/test-scheduler.js` — 136 assertions on **the schedule itself**, which is the thing a
     study site is most worth getting right and the thing that fails most silently: a wrong interval is
     still a number on a button, and a card that graduates a step early looks exactly like a card being

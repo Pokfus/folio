@@ -10020,9 +10020,19 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .sr-wk i{display:block; width:14px; height:14px; border-radius:4px; background:var(--good); box-sizing:border-box;}
 .sr-wk i.o{background:var(--paper-2); border:1px solid var(--rule);}
 .sr-wk i.t{background:transparent; border:2px solid var(--good);}
-.sr-chest{display:inline-block; width:30px; margin-left:6px; color:var(--ink-faint); opacity:.55;}
+/* THE WEEK'S CHEST IS A BUTTON (Oct 2026, on request) in the minigame chest's three states (see .sweep-chest):
+   locked and dim behind a padlock, `ready` in gold with the same nod once the week is complete, `claimed` in
+   green once pressed. The padlock's disc is the ribbon's own card colour, where the sweep chest's is the page's. */
+.sr-chest{position:relative; display:inline-flex; align-items:center; justify-content:center; width:30px; margin-left:6px; padding:0;
+  background:none; border:0; cursor:default; color:var(--ink-faint); opacity:.55;
+  transition:opacity .25s var(--ease), color .25s var(--ease), transform .18s var(--ease);}
 .sr-chest .chest-svg{width:100%; height:auto; display:block;}
-.sr-chest.won{color:#C39A2E; opacity:1;} body.night .sr-chest.won{color:#E6C765;}
+.sr-chest .lock-svg{position:absolute; right:calc(-3px * var(--fs)); bottom:calc(-2px * var(--fs)); width:calc(13px * var(--fs)); height:calc(13px * var(--fs));
+  background:var(--card); border-radius:50%; padding:1px;}
+.sr-chest.ready{color:#C39A2E; opacity:1; cursor:pointer; animation:sweepChestWait 2.4s var(--ease) infinite;} body.night .sr-chest.ready{color:#E6C765;}
+.sr-chest.ready:hover{transform:translateY(-1px) scale(1.05);}
+.sr-chest.claimed{opacity:.62; color:var(--good, #4F9D67);}
+.sr-chest:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .sr-note{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); letter-spacing:0; text-transform:none; color:var(--ink-quiet);}
 .sr-note b{color:#C39A2E; font-weight:800;} body.night .sr-note b{color:#E6C765;}
 .sr-best{margin-left:auto; white-space:nowrap;}
