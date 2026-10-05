@@ -23385,18 +23385,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       week.secs += r.secs || 0; week.total++; if (r.correct) week.right++;
       if (dayKey(r.t) === today) { day.secs += r.secs || 0; day.total++; if (r.correct) day.right++; }
     }
-    const stats = (f) => {
+    const stats = (f, cls) => {
       const mins = Math.round(f.secs / 60);
       const time = mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min";
       const recall = f.total ? Math.round((f.right / f.total) * 100) + "%" : "\u2014";
-      return '<div class="hw-stats">' +
+      return '<div class="hw-stats' + (cls || "") + '">' +
         "<div><b>" + f.cards + "</b><span>cards studied</span></div>" +
         "<div><b>" + esc(time) + "</b><span>at the desk</span></div>" +
         '<div class="g"><b>' + recall + "</b><span>recalled</span></div></div>";
     };
-    return '<div class="home-box home-week"><span class="hb-k">Today</span>' + stats(day) +
-      '<span class="hb-k">This week</span>' + stats(week) +
-      '<span class="gdeco" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>';
+    /* THE WEEK IS SHOWN, NOT ONLY SUMMED (Oct 2026, on request — design D3 of docs/mockups/week-box-redesigns):
+       seven bars of cards per day, oldest first and today the solid one, read off the same daily totals the
+       week's count is, with the week's three figures under them spaced across the box as the bars are. A
+       phone and a tablet stack Today over the week; a desktop stands Today's figures at the left (styles.css,
+       `.home-week`). The globe ornament that stood in the corner is gone. */
+    const days = [];
+    for (let d = 6; d >= 0; d--) {
+      const t = now - d * DAY, e = (S.reviewLog || {})[dayKey(t)];
+      days.push({ n: e ? e[0] | 0 : 0, l: new Date(t).toLocaleDateString(undefined, { weekday: "short" }).slice(0, 2), cur: d === 0 });
+    }
+    const max = Math.max(1, ...days.map((x) => x.n));
+    const bars = '<div class="hw-bars" role="img" aria-label="' + esc("Cards studied each day this week: " + days.map((x) => x.l + " " + x.n).join(", ")) + '">' +
+      days.map((x) => '<i class="' + (x.cur ? "cur" : x.n ? "on" : "") + '" style="height:' + Math.max(4, Math.round((x.n / max) * 100)) + '%" title="' + esc(x.l + " \u00b7 " + x.n + (x.n === 1 ? " card" : " cards")) + '"></i>').join("") + "</div>" +
+      '<div class="hw-days" aria-hidden="true">' + days.map((x) => '<span class="' + (x.cur ? "cur" : "") + '">' + esc(x.l) + "</span>").join("") + "</div>";
+    return '<div class="home-box home-week">' +
+      '<div class="hw-today"><span class="hb-k">Today</span>' + stats(day) + "</div>" +
+      '<div class="hw-week"><span class="hb-k">This week</span>' + bars + stats(week, " hw-tot") + "</div></div>";
   }
   /* The top three cards of today's pile, fanned beside the banner (desktop and tablet only; see styles.css).
      Site cards only: a community card's text lives per note and may not be loaded yet.

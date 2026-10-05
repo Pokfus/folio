@@ -5247,6 +5247,10 @@ canvas{-webkit-tap-highlight-color:transparent;}
   padding:7px 18px 6px 20px; background:color-mix(in srgb, var(--card) 88%, transparent); border:1px solid var(--rule); border-radius:3px;
   box-shadow:inset 0 0 0 3px color-mix(in srgb, var(--card) 88%, transparent), inset 0 0 0 4px var(--rule), var(--shadow-sm);}
 @media (max-width:640px){.map-cartouche{display:none;}}
+/* …AND ON A TABLET AND A DESKTOP TOO (Oct 2026, on request: "at the top of the Atlas page, there is a square box which
+   says today or the year of the Atlas. Remove that box"). The year box beside the timeline says the year; the plate
+   title is drawn by paintYear still, into an element nothing shows. */
+@media (min-width:641px){.map-cartouche{display:none;}}
 /* hover name tag — a DOM chip following the cursor (naming the entity under it); never triggers a canvas redraw */
 .globe-hovername{position:absolute; z-index:4; pointer-events:none; user-select:none; display:flex; flex-direction:column; gap:0;
   max-width:280px; padding:4px 10px 5px; background:color-mix(in srgb, var(--card) 90%, transparent); border:1px solid var(--rule);
@@ -10046,6 +10050,11 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-decks .active-deck.dk-att, .review-group .active-decks .active-deck.dk-last.dk-att{margin-top:-9px; border-top-left-radius:0; border-top-right-radius:0;}
 .review-group .active-decks .active-deck.dk-cont, .review-group .active-decks .active-deck.dk-last.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .review-group .active-deck.dk-att:not(.dk-cont){margin-bottom:6px;}
+/* A DECK INSIDE A COLLECTION IS AS THIN AS A LANGUAGE'S DECKS (Oct 2026, on request: "every deck within a collection
+   should have the same height as the language vocabulary collections currently do. So a bit thinner than their actual
+   collections"). A language's deck is a community collection row (`.dk-coll`) and took the header's 4px; a history
+   or science subdeck kept the top-level row's 12px and stood 10px taller beside it. Every attached row takes the 4px. */
+.review-group .active-decks .active-deck.dk-att{padding-top:4px; padding-bottom:4px; min-height:calc(34px * var(--fs) + 10px);}   /* the language row's: its 34px chevron and the padding */
 /* a GROUP's header row is shorter than the rows under it and painted in a deeper wash of its colour */
 .review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, .review-group .active-deck.dk-coll, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.dk-coll{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
 .review-group .active-deck > :not(.dk-body):not(.dk-grip):not(.gt-check):not(.gt-seal){position:relative; z-index:1;}
@@ -10166,16 +10175,37 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   max-height:calc(13.5px * var(--fs) * 1.55 * 3.3); overflow:hidden;
   -webkit-mask-image:linear-gradient(to bottom, #000 25%, transparent 100%); mask-image:linear-gradient(to bottom, #000 25%, transparent 100%);
 }
-.home-week{display:flex; flex-direction:column;}
-.home-week .hb-k{align-self:flex-start;}
-.home-week .hw-stats + .hb-k{margin-top:16px;}   /* the week's heading under the day's figures (Oct 2026) */
-.hw-stats{flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; align-content:center; justify-items:center; text-align:center;}
-.hw-stats b{display:block; font-size:calc(26px * var(--fs)); font-weight:800; letter-spacing:-.03em; line-height:1; font-variant-numeric:tabular-nums;}
+/* THE WEEK BOX IS DESIGN D3 (Oct 2026, on request — docs/mockups/week-box-redesigns): Today's three figures, then
+   the week as seven bars with its three figures spaced under them as the bars are. Stacked on a phone and a
+   tablet; on a desktop Today stands at the left of the chart (the block at the foot). The globe ornament is gone. */
+.home-week{display:flex; flex-direction:column; gap:14px;}
+.home-week .hb-k{align-self:flex-start; margin-bottom:8px;}
+.hw-stats{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; justify-items:center; text-align:center;}
+.hw-stats b{display:block; font-size:calc(24px * var(--fs)); font-weight:800; letter-spacing:-.03em; line-height:1; font-variant-numeric:tabular-nums;}
 .hw-stats span{display:block; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); margin-top:4px;}
 .hw-stats .g b{color:var(--good);}
-.gdeco{position:absolute; right:-40px; bottom:-60px; width:150px; height:150px; border-radius:50%; border:1.5px solid var(--geo); opacity:.35; pointer-events:none;}
-.gdeco i{position:absolute; inset:0; border-radius:50%; border:1px solid var(--geo);}
-.gdeco i:nth-child(1){transform:scaleX(.25);} .gdeco i:nth-child(2){transform:scaleX(.62);} .gdeco i:nth-child(3){transform:scaleY(.25);} .gdeco i:nth-child(4){transform:scaleY(.62);}
+.hw-week{padding-top:12px; border-top:1px solid var(--rule); min-width:0;}
+.hw-bars{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; align-items:end; height:64px;}
+.hw-bars i{display:block; background:var(--paper-2); border-radius:3px 3px 1px 1px; min-height:3px; border-top:2px solid var(--rule);}
+.hw-bars i.on{background:color-mix(in srgb, var(--indigo) 22%, var(--card)); border-top-color:var(--indigo);}
+.hw-bars i.cur{background:var(--indigo); border-top-color:var(--indigo);}
+.hw-days{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; margin-top:5px; text-align:center;}
+.hw-days span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; color:var(--ink-faint);}
+.hw-days span.cur{color:var(--indigo); font-weight:600;}
+.hw-stats.hw-tot{margin-top:12px; padding-top:10px; border-top:1px solid var(--rule);}
+@media (min-width:1025px){
+  .home-week{display:grid; grid-template-columns:auto 1fr; gap:0 22px; align-items:stretch;}
+  .hw-today{display:flex; flex-direction:column; justify-content:center; padding-right:18px; border-right:1px solid var(--rule);}
+  .hw-today .hw-stats{grid-template-columns:1fr; gap:10px; justify-items:start; text-align:left;}
+  .hw-today .hw-stats b{font-size:calc(22px * var(--fs));}
+  .hw-week{padding-top:0; border-top:0; display:flex; flex-direction:column; justify-content:flex-end;}
+  /* the week's figures as one line under the chart, as D3 drew them for a desktop — the box is a half of
+     `.home-two`, under 400px at a 1200px window, and three columns of figure-over-label do not fit beside Today */
+  .hw-stats.hw-tot{display:flex; flex-wrap:wrap; justify-content:flex-start; gap:4px 16px; text-align:left; padding-top:9px;}
+  .hw-stats.hw-tot > div{display:flex; align-items:baseline; gap:5px;}
+  .hw-stats.hw-tot b{font-size:calc(14px * var(--fs)); font-weight:700; letter-spacing:0;}
+  .hw-stats.hw-tot span{margin:0; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); letter-spacing:0; text-transform:none;}
+}
 /* the foot */
 .home-foot{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:10px; padding:16px 0 0;}
 .home-foot .home-about, .home-foot .home-about:hover{width:auto; padding:0; text-align:left; font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; color:var(--ink-faint);}

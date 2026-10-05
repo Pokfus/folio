@@ -5,7 +5,7 @@ Six proposals for the figures box on the home page (`homeWeekHTML` in `app.js`, 
 figures sit over This week's three at the same size. Each design is drawn in the real tokens (copied
 from the top of `styles.css`) on a desktop (1040px), a tablet (834px) and a phone (390px) frame, with
 the reading box beside it for context, and one sample day: 92 cards, 43 min, 91% recalled today; 611
-cards, 4 h 12 min, 88% over the week. Sample figures, not anyone's record. None is implemented.
+cards, 4 h 12 min, 88% over the week. Sample figures, not anyone's record. **D3 is implemented** (Oct 2026): its phone form on phones and tablets, its desktop form on desktops, without the globe ornament — see `homeWeekHTML` and `.home-week`.
 
 | # | design | the idea |
 |---|---|---|

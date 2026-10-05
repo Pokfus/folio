@@ -49,7 +49,9 @@ The bullet below is as it stood in CLAUDE.md, verbatim.
   year would make it a lie. The two ENDS are always kept (they are what fixes the scale), so an inner label
   must clear both its left neighbour and the right anchor; it re-runs from `resize()`, and it has to unhide
   everything before measuring because a hidden element has no width.
-  A **plate-title cartouche** (`#mapCartouche`, top-centre, hidden ≤640px, updated by `paintYear`) shows "THE WORLD ·
+  A **plate-title cartouche** (`#mapCartouche`, top-centre, updated by `paintYear`; HIDDEN AT EVERY WIDTH since Oct 2026,
+  on request — "remove that box" — the year box beside the timeline being the year's one reading; it was hidden ≤640px
+  before that) shows "THE WORLD ·
   1938" for a past year and simply **"TODAY"** for the present one (Aug 2026, on request — it was "THE WORLD
   TODAY": every other plate is "THE WORLD · <year>", so on this one the two words before the date were the
   only part carrying no information, the globe under it being the world either way). The disk gets **limb shading + an atmosphere halo** as **two DOM layers, NOT canvas
