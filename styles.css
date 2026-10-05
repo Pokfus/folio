@@ -10296,6 +10296,11 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .games-sec .sr-link{display:none;}
   .games-sec .sweep-chest{width:calc(34px * var(--fs)); height:calc(28px * var(--fs));}
   .games-sec .sweep-chest .lock-svg{background:var(--paper);}
+  /* PLAYED AND PERFECT ARE ONE WIDTH ON A PHONE (Oct 2026, on request: "ensure on mobile that the Perfect and
+     Played chips are horizontally aligned"). The tiles stand in one column here, so the pills sit in one column
+     too, and two words of different length gave them a ragged left edge. The width is in the pill's own em so it
+     follows the reader's text size: "Perfect" with its star measures 8.25em, so 8.4em holds either word. */
+  .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{min-width:8.4em; justify-content:center;}
   .home-two{grid-template-columns:1fr;}
   .home-foot{justify-content:center; text-align:center;}
   .home-foot .home-about{text-align:center;}
