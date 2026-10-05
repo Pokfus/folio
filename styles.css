@@ -10085,17 +10085,20 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    The tile FILLED with its state colour, and the fill was the accent mixed three-quarters into a near-black so that
    white text could pass 4.5:1 — which is what turned the gold olive and the green teal; a solid fill cannot hold
    white words without going dark. Chosen from six rendered alternatives: the tile takes only a faint tint of the
-   accent, the icon disc fills solid, and the mark at the right becomes a small pill that SAYS the state — Played
+   accent, the icon disc deepens its tint a little, and the mark at the right becomes a small pill that SAYS the state — Played
    in green, Perfect in gold — with the score staying beside the title as on an unplayed tile. The accent itself
    is untouched, so the chips and marks elsewhere that read `--gt-accent` keep their colour.
    THE WORD IS CSS `content`: the mark already carries the state as its aria-label (doneMarkHTML), so the visible
    word is a duplicate for sighted readers and the label stays the one spoken; a second text node would be read
    twice. The seal's wax, sweep and star stand down here — the pill is the mark. By night the pale accents are
-   too light for white, so the pill's word and the disc's glyph take the paper colour instead. */
+   too light for white, so the pill's word takes the paper colour instead.
+   THE DISC NEVER FILLS (Oct 2026, on request: "the icon should turn the full green or gold, and the circle a
+   light shade"): a finished game's disc keeps the unplayed treatment — a tint of the accent under a glyph in the
+   accent itself — only a shade deeper, so the pill alone carries the solid colour. */
 .games-sec .game-tile.done, .games-sec .game-tile.won, body.night .games-sec .game-tile.done, body.night .games-sec .game-tile.won{
   background:color-mix(in srgb, var(--gt-accent) 9%, var(--card));
 }
-.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:var(--gt-accent); color:#fff;}
+.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:color-mix(in srgb, var(--gt-accent) 22%, var(--card)); color:var(--gt-accent);}
 .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{
   width:auto; height:auto; display:inline-flex; align-items:center; gap:5px; padding:4px 9px 4px 7px; border-radius:999px;
   background:var(--gt-accent); background-image:none; color:#fff; clip-path:none; filter:none; animation:none;
@@ -10103,7 +10106,6 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 }
 .games-sec .game-tile.done .gt-check::after{content:"Played";}
 .games-sec .game-tile.won .gt-seal::after{content:"Perfect";}
-body.night .games-sec .game-tile.done .gt-glyph, body.night .games-sec .game-tile.won .gt-glyph,
 body.night .games-sec .game-tile.done .gt-check, body.night .games-sec .game-tile.won .gt-seal{color:var(--paper);}
 .games-sec .game-tile .gt-check svg, .games-sec .game-tile .gt-seal-face svg{width:12px; height:12px; display:block;}
 .games-sec .game-tile .gt-seal-face{color:inherit; filter:none;}
