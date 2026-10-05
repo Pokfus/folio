@@ -4236,3 +4236,110 @@ already had one. Forty-four plan lines were retitled to the answer the sources s
   (Holodomor), "Double Tenth" (the National Day), "southern tour" (the Qing emperors'), "Huaihai"
   (a Wuyue title), "zhiqing" (personal names). `Long_March` is case-sensitive ("long march" in `rm.js`).
 - **No pictures** were added to any of the hundred.
+
+## cnh-702 – cnh-801, the imperial state, society and the peoples of China (Oct 2026)
+
+A third hundred in one session, twenty batches of five imported in id order: the rest of `cn-government`
+(`cnh-702`–`cnh-740`), all of `cn-society` (`cnh-741`–`cnh-772`) and `cn-peoples` (`cnh-773`–`cnh-800`),
+and `cnh-801` opening `cn-economy`. Category "State, Society and Economy". **100 glossary terms** were
+written; none of the hundred answers had one. **88 plan lines were retitled** to the concrete answer the
+sources supported (the plan's lines here were broad topics: "Chinese society", "Women in Chinese
+history"); the line is now the answer.
+
+**How the batch was steered.** Before the writers started, each plan line was given a suggested answer
+checked against every card answer, every glossary key and alias, and every plan line in every plan, so
+twenty parallel writers could not collide. Where a topic already had a card the suggestion took another
+angle and the card's notes say which card it complements: the Great Wall line became **Shanhai Pass**
+(`wh-407`, `cnh-518`), the tributary system **Siyi Guan** (`cnh-519`, `ko-096`), imperial examination the
+**Jiangnan Examination Hall** (`wh-525`, `cnh-427`), Six Ministries the **Ministry of Rites** (`cnh-347`),
+Tibet the **Golden Urn** (`gc-031`, `cnh-384`), Xinjiang the **Xinjiang Production and Construction
+Corps** (`gc-021`), Mongolia the **Lifan Yuan**, Japan the **King of Na gold seal** (not `jp-085`
+kentōshi, `jp-264` tally trade or `cnh-520` Wokou). Writers changed four suggestions when research
+said so: Hall of Supreme Harmony → **Hall of Mental Cultivation** (`arch-355` already plans the former),
+Red Eyebrows → **Dazexiang uprising** (`cnh-251` is the Red Eyebrows), horse markets → **jimi system**
+(no article; the 1571 markets sit on `cnh-781`), the Qing tax reforms → **lijin** (no article for tanding
+rumu or the meltage fee).
+
+**What carried the batch.**
+- The standard histories on Chinese Wikisource again (*Hanshu*, *Wei shu*, *Ming shi*, *Qing shi gao*,
+  *Tang huiyao*, the *Da Qing lü li*), Hummel's DLI scans, Mayers' *Chinese Government*, Morse, Broomhall's
+  *Islam in China* (1910), Giles, Gamble's Peking survey, history.state.gov, the PRC State Council white
+  papers (cited as the government's own account), the OHCHR 2022 assessment and Human Rights Watch for
+  Xinjiang, NBS census communiqués, Europe PMC's REST API for abstracts, and open Cambridge articles.
+- **Shut from here**: Brill, De Gruyter, Springer, MDPI, Sage, Taylor & Francis, Wiley, Project MUSE,
+  OUP, Duke, OAPEN and HKU Scholars Hub (bot walls), UNESCO WHC (Cloudflare; read through a browser
+  fetch where needed), kci.go.kr, uhrp.org from curl. The English Wikipedia API rate-limited every writer;
+  titles were checked through the plain page or REST endpoint instead (a missing page still answers 200).
+
+**Contested figures are given with owners, never as one number.** The ones a later writer will meet:
+- `cnh-786` Uyghurs and `cnh-785` XPCC: "several hundred thousand to one million detained" is Human Rights
+  Watch's (2021); "may constitute crimes against humanity" is OHCHR's (2022), with the government's denial
+  as OHCHR records it; the camps' stated purpose and "graduated" trainees are the 2019 white papers'; all
+  XPCC statistics are the 2003 and 2014 white papers'; census counts are the NBS's.
+- `cnh-783` Golden Urn: that it truly decided only the 11th Dalai Lama is the Dalai Lama's office's claim
+  (2011). `cnh-784`: "peaceful liberation" and "liberated serfs" are the 2021 white paper's words.
+- `cnh-800` regional ethnic autonomy: 155 areas, 44 minorities and 64% of the territory are the State
+  Council's 2005 figures; "rights on paper" is the CECC's view.
+- `cnh-772` Huguang fills Sichuan: the *Ming shi*'s "over 600 million" killed by Zhang Xianzhong is given
+  as that history's claim against a modern estimate of about 56 million people in all China c. 1700;
+  the resettlement's start is 1653 (*Qing shi gao*), 1690 (Cao and Ku) or 1713 (Deng), all three given.
+- `cnh-745` gentry: Chang Chung-li's 1.1 and 1.4 million, as his estimate. `cnh-751` Marriage Law: "more
+  than 10,000 women" in the Central-South in a year, from a 1952 work quoted by Hsi (1965), not opened.
+- `cnh-771` 1953 census: 601,938,035 is the State Statistical Bureau's total including Taiwan and overseas
+  Chinese; 582.6 million on the mainland (Lavely, Orleans); Cressey's warning quoted as his.
+- `cnh-721` Green Standard Army: Dai's 550,000–600,000, the *Qing shi gao*'s 660,000, Mayers' 400,000–500,000.
+
+**Recurring source slips.**
+- Two Hummel signatures are unreadable in the DLI OCR again; those entries are cited without an author.
+- The Willow Palisade is "Ming" in James (1888) and Hosie (1901); Yang Bin and Sepe date it to the Qing.
+- Newman et al. (baijiu) date the *Song shi* "around 928 CE"; not used.
+- Lu Xinlei prints the 1953 mainland total as 580,603,000, an arithmetic slip; not used.
+
+**Fixed after the import.**
+- Learn-more links set by hand (`"manual": true`): `cnh-742` household division had resolved to the British
+  Army's Household Division and now has no link; `cnh-745` gentry had resolved to the European "Gentry"
+  and now links Landed gentry in China; `cnh-716` lijin (a disambiguation) → Likin (taxation); and
+  `cnh-708`, `cnh-723`, `cnh-740`, `cnh-749`, `cnh-751`, `cnh-797`, `cnh-800`, `cnh-801` to the articles
+  their glossary entries are keyed by. `cnh-719` ever-normal granary keeps the redirect to Buffer stock
+  scheme, the article Wikipedia sends it to.
+- Locators: "City Wall of Nanjing" and "Yonggu Mausoleum" have no primary coordinate, so `cnh-767` stands
+  on Zhonghua Gate and `cnh-733` on Datong (Pingcheng, the Northern Wei capital near her tomb). A locator
+  `name` defaults to the card's ANSWER, which labelled four dots "Yu ji tu", "secret succession",
+  "Yellow Registers" and "Golden Urn"; they are relabelled Stele Forest, Palace of Heavenly Purity, Xuanwu
+  Lake and Jokhang. **Give a `name` whenever the answer is not itself the place.**
+- `check-cards.js`: `cnh-730` and `cnh-731` cited three juan of one history. The *Ming shi* 305 citation
+  gave way to Gu Yingtai (who records Wei Zhongxian taking the depot but no year, so "the winter of 1623"
+  became "under the Tianqi Emperor" in the background and a question), and *Qing shi gao* 6 to Fang
+  Chao-ting's Hummel entry on Fu-lin (the 1653 offices, the 1655 warning, Wu Liang-fu executed after the
+  emperor's death). `cnh-795` named the modern scholar Yang Bin in a question; reworded.
+
+- `check-citations.js`: `cnh-764` had shortened Bo-Bo Zhang to "Bo Zhang" (Europe PMC's author list agrees with
+  Crossref), and `cnh-754` printed Nguyen Tuan Cuong in Vietnamese order where the journal's own byline
+  reads "Tuan Cuong NGUYEN"; both now cite the byline, on the cards and the glossary. No CROSSREF_WRONG row.
+
+**Left for a human decision.**
+- **Glossary keys with no English Wikipedia article of their own** (keyed by the answer, as for `ru-073`):
+  `Annals-biography_form`, `Eight_Thousand_Sacks_incident`, `Five_grades_of_mourning`,
+  `Household_division` (a Wikipedia redirect to the British Army's Household Division — the key only),
+  `Charitable_estate`, `One_field,_two_masters`, `Kaizhong_system`,
+  `Secret_succession`, `Ethnic_Classification_Project`, `Ward-and-market_system`, `Siyi_Guan` (a redirect
+  to Hanlin Academy), `Yu_ji_tu`. `Ever-normal_granary`, `Weisuo_system` and `Huguang_fills_Sichuan` are
+  redirect titles.
+- **Later plan lines that now need another answer**: `arch-351` (Siheyuan, now `cnh-766`), `ph-293`
+  (Filial piety, now `cnh-743`); `eg-810` should not take bare "corvée" (`cnh-717`); `cnh-820`/`cnh-821`
+  should not take huiguan or piaohao; `ko-472` (the Joseon censorate) should take a Korean answer.
+- Aliases dropped before import because they already mean something else in the corpus: "Son of Heaven"
+  (the legendary and Zhou kings), "xiao", "Hui", "Zhuang", "Miao" (personal names and the mythic Miao),
+  "Huihui" (Yuan Muslims generally), "Han people" (the Korean Samhan), "Board of Rites" and "district
+  magistrate" (Japanese uses), "koutou", "shoujie", "Dongchang" (names and a battle). The Tiandihui is
+  keyed `Tiandihui`, not Wikipedia's `Hongmen`, which is the place of the feast in `cnh-217`.
+  `Golden_Urn`, `Chinese_New_Year` and `New_Marriage_Law` are case-sensitive so that Greek and Roman
+  funerary "golden urns", "spring festival" processions and Rome's "new marriage laws" stay unlinked.
+  Bare "Manchu" and "Ordos" are kept as aliases (94 and 14 uses, nearly all the people and the region).
+- `check-cards.js` "scholar in question" on `cnh-725` names Li Hongzhang, an actor rather than a scholar,
+  and was left like `cnh-609` and `cnh-680`.
+- `cnh-746` reads 底面價比率自六倍至十倍 (Qidong, 1937) as topsoil at 6–10 times the subsoil price; a
+  reader of Chinese should confirm the direction.
+- **Land reform (`cnh-657`) still carries only the high estimate.** Stavis 1978 is on archive.org as a
+  lending copy whose search-inside is closed, and Gao and Liu's article gives no other figure.
+- **No pictures** were added to any of the hundred.
