@@ -1192,6 +1192,10 @@ body.night .game-tile{ --gt-gold:#D8B355; }
   76%{transform:translateY(-2px) rotate(-3deg);}
   86%{transform:translateY(-1px) rotate(3deg);}
 }
+/* THE TABLET'S AND THE PHONE'S RAIL (Oct 2026, on request — see sweepRowHTML). Desktop-first: the rail is
+   not drawn here at all and the miniature is; the two breakpoint blocks by `.games-sec` further down swap them,
+   dress `.sweep-row` as a card on a tablet and strip it back to a bare row on a phone. */
+.sweep-rail{display:none;}
 
 /* ---------- home: how-it-works strip — REMOVED (Aug 2026, on request) ----------
    `.howit` / `.hi-step` / `.hi-num` / `.hi-body` were the three-beat first-run strip under the review
@@ -10201,6 +10205,34 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 }
 @media (max-width:1024px){
   .games-sec .game-grid{grid-template-columns:repeat(2, 1fr);}
+  /* THE GLYPH RAIL (Oct 2026, on request; design T4 of docs/mockups/chest-meter-designs). The tiles are two to a
+     row from here down, so the 3×3 miniature stops being a picture of them and the chest meter becomes a strip of
+     its own under the heading: the count in words, nine discs in DAILY_GAMES order wearing each game's glyph — lit
+     in the tile's own hue once played, the seal's gold when perfect — joined by a line that turns green between
+     two played neighbours, and the chest capping the right end. The row is a card like the tiles beneath it. */
+  .games-sec .games-top{gap:10px 12px;}
+  .games-sec .sweep-meter{display:none;}
+  .games-sec .sweep-row{
+    flex:1 1 100%; justify-content:flex-start; gap:12px; padding:10px 14px;
+    border:1px solid var(--rule); border-radius:12px; background:var(--card); box-shadow:var(--shadow-sm);
+  }
+  .games-sec .sweep-rail{display:flex; align-items:center; flex:1 1 auto; min-width:0; gap:16px;}
+  .games-sec .sr-count{font-size:calc(12px * var(--fs)); white-space:nowrap;}
+  .games-sec .sr-steps{flex:1 1 auto; display:flex; align-items:center; min-width:0;}
+  .games-sec .sr-step{
+    display:grid; place-items:center; flex:none; width:calc(30px * var(--fs)); height:calc(30px * var(--fs)); border-radius:50%;
+    border:1.5px solid var(--rule); color:var(--ink-faint); background:var(--card);
+    transition:background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+  }
+  .games-sec .sr-step svg{width:calc(15px * var(--fs)); height:calc(15px * var(--fs)); display:block;}
+  .games-sec .sr-step.on{border-color:var(--c); background:color-mix(in srgb, var(--c) 16%, var(--card)); color:var(--c);}
+  /* gold is the seal's pair of stops, as on the desktop's pips (`.sw-chip.won`) */
+  .games-sec .sr-step.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47; border-color:#BE9829; color:#fff;}
+  body.night .games-sec .sr-step.won{color:var(--paper);}
+  .games-sec .sr-link{flex:1 1 8px; min-width:6px; height:2px; background:var(--rule); transition:background .25s var(--ease);}
+  .games-sec .sr-link.on{background:var(--good, #4F9D67);}
+  .games-sec .sweep-chest{width:calc(40px * var(--fs)); height:calc(34px * var(--fs));}
+  .games-sec .sweep-chest .lock-svg{background:var(--card);}   /* the lock's disc sits on the card now, not the paper */
 }
 /* A TABLET DRAWS NO FANNED PREVIEW (Oct 2026, on request: "remove the card preview from the daily study banner
    on tablet format and reorganise the remaining contents accordingly"). It had gone from a narrow tablet, come
@@ -10248,6 +10280,27 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   /* an unfolded collection and its subdecks are one tight block here as at every width — the `dk-att` rules
      by `.review-group .active-decks` (Oct 2026, on request: "this should also be the case on desktop and tablet") */
   .games-sec .game-grid{grid-template-columns:1fr;}
+  /* THE FULL-WIDTH RAIL (Oct 2026, on request; design P4 of docs/mockups/chest-meter-designs). A phone has no room
+     for nine glyph discs, so the tablet's rail sheds its card and its glyphs: the same nine steps become plain
+     segments stretched across the row under the heading, the count at the left and the chest capping the right. */
+  .games-sec .sweep-row{padding:0; border:0; border-radius:0; background:none; box-shadow:none; gap:10px;}
+  .games-sec .sweep-rail{gap:10px;}
+  .games-sec .sr-count{font-size:calc(11.5px * var(--fs));}
+  .games-sec .sr-steps{gap:3px;}
+  .games-sec .sr-step{flex:1 1 0; width:auto; height:calc(6px * var(--fs)); border-radius:99px; border:0; background:var(--rule);}
+  .games-sec .sr-step:first-child{border-radius:99px 3px 3px 99px;}
+  .games-sec .sr-step:last-child{border-radius:3px 99px 99px 3px;}
+  .games-sec .sr-step svg{display:none;}
+  .games-sec .sr-step.on{background:var(--good, #4F9D67);}
+  .games-sec .sr-step.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47;}
+  .games-sec .sr-link{display:none;}
+  .games-sec .sweep-chest{width:calc(34px * var(--fs)); height:calc(28px * var(--fs));}
+  .games-sec .sweep-chest .lock-svg{background:var(--paper);}
+  /* PLAYED AND PERFECT ARE ONE WIDTH ON A PHONE (Oct 2026, on request: "ensure on mobile that the Perfect and
+     Played chips are horizontally aligned"). The tiles stand in one column here, so the pills sit in one column
+     too, and two words of different length gave them a ragged left edge. The width is in the pill's own em so it
+     follows the reader's text size: "Perfect" with its star measures 8.25em, so 8.4em holds either word. */
+  .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{min-width:8.4em; justify-content:center;}
   .home-two{grid-template-columns:1fr;}
   .home-foot{justify-content:center; text-align:center;}
   .home-foot .home-about{text-align:center;}

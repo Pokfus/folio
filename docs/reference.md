@@ -4548,6 +4548,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A PERFECT MINIGAME TURNS ITS PIP GOLD** (`sweepRowHTML`, `.sw-chip.won`). The meter's nine pips said
     played-or-not where the tile above says played, won or neither, so the two disagreed about the day;
     the aria-label names how many were perfect, a colour being no answer for a reader who cannot see it.
+  · **A TABLET AND A PHONE GET A RAIL, NOT THE 3×3** (`sweepRowHTML`'s `.sweep-rail`, the two `.games-sec`
+    breakpoint blocks in `styles.css`; Oct 2026, on request, chosen from six rendered designs for each in
+    `docs/mockups/chest-meter-designs/`). The miniature mirrors the DESKTOP's three-across grid; the tiles go
+    two to a row below 1024px and one to a row below 640px, so there it mirrored nothing. The rail is ONE
+    markup rendered always and swapped by CSS — glyph discs in a card on a tablet (T4), bare segments across
+    the row on a phone (P4) — so there is still one `#sweepChest` button and one click handler; the discs
+    read their hue from `GAME_HUE`, the same map the tiles are painted from. **Keep the rail's steps in
+    `DAILY_GAMES` order and keep `.sweep-rail` display:none above 1024px**: two meters on one page is the
+    arithmetic the meter exists to make checkable, twice.
   · **THE TUTORIAL NO LONGER CALLS FOLIO A HISTORY SITE** (`TOUR_STEPS[0]`, `PAGE_META.home`, and the
     three matching strings in `index.html`, which are the static baseline a link-preview crawler reads).
     **And it no longer BLURS what it is pointing at**: `.folio-tour`'s backdrop filter dimmed the whole
