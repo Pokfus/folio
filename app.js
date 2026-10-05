@@ -23278,7 +23278,51 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="hb-k">Continue reading</span>' +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + esc(where) + "</span>" +
-        '<span class="hb-bar"><span style="width:' + pct + '%"></span></span><em>' + pct + "% read</em></span></span></button>";
+        '<span class="hb-bar"><span style="width:' + pct + '%"></span></span><em>' + pct + "% read</em></span></span>" +
+      homeReadingNextHTML(b, pos) + "</button>";
+  }
+  /* A GLIMPSE OF THE NEXT PARAGRAPH (Oct 2026, on request: "show a brief preview of a next paragraph to read in
+     the book, which fades out vertically downwards and can be clicked to go straight to that chapter"). The place
+     is a chapter number and a fraction of that chapter's height (readingPos), so the paragraph shown is the one
+     that fraction of the way through the chapter's paragraphs — the eye's place, near enough — and a reader on
+     the front matter or with no place sees the first paragraph of the first chapter. The text is lazy with the
+     book (bookBundle), so the box is drawn without it when the book is not loaded yet and homeReadingNextFill
+     adds it once the file arrives; a book already opened this session has it at once. The chapter's number is
+     on the element (`data-n`) and the box's click handler reads it: a press on the preview opens that chapter
+     at its top, as any addressed chapter does, where a press anywhere else resumes at the saved depth. It is
+     a span, not a button, because the box is a button and a button cannot hold another. */
+  function homeReadingNextHTML(b, pos) {
+    const shipped = bookChapters(b.id);
+    if (!shipped || !shipped.length) return "";
+    const c = (pos && shipped.find((x) => x.n === pos.ch)) || shipped[0];
+    const same = !!(pos && c.n === pos.ch);
+    const d = document.createElement("div");
+    d.innerHTML = c.html || "";
+    const ps = d.querySelectorAll("p");
+    if (!ps.length) return "";
+    const i = same ? Math.min(ps.length - 1, Math.floor((pos.y || 0) * ps.length)) : 0;
+    const p = ps[i];
+    p.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
+    p.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
+    let text = (p.textContent || "").replace(/\s+/g, " ").trim();
+    if (!text) return "";
+    if (text.length > 300) { text = text.slice(0, 300); text = text.slice(0, Math.max(0, text.lastIndexOf(" "))) + "\u2026"; }
+    const num = b.chapterWord + " " + c.n;
+    const label = num + (c.t && c.t.trim().toLowerCase() !== num.toLowerCase() ? " \u00b7 " + c.t : "");   // a title that is only the number is said once
+    return '<span class="hb-next" data-n="' + esc(String(c.n)) + '" title="Open ' + esc(label) + '">' +
+      '<span class="hb-next-k">' + (same ? "Next up" : "Begin") + " \u00b7 " + esc(label) + "</span>" +
+      '<span class="hb-next-p">' + esc(text) + "</span></span>";
+  }
+  function homeReadingNextFill(root) {
+    const rd = root.querySelector("#b-reading");
+    const id = rd && rd.dataset.book;
+    if (!id || rd.querySelector(".hb-next")) return;
+    ensureData(bookBundle(id)).then((ok) => {
+      const b = ok && rd.isConnected ? BOOK_BY_ID[id] : null;
+      if (!b) return;
+      const h = homeReadingNextHTML(b, readingPos(id));
+      if (h) rd.insertAdjacentHTML("beforeend", h);
+    });
   }
   /* The day's and the week's figures: cards from the daily totals, time and recall from the per-answer
      log. TODAY IS A SECTION OF THIS BOX (Oct 2026, on request), where it replaces the "studied 13m today"
@@ -25255,7 +25299,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // width now, each being the only route to the page it names anywhere on the site
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
     { const cl = root.querySelector("#b-changelog"); if (cl) cl.addEventListener("click", () => route("mission", { scrollTo: "changelog" })); }
-    { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", () => { if (rd.dataset.book) route("book", { id: rd.dataset.book }); else route("library"); }); }
+    { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", (e) => {
+        const nx = e.target && e.target.closest ? e.target.closest(".hb-next") : null;
+        if (nx && rd.dataset.book) route("book", { id: rd.dataset.book, n: nx.dataset.n });
+        else if (rd.dataset.book) route("book", { id: rd.dataset.book }); else route("library"); }); }
+    homeReadingNextFill(root);
     /* THE BREAKPOINT NO LONGER CHANGES WHAT THIS PAGE IS, and the listener below is retired with the last
        thing that did (Aug 2026): the About line was the one block built on a phone and not on a desktop,
        and now that the desktop's About tab has gone it ships at both widths like everything else here. So
