@@ -23252,7 +23252,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     const prize = p.worth === 1 ? "a chest" : p.worth + " chests";
     const note = n <= 0 ? "Study on any day to start a streak \u2014 seven days in a row earns a chest."
-      : p.left === 0 ? "Seven days in a row \u2014 paid. Seven more earns " + esc(prize) + "."
+      : p.left === 0 ? "Seven more earns " + esc(prize) + "."
       : p.left + (p.left === 1 ? " more day" : " more days") + " for <b>" + esc(prize) + "</b>";
     const best = Math.max(st.best | 0, n);
     return '<div class="streak-ribbon" role="group" aria-label="' + n + ' day streak">' +
