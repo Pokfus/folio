@@ -10290,13 +10290,16 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .games-sec .sr-count{font-size:calc(11.5px * var(--fs));}
   .games-sec .sr-steps{gap:3px;}
   .games-sec .sr-step{flex:1 1 0; width:auto; height:calc(6px * var(--fs)); border-radius:99px; border:0; background:var(--rule);}
-  .games-sec .sr-step:first-child{border-radius:99px 3px 3px 99px;}
-  .games-sec .sr-step:last-child{border-radius:3px 99px 99px 3px;}
+  /* every segment is the same pill — the end ones used to be squared on their inner side (Oct 2026, on request) */
   .games-sec .sr-step svg{display:none;}
   .games-sec .sr-step.on{background:var(--good, #4F9D67);}
   .games-sec .sr-step.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47;}
   .games-sec .sr-link{display:none;}
   .games-sec .sweep-chest{width:calc(34px * var(--fs)); height:calc(28px * var(--fs));}
+  /* THE CHEST'S DRAWING SITS LOW IN ITS OWN BOX: CHEST_SVG spans 14..92 of a 96-unit viewBox, so its centre is
+     5% below the box's, and the box being centred on the segments left the chest a hair under them (Oct 2026, on
+     request). Lifting the drawing by that share of its own height centres what the eye sees, at any text size. */
+  .games-sec .sweep-chest .chest-svg{transform:translateY(-5.2%);}
   .games-sec .sweep-chest .lock-svg{background:var(--paper);}
   /* PLAYED AND PERFECT ARE ONE WIDTH ON A PHONE (Oct 2026, on request: "ensure on mobile that the Perfect and
      Played chips are horizontally aligned"). The tiles stand in one column here, so the pills sit in one column
