@@ -17761,6 +17761,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      navigations away from the deck whose allowance a reader had come to change, and it read as a rule about
      Folio rather than as the fallback for a per-deck number. Both figures now sit beside the per-deck ones
      they stand behind, and a reader can see which of the two they are editing.
+     ONE PANE, NOT TWO TABS (Oct 2026, on request: "put the all decks information above the this deck
+     section"): the "All decks" figures stand first under their own heading and the deck's own under theirs,
+     so the fallback is read before the figure that may override it. `.dm-pane[data-pane]` stays on the two
+     sections — the tests and the switch below address them by it — with nothing hidden.
 
      THE PER-DECK TAB SHOWS THE INHERITED FIGURE WHERE NOTHING HAS BEEN SET, and says so — `deckLimits`
      already falls back to the global, so the box would otherwise show a number the reader might take for
@@ -17795,10 +17799,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="switch' + (hasOwn ? " on" : "") + '" data-lim="dOwn" role="switch" aria-label="' + esc(ownLabel) + '" tabindex="0" aria-checked="' + (hasOwn ? "true" : "false") + '"></div></div>';
     const html =
       '<div class="dm-head"><span class="dm-title">Daily limits</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
-      '<div class="dm-tabs" role="tablist">' +
-        '<button type="button" class="dm-tab active" role="tab" aria-selected="true" data-pane="deck">This ' + noun + '</button>' +
-        '<button type="button" class="dm-tab" role="tab" aria-selected="false" data-pane="all">All decks</button>' +
+      '<div class="dm-sect" data-for="all">All decks</div>' +
+      '<div class="dm-pane" data-pane="all">' +
+        numRow("gNew", "New cards/day", G.newPerDay, 999) +
+        numRow("gRev", "Maximum reviews/day", G.maxReviews, 9999) +
+        '<p class="dm-note">What every deck follows until it is given limits of its own. A deck you have already set keeps its own figures.</p>' +
       '</div>' +
+      '<div class="dm-sect" data-for="deck">This ' + noun + '</div>' +
       '<div class="dm-pane' + (hasOwn ? "" : " dm-following") + '" data-pane="deck">' +
         ownRow +
         numRow("dNew", "New cards/day", L.newPerDay, 999) +
@@ -17810,11 +17817,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            nothing to do with the one in the box. And what a figure set here DOES is cap, not cascade, so
            the note under the switch says so: the decks keep their own allowances underneath. */
       '</div>' +
-      '<div class="dm-pane" data-pane="all" hidden>' +
-        numRow("gNew", "New cards/day", G.newPerDay, 999) +
-        numRow("gRev", "Maximum reviews/day", G.maxReviews, 9999) +
-        '<p class="dm-note">What every deck follows until it is given limits of its own. A deck you have already set keeps its own figures.</p>' +
-      '</div>' +
       '<div class="dm-actions"><button type="button" class="btn ghost" data-act="cancel">Cancel</button>' +
       '<button type="button" class="btn" data-act="save">Save</button></div>';
     deckSheet("Daily limits", html, (ov, close) => {
@@ -17823,13 +17825,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const flip = () => { const on = sw.classList.toggle("on"); sw.setAttribute("aria-checked", on ? "true" : "false"); };
       sw.addEventListener("click", flip);
       sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
-      /* The tabs swap PANES rather than rebuilding the sheet: both sets of figures are typed into live
-         inputs and Save writes both, so a reader can change the default and this deck's override in one
-         visit and neither is thrown away by looking at the other. */
-      ov.querySelectorAll(".dm-tab").forEach((t) => t.addEventListener("click", () => {
-        ov.querySelectorAll(".dm-tab").forEach((o) => { o.classList.toggle("active", o === t); o.setAttribute("aria-selected", o === t ? "true" : "false"); });
-        ov.querySelectorAll(".dm-pane").forEach((p) => { p.hidden = p.dataset.pane !== t.dataset.pane; });
-      }));
+      // both sets of figures are live inputs on one pane and Save writes both, so a reader can change the
+      // default and this deck's override in one visit
       /* THE OWN-LIMITS SWITCH. Off dims the fields and puts the default's figures back in them (a language
          keeps what it shows, its "default" being its decks' sum); on leaves them as they are; typing in a
          field turns it on, since a figure typed is a figure chosen. */
@@ -23385,14 +23382,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       week.secs += r.secs || 0; week.total++; if (r.correct) week.right++;
       if (dayKey(r.t) === today) { day.secs += r.secs || 0; day.total++; if (r.correct) day.right++; }
     }
-    const stats = (f, cls) => {
+    const figs = (f) => {
       const mins = Math.round(f.secs / 60);
-      const time = mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min";
-      const recall = f.total ? Math.round((f.right / f.total) * 100) + "%" : "\u2014";
-      return '<div class="hw-stats' + (cls || "") + '">' +
+      return {
+        time: mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min",
+        recall: f.total ? Math.round((f.right / f.total) * 100) + "%" : "\u2014",
+      };
+    };
+    const stats = (f) => {
+      const g = figs(f);
+      return '<div class="hw-stats">' +
         "<div><b>" + f.cards + "</b><span>cards studied</span></div>" +
-        "<div><b>" + esc(time) + "</b><span>at the desk</span></div>" +
-        '<div class="g"><b>' + recall + "</b><span>recalled</span></div></div>";
+        "<div><b>" + esc(g.time) + "</b><span>at the desk</span></div>" +
+        '<div class="g"><b>' + g.recall + "</b><span>recalled</span></div></div>";
+    };
+    // the week's figures as one small line, each beside its word (Oct 2026, on request: "smaller and next to their
+    // text labels like you did in the D3 design for mobile"), spaced across the box as the bars above are
+    const line = (f) => {
+      const g = figs(f);
+      return '<div class="hw-tot"><span><b>' + f.cards + "</b> cards</span><span><b>" + esc(g.time) + "</b></span>" +
+        '<span><b class="g">' + g.recall + "</b> recalled</span></div>";
     };
     /* THE WEEK IS SHOWN, NOT ONLY SUMMED (Oct 2026, on request — design D3 of docs/mockups/week-box-redesigns):
        seven bars of cards per day, oldest first and today the solid one, read off the same daily totals the
@@ -23410,7 +23419,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="hw-days" aria-hidden="true">' + days.map((x) => '<span class="' + (x.cur ? "cur" : "") + '">' + esc(x.l) + "</span>").join("") + "</div>";
     return '<div class="home-box home-week">' +
       '<div class="hw-today"><span class="hb-k">Today</span>' + stats(day) + "</div>" +
-      '<div class="hw-week"><span class="hb-k">This week</span>' + bars + stats(week, " hw-tot") + "</div></div>";
+      '<div class="hw-week"><span class="hb-k">This week</span>' + bars + line(week) + "</div></div>";
   }
   /* The top three cards of today's pile, fanned beside the banner (desktop and tablet only; see styles.css).
      Site cards only: a community card's text lives per note and may not be loaded yet.

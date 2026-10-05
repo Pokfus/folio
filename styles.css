@@ -4285,6 +4285,10 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 /* the author `display:block` a pane would otherwise take beats the UA [hidden] rule — the trap
    `.ces-imgpanel[hidden]` and `.gs-results[hidden]` already carry */
 .dm-pane[hidden]{display:none;}
+/* the Daily limits sheet's two sections, All decks over This deck (Oct 2026; they were tabs) */
+.dm-sect{padding:10px 14px 2px; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600;}
+.dm-sect + .dm-pane{padding-bottom:4px;}
+.dm-sect[data-for="deck"]{margin-top:6px; border-top:1px solid var(--rule); padding-top:12px;}
 .dm-clear{width:100%;}
 /* the own-limits switch at the top of the Daily limits sheet's deck tab (Oct 2026, on request): its note on a line
    of its own, and the fields under it dimmed while the deck follows "All decks" */
@@ -10192,19 +10196,18 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .hw-days{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; margin-top:5px; text-align:center;}
 .hw-days span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; color:var(--ink-faint);}
 .hw-days span.cur{color:var(--indigo); font-weight:600;}
-.hw-stats.hw-tot{margin-top:12px; padding-top:10px; border-top:1px solid var(--rule);}
+/* the week's figures, small and beside their words, spaced across the box as the bars are */
+.hw-tot{display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 8px; margin-top:12px; padding-top:10px; border-top:1px solid var(--rule); font-size:calc(12.5px * var(--fs)); color:var(--ink-quiet);}
+.hw-tot span{white-space:nowrap;}
+.hw-tot b{color:var(--ink); font-weight:700; font-size:calc(13.5px * var(--fs)); font-variant-numeric:tabular-nums;}
+.hw-tot b.g{color:var(--good);}
 @media (min-width:1025px){
   .home-week{display:grid; grid-template-columns:auto 1fr; gap:0 22px; align-items:stretch;}
   .hw-today{display:flex; flex-direction:column; justify-content:center; padding-right:18px; border-right:1px solid var(--rule);}
   .hw-today .hw-stats{grid-template-columns:1fr; gap:10px; justify-items:start; text-align:left;}
   .hw-today .hw-stats b{font-size:calc(22px * var(--fs));}
   .hw-week{padding-top:0; border-top:0; display:flex; flex-direction:column; justify-content:flex-end;}
-  /* the week's figures as one line under the chart, as D3 drew them for a desktop — the box is a half of
-     `.home-two`, under 400px at a 1200px window, and three columns of figure-over-label do not fit beside Today */
-  .hw-stats.hw-tot{display:flex; flex-wrap:wrap; justify-content:flex-start; gap:4px 16px; text-align:left; padding-top:9px;}
-  .hw-stats.hw-tot > div{display:flex; align-items:baseline; gap:5px;}
-  .hw-stats.hw-tot b{font-size:calc(14px * var(--fs)); font-weight:700; letter-spacing:0;}
-  .hw-stats.hw-tot span{margin:0; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); letter-spacing:0; text-transform:none;}
+  .hw-tot{padding-top:9px;}
 }
 /* the foot */
 .home-foot{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:10px; padding:16px 0 0;}

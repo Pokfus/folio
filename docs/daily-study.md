@@ -447,9 +447,10 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
     reviews a day had only ever been settable per deck, so the two halves of one idea lived in two places
     three navigations apart, and the global one read as a rule about Folio rather than as the fallback
     behind a per-deck figure.
-    Three things are decisions. **The tabs swap PANES rather than rebuilding the sheet**, and Save writes
-    both, so a reader can change the default and this deck's override in one visit without either being
-    thrown away by looking at the other. **The per-deck tab shows the INHERITED figure where nothing has
+    Three things are decisions. **The two sets of figures are two SECTIONS of one pane, All decks above This
+    deck** (Oct 2026, on request: "put the all decks information above the this deck section"; they were two
+    tabs swapping panes from Aug 2026), and Save writes both, so a reader can change the default and this
+    deck's override in one visit. `.dm-sect[data-for]` heads each, `.dm-pane[data-pane]` still wraps each. **The per-deck tab shows the INHERITED figure where nothing has
     been set**, and says so under the fields — `deckLimits` already falls back, so the box would otherwise
     show a number the reader might take for something they had chosen. And **saving with the own-limits
     switch OFF DELETES the three keys** rather than writing the global's current values into them, which is

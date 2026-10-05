@@ -791,7 +791,7 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     };
     await openLimits();
     const lim = await page.evaluate(() => ({
-      tab: (document.querySelector(".dm-tab") || {}).textContent,
+      tab: (document.querySelector('.dm-sect[data-for="deck"]') || {}).textContent,   // the deck section's heading (Oct 2026; it was a tab)
       n: +document.querySelector('[data-lim="dNew"]').value,
       note: (document.querySelector('.dm-pane[data-pane="deck"] #dlOwnNote') || {}).textContent || "",   // the note under the own-limits switch (Oct 2026)
     }));
