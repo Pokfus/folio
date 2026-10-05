@@ -447,14 +447,21 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
     reviews a day had only ever been settable per deck, so the two halves of one idea lived in two places
     three navigations apart, and the global one read as a rule about Folio rather than as the fallback
     behind a per-deck figure.
-    Three things are decisions. **The tabs swap PANES rather than rebuilding the sheet**, and Save writes
-    both, so a reader can change the default and this deck's override in one visit without either being
-    thrown away by looking at the other. **The per-deck tab shows the INHERITED figure where nothing has
+    Three things are decisions. **The two sets of figures are two SECTIONS of one pane, All decks above This
+    deck** (Oct 2026, on request: "put the all decks information above the this deck section"; they were two
+    tabs swapping panes from Aug 2026), and Save writes both, so a reader can change the default and this
+    deck's override in one visit. `.dm-sect[data-for]` heads each, `.dm-pane[data-pane]` still wraps each. **The per-deck tab shows the INHERITED figure where nothing has
     been set**, and says so under the fields — `deckLimits` already falls back, so the box would otherwise
-    show a number the reader might take for something they had chosen. And **"Clear back to the default"
-    DELETES the three keys** rather than writing the global's current values into them, which is the whole
-    difference: a deck cleared this way follows a later change to the default, where one holding a copy of
-    today's figures would silently stop following it. It is offered only where there is something to clear.
+    show a number the reader might take for something they had chosen. And **saving with the own-limits
+    switch OFF DELETES the three keys** rather than writing the global's current values into them, which is
+    the whole difference: a deck cleared this way follows a later change to the default, where one holding a
+    copy of today's figures would silently stop following it. **THE SWITCH** (Oct 2026, on request: "more clear
+    when the collection follows its collection specific settings or when it follows the default settings,
+    perhaps through a toggle switch") stands at the top of the deck tab, `data-lim="dOwn"`: off while the deck
+    follows "All decks", the fields dimmed under it (`.dm-following`); on when it has figures of its own.
+    Typing a figure turns it on, turning it off puts the default's figures back, and Save reads it. It
+    replaced the "Clear back to the default" button, which did the same deletion. For a language it reads
+    "Cap this language", since a language's own figure caps its decks rather than replacing a default.
     `.dm-pane[hidden]{display:none}` is required — the author `display` beats the UA rule, the trap
     `.ces-imgpanel[hidden]` already carries.
   · **A SETTING CASCADES TO WHAT IS UNDER IT** (`DECK_OPT_INHERIT` / `entryChain` / `deckOpt` /

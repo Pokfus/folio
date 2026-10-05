@@ -791,9 +791,9 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     };
     await openLimits();
     const lim = await page.evaluate(() => ({
-      tab: (document.querySelector(".dm-tab") || {}).textContent,
+      tab: (document.querySelector('.dm-sect[data-for="deck"]') || {}).textContent,   // the deck section's heading (Oct 2026; it was a tab)
       n: +document.querySelector('[data-lim="dNew"]').value,
-      note: (document.querySelector('.dm-pane[data-pane="deck"] .dm-note') || {}).textContent || "",
+      note: (document.querySelector('.dm-pane[data-pane="deck"] #dlOwnNote') || {}).textContent || "",   // the note under the own-limits switch (Oct 2026)
     }));
     check("…and the Daily limits sheet says so rather than naming the global default",
       lim.n === p0.head && /language/i.test(lim.tab) && /offer between them/i.test(lim.note),
@@ -818,7 +818,8 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       !Object.keys(stored).some((k) => k.indexOf("u:") === 0), JSON.stringify(stored));
 
     await openLimits();
-    await page.evaluate(() => document.querySelector('[data-act="clear"]').click());
+    // the cap is lifted by turning the own-limits switch OFF and saving (Oct 2026; it was a "Clear back to the default" button)
+    await page.evaluate(() => { document.querySelector('[data-lim="dOwn"]').click(); document.querySelector('.dm-actions [data-act="save"]').click(); });
     await page.waitForTimeout(900);
     const p2 = await readRows();
     check("…and clearing it gives the day back", p2.banner === p0.banner,

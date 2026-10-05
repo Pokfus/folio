@@ -16693,8 +16693,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       cyRow("order", "Review order", DECK_ORDER_NOTE[order], DECK_ORDER_LABEL[order],
         fromMark(["order", "random"])) +
       swRow("variety", "Question variety",
-        "Each card asks one of its phrasings at random",
-        "Every card always asks its first phrasing", variety, false, fromMark(["variety"])) +
+        "Each card asks a different question about its answer each time, picked at random",
+        "Every card always asks the same question", variety, false, fromMark(["variety"])) +
       /* ANSWER BEFORE REVEALING and RECALL IN FULL stood here as per-entry switches from Sep 2026 until Oct
          2026 (on request: "those on the settings page should apply to all cards on the website ... need not
          be deck-specific settings") — they are the Settings page's two switches alone now, see deckAttempt. */
@@ -17761,12 +17761,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      navigations away from the deck whose allowance a reader had come to change, and it read as a rule about
      Folio rather than as the fallback for a per-deck number. Both figures now sit beside the per-deck ones
      they stand behind, and a reader can see which of the two they are editing.
+     ONE PANE, NOT TWO TABS (Oct 2026, on request: "put the all decks information above the this deck
+     section"): the "All decks" figures stand first under their own heading and the deck's own under theirs,
+     so the fallback is read before the figure that may override it. `.dm-pane[data-pane]` stays on the two
+     sections — the tests and the switch below address them by it — with nothing hidden.
 
      THE PER-DECK TAB SHOWS THE INHERITED FIGURE WHERE NOTHING HAS BEEN SET, and says so — `deckLimits`
      already falls back to the global, so the box would otherwise show a number the reader might take for
-     something they had chosen. **Clear it back to the default** does that (it deletes the keys rather than
-     writing the global's current value into them, so a later change to the default still reaches this deck),
-     and is offered only where there is something to clear. */
+     something they had chosen. A SWITCH AT THE TOP OF THE TAB SAYS WHICH IT IS (Oct 2026, on request: "it
+     should be more clear when the collection follows its collection specific settings or when it follows the
+     default settings, perhaps through a toggle switch"): off, the deck follows "All decks" and the figures are
+     dimmed to what it follows; on, they are its own. Typing a figure turns it on; turning it off puts the
+     default's figures back; Save with it off DELETES the keys (rather than writing the global's current value
+     into them, so a later change to the default still reaches this deck) — the job the "Clear back to the
+     default" button did until the switch replaced it. */
   function openDeckLimits(id) {
     const info = entryInfo(id), L = deckLimits(id);
     const noun = entryNoun(id), isLang = isLangCtxId(id);
@@ -17779,13 +17787,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const swRow2 = (key, on) =>
       '<div class="dm-field dm-switchrow"><span>New cards ignore review limit</span>' +
       '<div class="switch' + (on ? " on" : "") + '" data-lim="' + key + '" role="switch" aria-label="New cards ignore review limit" tabindex="0" aria-checked="' + (on ? "true" : "false") + '"></div></div>';
+    /* the two notes the switch chooses between, and the switch itself — a language's own figure CAPS its
+       decks rather than replacing the default (see the note below), so its label says so */
+    const noteOwn = isLang ? "This language deals at most this much a day, whatever its decks allow between them."
+      : "Set for this " + noun + " alone. \u201cAll decks\u201d no longer reaches it.";
+    const noteDefault = isLang ? "What the decks of this language currently offer between them. Turn the cap on to limit the whole language."
+      : "Following the default for all decks. Turn the switch on, or change a figure, to give this " + noun + " limits of its own.";
+    const ownLabel = isLang ? "Cap this language" : "Own limits for this " + noun;
+    const ownRow =
+      '<div class="dm-field dm-switchrow dm-ownrow"><span><b>' + esc(ownLabel) + '</b><small id="dlOwnNote">' + esc(hasOwn ? noteOwn : noteDefault) + '</small></span>' +
+      '<div class="switch' + (hasOwn ? " on" : "") + '" data-lim="dOwn" role="switch" aria-label="' + esc(ownLabel) + '" tabindex="0" aria-checked="' + (hasOwn ? "true" : "false") + '"></div></div>';
     const html =
       '<div class="dm-head"><span class="dm-title">Daily limits</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
-      '<div class="dm-tabs" role="tablist">' +
-        '<button type="button" class="dm-tab active" role="tab" aria-selected="true" data-pane="deck">This ' + noun + '</button>' +
-        '<button type="button" class="dm-tab" role="tab" aria-selected="false" data-pane="all">All decks</button>' +
+      '<div class="dm-sect" data-for="all">All decks</div>' +
+      '<div class="dm-pane" data-pane="all">' +
+        numRow("gNew", "New cards/day", G.newPerDay, 999) +
+        numRow("gRev", "Maximum reviews/day", G.maxReviews, 9999) +
+        '<p class="dm-note">What every deck follows until it is given limits of its own. A deck you have already set keeps its own figures.</p>' +
       '</div>' +
-      '<div class="dm-pane" data-pane="deck">' +
+      '<div class="dm-sect" data-for="deck">This ' + noun + '</div>' +
+      '<div class="dm-pane' + (hasOwn ? "" : " dm-following") + '" data-pane="deck">' +
+        ownRow +
         numRow("dNew", "New cards/day", L.newPerDay, 999) +
         numRow("dRev", "Maximum reviews/day", L.maxReviews, 9999) +
         swRow2("dIgn", L.newIgnoresReview) +
@@ -17793,20 +17815,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            showing what its decks already offer between them, which is the sum of their allowances (see
            langCtxLimits). Saying "following the default for all decks" there would name a number that has
            nothing to do with the one in the box. And what a figure set here DOES is cap, not cascade, so
-           the note says so: the decks keep their own allowances underneath. */
-        '<p class="dm-note">' + (hasOwn
-          ? (isLang ? "This language deals at most this much a day, whatever its decks allow between them."
-                    : "Set for this " + noun + " alone.")
-          : (isLang ? "What the decks of this language currently offer between them. Set a figure here and it caps the whole language."
-                    : "Following the default for all decks. Change a figure here and only this " + noun + " follows it.")) + '</p>' +
-        (hasOwn ? '<button type="button" class="dm-item dm-clear" data-act="clear"><b>Clear back to the default</b>' +
-          '<small>' + (isLang ? "Stop capping this language — its decks keep their own allowances"
-                              : "Follow whatever “All decks” says, now and later") + '</small></button>' : "") +
-      '</div>' +
-      '<div class="dm-pane" data-pane="all" hidden>' +
-        numRow("gNew", "New cards/day", G.newPerDay, 999) +
-        numRow("gRev", "Maximum reviews/day", G.maxReviews, 9999) +
-        '<p class="dm-note">What every deck follows until it is given limits of its own. A deck you have already set keeps its own figures.</p>' +
+           the note under the switch says so: the decks keep their own allowances underneath. */
       '</div>' +
       '<div class="dm-actions"><button type="button" class="btn ghost" data-act="cancel">Cancel</button>' +
       '<button type="button" class="btn" data-act="save">Save</button></div>';
@@ -17816,19 +17825,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const flip = () => { const on = sw.classList.toggle("on"); sw.setAttribute("aria-checked", on ? "true" : "false"); };
       sw.addEventListener("click", flip);
       sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
-      /* The tabs swap PANES rather than rebuilding the sheet: both sets of figures are typed into live
-         inputs and Save writes both, so a reader can change the default and this deck's override in one
-         visit and neither is thrown away by looking at the other. */
-      ov.querySelectorAll(".dm-tab").forEach((t) => t.addEventListener("click", () => {
-        ov.querySelectorAll(".dm-tab").forEach((o) => { o.classList.toggle("active", o === t); o.setAttribute("aria-selected", o === t ? "true" : "false"); });
-        ov.querySelectorAll(".dm-pane").forEach((p) => { p.hidden = p.dataset.pane !== t.dataset.pane; });
-      }));
-      const clear = ov.querySelector('[data-act="clear"]');
-      if (clear) clear.addEventListener("click", () => {
-        clearDeckLimits(id);
-        close(); render();
-        toast(isLang ? "No longer capping " + info.title : "Following the default for all decks");
-      });
+      // both sets of figures are live inputs on one pane and Save writes both, so a reader can change the
+      // default and this deck's override in one visit
+      /* THE OWN-LIMITS SWITCH. Off dims the fields and puts the default's figures back in them (a language
+         keeps what it shows, its "default" being its decks' sum); on leaves them as they are; typing in a
+         field turns it on, since a figure typed is a figure chosen. */
+      const own = num("dOwn"), pane = ov.querySelector('.dm-pane[data-pane="deck"]'), note = ov.querySelector("#dlOwnNote");
+      // what the fields were last SET to, so Save can tell a figure the reader typed from one the sheet put there
+      const base = { n: L.newPerDay, r: L.maxReviews, i: L.newIgnoresReview };
+      const setOwn = (on) => {
+        own.classList.toggle("on", on); own.setAttribute("aria-checked", on ? "true" : "false");
+        pane.classList.toggle("dm-following", !on);
+        note.textContent = on ? noteOwn : noteDefault;
+        if (!on && !isLang) {
+          num("dNew").value = G.newPerDay; num("dRev").value = G.maxReviews; if (!sw.classList.contains("on")) flip();
+          base.n = G.newPerDay; base.r = G.maxReviews; base.i = true;
+        }
+      };
+      own.addEventListener("click", () => setOwn(!own.classList.contains("on")));
+      own.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOwn(!own.classList.contains("on")); } });
+      ["dNew", "dRev"].forEach((k) => num(k).addEventListener("input", () => { if (!own.classList.contains("on")) setOwn(true); }));
+      sw.addEventListener("click", () => { if (!own.classList.contains("on")) setOwn(true); });
       ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
       ov.querySelector('[data-act="save"]').addEventListener("click", () => {
         const n = (k, cap) => Math.max(0, Math.min(cap, Math.round(+num(k).value || 0)));
@@ -17838,11 +17855,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const gN = n("gNew", 999), gR = n("gRev", 9999);
         if (gN !== G.newPerDay || gR !== G.maxReviews) setGlobalLimits({ newPerDay: gN, maxReviews: gR });
         const dN = n("dNew", 999), dR = n("dRev", 9999), dI = sw.classList.contains("on");
-        if (hasOwn || dN !== L.newPerDay || dR !== L.maxReviews || dI !== L.newIgnoresReview)
-          setDeckLimits(id, { newPerDay: dN, maxReviews: dR, newIgnoresReview: dI });
+        const wantOwn = own.classList.contains("on");
+        const changed = dN !== base.n || dR !== base.r || dI !== base.i;
+        /* the switch decides, and a figure changed is the same statement as the switch: on, or a figure not
+           what the sheet last put there → written; off and untouched while the deck had figures → the keys
+           are DELETED, so a later change to the default reaches it again */
+        const cleared = !wantOwn && !changed && hasOwn;
+        if (cleared) clearDeckLimits(id);
+        else if (wantOwn || changed) setDeckLimits(id, { newPerDay: dN, maxReviews: dR, newIgnoresReview: dI });
         close();
         render();
-        toast("Daily limits saved");
+        toast(cleared ? (isLang ? "No longer capping " + info.title : "Following the default for all decks") : "Daily limits saved");
       });
     });
   }
@@ -21141,8 +21164,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function announceLevelUps() {
     const g = Object.keys(S.cards).length;
     if (levelFromXP(g).level <= levelFromXP(g - 1).level) return;
-    grantChest();   // one chest per level — and the chest overlay IS the celebration, so there is no
-    openChestPop({ level: levelFromXP(g).level });   // congratsPopup behind it. Dismissing it leaves the chest in S.chests.
+    grantChest();   // one chest per level, no congratsPopup behind it
+    /* THE CHEST WAITS ON THE HOME PAGE RATHER THAN OPENING HERE (Oct 2026, on request: "a chest shouldn't just
+       appear mid-study session, it should remain there at the front page until it is clicked"). From Aug 2026
+       the overlay was the celebration and rose on the grade that finished the bar, in the middle of a session;
+       now the word is a toast and the chest itself stands at the end of the level bar (levelChestHTML). */
+    toast("Level " + levelFromXP(g).level + " \u2014 a chest is waiting on the home page.");
   }
   /* ---------- the symbols a collection may wear ----------
      What sits at the left of a collection banner, where the level numeral used to (Aug 2026, on request).
@@ -21613,12 +21640,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* The XP bar toward the next Folio level. ONE caller now — the home Daily-study banner — since
      collections show progress instead (deckProgMarkup above); its old `zh` argument, which tinted the
      fill vermilion for the China collection, went with them. */
-  function xpBarMarkup(xp) {
+  function xpBarMarkup(xp, opts) {
     const info = levelFromXP(xp);
     const pct = info.need > 0 ? Math.min(100, (info.into / info.need) * 100) : 0;
+    const track = '<div class="xp-track"><div class="xp-fill"></div></div>';
     return '<div class="xp" data-pct="' + pct.toFixed(2) + '">' +
       '<div class="xp-head"><span class="xp-lvl">Level ' + info.level + '</span><span class="xp-count">' + info.into + ' / ' + info.need + ' cards</span></div>' +
-      '<div class="xp-track"><div class="xp-fill"></div></div></div>';
+      (opts && opts.chest ? '<div class="xp-row">' + track + levelChestHTML() + "</div>" : track) + "</div>";
+  }
+  /* THE LEVEL CHEST STANDS AT THE END OF THE BAR (Oct 2026, on request: "next to the level progress bar ... add a
+     chest, just as we do with the weekly study banner ... when a level is completed ... a chest shouldn't just
+     appear mid-study session, it should remain there at the front page until it is clicked"). The chest caps the
+     bar the way the streak ribbon's caps its week: locked and quiet while nothing is owed, gold and nodding once
+     a chest is waiting, and a press opens it (openChestPop). It reads `S.chests`, the one count every channel
+     pays into, so a chest from a badge or the daily sweep waits here too; the figure on its shoulder says how
+     many. A real `<button>`, disabled while locked, so the keyboard and the screen reader get the same answer. */
+  function levelChestHTML() {
+    const n = chestCount(), ready = n > 0;
+    const label = !ready ? "Locked: reach the next level to earn a chest"
+      : n === 1 ? "Open your chest" : "Open a chest \u2014 " + n + " waiting";
+    return '<button type="button" class="lvl-chest' + (ready ? " ready" : "") + '" id="lvlChest"' + (ready ? "" : " disabled") +
+      ' title="' + esc(label) + '" aria-label="' + esc(label) + '">' + CHEST_SVG + (ready ? "" : LOCK_SVG) +
+      (n > 1 ? '<span class="lvl-chest-n" aria-hidden="true">' + n + "</span>" : "") + "</button>";
   }
 
   /* ============================================================
@@ -22559,6 +22602,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the reader is about to be looking at would otherwise still be describing the moment before
     const close = () => {
       ov.remove(); document.removeEventListener("keydown", onKey, true); _chestClose = null; refreshReliquary();
+      if (current && current.name === "home") renderInPlace();   // the level chest at the end of the bar reads S.chests
       tourNotify("chest");                                    // the walkthrough's badge step waits for this
       if (_achPending.length && !tourRunning()) openAchPop(_achPending.splice(0));   // a badge that queued behind it
     };
@@ -23252,7 +23296,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     const prize = p.worth === 1 ? "a chest" : p.worth + " chests";
     const note = n <= 0 ? "Study on any day to start a streak \u2014 seven days in a row earns a chest."
-      : p.left === 0 ? "Seven days in a row \u2014 paid. Seven more earns " + esc(prize) + "."
+      : p.left === 0 ? "Seven more earns " + esc(prize) + "."
       : p.left + (p.left === 1 ? " more day" : " more days") + " for <b>" + esc(prize) + "</b>";
     const best = Math.max(st.best | 0, n);
     return '<div class="streak-ribbon" role="group" aria-label="' + n + ' day streak">' +
@@ -23278,7 +23322,51 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="hb-k">Continue reading</span>' +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + esc(where) + "</span>" +
-        '<span class="hb-bar"><span style="width:' + pct + '%"></span></span><em>' + pct + "% read</em></span></span></button>";
+        '<span class="hb-bar"><span style="width:' + pct + '%"></span></span><em>' + pct + "% read</em></span></span>" +
+      homeReadingNextHTML(b, pos) + "</button>";
+  }
+  /* A GLIMPSE OF THE NEXT PARAGRAPH (Oct 2026, on request: "show a brief preview of a next paragraph to read in
+     the book, which fades out vertically downwards and can be clicked to go straight to that chapter"). The place
+     is a chapter number and a fraction of that chapter's height (readingPos), so the paragraph shown is the one
+     that fraction of the way through the chapter's paragraphs — the eye's place, near enough — and a reader on
+     the front matter or with no place sees the first paragraph of the first chapter. The text is lazy with the
+     book (bookBundle), so the box is drawn without it when the book is not loaded yet and homeReadingNextFill
+     adds it once the file arrives; a book already opened this session has it at once. The chapter's number is
+     on the element (`data-n`) and the box's click handler reads it: a press on the preview opens that chapter
+     at its top, as any addressed chapter does, where a press anywhere else resumes at the saved depth. It is
+     a span, not a button, because the box is a button and a button cannot hold another. */
+  function homeReadingNextHTML(b, pos) {
+    const shipped = bookChapters(b.id);
+    if (!shipped || !shipped.length) return "";
+    const c = (pos && shipped.find((x) => x.n === pos.ch)) || shipped[0];
+    const same = !!(pos && c.n === pos.ch);
+    const d = document.createElement("div");
+    d.innerHTML = c.html || "";
+    const ps = d.querySelectorAll("p");
+    if (!ps.length) return "";
+    const i = same ? Math.min(ps.length - 1, Math.floor((pos.y || 0) * ps.length)) : 0;
+    const p = ps[i];
+    p.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
+    p.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
+    let text = (p.textContent || "").replace(/\s+/g, " ").trim();
+    if (!text) return "";
+    if (text.length > 300) { text = text.slice(0, 300); text = text.slice(0, Math.max(0, text.lastIndexOf(" "))) + "\u2026"; }
+    const num = b.chapterWord + " " + c.n;
+    const label = num + (c.t && c.t.trim().toLowerCase() !== num.toLowerCase() ? " \u00b7 " + c.t : "");   // a title that is only the number is said once
+    return '<span class="hb-next" data-n="' + esc(String(c.n)) + '" title="Open ' + esc(label) + '">' +
+      '<span class="hb-next-k">' + (same ? "Next up" : "Begin") + " \u00b7 " + esc(label) + "</span>" +
+      '<span class="hb-next-p">' + esc(text) + "</span></span>";
+  }
+  function homeReadingNextFill(root) {
+    const rd = root.querySelector("#b-reading");
+    const id = rd && rd.dataset.book;
+    if (!id || rd.querySelector(".hb-next")) return;
+    ensureData(bookBundle(id)).then((ok) => {
+      const b = ok && rd.isConnected ? BOOK_BY_ID[id] : null;
+      if (!b) return;
+      const h = homeReadingNextHTML(b, readingPos(id));
+      if (h) rd.insertAdjacentHTML("beforeend", h);
+    });
   }
   /* The day's and the week's figures: cards from the daily totals, time and recall from the per-answer
      log. TODAY IS A SECTION OF THIS BOX (Oct 2026, on request), where it replaces the "studied 13m today"
@@ -23294,18 +23382,44 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       week.secs += r.secs || 0; week.total++; if (r.correct) week.right++;
       if (dayKey(r.t) === today) { day.secs += r.secs || 0; day.total++; if (r.correct) day.right++; }
     }
-    const stats = (f) => {
+    const figs = (f) => {
       const mins = Math.round(f.secs / 60);
-      const time = mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min";
-      const recall = f.total ? Math.round((f.right / f.total) * 100) + "%" : "\u2014";
+      return {
+        time: mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + (mins % 60) + " min" : "") : mins + " min",
+        recall: f.total ? Math.round((f.right / f.total) * 100) + "%" : "\u2014",
+      };
+    };
+    const stats = (f) => {
+      const g = figs(f);
       return '<div class="hw-stats">' +
         "<div><b>" + f.cards + "</b><span>cards studied</span></div>" +
-        "<div><b>" + esc(time) + "</b><span>at the desk</span></div>" +
-        '<div class="g"><b>' + recall + "</b><span>recalled</span></div></div>";
+        "<div><b>" + esc(g.time) + "</b><span>at the desk</span></div>" +
+        '<div class="g"><b>' + g.recall + "</b><span>recalled</span></div></div>";
     };
-    return '<div class="home-box home-week"><span class="hb-k">Today</span>' + stats(day) +
-      '<span class="hb-k">This week</span>' + stats(week) +
-      '<span class="gdeco" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>';
+    // the week's figures as one small line, each beside its word (Oct 2026, on request: "smaller and next to their
+    // text labels like you did in the D3 design for mobile"), spaced across the box as the bars above are
+    const line = (f) => {
+      const g = figs(f);
+      return '<div class="hw-tot"><span><b>' + f.cards + "</b> cards</span><span><b>" + esc(g.time) + "</b></span>" +
+        '<span><b class="g">' + g.recall + "</b> recalled</span></div>";
+    };
+    /* THE WEEK IS SHOWN, NOT ONLY SUMMED (Oct 2026, on request — design D3 of docs/mockups/week-box-redesigns):
+       seven bars of cards per day, oldest first and today the solid one, read off the same daily totals the
+       week's count is, with the week's three figures under them spaced across the box as the bars are. A
+       phone and a tablet stack Today over the week; a desktop stands Today's figures at the left (styles.css,
+       `.home-week`). The globe ornament that stood in the corner is gone. */
+    const days = [];
+    for (let d = 6; d >= 0; d--) {
+      const t = now - d * DAY, e = (S.reviewLog || {})[dayKey(t)];
+      days.push({ n: e ? e[0] | 0 : 0, l: new Date(t).toLocaleDateString(undefined, { weekday: "short" }).slice(0, 2), cur: d === 0 });
+    }
+    const max = Math.max(1, ...days.map((x) => x.n));
+    const bars = '<div class="hw-bars" role="img" aria-label="' + esc("Cards studied each day this week: " + days.map((x) => x.l + " " + x.n).join(", ")) + '">' +
+      days.map((x) => '<i class="' + (x.cur ? "cur" : x.n ? "on" : "") + '" style="height:' + Math.max(4, Math.round((x.n / max) * 100)) + '%" title="' + esc(x.l + " \u00b7 " + x.n + (x.n === 1 ? " card" : " cards")) + '"></i>').join("") + "</div>" +
+      '<div class="hw-days" aria-hidden="true">' + days.map((x) => '<span class="' + (x.cur ? "cur" : "") + '">' + esc(x.l) + "</span>").join("") + "</div>";
+    return '<div class="home-box home-week">' +
+      '<div class="hw-today"><span class="hb-k">Today</span>' + stats(day) + "</div>" +
+      '<div class="hw-week"><span class="hb-k">This week</span>' + bars + line(week) + "</div></div>";
   }
   /* The top three cards of today's pile, fanned beside the banner (desktop and tablet only; see styles.css).
      Site cards only: a community card's text lives per note and may not be loaded yet.
@@ -23572,7 +23686,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       id: el.dataset.review,
       title: ((el.querySelector(".dk-title") || {}).textContent || el.dataset.review).trim(),
       parent: el.dataset.parent || "",
-      hue: (el.style.getPropertyValue("--coll-bg") || "").trim(),
+      /* the row's own hue, or the one it INHERITS from its container (Oct 2026, on a bug report: a lecture
+         deck of Politics: East Asia came out uncoloured on the completion screen) — a deck inside a
+         collection carries no `--coll-bg` of its own, the chain above it does, and drawn alone on the
+         completion screen it has no chain to inherit from, so the computed value is read here instead */
+      hue: (el.style.getPropertyValue("--coll-bg") || getComputedStyle(el).getPropertyValue("--coll-bg") || "").trim(),
       langhead: el.classList.contains("dk-langhead"),
       group: el.classList.contains("deck-group"),
     }));
@@ -24982,7 +25100,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             ${/* the level bar and the piles share one column (`.rv-stack`), so the bar is exactly as wide as
                   the pile row and the Start button under it (Oct 2026, on request) */""}
             <div class="rv-stack">
-            ${xpBarMarkup(folioXP())}
+            ${xpBarMarkup(folioXP(), { chest: true })}
             <div class="meta">
               ${/* Anki's three piles, in Anki's order and Anki's colours: blue new, red learning, green
                     review. They are ALWAYS all three, coloured whether or not they are zero — a pile that
@@ -25202,6 +25320,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       renderInPlace();
       openChestPop();
     });
+    // the level chest at the end of the bar (levelChestHTML); the overlay's close repaints the banner
+    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (chestCount()) openChestPop(); }); }
     root.querySelectorAll(".game-tile[data-game]").forEach((el) => {
       const key = el.dataset.game;
       if (!key) return;
@@ -25255,7 +25375,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // width now, each being the only route to the page it names anywhere on the site
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
     { const cl = root.querySelector("#b-changelog"); if (cl) cl.addEventListener("click", () => route("mission", { scrollTo: "changelog" })); }
-    { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", () => { if (rd.dataset.book) route("book", { id: rd.dataset.book }); else route("library"); }); }
+    { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", (e) => {
+        const nx = e.target && e.target.closest ? e.target.closest(".hb-next") : null;
+        if (nx && rd.dataset.book) route("book", { id: rd.dataset.book, n: nx.dataset.n });
+        else if (rd.dataset.book) route("book", { id: rd.dataset.book }); else route("library"); }); }
+    homeReadingNextFill(root);
     /* THE BREAKPOINT NO LONGER CHANGES WHAT THIS PAGE IS, and the listener below is retired with the last
        thing that did (Aug 2026): the About line was the one block built on a phone and not on a desktop,
        and now that the desktop's About tab has gone it ships at both widths like everything else here. So
@@ -28437,12 +28561,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the same field the reader page reads, so a book can never advertise a column it has not got.
          It goes in the ARIA LABEL as well: that label REPLACES the banner's own text for a screen
          reader, so a chip left out of it is a chip only the sighted reader is told about. */
-      const orig = b.origLang ? (b.origName || "Original") + " original" : "";
+      const orig = b.origLang ? "with original " + (b.origName || "text") : "";   // "with original Greek" (Oct 2026, on request; was "Greek original")
       /* `--w` is how far the book is read, painted ACROSS the banner from the left the way a deck row on
          the home page paints its day (Oct 2026 Timeline design, on request) — in place of the thin bar
          along the bottom edge, which is gone. */
       return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}; --w:${pos ? pct : 0}%"
-                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", with the " + esc(orig) : ""}${fav ? ", a favourite" : ""}">
+                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", " + esc(orig) : ""}${fav ? ", a favourite" : ""}">
         <span class="bk-spine" aria-hidden="true"></span>
         ${/* the star is a MARK, not a control: the way to set and clear one is the long-press sheet, so a
               second target here would be a second answer to the same question sitting 8px from the first */""}
@@ -32818,6 +32942,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         nx.innerHTML = '<span class="sc-next-label">' + esc(t("Continue with")) + '</span>'
           + '<div class="review-group sc-next-list"><div class="active-decks">' + nextRows.map(adRowBannerHTML).join("") + "</div></div>";
         card.appendChild(nx);
+        /* …with its progress painted (Oct 2026, on a bug report: the row came out uncoloured). The fills are
+           sized by animateProgs after the home page renders, and this copy of the row never got that pass. */
+        animateProgs(nx);
       }
       root.appendChild(card);
       card.querySelector("#home").addEventListener("click", () =>

@@ -1,0 +1,242 @@
+<meta charset="utf-8">
+<title>Week Box Redesigns</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: a control bar (device · theme), then six designs. Each design is drawn three times — a desktop,
+   a tablet and a phone frame, scaled to fit — with the Continue reading box beside it for context, as the
+   home page lays the two out. Page chrome follows the viewer's theme; the frames carry Folio's own palette. */
+:root{
+  --bg:#F2F0F7; --fg:#1D1B29; --fg-2:#69657E; --line:#D8D4E6; --panel:#FBFAFE; --acc:#45549C; --acc-wash:#E9ECFA;
+  --display:"Lora", Georgia, serif; --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace; --sans:"Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#15131F; --fg:#EFEDFA; --fg-2:#9A95B4; --line:#2E2A42; --panel:#1E1B2E; --acc:#A6B4F0; --acc-wash:#23223A; color-scheme:dark; } }
+:root[data-theme="dark"]{ --bg:#15131F; --fg:#EFEDFA; --fg-2:#9A95B4; --line:#2E2A42; --panel:#1E1B2E; --acc:#A6B4F0; --acc-wash:#23223A; color-scheme:dark; }
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:15px; line-height:1.45; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding-block:22px 60px; padding-inline:16px;}
+h1{font-family:var(--display); font-weight:600; font-size:clamp(22px,3vw,30px); letter-spacing:-.01em; margin:0 0 4px; text-wrap:balance;}
+.lede{margin:0 0 18px; color:var(--fg-2); max-width:68ch;}
+.lede b{color:var(--fg); font-weight:600;}
+.bar{z-index:5; display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; padding:12px 14px; margin:0 0 22px; background:var(--panel); border:1px solid var(--line); border-radius:14px; box-shadow:0 6px 24px rgba(29,27,41,.08);}
+@media (min-width:700px){ .bar{position:sticky; top:env(safe-area-inset-top, 0px);} }
+.grp{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.grp > span{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-2); font-weight:600;}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:2px; background:var(--bg);}
+.seg button{appearance:none; border:0; background:none; color:var(--fg-2); font:600 13px var(--sans); padding:5px 12px; border-radius:999px; cursor:pointer;}
+.seg button[aria-pressed="true"]{background:var(--acc); color:var(--panel);}
+.seg button:focus-visible{outline:2px solid var(--acc); outline-offset:2px;}
+.hint{font-size:12.5px; color:var(--fg-2); flex-basis:100%;}
+.design{margin:0 0 34px; padding-top:22px; border-top:1px dashed var(--line);}
+.design:first-of-type{border-top:0; padding-top:0;}
+.dh{display:grid; grid-template-columns:auto 1fr; gap:2px 12px; align-items:baseline; margin:0 0 12px;}
+.dh b{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--acc); font-weight:600;}
+.dh h2{margin:0; font-family:var(--display); font-weight:600; font-size:18px;}
+.dh p{grid-column:2; margin:0; font-size:13.5px; color:var(--fg-2); max-width:78ch;}
+.frames{display:grid; gap:14px; grid-template-columns:1fr 1fr;}
+.fit{position:relative; overflow:hidden; border-radius:14px; border:1px solid var(--line); min-width:0;}
+.fit[data-dev="desktop"]{grid-column:1 / -1; max-width:1040px;} .fit[data-dev="tablet"]{max-width:834px;} .fit[data-dev="phone"]{max-width:390px;}
+.fit::after{content:attr(data-label); position:absolute; left:10px; top:8px; z-index:2; font:600 10px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--fg-2); background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:3px 8px;}
+@media (max-width:760px){ .frames{grid-template-columns:1fr;} }
+body[data-dev="desktop"] .fit:not([data-dev="desktop"]), body[data-dev="tablet"] .fit:not([data-dev="tablet"]), body[data-dev="phone"] .fit:not([data-dev="phone"]){display:none;}
+body:not([data-dev="all"]) .fit{grid-column:1 / -1;}
+body[data-dev="phone"] .frames{grid-template-columns:1fr; max-width:420px;}
+body[data-dev="tablet"] .frames{max-width:860px;}
+.frame{transform-origin:0 0; padding:34px 24px 20px;}
+.frame.desktop{width:1040px;} .frame.tablet{width:834px; padding-inline:20px;} .frame.phone{width:390px; padding-inline:14px;}
+/* ===== Folio tokens, forced per frame (copied from styles.css) ===== */
+.frame{--paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF; --ink:#1D1B29; --ink-soft:#514D68; --ink-faint:#918CA8; --ink-quiet:#69657E; --rule:#DEDAEE;
+  --indigo:#45549C; --indigo-bright:#5263B0; --indigo-wash:#E9ECFA; --ochre:#9A7C55; --geo:#5FA5A8; --good:#4E9B7E; --gold:#C08A2E;
+  --serif:"Lora", Georgia, serif; --shadow-sm:0 1px 2px rgba(29,27,41,.05); --shadow-md:0 1px 2px rgba(29,27,41,.05), 0 8px 28px rgba(29,27,41,.06); --fs:1; --ease:cubic-bezier(.2,.7,.2,1);
+  background:var(--paper); color:var(--ink); font-family:var(--sans); color-scheme:light;}
+.frame.night{--paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C; --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-faint:#827CA0; --ink-quiet:#8C87A8; --rule:#302C48;
+  --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A; --ochre:#C3A47A; --geo:#7FCACD; --good:#75C6A4; --gold:#E6C765; --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35); color-scheme:dark;}
+/* ===== the home page's two boxes, as they ship ===== */
+.home-two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.frame.phone .home-two{grid-template-columns:1fr;}
+.home-box{position:relative; overflow:hidden; display:block; width:100%; background:var(--card); border:1px solid var(--rule); border-radius:16px; padding:18px 20px; box-shadow:var(--shadow-sm); min-width:0; text-align:left; color:var(--ink); font:inherit;}
+.hb-k{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600; margin-bottom:10px;}
+.hb-book{display:flex; gap:14px; align-items:center;}
+.hb-spine{width:44px; height:62px; flex:none; border-radius:4px 7px 7px 4px; background:linear-gradient(90deg, #7A4E5E 0 6px, color-mix(in srgb, #7A4E5E 78%, var(--card)) 6px); box-shadow:var(--shadow-md);}
+.hb-body{min-width:0;}
+.hb-body b{display:block; font-family:var(--serif); font-weight:600; font-size:16px; line-height:1.3;}
+.hb-body > span{display:block; font-size:12.5px; color:var(--ink-quiet);}
+.hb-bar{display:block; height:4px; border-radius:2px; background:var(--paper-2); margin-top:8px; width:150px; max-width:100%; overflow:hidden;}
+.hb-bar span{display:block; height:100%; background:var(--ochre);}
+.hb-body em{display:block; font-style:normal; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ochre); margin-top:6px;}
+.hb-next{display:block; margin-top:14px; padding-top:12px; border-top:1px solid var(--rule);}
+.hb-next-k{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); margin-bottom:6px;}
+.hb-next-p{display:block; font-family:var(--serif); font-size:13.5px; line-height:1.55; color:var(--ink-soft); max-height:calc(13.5px * 1.55 * 3.3); overflow:hidden; -webkit-mask-image:linear-gradient(to bottom, #000 25%, transparent 100%); mask-image:linear-gradient(to bottom, #000 25%, transparent 100%);}
+.home-week{display:flex; flex-direction:column;}
+.home-week .hb-k{align-self:flex-start;}
+.gdeco{position:absolute; right:-40px; bottom:-60px; width:150px; height:150px; border-radius:50%; border:1.5px solid var(--geo); opacity:.35; pointer-events:none;}
+.gdeco i{position:absolute; inset:0; border-radius:50%; border:1px solid var(--geo);}
+.gdeco i:nth-child(1){transform:scaleX(.25);} .gdeco i:nth-child(2){transform:scaleX(.62);} .gdeco i:nth-child(3){transform:scaleY(.25);} .gdeco i:nth-child(4){transform:scaleY(.62);}
+.num{font-variant-numeric:tabular-nums; letter-spacing:-.03em; font-weight:800; line-height:1;}
+.lab{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet);}
+.g{color:var(--good);}
+/* ----- D1 side by side ----- */
+.d1 .cols{flex:1; display:grid; grid-template-columns:1fr 1fr; gap:0 18px;}
+.d1 .col + .col{border-left:1px solid var(--rule); padding-left:18px;}
+.d1 .row{display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:7px 0; border-top:1px solid color-mix(in srgb, var(--rule) 55%, transparent);}
+.d1 .row:first-of-type{border-top:0;}
+.d1 .row b{font-size:22px;}
+.frame.phone .d1 .cols{grid-template-columns:1fr; gap:14px;}
+.frame.phone .d1 .col + .col{border-left:0; padding-left:0; border-top:1px solid var(--rule); padding-top:12px;}
+/* ----- D2 today large, week in a line ----- */
+.d2 .big{flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; align-content:center; justify-items:center; text-align:center; padding:4px 0 14px;}
+.d2 .big b{display:block; font-size:28px;}
+.d2 .big span{display:block; margin-top:5px;}
+.d2 .line{display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; padding-top:12px; border-top:1px solid var(--rule); font-size:13px; color:var(--ink-quiet);}
+.d2 .line .hb-k{margin:0 6px 0 0;}
+.d2 .line b{color:var(--ink); font-weight:700; font-variant-numeric:tabular-nums;}
+.d2 .line i{font-style:normal; color:var(--ink-faint);}
+/* ----- D3 seven days ----- */
+.d3 .lay{flex:1; display:grid; grid-template-columns:auto 1fr; gap:0 22px; align-items:stretch;}
+.d3 .today{display:flex; flex-direction:column; justify-content:center; gap:10px; padding-right:18px; border-right:1px solid var(--rule);}
+.d3 .today b{display:block; font-size:22px;}
+.d3 .today span{display:block; margin-top:3px;}
+.d3 .chart{display:flex; flex-direction:column; justify-content:flex-end; min-width:0;}
+.d3 .bars{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; align-items:end; height:64px;}
+.d3 .bars i{display:block; background:var(--paper-2); border-radius:3px 3px 1px 1px; min-height:2px; border-top:2px solid var(--rule);}
+.d3 .bars i.on{background:color-mix(in srgb, var(--indigo) 22%, var(--card)); border-top-color:var(--indigo);}
+.d3 .bars i.cur{background:var(--indigo); border-top-color:var(--indigo);}
+.d3 .days{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; margin-top:5px; text-align:center;}
+.d3 .days span{font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; color:var(--ink-faint);}
+.d3 .days span.cur{color:var(--indigo); font-weight:600;}
+.d3 .tot{display:flex; flex-wrap:wrap; gap:4px 12px; margin-top:10px; padding-top:9px; border-top:1px solid var(--rule); font-size:12.5px; color:var(--ink-quiet);}
+.d3 .tot b{color:var(--ink); font-weight:700; font-variant-numeric:tabular-nums;}
+.frame.phone .d3 .lay{grid-template-columns:1fr; gap:14px;}
+.frame.phone .d3 .today{flex-direction:row; justify-content:space-between; border-right:0; padding-right:0; padding-bottom:12px; border-bottom:1px solid var(--rule);}
+/* ----- D4 the day against the week ----- */
+.d4 table{flex:1; width:100%; border-collapse:collapse; align-self:center;}
+.d4 th, .d4 td{padding:9px 6px; text-align:right; vertical-align:baseline;}
+.d4 thead th{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600; border-bottom:1px solid var(--rule); padding-top:0;}
+.d4 tbody th{text-align:left; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600; padding-left:0;}
+.d4 td{font-size:24px; font-weight:800; letter-spacing:-.03em; font-variant-numeric:tabular-nums;}
+.d4 td small{font-size:12px; font-weight:600; letter-spacing:0; color:var(--ink-quiet); margin-left:3px;}
+.d4 tr.week td{color:var(--ink-soft); font-size:20px;}
+.d4 tr.week th, .d4 tr.week td{border-top:1px solid var(--rule);}
+.frame.phone .d4 td{font-size:19px;} .frame.phone .d4 tr.week td{font-size:16px;}
+/* ----- D5 rings ----- */
+.d5 .rings{flex:1; display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:center;}
+.d5 .ring{display:flex; align-items:center; gap:14px; min-width:0;}
+.d5 svg{width:74px; height:74px; flex:none; transform:rotate(-90deg);}
+.d5 .track{fill:none; stroke:var(--paper-2); stroke-width:7;}
+.d5 .arc{fill:none; stroke:var(--good); stroke-width:7; stroke-linecap:round;}
+.d5 .week .arc{stroke:var(--indigo);}
+.d5 .pct{position:absolute; inset:0; display:grid; place-items:center; font-size:15px; font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums;}
+.d5 .hold{position:relative; width:74px; height:74px; flex:none;}
+.d5 .fig{display:flex; flex-direction:column; gap:7px; min-width:0;}
+.d5 .fig b{display:block; font-size:19px;}
+.d5 .fig span{display:block; margin-top:2px;}
+.d5 .ring + .ring{border-left:1px solid var(--rule); padding-left:14px;}
+.frame.phone .d5 .rings{grid-template-columns:1fr; gap:12px;}
+.frame.phone .d5 .ring + .ring{border-left:0; padding-left:0; border-top:1px solid var(--rule); padding-top:12px;}
+/* ----- D6 ledger ----- */
+.d6 .ledger{flex:1; display:grid; grid-template-columns:1fr 1fr; gap:0 24px; align-content:center;}
+.d6 .ln{display:flex; align-items:baseline; gap:8px; font-family:var(--mono); font-size:12.5px; color:var(--ink-quiet); padding:5px 0;}
+.d6 .ln::after{content:""; order:2; flex:1; border-bottom:1px dotted var(--ink-faint); opacity:.6; transform:translateY(-3px);}
+.d6 .ln span{order:1;} .d6 .ln b{order:3; color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; font-size:14px;}
+.d6 .ln.g b{color:var(--good);}
+.d6 .sum{grid-column:1 / -1; margin-top:10px; padding-top:10px; border-top:1px solid var(--rule); font-family:var(--serif); font-style:italic; font-size:13px; color:var(--ink-soft);}
+.frame.phone .d6 .ledger{grid-template-columns:1fr;}
+.frame.phone .d6 .blk + .blk{margin-top:12px; padding-top:10px; border-top:1px solid var(--rule);}
+.frame.phone .d6 .hb-k{margin-bottom:4px;}
+</style>
+<div class="wrap">
+  <h1>Six designs for the Today / This week box</h1>
+  <p class="lede">The home page's figures box (<b>homeWeekHTML</b>, <b>.home-week</b>) as it could be, beside the Continue reading box it shares a row with. Each design is drawn in Folio's own tokens on a desktop, a tablet and a phone, with one sample day: <b>92 cards, 43 min, 91% recalled</b> today and <b>611 cards, 4 h 12 min, 88%</b> over the week. Sample figures, not anyone's record.</p>
+  <div class="bar">
+    <div class="grp"><span>Device</span><div class="seg" id="dev"><button type="button" data-v="all" aria-pressed="true">All</button><button type="button" data-v="desktop" aria-pressed="false">Desktop</button><button type="button" data-v="tablet" aria-pressed="false">Tablet</button><button type="button" data-v="phone" aria-pressed="false">Phone</button></div></div>
+    <div class="grp"><span>Theme</span><div class="seg" id="thm"><button type="button" data-v="light" aria-pressed="true">Light</button><button type="button" data-v="night" aria-pressed="false">Night</button></div></div>
+    <div class="hint">Frames are scaled to fit this page; the pill in each corner says which device it is. As shipped today: Today's three figures over This week's three, the same size.</div>
+  </div>
+  <div id="designs"></div>
+</div>
+<script>
+(function () {
+  "use strict";
+  var DAY = { cards: 92, time: "43 min", recall: "91%" }, WEEK = { cards: 611, time: "4 h 12 min", recall: "88%" };
+  var DAYS = [["Mon", 74], ["Tue", 120], ["Wed", 0], ["Thu", 96], ["Fri", 110], ["Sat", 119], ["Sun", 92]];   // the sample week, Sunday today
+  var READ = '<div class="home-box home-reading"><span class="hb-k">Continue reading</span>' +
+    '<span class="hb-book"><span class="hb-spine"></span><span class="hb-body"><b>Beowulf</b><span>Anonymous · Fitt 5</span>' +
+    '<span class="hb-bar"><span style="width:10%"></span></span><em>10% read</em></span></span>' +
+    '<span class="hb-next"><span class="hb-next-k">Next up · Fitt 5</span><span class="hb-next-p">Stone-bright the street: it showed the way to the crowd of clansmen. Corselets glistened hand-forged, hard; on their harness bright the steel ring sang, as they strode along in mail of battle, and marched to the hall.</span></span></div>';
+  var DECO = '<span class="gdeco"><i></i><i></i><i></i><i></i></span>';
+  function box(cls, inner) { return '<div class="home-box home-week ' + cls + '">' + inner + DECO + "</div>"; }
+  function three(f, big) {
+    return '<div><b class="num">' + f.cards + '</b><span class="lab">cards studied</span></div>' +
+      '<div><b class="num">' + f.time + '</b><span class="lab">at the desk</span></div>' +
+      '<div class="g"><b class="num">' + f.recall + '</b><span class="lab">recalled</span></div>';
+  }
+  function rows(f) {
+    return '<div class="row"><span class="lab">cards studied</span><b class="num">' + f.cards + '</b></div>' +
+      '<div class="row"><span class="lab">at the desk</span><b class="num">' + f.time + '</b></div>' +
+      '<div class="row"><span class="lab">recalled</span><b class="num g">' + f.recall + '</b></div>';
+  }
+  function ring(cls, k, f, pct) {
+    var r = 30, c = 2 * Math.PI * r, on = c * pct / 100;
+    return '<div class="ring ' + cls + '"><div class="hold"><svg viewBox="0 0 74 74"><circle class="track" cx="37" cy="37" r="' + r + '"/>' +
+      '<circle class="arc" cx="37" cy="37" r="' + r + '" stroke-dasharray="' + on.toFixed(1) + ' ' + c.toFixed(1) + '"/></svg><span class="pct">' + f.recall + '</span></div>' +
+      '<div class="fig"><span class="hb-k" style="margin:0">' + k + '</span><div><b class="num">' + f.cards + '</b><span class="lab">cards</span></div><div><b class="num">' + f.time + '</b><span class="lab">at the desk</span></div></div></div>';
+  }
+  function ledger(k, f) {
+    return '<div class="blk"><span class="hb-k">' + k + '</span>' +
+      '<div class="ln"><span>cards studied</span><b>' + f.cards + '</b></div>' +
+      '<div class="ln"><span>at the desk</span><b>' + f.time + '</b></div>' +
+      '<div class="ln g"><span>recalled</span><b>' + f.recall + '</b></div></div>';
+  }
+  var max = Math.max.apply(null, DAYS.map(function (d) { return d[1]; }));
+  var DESIGNS = [
+    { id: "D1", name: "Side by side", blurb: "Today and This week as two columns, each a short list with the label at the left and the figure at the right. The box stays as tall as the reading box and no taller; the eye compares the day against the week across one gap.",
+      html: box("d1", '<div class="cols"><div class="col"><span class="hb-k">Today</span>' + rows(DAY) + '</div><div class="col"><span class="hb-k">This week</span>' + rows(WEEK) + "</div></div>") },
+    { id: "D2", name: "Today large, the week in a line", blurb: "The day keeps its three big figures, since the day is what the reader just did. The week folds into one line of small type along the foot, so the box is a third shorter and the two sets no longer compete at the same size.",
+      html: box("d2", '<span class="hb-k">Today</span><div class="big">' + three(DAY) + '</div><p class="line" style="margin:0"><span class="hb-k">This week</span><b>' + WEEK.cards + '</b> cards <i>·</i> <b>' + WEEK.time + '</b> <i>·</i> <b>' + WEEK.recall + '</b> recalled</p>') },
+    { id: "D3", name: "Seven days", blurb: "The week is shown rather than summed: seven bars of cards per day, today the solid one, with the week's totals beneath. Today's own figures stand at the left. A blank day is a gap the reader can see.",
+      html: box("d3", '<div class="lay"><div class="today"><span class="hb-k" style="margin:0">Today</span><div><b class="num">' + DAY.cards + '</b><span class="lab">cards</span></div><div><b class="num">' + DAY.time + '</b><span class="lab">at the desk</span></div><div class="g"><b class="num">' + DAY.recall + '</b><span class="lab">recalled</span></div></div>' +
+        '<div class="chart"><span class="hb-k">This week</span><div class="bars">' + DAYS.map(function (d, i) { return '<i class="' + (i === 6 ? "cur" : d[1] ? "on" : "") + '" style="height:' + Math.max(3, Math.round(d[1] / max * 100)) + '%" title="' + d[0] + " · " + d[1] + ' cards"></i>'; }).join("") + '</div>' +
+        '<div class="days">' + DAYS.map(function (d, i) { return '<span class="' + (i === 6 ? "cur" : "") + '">' + d[0].slice(0, 2) + "</span>"; }).join("") + '</div>' +
+        '<div class="tot"><span><b>' + WEEK.cards + '</b> cards</span><span><b>' + WEEK.time + '</b></span><span><b class="g">' + WEEK.recall + '</b> recalled</span></div></div></div>') },
+    { id: "D4", name: "The day against the week", blurb: "A small table: the three measures are columns and the two spans are rows, so each of today's figures sits directly over the week's. The week's row is set lighter and a size smaller, as the context rather than the news.",
+      html: box("d4", '<table><thead><tr><th></th><th>cards</th><th>time</th><th>recalled</th></tr></thead><tbody>' +
+        '<tr><th>Today</th><td>' + DAY.cards + '</td><td>' + DAY.time + '</td><td class="g">' + DAY.recall + '</td></tr>' +
+        '<tr class="week"><th>This week</th><td>' + WEEK.cards + '</td><td>' + WEEK.time + '</td><td class="g">' + WEEK.recall + '</td></tr></tbody></table>') },
+    { id: "D5", name: "Two rings", blurb: "Recall is the one figure with a natural shape, so it becomes a ring: today's in green, the week's in indigo, the percentage at the centre and the cards and minutes beside each. The rings read at a glance from across the room.",
+      html: box("d5", '<div class="rings">' + ring("day", "Today", DAY, 91) + ring("week", "This week", WEEK, 88) + "</div>") },
+    { id: "D6", name: "The ledger", blurb: "The figures set as a study ledger: label, dot leaders, amount, in the site's monospace. Two short columns on a desktop and tablet, one on a phone, and a line of italic at the foot that says what the day was to the week.",
+      html: box("d6", '<div class="ledger">' + ledger("Today", DAY) + ledger("This week", WEEK) + '<p class="sum" style="margin:0">Today was 15% of the week’s cards, a little over a seventh.</p></div>') }
+  ];
+  var DEV = [["desktop", 1040], ["tablet", 834], ["phone", 390]];
+  var host = document.getElementById("designs"), out = "";
+  DESIGNS.forEach(function (d) {
+    out += '<section class="design"><div class="dh"><b>' + d.id + '</b><h2>' + d.name + '</h2><p>' + d.blurb + '</p></div><div class="frames">';
+    DEV.forEach(function (v) {
+      out += '<div class="fit" data-dev="' + v[0] + '" data-label="' + v[0] + '"><div class="frame ' + v[0] + '" data-w="' + v[1] + '"><div class="home-two">' + READ + d.html + '</div></div></div>';
+    });
+    out += "</div></section>";
+  });
+  host.innerHTML = out;
+  function fit() {
+    document.querySelectorAll(".fit").forEach(function (f) {
+      var fr = f.firstElementChild, w = +fr.dataset.w, s = Math.min(1, f.clientWidth / w);
+      fr.style.transform = "scale(" + s + ")";
+      f.style.height = Math.ceil(fr.offsetHeight * s) + "px";
+    });
+  }
+  function seg(id, apply) {
+    var el = document.getElementById(id);
+    el.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      el.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      apply(b.dataset.v); fit();
+    });
+  }
+  document.body.dataset.dev = "all";
+  seg("dev", function (v) { document.body.dataset.dev = v; });
+  seg("thm", function (v) { document.querySelectorAll(".frame").forEach(function (f) { f.classList.toggle("night", v === "night"); }); });
+  fit();
+  window.addEventListener("resize", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  window.addEventListener("load", fit);
+})();
+</script>

@@ -4285,7 +4285,18 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 /* the author `display:block` a pane would otherwise take beats the UA [hidden] rule — the trap
    `.ces-imgpanel[hidden]` and `.gs-results[hidden]` already carry */
 .dm-pane[hidden]{display:none;}
+/* the Daily limits sheet's two sections, All decks over This deck (Oct 2026; they were tabs) */
+.dm-sect{padding:10px 14px 2px; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600;}
+.dm-sect + .dm-pane{padding-bottom:4px;}
+.dm-sect[data-for="deck"]{margin-top:6px; border-top:1px solid var(--rule); padding-top:12px;}
 .dm-clear{width:100%;}
+/* the own-limits switch at the top of the Daily limits sheet's deck tab (Oct 2026, on request): its note on a line
+   of its own, and the fields under it dimmed while the deck follows "All decks" */
+.dm-field.dm-ownrow{border-bottom:1px solid var(--rule); padding-top:11px; padding-bottom:11px; margin-bottom:4px;}
+.dm-field.dm-ownrow > span{display:flex; flex-direction:column; gap:3px; min-width:0;}
+.dm-field.dm-ownrow > span b{font-weight:600;}
+.dm-field.dm-ownrow > span small{line-height:1.35;}
+.dm-pane.dm-following > .dm-field:not(.dm-ownrow){opacity:.55;}
 .dm-field{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); color:var(--ink);}
 /* the Scheduling sheet: a wider box than an options sheet (it carries two paragraphs of explanation and a
    parameter box), and one field that stacks because a 21-number list has nowhere to sit beside its label */
@@ -5240,6 +5251,10 @@ canvas{-webkit-tap-highlight-color:transparent;}
   padding:7px 18px 6px 20px; background:color-mix(in srgb, var(--card) 88%, transparent); border:1px solid var(--rule); border-radius:3px;
   box-shadow:inset 0 0 0 3px color-mix(in srgb, var(--card) 88%, transparent), inset 0 0 0 4px var(--rule), var(--shadow-sm);}
 @media (max-width:640px){.map-cartouche{display:none;}}
+/* …AND ON A TABLET AND A DESKTOP TOO (Oct 2026, on request: "at the top of the Atlas page, there is a square box which
+   says today or the year of the Atlas. Remove that box"). The year box beside the timeline says the year; the plate
+   title is drawn by paintYear still, into an element nothing shows. */
+@media (min-width:641px){.map-cartouche{display:none;}}
 /* hover name tag — a DOM chip following the cursor (naming the entity under it); never triggers a canvas redraw */
 .globe-hovername{position:absolute; z-index:4; pointer-events:none; user-select:none; display:flex; flex-direction:column; gap:0;
   max-width:280px; padding:4px 10px 5px; background:color-mix(in srgb, var(--card) 90%, transparent); border:1px solid var(--rule);
@@ -9956,6 +9971,29 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .rv-banner .xp-lvl{color:#E6C765;} .rv-banner .xp-count{color:rgba(242,243,255,.6);}
 .rv-banner .xp-track{background:rgba(255,255,255,.14); border-color:transparent; height:6px;}
 .rv-banner .xp-fill{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}
+/* THE LEVEL CHEST AT THE END OF THE BAR (Oct 2026, on request — levelChestHTML). The track takes the room and the
+   chest the rest, as the streak ribbon's chest caps its week: dim with a padlock while locked, gold and nodding
+   (the sweep chest's own animation) once a chest waits, the count on its shoulder when more than one does. */
+.rv-banner .xp-row{display:flex; align-items:center; gap:10px;}
+.rv-banner .xp-row .xp-track{flex:1 1 auto; min-width:0;}
+.rv-banner .lvl-chest{
+  position:relative; flex:none; display:inline-flex; align-items:center; justify-content:center;
+  width:calc(34px * var(--fs)); height:calc(28px * var(--fs)); padding:0; margin:-4px 0;
+  background:none; border:0; color:rgba(242,243,255,.7); opacity:.55; cursor:default;
+  transition:opacity .25s var(--ease), color .25s var(--ease), transform .18s var(--ease);
+}
+.rv-banner .lvl-chest .chest-svg{width:100%; height:100%; transform:translateY(-5.2%);}
+.rv-banner .lvl-chest .lock-svg{
+  position:absolute; right:calc(-2px * var(--fs)); bottom:calc(-1px * var(--fs));
+  width:calc(13px * var(--fs)); height:calc(13px * var(--fs)); background:var(--sky-2); border-radius:50%; padding:1px;
+}
+.rv-banner .lvl-chest.ready{opacity:1; cursor:pointer; color:#F2DC96; animation:sweepChestWait 2.4s var(--ease) infinite;}
+.rv-banner .lvl-chest.ready:hover{transform:translateY(-1px) scale(1.05);}
+.rv-banner .lvl-chest:focus-visible{outline:2px solid #fff; outline-offset:2px;}
+.rv-banner .lvl-chest-n{
+  position:absolute; right:calc(-7px * var(--fs)); top:calc(-6px * var(--fs)); min-width:calc(16px * var(--fs)); height:calc(16px * var(--fs));
+  padding:0 4px; border-radius:999px; background:#F2DC96; color:#1D1B29; font:700 calc(10px * var(--fs)) / calc(16px * var(--fs)) var(--mono); text-align:center;
+}
 .rv-banner .glyph{display:none;}
 /* NOTHING TO PRESS (Oct 2026, on request): the ordinary banner is a <div> that states the day, so it takes no
    pointer cursor and no hover lift — those are a button's promises. The first-run hero keeps both. */
@@ -10016,6 +10054,11 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-decks .active-deck.dk-att, .review-group .active-decks .active-deck.dk-last.dk-att{margin-top:-9px; border-top-left-radius:0; border-top-right-radius:0;}
 .review-group .active-decks .active-deck.dk-cont, .review-group .active-decks .active-deck.dk-last.dk-cont{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .review-group .active-deck.dk-att:not(.dk-cont){margin-bottom:6px;}
+/* A DECK INSIDE A COLLECTION IS AS THIN AS A LANGUAGE'S DECKS (Oct 2026, on request: "every deck within a collection
+   should have the same height as the language vocabulary collections currently do. So a bit thinner than their actual
+   collections"). A language's deck is a community collection row (`.dk-coll`) and took the header's 4px; a history
+   or science subdeck kept the top-level row's 12px and stood 10px taller beside it. Every attached row takes the 4px. */
+.review-group .active-decks .active-deck.dk-att{padding-top:4px; padding-bottom:4px; min-height:calc(34px * var(--fs) + 10px);}   /* the language row's: its 34px chevron and the padding */
 /* a GROUP's header row is shorter than the rows under it and painted in a deeper wash of its colour */
 .review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, .review-group .active-deck.dk-coll, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.dk-coll{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
 .review-group .active-deck > :not(.dk-body):not(.dk-grip):not(.gt-check):not(.gt-seal){position:relative; z-index:1;}
@@ -10085,17 +10128,20 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    The tile FILLED with its state colour, and the fill was the accent mixed three-quarters into a near-black so that
    white text could pass 4.5:1 — which is what turned the gold olive and the green teal; a solid fill cannot hold
    white words without going dark. Chosen from six rendered alternatives: the tile takes only a faint tint of the
-   accent, the icon disc fills solid, and the mark at the right becomes a small pill that SAYS the state — Played
+   accent, the icon disc deepens its tint a little, and the mark at the right becomes a small pill that SAYS the state — Played
    in green, Perfect in gold — with the score staying beside the title as on an unplayed tile. The accent itself
    is untouched, so the chips and marks elsewhere that read `--gt-accent` keep their colour.
    THE WORD IS CSS `content`: the mark already carries the state as its aria-label (doneMarkHTML), so the visible
    word is a duplicate for sighted readers and the label stays the one spoken; a second text node would be read
    twice. The seal's wax, sweep and star stand down here — the pill is the mark. By night the pale accents are
-   too light for white, so the pill's word and the disc's glyph take the paper colour instead. */
+   too light for white, so the pill's word takes the paper colour instead.
+   THE DISC NEVER FILLS (Oct 2026, on request: "the icon should turn the full green or gold, and the circle a
+   light shade"): a finished game's disc keeps the unplayed treatment — a tint of the accent under a glyph in the
+   accent itself — only a shade deeper, so the pill alone carries the solid colour. */
 .games-sec .game-tile.done, .games-sec .game-tile.won, body.night .games-sec .game-tile.done, body.night .games-sec .game-tile.won{
   background:color-mix(in srgb, var(--gt-accent) 9%, var(--card));
 }
-.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:var(--gt-accent); color:#fff;}
+.games-sec .game-tile.done .gt-glyph, .games-sec .game-tile.won .gt-glyph{background:color-mix(in srgb, var(--gt-accent) 22%, var(--card)); color:var(--gt-accent);}
 .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{
   width:auto; height:auto; display:inline-flex; align-items:center; gap:5px; padding:4px 9px 4px 7px; border-radius:999px;
   background:var(--gt-accent); background-image:none; color:#fff; clip-path:none; filter:none; animation:none;
@@ -10103,7 +10149,6 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 }
 .games-sec .game-tile.done .gt-check::after{content:"Played";}
 .games-sec .game-tile.won .gt-seal::after{content:"Perfect";}
-body.night .games-sec .game-tile.done .gt-glyph, body.night .games-sec .game-tile.won .gt-glyph,
 body.night .games-sec .game-tile.done .gt-check, body.night .games-sec .game-tile.won .gt-seal{color:var(--paper);}
 .games-sec .game-tile .gt-check svg, .games-sec .game-tile .gt-seal-face svg{width:12px; height:12px; display:block;}
 .games-sec .game-tile .gt-seal-face{color:inherit; filter:none;}
@@ -10124,16 +10169,46 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .hb-bar span{display:block; height:100%; background:var(--ochre);}
 .hb-body em{display:block; font-style:normal; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ochre); margin-top:6px;}
 .hb-empty{display:block; font-size:calc(13.5px * var(--fs)); color:var(--ink-quiet); line-height:1.5;}
-.home-week{display:flex; flex-direction:column;}
-.home-week .hb-k{align-self:flex-start;}
-.home-week .hw-stats + .hb-k{margin-top:16px;}   /* the week's heading under the day's figures (Oct 2026) */
-.hw-stats{flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; align-content:center; justify-items:center; text-align:center;}
-.hw-stats b{display:block; font-size:calc(26px * var(--fs)); font-weight:800; letter-spacing:-.03em; line-height:1; font-variant-numeric:tabular-nums;}
+/* the next paragraph, fading out downwards (Oct 2026, on request — homeReadingNextHTML). The fade is a mask
+   rather than a painted gradient so it is right on every theme's card without knowing the card's colour. */
+.hb-next{display:block; margin-top:14px; padding-top:12px; border-top:1px solid var(--rule);}
+.hb-next-k{display:block; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); margin-bottom:6px; transition:color .18s var(--ease);}
+.hb-next:hover .hb-next-k{color:var(--indigo);}
+.hb-next-p{
+  display:block; font-family:var(--serif); font-size:calc(13.5px * var(--fs)); line-height:1.55; color:var(--ink-soft);
+  max-height:calc(13.5px * var(--fs) * 1.55 * 3.3); overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom, #000 25%, transparent 100%); mask-image:linear-gradient(to bottom, #000 25%, transparent 100%);
+}
+/* THE WEEK BOX IS DESIGN D3 (Oct 2026, on request — docs/mockups/week-box-redesigns): Today's three figures, then
+   the week as seven bars with its three figures spaced under them as the bars are. Stacked on a phone and a
+   tablet; on a desktop Today stands at the left of the chart (the block at the foot). The globe ornament is gone. */
+.home-week{display:flex; flex-direction:column; gap:14px;}
+.home-week .hb-k{align-self:flex-start; margin-bottom:8px;}
+.hw-stats{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; justify-items:center; text-align:center;}
+.hw-stats b{display:block; font-size:calc(24px * var(--fs)); font-weight:800; letter-spacing:-.03em; line-height:1; font-variant-numeric:tabular-nums;}
 .hw-stats span{display:block; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); margin-top:4px;}
 .hw-stats .g b{color:var(--good);}
-.gdeco{position:absolute; right:-40px; bottom:-60px; width:150px; height:150px; border-radius:50%; border:1.5px solid var(--geo); opacity:.35; pointer-events:none;}
-.gdeco i{position:absolute; inset:0; border-radius:50%; border:1px solid var(--geo);}
-.gdeco i:nth-child(1){transform:scaleX(.25);} .gdeco i:nth-child(2){transform:scaleX(.62);} .gdeco i:nth-child(3){transform:scaleY(.25);} .gdeco i:nth-child(4){transform:scaleY(.62);}
+.hw-week{padding-top:12px; border-top:1px solid var(--rule); min-width:0;}
+.hw-bars{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; align-items:end; height:64px;}
+.hw-bars i{display:block; background:var(--paper-2); border-radius:3px 3px 1px 1px; min-height:3px; border-top:2px solid var(--rule);}
+.hw-bars i.on{background:color-mix(in srgb, var(--indigo) 22%, var(--card)); border-top-color:var(--indigo);}
+.hw-bars i.cur{background:var(--indigo); border-top-color:var(--indigo);}
+.hw-days{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; margin-top:5px; text-align:center;}
+.hw-days span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; color:var(--ink-faint);}
+.hw-days span.cur{color:var(--indigo); font-weight:600;}
+/* the week's figures, small and beside their words, spaced across the box as the bars are */
+.hw-tot{display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 8px; margin-top:12px; padding-top:10px; border-top:1px solid var(--rule); font-size:calc(12.5px * var(--fs)); color:var(--ink-quiet);}
+.hw-tot span{white-space:nowrap;}
+.hw-tot b{color:var(--ink); font-weight:700; font-size:calc(13.5px * var(--fs)); font-variant-numeric:tabular-nums;}
+.hw-tot b.g{color:var(--good);}
+@media (min-width:1025px){
+  .home-week{display:grid; grid-template-columns:auto 1fr; gap:0 22px; align-items:stretch;}
+  .hw-today{display:flex; flex-direction:column; justify-content:center; padding-right:18px; border-right:1px solid var(--rule);}
+  .hw-today .hw-stats{grid-template-columns:1fr; gap:10px; justify-items:start; text-align:left;}
+  .hw-today .hw-stats b{font-size:calc(22px * var(--fs));}
+  .hw-week{padding-top:0; border-top:0; display:flex; flex-direction:column; justify-content:flex-end;}
+  .hw-tot{padding-top:9px;}
+}
 /* the foot */
 .home-foot{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:10px; padding:16px 0 0;}
 .home-foot .home-about, .home-foot .home-about:hover{width:auto; padding:0; text-align:left; font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; color:var(--ink-faint);}
@@ -10254,13 +10329,14 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   /* …and the stack's one track fills the banner, or the level bar would stop where the three piles do now that
      nothing full-width sits under them (the Start button did) */
   .page .rv-banner .rv-stack{width:100%; grid-template-columns:minmax(0, 1fr);}
-  /* THE ESTIMATE IS A LINE OF ITS OWN ON A PHONE (Oct 2026, on request: "reorganise the information inside on
-     all screen formats to fit properly"). Four columns across a 318px row left "≈ 1 h 9 min" spilling out of
-     its quarter; the three piles share the row now and the estimate stands under them, ruled off above the
-     way it was ruled off at the left, still a figure over its label like the three. */
-  .page .rv-banner .meta{width:100%; grid-template-columns:1fr 1fr 1fr; gap:0 10px;}
-  .page .rv-banner .stat b{font-size:calc(24px * var(--fs));}
-  .page .rv-banner .stat.st-est{grid-column:1 / -1; justify-self:stretch; margin-top:12px; padding:10px 0 0; border-left:0; border-top:1px solid rgba(255,255,255,.18);}
+  /* THE ESTIMATE STAYS ON THE ROW (Oct 2026, on request: "it should stay on the same level to the right of
+     [the three numbers], just like it does on tablets and desktop"). It had a line of its own here since
+     "≈ 1 h 9 min" spilt out of a quarter of a 318px row; it is a fourth column again, sized to its text with
+     the three piles sharing the rest, its figure a size smaller than theirs and never wrapping. */
+  .page .rv-banner .meta{width:100%; grid-template-columns:1fr 1fr 1fr auto; gap:0 8px;}
+  .page .rv-banner .stat b{font-size:calc(22px * var(--fs));}
+  .page .rv-banner .stat.st-est{padding-left:12px;}
+  .page .rv-banner .stat.st-est b{font-size:calc(18px * var(--fs));}
   .streak-ribbon{padding:12px 14px;}
   .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
   /* a phone keeps its two-row layout (Oct 2026, on request: "don't apply the streak changes to mobile") — the
@@ -10288,13 +10364,16 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .games-sec .sr-count{font-size:calc(11.5px * var(--fs));}
   .games-sec .sr-steps{gap:3px;}
   .games-sec .sr-step{flex:1 1 0; width:auto; height:calc(6px * var(--fs)); border-radius:99px; border:0; background:var(--rule);}
-  .games-sec .sr-step:first-child{border-radius:99px 3px 3px 99px;}
-  .games-sec .sr-step:last-child{border-radius:3px 99px 99px 3px;}
+  /* every segment is the same pill — the end ones used to be squared on their inner side (Oct 2026, on request) */
   .games-sec .sr-step svg{display:none;}
   .games-sec .sr-step.on{background:var(--good, #4F9D67);}
   .games-sec .sr-step.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47;}
   .games-sec .sr-link{display:none;}
   .games-sec .sweep-chest{width:calc(34px * var(--fs)); height:calc(28px * var(--fs));}
+  /* THE CHEST'S DRAWING SITS LOW IN ITS OWN BOX: CHEST_SVG spans 14..92 of a 96-unit viewBox, so its centre is
+     5% below the box's, and the box being centred on the segments left the chest a hair under them (Oct 2026, on
+     request). Lifting the drawing by that share of its own height centres what the eye sees, at any text size. */
+  .games-sec .sweep-chest .chest-svg{transform:translateY(-5.2%);}
   .games-sec .sweep-chest .lock-svg{background:var(--paper);}
   /* PLAYED AND PERFECT ARE ONE WIDTH ON A PHONE (Oct 2026, on request: "ensure on mobile that the Perfect and
      Played chips are horizontally aligned"). The tiles stand in one column here, so the pills sit in one column

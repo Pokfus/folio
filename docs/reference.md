@@ -4375,7 +4375,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `rollArtefact` renormalises over whatever still holds something unowned, so every chest is a NEW
     artefact until the pool is exhausted, and then it SAYS so.
   · **THE CHEST IS THE LEVEL-UP CELEBRATION, not a second one after it** — `announceLevelUps` grants and
-    opens, and `congratsPopup` is no longer raised behind it. **AN UNOPENED CHEST QUEUES** (`S.chests` is a
+    opens, and `congratsPopup` is no longer raised behind it. SINCE OCT 2026 THE CHEST WAITS ON THE HOME PAGE
+    INSTEAD (`levelChestHTML` at the end of the banner's level bar, the level-up itself a toast; see reliquary.md). **AN UNOPENED CHEST QUEUES** (`S.chests` is a
     COUNT), and **Save for later** stands beside the closed chest.
   · **FOUR CHANNELS**: a level; the **daily sweep** (all games WON in one day, `S.sweepChest` recording
     the DAY rather than a boolean, since nothing runs at midnight); the **STREAK, every seventh day**

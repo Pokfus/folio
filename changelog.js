@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.972", released: "2026-10-05T00:19Z" };
+window.FOLIO_VERSION = { v: "1.982", released: "2026-10-05T13:29Z" };
 
 window.CHANGELOG = [
   {
@@ -45,6 +45,21 @@ window.CHANGELOG = [
       "<b>Minigame chest meter on tablets and phones</b>: the count of today's games played is now a strip under the Minigames heading, with each game's own symbol on a tablet, instead of a tiny grid that no longer matched the tiles.",
       "<b>Minigame tiles on phones</b>: the Played and Perfect marks are one width, so they line up down the column.",
       "<b>Find it on the Full Atlas is smooth again</b>: a state's round draws the coast once a frame instead of four times, so dragging the globe no longer stutters.",
+      "<b>Streak banner</b>: once a week's chest is paid the note says only what the next week earns, without repeating that seven days were paid.",
+      "<b>Minigame tiles</b>: a played or perfect game's icon now takes the full green or gold on a lightly tinted disc, instead of a white icon on a solid one.",
+      "<b>Minigame chest meter on phones</b>: the two end segments are rounded like the rest, and the chest sits level with the strip.",
+      "<b>Continue reading shows what comes next</b>: the home page's reading box now carries a glimpse of the next paragraph, fading out below; a tap on it opens that chapter.",
+      "<b>Library chips</b>: a book that carries its original text is now marked \"with original Greek\" rather than \"Greek original\".",
+      "<b>Daily study banner on phones</b>: the time estimate stands on the same row as the three piles again, to their right, as it does on a tablet or desktop.",
+      "<b>A chest at the end of the level bar</b>: reaching a new level no longer opens a chest in the middle of a session; the chest waits beside the level bar on the home page until you tap it.",
+      "<b>Continue with, after a session</b>: the offered row now carries its collection's colour and its progress, as on the home page.",
+      "<b>Question variety</b>: the option in a collection's menu now says plainly that it asks different questions about the same answer.",
+      "<b>Daily limits</b>: a switch at the top of the sheet says whether a collection follows the default limits or has its own, and turning it off hands the collection back to the default.",
+      "<b>This week on the home page</b>: the week is drawn as seven bars of cards per day, today the solid one, with its figures beneath; Today's figures stand above on a phone or tablet and beside on a desktop.",
+      "<b>Atlas</b>: the plate title over the top of the globe, reading Today or the year, is gone on tablets and desktops; the year box beside the timeline says the year.",
+      "<b>Active collections</b>: the decks inside a history or science collection are as thin as a language's decks, a little thinner than their collection's row.",
+      "<b>This week's figures</b> under the chart are small and beside their words, spaced across the box as the bars are.",
+      "<b>Daily limits</b>: the All decks figures stand above the deck's own on one sheet, instead of behind a second tab.",
     ],
   },
   {

@@ -685,19 +685,19 @@ const SETTINGS = {
     await p2.evaluate(() => document.querySelector('.deck-menu .dm-item[data-act="limits"]').click());
     await p2.waitForTimeout(300);
     const gl = await p2.evaluate(() => {
-      const t = [...document.querySelectorAll(".dm-tab")].find((x) => /all decks/i.test(x.textContent));
-      if (t) t.click();
-      const pane = document.querySelector('.dm-pane[data-pane="all"]');
+      // the All decks figures are a SECTION above the deck's own on one pane (Oct 2026; they were a tab)
+      const t = document.querySelector('.dm-sect[data-for="all"]');
+      const pane = document.querySelector('.dm-pane[data-pane="all"]'), own = document.querySelector('.dm-pane[data-pane="deck"]');
       return {
-        moved: !!t,
+        moved: !!t && /all decks/i.test(t.textContent),
         shown: (document.querySelector('[data-lim="gNew"]') || {}).value,
-        visible: !!pane && !pane.hidden,
-        // …and the per-deck pane is put away, or the reader is looking at four identical boxes
-        other: (document.querySelector('.dm-pane[data-pane="deck"]') || {}).hidden,
+        visible: !!pane && !!pane.offsetParent,
+        // …and the deck's own section stands under it, both in view at once
+        below: !!own && !!own.offsetParent && own.getBoundingClientRect().top > pane.getBoundingClientRect().top,
       };
     });
-    check("the allowance moved to the Daily limits dialog's All decks tab",
-      gl.moved && gl.visible && gl.other === true && gl.shown === "5", JSON.stringify(gl));
+    check("the allowance moved to the Daily limits dialog's All decks section, above the deck's own",
+      gl.moved && gl.visible && gl.below && gl.shown === "5", JSON.stringify(gl));
     await p2.close();
   }
 
