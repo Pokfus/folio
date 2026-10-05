@@ -180,13 +180,20 @@ const holdRow = (page, match) => page.evaluate((m) => {
   await page.keyboard.press("Escape");
   await page.waitForTimeout(400);
 
-  // the pooled review answers for whatever is added to it right now
-  await page.evaluate(() => {
-    const b = document.querySelector(".review-group .banner");
-    if (b) b.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true }));
+  /* THE DAILY STUDY BANNER HAS NO SHEET OF ITS OWN ANY MORE (Oct 2026, on request: "the daily study banner
+     should have no long press menu"), so the pooled review no longer offers the switch there — each deck's
+     row does, as above. What is asserted instead is that the request holds: a long press on the banner
+     opens nothing. The selector is the banner itself, so a banner that is not there fails rather than
+     passes by default. */
+  const bannerHeld = await page.evaluate(() => {
+    const b = document.querySelector("#b-review");
+    if (!b) return false;
+    b.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true }));
+    return true;
   });
   await page.waitForTimeout(600);
-  check("the pooled review offers it too, a speaking deck being added to it", (await sheetInfo(page)).has);
+  check("the daily study banner is there to hold", bannerHeld);
+  check("...and a long press on it opens no sheet (the deck rows carry the switch)", !(await sheetInfo(page)).open);
   await page.keyboard.press("Escape");
   await page.waitForTimeout(400);
 

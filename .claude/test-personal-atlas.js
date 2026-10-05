@@ -320,17 +320,33 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   await page.mouse.move(rr.x + rr.w / 2 + 300, rr.y + rr.h / 2 + 40, { steps: 12 });
   await page.mouse.up();
   await page.waitForTimeout(1500);
+  /* THE POPUP IS POLLED FOR, NOT WAITED ON (Oct 2026). A fixed 90 ms after the first click and 120 ms
+     after the second was enough on a developer's machine, where the popup landed in 20–124 ms, and twice
+     on CI's runner it was not: the probe read an empty popup ("/") on a point that was in fact the United
+     States, and the ladder was never climbed. So each click is followed by a poll for the popup to CHANGE
+     from what it showed before the click — to a name, or to nothing on an empty click — for up to a few
+     hundred milliseconds, and returns as soon as it has. A click that changes nothing still costs the
+     whole wait, which is the price of not guessing a machine's speed. */
+  const popShown = () => page.evaluate(() => { const e = document.getElementById("countryPop"); return e && !e.hidden ? document.getElementById("cpName").textContent.trim() : ""; });
+  const clickFor = async (x, y) => {
+    const before = await popShown();
+    await page.mouse.click(x, y);
+    const until = Date.now() + 400;
+    let now = before;
+    while (Date.now() < until) {
+      await page.waitForTimeout(20);
+      now = await popShown();
+      if (now !== before) break;
+    }
+    return now;
+  };
   let one = "", two = "";
   for (let dx = -260; dx <= 260 && !two; dx += 22) {
     for (let dy = -200; dy <= 200 && !two; dy += 22) {
       const x = rr.x + rr.w / 2 + dx, y = rr.y + rr.h / 2 + dy;
-      await page.mouse.click(x, y);
-      await page.waitForTimeout(90);
-      const t1 = await page.evaluate(() => { const e = document.getElementById("countryPop"); return e && !e.hidden ? document.getElementById("cpName").textContent.trim() : ""; });
+      const t1 = await clickFor(x, y);
       if (t1 !== "United States") continue;
-      await page.mouse.click(x, y);
-      await page.waitForTimeout(120);
-      const t2 = await page.evaluate(() => { const e = document.getElementById("countryPop"); return e && !e.hidden ? document.getElementById("cpName").textContent.trim() : ""; });
+      const t2 = await clickFor(x, y);
       if (t2 === "California") { one = t1; two = t2; }
     }
   }

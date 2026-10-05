@@ -28,6 +28,13 @@ const NOISE = [
   /CORS policy/,                      // file:// origins, and the same webfonts
   /favicon|manifest/,                 // furniture the suites never assert on
   /Permissions policy violation/,     // the runner's Chromium, not the page
+  /* A FRAMED PLAYER'S OWN POLICY (Oct 2026, CI only): the Vimeo player page loads Cloudflare's
+     challenge-platform script, and Vimeo's own CSP ("script-src 'unsafe-inline'", not a directive Folio's
+     _headers has ever carried) refuses it. The report is printed into the embedding page's console, so a
+     suite that frames a real player sees a violation no line of Folio caused and none can prevent — only
+     where the player actually loads, which is why it never showed on a machine with no route to Vimeo.
+     Folio's own CSP is unchanged by this: a violation OF IT names 'self', and is still an error. */
+  /^Loading the script 'https:\/\/(?:player\.vimeo\.com|www\.youtube-nocookie\.com)\/[^']*' violates the following Content Security Policy directive: "script-src 'unsafe-inline'"/,
 ];
 
 // True when this console text is the room talking rather than Folio.

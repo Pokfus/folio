@@ -549,7 +549,11 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     check("…named after the deck file it will fetch, less the language above it",
       pend[0].title && small.title.indexOf(pend[0].title) >= 0 &&
       pend[0].title.indexOf(small.lang) < 0, pend[0].title);
-    check("…saying it is not here yet", /not on this device/i.test(pend[0].sup), pend[0].sup);
+    /* THE "NOT ON THIS DEVICE" NOTE WENT (Oct 2026, on request): the Download button beside the name
+       already says it, and the note was the same fact a second time on a 390px line. The row now carries
+       no sup at all, and that absence is asserted, since a note coming back would be two statements of
+       one thing rather than a harmless extra. */
+    check("…with no note beside the name, the Download button saying it", pend[0].sup.trim() === "", pend[0].sup);
     /* THE SIZE IS ON THE BUTTON, which is the request's own wording ("a download button in the banner
        (with file size)"): a reader about to spend 21 MB is told so on the control that spends it. */
     check("…and offering Download with the file size",

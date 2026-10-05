@@ -330,8 +330,13 @@ function scrimCheck() {
   /* ================= 4. the Atlas chrome ================= */
   /* THE SEARCH AND THE LEGEND WERE THE WORLD ATLAS'S, and that tab was removed (Oct 2026, on request: "we'll
      only use the personal atlas from now on"). This section measured them as chips on a phone and as a field
-     and an open panel on a desktop; what is left to assert is that neither tab shows them, at either width —
-     a control left visible from a removed page is a control that does nothing. */
+     and an open panel on a desktop; what is left to assert is that the legend shows on neither tab, at
+     either width — a control left visible from a removed page is a control that does nothing.
+     THE SEARCH IS THE EXCEPTION, AND ONLY ON THE FULL ATLAS (docs/atlas.md, "The Full atlas has a search
+     again"): the world atlas's box came back there, indexed over the whole register, while Your atlas still
+     has none. So the search is asserted PRESENT on the full tab and ABSENT on the reader's own — a search
+     on Your atlas would be a control for finding places the reader has not yet unlocked, and a Full atlas
+     without one would be a register with no way in. */
   for (const vp of [PHONE, DESKTOP]) {
     for (const tab of ["mine", "full"]) {
       const page = await browser.newPage({ viewport: vp, hasTouch: vp === PHONE });
@@ -343,7 +348,8 @@ function scrimCheck() {
         legend: document.querySelector("#globeLegend").checkVisibility(),
         world: !!document.querySelector('[data-atlastab="world"]'),
       }));
-      check("[" + tag + "] no search and no legend on the atlas", !d.search && !d.legend, JSON.stringify(d));
+      check("[" + tag + "] " + (tab === "full" ? "the search is on the full atlas, and no legend" : "no search and no legend on your atlas"),
+        d.search === (tab === "full") && !d.legend, JSON.stringify(d));
       check("[" + tag + "] ...and no world atlas tab to reach them by", !d.world);
       await page.close();
     }
@@ -1474,9 +1480,14 @@ function scrimCheck() {
     });
     /* It carries the BAR now, where it used to carry a small "N cards" line instead (Aug 2026, on request):
        a header and the decks under it should not answer the same question two different ways. Both halves
-       are asserted, since a header that kept both would pass either one alone. */
-    check("a group header is thinner than a deck row, and carries a progress bar like the rows inside it",
-      !!grpRow && grpRow.gh < grpRow.dh && grpRow.bar && !grpRow.count, JSON.stringify(grpRow));
+       are asserted, since a header that kept both would pass either one alone.
+       …AND THE ROWS UNDER IT ARE NOW THE THINNER ONES (Oct 2026, on request: "every deck within a collection
+       should have the same height as the language vocabulary collections currently do. So a bit thinner than
+       their actual collections" — `.dk-att` in styles.css). The Aug 2026 reading, header thinner than row,
+       was the inverse and is what this asserted until then; the two can never both hold, so the newer
+       request is the one asserted, as a strict inequality, since equal heights would be neither. */
+    check("a group header is a little thicker than the deck rows under it, and carries a progress bar like them",
+      !!grpRow && grpRow.gh > grpRow.dh && grpRow.bar && !grpRow.count, JSON.stringify(grpRow));
     check("...in a deeper wash of the same colour, so the run below reads as belonging to it",
       !!grpRow && grpRow.differs, JSON.stringify(grpRow));
     check("...and its title is set in the same face as the decks within, not capitalised into a label",
@@ -2727,14 +2738,23 @@ function scrimCheck() {
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(900);
     await studyEasy(page, base, XP_STEP - 1);
+    /* THE CHEST WAITS AT THE END OF THE LEVEL BAR (Oct 2026, on request: "a chest shouldn't just appear
+       mid-study session, it should remain there at the front page until it is clicked"). So the level-up
+       raises NO overlay in the session — that is asserted, since the old mid-session chest coming back
+       would be the very thing the request removed — and the celebration is the home page's `#lvlChest`
+       turning from locked to ready, which a press opens (openChestPop, from the bar's own handler). */
+    const mid = await page.locator(".chest-pop").count();
+    check("levelling up raises no chest in the middle of the session", mid === 0, XP_STEP + " cards studied → " + mid + " overlay(s)");
+    check("...and no confetti card either", await page.locator(".levelup-pop").count() === 0);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1300);
+    const ready = await page.evaluate(() => { const c = document.querySelector("#lvlChest"); return c ? { there: true, ready: c.classList.contains("ready"), disabled: c.disabled } : { there: false }; });
+    check("...the chest at the end of the level bar is ready instead", ready.there && ready.ready && !ready.disabled, JSON.stringify(ready));
+    if (ready.ready) await page.click("#lvlChest");
+    await page.waitForTimeout(900);
     const up = await page.locator(".chest-pop").count();
-    check("levelling up raises its chest", up === 1, XP_STEP + " cards studied → " + up + " overlay(s)");
-    check("...and no confetti card behind it", await page.locator(".levelup-pop").count() === 0);
+    check("...and a press on it opens the chest", up === 1, up + " overlay(s)");
     if (up) {
-      // the level is announced ON the chest — that is what makes this one the celebration rather than
-      // an ordinary chest opened from the home banner's chip, which carries no such line
-      check("...announcing the level reached", /level/i.test((await page.locator(".chest-lvl").first().textContent().catch(() => "")) || ""),
-        (await page.locator(".chest-lvl").first().textContent().catch(() => "")) || "no .chest-lvl");
       // a hash change, NOT a click — a click would dismiss it and prove nothing
       await page.evaluate(() => { location.hash = "#decks"; });
       await page.waitForTimeout(900);

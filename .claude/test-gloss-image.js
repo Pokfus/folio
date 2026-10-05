@@ -268,6 +268,14 @@ async function openGlossEditor(page, base, key) {
   await page.fill('[data-gimgfield="src"]', PNG);
   await page.waitForTimeout(250);
   check("...and appear once a URL is set", await page.locator('[data-gimgfield="title"]').isVisible());
+  /* LEAVE THE URL FIELD ON PURPOSE BEFORE TYPING ANYWHERE ELSE (Oct 2026). The source prompt opens on the
+     field's `change`, which fires when focus leaves it — and left to the next fill() below, that is the
+     instant the title field is focused: the prompt then takes its own focus and the keystrokes meant for
+     the title land in the prompt's box. Seen as a title of "", a delta with no title, and a modal left
+     standing over the rest of the suite, where the Studio's deck editor could not open under it. Blurring
+     here makes the prompt appear now, where the line below dismisses it. */
+  await page.locator('[data-gimgfield="src"]').blur();
+  await page.waitForTimeout(300);
   // the source gate: a URL with no credit line is STAGED, not stored, so nothing can ship uncredited
   if (await page.locator(".inline-prompt").count()) await page.locator(".inline-prompt .ip-cancel").click();
   await page.waitForTimeout(200);
@@ -324,10 +332,15 @@ async function openGlossEditor(page, base, key) {
   const titles = await page.evaluate(() => [...document.querySelectorAll(".sd-title")].map((e) => e.textContent));
   check("the deck imported", titles.includes("Image deck"), JSON.stringify(titles));
 
+  /* THE EDIT BUTTON IS A TOGGLE, AND THE EDITOR OUTLIVES A HASH CHANGE (Oct 2026). `page.goto` to a URL
+     that differs only in its fragment is a same-document navigation (see openGlossEditor), so the second
+     visit to #studio below finds the inline editor still open from the first — and a click on the row's
+     button then CLOSES it, after which no Glossary tab exists to click and the suite died waiting for one.
+     So the button is pressed only when it reads as the way in; already open, the tab is simply selected. */
   const openDeckGloss = async () => {
     await page.evaluate(() => {
       const r = [...document.querySelectorAll(".studio-deck-open")].find((x) => /Image deck/.test(x.textContent || ""));
-      if (r) r.click();
+      if (r && !/close/i.test(r.getAttribute("title") || "")) r.click();
     });
     await page.waitForTimeout(500);
     await page.click('[data-tab="gloss"]');
