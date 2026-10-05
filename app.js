@@ -16693,8 +16693,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       cyRow("order", "Review order", DECK_ORDER_NOTE[order], DECK_ORDER_LABEL[order],
         fromMark(["order", "random"])) +
       swRow("variety", "Question variety",
-        "Each card asks one of its phrasings at random",
-        "Every card always asks its first phrasing", variety, false, fromMark(["variety"])) +
+        "Each card asks a different question about its answer each time, picked at random",
+        "Every card always asks the same question", variety, false, fromMark(["variety"])) +
       /* ANSWER BEFORE REVEALING and RECALL IN FULL stood here as per-entry switches from Sep 2026 until Oct
          2026 (on request: "those on the settings page should apply to all cards on the website ... need not
          be deck-specific settings") — they are the Settings page's two switches alone now, see deckAttempt. */
@@ -21141,8 +21141,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function announceLevelUps() {
     const g = Object.keys(S.cards).length;
     if (levelFromXP(g).level <= levelFromXP(g - 1).level) return;
-    grantChest();   // one chest per level — and the chest overlay IS the celebration, so there is no
-    openChestPop({ level: levelFromXP(g).level });   // congratsPopup behind it. Dismissing it leaves the chest in S.chests.
+    grantChest();   // one chest per level, no congratsPopup behind it
+    /* THE CHEST WAITS ON THE HOME PAGE RATHER THAN OPENING HERE (Oct 2026, on request: "a chest shouldn't just
+       appear mid-study session, it should remain there at the front page until it is clicked"). From Aug 2026
+       the overlay was the celebration and rose on the grade that finished the bar, in the middle of a session;
+       now the word is a toast and the chest itself stands at the end of the level bar (levelChestHTML). */
+    toast("Level " + levelFromXP(g).level + " \u2014 a chest is waiting on the home page.");
   }
   /* ---------- the symbols a collection may wear ----------
      What sits at the left of a collection banner, where the level numeral used to (Aug 2026, on request).
@@ -21613,12 +21617,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* The XP bar toward the next Folio level. ONE caller now — the home Daily-study banner — since
      collections show progress instead (deckProgMarkup above); its old `zh` argument, which tinted the
      fill vermilion for the China collection, went with them. */
-  function xpBarMarkup(xp) {
+  function xpBarMarkup(xp, opts) {
     const info = levelFromXP(xp);
     const pct = info.need > 0 ? Math.min(100, (info.into / info.need) * 100) : 0;
+    const track = '<div class="xp-track"><div class="xp-fill"></div></div>';
     return '<div class="xp" data-pct="' + pct.toFixed(2) + '">' +
       '<div class="xp-head"><span class="xp-lvl">Level ' + info.level + '</span><span class="xp-count">' + info.into + ' / ' + info.need + ' cards</span></div>' +
-      '<div class="xp-track"><div class="xp-fill"></div></div></div>';
+      (opts && opts.chest ? '<div class="xp-row">' + track + levelChestHTML() + "</div>" : track) + "</div>";
+  }
+  /* THE LEVEL CHEST STANDS AT THE END OF THE BAR (Oct 2026, on request: "next to the level progress bar ... add a
+     chest, just as we do with the weekly study banner ... when a level is completed ... a chest shouldn't just
+     appear mid-study session, it should remain there at the front page until it is clicked"). The chest caps the
+     bar the way the streak ribbon's caps its week: locked and quiet while nothing is owed, gold and nodding once
+     a chest is waiting, and a press opens it (openChestPop). It reads `S.chests`, the one count every channel
+     pays into, so a chest from a badge or the daily sweep waits here too; the figure on its shoulder says how
+     many. A real `<button>`, disabled while locked, so the keyboard and the screen reader get the same answer. */
+  function levelChestHTML() {
+    const n = chestCount(), ready = n > 0;
+    const label = !ready ? "Locked: reach the next level to earn a chest"
+      : n === 1 ? "Open your chest" : "Open a chest \u2014 " + n + " waiting";
+    return '<button type="button" class="lvl-chest' + (ready ? " ready" : "") + '" id="lvlChest"' + (ready ? "" : " disabled") +
+      ' title="' + esc(label) + '" aria-label="' + esc(label) + '">' + CHEST_SVG + (ready ? "" : LOCK_SVG) +
+      (n > 1 ? '<span class="lvl-chest-n" aria-hidden="true">' + n + "</span>" : "") + "</button>";
   }
 
   /* ============================================================
@@ -22559,6 +22579,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the reader is about to be looking at would otherwise still be describing the moment before
     const close = () => {
       ov.remove(); document.removeEventListener("keydown", onKey, true); _chestClose = null; refreshReliquary();
+      if (current && current.name === "home") renderInPlace();   // the level chest at the end of the bar reads S.chests
       tourNotify("chest");                                    // the walkthrough's badge step waits for this
       if (_achPending.length && !tourRunning()) openAchPop(_achPending.splice(0));   // a badge that queued behind it
     };
@@ -23616,7 +23637,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       id: el.dataset.review,
       title: ((el.querySelector(".dk-title") || {}).textContent || el.dataset.review).trim(),
       parent: el.dataset.parent || "",
-      hue: (el.style.getPropertyValue("--coll-bg") || "").trim(),
+      /* the row's own hue, or the one it INHERITS from its container (Oct 2026, on a bug report: a lecture
+         deck of Politics: East Asia came out uncoloured on the completion screen) — a deck inside a
+         collection carries no `--coll-bg` of its own, the chain above it does, and drawn alone on the
+         completion screen it has no chain to inherit from, so the computed value is read here instead */
+      hue: (el.style.getPropertyValue("--coll-bg") || getComputedStyle(el).getPropertyValue("--coll-bg") || "").trim(),
       langhead: el.classList.contains("dk-langhead"),
       group: el.classList.contains("deck-group"),
     }));
@@ -25026,7 +25051,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             ${/* the level bar and the piles share one column (`.rv-stack`), so the bar is exactly as wide as
                   the pile row and the Start button under it (Oct 2026, on request) */""}
             <div class="rv-stack">
-            ${xpBarMarkup(folioXP())}
+            ${xpBarMarkup(folioXP(), { chest: true })}
             <div class="meta">
               ${/* Anki's three piles, in Anki's order and Anki's colours: blue new, red learning, green
                     review. They are ALWAYS all three, coloured whether or not they are zero — a pile that
@@ -25246,6 +25271,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       renderInPlace();
       openChestPop();
     });
+    // the level chest at the end of the bar (levelChestHTML); the overlay's close repaints the banner
+    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (chestCount()) openChestPop(); }); }
     root.querySelectorAll(".game-tile[data-game]").forEach((el) => {
       const key = el.dataset.game;
       if (!key) return;
@@ -32866,6 +32893,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         nx.innerHTML = '<span class="sc-next-label">' + esc(t("Continue with")) + '</span>'
           + '<div class="review-group sc-next-list"><div class="active-decks">' + nextRows.map(adRowBannerHTML).join("") + "</div></div>";
         card.appendChild(nx);
+        /* …with its progress painted (Oct 2026, on a bug report: the row came out uncoloured). The fills are
+           sized by animateProgs after the home page renders, and this copy of the row never got that pass. */
+        animateProgs(nx);
       }
       root.appendChild(card);
       card.querySelector("#home").addEventListener("click", () =>

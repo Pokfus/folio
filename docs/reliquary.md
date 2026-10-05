@@ -33,6 +33,12 @@ interactions that a plate's own glossary links forced.
     `chest` for the hinge, then `loot-common` / `loot-rare` / `loot-epic` / `loot-legendary`.
   · **THE CHEST IS THE LEVEL-UP CELEBRATION, not a second one after it.** `announceLevelUps` grants and
     opens; `congratsPopup` is no longer raised behind it, since two overlays for one event is two.
+    **…AND SINCE OCT 2026 IT WAITS ON THE HOME PAGE** (on request: "a chest shouldn't just appear mid-study
+    session, it should remain there at the front page until it is clicked"): `announceLevelUps` grants and
+    says so in a toast, and the chest stands at the end of the banner's level bar (`levelChestHTML`,
+    `.lvl-chest`) — locked with a padlock while nothing is owed, gold and nodding once something is, the
+    count on its shoulder when more than one waits. It reads `S.chests`, so a badge's or a sweep's chest waits
+    there too. A press opens `openChestPop`, whose close repaints the home page so the chest locks again.
   · **AN UNOPENED CHEST QUEUES.** `S.chests` is a COUNT, not a flag: dismissing the overlay keeps the chest,
     and a second level while one waits adds to it.
     **…AND SINCE AUG 2026 THE READER CAN SAY SO, which is two changes that are one feature** (on request).
