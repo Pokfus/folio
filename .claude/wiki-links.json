@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-04T20:01Z",
+ "generated": "2026-10-05T15:14Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4475,
-  "redirect-broader": 382,
-  "redirect-variant": 295,
-  "section-redirect": 89,
-  "disambiguation": 126,
-  "none": 570,
+  "ok": 4543,
+  "redirect-broader": 390,
+  "redirect-variant": 298,
+  "section-redirect": 93,
+  "disambiguation": 127,
+  "none": 586,
   "disambig-resolved": 68,
   "list-page": 6,
   "search-match": 5,
@@ -47832,6 +47832,803 @@
    "answer": "Chinese Empire",
    "title": "Chinese Empire",
    "url": "https://en.wikipedia.org/wiki/Chinese_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-702": {
+   "answer": "Emperor of China",
+   "title": "Emperor of China",
+   "url": "https://en.wikipedia.org/wiki/Emperor_of_China",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-703": {
+   "answer": "dynastic cycle",
+   "title": "Dynastic cycle",
+   "url": "https://en.wikipedia.org/wiki/Dynastic_cycle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-704": {
+   "answer": "Jiangnan Examination Hall",
+   "title": "Jiangnan Examination Hall",
+   "url": "https://en.wikipedia.org/wiki/Jiangnan_Examination_Hall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-705": {
+   "answer": "eight-legged essay",
+   "title": "Eight-legged essay",
+   "url": "https://en.wikipedia.org/wiki/Eight-legged_essay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-706": {
+   "answer": "juren",
+   "title": "Juren",
+   "url": "https://en.wikipedia.org/wiki/Juren",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-707": {
+   "answer": "rule of avoidance",
+   "title": "Rule of avoidance",
+   "url": "https://en.wikipedia.org/wiki/Rule_of_avoidance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-708": {
+   "answer": "palace memorial",
+   "title": "Memorial to the throne",
+   "url": "https://en.wikipedia.org/wiki/Memorial_to_the_throne",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-709": {
+   "answer": "Ministry of Rites",
+   "title": "Ministry of Rites",
+   "url": "https://en.wikipedia.org/wiki/Ministry_of_Rites",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-710": {
+   "answer": "Censorate",
+   "title": "Censorate",
+   "url": "https://en.wikipedia.org/wiki/Censorate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-711": {
+   "answer": "county magistrate",
+   "title": "County magistrate",
+   "url": "https://en.wikipedia.org/wiki/County_magistrate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-712": {
+   "answer": "yamen",
+   "title": "Yamen",
+   "url": "https://en.wikipedia.org/wiki/Yamen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-713": {
+   "answer": "Great Qing Legal Code",
+   "title": "Great Qing Legal Code",
+   "url": "https://en.wikipedia.org/wiki/Great_Qing_Legal_Code",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-714": {
+   "answer": "Five Punishments",
+   "title": "Five Punishments",
+   "url": "https://en.wikipedia.org/wiki/Five_Punishments",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-715": {
+   "answer": "Yellow Registers",
+   "title": "Yellow Registers",
+   "url": "https://en.wikipedia.org/wiki/Yellow_Registers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-716": {
+   "answer": "lijin",
+   "title": "Likin (taxation)",
+   "url": "https://en.wikipedia.org/wiki/Likin_(taxation)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-717": {
+   "answer": "corvée",
+   "title": "Corvée",
+   "url": "https://en.wikipedia.org/wiki/Corv%C3%A9e",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-718": {
+   "answer": "kaizhong system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Flying cash",
+    "Neal Bertram",
+    "Economy of the Ming dynasty",
+    "Geoffrey J. D. Hewings",
+    "Battle of Guningtou"
+   ]
+  },
+  "cnh-719": {
+   "answer": "ever-normal granary",
+   "title": "Buffer stock scheme",
+   "url": "https://en.wikipedia.org/wiki/Buffer_stock_scheme",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Ever-normal granary"
+  },
+  "cnh-720": {
+   "answer": "weisuo system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Weisuo system",
+   "target": "Military of the Ming dynasty#Guard battalion system"
+  },
+  "cnh-721": {
+   "answer": "Green Standard Army",
+   "title": "Green Standard Army",
+   "url": "https://en.wikipedia.org/wiki/Green_Standard_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-722": {
+   "answer": "Shanhai Pass",
+   "title": "Shanhai Pass",
+   "url": "https://en.wikipedia.org/wiki/Shanhai_Pass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-723": {
+   "answer": "Nine Border Garrisons",
+   "title": "Nine Garrisons of the Ming dynasty",
+   "url": "https://en.wikipedia.org/wiki/Nine_Garrisons_of_the_Ming_dynasty",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-724": {
+   "answer": "Siyi Guan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Siyi Guan",
+   "target": "Hanlin Academy#Bureau of Translators"
+  },
+  "cnh-725": {
+   "answer": "kowtow",
+   "title": "Kowtow",
+   "url": "https://en.wikipedia.org/wiki/Kowtow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-726": {
+   "answer": "Yu ji tu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Yu the Great",
+    "Huayi tu",
+    "Cartography of China",
+    "Ji (Beijing)",
+    "Xiang Yu"
+   ]
+  },
+  "cnh-727": {
+   "answer": "Kaogong ji",
+   "title": "Kaogongji",
+   "url": "https://en.wikipedia.org/wiki/Kaogongji",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kaogong ji"
+  },
+  "cnh-728": {
+   "answer": "Hall of Mental Cultivation",
+   "title": "Hall of Mental Cultivation",
+   "url": "https://en.wikipedia.org/wiki/Hall_of_Mental_Cultivation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-729": {
+   "answer": "Temple of Agriculture",
+   "title": "Temple of Agriculture",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Agriculture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-730": {
+   "answer": "Eastern Depot",
+   "title": "Eastern Depot",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Depot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-731": {
+   "answer": "Imperial Household Department",
+   "title": "Imperial Household Department",
+   "url": "https://en.wikipedia.org/wiki/Imperial_Household_Department",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-732": {
+   "answer": "secret succession",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Succession to the Chinese throne",
+    "Succession of power in China",
+    "War of succession",
+    "Apostolic succession",
+    "War of the Polish Succession"
+   ]
+  },
+  "cnh-733": {
+   "answer": "Empress Dowager Feng",
+   "title": "Empress Dowager Feng",
+   "url": "https://en.wikipedia.org/wiki/Empress_Dowager_Feng",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-734": {
+   "answer": "Dazexiang uprising",
+   "title": "Chen Sheng and Wu Guang uprising",
+   "url": "https://en.wikipedia.org/wiki/Chen_Sheng_and_Wu_Guang_uprising",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Dazexiang uprising"
+  },
+  "cnh-735": {
+   "answer": "Tiandihui",
+   "title": "Hongmen",
+   "url": "https://en.wikipedia.org/wiki/Hongmen",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Tiandihui"
+  },
+  "cnh-736": {
+   "answer": "Shitong",
+   "title": "Shitong",
+   "url": "https://en.wikipedia.org/wiki/Shitong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-742": {
+   "answer": "household division",
+   "title": null,
+   "url": null,
+   "via": "manual",
+   "status": "no-article",
+   "manual": true
+  },
+  "cnh-743": {
+   "answer": "filial piety",
+   "title": "Filial piety",
+   "url": "https://en.wikipedia.org/wiki/Filial_piety",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-744": {
+   "answer": "charitable estate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Joseph Lau",
+    "Tung Wah Group of Hospitals",
+    "David Wilstein",
+    "Nina Wang",
+    "Chinese Filipinos"
+   ]
+  },
+  "cnh-745": {
+   "answer": "gentry",
+   "title": "Landed gentry in China",
+   "url": "https://en.wikipedia.org/wiki/Landed_gentry_in_China",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-746": {
+   "answer": "one field, two masters",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Shanghai Masters (tennis)",
+    "List of United States records in masters athletics",
+    "Master of Laws",
+    "Chess in China",
+    "Masters Tournament"
+   ]
+  },
+  "cnh-747": {
+   "answer": "Shanxi merchants",
+   "title": "Shanxi merchants",
+   "url": "https://en.wikipedia.org/wiki/Shanxi_merchants",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-748": {
+   "answer": "huiguan",
+   "title": "Huiguan",
+   "url": "https://en.wikipedia.org/wiki/Huiguan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-749": {
+   "answer": "booi",
+   "title": "Booi Aha",
+   "url": "https://en.wikipedia.org/wiki/Booi_Aha",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-750": {
+   "answer": "widow chastity",
+   "title": "Widow chastity",
+   "url": "https://en.wikipedia.org/wiki/Widow_chastity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-751": {
+   "answer": "Marriage Law of 1950",
+   "title": "New Marriage Law",
+   "url": "https://en.wikipedia.org/wiki/New_Marriage_Law",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-752": {
+   "answer": "concubinage in China",
+   "title": "Concubinage in China",
+   "url": "https://en.wikipedia.org/wiki/Concubinage_in_China",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-753": {
+   "answer": "foot binding",
+   "title": "Foot binding",
+   "url": "https://en.wikipedia.org/wiki/Foot_binding",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-754": {
+   "answer": "Three Character Classic",
+   "title": "Three Character Classic",
+   "url": "https://en.wikipedia.org/wiki/Three_Character_Classic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-755": {
+   "answer": "Chinese kinship",
+   "title": "Chinese kinship",
+   "url": "https://en.wikipedia.org/wiki/Chinese_kinship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-756": {
+   "answer": "five grades of mourning",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mourning",
+    "Chinese kinship",
+    "Sikhism in China",
+    "Albert Mamary",
+    "Ming dynasty"
+   ]
+  },
+  "cnh-757": {
+   "answer": "Chen Clan Ancestral Hall",
+   "title": "Chen Clan Ancestral Hall",
+   "url": "https://en.wikipedia.org/wiki/Chen_Clan_Ancestral_Hall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-758": {
+   "answer": "Dragon Boat Festival",
+   "title": "Dragon Boat Festival",
+   "url": "https://en.wikipedia.org/wiki/Dragon_Boat_Festival",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-759": {
+   "answer": "Chinese New Year",
+   "title": "Chinese New Year",
+   "url": "https://en.wikipedia.org/wiki/Chinese_New_Year",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-760": {
+   "answer": "Chinese calendar",
+   "title": "Chinese calendar",
+   "url": "https://en.wikipedia.org/wiki/Chinese_calendar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-761": {
+   "answer": "Suiyuan shidan",
+   "title": "Recipes from the Garden of Contentment",
+   "url": "https://en.wikipedia.org/wiki/Recipes_from_the_Garden_of_Contentment",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Suiyuan shidan"
+  },
+  "cnh-762": {
+   "answer": "Champa rice",
+   "title": "Champa rice",
+   "url": "https://en.wikipedia.org/wiki/Champa_rice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-763": {
+   "answer": "Classic of Tea",
+   "title": "The Classic of Tea",
+   "url": "https://en.wikipedia.org/wiki/The_Classic_of_Tea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-764": {
+   "answer": "baijiu",
+   "title": "Baijiu",
+   "url": "https://en.wikipedia.org/wiki/Baijiu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-765": {
+   "answer": "mandarin square",
+   "title": "Mandarin square",
+   "url": "https://en.wikipedia.org/wiki/Mandarin_square",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-766": {
+   "answer": "siheyuan",
+   "title": "Siheyuan",
+   "url": "https://en.wikipedia.org/wiki/Siheyuan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-767": {
+   "answer": "Nanjing City Wall",
+   "title": "City Wall of Nanjing",
+   "url": "https://en.wikipedia.org/wiki/City_Wall_of_Nanjing",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Nanjing City Wall"
+  },
+  "cnh-768": {
+   "answer": "ward-and-market system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Market socialism",
+    "Marketplace",
+    "Free market",
+    "Poverty in China",
+    "History of China"
+   ]
+  },
+  "cnh-769": {
+   "answer": "xiangqi",
+   "title": "Xiangqi",
+   "url": "https://en.wikipedia.org/wiki/Xiangqi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-770": {
+   "answer": "tai chi",
+   "title": "Tai chi",
+   "url": "https://en.wikipedia.org/wiki/Tai_chi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-771": {
+   "answer": "1953 Chinese census",
+   "title": "1953 Chinese census",
+   "url": "https://en.wikipedia.org/wiki/1953_Chinese_census",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-772": {
+   "answer": "Huguang fills Sichuan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Huguang fills Sichuan",
+   "target": "History of migration to Sichuan#\"Huguang Fills Sichuan\""
+  },
+  "cnh-773": {
+   "answer": "Ethnic Classification Project",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ethnic minorities in China",
+    "List of contemporary ethnic groups of Africa",
+    "Han Chinese",
+    "Kra–Dai-speaking peoples",
+    "Koreans in China"
+   ]
+  },
+  "cnh-774": {
+   "answer": "Han Chinese",
+   "title": "Han Chinese",
+   "url": "https://en.wikipedia.org/wiki/Han_Chinese",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-775": {
+   "answer": "Hua–Yi distinction",
+   "title": "Hua–Yi distinction",
+   "url": "https://en.wikipedia.org/wiki/Hua%E2%80%93Yi_distinction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-776": {
+   "answer": "sinicisation",
+   "title": "Sinicization",
+   "url": "https://en.wikipedia.org/wiki/Sinicization",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Sinicisation"
+  },
+  "cnh-777": {
+   "answer": "Ordos Loop",
+   "title": "Ordos Plateau",
+   "url": "https://en.wikipedia.org/wiki/Ordos_Plateau",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Ordos Loop"
+  },
+  "cnh-778": {
+   "answer": "jimi system",
+   "title": "Jimi system",
+   "url": "https://en.wikipedia.org/wiki/Jimi_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-779": {
+   "answer": "Rouran Khaganate",
+   "title": "Rouran Khaganate",
+   "url": "https://en.wikipedia.org/wiki/Rouran_Khaganate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-780": {
+   "answer": "Shatuo",
+   "title": "Shatuo",
+   "url": "https://en.wikipedia.org/wiki/Shatuo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-781": {
+   "answer": "Altan Khan",
+   "title": "Altan Khan",
+   "url": "https://en.wikipedia.org/wiki/Altan_Khan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-782": {
+   "answer": "Manchu people",
+   "title": "Manchu people",
+   "url": "https://en.wikipedia.org/wiki/Manchu_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-783": {
+   "answer": "Golden Urn",
+   "title": "Golden Urn",
+   "url": "https://en.wikipedia.org/wiki/Golden_Urn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-784": {
+   "answer": "Tibetan people",
+   "title": "Tibetans",
+   "url": "https://en.wikipedia.org/wiki/Tibetans",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tibetan people"
+  },
+  "cnh-785": {
+   "answer": "Xinjiang Production and Construction Corps",
+   "title": "Xinjiang Production and Construction Corps",
+   "url": "https://en.wikipedia.org/wiki/Xinjiang_Production_and_Construction_Corps",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-786": {
+   "answer": "Uyghurs",
+   "title": "Uyghurs",
+   "url": "https://en.wikipedia.org/wiki/Uyghurs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-787": {
+   "answer": "Hui people",
+   "title": "Hui people",
+   "url": "https://en.wikipedia.org/wiki/Hui_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-788": {
+   "answer": "Great Mosque of Xi'an",
+   "title": "Great Mosque of Xi'an",
+   "url": "https://en.wikipedia.org/wiki/Great_Mosque_of_Xi'an",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-789": {
+   "answer": "Dian kingdom",
+   "title": "Dian kingdom",
+   "url": "https://en.wikipedia.org/wiki/Dian_kingdom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-790": {
+   "answer": "Miao people",
+   "title": "Miao people",
+   "url": "https://en.wikipedia.org/wiki/Miao_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-791": {
+   "answer": "Zhuang people",
+   "title": "Zhuang people",
+   "url": "https://en.wikipedia.org/wiki/Zhuang_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-792": {
+   "answer": "Yi people",
+   "title": "Yi people",
+   "url": "https://en.wikipedia.org/wiki/Yi_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-793": {
+   "answer": "Baiyue",
+   "title": "Baiyue",
+   "url": "https://en.wikipedia.org/wiki/Baiyue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-794": {
+   "answer": "tusi",
+   "title": "Tusi",
+   "url": "https://en.wikipedia.org/wiki/Tusi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-795": {
+   "answer": "Willow Palisade",
+   "title": "Willow Palisade",
+   "url": "https://en.wikipedia.org/wiki/Willow_Palisade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-796": {
+   "answer": "Lifan Yuan",
+   "title": "Lifan Yuan",
+   "url": "https://en.wikipedia.org/wiki/Lifan_Yuan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-797": {
+   "answer": "yeonhaengsa",
+   "title": "Joseon missions to China",
+   "url": "https://en.wikipedia.org/wiki/Joseon_missions_to_China",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-798": {
+   "answer": "Ming–Hồ War",
+   "title": "Ming conquest of Đại Ngu",
+   "url": "https://en.wikipedia.org/wiki/Ming_conquest_of_%C4%90%E1%BA%A1i_Ngu",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Ming–Hồ War"
+  },
+  "cnh-799": {
+   "answer": "King of Na gold seal",
+   "title": "King of Na gold seal",
+   "url": "https://en.wikipedia.org/wiki/King_of_Na_gold_seal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-800": {
+   "answer": "regional ethnic autonomy",
+   "title": "Autonomous administrative divisions of China",
+   "url": "https://en.wikipedia.org/wiki/Autonomous_administrative_divisions_of_China",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-801": {
+   "answer": "Song economic revolution",
+   "title": "Economy of the Song dynasty",
+   "url": "https://en.wikipedia.org/wiki/Economy_of_the_Song_dynasty",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-737": {
+   "answer": "Twenty-Four Histories",
+   "title": "Twenty-Four Histories",
+   "url": "https://en.wikipedia.org/wiki/Twenty-Four_Histories",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-738": {
+   "answer": "annals-biography form",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of chapters in Shiji",
+    "Parameswara of Malacca",
+    "Chinese classics",
+    "Han Chinese",
+    "Shiji"
+   ]
+  },
+  "cnh-739": {
+   "answer": "Eight Thousand Sacks incident",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tainei-ji incident",
+    "Manila hostage crisis",
+    "Han Chinese",
+    "1989 Tiananmen Square protests and massacre",
+    "Boxer Rebellion"
+   ]
+  },
+  "cnh-740": {
+   "answer": "Qing History Project",
+   "title": "History of Qing (People's Republic)",
+   "url": "https://en.wikipedia.org/wiki/History_of_Qing_(People's_Republic)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-741": {
+   "answer": "four occupations",
+   "title": "Four occupations",
+   "url": "https://en.wikipedia.org/wiki/Four_occupations",
    "via": "glossary",
    "status": "ok"
   }
