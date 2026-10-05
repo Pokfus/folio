@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.984", released: "2026-10-05T19:57Z" };
+window.FOLIO_VERSION = { v: "1.986", released: "2026-10-05T20:50Z" };
 
 window.CHANGELOG = [
   {
@@ -46,6 +46,8 @@ window.CHANGELOG = [
       "<b>Minigame tiles on phones</b>: the Played and Perfect marks are one width, so they line up down the column.",
       "<b>Find it on the Full Atlas is smooth again</b>: a state's round draws the coast once a frame instead of four times, so dragging the globe no longer stutters.",
       "<b>Streak banner</b>: once a week's chest is paid the note says only what the next week earns, without repeating that seven days were paid.",
+      "<b>Streak chest</b>: the chest at the end of the week is now a button like the minigame chest — locked while the week is earned, unlocked on the seventh day, green once pressed and opened.",
+      "<b>Today and This week box</b>: the time figure is labelled Time studied, and a press on any of the week's seven bars shows that day's cards, time and recall in a small bubble.",
       "<b>Minigame tiles</b>: a played or perfect game's icon now takes the full green or gold on a lightly tinted disc, instead of a white icon on a solid one.",
       "<b>Minigame chest meter on phones</b>: the two end segments are rounded like the rest, and the chest sits level with the strip.",
       "<b>Continue reading shows what comes next</b>: the home page's reading box now carries a glimpse of the next paragraph, fading out below; a tap on it opens that chapter.",

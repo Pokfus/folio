@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Regression test for the weekly streak chest (app.js: bumpStreak / maybeStreakChest / streakChestProgress).
+// Regression test for the weekly streak chest (app.js: bumpStreak / owedStreakChests / claimStreakChest /
+// maybeStreakChest / streakChestProgress).
 //
 //   node .claude/test-streak-chest.js
 //
@@ -16,7 +17,13 @@
 // nothing. They are then paid normally at fourteen, so the loss is one chest, once, on a schedule nobody
 // would ever reconstruct from the outside. Verified by reverting that one line: this file goes red.
 //
-// No dependencies and no browser: the two functions are sliced out of app.js by text (the trick the other
+// SINCE OCT 2026 THE CHEST IS CLAIMED, NOT GRANTED (on request: the ribbon's chest turns green once "unlocked
+// and clicked", as the minigame chest does). The seventh day makes a chest OWED; the press on the ribbon pays
+// it (`claimStreakChest`); and a chest never pressed is paid into the account when the run breaks, so no week
+// is ever lost. The walk below presses the chest whenever it is owed, which keeps every arithmetic check the
+// grant-on-the-day version had, and the last block checks the press itself.
+//
+// No dependencies and no browser: the functions are sliced out of app.js by text (the trick the other
 // no-browser tests use), so they cannot drift from what ships.
 const fs = require("fs"), path = require("path");
 const src = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
@@ -42,15 +49,18 @@ const EVERY = +everyM[1];
    what the first run of this reported, and is a fault in the harness rather than in the code. */
 const make = new Function(
   "S", "dayKey", "DAY", "todayStr", "grantChest", "toast", "STREAK_CHEST_EVERY", "Date",
-  grab("streakChestWeeks") + "\n" + grab("bumpStreak") + "\n" + grab("maybeStreakChest") + "\n" + grab("streakChestProgress") +
-  "\nreturn { bumpStreak: bumpStreak, streakChestProgress: streakChestProgress };"
+  grab("streakChestWeeks") + "\n" + grab("bumpStreak") + "\n" + grab("owedStreakChests") + "\n" + grab("claimStreakChest") + "\n" +
+  grab("maybeStreakChest") + "\n" + grab("streakChestProgress") +
+  "\nreturn { bumpStreak: bumpStreak, owedStreakChests: owedStreakChests, claimStreakChest: claimStreakChest, streakChestProgress: streakChestProgress };"
 );
 
 const DAY = 86400000;
 
 /* Walk a pattern of days — 1 = studied, 0 = did not — and report what the reader ends up holding.
-   The clock is a local `now` the stubs read, so a "day" is exactly one step of the pattern. */
-function run(pattern) {
+   The clock is a local `now` the stubs read, so a "day" is exactly one step of the pattern. The reader presses
+   the ribbon's chest on every day it is owed (`press: false` walks past it instead). */
+function run(pattern, opts) {
+  const press = !(opts && opts.press === false);
   const S = { streak: { count: 0, last: "" }, streakChest: 0 };
   let chests = 0, now = Date.UTC(2026, 0, 1);
   const dayKey = (ts) => new Date(ts).toISOString().slice(0, 10);
@@ -62,9 +72,10 @@ function run(pattern) {
   const api = make(S, dayKey, DAY, () => dayKey(now), (n) => { chests += (n || 1); }, () => {}, EVERY, FakeDate);
   for (const studied of pattern) {
     if (studied) api.bumpStreak();
+    if (press) api.claimStreakChest();
     now += DAY;
   }
-  return { chests, count: S.streak.count, paid: S.streakChest, progress: api.streakChestProgress(S) };
+  return { chests, count: S.streak.count, paid: S.streakChest, owed: api.owedStreakChests(), progress: api.streakChestProgress(S), api, S, held: () => chests };
 }
 
 let fails = 0;
@@ -95,6 +106,20 @@ check("a run rebuilt after a missed day earns AGAIN at seven", broke.chests, 2);
 check("...and the paid-at count came back down with the streak", broke.paid, EVERY);
 check("a long gap resets the run to one", run([...days(9), 0, 0, 0, 1]).count, 1);
 check("...and pays nothing for the first day back", run([...days(9), 0, 0, 0, 1]).chests, 1);
+
+console.log("\n--- the press (Oct 2026: claimed, not granted) ---");
+/* Nothing is paid until the chest is pressed; the press pays what is owed and only that; a reader who never
+   pressed collects every week in one press; and a chest never pressed is paid when the run breaks. */
+check("the seventh day OWES a chest but pays nothing until pressed", (() => { const r = run(days(EVERY), { press: false }); return [r.chests, r.owed]; })(), [0, 1]);
+check("the press pays it and records the length", (() => { const r = run(days(EVERY), { press: false }); const ok = r.api.claimStreakChest(); return [ok, r.held(), r.S.streakChest, r.api.owedStreakChests()]; })(), [true, 1, EVERY, 0]);
+check("a second press pays nothing", (() => { const r = run(days(EVERY), { press: false }); r.api.claimStreakChest(); const again = r.api.claimStreakChest(); return [again, r.held()]; })(), [false, 1]);
+check("a press with nothing owed does nothing", (() => { const r = run(days(3), { press: false }); return [r.api.claimStreakChest(), r.held()]; })(), [false, 0]);
+check("two weeks never pressed are owed together, three in all", run(days(EVERY * 2), { press: false }).owed, 3);
+check("...and one press collects them", (() => { const r = run(days(EVERY * 2), { press: false }); r.api.claimStreakChest(); return [r.held(), r.S.streakChest]; })(), [3, EVERY * 2]);
+check("a chest owed on day eight is still owed, not lost", run(days(EVERY + 1), { press: false }).owed, 1);
+check("a chest never pressed is paid when the run breaks", run([...days(EVERY), 0, 1], { press: false }).chests, 1);
+check("...and the length it was owed for is forgotten with the run", run([...days(EVERY), 0, 1], { press: false }).paid, 0);
+check("a chest already paid at seven is not paid again at the break", run([...days(EVERY), 0, 1]).chests, 1);
 
 console.log("\n--- idempotence ---");
 /* bumpStreak returns early when the streak was already advanced today, which is what stops a second
