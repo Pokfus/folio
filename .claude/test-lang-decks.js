@@ -697,14 +697,14 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       !!byKey && byKey.join("|") === (byHold || []).join("|"), JSON.stringify(byKey));
 
     const rows = byHold || [];
-    check("…offering the container's own rows", ["Rename", "Colour", "Icon", "Remove"].every((k) => rows.indexOf(k) >= 0),
+    check("…offering the container's own rows, without Colour or Icon since Oct 2026", ["Rename", "Remove"].every((k) => rows.indexOf(k) >= 0) && rows.indexOf("Colour") < 0 && rows.indexOf("Icon") < 0,
       JSON.stringify(rows));
     /* AND THE ALLOWANCE ROWS, which a language has and a GROUP still does not — the two containers are
        not alike, and `test-review-decks.js` asserts the other half. This check was the other way round for
        a day: a language was given the group's shape of the sheet, and then asked for these on request, at
        which point they had to be made to MEAN something (4b below) rather than merely appear. */
-    check("…and the four allowance rows, which a language does have",
-      ["Custom study", "Daily limits", "Scheduling", "Skip today"].every((k) => rows.indexOf(k) >= 0),
+    check("…and the allowance rows, which a language does have (Scheduling is site-wide since Oct 2026)",
+      ["Custom study", "Daily limits", "Skip today"].every((k) => rows.indexOf(k) >= 0) && rows.indexOf("Scheduling") < 0,
       JSON.stringify(rows));
 
     /* A PLAIN TAP STUDIES IT INSTEAD (Sep 2026), and that is asserted by where the tap LANDS rather than
@@ -724,22 +724,8 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
        mode is gone with its crosses (Oct 2026, on request); the row's own options sheet still carries
        Remove, which is asserted below. */
 
-    /* THE COLOUR REACHES EVERY DECK OF THE LANGUAGE, which is what makes the row a container rather than a
-       label: the hue is passed DOWN the list's build, so a header that took a colour and kept it to itself
-       would look like a working control from the one row that changed. */
-    await page.evaluate((sel) =>
-      document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel);
-    await page.waitForTimeout(400);
-    await page.evaluate(() => { const sw = document.querySelectorAll(".dm-swatch"); if (sw[3]) sw[3].click(); });
-    await page.waitForTimeout(400);
-    const hue = await page.evaluate((sel) => {
-      const v = (el) => (el ? el.style.getPropertyValue("--coll-bg").trim() : "");
-      const h = document.querySelector(sel);
-      const kid = [...document.querySelectorAll(".active-deck[data-parent]")].find((e) => e.dataset.parent === h.dataset.langhead);
-      return { head: v(h), kid: v(kid) };
-    }, headSel);
-    check("a colour set on a language reaches the decks under it", !!hue.head && hue.head === hue.kid,
-      JSON.stringify(hue));
+    /* The colour cascade from a language to its decks was asserted here until Oct 2026, when the Colour row
+       left every sheet (on request). */
 
     /* ---------- 4b. the four allowance rows, and the cap behind them ----------
        Aug 2026, on request: "custom study, scheduling, daily limits, and skip should also be options on
@@ -880,33 +866,8 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].find((x) => x.dataset.act === "skip").click());
     await page.waitForTimeout(900);
 
-    /* SCHEDULING NEEDED NO PLUMBING AT ALL and is asserted for that reason: `sched` is a DECK_OPT_INHERIT
-       key and `entryChain` reaches a deck's language, so choosing FSRS on the language really does put
-       every deck of it on FSRS. A row that merely opened a sheet would look the same. */
-    await page.evaluate((sel) =>
-      document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel);
-    await page.waitForTimeout(400);
-    await page.evaluate(() => document.querySelector('.dm-item[data-act="sched"]').click());
-    await page.waitForTimeout(450);
-    await page.evaluate(() => document.querySelector('[data-sched="fsrs"]').click());
-    await page.waitForTimeout(700);
-    await page.keyboard.press("Escape");
-    await page.waitForTimeout(300);
-    const deckSheetNote = await page.evaluate((sel) => {
-      const h = document.querySelector(sel);
-      const kid = [...document.querySelectorAll(".active-deck[data-parent]")].find((e) => e.dataset.parent === h.dataset.langhead);
-      kid.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
-      return true;
-    }, headSel);
-    await page.waitForTimeout(450);
-    const kidSched = await page.evaluate(() => {
-      const r = [...document.querySelectorAll(".deck-menu .dm-item")].find((x) => x.dataset.act === "sched");
-      return r ? (r.querySelector("small") || {}).textContent : null;
-    });
-    check("a scheduler chosen on a language reaches the decks inside it",
-      deckSheetNote && /FSRS/.test(kidSched || ""), String(kidSched));
-    await page.keyboard.press("Escape");
-    await page.waitForTimeout(400);
+    /* Scheduling cascading from a language to its decks was asserted here until Oct 2026: the scheduler is one
+       choice for the whole site now, on the Settings page (on request). */
 
     /* AND REMOVE TAKES THE LANGUAGE OUT, which needs its own branch in `removeActive`: the container is
        not in `S.active` at all, so the ordinary path filters out an id that was never there and the row
