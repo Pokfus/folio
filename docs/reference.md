@@ -5280,8 +5280,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     KEYBOARD** (`OVERLAY_SEL` / `overlayOpen`) — this panel forced it, a reader pressing `3` over Card info
     having graded the card underneath invisibly. ONE list, shared with the page swipe.
 - **Review history + statistics:** `grade()` calls **`logReview(mature, correct)`**, which tallies
-  `S.reviewLog["YYYY-MM-DD"] = [reviews, matureCorrect, matureTotal]` (in `defaultState()` and
-  `PROGRESS_FIELDS`). **This log has to exist**: a card record keeps only its *last* review, so past-day
+  `S.reviewLog["YYYY-MM-DD"] = [reviews, matureCorrect, matureTotal, deciseconds, correct, answers]` (in `defaultState()` and
+  `PROGRESS_FIELDS`; the last three since Oct 2026, on a bug report — "when I switched to another device, it reset my
+  time for the day" — because the home page's Today / This week time and recall were read off `S.revlog`, the
+  device-local window that is never pulled, so a second device showed the day at zero; `homeWeekHTML` now reads
+  them here and falls back to the window only for a day whose row still has three slots). **This log has to exist**: a card record keeps only its *last* review, so past-day
   history is unreconstructable from `S.cards`. "Mature" = the status was `review` *before* the grade (hence
   `preStatus`); correct = anything but Again. Pruned to `REVIEW_LOG_DAYS` (400). Rendered by
   **`reviewStatsHTML`** as a study heatmap, a 90-day true-retention figure (`—` when nothing mature has been

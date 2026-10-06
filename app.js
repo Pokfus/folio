@@ -5470,7 +5470,7 @@
        of which are already in hand at this point and neither of which the scheduler is allowed to see. */
     if (g !== "again" && firstToday) critMark(c);
     bumpLoadMap();   // a due date has moved: the day-load histogram the balancer reads is now one card out
-    logReview(preStatus === "review", g !== "again");
+    logReview(preStatus === "review", g !== "again", ms);
     logReviewDay(firstToday, g !== "again");
     /* The per-review row, and the object it returns is kept so an undo can take back THIS row rather than
        "the last one" or "one row off the end". Identity is the only exact handle: the log prunes from the
@@ -5651,6 +5651,9 @@
     b.className = "info-bubble";
     b.setAttribute("role", "tooltip");
     b.innerHTML = html;
+    // a day's bubble is three short rows, so it is only as wide as its words (Oct 2026, on request:
+    // "a lot of empty space on the right") — the class is on before the width is measured below
+    if (anchor.dataset.info === "day") b.classList.add("ib-fit");
     document.body.appendChild(b);
     const r = anchor.getBoundingClientRect(), vw = document.documentElement.clientWidth;
     const w = b.offsetWidth, h = b.offsetHeight;
@@ -5684,12 +5687,24 @@
      review, so a card reviewed on ten days is indistinguishable from one reviewed once. Each day
      holds [reviews, matureCorrect, matureTotal] — see defaultState(). */
   const REVIEW_LOG_DAYS = 400;   // ~13 months: enough for a full-year heatmap plus a margin, and bounded
-  function logReview(mature, correct) {
+  /* …AND, SINCE OCT 2026, [deciseconds, correct, answers] IN THREE MORE SLOTS (on a bug report: "when I
+     switched to another device, it reset my time for the day"). The home page's Today and This week time and
+     recall were read off `S.revlog`, which is a device-local WINDOW that is never pulled from the server (see
+     revPush), so a second device saw none of the first one's answers and showed the day at zero — while the
+     card count beside it, read off THIS record, which rides in the synced blob, stood. The three figures now
+     ride here with the count, in the row the undo snapshot already takes back whole. The time is the same
+     clamped deciseconds the per-review row keeps (`REV_MAX_DS`), so the two can never disagree about an
+     answer; a row written before this release has three slots, and homeWeekHTML falls back to the window
+     for such a day rather than calling it empty. */
+  function logReview(mature, correct, ms) {
     if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};   // back-fill for saves made before the log existed
     const d = todayStr();
     const e = S.reviewLog[d] || [0, 0, 0];
     e[0] += 1;
     if (mature) { e[2] += 1; if (correct) e[1] += 1; }
+    if (e.length < 6) { e[3] = e[3] | 0; e[4] = e[4] | 0; e[5] = e[5] | 0; }
+    e[3] += Math.max(0, Math.min(REV_MAX_DS, Math.round((Number(ms) || 0) / 100)));
+    e[5] += 1; if (correct) e[4] += 1;
     S.reviewLog[d] = e;
     // prune on the day-roll only — cheap, and the log can't grow without bound
     if (Object.keys(S.reviewLog).length > REVIEW_LOG_DAYS + 30) {
@@ -23448,14 +23463,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const now = Date.now(), today = dayKey(now);
     const day = { cards: 0, secs: 0, right: 0, total: 0 }, week = { cards: 0, secs: 0, right: 0, total: 0 };
     for (let d = 0; d < 7; d++) { const e = (S.reviewLog || {})[dayKey(now - d * DAY)]; if (e) { week.cards += e[0] | 0; if (d === 0) day.cards += e[0] | 0; } }
+    /* TIME AND RECALL COME OFF THE SAME SYNCED DAILY RECORD AS THE CARDS (Oct 2026, on a bug report — see
+       logReview): a day whose row carries them is read from the row; a day written before the row did is read
+       off the local per-answer window, as every day used to be, so an existing reader's week does not go blank. */
     const log = S.revlog || [], cut = now - 7 * DAY;
-    const per = {};   // each of the seven days' time and recall, for the bar's bubble (below)
+    const win = {};   // the window's per-day figures, the fallback for a day logged before the record carried them
     for (let i = log.length - 1; i >= 0; i--) {
       const r = revRead(log[i]); if (!r) continue; if (r.t < cut) break;
-      week.secs += r.secs || 0; week.total++; if (r.correct) week.right++;
-      const k = dayKey(r.t), pd = per[k] || (per[k] = { secs: 0, right: 0, total: 0 });
+      const k = dayKey(r.t), pd = win[k] || (win[k] = { secs: 0, right: 0, total: 0 });
       pd.secs += r.secs || 0; pd.total++; if (r.correct) pd.right++;
-      if (k === today) { day.secs += r.secs || 0; day.total++; if (r.correct) day.right++; }
+    }
+    const per = {};   // each of the seven days' time and recall, for the bar's bubble (below)
+    for (let d = 0; d < 7; d++) {
+      const k = dayKey(now - d * DAY), e = (S.reviewLog || {})[k];
+      const pd = e && e.length >= 6 ? { secs: (e[3] | 0) / 10, right: e[4] | 0, total: e[5] | 0 } : (win[k] || { secs: 0, right: 0, total: 0 });
+      per[k] = pd;
+      week.secs += pd.secs; week.total += pd.total; week.right += pd.right;
+      if (k === today) { day.secs += pd.secs; day.total += pd.total; day.right += pd.right; }
     }
     const figs = (f) => {
       const mins = Math.round(f.secs / 60);
