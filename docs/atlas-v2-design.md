@@ -1,6 +1,6 @@
 # Atlas v2 — design from the goal
 
-*Status: DESIGN, awaiting the owner's answers to §6 (licensing answered, see §2.10a). No code is written for it yet. When the answers
+*Status: DESIGN APPROVED 2026-10-06 — every question in §6 is answered (answers recorded there); §2–§4 are revised to match; §7 is the phased build plan. Building starts in later threads, phase by phase. No code is written for it yet. When the answers
 are in, §2–§5 are revised and a phased build plan is appended as §7.*
 
 This document designs the Atlas again from what it is for. It takes the existing research as input
@@ -169,7 +169,8 @@ primitives: sphere, faces, arcs, points.
 1. *Sphere pass* — one full-screen triangle. The fragment shader intersects the view ray with the
    unit sphere: outside → transparent (the page shows through; the limb's anti-aliasing comes from
    the ray-sphere distance, not from geometry); inside → lon/lat → ocean colour, graticule, optional
-   relief lookup (§2.7), limb darkening and a halo, all in one pass. No DOM gradient divs.
+   relief lookup (§2.7), limb darkening and a halo, all in one pass. No DOM gradient divs. The
+   graticule is a legend toggle (Q-V3 c), off by default, remembered per reader.
 2. *Face pass* — indexed triangles for every face alive in the current year, one `drawElements`
    range per face (200–400 calls; trivial). Colour comes from a per-face style texture
    (fill, alpha, uncertainty flag, selected flag). Peoples' faces draw in a second sub-pass with the
@@ -338,6 +339,10 @@ visual only (~250 ms, off under reduced motion).
 20 OHM steps and 123 Cliopatria steps; the Second World War fronts are monthly (1939–42) and from
 plates dated to the fortnight (1943–45). The rail shows the **change years of what is on screen**
 as ticks; `[`/`]` and the chevrons step between them; the pin can still be dragged to any year.
+**Playback (Q-T4 b) advances every year** at a chosen speed (1, 5, 25 or 100 years per second);
+the counter ticks each year, the map changes only at steps, with the crossfade at each step. Where
+the rail is compressed (before 3000 BCE) the speed is in years, not pixels, so deep time passes
+quickly by design.
 
 **Gaps.** A year with no step for an entity draws **nothing for that entity** — not the last known
 shape, not an authored fallback. The current "nothing ever draws less than it did" fallback to a
@@ -385,7 +390,10 @@ collide with a state's: the layout treats them as one pool.
 
 Interaction: a tap's ID pass returns the topmost face; the popup's **stack chip** lists every entity
 under the point in the year ("Scythians · people", "Bosporan Kingdom · state", "Pontic steppe ·
-region"), the second tap cycles, and the legend's "Peoples" switch hides them entirely. On the
+region"), the second tap cycles, and the legend's "Peoples" switch hides them entirely. **In the
+Full Atlas only card-linked peoples are shown by default (Q-C2 b)**; the legend's Peoples switch has
+a third position, "all with a dated source", for discovery. The Personal Atlas shows a people only
+when one of the reader's cards links it. On the
 timeline, a people's steps (Cliopatria's rows, or dated site phases) are ticks like a state's.
 
 Khaganates and confederations (Avars, Khazars, Huns…) keep the *people* rendering while their
@@ -468,18 +476,19 @@ today. The field is a card field, so `ADMIN_EDITS.cards` deltas already cover it
 editor edits it like any other; the migration script maps every existing `locator`/`war`/`map` to
 `places` and the old fields are removed in the same commit.
 
-**A glossary term** gets `GLOSSARY_PLACES[key] = [placeId, …]` (replacing the 31-entry coordinate
-table), set by the same tooling; its dates (`GLOSSARY_DATES`) give it a year on the Atlas for the
-first time.
+**A glossary term** may carry `GLOSSARY_PLACES[key] = [placeId, …]` (replacing the 31-entry
+coordinate table) so its popup keeps the "show on the Atlas" button, which opens the Atlas at the
+place and at the term's first dated year. **Terms do not contribute to the Personal Atlas (Q-P3 c).**
 
-**A book** gets `places` on the book record (settings of the work) and optionally per chapter; a
-book contributes to the Personal Atlas when the reader has read past a threshold (Q-P2).
+**Books do not link to places and do not contribute to the Personal Atlas (Q-P2 c).** The
+gazetteer leaves room for it (a `places` list on a book record would be read by the same derivation)
+but nothing in this programme builds it.
 
-**The Personal Atlas** is derived in the worker from the reader's state: the set of cards with a
-record (or a stricter test, Q-P1), the glossary terms they have opened, the books they have read;
-each contributes its place ids with years; places stack by id (the stack is the "N cards here"
-browser); a change in progress invalidates the derivation. Nothing is stored; it is computed from
-`S.cards` as today, but by id, not by name-matching.
+**The Personal Atlas** is derived in the worker from exactly one thing: **the reader's cards that
+have a review record (Q-P1 a)**, as today. Each such card contributes its place ids with years;
+places stack by id (the stack is the "N cards here" browser); a change in progress invalidates the
+derivation. Nothing is stored; it is computed from `S.cards` as today, but by id, not by
+name-matching.
 
 **Clicking a place** opens the **place card**: title (official name where the gazetteer has one),
 kind and years, the dated description for present-day countries (`COUNTRY_INFO`, kept), figures
@@ -696,7 +705,16 @@ the one caution sentence about historical borders being reconstructions.
 
 ---
 
-## 6. Questions for the owner
+## 6. Questions for the owner — ANSWERED 2026-10-06
+
+| T1 a | T2 a | T3 a | T4 **b** | S1 a | S2 a | S3 a | S4 a | S5 a | S6 (rule) |
+|---|---|---|---|---|---|---|---|---|---|
+| U1 a | U2 a | U3 a | U4 a | C1 a | C2 **b** | L1 a | L2 a | L3 a | L4 a |
+| P1 a | P2 **c** | P3 **c** | P4 a | V1 a | V2 a | V3 **c** | V4 a | M1 a | M2 a |
+| R3 a | R4 a | A1 a | A2 a | A3 a | A4 a | A5 a | A6 a | A7 a | |
+
+Bold = the owner chose other than the recommendation; §2 has been revised for each. The questions
+are kept below as the record of the options considered.
 
 Each question lists the options and the recommendation (first, marked ★). Answers change §2–§4;
 the phased build plan follows the answers.
@@ -712,8 +730,8 @@ the phased build plan follows the answers.
   start year as today (five presets).
 - **Q-T3 — Default year** on opening. (a) ★ the year the reader last used, else the median year of
   their studied cards; (b) always the present; (c) always the median year.
-- **Q-T4 — Playback.** (a) ★ plays through change-years only, at a chosen speed (1, 5, 25 years per
-  second), crossfading at steps; (b) plays every year; (c) no playback.
+- **Q-T4 — Playback.** (a) plays through change-years only, at a chosen speed (1, 5, 25 years per
+  second), crossfading at steps; (b) ★ **answered: (b)** plays every year; (c) no playback.
 
 ### Sources I may accept (each has a licence consequence)
 
@@ -836,3 +854,232 @@ the phased build plan follows the answers.
   (b) 1 px ≈ 500 m (no LOD-4 tiles, ~60 % of the tile data); (c) as far as the data allows.
 - **Q-A7 — Admin-1 everywhere?** (a) ★ only the three layers cards use (US, China, Russia) plus the
   UK nations, present-day; (b) admin-1 for every country (NE 10m, ~ +3 MB of tiles); (c) none.
+
+---
+
+## 7. Phased build plan
+
+Rules that hold for every phase:
+
+- **The site works and ships at the end of each phase.** v2 lives behind `#map2` (and its card
+  windows behind a flag) until Phase 5 swaps it in; v1 is untouched until then. Every phase ends
+  with CI green, the phase's own suite passing, and a changelog line only where a reader can see
+  the change (Phases 0–2 are invisible to readers except the `#credits` page in Phase 1).
+- **Data before code, measured before committed.** Every pipeline step is run and its outputs
+  measured (`node .claude/check-sizes.js`, `check-topology.js`) before any renderer work depends
+  on them; the §2.3 size estimates are replaced by measurements in this document as they land.
+- **The source rule of §2.10a is enforced by the tooling**, not by memory: `fetch-sources.js`
+  refuses a licence not on the list; `check-topology.js` refuses a face without a source.
+- **Zero-dependency boundary**: `.claude/atlas-build/` has its own `package.json` (mapshaper,
+  topojson-server, topojson-simplify, polygon-clipping, earcut, pngjs, proj4) with `node_modules`
+  ignored; a session runs `npm ci` there. Everything CI runs (`check-topology.js`, the Playwright
+  suites) stays dependency-free apart from Playwright reached through `NODE_PATH` as today.
+- **One doc.** This file is the design; `docs/atlas.md` is rewritten in Phase 5 to describe v2 as
+  built and this file becomes the record of why. Until then `docs/atlas.md` describes v1, which is
+  still live.
+- **Sessions** below are rough guesses for orientation, not commitments; quality decides.
+
+### Phase 0 — Foundations and the measured spike (invisible; ~3–4 sessions)
+
+*Goal: prove the two load-bearing assumptions — the binary topology fits the size budget, and a
+WebGL2 renderer of arcs and faces holds the frame budget on the CI runner — before anything else is
+built on them.*
+
+Deliverables:
+1. `.claude/atlas-build/` scaffold: `package.json`, `sources.json` (schema: id, name, version, url,
+   sha256, licence ∈ {PD, CC0, CC-BY-3.0, CC-BY-4.0, ODbL-1.0, CC-BY-SA-4.0, GPL-3.0}, licenceUrl,
+   attribution, retrieved), `fetch-sources.js` (verifies sha256, refuses unlisted licences, caches to
+   `.claude/atlas-build/src/`, git-ignored), `lib/format.js` (the `.bin` writer and a zero-dependency
+   reader shared with the checker and the runtime), `lib/log.js` (the snap log).
+2. First entries in `sources.json`: Natural Earth 10m coastline + admin-0 + populated places (PD),
+   Cliopatria v0.2.0 (CC BY 4.0), ETOPO 2022 (PD), HydroRIVERS and HydroLAKES (CC BY 4.0), OSM land
+   polygons (ODbL) — each URL verified reachable through the proxy (`check-reach.js` gains them).
+3. **Spike A (data)**: `build-land.js` on Natural Earth 10m only (fast to iterate) → `topology.bin`
+   with coast arcs at LOD 0–2 and present-day admin-0 faces; `pack.js`; measured size.
+4. **Spike B (renderer)**: `atlas/atlas-gl.js` sphere pass + arc pass + face pass + ID pass;
+   `atlas/atlas.js` with drag, wheel, pinch, keyboard; `atlas/atlas-worker.js` with earcut
+   triangulation; `#map2` route rendering Spike A's data, present day only, no labels, no timeline.
+5. `test-atlas-perf.js`: the scripted drag/pinch/scrub harness (the one used for the measurements in
+   §2.2), asserting the §2.2 budgets; run against v1 (`#map`) and v2 (`#map2`) and printing both.
+6. `sw.js`: `CACHEABLE` regex gains `bin`; `_headers` unchanged (checked by `test-csp.js`).
+
+Test that proves the phase: `node .claude/atlas-build/check-topology.js` passes on Spike A
+(planarity, every arc referenced); `test-atlas-perf.js` shows v2 p95 ≤ 20 ms and max ≤ 100 ms
+during drag and pinch on the CI runner with software GL, while v1 on the same run shows its current
+p90 of ~150 ms; `topology.bin` for Natural Earth is ≤ 1.5 MB. **Gate**: if either budget is
+missed, the design is revisited here, not patched later.
+
+### Phase 1 — The present-day earth, at every zoom (ships `#map2` as a preview; ~6–8 sessions)
+
+*Goal: the physical and present-day map complete — one coastline source, LOD tiles, rivers, lakes,
+relief, labels, picking, the credits page — with no timeline yet.*
+
+Deliverables:
+1. `build-land.js` on **OSM land polygons** (Q-S1 a): finest-level land/sea partition; LOD 0–4 by
+   topology-preserving simplification; LOD 3–4 as `tiles/{z}/{x}/{y}.bin`; the ODbL header on every
+   file that carries OSM-derived arcs.
+2. `build-admin.js`: Natural Earth 10m admin-0 for the 258 countries, admin-1 for the US, China,
+   Russia and the UK nations (Q-A7 a), conflated onto the land partition (coast arcs shared; the snap
+   log; `check-topology.js` coast invariant).
+3. `build-water.js`: HydroRIVERS (order-filtered per LOD, Chaikin-smoothed) and HydroLAKES
+   (area-filtered per LOD) into the same topology and tiles.
+4. `build-relief.js`: ETOPO 2022 → `relief/L0.png`, `L1/*.png`, `L2/*.png` (hillshade + 16-bit
+   height); sphere pass relief lookup, hypsometric ramp per theme, bathymetry tint (Q-V2 a), strength
+   slider; off by default.
+5. `build-gazetteer.js` v0: countries, admin-1 units, capitals and major cities (NE populated
+   places), seas and lakes (names from the sources' attributes), islands (derived from coast faces
+   ≥ a size threshold, named from NE `minor_islands` / Wikidata where available), with label paths
+   (pole of inaccessibility + principal axis) computed here.
+6. Renderer: LOD selection and tile fetching with an LRU; the Canvas 2D label layer with the §2.6
+   layout in the worker (rank, grid, settle/zoom recompute, stable in motion); markers per §2.6
+   (Q-L3 a); hover name; the stack chip; the place card for present-day countries reusing
+   `COUNTRY_INFO`, `COUNTRY_STATS`, `COUNTRY_SOURCES`, `COUNTRY_SPANS` keyed by place id; deep links
+   `#map2/<lon>/<lat>/<zoom>/<place>`; the legend (borders, names, cities, rivers, water, relief,
+   graticule toggle (Q-V3 c)); phone layout (bottom sheet, DPR cap, coarser LOD, sparser labels).
+7. `#credits` page generated from bundle headers (`atlas/data/credits.js`), linked from the Atlas
+   help, the footer and Settings — **the one reader-visible change of this phase**, so it gets a
+   changelog line and a version bump.
+8. Fallbacks: no-WebGL2 static Canvas 2D at LOD 0 with a sentence (Q-R3 a); `file://` via the
+   `.js` twin of `topology.bin` and the main-thread worker shim (Q-R4 a); `webglcontextlost` rebuild.
+9. Docs: `docs/atlas-v2-build.md` (how to run the pipeline, where the cache lives, how to add a
+   source), indexed in `docs/README.md`.
+
+Tests that prove the phase: `check-topology.js` (planar, coast-snapped, shared borders, licences);
+`test-atlas-render.js` (ID pass at 40 sample points → the right country/sea/lake at three zooms;
+screenshot references for six views); `test-atlas-perf.js` with LOD-4 tiles loaded over Greece and
+the Netherlands; `test-atlas-labels.js` (no overlapping rects; island/sea/river labels have no
+marker; contrast per theme; density stops); `test-atlas-a11y.js` (Tab walk, announcements, reduced
+motion); `test-csp.js`; `test-layout.js` for the `#credits` page at phone width. Measured sizes
+replace the estimates in §2.3.
+
+### Phase 2 — Time (ships `#map2` with a timeline; ~8–10 sessions)
+
+*Goal: every year is a query; borders are steps from accepted sources, conflated, coast-snapped,
+shared; uncertainty is drawn; peoples are a distinct presence.*
+
+Deliverables:
+1. `build-polities.js` v2: reads `polity-spec.json` (reused: 164 matches, years, coast and site
+   flags) and Cliopatria v0.2.0; whitelisted OHM series via Overpass (`sources.json` entries per
+   relation); per-step conflation per §2.3 (coast snapping *d*₁, neighbour merge *d*₂, border
+   inheritance *d*₃, sliver assignment), contested faces as explicit overlay faces (Q-U4 a),
+   uncertainty class per face and arc (Q-U1 a), the snap log with per-source tolerance failures.
+2. `build-peoples.js`: Cliopatria "people" rows and the steppe hegemonies as soft faces (Q-U3 a);
+   `site-hulls.json` (Hosner) as soft phase faces; traced plates where the audit's batch 6 names
+   one (each plate a `sources.json` entry).
+3. Events: `fronts.js` content as event faces (WW2, monthly 1939–42, fortnightly plates 1943–45);
+   war cards' sides as `side:victor`/`side:loser` steps resolved from the entities they name;
+   `state-capitals.js` rows as city steps.
+4. Steps table and year query in the worker; style tables; crossfade at steps (off under reduced
+   motion); gaps draw nothing (Q-U2 a) and the place card lists them.
+5. Timeline UI: one rail 10,000 BCE → today with the knee (Q-T1 a, Q-T2 a), drag magnifier, year
+   pad, change-year ticks for what is on screen, `[`/`]`, playback every year at 1/5/25/100 years
+   per second (Q-T4 b), default year = last used else the reader's median (Q-T3 a; for `#map2`
+   before Phase 3 the median is over all cards).
+6. Peoples rendering (stipple, spaced italic, multiply blend, Q-C1 a), the three-position Peoples
+   switch (Q-C2 b), states' label paths per step.
+7. Place card for historical entities: kind, span, the step list as a mini-timeline with source
+   names, the uncertainty sentence, the gap list; `ADMIN_EDITS.places` deltas for prose and
+   citations with the `after` hook on the gazetteer bundle (Q-A2 a; the A9 prose plan resumes
+   here as content batches).
+8. The data batches of the audit continue as spec-file work from here on (tier 3 tracing, tier 4–5
+   soft outlines, OHM whitelist), each gated by `check-topology.js` and a §7 ledger row appended to
+   `docs/atlas-borders-audit.md` §7 — engine phases and data batches proceed in parallel.
+
+Tests that prove the phase: `check-topology.js` for every change-year (planar with contested faces,
+coast invariant, shared borders, every step inside its entity's span, every source in the header);
+the 1,705 in/out assertions from `card-war.js` migrated to run on the built topology, plus new
+assertions per batch; `test-atlas-render.js` at twelve (year, view) pairs; `test-atlas-perf.js`
+scrub and playback with ≤ 5 ms main-thread cost per year change; a people and a state overlapping
+read as distinct in the screenshot diff for the "Scythians over Bosporus 450 BCE" view.
+
+### Phase 3 — The gazetteer and the study material (ships `#map2` with Your atlas; ~6–8 sessions)
+
+*Goal: cards reference places by id; the Personal Atlas is derived by id; labels can no longer lie.*
+
+Deliverables:
+1. `build-gazetteer.js` v1: every place the cards need, from the migration below, with kinds
+   checked against Wikidata `instance of` (a failure is a build error unless `manual: true` with a
+   reason); `within` relations; aliases; QIDs.
+2. `migrate-places.js`: every `locator`, `war`, `map` and `GLOSSARY_PLACES` entry → a `places` list
+   (**additive**: the old fields stay until Phase 5 so v1 keeps working); a report of every name
+   that fails the toponym check for the owner to resolve (the "Temple of Artemis at Corfu" class
+   becomes `site` within `corfu`; the "Falernian wine" class is dropped from the map with the card
+   keeping its text). Written through `card-io.js`.
+3. Author tooling: `add-places.js <batch.json>` and `--check`; `atlas-build/add-place.js`;
+   `add-card.js` and `import-batch.js` accept `places`; `docs/card-authoring.md` gains the
+   `places` field and the taxonomy; `check-cards.js` reports cards without places in the history
+   collections.
+4. Personal Atlas derivation in the worker from cards with a record (Q-P1 a); per-collection
+   toggles (Q-P4 a); stacks ("N cards here") and the card-back browser in the place card; "New
+   discovery" chip; the empty state; default view centred on the reader's places.
+5. Full Atlas: all cards' places, collection filter, search by name/alias/kind across years.
+6. Glossary popup's "show on the Atlas" button through place ids (no PA contribution, Q-P3 c).
+
+Tests that prove the phase: `test-atlas-study.js` (a seeded reader sees exactly their places in
+exactly their years; a map card lights its country; a war card draws both sides inside its years
+and nothing outside; collection toggles; stack order by difficulty); `check-topology.js` labels
+invariant (every place has a kind and the geometry its kind needs; no non-toponym without
+`manual`); `test-atlas-labels.js` collapse rule (Corfu until ≥ 120 px, then Temple of Artemis,
+Q-L4 a); `test-card-plans.js`, `check-style.js`, `check-questions.js` after the migration.
+
+### Phase 4 — Card windows and Find-it on the shared engine (ships to readers; ~4–6 sessions)
+
+*Goal: one renderer and one geometry on the whole site (Q-A4 a).*
+
+Deliverables:
+1. Map cards, locator windows and war shading drawn by `atlas/` in a lightweight embedded mode
+   (no timeline chrome; fixed year from the card; tap → "Open in the Atlas at <year>"); the engine
+   code bundle and `topology.bin` load lazily when the first such card is shown, warmed at idle as
+   the `atlas` bundle is today; `saveData` skips the warm.
+2. Find-it moved to v2 primitives (highlight, ID pass scoring, year), still drawing through
+   `gameCardIdSet()` and `dayPick()`.
+3. `startCardGlobe`, `CARD_MAP_LAYERS`, `coast/`, `rivers/`, the subdivision bundles retire from the
+   card path (files deleted in Phase 5).
+
+Tests that prove the phase: `test-map-cards.js`, `test-war-cards.js`, `test-card-locator.js`
+rewritten against the engine with their pixel assertions kept; `test-minigames.js`;
+`test-deck-lazy.js` (the engine must not join the eager path: `check-sizes.js` shows `app.js`
+unchanged or smaller). Changelog line and version bump.
+
+### Phase 5 — The swap (ships `#map` as v2; ~3–4 sessions)
+
+*Goal: v2 is the Atlas; v1 and its data are gone in one release (Q-A5 a).*
+
+Deliverables:
+1. `#map` → v2; `#map2` redirects; deep links keep working.
+2. Delete v1: the `PAGES.map` closure and its helpers (~5,600 lines), `atlasRegister*`,
+   `atlasNameFits`, the map editor and `ADMIN_EDITS.timeline` (Q-A1 a), the limb DOM, the
+   heightmap loader; the retired data files (`timeline.js`, `world.js`, `polities.js`,
+   `country-series.js`, `fronts.js`, `country-years.js`, `admin1.js`, `ranges.js`, `forests.js`,
+   `uk.js`, `water.js`, `cities.js`, `lakes.js`, `rivers.js`, `coast/`, `rivers/`, `heightmap*.js`,
+   `us-states.js`, `china-provinces.js`, `russia-subjects.js`, `world-capitals.js`, `us-cities.js`,
+   `state-capitals.js`) and their builders; the old card fields (`locator`, `war`, `map`) removed by
+   `migrate-places.js --finish`; `GLOSSARY_PLACES` as coordinates and `GLOSSARY_MAP_COUNTRY` removed.
+3. `index.html` comments, `sw.js` `VERSION` bump (a cache generation: the old files must leave
+   readers' caches), `_headers` `img-src` keeps `data:` for avatars.
+4. Docs: `docs/atlas.md` rewritten for v2 (render path, data, tests, "Re-run after touching");
+   `docs/map-cards.md`, `docs/war-cards.md`, `docs/eager-path.md`, `docs/admin-editor.md`,
+   `docs/reference.md` entries updated; `CLAUDE.md` file map and invariants updated; this document
+   gains a "as built" note per phase.
+5. Changelog line(s) and version bump; the help card rewritten; the credits page final.
+
+Tests that prove the phase: the whole CI; `check-sizes.js` (eager path smaller than before);
+`check-docs.js`; `test-admin-editor.js` without the map editor; every `#map/...` deep link in
+`test-layout.js`; the old suites (`test-personal-atlas.js`, `test-atlas-places.js`,
+`test-polities.js`) deleted and their intent covered by the new ones (a mapping table in the PR).
+
+### Phase 6 — After the swap (each item its own thread)
+
+In the order of value to readers: "keep offline" (Q-M2 a) · the entity's own timeline bar · "what
+changed this year" · palaeo-shorelines before 7000 BCE · journeys and routes as events · dated
+cities layer (Reba 2016, licence verified at fetch) · compare two years · study heat · Find-it
+variants · authoring from the map · provenance view. Each is small on the new base (§4) and each
+adds its own test.
+
+### What is not in the plan, and why
+
+- Interpolated borders, authored fallback polygons, any shape without a source: excluded by design.
+- Historical-basemaps: unavailable (§2.10a); nothing waits on it.
+- Books and glossary terms in the Personal Atlas: declined (Q-P2 c, Q-P3 c); the gazetteer leaves
+  the hook.
+- Admin-1 beyond the four layers cards use: declined (Q-A7 a).
