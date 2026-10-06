@@ -4,7 +4,7 @@
  *     node .claude/split-artefacts.js            perform the split (one-off; refuses if already done)
  *     node .claude/split-artefacts.js --check    assert it is still intact (CI runs this)
  *
- * WHY. artefacts.js sits on the EAGER load path, between glossary-wikipedia.js and lang-decks.js, so
+ * WHY. artefacts.js sits on the EAGER load path, between glossary.js and lang-decks.js, so
  * every visitor downloads all of it before flipping a card. Measured over the shipped file, `desc` +
  * `sources` + `image` are 237.5 KB of 251 — 94% — against a 14 KB index of id, name, rarity, date and
  * origin. Not one of those three fields is read until a chest opens or the Reliquary is visited, and

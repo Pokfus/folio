@@ -43,9 +43,17 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
 
 ## Golden rules
 
-- **Zero dependencies, vanilla JS, no build step.** No frameworks, bundlers, npm packages or CDN
-  scripts in the site. It must work from `index.html` directly. No inline `<script>`, no `eval` /
-  `new Function` in the site (the CSP in `_headers` depends on it).
+- **No remote dependencies, vanilla JS, no build step.** No frameworks, bundlers, npm packages,
+  `node_modules` or CDN scripts in the site. It must work from `index.html` directly. No inline
+  `<script>`, no `eval` / `new Function` in the site (the CSP in `_headers` depends on it; never relax it).
+  **The one exception is a vendored library** (Oct 2026): a small library under a permissive licence
+  (MIT, BSD, ISC or Apache-2.0 — never GPL/LGPL/AGPL, non-commercial or share-alike) MAY be copied into
+  `vendor/` as a plain, unminified or source-mapped JS file and loaded like any other script, when the
+  task's PR says why. Each file has a `vendor/<name>.LICENSE` beside it and a row in `vendor/README.md`
+  (name, version, upstream URL, licence, why). Vendored files are lazy (`DATA_BUNDLES` / `ensureData`)
+  unless a reader needs them at boot. The offline generators in `.claude/` may use ANY Node library:
+  their output is data files and the library never ships — install it outside the repo and reach it
+  through `NODE_PATH`, exactly as Playwright is. 📖 `docs/reference.md` "Vendored libraries" has the reasoning.
 - **Touch only what the task needs.** Small, surgical diffs. Don't reformat or rename unrelated code.
 - **Never fabricate content.** No invented dates, names, figures, citations, authors, DOIs or page
   numbers. If a claim cannot be sourced, soften it or drop it, and say so.
@@ -68,7 +76,7 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
 ## File map (the essentials)
 
 - `index.html` — shell. **Eager scripts, in order:** `data.js → truefalse.js → quotes.js → whatyear.js →
-  crossword.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js → artefacts.js →
+  crossword.js → changelog.js → mission.js → glossary.js → artefacts.js →
   lang-decks.js → app.js` (read the real list from `index.html`). Sizes: `node .claude/check-sizes.js`
   — never quote a size.
 - `app.js` — all logic, one IIFE, hash routing via `PAGES`. Navigate it with `.claude/app-map.js`.
@@ -220,7 +228,7 @@ editing a plan, the tree, or this table.
 - `node --check app.js` before anything else. Data files load under Node after `global.window = {}`.
 - Browser suites are `.claude/test-*.js` (Playwright, headless Chromium). Find the one guarding a
   function by grepping `docs/reference.md` for the function name near "Re-run after touching".
-- Install Playwright **outside the repo** (zero-dependency rule) and reach it through `NODE_PATH`:
+- Install Playwright **outside the repo** (nothing but `vendor/` ships a library) and reach it through `NODE_PATH`:
   `mkdir -p "$SCRATCH/pw" && cd "$SCRATCH/pw" && npm init -y && npm i playwright`, then run a suite
   with `NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-<name>.js` — exactly as CI does.
 - `page.goto()` to a URL differing only in `#fragment` does not reload; use `page.reload()`.

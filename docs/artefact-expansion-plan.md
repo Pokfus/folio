@@ -69,7 +69,7 @@ belongs to one tradition (a Goryeo celadon, an oracle bone, a Đông Sơn drum).
 
 ## Batch 0 — the split, and it comes first  ✅ SHIPPED (Sep 2026)
 
-**`artefacts.js` is on the EAGER load path**, between `glossary-wikipedia.js` and `lang-decks.js`, so
+**`artefacts.js` is on the EAGER load path**, between `glossary.js` and `lang-decks.js`, so
 every visitor downloads all of it before flipping a card. It is 0.26 MB raw / 0.08 MB gzipped today,
 which doubles with this pass.
 
