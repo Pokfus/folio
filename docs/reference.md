@@ -20,6 +20,37 @@ It is a plain static website — open `index.html` and it runs.
 
 - **Zero dependencies, vanilla JS, no build step.** No frameworks, bundlers, npm packages, or
   CDN `<script>`s in the site itself. It must keep working by opening `index.html` directly.
+  **Loosened once, Oct 2026 — "Vendored libraries", below:** a permissively licensed library may now be
+  copied into `vendor/` as a plain file; everything else in this bullet still stands.
+
+  ### Vendored libraries (Oct 2026, on request)
+
+  The rule above was never about libraries as such. It exists for two properties, and both survive a
+  library that lives in the repo as an ordinary file:
+  **the site is safe** — no reader's browser ever runs code fetched from a third party's server, so a
+  CDN outage, a blocked host or a compromised package cannot touch folio.study, and `script-src 'self'` in
+  `_headers` stays exactly as it is; and **the site is simple to work on** — there is no toolchain, so a
+  cloud session edits a file, opens `index.html` and the change is there, with nothing to install, build or
+  keep updated. A framework, a bundler or an npm install breaks the second property; a CDN tag breaks the
+  first. A file copied into `vendor/` breaks neither, and it is the honest answer to a problem such as the
+  Atlas's shared-edge border topology or spherical projection maths, which took months to half-solve by
+  hand and which small, well-tested libraries (TopoJSON, d3-geo and the like) solve outright.
+  What is allowed: a small library under MIT, BSD, ISC or Apache-2.0, copied in as a plain, unminified (or
+  source-mapped) JS file, loaded like any other script — lazily through `DATA_BUNDLES` / `ensureData`
+  unless a reader needs it at boot — with its licence text in `vendor/<name>.LICENSE` and a row in
+  `vendor/README.md` naming the version, the upstream URL, the licence and the reason, and the PR that
+  adds it saying why a hand-written alternative was the wrong call.
+  What is still forbidden, and why: GPL, LGPL and AGPL (a copyleft licence shipped to the browser can be
+  read as reaching the site's own code), non-commercial and share-alike licences (Folio may sell premium
+  accounts; the same rule the Atlas borders audit applies to data), minified-only files (unreadable in a
+  PR, and unauditable), remote or CDN scripts, `node_modules` or a `package.json` in the site, any
+  framework, any build step for the app, inline scripts and `eval`. The CSP must never be relaxed for a
+  library; a library that needs it is the wrong library.
+  **The offline generators are a different matter.** `.claude/build-*.js` and the other helpers produce
+  DATA FILES; whatever they use to do so never reaches a reader. They may use any Node library, installed
+  outside the repo (`$SCRATCH` locally, `$RUNNER_TEMP` in CI) and reached through `NODE_PATH`, exactly as
+  Playwright already is — see "Testing". Prefer doing geometry, topology, simplification, tiling and
+  indexing there, once, over doing it in the browser on every visit.
 - **Touch only what the task needs.** Don't reformat, rename, or "tidy" files that aren't part of
   the request. Prefer small, surgical diffs over rewrites.
 - **Verify before declaring done.** After a change, reload in the browser and confirm there are no
@@ -90,7 +121,7 @@ It is a plain static website — open `index.html` and it runs.
 
 **Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → whatyear.js → changelog.js → mission.js → glossary.js →
-glossary-wikipedia.js → artefacts.js → lang-decks.js → app.js`.
+artefacts.js → lang-decks.js → app.js`.
 **HOW BIG THAT PATH IS, RUN `node .claude/check-sizes.js` — DO NOT QUOTE A FIGURE HERE.** This paragraph
 used to state one, with "re-measure it rather than quoting it" written beside it, and it drifted to being
 **four times understated** anyway (it said 5.90 MB raw / 1.65 MB gzipped against a real 8.80 / 2.45, and

@@ -247,8 +247,10 @@ changed was the one that had been wrong all along.
   (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
   (description + date + tags + all 9 translations); the full pre-trim glossary (2,165 terms) and its partial
   translations are backed up in `.claude/backup/`.
-- `glossary-wikipedia.js` — `Object.assign`s extra summaries onto `window.GLOSSARY` (loads *after*
-  `glossary.js`). **Currently an empty stub.**
+- ~~`glossary-wikipedia.js`~~ — **REMOVED 2026-10-06, on request.** It `Object.assign`ed Wikipedia summaries onto
+  `window.GLOSSARY` and had been an empty stub since the glossary was hand-written; its 2.4 MB fetch cache
+  (`glossary-wikipedia.json`) and `fetch-glossary.js` went with it, because Cloudflare Pages served the cache
+  (CC BY-SA text, uncredited) to anyone who guessed the URL.
 - ~~`i18n/gloss-<lang>.js`~~ — **REMOVED 2026-08-08, on request**, together with the card `i18n` blocks: the
   site ships in English (`MULTILANG = false`) and the nine files were 3.1 MB of repo weight no reader could
   reach. `glossText()` falls back to the English, so every reader now sees the English glossary. **The

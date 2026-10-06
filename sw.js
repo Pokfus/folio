@@ -37,7 +37,6 @@ const SHELL = [
   "./app.js",
   "./data.js",
   "./glossary.js",
-  "./glossary-wikipedia.js",
   "./truefalse.js",
   "./quotes.js",
   "./changelog.js",
