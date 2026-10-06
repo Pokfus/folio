@@ -1,6 +1,6 @@
 # Atlas v2 — design from the goal
 
-*Status: DESIGN, awaiting the owner's answers to §6. No code is written for it yet. When the answers
+*Status: DESIGN, awaiting the owner's answers to §6 (licensing answered, see §2.10a). No code is written for it yet. When the answers
 are in, §2–§5 are revised and a phased build plan is appended as §7.*
 
 This document designs the Atlas again from what it is for. It takes the existing research as input
@@ -531,6 +531,34 @@ their years. `import-batch.js` and `add-card.js` accept `places` and refuse the 
 - *Minigames*: Find-it keeps drawing through `gameCardIdSet()` and `dayPick()`; it uses the engine's
   highlight and ID-pass primitives.
 
+### 2.10a Licensing and credits (owner's rule, 2026-10-06)
+
+The source rule of `docs/atlas-borders-audit.md` §3 is binding for every input of every build step,
+including cross-checks: public domain, CC0 and CC BY without conditions beyond credit; CC BY-SA, ODbL
+and GPL only when the derived data file carries that licence and credit and is a file of its own;
+nothing NC, "academic", "educational", unstated or conflicting, not even to check a line against.
+`fetch-sources.js` refuses a `sources.json` entry whose `licence` field is not one of the accepted
+identifiers, so a disallowed source cannot enter the pipeline by accident.
+
+**historical-basemaps is unavailable** until its GPL/CC BY-SA question is resolved. The design does
+not need it: there are no "era maps" to build. Every year is a query over the step topology, whose
+inputs are Cliopatria (CC BY 4.0) for the past, present-day admin sources (PD or CC BY) for today,
+OHM (CC0) and public-domain plates where the spec names them. The 13 shipped eras, `build-era.js`
+and `timeline.js` are retired with v1. If the question is later resolved in Folio's favour,
+historical-basemaps can be added to `sources.json` as one more conflation input; nothing else changes.
+
+**Every generated bundle carries its sources in a machine-readable header**: the first line of a
+`.js` bundle, and the JSON header of a `.bin` file, hold `sources: [{id, name, version, url,
+licence, licenceUrl, attribution, retrieved}]` for exactly the sources that contributed to that file.
+`pack.js` writes them; `check-topology.js` fails if an arc or face traces to a source id missing
+from its file's header.
+
+**A visible Sources and credits page** (`#credits`, linked from the Atlas help card, the footer and
+the Settings page) lists every data source with its licence link, attribution text, version and the
+Folio files derived from it. The page is rendered from `atlas/data/credits.js`, which `pack.js`
+generates by merging every bundle header, so the page can never lag the data. The page also carries
+the one caution sentence about historical borders being reconstructions.
+
 ### 2.11 Testing
 
 **Build-time (offline, CI gate)** — `node .claude/atlas-build/check-topology.js`:
@@ -590,7 +618,7 @@ their years. `import-batch.js` and `add-card.js` accept `places` and refuse the 
 | `site-hulls.json` → soft faces | `test-personal-atlas.js`, `test-atlas-places.js`, `test-polities.js` → the suites of §2.11 | `mineCoastSkip`, `mineCoastCut`, `coastEdges`, `synthGroups`, `drawSovietRepublics`, `forceComposite`, limb DOM, the in-browser map editor and `ADMIN_EDITS.timeline` |
 | `COUNTRY_INFO`, `COUNTRY_SOURCES`, `COUNTRY_STATS`, `COUNTRY_SPANS` → place cards (prose keyed by place id) | the Atlas help card (generated attribution) | `COUNTRY_YEARS` (gated off since August; Q-C2) |
 | `card-war.js` in/out assertions → `check-topology.js` | Find-it's board and rounds (same rules, new primitives) | the five `MINE_STARTS` rails (one rail, Q-T1) |
-| the four research notes and the audit's tiers → `sources.json` and the batch order | | |
+| the four research notes and the audit's tiers → `sources.json` and the batch order | the Atlas help card's attribution → a Sources and credits page generated from bundle headers (§2.10a) | |
 
 ---
 
@@ -702,17 +730,16 @@ the phased build plan follows the answers.
   at the shore so no gap shows.
 - **Q-S3 — Historical borders.** (a) ★ Cliopatria v0.2.0 (CC BY 4.0) as backbone, OHM (CC0) where
   the spec whitelists a better series, PD plates traced where the audit's batch 6 lists them; (b)
-  Cliopatria only; (c) also historical-basemaps (GPL-3.0 per its LICENSE file, CC BY-SA per its
-  README's history) — the audit flagged the conflict; this design drops it entirely unless you say
-  otherwise.
+  Cliopatria only. historical-basemaps is unavailable by the owner's rule (§2.10a).
 - **Q-S4 — Rivers and lakes.** (a) ★ HydroRIVERS + HydroLAKES (CC BY 4.0), order/area-filtered per
   LOD; (b) Natural Earth 10m rivers and lakes (PD), coarser, no LOD beyond one level; (c) OSM
   waterways (ODbL), best geometry, heaviest build.
 - **Q-S5 — Relief.** (a) ★ ETOPO 2022 (PD, 15 arc-second, bathymetry included); (b) keep the
   AWS/Mapzen terrarium composite (mixed attributions); (c) SRTM/GMTED only (no bathymetry).
-- **Q-S6 — Share-alike posture.** Confirm the audit's rule: CC BY-SA / ODbL / GPL inputs are
-  acceptable when the derived *data file* carries the licence and credit, and never for the site's
-  code. (a) ★ yes; (b) PD and CC BY only (then Q-S1 → (c) and Q-S4 → (b)).
+- **Q-S6 — Share-alike posture.** *Answered 2026-10-06*: the audit's §3 rule applies exactly
+  (§2.10a). Share-alike inputs are acceptable only as a data file of their own carrying the licence;
+  NC and unclear licences are excluded even as cross-checks. Q-S1 (a) and Q-S4 (c) remain open under
+  that rule because ODbL is share-alike, not NC.
 
 ### Uncertainty and gaps
 
