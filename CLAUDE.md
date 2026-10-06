@@ -116,7 +116,7 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
 - **Daily study / deck limits**: 📖 `docs/daily-study.md` — READ BEFORE TOUCHING THE REVIEW OR A DECK'S OPTIONS.
 - **Minigames** draw cards only through `gameCardIdSet()`; daily draws only through `dayPick()`.
   📖 `docs/minigames.md` — READ BEFORE ADDING A GAME OR CHANGING A POOL.
-- **Atlas**: one geometry source per era; DOM limb layers, not canvas gradients.
+- **Atlas**: one geometry source per era; DOM limb layers, not canvas gradients. 📖 `docs/atlas-v2-design.md` — READ BEFORE BUILDING ANY PART OF ATLAS V2 (the approved design and its phased plan; v1 stays live until Phase 5).
   📖 `docs/atlas.md` — READ BEFORE TOUCHING THE RENDER PATH, AN ERA OR THE TIMELINE.
 - **Map cards / locators / war cards**: 📖 `docs/map-cards.md` and 📖 `docs/war-cards.md` — READ BEFORE CHANGING EITHER FORMAT.
 - **Footnotes**: markers are written EMPTY (`<sup class="fn" data-fn="N"></sup>`); `wireFootnotes`
