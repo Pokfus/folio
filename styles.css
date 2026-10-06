@@ -1684,6 +1684,8 @@ body[data-theme="folio"].night .collection-deco{
 .info-bubble .ib-row + .ib-row{margin-top:6px;}
 .info-bubble .ib-row b{color:#fff; font-weight:700;}
 .info-bubble .ib-quiet{color:rgba(255,255,255,.62); font-size:calc(11px * var(--fs));}
+/* a bubble of short rows (the week's day) takes the width of its longest row, not the paragraph width */
+.info-bubble.ib-fit{width:auto; max-width:calc(100vw - 16px); white-space:nowrap;}
 @keyframes ibIn{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
 /* WHERE THIS CARD STANDS, in the three colours the study bar's own counts use (Aug 2026, on request) —
    blue for a card never studied, red for one being learned, green for one up for review. It is a mark
@@ -10393,9 +10395,11 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .games-sec .sweep-chest .lock-svg{background:var(--paper);}
   /* PLAYED AND PERFECT ARE ONE WIDTH ON A PHONE (Oct 2026, on request: "ensure on mobile that the Perfect and
      Played chips are horizontally aligned"). The tiles stand in one column here, so the pills sit in one column
-     too, and two words of different length gave them a ragged left edge. The width is in the pill's own em so it
-     follows the reader's text size: "Perfect" with its star measures 8.25em, so 8.4em holds either word. */
-  .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{min-width:8.4em; justify-content:center;}
+     too, and two words of different length gave them a ragged left edge. The width is MEASURED FROM THE FONT, not
+     guessed in em (a first try at 8.4em came up a pixel and a half short of "Perfect" at a phone's text size, and the
+     two still stood ragged): the longer word is seven mono characters at .1em of letter-spacing, so 7ch + .7em, and
+     the rest is the pill's own check, gap and padding (12 + 5 + 7 + 9 = 33px), plus one to spare. */
+  .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{min-width:calc(7ch + .7em + 34px); justify-content:center;}
   .home-two{grid-template-columns:1fr;}
   .home-foot{justify-content:center; text-align:center;}
   .home-foot .home-about{text-align:center;}
