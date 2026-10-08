@@ -139,6 +139,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `atlas-borders-states-wars.md` | Research note behind the borders audit: the source catalogue (OHM, AWMC, Royce, Shepherd…) and the states and wars ratings. |
 | `atlas-borders-cultures.md` | Research note behind the borders audit: dated-site and polygon sources for every people and culture. |
 | `atlas-v2-design.md` | Atlas v2: the ground-up redesign (goal scenarios, WebGL2 topology engine, time model, taxonomy, questions awaiting answers; the build plan follows). |
+| `atlas-v2-build.md` | Atlas v2: how to run the build pipeline (`.claude/atlas-build/`), where its caches live, how to add a source, what to do when the OSM pin goes stale. |
 | `glossary-expansion-plan.md` | Three jobs asked for together — audit, expansion, and the terms still to write. |
 | `library-gaps.md` | What the 29 shelved books are missing and what can still be added. |
 | `refinements-plan.md` | ~60 items from one request, batched. |

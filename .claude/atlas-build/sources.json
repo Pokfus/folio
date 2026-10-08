@@ -139,7 +139,7 @@
     {
       "id": "osm-land-polygons",
       "name": "OpenStreetMap land polygons, complete, WGS84 (osmdata.openstreetmap.de)",
-      "version": "daily build fetched 2026-10-08 — no versioned URL exists; the sha256 pins the copy taken that day and a later build will (correctly) fail the pin until re-pinned",
+      "version": "daily build, planet data of 2026-10-08T00:00:00Z (the README inside the zip names the date; build-land.js copies it into every header) — no versioned URL and no dated archive exist (Zenodo and the Wayback Machine searched 2026-10-08), so the sha256 pins the copy taken that day and a later build will (correctly) fail the pin until re-pinned; the committed atlas/data/ is the citable artefact, reproducible from a re-fetch but not bit-identically",
       "url": "https://osmdata.openstreetmap.de/download/land-polygons-complete-4326.zip",
       "sha256": "923f1542c8df65c48303859a9cf556cabf3b9078e786bcf00183ed454e272c78",
       "bytes": 922792457,

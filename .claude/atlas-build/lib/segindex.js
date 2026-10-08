@@ -28,8 +28,16 @@ function build(count, cellU, segOf) {
     const cx0 = Math.floor(ax / cellU), cx1 = Math.floor(bx / cellU), cy0 = Math.floor(ay / cellU), cy1 = Math.floor(by / cellU);
     for (let cx = cx0; cx <= cx1; cx++) for (let cy = cy0; cy <= cy1; cy++) fn(cx, cy);
   };
+  // per segment: its cell box (for the pair dedupe) and whether it spans the seam
+  const bx0 = new Int32Array(count), bx1 = new Int32Array(count), by0 = new Int32Array(count), by1 = new Int32Array(count), seam = new Uint8Array(count);
   let total = 0;
-  for (let i = 0; i < count; i++) cellsOf(i, () => { total++; });
+  for (let i = 0; i < count; i++) {
+    const s = segOf(i);
+    const ax = Math.min(s[0], s[2]), bx = Math.max(s[0], s[2]);
+    if (bx - ax > X180) { seam[i] = 1; total += 2; continue; }
+    bx0[i] = Math.floor(ax / cellU); bx1[i] = Math.floor(bx / cellU); by0[i] = Math.floor(Math.min(s[1], s[3]) / cellU); by1[i] = Math.floor(Math.max(s[1], s[3]) / cellU);
+    total += (bx1[i] - bx0[i] + 1) * (by1[i] - by0[i] + 1);
+  }
   const key = new Uint32Array(total), id = new Uint32Array(total);
   let k = 0;
   for (let i = 0; i < count; i++) cellsOf(i, (cx, cy) => { key[k] = K(cx, cy); id[k] = i; k++; });
@@ -53,20 +61,19 @@ function build(count, cellU, segOf) {
     pairs(fn) {
       // a pair sharing several cells is reported once: from the lowest-keyed cell both bounding boxes
       // cover (no global Set — V8's Set stops at 2^24 entries, and LOD 2 alone has more pairs than that)
-      const box = (i) => { const g = segOf(i); return [Math.floor(Math.min(g[0], g[2]) / cellU), Math.floor(Math.max(g[0], g[2]) / cellU), Math.floor(Math.min(g[1], g[3]) / cellU), Math.floor(Math.max(g[1], g[3]) / cellU), Math.max(g[0], g[2]) - Math.min(g[0], g[2]) > X180]; };
       for (let c = 0; c < nCells; c++) {
         const s0 = cellStart[c], e = cellStart[c + 1];
         if (e - s0 < 2) continue;
         const ck = cellId[c];
         for (let i = s0; i < e; i++) {
-          const A = box(sid[i]);
+          const a = sid[i], ax0 = bx0[a], ay0 = by0[a], as = seam[a];
           for (let j = i + 1; j < e; j++) {
-            const B = box(sid[j]);
-            if (!A[4] && !B[4]) {
-              const cx = Math.max(A[0], B[0]), cy = Math.max(A[2], B[2]);
-              if (K(cx, cy) !== ck) continue;   // not the lowest shared cell
-            } else if (i !== s0) { /* seam-spanning: filed under its two end cells only — report from the first cell met; the pair may repeat, harmlessly */ }
-            fn(sid[i], sid[j]);
+            const b = sid[j];
+            if (!as && !seam[b]) {
+              const cx = ax0 > bx0[b] ? ax0 : bx0[b], cy = ay0 > by0[b] ? ay0 : by0[b];
+              if ((cx + CX0) * (2 * CY0 + 1) + (cy + CY0) !== ck) continue;   // not the lowest shared cell
+            }   // a seam-spanning segment is filed under its two end cells only: reported from each, harmlessly
+            fn(a, b);
           }
         }
       }

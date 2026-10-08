@@ -10,6 +10,11 @@
                                                      pairs, and face triangles with a per-vertex face
                                                      id, every buffer transferred
      out  { type: "done", stats }                    timings and counts, for the perf suite and the log
+     in   { type: "tile", key, buffer }              one tile (atlas/data/tiles/<z>/<x>-<y>.bin), transferred
+     out  { type: "tile", key, segs, faces, ... }    the tile's segments and fill triangles in the same
+                                                     shape as a level (Phase 1a: a tile IS a level, local
+                                                     to its rectangle; its faces carry the CORE face index
+                                                     so the style texture and the ID pass need nothing new)
      out  { type: "error", message }
 
    WHY HERE AND NOT IN THE FILE (§2.3): triangle indices for every face would add megabytes to the
@@ -36,7 +41,7 @@
   const IN_WORKER = typeof importScripts === "function";
   if (IN_WORKER) importScripts("atlas-format.js", "vendor/earcut.js");
 
-  const CHORD_DEG = [4.1, 2.3, 1.0, 0.5];   // per level; a 4th level never ships in the core file
+  const CHORD_DEG = [4.1, 2.3, 1.0, 0.5, 0.3];   // per level 0–4: a quarter pixel of sag at each level's first use (levels 3–4 are tiles)
   const D2R = Math.PI / 180;
 
   function unitVectors(T) {
@@ -49,15 +54,19 @@
   }
 
   /* ---------- arcs → segments at a level ---------- */
-  function buildSegments(T, pos, level) {
+  /* The tag packs arc id, flags and kind into one float: kind + 8·flags + 64·arc (exact below 2^24, so
+     arcs up to 262k). Tile-edge chords (KIND.EDGE) are never segments: they close a fill, not a line. */
+  const KIND_EDGE = 6;
+  function buildSegments(T, pos, level, arcIdOf) {
     const nA = T.arcOffset.length - 1;
+    const skip = (a) => T.arcMinLod[a] > level || T.arcKind[a] === KIND_EDGE;
     let count = 0;
-    for (let a = 0; a < nA; a++) { if (T.arcMinLod[a] > level) continue; for (let i = T.arcOffset[a] + 1; i < T.arcOffset[a + 1]; i++) if (T.rank[i] <= level) count++; }
-    const segs = new Float32Array(count * 7);   // ax ay az bx by bz (arc*8+kind)
+    for (let a = 0; a < nA; a++) { if (skip(a)) continue; for (let i = T.arcOffset[a] + 1; i < T.arcOffset[a + 1]; i++) if (T.rank[i] <= level) count++; }
+    const segs = new Float32Array(count * 7);   // ax ay az bx by bz tag
     let k = 0;
     for (let a = 0; a < nA; a++) {
-      if (T.arcMinLod[a] > level) continue;
-      const tag = a * 8 + T.arcKind[a];
+      if (skip(a)) continue;
+      const tag = (arcIdOf ? arcIdOf(a) : a) * 64 + (T.arcFlags[a] & 3) * 8 + T.arcKind[a];
       let last = T.arcOffset[a];
       for (let i = T.arcOffset[a] + 1; i < T.arcOffset[a + 1]; i++) {
         if (T.rank[i] > level) continue;
@@ -116,7 +125,7 @@
     const inside = (pt, poly) => { let c = false; const p = poly.p; for (let i = 0, j = p.length - 1; i < p.length; j = i++) if ((p[i][1] > pt[1]) !== (p[j][1] > pt[1]) && pt[0] < (p[j][0] - p[i][0]) * (pt[1] - p[i][1]) / (p[j][1] - p[i][1]) + p[i][0]) c = !c; return c; };
     for (const h of polys) { if (h.area > 0) continue; const o = outers.find((o) => inside(h.p[0], o)); if (o) o.holes.push(h); }
     let triangles = 0;
-    const chord = 2 * Math.sin(CHORD_DEG[level] * D2R / 2), chord2 = chord * chord;
+    const chord = 2 * Math.sin(CHORD_DEG[Math.min(level, CHORD_DEG.length - 1)] * D2R / 2), chord2 = chord * chord;
     for (const o of outers) {
       const flat = [], holeIdx = [], gidx = [];
       for (const [x, y] of o.p) flat.push(x, y);
@@ -224,6 +233,7 @@
   }
 
   function handle(msg, post) {
+    if (msg.type === "tile") { handleTile(msg, post); return; }
     if (msg.type !== "load") return;
     const t0 = now();
     let T;
@@ -249,6 +259,26 @@
     }
     stats.totalMs = Math.round(now() - t0);
     post({ type: "done", stats });
+  }
+  function handleTile(msg, post) {
+    const t0 = now();
+    let T;
+    try { T = root.AtlasFormat.read(new Uint8Array(msg.buffer)); }
+    catch (e) { post({ type: "error", message: "tile " + msg.key + ": " + e.message }); return; }
+    const tile = T.header.tile, level = tile ? tile.z : 3;
+    const pos = unitVectors(T);
+    const arcIdOf = (a) => (T.arcRef && T.arcRef[a] >= 0 ? T.arcRef[a] : 0);
+    const raw = buildSegments(T, pos, 0, arcIdOf);
+    const sink = Sink();
+    let tris = 0;
+    // a tile's faces are pieces of core faces: the triangle's face id is the CORE index (faceRef)
+    const chordLevel = Math.min(level, CHORD_DEG.length - 1);
+    T.faces.forEach((f, i) => { const coreFace = T.faceRef ? T.faceRef[i] : i; tris += triangulateFace(T, pos, f, coreFace, chordLevel, sink); });
+    const F = sink.result();
+    const S = bucketSegments(raw), B = bucketTriangles(F.pos, F.idx);
+    const stats = { key: msg.key, z: level, segments: raw.length / 7, faceVertices: F.vertices, triangles: F.triangles, ms: Math.round(now() - t0), bytes: msg.buffer.byteLength };
+    post({ type: "tile", key: msg.key, tile, segs: S.segs, segRange: S.segRange, segCap: S.segCap, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, buckets: BUCKETS, stats },
+      [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer]);
   }
   function now() { return (typeof performance !== "undefined" ? performance.now() : Date.now()); }
 

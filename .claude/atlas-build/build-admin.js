@@ -318,6 +318,7 @@ function main() {
   // coast insertions: segment s → [{ t, v }]
   const insert = new Map();
   const coastVertSet = new Set(); for (let w = 0; w < nW; w++) coastVertSet.add(w);   // every vertex that lies on a coast ring (working + inserted)
+  const onCoast = (v) => coastVertSet.has(v);
   const coastJunction = new Uint8Array(nW);   // a working vertex that became a node
   const pointOnCoast = (s, t) => {
     // a point on working segment s at parameter t → a vertex id (existing within 1 quantum, else inserted)
@@ -344,10 +345,13 @@ function main() {
     if (t < 0 || t > 1 || u < 0 || u > 1) return null;   // inclusive: a line through a coast vertex, or a NE vertex on a coast segment, is a junction too
     return [t, u];
   };
+  function cutAtCoast() {
+  let n = 0;
   for (const L of lines) {
     const out = [L.v[0]];
     for (let i = 1; i < L.v.length; i++) {
       const a = L.v[i - 1], b = L.v[i];
+      if (onCoast(a) && onCoast(b)) { if (b !== out[out.length - 1]) out.push(b); continue; }   // an edge between two coast nodes: a chord, already cut at both ends
       const x1 = VX[a], y1 = VY[a]; let x2 = VX[b], y2 = VY[b];
       if (x2 - x1 > X180) x2 -= 2 * X180; else if (x1 - x2 > X180) x2 += 2 * X180;
       const hits = [];
@@ -361,12 +365,16 @@ function main() {
         if (r) hits.push({ t: r[0], s, u: r[1] });
       });
       hits.sort((p, q) => p.t - q.t);
-      for (const h of hits) { const v = pointOnCoast(h.s, h.u); if (v !== out[out.length - 1]) out.push(v); crossings++; }
+      for (const h of hits) { const v = pointOnCoast(h.s, h.u); if (v !== a && v !== b && v !== out[out.length - 1]) { out.push(v); n++; } }
       if (b !== out[out.length - 1]) out.push(b);
     }
     L.v = out;
   }
-  say(`crossings: ${crossings} line/coast crossings inserted`);
+  return n;
+  }
+  // a crossing snapped onto a coast vertex bends the line by a quantum, which can graze the next coast
+  // segment: cut again until nothing is left to cut (measured: 4 such grazes on the first build)
+  for (let round = 0; round < 6; round++) { const n = cutAtCoast(); crossings += n; say(`crossings: round ${round}: ${n} line/coast crossings inserted`); if (!n) break; }
   // lines against lines: NE polygons overlap here and there (Phase 0: Costa Rica and Nicaragua on the San
   // Juan's bar) and two one-sided versions of a line can crisscross; every such crossing is a node too
   let lineCrossings = 0;
@@ -402,7 +410,6 @@ function main() {
   // ends: a line vertex of degree 1 in the line graph (counting all lines)
   const lineDeg = new Map(); const bump = (v) => lineDeg.set(v, (lineDeg.get(v) || 0) + 1);
   for (const L of lines) { bump(L.v[0]); bump(L.v[L.v.length - 1]); }
-  const onCoast = (v) => coastVertSet.has(v);
   let endsJoined = 0, tailsCut = 0, endsInWater = 0, endsUnjoined = 0, adm1ToLine = 0;
   const joinEnd = (L, atStart) => {
     const v = atStart ? L.v[0] : L.v[L.v.length - 1];
@@ -543,7 +550,7 @@ function main() {
     let A = area % (4 * Math.PI); if (A < 0) A += 4 * Math.PI;
     c.km2 = A * R2; c.outer = A < 2 * Math.PI;
   }
-  if (mixed) { say(`  ⚠ ${mixed} cycles walk coast on both sides (a crossing the planar graph missed)`); log.event("cycles-mixed", { count: mixed }); }
+  if (mixed) { say(`  ⚠ ${mixed} cycles walk coast on both sides (a crossing the planar graph missed)`); for (const c of cycles) if (c.mixed) { const [a] = c.halves[0]; log.event("cycle-mixed", { halves: c.halves.length, at: deg(VX[arcs[a].v[0]], VY[arcs[a].v[0]]), kinds: c.halves.slice(0, 12).map(([x, d]) => arcs[x].kind + (d > 0 ? "+" : "-")) }); } }
   const landCycles = cycles.filter((c) => c.land);
   const outers = landCycles.filter((c) => c.outer), holes = landCycles.filter((c) => !c.outer);
   say(`cycles: ${landCycles.length} land (${outers.length} outer, ${holes.length} holes), ${cycles.length - landCycles.length} sea`);
@@ -569,10 +576,21 @@ function main() {
   const turnOf = (vs) => { let t = 0; for (let i = 1; i <= vs.length; i++) { let dx = VX[vs[i % vs.length]] - VX[vs[i - 1]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; t += dx; } return t; };
   for (const c of landCycles) { c.vs = cycleVerts(c); c.bb = bboxOf(c.vs); const t = turnOf(c.vs); c.polar = Math.abs(t) > X180 ? (c.bb.y0 + c.bb.y1 < 0 ? -1 : 1) : 0; }
   // holes → their outer: the smallest outer cycle containing the hole's first vertex
+  // a hole's enclosing piece is the smallest outer cycle containing a point just LEFT of the hole's first
+  // segment (the enclosing land side) — never an outer that shares an arc with the hole: the outside of a
+  // lone enclave loop (Lesotho, Adygea, the Vatican) walks the same arc as the enclave's own piece, and a
+  // test on a boundary vertex once made the enclave its own hole
+  const leftOf = (c) => { const [a, d] = c.halves[0]; const v = arcs[a].v; const i0 = d > 0 ? 0 : v.length - 1, i1 = d > 0 ? 1 : v.length - 2; let dx = VX[v[i1]] - VX[v[i0]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; const dy = VY[v[i1]] - VY[v[i0]]; const L = Math.hypot(dx, dy) || 1; const off = Math.max(2, Math.min(20, L / 4)); let x = Math.round(VX[v[i0]] + dx / 2 - dy / L * off), y = Math.round(VY[v[i0]] + dy / 2 + dx / L * off); if (x >= X180) x -= 2 * X180; if (x < -X180) x += 2 * X180; return [x, y]; };
   for (const h of holes) {
-    const px = VX[h.vs[0]], py = VY[h.vs[0]];
+    const [px, py] = leftOf(h);
+    const hArcs = new Set(h.halves.map((x) => x[0]));
     let best = null;
-    for (const o of outers) { if (o.polar === 0) { const b = o.bb; let x = px; if (x - b.bx > X180) x -= 2 * X180; else if (x - b.bx < -X180) x += 2 * X180; if (x < b.x0 || x > b.x1 || py < b.y0 || py > b.y1) continue; } if (pointInPoly(px, py, o.vs, o.polar) && (!best || o.km2 < best.km2)) best = o; }
+    for (const o of outers) {
+      if (o.polar === 0) { const b = o.bb; let x = px; if (x - b.bx > X180) x -= 2 * X180; else if (x - b.bx < -X180) x += 2 * X180; if (x < b.x0 || x > b.x1 || py < b.y0 || py > b.y1) continue; }
+      if (best && o.km2 >= best.km2) continue;
+      if (o.halves.some((x) => hArcs.has(x[0]))) continue;
+      if (pointInPoly(px, py, o.vs, o.polar)) best = o;
+    }
     if (best) { (best.holes || (best.holes = [])).push(h); h.outerOf = best; } else log.event("hole-without-outer", { km2: Math.round(h.km2), at: deg(px, py) });
   }
   const pieces = outers;   // each outer cycle with its holes is a piece
@@ -673,6 +691,7 @@ function main() {
     if (ent >= 0 && ADMIN1[entities[ent].a3]) {
       const uv = new Map();
       for (const [x, y] of samples) for (let u = 0; u < units.length; u++) if (units[u].ent === ent && inBox(unitBox[u], x, y) && unitPoly[u].contains(x, y)) uv.set(u, (uv.get(u) || 0) + 1);
+      for (const [dlon, dlat] of DBG) { const b = c.bb; let x = R.U(dlon); if (x - b.bx > X180) x -= 2 * X180; else if (x - b.bx < -X180) x += 2 * X180; if (x >= b.x0 && x <= b.x1 && R.U(dlat) >= b.y0 && R.U(dlat) <= b.y1 && c.km2 < 2e7) console.log(`  DEBUG unit votes ${JSON.stringify([...uv.entries()].map(([u, n]) => [units[u].id, n]))}; units of ${entities[ent].a3} whose box holds sample 0: ${units.map((u, i) => i).filter((i) => units[i].ent === ent && inBox(unitBox[i], samples[0][0], samples[0][1])).map((i) => units[i].id).join(" ")}`); }
       if (uv.size) { c.unit = [...uv.entries()].sort((p, q) => q[1] - p[1])[0][0]; adm1ByContainment++; }
       else if (samples.length) {
         // nearest unit of this country by its vertices
@@ -799,23 +818,41 @@ function main() {
   const repairs = [];
   for (let level = 0; level <= FINEST; level++) {
     let pass = 0, fixedTotal = 0, residual = 0;
+    let touched = null;   // null = every arc (pass 0); else a Set of arc objects to re-test
     for (; pass < 40; pass++) {
       const segs = [];
       for (let ai = 0; ai < A2.length; ai++) { const a = A2[ai]; if (!drawableAt(a, level)) continue; let last = 0; for (let i = 1; i < a.v.length; i++) if (a.rank[i] <= level) { segs.push(ai, last, i); last = i; } }
-      const nS = segs.length / 3;
+      const nS = segs.length / 3; const tp = Date.now();
       const cell = Math.max(80, Math.round([1, 0.5, 0.1, 0.05, 0.02][level] / Q));
       const sidx = SegIndex.build(nS, cell, (s) => { const a = A2[segs[3 * s]]; return [VX[a.v[segs[3 * s + 1]]], VY[a.v[segs[3 * s + 1]]], VX[a.v[segs[3 * s + 2]]], VY[a.v[segs[3 * s + 2]]]]; });
       const crossing = [];
-      sidx.pairs((p, q) => {
+      const test = (p, q) => {
         const A = A2[segs[3 * p]], B = A2[segs[3 * q]];
         const a1 = A.v[segs[3 * p + 1]], a2 = A.v[segs[3 * p + 2]], b1 = B.v[segs[3 * q + 1]], b2 = B.v[segs[3 * q + 2]];
         if (a1 === b1 || a1 === b2 || a2 === b1 || a2 === b2) return;
         if (G.segmentsCross(vecOf(a1), vecOf(a2), vecOf(b1), vecOf(b2))) crossing.push(p, q);
-      });
+      };
+      if (!touched) sidx.pairs(test);
+      else {
+        // a full pair sweep over 6 M segments is a minute; after the first pass only the arcs that changed,
+        // or still crossed, can be in a crossing — query the index around each of their segments
+        const seen = new Set();
+        for (let s = 0; s < nS; s++) {
+          const a = A2[segs[3 * s]]; if (!touched.has(a)) continue;
+          const v0 = a.v[segs[3 * s + 1]], v1 = a.v[segs[3 * s + 2]];
+          const cx = Math.round((VX[v0] + VX[v1]) / 2), cy = Math.round((VY[v0] + VY[v1]) / 2);
+          const rU = Math.max(Math.abs(VX[v1] - VX[v0]), Math.abs(VY[v1] - VY[v0])) / 2 + 1;
+          sidx.near(cx, cy, Math.min(rU, 60 * cell), (q) => { if (q === s) return; const lo = Math.min(s, q), hi = Math.max(s, q); const key = lo * 16777216 + hi; if (seen.has(key)) return; seen.add(key); test(lo, hi); });
+        }
+      }
+      touched = new Set();
+      for (let k = 0; k < crossing.length; k++) touched.add(A2[segs[3 * crossing[k]]]);
+      const tq = Date.now();
       if (!crossing.length) break;
       let fixed = 0, reserved = 0;
       // insertions are applied after the loop so segment indices stay valid within a pass
-      const pending = [];
+      const pending = [], pendingX = [];
+      const noReserve = (a, i0, i1) => { const o0 = VORIG[a.v[i0]], o1 = VORIG[a.v[i1]]; let r = 0; { let lo = 0, hi = nRings - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (C.ringOffset[m] <= o0) lo = m; else hi = m - 1; } r = lo; } const rs = C.ringOffset[r], re = C.ringOffset[r + 1], len = re - rs; const steps = ((o1 - o0) % len + len) % len; return steps === 0 || steps > len / 2 || steps === 1; };
       for (let k = 0; k < crossing.length; k++) {
         const s = crossing[k], a = A2[segs[3 * s]], i0 = segs[3 * s + 1], i1 = segs[3 * s + 2];
         if (i1 - i0 >= 2) {
@@ -824,7 +861,31 @@ function main() {
           if (best >= 0) { a.rank[best] = level; fixed++; }
           continue;
         }
-        // an original edge of a coast arc: reach for the source's own vertices below the finest tolerance
+        // an original edge: first try the partner — if it has hidden vertices the loop reaches it on its own
+        // turn; if BOTH are original edges, the two lines genuinely cross and their intersection becomes a
+        // vertex of both (they then touch, which the planarity test allows): a graze the planar graph missed
+        const partner = crossing[k ^ 1], pa = A2[segs[3 * partner]], pi0 = segs[3 * partner + 1], pi1 = segs[3 * partner + 2];
+        const bare = (b, j0, j1) => b.kind !== KIND.COAST || VORIG[b.v[j0]] < 0 || VORIG[b.v[j1]] < 0 || noReserve(b, j0, j1);   // nothing hidden to re-add, not even in the reserve
+        if (pi1 - pi0 < 2 && bare(a, i0, i1) && bare(pa, pi0, pi1)) {
+          if (k % 2 === 0) { const v0 = a.v[i0], v1 = a.v[i1], w0 = pa.v[pi0], w1 = pa.v[pi1];
+            let x1 = VX[v0], y1 = VY[v0], x2 = VX[v1], y2 = VY[v1], x3 = VX[w0], y3 = VY[w0], x4 = VX[w1], y4 = VY[w1];
+            if (x2 - x1 > X180) x2 -= 2 * X180; else if (x1 - x2 > X180) x2 += 2 * X180;
+            if (x3 - x1 > X180) { x3 -= 2 * X180; x4 -= 2 * X180; } else if (x1 - x3 > X180) { x3 += 2 * X180; x4 += 2 * X180; }
+            if (x4 - x3 > X180) x4 -= 2 * X180; else if (x3 - x4 > X180) x4 += 2 * X180;
+            const r = crossAt(x1, y1, x2, y2, x3, y3, x4, y4);
+            if (r) { let px = Math.round(x1 + r[0] * (x2 - x1)), py = Math.round(y1 + r[0] * (y2 - y1)); if (px >= X180) px -= 2 * X180; if (px < -X180) px += 2 * X180;
+              const nv = vertAdd(px, py, 1e9, -1); pendingX.push({ a, i0, nv }, { a: pa, i0: pi0, nv }); log.event("crossing-made-a-junction", { level, kinds: [a.kind, pa.kind], at: deg(px, py) }); }
+            else {
+              // the plane sees no proper crossing: one segment's end lies on the other (the sphere test's
+              // tolerance) — make that end a vertex of the other segment, so the two touch at a shared vertex
+              const dist = (px, py, qx, qy, rx, ry) => { const dx = rx - qx, dy = ry - qy, l2 = dx * dx + dy * dy; let tt = l2 > 0 ? ((px - qx) * dx + (py - qy) * dy) / l2 : 0; tt = Math.max(0, Math.min(1, tt)); return Math.hypot(px - (qx + tt * dx), py - (qy + tt * dy)); };
+              const cands = [[v0, pa, pi0, dist(x1, y1, x3, y3, x4, y4)], [v1, pa, pi0, dist(x2, y2, x3, y3, x4, y4)], [w0, a, i0, dist(x3, y3, x1, y1, x2, y2)], [w1, a, i0, dist(x4, y4, x1, y1, x2, y2)]].sort((p, q) => p[3] - q[3]);
+              const [vv, arc, at] = cands[0];
+              pendingX.push({ a: arc, i0: at, nv: vv }); log.event("crossing-end-shared", { level, kinds: [a.kind, pa.kind], at: deg(VX[vv], VY[vv]), quanta: +cands[0][3].toFixed(2) });
+            }
+          }
+          continue;
+        }
         if (a.kind !== KIND.COAST) continue;
         const v0 = a.v[i0], v1 = a.v[i1], o0 = VORIG[v0], o1 = VORIG[v1];
         if (o0 < 0 || o1 < 0) continue;
@@ -836,15 +897,18 @@ function main() {
         if (best < 0) continue;
         pending.push({ a, i0, o: best });
       }
-      pending.sort((p, q) => (p.a === q.a ? q.i0 - p.i0 : 0));
-      const done = new Set();
-      for (const { a, i0, o } of pending) {
-        const key = a.v[i0] + ":" + o; if (done.has(key)) continue; done.add(key);
-        const nv = vertAdd(C.x[o], C.y[o], C.size[o], o);
-        a.v.splice(i0 + 1, 0, nv); a.size.splice(i0 + 1, 0, C.size[o]); a.rank.splice(i0 + 1, 0, level);
-        reserved++; fixed++;
+      // group by arc and rebuild each touched arc once (a splice per vertex on a 300k-vertex ring is quadratic)
+      const byArc = new Map();
+      for (const p of pending) { let l = byArc.get(p.a); if (!l) byArc.set(p.a, l = new Map()); if (!l.has(p.i0)) l.set(p.i0, { o: p.o }); }
+      for (const p of pendingX) { let l = byArc.get(p.a); if (!l) byArc.set(p.a, l = new Map()); if (!l.has(p.i0)) l.set(p.i0, { nv: p.nv }); }
+      for (const [a, ins] of byArc) {
+        touched.add(a);
+        const v = [], sz = [], rk = [];
+        for (let i = 0; i < a.v.length; i++) { v.push(a.v[i]); sz.push(a.size[i]); rk.push(a.rank[i]); const x = ins.get(i); if (x) { if (x.nv != null) { v.push(x.nv); sz.push(1e9); rk.push(0); } else { v.push(vertAdd(C.x[x.o], C.y[x.o], C.size[x.o], x.o)); sz.push(C.size[x.o]); rk.push(level); reserved++; } fixed++; } }
+        a.v = v; a.size = sz; a.rank = rk;
       }
       fixedTotal += fixed;
+      say(`  LOD ${level} pass ${pass}: ${nS} segments, pairs ${tq - tp} ms, ${crossing.length / 2} crossings, ${fixed} fixed (${reserved} from the reserve) in ${Date.now() - tq} ms`);
       if (!fixed) { residual = crossing.length / 2; for (let k = 0; k < Math.min(crossing.length, 40); k += 2) { const s = crossing[k], t = crossing[k + 1]; const A = A2[segs[3 * s]], B = A2[segs[3 * t]]; log.event("crossing-residual", { level, kinds: [A.kind, B.kind], at: deg(VX[A.v[segs[3 * s + 1]]], VY[A.v[segs[3 * s + 1]]]), spans: [segs[3 * s + 2] - segs[3 * s + 1], segs[3 * t + 2] - segs[3 * t + 1]] }); } break; }
     }
     repairs.push({ level, passes: pass, reAdded: fixedTotal, residual });

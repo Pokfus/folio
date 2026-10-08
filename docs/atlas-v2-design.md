@@ -194,6 +194,21 @@ arcs ≤ 3 ms at LOD for the view, points < 0.5 ms); CPU ≤ 4 ms (uniforms, lab
 browser upscale; MSAA 4× via the context attribute. Label layout (§2.6) and triangulation (§2.3) run
 in the worker and never block a frame. Year changes upload ≤ 64 KB of style tables.
 
+**The frame gate (owner's redefinition, 2026-10-08).** Phase 0's gate — "p95 ≤ 20 ms on the CI
+runner with software GL" — measured SwiftShader rasterising tens of thousands of triangles on four
+CPU cores, not a reader's phone, and its as-built note (§7) said so. The gate `test-atlas-perf.js`
+asserts from Phase 1a on is: (1) v2's p95 frame interval is at most **40 %** of v1's p95 on the same
+run, for drag, wheel and pinch — a relative measure, so a slower or faster runner moves both sides;
+(2) the worst frame during drag and pinch is at most **100 ms**; (3) a deterministic **primitive
+budget**: `__atlas2.statsNow()` reports the triangles and line segments the renderer drew in the last
+frame, and four fixed views (the globe, Europe, the Aegean, the Aegean at the zoom cap) must stay
+under budgets stored in the test and justified in §2.3 "as measured" — so a change that doubles what
+a view draws fails in CI rather than on a phone. The `#map2?perf` overlay (frame mean, p95 and max
+over the last 120 frames, primitive counts, LOD, tiles) is what the owner reads on a real phone; if
+that reads under about 50 fps, the fallback is option (c) of the Phase 0 note — rasterise the fills
+into a texture once per year change and keep only the lines as geometry. It is not built until it
+is needed.
+
 **Workers.** The CSP already allows `worker-src 'self'`, so `atlas/atlas-worker.js` is an ordinary
 same-origin file. On `file://`, where browsers refuse workers, the same module runs on the main
 thread behind the same message interface (a 2-line shim); triangulation then costs a visible
@@ -262,13 +277,35 @@ with Natural Earth 10m as the fallback if HydroLAKES proves too large to pack.
 
 **Level of detail.** Three resident LOD levels for arcs (globe, continent, country scale) ship in the
 core file; two finer levels (region, locality) ship as **tiles** on an equirectangular grid
-(`z=3`: 8×4 tiles; `z=4`: 32×16), fetched on demand and cached by the service worker. Tiles carry
-*only* coast, river and lake arcs at the finer level, keyed by the same arc ids as the core, so a face
-whose boundary is a coast arc is simply drawn with the finer version of that arc when the tile is
-present — no re-topologising at runtime. Level thresholds are chosen so that the simplification
-tolerance of a level is < 0.5 px at the zoom where it is first used; the switch is invisible. Fills
-are triangulated once per face at the resident level that matches the face's own precision, so the
-fill edge and the stroke never disagree by more than a pixel.
+(`z=3`: 8×4 tiles of 45°; `z=4`: 32×16 of 11.25°), fetched on demand and cached by the service
+worker. A level is used while its simplification tolerance is at most half a pixel: LOD 0 (8 km)
+above 16 km/px, LOD 1 (2.5 km) above 5, LOD 2 (500 m) above 1, LOD 3 (250 m) above 0.5, LOD 4 (75 m)
+down to the cap of 150 m/px (Q-A6 a), where the finest tolerance is half a pixel and the 28 m quantum
+a fifth — so no level ever stair-steps, and the switch between levels is invisible. The tolerances
+were chosen against the vertex census of the OSM coast (`build-land.js --census`, below): 75 m keeps
+6.2 M vertices and 250 m 1.6 M, which packs the tiles well inside the 40 MB the owner allowed, so
+there was no reason to accept more sag.
+
+**Tiles carry their own fills (decided in Phase 1a, 2026-10-08).** The first design had a tile carry
+only the finer *arcs*, keyed by the core's arc ids, and a face drawn with the finer arc when the tile
+was present. Phase 0 found that a fill and its stroke must come from the same ring, and a fill
+triangulated from the resident ring would disagree with a tile's finer stroke by up to the resident
+tolerance — 500 m, three pixels at the cap — as sea-coloured gaps or land spilling over water. So
+**every tile carries each face clipped to the tile's rectangle**, as fill rings of its own, built at
+pack time by walking the face's arc pieces inside the tile and turning along the tile boundary where
+they leave it; the chords along the boundary are arcs of kind EDGE, which close a ring and are never
+stroked. The worker triangulates a tile exactly as it does a resident level — a tile *is* a level,
+local to its rectangle — and the tile's faces carry the core face index, so the style texture, the
+selection and the ID pass need nothing new. Tile arcs still name the core arc they are a piece of
+(`arcRef`), which is what lets the checker prove that the pieces of an arc chain across tiles and
+that every EDGE chord is matched, reversed, by the same face in the neighbouring tile — the union of
+a face's pieces is the face. Because no vertex may lie on a tile line (build-admin.js nudges any
+that does by one quantum), every crossing of the boundary is proper and entries and exits alternate.
+The seam between two tiles is two fills meeting along a shared chord with identical endpoints; the
+worker's chord subdivision (spherical midpoints, recursive to the level's threshold) is the same on
+both sides, so there is no gap. A loaded tile is drawn where its extent is written into the stencil
+buffer and the resident level only where no tile covers, so a tile still on its way is a patch of
+coarser coast, never a hole or a doubled line.
 
 **Why faces are triangulated at runtime, in the worker, with earcut.** Shipping triangle indices for
 1,700+ faces would add an estimated 2–3 MB; triangulating all of them once at first load takes under
@@ -1011,6 +1048,15 @@ cached in `src/`.
 
 *Goal: the physical and present-day map complete — one coastline source, LOD tiles, rivers, lakes,
 relief, labels, picking, the credits page — with no timeline yet.*
+
+**Phase 1 is built in four sub-phases (split 2026-10-08):**
+
+| sub-phase | scope (the deliverables below it covers) | state |
+|---|---|---|
+| **1a — land at every zoom** | the OSM land partition (1), admin-0 and admin-1 conflated onto it (2), LOD 3–4 as tiles with per-tile fills, the renderer's tile fetch, level selection and the 150 m/px cap, the checker on tiles, the redefined frame gate (§2.2), the build doc (9) | **built — see "Phase 1a — as built" below** |
+| 1b — water and relief | rivers and lakes (3), relief (4) and the sphere pass's relief lookup | not started |
+| 1c — names and picking | the gazetteer (5), the label layer, markers, hover, the stack chip, the place card, deep links, the legend, the phone layout (6) | not started |
+| 1d — credits and fallbacks | the `#credits` page (7) — the phase's one reader-visible change, with its changelog line and version bump — and the fallbacks (8): no-WebGL2, `file://` via the `.js` twin, context loss | not started |
 
 Deliverables:
 1. `build-land.js` on **OSM land polygons** (Q-S1 a): finest-level land/sea partition; LOD 0–4 by

@@ -114,10 +114,13 @@ jobs:
       # docs/atlas-v2-design.md §2.11): a border two faces walk the same way still draws, a coast arc
       # no face claims still draws, a crossing at one level of detail is a sliver nobody sees until a
       # fill leaks. check-topology.js is zero-dependency (the same reader the browser uses) and runs
-      # on the committed atlas/data/topology.bin in seconds, so it is a gate. The size ceiling is
-      # Phase 0's (1.5 MB for Natural Earth alone); raise it deliberately when Phase 2 adds the steps.
-      - name: check-topology (Atlas v2)
-        run: node .claude/atlas-build/check-topology.js --max-bytes 1572864
+      # on the committed atlas/data/topology.bin and, with --tiles, on every tile under atlas/data/tiles/
+      # (Phase 1a: the tiles' core references, chained pieces, matched edge chords, planarity, and ~60
+      # independent inland/ocean point assertions) in a couple of minutes, so it is a gate. The size
+      # ceiling is the core's measured 2026-10-08 size (OSM coast at LOD 0–2, admin-0 + admin-1) plus
+      # headroom; raise it deliberately when Phase 2 adds the steps.
+      - name: check-topology (Atlas v2, core and tiles)
+        run: node .claude/atlas-build/check-topology.js --tiles --max-bytes 3145728
       # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
       # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
       # for every visitor -- and the only symptom is a slower site.
