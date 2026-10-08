@@ -43,10 +43,10 @@
    Faces of all tiles are drawn before the arcs of any, so a neighbour's fill never covers half a
    stroke at a tile edge.
 
-   CULLING. The worker sorts triangles and segments into 384 direction buckets, each with a bounding
+   CULLING. The worker sorts triangles and segments into 1536 direction buckets, each with a bounding
    cap. A frame computes the cap of what the viewport can show (the whole near hemisphere when the
    disc fits, a few degrees when zoomed in) and draws only the buckets whose caps touch it, merged
-   into contiguous runs — a dozen draw calls, not 384. Software GL pays per triangle rasterised, and
+   into contiguous runs (small hidden gaps included) — a few dozen draw calls, not 1536. Software GL pays per triangle rasterised, and
    a zoomed-in view holds a few per cent of the geometry.
 
    MSAA is OFF by default: on software GL it tripled the face pass for nothing a reader sees, since
@@ -59,10 +59,17 @@
 (function (root) {
   "use strict";
 
+  // a quad around the disc and its halo, not the whole screen: at the globe view two thirds of the
+  // viewport is outside the halo and every fragment there was a discard (measured in software GL:
+  // the sphere pass was a sixth of a globe frame)
   const VS_SPHERE = `#version 300 es
     precision highp float;
-    const vec2 Q[3] = vec2[3](vec2(-1.0, -1.0), vec2(3.0, -1.0), vec2(-1.0, 3.0));
-    void main() { gl_Position = vec4(Q[gl_VertexID], 0.0, 1.0); }`;
+    uniform vec2 uCenter, uSize; uniform float uRadius, uHaloW;
+    const vec2 Q[6] = vec2[6](vec2(-1.0, -1.0), vec2(1.0, -1.0), vec2(1.0, 1.0), vec2(-1.0, -1.0), vec2(1.0, 1.0), vec2(-1.0, 1.0));
+    void main() {
+      vec2 px = uCenter + Q[gl_VertexID] * uRadius * (1.0 + uHaloW + 0.01);   // device px, y down
+      gl_Position = vec4(px.x / uSize.x * 2.0 - 1.0, 1.0 - px.y / uSize.y * 2.0, 0.0, 1.0);
+    }`;
   const FS_SPHERE = `#version 300 es
     precision highp float;
     uniform vec2 uCenter;      // device px, y down
@@ -333,6 +340,7 @@
     }
 
     /* which buckets can be on screen: the cap of the visible part of the disc, against each bucket's cap */
+    const GAP_MERGE = 256;   // items (segments or triangles) of invisible buckets a run may swallow to avoid a draw call
     function visibleRuns(range, cap, rot, radius, cx, cy, margin) {
       const n = range.length / 2;
       const runs = [];
@@ -350,7 +358,8 @@
         const vis = Math.acos(d) - cap[4 * b + 3] <= rho;
         if (!vis) { if (s >= 0) { runs.push([s, e - s]); s = -1; } continue; }
         const start = range[2 * b];
-        if (s >= 0 && start === e) e = start + count;
+        // contiguous, or across a gap of a few hidden items: one draw call costs more than drawing them
+        if (s >= 0 && start - e <= GAP_MERGE) e = start + count;
         else { if (s >= 0) runs.push([s, e - s]); s = start; e = start + count; }
       }
       if (s >= 0) runs.push([s, e - s]);
@@ -381,7 +390,10 @@
       gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0);
       gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, g.segTex); gl.uniform1i(P.u.uSeg, 1); gl.uniform1i(P.u.uTexW, SEG_TEX_W);
       gl.bindVertexArray(emptyVao);
-      for (const [start, count] of visibleRuns(D.segRange, D.segCap, rot, radius, cx, cy, Lv.tile ? 0.002 : 0.01)) { gl.drawArrays(gl.TRIANGLES, start * 3, count * 3); stats.draws++; stats.segmentsDrawn += count; }
+      const margin = Lv.tile ? 0.002 : 0.01;
+      for (const [start, count] of visibleRuns(D.segRange, D.segCap, rot, radius, cx, cy, margin)) { gl.drawArrays(gl.TRIANGLES, start * 3, count * 3); stats.draws++; stats.segmentsDrawn += count; }
+      // the admin-1 list is submitted only past its zoom threshold (the worker keeps it apart; §2.3)
+      if (view.admin1 && D.segRangeA1) for (const [start, count] of visibleRuns(D.segRangeA1, D.segCapA1, rot, radius, cx, cy, margin)) { gl.drawArrays(gl.TRIANGLES, start * 3, count * 3); stats.draws++; stats.segmentsDrawn += count; }
     }
     function drawExtents(list, view, R, ref) {
       const cx = view.cx * dpr, cy = view.cy * dpr, radius = view.radius * dpr;
@@ -400,11 +412,11 @@
       if (!idPass && debug.sphere) {
         const P = prog.sphere; gl.useProgram(P.p);
         gl.bindVertexArray(emptyVao);
-        gl.uniform2f(P.u.uCenter, cx, cy); gl.uniform1f(P.u.uRadius, radius); gl.uniform1f(P.u.uHeight, H);
+        gl.uniform2f(P.u.uCenter, cx, cy); gl.uniform2f(P.u.uSize, W, H); gl.uniform1f(P.u.uRadius, radius); gl.uniform1f(P.u.uHeight, H);
         gl.uniformMatrix3fv(P.u.uRotT, false, rot);   // a row-major R read column-major IS its transpose
         gl.uniform3fv(P.u.uOcean, palette.ocean); gl.uniform3fv(P.u.uRim, palette.rim); gl.uniform3fv(P.u.uHalo, palette.halo); gl.uniform3fv(P.u.uGrat, palette.grat);
         gl.uniform1f(P.u.uGratOn, view.graticule ? 1 : 0); gl.uniform1f(P.u.uHaloW, 0.06);
-        gl.drawArrays(gl.TRIANGLES, 0, 3); stats.draws++;
+        gl.drawArrays(gl.TRIANGLES, 0, 6); stats.draws++;
       }
       const R = transposed(rot);
       const Lv = pickLevel(view.level);

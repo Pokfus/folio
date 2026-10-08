@@ -56,7 +56,7 @@
   /* ---------- arcs → segments at a level ---------- */
   /* The tag packs arc id, flags and kind into one float: kind + 8·flags + 64·arc (exact below 2^24, so
      arcs up to 262k). Tile-edge chords (KIND.EDGE) are never segments: they close a fill, not a line. */
-  const KIND_EDGE = 6;
+  const KIND_EDGE = 6, KIND_ADMIN1 = 5;
   function buildSegments(T, pos, level, arcIdOf) {
     const nA = T.arcOffset.length - 1;
     const skip = (a) => T.arcMinLod[a] > level || T.arcKind[a] === KIND_EDGE;
@@ -169,20 +169,22 @@
   }
 
   /* ---------- buckets: sort geometry by direction so the renderer draws only what the view can see ----------
-     384 buckets = 6 cube faces × 8 × 8 cells. Each triangle goes into the bucket of its centroid, each
-     segment into that of its midpoint; the arrays are reordered by bucket and a (start, count) range per
-     bucket is emitted, with the bucket's bounding cap (centre, angular radius) so the renderer can test
-     "can this bucket be on screen" with one dot product. Software GL pays per triangle rasterised, and
-     a zoomed-in view sees a few per cent of the earth. */
-  const BUCKETS = 384;
+     1536 buckets = 6 cube faces × 16 × 16 cells (about 5.6° a cell; Phase 0 had 8 × 8). Each triangle
+     goes into the bucket of its centroid, each segment into that of its midpoint; the arrays are
+     reordered by bucket and a (start, count) range per bucket is emitted, with the bucket's bounding
+     cap (centre, angular radius) so the renderer can test "can this bucket be on screen" with one dot
+     product. Software GL pays per vertex and per triangle, and a zoomed-in view sees a few per cent of
+     the earth; at the globe the coarse cells drew 76 % of LOD 0 for a hemisphere (measured), the finer
+     ones under 60 %. The renderer merges runs across small invisible gaps, so draw calls stay few. */
+  const CELLS = 16, BUCKETS = 6 * CELLS * CELLS;
   function bucketOf(x, y, z) {
     const ax = Math.abs(x), ay = Math.abs(y), az = Math.abs(z);
     let face, u, w;
     if (ax >= ay && ax >= az) { face = x < 0 ? 1 : 0; u = y / ax; w = z / ax; }
     else if (ay >= az) { face = y < 0 ? 3 : 2; u = x / ay; w = z / ay; }
     else { face = z < 0 ? 5 : 4; u = x / az; w = y / az; }
-    const cu = Math.min(7, Math.max(0, Math.floor((u + 1) * 4))), cw = Math.min(7, Math.max(0, Math.floor((w + 1) * 4)));
-    return face * 64 + cu * 8 + cw;
+    const cu = Math.min(CELLS - 1, Math.max(0, Math.floor((u + 1) * CELLS / 2))), cw = Math.min(CELLS - 1, Math.max(0, Math.floor((w + 1) * CELLS / 2)));
+    return face * CELLS * CELLS + cu * CELLS + cw;
   }
   // caps: per bucket the normalised mean of its items' centres and the largest angle from it to ANY
   // vertex of an item (an endpoint of a 1° segment at LOD 0 lies well outside its midpoint's cell)
@@ -209,7 +211,7 @@
     return { order, range };
   }
   // segments: reorder the 7-float records into 8-float texels (a.xyz, tag, b.xyz, 0) by bucket
-  /* A TILE is a few per cent of the sphere, so the 384 direction buckets would put all of it in one or
+  /* A TILE is a few per cent of the sphere, so the direction buckets would put all of it in one or
      two and the renderer would draw the whole tile whenever a corner showed (measured: 344k segments
      for a 190 km view of the fjords at the cap). A tile's content is bucketed on a 16×16 grid of its own
      lon/lat rectangle instead; the renderer's cap test is the same, only the ranges differ. */
@@ -224,17 +226,29 @@
       return j * TILE_GRID + Math.max(0, Math.min(TILE_GRID - 1, i));
     } };
   }
+  /* Two lists in one texture: every other arc first, the admin-1 arcs after them with their own
+     bucket ranges, so a view above the admin-1 threshold never submits them at all (at the globe
+     they are an eighth of LOD 0's segments, measured, and the vertex shader was moving them off
+     screen one by one). */
   function bucketSegments(segs, bucketer) {
     const B = bucketer || { count: BUCKETS, of: bucketOf };
     const n = segs.length / 7;
     const mid = (i) => { const x = segs[7 * i] + segs[7 * i + 3], y = segs[7 * i + 1] + segs[7 * i + 4], z = segs[7 * i + 2] + segs[7 * i + 5]; const l = Math.hypot(x, y, z) || 1; return [x / l, y / l, z / l]; };
-    const bk = new Int32Array(n); for (let i = 0; i < n; i++) { const m = mid(i); bk[i] = B.of(m[0], m[1], m[2]); }
-    const { order, range } = sortByBucket(n, (i) => bk[i], B.count);
-    const out = new Float32Array(n * 8);
-    for (let k = 0; k < n; k++) { const i = order[k]; out[8 * k] = segs[7 * i]; out[8 * k + 1] = segs[7 * i + 1]; out[8 * k + 2] = segs[7 * i + 2]; out[8 * k + 3] = segs[7 * i + 6]; out[8 * k + 4] = segs[7 * i + 3]; out[8 * k + 5] = segs[7 * i + 4]; out[8 * k + 6] = segs[7 * i + 5]; out[8 * k + 7] = 0; }
     const ends = (i) => [[segs[7 * i], segs[7 * i + 1], segs[7 * i + 2]], [segs[7 * i + 3], segs[7 * i + 4], segs[7 * i + 5]]];
-    const cap = caps(n, (k) => mid(order[k]), (k) => ends(order[k]), (k) => bk[order[k]], B.count);
-    return { segs: out, segRange: range, segCap: cap };
+    const bk = new Int32Array(n); for (let i = 0; i < n; i++) { const m = mid(i); bk[i] = B.of(m[0], m[1], m[2]); }
+    const main = [], a1 = [];
+    for (let i = 0; i < n; i++) (segs[7 * i + 6] % 8 === KIND_ADMIN1 ? a1 : main).push(i);
+    const out = new Float32Array(n * 8);
+    let k = 0;
+    const pack = (ids, offset) => {
+      const { order, range } = sortByBucket(ids.length, (j) => bk[ids[j]], B.count);
+      for (let j = 0; j < ids.length; j++) { const i = ids[order[j]]; out[8 * k] = segs[7 * i]; out[8 * k + 1] = segs[7 * i + 1]; out[8 * k + 2] = segs[7 * i + 2]; out[8 * k + 3] = segs[7 * i + 6]; out[8 * k + 4] = segs[7 * i + 3]; out[8 * k + 5] = segs[7 * i + 4]; out[8 * k + 6] = segs[7 * i + 5]; out[8 * k + 7] = 0; k++; }
+      const cap = caps(ids.length, (j) => mid(ids[order[j]]), (j) => ends(ids[order[j]]), (j) => bk[ids[order[j]]], B.count);
+      for (let b = 0; b < B.count; b++) range[2 * b] += offset;
+      return { range, cap };
+    };
+    const M = pack(main, 0), A = pack(a1, main.length);
+    return { segs: out, segRange: M.range, segCap: M.cap, segRangeA1: A.range, segCapA1: A.cap };
   }
   function bucketTriangles(pos, idx, bucketer) {
     const B = bucketer || { count: BUCKETS, of: bucketOf };
@@ -273,8 +287,8 @@
       const S = bucketSegments(raw), B = bucketTriangles(F.pos, F.idx);
       const s = { level, segments: raw.length / 7, faceVertices: F.vertices, triangles: F.triangles, ms: Math.round(now() - t1) };
       stats.levels.push(s);
-      post({ type: "lod", level, segs: S.segs, segRange: S.segRange, segCap: S.segCap, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, buckets: BUCKETS, stats: s },
-        [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer]);
+      post({ type: "lod", level, segs: S.segs, segRange: S.segRange, segCap: S.segCap, segRangeA1: S.segRangeA1, segCapA1: S.segCapA1, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, buckets: BUCKETS, stats: s },
+        [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, S.segRangeA1.buffer, S.segCapA1.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer]);
     }
     stats.totalMs = Math.round(now() - t0);
     post({ type: "done", stats });
@@ -297,8 +311,8 @@
     const bucketer = tileBucketer(tile);
     const S = bucketSegments(raw, bucketer), B = bucketTriangles(F.pos, F.idx, bucketer);
     const stats = { key: msg.key, z: level, segments: raw.length / 7, faceVertices: F.vertices, triangles: F.triangles, ms: Math.round(now() - t0), bytes: msg.buffer.byteLength };
-    post({ type: "tile", key: msg.key, tile, segs: S.segs, segRange: S.segRange, segCap: S.segCap, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, buckets: bucketer.count, stats },
-      [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer]);
+    post({ type: "tile", key: msg.key, tile, segs: S.segs, segRange: S.segRange, segCap: S.segCap, segRangeA1: S.segRangeA1, segCapA1: S.segCapA1, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, buckets: bucketer.count, stats },
+      [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, S.segRangeA1.buffer, S.segCapA1.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer]);
   }
   function now() { return (typeof performance !== "undefined" ? performance.now() : Date.now()); }
 

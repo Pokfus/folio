@@ -190,7 +190,7 @@
     }
     function onTile(m) {
       tilePending.delete(m.key);
-      R.setTile(m.key, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }, m.tile);
+      R.setTile(m.key, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }, m.tile);
       tileCache.set(m.key, { tile: m.tile, stats: m.stats });
       stats.tiles.push(m.stats); if (stats.tiles.length > 200) stats.tiles.shift();
       while (tileCache.size > TILE_CACHE) { const oldest = tileCache.keys().next().value; if (view.tiles.includes(oldest) || view.parents.includes(oldest)) break; tileCache.delete(oldest); R.dropTile(oldest); tilesEvicted++; }
@@ -360,7 +360,7 @@
       }
       if (m.type === "lod") {
         const tu = performance.now();
-        R.setLevel(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap });
+        R.setLevel(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap });
         stats.uploads[m.level] = Math.round(performance.now() - tu);
         say(m.level === 0 ? "Drawing…" : "Adding detail…", 0.5 + 0.17 * (m.level + 1));
         invalidate();

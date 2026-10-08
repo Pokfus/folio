@@ -16,7 +16,7 @@ Playwright suites all load, so there is exactly one definition of every byte.
 |---|---|---|---|---|
 | 0 | `node fetch-sources.js [id…]` | `sources.json` | `src/<id>/` (the archive, unpacked) | minutes (OSM is 923 MB) |
 | 1 | `node --max-old-space-size=12000 build-land.js` | OSM land polygons | `out/coast.bin`, `out/land-log.json` | ~90 s |
-| 2 | `node --max-old-space-size=12000 build-admin.js` | `out/coast.bin`, NE admin-0, NE admin-1 | `out/full.bin`, `out/admin-log.json`, `out/admin-report.json` | ~10 min |
+| 2 | `node --max-old-space-size=12000 build-admin.js` | `out/coast.bin`, NE admin-0, NE admin-1 | `out/full.bin`, `out/admin-log.json`, `out/admin-report.json` | ~20 min (the LOD 4 crossing repair is most of it) |
 | 8 | `node pack.js [--install]` | `out/full.bin` | `out/dist/` (the core, the tiles, `tiles-report.json`); `--install` copies them into `atlas/data/` | ~1 min |
 | 9 | `node check-topology.js --tiles` (from the repo root: `node .claude/atlas-build/check-topology.js --tiles`) | `atlas/data/` | nothing; exit 1 on any failure | ~2 min |
 
@@ -52,6 +52,11 @@ memory and prints the size report without writing.
   rules, the tolerances, the LOD intervals `LOD_M`). Set `DEBUG_PIECE_AT="lon,lat;lon,lat"` to print,
   for every land piece whose bounding box holds a point, its size, its interior sample points and the
   Natural Earth polygons that contain them — it is how the enclave-labelling fault was found.
+  `DEBUG_NODE="lon,lat,radius;…"` prints, at face-walk time, every half-arc at every node within the
+  radius with its kind, flags, length and angle, and the full half-arc list of every mixed cycle (a
+  cycle that walks coast on both sides) — how the Fenwick Island and Smith Island leaks were found.
+  `DEBUG_STOP=walk` exits right after the face walk (about four minutes in) with the snap log written
+  to `out/admin-log-walk.json`, so a walk fault iterates at a fifth of the full run's cost.
 - `pack.js` is fast; re-run it alone after a change to the tile grid, the resident level count or
   the clipping.
 - The snap log fails the build when a snap exceeds its source's tolerance (`TOLERANCE_M`); read
