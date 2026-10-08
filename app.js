@@ -10937,6 +10937,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        one of the three read until a chest opens or the Reliquary is visited. Warmed at idle after boot
        and awaited by the four surfaces that render prose or a picture. See artefactExtraIngest. */
     artefactExtra: { files: ["artefacts-extra.js"], after: artefactExtraIngest },
+    /* ATLAS v2 — the code bundle of the WebGL2 globe behind `#map2` (Oct 2026, docs/atlas-v2-design.md §7
+       Phase 0). Three plain scripts, each assigning one global (AtlasFormat, AtlasGL, AtlasV2); the worker
+       and earcut are fetched by atlas.js itself, and the topology (atlas/data/topology.bin) by fetch(), so
+       nothing here touches the eager path. v1's `atlas` bundle below is untouched until Phase 5. */
+    atlas2: { files: ["atlas/atlas-format.js", "atlas/atlas-gl.js", "atlas/atlas.js"] },
     // everything else the Atlas needs: historical eras, physical layers, per-country prose + figures
     atlas: {
       files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js", "country-sources.js"],
@@ -46450,6 +46455,35 @@ let prev = null;
   // "Find it" — the daily geography minigame IS the Atlas page in game mode (same globe, same eras, same renderer)
   /* The gate goes here rather than inside PAGES.map, which is the whole Atlas and knows nothing about
      daily games: this is the only route into game mode, so it is the only door to hold. */
+  /* ATLAS v2 PREVIEW (Oct 2026; docs/atlas-v2-design.md §7 Phase 0). A thin page: it loads the lazy code
+     bundle and hands the root element to atlas/atlas.js, which fetches the topology, drives the worker and
+     renders. Unlisted and unlinked until Phase 1; v1 at #map is untouched. */
+  PAGES.map2 = function (root) {
+    if (!dataReady("atlas2")) {
+      root.innerHTML = `
+        <div class="data-loading" role="status" aria-live="polite">
+          <span class="dl-globe" aria-hidden="true"></span>
+          <strong>Drawing the Atlas (preview)</strong>
+          <span class="dl-note">Fetching the new globe’s renderer — once per visit.</span>
+          ${dlBarHTML(["atlas2"])}
+        </div>`;
+      wireDlBar(root, ["atlas2"]);
+      const want = current.name;
+      ensureData("atlas2").then((ok) => {
+        if (current.name !== want || !view.contains(root)) return;
+        if (ok) render();
+        else root.innerHTML = `
+          <div class="data-loading dl-fail" role="alert">
+            <strong>The Atlas couldn’t load</strong>
+            <span class="dl-note">Its renderer didn’t arrive. Check your connection and try again.</span>
+            <button class="btn" type="button" onclick="location.reload()">Reload</button>
+          </div>`;
+      });
+      return;
+    }
+    if (!window.AtlasV2 || typeof window.AtlasV2.mount !== "function") { root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>The Atlas couldn’t load</strong></div>'; return; }
+    window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin" });
+  };
   PAGES.findit = function (root) {
     if (gameLockedToday(root, "findit")) return;
     PAGES.map(root, { game: true });
@@ -53171,7 +53205,7 @@ let prev = null;
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "map2", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";

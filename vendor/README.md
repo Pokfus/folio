@@ -12,3 +12,4 @@ Every file here has a row below. Keep the table current in the same commit that 
 
 | file | library | version | upstream | licence | why Folio uses it |
 |---|---|---|---|---|---|
+| `atlas/vendor/earcut.js` (+ `earcut.LICENSE` beside it) | earcut | 3.0.1 | https://github.com/mapbox/earcut | ISC | Atlas v2 triangulates every country's fill with holes in its worker (docs/atlas-v2-design.md §2.2–2.3); robust polygon triangulation is a known swamp and earcut is the reference implementation (MapLibre, deck.gl). It lives under `atlas/` because only the lazy Atlas bundle and its worker ever load it; one line (the ES-module export → a global) is changed, as its header says. |

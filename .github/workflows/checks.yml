@@ -68,6 +68,14 @@ jobs:
           for f in .claude/*.js; do node --check "$f" || exit 1; done
           echo "all .claude/*.js parse"
 
+      # ATLAS v2 (Oct 2026, docs/atlas-v2-design.md §7). The lazy bundle under atlas/ and its vendored
+      # earcut are site code like any other root file; the build pipeline under .claude/atlas-build/
+      # needs `npm ci` to RUN but not to PARSE, so it is syntax-checked here and nothing more.
+      - name: Syntax-check the Atlas v2 bundle and build scripts
+        run: |
+          for f in atlas/*.js atlas/vendor/*.js .claude/atlas-build/*.js .claude/atlas-build/lib/*.js; do node --check "$f" || exit 1; done
+          echo "atlas/ and .claude/atlas-build/ parse"
+
       # The suites that need no browser. Each exits non-zero on failure.
       - name: test-card-plans
         run: node .claude/test-card-plans.js
@@ -102,6 +110,14 @@ jobs:
       # the shipped corpus; check-docs guards the CLAUDE.md/docs split in both directions.
       - name: check-docs
         run: node .claude/check-docs.js
+      # THE ATLAS v2 TOPOLOGY IS A GENERATED FILE WITH INVARIANTS THAT FAIL SILENTLY (Oct 2026;
+      # docs/atlas-v2-design.md §2.11): a border two faces walk the same way still draws, a coast arc
+      # no face claims still draws, a crossing at one level of detail is a sliver nobody sees until a
+      # fill leaks. check-topology.js is zero-dependency (the same reader the browser uses) and runs
+      # on the committed atlas/data/topology.bin in seconds, so it is a gate. The size ceiling is
+      # Phase 0's (1.5 MB for Natural Earth alone); raise it deliberately when Phase 2 adds the steps.
+      - name: check-topology (Atlas v2)
+        run: node .claude/atlas-build/check-topology.js --max-bytes 1572864
       # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
       # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
       # for every visitor -- and the only symptom is a slower site.
@@ -261,6 +277,9 @@ jobs:
           npm i --no-audit --no-fund playwright@latest >/dev/null
           npx playwright install --with-deps chromium
 
+      # test-atlas-perf.js is in this loop like every other suite (it says "playwright"). It prints the
+      # v1 and v2 frame-time tables side by side and fails only on v2's §2.2 budget, so the comparison
+      # is on the record of every run -- open its group in the log to read it.
       - name: Run the browser suites
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
