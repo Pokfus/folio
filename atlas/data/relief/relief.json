@@ -1,0 +1,169 @@
+{
+ "format": 1,
+ "generated": "2026-10-08T20:42:41.824Z",
+ "generator": "folio atlas-build: build-relief.js (0.1.0)",
+ "sources": [
+  {
+   "id": "etopo-2022-60s",
+   "name": "ETOPO 2022 Global Relief Model — 60 arc-second surface elevation, ice surface, GeoTIFF (bedrock+bathymetry in one grid)",
+   "version": "v1 (2022), 60 arc-second",
+   "url": "https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2022/data/60s/60s_surface_elev_gtif/ETOPO_2022_v1_60s_N90W180_surface.tif",
+   "licence": "CC0",
+   "licenceUrl": "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ngdc.mgg.dem:etopo_2022/html",
+   "attribution": "NOAA National Centers for Environmental Information. 2022: ETOPO 2022 15 Arc-Second Global Relief Model. NOAA National Centers for Environmental Information. DOI: 10.25921/fd45-gt74. Accessed 2026-10-08. Public domain (CC0 1.0).",
+   "retrieved": "2026-10-08",
+   "sha256": "9d27d4b8ea8e76977e2988bca667d7c8fa68b927355feffcddd6b4875a7fd08e"
+  }
+ ],
+ "encoding": {
+  "planes": "three 8-bit greyscale PNGs per tile: <base>.hi.png, <base>.lo.png (height + 32768 = hi·256 + lo, metres), <base>.sh.png (hillshade 0–255, azimuth 315°, altitude 45°, 180 = level ground, flat over the sea floor)",
+  "offset": 32768,
+  "seaShade": 180
+ },
+ "light": {
+  "azimuth": 315,
+  "altitude": 45
+ },
+ "source": {
+  "width": 21600,
+  "height": 10800,
+  "arcseconds": 60
+ },
+ "levels": [
+  {
+   "level": 0,
+   "width": 4096,
+   "height": 2048,
+   "tile": null,
+   "cols": 1,
+   "rows": 1,
+   "method": "box",
+   "kmPerTexel": 9.77,
+   "bytes": 9319328,
+   "files": 3,
+   "largestTile": 9319328,
+   "tiles": [
+    {
+     "x": 0,
+     "y": 0,
+     "base": "L0",
+     "bytes": {
+      "hi": 1258241,
+      "lo": 7453423,
+      "sh": 607664
+     },
+     "total": 9319328
+    }
+   ]
+  },
+  {
+   "level": 1,
+   "width": 8192,
+   "height": 4096,
+   "tile": 2048,
+   "cols": 4,
+   "rows": 2,
+   "method": "box",
+   "kmPerTexel": 4.89,
+   "bytes": 34429735,
+   "files": 24,
+   "largestTile": 4667658,
+   "tiles": [
+    {
+     "x": 0,
+     "y": 0,
+     "base": "L1/0-0",
+     "bytes": {
+      "hi": 493970,
+      "lo": 3571842,
+      "sh": 357656
+     },
+     "total": 4423468
+    },
+    {
+     "x": 1,
+     "y": 0,
+     "base": "L1/1-0",
+     "bytes": {
+      "hi": 493985,
+      "lo": 3604918,
+      "sh": 355068
+     },
+     "total": 4453971
+    },
+    {
+     "x": 2,
+     "y": 0,
+     "base": "L1/2-0",
+     "bytes": {
+      "hi": 351064,
+      "lo": 3207219,
+      "sh": 592335
+     },
+     "total": 4150618
+    },
+    {
+     "x": 3,
+     "y": 0,
+     "base": "L1/3-0",
+     "bytes": {
+      "hi": 547774,
+      "lo": 3580638,
+      "sh": 539246
+     },
+     "total": 4667658
+    },
+    {
+     "x": 0,
+     "y": 1,
+     "base": "L1/0-1",
+     "bytes": {
+      "hi": 552545,
+      "lo": 3614576,
+      "sh": 112787
+     },
+     "total": 4279908
+    },
+    {
+     "x": 1,
+     "y": 1,
+     "base": "L1/1-1",
+     "bytes": {
+      "hi": 482659,
+      "lo": 3462750,
+      "sh": 305389
+     },
+     "total": 4250798
+    },
+    {
+     "x": 2,
+     "y": 1,
+     "base": "L1/2-1",
+     "bytes": {
+      "hi": 477683,
+      "lo": 3401981,
+      "sh": 230261
+     },
+     "total": 4109925
+    },
+    {
+     "x": 3,
+     "y": 1,
+     "base": "L1/3-1",
+     "bytes": {
+      "hi": 473078,
+      "lo": 3386954,
+      "sh": 233357
+     },
+     "total": 4093389
+    }
+   ]
+  }
+ ],
+ "totalBytes": 43749063,
+ "files": 28,
+ "largest": {
+  "bytes": 7453423,
+  "file": "L0.lo.png"
+ }
+}
