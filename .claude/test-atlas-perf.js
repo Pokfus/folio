@@ -74,6 +74,12 @@ async function sampler(page) {
   });
 }
 async function measure(page, fn) {
+  // one frame before the window opens: after a pause headless Chromium's first draw into the canvas
+  // costs a vsync or two more than the steady frame (measured: the first frame of every drag on
+  // #map2 read 100 ms where the next ones read 50–67) — a wake-up of the browser, not a cost of the
+  // renderer, and not what the gate is about
+  await page.evaluate(() => { const a = document.querySelector(".atlas2"); if (a && a.__atlas2) a.__atlas2.invalidate(); });
+  await sleep(150);
   await page.evaluate(() => { window.__ft.d = []; window.__ft.on = true; });
   await fn();
   const d = await page.evaluate(() => { window.__ft.on = false; return window.__ft.d.slice(); });
