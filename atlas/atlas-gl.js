@@ -6,16 +6,19 @@
    frame and the CPU almost nothing. The horizon is a per-fragment `z < 0 → discard`: exact and free.
 
      const R = AtlasGL.create(canvas, { antialias })   null when WebGL2 is unavailable (the caller shows a sentence)
-     R.setLevel(level, data)                    one LOD's arrays from the worker, kept for context loss
-     R.setPalette({ ocean, land, coast, border, rim, halo, grat, selected })   CSS hex colours or [r,g,b]
+     R.setLevel(level, data)                    one resident LOD's arrays from the worker, kept for context loss
+     R.setTile(key, data) / R.dropTile(key)     one tile's arrays (Phase 1a), the same shape as a level
+     R.setPalette({ ocean, land, coast, border, admin1, rim, halo, grat, selected })   CSS hex colours or [r,g,b]
      R.resize(cssW, cssH, dpr)
      R.render(view)                             view = { rot: Float32Array(9) row-major, radius, cx, cy (CSS px),
-                                                         level, graticule }
+                                                         level (0–4), graticule, admin1 (bool),
+                                                         tiles: [keys at the level], parents: [keys at level−1] }
      R.pick(view, x, y)                         → { face } | { arc } | null, from a 1×1 ID pass at (x, y)
+     R.stats()                                  → { triangles, segments, draws, tilesDrawn, … } of the last frame
      R.dispose()
 
-   PASSES, per frame (§2.2 "the draw list", as built — two things differ from the design's text and
-   both were measured in Phase 0 on the CI runner's software GL, see §7 "as built"):
+   PASSES, per frame (§2.2 "the draw list", as built — measured in Phase 0 on the CI runner's software
+   GL, see §7 "as built"):
      1. sphere   one full-screen triangle, scissored to the disc's bounding box; the fragment shader
                  finds the ray–sphere hit, paints ocean with limb darkening, an anti-aliased rim, a soft
                  halo outside, and the graticule when asked (lon/lat from the inverse rotation).
@@ -26,28 +29,47 @@
                  no instancing: SwiftShader spends ~25 µs per instance, which made the design's
                  instanced quads a 0.9 s frame at globe scale). The vertex shader builds a triangle
                  that covers the segment's capsule; the fragment shader shades by distance to the
-                 segment, with the horizon from the interpolated z. Coast and border differ by width
-                 and colour.
+                 segment, with the horizon from the interpolated z. Coast, border and admin-1 differ
+                 by width and colour; a DISPUTED line is dashed; admin-1 is drawn only when asked.
      ID pass     passes 2–3 again with ids as colours into a 1×1 framebuffer whose viewport is shifted
                  so the pixel under the pointer lands at (0,0); one readPixels. No point-in-polygon code.
 
-   CULLING. The worker sorts triangles and segments into 384 direction buckets, each with a bounding
+   TILES (Phase 1a, §2.3). Past the resident levels the view is covered by tiles, each uploaded like a
+   level. A frame at a tile level first writes the extents of the LOADED tiles into the STENCIL buffer
+   (2 for the level's own tiles, 1 for a loaded parent tile of the level above), then draws the finest
+   resident level only where the stencil is 0, the parents only where it is 1, and the level's tiles
+   everywhere they cover. So a tile that has not arrived is never a hole — the coarser line shows
+   through until it lands — and a loaded tile never shows a second, coarser coastline under its own.
+   Faces of all tiles are drawn before the arcs of any, so a neighbour's fill never covers half a
+   stroke at a tile edge.
+
+   CULLING. The worker sorts triangles and segments into 1536 direction buckets, each with a bounding
    cap. A frame computes the cap of what the viewport can show (the whole near hemisphere when the
    disc fits, a few degrees when zoomed in) and draws only the buckets whose caps touch it, merged
-   into contiguous runs — a dozen draw calls, not 384. Software GL pays per triangle rasterised, and
+   into contiguous runs (small hidden gaps included) — a few dozen draw calls, not 1536. Software GL pays per triangle rasterised, and
    a zoomed-in view holds a few per cent of the geometry.
 
    MSAA is OFF by default: on software GL it tripled the face pass for nothing a reader sees, since
    every fill edge is covered by an anti-aliased coast or border line. `antialias: true` turns it on.
-   Context loss is handled: every buffer is rebuilt from the arrays this module keeps.
+   Context loss is handled: every buffer is rebuilt from the arrays this module keeps. A freshly
+   uploaded level or tile is drawn once off-screen (one triangle, one segment) so the driver's first-use
+   work — SwiftShader's texture conversion was the wheel spike of Phase 0 — happens at upload, not in the
+   first frame that needs it.
 */
 (function (root) {
   "use strict";
 
+  // a quad around the disc and its halo, not the whole screen: at the globe view two thirds of the
+  // viewport is outside the halo and every fragment there was a discard (measured in software GL:
+  // the sphere pass was a sixth of a globe frame)
   const VS_SPHERE = `#version 300 es
     precision highp float;
-    const vec2 Q[3] = vec2[3](vec2(-1.0, -1.0), vec2(3.0, -1.0), vec2(-1.0, 3.0));
-    void main() { gl_Position = vec4(Q[gl_VertexID], 0.0, 1.0); }`;
+    uniform vec2 uCenter, uSize; uniform float uRadius, uHaloW;
+    const vec2 Q[6] = vec2[6](vec2(-1.0, -1.0), vec2(1.0, -1.0), vec2(1.0, 1.0), vec2(-1.0, -1.0), vec2(1.0, 1.0), vec2(-1.0, 1.0));
+    void main() {
+      vec2 px = uCenter + Q[gl_VertexID] * uRadius * (1.0 + uHaloW + 0.01);   // device px, y down
+      gl_Position = vec4(px.x / uSize.x * 2.0 - 1.0, 1.0 - px.y / uSize.y * 2.0, 0.0, 1.0);
+    }`;
   const FS_SPHERE = `#version 300 es
     precision highp float;
     uniform vec2 uCenter;      // device px, y down
@@ -113,22 +135,31 @@
       vec4 s = texelFetch(uStyle, ivec2(id & 255, id >> 8), 0);
       o = vec4(s.rgb * s.a, s.a);
     }`;
+  // the stencil pass: tile extents as triangles on the sphere, colour writes off; only z matters
+  const FS_EXTENT = `#version 300 es
+    precision highp float;
+    in float vZ; flat in float vFace;
+    out vec4 o;
+    void main() { if (vZ < 0.0) discard; o = vec4(0.0); }`;
 
   const VS_ARC = `#version 300 es
     precision highp float;
     uniform sampler2D uSeg;          // RGBA32F, two texels per segment: (a.xyz, tag) (b.xyz, 0)
     uniform int uTexW;
     uniform mat3 uRot; uniform vec2 uCenter, uSize; uniform float uRadius;
-    uniform vec2 uWidths;            // device px: coast, border
-    flat out vec2 vA; flat out vec2 vB; flat out float vHw; flat out float vKind; flat out float vArc; flat out vec2 vZ;
+    uniform vec3 uWidths;            // device px: coast, border, admin-1
+    uniform float uAdmin1;           // 1 = draw admin-1 arcs
+    flat out vec2 vA; flat out vec2 vB; flat out float vHw; flat out float vKind; flat out float vFlags; flat out float vArc; flat out vec2 vZ;
     void main() {
       int seg = gl_VertexID / 3, k = gl_VertexID - seg * 3, t0 = seg * 2;
       vec4 A = texelFetch(uSeg, ivec2(t0 % uTexW, t0 / uTexW), 0);
       vec4 B = texelFetch(uSeg, ivec2((t0 + 1) % uTexW, (t0 + 1) / uTexW), 0);
       vec3 pa = uRot * A.xyz, pb = uRot * B.xyz;
       vec2 sa = uCenter + vec2(pa.x, -pa.y) * uRadius, sb = uCenter + vec2(pb.x, -pb.y) * uRadius;
-      float kind = mod(A.w, 8.0);
-      float w = kind < 0.5 ? uWidths.x : uWidths.y;
+      float tag = A.w;
+      float kind = mod(tag, 8.0);
+      float flags = floor(mod(tag, 64.0) / 8.0);
+      float w = kind < 0.5 ? uWidths.x : kind < 4.5 ? uWidths.y : uWidths.z;
       float hw = w * 0.5 + 1.0;                           // a pixel of anti-aliasing margin
       vec2 d = sb - sa; float L = length(d);
       vec2 dir = L > 1e-6 ? d / L : vec2(1.0, 0.0);
@@ -137,13 +168,14 @@
       vec2 base = sa - dir * hw; float Lt = L + 2.0 * hw;
       vec2 p = k == 0 ? base - nrm * 2.0 * hw : k == 1 ? base + nrm * 2.0 * hw : base + dir * 2.0 * Lt;
       if (pa.z < -0.01 && pb.z < -0.01) p = vec2(-1.0e5);  // wholly behind the horizon: off screen, nothing rasterised
+      if (kind > 4.5 && uAdmin1 < 0.5) p = vec2(-1.0e5);   // admin-1 below its zoom threshold: not drawn
       gl_Position = vec4(p.x / uSize.x * 2.0 - 1.0, 1.0 - p.y / uSize.y * 2.0, 0.0, 1.0);
-      vA = sa; vB = sb; vHw = w * 0.5; vKind = kind; vArc = floor(A.w / 8.0); vZ = vec2(pa.z, pb.z);
+      vA = sa; vB = sb; vHw = w * 0.5; vKind = kind; vFlags = flags; vArc = floor(tag / 64.0); vZ = vec2(pa.z, pb.z);
     }`;
   const FS_ARC = `#version 300 es
     precision highp float;
-    flat in vec2 vA; flat in vec2 vB; flat in float vHw; flat in float vKind; flat in float vArc; flat in vec2 vZ;
-    uniform float uHeight; uniform vec3 uCoast, uBorder; uniform float uIdPass;
+    flat in vec2 vA; flat in vec2 vB; flat in float vHw; flat in float vKind; flat in float vFlags; flat in float vArc; flat in vec2 vZ;
+    uniform float uHeight; uniform vec3 uCoast, uBorder, uAdmin1Col; uniform float uIdPass;
     out vec4 o;
     void main() {
       vec2 p = vec2(gl_FragCoord.x, uHeight - gl_FragCoord.y);
@@ -160,8 +192,10 @@
       }
       float a = 1.0 - smoothstep(vHw - 0.5, vHw + 0.5, dist);
       if (a <= 0.003) discard;
+      // a DISPUTED line (one source's own, or a line one source puts on land and the other in water) is dashed: 6 px on, 4 px off
+      if (mod(vFlags, 2.0) >= 1.0) { float along = t * sqrt(l2); if (mod(along, 10.0) > 6.0) discard; }
       a *= smoothstep(-0.002, 0.03, z);                   // fade a line into the horizon instead of cutting it
-      vec3 c = vKind < 0.5 ? uCoast : uBorder;
+      vec3 c = vKind < 0.5 ? uCoast : vKind < 4.5 ? uBorder : uAdmin1Col;
       o = vec4(c * a, a);
     }`;
 
@@ -184,21 +218,36 @@
   }
 
   const SEG_TEX_W = 4096;
+  const D2R = Math.PI / 180;
+
+  // a tile's extent as triangles on the sphere: an n×n grid of the lon/lat rectangle (unit vectors)
+  function extentMesh(tile, n) {
+    const pos = new Float32Array((n + 1) * (n + 1) * 4), idx = new Uint16Array(n * n * 6);
+    let k = 0;
+    for (let j = 0; j <= n; j++) for (let i = 0; i <= n; i++) {
+      const lon = (tile.lon0 + (tile.lon1 - tile.lon0) * i / n) * D2R, lat = (tile.lat0 + (tile.lat1 - tile.lat0) * j / n) * D2R, c = Math.cos(lat);
+      pos[k++] = c * Math.cos(lon); pos[k++] = c * Math.sin(lon); pos[k++] = Math.sin(lat); pos[k++] = 0;
+    }
+    k = 0;
+    for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) { const a = j * (n + 1) + i, b = a + 1, c = a + n + 1, d = c + 1; idx[k++] = a; idx[k++] = b; idx[k++] = c; idx[k++] = b; idx[k++] = d; idx[k++] = c; }
+    return { pos, idx };
+  }
 
   function create(canvas, opts) {
     opts = opts || {};
-    const gl = canvas.getContext("webgl2", { antialias: !!opts.antialias, alpha: true, premultipliedAlpha: true, depth: false, stencil: false, preserveDrawingBuffer: false, powerPreference: "high-performance" });
+    const gl = canvas.getContext("webgl2", { antialias: !!opts.antialias, alpha: true, premultipliedAlpha: true, depth: false, stencil: true, preserveDrawingBuffer: false, powerPreference: "high-performance" });
     if (!gl) return null;
     const levels = {};            // level → { data, gpu }
-    let palette = { ocean: [0.70, 0.92, 1.0], land: [0.9, 0.9, 0.92], coast: [0.55, 0.55, 0.6], border: [0.45, 0.45, 0.5], rim: [0.5, 0.5, 0.55], halo: [0.6, 0.65, 0.9], grat: [0.2, 0.2, 0.3], selected: [0.95, 0.75, 0.3] };
+    const tiles = new Map();      // key → { data, gpu, extent }
+    let palette = { ocean: [0.70, 0.92, 1.0], land: [0.9, 0.9, 0.92], coast: [0.55, 0.55, 0.6], border: [0.45, 0.45, 0.5], admin1: [0.6, 0.6, 0.66], rim: [0.5, 0.5, 0.55], halo: [0.6, 0.65, 0.9], grat: [0.2, 0.2, 0.3], selected: [0.95, 0.75, 0.3] };
     let prog = null, styleTex = null, emptyVao = null, idFbo = null, idTex = null, lost = false;
     let faceCount = 0, selected = -1;
     let dpr = 1, W = 0, H = 0;
-    const stats = { frames: 0, lastMs: 0, draws: 0, trianglesDrawn: 0, segmentsDrawn: 0, visibleAngle: 0 };
+    const stats = { frames: 0, lastMs: 0, draws: 0, trianglesDrawn: 0, segmentsDrawn: 0, visibleAngle: 0, tilesDrawn: 0, parentsDrawn: 0, level: 0, coreLevel: -1 };
     const debug = { sphere: true, faces: true, arcs: true, cull: true };   // toggles for the perf suite's breakdown; always on in use
 
     function setup() {
-      prog = { sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), arc: compile(gl, VS_ARC, FS_ARC, "arc") };
+      prog = { sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), extent: compile(gl, VS_FACE, FS_EXTENT, "extent"), arc: compile(gl, VS_ARC, FS_ARC, "arc") };
       emptyVao = gl.createVertexArray();
       styleTex = gl.createTexture();
       idTex = gl.createTexture();
@@ -212,6 +261,7 @@
       gl.disable(gl.DEPTH_TEST); gl.disable(gl.CULL_FACE);
       gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
       for (const k of Object.keys(levels)) upload(levels[k]);
+      for (const t of tiles.values()) upload(t);
       if (faceCount) buildStyle();
     }
     function upload(Lv) {
@@ -234,7 +284,29 @@
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       g.segCount = n;
+      // a tile's extent, for the stencil
+      if (Lv.tile) {
+        const m = extentMesh(Lv.tile, Lv.tile.z >= 4 ? 4 : 8);
+        g.vaoExt = gl.createVertexArray(); gl.bindVertexArray(g.vaoExt);
+        g.extPos = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, g.extPos); gl.bufferData(gl.ARRAY_BUFFER, m.pos, gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 16, 0);
+        gl.enableVertexAttribArray(aFace); gl.vertexAttribPointer(aFace, 1, gl.FLOAT, false, 16, 12);
+        g.extIdx = gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, g.extIdx); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, m.idx, gl.STATIC_DRAW);
+        g.extCount = m.idx.length;
+        gl.bindVertexArray(null);
+      }
+      warm(Lv);
     }
+    /* the first draw with a new texture or buffer is where a software driver converts it; one tiny
+       draw into the ID framebuffer at upload pays that outside any gesture (the wheel spike of Phase 0) */
+    function warm(Lv) {
+      const g = Lv.gpu;
+      gl.bindFramebuffer(gl.FRAMEBUFFER, idFbo); gl.viewport(0, 0, 1, 1); gl.disable(gl.SCISSOR_TEST); gl.disable(gl.STENCIL_TEST);
+      if (g.faceCount) { const P = prog.face; gl.useProgram(P.p); gl.uniformMatrix3fv(P.u.uRot, false, IDENT); gl.uniform2f(P.u.uCenter, 0, 0); gl.uniform2f(P.u.uSize, 1, 1); gl.uniform1f(P.u.uRadius, 0.0001); gl.uniform1f(P.u.uIdPass, 1); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, styleTex); gl.uniform1i(P.u.uStyle, 0); gl.bindVertexArray(g.vaoFace); gl.drawElements(gl.TRIANGLES, 3, gl.UNSIGNED_INT, 0); gl.bindVertexArray(null); }
+      if (g.segCount) { const P = prog.arc; gl.useProgram(P.p); gl.uniformMatrix3fv(P.u.uRot, false, IDENT); gl.uniform2f(P.u.uCenter, 0, 0); gl.uniform2f(P.u.uSize, 1, 1); gl.uniform1f(P.u.uRadius, 0.0001); gl.uniform1f(P.u.uHeight, 1); gl.uniform3f(P.u.uWidths, 1, 1, 1); gl.uniform1f(P.u.uAdmin1, 1); gl.uniform1f(P.u.uIdPass, 1); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, g.segTex); gl.uniform1i(P.u.uSeg, 1); gl.uniform1i(P.u.uTexW, SEG_TEX_W); gl.bindVertexArray(emptyVao); gl.drawArrays(gl.TRIANGLES, 0, 3); }
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    }
+    const IDENT = new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]);
     function buildStyle() {
       const styleH = Math.max(1, Math.ceil(faceCount / 256));
       const px = new Uint8Array(256 * styleH * 4);
@@ -248,27 +320,35 @@
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     }
+    function release(Lv) {
+      const g = Lv.gpu; if (!g) return;
+      for (const k of ["facePos", "faceIdx", "extPos", "extIdx"]) if (g[k]) gl.deleteBuffer(g[k]);
+      for (const k of ["vaoFace", "vaoExt"]) if (g[k]) gl.deleteVertexArray(g[k]);
+      if (g.segTex) gl.deleteTexture(g.segTex);
+      Lv.gpu = null;
+    }
 
     canvas.addEventListener("webglcontextlost", (e) => { e.preventDefault(); lost = true; }, false);
     canvas.addEventListener("webglcontextrestored", () => { lost = false; setup(); }, false);
     setup();
 
-    // the level to draw: the one asked for, else the finest uploaded below it, else the coarsest above
+    // the resident level to draw: the one asked for, else the finest uploaded below it, else the coarsest above
     function pickLevel(want) {
-      for (let l = want; l >= 0; l--) if (levels[l] && levels[l].gpu) return levels[l];
+      for (let l = Math.min(want, 2); l >= 0; l--) if (levels[l] && levels[l].gpu) return levels[l];
       for (let l = want + 1; l < 8; l++) if (levels[l] && levels[l].gpu) return levels[l];
       return null;
     }
 
     /* which buckets can be on screen: the cap of the visible part of the disc, against each bucket's cap */
-    function visibleRuns(range, cap, rot, radius, cx, cy) {
+    const GAP_MERGE = 256;   // items (segments or triangles) of invisible buckets a run may swallow to avoid a draw call
+    function visibleRuns(range, cap, rot, radius, cx, cy, margin) {
       const n = range.length / 2;
       const runs = [];
       if (!debug.cull) { let s = -1, e = 0; for (let b = 0; b < n; b++) { if (!range[2 * b + 1]) continue; if (s < 0) s = range[2 * b]; e = range[2 * b] + range[2 * b + 1]; } if (s >= 0) runs.push([s, e - s]); return runs; }
       const fx = rot[6], fy = rot[7], fz = rot[8];
       // the farthest viewport corner from the disc centre decides how much of the near hemisphere shows
       const dmax = Math.max(Math.hypot(cx, cy), Math.hypot(W - cx, cy), Math.hypot(cx, H - cy), Math.hypot(W - cx, H - cy));
-      const rho = (dmax >= radius ? Math.PI / 2 : Math.asin(dmax / radius)) + 0.03;
+      const rho = (dmax >= radius ? Math.PI / 2 : Math.asin(dmax / radius)) + (margin == null ? 0.01 : margin);   // a bucket's cap already spans every vertex of its items; the margin covers float error
       stats.visibleAngle = rho;
       let s = -1, e = 0;
       for (let b = 0; b < n; b++) {
@@ -278,54 +358,108 @@
         const vis = Math.acos(d) - cap[4 * b + 3] <= rho;
         if (!vis) { if (s >= 0) { runs.push([s, e - s]); s = -1; } continue; }
         const start = range[2 * b];
-        if (s >= 0 && start === e) e = start + count;
+        // contiguous, or across a gap of a few hidden items: one draw call costs more than drawing them
+        if (s >= 0 && start - e <= GAP_MERGE) e = start + count;
         else { if (s >= 0) runs.push([s, e - s]); s = start; e = start + count; }
       }
       if (s >= 0) runs.push([s, e - s]);
       return runs;
     }
 
+    function drawFaces(Lv, view, idPass, R) {
+      const rot = view.rot, cx = view.cx * dpr, cy = view.cy * dpr, radius = view.radius * dpr;
+      const D = Lv.data, g = Lv.gpu;
+      const P = prog.face; gl.useProgram(P.p);
+      gl.uniformMatrix3fv(P.u.uRot, false, R);   // GLSL is column-major: the transpose of a row-major matrix
+      gl.uniform2f(P.u.uCenter, cx, cy); gl.uniform2f(P.u.uSize, W, H); gl.uniform1f(P.u.uRadius, radius);
+      gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, styleTex); gl.uniform1i(P.u.uStyle, 0);
+      gl.bindVertexArray(g.vaoFace);
+      for (const [start, count] of visibleRuns(D.faceRange, D.faceCap, rot, radius, cx, cy, Lv.tile ? 0.002 : 0.01)) { gl.drawElements(gl.TRIANGLES, count, gl.UNSIGNED_INT, start * 4); stats.draws++; stats.trianglesDrawn += count / 3; }
+      gl.bindVertexArray(null);
+    }
+    function drawArcs(Lv, view, idPass, R) {
+      const rot = view.rot, cx = view.cx * dpr, cy = view.cy * dpr, radius = view.radius * dpr;
+      const D = Lv.data, g = Lv.gpu;
+      const P = prog.arc; gl.useProgram(P.p);
+      gl.uniformMatrix3fv(P.u.uRot, false, R);
+      gl.uniform2f(P.u.uCenter, cx, cy); gl.uniform2f(P.u.uSize, W, H); gl.uniform1f(P.u.uRadius, radius); gl.uniform1f(P.u.uHeight, H);
+      gl.uniform3f(P.u.uWidths, 1.0 * dpr, 0.9 * dpr, 0.6 * dpr);
+      gl.uniform1f(P.u.uAdmin1, view.admin1 ? 1 : 0);
+      gl.uniform3fv(P.u.uCoast, palette.coast); gl.uniform3fv(P.u.uBorder, palette.border); gl.uniform3fv(P.u.uAdmin1Col, palette.admin1);
+      gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0);
+      gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, g.segTex); gl.uniform1i(P.u.uSeg, 1); gl.uniform1i(P.u.uTexW, SEG_TEX_W);
+      gl.bindVertexArray(emptyVao);
+      const margin = Lv.tile ? 0.002 : 0.01;
+      for (const [start, count] of visibleRuns(D.segRange, D.segCap, rot, radius, cx, cy, margin)) { gl.drawArrays(gl.TRIANGLES, start * 3, count * 3); stats.draws++; stats.segmentsDrawn += count; }
+      // the admin-1 list is submitted only past its zoom threshold (the worker keeps it apart; §2.3)
+      if (view.admin1 && D.segRangeA1) for (const [start, count] of visibleRuns(D.segRangeA1, D.segCapA1, rot, radius, cx, cy, margin)) { gl.drawArrays(gl.TRIANGLES, start * 3, count * 3); stats.draws++; stats.segmentsDrawn += count; }
+    }
+    function drawExtents(list, view, R, ref) {
+      const cx = view.cx * dpr, cy = view.cy * dpr, radius = view.radius * dpr;
+      const P = prog.extent; gl.useProgram(P.p);
+      gl.uniformMatrix3fv(P.u.uRot, false, R);
+      gl.uniform2f(P.u.uCenter, cx, cy); gl.uniform2f(P.u.uSize, W, H); gl.uniform1f(P.u.uRadius, radius);
+      gl.colorMask(false, false, false, false);
+      gl.stencilFunc(gl.ALWAYS, ref, 0xff); gl.stencilOp(gl.KEEP, gl.KEEP, gl.REPLACE);
+      for (const t of list) { gl.bindVertexArray(t.gpu.vaoExt); gl.drawElements(gl.TRIANGLES, t.gpu.extCount, gl.UNSIGNED_SHORT, 0); stats.draws++; }
+      gl.bindVertexArray(null);
+      gl.colorMask(true, true, true, true);
+    }
+
     function drawScene(view, idPass) {
-      const Lv = pickLevel(view.level);
       const rot = view.rot, cx = view.cx * dpr, cy = view.cy * dpr, radius = view.radius * dpr;
       if (!idPass && debug.sphere) {
         const P = prog.sphere; gl.useProgram(P.p);
         gl.bindVertexArray(emptyVao);
-        gl.uniform2f(P.u.uCenter, cx, cy); gl.uniform1f(P.u.uRadius, radius); gl.uniform1f(P.u.uHeight, H);
+        gl.uniform2f(P.u.uCenter, cx, cy); gl.uniform2f(P.u.uSize, W, H); gl.uniform1f(P.u.uRadius, radius); gl.uniform1f(P.u.uHeight, H);
         gl.uniformMatrix3fv(P.u.uRotT, false, rot);   // a row-major R read column-major IS its transpose
         gl.uniform3fv(P.u.uOcean, palette.ocean); gl.uniform3fv(P.u.uRim, palette.rim); gl.uniform3fv(P.u.uHalo, palette.halo); gl.uniform3fv(P.u.uGrat, palette.grat);
         gl.uniform1f(P.u.uGratOn, view.graticule ? 1 : 0); gl.uniform1f(P.u.uHaloW, 0.06);
-        gl.drawArrays(gl.TRIANGLES, 0, 3); stats.draws++;
+        gl.drawArrays(gl.TRIANGLES, 0, 6); stats.draws++;
       }
-      if (!Lv) return;
-      const D = Lv.data, g = Lv.gpu, R = transposed(rot);
-      if (debug.faces) {
-        const P = prog.face; gl.useProgram(P.p);
-        gl.uniformMatrix3fv(P.u.uRot, false, R);   // GLSL is column-major: the transpose of a row-major matrix
-        gl.uniform2f(P.u.uCenter, cx, cy); gl.uniform2f(P.u.uSize, W, H); gl.uniform1f(P.u.uRadius, radius);
-        gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0);
-        gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, styleTex); gl.uniform1i(P.u.uStyle, 0);
-        gl.bindVertexArray(g.vaoFace);
-        for (const [start, count] of visibleRuns(D.faceRange, D.faceCap, rot, radius, cx, cy)) { gl.drawElements(gl.TRIANGLES, count, gl.UNSIGNED_INT, start * 4); stats.draws++; stats.trianglesDrawn += count / 3; }
-        gl.bindVertexArray(null);
+      const R = transposed(rot);
+      const Lv = pickLevel(view.level);
+      stats.coreLevel = Lv ? Object.keys(levels).find((k) => levels[k] === Lv) | 0 : -1;
+      const own = [], parents = [];
+      let complete = false;
+      if (view.level >= 3) {
+        for (const k of view.tiles || []) { const t = tiles.get(k); if (t && t.gpu) own.push(t); }
+        complete = own.length === (view.tiles || []).length;   // every tile the view wants is here: nothing coarser is needed anywhere
+        if (!complete) for (const k of view.parents || []) { const t = tiles.get(k); if (t && t.gpu) parents.push(t); }
       }
-      if (debug.arcs) {
-        const P = prog.arc; gl.useProgram(P.p);
-        gl.uniformMatrix3fv(P.u.uRot, false, R);
-        gl.uniform2f(P.u.uCenter, cx, cy); gl.uniform2f(P.u.uSize, W, H); gl.uniform1f(P.u.uRadius, radius); gl.uniform1f(P.u.uHeight, H);
-        gl.uniform2f(P.u.uWidths, 1.0 * dpr, 0.9 * dpr);
-        gl.uniform3fv(P.u.uCoast, palette.coast); gl.uniform3fv(P.u.uBorder, palette.border);
-        gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0);
-        gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, g.segTex); gl.uniform1i(P.u.uSeg, 1); gl.uniform1i(P.u.uTexW, SEG_TEX_W);
-        gl.bindVertexArray(emptyVao);
-        for (const [start, count] of visibleRuns(D.segRange, D.segCap, rot, radius, cx, cy)) { gl.drawArrays(gl.TRIANGLES, start * 3, count * 3); stats.draws++; stats.segmentsDrawn += count; }
+      stats.tilesDrawn = own.length; stats.parentsDrawn = parents.length; stats.complete = complete;
+      const useStencil = !complete && (own.length || parents.length);
+      if (useStencil) {
+        gl.enable(gl.STENCIL_TEST);
+        gl.clearStencil(0); gl.stencilMask(0xff); gl.clear(gl.STENCIL_BUFFER_BIT);
+        if (parents.length) drawExtents(parents, view, R, 1);
+        if (own.length) drawExtents(own, view, R, 2);
+        gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP);
       }
+      // the resident level where no tile covers; the parents where only they do; the level's tiles over all
+      if (Lv && !complete) {
+        if (useStencil) gl.stencilFunc(gl.EQUAL, 0, 0xff);
+        if (debug.faces) drawFaces(Lv, view, idPass, R);
+        if (debug.arcs) drawArcs(Lv, view, idPass, R);
+      }
+      if (parents.length) {
+        gl.stencilFunc(gl.EQUAL, 1, 0xff);
+        if (debug.faces) for (const t of parents) drawFaces(t, view, idPass, R);
+        if (debug.arcs) for (const t of parents) drawArcs(t, view, idPass, R);
+      }
+      if (own.length) {
+        if (useStencil) gl.stencilFunc(gl.EQUAL, 2, 0xff);
+        if (debug.faces) for (const t of own) drawFaces(t, view, idPass, R);
+        if (debug.arcs) for (const t of own) drawArcs(t, view, idPass, R);
+      }
+      if (useStencil) gl.disable(gl.STENCIL_TEST);
     }
     const _t = new Float32Array(9);
     function transposed(m) { _t[0] = m[0]; _t[1] = m[3]; _t[2] = m[6]; _t[3] = m[1]; _t[4] = m[4]; _t[5] = m[7]; _t[6] = m[2]; _t[7] = m[5]; _t[8] = m[8]; return _t; }
 
     return {
-      gl, stats, debug,
+      gl, debug,
       get lost() { return lost; },
       levelLoaded(l) { return !!(levels[l] && levels[l].gpu); },
       levelData(l) { return levels[l] ? levels[l].data : null; },
@@ -333,6 +467,15 @@
         levels[level] = { data };
         if (!lost) upload(levels[level]);
       },
+      setTile(key, data, tile) {
+        if (tiles.has(key)) release(tiles.get(key));
+        const t = { data, tile };
+        tiles.set(key, t);
+        if (!lost) upload(t);
+      },
+      dropTile(key) { const t = tiles.get(key); if (!t) return; release(t); tiles.delete(key); },
+      tileLoaded(key) { const t = tiles.get(key); return !!(t && t.gpu); },
+      tileCount() { return tiles.size; },
       setFaceCount(n) { faceCount = n; if (!lost) buildStyle(); },
       setPalette(p) {
         for (const k of Object.keys(p)) palette[k] = typeof p[k] === "string" ? hex2rgb(p[k]) : p[k];
@@ -347,10 +490,10 @@
       render(view) {
         if (lost) return;
         const t0 = performance.now();
-        stats.draws = 0; stats.trianglesDrawn = 0; stats.segmentsDrawn = 0;
+        stats.draws = 0; stats.trianglesDrawn = 0; stats.segmentsDrawn = 0; stats.level = view.level;
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, W, H);
-        gl.disable(gl.SCISSOR_TEST);
+        gl.disable(gl.SCISSOR_TEST); gl.disable(gl.STENCIL_TEST);
         gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
         // scissor to the disc + halo, so software GL shades nothing it will discard
         const r = view.radius * dpr * 1.07, cx = view.cx * dpr, cy = view.cy * dpr;
@@ -371,7 +514,10 @@
         gl.disable(gl.SCISSOR_TEST);
         gl.disable(gl.BLEND);
         gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+        const save = { tiles: view.tiles, parents: view.parents };
+        view.tiles = []; view.parents = [];   // the ID pass reads the resident level: faces are the same ids, and the 1×1 target has no stencil
         drawScene(view, true);
+        view.tiles = save.tiles; view.parents = save.parents;
         const out = new Uint8Array(4);
         gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, out);
         gl.enable(gl.BLEND);
@@ -381,6 +527,8 @@
         if (id > 1048576) return { arc: id - 1048576 - 1 };
         return { face: id - 1 };
       },
+      stats() { return { triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, complete: !!stats.complete, tilesResident: tiles.size, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle }; },
+      rawStats: stats,
       dispose() {
         try { const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); } catch (e) {}
       },

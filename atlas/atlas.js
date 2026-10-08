@@ -1,42 +1,53 @@
-/* atlas.js — Atlas v2's page: the scene, the input, the worker bridge (docs/atlas-v2-design.md §2.1).
+/* atlas.js — Atlas v2's page: the scene, the input, the worker bridge, the tiles (docs/atlas-v2-design.md §2.1).
 
-   Phase 0 scope (§7): the present-day earth from atlas/data/topology.bin, drawn by atlas-gl.js at
-   three levels of detail, with drag, wheel, pinch and keyboard, and a tap that names the country
-   under it through the ID pass. No labels, no timeline, no popup, no study material — those are
-   Phases 1–3. The page is reached at #map2; v1 at #map is untouched.
+   Phase 1a scope (§7): the present-day earth from atlas/data/topology.bin at three resident levels
+   and from atlas/data/tiles/<z>/<x>-<y>.bin at two finer ones, drawn by atlas-gl.js, with drag,
+   wheel, pinch and keyboard, and a tap that names the country under it through the ID pass. No
+   labels, no timeline, no popup, no study material — those are Phases 1c–3. The page is reached at
+   #map2; v1 at #map is untouched.
 
-     window.AtlasV2.mount(root, { dataUrl })  → controller { dispose(), stats, view }
+     window.AtlasV2.mount(root, { dataUrl, tileUrl })  → controller { dispose(), stats, view, … }
 
    WHAT HAPPENS ON MOUNT
      1. the DOM: a canvas, a zoom stack, a status line (the fetch's determinate progress, then the
-        worker's), a caption for the picked name — all inside `root`, which app.js's router replaces
-        wholesale on navigation; a MutationObserver on the view notices that and disposes everything
-        (the worker, the GL context, the window listeners), since PAGES functions have no unmount.
+        worker's), a caption for the picked name, and — on `#map2?perf` or after pressing P — the
+        perf overlay — all inside `root`, which app.js's router replaces wholesale on navigation; a
+        MutationObserver on the view notices that and disposes everything (the worker, the GL
+        context, the window listeners), since PAGES functions have no unmount.
      2. the data: fetch() with a byte-progress bar; on file:// (where fetch of a local binary is
-        refused) a sentence pointing at a local server — the `.js` twin of §Q-R4 is Phase 1 work.
+        refused) a sentence pointing at a local server — the `.js` twin of §Q-R4 is Phase 1d work.
      3. the worker: new Worker("atlas/atlas-worker.js"); where workers are refused the same file is
         loaded as a plain script with earcut beside it and driven through the identical message shape.
      4. levels arrive coarsest first and are uploaded as they land; the globe paints on LOD 0.
+     5. tiles: past 1 km per pixel the view is covered by z=3 tiles, past 0.5 km by z=4 (§2.3). Each
+        frame lists the tiles the viewport touches (the corners and edge midpoints unprojected to
+        lon/lat); the ones the core header says exist are fetched, at most six at a time, parsed and
+        triangulated in the worker, uploaded, and kept in an LRU of TILE_CACHE entries. Until a tile
+        lands the renderer shows the finest resident level (or the parent tile) in its place.
 
    THE VIEW is a centre (lon, lat), a zoom and a graticule flag. The rotation matrix R maps a unit
    vector on the earth to view space (x right, y up, z toward the viewer): R's rows are the right,
    up and forward vectors at the centre. Pixels per radian at the centre is the disc radius, so a
    drag of dx pixels turns the globe by dx / radius radians — the same feel at every zoom. Zooming
    keeps the point under the pointer still (unproject before, re-centre after). The level of detail
-   follows kilometres per pixel: LOD 0 above 16 km/px, LOD 1 above 5, else LOD 2 (§2.3: a level is
-   used only where its simplification tolerance is under half a pixel).
+   follows kilometres per pixel: a level is used while its simplification tolerance is at most half
+   a pixel — LOD 0 above 16 km/px, 1 above 5, 2 above 1, 3 above 0.5, 4 to the cap of 0.15 km/px
+   (Q-A6 a), where the finest tolerance (75 m) is half a pixel and the quantum a fifth.
 
    FRAME ACCOUNTING for .claude/test-atlas-perf.js: the controller keeps the last 600 frame times
-   (rAF to rAF, and the renderer's own draw time) under `stats`; the suite reads them off
-   `document.querySelector(".atlas2").__atlas2`.
+   (rAF to rAF, and the renderer's own draw time) under `stats`, and `stats()` — the function —
+   returns the renderer's primitive counts of the last frame with the tile state; the suite reads
+   them off `document.querySelector(".atlas2").__atlas2`.
 */
 (function (root) {
   "use strict";
   const D2R = Math.PI / 180, R2D = 180 / Math.PI;
   const R_KM = 6371.0088;
-  const LOD_KM_PER_PX = [16, 5];           // LOD 0 while km/px ≥ 16, LOD 1 while ≥ 5, else LOD 2
+  const LOD_KM_PER_PX = [16, 5, 1, 0.5];     // LOD 0 while km/px ≥ 16, 1 while ≥ 5, 2 while ≥ 1, 3 while ≥ 0.5, else 4
   const ZMIN = 0.8;
-  const KM_PER_PX_FLOOR = 0.5;             // the finest resident level's 500 m tolerance is one pixel here; tiles (Phase 1) go deeper
+  const KM_PER_PX_FLOOR = 0.15;              // the zoom cap (Q-A6 a): 150 m per pixel, where the LOD 4 tolerance is half a pixel
+  const ADMIN1_KM_PER_PX = 4;                // admin-1 borders are drawn below this
+  const TILE_CACHE = 96, TILE_PARALLEL = 6;
 
   function mix(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
   function readPalette() {
@@ -48,7 +59,7 @@
     // the same derivation v1 uses (readColors in app.js), so the two globes sit in one theme
     return {
       ocean: dark ? mix(paper2, indigo, 0.30) : [0.70, 0.92, 1.0],
-      land: mix(paper, ink, 0.10), coast: mix(paper, ink, 0.32), border: mix(paper, ink, 0.46), rim: mix(paper, ink, 0.32),
+      land: mix(paper, ink, 0.10), coast: mix(paper, ink, 0.32), border: mix(paper, ink, 0.46), admin1: mix(paper, ink, 0.26), rim: mix(paper, ink, 0.32),
       halo: dark ? mix(paper2, indigo, 0.6) : mix(paper, indigo, 0.35), grat: ink, selected: mix(paper, ochre, 0.55),
     };
   }
@@ -60,6 +71,7 @@
   function mount(host, opts) {
     opts = opts || {};
     const dataUrl = opts.dataUrl || "atlas/data/topology.bin";
+    const tileUrl = opts.tileUrl || "atlas/data/tiles/";
     host.innerHTML = `
       <div class="atlas2" role="region" aria-label="Atlas (preview)">
         <canvas class="atlas2-canvas" tabindex="0" role="application" aria-label="Interactive globe — drag to turn, scroll or pinch to zoom, arrow keys turn, plus and minus zoom, Home resets"></canvas>
@@ -71,8 +83,9 @@
         </div>
         <div class="atlas2-status" role="status" aria-live="polite"><span class="atlas2-bar"><i></i></span><span class="atlas2-note">Fetching the earth…</span></div>
         <div class="atlas2-caption" aria-live="polite"></div>
+        <pre class="atlas2-perf" hidden aria-hidden="true"></pre>
       </div>`;
-    const el = host.querySelector(".atlas2"), canvas = el.querySelector("canvas"), status = el.querySelector(".atlas2-status"), note = el.querySelector(".atlas2-note"), bar = el.querySelector(".atlas2-bar i"), caption = el.querySelector(".atlas2-caption");
+    const el = host.querySelector(".atlas2"), canvas = el.querySelector("canvas"), status = el.querySelector(".atlas2-status"), note = el.querySelector(".atlas2-note"), bar = el.querySelector(".atlas2-bar i"), caption = el.querySelector(".atlas2-caption"), perfEl = el.querySelector(".atlas2-perf");
     const say = (t, frac) => { note.textContent = t; if (frac != null) { bar.style.width = Math.round(frac * 100) + "%"; bar.parentNode.hidden = false; } };
     const fail = (t) => { status.classList.add("atlas2-fail"); bar.parentNode.hidden = true; note.textContent = t; };
 
@@ -81,7 +94,7 @@
     R.setPalette(readPalette());
 
     /* ---------- view ---------- */
-    const view = { lon: 10, lat: 20, zoom: 1, graticule: false, level: 0, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
+    const view = { lon: 10, lat: 20, zoom: 1, graticule: false, level: 0, admin1: false, tiles: [], parents: [], radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
     let cssW = 0, cssH = 0, base = 100;
     function layout() {
       const r = el.getBoundingClientRect();
@@ -91,7 +104,9 @@
       view.cx = cssW / 2; view.cy = cssH / 2;
       needs = true;
     }
-    const zmax = () => Math.max(1, R_KM / (KM_PER_PX_FLOOR * base));
+    const zmax = () => Math.max(1, R_KM / (kmFloor() * base));
+    // the cap is 150 m/px where tiles exist; without a tile index (an old core file) the finest resident level's 0.5 km
+    const kmFloor = () => (tileIndex ? KM_PER_PX_FLOOR : 0.5);
     function kmPerPx() { return R_KM / (base * view.zoom); }
     function rotation() {
       const lo = view.lon * D2R, la = view.lat * D2R, cl = Math.cos(la), sl = Math.sin(la), co = Math.cos(lo), so = Math.sin(lo);
@@ -124,10 +139,68 @@
       }
       needs = true;
     }
+    function levelFor(k) { let L = 0; while (L < LOD_KM_PER_PX.length && k < LOD_KM_PER_PX[L]) L++; return L; }
+
+    /* ---------- tiles ---------- */
+    let tileIndex = null;             // from the core header: { "3": { cols, rows, present: Set }, "4": … }
+    const tileCache = new Map();      // key → { tile }   (insertion order = LRU order)
+    const tilePending = new Map();    // key → AbortController
+    const tileQueue = [];             // keys waiting for a fetch slot
+    let tileBytes = 0, tilesFetched = 0, tilesEvicted = 0;
+    function tileKeysFor(z) {
+      // the lon/lat box of the viewport: corners and edge midpoints unprojected; at a tile zoom they all lie on the disc
+      const idx = tileIndex && tileIndex[z]; if (!idx) return [];
+      const pts = [[0, 0], [cssW / 2, 0], [cssW, 0], [cssW, cssH / 2], [cssW, cssH], [cssW / 2, cssH], [0, cssH], [0, cssH / 2], [cssW / 2, cssH / 2]].map(([x, y]) => unproject(x, y));
+      if (pts.some((p) => !p)) return [];
+      const c = pts[8];
+      let lon0 = Infinity, lon1 = -Infinity, lat0 = Infinity, lat1 = -Infinity;
+      for (const p of pts) { let d = p.lon - c.lon; if (d > 180) d -= 360; else if (d < -180) d += 360; lon0 = Math.min(lon0, d); lon1 = Math.max(lon1, d); lat0 = Math.min(lat0, p.lat); lat1 = Math.max(lat1, p.lat); }
+      if (lat1 > 85 || lat0 < -85) { lon0 = -180; lon1 = 180; }   // near a pole every longitude shows
+      const W = 360 / idx.cols, Hh = 180 / idx.rows;
+      const keys = [];
+      const x0 = Math.floor((c.lon + lon0 + 180) / W), x1 = Math.floor((c.lon + lon1 + 180) / W);
+      const y0 = Math.max(0, Math.floor((lat0 + 90) / Hh)), y1 = Math.min(idx.rows - 1, Math.floor((lat1 + 90) / Hh));
+      for (let x = x0; x <= x1; x++) for (let y = y0; y <= y1; y++) { const k = (((x % idx.cols) + idx.cols) % idx.cols) + "-" + y; if (idx.present.has(k)) keys.push(k); }
+      return keys;
+    }
+    function touchTile(key) { const t = tileCache.get(key); if (t) { tileCache.delete(key); tileCache.set(key, t); } }
+    function wantTiles(z, keys) {
+      for (const k of keys) {
+        if (tileCache.has(k)) { touchTile(k); continue; }
+        if (tilePending.has(k) || tileQueue.includes(k)) continue;
+        tileQueue.push(k);
+      }
+      pumpTiles();
+    }
+    function pumpTiles() {
+      while (tileQueue.length && tilePending.size < TILE_PARALLEL) {
+        const key = tileQueue.shift();
+        // still wanted? (the view may have moved on)
+        if (!(view.tiles.includes(key) || view.parents.includes(key))) continue;
+        const z = key.split(":")[0];
+        const ac = typeof AbortController === "function" ? new AbortController() : null;
+        tilePending.set(key, ac);
+        const [zz, xy] = key.split(":");
+        fetch(tileUrl + zz + "/" + xy + ".bin", ac ? { signal: ac.signal } : undefined)
+          .then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })
+          .then((buffer) => { if (disposed) return; tileBytes += buffer.byteLength; tilesFetched++; postToWorker({ type: "tile", key, buffer }, [buffer]); })
+          .catch((e) => { tilePending.delete(key); if (!disposed && !(e && e.name === "AbortError")) stats.tileErrors = (stats.tileErrors || 0) + 1; pumpTiles(); });
+        void z;
+      }
+    }
+    function onTile(m) {
+      tilePending.delete(m.key);
+      R.setTile(m.key, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }, m.tile);
+      tileCache.set(m.key, { tile: m.tile, stats: m.stats });
+      stats.tiles.push(m.stats); if (stats.tiles.length > 200) stats.tiles.shift();
+      while (tileCache.size > TILE_CACHE) { const oldest = tileCache.keys().next().value; if (view.tiles.includes(oldest) || view.parents.includes(oldest)) break; tileCache.delete(oldest); R.dropTile(oldest); tilesEvicted++; }
+      pumpTiles();
+      invalidate();
+    }
 
     /* ---------- frame loop ---------- */
-    const stats = { frames: [], draw: [], uploads: {}, worker: null, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0 };
-    let needs = true, raf = 0, lastT = 0, disposed = false;
+    const stats = { frames: [], draw: [], uploads: {}, worker: null, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0 };
+    let needs = true, raf = 0, lastT = 0, disposed = false, perfOn = /[?&#/]perf\b/.test(location.hash || "");
     const t0 = performance.now();
     function frame(t) {
       raf = 0;
@@ -137,19 +210,44 @@
       lastT = t;
       if (needs) {
         needs = false;
-        clampView();
-        view.radius = base * view.zoom; rotation();
-        const k = kmPerPx();
-        view.level = k >= LOD_KM_PER_PX[0] ? 0 : k >= LOD_KM_PER_PX[1] ? 1 : 2;
-        stats.level = view.level;
+        plan();
         R.render(view);
-        stats.draw.push(R.stats.lastMs); if (stats.draw.length > 600) stats.draw.shift();
+        stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift();
         if (!stats.firstPaintMs && R.levelLoaded(0)) stats.firstPaintMs = Math.round(performance.now() - t0);
+        if (perfOn) perfText();
       }
       if (coasting) { coast(); }
       if (needs || coasting) raf = requestAnimationFrame(frame); else lastT = 0;
     }
+    // the view's derived state: level, admin-1 visibility, the tiles it wants (requested at once). Run by every
+    // frame and by setView, so `tilesSettled()` right after a setView already asks about the NEW tiles
+    function plan() {
+      clampView();
+      view.radius = base * view.zoom; rotation();
+      const k = kmPerPx();
+      view.level = levelFor(k);
+      view.admin1 = k < ADMIN1_KM_PER_PX;
+      if (view.level >= 3 && tileIndex) {
+        view.tiles = tileKeysFor(view.level).map((x) => view.level + ":" + x);
+        view.parents = view.level === 4 ? tileKeysFor(3).map((x) => "3:" + x) : [];
+        wantTiles(view.level, view.tiles);
+        if (view.level === 4) wantTiles(3, view.parents);
+      } else { view.tiles = []; view.parents = []; }
+      stats.level = view.level;
+    }
     function invalidate() { needs = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
+    function perfText() {
+      const f = stats.frames.slice(-120).sort((a, b) => a - b), n = f.length;
+      const mean = n ? f.reduce((a, b) => a + b, 0) / n : 0, p95 = n ? f[Math.min(n - 1, Math.floor(0.95 * n))] : 0, max = n ? f[n - 1] : 0;
+      const s = R.stats();
+      perfEl.textContent = `frame ms (last ${n}): mean ${mean.toFixed(1)}  p95 ${p95.toFixed(1)}  max ${max.toFixed(1)}\n` +
+        `draw ${s.lastMs.toFixed(2)} ms  ${s.triangles} tri  ${s.segments} seg  ${s.draws} calls\n` +
+        `LOD ${s.level} (core ${s.coreLevel})  ${kmPerPx().toFixed(3)} km/px  zoom ${view.zoom.toFixed(2)}\n` +
+        `tiles: ${s.tilesDrawn} drawn, ${s.parentsDrawn} parents, ${view.tiles.length} wanted, ${tilePending.size} pending, ${tileCache.size} resident, ${tilesFetched} fetched (${(tileBytes / 1024).toFixed(0)} KB), ${tilesEvicted} evicted\n` +
+        `dpr ${Math.min(2, window.devicePixelRatio || 1)}  ${cssW}×${cssH}`;
+    }
+    function setPerf(on) { perfOn = on; perfEl.hidden = !on; if (on) perfText(); }
+    setPerf(perfOn);
 
     /* ---------- input ---------- */
     const ptrs = new Map();
@@ -223,6 +321,7 @@
       else if (e.key === "+" || e.key === "=") zoomAt(1.25); else if (e.key === "-" || e.key === "_") zoomAt(1 / 1.25);
       else if (e.key === "Home" || e.key === "0") { view.lon = 10; view.lat = 20; view.zoom = 1; }
       else if (e.key === "Escape") { R.select(null); caption.textContent = ""; }
+      else if (e.key === "p" || e.key === "P") setPerf(!perfOn);
       else used = false;
       if (used) { e.preventDefault(); clampView(); invalidate(); }
     });
@@ -241,7 +340,7 @@
       if (hit && hit.face != null && faceEntity && header) {
         const ent = header.entities[faceEntity[hit.face]];
         R.select(hit.face);
-        caption.textContent = ent ? ent.name : "";
+        caption.textContent = ent ? (ent.parent ? ent.name + " — " + (header.entities.find((e) => e.id === ent.parent) || {}).name : ent.name) : "";
       } else if (hit && hit.arc != null) {
         caption.textContent = "";
       } else { R.select(null); caption.textContent = ""; }
@@ -250,18 +349,24 @@
 
     /* ---------- data + worker ---------- */
     let worker = null, shim = null;
+    function postToWorker(m, transfer) { if (worker) worker.postMessage(m, transfer || []); else if (shim) setTimeout(() => shim.handle(m, onMessage), 0); }
     function onMessage(m) {
       if (disposed) return;
-      if (m.type === "error") { fail("The Atlas data could not be read: " + m.message); return; }
-      if (m.type === "meta") { header = m.header; faceEntity = m.faceEntity; R.setFaceCount(faceEntity.length); say("Shaping the land…", 0.35); return; }
+      if (m.type === "error") { if (/^tile /.test(m.message)) { stats.tileErrors++; const k = m.message.split(" ")[1].replace(/:$/, ""); tilePending.delete(k); pumpTiles(); return; } fail("The Atlas data could not be read: " + m.message); return; }
+      if (m.type === "meta") {
+        header = m.header; faceEntity = m.faceEntity; R.setFaceCount(faceEntity.length);
+        if (header.tiles) { tileIndex = {}; for (const z of Object.keys(header.tiles)) { const t = header.tiles[z]; tileIndex[z] = { cols: t.cols, rows: t.rows, present: new Set(t.present) }; } }
+        say("Shaping the land…", 0.35); return;
+      }
       if (m.type === "lod") {
         const tu = performance.now();
-        R.setLevel(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap });
+        R.setLevel(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap });
         stats.uploads[m.level] = Math.round(performance.now() - tu);
         say(m.level === 0 ? "Drawing…" : "Adding detail…", 0.5 + 0.17 * (m.level + 1));
         invalidate();
         return;
       }
+      if (m.type === "tile") { onTile(m); return; }
       if (m.type === "done") { stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); invalidate(); }
     }
     function startWorker(buffer) {
@@ -315,12 +420,16 @@
       try { mo.disconnect(); } catch (e) {}
       window.removeEventListener("resize", onResize);
       if (raf) cancelAnimationFrame(raf);
+      for (const ac of tilePending.values()) { try { if (ac) ac.abort(); } catch (e) {} }
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
       R.dispose();
     }
     layout();
     invalidate();
-    const controller = { dispose, stats, view, renderer: R, invalidate, zoomAt, pick };
+    // the view set from outside (the perf suite's fixed views): centre, zoom, then wait for `tilesSettled()`
+    function setView(lon, lat, kmPerPixel) { view.lon = lon; view.lat = lat; view.zoom = R_KM / (kmPerPixel * base); plan(); invalidate(); }
+    const tilesSettled = () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && tilePending.size === 0;
+    const controller = { dispose, stats, view, renderer: R, invalidate, zoomAt, pick, setView, kmPerPx, tilesSettled, setPerf, statsNow: () => Object.assign(R.stats(), { kmPerPx: kmPerPx(), wanted: view.tiles.length, pending: tilePending.size, resident: tileCache.size, fetched: tilesFetched, tileBytes, evicted: tilesEvicted }) };
     el.__atlas2 = controller;
     return controller;
   }

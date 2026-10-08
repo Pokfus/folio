@@ -194,6 +194,21 @@ arcs ≤ 3 ms at LOD for the view, points < 0.5 ms); CPU ≤ 4 ms (uniforms, lab
 browser upscale; MSAA 4× via the context attribute. Label layout (§2.6) and triangulation (§2.3) run
 in the worker and never block a frame. Year changes upload ≤ 64 KB of style tables.
 
+**The frame gate (owner's redefinition, 2026-10-08).** Phase 0's gate — "p95 ≤ 20 ms on the CI
+runner with software GL" — measured SwiftShader rasterising tens of thousands of triangles on four
+CPU cores, not a reader's phone, and its as-built note (§7) said so. The gate `test-atlas-perf.js`
+asserts from Phase 1a on is: (1) v2's p95 frame interval is at most **40 %** of v1's p95 on the same
+run, for drag, wheel and pinch — a relative measure, so a slower or faster runner moves both sides;
+(2) the worst frame during drag and pinch is at most **100 ms**; (3) a deterministic **primitive
+budget**: `__atlas2.statsNow()` reports the triangles and line segments the renderer drew in the last
+frame, and four fixed views (the globe, Europe, the Aegean, the Aegean at the zoom cap) must stay
+under budgets stored in the test and justified in §2.3 "as measured" — so a change that doubles what
+a view draws fails in CI rather than on a phone. The `#map2?perf` overlay (frame mean, p95 and max
+over the last 120 frames, primitive counts, LOD, tiles) is what the owner reads on a real phone; if
+that reads under about 50 fps, the fallback is option (c) of the Phase 0 note — rasterise the fills
+into a texture once per year change and keep only the lines as geometry. It is not built until it
+is needed.
+
 **Workers.** The CSP already allows `worker-src 'self'`, so `atlas/atlas-worker.js` is an ordinary
 same-origin file. On `file://`, where browsers refuse workers, the same module runs on the main
 thread behind the same message interface (a 2-line shim); triangulation then costs a visible
@@ -262,13 +277,38 @@ with Natural Earth 10m as the fallback if HydroLAKES proves too large to pack.
 
 **Level of detail.** Three resident LOD levels for arcs (globe, continent, country scale) ship in the
 core file; two finer levels (region, locality) ship as **tiles** on an equirectangular grid
-(`z=3`: 8×4 tiles; `z=4`: 32×16), fetched on demand and cached by the service worker. Tiles carry
-*only* coast, river and lake arcs at the finer level, keyed by the same arc ids as the core, so a face
-whose boundary is a coast arc is simply drawn with the finer version of that arc when the tile is
-present — no re-topologising at runtime. Level thresholds are chosen so that the simplification
-tolerance of a level is < 0.5 px at the zoom where it is first used; the switch is invisible. Fills
-are triangulated once per face at the resident level that matches the face's own precision, so the
-fill edge and the stroke never disagree by more than a pixel.
+(`z=3`: 8×4 tiles of 45°; `z=4`: 32×16 of 11.25°), fetched on demand and cached by the service
+worker. A level is used while its simplification tolerance is at most half a pixel: LOD 0 (10 km)
+above 16 km/px, LOD 1 (2.5 km) above 5, LOD 2 (500 m) above 1, LOD 3 (250 m) above 0.5, LOD 4 (75 m)
+down to the cap of 150 m/px (Q-A6 a), where the finest tolerance is half a pixel and the 28 m quantum
+a fifth — so no level ever stair-steps, and the switch between levels is invisible. (LOD 0 was built
+at 8 km first; 10 km is 0.63 px at its 16 km/px switch and under half a pixel from 20 km/px up — the
+default globe on every viewport — and it is what brings a globe frame under the owner's worst-frame
+gate in software GL, §7 "Phase 1a — as built".) The tolerances
+were chosen against the vertex census of the OSM coast (`build-land.js --census`, below): 75 m keeps
+6.2 M vertices and 250 m 1.6 M, which packs the tiles well inside the 40 MB the owner allowed, so
+there was no reason to accept more sag.
+
+**Tiles carry their own fills (decided in Phase 1a, 2026-10-08).** The first design had a tile carry
+only the finer *arcs*, keyed by the core's arc ids, and a face drawn with the finer arc when the tile
+was present. Phase 0 found that a fill and its stroke must come from the same ring, and a fill
+triangulated from the resident ring would disagree with a tile's finer stroke by up to the resident
+tolerance — 500 m, three pixels at the cap — as sea-coloured gaps or land spilling over water. So
+**every tile carries each face clipped to the tile's rectangle**, as fill rings of its own, built at
+pack time by walking the face's arc pieces inside the tile and turning along the tile boundary where
+they leave it; the chords along the boundary are arcs of kind EDGE, which close a ring and are never
+stroked. The worker triangulates a tile exactly as it does a resident level — a tile *is* a level,
+local to its rectangle — and the tile's faces carry the core face index, so the style texture, the
+selection and the ID pass need nothing new. Tile arcs still name the core arc they are a piece of
+(`arcRef`), which is what lets the checker prove that the pieces of an arc chain across tiles and
+that every EDGE chord is matched, reversed, by the same face in the neighbouring tile — the union of
+a face's pieces is the face. Because no vertex may lie on a tile line (build-admin.js nudges any
+that does by one quantum), every crossing of the boundary is proper and entries and exits alternate.
+The seam between two tiles is two fills meeting along a shared chord with identical endpoints; the
+worker's chord subdivision (spherical midpoints, recursive to the level's threshold) is the same on
+both sides, so there is no gap. A loaded tile is drawn where its extent is written into the stencil
+buffer and the resident level only where no tile covers, so a tile still on its way is a patch of
+coarser coast, never a hole or a doubled line.
 
 **Why faces are triangulated at runtime, in the worker, with earcut.** Shipping triangle indices for
 1,700+ faces would add an estimated 2–3 MB; triangulating all of them once at first load takes under
@@ -282,15 +322,15 @@ visibly cuts a chord through the globe.
 table, step table, arc index with LOD offsets, licence block), then typed-array sections — vertex
 lon/lat as zig-zag delta varints, arc segment index as `Uint32`. Varint-delta coordinates compress
 poorly further, so the design does not depend on transit compression (Cloudflare Pages does not
-compress `application/octet-stream`). Sizes — the first row **measured by Phase 0's pipeline run
-(2026-10-08)**, the rest still estimates:
+compress `application/octet-stream`). Sizes — the first three rows **measured by Phase 1a's build
+(2026-10-08; Phase 0's Natural-Earth-only core was 1.24 MB)**, the rest still estimates:
 
 | file | content | size on the wire |
 |---|---|---|
-| `atlas/data/topology.bin` | arcs LOD 0–2, faces, steps, entities | **1.24 MB measured** for Natural Earth 10m alone (380,384 vertices in 4,716 arcs, 255 faces; vertices 1,100 KB, 2-bit LOD ranks 93 KB, header 41 KB, arc and face tables 38 KB), at a quantum of 2.5·10⁻⁴° and Visvalingam intervals of 8 / 2.5 / 0.5 km for LOD 0 / 1 / 2 (40k / 128k / 380k vertices). Natural Earth at full resolution would have been 1.66 MB at 10⁻⁴°, so the resident file is a simplified level by design, not the raw theme. Cliopatria's steps (Phase 2) add to this; the 2.5–3.5 MB estimate for the full file stands until they are measured. |
+| `atlas/data/topology.bin` | arcs LOD 0–2, faces, steps, entities | **2.88 MB measured**: 917,243 vertices in 35,225 arcs, 430 faces (257 countries, 173 admin-1 units), at a quantum of 2.5·10⁻⁴° and Visvalingam intervals of 10 / 2.5 / 0.5 km for LOD 0 / 1 / 2; vertices 2,328 KB, 2-bit ranks 224 KB, arc table 173 KB, face table 152 KB, header 71 KB. CI refuses a core over 3 MB. Cliopatria's steps (Phase 2) will add to this. |
 | `atlas/data/gazetteer.js` | places registry (§2.8), labels, anchors | 0.3–0.5 MB |
-| `atlas/data/tiles/3/*.bin` (32 tiles) | coast/river/lake at LOD 3 | 60–150 KB each |
-| `atlas/data/tiles/4/*.bin` (512 tiles) | LOD 4 | 30–120 KB each; most are empty ocean and omitted |
+| `atlas/data/tiles/3/*.bin` (32 tiles) | every arc and every face clipped to the tile, LOD 3 (250 m) | **5.33 MB measured**, median 110 KB, largest 700 KB (the tile holding Scandinavia and the Baltic) |
+| `atlas/data/tiles/4/*.bin` (382 of 512 tiles) | the same at LOD 4 (75 m) | **17.72 MB measured**, median 13 KB, largest 893 KB (the tile holding the Aegean and the Adriatic); 130 cells are open ocean and omitted, 38 are whole-tile covers of one face (Antarctica's pole row, inland cells of Brazil and Siberia) a few hundred bytes each; 23.05 MB in 414 files, under the 40 MB the owner allowed |
 | `atlas/data/relief/L0.png` | 4096×2048 hillshade + height | ~2.5 MB |
 | `atlas/data/relief/L1/*.png` (8) | 2048² each | ~0.9 MB each |
 | `atlas/data/relief/L2/*.png` (32, optional) | 2048² each | ~1 MB each |
@@ -1012,6 +1052,15 @@ cached in `src/`.
 *Goal: the physical and present-day map complete — one coastline source, LOD tiles, rivers, lakes,
 relief, labels, picking, the credits page — with no timeline yet.*
 
+**Phase 1 is built in four sub-phases (split 2026-10-08):**
+
+| sub-phase | scope (the deliverables below it covers) | state |
+|---|---|---|
+| **1a — land at every zoom** | the OSM land partition (1), admin-0 and admin-1 conflated onto it (2), LOD 3–4 as tiles with per-tile fills, the renderer's tile fetch, level selection and the 150 m/px cap, the checker on tiles, the redefined frame gate (§2.2), the build doc (9) | **built — see "Phase 1a — as built" below** |
+| 1b — water and relief | rivers and lakes (3), relief (4) and the sphere pass's relief lookup | not started |
+| 1c — names and picking | the gazetteer (5), the label layer, markers, hover, the stack chip, the place card, deep links, the legend, the phone layout (6) | not started |
+| 1d — credits and fallbacks | the `#credits` page (7) — the phase's one reader-visible change, with its changelog line and version bump — and the fallbacks (8): no-WebGL2, `file://` via the `.js` twin, context loss | not started |
+
 Deliverables:
 1. `build-land.js` on **OSM land polygons** (Q-S1 a): finest-level land/sea partition; LOD 0–4 by
    topology-preserving simplification; LOD 3–4 as `tiles/{z}/{x}/{y}.bin`; the ODbL header on every
@@ -1049,6 +1098,190 @@ the Netherlands; `test-atlas-labels.js` (no overlapping rects; island/sea/river 
 marker; contrast per theme; density stops); `test-atlas-a11y.js` (Tab walk, announcements, reduced
 motion); `test-csp.js`; `test-layout.js` for the `#credits` page at phone width. Measured sizes
 replace the estimates in §2.3.
+
+#### Phase 1a — as built (2026-10-08)
+
+Everything in the 1a row of the table above exists and runs. In `.claude/atlas-build/`: `lib/shp.js`
+(a streaming shapefile reader — the OSM file is 1.3 GB unpacked and never sits in memory whole),
+`lib/rings.js` (quantisation to 2.5·10⁻⁴°, spike cutting, monotone Visvalingam), `lib/coastfile.js`,
+`lib/segindex.js` (a radix-sorted segment grid whose pair sweep over 6.4 M segments takes a minute),
+`build-land.js` (OSM → `out/coast.bin`, with `--census`), `build-admin.js` (the conflation, twelve
+stages, → `out/full.bin` and the snap log), `pack.js` (`--dry`, `--install`), `check-topology.js
+--tiles`, and `sources.json` with the `ne-10m-admin1` pin. In `atlas/`: `atlas-format.js` v2 (arc
+kinds COAST, BORDER, RIVER, LAKE, SOFT, ADMIN1 and EDGE; flags DISPUTED and WATER; the `arcRef` and
+`faceRef` sections a tile uses to name its core arc and face; a `tile` header and the core's `tiles`
+index), `atlas-worker.js` (a tile is triangulated exactly like a level; tiles bucketed on their own
+16×16 grid, admin-1 segments kept as a second list), `atlas-gl.js` (tile upload and drop, the stencil
+pass that draws a loaded tile where it is and the coarser level only where no tile covers, 1,536
+direction buckets, the sphere pass bounded to the disc) and `atlas.js` (tile addressing from the
+header's index, an LRU of 96 tiles with six fetches in flight, the level from km/px with the cap at
+150 m/px, admin-1 below 4 km/px, the `#map2?perf` overlay, and `setView` / `tilesSettled` /
+`statsNow` for the suites). `app.js` routes `#map2?perf`; `.claude/test-atlas-perf.js` asserts the
+redefined gate; `.claude/atlas-shots.js` takes the screenshot series; `docs/atlas-v2-build.md` says
+how to run it all; CI runs `check-topology.js --tiles --max-bytes 3145728`.
+
+**The land partition, as measured.** The OSM land polygons (planet data of 2026-10-08) hold 833,308
+records, 647,462 rings and 46.9 M vertices; 185,833 degenerate vertices and 1,534,510 spikes go at
+quantisation; 15 rings are cut at the antimeridian and rejoined by latitude (one seam end snapped
+28 m). The working set at the finest tolerance, 75 m, is 195,536 rings and 6.25 M vertices (451,933
+rings — islets under about 75 m across — exist only in the reserve). The vertex census that fixed
+the tolerances is in §2.3; per level the topology carries 428,585 / 547,255 / 1,247,877 /
+2,168,031 / 6,603,880 vertices (cumulative, lines included; LOD 0 draws 33,496 segments and 54,911 fill triangles for the whole earth, LOD 1 156,611 and 244,699, LOD 2 882,018 and 1,356,629). Rings are simplified one at a time, so
+at 75 m two neighbouring rings, or two reaches of one, cross: **13,925 crossings** in the working set.
+`build-admin.js` now makes the set planar before any line touches it, re-adding the largest reserve
+vertex between the ends of each crossing segment, pass after pass: 35,730 vertices over 16 passes,
+694 crossings left (OSM edges that cross only after quantisation) for the per-level repair's
+junctions. 5,725 coast vertices coincide with one of another ring (rings touching at a point); they
+share an id only where a line reaches that point. 130,519 working rings under 0.1 km² are invisible
+to the lines: a border threaded through two overlapping marsh fragments (Smith Island, the Maryland
+to Virginia line) had leaked the sea onto the land in the face walk, and a 28 m islet carries one
+side's label without harm.
+
+**Conflation, as measured.** The two distances the design asked for first:
+
+| distribution (metres) | n | p50 | p90 | p95 | p99 | beyond |
+|---|---|---|---|---|---|---|
+| NE admin-0 border end → nearest OSM coast | 358 | 407 | 1,402 | 1,653 | 3,499 | 2 past 20 km |
+| unshared NE admin-0 vertex → nearest OSM coast | 162,826 | 484 | 3,765 | 10,717 | 31,185 | 2,124 past 60 km |
+
+So d₁ = **4,000 m** (every end but the two outliers, which are river-bank vertices far inland) and
+D_FAR = **2,500 m**: an unshared NE vertex nearer the coast than that is Natural Earth's version of
+the shore and contributes no geometry; one farther, on OSM land, is a one-sided line (a river bank
+or lagoon shore NE draws as water — 20,935 such vertices, 22,641 edges, flagged DISPUTED). The NE
+polygons yield 136,953 shared border edges; 4,053 rings share no vertex with any neighbour (islands,
+continents of one country) and contribute no line at all. Cutting: 858 line/coast crossings (666 in
+the first round, the rest where a crossing snapped onto a coast vertex grazed the next segment), 9
+line/line crossings (overlapping NE polygons), 49 line vertices within a quantum and a half of the
+shore snapped onto it. Ends: 3,109 joined to the coast or an admin-0 line (2 admin-1 ends onto
+admin-0 lines), 283 tails over water cut back to the shore, 3 ends left over water (the India to
+Pakistan line in the Rann of Kutch, a Russian line in the Bering Strait, the Michigan to Ohio line
+in Lake Erie), 2 admin-1 ends that nothing could take (Texas to Louisiana and Alabama to Florida,
+both at estuary mouths beyond 4 km of OSM coast). Every snap is in `out/admin-log.json`: 3,158, the
+largest 3,930 m, none over its source's tolerance. The face walk: 393,354 cycles from 404,530
+half-arcs — 197,715 land (39 holes) and 195,639 sea, **no cycle walking coast on both sides**.
+Labelling: 36,654 land pieces by containment (one tie, 893 km² at the Congo's mouth that NE gives to
+both the DRC and Angola — it went to the first), 159,371 by proximity (an islet within 60 km of one
+polygon), 1,651 unmapped, of which 7 slivers merged into their longest neighbour and 1,644 stay
+unmapped: 784 km² of remote islets with no NE polygon within 60 km, 153 of them over 1 km², the
+largest 40 km²; the entity `adm0:scr` (Scarborough Reef) has no land. Admin-1: 8,789 pieces by
+containment, 18,839 by proximity, no unit without land; 19 NE "border" arcs that lie between two
+units of one country became admin-1 arcs. Arcs dropped: 1,681 with the same entity on both sides,
+42 dangling; 148 flagged WATER. 257 admin-0 faces and 173 admin-1 faces. The per-level crossing
+repair (reserve vertices re-added, junctions where no reserve exists): 914 / 6,777 / 16,280 /
+15,677 / 848 vertices at LOD 0 to 4 over 8 / 9 / 16 / 15 / 3 passes, no residual crossing at any
+level; 405 crossings became a junction vertex and 171 a shared endpoint.
+
+**What conflation could not resolve, and how it is counted.** Unmapped land: 784 km² (above).
+Lines over water: 148 arcs flagged WATER (drawn dashed, in no face). One-sided lines: 260 admin-0
+and 30 admin-1 arcs flagged DISPUTED. Ends: 3 over water, 2 unjoined (above). Tiny rings: no count
+of lines that cross one, by design. Coast crossings that no reserve could fix: 694 at stage 0, each
+made a shared vertex by the per-level repair. Angle ties at a node: 5, all at closed border loops.
+Pieces without an interior sample point: 69 (slivers thinner than the sampler's step; they fall
+back to their first vertex). Everything is in `out/admin-report.json` and `out/admin-log.json`.
+
+**Tiles and the fill decision.** §2.3 records the decision (every tile carries each face clipped to
+its rectangle, closed by EDGE chords that are never stroked). Measured: z=3 has 32 tiles, 5.33 MB,
+67,893 arc pieces, 596 face pieces and 706 chords; z=4 has 382 tiles, 17.72 MB, 203,371 arc
+pieces, 1,345 face pieces (45 of them whole-tile covers, 38 in tiles no arc touches) and 3,788
+chords. Seams: the checker proves every tile planar in its own plane, every chord on its tile's
+boundary, every arc piece chained across tiles to the same core arc, and what a face's chords cover
+along a shared tile line identical from both tiles (1,047 face×line pairs at z=4, 156 at z=3); the screenshot
+series (`.claude/atlas-shots.js`: the Aegean, the Dutch coast and the Norwegian fjords at 6, 0.6 and
+0.15 km/px, plus the cap view mid-load) was reviewed by eye for stair-stepping, fill/line gaps, tile
+seams and the stencil fallback — see "Screenshots" below.
+
+**The checker.** 71 checks on the core and every tile. New in 1a: 48 inland Natural Earth
+populated places (plus Maseru, Lesotho's interior, Adygea and the South Pole) must be in the right
+country and 22 open-water points (the Caspian, Hudson Bay, the Black Sea and open ocean among them)
+in no face, at every level and in every tile; the tile index matches the directory; every tile's
+`buildId` is the core's; per-tile planarity is tested in the lon/lat plane the tile is cut in (on
+the sphere a chord along a parallel is a great circle that sags poleward — 0.004° over 2° of
+longitude at 56° N — and would "cross" a coast hugging the edge; the renderer subdivides chords
+before projecting, so the plane is the right model).
+
+**The frame gate, as measured** (the CI-class runner: 4 cores, Chromium 141, ANGLE/SwiftShader;
+rAF-to-rAF intervals in ms; v1 = `#map` Full atlas, v2 = `#map2`; `test-atlas-perf.js` on the
+build above):
+
+| gesture | target | mean | p50 | p90 | p95 | p99 | max |
+|---|---|---|---|---|---|---|---|
+| drag | v1 | 86.4 | 16.7 | 283.2 | 316.6 | 366.7 | 616.6 |
+| drag | v2 | 30.9 | 16.7 | 66.7 | 83.3 | 83.4 | 100.0 |
+| wheel | v1 | 249.8 | 16.7 | 583.4 | 733.2 | 2650.0 | 2650.0 |
+| wheel | v2 | 38.0 | 16.7 | 83.3 | 150.0 | 200.0 | 200.0 |
+| pinch | v1 | 187.4 | 16.7 | 566.7 | 666.6 | 899.9 | 1066.7 |
+| pinch | v2 | 16.7 | 16.7 | 16.7 | 16.8 | 16.8 | 16.8 |
+
+The ratios: drag 26 %, wheel 20 %, pinch 3 % of v1's p95 — all under the 40 %; the pinch's worst
+frame is 16.8 ms. **The drag's worst frame sits on the gate**: 83.4 and 100.0 ms in the suite's two
+confirmation runs (the steady drag frame is 50–67 ms, p95 83; the worst is a single frame per run,
+six refreshes at 60 Hz, which the rAF clock reports as 100.0 or 100.1). The suite opens its window
+after one warm frame, because the first draw after a pause costs the browser a vsync or two
+(measured: 100 ms where the next frames read 50–67), and allows a millisecond of timestamp slack on
+the 100 — a seven-refresh frame, 116.7 ms, still fails. If the gate flakes on a slower CI runner,
+that is the number to read; the renderer has one more cheap lever (below). Phase 0's wheel
+spikes (max 167 ms, p95 100 ms) are gone as spikes: a wheel frame now costs what a drag frame costs
+at that zoom (the warm draw at upload took the first-use stall out; what remains — p95 150, max
+200 — is the wheel passing through the Europe-scale LOD 2 view, the heaviest resident level, which
+the owner's gate does not bound by a worst frame). The four fixed views and their budgets (triangles and line segments drawn in
+one still frame, the budget 1.25× the measurement, stored in the test):
+
+| view | km/px | LOD | tiles | triangles | segments | drag p95 / max |
+|---|---|---|---|---|---|---|
+| globe | 24 | 0 | — | 42,529 | 19,917 | 67 / 83 |
+| Europe | 3 | 2 | — | 133,348 | 101,049 | 133 / 150 |
+| the Aegean | 0.5 | 3 | 1 | 25,892 | 22,750 | 50 / 67 |
+| the Aegean at the cap | 0.15 | 4 | 1 | 20,366 | 18,297 | 33 / 33 |
+
+**Where the worst-frame rule stood, and what was done.** With LOD 0 at 8 km the drag's worst frame
+was 150 ms, then 116.7 ms, against the owner's 100. A probe with the pass toggles showed a globe
+frame in SwiftShader is vertex-bound and steady — every rendered frame cost 85–115 ms, none was a
+spike: the arc pass about 45 ms (one triangle per segment, three vertex-shader runs each), the fill
+pass about 35 ms, the sphere pass about 10 ms, and a frame with all three off never missed 16.7 ms.
+So: the cull buckets went from 8×8 to 16×16 cells per cube face (−5 % at the globe, where the near
+hemisphere simply holds more coast than the Pacific side, −18 % over Europe); the sphere pass draws
+a quad around the disc instead of the whole screen; admin-1 segments are a list of their own and are
+not submitted at all above their threshold (an eighth of LOD 0's segments); and LOD 0 was rebuilt
+at 10 km (§2.3), which took its coast from 29,918 to 23,132 segments (its vertex count in the file
+barely moved — arc endpoints, two per arc for 200k arcs, are rank 0 whatever the tolerance). The
+figures in the tables are the result: the globe frame went from 85–115 ms to 67–100 ms. Reader
+hardware with a GPU draws the same frame in a few milliseconds, which the `#map2?perf` overlay
+shows on the owner's phone; the next lever, if CI ever needs it, is the arc pass (a triangle per
+pair of segments would halve its vertex-shader runs).
+
+**Findings that contradict or sharpen the design.** (1) §2.3's "snap within d₁" is not the whole
+of conflation, as Phase 0 warned: the NE shoreline is never used as geometry at all — shared NE
+vertex runs are borders, NE's own shore vertices near the OSM coast are discarded, and NE's shore far
+from it (river banks, lagoons) is a one-sided DISPUTED line; faces are what the walk makes of the
+OSM partition cut by those lines, and slivers merge into the neighbour with the longest shared
+edge. (2) OSM's coastline treats the Great Lakes, Lake Victoria and the Caspian as land — they are
+inland water, not coastline — so no face ends at their shores; the checker's "sea" points were
+chosen accordingly and Phase 1b's lakes will draw them. (3) A tile is planar in the lon/lat plane,
+not on the sphere (above). (4) A face that circles a pole must be closed by its first vertex one
+lap on, then the pole, or the strip between the ring's two seam vertices tests outside — Antarctica
+had no z=4 pole row until this was found. (5) The OSM land polygons cannot be dated to a citable
+copy: osmdata.openstreetmap.de regenerates the file daily at one URL and no dated archive of it
+exists (Zenodo and the Wayback Machine searched 2026-10-08); the pin in `sources.json` is a sha256
+and the planet date from the file's own README, and the committed `atlas/data/` is the citable
+artefact — the pipeline reproduces it from a re-fetch, not bit-identically. (6) Two LOD-4 repair
+loops that never ended — a junction made 42 times beside an existing vertex at Durrës, and a
+reserve read across two rings sharing a junction vertex — are the kind of fault the per-level
+repair hides behind "40 passes": both are fixed and the pass count is in the report.
+
+**Screenshots, reviewed.** The series (`.claude/atlas-shots.js`, 1280×800, twelve shots) was
+read by eye on the final build. At the cap (150 m/px, LOD 4): Mykonos and Tinos, the Sognefjord's
+inner arms and Texel with Den Helder show no stair-stepping — the 75 m tolerance is half a pixel
+and the quantum a fifth — and the fill edge sits under the stroke everywhere, with no sea-coloured
+gap and no land over water. At 0.6 km/px (LOD 3, the first tile level): the Cyclades, the fjord
+coast from Stavanger to Ålesund and the Wadden islands are drawn from one tile each with no seam
+where the tile meets the resident level outside it. At 6 km/px (LOD 1): Europe from Iceland to the
+Caspian, with the admin-1 lines correctly absent above 4 km/px. The mid-load shots of the cap views
+show the LOD 3 parent tile in the stencil's place of the pending LOD 4 tile — at this zoom the two
+are hard to tell apart, which is the point: a tile on its way is a patch of slightly coarser coast,
+never a hole. Two things the shots show that are not faults: the IJsselmeer is land, because OSM's
+coastline stops at the Afsluitdijk (inland water is Phase 1b's), and the globe at LOD 0 looks the
+same at 10 km as it did at 8 km.
+
 
 ### Phase 2 — Time (ships `#map2` with a timeline; ~8–10 sessions)
 

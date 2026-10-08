@@ -53208,6 +53208,7 @@ let prev = null;
   const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "map2", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
+  hParts[0] = hParts[0].replace(/\?.*$/, "");   // #map2?perf — a page may take a query after its name (Atlas v2's perf overlay, Oct 2026); the name is what routes
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";
   /* …and the ADDRESS BAR is corrected with it. The hashchange reader reaches the collections through
      `route`, which rewrites the hash; boot renders directly, so without this a reader following an old
@@ -53538,7 +53539,8 @@ let prev = null;
     // a shared link has to land somewhere rather than nowhere. Redirected HERE, at the hash, rather than
     // from inside a page function — a page that routes while it is being rendered re-enters render().
     if (hh === "community") { route("decks"); return; }
-    if (valid.includes(hh) && hh !== current.name) route(hh);
+    const bare = hh.replace(/\?.*$/, "");   // #map2?perf: the query rides on the name (see the boot parse above); route() rewrites the hash to the bare name
+    if (valid.includes(bare) && bare !== current.name) route(bare);
     else if (!hh && current.name !== "home") route("home");
   });
 })();
