@@ -55,7 +55,7 @@ const SegIndex = require("./lib/segindex.js");
 const F = require("./lib/format.js");
 
 const HERE = __dirname, OUT = path.join(HERE, "out");
-const LOD_M = [8000, 2500, 500, 250, 75];   // Visvalingam √area per level; LOD 0–2 resident, 3–4 tiles (see docs §2.3 "as measured")
+const LOD_M = [10000, 2500, 500, 250, 75];   // Visvalingam √area per level; LOD 0–2 resident, 3–4 tiles (see docs §2.3 "as measured"). LOD 0 was 8 km: 10 km is still under half a pixel from 20 km/px up and 0.63 px at its 16 km/px switch, and it is what keeps a globe frame under the gate in software GL (§2.2)
 const FINEST = LOD_M.length - 1;
 const D_FAR = 2500;                         // m — an unshared NE vertex beyond this from the OSM coast is a one-sided line, not NE coast (measured: 198 of 202 NE coast runs lie within 1 km at their nearest vertex; the river banks start at 2–50 km)
 const SRC = { coast: "osm-land-polygons", adm0: "ne-10m-admin0", adm1: "ne-10m-admin1" };
@@ -936,6 +936,10 @@ function main() {
         const A = A2[segs[3 * p]], B = A2[segs[3 * q]];
         const a1 = A.v[segs[3 * p + 1]], a2 = A.v[segs[3 * p + 2]], b1 = B.v[segs[3 * q + 1]], b2 = B.v[segs[3 * q + 2]];
         if (a1 === b1 || a1 === b2 || a2 === b1 || a2 === b2) return;
+        // two ids at one point touch as surely as one id (a junction made beside an existing vertex; measured: the
+        // sphere test called the touch a crossing and the same junction was made 42 times at Durrës)
+        const same = (u, v) => VX[u] === VX[v] && VY[u] === VY[v];
+        if (same(a1, b1) || same(a1, b2) || same(a2, b1) || same(a2, b2)) return;
         if (G.segmentsCross(vecOf(a1), vecOf(a2), vecOf(b1), vecOf(b2))) crossing.push(p, q);
       };
       if (!touched) sidx.pairs(test);
@@ -959,7 +963,10 @@ function main() {
       let fixed = 0, reserved = 0;
       // insertions are applied after the loop so segment indices stay valid within a pass
       const pending = [], pendingX = [];
-      const noReserve = (a, i0, i1) => { const o0 = VORIG[a.v[i0]], o1 = VORIG[a.v[i1]]; let r = 0; { let lo = 0, hi = nRings - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (C.ringOffset[m] <= o0) lo = m; else hi = m - 1; } r = lo; } const rs = C.ringOffset[r], re = C.ringOffset[r + 1], len = re - rs; const steps = ((o1 - o0) % len + len) % len; return steps === 0 || steps > len / 2 || steps === 1; };
+      // the reserve between two arc vertices exists only when both are originals of ONE ring: a vertex shared
+      // with another ring at a line junction (stage 5's wid alias) carries that ring's original index, and a
+      // "reserve" read across the two rings is garbage (measured: the LOD 4 repair diverged, 17 → 16,129 crossings)
+      const noReserve = (a, i0, i1) => { const o0 = VORIG[a.v[i0]], o1 = VORIG[a.v[i1]]; let r = 0; { let lo = 0, hi = nRings - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (C.ringOffset[m] <= o0) lo = m; else hi = m - 1; } r = lo; } const rs = C.ringOffset[r], re = C.ringOffset[r + 1], len = re - rs; if (o1 < rs || o1 >= re) return true; const steps = ((o1 - o0) % len + len) % len; return steps === 0 || steps > len / 2 || steps === 1; };
       for (let k = 0; k < crossing.length; k++) {
         const s = crossing[k], a = A2[segs[3 * s]], i0 = segs[3 * s + 1], i1 = segs[3 * s + 2];
         if (i1 - i0 >= 2) {
@@ -998,6 +1005,7 @@ function main() {
         if (o0 < 0 || o1 < 0) continue;
         let r = 0; { let lo = 0, hi = nRings - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (C.ringOffset[m] <= o0) lo = m; else hi = m - 1; } r = lo; }
         const rs = C.ringOffset[r], re = C.ringOffset[r + 1], len = re - rs;
+        if (o1 < rs || o1 >= re) continue;   // the other end belongs to another ring (a shared junction vertex): no reserve between them
         let steps = ((o1 - o0) % len + len) % len; if (steps === 0 || steps > len / 2) continue;   // not consecutive along the ring (the arc runs the other way or jumps)
         let best = -1, bestSz = -1;
         for (let kk = 1; kk < steps; kk++) { const o = rs + ((o0 - rs + kk) % len); if (C.size[o] > bestSz) { bestSz = C.size[o]; best = o; } }

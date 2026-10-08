@@ -307,7 +307,7 @@ function run() {
       for (let i = 1; i < n; i++) { let dx = Tf.lon[vs[i]] - Tf.lon[vs[i - 1]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; cum += dx; turn += dx; X[i] = cum; Y[i] = Tf.lat[vs[i]]; }
       { let dx = Tf.lon[vs[0]] - Tf.lon[vs[n - 1]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; turn += dx; }
       let m = n;
-      if (Math.abs(turn) > X180) { const pole = Y.reduce((s, y) => s + y, 0) / n < 0 ? -Y90 : Y90; const X2 = new Float64Array(n + 2), Y2 = new Float64Array(n + 2); X2.set(X); Y2.set(Y); X2[n] = X[n - 1]; Y2[n] = pole; X2[n + 1] = X[0]; Y2[n + 1] = pole; X = X2; Y = Y2; m = n + 2; }
+      if (Math.abs(turn) > X180) { const pole = Y.reduce((s, y) => s + y, 0) / n < 0 ? -Y90 : Y90; const X2 = new Float64Array(n + 3), Y2 = new Float64Array(n + 3); X2.set(X); Y2.set(Y); X2[n] = X[0] + turn; Y2[n] = Y[0]; X2[n + 1] = X[0] + turn; Y2[n + 1] = pole; X2[n + 2] = X[0]; Y2[n + 2] = pole; X = X2; Y = Y2; m = n + 3; }   // close the turn at the first vertex one lap on, then down to the pole and back along it: the pole edge spans the full 360°, not the lap minus the closing edge (measured: the pole corner of the antimeridian cell tested outside Antarctica)
       for (const qx of [px, px + 2 * X180, px - 2 * X180]) {
         let c = false;
         for (let i = 0, j = m - 1; i < m; j = i++) if ((Y[i] > py) !== (Y[j] > py) && qx < (X[j] - X[i]) * (py - Y[i]) / (Y[j] - Y[i]) + X[i]) c = !c;
@@ -355,8 +355,13 @@ function checkTiles(T, H, dir) {
     missing.length || extra.length ? bad(`z=${z}: the tile index matches the directory`, `${missing.length} missing (${missing.slice(0, 5)}), ${extra.length} unlisted (${extra.slice(0, 5)})`) : ok(`z=${z}: the tile index matches the directory`, `${onDisk.length} files`);
     // per-tile checks, with cross-tile bookkeeping
     const pieces = new Map();      // core arc → [{ key, start: [x,y], end: [x,y], bits }]
-    const chords = new Map();      // "face|x1,y1|x2,y2" → count (directed); the reverse must exist in another tile
-    let tiles = 0, arcsTotal = 0, facesTotal = 0, edgeOff = 0, edgeStroked = 0, badRef = 0, badKind = 0, badEnds = 0, badBuild = 0, badSrc = 0, badFace = 0, crossings = 0, badEntity = 0, vertsTotal = 0; const crossSample = [];
+    // "face|h|y|col" or "face|v|x|row" → { a: [[lo, hi]…], b: [[lo, hi]…] }: the intervals a face's chords cover
+    // along one tile line, from the tile on each side (a = south / west of the line). Two chords of one tile
+    // may overlap on a line (a face pinched to a point one quantum off the line, where two coast arcs share
+    // a vertex — measured on Cuba's north coast), so the invariant is on the UNION: what a face covers along
+    // the shared line is the same seen from either tile.
+    const chords = new Map();
+    let tiles = 0, chordDiag = 0, arcsTotal = 0, facesTotal = 0, edgeOff = 0, edgeStroked = 0, badRef = 0, badKind = 0, badEnds = 0, badBuild = 0, badSrc = 0, badFace = 0, crossings = 0, badEntity = 0, vertsTotal = 0; const crossSample = [];
     const pointHits = { land: [], sea: [] };
     for (const key of idx.present) {
       const file = path.join(dir, z, key + ".bin");
@@ -400,7 +405,17 @@ function checkTiles(T, H, dir) {
           const vs = []; if (ref > 0) for (let k = s; k < e; k++) vs.push(k); else for (let k = e - 1; k >= s; k--) vs.push(k);
           // a chord along the pole row's edge (lat ±90) has no neighbour; a chord on the antimeridian is keyed with lon 180 folded to -180 so the two sides match
           const fold = (x) => (x === X180 ? -X180 : x);
-          for (let k = 1; k < vs.length; k++) { const ya = Tt.lat[vs[k - 1]], yb = Tt.lat[vs[k]]; if ((ya === -Y90 && yb === -Y90) || (ya === Y90 && yb === Y90)) continue; const A = `${fold(Tt.lon[vs[k - 1]])},${ya}`, B = `${fold(Tt.lon[vs[k]])},${yb}`; const fk = `${cf}|${A}|${B}`; chords.set(fk, (chords.get(fk) || 0) + 1); }
+          for (let k = 1; k < vs.length; k++) {
+            const ya = Tt.lat[vs[k - 1]], yb = Tt.lat[vs[k]], xa = fold(Tt.lon[vs[k - 1]]), xb = fold(Tt.lon[vs[k]]);
+            if ((ya === -Y90 && yb === -Y90) || (ya === Y90 && yb === Y90)) continue;
+            if (xa === xb && ya === yb) continue;   // a zero-length chord covers nothing
+            let fk, side, lo, hi;
+            if (ya === yb) { fk = `${cf}|h|${ya}|${tile.x}`; side = ya === y0 ? "b" : "a"; lo = Math.min(xa, xb); hi = Math.max(xa, xb); if (hi - lo > X180) { const t = lo; lo = hi; hi = t + 2 * X180; } }   // along a parallel: the tile north of it is side b
+            else if (xa === xb) { const col = xa === x0 ? tile.x : tile.x + 1; fk = `${cf}|v|${col % idx.cols}|${tile.y}`; side = xa === x0 ? "b" : "a"; lo = Math.min(ya, yb); hi = Math.max(ya, yb); }   // along a meridian: the tile east of it is side b
+            else { chordDiag++; continue; }
+            let e = chords.get(fk); if (!e) chords.set(fk, e = { a: [], b: [] });
+            e[side].push([lo, hi]);
+          }
         }
       });
       // EDGE arcs must not be in any segment the renderer strokes: they are, by kind, skipped — count stroked kinds on the edge instead
@@ -443,7 +458,13 @@ function checkTiles(T, H, dir) {
     }
     let chordBad = 0, chordTotal = 0;
     const chordSample = [];
-    for (const [k, n] of chords) { chordTotal += n; const [f, A, B] = k.split("|"); const rev = chords.get(`${f}|${B}|${A}`) || 0; if (rev !== n) { chordBad++; if (chordSample.length < 4) chordSample.push(`${H.entities[T.faces[f].entity].id} ${A.split(",").map((v) => (v * Q).toFixed(3)).join(",")}→${B.split(",").map((v) => (v * Q).toFixed(3)).join(",")}`); } }
+    const union = (iv) => { const s = iv.slice().sort((p, q) => p[0] - q[0]); const out = []; for (const [lo, hi] of s) { const last = out[out.length - 1]; if (last && lo <= last[1]) { if (hi > last[1]) last[1] = hi; } else out.push([lo, hi]); } return out; };
+    for (const [k, e] of chords) {
+      chordTotal++;
+      const ua = union(e.a), ub = union(e.b);
+      const same = ua.length === ub.length && ua.every((iv, i) => iv[0] === ub[i][0] && iv[1] === ub[i][1]);
+      if (!same) { chordBad++; if (chordSample.length < 4) { const [f, kind, line] = k.split("|"); const fmt = (u) => u.map(([lo, hi]) => `${(lo * Q).toFixed(3)}..${(hi * Q).toFixed(3)}`).join(" "); chordSample.push(`${H.entities[T.faces[f].entity].id} ${kind === "h" ? "lat" : "lon"} ${(line * Q).toFixed(3)}: ${fmt(ua) || "nothing"} vs ${fmt(ub) || "nothing"}`); } }
+    }
     const tileLandBad = pointHits.land.filter((h) => !h[1]), tileSeaBad = pointHits.sea.filter((h) => !h[1]);
     badBuild ? bad(`z=${z}: every tile names the core's buildId`, `${badBuild}`) : ok(`z=${z}: every tile names the core's buildId`, H.buildId);
     badSrc ? bad(`z=${z}: every tile header carries the core's sources`, `${badSrc}`) : ok(`z=${z}: every tile header carries the core's sources`);
@@ -453,7 +474,7 @@ function checkTiles(T, H, dir) {
     chainBad ? bad(`z=${z}: the pieces of each core arc chain across tiles`, `${chainBad} of ${chainArcs} arcs`) : ok(`z=${z}: the pieces of each core arc chain across tiles`, `${chainArcs} core arcs in pieces`);
     edgeOff ? bad(`z=${z}: every EDGE chord lies on its tile's boundary`, `${edgeOff}`) : ok(`z=${z}: every EDGE chord lies on its tile's boundary`);
     edgeStroked ? bad(`z=${z}: no stroked arc lies along a tile edge`, `${edgeStroked}`) : ok(`z=${z}: no stroked arc lies along a tile edge`);
-    chordBad ? bad(`z=${z}: every EDGE chord is matched reversed by the same face in the neighbouring tile`, `${chordBad} of ${chordTotal} — ${chordSample.join("; ")}`) : ok(`z=${z}: every EDGE chord is matched reversed by the same face in the neighbouring tile`, `${chordTotal} chord segments`);
+    chordBad ? bad(`z=${z}: what a face's chords cover along a tile line is the same from both tiles`, `${chordBad} of ${chordTotal} face×line pairs — ${chordSample.join("; ")}`) : ok(`z=${z}: what a face's chords cover along a tile line is the same from both tiles`, `${chordTotal} face×line pairs${chordDiag ? ", " + chordDiag + " diagonal chord segments" : ""}`);
     badFace || badEntity ? bad(`z=${z}: every face piece names a core face and carries its entity`, `${badFace} bad refs, ${badEntity} wrong entities`) : ok(`z=${z}: every face piece names a core face and carries its entity`, `${facesTotal} face pieces`);
     crossings ? bad(`z=${z}: planar per tile`, `${crossings} crossings — ${crossSample.join("; ")}`) : ok(`z=${z}: planar per tile`);
     tileLandBad.length ? bad(`z=${z}: inland places are in the right country in their tile`, tileLandBad.map((h) => `${h[0]}: ${h[2]}`).join("; ")) : ok(`z=${z}: inland places are in the right country in their tile`, `${pointHits.land.length} places`);

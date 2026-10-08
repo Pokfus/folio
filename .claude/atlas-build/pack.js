@@ -150,7 +150,10 @@ for (const TL of TILE_LEVELS) {
        zero-length piece would leave the neighbour's boundary split at a point this tile does not know,
        and the edge chords would no longer match (measured: 65 of 4,515 at z=4 on the first build). */
     let lastCross = null;   // { x, y, piece: the piece finished there, tile }
-    const undoLast = () => { const p = lastCross.piece; const i = p.t.pieces.lastIndexOf(p); if (i >= 0) { p.t.pieces.splice(i, 1); piecesTotal--; } p.v.pop(); for (let k = 1; k < cur.v.length; k++) p.v.push(vtx(p.t, cur.t.vx[cur.v[k]], cur.t.vy[cur.v[k]])); p.atEnd = false; p.pos1 = null; cur = p; lastCross = null; };
+    // The excursion's own vertex (outside this tile, up to a few quanta past the line) is NOT kept: the piece
+    // touches the line at the shared crossing point instead, or its two segments to that vertex would cross
+    // the edge chord that runs along the line (measured: 10 such crossings at z=4, Victoria Island's coast)
+    const undoLast = () => { const p = lastCross.piece; const i = p.t.pieces.lastIndexOf(p); if (i >= 0) { p.t.pieces.splice(i, 1); piecesTotal--; } p.v.pop(); p.v.push(vtx(p.t, lastCross.x, lastCross.y)); p.atEnd = false; p.pos1 = null; cur = p; lastCross = null; };
     for (let k = 1; k < idx.length; k++) {
       const x1 = ux, y1 = T.lat[idx[k - 1]];
       let x2 = T.lon[idx[k]]; const y2 = T.lat[idx[k]];
@@ -217,7 +220,7 @@ for (const TL of TILE_LEVELS) {
       for (let i = 1; i < n; i++) { let dx = T.lon[vs[i]] - T.lon[vs[i - 1]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; cum += dx; turn += dx; X[i] = cum; Y[i] = T.lat[vs[i]]; }
       { let dx = T.lon[vs[0]] - T.lon[vs[n - 1]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; turn += dx; }
       let m = n;
-      if (Math.abs(turn) > X180) { const pole = Y.reduce((s, y) => s + y, 0) / n < 0 ? -Y90 : Y90; const X2 = new Float64Array(n + 2), Y2 = new Float64Array(n + 2); X2.set(X); Y2.set(Y); X2[n] = X[n - 1]; Y2[n] = pole; X2[n + 1] = X[0]; Y2[n + 1] = pole; X = X2; Y = Y2; m = n + 2; }
+      if (Math.abs(turn) > X180) { const pole = Y.reduce((s, y) => s + y, 0) / n < 0 ? -Y90 : Y90; const X2 = new Float64Array(n + 3), Y2 = new Float64Array(n + 3); X2.set(X); Y2.set(Y); X2[n] = X[0] + turn; Y2[n] = Y[0]; X2[n + 1] = X[0] + turn; Y2[n + 1] = pole; X2[n + 2] = X[0]; Y2[n + 2] = pole; X = X2; Y = Y2; m = n + 3; }   // close the turn at the first vertex one lap on, then down to the pole and back along it: the pole edge spans the full 360°, not the lap minus the closing edge (measured: the pole corner of the antimeridian cell tested outside Antarctica)
       for (const qx of [px, px + 2 * X180, px - 2 * X180]) {
         let c = false;
         for (let i = 0, j = m - 1; i < m; j = i++) if ((Y[i] > py) !== (Y[j] > py) && qx < (X[j] - X[i]) * (py - Y[i]) / (Y[j] - Y[i]) + X[i]) c = !c;
@@ -230,7 +233,20 @@ for (const TL of TILE_LEVELS) {
   // a ring that circles a pole reaches it: Antarctica's box runs to -90° although its ice front stops near
   // -78.5°, so the z=4 pole row (-90..-78.75) is whole-tile covers (measured: without this the row was empty
   // and the renderer showed sea south of the ice front at the cap)
-  const boxOf = (fi) => { let b = faceBox.get(fi); if (b) return b; let y0 = Infinity, y1 = -Infinity; for (const vs of ringsOf(fi)) { let turn = 0, sum = 0; for (let i = 0; i < vs.length; i++) { let dx = T.lon[vs[(i + 1) % vs.length]] - T.lon[vs[i]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; turn += dx; sum += T.lat[vs[i]]; } for (const v of vs) { if (T.lat[v] < y0) y0 = T.lat[v]; if (T.lat[v] > y1) y1 = T.lat[v]; } if (Math.abs(turn) > X180) { if (sum < 0) y0 = -Y90; else y1 = Y90; } } b = { y0, y1 }; faceBox.set(fi, b); return b; };
+  const boxOf = (fi) => { let b = faceBox.get(fi); if (b) return b; let y0 = Infinity, y1 = -Infinity, bx0 = Infinity, bx1 = -Infinity, polar = false; for (const vs of ringsOf(fi)) { let turn = 0, sum = 0, cum = T.lon[vs[0]]; if (cum < bx0) bx0 = cum; if (cum > bx1) bx1 = cum; for (let i = 0; i < vs.length; i++) { let dx = T.lon[vs[(i + 1) % vs.length]] - T.lon[vs[i]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; turn += dx; sum += T.lat[vs[i]]; if (i + 1 < vs.length) { cum += dx; if (cum < bx0) bx0 = cum; if (cum > bx1) bx1 = cum; } } for (const v of vs) { if (T.lat[v] < y0) y0 = T.lat[v]; if (T.lat[v] > y1) y1 = T.lat[v]; } if (Math.abs(turn) > X180) { polar = true; if (sum < 0) y0 = -Y90; else y1 = Y90; } } b = { y0, y1, x0: bx0, x1: bx1, polar }; faceBox.set(fi, b); return b; };
+  // the lon box is in the unwrapped frame of each ring's first vertex: test the point at three longitudes
+  const inXBox = (b, px) => b.polar || [px, px + 2 * X180, px - 2 * X180].some((x) => x >= b.x0 && x <= b.x1);
+  // 2b. A tile touched by no arc at all can still lie inside a face — the z=4 pole row under Antarctica's
+  // ice front, a cell deep inside Brazil or Siberia with no line through it — and a tile that is not there
+  // is drawn as sea. Create those tiles here, so the cover pass below gives each its face.
+  { let made = 0;
+    for (let ty = 0; ty < TL.rows; ty++) for (let tx = 0; tx < TL.cols; tx++) {
+      if (tiles.has(tileKey(tx, ty))) continue;
+      const x0 = -X180 + tx * W, y0 = -Y90 + ty * Hh, px = x0 + 2, py = y0 + 2;
+      for (let fi = 0; fi < nF; fi++) { const b = boxOf(fi); if (py < b.y0 || py > b.y1 || !inXBox(b, px)) continue; if (faceContains(fi, px, py)) { tileAt(tx, ty); made++; break; } }
+    }
+    say(`z=${L}: ${made} tiles touched by no arc lie inside a face (whole-tile covers)`);
+  }
   let faceTotal = 0, edgeArcs = 0, fullCovers = 0;
   for (const t of tiles.values()) {
     const x0 = t.x0, y0 = t.y0, x1 = x0 + W, y1 = y0 + Hh;
@@ -302,7 +318,7 @@ for (const TL of TILE_LEVELS) {
       const px = x0 + 2, py = y0 + 2;
       for (let fi = 0; fi < nF; fi++) {
         if (layerOf(fi) !== Ly || byFace.has(fi)) continue;
-        const b = boxOf(fi); if (py < b.y0 || py > b.y1) continue;
+        const b = boxOf(fi); if (py < b.y0 || py > b.y1 || !inXBox(b, px)) continue;
         if (!faceContains(fi, px, py)) continue;
         const vs = [0, 1, 2, 3, 0].map((k) => { const c = corner(k); return vtx(t, c[0], c[1]); });
         tileFaces.push({ entity: T.faces[fi].entity, source: T.faces[fi].source, rings: [[edgeArc(vs) + 1]] }); tileFaceRef.push(fi); faceTotal++; fullCovers++;
