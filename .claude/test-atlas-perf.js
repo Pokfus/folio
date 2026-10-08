@@ -15,8 +15,8 @@
         segments the renderer drew in the last frame, and four fixed views must stay under the
         budgets below — the globe, Europe, the Aegean, and the Aegean at the zoom cap, with the
         tiles those views need loaded. The budgets are the figures measured when the tiles were
-        built (§2.3 "as measured"), rounded up by a quarter, so a change that doubles what a view
-        draws fails here rather than on a phone.
+        built (§7 "Phase 1a — as built"), rounded up by a quarter, so a change that doubles what a
+        view draws fails here rather than on a phone.
 
    The suite also prints the #map2?perf overlay's numbers (mean, p95, max over the last 120 frames,
    primitives, LOD, tiles) for each fixed view, which is what the owner reads on a real phone.
@@ -38,13 +38,14 @@ const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/cs
 const RATIO = 0.40;             // v2 p95 ≤ 40 % of v1 p95
 const WORST_MS = 100;           // worst frame during drag and pinch
 /* The four fixed views and their primitive budgets (triangles, segments drawn in one frame at
-   1280×800). Measured 2026-10-08 on the Phase 1a build (see docs/atlas-v2-design.md §2.3 "as
-   measured"), rounded up by ~25 %. A view is (lon, lat, km per pixel). */
+   1280×800). Measured 2026-10-08 on the Phase 1a build (docs/atlas-v2-design.md §7 "Phase 1a — as
+   built": globe 42,529 / 19,917; Europe 133,348 / 101,049; the Aegean 25,892 / 22,750; the Aegean
+   at the cap 20,366 / 18,297), each rounded up by a quarter. A view is (lon, lat, km per pixel). */
 const VIEWS = [
-  { name: "globe", lon: 10, lat: 20, kmpp: 24.0, tri: 60000, seg: 40000 },
-  { name: "Europe", lon: 10, lat: 50, kmpp: 3.0, tri: 120000, seg: 60000 },
-  { name: "Aegean", lon: 25, lat: 38, kmpp: 0.5, tri: 90000, seg: 60000 },
-  { name: "Aegean at the cap", lon: 25, lat: 38, kmpp: 0.15, tri: 90000, seg: 60000 },
+  { name: "globe", lon: 10, lat: 20, kmpp: 24.0, tri: 54000, seg: 25000 },
+  { name: "Europe", lon: 10, lat: 50, kmpp: 3.0, tri: 167000, seg: 127000 },
+  { name: "Aegean", lon: 25, lat: 38, kmpp: 0.5, tri: 33000, seg: 29000 },
+  { name: "Aegean at the cap", lon: 25, lat: 38, kmpp: 0.15, tri: 26000, seg: 23000 },
 ];
 const PORT = 5612;
 

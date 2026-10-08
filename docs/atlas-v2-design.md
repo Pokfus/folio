@@ -327,7 +327,7 @@ compress `application/octet-stream`). Sizes — the first three rows **measured 
 
 | file | content | size on the wire |
 |---|---|---|
-| `atlas/data/topology.bin` | arcs LOD 0–2, faces, steps, entities | **2.88 MB measured**: 917,292 vertices in 35,225 arcs, 430 faces (257 countries, 173 admin-1 units), at a quantum of 2.5·10⁻⁴° and Visvalingam intervals of 10 / 2.5 / 0.5 km for LOD 0 / 1 / 2; vertices 2,328 KB, 2-bit ranks 224 KB, arc table 173 KB, face table 152 KB, header 71 KB. CI refuses a core over 3 MB. Cliopatria's steps (Phase 2) will add to this. |
+| `atlas/data/topology.bin` | arcs LOD 0–2, faces, steps, entities | **2.88 MB measured**: 917,243 vertices in 35,225 arcs, 430 faces (257 countries, 173 admin-1 units), at a quantum of 2.5·10⁻⁴° and Visvalingam intervals of 10 / 2.5 / 0.5 km for LOD 0 / 1 / 2; vertices 2,328 KB, 2-bit ranks 224 KB, arc table 173 KB, face table 152 KB, header 71 KB. CI refuses a core over 3 MB. Cliopatria's steps (Phase 2) will add to this. |
 | `atlas/data/gazetteer.js` | places registry (§2.8), labels, anchors | 0.3–0.5 MB |
 | `atlas/data/tiles/3/*.bin` (32 tiles) | every arc and every face clipped to the tile, LOD 3 (250 m) | **5.33 MB measured**, median 110 KB, largest 700 KB (the tile holding Scandinavia and the Baltic) |
 | `atlas/data/tiles/4/*.bin` (382 of 512 tiles) | the same at LOD 4 (75 m) | **17.72 MB measured**, median 13 KB, largest 893 KB (the tile holding the Aegean and the Adriatic); 130 cells are open ocean and omitted, 38 are whole-tile covers of one face (Antarctica's pole row, inland cells of Brazil and Siberia) a few hundred bytes each; 23.05 MB in 414 files, under the 40 MB the owner allowed |
@@ -1125,8 +1125,8 @@ records, 647,462 rings and 46.9 M vertices; 185,833 degenerate vertices and 1,53
 quantisation; 15 rings are cut at the antimeridian and rejoined by latitude (one seam end snapped
 28 m). The working set at the finest tolerance, 75 m, is 195,536 rings and 6.25 M vertices (451,933
 rings — islets under about 75 m across — exist only in the reserve). The vertex census that fixed
-the tolerances is in §2.3; per level the topology carries 437,413 / 547,347 / 1,247,926 /
-2,168,129 / 6,604,206 vertices (cumulative, lines included). Rings are simplified one at a time, so
+the tolerances is in §2.3; per level the topology carries 428,585 / 547,255 / 1,247,877 /
+2,168,031 / 6,603,880 vertices (cumulative, lines included; LOD 0 draws 33,496 segments and 54,911 fill triangles for the whole earth, LOD 1 156,611 and 244,699, LOD 2 882,018 and 1,356,629). Rings are simplified one at a time, so
 at 75 m two neighbouring rings, or two reaches of one, cross: **13,925 crossings** in the working set.
 `build-admin.js` now makes the set planar before any line touches it, re-adding the largest reserve
 vertex between the ends of each crossing segment, pass after pass: 35,730 vertices over 16 passes,
@@ -1167,8 +1167,9 @@ largest 40 km²; the entity `adm0:scr` (Scarborough Reef) has no land. Admin-1: 
 containment, 18,839 by proximity, no unit without land; 19 NE "border" arcs that lie between two
 units of one country became admin-1 arcs. Arcs dropped: 1,681 with the same entity on both sides,
 42 dangling; 148 flagged WATER. 257 admin-0 faces and 173 admin-1 faces. The per-level crossing
-repair (reserve vertices re-added, junctions where no reserve exists): 1,246 / 6,675 / 16,306 /
-15,737 / 1,122 vertices at LOD 0 to 4, no residual crossing at any level.
+repair (reserve vertices re-added, junctions where no reserve exists): 914 / 6,777 / 16,280 /
+15,677 / 848 vertices at LOD 0 to 4 over 8 / 9 / 16 / 15 / 3 passes, no residual crossing at any
+level; 405 crossings became a junction vertex and 171 a shared endpoint.
 
 **What conflation could not resolve, and how it is counted.** Unmapped land: 784 km² (above).
 Lines over water: 148 arcs flagged WATER (drawn dashed, in no face). One-sided lines: 260 admin-0
@@ -1204,25 +1205,28 @@ build above):
 
 | gesture | target | mean | p50 | p90 | p95 | p99 | max |
 |---|---|---|---|---|---|---|---|
-| drag | v1 | 82.8 | 16.7 | 250.0 | 283.4 | 383.4 | 483.2 |
-| drag | v2 | 34.4 | 16.7 | 83.4 | 100.0 | 116.7 | 116.7 |
-| wheel | v1 | 196.8 | 16.7 | 616.6 | 700.0 | 1500.0 | 1500.0 |
-| wheel | v2 | 42.3 | 16.7 | 100.0 | 116.7 | 250.0 | 250.0 |
-| pinch | v1 | 188.3 | 16.7 | 633.2 | 683.4 | 850.0 | 933.3 |
+| drag | v1 | 86.4 | 16.7 | 283.2 | 316.6 | 366.7 | 616.6 |
+| drag | v2 | 30.9 | 16.7 | 66.7 | 83.3 | 83.4 | 100.0 |
+| wheel | v1 | 249.8 | 16.7 | 583.4 | 733.2 | 2650.0 | 2650.0 |
+| wheel | v2 | 38.0 | 16.7 | 83.3 | 150.0 | 200.0 | 200.0 |
+| pinch | v1 | 187.4 | 16.7 | 566.7 | 666.6 | 899.9 | 1066.7 |
 | pinch | v2 | 16.7 | 16.7 | 16.7 | 16.8 | 16.8 | 16.8 |
 
-The ratios: drag 35 %, wheel 17 %, pinch 2 % of v1's p95 — all under the 40 %. Phase 0's wheel
+The ratios: drag 26 %, wheel 20 %, pinch 3 % of v1's p95 — all under the 40 %; the drag's worst
+frame is 100.0 ms, exactly the gate (one vsync of margin would be 83 ms; there is none to spare), and
+the pinch's 16.8. Phase 0's wheel
 spikes (max 167 ms, p95 100 ms) are gone as spikes: a wheel frame now costs what a drag frame costs
-at that zoom (the warm draw at upload took the first-use stall out; the remaining p95 is the
-globe's steady frame). The four fixed views and their budgets (triangles and line segments drawn in
+at that zoom (the warm draw at upload took the first-use stall out; what remains — p95 150, max
+200 — is the wheel passing through the Europe-scale LOD 2 view, the heaviest resident level, which
+the owner's gate does not bound by a worst frame). The four fixed views and their budgets (triangles and line segments drawn in
 one still frame, the budget 1.25× the measurement, stored in the test):
 
 | view | km/px | LOD | tiles | triangles | segments | drag p95 / max |
 |---|---|---|---|---|---|---|
-| globe | 24 | 0 | — | 52,413 | 25,162 | 83 / 100 |
-| Europe | 3 | 2 | — | 133,358 | 101,059 | 150 / 200 |
-| the Aegean | 0.5 | 3 | 1 | 25,892 | 22,750 | 67 / 67 |
-| the Aegean at the cap | 0.15 | 4 | 1 | 20,366 | 18,297 | 33 / 50 |
+| globe | 24 | 0 | — | 42,529 | 19,917 | 67 / 83 |
+| Europe | 3 | 2 | — | 133,348 | 101,049 | 133 / 150 |
+| the Aegean | 0.5 | 3 | 1 | 25,892 | 22,750 | 50 / 67 |
+| the Aegean at the cap | 0.15 | 4 | 1 | 20,366 | 18,297 | 33 / 33 |
 
 **Where the worst-frame rule stood, and what was done.** With LOD 0 at 8 km the drag's worst frame
 was 150 ms, then 116.7 ms, against the owner's 100. A probe with the pass toggles showed a globe
@@ -1233,8 +1237,12 @@ So: the cull buckets went from 8×8 to 16×16 cells per cube face (−5 % at the
 hemisphere simply holds more coast than the Pacific side, −18 % over Europe); the sphere pass draws
 a quad around the disc instead of the whole screen; admin-1 segments are a list of their own and are
 not submitted at all above their threshold (an eighth of LOD 0's segments); and LOD 0 was rebuilt
-at 10 km (§2.3). The figures in the tables are the result; reader hardware with a GPU draws the
-same frame in a few milliseconds, which the `#map2?perf` overlay shows on the owner's phone.
+at 10 km (§2.3), which took its coast from 29,918 to 23,132 segments (its vertex count in the file
+barely moved — arc endpoints, two per arc for 200k arcs, are rank 0 whatever the tolerance). The
+figures in the tables are the result: the globe frame went from 85–115 ms to 67–100 ms. Reader
+hardware with a GPU draws the same frame in a few milliseconds, which the `#map2?perf` overlay
+shows on the owner's phone; the next lever, if CI ever needs it, is the arc pass (a triangle per
+pair of segments would halve its vertex-shader runs).
 
 **Findings that contradict or sharpen the design.** (1) §2.3's "snap within d₁" is not the whole
 of conflation, as Phase 0 warned: the NE shoreline is never used as geometry at all — shared NE
@@ -1255,7 +1263,19 @@ loops that never ended — a junction made 42 times beside an existing vertex at
 reserve read across two rings sharing a junction vertex — are the kind of fault the per-level
 repair hides behind "40 passes": both are fixed and the pass count is in the report.
 
-**Screenshots.** SCREENSHOT_REVIEW_PENDING
+**Screenshots, reviewed.** The series (`.claude/atlas-shots.js`, 1280×800, twelve shots) was
+read by eye on the final build. At the cap (150 m/px, LOD 4): Mykonos and Tinos, the Sognefjord's
+inner arms and Texel with Den Helder show no stair-stepping — the 75 m tolerance is half a pixel
+and the quantum a fifth — and the fill edge sits under the stroke everywhere, with no sea-coloured
+gap and no land over water. At 0.6 km/px (LOD 3, the first tile level): the Cyclades, the fjord
+coast from Stavanger to Ålesund and the Wadden islands are drawn from one tile each with no seam
+where the tile meets the resident level outside it. At 6 km/px (LOD 1): Europe from Iceland to the
+Caspian, with the admin-1 lines correctly absent above 4 km/px. The mid-load shots of the cap views
+show the LOD 3 parent tile in the stencil's place of the pending LOD 4 tile — at this zoom the two
+are hard to tell apart, which is the point: a tile on its way is a patch of slightly coarser coast,
+never a hole. Two things the shots show that are not faults: the IJsselmeer is land, because OSM's
+coastline stops at the Afsluitdijk (inland water is Phase 1b's), and the globe at LOD 0 looks the
+same at 10 km as it did at 8 km.
 
 
 ### Phase 2 — Time (ships `#map2` with a timeline; ~8–10 sessions)

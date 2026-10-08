@@ -18,7 +18,7 @@ Playwright suites all load, so there is exactly one definition of every byte.
 | 1 | `node --max-old-space-size=12000 build-land.js` | OSM land polygons | `out/coast.bin`, `out/land-log.json` | ~90 s |
 | 2 | `node --max-old-space-size=12000 build-admin.js` | `out/coast.bin`, NE admin-0, NE admin-1 | `out/full.bin`, `out/admin-log.json`, `out/admin-report.json` | ~20 min (the LOD 4 crossing repair is most of it) |
 | 8 | `node pack.js [--install]` | `out/full.bin` | `out/dist/` (the core, the tiles, `tiles-report.json`); `--install` copies them into `atlas/data/` | ~1 min |
-| 9 | `node check-topology.js --tiles` (from the repo root: `node .claude/atlas-build/check-topology.js --tiles`) | `atlas/data/` | nothing; exit 1 on any failure | ~2 min |
+| 9 | `node check-topology.js --tiles` (from the repo root: `node --max-old-space-size=8000 .claude/atlas-build/check-topology.js --tiles`) | `atlas/data/` | nothing; exit 1 on any failure | ~4 min |
 
 Steps 3–7 of the design's table (polities, peoples, water, gazetteer, relief) do not exist yet
 (Phases 1b–2). Each step is deterministic given `sources.json`; the only non-determinism in the
@@ -28,7 +28,10 @@ mismatch.
 
 `build-land.js --census` prints the vertex census per candidate tolerance without writing anything;
 it is how the LOD tolerances were chosen (§2.3 "as measured"). `pack.js --dry` builds everything in
-memory and prints the size report without writing.
+memory and prints the size report without writing. After `--install`, run step 9, then
+`.claude/test-atlas-perf.js` and `.claude/atlas-shots.js` (both need Playwright on `NODE_PATH`; in a
+cloud session also `FOLIO_CHROMIUM=/opt/pw-browsers/<chromium>/chrome-linux/chrome`) — the gate's
+figures and the screenshot series are what §7's as-built note quotes.
 
 ## Where things live
 
