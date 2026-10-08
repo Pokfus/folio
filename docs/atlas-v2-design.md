@@ -1212,9 +1212,14 @@ build above):
 | pinch | v1 | 187.4 | 16.7 | 566.7 | 666.6 | 899.9 | 1066.7 |
 | pinch | v2 | 16.7 | 16.7 | 16.7 | 16.8 | 16.8 | 16.8 |
 
-The ratios: drag 26 %, wheel 20 %, pinch 3 % of v1's p95 — all under the 40 %; the drag's worst
-frame is 100.0 ms, exactly the gate (one vsync of margin would be 83 ms; there is none to spare), and
-the pinch's 16.8. Phase 0's wheel
+The ratios: drag 26 %, wheel 20 %, pinch 3 % of v1's p95 — all under the 40 %; the pinch's worst
+frame is 16.8 ms. **The drag's worst frame sits on the gate**: 83.4 and 100.0 ms in the suite's two
+confirmation runs (the steady drag frame is 50–67 ms, p95 83; the worst is a single frame per run,
+six refreshes at 60 Hz, which the rAF clock reports as 100.0 or 100.1). The suite opens its window
+after one warm frame, because the first draw after a pause costs the browser a vsync or two
+(measured: 100 ms where the next frames read 50–67), and allows a millisecond of timestamp slack on
+the 100 — a seven-refresh frame, 116.7 ms, still fails. If the gate flakes on a slower CI runner,
+that is the number to read; the renderer has one more cheap lever (below). Phase 0's wheel
 spikes (max 167 ms, p95 100 ms) are gone as spikes: a wheel frame now costs what a drag frame costs
 at that zoom (the warm draw at upload took the first-use stall out; what remains — p95 150, max
 200 — is the wheel passing through the Europe-scale LOD 2 view, the heaviest resident level, which

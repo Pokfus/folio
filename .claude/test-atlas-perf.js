@@ -237,7 +237,10 @@ async function scrub(page) {
     const a = results.v1[g], b = results.v2[g];
     check(`${g}: v2 p95 ≤ ${RATIO * 100} % of v1 p95`, b.p95 <= a.p95 * RATIO, `v2 ${b.p95.toFixed(1)} ms vs v1 ${a.p95.toFixed(1)} ms (${(100 * b.p95 / a.p95).toFixed(0)} %)`);
   }
-  for (const g of ["drag", "pinch"]) check(`${g}: v2 worst frame ≤ ${WORST_MS} ms`, results.v2[g].max <= WORST_MS, `${results.v2[g].max.toFixed(1)} ms`);
+  // rAF timestamps come in multiples of the 60 Hz refresh, 16.68 ms: a six-refresh frame reads 100.0 or
+  // 100.1 depending on jitter, and "100 ms" means six refreshes, so a millisecond of timestamp slack is
+  // allowed — a seven-refresh frame (116.7) still fails
+  for (const g of ["drag", "pinch"]) check(`${g}: v2 worst frame ≤ ${WORST_MS} ms`, results.v2[g].max <= WORST_MS + 1, `${results.v2[g].max.toFixed(1)} ms`);
   for (const { V, still, settled } of views) {
     check(`${V.name}: tiles settled`, settled, `${still.tilesDrawn} drawn, ${still.pending} pending`);
     check(`${V.name}: triangles ≤ ${V.tri}`, still.triangles <= V.tri, `${still.triangles}`);
