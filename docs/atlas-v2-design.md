@@ -1422,7 +1422,9 @@ from LOD 1, all from LOD 2**. The rivers' every vertex (ranks 0–3, 248,676 aft
 where a tributary joins) that the renderer draws past LOD 2: 996,207 segments for the 246,162 raw ones.
 Rivers are drawn down to **0.35 km/px** and not below: at 0.35 the smoothed line still reads as a river
 (the Rhine and the Moselle in the series), at the cap the smoothed 12-pixel chords would read as a
-cartoon. An intermittent river carries `FLAG.INTERMITTENT` and is dashed like a disputed border. What is
+cartoon. An intermittent river carries `FLAG.INTERMITTENT` (23 arcs) and is dashed like a disputed border —
+the first build wrote them 0 because the constant was missing from `atlas-format.js`, so `check-water.js`
+now asserts that some river arc carries it. What is
 counted, not repaired: 57 river × river crossings (Natural Earth's own) and 7,827 river × lake-shore
 crossings in the resident levels (11,046 in the full file, 1,307 lakes) where Natural Earth runs a
 river across a lake HydroLAKES draws larger — the lake fill is drawn over the river, so the line
