@@ -409,7 +409,20 @@ function checkTiles(T, H, dir) {
       { const segs = []; for (let a = 0; a < nA; a++) for (let i = Tt.arcOffset[a] + 1; i < Tt.arcOffset[a + 1]; i++) segs.push([a, i - 1, i]);
         const grid = SegIndex.build(segs.length, Math.max(80, Math.round(0.02 / Q)), (si) => { const s = segs[si]; return [Tt.lon[s[1]], Tt.lat[s[1]], Tt.lon[s[2]], Tt.lat[s[2]]]; }); const vec = (i) => G.vec(Tt.lon[i], Tt.lat[i], Q);
         const same = (i, j) => Tt.lon[i] === Tt.lon[j] && Tt.lat[i] === Tt.lat[j];
-        grid.pairs((p, q) => { const s = segs[p], t = segs[q]; if (same(s[1], t[1]) || same(s[1], t[2]) || same(s[2], t[1]) || same(s[2], t[2])) return; if (G.segmentsCross(vec(s[1]), vec(s[2]), vec(t[1]), vec(t[2]))) { crossings++; if (crossSample.length < 4) crossSample.push(`${key}: ${F.KIND_NAME[Tt.arcKind[s[0]]]}#${Tt.arcRef ? Tt.arcRef[s[0]] : s[0]}×${F.KIND_NAME[Tt.arcKind[t[0]]]}#${Tt.arcRef ? Tt.arcRef[t[0]] : t[0]} at ${(Tt.lon[s[1]] * Q).toFixed(4)},${(Tt.lat[s[1]] * Q).toFixed(4)}`); } }); }
+        // a tile is cut in the lon/lat plane (its edges are parallels and meridians, its chords run along
+        // them), so a tile is planar in that plane: on the sphere a chord along a parallel is a great
+        // circle that sags poleward (measured: 0.004° over 2° of longitude at 56° N) and would "cross" a
+        // coast that hugs the edge. The renderer subdivides chords before projecting, so the plane is right.
+        const crossPlanar = (i1, i2, j1, j2) => {
+          const x1 = Tt.lon[i1], y1 = Tt.lat[i1]; let x2 = Tt.lon[i2], y2 = Tt.lat[i2], x3 = Tt.lon[j1], y3 = Tt.lat[j1], x4 = Tt.lon[j2], y4 = Tt.lat[j2];
+          if (x2 - x1 > X180) x2 -= 2 * X180; else if (x1 - x2 > X180) x2 += 2 * X180;
+          if (x3 - x1 > X180) { x3 -= 2 * X180; x4 -= 2 * X180; } else if (x1 - x3 > X180) { x3 += 2 * X180; x4 += 2 * X180; }
+          if (x4 - x3 > X180) x4 -= 2 * X180; else if (x3 - x4 > X180) x4 += 2 * X180;
+          const d = (x2 - x1) * (y4 - y3) - (y2 - y1) * (x4 - x3); if (d === 0) return false;
+          const t = ((x3 - x1) * (y4 - y3) - (y3 - y1) * (x4 - x3)) / d, u = ((x3 - x1) * (y2 - y1) - (y3 - y1) * (x2 - x1)) / d;
+          return t > 0 && t < 1 && u > 0 && u < 1;
+        };
+        grid.pairs((p, q) => { const s = segs[p], t = segs[q]; if (same(s[1], t[1]) || same(s[1], t[2]) || same(s[2], t[1]) || same(s[2], t[2])) return; if (crossPlanar(s[1], s[2], t[1], t[2])) { crossings++; if (crossSample.length < 4) crossSample.push(`${key}: ${F.KIND_NAME[Tt.arcKind[s[0]]]}#${Tt.arcRef ? Tt.arcRef[s[0]] : s[0]}×${F.KIND_NAME[Tt.arcKind[t[0]]]}#${Tt.arcRef ? Tt.arcRef[t[0]] : t[0]} at ${(Tt.lon[s[1]] * Q).toFixed(4)},${(Tt.lat[s[1]] * Q).toFixed(4)}`); } }); }
       // points in this tile
       const inTile = (lon, lat) => { let x = Math.round(lon / Q), y = Math.round(lat / Q); let X = x; if (X - x0 > X180) X -= 2 * X180; else if (x0 - X > X180) X += 2 * X180; return X >= x0 && X < x1 && y >= y0 && y < y1; };
       const faceAt = (px, py) => { for (let i = 0; i < Tt.faces.length; i++) { const cf = Tt.faceRef[i]; if (layerOf(cf) !== 0) continue; if (inRingsT(Tt, Tt.faces[i], px, py)) return cf; } return -1; };

@@ -227,7 +227,10 @@ for (const TL of TILE_LEVELS) {
     return inside;
   };
   const faceBox = new Map();
-  const boxOf = (fi) => { let b = faceBox.get(fi); if (b) return b; let y0 = Infinity, y1 = -Infinity; for (const vs of ringsOf(fi)) for (const v of vs) { if (T.lat[v] < y0) y0 = T.lat[v]; if (T.lat[v] > y1) y1 = T.lat[v]; } b = { y0, y1 }; faceBox.set(fi, b); return b; };
+  // a ring that circles a pole reaches it: Antarctica's box runs to -90° although its ice front stops near
+  // -78.5°, so the z=4 pole row (-90..-78.75) is whole-tile covers (measured: without this the row was empty
+  // and the renderer showed sea south of the ice front at the cap)
+  const boxOf = (fi) => { let b = faceBox.get(fi); if (b) return b; let y0 = Infinity, y1 = -Infinity; for (const vs of ringsOf(fi)) { let turn = 0, sum = 0; for (let i = 0; i < vs.length; i++) { let dx = T.lon[vs[(i + 1) % vs.length]] - T.lon[vs[i]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; turn += dx; sum += T.lat[vs[i]]; } for (const v of vs) { if (T.lat[v] < y0) y0 = T.lat[v]; if (T.lat[v] > y1) y1 = T.lat[v]; } if (Math.abs(turn) > X180) { if (sum < 0) y0 = -Y90; else y1 = Y90; } } b = { y0, y1 }; faceBox.set(fi, b); return b; };
   let faceTotal = 0, edgeArcs = 0, fullCovers = 0;
   for (const t of tiles.values()) {
     const x0 = t.x0, y0 = t.y0, x1 = x0 + W, y1 = y0 + Hh;

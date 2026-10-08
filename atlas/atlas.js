@@ -210,18 +210,7 @@
       lastT = t;
       if (needs) {
         needs = false;
-        clampView();
-        view.radius = base * view.zoom; rotation();
-        const k = kmPerPx();
-        view.level = levelFor(k);
-        view.admin1 = k < ADMIN1_KM_PER_PX;
-        if (view.level >= 3 && tileIndex) {
-          view.tiles = tileKeysFor(view.level).map((x) => view.level + ":" + x);
-          view.parents = view.level === 4 ? tileKeysFor(3).map((x) => "3:" + x) : [];
-          wantTiles(view.level, view.tiles);
-          if (view.level === 4) wantTiles(3, view.parents);
-        } else { view.tiles = []; view.parents = []; }
-        stats.level = view.level;
+        plan();
         R.render(view);
         stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift();
         if (!stats.firstPaintMs && R.levelLoaded(0)) stats.firstPaintMs = Math.round(performance.now() - t0);
@@ -229,6 +218,22 @@
       }
       if (coasting) { coast(); }
       if (needs || coasting) raf = requestAnimationFrame(frame); else lastT = 0;
+    }
+    // the view's derived state: level, admin-1 visibility, the tiles it wants (requested at once). Run by every
+    // frame and by setView, so `tilesSettled()` right after a setView already asks about the NEW tiles
+    function plan() {
+      clampView();
+      view.radius = base * view.zoom; rotation();
+      const k = kmPerPx();
+      view.level = levelFor(k);
+      view.admin1 = k < ADMIN1_KM_PER_PX;
+      if (view.level >= 3 && tileIndex) {
+        view.tiles = tileKeysFor(view.level).map((x) => view.level + ":" + x);
+        view.parents = view.level === 4 ? tileKeysFor(3).map((x) => "3:" + x) : [];
+        wantTiles(view.level, view.tiles);
+        if (view.level === 4) wantTiles(3, view.parents);
+      } else { view.tiles = []; view.parents = []; }
+      stats.level = view.level;
     }
     function invalidate() { needs = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
     function perfText() {
@@ -422,7 +427,7 @@
     layout();
     invalidate();
     // the view set from outside (the perf suite's fixed views): centre, zoom, then wait for `tilesSettled()`
-    function setView(lon, lat, kmPerPixel) { view.lon = lon; view.lat = lat; view.zoom = R_KM / (kmPerPixel * base); clampView(); invalidate(); }
+    function setView(lon, lat, kmPerPixel) { view.lon = lon; view.lat = lat; view.zoom = R_KM / (kmPerPixel * base); plan(); invalidate(); }
     const tilesSettled = () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && tilePending.size === 0;
     const controller = { dispose, stats, view, renderer: R, invalidate, zoomAt, pick, setView, kmPerPx, tilesSettled, setPerf, statsNow: () => Object.assign(R.stats(), { kmPerPx: kmPerPx(), wanted: view.tiles.length, pending: tilePending.size, resident: tileCache.size, fetched: tilesFetched, tileBytes, evicted: tilesEvicted }) };
     el.__atlas2 = controller;

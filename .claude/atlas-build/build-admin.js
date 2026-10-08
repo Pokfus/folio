@@ -82,35 +82,102 @@ function main() {
   const coastSrc = ensureSource(SRC.coast, { verifyOnly: true });
   if (coastSrc.sha256 !== C.header.source.sha256) throw new Error("coast.bin was built from a different pin of " + SRC.coast);
   const nRings = C.ringOffset.length - 1;
-  // the working coast: vertices that survive the finest level, per ring; rings with fewer than 3 vanish
-  let nW = 0, ringsKept = 0, ringsVanished = 0;
-  for (let r = 0; r < nRings; r++) { let k = 0; for (let i = C.ringOffset[r]; i < C.ringOffset[r + 1]; i++) if (C.size[i] >= LOD_M[FINEST]) k++; if (k >= 3) { nW += k; ringsKept++; } else ringsVanished++; }
-  const WX = new Int32Array(nW), WY = new Int32Array(nW), WORIG = new Int32Array(nW), WSZ = new Float32Array(nW), WRING = new Int32Array(nW);
-  const wRingStart = new Uint32Array(ringsKept + 1);
-  { let w = 0, wr = 0;
-    for (let r = 0; r < nRings; r++) {
-      let k = 0; for (let i = C.ringOffset[r]; i < C.ringOffset[r + 1]; i++) if (C.size[i] >= LOD_M[FINEST]) k++;
-      if (k < 3) continue;
-      wRingStart[wr] = w;
-      for (let i = C.ringOffset[r]; i < C.ringOffset[r + 1]; i++) if (C.size[i] >= LOD_M[FINEST]) { WX[w] = C.x[i]; WY[w] = C.y[i]; WORIG[w] = i; WSZ[w] = C.size[i]; WRING[w] = wr; w++; }
-      wr++;
-    }
-    wRingStart[ringsKept] = w; }
+  // the working coast: vertices that survive the finest level, per ring; rings with fewer than 3 vanish.
+  // Every ring is simplified on its own, so at the finest level two neighbouring rings — or two reaches
+  // of one — can cross (Smith Island's marsh islets; measured: 11,967 crossings in the 75 m set). The
+  // face walk needs a planar coast, so the set is made planar HERE, before any line touches it: the
+  // largest reserve vertex (an OSM vertex below the finest tolerance) between the ends of each crossing
+  // segment is re-added, pass after pass, until nothing crosses — the repair stage 11 runs per LOD level,
+  // run once on the ring arrays. A crossing no reserve can fix (two original OSM edges that cross after
+  // quantisation) is left for stage 11, which makes it a junction.
+  const keep = new Uint8Array(C.x.length);
+  for (let i = 0; i < C.x.length; i++) if (C.size[i] >= LOD_M[FINEST]) keep[i] = 1;
+  let nW = 0, ringsKept = 0, ringsVanished = 0, WX, WY, WORIG, WSZ, WRING, wRingStart, cidx;
+  const CELL = Math.round(0.02 / Q);   // 2.2 km cells
   const wNext = (w) => { const r = WRING[w]; return w + 1 < wRingStart[r + 1] ? w + 1 : wRingStart[r]; };
   const wPrev = (w) => { const r = WRING[w]; return w > wRingStart[r] ? w - 1 : wRingStart[r + 1] - 1; };
-  say(`coast: ${nRings} rings, ${C.x.length} vertices → working set at ${LOD_M[FINEST]} m: ${ringsKept} rings, ${nW} vertices (${ringsVanished} rings vanish below the finest level)`);
-  report.coast = { rings: nRings, vertices: C.x.length, workingRings: ringsKept, workingVertices: nW, ringsBelowFinest: ringsVanished };
-  // segment s = working vertex s → wNext(s)
-  const CELL = Math.round(0.02 / Q);   // 2.2 km cells
-  const cidx = SegIndex.build(nW, CELL, (s) => { const n = wNext(s); return [WX[s], WY[s], WX[n], WY[n]]; });
+  const buildWorking = () => {
+    nW = 0; ringsKept = 0; ringsVanished = 0;
+    const kept = new Int32Array(nRings);
+    for (let r = 0; r < nRings; r++) { let k = 0; for (let i = C.ringOffset[r]; i < C.ringOffset[r + 1]; i++) if (keep[i]) k++; kept[r] = k; if (k >= 3) { nW += k; ringsKept++; } else ringsVanished++; }
+    WX = new Int32Array(nW); WY = new Int32Array(nW); WORIG = new Int32Array(nW); WSZ = new Float32Array(nW); WRING = new Int32Array(nW);
+    wRingStart = new Uint32Array(ringsKept + 1);
+    let w = 0, wr = 0;
+    for (let r = 0; r < nRings; r++) {
+      if (kept[r] < 3) continue;
+      wRingStart[wr] = w;
+      // a re-added reserve vertex takes the finest tolerance as its size, so stage 11 ranks it at the finest level
+      for (let i = C.ringOffset[r]; i < C.ringOffset[r + 1]; i++) if (keep[i]) { WX[w] = C.x[i]; WY[w] = C.y[i]; WORIG[w] = i; WSZ[w] = Math.max(C.size[i], LOD_M[FINEST]); WRING[w] = wr; w++; }
+      wr++;
+    }
+    wRingStart[ringsKept] = w;
+    // segment s = working vertex s → wNext(s)
+    cidx = SegIndex.build(nW, CELL, (s) => { const n = wNext(s); return [WX[s], WY[s], WX[n], WY[n]]; });
+  };
+  const ringOfOrig = (o) => { let lo = 0, hi = nRings - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (C.ringOffset[m] <= o) lo = m; else hi = m - 1; } return lo; };
+  let planarPasses = 0, planarReAdded = 0, planarResidual = 0, planarCrossings0 = 0;
+  { let touched = null, stale = true;
+    for (let pass = 0; pass < 40; pass++) {
+      buildWorking(); stale = false; planarPasses = pass + 1;
+      const t0 = Date.now();
+      const vecW = (w) => G.vec(WX[w], WY[w], Q);
+      const crossing = [];
+      const test = (p, q) => { const pn = wNext(p), qn = wNext(q); if (p === q || p === qn || pn === q || pn === qn) return; if (G.segmentsCross(vecW(p), vecW(pn), vecW(q), vecW(qn))) crossing.push(p, q); };
+      if (!touched) cidx.pairs(test);
+      else {
+        // after the first pass only a segment with a touched end can be in a new crossing: query around those
+        const seen = new Set();
+        for (let s = 0; s < nW; s++) {
+          const n = wNext(s); if (!touched.has(WORIG[s]) && !touched.has(WORIG[n])) continue;
+          const cx = Math.round((WX[s] + WX[n]) / 2), cy = Math.round((WY[s] + WY[n]) / 2);
+          const rU = Math.max(Math.abs(WX[n] - WX[s]), Math.abs(WY[n] - WY[s])) / 2 + 1;
+          cidx.near(cx, cy, Math.min(rU, 60 * CELL), (q) => { if (q === s) return; const lo = Math.min(s, q), hi = Math.max(s, q); const key = lo * 16777216 + hi; if (seen.has(key)) return; seen.add(key); test(lo, hi); });
+        }
+      }
+      if (pass === 0) planarCrossings0 = crossing.length / 2;
+      if (!crossing.length) { say(`  coast planarity pass ${pass}: ${nW} segments, 0 crossings (${Date.now() - t0} ms)`); break; }
+      touched = new Set(); const want = new Set();
+      for (let k = 0; k < crossing.length; k++) {
+        const s = crossing[k], n = wNext(s), o0 = WORIG[s], o1 = WORIG[n];
+        touched.add(o0); touched.add(o1);
+        const r = ringOfOrig(o0), rs = C.ringOffset[r], len = C.ringOffset[r + 1] - rs;
+        const steps = ((o1 - o0) % len + len) % len;   // along the ring, o1 always follows o0
+        let best = -1, bestSz = -1;
+        for (let kk = 1; kk < steps; kk++) { const o = rs + ((o0 - rs + kk) % len); if (!keep[o] && C.size[o] > bestSz) { bestSz = C.size[o]; best = o; } }
+        if (best >= 0) want.add(best);
+      }
+      for (const o of want) { keep[o] = 1; touched.add(o); }
+      planarReAdded += want.size; stale = want.size > 0;
+      say(`  coast planarity pass ${pass}: ${nW} segments, ${crossing.length / 2} crossings, ${want.size} reserve vertices re-added (${Date.now() - t0} ms)`);
+      if (!want.size) { planarResidual = crossing.length / 2; for (let k = 0; k < Math.min(crossing.length, 20); k += 2) log.event("coast-crossing-without-reserve", { at: deg(WX[crossing[k]], WY[crossing[k]]) }); break; }
+    }
+    if (stale) buildWorking();
+  }
+  say(`coast: ${nRings} rings, ${C.x.length} vertices → working set at ${LOD_M[FINEST]} m: ${ringsKept} rings, ${nW} vertices (${ringsVanished} rings vanish below the finest level); planar after ${planarPasses} pass(es): ${planarCrossings0} crossings, ${planarReAdded} reserve vertices re-added, ${planarResidual} left for stage 11`);
+  // Rings under TINY_KM2 are invisible to the lines: no crossing node, no hug, no join lands on them. Two
+  // such marsh fragments can touch or overlap after quantisation (a vertex of one exactly on an edge of the
+  // other — Smith Island, measured), and a border threaded through both made the face walk leak. A line
+  // crossing a tiny islet simply passes over it; the islet keeps its ring and takes one side's label, and
+  // stage 11 makes the crossing a shared vertex so every level stays planar.
+  const TINY_KM2 = 0.1;
+  const ringTiny = new Uint8Array(ringsKept); let tinyRings = 0;
+  for (let r = 0; r < ringsKept; r++) {
+    let a2 = 0, sy = 0; const s0 = wRingStart[r], s1 = wRingStart[r + 1];
+    for (let w = s0; w < s1; w++) { const n = w + 1 < s1 ? w + 1 : s0; a2 += (WX[w] - WX[s0]) * (WY[n] - WY[s0]) - (WX[n] - WX[s0]) * (WY[w] - WY[s0]); sy += WY[w]; }
+    const km2 = Math.abs(a2) / 2 * KM_PER_U * KM_PER_U * Math.cos(sy / (s1 - s0) * Q * Math.PI / 180);
+    if (km2 < TINY_KM2) { ringTiny[r] = 1; tinyRings++; }
+  }
+  say(`${tinyRings} working rings under ${TINY_KM2} km² are invisible to the lines`);
+  report.coast = { rings: nRings, vertices: C.x.length, workingRings: ringsKept, workingVertices: nW, ringsBelowFinest: ringsVanished, planar: { passes: planarPasses, crossings: planarCrossings0, reAdded: planarReAdded, residual: planarResidual }, tinyRingsInvisibleToLines: { count: tinyRings, km2: TINY_KM2 } };
   say(`coast segment index: ${cidx.total} entries, ${cidx.nCells} cells`);
 
   // nearest working coast segment to a quantised point, in a local metric; expanding search
-  function nearestCoast(x, y, maxM) {
+  function nearestCoast(x, y, maxM, skipTiny) {
     const ky = KM_PER_U, kx = KM_PER_U * Math.cos(y * Q * Math.PI / 180);
     let best = null;
     for (let rad = CELL; ; rad *= 2) {
       cidx.near(x, y, rad, (s) => {
+        if (skipTiny && ringTiny[WRING[s]]) return;
         const n = wNext(s);
         const ax = (WX[s] - x) * kx, ay = (WY[s] - y) * ky, bx = (WX[n] - x) * kx, by = (WY[n] - y) * ky;
         const dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy;
@@ -313,19 +380,31 @@ function main() {
   const neVert = new Int32Array(NE.x.length);
   for (let i = 0; i < NE.x.length; i++) neVert[i] = vertAdd(NE.x[i], NE.y[i], 1e9, -1);
   const vertByKey = new Map();   // pkey → vertex id, for coast vertices and inserted points (NE nodes may coincide with neither)
-  for (let w = 0; w < nW; w++) vertByKey.set(R.pkey(WX[w], WY[w]), w);
+  // two rings that touch at one quantised point (or a ring that touches itself) SHARE that vertex: the first
+  // id is canonical, the others alias to it and the point is a junction. Measured at Smith Island: a line
+  // through two coincident ids made a zero-length edge whose angle no walk can order, and a line edge
+  // along a coast edge between the two ids did not dedupe into it.
+  const wAlias = new Int32Array(nW); let coincident = 0;
+  for (let w = 0; w < nW; w++) { const k = R.pkey(WX[w], WY[w]); const c = vertByKey.get(k); if (c == null) { vertByKey.set(k, w); wAlias[w] = w; } else { wAlias[w] = c; coincident++; } }
   for (let i = 0; i < NE.x.length; i++) { const k = R.pkey(NE.x[i], NE.y[i]); if (!vertByKey.has(k)) vertByKey.set(k, neVert[i]); }
   // coast insertions: segment s → [{ t, v }]
   const insert = new Map();
   const coastVertSet = new Set(); for (let w = 0; w < nW; w++) coastVertSet.add(w);   // every vertex that lies on a coast ring (working + inserted)
   const onCoast = (v) => coastVertSet.has(v);
   const coastJunction = new Uint8Array(nW);   // a working vertex that became a node
+  // ONLY where a line reaches such a point do the coincident ids merge: elsewhere each ring stays the simple
+  // cycle the walk relies on (a ring whose 28 m inlet collapsed onto itself must not become a spur with the
+  // sea on both sides — measured: merging every coincident pair made 40 mixed cycles)
+  const lineJunction = new Uint8Array(nW);
+  const wid = (w) => (lineJunction[wAlias[w]] ? wAlias[w] : w);
+  say(`${coincident} coast vertices coincide with an earlier one (rings touching at a point)`);
+  report.coastCoincident = coincident;
   const pointOnCoast = (s, t) => {
     // a point on working segment s at parameter t → a vertex id (existing within 1 quantum, else inserted)
     const n = wNext(s);
     const x = Math.round(WX[s] + t * (WX[n] - WX[s])), y = Math.round(WY[s] + t * (WY[n] - WY[s]));
-    if (Math.abs(x - WX[s]) <= 1 && Math.abs(y - WY[s]) <= 1) { coastJunction[s] = 1; return s; }
-    if (Math.abs(x - WX[n]) <= 1 && Math.abs(y - WY[n]) <= 1) { coastJunction[n] = 1; return n; }
+    if (Math.abs(x - WX[s]) <= 1 && Math.abs(y - WY[s]) <= 1) { coastJunction[s] = 1; lineJunction[wAlias[s]] = 1; return wAlias[s]; }
+    if (Math.abs(x - WX[n]) <= 1 && Math.abs(y - WY[n]) <= 1) { coastJunction[n] = 1; lineJunction[wAlias[n]] = 1; return wAlias[n]; }
     const k = R.pkey(x, y);
     let v = vertByKey.get(k);
     if (v == null) { v = vertAdd(x, y, 1e9, -1); vertByKey.set(k, v); }
@@ -356,6 +435,7 @@ function main() {
       const hits = [];
       const rU = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)) / 2 + 2;
       cidx.near(Math.round((x1 + x2) / 2), Math.round((y1 + y2) / 2), rU, (s) => {
+        if (ringTiny[WRING[s]]) return;
         const n = wNext(s);
         let x3 = WX[s], y3 = WY[s], x4 = WX[n], y4 = WY[n];
         if (x3 - x1 > X180) { x3 -= 2 * X180; x4 -= 2 * X180; } else if (x1 - x3 > X180) { x3 += 2 * X180; x4 += 2 * X180; }
@@ -414,7 +494,7 @@ function main() {
   let hugged = 0;
   { const alias = new Map();
     const HUG_M = 1.5 * Q * 111320;
-    for (const L of lines) for (const v of L.v) { if (onCoast(v) || alias.has(v)) continue; const near = nearestCoast(VX[v], VY[v], HUG_M); if (!near) continue; const pv = pointOnCoast(near.seg, near.t); if (pv === v) continue; alias.set(v, pv); hugged++; log.snap({ source: L.kind === KIND.ADMIN1 ? SRC.adm1 : SRC.adm0, kind: "line-vertex-hugging-coast→coast", from: deg(VX[v], VY[v]), to: deg(VX[pv], VY[pv]), metres: near.metres }); }
+    for (const L of lines) for (const v of L.v) { if (onCoast(v) || alias.has(v)) continue; const near = nearestCoast(VX[v], VY[v], HUG_M, true); if (!near) continue; const pv = pointOnCoast(near.seg, near.t); if (pv === v) continue; alias.set(v, pv); hugged++; log.snap({ source: L.kind === KIND.ADMIN1 ? SRC.adm1 : SRC.adm0, kind: "line-vertex-hugging-coast→coast", from: deg(VX[v], VY[v]), to: deg(VX[pv], VY[pv]), metres: near.metres }); }
     if (alias.size) for (const L of lines) { const out = []; for (const v of L.v) { const w = alias.has(v) ? alias.get(v) : v; if (w !== out[out.length - 1]) out.push(w); } L.v = out; }
   }
   say(`${hugged} line vertices hugging the coast snapped onto it`);
@@ -433,8 +513,12 @@ function main() {
     // an admin-1 end may belong on an admin-0 line rather than the coast
     let lineHit = null;
     if (L.kind === KIND.ADMIN1) { const nl = nearestLine(x, y, TOLERANCE_M[srcId]); if (nl) lineHit = nl; }
-    const near = nearestCoast(x, y, TOLERANCE_M[srcId]);
-    if (lineHit && (!near || lineHit.metres <= near.metres || !land)) {
+    const near = nearestCoast(x, y, TOLERANCE_M[srcId], true);
+    // only when the line is nearer than the coast (or no coast is near): the join segment is then shorter than
+    // the distance to the coast and cannot cross it. An end over water never joins a line across the shore —
+    // its tail over water is cut back to the coast below (Fenwick Island, 2026-10-08: such a join through
+    // the coast let the ocean walk onto the island)
+    if (lineHit && (!near || lineHit.metres <= near.metres)) {
       // project onto the admin-0 edge: find the line that holds that edge and insert the point into it
       const e = adm0Edges[lineHit.edge];
       const pa = neVert[e.a], pb = neVert[e.b];
@@ -489,7 +573,7 @@ function main() {
   for (const L of lines) { isNodeV[L.v[0]] = 1; isNodeV[L.v[L.v.length - 1]] = 1; }
   for (const [v, d] of vertDeg) if (d >= 2) isNodeV[v] = 1;   // interior to a line AND (another line passes or it is also a coast vertex)
   for (const l of insert.values()) for (const ins of l) isNodeV[ins.v] = 1;
-  for (let w = 0; w < nW; w++) if (coastJunction[w]) isNodeV[w] = 1;
+  for (let w = 0; w < nW; w++) if (coastJunction[w]) isNodeV[wid(w)] = 1;
   // a line's interior vertex that is on the coast is a node too (a crossing snapped to a coast vertex)
   for (const L of lines) for (const v of L.v) if (onCoast(v)) isNodeV[v] = 1;
   const arcs = [];   // { v: [vertex ids], kind, source, flags, closed }
@@ -503,7 +587,7 @@ function main() {
   let coastArcs = 0;
   for (let r = 0; r < ringsKept; r++) {
     const seq = [];
-    for (let w = wRingStart[r]; w < wRingStart[r + 1]; w++) { seq.push(w); const l = insert.get(w); if (l) { l.sort((p, q) => p.t - q.t); for (const ins of l) seq.push(ins.v); } }
+    for (let w = wRingStart[r]; w < wRingStart[r + 1]; w++) { seq.push(wid(w)); const l = insert.get(w); if (l) { l.sort((p, q) => p.t - q.t); for (const ins of l) seq.push(ins.v); } }
     const n = seq.length;
     let first = -1; for (let i = 0; i < n; i++) if (isNodeV[seq[i]]) { first = i; break; }
     if (first < 0) { let m = 0; for (let i = 1; i < n; i++) if (seq[i] < seq[m]) m = i; const ring = seq.slice(m).concat(seq.slice(0, m)); ring.push(ring[0]); registerArc(ring, KIND.COAST, SRC_I.coast, 0); coastArcs++; continue; }
@@ -531,6 +615,10 @@ function main() {
   let angleTies = 0;
   for (const [v, l] of incident) { for (const h of l) h.ang = angleOut(h.arc, h.dir); l.sort((p, q) => p.ang - q.ang); for (let i = 1; i < l.length; i++) if (Math.abs(l[i].ang - l[i - 1].ang) < 1e-7) { angleTies++; if (angleTies <= 20) log.event("angle-tie-at-node", { at: deg(VX[v], VY[v]), arcs: [l[i - 1].arc, l[i].arc], kinds: [arcs[l[i - 1].arc].kind, arcs[l[i].arc].kind] }); } }
   if (angleTies) say(`  ⚠ ${angleTies} nodes have two arcs leaving in the same direction`);
+  if (process.env.DEBUG_NODE) for (const [dlon, dlat, dr] of process.env.DEBUG_NODE.split(";").map((s) => s.split(",").map(Number))) {
+    const x = R.U(dlon), y = R.U(dlat), r = R.U(dr || 0.01);
+    for (const [v, l] of incident) if (Math.abs(VX[v] - x) <= r && Math.abs(VY[v] - y) <= r) console.log(`  DEBUG node ${v} at ${deg(VX[v], VY[v])} onCoast ${onCoast(v)}: ` + l.map((h) => { const a = arcs[h.arc]; const v1 = h.dir > 0 ? a.v[1] : a.v[a.v.length - 2]; return `arc${h.arc}${h.dir > 0 ? "+" : "-"} k${a.kind} f${a.flags} n${a.v.length} ang ${h.ang.toFixed(4)} → ${deg(VX[v1], VY[v1])}${a.closed ? " closed" : ""}`; }).join(" | "));
+  }
   report.angleTies = angleTies;
   const nextHalf = (arc, dir) => {
     // arriving at the end of (arc, dir): the next half-arc for the left face = the one just clockwise of our reverse
@@ -566,7 +654,8 @@ function main() {
     let A = area % (4 * Math.PI); if (A < 0) A += 4 * Math.PI;
     c.km2 = A * R2; c.outer = A < 2 * Math.PI;
   }
-  if (mixed) { say(`  ⚠ ${mixed} cycles walk coast on both sides (a crossing the planar graph missed)`); for (const c of cycles) if (c.mixed) { const [a] = c.halves[0]; let land = 0, sea = 0; for (const [x, d] of c.halves) if (arcs[x].kind === KIND.COAST) { if (d > 0) land++; else sea++; } const minority = land < sea ? 1 : -1; const where = c.halves.filter(([x, d]) => arcs[x].kind === KIND.COAST && d === minority).slice(0, 6).map(([x, d]) => ({ arc: x, len: arcs[x].v.length, at: deg(VX[arcs[x].v[0]], VY[arcs[x].v[0]]) })); log.event("cycle-mixed", { halves: c.halves.length, land, sea, at: deg(VX[arcs[a].v[0]], VY[arcs[a].v[0]]), minorityCoast: where }); } }
+  if (mixed) { say(`  ⚠ ${mixed} cycles walk coast on both sides (a crossing the planar graph missed)`); for (const c of cycles) if (c.mixed) { const [a] = c.halves[0]; let land = 0, sea = 0; for (const [x, d] of c.halves) if (arcs[x].kind === KIND.COAST) { if (d > 0) land++; else sea++; } const minority = land < sea ? 1 : -1; const where = c.halves.filter(([x, d]) => arcs[x].kind === KIND.COAST && d === minority).slice(0, 6).map(([x, d]) => ({ arc: x, len: arcs[x].v.length, at: deg(VX[arcs[x].v[0]], VY[arcs[x].v[0]]) })); const half = ([x, d]) => { const v = arcs[x].v; const s0 = d > 0 ? v[0] : v[v.length - 1], s1 = d > 0 ? v[v.length - 1] : v[0]; return `${x}${d > 0 ? "+" : "-"}k${arcs[x].kind}f${arcs[x].flags}n${v.length}@${deg(VX[s0], VY[s0]).map((q) => q.toFixed(5))}→${deg(VX[s1], VY[s1]).map((q) => q.toFixed(5))}`; }; const ctx = []; if (c.halves.length <= 80) ctx.push(c.halves.map(half)); else c.halves.forEach(([x, d], i) => { if (arcs[x].kind === KIND.COAST && d === minority) ctx.push(c.halves.slice(Math.max(0, i - 3), i + 4).map(half)); }); log.event("cycle-mixed", { halves: c.halves.length, land, sea, at: deg(VX[arcs[a].v[0]], VY[arcs[a].v[0]]), minorityCoast: where, context: ctx.slice(0, 8) }); if (process.env.DEBUG_NODE) for (const line of ctx.slice(0, 8)) say("  mixed cycle: " + line.join(" ")); } }
+  if (process.env.DEBUG_STOP === "walk") { say("DEBUG_STOP=walk: stopping after the face walk"); log.write(path.join(OUT, "admin-log-walk.json")); process.exit(0); }
   const landCycles = cycles.filter((c) => c.land);
   const outers = landCycles.filter((c) => c.outer), holes = landCycles.filter((c) => !c.outer);
   say(`cycles: ${landCycles.length} land (${outers.length} outer, ${holes.length} holes), ${cycles.length - landCycles.length} sea`);
