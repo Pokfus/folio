@@ -154,6 +154,23 @@ const HOSTS = [
    "699 citations — resolves to whichever repository holds the paper"],
   ["Dartmouth Aegean",    "https://sites.dartmouth.edu/aegean-prehistory/chronology/", "Aegean",
    "474 citations — the Greece collection's concentration this audit exists to reduce"],
+  /* THE ATLAS v2 SOURCES (Oct 2026; docs/atlas-v2-design.md §7 Phase 0, .claude/atlas-build/sources.json).
+     Each row is the download URL the build fetches, probed by HEAD (see probe). Two things learned on
+     the first probe and worth keeping here: github.com's archive/ and api.github.com answer 403 from
+     this sandbox, so Cliopatria is pinned at raw.githubusercontent.com under its TAG, not a release
+     zip; and ETOPO 2022's THREDDS fileServer paths answer 404 — the GeoTIFFs live under
+     /mgg/global/relief/ETOPO2022/data/, and the 15-arc-second grid is 288 tiles of 15° under
+     …/15s/15s_surface_elev_gtif/ETOPO_2022_v1_15s_N<lat>E|W<lon>_surface.tif. */
+  ["Natural Earth (CDN)",  "https://naciscdn.org/naturalearth/10m/physical/ne_10m_coastline.zip", "HEAD",
+   "Atlas v2 — the 10m coastline, admin-0 and populated places (PD)"],
+  ["Cliopatria (raw, tag)","https://raw.githubusercontent.com/Seshat-Global-History-Databank/cliopatria/v0.2.0/cliopatria.geojson.zip", "HEAD",
+   "Atlas v2 — the polity steps (CC BY 4.0); github.com/…/archive and api.github.com are 403 here"],
+  ["ETOPO 2022 (NOAA)",    "https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2022/data/60s/60s_surface_elev_gtif/ETOPO_2022_v1_60s_N90W180_surface.tif", "HEAD",
+   "Atlas v2 — relief (PD); the THREDDS paths are 404, this one answers"],
+  ["HydroSHEDS",           "https://data.hydrosheds.org/file/HydroRIVERS/HydroRIVERS_v10_shp.zip", "HEAD",
+   "Atlas v2 — HydroRIVERS and HydroLAKES (CC BY 4.0)"],
+  ["OSM land polygons",    "https://osmdata.openstreetmap.de/download/land-polygons-complete-4326.zip", "HEAD",
+   "Atlas v2 — the finest coastline, a data file of its own (ODbL)"],
 ];
 
 const EXTRA = [
@@ -170,6 +187,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function probe(url, want) {
   let res;
+  /* A ROW WHOSE WORD IS "HEAD" IS A DOWNLOAD, NOT A PAGE (Oct 2026, the Atlas v2 sources): the
+     files are hundreds of megabytes to a gigabyte, so the probe asks only whether the host answers
+     for the file and how big it says it is. The sha256 pins in .claude/atlas-build/sources.json are
+     the test of the bytes themselves; this is the test of the door. */
+  if (want === "HEAD") {
+    try { res = await fetch(url, { method: "HEAD", redirect: "follow", headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64)" } }); }
+    catch (e) { return { state: "DOWN", detail: String(e.message || e).slice(0, 52) }; }
+    if (res.status === 429) return { state: "BUSY", detail: "429 — slow down and retry, NOT a wall" };
+    if (res.status >= 500) return { state: "DOWN", detail: res.status + " — origin not answering" };
+    if (!res.ok) return { state: "SHUT", detail: String(res.status) };
+    const len = Number(res.headers.get("content-length")) || 0;
+    return { state: "OK", detail: "HEAD 200" + (len ? ", " + (len / 1048576).toFixed(0) + " MB" : "") };
+  }
   try {
     res = await fetch(url, { redirect: "follow", headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64)" } });
   } catch (e) {

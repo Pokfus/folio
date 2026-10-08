@@ -35,7 +35,9 @@
      arcs    per arc: varint vertexCount, u8 kind (KIND.*), u8 sourceIndex (into header.sources),
              u8 minLod (the coarsest LOD at which this arc is drawn at all — a closed island ring
              smaller than a level's tolerance vanishes at that level rather than collapsing into a
-             line). Vertex offsets are cumulative, so they are not stored.
+             line), u8 flags (FLAG.*: DISPUTED marks a border the sources disagree on — one polygon's
+             line with no neighbour sharing it, or a chord across water — which §2.4 draws dashed).
+             Vertex offsets are cumulative, so they are not stored.
      faces   per face: varint entityIndex, u8 sourceIndex, varint ringCount, then per ring: varint
              refCount and refCount zig-zag varints of SIGNED arc references — (arc+1) when the arc
              is walked forward, -(arc+1) when walked backward. The face is on the LEFT of every arc
@@ -58,6 +60,7 @@
   // arc kinds (§2.3): coast, land border, river, lake shore, soft edge (a people's uncertain extent)
   const KIND = { COAST: 0, BORDER: 1, RIVER: 2, LAKE: 3, SOFT: 4 };
   const KIND_NAME = ["coast", "border", "river", "lake", "soft"];
+  const FLAG = { DISPUTED: 1 };
 
   /* ---------- varints ---------- */
   function zig(n) { return n < 0 ? (-n * 2 - 1) : n * 2; }       // zig-zag: small magnitudes stay small
@@ -93,7 +96,7 @@
        quantum, lod: { intervals_m: [...] }, generated, generator, sources: [...],
        entities: [...], steps: [...],
        vertices: { lon: Int32Array|number[] (quantised units), lat: ... }, rank: Uint8Array|number[],
-       arcs: [{ offset, count, kind, source, minLod }],       // offsets index `vertices`, in file order
+       arcs: [{ offset, count, kind, source, minLod, flags }],   // offsets index `vertices`, in file order
        faces: [{ entity, source, rings: [[signedRef, ...], ...] }],
        extra: {}                                               // anything else to carry in the header
      } */
@@ -131,7 +134,7 @@
       if (a.count < 1) throw new Error("empty arc");
       if (T.rank[a.offset] !== 0 || T.rank[a.offset + a.count - 1] !== 0) throw new Error("arc endpoints must be rank 0 (arc at " + a.offset + ")");
       if (a.source < 0 || a.source >= T.sources.length) throw new Error("arc source index " + a.source + " not in header.sources");
-      arcs.varint(a.count); arcs.u8(a.kind); arcs.u8(a.source); arcs.u8(a.minLod || 0);
+      arcs.varint(a.count); arcs.u8(a.kind); arcs.u8(a.source); arcs.u8(a.minLod || 0); arcs.u8(a.flags || 0);
     }
 
     // faces
@@ -192,7 +195,7 @@
        header, quantum, lodCount,
        lon: Int32Array, lat: Int32Array        quantised units (degrees = units * quantum)
        rank: Uint8Array
-       arcOffset: Uint32Array (arcs+1), arcKind: Uint8Array, arcSource: Uint8Array, arcMinLod: Uint8Array
+       arcOffset: Uint32Array (arcs+1), arcKind: Uint8Array, arcSource: Uint8Array, arcMinLod: Uint8Array, arcFlags: Uint8Array
        faces: [{ entity, source, rings: [Int32Array of signed refs] }]
      }
      `headerOnly: true` stops after the header (the credits page needs nothing else). */
@@ -215,9 +218,9 @@
       if (c.pos !== e) throw new Error("verts section has " + (e - c.pos) + " trailing bytes"); }
     const rank = new Uint8Array(nV);
     { const [s] = sec("ranks"); for (let i = 0; i < nV; i++) rank[i] = (u8[s + (i >> 2)] >> ((i & 3) * 2)) & 3; }
-    const arcOffset = new Uint32Array(nA + 1), arcKind = new Uint8Array(nA), arcSource = new Uint8Array(nA), arcMinLod = new Uint8Array(nA);
+    const arcOffset = new Uint32Array(nA + 1), arcKind = new Uint8Array(nA), arcSource = new Uint8Array(nA), arcMinLod = new Uint8Array(nA), arcFlags = new Uint8Array(nA);
     { const [s, e] = sec("arcs"); const c = Cursor(u8, s, e); let off = 0;
-      for (let i = 0; i < nA; i++) { arcOffset[i] = off; off += c.varint(); arcKind[i] = c.u8(); arcSource[i] = c.u8(); arcMinLod[i] = c.u8(); }
+      for (let i = 0; i < nA; i++) { arcOffset[i] = off; off += c.varint(); arcKind[i] = c.u8(); arcSource[i] = c.u8(); arcMinLod[i] = c.u8(); arcFlags[i] = c.u8(); }
       arcOffset[nA] = off;
       if (off !== nV) throw new Error("arcs cover " + off + " vertices of " + nV);
       if (c.pos !== e) throw new Error("arcs section has trailing bytes"); }
@@ -229,8 +232,8 @@
         faces[i] = { entity, source, rings };
       }
       if (c.pos !== e) throw new Error("faces section has trailing bytes"); }
-    return Object.assign(out, { lon, lat, rank, arcOffset, arcKind, arcSource, arcMinLod, faces });
+    return Object.assign(out, { lon, lat, rank, arcOffset, arcKind, arcSource, arcMinLod, arcFlags, faces });
   }
 
-  return { MAGIC, FORMAT_VERSION, KIND, KIND_NAME, write, read, zig, zag };
+  return { MAGIC, FORMAT_VERSION, KIND, KIND_NAME, FLAG, write, read, zig, zag };
 });

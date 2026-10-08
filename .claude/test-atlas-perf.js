@@ -79,11 +79,12 @@ async function wheel(page, cx, cy) {
   for (let i = 0; i < 12; i++) { await page.mouse.wheel(0, 120); await sleep(40); }
   await sleep(300);
 }
-async function pinch(page, cdp, cx, cy) {
+async function pinch(page, cdp, cx, cy, probe) {
   const pts = (d) => [{ x: cx - d, y: cy, id: 1 }, { x: cx + d, y: cy, id: 2 }];
   const send = (type, touchPoints) => cdp.send("Input.dispatchTouchEvent", { type, touchPoints });
   await send("touchStart", pts(60));
   for (let i = 1; i <= 30; i++) { await send("touchMove", pts(60 + i * 5)); await sleep(16); }
+  if (probe) await probe();
   await send("touchEnd", []);
   await sleep(200);
   await send("touchStart", pts(210));
@@ -140,11 +141,16 @@ async function scrub(page) {
     if (v1Errors.length) console.log("  v1 page errors (not asserted here): " + v1Errors.slice(0, 3).join(" | "));
   }
 
-  /* ---------- v2 ---------- */
+  /* ---------- v2 — in a fresh page, so its heap and its errors are its own ---------- */
+  await page.close();
+  const page2 = await context.newPage();
+  page2.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
+  page2.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
+  const cdp2 = await context.newCDPSession(page2);
   {
+    const page = page2, cdp = cdp2;
     const t0 = Date.now();
     await page.goto(base + "#map2", { waitUntil: "load" });
-    await page.reload();   // a hash-only change does not reload; make sure #map2 boots from scratch
     await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 90000 });
     const box = await (await page.$(".atlas2-canvas")).boundingBox();
     const cx = box.x + box.width / 2, cy = box.y + box.height / 2;
@@ -154,7 +160,10 @@ async function scrub(page) {
     r.load = await page.evaluate(() => { const s = document.querySelector(".atlas2").__atlas2.stats; return { fetchMs: s.fetchMs, bytes: s.bytes, firstPaintMs: s.firstPaintMs, workerMs: s.worker && s.worker.totalMs, uploads: s.uploads, levels: s.worker && s.worker.levels.map((l) => l.level + ":" + l.triangles + "tri/" + l.segments + "seg/" + l.ms + "ms").join(" ") }; });
     r.drag = await measure(page, () => drag(page, cx, cy));
     r.wheel = await measure(page, () => wheel(page, cx, cy));
-    r.pinch = await measure(page, () => pinch(page, cdp, cx, cy));
+    const zoomBefore = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.view.zoom);
+    let zoomDuring = 0;
+    r.pinch = await measure(page, async () => { await pinch(page, cdp, cx, cy, async () => { zoomDuring = Math.max(zoomDuring, await page.evaluate(() => document.querySelector(".atlas2").__atlas2.view.zoom)); }); });
+    r.pinchZoom = { before: zoomBefore, peak: zoomDuring };
     r.scrub = null;   // no timeline until Phase 2
     r.draw = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, s = c.stats; const d = s.draw.slice(-200).sort((a, b) => a - b); return { p50: d[Math.floor(d.length / 2)], max: d[d.length - 1], level: s.level, tri: c.renderer.stats.trianglesDrawn, seg: c.renderer.stats.segmentsDrawn, draws: c.renderer.stats.draws }; });
     r.heapMB = await page.evaluate(() => performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : NaN);
@@ -188,6 +197,7 @@ async function scrub(page) {
     check(`v2 ${g} p95 ≤ ${BUDGET.p95} ms`, s.p95 <= BUDGET.p95, `${s.p95.toFixed(1)} ms over ${s.n} frames`);
     check(`v2 ${g} max ≤ ${BUDGET.max} ms`, s.max <= BUDGET.max, `${s.max.toFixed(1)} ms`);
   }
+  check("v2 pinch reached the globe (zoom rose during the spread)", results.v2.pinchZoom.peak > results.v2.pinchZoom.before * 1.5, `zoom ${results.v2.pinchZoom.before} → ${results.v2.pinchZoom.peak && results.v2.pinchZoom.peak.toFixed(2)}`);
   check("v2 names the face under a tap (ID pass)", !!results.v2.pick, results.v2.pick);
   check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
   console.log("");
