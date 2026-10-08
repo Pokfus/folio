@@ -1,0 +1,6 @@
+# installed by `npm ci` in this directory; never committed (CLAUDE.md: nothing but vendor/ ships a library)
+node_modules/
+# the source cache fetch-sources.js fills (hundreds of MB; every file is pinned by URL + sha256 in sources.json)
+src/
+# scratch outputs of a build before pack.js writes the real files into atlas/data/
+out/
