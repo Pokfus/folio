@@ -16,6 +16,19 @@
                                                      to its rectangle; its faces carry the CORE face index
                                                      so the style texture and the ID pass need nothing new)
      out  { type: "error", message }
+     in   { type: "water", buffer }                  atlas/data/water.bin (Phase 1b), transferred
+     out  { type: "water-meta", header }
+     out  { type: "water-lod", level, lakeSegs…, riverSegs…, riverSmooth…, facePos… }
+                                                     per resident water level: lake shores and rivers as
+                                                     bucketed segment lists of their own, lake fills as
+                                                     triangles; level 2 also carries the rivers smoothed
+                                                     (two Chaikin passes over every vertex) for the tile zooms
+     in   { type: "water-tile", key, buffer }        one water tile (atlas/data/water/<x>-<y>.bin)
+     out  { type: "water-tile", key, lakeSegs…, facePos… }
+     in   { type: "relief", key, w, h, hi, lo, sh }  three greyscale ImageBitmaps (Phase 1b), transferred
+     out  { type: "relief", key, w, h, rgb }         one RGB Uint8Array: shade, height high byte, low byte —
+                                                     composed here on an OffscreenCanvas so the main thread
+                                                     never reads 12 MB of pixels inside a frame
 
    WHY HERE AND NOT IN THE FILE (§2.3): triangle indices for every face would add megabytes to the
    wire; triangulating 258 faces at three levels takes well under a second here and never blocks a
@@ -43,6 +56,8 @@
 
   const CHORD_DEG = [4.1, 2.3, 1.0, 0.5, 0.3];   // per level 0–4: a quarter pixel of sag at each level's first use (levels 3–4 are tiles)
   const D2R = Math.PI / 180;
+  const KIND_RIVER = 2, KIND_LAKE = 3;
+  const LAKE_FACE_BASE = 524288;                  // lake fills carry face ids above 2^19 so the ID pass can tell them from countries (named in Phase 1c)
 
   function unitVectors(T) {
     const n = T.lon.length, q = T.quantum, pos = new Float32Array(n * 3);
@@ -57,16 +72,16 @@
   /* The tag packs arc id, flags and kind into one float: kind + 8·flags + 64·arc (exact below 2^24, so
      arcs up to 262k). Tile-edge chords (KIND.EDGE) are never segments: they close a fill, not a line. */
   const KIND_EDGE = 6, KIND_ADMIN1 = 5;
-  function buildSegments(T, pos, level, arcIdOf) {
+  function buildSegments(T, pos, level, arcIdOf, onlyKind) {
     const nA = T.arcOffset.length - 1;
-    const skip = (a) => T.arcMinLod[a] > level || T.arcKind[a] === KIND_EDGE;
+    const skip = (a) => T.arcMinLod[a] > level || T.arcKind[a] === KIND_EDGE || (onlyKind != null && T.arcKind[a] !== onlyKind);
     let count = 0;
     for (let a = 0; a < nA; a++) { if (skip(a)) continue; for (let i = T.arcOffset[a] + 1; i < T.arcOffset[a + 1]; i++) if (T.rank[i] <= level) count++; }
     const segs = new Float32Array(count * 7);   // ax ay az bx by bz tag
     let k = 0;
     for (let a = 0; a < nA; a++) {
       if (skip(a)) continue;
-      const tag = (arcIdOf ? arcIdOf(a) : a) * 64 + (T.arcFlags[a] & 3) * 8 + T.arcKind[a];
+      const tag = (arcIdOf ? arcIdOf(a) : a) * 64 + (T.arcFlags[a] & 7) * 8 + T.arcKind[a];
       let last = T.arcOffset[a];
       for (let i = T.arcOffset[a] + 1; i < T.arcOffset[a + 1]; i++) {
         if (T.rank[i] > level) continue;
@@ -267,6 +282,9 @@
 
   function handle(msg, post) {
     if (msg.type === "tile") { handleTile(msg, post); return; }
+    if (msg.type === "water") { handleWater(msg, post); return; }
+    if (msg.type === "water-tile") { handleWaterTile(msg, post); return; }
+    if (msg.type === "relief") { handleRelief(msg, post); return; }
     if (msg.type !== "load") return;
     const t0 = now();
     let T;
@@ -293,6 +311,94 @@
     stats.totalMs = Math.round(now() - t0);
     post({ type: "done", stats });
   }
+  /* ---------- water (Phase 1b): lake shores, rivers and lake fills, per resident level and per tile ----------
+     Rivers come from a 1:10M source (chords 1.8 km at the median), so at the tile zooms (under 1 km/px)
+     the resident polylines are smoothed instead of refined: two Chaikin passes over EVERY vertex the
+     file carries (ranks 0–3), endpoints fixed — and because build-water.js splits a river at every
+     junction, a fixed endpoint is a junction, so smoothing never opens a gap where a tributary joins. */
+  function chaikin(pts, passes) {
+    let P = pts;
+    for (let p = 0; p < passes; p++) {
+      if (P.length < 3) return P;
+      const Qv = [P[0]];
+      for (let i = 0; i + 1 < P.length; i++) {
+        const a = P[i], b = P[i + 1];
+        Qv.push(norm3([0.75 * a[0] + 0.25 * b[0], 0.75 * a[1] + 0.25 * b[1], 0.75 * a[2] + 0.25 * b[2]]));
+        Qv.push(norm3([0.25 * a[0] + 0.75 * b[0], 0.25 * a[1] + 0.75 * b[1], 0.25 * a[2] + 0.75 * b[2]]));
+      }
+      Qv.push(P[P.length - 1]);
+      P = Qv;
+    }
+    return P;
+  }
+  function norm3(v) { const l = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; }
+  function smoothedRiverSegments(T, pos) {
+    const nA = T.arcOffset.length - 1, out = [];
+    for (let a = 0; a < nA; a++) {
+      if (T.arcKind[a] !== KIND_RIVER) continue;
+      const tag = a * 64 + (T.arcFlags[a] & 7) * 8 + KIND_RIVER;
+      const P = []; for (let i = T.arcOffset[a]; i < T.arcOffset[a + 1]; i++) P.push([pos[3 * i], pos[3 * i + 1], pos[3 * i + 2]]);
+      const S = chaikin(P, 2);
+      for (let i = 1; i < S.length; i++) out.push(S[i - 1][0], S[i - 1][1], S[i - 1][2], S[i][0], S[i][1], S[i][2], tag);
+    }
+    return Float32Array.from(out);
+  }
+  function waterLevel(T, pos, level, bucketer, arcIdOf, withSmooth) {
+    const lakeRaw = buildSegments(T, pos, level, arcIdOf, KIND_LAKE), riverRaw = buildSegments(T, pos, level, arcIdOf, KIND_RIVER);
+    const sink = Sink();
+    let tris = 0;
+    T.faces.forEach((f, i) => { const id = LAKE_FACE_BASE + (T.faceRef && T.faceRef[i] >= 0 ? T.faceRef[i] : i); tris += triangulateFace(T, pos, f, id, Math.min(level, CHORD_DEG.length - 1), sink); });
+    const Fm = sink.result();
+    const Lk = bucketSegments(lakeRaw, bucketer), Rv = bucketSegments(riverRaw, bucketer), B = bucketTriangles(Fm.pos, Fm.idx, bucketer);
+    const m = { lakeSegs: Lk.segs, lakeRange: Lk.segRange, lakeCap: Lk.segCap, riverSegs: Rv.segs, riverRange: Rv.segRange, riverCap: Rv.segCap, facePos: Fm.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, stats: { level, lakeSegments: lakeRaw.length / 7, riverSegments: riverRaw.length / 7, triangles: tris, faceVertices: Fm.vertices } };
+    const transfer = [Lk.segs.buffer, Lk.segRange.buffer, Lk.segCap.buffer, Rv.segs.buffer, Rv.segRange.buffer, Rv.segCap.buffer, Fm.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer];
+    if (withSmooth) { const Sm = bucketSegments(smoothedRiverSegments(T, pos), bucketer); m.smoothSegs = Sm.segs; m.smoothRange = Sm.segRange; m.smoothCap = Sm.segCap; m.stats.smoothSegments = Sm.segs.length / 8; transfer.push(Sm.segs.buffer, Sm.segRange.buffer, Sm.segCap.buffer); }
+    return { m, transfer };
+  }
+  function handleWater(msg, post) {
+    try { handleWaterInner(msg, post); } catch (e) { post({ type: "error", message: "water: " + (e && e.message || e) }); }
+  }
+  function handleWaterInner(msg, post) {
+    const t0 = now();
+    let T;
+    try { T = root.AtlasFormat.read(new Uint8Array(msg.buffer)); }
+    catch (e) { post({ type: "error", message: "water: " + e.message }); return; }
+    const pos = unitVectors(T);
+    post({ type: "water-meta", header: T.header, parseMs: Math.round(now() - t0) });
+    for (let level = 0; level < T.lodCount; level++) {
+      const t1 = now();
+      const { m, transfer } = waterLevel(T, pos, level, null, null, level === T.lodCount - 1);
+      m.stats.ms = Math.round(now() - t1);
+      post(Object.assign({ type: "water-lod", level }, m), transfer);
+    }
+  }
+  function handleWaterTile(msg, post) {
+    try { handleWaterTileInner(msg, post); } catch (e) { post({ type: "error", message: "water-tile " + msg.key + ": " + (e && e.message || e) }); }
+  }
+  function handleWaterTileInner(msg, post) {
+    const t0 = now();
+    let T;
+    try { T = root.AtlasFormat.read(new Uint8Array(msg.buffer)); }
+    catch (e) { post({ type: "error", message: "water-tile " + msg.key + ": " + e.message }); return; }
+    const tile = T.header.tile;
+    const pos = unitVectors(T);
+    const arcIdOf = (a) => (T.arcRef && T.arcRef[a] >= 0 ? T.arcRef[a] : 0);
+    const { m, transfer } = waterLevel(T, pos, 0, tileBucketer(tile), arcIdOf, false);
+    m.stats.key = msg.key; m.stats.ms = Math.round(now() - t0); m.stats.bytes = msg.buffer.byteLength;
+    post(Object.assign({ type: "water-tile", key: msg.key, tile, buckets: TILE_GRID * TILE_GRID }, m), transfer);
+  }
+  /* relief (Phase 1b): three greyscale bitmaps → one RGB byte array (shade, height high byte, low byte). The
+     bitmaps were decoded with colorSpaceConversion "none" and are opaque greys, so a 2D canvas returns
+     their bytes unchanged; the main thread uploads the result as one RGB8 texture. */
+  function handleRelief(msg, post) {
+    const w = msg.w, h = msg.h, n = w * h;
+    if (typeof OffscreenCanvas !== "function") { post({ type: "relief", key: msg.key, w, h, rgb: null, planes: { hi: msg.hi, lo: msg.lo, sh: msg.sh } }, [msg.hi, msg.lo, msg.sh]); return; }   // the main thread composes
+    const c = new OffscreenCanvas(w, h), x = c.getContext("2d", { willReadFrequently: true });
+    const rgb = new Uint8Array(n * 3);
+    [["sh", 0], ["hi", 1], ["lo", 2]].forEach(([k, ch]) => { x.drawImage(msg[k], 0, 0); const d = x.getImageData(0, 0, w, h).data; for (let i = 0, o = ch; i < n; i++, o += 3) rgb[o] = d[4 * i]; msg[k].close(); });
+    post({ type: "relief", key: msg.key, w, h, rgb }, [rgb.buffer]);
+  }
+
   function handleTile(msg, post) {
     const t0 = now();
     let T;

@@ -167,8 +167,10 @@ const HOSTS = [
    "Atlas v2 — the polity steps (CC BY 4.0); github.com/…/archive and api.github.com are 403 here"],
   ["ETOPO 2022 (NOAA)",    "https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2022/data/60s/60s_surface_elev_gtif/ETOPO_2022_v1_60s_N90W180_surface.tif", "HEAD",
    "Atlas v2 — relief (PD); the THREDDS paths are 404, this one answers"],
-  ["HydroSHEDS",           "https://data.hydrosheds.org/file/HydroRIVERS/HydroRIVERS_v10_shp.zip", "HEAD",
-   "Atlas v2 — HydroRIVERS and HydroLAKES (CC BY 4.0)"],
+  ["HydroSHEDS",           "https://data.hydrosheds.org/file/hydrolakes/HydroLAKES_polys_v10_shp.zip", "HEAD",
+   "Atlas v2 — HydroLAKES (CC BY 4.0); HydroRIVERS is BLOCKED by its licence (sources.json `blocked`)"],
+  ["Natural Earth rivers", "https://naciscdn.org/naturalearth/10m/physical/ne_10m_rivers_lake_centerlines_scale_rank.zip", "HEAD",
+   "Atlas v2 — the rivers (PD), the stand-in for HydroRIVERS"],
   ["OSM land polygons",    "https://osmdata.openstreetmap.de/download/land-polygons-complete-4326.zip", "HEAD",
    "Atlas v2 — the finest coastline, a data file of its own (ODbL)"],
 ];

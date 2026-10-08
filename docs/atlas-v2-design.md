@@ -266,14 +266,21 @@ Q-S1: OpenStreetMap land polygons (ODbL, metre-scale, current), GSHHG 2.3.7 "ful
 consequence is that the *topology data files* carry ODbL and OSM attribution, which the audit's
 rule already permits for a file of its own.
 
-**Rivers and lakes** join the topology as arcs and faces but are *not* used as borders (sources
-place borders along rivers at their own precision; forcing a snap would invent). Rivers come from
-HydroRIVERS (CC BY 4.0), which carries stream order and discharge, so LOD is a filter on order: a few
-hundred great rivers at globe scale, tens of thousands at street scale. HydroRIVERS geometry is
-derived from a 15 arc-second grid (~460 m) and visibly stair-steps at the highest zoom; the build
-smooths it (Chaikin, two passes) and the design caps the maximum zoom where rivers are drawn
-accordingly. Lakes come from HydroLAKES (CC BY 4.0; 1.4 M lakes ≥ 10 ha) filtered by area per LOD,
-with Natural Earth 10m as the fallback if HydroLAKES proves too large to pack.
+**Rivers and lakes** are arcs and faces in a topology OF THEIR OWN (`water.bin` and the water tiles,
+decided in Phase 1b so the land files stay byte-identical) and are *not* used as borders (sources
+place borders along rivers at their own precision; forcing a snap would invent). **HydroRIVERS is not
+a source**: its licence failed §2.10a when read on 2026-10-08 (the finding is in `sources.json` under
+`blocked` and in §7 "Phase 1b — as built"). Rivers come from **Natural Earth 10m rivers and lake
+centerlines, the scale-rank edition (PD)**, one record per river per scale rank, so LOD is a filter on
+scale rank — the great rivers at the globe, the rest from LOD 1–2 — with names, NE ids and Wikidata ids
+for Phase 1c; the build joins tributaries to their main stems, snaps mouths to the OSM coast and ends to
+lake shores (distances measured, §7), and splits every river at its junctions so the worker can smooth
+it (Chaikin, two passes, endpoints fixed) past LOD 2, where the 1:10M chords (1.8 km at the median)
+would show; rivers are not drawn below 0.35 km/px. Lakes come from HydroLAKES (CC BY 4.0; 1.4 M lakes
+≥ 10 ha) filtered by area per level — ≥ 1000 km² at LOD 0, ≥ 100 at LOD 1, ≥ 10 at LOD 2, ≥ 6 in the
+250 m tiles — and are made planar among themselves per level the way the coast is; a lake the OSM
+partition calls sea (the Caspian, Lake Melville, the lagoons) is dropped. Lakes are an overlay drawn
+over the country fills and under the borders, never cut out of the faces: borders cross lakes.
 
 **Level of detail.** Three resident LOD levels for arcs (globe, continent, country scale) ship in the
 core file; two finer levels (region, locality) ship as **tiles** on an equirectangular grid
@@ -331,14 +338,18 @@ compress `application/octet-stream`). Sizes — the first three rows **measured 
 | `atlas/data/gazetteer.js` | places registry (§2.8), labels, anchors | 0.3–0.5 MB |
 | `atlas/data/tiles/3/*.bin` (32 tiles) | every arc and every face clipped to the tile, LOD 3 (250 m) | **5.33 MB measured**, median 110 KB, largest 700 KB (the tile holding Scandinavia and the Baltic) |
 | `atlas/data/tiles/4/*.bin` (382 of 512 tiles) | the same at LOD 4 (75 m) | **17.72 MB measured**, median 13 KB, largest 893 KB (the tile holding the Aegean and the Adriatic); 130 cells are open ocean and omitted, 38 are whole-tile covers of one face (Antarctica's pole row, inland cells of Brazil and Siberia) a few hundred bytes each; 23.05 MB in 414 files, under the 40 MB the owner allowed |
-| `atlas/data/relief/L0.png` | 4096×2048 hillshade + height | ~2.5 MB |
-| `atlas/data/relief/L1/*.png` (8) | 2048² each | ~0.9 MB each |
-| `atlas/data/relief/L2/*.png` (32, optional) | 2048² each | ~1 MB each |
+| `atlas/data/water.bin` | rivers (every vertex, 4,369 arcs in 1,208 rivers) and lakes ≥ 10 km² at LOD 0–2, lake entities, the water tile index | **4.16 MB measured (Phase 1b, 2026-10-08)**: 1,169,157 vertices, 37,701 arcs, 16,616 lake faces, 5,167 entities (named lakes and those ≥ 50 km²; smaller unnamed lakes share one entity and keep their HydroLAKES id in `header.lakeIds`) |
+| `atlas/data/water/<x>-<y>.bin` (228 of 512 cells, the z=4 grid) | lakes ≥ 6 km² at 250 m, each clipped to the cell with EDGE chords | **7.54 MB measured**, median 12.2 KB, largest 666 KB (Québec's lake country); with the 5 km² floor the build uses the water would be 12.23 MB, over the owner's 12 MB — the 6 km² floor (6,015 lakes left out of the tiles) brings it to **11.70 MB** |
+| `atlas/data/relief/L0.{hi,lo,sh}.png` | 4096×2048, three greyscale planes | **8.89 MB measured** (one RGB file would be 12.55 MB) |
+| `atlas/data/relief/L1/<x>-<y>.{hi,lo,sh}.png` (8 tiles) | 2048² each | **32.83 MB measured**, largest tile 4.45 MB (one RGB file each: 47.85 MB) |
+| relief L2 (32 tiles, NOT shipped) | 2048² each, 2.4 km per texel | **118.69 MB measured** on its own (RGB: 175.7 MB) against the 45 MB budget for the whole pyramid; `build-relief.js --levels 0,1,2` makes it |
 | `atlas/atlas.js` + `atlas-gl.js` + worker + earcut | code | 120–180 KB |
 
 For comparison the Atlas today loads about 4 MB (gz) of `atlas` + `world` + idle-warmed bundles
-before any relief, and 9.4 MB more for the two heightmaps. A first visit to the new Atlas is
-estimated at ~3–4 MB before relief; relief adds 2.5 MB at globe scale.
+before any relief, and 9.4 MB more for the two heightmaps. A first visit to the new Atlas is 2.9 MB
+before water, 7.0 MB with rivers and lakes (the defaults); relief adds 8.9 MB at globe scale and 4.1 MB
+per L1 tile under 6 km/px — more than the first estimate (2.5 MB), because 16-bit heights at 1 m do not
+compress below about 2 bits a texel, measured.
 
 Loading strategy: `topology.bin` and `gazetteer.js` are the Atlas's two required files, fetched
 with a determinate progress bar; tiles and relief are fetched on demand with a small LRU; the
@@ -355,11 +366,11 @@ topojson-server/-simplify ISC, polygon-clipping MIT, earcut ISC, pngjs/sharp MIT
 | 2 | `build-admin.js` | Natural Earth 10m admin-0 (PD) [+ admin-1 for the three subdivision layers] | present-day faces conflated onto the land partition |
 | 3 | `build-polities.js` | Cliopatria v0.2.0 rows per `polity-spec.json` (reused), OHM relations where whitelisted, traced plates where the spec names one | polity steps conflated per §2.3; the snap log |
 | 4 | `build-peoples.js` | Cliopatria "people" rows, site hulls (Hosner), traced soft outlines | soft faces with the uncertainty flag |
-| 5 | `build-water.js` | HydroRIVERS, HydroLAKES | river arcs with order; lake faces |
+| 5 | `build-water.js` | Natural Earth 10m rivers (scale-rank edition), HydroLAKES, the committed land partition (`lib/landindex.js`) | `out/water-full.bin`: river arcs by scale rank, lake faces at four levels; `pack-water.js` splits it into `water.bin` and the water tiles |
 | 6 | `build-gazetteer.js` | cards + glossary + books (place references, §2.8), Wikidata | `gazetteer.js`: entities, kinds, anchors, label paths |
-| 7 | `build-relief.js` | ETOPO 2022 (PD) | `relief/*.png` |
+| 7 | `build-relief.js` | ETOPO 2022 60 arc-second (CC0) | `relief/L0.*.png`, `relief/L1/*.png`, `relief.json` |
 | 8 | `pack.js` | everything above | `topology.bin`, `tiles/`, the attribution text for the help card |
-| 9 | `check-topology.js` | outputs | fails on any §2.11 invariant |
+| 9 | `check-topology.js`, `check-water.js`, `check-relief.js` | outputs | fail on any §2.11 invariant |
 
 Every step is deterministic given `sources.json`; every output file header names its sources,
 versions and licences; the help card's attribution block is generated from the same manifest, so a
@@ -477,20 +488,64 @@ Rules that remove today's label faults by construction:
 
 ### 2.7 Relief
 
-**Source: ETOPO 2022** (NOAA NCEI, public domain, 15 arc-second global; bedrock and ice-surface
-versions). It is one clean source with one licence, which the current Mapzen/AWS composite is not.
-The build samples it to an equirectangular pyramid and writes **8-bit RGB PNGs**: R = hillshade
-(north-west light, computed once at build, so a phone never computes normals), G+B = 16-bit height
-(so hypsometric tints have no 36-metre terraces), A unused. Levels: L0 4096×2048 (one file, ~2.5 MB),
-L1 8192×4096 as 8 tiles, L2 16384×8192 as 32 tiles (optional; ~2.4 km per texel). Tiles are 2048²
-so every phone GPU accepts them.
+**Source: ETOPO 2022** (NOAA NCEI, CC0 1.0 — the NCEI metadata record's own words: "not subject to
+copyright protection in the United States. NOAA waives any potential copyright and related rights in
+these data worldwide through the Creative Commons Zero 1.0 Universal Public Domain Dedication"; verified
+2026-10-08). It is one clean source with one licence, which the current Mapzen/AWS composite is not.
+**The owner's decision of 2026-10-08: the 60 arc-second surface grid (21600 × 10800, about 1.85 km per
+cell) is the only relief source; the 15 arc-second grid is not fetched.** So relief is a **regional-scale
+wash**, not terrain detail at street zoom: it shows the Alps as a range, the Tibetan plateau as a plateau,
+the mid-ocean ridges as a tint, and it fades out as the zoom passes the finest level's texel (below).
 
-Rendering is in the **sphere pass** fragment shader: the ray hits the sphere → lon/lat → sample the
-height/hillshade texture (L0 always resident once relief is on; finer tiles bound when their region
-is in view) → hypsometric colour from a 1-D theme ramp texture, multiplied by hillshade, mixed with
-the land colour at the legend's strength. Cost is a few texture reads per pixel: ~1 ms. Bathymetry
-is available for free as an ocean depth tint (Q-V2). Relief is off by default and remembered per
-reader; the toggle flips a uniform — no reload, no CPU work.
+**The files, as built in Phase 1b (§7 "Phase 1b — as built").** The build samples the grid to an
+equirectangular pyramid and writes **three 8-bit greyscale PNGs per tile**: `<base>.hi.png` and
+`<base>.lo.png` are the high and low bytes of (height in metres + 32768), 16 bits so a hypsometric ramp
+has no terraces; `<base>.sh.png` is the hillshade (north-west light, azimuth 315°, altitude 45°, Horn's
+3 × 3 slope on the level's own grid with the cell size corrected for latitude), flat over the sea floor.
+The first wording of this section asked for one RGB PNG (R = shade, G·B = height); measured, that file is
+2.5 × the size of the three planes — DEFLATE cannot predict across three interleaved planes with
+different statistics — and the three decode natively on every phone, so the renderer composes them into
+one RGB texture on upload. Levels: **L0 4096 × 2048 (one tile, 8.9 MB), L1 8192 × 4096 (8 tiles of
+2048², 32.8 MB)** — 41.7 MB in 27 files against the owner's 45 MB budget. L2 (16384 × 8192, 32 tiles) was
+built and measured at **118.7 MB on its own**; the owner's "~1 MB a tile" estimate was four to five times
+low, so L2 is not shipped (`build-relief.js --levels 0,1,2` still makes it). L2 is resampled NEAREST and
+L0–L1 are box averages of the source cells each texel covers; `check-relief.js --source` proves 200
+random texels per level against the GeoTIFF. Tiles are 2048² so every phone GPU accepts them.
+
+**Rendering** is in two places. The **sphere pass** fragment shader, where the ray hits the sphere,
+samples the resident L0 sheet for the SEA: the depth tint (Q-V2 a: the ocean colour darkened with the
+square root of the depth, at the reader's strength — subtle, and the shelves stay visible). Then, after
+the faces, a **relief pass over the land**: hypsometric colour from a 1-D ramp texture built from the
+theme's own tokens (the land colour at sea level, warmed toward the ochre through the uplands, greyed
+toward the ink on the high plateaux, lightened toward the paper — or a plain white in a dark theme —
+only at the peaks), multiplied by the hillshade, blended at the legend's strength × the zoom fade. L1
+tiles are drawn as patches on the sphere for the visible region (a lon/lat mesh of the tile's
+rectangle) under 6 km/px, the sea patches before the faces and the land patches after them, each
+marking its pixels so the L0 pass does not shade them twice; a tile not yet landed shows L0 under it.
+Height is decoded from four NEAREST taps and blended bilinearly after decoding (a linear filter over
+the two bytes would mix a high byte with a neighbour's low byte at every carry). Cost: a few texture
+reads per pixel. Relief is off by default and remembered per reader; the toggle flips a uniform — no
+reload, no CPU work; the first switch-on fetches L0 (8.9 MB) and then the view's L1 tiles (4.1 MB each,
+an LRU of nine). A phone (coarse pointer, short side under 768 px) never fetches L2 (Q-M1 a) — a rule
+the code keeps although the shipped pyramid has no L2.
+
+**The land/sea mismatch, settled.** ETOPO's coast and the OSM coast disagree by kilometres: measured
+in Phase 1b (`check-relief.js --coast`), 3 km inland of a random OSM coast vertex ETOPO reads below sea
+level 20 % of the time and 3 km seaward it reads above 21 %, so a naive relief pass paints bathymetry
+onto land along the shore and a land tint onto the sea. **The face fills are the stencil mask**: every
+land face sets a LAND bit in the stencil buffer as it is drawn; the land relief pass runs only where the
+bit is set and samples the height clamped at zero or above; the sphere pass (before the faces) tints
+the whole disc as sea with the height clamped at zero or below, and the land fills then cover it. So
+the OSM coast always wins: a land pixel ETOPO puts under water is the lowest tint of the ramp with the
+flat sea-floor shade, a sea pixel it puts on a hill is sea-level ocean. The context requests a stencil
+buffer (it already did for the tiles: bits 0–1 tile coverage, bit 2 water tiles, bit 3 relief patches,
+bit 4 land; each pass masks the bits it is about). `test-atlas-relief.js` renders twelve land points
+ETOPO puts below sea level and twelve sea points it puts above and reads the pixels back.
+
+**The fade.** L1's texel is 4.9 km; relief is at full strength above 2.5 km/px, fades linearly, and is
+gone below 1.0 km/px (chosen by eye in Phase 1b, screenshots at 2.5 / 1.8 / 1.2 / 0.9 km/px): past that
+a magnified texel is a blur that says nothing a reader can use, and the coast, borders and water carry
+the map on their own.
 
 ### 2.8 Integration with the study material
 
@@ -1057,7 +1112,7 @@ relief, labels, picking, the credits page — with no timeline yet.*
 | sub-phase | scope (the deliverables below it covers) | state |
 |---|---|---|
 | **1a — land at every zoom** | the OSM land partition (1), admin-0 and admin-1 conflated onto it (2), LOD 3–4 as tiles with per-tile fills, the renderer's tile fetch, level selection and the 150 m/px cap, the checker on tiles, the redefined frame gate (§2.2), the build doc (9) | **built — see "Phase 1a — as built" below** |
-| 1b — water and relief | rivers and lakes (3), relief (4) and the sphere pass's relief lookup | not started |
+| 1b — water and relief | rivers and lakes (3), relief (4) and the sphere pass's relief lookup, the minimal layers control | **built — see "Phase 1b — as built" below** |
 | 1c — names and picking | the gazetteer (5), the label layer, markers, hover, the stack chip, the place card, deep links, the legend, the phone layout (6) | not started |
 | 1d — credits and fallbacks | the `#credits` page (7) — the phase's one reader-visible change, with its changelog line and version bump — and the fallbacks (8): no-WebGL2, `file://` via the `.js` twin, context loss | not started |
 
@@ -1068,11 +1123,12 @@ Deliverables:
 2. `build-admin.js`: Natural Earth 10m admin-0 for the 258 countries, admin-1 for the US, China,
    Russia and the UK nations (Q-A7 a), conflated onto the land partition (coast arcs shared; the snap
    log; `check-topology.js` coast invariant).
-3. `build-water.js`: HydroRIVERS (order-filtered per LOD, Chaikin-smoothed) and HydroLAKES
-   (area-filtered per LOD) into the same topology and tiles.
-4. `build-relief.js`: ETOPO 2022 → `relief/L0.png`, `L1/*.png`, `L2/*.png` (hillshade + 16-bit
-   height); sphere pass relief lookup, hypsometric ramp per theme, bathymetry tint (Q-V2 a), strength
-   slider; off by default.
+3. `build-water.js`: Natural Earth 10m rivers (scale-rank-filtered per LOD, Chaikin-smoothed in the
+   worker; HydroRIVERS failed the licence check — 1b) and HydroLAKES (area-filtered per LOD) into a
+   water topology and water tiles of their own.
+4. `build-relief.js`: ETOPO 2022 → `relief/L0.*.png`, `L1/*.png` (hillshade + 16-bit height as three
+   greyscale planes; L2 measured and left out — 1b); sphere pass relief lookup, hypsometric ramp per
+   theme, bathymetry tint (Q-V2 a), strength slider; off by default.
 5. `build-gazetteer.js` v0: countries, admin-1 units, capitals and major cities (NE populated
    places), seas and lakes (names from the sources' attributes), islands (derived from coast faces
    ≥ a size threshold, named from NE `minor_islands` / Wikidata where available), with label paths
@@ -1283,6 +1339,254 @@ coastline stops at the Afsluitdijk (inland water is Phase 1b's), and the globe a
 same at 10 km as it did at 8 km.
 
 
+#### Phase 1b — as built (2026-10-08)
+
+Everything in the 1b row of the table above exists and runs, with one source refused under the licence
+rule and one level of the relief pyramid left out under the budget — both below. In `.claude/atlas-build/`:
+`lib/landindex.js` (the committed z=4 land tiles as a queryable partition — nearest coast segment and
+point-in-land over 6.2 M coast segments, loaded in 5 s — the owner's rule that 1b never re-downloads
+OSM), `build-water.js` (rivers and lakes → `out/water-full.bin`; `--measure` prints the distance
+distributions), `pack-water.js` (→ `atlas/data/water.bin` and `atlas/data/water/<x>-<y>.bin`, with a
+`--min-km2` floor for the tiles), `build-relief.js` (→ `atlas/data/relief/`), `check-water.js` and
+`check-relief.js`, and `sources.json` with `ne-10m-rivers` added, `etopo-2022-60s` corrected to CC0 with
+the NCEI statement, `hydrolakes` with its own licence page, and `hydrorivers` moved to a `blocked` list
+that `fetch-sources.js` never reads. In `atlas/`: `atlas-format.js` gains `FLAG.INTERMITTENT`;
+`atlas-worker.js` parses the water file and the water tiles into lake fills, lake shores and rivers
+(the rivers also smoothed), and composes the three relief planes into one RGB array on an
+`OffscreenCanvas`; `atlas-gl.js` draws water and relief under the stencil rules of §2.2 and §2.7, with
+width and colour per arc kind and an `uIdBase` so water arcs live above 2²¹ in the id space;
+`atlas.js` loads water and relief on demand through one tile loader for land tiles, water tiles and
+relief tiles alike, carries the layers control (relief and its strength, rivers, lakes, graticule;
+`R` toggles relief) remembered in `localStorage` behind try/catch, and re-reads the palette and the
+ramp on a theme change. `.claude/test-atlas-perf.js` asserts the extended gate in **its own CI job**
+(`atlas-perf` in `checks.yml`), `.claude/test-atlas-relief.js` the land/sea rule, `.claude/atlas-shots.js`
+takes the review series; CI's fast job runs `check-water.js` and `check-relief.js` beside
+`check-topology.js`.
+
+**HydroRIVERS failed the licence check and is not used.** Its product page (hydrosheds.org/products/
+hydrorivers, read 2026-10-08) says the data "are distributed under the same license agreement as the
+HydroSHEDS core products, which is included in the HydroSHEDS Technical Documentation". That document
+(HydroSHEDS_TechDoc_v1_4.pdf, April 2022, Appendix A) is a World Wildlife Fund end-user licence: the
+licensee may distribute the data only "incorporated into any Derivative Works … subject to the terms and
+conditions of an end user license agreement with terms that are at least as protective"; "In no event
+shall Licensee license or distribute the Licensed Materials as a stand-alone product"; the licensee
+"shall protect against unauthorized copying and/or distribution"; with record-keeping and audit duties.
+That is not CC BY and not an equivalent open licence — under §2.10a nothing unclear or conflicting may
+enter the pipeline even as a cross-check, and a plain static site that serves its data files cannot
+promise an end-user licence agreement. Phase 0 had pinned the entry as CC-BY-4.0 from memory; the hash
+and the size were real and are kept under `blocked` so a re-licensed copy can be verified. HydroSHEDS v2
+(hydrosheds.org/products/hydrosheds-v2) IS CC BY 4.0 but covered only the Americas on 2026-10-08, with a
+global release "under a free license" announced for 2026 — worth a look before Phase 2. HydroLAKES is
+CC BY 4.0 on its own page and in its technical documentation (§4.1), which also asks, not as a licence
+term, that the data not be redistributed whole in its original format; Folio ships a filtered,
+simplified derivative in its own format. ETOPO 2022's NCEI metadata record states CC0 1.0 in so many
+words (§2.7). **The stand-in is Natural Earth 10m rivers and lake centerlines, scale-rank edition
+(5.0.0, PD)**: 4,224 records — 3,716 rivers, 23 intermittent rivers, 479 lake centerlines, 6 canals — in
+260,393 vertices, with names on 4,039 of them and Wikidata ids; one record per river per scale rank. Its
+resolution is 1:10M: the median chord is 1.8 km, p90 4.7 km, so at the cap (150 m/px) a chord is twelve
+pixels — which is why rivers are smoothed past LOD 2 and not drawn under 0.35 km/px (below). The
+supplementary European and North American river files (ranks 10–12, PD) were looked at and left out:
+they would show every creek in Europe and none in India.
+
+**Rivers, as built.** Lake centerlines (a river's course across a lake) and canals are dropped; the
+3,740 polylines of the rest are quantised to the land quantum and made into a network: 7,480 ends, of
+which 4,396 coincide exactly (Natural Earth's own chains) and 3,084 are free, 131 of them in the sea of
+the OSM partition. The three distances were fixed from the free ends' distributions (`--measure`):
+
+| free end → nearest | p50 | within 500 m | 1 km | 2 km | 3 km | 4 km | 6 km | 10 km | 20 km |
+|---|---|---|---|---|---|---|---|---|---|
+| another river's line | 645 m | 610 | 724 | 742 | 753 | — | — | 966 | — |
+| the OSM coast (z=4) | 1,915 m | 142 | 205 | 267 | — | 321 | 346 | 386 | 467 |
+| a kept lake's shore | 1,158 m | 528 | 732 | 886 | — | 1,019 | 1,107 | 1,251 | — |
+
+So D_JOIN = **2 km** (the knee: 610 → 724 → 742 → 753, then flat), D_MOUTH = **6 km** (Natural Earth's
+mouths stop in estuaries the OSM coast runs up) and D_LAKE = **4 km** (its lake shores against
+HydroLAKES'); of the targets within tolerance the nearest wins. A free end in the sea is first walked
+back to the last vertex on land. The result: **721 ends joined to another river** (projected onto the
+line, which gets a junction vertex: p50 134 m, p90 677 m, max 1,911 m), **299 mouths snapped to the
+coast** (p50 970 m, p90 3,682 m, max 5,955 m; 119 of them trimmed back from the sea first, by p50 3.3 km
+and up to 21 km), **953 ends snapped to a lake shore** (p50 431 m, p90 2.1 km, max 3,979 m), **1,099 free
+ends on land** — sources, endorheic ends (the Okavango, the Tarim) and gaps in the source (89 of them
+within 20 km of the coast, p50 11.2 km, which is where Natural Earth stopped short of an estuary beyond
+D_MOUTH) — and **12 lines wholly in the sea, dropped** (the Indus delta's tidal channels, the Ouémé's
+and the Coatzacoalcos' mouths, the Dniester liman). 19 polylines have both ends free (Balak, the
+Mahaweli, the Mearim, the Pangani among them: endorheic or a gap). Every polyline is then split at its
+junctions: **4,360 river arcs in 1,208 rivers** (1,139 named, 1,054 with a Wikidata id), listed in order
+in `header.rivers` for Phase 1c; 1,058 lists break between consecutive arcs where a lake was crossed or
+the source record had several parts. LOD by scale rank, from the census of surviving vertices per
+tolerance (10 km / 2.5 km / 500 m: ranks ≤ 3 hold 3,261 / 11,313 / 31,241 vertices of 100,492 km of
+river; ranks ≤ 6 9,902 / 34,092 / 96,378; everything 21,144 / 70,947 / 200,466): **ranks ≤ 3 at LOD 0, ≤ 6
+from LOD 1, all from LOD 2**. The rivers' every vertex (ranks 0–3, 248,676 after quantisation) lives in
+`water.bin` — a tile could add nothing to a 1:10M line — and the worker builds a second, smoothed list
+(two Chaikin passes over every vertex, endpoints fixed; a fixed endpoint is a junction, so no gap opens
+where a tributary joins) that the renderer draws past LOD 2: 996,207 segments for the 246,162 raw ones.
+Rivers are drawn down to **0.35 km/px** and not below: at 0.35 the smoothed line still reads as a river
+(the Rhine and the Moselle in the series), at the cap the smoothed 12-pixel chords would read as a
+cartoon. An intermittent river carries `FLAG.INTERMITTENT` and is dashed like a disputed border. What is
+counted, not repaired: 57 river × river crossings (Natural Earth's own) and 7,827 river × lake-shore
+crossings in the resident levels (11,046 in the full file, 1,307 lakes) where Natural Earth runs a
+river across a lake HydroLAKES draws larger — the lake fill is drawn over the river, so the line
+vanishes under the water.
+
+**Lakes, as built.** The census that fixed the filters (`.claude/atlas-build/out/`'s lakes census,
+quoted here): of 1,427,688 HydroLAKES polygons, 34,426 are ≥ 5 km², 16,689 ≥ 10 km², 1,708 ≥ 100 km²,
+178 ≥ 1000 km²; the vertices surviving Visvalingam at 10 km / 2.5 km / 500 m / 250 m / 75 m are, for
+lakes ≥ 5 km², 5,230 / 91,315 / 1.04 M / 2.51 M / 8.9 M and for ≥ 10 km² 5,230 / 88,627 / 0.83 M /
+2.01 M / 7.2 M. **A 75 m level was therefore never affordable** (lakes ≥ 10 km² alone would be 19 MB at
+75 m against a 12 MB budget for rivers and lakes together), and HydroLAKES' polygons are of mixed
+provenance anyway (MODIS at 250 m for 167,435 of them, SWBD at 90 m, CanVec, NHD, ECRINS), so the
+finest water level is **250 m, on the z=4 grid, drawn at both tile zooms** — 1.7 px at the cap, visible
+on a shore as a gentle chording, reviewed (the Great Lakes and Finland at the cap). The filters: a lake
+exists at LOD 0 from 1000 km², at LOD 1 from 100, at LOD 2 from 10, in the tiles from 6 (5 is the
+build's floor; 6 is what the budget bought, below); a ring with fewer than three vertices at a level is
+absent there; a hole exists only where its outer ring does. Dropped: **199 lakes with more than a third of
+their sampled shore in the sea** of the OSM partition — the Caspian, Lake Melville, Bras d'Or, the Selawik
+and Eskimo Lakes, the Great Bitter Lake, the Beysug liman, the Danish and Canadian lagoons (a majority
+rule had kept nine half-sea lagoons whose simplified shores then read 52–64 % sea); 4 smaller lakes of 5 pairs whose
+source rings cross each other (a reservoir over the lake it flooded); 252 islands drawn across their own
+lake's shore; and the source's own bow-ties: **1,686 of the kept rings cross themselves**, cut at the
+crossing point with the shorter loop dropped (2,284 cuts, no ring lost). Planarity per level, the way
+build-admin.js makes the coast planar but with one difference: a crossing between two simplified rings
+restores the WHOLE source stretch between the crossing segment's ends — first to the next level's
+resolution, then two levels finer, then everything — because one vertex at a time oscillated in the lake
+districts (measured: 700 crossings at LOD 1 still 600 after 24 passes). The passes: LOD 0 38 → 6 → 4 → 0
+(411 vertices restored); LOD 1 687 → 174 → 89 → 10 → 10 → 0 (9,449 restored, 14 islands leave the level);
+LOD 2 5,673 → 1,419 → 1,068 → 66 → 7 → 0 (31,206 restored, 163 islands and 2 lakes leave); LOD 3 6,552 →
+407 → 18 → 0 (94,487 restored, nothing leaves). Two lakes of one pair with nothing left to restore lose
+the smaller to the level; two rings of one lake lose the island, never the lake — the first build
+removed Mistassini, Päijänne and the Caniapiscau Reservoir from LOD 1 on exactly that mistake. The water
+topology: 3,013,580 vertices (per level 203,204 / 346,793 / 1,434,492 / 3,013,580), 92,111 arcs, 34,223
+lake faces. Lakes planar at every level and in every tile is what `check-water.js` proves, with the
+Natural Earth points (below).
+
+**The water files.** `water.bin` **4.15 MB** (levels 0–2: 1,167,572 vertices, 37,649 arcs of which
+4,360 river, 16,590 lake faces — the ≥ 10 km² ones; 5,157 entities — every named lake and every lake
+≥ 50 km² is an entity of its own, the 29,000-odd unnamed smaller ones share `lake:unnamed` and keep their
+HydroLAKES id in `header.lakeIds`, because 34k rows of JSON were 3.6 MB of a 12 MB budget); the water
+tiles **7.54 MB in 228 files** (median 12.2 KB, largest 666 KB, the Québec cell 9-12; 28,801 face pieces,
+2,202 edge chords); **11.69 MB in all, 229 files**, under the owner's 12 MB. With the build's 5 km² floor
+the tiles were 7.90 MB and the total **12.26 MB** — over — so `pack-water.js --min-km2 6` leaves the
+6,008 lakes of 5–6 km² out of the tiles (they are in the file for a later owner with a bigger budget). The land files are byte-identical to 1a's: `git diff --quiet
+HEAD -- atlas/data/topology.bin atlas/data/tiles` is clean and `check-topology.js --tiles` passes its
+71 checks unchanged. Site file count after 1b: 1 + 414 land, 1 + 228 water, 28 relief — 672 files under `atlas/data/`; the
+largest file on the site is `relief/L0.lo.png` at 7.45 MB (Cloudflare's limits: 20,000 files, 25 MiB a file).
+
+**Relief, as built.** §2.7 has the design as settled; the measurements: with the owner's three levels
+from the 60-second grid, the first build as one RGB PNG per tile measured **L0 12.55 MB, L1 47.85 MB,
+L2 175.71 MB** — six times the "~1 MB a tile" estimate, because sixteen-bit heights at one metre on a
+2.4 km grid carry two to three bits of entropy a texel whatever the filter, and interleaving the shade
+byte with them cost DEFLATE another factor. Three greyscale planes per tile (`.hi`, `.lo`, `.sh`; the
+sea floor's shade flat) measured **L0 8.89 MB, L1 32.83 MB (largest tile 4.45 MB), L2 118.69 MB**. The
+shipped pyramid is **L0 + L1, 41.72 MB in 27 files** (plus `relief.json`), under the 45 MB budget; L2 is not shipped — it
+cannot fit under any encoding measured — and `build-relief.js --levels 0,1,2` still builds it. A
+measurement that bit: pngjs packs from an RGBA buffer unless `inputColorType` says otherwise; the first
+three-plane build filled a quarter of each image and wrote zeros for the rest, and read 1.7 MB a tile.
+The builder now reads one plane per level back and compares every byte. `check-relief.js --source`
+proves 200 random texels of L0 and L1 against the GeoTIFF (box averages within their footprint's
+min–max; an L2 build would be nearest-sampled and provable to the metre — not run, since L2 is not
+shipped) and that the hillshade is flat wherever the height is below zero; the coast sample (790 OSM
+coast vertices, 3 km inland and 3 km seaward, both at least 2.5 km from any coast) found ETOPO below sea
+level at **20.1 %** of the land points and above it at **20.8 %** of the sea points — the mismatch of
+§2.7, mostly Antarctica's ice shelves (OSM land, ETOPO sea floor) and the Arctic islands.
+`test-atlas-relief.js` renders twelve of the first kind and six of the second with relief on at full
+strength and reads the pixels back: every land point stays within 40/255 of its plain fill, every sea
+point has no face under it and is at least as bright as the deep sea. The fade range chosen by eye
+(the series at 2.5 / 1.8 / 1.2 / 0.9 km/px): full above **2.5 km/px**, gone below **1.0** — at 1.8 the
+Alps are a half-strength wash under the rivers, at 1.2 a hint, and at 0.9 the L1 texel (4.9 km) would be
+five pixels wide. The ramp was looked at in folio (light), folio night (dark) and synth (a pink theme):
+the stops are mixes of each theme's own land, ochre, ink and paper, so the dark theme's uplands are a
+dusky brown and the pink theme's magenta; the one change after looking was the white stop, moved from
+4,200 m to 5,400 m so the Tibetan plateau reads as high ground rather than snow. On this runner the
+relief costs v2 a quarter of a frame at the globe (below); on a phone GPU it is a few texture reads.
+
+**The frame gate, as measured** (this cloud session's runner, 4 cores, Chromium 141,
+ANGLE/SwiftShader; rAF-to-rAF intervals in ms; v1 = `#map` Full atlas, v2 = `#map2` with rivers and
+lakes on; +relief = v1 with its heightmap, v2 with relief; the third of three runs of the suite on the
+final files, the one on the record):
+
+| gesture | target | mean | p50 | p90 | p95 | p99 | max |
+|---|---|---|---|---|---|---|---|
+| drag | v1 | 47.1 | 16.7 | 133.2 | 149.9 | 183.3 | 300.0 |
+| drag | v2 | 24.3 | 16.7 | 50.0 | 50.0 | 50.1 | 66.7 |
+| drag | v1+relief | 26.8 | 16.7 | 50.0 | 50.1 | 66.8 | 166.7 |
+| drag | v2+relief | 26.9 | 16.7 | 50.0 | 66.6 | 66.7 | 66.7 |
+| wheel | v1 | 99.4 | 16.7 | 300.0 | 366.6 | 450.1 | 450.1 |
+| wheel | v2 | 30.4 | 16.7 | 66.6 | 100.0 | 216.7 | 216.7 |
+| wheel | v1+relief | 64.9 | 16.7 | 116.7 | 183.4 | 966.6 | 966.6 |
+| wheel | v2+relief | 41.4 | 16.7 | 83.4 | 116.7 | 183.4 | 183.4 |
+| pinch | v1 | 115.2 | 16.7 | 350.0 | 366.7 | 400.0 | 566.7 |
+| pinch | v2 | 16.7 | 16.7 | 16.7 | 16.7 | 16.8 | 16.8 |
+| pinch | v1+relief | 45.0 | 16.7 | 100.1 | 116.7 | 133.4 | 250.0 |
+| pinch | v2+relief | 16.7 | 16.7 | 16.7 | 16.7 | 16.8 | 16.8 |
+
+Relief off, the ratios are drag **33 %**, wheel 27 %, pinch 5 % of v1's p95, the worst drag frame 66.7 ms
+and the worst pinch 16.8: the gate passes. **But the margin is a refresh, not a design**: the two
+earlier runs of the same suite on the same files read the drag at **44 %** (v2 p95 66.7 ms, four
+refreshes, against v1's 150.0), and this one at 33 % (50.0 ms, three refreshes, against 149.9) — the
+globe frame sits on the 50 ms boundary and lands on either side of it run to run, while v1's drag
+p95 read 150 ms in all three runs here against 316.6 in 1a's session on the same code (this runner is
+faster: v2's globe frame was 83.3 ms there). So the same renderer reads 26 %, 33 % or 44 % depending on
+the runner and the refresh it lands on. The water at the globe is 2,670 river and 2,968 lake-shore
+segments and 2,623 lake triangles on 19,917 land segments and 42,529 triangles, inside the same frame.
+The owner's instruction for 1b was not to optimise the arc pass unless the phone reading said so; it
+did not, and the suite reports the ratio as measured. The fixed views
+(primitives in a still frame; the budgets in the suite are these ×1.25):
+
+| view | km/px | LOD | triangles | segments | rivers | lake shores | lake fills | drag p95 / max (relief off) |
+|---|---|---|---|---|---|---|---|---|
+| globe | 24 | 0 | 42,529 | 19,917 | 2,670 | 2,968 | 2,623 | 50.0 / 66.7 |
+| Europe | 3 | 2 | 133,348 | 101,049 | 22,172 | 71,374 | 64,531 | 133.3 / 150.1 |
+| the Aegean | 0.5 | 3 | 25,892 | 22,750 | 4,390 | 2,367 | 2,147 | 33.4 / 50.0 |
+| the Aegean at the cap | 0.15 | 4 | 20,366 | 18,297 | 0 | 1,708 | 1,553 | 33.3 / 33.4 |
+
+Relief on, the owner asked for v2's p95 at most 40 % of v1's with its heightmap on. Measured, v1 is
+CHEAPER during a gesture with its heightmap on than without (drag p95 66.7 ms against 150.0): it
+reprojects the heightmap at 360 px while moving and renders it in full only once settled, after the
+window the suite measures, so that ratio cannot be met by a renderer that draws every frame in full
+and says nothing about the relief passes. The suite prints the ratio (v2 is 133 % of v1+heightmap on
+the drag, 64 % on the wheel, 14 % on the pinch) and asserts instead that relief costs v2 at most half
+again its own relief-off p95 (measured: drag 66.6 vs 50.0, wheel 116.7 vs 100.0, pinch 16.7 vs 16.7)
+with the worst frame reported (66.7 ms on the drag, 183.4 on the wheel through Europe) — a deterministic regression gate on the relief
+passes; `RELIEF_VS_V1 = true` in the suite restores the literal gate. **This is the owner's call; it is
+flagged in the report.** Load: `water.bin` 4.36 MB in 114 ms locally, the worker's three water levels
+in about 60 / 190 / 2,100 ms (level 2: 885k lake-shore and 246k river segments, 806k lake triangles, 996k
+smoothed river segments); relief L0 8.9 MB and two Alps L1 tiles 17.1 MB, composed in the worker.
+
+**Findings that contradict or sharpen the design.** (1) HydroRIVERS is not open (above); §2.3 now
+names Natural Earth and the rule that a licence is read on the source's own page when the file is
+fetched, never from memory. (2) §2.3's "rivers and lakes join the topology as arcs and faces" became
+files of their own, because every committed byte of the land tiles stays in history and water will be
+rebuilt more often than land. (3) §2.7's single RGB PNG was 2.5 × the size of three greyscale planes;
+the planes decode natively and the renderer composes them. (4) The relief estimate was six times low
+and L2 cannot ship under 45 MB; the owner's "regional wash" is what the pyramid is, and the fade is
+the design's answer at street zoom. (5) The 40 % ratio of the frame gate moves with the runner and with the refresh a
+frame lands on (26 % in 1a's session, 44 % and 33 % here, the same renderer): the primitive budgets are
+the deterministic half of the gate and the ratio needs the owner's reading on CI's own runner. (6) v1's heightmap is not a
+per-frame cost, so a relief-on ratio against it measures the wrong thing (above). (7) The OSM partition
+calls the Aral Sea land (its 2026 water is `natural=water`, not coastline), so HydroLAKES' Aral is drawn
+as a lake — and the owner's note that "the Caspian and Aral are already water" is half right. (8)
+HydroLAKES' polygons are not planar: 1,686 of the 34,269 kept rings cross themselves, 252 islands cross
+their own shore, and 5 pairs of lakes overlap — the build repairs the first two and drops the smaller of
+the third, and `check-water.js` would fail on any of them. (9) Natural Earth's Niamey exists twice (an
+admin-1 capital at 7.1° E); the checker's river-city points name the admin-0 capital's.
+
+**Screenshots, reviewed** (`.claude/atlas-shots.js`, 53 shots at 1280×800). Water: the Rhine at 1 km/px
+and its delta at 0.5 (the IJsselmeer, land to the OSM partition, is now a lake; every distributary
+reaches the coast); the Danube at 3 km/px and at Vienna at 0.5; the Nile at 6 km/px and its delta at 0.5
+(both branches end on the coast, the Rosetta mouth within a pixel of it; no line runs into the sea); the
+Mississippi at 6 and its bird-foot delta at 0.5 (the passes reach the Gulf; Pontchartrain and Borgne are
+lakes); the Great Lakes at 6 km/px, Huron at 0.6 and the North Channel at the cap (the 250 m shore chords
+show as a gentle angularity at 150 m/px, the Manitoulin islands are holes, the US–Canada line crosses the
+water); Victoria at 3 and 0.5 (the three borders cross the lake, the rivers end on its shore); Baikal at
+3 and 0.5. No river mouth was found off the coast and no lake over the sea; the smoothed rivers at
+0.35–0.5 km/px show no chords. Relief: the globe, the Alps and the Himalaya at 6 / 3 / 1.5 km/px in folio,
+folio night and synth (21 shots): the coast is exact in all of them — bathymetry never crosses onto land,
+the land tint never onto the sea — and the two L1 patches over the Alps and the Himalaya meet without a
+seam; the Tibetan plateau reads as high ground after the ramp change. The fade series at 2.5 / 1.8 / 1.2 /
+0.9 km/px is what fixed the range. One thing the shots show that is not a fault: at 3 km/px over Europe
+the rivers at every scale rank are dense, which is Natural Earth's own density at 1:10M and is where
+Phase 1c's labels will need the stack chip.
+
 ### Phase 2 — Time (ships `#map2` with a timeline; ~8–10 sessions)
 
 *Goal: every year is a query; borders are steps from accepted sources, conflated, coast-snapped,
@@ -1355,7 +1659,7 @@ Q-L4 a); `test-card-plans.js`, `check-style.js`, `check-questions.js` after the 
 
 ### Phase 4 — Card windows and Find-it on the shared engine (ships to readers; ~4–6 sessions)
 
-*Goal: one renderer and one geometry on the whole site (Q-A4 a).*
+*Goal: one renderer and one geometry on the whole site (Q-A4 a).* Card windows share a single WebGL context, destroyed and recreated as cards change, because browsers cap live contexts at about sixteen per page (noted in Phase 1b, 2026-10-08).
 
 Deliverables:
 1. Map cards, locator windows and war shading drawn by `atlas/` in a lightweight embedded mode

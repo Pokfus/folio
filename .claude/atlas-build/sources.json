@@ -9,7 +9,8 @@
     "Licence identifiers accepted: PD, CC0, CC-BY-3.0, CC-BY-4.0 (no conditions beyond credit);",
     "ODbL-1.0, CC-BY-SA-4.0, GPL-3.0 (share-alike: only as a data file of its own carrying the licence).",
     "`bytes` is the Content-Length the host reported when the hash was taken; `reachable` records the",
-    "probe (node .claude/check-reach.js re-measures it — never trust a date here over a fresh run)."
+    "probe (node .claude/check-reach.js re-measures it — never trust a date here over a fresh run).",
+    "`blocked` holds entries that FAILED the licence check when their text was read (never fetched by ensureSource, which reads `sources` only): the finding stays on the record so the question is not re-asked from memory."
   ],
   "sources": [
     {
@@ -25,8 +26,12 @@
       "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
       "retrieved": "2026-10-08",
       "reachable": "2026-10-08 200 through the agent proxy (both URLs)",
-      "files": ["ne_10m_coastline.shp"],
-      "usedBy": ["build-land.js"]
+      "files": [
+        "ne_10m_coastline.shp"
+      ],
+      "usedBy": [
+        "build-land.js"
+      ]
     },
     {
       "id": "ne-10m-admin0",
@@ -41,8 +46,13 @@
       "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
       "retrieved": "2026-10-08",
       "reachable": "2026-10-08 200 through the agent proxy (both URLs)",
-      "files": ["ne_10m_admin_0_countries.shp", "ne_10m_admin_0_countries.dbf"],
-      "usedBy": ["build-land.js"]
+      "files": [
+        "ne_10m_admin_0_countries.shp",
+        "ne_10m_admin_0_countries.dbf"
+      ],
+      "usedBy": [
+        "build-land.js"
+      ]
     },
     {
       "id": "ne-10m-populated-places",
@@ -57,8 +67,13 @@
       "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
       "retrieved": "2026-10-08",
       "reachable": "2026-10-08 200 through the agent proxy (both URLs)",
-      "files": ["ne_10m_populated_places.shp", "ne_10m_populated_places.dbf"],
-      "usedBy": ["build-gazetteer.js (Phase 3)"]
+      "files": [
+        "ne_10m_populated_places.shp",
+        "ne_10m_populated_places.dbf"
+      ],
+      "usedBy": [
+        "build-gazetteer.js (Phase 3)"
+      ]
     },
     {
       "id": "ne-10m-admin1",
@@ -73,8 +88,13 @@
       "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
       "retrieved": "2026-10-08",
       "reachable": "2026-10-08 200 through the agent proxy",
-      "files": ["ne_10m_admin_1_states_provinces.shp", "ne_10m_admin_1_states_provinces.dbf"],
-      "usedBy": ["build-admin.js (Phase 1a: the US states, China's provinces, Russia's federal subjects and the UK nations only, Q-A7 a)"]
+      "files": [
+        "ne_10m_admin_1_states_provinces.shp",
+        "ne_10m_admin_1_states_provinces.dbf"
+      ],
+      "usedBy": [
+        "build-admin.js (Phase 1a: the US states, China's provinces, Russia's federal subjects and the UK nations only, Q-A7 a)"
+      ]
     },
     {
       "id": "cliopatria",
@@ -88,8 +108,12 @@
       "attribution": "Cliopatria v0.2.0, Seshat: Global History Databank (Ed Chalstrey, James Bennett et al.), https://github.com/Seshat-Global-History-Databank/cliopatria, doi:10.5281/zenodo.20274630, CC BY 4.0.",
       "retrieved": "2026-10-08",
       "reachable": "2026-10-08 200 through the agent proxy. The tag's raw URL pins the version; github.com/…/archive/refs/tags/v0.2.0.zip and api.github.com answer 403 (egress policy), so neither is usable here.",
-      "files": ["cliopatria.geojson"],
-      "usedBy": ["build-polities.js (Phase 2)"]
+      "files": [
+        "cliopatria.geojson"
+      ],
+      "usedBy": [
+        "build-polities.js (Phase 2)"
+      ]
     },
     {
       "id": "etopo-2022-60s",
@@ -98,28 +122,18 @@
       "url": "https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2022/data/60s/60s_surface_elev_gtif/ETOPO_2022_v1_60s_N90W180_surface.tif",
       "sha256": "9d27d4b8ea8e76977e2988bca667d7c8fa68b927355feffcddd6b4875a7fd08e",
       "bytes": 465969062,
-      "licence": "PD",
-      "licenceUrl": "https://www.ncei.noaa.gov/products/etopo-global-relief-model",
-      "attribution": "NOAA National Centers for Environmental Information. 2022: ETOPO 2022 15 Arc-Second Global Relief Model. NOAA NCEI. https://doi.org/10.25921/fd45-gt74. Public domain (US Government work).",
+      "licence": "CC0",
+      "licenceUrl": "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ngdc.mgg.dem:etopo_2022/html",
+      "attribution": "NOAA National Centers for Environmental Information. 2022: ETOPO 2022 15 Arc-Second Global Relief Model. NOAA National Centers for Environmental Information. DOI: 10.25921/fd45-gt74. Accessed 2026-10-08. Public domain (CC0 1.0).",
       "retrieved": "2026-10-08",
-      "reachable": "2026-10-08 200 through the agent proxy. The THREDDS fileServer paths (…/thredds/fileServer/global/ETOPO2022/…) answer 404 for the GeoTIFFs; the files live under /mgg/global/relief/ETOPO2022/data/. The 15 arc-second grid is 288 tiles of 15°×15° at …/data/15s/15s_surface_elev_gtif/ETOPO_2022_v1_15s_N<lat>E|W<lon>_surface.tif (e.g. N00E000); the single 60 arc-second file (21600×10800) covers relief levels L0–L2 of §2.3 and is what build-relief.js reads.",
-      "files": ["ETOPO_2022_v1_60s_N90W180_surface.tif"],
-      "usedBy": ["build-relief.js (Phase 1)"]
-    },
-    {
-      "id": "hydrorivers",
-      "name": "HydroRIVERS v1.0 (global, shapefile)",
-      "version": "1.0",
-      "url": "https://data.hydrosheds.org/file/HydroRIVERS/HydroRIVERS_v10_shp.zip",
-      "sha256": "0cf9e363e4b48ede535787f9e2eecbcff43eb53acad4b9cbf048c9e12453e5b5",
-      "bytes": 544388154,
-      "licence": "CC-BY-4.0",
-      "licenceUrl": "https://www.hydrosheds.org/page/license",
-      "attribution": "HydroRIVERS v1.0 © World Wildlife Fund, Inc. (2006–2013) and HydroSHEDS, CC BY 4.0. Lehner, B., Grill, G. (2013): Global river hydrography and network routing: baseline data and new approaches to study the world's large river systems. Hydrological Processes 27(15): 2171–2186.",
-      "retrieved": "2026-10-08",
-      "reachable": "2026-10-08 200 through the agent proxy",
-      "files": ["HydroRIVERS_v10.shp"],
-      "usedBy": ["build-water.js (Phase 1)"]
+      "reachable": "2026-10-08 200 through the agent proxy (fetched and hashed). The THREDDS fileServer paths (…/thredds/fileServer/global/ETOPO2022/…) answer 404 for the GeoTIFFs; the files live under /mgg/global/relief/ETOPO2022/data/. The 15 arc-second grid is 288 tiles of 15°×15° at …/data/15s/15s_surface_elev_gtif/ETOPO_2022_v1_15s_N<lat>E|W<lon>_surface.tif (e.g. N00E000); the owner decided (2026-10-08) that the single 60 arc-second file (21600×10800) is the only relief source.",
+      "files": [
+        "ETOPO_2022_v1_60s_N90W180_surface.tif"
+      ],
+      "usedBy": [
+        "build-relief.js (Phase 1b: relief L0 and L1 from the 60 arc-second surface grid)"
+      ],
+      "licenceText": "Verified 2026-10-08 in the NCEI metadata record (Use Constraints): the data \"are not subject to copyright protection in the United States. NOAA waives any potential copyright and related rights in these data worldwide through the Creative Commons Zero 1.0 Universal Public Domain Dedication (CC0-1.0)\"; Other Constraints: \"SPDX License: Creative Commons Zero v1.0 Universal (CC0-1.0)\". The product page gives the citation used as the attribution."
     },
     {
       "id": "hydrolakes",
@@ -129,12 +143,18 @@
       "sha256": "9ef63498569dd7ccd0b8d8852da026e009a75f42d293f00e483f3b9fcfe8e1f9",
       "bytes": 820295132,
       "licence": "CC-BY-4.0",
-      "licenceUrl": "https://www.hydrosheds.org/page/license",
+      "licenceUrl": "https://www.hydrosheds.org/products/hydrolakes",
       "attribution": "HydroLAKES v1.0 © HydroSHEDS, CC BY 4.0. Messager, M.L., Lehner, B., Grill, G., Nedeva, I., Schmitt, O. (2016): Estimating the volume and age of water stored in global lakes using a geo-statistical approach. Nature Communications 7: 13603.",
       "retrieved": "2026-10-08",
-      "reachable": "2026-10-08 200 through the agent proxy",
-      "files": ["HydroLAKES_polys_v10.shp"],
-      "usedBy": ["build-water.js (Phase 1)"]
+      "reachable": "2026-10-08 200 through the agent proxy (fetched and hashed)",
+      "files": [
+        "HydroLAKES_polys_v10_shp/HydroLAKES_polys_v10.shp",
+        "HydroLAKES_polys_v10_shp/HydroLAKES_polys_v10.dbf"
+      ],
+      "usedBy": [
+        "build-water.js (Phase 1b: lakes ≥ 5 km², four levels)"
+      ],
+      "licenceText": "Verified 2026-10-08 on the product page: \"The HydroLAKES database is licensed under a Creative Commons Attribution (CC-BY) 4.0 International License\" (linking http://creativecommons.org/licenses/by/4.0/); HydroLAKES_TechDoc_v10.pdf §4.1 says the same and asks (not as a licence term) that the data not be redistributed whole in its original format — Folio ships a simplified, filtered derivative in its own format."
     },
     {
       "id": "osm-land-polygons",
@@ -148,9 +168,58 @@
       "attribution": "© OpenStreetMap contributors, Open Database License (ODbL) 1.0. Land polygons by osmdata.openstreetmap.de.",
       "retrieved": "2026-10-08",
       "reachable": "2026-10-08 200 through the agent proxy",
-      "files": ["land-polygons-complete-4326/land_polygons.shp"],
+      "files": [
+        "land-polygons-complete-4326/land_polygons.shp"
+      ],
       "shareAlike": "Share-alike: a file derived from this source must be a data file of its own carrying this licence and credit, never merged into a PD/CC BY file (§2.10a).",
-      "usedBy": ["build-land.js (Phase 1, when the finest LOD moves from Natural Earth to OSM)"]
+      "usedBy": [
+        "build-land.js (Phase 1, when the finest LOD moves from Natural Earth to OSM)"
+      ]
+    },
+    {
+      "id": "ne-10m-rivers",
+      "name": "Natural Earth 1:10m Physical Vectors — Rivers + Lake Centerlines, scale rank edition (one record per river per scale rank, with names and Wikidata ids)",
+      "version": "5.0.0 (VERSION.txt inside the zip)",
+      "url": "https://naciscdn.org/naturalearth/10m/physical/ne_10m_rivers_lake_centerlines_scale_rank.zip",
+      "mirror": "https://naturalearth.s3.amazonaws.com/10m_physical/ne_10m_rivers_lake_centerlines_scale_rank.zip",
+      "sha256": "a6fc02f8d663a0cb451b2564fbc361174410cd65d14c59d11ffb870ebb8c8566",
+      "bytes": 2410997,
+      "licence": "PD",
+      "licenceUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "licenceText": "Public domain (Natural Earth terms of use); the README inside the zip adds that the supplementary European and North American rivers (not used here) are public domain too.",
+      "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
+      "retrieved": "2026-10-08",
+      "reachable": "2026-10-08 200 through the agent proxy",
+      "files": [
+        "ne_10m_rivers_lake_centerlines_scale_rank.shp",
+        "ne_10m_rivers_lake_centerlines_scale_rank.dbf"
+      ],
+      "usedBy": [
+        "build-water.js (Phase 1b: rivers — the stand-in for HydroRIVERS, whose licence is not open; see `blocked`)"
+      ],
+      "why": "Chosen 2026-10-08 when HydroRIVERS failed the licence check (below). The scale-rank edition is the plain rivers file split per scale rank, so a great river's lower course is drawn at the globe and its headwaters from LOD 1–2; it carries names, Wikidata ids and NE ids for Phase 1c. Its resolution is 1:10M (median chord 1.8 km), so rivers stop being drawn where the chords would show (§7 Phase 1b)."
+    }
+  ],
+  "blocked": [
+    {
+      "id": "hydrorivers",
+      "name": "HydroRIVERS v1.0 (global, shapefile)",
+      "version": "1.0",
+      "url": "https://data.hydrosheds.org/file/HydroRIVERS/HydroRIVERS_v10_shp.zip",
+      "sha256": "0cf9e363e4b48ede535787f9e2eecbcff43eb53acad4b9cbf048c9e12453e5b5",
+      "bytes": 544388154,
+      "licence": "HydroSHEDS v1 License Agreement (WWF) — NOT an accepted identifier; this entry is blocked",
+      "licenceUrl": "https://www.hydrosheds.org/products/hydrorivers",
+      "attribution": "HydroRIVERS v1.0 © World Wildlife Fund, Inc. (2006–2013) and HydroSHEDS, CC BY 4.0. Lehner, B., Grill, G. (2013): Global river hydrography and network routing: baseline data and new approaches to study the world's large river systems. Hydrological Processes 27(15): 2171–2186.",
+      "retrieved": "2026-10-08",
+      "reachable": "2026-10-08 200 through the agent proxy",
+      "files": [
+        "HydroRIVERS_v10.shp"
+      ],
+      "usedBy": [
+        "build-water.js (Phase 1)"
+      ],
+      "finding": "2026-10-08: the product page says HydroRIVERS is \"distributed under the same license agreement as the HydroSHEDS core products, which is included in the HydroSHEDS Technical Documentation\"; that document (HydroSHEDS_TechDoc_v1_4.pdf, April 2022, Appendix A) is a WWF end-user licence: distribution only \"incorporated into any Derivative Works … subject to the terms and conditions of an end user license agreement with terms that are at least as protective\"; \"In no event shall Licensee license or distribute the Licensed Materials as a stand-alone product\"; the licensee \"shall protect against unauthorized copying\"; audit and record-keeping duties. Not CC BY and not an equivalent open licence (§2.10a: nothing unclear or conflicting). HydroSHEDS v2 (CC BY 4.0, hydrosheds.org/products/hydrosheds-v2) covers only the Americas as of 2026-10-08, with a global release \"under a free license\" announced for 2026 — re-check it before Phase 2. Phase 0 had pinned this entry as CC-BY-4.0 from memory; the sha256 and bytes are real and kept so a later session can verify a re-licensed copy."
     }
   ]
 }
