@@ -30,18 +30,28 @@
      verts   zig-zag delta varints of quantised (lon, lat), arc by arc. Within an arc every vertex is
              a delta from the previous one; an arc's first vertex is a delta from the previous arc's
              last vertex (TopoJSON's convention, so neighbouring arcs cost nothing to start).
-     ranks   2 bits per vertex: the coarsest LOD the vertex survives at (0 = globe … lodCount-1 =
-             finest). An arc's endpoints are always rank 0. Four vertices to a byte.
+     ranks   the coarsest LOD the vertex survives at (0 = globe … lodCount-1 = finest), 2 bits per
+             vertex (four to a byte) when the file has at most 4 levels — every shipped file — and
+             4 bits (two to a byte) in the build's intermediate, which carries 5. An arc's endpoints
+             are always rank 0.
      arcs    per arc: varint vertexCount, u8 kind (KIND.*), u8 sourceIndex (into header.sources),
              u8 minLod (the coarsest LOD at which this arc is drawn at all — a closed island ring
              smaller than a level's tolerance vanishes at that level rather than collapsing into a
              line), u8 flags (FLAG.*: DISPUTED marks a border the sources disagree on — one polygon's
              line with no neighbour sharing it, or a chord across water — which §2.4 draws dashed).
              Vertex offsets are cumulative, so they are not stored.
+     arcRef  OPTIONAL (tiles only, Phase 1a): per arc, varint (core arc index + 1, 0 = this arc exists
+             only in the tile — an islet too small for the resident levels, or a tile-edge chord) and
+             u8 bits: 1 = the piece begins at the core arc's first vertex, 2 = it ends at its last.
+             A tile arc is a PIECE of a core arc clipped to the tile; the checker proves the piece's
+             outer ends coincide with the core arc's endpoints.
      faces   per face: varint entityIndex, u8 sourceIndex, varint ringCount, then per ring: varint
              refCount and refCount zig-zag varints of SIGNED arc references — (arc+1) when the arc
              is walked forward, -(arc+1) when walked backward. The face is on the LEFT of every arc
              as walked (counter-clockwise outer rings, clockwise holes, on the sphere).
+     faceRef OPTIONAL (tiles only): per face, varint (core face index + 1). A tile face is a piece of
+             a core face clipped to the tile; its `entity` indexes the CORE header's entity table (a
+             tile carries no entity table of its own — header.core names the core file it belongs to).
 
    Everything a renderer needs that is not here (unit vectors, triangles, per-LOD segment lists) is
    derived at load time in the worker; the file carries one copy of each vertex and nothing that a
@@ -56,11 +66,17 @@
   "use strict";
 
   const MAGIC = "FOLIOTOP";
-  const FORMAT_VERSION = 1;
-  // arc kinds (§2.3): coast, land border, river, lake shore, soft edge (a people's uncertain extent)
-  const KIND = { COAST: 0, BORDER: 1, RIVER: 2, LAKE: 3, SOFT: 4 };
-  const KIND_NAME = ["coast", "border", "river", "lake", "soft"];
-  const FLAG = { DISPUTED: 1 };
+  const FORMAT_VERSION = 2;   // 2 (Phase 1a): ADMIN1 and EDGE kinds, WATER flag, 4-bit ranks above 4 levels, arcRef/faceRef sections
+  // arc kinds (§2.3): coast, land border, river, lake shore, soft edge (a people's uncertain extent),
+  // admin-1 border (inside one country, drawn thinner and only past a zoom threshold), tile edge (a
+  // chord along a tile's boundary closing a clipped fill ring — never stroked)
+  const KIND = { COAST: 0, BORDER: 1, RIVER: 2, LAKE: 3, SOFT: 4, ADMIN1: 5, EDGE: 6 };
+  const KIND_NAME = ["coast", "border", "river", "lake", "soft", "admin1", "edge"];
+  // DISPUTED: a border the sources disagree on (one polygon's own line, or a line where one source
+  // says land and the other water) — drawn dashed. WATER: a border running over sea or lake (the
+  // US–Canada line through the Great Lakes, a tripoint in Lake Victoria): no face on either side.
+  const FLAG = { DISPUTED: 1, WATER: 2 };
+  const rankBitsFor = (lodCount) => (lodCount <= 4 ? 2 : 4);
 
   /* ---------- varints ---------- */
   function zig(n) { return n < 0 ? (-n * 2 - 1) : n * 2; }       // zig-zag: small magnitudes stay small
@@ -105,7 +121,8 @@
     const nV = T.vertices.lon.length;
     if (T.vertices.lat.length !== nV || T.rank.length !== nV) throw new Error("vertex arrays disagree in length");
     const lodCount = T.lod.intervals_m.length;
-    if (lodCount < 1 || lodCount > 4) throw new Error("ranks are 2 bits: 1–4 LOD levels");
+    if (lodCount < 1 || lodCount > 15) throw new Error("1–15 LOD levels");
+    const rb = rankBitsFor(lodCount), perByte = 8 / rb, mask = (1 << rb) - 1;
 
     // verts: arc by arc, so an arc's first vertex is a delta from the previous arc's last
     const verts = ByteSink(nV * 4);
@@ -120,12 +137,12 @@
     }
     if (expect !== nV) throw new Error("arcs cover " + expect + " vertices of " + nV);
 
-    // ranks: 2 bits each
-    const ranks = new Uint8Array(Math.ceil(nV / 4));
+    // ranks: 2 or 4 bits each
+    const ranks = new Uint8Array(Math.ceil(nV / perByte));
     for (let i = 0; i < nV; i++) {
       const r = T.rank[i];
       if (r < 0 || r >= lodCount) throw new Error("rank out of range at vertex " + i);
-      ranks[i >> 2] |= r << ((i & 3) * 2);
+      ranks[Math.floor(i / perByte)] |= r << ((i % perByte) * rb);
     }
 
     // arcs
@@ -153,6 +170,18 @@
     }
 
     const sectionList = [["verts", verts.result()], ["ranks", ranks], ["arcs", arcs.result()], ["faces", faces.result()]];
+    if (T.arcRef) {
+      if (T.arcRef.length !== T.arcs.length) throw new Error("arcRef length");
+      const s = ByteSink(T.arcs.length * 3);
+      for (let i = 0; i < T.arcs.length; i++) { const r = T.arcRef[i]; s.varint(r.core == null || r.core < 0 ? 0 : r.core + 1); s.u8(r.bits || 0); }
+      sectionList.push(["arcRef", s.result()]);
+    }
+    if (T.faceRef) {
+      if (T.faceRef.length !== T.faces.length) throw new Error("faceRef length");
+      const s = ByteSink(T.faces.length * 3);
+      for (let i = 0; i < T.faces.length; i++) s.varint(T.faceRef[i] == null || T.faceRef[i] < 0 ? 0 : T.faceRef[i] + 1);
+      sectionList.push(["faceRef", s.result()]);
+    }
     const header = Object.assign({}, T.extra || {}, {
       format: FORMAT_VERSION,
       generated: T.generated, generator: T.generator,
@@ -210,6 +239,7 @@
     const sec = (name) => { const s = header.sections[name]; if (!s) throw new Error("section missing: " + name); const o = Number(s.offset); return [o, o + s.length]; };
     const out = { header, quantum: header.quantum, lodCount: header.lod.intervals_m.length };
     if (opts && opts.headerOnly) return out;
+    const rb = rankBitsFor(out.lodCount), perByte = 8 / rb, mask = (1 << rb) - 1;
 
     const nV = header.counts.vertices, nA = header.counts.arcs, nF = header.counts.faces;
     const lon = new Int32Array(nV), lat = new Int32Array(nV);
@@ -217,7 +247,7 @@
       for (let i = 0; i < nV; i++) { x += c.svarint(); y += c.svarint(); lon[i] = x; lat[i] = y; }
       if (c.pos !== e) throw new Error("verts section has " + (e - c.pos) + " trailing bytes"); }
     const rank = new Uint8Array(nV);
-    { const [s] = sec("ranks"); for (let i = 0; i < nV; i++) rank[i] = (u8[s + (i >> 2)] >> ((i & 3) * 2)) & 3; }
+    { const [s] = sec("ranks"); for (let i = 0; i < nV; i++) rank[i] = (u8[s + Math.floor(i / perByte)] >> ((i % perByte) * rb)) & mask; }
     const arcOffset = new Uint32Array(nA + 1), arcKind = new Uint8Array(nA), arcSource = new Uint8Array(nA), arcMinLod = new Uint8Array(nA), arcFlags = new Uint8Array(nA);
     { const [s, e] = sec("arcs"); const c = Cursor(u8, s, e); let off = 0;
       for (let i = 0; i < nA; i++) { arcOffset[i] = off; off += c.varint(); arcKind[i] = c.u8(); arcSource[i] = c.u8(); arcMinLod[i] = c.u8(); arcFlags[i] = c.u8(); }
@@ -232,8 +262,23 @@
         faces[i] = { entity, source, rings };
       }
       if (c.pos !== e) throw new Error("faces section has trailing bytes"); }
-    return Object.assign(out, { lon, lat, rank, arcOffset, arcKind, arcSource, arcMinLod, arcFlags, faces });
+    Object.assign(out, { lon, lat, rank, arcOffset, arcKind, arcSource, arcMinLod, arcFlags, faces });
+    if (header.sections.arcRef) {
+      const [s, e] = sec("arcRef"); const c = Cursor(u8, s, e);
+      const arcRef = new Int32Array(nA), arcRefBits = new Uint8Array(nA);
+      for (let i = 0; i < nA; i++) { arcRef[i] = c.varint() - 1; arcRefBits[i] = c.u8(); }
+      if (c.pos !== e) throw new Error("arcRef section has trailing bytes");
+      Object.assign(out, { arcRef, arcRefBits });
+    }
+    if (header.sections.faceRef) {
+      const [s, e] = sec("faceRef"); const c = Cursor(u8, s, e);
+      const faceRef = new Int32Array(nF);
+      for (let i = 0; i < nF; i++) faceRef[i] = c.varint() - 1;
+      if (c.pos !== e) throw new Error("faceRef section has trailing bytes");
+      out.faceRef = faceRef;
+    }
+    return out;
   }
 
-  return { MAGIC, FORMAT_VERSION, KIND, KIND_NAME, FLAG, write, read, zig, zag };
+  return { MAGIC, FORMAT_VERSION, KIND, KIND_NAME, FLAG, write, read, zig, zag, rankBitsFor };
 });

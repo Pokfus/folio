@@ -61,6 +61,22 @@
       "usedBy": ["build-gazetteer.js (Phase 3)"]
     },
     {
+      "id": "ne-10m-admin1",
+      "name": "Natural Earth 1:10m Cultural Vectors — Admin 1 States, Provinces",
+      "version": "5.1.1 (file dated 2022-05-13 on naciscdn.org)",
+      "url": "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_admin_1_states_provinces.zip",
+      "mirror": "https://naturalearth.s3.amazonaws.com/10m_cultural/ne_10m_admin_1_states_provinces.zip",
+      "sha256": "efc59726337323058f9446210adc96673179cd344e053666ee3d28cb58ba2b05",
+      "bytes": 14909524,
+      "licence": "PD",
+      "licenceUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
+      "retrieved": "2026-10-08",
+      "reachable": "2026-10-08 200 through the agent proxy",
+      "files": ["ne_10m_admin_1_states_provinces.shp", "ne_10m_admin_1_states_provinces.dbf"],
+      "usedBy": ["build-admin.js (Phase 1a: the US states, China's provinces, Russia's federal subjects and the UK nations only, Q-A7 a)"]
+    },
+    {
       "id": "cliopatria",
       "name": "Cliopatria — a historical geographic dataset (Seshat: Global History Databank)",
       "version": "v0.2.0",
