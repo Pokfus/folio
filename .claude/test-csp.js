@@ -39,7 +39,9 @@ const server = http.createServer((req, res) => {
   });
 });
 
-const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread",
+// map2 is the Atlas v2 preview (Oct 2026): a Worker (worker-src), a fetch() of a .bin (connect-src) and a
+// WebGL2 canvas — three things the policy has an opinion about, so the route is walked and given time to load
+const ROUTES = ["", "decks", "map", "map2", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread",
   // the three games added Aug 2026. The crossword's board is a grid of <input>s written with an inline
   // `grid-template-columns`, and the picture round loads an image from whatever host credited it — inline
   // style and img-src are both things the policy has an opinion about, so both routes are walked
@@ -68,7 +70,7 @@ const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono"
 
   for (const r of ROUTES) {
     await page.goto(base + (r ? "#" + r : ""), { waitUntil: "load" });
-    await page.waitForTimeout(r === "map" || r === "findit" ? 3500 : 900);
+    await page.waitForTimeout(r === "map" || r === "map2" || r === "findit" ? 3500 : 900);
     process.stdout.write("  visited #" + (r || "home") + "\n");
   }
   // exercise a study session + a glossary popup, the two paths that touch the code changed in this phase

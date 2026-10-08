@@ -67,7 +67,7 @@ self.addEventListener("activate", (e) => {
 // app.js can ask the waiting worker to take over immediately
 self.addEventListener("message", (e) => { if (e.data === "skipWaiting") self.skipWaiting(); });
 
-const CACHEABLE = /\.(js|css|json|svg|png|jpg|jpeg|webp|woff2?)$/i;
+const CACHEABLE = /\.(js|css|json|svg|png|jpg|jpeg|webp|woff2?|bin)$/i;   // bin: the Atlas v2 topology (atlas/data/*.bin), Oct 2026
 
 self.addEventListener("fetch", (e) => {
   const req = e.request;

@@ -161,7 +161,7 @@ primitives: sphere, faces, arcs, points.
 
 | file | licence | size | why |
 |---|---|---|---|
-| `atlas/vendor/earcut.js` | ISC | ~20 KB | Robust polygon triangulation with holes. Writing one is a known swamp; earcut is the reference implementation (used by MapLibre, deck.gl). Runs in the worker only. |
+| `atlas/vendor/earcut.js` | ISC | 22 KB (3.0.1, as vendored in Phase 0) | Robust polygon triangulation with holes. Writing one is a known swamp; earcut is the reference implementation (used by MapLibre, deck.gl). Runs in the worker only. |
 | nothing else | | | The orthographic projection is ten lines; a TopoJSON client is not needed because the wire format is this design's own binary (§2.3), and d3-geo's clipping is replaced by the GPU's horizon discard. |
 
 **The draw list, per frame** (all static buffers, uniforms only):
@@ -282,11 +282,12 @@ visibly cuts a chord through the globe.
 table, step table, arc index with LOD offsets, licence block), then typed-array sections — vertex
 lon/lat as zig-zag delta varints, arc segment index as `Uint32`. Varint-delta coordinates compress
 poorly further, so the design does not depend on transit compression (Cloudflare Pages does not
-compress `application/octet-stream`). Estimated sizes, **to be measured by the pipeline's first run**:
+compress `application/octet-stream`). Sizes — the first row **measured by Phase 0's pipeline run
+(2026-10-08)**, the rest still estimates:
 
-| file | content | est. size on the wire |
+| file | content | size on the wire |
 |---|---|---|
-| `atlas/data/topology.bin` | arcs LOD 0–2, faces, steps, entities | 2.5–3.5 MB |
+| `atlas/data/topology.bin` | arcs LOD 0–2, faces, steps, entities | **1.24 MB measured** for Natural Earth 10m alone (380,384 vertices in 4,716 arcs, 255 faces; vertices 1,100 KB, 2-bit LOD ranks 93 KB, header 41 KB, arc and face tables 38 KB), at a quantum of 2.5·10⁻⁴° and Visvalingam intervals of 8 / 2.5 / 0.5 km for LOD 0 / 1 / 2 (40k / 128k / 380k vertices). Natural Earth at full resolution would have been 1.66 MB at 10⁻⁴°, so the resident file is a simplified level by design, not the raw theme. Cliopatria's steps (Phase 2) add to this; the 2.5–3.5 MB estimate for the full file stands until they are measured. |
 | `atlas/data/gazetteer.js` | places registry (§2.8), labels, anchors | 0.3–0.5 MB |
 | `atlas/data/tiles/3/*.bin` (32 tiles) | coast/river/lake at LOD 3 | 60–150 KB each |
 | `atlas/data/tiles/4/*.bin` (512 tiles) | LOD 4 | 30–120 KB each; most are empty ocean and omitted |
@@ -908,6 +909,103 @@ Test that proves the phase: `node .claude/atlas-build/check-topology.js` passes 
 during drag and pinch on the CI runner with software GL, while v1 on the same run shows its current
 p90 of ~150 ms; `topology.bin` for Natural Earth is ≤ 1.5 MB. **Gate**: if either budget is
 missed, the design is revisited here, not patched later.
+
+#### Phase 0 — as built (2026-10-08)
+
+Everything in the deliverables list exists and runs: `.claude/atlas-build/` (its own `package.json`,
+`sources.json` with eight pinned entries, `fetch-sources.js`, `lib/format.js` re-exporting the one
+shared reader/writer `atlas/atlas-format.js`, `lib/log.js`, `lib/geo.js`, `build-land.js`, `pack.js`,
+`check-topology.js`), `atlas/` (`atlas-gl.js`, `atlas.js`, `atlas-worker.js`, `vendor/earcut.js` 3.0.1
+ISC, `data/topology.bin`), the `#map2` route and the lazy `atlas2` bundle in `app.js`, `bin` in the
+service worker's cacheable list, `#map2` in `test-csp.js`, `.claude/test-atlas-perf.js`, and the
+workflow's syntax and `check-topology` gates. `check-reach.js` probes the five new hosts by HEAD.
+
+**Gate 1 — size: passed.** `topology.bin` is 1.24 MB (the §2.3 table above). `check-topology.js`
+passes 27 of 27 on it: planar at every level (no two drawn segments cross among 33k / 123k / 376k),
+rings close, every border two-sided or flagged disputed, every coast arc one-sided and land-left,
+Σ faces = 146,719,901 km² against 146,720,187 km² of land (286 km² unmapped), every arc and face
+traced to a header source.
+
+**Gate 2 — frame budget: NOT met as written, with the comparison on the record.** Measured by the
+suite on the CI-class runner (4 cores, Chromium 141, ANGLE/SwiftShader), rAF-to-rAF intervals in ms,
+v1 = `#map` Full atlas, v2 = `#map2`:
+
+| gesture | target | mean | p50 | p90 | p95 | max |
+|---|---|---|---|---|---|---|
+| drag | v1 | 80.6 | 16.7 | 250.0 | 250.1 | 516.7 |
+| drag | v2 | 27.6 | 16.7 | 66.6 | 66.7 | 83.4 |
+| wheel | v1 | 170.9 | 16.7 | 516.7 | 549.9 | 583.3 |
+| wheel | v2 | 30.3 | 16.7 | 66.7 | 100.0 | 166.7 |
+| pinch | v1 | 177.7 | 16.7 | 566.6 | 566.7 | 899.9 |
+| pinch | v2 | 16.7 | 16.7 | 16.7 | 16.8 | 16.8 |
+| scrub | v1 | 62.5 | 16.7 | 216.7 | 233.3 | 300.0 |
+
+v2 is 3–7× faster than v1 on every gesture and its worst frame is a sixth of v1's, the pinch and the
+max budgets pass, the CPU side of a frame is 0.2 ms — and the drag's p95 is 67 ms, not 20. The
+reason is not the architecture: calibrated on the same runner with a synthetic page, SwiftShader
+rasterises about 750k tiny triangles per second (50k triangles → 66 ms a frame; 600k → 1.4 s), and
+MSAA 4× triples that; so a 20 ms frame holds roughly 15k primitives, and the globe view at LOD 0
+draws 35k face triangles plus 24k line segments after culling. Instancing is far worse there
+(≈ 25 µs per instance: the design's instanced arc quads cost 0.9 s a frame at globe scale and 5 s
+zoomed in), which is why the arc pass was rebuilt as one vertex-pulled triangle per segment. On any
+GPU the same frame is trivial; the budget as worded ("on the CI runner with software GL") measures
+the runner, not a reader's phone. **Decision for the owner, per the gate's own rule**: (a) keep the
+software-GL figure as the comparison it is and set the gate at a GPU-class device or at a
+software-GL budget the measured rate allows (≈ 35 ms p95 at LOD 0 would pass today); (b) hold the
+20 ms and make LOD 0 a ~15k-primitive level (a 20–25 km tolerance, 1.5 px at globe scale); or
+(c) rasterise fills into a texture once per year change and keep only lines as geometry — which
+moves the cost to year changes, exactly where §2.4 wants it cheapest. None of these is patched in;
+the renderer is left honest at the measured number.
+
+**Load.** Locally served: fetch 109 ms for 1.30 MB, first paint 0.67 s after navigation (LOD 0
+triangulated in 235 ms), all three levels in 2.3 s in the worker (44k / 169k / 634k triangles,
+33k / 123k / 376k segments), uploads 18 / 80 / 43 ms. The design's "under two seconds" is about right.
+
+**Decided in Phase 0 where the design was silent** (each is in the code's own header too):
+quantum 2.5·10⁻⁴° (28 m: 0.19 px at the deepest zoom of Q-A6, 0.03 px where this file's finest level
+is first drawn; measured against 10⁻⁴° at 1.66 MB and 2·10⁻⁴° at 1.47 MB); LOD tolerances 8 / 2.5 /
+0.5 km as plain Visvalingam √area (mapshaper's `interval` is 0.65·√area, so its "500" is our 770);
+a level is used from 16 / 5 / 1 km per pixel down; fills are triangulated **per level** from the
+same simplified ring as the stroke, not once at the face's own precision — the two then agree
+exactly and the globe view draws a tenth of the finest level's triangles; chord subdivision at
+4.1° / 2.3° / 1.0° (a quarter pixel of sag at each level's first use); 384 direction buckets with
+bounding caps, culled against the viewport's cap per frame; MSAA off (every fill edge sits under an
+anti-aliased line); a `flags` byte per arc with `DISPUTED` for a border the sources disagree on;
+present-day steps dated `[2022, null]` (null = open); entity ids `adm0:<ADM0_A3>`; the zoom cap at
+0.5 km/px until tiles exist; a sentence on `file://` (the `.js` twin of Q-R4 is Phase 1 work).
+
+**Conflation on Natural Earth, as found.** The admin-0 theme (5.1.1) and the coastline theme
+(5.0.0-pre9) are different releases: 15,206 of Antarctica's 15,955 admin vertices are on the
+coastline, 749 are not (the Ronne ice front); the Maldives' are all exact; Fiji's and Russia's
+antimeridian pieces are cut at 179.999, not 180; the coast's own two sides of the cut miss by 22–156 m
+at 16 endpoints; the admin theme has four spikes, several vertices at the pole, and 14 rings (islets,
+reefs — Bajo Nuevo, Serranilla, the Spratlys lose their face) with no land in the partition. The
+rules that handle this, in `build-land.js`: exact-key matching; a border's end beside a coast vertex
+projects onto the nearest coast segment within d₁ = 1 km; a run of one polygon's own vertices between
+coast vertices is coast only if its projections follow one ring in one direction and the coast path is
+no longer than 1.5× the run (Ceuta's land border fails this and stays a border); a consecutive pair
+both shared with one neighbour is that neighbour's border edge and ends a coast run (the 49th parallel
+at Point Roberts, Gibraltar's fence); runs are expanded only after every coast ring has its land-left
+direction, and a run walking against it is a chord across water (the San Juan's bar); seam vertices
+snap to the meridian and seam ends to the coast's crossing; pole vertices collapse to one point;
+spikes and spurs are cut; a junction-free island cycle is cut at its smallest vertex so the admin ring
+and the coast ring dedupe. What remains is counted, not hidden: 13 disputed one-sided borders
+(196 km in all, the longest the 115 km ice front), 5 coast slivers (1.1 km), 50 coast arcs no face
+claims (286 km²). **This contradicts §2.3's "snap within d₁" as the whole story: Phase 1's
+`build-admin.js` must also clip faces to the land partition and merge slivers (the d₂ step), or the
+disagreements above become visible fills over sea at the ice front.**
+
+**Other findings that contradict or sharpen the design.** `gl.finish()` returns at once under
+ANGLE/SwiftShader and cannot time a pass; rAF intervals with the pass toggles in `atlas-gl.js`
+(`debug.sphere/faces/arcs/cull`) are the measure. github.com's archive and API answer 403 from the
+sandbox, so Cliopatria is pinned at `raw.githubusercontent.com/…/v0.2.0/cliopatria.geojson.zip`;
+ETOPO 2022's THREDDS paths are 404 and the file is
+`https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2022/data/60s/60s_surface_elev_gtif/ETOPO_2022_v1_60s_N90W180_surface.tif`
+(466 MB, serves relief L0–L2; the 15 arc-second grid is 288 tiles of 15° under `…/data/15s/15s_surface_elev_gtif/`).
+The OSM land-polygon file has no versioned URL; its pin goes stale by design when the daily build
+changes. Every large source was streamed and hashed (Cliopatria 44 MB, ETOPO 466 MB, HydroRIVERS
+544 MB, HydroLAKES 820 MB, OSM 923 MB) so `sources.json` carries real pins; only Natural Earth is
+cached in `src/`.
 
 ### Phase 1 — The present-day earth, at every zoom (ships `#map2` as a preview; ~6–8 sessions)
 

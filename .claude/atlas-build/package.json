@@ -1,0 +1,22 @@
+{
+  "name": "folio-atlas-build",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Offline build pipeline for Folio's Atlas v2 (docs/atlas-v2-design.md). Nothing here ships: the outputs are data files under atlas/data/. Run `npm ci` here once per session; node_modules and the source cache (src/) are git-ignored.",
+  "license": "UNLICENSED",
+  "scripts": {
+    "fetch": "node fetch-sources.js",
+    "land": "node build-land.js",
+    "pack": "node pack.js",
+    "check": "node check-topology.js"
+  },
+  "dependencies": {
+    "earcut": "3.0.1",
+    "mapshaper": "0.6.108",
+    "pngjs": "7.0.0",
+    "polygon-clipping": "0.15.7",
+    "proj4": "2.19.10",
+    "topojson-server": "3.0.1",
+    "topojson-simplify": "3.0.3"
+  }
+}
