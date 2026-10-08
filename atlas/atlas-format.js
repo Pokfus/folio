@@ -156,8 +156,9 @@
 
     // faces
     const faces = ByteSink(T.faces.length * 64);
+    const nEntities = T.entityCount != null ? T.entityCount : T.entities.length;   // a tile carries no entity table: its faces index the core's (header.core.entities)
     for (const f of T.faces) {
-      if (f.entity < 0 || f.entity >= T.entities.length) throw new Error("face entity index out of range");
+      if (f.entity < 0 || f.entity >= nEntities) throw new Error("face entity index out of range");
       if (f.source < 0 || f.source >= T.sources.length) throw new Error("face source index " + f.source + " not in header.sources");
       faces.varint(f.entity); faces.u8(f.source); faces.varint(f.rings.length);
       for (const ring of f.rings) {

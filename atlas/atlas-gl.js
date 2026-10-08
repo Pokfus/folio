@@ -333,14 +333,14 @@
     }
 
     /* which buckets can be on screen: the cap of the visible part of the disc, against each bucket's cap */
-    function visibleRuns(range, cap, rot, radius, cx, cy) {
+    function visibleRuns(range, cap, rot, radius, cx, cy, margin) {
       const n = range.length / 2;
       const runs = [];
       if (!debug.cull) { let s = -1, e = 0; for (let b = 0; b < n; b++) { if (!range[2 * b + 1]) continue; if (s < 0) s = range[2 * b]; e = range[2 * b] + range[2 * b + 1]; } if (s >= 0) runs.push([s, e - s]); return runs; }
       const fx = rot[6], fy = rot[7], fz = rot[8];
       // the farthest viewport corner from the disc centre decides how much of the near hemisphere shows
       const dmax = Math.max(Math.hypot(cx, cy), Math.hypot(W - cx, cy), Math.hypot(cx, H - cy), Math.hypot(W - cx, H - cy));
-      const rho = (dmax >= radius ? Math.PI / 2 : Math.asin(dmax / radius)) + 0.03;
+      const rho = (dmax >= radius ? Math.PI / 2 : Math.asin(dmax / radius)) + (margin == null ? 0.01 : margin);   // a bucket's cap already spans every vertex of its items; the margin covers float error
       stats.visibleAngle = rho;
       let s = -1, e = 0;
       for (let b = 0; b < n; b++) {
@@ -366,7 +366,7 @@
       gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0);
       gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, styleTex); gl.uniform1i(P.u.uStyle, 0);
       gl.bindVertexArray(g.vaoFace);
-      for (const [start, count] of visibleRuns(D.faceRange, D.faceCap, rot, radius, cx, cy)) { gl.drawElements(gl.TRIANGLES, count, gl.UNSIGNED_INT, start * 4); stats.draws++; stats.trianglesDrawn += count / 3; }
+      for (const [start, count] of visibleRuns(D.faceRange, D.faceCap, rot, radius, cx, cy, Lv.tile ? 0.002 : 0.01)) { gl.drawElements(gl.TRIANGLES, count, gl.UNSIGNED_INT, start * 4); stats.draws++; stats.trianglesDrawn += count / 3; }
       gl.bindVertexArray(null);
     }
     function drawArcs(Lv, view, idPass, R) {
@@ -381,7 +381,7 @@
       gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0);
       gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, g.segTex); gl.uniform1i(P.u.uSeg, 1); gl.uniform1i(P.u.uTexW, SEG_TEX_W);
       gl.bindVertexArray(emptyVao);
-      for (const [start, count] of visibleRuns(D.segRange, D.segCap, rot, radius, cx, cy)) { gl.drawArrays(gl.TRIANGLES, start * 3, count * 3); stats.draws++; stats.segmentsDrawn += count; }
+      for (const [start, count] of visibleRuns(D.segRange, D.segCap, rot, radius, cx, cy, Lv.tile ? 0.002 : 0.01)) { gl.drawArrays(gl.TRIANGLES, start * 3, count * 3); stats.draws++; stats.segmentsDrawn += count; }
     }
     function drawExtents(list, view, R, ref) {
       const cx = view.cx * dpr, cy = view.cy * dpr, radius = view.radius * dpr;
@@ -410,12 +410,14 @@
       const Lv = pickLevel(view.level);
       stats.coreLevel = Lv ? Object.keys(levels).find((k) => levels[k] === Lv) | 0 : -1;
       const own = [], parents = [];
+      let complete = false;
       if (view.level >= 3) {
         for (const k of view.tiles || []) { const t = tiles.get(k); if (t && t.gpu) own.push(t); }
-        for (const k of view.parents || []) { const t = tiles.get(k); if (t && t.gpu) parents.push(t); }
+        complete = own.length === (view.tiles || []).length;   // every tile the view wants is here: nothing coarser is needed anywhere
+        if (!complete) for (const k of view.parents || []) { const t = tiles.get(k); if (t && t.gpu) parents.push(t); }
       }
-      stats.tilesDrawn = own.length; stats.parentsDrawn = parents.length;
-      const useStencil = own.length || parents.length;
+      stats.tilesDrawn = own.length; stats.parentsDrawn = parents.length; stats.complete = complete;
+      const useStencil = !complete && (own.length || parents.length);
       if (useStencil) {
         gl.enable(gl.STENCIL_TEST);
         gl.clearStencil(0); gl.stencilMask(0xff); gl.clear(gl.STENCIL_BUFFER_BIT);
@@ -424,7 +426,7 @@
         gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP);
       }
       // the resident level where no tile covers; the parents where only they do; the level's tiles over all
-      if (Lv) {
+      if (Lv && !complete) {
         if (useStencil) gl.stencilFunc(gl.EQUAL, 0, 0xff);
         if (debug.faces) drawFaces(Lv, view, idPass, R);
         if (debug.arcs) drawArcs(Lv, view, idPass, R);
@@ -435,7 +437,7 @@
         if (debug.arcs) for (const t of parents) drawArcs(t, view, idPass, R);
       }
       if (own.length) {
-        gl.stencilFunc(gl.EQUAL, 2, 0xff);
+        if (useStencil) gl.stencilFunc(gl.EQUAL, 2, 0xff);
         if (debug.faces) for (const t of own) drawFaces(t, view, idPass, R);
         if (debug.arcs) for (const t of own) drawArcs(t, view, idPass, R);
       }
@@ -513,7 +515,7 @@
         if (id > 1048576) return { arc: id - 1048576 - 1 };
         return { face: id - 1 };
       },
-      stats() { return { triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, tilesResident: tiles.size, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle }; },
+      stats() { return { triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, complete: !!stats.complete, tilesResident: tiles.size, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle }; },
       rawStats: stats,
       dispose() {
         try { const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); } catch (e) {}

@@ -54,6 +54,16 @@ const T = F.read(new Uint8Array(fullBytes));
 const H = T.header, nA = T.arcOffset.length - 1, nF = T.faces.length;
 const FINEST = T.lodCount - 1;
 say(`full.bin: ${T.lon.length} vertices, ${nA} arcs, ${nF} faces, ${H.entities.length} entities, ${T.lodCount} levels; buildId ${buildId}`);
+/* No vertex may lie on a z=4 tile line (a multiple of 11.25°): build-admin.js nudges them, but its
+   crossing repair can insert a vertex afterwards (a reserve coast vertex, a junction) that lands on one.
+   The same one-quantum nudge here is the authoritative pass: core and tiles are both cut from it. */
+{ const TILE_U = Math.round(11.25 / Q); let nudged = 0;
+  for (let i = 0; i < T.lon.length; i++) {
+    if (T.lon[i] % TILE_U === 0) { T.lon[i] += 1; nudged++; }
+    if (T.lat[i] % TILE_U === 0) { T.lat[i] += T.lat[i] > 0 ? -1 : 1; nudged++; }
+    if (T.lon[i] >= X180) T.lon[i] -= 2 * X180;
+  }
+  say(`nudged ${nudged} coordinates off the tile lines`); }
 const generated = new Date().toISOString();
 const generator = "folio atlas-build: build-land.js → build-admin.js → pack.js (" + require("./package.json").version + ")";
 const layerOf = (f) => (H.entities[T.faces[f].entity].parent ? 1 : 0);
@@ -122,7 +132,7 @@ for (const TL of TILE_LEVELS) {
     const tileOf = (x, y) => { let tx = Math.floor((x + X180) / W), ty = Math.floor((y + Y90) / Hh); tx = ((tx % TL.cols) + TL.cols) % TL.cols; ty = Math.max(0, Math.min(TL.rows - 1, ty)); return tileAt(tx, ty); };
     const wrapX = (x) => { x = ((x + X180) % (2 * X180) + 2 * X180) % (2 * X180) - X180; return x; };
     const begin = (t, x, y, atStart) => { cur = { t, v: [vtx(t, wrapX(x), y)], atStart, pos0: atStart ? null : boundaryPos(t, wrapX(x), y) }; };
-    const finish = (x, y, atEnd) => { cur.v.push(vtx(cur.t, wrapX(x), y)); cur.atEnd = atEnd; cur.pos1 = atEnd ? null : boundaryPos(cur.t, wrapX(x), y); if (cur.v.length >= 2) { cur.arc = a; cur.t.pieces.push(cur); piecesTotal++; } cur = null; };
+    const finish = (x, y, atEnd) => { cur.v.push(vtx(cur.t, wrapX(x), y)); cur.atEnd = atEnd; cur.pos1 = atEnd ? null : boundaryPos(cur.t, wrapX(x), y); if (cur.v.length >= 2 && cur.v.some((v) => v !== cur.v[0])) { cur.arc = a; cur.t.pieces.push(cur); piecesTotal++; } cur = null; };
     function boundaryPos(t, x, y) {
       // position along the tile's boundary, counter-clockwise from its SW corner, in [0, 4)
       const x0 = t.x0, y0 = t.y0, x1 = x0 + W, y1 = y0 + Hh;
@@ -135,6 +145,12 @@ for (const TL of TILE_LEVELS) {
     }
     let t = tileOf(T.lon[idx[0]], T.lat[idx[0]]);
     begin(t, ux, T.lat[idx[0]], true);
+    /* An arc that leaves a tile and re-enters at the same rounded point (an excursion shorter than a
+       quantum) is treated as not crossing at all: the split is undone on both sides. Dropping only the
+       zero-length piece would leave the neighbour's boundary split at a point this tile does not know,
+       and the edge chords would no longer match (measured: 65 of 4,515 at z=4 on the first build). */
+    let lastCross = null;   // { x, y, piece: the piece finished there, tile }
+    const undoLast = () => { const p = lastCross.piece; const i = p.t.pieces.lastIndexOf(p); if (i >= 0) { p.t.pieces.splice(i, 1); piecesTotal--; } p.v.pop(); for (let k = 1; k < cur.v.length; k++) p.v.push(vtx(p.t, cur.t.vx[cur.v[k]], cur.t.vy[cur.v[k]])); p.atEnd = false; p.pos1 = null; cur = p; lastCross = null; };
     for (let k = 1; k < idx.length; k++) {
       const x1 = ux, y1 = T.lat[idx[k - 1]];
       let x2 = T.lon[idx[k]]; const y2 = T.lat[idx[k]];
@@ -147,23 +163,38 @@ for (const TL of TILE_LEVELS) {
       const gy0 = Math.min(y1, y2), gy1 = Math.max(y1, y2);
       for (let gy = (Math.floor((gy0 + Y90) / Hh) + 1) * Hh - Y90; gy < gy1; gy += Hh) if (gy > gy0) hits.push({ t: (gy - y1) / (y2 - y1), x: null, y: gy });
       hits.sort((p, q) => p.t - q.t);
-      for (const h of hits) {
+      for (let hi = 0; hi < hits.length; hi++) {
+        const h = hits[hi];
         const px = h.x != null ? h.x : Math.round(x1 + h.t * (x2 - x1)), py = h.y != null ? h.y : Math.round(y1 + h.t * (y2 - y1));
         if (h.x == null && (px + X180) % W === 0) throw new Error("a crossing landed on a tile corner — build-admin's nudge should have prevented it");
         if (h.y == null && (py + Y90) % Hh === 0) throw new Error("a crossing landed on a tile corner (lat)");
+        if (lastCross && lastCross.x === px && lastCross.y === py && cur.v.length <= 2) { undoLast(); continue; }   // out and straight back in (at most one vertex, within a quantum of the line): no crossing
+        const finishedHere = cur;
         finish(px, py, false);
-        // the next tile: the one containing the midpoint of the remainder of this segment
-        const nx = Math.round((px + x2) / 2), ny = Math.round((py + y2) / 2);
-        begin(tileOf(wrapX(nx), ny), px, py, false);
+        lastCross = finishedHere.t.pieces[finishedHere.t.pieces.length - 1] === finishedHere ? { x: px, y: py, piece: finishedHere } : null;
+        // the next tile: the one containing the stretch between this crossing and the next (or the segment's end)
+        const tn = hi + 1 < hits.length ? hits[hi + 1].t : 1;
+        const tm = (h.t + tn) / 2;
+        const nx = x1 + tm * (x2 - x1), ny = y1 + tm * (y2 - y1);
+        begin(tileOf(wrapX(nx), ny), px, py, false);   // not rounded: a midpoint half a quantum from the line must not round onto it
       }
       cur.v.push(vtx(cur.t, wrapX(x2), y2));
+      if (cur.v.length > 2) lastCross = null;   // two vertices inside: the excursion is real
       ux = x2;
     }
     // the last vertex was pushed; mark the end
-    cur.atEnd = true; cur.pos1 = null; cur.arc = a; if (cur.v.length >= 2) { cur.t.pieces.push(cur); piecesTotal++; }
+    cur.atEnd = true; cur.pos1 = null; cur.arc = a; if (cur.v.length >= 2 && cur.v.some((v) => v !== cur.v[0])) { cur.t.pieces.push(cur); piecesTotal++; }
     cur = null;
   }
   say(`z=${L}: ${tiles.size} tiles touched by ${piecesTotal} arc pieces`);
+  if (process.env.DEBUG_FACE) {
+    const fi = Number(process.env.DEBUG_FACE), Ly = layerOf(fi);
+    for (let a = 0; a < nA; a++) if (side[Ly][a * 2] === fi || side[Ly][a * 2 + 1] === fi) {
+      const s = T.arcOffset[a], e = T.arcOffset[a + 1];
+      const where = []; for (const t of tiles.values()) for (const p of t.pieces) if (p.arc === a) where.push(`tile ${t.tx},${t.ty}: ${p.atStart ? "S" : "b" + p.pos0.toFixed(4)}→${p.atEnd ? "E" : "b" + p.pos1.toFixed(4)} (${p.v.length} v)`);
+      console.log(`  DEBUG arc ${a} kind ${T.arcKind[a]} L${side[Ly][a * 2]} R${side[Ly][a * 2 + 1]} verts ${e - s} rank≤${L}: ${Array.from({ length: e - s }, (_, i) => i + s).filter((i) => T.rank[i] <= L).length}; ends ${(T.lon[s] * Q).toFixed(4)},${(T.lat[s] * Q).toFixed(4)} → ${(T.lon[e - 1] * Q).toFixed(4)},${(T.lat[e - 1] * Q).toFixed(4)}; pieces: ${where.join(" | ")}`);
+    }
+  }
   // 2. faces per tile per layer
   const faceRingsAt = new Map();   // for containment: face → rings as vertex index lists at level L (lazy)
   const ringsOf = (fi) => {
@@ -240,8 +271,11 @@ for (const TL of TILE_LEVELS) {
               dp = next;
             } else {
               // boundary exit: the next entry of F counter-clockwise
-              let next = entries.find((e) => startPos(e) > ep) || entries[0];
-              if (!next) throw new Error(`face ${fi}: exit without an entry in tile ${t.tx},${t.ty}`);
+              const open = (e) => !visited.has(e) || e === start;   // the ring closes on its own start — which may be the very piece now exiting
+              const ahead = entries.filter((e) => startPos(e) >= ep && open(e));
+              let next = ahead[0] || entries.find(open);
+              if (ahead.length && startPos(ahead[0]) === ep) next = ahead.find((e) => startPos(e) === ep && e.p.arc === dp.p.arc) || ahead[0];
+              if (!next) { console.error(`face ${fi} (${H.entities[T.faces[fi].entity].id}) tile ${t.tx},${t.ty} z=${L}: exit at ${ep.toFixed(4)} with no unvisited entry; entries ${entries.map((e) => startPos(e).toFixed(4) + (visited.has(e) ? "v" : "")).join(" ")}`); throw new Error(`face ${fi}: exit without an entry in tile ${t.tx},${t.ty}`); }
               const sp = startPos(next);
               // the chord: exit point, corners passed, entry point
               const vs = [dp.dir > 0 ? dp.p.v[dp.p.v.length - 1] : dp.p.v[0]];
@@ -252,7 +286,11 @@ for (const TL of TILE_LEVELS) {
               dp = next;
             }
           }
-          if (dp !== start) throw new Error(`face ${fi}: ring did not return to its start in tile ${t.tx},${t.ty} z=${L}`);
+          if (dp !== start) {
+            const show = (d) => `arc${d.p.arc}${d.dir > 0 ? "+" : "-"}[${d.p.atStart ? "S" : "b" + d.p.pos0.toFixed(3)}→${d.p.atEnd ? "E" : "b" + d.p.pos1.toFixed(3)}] L${side[Ly][d.p.arc * 2]} R${side[Ly][d.p.arc * 2 + 1]}`;
+            console.error(`face ${fi} (${H.entities[T.faces[fi].entity].id}) layer ${Ly} tile ${t.tx},${t.ty} z=${L}: walk from ${show(start)} reached visited ${show(dp)}; ring so far: ${ring.length} refs; entries: ${entries.map(show).join(" ")}`);
+            throw new Error(`face ${fi}: ring did not return to its start in tile ${t.tx},${t.ty} z=${L}`);
+          }
           rings.push(ring);
         }
         tileFaces.push({ entity: T.faces[fi].entity, source: T.faces[fi].source, rings }); tileFaceRef.push(fi); faceTotal++;
@@ -283,7 +321,7 @@ for (const TL of TILE_LEVELS) {
     const x0 = t.x0, y0 = t.y0;
     const topology = {
       quantum: Q, lod: { intervals_m: [H.lod.intervals_m[L]], level: L, note: "one level: the tile's own; ranks are all 0" },
-      generated, generator, sources: H.sources, entities: [], steps: [],
+      generated, generator, sources: H.sources, entities: [], entityCount: H.entities.length, steps: [],
       vertices: { lon, lat }, rank, arcs, faces: t.faces, arcRef: t.arcRef.map((r) => ({ core: r.core, bits: r.bits })), faceRef: t.faceRef,
       extra: { tile: { z: L, x: t.tx, y: t.ty, lon0: x0 * Q, lat0: y0 * Q, lon1: (x0 + W) * Q, lat1: (y0 + Hh) * Q, interval_m: H.lod.intervals_m[L] }, core: { buildId, entities: H.entities.length, faces: nF }, buildId },
     };

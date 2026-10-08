@@ -45,6 +45,7 @@
 const fs = require("fs"), path = require("path");
 const F = require("./lib/format.js");
 const G = require("./lib/geo.js");
+const SegIndex = require("./lib/segindex.js");
 
 const argv = process.argv.slice(2);
 const flag = (f, d) => { const i = argv.indexOf(f); return i >= 0 && argv[i + 1] ? argv[i + 1] : d; };
@@ -60,7 +61,9 @@ const note = (m) => { if (!quiet) console.log(`        \x1b[2m${m}\x1b[0m`); };
 /* ---------- the independent point assertions ----------
    Inland places from Natural Earth 10m populated places (PD), chosen ≥ 60 km from any coast so no
    level's simplification can move the shore over them; open-ocean points chosen ≥ 300 km from land.
-   Coordinates are NE's own (lon, lat), rounded to 2 decimals; the country is what the face must say. */
+   Coordinates are NE's own (lon, lat), rounded to 2 decimals; the country is what the face must say.
+   The water points avoid lakes: the OSM land polygons draw coastline round the Caspian but not the Great
+   Lakes or Lake Victoria, which are land to this partition (see the note under SEA). */
 const LAND = [
   ["Madrid", -3.69, 40.40, "adm0:esp"], ["Moscow", 37.61, 55.75, "adm0:rus"], ["Ulaanbaatar", 106.91, 47.92, "adm0:mng"],
   ["Nairobi", 36.81, -1.28, "adm0:ken"], ["Kampala", 32.58, 0.32, "adm0:uga"], ["Lusaka", 28.28, -15.41, "adm0:zmb"],
@@ -85,8 +88,11 @@ const SEA = [
   ["Arabian Sea", 62, 15], ["Bay of Bengal", 88, 12], ["Caribbean", -73, 15], ["Gulf of Mexico", -90, 25],
   ["Coral Sea", 155, -18], ["Tasman Sea", 160, -38], ["Bering Sea", -177, 57], ["Norwegian Sea", 0, 68],
   ["N Atlantic", -40, 50], ["Guinea Gulf", 0, 0], ["Mozambique Ch.", 42, -20], ["Caspian centre", 50.5, 42],
-  ["Lake Superior", -87.5, 47.8], ["Lake Victoria", 33.0, -1.5],
+  ["Hudson Bay", -85, 60], ["Black Sea", 34, 43],
 ];
+// The Great Lakes and Lake Victoria are NOT in this partition: the OSM land polygons carry no coastline
+// there (measured 2026-10-08: no coast vertex within 250 km of their centres), so they are land to this
+// topology and a border runs through them as over land. Only the Caspian is coastline among the lakes.
 
 function run() {
   const bytes = fs.readFileSync(file);
@@ -180,7 +186,7 @@ function run() {
       } else if (k === KIND.ADMIN1) {
         nAdmin1++;
         if (u0.length) adm1Layer0++;
-        if (u1.length === 0) adm1None++;
+        if (u1.length === 0) { if (!(T.arcFlags[i] & F.FLAG.WATER)) adm1None++; }   // a state line through a bay or a lake has no unit on either side
         else if (u1.length === 1) adm1Once++;
         else if (u1.length > 2) adm1Many++;
         else { if (u1[0].sign === u1[1].sign) adm1SameSide++; const a = H.entities[T.faces[u1[0].face].entity], b = H.entities[T.faces[u1[1].face].entity]; if (a === b) adm1SameSide++; else if (a.parent !== b.parent) adm1Diff++; }
@@ -221,8 +227,8 @@ function run() {
       let last = T.arcOffset[a];
       for (let i = T.arcOffset[a] + 1; i < T.arcOffset[a + 1]; i++) if (segOf(i)) { segs.push([a, last, i]); last = i; }
     }
-    const grid = G.Grid(segs.length > 2e6 ? 0.05 : segs.length > 3e5 ? 0.1 : 0.5, Q);
-    segs.forEach((s, si) => grid.add(si, T.lon[s[1]], T.lat[s[1]], T.lon[s[2]], T.lat[s[2]]));
+    const cell = Math.max(80, Math.round((segs.length > 2e6 ? 0.02 : segs.length > 3e5 ? 0.1 : 0.5) / Q));
+    const grid = SegIndex.build(segs.length, cell, (si) => { const s = segs[si]; return [T.lon[s[1]], T.lat[s[1]], T.lon[s[2]], T.lat[s[2]]]; });
     let crossings = 0; const sample = [];
     const same = (i, j) => T.lon[i] === T.lon[j] && T.lat[i] === T.lat[j];
     grid.pairs((p, q) => {
@@ -310,7 +316,8 @@ function run() {
     }
     return inside;
   }
-  const faceBox = T.faces.map((f, fi) => { let y0 = Infinity, y1 = -Infinity; for (const vs of faceRingsAt(fi, LODS - 1)) for (const v of vs) { if (T.lat[v] < y0) y0 = T.lat[v]; if (T.lat[v] > y1) y1 = T.lat[v]; } return [y0, y1]; });
+  const faceBox = T.faces.map((f, fi) => { let y0 = Infinity, y1 = -Infinity; for (const vs of faceRingsAt(fi, LODS - 1)) { let turn = 0, sum = 0; for (let i = 0; i < vs.length; i++) { let dx = T.lon[vs[(i + 1) % vs.length]] - T.lon[vs[i]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; turn += dx; sum += T.lat[vs[i]]; } for (const v of vs) { if (T.lat[v] < y0) y0 = T.lat[v]; if (T.lat[v] > y1) y1 = T.lat[v]; } if (Math.abs(turn) > X180) { if (sum < 0) y0 = -Y90; else y1 = Y90; } }   // a ring that circles a pole reaches it
+    return [y0, y1]; });
   function faceAt(px, py, L) {
     for (let fi = 0; fi < T.faces.length; fi++) { if (layerOf(fi) !== 0) continue; const b = faceBox[fi]; if (py < b[0] || py > b[1]) continue; if (inRings(faceRingsAt(fi, L), px, py)) return fi; }
     return -1;
@@ -349,7 +356,7 @@ function checkTiles(T, H, dir) {
     // per-tile checks, with cross-tile bookkeeping
     const pieces = new Map();      // core arc → [{ key, start: [x,y], end: [x,y], bits }]
     const chords = new Map();      // "face|x1,y1|x2,y2" → count (directed); the reverse must exist in another tile
-    let tiles = 0, arcsTotal = 0, facesTotal = 0, edgeOff = 0, edgeStroked = 0, badRef = 0, badKind = 0, badEnds = 0, badBuild = 0, badSrc = 0, badFace = 0, crossings = 0, badEntity = 0, vertsTotal = 0;
+    let tiles = 0, arcsTotal = 0, facesTotal = 0, edgeOff = 0, edgeStroked = 0, badRef = 0, badKind = 0, badEnds = 0, badBuild = 0, badSrc = 0, badFace = 0, crossings = 0, badEntity = 0, vertsTotal = 0; const crossSample = [];
     const pointHits = { land: [], sea: [] };
     for (const key of idx.present) {
       const file = path.join(dir, z, key + ".bin");
@@ -391,17 +398,18 @@ function checkTiles(T, H, dir) {
           if (Tt.arcKind[a] !== KIND.EDGE) continue;
           const s = Tt.arcOffset[a], e = Tt.arcOffset[a + 1];
           const vs = []; if (ref > 0) for (let k = s; k < e; k++) vs.push(k); else for (let k = e - 1; k >= s; k--) vs.push(k);
-          for (let k = 1; k < vs.length; k++) { const A = `${Tt.lon[vs[k - 1]]},${Tt.lat[vs[k - 1]]}`, B = `${Tt.lon[vs[k]]},${Tt.lat[vs[k]]}`; const fk = `${cf}|${A}|${B}`; chords.set(fk, (chords.get(fk) || 0) + 1); }
+          // a chord along the pole row's edge (lat ±90) has no neighbour; a chord on the antimeridian is keyed with lon 180 folded to -180 so the two sides match
+          const fold = (x) => (x === X180 ? -X180 : x);
+          for (let k = 1; k < vs.length; k++) { const ya = Tt.lat[vs[k - 1]], yb = Tt.lat[vs[k]]; if ((ya === -Y90 && yb === -Y90) || (ya === Y90 && yb === Y90)) continue; const A = `${fold(Tt.lon[vs[k - 1]])},${ya}`, B = `${fold(Tt.lon[vs[k]])},${yb}`; const fk = `${cf}|${A}|${B}`; chords.set(fk, (chords.get(fk) || 0) + 1); }
         }
       });
       // EDGE arcs must not be in any segment the renderer strokes: they are, by kind, skipped — count stroked kinds on the edge instead
-      for (let a = 0; a < nA; a++) if (Tt.arcKind[a] !== KIND.EDGE) { const s = Tt.arcOffset[a], e = Tt.arcOffset[a + 1]; let all = true; for (let i = s; i < e; i++) if (!onEdge(Tt.lon[i], Tt.lat[i])) { all = false; break; } if (all && e - s >= 2) edgeStroked++; }
+      for (let a = 0; a < nA; a++) if (Tt.arcKind[a] !== KIND.EDGE) { const s = Tt.arcOffset[a], e = Tt.arcOffset[a + 1]; if (e - s < 2) continue; const ux = (x) => { let X = x; if (X - x0 > X180) X -= 2 * X180; else if (x0 - X > X180) X += 2 * X180; return X; }; let south = true, north = true, west = true, east = true; for (let i = s; i < e; i++) { if (Tt.lat[i] !== y0) south = false; if (Tt.lat[i] !== y1) north = false; if (ux(Tt.lon[i]) !== x0) west = false; if (ux(Tt.lon[i]) !== x1) east = false; } if (south || north || west || east) edgeStroked++; }   // along ONE edge line, not merely with every vertex on some edge (a chord cutting a corner)
       // planar per tile
       { const segs = []; for (let a = 0; a < nA; a++) for (let i = Tt.arcOffset[a] + 1; i < Tt.arcOffset[a + 1]; i++) segs.push([a, i - 1, i]);
-        const grid = G.Grid(0.05, Q); const vec = (i) => G.vec(Tt.lon[i], Tt.lat[i], Q);
-        segs.forEach((s, si) => grid.add(si, Tt.lon[s[1]], Tt.lat[s[1]], Tt.lon[s[2]], Tt.lat[s[2]]));
+        const grid = SegIndex.build(segs.length, Math.max(80, Math.round(0.02 / Q)), (si) => { const s = segs[si]; return [Tt.lon[s[1]], Tt.lat[s[1]], Tt.lon[s[2]], Tt.lat[s[2]]]; }); const vec = (i) => G.vec(Tt.lon[i], Tt.lat[i], Q);
         const same = (i, j) => Tt.lon[i] === Tt.lon[j] && Tt.lat[i] === Tt.lat[j];
-        grid.pairs((p, q) => { const s = segs[p], t = segs[q]; if (same(s[1], t[1]) || same(s[1], t[2]) || same(s[2], t[1]) || same(s[2], t[2])) return; if (G.segmentsCross(vec(s[1]), vec(s[2]), vec(t[1]), vec(t[2]))) crossings++; }); }
+        grid.pairs((p, q) => { const s = segs[p], t = segs[q]; if (same(s[1], t[1]) || same(s[1], t[2]) || same(s[2], t[1]) || same(s[2], t[2])) return; if (G.segmentsCross(vec(s[1]), vec(s[2]), vec(t[1]), vec(t[2]))) { crossings++; if (crossSample.length < 4) crossSample.push(`${key}: ${F.KIND_NAME[Tt.arcKind[s[0]]]}#${Tt.arcRef ? Tt.arcRef[s[0]] : s[0]}×${F.KIND_NAME[Tt.arcKind[t[0]]]}#${Tt.arcRef ? Tt.arcRef[t[0]] : t[0]} at ${(Tt.lon[s[1]] * Q).toFixed(4)},${(Tt.lat[s[1]] * Q).toFixed(4)}`); } }); }
       // points in this tile
       const inTile = (lon, lat) => { let x = Math.round(lon / Q), y = Math.round(lat / Q); let X = x; if (X - x0 > X180) X -= 2 * X180; else if (x0 - X > X180) X += 2 * X180; return X >= x0 && X < x1 && y >= y0 && y < y1; };
       const faceAt = (px, py) => { for (let i = 0; i < Tt.faces.length; i++) { const cf = Tt.faceRef[i]; if (layerOf(cf) !== 0) continue; if (inRingsT(Tt, Tt.faces[i], px, py)) return cf; } return -1; };
@@ -421,7 +429,8 @@ function checkTiles(T, H, dir) {
       void closed;
     }
     let chordBad = 0, chordTotal = 0;
-    for (const [k, n] of chords) { chordTotal += n; const [f, A, B] = k.split("|"); const rev = chords.get(`${f}|${B}|${A}`) || 0; if (rev !== n) chordBad++; }
+    const chordSample = [];
+    for (const [k, n] of chords) { chordTotal += n; const [f, A, B] = k.split("|"); const rev = chords.get(`${f}|${B}|${A}`) || 0; if (rev !== n) { chordBad++; if (chordSample.length < 4) chordSample.push(`${H.entities[T.faces[f].entity].id} ${A.split(",").map((v) => (v * Q).toFixed(3)).join(",")}→${B.split(",").map((v) => (v * Q).toFixed(3)).join(",")}`); } }
     const tileLandBad = pointHits.land.filter((h) => !h[1]), tileSeaBad = pointHits.sea.filter((h) => !h[1]);
     badBuild ? bad(`z=${z}: every tile names the core's buildId`, `${badBuild}`) : ok(`z=${z}: every tile names the core's buildId`, H.buildId);
     badSrc ? bad(`z=${z}: every tile header carries the core's sources`, `${badSrc}`) : ok(`z=${z}: every tile header carries the core's sources`);
@@ -431,9 +440,9 @@ function checkTiles(T, H, dir) {
     chainBad ? bad(`z=${z}: the pieces of each core arc chain across tiles`, `${chainBad} of ${chainArcs} arcs`) : ok(`z=${z}: the pieces of each core arc chain across tiles`, `${chainArcs} core arcs in pieces`);
     edgeOff ? bad(`z=${z}: every EDGE chord lies on its tile's boundary`, `${edgeOff}`) : ok(`z=${z}: every EDGE chord lies on its tile's boundary`);
     edgeStroked ? bad(`z=${z}: no stroked arc lies along a tile edge`, `${edgeStroked}`) : ok(`z=${z}: no stroked arc lies along a tile edge`);
-    chordBad ? bad(`z=${z}: every EDGE chord is matched reversed by the same face in the neighbouring tile`, `${chordBad} of ${chordTotal}`) : ok(`z=${z}: every EDGE chord is matched reversed by the same face in the neighbouring tile`, `${chordTotal} chord segments`);
+    chordBad ? bad(`z=${z}: every EDGE chord is matched reversed by the same face in the neighbouring tile`, `${chordBad} of ${chordTotal} — ${chordSample.join("; ")}`) : ok(`z=${z}: every EDGE chord is matched reversed by the same face in the neighbouring tile`, `${chordTotal} chord segments`);
     badFace || badEntity ? bad(`z=${z}: every face piece names a core face and carries its entity`, `${badFace} bad refs, ${badEntity} wrong entities`) : ok(`z=${z}: every face piece names a core face and carries its entity`, `${facesTotal} face pieces`);
-    crossings ? bad(`z=${z}: planar per tile`, `${crossings} crossings`) : ok(`z=${z}: planar per tile`);
+    crossings ? bad(`z=${z}: planar per tile`, `${crossings} crossings — ${crossSample.join("; ")}`) : ok(`z=${z}: planar per tile`);
     tileLandBad.length ? bad(`z=${z}: inland places are in the right country in their tile`, tileLandBad.map((h) => `${h[0]}: ${h[2]}`).join("; ")) : ok(`z=${z}: inland places are in the right country in their tile`, `${pointHits.land.length} places`);
     tileSeaBad.length ? bad(`z=${z}: open-water points are in no face in their tile`, tileSeaBad.map((h) => `${h[0]}: ${h[2]}`).join("; ")) : ok(`z=${z}: open-water points are in no face in their tile`, `${pointHits.sea.length} points`);
     note(`z=${z}: ${vertsTotal} vertices in ${tiles} tiles`);

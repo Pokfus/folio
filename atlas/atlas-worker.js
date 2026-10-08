@@ -186,49 +186,68 @@
   }
   // caps: per bucket the normalised mean of its items' centres and the largest angle from it to ANY
   // vertex of an item (an endpoint of a 1° segment at LOD 0 lies well outside its midpoint's cell)
-  function caps(count, centreOf, pointsOf, bucketOfItem) {
-    const sum = new Float64Array(BUCKETS * 3), cap = new Float32Array(BUCKETS * 4);
+  function caps(count, centreOf, pointsOf, bucketOfItem, nB) {
+    nB = nB || BUCKETS;
+    const sum = new Float64Array(nB * 3), cap = new Float32Array(nB * 4);
     for (let i = 0; i < count; i++) { const b = bucketOfItem(i), d = centreOf(i); sum[3 * b] += d[0]; sum[3 * b + 1] += d[1]; sum[3 * b + 2] += d[2]; }
-    for (let b = 0; b < BUCKETS; b++) { const l = Math.hypot(sum[3 * b], sum[3 * b + 1], sum[3 * b + 2]) || 1; cap[4 * b] = sum[3 * b] / l; cap[4 * b + 1] = sum[3 * b + 1] / l; cap[4 * b + 2] = sum[3 * b + 2] / l; cap[4 * b + 3] = 0; }
+    for (let b = 0; b < nB; b++) { const l = Math.hypot(sum[3 * b], sum[3 * b + 1], sum[3 * b + 2]) || 1; cap[4 * b] = sum[3 * b] / l; cap[4 * b + 1] = sum[3 * b + 1] / l; cap[4 * b + 2] = sum[3 * b + 2] / l; cap[4 * b + 3] = 0; }
     for (let i = 0; i < count; i++) {
       const b = bucketOfItem(i);
       for (const d of pointsOf(i)) { const c = Math.max(-1, Math.min(1, d[0] * cap[4 * b] + d[1] * cap[4 * b + 1] + d[2] * cap[4 * b + 2])); const a = Math.acos(c); if (a > cap[4 * b + 3]) cap[4 * b + 3] = a; }
     }
     return cap;
   }
-  function sortByBucket(count, bucketOfItem) {
-    const bucket = new Int32Array(count), start = new Uint32Array(BUCKETS + 1);
+  function sortByBucket(count, bucketOfItem, nB) {
+    nB = nB || BUCKETS;
+    const bucket = new Int32Array(count), start = new Uint32Array(nB + 1);
     for (let i = 0; i < count; i++) { bucket[i] = bucketOfItem(i); start[bucket[i] + 1]++; }
-    for (let b = 0; b < BUCKETS; b++) start[b + 1] += start[b];
-    const order = new Uint32Array(count), fill = start.slice(0, BUCKETS);
+    for (let b = 0; b < nB; b++) start[b + 1] += start[b];
+    const order = new Uint32Array(count), fill = start.slice(0, nB);
     for (let i = 0; i < count; i++) order[fill[bucket[i]]++] = i;
-    const range = new Uint32Array(BUCKETS * 2);
-    for (let b = 0; b < BUCKETS; b++) { range[2 * b] = start[b]; range[2 * b + 1] = start[b + 1] - start[b]; }
+    const range = new Uint32Array(nB * 2);
+    for (let b = 0; b < nB; b++) { range[2 * b] = start[b]; range[2 * b + 1] = start[b + 1] - start[b]; }
     return { order, range };
   }
   // segments: reorder the 7-float records into 8-float texels (a.xyz, tag, b.xyz, 0) by bucket
-  function bucketSegments(segs) {
+  /* A TILE is a few per cent of the sphere, so the 384 direction buckets would put all of it in one or
+     two and the renderer would draw the whole tile whenever a corner showed (measured: 344k segments
+     for a 190 km view of the fjords at the cap). A tile's content is bucketed on a 16×16 grid of its own
+     lon/lat rectangle instead; the renderer's cap test is the same, only the ranges differ. */
+  const TILE_GRID = 16;
+  function tileBucketer(tile) {
+    if (!tile) return { count: BUCKETS, of: bucketOf };
+    const lon0 = tile.lon0, lat0 = tile.lat0, dl = (tile.lon1 - tile.lon0) / TILE_GRID, dp = (tile.lat1 - tile.lat0) / TILE_GRID;
+    return { count: TILE_GRID * TILE_GRID, of: (x, y, z) => {
+      let lon = Math.atan2(y, x) / D2R, lat = Math.asin(Math.max(-1, Math.min(1, z))) / D2R;
+      let i = Math.floor((lon - lon0) / dl); if (i < 0) i += TILE_GRID * Math.ceil(-i / TILE_GRID); i = ((i % TILE_GRID) + TILE_GRID) % TILE_GRID;   // a tile spanning the antimeridian
+      const j = Math.max(0, Math.min(TILE_GRID - 1, Math.floor((lat - lat0) / dp)));
+      return j * TILE_GRID + Math.max(0, Math.min(TILE_GRID - 1, i));
+    } };
+  }
+  function bucketSegments(segs, bucketer) {
+    const B = bucketer || { count: BUCKETS, of: bucketOf };
     const n = segs.length / 7;
     const mid = (i) => { const x = segs[7 * i] + segs[7 * i + 3], y = segs[7 * i + 1] + segs[7 * i + 4], z = segs[7 * i + 2] + segs[7 * i + 5]; const l = Math.hypot(x, y, z) || 1; return [x / l, y / l, z / l]; };
-    const bk = new Int32Array(n); for (let i = 0; i < n; i++) { const m = mid(i); bk[i] = bucketOf(m[0], m[1], m[2]); }
-    const { order, range } = sortByBucket(n, (i) => bk[i]);
+    const bk = new Int32Array(n); for (let i = 0; i < n; i++) { const m = mid(i); bk[i] = B.of(m[0], m[1], m[2]); }
+    const { order, range } = sortByBucket(n, (i) => bk[i], B.count);
     const out = new Float32Array(n * 8);
     for (let k = 0; k < n; k++) { const i = order[k]; out[8 * k] = segs[7 * i]; out[8 * k + 1] = segs[7 * i + 1]; out[8 * k + 2] = segs[7 * i + 2]; out[8 * k + 3] = segs[7 * i + 6]; out[8 * k + 4] = segs[7 * i + 3]; out[8 * k + 5] = segs[7 * i + 4]; out[8 * k + 6] = segs[7 * i + 5]; out[8 * k + 7] = 0; }
     const ends = (i) => [[segs[7 * i], segs[7 * i + 1], segs[7 * i + 2]], [segs[7 * i + 3], segs[7 * i + 4], segs[7 * i + 5]]];
-    const cap = caps(n, (k) => mid(order[k]), (k) => ends(order[k]), (k) => bk[order[k]]);
+    const cap = caps(n, (k) => mid(order[k]), (k) => ends(order[k]), (k) => bk[order[k]], B.count);
     return { segs: out, segRange: range, segCap: cap };
   }
-  function bucketTriangles(pos, idx) {
+  function bucketTriangles(pos, idx, bucketer) {
+    const B = bucketer || { count: BUCKETS, of: bucketOf };
     const n = idx.length / 3;
     const cen = (t) => { const a = idx[3 * t], b = idx[3 * t + 1], c = idx[3 * t + 2]; const x = pos[4 * a] + pos[4 * b] + pos[4 * c], y = pos[4 * a + 1] + pos[4 * b + 1] + pos[4 * c + 1], z = pos[4 * a + 2] + pos[4 * b + 2] + pos[4 * c + 2]; const l = Math.hypot(x, y, z) || 1; return [x / l, y / l, z / l]; };
-    const bk = new Int32Array(n); for (let t = 0; t < n; t++) { const c = cen(t); bk[t] = bucketOf(c[0], c[1], c[2]); }
-    const { order, range } = sortByBucket(n, (t) => bk[t]);
+    const bk = new Int32Array(n); for (let t = 0; t < n; t++) { const c = cen(t); bk[t] = B.of(c[0], c[1], c[2]); }
+    const { order, range } = sortByBucket(n, (t) => bk[t], B.count);
     const out = new Uint32Array(idx.length);
     for (let k = 0; k < n; k++) { const t = order[k]; out[3 * k] = idx[3 * t]; out[3 * k + 1] = idx[3 * t + 1]; out[3 * k + 2] = idx[3 * t + 2]; }
     const corners = (t) => [0, 1, 2].map((j) => { const v = idx[3 * t + j]; return [pos[4 * v], pos[4 * v + 1], pos[4 * v + 2]]; });
-    const cap = caps(n, (k) => cen(order[k]), (k) => corners(order[k]), (k) => bk[order[k]]);
+    const cap = caps(n, (k) => cen(order[k]), (k) => corners(order[k]), (k) => bk[order[k]], B.count);
     // ranges in index units
-    for (let b = 0; b < BUCKETS; b++) { range[2 * b] *= 3; range[2 * b + 1] *= 3; }
+    for (let b = 0; b < B.count; b++) { range[2 * b] *= 3; range[2 * b + 1] *= 3; }
     return { faceIdx: out, faceRange: range, faceCap: cap };
   }
 
@@ -275,9 +294,10 @@
     const chordLevel = Math.min(level, CHORD_DEG.length - 1);
     T.faces.forEach((f, i) => { const coreFace = T.faceRef ? T.faceRef[i] : i; tris += triangulateFace(T, pos, f, coreFace, chordLevel, sink); });
     const F = sink.result();
-    const S = bucketSegments(raw), B = bucketTriangles(F.pos, F.idx);
+    const bucketer = tileBucketer(tile);
+    const S = bucketSegments(raw, bucketer), B = bucketTriangles(F.pos, F.idx, bucketer);
     const stats = { key: msg.key, z: level, segments: raw.length / 7, faceVertices: F.vertices, triangles: F.triangles, ms: Math.round(now() - t0), bytes: msg.buffer.byteLength };
-    post({ type: "tile", key: msg.key, tile, segs: S.segs, segRange: S.segRange, segCap: S.segCap, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, buckets: BUCKETS, stats },
+    post({ type: "tile", key: msg.key, tile, segs: S.segs, segRange: S.segRange, segCap: S.segCap, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, buckets: bucketer.count, stats },
       [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer]);
   }
   function now() { return (typeof performance !== "undefined" ? performance.now() : Date.now()); }

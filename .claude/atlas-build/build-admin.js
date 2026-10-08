@@ -351,7 +351,6 @@ function main() {
     const out = [L.v[0]];
     for (let i = 1; i < L.v.length; i++) {
       const a = L.v[i - 1], b = L.v[i];
-      if (onCoast(a) && onCoast(b)) { if (b !== out[out.length - 1]) out.push(b); continue; }   // an edge between two coast nodes: a chord, already cut at both ends
       const x1 = VX[a], y1 = VY[a]; let x2 = VX[b], y2 = VY[b];
       if (x2 - x1 > X180) x2 -= 2 * X180; else if (x1 - x2 > X180) x2 += 2 * X180;
       const hits = [];
@@ -406,7 +405,21 @@ function main() {
     }
   }
   say(`crossings: ${lineCrossings} line/line crossings inserted`);
-  report.crossings = { lineCoast: crossings, lineLine: lineCrossings };
+  /* A line vertex within a quantum and a half of a coast segment — a border that hugs a straight OSM
+     shore (the Delaware–Maryland line at Fenwick Island, the Maryland–Virginia line past Smith Island,
+     measured) — is snapped ONTO the shore. Left where it was, the line crosses the shore just before and
+     after it, and the sliver between the two leaves two edges at a node pointing the same way, which no
+     angular order can tell apart: the face walk then leaks the ocean onto land. On the shore, the line's
+     edges coincide with the coast's and dedupe into them, which is what a border along a coast is. */
+  let hugged = 0;
+  { const alias = new Map();
+    const HUG_M = 1.5 * Q * 111320;
+    for (const L of lines) for (const v of L.v) { if (onCoast(v) || alias.has(v)) continue; const near = nearestCoast(VX[v], VY[v], HUG_M); if (!near) continue; const pv = pointOnCoast(near.seg, near.t); if (pv === v) continue; alias.set(v, pv); hugged++; log.snap({ source: L.kind === KIND.ADMIN1 ? SRC.adm1 : SRC.adm0, kind: "line-vertex-hugging-coast→coast", from: deg(VX[v], VY[v]), to: deg(VX[pv], VY[pv]), metres: near.metres }); }
+    if (alias.size) for (const L of lines) { const out = []; for (const v of L.v) { const w = alias.has(v) ? alias.get(v) : v; if (w !== out[out.length - 1]) out.push(w); } L.v = out; }
+  }
+  say(`${hugged} line vertices hugging the coast snapped onto it`);
+  if (hugged) for (let round = 0; round < 6; round++) { const n = cutAtCoast(); crossings += n; if (!n) break; say(`crossings after the snap: round ${round}: ${n} inserted`); }
+  report.crossings = { lineCoast: crossings, lineLine: lineCrossings, hugged };
   // ends: a line vertex of degree 1 in the line graph (counting all lines)
   const lineDeg = new Map(); const bump = (v) => lineDeg.set(v, (lineDeg.get(v) || 0) + 1);
   for (const L of lines) { bump(L.v[0]); bump(L.v[L.v.length - 1]); }
@@ -515,7 +528,10 @@ function main() {
     let dx = VX[v1] - VX[v0]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180;
     return Math.atan2(VY[v1] - VY[v0], dx * Math.cos(VY[v0] * Q * Math.PI / 180));
   };
-  for (const [v, l] of incident) { for (const h of l) h.ang = angleOut(h.arc, h.dir); l.sort((p, q) => p.ang - q.ang); }
+  let angleTies = 0;
+  for (const [v, l] of incident) { for (const h of l) h.ang = angleOut(h.arc, h.dir); l.sort((p, q) => p.ang - q.ang); for (let i = 1; i < l.length; i++) if (Math.abs(l[i].ang - l[i - 1].ang) < 1e-7) { angleTies++; if (angleTies <= 20) log.event("angle-tie-at-node", { at: deg(VX[v], VY[v]), arcs: [l[i - 1].arc, l[i].arc], kinds: [arcs[l[i - 1].arc].kind, arcs[l[i].arc].kind] }); } }
+  if (angleTies) say(`  ⚠ ${angleTies} nodes have two arcs leaving in the same direction`);
+  report.angleTies = angleTies;
   const nextHalf = (arc, dir) => {
     // arriving at the end of (arc, dir): the next half-arc for the left face = the one just clockwise of our reverse
     const a = arcs[arc]; const end = dir > 0 ? a.v[a.v.length - 1] : a.v[0];
@@ -550,7 +566,7 @@ function main() {
     let A = area % (4 * Math.PI); if (A < 0) A += 4 * Math.PI;
     c.km2 = A * R2; c.outer = A < 2 * Math.PI;
   }
-  if (mixed) { say(`  ⚠ ${mixed} cycles walk coast on both sides (a crossing the planar graph missed)`); for (const c of cycles) if (c.mixed) { const [a] = c.halves[0]; log.event("cycle-mixed", { halves: c.halves.length, at: deg(VX[arcs[a].v[0]], VY[arcs[a].v[0]]), kinds: c.halves.slice(0, 12).map(([x, d]) => arcs[x].kind + (d > 0 ? "+" : "-")) }); } }
+  if (mixed) { say(`  ⚠ ${mixed} cycles walk coast on both sides (a crossing the planar graph missed)`); for (const c of cycles) if (c.mixed) { const [a] = c.halves[0]; let land = 0, sea = 0; for (const [x, d] of c.halves) if (arcs[x].kind === KIND.COAST) { if (d > 0) land++; else sea++; } const minority = land < sea ? 1 : -1; const where = c.halves.filter(([x, d]) => arcs[x].kind === KIND.COAST && d === minority).slice(0, 6).map(([x, d]) => ({ arc: x, len: arcs[x].v.length, at: deg(VX[arcs[x].v[0]], VY[arcs[x].v[0]]) })); log.event("cycle-mixed", { halves: c.halves.length, land, sea, at: deg(VX[arcs[a].v[0]], VY[arcs[a].v[0]]), minorityCoast: where }); } }
   const landCycles = cycles.filter((c) => c.land);
   const outers = landCycles.filter((c) => c.outer), holes = landCycles.filter((c) => !c.outer);
   say(`cycles: ${landCycles.length} land (${outers.length} outer, ${holes.length} holes), ${cycles.length - landCycles.length} sea`);
@@ -742,6 +758,7 @@ function main() {
     if (leftEnt[a] >= 0 && leftEnt[a] === rightEnt[a] && leftUnit[a] === rightUnit[a]) { dropArc[a] = 1; dropped++; continue; }
     if (leftEnt[a] < 0 && rightEnt[a] < 0) { A.flags |= FLAG.WATER; water++; }
     if (A.kind === KIND.ADMIN1 && leftEnt[a] !== rightEnt[a] && leftEnt[a] >= 0 && rightEnt[a] >= 0) { A.kind = KIND.BORDER; log.event("admin1-arc-between-countries", { at: deg(VX[A.v[0]], VY[A.v[0]]) }); }
+    if (A.kind === KIND.BORDER && leftEnt[a] >= 0 && leftEnt[a] === rightEnt[a] && leftUnit[a] !== rightUnit[a]) { A.kind = KIND.ADMIN1; A.source = SRC_I.adm1; log.event("border-arc-inside-one-country-became-admin1", { at: deg(VX[A.v[0]], VY[A.v[0]]) }); }
   }
   say(`arcs: ${dropped} with the same entity on both sides dropped, ${dangling} dangling dropped, ${water} over water flagged`);
   report.arcsDropped = { sameEntity: dropped, dangling, water };
@@ -818,7 +835,7 @@ function main() {
   const repairs = [];
   for (let level = 0; level <= FINEST; level++) {
     let pass = 0, fixedTotal = 0, residual = 0;
-    let touched = null;   // null = every arc (pass 0); else a Set of arc objects to re-test
+    let touched = null;   // null = every segment (pass 0); else a Set of VERTEX ids: only a segment with a touched end can be in a new crossing
     for (; pass < 40; pass++) {
       const segs = [];
       for (let ai = 0; ai < A2.length; ai++) { const a = A2[ai]; if (!drawableAt(a, level)) continue; let last = 0; for (let i = 1; i < a.v.length; i++) if (a.rank[i] <= level) { segs.push(ai, last, i); last = i; } }
@@ -838,15 +855,16 @@ function main() {
         // or still crossed, can be in a crossing — query the index around each of their segments
         const seen = new Set();
         for (let s = 0; s < nS; s++) {
-          const a = A2[segs[3 * s]]; if (!touched.has(a)) continue;
+          const a = A2[segs[3 * s]];
           const v0 = a.v[segs[3 * s + 1]], v1 = a.v[segs[3 * s + 2]];
+          if (!touched.has(v0) && !touched.has(v1)) continue;
           const cx = Math.round((VX[v0] + VX[v1]) / 2), cy = Math.round((VY[v0] + VY[v1]) / 2);
           const rU = Math.max(Math.abs(VX[v1] - VX[v0]), Math.abs(VY[v1] - VY[v0])) / 2 + 1;
           sidx.near(cx, cy, Math.min(rU, 60 * cell), (q) => { if (q === s) return; const lo = Math.min(s, q), hi = Math.max(s, q); const key = lo * 16777216 + hi; if (seen.has(key)) return; seen.add(key); test(lo, hi); });
         }
       }
       touched = new Set();
-      for (let k = 0; k < crossing.length; k++) touched.add(A2[segs[3 * crossing[k]]]);
+      for (let k = 0; k < crossing.length; k++) { const a = A2[segs[3 * crossing[k]]]; touched.add(a.v[segs[3 * crossing[k] + 1]]); touched.add(a.v[segs[3 * crossing[k] + 2]]); }
       const tq = Date.now();
       if (!crossing.length) break;
       let fixed = 0, reserved = 0;
@@ -858,7 +876,7 @@ function main() {
         if (i1 - i0 >= 2) {
           let best = -1, bestSz = -1;
           for (let i = i0 + 1; i < i1; i++) if (a.rank[i] > level && a.size[i] > bestSz) { bestSz = a.size[i]; best = i; }
-          if (best >= 0) { a.rank[best] = level; fixed++; }
+          if (best >= 0) { a.rank[best] = level; fixed++; touched.add(a.v[best]); }
           continue;
         }
         // an original edge: first try the partner — if it has hidden vertices the loop reaches it on its own
@@ -902,9 +920,8 @@ function main() {
       for (const p of pending) { let l = byArc.get(p.a); if (!l) byArc.set(p.a, l = new Map()); if (!l.has(p.i0)) l.set(p.i0, { o: p.o }); }
       for (const p of pendingX) { let l = byArc.get(p.a); if (!l) byArc.set(p.a, l = new Map()); if (!l.has(p.i0)) l.set(p.i0, { nv: p.nv }); }
       for (const [a, ins] of byArc) {
-        touched.add(a);
         const v = [], sz = [], rk = [];
-        for (let i = 0; i < a.v.length; i++) { v.push(a.v[i]); sz.push(a.size[i]); rk.push(a.rank[i]); const x = ins.get(i); if (x) { if (x.nv != null) { v.push(x.nv); sz.push(1e9); rk.push(0); } else { v.push(vertAdd(C.x[x.o], C.y[x.o], C.size[x.o], x.o)); sz.push(C.size[x.o]); rk.push(level); reserved++; } fixed++; } }
+        for (let i = 0; i < a.v.length; i++) { v.push(a.v[i]); sz.push(a.size[i]); rk.push(a.rank[i]); const x = ins.get(i); if (x) { if (x.nv != null) { v.push(x.nv); sz.push(1e9); rk.push(level); touched.add(x.nv); } /* the rank of the level that needed it: a rank-0 junction would reshape the coarser levels after their own repair */ else { const nv = vertAdd(C.x[x.o], C.y[x.o], C.size[x.o], x.o); v.push(nv); sz.push(C.size[x.o]); rk.push(level); reserved++; touched.add(nv); } fixed++; } }
         a.v = v; a.size = sz; a.rank = rk;
       }
       fixedTotal += fixed;
