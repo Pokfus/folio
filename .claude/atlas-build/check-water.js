@@ -387,5 +387,16 @@ function run() {
 }
 
 run();
+/* the file:// twin (Phase 1d, lib/twin.js): present only while both twins fit the 12 MB (decimal) twin budget; when present it must decode identical */
+{
+  const T = require("./lib/twin.js"); const fsx = require("fs");
+  const core = path.join(__dirname, "..", "..", "atlas", "data", "water.bin"), land = path.join(__dirname, "..", "..", "atlas", "data", "topology.bin.js");
+  if (fsx.existsSync(core + ".js")) {
+    const tw = T.checkTwin(core);
+    const both = tw.twinBytes + (fsx.existsSync(land) ? fsx.statSync(land).size : 0);
+    tw.ok ? ok("the .js twin decodes to the same bytes (sha256)", `${(tw.twinBytes / 1e6).toFixed(2)} MB for ${(tw.bytes / 1e6).toFixed(2)}; ${tw.sha256.slice(0, 16)}…`) : bad("the .js twin decodes to the same bytes (sha256)", tw.reason + " — run: node .claude/atlas-build/pack-water.js --twin");
+    both <= 12e6 ? ok("both twins within 12 MB (decimal)", `${(both / 1e6).toFixed(2)} MB`) : bad("both twins within 12 MB (decimal)", `${(both / 1e6).toFixed(2)} MB`);
+  } else ok("no water twin: rivers and lakes are absent on file:// (the twin budget decided)");
+}
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);

@@ -41,6 +41,9 @@ const HERE = __dirname, OUT = path.join(HERE, "out"), DIST = path.join(OUT, "dis
 const SITE = path.join(HERE, "..", "..", "atlas", "data");
 const argv = process.argv.slice(2);
 const dry = argv.includes("--dry"), install = argv.includes("--install");
+/* --twin alone: write atlas/data/topology.bin.js (the file:// twin, lib/twin.js) from the COMMITTED core and stop — the one step
+   of this script a cloud session without out/full.bin can run (Phase 1d) */
+if (argv.includes("--twin")) { const r = require("./lib/twin.js").writeTwin(path.join(SITE, "topology.bin")); console.log(`twin: ${r.file} ${r.twinBytes} bytes for ${r.bytes} (sha256 ${r.sha256.slice(0, 16)}…)`); require("./build-credits.js").build({ install: true }); process.exit(0); }
 const RESIDENT = 3;                              // levels 0–2 in the core
 const TILE_LEVELS = [{ z: 3, cols: 8, rows: 4 }, { z: 4, cols: 32, rows: 16 }];
 const KIND = F.KIND;
@@ -381,4 +384,6 @@ if (install) {
   fs.cpSync(DIST, SITE, { recursive: true });
   fs.rmSync(path.join(SITE, "tiles-report.json"), { force: true });
   say(`installed into atlas/data/ (topology.bin + tiles/)`);
+  { const r = require("./lib/twin.js").writeTwin(path.join(SITE, "topology.bin")); say(`twin for file://: ${r.file} (${(r.twinBytes / 1e6).toFixed(2)} MB)`); }
+  require("./build-credits.js").build({ install: true });   // the credits page follows every install (Phase 1d)
 }

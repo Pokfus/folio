@@ -27,9 +27,39 @@
                                  waterfall, plain, pole — no kind of §2.6 is a cape, and a pole is not a place
      water.bin                   lake (every NAMED lake entity; HydroLAKES, CC BY 4.0 — its names as given,
                                  "Superior" not "Lake Superior"), river (every named river; NE 10m rivers)
-   Names are the source's English name as given (NAME_EN where the table has one, else NAME); nothing is
-   re-spelt or title-cased here, since canvas text is outside the site's spelling pass. The source's other
-   name fields (NAME, NAMEALT, NAME_LONG, ABBREV…) become `aliases` for the search box.
+   NAMES ARE ENGLISH, ONE ROW PER PLACE (Phase 1d, 2026-10-09; the site is English only). The display name is
+     1. the source's English field where the source translated it (NAME_EN / name_en differing from NAME; the core's
+        admin-1 units take Natural Earth admin-1 name_en by ISO code — "Magadan", not NE's "Maga Buryatdan"; "Tibet", not
+        "Xizang"). A COUNTRY keeps the core's name, which is Natural Earth admin-0's NAME — already the English short
+        name ("China", "Czechia", "Vatican"); NE's NAME_EN there is the long form ("People's Republic of China", "Czech
+        Republic") and is wrong outright on a row or two ("Wake Island" for the Spratly Islands), measured 2026-10-09.
+        Two guards on the field: an English field that turns a town or a unit INTO a country's name is a source fault ("Saudi
+        Arabia" for Ha'il) and is not taken; and where two units of one country end up with one English name (Moscow the city
+        and the oblast, Washington the state and the District), each takes its English Wikipedia title where that begins with
+        the shared name and goes on without a parenthesis ("Moscow Oblast", "Washington, D.C."). NE's one-word English for the
+        Jewish Autonomous Oblast ("Jewish") stays as the field gives it, and is reported;
+     2. else the item's English label from Wikidata (the cached SPARQL pass, wiki-sitelinks.json `labels`) — where the
+        source has NO English field, or copied a local name with letters outside ASCII into it ("Aoukâr"), and the label
+        is plain ASCII, under 60 characters, without a parenthesis. MEASURED before the rule was narrowed (2026-10-09):
+        read broadly ("the label wherever the source's English field repeats the local name") it renamed 80 rows and some
+        70 of them wrongly — Natural Earth's own Wikidata ids are wrong on a few towns (Niamey → Maradi, Misrata → an
+        Arabic label, Baqubah → Bagdad) and Wikidata's labels follow conventions of their own ("Bali Island", "Ōita-shi",
+        "Taoyuan District", "Australian continent"). Narrowed, it changes one row. "Böhmerwald" stays: Natural Earth's
+        English field and the item's English label both say Böhmerwald, and the item has no English article;
+     3. else the source name as given (HydroLAKES' lake names, a river with no Wikidata item).
+   Diacritics follow the English Wikipedia title: where the title and the chosen name differ only in diacritics
+   or case the title's spelling wins (São Paulo keeps its ã, Bogotá gains its á, Zürich loses its ü — because
+   en.wikipedia writes Zurich). Nothing is re-spelt by hand, and canvas text is outside the site's spelling pass.
+   ONE ROW PER WIKIDATA ITEM PER KIND: Natural Earth names one river per stretch (Rhein, Rhin and Rhine are three
+   records of Q584; Donau and Danube two of Q1653; Tajo and Tejo; Chang Jiang and Yangtze), and splits an ocean or
+   an island group over several polygons; rows sharing a QID within a kind are merged — the marine and regions
+   polygons as one shape before the label geometry is computed, the rivers as one row whose `alt` column lists
+   the other water entities (the worker lays the name along every stretch; a tap on any stretch answers with the
+   row) — and every other name becomes an alias, so a search for "Donau" finds the Danube. Two admin-1 units
+   with one QID (Natural Earth gives Altai Krai the Republic's Q5971) are a source fault: the unit whose English
+   name is not the item's label loses the QID and the link, and the report says so. The source's other name
+   fields (NAME, NAMEALT, NAMEASCII, NAME_LONG, ABBREV…) and the merged rows' names become `aliases` for the
+   search box — minus any that fold (diacritics and case stripped) to the name itself, which the search folds anyway.
 
    LABEL GEOMETRY (lib/label.js): an area kind gets `at` (the pole of inaccessibility) and `path` (2–5
    points along the principal axis), computed in an azimuthal projection about the shape's own centroid —
@@ -67,10 +97,12 @@ const WIKI_CACHE = path.join(HERE, "wiki-sitelinks.json");
 const argv = process.argv.slice(2);
 const flag = (f, d) => { const i = argv.indexOf(f); return i >= 0 && argv[i + 1] ? argv[i + 1] : d; };
 const install = argv.includes("--install"), noWiki = argv.includes("--no-wiki"), refetch = argv.includes("--refetch"), dry = argv.includes("--dry");
-const TIER = Number(flag("--tier", 250000));
+const TIER = Number(flag("--tier", 1000000));                 // the shipped v0 carries no further city tier (§7 Phase 1c: it would not fit the budget); 250000 was the first build's trial
 const TOWN_MIN = Number(flag("--town-min", 100000));
-const RIVER_MAX_RANK = Number(flag("--river-rank", 8));    // Natural Earth scale ranks above this (the smallest streams) carry no label row   // an admin-1 capital smaller than this is left out (measured: the budget, below)
-const BUDGET = 0.6 * 1024 * 1024;
+const RIVER_MAX_RANK = Number(flag("--river-rank", 7));    // Natural Earth scale ranks above this (the smallest streams) carry no label row; 8 until Phase 1d, when the English names and the aliases cost 20 KB and the 288 rank-8 rivers (28 KB, drawn but unnamed) were the lever that cost the reader least
+const BUDGET = 600000;                                      // the owner's 0.6 MB, DECIMAL (1 MB = 1,000,000 bytes) since Phase 1d; it was 0.6 × 1024² before
+const W = require("./lib/wikidata.js");
+const fold = (x) => String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 const generated = new Date().toISOString();
 const generator = "folio atlas-build: build-gazetteer.js (" + require("./package.json").version + ")";
 const log = (...a) => console.log(...a);
@@ -133,7 +165,7 @@ const r3 = (v) => Math.round(v * 1000) / 1000, r2 = (v) => Math.round(v * 100) /
 const clean = (s) => String(s == null ? "" : s).replace(/\s+/g, " ").trim();
 
 const rows = [];          // the table
-const report = { generated, perKind: {}, tiers: {}, v1: { matched: 0, missing: [] }, within: { set: 0, none: 0 }, wiki: { asked: 0, found: 0, missing: 0 }, left: {} };
+const report = { generated, perKind: {}, tiers: {}, v1: { matched: 0, missing: [] }, within: { set: 0, none: 0 }, wiki: { asked: 0, found: 0, missing: 0 }, left: {}, merged: {}, renamed: { bySourceEnglish: 0, byLabel: 0, byTitleDiacritics: 0, perKind: {}, examples: [] }, qidDropped: [] };
 const left = (k) => { report.left[k] = (report.left[k] || 0) + 1; };
 function row(o) { rows.push(o); }
 
@@ -141,6 +173,10 @@ function row(o) { rows.push(o); }
 log("countries and admin-1 units…");
 const adm0 = dbfRows("ne-10m-admin0", "ne_10m_admin_0_countries.shp");
 const adm0ByA3 = new Map(adm0.map((r) => [r.ADM0_A3, r]));
+S["ne-10m-admin1"] = ensureSource("ne-10m-admin1");
+const adm1ByIso = new Map(dbfRows("ne-10m-admin1", "ne_10m_admin_1_states_provinces.shp").filter((r) => r.iso_3166_2).map((r) => [String(r.iso_3166_2).toUpperCase(), r]));
+S["ne-10m-rivers"] = ensureSource("ne-10m-rivers");
+const riverByNeId = new Map(); for (const r of dbfRows("ne-10m-rivers", "ne_10m_rivers_lake_centerlines_scale_rank.shp")) if (r.ne_id != null && !riverByNeId.has(r.ne_id)) riverByNeId.set(r.ne_id, r);
 global.window = {};
 require(path.join(ROOT, "countries.js")); require(path.join(ROOT, "country-stats.js")); require(path.join(ROOT, "country-spans.js")); require(path.join(ROOT, "country-sources.js"));
 const v1Keys = new Set(Object.keys(global.window.COUNTRY_INFO || {}));
@@ -194,10 +230,11 @@ H.entities.forEach((e, ei) => {
     const cands = [e.name, ne.NAME, ne.NAME_LONG, ne.FORMAL_EN, ne.NAME_EN, ne.ABBREV, ne.NAME_SORT, ne.BRK_NAME, ne.NAME_CIAWF].filter(Boolean).map((s) => clean(s).toLowerCase());
     const v1 = cands.find((k) => v1Keys.has(k)) || 0;
     if (v1) report.v1.matched++; else report.v1.missing.push(e.name);
-    const aliases = [...new Set([ne.NAME_LONG, ne.FORMAL_EN, ne.ABBREV, ne.NAME_ALT].map(clean).filter((s) => s && s !== e.name))].slice(0, 3);
-    row({ id: e.id, name: e.name, kind: "country", rank: areaRank(g.areaKm2, [2e6, 5e5, 1e5, 2e4, 2e3]), qid: e.qid || 0, within: e.sovereign && e.sovereign !== e.a3 ? "adm0:" + e.sovereign.toLowerCase() : 0, geom: "f" + faces[0], at: g.at.map(atPrecision), path: pathOut, len: lenOut, z: ne.MIN_LABEL != null ? [ne.MIN_LABEL, ne.MAX_LABEL] : 0, aliases, wiki: 0, v1, area: Math.round(g.areaKm2) });
+    const aliases = [...new Set([e.name, ne.NAME, ne.NAME_LONG, ne.FORMAL_EN, ne.ABBREV, ne.NAME_ALT].map(clean).filter(Boolean))];
+    row({ src: { en: null, local: e.name, noLabel: true }, id: e.id, name: e.name, kind: "country", rank: areaRank(g.areaKm2, [2e6, 5e5, 1e5, 2e4, 2e3]), qid: e.qid || 0, within: e.sovereign && e.sovereign !== e.a3 ? "adm0:" + e.sovereign.toLowerCase() : 0, geom: "f" + faces[0], at: g.at.map(atPrecision), path: pathOut, len: lenOut, z: ne.MIN_LABEL != null ? [ne.MIN_LABEL, ne.MAX_LABEL] : 0, aliases, wiki: 0, v1, area: Math.round(g.areaKm2) });
   } else if (e.kind === "admin1") {
-    row({ id: e.id, name: e.name, kind: "admin1", rank: areaRank(g.areaKm2, [5e5, 1e5, 2e4]) + 3, qid: e.qid || 0, within: e.parent || 0, geom: "f" + faces[0], at: g.at.map(atPrecision), path: pathOut, len: lenOut, z: 0, aliases: [], wiki: 0, area: Math.round(g.areaKm2) });
+    const ne1 = adm1ByIso.get(String(e.iso || "").toUpperCase()) || {};
+    row({ src: { en: ne1.name_en, local: ne1.name || e.name, noLabel: true }, id: e.id, name: e.name, kind: "admin1", rank: areaRank(g.areaKm2, [5e5, 1e5, 2e4]) + 3, qid: e.qid || 0, within: e.parent || 0, geom: "f" + faces[0], at: g.at.map(atPrecision), path: pathOut, len: lenOut, z: 0, aliases: [e.name, ne1.name, ne1.name_alt, ne1.gn_name].map(clean).filter(Boolean), wiki: 0, area: Math.round(g.areaKm2) });
   }
 });
 const adm1ByCountry = new Map();   // adm0 id → [{ name, id }]
@@ -220,8 +257,8 @@ for (const r of pp) {
   const a3 = (r.ADM0_A3 || "").toLowerCase();
   let within = countryIds.has("adm0:" + a3) ? "adm0:" + a3 : (countryAt(r.LONGITUDE, r.LATITUDE) || 0);
   if (within && adm1ByCountry.has(within) && r.ADM1NAME) { const u = adm1ByCountry.get(within).find((x) => x.name.toLowerCase() === clean(r.ADM1NAME).toLowerCase()); if (u) within = u.id; }
-  const aliases = [...new Set([r.NAME_EN, r.NAMEALT, r.NAMEPAR].map(clean).filter((s) => s && s !== r.NAME))].slice(0, 2);
-  row({ id: "city:" + r.NE_ID, name: clean(r.NAME), kind, rank: r.SCALERANK == null ? 7 : r.SCALERANK, qid: /^Q\d+$/.test(r.WIKIDATAID) ? r.WIKIDATAID : 0, within, geom: 0, at: [r3(r.LONGITUDE), r3(r.LATITUDE)], path: 0, len: 0, z: r.MIN_ZOOM || 0, aliases, wiki: 0, pop, tier: inBase ? 0 : 1 });
+  const aliases = [r.NAME, r.NAMEALT, r.NAMEPAR, r.NAMEASCII].map(clean).filter(Boolean);
+  row({ src: { en: r.NAME_EN, local: r.NAME }, id: "city:" + r.NE_ID, name: clean(r.NAME), kind, rank: r.SCALERANK == null ? 7 : r.SCALERANK, qid: /^Q\d+$/.test(r.WIKIDATAID) ? r.WIKIDATAID : 0, within, geom: 0, at: [r3(r.LONGITUDE), r3(r.LATITUDE)], path: 0, len: 0, z: r.MIN_ZOOM || 0, aliases, wiki: 0, pop, tier: inBase ? 0 : 1 });
 }
 
 /* ---------- 3. marine polygons and regions ---------- */
@@ -234,9 +271,12 @@ function shapes(id, shp, rowsOf, map) {
   for (const rec of readShp(shpOf(id, shp))) {
     const r = dbf[i++]; const m = map(r); if (!m) continue;
     const parts = rec.parts.map((xy) => { const ring = []; for (let k = 0; k < xy.length; k += 2) ring.push([xy[k], xy[k + 1]]); return ring; });
-    const have = byId.get(m.id);
-    if (have) { have.parts.push(...parts); if (have.m.name !== m.name) left("id shared by two names " + id); continue; }
-    byId.set(m.id, { m, parts });
+    // a feature split over several records — one ne_id (the Great Barrier Reef), or several records of ONE Wikidata
+    // item (the Atlantic as two polygons, an island group's scattered parts; Phase 1d) — is one place with one anchor
+    const key = m.qid ? m.kind + ":" + m.qid : m.id;
+    const have = byId.get(key);
+    if (have) { have.parts.push(...parts); if (have.m.name !== m.name) { left("id shared by two names " + id); have.m.aliases.push(m.name); } if (m.id !== have.m.id) { report.merged[m.kind] = (report.merged[m.kind] || 0) + 1; have.m.aliases.push(...(m.aliases || [])); } continue; }
+    byId.set(key, { m, parts });
   }
   const water = (lon, lat) => !land.isLand(Math.round(r3(lon) / Q), Math.round(r3(lat) / Q)), onLand = (lon, lat) => !water(lon, lat);
   for (const { m, parts } of byId.values()) {
@@ -255,16 +295,16 @@ const MARINE = { ocean: "ocean", sea: "sea", gulf: "gulf", bay: "gulf", sound: "
 shapes("ne-10m-marine-polys", "ne_10m_geography_marine_polys.shp", null, (r) => {
   const kind = MARINE[r.featurecla]; const name = clean(r.name_en || r.name);
   if (!kind || !name) { left("marine " + r.featurecla); return null; }
-  const aliases = [...new Set([r.name, r.namealt].map(clean).filter((s) => s && s !== name && s.toUpperCase() !== s))];
-  return { id: "sea:" + r.ne_id, name, kind, rank: r.scalerank == null ? 3 : r.scalerank, qid: /^Q\d+$/.test(r.wikidataid) ? r.wikidataid : 0, within: 0, geom: 0, z: r.min_label != null ? [r.min_label, r.max_label] : 0, aliases, wiki: 0 };
+  const aliases = [r.name, r.namealt].map(clean).filter((s) => s && s.toUpperCase() !== s);
+  return { src: { en: r.name_en, local: r.name }, id: "sea:" + r.ne_id, name, kind, rank: r.scalerank == null ? 3 : r.scalerank, qid: /^Q\d+$/.test(r.wikidataid) ? r.wikidataid : 0, within: 0, geom: 0, z: r.min_label != null ? [r.min_label, r.max_label] : 0, aliases, wiki: 0 };
 });
 log("region polygons…");
 const REGION = { Island: "island", "Island group": "island-group", "Range/mtn": "range", Continent: "region", Desert: "region", Plateau: "region", Plain: "region", Basin: "region", Lowland: "region", Depression: "region", Valley: "region", Wetlands: "region", Delta: "region", Gorge: "region", Tundra: "region", Foothills: "region", Geoarea: "region", Peninsula: "region", "Pen/cape": "region", Isthmus: "region", Coast: "region" };
 shapes("ne-10m-regions-polys", "ne_10m_geography_regions_polys.shp", null, (r) => {
   const kind = REGION[r.FEATURECLA]; const name = clean(r.NAME_EN || r.NAME);
   if (!kind || !name) { left("region " + r.FEATURECLA); return null; }
-  const aliases = [...new Set([r.NAME, r.NAMEALT].map(clean).filter((s) => s && s !== name && s.toUpperCase() !== s))];
-  return { id: "reg:" + r.NE_ID, name, kind, rank: r.FEATURECLA === "Continent" ? 0 : (r.SCALERANK == null ? 5 : r.SCALERANK), qid: /^Q\d+$/.test(r.WIKIDATAID) ? r.WIKIDATAID : 0, within: 0, geom: 0, z: r.MIN_LABEL != null ? [r.MIN_LABEL, r.MAX_LABEL] : 0, aliases, wiki: 0, sub: r.FEATURECLA };
+  const aliases = [r.NAME, r.NAMEALT].map(clean).filter((s) => s && s.toUpperCase() !== s);
+  return { src: { en: r.NAME_EN, local: r.NAME }, id: "reg:" + r.NE_ID, name, kind, rank: r.FEATURECLA === "Continent" ? 0 : (r.SCALERANK == null ? 5 : r.SCALERANK), qid: /^Q\d+$/.test(r.WIKIDATAID) ? r.WIKIDATAID : 0, within: 0, geom: 0, z: r.MIN_LABEL != null ? [r.MIN_LABEL, r.MAX_LABEL] : 0, aliases, wiki: 0, sub: r.FEATURECLA };
 });
 log("region points…");
 {
@@ -273,8 +313,8 @@ log("region points…");
     const kind = r.featurecla === "island" ? "island" : r.featurecla === "island group" ? "island-group" : null;
     const name = clean(r.name_en || r.name);
     if (!kind || !name) { left("point " + r.featurecla); continue; }
-    const aliases = [...new Set([r.name, r.name_alt].map(clean).filter((s) => s && s !== name))];
-    row({ id: "pt:" + r.ne_id, name, kind, rank: r.scalerank == null ? 6 : r.scalerank, qid: /^Q\d+$/.test(r.wikidataid) ? r.wikidataid : 0, within: countryAt(r.long_x, r.lat_y) || 0, geom: 0, at: [r3(r.long_x), r3(r.lat_y)], path: 0, len: 0, z: r.min_zoom || 0, aliases, wiki: 0 });
+    const aliases = [r.name, r.name_alt].map(clean).filter(Boolean);
+    row({ src: { en: r.name_en, local: r.name }, id: "pt:" + r.ne_id, name, kind, rank: r.scalerank == null ? 6 : r.scalerank, qid: /^Q\d+$/.test(r.wikidataid) ? r.wikidataid : 0, within: countryAt(r.long_x, r.lat_y) || 0, geom: 0, at: [r3(r.long_x), r3(r.lat_y)], path: 0, len: 0, z: r.min_zoom || 0, aliases, wiki: 0 });
   }
 }
 
@@ -295,7 +335,7 @@ WH.entities.forEach((e, ei) => {
   const area = e.area_km2 || g.areaKm2;
   // a lake whose chord is under 6 km is under 40 px even at the cap (0.15 km/px): its name could never be placed
   if (g.lenKm < 6 && area < 25) { left("lake too small to label"); return; }
-  row({ id: e.id, name: clean(e.name), kind: "lake", rank: areaRank(area, [1e4, 2e3, 500, 100, 25]) + 1, qid: 0, within: sameCountry([g.at]) || 0, geom: "l" + ei, at: g.at.map(r3), path: g.lenKm >= 60 ? g.path.map((p) => p.map(r2)) : 0, len: Math.round(g.lenKm), z: 0, aliases: [], wiki: 0, area: Math.round(area) });
+  row({ src: { en: null, local: e.name }, id: e.id, name: clean(e.name), kind: "lake", rank: areaRank(area, [1e4, 2e3, 500, 100, 25]) + 1, qid: 0, within: sameCountry([g.at]) || 0, geom: "l" + ei, at: g.at.map(r3), path: g.lenKm >= 60 ? g.path.map((p) => p.map(r2)) : 0, len: Math.round(g.lenKm), z: 0, aliases: [], wiki: 0, area: Math.round(area) });
 });
 // a river is one ENTITY with one or more arc lists in header.rivers (a list breaks where a lake was crossed or
 // the source record had several parts): one row per named entity, its geometry reference the entity index
@@ -316,53 +356,98 @@ for (const [ei, lists] of riverLists) {
   for (const rv of lists) for (const ref of rv.arcs) { const a = Math.abs(ref) - 1; const s0 = water.arcOffset[a], e0 = water.arcOffset[a + 1]; const run = []; for (let i = s0; i < e0; i++) if (water.rank[i] === 0 || i === s0 || i === e0 - 1) run.push([water.lon[i] * WQ, water.lat[i] * WQ]); if (ref < 0) run.reverse(); pts.push(...run); }
   if (!pts.length) continue;
   const mid = pts[Math.floor(pts.length / 2)];
-  const aliases = [...new Set([e.label].map(clean).filter((s) => s && s !== e.name))];
-  row({ id: rid, name: clean(e.name), kind: "river", rank: e.scalerank == null ? 5 : e.scalerank, qid: e.wikidata || 0, within: sameCountry([mid, pts[0], pts[pts.length - 1]]) || 0, geom: "r" + ei, at: mid.map(r3), path: 0, len: 0, z: 0, aliases, wiki: 0 });
+  const ne = riverByNeId.get(e.ne_id) || {};
+  const aliases = [e.name, e.label, ne.name, ne.name_alt].map(clean).filter(Boolean);
+  row({ src: { en: ne.name_en, local: ne.name || e.name }, id: rid, name: clean(e.name), kind: "river", rank: e.scalerank == null ? 5 : e.scalerank, qid: e.wikidata || 0, within: sameCountry([mid, pts[0], pts[pts.length - 1]]) || 0, geom: "r" + ei, at: mid.map(r3), path: 0, len: 0, z: 0, aliases, wiki: 0, pts, ents: [ei] });
 }
 
 /* ---------- 5. Wikipedia titles from Wikidata sitelinks ---------- */
-let cache = { retrieved: null, titles: {} };
+let cache = { retrieved: null, titles: {}, labels: {} };
 try { cache = JSON.parse(fs.readFileSync(WIKI_CACHE, "utf8")); } catch (e) {}
+cache.labels = cache.labels || {};
 const qids = [...new Set(rows.map((r) => r.qid).filter(Boolean))];
 const missing = qids.filter((q) => refetch || !(q in cache.titles));
 report.wiki.asked = qids.length;
-function sparql(batch) {
-  const q = "SELECT ?item ?article WHERE { VALUES ?item { " + batch.map((x) => "wd:" + x).join(" ") + " } ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> . }";
-  const r = spawnSync("curl", ["-sS", "-m", "90", "-A", "folio-atlas-build/0.1 (https://folio.study) curl", "-H", "Accept: application/sparql-results+json", "--data-urlencode", "query=" + q, "-w", "\n%{http_code}", "https://query.wikidata.org/sparql"], { encoding: "utf8", maxBuffer: 1 << 26 });
-  if (r.status !== 0) throw new Error("curl failed: " + r.stderr);
-  const nl = r.stdout.lastIndexOf("\n"), code = r.stdout.slice(nl + 1).trim(), body = r.stdout.slice(0, nl);
-  if (code !== "200") throw new Error("HTTP " + code + " (the query service rate-limits a shared address; the build backs off and retries)");
-  let j; try { j = JSON.parse(body); } catch (e) { throw new Error("SPARQL did not answer JSON: " + body.slice(0, 120).replace(/\s+/g, " ")); }
-  const out = {};
-  for (const b of j.results.bindings) {
-    const qid = b.item.value.split("/").pop(), url = b.article.value;
-    const title = decodeURIComponent(url.split("/wiki/")[1] || "").replace(/_/g, " ");
-    if (title) out[qid] = title;
-  }
-  return out;
-}
-if (!noWiki && missing.length) {
-  log(`Wikidata sitelinks: ${missing.length} of ${qids.length} items not in the cache — fetching in batches of 50…`);
-  for (let i = 0; i < missing.length; i += 50) {
-    const batch = missing.slice(i, i + 50);
-    let got = null;
-    // the query service limits a shared address: a refused batch waits 10, 30, 60 then 120 s before trying again
-    for (let attempt = 0; attempt < 5 && !got; attempt++) {
-      try { got = sparql(batch); } catch (e) { const wait = [10, 30, 60, 120, 120][attempt]; log("  batch " + (i / 50) + " refused (" + e.message.slice(0, 90) + "), waiting " + wait + " s"); spawnSync("sleep", [String(wait)]); }
-    }
-    if (!got) throw new Error("Wikidata did not answer; re-run later (the cache keeps what arrived)");
-    for (const q of batch) cache.titles[q] = got[q] || null;
-    cache.retrieved = new Date().toISOString().slice(0, 10);
-    fs.writeFileSync(WIKI_CACHE, JSON.stringify(cache, null, 1) + "\n");
-    process.stdout.write(`  ${Math.min(i + 50, missing.length)}/${missing.length}\r`);
-    spawnSync("sleep", ["2.5"]);
-  }
-  log("");
+if (!noWiki) {
+  W.fetchMissing(cache, "titles", qids, W.sitelinkQuery, WIKI_CACHE, { refetch, log });
+  W.fetchMissing(cache, "labels", qids, W.labelQuery, WIKI_CACHE, { refetch, log });   // Phase 1d: the English labels behind rule 2
 }
 for (const r of rows) { if (!r.qid) continue; const t = cache.titles[r.qid]; if (t) { report.wiki.found++; r.wiki = t === r.name ? 1 : t; } else if (r.qid in cache.titles) { report.wiki.missing++; } else report.wiki.unfetched = (report.wiki.unfetched || 0) + 1; }
 
+/* ---------- 5b. English names (the header's rule) ---------- */
+log("English names…");
+const countryNames = new Set(rows.filter((r) => r.kind === "country").map((r) => fold(r.name)));
+const extendsTo = (en, title) => { if (!en || !title || /[()]/.test(title) || title.length > 48) return false; const a = fold(en), b = fold(title); return b.length > a.length && b.startsWith(a) && /^[ ,]/.test(b.slice(a.length)); };
+for (const r of rows) {
+  const src = r.src || { en: null, local: r.name };
+  let en = clean(src.en); const local = clean(src.local) || r.name, before = r.name;
+  const label = r.qid ? cache.labels[r.qid] : null, title = r.qid ? cache.titles[r.qid] : null;
+  // an island or a river may share a country's name; a town turned INTO one by its English field is a source fault
+  if (en && fold(en) !== fold(local) && /^(capital|city|town|admin1)$/.test(r.kind) && countryNames.has(fold(en))) { report.renamed.examples.push(`${r.kind}: ${r.name} keeps its name — the source's English field turns it into "${en}", a country (a source fault)`); en = null; }
+  let name = null, how = null;
+  if (en && fold(en) !== fold(local)) { name = en; how = "bySourceEnglish"; }                    // 1. the source translated it
+  else if (!src.noLabel && label && label.length <= 60 && !/[()]/.test(label) && !/[^\x20-\x7e]/.test(label) && (!en || /[^\x20-\x7e]/.test(local)) && fold(label) !== fold(local) && fold(label) !== fold(en || local)) { name = label; how = "byLabel"; }   // 2. Wikidata's English label, narrowly (the header says why)
+  else name = en || local || r.name;                                                                  // 3. the source name as given
+  if (title && fold(title) === fold(name) && title !== name) { name = title; how = how || "byTitleDiacritics"; }   // diacritics and case follow en.wikipedia
+  if (name !== before) {
+    report.renamed[how || "byTitleDiacritics"]++;
+    report.renamed.perKind[r.kind] = (report.renamed.perKind[r.kind] || 0) + 1;
+    if (report.renamed.examples.length < 400) report.renamed.examples.push(`${r.kind}: ${before} → ${name} (${how || "title"})`);
+  }
+  r.aliases = (r.aliases || []).concat([before, local, en]);
+  r.name = name;
+}
+// 1b. two units of one country with one English name (Moscow the city and Moscow the oblast; Washington the state and the
+// District): each takes its English Wikipedia title where that begins with the shared name and goes on without a parenthesis
+// ("Moscow Oblast", "Washington, D.C."; "Washington (state)" has one and keeps "Washington")
+{
+  const groups = new Map();
+  for (const r of rows) { if (r.kind !== "admin1") continue; const k = r.within + ":" + fold(r.name); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r); }
+  for (const g of groups.values()) { if (g.length < 2) continue; for (const r of g) { const title = r.qid ? cache.titles[r.qid] : null; if (extendsTo(r.name, title)) { report.renamed.examples.push(`admin1: ${r.name} → ${title} (two units of one country shared the name)`); r.aliases.push(r.name); r.name = title; } } }
+}
+/* ---------- 5c. one row per Wikidata item per kind ---------- */
+log("merging rows that share a QID within a kind…");
+{
+  const byKey = new Map();
+  for (const r of rows) { if (!r.qid) continue; const k = r.kind + ":" + r.qid; if (!byKey.has(k)) byKey.set(k, []); byKey.get(k).push(r); }
+  const drop = new Set();
+  for (const [k, group] of byKey) {
+    if (group.length < 2) continue;
+    const kind = group[0].kind;
+    if (kind === "country" || kind === "admin1") {
+      // two faces, one QID: a source fault — the unit whose English name is the item's keeps it
+      const label = cache.labels[group[0].qid], title = cache.titles[group[0].qid];
+      const keep = group.find((r) => fold(r.name) === fold(label) || fold(r.name) === fold(title)) || group[0];
+      // …and where the source gave the wrong unit the item's English name too (Natural Earth's admin-1 name_en for Altai Krai
+      // reads "Altai Republic"), the wrong unit falls back to its local name, so no two units of one country share a name
+      for (const r of group) if (r !== keep) { report.qidDropped.push(`${r.kind} ${r.id} "${r.name}" shared ${r.qid} with "${keep.name}"`); r.qid = 0; r.wiki = 0; if (fold(r.name) === fold(keep.name) && r.src && clean(r.src.local) && fold(r.src.local) !== fold(keep.name)) { report.qidDropped.push(`${r.id} renamed back to its local "${clean(r.src.local)}"`); r.aliases = (r.aliases || []).concat([r.name]); r.name = clean(r.src.local); } }
+      continue;
+    }
+    // the primary row: the best rank, then the longest geometry (a river's vertex count, a lake's chord), then the first
+    group.sort((a, b) => a.rank - b.rank || ((b.pts ? b.pts.length : b.len || 0) - (a.pts ? a.pts.length : a.len || 0)));
+    const keep = group[0];
+    for (const r of group.slice(1)) {
+      drop.add(r);
+      keep.aliases = (keep.aliases || []).concat([r.name], r.aliases || []);
+      if (kind === "river") { keep.ents = keep.ents.concat(r.ents); keep.pts = keep.pts.concat(r.pts); }
+      report.merged[kind] = (report.merged[kind] || 0) + 1;
+    }
+    if (kind === "river") { const pts = keep.pts; keep.at = pts[Math.floor(pts.length / 2)].map(r3); keep.within = sameCountry(keep.ents.map((ei) => { const p = rows.find((x) => x.geom === "r" + ei); return p ? p.pts : []; }).flatMap((p) => (p.length ? [p[0], p[p.length - 1]] : []))) || 0; }
+  }
+  for (let i = rows.length - 1; i >= 0; i--) if (drop.has(rows[i])) rows.splice(i, 1);
+  for (const r of rows) {
+    if (r.kind === "river" && r.ents && r.ents.length > 1) { const main = Number(String(r.geom).slice(1)); r.alt = r.ents.filter((ei) => ei !== main); }
+    // aliases: distinct by fold, never the name itself, at most four
+    const seenA = new Set([fold(r.name)]); const out = [];
+    for (const a of r.aliases || []) { const c = clean(a); const f = fold(c); if (!c || seenA.has(f)) continue; seenA.add(f); out.push(c); }
+    r.aliases = out.slice(0, 4);
+    delete r.pts; delete r.ents; delete r.src;
+  }
+}
+for (const r of rows) { if (!r.qid) continue; const t = cache.titles[r.qid]; if (t) { r.wiki = t === r.name ? 1 : t; } else r.wiki = 0; }   // the title again, against the FINAL name
+
 /* ---------- 6. the table ---------- */
-const COLS = ["id", "name", "kind", "rank", "qid", "within", "geom", "at", "path", "len", "z", "aliases", "wiki", "v1"];
+const COLS = ["id", "name", "kind", "rank", "qid", "within", "geom", "at", "path", "len", "z", "aliases", "wiki", "v1", "alt"];
 const KINDS = ["country", "admin1", "capital", "city", "town", "sea", "ocean", "strait", "gulf", "lake", "river", "island", "island-group", "range", "region"];
 const seen = new Set();
 for (const r of rows) { if (seen.has(r.id)) throw new Error("duplicate id " + r.id); seen.add(r.id); if (!KINDS.includes(r.kind)) throw new Error("kind " + r.kind); if (r.within) report.within.set++; else report.within.none++; }
@@ -375,7 +460,7 @@ const sizeOf = (list) => Buffer.byteLength(list.map((r) => JSON.stringify(encode
 for (const k of KINDS) { const list = rows.filter((r) => r.kind === k); report.perKind[k] = { n: list.length, bytes: sizeOf(list) }; }
 report.tiers["capitals, million-plus, admin-1 capitals"] = { n: rows.filter((r) => /^(capital|city|town)$/.test(r.kind) && !r.tier).length, bytes: sizeOf(rows.filter((r) => /^(capital|city|town)$/.test(r.kind) && !r.tier)) };
 report.tiers["+ places of " + TIER + " and more"] = { n: rows.filter((r) => r.tier).length, bytes: sizeOf(rows.filter((r) => r.tier)) };
-const sources = headerSources(["ne-10m-admin0", "ne-10m-admin1", "osm-land-polygons", "ne-10m-populated-places", "ne-10m-marine-polys", "ne-10m-regions-polys", "ne-10m-regions-points", "ne-10m-rivers", "hydrolakes"]).concat([{ id: "wikidata-sitelinks", name: "Wikidata — enwiki sitelinks of the items the sources name (the Wikipedia title behind each 'Learn more' link)", version: "fetched " + (cache.retrieved || "n/a") + " through query.wikidata.org", url: "https://query.wikidata.org/", licence: "CC0", licenceUrl: "https://creativecommons.org/publicdomain/zero/1.0/", attribution: "Wikidata, CC0 1.0", retrieved: cache.retrieved || "n/a", sha256: null }]);
+const sources = headerSources(["ne-10m-admin0", "ne-10m-admin1", "osm-land-polygons", "ne-10m-populated-places", "ne-10m-marine-polys", "ne-10m-regions-polys", "ne-10m-regions-points", "ne-10m-rivers", "hydrolakes"]).concat([{ id: "wikidata-sitelinks", name: "Wikidata — the English labels and enwiki sitelinks of the items the sources name (the English display name where a source has none, and the Wikipedia title behind each link)", version: "fetched " + (cache.retrieved || "n/a") + " through query.wikidata.org", url: "https://query.wikidata.org/", licence: "CC0", licenceUrl: "https://creativecommons.org/publicdomain/zero/1.0/", attribution: "Wikidata, CC0 1.0", retrieved: cache.retrieved || "n/a", sha256: null }]);
 const table = { format: 1, generated, generator, kinds: KINDS, cols: COLS, counts: Object.fromEntries(KINDS.map((k) => [k, report.perKind[k].n])), rows: rows.map(encode) };
 const body = "/* sources: " + JSON.stringify(sources) + " */\n" +
   "/* atlas/data/gazetteer.js — GENERATED by .claude/atlas-build/build-gazetteer.js (docs/atlas-v2-design.md §2.6, §2.8). Do not edit.\n" +
@@ -384,9 +469,11 @@ const body = "/* sources: " + JSON.stringify(sources) + " */\n" +
   "   `geom` names the face (f<index>), lake entity (l<index>) or river entity (r<index>) in topology.bin / water.bin;\n" +
   "   `qid` is the Wikidata item's number, `within` the containing row's index + 1 (0 = none);\n" +
   "   `at` is the label anchor (lon, lat), `path` the label baseline, `len` its room in km, `z` the source's zoom\n" +
-  "   hints, `wiki` the enwiki title (1 = the name itself), `v1` the key into countries.js. */\n" +
+  "   hints, `wiki` the enwiki title (1 = the name itself), `v1` the key into countries.js, `alt` a merged river's other\n" +
+  "   water entities (one row per Wikidata item per kind; the other names are aliases). Names are English (header rule). */\n" +
   "window.ATLAS_GAZETTEER = " + JSON.stringify(table, (k, v) => v, 0).replace(/\],\[/g, "],\n[") + ";\n";
 report.bytes = Buffer.byteLength(body, "utf8");
+report.aliasBytes = { all: 0, firstTwo: 0, firstOne: 0 }; for (const r of rows) { const a = r.aliases || []; report.aliasBytes.all += Buffer.byteLength(JSON.stringify(a)) - 2; report.aliasBytes.firstTwo += Buffer.byteLength(JSON.stringify(a.slice(0, 2))) - 2; report.aliasBytes.firstOne += Buffer.byteLength(JSON.stringify(a.slice(0, 1))) - 2; }
 report.objectBytes = Buffer.byteLength(JSON.stringify(rows.map((r) => { const o = {}; for (const c of COLS) if (r[c]) o[c] = r[c]; return o; })), "utf8");
 report.ms = Date.now() - t0;
 fs.mkdirSync(OUT, { recursive: true });
@@ -394,7 +481,10 @@ fs.writeFileSync(path.join(OUT, "gazetteer-report.json"), JSON.stringify(report,
 log("\nsize per kind (bytes of rows):");
 for (const k of KINDS) log(`  ${k.padEnd(13)} ${String(report.perKind[k].n).padStart(5)}  ${String(report.perKind[k].bytes).padStart(8)}`);
 for (const [k, v] of Object.entries(report.tiers)) log(`  tier ${k}: ${v.n} places, ${v.bytes} bytes`);
-log(`  whole file ${report.bytes} bytes (${(report.bytes / 1048576).toFixed(3)} MB; the same rows as objects would be ${(report.objectBytes / 1048576).toFixed(3)} MB); budget ${(BUDGET / 1048576).toFixed(2)} MB ${report.bytes <= BUDGET ? "OK" : "EXCEEDED"}`);
+log(`  whole file ${report.bytes} bytes (${(report.bytes / 1e6).toFixed(3)} MB decimal; the same rows as objects would be ${(report.objectBytes / 1e6).toFixed(3)} MB); budget ${(BUDGET / 1e6).toFixed(2)} MB ${report.bytes <= BUDGET ? "OK" : "EXCEEDED"}`);
+log(`  aliases cost ${report.aliasBytes.all} bytes (the first two alone ${report.aliasBytes.firstTwo}, the first alone ${report.aliasBytes.firstOne})`);
+log(`  English names: ${report.renamed.bySourceEnglish} by the source's English field, ${report.renamed.byLabel} by Wikidata's label, ${report.renamed.byTitleDiacritics} by the title's diacritics; per kind ${JSON.stringify(report.renamed.perKind)}`);
+log(`  merged (rows sharing a QID within a kind): ${JSON.stringify(report.merged)}; QIDs dropped as source faults: ${report.qidDropped.join("; ") || "none"}`);
 log(`  within: ${report.within.set} set, ${report.within.none} none; wiki: ${report.wiki.found} titles of ${report.wiki.asked} items with a QID (${report.wiki.missing} items have no enwiki sitelink${report.wiki.unfetched ? ", " + report.wiki.unfetched + " not fetched" : ""})`);
 log(`  anchors: ${prose.preferred} countries and admin-1 units anchored in their own land by the z=4 partition; not: ${prose.unpreferred.join(", ") || "none"}`);
 log(`  v1 prose: ${report.v1.matched} countries matched, ${report.v1.missing.length} without an entry: ${report.v1.missing.join("; ")}`);
@@ -403,5 +493,5 @@ log(`  ${report.ms} ms`);
 if (report.bytes > BUDGET) { console.error("over budget — lower --tier or trim a kind"); process.exit(1); }
 if (!dry) {
   fs.writeFileSync(path.join(OUT, "gazetteer.js"), body);
-  if (install) { fs.writeFileSync(path.join(DATA, "gazetteer.js"), body); log("installed atlas/data/gazetteer.js"); } else log("wrote out/gazetteer.js (--install copies it into atlas/data/)");
+  if (install) { fs.writeFileSync(path.join(DATA, "gazetteer.js"), body); log("installed atlas/data/gazetteer.js"); require("./build-credits.js").build({ install: true }); } else log("wrote out/gazetteer.js (--install copies it into atlas/data/)");
 }

@@ -37,6 +37,21 @@ const R = require("./lib/rings.js");
 const HERE = __dirname, OUT = path.join(HERE, "out"), DIST = path.join(OUT, "dist-water");
 const SITE = path.join(HERE, "..", "..", "atlas", "data");
 const argv = process.argv.slice(2);
+/* the file:// twin of water.bin (lib/twin.js, Phase 1d) — written at --install, or alone with --twin from the committed file. The
+   owner's rule: the two twins together stay within 12 MB (decimal); water.bin is twinned only while they do, else rivers and lakes
+   are absent on file:// and atlas.js says so. */
+const TWIN_BUDGET = 12e6;
+function writeWaterTwin() {
+  const T = require("./lib/twin.js"), fs2 = require("fs");
+  const site = path.join(__dirname, "..", "..", "atlas", "data");
+  const land = path.join(site, "topology.bin.js"), landBytes = fs2.existsSync(land) ? fs2.statSync(land).size : 0;
+  const r = T.writeTwin(path.join(site, "water.bin"));
+  if (landBytes + r.twinBytes > TWIN_BUDGET) { fs2.rmSync(r.file, { force: true }); console.log(`water twin NOT written: ${(landBytes / 1e6).toFixed(2)} + ${(r.twinBytes / 1e6).toFixed(2)} MB would pass the ${TWIN_BUDGET / 1e6} MB twin budget — rivers and lakes are absent on file://`); return null; }
+  console.log(`twin for file://: ${r.file} (${(r.twinBytes / 1e6).toFixed(2)} MB; both twins ${((landBytes + r.twinBytes) / 1e6).toFixed(2)} MB of ${TWIN_BUDGET / 1e6})`);
+  require("./build-credits.js").build({ install: true });
+  return r;
+}
+if (argv.includes("--twin")) { writeWaterTwin(); process.exit(0); }
 const dry = argv.includes("--dry"), install = argv.includes("--install");
 const MIN_TILE_KM2 = Number((() => { const i = argv.indexOf("--min-km2"); return i >= 0 ? argv[i + 1] : 0; })());   // lakes under this leave the tiles (the budget's last turn; the build's own floor is 5 km²)
 const RESIDENT = 3;                              // levels 0–2 in the core
@@ -308,4 +323,6 @@ if (install) {
   fs.cpSync(DIST, SITE, { recursive: true });
   fs.rmSync(path.join(SITE, "water-report.json"), { force: true });
   say(`installed into atlas/data/ (water.bin + water/)`);
+  writeWaterTwin();
+  require("./build-credits.js").build({ install: true });   // the credits page follows every install (Phase 1d)
 }
