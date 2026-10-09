@@ -347,6 +347,7 @@
   const KW = { capital: 0, country: 1, ocean: 2, sea: 3, admin1: 4, region: 5, range: 5, "island-group": 6, island: 6, gulf: 6, strait: 6, city: 7, lake: 8, town: 9, river: 10 };
   const PHYSICAL = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1, island: 1, "island-group": 1, range: 1, region: 1 };
   const MIN_CHORD_PX = 40;            // an area is labelled once it is this wide on screen (§2.6)
+  const LIMB_Z = 0.1;                 // a name whose anchor is nearer the limb than this (view-space z; the fade reaches 1 at 0.2) is not a candidate
   const RIVER_REPEAT_PX = 400;
   const MARKER_R = { capital: 4, city: 3, town: 2.2 };
   function unitOf(lon, lat) { const la = lat * D2R_, lo = lon * D2R_, c = Math.cos(la); return [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; }
@@ -406,6 +407,7 @@
     const show = q.show || {};
     const proj = (v) => { const x = rot[0] * v[0] + rot[1] * v[1] + rot[2] * v[2], y = rot[3] * v[0] + rot[4] * v[1] + rot[5] * v[2], z = rot[6] * v[0] + rot[7] * v[1] + rot[8] * v[2]; return [cx + x * radius, cy - y * radius, z]; };
     const onScreen = (x, y, m) => x >= -m && y >= -m && x <= W + m && y <= H + m;
+    const offScreen = (r) => Math.min(r[2], W) - Math.max(r[0], 0) < 8 || Math.min(r[3], H) - Math.max(r[1], 0) < 8;   // a rectangle with under 8 px of itself in the viewport
     const viewAngle = Math.min(Math.PI / 2, (Math.hypot(W, H) / 2 + 80) / radius) + 0.02;   // radians from the view's centre to its farthest corner, on the sphere
     const missing = new Set();
     const why = q.debug ? [] : null;
@@ -431,7 +433,7 @@
         else { const z = Array.isArray(row.z) ? row.z : null; if (z && (zl + shift < z[0] || zl > z[1] + 1)) continue; if (!z && !row.p) continue; if (row.p && chordPx < MIN_CHORD_PX) continue; }
       } else continue;
       let a = null;
-      if (k !== "river") { a = proj(row.a); if (a[2] < 0.01 || !onScreen(a[0], a[1], 200)) continue; }
+      if (k !== "river") { a = proj(row.a); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; }   // nearer the limb than LIMB_Z a name is foreshortened past reading and faded: not a candidate
       const score = (row.id === q.selected ? -1000 : 0) + row.rank * 10 + (KW[k] || 5);
       cands.push({ row, chordPx, a, score });
     }
@@ -487,7 +489,7 @@
       if (placed.length >= cap) break;
       const row = c.row, k = row.kind;
       const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
-      if (!st) continue;
+      if (!st) { drop(k + " no metrics for style " + styleId); continue; }
       const text = row.name;
       const sh = shape(text, st, missing); sh.style = styleId;
       const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected };
@@ -499,20 +501,21 @@
         const tries = [[x + r + 3 + sh.w / 2, y, 0], [x - r - 3 - sh.w / 2, y, 0], [x, y - r - 3 - sh.h / 2, 0], [x, y + r + 3 + sh.h / 2, 0]];
         let got = null;
         for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (onScreen(tx, ty, 0) && free(g.rects[0])) { got = g; break; } }
-        if (!got) { drop("city label collides on all four sides"); continue; }
+        if (!got) { drop(onScreen(x, y, 0) ? "city label collides on all four sides" : "city off screen"); continue; }
         take(got.rects[0]); take(mrect);
         placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
         continue;
       }
       if (k === "river") {
-        const parts = RIVER_LINES && RIVER_LINES.get(row.river); if (!parts) continue;
+        const parts = RIVER_LINES && RIVER_LINES.get(row.river); if (!parts) { drop("river has no line at this level"); continue; }
         // runs of consecutive on-screen vertices, part by part
-        let run = [], runV = [], n = 0, perRiver = 0;
+        let run = [], runV = [], n = 0, perRiver = 0; const before = riverLabels;
         const flush = () => {
           if (run.length < 2 || perRiver >= 6) { run = []; runV = []; return; }
           if (!reads(run)) { run.reverse(); runV.reverse(); }
           const cum = polyline(run), Lr = cum[cum.length - 1];
-          for (let s0 = RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < Lr && placed.length < cap; s0 += RIVER_REPEAT_PX) {
+          // the name every RIVER_REPEAT_PX along the run; a run shorter than that carries it once, at its middle
+          for (let s0 = Lr < RIVER_REPEAT_PX ? Lr / 2 : RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < Lr && placed.length < cap; s0 += RIVER_REPEAT_PX) {
             if (s0 - sh.w / 2 < 10) continue;
             const g = along(sh, run, cum, s0, st); if (!g) continue;
             if (!g.rects.every(free)) continue;
@@ -532,6 +535,7 @@
           }
           flush();
         }
+        if (riverLabels === before) drop(n ? "river run too short or collides" : "river line off screen");
         continue;
       }
       // an area kind: along its path when the path is long enough and gentle, else straight at the anchor
@@ -542,7 +546,7 @@
           const S2 = S.map((p) => [p[0], p[1]]);
           if (!reads(S2)) S2.reverse();
           const cum = polyline(S2), Ls = cum[cum.length - 1];
-          if (Ls >= sh.w * 1.02) { const g = along(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free)) { got = g; curved = true; } }
+          if (Ls >= sh.w * 1.02) { const g = along(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && !offScreen(union(g.rects))) { got = g; curved = true; } }   // a run whose glyphs all lie beyond the viewport falls back to the straight name at the anchor
         }
       }
       if (!got) {
@@ -555,7 +559,7 @@
       // a label whose every glyph lies beyond the viewport (its anchor was within the 200 px margin) is not placed: it
       // would hold a slot of the density cap and draw nothing
       const ub = union(got.rects);
-      if (ub[2] < -8 || ub[3] < -8 || ub[0] > W + 8 || ub[1] > H + 8) { drop(k + " label wholly off screen"); continue; }
+      if (offScreen(ub)) { drop(k + " label wholly off screen"); continue; }
       got.rects.forEach(take);
       placed.push(Object.assign(base, { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved }));
     }

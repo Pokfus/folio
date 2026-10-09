@@ -305,9 +305,11 @@
     precision highp float;
     flat in vec2 vA; flat in vec2 vB; flat in float vHw; flat in float vKind; flat in float vFlags; flat in float vArc; flat in vec2 vZ;
     uniform float uHeight; uniform vec3 uColor[8]; uniform float uIdPass; uniform float uIdBase; uniform float uIdPad;
+    uniform vec2 uPickOff;           // a pick shifts the viewport so one device pixel lands on a 1×1 target: gl_FragCoord is then
+                                     // the target's, and the device pixel is this much further along (0 in an ordinary frame)
     out vec4 o;
     void main() {
-      vec2 p = vec2(gl_FragCoord.x, uHeight - gl_FragCoord.y);
+      vec2 p = vec2(gl_FragCoord.x + uPickOff.x, uHeight - gl_FragCoord.y - uPickOff.y);
       vec2 ab = vB - vA; float l2 = dot(ab, ab);
       float t = l2 > 0.0 ? clamp(dot(p - vA, ab) / l2, 0.0, 1.0) : 0.0;
       float dist = length(p - (vA + ab * t));
@@ -566,10 +568,12 @@
     }
     function drawFaces(Lv, view, idPass, R) { drawFill(Lv.gpu.vaoFace, false, Lv.data.faceRange, Lv.data.faceCap, view, idPass, R, Lv.tile ? 0.002 : 0.01, null, "trianglesDrawn"); }
     const widths = new Float32Array(8), colors = new Float32Array(24);
+    const pickOff = [0, 0];
     function arcUniforms(P, view, R, idPass, idBase, idPad) {
       common(P, view, R);
       gl.uniform1f(P.u.uHeight, H);
       gl.uniform1f(P.u.uIdPad, idPad || 0);
+      gl.uniform2f(P.u.uPickOff, pickOff[0], pickOff[1]);
       widths[0] = 1.0 * dpr; widths[1] = 0.9 * dpr; widths[2] = 0.8 * dpr; widths[3] = 0.6 * dpr; widths[4] = 0.9 * dpr; widths[5] = 0.6 * dpr; widths[6] = 0; widths[7] = 0;
       gl.uniform1fv(P.u.uWidth, widths);
       const C = [palette.coast, palette.border, palette.river, palette.lakeShore, palette.border, palette.admin1, palette.border, palette.border];
@@ -768,8 +772,9 @@
           if (useStencil) gl.stencilFunc(gl.ALWAYS, 0, 0xff);
         }
       } else stats.waterTilesDrawn = 0;
-      // the land's lines over everything
-      if (debug.arcs) {
+      // the land's lines over everything — not in an ID pass: a tap on a coast or a lake shore names the face under it
+      // (a coastal capital, an atoll at the cap, a lake), and nothing reads a line's id yet
+      if (debug.arcs && !idPass) {
         if (Lv && !complete) { arcStencil(0); drawArcs(Lv, view, idPass, R); }
         if (parents.length) { arcStencil(1); for (const t of parents) drawArcs(t, view, idPass, R); }
         if (own.length) { arcStencil(2); for (const t of own) drawArcs(t, view, idPass, R); }
@@ -847,6 +852,7 @@
         gl.bindFramebuffer(gl.FRAMEBUFFER, idFbo);
         // shift the viewport so device pixel (px, py) — y down — lands on the 1×1 target's (0,0)
         gl.viewport(-px, -(H - 1 - py), W, H);
+        pickOff[0] = px; pickOff[1] = H - 1 - py;   // the arc shader measures a fragment's distance to its line in device pixels
         gl.disable(gl.SCISSOR_TEST); gl.disable(gl.STENCIL_TEST);
         gl.disable(gl.BLEND);
         gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
@@ -857,6 +863,7 @@
         gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, out);
         gl.enable(gl.BLEND);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        pickOff[0] = 0; pickOff[1] = 0;
         const id = out[0] + (out[1] << 8) + (out[2] << 16);
         if (!id) return null;
         // an arc's id is its index plus the base (the arc shader adds nothing else); a face's is its index plus one

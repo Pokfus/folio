@@ -831,13 +831,13 @@
       plan();
       const seq = ++layoutSeq;
       L.sentAt = performance.now();
-      postToWorker({ type: "layout", seq, reason, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id });
+      postToWorker({ type: "layout", seq, reason, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
       if (reason === "settle" || reason === "level") writeHash(false);
     }
     function applyLayout(m) {
       if (m.seq !== layoutSeq) { if (m.seq < layoutSeq) return; }   // a newer request is on its way: this one is stale
       L.lastLayoutMs = m.ms || 0; stats.labelLayout.push(L.lastLayoutMs); if (stats.labelLayout.length > 600) stats.labelLayout.shift();
-      L.candidates = m.candidates || 0; L.cap = m.cap || 0; L.seq = m.seq;
+      L.candidates = m.candidates || 0; L.cap = m.cap || 0; L.seq = m.seq; L.why = m.why || null;
       for (const p of m.placed) { p.chars = [...p.text]; p.sprite = renderSprite(p); }
       L.placed = m.placed;
       if (m.missing && m.missing.length) { let grew = false; for (const [, ch] of m.missing) if (!extraChars.has(ch)) { extraChars.add(ch); grew = true; } if (grew && extraChars.size < 400) measureMetrics(); }
@@ -1134,12 +1134,15 @@
     }
     function applyHash(d) {
       if (!d || !isFinite(d.lon) || !isFinite(d.lat) || !isFinite(d.z)) return;
-      view.lon = d.lon; view.lat = d.lat; view.zoom = R_KM / ((156.543 / Math.pow(2, d.z)) * base); clampView(); flying = null; coasting = false;
-      if (!tileIndex) pendingZoom = view.zoom;   // the cap is not known until the header arrives: the zoom is clamped again then
+      const z = R_KM / ((156.543 / Math.pow(2, d.z)) * base);
+      view.lon = d.lon; view.lat = d.lat; view.zoom = z; clampView(); flying = null; coasting = false;
+      if (!tileIndex) pendingZoom = z;   // the cap is not known until the header arrives: the asked-for zoom is clamped again then
       if (d.place) { if (G.ready && stats.ready) selectById(d.place, { open: true, push: false }); else pendingPlace = d.place; } else if (sel.id) clearSelection();
       plan(); invalidate(); requestLayout("hash", true);
     }
-    const onHash = () => { if (disposed) return; const h = location.hash || ""; if (h === lastWrittenHash) return; if (!/^#map2(\/|\?|$)/.test(h)) return; const d = readHash(); if (d) applyHash(d); else if (sel.id) clearSelection(); };
+    // pushState and replaceState fire no event, so every hashchange or popstate is the reader's: Back, Forward, a typed link.
+    // One that already describes the view and the selection (a settle's own rewrite read back) changes nothing.
+    const onHash = () => { if (disposed) return; const h = location.hash || ""; if (!/^#map2(\/|\?|$)/.test(h)) return; if (h === hashNow()) return; const d = readHash(); if (d) applyHash(d); else if (sel.id) clearSelection(); };
     window.addEventListener("hashchange", onHash);
     window.addEventListener("popstate", onHash);
 
@@ -1160,6 +1163,10 @@
     /* ---------- lifecycle ---------- */
     const onResize = () => { if (!el.isConnected) { dispose(); return; } layout(); invalidate(); };
     window.addEventListener("resize", onResize);
+    // the element changes size without the window doing so (a scrollbar comes or goes as the page loads, the card
+    // column opens): both canvases and the label layout follow its box, not the window's
+    const sizeObs = typeof ResizeObserver === "function" ? new ResizeObserver(() => { if (disposed) return; const r = el.getBoundingClientRect(); if (Math.round(r.width) !== cssW || Math.round(r.height) !== cssH) onResize(); }) : null;
+    if (sizeObs) sizeObs.observe(el);
     const viewHost = document.getElementById("view") || document.body;
     const mo = new MutationObserver(() => { if (!el.isConnected) dispose(); });
     mo.observe(viewHost, { childList: true });
@@ -1169,7 +1176,7 @@
     function dispose() {
       if (disposed) return;
       disposed = true;
-      try { mo.disconnect(); themeObs.disconnect(); } catch (e) {}
+      try { mo.disconnect(); themeObs.disconnect(); if (sizeObs) sizeObs.disconnect(); } catch (e) {}
       window.removeEventListener("resize", onResize);
       window.removeEventListener("hashchange", onHash); window.removeEventListener("popstate", onHash);
       if (raf) cancelAnimationFrame(raf);
@@ -1198,7 +1205,7 @@
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, shut: cardEl.classList.contains("atlas2-card-shut") }),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,
-      hash: hashNow, readHash, metricsCount: () => metricsSent, requestLayout: (why) => requestLayout(why || "test", true) };
+      hash: hashNow, readHash, metricsCount: () => metricsSent, requestLayout: (why) => requestLayout(why || "test", true), labelDebug: (on) => { L.debug = !!on; }, labelWhy: () => L.why };
     el.__atlas2 = controller;
     return controller;
   }
