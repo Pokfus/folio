@@ -132,6 +132,13 @@ jobs:
         run: node --max-old-space-size=8000 .claude/atlas-build/check-water.js
       - name: check-relief (Atlas v2, relief pyramid)
         run: node .claude/atlas-build/check-relief.js
+      # THE GAZETTEER IS A GENERATED FILE TOO (Oct 2026, Phase 1c; docs/atlas-v2-design.md §7 "Phase 1c — as
+      # built"). check-gazetteer.js reads atlas/data/gazetteer.js as the browser does and proves its header,
+      # its table, that every country's label anchor lies in its own land in the z=4 partition (the United
+      # States over Europe was v1's fault), that every Wikipedia title is the cached Wikidata sitelink of its
+      # item, and the 0.6 MB budget.
+      - name: check-gazetteer (Atlas v2, the places registry)
+        run: node --max-old-space-size=8000 .claude/atlas-build/check-gazetteer.js
       # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
       # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
       # for every visitor -- and the only symptom is a slower site.
@@ -293,7 +300,9 @@ jobs:
 
       # test-atlas-perf.js is NOT in this loop (Oct 2026, Phase 1b): it has a job of its own below, so its
       # verdict is not lost in a job that three unrelated suites keep red. Everything else that says
-      # "playwright" runs here.
+      # "playwright" runs here — including Phase 1c's five Atlas v2 suites (test-atlas-render.js,
+      # test-atlas-labels.js, test-atlas-card.js, test-atlas-search.js, test-atlas-a11y.js), which the loop
+      # picks up by name like any other.
       - name: Run the browser suites
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules

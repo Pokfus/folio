@@ -245,38 +245,43 @@
      bucket ranges, so a view above the admin-1 threshold never submits them at all (at the globe
      they are an eighth of LOD 0's segments, measured, and the vertex shader was moving them off
      screen one by one). */
-  function bucketSegments(segs, bucketer) {
+  /* BINS (Phase 1c, the lake cull): a bucket table may be repeated per AREA BIN — bucket index = bin × count +
+     direction bucket — so the renderer can skip every bin whose lakes would project under about 2 px² at the
+     zoom it draws (docs §7 "Phase 1c — as built"). `binOf(item)` names the bin; with nBins 1 nothing changes. */
+  function bucketSegments(segs, bucketer, binOf, nBins) {
     const B = bucketer || { count: BUCKETS, of: bucketOf };
-    const n = segs.length / 7;
+    nBins = nBins || 1;
+    const n = segs.length / 7, NB = B.count * nBins;
     const mid = (i) => { const x = segs[7 * i] + segs[7 * i + 3], y = segs[7 * i + 1] + segs[7 * i + 4], z = segs[7 * i + 2] + segs[7 * i + 5]; const l = Math.hypot(x, y, z) || 1; return [x / l, y / l, z / l]; };
     const ends = (i) => [[segs[7 * i], segs[7 * i + 1], segs[7 * i + 2]], [segs[7 * i + 3], segs[7 * i + 4], segs[7 * i + 5]]];
-    const bk = new Int32Array(n); for (let i = 0; i < n; i++) { const m = mid(i); bk[i] = B.of(m[0], m[1], m[2]); }
+    const bk = new Int32Array(n); for (let i = 0; i < n; i++) { const m = mid(i); bk[i] = B.of(m[0], m[1], m[2]) + (binOf ? binOf(i) * B.count : 0); }
     const main = [], a1 = [];
     for (let i = 0; i < n; i++) (segs[7 * i + 6] % 8 === KIND_ADMIN1 ? a1 : main).push(i);
     const out = new Float32Array(n * 8);
     let k = 0;
     const pack = (ids, offset) => {
-      const { order, range } = sortByBucket(ids.length, (j) => bk[ids[j]], B.count);
+      const { order, range } = sortByBucket(ids.length, (j) => bk[ids[j]], NB);
       for (let j = 0; j < ids.length; j++) { const i = ids[order[j]]; out[8 * k] = segs[7 * i]; out[8 * k + 1] = segs[7 * i + 1]; out[8 * k + 2] = segs[7 * i + 2]; out[8 * k + 3] = segs[7 * i + 6]; out[8 * k + 4] = segs[7 * i + 3]; out[8 * k + 5] = segs[7 * i + 4]; out[8 * k + 6] = segs[7 * i + 5]; out[8 * k + 7] = 0; k++; }
-      const cap = caps(ids.length, (j) => mid(ids[order[j]]), (j) => ends(ids[order[j]]), (j) => bk[ids[order[j]]], B.count);
-      for (let b = 0; b < B.count; b++) range[2 * b] += offset;
+      const cap = caps(ids.length, (j) => mid(ids[order[j]]), (j) => ends(ids[order[j]]), (j) => bk[ids[order[j]]], NB);
+      for (let b = 0; b < NB; b++) range[2 * b] += offset;
       return { range, cap };
     };
     const M = pack(main, 0), A = pack(a1, main.length);
     return { segs: out, segRange: M.range, segCap: M.cap, segRangeA1: A.range, segCapA1: A.cap };
   }
-  function bucketTriangles(pos, idx, bucketer) {
+  function bucketTriangles(pos, idx, bucketer, binOf, nBins) {
     const B = bucketer || { count: BUCKETS, of: bucketOf };
-    const n = idx.length / 3;
+    nBins = nBins || 1;
+    const n = idx.length / 3, NB = B.count * nBins;
     const cen = (t) => { const a = idx[3 * t], b = idx[3 * t + 1], c = idx[3 * t + 2]; const x = pos[4 * a] + pos[4 * b] + pos[4 * c], y = pos[4 * a + 1] + pos[4 * b + 1] + pos[4 * c + 1], z = pos[4 * a + 2] + pos[4 * b + 2] + pos[4 * c + 2]; const l = Math.hypot(x, y, z) || 1; return [x / l, y / l, z / l]; };
-    const bk = new Int32Array(n); for (let t = 0; t < n; t++) { const c = cen(t); bk[t] = B.of(c[0], c[1], c[2]); }
-    const { order, range } = sortByBucket(n, (t) => bk[t], B.count);
+    const bk = new Int32Array(n); for (let t = 0; t < n; t++) { const c = cen(t); bk[t] = B.of(c[0], c[1], c[2]) + (binOf ? binOf(t) * B.count : 0); }
+    const { order, range } = sortByBucket(n, (t) => bk[t], NB);
     const out = new Uint32Array(idx.length);
     for (let k = 0; k < n; k++) { const t = order[k]; out[3 * k] = idx[3 * t]; out[3 * k + 1] = idx[3 * t + 1]; out[3 * k + 2] = idx[3 * t + 2]; }
     const corners = (t) => [0, 1, 2].map((j) => { const v = idx[3 * t + j]; return [pos[4 * v], pos[4 * v + 1], pos[4 * v + 2]]; });
-    const cap = caps(n, (k) => cen(order[k]), (k) => corners(order[k]), (k) => bk[order[k]], B.count);
+    const cap = caps(n, (k) => cen(order[k]), (k) => corners(order[k]), (k) => bk[order[k]], NB);
     // ranges in index units
-    for (let b = 0; b < B.count; b++) { range[2 * b] *= 3; range[2 * b + 1] *= 3; }
+    for (let b = 0; b < NB; b++) { range[2 * b] *= 3; range[2 * b + 1] *= 3; }
     return { faceIdx: out, faceRange: range, faceCap: cap };
   }
 
@@ -285,11 +290,18 @@
     if (msg.type === "water") { handleWater(msg, post); return; }
     if (msg.type === "water-tile") { handleWaterTile(msg, post); return; }
     if (msg.type === "relief") { handleRelief(msg, post); return; }
+    if (msg.type === "gazetteer") { loadGazetteer(msg.table); post({ type: "gazetteer", rows: GZ.rows.length }); return; }
+    if (msg.type === "metrics") { METRICS = msg.styles; return; }
+    if (msg.type === "layout") { handleLayout(msg, post); return; }
+    /* a lost GL context (Phase 1c): the main thread keeps nothing after upload, so the resident levels are
+       rebuilt here from the raw files this worker kept — the same code path as the first load */
+    if (msg.type === "rebuild") { if (RAW.topology) handle({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) handleWater({ type: "water", buffer: RAW.water }, post); return; }
     if (msg.type !== "load") return;
     const t0 = now();
     let T;
     try { T = root.AtlasFormat.read(new Uint8Array(msg.buffer)); }
     catch (e) { post({ type: "error", message: "topology: " + e.message }); return; }
+    RAW.topology = msg.buffer;
     const pos = unitVectors(T);
     const faceEntity = new Uint32Array(T.faces.length);
     T.faces.forEach((f, i) => { faceEntity[i] = f.entity; });
@@ -309,7 +321,230 @@
         [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, S.segRangeA1.buffer, S.segCapA1.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer]);
     }
     stats.totalMs = Math.round(now() - t0);
-    post({ type: "done", stats });
+    post({ type: "done", stats, rebuild: !!msg.rebuild });
+  }
+
+  /* ================= Phase 1c: the gazetteer and the label layout (docs/atlas-v2-design.md §2.6) =================
+     The main thread loads atlas/data/gazetteer.js and posts its table here once; it measures glyph advances
+     for every label style on its own canvas (fonts are a DOM matter) and posts them as METRICS; it asks for a
+     LAYOUT on settle, on a zoom-level change and on a density change, and between layouts it only translates
+     what this returned by each label's anchor. So the whole placement — which names are candidates at this
+     zoom, in what order, where each sits, which collide and are dropped — is decided here, off the frame.
+
+     The order is the design's: the selected place, then by rank (Natural Earth's own scale ranks, or area
+     bins) with the kind as tie-break; placement is greedy on a screen-space grid; a label that does not fit
+     is dropped, never overlapped; the count is capped by the density stop (about 40 at the globe, 120 at
+     country scale for "normal"; a phone one notch sparser). Every label is SHAPED here glyph by glyph — the
+     advance of each character from METRICS plus the style's own tracking — so the main thread's glyph-by-glyph
+     drawing and these collision rectangles agree to the pixel; small capitals are capitals of the smaller size.
+     An area kind runs along its label path (the gazetteer's two to five points, projected), straight when the
+     path is too short or too bent; a river repeats every ~400 px along its polyline; a city sits beside its
+     marker on the first free side of four. Labels behind the horizon are not candidates; those near the limb
+     carry an alpha for the fade. */
+  const RAW = { topology: null, water: null };
+  let GZ = null, RIVER_LINES = null, METRICS = null;
+  const D2R_ = Math.PI / 180;
+  const KW = { capital: 0, country: 1, ocean: 2, sea: 3, admin1: 4, region: 5, range: 5, "island-group": 6, island: 6, gulf: 6, strait: 6, city: 7, lake: 8, town: 9, river: 10 };
+  const PHYSICAL = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1, island: 1, "island-group": 1, range: 1, region: 1 };
+  const MIN_CHORD_PX = 40;            // an area is labelled once it is this wide on screen (§2.6)
+  const RIVER_REPEAT_PX = 400;
+  const MARKER_R = { capital: 4, city: 3, town: 2.2 };
+  function unitOf(lon, lat) { const la = lat * D2R_, lo = lon * D2R_, c = Math.cos(la); return [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; }
+  function loadGazetteer(table) {
+    const col = {}; table.cols.forEach((c, i) => { col[c] = i; });
+    const rows = table.rows.map((r, i) => {
+      const g = (c) => (r[col[c]] == null ? 0 : r[col[c]]);
+      const at = g("at"), path = g("path"), geom = g("geom");
+      return { i, id: g("id"), name: g("name"), kind: g("kind"), rank: g("rank"), within: g("within"), len: g("len"), z: g("z"), a: at ? unitOf(at[0], at[1]) : null, p: path && path.length > 1 ? path.map((q) => unitOf(q[0], q[1])) : null, river: typeof geom === "string" && geom[0] === "r" ? Number(geom.slice(1)) : -1 };
+    });
+    GZ = { rows };
+  }
+  // the style a row is drawn in, by kind and by how much room it has (CSS px of chord)
+  function styleFor(row, chordPx) {
+    switch (row.kind) {
+      case "country": return chordPx >= 700 ? "country-l" : chordPx >= 260 ? "country-m" : "country-s";
+      case "admin1": return "admin1";
+      case "capital": return "capital"; case "city": return "city"; case "town": return "town";
+      case "ocean": return "water-l"; case "sea": return chordPx >= 500 ? "water-l" : "water-m";
+      case "gulf": case "strait": return "water-s";
+      case "lake": return chordPx >= 300 ? "water-m" : "water-s";
+      case "river": return "river";
+      case "range": return "range"; case "region": return chordPx >= 900 ? "region-l" : "region";
+      default: return "island";   // island, island-group
+    }
+  }
+  // glyph by glyph: the characters to draw (capitals for a small-caps style), each advance, the total width
+  function shape(text, st, missing) {
+    const chars = [], adv = [], small = [];
+    let w = 0;
+    for (const ch of text) {
+      let c = ch, sm = false;
+      if (st.caps && ch !== ch.toUpperCase()) { c = ch.toUpperCase(); sm = true; }
+      const table = sm ? st.advSmall : st.adv;
+      let a = table[c];
+      if (a == null) { a = (sm ? st.size * st.smallScale : st.size) * 0.6; if (missing) missing.add(st.id + "\u0001" + c); }
+      chars.push(c); adv.push(a); small.push(sm);
+      w += a;
+    }
+    w += st.track * Math.max(0, chars.length - 1);
+    return { chars, adv, small, w, h: st.size * 1.2 };
+  }
+  function handleLayout(msg, post) {
+    const t0 = now();
+    if (!GZ || !METRICS) { post({ type: "layout", seq: msg.seq, placed: [], ms: 0, candidates: 0, reason: !GZ ? "no gazetteer" : "no metrics" }); return; }
+    const res = layout(msg);
+    res.type = "layout"; res.seq = msg.seq; res.ms = now() - t0;
+    post(res);
+  }
+  function layout(q) {
+    const rot = q.rot, radius = q.radius, cx = q.cx, cy = q.cy, W = q.W, H = q.H, kmpp = q.kmpp;
+    const zl = Math.log2(156.543 / kmpp);                                   // the web-mercator zoom at the equator Natural Earth's hints are in
+    const shift = (q.density === "sparse" ? -1 : q.density === "dense" ? 1.5 : 0) + (q.phone ? -0.75 : 0);
+    const t = Math.max(0, Math.min(1, (Math.log(24) - Math.log(kmpp)) / Math.log(24)));
+    const cap = Math.round((40 + 80 * t) * (q.density === "sparse" ? 0.6 : q.density === "dense" ? 1.5 : 1) * (q.phone ? 0.6 : 1));
+    const pad = q.density === "sparse" ? 8 : q.density === "dense" ? 2 : 4;
+    const show = q.show || {};
+    const proj = (v) => { const x = rot[0] * v[0] + rot[1] * v[1] + rot[2] * v[2], y = rot[3] * v[0] + rot[4] * v[1] + rot[5] * v[2], z = rot[6] * v[0] + rot[7] * v[1] + rot[8] * v[2]; return [cx + x * radius, cy - y * radius, z]; };
+    const onScreen = (x, y, m) => x >= -m && y >= -m && x <= W + m && y <= H + m;
+    const missing = new Set();
+    /* ---- candidates ---- */
+    const cands = [];
+    for (const row of GZ.rows) {
+      const k = row.kind;
+      let chordPx = row.len / kmpp;
+      if (k === "country") { if (!show.countries || chordPx < MIN_CHORD_PX) continue; if (row.z && zl > row.z[1] + 2) continue; }
+      else if (k === "admin1") { if (!show.countries || !show.provinces || !q.admin1 || chordPx < MIN_CHORD_PX) continue; }
+      else if (k === "capital" || k === "city" || k === "town") { if (!show.cities) continue; if (row.z && row.z > zl + shift) continue; }
+      else if (PHYSICAL[k]) {
+        if (!show.physical) continue;
+        if (k === "lake") { if (!show.lakes || Math.max(row.len, 1) / kmpp < MIN_CHORD_PX) continue; }
+        else if (k === "river") { if (!show.rivers || !q.riversDrawn || row.river < 0) continue; const maxRank = q.level === 0 ? 3 : q.level === 1 ? 6 : 99; if (row.rank > maxRank) continue; }
+        else { const z = Array.isArray(row.z) ? row.z : null; if (z && (zl + shift < z[0] || zl > z[1] + 1)) continue; if (!z && !row.p) continue; if (row.p && chordPx < MIN_CHORD_PX) continue; }
+      } else continue;
+      let a = null;
+      if (k !== "river") { a = proj(row.a); if (a[2] < 0.01 || !onScreen(a[0], a[1], 200)) continue; }
+      const score = (row.id === q.selected ? -1000 : 0) + row.rank * 10 + (KW[k] || 5);
+      cands.push({ row, chordPx, a, score });
+    }
+    cands.sort((p, r) => p.score - r.score);
+    /* ---- the grid ---- */
+    const CELL = 64, cols = Math.ceil(W / CELL) + 2, rows = Math.ceil(H / CELL) + 2;
+    const cells = new Map();
+    const rects = [];
+    const cellsOf = (r, fn) => { const x0 = Math.max(0, Math.floor(r[0] / CELL) + 1), x1 = Math.min(cols - 1, Math.floor(r[2] / CELL) + 1), y0 = Math.max(0, Math.floor(r[1] / CELL) + 1), y1 = Math.min(rows - 1, Math.floor(r[3] / CELL) + 1); for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) fn(y * cols + x); };
+    const free = (r) => { let ok = true; cellsOf(r, (c) => { if (!ok) return; const list = cells.get(c); if (!list) return; for (const i of list) { const o = rects[i]; if (r[0] < o[2] + pad && r[2] > o[0] - pad && r[1] < o[3] + pad && r[3] > o[1] - pad) { ok = false; return; } } }); return ok; };
+    const take = (r) => { const i = rects.length; rects.push(r); cellsOf(r, (c) => { let list = cells.get(c); if (!list) cells.set(c, list = []); list.push(i); }); };
+    const placed = [];
+    const union = (list) => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const r of list) { if (r[0] < x0) x0 = r[0]; if (r[1] < y0) y0 = r[1]; if (r[2] > x1) x1 = r[2]; if (r[3] > y1) y1 = r[3]; } return [x0, y0, x1, y1]; };
+    /* a straight run of glyphs centred at (x, y) at angle `ang` (radians, screen y down): glyph origins and one rect */
+    const straight = (sh, x, y, ang) => {
+      const dx = Math.cos(ang), dy = Math.sin(ang);
+      const sx = x - sh.w / 2 * dx, sy = y - sh.w / 2 * dy;
+      const glyphs = []; let cum = 0;
+      for (let i = 0; i < sh.chars.length; i++) { glyphs.push([sx + cum * dx, sy + cum * dy, ang, sh.small[i] ? 1 : 0]); cum += sh.adv[i] + (i + 1 < sh.chars.length ? METRICS[sh.style].track : 0); }
+      const hw = sh.w / 2, hh = sh.h / 2;
+      const ex = Math.abs(dx) * hw + Math.abs(dy) * hh, ey = Math.abs(dy) * hw + Math.abs(dx) * hh;
+      return { glyphs, rects: [[x - ex, y - ey, x + ex, y + ey]] };
+    };
+    /* glyphs along a screen polyline S (points [x, y]) with cumulative lengths `cum`, the label's centre at arc
+       length s0; null when the text would bend more than a reader can follow */
+    const along = (sh, S, cum, s0, st) => {
+      const glyphs = [], rs = [];
+      let s = s0 - sh.w / 2, seg = 0, prev = null, turned = 0;
+      for (let i = 0; i < sh.chars.length; i++) {
+        const mid = s + sh.adv[i] / 2;
+        while (seg + 1 < cum.length - 1 && cum[seg + 1] < mid) seg++;
+        while (seg > 0 && cum[seg] > mid) seg--;
+        const L = cum[seg + 1] - cum[seg] || 1, u = Math.max(0, Math.min(1, (mid - cum[seg]) / L));
+        const x = S[seg][0] + (S[seg + 1][0] - S[seg][0]) * u, y = S[seg][1] + (S[seg + 1][1] - S[seg][1]) * u;
+        const ang = Math.atan2(S[seg + 1][1] - S[seg][1], S[seg + 1][0] - S[seg][0]);
+        if (prev != null) { let d = ang - prev; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI; if (Math.abs(d) > 0.4) return null; turned += Math.abs(d); if (turned > 1.6) return null; }
+        prev = ang;
+        // the glyph's origin is its left edge on the baseline; the baseline sits a quarter of the size under the line so the text straddles a river rather than riding above it
+        const nx = Math.sin(ang) * st.size * 0.35, ny = -Math.cos(ang) * st.size * 0.35;
+        const ox = x - Math.cos(ang) * sh.adv[i] / 2 + nx, oy = y - Math.sin(ang) * sh.adv[i] / 2 + ny;
+        glyphs.push([ox, oy, ang, sh.small[i] ? 1 : 0]);
+        const hs = Math.max(sh.adv[i], st.size) * 0.55;
+        rs.push([x - hs, y - hs, x + hs, y + hs]);
+        s += sh.adv[i] + st.track;
+      }
+      return { glyphs, rects: rs };
+    };
+    const polyline = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return cum; };
+    const reads = (S) => { const dx = S[S.length - 1][0] - S[0][0], dy = S[S.length - 1][1] - S[0][1]; return Math.abs(dx) >= Math.abs(dy) * 0.35 ? dx >= 0 : dy <= 0; };   // left to right, else upward
+    let riverLabels = 0;
+    for (const c of cands) {
+      if (placed.length >= cap) break;
+      const row = c.row, k = row.kind;
+      const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
+      if (!st) continue;
+      const text = row.name;
+      const sh = shape(text, st, missing); sh.style = styleId;
+      const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected };
+      if (k === "capital" || k === "city" || k === "town") {
+        const r = MARKER_R[k], x = c.a[0], y = c.a[1];
+        const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
+        if (!free(mrect)) continue;
+        if (!show.places) { take(mrect); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
+        const tries = [[x + r + 3 + sh.w / 2, y, 0], [x - r - 3 - sh.w / 2, y, 0], [x, y - r - 3 - sh.h / 2, 0], [x, y + r + 3 + sh.h / 2, 0]];
+        let got = null;
+        for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (onScreen(tx, ty, 0) && free(g.rects[0])) { got = g; break; } }
+        if (!got) continue;
+        take(got.rects[0]); take(mrect);
+        placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
+        continue;
+      }
+      if (k === "river") {
+        const parts = RIVER_LINES && RIVER_LINES.get(row.river); if (!parts) continue;
+        // runs of consecutive on-screen vertices, part by part
+        let run = [], runV = [], n = 0, perRiver = 0;
+        const flush = () => {
+          if (run.length < 2 || perRiver >= 6) { run = []; runV = []; return; }
+          if (!reads(run)) { run.reverse(); runV.reverse(); }
+          const cum = polyline(run), Lr = cum[cum.length - 1];
+          for (let s0 = RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < Lr && placed.length < cap; s0 += RIVER_REPEAT_PX) {
+            if (s0 - sh.w / 2 < 10) continue;
+            const g = along(sh, run, cum, s0, st); if (!g) continue;
+            if (!g.rects.every(free)) continue;
+            g.rects.forEach(take);
+            // the anchor: the vertex nearest the label's centre
+            let seg = 0; while (seg + 1 < cum.length - 1 && cum[seg + 1] < s0) seg++;
+            const av = runV[seg];
+            placed.push(Object.assign({}, base, { a: av, sx: run[seg][0], sy: run[seg][1], alpha: 1, glyphs: g.glyphs, box: union(g.rects), rects: g.rects, marker: null, hit: union(g.rects), curved: true }));
+            perRiver++; riverLabels++;
+          }
+          run = []; runV = [];
+        };
+        for (const line of parts) {
+          for (let i = 0; i < line.length; i += 3) {
+            const v = [line[i], line[i + 1], line[i + 2]], p = proj(v);
+            if (p[2] > 0.02 && onScreen(p[0], p[1], 60)) { run.push([p[0], p[1]]); runV.push(v); n++; } else flush();
+          }
+          flush();
+        }
+        continue;
+      }
+      // an area kind: along its path when the path is long enough and gentle, else straight at the anchor
+      let got = null, curved = false;
+      if (row.p) {
+        const S = row.p.map(proj);
+        if (S.every((p) => p[2] > 0.01)) {
+          const S2 = S.map((p) => [p[0], p[1]]);
+          if (!reads(S2)) S2.reverse();
+          const cum = polyline(S2), Ls = cum[cum.length - 1];
+          if (Ls >= sh.w * 1.02) { const g = along(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free)) { got = g; curved = true; } }
+        }
+      }
+      if (!got) {
+        if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") continue;   // the name would overhang the shape by most of its length
+        const g = straight(sh, c.a[0], c.a[1], 0);
+        if (!onScreen(c.a[0], c.a[1], 0) || !free(g.rects[0])) continue;
+        got = g;
+      }
+      got.rects.forEach(take);
+      placed.push(Object.assign(base, { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union(got.rects), rects: got.rects, marker: null, hit: union(got.rects), curved }));
+    }
+    return { placed, candidates: cands.length, cap, missing: [...missing].map((m) => m.split("\u0001")), rivers: riverLabels };
   }
   /* ---------- water (Phase 1b): lake shores, rivers and lake fills, per resident level and per tile ----------
      Rivers come from a 1:10M source (chords 1.8 km at the median), so at the tile zooms (under 1 km/px)
@@ -343,14 +578,42 @@
     }
     return Float32Array.from(out);
   }
-  function waterLevel(T, pos, level, bucketer, arcIdOf, withSmooth) {
+  /* THE LAKE-AREA BINS (Phase 1c). At 3 km/px a 12 km² lake is a smear of a pixel, and the Europe view's lake
+     primitives were mostly such smears (measured: 71k shore segments and 64k fill triangles). A resident
+     level's lake triangles and shore segments are therefore laid out per area bin — half-octave bins from
+     10 km² — and the renderer draws only the bins whose lakes cover at least LAKE_MIN_PX² at its zoom.
+     Level 0 (lakes ≥ 1000 km², drawn above 16 km/px) and the tiles (≥ 6 km² at the cap) never cross that
+     line and keep one bin. A face's area is the sum of its triangles' (a flat triangle on unit vectors × R²). */
+  const LAKE_BIN_EDGES = [10, 14, 20, 28, 40, 57, 80, 113, 160, 226, 320, 453, 640, 905, 1280, 1810, 2560];
+  const R_KM2 = 6371.0088 * 6371.0088;
+  function lakeBinOf(km2) { let b = 0; while (b < LAKE_BIN_EDGES.length && km2 >= LAKE_BIN_EDGES[b]) b++; return b; }
+  function waterLevel(T, pos, level, bucketer, arcIdOf, withSmooth, withBins) {
     const lakeRaw = buildSegments(T, pos, level, arcIdOf, KIND_LAKE), riverRaw = buildSegments(T, pos, level, arcIdOf, KIND_RIVER);
     const sink = Sink();
     let tris = 0;
     T.faces.forEach((f, i) => { const id = LAKE_FACE_BASE + (T.faceRef && T.faceRef[i] >= 0 ? T.faceRef[i] : i); tris += triangulateFace(T, pos, f, id, Math.min(level, CHORD_DEG.length - 1), sink); });
     const Fm = sink.result();
-    const Lk = bucketSegments(lakeRaw, bucketer), Rv = bucketSegments(riverRaw, bucketer), B = bucketTriangles(Fm.pos, Fm.idx, bucketer);
-    const m = { lakeSegs: Lk.segs, lakeRange: Lk.segRange, lakeCap: Lk.segCap, riverSegs: Rv.segs, riverRange: Rv.segRange, riverCap: Rv.segCap, facePos: Fm.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, stats: { level, lakeSegments: lakeRaw.length / 7, riverSegments: riverRaw.length / 7, triangles: tris, faceVertices: Fm.vertices } };
+    let binTri = null, binSeg = null, nBins = 1;
+    if (withBins) {
+      nBins = LAKE_BIN_EDGES.length + 1;
+      // area per face id from the triangles, then a bin per triangle and per shore segment (arc → face)
+      const area = new Map();
+      const P = Fm.pos, I = Fm.idx;
+      for (let t = 0; t < I.length; t += 3) {
+        const a = I[t], b = I[t + 1], c = I[t + 2];
+        const ux = P[4 * b] - P[4 * a], uy = P[4 * b + 1] - P[4 * a + 1], uz = P[4 * b + 2] - P[4 * a + 2];
+        const vx = P[4 * c] - P[4 * a], vy = P[4 * c + 1] - P[4 * a + 1], vz = P[4 * c + 2] - P[4 * a + 2];
+        const cx = uy * vz - uz * vy, cy = uz * vx - ux * vz, cz = ux * vy - uy * vx;
+        const f = P[4 * a + 3];
+        area.set(f, (area.get(f) || 0) + 0.5 * Math.hypot(cx, cy, cz) * R_KM2);
+      }
+      const arcFace = new Map();
+      T.faces.forEach((f, i) => { const id = LAKE_FACE_BASE + (T.faceRef && T.faceRef[i] >= 0 ? T.faceRef[i] : i); for (const ring of f.rings) for (const ref of ring) arcFace.set(Math.abs(ref) - 1, id); });
+      binTri = (t) => lakeBinOf(area.get(Fm.pos[4 * Fm.idx[3 * t] + 3]) || 0);
+      binSeg = (i) => { const tag = lakeRaw[7 * i + 6], arc = Math.floor(tag / 64); return lakeBinOf(area.get(arcFace.get(arc)) || 0); };
+    }
+    const Lk = bucketSegments(lakeRaw, bucketer, binSeg, nBins), Rv = bucketSegments(riverRaw, bucketer), B = bucketTriangles(Fm.pos, Fm.idx, bucketer, binTri, nBins);
+    const m = { lakeSegs: Lk.segs, lakeRange: Lk.segRange, lakeCap: Lk.segCap, riverSegs: Rv.segs, riverRange: Rv.segRange, riverCap: Rv.segCap, facePos: Fm.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, lakeBins: nBins > 1 ? LAKE_BIN_EDGES : null, stats: { level, lakeSegments: lakeRaw.length / 7, riverSegments: riverRaw.length / 7, triangles: tris, faceVertices: Fm.vertices } };
     const transfer = [Lk.segs.buffer, Lk.segRange.buffer, Lk.segCap.buffer, Rv.segs.buffer, Rv.segRange.buffer, Rv.segCap.buffer, Fm.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer];
     if (withSmooth) { const Sm = bucketSegments(smoothedRiverSegments(T, pos), bucketer); m.smoothSegs = Sm.segs; m.smoothRange = Sm.segRange; m.smoothCap = Sm.segCap; m.stats.smoothSegments = Sm.segs.length / 8; transfer.push(Sm.segs.buffer, Sm.segRange.buffer, Sm.segCap.buffer); }
     return { m, transfer };
@@ -364,10 +627,24 @@
     try { T = root.AtlasFormat.read(new Uint8Array(msg.buffer)); }
     catch (e) { post({ type: "error", message: "water: " + e.message }); return; }
     const pos = unitVectors(T);
-    post({ type: "water-meta", header: T.header, parseMs: Math.round(now() - t0) });
+    RAW.water = msg.buffer;
+    // Phase 1c: which entity each lake face belongs to (the ID pass names lakes), which river ENTITY each
+    // arc is in, and every river entity's polyline parts at the LOD 1 vertices for the label layout (kept
+    // here, never posted; a river has one part per arc list of header.rivers — a list breaks at a lake)
+    const faceEntity = new Uint32Array(T.faces.length);
+    T.faces.forEach((f, i) => { faceEntity[i] = f.entity; });
+    const arcRiver = new Int32Array(T.arcOffset.length - 1).fill(-1);
+    RIVER_LINES = new Map();
+    (T.header.rivers || []).forEach((rv) => {
+      const pts = [];
+      for (const a of rv.arcs) { arcRiver[a] = rv.entity; for (let i = T.arcOffset[a]; i < T.arcOffset[a + 1]; i++) if (T.rank[i] <= 1) pts.push(pos[3 * i], pos[3 * i + 1], pos[3 * i + 2]); }
+      if (!RIVER_LINES.has(rv.entity)) RIVER_LINES.set(rv.entity, []);
+      RIVER_LINES.get(rv.entity).push(Float32Array.from(pts));
+    });
+    post({ type: "water-meta", header: T.header, faceEntity, arcRiver, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, arcRiver.buffer]);
     for (let level = 0; level < T.lodCount; level++) {
       const t1 = now();
-      const { m, transfer } = waterLevel(T, pos, level, null, null, level === T.lodCount - 1);
+      const { m, transfer } = waterLevel(T, pos, level, null, null, level === T.lodCount - 1, level >= 1);
       m.stats.ms = Math.round(now() - t1);
       post(Object.assign({ type: "water-lod", level }, m), transfer);
     }

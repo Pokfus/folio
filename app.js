@@ -10942,6 +10942,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and earcut are fetched by atlas.js itself, and the topology (atlas/data/topology.bin) by fetch(), so
        nothing here touches the eager path. v1's `atlas` bundle below is untouched until Phase 5. */
     atlas2: { files: ["atlas/atlas-format.js", "atlas/atlas-gl.js", "atlas/atlas.js"] },
+    /* …and the PROSE its place card shows for a present-day country (Phase 1c): the same four files v1's
+       `atlas` bundle carries for its popup — descriptions, figures, spans, citations — WITHOUT timeline.js
+       or the v1 geometry, so opening a country on #map2 never pulls the old eras in. The two bundles share
+       files; ensureData loads a file once, whichever bundle asked first. */
+    atlas2prose: { files: ["countries.js", "country-stats.js", "country-spans.js", "country-sources.js"] },
     // everything else the Atlas needs: historical eras, physical layers, per-country prose + figures
     atlas: {
       files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js", "country-sources.js"],
@@ -46482,7 +46487,11 @@ let prev = null;
       return;
     }
     if (!window.AtlasV2 || typeof window.AtlasV2.mount !== "function") { root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>The Atlas couldn’t load</strong></div>'; return; }
-    window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin" });
+    /* the host object (Phase 1c): what the place card needs from this closure — the lazy loader for the
+       prose bundle, the sanitiser every surface of prose Folio did not necessarily author goes through, the
+       source list and the footnote apparatus, and the reduced-motion reading — handed over rather than
+       reached, since the Atlas bundle is a plain script outside this IIFE */
+    window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion } });
   };
   PAGES.findit = function (root) {
     if (gameLockedToday(root, "findit")) return;

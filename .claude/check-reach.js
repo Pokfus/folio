@@ -173,6 +173,13 @@ const HOSTS = [
    "Atlas v2 — the rivers (PD), the stand-in for HydroRIVERS"],
   ["OSM land polygons",    "https://osmdata.openstreetmap.de/download/land-polygons-complete-4326.zip", "HEAD",
    "Atlas v2 — the finest coastline, a data file of its own (ODbL)"],
+  /* WIKIDATA ANSWERS THROUGH ITS QUERY SERVICE, NOT ITS API (Oct 2026, Phase 1c, measured): wbgetentities on
+     www.wikidata.org/w/api.php returns 429 "too many requests" to every call from this sandbox's shared
+     address, with or without a descriptive User-Agent, while query.wikidata.org/sparql answers the same
+     question (a VALUES list of 50 items → their enwiki sitelinks) with 200. build-gazetteer.js therefore
+     fetches the Wikipedia titles through SPARQL and caches them in wiki-sitelinks.json. */
+  ["Wikidata SPARQL",      "https://query.wikidata.org/sparql?query=" + encodeURIComponent("SELECT ?article WHERE { ?article schema:about wd:Q252 ; schema:isPartOf <https://en.wikipedia.org/> . }") + "&format=json", "Indonesia",
+   "Atlas v2 — the gazetteer's Wikipedia titles (CC0); the wbgetentities API is 429 from here"],
 ];
 
 const EXTRA = [
