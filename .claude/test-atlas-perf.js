@@ -42,6 +42,26 @@
    their meaning: v2 ≤ 40 % of v1, relief on ≤ 1.5 × relief off, worst frame ≤ 100 ms + 1 ms of
    timestamp slack. The JS heap after v2's gestures is read and gated too (HEAP_MB, Phase 1c).
 
+   THE OWNER'S PHASE 1d RULES (2026-10-09, docs/atlas-v2-design.md §7 "Phase 1d — as built"), since the
+   runner is software GL and a gate must measure the renderer, not SwiftShader:
+     · PINCH: the worst frame DURING the gesture (fingers down) stays ≤ WORST_MS; the first full-screen frame
+       after the fingers lift — the held level giving way to LOD 1 at full-screen fill, measured 167–283 ms on
+       the session's runner and 167–183 on CI — is measured SEPARATELY with a ceiling of RELEASE_MS and
+       reported with that frame's primitive count. A frame is "during" or "release" by the time it ends: the
+       page marks performance.now() at each touchEnd, and a frame ending within RELEASE_WINDOW_MS of a mark
+       is a release frame.
+     · RELIEF ON: the view's L1 patches are WARMED first (an unmeasured rehearsal of the gesture, settled),
+       so the network and the upload are not in the measured gesture; the pooled p90 with relief on is at most
+       RELIEF_FACTOR (2.0) × relief off. The first-use cost of a patch (fetch + decode, compose, upload) is
+       reported as a number, ungated. The same rehearsal precedes every relief-off gesture of v2 and every
+       gesture of v1, so no measured window pays a tile's fetch either. The rehearsal is also where a slow GPU
+       learns its gesture stages (atlas.js `gestureFrame`: half resolution, then one coarser level, sticky for the
+       session), so the measured repeats run as a reader's second gesture would; the report prints the stage.
+     · HEAP: v2's JS heap after its gestures is at most HEAP_RATIO (50 %) of v1's in the same run, the
+       absolute value reported; the old absolute ceiling (48 MB) is gone.
+     · unchanged: v2 pooled p90 ≤ RATIO of v1's for drag, wheel and pinch; the drag's worst frame ≤ WORST_MS
+       with 1 ms of timestamp slack; the primitive budgets.
+
    The suite also prints the #map2?perf overlay's numbers (mean, p95, max over the last 120 frames,
    primitives, LOD, tiles, water, relief) for each fixed view, which is what the owner reads on a real phone.
 
@@ -61,10 +81,13 @@ const LAUNCH = Object.assign(process.env.FOLIO_CHROMIUM ? { executablePath: proc
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream" };
 const RATIO = 0.40;             // v2 p95 ≤ 40 % of v1 p95
 const WORST_MS = 100;           // worst frame during drag and pinch, relief off
-const RELIEF_FACTOR = 1.5;      // relief on: v2 p95 ≤ this × v2's own relief-off p95 (see 4 above)
+const RELIEF_FACTOR = 2.0;      // relief on: v2 pooled p90 ≤ this × v2's own relief-off pooled p90, patches warmed first (Phase 1d; 1.5 before, with the fetch inside the gesture)
 const RELIEF_VS_V1 = false;     // true = the owner's literal gate instead: v2 relief-on p95 ≤ RATIO × v1-with-heightmap p95
 const REPEATS = 3;              // every gesture runs this many times; the relative gates read the pooled p90 (see the header)
-const HEAP_MB = 48;             // v2's JS heap after its gestures and a forced collection, MB: 1.25 × the 38 MB read on the session's runner (Phase 1c; v1 reads 228–257)
+const HEAP_RATIO = 0.5;         // v2's JS heap after its gestures and a forced collection ≤ this × v1's in the same run (Phase 1d; measured 28–82 MB against 228–257 — the absolute 48 MB ceiling is gone)
+const RELEASE_MS = 300;         // the first full-screen frame after a pinch's fingers lift (Phase 1d), reported with its primitive count
+const RELEASE_WINDOW_MS = 450;  // a frame ending within this of a touchEnd mark is a release frame, not a gesture frame
+const RELEASE_SETTLE_MS = 500;  // how long the pinch waits after each release before the next touch (longer than the window)
 /* The four fixed views and their primitive budgets (drawn in one frame at 1280×800): land triangles and
    segments measured 2026-10-08 on the Phase 1a build (globe 42,529 / 19,917; Europe 133,348 / 101,049;
    the Aegean 25,892 / 22,750; the Aegean at the cap 20,366 / 18,297); river segments, lake-shore segments
@@ -97,9 +120,9 @@ const fmt = (v) => (Number.isFinite(v) ? v.toFixed(1).padStart(7) : "    n/a");
 async function sampler(page) {
   await page.evaluate(() => {
     if (window.__ft) return;
-    window.__ft = { on: false, d: [] };
+    window.__ft = { on: false, d: [], ts: [], marks: [] };
     let last = 0;
-    const loop = (t) => { if (window.__ft.on && last) window.__ft.d.push(t - last); last = t; requestAnimationFrame(loop); };
+    const loop = (t) => { if (window.__ft.on && last) { window.__ft.d.push(t - last); window.__ft.ts.push(t); } last = t; requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   });
 }
@@ -110,10 +133,19 @@ async function measure(page, fn) {
   // renderer, and not what the gate is about
   await page.evaluate(() => { const a = document.querySelector(".atlas2"); if (a && a.__atlas2) a.__atlas2.invalidate(); });
   await sleep(150);
-  await page.evaluate(() => { window.__ft.d = []; window.__ft.on = true; });
-  await fn();
-  const d = await page.evaluate(() => { window.__ft.on = false; return window.__ft.d.slice(); });
-  return summary(d);
+  await page.evaluate(() => { window.__ft.d = []; window.__ft.ts = []; window.__ft.marks = []; window.__ft.on = true; });
+  const extra = await fn();
+  const r = await page.evaluate(() => { window.__ft.on = false; return { d: window.__ft.d.slice(), ts: window.__ft.ts.slice(), marks: window.__ft.marks.slice() }; });
+  const s = summary(r.d);
+  s.ts = r.ts; s.marks = r.marks; s.extra = extra || null;
+  // Phase 1d: frames split by the touchEnd marks — a frame ending within RELEASE_WINDOW_MS of a mark is a release frame
+  if (r.marks.length) {
+    const during = [], release = r.marks.map(() => []);
+    r.d.forEach((dt, i) => { const t = r.ts[i]; const k = r.marks.findIndex((m) => t > m && t <= m + RELEASE_WINDOW_MS); if (k < 0) during.push(dt); else release[k].push(dt); });
+    s.during = summary(during);
+    s.release = release.map((arr, k) => ({ max: arr.length ? Math.max(...arr) : 0, n: arr.length, stats: extra && extra.releases ? extra.releases[k] : null }));
+  }
+  return s;
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -136,15 +168,23 @@ async function wheel(page, cx, cy) {
 async function pinch(page, cdp, cx, cy, probe) {
   const pts = (d) => [{ x: cx - d, y: cy, id: 1 }, { x: cx + d, y: cy, id: 2 }];
   const send = (type, touchPoints) => cdp.send("Input.dispatchTouchEvent", { type, touchPoints });
+  const mark = () => page.evaluate(() => { if (window.__ft) window.__ft.marks.push(performance.now()); });
+  const prims = () => page.evaluate(() => { const a = document.querySelector(".atlas2"); if (!a || !a.__atlas2) return null; const s = a.__atlas2.statsNow(); return { level: s.level, triangles: s.triangles, segments: s.segments, riverSegments: s.riverSegments, lakeSegments: s.lakeSegments, lakeTriangles: s.lakeTriangles, draws: s.draws }; });
+  const releases = [];
   await send("touchStart", pts(60));
   for (let i = 1; i <= 30; i++) { await send("touchMove", pts(60 + i * 5)); await sleep(16); }
   if (probe) await probe();
+  await mark();
   await send("touchEnd", []);
-  await sleep(200);
+  await sleep(RELEASE_SETTLE_MS);   // the release frame (the held level giving way) lands inside this
+  releases.push(await prims());
   await send("touchStart", pts(210));
   for (let i = 1; i <= 30; i++) { await send("touchMove", pts(210 - i * 5)); await sleep(16); }
+  await mark();
   await send("touchEnd", []);
-  await sleep(300);
+  await sleep(RELEASE_SETTLE_MS);
+  releases.push(await prims());
+  return { releases };
 }
 async function scrub(page) {
   const pin = await page.$("#tlPin"), track = await page.$("#tlTrack");
@@ -159,17 +199,36 @@ async function scrub(page) {
 }
 /* a gesture REPEATS times: `runs` holds each repeat's summary, the pooled fields summarise every frame of
    every repeat, and p95med is the median of the per-repeat p95s (printed, not gated) */
-async function repeated(page, fn) {
-  const runs = [], all = [];
-  for (let i = 0; i < REPEATS; i++) { const s = await measure(page, fn); runs.push(s); all.push(...s.raw); }
+async function repeated(page, fn, warm) {
+  // Phase 1d: one unmeasured rehearsal first, settled, so the tiles and the relief patches a gesture passes
+  // through are resident before the first measured repeat — the gate measures the renderer, not the network
+  if (warm) await warm(); else { await fn(); await sleep(300); }
+  const runs = [], all = [], during = [], release = [];
+  for (let i = 0; i < REPEATS; i++) { const s = await measure(page, fn); runs.push(s); all.push(...s.raw); if (s.during) during.push(...s.during.raw); if (s.release) release.push(...s.release); }
   const p95s = runs.map((s) => s.p95).sort((a, b) => a - b);
-  return Object.assign(summary(all), { runs, p95med: p95s[Math.floor(p95s.length / 2)], p95s });
+  const out = Object.assign(summary(all), { runs, p95med: p95s[Math.floor(p95s.length / 2)], p95s });
+  if (release.length) { out.during = summary(during); out.release = release; out.releaseWorst = release.reduce((a, b) => (b.max > a.max ? b : a), release[0]); }
+  return out;
 }
-async function gestures(page, cdp, cx, cy, withScrub, pinchProbe) {
+// the rehearsal with the Atlas v2 controller on the page: the gesture, then every tile, water tile and relief patch it asked for
+async function warmV2(page, fn) {
+  await fn();
+  await settle(page);
+  await sleep(300);
+}
+// the wheel's rehearsal pauses at every step until the view has settled, because a tile queued at one zoom and no
+// longer wanted at the next is dropped from the queue — a plain run of the gesture leaves holes a measured run would fetch
+async function warmWheelV2(page, cx, cy) {
+  await page.mouse.move(cx, cy);
+  for (let i = 0; i < 12; i++) { await page.mouse.wheel(0, -120); await sleep(40); await settle(page); }
+  for (let i = 0; i < 12; i++) { await page.mouse.wheel(0, 120); await sleep(40); await settle(page); }
+  await sleep(300);
+}
+async function gestures(page, cdp, cx, cy, withScrub, pinchProbe, v2) {
   const r = {};
-  r.drag = await repeated(page, () => drag(page, cx, cy));
-  r.wheel = await repeated(page, () => wheel(page, cx, cy));
-  r.pinch = await repeated(page, () => pinch(page, cdp, cx, cy, pinchProbe));
+  r.drag = await repeated(page, () => drag(page, cx, cy), v2 ? () => warmV2(page, () => drag(page, cx, cy)) : null);
+  r.wheel = await repeated(page, () => wheel(page, cx, cy), v2 ? () => warmWheelV2(page, cx, cy) : null);
+  r.pinch = await repeated(page, () => pinch(page, cdp, cx, cy, pinchProbe), v2 ? () => warmV2(page, () => pinch(page, cdp, cx, cy)) : null);
   r.scrub = withScrub ? await repeated(page, () => scrub(page)) : null;
   if (withScrub && r.scrub && !r.scrub.n) r.scrub = null;
   return r;
@@ -256,7 +315,7 @@ async function fixedViews(page, cx, cy) {
     r.load = await page.evaluate(() => { const s = document.querySelector(".atlas2").__atlas2.stats; return { fetchMs: s.fetchMs, bytes: s.bytes, firstPaintMs: s.firstPaintMs, workerMs: s.worker && s.worker.totalMs, uploads: s.uploads, levels: s.worker && s.worker.levels.map((l) => l.level + ":" + l.triangles + "tri/" + l.segments + "seg/" + l.ms + "ms").join(" "), waterFetchMs: s.waterFetchMs, waterBytes: s.waterBytes, water: s.water && s.water.levels.map((l) => l.level + ":" + l.riverSegments + "riv/" + l.lakeSegments + "lake/" + l.triangles + "tri/" + l.ms + "ms").join(" ") }; });
     const zoomBefore = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.view.zoom);
     let zoomDuring = 0;
-    Object.assign(r, await gestures(page, cdp, cx, cy, false, async () => { zoomDuring = Math.max(zoomDuring, await page.evaluate(() => document.querySelector(".atlas2").__atlas2.view.zoom)); }));
+    Object.assign(r, await gestures(page, cdp, cx, cy, false, async () => { zoomDuring = Math.max(zoomDuring, await page.evaluate(() => document.querySelector(".atlas2").__atlas2.view.zoom)); }, true));
     r.pinchZoom = { before: zoomBefore, peak: zoomDuring };
     r.draw = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, s = c.stats; const d = s.draw.slice(-200).sort((a, b) => a - b); return Object.assign({ p50: d[Math.floor(d.length / 2)], max: d[d.length - 1] }, c.statsNow()); });
     r.heapMB = await page.evaluate(() => { if (window.gc) window.gc(); return performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : NaN; });
@@ -273,9 +332,10 @@ async function fixedViews(page, cx, cy) {
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ relief: true }));
     const reliefReady = await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.renderer.reliefLoaded("0") && c.tilesSettled(); }, null, { timeout: 90000 }).then(() => true, () => false);
     await page.waitForTimeout(400);
-    const rr = await gestures(page, cdp, cx, cy, false);
+    const rr = await gestures(page, cdp, cx, cy, false, null, true);
     rr.ready = reliefReady;
     rr.stats = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.statsNow());
+    rr.cost = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.stats.reliefCost.slice());
     results.v2relief = rr;
     viewsRelief = await fixedViews(page, cx, cy);
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ relief: false }));
@@ -289,9 +349,12 @@ async function fixedViews(page, cx, cy) {
   console.log("  gesture   target        n    mean     p50     p90     p95     p99     max  >50ms   per-repeat p95 (median)");
   const row = (g, name, s) => { if (!s) { console.log(`  ${g.padEnd(9)} ${name.padEnd(9)}  n/a`); return; } console.log(`  ${g.padEnd(9)} ${name.padEnd(9)} ${String(s.n).padStart(4)} ${fmt(s.mean)} ${fmt(s.p50)} ${fmt(s.p90)} ${fmt(s.p95)} ${fmt(s.p99)} ${fmt(s.max)} ${String(s.over50).padStart(6)}   ${(s.p95s || []).map((v) => v.toFixed(1)).join(" / ")} (${s.p95med != null ? s.p95med.toFixed(1) : "n/a"})`); };
   for (const g of ["drag", "wheel", "pinch", "scrub"]) { row(g, "v1", results.v1[g]); row(g, "v2", results.v2[g]); if (g !== "scrub") { row(g, "v1+relief", results.v1hm && results.v1hm[g]); row(g, "v2+relief", results.v2relief[g]); } }
+  const relRow = (name, s) => { if (!s || !s.during) return; const w = s.releaseWorst; console.log(`  ${"pinch".padEnd(9)} ${name.padEnd(9)}  during the gesture: n ${s.during.n} p90 ${fmt(s.during.p90)} max ${fmt(s.during.max)};  release frames: ${s.release.map((x) => x.max.toFixed(1)).join(" / ")} ms, worst ${w.max.toFixed(1)} ms${w.stats ? ` at LOD ${w.stats.level}: ${w.stats.triangles} tri + ${w.stats.segments} seg, ${w.stats.riverSegments} river, ${w.stats.lakeSegments} lake seg, ${w.stats.lakeTriangles} lake tri, ${w.stats.draws} draws` : ""}`); };
+  relRow("v2", results.v2.pinch); relRow("v2+relief", results.v2relief.pinch);
+  { const c = results.v2relief.cost || []; const done = c.filter((x) => x.uploadMs != null); if (done.length) { const med = (k) => { const a = done.map((x) => x[k]).sort((p, q) => p - q); return a[Math.floor(a.length / 2)]; }; const mx = (k) => Math.max(...done.map((x) => x[k])); console.log(`  relief first-use cost per patch (${done.length} patches, ungated): fetch+decode p50 ${Math.round(med("fetchMs"))} ms max ${Math.round(mx("fetchMs"))}; compose p50 ${med("composeMs")} ms max ${mx("composeMs")}; upload p50 ${med("uploadMs")} ms max ${mx("uploadMs")}; ${done.map((x) => `${x.key} ${(x.bytes / 1048576).toFixed(1)} MB ${Math.round(x.fetchMs)}+${x.composeMs}+${x.uploadMs} ms`).join(", ")}`); } }
   console.log(`\n  ready: v1 ${results.v1.ready} ms, v2 ${results.v2.ready} ms (fetch ${results.v2.load.fetchMs} ms, ${results.v2.load.bytes} bytes, first paint ${results.v2.load.firstPaintMs} ms, worker ${results.v2.load.workerMs} ms; water ${results.v2.load.waterBytes} bytes in ${results.v2.load.waterFetchMs} ms)`);
   console.log(`  v2 levels: ${results.v2.load.levels}; uploads ms ${JSON.stringify(results.v2.load.uploads)}; water levels: ${results.v2.load.water}`);
-  console.log(`  v2 renderer draw time (CPU side, ms): p50 ${results.v2.draw.p50 && results.v2.draw.p50.toFixed(2)}, max ${results.v2.draw.max && results.v2.draw.max.toFixed(2)}; last frame: level ${results.v2.draw.level}, ${results.v2.draw.triangles} triangles + ${results.v2.draw.segments} segments in ${results.v2.draw.draws} draw calls`);
+  console.log(`  v2 renderer draw time (CPU side, ms): p50 ${results.v2.draw.p50 && results.v2.draw.p50.toFixed(2)}, max ${results.v2.draw.max && results.v2.draw.max.toFixed(2)}; last frame: level ${results.v2.draw.level}, ${results.v2.draw.triangles} triangles + ${results.v2.draw.segments} segments in ${results.v2.draw.draws} draw calls; gesture stage ${results.v2.draw.stage} (0 none, 1 half resolution, 2 half resolution and one coarser level during a gesture — learnt in the rehearsals)`);
   console.log(`  JS heap: v1 ${results.v1.heapMB} MB, v2 ${results.v2.heapMB} MB; v2 pick at centre: "${results.v2.pick}"; v1 heightmap loaded: ${results.v1hm && results.v1hm.on}; v2 relief loaded: ${results.v2relief.ready} (${results.v2relief.stats.reliefResident} textures, ${(results.v2relief.stats.reliefBytes / 1048576).toFixed(1)} MB)`);
   const printViews = (title, vs) => {
     console.log(`\n${title}\n`);
@@ -304,7 +367,7 @@ async function fixedViews(page, cx, cy) {
 
   let fails = 0;
   const check = (name, ok, detail) => { console.log(`  ${ok ? "\x1b[32mok\x1b[0m  " : "\x1b[31mFAIL\x1b[0m"}  ${name}${detail ? "  \x1b[2m" + detail + "\x1b[0m" : ""}`); if (!ok) fails++; };
-  console.log(`\nThe gate (owner's redefinition 2026-10-08, extended for Phase 1b, sampled over ${REPEATS} repeats since Phase 1c): relief off — v2 pooled p90 ≤ ${RATIO * 100} % of v1's for drag, wheel, pinch; worst frame of any repeat ≤ ${WORST_MS} ms for drag and pinch; primitive budgets per view; relief on — ${RELIEF_VS_V1 ? "v2 pooled p90 ≤ " + RATIO * 100 + " % of v1's with its heightmap on" : "v2 pooled p90 ≤ " + RELIEF_FACTOR + " × its own relief-off pooled p90 (the v1 heightmap ratio is printed; see the header)"}\n`);
+  console.log(`\nThe gate (owner's redefinition 2026-10-08, extended for Phase 1b, sampled over ${REPEATS} repeats since Phase 1c, the Phase 1d rules of 2026-10-09): relief off — v2 pooled p90 ≤ ${RATIO * 100} % of v1's for drag, wheel, pinch; the drag's worst frame of any repeat ≤ ${WORST_MS} ms; the pinch's worst frame DURING the gesture ≤ ${WORST_MS} ms and its first frame after release ≤ ${RELEASE_MS} ms; primitive budgets per view; relief on, patches warmed — ${RELIEF_VS_V1 ? "v2 pooled p90 ≤ " + RATIO * 100 + " % of v1's with its heightmap on" : "v2 pooled p90 ≤ " + RELIEF_FACTOR + " × its own relief-off pooled p90 (the v1 heightmap ratio is printed; see the header)"}; heap ≤ ${HEAP_RATIO * 100} % of v1's\n`);
   for (const g of ["drag", "wheel", "pinch"]) {
     const a = results.v1[g], b = results.v2[g];
     check(`${g}: v2 pooled p90 ≤ ${RATIO * 100} % of v1 pooled p90`, b.p90 <= a.p90 * RATIO, `v2 ${b.p90.toFixed(1)} ms vs v1 ${a.p90.toFixed(1)} ms (${(100 * b.p90 / a.p90).toFixed(0)} %); per-repeat p95 medians v2 ${b.p95med.toFixed(1)} / v1 ${a.p95med.toFixed(1)}`);
@@ -312,7 +375,10 @@ async function fixedViews(page, cx, cy) {
   // rAF timestamps come in multiples of the 60 Hz refresh, 16.68 ms: a six-refresh frame reads 100.0 or
   // 100.1 depending on jitter, and "100 ms" means six refreshes, so a millisecond of timestamp slack is
   // allowed — a seven-refresh frame (116.7) still fails
-  for (const g of ["drag", "pinch"]) check(`${g}: v2 worst frame of ${REPEATS} repeats ≤ ${WORST_MS} ms (relief off)`, results.v2[g].max <= WORST_MS + 1, `${results.v2[g].max.toFixed(1)} ms (per repeat ${results.v2[g].runs.map((s) => s.max.toFixed(1)).join(" / ")})`);
+  check(`drag: v2 worst frame of ${REPEATS} repeats ≤ ${WORST_MS} ms (relief off)`, results.v2.drag.max <= WORST_MS + 1, `${results.v2.drag.max.toFixed(1)} ms (per repeat ${results.v2.drag.runs.map((s) => s.max.toFixed(1)).join(" / ")})`);
+  { const p = results.v2.pinch, w = p.releaseWorst;
+    check(`pinch: v2 worst frame DURING the gesture, ${REPEATS} repeats ≤ ${WORST_MS} ms (relief off)`, !!p.during && p.during.max <= WORST_MS + 1, p.during ? `${p.during.max.toFixed(1)} ms over ${p.during.n} frames (per repeat ${p.runs.map((s) => s.during ? s.during.max.toFixed(1) : "?").join(" / ")})` : "no marks recorded");
+    check(`pinch: v2 first full-screen frame after release ≤ ${RELEASE_MS} ms (relief off)`, !!w && w.max <= RELEASE_MS + 1, w ? `${w.max.toFixed(1)} ms (${p.release.map((x) => x.max.toFixed(1)).join(" / ")})${w.stats ? ` — that frame: LOD ${w.stats.level}, ${w.stats.triangles} triangles + ${w.stats.segments} segments, ${w.stats.lakeTriangles} lake triangles, ${w.stats.draws} draw calls` : ""}` : "no release frame recorded"); }
   for (const { V, still, settled } of views) {
     check(`${V.name}: tiles, water and relief settled`, settled, `${still.tilesDrawn} drawn, ${still.pending} pending, water ${still.waterTilesDrawn}/${still.waterWanted}`);
     check(`${V.name}: triangles ≤ ${V.tri}`, still.triangles <= V.tri, `${still.triangles}`);
@@ -327,7 +393,8 @@ async function fixedViews(page, cx, cy) {
     if (RELIEF_VS_V1) check(`${g}, relief on: v2 pooled p90 ≤ ${RATIO * 100} % of v1 (heightmap) pooled p90`, !!a && b.p90 <= a.p90 * RATIO, `v2 ${b.p90.toFixed(1)} ms; ${vsV1}; v2 worst ${b.max.toFixed(1)} ms (reported, not gated)`);
     else check(`${g}, relief on: v2 pooled p90 ≤ ${RELIEF_FACTOR} × its relief-off pooled p90`, b.p90 <= Math.max(off.p90, 16.7) * RELIEF_FACTOR, `v2 ${b.p90.toFixed(1)} ms on vs ${off.p90.toFixed(1)} ms off (per-repeat p95s on ${b.p95s.map((v) => v.toFixed(1)).join(" / ")}, off ${off.p95s.map((v) => v.toFixed(1)).join(" / ")}); ${vsV1}; v2 worst ${b.max.toFixed(1)} ms (reported, not gated)`);
   }
-  if (HEAP_MB > 0) check(`v2 JS heap after its gestures ≤ ${HEAP_MB} MB`, !(results.v2.heapMB > HEAP_MB), `${results.v2.heapMB} MB (v1 ${results.v1.heapMB} MB)`);
+  check(`v2 JS heap after its gestures ≤ ${HEAP_RATIO * 100} % of v1's`, Number.isFinite(results.v2.heapMB) && Number.isFinite(results.v1.heapMB) && results.v2.heapMB <= results.v1.heapMB * HEAP_RATIO, `v2 ${results.v2.heapMB} MB, v1 ${results.v1.heapMB} MB (${Number.isFinite(results.v1.heapMB) && results.v1.heapMB ? (100 * results.v2.heapMB / results.v1.heapMB).toFixed(0) : "?"} %)`);
+  { const c = (results.v2relief.cost || []).filter((x) => x.uploadMs != null); check("relief first-use cost measured (fetch + compose + upload per patch; reported, not gated)", c.length > 0, c.length ? `${c.length} patches, worst ${Math.max(...c.map((x) => x.fetchMs + x.composeMs + x.uploadMs)).toFixed(0)} ms` : "none recorded"); }
   if (!(results.v1hm && results.v1hm.on)) check("v1's heightmap could be switched on for the comparison", false, "no #heightmapToggle, or its data did not load");
   check("v2 relief loaded (L0 and the view's L1 patches)", results.v2relief.ready, `${results.v2relief.stats.reliefResident} textures`);
   for (const { V, settled } of viewsRelief) check(`${V.name}, relief on: tiles and relief settled`, settled);

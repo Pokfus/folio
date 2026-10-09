@@ -139,6 +139,12 @@ jobs:
       # item, and the 0.6 MB budget.
       - name: check-gazetteer (Atlas v2, the places registry)
         run: node --max-old-space-size=8000 .claude/atlas-build/check-gazetteer.js
+      # THE CREDITS PAGE IS GENERATED FROM THE DATA FILES' OWN HEADERS (Oct 2026, Phase 1d; docs/atlas-v2-design.md §2.10a).
+      # check-credits.js regenerates atlas/data/credits.js in memory from every header under atlas/data/ and fails when the
+      # committed file lags the data, when a licence is not an accepted identifier, when a link is not https, or when a
+      # share-alike (ODbL) file is missing from the statement — a stale credits page is a licence problem nobody sees.
+      - name: check-credits (Atlas v2, the Sources and credits page)
+        run: node .claude/atlas-build/check-credits.js
       # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
       # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
       # for every visitor -- and the only symptom is a slower site.
@@ -301,8 +307,9 @@ jobs:
       # test-atlas-perf.js is NOT in this loop (Oct 2026, Phase 1b): it has a job of its own below, so its
       # verdict is not lost in a job that three unrelated suites keep red. Everything else that says
       # "playwright" runs here — including Phase 1c's five Atlas v2 suites (test-atlas-render.js,
-      # test-atlas-labels.js, test-atlas-card.js, test-atlas-search.js, test-atlas-a11y.js), which the loop
-      # picks up by name like any other.
+      # test-atlas-labels.js, test-atlas-card.js, test-atlas-search.js, test-atlas-a11y.js) and Phase 1d's four
+      # (test-atlas-credits.js, test-atlas-fallbacks.js — file://, no WebGL2, context loss, a failed worker —,
+      # test-atlas-phone.js and the five-minute test-atlas-session.js), which the loop picks up by name like any other.
       - name: Run the browser suites
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
@@ -319,12 +326,15 @@ jobs:
           echo "all browser suites passed"
 
   # THE ATLAS v2 FRAME GATE, IN A JOB OF ITS OWN (Oct 2026, docs/atlas-v2-design.md §2.2 "the frame gate",
-  # §7 Phase 1b). The browser job above is red on main because of three suites that fail for reasons of
+  # §7 Phase 1b–1d). The browser job above is red on main because of three suites that fail for reasons of
   # their own, and a red job is one nobody opens -- so the one suite whose verdict the owner asked to
-  # read on every push (v2's p95 at most 40 % of v1's, the worst frame at most 100 ms, the primitive
-  # budgets per fixed view with rivers and lakes, and the same gate with relief on against v1's heightmap)
-  # runs here, alone, and speaks for itself in the job list. It needs only Chromium; it installs
-  # Playwright outside the repo exactly as the browser job does.
+  # read on every push runs here, alone, and speaks for itself in the job list. The rules since Phase 1d
+  # (2026-10-09): v2's pooled p90 at most 40 % of v1's for drag, wheel and pinch; the drag's worst frame at most
+  # 100 ms; the pinch's worst frame DURING the gesture at most 100 ms and its first full-screen frame after release
+  # at most 300 ms, reported with that frame's primitive count; relief on, with the view's L1 patches warmed first,
+  # at most 2.0 x relief off; the first-use cost of a patch reported, ungated; the JS heap at most 50 % of v1's in
+  # the same run; the primitive budgets per fixed view. It needs only Chromium; it installs Playwright outside
+  # the repo exactly as the browser job does.
   atlas-perf:
     name: Atlas v2 frame gate
     runs-on: ubuntu-latest

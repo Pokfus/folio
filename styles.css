@@ -10563,91 +10563,198 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
    The globe is a WebGL2 canvas that fills the page below the header; the chrome is ordinary DOM. Colours come
    from the theme tokens (atlas/atlas.js reads them), so nothing here names a hue. Phase 0 only; v1's .globe
    rules are untouched. */
-.atlas2{position:relative; width:100%; height:calc(100vh - 150px); min-height:360px; border-radius:14px; overflow:hidden; background:var(--paper-2);}
+.atlas2{position:relative; width:100%; height:calc(100vh - 150px); min-height:min(360px, calc(100vh - 110px)); border-radius:14px; overflow:hidden; background:var(--paper-2);}
 .atlas2-canvas{display:block; width:100%; height:100%; cursor:grab; outline:none; touch-action:none;}
 .atlas2-canvas:active{cursor:grabbing;}
 .atlas2-canvas:focus-visible{box-shadow:inset 0 0 0 2px var(--indigo);}
 .atlas2-zoom{position:absolute; right:12px; top:12px; display:flex; flex-direction:column; gap:6px;}
-.atlas2-btn{width:34px; height:34px; border-radius:9px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:600 18px/1 var(--sans); cursor:pointer;}
+.atlas2-btn{width:34px; height:34px; border-radius:9px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:600 calc(18px * var(--fs, 1))/1 var(--sans); cursor:pointer;}
 .atlas2-btn[aria-pressed="true"]{background:var(--indigo); color:#fff; border-color:var(--indigo);}
-.atlas2-status{position:absolute; left:12px; bottom:12px; display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:10px; background:var(--card); color:var(--ink-soft); font:14px/1.3 var(--sans); max-width:calc(100% - 24px);}
+.atlas2-status{position:absolute; left:12px; bottom:12px; display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:10px; background:var(--card); color:var(--ink-soft); font:calc(14px * var(--fs, 1))/1.3 var(--sans); max-width:calc(100% - 24px);}
 .atlas2-status[hidden]{display:none;}
 .atlas2-status.atlas2-fail{color:var(--ink);}
 .atlas2-bar{display:inline-block; width:120px; height:6px; border-radius:3px; background:var(--paper-2); overflow:hidden; flex:none;}
 .atlas2-bar[hidden]{display:none;}
 .atlas2-bar i{display:block; height:100%; width:0; background:var(--indigo); transition:width .15s linear;}
-.atlas2-caption{position:absolute; left:12px; top:12px; padding:6px 10px; border-radius:9px; background:var(--card); color:var(--ink); font:600 15px/1.3 var(--display); pointer-events:none;}
+.atlas2-caption{position:absolute; left:12px; top:12px; padding:6px 10px; border-radius:9px; background:var(--card); color:var(--ink); font:600 calc(15px * var(--fs, 1))/1.3 var(--display); pointer-events:none;}
 .atlas2-caption:empty{display:none;}
-.atlas2-perf{position:absolute; left:12px; bottom:12px; right:12px; max-width:max-content; max-height:calc(100% - 24px); overflow:hidden; box-sizing:border-box; margin:0; padding:6px 8px; border-radius:8px; background:var(--card); color:var(--ink); font:12px/1.35 ui-monospace,Menlo,Consolas,monospace; opacity:.92; pointer-events:none; white-space:pre-wrap; overflow-wrap:anywhere;}
+.atlas2-perf{position:absolute; left:12px; bottom:12px; right:12px; max-width:max-content; max-height:calc(100% - 24px); overflow:hidden; box-sizing:border-box; margin:0; padding:6px 8px; border-radius:8px; background:var(--card); color:var(--ink); font:calc(12px * var(--fs, 1))/1.35 ui-monospace,Menlo,Consolas,monospace; opacity:.92; pointer-events:none; white-space:pre-wrap; overflow-wrap:anywhere;}
 /* on a phone the overlay would be clipped at the right edge (the max frame time, the ends of the water, relief and
    tile lines): it wraps instead, in a smaller face, so every figure stays on a 350 px screen (Oct 2026) */
-.atlas2-phone .atlas2-perf{font-size:10.5px; line-height:1.3; padding:5px 6px;}
+.atlas2-phone .atlas2-perf{font-size:calc(10.5px * var(--fs, 1)); line-height:1.3; padding:5px 6px;}
 /* the Atlas v2 layers control (Phase 1b, docs/atlas-v2-design.md §7): a button under the zoom stack and a small sheet
    of toggles — relief with its strength, rivers, lakes, graticule — remembered per reader. The full legend is 1c. */
 .atlas2-layers{position:absolute; right:12px; top:138px; display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
-.atlas2-sheet{display:flex; flex-direction:column; gap:8px; padding:10px 12px; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:14px/1.3 var(--sans); min-width:150px;}
+.atlas2-sheet{display:flex; flex-direction:column; gap:8px; padding:10px 12px; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:calc(14px * var(--fs, 1))/1.3 var(--sans); min-width:150px;}
 .atlas2-sheet[hidden]{display:none;}
 .atlas2-sheet label{display:flex; align-items:center; gap:8px; cursor:pointer;}
 .atlas2-sheet input[type=range]{width:100px;}
-.atlas2-strength{padding-left:22px; color:var(--ink-soft); font-size:13px;}
+.atlas2-strength{padding-left:22px; color:var(--ink-soft); font-size:calc(13px * var(--fs, 1));}
 .atlas2-strength input:disabled{opacity:.4;}
-.atlas2-layers-note{margin:0; max-width:220px; color:var(--ink-soft); font-size:12px;}
+.atlas2-layers-note{margin:0; max-width:220px; color:var(--ink-soft); font-size:calc(12px * var(--fs, 1));}
 .atlas2-layers-note[hidden]{display:none;}
 
 /* ---------- Atlas v2, Phase 1c: the label layer, the legend, the card, search, the stack chip (Oct 2026) ---------- */
 .atlas2-labels{position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none;}
 .atlas2-search{position:absolute; left:12px; top:12px; width:min(300px, calc(100% - 24px)); z-index:3;}
-.atlas2-search-in{width:100%; box-sizing:border-box; padding:8px 12px; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:15px/1.3 var(--sans); outline:none;}
+.atlas2-search-in{width:100%; box-sizing:border-box; padding:8px 12px; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:calc(15px * var(--fs, 1))/1.3 var(--sans); outline:none;}
 .atlas2-search-in:focus-visible{box-shadow:0 0 0 2px var(--indigo);}
-.atlas2-results{position:absolute; left:0; right:0; top:calc(100% + 4px); margin:0; padding:4px 0; list-style:none; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:14px/1.3 var(--sans); box-shadow:0 8px 24px rgba(0,0,0,.14); max-height:min(360px, 60vh); overflow:auto;}
+.atlas2-results{position:absolute; left:0; right:0; top:calc(100% + 4px); margin:0; padding:4px 0; list-style:none; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:calc(14px * var(--fs, 1))/1.3 var(--sans); box-shadow:0 8px 24px rgba(0,0,0,.14); max-height:min(360px, 60vh, var(--atlas2-list-max, 100vh)); overflow:auto;}   /* --atlas2-list-max: the room between the list's top and the visual viewport's bottom, so the list stays above a soft keyboard (Phase 1d) */
 .atlas2-results[hidden]{display:none;}
 .atlas2-results li{display:flex; align-items:baseline; gap:8px; padding:7px 12px; cursor:pointer;}
 .atlas2-results li.active, .atlas2-results li:hover{background:var(--indigo-wash);}
 .atlas2-res-name{flex:none;}
-.atlas2-chip{flex:none; padding:1px 7px; border-radius:999px; border:1px solid var(--rule); color:var(--ink-quiet); font:11px/1.4 var(--mono); letter-spacing:.03em;}
-.atlas2-res-in{color:var(--ink-quiet); font-size:12.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.atlas2-chip{flex:none; padding:1px 7px; border-radius:999px; border:1px solid var(--rule); color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.03em;}
+.atlas2-res-in{color:var(--ink-quiet); font-size:calc(12.5px * var(--fs, 1)); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .atlas2-caption{top:auto; bottom:12px; left:12px;}
-.atlas2-stack{position:absolute; z-index:4; padding:5px 10px; border-radius:999px; border:1px solid var(--indigo); background:var(--card); color:var(--ink); font:600 13px/1.3 var(--sans); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.12);}
+.atlas2-stack{position:absolute; z-index:4; padding:5px 10px; border-radius:999px; border:1px solid var(--indigo); background:var(--card); color:var(--ink); font:600 calc(13px * var(--fs, 1))/1.3 var(--sans); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.12);}
 .atlas2-stack[hidden]{display:none;}
 .atlas2-sheet-head{display:flex; align-items:center; justify-content:space-between; gap:8px; font-family:var(--display);}
-.atlas2-sheet-close, .atlas2-card-close{appearance:none; border:0; background:none; color:var(--ink-soft); font:20px/1 var(--sans); cursor:pointer; padding:0 4px;}
+.atlas2-sheet-close, .atlas2-card-close{appearance:none; border:0; background:none; color:var(--ink-soft); font:calc(20px * var(--fs, 1))/1 var(--sans); cursor:pointer; padding:0 4px;}
 .atlas2-group{margin:0; padding:4px 0 2px 8px; border:0; border-left:2px solid var(--rule); display:flex; flex-direction:column; gap:6px;}
-.atlas2-group legend{padding:0; margin-bottom:2px; color:var(--ink-quiet); font:11px/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
+.atlas2-group legend{padding:0; margin-bottom:2px; color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
 .atlas2-density{flex-direction:row; flex-wrap:wrap; gap:4px 12px;}
 /* the place card: a side column on a desktop… */
 .atlas2-card{position:absolute; right:12px; top:12px; bottom:12px; width:min(380px, calc(100% - 24px)); z-index:5; display:flex; flex-direction:column; border-radius:14px; border:1px solid var(--rule); background:var(--card); color:var(--ink); box-shadow:0 10px 30px rgba(0,0,0,.16); overflow:hidden;}
 .atlas2-card[hidden]{display:none;}
-.atlas2-has-card .atlas2-zoom, .atlas2-has-card .atlas2-layers{right:calc(min(380px, calc(100% - 24px)) + 24px);}
+.atlas2-has-card .atlas2-zoom, .atlas2-has-card .atlas2-layers, .atlas2-has-card .atlas2-help{right:calc(min(380px, calc(100% - 24px)) + 24px);}
 .atlas2-grip{display:none;}
 .atlas2-card-head{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; padding:14px 16px 10px; border-bottom:1px solid var(--rule);}
 .atlas2-card-title{margin:0; font:700 calc(19px * var(--fs, 1))/1.25 var(--display); letter-spacing:-.01em;}
-.atlas2-card-kind{margin:3px 0 0; color:var(--ink-quiet); font:12px/1.4 var(--mono); letter-spacing:.04em;}
+.atlas2-card-kind{margin:3px 0 0; color:var(--ink-quiet); font:calc(12px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.04em;}
 .atlas2-card-body{padding:12px 16px 16px; overflow:auto; font:calc(15px * var(--fs, 1))/1.55 var(--serif);}
-.atlas2-card-span{margin:0 0 8px; color:var(--ink-quiet); font:13px/1.4 var(--sans);}
+.atlas2-card-span{margin:0 0 8px; color:var(--ink-quiet); font:calc(13px * var(--fs, 1))/1.4 var(--sans);}
 .atlas2-card-desc{margin:0 0 12px;}
 .atlas2-card-none{color:var(--ink-soft); font-style:italic;}
 .atlas2-stats{display:grid; grid-template-columns:1fr 1fr; gap:7px; margin:0 0 12px;}
 .atlas2-stats > *{min-width:0;}
 .atlas2-stat{padding:8px 10px; border-radius:10px; background:var(--paper-2); display:flex; flex-direction:column; gap:2px;}
-.atlas2-stat-l{color:var(--ink-quiet); font:11px/1.3 var(--mono); letter-spacing:.05em; text-transform:uppercase;}
-.atlas2-stat-v{font:600 15px/1.3 var(--sans); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-.atlas2-card-within, .atlas2-card-link{margin:0 0 8px; font:14px/1.4 var(--sans);}
+.atlas2-stat-l{color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.05em; text-transform:uppercase;}
+.atlas2-stat-v{font:600 calc(15px * var(--fs, 1))/1.3 var(--sans); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.atlas2-card-within, .atlas2-card-link{margin:0 0 8px; font:calc(14px * var(--fs, 1))/1.4 var(--sans);}
 .atlas2-link{appearance:none; border:0; background:none; padding:0; color:var(--indigo-bright); font:inherit; cursor:pointer; text-decoration:underline;}
 .atlas2-card-link a{color:var(--indigo-bright);}
 .atlas2-srcnote{margin-top:14px;}
-.atlas2-src-h{margin:0; color:var(--ink-quiet); font:11px/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
-.atlas2-card-loading{color:var(--ink-soft); font:14px/1.4 var(--sans);}
+.atlas2-src-h{margin:0; color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
+.atlas2-card-loading{color:var(--ink-soft); font:calc(14px * var(--fs, 1))/1.4 var(--sans);}
 /* …and a bottom sheet with a grip on a phone, opening shut (the title strip alone) like v1's */
 .atlas2-phone .atlas2-card{left:0; right:0; top:auto; bottom:0; width:auto; max-height:70%; border-radius:16px 16px 0 0; border-bottom:0;}
 .atlas2-phone .atlas2-card-shut{max-height:none; height:auto;}
 .atlas2-phone .atlas2-card-shut .atlas2-card-body{display:none;}
 .atlas2-phone .atlas2-grip{display:block; appearance:none; border:0; background:none; padding:8px 0 2px; cursor:pointer; width:100%;}
 .atlas2-phone .atlas2-grip i{display:block; width:42px; height:5px; margin:0 auto; border-radius:3px; background:var(--rule);}
-.atlas2-phone .atlas2-has-card .atlas2-zoom, .atlas2-phone.atlas2-has-card .atlas2-layers{right:12px;}
-.atlas2-phone .atlas2-layers-btn{width:auto; padding:0 12px; font:600 14px/1 var(--sans); border-radius:999px;}
+.atlas2-phone.atlas2-has-card .atlas2-zoom, .atlas2-phone.atlas2-has-card .atlas2-layers, .atlas2-phone.atlas2-has-card .atlas2-help{right:max(12px, env(safe-area-inset-right));}   /* the first selector read `.atlas2-phone .atlas2-has-card` (a descendant) until Phase 1d and never matched: with a card open the zoom stack sat 400 px off the left edge of a phone */
+.atlas2-phone .atlas2-layers-btn{width:auto; padding:0 12px; font:600 calc(14px * var(--fs, 1))/1 var(--sans); border-radius:999px;}
 .atlas2-phone .atlas2-sheet{position:fixed; left:0; right:0; bottom:0; z-index:6; border-radius:16px 16px 0 0; max-height:70vh; overflow:auto; box-shadow:0 -8px 24px rgba(0,0,0,.18);}
 .atlas2-phone .atlas2-search{width:calc(100% - 80px);}
 .atlas2-phone .atlas2-caption{bottom:12px;}
 .atlas2-keys{position:absolute;}
 .atlas2-keys ul{margin:0; padding:0; list-style:none;}
 .atlas2-keys button{appearance:none; border:0; background:none; padding:0; font:inherit;}
+
+/* ---------- Sources and credits (#credits), Oct 2026, Atlas v2 Phase 1d ---------- */
+/* The page is the About page's credits list grown into a page of its own, so it borrows .mission / .msn-card / .credits-list
+   and adds only the per-source fields. Long paths and URLs must break on a 390 px phone (overflow-wrap), never widen the page. */
+.credits .cred-list li{padding-left:0;}
+.credits .cred-list li::before{content:none;}
+.credits .cred-src{padding:12px 0 14px; border-top:1px solid var(--rule);}
+.credits .cred-src:first-child{border-top:0; padding-top:0;}
+.cred-top{display:flex; align-items:baseline; flex-wrap:wrap; gap:6px 10px;}
+.cred-name{font-family:var(--serif); font-size:calc(15.5px * var(--fs)); color:var(--ink);}
+.cred-meta, .cred-attr, .cred-files, .cred-foot{margin:6px 0 0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft); overflow-wrap:anywhere;}
+.cred-attr{font-family:var(--serif); font-style:italic; color:var(--ink);}
+.cred-files code, .cred-odbl-files code{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft); background:var(--paper-2); padding:1px 5px; border-radius:4px; overflow-wrap:anywhere;}
+.cred-odbl-files{margin:10px 0 0; padding-left:18px; display:flex; flex-direction:column; gap:4px; font-size:calc(13px * var(--fs));}
+.credits .msn-card p{font-family:var(--serif); font-size:calc(15px * var(--fs)); line-height:1.6; color:var(--ink); margin:0 0 10px;}
+.credits .msn-card p:last-child{margin-bottom:0;}
+.credits .cred-src p{margin:6px 0 0;}
+.cred-foot{margin:4px 0 0; color:var(--ink-quiet);}
+.cred-foot a, .credits .msn-card a{color:var(--indigo);}
+
+/* ---------- Atlas v2, Phase 1d: the About sheet, the announcer (Oct 2026) ---------- */
+.atlas2-help{position:absolute; right:12px; top:180px; display:flex; flex-direction:column; align-items:flex-end; gap:6px; z-index:4;}
+.atlas2-about{max-width:min(340px, calc(100vw - 48px)); font-size:calc(13.5px * var(--fs, 1));}
+.atlas2-about-p{margin:0; line-height:1.5;}
+.atlas2-about-caution{color:var(--ink-soft);}
+.atlas2-about a{color:var(--indigo-bright);}
+.atlas2-keys-help{margin:4px 0 0; display:grid; grid-template-columns:auto 1fr; gap:4px 10px; font-size:calc(12.5px * var(--fs, 1));}
+.atlas2-keys-help div{display:contents;}
+.atlas2-keys-help dt{font-family:var(--mono); font-size:calc(11.5px * var(--fs, 1)); color:var(--ink-quiet); white-space:nowrap;}
+.atlas2-keys-help dd{margin:0; color:var(--ink-soft);}
+.atlas2-phone .atlas2-help{top:auto; bottom:calc(60px + env(safe-area-inset-bottom)); right:12px;}
+.atlas2-phone .atlas2-about{position:fixed; left:0; right:0; bottom:0; max-width:none; z-index:6; border-radius:16px 16px 0 0; max-height:70vh; overflow:auto; box-shadow:0 -8px 24px rgba(0,0,0,.18); padding-bottom:calc(12px + env(safe-area-inset-bottom));}
+.atlas2-announce{position:absolute;}
+.atlas2-mode{position:absolute; left:12px; right:12px; bottom:12px; margin:0; padding:8px 12px; border-radius:10px; background:var(--card); color:var(--ink-soft); font:calc(13px * var(--fs, 1))/1.4 var(--sans); max-width:520px; box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.atlas2-mode[hidden]{display:none;}
+.atlas2-phone .atlas2-mode{bottom:calc(12px + env(safe-area-inset-bottom)); right:12px; left:12px;}
+
+/* ---------- Atlas v2, Phase 1d: reduced motion and forced colours ---------- */
+/* under reduced motion nothing in the Atlas transitions or animates (the site's own colour transitions included): a sheet appears, a bar jumps, the globe lands */
+@media (prefers-reduced-motion:reduce){ .atlas2, .atlas2 *{transition:none !important; animation:none !important;} }
+/* Windows High Contrast / forced-colors: box-shadows vanish, so the focus ring and the sheets' edges are drawn with outlines
+   and system colours; the canvases keep their own palette (a map in two colours is no map) */
+@media (forced-colors:active){
+  .atlas2-canvas:focus-visible{outline:3px solid Highlight; outline-offset:-3px; box-shadow:none;}
+  .atlas2-btn, .atlas2-sheet, .atlas2-card, .atlas2-search-in, .atlas2-results, .atlas2-stack, .atlas2-status, .atlas2-caption, .atlas2-mode{border:1px solid CanvasText; box-shadow:none; background:Canvas; color:CanvasText;}
+  .atlas2-btn[aria-pressed="true"]{background:Highlight; color:HighlightText;}
+  .atlas2-results li.active, .atlas2-results li:hover{background:Highlight; color:HighlightText;}
+  .atlas2-search-in:focus-visible, .atlas2-btn:focus-visible, .atlas2-link:focus-visible, .atlas2-sheet-close:focus-visible, .atlas2-card-close:focus-visible, .atlas2-grip:focus-visible, .atlas2-card-title:focus-visible{outline:2px solid Highlight; outline-offset:2px; box-shadow:none;}
+  .atlas2-bar{border:1px solid CanvasText;} .atlas2-bar i{background:Highlight;}
+  .atlas2-link, .atlas2-about a, .atlas2-card-link a{color:LinkText;}
+}
+/* the Atlas chrome follows the site's Text size setting (its font sizes are calc(px × --fs), Phase 1d); at 200 % the sheets
+   must scroll inside the Atlas rather than run off it */
+.atlas2-sheet{max-height:calc(100% - 24px); overflow:auto; box-sizing:border-box;}
+.atlas2-layers, .atlas2-help{max-height:calc(100% - 24px);}
+.atlas2-card-title:focus-visible{outline:2px solid var(--indigo); outline-offset:2px; border-radius:4px;}
+.atlas2-btn:focus-visible, .atlas2-sheet-close:focus-visible, .atlas2-card-close:focus-visible, .atlas2-grip:focus-visible, .atlas2-link:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+
+/* ---------- Atlas v2, Phase 1d: the phone audit (360×640 … 430×932, landscape 844×390; 768×1024 is a desktop layout) ---------- */
+/* 44 px targets on a coarse pointer; the chips, sheets and notes respect the safe-area insets; the About chip sits under the
+   Legend chip; while a card is up the right-hand chips step aside (one sheet at a time), so nothing overlaps the sheet */
+.atlas2-phone .atlas2-btn{width:44px; height:44px;}
+.atlas2-phone .atlas2-layers-btn{height:44px; width:auto; min-width:44px;}   /* the "Legend" word is wider than a 44 px square (the audit's synth shot had it clipped) */
+.atlas2-phone .atlas2-zoom{right:max(12px, env(safe-area-inset-right)); gap:8px;}
+.atlas2-phone .atlas2-layers{top:168px; right:max(12px, env(safe-area-inset-right));}
+.atlas2-phone .atlas2-help{top:220px; bottom:auto; right:max(12px, env(safe-area-inset-right));}
+.atlas2-phone .atlas2-search{left:max(12px, env(safe-area-inset-left)); width:calc(100% - 80px - env(safe-area-inset-left) - env(safe-area-inset-right));}
+.atlas2-phone .atlas2-search-in{min-height:44px;}
+.atlas2-phone .atlas2-results li{min-height:44px; box-sizing:border-box; align-items:center;}
+.atlas2-phone .atlas2-sheet label{min-height:40px;}
+.atlas2-phone .atlas2-sheet-close, .atlas2-phone .atlas2-card-close{min-width:44px; min-height:44px;}
+.atlas2-phone .atlas2-grip{min-height:44px; padding:0;}
+.atlas2-phone .atlas2-stack{min-height:44px;}
+.atlas2-phone .atlas2-status, .atlas2-phone .atlas2-caption{left:max(12px, env(safe-area-inset-left)); bottom:calc(12px + env(safe-area-inset-bottom)); right:auto; max-width:calc(100% - 80px);}
+.atlas2-phone .atlas2-mode{bottom:calc(64px + env(safe-area-inset-bottom)); left:max(12px, env(safe-area-inset-left)); right:max(12px, env(safe-area-inset-right));}
+.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 140px)); padding-bottom:env(safe-area-inset-bottom);}
+.atlas2-phone .atlas2-sheet, .atlas2-phone .atlas2-about{max-height:min(70vh, calc(100% - 140px)); padding-bottom:calc(12px + env(safe-area-inset-bottom));}
+.atlas2-phone.atlas2-has-card .atlas2-layers, .atlas2-phone.atlas2-has-card .atlas2-help, .atlas2-phone.atlas2-has-card .atlas2-caption{display:none;}
+
+/* the two sheets open to the LEFT of the right-hand chip column on a desktop, never over it (Phase 1d, the phone audit found
+   the legend's sheet covering the About chip and the About sheet covering the Legend chip); on a phone they are bottom sheets
+   and the chips step aside while one is open (.atlas2-sheet-open) */
+.atlas2-layers, .atlas2-help{align-items:flex-end;}
+.atlas2-layers .atlas2-sheet, .atlas2-help .atlas2-about{position:absolute; right:46px; top:0;}
+/* a sheet's height is bounded by the ATLAS, not by its chip's container (which is only as tall as the chip: the first cut read
+   max-height:calc(100% - 24px) against a 34 px container and showed the About sheet as a one-line strip): --atlas2-h is the
+   Atlas's own height, set by atlas.js on every layout */
+.atlas2-layers .atlas2-sheet{max-height:calc(var(--atlas2-h, 100vh) - 150px);}
+.atlas2-help .atlas2-about{max-height:calc(var(--atlas2-h, 100vh) - 192px);}
+.atlas2-layers, .atlas2-help{max-height:none;}
+.atlas2-phone .atlas2-layers .atlas2-sheet, .atlas2-phone .atlas2-help .atlas2-about{position:fixed; right:0; top:auto;}
+.atlas2-phone.atlas2-sheet-open .atlas2-zoom, .atlas2-phone.atlas2-sheet-open .atlas2-layers-btn, .atlas2-phone.atlas2-sheet-open .atlas2-about-btn, .atlas2-phone.atlas2-sheet-open .atlas2-caption, .atlas2-phone.atlas2-sheet-open .atlas2-stack{display:none;}
+/* the expanded card sheet stops short of the zoom stack (three 44 px buttons from the top on a phone) */
+.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 184px));}
+/* a phone on its side (the 844×390 audit): the atlas is under 300 px tall and the rule above left the up sheet 96 px — a title
+   and no body. There the up sheet takes the height below the search box and the zoom stack steps out from under it */
+@media (orientation: landscape) and (max-height: 500px){
+  .atlas2-phone .atlas2-card{max-height:calc(100% - 68px);}
+  .atlas2-phone.atlas2-card-up .atlas2-zoom{display:none;}
+}
+/* a desktop with the card column open and under about 900 px (a tablet): the search box yields to the zoom stack the column pushed left */
+.atlas2-has-card .atlas2-search{width:min(300px, calc(100% - 486px));}
+.atlas2-phone.atlas2-has-card .atlas2-search{width:calc(100% - 80px - env(safe-area-inset-left) - env(safe-area-inset-right));}
+
+/* axe (Phase 1d): the licence chip's link read 3.5:1 in indigo at 10 px — ink, and a size up */
+.cred-list .cr-lic{font-size:calc(11px * var(--fs)); color:var(--ink-soft);}
+.cred-list .cr-lic a, .cred-list .cr-lic a:hover{color:var(--ink); border-bottom-color:var(--ink-soft);}

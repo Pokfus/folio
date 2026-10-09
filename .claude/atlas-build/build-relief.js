@@ -188,6 +188,7 @@ async function main() {
     fs.rmSync(SITE, { recursive: true, force: true });
     fs.cpSync(OUT, SITE, { recursive: true });
     say(`installed into atlas/data/relief/`);
+    require("./build-credits.js").build({ install: true });   // the credits page follows every install (Phase 1d)
   }
 }
 

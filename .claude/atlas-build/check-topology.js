@@ -497,5 +497,10 @@ function checkTiles(T, H, dir) {
 }
 
 run();
+/* the file:// twin (Phase 1d, lib/twin.js): the same bytes as base64 in a script, checked by sha256 */
+if (file.endsWith("topology.bin")) {
+  const tw = require("./lib/twin.js").checkTwin(file);
+  tw.ok ? ok("the .js twin decodes to the same bytes (sha256)", `${(tw.twinBytes / 1e6).toFixed(2)} MB for ${(tw.bytes / 1e6).toFixed(2)}; ${tw.sha256.slice(0, 16)}…`) : bad("the .js twin decodes to the same bytes (sha256)", tw.reason + " — run: node .claude/atlas-build/pack.js --twin");
+}
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);

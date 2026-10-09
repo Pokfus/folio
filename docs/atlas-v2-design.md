@@ -1175,7 +1175,7 @@ relief, labels, picking, the credits page — with no timeline yet.*
 | **1a — land at every zoom** | the OSM land partition (1), admin-0 and admin-1 conflated onto it (2), LOD 3–4 as tiles with per-tile fills, the renderer's tile fetch, level selection and the 150 m/px cap, the checker on tiles, the redefined frame gate (§2.2), the build doc (9) | **built — see "Phase 1a — as built" below** |
 | 1b — water and relief | rivers and lakes (3), relief (4) and the sphere pass's relief lookup, the minimal layers control | **built — see "Phase 1b — as built" below** |
 | 1c — names and picking | the gazetteer (5), the label layer, markers, hover, the stack chip, the place card, deep links, the legend, the phone layout (6) | **built — see "Phase 1c — as built" below** |
-| 1d — credits and fallbacks | the `#credits` page (7) — the phase's one reader-visible change, with its changelog line and version bump — and the fallbacks (8): no-WebGL2, `file://` via the `.js` twin, context loss | not started |
+| **1d — reader-ready** | the `#credits` page (7) — the phase's one reader-visible change, with its changelog line and version bump —, English names with one row per place, the About sheet, the fallbacks (8): no-WebGL2, `file://` via the `.js` twins, context loss, a failed worker; the phone audit, the accessibility audit, the long-session memory proof, the owner's frame-gate rules of 2026-10-09 | **built — see "Phase 1d — as built" below** |
 
 Deliverables:
 1. `build-land.js` on **OSM land polygons** (Q-S1 a): finest-level land/sea partition; LOD 0–4 by
@@ -1937,6 +1937,329 @@ strip and the grip. Two things a reader would notice and the phase does not fix:
 limb are foreshortened (by design — they fade with the limb), and GERMANY's tracked name runs over the
 Elbe's label at 3 km/px in one density because a river label is placed after the country's and does not know
 the country's glyph boxes are tracked (the overlap test is on rectangles; the glyphs' ink does not touch).
+
+#### Phase 1d — as built (2026-10-09)
+
+Everything in the 1d row of the table above exists and runs; the owner's frame-gate rules of 2026-10-09 (task 0 of the
+brief) are in the suite and recorded below; CI's first complete browser job after the 1c merge was read and classified
+first. In `.claude/atlas-build/`: `lib/wikidata.js` (the one SPARQL client — sitelinks and now English labels, 50 items a
+call, the back-off schedule, the cache written after every batch), `lib/twin.js` (the `file://` twins), `build-credits.js`
+and `check-credits.js`; `build-gazetteer.js` with the English-name rule and the merge; `check-gazetteer.js` with the
+Phase 1d rules; `pack.js --twin` and `pack-water.js --twin`. In `atlas/`: `atlas-canvas.js` (the still Canvas 2D view),
+`atlas-worker.js` made cooperative (every heavy loop awaits a `tick()` that is a no-op in a Worker and a yield on the main
+thread), `atlas-format.js` with a generator reader (`readAsync`), `atlas.js` with the renderer choice, the twins, the
+worker-failure fallback, the About sheet, the announcer, the focus rules, adaptive degradation (half resolution, then one coarser level, during a gesture on a slow GPU), the double tap, the exact
+pinch and the `visualViewport` handling; `atlas/data/credits.js`, `topology.bin.js`, `water.bin.js` and the rebuilt
+`gazetteer.js`. In `app.js`: `PAGES.credits`, the `credits` bundle, the Settings row, the home footer's Credits button and
+the About page's link — the only v1 edits. New suites: `test-atlas-credits.js`, `test-atlas-fallbacks.js`,
+`test-atlas-phone.js`, `test-atlas-session.js`; `test-atlas-a11y.js` extended; `check-credits.js` in the fast CI job.
+
+**CI after the 1c merge, classified** (run [37905596883](https://github.com/Pokfus/folio/actions/runs/37905596883) on
+`main`, the first complete browser job of the 1c suites, 53 of 57 suites green). The frame gate failed on the two rows the
+1c note had called honest (the pinch's worst frame 183.4 ms, the relief-on wheel 1.50 ×) — the rows task 0 redefines.
+Browser job: `test-draw-cards.js` and `test-tour.js` — pre-existing, known; `test-war-cards.js` ("the popup keeps the
+legend that explains the colours") — pre-existing: it fails identically on the 1b tree (`e94957e`, before any 1c change),
+run locally for this note; `test-personal-atlas.js` — pre-existing and flaky, not the Atlas's: run twice on each tree for this note, the 1b tree (`e94957e`, before any 1c change) went 78/78 then 76/78 and the clean 1c tree 76/78 then 77/78, the same two timing checks each time ("one click names the country, a second the province inside it" and "...and opens once the second is up"), so the failure belongs to the suite's timing and not to a change of 1c, whose only non-Atlas edits were the `atlas2prose` bundle and the host object in `app.js`; `test-review-decks.js`, listed as known, was green.
+
+**Task 0 — the frame gate's rules.** The runner is software GL, so a gate must measure the renderer, not SwiftShader.
+The evidence that fixed the rules: the pinch's first frame after release read 167–283 ms across eight runs (v1's worst
+pinch frame 450–733 in the same runs); relief on cost 1.0–1.67 × relief off across eight runs; v2's heap read 28–82 MB
+against v1's 228–257 in the same runs; and the owner's phone holds 60 Hz with relief on. The rules, as the suite asserts
+them now (`test-atlas-perf.js`, `RELIEF_FACTOR`, `RELEASE_MS`, `HEAP_RATIO`):
+
+- **Pinch**: the worst frame DURING the gesture (fingers down) is at most 100 ms (plus the millisecond of timestamp slack
+  every worst-frame rule has had since 1a); the first full-screen frame after the fingers lift is measured separately,
+  with a ceiling of 300 ms, and reported with that frame's primitive count. The page marks `performance.now()` at each
+  `touchEnd`; a frame ending within 450 ms of a mark is a release frame, every other frame is a gesture frame.
+- **Relief on**: the view's L1 patches are warmed first — an unmeasured rehearsal of the gesture, settled (the wheel's
+  rehearsal pauses at every step, because a tile queued at one zoom and no longer wanted at the next leaves the queue and a
+  plain run of the gesture left holes a measured run would fetch) — so the network and the upload are not in the measured
+  gesture; the pooled p90 with relief on is at most 2.0 × relief off. The first-use cost of a patch (fetch + decode, the
+  worker's compose, the main thread's upload) is reported as a number, ungated. The same rehearsal precedes every
+  relief-off gesture of v2 and every gesture of v1, so no measured window pays a tile's fetch either.
+- **Heap**: v2's JS heap after its gestures, read after a forced collection, is at most 50 % of v1's in the same run; the
+  absolute value is reported. The absolute 48 MB ceiling is gone.
+- **Unchanged**: v2's pooled p90 at most 40 % of v1's for drag, wheel and pinch; the drag's worst frame at most 100 ms
+  with the millisecond of slack; the primitive budgets per fixed view.
+
+**One renderer change the rules asked for: adaptive degradation during a gesture, in two sticky stages.** Measured on
+the session's runner (software GL), the gesture frames the 100 ms rule forbids had two causes, found by sampling the
+renderer's state frame by frame through a pinch: the globe at full resolution is fill-bound (p90 100 ms, max 133 over a
+40-step drag at 1280×800; half the resolution halves it to p90 50), and LOD 1 between 8 and 16 km/px — which a pinch out
+of the globe crosses twice, 174 k triangles and 98 k segments over the whole earth — is geometry-bound (p90 283 ms at
+full resolution, 167 at half). The 1c code had no answer to the second, and its first answer never ran during a pinch:
+the frame loop measured the interval only while frames were self-scheduled (a coast, a fly), and a gesture's frames are
+each scheduled by an input event. So the view now learns the GPU it is on, in two stages that stay for the session, each
+entered by two frames of a live gesture (fingers down, a wheel in the last 200 ms, a coast, a fly) that took more than
+70 ms — measured from the gesture's own frame timestamps, never from the pause before it. Stage 1: while a gesture is
+live the GL canvas draws at half resolution (a quarter of the fill), and the first frame after it redraws at full — the
+release frame the gate measures apart; the label canvas keeps its resolution, so the names stay sharp and what softens
+for the length of the gesture is the coast. Stage 2: a live gesture also draws one level coarser than the view wants
+(never finer than the one it started at), as a map app shows the coarser tiles under a pinch, and no relief (the hillshade
+is two full-disc passes, which on software GL cost two vsyncs a frame against a one-vsync baseline — the relief-on rule's
+2 × read 3.0 on the fourth local run with relief drawn); the wanted level and the relief come with the release frame. A
+level the bias chose never relays the labels (nothing is added or dropped while the globe moves, §2.9; the labels suite
+caught the first cut relaying mid-drag). With both, the pinch's gesture frames on the runner read ≤ 100 ms (p90 67) where they had read up to
+267. The ID pass is unaffected (a pick never happens mid-gesture, and the renderer's device-pixel ratio carries the
+scale consistently). A GPU that draws the frame in 16.7 ms — the owner's phone — never reaches the threshold and never
+sees either stage; `#map2?perf` prints the stage on its LOD line. **Flagged for the owner**: it is a renderer behaviour
+visible only on slow GPUs, chosen over loosening a number; a phone that does reach stage 2 shows coarser coasts under a
+pinch than it did.
+
+**The gate's runs** (`test-atlas-perf.js`; every number v2, relief off unless said; the local runner is the session's
+container, software GL on one core, with nothing else running). Six local runs, in order, each on the code of its moment:
+
+| run | code | drag p90 / worst | wheel p90 | pinch p90 / during worst / release worst | relief on (drag / wheel / pinch, × off) | heap v2 / v1 | result |
+|---|---|---|---|---|---|---|---|
+| local 1 | 1d rules, 1c renderer | 66.7 / 250 | 150 | 117 / 200 / 100 | 1.25 / 1.22 / 0.72 | 79 / 223 | red: drag worst, pinch during |
+| local 2 | + the resolution drop (never ran in a gesture) | 50 / 83 | 133 | 100 / 217 / 83 | 1.33 / 1.13 / 0.83 | 79 / 197 | red: pinch during |
+| local 3 | + the two stages | 33 / 83 | 33 | 33 / 50 / 117 | 1.0 / 1.13 / 1.5 | 44 / 223 | **green** |
+| local 4 | same | 33 / 83 | 17 | 33 / 50 / 100 | 1.0 / 2.97 / 1.5 | 44 / 190 | red: wheel relief (3 vsyncs against 1) |
+| local 5 | + no relief in a stage-2 gesture | 33 / 117 | 17 | 33 / 50 / 100 | 1.0 / 1.98 / 1.5 | 79 / 197 | red: one 117 ms drag frame of 1,263 |
+| local 6 | same (the pushed head) | 33 / 83 | 33 | 33 / 67 / 117 | 1.0 / 1.0 / 1.5 | 78 / 223 | **green** |
+
+The two red rows after the stages are the runner's floor, not the renderer's: a frame on software GL is a whole number
+of vsyncs, so a pooled p90 reads 16.8 or 33.4 and a ratio of two such figures flips between 1 and 2 (and read 3 once,
+with relief drawn in the gesture); and one frame in 1,263 at 117 ms is a collector's pause on a one-core container
+(the same run's p99 was 50). CI's runner (two cores) has never shown either. CI, on the pushed head `e254f18`:
+
+| run | job | drag p90 (v1) / worst | wheel p90 (v1) | pinch p90 (v1) / during worst / release worst | relief on (drag / wheel / pinch, × off) | heap v2 / v1 | result |
+|---|---|---|---|---|---|---|---|
+| CI 1 | [37928457341](https://github.com/Pokfus/folio/actions/runs/37928457341/job/113813633302) (push) | 33.4 (200) / 66.8 | 16.8 (333) | 33.3 (350) / 49.9 / 100 | 1.0 / 1.0 / 1.0 | 28 / 150 | **green** |
+| CI 2 | [37930590707](https://github.com/Pokfus/folio/actions/runs/37930590707/job/113820644797) (dispatch) | 33.4 (200) / 66.7 | 16.8 (333) | 33.3 (350) / 33.4 / 117 | 1.0 / 1.0 / 1.0 | 28 / 150 | **green** |
+| CI 3 | [37938590103](https://github.com/Pokfus/folio/actions/runs/37938590103/job/113847508729) (dispatch) | 33.3 (117) / 33.5 | 16.7 (183) | 16.7 (217) / 16.8 / 50 | 0.5 / 1.0 / 1.0 | 28 / 150 | **green** |
+
+Three consecutive green CI runs on one head, and the first run's Playwright job was cancelled by the dispatch of the
+second (a dispatch cancels the branch's running jobs; the gate had finished). The second run's Playwright job completed:
+57 suites green, the Atlas suites among them (`test-atlas-a11y`, `-card`, `-credits`, `-fallbacks`, `-labels`, `-phone`,
+`-places`, `-relief`, `-render`, `-search`, `-session`), and three red that are the known pre-existing ones —
+`test-draw-cards.js` (fd-223, fd-228, fd-229), `test-tour.js` ("no long dashes", the streak step) and
+`test-personal-atlas.js` (the timing check classified above); `test-war-cards.js`, red on main's run, was green. The
+gesture stage every CI run learnt in its rehearsals was 2, as on the session's runner: CI's runner is software GL too,
+only with a second core. The run on the head that carries this paragraph is reported with the phase.
+
+**English names, one row per place** (`build-gazetteer.js`, the header states the rule; `check-gazetteer.js` proves it).
+The display name is the source's English field where the source translated it (Natural Earth's `NAME_EN` / `name_en`
+differing from `NAME` — for the core's admin-1 units NE admin-1's `name_en` by ISO code: "Magadan", not "Maga
+Buryatdan"; "Tibet", not "Xizang"), else the item's English label from Wikidata, else the source name; diacritics follow
+the English Wikipedia title where the two differ only there (Bogotá gains its accent, Zürich loses its umlaut, Eswatini
+its capital S; São Paulo keeps its tilde). One row per Wikidata item per kind: rows sharing a QID within a kind are merged —
+the marine and regions polygons as one shape before the label geometry is computed (the Atlantic's two polygons, the
+Pacific's, three island groups, one range, one region), the rivers as one row whose `alt` column lists the other water
+entities (the worker lays the name along every stretch; a tap on any stretch answers with the row) — and every other
+name becomes an alias, so a search for "Donau" finds the Danube. Three things the rule met in the data and how each was
+settled: (1) **countries keep the core's name**, which is NE admin-0's `NAME` and already the English short name — NE's
+`NAME_EN` there is the long form ("People's Republic of China", "Czech Republic") and wrong outright on a row ("Wake
+Island" for the Spratly Islands); (2) **the Wikidata label is taken narrowly** — only where the source has no English
+field, or copied a non-ASCII local name into it, and the label is plain ASCII without a parenthesis — because read broadly
+it renamed 80 rows and some 70 of them wrongly: NE's own Wikidata ids are wrong on a few towns (Niamey → Maradi, Misrata →
+an Arabic label, Baqubah → Bagdad) and Wikidata's labels follow conventions of their own ("Bali Island", "Ōita-shi",
+"Taoyuan District", "Australian continent"); narrowed, it changes seven rows (Ha'il, the Aoukar Depression, five rivers
+with a non-ASCII NE spelling); (3) two guards on the English field: a town or unit whose English field turns it INTO a
+country's name is a source fault ("Saudi Arabia" for Ha'il) and keeps its name, and two admin-1 units of one country with
+one English name (Moscow the city and the oblast; Washington the state and the District) each take their English
+Wikipedia title where it begins with the shared name and goes on without a parenthesis ("Moscow Oblast", "Washington,
+D.C."; "Washington (state)" has one and keeps "Washington"). Two Natural Earth faults are recorded rather than repaired:
+Altai Krai carries the Altai Republic's Q5971 and the Republic's English name — the Krai keeps its local "Altay", no QID,
+no link; and the Jewish Autonomous Oblast's English field reads "Jewish". **"Böhmerwald" stays**: NE's English field and
+the Wikidata item's English label (Q23821373) both say Böhmerwald and the item has no English article — the one name the
+owner named that no source offers an English form for. "Drau" has two rows still, one with Q171009 (now "Drava") and one
+stretch with no Wikidata id at all, whose English field is "Drau".
+
+| kind | rows before → after | renamed | merged away | what moved |
+|---|---|---|---|---|
+| country | 257 → 257 | 4 | — | diacritics by the title (Eswatini, Åland, Saint Barthélemy, São Tomé and Príncipe) |
+| admin1 | 172 → 172 | 50 | — | NE admin-1 `name_en`: 46 Russian subjects (Primor'ye → Primorsky Krai, Chita → Zabaykalsky Krai, Yevrey → Jewish…), Tibet, Inner Mongolia, Washington, D.C., Moscow Oblast |
+| capital | 203 → 203 | 7 | — | Copenhagen, Bogotá, Andorra la Vella, South Tarawa, Port of Spain, St. George's, Washington |
+| city | 400 → 400 | 35 | — | Zurich, Osaka, Kobe, Montreal (the title's spelling); Prayagraj, Gqeberha, Chittagong… |
+| town | 1,080 → 1,079 | 184 | 1 (Bandar Lampung twice) | Ghent, Lucerne, Sidon, Beersheba, Shimla, Ha'il, 60 Vietnamese and Turkish towns regaining their diacritics… |
+| sea / ocean / gulf / strait | 71 / 7 / 160 / 52 → 71 / 5 / 160 / 52 | 2 gulfs | 2 oceans (the Atlantic's and the Pacific's two polygons each one shape) | — |
+| lake | 1,628 → 1,628 | 0 | — | HydroLAKES carries no English field and no Wikidata id: its names stay as given |
+| river | 952 → 591 | 144 | 58 (Rhein + Rhin + Rhine; Donau + Danube; Tajo + Tejo; Chang Jiang + Yangtze; Albert Nile + Bahr el Jebel + Victoria Nile…) | NE `name_en` (Cauvery → Kaveri, Corantijn → Courantyne, Luzern…); 288 rivers of scale rank 8 left out for the budget (below) |
+| island / island-group | 409 / 161 → 406 / 161 | 3 / 1 | 3 / 0 | — |
+| range / region | 219 / 364 → 218 / 363 | 4 / 11 | 1 / 1 | Jebel Akhdar, Carpathians, Tianshan…; Aoukar Depression (the one label-driven rename among the regions) |
+| **all** | **6,135 → 5,766** | **445** (387 by the source's English field, 7 by Wikidata's label, 51 by the title's diacritics) | **66** (58 rivers, 2 oceans, 3 islands, 1 town, 1 range, 1 region) | the file 617,769 → 592,123 bytes (0.592 MB decimal) |
+
+**The budget, in decimal.** The owner's 0.6 MB is 600,000 bytes from this phase on (it had been 0.6 × 1024² = 629,145;
+the 1c file, 617,769 bytes, was 0.618 MB decimal and over). The English names and the aliases cost 20 KB (the aliases
+31 KB in all, of which the first two 30 KB — capping them saves nothing worth a name), so a lever had to go: measured,
+the 288 rivers of scale rank 8 cost 28 KB and are the names a reader sees last (drawn as lines still, named from rank 7
+up; 591 named rivers remain), the towns under 150,000 would have cost 200 names, and lakes under 40 km² a hundred. The
+builder's defaults are now the shipped file's (`--tier 1000000`, `--river-rank 7`); the file is 592,123 bytes.
+
+**The Sources and credits page** (`#credits`, `PAGES.credits`; `atlas/data/credits.js`). `build-credits.js` walks
+`atlas/data/` and merges the `sources` header of every file — the core, 414 land tiles, `water.bin`, 228 water tiles,
+`relief.json` (whose 27 planes carry the same block, which `check-relief.js` proves), `gazetteer.js`, the two twins and
+`credits.js`'s own predecessors excepted: 648 files, 11 sources, one variant each — so the page can never say more or
+less than the data does, and `check-credits.js` in the fast CI job regenerates it in memory and fails when the committed
+file lags. Each source shows its name, version, licence (the identifier's display name, linked to the source's own licence
+page), the attribution string exactly as `sources.json` carries it (the row is `.notranslate`, so the site's spelling pass
+leaves "License" alone), the retrieval date and the Folio files derived from it (a directory with its count). The page
+adds two sentences of its own, which counsel is asked to review: the caution ("Every border and coastline on these maps
+is a reconstruction from the sources below, drawn at the resolution each source allows and as it stood on the day it was
+retrieved; a historical border in particular is one reading of incomplete evidence, and should be taken as a guide to
+where a boundary ran rather than as a judgement on where it lies") and the ODbL statement, which names the source and
+its attribution, says that each derived file is a database of its own offered under the ODbL 1.0 at the listed paths
+(`atlas/data/topology.bin`, `topology.bin.js`, `tiles/3/` (32), `tiles/4/` (382), `gazetteer.js`), links the licence
+text, and says that nothing else on Folio is under the ODbL. The gazetteer is on that list because its header names the
+OSM source: its `within` and its anchors are computed against the OSM partition. The page is linked from the Settings
+page (the Atlas card), the home page's footer ("Credits", beside About and Changelog), the About page's credits list and
+the Atlas v2 About sheet; `#map2` itself stays unlinked. `test-atlas-credits.js`: every source id in every file header is
+on the page and none on the page is absent from every file; every licence accepted; every link https; the attribution
+strings verbatim; the ODbL statement names every file carrying the OSM source; the page fits 390 px; the four doors open it.
+
+**About this map.** The `?` chip under the Legend chip opens a labelled dialog: what the map is made of, the caution
+sentence, the credits link, and the keys (drag and arrows, scroll and pinch, Home, Tab, Esc, R, `/` for search, `?` for
+the sheet). One sheet at a time: opening it shuts the legend and vice versa; Escape closes it and returns focus to the
+chip. On a desktop both sheets open to the LEFT of the chip column, never over it (the phone audit found the legend's
+sheet covering the About chip and the About sheet covering the Legend chip); on a phone they are bottom sheets and the
+chips step aside while one is up.
+
+**Fallbacks** (`test-atlas-fallbacks.js`, 32 checks). (a) **`file://`**: `atlas/data/topology.bin.js` (4.03 MB) and
+`water.bin.js` (5.81 MB) — the same bytes as base64 in a script assigning `window.ATLAS_TWIN[name] = { bytes, sha256,
+b64 }`, 9.84 MB together under the owner's 12 MB (decimal), written by `pack.js --install` / `--twin` and `pack-water.js`
+(which refuses the water twin if the pair would pass 12 MB, and then atlas.js says rivers and lakes are absent),
+decoded in the page by `fetch()` of a `data:` URL (off the main thread; `atob` the fallback), sha256-verified with
+`crypto.subtle` before use, and checked identical by hash in `check-topology.js` and `check-water.js`. The worker's
+code runs on the main thread behind the same messages, and every heavy loop in it — the parse (a generator reader that
+yields between sections and every 262,144 vertices), the unit vectors, the per-face triangulation (Canada at LOD 2 is
+thousands of rings and 200 ms: it yields between them), the bucket sort, the caps — awaits a `tick()` that yields to the
+event loop after 40 ms of work and moves the status line. Measured in Node and in the page: the worst task after the
+mount is 107–138 ms (one earcut call of 32 ms or a collection pause lands on a chunk's end), against the owner's "about
+100"; the suite holds 150. The twins are loaded, the land is shaped in 7.1–7.5 s from a file (against about 3 s with the
+worker), tiles and relief are never asked for (the finest level is the finest resident one, 0.5 km/px), the names are
+laid out, a tap names Niger, and a sentence says what is left out and why. (b) **No WebGL2** (`--disable-webgl
+--disable-3d-apis`): `atlas-canvas.js` draws LOD 0 with Canvas 2D — the ocean disc, the land as one path of every
+front-facing triangle filled once by the nonzero rule, the selected face, the lakes, the lines by kind (dashed where
+disputed), the graticule, the rim; a frame costs 50–200 ms in a browser and up to 9 s in headless Chromium's software
+raster, so a drag blits the last frame moved by the pointer's travel and one true frame follows the release; picking is on
+the CPU (the face whose projected triangle holds the point); the labels layer works unchanged (43 labels at the globe);
+the zoom stops at 5 km/px; relief is declined with a sentence naming WebGL2. (c) **Context loss**: `WEBGL_lose_context`
+loses and restores the context with France selected and its card open, relief and the graticule on at 3 km/px: the
+levels, the water, the tiles and the relief are fed again, the view, the selection, the card, the layers and the relief
+state survive, the renderer counts one restore, and a pick at the centre answers France. (d) **A worker that fails to
+start** (its script throws): the topology and the water are kept on the main thread until the worker has read them
+(posted as copies, not transfers), so the page terminates the worker, says "Shaping the land here instead…" and hands the
+same bytes to the shim, which parses the land, the water and, at a tile zoom, the tiles.
+
+**The phone and tablet audit** (`test-atlas-phone.js`; screenshots at 360×640, 390×844, 430×932, 768×1024 and 844×390 in
+folio, folio night and synth — 60 shots, reviewed). What it found and the phase fixed: the legend's and the About sheet's
+rectangles covered the chip column (above); the expanded card sheet (70 %) reached the zoom stack on a 360×640 phone (it
+stops at `calc(100% - 184px)` now); with the card column open on a tablet the zoom stack, pushed left, met the search box
+(the box yields to `min(300px, calc(100% - 486px))`); the phone's "card open" rule `.atlas2-phone .atlas2-has-card
+.atlas2-zoom` had a descendant combinator since 1c and never matched, so a phone with a card open had its zoom stack 400 px
+off the left edge; a landscape phone's globe scrolled (the Atlas is `min(360px, calc(100vh - 110px))` tall); the phone's
+sheet opened expanded a second time (it opens shut every time now); the result list's cap `calc(var(--atlas2-vvh) -
+140px)` was written with a stray parenthesis and dropped by the parser; the expanded card sheet on a landscape phone (844×390,
+the Atlas 280 px tall) was 96 px — a title and no body — under the `calc(100% - 184px)` rule, so under 500 px of height
+in landscape the up sheet takes the height below the search box and the zoom stack steps out from under it
+(`.atlas2-card-up` on the host); and the pinch drifted — the pan by the midpoint's
+pixel travel at the centre's scale, then a zoom about the midpoint, moved the place under the fingers 4–15° over a 40-step
+pinch off centre, and two pointer events per touch move arrived faster than frames, so the second unprojected against the
+last frame's rotation. A pinch now zooms and moves in one step (the place under the old midpoint lands under the new one,
+both unprojected) and `rotation()` runs after every change, so the midpoint holds to under a degree. Built new: 44 px
+targets on a coarse pointer (the chips, the search box, the result rows, the sheet's rows and close buttons, the grip, the
+stack chip); `env(safe-area-inset-*)` on the chips, the sheets, the notes and the card; a double tap zooms in about the tap
+(a touch tap's pick waits 260 ms for a second tap, because a pick is two ID passes and on a slow GPU pushed the second
+tap past the window when the pick ran first — the probe showed the first tap's own pick stretching the wait); the soft
+keyboard: the layout viewport and `100vh` do not change when a keyboard comes up, so the map stays where it is, and what
+follows the visual viewport is the result list, whose height is `--atlas2-list-max` — the room between its top and the
+visual viewport's bottom, recomputed on `visualViewport` resize and scroll and when results open — and the focused search
+box, scrolled into the visible part if covered; the suite emulates the keyboard by taking 300 px from the viewport with
+the search focused and holds the map's centre, the box and its list in view. The tablet (768×1024) takes the desktop
+layout (a fine pointer by Playwright's rules) and is held to 34 px targets.
+
+**Accessibility** (`test-atlas-a11y.js`, 28 checks; axe-core 4.x run from a scratch directory, not committed). Built: a
+polite, atomic live region speaks the selection ("France, country", "Nothing selected", and how many places share a tap);
+focus moves to the card's heading when the card opens and returns to the opener on Escape or Close (the key-list button,
+the search box, the canvas); the About sheet is a `role=dialog` with `aria-labelledby`, takes focus and returns it to its
+chip; the search is a combobox with `aria-expanded`, `aria-controls` the labelled listbox, `aria-autocomplete=list` and
+`aria-activedescendant` following the arrow keys; under `prefers-reduced-motion` (or the site's animations switch) there is
+no fling, `flyTo` lands at once, the progress bar's transition is off, and the label fade near the limb — a spatial fade,
+not a movement — stays; a `forced-colors` block draws the focus rings as outlines in `Highlight` and the chrome's edges in
+`CanvasText` (box-shadows vanish in Windows High Contrast), the canvases keeping their palette; every font size in the
+chrome is `calc(px × --fs)`, so the site's Text size setting reaches it, and at `--fs: 2` every control stays inside the
+Atlas (the sheets scroll inside it). **axe, before and after**: the 1c code read one violation type on every state — the
+zoom stack was `aria-hidden="true"` with three focusable buttons inside (`aria-hidden-focus`, serious): 4 nodes over the
+globe, the card, the legend and search; the 1d code reads **0 violations on all five states** (the About sheet included)
+and the `#credits` page read 61 colour-contrast nodes on the first scan (the licence chip's link, indigo at 10 px) —
+the chip went to ink at 11 px, and the rest were the scanner's: the page fades in (`.page` and `.mission` carry an
+enter transition) and a scan started the moment the list appeared read every colour at partial opacity; a scan that
+waits for the fade reads 0 on `#credits`, with and without the chip's change (kept).
+
+**The five-minute session** (`test-atlas-session.js`, 300 s, 54 rounds on the session's runner: fly to one of three dozen
+coasts, let its tiles land, pan, walk four views along the coast at 0.15 km/px, wheel out through the levels, search and
+open a card, pinch at the globe; relief on every other round; the heap read after a forced collection every ten seconds).
+The first cut visited a dozen coasts and never crossed the 96-tile cap — 43 tiles fetched, none evicted, the caches full
+by round 13 and nothing changing after — which proved growth, not eviction, so the itinerary grew to three dozen coasts
+with the walk. Measured: the JS heap 199 MB at the start (the gazetteer and the water index before their first
+collection), 78 MB after round 1, 81–82 MB from round 11 to the end, 81 MB at the end — the heap returns to its baseline;
+the land-tile cache fills at round 19 and evicts from there (217 fetched, 96 resident, 121 evicted at the end), the
+water-tile cache holds its 64 from round 15, the relief cache its 9 of 10; the label sprites are always the current
+layout's (63 of 63 placed, 40 of 40 at the globe). The renderer's GPU bytes (every buffer and texture it has uploaded and
+not deleted, counted in `atlas-gl.js`): 168 MB at the start (the three core levels' triangles and segment textures, with
+the water's), a peak of 706 MB with every cache full, 616 MB at the end with relief off — bounded by the caps, and the
+caps are the finding: 96 land tiles and 64 water tiles at 1280×800 are some 450 MB of tile geometry on top of the core,
+which a desktop GPU carries and a phone's should not. **For the owner**: the 1a/1b cache caps (`TILE_CACHE`,
+`WATER_TILE_CACHE` in `atlas.js`) are not scaled to the device; a phone-sized cap (or a byte budget in place of a count) is
+a Phase 2 item, not changed here.
+
+
+**River labels at 0.5 km/px** (`atlas-worker.js`, the river branch of the layout). Once the rank-8 rivers left the
+gazetteer the labels suite's "rivers labelled at 0.5 km/px" went red, and the reason was older than 1d: at that scale the
+LOD 1 vertices of a meander sit 10–15 px apart, closer than the glyphs, and every try on the Rhine (80 vertices on screen,
+a 1,088 px run), the Moselle and the Weser bent past the 23° a glyph may turn — on 1c the one river labelled at the Rhine
+view was the Maas, a rank-8 row that happened to run straight. The text now follows a copy of the run averaged within two
+text sizes of arc length (count and order kept, so the anchor stays a vertex of the real line) and slides up to 120 px
+either way from a spot that bends or collides; the Rhine view now carries the Rhine twice, the Lek, the Nederrijn, the
+Moselle and the Weser. The layout's debug reasons (`labelWhy()`) now name the row and, for a river, the vertices on
+screen, the longest run, the tries, the bends and the collisions.
+
+**Findings that contradict or sharpen the design.** (1) The 1c gate measured SwiftShader's full-screen fill, not the
+renderer: the owner's rules split the pinch into gesture and release and warm the relief first, and the renderer meets
+the gesture half by adaptive degradation (half resolution, then one coarser level) — a behaviour the design did not have and a fast phone never shows. (2) §2.9's "the
+Atlas works on `file://` with the main-thread shim" needed more than a shim: a cooperative worker (every heavy loop
+yields), a generator reader and twins verified by hash; "about 100 ms" a task is met at 107–138. (3) The brief's naming
+rule "the source's English field, else Wikidata's label" could not be applied as written: NE fills its English field
+for every record (so the label clause would never run) and where the label was consulted anyway it was wrong twice as
+often as right, so the label is taken narrowly and the countries keep NE's short `NAME`; two Natural Earth faults (Altai
+Krai's Wikidata id and English name, Ha'il's) and one Wikidata gap (Böhmerwald) are recorded rather than repaired. (4) The
+0.6 MB budget was binary until this phase; in decimal the 1c file was over, and the lever was the rank-8 rivers. (5) The
+phone's card rule had a selector fault since 1c that no suite had read: the audit's overlap check is what found it.
+(6) A touch tap's pick must wait for a possible second tap, because a pick is two ID passes. (7) The pinch's pan was an
+approximation that held only at the centre. (8) Canvas 2D in headless Chromium's software raster costs up to 9 s a frame
+for 55k triangles — the still view is for a browser without WebGL2, not for CI's speed, and the suite reads the frame
+count, not the time.
+
+**Screenshots, reviewed** (the credits page on a desktop and at 390 px; the About sheet; the phone set — five viewports
+× three themes × the globe, the card shut and expanded, the legend and the About sheet; the `file://` view; the no-WebGL2
+view). The credits page reads as a page of the About family: eleven sources under one caution card, each with its licence
+chip and attribution in italics, the derived files as code, the ODbL card last; at 390 px nothing runs off the right
+edge and the long paths break. The About sheet on a desktop sits left of the chip column with its key list in two
+columns; on a phone it is a bottom sheet with the chips gone. The phone set: at 360×640 the search box, the three
+44 px chips and the Legend chip clear each other with 12 px gaps, the shut card is a title strip at the foot above the
+tab bar, the expanded card stops under the zoom stack; in folio night the chips and sheets are dark cards on the dark
+sea; in synth pink; the landscape phone (844×390) carries a 280 px globe with the legend sheet scrolling inside the
+viewport. The `file://` view is the normal globe with the sentence at the foot and the Relief row of the legend greyed.
+The no-WebGL2 view is recognisably the same atlas — ocean, land, borders, rivers, lakes, the names in the same type —
+without relief and with the coast at LOD 0's 10 km tolerance.
+
+#### Phase 1 — closing summary (2026-10-09)
+
+Phase 1 set out to ship the present-day earth at every zoom behind `#map2` with no timeline. It did, in four sub-phases
+over 2026-10-08 and 09: **1a** the OSM land partition (833k records, 6.25 M working vertices) with Natural Earth's borders
+conflated onto it, five levels of detail, 414 tiles, the frame gate redefined for software GL; **1b** rivers and lakes
+(Natural Earth 10m rivers after HydroRIVERS failed the licence rule; HydroLAKES at four levels) in files of their own under
+12 MB, relief from ETOPO 2022 as two levels of three greyscale planes under 45 MB, the water and relief passes; **1c** the
+gazetteer (now 5,766 places), the label layer laid out in the worker, picking through two ID passes, the place card, the
+legend, search, deep links, the keyboard list; **1d** English names with one row per place, the Sources and credits page
+generated from the data files' own headers, the About sheet, four fallbacks, the phone and accessibility audits, a
+five-minute memory proof and the owner's gate rules. What ships to readers from Phase 1 is the credits page and its links;
+`#map2` stays a preview until Phase 5. The land, water and relief files are byte-identical to 1a's and 1b's. Carried
+forward: the finer-names data work (1e: towns under 100,000, the Aegean's thin density, lake Wikidata ids), the
+Böhmerwald-class names no source renders in English, L2 relief (unaffordable under 45 MB), HydroSHEDS v2 when it goes
+global, and the Phase 2 timeline, for which every generated file already carries the `sources` header the credits page
+reads.
 
 ### Phase 2 — Time (ships `#map2` with a timeline; ~8–10 sessions)
 

@@ -20,7 +20,11 @@
      titles        a Wikipedia title appears only on a row with a QID and only as the cached sitelink
                    wiki-sitelinks.json holds for that QID — none was written from memory
      prose         every `v1` key exists in countries.js; the countries without one are listed
-     size          the file is within the owner's 0.6 MB
+     size          the file is within the owner's 0.6 MB (decimal)
+     English       (Phase 1d) no two rows of a kind share a QID; every row with a QID carries a Latin-script name whose
+                   diacritics follow the English Wikipedia title where the two differ only there; the owner's examples hold:
+                   one Rhine (aliases Rhein, Rhin), one Danube (alias Donau), one Tagus (Tajo, Tejo), one Yangtze (Chang Jiang),
+                   Copenhagen (not København), and no row named Rhein, Rhin, Donau, Tajo, Tejo, Chang Jiang or Kobenhavn
 */
 "use strict";
 const fs = require("fs"), path = require("path");
@@ -33,7 +37,7 @@ const quiet = argv.includes("--quiet");
 const ROOT = path.join(__dirname, "..", "..");
 const DATA = path.join(ROOT, "atlas", "data");
 const FILE = path.join(DATA, "gazetteer.js");
-const BUDGET = 0.6 * 1024 * 1024;
+const BUDGET = 600000;   // the owner's 0.6 MB, decimal (Phase 1d; 0.6 × 1024² before)
 const KINDS = ["country", "admin1", "capital", "city", "town", "sea", "ocean", "strait", "gulf", "lake", "river", "island", "island-group", "range", "region"];
 const NAMED = ["United States of America", "Russia", "Indonesia", "Japan", "Chile", "Norway", "Fiji", "Kiribati", "Canada", "Denmark"];
 
@@ -189,6 +193,32 @@ if (!cache) bad("wiki-sitelinks.json (the fetched sitelinks) exists beside the b
   }
   if (noQid) bad("a Wikipedia title only on a row with a QID", noQid); else ok("a Wikipedia title only on a row with a QID");
   if (fromMemory.length) bad("every title is the cached enwiki sitelink of its QID", fromMemory.slice(0, 5).join("; ")); else ok("every title is the cached enwiki sitelink of its QID", titles + " titles, cache of " + Object.keys(cache.titles).length + " items retrieved " + cache.retrieved);
+}
+
+/* English names, one row per item per kind (Phase 1d) */
+{
+  const byKey = new Map(); let shared = [];
+  for (const r of rows) { if (!r.qid) continue; const k = r.kind + ":" + r.qid; if (byKey.has(k)) shared.push(k + " (" + byKey.get(k).name + " / " + r.name + ")"); else byKey.set(k, r); }
+  if (shared.length) bad("no two rows of a kind share a QID", shared.slice(0, 6).join("; ")); else ok("no two rows of a kind share a QID", byKey.size + " (kind, QID) pairs");
+  const fold = (x) => String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  const nonLatin = rows.filter((r) => r.qid && /[^\u0000-\u024f\u1e00-\u1eff\u2010-\u2015\u2018-\u201f\u02bb-\u02bd]/.test(r.name)).map((r) => r.id + " " + r.name);
+  if (nonLatin.length) bad("every row with a QID carries a Latin-script name", nonLatin.slice(0, 6).join("; ")); else ok("every row with a QID carries a Latin-script name");
+  if (cache) {
+    const dia = rows.filter((r) => { if (!r.qid) return false; const t = cache.titles[r.qid]; return t && fold(t) === fold(r.name) && t !== r.name; }).map((r) => r.id + " " + r.name + " ≠ " + cache.titles[r.qid]);
+    if (dia.length) bad("where a name and its English title differ only in diacritics or case, the title's spelling is used", dia.slice(0, 6).join("; ")); else ok("diacritics and case follow the English Wikipedia title");
+  }
+  const byName = new Map(); for (const r of rows) { const k = r.kind + ":" + fold(r.name); if (!byName.has(k)) byName.set(k, []); byName.get(k).push(r); }
+  const want = [["river", "Rhine", ["Rhein", "Rhin"]], ["river", "Danube", ["Donau"]], ["river", "Tagus", ["Tajo", "Tejo"]], ["river", "Yangtze", ["Chang Jiang"]], ["capital", "Copenhagen", ["København"]]];
+  for (const [kind, name, als] of want) {
+    const list = byName.get(kind + ":" + fold(name)) || [];
+    const r = list[0];
+    const hasAll = r && als.every((a) => (r.aliases || []).some((x) => fold(x) === fold(a)));
+    if (list.length === 1 && hasAll) ok(`one ${kind} row named ${name}, with the aliases ${als.join(", ")}`, (r.aliases || []).join(", ")); else bad(`one ${kind} row named ${name}, with the aliases ${als.join(", ")}`, list.length + " rows; aliases " + (r ? (r.aliases || []).join(", ") : "—"));
+  }
+  const twins = []; { const seen = new Map(); for (const r of rows) { if (r.kind !== "admin1") continue; const k = r.within + ":" + fold(r.name); if (seen.has(k)) twins.push(r.name + " (" + seen.get(k) + ", " + r.id + ")"); else seen.set(k, r.id); } }
+  if (twins.length) bad("no two admin-1 units of one country share a name", twins.join("; ")); else ok("no two admin-1 units of one country share a name");
+  const stray = ["Rhein", "Rhin", "Donau", "Tajo", "Tejo", "Chang Jiang", "Kobenhavn", "København"].filter((n) => rows.some((r) => fold(r.name) === fold(n)));
+  if (stray.length) bad("no row is named by a non-English form the sources also carry", stray.join(", ")); else ok("no row is named Rhein, Rhin, Donau, Tajo, Tejo, Chang Jiang or København");
 }
 
 /* prose keys */

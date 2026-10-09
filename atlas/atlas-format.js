@@ -231,7 +231,10 @@
        faces: [{ entity, source, rings: [Int32Array of signed refs] }]
      }
      `headerOnly: true` stops after the header (the credits page needs nothing else). */
-  function read(input, opts) {
+  /* The reader is a generator so the main-thread shim (file://, Phase 1d) can yield between sections and every
+     VERT_CHUNK vertices — a 3 MB core is a 100 ms parse — while `read()` drains it in one go for everyone else. */
+  const VERT_CHUNK = 1 << 18;
+  function* readSteps(input, opts) {
     const u8 = input instanceof Uint8Array ? input : new Uint8Array(input);
     const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
     for (let i = 0; i < 8; i++) if (u8[i] !== MAGIC.charCodeAt(i)) throw new Error("not a Folio topology file (bad magic)");
@@ -247,22 +250,26 @@
     const nV = header.counts.vertices, nA = header.counts.arcs, nF = header.counts.faces;
     const lon = new Int32Array(nV), lat = new Int32Array(nV);
     { const [s, e] = sec("verts"); const c = Cursor(u8, s, e); let x = 0, y = 0;
-      for (let i = 0; i < nV; i++) { x += c.svarint(); y += c.svarint(); lon[i] = x; lat[i] = y; }
+      for (let i = 0; i < nV; i++) { x += c.svarint(); y += c.svarint(); lon[i] = x; lat[i] = y; if ((i & (VERT_CHUNK - 1)) === VERT_CHUNK - 1) yield "verts"; }
       if (c.pos !== e) throw new Error("verts section has " + (e - c.pos) + " trailing bytes"); }
+    yield "verts";
     const rank = new Uint8Array(nV);
     { const [s] = sec("ranks"); for (let i = 0; i < nV; i++) rank[i] = (u8[s + Math.floor(i / perByte)] >> ((i % perByte) * rb)) & mask; }
+    yield "ranks";
     const arcOffset = new Uint32Array(nA + 1), arcKind = new Uint8Array(nA), arcSource = new Uint8Array(nA), arcMinLod = new Uint8Array(nA), arcFlags = new Uint8Array(nA);
     { const [s, e] = sec("arcs"); const c = Cursor(u8, s, e); let off = 0;
       for (let i = 0; i < nA; i++) { arcOffset[i] = off; off += c.varint(); arcKind[i] = c.u8(); arcSource[i] = c.u8(); arcMinLod[i] = c.u8(); arcFlags[i] = c.u8(); }
       arcOffset[nA] = off;
       if (off !== nV) throw new Error("arcs cover " + off + " vertices of " + nV);
       if (c.pos !== e) throw new Error("arcs section has trailing bytes"); }
+    yield "arcs";
     const faces = new Array(nF);
     { const [s, e] = sec("faces"); const c = Cursor(u8, s, e);
       for (let i = 0; i < nF; i++) {
         const entity = c.varint(), source = c.u8(), nR = c.varint(), rings = new Array(nR);
         for (let r = 0; r < nR; r++) { const n = c.varint(), refs = new Int32Array(n); for (let k = 0; k < n; k++) refs[k] = c.svarint(); rings[r] = refs; }
         faces[i] = { entity, source, rings };
+        if ((i & 4095) === 4095) yield "faces";
       }
       if (c.pos !== e) throw new Error("faces section has trailing bytes"); }
     Object.assign(out, { lon, lat, rank, arcOffset, arcKind, arcSource, arcMinLod, arcFlags, faces });
@@ -282,6 +289,9 @@
     }
     return out;
   }
+  function read(input, opts) { const g = readSteps(input, opts); for (;;) { const r = g.next(); if (r.done) return r.value; } }
+  // the same, awaiting `tick()` (a promise or null) at every step — the shim's way to parse without holding the page
+  async function readAsync(input, opts, tick) { const g = readSteps(input, opts); for (;;) { const r = g.next(); if (r.done) return r.value; if (tick) await tick(); } }
 
-  return { MAGIC, FORMAT_VERSION, KIND, KIND_NAME, FLAG, write, read, zig, zag, rankBitsFor };
+  return { MAGIC, FORMAT_VERSION, KIND, KIND_NAME, FLAG, write, read, readAsync, readSteps, zig, zag, rankBitsFor };
 });
