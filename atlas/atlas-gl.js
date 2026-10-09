@@ -394,7 +394,7 @@
     let prog = null, styleTex = null, emptyVao = null, idFbo = null, idTex = null, lost = false;
     let faceCount = 0, selected = -1;
     let dpr = 1, W = 0, H = 0;
-    const stats = { frames: 0, lastMs: 0, draws: 0, trianglesDrawn: 0, segmentsDrawn: 0, riverSegments: 0, lakeSegments: 0, lakeTriangles: 0, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, visibleAngle: 0, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, level: 0, coreLevel: -1, waterLevel: -1, restores: 0, reliefL0: -1 };
+    const stats = { frames: 0, lastMs: 0, draws: 0, trianglesDrawn: 0, segmentsDrawn: 0, riverSegments: 0, lakeSegments: 0, lakeTriangles: 0, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, visibleAngle: 0, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, level: 0, coreLevel: -1, waterLevel: -1, restores: 0, reliefL0: -1, gpuBytes: 0, gpuTextureBytes: 0 };   // gpuBytes: every buffer and texture uploaded and not yet deleted (Phase 1d's memory session reads it)
     const onRestore = typeof opts.onRestore === "function" ? opts.onRestore : null;
     const debug = { sphere: true, faces: true, arcs: true, water: true, relief: true, cull: true };   // toggles for the perf suite's breakdown; always on in use
 
@@ -432,6 +432,7 @@
       if (uv) { g.uv = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, g.uv); gl.bufferData(gl.ARRAY_BUFFER, uv, gl.STATIC_DRAW); gl.enableVertexAttribArray(2); gl.vertexAttribPointer(2, 2, gl.FLOAT, false, 8, 0); }
       g.idx = gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, g.idx); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, idx, gl.STATIC_DRAW);
       g.count = idx.length; g.u16 = idx instanceof Uint16Array;
+      g.bytes = pos.byteLength + idx.byteLength + (uv ? uv.byteLength : 0); stats.gpuBytes += g.bytes;
       gl.bindVertexArray(null);
       return g;
     }
@@ -444,15 +445,16 @@
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, SEG_TEX_W, rows, 0, gl.RGBA, gl.FLOAT, data);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      return { tex, count: n };
+      const bytes = SEG_TEX_W * rows * 16; stats.gpuBytes += bytes; stats.gpuTextureBytes += bytes;
+      return { tex, count: n, bytes };
     }
-    function releaseFill(g) { if (!g) return; gl.deleteBuffer(g.pos); gl.deleteBuffer(g.idx); if (g.uv) gl.deleteBuffer(g.uv); gl.deleteVertexArray(g.vao); }
-    function releaseSegs(s) { if (s) gl.deleteTexture(s.tex); }
+    function releaseFill(g) { if (!g) return; gl.deleteBuffer(g.pos); gl.deleteBuffer(g.idx); if (g.uv) gl.deleteBuffer(g.uv); gl.deleteVertexArray(g.vao); stats.gpuBytes -= g.bytes || 0; }
+    function releaseSegs(s) { if (s) { gl.deleteTexture(s.tex); stats.gpuBytes -= s.bytes || 0; stats.gpuTextureBytes -= s.bytes || 0; } }
     function upload(Lv) {
       const D = Lv.data, g = Lv.gpu = {};
-      const f = uploadFill(D.facePos, D.faceIdx); g.vaoFace = f.vao; g.facePos = f.pos; g.faceIdx = f.idx; g.faceCount = f.count;
-      const s = uploadSegs(D.segs); g.segTex = s.tex; g.segCount = s.count;
-      if (Lv.tile) { const m = extentMesh(Lv.tile, Lv.tile.z >= 4 ? 4 : 8); const e = uploadFill(m.pos, m.idx); g.vaoExt = e.vao; g.extPos = e.pos; g.extIdx = e.idx; g.extCount = e.count; }
+      const f = uploadFill(D.facePos, D.faceIdx); g.vaoFace = f.vao; g.facePos = f.pos; g.faceIdx = f.idx; g.faceCount = f.count; g.bytes = f.bytes;
+      const s = uploadSegs(D.segs); g.segTex = s.tex; g.segCount = s.count; g.segBytes = s.bytes;
+      if (Lv.tile) { const m = extentMesh(Lv.tile, Lv.tile.z >= 4 ? 4 : 8); const e = uploadFill(m.pos, m.idx); g.vaoExt = e.vao; g.extPos = e.pos; g.extIdx = e.idx; g.extCount = e.count; g.bytes += e.bytes; }
       warm(Lv);
       Lv.data = slim(D);
     }
@@ -473,7 +475,8 @@
       gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      const g = Rl.gpu = { tex };
+      const g = Rl.gpu = { tex, bytes: Rl.w * Rl.h * 3 };
+      stats.gpuBytes += g.bytes; stats.gpuTextureBytes += g.bytes;
       if (Rl.tile) { const m = extentMesh(Rl.tile, 24); g.ext = uploadFill(m.pos, m.idx, m.uv); }   // the L0 sheet draws over the sphere's quad
       Rl.rgb = null;   // 12 MB a sheet: the GPU has it (Phase 1c)
     }
@@ -512,10 +515,11 @@
       for (const k of ["facePos", "faceIdx", "extPos", "extIdx"]) if (g[k]) gl.deleteBuffer(g[k]);
       for (const k of ["vaoFace", "vaoExt"]) if (g[k]) gl.deleteVertexArray(g[k]);
       if (g.segTex) gl.deleteTexture(g.segTex);
+      stats.gpuBytes -= (g.bytes || 0) + (g.segBytes || 0); stats.gpuTextureBytes -= g.segBytes || 0;
       Lv.gpu = null;
     }
     function releaseWater(Wl) { const g = Wl.gpu; if (!g) return; releaseFill(g.fill); releaseFill(g.ext); releaseSegs(g.lake); releaseSegs(g.river); releaseSegs(g.smooth); Wl.gpu = null; }
-    function releaseRelief(Rl) { const g = Rl.gpu; if (!g) return; gl.deleteTexture(g.tex); releaseFill(g.ext); Rl.gpu = null; }
+    function releaseRelief(Rl) { const g = Rl.gpu; if (!g) return; gl.deleteTexture(g.tex); releaseFill(g.ext); stats.gpuBytes -= g.bytes || 0; stats.gpuTextureBytes -= g.bytes || 0; Rl.gpu = null; }
 
     canvas.addEventListener("webglcontextlost", (e) => { e.preventDefault(); lost = true; }, false);
     canvas.addEventListener("webglcontextrestored", () => {
@@ -523,6 +527,7 @@
       for (const k of Object.keys(levels)) delete levels[k];
       for (const k of Object.keys(water)) delete water[k];
       tiles.clear(); waterTiles.clear(); relief.clear();
+      stats.gpuBytes = 0; stats.gpuTextureBytes = 0;
       setup(); stats.restores++;
       if (onRestore) onRestore();
     }, false);
@@ -880,7 +885,7 @@
         if (id > LAKE_FACE_BASE) return { lakeFace: id - 1 - LAKE_FACE_BASE };
         return { face: id - 1 };
       },
-      stats() { return { triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores }; },
+      stats() { return { triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores, gpuBytes: stats.gpuBytes, gpuTextureBytes: stats.gpuTextureBytes }; },
       rawStats: stats,
       dispose() {
         try { const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); } catch (e) {}

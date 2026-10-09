@@ -238,12 +238,12 @@
         <canvas class="atlas2-labels" aria-hidden="true"></canvas>
         <div class="atlas2-search">
           <input type="search" class="atlas2-search-in" placeholder="Find a place" aria-label="Find a place" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="atlas2-results" aria-autocomplete="list">
-          <ul class="atlas2-results" id="atlas2-results" role="listbox" hidden></ul>
+          <ul class="atlas2-results" id="atlas2-results" role="listbox" aria-label="Places found" hidden></ul>
         </div>
-        <div class="atlas2-zoom" aria-hidden="true">
-          <button type="button" class="atlas2-btn" data-zoom="in" title="Zoom in">+</button>
-          <button type="button" class="atlas2-btn" data-zoom="out" title="Zoom out">−</button>
-          <button type="button" class="atlas2-btn" data-zoom="home" title="Whole earth">⌂</button>
+        <div class="atlas2-zoom" role="group" aria-label="Zoom">
+          <button type="button" class="atlas2-btn" data-zoom="in" title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="atlas2-btn" data-zoom="out" title="Zoom out" aria-label="Zoom out">−</button>
+          <button type="button" class="atlas2-btn" data-zoom="home" title="Whole earth" aria-label="Whole earth">⌂</button>
         </div>
         <div class="atlas2-layers">
           <button type="button" class="atlas2-btn atlas2-layers-btn" aria-expanded="false" aria-controls="atlas2-sheet" title="Legend">${PHONE ? "Legend" : "≡"}</button>
@@ -270,12 +270,31 @@
             <p class="atlas2-layers-note" hidden></p>
           </div>
         </div>
+        <div class="atlas2-help">
+          <button type="button" class="atlas2-btn atlas2-about-btn" aria-expanded="false" aria-controls="atlas2-about" aria-label="About this map" title="About this map">?</button>
+          <div class="atlas2-sheet atlas2-about" id="atlas2-about" role="dialog" aria-labelledby="atlas2-about-title" hidden>
+            <div class="atlas2-sheet-head"><strong id="atlas2-about-title">About this map</strong><button type="button" class="atlas2-sheet-close atlas2-about-close" aria-label="Close">×</button></div>
+            <p class="atlas2-about-p">The present-day earth from open data: coastlines from OpenStreetMap, borders and places from Natural Earth, lakes from HydroLAKES, relief from ETOPO 2022, names checked against Wikidata. <a class="atlas2-about-credits" href="#credits">Sources and credits</a> lists every source with its licence.</p>
+            <p class="atlas2-about-p atlas2-about-caution">Every border and coastline here is a reconstruction from those sources, drawn at the resolution each allows and as it stood on the day it was retrieved; a border is a guide to where a boundary runs, not a judgement on where it lies.</p>
+            <dl class="atlas2-keys-help" aria-label="Keyboard">
+              <div><dt>Drag, arrow keys</dt><dd>turn the globe (Shift: faster)</dd></div>
+              <div><dt>Scroll, pinch, + −</dt><dd>zoom; double-tap zooms in</dd></div>
+              <div><dt>Home</dt><dd>the whole earth</dd></div>
+              <div><dt>Tab</dt><dd>walk the names on the map; Enter opens one</dd></div>
+              <div><dt>Esc</dt><dd>close the place, the legend or this</dd></div>
+              <div><dt>R</dt><dd>relief on or off</dd></div>
+              <div><dt>/</dt><dd>find a place</dd></div>
+            </dl>
+          </div>
+        </div>
         <button type="button" class="atlas2-stack" hidden aria-live="polite"></button>
         <div class="atlas2-status" role="status" aria-live="polite"><span class="atlas2-bar"><i></i></span><span class="atlas2-note">Fetching the earth…</span></div>
         <div class="atlas2-caption" aria-live="polite"></div>
+        <div class="atlas2-announce vh" aria-live="polite" aria-atomic="true"></div>
+        <p class="atlas2-mode" hidden></p>
         <aside class="atlas2-card" hidden aria-label="Place">
           <button type="button" class="atlas2-grip" aria-label="Expand or collapse the place card"><i></i></button>
-          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title"></h2><p class="atlas2-card-kind"></p></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
+          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title" tabindex="-1"></h2><p class="atlas2-card-kind"></p></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
           <div class="atlas2-card-body"></div>
         </aside>
         <div class="atlas2-keys vh" aria-label="Places named on the map"><ul></ul></div>
@@ -289,8 +308,25 @@
     const say = (t, frac) => { note.textContent = t; if (frac != null) { bar.style.width = Math.round(frac * 100) + "%"; bar.parentNode.hidden = false; } };
     const fail = (t) => { status.classList.add("atlas2-fail"); bar.parentNode.hidden = true; note.textContent = t; };
 
-    const R = root.AtlasGL.create(canvas, { antialias: opts.antialias, onRestore: () => restoreAfterLoss() });
-    if (!R) { fail("This browser has no WebGL2, which the new Atlas needs. The current Atlas at #map still works."); return { dispose() {} }; }
+    /* THE RENDERER (Phase 1d): WebGL2 where the browser has it; else the still Canvas 2D view of atlas-canvas.js (LOD 0,
+       redrawn on release, labels and picking working) with a sentence saying what is missing. FILE marks a page opened
+       from a file (no fetch of a binary, no Worker, no tiles, no relief): the data comes from the `.js` twins and the
+       worker's code runs on the main thread behind the same messages. */
+    const FILE = location.protocol === "file:";
+    let STATIC2D = false;
+    const R = (() => {
+      const gl = root.AtlasGL ? root.AtlasGL.create(canvas, { antialias: opts.antialias, onRestore: () => restoreAfterLoss() }) : null;
+      if (gl) return gl;
+      const c2 = root.AtlasCanvas ? root.AtlasCanvas.create(canvas, {}) : null;
+      if (c2) STATIC2D = true;
+      return c2;
+    })();
+    if (!R) { fail("This browser can draw neither WebGL2 nor a 2D canvas, which the Atlas needs."); return { dispose() {} }; }
+    const modeEl = el.querySelector(".atlas2-mode");
+    const modeSentences = [];
+    if (STATIC2D) modeSentences.push("This browser has no WebGL2, so the Atlas shows a still globe at low detail: drag to turn it and it redraws when you let go; scroll or pinch to zoom. Relief, the coast at street zoom and the finer names need WebGL2.");
+    if (FILE) modeSentences.push("Folio was opened from a file rather than a web server, so the coast at street zoom and the relief — which a browser will not fetch from a file — are left out; the globe, the rivers, the lakes and the names are all here.");
+    if (modeSentences.length) { modeEl.hidden = false; modeEl.textContent = modeSentences.join(" "); }
     let palette = readPalette();
     R.setPalette(palette);
     R.setRamp(buildRamp());
@@ -299,11 +335,43 @@
     const layers = loadLayers();
     const view = { lon: 10, lat: 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
     let cssW = 0, cssH = 0, base = 100, dprNow = 1;
+    /* ADAPTIVE DEGRADATION DURING A GESTURE (Phase 1d). The owner's gate holds every frame of a gesture to 100 ms, and on
+       a slow GPU a full-screen frame does not fit it: on software GL the globe costs 100–130 ms at full resolution (fill
+       bound: half the resolution halves it, measured p90 100 → 50 ms), and LOD 1 between 8 and 16 km/px — which a pinch
+       out of the globe crosses twice — draws 130–180 k triangles over the whole earth and costs 130–280 ms whatever the
+       resolution (geometry bound). So the view learns the GPU it is on, in two sticky stages for the session, each entered
+       by SLOW_FRAMES frames of a live gesture (fingers down, a wheel in the last 200 ms, a coast, a fly) that took more than
+       RES_DROP_MS — measured from the frame timestamps of the gesture itself, never from the pause before it:
+         stage 1: while a gesture is live the GL canvas draws at half resolution (a quarter of the fill) and the first frame
+                  after the gesture redraws at full — the "release frame" the gate measures apart; the label canvas keeps its
+                  resolution, so the names stay sharp and what blurs for the length of the gesture is the coast;
+         stage 2: a gesture also draws one level coarser than the view wants (never finer than the one it started at), as a
+                  map app shows the coarser tiles under a pinch; the wanted level comes with the release frame.
+       A GPU that draws the frame in 16.7 ms (the owner's phone) never reaches the threshold and never sees either. */
+    const RES_DROP_MS = 70, SLOW_FRAMES = 2;
+    let resScale = 1, lastWheelT = 0, wheelTimer = 0, stage = 0, slowFrames = 0, gestureT = 0, lastFrameT = 0, wasLive = false;
+    const gestureLive = () => ptrs.size > 0 || coasting || !!flying || (performance.now() - lastWheelT < 200);
+    const lodBias = () => (stage >= 2 && !STATIC2D && gestureLive() ? 1 : 0);
+    function setRes(sc) { if (sc === resScale) return; resScale = sc; R.resize(cssW, cssH, (window.devicePixelRatio || 1) * resScale); stats.resDrops = (stats.resDrops || 0) + (sc < 1 ? 1 : 0); invalidate(); }
+    function gestureEnded() { wasLive = false; if (resScale < 1 && !gestureLive()) setRes(1); if (stage >= 2 && !gestureLive()) invalidate(); }
+    // the frame loop's bookkeeping: `t` is the frame's timestamp. A slow frame counts only when the previous frame belonged
+    // to the same gesture (so the pause before a gesture is never a slow frame) and was less than a second ago
+    function gestureFrame(t) {
+      if (STATIC2D) return;
+      const live = gestureLive();
+      if (live && !wasLive) { gestureT = t; if (stage >= 1) setRes(0.5); }
+      else if (live && lastFrameT >= gestureT && t - lastFrameT > RES_DROP_MS && t - lastFrameT < 1000 && ++slowFrames >= SLOW_FRAMES && stage < 2) {
+        stage++; slowFrames = 0; stats.stage = stage;
+        if (stage === 1) setRes(0.5); else invalidate();
+      }
+      wasLive = live; lastFrameT = t;
+    }
     function layout() {
       const r = el.getBoundingClientRect();
       cssW = Math.max(1, Math.round(r.width)); cssH = Math.max(1, Math.round(r.height));
+      el.style.setProperty("--atlas2-h", cssH + "px");   // the sheets' height bound (styles.css, Phase 1d)
       dprNow = Math.min(2, window.devicePixelRatio || 1);
-      R.resize(cssW, cssH, window.devicePixelRatio || 1);
+      R.resize(cssW, cssH, (window.devicePixelRatio || 1) * resScale);
       labelCanvas.width = Math.round(cssW * dprNow); labelCanvas.height = Math.round(cssH * dprNow);
       base = Math.min(cssW, cssH) * 0.46;
       view.cx = cssW / 2; view.cy = cssH / 2;
@@ -312,7 +380,7 @@
     }
     const zmax = () => Math.max(1, R_KM / (kmFloor() * base));
     // the cap is 150 m/px where tiles exist; without a tile index (an old core file) the finest resident level's 0.5 km
-    const kmFloor = () => (tileIndex ? KM_PER_PX_FLOOR : 0.5);
+    const kmFloor = () => (STATIC2D ? 5 : tileIndex ? KM_PER_PX_FLOOR : 0.5);   // the still view stays at LOD 0 (5 km/px: the 10 km tolerance is two pixels)
     function kmPerPx() { return R_KM / (base * view.zoom); }
     function rotation() {
       const lo = view.lon * D2R, la = view.lat * D2R, cl = Math.cos(la), sl = Math.sin(la), co = Math.cos(lo), so = Math.sin(lo);
@@ -341,11 +409,11 @@
       view.radius = base * view.zoom; rotation();
       if (before) {
         const after = unproject(px, py);
-        if (after) { view.lon += before.lon - after.lon; view.lat += before.lat - after.lat; clampView(); }
+        if (after) { view.lon += before.lon - after.lon; view.lat += before.lat - after.lat; clampView(); rotation(); }   // rotation(): the next unprojection before a frame has run must see this view (Phase 1d, the pinch audit)
       }
       invalidate();   // not a bare needs = true: a pinch reaches here with no frame scheduled, and set the zoom without a redraw until something else asked for one (Phase 1c)
     }
-    function levelFor(k) { let L = 0; while (L < LOD_KM_PER_PX.length && k < LOD_KM_PER_PX[L]) L++; return L; }
+    function levelFor(k) { if (STATIC2D) return 0; let L = 0; while (L < LOD_KM_PER_PX.length && k < LOD_KM_PER_PX[L]) L++; return tileIndex ? L : Math.min(L, 2); }   // without a tile index (file://) the finest level is the finest resident one
 
     /* ---------- the viewport's lon/lat box, for every tile grid ---------- */
     function viewBox() {
@@ -383,7 +451,8 @@
           if (!spec.wanted().has(key)) continue;   // the view moved on
           const ac = typeof AbortController === "function" ? new AbortController() : null;
           pending.set(key, ac);
-          spec.fetch(key, ac).then((payload) => { if (disposed) return; bytes += payload.bytes || 0; fetched++; spec.toWorker(key, payload); })
+          const tf = performance.now();
+          spec.fetch(key, ac).then((payload) => { if (disposed) return; bytes += payload.bytes || 0; fetched++; if (spec.cost) spec.cost(key, { fetchMs: performance.now() - tf, bytes: payload.bytes || 0, at: performance.now() }); spec.toWorker(key, payload); })
             .catch((e) => { pending.delete(key); if (!disposed && !(e && e.name === "AbortError")) errors++; pump(); });
         }
       }
@@ -415,6 +484,9 @@
       fetch: (key, ac) => fetchRelief(key, ac),
       toWorker: (key, p) => postToWorker({ type: "relief", key, w: p.w, h: p.h, hi: p.hi, lo: p.lo, sh: p.sh }, [p.hi, p.lo, p.sh]),
       wanted: () => new Set(["0", ...view.relief.tiles]), cacheSize: RELIEF_CACHE, drop: (k) => R.dropRelief(k),
+      // the first-use cost of a relief patch (Phase 1d, the frame gate reports it ungated): fetch + decode, the
+      // worker's compose, the main thread's upload — per key, in `stats.reliefCost`
+      cost: (key, c) => { stats.reliefCost.push(Object.assign({ key }, c)); if (stats.reliefCost.length > 60) stats.reliefCost.shift(); },
     });
     // the three greyscale planes of one relief tile, decoded exactly (no colour management, no premultiplication)
     function fetchRelief(key, ac) {
@@ -431,19 +503,24 @@
     }
 
     /* ---------- frame loop ---------- */
-    const stats = { frames: [], draw: [], uploads: {}, worker: null, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, labelLayout: [], labelSprite: [], labelDraw: [], gazetteer: null };
-    let needs = true, raf = 0, lastT = 0, disposed = false, perfOn = /[?&#/]perf\b/.test(location.hash || "");
+    const stats = { frames: [], draw: [], uploads: {}, worker: null, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, reliefCost: [], labelLayout: [], labelSprite: [], labelDraw: [], gazetteer: null };
+    let needs = true, raf = 0, lastT = 0, disposed = false, perfOn = /[?&#/]perf\b/.test(location.hash || ""), stillAt = null;
     const t0 = performance.now();
     function frame(t) {
       raf = 0;
       if (disposed) return;
       if (!el.isConnected) { dispose(); return; }
-      if (lastT) { stats.frames.push(t - lastT); if (stats.frames.length > 600) stats.frames.shift(); }
+      if (lastT) { const dt = t - lastT; stats.frames.push(dt); if (stats.frames.length > 600) stats.frames.shift(); }
       lastT = t;
+      gestureFrame(t);
       if (needs) {
         needs = false;
         plan();
-        R.render(view);
+        if (STATIC2D && ((dragging && moved) || coasting) && stillAt) {
+          // the still view during a drag: the last frame blitted by the pointer's travel; the true frame comes on release
+          const k = R2D / view.radius; let dl = view.lon - stillAt.lon; if (dl > 180) dl -= 360; else if (dl < -180) dl += 360;
+          R.shift(-dl / k, (view.lat - stillAt.lat) / k);
+        } else { R.render(view); if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
         stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift();
         drawLabels();
         if (!stats.firstPaintMs && R.levelLoaded(0)) stats.firstPaintMs = Math.round(performance.now() - t0);
@@ -463,8 +540,9 @@
       view.kmpp = k;
       // a finer level is not taken up while two fingers are down: a pinch from the globe crosses into LOD 1 at 16 km/px
       // and every frame of it would draw four times the primitives at full-screen fill — the finer level comes on release,
-      // as a map app's tiles do (a coarser level is taken at once: it is the cheaper one)
-      const wanted = levelFor(k), level = (ptrs.size >= 2 && wanted > view.level) ? view.level : wanted;
+      // as a map app's tiles do (a coarser level is taken at once: it is the cheaper one); at stage 2 of the adaptive
+      // degradation above, a live gesture draws one level coarser than the view wants
+      const wanted = Math.max(0, levelFor(k) - lodBias()), level = (ptrs.size >= 2 && wanted > view.level) ? view.level : wanted;
       if (level !== view.level) { view.level = level; requestLayout("level"); }
       view.admin1 = layers.provinces && k < ADMIN1_KM_PER_PX;
       view.borders = layers.borders;
@@ -500,7 +578,7 @@
         `draw ${s.lastMs.toFixed(2)} ms  ${s.triangles} tri  ${s.segments} seg  ${s.draws} calls\n` +
         `water: ${s.riverSegments} river seg${view.smoothRivers ? " (smoothed)" : ""}  ${s.lakeSegments} lake seg  ${s.lakeTriangles} lake tri  level ${s.waterLevel}  tiles ${s.waterTilesDrawn}/${view.waterTiles.length} (${wt.resident} resident)\n` +
         `relief: ${view.relief.on ? "on" : "off"} strength ${view.relief.strength.toFixed(2)} fade ${view.relief.fade.toFixed(2)}  patches ${s.reliefPatches}/${view.relief.tiles.length} (${s.reliefResident} resident, ${(rt.bytes / 1048576).toFixed(1)} MB fetched)\n` +
-        `LOD ${s.level} (core ${s.coreLevel})  ${kmPerPx().toFixed(3)} km/px  zoom ${view.zoom.toFixed(2)}\n` +
+        `LOD ${s.level} (core ${s.coreLevel})  ${kmPerPx().toFixed(3)} km/px  zoom ${view.zoom.toFixed(2)}  gesture stage ${stage}${resScale < 1 ? " half-res" : ""}${lodBias() ? " coarser" : ""}\n` +
         `tiles: ${s.tilesDrawn} drawn, ${s.parentsDrawn} parents, ${view.tiles.length} wanted, ${lt.pending} pending, ${lt.resident} resident, ${lt.fetched} fetched (${(lt.bytes / 1024).toFixed(0)} KB), ${lt.evicted} evicted\n` +
         `lakes culled: ${s.lakeCulled} tri  ${s.lakeSegCulled} seg (under ${2} px²)\n` +
         `labels: ${L.placed.length} placed of ${L.candidates} (${layers.density}${PHONE ? ", phone" : ""})  layout ${L.lastLayoutMs.toFixed(1)} ms (p95 ${pct95(stats.labelLayout).toFixed(1)})  sprites ${(L.lastSpriteMs || 0).toFixed(1)} ms (p95 ${pct95(stats.labelSprite).toFixed(1)})  draw ${L.lastDrawMs.toFixed(2)} ms (p95 ${pct95(stats.labelDraw).toFixed(2)})\n` +
@@ -514,7 +592,8 @@
     const inputs = {}; sheet.querySelectorAll("[data-layer]").forEach((i) => { const k = i.getAttribute("data-layer"); if (k === "density") (inputs.density = inputs.density || []).push(i); else inputs[k] = i; });
     function reflectLayers() {
       for (const k of ["borders", "provinces", "countries", "places", "physical", "cities", "rivers", "lakes", "relief", "graticule"]) inputs[k].checked = !!layers[k];
-      inputs.strength.value = String(layers.strength); inputs.strength.disabled = !layers.relief;
+      inputs.strength.value = String(layers.strength); inputs.strength.disabled = !layers.relief || STATIC2D || FILE;
+      inputs.relief.disabled = STATIC2D || FILE;   // the still view and a file:// page have no relief (the note in the sheet says why)
       for (const r of inputs.density) r.checked = r.value === layers.density;
     }
     function setLayers(patch) {
@@ -527,9 +606,17 @@
       if (JSON.stringify(layers) !== before) requestLayout("legend", true);
     }
     reflectLayers();
-    const openSheet = (open) => { sheet.hidden = !open; layersBtn.setAttribute("aria-expanded", String(open)); if (open && PHONE) closeCard(); };
+    const sheetOpenClass = () => el.classList.toggle("atlas2-sheet-open", !sheet.hidden || !el.querySelector(".atlas2-about").hidden);
+    const openSheet = (open) => { sheet.hidden = !open; layersBtn.setAttribute("aria-expanded", String(open)); if (open) { const ab = el.querySelector(".atlas2-about"); if (ab && !ab.hidden) { ab.hidden = true; el.querySelector(".atlas2-about-btn").setAttribute("aria-expanded", "false"); } } if (open && PHONE) closeCard(); sheetOpenClass(); };
     layersBtn.addEventListener("click", () => openSheet(sheet.hidden));
-    el.querySelector(".atlas2-sheet-close").addEventListener("click", () => openSheet(false));
+    el.querySelector(".atlas2-sheet .atlas2-sheet-close").addEventListener("click", () => openSheet(false));
+    /* About this map (Phase 1d): the `?` control, keyboard help, the caution sentence, the credits link. Opening it shuts
+       the legend (one sheet at a time, on a phone they share the bottom); focus goes to its title and comes back to the
+       button on close */
+    const aboutBtn = el.querySelector(".atlas2-about-btn"), aboutEl = el.querySelector(".atlas2-about");
+    const openAbout = (open) => { aboutEl.hidden = !open; aboutBtn.setAttribute("aria-expanded", String(open)); if (open) { openSheet(false); if (PHONE) closeCard(); aboutEl.querySelector(".atlas2-about-close").focus({ preventScroll: true }); } else if (aboutEl.contains(document.activeElement)) aboutBtn.focus({ preventScroll: true }); sheetOpenClass(); };
+    aboutBtn.addEventListener("click", () => openAbout(aboutEl.hidden));
+    el.querySelector(".atlas2-about-close").addEventListener("click", () => openAbout(false));
     sheet.addEventListener("change", (e) => { const k = e.target.getAttribute("data-layer"); if (!k) return; setLayers({ [k]: e.target.type === "checkbox" ? e.target.checked : e.target.type === "radio" ? e.target.value : Number(e.target.value) }); });
     sheet.addEventListener("input", (e) => { if (e.target.getAttribute("data-layer") === "strength") { layers.strength = Number(e.target.value); invalidate(); } });
 
@@ -556,10 +643,15 @@
         const p = [...ptrs.values()];
         const d = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y), mid = { x: (p[0].x + p[1].x) / 2, y: (p[0].y + p[1].y) / 2 };
         if (pinch > 0 && d > 0) {
-          // turn by the midpoint's travel, then zoom about the midpoint
-          const k = degPerPx();
-          view.lon -= (mid.x - pinchMid.x) * k; view.lat += (mid.y - pinchMid.y) * k; clampView();
-          zoomAt(d / pinch, mid.x - rect.left, mid.y - rect.top);
+          // the place under the fingers' old midpoint lands under their new one: zoom, then move by the difference of the two
+          // unprojections (a pixel pan at the centre's scale drifted 4–6° over a 40-step pinch off centre — the Phase 1d audit)
+          const before = unproject(pinchMid.x - rect.left, pinchMid.y - rect.top);
+          view.zoom *= d / pinch; clampView(); view.radius = base * view.zoom; rotation();
+          const after = unproject(mid.x - rect.left, mid.y - rect.top);
+          if (before && after) { let dl = before.lon - after.lon; if (dl > 180) dl -= 360; else if (dl < -180) dl += 360; view.lon += dl; view.lat += before.lat - after.lat; clampView(); }
+          else { const k = degPerPx(); view.lon -= (mid.x - pinchMid.x) * k; view.lat += (mid.y - pinchMid.y) * k; clampView(); }
+          rotation();   // two pointer events arrive per touch move, faster than frames: the second must unproject against this view, not the last frame's
+          invalidate();
         }
         pinch = d; pinchMid = mid;
         return;
@@ -576,26 +668,43 @@
         invalidate();
       }
     });
+    let lastTap = null, tapTimer = 0;   // the last touch tap and the timer that turns it into a pick unless a second tap makes it a zoom (§2.9, Phase 1d)
+    const TAP_MS = 260;
     function ptrUp(e) {
       if (!ptrs.has(e.pointerId)) return;
       ptrs.delete(e.pointerId);
       if (ptrs.size === 1) { const p = [...ptrs.values()][0]; dragging = true; last = { x: p.x, y: p.y }; pinch = 0; return; }
       if (ptrs.size > 1) return;
       const wasDrag = dragging; dragging = false;
-      if (wasDrag && !moved && e.type === "pointerup") { const rect = canvas.getBoundingClientRect(); pickAt(e.clientX - rect.left, e.clientY - rect.top); return; }
-      if (wasDrag && moved && (performance.now() - lastMoveT) < 60 && Math.hypot(velLon, velLat) > 0.02) { coasting = true; invalidate(); }
+      if (wasDrag && !moved && e.type === "pointerup") {
+        const rect = canvas.getBoundingClientRect(), x = e.clientX - rect.left, y = e.clientY - rect.top;
+        if (e.pointerType !== "touch") { pickAt(x, y); return; }
+        // touch: a second tap within TAP_MS and 30 px of the first zooms in about the spot instead of picking; a single tap picks
+        // after the window closes (a pick costs two ID passes, which on a slow GPU would push the second tap past the window)
+        if (tapTimer && lastTap && Math.hypot(lastTap.x - x, lastTap.y - y) < 30) { clearTimeout(tapTimer); tapTimer = 0; lastTap = null; zoomAt(2, x, y); touched(); gestureEnded(); return; }
+        if (tapTimer) { clearTimeout(tapTimer); tapTimer = 0; }
+        lastTap = { x, y };
+        tapTimer = setTimeout(() => { tapTimer = 0; lastTap = null; if (!disposed) pickAt(x, y); }, TAP_MS);
+        return;
+      }
+      if (wasDrag && moved && (performance.now() - lastMoveT) < 60 && Math.hypot(velLon, velLat) > 0.02 && !reduced()) { coasting = true; invalidate(); }   // no fling under reduced motion (§2.9)
       touched();
+      gestureEnded();
+      if (STATIC2D) invalidate();   // the static view redraws on release (Phase 1d)
     }
     canvas.addEventListener("pointerup", ptrUp); canvas.addEventListener("pointercancel", ptrUp);
     function coast() {
       view.lon += velLon * 16; view.lat += velLat * 16; velLon *= 0.92; velLat *= 0.92;
-      if (Math.hypot(velLon, velLat) < 0.002) { coasting = false; touched(); }
+      if (Math.hypot(velLon, velLat) < 0.002) { coasting = false; touched(); gestureEnded(); }
       needs = true;
     }
     canvas.addEventListener("wheel", (e) => {
       e.preventDefault();
       const rect = canvas.getBoundingClientRect();
       const f = Math.exp(-Math.max(-120, Math.min(120, e.deltaY)) * 0.0025);
+      lastWheelT = performance.now();
+      if (wheelTimer) clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(() => { wheelTimer = 0; gestureEnded(); }, 220);
       zoomAt(f, e.clientX - rect.left, e.clientY - rect.top);
       invalidate(); touched();
     }, { passive: false });
@@ -606,14 +715,24 @@
       else if (e.key === "ArrowUp") view.lat += step; else if (e.key === "ArrowDown") view.lat -= step;
       else if (e.key === "+" || e.key === "=") zoomAt(1.25); else if (e.key === "-" || e.key === "_") zoomAt(1 / 1.25);
       else if (e.key === "Home" || e.key === "0") { view.lon = 10; view.lat = 20; view.zoom = 1; }
-      else if (e.key === "Escape") clearSelection();
+      else if (e.key === "Escape") { if (!aboutEl.hidden) openAbout(false); else if (!sheet.hidden) openSheet(false); else clearSelection(); }
+      else if (e.key === "?") openAbout(aboutEl.hidden);
+      else if (e.key === "/") { searchIn.focus(); searchIn.select(); }
       else if (e.key === "p" || e.key === "P") setPerf(!perfOn);
       else if (e.key === "r" || e.key === "R") setLayers({ relief: !layers.relief });
       else used = false;
       if (used) { e.preventDefault(); clampView(); invalidate(); touched(); }
     });
     // Escape anywhere in the Atlas (the card, the search box, the key list) clears the selection and shuts the card
-    el.addEventListener("keydown", (e) => { if (e.key === "Escape" && e.target !== canvas) { if (e.target === searchIn && !resultsUl.hidden) { closeResults(); return; } clearSelection(); canvas.focus({ preventScroll: true }); } });
+    el.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape" || e.target === canvas) return;
+      if (e.target === searchIn && !resultsUl.hidden) { closeResults(); return; }
+      if (!aboutEl.hidden) { openAbout(false); return; }                                   // the About sheet first (Phase 1d)
+      if (!sheet.hidden && sheet.contains(e.target)) { openSheet(false); layersBtn.focus({ preventScroll: true }); return; }   // then the legend, focus back on its button
+      const inCard = cardEl.contains(e.target);
+      clearSelection();                                   // closeCard sends focus back to the card's opener
+      if (!inCard) canvas.focus({ preventScroll: true });
+    });
     el.querySelectorAll("[data-zoom]").forEach((b) => b.addEventListener("click", () => {
       const z = b.getAttribute("data-zoom");
       if (z === "in") zoomAt(1.5); else if (z === "out") zoomAt(1 / 1.5); else { view.lon = 10; view.lat = 20; view.zoom = 1; clampView(); }
@@ -637,7 +756,7 @@
       }
       if (m.type === "meta") {
         header = m.header; faceEntity = m.faceEntity; R.setFaceCount(faceEntity.length);
-        if (header.tiles) { tileIndex = {}; for (const z of Object.keys(header.tiles)) { const t = header.tiles[z]; tileIndex[z] = { cols: t.cols, rows: t.rows, present: new Set(t.present) }; } }
+        if (header.tiles && !FILE && !STATIC2D) { tileIndex = {}; for (const z of Object.keys(header.tiles)) { const t = header.tiles[z]; tileIndex[z] = { cols: t.cols, rows: t.rows, present: new Set(t.present) }; } }   // no tile is fetched from a file or drawn by the still view
         faceOfEntity = new Map(); for (let i = 0; i < faceEntity.length; i++) if (!faceOfEntity.has(faceEntity[i])) faceOfEntity.set(faceEntity[i], i);
         entityIndexById = new Map(header.entities.map((e, i) => [e.id, i]));
         if (pendingZoom) { view.zoom = pendingZoom; pendingZoom = 0; clampView(); plan(); invalidate(); }   // a deep link's zoom past the old floor, now that the tile index says the cap is 150 m/px
@@ -645,6 +764,7 @@
         say("Shaping the land…", 0.35); return;
       }
       if (m.type === "gazetteer") { gazInWorker = true; requestLayout("gazetteer", true); return; }
+      if (m.type === "progress") { if (!stats.ready) say(m.text, m.frac); return; }
       if (m.type === "layout") { applyLayout(m); return; }
       if (m.type === "lod") {
         const tu = performance.now();
@@ -656,9 +776,10 @@
       }
       if (m.type === "tile") { landTiles.arrived(m.key, { tile: m.tile, stats: m.stats }); R.setTile(m.key, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }, m.tile); stats.tiles.push(m.stats); if (stats.tiles.length > 200) stats.tiles.shift(); invalidate(); return; }
       if (m.type === "water-meta") {
+        waterKeep = null;
         waterHeader = m.header; waterFaceEntity = m.faceEntity || null; arcRiver = m.arcRiver || null;
         const t = waterHeader.tiles && waterHeader.tiles[Object.keys(waterHeader.tiles)[0]];
-        if (t) waterIndex = { cols: t.cols, rows: t.rows, present: new Set(t.present) };
+        if (t && !FILE && !STATIC2D) waterIndex = { cols: t.cols, rows: t.rows, present: new Set(t.present) };
         stats.water = { parseMs: m.parseMs, levels: [], entities: waterHeader.entities.length, rivers: (waterHeader.rivers || []).length };
         requestLayout("water", true);
         return;
@@ -675,11 +796,13 @@
         let rgb = m.rgb;
         if (!rgb && m.planes) rgb = composeOnMain(m.planes, m.w, m.h);   // no OffscreenCanvas in the worker: compose here
         reliefTiles.arrived(m.key, { w: m.w, h: m.h });
+        const tu = performance.now();
         R.setRelief(m.key, { w: m.w, h: m.h, rgb, tile: m.key === "0" ? null : reliefTileOf(m.key) });
+        { const c = stats.reliefCost.find((x) => x.key === m.key && x.uploadMs == null); if (c) { c.composeMs = Math.round(tu - c.at); c.uploadMs = Math.round((performance.now() - tu) * 10) / 10; delete c.at; } }
         stats.relief = stats.relief || { tiles: 0 }; stats.relief.tiles++;
         invalidate(); return;
       }
-      if (m.type === "done") { stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace && G.ready) { selectById(pendingPlace, { open: true, fly: false, push: false }); pendingPlace = null; } invalidate(); requestLayout("ready", true); }
+      if (m.type === "done") { loadBuffer = null; stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace && G.ready) { selectById(pendingPlace, { open: true, fly: false, push: false }); pendingPlace = null; } invalidate(); requestLayout("ready", true); }
     }
     /* a restored GL context (Phase 1c): the renderer dropped everything; the worker sends the resident levels
        again from the files it kept, the loaders fetch their tiles again, relief is asked for again */
@@ -696,28 +819,60 @@
       c.width = 0; c.height = 0;
       return rgb;
     }
+    // the main-thread shim (Phase 1d): the worker's file as a plain script, earcut beside it, the same messages, yielding
+    // every 40 ms so no task holds the page past about 100 ms; its progress drives the status line
+    let loadBuffer = null;   // the topology, kept on this thread until the worker says `done`, so a worker that dies can be replaced by the shim
+    function startShim(buffer, why) {
+      stats.shim = why;
+      Promise.all([root.earcut ? null : loadScript("atlas/vendor/earcut.js"), root.AtlasWorkerMain ? null : loadScript("atlas/atlas-worker.js")]).then(() => {
+        if (disposed) return;
+        shim = root.AtlasWorkerMain;
+        shim.handle({ type: "load", buffer }, onMessage, (text, frac) => { if (!stats.ready) say(text, frac); });
+        if (waterBuffer) { const wb = waterBuffer; waterBuffer = null; postToWorker({ type: "water", buffer: wb }); }
+        else if (waterKeep && !waterHeader) postToWorker({ type: "water", buffer: waterKeep });   // the worker had it and died with it
+      }, () => fail("The Atlas worker could not be loaded."));
+    }
     function startWorker(buffer) {
       const t = performance.now();
+      loadBuffer = buffer;
       try {
-        if (location.protocol === "file:") throw new Error("file:");
+        if (FILE) throw new Error("file:");
         worker = new Worker("atlas/atlas-worker.js");
         worker.onmessage = (e) => onMessage(e.data);
-        worker.onerror = (e) => { if (!stats.ready) fail("The Atlas worker failed: " + (e.message || "unknown error")); };
-        worker.postMessage({ type: "load", buffer }, [buffer]);
+        // a worker that fails before the land is in (its script refused, a syntax error, an exception) is replaced by the shim
+        worker.onerror = (e) => { if (e && e.preventDefault) e.preventDefault(); if (stats.ready || shim) return; try { worker.terminate(); } catch (x) {} worker = null; stats.workerError = String(e && e.message || "error"); say("Shaping the land here instead…", 0.32); startShim(loadBuffer, "worker failed: " + stats.workerError); };
+        worker.postMessage({ type: "load", buffer });   // a copy, not a transfer: the original stays here for the fallback above
       } catch (e) {
-        // the main-thread shim: the same file, the same message shape, earcut loaded beside it
-        Promise.all([root.earcut ? null : loadScript("atlas/vendor/earcut.js"), root.AtlasWorkerMain ? null : loadScript("atlas/atlas-worker.js")]).then(() => {
-          shim = root.AtlasWorkerMain;
-          setTimeout(() => shim.handle({ type: "load", buffer }, onMessage), 0);
-          if (waterBuffer) { postToWorker({ type: "water", buffer: waterBuffer }, [waterBuffer]); waterBuffer = null; }
-        }, () => fail("The Atlas worker could not be loaded."));
+        startShim(buffer, FILE ? "file://" : "no Worker: " + (e && e.message || e));
       }
       stats.workerStartMs = Math.round(performance.now() - t);
+    }
+    // a `.js` twin (lib/twin.js): window.ATLAS_TWIN[name] = { bytes, sha256, b64 }; decoded by fetch() of a data: URL, which a
+    // file:// page may do and which runs off the main thread
+    async function loadTwin(name, label) {
+      say("Reading " + label + "…", 0.1);
+      await loadScript("atlas/data/" + name + ".js");
+      const tw = root.ATLAS_TWIN && root.ATLAS_TWIN[name];
+      if (!tw || !tw.b64) throw new Error("no twin for " + name);
+      let buffer;
+      try { buffer = await (await fetch("data:application/octet-stream;base64," + tw.b64)).arrayBuffer(); }
+      catch (e) { const bin = atob(tw.b64), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); buffer = u8.buffer; }
+      if (buffer.byteLength !== tw.bytes) throw new Error(label + " twin decoded to " + buffer.byteLength + " bytes, not " + tw.bytes);
+      try { if (crypto && crypto.subtle) { const d = await crypto.subtle.digest("SHA-256", buffer); const hex = [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join(""); if (hex !== tw.sha256) throw new Error(label + " twin's bytes do not match its sha256"); stats.twinVerified = (stats.twinVerified || 0) + 1; } } catch (e) { if (/sha256/.test(String(e))) throw e; }
+      tw.b64 = null;   // 4–6 MB of text the page no longer needs
+      return buffer;
     }
     (async () => {
       const t = performance.now();
       try {
-        if (location.protocol === "file:") { fail("The new Atlas needs to be served over http (a local server such as `python3 -m http.server`); a browser will not fetch its data from file://. The current Atlas at #map still works."); return; }
+        if (FILE) {
+          const buffer = await loadTwin("topology.bin", "the earth");
+          stats.fetchMs = Math.round(performance.now() - t); stats.bytes = buffer.byteLength;
+          if (disposed) return;
+          say("Shaping the land…", 0.32);
+          startWorker(buffer);
+          return;
+        }
         const res = await fetch(dataUrl);
         if (!res.ok) throw new Error("HTTP " + res.status);
         const total = Number(res.headers.get("Content-Length")) || 0;
@@ -736,21 +891,24 @@
       } catch (e) { fail("The Atlas data didn’t arrive (" + (e && e.message ? e.message : e) + "). Check your connection and try again."); }
     })();
     // the water file, once: parsed by the same worker (after the land, which it queues behind)
-    let waterStarted = false, waterFailed = false, waterBuffer = null;
+    let waterStarted = false, waterFailed = false, waterBuffer = null, waterKeep = null;   // waterKeep: the file until `water-meta`, so a worker that dies can be replaced
     function startWater() {
       waterStarted = true;
       const t = performance.now();
-      fetch(waterUrl).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); }).then((buffer) => {
+      (FILE ? loadTwin("water.bin", "the rivers and lakes") : fetch(waterUrl).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
         if (disposed) return;
         stats.waterFetchMs = Math.round(performance.now() - t); stats.waterBytes = buffer.byteLength;
-        if (worker || shim) postToWorker({ type: "water", buffer }, [buffer]); else waterBuffer = buffer;
+        waterKeep = buffer;
+        if (worker || shim) postToWorker({ type: "water", buffer }); else waterBuffer = buffer;   // a copy to a worker, in place to the shim
       }).catch((e) => { waterFailed = true; layersNote.hidden = false; layersNote.textContent = "The rivers and lakes didn’t arrive (" + (e && e.message ? e.message : e) + ")."; });
     }
     // the relief index, then L0; the frame loop asks for L1 tiles as the view needs them
     let reliefStarted = false, reliefFailed = false;
     function startRelief() {
       reliefStarted = true;
-      if (typeof createImageBitmap !== "function") { layersNote.hidden = false; layersNote.textContent = "This browser cannot decode the relief images."; return; }
+      if (STATIC2D) { reliefFailed = true; layersNote.hidden = false; layersNote.textContent = "Relief needs WebGL2, which this browser does not have."; return; }
+      if (FILE) { reliefFailed = true; layersNote.hidden = false; layersNote.textContent = "Relief needs a web server: a browser will not fetch its images from a file."; return; }
+      if (typeof createImageBitmap !== "function") { reliefFailed = true; layersNote.hidden = false; layersNote.textContent = "This browser cannot decode the relief images."; return; }
       fetch(reliefUrl + "relief.json").then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); }).then((idx) => {
         if (disposed) return;
         reliefIndex = idx;
@@ -778,7 +936,7 @@
         if (!T || !Array.isArray(T.rows) || !Array.isArray(T.cols)) throw new Error("no table");
         G.rows = T.rows.map((r, i) => { const o = { i }; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; }); o.key = fold(o.name); o.akeys = (o.aliases || []).map(fold); if (o.qid) o.qid = "Q" + o.qid; return o; });
         for (const o of G.rows) if (typeof o.within === "number") o.within = o.within > 0 && G.rows[o.within - 1] ? G.rows[o.within - 1].id : 0;   // the table stores the container's row index + 1
-        for (const r of G.rows) { G.byId.set(r.id, r); if (typeof r.geom === "string" && r.geom[0] === "r") G.byRiver.set(Number(r.geom.slice(1)), r); }
+        for (const r of G.rows) { G.byId.set(r.id, r); if (typeof r.geom === "string" && r.geom[0] === "r") { G.byRiver.set(Number(r.geom.slice(1)), r); for (const ei of (Array.isArray(r.alt) ? r.alt : [])) G.byRiver.set(ei, r); } }   // a merged river answers for every stretch (Phase 1d)
         G.ready = true;
         stats.gazetteer = { rows: G.rows.length, ms: Math.round(performance.now() - t) };
         if (pendingPlace && stats.ready) { selectById(pendingPlace, { open: true, fly: false, push: false }); pendingPlace = null; }
@@ -969,12 +1127,18 @@
       stackBtn.style.left = Math.max(8, Math.min(cssW - 180, sel.at[0] + 14)) + "px"; stackBtn.style.top = Math.max(8, Math.min(cssH - 40, sel.at[1] + 14)) + "px";
     }
     stackBtn.addEventListener("click", () => { if (sel.stack.length < 2) return; sel.index = (sel.index + 1) % sel.stack.length; sel.t = performance.now(); showStack(); selectRow(sel.stack[sel.index], { open: true, push: true }); });
+    /* announcements (§2.9, Phase 1d): one polite live region speaks the selection — "France, country" — and, when the
+       stack chip is up, how many places share the spot; the caption's own live region speaks hover names */
+    const announceEl = el.querySelector(".atlas2-announce");
+    let announceTimer = 0;
+    function announce(text) { if (announceTimer) clearTimeout(announceTimer); announceTimer = setTimeout(() => { announceTimer = 0; announceEl.textContent = ""; announceEl.textContent = text; }, 50); }
     function selectRow(row, o) {
       o = o || {};
       sel.id = row.id;
       const face = (row.kind === "country" || row.kind === "admin1") ? faceOfId(row.id) : null;
       R.select(face);
       caption.textContent = "";
+      announce(row.name + ", " + (KIND_LABEL[row.kind] || row.kind).toLowerCase() + (sel.stack.length > 1 ? "; " + sel.stack.length + " places here" : ""));
       if (o.open) openCard(row);
       if (o.push) writeHash(true); else writeHash(false);
       for (const p of L.placed) if (p.id === row.id || p.sprite && p.id !== row.id && false) p.sprite = renderSprite(p);   // the selected label takes the accent
@@ -988,6 +1152,7 @@
       const had = sel.id;
       sel.id = null; sel.stack = []; sel.index = 0; sel.at = null;
       R.select(null); caption.textContent = ""; stackBtn.hidden = true;
+      if (had) announce("Nothing selected");
       closeCard();
       if (had) { for (const p of L.placed) if (p.id === had) p.sprite = renderSprite(p); writeHash(false); requestLayout("select", true); }
       invalidate();
@@ -1004,10 +1169,12 @@
     }
 
     /* ---- the place card: a side column, a bottom sheet on a phone that opens shut ---- */
-    let cardRow = null, cardOpen = false, sheetUp = false;
+    let cardRow = null, cardOpen = false, sheetUp = false, cardOpener = null;   // cardOpener: where focus was when the card opened; Escape and Close send it back there (§2.9)
     const kindLine = (row) => { const w = row.within ? G.byId.get(row.within) : null; return (KIND_LABEL[row.kind] || row.kind) + (w ? " · " + w.name : ""); };
     const wikiUrl = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(String(title).replace(/ /g, "_"));
     function openCard(row) {
+      const wasOpen = cardOpen;
+      if (!wasOpen) sheetUp = false;   // a phone's sheet opens shut every time (§7 Phase 1c); a second place while it is up keeps its height
       cardRow = row; cardOpen = true;
       cardEl.hidden = false;
       cardEl.classList.toggle("atlas2-card-shut", PHONE && !sheetUp);
@@ -1016,8 +1183,19 @@
       cardBody.scrollTop = 0;
       if (row.kind === "country") renderCountryCard(row); else renderPlaceCard(row);
       el.classList.add("atlas2-has-card");
+      // focus moves to the heading when the card OPENS (not when a second place replaces the first); the opener is
+      // remembered unless focus was already inside the card
+      if (!wasOpen) { const a = document.activeElement; cardOpener = a && el.contains(a) && !cardEl.contains(a) ? a : canvas; cardTitle.focus({ preventScroll: true }); }
     }
-    function closeCard() { cardOpen = false; cardRow = null; cardEl.hidden = true; el.classList.remove("atlas2-has-card"); }
+    function closeCard(returnFocus) {
+      const had = cardOpen;
+      cardOpen = false; cardRow = null; cardEl.hidden = true; el.classList.remove("atlas2-has-card");
+      if (had && returnFocus !== false) {
+        const inside = document.activeElement && (cardEl.contains(document.activeElement) || document.activeElement === document.body);
+        if (inside) { const back = cardOpener && cardOpener.isConnected && el.contains(cardOpener) ? cardOpener : canvas; back.focus({ preventScroll: true }); }
+      }
+      cardOpener = null;
+    }
     el.querySelector(".atlas2-card-close").addEventListener("click", () => clearSelection());
     el.querySelector(".atlas2-grip").addEventListener("click", () => { sheetUp = !sheetUp; cardEl.classList.toggle("atlas2-card-shut", PHONE && !sheetUp); });
     el.querySelector(".atlas2-card-head").addEventListener("click", (e) => { if (PHONE && !e.target.closest("button")) { sheetUp = !sheetUp; cardEl.classList.toggle("atlas2-card-shut", !sheetUp); } });
@@ -1078,6 +1256,7 @@
       active = results.length ? 0 : -1;
       resultsUl.innerHTML = results.map((r, i) => { const w = r.within ? G.byId.get(r.within) : null; return `<li role="option" id="atlas2-opt-${i}" data-i="${i}"${i === active ? ' aria-selected="true" class="active"' : ""}><span class="atlas2-res-name">${escText(r.name)}</span><span class="atlas2-chip">${escText(KIND_LABEL[r.kind] || r.kind)}</span>${w ? `<span class="atlas2-res-in">${escText(w.name)}</span>` : ""}</li>`; }).join("");
       resultsUl.hidden = !results.length;
+      if (results.length) onVisual();   // the list's room under the visual viewport (a soft keyboard may be up)
       searchIn.setAttribute("aria-expanded", String(!!results.length));
       if (active >= 0) searchIn.setAttribute("aria-activedescendant", "atlas2-opt-" + active); else searchIn.removeAttribute("aria-activedescendant");
       return results;
@@ -1123,7 +1302,7 @@
       const u = Math.min(1, (t - f.t0) / f.dur), e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
       view.lon = f.from.lon + (f.to.lon - f.from.lon) * e; view.lat = f.from.lat + (f.to.lat - f.from.lat) * e; view.zoom = Math.exp(f.from.lz + (f.to.lz - f.from.lz) * e);
       clampView(); needs = true;
-      if (u >= 1) { flying = null; touched(); if (f.done) f.done(); }
+      if (u >= 1) { flying = null; touched(); gestureEnded(); if (f.done) f.done(); }
     }
 
     /* ---- deep links: #map2/<lon>/<lat>/<zoom>/<place>, written on settle, pushed on a selection ---- */
@@ -1165,6 +1344,20 @@
     keysUl.addEventListener("focusin", (e) => { const b = e.target.closest("button[data-id]"); focusId = b ? b.getAttribute("data-id") : null; if (focusId) { const row = G.byId.get(focusId); caption.textContent = row ? row.name : ""; } invalidate(); });
     keysUl.addEventListener("focusout", () => { focusId = null; invalidate(); });
 
+    /* the soft keyboard (Phase 1d, §2.9): the layout viewport (and 100vh) does not change when a keyboard comes up, so the
+       map stays where it is; what must follow the VISUAL viewport is the search's result list, whose height is capped by
+       --atlas2-vvh, and the focused search box, which is scrolled into the visible part if the keyboard has covered it */
+    const vv = window.visualViewport || null;
+    const onVisual = () => {
+      if (disposed) return;
+      const vh = vv ? vv.height : window.innerHeight, vt = vv ? vv.offsetTop : 0;
+      const lr = resultsUl.getBoundingClientRect(), top = lr.height ? lr.top : searchIn.getBoundingClientRect().bottom + 4;
+      el.style.setProperty("--atlas2-list-max", Math.max(96, Math.round(vt + vh - top - 12)) + "px");   // the list's room above a soft keyboard
+      if (document.activeElement === searchIn) { const r = searchIn.getBoundingClientRect(); if (r.bottom > vh + vt || r.top < vt) searchIn.scrollIntoView({ block: "nearest" }); }
+    };
+    if (vv) { vv.addEventListener("resize", onVisual); vv.addEventListener("scroll", onVisual); }
+    window.addEventListener("resize", onVisual);
+    onVisual();
     /* ---------- lifecycle ---------- */
     const onResize = () => { if (!el.isConnected) { dispose(); return; } layout(); invalidate(); };
     window.addEventListener("resize", onResize);
@@ -1183,9 +1376,12 @@
       disposed = true;
       try { mo.disconnect(); themeObs.disconnect(); if (sizeObs) sizeObs.disconnect(); } catch (e) {}
       window.removeEventListener("resize", onResize);
+      if (vv) { vv.removeEventListener("resize", onVisual); vv.removeEventListener("scroll", onVisual); }
+      window.removeEventListener("resize", onVisual);
       window.removeEventListener("hashchange", onHash); window.removeEventListener("popstate", onHash);
       if (raf) cancelAnimationFrame(raf);
       if (layoutTimer) clearTimeout(layoutTimer);
+      if (tapTimer) clearTimeout(tapTimer);
       landTiles.abortAll(); waterTiles.abortAll(); reliefTiles.abortAll();
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
       R.dispose();
@@ -1202,7 +1398,9 @@
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
     const controller = { dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
-      statsNow: () => Object.assign(R.stats(), { kmPerPx: kmPerPx(), wanted: view.tiles.length, pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
+      mode: () => ({ file: FILE, static2d: STATIC2D, shim: !!shim, worker: !!worker, resScale, stage, lodBias: lodBias(), shimWhy: stats.shim || null, workerError: stats.workerError || null, twinVerified: stats.twinVerified || 0 }),
+      input: () => ({ pointers: [...ptrs.entries()].map(([id, p]) => [id, Math.round(p.x), Math.round(p.y)]), dragging, moved, pinch: Math.round(pinch), coasting, flying: !!flying }),   // for the suites
+      statsNow: () => Object.assign(R.stats(), { kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
         labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
       // Phase 1c, for the suites and the console
       labels: () => L.placed, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
