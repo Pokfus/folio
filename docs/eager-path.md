@@ -248,3 +248,14 @@ silently lost**; a gloss language file arrives after `PRISTINE_GLOSS_I18N` was s
 deltas. Because those files are **per language** the hook runs once per language and the baseline accumulates —
 and it drains a QUEUE (`window.GLOSSARY_I18N_IN`), not a single slot, so two languages whose scripts land before
 either hook both get seeded. Any new lazy file whose global is read at boot needs the same treatment.
+
+## The Atlas v2 bundles are lazy (2026-10-09)
+
+Nothing under `atlas/` is on the eager path. `atlas/atlas-format.js`, `atlas-gl.js`, `atlas-canvas.js` and `atlas.js`
+are the `atlas2` bundle in `DATA_BUNDLES`, loaded by `#map2` alone; `atlas-worker.js` is fetched by the Worker (or as a
+plain script by the `file://` shim); `atlas/data/topology.bin`, `water.bin`, the tiles and the relief planes are
+`fetch()`ed by the page as the view needs them; `atlas/data/gazetteer.js` is a `<script>` the page adds once the land is
+in; `atlas/data/credits.js` is the `credits` bundle, loaded by `#credits` alone; the `.bin.js` twins (10 MB of base64)
+are loaded only on `file://`. The one v1 file the place card borrows, the prose of `countries.js` and its siblings, is
+the `atlas2prose` bundle, loaded on the first country card. `node .claude/check-sizes.js` should therefore show no
+`atlas/` file in the eager total — if one appears there, a `<script>` for it has been added to `index.html` by mistake.

@@ -6,7 +6,10 @@
 
 The pipeline is Node, lives in `.claude/atlas-build/`, and **nothing in it ships**: its outputs are
 `atlas/data/topology.bin`, `atlas/data/tiles/<z>/<x>-<y>.bin`, `atlas/data/water.bin`,
-`atlas/data/water/<x>-<y>.bin` and `atlas/data/relief/`, which the site serves as plain files.
+`atlas/data/water/<x>-<y>.bin`, `atlas/data/relief/`, `atlas/data/gazetteer.js`, `atlas/data/credits.js` and the two
+`file://` twins `atlas/data/topology.bin.js` and `water.bin.js`, which the site serves as plain files. **Every one of them
+carries a `sources` header** (the JSON header of a `.bin`, the first line of a `.js`, the `sources` key of `relief.json`), and
+the Sources and credits page is generated from exactly those headers — so a new generated file needs a header, nothing else.
 Its libraries (`npm ci` in that directory) never enter the site — the one shared file is
 `atlas/atlas-format.js`, the `.bin` reader/writer the browser, the worker, the checker and the
 Playwright suites all load, so there is exactly one definition of every byte.
@@ -21,12 +24,15 @@ Playwright suites all load, so there is exactly one definition of every byte.
 | 5 | `node --max-old-space-size=12000 build-water.js [--measure]` | the committed `atlas/data/` (the land partition, read through `lib/landindex.js`), Natural Earth 10m rivers, HydroLAKES | `out/water-full.bin`, `out/water-report.json`, `out/water-log.json` | ~12 min (the overlap pre-pass over 18 M lake vertices and the per-level planarity are most of it) |
 | 6 | `node --max-old-space-size=8000 build-gazetteer.js [--install] [--dry] [--no-wiki] [--refetch] [--tier N] [--town-min N] [--river-rank N]` | the committed `atlas/data/` (faces, lakes, rivers; the z=4 tiles through `lib/landindex.js` for `within` and the anchor checks), NE 10m populated places, marine polygons, regions polygons and points, NE admin-0 (name variants, label points), `countries.js` (the v1 prose keys), Wikidata's query service (enwiki sitelinks, cached in `wiki-sitelinks.json`) | `out/gazetteer.js`, `out/gazetteer-report.json` (size per kind, the v1 key mapping and the countries without prose, the anchors the partition could not place); `--install` copies the file into `atlas/data/gazetteer.js` | ~30 s of geometry; the first Wikidata fetch ~25 min (the query service rate-limits a shared address, the build backs off), later runs read the cache |
 | 7 | `node --max-old-space-size=14000 build-relief.js [--install] [--levels 0,1,2]` | ETOPO 2022 60 arc-second GeoTIFF | `out/relief/` (L0 and L1 as three greyscale PNGs per tile, `relief.json`); `--install` copies them into `atlas/data/relief/` | ~45 s (L2 adds 20 s and 119 MB; not shipped) |
-| 8 | `node pack.js [--install]` | `out/full.bin` | `out/dist/` (the core, the tiles, `tiles-report.json`); `--install` copies them into `atlas/data/` | ~1 min |
-| 8b | `node pack-water.js [--install] [--dry]` | `out/water-full.bin` | `out/dist-water/` (`water.bin`, `water/<x>-<y>.bin`, `water-report.json`); `--install` copies them into `atlas/data/` — the land files are untouched | ~10 s |
+| 8 | `node pack.js [--install]` (`--twin` alone: only the file:// twin of the committed core) | `out/full.bin` | `out/dist/` (the core, the tiles, `tiles-report.json`); `--install` copies them into `atlas/data/`, writes `atlas/data/topology.bin.js` (the base64 twin, lib/twin.js) and regenerates `credits.js` | ~1 min |
+| 8b | `node pack-water.js [--install] [--dry]` (`--twin` alone: only the water twin) | `out/water-full.bin` | `out/dist-water/` (`water.bin`, `water/<x>-<y>.bin`, `water-report.json`); `--install` copies them into `atlas/data/` — the land files are untouched —, writes `atlas/data/water.bin.js` while both twins fit 12 MB (decimal), and regenerates `credits.js` | ~10 s |
+| 8c | `node build-credits.js [--install] [--dry] [--check]` | the `sources` header of EVERY file under `atlas/data/` | `out/credits.js`; `--install` copies it to `atlas/data/credits.js` (every other `--install` above runs this for you) | ~3 s |
 | 9 | `node check-topology.js --tiles` (from the repo root: `node --max-old-space-size=8000 .claude/atlas-build/check-topology.js --tiles`) | `atlas/data/` | nothing; exit 1 on any failure | ~4 min |
 | 9b | `node check-water.js` and `node check-relief.js [--source] [--coast N]` (from the repo root, with `--max-old-space-size=8000`) | `atlas/data/` (+ the ETOPO source for `--source`) | nothing; exit 1 on any failure; `--coast N` writes `out/relief-coast.json` | ~2 min; `--source` ~1 min more |
-| 9c | `node --max-old-space-size=8000 .claude/atlas-build/check-gazetteer.js` (from the repo root) | `atlas/data/gazetteer.js`, the core and water headers, the z=4 tiles, `wiki-sitelinks.json`, `countries.js` | nothing; exit 1 on any failure (the header, the table, every country's anchor and path in its own land, the ten named countries, seas off the land, every Wikipedia title the cached sitelink of its item, the 0.6 MB budget) | ~30 s |
+| 9c | `node --max-old-space-size=8000 .claude/atlas-build/check-gazetteer.js` (from the repo root) | `atlas/data/gazetteer.js`, the core and water headers, the z=4 tiles, `wiki-sitelinks.json`, `countries.js` | nothing; exit 1 on any failure (the header, the table, every country's anchor and path in its own land, the ten named countries, seas off the land, every Wikipedia title the cached sitelink of its item, the 0.6 MB decimal budget; since 1d: no two rows of a kind share a QID, every QID row's name in Latin script with its diacritics following the English title, one Rhine / Danube / Tagus / Yangtze with their other names as aliases, Copenhagen not København, no two admin-1 units of a country with one name) | ~30 s |
+| 9d | `node .claude/atlas-build/check-credits.js` (from the repo root) | every header under `atlas/data/`, `atlas/data/credits.js` | nothing; exit 1 when the committed credits lag the data, a licence is not an accepted identifier, a link is not https, or a share-alike (ODbL) file is missing from the statement | ~3 s |
 
+The twins: `check-topology.js` and `check-water.js` decode `topology.bin.js` / `water.bin.js` and fail unless the bytes' sha256 is the `.bin`'s.
 Steps 3 and 4 of the design's table (polities, peoples) do not exist yet (Phase 2); step 6 is the Phase 1c gazetteer v0 (countries, admin-1 units, cities, seas, lakes, rivers, islands, ranges, regions — the places the present-day map names; the cards' places are Phase 3).
 Each step is deterministic given `sources.json`; the only non-determinism in the outputs is the
 `generated` timestamp in each header. The `buildId` in every header is the sha256 of `out/full.bin`
@@ -55,7 +61,14 @@ fetched through `query.wikidata.org/sparql` in batches of 50 (the `wbgetentities
 sandbox's shared address — `check-reach.js` has the row) and cached in `.claude/atlas-build/wiki-sitelinks.json`,
 which IS committed: a rebuild is reproducible offline, a title is never written from memory, and
 `check-gazetteer.js` fails on any title the cache does not hold for that item. `--refetch` asks again for every
-item; a new item (a new row with a QID) is fetched on the next build without it. After `--install`, run step 9c,
+item; a new item (a new row with a QID) is fetched on the next build without it. **Since Phase 1d the cache also holds the
+items' English labels** (`labels`, the same batches of 50 through `lib/wikidata.js`), which the builder's naming rule reads
+(the header of `build-gazetteer.js` states the rule and what the broad reading of it got wrong); the service answers 429 to a
+shared address after a few batches, and the first pass over 4,528 items took about an hour of back-offs. **Names are
+English and there is one row per Wikidata item per kind** (the Rhine's three Natural Earth stretches are one row with `alt`
+naming the other water entities and `aliases` the other names; the Atlantic's two polygons are one shape). The defaults are
+the shipped file's: `--tier 1000000` (no further city tier) and `--river-rank 7` (Phase 1d's budget lever: the 288 rivers
+of scale rank 8, 28 KB, are drawn but carry no name — the English names and the aliases had cost 20 KB). After `--install`, run step 9c,
 then `.claude/test-atlas-render.js`, `test-atlas-labels.js`, `test-atlas-card.js`, `test-atlas-search.js` and
 `test-atlas-a11y.js` (all need Playwright on `NODE_PATH`). The `--tier`, `--town-min` and `--river-rank` flags
 are the budget's levers; `out/gazetteer-report.json` records the size each kind costs, so a change to one of
@@ -67,6 +80,21 @@ memory and prints the size report without writing. After `--install`, run step 9
 `.claude/test-atlas-perf.js` and `.claude/atlas-shots.js` (both need Playwright on `NODE_PATH`; in a
 cloud session also `FOLIO_CHROMIUM=/opt/pw-browsers/<chromium>/chrome-linux/chrome`) — the gate's
 figures and the screenshot series are what §7's as-built note quotes.
+
+## Every checker and every CI job
+
+`.github/workflows/checks.yml` runs, on every push:
+
+| job | what of the Atlas it runs | gate? |
+|---|---|---|
+| `no-browser suites and checkers` (fast) | `node --check` over `atlas/*.js`, `atlas/vendor/*.js` and the pipeline; `check-topology.js --tiles --max-bytes 3145728` (the core, every tile, the twin's hash); `check-water.js` (the water, its tiles, the water twin and the 12 MB twin budget); `check-relief.js`; `check-gazetteer.js`; `check-credits.js`; the eager-path size (no `atlas/` file may appear in it) | yes — red here fails the run |
+| `Playwright suites` (browser) | every `.claude/test-*.js` that says "playwright" except the frame gate: for the Atlas `test-atlas-render.js`, `-labels`, `-card`, `-search`, `-a11y`, `-relief`, `-places`, and Phase 1d's `-credits`, `-fallbacks` (file://, no WebGL2, context loss, a failed worker), `-phone` (five viewports, three themes) and `-session` (five minutes of use, memory sampled) | no — a second opinion (`continue-on-error`), read per suite in the job's log; `test-tour.js`, `test-draw-cards.js`, `test-review-decks.js` and `test-war-cards.js` are red on main for reasons of their own |
+| `Atlas v2 frame gate` | `test-atlas-perf.js` alone — the owner's rules (§7 "Phase 1d — as built") | yes, and must be green on every head |
+
+The browser job takes about an hour and every push to a branch cancels the run before it: batch commits and push once per CI cycle.
+Locally: `NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-atlas-<name>.js`, with `FOLIO_CHROMIUM=/opt/pw-browsers/<chromium>/chrome-linux/chrome`
+in a cloud session; `.claude/atlas-shots.js` takes the screenshot series the as-built notes review; `test-atlas-phone.js [dir]`
+writes its screenshots too, and `FOLIO_VIEWPORTS=360x640,844x390` narrows it.
 
 ## Where things live
 
@@ -86,11 +114,13 @@ figures and the screenshot series are what §7's as-built note quotes.
   OSM is never re-downloaded for water. It cannot re-run `pack.js`; a change to the land tiles still
   needs steps 1, 2 and 8.
 - **`node_modules/`** — `npm ci` here once per session; git-ignored.
-- **`wiki-sitelinks.json`** — the Wikidata sitelink cache (Phase 1c), committed beside the builder: `{ retrieved,
-  titles: { Q…: "Title" | null } }`, null meaning the item has no enwiki sitelink (and the row no link).
-- **`atlas/data/`** — the committed artefact: `topology.bin` and `tiles/`. **Never hand-edit a
-  generated file**; fix the script or the pin and rebuild. Commit a rebuilt `tiles/` once per
-  meaningful build, not per iteration — every committed tile stays in the repository's history.
+- **`wiki-sitelinks.json`** — the Wikidata cache (Phase 1c, labels added in 1d), committed beside the builder: `{ retrieved,
+  titles: { Q…: "Title" | null }, labels: { Q…: "Label" | null } }`, null meaning the item has no enwiki sitelink (and the
+  row no link) or no English label.
+- **`atlas/data/`** — the committed artefact: `topology.bin` and `tiles/`, `water.bin` and `water/`, `relief/`,
+  `gazetteer.js`, `credits.js`, `topology.bin.js` and `water.bin.js`. **Never hand-edit a generated file**; fix the script or
+  the pin and rebuild. Commit a rebuilt `tiles/` once per meaningful build, not per iteration — every committed tile stays in
+  the repository's history. The land, water and relief files were byte-identical across Phase 1d (`sha256sum` before and after).
 
 ## Iterating without re-running everything
 
@@ -115,6 +145,20 @@ figures and the screenshot series are what §7's as-built note quotes.
   quote; the `--levels` flag is how L2 was measured and left out.
 - The snap log fails the build when a snap exceeds its source's tolerance (`TOLERANCE_M`); read
   `out/admin-log.json` for the offending snap rather than raising the tolerance.
+
+## How the credits page is generated
+
+`atlas/data/credits.js` is never written by hand. `build-credits.js` walks `atlas/data/`, reads the `sources` header of every
+`.bin` (header-only), every `.json` with a `sources` key and the first line of every `.js`, merges them by source id — one entry
+per id, a variant per distinct (version, retrieved, sha256), each with the Folio files derived from it, grouped per directory
+with a count — and writes the table with a header of its own. `PAGES.credits` in `app.js` renders it: name, version, licence
+(linked), the attribution string exactly as the files carry it, the retrieval date, the derived files, then the caution
+sentence about borders and the ODbL statement listing every file that carries the OSM source. Every `--install` of
+`pack.js`, `pack-water.js`, `build-relief.js` and `build-gazetteer.js` runs the generator afterwards, and `check-credits.js`
+(CI's fast job) regenerates it in memory and fails when the committed file differs — so the page cannot lag the data. A
+source's strings come from `sources.json` through the files; to correct one, fix `sources.json`, rebuild the files that carry
+it (or, for a wording-only correction, accept that the files' headers are what they are until the next rebuild) and re-run the
+generator. The page's two sentences of its own live in `app.js` and were flagged for counsel's review (2026-10-09).
 
 ## Adding a source
 
