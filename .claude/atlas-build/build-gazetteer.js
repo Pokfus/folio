@@ -311,7 +311,9 @@ for (const [ei, lists] of riverLists) {
   let rid = e.id; if (riverIds.has(rid)) { rid = e.id + ":" + ei; left("river id shared by two stretches"); } riverIds.add(rid);
   // the polyline: every arc of every list in order, rank-0 vertices only for the sampling
   const pts = [];
-  for (const rv of lists) for (const a of rv.arcs) for (let i = water.arcOffset[a]; i < water.arcOffset[a + 1]; i++) if (water.rank[i] === 0 || i === water.arcOffset[a] || i === water.arcOffset[a + 1] - 1) pts.push([water.lon[i] * WQ, water.lat[i] * WQ]);
+  // the references are ONE-BASED and signed, as every arc list in the format is (pack-water.js writes arcIndex + 1):
+  // read zero-based they named the arc after each one, and a river's anchor could land on its neighbour (Oct 2026)
+  for (const rv of lists) for (const ref of rv.arcs) { const a = Math.abs(ref) - 1; const s0 = water.arcOffset[a], e0 = water.arcOffset[a + 1]; const run = []; for (let i = s0; i < e0; i++) if (water.rank[i] === 0 || i === s0 || i === e0 - 1) run.push([water.lon[i] * WQ, water.lat[i] * WQ]); if (ref < 0) run.reverse(); pts.push(...run); }
   if (!pts.length) continue;
   const mid = pts[Math.floor(pts.length / 2)];
   const aliases = [...new Set([e.label].map(clean).filter((s) => s && s !== e.name))];

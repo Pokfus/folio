@@ -656,7 +656,10 @@
     RIVER_LINES = new Map(); RIVER_CAPS = new Map();
     (T.header.rivers || []).forEach((rv) => {
       const pts = [];
-      for (const a of rv.arcs) { arcRiver[a] = rv.entity; for (let i = T.arcOffset[a]; i < T.arcOffset[a + 1]; i++) if (T.rank[i] <= 1) pts.push(pos[3 * i], pos[3 * i + 1], pos[3 * i + 2]); }
+      // header.rivers' arc references are ONE-BASED (the writer's TopoJSON habit: pack-water.js stores arcIndex + 1); read
+      // as zero-based they named the arc after each one, so a river's name ran along its neighbours' lines and a tap on
+      // an arc answered with the river of the arc before it (found by the Phase 1c screenshot review)
+      for (const ref of rv.arcs) { const a = Math.abs(ref) - 1; if (a < 0 || a + 1 >= T.arcOffset.length) continue; arcRiver[a] = rv.entity; const s0 = T.arcOffset[a], e0 = T.arcOffset[a + 1]; if (ref > 0) { for (let i = s0; i < e0; i++) if (T.rank[i] <= 1) pts.push(pos[3 * i], pos[3 * i + 1], pos[3 * i + 2]); } else { for (let i = e0 - 1; i >= s0; i--) if (T.rank[i] <= 1) pts.push(pos[3 * i], pos[3 * i + 1], pos[3 * i + 2]); } }
       if (!RIVER_LINES.has(rv.entity)) RIVER_LINES.set(rv.entity, []);
       RIVER_LINES.get(rv.entity).push(Float32Array.from(pts));
     });

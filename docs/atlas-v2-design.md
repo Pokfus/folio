@@ -1888,6 +1888,14 @@ and cost 100–150 ms (p90 150 relief off, 167 on), which is the renderer's real
 Europe view reads the same), not a regression — and the pinch rows of the gate table below are the first
 honest ones.
 
+**A fault the screenshot review caught, not the suites**: "Thames" ran along a river in Spain, "Loire" along one
+in Russia, "Mur" along the Po. `header.rivers` lists a river's arcs as the format lists every arc — ONE-BASED and
+signed (`pack-water.js` writes arcIndex + 1, `check-water.js` reads ref − 1) — and both the worker's river lines
+and the gazetteer builder's river anchors read them zero-based, so each name followed the arc AFTER each of its
+own; where a river's arcs are consecutive (most are) the name still landed on its river, which is why the
+Danube's pick and label passed. Both readers take `|ref| − 1` now and walk a negative reference backwards; the
+gazetteer was rebuilt (the river anchors moved; every other row is unchanged) and the Europe screenshots retaken.
+
 **Screenshots, reviewed** (`.claude/atlas-shots.js --only labels`, «SHOT_COUNT» shots): «SHOT_REVIEW»
 
 ### Phase 2 — Time (ships `#map2` with a timeline; ~8–10 sessions)
