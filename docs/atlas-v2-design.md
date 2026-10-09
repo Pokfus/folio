@@ -1870,17 +1870,20 @@ session's):
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 — [37878500473](https://github.com/Pokfus/folio/actions/runs/37878500473/job/113652967533) | 449b751 (before the river-arc fix; same renderer) | 50.0 / 183.3 (27 %) | 83.3 / 300.0 (28 %) | 83.3 / 333.3 (25 %) | 66.7 | **183.4** (183.4 / 183.3 / 183.4) | 66.7 / 50.0 (1.33) | **133.4 / 83.3 (1.60)** | 83.3 / 83.3 (1.00) | 28 / 150 | red: worst pinch, wheel relief |
 | 2 — [37879826079](https://github.com/Pokfus/folio/actions/runs/37879826079/job/113657201327) | 0b6850d (this head) | 50.0 / 200.0 (25 %) | 100.0 / 316.7 (32 %) | 83.4 / 350.0 (24 %) | 66.7 | **183.4** (183.3 / 183.4 / 183.4) | 66.7 / 50.0 (1.33) | 150.0 / 100.0 (1.50) | 83.4 / 83.4 (1.00) | 28 / 150 | red: worst pinch only |
-«CI_RUN3»
+| 3 — [37881040122](https://github.com/Pokfus/folio/actions/runs/37881040122/job/113660985899) | eb50c64 (this head, docs only since 0b6850d) | 50.0 / 216.7 (23 %) | 83.3 / 366.7 (23 %) | 83.3 / 383.4 (22 %) | 66.7 | **166.8** (166.8 / 166.6 / 166.8) | 66.7 / 50.0 (1.33) | **133.2 / 83.3 (1.60)** | 83.3 / 83.3 (1.00) | 28 / 150 | red: worst pinch, wheel relief |
 
-The pinch's worst frame on CI is the same 183.4 ms in all six repeats of two runs (eleven vsync intervals): the
+The pinch's worst frame on CI is 183.4 ms in all six repeats of two runs and 166.8 in the third (eleven and ten
+vsync intervals): the
 first frame after the fingers lift, when the held level gives way to LOD 1 and the renderer draws 64–138k
 triangles at full-screen fill in one go (the probe on the session's runner reads the same frame at 117–133 ms
-with 0.6 ms of CPU). The wheel's relief ratio sits on the line (1.60 then 1.50).
+with 0.6 ms of CPU). The wheel's relief ratio sits on the line (1.60, 1.50, 1.60): the relief-on wheel pays
+the L1 patch fetch and upload (17 MB of textures) inside the gesture, which the relief-off wheel never does.
 
 The frame gate was red on `main` before this phase (run 37863242459: the method's own faults, since fixed) and is
-red on this head on two rows, both honest: the pinch's worst frame, which did not exist before the pinch drew,
-and the wheel with relief on, which on CI's faster relief-off wheel reads 1.60 × against the 1.5 × gate (1.37 ×
-here). The numbers were not loosened; whether a pinch's first LOD-1 frame and the wheel's relief ratio are the
+red on this head on two rows in three runs (one row in the second), both honest: the pinch's worst frame, which
+did not exist before the pinch drew, and the wheel with relief on, which on CI's faster relief-off wheel reads
+1.50–1.60 × against the 1.5 × gate (1.37 × here). Every other row — the three 40 % ratios, the drag's worst
+frame, the primitive budgets, the drag and pinch relief ratios, the heap, the tap — holds in all three. The numbers were not loosened; whether a pinch's first LOD-1 frame and the wheel's relief ratio are the
 right gates is the owner's call — the design says 60 Hz on a phone's GPU, and the phone reading above says it
 holds there.
 
