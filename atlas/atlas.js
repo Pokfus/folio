@@ -343,7 +343,7 @@
         const after = unproject(px, py);
         if (after) { view.lon += before.lon - after.lon; view.lat += before.lat - after.lat; clampView(); }
       }
-      needs = true;
+      invalidate();   // not a bare needs = true: a pinch reaches here with no frame scheduled, and set the zoom without a redraw until something else asked for one (Phase 1c)
     }
     function levelFor(k) { let L = 0; while (L < LOD_KM_PER_PX.length && k < LOD_KM_PER_PX[L]) L++; return L; }
 
