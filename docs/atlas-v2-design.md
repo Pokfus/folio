@@ -1805,7 +1805,7 @@ lakes of 20–200 km² with 500 m shores. The budgets in the suite are revised t
 (b) Memory: the renderer kept every level's, tile's, water level's and relief sheet's arrays beside the GPU
 copy "for context loss" — 150 MB of typed arrays, and the runner read v2's heap at 307 MB against v1's 242.
 An upload now keeps only the bucket ranges and caps; on `webglcontextrestored` the worker, which kept the
-raw files, sends every level again and the tile loaders fetch theirs again. «HEAP_LINE»
+raw files, sends every level again and the tile loaders fetch theirs again. Measured after the change, with the browser run under `--expose-gc` and the heap read after a forced collection (what is live, not what the collector has not reached — without it the same build read 38 MB one run and 78 MB the next): **v2 38 MB after its gestures against v1's 228–257 MB**, on four runs; the suite gates it at 48 MB (1.25 ×), and `#map2?perf` shows the live reading on Chrome ("n/a" where `performance.memory` is absent).
 
 **The place card, the legend, search, deep links, the keyboard.** The card is a side column at 380 px, a
 bottom sheet with a grip on a phone that opens shut (the title strip alone) and expands on the grip, like

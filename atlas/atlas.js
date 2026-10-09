@@ -461,7 +461,10 @@
       view.radius = base * view.zoom; rotation();
       const k = kmPerPx();
       view.kmpp = k;
-      const level = levelFor(k);
+      // a finer level is not taken up while two fingers are down: a pinch from the globe crosses into LOD 1 at 16 km/px
+      // and every frame of it would draw four times the primitives at full-screen fill — the finer level comes on release,
+      // as a map app's tiles do (a coarser level is taken at once: it is the cheaper one)
+      const wanted = levelFor(k), level = (ptrs.size >= 2 && wanted > view.level) ? view.level : wanted;
       if (level !== view.level) { view.level = level; requestLayout("level"); }
       view.admin1 = layers.provinces && k < ADMIN1_KM_PER_PX;
       view.borders = layers.borders;

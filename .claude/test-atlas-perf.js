@@ -64,7 +64,7 @@ const WORST_MS = 100;           // worst frame during drag and pinch, relief off
 const RELIEF_FACTOR = 1.5;      // relief on: v2 p95 ≤ this × v2's own relief-off p95 (see 4 above)
 const RELIEF_VS_V1 = false;     // true = the owner's literal gate instead: v2 relief-on p95 ≤ RATIO × v1-with-heightmap p95
 const REPEATS = 3;              // every gesture runs this many times; the relative gates read the pooled p90 (see the header)
-const HEAP_MB = 0;              // v2's JS heap after its gestures, MB; 0 until Phase 1c's measurement sets it (1.25 × the reading)
+const HEAP_MB = 48;             // v2's JS heap after its gestures and a forced collection, MB: 1.25 × the 38 MB read on the session's runner (Phase 1c; v1 reads 228–257)
 /* The four fixed views and their primitive budgets (drawn in one frame at 1280×800): land triangles and
    segments measured 2026-10-08 on the Phase 1a build (globe 42,529 / 19,917; Europe 133,348 / 101,049;
    the Aegean 25,892 / 22,750; the Aegean at the cap 20,366 / 18,297); river segments, lake-shore segments
