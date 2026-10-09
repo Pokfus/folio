@@ -1798,7 +1798,7 @@ still picked; a river is picked within 8 CSS px of its line through `uIdPad`.
 **The two performance fixes, as measured.** (a) The lake cull: a resident water level's lake triangles and
 shore segments are laid out per half-octave area bin from 10 km² (levels 1 and 2; level 0's lakes are
 ≥ 1,000 km² and the tiles' ≥ 6 km² never cross the line), and the renderer skips every bin whose lakes
-project under 2 px² — at 3 km/px, lakes under 18 km². The Europe view (3 km/px) draws «LAKE_LINE». The
+project under 2 px² — at 3 km/px, lakes under 18 km². The Europe view (3 km/px) draws 55,915 lake-shore segments and 50,843 lake-fill triangles against 71,374 and 64,531 before the cull (the suite's Europe budgets go from 89,400 / 80,800 to 69,900 / 63,600, the measurement × 1.25); the globe's 2,968 / 2,623 and the Aegean's 1,831 / 1,648 are unchanged, their levels having no bin under the line. The
 owner's guess that most of Europe's lake primitives were such smears was **not** borne out: the small bins
 hold 58,420 of the level's 803,326 triangles (7 %), and the Finnish and Karelian lake districts are mostly
 lakes of 20–200 km² with 500 m shores. The budgets in the suite are revised to the measurements × 1.25.

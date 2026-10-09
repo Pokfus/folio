@@ -57,7 +57,7 @@ const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
-const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
+const LAUNCH = Object.assign(process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {}, { args: ["--js-flags=--expose-gc"] });   // the heap is read after a forced collection: what is live, not what the collector has not got to
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream" };
 const RATIO = 0.40;             // v2 p95 ≤ 40 % of v1 p95
 const WORST_MS = 100;           // worst frame during drag and pinch, relief off
@@ -73,7 +73,7 @@ const HEAP_MB = 0;              // v2's JS heap after its gestures, MB; 0 until 
    drawn at the cap), each rounded up by a quarter. A view is (lon, lat, km per pixel). */
 const VIEWS = [
   { name: "globe", lon: 10, lat: 20, kmpp: 24.0, tri: 54000, seg: 25000, river: 3400, lakeSeg: 3800, lakeTri: 3300 },
-  { name: "Europe", lon: 10, lat: 50, kmpp: 3.0, tri: 167000, seg: 127000, river: 27700, lakeSeg: 89400, lakeTri: 80800 },
+  { name: "Europe", lon: 10, lat: 50, kmpp: 3.0, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600 },
   { name: "Aegean", lon: 25, lat: 38, kmpp: 0.5, tri: 33000, seg: 29000, river: 5500, lakeSeg: 3000, lakeTri: 2700 },
   { name: "Aegean at the cap", lon: 25, lat: 38, kmpp: 0.15, tri: 26000, seg: 23000, river: 0, lakeSeg: 2200, lakeTri: 2000 },
 ];
@@ -220,7 +220,7 @@ async function fixedViews(page, cx, cy) {
     await sampler(page);
     results.v1 = await gestures(page, cdp, cx, cy, true);
     results.v1.ready = Date.now() - t0;
-    results.v1.heapMB = await page.evaluate(() => performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : NaN);
+    results.v1.heapMB = await page.evaluate(() => { if (window.gc) window.gc(); return performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : NaN; });
     // the heightmap layer: the legend's checkbox, then its lazy load and the settled reprojection
     const hm = await page.$("#heightmapToggle");
     if (hm) {
@@ -259,13 +259,14 @@ async function fixedViews(page, cx, cy) {
     Object.assign(r, await gestures(page, cdp, cx, cy, false, async () => { zoomDuring = Math.max(zoomDuring, await page.evaluate(() => document.querySelector(".atlas2").__atlas2.view.zoom)); }));
     r.pinchZoom = { before: zoomBefore, peak: zoomDuring };
     r.draw = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, s = c.stats; const d = s.draw.slice(-200).sort((a, b) => a - b); return Object.assign({ p50: d[Math.floor(d.length / 2)], max: d[d.length - 1] }, c.statsNow()); });
-    r.heapMB = await page.evaluate(() => performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : NaN);
+    r.heapMB = await page.evaluate(() => { if (window.gc) window.gc(); return performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : NaN; });
     // the ID pass: a tap on the globe's centre must name a face — at the home view (10° E, 20° N: the Sahara),
     // since the gestures leave the globe wherever the coast of the last drag took it
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(10, 20, 24));
     await page.waitForTimeout(300);
     await page.mouse.click(cx, cy); await page.waitForTimeout(300);
-    r.pick = await page.evaluate(() => document.querySelector(".atlas2-caption").textContent);
+    // Phase 1c: a tap selects the face's place and opens its card (and clears the hover caption), so the card's title is the answer
+    r.pick = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const card = c.card ? c.card() : null; return (card && card.title) || (c.selectedId ? c.selectedId() : "") || document.querySelector(".atlas2-caption").textContent; });
     results.v2 = r;
     views = await fixedViews(page, cx, cy);
     /* relief on: L0 and the view's L1 patches, then the same gestures and views */
