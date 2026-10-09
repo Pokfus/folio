@@ -1844,7 +1844,22 @@ rivers, lakes and labels; the session's runner reads v2's globe drag at twice CI
 p90 — and its worst drag frame of three repeats at 100–117 ms, which is the one gate the local runs cannot
 hold):
 
-«GATE_TABLE»
+Five local runs on the session's runner (SwiftShader, four cores; CI reads roughly half these). Runs 2 and 3 are
+the three-repeat suite on the code before the pinch fix (run 1 was disturbed by a screenshot probe and is not
+counted); run 4 has the pinch redrawing; run 5 has the pinch holding its level and the heap gate on. Pooled p90
+in ms, v2 against v1, relief off unless said; "worst" is the worst frame of three repeats, relief off.
+
+| run | drag v2 / v1 (p90) | wheel v2 / v1 | pinch v2 / v1 | worst drag | worst pinch | drag relief on / off | wheel on / off | pinch on / off | heap v2 / v1 | gate |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2 (before the pinch fix) | 66.7 / 233.3 (29 %) | 149.9 / 466.7 (32 %) | 16.7 / 483.3 (hollow: no frame drawn) | 116.6 | 116.7 | 100.0 / 66.7 (1.50) | 166.7 / 149.9 | 116.7 / 16.7 (idle loop against tile arrivals) | 38 / 257 | red: two worst frames, pinch relief, tap |
+| 3 (same code) | 66.7 / 249.9 (27 %) | 116.7 / 483.3 (24 %) | 16.7 / 500.0 (hollow) | 116.6 | 83.4 | 100.0 / 66.7 (1.50) | 183.3 / 116.7 (1.57) | 100.1 / 16.7 | 38 / 242 | red: worst drag, wheel relief, pinch relief |
+| 4 (pinch redraws) | 83.3 / 250.0 (33 %) | 133.3 / 500.0 (27 %) | 183.3 / 466.8 (39 %) | 100.1 | 283.4 | 100.0 / 83.3 (1.20) | 183.3 / 133.3 (1.37) | 100.1 / 183.3 (0.55) | 38 / 228 | red: worst pinch |
+| 5 (pinch holds its level, heap gated) | 83.3 / 249.9 (33 %) | 133.4 / 466.7 (29 %) | 116.7 / 500.0 (23 %) | 249.9 (one frame; the other repeats 100.0) | 283.4 | 100.1 / 83.3 (1.20) | 183.3 / 133.4 (1.37) | 116.7 / 116.7 (1.00) | 38 / 228 | red: the two worst frames |
+
+Every relative gate holds on runs 4 and 5, the heap gate holds, and the tap names Niger; what this runner cannot
+hold is the 100 ms worst frame: a drag's occasional 250 ms frame and, now that a pinch draws, the first full-screen
+frame at LOD 1 when the fingers lift (267–283 ms here, every repeat). CI's three runs of the same suite are in the
+PR's checks; what they say of that frame is the owner's call — the numbers were not loosened.
 
 **The owner's phone reading, 2026-10-09** (350 × 597 CSS px, DPR 2, relief on, the night theme): at LOD 1,
 5.2 km/px, 25.6k triangles and 16.2k segments, frame mean 16.6 ms, p95 16.7 ms, CPU draw 0.50 ms — locked at
