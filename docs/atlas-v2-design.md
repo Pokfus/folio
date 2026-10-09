@@ -1749,14 +1749,22 @@ minutes behind 10 / 30 / 60 / 120 s back-offs), and the cache is committed so th
 **Labels, as measured** (`test-atlas-labels.js` on the session's runner, 1280 × 800, the atlas 796 × 647;
 "normal" unless said):
 
-«LABEL_TABLE»
+| view | sparse | normal | dense | candidates at normal | cap at normal |
+|---|---|---|---|---|---|
+| globe (10° E 20° N, 24 km/px) | 24 | 40 | 60 | 152 | 40 |
+| Europe (10° E 50° N, 3 km/px) | 55 | 92 | 139 | 530 | 92 |
+| Aegean (25° E 38° N, 0.5 km/px) | 5 | 5 | 5 | 231 (215 of them rivers whose line is off screen) | 120 |
+| Athens at the cap (0.15 km/px) | 1 | 1 | 1 | 1 | 120 |
+| country scale (10° E 50° N, 1 km/px) | — | 66 | — | 335 | 120 |
+| phone 390 px, globe / Europe / Aegean, normal | — | 24 / 29 / 2 | — | — | 24 / 55 / 72 |
 
 The cap is met at the globe and over Europe; the Aegean at 0.5 km/px names what Natural Earth 10m names
-there — Athens, the Aegean Sea, the Sea of Crete, İzmir, the Cyclades, Rhodes, the Peloponnese — and
-Athens at the cap is one label, because the 10m data has no feature smaller than a city there and the
+there — Athens, the Aegean Sea, İzmir, the Cyclades, Volos (the Peloponnese, Lesbos and the Sea of Crete are
+rows too, but their anchors fall off that screen or their chords under 40 px; Euboea, Chios, Samos, Andros
+and Naxos are not named by Natural Earth's regions file at all) — and Athens at the cap is one label, because the 10m data has no feature smaller than a city there and the
 towns under 100,000 are out of v0; **that contradicts the "about 120 at country scale" of Q-L1 where the
 source is thin**, and the fix is data (Phase 3's places from the cards, a finer town tier when the budget
-grows), not layout. The layout itself: «LAYOUT_MS». The redraw: «DRAW_MS» — a sprite per label, so the
+grows), not layout. The layout itself: 10.9 ms at p95 on the runner's software GL (the last 13.1 ms over 336 candidates; the budget is 50 ms, read × 3 on software). The redraw: 0.70 ms at p95 with 68 labels (the budget 3 ms, × 3 on software) — a sprite per label, so the
 frame cost is a few hundred `drawImage` calls. Collision is proved pairwise over the chains at twelve
 (view, density) pairs and three on the phone; the one fault the suite found and the build fixed was a
 grid that dropped rectangles beyond the viewport into no cell at all, so two labels running off the top
@@ -1771,10 +1779,10 @@ element now re-measures. Nothing is added or dropped during a 40-step drag — a
 pointer's state rather than a quiet clock, because on this runner a drag's moves were 150 ms apart and
 the settle timer laid out between them, once per move (measured: layout #41 → #81 over 40 moves).
 Contrast: ink names ≥ 10:1 on the land fill in all fifteen themes; water names 6.5–7.7:1 on the sea and
-the land in the light themes and «NIGHT_CONTRAST» in folio's night, after the first dark-theme water colour
+the land in the light themes and 4.8:1 on the sea and 6.7:1 on the land in folio's night, after the first dark-theme water colour
 measured 1.8:1 against the sea.
 
-**Picking, as measured** (`test-atlas-render.js`): «RENDER_LINE» Three faults found: the ID pass had cleared
+**Picking, as measured** (`test-atlas-render.js`): 42 of 42 Natural Earth capitals answer with their own country at 24, 3 and 0.5 km/px (at the globe a coastal capital's own pixel or one of four neighbours two pixels away — a tap is a finger, not a needle); a point in Texas stacks the state above the country; Lake Tanganyika stacks the lake, then Tanzania; a tap on the Danube's midpoint at 1 km/px stacks the river, 6 px beside the line still does, 60 px away does not. Three faults found: the ID pass had cleared
 the tile list before drawing, which with `complete` computed from that same list drew NO face at a tile
 zoom (every pick past 1 km/px answered "sea" — unnoticed since 1a because the perf suite picks at the
 globe); a line's id came back one less than its index (the arc shader adds only the base); and no line was
@@ -1837,6 +1845,17 @@ p90 — and its worst drag frame of three repeats at 100–117 ms, which is the 
 hold):
 
 «GATE_TABLE»
+
+**The owner's phone reading, 2026-10-09** (350 × 597 CSS px, DPR 2, relief on, the night theme): at LOD 1,
+5.2 km/px, 25.6k triangles and 16.2k segments, frame mean 16.6 ms, p95 16.7 ms, CPU draw 0.50 ms — locked at
+60 Hz; the texture-fallback option is not needed. The heavier LOD 2 view has not been read on the phone yet.
+Two things the reading turned up, fixed in this phase: (1) the perf overlay was clipped at the right edge
+(the max frame time and the ends of the water, relief and tile lines cut off) — it was `white-space: pre`
+with no right bound; it now wraps (`pre-wrap`, `overflow-wrap: anywhere`, a right inset, a smaller face on a
+phone) so every figure is on a 350 px screen, and the JS heap line (`performance.memory`, Chrome only —
+"n/a" on Safari) is in it. (2) The graticule is off by default (`DEFAULT_LAYERS.graticule = false`, and the
+suite reads `view.graticule === false` at mount), yet a faint dashed meridian ran down the left of the
+phone's Europe view, through Britain, the Channel and France, at exactly 0°. «SEAM_LINE»
 
 **Screenshots, reviewed** (`.claude/atlas-shots.js --only labels`, «SHOT_COUNT» shots): «SHOT_REVIEW»
 

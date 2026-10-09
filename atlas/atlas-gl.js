@@ -363,8 +363,12 @@
   function extentMesh(tile, n) {
     const pos = new Float32Array((n + 1) * (n + 1) * 4), uv = new Float32Array((n + 1) * (n + 1) * 2), idx = new Uint16Array(n * n * 6);
     let k = 0, m = 0;
+    // the edge vertices are the tile's own bounds, not lon0 + (lon1 − lon0)·n/n: two patches that meet must share
+    // bit-identical positions or the rasteriser leaves sub-pixel cracks along the seam, which read as a faint dashed
+    // meridian or parallel (seen at 0° on a phone's Europe view with the L0 sheet skipped under full patch cover)
     for (let j = 0; j <= n; j++) for (let i = 0; i <= n; i++) {
-      const lon = (tile.lon0 + (tile.lon1 - tile.lon0) * i / n) * D2R, lat = (tile.lat0 + (tile.lat1 - tile.lat0) * j / n) * D2R, c = Math.cos(lat);
+      const lon = (i === n ? tile.lon1 : i === 0 ? tile.lon0 : tile.lon0 + (tile.lon1 - tile.lon0) * i / n) * D2R;
+      const lat = (j === n ? tile.lat1 : j === 0 ? tile.lat0 : tile.lat0 + (tile.lat1 - tile.lat0) * j / n) * D2R, c = Math.cos(lat);
       pos[k++] = c * Math.cos(lon); pos[k++] = c * Math.sin(lon); pos[k++] = Math.sin(lat); pos[k++] = 0;
       uv[m++] = i / n; uv[m++] = (n - j) / n;
     }
