@@ -1855,7 +1855,23 @@ with no right bound; it now wraps (`pre-wrap`, `overflow-wrap: anywhere`, a righ
 phone) so every figure is on a 350 px screen, and the JS heap line (`performance.memory`, Chrome only —
 "n/a" on Safari) is in it. (2) The graticule is off by default (`DEFAULT_LAYERS.graticule = false`, and the
 suite reads `view.graticule === false` at mount), yet a faint dashed meridian ran down the left of the
-phone's Europe view, through Britain, the Channel and France, at exactly 0°. «SEAM_LINE»
+phone's Europe view, through Britain, the Channel and France, at exactly 0°. It was not a line primitive (the
+land topology has no arc along 0°, and the shot with relief off has no line) but the seam between two relief
+L1 patches, which meet at 0°: `reliefAt` wrapped its sample column for the whole-world L0 sheet's seam at
+180°, and a patch inherited the wrap, so its last half texel was blended with its FIRST column — a stripe of
+wrong height and shade one half-texel wide along every patch edge, dotted because 4.9 km texels sit under
+5.2 km pixels. The sheet wraps and a patch clamps now (`uWrap`); the patch meshes' edge vertices are also
+the tiles' own bounds rather than lon0 + (lon1 − lon0)·n/n, so neighbours share bit-identical positions.
+Verified by the same headless phone shot (350 × 597, DPR 2, night, relief on, 5.2 km/px): the line is gone.
+
+A third finding from the suite rather than the phone: **a two-finger pinch did not redraw**. `zoomAt` set the
+dirty flag without scheduling a frame, so a pinch changed the zoom and drew nothing until a tile or a layout
+arrived — the frame-gate's pinch rows had been measuring an idle loop (16.7 ms p90, 0 frames rendered during
+60 touch moves, on Phase 1b's code and on 1c's before the fix). It calls `invalidate` now, and a pinch from
+the globe to 7 km/px renders every move; on this runner's software GL those frames fill the whole canvas
+and cost 100–150 ms (p90 150 relief off, 167 on), which is the renderer's real full-screen cost (the fixed
+Europe view reads the same), not a regression — and the pinch rows of the gate table below are the first
+honest ones.
 
 **Screenshots, reviewed** (`.claude/atlas-shots.js --only labels`, «SHOT_COUNT» shots): «SHOT_REVIEW»
 
