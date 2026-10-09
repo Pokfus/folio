@@ -1755,7 +1755,7 @@ minutes behind 10 / 30 / 60 / 120 s back-offs), and the cache is committed so th
 | Europe (10° E 50° N, 3 km/px) | 55 | 92 | 139 | 530 | 92 |
 | Aegean (25° E 38° N, 0.5 km/px) | 5 | 5 | 5 | 231 (215 of them rivers whose line is off screen) | 120 |
 | Athens at the cap (0.15 km/px) | 1 | 1 | 1 | 1 | 120 |
-| country scale (10° E 50° N, 1 km/px) | — | 66 | — | 335 | 120 |
+| country scale (10° E 50° N, 1 km/px) | — | 57 (66 before the river-arc fix placed names on neighbours' lines) | — | 335, about 100 of them on screen | 120 |
 | phone 390 px, globe / Europe / Aegean, normal | — | 24 / 29 / 2 | — | — | 24 / 55 / 72 |
 
 The cap is met at the globe and over Europe; the Aegean at 0.5 km/px names what Natural Earth 10m names
@@ -1896,7 +1896,21 @@ own; where a river's arcs are consecutive (most are) the name still landed on it
 Danube's pick and label passed. Both readers take `|ref| − 1` now and walk a negative reference backwards; the
 gazetteer was rebuilt (the river anchors moved; every other row is unchanged) and the Europe screenshots retaken.
 
-**Screenshots, reviewed** (`.claude/atlas-shots.js --only labels`, «SHOT_COUNT» shots): «SHOT_REVIEW»
+**Screenshots, reviewed** (`.claude/atlas-shots.js --only labels`, 76 shots): four views (globe, Europe, the Aegean, Athens at the cap) × three densities × desktop and a 390 px phone × three
+themes (folio, folio night, synth), plus the France card on desktop and phone and the stack chip. Reviewed by
+eye, after the river-arc fix: the globe at normal reads as an atlas page — oceans in slanted serif, continents
+and large countries tracked small capitals, capitals squared and bold, Mumbai and Miami as dots, nothing
+colliding; Europe at 3 km/px names the seas, the countries along their axes (FRANCE, SPAIN, GERMANY on its
+north–south axis), the ranges (ALPS, BÖHMERWALD, CANTABRIAN MOUNTAINS), the rivers along their lines (Rhin,
+Seine, Loire, Elbe, Donau, Danube, Ebro, Po, Drau, Inn) and the capitals, with the city names kept off the
+coast lines; the phone at normal carries 29 names over Europe without a collision and its Legend chip, bottom
+sheet and grip; the night theme's water names are pale blue on the dark sea and readable on land; the Aegean
+is sparse for the reason given above (five names), and Athens at the cap is Athens alone. The France card on
+desktop is the 380 px column with the prose and the figure tiles, on the phone the shut sheet with the title
+strip and the grip. Two things a reader would notice and the phase does not fix: the ocean names near the
+limb are foreshortened (by design — they fade with the limb), and GERMANY's tracked name runs over the
+Elbe's label at 3 km/px in one density because a river label is placed after the country's and does not know
+the country's glyph boxes are tracked (the overlap test is on rectangles; the glyphs' ink does not touch).
 
 ### Phase 2 — Time (ships `#map2` with a timeline; ~8–10 sessions)
 
