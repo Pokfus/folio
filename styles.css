@@ -10745,6 +10745,12 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-phone.atlas2-sheet-open .atlas2-zoom, .atlas2-phone.atlas2-sheet-open .atlas2-layers-btn, .atlas2-phone.atlas2-sheet-open .atlas2-about-btn, .atlas2-phone.atlas2-sheet-open .atlas2-caption, .atlas2-phone.atlas2-sheet-open .atlas2-stack{display:none;}
 /* the expanded card sheet stops short of the zoom stack (three 44 px buttons from the top on a phone) */
 .atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 184px));}
+/* a phone on its side (the 844×390 audit): the atlas is under 300 px tall and the rule above left the up sheet 96 px — a title
+   and no body. There the up sheet takes the height below the search box and the zoom stack steps out from under it */
+@media (orientation: landscape) and (max-height: 500px){
+  .atlas2-phone .atlas2-card{max-height:calc(100% - 68px);}
+  .atlas2-phone.atlas2-card-up .atlas2-zoom{display:none;}
+}
 /* a desktop with the card column open and under about 900 px (a tablet): the search box yields to the zoom stack the column pushed left */
 .atlas2-has-card .atlas2-search{width:min(300px, calc(100% - 486px));}
 .atlas2-phone.atlas2-has-card .atlas2-search{width:calc(100% - 80px - env(safe-area-inset-left) - env(safe-area-inset-right));}

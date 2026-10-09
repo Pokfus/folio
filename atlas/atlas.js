@@ -542,8 +542,10 @@
       // and every frame of it would draw four times the primitives at full-screen fill — the finer level comes on release,
       // as a map app's tiles do (a coarser level is taken at once: it is the cheaper one); at stage 2 of the adaptive
       // degradation above, a live gesture draws one level coarser than the view wants
-      const wanted = Math.max(0, levelFor(k) - lodBias()), level = (ptrs.size >= 2 && wanted > view.level) ? view.level : wanted;
-      if (level !== view.level) { view.level = level; requestLayout("level"); }
+      const bias = lodBias(), wanted = Math.max(0, levelFor(k) - bias), level = (ptrs.size >= 2 && wanted > view.level) ? view.level : wanted;
+      // a level the bias chose is the gesture's, not the labels': nothing is added or dropped while the globe moves (§2.9),
+      // and the wanted level's layout comes with the release frame, when the bias lifts
+      if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
       view.admin1 = layers.provinces && k < ADMIN1_KM_PER_PX;
       view.borders = layers.borders;
       const box = view.level >= 3 || (view.relief.on && k < RELIEF_L1_KM_PER_PX) ? viewBox() : null;
@@ -562,7 +564,9 @@
       if (view.lakes && view.level >= 3 && waterIndex) { view.waterTiles = cellsFor(waterIndex.cols, waterIndex.rows, waterIndex.present, box).map((x) => "w:" + x); waterTiles.want(view.waterTiles); }
       else view.waterTiles = [];
       // relief: L0 once on; L1 patches for the view; the fade past the finest level's texel
-      view.relief.on = layers.relief; view.relief.strength = layers.strength;
+      // at stage 2 of the adaptive degradation a live gesture draws no relief either (the hillshade is two full-disc passes on a
+      // software GPU); it returns with the release frame, as the finer level does
+      view.relief.on = layers.relief && !bias; view.relief.strength = layers.strength;
       if (layers.relief && !reliefStarted) startRelief();
       view.relief.fade = Math.max(0, Math.min(1, (k - RELIEF_FADE[1]) / (RELIEF_FADE[0] - RELIEF_FADE[1])));
       if (layers.relief && reliefIndex && view.relief.fade > 0 && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
@@ -1177,7 +1181,7 @@
       if (!wasOpen) sheetUp = false;   // a phone's sheet opens shut every time (§7 Phase 1c); a second place while it is up keeps its height
       cardRow = row; cardOpen = true;
       cardEl.hidden = false;
-      cardEl.classList.toggle("atlas2-card-shut", PHONE && !sheetUp);
+      reflectSheet();
       cardTitle.textContent = row.name; cardKind.textContent = kindLine(row);
       cardBody.innerHTML = "";
       cardBody.scrollTop = 0;
@@ -1189,7 +1193,7 @@
     }
     function closeCard(returnFocus) {
       const had = cardOpen;
-      cardOpen = false; cardRow = null; cardEl.hidden = true; el.classList.remove("atlas2-has-card");
+      cardOpen = false; cardRow = null; cardEl.hidden = true; el.classList.remove("atlas2-has-card"); el.classList.remove("atlas2-card-up");
       if (had && returnFocus !== false) {
         const inside = document.activeElement && (cardEl.contains(document.activeElement) || document.activeElement === document.body);
         if (inside) { const back = cardOpener && cardOpener.isConnected && el.contains(cardOpener) ? cardOpener : canvas; back.focus({ preventScroll: true }); }
@@ -1197,8 +1201,11 @@
       cardOpener = null;
     }
     el.querySelector(".atlas2-card-close").addEventListener("click", () => clearSelection());
-    el.querySelector(".atlas2-grip").addEventListener("click", () => { sheetUp = !sheetUp; cardEl.classList.toggle("atlas2-card-shut", PHONE && !sheetUp); });
-    el.querySelector(".atlas2-card-head").addEventListener("click", (e) => { if (PHONE && !e.target.closest("button")) { sheetUp = !sheetUp; cardEl.classList.toggle("atlas2-card-shut", !sheetUp); } });
+    // the phone sheet's two states: shut (title and kind) and up (the body); .atlas2-card-up on the host lets a short
+    // landscape atlas hide the zoom stack under the up sheet (styles.css, Phase 1d)
+    function reflectSheet() { cardEl.classList.toggle("atlas2-card-shut", PHONE && !sheetUp); el.classList.toggle("atlas2-card-up", PHONE && cardOpen && sheetUp); }
+    el.querySelector(".atlas2-grip").addEventListener("click", () => { sheetUp = !sheetUp; reflectSheet(); });
+    el.querySelector(".atlas2-card-head").addEventListener("click", (e) => { if (PHONE && !e.target.closest("button")) { sheetUp = !sheetUp; reflectSheet(); } });
     const safeHTML = (html) => (H.sanitizeHTML ? H.sanitizeHTML(html) : escText(html));
     function withinButton(row) { const w = row.within ? G.byId.get(row.within) : null; return w ? `<p class="atlas2-card-within">In <button type="button" class="atlas2-link" data-select="${escText(w.id)}">${escText(w.name)}</button></p>` : ""; }
     function wikiLine(row) { const title = row.wiki === 1 ? row.name : row.wiki; return title ? `<p class="atlas2-card-link"><a href="${wikiUrl(title)}" target="_blank" rel="noopener">Wikipedia: ${escText(title)}</a></p>` : ""; }

@@ -4,7 +4,7 @@
      FOLIO_SESSION_S=300   … the session's length in seconds (300 by default; a shorter run for a quick look)
      FOLIO_CHROMIUM=/path/to/chrome  … to pick the browser (otherwise playwright's own)
 
-   A scripted reader for five minutes: zooms into three dozen coasts and back out, pans, toggles relief, searches and
+   A scripted reader for five minutes: zooms into three dozen coasts, walks along each, zooms back out, pans, toggles relief, searches and
    opens cards, lets tiles arrive and go — a loop of the things a session does — while the JS heap (after a forced
    collection), the renderer's GPU bytes (buffers and textures it has uploaded and not deleted), the tile, water-tile
    and relief caches and the label sprites are sampled every ten seconds. WHAT IT PROVES:
@@ -75,6 +75,10 @@ const SEARCHES = ["paris", "danube", "baikal", "andes", "tokyo", "sahara", "amaz
     await settle();
     await page.mouse.move(cx, cy); await page.mouse.down(); for (let i = 1; i <= 15; i++) { await page.mouse.move(cx + i * 8, cy + i * 3); await sleep(16); } await page.mouse.up(); await sleep(200);
     await settle();
+    // then a walk along the coast at the finest level: four views a cell apart (12°, wider than a level-4 cell), each
+    // wanting its own tile and parent — a session of a dozen rounds crosses the 96-tile cap this way, as a reader
+    // following a coastline does, and the eviction is proved rather than assumed
+    for (let j = 1; j <= 4; j++) { await page.evaluate(([lon, lat]) => document.querySelector(".atlas2").__atlas2.setView(lon, lat, 0.15), [((P[0] + j * 12 + 180) % 360) - 180, P[1]]); await settle(); }
     for (let i = 0; i < 6; i++) { await page.mouse.wheel(0, 120); await sleep(60); }
     await settle();
     // a search and a card
@@ -97,7 +101,7 @@ const SEARCHES = ["paris", "danube", "baikal", "andes", "tokyo", "sahara", "amaz
   const end = await sample("end (globe, relief off)"); samples.push(end);
   await browser.close(); server.close();
 
-  console.log(`\nA ${SESSION_S} s session, ${round} rounds (fly to a coast, tiles, pan, wheel out, search + card, pinch at the globe; relief on every other round); samples after a forced GC:\n`);
+  console.log(`\nA ${SESSION_S} s session, ${round} rounds (fly to a coast, tiles, pan, a walk along the coast at the finest level, wheel out, search + card, pinch at the globe; relief on every other round); samples after a forced GC:\n`);
   console.log("  sample                   t(s)  heap MB  GPU MB  tex MB  tiles  fetched  evicted  water  relief  sprites/placed  LOD");
   for (const s of samples) console.log(`  ${s.label.padEnd(24)} ${String(s.t).padStart(4)}  ${String(s.heapMB).padStart(7)}  ${String(s.gpuMB).padStart(6)}  ${String(s.texMB).padStart(6)}  ${String(s.tiles).padStart(5)}  ${String(s.tilesFetched).padStart(7)}  ${String(s.tilesEvicted).padStart(7)}  ${String(s.water).padStart(5)}  ${String(s.relief).padStart(6)}  ${String(s.sprites + "/" + s.placed).padStart(14)}  ${String(s.level).padStart(3)}`);
   const peakGpu = Math.max(...samples.map((s) => s.gpuMB)), peakHeap = Math.max(...samples.map((s) => s.heapMB));

@@ -435,7 +435,8 @@
     const viewAngle = Math.min(Math.PI / 2, (Math.hypot(W, H) / 2 + 80) / radius) + 0.02;   // radians from the view's centre to its farthest corner, on the sphere
     const missing = new Set();
     const why = q.debug ? [] : null;
-    const drop = (reason) => { if (why) why.push(reason); };
+    let dropping = null;   // the row being placed, named in the debug reasons
+    const drop = (reason) => { if (why) why.push(dropping ? dropping.name + ": " + reason : reason); };
     /* ---- candidates ---- */
     const cands = [];
     for (const row of GZ.rows) {
@@ -505,12 +506,24 @@
       }
       return { glyphs, rects: rs };
     };
+    // a run averaged along its length: every vertex becomes the mean of the vertices within `radius` px of arc length
+    // of it (the count and the order are kept, so an index into the smoothed run is an index into the real one)
+    const smoothRun = (S, cum, radius) => {
+      const out = new Array(S.length);
+      for (let i = 0, j0 = 0; i < S.length; i++) {
+        while (cum[i] - cum[j0] > radius) j0++;
+        let sx = 0, sy = 0, n = 0;
+        for (let j = j0; j < S.length && cum[j] - cum[i] <= radius; j++) { sx += S[j][0]; sy += S[j][1]; n++; }
+        out[i] = [sx / n, sy / n];
+      }
+      return out;
+    };
     const polyline = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return cum; };
     const reads = (S) => { const dx = S[S.length - 1][0] - S[0][0], dy = S[S.length - 1][1] - S[0][1]; return Math.abs(dx) >= Math.abs(dy) * 0.35 ? dx >= 0 : dy <= 0; };   // left to right, else upward
     let riverLabels = 0;
     for (const c of cands) {
       if (placed.length >= cap) break;
-      const row = c.row, k = row.kind;
+      const row = c.row, k = row.kind; dropping = row;
       const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
       if (!st) { drop(k + " no metrics for style " + styleId); continue; }
       const text = row.name;
@@ -532,19 +545,34 @@
       if (k === "river") {
         const parts = RIVER_LINES ? row.rivers.flatMap((ei) => RIVER_LINES.get(ei) || []) : null; if (!parts || !parts.length) { drop("river has no line at this level"); continue; }
         // runs of consecutive on-screen vertices, part by part
-        let run = [], runV = [], n = 0, perRiver = 0; const before = riverLabels;
+        let run = [], runV = [], n = 0, perRiver = 0, maxLr = 0, tried = 0, collided = 0, bent = 0; const before = riverLabels;
         const flush = () => {
           if (run.length < 2 || perRiver >= 6) { run = []; runV = []; return; }
           if (!reads(run)) { run.reverse(); runV.reverse(); }
-          const cum = polyline(run), Lr = cum[cum.length - 1];
+          const cum = polyline(run), Lr = cum[cum.length - 1]; if (Lr > maxLr) maxLr = Lr;
+          // the text follows a SMOOTHED copy of the run (each vertex averaged with its neighbours within two text
+          // sizes of arc length): at 0.5 km/px the LOD 1 vertices sit 10–15 px apart on a meander, closer than the
+          // glyphs, and every try on the Rhine, the Moselle and the Weser bent past the 23° a reader can follow
+          // (Phase 1d, found by the labels suite once the rank-8 rivers left the gazetteer); the text straddles the
+          // channel's course rather than its every bend, and the anchor stays a vertex of the real line
+          const runS = smoothRun(run, cum, st.size * 2), cumS = polyline(runS);
           // the name every RIVER_REPEAT_PX along the run; a run shorter than that carries it once, at its middle
-          for (let s0 = Lr < RIVER_REPEAT_PX ? Lr / 2 : RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < Lr && placed.length < cap; s0 += RIVER_REPEAT_PX) {
-            if (s0 - sh.w / 2 < 10) continue;
-            const g = along(sh, run, cum, s0, st); if (!g) continue;
-            if (!g.rects.every(free)) continue;
+          const LrS = cumS[cumS.length - 1];
+          for (let s0 = LrS < RIVER_REPEAT_PX ? LrS / 2 : RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < LrS && placed.length < cap; s0 += RIVER_REPEAT_PX) {
+            // a spot that bends or collides is not the stretch's last word: the text slides up to 120 px either way
+            let g = null, s1 = s0;
+            for (const off of [0, 60, -60, 120, -120]) {
+              s1 = s0 + off; if (s1 - sh.w / 2 < 10 || s1 + sh.w / 2 + 10 > LrS) continue;
+              tried++;
+              const t = along(sh, runS, cumS, s1, st); if (!t) { bent++; continue; }
+              if (!t.rects.every(free)) { collided++; continue; }
+              if (!t.rects.every((r) => onScreen((r[0] + r[2]) / 2, (r[1] + r[3]) / 2, 0))) continue;   // a run reaches 60 px past the canvas; the text must not
+              g = t; break;
+            }
+            if (!g) continue;
             g.rects.forEach(take);
             // the anchor: the vertex nearest the label's centre
-            let seg = 0; while (seg + 1 < cum.length - 1 && cum[seg + 1] < s0) seg++;
+            let seg = 0; while (seg + 1 < cumS.length - 1 && cumS[seg + 1] < s1) seg++;
             const av = runV[seg];
             placed.push(Object.assign({}, base, { a: av, sx: run[seg][0], sy: run[seg][1], alpha: 1, glyphs: g.glyphs, box: union(g.rects), rects: g.rects, marker: null, hit: union(g.rects), curved: true }));
             perRiver++; riverLabels++;
@@ -558,7 +586,7 @@
           }
           flush();
         }
-        if (riverLabels === before) drop(n ? "river run too short or collides" : "river line off screen");
+        if (riverLabels === before) drop(n ? `river run too short or collides (${n} vertices on screen, longest run ${Math.round(maxLr)} px, label ${Math.round(sh.w)} px, ${tried} tried, ${bent} too bent, ${collided} collided)` : "river line off screen");
         continue;
       }
       // an area kind: along its path when the path is long enough and gentle, else straight at the anchor

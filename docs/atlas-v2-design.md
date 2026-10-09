@@ -1995,8 +1995,11 @@ entered by two frames of a live gesture (fingers down, a wheel in the last 200 m
 live the GL canvas draws at half resolution (a quarter of the fill), and the first frame after it redraws at full — the
 release frame the gate measures apart; the label canvas keeps its resolution, so the names stay sharp and what softens
 for the length of the gesture is the coast. Stage 2: a live gesture also draws one level coarser than the view wants
-(never finer than the one it started at), as a map app shows the coarser tiles under a pinch; the wanted level comes with
-the release frame. With both, the pinch's gesture frames on the runner read ≤ 100 ms (p90 67) where they had read up to
+(never finer than the one it started at), as a map app shows the coarser tiles under a pinch, and no relief (the hillshade
+is two full-disc passes, which on software GL cost two vsyncs a frame against a one-vsync baseline — the relief-on rule's
+2 × read 3.0 on the fourth local run with relief drawn); the wanted level and the relief come with the release frame. A
+level the bias chose never relays the labels (nothing is added or dropped while the globe moves, §2.9; the labels suite
+caught the first cut relaying mid-drag). With both, the pinch's gesture frames on the runner read ≤ 100 ms (p90 67) where they had read up to
 267. The ID pass is unaffected (a pick never happens mid-gesture, and the renderer's device-pixel ratio carries the
 scale consistently). A GPU that draws the frame in 16.7 ms — the owner's phone — never reaches the threshold and never
 sees either stage; `#map2?perf` prints the stage on its LOD line. **Flagged for the owner**: it is a renderer behaviour
@@ -2117,7 +2120,10 @@ stops at `calc(100% - 184px)` now); with the card column open on a tablet the zo
 .atlas2-zoom` had a descendant combinator since 1c and never matched, so a phone with a card open had its zoom stack 400 px
 off the left edge; a landscape phone's globe scrolled (the Atlas is `min(360px, calc(100vh - 110px))` tall); the phone's
 sheet opened expanded a second time (it opens shut every time now); the result list's cap `calc(var(--atlas2-vvh) -
-140px)` was written with a stray parenthesis and dropped by the parser; and the pinch drifted — the pan by the midpoint's
+140px)` was written with a stray parenthesis and dropped by the parser; the expanded card sheet on a landscape phone (844×390,
+the Atlas 280 px tall) was 96 px — a title and no body — under the `calc(100% - 184px)` rule, so under 500 px of height
+in landscape the up sheet takes the height below the search box and the zoom stack steps out from under it
+(`.atlas2-card-up` on the host); and the pinch drifted — the pan by the midpoint's
 pixel travel at the centre's scale, then a zoom about the midpoint, moved the place under the fingers 4–15° over a 40-step
 pinch off centre, and two pointer events per touch move arrived faster than frames, so the second unprojected against the
 last frame's rotation. A pinch now zooms and moves in one step (the place under the old midpoint lands under the new one,
@@ -2149,7 +2155,33 @@ globe, the card, the legend and search; the 1d code reads **0 violations on all 
 and the `#credits` page read 61 colour-contrast nodes (the licence chip's link, indigo at 10 px, 3.53:1) before its chip
 went to ink at 11 px: 0 after.
 
-{{SESSION}}
+**The five-minute session** (`test-atlas-session.js`, 300 s, 54 rounds on the session's runner: fly to one of three dozen
+coasts, let its tiles land, pan, walk four views along the coast at 0.15 km/px, wheel out through the levels, search and
+open a card, pinch at the globe; relief on every other round; the heap read after a forced collection every ten seconds).
+The first cut visited a dozen coasts and never crossed the 96-tile cap — 43 tiles fetched, none evicted, the caches full
+by round 13 and nothing changing after — which proved growth, not eviction, so the itinerary grew to three dozen coasts
+with the walk. Measured: the JS heap 199 MB at the start (the gazetteer and the water index before their first
+collection), 78 MB after round 1, 81–82 MB from round 11 to the end, 81 MB at the end — the heap returns to its baseline;
+the land-tile cache fills at round 19 and evicts from there (217 fetched, 96 resident, 121 evicted at the end), the
+water-tile cache holds its 64 from round 15, the relief cache its 9 of 10; the label sprites are always the current
+layout's (63 of 63 placed, 40 of 40 at the globe). The renderer's GPU bytes (every buffer and texture it has uploaded and
+not deleted, counted in `atlas-gl.js`): 168 MB at the start (the three core levels' triangles and segment textures, with
+the water's), a peak of 706 MB with every cache full, 616 MB at the end with relief off — bounded by the caps, and the
+caps are the finding: 96 land tiles and 64 water tiles at 1280×800 are some 450 MB of tile geometry on top of the core,
+which a desktop GPU carries and a phone's should not. **For the owner**: the 1a/1b cache caps (`TILE_CACHE`,
+`WATER_TILE_CACHE` in `atlas.js`) are not scaled to the device; a phone-sized cap (or a byte budget in place of a count) is
+a Phase 2 item, not changed here.
+
+
+**River labels at 0.5 km/px** (`atlas-worker.js`, the river branch of the layout). Once the rank-8 rivers left the
+gazetteer the labels suite's "rivers labelled at 0.5 km/px" went red, and the reason was older than 1d: at that scale the
+LOD 1 vertices of a meander sit 10–15 px apart, closer than the glyphs, and every try on the Rhine (80 vertices on screen,
+a 1,088 px run), the Moselle and the Weser bent past the 23° a glyph may turn — on 1c the one river labelled at the Rhine
+view was the Maas, a rank-8 row that happened to run straight. The text now follows a copy of the run averaged within two
+text sizes of arc length (count and order kept, so the anchor stays a vertex of the real line) and slides up to 120 px
+either way from a spot that bends or collides; the Rhine view now carries the Rhine twice, the Lek, the Nederrijn, the
+Moselle and the Weser. The layout's debug reasons (`labelWhy()`) now name the row and, for a river, the vertices on
+screen, the longest run, the tries, the bends and the collisions.
 
 **Findings that contradict or sharpen the design.** (1) The 1c gate measured SwiftShader's full-screen fill, not the
 renderer: the owner's rules split the pinch into gesture and release and warm the relief first, and the renderer meets

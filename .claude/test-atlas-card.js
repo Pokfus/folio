@@ -117,8 +117,14 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   await P.page.click(".atlas2-grip"); await sleep(150);
   const up = await P.page.evaluate(() => { const el = document.querySelector(".atlas2-card"); return { shut: el.classList.contains("atlas2-card-shut"), bodyShown: getComputedStyle(el.querySelector(".atlas2-card-body")).display !== "none", h: el.getBoundingClientRect().height }; });
   check("the grip expands it", !up.shut && up.bodyShown && up.h > 200, JSON.stringify(up));
-  const legend = await P.page.evaluate(() => { const b = document.querySelector(".atlas2-layers-btn"); return b.textContent.trim(); });
-  check("the legend is a chip on a phone", legend === "Legend", legend);
+  const legend = await P.page.evaluate(() => { const b = document.querySelector(".atlas2-layers-btn"); return { text: b.textContent.trim(), shown: getComputedStyle(b.closest(".atlas2-layers")).display !== "none" }; });
+  check("the legend is a chip on a phone", legend.text === "Legend", legend.text);
+  // Phase 1d: while a card is open on a phone the Legend and About chips step aside (the sheet and the chips shared the
+  // bottom of a 360×640 screen); closing the card brings them back
+  check("…hidden while the card sheet is open", !legend.shown, JSON.stringify(legend));
+  await P.page.click(".atlas2-card-close"); await sleep(150);
+  const back = await P.page.evaluate(() => { const b = document.querySelector(".atlas2-layers-btn"); return getComputedStyle(b.closest(".atlas2-layers")).display !== "none"; });
+  check("…and back once the card is closed", back);
   await P.page.click(".atlas2-layers-btn"); await sleep(100);
   const sheetOpen = await P.page.evaluate(() => { const s = document.querySelector(".atlas2-sheet"); const r = s.getBoundingClientRect(); return { hidden: s.hidden, fixed: getComputedStyle(s).position === "fixed", bottom: Math.abs(r.bottom - innerHeight) < 2, density: s.querySelectorAll('[data-layer="density"]').length }; });
   check("…which opens the legend as a sheet with the density stops", !sheetOpen.hidden && sheetOpen.fixed && sheetOpen.density === 3, JSON.stringify(sheetOpen));
