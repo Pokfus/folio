@@ -91,13 +91,16 @@
   const GLSL_RELIEF = `
     uniform sampler2D uRelief; uniform vec2 uReliefSize;
     // (height in metres, hillshade 0–1) at a texture coordinate, bilinear over four decoded taps; x wraps
+    uniform float uWrap;             // 1 for the whole-world L0 sheet, 0 for a patch
     vec2 reliefAt(vec2 uv) {
       vec2 f = uv * uReliefSize - 0.5;
       vec2 i0 = floor(f); vec2 fr = f - i0;
       int w = int(uReliefSize.x), h = int(uReliefSize.y);
       int x0 = int(i0.x), y0 = int(i0.y);
       int x1 = x0 + 1;
-      x0 = ((x0 % w) + w) % w; x1 = ((x1 % w) + w) % w;
+      // the L0 sheet wraps at 180°; a patch does NOT — wrapped, its last half texel blended with its first column and
+      // every patch edge showed as a faint dotted meridian (seen at 0° on a phone's Europe view, Oct 2026)
+      if (uWrap > 0.5) { x0 = ((x0 % w) + w) % w; x1 = ((x1 % w) + w) % w; } else { x0 = clamp(x0, 0, w - 1); x1 = clamp(x1, 0, w - 1); }
       int y1 = clamp(y0 + 1, 0, h - 1); y0 = clamp(y0, 0, h - 1);
       vec3 a = texelFetch(uRelief, ivec2(x0, y0), 0).rgb, b = texelFetch(uRelief, ivec2(x1, y0), 0).rgb;
       vec3 c = texelFetch(uRelief, ivec2(x0, y1), 0).rgb, d = texelFetch(uRelief, ivec2(x1, y1), 0).rgb;
@@ -616,6 +619,7 @@
       const P = Rl.tile ? prog.reliefPatch : prog.reliefL0;
       gl.useProgram(P.p);
       gl.uniform2f(P.u.uCenter, view.cx * dpr, view.cy * dpr); gl.uniform1f(P.u.uRadius, view.radius * dpr); gl.uniform1f(P.u.uHeight, H); gl.uniform2f(P.u.uSize, W, H);
+      gl.uniform1f(P.u.uWrap, Rl.tile ? 0 : 1);
       if (Rl.tile) { gl.uniformMatrix3fv(P.u.uRot, false, R); gl.uniform1f(P.u.uFromRay, 0); }
       else { gl.uniform1f(P.u.uHaloW, 0); gl.uniform1f(P.u.uFromRay, 1); gl.uniformMatrix3fv(P.u.uRotT, false, view.rot); }
       gl.uniform1f(P.u.uMode, mode); gl.uniform1f(P.u.uStrength, strength); gl.uniform1f(P.u.uFade, fade);
