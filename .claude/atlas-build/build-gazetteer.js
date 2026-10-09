@@ -68,7 +68,7 @@ const argv = process.argv.slice(2);
 const flag = (f, d) => { const i = argv.indexOf(f); return i >= 0 && argv[i + 1] ? argv[i + 1] : d; };
 const install = argv.includes("--install"), noWiki = argv.includes("--no-wiki"), refetch = argv.includes("--refetch"), dry = argv.includes("--dry");
 const TIER = Number(flag("--tier", 250000));
-const TOWN_MIN = Number(flag("--town-min", 50000));
+const TOWN_MIN = Number(flag("--town-min", 100000));
 const RIVER_MAX_RANK = Number(flag("--river-rank", 8));    // Natural Earth scale ranks above this (the smallest streams) carry no label row   // an admin-1 capital smaller than this is left out (measured: the budget, below)
 const BUDGET = 0.6 * 1024 * 1024;
 const generated = new Date().toISOString();
@@ -145,33 +145,59 @@ global.window = {};
 require(path.join(ROOT, "countries.js")); require(path.join(ROOT, "country-stats.js")); require(path.join(ROOT, "country-spans.js")); require(path.join(ROOT, "country-sources.js"));
 const v1Keys = new Set(Object.keys(global.window.COUNTRY_INFO || {}));
 const areaRank = (km2, bins) => { for (let i = 0; i < bins.length; i++) if (km2 >= bins[i]) return i; return bins.length; };
+const prose = { preferred: 0, unpreferred: [] };
 H.entities.forEach((e, ei) => {
   const faces = entityFaces.get(ei);
   if (!faces.length) { left("face-less entity " + e.id); return; }
-  // rings at LOD 1 (2.5 km); a territory too small to survive there (Monaco, Gibraltar, the Spratlys) at LOD 2
+  if (!clean(e.name)) { left("unnamed entity " + e.id); return; }
+  // rings at LOD 1 (2.5 km) for the big faces, at LOD 2 (500 m) for everything under 20k vertices — a thin
+  // territory's LOD 1 ring can bulge a quantum into its neighbour, and the anchor is checked against the z=4 partition
   let parts = [];
   for (const fi of faces) for (const ring of faceRings(core, core.faces[fi], 1)) parts.push(ring);
-  if (!parts.length) { for (const fi of faces) for (const ring of faceRings(core, core.faces[fi], 2)) parts.push(ring); left("rings only at LOD 2"); }
-  // …and one that exists only in the tiles (the Vatican, Ashmore and Cartier, Bajo Nuevo, Serranilla, the Coral Sea Islands): every vertex its arcs carry
-  if (!parts.length) { for (const fi of faces) for (const ring of faceRings(core, core.faces[fi], 2, true)) parts.push(ring); left("rings forced from every vertex"); }
-  let g = L.labelGeometry(parts);
-  if (!g) {
-    // a face whose rings quantise to under three vertices (a reef, a rock): the mean of its arcs' vertices as a point anchor
-    let sx = 0, sy = 0, sz = 0, n = 0;
-    for (const fi of faces) for (const refs of core.faces[fi].rings) for (const ref of refs) { const a = Math.abs(ref) - 1; for (let i = core.arcOffset[a]; i < core.arcOffset[a + 1]; i++) { const v = L.unit(core.lon[i] * Q, core.lat[i] * Q); sx += v[0]; sy += v[1]; sz += v[2]; n++; } }
-    if (!n) { left("no geometry " + e.id); return; }
-    const at = L.lonlat([sx / n, sy / n, sz / n]);
-    g = { at, path: [at, at], lenKm: 0, areaKm2: 0 }; left("point anchor from the arcs' mean");
+  const nv = parts.reduce((n, r) => n + r.length, 0);
+  if (nv < 20000) { parts = []; for (const fi of faces) for (const ring of faceRings(core, core.faces[fi], 2)) parts.push(ring); }
+  // `prefer` sees the coordinates as the file will carry them (three decimals, 55 m): a rounding had put the Vatican's anchor in Italy
+  const r3p = (f) => (lon, lat) => f(r3(lon), r3(lat));
+  const prefer = r3p(e.kind === "polity" ? (lon, lat) => countryAt(lon, lat) === e.id : (lon, lat) => countryAt(lon, lat) === e.parent);
+  let g = parts.length ? L.labelGeometry(parts, { prefer }) : null;
+  const r4 = (v) => Math.round(v * 10000) / 10000;
+  let atPrecision = r3;
+  if (!g || !g.preferred) {
+    // a face with no ring in the core at all — its land exists only in the z=4 tiles (the Vatican, Ashmore and
+    // Cartier, Bajo Nuevo, Serranilla, the Coral Sea Islands): the tiles' own face, the first of its vertices'
+    // mean, ring centroids and vertices that the partition says is this country; a territory the partition holds
+    // no land for at all (a reef OSM never drew) takes Natural Earth's label point (LABEL_X, LABEL_Y of admin-0,
+    // PD) and is reported as unmapped — the checker expects the sea there
+    const cands = [];
+    for (const t of land.tiles) for (const f of t.faces) {
+      if (H.entities[t.T.faces[f.face].entity].id !== e.id) continue;
+      let mx = 0, my = 0; for (let i = 0; i < f.X.length; i++) { mx += f.X[i]; my += f.Y[i]; } mx /= f.X.length; my /= f.X.length;
+      cands.push([mx * Q, my * Q]);
+      for (let i = 0; i < f.X.length; i++) for (const u of [0.3, 0.5, 0.7, 1]) cands.push([(mx + (f.X[i] - mx) * u) * Q, (my + (f.Y[i] - my) * u) * Q]);   // towards each vertex: a sliver's centroid can be outside it
+    }
+    // three decimals first; a territory under a hectare or two (the Vatican's z=4 face is a 3-vertex triangle) at four
+    const prefer4 = (lon, lat) => countryAt(r4(lon), r4(lat)) === (e.kind === "polity" ? e.id : e.parent);
+    let at = cands.find((c) => prefer(c[0], c[1])) || null, preferred = !!at;
+    if (!at) { at = cands.find((c) => prefer4(c[0], c[1])) || null; if (at) { preferred = true; atPrecision = r4; left("anchor at four decimals"); } }
+    if (!at && g) { if (g.preferred) {} }   // (the ring geometry stays when the tiles offer nothing better)
+    if (at) { left("anchor from the z=4 tiles' face"); g = { at, path: [at, at], lenKm: 0, areaKm2: g ? g.areaKm2 : 0, preferred }; }
+    else if (!g) { const ne = e.kind === "polity" ? adm0ByA3.get(e.a3) : null; if (!ne || ne.LABEL_X == null) { left("no geometry " + e.id); return; } at = [ne.LABEL_X, ne.LABEL_Y]; report.unmapped = (report.unmapped || []).concat(e.id); left("unmapped in the partition, anchored at Natural Earth's label point"); g = { at, path: [at, at], lenKm: 0, areaKm2: 0, preferred: false }; }
   }
+  if (g.preferred) prose.preferred++; else prose.unpreferred.push(e.id);
+  // the path is written at two decimals (1.1 km): a degenerate path (the anchor twice) or one whose rounded
+  // points the partition puts elsewhere is dropped — the label then sits straight at the anchor
+  const pathOK = g.lenKm > 0 && g.path.every((q) => prefer(q[0], q[1])) && g.path.every((q) => { const r = q.map(r2); return prefer(r[0], r[1]); });
+  const pathOut = pathOK ? g.path.map((q) => q.map(r2)) : 0, lenOut = pathOK ? Math.round(g.lenKm) : 0;
+  if (!pathOK && g.lenKm > 0) left("path dropped at two decimals");
   if (e.kind === "polity") {
     const ne = adm0ByA3.get(e.a3) || {};
     const cands = [e.name, ne.NAME, ne.NAME_LONG, ne.FORMAL_EN, ne.NAME_EN, ne.ABBREV, ne.NAME_SORT, ne.BRK_NAME, ne.NAME_CIAWF].filter(Boolean).map((s) => clean(s).toLowerCase());
     const v1 = cands.find((k) => v1Keys.has(k)) || 0;
     if (v1) report.v1.matched++; else report.v1.missing.push(e.name);
     const aliases = [...new Set([ne.NAME_LONG, ne.FORMAL_EN, ne.ABBREV, ne.NAME_ALT].map(clean).filter((s) => s && s !== e.name))].slice(0, 3);
-    row({ id: e.id, name: e.name, kind: "country", rank: areaRank(g.areaKm2, [2e6, 5e5, 1e5, 2e4, 2e3]), qid: e.qid || 0, within: e.sovereign && e.sovereign !== e.a3 ? "adm0:" + e.sovereign.toLowerCase() : 0, geom: "f" + faces[0], at: g.at.map(r3), path: g.path.map((p) => p.map(r2)), len: Math.round(g.lenKm), z: ne.MIN_LABEL != null ? [ne.MIN_LABEL, ne.MAX_LABEL] : 0, aliases, wiki: 0, v1, area: Math.round(g.areaKm2) });
+    row({ id: e.id, name: e.name, kind: "country", rank: areaRank(g.areaKm2, [2e6, 5e5, 1e5, 2e4, 2e3]), qid: e.qid || 0, within: e.sovereign && e.sovereign !== e.a3 ? "adm0:" + e.sovereign.toLowerCase() : 0, geom: "f" + faces[0], at: g.at.map(atPrecision), path: pathOut, len: lenOut, z: ne.MIN_LABEL != null ? [ne.MIN_LABEL, ne.MAX_LABEL] : 0, aliases, wiki: 0, v1, area: Math.round(g.areaKm2) });
   } else if (e.kind === "admin1") {
-    row({ id: e.id, name: e.name, kind: "admin1", rank: areaRank(g.areaKm2, [5e5, 1e5, 2e4]) + 3, qid: e.qid || 0, within: e.parent || 0, geom: "f" + faces[0], at: g.at.map(r3), path: g.path.map((p) => p.map(r2)), len: Math.round(g.lenKm), z: 0, aliases: [], wiki: 0, area: Math.round(g.areaKm2) });
+    row({ id: e.id, name: e.name, kind: "admin1", rank: areaRank(g.areaKm2, [5e5, 1e5, 2e4]) + 3, qid: e.qid || 0, within: e.parent || 0, geom: "f" + faces[0], at: g.at.map(atPrecision), path: pathOut, len: lenOut, z: 0, aliases: [], wiki: 0, area: Math.round(g.areaKm2) });
   }
 });
 const adm1ByCountry = new Map();   // adm0 id → [{ name, id }]
@@ -212,9 +238,12 @@ function shapes(id, shp, rowsOf, map) {
     if (have) { have.parts.push(...parts); if (have.m.name !== m.name) left("id shared by two names " + id); continue; }
     byId.set(m.id, { m, parts });
   }
+  const water = (lon, lat) => !land.isLand(Math.round(r3(lon) / Q), Math.round(r3(lat) / Q)), onLand = (lon, lat) => !water(lon, lat);
   for (const { m, parts } of byId.values()) {
-    const g = L.labelGeometry(parts);
+    const sea = m.kind === "ocean" || m.kind === "sea" || m.kind === "gulf" || m.kind === "strait";
+    const g = L.labelGeometry(parts, { prefer: sea ? water : onLand });
     if (!g) { left("no geometry " + id); continue; }
+    if (!g.preferred) left((sea ? "sea anchor on land: " : "land anchor in water: ") + m.name);
     m.at = g.at.map(r3); m.path = g.path.map((p) => p.map(r2)); m.len = Math.round(g.lenKm); m.area = Math.round(g.areaKm2);
     if (m.kind !== "ocean" && m.kind !== "sea" && m.kind !== "gulf" && m.kind !== "strait") m.within = sameCountry([g.at, g.path[0], g.path[g.path.length - 1]]) || 0;
     row(m); n++;
@@ -260,8 +289,9 @@ WH.entities.forEach((e, ei) => {
   const faces = lakeFaces.get(ei); if (!faces) { left("lake without a face"); return; }
   const parts = [];
   for (const fi of faces) for (const ring of faceRings(water, water.faces[fi], water.lodCount - 1)) parts.push(ring);
-  const g = L.labelGeometry(parts);
+  const g = L.labelGeometry(parts, { prefer: (lon, lat) => land.isLand(Math.round(r3(lon) / Q), Math.round(r3(lat) / Q)) });
   if (!g) { left("lake without geometry"); return; }
+  if (!g.preferred) left("lake anchor in the sea: " + e.name);
   const area = e.area_km2 || g.areaKm2;
   // a lake whose chord is under 6 km is under 40 px even at the cap (0.15 km/px): its name could never be placed
   if (g.lenKm < 6 && area < 25) { left("lake too small to label"); return; }
@@ -364,6 +394,7 @@ for (const k of KINDS) log(`  ${k.padEnd(13)} ${String(report.perKind[k].n).padS
 for (const [k, v] of Object.entries(report.tiers)) log(`  tier ${k}: ${v.n} places, ${v.bytes} bytes`);
 log(`  whole file ${report.bytes} bytes (${(report.bytes / 1048576).toFixed(3)} MB; the same rows as objects would be ${(report.objectBytes / 1048576).toFixed(3)} MB); budget ${(BUDGET / 1048576).toFixed(2)} MB ${report.bytes <= BUDGET ? "OK" : "EXCEEDED"}`);
 log(`  within: ${report.within.set} set, ${report.within.none} none; wiki: ${report.wiki.found} titles of ${report.wiki.asked} items with a QID (${report.wiki.missing} items have no enwiki sitelink${report.wiki.unfetched ? ", " + report.wiki.unfetched + " not fetched" : ""})`);
+log(`  anchors: ${prose.preferred} countries and admin-1 units anchored in their own land by the z=4 partition; not: ${prose.unpreferred.join(", ") || "none"}`);
 log(`  v1 prose: ${report.v1.matched} countries matched, ${report.v1.missing.length} without an entry: ${report.v1.missing.join("; ")}`);
 log(`  left out: ${JSON.stringify(report.left)}`);
 log(`  ${report.ms} ms`);

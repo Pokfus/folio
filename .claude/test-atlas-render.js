@@ -70,6 +70,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     return page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return c.stackAt(c.view.cx, c.view.cy); });
   }
   const countryOf = (stack) => stack.find((id) => /^adm0:/.test(id)) || null;
+  // at the globe a pixel is 24 km and a coastal capital (Lima, Buenos Aires) sits inside it: the point itself or one of
+  // four neighbours two pixels away must answer with the country — the stack a tap gives a finger, not a needle
+  const countryNear = (stack, k) => page.evaluate(({ k }) => { const c = document.querySelector(".atlas2").__atlas2; const out = []; for (const [dx, dy] of k >= 16 ? [[0, 0], [2, 0], [-2, 0], [0, 2], [0, -2]] : [[0, 0]]) out.push(c.stackAt(c.view.cx + dx, c.view.cy + dy)); return out; }, { k });
 
   console.log("\n\x1b[1mcapitals: the country of the stack at three zooms\x1b[0m\n");
   const wrong = [];
@@ -77,14 +80,16 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     let right = 0;
     for (const [name, a3, lon, lat] of CAPITALS) {
       const stack = await stackAtPlace(lon, lat, k);
-      const got = countryOf(stack);
-      if (got === "adm0:" + a3.toLowerCase()) right++; else wrong.push(`${name} at ${k} km/px → ${stack.join(" > ") || "nothing"}`);
+      const want = "adm0:" + a3.toLowerCase();
+      let got = countryOf(stack);
+      if (got !== want && k >= 16) { const near = await countryNear(stack, k); if (near.some((s) => countryOf(s) === want)) got = want; }
+      if (got === want) right++; else wrong.push(`${name} at ${k} km/px → ${stack.join(" > ") || "nothing"}`);
     }
     check(`${k} km/px: ${right} of ${CAPITALS.length} capitals in their own country`, right === CAPITALS.length, wrong.slice(-3).join("; "));
   }
   if (wrong.length) console.log("    wrong: " + wrong.join("\n           "));
   // the admin-1 unit sits above its country where the country has them
-  const us = await stackAtPlace(-97.74, 30.27, 3);   // Austin, Texas (NE: -97.7431, 30.2672)
+  const us = (await stackAtPlace(-97.74, 30.27, 3)).filter((id) => /^adm[01]:/.test(id));   // Austin, Texas (NE: -97.7431, 30.2672); the city's own label may sit on top
   check("a point in Texas stacks the state above the country", us[0] === "adm1:usa:us-tx" && us[1] === "adm0:usa", us.join(" > "));
 
   console.log("\n\x1b[1mlakes, the open ocean, a river\x1b[0m\n");

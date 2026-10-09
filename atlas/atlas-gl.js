@@ -850,18 +850,18 @@
         gl.disable(gl.SCISSOR_TEST); gl.disable(gl.STENCIL_TEST);
         gl.disable(gl.BLEND);
         gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
-        const save = { tiles: view.tiles, parents: view.parents };
-        view.tiles = []; view.parents = [];   // the ID pass reads the resident level: faces are the same ids, and the 1×1 target has no stencil
+        // the tiles are drawn too (Phase 1c): without a stencil the order resident → parents → own tiles gives the
+        // finest loaded face the last word, and an islet the resident level has no ring for is still picked
         if (mode === "water") drawWaterIds(view); else drawScene(view, true);
-        view.tiles = save.tiles; view.parents = save.parents;
         const out = new Uint8Array(4);
         gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, out);
         gl.enable(gl.BLEND);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         const id = out[0] + (out[1] << 8) + (out[2] << 16);
         if (!id) return null;
-        if (id > ID_WATER_ARC) return { waterArc: id - ID_WATER_ARC - 1 };
-        if (id > ID_LAND_ARC) return { arc: id - ID_LAND_ARC - 1 };
+        // an arc's id is its index plus the base (the arc shader adds nothing else); a face's is its index plus one
+        if (id >= ID_WATER_ARC) return { waterArc: id - ID_WATER_ARC };
+        if (id >= ID_LAND_ARC) return { arc: id - ID_LAND_ARC };
         if (id > LAKE_FACE_BASE) return { lakeFace: id - 1 - LAKE_FACE_BASE };
         return { face: id - 1 };
       },

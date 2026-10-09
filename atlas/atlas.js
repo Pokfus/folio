@@ -636,6 +636,8 @@
         header = m.header; faceEntity = m.faceEntity; R.setFaceCount(faceEntity.length);
         if (header.tiles) { tileIndex = {}; for (const z of Object.keys(header.tiles)) { const t = header.tiles[z]; tileIndex[z] = { cols: t.cols, rows: t.rows, present: new Set(t.present) }; } }
         faceOfEntity = new Map(); for (let i = 0; i < faceEntity.length; i++) if (!faceOfEntity.has(faceEntity[i])) faceOfEntity.set(faceEntity[i], i);
+        entityIndexById = new Map(header.entities.map((e, i) => [e.id, i]));
+        if (pendingZoom) { view.zoom = pendingZoom; pendingZoom = 0; clampView(); plan(); invalidate(); }   // a deep link's zoom past the old floor, now that the tile index says the cap is 150 m/px
         if (!gazStarted) startGazetteer();
         say("Shaping the land…", 0.35); return;
       }
@@ -674,7 +676,7 @@
         stats.relief = stats.relief || { tiles: 0 }; stats.relief.tiles++;
         invalidate(); return;
       }
-      if (m.type === "done") { stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace) selectById(pendingPlace, { open: true, fly: false }); invalidate(); requestLayout("ready", true); }
+      if (m.type === "done") { stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace && G.ready) { selectById(pendingPlace, { open: true, fly: false, push: false }); pendingPlace = null; } invalidate(); requestLayout("ready", true); }
     }
     /* a restored GL context (Phase 1c): the renderer dropped everything; the worker sends the resident levels
        again from the files it kept, the loaders fetch their tiles again, relief is asked for again */
@@ -759,7 +761,7 @@
     const G = { rows: [], byId: new Map(), byRiver: new Map(), ready: false };
     const L = { placed: [], live: [], candidates: 0, cap: 0, seq: 0, lastLayoutMs: 0, lastDrawMs: 0, keyIds: "" };
     const STYLE_BY_ID = Object.fromEntries(STYLES.map((s) => [s.id, s]));
-    let gazStarted = false, gazInWorker = false, faceOfEntity = null, entityIndexById = null, pendingPlace = null, focusId = null, flying = null, lastWrittenHash = null;
+    let gazStarted = false, gazInWorker = false, faceOfEntity = null, entityIndexById = null, pendingPlace = null, pendingZoom = 0, focusId = null, flying = null, lastWrittenHash = null;
     const sel = { id: null, stack: [], index: 0, at: null, t: 0 };
     const layoutWaiters = [];
     const reduced = () => { try { return H.reducedMotion ? !!H.reducedMotion() : matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } };
@@ -776,6 +778,7 @@
         for (const r of G.rows) { G.byId.set(r.id, r); if (typeof r.geom === "string" && r.geom[0] === "r") G.byRiver.set(Number(r.geom.slice(1)), r); }
         G.ready = true;
         stats.gazetteer = { rows: G.rows.length, ms: Math.round(performance.now() - t) };
+        if (pendingPlace && stats.ready) { selectById(pendingPlace, { open: true, fly: false, push: false }); pendingPlace = null; }
         postToWorker({ type: "gazetteer", table: T });
         measureMetrics();
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!disposed) measureMetrics(); });
@@ -810,15 +813,19 @@
     }
 
     /* ---- asking for a layout: on settle, on a level change, on a legend change, now or after SETTLE_MS ---- */
-    let layoutTimer = 0, layoutSeq = 0, lastLevelLayout = 0;
+    let layoutTimer = 0, layoutSeq = 0, lastLevelLayout = 0, layoutHeld = null;
+    // "moving" is the pointer's state, not a quiet clock: on a slow machine a drag's moves can be 150 ms apart
+    // and a settle timer would lay out between them (measured: one layout per move on the CI-class runner)
+    const moving = () => dragging || ptrs.size > 0 || coasting || !!flying;
     function requestLayout(reason, now) {
       if (disposed) return;
       if (reason === "level") { const t = performance.now(); if (t - lastLevelLayout < 100) return; lastLevelLayout = t; now = true; }
+      if (moving() && reason !== "level") { layoutHeld = reason; return; }
       if (layoutTimer) { clearTimeout(layoutTimer); layoutTimer = 0; }
       if (now) { sendLayout(reason); return; }
-      layoutTimer = setTimeout(() => { layoutTimer = 0; sendLayout(reason); }, SETTLE_MS);
+      layoutTimer = setTimeout(() => { layoutTimer = 0; if (moving()) { layoutHeld = reason; return; } sendLayout(reason); }, SETTLE_MS);
     }
-    function touched() { requestLayout("settle"); }
+    function touched() { if (moving()) { layoutHeld = "settle"; return; } requestLayout(layoutHeld || "settle"); layoutHeld = null; }
     function sendLayout(reason) {
       if (!gazInWorker || !metricsSent || disposed) return;
       plan();
@@ -847,7 +854,7 @@
       haloCss = hex(dark ? paper : paper);
       inkCss = hex(ink);
       // water names: a deep blue-ink in a light theme, a pale blue in a dark one — read against both the sea and the land
-      waterCss = hex(dark ? mix(paper, [0.55, 0.8, 1], 0.45) : mix(ink, [31 / 255, 122 / 255, 170 / 255], 0.5));
+      waterCss = hex(dark ? mix([0.55, 0.8, 1], paper, 0.12) : mix(ink, [31 / 255, 122 / 255, 170 / 255], 0.5));
       selCss = hex(dark ? mix(paper, ochre, 0.5) : mix(ink, ochre, 0.55));
       void paper2; void indigo;
     }
@@ -969,7 +976,9 @@
       requestLayout("select", true);
       invalidate();
     }
-    function selectById(id, o) { const row = G.byId.get(id); if (!row) return false; if (o && o.fly) flyToRow(row, o.open); else selectRow(row, o); return true; }
+    // a selection made by a reader (a tap, a search result, the console) pushes a history entry so Back undoes it; one made
+    // by Back or by a deep link at load (push: false) does not
+    function selectById(id, o) { const row = G.byId.get(id); if (!row) return false; o = Object.assign({ push: true }, o || {}); if (o.fly) flyToRow(row, o.open); else selectRow(row, o); return true; }
     function clearSelection() {
       const had = sel.id;
       sel.id = null; sel.stack = []; sel.index = 0; sel.at = null;
@@ -1057,7 +1066,9 @@
         if (r.key.startsWith(k) || r.akeys.some((a) => a.startsWith(k))) pre.push(r);
         else if (r.key.indexOf(k) >= 0 || r.akeys.some((a) => a.indexOf(k) >= 0)) sub.push(r);
       }
-      const by = (a, b) => (a.rank + (KIND_ORDER[a.kind] || 5) * 0.1) - (b.rank + (KIND_ORDER[b.kind] || 5) * 0.1) || (a.name < b.name ? -1 : 1);
+      // the name that IS the query first, then by kind (a country before a town, a sea before a river), then by rank within the kind
+      const score = (r) => (r.key === k ? 0 : 100) + (KIND_ORDER[r.kind] == null ? 5 : KIND_ORDER[r.kind]) * 10 + Math.min(9, r.rank);
+      const by = (a, b) => score(a) - score(b) || (a.name < b.name ? -1 : 1);
       results = pre.sort(by).concat(sub.sort(by)).slice(0, 10);
       active = results.length ? 0 : -1;
       resultsUl.innerHTML = results.map((r, i) => { const w = r.within ? G.byId.get(r.within) : null; return `<li role="option" id="atlas2-opt-${i}" data-i="${i}"${i === active ? ' aria-selected="true" class="active"' : ""}><span class="atlas2-res-name">${escText(r.name)}</span><span class="atlas2-chip">${escText(KIND_LABEL[r.kind] || r.kind)}</span>${w ? `<span class="atlas2-res-in">${escText(w.name)}</span>` : ""}</li>`; }).join("");
@@ -1124,7 +1135,8 @@
     function applyHash(d) {
       if (!d || !isFinite(d.lon) || !isFinite(d.lat) || !isFinite(d.z)) return;
       view.lon = d.lon; view.lat = d.lat; view.zoom = R_KM / ((156.543 / Math.pow(2, d.z)) * base); clampView(); flying = null; coasting = false;
-      if (d.place) { if (G.ready && stats.ready) selectById(d.place, { open: true }); else pendingPlace = d.place; } else if (sel.id) clearSelection();
+      if (!tileIndex) pendingZoom = view.zoom;   // the cap is not known until the header arrives: the zoom is clamped again then
+      if (d.place) { if (G.ready && stats.ready) selectById(d.place, { open: true, push: false }); else pendingPlace = d.place; } else if (sel.id) clearSelection();
       plan(); invalidate(); requestLayout("hash", true);
     }
     const onHash = () => { if (disposed) return; const h = location.hash || ""; if (h === lastWrittenHash) return; if (!/^#map2(\/|\?|$)/.test(h)) return; const d = readHash(); if (d) applyHash(d); else if (sel.id) clearSelection(); };

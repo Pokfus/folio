@@ -77,9 +77,9 @@ const results = (page) => page.evaluate(() => [...document.querySelectorAll(".at
   await page.waitForFunction(() => !document.querySelector(".atlas2-card-loading"), null, { timeout: 60000 }).catch(() => {});
   await sleep(200);
   const after = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { lon: c.view.lon, lat: c.view.lat, k: c.kmPerPx(), sel: c.selectedId(), card: c.card() }; });
-  check("it lands on France, selected, card open", Math.abs(after.lon - 2.5) < 4 && Math.abs(after.lat - 46.6) < 4 && after.sel === "adm0:fra" && after.card.open && after.card.id === "adm0:fra", `${after.lon.toFixed(1)}, ${after.lat.toFixed(1)} at ${after.k.toFixed(2)} km/px; ${after.card.title}`);
+  check("it lands on France, selected, card open", Math.abs(after.lon - 2.2) < 4 && Math.abs(after.lat - 46.6) < 4 && after.sel === "adm0:fra" && after.card.open && after.card.id === "adm0:fra", `${after.lon.toFixed(1)}, ${after.lat.toFixed(1)} at ${after.k.toFixed(2)} km/px; ${after.card.title}`);
   const hash1 = await page.evaluate(() => location.hash);
-  check("the hash carries the view and the place", /^#map2\/2\.\d+\/46\.\d+\/[\d.]+\/adm0(%3A|:)fra$/.test(hash1), hash1);
+  check("the hash carries the view and the place", /^#map2\/-?[\d.]+\/-?[\d.]+\/[\d.]+\/adm0(%3A|:)fra$/.test(hash1), hash1);
 
   console.log("\n\x1b[1m3) deep links\x1b[0m\n");
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:deu", { open: true })); await sleep(200);

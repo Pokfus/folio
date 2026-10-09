@@ -25,9 +25,12 @@
    its largest ring with a zero-length east–west path — the anchor is still inside the ring for anything
    convex, and a label of that size is a point label anyway.
 
-     labelGeometry(parts)                 parts = [[lon, lat] …] rings, degrees; the first ring of a part is its
-                                          outer ring by area sign in the plane, holes are negative
-       → { at: [lon, lat], path: [[lon, lat] …], lenKm, areaKm2, axisDeg, cells }
+     labelGeometry(parts, { prefer })     parts = [[lon, lat] …] rings, degrees; the first ring of a part is its
+                                          outer ring by area sign in the plane, holes are negative;
+                                          prefer(lon, lat) → bool, optional: the anchor is the farthest-from-the-edge
+                                          cell this accepts (a sea's anchor off the OSM land, an island's on it, a
+                                          country's in its own face), and the path's ends must pass it too
+       → { at: [lon, lat], path: [[lon, lat] …], lenKm, areaKm2, axisDeg, cells, preferred }
      project(centre) / unproject           the azimuthal frame, exported for the checker
 
    No dependencies. The maths is the worker's (atlas-worker.js triangulateFace): the same tangent frame, the
@@ -153,13 +156,21 @@ function labelGeometry(parts, opts) {
   }
   const dist = distanceTransform(fill, W, H);
   const mx = sx / count, my = sy / count;
+  const cellLonLat = (i) => lonlat(unproject(F, gx0 + ((i % W) + 0.5) * cw, gy0 + (((i / W) | 0) + 0.5) * ch));
   // the pole: the farthest cell from the edge — and among cells within half a cell of that distance (a
   // long shape has a whole band of them), the one nearest the fill's centroid, so a box is labelled at
-  // its middle rather than at the first cell of the band
+  // its middle rather than at the first cell of the band. With `prefer`, the farthest cell the caller
+  // accepts (an atoll's pole is its lagoon; a sea polygon's can be an island it has no hole for; a thin
+  // territory's can be its neighbour at the rings' tolerance), trying the cells farthest-first.
   let pd = -1;
   for (let i = 0; i < W * H; i++) if (fill[i] && dist[i] > pd) pd = dist[i];
-  let pole = -1, pc = Infinity;
-  for (let i = 0; i < W * H; i++) if (fill[i] && dist[i] >= pd - 0.5) { const dx = (i % W) - mx, dy = ((i / W) | 0) - my, d2 = dx * dx + dy * dy; if (d2 < pc) { pc = d2; pole = i; } }
+  let pole = -1, pc = Infinity, preferred = false;
+  if (opts.prefer) {
+    const order = []; for (let i = 0; i < W * H; i++) if (fill[i]) order.push(i);
+    order.sort((a, b) => dist[b] - dist[a]);
+    for (let k = 0; k < order.length; k++) { const ll = cellLonLat(order[k]); if (opts.prefer(ll[0], ll[1])) { pole = order[k]; preferred = true; break; } }
+  }
+  if (pole < 0) for (let i = 0; i < W * H; i++) if (fill[i] && dist[i] >= pd - 0.5) { const dx = (i % W) - mx, dy = ((i / W) | 0) - my, d2 = dx * dx + dy * dy; if (d2 < pc) { pc = d2; pole = i; } }
   const px = pole % W, py = (pole / W) | 0;
   // principal axis from the filled cells' covariance
   let cxx = 0, cxy = 0, cyy = 0;
@@ -173,30 +184,28 @@ function labelGeometry(parts, opts) {
     const al = Math.hypot(ax, ay) || 1; ax /= al; ay /= al;
     if (ax < 0 || (ax === 0 && ay < 0)) { ax = -ax; ay = -ay; }   // read west to east; a north–south label reads upward
   }
-  // the chord: walk from the pole along ±axis while the cell under the step is filled
-  const stepX = ax / cw, stepY = ay / ch;   // one unit of plane distance per step… scaled below to a cell per step
+  // the chord: walk from the pole along ±axis while the point is inside the rings — EXACTLY, by even-odd over
+  // the projected rings, not by the raster (a cell of an archipelago can be "filled" by an islet in its corner
+  // and the chord would stride across the sea between islands); half a cell a step
+  const insideP = (x, y) => { let c = false; for (const r of P) for (let i = 0, j = r.length - 1; i < r.length; j = i++) if ((r[i][1] > y) !== (r[j][1] > y) && x < (r[j][0] - r[i][0]) * (y - r[i][1]) / (r[j][1] - r[i][1]) + r[i][0]) c = !c; return c; };
+  const poleX = gx0 + (px + 0.5) * cw, poleY = gy0 + (py + 0.5) * ch;
   const stepLen = Math.min(cw, ch) * 0.5;
-  const walk = (sign) => {
-    let t = 0, lastGood = 0;
-    for (let k = 1; k < 4000; k++) {
-      t = k * stepLen;
-      const fx = px + sign * t * stepX, fy = py + sign * t * stepY;
-      const ix = Math.round(fx), iy = Math.round(fy);
-      if (ix < 0 || iy < 0 || ix >= W || iy >= H || !fill[iy * W + ix]) break;
-      lastGood = t;
-    }
-    return lastGood;
-  };
+  const walk = (sign) => { let lastGood = 0; for (let k = 1; k < 4000; k++) { const t = k * stepLen; if (!insideP(poleX + sign * t * ax, poleY + sign * t * ay)) break; lastGood = t; } return lastGood; };
   const tPlus = walk(1), tMinus = walk(-1);
   const total = tPlus + tMinus;
-  const a0 = -tMinus + total * MARGIN, a1 = tPlus - total * MARGIN;
-  const poleX = gx0 + (px + 0.5) * cw, poleY = gy0 + (py + 0.5) * ch;
+  let a0 = -tMinus + total * MARGIN, a1 = tPlus - total * MARGIN;
+  // …and every point of the path must pass `prefer` too (a chord through a thin shape, or an atoll's rim at the
+  // rings' tolerance, can put a point a quantum into the neighbour or the lagoon): the chord shrinks about the
+  // pole until all of them do, down to the pole itself
+  const pointsOf = (b0, b1) => { const L = Math.max(0, b1 - b0) * R_KM, n = L > 1500 ? 5 : L > 400 ? 3 : 2, out = []; for (let i = 0; i < n; i++) { const t = b0 + (b1 - b0) * i / (n - 1); out.push(lonlat(unproject(F, poleX + t * ax, poleY + t * ay))); } return out; };
+  let path = pointsOf(a0, a1);
+  if (opts.prefer) {
+    for (let k = 0; k < 16 && !path.every((p) => opts.prefer(p[0], p[1])); k++) { a0 *= 0.75; a1 *= 0.75; path = pointsOf(a0, a1); }
+    if (!path.every((p) => opts.prefer(p[0], p[1]))) { a0 = 0; a1 = 0; path = pointsOf(0, 0); }
+  }
   const lenKm = Math.max(0, a1 - a0) * R_KM;
-  const nPts = lenKm > 1500 ? 5 : lenKm > 400 ? 3 : 2;
-  const path = [];
-  for (let i = 0; i < nPts; i++) { const t = a0 + (a1 - a0) * i / (nPts - 1); path.push(lonlat(unproject(F, poleX + t * ax, poleY + t * ay))); }
   const at = lonlat(unproject(F, poleX, poleY));
-  return { at, path, lenKm, areaKm2, axisDeg: Math.atan2(ay, ax) * R2D, cells: count, frame: F };
+  return { at, path, lenKm, areaKm2, axisDeg: Math.atan2(ay, ax) * R2D, cells: count, frame: F, preferred };
 }
 
 /* is (lon, lat) inside the rings (even-odd), tested in the same azimuthal plane — for the checker */

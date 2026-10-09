@@ -67,8 +67,9 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   const grid = /[$€£]\s?\d|\d[\d.,]*\s*(?:million|billion|trillion)\b|\d[\d.,]*\s*(?:km²|km2|sq\.?\s?mi|square\s?kilomet)/i;
   check("no sentence of the description quotes a grid figure", !grid.test(c.desc), (c.desc.match(grid) || [""])[0]);
   check("a Wikipedia link from the gazetteer's sitelink", /^https:\/\/en\.wikipedia\.org\/wiki\//.test(c.wiki), c.wiki);
-  const bundles = await page.evaluate(() => ({ timeline: typeof window.TIMELINE, info: typeof window.COUNTRY_INFO, cities: typeof window.CITIES, world: typeof window.WORLD }));
-  check("the prose came through its own bundle: countries.js loaded, timeline.js not", bundles.info === "object" && bundles.timeline === "undefined", JSON.stringify(bundles));
+  // app.js assigns an empty window.TIMELINE at boot (applyAdminEdits); timeline.js is what fills it, and cities.js (the same v1 bundle) what defines CITIES
+  const bundles = await page.evaluate(() => ({ timelineEras: Array.isArray(window.TIMELINE) ? window.TIMELINE.length : (window.TIMELINE === undefined ? 0 : -1), info: typeof window.COUNTRY_INFO, cities: typeof window.CITIES, uk: typeof window.UK }));
+  check("the prose came through its own bundle: countries.js loaded, timeline.js and cities.js not", bundles.info === "object" && bundles.timelineEras === 0 && bundles.cities === "undefined", JSON.stringify(bundles));
   const sel = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.selectedId());
   check("the country is the selection", sel === "adm0:fra", sel);
   const hash = await page.evaluate(() => location.hash);

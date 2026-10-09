@@ -37,7 +37,9 @@ const server = http.createServer((req, res) => {
   if (!file.startsWith(ROOT)) { res.writeHead(403); res.end(); return; }
   fs.readFile(file, (err, data) => { if (err) { res.writeHead(404); res.end("not found"); return; } res.writeHead(200, { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream", "Content-Length": data.length }); res.end(data); });
 });
-const VIEWS = [{ name: "globe", lon: 10, lat: 20, k: 24 }, { name: "Europe", lon: 10, lat: 50, k: 3 }, { name: "Aegean", lon: 25, lat: 38, k: 0.5 }, { name: "cap", lon: 25, lat: 38, k: 0.15 }];
+// the cap view sits on Athens: at 150 m/px over the open Aegean Natural Earth's 10m places name nothing, and a view with
+// nothing to label is not a test of the layout
+const VIEWS = [{ name: "globe", lon: 10, lat: 20, k: 24 }, { name: "Europe", lon: 10, lat: 50, k: 3 }, { name: "Aegean", lon: 25, lat: 38, k: 0.5 }, { name: "cap", lon: 23.73, lat: 37.98, k: 0.15 }];
 const DENSITIES = ["sparse", "normal", "dense"];
 const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette", "diamond", "ruby", "jade", "emerald", "amber", "amethyst", "aquamarine", "bloodstone", "carnelian"];
 const ANCHORS = ["United States of America", "Russia", "Indonesia", "Japan", "Chile", "Norway", "Fiji", "Kiribati", "Canada", "Denmark"];
@@ -84,8 +86,10 @@ async function inkInBoxes(page, placed) {
     const c = document.querySelector(".atlas2-labels"), x = c.getContext("2d"), dpr = c.width / c.clientWidth;
     let painted = 0, empty = [];
     for (const [id, b] of boxes) {
-      const x0 = Math.max(0, Math.floor(b[0] * dpr)), y0 = Math.max(0, Math.floor(b[1] * dpr)), w = Math.min(c.width - x0, Math.ceil((b[2] - b[0]) * dpr)), h = Math.min(c.height - y0, Math.ceil((b[3] - b[1]) * dpr));
-      if (w <= 0 || h <= 0) continue;
+      // the visible part of the box (a label may run off an edge; one wholly outside is not placed)
+      const x0 = Math.max(0, Math.floor(b[0] * dpr)), y0 = Math.max(0, Math.floor(b[1] * dpr)), x1 = Math.min(c.width, Math.ceil(b[2] * dpr)), y1 = Math.min(c.height, Math.ceil(b[3] * dpr));
+      const w = x1 - x0, h = y1 - y0;
+      if (w <= 2 || h <= 2) { empty.push(id + " (off the canvas)"); continue; }
       const d = x.getImageData(x0, y0, w, h).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 40) n++;
       if (n > 4) painted++; else empty.push(id);
     }
@@ -145,7 +149,8 @@ async function inkInBoxes(page, placed) {
   for (const name of ANCHORS) {
     const r = await page.evaluate((n) => { const g = document.querySelector(".atlas2").__atlas2.gazetteer(); const row = g.rows.find((x) => x.kind === "country" && x.name === n); return row ? { id: row.id, at: row.at, path: row.path } : null; }, name);
     if (!r) { check(name + " is in the gazetteer", false); continue; }
-    await page.evaluate((v) => document.querySelector(".atlas2").__atlas2.setView(v[0], v[1], 3), r.at);
+    // at 0.5 km/px the ID pass reads the z=3 tiles, which carry the atolls the resident levels have no ring for (Kiribati)
+    await page.evaluate((v) => document.querySelector(".atlas2").__atlas2.setView(v[0], v[1], 0.5), r.at);
     await settle(page); await sleep(60);
     const stack = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return c.stackAt(c.view.cx, c.view.cy); });
     check(`${name}: the anchor (${r.at.join(", ")}) is on its own land`, stack.includes(r.id), stack.join(" > "));

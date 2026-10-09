@@ -342,7 +342,7 @@
      marker on the first free side of four. Labels behind the horizon are not candidates; those near the limb
      carry an alpha for the fade. */
   const RAW = { topology: null, water: null };
-  let GZ = null, RIVER_LINES = null, METRICS = null;
+  let GZ = null, RIVER_LINES = null, RIVER_CAPS = null, METRICS = null;
   const D2R_ = Math.PI / 180;
   const KW = { capital: 0, country: 1, ocean: 2, sea: 3, admin1: 4, region: 5, range: 5, "island-group": 6, island: 6, gulf: 6, strait: 6, city: 7, lake: 8, town: 9, river: 10 };
   const PHYSICAL = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1, island: 1, "island-group": 1, range: 1, region: 1 };
@@ -406,7 +406,10 @@
     const show = q.show || {};
     const proj = (v) => { const x = rot[0] * v[0] + rot[1] * v[1] + rot[2] * v[2], y = rot[3] * v[0] + rot[4] * v[1] + rot[5] * v[2], z = rot[6] * v[0] + rot[7] * v[1] + rot[8] * v[2]; return [cx + x * radius, cy - y * radius, z]; };
     const onScreen = (x, y, m) => x >= -m && y >= -m && x <= W + m && y <= H + m;
+    const viewAngle = Math.min(Math.PI / 2, (Math.hypot(W, H) / 2 + 80) / radius) + 0.02;   // radians from the view's centre to its farthest corner, on the sphere
     const missing = new Set();
+    const why = q.debug ? [] : null;
+    const drop = (reason) => { if (why) why.push(reason); };
     /* ---- candidates ---- */
     const cands = [];
     for (const row of GZ.rows) {
@@ -418,7 +421,13 @@
       else if (PHYSICAL[k]) {
         if (!show.physical) continue;
         if (k === "lake") { if (!show.lakes || Math.max(row.len, 1) / kmpp < MIN_CHORD_PX) continue; }
-        else if (k === "river") { if (!show.rivers || !q.riversDrawn || row.river < 0) continue; const maxRank = q.level === 0 ? 3 : q.level === 1 ? 6 : 99; if (row.rank > maxRank) continue; }
+        else if (k === "river") {
+          if (!show.rivers || !q.riversDrawn || row.river < 0) continue;
+          const maxRank = q.level === 0 ? 3 : q.level === 1 ? 6 : 99; if (row.rank > maxRank) continue;
+          const capR = RIVER_CAPS && RIVER_CAPS.get(row.river); if (!capR) continue;
+          const d = Math.max(-1, Math.min(1, capR[0] * rot[6] + capR[1] * rot[7] + capR[2] * rot[8]));
+          if (Math.acos(d) - capR[3] > viewAngle) continue;   // the river's cap does not reach the view
+        }
         else { const z = Array.isArray(row.z) ? row.z : null; if (z && (zl + shift < z[0] || zl > z[1] + 1)) continue; if (!z && !row.p) continue; if (row.p && chordPx < MIN_CHORD_PX) continue; }
       } else continue;
       let a = null;
@@ -431,7 +440,8 @@
     const CELL = 64, cols = Math.ceil(W / CELL) + 2, rows = Math.ceil(H / CELL) + 2;
     const cells = new Map();
     const rects = [];
-    const cellsOf = (r, fn) => { const x0 = Math.max(0, Math.floor(r[0] / CELL) + 1), x1 = Math.min(cols - 1, Math.floor(r[2] / CELL) + 1), y0 = Math.max(0, Math.floor(r[1] / CELL) + 1), y1 = Math.min(rows - 1, Math.floor(r[3] / CELL) + 1); for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) fn(y * cols + x); };
+    const clampC = (v, n) => Math.max(0, Math.min(n - 1, v));
+    const cellsOf = (r, fn) => { const x0 = clampC(Math.floor(r[0] / CELL) + 1, cols), x1 = clampC(Math.floor(r[2] / CELL) + 1, cols), y0 = clampC(Math.floor(r[1] / CELL) + 1, rows), y1 = clampC(Math.floor(r[3] / CELL) + 1, rows); for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) fn(y * cols + x); };   // a rectangle beyond the viewport shares the edge cells, so off-screen labels still collide with each other
     const free = (r) => { let ok = true; cellsOf(r, (c) => { if (!ok) return; const list = cells.get(c); if (!list) return; for (const i of list) { const o = rects[i]; if (r[0] < o[2] + pad && r[2] > o[0] - pad && r[1] < o[3] + pad && r[3] > o[1] - pad) { ok = false; return; } } }); return ok; };
     const take = (r) => { const i = rects.length; rects.push(r); cellsOf(r, (c) => { let list = cells.get(c); if (!list) cells.set(c, list = []); list.push(i); }); };
     const placed = [];
@@ -484,12 +494,12 @@
       if (k === "capital" || k === "city" || k === "town") {
         const r = MARKER_R[k], x = c.a[0], y = c.a[1];
         const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
-        if (!free(mrect)) continue;
+        if (!free(mrect)) { drop("marker collides"); continue; }
         if (!show.places) { take(mrect); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
         const tries = [[x + r + 3 + sh.w / 2, y, 0], [x - r - 3 - sh.w / 2, y, 0], [x, y - r - 3 - sh.h / 2, 0], [x, y + r + 3 + sh.h / 2, 0]];
         let got = null;
         for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (onScreen(tx, ty, 0) && free(g.rects[0])) { got = g; break; } }
-        if (!got) continue;
+        if (!got) { drop("city label collides on all four sides"); continue; }
         take(got.rects[0]); take(mrect);
         placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
         continue;
@@ -536,15 +546,20 @@
         }
       }
       if (!got) {
-        if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") continue;   // the name would overhang the shape by most of its length
+        if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") { drop(k + " name wider than its shape"); continue; }   // the name would overhang the shape by most of its length
         const g = straight(sh, c.a[0], c.a[1], 0);
-        if (!onScreen(c.a[0], c.a[1], 0) || !free(g.rects[0])) continue;
+        if (!onScreen(c.a[0], c.a[1], 0)) { drop(k + " anchor off screen"); continue; }
+        if (!free(g.rects[0])) { drop(k + " collides"); continue; }
         got = g;
       }
+      // a label whose every glyph lies beyond the viewport (its anchor was within the 200 px margin) is not placed: it
+      // would hold a slot of the density cap and draw nothing
+      const ub = union(got.rects);
+      if (ub[2] < -8 || ub[3] < -8 || ub[0] > W + 8 || ub[1] > H + 8) { drop(k + " label wholly off screen"); continue; }
       got.rects.forEach(take);
-      placed.push(Object.assign(base, { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union(got.rects), rects: got.rects, marker: null, hit: union(got.rects), curved }));
+      placed.push(Object.assign(base, { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved }));
     }
-    return { placed, candidates: cands.length, cap, missing: [...missing].map((m) => m.split("\u0001")), rivers: riverLabels };
+    return { placed, candidates: cands.length, cap, missing: [...missing].map((m) => m.split("\u0001")), rivers: riverLabels, why };
   }
   /* ---------- water (Phase 1b): lake shores, rivers and lake fills, per resident level and per tile ----------
      Rivers come from a 1:10M source (chords 1.8 km at the median), so at the tile zooms (under 1 km/px)
@@ -634,13 +649,23 @@
     const faceEntity = new Uint32Array(T.faces.length);
     T.faces.forEach((f, i) => { faceEntity[i] = f.entity; });
     const arcRiver = new Int32Array(T.arcOffset.length - 1).fill(-1);
-    RIVER_LINES = new Map();
+    RIVER_LINES = new Map(); RIVER_CAPS = new Map();
     (T.header.rivers || []).forEach((rv) => {
       const pts = [];
       for (const a of rv.arcs) { arcRiver[a] = rv.entity; for (let i = T.arcOffset[a]; i < T.arcOffset[a + 1]; i++) if (T.rank[i] <= 1) pts.push(pos[3 * i], pos[3 * i + 1], pos[3 * i + 2]); }
       if (!RIVER_LINES.has(rv.entity)) RIVER_LINES.set(rv.entity, []);
       RIVER_LINES.get(rv.entity).push(Float32Array.from(pts));
     });
+    // a bounding cap per river (its parts' mean direction and the largest angle to any vertex): a river whose cap
+    // is nowhere near the view is skipped before a single vertex is projected (952 named rivers, every layout)
+    for (const [ent, parts] of RIVER_LINES) {
+      let sx = 0, sy = 0, sz = 0, n = 0;
+      for (const l of parts) for (let i = 0; i < l.length; i += 3) { sx += l[i]; sy += l[i + 1]; sz += l[i + 2]; n++; }
+      const len = Math.hypot(sx, sy, sz) || 1, cx = sx / len, cy = sy / len, cz = sz / len;
+      let ang = 0;
+      for (const l of parts) for (let i = 0; i < l.length; i += 3) { const d = Math.max(-1, Math.min(1, l[i] * cx + l[i + 1] * cy + l[i + 2] * cz)); const a = Math.acos(d); if (a > ang) ang = a; }
+      RIVER_CAPS.set(ent, [cx, cy, cz, ang]);
+    }
     post({ type: "water-meta", header: T.header, faceEntity, arcRiver, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, arcRiver.buffer]);
     for (let level = 0; level < T.lodCount; level++) {
       const t1 = now();
