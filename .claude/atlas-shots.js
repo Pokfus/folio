@@ -14,6 +14,11 @@
    folio night, synth) — for relief spilling past the coast, tile seams, the ramp in a light, a dark and a
    coloured theme.
    FADE: the Alps at 2.5, 1.8, 1.2 and 0.9 km/px — where the relief fades out past L1's texel.
+   LABELS (Phase 1c): the globe, Europe, the Aegean and Athens at the cap, at the three density stops, on the
+   desktop and on a 390 px phone (its own context, isMobile), in three themes (folio light, folio night,
+   synth) — for overlaps, names over the wrong place, curved text, labels near the limb, halo contrast over
+   relief (Europe with relief on); plus the stack chip on Lake Victoria, France's country card and the
+   phone's bottom sheet. `--only labels` takes this group alone.
    Each shot waits for every tile, water file and relief texture the view wants, so what it shows is the
    finished state. Review by eye; nothing here asserts.
 */
@@ -51,6 +56,16 @@ if (!only || only === "relief") for (const T of THEMES) SHOTS.push(
   { group: "relief", name: `relief-himalaya-6km-${T.name}`, lon: 86, lat: 28, kmpp: 6, layers: RELIEF, theme: T }, { group: "relief", name: `relief-himalaya-3km-${T.name}`, lon: 86, lat: 28, kmpp: 3, layers: RELIEF, theme: T }, { group: "relief", name: `relief-himalaya-1.5km-${T.name}`, lon: 86, lat: 28, kmpp: 1.5, layers: RELIEF, theme: T },
 );
 if (!only || only === "fade") for (const k of [2.5, 1.8, 1.2, 0.9]) SHOTS.push({ group: "fade", name: `fade-alps-${k}km`, lon: 10, lat: 46.5, kmpp: k, layers: RELIEF });
+const LABEL_VIEWS = [{ name: "globe", lon: 10, lat: 20, kmpp: 24 }, { name: "europe", lon: 10, lat: 50, kmpp: 3 }, { name: "aegean", lon: 25, lat: 38, kmpp: 0.5 }, { name: "cap-athens", lon: 23.73, lat: 37.98, kmpp: 0.15 }];
+if (!only || only === "labels") {
+  for (const T of THEMES) for (const V of LABEL_VIEWS) for (const d of ["sparse", "normal", "dense"]) for (const phone of [false, true]) {
+    SHOTS.push({ group: "labels", name: `labels-${V.name}-${d}-${phone ? "phone" : "desktop"}-${T.name}`, lon: V.lon, lat: V.lat, kmpp: V.kmpp, layers: Object.assign({}, WATER, { density: d, relief: V.name === "europe" }), theme: T, phone, labels: true });
+  }
+  SHOTS.push({ group: "labels", name: "labels-stack-victoria-desktop-folio", lon: 33.06, lat: -1.26, kmpp: 3, layers: WATER, theme: THEMES[0], labels: true, tap: true });
+  SHOTS.push({ group: "labels", name: "labels-card-france-desktop-folio", lon: 2.2, lat: 46.6, kmpp: 3, layers: WATER, theme: THEMES[0], labels: true, select: "adm0:fra" });
+  SHOTS.push({ group: "labels", name: "labels-card-france-phone-folio", lon: 2.2, lat: 46.6, kmpp: 3, layers: WATER, theme: THEMES[0], labels: true, select: "adm0:fra", phone: true });
+  SHOTS.push({ group: "labels", name: "labels-sheet-expanded-phone-folio", lon: 2.2, lat: 46.6, kmpp: 3, layers: WATER, theme: THEMES[0], labels: true, select: "adm0:fra", phone: true, expand: true });
+}
 
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]); if (p === "/") p = "/index.html";
@@ -63,26 +78,37 @@ const server = http.createServer((req, res) => {
   fs.mkdirSync(OUT, { recursive: true });
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
-  const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
   const errors = [];
-  page.on("pageerror", (e) => errors.push(String(e).slice(0, 200)));
-  await page.goto(`http://127.0.0.1:${PORT}/#map2?perf`, { waitUntil: "load" });
-  await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 90000 });
-  const canvas = await page.$(".atlas2");
-  let theme = null;
+  const pages = {};   // "desktop" and "phone": each its own context and page, opened on first use
+  async function pageFor(phone) {
+    const key = phone ? "phone" : "desktop";
+    if (pages[key]) return pages[key];
+    const context = phone ? await browser.newContext({ viewport: { width: 390, height: 700 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 }) : await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    const page = await context.newPage();
+    page.on("pageerror", (e) => errors.push(key + ": " + String(e).slice(0, 200)));
+    await page.goto(`http://127.0.0.1:${PORT}/${phone ? "#map2" : "#map2?perf"}`, { waitUntil: "load" });
+    await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 90000 });
+    pages[key] = { page, canvas: await page.$(".atlas2"), theme: null };
+    return pages[key];
+  }
   for (const S of SHOTS) {
+    const P = await pageFor(!!S.phone), page = P.page, canvas = P.canvas;
     const t = S.theme || THEMES[0];
-    if (!theme || theme.name !== t.name) { await page.evaluate((T) => { document.body.dataset.theme = T.theme; document.body.classList.toggle("night", T.night); }, t); theme = t; await page.waitForTimeout(100); }
+    if (!P.theme || P.theme.name !== t.name) { await page.evaluate((T) => { document.body.dataset.theme = T.theme; document.body.classList.toggle("night", T.night); }, t); P.theme = t; await page.waitForTimeout(100); }
+    await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; if (c.clearSelection) c.clearSelection(); });
     await page.evaluate((L) => document.querySelector(".atlas2").__atlas2.setLayers(L), S.layers);
     await page.evaluate(({ lon, lat, kmpp }) => document.querySelector(".atlas2").__atlas2.setView(lon, lat, kmpp), S);
     if (S.loading) { await page.waitForTimeout(120); await canvas.screenshot({ path: path.join(OUT, `${S.name}-loading.png`) }); }
     await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.tilesSettled() && c.waterSettled(); }, null, { timeout: 90000 }).catch(() => {});
     await page.waitForTimeout(300);
+    if (S.labels) { await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.labelsReady(), null, { timeout: 60000 }).catch(() => {}); await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); }
+    if (S.select) { await page.evaluate((id) => document.querySelector(".atlas2").__atlas2.select(id, { open: true }), S.select); await page.waitForFunction(() => !document.querySelector(".atlas2-card-loading"), null, { timeout: 60000 }).catch(() => {}); if (S.expand) await page.click(".atlas2-grip"); await page.waitForTimeout(200); }
+    if (S.tap) { const b = await (await page.$(".atlas2-canvas")).boundingBox(); await page.mouse.click(b.x + b.width / 2, b.y + b.height / 2); await page.waitForTimeout(400); }
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate());
     await page.waitForTimeout(120);
     const s = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.statsNow());
     await canvas.screenshot({ path: path.join(OUT, `${S.name}.png`) });
-    console.log(`${S.name}: LOD ${s.level}, ${s.tilesDrawn} tiles, ${s.triangles} tri, ${s.segments} seg; rivers ${s.riverSegments}, lakes ${s.lakeSegments} seg / ${s.lakeTriangles} tri, water tiles ${s.waterTilesDrawn}; relief ${s.reliefOn ? "on fade " + s.reliefFade.toFixed(2) + " patches " + s.reliefPatches : "off"}; ${s.draws} draws`);
+    console.log(`${S.name}: LOD ${s.level}, ${s.tilesDrawn} tiles, ${s.triangles} tri, ${s.segments} seg; rivers ${s.riverSegments}, lakes ${s.lakeSegments} seg / ${s.lakeTriangles} tri (${s.lakeCulled} culled), water tiles ${s.waterTilesDrawn}; relief ${s.reliefOn ? "on fade " + s.reliefFade.toFixed(2) + " patches " + s.reliefPatches : "off"}; ${s.draws} draws${S.labels ? `; labels ${s.labelsPlaced}/${s.labelCandidates} (cap ${s.labelCap}, ${s.density}${s.phone ? ", phone" : ""}) layout ${s.labelLayoutMs.toFixed(1)} ms draw ${s.labelDrawMs.toFixed(2)} ms` : ""}`);
   }
   await browser.close(); server.close();
   if (errors.length) console.log("page errors: " + errors.join(" | "));

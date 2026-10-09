@@ -19,13 +19,15 @@ Playwright suites all load, so there is exactly one definition of every byte.
 | 1 | `node --max-old-space-size=12000 build-land.js` | OSM land polygons | `out/coast.bin`, `out/land-log.json` | ~90 s |
 | 2 | `node --max-old-space-size=12000 build-admin.js` | `out/coast.bin`, NE admin-0, NE admin-1 | `out/full.bin`, `out/admin-log.json`, `out/admin-report.json` | ~20 min (the LOD 4 crossing repair is most of it) |
 | 5 | `node --max-old-space-size=12000 build-water.js [--measure]` | the committed `atlas/data/` (the land partition, read through `lib/landindex.js`), Natural Earth 10m rivers, HydroLAKES | `out/water-full.bin`, `out/water-report.json`, `out/water-log.json` | ~12 min (the overlap pre-pass over 18 M lake vertices and the per-level planarity are most of it) |
+| 6 | `node --max-old-space-size=8000 build-gazetteer.js [--install] [--dry] [--no-wiki] [--refetch] [--tier N] [--town-min N] [--river-rank N]` | the committed `atlas/data/` (faces, lakes, rivers; the z=4 tiles through `lib/landindex.js` for `within` and the anchor checks), NE 10m populated places, marine polygons, regions polygons and points, NE admin-0 (name variants, label points), `countries.js` (the v1 prose keys), Wikidata's query service (enwiki sitelinks, cached in `wiki-sitelinks.json`) | `out/gazetteer.js`, `out/gazetteer-report.json` (size per kind, the v1 key mapping and the countries without prose, the anchors the partition could not place); `--install` copies the file into `atlas/data/gazetteer.js` | ~30 s of geometry; the first Wikidata fetch ~25 min (the query service rate-limits a shared address, the build backs off), later runs read the cache |
 | 7 | `node --max-old-space-size=14000 build-relief.js [--install] [--levels 0,1,2]` | ETOPO 2022 60 arc-second GeoTIFF | `out/relief/` (L0 and L1 as three greyscale PNGs per tile, `relief.json`); `--install` copies them into `atlas/data/relief/` | ~45 s (L2 adds 20 s and 119 MB; not shipped) |
 | 8 | `node pack.js [--install]` | `out/full.bin` | `out/dist/` (the core, the tiles, `tiles-report.json`); `--install` copies them into `atlas/data/` | ~1 min |
 | 8b | `node pack-water.js [--install] [--dry]` | `out/water-full.bin` | `out/dist-water/` (`water.bin`, `water/<x>-<y>.bin`, `water-report.json`); `--install` copies them into `atlas/data/` — the land files are untouched | ~10 s |
 | 9 | `node check-topology.js --tiles` (from the repo root: `node --max-old-space-size=8000 .claude/atlas-build/check-topology.js --tiles`) | `atlas/data/` | nothing; exit 1 on any failure | ~4 min |
 | 9b | `node check-water.js` and `node check-relief.js [--source] [--coast N]` (from the repo root, with `--max-old-space-size=8000`) | `atlas/data/` (+ the ETOPO source for `--source`) | nothing; exit 1 on any failure; `--coast N` writes `out/relief-coast.json` | ~2 min; `--source` ~1 min more |
+| 9c | `node --max-old-space-size=8000 .claude/atlas-build/check-gazetteer.js` (from the repo root) | `atlas/data/gazetteer.js`, the core and water headers, the z=4 tiles, `wiki-sitelinks.json`, `countries.js` | nothing; exit 1 on any failure (the header, the table, every country's anchor and path in its own land, the ten named countries, seas off the land, every Wikipedia title the cached sitelink of its item, the 0.6 MB budget) | ~30 s |
 
-Steps 3, 4 and 6 of the design's table (polities, peoples, gazetteer) do not exist yet (Phases 1c–2).
+Steps 3 and 4 of the design's table (polities, peoples) do not exist yet (Phase 2); step 6 is the Phase 1c gazetteer v0 (countries, admin-1 units, cities, seas, lakes, rivers, islands, ranges, regions — the places the present-day map names; the cards' places are Phase 3).
 Each step is deterministic given `sources.json`; the only non-determinism in the outputs is the
 `generated` timestamp in each header. The `buildId` in every header is the sha256 of `out/full.bin`
 (`out/water-full.bin` for the water files), so a tile can always be matched to the core it was cut
@@ -42,6 +44,22 @@ licence (the WWF HydroSHEDS v1 License Agreement) failed §2.10a on 2026-10-08; 
 `blocked` in `sources.json` with the finding, and rivers come from Natural Earth 10m (PD) instead. After
 `pack-water.js --install` and `build-relief.js --install`, run step 9b, then `.claude/test-atlas-perf.js`,
 `.claude/test-atlas-relief.js` and `.claude/atlas-shots.js` (all need Playwright on `NODE_PATH`).
+
+**The gazetteer is a `.js` file, not a `.bin`** (Phase 1c, 2026-10-09): `atlas/data/gazetteer.js` assigns
+`window.ATLAS_GAZETTEER` — a table of rows under a `cols` header, with the `sources` block §2.10a asks for as
+its first line — so a `<script>` loads it on `file://` as well as `fetch()` does over http, and a reader of the
+file sees names, not varints; at 0.6 MB a binary would have saved a third of that and cost a reader every
+one of them. `build-gazetteer.js` reads the LAND and the WATER from the committed `atlas/data/` (never from
+`out/`), so any cloud session can rebuild it. The Wikipedia titles come from Wikidata's enwiki sitelinks,
+fetched through `query.wikidata.org/sparql` in batches of 50 (the `wbgetentities` API answers 429 from the
+sandbox's shared address — `check-reach.js` has the row) and cached in `.claude/atlas-build/wiki-sitelinks.json`,
+which IS committed: a rebuild is reproducible offline, a title is never written from memory, and
+`check-gazetteer.js` fails on any title the cache does not hold for that item. `--refetch` asks again for every
+item; a new item (a new row with a QID) is fetched on the next build without it. After `--install`, run step 9c,
+then `.claude/test-atlas-render.js`, `test-atlas-labels.js`, `test-atlas-card.js`, `test-atlas-search.js` and
+`test-atlas-a11y.js` (all need Playwright on `NODE_PATH`). The `--tier`, `--town-min` and `--river-rank` flags
+are the budget's levers; `out/gazetteer-report.json` records the size each kind costs, so a change to one of
+them is a measured choice, not a guess.
 
 `build-land.js --census` prints the vertex census per candidate tolerance without writing anything;
 it is how the LOD tolerances were chosen (§2.3 "as measured"). `pack.js --dry` builds everything in
@@ -68,6 +86,8 @@ figures and the screenshot series are what §7's as-built note quotes.
   OSM is never re-downloaded for water. It cannot re-run `pack.js`; a change to the land tiles still
   needs steps 1, 2 and 8.
 - **`node_modules/`** — `npm ci` here once per session; git-ignored.
+- **`wiki-sitelinks.json`** — the Wikidata sitelink cache (Phase 1c), committed beside the builder: `{ retrieved,
+  titles: { Q…: "Title" | null } }`, null meaning the item has no enwiki sitelink (and the row no link).
 - **`atlas/data/`** — the committed artefact: `topology.bin` and `tiles/`. **Never hand-edit a
   generated file**; fix the script or the pin and rebuild. Commit a rebuilt `tiles/` once per
   meaningful build, not per iteration — every committed tile stays in the repository's history.

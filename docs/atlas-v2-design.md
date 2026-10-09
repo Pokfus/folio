@@ -335,7 +335,7 @@ compress `application/octet-stream`). Sizes — the first three rows **measured 
 | file | content | size on the wire |
 |---|---|---|
 | `atlas/data/topology.bin` | arcs LOD 0–2, faces, steps, entities | **2.88 MB measured**: 917,243 vertices in 35,225 arcs, 430 faces (257 countries, 173 admin-1 units), at a quantum of 2.5·10⁻⁴° and Visvalingam intervals of 10 / 2.5 / 0.5 km for LOD 0 / 1 / 2; vertices 2,328 KB, 2-bit ranks 224 KB, arc table 173 KB, face table 152 KB, header 71 KB. CI refuses a core over 3 MB. Cliopatria's steps (Phase 2) will add to this. |
-| `atlas/data/gazetteer.js` | places registry (§2.8), labels, anchors | 0.3–0.5 MB |
+| `atlas/data/gazetteer.js` | places registry (§2.8): v0's 15 kinds with ranks, anchors, label paths, aliases, Wikipedia titles, the v1 prose keys | **0.589 MB measured (Phase 1c, 2026-10-09)**: 6,135 rows as arrays under a `cols` header with trailing zeros trimmed (the same rows as objects measured 1.03 MB); the budget was 0.6 MB and the levers that met it are measured in §7 "Phase 1c — as built" |
 | `atlas/data/tiles/3/*.bin` (32 tiles) | every arc and every face clipped to the tile, LOD 3 (250 m) | **5.33 MB measured**, median 110 KB, largest 700 KB (the tile holding Scandinavia and the Baltic) |
 | `atlas/data/tiles/4/*.bin` (382 of 512 tiles) | the same at LOD 4 (75 m) | **17.72 MB measured**, median 13 KB, largest 893 KB (the tile holding the Aegean and the Adriatic); 130 cells are open ocean and omitted, 38 are whole-tile covers of one face (Antarctica's pole row, inland cells of Brazil and Siberia) a few hundred bytes each; 23.05 MB in 414 files, under the 40 MB the owner allowed |
 | `atlas/data/water.bin` | rivers (every vertex, 4,369 arcs in 1,208 rivers) and lakes ≥ 10 km² at LOD 0–2, lake entities, the water tile index | **4.16 MB measured (Phase 1b, 2026-10-08)**: 1,169,157 vertices, 37,701 arcs, 16,616 lake faces, 5,167 entities (named lakes and those ≥ 50 km²; smaller unnamed lakes share one entity and keep their HydroLAKES id in `header.lakeIds`) |
@@ -485,6 +485,67 @@ Rules that remove today's label faults by construction:
 - **Density** is a legend setting with three stops (sparse / normal / dense) scaling the rank
   threshold and the minimum separation; Q-L1 asks for the default.
 - **Hit targets** are the label rect plus the marker, at least 44 px on touch devices.
+
+**Decisions taken for Phase 1c (owner, 2026-10-09; built the same day — the measurements are in §7
+"Phase 1c — as built"):**
+
+- **Density** (Q-L1 a): "normal" is a cap of about 40 labels at globe scale and about 120 at country
+  scale, interpolated on the logarithm of km/px between 24 and 1; sparse is 0.6× that, dense 1.5×; a
+  phone (coarse pointer, short side under 768 px) is one notch sparser, so its normal is the desktop's
+  sparse. The stops also move the collision padding (8 / 4 / 2 px) and shift Natural Earth's zoom
+  hints (−1 / 0 / +1.5 levels) for the kinds that carry them.
+- **Typography** (Q-L2 a): small capitals for countries, provinces, regions and ranges; italic for
+  water (seas, oceans, gulfs, straits, lakes, rivers); upright for cities and islands — in the theme's
+  own font tokens (`--display` for territories, `--serif` for water, `--sans` for cities and islands),
+  read from the computed style at mount and again on a theme change. Spaced italic for peoples waits
+  for Phase 2. Every label is shaped glyph by glyph with its own tracking; canvas `letterSpacing` and
+  `fontVariantCaps` are not used, so small capitals are capitals at 0.78 of the size.
+- **Markers** (Q-L3 a): a 4 px square for a capital, a 3 px disc for a city, a 2.2 px disc for a town,
+  ink with a paper stroke; battle and site glyphs come with the study material in Phase 3. An area
+  kind never carries a marker.
+- **Names are English only and as the source gives them**: Natural Earth's `name_en` where the table
+  has one, else `name`; HydroLAKES' lake names as they stand ("Superior", not "Lake Superior"). Canvas
+  text is outside the site's British-spelling pass and nothing here re-spells, title-cases or
+  translates. Other name fields become search aliases.
+- **Rivers** are drawn from 0.35 km/px upward only, so a river label exists only where its line does;
+  a river's name repeats about every 400 px along its polyline, on runs the view shows, at most six
+  times per river.
+- **Where the work runs.** Glyph advances are measured on the main thread (the label canvas's
+  `measureText`, one call per character per style, the Latin alphabet with its diacritics and the
+  punctuation the sources use; a character the worker finds missing is measured on demand) and posted
+  to the worker, which lays out: rank, then a greedy placement on a 64 px screen-space grid, dropping
+  a label that does not fit and never overlapping — a curved label is a chain of per-glyph squares.
+  A layout is asked for on settle (150 ms after the last input, with the pointer up), on a
+  zoom-level change and on a legend change; between layouts every placed label is a sprite — rendered
+  once, glyph by glyph, halo then ink — blitted at its anchor's current screen position, so nothing is
+  added or dropped while the globe moves (the pointer's state decides "moving", not a quiet clock),
+  a label behind the horizon is not drawn and one near the limb fades.
+
+**The gazetteer's kinds and the feature classes behind them (v0, Phase 1c):**
+
+| kind | source feature class → kind | rank | label geometry |
+|---|---|---|---|
+| `country` | `topology.bin` admin-0 face (NE admin-0 conflated on OSM land) | by area: ≥ 2 M km² 0, ≥ 500 k 1, ≥ 100 k 2, ≥ 20 k 3, ≥ 2 k 4, else 5 | pole of inaccessibility + principal-axis path, 2–5 points |
+| `admin1` | `topology.bin` admin-1 face (US, China, Russia, the UK nations) | by area + 3 | as country |
+| `capital` | NE populated places, `ADM0CAP = 1` / `Admin-0 capital` | NE `SCALERANK` | the point |
+| `city` | NE populated places, `POP_MAX ≥ 1,000,000` (the further tier, `--tier`, measured below) | NE `SCALERANK` | the point |
+| `town` | NE populated places, admin-1 capitals and region capitals of `POP_MAX ≥ 100,000` (`--town-min`) | NE `SCALERANK` | the point |
+| `ocean` / `sea` | NE marine polygons `ocean` / `sea` | NE `scalerank` | pole + path, preferring a cell the OSM partition calls water |
+| `gulf` | NE marine `gulf`, `bay`, `sound`, `inlet`, `fjord`, `lagoon` | NE `scalerank` | as sea |
+| `strait` | NE marine `strait`, `channel` | NE `scalerank` | as sea |
+| `lake` | `water.bin` named lake entity (HydroLAKES), a chord of ≥ 6 km or ≥ 25 km² | by area: ≥ 10 k km² 1 … ≥ 25 5, else 6 | pole + path from the finest resident rings; the path only from 60 km |
+| `river` | `water.bin` named river entity (NE 10m rivers), scale rank ≤ 8 | NE `scalerank` | the midpoint; the polyline itself, from the worker's copy |
+| `island` / `island-group` | NE regions polygons `Island` / `Island group`; NE regions points `island` / `island group` | NE `SCALERANK` | pole + path preferring land; a point |
+| `range` | NE regions polygons `Range/mtn` | NE `SCALERANK` | pole + path |
+| `region` | NE regions polygons `Continent` (rank 0), `Desert`, `Plateau`, `Plain`, `Basin`, `Lowland`, `Depression`, `Valley`, `Wetlands`, `Delta`, `Gorge`, `Tundra`, `Foothills`, `Geoarea`, `Peninsula`, `Pen/cape`, `Isthmus`, `Coast` | NE `SCALERANK` | pole + path |
+| not in v0 | NE marine `reef` (2), `river` estuaries (3), the 11 unnamed `generic`; NE regions `Lake` (3, the water file has them), `Dragons-be-here` (Null Island); NE points `cape` (111), `waterfall` (4), `plain` (1), `pole` (3); NE scientific and meteorological stations (41) | | no kind of this table is a cape or a pole; sites are Phase 3 |
+
+`within` is a country or admin-1 id: a city's from its `ADM0_A3` and `ADM1NAME`, a dependency's
+sovereign, an area's or river's country only where its anchor and both ends of its path fall in one
+admin-0 face of the z=4 land partition (a desert spanning five countries is in none). Every Wikipedia
+title is Wikidata's enwiki sitelink for the row's QID, fetched at build time and cached in
+`.claude/atlas-build/wiki-sitelinks.json`; a row with no QID or no sitelink has no link. Lakes have no
+QID (HydroLAKES carries none) and so no link in v0.
 
 ### 2.7 Relief
 
@@ -1113,7 +1174,7 @@ relief, labels, picking, the credits page — with no timeline yet.*
 |---|---|---|
 | **1a — land at every zoom** | the OSM land partition (1), admin-0 and admin-1 conflated onto it (2), LOD 3–4 as tiles with per-tile fills, the renderer's tile fetch, level selection and the 150 m/px cap, the checker on tiles, the redefined frame gate (§2.2), the build doc (9) | **built — see "Phase 1a — as built" below** |
 | 1b — water and relief | rivers and lakes (3), relief (4) and the sphere pass's relief lookup, the minimal layers control | **built — see "Phase 1b — as built" below** |
-| 1c — names and picking | the gazetteer (5), the label layer, markers, hover, the stack chip, the place card, deep links, the legend, the phone layout (6) | not started |
+| 1c — names and picking | the gazetteer (5), the label layer, markers, hover, the stack chip, the place card, deep links, the legend, the phone layout (6) | **built — see "Phase 1c — as built" below** |
 | 1d — credits and fallbacks | the `#credits` page (7) — the phase's one reader-visible change, with its changelog line and version bump — and the fallbacks (8): no-WebGL2, `file://` via the `.js` twin, context loss | not started |
 
 Deliverables:
@@ -1588,6 +1649,294 @@ seam; the Tibetan plateau reads as high ground after the ramp change. The fade s
 0.9 km/px is what fixed the range. One thing the shots show that is not a fault: at 3 km/px over Europe
 the rivers at every scale rank are dense, which is Natural Earth's own density at 1:10M and is where
 Phase 1c's labels will need the stack chip.
+
+#### Phase 1c — as built (2026-10-09)
+
+Everything in the 1c row of the table above exists and runs, with the frame gate's method changed first (task
+0 of the brief) and two renderer findings on the way. In `.claude/atlas-build/`: `lib/label.js` (the label
+geometry: rasterised rings in an azimuthal projection, an exact Euclidean distance transform for the pole of
+inaccessibility, the principal axis from the fill's covariance, the chord walked by exact point-in-polygon,
+and a `prefer` predicate the caller supplies), `build-gazetteer.js`, `check-gazetteer.js`, `sources.json`
+with three Natural Earth entries added (marine polygons, regions polygons, regions points) and
+`wiki-sitelinks.json` (the Wikidata cache, committed). In `atlas/`: `atlas-worker.js` gains the gazetteer,
+glyph shaping, the layout, the lake-area bins, a bounding cap per river and a rebuild on context loss;
+`atlas-gl.js` a water ID pass, the lake cull, the relief passes restructured and the typed arrays dropped
+after upload; `atlas.js` the label layer, picking, the card, the legend, search, deep links and the key list.
+In `app.js`: the `atlas2prose` bundle and the host object — the only two edits to v1. New suites:
+`test-atlas-render.js`, `test-atlas-labels.js`, `test-atlas-card.js`, `test-atlas-search.js`,
+`test-atlas-a11y.js`; `check-gazetteer.js` in the fast CI job.
+
+**Task 0 — the frame gate's method.** CI run 37863232583 failed "wheel, relief on: v2 p95 ≤ 1.5 × its
+relief-off p95" at 116.7 against 66.7 ms. The old gate read one run's p95 of about 70 frames quantised to the
+16.7 ms refresh — three or four frames — and a single frame moved it across a refresh. `test-atlas-perf.js`
+now repeats every gesture three times (at least 300 frames) and every relative gate compares the POOLED
+p90 of the repeats (v2 ≤ 40 % of v1; relief on ≤ 1.5 × relief off), printing the per-repeat p95s and their
+median beside it; the worst-frame gate reads the worst frame of every repeat (stricter, not looser), with
+the 100 ms + 1 ms slack unchanged. The pick smoke test resets the view to the home view first (the gestures'
+coast had left the centre over the sea). The three local runs and the three CI runs are tabled below.
+
+But the method alone did not make the relief gate honest: measured on the session's runner the relief-on
+wheel read 1.57 × relief off in both of the first two runs (pooled p90 183 vs 117 ms), and the Europe view
+alone 1.78 × on a 40-step drag — the relief passes really cost that much on software GL. Two renderer
+changes, both bounded, took the Europe view to **1.33 ×**: (1) a relief fragment is shaded once. Until 1c the
+sphere pass sampled the L0 sheet for every disc pixel, each L1 patch painted its whole rectangle as sea and
+again as land, and the L0 land pass ran over everything — two to three relief shadings a pixel; now the
+sphere pass draws the ocean with the L0 bathymetry only while no patch is on screen, each patch paints its
+sea where the LAND stencil bit is clear and its land where it is set, and the L0 sheet paints only what the
+patches do not cover — and not at all when they cover the viewport, which is tested on the CPU with nine
+unprojected points, because on SwiftShader a stencil-rejected fragment is not a free fragment (measured:
+the stencil-only restructure changed nothing). (2) An L1 patch mesh carries its equirectangular texture
+coordinate per vertex, so the relief shader runs no `atan` or `asin` per fragment; the L0 sheet keeps the
+full-disc quad with the per-fragment maths, because a 96 × 96 sphere mesh cost SwiftShader more in triangle
+setup than it saved (measured: the globe's relief-on drag went from 83 to 150 ms with the mesh). The picture
+is unchanged (a face is opaque; the sea passes are; the graticule and the rim ride on the sea passes).
+
+**The gazetteer v0, as measured** (`out/gazetteer-report.json`; the file is `atlas/data/gazetteer.js`,
+617,769 bytes = 0.589 MB, a `.js` table rather than a `.bin` — the build doc says why):
+
+| kind | rows | bytes of rows | what it is |
+|---|---|---|---|
+| country | 257 | 41,115 | every face-bearing admin-0 entity of the core |
+| admin1 | 172 | 21,943 | every named admin-1 unit (one Russian record is nameless) |
+| capital | 203 | 17,376 | Natural Earth's admin-0 capitals |
+| city | 400 | 35,262 | places of a million or more |
+| town | 1,080 | 94,862 | admin-1 and region capitals of 100,000 or more |
+| sea / ocean / gulf / strait | 71 / 7 / 160 / 52 | 9,073 / 1,232 / 20,465 / 6,821 | Natural Earth's marine polygons |
+| lake | 1,628 | 115,753 | named HydroLAKES lakes a label can fit (a chord ≥ 6 km or ≥ 25 km²) |
+| river | 952 | 91,402 | named Natural Earth rivers of scale rank ≤ 8 |
+| island / island-group | 409 / 161 | 48,853 / 21,879 | Natural Earth's regions polygons and points |
+| range | 219 | 29,972 | Natural Earth's `Range/mtn` polygons |
+| region | 364 | 49,642 | continents, deserts, plateaus, plains, basins, peninsulas, coasts… |
+| **all** | **6,135** | **617,769 bytes in the file** | 4,804 rows with a `within`; 4,195 Wikipedia titles on 4,171 rows with a QID (99 items have no enwiki sitelink) |
+
+The levers that met the 0.6 MB budget, each measured before it was pulled: the first full build was 868 KB
+(1,828 named lakes 198 KB, 1,564 cities and 1,618 towns 290 KB, a 250,000-people tier of 616 places 56 KB);
+rows as arrays with trailing zeros trimmed, QIDs as numbers and `within` as a row index saved a third
+against objects (1.03 MB); named lakes too small to label at the cap (a chord under 6 km and under 25 km²:
+199) and lake paths under 60 km went; rivers of scale rank 9–12 (187) went; admin-1 capitals under
+100,000 people (729 + 357) went — at 50,000 the file was 625 KB before a single Wikipedia title; the
+further city tier is **not in v0**: at 250,000 it cost 48 KB and at 500,000 19 KB, and either put the file
+over the budget once the titles were in. Natural Earth's own `MIN_ZOOM` / `MIN_LABEL` / `MAX_LABEL` ride
+along as `z` and gate the kinds that carry them. Three Natural Earth rivers carry one `ne_id` over two
+differently named stretches (the Mackenzie and the Comet, the Barwon and the Macintyre, the Avon and the
+Swan): two water entities, one id — the second row takes the entity index as a suffix and picking goes by
+entity index, never by id. One Russian admin-1 record has no name and no row.
+
+**Label geometry, as measured.** `check-gazetteer.js` proves every country's anchor and every point of
+its path inside its own admin-0 face of the z=4 partition, every admin-1 anchor inside its own LOD 2 face
+and its parent's land, and by name the ten of the brief (the United States at −97.2, 39.1 with a 2,176 km
+path across the plains; Russia at 107.9, 62.0, 3,969 km; Chile's path up the Atacama at −69; Norway's up
+the spine at 9; Fiji on Viti Levu; Kiribati on an atoll with a 0 km path; Denmark on Jutland). Three
+things the first builds got wrong and the final one does not: (1) the raster walk of the chord strode
+across the sea between islands of an archipelago whose cells were "filled" by an islet in a corner — the
+walk is now exact, by even-odd over the projected rings; (2) a pole chosen by distance alone was an atoll's
+lagoon, a sea polygon's island it has no hole for, or a thin territory's neighbour at the rings' tolerance —
+the builder now hands `labelGeometry` a `prefer` predicate (a country's own face by the partition, water
+for a sea, land for a lake or an island) and the farthest cell it accepts wins, the path's points too;
+(3) a 50 m rounding to three decimals put the Vatican's anchor in Italy — `prefer` now judges the rounded
+coordinates, a territory under a hectare or two is written at four decimals, and the five countries whose
+land exists only in the z=4 tiles (the Vatican, Ashmore and Cartier, Bajo Nuevo, Serranilla, the Coral Sea
+Islands) are anchored from those tiles' faces. Where the sources disagree the checker counts rather than
+fails: seven of 290 sea, ocean, gulf and strait anchors are land in the OSM partition (lagoons and
+river-mouth channels the coastline treats as land: Lake Pontchartrain, the Patos Lagoon, the Amazon's Canal
+do Sul), and the Caspian — sea to the partition — is the one lake off land.
+
+**Wikipedia titles.** 4,171 rows carry a QID (every country and admin-1 unit but six UK nations and dependencies the core has no QID for, 4,163 of 4,205 populated places, 271 of 306 marine polygons, 956 of 1,047 regions polygons, 1,054 of 1,208 rivers; no lake), and 4,195 titles were written — the item's enwiki sitelink or nothing. The `wbgetentities` API answers 429 to every call from this sandbox's
+shared address, with or without a descriptive User-Agent; `query.wikidata.org/sparql` answers the same
+question for 50 items in one VALUES clause, rate-limited too (the first full fetch took about forty
+minutes behind 10 / 30 / 60 / 120 s back-offs), and the cache is committed so that never happens twice.
+
+**Labels, as measured** (`test-atlas-labels.js` on the session's runner, 1280 × 800, the atlas 796 × 647;
+"normal" unless said):
+
+| view | sparse | normal | dense | candidates at normal | cap at normal |
+|---|---|---|---|---|---|
+| globe (10° E 20° N, 24 km/px) | 24 | 40 | 60 | 152 | 40 |
+| Europe (10° E 50° N, 3 km/px) | 55 | 92 | 139 | 530 | 92 |
+| Aegean (25° E 38° N, 0.5 km/px) | 5 | 5 | 5 | 231 (215 of them rivers whose line is off screen) | 120 |
+| Athens at the cap (0.15 km/px) | 1 | 1 | 1 | 1 | 120 |
+| country scale (10° E 50° N, 1 km/px) | — | 57 (66 before the river-arc fix placed names on neighbours' lines) | — | 335, about 100 of them on screen | 120 |
+| phone 390 px, globe / Europe / Aegean, normal | — | 24 / 29 / 2 | — | — | 24 / 55 / 72 |
+
+The cap is met at the globe and over Europe; the Aegean at 0.5 km/px names what Natural Earth 10m names
+there — Athens, the Aegean Sea, İzmir, the Cyclades, Volos (the Peloponnese, Lesbos and the Sea of Crete are
+rows too, but their anchors fall off that screen or their chords under 40 px; Euboea, Chios, Samos, Andros
+and Naxos are not named by Natural Earth's regions file at all) — and Athens at the cap is one label, because the 10m data has no feature smaller than a city there and the
+towns under 100,000 are out of v0; **that contradicts the "about 120 at country scale" of Q-L1 where the
+source is thin**, and the fix is data (Phase 3's places from the cards, a finer town tier when the budget
+grows), not layout. The layout itself: 10.9 ms at p95 on the runner's software GL (the last 13.1 ms over 336 candidates; the budget is 50 ms, read × 3 on software). The redraw: 0.70 ms at p95 with 68 labels (the budget 3 ms, × 3 on software) — a sprite per label, so the
+frame cost is a few hundred `drawImage` calls. Collision is proved pairwise over the chains at twelve
+(view, density) pairs and three on the phone; the one fault the suite found and the build fixed was a
+grid that dropped rectangles beyond the viewport into no cell at all, so two labels running off the top
+edge overlapped each other; a label with under 8 px of itself on screen is now not placed (it held a slot
+of the cap and drew nothing), a name whose run along its path would lie off screen falls back to the
+straight name at its anchor, and an anchor nearer the limb than z = 0.1 (where the fade leaves a name at
+half strength, foreshortened past reading) is not a candidate. A second fault behind "ink where the layout
+says": the atlas element changes size without a window resize (the page's scrollbar goes as it finishes
+loading; the card column opens) and both canvases kept the size measured at mount, 4 px narrower and 3 px
+shorter than the element, so names along the bottom edge drew beyond the canvas — a `ResizeObserver` on the
+element now re-measures. Nothing is added or dropped during a 40-step drag — and "moving" had to become the
+pointer's state rather than a quiet clock, because on this runner a drag's moves were 150 ms apart and
+the settle timer laid out between them, once per move (measured: layout #41 → #81 over 40 moves).
+Contrast: ink names ≥ 10:1 on the land fill in all fifteen themes; water names 6.5–7.7:1 on the sea and
+the land in the light themes and 4.8:1 on the sea and 6.7:1 on the land in folio's night, after the first dark-theme water colour
+measured 1.8:1 against the sea.
+
+**Picking, as measured** (`test-atlas-render.js`): 42 of 42 Natural Earth capitals answer with their own country at 24, 3 and 0.5 km/px (at the globe a coastal capital's own pixel or one of four neighbours two pixels away — a tap is a finger, not a needle); a point in Texas stacks the state above the country; Lake Tanganyika stacks the lake, then Tanzania; a tap on the Danube's midpoint at 1 km/px stacks the river, 6 px beside the line still does, 60 px away does not. Three faults found: the ID pass had cleared
+the tile list before drawing, which with `complete` computed from that same list drew NO face at a tile
+zoom (every pick past 1 km/px answered "sea" — unnoticed since 1a because the perf suite picks at the
+globe); a line's id came back one less than its index (the arc shader adds only the base); and no line was
+ever picked at all, because a pick shifts the viewport so one device pixel lands on the 1 × 1 target and
+the arc shader measured a fragment's distance to its line from `gl_FragCoord` — the target's coordinates,
+not the canvas's — so every fragment was a whole canvas away from its line and discarded (`uPickOff` now
+carries the shift). Once lines picked, they shadowed faces: a tap on a coastal capital, an atoll at the cap
+or a lake shore answered with the coastline, so the land ID pass draws no lines (nothing reads a line's id
+yet). The ID pass now draws the resident level, the parents and the loaded tiles in that order without a
+stencil, so the finest loaded face has the last word and an atoll the resident levels have no ring for is
+still picked; a river is picked within 8 CSS px of its line through `uIdPad`.
+
+**The two performance fixes, as measured.** (a) The lake cull: a resident water level's lake triangles and
+shore segments are laid out per half-octave area bin from 10 km² (levels 1 and 2; level 0's lakes are
+≥ 1,000 km² and the tiles' ≥ 6 km² never cross the line), and the renderer skips every bin whose lakes
+project under 2 px² — at 3 km/px, lakes under 18 km². The Europe view (3 km/px) draws 55,915 lake-shore segments and 50,843 lake-fill triangles against 71,374 and 64,531 before the cull (the suite's Europe budgets go from 89,400 / 80,800 to 69,900 / 63,600, the measurement × 1.25); the globe's 2,968 / 2,623 and the Aegean's 1,831 / 1,648 are unchanged, their levels having no bin under the line. The
+owner's guess that most of Europe's lake primitives were such smears was **not** borne out: the small bins
+hold 58,420 of the level's 803,326 triangles (7 %), and the Finnish and Karelian lake districts are mostly
+lakes of 20–200 km² with 500 m shores. The budgets in the suite are revised to the measurements × 1.25.
+(b) Memory: the renderer kept every level's, tile's, water level's and relief sheet's arrays beside the GPU
+copy "for context loss" — 150 MB of typed arrays, and the runner read v2's heap at 307 MB against v1's 242.
+An upload now keeps only the bucket ranges and caps; on `webglcontextrestored` the worker, which kept the
+raw files, sends every level again and the tile loaders fetch theirs again. Measured after the change, with the browser run under `--expose-gc` and the heap read after a forced collection (what is live, not what the collector has not reached — without it the same build read 38 MB one run and 78 MB the next): **v2 38 MB after its gestures against v1's 228–257 MB**, on four runs; the suite gates it at 48 MB (1.25 ×), and `#map2?perf` shows the live reading on Chrome ("n/a" where `performance.memory` is absent).
+
+**The place card, the legend, search, deep links, the keyboard.** The card is a side column at 380 px, a
+bottom sheet with a grip on a phone that opens shut (the title strip alone) and expands on the grip, like
+v1's. A country's card loads the `atlas2prose` bundle (countries.js, country-stats.js, country-spans.js,
+country-sources.js — not timeline.js, which v1's `atlas` bundle carries) through the host's `ensureData`,
+titles itself by v1's `officialName` rule, strips the figure sentences by v1's `stripInfoNoise` rule, shows
+the four-tile grid and the sources as a `.src-note` the host's `wireFootnotes` numbers — the two rules are
+copied into atlas.js because they live inside v1's page closure, and the brief allowed v1 two edits. The mapping from `adm0:<a3>` to v1's prose key tries the core's name and Natural Earth admin-0's NAME, NAME_LONG, FORMAL_EN, NAME_EN, ABBREV, NAME_SORT, BRK_NAME and NAME_CIAWF in turn, lower-cased: **253 of 257 countries have an entry; without one: Brazilian Island, Cyprus No Mans Area, Indian Ocean Territories, United States Minor Outlying Islands** (the last has figures in country-stats.js under "u.s. minor outlying is." but no description) — their cards say "No description for … yet" rather than inventing one.
+Any other kind shows its name, its kind, its containing place as a button and its Wikipedia link, nothing
+else. The legend replaces the layers control (borders, provinces, the three name groups, cities, rivers,
+lakes, relief with its strength, graticule, label density) under a new localStorage key behind try/catch;
+a phone gets a "Legend" chip and a sheet. Search folds diacritics (NFD, the combining marks stripped) and
+matches prefix before substring over names and aliases, the name that IS the query first, then by kind,
+then by rank; Enter flies (700 ms, eased; instant under reduced motion or the site's animations switch),
+selects and opens. Deep links are `#map2/<lon>/<lat>/<zoom>/<place>` with the zoom as the web-mercator
+level (log₂ of 156.543 / km-per-px, what Natural Earth's hints are in), written with `replaceState` on
+settle and `pushState` on a selection, so Back closes the place and Forward reopens it; the router ignores
+the long form (it is not a page name) and the Atlas reads it itself; `?perf` rides on the end. A hidden
+list of buttons (`.atlas2-keys`, the site's `.vh`) mirrors the placed labels in rank order, at most 60,
+named "<place>, <kind>"; Tab reaches it after the search box and the zoom controls, Enter opens, Escape
+clears, and a new layout keeps the focused button.
+
+**Findings that contradict or sharpen the design.** (1) The relief-on ratio was a real cost, not noise
+(above): the gate's method was wrong AND the passes were wasteful. (2) Early stencil rejection cannot be
+assumed on software GL; a pass that must not run must not be issued. (3) A whole-sphere mesh is the wrong
+tool for a full-disc pass on SwiftShader; per-vertex texture coordinates pay only on the patch meshes.
+(4) Q-L1's "about 120 at country scale" presumes a density of named features Natural Earth 10m does not
+have over the Aegean; the cap is a ceiling, not a promise. (5) HydroLAKES carries no QIDs: lakes have no
+Wikipedia link in v0. (6) The gazetteer is a `.js`, not a `.bin`: 0.6 MB of names is a file a reviewer reads
+in a PR. (7) The owner's "most of the Europe view's lake primitives" were not under 2 px² (7 % of the level's
+triangles are); the cull is kept because it is cheap and right at every zoom, and the budgets are revised
+to what is measured.
+
+**The frame gate, three local runs and three CI runs** (pooled over three repeats; v2 = `#map2` with
+rivers, lakes and labels; the session's runner reads v2's globe drag at twice CI's — 66.7 against 33.4 ms
+p90 — and its worst drag frame of three repeats at 100–117 ms, which is the one gate the local runs cannot
+hold):
+
+Five local runs on the session's runner (SwiftShader, four cores; CI reads roughly half these). Runs 2 and 3 are
+the three-repeat suite on the code before the pinch fix (run 1 was disturbed by a screenshot probe and is not
+counted); run 4 has the pinch redrawing; run 5 has the pinch holding its level and the heap gate on. Pooled p90
+in ms, v2 against v1, relief off unless said; "worst" is the worst frame of three repeats, relief off.
+
+| run | drag v2 / v1 (p90) | wheel v2 / v1 | pinch v2 / v1 | worst drag | worst pinch | drag relief on / off | wheel on / off | pinch on / off | heap v2 / v1 | gate |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2 (before the pinch fix) | 66.7 / 233.3 (29 %) | 149.9 / 466.7 (32 %) | 16.7 / 483.3 (hollow: no frame drawn) | 116.6 | 116.7 | 100.0 / 66.7 (1.50) | 166.7 / 149.9 | 116.7 / 16.7 (idle loop against tile arrivals) | 38 / 257 | red: two worst frames, pinch relief, tap |
+| 3 (same code) | 66.7 / 249.9 (27 %) | 116.7 / 483.3 (24 %) | 16.7 / 500.0 (hollow) | 116.6 | 83.4 | 100.0 / 66.7 (1.50) | 183.3 / 116.7 (1.57) | 100.1 / 16.7 | 38 / 242 | red: worst drag, wheel relief, pinch relief |
+| 4 (pinch redraws) | 83.3 / 250.0 (33 %) | 133.3 / 500.0 (27 %) | 183.3 / 466.8 (39 %) | 100.1 | 283.4 | 100.0 / 83.3 (1.20) | 183.3 / 133.3 (1.37) | 100.1 / 183.3 (0.55) | 38 / 228 | red: worst pinch |
+| 5 (pinch holds its level, heap gated) | 83.3 / 249.9 (33 %) | 133.4 / 466.7 (29 %) | 116.7 / 500.0 (23 %) | 249.9 (one frame; the other repeats 100.0) | 283.4 | 100.1 / 83.3 (1.20) | 183.3 / 133.4 (1.37) | 116.7 / 116.7 (1.00) | 38 / 228 | red: the two worst frames |
+
+Every relative gate holds on runs 4 and 5, the heap gate holds, and the tap names Niger; what this runner cannot
+hold is the 100 ms worst frame: a drag's occasional 250 ms frame and, now that a pinch draws, the first full-screen
+frame at LOD 1 when the fingers lift (267–283 ms here, every repeat). The long intervals are not main-thread work —
+the renderer's CPU side is under a millisecond a frame, a layout's sprites 6–21 ms — but SwiftShader's fill: a
+rAF ticker beside the app's loop sees 100–300 ms gaps while the app's own frames are idle, which is the GPU
+process holding the swap.
+
+**CI, the same suite** (`Atlas v2 frame gate`, GitHub's runner, SwiftShader on two cores but faster than the
+session's):
+
+| CI run | head | drag v2 / v1 (p90) | wheel | pinch | worst drag | worst pinch | drag relief on / off | wheel on / off | pinch on / off | heap v2 / v1 | result |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 — [37878500473](https://github.com/Pokfus/folio/actions/runs/37878500473/job/113652967533) | 449b751 (before the river-arc fix; same renderer) | 50.0 / 183.3 (27 %) | 83.3 / 300.0 (28 %) | 83.3 / 333.3 (25 %) | 66.7 | **183.4** (183.4 / 183.3 / 183.4) | 66.7 / 50.0 (1.33) | **133.4 / 83.3 (1.60)** | 83.3 / 83.3 (1.00) | 28 / 150 | red: worst pinch, wheel relief |
+| 2 — [37879826079](https://github.com/Pokfus/folio/actions/runs/37879826079/job/113657201327) | 0b6850d (this head) | 50.0 / 200.0 (25 %) | 100.0 / 316.7 (32 %) | 83.4 / 350.0 (24 %) | 66.7 | **183.4** (183.3 / 183.4 / 183.4) | 66.7 / 50.0 (1.33) | 150.0 / 100.0 (1.50) | 83.4 / 83.4 (1.00) | 28 / 150 | red: worst pinch only |
+| 3 — [37881040122](https://github.com/Pokfus/folio/actions/runs/37881040122/job/113660985899) | eb50c64 (this head, docs only since 0b6850d) | 50.0 / 216.7 (23 %) | 83.3 / 366.7 (23 %) | 83.3 / 383.4 (22 %) | 66.7 | **166.8** (166.8 / 166.6 / 166.8) | 66.7 / 50.0 (1.33) | **133.2 / 83.3 (1.60)** | 83.3 / 83.3 (1.00) | 28 / 150 | red: worst pinch, wheel relief |
+
+The pinch's worst frame on CI is 183.4 ms in all six repeats of two runs and 166.8 in the third (eleven and ten
+vsync intervals): the
+first frame after the fingers lift, when the held level gives way to LOD 1 and the renderer draws 64–138k
+triangles at full-screen fill in one go (the probe on the session's runner reads the same frame at 117–133 ms
+with 0.6 ms of CPU). The wheel's relief ratio sits on the line (1.60, 1.50, 1.60): the relief-on wheel pays
+the L1 patch fetch and upload (17 MB of textures) inside the gesture, which the relief-off wheel never does.
+
+The frame gate was red on `main` before this phase (run 37863242459: the method's own faults, since fixed) and is
+red on this head on two rows in three runs (one row in the second), both honest: the pinch's worst frame, which
+did not exist before the pinch drew, and the wheel with relief on, which on CI's faster relief-off wheel reads
+1.50–1.60 × against the 1.5 × gate (1.37 × here). Every other row — the three 40 % ratios, the drag's worst
+frame, the primitive budgets, the drag and pinch relief ratios, the heap, the tap — holds in all three. The numbers were not loosened; whether a pinch's first LOD-1 frame and the wheel's relief ratio are the
+right gates is the owner's call — the design says 60 Hz on a phone's GPU, and the phone reading above says it
+holds there.
+
+**The owner's phone reading, 2026-10-09** (350 × 597 CSS px, DPR 2, relief on, the night theme): at LOD 1,
+5.2 km/px, 25.6k triangles and 16.2k segments, frame mean 16.6 ms, p95 16.7 ms, CPU draw 0.50 ms — locked at
+60 Hz; the texture-fallback option is not needed. The heavier LOD 2 view has not been read on the phone yet.
+Two things the reading turned up, fixed in this phase: (1) the perf overlay was clipped at the right edge
+(the max frame time and the ends of the water, relief and tile lines cut off) — it was `white-space: pre`
+with no right bound; it now wraps (`pre-wrap`, `overflow-wrap: anywhere`, a right inset, a smaller face on a
+phone) so every figure is on a 350 px screen, and the JS heap line (`performance.memory`, Chrome only —
+"n/a" on Safari) is in it. (2) The graticule is off by default (`DEFAULT_LAYERS.graticule = false`, and the
+suite reads `view.graticule === false` at mount), yet a faint dashed meridian ran down the left of the
+phone's Europe view, through Britain, the Channel and France, at exactly 0°. It was not a line primitive (the
+land topology has no arc along 0°, and the shot with relief off has no line) but the seam between two relief
+L1 patches, which meet at 0°: `reliefAt` wrapped its sample column for the whole-world L0 sheet's seam at
+180°, and a patch inherited the wrap, so its last half texel was blended with its FIRST column — a stripe of
+wrong height and shade one half-texel wide along every patch edge, dotted because 4.9 km texels sit under
+5.2 km pixels. The sheet wraps and a patch clamps now (`uWrap`); the patch meshes' edge vertices are also
+the tiles' own bounds rather than lon0 + (lon1 − lon0)·n/n, so neighbours share bit-identical positions.
+Verified by the same headless phone shot (350 × 597, DPR 2, night, relief on, 5.2 km/px): the line is gone.
+
+A third finding from the suite rather than the phone: **a two-finger pinch did not redraw**. `zoomAt` set the
+dirty flag without scheduling a frame, so a pinch changed the zoom and drew nothing until a tile or a layout
+arrived — the frame-gate's pinch rows had been measuring an idle loop (16.7 ms p90, 0 frames rendered during
+60 touch moves, on Phase 1b's code and on 1c's before the fix). It calls `invalidate` now, and a pinch from
+the globe to 7 km/px renders every move; on this runner's software GL those frames fill the whole canvas
+and cost 100–150 ms (p90 150 relief off, 167 on), which is the renderer's real full-screen cost (the fixed
+Europe view reads the same), not a regression — and the pinch rows of the gate table below are the first
+honest ones.
+
+**A fault the screenshot review caught, not the suites**: "Thames" ran along a river in Spain, "Loire" along one
+in Russia, "Mur" along the Po. `header.rivers` lists a river's arcs as the format lists every arc — ONE-BASED and
+signed (`pack-water.js` writes arcIndex + 1, `check-water.js` reads ref − 1) — and both the worker's river lines
+and the gazetteer builder's river anchors read them zero-based, so each name followed the arc AFTER each of its
+own; where a river's arcs are consecutive (most are) the name still landed on its river, which is why the
+Danube's pick and label passed. Both readers take `|ref| − 1` now and walk a negative reference backwards; the
+gazetteer was rebuilt (the river anchors moved; every other row is unchanged) and the Europe screenshots retaken.
+
+**Screenshots, reviewed** (`.claude/atlas-shots.js --only labels`, 76 shots): four views (globe, Europe, the Aegean, Athens at the cap) × three densities × desktop and a 390 px phone × three
+themes (folio, folio night, synth), plus the France card on desktop and phone and the stack chip. Reviewed by
+eye, after the river-arc fix: the globe at normal reads as an atlas page — oceans in slanted serif, continents
+and large countries tracked small capitals, capitals squared and bold, Mumbai and Miami as dots, nothing
+colliding; Europe at 3 km/px names the seas, the countries along their axes (FRANCE, SPAIN, GERMANY on its
+north–south axis), the ranges (ALPS, BÖHMERWALD, CANTABRIAN MOUNTAINS), the rivers along their lines (Rhin,
+Seine, Loire, Elbe, Donau, Danube, Ebro, Po, Drau, Inn) and the capitals, with the city names kept off the
+coast lines; the phone at normal carries 29 names over Europe without a collision and its Legend chip, bottom
+sheet and grip; the night theme's water names are pale blue on the dark sea and readable on land; the Aegean
+is sparse for the reason given above (five names), and Athens at the cap is Athens alone. The France card on
+desktop is the 380 px column with the prose and the figure tiles, on the phone the shut sheet with the title
+strip and the grip. Two things a reader would notice and the phase does not fix: the ocean names near the
+limb are foreshortened (by design — they fade with the limb), and GERMANY's tracked name runs over the
+Elbe's label at 3 km/px in one density because a river label is placed after the country's and does not know
+the country's glyph boxes are tracked (the overlap test is on rectangles; the glyphs' ink does not touch).
 
 ### Phase 2 — Time (ships `#map2` with a timeline; ~8–10 sessions)
 

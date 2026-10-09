@@ -72,7 +72,7 @@
         "ne_10m_populated_places.dbf"
       ],
       "usedBy": [
-        "build-gazetteer.js (Phase 3)"
+        "build-gazetteer.js"
       ]
     },
     {
@@ -198,6 +198,69 @@
         "build-water.js (Phase 1b: rivers — the stand-in for HydroRIVERS, whose licence is not open; see `blocked`)"
       ],
       "why": "Chosen 2026-10-08 when HydroRIVERS failed the licence check (below). The scale-rank edition is the plain rivers file split per scale rank, so a great river's lower course is drawn at the globe and its headwaters from LOD 1–2; it carries names, Wikidata ids and NE ids for Phase 1c. Its resolution is 1:10M (median chord 1.8 km), so rivers stop being drawn where the chords would show (§7 Phase 1b)."
+    },
+    {
+      "id": "ne-10m-marine-polys",
+      "name": "Natural Earth 1:10m Physical Vectors — Geography Marine Polygons (oceans, seas, gulfs, bays, straits, channels, with names and Wikidata ids)",
+      "version": "5.1.0 (VERSION.txt inside the zip)",
+      "url": "https://naciscdn.org/naturalearth/10m/physical/ne_10m_geography_marine_polys.zip",
+      "mirror": "https://naturalearth.s3.amazonaws.com/10m_physical/ne_10m_geography_marine_polys.zip",
+      "sha256": "a2d3395904c41e718e02c3ec5bc988712164c524c236fad32d95d282ca303b2a",
+      "bytes": 940563,
+      "licence": "PD",
+      "licenceUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
+      "retrieved": "2026-10-09",
+      "reachable": "2026-10-09 200 through the agent proxy",
+      "files": [
+        "ne_10m_geography_marine_polys.shp",
+        "ne_10m_geography_marine_polys.dbf"
+      ],
+      "usedBy": [
+        "build-gazetteer.js"
+      ]
+    },
+    {
+      "id": "ne-10m-regions-polys",
+      "name": "Natural Earth 1:10m Physical Vectors — Geography Regions Polygons (islands, island groups, ranges, deserts, plateaus, peninsulas, basins, continents, with names and Wikidata ids)",
+      "version": "5.0.0 (VERSION.txt inside the zip)",
+      "url": "https://naciscdn.org/naturalearth/10m/physical/ne_10m_geography_regions_polys.zip",
+      "mirror": "https://naturalearth.s3.amazonaws.com/10m_physical/ne_10m_geography_regions_polys.zip",
+      "sha256": "cb7b9db200284ed1551f20eacc7f3333e9b5f311c19f7cb2670694529f688682",
+      "bytes": 2038519,
+      "licence": "PD",
+      "licenceUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
+      "retrieved": "2026-10-09",
+      "reachable": "2026-10-09 200 through the agent proxy",
+      "files": [
+        "ne_10m_geography_regions_polys.shp",
+        "ne_10m_geography_regions_polys.dbf"
+      ],
+      "usedBy": [
+        "build-gazetteer.js"
+      ]
+    },
+    {
+      "id": "ne-10m-regions-points",
+      "name": "Natural Earth 1:10m Physical Vectors — Geography Regions Points (islands too small for a polygon, capes, waterfalls, the poles)",
+      "version": "5.0.0 (VERSION.txt inside the zip)",
+      "url": "https://naciscdn.org/naturalearth/10m/physical/ne_10m_geography_regions_points.zip",
+      "mirror": "https://naturalearth.s3.amazonaws.com/10m_physical/ne_10m_geography_regions_points.zip",
+      "sha256": "2cf54b21fc684f0f7023886379c7ae9c5c716d8bd4c3ead19050f3a7f53e4f7d",
+      "bytes": 87372,
+      "licence": "PD",
+      "licenceUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
+      "retrieved": "2026-10-09",
+      "reachable": "2026-10-09 200 through the agent proxy",
+      "files": [
+        "ne_10m_geography_regions_points.shp",
+        "ne_10m_geography_regions_points.dbf"
+      ],
+      "usedBy": [
+        "build-gazetteer.js"
+      ]
     }
   ],
   "blocked": [
