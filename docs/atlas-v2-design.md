@@ -2006,7 +2006,37 @@ sees either stage; `#map2?perf` prints the stage on its LOD line. **Flagged for 
 visible only on slow GPUs, chosen over loosening a number; a phone that does reach stage 2 shows coarser coasts under a
 pinch than it did.
 
-{{GATE_RUNS}}
+**The gate's runs** (`test-atlas-perf.js`; every number v2, relief off unless said; the local runner is the session's
+container, software GL on one core, with nothing else running). Six local runs, in order, each on the code of its moment:
+
+| run | code | drag p90 / worst | wheel p90 | pinch p90 / during worst / release worst | relief on (drag / wheel / pinch, × off) | heap v2 / v1 | result |
+|---|---|---|---|---|---|---|---|
+| local 1 | 1d rules, 1c renderer | 66.7 / 250 | 150 | 117 / 200 / 100 | 1.25 / 1.22 / 0.72 | 79 / 223 | red: drag worst, pinch during |
+| local 2 | + the resolution drop (never ran in a gesture) | 50 / 83 | 133 | 100 / 217 / 83 | 1.33 / 1.13 / 0.83 | 79 / 197 | red: pinch during |
+| local 3 | + the two stages | 33 / 83 | 33 | 33 / 50 / 117 | 1.0 / 1.13 / 1.5 | 44 / 223 | **green** |
+| local 4 | same | 33 / 83 | 17 | 33 / 50 / 100 | 1.0 / 2.97 / 1.5 | 44 / 190 | red: wheel relief (3 vsyncs against 1) |
+| local 5 | + no relief in a stage-2 gesture | 33 / 117 | 17 | 33 / 50 / 100 | 1.0 / 1.98 / 1.5 | 79 / 197 | red: one 117 ms drag frame of 1,263 |
+| local 6 | same (the pushed head) | 33 / 83 | 33 | 33 / 67 / 117 | 1.0 / 1.0 / 1.5 | 78 / 223 | **green** |
+
+The two red rows after the stages are the runner's floor, not the renderer's: a frame on software GL is a whole number
+of vsyncs, so a pooled p90 reads 16.8 or 33.4 and a ratio of two such figures flips between 1 and 2 (and read 3 once,
+with relief drawn in the gesture); and one frame in 1,263 at 117 ms is a collector's pause on a one-core container
+(the same run's p99 was 50). CI's runner (two cores) has never shown either. CI, on the pushed head `e254f18`:
+
+| run | job | drag p90 (v1) / worst | wheel p90 (v1) | pinch p90 (v1) / during worst / release worst | relief on (drag / wheel / pinch, × off) | heap v2 / v1 | result |
+|---|---|---|---|---|---|---|---|
+| CI 1 | [37928457341](https://github.com/Pokfus/folio/actions/runs/37928457341/job/113813633302) (push) | 33.4 (200) / 66.8 | 16.8 (333) | 33.3 (350) / 49.9 / 100 | 1.0 / 1.0 / 1.0 | 28 / 150 | **green** |
+| CI 2 | [37930590707](https://github.com/Pokfus/folio/actions/runs/37930590707/job/113820644797) (dispatch) | 33.4 (200) / 66.7 | 16.8 (333) | 33.3 (350) / 33.4 / 117 | 1.0 / 1.0 / 1.0 | 28 / 150 | **green** |
+| CI 3 | [37938590103](https://github.com/Pokfus/folio/actions/runs/37938590103/job/113847508729) (dispatch) | 33.3 (117) / 33.5 | 16.7 (183) | 16.7 (217) / 16.8 / 50 | 0.5 / 1.0 / 1.0 | 28 / 150 | **green** |
+
+Three consecutive green CI runs on one head, and the first run's Playwright job was cancelled by the dispatch of the
+second (a dispatch cancels the branch's running jobs; the gate had finished). The second run's Playwright job completed:
+57 suites green, the Atlas suites among them (`test-atlas-a11y`, `-card`, `-credits`, `-fallbacks`, `-labels`, `-phone`,
+`-places`, `-relief`, `-render`, `-search`, `-session`), and three red that are the known pre-existing ones —
+`test-draw-cards.js` (fd-223, fd-228, fd-229), `test-tour.js` ("no long dashes", the streak step) and
+`test-personal-atlas.js` (the timing check classified above); `test-war-cards.js`, red on main's run, was green. The
+gesture stage every CI run learnt in its rehearsals was 2, as on the session's runner: CI's runner is software GL too,
+only with a second core. The run on the head that carries this paragraph is reported with the phase.
 
 **English names, one row per place** (`build-gazetteer.js`, the header states the rule; `check-gazetteer.js` proves it).
 The display name is the source's English field where the source translated it (Natural Earth's `NAME_EN` / `name_en`
