@@ -2182,8 +2182,10 @@ chrome is `calc(px × --fs)`, so the site's Text size setting reaches it, and at
 Atlas (the sheets scroll inside it). **axe, before and after**: the 1c code read one violation type on every state — the
 zoom stack was `aria-hidden="true"` with three focusable buttons inside (`aria-hidden-focus`, serious): 4 nodes over the
 globe, the card, the legend and search; the 1d code reads **0 violations on all five states** (the About sheet included)
-and the `#credits` page read 61 colour-contrast nodes (the licence chip's link, indigo at 10 px, 3.53:1) before its chip
-went to ink at 11 px: 0 after.
+and the `#credits` page read 61 colour-contrast nodes on the first scan (the licence chip's link, indigo at 10 px) —
+the chip went to ink at 11 px, and the rest were the scanner's: the page fades in (`.page` and `.mission` carry an
+enter transition) and a scan started the moment the list appeared read every colour at partial opacity; a scan that
+waits for the fade reads 0 on `#credits`, with and without the chip's change (kept).
 
 **The five-minute session** (`test-atlas-session.js`, 300 s, 54 rounds on the session's runner: fly to one of three dozen
 coasts, let its tiles land, pan, walk four views along the coast at 0.15 km/px, wheel out through the levels, search and
