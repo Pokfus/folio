@@ -1858,8 +1858,20 @@ in ms, v2 against v1, relief off unless said; "worst" is the worst frame of thre
 
 Every relative gate holds on runs 4 and 5, the heap gate holds, and the tap names Niger; what this runner cannot
 hold is the 100 ms worst frame: a drag's occasional 250 ms frame and, now that a pinch draws, the first full-screen
-frame at LOD 1 when the fingers lift (267–283 ms here, every repeat). CI's three runs of the same suite are in the
-PR's checks; what they say of that frame is the owner's call — the numbers were not loosened.
+frame at LOD 1 when the fingers lift (267–283 ms here, every repeat). The long intervals are not main-thread work —
+the renderer's CPU side is under a millisecond a frame, a layout's sprites 6–21 ms — but SwiftShader's fill: a
+rAF ticker beside the app's loop sees 100–300 ms gaps while the app's own frames are idle, which is the GPU
+process holding the swap.
+
+**CI, the same suite** (`Atlas v2 frame gate`, GitHub's runner, SwiftShader on two cores but faster than the
+session's): «CI_TABLE»
+
+The frame gate was red on `main` before this phase (run 37863242459: the method's own faults, since fixed) and is
+red on this head on two rows, both honest: the pinch's worst frame, which did not exist before the pinch drew,
+and the wheel with relief on, which on CI's faster relief-off wheel reads 1.60 × against the 1.5 × gate (1.37 ×
+here). The numbers were not loosened; whether a pinch's first LOD-1 frame and the wheel's relief ratio are the
+right gates is the owner's call — the design says 60 Hz on a phone's GPU, and the phone reading above says it
+holds there.
 
 **The owner's phone reading, 2026-10-09** (350 × 597 CSS px, DPR 2, relief on, the night theme): at LOD 1,
 5.2 km/px, 25.6k triangles and 16.2k segments, frame mean 16.6 ms, p95 16.7 ms, CPU draw 0.50 ms — locked at
