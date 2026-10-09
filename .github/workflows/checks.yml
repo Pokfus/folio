@@ -121,6 +121,17 @@ jobs:
       # headroom; raise it deliberately when Phase 2 adds the steps.
       - name: check-topology (Atlas v2, core and tiles)
         run: node .claude/atlas-build/check-topology.js --tiles --max-bytes 3145728
+      # THE WATER AND THE RELIEF ARE GENERATED FILES TOO (Oct 2026, Phase 1b; docs/atlas-v2-design.md §7
+      # "Phase 1b — as built"). check-water.js reads atlas/data/water.bin and every water tile with the same
+      # zero-dependency reader, loads the committed z=4 land tiles as the partition, and proves the lakes
+      # planar among themselves at every level and in every tile, every river end on the coast, a lake shore,
+      # a junction or free on land, the 50 largest Natural Earth lakes inside a lake, 30 river cities within
+      # 10 km of a river, every file's sources, and the 12 MB budget. check-relief.js (no --source: the ETOPO
+      # grid is not in CI) proves the pyramid's structure, every plane's folio header and the 45 MB budget.
+      - name: check-water (Atlas v2, rivers and lakes)
+        run: node --max-old-space-size=8000 .claude/atlas-build/check-water.js
+      - name: check-relief (Atlas v2, relief pyramid)
+        run: node .claude/atlas-build/check-relief.js
       # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
       # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
       # for every visitor -- and the only symptom is a slower site.
@@ -280,15 +291,15 @@ jobs:
           npm i --no-audit --no-fund playwright@latest >/dev/null
           npx playwright install --with-deps chromium
 
-      # test-atlas-perf.js is in this loop like every other suite (it says "playwright"). It prints the
-      # v1 and v2 frame-time tables side by side and fails only on v2's §2.2 budget, so the comparison
-      # is on the record of every run -- open its group in the log to read it.
+      # test-atlas-perf.js is NOT in this loop (Oct 2026, Phase 1b): it has a job of its own below, so its
+      # verdict is not lost in a job that three unrelated suites keep red. Everything else that says
+      # "playwright" runs here.
       - name: Run the browser suites
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
         run: |
           fails=0
-          for f in $(grep -l playwright .claude/test-*.js | sort); do
+          for f in $(grep -l playwright .claude/test-*.js | grep -v test-atlas-perf.js | sort); do
             echo "::group::$(basename "$f")"
             if node "$f"; then echo "PASS $(basename "$f")"
             else echo "FAIL $(basename "$f")"; fails=$((fails+1)); fi
@@ -297,3 +308,34 @@ jobs:
           echo "----"
           if [ "$fails" -gt 0 ]; then echo "$fails browser suite(s) failed"; exit 1; fi
           echo "all browser suites passed"
+
+  # THE ATLAS v2 FRAME GATE, IN A JOB OF ITS OWN (Oct 2026, docs/atlas-v2-design.md §2.2 "the frame gate",
+  # §7 Phase 1b). The browser job above is red on main because of three suites that fail for reasons of
+  # their own, and a red job is one nobody opens -- so the one suite whose verdict the owner asked to
+  # read on every push (v2's p95 at most 40 % of v1's, the worst frame at most 100 ms, the primitive
+  # budgets per fixed view with rivers and lakes, and the same gate with relief on against v1's heightmap)
+  # runs here, alone, and speaks for itself in the job list. It needs only Chromium; it installs
+  # Playwright outside the repo exactly as the browser job does.
+  atlas-perf:
+    name: Atlas v2 frame gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: fast
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright (outside the repo)
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
+          npm init -y >/dev/null
+          npm i --no-audit --no-fund playwright@latest >/dev/null
+          npx playwright install --with-deps chromium
+
+      - name: test-atlas-perf
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node .claude/test-atlas-perf.js

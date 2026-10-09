@@ -5,7 +5,8 @@
 > built); this file is only *how to run it*, where its caches live, and how a source is added.
 
 The pipeline is Node, lives in `.claude/atlas-build/`, and **nothing in it ships**: its outputs are
-`atlas/data/topology.bin` and `atlas/data/tiles/<z>/<x>-<y>.bin`, which the site serves as plain files.
+`atlas/data/topology.bin`, `atlas/data/tiles/<z>/<x>-<y>.bin`, `atlas/data/water.bin`,
+`atlas/data/water/<x>-<y>.bin` and `atlas/data/relief/`, which the site serves as plain files.
 Its libraries (`npm ci` in that directory) never enter the site — the one shared file is
 `atlas/atlas-format.js`, the `.bin` reader/writer the browser, the worker, the checker and the
 Playwright suites all load, so there is exactly one definition of every byte.
@@ -17,14 +18,30 @@ Playwright suites all load, so there is exactly one definition of every byte.
 | 0 | `node fetch-sources.js [id…]` | `sources.json` | `src/<id>/` (the archive, unpacked) | minutes (OSM is 923 MB) |
 | 1 | `node --max-old-space-size=12000 build-land.js` | OSM land polygons | `out/coast.bin`, `out/land-log.json` | ~90 s |
 | 2 | `node --max-old-space-size=12000 build-admin.js` | `out/coast.bin`, NE admin-0, NE admin-1 | `out/full.bin`, `out/admin-log.json`, `out/admin-report.json` | ~20 min (the LOD 4 crossing repair is most of it) |
+| 5 | `node --max-old-space-size=12000 build-water.js [--measure]` | the committed `atlas/data/` (the land partition, read through `lib/landindex.js`), Natural Earth 10m rivers, HydroLAKES | `out/water-full.bin`, `out/water-report.json`, `out/water-log.json` | ~12 min (the overlap pre-pass over 18 M lake vertices and the per-level planarity are most of it) |
+| 7 | `node --max-old-space-size=14000 build-relief.js [--install] [--levels 0,1,2]` | ETOPO 2022 60 arc-second GeoTIFF | `out/relief/` (L0 and L1 as three greyscale PNGs per tile, `relief.json`); `--install` copies them into `atlas/data/relief/` | ~45 s (L2 adds 20 s and 119 MB; not shipped) |
 | 8 | `node pack.js [--install]` | `out/full.bin` | `out/dist/` (the core, the tiles, `tiles-report.json`); `--install` copies them into `atlas/data/` | ~1 min |
+| 8b | `node pack-water.js [--install] [--dry]` | `out/water-full.bin` | `out/dist-water/` (`water.bin`, `water/<x>-<y>.bin`, `water-report.json`); `--install` copies them into `atlas/data/` — the land files are untouched | ~10 s |
 | 9 | `node check-topology.js --tiles` (from the repo root: `node --max-old-space-size=8000 .claude/atlas-build/check-topology.js --tiles`) | `atlas/data/` | nothing; exit 1 on any failure | ~4 min |
+| 9b | `node check-water.js` and `node check-relief.js [--source] [--coast N]` (from the repo root, with `--max-old-space-size=8000`) | `atlas/data/` (+ the ETOPO source for `--source`) | nothing; exit 1 on any failure; `--coast N` writes `out/relief-coast.json` | ~2 min; `--source` ~1 min more |
 
-Steps 3–7 of the design's table (polities, peoples, water, gazetteer, relief) do not exist yet
-(Phases 1b–2). Each step is deterministic given `sources.json`; the only non-determinism in the
-outputs is the `generated` timestamp in each header. The `buildId` in every header is the sha256 of
-`out/full.bin`, so a tile can always be matched to the core it was cut from — the checker refuses a
-mismatch.
+Steps 3, 4 and 6 of the design's table (polities, peoples, gazetteer) do not exist yet (Phases 1c–2).
+Each step is deterministic given `sources.json`; the only non-determinism in the outputs is the
+`generated` timestamp in each header. The `buildId` in every header is the sha256 of `out/full.bin`
+(`out/water-full.bin` for the water files), so a tile can always be matched to the core it was cut
+from — the checkers refuse a mismatch; the water header also names the LAND build it was snapped to,
+and `check-water.js` fails if the committed land is a different build.
+
+**Water and relief are files of their own** (Phase 1b, 2026-10-08): `atlas/data/water.bin` (rivers and
+lakes at LOD 0–2, every river whole), `atlas/data/water/<x>-<y>.bin` (lakes at 250 m on the z=4 grid)
+and `atlas/data/relief/` (L0 one tile, L1 eight, three greyscale PNGs each: `.hi`, `.lo`, `.sh`). None of
+them touches `topology.bin` or `tiles/`, so the land tiles stay byte-identical across a water or relief
+rebuild — verify with `sha256sum atlas/data/topology.bin atlas/data/tiles/*/*.bin | sha256sum` before
+and after. Budgets the checkers hold: water 12 MB, relief 45 MB. **HydroRIVERS is not an input**: its
+licence (the WWF HydroSHEDS v1 License Agreement) failed §2.10a on 2026-10-08; the entry is kept under
+`blocked` in `sources.json` with the finding, and rivers come from Natural Earth 10m (PD) instead. After
+`pack-water.js --install` and `build-relief.js --install`, run step 9b, then `.claude/test-atlas-perf.js`,
+`.claude/test-atlas-relief.js` and `.claude/atlas-shots.js` (all need Playwright on `NODE_PATH`).
 
 `build-land.js --census` prints the vertex census per candidate tolerance without writing anything;
 it is how the LOD tolerances were chosen (§2.3 "as measured"). `pack.js --dry` builds everything in
@@ -43,6 +60,13 @@ figures and the screenshot series are what §7's as-built note quotes.
   with its Visvalingam area) and `full.bin` (~25 MB: the whole topology at five levels) are what the
   next step reads; the `*-log.json` files are the snap logs and the `admin-report.json` holds the
   measurements quoted in the design doc. `out/dist/` is the packed result before `--install`.
+  Phase 1b adds `water-full.bin` (~10 MB, four levels), `water-report.json` and `water-log.json` (every
+  river-end snap and every lake dropped, with why), `dist-water/`, `relief/` and `relief-coast.json`.
+- **A session without `out/full.bin`** (every cloud session: `out/` is not committed) can still build the
+  water and the relief, because `build-water.js` reads the LAND from the committed `atlas/data/` through
+  `lib/landindex.js` (the z=4 tiles' coast, 6.2 M segments, loads in ~5 s) — the owner's rule for 1b, so
+  OSM is never re-downloaded for water. It cannot re-run `pack.js`; a change to the land tiles still
+  needs steps 1, 2 and 8.
 - **`node_modules/`** — `npm ci` here once per session; git-ignored.
 - **`atlas/data/`** — the committed artefact: `topology.bin` and `tiles/`. **Never hand-edit a
   generated file**; fix the script or the pin and rebuild. Commit a rebuilt `tiles/` once per
@@ -61,7 +85,14 @@ figures and the screenshot series are what §7's as-built note quotes.
   `DEBUG_STOP=walk` exits right after the face walk (about four minutes in) with the snap log written
   to `out/admin-log-walk.json`, so a walk fault iterates at a fifth of the full run's cost.
 - `pack.js` is fast; re-run it alone after a change to the tile grid, the resident level count or
-  the clipping.
+  the clipping. So is `pack-water.js`.
+- `build-water.js --measure` prints the distance distributions (free river ends to the nearest other
+  river, coast and lake shore) and exits — how `D_JOIN`, `D_MOUTH` and `D_LAKE` were fixed. The area
+  filter per level is `LAKE_AREA_KM2`; the planarity repair restores whole source stretches at a
+  crossing (one vertex at a time oscillated in dense lake districts) and the log names every lake or
+  island that left a level.
+- `build-relief.js` measures what it writes: the PNG sizes it prints are the figures §2.3 and §2.7
+  quote; the `--levels` flag is how L2 was measured and left out.
 - The snap log fails the build when a snap exceeds its source's tolerance (`TOLERANCE_M`); read
   `out/admin-log.json` for the offending snap rather than raising the tolerance.
 

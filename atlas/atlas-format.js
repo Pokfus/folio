@@ -38,7 +38,9 @@
              u8 minLod (the coarsest LOD at which this arc is drawn at all — a closed island ring
              smaller than a level's tolerance vanishes at that level rather than collapsing into a
              line), u8 flags (FLAG.*: DISPUTED marks a border the sources disagree on — one polygon's
-             line with no neighbour sharing it, or a chord across water — which §2.4 draws dashed).
+             line with no neighbour sharing it, or a chord across water — which §2.4 draws dashed;
+             WATER marks a border running through water; INTERMITTENT (Phase 1b) a river Natural Earth
+             classes as intermittent, drawn dashed like a disputed border).
              Vertex offsets are cumulative, so they are not stored.
      arcRef  OPTIONAL (tiles only, Phase 1a): per arc, varint (core arc index + 1, 0 = this arc exists
              only in the tile — an islet too small for the resident levels, or a tile-edge chord) and
@@ -75,7 +77,7 @@
   // DISPUTED: a border the sources disagree on (one polygon's own line, or a line where one source
   // says land and the other water) — drawn dashed. WATER: a border running over sea or lake (the
   // US–Canada line through the Great Lakes, a tripoint in Lake Victoria): no face on either side.
-  const FLAG = { DISPUTED: 1, WATER: 2 };
+  const FLAG = { DISPUTED: 1, WATER: 2, INTERMITTENT: 4 };
   const rankBitsFor = (lodCount) => (lodCount <= 4 ? 2 : 4);
 
   /* ---------- varints ---------- */
