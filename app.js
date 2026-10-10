@@ -12016,6 +12016,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      taken — and sits 31.8 or more from all five books a reader takes as a set with it (Sophocles,
      Euripides, Aristophanes, Chaucer, Malory). It reads 9.6:1 on the tightest light paper. */
   "William Shakespeare": "#000081",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-five colours placed (Oct 2026, adding the Classic of Tea):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. The best-separated colour anywhere in that band
+     is the SAME magenta the Macbeth row set aside — 19.5 from EURIPIDES — and it was set aside there on
+     the Euripides test, two tragedians in neighbouring colours; nothing like that applies to a book
+     about tea, so it is taken here. It clears Euripides by 19.5 and Marco Polo by 20.7, both above the
+     shelf's own tightest pair (Aristotle and Ptahhotep, 16.6), and sits 38 or more from the other
+     Chinese books (Luo Guanzhong 38.3, Wu Cheng'en 39.2, Sun Tzu 83.8, Confucius 90.5). THE OBVIOUS
+     COLOUR WAS MEASURED AND REFUSED: a tea green. The best green, teal and olive in the band clear
+     their nearest neighbours by 15.8 (Aesop and Chaucer), 15.1 (Marcus Aurelius) and 15.7 (Vyasa),
+     which would put a ninth colour inside a cluster the shelf already struggles to tell apart. It
+     reads 4.52:1 on the tightest light paper, which is the margin the band is cut to. */
+  "Lu Yu": "#96009F",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -14921,6 +14934,60 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          about. `Castle` and `Mark_Antony` are left linked: both say something true about the line
          they sit in. */
       glossOff: ["Norway", "Ireland", "Russia", "Gunpowder"],
+    },
+    {
+      id: "classic-of-tea",
+      title: "The Classic of Tea",
+      subtitle: "The Ch‘a Ching, the First Book About Tea",
+      author: "Lu Yu",
+      /* A RANGE, and the witnesses disagree about where in it: Ukers says about 780, the Chinese
+         Wikisource header 760 to 780, the English Wikipedia article 760 to 762 for a first draft. The
+         key is the end of it, so the book files after every date given for its writing. */
+      written: "c. 760–780",
+      year: 780,
+      translator: "Z. L. Yih, as condensed by William H. Ukers",
+      edition:
+        "“Translation Digest of Ch‘a Ching”, in William H. Ukers, All About Tea, vol. 1, ch. 2, " +
+        "The Tea and Coffee Trade Journal Company, New York, 1935, pp. 15–22",
+      /* A DIGEST, and public domain by NON-RENEWAL rather than by the pre-1929 rule — the first English
+         text on the shelf for which that is the ground, so the string says how it was shown. Yih's
+         dates are not known, which is the limit stated. The whole of the reasoning, and the editions
+         that were not usable, are in .claude/fetch-book.js and the reader meets this string in the
+         book's own front matter. */
+      rights:
+        "Public domain in the United States. The English is the “Translation Digest of Ch‘a " +
+        "Ching” that William H. Ukers printed in All About Tea (New York, 1935), condensed from a " +
+        "translation by Z. L. Yih of the School of Oriental Studies, London. Its copyright was not " +
+        "renewed — the Catalog of Copyright Entries for 1962–1964 lists no renewal — so it " +
+        "was in the public domain by the start of 1964. Ukers died in 1945; Yih’s dates are not " +
+        "known, so nothing is claimed for countries that count the term from a translator’s death. " +
+        "The Chinese beside it is an eighth-century text, public domain everywhere, as typed and " +
+        "punctuated by the volunteers of Chinese Wikisource and shared on that wiki’s licence " +
+        "(CC BY-SA). Francis Ross Carpenter’s complete translation (1974) is still in copyright and " +
+        "is not used.",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/AllAboutTeaV1",
+      /* The Chinese is complete where the English is condensed, and the two pair by the ten parts only —
+         see `sections: "whole"` in the importer entry, which is also where the pairing is argued. */
+      origLang: "zh",
+      origName: "Chinese",
+      chapterWord: "Part",
+      // all ten: the author's own division, and the digest keeps every part
+      count: 10,
+      total: 10,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of the front matter and all
+         ten parts (a headless run listing every `.ttip`), not written from imagination. Seven links
+         told the reader something untrue about the sentence in front of them: `Digest_(Roman_law)`
+         on "Translation Digest"; `Yuan_dynasty` on the Kai Yuan dictionary and the K‘un Yuan Lu;
+         `Shang_dynasty` on Shang T‘ang, a district; `Wu_Zhou` on Wu Chou, a district in Chekiang
+         (the entry is Wu Zetian's dynasty); `Yao` on Wei Yao (the entry is the legendary emperor);
+         `Liu_Yan_(Tang_dynasty)` on Liu Kun's nephew Liu Yen of the Jin (the entry is a Tang
+         minister); and `Emperor_Wu_of_Han` on the Emperor Wu Ti of the Southern Ch‘i. What stays is
+         what is right in place: Shen Nung, the Duke of Chou, Sun Hao, Huan Wen, Confucius, the Book
+         of Odes, the Tang dynasty, Taoism and Hunan. Re-run the sweep after a batch of glossary terms
+         — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
+      glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
+        "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
     },
   ];
   const BOOK_BY_ID = {};
