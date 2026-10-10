@@ -13877,6 +13877,2537 @@
   ],
   "Jebel Irhoud site": [],
   "Omo Kibish": [],
-  "Howiesons Poort": []
+  "Howiesons Poort": [],
+  "Stadel cave": [],
+  "Willendorf, Lower Austria": [],
+  "Willendorf": [
+   {
+    "qid": "Q536068",
+    "coord": [
+     16.05,
+     47.7833
+    ],
+    "label": "Willendorf",
+    "title": "Willendorf an der Schneebergbahn",
+    "classes": [
+     "Q667509",
+     "Q1802801"
+    ]
+   },
+   {
+    "qid": "Q113488577",
+    "coord": [
+     16.055,
+     47.7903
+    ],
+    "label": "Willendorf",
+    "title": "",
+    "classes": [
+     "Q17376095"
+    ]
+   },
+   {
+    "qid": "Q113488589",
+    "coord": [
+     16.0568,
+     47.7897
+    ],
+    "label": "Willendorf",
+    "title": "",
+    "classes": [
+     "Q11183787"
+    ]
+   }
+  ],
+  "Montignac": [
+   {
+    "qid": "Q210574",
+    "coord": [
+     0.3453,
+     44.5483
+    ],
+    "label": "Montignac-Toupinerie",
+    "title": "Montignac-Toupinerie",
+    "classes": [
+     "Q484170"
+    ]
+   },
+   {
+    "qid": "Q579019",
+    "coord": [
+     0.15,
+     43.1842
+    ],
+    "label": "Montignac",
+    "title": "Montignac, Hautes-Pyrénées",
+    "classes": [
+     "Q484170"
+    ]
+   },
+   {
+    "qid": "Q1004530",
+    "coord": [
+     -0.2247,
+     44.7119
+    ],
+    "label": "Montignac",
+    "title": "Montignac, Gironde",
+    "classes": [
+     "Q484170"
+    ]
+   },
+   {
+    "qid": "Q1626400",
+    "coord": [
+     0.2225,
+     45.34
+    ],
+    "label": "Montignac-le-Coq",
+    "title": "Montignac-le-Coq",
+    "classes": [
+     "Q484170"
+    ]
+   },
+   {
+    "qid": "Q1626510",
+    "coord": [
+     0.1244,
+     45.7833
+    ],
+    "label": "Montignac-Charente",
+    "title": "Montignac-Charente",
+    "classes": [
+     "Q484170"
+    ]
+   },
+   {
+    "qid": "Q35733005",
+    "coord": [
+     1.1619,
+     45.0642
+    ],
+    "label": "Montignac",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q35733024",
+    "coord": [
+     -0.2244,
+     44.7128
+    ],
+    "label": "Montignac",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q56399027",
+    "coord": [
+     0.19,
+     45.0364
+    ],
+    "label": "Montignac",
+    "title": "",
+    "classes": [
+     "Q484170"
+    ]
+   },
+   {
+    "qid": "Q109572081",
+    "coord": [
+     2.4039,
+     44.5905
+    ],
+    "label": "Montignac",
+    "title": "",
+    "classes": [
+     "Q484170"
+    ]
+   },
+   {
+    "qid": "Q109572943",
+    "coord": [
+     0.1045,
+     44.6534
+    ],
+    "label": "Montignac",
+    "title": "",
+    "classes": [
+     "Q484170"
+    ]
+   }
+  ],
+  "Madjedbebe rock shelter": [],
+  "Lake Mungo lunette": [],
+  "Mal'ta, Belaya River": [],
+  "Mal'ta": [
+   {
+    "qid": "Q35464055",
+    "coord": [
+     103.5422,
+     52.8278
+    ],
+    "label": "Mal'ta",
+    "title": "",
+    "classes": [
+     "Q839954"
+    ]
+   },
+   {
+    "qid": "Q35464069",
+    "coord": [
+     110.1906,
+     50.965
+    ],
+    "label": "Mal'ta",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   }
+  ],
+  "Clovis culture": [],
+  "Folsom": [
+   {
+    "qid": "Q984155",
+    "coord": [
+     -121.1578,
+     38.6722
+    ],
+    "label": "Folsom",
+    "title": "Folsom, California",
+    "classes": [
+     "Q13218357",
+     "Q13218391"
+    ]
+   },
+   {
+    "qid": "Q1083022",
+    "coord": [
+     -74.844,
+     39.5945
+    ],
+    "label": "Folsom",
+    "title": "Folsom, New Jersey",
+    "classes": [
+     "Q2911266"
+    ]
+   },
+   {
+    "qid": "Q1132331",
+    "coord": [
+     -75.3261,
+     39.8919
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Pennsylvania",
+    "classes": [
+     "Q498162",
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q1435589",
+    "coord": [
+     -103.9181,
+     36.8481
+    ],
+    "label": "Folsom",
+    "title": "Folsom, New Mexico",
+    "classes": [
+     "Q751708"
+    ]
+   },
+   {
+    "qid": "Q1435592",
+    "coord": [
+     -90.19,
+     30.63
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Louisiana",
+    "classes": [
+     "Q751708"
+    ]
+   },
+   {
+    "qid": "Q5464846",
+    "coord": [
+     -80.5203,
+     39.4706
+    ],
+    "label": "Folsom",
+    "title": "Folsom, West Virginia",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5464847",
+    "coord": [
+     -85.55,
+     33.4539
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Randolph County, Alabama",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5464844",
+    "coord": [
+     -90.8383,
+     43.4383
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Wisconsin",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q8564255",
+    "coord": [
+     -87.4058,
+     32.6825
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Perry County, Alabama",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q19879839",
+    "coord": [
+     -84.8286,
+     34.3828
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Georgia",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q20657792",
+    "coord": [
+     -96.4206,
+     34.1933
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Oklahoma",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q22076479",
+    "coord": [
+     -101.7058,
+     35.2358
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Texas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q22338399",
+    "coord": [
+     -102.87,
+     43.8253
+    ],
+    "label": "Folsom",
+    "title": "Folsom, South Dakota",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q24898131",
+    "coord": [
+     -83.5928,
+     39.095
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Ohio",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q27984169",
+    "coord": [
+     -92.1544,
+     38.7333
+    ],
+    "label": "Folsom",
+    "title": "Folsom, Missouri",
+    "classes": [
+     "Q17343829"
+    ]
+   }
+  ],
+  "Malia": [
+   {
+    "qid": "Q284463",
+    "coord": [
+     25.4625,
+     35.2836
+    ],
+    "label": "Malia",
+    "title": "Malia, Crete",
+    "classes": [
+     "Q3957"
+    ]
+   },
+   {
+    "qid": "Q1887316",
+    "coord": [
+     25.4908,
+     35.2939
+    ],
+    "label": "Malia",
+    "title": "Malia (archaeological site)",
+    "classes": [
+     "Q839954"
+    ]
+   },
+   {
+    "qid": "Q3843917",
+    "coord": [
+     32.7828,
+     34.8164
+    ],
+    "label": "Malia",
+    "title": "Malia, Cyprus",
+    "classes": [
+     "Q29414133"
+    ]
+   },
+   {
+    "qid": "Q5790146",
+    "coord": [
+     49.6258,
+     32.9519
+    ],
+    "label": "Malia",
+    "title": "Malia, Iran",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q15244215",
+    "coord": [
+     -157.8347,
+     21.2917
+    ],
+    "label": "Malia",
+    "title": "Malia (canoe)",
+    "classes": [
+     "Q171529"
+    ]
+   },
+   {
+    "qid": "Q22984987",
+    "coord": [
+     33.3944,
+     34.8939
+    ],
+    "label": "Malia",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q23678181",
+    "coord": [
+     14.8139,
+     11.6689
+    ],
+    "label": "Malia",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q23678418",
+    "coord": [
+     14.6614,
+     11.5072
+    ],
+    "label": "Malia",
+    "title": "",
+    "classes": [
+     "Q166735"
+    ]
+   },
+   {
+    "qid": "Q25018877",
+    "coord": [
+     23.3167,
+     37.3333
+    ],
+    "label": "Malia",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q35485007",
+    "coord": [
+     38.127,
+     -1.3404
+    ],
+    "label": "Malia",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q59139741",
+    "coord": [
+     14.6598,
+     11.507
+    ],
+    "label": "Malia",
+    "title": "",
+    "classes": [
+     "Q532",
+     "Q126723715"
+    ]
+   },
+   {
+    "qid": "Q60478616",
+    "coord": [
+     87.9125,
+     22.5296
+    ],
+    "label": "Malia",
+    "title": "",
+    "classes": [
+     "Q56436498"
+    ]
+   },
+   {
+    "qid": "Q60498874",
+    "coord": [
+     88.1393,
+     22.829
+    ],
+    "label": "Malia",
+    "title": "",
+    "classes": [
+     "Q56436498"
+    ]
+   }
+  ],
+  "Ayia Triada": [
+   {
+    "qid": "Q21518934",
+    "coord": [
+     23.1053,
+     39.3216
+    ],
+    "label": "Ayia Triada",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   }
+  ],
+  "Mesara": [],
+  "Akrotiri": [
+   {
+    "qid": "Q421226",
+    "coord": [
+     24.1333,
+     35.5333
+    ],
+    "label": "Akrotiri, Crete",
+    "title": "Akrotiri, Crete",
+    "classes": [
+     "Q34763"
+    ]
+   },
+   {
+    "qid": "Q421232",
+    "coord": [
+     25.4036,
+     36.3514
+    ],
+    "label": "Akrotiri",
+    "title": "Akrotiri (prehistoric city)",
+    "classes": [
+     "Q839954",
+     "Q15661340"
+    ]
+   },
+   {
+    "qid": "Q9143535",
+    "coord": [
+     32.9697,
+     34.5919
+    ],
+    "label": "Akrotiri Sovereign Base Area",
+    "title": "Akrotiri Cantonment",
+    "classes": [
+     "Q2345593"
+    ]
+   },
+   {
+    "qid": "Q14623619",
+    "coord": [
+     32.955,
+     34.6008
+    ],
+    "label": "Akrotiri",
+    "title": "Akrotiri (village)",
+    "classes": [
+     "Q29414133"
+    ]
+   },
+   {
+    "qid": "Q15930313",
+    "coord": [
+     20.9028,
+     37.8042
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q24475205",
+    "coord": [
+     25.3967,
+     36.3581
+    ],
+    "label": "Akrotiri",
+    "title": "Akrotiri, Santorini",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q25094355",
+    "coord": [
+     22.9833,
+     36.4833
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q24529780"
+    ]
+   },
+   {
+    "qid": "Q25109532",
+    "coord": [
+     22.9211,
+     36.3758
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q185113"
+    ]
+   },
+   {
+    "qid": "Q25113906",
+    "coord": [
+     20.3842,
+     38.1508
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q185113"
+    ]
+   },
+   {
+    "qid": "Q25113912",
+    "coord": [
+     27.1875,
+     35.8614
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q185113"
+    ]
+   },
+   {
+    "qid": "Q25117124",
+    "coord": [
+     26.4242,
+     39.3336
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q24529780"
+    ]
+   },
+   {
+    "qid": "Q25117138",
+    "coord": [
+     27.1683,
+     36.6211
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q24529780"
+    ]
+   },
+   {
+    "qid": "Q25117145",
+    "coord": [
+     27.2947,
+     36.4633
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q24529780"
+    ]
+   },
+   {
+    "qid": "Q25118429",
+    "coord": [
+     25.3542,
+     36.3581
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q185113"
+    ]
+   },
+   {
+    "qid": "Q25154791",
+    "coord": [
+     25.4443,
+     40.476
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q24529780"
+    ]
+   },
+   {
+    "qid": "Q25167215",
+    "coord": [
+     23.5558,
+     35.4156
+    ],
+    "label": "Akrotiri",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   }
+  ],
+  "Kythera": [
+   {
+    "qid": "Q11855334",
+    "coord": [
+     22.9879,
+     36.1497
+    ],
+    "label": "Kythera",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q114571906",
+    "coord": [
+     23.0234,
+     36.2317
+    ],
+    "label": "Kythera",
+    "title": "Cythera (ancient town)",
+    "classes": [
+     "Q148837"
+    ]
+   }
+  ],
+  "Praisos": [
+   {
+    "qid": "Q11942554",
+    "coord": [
+     26.0901,
+     35.1243
+    ],
+    "label": "Praisos",
+    "title": "Praesus",
+    "classes": [
+     "Q148837",
+     "Q15661340"
+    ]
+   }
+  ],
+  "Idaean Cave": [
+   {
+    "qid": "Q935991",
+    "coord": [
+     24.8289,
+     35.2084
+    ],
+    "label": "Idaean Cave",
+    "title": "Cave of Zeus",
+    "classes": [
+     "Q35509"
+    ]
+   }
+  ],
+  "Mycenaean civilisation": [],
+  "Grave Circle A": [],
+  "Grave Circle B": [],
+  "Thebes": [
+   {
+    "qid": "Q101583",
+    "coord": [
+     32.6103,
+     25.7206
+    ],
+    "label": "Thebes",
+    "title": "Thebes, Egypt",
+    "classes": [
+     "Q655593",
+     "Q839954",
+     "Q15661340",
+     "Q18247357"
+    ]
+   },
+   {
+    "qid": "Q11045962",
+    "coord": [
+     -89.4608,
+     37.2208
+    ],
+    "label": "Thebes",
+    "title": "Thebes, Illinois",
+    "classes": [
+     "Q110071217"
+    ]
+   },
+   {
+    "qid": "Q11225429",
+    "coord": [
+     23.3174,
+     38.3192
+    ],
+    "label": "Thebes",
+    "title": "",
+    "classes": [
+     "Q148837"
+    ]
+   },
+   {
+    "qid": "Q103907366",
+    "coord": [
+     -2.5146,
+     55.9939
+    ],
+    "label": "Thebes",
+    "title": "",
+    "classes": [
+     "Q11446",
+     "Q852190"
+    ]
+   },
+   {
+    "qid": "Q127431406",
+    "coord": [
+     23.3178,
+     38.3208
+    ],
+    "label": "Thebes",
+    "title": "",
+    "classes": [
+     "Q464780"
+    ]
+   },
+   {
+    "qid": "Q5760",
+    "coord": [
+     23.3178,
+     38.3208
+    ],
+    "label": "Thebes",
+    "title": "Thebes, Greece",
+    "classes": [
+     "Q515"
+    ]
+   }
+  ],
+  "Midea": [
+   {
+    "qid": "Q502897",
+    "coord": [
+     22.8412,
+     37.6498
+    ],
+    "label": "Midea",
+    "title": "Midea (Argolid)",
+    "classes": [
+     "Q839954",
+     "Q15661340"
+    ]
+   },
+   {
+    "qid": "Q19346091",
+    "coord": [
+     4.5829,
+     52.2857
+    ],
+    "label": "Midea",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   }
+  ],
+  "Kazarma bridge": [],
+  "Zagora": [
+   {
+    "qid": "Q140345",
+    "coord": [
+     24.8656,
+     37.7742
+    ],
+    "label": "Zagora",
+    "title": "",
+    "classes": [
+     "Q839954"
+    ]
+   },
+   {
+    "qid": "Q140354",
+    "coord": [
+     -5.8376,
+     30.3316
+    ],
+    "label": "Zagora",
+    "title": "Zagora, Morocco",
+    "classes": [
+     "Q2989400",
+     "Q3327862"
+    ]
+   },
+   {
+    "qid": "Q1158060",
+    "coord": [
+     16.284,
+     43.7118
+    ],
+    "label": "Dalmatian Hinterland",
+    "title": "Dalmatian Hinterland",
+    "classes": [
+     "Q82794"
+    ]
+   },
+   {
+    "qid": "Q1260363",
+    "coord": [
+     15.871,
+     46.19
+    ],
+    "label": "Zagora",
+    "title": "Zagora, Krapina-Zagorje County",
+    "classes": [
+     "Q4845841"
+    ]
+   },
+   {
+    "qid": "Q1413261",
+    "coord": [
+     25.8667,
+     42.4167
+    ],
+    "label": "Zagore",
+    "title": "Zagore (region)",
+    "classes": [
+     "Q1620908"
+    ]
+   },
+   {
+    "qid": "Q2466197",
+    "coord": [
+     23.1017,
+     39.4428
+    ],
+    "label": "Zagora",
+    "title": "Zagora, Greece",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q3042583",
+    "coord": [
+     19.0656,
+     42.4086
+    ],
+    "label": "Zagora",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q3045712",
+    "coord": [
+     18.6581,
+     42.7053
+    ],
+    "label": "Zagora",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q3121892",
+    "coord": [
+     18.7431,
+     42.3014
+    ],
+    "label": "Zagora",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q3574575",
+    "coord": [
+     18.1986,
+     42.8061
+    ],
+    "label": "Zagora",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q4183506",
+    "coord": [
+     58.2464,
+     55.5183
+    ],
+    "label": "Zagora",
+    "title": "",
+    "classes": [
+     "Q192287"
+    ]
+   },
+   {
+    "qid": "Q4183510",
+    "coord": [
+     26.14,
+     50.4931
+    ],
+    "label": "Zagora",
+    "title": "",
+    "classes": [
+     "Q21672098"
+    ]
+   },
+   {
+    "qid": "Q8073412",
+    "coord": [
+     21.08,
+     42.83
+    ],
+    "label": "Zogaj",
+    "title": "Zagorë, Vushtrri",
+    "classes": [
+     "Q532",
+     "Q28822032"
+    ]
+   },
+   {
+    "qid": "Q16897720",
+    "coord": [
+     13.6029,
+     46.0299
+    ],
+    "label": "Zagora",
+    "title": "Zagora, Kanal",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q33727340",
+    "coord": [
+     -5.8352,
+     30.3045
+    ],
+    "label": "Zagora",
+    "title": "",
+    "classes": [
+     "Q12357832"
+    ]
+   },
+   {
+    "qid": "Q65047426",
+    "coord": [
+     35.4111,
+     41.6777
+    ],
+    "label": "Zagorus",
+    "title": "Zagorus",
+    "classes": [
+     "Q15661340"
+    ]
+   }
+  ],
+  "Pithekoussai": [],
+  "Al Mina": [],
+  "Olympia": [
+   {
+    "qid": "Q638087",
+    "coord": [
+     12.7069,
+     56.0494
+    ],
+    "label": "Olympia",
+    "title": "Olympia (Helsingborg)",
+    "classes": [
+     "Q483110"
+    ]
+   },
+   {
+    "qid": "Q915451",
+    "coord": [
+     2.3283,
+     48.8703
+    ],
+    "label": "Olympia",
+    "title": "Olympia (Paris)",
+    "classes": [
+     "Q24354",
+     "Q1060829"
+    ]
+   },
+   {
+    "qid": "Q2021404",
+    "coord": [
+     18.1064,
+     63.4447
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q1154710"
+    ]
+   },
+   {
+    "qid": "Q2021408",
+    "coord": [
+     12.7064,
+     56.0489
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q2983893"
+    ]
+   },
+   {
+    "qid": "Q6658517",
+    "coord": [
+     -2.9577,
+     53.4155
+    ],
+    "label": "Liverpool Olympia",
+    "title": "Liverpool Olympia",
+    "classes": [
+     "Q24354",
+     "Q1076486",
+     "Q1763828",
+     "Q32350958"
+    ]
+   },
+   {
+    "qid": "Q10429753",
+    "coord": [
+     18.0678,
+     59.339
+    ],
+    "label": "Sture",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q13918325",
+    "coord": [
+     5.1184,
+     52.1007
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q847017"
+    ]
+   },
+   {
+    "qid": "Q15732639",
+    "coord": [
+     5.096,
+     52.1028
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q18660793",
+    "coord": [
+     24.9479,
+     60.1683
+    ],
+    "label": "Maxim Cinema",
+    "title": "",
+    "classes": [
+     "Q41176",
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q19393234",
+    "coord": [
+     4.9659,
+     51.8342
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q19393235",
+    "coord": [
+     5.1942,
+     52.2128
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q19393233",
+    "coord": [
+     5.2737,
+     52.0674
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q24064278",
+    "coord": [
+     160,
+     79.88
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q1051581"
+    ]
+   },
+   {
+    "qid": "Q25554011",
+    "coord": [
+     -122.8931,
+     47.0425
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q27984389",
+    "coord": [
+     -94.0286,
+     37.7261
+    ],
+    "label": "Olympia",
+    "title": "Olympia, Missouri",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q30621961",
+    "coord": [
+     -83.6958,
+     38.0981
+    ],
+    "label": "Olympia",
+    "title": "Olympia, Kentucky",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q30625075",
+    "coord": [
+     -122.059,
+     37.071
+    ],
+    "label": "Olympia",
+    "title": "Olympia, California",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q31548688",
+    "coord": [
+     -4.2263,
+     55.8494
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q24354",
+     "Q41253",
+     "Q32350958"
+    ]
+   },
+   {
+    "qid": "Q31568492",
+    "coord": [
+     123.1461,
+     9.6181
+    ],
+    "label": "Olympia Island",
+    "title": "",
+    "classes": [
+     "Q207524"
+    ]
+   },
+   {
+    "qid": "Q37936144",
+    "coord": [
+     4.4356,
+     51.2155
+    ],
+    "label": "Century Cinema",
+    "title": "",
+    "classes": [
+     "Q41253",
+     "Q19860854"
+    ]
+   },
+   {
+    "qid": "Q50842554",
+    "coord": [
+     9.3957,
+     48.8757
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q53672865",
+    "coord": [
+     21.6272,
+     37.6411
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q1191622"
+    ]
+   },
+   {
+    "qid": "Q65087571",
+    "coord": [
+     -83.3457,
+     30.6547
+    ],
+    "label": "Olympia",
+    "title": "Olympia, Georgia",
+    "classes": [
+     "Q74047"
+    ]
+   },
+   {
+    "qid": "Q68571925",
+    "coord": [
+     4.9283,
+     52.3613
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q38888",
+    "coord": [
+     21.63,
+     37.6383
+    ],
+    "label": "Olympia",
+    "title": "Olympia, Greece",
+    "classes": [
+     "Q148837",
+     "Q1617500",
+     "Q93342462",
+     "Q102202066",
+     "Q120964921"
+    ]
+   },
+   {
+    "qid": "Q42735",
+    "coord": [
+     -122.8931,
+     47.0425
+    ],
+    "label": "Olympia",
+    "title": "Olympia, Washington",
+    "classes": [
+     "Q62049",
+     "Q1093829",
+     "Q21518270"
+    ]
+   },
+   {
+    "qid": "Q94167951",
+    "coord": [
+     12.9403,
+     57.7208
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q103922441",
+    "coord": [
+     -6.3417,
+     55.7388
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q11446",
+     "Q852190"
+    ]
+   },
+   {
+    "qid": "Q108548325",
+    "coord": [
+     11.8989,
+     57.6798
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q108660847",
+    "coord": [
+     -81.0319,
+     33.9769
+    ],
+    "label": "Olympia",
+    "title": "Olympia, South Carolina",
+    "classes": [
+     "Q498162"
+    ]
+   },
+   {
+    "qid": "Q110625287",
+    "coord": [
+     17.0986,
+     -22.6058
+    ],
+    "label": "Olympia",
+    "title": "Olympia (Windhoek)",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q114245260",
+    "coord": [
+     123.1478,
+     9.6172
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q61878"
+    ]
+   },
+   {
+    "qid": "Q115624817",
+    "coord": [
+     17.1456,
+     60.6769
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q115624994",
+    "coord": [
+     17.145,
+     60.6758
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q119789475",
+    "coord": [
+     5.5248,
+     51.7816
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q127430893",
+    "coord": [
+     21.636,
+     37.6358
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q464780"
+    ]
+   },
+   {
+    "qid": "Q134989887",
+    "coord": [
+     2.2059,
+     41.4553
+    ],
+    "label": "Olympia",
+    "title": "",
+    "classes": [
+     "Q4989906"
+    ]
+   }
+  ],
+  "Corinth": [
+   {
+    "qid": "Q1363688",
+    "coord": [
+     22.8787,
+     37.9058
+    ],
+    "label": "Ancient Corinth",
+    "title": "Ancient Corinth",
+    "classes": [
+     "Q148837",
+     "Q15661340"
+    ]
+   },
+   {
+    "qid": "Q125384198",
+    "coord": [
+     -60.9623,
+     14.0467
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q127430042",
+    "coord": [
+     22.8787,
+     38
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q464780"
+    ]
+   },
+   {
+    "qid": "Q127430043",
+    "coord": [
+     22.9333,
+     37.9333
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q464780"
+    ]
+   },
+   {
+    "qid": "Q103011",
+    "coord": [
+     22.9272,
+     37.9386
+    ],
+    "label": "Corinth",
+    "title": "Corinth (modern city)",
+    "classes": [
+     "Q515"
+    ]
+   },
+   {
+    "qid": "Q267102",
+    "coord": [
+     -93.4317,
+     35.0578
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Arkansas",
+    "classes": [
+     "Q15127012"
+    ]
+   },
+   {
+    "qid": "Q937237",
+    "coord": [
+     -84.9422,
+     33.2294
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Georgia",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q953048",
+    "coord": [
+     -73.8323,
+     43.2445
+    ],
+    "label": "Corinth",
+    "title": "Corinth (village), New York",
+    "classes": [
+     "Q486972",
+     "Q751708",
+     "Q55237813"
+    ]
+   },
+   {
+    "qid": "Q970821",
+    "coord": [
+     -73.8897,
+     43.2267
+    ],
+    "label": "Corinth",
+    "title": "Corinth, New York",
+    "classes": [
+     "Q15127012",
+     "Q106071004"
+    ]
+   },
+   {
+    "qid": "Q974334",
+    "coord": [
+     -97.0722,
+     33.1439
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Texas",
+    "classes": [
+     "Q1093829"
+    ]
+   },
+   {
+    "qid": "Q1992093",
+    "coord": [
+     -88.5153,
+     34.9372
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Mississippi",
+    "classes": [
+     "Q62049",
+     "Q1093829"
+    ]
+   },
+   {
+    "qid": "Q2069517",
+    "coord": [
+     -72.2903,
+     44.0376
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Vermont",
+    "classes": [
+     "Q2154459"
+    ]
+   },
+   {
+    "qid": "Q2570981",
+    "coord": [
+     -84.5622,
+     38.4961
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Kentucky",
+    "classes": [
+     "Q1093829"
+    ]
+   },
+   {
+    "qid": "Q3450640",
+    "coord": [
+     -68.9992,
+     44.9861
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Maine",
+    "classes": [
+     "Q15127012"
+    ]
+   },
+   {
+    "qid": "Q5170610",
+    "coord": [
+     -85.7544,
+     31.9039
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170611",
+    "coord": [
+     -91.9875,
+     33.5508
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170614",
+    "coord": [
+     -87.0733,
+     34.3044
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170612",
+    "coord": [
+     -80.8794,
+     36.7886
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Carroll County, Virginia",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170613",
+    "coord": [
+     -85.6917,
+     33.2053
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170618",
+    "coord": [
+     -95.8894,
+     32.1139
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Henderson County, Texas",
+    "classes": [
+     "Q74047"
+    ]
+   },
+   {
+    "qid": "Q5170619",
+    "coord": [
+     -93.8414,
+     34.0428
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Howard County, Arkansas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170616",
+    "coord": [
+     -78.9981,
+     35.5694
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Chatham County, North Carolina",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170622",
+    "coord": [
+     -98.5453,
+     39.4161
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Kansas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170623",
+    "coord": [
+     -96.9039,
+     30.2244
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Lee County, Texas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170620",
+    "coord": [
+     -88.7764,
+     37.8189
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Illinois",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170621",
+    "coord": [
+     -99.8692,
+     32.8542
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Jones County, Texas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170626",
+    "coord": [
+     -86.8039,
+     36.7889
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Logan County, Kentucky",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170627",
+    "coord": [
+     -92.7878,
+     32.7297
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Louisiana",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170624",
+    "coord": [
+     -83.8847,
+     36.065
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Knox County, Tennessee",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170625",
+    "coord": [
+     -96.0031,
+     31.3731
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Leon County, Texas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170630",
+    "coord": [
+     -107.965,
+     45.8558
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Montana",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170631",
+    "coord": [
+     -97.5219,
+     33.8447
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Montague County, Texas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170628",
+    "coord": [
+     -97.1403,
+     30.8447
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Milam County, Texas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170629",
+    "coord": [
+     -94.3261,
+     32.7972
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Marion County, Texas",
+    "classes": [
+     "Q74047"
+    ]
+   },
+   {
+    "qid": "Q5170635",
+    "coord": [
+     -103.328,
+     48.6125
+    ],
+    "label": "Corinth",
+    "title": "Corinth, North Dakota",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170632",
+    "coord": [
+     -78.0086,
+     36.0042
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Nash County, North Carolina",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170638",
+    "coord": [
+     -89.1397,
+     31.3439
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Perry County, Mississippi",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170639",
+    "coord": [
+     -94.1833,
+     34.5853
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170636",
+    "coord": [
+     -80.6228,
+     41.3986
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Ohio",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170637",
+    "coord": [
+     -94.5939,
+     32.0481
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Panola County, Texas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170642",
+    "coord": [
+     -82.8961,
+     34.7122
+    ],
+    "label": "Corinth",
+    "title": "Corinth, South Carolina",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170640",
+    "coord": [
+     -81.6225,
+     34.0978
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Saluda County, South Carolina",
+    "classes": [
+     "Q74047"
+    ]
+   },
+   {
+    "qid": "Q5170641",
+    "coord": [
+     -81.7967,
+     35.3614
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Rutherford County, North Carolina",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170646",
+    "coord": [
+     -84.0219,
+     32.0508
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Sumter County, Georgia",
+    "classes": [
+     "Q74047"
+    ]
+   },
+   {
+    "qid": "Q5170644",
+    "coord": [
+     -76.9456,
+     36.8314
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Southampton County, Virginia",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170645",
+    "coord": [
+     -86.4256,
+     36.5778
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Sumner County, Tennessee",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170648",
+    "coord": [
+     -95.7214,
+     32.5875
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Van Zandt County, Texas",
+    "classes": [
+     "Q74047"
+    ]
+   },
+   {
+    "qid": "Q5170654",
+    "coord": [
+     -85.2478,
+     34.6675
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Walker County, Georgia",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170655",
+    "coord": [
+     -87.3197,
+     34.1114
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q74047"
+    ]
+   },
+   {
+    "qid": "Q5170652",
+    "coord": [
+     -87.2033,
+     33.785
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170658",
+    "coord": [
+     -85.5925,
+     33.455
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170656",
+    "coord": [
+     -79.4917,
+     39.4217
+    ],
+    "label": "Corinth",
+    "title": "Corinth, West Virginia",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170657",
+    "coord": [
+     -90.1392,
+     45.0028
+    ],
+    "label": "Corinth",
+    "title": "Corinth, Wisconsin",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5170660",
+    "coord": [
+     -85.5575,
+     33.1683
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5788548",
+    "coord": [
+     -60.9672,
+     14.045
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q83560608",
+    "coord": [
+     -61.6775,
+     12.036
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q103913359",
+    "coord": [
+     -5.0774,
+     55.5251
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q11446",
+     "Q852190"
+    ]
+   },
+   {
+    "qid": "Q115225212",
+    "coord": [
+     -80.8333,
+     42.8217
+    ],
+    "label": "Corinth",
+    "title": "",
+    "classes": [
+     "Q56885635"
+    ]
+   }
+  ],
+  "Argos": [
+   {
+    "qid": "Q649429",
+    "coord": [
+     -86.2458,
+     41.2375
+    ],
+    "label": "Argos",
+    "title": "Argos, Indiana",
+    "classes": [
+     "Q15127012"
+    ]
+   },
+   {
+    "qid": "Q2861042",
+    "coord": [
+     -0.8811,
+     47.6761
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q4022"
+    ]
+   },
+   {
+    "qid": "Q7386192",
+    "coord": [
+     -1.6833,
+     38.25
+    ],
+    "label": "Argos",
+    "title": "Argos (river)",
+    "classes": [
+     "Q4022"
+    ]
+   },
+   {
+    "qid": "Q13533353",
+    "coord": [
+     22.7215,
+     37.6306
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q148837",
+     "Q839954",
+     "Q102202066"
+    ]
+   },
+   {
+    "qid": "Q17142921",
+    "coord": [
+     -116.2508,
+     34.7258
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q18658681",
+    "coord": [
+     24.9423,
+     60.1679
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q41176",
+     "Q183061",
+     "Q3305339"
+    ]
+   },
+   {
+    "qid": "Q21683485",
+    "coord": [
+     26.9444,
+     36.9568
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q33100601",
+    "coord": [
+     4.3865,
+     50.8055
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q2190251"
+    ]
+   },
+   {
+    "qid": "Q42296643",
+    "coord": [
+     2.3436,
+     48.8713
+    ],
+    "label": "Gaité Boulevard",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q65081979",
+    "coord": [
+     27.1558,
+     36.5738
+    ],
+    "label": "Argos",
+    "title": "Argos (Nisyros)",
+    "classes": [
+     "Q15661340"
+    ]
+   },
+   {
+    "qid": "Q103927152",
+    "coord": [
+     -5.5045,
+     55.3248
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q11446",
+     "Q852190"
+    ]
+   },
+   {
+    "qid": "Q104261856",
+    "coord": [
+     -6.288,
+     53.3221
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q2151232"
+    ]
+   },
+   {
+    "qid": "Q115709561",
+    "coord": [
+     -5.3542,
+     52.3955
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q852190"
+    ]
+   },
+   {
+    "qid": "Q136498796",
+    "coord": [
+     4.8948,
+     52.3747
+    ],
+    "label": "Argos",
+    "title": "",
+    "classes": [
+     "Q1043639"
+    ]
+   }
+  ],
+  "Panionion": [
+   {
+    "qid": "Q1310950",
+    "coord": [
+     27.33,
+     37.7039
+    ],
+    "label": "Panionium",
+    "title": "Panionium",
+    "classes": [
+     "Q839954",
+     "Q1617500"
+    ]
+   }
+  ],
+  "Artemision at Ephesus": [],
+  "Cyrene": [
+   {
+    "qid": "Q27986283",
+    "coord": [
+     -91.1067,
+     39.2864
+    ],
+    "label": "Cyrene",
+    "title": "Cyrene, Missouri",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q54888705",
+    "coord": [
+     -84.6922,
+     30.9628
+    ],
+    "label": "Cyrene",
+    "title": "Cyrene, Georgia",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q103916865",
+    "coord": [
+     -4.7518,
+     55.9544
+    ],
+    "label": "Cyrene",
+    "title": "",
+    "classes": [
+     "Q683363",
+     "Q852190"
+    ]
+   },
+   {
+    "qid": "Q115714128",
+    "coord": [
+     -5.1475,
+     52.9584
+    ],
+    "label": "Cyrene",
+    "title": "",
+    "classes": [
+     "Q852190"
+    ]
+   },
+   {
+    "qid": "Q44112",
+    "coord": [
+     21.85,
+     32.8167
+    ],
+    "label": "Cyrene",
+    "title": "Cyrene, Libya",
+    "classes": [
+     "Q148837",
+     "Q655593",
+     "Q839954",
+     "Q16124843",
+     "Q69391739"
+    ]
+   }
+  ]
  }
 }

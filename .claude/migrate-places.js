@@ -135,7 +135,7 @@ function fetchAround(cache, keys) {
    per coordinate): the cheap second pass; the search around the coordinate is the third, for what is still open */
 function fetchLabels(cache, names) {
   cache.labels = cache.labels || {};
-  const want = names.filter((n) => !(n in cache.labels));
+  const want = names.filter((n) => typeof n === "string" && n && !(n in cache.labels));
   const N = 8;   // a label lookup costs the service about two seconds a name (measured 2026-10-10: 10.7 s for five); forty names passed its 60 s limit and answered 400
   for (let i = 0; i < want.length; i += N) {
     const batch = want.slice(i, i + N);
@@ -180,7 +180,8 @@ function collect(cards) {
     const L = c.locator; if (!L || !L.name) continue;
     const at = Array.isArray(L.at) && isFinite(L.at[0]) && isFinite(L.at[1]) ? [Number(L.at[0]), Number(L.at[1])] : null;
     const k = keyOf(L.name, at);
-    let t = topo.get(k); if (!t) topo.set(k, t = { name: L.name, label: L.label && fold(L.label) !== fold(L.name) ? L.label : "", kind: L.kind || "point", at, within: L.within || "", cards: [] });
+    // a label is taken only as a string (one shipped locator carries a coordinate pair there — a data fault for the owner, reported below)
+    let t = topo.get(k); if (!t) topo.set(k, t = { name: L.name, label: typeof L.label === "string" && L.label && fold(L.label) !== fold(L.name) ? L.label : "", kind: L.kind || "point", at, within: typeof L.within === "string" ? L.within : "", cards: [], oddLabel: L.label !== undefined && typeof L.label !== "string" });
     t.cards.push(c.id); if (!t.within && L.within) t.within = L.within;
   }
   return topo;
@@ -362,6 +363,8 @@ function run() {
   for (const [k, why] of [...unresolvedMap].sort()) lines.push(`| ${k} | ${why} |`);
   lines.push("", "## polity-spec.json links to series the history file does not carry", "", unresolvedLinks.size ? [...unresolvedLinks].sort().map((s) => "- `" + s + "` (deferred or a people: docs/atlas-v2-coverage.md)").join("\n") : "None.");
   lines.push("", "## Cards with an old field but no place at all", "", noPlaceOld.length ? noPlaceOld.join(", ") : "None.");
+  const odd = [...topo.values()].filter((t) => t.oddLabel);
+  lines.push("", "## Locators whose `label` is not a string (a data fault; the label was ignored)", "", odd.length ? odd.map((t) => "- " + t.name + " — " + t.cards.join(", ")).join("\n") : "None.");
   lines.push("", "## Glossary places (GLOSSARY_PLACES, 31 coordinates) — resolved for Phase 3b's \"show on the Atlas\" button; terms do not contribute (Q-P3 c) and nothing is written", "", "| term | resolves to | via |", "|---|---|---|");
   for (const { g, r } of glossRes) lines.push(`| ${g.slug} | ${r.id ? r.id + " " + ((reg.rows.get(r.id) || newRows[r.id] || {}).name || "") : r.ambiguous ? "ambiguous: " + r.ambiguous.join("; ") : "— " + r.unresolved} | ${r.id ? r.via : ""} |`);
   const text = lines.join("\n") + "\n";
