@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 96 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 130 | only a disambiguation page; no link could be chosen |
-| `none` | 757 | nothing matched; no link |
+| `none` | 760 | nothing matched; no link |
 
-**5403 of 6407 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5403 of 6410 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -783,7 +783,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (757)
+## No article found (760)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -951,6 +951,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-015` **South-South trade** — search suggests `Congress of South African Trade Unions`, `South–South cooperation`, `South Asian Association for Regional Cooperation`, `Japan–South Korea trade dispute`, `Global North and Global South`
 - `gga-016` **Weaponisation of everything** — search suggests `Mark Galeotti`, `Battlespace`, `Beetle`, `Media coverage of the Gaza war`, `Jawaharlal Nehru`
 - `gga-017` **Mutually assured economic pain** — search suggests `Economic impact of the 2026 Iran war`, `Workers' compensation`, `The Theory of Moral Sentiments`, `Harriet Taylor Mill`, `George C. Homans`
+- `gga-021` **Radical uncertainty** — search suggests `Uncertainty`, `Uncertainty principle`, `A Treatise on Probability`, `James Crotty (economist)`, `Knightian uncertainty`
 - `gga-026` **Explosion of connectivity** — search suggests `2007 New York City steam explosion`, `Paraconsistent logic`, `2026 Internet blackout in Iran`, `2026 Iran war`, `List of Amazon Leo launches`
 - `gga-027` **States acting like nonstate actors** — search suggests `Anti-corruption`, `Battle of Mogadishu (1993)`, `Corruption`, `War on drugs`, `Somali National Alliance`
 - `gga-028` **Mutually hurting stalemate** — search suggests `Mutually assured destruction`, `Conflict resolution`, `Peacebuilding`, `2026 Iran war`, `India–Pakistan war of 1965`
@@ -970,6 +971,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-057` **Wandel durch Annäherung** — search suggests `Wandel durch Handel`, `Egon Bahr`, `Ostpolitik`, `Evangelische Akademie Tutzing`, `Bulthaup`
 - `gga-058` **Dollar clearing system** — search suggests `Clearing (finance)`, `Clearing House Interbank Payments System`, `Clearing House Automated Transfer System`, `The Clearing House`, `China National Clearing Center`
 - `gga-064` **Ever closer European Union** — search suggests `European Union`, `Canada–European Union relations`, `2015–2016 United Kingdom renegotiation of European Union membership`, `Brexit`, `Accession of Armenia to the European Union`
+- `gga-066` **Conflict prevention** — search suggests `The World Is Flat`, `The Lexus and the Olive Tree`, `Organization for Security and Co-operation in Europe`, `High Commissioner on National Minorities`, `Global Partnership for the Prevention of Armed Conflict`
 - `gga-069` **Hormuz–Sahel transmission** — search suggests `Starlink`, `General Atomics MQ-9 Reaper`, `Islamic world`
 - `gga-070` **Fiscal feedback loop** — search suggests `Inertial inflation`, `Circle Line (Kuala Lumpur)`, `G (SEPTA Metro)`, `Stock market bubble`, `National debt of the United States`
 - `gga-071` **Multilateral shock response** — search suggests `1973 oil crisis`, `Military exercise`, `BRICS`, `United Nations response to the COVID-19 pandemic`, `World Bank Group`
@@ -980,6 +982,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-083` **Ukraine's missing persons** — search suggests `Missing person`, `List of solved missing person cases (1950–1969)`, `List of solved missing person cases (pre-1950)`, `List of solved missing person cases (2020s)`, `List of solved missing person cases (2010s)`
 - `gga-085` **0.7 per cent** — search suggests `Global Peace Index`, `Percentage`, `European Union`, `Angmering`, `Straits Times Index`
 - `gga-086` **Aid conditionality** — search suggests `Conditionality`, `Poverty Reduction Strategy Paper`, `Aid`, `ACP–EU development cooperation`, `Aid effectiveness`
+- `gga-087` **Security dependence on the United States** — search suggests `2024 United States presidential election`, `United States energy independence`, `United States Commission on National Security/21st Century`, `United States Congress`, `Timeline of the 2025–2026 United States trade war with Canada`
 - `gga-088` **Interconnected but fragmented** — search suggests `A Lover's Discourse: Fragments`, `Karmanye Vadhikaraste`, `Inter-connected Stock Exchange of India`, `A Sentimental Journey Through France and Italy`, `Corregidora (novel)`
 - `gga-089` **Most armed conflicts since 1946** — search suggests `List of ongoing armed conflicts`, `List of non-international armed conflicts`, `Communist armed conflicts in the Philippines`, `List of armed conflicts in 2016`, `War`
 - `gga-090` **Partners for Multilateralism** — search suggests `Multilateralism`, `Kinshasa Declaration on Great Apes`, `Foreign relations of Indonesia`, `Member states of BRICS`, `Ministry of Defence (United Kingdom)`

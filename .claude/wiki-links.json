@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10T16:13Z",
+ "generated": "2026-10-10T16:33Z",
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 4617,
@@ -7,7 +7,7 @@
   "redirect-variant": 305,
   "section-redirect": 96,
   "disambiguation": 130,
-  "none": 757,
+  "none": 760,
   "disambig-resolved": 71,
   "list-page": 6,
   "search-match": 5,
@@ -51604,6 +51604,48 @@
    "url": null,
    "via": null,
    "status": "none"
+  },
+  "gga-021": {
+   "answer": "Radical uncertainty",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Uncertainty",
+    "Uncertainty principle",
+    "A Treatise on Probability",
+    "James Crotty (economist)",
+    "Knightian uncertainty"
+   ]
+  },
+  "gga-066": {
+   "answer": "Conflict prevention",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The World Is Flat",
+    "The Lexus and the Olive Tree",
+    "Organization for Security and Co-operation in Europe",
+    "High Commissioner on National Minorities",
+    "Global Partnership for the Prevention of Armed Conflict"
+   ]
+  },
+  "gga-087": {
+   "answer": "Security dependence on the United States",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2024 United States presidential election",
+    "United States energy independence",
+    "United States Commission on National Security/21st Century",
+    "United States Congress",
+    "Timeline of the 2025–2026 United States trade war with Canada"
+   ]
   }
  }
 }

@@ -6413,7 +6413,10 @@ window.CARD_DATA = [
 {"id":"gga-276","num":"276","category":"Global Affairs","question":"In the first of its warnings, the article says bots may outwit their creators before <span class=\"blank\">_____</span>, bringing their goals and ethics into line with humanity's, has been achieved.","answer":"Alignment","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Alignment","tags":["concept","politics","global affairs","artificial intelligence","safety","technology"],"difficulty":3},
 {"id":"gga-277","num":"277","category":"Global Affairs","question":"Warnings about lethal AI have grown more credible, the article says, since testing found <span class=\"blank\">_____</span>, co-ordinating with one another and hacking organisations, including an AI lab itself.","answer":"Agents escaping their sandboxes","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Agents escaping their sandboxes","tags":["event","politics","global affairs","artificial intelligence","safety","technology"],"difficulty":5},
 {"id":"gga-278","num":"278","category":"Global Affairs","question":"An AI model-maker says it has caught people using its models for malign ends, from Mali's intelligence services to Houthi rebels, examples of the <span class=\"blank\">_____</span> that the article warns of.","answer":"Misuse by malign actors","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Misuse by malign actors","tags":["concept","politics","global affairs","artificial intelligence","security","non-state actors"],"difficulty":4},
-{"id":"gga-280","num":"280","category":"Global Affairs","question":"Warnings of AI catastrophe from those working with it and the technological aggravation of Ukraine's destruction offer <span class=\"blank\">_____</span> for whether AI's rapid progress can or should be slowed, the article's opening says.","answer":"Conflicting lessons","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Conflicting lessons","tags":["concept","politics","global affairs","artificial intelligence","ukraine","technology"],"difficulty":4}
+{"id":"gga-280","num":"280","category":"Global Affairs","question":"Warnings of AI catastrophe from those working with it and the technological aggravation of Ukraine's destruction offer <span class=\"blank\">_____</span> for whether AI's rapid progress can or should be slowed, the article's opening says.","answer":"Conflicting lessons","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Conflicting lessons","tags":["concept","politics","global affairs","artificial intelligence","ukraine","technology"],"difficulty":4},
+{"id":"gga-021","num":"21","category":"Global Affairs","question":"A first-lecture slide promises that diplomacy in times of <span class=\"blank\">_____</span> will be a theme throughout the course, exploring defining moments such as 9/11, the 2008 financial crisis and the ISIS caliphate.","answer":"Radical uncertainty","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Radical uncertainty","tags":["concept","politics","global affairs","diplomacy","uncertainty","world order"],"difficulty":4},
+{"id":"gga-066","num":"66","category":"Global Affairs","question":"The first group of recommendations from the panel on peace operations, shown on a Lecture 3 slide, urges a strong push on <span class=\"blank\">_____</span>, including an international forum and earlier Security Council engagement.","answer":"Conflict prevention","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Conflict prevention","tags":["concept","politics","global affairs","peacekeeping","fragile states","united nations"],"difficulty":3},
+{"id":"gga-087","num":"87","category":"Global Affairs","question":"Despite shrinking American commitments to Europe and allies such as Australia, many states remain anchored in <span class=\"blank\">_____</span>, a first-lecture slide says of a 2026 article's argument about the old order.","answer":"Security dependence on the United States","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Security dependence on the United States","tags":["concept","politics","global affairs","security","alliances","nato","united states"],"difficulty":3}
 ];
 
 window.COLLECTION_TREE = {
@@ -20484,7 +20487,8 @@ window.COLLECTION_TREE = {
             "gga-002",
             "gga-003",
             "gga-004",
-            "gga-005"
+            "gga-005",
+            "gga-021"
           ]
         },
         {
@@ -20556,7 +20560,8 @@ window.COLLECTION_TREE = {
             "gga-072",
             "gga-073",
             "gga-074",
-            "gga-075"
+            "gga-075",
+            "gga-066"
           ]
         },
         {
@@ -20583,7 +20588,8 @@ window.COLLECTION_TREE = {
             "gga-101",
             "gga-102",
             "gga-103",
-            "gga-104"
+            "gga-104",
+            "gga-087"
           ]
         },
         {
