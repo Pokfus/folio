@@ -82,7 +82,10 @@ async function touchDrag(page, cdp, steps) {
   console.log("\n\x1b[1m1) software GL escalates as before\x1b[0m\n");
   await drag(page, 80);
   const i1 = await info(page);
-  if (software) check("a drag at 1280×800 on software GL reaches stage 1 or 2", i1.learnt >= 1 && i1.escalations >= 1, JSON.stringify(i1));
+  // the rule escalates on two unstalled frames over 70 ms running; a runner whose frames stay under that (CI read 50–67 ms once the
+  // line and still caches landed) owes no escalation, and stage 0 is then the right answer — the check reads the trace for that
+  const slowRun = (tr) => { let n = 0; for (const [, slow, , stalled] of tr) { n = slow && !stalled ? n + 1 : 0; if (n >= 2) return true; } return false; };
+  if (software) check("a drag at 1280×800 on software GL reaches stage 1 or 2, or its frames never ran slow twice over", (i1.learnt >= 1 && i1.escalations >= 1) || (i1.stage === 0 && !slowRun(i1.trace)), JSON.stringify(i1));
   else check("a drag at 1280×800 (hardware GL: the stage is reported, not asserted)", true, JSON.stringify(i1));
 
   console.log("\n\x1b[1m2) an injected 150 ms main-thread stall does not escalate\x1b[0m\n");

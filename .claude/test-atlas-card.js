@@ -73,7 +73,7 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   const sel = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.selectedId());
   check("the country is the selection", sel === "adm0:fra", sel);
   const hash = await page.evaluate(() => location.hash);
-  check("the deep link carries the place", /^#map2\/-?[\d.]+\/-?[\d.]+\/-?[\d.]+\/adm0(%3A|:)fra$/.test(hash), hash);
+  check("the deep link carries the place", /^#map2\/-?[\d.]+\/-?[\d.]+\/-?[\d.]+\/adm0(%3A|:)fra(\?y=-?\d+)?$/.test(hash), hash);
 
   console.log("\n\x1b[1m2) a river card, and a country without prose\x1b[0m\n");
   const danube = await page.evaluate(() => { const g = document.querySelector(".atlas2").__atlas2.gazetteer(); const r = g.rows.find((x) => x.kind === "river" && x.name === "Danube"); return r ? r.id : null; });
@@ -112,8 +112,8 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   const P = await open(await browser.newContext({ viewport: { width: 390, height: 700 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 }));
   await P.page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:fra", { open: true }));
   await waitProse(P.page); await sleep(200);
-  const sheet = await P.page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), host = document.querySelector(".atlas2").getBoundingClientRect(); const grip = el.querySelector(".atlas2-grip"); const g = grip.getBoundingClientRect(); return { shut: el.classList.contains("atlas2-card-shut"), bottom: Math.abs(r.bottom - host.bottom) < 2, width: r.width, hostW: host.width, height: r.height, grip: g.height > 0 && g.width > 0, bodyShown: getComputedStyle(el.querySelector(".atlas2-card-body")).display !== "none", phone: document.querySelector(".atlas2").classList.contains("atlas2-phone") }; });
-  check("at 390 px the card is a bottom sheet with a grip, opening shut", sheet.phone && sheet.bottom && sheet.width === sheet.hostW && sheet.grip && sheet.shut && !sheet.bodyShown, JSON.stringify(sheet));
+  const sheet = await P.page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), host = document.querySelector(".atlas2").getBoundingClientRect(); const grip = el.querySelector(".atlas2-grip"); const g = grip.getBoundingClientRect(); return { shut: el.classList.contains("atlas2-card-shut"), bottom: (() => { const rail = document.querySelector(".atlas2-rail").getBoundingClientRect(); return r.bottom <= rail.top + 1 && rail.top - r.bottom < 16; })(), width: r.width, hostW: host.width, height: r.height, grip: g.height > 0 && g.width > 0, bodyShown: getComputedStyle(el.querySelector(".atlas2-card-body")).display !== "none", phone: document.querySelector(".atlas2").classList.contains("atlas2-phone") }; });
+  check("at 390 px the card is a bottom sheet with a grip, opening shut (sitting on the rail since Phase 2a)", sheet.phone && sheet.bottom && sheet.width === sheet.hostW && sheet.grip && sheet.shut && !sheet.bodyShown, JSON.stringify(sheet));
   await P.page.click(".atlas2-grip"); await sleep(150);
   const up = await P.page.evaluate(() => { const el = document.querySelector(".atlas2-card"); return { shut: el.classList.contains("atlas2-card-shut"), bodyShown: getComputedStyle(el.querySelector(".atlas2-card-body")).display !== "none", h: el.getBoundingClientRect().height }; });
   check("the grip expands it", !up.shut && up.bodyShown && up.h > 200, JSON.stringify(up));

@@ -79,12 +79,12 @@ const results = (page) => page.evaluate(() => [...document.querySelectorAll(".at
   const after = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { lon: c.view.lon, lat: c.view.lat, k: c.kmPerPx(), sel: c.selectedId(), card: c.card() }; });
   check("it lands on France, selected, card open", Math.abs(after.lon - 2.2) < 4 && Math.abs(after.lat - 46.6) < 4 && after.sel === "adm0:fra" && after.card.open && after.card.id === "adm0:fra", `${after.lon.toFixed(1)}, ${after.lat.toFixed(1)} at ${after.k.toFixed(2)} km/px; ${after.card.title}`);
   const hash1 = await page.evaluate(() => location.hash);
-  check("the hash carries the view and the place", /^#map2\/-?[\d.]+\/-?[\d.]+\/[\d.]+\/adm0(%3A|:)fra$/.test(hash1), hash1);
+  check("the hash carries the view and the place", /^#map2\/-?[\d.]+\/-?[\d.]+\/[\d.]+\/adm0(%3A|:)fra(\?y=-?\d+)?$/.test(hash1), hash1);
 
   console.log("\n\x1b[1m3) deep links\x1b[0m\n");
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:deu", { open: true })); await sleep(200);
   const hash2 = await page.evaluate(() => location.hash);
-  check("a selection pushes a new entry", /adm0(%3A|:)deu$/.test(hash2), hash2);
+  check("a selection pushes a new entry", /adm0(%3A|:)deu(\?y=-?\d+)?$/.test(hash2), hash2);
   await page.goBack(); await sleep(400);
   const back = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { sel: c.selectedId(), hash: location.hash, card: c.card().id }; });
   check("Back restores the previous place", back.sel === "adm0:fra" && back.card === "adm0:fra", back.hash);
@@ -105,7 +105,7 @@ const results = (page) => page.evaluate(() => [...document.querySelectorAll(".at
   const perf = await P4.page.evaluate(() => !document.querySelector(".atlas2-perf").hidden);
   await P4.page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(10, 50, 3)); await sleep(500);
   const hash4 = await P4.page.evaluate(() => location.hash);
-  check("#map2?perf keeps the overlay, and the settle writes the view with ?perf kept", perf && /^#map2\/10\.00\/50\.00\/[\d.]+\?perf$/.test(hash4), hash4);
+  check("#map2?perf keeps the overlay, and the settle writes the view with ?perf kept", perf && /^#map2\/10\.00\/50\.00\/[\d.]+\?(y=-?\d+&)?perf$/.test(hash4), hash4);
   await P4.page.close();
   const v1 = await browser.contexts()[0].newPage();
   await v1.goto(`http://127.0.0.1:${PORT}/#map`, { waitUntil: "load" });

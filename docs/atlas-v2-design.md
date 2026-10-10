@@ -2548,6 +2548,18 @@ settings overwrote it; the retake sets `data-theme` and `.night` on the body as 
 
 **The stage logic's tests (`test-atlas-stages.js`, software GL, 18 checks).** A drag at 1280×800 reaches stage 1 (frame intervals 50–83 ms); at 320×420, after a warm-up drag, a plain drag stays at stage 0 (every frame 33–50 ms); ten injected 150 ms main-thread stalls during a drag leave the stage at 0 and are counted (13 stalls ignored, 19 long tasks seen); with stage 2 learnt, the first light-load drag runs fast frames at the learnt stage and the second drag starts a stage lower and brings the learnt stage down (learnt 2 → 1, two recoveries, stage 0 at the end); `?perf` survives a mouse pan and a reload on the desktop and a touch pan and a reload on a phone (as `?y=<year>&perf`); the About sheet's switch turns the overlay on, stores the choice, survives a reload and turns it off again; no page errors. The suite must run alone: three Chromium instances on the four-core runner stretch every frame to 100–150 ms and the plain drag escalates for that reason, not the Atlas's.
 
+**CI on the pushed heads (run 38022185997 on 001d602; the no-browser job and the frame gate green, the Playwright job red on
+eight suites).** Three are the known trio (draw-cards, tour, personal-atlas). `test-war-cards` ("the popup keeps the legend",
+the v1 personal atlas) is red on main's last run (37976490261) with the same line — not this branch's. `test-review-decks`
+("cards that genuinely carry other phrasings") passed on main with extras on one card of its five random picks and drew five
+without here — a draw, not the Atlas (nothing in this branch touches a card). The three Atlas reds were this phase's own
+contracts meeting Phase 1's tests: `test-atlas-card` and `test-atlas-search` expected a deep link to END at the place, and
+it now carries `?y=<year>` (the year is part of the link by the brief), and the phone sheet to sit on the host's bottom edge,
+where it now sits on the rail; `test-atlas-stages` expected a 1280×800 drag on the runner's software GL to escalate, and after
+the line and still caches the runner's frames read 50–67 ms, under the 70 ms rule, so stage 0 was the logic's correct answer
+— the three tests now state those contracts (an optional year in the link; the sheet on the rail; no escalation owed when the
+trace holds no two unstalled slow frames running), and the escalation path stays covered where frames do run slow.
+
 **What contradicts the design.** (1) §2.3 said a face's fill and its stroke must come from one ring; a
 historical fill comes from the resident mesh and is masked by the land stencil instead — the decision
 recorded above. (2) §2.4 planned the year query in the worker; it runs on the main thread (39 entities,
