@@ -30,8 +30,16 @@ values** — and the plan keeps to it.
 ## Where the content comes from
 
 Each lecture deck is written from that lecture's slides, each reading deck from that reading.
-**The answer terms and the load-bearing facts come from the supplied material**; the backgrounds are
-then researched out to the house length and cited like any other card. Four rules, all inherited:
+
+**TWO MODES, by card number (Oct 2026, on the owner's instruction).** `gga-001`–`gga-056` were researched out
+to the house length and cited to outside scholarship. **From `gga-057` on, the cards are written from the
+course's own slides and readings ONLY**, because the collection is a private study deck and the course
+material is the accuracy the owner needs. Those cards (and any later replacement of an earlier line) are held to
+a **bar of 2 sources** (`SRC_TARGET_BY_PREFIX` in `app.js`, read by `.claude/src-target.js`), every source is a
+course text cited at a distinct slide or page and ending ` [Course material]` (the one citation form `add-card.js`
+lets off the link rule), and 2026 events may be written as the text reports them. The rules below still hold.
+
+**The answer terms and the load-bearing facts come from the supplied material.** Four rules, all inherited:
 
 - **A card may not assert something the lecture or reading asserts and nothing else does.** If the
   source is the only authority for a claim, the card says whose claim it is. That matters more here

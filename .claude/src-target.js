@@ -16,17 +16,22 @@ const APP = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
 
 const m1 = /const SRC_TARGET = (\d+);/.exec(APP);
 const m2 = /const SRC_TARGET_BY_DIFFICULTY = (\{[^}]*\});/.exec(APP);
-if (!m1 || !m2) {
-  console.error("ERROR: src-target.js could not find SRC_TARGET / SRC_TARGET_BY_DIFFICULTY in app.js — has a constant been renamed?");
+const m3 = /const SRC_TARGET_BY_PREFIX = (\{[^}]*\});/.exec(APP);
+if (!m1 || !m2 || !m3) {
+  console.error("ERROR: src-target.js could not find SRC_TARGET / SRC_TARGET_BY_DIFFICULTY / SRC_TARGET_BY_PREFIX in app.js — has a constant been renamed?");
   process.exit(2);
 }
 const SRC_TARGET = +m1[1];
 // the literal is plain JS ({ 1: 9, … }), so evaluate it rather than JSON.parse it
 const SRC_TARGET_BY_DIFFICULTY = new Function("return " + m2[1])();
+// a course collection's own, lower bar, keyed by card-id prefix ("gga-" → 2) — see app.js
+const SRC_TARGET_BY_PREFIX = new Function("return " + m3[1])();
 
 function srcTargetFor(card) {
+  const id = card && typeof card.id === "string" ? card.id : "";
+  for (const p of Object.keys(SRC_TARGET_BY_PREFIX)) if (id.indexOf(p) === 0) return SRC_TARGET_BY_PREFIX[p];
   const n = card && typeof card.difficulty === "number" ? card.difficulty : 0;
   return SRC_TARGET_BY_DIFFICULTY[n] || SRC_TARGET;
 }
 
-module.exports = { SRC_TARGET, SRC_TARGET_BY_DIFFICULTY, srcTargetFor };
+module.exports = { SRC_TARGET, SRC_TARGET_BY_DIFFICULTY, SRC_TARGET_BY_PREFIX, srcTargetFor };

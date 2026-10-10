@@ -33382,7 +33382,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      so add-card.js, add-sources.js, source-audit.js and drop-candidates.js cannot disagree with the Edit
      page about what a given card's bar is. */
   const SRC_TARGET_BY_DIFFICULTY = { 1: 9, 2: 8, 3: 7, 4: 6, 5: 5 };
+  /* A COURSE COLLECTION CAN BE HELD TO A LOWER BAR (Oct 2026, on request). Gateway to Global Affairs is a
+     private study deck for one university course, and its owner asked that its cards rest on the course's own
+     slides and readings only. Those are a handful of works, cited at different slides and pages, so the tiered
+     bar (up to 9 outside works per card) cannot be met honestly and would be met by padding. A card whose id
+     starts with a key here is measured against that number instead; `.claude/src-target.js` slices this
+     literal out of the file too, so the helpers and the Edit page agree. */
+  const SRC_TARGET_BY_PREFIX = { "gga-": 2 };
   function srcTargetFor(c) {
+    const id = c && typeof c.id === "string" ? c.id : "";
+    for (const p in SRC_TARGET_BY_PREFIX) if (id.indexOf(p) === 0) return SRC_TARGET_BY_PREFIX[p];
     const n = c && typeof c.difficulty === "number" ? c.difficulty : 0;
     return SRC_TARGET_BY_DIFFICULTY[n] || SRC_TARGET;
   }

@@ -1133,8 +1133,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   supplied incomplete** (R5, R8, R9, R11, R12) and their decks are shortlists from the pages in hand — the plan's
   "Source status" table says which pages are missing, and **no card is written about a missing page**. And
   **the material runs past what any reference work yet holds** (2026), so those cards cite the supplied article
-  and a dated second source and say "according to" where there is one. Lecture 7 (Russia) takes `gga-301` onward
-  when its slides arrive. Not part of the site.
+  and a dated second source and say "according to" where there is one. **From `gga-057` on the cards rest on the
+  course's slides and readings ONLY** (the owner's ruling, Oct 2026: a private study deck): the source bar is 2
+  (`SRC_TARGET_BY_PREFIX` in `app.js`, sliced by `.claude/src-target.js`), each source is a course text at a distinct
+  slide or page ending ` [Course material]`, and `add-card.js` lets exactly that form off the link rule (only on a
+  prefix that has its own bar). Lecture 7 (Russia) takes `gga-301` onward when its slides arrive. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
