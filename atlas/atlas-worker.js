@@ -430,6 +430,10 @@
   const LIMB_Z = 0.1;                 // a name whose anchor is nearer the limb than this (view-space z; the fade reaches 1 at 0.2) is not a candidate
   const RIVER_REPEAT_PX = 400;
   const MARKER_R = { capital: 4, city: 3, town: 2.2 };
+  const CAPITAL_AFTER_RANK = 1;       // a period capital is placed after the polities of on-screen area rank 0..this (task 0a, Phase 3a)
+  const POLITY_WIDE = 1.8, POLITY_WIDE_LARGE = 3.0;   // a polity name may be this much wider than its label path and still sit straight at the anchor (the larger figure for the rank 0..CAPITAL_AFTER_RANK polities, whose name at globe scale is the one thing the view is for)
+  const POLITY_SLIDE = [0, -0.12, 0.12, -0.24, 0.24, -0.36, 0.36];   // the fractions of the path's length a polity name slides from the middle when the middle is taken
+  const POLITY_NUDGE = [0, -1.2, 1.2, -2.4, 2.4];                    // the lines a straight polity name moves up or down from its anchor when the anchor is taken
   function unitOf(lon, lat) { const la = lat * D2R_, lo = lon * D2R_, c = Math.cos(la); return [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; }
   function loadGazetteer(table) {
     const col = {}; table.cols.forEach((c, i) => { col[c] = i; });
@@ -519,7 +523,14 @@
       histRows.sort((p, q) => q.px2 - p.px2);
     }
     for (const row of histRows) { const chordPx = row.path.len; if (!show.countries || chordPx < MIN_CHORD_PX) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + row.rank * 10 + KW.country, hist: true }); }
-    for (const c of q.capitals || []) { const a = proj(unitOf(c.lon, c.lat)); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; if (!show.cities) continue; cands.push({ row: { id: "cap:" + c.entity + ":" + c.name, name: c.name, kind: "capital", rank: 0, a: unitOf(c.lon, c.lat) }, chordPx: 0, a, score: 0 + KW.capital, hist: true }); }
+    /* A LARGE POLITY'S NAME OUTRANKS THE CAPITAL MARKERS INSIDE IT (Phase 3a, task 0a; the 2b review's Ottoman Empire of 1500
+       and Mongol Empire of 1245 drew a fill and their capitals but no name). The period capitals scored 0 — before every
+       polity, whose best score is KW.country — so Constantinople's marker and name took the cells at the Ottoman label's one
+       trial position and the empire's name dropped as "polity collides". A capital now scores after the polities whose
+       on-screen area ranks 0 or 1 (the empires of the view) and before the smaller ones; its MARKER is reserved before any
+       label is laid out (below), so a name placed first flows round the square rather than over it, and the capital's own
+       name is placed in its turn beside the marker. */
+    for (const c of q.capitals || []) { const a = proj(unitOf(c.lon, c.lat)); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; if (!show.cities) continue; cands.push({ row: { id: "cap:" + c.entity + ":" + c.name, name: c.name, kind: "capital", rank: 0, a: unitOf(c.lon, c.lat) }, chordPx: 0, a, score: (CAPITAL_AFTER_RANK + 1) * 10 + KW.capital, hist: true }); }
     for (const row of GZ.rows) {
       const k = row.kind;
       if (!present && (k === "country" || k === "admin1" || k === "capital" || k === "city" || k === "town")) continue;
@@ -566,6 +577,10 @@
     const MAX_CLIP = 0.25;
     for (const c of chrome) take(c);   // the controls' rectangles are taken first (padded like any label), so nothing is laid out under them
     const placed = [];
+    // the period capitals' MARKERS are reserved before any label (task 0a): a polity name placed earlier in the order is laid
+    // round them, and the marker itself cannot be lost to a name; the capital's own name is placed in its turn
+    const reservedMarker = new Map();
+    for (const c of cands) { if (c.row.kind !== "capital") continue; const r = MARKER_R.capital, x = c.a[0], y = c.a[1]; const m = [x - r - 1, y - r - 1, x + r + 1, y + r + 1]; if (fullyOn(m) && free(m)) { take(m); reservedMarker.set(c.row.id, m); } }
     const union = (list) => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const r of list) { if (r[0] < x0) x0 = r[0]; if (r[1] < y0) y0 = r[1]; if (r[2] > x1) x1 = r[2]; if (r[3] > y1) y1 = r[3]; } return [x0, y0, x1, y1]; };
     /* a straight run of glyphs centred at (x, y) at angle `ang` (radians, screen y down): glyph origins and one rect */
     const straight = (sh, x, y, ang) => {
@@ -640,8 +655,14 @@
         const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
         const cum = polyline(S2), Ls = cum[cum.length - 1];
         let got = null, curved = false;
-        if (Ls >= sh.w * 1.02) { const g = alongEither(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && clippedFrac(g.rects) <= MAX_CLIP) { got = g; curved = true; } }
-        if (!got) { if (sh.w > row.path.len * 1.8) { drop("polity name wider than its path"); continue; } const g = straight(sh, c.a[0], c.a[1], 0); if (clippedFrac(g.rects) > MAX_CLIP) { drop("polity label clipped"); continue; } if (!free(g.rects[0])) { drop("polity collides"); continue; } got = g; }
+        // along the path: at its middle first, then slid either way (task 0a: the one trial at the middle was where the capital sat)
+        if (Ls >= sh.w * 1.02) for (const f of POLITY_SLIDE) { const s0 = Ls / 2 + f * Ls; if (s0 - sh.w / 2 < 0 || s0 + sh.w / 2 > Ls) continue; const g = alongEither(sh, S2, cum, s0, st); if (g && g.rects.every(free) && clippedFrac(g.rects) <= MAX_CLIP) { got = g; curved = true; break; } }
+        if (!got) {
+          if (sh.w > row.path.len * (row.rank <= CAPITAL_AFTER_RANK ? POLITY_WIDE_LARGE : POLITY_WIDE)) { drop("polity name wider than its path"); continue; }
+          let clipped = 0, collided = 0;
+          for (const n of POLITY_NUDGE) { const g = straight(sh, c.a[0], c.a[1] + n * sh.h, 0); if (clippedFrac(g.rects) > MAX_CLIP) { clipped++; continue; } if (!free(g.rects[0])) { collided++; continue; } got = g; break; }
+          if (!got) { drop(clipped > collided ? "polity label clipped" : "polity collides"); continue; }
+        }
         const ub = union(got.rects); if (offScreen(ub)) { drop("polity label wholly off screen"); continue; }
         got.rects.forEach(take);
         // the anchor's unit vector: unproject the screen anchor (the label follows the globe between layouts)
@@ -653,14 +674,20 @@
       if (k === "capital" || k === "city" || k === "town") {
         const r = MARKER_R[k], x = c.a[0], y = c.a[1];
         const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
+        const own = reservedMarker.has(row.id);   // a capital's marker was reserved above and is its own ground
         if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
-        if (!free(mrect)) { drop("marker collides"); continue; }
-        if (!show.places) { take(mrect); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
+        if (!own && !free(mrect)) { drop("marker collides"); continue; }
+        if (!show.places) { if (!own) take(mrect); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
         const tries = [[x + r + 3 + sh.w / 2, y, 0], [x - r - 3 - sh.w / 2, y, 0], [x, y - r - 3 - sh.h / 2, 0], [x, y + r + 3 + sh.h / 2, 0]];
         let got = null;
         for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (fullyOn(g.rects[0]) && free(g.rects[0])) { got = g; break; } }
-        if (!got) { drop(onScreen(x, y, 0) ? "city label collides on all four sides, or is not wholly on screen" : "city off screen"); continue; }
-        take(got.rects[0]); take(mrect);
+        if (!got) {
+          // a reserved capital marker whose name finds no free side keeps its marker (task 0a): the square under the empire's
+          // name still says where the capital is, and a tap answers with the name; an unreserved one drops as before
+          if (own) { placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
+          drop(onScreen(x, y, 0) ? "city label collides on all four sides, or is not wholly on screen" : "city off screen"); continue;
+        }
+        take(got.rects[0]); if (!own) take(mrect);
         placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
         continue;
       }
