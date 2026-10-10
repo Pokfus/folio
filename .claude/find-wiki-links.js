@@ -140,6 +140,7 @@ const HINTS = {
   gw: ["country", "nation"], fl: ["country", "flag"], fd: ["country", "flag"], ec: ["economics"], ph: ["philosophy"], astro: ["astronomy"],
   dino: ["dinosaur"], cw: ["Cold War"], vk: ["Viking", "Norse"], fr: ["France", "French"], me: ["Mesopotamia", "Sumer", "Babylon", "Assyria"],
   arch: ["architecture", "building"], mid: ["Middle-earth", "Tolkien"], wes: ["Westeros", "A Song of Ice and Fire"],
+  eep: ["European Union", "EU", "foreign policy", "defence", "enlargement", "Council of the European Union", "treaty"],
 };
 const prefixOf = (id) => id.replace(/-?\d+[a-z]?$/, "").replace(/-$/, "");
 

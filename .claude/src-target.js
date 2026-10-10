@@ -24,7 +24,18 @@ const SRC_TARGET = +m1[1];
 // the literal is plain JS ({ 1: 9, … }), so evaluate it rather than JSON.parse it
 const SRC_TARGET_BY_DIFFICULTY = new Function("return " + m2[1])();
 
+/* COURSE-ONLY COLLECTIONS (Oct 2026, on request): "for all cards you haven't built yet: you only need to use
+   the sources I provided, no outside sources, and there is a lowered minimal source count; this collection
+   is for private study only". The cards of The EU as an External Power from `eep-048` on are built from the
+   course's own slides and set readings, which a card can cite once each, so the bar for them is ONE source
+   rather than the tiered 5-9. The first 53 cards (written before the request) keep the full bar they were
+   written to; this only lowers what a NEW or REPLACED `eep-` card must carry. See
+   docs/eu-external-power-card-plan.md, "Course-only sourcing". */
+const COURSE_ONLY = /^eep-/;
+const COURSE_ONLY_MIN = 1;
+
 function srcTargetFor(card) {
+  if (card && COURSE_ONLY.test(String(card.id || ""))) return COURSE_ONLY_MIN;
   const n = card && typeof card.difficulty === "number" ? card.difficulty : 0;
   return SRC_TARGET_BY_DIFFICULTY[n] || SRC_TARGET;
 }

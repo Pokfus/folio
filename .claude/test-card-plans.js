@@ -95,6 +95,11 @@ const PLANS = {
      10 for each set reading), and it is widened as a lecture lands rather than declared at 480 and
      left full of holes. A hole inside the declared range still fails here, which is the point. */
   "politics-east-asia": ["pea", "pea-", [[1, 100]]],
+  /* The EU as an External Power is the second course collection, and the opposite case to the one above:
+     its fourteen sources (six lectures, eight readings) arrived together, so the whole running order is
+     declared at once — 1-300, lectures first — and a hole anywhere in it fails here. The count per deck
+     follows what each source holds rather than pea's 30 and 10; see the plan. */
+  "eu-external-power": ["eep", "eep-", [[1, 300]]],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */

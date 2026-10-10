@@ -230,6 +230,7 @@ have not this session.
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | complete |
 | Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | complete (`gru-502` deferred) |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | live, planned a lecture at a time |
+| The EU as an External Power | `eep` | `eep-` | `docs/eu-external-power-card-plan.md` | 14 / 14 | live, a course in the Special section: 292 of 300 planned cards written; Reading 3 (8 cards) waits for its PDF |
 
 The lowest unused id for a prefix (substitute it); `next-cards.js` does this and also prints the topic:
 
