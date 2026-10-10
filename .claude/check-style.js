@@ -304,6 +304,11 @@ for (const file of FILES) {
     while ((m = re.exec(text))) {
       if (m.index >= titleLimit) break;
       if (isItalicised(text, m.index, m[0].length)) continue;
+      /* "Guoyu" IS ALSO TAIWAN'S WORD FOR MANDARIN (Oct 2026, the Politics: East Asia Taiwan deck): the card whose
+         ANSWER it is opens `<b>Guoyu</b>`, and the house rule is that the only bold in a background is the
+         answer term, so it cannot also be italic. Only that bolded first mention is exempt; the Warring States
+         text still has to be italic everywhere else. */
+      if (t === "Guoyu" && text.slice(m.index - 3, m.index) === "<b>" && text.slice(m.index + t.length, m.index + t.length + 4) === "</b>") continue;
       // skip when inside an attribute/slug (preceded by = or _ or ")
       const before = text[m.index - 1] || "";
       if (/[="_/\\-]/.test(before)) continue;

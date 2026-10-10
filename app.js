@@ -26519,7 +26519,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", gga: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -27206,9 +27206,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        range. It takes the one family absent here, the blue-violet between Greece's Aegean and Rome's
        imperial purple, without being either. NOT looked at on a screen yet — see the note below. */
     pea:      { bg: "#7A7AB5" },
-    /* olive (Gateway to Global Affairs, the second course in the Special section) — MEASURED, like every
-       hue above it. Swept in CIELAB (L 36-60, chroma 24-52, every hue angle) against all 39 hues on the
-       shelf, keeping only candidates whose contrast against white stays inside the shelf's 3.7-10.4 range:
+    /* dusty rose (The EU as an External Power, the Special section) — MEASURED in CIELAB against the 39
+       hues now on the shelf, the language decks included: median nearest-neighbour 19.8, median chroma 42.
+       The apt colour was tried and refused: the EU's own blue is the most crowded quarter left, and the best
+       blue inside the band stands 16.9 from the United States' navy and from Greece's Aegean at density 7.
+       Swept inside the shelf's band (L 28-55, 3.7-10.4:1 against white, chroma at or under the median) with
+       the hot magenta and the olive-brass left out on the standing notes above, the best-separated region is
+       this rose: 19.7 from the Mandarin deck's red and 19.8 from Flags' mauve, density 8 (hues within 30),
+       L 53, chroma 36, 4.0:1 against white.
+       19.7 IS AT THE SHELF'S MEDIAN, NOT ABOVE IT, AND THAT IS A STATED TRADE on Philosophy's and France's
+       precedent. The best colour that is not a rose is an emerald, #0E906E, at 17.1 with density 5 — below
+       the median, and in the green quarter, which is already crowded. Looked at as a banner and as its 20%
+       wash beside Korea, Psychology, Flags, the Mandarin deck and Politics: East Asia: it reads as a pink
+       between the Mandarin deck's coral and Flags' mauve, and its wash sits near Korea's and Psychology's,
+       which is the cost of the number. */
+    eep:      { bg: "#B66684" },
+    /* olive (Gateway to Global Affairs, a third course in the Special section) — MEASURED, like every
+       hue above it. Swept in CIELAB (L 36-60, chroma 24-52, every hue angle) against the 39 hues on the
+       shelf (before The EU as an External Power joined it), keeping only candidates whose contrast against white stays inside the shelf's 3.7-10.4 range:
        the freest region is the dark olive at hue angle 99, which stands 21.2 from its nearest neighbour
        (Mesopotamia) against a TIGHTEST EXISTING PAIR of 4.0 (Mesopotamia against Russia's geography). It
        reads 7.5:1 against white. The runner-up, a pink at 3.9:1, sat at the bottom of that range. It is

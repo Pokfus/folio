@@ -94,8 +94,13 @@ const PLANS = {
      has been supplied so far, sequential in the order the lectures were covered (30 cards a lecture,
      10 for each set reading), and it is widened as a lecture lands rather than declared at 480 and
      left full of holes. A hole inside the declared range still fails here, which is the point. */
-  "politics-east-asia": ["pea", "pea-", [[1, 100]]],
-  /* Gateway to Global Affairs is the second COURSE (Leiden, 2026). Unlike Politics: East Asia its plan
+  "politics-east-asia": ["pea", "pea-", [[1, 220]]],
+  /* The EU as an External Power is the second course collection, and the opposite case to the one above:
+     its fourteen sources (six lectures, eight readings) arrived together, so the whole running order is
+     declared at once — 1-300, lectures first — and a hole anywhere in it fails here. The count per deck
+     follows what each source holds rather than pea's 30 and 10; see the plan. */
+  "eu-external-power": ["eep", "eep-", [[1, 300]]],
+  /* Gateway to Global Affairs is a further COURSE (Leiden, 2026). Unlike Politics: East Asia its plan
      DOES run ahead of the writing — the lectures and set readings were all supplied before the first card —
      so all 300 numbers are declared at once and a hole in the plan fails here. Lecture 7 (Russia) has no
      slides yet and takes gga-301 onward; widen this range when it lands. */

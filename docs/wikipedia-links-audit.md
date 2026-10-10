@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4620 | the title is the article |
-| `redirect-variant` | 305 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 71 | chosen from a disambiguation page by hint words — listed below |
-| `search-match` | 5 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 405 | redirected to a differently named article — listed below, a glance each |
+| `ok` | 4782 | the title is the article |
+| `redirect-variant` | 326 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 75 | chosen from a disambiguation page by hint words — listed below |
+| `search-match` | 6 | a search hit with the answer's words in another order — listed below |
+| `redirect-broader` | 439 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 97 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 130 | only a disambiguation page; no link could be chosen |
-| `none` | 761 | nothing matched; no link |
+| `section-redirect` | 102 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 139 | only a disambiguation page; no link could be chosen |
+| `none` | 937 | nothing matched; no link |
 
-**5406 of 6415 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5628 of 6827 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (405)
+## Redirected to a differently named article — check each (439)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -100,6 +100,28 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-777` **Ordos Loop** → [Ordos Plateau](https://en.wikipedia.org/wiki/Ordos_Plateau) (from `Ordos Loop`)
 - `cnh-784` **Tibetan people** → [Tibetans](https://en.wikipedia.org/wiki/Tibetans) (from `Tibetan people`)
 - `cnh-798` **Ming–Hồ War** → [Ming conquest of Đại Ngu](https://en.wikipedia.org/wiki/Ming_conquest_of_%C4%90%E1%BA%A1i_Ngu) (from `Ming–Hồ War`)
+- `eep-017` **Civilian power** → [Civil and political rights](https://en.wikipedia.org/wiki/Civil_and_political_rights) (from `Civilian power`)
+- `eep-032` **European Defence Community** → [Treaty establishing the European Defence Community](https://en.wikipedia.org/wiki/Treaty_establishing_the_European_Defence_Community) (from `European Defence Community`)
+- `eep-040` **Petersberg tasks** → [Petersberg Declaration](https://en.wikipedia.org/wiki/Petersberg_Declaration) (from `Petersberg tasks`)
+- `eep-050` **EU Global Strategy** → [European Union Global Strategy](https://en.wikipedia.org/wiki/European_Union_Global_Strategy) (from `EU Global Strategy`)
+- `eep-057` **Sanctions against Russia** → [Sanctions involving Russia](https://en.wikipedia.org/wiki/Sanctions_involving_Russia) (from `Sanctions against Russia`)
+- `eep-071` **Court of Justice of the EU** → [Court of Justice of the European Union](https://en.wikipedia.org/wiki/Court_of_Justice_of_the_European_Union) (from `Court of Justice of the EU`)
+- `eep-091` **DG NEAR** → [Directorate-General for Neighbourhood and Enlargement Negotiations](https://en.wikipedia.org/wiki/Directorate-General_for_Neighbourhood_and_Enlargement_Negotiations) (from `DG NEAR`)
+- `eep-093` **Assent procedure** → [Consent procedure](https://en.wikipedia.org/wiki/Consent_procedure) (from `Assent procedure`)
+- `eep-117` **Othering** → [Other (philosophy)](https://en.wikipedia.org/wiki/Other_(philosophy)) (from `Othering`)
+- `eep-132` **EUvsDisinfo** → [East StratCom Task Force](https://en.wikipedia.org/wiki/East_StratCom_Task_Force) (from `EUvsDisinfo`)
+- `eep-148` **COREPER** → [Committee of Permanent Representatives](https://en.wikipedia.org/wiki/Committee_of_Permanent_Representatives) (from `COREPER`)
+- `eep-158` **Safeguard clause** → [Safeguard](https://en.wikipedia.org/wiki/Safeguard) (from `Safeguard clause`)
+- `eep-169` **Absorption capacity** → [Enlargement of the European Union](https://en.wikipedia.org/wiki/Enlargement_of_the_European_Union) (from `Absorption capacity`)
+- `eep-180` **Association agreement** → [European Union association agreement](https://en.wikipedia.org/wiki/European_Union_association_agreement) (from `Association agreement`)
+- `eep-181` **DCFTA** → [Deep and Comprehensive Free Trade Area](https://en.wikipedia.org/wiki/Deep_and_Comprehensive_Free_Trade_Area) (from `DCFTA`)
+- `eep-192` **EU–Japan Economic Partnership Agreement** → [Japan–European Union relations](https://en.wikipedia.org/wiki/Japan%E2%80%93European_Union_relations) (from `EU–Japan Economic Partnership Agreement`)
+- `eep-202` **TTIP** → [Transatlantic Trade and Investment Partnership](https://en.wikipedia.org/wiki/Transatlantic_Trade_and_Investment_Partnership) (from `TTIP`)
+- `eep-214` **Guns or butter** → [Guns versus butter model](https://en.wikipedia.org/wiki/Guns_versus_butter_model) (from `Guns or butter`)
+- `eep-245` **EUMAM Ukraine** → [European Union Military Assistance Mission in support of Ukraine](https://en.wikipedia.org/wiki/European_Union_Military_Assistance_Mission_in_support_of_Ukraine) (from `EUMAM Ukraine`)
+- `eep-250` **EUFOR Tchad/RCA** → [European Union Military Operation in Chad and the Central African Republic](https://en.wikipedia.org/wiki/European_Union_Military_Operation_in_Chad_and_the_Central_African_Republic) (from `EUFOR Tchad/RCA`)
+- `eep-262` **Deliberate ambiguity** → [Policy of deliberate ambiguity](https://en.wikipedia.org/wiki/Policy_of_deliberate_ambiguity) (from `Deliberate ambiguity`)
+- `eep-295` **ReArm Europe** → [Readiness 2030](https://en.wikipedia.org/wiki/Readiness_2030) (from `ReArm Europe`)
 - `eg-003` **inundation** → [Flood](https://en.wikipedia.org/wiki/Flood) (from `Inundation`)
 - `eg-004` **Two Lands** → [Upper and Lower Egypt](https://en.wikipedia.org/wiki/Upper_and_Lower_Egypt) (from `Two Lands`)
 - `eg-063` **Umm el-Qa'ab** → [Umm El Qa'ab](https://en.wikipedia.org/wiki/Umm_El_Qa'ab) (from `Umm el-Qa'ab`)
@@ -263,6 +285,18 @@ The answer redirects to an article with another name. Most are the same subject 
 - `pea-080` **Choi Soon-sil gate** → [2016 South Korean political scandal](https://en.wikipedia.org/wiki/2016_South_Korean_political_scandal) (from `Choi Soon-sil gate`)
 - `pea-084` **Lee Jae-myung** → [Lee Jae Myung](https://en.wikipedia.org/wiki/Lee_Jae_Myung) (from `Lee Jae-myung`)
 - `pea-092` **Party cells** → [Organization of the Communist Party of the Soviet Union](https://en.wikipedia.org/wiki/Organization_of_the_Communist_Party_of_the_Soviet_Union) (from `Party cell`)
+- `pea-104` **Kim Il-sung** → [Kim Il Sung](https://en.wikipedia.org/wiki/Kim_Il_Sung) (from `Kim Il-sung`)
+- `pea-105` **Kim Jong-il** → [Kim Jong Il](https://en.wikipedia.org/wiki/Kim_Jong_Il) (from `Kim Jong-il`)
+- `pea-106` **Kim Jong-un** → [Kim Jong Un](https://en.wikipedia.org/wiki/Kim_Jong_Un) (from `Kim Jong-un`)
+- `pea-110` **Arduous March** → [1990s North Korean famine](https://en.wikipedia.org/wiki/1990s_North_Korean_famine) (from `Arduous March`)
+- `pea-121` **Great Fatherland Liberation War** → [Korean War](https://en.wikipedia.org/wiki/Korean_War) (from `Great Fatherland Liberation War`)
+- `pea-126` **Hereditary succession** → [Order of succession](https://en.wikipedia.org/wiki/Order_of_succession) (from `Hereditary succession`)
+- `pea-128` **North Korean nuclear programme** → [North Korea and weapons of mass destruction](https://en.wikipedia.org/wiki/North_Korea_and_weapons_of_mass_destruction) (from `North Korean nuclear program`)
+- `pea-134` **One China policy** → [One China](https://en.wikipedia.org/wiki/One_China) (from `One China policy`)
+- `pea-135` **UN General Assembly Resolution 2758** → [United Nations General Assembly Resolution 2758 (XXVI)](https://en.wikipedia.org/wiki/United_Nations_General_Assembly_Resolution_2758_(XXVI)) (from `UN General Assembly Resolution 2758`)
+- `pea-193` **Secret Speech** → [On the Cult of Personality and Its Consequences](https://en.wikipedia.org/wiki/On_the_Cult_of_Personality_and_Its_Consequences) (from `Secret Speech`)
+- `pea-200` **Partisan faction** → [Guerrilla faction](https://en.wikipedia.org/wiki/Guerrilla_faction) (from `Partisan faction`)
+- `pea-216` **China Dream** → [Chinese Dream](https://en.wikipedia.org/wiki/Chinese_Dream) (from `China Dream`)
 - `ps-004` **mental process** → [Cognition](https://en.wikipedia.org/wiki/Cognition) (from `Mental process`)
 - `ps-011` **nature and nurture** → [Nature versus nurture](https://en.wikipedia.org/wiki/Nature_versus_nurture) (from `Nature and nurture`)
 - `ps-024` **blank slate** → [Tabula rasa](https://en.wikipedia.org/wiki/Tabula_rasa) (from `Blank slate`)
@@ -450,7 +484,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-147` **German-Soviet Frontier Treaty** → [German–Soviet Boundary and Friendship Treaty](https://en.wikipedia.org/wiki/German%E2%80%93Soviet_Boundary_and_Friendship_Treaty) (from `German-Soviet Frontier Treaty`)
 - `ww2-153` **AB-Aktion** → [Aktion AB](https://en.wikipedia.org/wiki/Aktion_AB) (from `AB-Aktion`)
 
-## Settled from a disambiguation page (71)
+## Settled from a disambiguation page (75)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -464,6 +498,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `cnh-322` **Liu Yu** → [Liu Yu (Western Jin)](https://en.wikipedia.org/wiki/Liu_Yu_(Western_Jin)) (via the disambiguation page `Liu Yu`)
 - `cnh-350` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `cnh-373` **Emperor Xuanzong** → [Emperor Xuanzong of Tang](https://en.wikipedia.org/wiki/Emperor_Xuanzong_of_Tang) (via the disambiguation page `Xuanzong`)
+- `eep-152` **Cluster** → [Open cluster](https://en.wikipedia.org/wiki/Open_cluster) (via the disambiguation page `Cluster`)
+- `eep-289` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
 - `gga-002` **Polarity** → [Polarity (international relations)](https://en.wikipedia.org/wiki/Polarity_(international_relations)) (via the disambiguation page `Polarity`)
 - `gga-042` **Penholder** → [Penholder (United Nations)](https://en.wikipedia.org/wiki/Penholder_(United_Nations)) (via the disambiguation page `Penholder`)
 - `gga-253` **Bretton Woods** → [Bretton Woods system](https://en.wikipedia.org/wiki/Bretton_Woods_system) (via the disambiguation page `Bretton Woods`)
@@ -507,6 +543,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `pea-052` **Cabinet** → [Cabinet (government)](https://en.wikipedia.org/wiki/Cabinet_(government)) (via the disambiguation page `Cabinet`)
 - `pea-067` **Regionalism** → [Regionalism (politics)](https://en.wikipedia.org/wiki/Regionalism_(politics)) (via the disambiguation page `Regionalism`)
 - `pea-068` **National Security Law** → [National Security Law of the People's Republic of China](https://en.wikipedia.org/wiki/National_Security_Law_of_the_People's_Republic_of_China) (via the disambiguation page `National Security Act`)
+- `pea-166` **Executive Council** → [Executive Council of Hong Kong](https://en.wikipedia.org/wiki/Executive_Council_of_Hong_Kong) (via the disambiguation page `Executive Council`)
+- `pea-203` **Referendum Act** → [Referendums in Taiwan](https://en.wikipedia.org/wiki/Referendums_in_Taiwan) (via the disambiguation page `Referendum Act`)
 - `ps-027` **nativism** → [Psychological nativism](https://en.wikipedia.org/wiki/Psychological_nativism) (via the disambiguation page `Nativism`)
 - `rm-119` **legion** → [Roman legion](https://en.wikipedia.org/wiki/Roman_legion) (via the disambiguation page `Legion`)
 - `rm-144` **praefectura** → [Praefectura (Roman settlement)](https://en.wikipedia.org/wiki/Praefectura_(Roman_settlement)) (via the disambiguation page `Praefectura`)
@@ -526,17 +564,18 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ww2-006` **reparations** → [World War I reparations](https://en.wikipedia.org/wiki/World_War_I_reparations) (via the disambiguation page `Reparation`)
 - `ww2-035` **Article 48** → [Article 48 of the Weimar Constitution](https://en.wikipedia.org/wiki/Article_48_of_the_Weimar_Constitution) (via the disambiguation page `Article 48`)
 
-## Matched by search — check each (5)
+## Matched by search — check each (6)
 
 No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.
 
 - `cnh-013` **Chinese flood myth** → [Chinese flood myths](https://en.wikipedia.org/wiki/Chinese_flood_myths)
+- `eep-069` **Coalitions of the willing** → [Coalition of the willing (Russo-Ukrainian war)](https://en.wikipedia.org/wiki/Coalition_of_the_willing_(Russo-Ukrainian_war))
 - `gr-499` **Parthenon metopes** → [Metopes of the Parthenon](https://en.wikipedia.org/wiki/Metopes_of_the_Parthenon)
 - `jp-037` **moated settlement** → [Moated settlements](https://en.wikipedia.org/wiki/Moated_settlements)
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 
-## Disambiguation pages that could not be settled (130)
+## Disambiguation pages that could not be settled (139)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -549,6 +588,12 @@ Pick the right article by hand, or leave the card without a link.
 - `cnh-166` **Li Kui** — `Li Kui` is a disambiguation page; its links: `Li Kui (legalist)`, `Li Kui (chancellor)`, `Li Kui (Water Margin)`
 - `cnh-194` **huangdi** — `Huangdi` is a disambiguation page; its links: `Huangdi, Henan`, `Huangdi, Liaoning`, `Huangdi, Xinjiang`, `Huangdi Township`
 - `cnh-359` **Zhenguan era** — `Zhenguan` is a disambiguation page
+- `eep-070` **Emergency brake** — `Emergency brake` is a disambiguation page; its links: `Emergency brake (train)`, `Emergency brake assist`
+- `eep-136` **RT** — `RT` is a disambiguation page; its links: `R/T`, `RT!`, `Lil RT`, `RT (energy)`, `RT America`, `RT Arabic`
+- `eep-150` **Screening** — `Screening` is a disambiguation page; its links: `Baggage screening`, `Call screening`, `Electric-field screening`, `High-throughput screening`, `Mechanical screening`, `Screening (economics)`
+- `eep-252` **Maturation** — `Maturation` is a disambiguation page; its links: `Tissue maturation`
+- `eep-257` **Berlin Plus** — `Berlin Plus` is a disambiguation page; its links: `Berlin Plus agreement`, `Berlin Plus package`
+- `eep-294` **SAFE** — `SAFE` is a disambiguation page; its links: `Safe (disambiguation)`, `Safe Ireland`, `SAFE (cable system)`, `SAFE Act (disambiguation)`, `SAFE (New Zealand organisation)`, `Safe affordable fission engine`
 - `eg-001` **Kemet** — `Kemet` is a disambiguation page; its links: `Sons of Kemet`, `Km and Km.t (Kemet) (hieroglyphs)`, `KEMET Corporation`
 - `geo-502` **Austin** — `Austin` is a disambiguation page; its links: `Austin, Arkansas`, `Austin, Chicago`, `Austin, Colorado`, `Austin, Indiana`, `Austin, Kentucky`, `Austin, Manitoba`
 - `geo-504` **Providence** — `Providence` is a disambiguation page; its links: `Divine providence`, `Eye of Providence`, `Fort Providence`, `HMS Providence`, `Old Providence`, `Providence, Alabama`
@@ -627,6 +672,9 @@ Pick the right article by hand, or leave the card without a link.
 - `pea-035` **Okinawa** — `Okinawa` is a disambiguation page; its links: `Okinawa Prefecture`, `Okinawa Islands`, `Okinawa Island`, `Okinawa Prefecture`, `Okinawa Island`, `Okinawa Islands`
 - `pea-044` **Fukushima disaster** — `Fukushima disaster` is a disambiguation page
 - `pea-087` **Democratic Party of Korea** — `Minjudang` is a disambiguation page; its links: `Korea Democratic Party`
+- `pea-116` **National Defence Commission** — `National Defense Commission` is a disambiguation page
+- `pea-129` **Great Leader** — `Great Leader` is a disambiguation page; its links: `Great Leader (concept)`
+- `pea-146` **Guoyu** — `Guoyu` is a disambiguation page; its links: `Guoyu (book)`, `Guoyu (name)`
 - `ps-041` **mental test** — `Mental test` is a disambiguation page
 - `rm-019` **Veneti** — `Veneti` is a disambiguation page; its links: `Adriatic Veneti`, `Veneti (Gaul)`, `Vistula Veneti`
 - `rm-163` **Tarentum** — `Tarentum` is a disambiguation page; its links: `Tarentum, Pennsylvania`, `Tarentum Bridge`, `Tarentum (Campus Martius)`
@@ -682,7 +730,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (97)
+## Section redirects — no dedicated page (102)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -697,6 +745,10 @@ Wikipedia treats these as part of another article. No link.
 - `cnh-720` **weisuo system** — `Weisuo system` only redirects into `Military of the Ming dynasty#Guard battalion system`
 - `cnh-724` **Siyi Guan** — `Siyi Guan` only redirects into `Hanlin Academy#Bureau of Translators`
 - `cnh-772` **Huguang fills Sichuan** — `Huguang fills Sichuan` only redirects into `History of migration to Sichuan#"Huguang Fills Sichuan"`
+- `eep-062` **Qualified majority voting** — `Qualified majority voting` only redirects into `Voting in the Council of the European Union#Treaty of Lisbon`
+- `eep-183` **Mixed agreement** — `Mixed agreement` only redirects into `Common Commercial Policy (EU)#Mixed agreements`
+- `eep-233` **Discursive institutionalism** — `Discursive institutionalism` only redirects into `New institutionalism#Constructivist institutionalism`
+- `eep-272` **Rapid Deployment Capacity** — `Rapid Deployment Capacity` only redirects into `Defence forces of the European Union#Rapid Deployment Capacity`
 - `eg-018` **Faiyum A culture** — `Faiyum A culture` only redirects into `Prehistoric Egypt#Faiyum A culture`
 - `eg-096` **Heb-sed court** — `Heb-sed court` only redirects into `Pyramid of Djoser#Heb-sed court`
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
@@ -739,6 +791,7 @@ Wikipedia treats these as part of another article. No link.
 - `ko-038` **Early Iron Age** — `Early Iron Age` only redirects into `Iron Age#Beginning`
 - `ko-039` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `pea-061` **Candlelight Revolution** — `Candlelight Revolution` only redirects into `2016–2017 South Korean protests#Protests against Park Geun-hye`
+- `pea-195` **Kimilsungism–Kimjongilism** — `Kimilsungism–Kimjongilism` only redirects into `Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism`
 - `ps-025` **substance dualism** — `Substance dualism` only redirects into `Mind–body dualism#Substance dualism`
 - `ps-050` **imageless thought** — `Imageless thought` only redirects into `Oswald Külpe#Imageless thought`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
@@ -784,7 +837,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (761)
+## No article found (937)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -925,6 +978,175 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-756` **five grades of mourning** — search suggests `Mourning`, `Chinese kinship`, `Sikhism in China`, `Albert Mamary`, `Ming dynasty`
 - `cnh-768` **ward-and-market system** — search suggests `Market socialism`, `Marketplace`, `Free market`, `Poverty in China`, `History of China`
 - `cnh-773` **Ethnic Classification Project** — search suggests `Ethnic minorities in China`, `List of contemporary ethnic groups of Africa`, `Han Chinese`, `Kra–Dai-speaking peoples`, `Koreans in China`
+- `eep-001` **Iceland referendum** — search suggests `2026 Icelandic European Union membership negotiations referendum`, `Iceland–European Union relations`, `1944 Icelandic constitutional referendum`, `Icelandic referendum`, `Referendums related to the European Union`
+- `eep-004` **External action** — search suggests `European External Action Service`, `List of ambassadors of the European Union`, `European Union Intelligence and Situation Centre`, `European Union Military Staff`, `High Representative of the Union for Foreign Affairs and Security Policy`
+- `eep-005` **Composite foreign policy** — search suggests `Franco-British Union`, `European Commissioner for External Relations`, `List of countries by exchange rate regime`, `SSE Composite Index`, `Eastern Partnership`
+- `eep-006` **External dimension** — search suggests `Northern Dimension`, `European External Action Service`, `Member state of the European Union`, `Presidency of the Council of the European Union`, `Pan-European corridors`
+- `eep-008` **Capacity to act** — search suggests `Mental Capacity Act 2005`, `Member state of the European Union`, `European Union`, `European Chips Act`, `Enlargement of the European Union`
+- `eep-010` **Capoccia and Kelemen** — search suggests `R. Daniel Kelemen`, `Critical juncture theory`, `New institutionalism`
+- `eep-011` **Camille Grand** — search suggests `Camille Gutt`, `Camille Kovalev`, `Camille (French singer)`, `Pavel Kovalev (figure skater)`, `Camille Pissarro`
+- `eep-012` **Defending Europe with Less America** — search suggests `Law of the European Union`, `Europe`, `Islam in Europe`, `UEFA European Championship`, `European colonization of the Americas`
+- `eep-015` **Rimini speech** — search suggests `COVID-19 pandemic in Europe`, `Roberto Vannacci`, `Italian General Confederation of Labour`, `Giuseppe Garibaldi`, `San Marino in the Eurovision Song Contest 2014`
+- `eep-021` **Normative power** — search suggests `Great power`, `Safety`, `European integration`, `European values`, `Demoicracy`
+- `eep-022` **Ian Manners** — search suggests `European Union studies`, `European Central Bank`, `Ian Kershaw`, `Foreign Policy Centre`, `Richard G. Whitman`
+- `eep-023` **Norm diffusion** — search suggests `Amitav Acharya`, `Bystander effect`, `Europeanisation`, `European Union competition law`, `Health informatics`
+- `eep-024` **Transformative power** — search suggests `European Union`, `Law of the European Union`, `Great power`, `Monarchies in Europe`, `Western European Union`
+- `eep-026` **Collective power** — search suggests `Member state of the European Union`, `Collective security`, `Nuclear power in the European Union`, `Subsidiarity (European Union)`, `Law of the European Union`
+- `eep-029` **Power to** — search suggests `Nuclear power in the European Union`, `Solar power in the European Union`, `European Union`, `Member state of the European Union`, `Institutions of the European Union`
+- `eep-030` **Geopolitical power** — search suggests `Geopolitics`, `2026 Icelandic European Union membership negotiations referendum`, `Strategic autonomy`, `Great power`, `Potential superpower`
+- `eep-031` **Language of power** — search suggests `Languages of the European Union`, `Member state of the European Union`, `Nuclear power in the European Union`, `European balance of power`, `European Union`
+- `eep-043` **Helsinki European Council** — search suggests `Member state of the European Union`, `Helsinki Accords`, `European Chemicals Agency`, `European Union–Turkey Customs Union`, `European Union Military Committee`
+- `eep-051` **Implementation Plan on Security and Defence** — search suggests `Common Security and Defence Policy`, `Member state of the European Union`, `European Union–NATO relations`, `European Union Military Staff`, `Defence forces of the European Union`
+- `eep-055` **Strategic Compass** — search suggests `Strategic Compass for Security and Defence`, `Security and defence partnerships of the European Union`, `European Union Global Strategy`, `European Union`, `Security Action for Europe`
+- `eep-056` **EU–China Strategic Outlook** — search suggests `China–European Union relations`, `Canada–European Union relations`, `European Union`, `Potential superpower`, `Accession of Armenia to the European Union`
+- `eep-064` **Constructive abstention** — search suggests `Unanimity`, `EU Carbon Border Adjustment Mechanism`, `Neutral member states in the European Union`, `Constructive vote of no confidence`, `Treaty establishing the European Defence Community`
+- `eep-065` **Article 31(2) TEU** — search suggests `Member state of the European Union`, `Law of the European Union`, `Maastricht Treaty`, `Withdrawal from the European Union`, `European Union`
+- `eep-068` **Mutual assistance clause** — search suggests `Member state of the European Union`, `Western European Union`, `Treaty establishing a Constitution for Europe`, `Western Union (alliance)`, `Neutral member states in the European Union`
+- `eep-076` **Norm contestation** — search suggests `Law of the European Union`, `Russia–European Union relations`, `Accession of Ukraine to the European Union`, `Potential enlargement of the European Union`, `Israel–European Union relations`
+- `eep-077` **Issue linkage** — search suggests `European Union Emissions Trading System`, `Linkage (policy)`, `President of the European Commission`, `European Union and the United Nations`, `European Coal and Steel Community`
+- `eep-078` **Delay of sanctions against Belarus** — search suggests `List of people and organizations sanctioned in relation to human rights violations in Belarus`, `Belarus`, `International sanctions during the Russo-Ukrainian war`, `International sanctions during the Russian invasion of Ukraine`, `Slovak opposition to sanctions on Russia`
+- `eep-083` **EU Military Committee** — search suggests `Chairman of the European Union Military Committee`, `List of military and civilian missions of the European Union`, `European Union Military Committee`, `Member state of the European Union`, `European Union Military Staff`
+- `eep-085` **High Representative and Vice-President** — search suggests `Vice-president of the European Commission`, `Vice-President of the European Parliament`, `Presidents of the European Union`, `President of the European Commission`, `Joe Biden`
+- `eep-087` **EU Delegations** — search suggests `List of ambassadors of the European Union`, `Diplomatic missions of the European Union`, `Foreign relations of the European Union`, `Canada–European Union relations`, `Potential enlargement of the European Union`
+- `eep-088` **Intelligence and Situation Centre** — search suggests `European Union Intelligence and Situation Centre`, `Joint European Union Intelligence School`, `European Centre for Disease Prevention and Control`, `European Union`, `Europol`
+- `eep-090` **Geopolitical Commission** — search suggests `Canada–European Union relations`, `European Chips Act`, `Accession of Turkey to the European Union`, `Accession of Bosnia and Herzegovina to the European Union`, `Central and Eastern Europe`
+- `eep-095` **Global Human Rights Sanctions Regime** — search suggests `European Union sanctions`, `EU Global Human Rights Sanctions Regime`, `List of people and organizations sanctioned in relation to human rights violations in Belarus`, `List of sanctions involving Israel`, `United States government sanctions`
+- `eep-096` **International Procurement Instrument** — search suggests `Government procurement in the European Union`, `Procurement`, `Government procurement`, `E-procurement`, `List of European Union regulations`
+- `eep-100` **Costs of Non-Europe in foreign policy** — search suggests `Languages of the European Union`, `Energy policy of the European Union`, `Economy of the European Union`, `Treaties of the European Union`, `2004 enlargement of the European Union`
+- `eep-101` **EEAS reform** — search suggests `Reform UK`, `European Economic Area`, `2026 Icelandic European Union membership negotiations referendum`, `Member state of the European Union`, `European External Action Service`
+- `eep-107` **De jure Brussels effect** — search suggests `De facto and de jure`, `Cyprus and the European Union`, `Accession of Armenia to the European Union`, `Special territories of members of the European Economic Area`, `Soviet Union`
+- `eep-108` **De facto Brussels effect** — search suggests `Brussels effect`, `De facto and de jure`, `Brussels`, `Western Union (alliance)`, `Flag of Europe`
+- `eep-109` **Regulatory capacity** — search suggests `Regulatory agency`, `Canada–European Union relations`, `Law of the European Union`, `Body of European Regulators for Electronic Communications`, `European Union Agency for the Cooperation of Energy Regulators`
+- `eep-110` **Inelastic targets** — search suggests `Dynamic pricing`, `Henry Way Kendall`, `Neutron diffraction`, `Dutch East India Company`, `Tax revenue`
+- `eep-111` **Indivisibility** — search suggests `Glossary of European Union concepts, acronyms, and jargon`, `European values`, `Personal union`, `Delegation of the European Union to the Republic of South Africa`, `Treaty establishing the European Defence Community`
+- `eep-112` **Three models of digital regulation** — search suggests `Artificial Intelligence Act`, `Digital Services Act`, `Regulation of artificial intelligence`, `Regulation to Prevent and Combat Child Sexual Abuse`, `Digital Markets Act`
+- `eep-113` **Cross-issue bargaining** — search suggests `Law of the European Union`, `Trade union`, `European Trade Union Confederation`, `International comparisons of trade unions`, `European Union`
+- `eep-114` **Actorness** — search suggests `European Union`, `Equity (British trade union)`, `Law of the European Union`, `Arctic policy of the European Union`, `History of the European Union`
+- `eep-115` **De-centring the EU** — search suggests `Member state of the European Union`, `Potential enlargement of the European Union`, `Law of the European Union`, `Canada–European Union relations`, `Norway–European Union relations`
+- `eep-118` **Relational perception** — search suggests `Migration and asylum policy of the European Union`, `Red tape`, `Carlo Rovelli`, `Dwight Nelson`, `Whistleblowing`
+- `eep-119` **Colonial legacy** — search suggests `History of colonialism`, `Colonialism`, `Legacy of the British Raj`, `Colonial history of the United States`, `Analysis of European colonialism and colonization`
+- `eep-120` **Informational monopoly** — search suggests `Operation Monopoly`, `European Commission`, `Monopoly`, `History of Monopoly`, `Presidency of the Council of the European Union`
+- `eep-121` **Counterweight to the United States** — search suggests `States of Germany`, `Institutions of the European Union`, `Democratic Party (United States)`, `Federal Europe`, `United States foreign policy in the Middle East`
+- `eep-122` **Woo, Dong and Kübler** — search suggests `2022 in sports`
+- `eep-123` **Bot-generated hashtags** — search suggests `Chris Messina (inventor)`, `Social bot`, `Hashtag activism`, `Social media`, `X (social network)`
+- `eep-124` **Unitary actor** — search suggests `Unitary state`, `Law of the European Union`, `Soviet Union`, `Barbados Agreement`, `List of companies of Hungary`
+- `eep-125` **EU Neighbours East opinion surveys** — search suggests `European Union`, `Accession of Armenia to the European Union`, `Potential enlargement of the European Union`, `Accession of Moldova to the European Union`, `Ukraine–European Union relations`
+- `eep-126` **TV news monitoring** — search suggests `European Union`, `Dušan Bajatović`, `Euronews`, `European Broadcasting Union`, `Law of the European Union`
+- `eep-129` **Coordinating Councils of Russian Compatriots** — search suggests `Russia–European Union relations`, `Russia under Vladimir Putin`, `Government and intergovernmental reactions to the Russian invasion of Ukraine`, `United Russia`, `Federal Security Service`
+- `eep-133` **Communication on tackling hybrid threats** — search suggests `European Union`, `Common Security and Defence Policy`, `Disinformation research`, `Digital Services Act`, `Russia–European Union relations`
+- `eep-134` **EuroDRONE** — search suggests `Russia–European Union relations`, `European Union–United States relations`, `Belarus–European Union border crisis`, `UEFA Euro 2016 qualifying`, `China–European Union relations`
+- `eep-135` **IRIS assessment of PESCO** — search suggests `2021 in science`
+- `eep-137` **Enlargement governance** — search suggests `2004 enlargement of the European Union`, `Potential enlargement of the European Union`, `Enlargement of the European Union`, `Member state of the European Union`, `Accession of Albania to the European Union`
+- `eep-141` **Big bang enlargement** — search suggests `Copenhagen criteria`, `Enlargement of the eurozone`, `UK rebate`, `Adoption of the euro in Cyprus`, `European School, Brussels III`
+- `eep-144` **First enlargement** — search suggests `Enlargement of the European Union`, `Potential enlargement of the European Union`, `2004 enlargement of the European Union`, `2007 enlargement of the European Union`, `1995 enlargement of the European Union`
+- `eep-147` **Asymmetric interdependence** — search suggests `Weaponized interdependence`, `Complex interdependence`, `Superpower`, `Postfunctionalism`, `Liberal intergovernmentalism`
+- `eep-149` **Commission opinion** — search suggests `Potential re-accession of the United Kingdom to the European Union`, `European Union legislative procedure`, `Accession of Montenegro to the European Union`, `European Commission`, `Opinion polling for the United Kingdom European Union membership referendum`
+- `eep-151` **Negotiating framework** — search suggests `Accession of Montenegro to the European Union`, `Law of the European Union`, `Member state of the European Union`, `Windsor Framework`, `Potential enlargement of the European Union`
+- `eep-153` **Fundamentals cluster** — search suggests `Accession of Ukraine to the European Union`, `Accession of Albania to the European Union`, `Accession of Moldova to the European Union`, `Potential enlargement of the European Union`, `Accession of Montenegro to the European Union`
+- `eep-154` **Chapters of the acquis** — search suggests `Acquis communautaire`, `Potential enlargement of the European Union`, `Accession of Montenegro to the European Union`, `Accession of Turkey to the European Union`, `Enlargement of the European Union`
+- `eep-156` **Convergence machine** — search suggests `Economic and Monetary Union of the European Union`, `European Union`, `Currency union`, `Law of the European Union`, `North American Union`
+- `eep-159` **Regular report** — search suggests `Member state of the European Union`, `European Union`, `Canada–European Union relations`, `Enlargement of the European Union`, `European People's Party`
+- `eep-160` **Rule of law reporting** — search suggests `Rule of Law Report`, `Law of the European Union`, `European Rule of Law Mechanism`, `European Union Rule of Law Mission in Kosovo`, `Member state of the European Union`
+- `eep-161` **Reform and Growth Facility** — search suggests `Accession of Albania to the European Union`, `Potential enlargement of the European Union`, `Cyprus and the European Union`, `Stability and Growth Pact`, `Economic and Monetary Union of the European Union`
+- `eep-162` **Ukraine Facility** — search suggests `European Peace Facility`, `Potential enlargement of the European Union`, `Member state of the European Union`, `European Union Military Assistance Mission in support of Ukraine`, `European Union`
+- `eep-163` **Revised enlargement methodology** — search suggests `Accession of Montenegro to the European Union`, `Accession of Serbia to the European Union`, `Accession of North Macedonia to the European Union`, `Opinion polling on the United Kingdom's membership of the European Union (2016–2020)`, `Law of the European Union`
+- `eep-164` **Belt and Road in the Western Balkans** — search suggests `Regions of Europe`, `Southern Europe`, `Global Gateway`, `Slavic migrations to the Balkans`, `Trans-European Transport Network`
+- `eep-165` **Ukraine’s membership application** — search suggests `Accession of Ukraine to the European Union`, `Member state of the European Union`, `Ukraine–European Union relations`, `Accession of Georgia to the European Union`, `Potential enlargement of the European Union`
+- `eep-166` **Accession through war** — search suggests `Accession of Armenia to the European Union`, `Accession of Montenegro to the European Union`, `Accession of Turkey to the European Union`, `Accession of Albania to the European Union`, `Accession of Moldova to the European Union`
+- `eep-167` **Reverse enlargement** — search suggests `2013 enlargement of the European Union`, `Member state of the European Union`, `Referendums related to the European Union`, `Accession of Turkey to the European Union`, `National identity cards in the European Economic Area and Switzerland`
+- `eep-168` **Importing instability** — search suggests `Iceland–European Union relations`, `European Union–Ukraine Association Agreement`, `Soviet Union`, `European Central Bank`, `European Union Emissions Trading System`
+- `eep-170` **Constitutionalisation versus bilateralisation**
+- `eep-171` **Merit-based enlargement** — search suggests `Law of the European Union`, `Enlargement of the eurozone`, `European Union citizenship`, `European Economic Area`, `Eastern Partnership`
+- `eep-172` **Candidate status** — search suggests `Potential enlargement of the European Union`, `Accession of Ukraine to the European Union`, `Accession of Georgia to the European Union`, `Enlargement of the European Union`, `Member state of the European Union`
+- `eep-173` **European perspective** — search suggests `Institutions of the European Union`, `European Union`, `Enlargement of the European Union`, `Official Journal of the European Union`, `Flag of Europe`
+- `eep-174` **North Macedonia veto** — search suggests `Accession of North Macedonia to the European Union`, `North Macedonia`, `Accession of Albania to the European Union`, `VMRO-DPMNE`, `Veto`
+- `eep-175` **External governance** — search suggests `Treaty on European Union`, `Special territories of members of the European Economic Area`, `Governance`, `Member state of the European Union`, `European University Institute`
+- `eep-176` **Sandra Lavenex** — search suggests `Parmesan`
+- `eep-177` **Modes of external governance** — search suggests `Governance`, `Law of the European Union`, `European Union`, `Baku Initiative`, `Soviet Union`
+- `eep-178` **Governance versus policy** — search suggests `Regulation of artificial intelligence`, `Law of the European Union`, `Governance`, `European Union Emissions Trading System`, `United Kingdom membership of the European Union`
+- `eep-182` **Everything but the institutions** — search suggests `Enlargement of the European Union`, `European Union`, `Law of the European Union`, `Brussels and the European Union`, `European Commission`
+- `eep-184` **Association Council** — search suggests `European Union association agreement`, `Presidency of the Council of the European Union`, `Council of the European Union`, `European Union–Ukraine Association Agreement`, `Member state of the European Union`
+- `eep-185` **Democracy and human rights clause** — search suggests `Member state of the European Union`, `Democracy`, `Law of the European Union`, `Framework Convention on Artificial Intelligence`, `European Union`
+- `eep-186` **Swiss bilateral agreements** — search suggests `Switzerland–European Union relations`, `List of bilateral free trade agreements`, `European Economic Area`, `Trade agreements of the European Union`, `Trade agreement`
+- `eep-187` **Bilaterals III** — search suggests `2004 enlargement of the European Union`, `European Union`, `Canada–European Union relations`, `Accession of Montenegro to the European Union`, `European single market`
+- `eep-188` **Institutional Framework Agreement** — search suggests `European Union association agreement`, `Institutional seats of the European Union`, `Member state of the European Union`, `Trade agreements of the European Union`, `Institutions of the European Union`
+- `eep-189` **Dynamic harmonisation** — search suggests `Harmonisation of law`, `Download`, `Maastricht Treaty`, `Worldwide Harmonised Light Vehicles Test Procedure`, `European Union energy label`
+- `eep-191` **EU–Turkey Customs Union** — search suggests `European Union–Turkey Customs Union`, `European Union Customs Union`, `Customs union`, `Turkey–European Union relations`, `Accession of Turkey to the European Union`
+- `eep-193` **EU–Chile Advanced Framework Agreement** — search suggests `EU-U.S. trade agreement`, `Canada–European Union relations`, `Free trade agreements of the United Kingdom`, `European Free Trade Association`, `European integration`
+- `eep-194` **EU–Mercosur Interim Trade Agreement** — search suggests `European Union association agreement`, `List of bilateral free trade agreements`, `Free trade agreements of the European Union`, `Free trade agreements of the United Kingdom`, `Trade agreements of the European Union`
+- `eep-196` **Armenia CEPA** — search suggests `EU-Armenia Comprehensive and Enhanced Partnership Agreement`, `Accession of Armenia to the European Union`, `Armenia–European Union relations`, `Civil Contract (Armenia)`, `Armenia`
+- `eep-197` **Azerbaijan PCA** — search suggests `Azerbaijan–European Union relations`, `European Azerbaijan`, `European Union association agreement`, `Accession of Armenia to the European Union`, `European Union`
+- `eep-198` **Market power Europe** — search suggests `European single market`, `Member state of the European Union`, `Solar power in the European Union`, `Nuclear power in the European Union`, `European Union Customs Union`
+- `eep-199` **Chad Damro** — search suggests `Heather Grabbe`
+- `eep-200` **Geopoliticisation of trade**
+- `eep-201` **Meunier and Nicolaidis** — search suggests `List of political scientists`
+- `eep-205` **Dutch referendum on the Association Agreement** — search suggests `European Union–Ukraine Association Agreement`, `2016 Dutch Ukraine–European Union Association Agreement referendum`, `Andorra—San Marino—European Union Association Agreement`, `Withdrawal from the European Union`, `Brexit`
+- `eep-207` **Europe's Pitch Book** — search suggests `History of the European Union`, `Men's European Volleyball Championship`, `European Super League`, `Individual Speedway European Championship`, `A440 (pitch standard)`
+- `eep-208` **Marieke Blom** — search suggests `Post-mortem privacy`, `List of candidates in the 2024 European Parliament election in the Netherlands`, `List of works about Rembrandt`, `Bern`, `List of candidates in the 2006 Dutch general election`
+- `eep-209` **Self-fulfilling pessimism** — search suggests `History of philosophical pessimism`, `European Central Bank`, `Communism`, `History of the Soviet Union (1964–1982)`, `Committee of Union and Progress`
+- `eep-210` **Panic politics** — search suggests `Moral panic`, `Panic of 1893`, `Panic of 1873`, `List of moral panics`, `Brexit`
+- `eep-211` **Bad news sells** — search suggests `Brexit`, `2016 United Kingdom European Union membership referendum`, `Bad Day (Daniel Powter song)`, `Russia–European Union relations`, `Newport News, Virginia`
+- `eep-212` **Five ugly challenges** — search suggests `Eteri Tutberidze`, `1984 European Super Cup`, `Michael Fay (banker)`, `1994 European Super Cup`, `Eli Wallach`
+- `eep-213` **European Zeitenwende** — search suggests `European Green Party`, `Zeitenwende speech`, `Danish opt-outs from the European Union`, `2020s in Europe`, `Social Democratic Party of Germany`
+- `eep-216` **eupinions** — search suggests `Prague European Summit`
+- `eep-217` **Eroding public support** — search suggests `Accession of Ukraine to the European Union`, `Christian Democratic Union of Germany`, `Democratic legitimacy of the European Union`, `Eurozone crisis`, `Accession of North Macedonia to the European Union`
+- `eep-218` **Populist backlash** — search suggests `Populism`, `Right-wing populism`, `Radical right (Europe)`, `Brexit`, `Valence populism`
+- `eep-219` **Honest narrative** — search suggests `Russia–European Union relations`, `Whistleblowing`, `History of the Communist Party of the Soviet Union (Bolsheviks)`, `Henry Bibb`, `President (band)`
+- `eep-228` **Stairway of change** — search suggests `Brexit negotiations`, `Indo-European vocabulary`, `Black Elk Peak`, `Neues Museum`, `2021 European floods`
+- `eep-229` **Scope of change** — search suggests `Economy of the European Union`, `European Union Emissions Trading System`, `Withdrawal from the European Union`, `Single Euro Payments Area`, `Canada–European Union relations`
+- `eep-230` **Sustainability of change** — search suggests `Climate change in Europe`, `Potential re-accession of the United Kingdom to the European Union`, `European Union`, `Climate change`, `Corporate Sustainability Due Diligence Directive`
+- `eep-231` **Constitutional-level change** — search suggests `Member state of the European Union`, `Accession of Montenegro to the European Union`, `Law of the European Union`, `Climate change in Europe`, `2024 Moldovan European Union membership constitutional referendum`
+- `eep-236` **Permissive conditions** — search suggests `Permissive action link`, `Permissive software license`, `Operation Barbarossa`, `Pornography in Europe`, `Collective agreement coverage`
+- `eep-238` **Ukraine is one of us** — search suggests `Accession of Ukraine to the European Union`, `European Union–Ukraine Association Agreement`, `Ukraine–European Union relations`, `Russo-Ukrainian war (2022–present)`, `Ukraine`
+- `eep-239` **Geopolitical imperative** — search suggests `Geopolitics`, `India–Middle East–Europe Economic Corridor`, `The Grand Chessboard`, `Federal Europe`, `Eurasia`
+- `eep-240` **Group of Friends on Qualified Majority Voting** — search suggests `Law of the European Union`, `2016 United Kingdom European Union membership referendum`, `2014 Scottish independence referendum`, `Dissolution of the Soviet Union`, `Women's suffrage by country`
+- `eep-241` **Granada Declaration** — search suggests `Colombian War of Independence`, `European Political Community`, `United States Declaration of Independence`, `Islam in Europe`, `Colombian Constitution of 1821`
+- `eep-242` **Sailing on High Seas** — search suggests `International waters`, `United Nations Convention on the Law of the Sea`, `Northern Sea Route`, `Glossary of nautical terms (A–L)`, `Dogger Bank`
+- `eep-243` **Parliament’s treaty-change resolution** — search suggests `Treaties of the European Union`, `Treaty of Brussels`, `Treaty of Lisbon`, `Treaty on European Union`, `Maastricht Treaty`
+- `eep-244` **Danish defence opt-out referendum** — search suggests `Opt-outs in the European Union`, `2022 Danish European Union opt-out referendum`, `Danish opt-outs from the European Union`, `Referendums related to the European Union`, `United Kingdom opt-outs from EU legislation`
+- `eep-246` **Ukraine Assistance Fund** — search suggests `European Peace Facility`, `Ukraine–European Union relations`, `List of humanitarian aid to Ukraine during the Russo-Ukrainian war`, `Ukraine`, `Member state of the European Union`
+- `eep-247` **Article 122 TFEU** — search suggests `Treaty on the Functioning of the European Union`, `Member state of the European Union`, `European Union`, `National parliaments of the European Union`, `Foreign relations of the European Union`
+- `eep-248` **Enlargement fatigue** — search suggests `Enlargement of the European Union`, `Accession of Ukraine to the European Union`, `Ukraine–European Union relations`, `Eastern Partnership`, `Amyloidosis`
+- `eep-249` **Post-modern DNA** — search suggests `Genetic studies of Jews`, `History of Europe`, `Genealogical DNA test`, `Demographics of Europe`, `Genetic testing`
+- `eep-251` **Lethal aid through the EPF** — search suggests `Timeline of the Russo-Ukrainian war (12 November 2022 – 7 June 2023)`
+- `eep-253` **National acceptability** — search suggests `European Parliament`, `Turkey–European Union relations`, `Russia national rugby union team`, `Neutral member states in the European Union`, `Poland and the European Union`
+- `eep-254` **Political beliefs, perceptions and goals** — search suggests `Political views of Adolf Hitler`, `European Union`, `Accession of Turkey to the European Union`, `Accession of Albania to the European Union`, `Brexit`
+- `eep-255` **Open strategic autonomy** — search suggests `European Chips Act`, `Accession of Serbia to the European Union`, `Cyprus and the European Union`, `Digital sovereignty`, `2021 Portuguese Presidency of the Council of the European Union`
+- `eep-256` **Autonomy rather than independence** — search suggests `Scottish independence`, `Central bank independence`, `French Union`, `Special territories of members of the European Economic Area`, `Rise of nationalism in Europe`
+- `eep-259` **Civilian Headline Goal** — search suggests `Helsinki Headline Goal`, `European Union`, `European Union Military Staff`, `European Union Military Committee`, `EU battlegroup`
+- `eep-260` **December 2013 European Council** — search suggests `Council of the European Union`, `Presidency of the Council of the European Union`, `Member state of the European Union`, `2013 enlargement of the European Union`, `European Union Customs Union`
+- `eep-261` **Atlanticist–Europeanist spectrum** — search suggests `2022 Italian general election`, `Lega (political party)`, `Scottish National Party`
+- `eep-263` **Anglo-French consensus** — search suggests `European social model`, `Pan-European nationalism`, `European Union`, `Dual monarchy of England and France`, `Euro`
+- `eep-264` **Irish triple lock** — search suggests `Irish neutrality`, `Ireland women's national rugby union team`, `Rugby union in Ireland`, `Neutral member states in the European Union`, `Ireland–NATO relations`
+- `eep-265` **Complementarity with NATO** — search suggests `Canada–European Union relations`, `Permanent Structured Cooperation`, `Kosovo–North Macedonia relations`, `Andrei Kozyrev`, `Colombia–European Union relations`
+- `eep-266` **Turkey–Cyprus stalemate** — search suggests `Cyprus problem`, `Foreign relations of Northern Cyprus`, `United Nations Peacekeeping Force in Cyprus`, `Greece–Turkey relations`, `Aegean dispute`
+- `eep-267` **Eastern Flank** — search suggests `Eastern Europe`, `Accession of Armenia to the European Union`, `Eastern Front (World War II)`, `Bucharest Nine`, `Warsaw Pact`
+- `eep-268` **Security momentum** — search suggests `Common Security and Defence Policy`, `Federalisation of the European Union`, `Pro-Europeanism`, `Momentum (organisation)`, `Neutral member states in the European Union`
+- `eep-269` **Muscled-up junior partner** — search suggests `2022–23 Glasgow Warriors season`, `EastEnders`
+- `eep-270` **Strategic interdependence** — search suggests `Weaponized interdependence`, `Complex interdependence`, `Abraham L. Newman`, `European Youth Forum`, `Turkey–European Union relations`
+- `eep-271` **MILEX26**
+- `eep-274` **Strategic enablers** — search suggests `Brexit`, `Accession of Albania to the European Union`, `Enlargement of the European Union`, `European Union–United States relations`, `European single market`
+- `eep-276` **Kabul evacuation** — search suggests `2021 Kabul airlift`, `Fall of Kabul (2021)`, `2021 Kabul airport attack`, `Kabul airlift of 1928–1929`, `Reactions to the fall of Kabul (2021)`
+- `eep-277` **Force generation** — search suggests `European Union`, `List of military and civilian missions of the European Union`, `Common Security and Defence Policy`, `Law of the European Union`, `Demographics of the European Union`
+- `eep-278` **Defending Europe without the US** — search suggests `Europe`, `Law of the European Union`, `European Union–United States relations`, `UEFA Champions League`, `Greenland and the European Union`
+- `eep-279` **Twenty-nine national armies** — search suggests `European Union`, `American Civil War`, `United States Army Europe and Africa`, `World War II`, `European Union citizenship`
+- `eep-280` **Fifty new brigades** — search suggests `Red Brigades`, `Labour Party (UK) affiliated trade union`, `World War II`, `Infantry in the American Civil War`, `2020s European rearmament`
+- `eep-281` **Minimum deterrence package** — search suggests `FGC-9`, `Common Security and Defence Policy`, `List of minimum driving ages`, `History of the European Union`, `2015 Greek bailout referendum`
+- `eep-282` **Three and a half per cent of GDP** — search suggests `European Union`, `United Kingdom membership of the European Union`, `Law of the European Union`, `Economy of Lithuania`, `Eurozone crisis`
+- `eep-283` **€250 billion a year** — search suggests `European Union`, `Law of the European Union`, `List of continents by GDP`, `Dublin–Belfast corridor`, `Economy of the European Union`
+- `eep-284` **155mm shell stockpile** — search suggests `European Peace Facility`, `Shell (projectile)`, `Ukraine Defense Contact Group`, `Use of cluster munitions in the Russian invasion of Ukraine`, `List of military aid to Ukraine during the Russo-Ukrainian war`
+- `eep-285` **Zapad exercises** — search suggests `Zapad-81`, `Zapad 2025`, `List of Zapad exercises`, `Zapad 2009`, `Zapad 2021`
+- `eep-286` **150,000 European troops** — search suggests `Europe`, `Immigration to Europe`, `Belarus–European Union border crisis`, `European theatre of World War II`, `2020s in Europe`
+- `eep-287` **Russian production surge** — search suggests `Soviet Union`, `Russia in the European energy sector`, `Support for Russia in the Russo-Ukrainian war`, `2022–2023 Russia–European Union gas dispute`, `Finland–Russia relations`
+- `eep-288` **European Iron Network** — search suggests `Economy of the European Union`, `Law of the European Union`, `European Green Belt`, `Europe`, `Cultural Route of the Council of Europe`
+- `eep-290` **Golden pentangles** — search suggests `List of 2026 deaths in popular music`, `Deaths in September 2025`, `Bee Gees`, `Deaths in March 2026`, `The Smiths`
+- `eep-291` **Article 346 TFEU** — search suggests `Law of the European Union`, `Special territories of members of the European Economic Area`, `Foreign relations of the European Union`, `European Stability Mechanism`, `European multilateral defence procurement`
+- `eep-292` **Core, semi-periphery and periphery** — search suggests `Semi-periphery countries`, `Periphery countries`, `Core countries`, `World-systems theory`, `Attica (region)`
+- `eep-293` **Buy European** — search suggests `European Union`, `United Kingdom membership of the European Union`, `European Union–United States relations`, `Brexit`, `European single market`
+- `eep-296` **White Paper for European Defence** — search suggests `European Defence Agency`, `Law of the European Union`, `Security Action for Europe`, `Green paper`, `Economy of the European Union`
+- `eep-298` **Twenty-seven military-industrial complexes** — search suggests `European Union`, `American Civil War`, `Soviet Union`, `History of the Soviet Union (1927–1953)`, `Cold War`
+- `eep-299` **Ukraine’s drone industry** — search suggests `Ukrainian strikes on Wildberries warehouses`, `Defence industry of Ukraine`, `Russo-Ukrainian war (2022–present)`, `Russo-Ukrainian war`, `Centauros anti drone system`
+- `eep-300` **EU–UK defence pact** — search suggests `European Defence Agency`, `Canada–European Union relations`, `United Kingdom–European Union relations`, `European Union–NATO relations`, `Brexit`
 - `eg-017` **El Omari** — search suggests `Prehistoric Egypt`, `Mohamed Atta`, `Al-Omari`, `Safia El Emari`, `Al-Omari Grand Mosque`
 - `eg-026` **Predynastic period** — search suggests `Prehistoric Egypt`, `Predynastic Egyptian mummies`, `Naqada III`, `Gebelein predynastic mummies`, `Ancient Egypt`
 - `eg-028` **Naqada expansion** — search suggests `Naqada III`, `Naqada II`, `Naqada culture`, `Prehistoric Egypt`, `Ancient Egypt`
@@ -941,7 +1163,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-078` **jar sealing** — search suggests `Early Dynastic Period of Egypt`, `Narmer`, `Egypt–Mesopotamia relations`, `Mausoleum at Halicarnassus`, `Baghdad Battery`
 - `eg-080` **Egyptian stone vessels** — search suggests `Stone vessels in ancient Egypt`, `First Dynasty of Egypt`, `Egyptian faience`, `Prehistoric Egypt`, `Ancient Egyptian technology`
 - `eg-113` **Heit el-Ghurab** — search suggests `Fourth Dynasty of Egypt`, `Memphite Necropolis`, `Great Pyramid of Giza`, `List of Egyptian pyramidia`, `Kanefer`
-- `gga-001` **Security, prosperity and values**
+- `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**
 - `gga-005` **Leader personality**
@@ -1371,6 +1593,13 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `pea-098` **Red capitalists** — search suggests `Red Guards`, `Capitalist roader`, `Chinese New Left`, `Left communism in China`, `Red Roulette`
 - `pea-099` **Advance of the state, retreat of the private** — search suggests `Retreat of the government of the Republic of China to Taiwan`, `Retreat of the state, advance of the private sector`, `The state advances as the private sector retreats`, `China`, `Territorial disputes of China`
 - `pea-100` **Reds and experts** — search suggests `Both red and expert`, `Red Guards`, `2026 Nepal–Tibet floods`, `China`, `Conservative Faction (Cultural Revolution)`
+- `pea-109` **Kyo-hwa-so** — search suggests `Song Hye-kyo`, `Committee for Human Rights in North Korea`, `The Glory (TV series)`, `Descendants of the Sun`, `Ella Gross`
+- `pea-123` **Organisational life** — search suggests `China`, `Organization of the Chinese Communist Party`, `Republic of China (1912–1949)`, `Wufu`, `Democracy in China`
+- `pea-186` **Uncivil disobedience** — search suggests `Civil resistance`, `Reprisals against commentators on the Charlie Kirk assassination`, `Art of the 2019–2020 Hong Kong protests`, `Transcendental whistling`, `Civil discourse`
+- `pea-205` **You live, I die** — search suggests `Edge of Tomorrow`, `Live and Let Die (song)`, `May you live in interesting times`, `I Never Die`, `PewDiePie`
+- `pea-206` **Black Island Nation Youth Front** — search suggests `Sent-down youth`, `Sunflower Student Movement`, `GANEFO`, `Spratly Islands dispute`, `World Skate Games`
+- `pea-209` **Anti-media monopoly movement** — search suggests `New Brandeis movement`, `American Communist Party (2024)`, `Monopoly (game)`, `Jackson Hinkle`, `China Media Group`
+- `pea-213` **Eyre Crowe memorandum** — search suggests `Paris Peace Conference (1919–1920)`, `Levant Company`, `International relations (1919–1939)`, `Robert Cecil, Viscount Cecil of Chelwood`, `Defensively equipped merchant ship`
 - `ps-002` **behaviour and mental processes** — search suggests `Compulsive sexual behaviour disorder`, `Social science`, `Mind`, `Structuralism (psychology)`, `Ironic process theory`
 - `ps-030` **localisation of function** — search suggests `Id, ego and superego`, `Functional specialization (brain)`, `Neuropsychology`, `Lateralization of brain function`, `Interaural time difference`
 - `ps-033` **specific nerve energies** — search suggests `Perception`, `Pain theories`, `Sense`, `Physiological psychology`, `Parasympathetic nervous system`
