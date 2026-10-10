@@ -2551,14 +2551,16 @@ settings overwrote it; the retake sets `data-theme` and `.night` on the body as 
 **CI on the pushed heads (run 38022185997 on 001d602; the no-browser job and the frame gate green, the Playwright job red on
 eight suites).** Three are the known trio (draw-cards, tour, personal-atlas). `test-war-cards` ("the popup keeps the legend",
 the v1 personal atlas) is red on main's last run (37976490261) with the same line — not this branch's. `test-review-decks`
-("cards that genuinely carry other phrasings") passed on main with extras on one card of its five random picks and drew five
-without here — a draw, not the Atlas (nothing in this branch touches a card). The three Atlas reds were this phase's own
+("cards that genuinely carry other phrasings") counts the phrasing pools of the five cards the day's draw deals to Multiple Choice: main's run on
+2026-10-09 drew one card with a pool, both runs on 2026-10-10 drew none — the date, not the Atlas (nothing in this branch touches a card). The three Atlas reds were this phase's own
 contracts meeting Phase 1's tests: `test-atlas-card` and `test-atlas-search` expected a deep link to END at the place, and
 it now carries `?y=<year>` (the year is part of the link by the brief), and the phone sheet to sit on the host's bottom edge,
 where it now sits on the rail; `test-atlas-stages` expected a 1280×800 drag on the runner's software GL to escalate, and after
 the line and still caches the runner's frames read 50–67 ms, under the 70 ms rule, so stage 0 was the logic's correct answer
 — the three tests now state those contracts (an optional year in the link; the sheet on the rail; no escalation owed when the
 trace holds no two unstalled slow frames running), and the escalation path stays covered where frames do run slow.
+The next run (38026399053 on 6b1d696) read every Atlas suite green on the runner; its five reds are the trio, the war-cards
+legend line red on main, and the review-decks phrasing draw again.
 
 **What contradicts the design.** (1) §2.3 said a face's fill and its stroke must come from one ring; a
 historical fill comes from the resident mesh and is masked by the land stencil instead — the decision
