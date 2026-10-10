@@ -26519,7 +26519,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", gga: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -27206,6 +27206,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        range. It takes the one family absent here, the blue-violet between Greece's Aegean and Rome's
        imperial purple, without being either. NOT looked at on a screen yet — see the note below. */
     pea:      { bg: "#7A7AB5" },
+    /* olive (Gateway to Global Affairs, the second course in the Special section) — MEASURED, like every
+       hue above it. Swept in CIELAB (L 36-60, chroma 24-52, every hue angle) against all 39 hues on the
+       shelf, keeping only candidates whose contrast against white stays inside the shelf's 3.7-10.4 range:
+       the freest region is the dark olive at hue angle 99, which stands 21.2 from its nearest neighbour
+       (Mesopotamia) against a TIGHTEST EXISTING PAIR of 4.0 (Mesopotamia against Russia's geography). It
+       reads 7.5:1 against white. The runner-up, a pink at 3.9:1, sat at the bottom of that range. It is
+       also the olive branch, which a course in diplomacy can carry. NOT looked at on a screen yet. */
+    gga:      { bg: "#5C5600" },
     /* muted plum (Psychology) — MEASURED, like every hue above it. Swept in CIELAB against all eighteen
        hues on the shelf inside its own band (L 28-55, chroma 7-62), the freest region of the whole wheel
        is the mauve/plum quadrant; the peak candidate stands 30.1 from its nearest neighbour against a
@@ -27646,7 +27654,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": "2026-08-15", "geo-world": "2026-08-28", psych: "2026-08-28", "geo-china": "2026-08-29",
     ww2: "2026-09-05", bio: "2026-09-05", "col-42": "2026-09-05", korea: "2026-09-06", "col-41": "2026-09-06",
     japan: "2026-09-06", art: "2026-09-06", "geo-russia": "2026-09-14", pea: "2026-09-17", egypt: "2026-09-18",
-    flags: "2026-09-18",
+    flags: "2026-09-18", gga: "2026-10-10",
   };
   function fmtYmd(s) {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ""));

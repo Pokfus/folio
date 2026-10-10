@@ -95,6 +95,11 @@ const PLANS = {
      10 for each set reading), and it is widened as a lecture lands rather than declared at 480 and
      left full of holes. A hole inside the declared range still fails here, which is the point. */
   "politics-east-asia": ["pea", "pea-", [[1, 100]]],
+  /* Gateway to Global Affairs is the second COURSE (Leiden, 2026). Unlike Politics: East Asia its plan
+     DOES run ahead of the writing — the lectures and set readings were all supplied before the first card —
+     so all 300 numbers are declared at once and a hole in the plan fails here. Lecture 7 (Russia) has no
+     slides yet and takes gga-301 onward; widen this range when it lands. */
+  "gateway-to-global-affairs": ["gga", "gga-", [[1, 300]]],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */

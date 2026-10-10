@@ -20160,6 +20160,141 @@ window.COLLECTION_TREE = {
           "cardIds": []
         }
       ]
+    },
+    {
+      "id": "gga",
+      "title": "Gateway to Global Affairs",
+      "blurb": "A university course on how the world is run and contested — power, economics, peacekeeping, Ukraine and the law — with a deck for each lecture and one for each set reading.",
+      "total": 300,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "gga-l1",
+          "title": "Lecture 1 · Power centres and the new disorder",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-l2",
+          "title": "Lecture 2 · The military–political nexus",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-l3",
+          "title": "Lecture 3 · Economic diplomacy, humanitarian aid and development",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-l4",
+          "title": "Lecture 4 · Multilateralism and the Global South",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-l5",
+          "title": "Lecture 5 · Ukraine and the European security (dis)order",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-l6",
+          "title": "Lecture 6 · The international legal order",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-l7",
+          "title": "Lecture 7 · Russia",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r1",
+          "title": "Reading 1 · The Abandoned Order (Leonard)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r2",
+          "title": "Reading 2 · China, Iran sanctions and retaliation (FT)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r3",
+          "title": "Reading 3 · Humanitarian Diplomacy (De Lauri)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r4",
+          "title": "Reading 4 · In Defense of Ambition (Lindborg & Hewitt)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r5",
+          "title": "Reading 5 · The Weaponized World Economy (Farrell & Newman)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r6",
+          "title": "Reading 6 · Restructuring global supply chains (The Economist)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r7",
+          "title": "Reading 7 · The Long, Slow Death of Global Development (Oks & Williams)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r8",
+          "title": "Reading 8 · The Economic Legacy of Civil War (Collier & Duponchel)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r9",
+          "title": "Reading 9 · Globalization's Wrong Turn (Rodrik)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r10",
+          "title": "Reading 10 · Investing in Fragile and Conflict-Affected States (FMO)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r11",
+          "title": "Reading 11 · From Hormuz to the Sahel (Winer)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r12",
+          "title": "Reading 12 · Can the AI arms race be stopped? (The Economist)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r13",
+          "title": "Reading 13 · EU–AU security partnership (Staeger)",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gga-r14",
+          "title": "Reading 14 · EU rules beyond EU borders (Lavenex & Schimmelfennig)",
+          "placeholder": false,
+          "cardIds": []
+        }
+      ]
     }
   ]
 };

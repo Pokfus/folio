@@ -104,7 +104,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `flags-card-plan.md` | The flags (`flags-world`) — the first deck of the Flags collection (`flags`); 233 cards, the answer side is its twin's | `fl-` |
 | `flags-draw-card-plan.md` | Draw the flags (`flags-draw`) — the Flags deck run backwards; the reader draws the flag and judges themselves | `fd-` |
 | `politics-east-asia-card-plan.md` | Politics: East Asia (`pea`) — a COURSE, planned a lecture at a time | `pea-` |
-| `gateway-to-global-affairs-card-plan.md` | Gateway to Global Affairs (`gga`) — a COURSE (Leiden), 300 cards PLANNED across 7 lectures and 12 set readings; **not yet wired** into the tree, `app.js` or the tests | `gga-` |
+| `gateway-to-global-affairs-card-plan.md` | Gateway to Global Affairs (`gga`) — a COURSE (Leiden): 300 cards planned in full over 7 lectures and 14 set readings, with a locator on every line; wired Oct 2026 | `gga-` |
 
 `china-card-findings.md` is China's per-card research log; the other thirty-two keep theirs in their own plan
 or in the citation plans. `node .claude/test-card-plans.js` checks every plan against `data.js`.
