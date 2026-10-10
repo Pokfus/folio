@@ -463,11 +463,17 @@
     const histRows = [];
     if (HIST && q.aliveFaces && q.aliveFaces.length) {
       for (const fi of q.aliveFaces) {
-        const e = HIST.H.entities[HIST.T.faces[fi].entity]; if (!e || e.kind !== "polity") continue;
+        let e = HIST.H.entities[HIST.T.faces[fi].entity]; if (!e) continue;
+        if (e.kind === "nested") { e = HIST.H.entities.find((x) => x.id === e.partners[0]); if (!e) continue; }   // a member inside its overlord is named as itself (2b)
+        else if (e.kind !== "polity") continue;
         const path = histLabelPath(fi, proj, W, H); if (!path) continue;
         const km2 = HIST.H.faceKm2 ? HIST.H.faceKm2[fi] : 0;
-        histRows.push({ id: e.id, name: e.name, kind: "polity", rank: km2 >= 2e6 ? 0 : km2 >= 5e5 ? 1 : km2 >= 1e5 ? 2 : km2 >= 2e4 ? 3 : 4, path, len: path.len * kmpp, face: fi });
+        // the rank by the area ON SCREEN (2b): the face's area times the share of its vertices on screen, in screen pixels — a view
+        // with many alive faces names the ones a reader sees most of first, and the order holds as the view moves
+        const px2 = km2 * (path.visFrac || 0) / Math.max(1e-6, kmpp * kmpp);
+        histRows.push({ id: e.id, name: e.name, kind: "polity", rank: px2 >= 4e5 ? 0 : px2 >= 1e5 ? 1 : px2 >= 2e4 ? 2 : px2 >= 4e3 ? 3 : 4, path, len: path.len * kmpp, face: fi, px2 });
       }
+      histRows.sort((p, q) => q.px2 - p.px2);
     }
     for (const row of histRows) { const chordPx = row.path.len; if (!show.countries || chordPx < MIN_CHORD_PX) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + row.rank * 10 + KW.country, hist: true }); }
     for (const c of q.capitals || []) { const a = proj(unitOf(c.lon, c.lat)); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; if (!show.cities) continue; cands.push({ row: { id: "cap:" + c.entity + ":" + c.name, name: c.name, kind: "capital", rank: 0, a: unitOf(c.lon, c.lat) }, chordPx: 0, a, score: 0 + KW.capital, hist: true }); }
@@ -701,7 +707,7 @@
      alive set of the year it shows and of the next change year in the direction of the scrub, so a year change never
      waits for earcut (§2.3, §2.4). The borders are one bucketed segment list per level with the arc index in the tag (kind
      7), and the main thread's per-arc style table decides which are drawn in a year — a year change costs a table. */
-  const HIST_KIND = 7, HIST_LRU = 600;
+  const HIST_KIND = 7, HIST_LRU_BYTES = 96 * 1024 * 1024;   // the triangulated meshes kept here, by their bytes (2b), not by count
   // the arc's geometry at a level (atlas-format.js historyArcGeometry: a coast junction moves onto the level's line)
   function histGeom(a, level) { return { own: false, pts: root.AtlasFormat.historyArcGeometry(HIST.T, CORE.T, a, level, HIST.junctions, HIST.empty) }; }
   // the geometry of every arc at a level as one local topology (lon, lat, rank 0, arcOffset), cached per level
@@ -780,10 +786,11 @@
         const F = sink.result();
         // the face's coast edges at this level, for the fill-against-stroke stroke at the tile zooms (§2.3, Phase 2a)
         const coast = [];
-        for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (HIST.T.arcKind[a] !== 0) continue; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) coast.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], fi * 64 + HIST_KIND); }
+        for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (HIST.T.arcKind[a] !== 0) continue; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) coast.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], fi * 64 + HIST_KIND, L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], 0); }   // EIGHT floats a segment — (a.xyz, tag) (b.xyz, 0), the two texels uploadSegs reads — never the seven-float form bucketSegments takes: seven floats read as eight drew every segment after the first between unrelated points (the 2a review's chord across Latium and the fan over Sicily, fixed in 2b)
         m = { face: fi, level, pos: F.pos, idx: F.triangles * 3 <= 65535 && F.vertices <= 65535 ? Uint16Array.from(F.idx) : F.idx, coast: Float32Array.from(coast), triangles: F.triangles };
-        HIST.meshes.set(key, m); HIST.order.push(key);
-        while (HIST.order.length > HIST_LRU) { const old = HIST.order.shift(); if (!HIST.resident.has(old)) HIST.meshes.delete(old); else HIST.order.push(old); if (HIST.order.length > HIST_LRU * 2) break; }
+        m.bytes = m.pos.byteLength + m.idx.byteLength + m.coast.byteLength;
+        HIST.meshes.set(key, m); HIST.order.push(key); HIST.bytes = (HIST.bytes || 0) + m.bytes;
+        let spins = 0; while (HIST.bytes > HIST_LRU_BYTES && HIST.order.length && spins++ < HIST.order.length * 2) { const old = HIST.order.shift(); if (!HIST.resident.has(old)) { const om = HIST.meshes.get(old); if (om) HIST.bytes -= om.bytes; HIST.meshes.delete(old); } else HIST.order.push(old); }
       }
       HIST.resident.add(key);
       meshes.push({ face: fi, level, pos: m.pos.slice(), idx: m.idx.slice(), coast: m.coast.slice(), triangles: m.triangles });
@@ -805,7 +812,8 @@
     // part a reader sees, as a printed sheet names a country on the part the sheet shows; otherwise the margin box as before
     const inView = (x, y) => x >= 0 && x <= W && y >= 0 && y <= H;
     const inBox = (x, y) => x >= -W && x <= 2 * W && y >= -H && y <= 2 * H;
-    let nIn = 0; for (const r of vis) for (const p of r) if (inView(p[0], p[1])) nIn++;
+    let nIn = 0, nAll = 0; for (const r of rings) for (const p of r) { nAll++; if (p[2] > 0.02 && inView(p[0], p[1])) nIn++; }
+    const visFrac = nAll ? nIn / nAll : 0;
     const take = nIn >= 3 ? inView : inBox;
     let n = 0, sx = 0, sy = 0;
     for (const r of vis) for (const p of r) { if (!take(p[0], p[1])) continue; sx += p[0]; sy += p[1]; n++; }
@@ -828,7 +836,7 @@
     if (!best || best.len < 24) return null;
     const { x: ox, y: oy, dx, dy, a, b } = best;
     const pts = []; for (let k = 0; k <= 4; k++) { const t = -a + (a + b) * k / 4; pts.push([ox + dx * t, oy + dy * t]); }
-    return { pts, len: a + b, anchor: [ox, oy] };
+    return { pts, len: a + b, anchor: [ox, oy], visFrac };
   }
   /* ---------- water (Phase 1b): lake shores, rivers and lake fills, per resident level and per tile ----------
      Rivers come from a 1:10M source (chords 1.8 km at the median), so at the tile zooms (under 1 km/px)

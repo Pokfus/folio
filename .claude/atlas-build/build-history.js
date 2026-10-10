@@ -1,12 +1,13 @@
 #!/usr/bin/env node
-/* build-history.js — step 3 of the Atlas v2 build (Phase 2a): the STEP TOPOLOGY of the historical polities, conflated
-   onto the committed land partition and written as atlas/data/history.bin, a file of its own.
+/* build-history.js — step 3 of the Atlas v2 build (Phase 2a, at full scale since 2b): the STEP TOPOLOGY of the historical
+   polities, conflated onto the committed land partition and written as atlas/data/history.bin, a file of its own.
 
-     node --max-old-space-size=8000 build-history.js [--measure] [--install] [--dry]
+     node --max-old-space-size=8000 build-history.js [--measure] [--install] [--dry] [--years A,B] [--no-cache] [--force]
 
-   WHAT IT MAKES (docs/atlas-v2-design.md §2.3 "The step topology file", §2.4). Cliopatria's rows for the pilot polities
-   (the Mediterranean and Near East, 550 BCE – 650 CE: Rome, Carthage, the Achaemenids, Macedon, the Ptolemies, the
-   Seleucids, Byzantium, the Sasanians, and every series of polity-spec.json that touches them in those years) are cut into
+   WHAT IT MAKES (docs/atlas-v2-design.md §2.3 "The step topology file", §2.4, §7 "Phase 2b"). Cliopatria's rows for EVERY
+   card-linked polity series of polity-spec.json — the states Folio's cards teach, the owner's scope of 2026-10-10 — minus the
+   series the audit keeps as PEOPLES (the steppe khaganates and the like, Phase 2c; PEOPLES below) and the coastline and
+   site-hull series (2c too), over the whole globe and Cliopatria's whole span to YEAR_MAX, are cut into
    EPOCHS — maximal intervals over which the alive set and every shape are constant — and each epoch is conflated onto the
    core's LOD 2 land partition (atlas/data/topology.bin, the finest resident level), in this order:
      d1  a vertex within D1 of the OSM coast is projected onto it (a junction on the coast segment); a chord between two
@@ -36,7 +37,20 @@
    header says so and the credits page lists it under the ODbL statement (flagged for counsel in the report).
 
    Known source faults are left as the source draws them (Rome's early 900 km² block leaves the city 3 km outside) and
-   classed approximate; the assertions in check-history.js list them rather than force them. */
+   classed approximate; the assertions in check-history.js list them rather than force them.
+
+   AT FULL SCALE (Phase 2b). An epoch conflates only the rings its alive rows can touch (a ring's box against the rows' boxes
+   grown by D1), so the Pacific costs a Mediterranean epoch nothing; the global registries (arcs, faces, entities) are keyed and
+   grow across epochs as before. RESUMABLE: every finished epoch's contribution — the new arcs and faces, the entity ids, the
+   owner rows, the stat and snap-count deltas — is written to out/history-cache/<hash>/ (the hash covers the core's buildId,
+   Cliopatria's sha, the spec and every constant here); a rerun replays the cached epochs in order into the same registries
+   and conflates only the rest, so a crash an hour in costs the minutes since. The replay registers the same records in the
+   same order, so a cached and a fresh build give one sha256 (--determinism in check-history.js proves it). MEMORY: the snap
+   log keeps the 2,000 largest snaps and the counts; a ring's arc positions are a table, never indexOf. NESTED polities (the
+   owner's default, to confirm): where two alive rows overlap and one is almost wholly inside the other (NEST_SHARE of the
+   smaller's area, the larger at least NEST_RATIO times it), the overlap is a NESTED face — drawn as the member's, with the
+   overlord named — not a contested one; a mutual overlap stays contested. --years A,B builds a band only (the measurement
+   the stop rule reads). The file:// twin carries the pilot slice only (SLICE below), with a sentence in its header. */
 "use strict";
 const fs = require("fs"), path = require("path"), crypto = require("crypto");
 const { ensureSource, headerSources } = require("./fetch-sources.js");
@@ -56,8 +70,16 @@ const t0 = Date.now();
 const say = (m) => console.log(`[${((Date.now() - t0) / 1000).toFixed(1)}s] ${m}`);
 const deg = (x, y) => [+(x * Q).toFixed(5), +(y * Q).toFixed(5)];
 
-/* ---------- the pilot (the owner's decision, recorded in §2.3) ---------- */
-const PILOT = { years: [-550, 650], core: ["rome", "carthage", "achaemenid", "macedon", "ptolemaic", "seleucid", "byzantium", "sasanian"], region: { lon0: -25, lat0: 5, lon1: 95, lat1: 62 } };
+/* ---------- the scope (the owner's decision of 2026-10-10, recorded in §2.3 and §7 "Phase 2b") ---------- */
+const YEAR_MIN = -3400, YEAR_MAX = 2021;   // Cliopatria begins at 3400 BCE; the present-day faces hold 2022 onward (§2.4)
+// the series the audit keeps as PEOPLES (docs/atlas-borders-audit.md §4 C28–C41, "the khaganates and confederations stay peoples"):
+// their Cliopatria rows are the WHERE of a soft face in Phase 2c, never a state's border here
+const PEOPLES = ["scythia", "galatia", "gothia", "huns", "avars", "old_great_bulgaria", "khazaria", "magyars"];
+const NEST_SHARE = 0.8, NEST_RATIO = 2;   // nested, not contested: the overlap holds ≥ 80 % of the smaller claimant and the larger is ≥ 2× it
+// the pilot slice (2a; the file:// twin carries this much, with a sentence): the Mediterranean and Near East, 550 BCE – 650 CE
+const SLICE = { years: [-550, 650], region: { lon0: -25, lat0: 5, lon1: 95, lat1: 62 }, series: ["rome", "carthage", "achaemenid", "macedon", "ptolemaic", "seleucid", "byzantium", "sasanian"] };
+const BAND = (() => { const i = argv.indexOf("--years"); if (i < 0) return null; const [a, b] = argv[i + 1].split(",").map(Number); if (!(a < b)) throw new Error("--years A,B"); return [a, b]; })();
+const USE_CACHE = !argv.includes("--no-cache");
 /* ---------- the tolerances, chosen from --measure (§7 "Phase 2a — as built") ---------- */
 const SRC = { clio: "cliopatria", coast: "osm-land-polygons", adm0: "ne-10m-admin0", wd: "wikidata-capitals" };
 const TOLERANCE_M = { [SRC.clio]: 15000 };    // Cliopatria's stated precision class (§2.3 step 4): no snap may exceed it
@@ -119,12 +141,10 @@ const rings = [];   // { arcs: [a…], bbox, lenM, cum: [per arc, metres at its 
   }
   say(`coast rings: ${rings.length} from ${rings.reduce((s, r) => s + r.arcs.length, 0)} coast arcs`);
 }
-const REG = { x0: R.U(PILOT.region.lon0), y0: R.U(PILOT.region.lat0), x1: R.U(PILOT.region.lon1), y1: R.U(PILOT.region.lat1) };
-const inRegion = (b) => b[2] >= REG.x0 && b[0] <= REG.x1 && b[3] >= REG.y0 && b[1] <= REG.y1;
-const regionRings = rings.filter((r) => inRegion(r.bbox));
-const ringOfArc = new Int32Array(nCA).fill(-1);
-regionRings.forEach((r, ri) => { r.index = ri; for (const a of r.arcs) ringOfArc[a] = ri; });
-say(`rings in the region: ${regionRings.length}`);
+const regionRings = rings;   // the whole globe (2b); an epoch takes the rings its rows can touch (conflate)
+const ringOfArc = new Int32Array(nCA).fill(-1), arcAtRing = new Int32Array(nCA).fill(-1);   // arcAtRing: the arc's position in its ring's list (indexOf over Eurasia's thousands of arcs was most of ringPos)
+regionRings.forEach((r, ri) => { r.index = ri; r.arcs.forEach((a, k) => { ringOfArc[a] = ri; arcAtRing[a] = k; }); });
+say(`rings: ${regionRings.length}`);
 // coast segments of the region in one index: segment k = core vertex segV[k]-1 → segV[k] (within arc segA[k])
 const segA = [], segV = [];
 for (const r of regionRings) for (const a of r.arcs) for (let i = core.arcOffset[a] + 1; i < core.arcOffset[a + 1]; i++) { segA.push(a); segV.push(i); }
@@ -146,7 +166,7 @@ const landAt = (x, y) => {
 if (process.env.DEBUG_LAND) { for (const p of process.env.DEBUG_LAND.split(";")) { const [lon, lat] = p.split(",").map(Number); const x = R.U(lon), y = R.U(lat); const l = strips.get(Math.floor(y / STRIP)); console.log(`DEBUG_LAND ${lon},${lat}: land ${landAt(x, y)} (strip has ${l ? l.length : 0} segments)`); } process.exit(0); }
 // present-day border arcs (land borders, not over water) of the region
 const bordA = [], bordV = [];
-for (let a = 0; a < nCA; a++) { if (core.arcKind[a] !== KIND.BORDER || (core.arcFlags[a] & FLAG.WATER)) continue; const s = core.arcOffset[a], e = core.arcOffset[a + 1]; let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (let i = s; i < e; i++) { if (core.lon[i] < x0) x0 = core.lon[i]; if (core.lon[i] > x1) x1 = core.lon[i]; if (core.lat[i] < y0) y0 = core.lat[i]; if (core.lat[i] > y1) y1 = core.lat[i]; } if (!inRegion([x0, y0, x1, y1])) continue; for (let i = s + 1; i < e; i++) { bordA.push(a); bordV.push(i); } }
+for (let a = 0; a < nCA; a++) { if (core.arcKind[a] !== KIND.BORDER || (core.arcFlags[a] & FLAG.WATER)) continue; const s = core.arcOffset[a], e = core.arcOffset[a + 1]; let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (let i = s; i < e; i++) { if (core.lon[i] < x0) x0 = core.lon[i]; if (core.lon[i] > x1) x1 = core.lon[i]; if (core.lat[i] < y0) y0 = core.lat[i]; if (core.lat[i] > y1) y1 = core.lat[i]; }  for (let i = s + 1; i < e; i++) { bordA.push(a); bordV.push(i); } }
 const bordIdx = SegIndex.build(bordA.length, CELL, (k) => [core.lon[bordV[k] - 1], core.lat[bordV[k] - 1], core.lon[bordV[k]], core.lat[bordV[k]]]);
 say(`present-day border segments in the region: ${bordA.length}`);
 
@@ -183,10 +203,10 @@ function ringPos(k, t) {
   const along = c[i - 1 - s] + (c[i - s] - c[i - 1 - s]) * t;   // metres from the arc's file-order start
   const r = regionRings[ringOfArc[a]];
   const inArc = coastDir[a] > 0 ? along : arcLenM(a) - along;
-  return { ring: r, pos: r.cum[r.arcs.indexOf(a)] + inArc, arc: a, i, t };
+  return { ring: r, pos: r.cum[arcAtRing[a]] + inArc, arc: a, i, t };
 }
 
-/* ================= 1. the sources: Cliopatria's rows for the pilot, the capitals ================= */
+/* ================= 1. the sources: Cliopatria's rows for every card-linked series, the capitals ================= */
 const spec = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"), "utf8"));
 ensureSource(SRC.clio, { verifyOnly: true });
 const clioSrc = headerSources([SRC.clio])[0];
@@ -200,12 +220,14 @@ const GJ = JSON.parse(fs.readFileSync(clioFile, "utf8"));
 const byName = new Map();
 for (const f of GJ.features) { const n = f.properties.Name; let l = byName.get(n); if (!l) byName.set(n, l = []); l.push(f); }
 say(`Cliopatria: ${GJ.features.length} rows, ${byName.size} names`);
-// every spec series with rows alive in the window and inside the region is a candidate; the neighbours that touch a core
-// polity are decided after the conflation (the rest are dropped and reported)
-const [Y0, Y1] = PILOT.years;
-const series = [];
+// every spec series with Cliopatria rows, less the peoples; the cards that link each series travel with it (spec.links: a
+// locator's { area } or a war's { v, l } name series by key) — Phase 3's `places` field reads them, nothing draws from them yet
+const [Y0, Y1] = BAND || [YEAR_MIN, YEAR_MAX];
+const cardsOf = new Map(); for (const [card, l] of Object.entries(spec.links || {})) for (const k of [].concat(l.area || [], l.v || [], l.l || [])) { let c = cardsOf.get(k); if (!c) cardsOf.set(k, c = []); if (!c.includes(card)) c.push(card); }
+const series = [], deferred = [];
 for (const [key, p] of Object.entries(spec.polities)) {
-  if (!p.cliopatria) continue;
+  if (!p.cliopatria) { deferred.push({ key, why: p.coast ? "coastline series (2c)" : p.sites ? "site-hull series (2c)" : "no source" }); continue; }
+  if (PEOPLES.includes(key)) { deferred.push({ key, why: "kept as a people by the audit (2c)" }); continue; }
   const rows = [];
   for (const name of p.cliopatria) for (const f of byName.get(name) || []) {
     let from = f.properties.FromYear, to = f.properties.ToYear;
@@ -214,17 +236,12 @@ for (const [key, p] of Object.entries(spec.polities)) {
     if (from > to) continue;
     rows.push({ f, from, to, name });
   }
-  if (!rows.length) continue;
-  // the region: a candidate's rows must meet the pilot's box and their joint centre must lie in it (Han's Tarim reaches 75° E; its centre does not)
-  { let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const r of rows) { const g = r.f.geometry, polys = g.type === "Polygon" ? [g.coordinates] : g.coordinates || []; for (const poly of polys) for (const ring of poly) for (const p of ring) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; } }
-    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, Rg = PILOT.region;
-    if (!(x1 >= Rg.lon0 && x0 <= Rg.lon1 && y1 >= Rg.lat0 && y0 <= Rg.lat1) || !(cx >= Rg.lon0 && cx <= Rg.lon1 && cy >= Rg.lat0 && cy <= Rg.lat1)) { if (PILOT.core.includes(key)) throw new Error("core polity outside the region: " + key); continue; } }
+  if (!rows.length) { if (!BAND) deferred.push({ key, why: "no Cliopatria row for " + p.cliopatria.join(" / ") }); continue; }
   rows.sort((a, b) => a.from - b.from || a.name.localeCompare(b.name));
   for (let i = 1; i < rows.length; i++) if (rows[i].from <= rows[i - 1].to) throw new Error(`series ${key}: rows overlap in time (${rows[i - 1].name} ${rows[i - 1].from}–${rows[i - 1].to} and ${rows[i].name} ${rows[i].from}–${rows[i].to})`);
-  series.push({ key, label: p.label, rows, core: PILOT.core.includes(key) });
+  series.push({ key, label: p.label, rows, cards: (cardsOf.get(key) || []).slice().sort() });
 }
-for (const k of PILOT.core) if (!series.find((s) => s.key === k)) throw new Error("core pilot polity without rows: " + k);
-say(`candidate series: ${series.length} (${series.filter((s) => s.core).length} core): ${series.map((s) => s.key + "(" + s.rows.length + ")").join(", ")}`);
+say(`series: ${series.length} with rows in ${Y0}..${Y1} (${series.reduce((n, s) => n + s.rows.length, 0)} rows); deferred ${deferred.length}: ${deferred.map((d) => d.key + " (" + d.why + ")").join(", ")}`);
 
 /* a row's polygon: rings quantised, deduped, spikes cut; holes by nesting depth */
 const allRows = [];
@@ -251,7 +268,7 @@ say(`rows: ${allRows.length}, vertices ${allRows.reduce((s, r) => s + r.nv, 0)}`
 /* ================= 2. --measure: the distributions behind D1, D2, D3 ================= */
 const hist = (vals, bins) => { const out = {}; let lo = 0; const sorted = vals.slice().sort((a, b) => a - b); for (const b of bins) { out[(b === Infinity ? "beyond" : lo + "–" + b) + " m"] = sorted.filter((v) => v >= lo && v < b).length; lo = b; } const p = (q) => sorted.length ? Math.round(sorted[Math.min(sorted.length - 1, Math.floor(q * sorted.length))]) : null; return { n: sorted.length, p50: p(0.5), p75: p(0.75), p90: p(0.9), p95: p(0.95), p99: p(0.99), bins: out }; };
 const BINS = [250, 500, 1000, 2000, 3000, 4000, 6000, 8000, 10000, 15000, 20000, 30000, 50000, Infinity];
-const report = { pilot: PILOT, tolerances_m: TOLERANCE_M, d1_m: D1_M, d2_m: D2_M, d3_m: D3_M, run_factor: RUN_FACTOR, sliver_km2: SLIVER_KM2, sliver_width_m: SLIVER_WIDTH_M, lod_m: LOD_M };
+const report = { scope: { years: [Y0, Y1], band: BAND, peoples: PEOPLES, nest: { share: NEST_SHARE, ratio: NEST_RATIO } }, slice: SLICE, tolerances_m: TOLERANCE_M, d1_m: D1_M, d2_m: D2_M, d3_m: D3_M, run_factor: RUN_FACTOR, sliver_km2: SLIVER_KM2, sliver_width_m: SLIVER_WIDTH_M, lod_m: LOD_M };
 /* epochs: the change years of every row; alive sets keyed so identical sets are conflated once */
 const years = new Set();
 for (const r of allRows) { years.add(r.from); years.add(r.to + 1); }
@@ -300,12 +317,20 @@ const entIndex = new Map();
 const STEPS = [];              // [entityIndex, from, to, faceIndex]
 const entityOf = (s) => { let i = entIndex.get(s.key); if (i == null) { i = ENT.length; entIndex.set(s.key, i); ENT.push({ id: "pol:" + s.key, name: s.label, kind: "polity", key: s.key }); } return i; };
 const contestedOf = (keys) => { const id = "contested:" + keys.join("+"); let i = entIndex.get(id); if (i == null) { i = ENT.length; entIndex.set(id, i); ENT.push({ id, name: keys.map((k) => spec.polities[k].label).join(" and "), kind: "contested", partners: keys.map((k) => "pol:" + k) }); } return i; };
-const CLS = { FIRM: 0, APPROX: 1, SOFT: 2, DISPUTED: 3, CONTESTED: 4 };
+// a member inside its overlord (2b, the owner's default to confirm): partners [member, overlord]; drawn as the member's face, the overlord named
+const nestedOf = (member, overlord) => { const id = "nested:" + member + "+" + overlord; let i = entIndex.get(id); if (i == null) { i = ENT.length; entIndex.set(id, i); ENT.push({ id, name: spec.polities[member].label, kind: "nested", partners: ["pol:" + member, "pol:" + overlord] }); } return i; };   // named as the member: the label is the member's, the card says "within"
+const CLS = { FIRM: 0, APPROX: 1, SOFT: 2, DISPUTED: 3, CONTESTED: 4, NESTED: 5 };
 const stat = { near: new Set(), arcsOwn: 0, arcsCoast: 0, arcsBorderRef: 0, contestedFaces: 0, unmappedKm2: 0, unmappedPieces: 0, slivers: 0, sliverKm2: 0, runsDropped: 0, runsBorder: 0, crossings: 0, d1: 0, d2: 0, d3: 0, open: 0, touches: new Map() };
 
 const followsRingPos = (pa, pb) => { const L = pa.ring.lenM; const dF = ((pb.pos - pa.pos) % L + L) % L, dB = L - dF; return Math.min(dF, dB); };
 /* ================= 4. one epoch ================= */
 function conflate(alive, label) {
+  /* ---- the rings this epoch can touch: a ring whose box meets an alive row's box grown by D1 (an island inside a polity, a coast a
+     border reaches); every other ring is land no alive polity reaches and draws plain — it costs the epoch nothing (2b) ---- */
+  const GROW = Math.round(D1_M / 111000 / Q) + 2 * CELL;
+  const boxes = alive.map((r) => [r.bbox[0] - GROW, r.bbox[1] - GROW, r.bbox[2] + GROW, r.bbox[3] + GROW]);
+  const epochRings = regionRings.filter((r) => { const b = r.bbox; for (const q of boxes) if (b[2] >= q[0] && b[0] <= q[2] && b[3] >= q[1] && b[1] <= q[3]) return true; return false; });
+  const ringOn = new Uint8Array(regionRings.length); for (const r of epochRings) ringOn[r.index] = 1;
   /* ---- vertices of the epoch: own points, deduped by position ---- */
   const VX = [], VY = [], vkey = new Map(), VON = [];   // VON[v]: null | { coast: { k, t } } | { bord: { k, t } } (a junction on a core line)
   const vertAt = (x, y) => { const k = pkey(x, y); let v = vkey.get(k); if (v == null) { v = VX.length; vkey.set(k, v); VX.push(x); VY.push(y); VON.push(null); } return v; };
@@ -325,7 +350,8 @@ function conflate(alive, label) {
   // the run rule (measured, above): a vertex within D1_SURE snaps; one within D1 only beside a neighbour of its own line whose
   // projection it reaches along the coast as a run
   const near1 = new Map();
-  for (const L of lines) for (const v of L.v) if (!near1.has(v) && !VON[v]) { const n = nearest(VX[v], VY[v], D1_M, coastIdx, coastSeg); if (n) near1.set(v, n); }
+  const offRing = (k) => !ringOn[ringOfArc[segA[k]]];
+  for (const L of lines) for (const v of L.v) if (!near1.has(v) && !VON[v]) { const n = nearest(VX[v], VY[v], D1_M, coastIdx, coastSeg, offRing); if (n) near1.set(v, n); }
   const runOK = (va, nb, pa, pb) => { if (pa.ring !== pb.ring) return false; const d = followsRingPos(pa, pb), c = metresU(VX[va[0]], VY[va[0]], VX[va[1]], VY[va[1]]); void nb; return d <= Math.max(RUN_FACTOR * c, RUN_MIN_M); };
   const snap1 = new Set();
   for (const L of lines) for (let i = 0; i < L.v.length; i++) {
@@ -407,16 +433,6 @@ function conflate(alive, label) {
       if (!inserts.size) break;
     }
   }
-  /* ---- the neighbours: a row of a non-core series within NEAR_M of a core row's line (a gap of a source's width is still a neighbour) ---- */
-  {
-    const NEAR_M = 25000;
-    const coreLines = lines.filter((L) => L.row.series.core);
-    if (coreLines.length) {
-      const segs = []; for (const L of coreLines) for (let i = 0; i < L.v.length; i++) segs.push([L.v[i], L.v[(i + 1) % L.v.length]]);
-      const idx = SegIndex.build(segs.length, CELL, (k) => [VX[segs[k][0]], VY[segs[k][0]], VX[segs[k][1]], VY[segs[k][1]]]);
-      for (const L of lines) { if (L.row.series.core || stat.near.has(L.row.series.key)) continue; for (const v of L.v) { if (nearest(VX[v], VY[v], NEAR_M, idx, (k) => [VX[segs[k][0]], VY[segs[k][0]], VX[segs[k][1]], VY[segs[k][1]]])) { stat.near.add(L.row.series.key); break; } } }
-    }
-  }
   /* ---- runs along the coast and along a present-day border: a chord between two junctions on one line ---- */
   // every chord of every line is an EDGE: { a, b, drop, ref: null | { arc, from, to } (a core border reference) }
   const edges = []; const edgeOfLine = [];
@@ -425,7 +441,7 @@ function conflate(alive, label) {
   // a run's chord stays within the source's tolerance of the coast: its middle has a coast within D1_M (a chord under RUN_MIN_M
   // trivially does). Without this, Carthage's border across western Sicily at 300 BCE — shore to shore, with a coast path under
   // three times its length round the island's west — was dropped as a run and western Sicily merged with the rest of the island
-  const hugsCoast = (a, b, c) => { if (c <= RUN_MIN_M) return true; let x2 = VX[b]; if (x2 - VX[a] > X180) x2 -= 2 * X180; else if (VX[a] - x2 > X180) x2 += 2 * X180; let mx = Math.round((VX[a] + x2) / 2); if (mx >= X180) mx -= 2 * X180; if (mx < -X180) mx += 2 * X180; return !!nearest(mx, Math.round((VY[a] + VY[b]) / 2), D1_M, coastIdx, coastSeg); };
+  const hugsCoast = (a, b, c) => { if (c <= RUN_MIN_M) return true; let x2 = VX[b]; if (x2 - VX[a] > X180) x2 -= 2 * X180; else if (VX[a] - x2 > X180) x2 += 2 * X180; let mx = Math.round((VX[a] + x2) / 2); if (mx >= X180) mx -= 2 * X180; if (mx < -X180) mx += 2 * X180; return !!nearest(mx, Math.round((VY[a] + VY[b]) / 2), D1_M, coastIdx, coastSeg, offRing); };
   const followsRing = followsRingPos;
   for (const e of edges) {
     const A = VON[e.a], B = VON[e.b];
@@ -473,6 +489,7 @@ function conflate(alive, label) {
       const cx = Math.round((x1 + x2) / 2), cy = Math.round((y1 + y2) / 2), rU = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)) / 2 + 2;
       const pa = vecU(x1, y1), pb = vecU(x2, y2);
       coastIdx.near(cx, cy, Math.min(rU, 400 * CELL), (k) => {
+        if (offRing(k)) return;
         const i1 = segV[k], i0 = i1 - 1;
         if ((VON[e.a] && VON[e.a].coast && VON[e.a].coast.k === k) || (VON[e.b] && VON[e.b].coast && VON[e.b].coast.k === k)) return;   // the chord starts or ends on this segment
         // through a coast vertex: a crossing AT the vertex is outside crossPoint's open interval and the walk then sees a chord on the
@@ -603,7 +620,7 @@ function conflate(alive, label) {
   };
   // a whole coast arc in the land-left direction
   const wholeArc = (a) => { const h = arcHead(a), t = arcTail(a); const s = core.arcOffset[a], e = core.arcOffset[a + 1]; const from = coastDir[a] > 0 ? 1 : e - s - 2, to = coastDir[a] > 0 ? e - s - 2 : 1; const empty = e - s < 3; return coastPiece(a, h, coastDir[a] > 0 ? 0 : 1, coreVert(h), t, coastDir[a] > 0 ? 1 : 0, coreVert(t)); void from; void to; void empty; };
-  for (const r of regionRings) {
+  for (const r of epochRings) {
     const js = (jByRing.get(r.index) || []).slice().sort((p, q) => p.pos - q.pos);
     // merge junctions at one position (two vertices snapped to one point are one vertex already)
     const uniq = []; for (const j of js) if (!uniq.length || uniq[uniq.length - 1].v !== j.v) uniq.push(j);
@@ -612,7 +629,7 @@ function conflate(alive, label) {
     const n = uniq.length;
     for (let k = 0; k < n; k++) {
       const A = uniq[k], B = uniq[(k + 1) % n];
-      const ai = r.arcs.indexOf(A.arc), bi = r.arcs.indexOf(B.arc);
+      const ai = arcAtRing[A.arc], bi = arcAtRing[B.arc];
       if (A.arc === B.arc && (n === 1 || (bi === ai && (B.pos >= A.pos)))) { coastPiece(A.arc, A.i, A.t, A.v, B.i, B.t, B.v); continue; }
       // A to the tail of its arc
       const ta = arcTail(A.arc); coastPiece(A.arc, A.i, A.t, A.v, ta, coastDir[A.arc] > 0 ? 1 : 0, coreVert(ta));
@@ -881,7 +898,17 @@ function conflate(alive, label) {
     }
     return out;
   };
-  const result = [];   // { entity, cls, faceIndex }
+  // nested or contested: for a piece set claimed by two, the overlap against each claimant's whole area this epoch
+  const areaOfRow = new Map(); for (const p of pieces) for (const r of p.owners) areaOfRow.set(r, (areaOfRow.get(r) || 0) + p.km2);
+  const areaOfKey = new Map(); for (const p of pieces) if (p.owners.length) { const k = ownerKey(p); areaOfKey.set(k, (areaOfKey.get(k) || 0) + p.km2); }
+  const nestOf = (owners) => {   // [member, overlord] rows, or null
+    if (owners.length !== 2) return null;
+    const [A, B] = owners; const a = areaOfRow.get(A) || 0, b = areaOfRow.get(B) || 0, ov = areaOfKey.get(ownerKey({ owners })) || 0;
+    const small = Math.min(a, b), big = Math.max(a, b); if (!(small > 0) || ov < NEST_SHARE * small || big < NEST_RATIO * small) return null;
+    return a <= b ? [A, B] : [B, A];
+  };
+  const result = [];   // { entity, faceIndex, ownerKeys }
+  let nested = 0;
   for (const [k, ids] of [...byOwner.entries()].sort((x, y) => x[0].localeCompare(y[0]))) {
     const count = new Map();
     for (const i of ids) for (const c of [pieces[i]].concat(pieces[i].holes || [])) for (const [a, d] of c.halves) { if (dropArc[a]) continue; const ref = d > 0 ? a + 1 : -(a + 1); count.set(ref, (count.get(ref) || 0) + 1); }
@@ -889,44 +916,77 @@ function conflate(alive, label) {
     // to GLOBAL signed refs, canonical ring order
     const rings = chainRings(refs).map((ring) => ring.map((ref) => { const li = Math.abs(ref) - 1, gi = arcs[li].global; return ref > 0 ? gi + 1 : -(gi + 1); }));
     const canon = rings.map((ring) => { let m = 0; for (let i = 1; i < ring.length; i++) if (Math.abs(ring[i]) < Math.abs(ring[m])) m = i; return ring.slice(m).concat(ring.slice(0, m)); }).sort((p, q) => Math.abs(p[0]) - Math.abs(q[0]));
-    const owners = pieces[ids[0]].owners;
-    const entity = owners.length === 1 ? entityOf(owners[0].series) : contestedOf(owners.map((r) => r.series.key).sort());
-    const cls = owners.length === 1 ? CLS.APPROX : CLS.CONTESTED;
+    const owners = pieces[ids[0]].owners; const nest = nestOf(owners);
+    const entity = owners.length === 1 ? entityOf(owners[0].series) : nest ? nestedOf(nest[0].series.key, nest[1].series.key) : contestedOf(owners.map((r) => r.series.key).sort());
+    const cls = owners.length === 1 ? CLS.APPROX : nest ? CLS.NESTED : CLS.CONTESTED;
+    if (nest) nested++;
     const fkey = entity + "|" + canon.map((r) => r.join(",")).join("|");
     let fi = faceByKey.get(fkey);
-    if (fi == null) { fi = FACES.length; faceByKey.set(fkey, fi); const big = ids.slice().sort((p, q) => pieces[q].km2 - pieces[p].km2)[0]; FACES.push({ key: fkey, entity, cls, rings: canon, km2: ids.reduce((s, i) => s + pieces[i].km2, 0), anchor: pieces[big].anchor || pieces[big].sample || null }); if (owners.length > 1) stat.contestedFaces++; }
-    result.push({ entity, faceIndex: fi, owners });
-    // touching: two different polities sharing a non-coast arc
+    if (fi == null) { fi = FACES.length; faceByKey.set(fkey, fi); const big = ids.slice().sort((p, q) => pieces[q].km2 - pieces[p].km2)[0]; FACES.push({ key: fkey, entity, cls, rings: canon, km2: ids.reduce((s, i) => s + pieces[i].km2, 0), anchor: pieces[big].anchor || pieces[big].sample || null }); if (owners.length > 1 && !nest) stat.contestedFaces++; if (nest) stat.nestedFaces = (stat.nestedFaces || 0) + 1; }
+    result.push({ entity, faceIndex: fi, ownerKeys: owners.map((r) => r.series.key) });
     void k;
   }
   for (let a = 0; a < nA; a++) { if (dropArc[a] || arcs[a].kind === KIND.COAST) continue; const l = leftKey[a], r = rightKey[a]; if (!l || !r) continue; for (const x of l.split("+")) for (const y of r.split("+")) if (x !== y) { stat.touches.set(x + "|" + y, 1); stat.touches.set(y + "|" + x, 1); } }
-  return { result, vertices: VX.length, arcs: nA, pieces: pieces.length, contested: result.filter((r) => r.owners.length > 1).length, unmapped: pieces.filter((p) => !p.owners.length).length };
+  return { result, vertices: VX.length, arcs: nA, pieces: pieces.length, contested: result.filter((r) => ENT[r.entity].kind === "contested").length, nested, unmapped: pieces.filter((p) => !p.owners.length).length };
 }
 
 /* ================= 5. every epoch ================= */
+/* the epoch cache (resumable builds): one JSON per distinct alive set under out/history-cache/<hash>/, holding what the epoch
+   added to the registries — replayed in epoch order, it rebuilds them identically (every record is keyed and registered through
+   the same functions in the same order) */
+const CACHE_DIR = (() => {
+  const h = crypto.createHash("sha256");
+  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, v: 3 }));
+  return path.join(OUT, "history-cache", h.digest("hex").slice(0, 16));
+})();
+if (USE_CACHE) { fs.mkdirSync(CACHE_DIR, { recursive: true }); say(`epoch cache: ${path.relative(HERE, CACHE_DIR)} (${fs.readdirSync(CACHE_DIR).length} epochs cached)`); }
+const epochFile = (e) => path.join(CACHE_DIR, crypto.createHash("sha256").update(e.alive.map((r) => [r.series.key, r.name, r.from, r.to, r.nv].join("|")).join("\n")).digest("hex").slice(0, 24) + ".json");
+const statSnap = () => Object.fromEntries(Object.keys(stat).filter((k) => typeof stat[k] === "number").map((k) => [k, stat[k]]));
+const logSnap = () => JSON.parse(JSON.stringify(log.counts));
+/* conflate one alive set, recording its contribution; or replay it from the cache */
+function conflateCached(e) {
+  const file = USE_CACHE ? epochFile(e) : null;
+  if (file && fs.existsSync(file)) {
+    const c = JSON.parse(fs.readFileSync(file, "utf8"));
+    if (c.arcsBefore !== ARCS.length || c.facesBefore !== FACES.length || c.entsBefore !== ENT.length) throw new Error(`epoch cache out of order at ${e.from}..${e.to}: delete ${path.relative(HERE, CACHE_DIR)} and rebuild`);
+    for (const a of c.newArcs) { arcByKey.set(a.key, ARCS.length); ARCS.push(a); }
+    for (const en of c.newEnts) { entIndex.set(en.kind === "polity" ? en.key : en.id, ENT.length); ENT.push(en); }
+    for (const f of c.newFaces) { faceByKey.set(f.key, FACES.length); FACES.push(f); }
+    for (const [k, v] of Object.entries(c.stat)) stat[k] = (stat[k] || 0) + v;
+    for (const k of c.touches) stat.touches.set(k, 1);
+    for (const k of c.near) stat.near.add(k);
+    if (c.pieceDist.length) (stat.pieceDist = stat.pieceDist || []).push(...c.pieceDist);
+    log.addCounts(c.log);
+    return { result: c.result, arcs: c.summary.arcs, pieces: c.summary.pieces, contested: c.summary.contested, nested: c.summary.nested, unmapped: c.summary.unmapped, cached: true };
+  }
+  const arcs0 = ARCS.length, faces0 = FACES.length, ents0 = ENT.length, stat0 = statSnap(), log0 = logSnap(), ev0 = log.events.length, pd0 = (stat.pieceDist || []).length, touch0 = new Set(stat.touches.keys()), near0 = new Set(stat.near);
+  const r = conflate(e.alive, `${e.from}..${e.to}`);
+  if (file) {
+    const stat1 = statSnap(), log1 = logSnap();
+    const dStat = {}; for (const k of Object.keys(stat1)) { const d = stat1[k] - (stat0[k] || 0); if (d) dStat[k] = d; }
+    const dLog = { n: log1.n - log0.n, over: log1.over - log0.over, max: log1.max, bySource: {}, byKind: {}, events: log.events.slice(ev0) };
+    for (const k of Object.keys(log1.bySource)) { const d = log1.bySource[k] - (log0.bySource[k] || 0); if (d) dLog.bySource[k] = d; }
+    for (const k of Object.keys(log1.byKind)) { const d = log1.byKind[k] - (log0.byKind[k] || 0); if (d) dLog.byKind[k] = d; }
+    const rec = { from: e.from, to: e.to, arcsBefore: arcs0, facesBefore: faces0, entsBefore: ents0, newArcs: ARCS.slice(arcs0), newEnts: ENT.slice(ents0), newFaces: FACES.slice(faces0), result: r.result, stat: dStat, touches: [...stat.touches.keys()].filter((k) => !touch0.has(k)), near: [...stat.near].filter((k) => !near0.has(k)), pieceDist: (stat.pieceDist || []).slice(pd0), log: dLog, summary: { arcs: r.arcs, pieces: r.pieces, contested: r.contested, nested: r.nested, unmapped: r.unmapped } };
+    const tmp = file + ".tmp"; fs.writeFileSync(tmp, JSON.stringify(rec)); fs.renameSync(tmp, file);
+  }
+  return r;
+}
 const epochCache = new Map();
-let done = 0;
+let done = 0, replayed = 0;
 for (const e of epochs) {
   let r = epochCache.get(e.key);
-  if (!r) { r = conflate(e.alive, `${e.from}..${e.to}`); epochCache.set(e.key, r); }
+  if (!r) { r = conflateCached(e); epochCache.set(e.key, r); if (r.cached) replayed++; }
   for (const x of r.result) {
-    const last = STEPS.length ? STEPS[STEPS.length - 1] : null;
     const prev = STEPS.find((s) => s[0] === x.entity && s[3] === x.faceIndex && s[2] + 1 === e.from);
     if (prev) prev[2] = e.to; else STEPS.push([x.entity, e.from, e.to, x.faceIndex]);
-    void last;
   }
-  if (++done % 25 === 0 || done === epochs.length) say(`epoch ${done}/${epochs.length} (${e.from}..${e.to}): ${r.arcs} arcs, ${r.pieces} pieces, ${r.contested} contested, ${r.unmapped} unmapped; arcs so far ${ARCS.length}, faces ${FACES.length}`);
+  if (++done % 25 === 0 || done === epochs.length) say(`epoch ${done}/${epochs.length} (${e.from}..${e.to}): ${r.arcs} arcs, ${r.pieces} pieces, ${r.contested} contested, ${r.nested || 0} nested, ${r.unmapped} unmapped; arcs so far ${ARCS.length}, faces ${FACES.length}${replayed ? "; replayed from the cache " + replayed : ""}`);
 }
 log.check();
-/* the neighbours: a series that is not core and touches no core polity in any epoch is dropped */
-const coreKeys = new Set(PILOT.core);
-const touching = new Set(); for (const k of stat.touches.keys()) { const [x, y] = k.split("|"); if (coreKeys.has(y)) touching.add(x); } for (const k of stat.near) touching.add(k);
-const keptSeries = series.filter((s) => s.core || touching.has(s.key));
-const droppedSeries = series.filter((s) => !keptSeries.includes(s));
-say(`neighbours touching a core polity (a shared arc, or within 25 km of a core polity's line in some epoch): ${keptSeries.filter((s) => !s.core).map((s) => s.key).join(", ")}; dropped (no shared border with the core): ${droppedSeries.map((s) => s.key).join(", ") || "none"}`);
-// drop their entities, steps, faces (and their contested faces); the arcs they alone used go too
-const keepEnt = new Set(); keptSeries.forEach((s) => keepEnt.add("pol:" + s.key));
-const entKeep = ENT.map((e) => e.kind === "polity" ? keepEnt.has(e.id) : e.partners.every((p) => keepEnt.has(p)));
+report.epochsReplayed = replayed;
+const keptSeries = series, droppedSeries = [];
+const entKeep = ENT.map(() => true);
 const stepsKept = STEPS.filter((s) => entKeep[s[0]]);
 const faceUsed = new Set(stepsKept.map((s) => s[3]));
 const faceMap = new Map(); const facesOut = []; FACES.forEach((f, i) => { if (faceUsed.has(i)) { faceMap.set(i, facesOut.length); facesOut.push(f); } });
@@ -952,10 +1012,11 @@ for (const e of entsOut) {
     e.qid = best[0] || null; e.wiki = best[1] || null;
     if (byQ.size > 1) e.alsoWiki = [...byQ.keys()].filter((k) => k !== best.join("|")).map((k) => k.split("|")).map(([q, w]) => ({ qid: q || null, wiki: w || null }));
     e.sourceNames = [...new Set(rows.map((r) => r.name))];
+    e.cards = s.cards;   // the cards that link this polity (polity-spec.json links): Phase 3's `places` field, nothing drawn from them yet
     delete e.key;
   }
 }
-say(`kept: ${entsOut.length} entities, ${stepsOut.length} steps, ${facesOut.length} faces (${facesOut.filter((f) => f.cls === CLS.CONTESTED).length} contested), ${arcsOut.length} arcs (${arcsOut.filter((a) => a.core && a.kind === KIND.COAST).length} coast references, ${arcsOut.filter((a) => a.core && a.kind === KIND.BORDER).length} present-day border references, ${arcsOut.filter((a) => !a.core).length} own)`);
+say(`kept: ${entsOut.length} entities, ${stepsOut.length} steps, ${facesOut.length} faces (${facesOut.filter((f) => f.cls === CLS.CONTESTED).length} contested, ${facesOut.filter((f) => f.cls === CLS.NESTED).length} nested), ${arcsOut.length} arcs (${arcsOut.filter((a) => a.core && a.kind === KIND.COAST).length} coast references, ${arcsOut.filter((a) => a.core && a.kind === KIND.BORDER).length} present-day border references, ${arcsOut.filter((a) => !a.core).length} own)`);
 
 /* ================= 6. ranks for the own arcs, then the planarity repair per level ================= */
 for (const a of arcsOut) {
@@ -1120,7 +1181,7 @@ const topology = {
   vertices: { lon, lat }, rank, arcs: arcRecs, faces: facesOut.map((f) => ({ entity: f.entity, source: 0, rings: f.rings })), coreRef, jpos,
   extra: {
     kindOf: "history", core: { file: "atlas/data/topology.bin", buildId, arcs: nCA },
-    history: { pilot: PILOT, series: keptSeries.map((s) => s.key), droppedSeries: droppedSeries.map((s) => s.key), epochs: epochs.length, tolerances_m: TOLERANCE_M, d1_m: D1_M, d2_m: D2_M, d3_m: D3_M, run_factor: RUN_FACTOR, sliver_km2: SLIVER_KM2, sliver_width_m: SLIVER_WIDTH_M, classes: CLS, licence: "ODbL-1.0 as a whole: the file embeds junctions snapped onto OpenStreetMap geometry and references the OSM coast by arc id; Cliopatria's rows (CC BY 4.0) are the borders, with the attribution above kept; flagged for counsel (Phase 2a)." },
+    history: { scope: "The states Folio's cards teach — every card-linked polity series of polity-spec.json with Cliopatria rows, less the series the audit keeps as peoples — not every state of the period.", years: [Y0, Y1], band: BAND, series: keptSeries.map((s) => s.key), deferred, peoples: PEOPLES, nest: { share: NEST_SHARE, ratio: NEST_RATIO }, epochs: epochs.length, tolerances_m: TOLERANCE_M, d1_m: D1_M, d2_m: D2_M, d3_m: D3_M, run_factor: RUN_FACTOR, sliver_km2: SLIVER_KM2, sliver_width_m: SLIVER_WIDTH_M, classes: CLS, licence: "ODbL-1.0 as a whole: the file embeds junctions snapped onto OpenStreetMap geometry and references the OSM coast by arc id; Cliopatria's rows (CC BY 4.0) are the borders, with the attribution above kept; flagged for counsel (Phase 2a)." },
     faceClass: facesOut.map((f) => f.cls), arcClass: arcsOut.map((a) => a.cls), arcEmpty, cities,
     faceKm2: facesOut.map((f) => Math.round(f.km2)),
     faceAnchor: facesOut.map((f) => (f.anchor ? deg(f.anchor[0], f.anchor[1]) : null)),   // a point inside the face (the piece's first interior sample), for cards, tests and the fly-to
@@ -1130,12 +1191,12 @@ const bytes = F.write(topology);
 const sha = crypto.createHash("sha256").update(bytes).digest("hex");
 say(`history.bin: ${bytes.length} bytes (${(bytes.length / 1e6).toFixed(3)} MB decimal), sha256 ${sha}`);
 { const h = F.read(bytes, { headerOnly: true }).header; console.log(`  header ${(JSON.stringify(h).length / 1024).toFixed(1)} KB; ` + Object.entries(h.sections).map(([k, v]) => `${k} ${(v.length / 1024).toFixed(1)} KB`).join(", ")); }
-// the forecast: bytes per step × the steps of every series of polity-spec.json (Cliopatria rows in the spec's own years)
+// the forecast: bytes per step × the steps of every series this build takes (Cliopatria rows in the spec's own years, YEAR_MIN..YEAR_MAX, the peoples left out)
 let allSteps = 0, allNames = 0;
-for (const [, p] of Object.entries(spec.polities)) { if (!p.cliopatria) continue; for (const n of p.cliopatria) { const rows = byName.get(n) || []; allNames += rows.length ? 1 : 0; for (const f of rows) { let from = f.properties.FromYear, to = f.properties.ToYear; if (p.years) { from = Math.max(from, p.years[0]); to = Math.min(to, p.years[1]); } if (from <= to) allSteps++; } } }
+for (const [key, p] of Object.entries(spec.polities)) { if (!p.cliopatria || PEOPLES.includes(key)) continue; for (const n of p.cliopatria) { const rows = byName.get(n) || []; allNames += rows.length ? 1 : 0; for (const f of rows) { let from = f.properties.FromYear, to = f.properties.ToYear; if (p.years) { from = Math.max(from, p.years[0]); to = Math.min(to, p.years[1]); } from = Math.max(from, YEAR_MIN); to = Math.min(to, YEAR_MAX); if (from <= to) allSteps++; } } }
 const perStep = bytes.length / Math.max(1, stepsOut.length), forecast = perStep * allSteps;
 const sourceSteps = allRows.length;
-report.result = { entities: entsOut.length, steps: stepsOut.length, sourceRows: sourceSteps, faces: facesOut.length, contestedFaces: facesOut.filter((f) => f.cls === CLS.CONTESTED).length, arcs: arcsOut.length, arcsCoastRef: arcsOut.filter((a) => a.core && a.kind === KIND.COAST).length, arcsBorderRef: arcsOut.filter((a) => a.core && a.kind === KIND.BORDER).length, arcsOwn: arcsOut.filter((a) => !a.core).length, ownVertices: arcsOut.filter((a) => !a.core).reduce((s, a) => s + a.own.length, 0), bytes: bytes.length, sha256: sha, snaps: log.summary(), d1: stat.d1, d2: stat.d2, d3: stat.d3, runsDropped: stat.runsDropped, runsBorder: stat.runsBorder, crossings: stat.crossings, slivers: stat.slivers, sliverKm2: Math.round(stat.sliverKm2), unmappedGapPiecesOverEpochs: stat.unmappedPieces, unmappedGapKm2OverEpochs: Math.round(stat.unmappedKm2), continentRemainderPiecesOverEpochs: stat.remainderPieces || 0, refCut: stat.refCut || 0, series: keptSeries.map((s) => s.key), droppedSeries: droppedSeries.map((s) => s.key) };
+report.result = { entities: entsOut.length, steps: stepsOut.length, sourceRows: sourceSteps, faces: facesOut.length, contestedFaces: facesOut.filter((f) => f.cls === CLS.CONTESTED).length, nestedFaces: facesOut.filter((f) => f.cls === CLS.NESTED).length, arcs: arcsOut.length, arcsCoastRef: arcsOut.filter((a) => a.core && a.kind === KIND.COAST).length, arcsBorderRef: arcsOut.filter((a) => a.core && a.kind === KIND.BORDER).length, arcsOwn: arcsOut.filter((a) => !a.core).length, ownVertices: arcsOut.filter((a) => !a.core).reduce((s, a) => s + a.own.length, 0), bytes: bytes.length, sha256: sha, snaps: log.summary(), d1: stat.d1, d2: stat.d2, d3: stat.d3, runsDropped: stat.runsDropped, runsBorder: stat.runsBorder, crossings: stat.crossings, slivers: stat.slivers, sliverKm2: Math.round(stat.sliverKm2), unmappedGapPiecesOverEpochs: stat.unmappedPieces, unmappedGapKm2OverEpochs: Math.round(stat.unmappedKm2), continentRemainderPiecesOverEpochs: stat.remainderPieces || 0, refCut: stat.refCut || 0, series: keptSeries.map((s) => s.key), droppedSeries: droppedSeries.map((s) => s.key) };
 { const pd = stat.pieceDist || []; const gaps = pd.filter((p) => p[0] === 0), overlaps = pd.filter((p) => p[0] > 1); const h = (vals) => { const bins = [1, 5, 20, 50, 120, 300, 1000, 5000, Infinity]; const out = {}; let lo = 0; for (const b of bins) { out[(b === Infinity ? "beyond" : lo + "–" + b) + " km²"] = vals.filter((v) => v >= lo && v < b).length; lo = b; } return out; }; report.pieces = { gapsByArea: h(gaps.map((p) => p[1])), overlapsByArea: h(overlaps.map((p) => p[1])), overlapsOver120: overlaps.filter((p) => p[1] >= 120).length, gapsOver120: gaps.filter((p) => p[1] >= 120).length }; console.log("gap pieces by area: " + JSON.stringify(report.pieces.gapsByArea)); console.log("overlap pieces by area: " + JSON.stringify(report.pieces.overlapsByArea)); }
 report.forecast = { bytesPerStep: Math.round(perStep), stepsPilot: stepsOut.length, sourceRowsPilot: sourceSteps, stepsAllSeries: allSteps, seriesWithRows: allNames, bytes: Math.round(forecast), mb: +(forecast / 1e6).toFixed(2), stop: forecast > 12e6 };
 say(`forecast: ${Math.round(perStep)} bytes/step × ${allSteps} steps of every spec series = ${(forecast / 1e6).toFixed(2)} MB decimal${forecast > 12e6 ? " — OVER 12 MB: STOP RULE" : ""}`);
@@ -1150,8 +1211,81 @@ if (!DRY) {
     if (forecast > 12e6 && !argv.includes("--force")) { say("the forecast exceeds 12 MB: not installed (the stop rule; --force overrides)"); process.exit(2); }
     fs.writeFileSync(path.join(DATA, "history.bin"), bytes);
     say("installed atlas/data/history.bin");
-    // the file:// twin (lib/twin.js), while the three twins together stay under the owner's 12 MB (decimal)
-    try { const Tw = require("./lib/twin.js"); const others = ["topology.bin.js", "water.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((p, q) => p + q, 0); const tw = Tw.writeTwin(path.join(DATA, "history.bin")); if (others + tw.twinBytes > 12e6) { fs.unlinkSync(tw.file); say(`the twins would pass 12 MB together (${((others + tw.twinBytes) / 1e6).toFixed(2)} MB): history.bin.js not written`); } else say(`wrote atlas/data/history.bin.js (${tw.twinBytes} bytes; the three twins ${((others + tw.twinBytes) / 1e6).toFixed(2)} MB)`); } catch (e) { say("twin: " + e.message); }
+    // the file:// twin (lib/twin.js) carries the PILOT SLICE only (2b): the full file's twin would pass the owner's 12 MB for the three
+    // twins together; the slice's header says so in a sentence the mode note shows
+    try {
+      const Tw = require("./lib/twin.js");
+      const sliceBytes = F.write(sliceOf(topology));
+      const sliceFile = path.join(OUT, "history-slice.bin"); fs.writeFileSync(sliceFile, sliceBytes);
+      const others = ["topology.bin.js", "water.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((p, q) => p + q, 0);
+      const tw = Tw.writeTwin(sliceFile, { as: path.join(DATA, "history.bin.js"), name: "history.bin" });
+      if (others + tw.twinBytes > 12e6) { fs.unlinkSync(tw.file); say(`the twins would pass 12 MB together (${((others + tw.twinBytes) / 1e6).toFixed(2)} MB): history.bin.js not written`); } else say(`wrote atlas/data/history.bin.js from the pilot slice (${sliceBytes.length} bytes → ${tw.twinBytes}; the three twins ${((others + tw.twinBytes) / 1e6).toFixed(2)} MB)`);
+    } catch (e) { say("twin: " + e.message); }
+    try { writeCoverage(topology, path.join(ROOT, "docs", "atlas-v2-coverage.md")); say("wrote docs/atlas-v2-coverage.md"); } catch (e) { say("coverage: " + e.message); }
     try { require("./build-credits.js").build({ install: true }); } catch (e) { say("credits: " + e.message); }
   }
+}
+
+/* ================= 9. the pilot slice (the file:// twin) and the coverage report ================= */
+// the sub-file of the pilot's series inside the pilot's years and region (SLICE): steps → faces → arcs → vertices, reindexed; the
+// header keeps everything but says what it is
+function sliceOf(T) {
+  const ents = new Set(SLICE.series.map((k) => "pol:" + k));
+  const entOK = (e) => e.kind === "polity" ? ents.has(e.id) : e.partners.every((p) => ents.has(p));
+  const steps = T.steps.filter((st) => entOK(T.entities[st[0]]) && st[2] >= SLICE.years[0] && st[1] <= SLICE.years[1]).map((st) => [st[0], Math.max(st[1], SLICE.years[0]), Math.min(st[2], SLICE.years[1]), st[3]]);
+  const faceKeep = new Set(steps.map((st) => st[3])), faceMap = new Map(); const faces = []; T.faces.forEach((f, i) => { if (faceKeep.has(i)) { faceMap.set(i, faces.length); faces.push(f); } });
+  const arcKeep = new Set(); for (const f of faces) for (const r of f.rings) for (const ref of r) arcKeep.add(Math.abs(ref) - 1);
+  const arcMap = new Map(); const arcs = [], lon = [], lat = [], rank = [], coreRef = [], jpos = [], arcClass = [], arcEmpty = [];
+  T.arcs.forEach((a, i) => { if (!arcKeep.has(i)) return; arcMap.set(i, arcs.length); const off = lon.length; for (let k = a.offset; k < a.offset + a.count; k++) { lon.push(T.vertices.lon[k]); lat.push(T.vertices.lat[k]); rank.push(T.rank[k]); } arcs.push(Object.assign({}, a, { offset: off })); coreRef.push(T.coreRef[i]); jpos.push(T.jpos[i]); arcClass.push(T.extra.arcClass[i]); arcEmpty.push(T.extra.arcEmpty[i]); });
+  const entKeep = new Set(steps.map((st) => st[0])), entMap = new Map(); const entities = []; T.entities.forEach((e, i) => { if (entKeep.has(i)) { entMap.set(i, entities.length); entities.push(e); } });
+  const extra = Object.assign({}, T.extra, { history: Object.assign({}, T.extra.history, { slice: "pilot", sliceNote: "This copy carries the pilot slice only — the Mediterranean and Near East, 550 BCE to 650 CE — because the full history file's file:// twin would pass the budget; open the Atlas over http for every state." }), faceClass: faces.map((f) => T.extra.faceClass[T.faces.indexOf(f)]), arcClass, arcEmpty, cities: T.extra.cities.filter((c) => ents.has(c.entity) && c.to >= SLICE.years[0] && c.from <= SLICE.years[1]), faceKm2: faces.map((f) => T.extra.faceKm2[T.faces.indexOf(f)]), faceAnchor: faces.map((f) => T.extra.faceAnchor[T.faces.indexOf(f)]) });
+  return Object.assign({}, T, { entities, steps: steps.map((st) => [entMap.get(st[0]), st[1], st[2], faceMap.get(st[3])]).sort((a, b) => a[0] - b[0] || a[1] - b[1]), vertices: { lon, lat }, rank, arcs, faces: faces.map((f) => ({ entity: entMap.get(f.entity), source: f.source, rings: f.rings.map((r) => r.map((ref) => { const i = arcMap.get(Math.abs(ref) - 1); return ref > 0 ? i + 1 : -(i + 1); })) })), coreRef, jpos, extra });
+}
+// docs/atlas-v2-coverage.md: per century, the polities alive, the share of land outside Antarctica they cover, the unmapped
+// remainder, the contested and nested shares — from the faces' own areas (faceKm2) and the core's land faces
+function writeCoverage(T, file) {
+  const R2 = G.R_EARTH_M * G.R_EARTH_M / 1e6, P = [0, 0, 1];
+  const tri = (a, b) => { const num = G.dot(P, G.cross(a, b)); const den = 1 + G.dot(P, a) + G.dot(a, b) + G.dot(b, P); return 2 * Math.atan2(num, den); };
+  const faceArea = (f) => { let A = 0; for (const ring of f.rings) for (const ref of ring) { const a = Math.abs(ref) - 1, s = core.arcOffset[a], e = core.arcOffset[a + 1]; let sum = 0; for (let i = s + 1; i < e; i++) sum += tri(coreVec(i - 1), coreVec(i)); A += ref > 0 ? sum : -sum; } A %= 4 * Math.PI; if (A < 0) A += 4 * Math.PI; return A * R2; };
+  let landKm2 = 0, antKm2 = 0; const layer0 = CH.entities.map((e) => !e.parent);
+  for (const f of core.faces) { if (!layer0[f.entity]) continue; const km2 = faceArea(f); if (CH.entities[f.entity].id === "adm0:ata") antKm2 += km2; else landKm2 += km2; }
+  const rows = [];
+  const ents = T.entities, km2 = T.extra.faceKm2;
+  for (let c = Math.floor(Y0 / 100) * 100; c <= Y1; c += 100) {
+    const y = c === 0 ? 1 : c;   // the year read: the century's first year (1 CE for the first century)
+    const alive = T.steps.filter((st) => st[1] <= y && st[2] >= y);
+    let covered = 0, contested = 0, nested = 0; const names = new Set();
+    for (const st of alive) { const e = ents[st[0]], a = km2[st[3]] || 0; covered += a; if (e.kind === "contested") { contested += a; for (const p of e.partners) names.add(p); } else if (e.kind === "nested") { nested += a; names.add(e.partners[0]); names.add(e.partners[1]); } else names.add(e.id); }
+    rows.push({ year: y, polities: [...names].map((id) => { const e = ents.find((x) => x.id === id); return e ? e.name : id; }).sort(), covered, contested, nested });
+  }
+  const fmtY = (y) => (y < 0 ? (-y) + " BCE" : y + " CE");
+  const pct = (v) => (100 * v / landKm2).toFixed(1) + " %";
+  const thin = rows.filter((r) => r.covered / landKm2 < 0.02).map((r) => r.year);
+  const runs = []; for (const y of thin) { const last = runs[runs.length - 1]; if (last && last[1] === y - 100) last[1] = y; else runs.push([y, y]); }
+  const peak = rows.reduce((p, r) => (r.covered > p.covered ? r : p), rows[0]);
+  const lines = [
+    "# Atlas v2 — what the historical layer covers, century by century",
+    "",
+    "GENERATED by `.claude/atlas-build/build-history.js --install` (Phase 2b) from `atlas/data/history.bin` — never edit by hand; rebuild instead.",
+    "",
+    "The historical layer draws **the states Folio's cards teach** — the card-linked polity series of `.claude/polity-spec.json` that Cliopatria v0.2.0 carries, " + T.entities.filter((e) => e.kind === "polity").length + " of them — not every state of the period. The table reads each century at its first year (1 CE for the first century CE) and measures the land the alive faces cover against the land outside Antarctica in the core partition (" + Math.round(landKm2 / 1e6 * 10) / 10 + " million km²; Antarctica's " + Math.round(antKm2 / 1e6 * 10) / 10 + " million km² left out). \"Contested\" is land two polities claim in that year; \"nested\" is a member drawn inside its overlord.",
+    "",
+    "**Where the layer is thin.** " + (runs.length ? "Under 2 % of the land is mapped in " + runs.map(([a, b]) => (a === b ? fmtY(a) : fmtY(a) + " – " + fmtY(b))).join(", ") + ": the cards' states are few and small there, or Cliopatria has no row for them." : "No century falls under 2 % of the land.") + " The fullest century is " + fmtY(peak.year) + " (" + pct(peak.covered) + " of the land, " + peak.polities.length + " polities). Everywhere else the plain land is not \"no state\": it is a state no card teaches yet, or one Cliopatria does not draw.",
+    "",
+    "| century begins | polities alive | land covered | contested | nested | who |",
+    "|---|---|---|---|---|---|",
+  ];
+  for (const r of rows) lines.push(`| ${fmtY(r.year)} | ${r.polities.length} | ${pct(r.covered)} | ${pct(r.contested)} | ${pct(r.nested)} | ${r.polities.join(", ") || "—"} |`);
+  lines.push("", "Deferred to later phases (not in this file): " + deferred.map((d) => "`" + d.key + "` (" + d.why + ")").join(", ") + ".", "");
+  // the inventory (Phase 2b, deliverable 1): every series of polity-spec.json — its kind, its years in the file, its cards, built or deferred
+  lines.push("## The inventory: every series of `polity-spec.json`", "", "| series | kind | Cliopatria names | years in the file | steps | cards | state |", "|---|---|---|---|---|---|---|");
+  const entByKey = new Map(T.entities.filter((e) => e.kind === "polity").map((e) => [e.id.slice(4), e]));
+  for (const [key, p] of Object.entries(spec.polities)) {
+    const d = deferred.find((x) => x.key === key); const e = entByKey.get(key);
+    const kind = p.cliopatria ? (p.cliopatria.length > 1 ? "assembled from " + p.cliopatria.length + " Cliopatria series" : "Cliopatria state") : p.coast ? "coastline" : p.sites ? "site hull" : "—";
+    const steps = e ? T.steps.filter((st) => T.entities[st[0]] === e).length : 0;
+    lines.push(`| \`${key}\` | ${kind}${PEOPLES.includes(key) ? " (a people)" : ""} | ${(p.cliopatria || []).join(", ") || "—"} | ${e && e.span ? fmtY(e.span[0]) + " – " + fmtY(e.span[1]) : "—"} | ${steps || "—"} | ${(cardsOf.get(key) || []).join(", ") || "—"} | ${d ? "deferred: " + d.why : "built"} |`);
+  }
+  lines.push("");
+  fs.writeFileSync(file, lines.join("\n"));
 }

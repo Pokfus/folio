@@ -26,12 +26,17 @@ function metresBetween(a, b) {
 }
 
 class SnapLog {
-  constructor(step, tolerances) {
+  constructor(step, tolerances, opts) {
     this.step = step;
     this.tolerances = tolerances || {};
     this.snaps = [];
     this.events = [];
     this.started = new Date().toISOString();
+    // keep: with a number, only the `keep` LARGEST snaps are held in memory and written (plus every snap over tolerance and the
+    // counts, the maximum and the sums per source and kind) — a global conflation logs millions of snaps (Phase 2b), and the value
+    // of the log is the decision and its worst cases, not every two-metre move
+    this.keep = opts && opts.keep ? opts.keep : 0;
+    this.counts = { bySource: {}, byKind: {}, n: 0, max: 0, over: 0 };
   }
   tolerance(source) {
     const t = this.tolerances[source];
@@ -42,10 +47,19 @@ class SnapLog {
     if (!rec || !rec.source || !rec.kind || !rec.from || !rec.to) throw new Error("snap log: a snap needs source, kind, from, to");
     const metres = rec.metres != null ? rec.metres : metresBetween(rec.from, rec.to);
     const tol = this.tolerance(rec.source);
-    this.snaps.push(Object.assign({}, rec, { metres: Math.round(metres * 100) / 100, tolerance: tol, over: metres > tol }));
+    const r = Object.assign({}, rec, { metres: Math.round(metres * 100) / 100, tolerance: tol, over: metres > tol });
+    if (!this.keep) { this.snaps.push(r); return; }
+    const c = this.counts; c.n++; c.bySource[r.source] = (c.bySource[r.source] || 0) + 1; c.byKind[r.kind] = (c.byKind[r.kind] || 0) + 1; if (r.metres > c.max) c.max = r.metres; if (r.over) c.over++;
+    if (r.over || this.snaps.length < this.keep) { this.snaps.push(r); if (this.snaps.length === this.keep) this.snaps.sort((a, b) => b.metres - a.metres); return; }
+    const last = this.snaps[this.snaps.length - 1]; if (r.metres <= last.metres) return;
+    let i = this.snaps.length - 1; while (i > 0 && this.snaps[i - 1].metres < r.metres) i--; this.snaps.splice(i, 0, r); this.snaps.pop();
   }
+  // aggregate counts recorded elsewhere (a cached epoch replayed, Phase 2b): the summary counts them, the kept snaps do not change
+  addCounts(c) { if (!c) return; const k = this.counts; k.n += c.n || 0; for (const [s, n] of Object.entries(c.bySource || {})) k.bySource[s] = (k.bySource[s] || 0) + n; for (const [s, n] of Object.entries(c.byKind || {})) k.byKind[s] = (k.byKind[s] || 0) + n; if ((c.max || 0) > k.max) k.max = c.max; k.over += c.over || 0; for (const e of c.events || []) this.events.push(e); }
   event(kind, detail) { this.events.push(Object.assign({ kind }, detail || {})); }
   summary() {
+    const eventsByKind0 = {};
+    if (this.keep) { for (const e of this.events) eventsByKind0[e.kind] = (eventsByKind0[e.kind] || 0) + 1; const c = this.counts; return { step: this.step, snaps: c.n, over: c.over, maxMetres: c.max, bySource: c.bySource, byKind: c.byKind, events: eventsByKind0, tolerances: this.tolerances, kept: this.snaps.length }; }
     const bySource = {}, byKind = {};
     let max = 0, over = 0;
     for (const s of this.snaps) {

@@ -96,12 +96,16 @@ const RELEASE_SETTLE_MS = 500;  // how long the pinch waits after each release b
    and lake-fill triangles measured 2026-10-08 on the Phase 1b build (globe 2,674 / 3,002 / 2,612; Europe
    22,173 / 71,465 / 64,628; the Aegean 4,390 / 2,381 / 2,157; the cap 0 / 1,708 / 1,553 — rivers are not
    drawn at the cap), each rounded up by a quarter. A view is (lon, lat, km per pixel). */
+const HIST_BUDGET_1500 = [120000, 60000], HIST_BUDGET_1900 = [120000, 60000];   // placeholders until measured (set below from the 2b build)
 const VIEWS = [
   { name: "globe", lon: 10, lat: 20, kmpp: 24.0, tri: 54000, seg: 25000, river: 3400, lakeSeg: 3800, lakeTri: 3300 },
   { name: "Europe", lon: 10, lat: 50, kmpp: 3.0, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600 },
   { name: "Aegean", lon: 25, lat: 38, kmpp: 0.5, tri: 33000, seg: 29000, river: 5500, lakeSeg: 3000, lakeTri: 2700 },
   { name: "Aegean at the cap", lon: 25, lat: 38, kmpp: 0.15, tri: 26000, seg: 23000, river: 0, lakeSeg: 2200, lakeTri: 2000 },
   { name: "Mediterranean, 1 CE", lon: 15, lat: 38, kmpp: 6.0, year: 1, tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 42000, histSeg: 26000 },
+  // Phase 2b: Europe in 1500 and in 1900 at 3 km/px (the land budgets are Europe's above; the history budgets measured on the 2b file, × 1.25)
+  { name: "Europe, 1500", lon: 10, lat: 50, kmpp: 3.0, year: 1500, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: HIST_BUDGET_1500[0], histSeg: HIST_BUDGET_1500[1] },
+  { name: "Europe, 1900", lon: 10, lat: 50, kmpp: 3.0, year: 1900, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: HIST_BUDGET_1900[0], histSeg: HIST_BUDGET_1900[1] },
 ];
 const PORT = 5612;
 
@@ -204,6 +208,20 @@ async function scrubV2(page) {
   await page.mouse.up();
   await sleep(300);
 }
+// Phase 2b: the whole rail — the pin dragged from 10,000 BCE to today in sixty moves over the Mediterranean at 6 km/px, every alive
+// set of the file passing; the year-change cost on the main thread is read afterwards (the gate), the frames reported
+async function scrubAllV2(page) {
+  const pin = await page.$(".atlas2-rail-pin"), track = await page.$(".atlas2-rail-track");
+  if (!pin || !track) return null;
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setYear(-10000));
+  const pb = await pin.boundingBox(), tb = await track.boundingBox();
+  if (!pb || !tb) return null;
+  const y = pb.y + pb.height / 2;
+  await page.mouse.move(pb.x + pb.width / 2, y); await page.mouse.down();
+  for (let i = 1; i <= 60; i++) { await page.mouse.move(tb.x + tb.width * i / 60, y); await sleep(30); }
+  await page.mouse.up();
+  await sleep(300);
+}
 async function scrub(page) {
   const pin = await page.$("#tlPin"), track = await page.$("#tlTrack");
   if (!pin || !track) return null;
@@ -249,7 +267,9 @@ async function gestures(page, cdp, cx, cy, withScrub, pinchProbe, v2) {
   r.pinch = await repeated(page, () => pinch(page, cdp, cx, cy, pinchProbe), v2 ? () => warmV2(page, () => pinch(page, cdp, cx, cy)) : null);
   r.scrub = withScrub ? await repeated(page, () => scrub(page)) : null;
   if (withScrub && r.scrub && !r.scrub.n) r.scrub = null;
-  if (v2) { await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(15, 40, 6)); await settle(page); await sleep(200); r.scrub = await repeated(page, () => scrubV2(page), () => warmV2(page, () => scrubV2(page))); if (r.scrub && !r.scrub.n) r.scrub = null; r.yearChange = await page.evaluate(() => { const t = document.querySelector(".atlas2").__atlas2.timeInfo(); return { p95: t.yearChangeP95, n: t.yearChangeN }; }); await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(new Date().getUTCFullYear()); c.setView(10, 20, 24); }); await settle(page); }
+  if (v2) { await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(15, 40, 6)); await settle(page); await sleep(200); r.scrub = await repeated(page, () => scrubV2(page), () => warmV2(page, () => scrubV2(page))); if (r.scrub && !r.scrub.n) r.scrub = null; r.yearChange = await page.evaluate(() => { const t = document.querySelector(".atlas2").__atlas2.timeInfo(); return { p95: t.yearChangeP95, n: t.yearChangeN }; });
+    r.scrubAll = await repeated(page, () => scrubAllV2(page), () => warmV2(page, () => scrubAllV2(page))); if (r.scrubAll && !r.scrubAll.n) r.scrubAll = null;
+    r.yearChangeAll = await page.evaluate(() => { const t = document.querySelector(".atlas2").__atlas2.timeInfo(); return { p95: t.yearChangeP95, n: t.yearChangeN, heap: (performance.memory && performance.memory.usedJSHeapSize) || null }; }); await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(new Date().getUTCFullYear()); c.setView(10, 20, 24); }); await settle(page); }
   return r;
 }
 const settle = (page) => page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.tilesSettled() && c.waterSettled(); }, null, { timeout: 90000 }).then(() => true, () => false);
@@ -435,7 +455,10 @@ async function fixedViews(page, cx, cy) {
   { const a = results.v1.scrub, b = results.v2.scrub;
     if (a && b) check(`scrub: v2 pooled p90 ≤ ${RATIO * 100} % of v1 pooled p90`, b.p90 <= a.p90 * RATIO, `v2 ${b.p90.toFixed(1)} ms vs v1 ${a.p90.toFixed(1)} ms (${(100 * b.p90 / a.p90).toFixed(0)} %); worst v2 ${b.max.toFixed(1)}`);
     else check("scrub: both rails measured", false, `v1 ${a ? a.n : "none"}, v2 ${b ? b.n : "none"}`);
-    const yc = results.v2.yearChange; check("a year change costs at most 5 ms on the main thread at p95", !!yc && yc.p95 <= 5, yc ? `${yc.p95.toFixed(2)} ms over ${yc.n} changes` : "no reading"); }
+    const yc = results.v2.yearChange; check("a year change costs at most 5 ms on the main thread at p95", !!yc && yc.p95 <= 5, yc ? `${yc.p95.toFixed(2)} ms over ${yc.n} changes` : "no reading");
+    // Phase 2b: the whole rail scrubbed (every alive set of the file), the year-change cost still under 5 ms at p95; the frames reported
+    const sa = results.v2.scrubAll, ya = results.v2.yearChangeAll;
+    check("the whole rail scrubbed, 10,000 BCE to today: a year change still costs at most 5 ms at p95", !!ya && ya.p95 <= 5, ya ? `${ya.p95.toFixed(2)} ms over ${ya.n} changes; frames p90 ${sa ? sa.p90.toFixed(1) : "—"} ms, worst ${sa ? sa.max.toFixed(1) : "—"} over ${sa ? sa.n : 0}; heap ${ya.heap ? Math.round(ya.heap / 1048576) + " MB" : "n/a"}` : "no reading"); }
   check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
   console.log("");
   process.exit(fails ? 1 : 0);

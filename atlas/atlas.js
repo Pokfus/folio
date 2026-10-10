@@ -104,11 +104,12 @@
   const TODAY = new Date().getUTCFullYear();
   const RAIL_FROM = -10000, RAIL_KNEE_YEAR = TODAY - 2500, RAIL_KNEE_X = 0.30;
   const FADE_MS = 250;                            // the crossfade at a step when the reader steps or plays (none while dragging, none under reduced motion)
-  const MESH_LRU = 400;                           // (face, level) meshes kept on the GPU
+  const MESH_BYTES = 48 * 1024 * 1024;            // (face, level) meshes kept on the GPU, by their bytes (2b: a count let forty empires cost what forty islets did)
   const HIST_FILL_ALPHA = 0.42, HIST_FILL_ALPHA_DARK = 0.5, HIST_SEL_ALPHA = 0.72;
   const SPEEDS = [1, 5, 25, 100];                 // years per second (Q-T4 b: every year is played)
   const PHONE = (() => { try { return matchMedia("(pointer: coarse)").matches && Math.min(screen.width, screen.height) < 768; } catch (e) { return false; } })();
   const TOUCH = (() => { try { return matchMedia("(pointer: coarse)").matches; } catch (e) { return false; } })();
+  const NARROW_PX = 600;   // under this width the rail takes two lines (‹ track › above; year, play, speed below), on any device
   const RELIEF_MAX_LEVEL = PHONE ? 1 : 2;    // Q-M1 a: a phone never fetches L2
   const SETTLE_MS = 150;                     // a layout is asked for this long after the last input
   const HIT_MIN = TOUCH ? 44 : 0;            // a label's or marker's hit target is at least this wide on touch (§2.6)
@@ -293,6 +294,7 @@
           <div class="atlas2-sheet atlas2-about" id="atlas2-about" role="dialog" aria-labelledby="atlas2-about-title" hidden>
             <div class="atlas2-sheet-head"><strong id="atlas2-about-title">About this map</strong><button type="button" class="atlas2-sheet-close atlas2-about-close" aria-label="Close">×</button></div>
             <p class="atlas2-about-p">The present-day earth from open data: coastlines from OpenStreetMap, borders and places from Natural Earth, lakes from HydroLAKES, relief from ETOPO 2022, names checked against Wikidata. <a class="atlas2-about-credits" href="#credits">Sources and credits</a> lists every source with its licence.</p>
+            <p class="atlas2-about-p atlas2-about-history">The years before today draw <b>the states Folio’s cards teach</b> — their borders from Cliopatria (Seshat), conflated onto today’s coast — not every state of the period: plain land in a past year is a state no card covers yet, or one the source does not draw.</p>
             <p class="atlas2-about-p atlas2-about-caution">Every border and coastline here is a reconstruction from those sources, drawn at the resolution each allows and as it stood on the day it was retrieved; a border is a guide to where a boundary runs, not a judgement on where it lies.</p>
             <dl class="atlas2-keys-help" aria-label="Keyboard">
               <div><dt>Drag, arrow keys</dt><dd>turn the globe (Shift: faster)</dd></div>
@@ -319,7 +321,7 @@
         </aside>
         <div class="atlas2-keys vh" aria-label="Places named on the map"><ul></ul></div>
         <div class="atlas2-rail" role="group" aria-label="Year">
-          <p class="atlas2-rail-note" hidden>No states are mapped for this year yet.</p>
+          <p class="atlas2-rail-note" hidden>No state taught by Folio’s cards is mapped for this year yet.</p>
           <div class="atlas2-rail-row">
             <button type="button" class="atlas2-rail-btn atlas2-rail-prev" aria-label="Previous change year" title="Previous change year ([)">‹</button>
             <div class="atlas2-rail-track"><canvas class="atlas2-rail-ticks" aria-hidden="true"></canvas><div class="atlas2-rail-pin" role="slider" tabindex="0" aria-label="Year" aria-valuemin="${RAIL_FROM}" aria-valuemax="${TODAY}" aria-valuenow="${TODAY}" aria-valuetext="${TODAY}" aria-orientation="horizontal"></div><div class="atlas2-rail-mag" hidden aria-hidden="true"></div></div>
@@ -430,13 +432,17 @@
         const dt = g != null ? g : t - lastFrameT;
         pendingSlow.push({ a: lastFrameT, b: t, slow: dt > RES_DROP_MS, fast: dt < FAST_MS, gpu: g != null });
       }
-      // settle the candidates older than one frame
-      while (pendingSlow.length > 1) {
+      settleFrames(false);
+      wasLive = live; lastFrameT = t;
+    }
+    // settle the candidates older than one frame (all of them when `all`)
+    function settleFrames(all) {
+      while (pendingSlow.length > (all ? 0 : 1)) {
         const c = pendingSlow.shift();
         // the frame's own cost for the recovery test: the GPU time where the timer answers, else the frame's main-thread span (a 60 Hz
         // loop or a throttled tab stretches the interval between frames to 33 ms however light the frame is); escalation keeps the interval
         if (!c.gpu) { const span = frameSpans.find((f) => f[0] >= c.b - 4 && f[0] <= c.b + 40); if (span) c.fast = span[1] - span[0] < FAST_MS; }
-        const wasStalled = stalled(c.a, c.b); stageTrace.push([Math.round(c.b - c.a), c.slow ? 1 : 0, c.fast ? 1 : 0, wasStalled ? 1 : 0, stage]); if (stageTrace.length > 48) stageTrace.shift();
+        const wasStalled = !c.injected && stalled(c.a, c.b); stageTrace.push([Math.round(c.b - c.a), c.slow ? 1 : 0, c.fast ? 1 : 0, wasStalled ? 1 : 0, stage]); if (stageTrace.length > 48) stageTrace.shift();
         if (wasStalled) { stats.stallsIgnored++; continue; }
         if (c.slow) { if (++slowFrames >= SLOW_FRAMES) escalate(); }
         else slowFrames = 0;
@@ -445,7 +451,16 @@
           else if (++trialFast >= FAST_FRAMES && !stageLocked) { learnt = stage; stats.learnt = learnt; stats.recoveries++; fastRun = 0; trialFast = 0; }
         } else { fastRun = 0; if (stage !== learnt) trialFast = 0; }
       }
-      wasLive = live; lastFrameT = t;
+    }
+    // the suites: a gesture made of injected frame costs (ms), run through the same bookkeeping as real frames — the start-of-gesture
+    // stage choice, then every frame settled as if the GPU timer had answered with that cost — so the stage logic is tested the
+    // same on a one-core runner and a workstation (the 2a review: "twenty fast frames" depended on the runner's real frames)
+    function feedGesture(costs) {
+      if (STATIC2D) return;
+      const t0 = performance.now(); gestureT = t0; pendingSlow.length = 0; slowFrames = 0;
+      if (!stageLocked) { if (learnt > 0 && fastRun >= FAST_FRAMES && stage === learnt) { trialFast = 0; fastRun = 0; applyStage(learnt - 1); } else if (stage !== learnt && trialFast < FAST_FRAMES) applyStage(learnt); }
+      let t = t0; for (const dt of costs) { pendingSlow.push({ a: t, b: t + dt, slow: dt > RES_DROP_MS, fast: dt < FAST_MS, gpu: true, injected: true }); t += dt; }
+      settleFrames(true); wasLive = false; lastFrameT = 0;
     }
     // the suites: pin the stage (and stop it learning) or let it learn again
     function forceStage(n, lock) { if (n == null) { stageLocked = false; return; } stageLocked = !!lock; learnt = Math.max(learnt, n); slowFrames = 0; fastRun = 0; trialFast = 0; applyStage(n); if (!lock) learnt = n; stats.learnt = learnt; }
@@ -453,6 +468,7 @@
       const r = el.getBoundingClientRect();
       cssW = Math.max(1, Math.round(r.width)); cssH = Math.max(1, Math.round(r.height));
       el.style.setProperty("--atlas2-h", cssH + "px");   // the sheets' height bound (styles.css, Phase 1d)
+      el.classList.toggle("atlas2-narrow", cssW < NARROW_PX);   // the rail in two lines under NARROW_PX, whatever the pointer (the 2a review: a phone the flag missed clipped the speed control)
       dprNow = Math.min(2, window.devicePixelRatio || 1);
       R.resize(cssW, cssH, (window.devicePixelRatio || 1) * resScale);
       labelCanvas.width = Math.round(cssW * dprNow); labelCanvas.height = Math.round(cssH * dprNow);
@@ -632,6 +648,7 @@
       if (k === onScreenKey) return; onScreenKey = k;
       const ys = changeYearsOnScreen(); const same = ys.length === time.changeYears.length && ys.every((y, i) => y === time.changeYears[i]); time.changeYears = ys; if (!same) drawTicks();
       railNote.hidden = time.present || time.onScreen.length > 0;
+      if (!railNote.hidden) railNote.textContent = (time.hist.header.history && time.hist.header.history.slice ? "This copy carries the pilot slice of the past only (the Mediterranean and Near East, 550 BCE to 650 CE); open the Atlas over http for every state. " : "") + "No state taught by Folio’s cards is mapped for this year yet.";   // the layer shows the states the cards teach, not every state of the period (2b)
     }
     function plan() {
       clampView();
@@ -875,7 +892,7 @@
         entityIndexById = new Map(header.entities.map((e, i) => [e.id, i]));
         if (pendingZoom) { view.zoom = pendingZoom; pendingZoom = 0; clampView(); plan(); invalidate(); }   // a deep link's zoom past the old floor, now that the tile index says the cap is 150 m/px
         if (!gazStarted) startGazetteer();
-        if (!histStarted) startHistory();
+        coreIn = true; if (!histStarted && (histWanted || time.year < PRESENT_YEAR)) startHistory();   // 2b: the borders of the past load the first time the rail leaves today, not at boot
         say("Shaping the land…", 0.35); return;
       }
       if (m.type === "gazetteer") { gazInWorker = true; requestLayout("gazetteer", true); return; }
@@ -1040,10 +1057,12 @@
     /* ================= Phase 2a: time — the step topology, the year, the rail, playback =================
        (docs/atlas-v2-design.md §1.4, §2.4, §2.9 and §7 "Phase 2a — as built"; the worker's half is in atlas-worker.js) */
     const time = { year: TODAY, present: true, hist: null, faceEntity: null, faceCap: null, faceArcOff: null, faceArcs: null, stepsOf: new Map(), ents: [], alive: [], aliveSet: new Set(), aliveArcs: new Set(), view: null, fade: null, prev: null,
-      resident: new Set(), lru: [], wanted: new Set(), pending: 0, selected: -1, playing: false, speed: 25, playY: 0, playT: 0, dir: 1, lastYear: TODAY, dragging: false, seq: 0, changeYears: [], onScreen: [], capitals: [], style: null, arcTab: null, yearChange: [], loadMs: 0, histStarted: false, failed: false };
-    let histStarted = false;
+      resident: new Set(), lru: [], meshBytes: new Map(), meshTotal: 0, wanted: new Set(), pending: 0, selected: -1, playing: false, speed: 25, playY: 0, playT: 0, dir: 1, lastYear: TODAY, dragging: false, seq: 0, changeYears: [], onScreen: [], capitals: [], style: null, arcTab: null, yearChange: [], loadMs: 0, histStarted: false, failed: false };
+    let histStarted = false, histWanted = false, coreIn = false;
+    // the first touch of the rail, a year before today, a deep link's year or a suite: fetch the history file now (once)
+    function ensureHistory() { histWanted = true; if (!histStarted && coreIn) startHistory(); }
     const reducedNow = () => reduced();
-    const fmtYear = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : String(y));
+    const fmtYear = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");   // every year with its era ("1 CE", "300 BCE", "2026 CE"): a bare "1" in the year box read as nothing (the 2a phone review)
     // "500 BCE", "500 BC", "-44", "44", "44 CE", "AD 70", "1066": null when it is none of these
     function parseYear(text) {
       const t = String(text || "").trim().replace(/[,\.]/g, "").toUpperCase();
@@ -1059,6 +1078,7 @@
     const railYearAt = (x) => (x <= RAIL_KNEE_X ? RAIL_FROM + x / RAIL_KNEE_X * (RAIL_KNEE_YEAR - RAIL_FROM) : RAIL_KNEE_YEAR + (x - RAIL_KNEE_X) / (1 - RAIL_KNEE_X) * (TODAY - RAIL_KNEE_YEAR));
     function startHistory() {
       histStarted = true; time.histStarted = true;
+      railNote.hidden = false; railNote.textContent = "Loading the years…";   // the quiet loading state: never a blank rail while the file is on its way
       const t = performance.now();
       const url = opts.historyUrl || "atlas/data/history.bin";
       (FILE ? loadTwin("history.bin", "the borders of the past") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
@@ -1071,7 +1091,7 @@
       const H = m.header;
       time.hist = { header: H, ready: false, segLevels: 0 };
       time.faceEntity = m.faceEntity; time.faceCap = m.faceCap; time.faceArcOff = m.faceArcOff; time.faceArcs = m.faceArcs;
-      time.ents = H.entities;
+      time.ents = H.entities; time.entIndex = null;
       // steps per entity, sorted by year, as [from, to, face]
       time.stepsOf = new Map();
       for (const st of H.steps) { let l = time.stepsOf.get(st[0]); if (!l) time.stepsOf.set(st[0], l = []); l.push([st[1], st[2], st[3]]); }
@@ -1086,21 +1106,64 @@
       });
       for (const c of H.cities || []) { const id = "cap:" + c.entity + ":" + c.name; if (!G.byId.has(id)) G.byId.set(id, { id, name: c.name, kind: "capital", hist: true, city: c, at: [c.lon, c.lat], within: c.entity, key: fold(c.name), akeys: [], rank: 0, len: 0, aliases: [] }); }
       if (pendingPlace && G.ready && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;   // the deep link's history place, now that its row exists
-      // the colour of each entity, stable: its index on a golden-angle hue wheel (the table's order is the file's)
+      // the colour of each entity (2b): a slot of a fixed palette, chosen once over every epoch so that two polities sharing a
+      // border in a year never share a slot, and an entity keeps its slot across the years wherever that allows
+      assignSlots();
       histColours();
       applyYear(time.year, { why: "meta" });
     }
+    const SLOTS = 16;   // the palette: SLOTS hues round the wheel, each blended with the theme's ink or paper (histColours)
+    /* slots per entity as [[fromYear, slot], …] (a change only where a neighbour forced one). Greedy, deterministic: the epochs
+       (every change year of the file) in order; in each, the alive polities in entity order keep their current slot unless an
+       alive neighbour holds it, else take the first slot no neighbour holds, preferring one no alive polity holds at all; a
+       contested face is adjacent to both partners' neighbours; a nested face takes its member's slot. ~1,500 epochs × tens of
+       polities: a few milliseconds at load. */
+    function assignSlots() {
+      const years = new Set(); for (const [, l] of time.stepsOf) for (const st of l) { years.add(st[0]); years.add(st[1] + 1); }
+      const ys = [...years].sort((a, b) => a - b);
+      const cur = new Map(), hist = new Map();   // entity → slot now; entity → [[year, slot]…]
+      const owners = (ent) => { const e = time.ents[ent]; return e.kind === "polity" ? [ent] : e.partners.map(entityIndexOfId).filter((i) => i >= 0); };
+      let lastKey = "";
+      for (const y of ys) {
+        const alive = aliveAt(y); const key = alive.map((a) => a.face).join(","); if (key === lastKey) continue; lastKey = key;
+        // adjacency over the faces' non-coast arcs: an arc used by two faces joins every owner of one to every owner of the other
+        const byArc = new Map();
+        for (const a of alive) for (let k = time.faceArcOff[a.face]; k < time.faceArcOff[a.face + 1]; k++) { const arc = time.faceArcs[k]; let l = byArc.get(arc); if (!l) byArc.set(arc, l = []); l.push(a.ent); }
+        const adj = new Map(); const link = (p, q) => { if (p === q) return; let l = adj.get(p); if (!l) adj.set(p, l = new Set()); l.add(q); };
+        for (const [, l] of byArc) if (l.length > 1) for (const p of l) for (const q of l) for (const po of owners(p)) for (const qo of owners(q)) link(po, qo);
+        for (const a of alive) { const e = time.ents[a.ent]; if (e.kind !== "polity") for (const o of owners(a.ent)) for (const o2 of owners(a.ent)) link(o, o2); }   // the partners of a contested face are neighbours
+        const polities = [...new Set(alive.flatMap((a) => owners(a.ent)))].sort((p, q) => p - q);
+        const used = new Set(polities.map((p) => cur.get(p)).filter((v) => v != null));
+        for (const p of polities) {
+          const taken = new Set(); for (const q of adj.get(p) || []) { const sq = cur.get(q); if (sq != null) taken.add(sq); }
+          const mine = cur.get(p);
+          if (mine != null && !taken.has(mine)) continue;
+          let pick = -1;
+          for (let k = 0; k < SLOTS && pick < 0; k++) { const sl = (p * 7 + k) % SLOTS; if (!taken.has(sl) && !used.has(sl)) pick = sl; }
+          for (let k = 0; k < SLOTS && pick < 0; k++) { const sl = (p * 7 + k) % SLOTS; if (!taken.has(sl)) pick = sl; }
+          if (pick < 0) pick = (p * 7) % SLOTS;
+          cur.set(p, pick); used.add(pick); let h = hist.get(p); if (!h) hist.set(p, h = []); h.push([y, pick]);
+        }
+      }
+      time.slots = hist;
+    }
+    const slotAt = (ent, y) => { const h = time.slots && time.slots.get(ent); if (!h || !h.length) return ent % SLOTS; let s = h[0][1]; for (const [from, sl] of h) { if (from > y) break; s = sl; } return s; };
     let histRGB = [], histBorderCss = "";
     function histColours() {
       const { ink, paper, dark } = themeTokens();
       const hsl = (h, sat, lum) => { const c = (1 - Math.abs(2 * lum - 1)) * sat, x = c * (1 - Math.abs((h / 60) % 2 - 1)), mm = lum - c / 2; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [r + mm, g + mm, b + mm]; };
-      histRGB = time.ents.map((e, i) => { if (e.kind === "contested") return null; const h = (i * 137.508) % 360; return dark ? mix(hsl(h, 0.55, 0.62), paper, 0.1) : mix(hsl(h, 0.6, 0.48), ink, 0.08); });
+      // the slots: hues spread round the wheel in a golden-angle order (neighbouring slot numbers are far apart in hue), two
+      // lightness steps so sixteen stay apart; blended with the theme's tokens so every theme keeps its own ink and land
+      histRGB = []; for (let k = 0; k < SLOTS; k++) { const h = (k * 137.508) % 360, even = k % 2 === 0; histRGB.push(dark ? mix(hsl(h, 0.55, even ? 0.62 : 0.52), paper, 0.1) : mix(hsl(h, 0.6, even ? 0.48 : 0.58), ink, 0.08)); }
       const hb = dark ? mix(paper, ink, 0.35) : mix(paper, ink, 0.58);
       histBorderCss = hb; R.setHistoryBorderColor(hb);
       void paper;
     }
-    const entColour = (i) => { const e = time.ents[i]; if (!e) return [0.5, 0.5, 0.5]; if (e.kind === "contested") { const a = entityIndexOfId(e.partners[0]); return histRGB[a] || [0.5, 0.5, 0.5]; } return histRGB[i] || [0.5, 0.5, 0.5]; };
-    const entityIndexOfId = (id) => time.ents.findIndex((e) => e.id === id);
+    // the colour of an entity in a year: a polity's slot; a contested face its first partner's; a nested face its member's
+    const entColourAt = (i, y) => { const e = time.ents[i]; if (!e) return [0.5, 0.5, 0.5]; const p = e.kind === "polity" ? i : entityIndexOfId(e.partners[0]); return histRGB[slotAt(p, y)] || [0.5, 0.5, 0.5]; };
+    const entColour = (i) => entColourAt(i, time.year);
+    const hatchOf = (i) => (time.ents[i].kind === "contested" ? entColour(entityIndexOfId(time.ents[i].partners[1])) : null);
+    const entityIndexOfId = (id) => { if (!time.entIndex) { time.entIndex = new Map(time.ents.map((e, i) => [e.id, i])); } const i = time.entIndex.get(id); return i == null ? -1 : i; };
     /* the alive set of a year: a binary search over each entity's steps */
     function aliveAt(y) {
       const out = [];
@@ -1127,6 +1190,7 @@
       const wasPresent = time.present;
       time.dir = y >= time.lastYear ? 1 : -1; time.lastYear = time.year; time.year = y;
       time.present = y >= PRESENT_YEAR;
+      if (!time.present && !histStarted) ensureHistory();
       railPin.setAttribute("aria-valuenow", String(y)); railPin.setAttribute("aria-valuetext", fmtYear(y));
       railPin.style.left = (railX(y) * 100) + "%";
       if (document.activeElement !== railYear) railYear.value = fmtYear(y);
@@ -1145,10 +1209,10 @@
           if (!o.drag) lookAhead();
         }
         if (changed || time.fade || wasPresent !== time.present || o.force) uploadStyle(changed ? 1 : 1);
-        time.view = { faces: alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })), present: time.present, strokePx: 0 };
+        time.view = { faces: alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })), present: time.present, strokePx: 0 };
         time.capitals = (time.hist.header.cities || []).filter((c) => c.from <= y && c.to >= y && alive.some((a) => time.ents[a.ent].id === c.entity)).map((c) => ({ entity: c.entity, name: c.name, lon: c.lon, lat: c.lat }));
         refreshOnScreen();   // the ticks and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
-      } else { time.view = { faces: [], present: time.present, strokePx: 0 }; railNote.hidden = true; }
+      } else { time.view = { faces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
       if (wasPresent !== time.present) { if (sel.id && !G.byId.get(sel.id)?.hist && !time.present) clearSelection(); }
       if (!o.drag) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
       plan(); invalidate();
@@ -1179,9 +1243,9 @@
       const u = (t - time.fade.t0) / FADE_MS;
       // the fading faces stay in the draw list until the fade ends
       const fromFaces = time.fade.from.filter((a) => !time.aliveSet.has(a.face)).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: null }));
-      if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })).concat(fromFaces);
+      if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })).concat(fromFaces);
       uploadStyle();
-      if (u >= 1) { time.fade = null; if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); uploadStyle(); }
+      if (u >= 1) { time.fade = null; if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })); uploadStyle(); }
     }
     /* the meshes: ask the worker for what the year needs at the view's level, keep an LRU on the GPU */
     // the history level: the resident level, one coarser while a gesture (a pan, a scrub) runs at stage ≥ 1 — the fills are masked by the
@@ -1205,11 +1269,11 @@
     }
     function onHistoryFaces(m) {
       time.pending = Math.max(0, time.pending - 1);
-      bracket(() => { for (const mesh of m.meshes) { const key = mesh.face + ":" + mesh.level; time.wanted.delete(key); R.setHistoryMesh(key, mesh); time.resident.add(key); time.lru.push(key); } }, "histMesh");
+      bracket(() => { for (const mesh of m.meshes) { const key = mesh.face + ":" + mesh.level; time.wanted.delete(key); R.setHistoryMesh(key, mesh); time.resident.add(key); time.lru.push(key); const b = mesh.pos.byteLength + mesh.idx.byteLength + (mesh.coast ? mesh.coast.byteLength : 0); time.meshBytes.set(key, b); time.meshTotal += b; } }, "histMesh");
       for (const fi of m.faces || []) time.wanted.delete(fi + ":" + m.level);
-      // the LRU: drop the oldest meshes the year does not draw
-      const evicted = [];
-      while (time.lru.length > MESH_LRU) { const key = time.lru.shift(); const fi = Number(key.split(":")[0]); if (time.aliveSet.has(fi)) { time.lru.push(key); if (evicted.length > MESH_LRU) break; continue; } R.dropHistoryMesh(key); time.resident.delete(key); evicted.push(key); }
+      // the LRU, by bytes: drop the oldest meshes the year does not draw until the resident set fits MESH_BYTES
+      const evicted = []; let spins = 0;
+      while (time.meshTotal > MESH_BYTES && time.lru.length && spins++ < time.lru.length * 2) { const key = time.lru.shift(); const fi = Number(key.split(":")[0]); if (time.aliveSet.has(fi)) { time.lru.push(key); continue; } R.dropHistoryMesh(key); time.resident.delete(key); time.meshTotal -= time.meshBytes.get(key) || 0; time.meshBytes.delete(key); evicted.push(key); }
       if (evicted.length) postToWorker({ type: "history-evict", keys: evicted });
       invalidate();
     }
@@ -1227,9 +1291,14 @@
       x.globalAlpha = 0.7;
       for (const y of [-10000, -5000, -3000, -2000, -1000, -500, 1, 500, 1000, 1500, 2000]) { const px = Math.round(railX(y) * w) + 0.5; x.beginPath(); x.moveTo(px, h / 2 - 4); x.lineTo(px, h / 2 + 4); x.stroke(); }
       x.globalAlpha = 1; x.strokeStyle = hex(ink);
-      for (const y of time.changeYears) { const px = Math.round(railX(y) * w) + 0.5; x.beginPath(); x.moveTo(px, h / 2 - 3); x.lineTo(px, h / 2 + 3); x.stroke(); }
+      // at most about TICKS_MAX ticks a view (2b): change years closer than a bucket merge into one tick, drawn taller the more it
+      // stands for; [ and ] still step through every change year (stepChange reads the full list)
+      const TICKS_MAX = 200; const bucket = w / TICKS_MAX; const merged = new Map();
+      for (const y of time.changeYears) { const px = railX(y) * w; const b = Math.floor(px / bucket); let m = merged.get(b); if (!m) merged.set(b, m = { sx: 0, n: 0 }); m.sx += px; m.n++; }
+      for (const [, m] of merged) { const px = Math.round(m.sx / m.n) + 0.5, hh = m.n > 1 ? 5 : 3; x.beginPath(); x.moveTo(px, h / 2 - hh); x.lineTo(px, h / 2 + hh); x.stroke(); }
     }
     function stepChange(dir) {
+      if (!time.hist) { ensureHistory(); if (dir < 0 && time.present) setYear(PRESENT_YEAR - 1); return; }   // the file loads on the first step back (2b); the change years follow once it is in
       const ys = time.changeYears.length ? time.changeYears : changeYearsOnScreen();
       const next = dir > 0 ? ys.find((y) => y > time.year) : ys.slice().reverse().find((y) => y < time.year);
       if (next != null) setYear(next);
@@ -1629,9 +1698,17 @@
       const e = time.ents[row.ent]; const steps = time.stepsOf.get(row.ent) || [];
       const src = (time.hist.header.sources || []).find((s) => s.id === "cliopatria");
       const srcName = src ? "Cliopatria " + src.version : "Cliopatria";
-      cardKind.textContent = (e.kind === "contested" ? "Contested between " + e.partners.map((p) => { const r = G.byId.get(p); return r ? r.name : p; }).join(" and ") : "Polity") + (e.span ? " · " + fmtYear(e.span[0]) + " – " + fmtYear(e.span[1]) : "");
+      const nameOf = (p) => { const r = G.byId.get(p); return r ? r.name : p; };
+      cardKind.textContent = (e.kind === "contested" ? "Contested between " + e.partners.map(nameOf).join(" and ") : e.kind === "nested" ? "Within " + nameOf(e.partners[1]) : "Polity") + (e.span ? " · " + fmtYear(e.span[0]) + " – " + fmtYear(e.span[1]) : "");
       let html = "";
       if (e.span) html += `<p class="atlas2-card-span">Mapped from ${escText(fmtYear(e.span[0]))} to ${escText(fmtYear(e.span[1]))}, in ${steps.length} step${steps.length === 1 ? "" : "s"}.</p>`;
+      // the steps as RANGES (2b): consecutive steps with no gap between them read as one range; the list of every step opens on request
+      // (Rome has 123, Byzantium 124), each a button that sets the year
+      if (steps.length > 1) {
+        const ranges = []; for (const st of steps) { const last = ranges[ranges.length - 1]; if (last && st[0] === last.to + 1) { last.to = st[1]; last.n++; } else ranges.push({ from: st[0], to: st[1], n: 1 }); }
+        html += `<p class="atlas2-card-ranges">${ranges.map((r) => escText(fmtYear(r.from) + " – " + fmtYear(r.to)) + (r.n > 1 ? ` <span class="atlas2-card-dim">(${r.n} steps)</span>` : "")).join("; ")}.</p>`;
+        html += `<details class="atlas2-card-steplist"><summary>Every step (${steps.length})</summary><ol>${steps.map((st) => `<li><button type="button" class="atlas2-link atlas2-step-go" data-year="${st[0]}">${escText(fmtYear(st[0]))} – ${escText(fmtYear(st[1]))}</button></li>`).join("")}</ol></details>`;
+      }
       // the step list as a small timeline: one bar per step across the span, the current year marked
       if (steps.length && e.span) {
         const s0 = e.span[0], s1 = e.span[1] + 1, W = Math.max(1, s1 - s0);
@@ -1646,6 +1723,15 @@
       const gaps = []; for (let i = 1; i < steps.length; i++) if (steps[i][0] > steps[i - 1][1] + 1) gaps.push([steps[i - 1][1] + 1, steps[i][0] - 1]);
       html += gaps.length ? `<p class="atlas2-card-gaps">No source for ${gaps.map((g) => escText(fmtYear(g[0]) + (g[1] > g[0] ? "–" + fmtYear(g[1]) : ""))).join(", ")}: nothing is drawn in those years.</p>` : (steps.length > 1 ? '<p class="atlas2-card-gaps">No gaps in the span.</p>' : "");
       if (e.kind === "contested") html += e.partners.map((p) => { const r = G.byId.get(p); return r ? `<p class="atlas2-card-within">Claimed by <button type="button" class="atlas2-link" data-select="${escText(r.id)}">${escText(r.name)}</button></p>` : ""; }).join("");
+      if (e.kind === "nested") html += e.partners.map((p, i) => { const r = G.byId.get(p); return r ? `<p class="atlas2-card-within">${i === 0 ? "The member" : "Within"} <button type="button" class="atlas2-link" data-select="${escText(r.id)}">${escText(r.name)}</button></p>` : ""; }).join("");
+      // members and overlords (2b): the nested entities naming this polity, with their years
+      if (e.kind === "polity") {
+        const rel = (k) => time.ents.map((x, i) => ({ x, i })).filter(({ x }) => x.kind === "nested" && x.partners[k] === e.id && x.span).map(({ x }) => { const other = x.partners[k === 1 ? 0 : 1]; return `<button type="button" class="atlas2-link" data-select="${escText(other)}">${escText(nameOf(other))}</button> <span class="atlas2-card-dim">(${escText(fmtYear(x.span[0]) + " – " + fmtYear(x.span[1]))})</span>`; });
+        const members = rel(1), overlords = rel(0);
+        if (members.length) html += `<p class="atlas2-card-within">Members drawn inside it: ${members.join(", ")}.</p>`;
+        if (overlords.length) html += `<p class="atlas2-card-within">Drawn within: ${overlords.join(", ")}.</p>`;
+      }
+      html += `<p class="atlas2-card-scope">The past here shows the states Folio’s cards teach, not every state of the period.</p>`;
       if (e.wiki) html += `<p class="atlas2-card-link"><a href="${wikiUrl(e.wiki)}" target="_blank" rel="noopener">Wikipedia: ${escText(e.wiki)}</a></p>`;
       if (e.alsoWiki && e.alsoWiki.length) html += `<p class="atlas2-card-link atlas2-card-also">Also in the source: ${e.alsoWiki.filter((w) => w.wiki).map((w) => `<a href="${wikiUrl(w.wiki)}" target="_blank" rel="noopener">${escText(w.wiki)}</a>`).join(", ")}</p>`;
       cardBody.innerHTML = html;
@@ -1849,7 +1935,7 @@
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
     const controller = { dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
       stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
-      forceStage, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
+      forceStage, feedGesture, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
       perfOn: () => perfOn,
       mode: () => ({ file: FILE, static2d: STATIC2D, shim: !!shim, worker: !!worker, resScale, stage, lodBias: lodBias(), shimWhy: stats.shim || null, workerError: stats.workerError || null, twinVerified: stats.twinVerified || 0 }),
       input: () => ({ pointers: [...ptrs.entries()].map(([id, p]) => [id, Math.round(p.x), Math.round(p.y)]), dragging, moved, pinch: Math.round(pinch), coasting, flying: !!flying }),   // for the suites
@@ -1864,13 +1950,38 @@
       chromeRects, hash: hashNow, readHash, metricsCount: () => metricsSent,
       /* Phase 2a: time */
       setYear: (y, o) => setYear(y, o), year: () => time.year, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
-      alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !!(time.hist && time.hist.ready),
+      alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
       timeInfo: () => ({ year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
       // one device pixel of the GL canvas, read right after a render in the same task (the drawing buffer is not preserved between tasks)
       // one CSS row of the GL canvas as [r,g,b,a,…] per CSS pixel (one render, one readback — a scan by pixelAt would render once per pixel)
       pixelRow: (y) => { const g = R.gl; if (!g) return null; R.render(view); const d = Math.min(2, (window.devicePixelRatio || 1) * resScale); const w = g.drawingBufferWidth; const row = new Uint8Array(w * 4); g.readPixels(0, g.drawingBufferHeight - 1 - Math.round(y * d), w, 1, g.RGBA, g.UNSIGNED_BYTE, row); const n = Math.floor(w / d); const out = new Array(n * 4); for (let i = 0; i < n; i++) { const j = Math.round(i * d) * 4; out[i * 4] = row[j]; out[i * 4 + 1] = row[j + 1]; out[i * 4 + 2] = row[j + 2]; out[i * 4 + 3] = row[j + 3]; } return out; },
       pixelAt: (x, y) => { const g = R.gl; if (!g) return null; R.render(view); const d = Math.min(2, (window.devicePixelRatio || 1) * resScale); const px = new Uint8Array(4); g.readPixels(Math.round(x * d), g.drawingBufferHeight - 1 - Math.round(y * d), 1, 1, g.RGBA, g.UNSIGNED_BYTE, px); return [px[0], px[1], px[2], px[3]]; },
-      parseYear, fmtYear, railX, railYearAt, histColour: (id) => { const i = entityIndexOfId(id); return i < 0 ? null : entColour(i); }, requestLayout: (why) => requestLayout(why || "test", true), labelDebug: (on) => { L.debug = !!on; }, labelWhy: () => L.why };
+      parseYear, fmtYear, railX, railYearAt, histColour: (id) => { const i = entityIndexOfId(id); return i < 0 ? null : entColour(i); },
+      /* Phase 2b, for the suites: the colouring over every epoch, the label contrast per theme, the largest face on screen */
+      colourAudit: () => {
+        if (!time.hist || !time.slots) return { epochs: 0, pairs: 0, clashes: 0, changes: 0, entities: 0, sample: [] };
+        const years = new Set(); for (const [, l] of time.stepsOf) for (const st of l) { years.add(st[0]); years.add(st[1] + 1); }
+        const owners = (ent) => { const e = time.ents[ent]; return e.kind === "polity" ? [ent] : e.partners.map(entityIndexOfId).filter((i) => i >= 0); };
+        let epochs = 0, pairs = 0, clashes = 0, lastKey = ""; const sample = [];
+        for (const y of [...years].sort((a, b) => a - b)) {
+          const alive = aliveAt(y); const key = alive.map((a) => a.face).join(","); if (key === lastKey) continue; lastKey = key; epochs++;
+          const byArc = new Map(); for (const a of alive) for (let k = time.faceArcOff[a.face]; k < time.faceArcOff[a.face + 1]; k++) { const arc = time.faceArcs[k]; let l = byArc.get(arc); if (!l) byArc.set(arc, l = []); l.push(a.ent); }
+          const seen = new Set();
+          for (const [, l] of byArc) if (l.length > 1) for (const p of l) for (const q of l) for (const po of owners(p)) for (const qo of owners(q)) { if (po >= qo) continue; const k = po + ":" + qo; if (seen.has(k)) continue; seen.add(k); pairs++; if (slotAt(po, y) === slotAt(qo, y)) { clashes++; if (sample.length < 5) sample.push(`${time.ents[po].id} and ${time.ents[qo].id} at ${fmtYear(y)}`); } }
+        }
+        let changes = 0; for (const [, h] of time.slots) changes += Math.max(0, h.length - 1);
+        return { epochs, pairs, clashes, changes, entities: time.slots.size, sample };
+      },
+      contrastAudit: () => {
+        const pal = readPalette(); const landC = pal.land; const a = themeTokens().dark ? HIST_FILL_ALPHA_DARK : HIST_FILL_ALPHA;
+        const tokensNow = themeTokens(); const hsl = (h, sat, lum) => { const c = (1 - Math.abs(2 * lum - 1)) * sat, x = c * (1 - Math.abs((h / 60) % 2 - 1)), mm = lum - c / 2; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [r + mm, g + mm, b + mm]; };
+        const slots = []; for (let k = 0; k < SLOTS; k++) { const h = (k * 137.508) % 360, even = k % 2 === 0; slots.push(tokensNow.dark ? mix(hsl(h, 0.55, even ? 0.62 : 0.52), tokensNow.paper, 0.1) : mix(hsl(h, 0.6, even ? 0.48 : 0.58), tokensNow.ink, 0.08)); }
+        const lum = (c) => { const f = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
+        const ratio = (p, q) => { const a1 = lum(p) + 0.05, b1 = lum(q) + 0.05; return a1 > b1 ? a1 / b1 : b1 / a1; };
+        let min = Infinity, worst = -1; slots.forEach((sl, k) => { const fill = mix(landC, sl, a); const r = ratio(tokensNow.ink, fill); if (r < min) { min = r; worst = k; } });
+        return { min, worst, alpha: a };
+      },
+      largestOnScreen: () => { if (!time.hist) return null; let best = null; for (const fi of time.onScreen || []) { const km2 = (time.hist.header.faceKm2 || [])[fi] || 0; if (!best || km2 > best.km2) best = { face: fi, km2 }; } if (!best) return null; const e = time.ents[time.faceEntity[best.face]]; const id = e.kind === "polity" ? e.id : e.partners[0]; return { id, name: (G.byId.get(id) || e).name, km2: best.km2 }; }, requestLayout: (why) => requestLayout(why || "test", true), labelDebug: (on) => { L.debug = !!on; }, labelWhy: () => L.why };
     el.__atlas2 = controller;
     return controller;
   }

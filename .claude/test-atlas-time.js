@@ -55,7 +55,7 @@ const H = HB.header;
 const stepsOf = new Map(); for (const st of H.steps) { let l = stepsOf.get(st[0]); if (!l) stepsOf.set(st[0], l = []); l.push(st); }
 const aliveFacesAt = (y) => H.steps.filter((s) => s[1] <= y && s[2] >= y).map((s) => s[3]).sort((a, b) => a - b);
 const entIndex = (id) => H.entities.findIndex((e) => e.id === id);
-const fmt = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : String(y));   // atlas.js fmtYear
+const fmt = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");   // atlas.js fmtYear (every year with its era since 2b)
 const TODAY = new Date().getUTCFullYear();
 
 async function open(context, hash) {
@@ -65,8 +65,8 @@ async function open(context, hash) {
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
   await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map2"}`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
-  await C(page, () => document.querySelector(".atlas2").__atlas2.setLayers({ rivers: true, lakes: true, relief: false, density: "normal", countries: true, places: true, physical: true, cities: true, provinces: true }));
-  await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady() && c.historyReady(); }, null, { timeout: 120000 });
+  await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ rivers: true, lakes: true, relief: false, density: "normal", countries: true, places: true, physical: true, cities: true, provinces: true }); c.ensureHistory(); });   // 2b: the file loads on the first step into the past; the suite asks for it now
+  await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady() && c.historyStarted() && c.historyReady(); }, null, { timeout: 120000 });
   await sleep(200);
   return { page, errors };
 }
@@ -335,7 +335,7 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
     const noteMed = await (async () => { await at(page, 15, 40, 6, 1); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
     const noteDeep = await (async () => { await at(page, 15, 40, 6, -9000); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
     const noteNow = await (async () => { await at(page, 110, 35, 6, TODAY); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
-    check("\"No states are mapped for this year yet\" shows over China at 1 CE and over the Mediterranean at 9000 BCE, not over the Mediterranean at 1 CE nor today", noteFar && noteDeep && !noteMed && !noteNow, `${noteFar} ${noteDeep} ${noteMed} ${noteNow}`);
+    check("\"No state taught by Folio’s cards is mapped for this year yet\" shows over China at 1 CE and over the Mediterranean at 9000 BCE, not over the Mediterranean at 1 CE nor today", noteFar && noteDeep && !noteMed && !noteNow, `${noteFar} ${noteDeep} ${noteMed} ${noteNow}`);
   }
 
   console.log("\n\x1b[1m11) the year-change cost\x1b[0m\n");
@@ -345,6 +345,42 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
     await sleep(300);
     const ti = await C(page, () => document.querySelector(".atlas2").__atlas2.timeInfo());
     check(`a year change costs at most 5 ms on the main thread at p95 (${ti.yearChangeP95.toFixed(2)} ms over ${ti.yearChangeN} changes; reported here, gated in the perf suite)`, ti.yearChangeP95 <= 5 * 3 || true, `${ti.yearChangeP95.toFixed(2)} ms`);
+  }
+  console.log("\n\x1b[1m12) Phase 2b: the year query at the largest alive sets, the colours, the labels, the captions\x1b[0m\n");
+  {
+    // the year query at the largest alive sets: Europe near 1500 and China in the Warring States, sixty one-year changes each
+    for (const [name, lon, lat, k, y0] of [["Europe near 1500", 10, 50, 3, 1480], ["China in the Warring States", 110, 35, 3, -330]]) {
+      await at(page, lon, lat, k, y0);
+      const before = await C(page, () => document.querySelector(".atlas2").__atlas2.timeInfo().yearChangeN);
+      for (let y = y0; y <= y0 + 60; y++) await C(page, (yy) => document.querySelector(".atlas2").__atlas2.setYear(yy, { drag: true }), y);
+      await sleep(200);
+      const ti = await C(page, () => document.querySelector(".atlas2").__atlas2.timeInfo());
+      check(`${name}: ${ti.alive} faces alive; a year change costs at most 5 ms at p95 on the main thread (${ti.yearChangeP95.toFixed(2)} ms over ${ti.yearChangeN - before} changes)`, ti.yearChangeP95 <= 5, `${ti.yearChangeP95.toFixed(2)} ms`);
+    }
+    // the colours: in every year of the file no two alive faces that share a border arc show one colour, and an entity keeps its
+    // colour across its years wherever a neighbour did not force a change (the slot timeline is read from the controller)
+    const col = await C(page, () => {
+      const c = document.querySelector(".atlas2").__atlas2; const ys = new Set(); for (const st of c.timeInfo().entities ? [] : []) ys.add(st);
+      return c.colourAudit();
+    });
+    check(`no two adjacent alive polities share a colour in any epoch (${col.epochs} epochs, ${col.pairs} adjacent pairs checked)`, col.clashes === 0, `${col.clashes} clashes` + (col.sample.length ? ": " + col.sample.join("; ") : ""));
+    check(`entities keep their colour across the years (${col.entities} entities, ${col.changes} forced changes in all)`, col.changes <= col.entities, `${col.changes} changes`);
+    // label contrast per theme: the theme's ink against every palette slot's fill (the fill at its alpha over the land), WCAG ≥ 4.5
+    const THEMES = ["academy", "amber", "amethyst", "aquamarine", "arcade", "bloodstone", "carnelian", "diamond", "emerald", "folio", "gazette", "jade", "marble", "ruby", "synth"];   // styles.css's fifteen, as test-atlas-labels.js lists them
+    const list = THEMES.map((t) => ({ t, night: false })).concat([{ t: "folio", night: true }]);
+    const contrast = await C(page, (ths) => { const c = document.querySelector(".atlas2").__atlas2; const out = []; for (const { t, night } of ths) { document.body.dataset.theme = t; document.body.classList.toggle("night", night); const r = c.contrastAudit(); out.push({ theme: t + (night ? " night" : ""), min: r.min, worst: r.worst }); } delete document.body.dataset.theme; document.body.classList.remove("night"); return out; }, list);
+    const low = contrast.filter((r) => r.min < 4.5);
+    check(`the label ink reads on every palette slot's fill in every theme (${contrast.length} themes; the lowest contrast ${Math.min(...contrast.map((r) => r.min)).toFixed(2)})`, low.length === 0, low.map((r) => `${r.theme} ${r.min.toFixed(2)} (${r.worst})`).join("; "));
+    // labels ranked by area on screen: at Europe in 1500 the largest alive face on screen is named
+    await at(page, 10, 50, 3, 1500);
+    const placed = await layoutNow(page); const big = await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; return c.largestOnScreen(); });
+    check(`at Europe in 1500 the largest face on screen (${big ? big.name : "?"}) is named among ${placed.filter((p) => p.hist && p.kind === "polity").length} polity labels`, !!big && placed.some((p) => p.id === big.id), placed.filter((p) => p.hist).map((p) => p.text).slice(0, 8).join(", "));
+    // the captions say what the layer is
+    const words = await C(page, () => ({ note: document.querySelector(".atlas2-rail-note").textContent, about: document.querySelector(".atlas2-about-history").textContent }));
+    check("the rail's note and the About sheet say the layer shows the states Folio's cards teach", /Folio’s cards/.test(words.note) && /states Folio’s cards teach/.test(words.about), JSON.stringify(words).slice(0, 200));
+    await C(page, () => document.querySelector(".atlas2").__atlas2.select("pol:rome")); await sleep(200);
+    const cardWords = await C(page, () => ({ scope: (document.querySelector(".atlas2-card-scope") || {}).textContent || "", ranges: (document.querySelector(".atlas2-card-ranges") || {}).textContent || "", list: document.querySelectorAll(".atlas2-card-steplist li").length }));
+    check("Rome's card lists its steps as ranges with an expandable list, and says what the layer is", /states Folio’s cards teach/.test(cardWords.scope) && cardWords.ranges.length > 0 && cardWords.list > 1, `${cardWords.list} steps listed; ${cardWords.ranges.slice(0, 80)}`);
   }
   check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();

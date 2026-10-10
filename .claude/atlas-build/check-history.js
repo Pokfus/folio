@@ -32,6 +32,19 @@ const argv = process.argv.slice(2);
 const quiet = argv.includes("--quiet"), verbose = argv.includes("--verbose");
 const ROOT = path.join(__dirname, "..", "..");
 const file = argv.find((a) => !a.startsWith("--")) || path.join(ROOT, "atlas", "data", "history.bin");
+/* --determinism (Phase 2b, implemented; the 2a header promised it): the builder runs twice without writing — once with the epoch cache
+   emptied (--no-cache: every epoch conflated afresh) and once replaying the cache the first run left — and the two sha256s must equal
+   each other and the committed file's. Needs the Cliopatria source under .claude/atlas-build/src/; ~2 × the build's time. */
+function determinism() {
+  const { spawnSync } = require("child_process"); const crypto = require("crypto");
+  const HERE = __dirname; const run = (extra, label) => { const t0 = Date.now(); const r = spawnSync(process.execPath, ["--max-old-space-size=12000", path.join(HERE, "build-history.js"), "--dry"].concat(extra), { cwd: HERE, encoding: "utf8", maxBuffer: 1 << 28 }); const m = /history\.bin: (\d+) bytes .*sha256 ([0-9a-f]{64})/.exec(r.stdout || ""); console.log(`  ${label}: ${((Date.now() - t0) / 1000).toFixed(0)} s, exit ${r.status}, ${m ? m[1] + " bytes, sha256 " + m[2] : "no sha in the output: " + (r.stderr || "").slice(-400)}`); return m ? m[2] : null; };
+  const committed = crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
+  console.log(`\ncheck-history --determinism: the committed file ${committed}`);
+  const a = run(["--no-cache"], "fresh build (no cache)"), b = run([], "rebuild replaying the cache");
+  if (a && b && a === b && a === committed) { console.log("  \x1b[32mok\x1b[0m    two builds and the committed file share one sha256"); process.exit(0); }
+  console.log(`  \x1b[31mFAIL\x1b[0m  the builds differ or differ from the committed file: fresh ${a}, cached ${b}, committed ${committed}`); process.exit(1);
+}
+if (argv.includes("--determinism")) determinism();
 let pass = 0, fail = 0;
 const ok = (m, d) => { pass++; if (!quiet) console.log(`  \x1b[32mok\x1b[0m    ${m}${d ? "  \x1b[2m" + d + "\x1b[0m" : ""}`); };
 const bad = (m, d) => { fail++; console.log(`  \x1b[31mFAIL\x1b[0m  ${m}${d ? "  \x1b[2m" + d + "\x1b[0m" : ""}`); };
@@ -91,6 +104,9 @@ const ASSERT = [
   ["Mecca", 39.83, 21.42, 600, "out", "pol:byzantium"], ["Mecca", 39.83, 21.42, 600, "out", "pol:sasanian"], ["Medina", 39.61, 24.47, 640, "out", "pol:byzantium"],
 ];
 /* a failing assertion of the source's own making: listed here with its reason once read, never forced (the brief) */
+// the capital facts (Phase 2b) that fail against Cliopatria's polygons, each checked by hand against the raw row of the year
+const KNOWN_CAPITAL_FAULTS = {
+};
 const KNOWN_FAULTS = {
   // "Place year in/out entity": "why the source draws it so" — every entry was checked against the raw Cliopatria polygon of the year
   "Rome -343 in pol:rome": "Cliopatria's Roman Republic -480..-338 leaves Rome unmapped where the card's extent has it in (rm-152)",
@@ -168,6 +184,27 @@ function run() {
     let badArc = 0, badFace = 0; for (let i = 0; i < nA; i++) if (T.arcSource[i] >= H.sources.length) badArc++; for (const f of T.faces) if (f.source >= H.sources.length) badFace++;
     badArc || badFace ? bad("every arc and face traces to a header source", `${badArc} arcs, ${badFace} faces`) : ok("every arc and face traces to a header source");
   }
+  /* the file:// twin (Phase 2b): history.bin.js carries the PILOT SLICE of this file, not the whole — the three twins together
+     must stay under 12 MB decimal — so it is decoded and parsed as a history file of its own: the same core buildId, the same
+     sources, every entity and step of the slice among this file's, and the header's sentence saying what it is */
+  {
+    const tf = path.join(ROOT, "atlas", "data", "history.bin.js");
+    if (!fs.existsSync(tf)) bad("the file:// twin exists (atlas/data/history.bin.js)");
+    else {
+      try {
+        const text = fs.readFileSync(tf, "utf8"); const m = /b64: "([A-Za-z0-9+/=]*)" \};\n$/.exec(text); if (!m) throw new Error("no base64 payload");
+        const TW = F.read(new Uint8Array(Buffer.from(m[1], "base64"))), WH = TW.header;
+        const same = WH.core && WH.core.buildId === H.core.buildId && JSON.stringify(WH.sources) === JSON.stringify(H.sources);
+        const ids = new Set(H.entities.map((e) => e.id)); const entOK = WH.entities.every((e) => ids.has(e.id));
+        const stepOK = WH.steps.every((st) => { const e = WH.entities[st[0]]; const i = H.entities.findIndex((x) => x.id === e.id); return i >= 0 && H.steps.some((s2) => s2[0] === i && s2[1] <= st[1] && s2[2] >= st[2]); });
+        const sliced = WH.history && WH.history.slice === "pilot" && /pilot slice/.test(WH.history.sliceNote || "");
+        const others = ["topology.bin.js", "water.bin.js"].map((f) => { try { return fs.statSync(path.join(ROOT, "atlas", "data", f)).size; } catch (e) { return 0; } }).reduce((p, q) => p + q, 0);
+        const twinBytes = Buffer.byteLength(text), total = others + twinBytes;
+        (same && entOK && stepOK && sliced) ? ok("the file:// twin is the pilot slice of this file on the same core, and says so", `${WH.entities.length} entities, ${WH.steps.length} steps, ${TW.faces.length} faces; ${(twinBytes / 1e6).toFixed(2)} MB`) : bad("the file:// twin is the pilot slice of this file on the same core, and says so", `core ${!!same}, entities ${entOK}, steps ${stepOK}, slice sentence ${!!sliced}`);
+        total <= 12e6 ? ok("the three file:// twins stay under 12 MB decimal together", `${(total / 1e6).toFixed(2)} MB`) : bad("the three file:// twins stay under 12 MB decimal together", `${(total / 1e6).toFixed(2)} MB`);
+      } catch (e) { bad("the file:// twin decodes and parses", e.message); }
+    }
+  }
   /* references */
   const hasRef = !!T.coreArc;
   if (!hasRef) { bad("the coreRef section exists"); return; }
@@ -195,6 +232,51 @@ function run() {
   const JUNC = F.historyJunctions(T, C);
   const geom = (a, L) => F.historyArcGeometry(T, C, a, L, JUNC, H.arcEmpty);
   { let badSeg = 0; for (let i = 0; i < nA; i++) { const a = T.coreArc[i]; if (a < 0) continue; const n = C.arcOffset[a + 1] - C.arcOffset[a]; for (const sg of [T.coreSegA[i], T.coreSegB[i]]) if (sg < 0 || sg >= n) badSeg++; } badSeg ? bad("every junction names a segment inside its core arc", `${badSeg}`) : ok("every junction names a segment inside its core arc", `${JUNC.size} junctions`); }
+  /* THE REALISED PATH OF EVERY CORE REFERENCE, PER LEVEL (Phase 2b, after the 2a review's artefacts). A reference stores two
+     junctions and a range of the core's vertices; what is DRAWN is historyArcGeometry's path at a level. Two rules, each a
+     stated number: (1) the path's length at every level is at least 1/CHORD_FACTOR of the coast it replaces (the full-resolution
+     core line between the two junctions: the junction legs plus the inner range), so a range that collapsed to a chord fails;
+     (2) no drawn segment's middle lies further than CHORD_OFF_M[L] from the core's own coast or border line — a chord cut
+     across land (or across a bay) between two junctions far apart fails, whatever its length ratio. The second is the rule
+     the brief asked for by name ("no stroked chord across land exceeds a stated length"): a segment whose middle is within
+     the level's tolerance of the real line is the line; one that is not is a chord, and CHORD_MAX_M bounds the longest such
+     chord the checker tolerates. A piece the level hid altogether (an islet whose ring collapses to one point at 2.5 km; drawn
+     length under twice the tolerance) is exempt from the ratio: nothing is drawn, so nothing is wrong. CHORD_MAX_M bounds the longest
+     chord the checker tolerates (the empty range: two junctions on one core segment, where the chord IS the segment). */
+  {
+    const CHORD_FACTOR = 4, CHORD_OFF_M = [30000, 7500, 1500], CHORD_MAX_M = 20000;   // 3 × the level's tolerance; an empty range's chord stays on its own segment
+    const vec = (p) => G.vec(p[0], p[1], Q);
+    const lenOf = (pts) => { let m = 0; for (let i = 1; i < pts.length; i++) m += G.chordMetres(vec(pts[i - 1]), vec(pts[i])); return m; };
+    // every core segment of the kinds referenced, in one index
+    const refKinds = new Set(); for (let i = 0; i < nA; i++) if (T.coreArc[i] >= 0) refKinds.add(T.arcKind[i]);
+    const segA = [], segV = [];
+    for (let a = 0; a < C.arcOffset.length - 1; a++) { if (!refKinds.has(C.arcKind[a])) continue; for (let i = C.arcOffset[a] + 1; i < C.arcOffset[a + 1]; i++) { segA.push(a); segV.push(i); } }
+    const CELL = Math.round(0.05 / Q);
+    const cidx = SegIndex.build(segA.length, CELL, (k) => [C.lon[segV[k] - 1], C.lat[segV[k] - 1], C.lon[segV[k]], C.lat[segV[k]]]);
+    const X180q = X180;
+    const distToLine = (x, y, maxM) => {   // metres from (x, y) to the nearest indexed core segment within maxM, else Infinity
+      const rU = Math.ceil(maxM / 111000 / Q) + CELL; let best = Infinity; const P = vec([x, y]);
+      cidx.near(x, y, rU, (k) => { const i1 = segV[k], i0 = i1 - 1; const ax = C.lon[i0], ay = C.lat[i0]; let bx = C.lon[i1]; if (bx - ax > X180q) bx -= 2 * X180q; else if (ax - bx > X180q) bx += 2 * X180q; let qx = x; if (qx - ax > X180q) qx -= 2 * X180q; else if (ax - qx > X180q) qx += 2 * X180q; const dx = bx - ax, dy = C.lat[i1] - ay; const l2 = dx * dx + dy * dy; let t = l2 ? ((qx - ax) * dx + (y - ay) * dy) / l2 : 0; t = Math.max(0, Math.min(1, t)); let px = Math.round(ax + dx * t); if (px >= X180q) px -= 2 * X180q; if (px < -X180q) px += 2 * X180q; const d = G.chordMetres(P, vec([px, Math.round(ay + dy * t)])); if (d < best) best = d; });
+      return best;
+    };
+    let shortPath = 0, chords = 0, longest = 0; const samples = []; const ratioMin = [Infinity, Infinity, Infinity]; let checked = 0;
+    for (let i = 0; i < nA; i++) {
+      if (T.coreArc[i] < 0) continue; checked++;
+      const full = lenOf(geom(i, LODS - 1));   // every core vertex of the range: the line the reference replaces
+      for (let L = 0; L < LODS; L++) {
+        const g = geom(i, L); const len = lenOf(g);
+        if (full > 2 * CHORD_OFF_M[L] && len > 2 * CHORD_OFF_M[L]) { const r = len / full; if (r < ratioMin[L]) ratioMin[L] = r; if (r < 1 / CHORD_FACTOR) { shortPath++; if (samples.length < 8) samples.push(`arc ${i} L${L}: ${(len / 1000).toFixed(1)} km drawn for ${(full / 1000).toFixed(1)} km of line near ${(g[0][0] * Q).toFixed(3)},${(g[0][1] * Q).toFixed(3)}`); } }
+        for (let k = 1; k < g.length; k++) {
+          const m = G.chordMetres(vec(g[k - 1]), vec(g[k])); if (m <= CHORD_OFF_M[L]) continue;   // a segment shorter than the tolerance cannot leave the line by more than it
+          let mx = g[k][0]; if (mx - g[k - 1][0] > X180q) mx -= 2 * X180q; else if (g[k - 1][0] - mx > X180q) mx += 2 * X180q; mx = Math.round((g[k - 1][0] + mx) / 2); if (mx >= X180q) mx -= 2 * X180q; if (mx < -X180q) mx += 2 * X180q;
+          const d = distToLine(mx, Math.round((g[k - 1][1] + g[k][1]) / 2), CHORD_OFF_M[L]);
+          if (d > CHORD_OFF_M[L]) { chords++; if (m > longest) longest = m; if (samples.length < 8) samples.push(`arc ${i} L${L}: a ${(m / 1000).toFixed(1)} km segment ${(d / 1000).toFixed(1)} km off the line near ${(g[k - 1][0] * Q).toFixed(3)},${(g[k - 1][1] * Q).toFixed(3)}`); }
+        }
+      }
+    }
+    shortPath ? bad(`every core reference draws at least 1/${CHORD_FACTOR} of the line it replaces at every level`, `${shortPath} (${samples.join("; ")})`) : ok(`every core reference draws at least 1/${CHORD_FACTOR} of the line it replaces at every level`, `${checked} references; the smallest ratio per level ${ratioMin.map((r) => (r === Infinity ? "—" : r.toFixed(2))).join(" / ")}`);
+    (chords && longest > CHORD_MAX_M) ? bad(`no drawn segment of a core reference leaves the line by more than ${CHORD_OFF_M.join(" / ")} m per level (a chord across land)`, `${chords}, the longest ${(longest / 1000).toFixed(1)} km (${samples.join("; ")})`) : ok(`no drawn segment of a core reference leaves the line by more than ${CHORD_OFF_M.join(" / ")} m per level (a chord across land)`, chords ? `${chords} under ${CHORD_MAX_M / 1000} km (the longest ${(longest / 1000).toFixed(1)} km)` : "none");
+  }
   /* well-formed */
   {
     let endRank = 0, rankRange = 0, short = 0;
@@ -212,7 +294,7 @@ function run() {
     badPartner ? bad("every contested entity names two existing partners", `${badPartner}`) : ok("every contested entity names two existing partners", `${H.entities.filter((e) => e.kind === "contested").length} contested entities`);
     let noWiki = H.entities.filter((e) => e.kind === "polity" && !e.wiki).map((e) => e.id);
     note(`polities without a Wikipedia title from the source: ${noWiki.length ? noWiki.join(", ") : "none"}`);
-    const cls = H.faceClass || []; if (cls.length !== T.faces.length) bad("every face has an uncertainty class"); else ok("every face has an uncertainty class", `approximate ${cls.filter((c) => c === 1).length}, contested ${cls.filter((c) => c === 4).length}`);
+    const cls = H.faceClass || []; if (cls.length !== T.faces.length) bad("every face has an uncertainty class"); else ok("every face has an uncertainty class", `approximate ${cls.filter((c) => c === 1).length}, nested ${cls.filter((c) => c === 5).length}, contested ${cls.filter((c) => c === 4).length}`);
     const acls = H.arcClass || []; if (acls.length !== nA) bad("every arc has an uncertainty class"); else ok("every arc has an uncertainty class", `firm ${acls.filter((c) => c === 0).length}, approximate ${acls.filter((c) => c === 1).length}`);
   }
   /* rings close */
@@ -299,6 +381,30 @@ function run() {
       else failed.push(`${k} (found: ${found.map((e) => e.id).join(", ") || "nobody"})`);
     }
     failed.length ? bad(`independent point assertions (${ASSERT.length})`, `${failed.length} failing and not listed as a known fault: ${failed.join("; ")}`) : ok(`independent point assertions (${ASSERT.length})`, `${okN} hold, ${known} known source faults listed`);
+  }
+  /* THE NAMED INDEPENDENT SOURCE (Phase 2b): Wikidata's own capital statements (P36, with their date qualifiers; CC0) for the
+     linked polities, as state-capitals.js carries them and the file's header lists them (`cities`). The claim: a state's
+     capital of a year lies inside that state's face in that year — read at the capital's first year, its last and its middle
+     (clipped to the polity's span), each a fact of its own. Counted per millennium; a failure names a fault of Cliopatria's
+     polygon or of the capital's statement (listed in KNOWN_CAPITAL_FAULTS with its reason) and is never forced. */
+  {
+    const cities = H.cities || []; const byM = new Map(); let okN = 0, known = 0; const failed = [];
+    const mil = (y) => (y <= 0 ? -Math.ceil((1 - y) / 1000) : Math.ceil(y / 1000));   // −1: 1000–1 BCE, 1: 1–1000 CE
+    for (const c of cities) {
+      const years = [...new Set([c.from, Math.round((c.from + c.to) / 2), c.to])];
+      for (const y of years) {
+        const found = entityAt(c.lon, c.lat, y); const inside = holds(c.entity, found);
+        const m = mil(y); const t = byM.get(m) || { n: 0, ok: 0, known: 0 }; t.n++; byM.set(m, t);
+        if (inside) { okN++; t.ok++; continue; }
+        const k = `${c.name} ${y} in ${c.entity}`;
+        if (KNOWN_CAPITAL_FAULTS[k]) { known++; t.known++; note(`known source fault (capital, ${c.card}): ${k} — ${KNOWN_CAPITAL_FAULTS[k]} (found: ${found.map((e) => e.id).join(", ") || "nobody"})`); }
+        else failed.push(`${k} (card ${c.card}; found: ${found.map((e) => e.id).join(", ") || "nobody"})`);
+      }
+    }
+    const perM = [...byM.entries()].sort((a, b) => a[0] - b[0]).map(([m, t]) => `${m < 0 ? (-m) * 1000 + "–" + ((-m - 1) * 1000 + 1) + " BCE" : ((m - 1) * 1000 + 1) + "–" + m * 1000 + " CE"}: ${t.n} (${t.ok} hold, ${t.known} known)`).join("; ");
+    const thin = [...byM.entries()].filter(([, t]) => t.n < 25).map(([m]) => m);
+    failed.length ? bad(`the capitals of Wikidata lie inside their states (${cities.length} capitals, ${okN + known + failed.length} facts)`, `${failed.length} failing and not listed: ${(verbose ? failed : failed.slice(0, 15)).join("; ")}`) : ok(`the capitals of Wikidata lie inside their states (${cities.length} capitals, ${okN + known + failed.length} facts)`, `${okN} hold, ${known} known source faults listed; per millennium ${perM}`);
+    if (thin.length) note(`millennia with under 25 capital facts (the source has no more capitals there; stated, not padded): ${thin.join(", ")}`);
   }
   /* the repo's own extent assertions, through the cards' links */
   try {

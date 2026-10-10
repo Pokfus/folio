@@ -26,17 +26,20 @@ function twinText(bytes, name, sources) {
     "window.ATLAS_TWIN = window.ATLAS_TWIN || {};\n" +
     `window.ATLAS_TWIN[${JSON.stringify(name)}] = { bytes: ${bytes.length}, sha256: ${JSON.stringify(sha256(bytes))}, b64: "` + Buffer.from(bytes).toString("base64") + "\" };\n";
 }
-function writeTwin(binPath) {
+// opts.as: write the twin at another path, under opts.name (Phase 2b: history.bin.js is the twin of the pilot SLICE, written beside the
+// full history.bin; checkTwin(binPath, { bin: slicePath }) compares it with the slice)
+function writeTwin(binPath, opts) {
   const bytes = fs.readFileSync(binPath);
   const h = F.read(new Uint8Array(bytes), { headerOnly: true }).header;
-  const text = twinText(bytes, path.basename(binPath), h.sources);
-  fs.writeFileSync(twinPath(binPath), text);
-  return { file: twinPath(binPath), bytes: bytes.length, sha256: sha256(bytes), twinBytes: Buffer.byteLength(text) };
+  const name = (opts && opts.name) || path.basename(binPath), file = (opts && opts.as) || twinPath(binPath);
+  const text = twinText(bytes, name, h.sources);
+  fs.writeFileSync(file, text);
+  return { file, bytes: bytes.length, sha256: sha256(bytes), twinBytes: Buffer.byteLength(text) };
 }
-function checkTwin(binPath) {
+function checkTwin(binPath, opts) {
   const file = twinPath(binPath);
   if (!fs.existsSync(file)) return { ok: false, reason: "no twin at " + file };
-  const bytes = fs.readFileSync(binPath), text = fs.readFileSync(file, "utf8");
+  const bytes = fs.readFileSync((opts && opts.bin) || binPath), text = fs.readFileSync(file, "utf8");
   const first = text.split("\n")[0];
   const hm = /^\/\* sources: (\[.*\]) \*\/$/.exec(first);
   if (!hm) return { ok: false, reason: "the twin's first line is not a sources header" };

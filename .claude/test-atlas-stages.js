@@ -100,15 +100,39 @@ async function touchDrag(page, cdp, steps) {
   check("a plain drag at 320×420 stays at stage 0 (every real frame is fast here)", quiet.stage === 0 && quiet.escalations === i1.escalations, JSON.stringify(quiet));
   check("ten injected 150 ms stalls during a drag leave the stage at 0 and are counted as ignored", i2.stage === 0 && i2.escalations === quiet.escalations && i2.stallsIgnored >= 5, `stage ${i2.stage}, escalations ${i2.escalations} (was ${quiet.escalations}), stalls ignored ${i2.stallsIgnored}, long tasks ${i2.longTasks}`);
 
-  console.log("\n\x1b[1m3) a lighter load recovers within two gestures\x1b[0m\n");
+  console.log("\n\x1b[1m3) a lighter load recovers within two gestures — on injected frame costs, so the runner's own frames decide nothing\x1b[0m\n");
+  // Phase 2b (the 2a review): "twenty fast frames" ran on the runner's real frames and failed on a one-core runner (fastRun 0). The
+  // controller's feedGesture(costs) runs a gesture of given frame costs through the same bookkeeping as real frames (the stage choice
+  // at the gesture's start, each frame settled as if the GPU timer had answered with that cost), so the logic is asserted here and
+  // the real-GPU case below is reported, ungated.
+  const feed = (page, costs) => page.evaluate((c) => document.querySelector(".atlas2").__atlas2.feedGesture(c), costs);
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.forceStage(2, false));
   const before = await info(page);
-  await drag(page, 60);
+  await feed(page, new Array(26).fill(12));   // twenty-six frames of 12 ms at the learnt stage 2
   const mid = await info(page);
-  await drag(page, 60);
+  await feed(page, new Array(26).fill(12));   // the next gesture starts a stage lower and proves it
   const after = await info(page);
-  check("with stage 2 learnt, the first drag on a light load runs twenty fast frames at the learnt stage", mid.fastRun >= 20 || mid.learnt < 2, `fastRun ${mid.fastRun}, learnt ${mid.learnt}`);
-  check("the second drag starts a stage lower and the learnt stage comes down", after.learnt < before.learnt && after.recoveries >= 1, `learnt ${before.learnt} → ${after.learnt}, recoveries ${after.recoveries}, stage ${after.stage}`);
+  check("with stage 2 learnt, the first gesture of fast frames runs twenty fast frames at the learnt stage", mid.stage === 2 && mid.learnt === 2 && mid.fastRun >= 20, `stage ${mid.stage}, learnt ${mid.learnt}, fastRun ${mid.fastRun}`);
+  check("the second gesture starts a stage lower and the learnt stage comes down", after.learnt < before.learnt && after.recoveries >= 1 && after.stage === 1, `learnt ${before.learnt} → ${after.learnt}, recoveries ${after.recoveries}, stage ${after.stage}`);
+  {
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.forceStage(0, false));
+    const e0 = await info(page);
+    await feed(page, [12, 12, 90, 95, 90, 12]);   // three slow frames in a row escalate once
+    const e1 = await info(page);
+    check("three injected slow frames escalate one stage and teach it", e1.escalations === e0.escalations + 1 && e1.stage === 1 && e1.learnt === 1, `escalations ${e0.escalations} → ${e1.escalations}, stage ${e1.stage}, learnt ${e1.learnt}`);
+    await feed(page, [12, 90, 12, 90, 12, 90, 12]);   // slow frames never two in a row do not
+    const e2 = await info(page);
+    check("alternating slow and fast frames do not escalate", e2.escalations === e1.escalations && e2.stage === 1, `escalations ${e2.escalations}, stage ${e2.stage}`);
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.forceStage(0, false));
+  }
+  // the real GPU: the same two drags on this runner, reported and not asserted
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.forceStage(2, false));
+  await drag(page, 60);
+  const realMid = await info(page);
+  await drag(page, 60);
+  const realAfter = await info(page);
+  check("(report) the same two drags on this runner's own frames", true, `first drag fastRun ${realMid.fastRun} at stage ${realMid.stage}; second drag learnt ${realAfter.learnt}, recoveries ${realAfter.recoveries}, stage ${realAfter.stage}`);
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.forceStage(0, false));
   await page.setViewportSize({ width: 1280, height: 800 });
   await sleep(400);
 
