@@ -2478,7 +2478,7 @@ coarse-level budget is 200.
 72.0 KB, vertices 144.5 KB, ranks 10.3 KB, arcs 45.8 KB, faces 513.2 KB, coreRef 67.3 KB, jpos 83.3 KB.
 1,796 bytes per step × 2,648 steps of all 164 spec series = **4.76 MB decimal forecast**, under the 12 MB
 stop rule; the `file://` twin is 1.28 MB and the three twins together 11.12 MB, under the owner's 12 MB.
-Two builds: one sha256 (`967a90d4…` before the face anchors, `9d486736…` committed). The land, water
+Three builds, each deterministic (`967a90d4…` before the face anchors, `9d486736…` before the capitals source's retrieval date entered the header, `68d8d9d4…` committed). The land, water
 and relief files are byte-identical before and after (`topology.bin` `26629af5…`, `water.bin`
 `30bea9ba…`, every tile and relief file; `git diff --quiet` over `atlas/data` apart from the three
 history files and `credits.js`).
