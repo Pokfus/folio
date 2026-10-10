@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-10T14:13Z",
+ "generated": "2026-10-10T14:16Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4554,
-  "redirect-broader": 391,
-  "redirect-variant": 298,
+  "ok": 4556,
+  "redirect-broader": 392,
+  "redirect-variant": 299,
   "section-redirect": 92,
-  "disambiguation": 126,
-  "none": 583,
-  "disambig-resolved": 68,
+  "disambiguation": 127,
+  "none": 588,
+  "disambig-resolved": 69,
   "list-page": 6,
   "search-match": 5,
   "no-article": 3
@@ -48690,6 +48690,126 @@
    "url": null,
    "via": null,
    "status": "none"
+  },
+  "gga-042": {
+   "answer": "Penholder",
+   "title": "Penholder (United Nations)",
+   "url": "https://en.wikipedia.org/wiki/Penholder_(United_Nations)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Penholder"
+  },
+  "gga-043": {
+   "answer": "Christmas tree mandates",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Christmas tree cultivation",
+    "Observance of Christmas by country",
+    "Christmas Tree Promotion, Research, and Information Order",
+    "A Charlie Brown Christmas",
+    "A Very Harold & Kumar 3D Christmas"
+   ]
+  },
+  "gga-044": {
+   "answer": "UNPROFOR, UNOSOM and UNAMIR",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Canadian peacekeeping",
+    "United Nations peacekeeping",
+    "Pakistan Army Medical Corps",
+    "Awards and decorations of the Irish Defence Forces",
+    "United Nations Medal"
+   ]
+  },
+  "gga-045": {
+   "answer": "Independent Inquiry into the Rwanda genocide",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rwandan genocide",
+    "Gaza genocide",
+    "International response to the Rwandan genocide",
+    "Intent and incitement in the Gaza genocide",
+    "List of genocides"
+   ]
+  },
+  "gga-046": {
+   "answer": "Blair Doctrine",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Blairism",
+    "Arika",
+    "George Orwell",
+    "Premiership of Tony Blair",
+    "Liberal internationalism"
+   ]
+  },
+  "gga-036": {
+   "answer": "Resolution 2085",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Stepanakert",
+    "United Nations Security Council Resolution 2085",
+    "Azerbaijan",
+    "Council of Europe Parliamentary Assembly Resolution 2085 (2016)",
+    "Mikhail Gorbachev"
+   ]
+  },
+  "gga-037": {
+   "answer": "MINUSMA",
+   "title": "United Nations Multidimensional Integrated Stabilization Mission in Mali",
+   "url": "https://en.wikipedia.org/wiki/United_Nations_Multidimensional_Integrated_Stabilization_Mission_in_Mali",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "MINUSMA"
+  },
+  "gga-038": {
+   "answer": "Algiers Agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Algiers Agreement",
+   "suggestions": [
+    "1975 Algiers Agreement",
+    "Algiers Agreement (2000)"
+   ]
+  },
+  "gga-039": {
+   "answer": "Africa Corps",
+   "title": "Afrika Korps",
+   "url": "https://en.wikipedia.org/wiki/Afrika_Korps",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Africa Corps"
+  },
+  "gga-040": {
+   "answer": "Assimi Goïta",
+   "title": "Assimi Goïta",
+   "url": "https://en.wikipedia.org/wiki/Assimi_Go%C3%AFta",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-041": {
+   "answer": "Operation Barkhane",
+   "title": "Operation Barkhane",
+   "url": "https://en.wikipedia.org/wiki/Operation_Barkhane",
+   "via": "answer",
+   "status": "ok"
   }
  }
 }
