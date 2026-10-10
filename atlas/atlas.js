@@ -652,7 +652,7 @@
         const va = viewAngleNow(); const now = time.alive.filter((a) => faceOnScreen(a.face, va)); const nowKey = now.map((a) => a.face).join(",");
         if (nowKey !== (time.onScreenAlive || []).map((a) => a.face).join(",")) {
           time.onScreenAlive = now;
-          time.aliveArcs = new Set(); for (const a of now) for (let kk = time.faceArcOff[a.face]; kk < time.faceArcOff[a.face + 1]; kk++) time.aliveArcs.add(time.faceArcs[kk]);
+          time.aliveArcs = arcFlags(now);
           time.prevArcs = time.aliveArcs;
           wantMeshes(now.map((a) => a.face), true);
           if (time.view) time.view.faces = now.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })).concat(time.fade ? time.view.faces.filter((f) => !time.aliveSet.has(f.face)) : []);
@@ -1177,6 +1177,8 @@
     const entColour = (i) => entColourAt(i, time.year);
     const hatchOf = (i) => (time.ents[i].kind === "contested" ? entColour(entityIndexOfId(time.ents[i].partners[1])) : null);
     const entityIndexOfId = (id) => { if (!time.entIndex) { time.entIndex = new Map(time.ents.map((e, i) => [e.id, i])); } const i = time.entIndex.get(id); return i == null ? -1 : i; };
+    // the arcs of a set of faces as flags, one byte an arc (2b: a Set of tens of thousands of entries was a millisecond a year change)
+    const arcFlags = (faces) => { const nA = time.hist ? time.hist.header.counts.arcs : 0; const f = new Uint8Array(nA); for (const a of faces) for (let k = time.faceArcOff[a.face]; k < time.faceArcOff[a.face + 1]; k++) f[time.faceArcs[k]] = 1; return f; };
     /* the alive set of a year: a binary search over each entity's steps */
     function aliveAt(y) {
       const out = [];
@@ -1220,9 +1222,9 @@
           const prevFaces = time.onScreenAlive || [];
           time.aliveKey = key; time.alive = alive; time.aliveSet = new Set(alive.map((a) => a.face)); time.aliveEnt = new Set(alive.map((a) => time.ents[a.ent].id));
           const va = viewAngleNow(); time.onScreenAlive = alive.filter((a) => faceOnScreen(a.face, va)); time.onScreenKey = key + "@" + onScreenKey;
-          time.aliveArcs = new Set(); for (const a of time.onScreenAlive) for (let k = time.faceArcOff[a.face]; k < time.faceArcOff[a.face + 1]; k++) time.aliveArcs.add(time.faceArcs[k]);
+          time.aliveArcs = arcFlags(time.onScreenAlive);
           // the crossfade: when stepping or playing, never while the pin is dragged, never under reduced motion
-          if (!o.drag && !reducedNow() && prevFaces.length + alive.length && o.why !== "meta" && o.why !== "ready") { time.fade = { from: prevFaces, fromArcs: time.prevArcs || new Set(), t0: performance.now() }; } else time.fade = null;
+          if (!o.drag && !reducedNow() && prevFaces.length + alive.length && o.why !== "meta" && o.why !== "ready") { time.fade = { from: prevFaces, fromArcs: time.prevArcs || null, t0: performance.now() }; } else time.fade = null;
           time.prevArcs = time.aliveArcs;
           wantMeshes(time.onScreenAlive.map((a) => a.face), true);
           if (!o.drag) lookAhead();
@@ -1245,16 +1247,15 @@
       if (!time.hist || !time.faceEntity) return;
       const nF = time.faceEntity.length, nA = time.hist.header.counts.arcs;
       if (!time.style || time.style.length < Math.ceil(nF / 256) * 256 * 4) time.style = new Uint8Array(Math.max(1, Math.ceil(nF / 256)) * 256 * 4);
-      if (!time.arcTab || time.arcTab.length < Math.ceil(nA / 256) * 256 * 4) time.arcTab = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256 * 4);
+      if (!time.arcTab || time.arcTab.length < Math.ceil(nA / 256) * 256) time.arcTab = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256);   // one byte an arc (R8; 2b): a quarter of the upload a year change used to make
       time.style.fill(0); time.arcTab.fill(0);
       const { dark } = themeTokens(); const base = dark ? HIST_FILL_ALPHA_DARK : HIST_FILL_ALPHA;
       let tNow = 1; if (time.fade) tNow = Math.min(1, (performance.now() - time.fade.t0) / FADE_MS);
       const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const a = (time.selected === ent ? HIST_SEL_ALPHA : base) * alphaScale; const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
       if (time.fade) for (const a of time.fade.from) if (!time.aliveSet.has(a.face)) put(a.face, 1 - tNow);
       for (const a of (time.onScreenAlive || time.alive)) put(a.face, time.fade ? tNow : 1);
-      const putArc = (ai, alpha) => { const o = 4 * ai + 3; time.arcTab[o] = Math.max(time.arcTab[o], Math.round(alpha * 255)); };
-      if (time.fade) for (const ai of time.fade.fromArcs) if (!time.aliveArcs.has(ai)) putArc(ai, 1 - tNow);
-      for (const ai of time.aliveArcs) putArc(ai, time.fade ? tNow : 1);
+      const alive = time.aliveArcs, from = time.fade ? time.fade.fromArcs : null, aOn = Math.round((time.fade ? tNow : 1) * 255), aOff = Math.round((1 - tNow) * 255);
+      if (alive) { for (let ai = 0; ai < nA; ai++) { if (alive[ai]) time.arcTab[ai] = aOn; else if (from && from[ai]) time.arcTab[ai] = aOff; } }
       R.setHistoryStyle(nF, time.style); R.setHistoryArcTable(nA, time.arcTab);
     }
     function fadeStep(t) {
@@ -1969,7 +1970,7 @@
       chromeRects, hash: hashNow, readHash, metricsCount: () => metricsSent,
       /* Phase 2a: time */
       setYear: (y, o) => setYear(y, o), year: () => time.year, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
-      alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
+      alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
       timeInfo: () => ({ year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
       // one device pixel of the GL canvas, read right after a render in the same task (the drawing buffer is not preserved between tasks)
       // one CSS row of the GL canvas as [r,g,b,a,…] per CSS pixel (one render, one readback — a scan by pixelAt would render once per pixel)

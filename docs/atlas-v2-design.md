@@ -312,8 +312,9 @@ that every EDGE chord is matched, reversed, by the same face in the neighbouring
 a face's pieces is the face. Because no vertex may lie on a tile line (build-admin.js nudges any
 that does by one quantum), every crossing of the boundary is proper and entries and exits alternate.
 The seam between two tiles is two fills meeting along a shared chord with identical endpoints; the
-worker's chord subdivision (spherical midpoints, recursive to the level's threshold) is the same on
-both sides, so there is no gap. A loaded tile is drawn where its extent is written into the stencil
+worker's chord subdivision (since 2b: every edge over the level's threshold split into equal pieces
+along its great circle, the pieces a function of the edge alone) is the same on both sides, so there
+is no gap. A loaded tile is drawn where its extent is written into the stencil
 buffer and the resident level only where no tile covers, so a tile still on its way is a patch of
 coarser coast, never a hole or a doubled line.
 
@@ -577,8 +578,8 @@ under the 5 ms that would have moved it to the worker. **Colour** is a fixed pal
 lightness steps, blended with the theme's ink or paper so every theme keeps its own land and ink) assigned once at load by a
 greedy walk over every epoch of the file: a polity keeps its slot across the years unless an alive neighbour (a face sharing a
 border arc; a contested face joins both partners) holds it, and then takes the first slot no neighbour holds, preferring one
-no alive polity holds at all — «CLASHES» clashes over «EPOCHS» epochs and «PAIRS» adjacent pairs, «CHANGES» forced changes
-across 194 entities (`colourAudit`); the label ink's contrast on every slot's fill is at least «CONTRAST» in all fifteen
+no alive polity holds at all — 0 clashes over 495 epochs and 3,957 adjacent pairs, one forced change
+across the 152 polities (`colourAudit`); the label ink's contrast on every slot's fill is at least 4.60 (WCAG, the lowest of the 16 × 16 combinations) in all fifteen
 themes and folio's night (`contrastAudit`). The mesh LRUs are sized by **bytes** (48 MB on the GPU, 96 MB in the worker), not
 by count. **Only the faces on screen are drawn, meshed and tabled** (2b, after the first full-scale measurement): a face
 whose bounding cap meets the view's disc is on screen; the year's draw list, the meshes asked of the worker, the arc table's
@@ -2683,6 +2684,23 @@ so, not padded. Every one of the 49 failing facts was checked against the raw Cl
 colouring over every epoch, the contrast in every theme, the largest face on screen named, the captions and the card),
 `test-atlas-stages.js` (injected frames), `test-atlas-perf.js` (+ Europe in 1500 and in 1900 with their history budgets, the
 whole rail scrubbed with the year-change gate). «PERF»
+
+**The fills, after the screenshots.** The review's Mongol Empire of 1245 showed a thin darker line from the Volga to Lake
+Baikal through the fill. It was a *fold*, not a crack: the worker projected a face azimuthally about its centroid, earcut
+bridged the Baikal hole to the outer ring with a needle triangle 4,000 km long and a few kilometres thick, and the great-circle
+edges that triangle has on the sphere bend more than its thickness — lifted, it folded over its neighbour and the fill was
+drawn twice along the bridge (2a's longest-edge bisection split the two sides of a shared edge differently as well, and
+folded the same way). Two changes in `triangulateFace`: the projection is **gnomonic** about each outer ring and its holes
+(a great circle is a straight line, so earcut's planar triangles are the spherical ones and a face wider than a hemisphere
+— none in the core or the file; a girdling ring would be — falls back to the equidistant projection), and every edge over
+the level's chord is split into pieces that depend on the edge alone, so the two triangles on a shared edge agree point for
+point. Under Node, the Mongol face at level 1 after the change: 17,784 triangles, none clockwise on the sphere, the sum of
+signed areas equal to the sum of absolute areas (before: 935 clockwise, 110,000 km² folded). `test-atlas-review.js` section
+1b holds it as pixels: at two views without the coast stroke (the Mongol Empire about the Ob, the Russian Empire over Europe
+in 1900, both faces with lake holes; the rivers, lakes and labels off so only fills remain), no run of two or more pixels
+beyond the fill's tone towards a polity's full colour (a fold) and no run of land pixels with the fill's tone on both sides (a
+crack); it fails on the committed 2a worker (1,506 pixels in runs) and passes on this one (4 lone pixels, the data's own
+sub-pixel spikes at ring vertices, let through).
 
 **Screenshots reviewed.** «SHOTS»
 

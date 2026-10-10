@@ -344,7 +344,7 @@
       }
       float a = 1.0 - smoothstep(vHw - 0.5, vHw + 0.5, dist);
       if (a <= 0.003) discard;
-      if (uArcTabOn > 0.5) { int ai = int(vArc + 0.5); vec4 tb = texelFetch(uArcTab, ivec2(ai & 255, ai >> 8), 0); if (tb.a < 0.004) discard; a *= tb.a; }
+      if (uArcTabOn > 0.5) { int ai = int(vArc + 0.5); float ta = texelFetch(uArcTab, ivec2(ai & 255, ai >> 8), 0).r; if (ta < 0.004) discard; a *= ta; }
       // a DISPUTED line (flag 1) and an INTERMITTENT river (flag 4) are dashed: 6 px on, 4 px off
       if (mod(vFlags, 2.0) >= 1.0 || mod(floor(vFlags / 4.0), 2.0) >= 1.0) { float along = t * sqrt(l2); if (mod(along, 10.0) > 6.0) discard; }
       a *= smoothstep(-0.002, 0.03, z);                   // fade a line into the horizon instead of cutting it
@@ -789,12 +789,12 @@
       gl.uniform1f(P.u.uArcTabOn, 0);
     }
     const tableSize = new WeakMap();   // texture → "w×h": a same-size table is re-filled in place (texSubImage2D), never reallocated — a year change uploads two tables a frame
-    function uploadTable(tex, w, h, bytes) {
+    function uploadTable(tex, w, h, bytes, r8) {   // r8: one byte a texel (the arc table since 2b), else RGBA
       const t = tex || gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
-      const sz = w + "x" + h;
-      if (tableSize.get(t) === sz) { gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, bytes); return t; }
+      const sz = w + "x" + h + (r8 ? "r" : "");
+      if (tableSize.get(t) === sz) { gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, w, h, r8 ? gl.RED : gl.RGBA, gl.UNSIGNED_BYTE, bytes); return t; }
       tableSize.set(t, sz);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+      gl.texImage2D(gl.TEXTURE_2D, 0, r8 ? gl.R8 : gl.RGBA, w, h, 0, r8 ? gl.RED : gl.RGBA, gl.UNSIGNED_BYTE, bytes);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       return t;
@@ -1055,10 +1055,11 @@
       },
       dropHistoryMesh(key) { const m = hist.meshes.get(key); if (!m) return; releaseFill(m.gpu); if (m.gpu.coast) releaseSegs(m.gpu.coast); if (m.gpu.border) releaseSegs(m.gpu.border); hist.meshes.delete(key); },
       historyMeshLoaded(key) { const m = hist.meshes.get(key); return !!(m && m.gpu); },
+      historyMeshInfo(key) { const m = hist.meshes.get(key); return m && m.gpu ? { triangles: m.gpu.count / 3, coast: m.gpu.coast ? m.gpu.coast.count : 0, border: m.gpu.border ? m.gpu.border.count : 0 } : null; },   // for the suites (2b)
       historyMeshCount() { return hist.meshes.size; },
       // the face style table: RGBA bytes per history face (alpha 0 = not alive); the arc table: alpha per history arc
       setHistoryStyle(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.sIdx = (hist.sIdx | 0) ^ 1; hist.sTex = hist.sTex || [null, null]; hist.sTex[hist.sIdx] = uploadTable(hist.sTex[hist.sIdx], 256, h, px); hist.styleTex = hist.sTex[hist.sIdx]; hist.styleN = n; },   // two textures in turn: an upload never touches the one the last frame still reads (a scrub re-uploads every frame)
-      setHistoryArcTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.aIdx = (hist.aIdx | 0) ^ 1; hist.aTex = hist.aTex || [null, null]; hist.aTex[hist.aIdx] = uploadTable(hist.aTex[hist.aIdx], 256, h, px); hist.arcTex = hist.aTex[hist.aIdx]; hist.arcN = n; },
+      setHistoryArcTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h ? bytes : (() => { const b = new Uint8Array(256 * h); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.aIdx = (hist.aIdx | 0) ^ 1; hist.aTex = hist.aTex || [null, null]; hist.aTex[hist.aIdx] = uploadTable(hist.aTex[hist.aIdx], 256, h, px, true); hist.arcTex = hist.aTex[hist.aIdx]; hist.arcN = n; },
       setHistoryBorderColor(c) { histBorderColor = typeof c === "string" ? hex2rgb(c) : c; },
       clearHistory() { for (const k of [...hist.meshes.keys()]) this.dropHistoryMesh(k); },
       setFaceCount(n) { faceCount = n; if (!lost) buildStyle(); },
