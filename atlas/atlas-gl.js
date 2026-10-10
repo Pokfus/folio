@@ -344,7 +344,7 @@
       }
       float a = 1.0 - smoothstep(vHw - 0.5, vHw + 0.5, dist);
       if (a <= 0.003) discard;
-      if (uArcTabOn > 0.5) { int ai = int(vArc + 0.5); vec4 tb = texelFetch(uArcTab, ivec2(ai & 255, ai >> 8), 0); if (tb.a < 0.004) discard; a *= tb.a; }
+      if (uArcTabOn > 0.5) { int ai = int(vArc + 0.5); float ta = texelFetch(uArcTab, ivec2(ai & 255, ai >> 8), 0).r; if (ta < 0.004) discard; a *= ta; }
       // a DISPUTED line (flag 1) and an INTERMITTENT river (flag 4) are dashed: 6 px on, 4 px off
       if (mod(vFlags, 2.0) >= 1.0 || mod(floor(vFlags / 4.0), 2.0) >= 1.0) { float along = t * sqrt(l2); if (mod(along, 10.0) > 6.0) discard; }
       a *= smoothstep(-0.002, 0.03, z);                   // fade a line into the horizon instead of cutting it
@@ -773,22 +773,28 @@
       if (useStencil) { gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilMask(0xff); }
       stats.historyTriangles = tris; stats.historyFaces = drawn;
     }
+    // the borders of the faces on screen (2b): each face's mesh carries its border segments at its level, tagged with the arc index
+    // so the arc table still fades them; a border shared by two faces on screen is drawn twice, in one place
     function drawHistoryBorders(view, R) {
       const hv = view.history; stats.historySegments = 0;
       if (!hv || !hv.faces || !hv.faces.length || !hist.arcTex) return;
-      const S = pickLevel(hist.segs, Math.min(view.historyLevel != null ? view.historyLevel : view.level, 2), 2); if (!S) return;
       const P = prog.arc; arcUniforms(P, view, R, false, 0);
       gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, hist.arcTex); gl.uniform1i(P.u.uArcTab, 3); gl.uniform1f(P.u.uArcTabOn, 1);
-      drawSegs(S.gpu.tex, S.data.segRange, S.data.segCap, view, 0.01, "historySegments");
+      gl.bindVertexArray(emptyVao);
+      for (const f of hv.faces) {
+        const m = histMeshFor(f.face, view.historyLevel != null ? view.historyLevel : view.level); if (!m || !m.gpu.border) continue;
+        gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, m.gpu.border.tex); gl.uniform1i(P.u.uSeg, 1);
+        gl.drawArrays(gl.TRIANGLES, 0, m.gpu.border.count * 3); stats.draws++; stats.historySegments += m.gpu.border.count;
+      }
       gl.uniform1f(P.u.uArcTabOn, 0);
     }
     const tableSize = new WeakMap();   // texture → "w×h": a same-size table is re-filled in place (texSubImage2D), never reallocated — a year change uploads two tables a frame
-    function uploadTable(tex, w, h, bytes) {
+    function uploadTable(tex, w, h, bytes, r8) {   // r8: one byte a texel (the arc table since 2b), else RGBA
       const t = tex || gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
-      const sz = w + "x" + h;
-      if (tableSize.get(t) === sz) { gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, bytes); return t; }
+      const sz = w + "x" + h + (r8 ? "r" : "");
+      if (tableSize.get(t) === sz) { gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, w, h, r8 ? gl.RED : gl.RGBA, gl.UNSIGNED_BYTE, bytes); return t; }
       tableSize.set(t, sz);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+      gl.texImage2D(gl.TEXTURE_2D, 0, r8 ? gl.R8 : gl.RGBA, w, h, 0, r8 ? gl.RED : gl.RGBA, gl.UNSIGNED_BYTE, bytes);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       return t;
@@ -1039,22 +1045,23 @@
       reliefCount() { return relief.size; },
       setRamp(bytes) { dataGen++; ramp = bytes; if (!lost) uploadRamp(); },
       /* Phase 2a: the step topology */
-      setHistorySegs(level, data) { if (hist.segs[level]) releaseSegs(hist.segs[level].gpu); const s = uploadSegs(data.segs); hist.segs[level] = { data: { segRange: data.segRange, segCap: data.segCap }, gpu: s }; },
-      historySegsLoaded(level) { return !!hist.segs[level]; },
+      setHistorySegs() {},   // 2b: the borders travel with each face's mesh; nothing per level
+      historySegsLoaded() { return true; },
       setHistoryMesh(key, m) {
         if (hist.meshes.has(key)) this.dropHistoryMesh(key);
         const f = uploadFill(m.pos, m.idx);
-        const coast = m.coast && m.coast.length ? uploadSegs(m.coast) : null;
-        hist.meshes.set(key, { face: m.face, level: m.level, gpu: { vao: f.vao, pos: f.pos, idx: f.idx, count: f.count, u16: f.u16, bytes: f.bytes, coast } });
+        const coast = m.coast && m.coast.length ? uploadSegs(m.coast) : null, border = m.border && m.border.length ? uploadSegs(m.border) : null;
+        hist.meshes.set(key, { face: m.face, level: m.level, gpu: { vao: f.vao, pos: f.pos, idx: f.idx, count: f.count, u16: f.u16, bytes: f.bytes, coast, border } });
       },
-      dropHistoryMesh(key) { const m = hist.meshes.get(key); if (!m) return; releaseFill(m.gpu); if (m.gpu.coast) releaseSegs(m.gpu.coast); hist.meshes.delete(key); },
+      dropHistoryMesh(key) { const m = hist.meshes.get(key); if (!m) return; releaseFill(m.gpu); if (m.gpu.coast) releaseSegs(m.gpu.coast); if (m.gpu.border) releaseSegs(m.gpu.border); hist.meshes.delete(key); },
       historyMeshLoaded(key) { const m = hist.meshes.get(key); return !!(m && m.gpu); },
+      historyMeshInfo(key) { const m = hist.meshes.get(key); return m && m.gpu ? { triangles: m.gpu.count / 3, coast: m.gpu.coast ? m.gpu.coast.count : 0, border: m.gpu.border ? m.gpu.border.count : 0 } : null; },   // for the suites (2b)
       historyMeshCount() { return hist.meshes.size; },
       // the face style table: RGBA bytes per history face (alpha 0 = not alive); the arc table: alpha per history arc
       setHistoryStyle(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.sIdx = (hist.sIdx | 0) ^ 1; hist.sTex = hist.sTex || [null, null]; hist.sTex[hist.sIdx] = uploadTable(hist.sTex[hist.sIdx], 256, h, px); hist.styleTex = hist.sTex[hist.sIdx]; hist.styleN = n; },   // two textures in turn: an upload never touches the one the last frame still reads (a scrub re-uploads every frame)
-      setHistoryArcTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.aIdx = (hist.aIdx | 0) ^ 1; hist.aTex = hist.aTex || [null, null]; hist.aTex[hist.aIdx] = uploadTable(hist.aTex[hist.aIdx], 256, h, px); hist.arcTex = hist.aTex[hist.aIdx]; hist.arcN = n; },
+      setHistoryArcTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h ? bytes : (() => { const b = new Uint8Array(256 * h); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.aIdx = (hist.aIdx | 0) ^ 1; hist.aTex = hist.aTex || [null, null]; hist.aTex[hist.aIdx] = uploadTable(hist.aTex[hist.aIdx], 256, h, px, true); hist.arcTex = hist.aTex[hist.aIdx]; hist.arcN = n; },
       setHistoryBorderColor(c) { histBorderColor = typeof c === "string" ? hex2rgb(c) : c; },
-      clearHistory() { for (const k of [...hist.meshes.keys()]) this.dropHistoryMesh(k); for (const l of Object.keys(hist.segs)) { releaseSegs(hist.segs[l].gpu); delete hist.segs[l]; } },
+      clearHistory() { for (const k of [...hist.meshes.keys()]) this.dropHistoryMesh(k); },
       setFaceCount(n) { faceCount = n; if (!lost) buildStyle(); },
       setPalette(p) { dataGen++;
         for (const k of Object.keys(p)) palette[k] = typeof p[k] === "string" ? hex2rgb(p[k]) : p[k];

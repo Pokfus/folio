@@ -51,8 +51,8 @@
    that contains them; earcut does the rest. Every triangle edge longer than the level's chord
    threshold (4.1° / 2.3° / 1.0° — the angle at which a flat chord dips under the sphere by a quarter
    pixel at the zoom the level is first drawn) is bisected at its spherical midpoint, recursively,
-   so no flat triangle visibly cuts through the globe. Midpoints are shared between the two triangles
-   on an edge, so subdivision never opens a crack.
+   so no flat triangle visibly cuts through the globe. Every edge over the threshold is split into pieces that
+   depend on the edge alone (2b), so the two sides of a shared edge differ by at most a piece's sagitta — never a crack.
 
    The file is written to run in BOTH a Worker (importScripts) and, where workers are refused —
    file:// — on the main thread behind the same message shape (atlas.js's shim); nothing here touches
@@ -138,21 +138,38 @@
   async function triangulateFace(T, pos, face, faceId, level, sink) {
     const rings = faceRings(T, face, level);
     if (!rings.length) return 0;
-    // centroid of the face's vertices on the sphere
-    let cx = 0, cy = 0, cz = 0;
-    for (const ring of rings) for (const i of ring) { cx += pos[3 * i]; cy += pos[3 * i + 1]; cz += pos[3 * i + 2]; }
-    let cl = Math.hypot(cx, cy, cz); if (cl < 1e-9) { cx = 0; cy = 0; cz = -1; cl = 1; }   // only a ring girdling the sphere: Antarctica-like → the south pole
-    cx /= cl; cy /= cl; cz /= cl;
-    // a right-handed tangent frame (e1, e2, c): e1 × e2 = c, so counter-clockwise on the sphere (seen from outside) stays counter-clockwise in the plane
-    let ux = 0, uy = 0, uz = 1; if (Math.abs(cz) > 0.9) { ux = 1; uy = 0; uz = 0; }
-    let e1x = uy * cz - uz * cy, e1y = uz * cx - ux * cz, e1z = ux * cy - uy * cx; const l1 = Math.hypot(e1x, e1y, e1z); e1x /= l1; e1y /= l1; e1z /= l1;
-    const e2x = cy * e1z - cz * e1y, e2y = cz * e1x - cx * e1z, e2z = cx * e1y - cy * e1x;
-    const proj = (i) => {
-      const x = pos[3 * i], y = pos[3 * i + 1], z = pos[3 * i + 2];
-      const d = Math.max(-1, Math.min(1, x * cx + y * cy + z * cz)), th = Math.acos(d);
-      let tx = x - d * cx, ty = y - d * cy, tz = z - d * cz; const tl = Math.hypot(tx, ty, tz) || 1;
-      return [th * (tx * e1x + ty * e1y + tz * e1z) / tl, th * (tx * e2x + ty * e2y + tz * e2z) / tl];
+    /* A FRAME AND A PROJECTION about a centre c on the sphere: a right-handed tangent frame (e1, e2, c), e1 × e2 = c, so
+       counter-clockwise on the sphere (seen from outside) stays counter-clockwise in the plane. Two projections (2b):
+       gnomonic — x = p·e1 / p·c, y = p·e2 / p·c — wherever the polygon stays within 85° of c, because it maps every great
+       circle to a straight line: earcut's planar triangles then ARE the spherical triangles with great-circle edges, and
+       the points the subdivision below places on great circles lie exactly on the planar edges. The azimuthal equidistant
+       projection used alone until 2b bends great circles, and earcut's hole bridges make needle triangles thinner than that
+       bend: lifted to the sphere, a needle folded over its neighbour and the fill was drawn twice along it (a darker line
+       from the Volga to Lake Baikal through the Mongol Empire of 1245 — the bridge from the Baikal hole). It remains the
+       projection for classifying the rings (it exists everywhere, and orientation is what matters there) and for a polygon
+       reaching beyond 85° of its centre (a ring girdling the sphere; no outer ring of the core or the history file does). */
+    const frameAbout = (vs) => {
+      let cx = 0, cy = 0, cz = 0;
+      for (const ring of vs) for (const i of ring) { cx += pos[3 * i]; cy += pos[3 * i + 1]; cz += pos[3 * i + 2]; }
+      let cl = Math.hypot(cx, cy, cz); if (cl < 1e-9) { cx = 0; cy = 0; cz = -1; cl = 1; }   // only a ring girdling the sphere: Antarctica-like → the south pole
+      cx /= cl; cy /= cl; cz /= cl;
+      let ux = 0, uy = 0, uz = 1; if (Math.abs(cz) > 0.9) { ux = 1; uy = 0; uz = 0; }
+      let e1x = uy * cz - uz * cy, e1y = uz * cx - ux * cz, e1z = ux * cy - uy * cx; const l1 = Math.hypot(e1x, e1y, e1z); e1x /= l1; e1y /= l1; e1z /= l1;
+      const e2x = cy * e1z - cz * e1y, e2y = cz * e1x - cx * e1z, e2z = cx * e1y - cy * e1x;
+      let dmin = 1;
+      for (const ring of vs) for (const i of ring) { const d = pos[3 * i] * cx + pos[3 * i + 1] * cy + pos[3 * i + 2] * cz; if (d < dmin) dmin = d; }
+      const gnomonic = dmin > 0.0872;   // cos 85°
+      return gnomonic ? (i) => {
+        const x = pos[3 * i], y = pos[3 * i + 1], z = pos[3 * i + 2], d = x * cx + y * cy + z * cz;
+        return [(x * e1x + y * e1y + z * e1z) / d, (x * e2x + y * e2y + z * e2z) / d];
+      } : (i) => {
+        const x = pos[3 * i], y = pos[3 * i + 1], z = pos[3 * i + 2];
+        const d = Math.max(-1, Math.min(1, x * cx + y * cy + z * cz)), th = Math.acos(d);
+        let tx = x - d * cx, ty = y - d * cy, tz = z - d * cz; const tl = Math.hypot(tx, ty, tz) || 1;
+        return [th * (tx * e1x + ty * e1y + tz * e1z) / tl, th * (tx * e2x + ty * e2y + tz * e2z) / tl];
+      };
     };
+    const proj = frameAbout(rings);
     // project, classify by signed area, group holes under the smallest containing outer
     const polys = rings.map((ring) => { const p = ring.map(proj); let A = 0; for (let i = 0, j = p.length - 1; i < p.length; j = i++) A += (p[j][0] * p[i][1] - p[i][0] * p[j][1]); return { ring, p, area: A / 2, holes: [] }; });
     const outers = polys.filter((q) => q.area > 0).sort((a, b) => a.area - b.area);
@@ -165,31 +182,57 @@
     for (const o of outers) {
       if ((++no & 15) === 0) await tick();   // Canada at LOD 2 is thousands of rings and 200 ms: the shim yields between them
       const flat = [], holeIdx = [], gidx = [];
-      for (const [x, y] of o.p) flat.push(x, y);
-      for (const i of o.ring) gidx.push(i);
-      for (const h of o.holes) { holeIdx.push(gidx.length); for (const [x, y] of h.p) flat.push(x, y); for (const i of h.ring) gidx.push(i); }
+      // the polygon's own frame (2b): Norway's face reaches Bouvet Island, France's its overseas departments — a frame about
+      // the whole face would put the mainland far from the centre; about this outer ring and its holes it stays gnomonic
+      const pr = frameAbout([o.ring].concat(o.holes.map((h) => h.ring)));
+      for (const i of o.ring) { const [x, y] = pr(i); flat.push(x, y); gidx.push(i); }
+      for (const h of o.holes) { holeIdx.push(gidx.length); for (const i of h.ring) { const [x, y] = pr(i); flat.push(x, y); gidx.push(i); } }
       const tri = root.earcut(flat, holeIdx.length ? holeIdx : null, 2);
       // per-face vertex copies: local index per global vertex, plus midpoints
       const local = new Map();
       const L = (g) => { let l = local.get(g); if (l == null) { l = sink.vertex(pos[3 * g], pos[3 * g + 1], pos[3 * g + 2], faceId); local.set(g, l); } return l; };
-      const mids = new Map();
-      const mid = (la, lb) => {
-        const key = la < lb ? la * 4294967296 + lb : lb * 4294967296 + la;
-        let m = mids.get(key); if (m != null) return m;
-        const A = sink.get(la), B = sink.get(lb);
-        let x = A[0] + B[0], y = A[1] + B[1], z = A[2] + B[2]; const l = Math.hypot(x, y, z) || 1;
-        m = sink.vertex(x / l, y / l, z / l, faceId); mids.set(key, m); return m;
-      };
+      /* SUBDIVISION WITHOUT CRACKS (Phase 2b). The 2a rule bisected each triangle's LONGEST edge, so the two triangles on a shared
+         edge split it only when it was the longest of each — an edge long for one and not for the other was split on one side
+         alone and left a flat chord against a great-circle polyline, a crack as wide as the chord's sagitta: along earcut's
+         hole bridges (a hole is joined to the outer ring by a bridge edge both sides of the triangulation share; the Baikal
+         hole's bridge in the Mongol Empire of 1245 ran 4,000 km west to the Volga steppe) it drew as a hairline of plain land
+         through the fill. Now EVERY edge longer than the level's chord is split, into pieces that depend on that edge alone —
+         its own length, the points along its great circle cached by its two ends — so each side of a shared edge is a
+         polyline of pieces under the chord and the gap between the two sides is at most a piece's sagitta, under a quarter
+         pixel by the chord's definition. Inside the triangle: spokes from its first vertex to every point of the opposite
+         edge, each spoke split the same way (shared by the two strips beside it), and the strip between two neighbouring
+         spokes cut into triangles by walking both. No recursion, no earcut, no overlap. */
       const d2 = (la, lb) => { const A = sink.get(la), B = sink.get(lb); const dx = A[0] - B[0], dy = A[1] - B[1], dz = A[2] - B[2]; return dx * dx + dy * dy + dz * dz; };
-      const emit = (a, b, c, depth) => {
-        const ab = d2(a, b), bc = d2(b, c), ca = d2(c, a);
-        const longest = Math.max(ab, bc, ca);
-        if (longest <= chord2 || depth > 12) { sink.tri(a, b, c); triangles++; return; }
-        if (longest === ab) { const m = mid(a, b); emit(a, m, c, depth + 1); emit(m, b, c, depth + 1); }
-        else if (longest === bc) { const m = mid(b, c); emit(a, b, m, depth + 1); emit(a, m, c, depth + 1); }
-        else { const m = mid(c, a); emit(a, b, m, depth + 1); emit(m, b, c, depth + 1); }
+      const edgePts = new Map();   // "lo:hi:n" → the n−1 inner points from lo to hi, on the great circle
+      const along = (la, lb, n) => {
+        if (n <= 1) return [];
+        const lo = Math.min(la, lb), hi = Math.max(la, lb), key = lo + ":" + hi + ":" + n;
+        let arr = edgePts.get(key);
+        if (!arr) { arr = []; const A = sink.get(lo), B = sink.get(hi); for (let k = 1; k < n; k++) { const t = k / n; const x = A[0] * (1 - t) + B[0] * t, y = A[1] * (1 - t) + B[1] * t, z = A[2] * (1 - t) + B[2] * t; const l = Math.hypot(x, y, z) || 1; arr.push(sink.vertex(x / l, y / l, z / l, faceId)); } edgePts.set(key, arr); }
+        return la === lo ? arr : arr.slice().reverse();
       };
-      for (let t = 0; t < tri.length; t += 3) emit(L(gidx[tri[t]]), L(gidx[tri[t + 1]]), L(gidx[tri[t + 2]]), 0);
+      const pieces = (la, lb) => Math.max(1, Math.ceil(Math.sqrt(d2(la, lb)) / chord));
+      const put = (x, y, z) => { if (x === y || y === z || z === x) return; sink.tri(x, y, z); triangles++; };
+      const emit = (a, b, c) => {
+        const na = pieces(a, b), nb = pieces(b, c), nc = pieces(c, a);
+        if (na <= 1 && nb <= 1 && nc <= 1) { put(a, b, c); return; }
+        const far = [b].concat(along(b, c, nb), [c]);   // the opposite edge's points, b to c
+        let prev = null;
+        for (let k = 0; k < far.length; k++) {
+          const spoke = [a].concat(along(a, far[k], pieces(a, far[k])), [far[k]]);   // a → far[k]; the first is a→b, the last a→c, both the boundary's own points
+          if (prev) {
+            const P = prev, Q = spoke; let i = 1, j = 1;
+            put(P[0], P[1], Q[1]);   // both spokes leave a: the first triangle takes a step along each, never a zero-area sliver along one
+            while (i < P.length - 1 || j < Q.length - 1) {
+              const tP = (i + 1) / (P.length - 1), tQ = (j + 1) / (Q.length - 1);
+              if (j >= Q.length - 1 || (i < P.length - 1 && tP <= tQ)) { put(P[i], P[i + 1], Q[j]); i++; }
+              else { put(P[i], Q[j + 1], Q[j]); j++; }
+            }
+          }
+          prev = spoke;
+        }
+      };
+      for (let t = 0; t < tri.length; t += 3) emit(L(gidx[tri[t]]), L(gidx[tri[t + 1]]), L(gidx[tri[t + 2]]));
     }
     return triangles;
   }
@@ -463,11 +506,17 @@
     const histRows = [];
     if (HIST && q.aliveFaces && q.aliveFaces.length) {
       for (const fi of q.aliveFaces) {
-        const e = HIST.H.entities[HIST.T.faces[fi].entity]; if (!e || e.kind !== "polity") continue;
-        const path = histLabelPath(fi, proj, W, H); if (!path) continue;
+        let e = HIST.H.entities[HIST.T.faces[fi].entity]; if (!e) continue;
+        if (e.kind === "nested") { e = HIST.H.entities.find((x) => x.id === e.partners[0]); if (!e) continue; }   // a member inside its overlord is named as itself (2b)
+        else if (e.kind !== "polity") continue;
+        const path = histLabelPath(fi, proj, W, H, q); if (!path) continue;
         const km2 = HIST.H.faceKm2 ? HIST.H.faceKm2[fi] : 0;
-        histRows.push({ id: e.id, name: e.name, kind: "polity", rank: km2 >= 2e6 ? 0 : km2 >= 5e5 ? 1 : km2 >= 1e5 ? 2 : km2 >= 2e4 ? 3 : 4, path, len: path.len * kmpp, face: fi });
+        // the rank by the area ON SCREEN (2b): the face's area times the share of its vertices on screen, in screen pixels — a view
+        // with many alive faces names the ones a reader sees most of first, and the order holds as the view moves
+        const px2 = km2 * (path.visFrac || 0) / Math.max(1e-6, kmpp * kmpp);
+        histRows.push({ id: e.id, name: e.name, kind: "polity", rank: px2 >= 4e5 ? 0 : px2 >= 1e5 ? 1 : px2 >= 2e4 ? 2 : px2 >= 4e3 ? 3 : 4, path, len: path.len * kmpp, face: fi, px2 });
       }
+      histRows.sort((p, q) => q.px2 - p.px2);
     }
     for (const row of histRows) { const chordPx = row.path.len; if (!show.countries || chordPx < MIN_CHORD_PX) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + row.rank * 10 + KW.country, hist: true }); }
     for (const c of q.capitals || []) { const a = proj(unitOf(c.lon, c.lat)); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; if (!show.cities) continue; cands.push({ row: { id: "cap:" + c.entity + ":" + c.name, name: c.name, kind: "capital", rank: 0, a: unitOf(c.lon, c.lat) }, chordPx: 0, a, score: 0 + KW.capital, hist: true }); }
@@ -701,7 +750,7 @@
      alive set of the year it shows and of the next change year in the direction of the scrub, so a year change never
      waits for earcut (§2.3, §2.4). The borders are one bucketed segment list per level with the arc index in the tag (kind
      7), and the main thread's per-arc style table decides which are drawn in a year — a year change costs a table. */
-  const HIST_KIND = 7, HIST_LRU = 600;
+  const HIST_KIND = 7, HIST_LRU_BYTES = 96 * 1024 * 1024;   // the triangulated meshes kept here, by their bytes (2b), not by count
   // the arc's geometry at a level (atlas-format.js historyArcGeometry: a coast junction moves onto the level's line)
   function histGeom(a, level) { return { own: false, pts: root.AtlasFormat.historyArcGeometry(HIST.T, CORE.T, a, level, HIST.junctions, HIST.empty) }; }
   // the geometry of every arc at a level as one local topology (lon, lat, rank 0, arcOffset), cached per level
@@ -748,22 +797,7 @@
     for (let fi = 0; fi < nF; fi++) { faceArcOff[fi] = fa.length; const seen = new Set(); for (const ring of T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (T.arcKind[a] === 0 || seen.has(a)) continue; seen.add(a); fa.push(a); } }
     faceArcOff[nF] = fa.length; const faceArcs = Uint32Array.from(fa);
     post({ type: "history-meta", header: H, faceEntity, faceCap, faceArcOff, faceArcs, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, faceCap.buffer, faceArcOff.buffer, faceArcs.buffer]);
-    // the borders per level: every arc that is not a coast reference, tag = arc × 64 + (flags & 7) × 8 + HIST_KIND
-    for (let level = 0; level < 3; level++) {
-      const L = histLevel(level);
-      const nA = T.arcOffset.length - 1;
-      let count = 0;
-      for (let a = 0; a < nA; a++) { if (T.arcKind[a] === 0) continue; count += Math.max(0, L.T.arcOffset[a + 1] - L.T.arcOffset[a] - 1); }
-      const segs = new Float32Array(count * 7); let k = 0;
-      for (let a = 0; a < nA; a++) {
-        if (T.arcKind[a] === 0) continue;
-        const tag = a * 64 + (T.arcFlags[a] & 7) * 8 + HIST_KIND;
-        for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) { const p = L.pos; segs[k++] = p[3 * (i - 1)]; segs[k++] = p[3 * (i - 1) + 1]; segs[k++] = p[3 * (i - 1) + 2]; segs[k++] = p[3 * i]; segs[k++] = p[3 * i + 1]; segs[k++] = p[3 * i + 2]; segs[k++] = tag; }
-      }
-      const S = await bucketSegments(segs);
-      post({ type: "history-segs", level, segs: S.segs, segRange: S.segRange, segCap: S.segCap, count }, [S.segs.buffer, S.segRange.buffer, S.segCap.buffer]);
-      await tick();
-    }
+    // the borders travel with each face's mesh since 2b (handleHistoryFaces); the three per-level lists of every border are gone
     post({ type: "history-done", ms: Math.round(now() - t0), arcs: T.arcOffset.length - 1, faces: nF });
   }
   async function handleHistoryFaces(msg, post) {
@@ -778,24 +812,32 @@
         const sink = Sink();
         await triangulateFace(L.T, L.pos, HIST.T.faces[fi], fi, level, sink);
         const F = sink.result();
-        // the face's coast edges at this level, for the fill-against-stroke stroke at the tile zooms (§2.3, Phase 2a)
-        const coast = [];
-        for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (HIST.T.arcKind[a] !== 0) continue; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) coast.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], fi * 64 + HIST_KIND); }
-        m = { face: fi, level, pos: F.pos, idx: F.triangles * 3 <= 65535 && F.vertices <= 65535 ? Uint16Array.from(F.idx) : F.idx, coast: Float32Array.from(coast), triangles: F.triangles };
-        HIST.meshes.set(key, m); HIST.order.push(key);
-        while (HIST.order.length > HIST_LRU) { const old = HIST.order.shift(); if (!HIST.resident.has(old)) HIST.meshes.delete(old); else HIST.order.push(old); if (HIST.order.length > HIST_LRU * 2) break; }
+        // the face's coast edges at this level, for the fill-against-stroke stroke at the tile zooms (§2.3, Phase 2a), and — since 2b —
+        // its BORDER edges (every non-coast arc, tagged with the arc index so the main thread's arc table still fades them), so the
+        // renderer draws the borders of the faces on screen and no others: one list per level held every border of the file (51,025
+        // arcs at full scale, 70,000 segments in a Mediterranean view with most at alpha 0), and a software rasteriser pays per segment
+        const coast = [], border = [];
+        for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; const list = HIST.T.arcKind[a] === 0 ? coast : border, tag = HIST.T.arcKind[a] === 0 ? fi * 64 + HIST_KIND : a * 64 + (HIST.T.arcFlags[a] & 7) * 8 + HIST_KIND; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) list.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], tag, L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], 0); }   // EIGHT floats a segment — (a.xyz, tag) (b.xyz, 0), the two texels uploadSegs reads — never the seven-float form bucketSegments takes: seven floats read as eight drew every segment after the first between unrelated points (the 2a review's chord across Latium and the fan over Sicily, fixed in 2b)
+        m = { face: fi, level, pos: F.pos, idx: F.triangles * 3 <= 65535 && F.vertices <= 65535 ? Uint16Array.from(F.idx) : F.idx, coast: Float32Array.from(coast), border: Float32Array.from(border), triangles: F.triangles };
+        m.bytes = m.pos.byteLength + m.idx.byteLength + m.coast.byteLength + m.border.byteLength;
+        HIST.meshes.set(key, m); HIST.order.push(key); HIST.bytes = (HIST.bytes || 0) + m.bytes;
+        let spins = 0; while (HIST.bytes > HIST_LRU_BYTES && HIST.order.length && spins++ < HIST.order.length * 2) { const old = HIST.order.shift(); if (!HIST.resident.has(old)) { const om = HIST.meshes.get(old); if (om) HIST.bytes -= om.bytes; HIST.meshes.delete(old); } else HIST.order.push(old); }
       }
       HIST.resident.add(key);
-      meshes.push({ face: fi, level, pos: m.pos.slice(), idx: m.idx.slice(), coast: m.coast.slice(), triangles: m.triangles });
+      meshes.push({ face: fi, level, pos: m.pos.slice(), idx: m.idx.slice(), coast: m.coast.slice(), border: m.border.slice(), triangles: m.triangles });
     }
-    const transfer = []; for (const m of meshes) transfer.push(m.pos.buffer, m.idx.buffer, m.coast.buffer);
+    const transfer = []; for (const m of meshes) transfer.push(m.pos.buffer, m.idx.buffer, m.coast.buffer, m.border.buffer);
     post({ type: "history-faces", level, meshes, seq: msg.seq, ms: Math.round(now() - t0) }, transfer);
   }
   /* the label path of an alive face on screen: the area-weighted centre of its LOD 0 fill and the principal axis of its
      projected vertices, walked both ways from the centre while inside the projected rings (even-odd) — a straight run of
      up to five points, the polity's name laid along it in small capitals like a country's (§2.6) */
-  function histLabelPath(fi, proj, W, H) {
+  function histLabelPath(fi, proj, W, H, q) {
     const L = histLevel(0), T = HIST.T;
+    // the globe's disc (2b): a face at the limb had its name laid past the sphere's edge (the Kingdom of Kongo in the Americas view at
+    // 1500); every candidate point and every reach stays inside the disc, a little short of the limb
+    const rr = q && q.radius ? (q.radius * 0.985) * (q.radius * 0.985) : Infinity, dcx = q ? q.cx : 0, dcy = q ? q.cy : 0;
+    const inDisc = (x, y) => (x - dcx) * (x - dcx) + (y - dcy) * (y - dcy) < rr;
     const rings = faceRings(L.T, T.faces[fi], 0).map((ring) => ring.map((i) => proj([L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2]])));
     const vis = rings.map((r) => r.filter((p) => p[2] > 0.02));
     if (!vis.some((r) => r.length >= 3)) return null;
@@ -803,9 +845,10 @@
     // "Visible" means ON SCREEN when at least three vertices are: a face reaching past the viewport (the Eastern Roman Empire at
     // 500 CE at 3 km/px, its Balkan third on screen and Anatolia, Syria and Egypt beyond the right edge) takes its name on the
     // part a reader sees, as a printed sheet names a country on the part the sheet shows; otherwise the margin box as before
-    const inView = (x, y) => x >= 0 && x <= W && y >= 0 && y <= H;
-    const inBox = (x, y) => x >= -W && x <= 2 * W && y >= -H && y <= 2 * H;
-    let nIn = 0; for (const r of vis) for (const p of r) if (inView(p[0], p[1])) nIn++;
+    const inView = (x, y) => x >= 0 && x <= W && y >= 0 && y <= H && inDisc(x, y);
+    const inBox = (x, y) => x >= -W && x <= 2 * W && y >= -H && y <= 2 * H && inDisc(x, y);
+    let nIn = 0, nAll = 0; for (const r of rings) for (const p of r) { nAll++; if (p[2] > 0.02 && inView(p[0], p[1])) nIn++; }
+    const visFrac = nAll ? nIn / nAll : 0;
     const take = nIn >= 3 ? inView : inBox;
     let n = 0, sx = 0, sy = 0;
     for (const r of vis) for (const p of r) { if (!take(p[0], p[1])) continue; sx += p[0]; sy += p[1]; n++; }
@@ -828,7 +871,7 @@
     if (!best || best.len < 24) return null;
     const { x: ox, y: oy, dx, dy, a, b } = best;
     const pts = []; for (let k = 0; k <= 4; k++) { const t = -a + (a + b) * k / 4; pts.push([ox + dx * t, oy + dy * t]); }
-    return { pts, len: a + b, anchor: [ox, oy] };
+    return { pts, len: a + b, anchor: [ox, oy], visFrac };
   }
   /* ---------- water (Phase 1b): lake shores, rivers and lake fills, per resident level and per tile ----------
      Rivers come from a 1:10M source (chords 1.8 km at the median), so at the tile zooms (under 1 km/px)

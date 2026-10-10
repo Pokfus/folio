@@ -10728,15 +10728,24 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-perf{bottom:calc(12px + var(--atlas2-rail-h) + 8px); max-height:calc(100% - 24px - var(--atlas2-rail-h) - 8px);}
 .atlas2-has-card .atlas2-rail{right:calc(min(380px, calc(100% - 24px)) + 24px);}
 .atlas2-phone .atlas2-rail{left:max(12px, env(safe-area-inset-left)); right:max(12px, env(safe-area-inset-right)); bottom:calc(12px + env(safe-area-inset-bottom));}
-.atlas2-phone .atlas2-rail-row{gap:4px; padding:5px 6px; flex-wrap:wrap;}   /* two lines: ‹ track › above, then year · play · speed — one line squeezed the track to ~85 px at 390 and pushed the speed select off the edge */
-.atlas2-phone .atlas2-rail-track{flex:1 1 60%;}
-.atlas2-phone .atlas2-rail-year{flex:1 1 6.2em;}
+/* two lines under 600 px (atlas.js sets .atlas2-narrow from the container's width, phone flag or not — Phase 2b, the 2a review): ‹ track ›
+   above, then year · play · speed. The track's basis is the whole first line, so the wrap is forced rather than left to the content
+   (at 390 px the controls fitted one line at their minimum widths and the speed select was clipped to "25/"); nothing shrinks below
+   its content on the second line, and the year box takes what is left. */
+.atlas2-narrow .atlas2-rail-row{gap:4px; padding:5px 6px; flex-wrap:wrap;}
+.atlas2-narrow .atlas2-rail-track{flex:1 0 calc(100% - 72px - 8px);}
+.atlas2-narrow .atlas2-rail-year{flex:1 1 6.2em; width:auto; min-width:5.5em;}
+.atlas2-narrow .atlas2-rail-speed, .atlas2-narrow .atlas2-rail-play{flex:none;}
+.atlas2-narrow:not(.atlas2-phone){--atlas2-rail-h:90px;}   /* 5 + 36 + 4 + 36 + 5 + the border, with the desktop's 36 px targets */
+.atlas2-phone.atlas2-narrow .atlas2-rail-track{flex-basis:calc(100% - 88px - 8px);}   /* 44 px targets */
 .atlas2-phone .atlas2-rail-btn{width:44px; height:44px;}   /* the phone target size (test-atlas-phone) */
 .atlas2-phone .atlas2-rail-track{height:40px;}
-.atlas2-phone .atlas2-rail-year{width:6.2em; min-height:40px;}
+.atlas2-phone .atlas2-rail-year{min-height:40px;}
 .atlas2-phone .atlas2-rail-speed{min-height:40px;}
-.atlas2-phone{--atlas2-rail-h:104px;}   /* 5 + 44 + 4 + 44 + 5 + the border */
+.atlas2-phone.atlas2-narrow{--atlas2-rail-h:104px;}   /* 5 + 44 + 4 + 44 + 5 + the border */
+.atlas2-phone:not(.atlas2-narrow){--atlas2-rail-h:56px;}   /* a phone on its side keeps one line of 44 px targets (the 2a note) */
 .atlas2-phone.atlas2-has-card .atlas2-rail{right:max(12px, env(safe-area-inset-right));}
+.atlas2-narrow.atlas2-has-card .atlas2-rail{right:12px;}   /* a narrow screen the phone flag missed: the card covers the width, the rail keeps its own */
 .atlas2-phone.atlas2-has-card .atlas2-card{z-index:5;}
 .atlas2-phone .atlas2-help{bottom:calc(60px + var(--atlas2-rail-h) + env(safe-area-inset-bottom));}
 .atlas2-phone .atlas2-mode{bottom:calc(12px + var(--atlas2-rail-h) + 8px + env(safe-area-inset-bottom));}
@@ -10746,7 +10755,13 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-step:hover, .atlas2-step:focus-visible{background:var(--indigo-bright); outline:none;}
 .atlas2-step-now{background:var(--indigo);}
 .atlas2-step-pin{position:absolute; top:-2px; width:2px; height:22px; margin-left:-1px; background:var(--zh);}
-.atlas2-card-steps-note, .atlas2-card-uncert, .atlas2-card-gaps{margin:0 0 8px; color:var(--ink-soft); font:calc(13px * var(--fs, 1))/1.45 var(--sans);}
+.atlas2-card-steps-note, .atlas2-card-uncert, .atlas2-card-gaps, .atlas2-card-ranges, .atlas2-card-scope{margin:0 0 8px; color:var(--ink-soft); font:calc(13px * var(--fs, 1))/1.45 var(--sans);}
+.atlas2-card-dim{color:var(--ink-faint);}
+.atlas2-card-steplist{margin:0 0 8px; font:calc(13px * var(--fs, 1))/1.45 var(--sans);}   /* Phase 2b: every step of a long series, folded */
+.atlas2-card-steplist summary{cursor:pointer; color:var(--indigo);}
+.atlas2-card-steplist ol{margin:4px 0 0; padding-left:1.4em; max-height:180px; overflow:auto; columns:2; column-gap:12px;}
+.atlas2-card-steplist li{break-inside:avoid;}
+.atlas2-card-scope{font-style:italic;}
 .atlas2-card-uncert{color:var(--ink);}
 .atlas2-card-also{color:var(--ink-quiet);}
 

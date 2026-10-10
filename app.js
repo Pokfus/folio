@@ -46582,6 +46582,7 @@ let prev = null;
         <div class="msn-card cred-caution">
           <h2>A caution about borders</h2>
           <p>Every border and coastline on these maps is a reconstruction from the sources below, drawn at the resolution each source allows and as it stood on the day it was retrieved; a historical border in particular is one reading of incomplete evidence, and should be taken as a guide to where a boundary ran rather than as a judgement on where it lies.</p>
+          <p>The years before today draw <b>the states Folio’s cards teach</b> — the card-linked polities, with their borders from Cliopatria — not every state of the period: plain land in a past year is a state no card covers yet, or one the source does not draw.</p>
         </div>
         <div class="msn-card">
           <h2>Data sources</h2>

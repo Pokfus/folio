@@ -49,7 +49,12 @@
              outer ends coincide with the core arc's endpoints.
      faces   per face: varint entityIndex, u8 sourceIndex, varint ringCount, then per ring: varint
              refCount and refCount zig-zag varints of SIGNED arc references — (arc+1) when the arc
-             is walked forward, -(arc+1) when walked backward. The face is on the LEFT of every arc
+             is walked forward, -(arc+1) when walked backward. With `faceRefs: "delta"` in the header
+             (the history file since Phase 2b) a ring's first ref is written as is and every later
+             one as the zig-zag difference from the one before: the coast pieces a face walks are
+             consecutive arcs, so a 3-byte index becomes a 1-byte step (the 2b file's face table fell
+             from 3.6 MB to under 1.5); the core and the tiles keep the plain form, byte for byte.
+             The face is on the LEFT of every arc
              as walked (counter-clockwise outer rings, clockwise holes, on the sphere).
      faceRef OPTIONAL (tiles only): per face, varint (core face index + 1). A tile face is a piece of
              a core face clipped to the tile; its `entity` indexes the CORE header's entity table (a
@@ -191,10 +196,10 @@
       if (f.source < 0 || f.source >= T.sources.length) throw new Error("face source index " + f.source + " not in header.sources");
       faces.varint(f.entity); faces.u8(f.source); faces.varint(f.rings.length);
       for (const ring of f.rings) {
-        faces.varint(ring.length);
+        faces.varint(ring.length); let prev = 0;
         for (const ref of ring) {
           if (ref === 0 || Math.abs(ref) > T.arcs.length) throw new Error("face ref " + ref + " names no arc");
-          faces.svarint(ref);
+          if (T.faceDelta) { faces.svarint(ref - prev); prev = ref; } else faces.svarint(ref);
         }
       }
     }
@@ -231,6 +236,7 @@
       quantum: T.quantum,
       lod: T.lod,
       counts: { vertices: nV, arcs: T.arcs.length, faces: T.faces.length, entities: T.entities.length, steps: T.steps.length },
+      faceRefs: T.faceDelta ? "delta" : undefined,
       entities: T.entities,
       steps: T.steps,
       sections: {},
@@ -302,11 +308,11 @@
       if (off !== nV) throw new Error("arcs cover " + off + " vertices of " + nV);
       if (c.pos !== e) throw new Error("arcs section has trailing bytes"); }
     yield "arcs";
-    const faces = new Array(nF);
+    const faces = new Array(nF), delta = header.faceRefs === "delta";
     { const [s, e] = sec("faces"); const c = Cursor(u8, s, e);
       for (let i = 0; i < nF; i++) {
         const entity = c.varint(), source = c.u8(), nR = c.varint(), rings = new Array(nR);
-        for (let r = 0; r < nR; r++) { const n = c.varint(), refs = new Int32Array(n); for (let k = 0; k < n; k++) refs[k] = c.svarint(); rings[r] = refs; }
+        for (let r = 0; r < nR; r++) { const n = c.varint(), refs = new Int32Array(n); if (delta) { let prev = 0; for (let k = 0; k < n; k++) { prev += c.svarint(); refs[k] = prev; } } else for (let k = 0; k < n; k++) refs[k] = c.svarint(); rings[r] = refs; }
         faces[i] = { entity, source, rings };
         if ((i & 4095) === 4095) yield "faces";
       }
