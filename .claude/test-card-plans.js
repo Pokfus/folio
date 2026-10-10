@@ -100,6 +100,11 @@ const PLANS = {
      declared at once — 1-300, lectures first — and a hole anywhere in it fails here. The count per deck
      follows what each source holds rather than pea's 30 and 10; see the plan. */
   "eu-external-power": ["eep", "eep-", [[1, 300]]],
+  /* Gateway to Global Affairs is a further COURSE (Leiden, 2026). Unlike Politics: East Asia its plan
+     DOES run ahead of the writing — the lectures and set readings were all supplied before the first card —
+     so all 300 numbers are declared at once and a hole in the plan fails here. Lecture 7 (Russia) has no
+     slides yet and takes gga-301 onward; widen this range when it lands. */
+  "gateway-to-global-affairs": ["gga", "gga-", [[1, 300]]],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */

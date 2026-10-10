@@ -382,6 +382,10 @@ const CROSSREF_WRONG = [
   // times as Chen Ziming (陈子明), the historian of 1957 and former political prisoner. "Zeming" is a
   // mis-romanisation of 子明 in the metadata; the citation follows the name the journal prints.
   ["10.4000/chinaperspectives.2553", "Chen Ziming", "Zeming Chen"],
+  // ICCT's deposit carries the author as "Meryl Demuynk", but the policy brief's own title page
+  // (and ICCT's author page) read "Méryl Demuynck": Crossref has dropped the accent and a letter.
+  // Folio follows the spelling a reader meets on the PDF the citation points at (gga-022).
+  ["10.19165/2021.2.08", "Méryl Demuynck", "Meryl Demuynk"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */

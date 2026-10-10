@@ -132,7 +132,7 @@ const N_EXTRA = 2;
 const SRC_MAX = 24;
 // the editorial floor, read out of app.js (SRC_TARGET) so the two can never disagree about what it is
 // …and PER CARD since Sep 2026: tiered by the card's difficulty, 1 → 9 … 5 → 5 (src-target.js slices it)
-const { srcTargetFor } = require("./src-target.js");
+const { srcTargetFor, SRC_TARGET_BY_PREFIX } = require("./src-target.js");
 // Every citation carries a link, so a reader can check the claim and follow it further — which also means
 // only publicly reachable scholarship is citable here, and that a page number can always be verified.
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
@@ -732,15 +732,18 @@ if (!card.skipSources) {
   // A NEW card ships at the bar. The backfill pass is allowed to leave an old card short (add-sources.js
   // warns instead), because raising it may be genuinely impossible; a card being written now is not in
   // that position — if five qualifying sources cannot be found for it, its ten sentences are not ready.
-  if (src.length < srcTargetFor(card)) { console.error("ERROR: card has " + src.length + " source(s) — a new card at difficulty " + card.difficulty + " carries at least " + srcTargetFor(card) + " (the bar is tiered: 1 → 9, 2 → 8, 3 → 7, 4 → 6, 5 → 5; SRC_TARGET_BY_DIFFICULTY in app.js). Ten sentences making ten claims are not honestly covered by fewer."); process.exit(1); }
-  const openN = src.filter(s => /\[Open access\]/.test(s) || (IS_COURSE && /\[Course material\]\s*$/.test(s))).length;
+  // course-only cards: main's `eep-` (COURSE_ONLY) and any prefix with its own bar in app.js (`gga-`) may cite a lecture's
+  // slides or a set reading as `[Course material]`, which counts as open for the majority warning below
+  const COURSE_CITES = IS_COURSE || Object.keys(SRC_TARGET_BY_PREFIX).some(p => String(card.id || "").indexOf(p) === 0);
+  if (src.length < srcTargetFor(card)) { console.error("ERROR: card has " + src.length + " source(s) — a new card at difficulty " + card.difficulty + " carries at least " + srcTargetFor(card) + " (the bar is tiered: 1 → 9, 2 → 8, 3 → 7, 4 → 6, 5 → 5, or a course collection's own, SRC_TARGET_BY_PREFIX; SRC_TARGET_BY_DIFFICULTY in app.js). Ten sentences making ten claims are not honestly covered by fewer."); process.exit(1); }
+  const openN = src.filter(s => /\[Open access\]/.test(s) || (COURSE_CITES && /\[Course material\]\s*$/.test(s))).length;
   if (openN <= src.length / 2) console.warn("WARNING: only " + openN + " of this card's " + src.length + " sources are labelled [Open access]. The majority of any card's list must be open — a paywalled work earns its place only as the landmark a claim is actually built on.");
   /* A LANGUAGE MARKER MUST BE ONE app.js CAN DRAW (Sep 2026). A non-English citation ends in `[in
      French]`, lifted into a chip beside the access one; a typo is not an error anywhere, it is a chip
      that never appears, which nothing on the page can report. The list is SLICED out of app.js. */
   src.forEach((s) => { const bad = checkCitationLang(s); if (bad) { console.error("ERROR: a citation " + bad); process.exit(1); } });
   // a course-only card may cite its lecture's slides, which have no public address, tagged `[Course material]`
-  const unlinked = src.filter(s => !SRC_URL.test(s) && !(IS_COURSE && /\[Course material\]\s*$/.test(s)));
+  const unlinked = src.filter(s => !SRC_URL.test(s) && !(COURSE_CITES && /\[Course material\]\s*$/.test(s)));
   if (unlinked.length) {
     console.error("ERROR: every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none.\n" +
       "       Cite something publicly reachable and put its DOI or permalink last, as Chicago prints it:\n" +
