@@ -136,14 +136,15 @@ function fetchAround(cache, keys) {
 function fetchLabels(cache, names) {
   cache.labels = cache.labels || {};
   const want = names.filter((n) => !(n in cache.labels));
-  for (let i = 0; i < want.length; i += 40) {
-    const batch = want.slice(i, i + 40);
+  const N = 8;   // a label lookup costs the service about two seconds a name (measured 2026-10-10: 10.7 s for five); forty names passed its 60 s limit and answered 400
+  for (let i = 0; i < want.length; i += N) {
+    const batch = want.slice(i, i + N);
     const lit = (n) => JSON.stringify(n) + "@en";
     const q = "SELECT ?lbl ?item ?coord ?label ?article (GROUP_CONCAT(DISTINCT ?cls; separator=\" \") AS ?classes) WHERE { VALUES ?lbl { " + batch.map(lit).join(" ") + " } { ?item rdfs:label ?lbl } UNION { ?item skos:altLabel ?lbl } ?item wdt:P625 ?coord . OPTIONAL { ?item wdt:P31 ?cls } OPTIONAL { ?item rdfs:label ?label FILTER(lang(?label) = \"en\") } OPTIONAL { ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> } } GROUP BY ?lbl ?item ?coord ?label ?article LIMIT 2000";
     const got = {};
     for (const b of sparqlRetry(q, "labels batch " + (i / 40))) { const n = b.lbl.value; const qid = b.item.value.split("/").pop(); const l = got[n] || (got[n] = []); if (l.some((x) => x.qid === qid)) continue; l.push({ qid, coord: wktPoint(b.coord.value), label: b.label ? b.label.value : "", title: b.article ? iriTitle(b.article.value) : "", classes: (b.classes && b.classes.value ? b.classes.value.split(" ") : []).map((x) => x.split("/").pop()).filter(Boolean) }); }
     for (const n of batch) cache.labels[n] = got[n] || [];
-    saveCache(cache); process.stdout.write(`  labels ${Math.min(i + 40, want.length)}/${want.length}\r`); spawnSync("sleep", ["1.5"]);
+    saveCache(cache); process.stdout.write(`  labels ${Math.min(i + N, want.length)}/${want.length}\r`); spawnSync("sleep", ["1.5"]);
   }
   if (want.length) log("");
   return want.length;

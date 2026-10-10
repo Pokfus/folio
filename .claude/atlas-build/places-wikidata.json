@@ -7554,8 +7554,6329 @@
     "Q515"
    ],
    "label": "York"
+  },
+  "Milvian Bridge": null,
+  "Horinger": null,
+  "Yungang Grottoes": {
+   "qid": "Q308805",
+   "coord": [
+    113.1222,
+    40.1097
+   ],
+   "classes": [
+    "Q6838244",
+    "Q1131329"
+   ],
+   "label": "Yungang Grottoes"
+  },
+  "Longmen Grottoes": {
+   "qid": "Q273834",
+   "coord": [
+    112.4697,
+    34.5556
+   ],
+   "classes": [
+    "Q6838244",
+    "Q1131329"
+   ],
+   "label": "Longmen Grottoes"
+  },
+  "Wuyuan": {
+   "qid": "Q419003",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Wuyuan"
+  },
+  "Eastern Wei": {
+   "qid": "Q307069",
+   "coord": null,
+   "classes": [
+    "Q50068795"
+   ],
+   "label": "Eastern Wei"
+  },
+  "Northern Zhou": {
+   "qid": "Q551067",
+   "coord": null,
+   "classes": [
+    "Q50068795"
+   ],
+   "label": "Northern Zhou"
+  },
+  "Chrysopolis": {
+   "qid": "Q20971566",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Chrysopolis"
+  },
+  "Lutetia": {
+   "qid": "Q270273",
+   "coord": [
+    2.3475,
+    48.8547
+   ],
+   "classes": [
+    "Q21752084",
+    "Q2202509"
+   ],
+   "label": "Lutetia"
+  },
+  "Naissus": {
+   "qid": "Q3869982",
+   "coord": [
+    21.8939,
+    43.3163
+   ],
+   "classes": [
+    "Q37800986",
+    "Q15661340",
+    "Q1549591",
+    "Q56061"
+   ],
+   "label": "Naissus"
+  },
+  "Lateran Basilica": null,
+  "Vatican Hill": {
+   "qid": "Q1053000",
+   "coord": [
+    12.4503,
+    41.9036
+   ],
+   "classes": [
+    "Q54050"
+   ],
+   "label": "Vatican Hill"
+  },
+  "Arch of Constantine": {
+   "qid": "Q5786",
+   "coord": [
+    12.4906,
+    41.8898
+   ],
+   "classes": [
+    "Q839954",
+    "Q684740",
+    "Q143912"
+   ],
+   "label": "Arch of Constantine"
+  },
+  "Marcianopolis": {
+   "qid": "Q431280",
+   "coord": [
+    27.585,
+    43.225
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Marcianopolis"
+  },
+  "Adrianople": null,
+  "Altar of Victory": {
+   "qid": "Q737919",
+   "coord": null,
+   "classes": [
+    "Q101687"
+   ],
+   "label": "Altar of Victory"
+  },
+  "Basilica of Sant'Ambrogio": {
+   "qid": "Q1071570",
+   "coord": [
+    9.1758,
+    45.4625
+   ],
+   "classes": [
+    "Q1497375",
+    "Q120560"
+   ],
+   "label": "Basilica of Sant'Ambrogio"
+  },
+  "Desert Fathers": {
+   "qid": "Q1066990",
+   "coord": null,
+   "classes": [
+    "Q16334295"
+   ],
+   "label": "Desert Fathers"
+  },
+  "Bethlehem": {
+   "qid": "Q5776",
+   "coord": [
+    35.2061,
+    31.7044
+   ],
+   "classes": [
+    "Q116291578",
+    "Q6936404",
+    "Q515"
+   ],
+   "label": "Bethlehem"
+  },
+  "Hippo Regius": {
+   "qid": "Q858024",
+   "coord": [
+    7.7551,
+    36.8837
+   ],
+   "classes": [
+    "Q2202509",
+    "Q839954"
+   ],
+   "label": "Hippo Regius"
+  },
+  "Council of Chalcedon": {
+   "qid": "Q170531",
+   "coord": [
+    29.03,
+    40.98
+   ],
+   "classes": [
+    "Q51645"
+   ],
+   "label": "Council of Chalcedon"
+  },
+  "Crossing of the Rhine": {
+   "qid": "Q684915",
+   "coord": null,
+   "classes": [
+    "Q645883"
+   ],
+   "label": "Crossing of the Rhine"
+  },
+  "Visigothic Kingdom": {
+   "qid": "Q126936",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Visigothic Kingdom"
+  },
+  "Vandal sack of Rome": null,
+  "Malpas": {
+   "qid": "Q1174874",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Malpas"
+  },
+  "Eastern Roman Empire": null,
+  "Mérida": {
+   "qid": "Q240137",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Mérida"
+  },
+  "Vindolanda tablets": {
+   "qid": "Q1153229",
+   "coord": null,
+   "classes": [
+    "Q16744570",
+    "Q87167"
+   ],
+   "label": "Vindolanda tablets"
+  },
+  "Comitium": {
+   "qid": "Q1114895",
+   "coord": [
+    12.485,
+    41.8928
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Comitium"
+  },
+  "Fort Sumter": {
+   "qid": "Q737517",
+   "coord": [
+    -79.8744,
+    32.7525
+   ],
+   "classes": [
+    "Q35989030",
+    "Q20097897"
+   ],
+   "label": "Fort Sumter"
+  },
+  "Boma": {
+   "qid": "Q402322",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Boma"
+  },
+  "Down House": {
+   "qid": "Q3038318",
+   "coord": [
+    0.0533,
+    51.3314
+   ],
+   "classes": [
+    "Q16735822",
+    "Q2087181"
+   ],
+   "label": "Down House"
+  },
+  "New Echota": {
+   "qid": "Q7007061",
+   "coord": [
+    -84.91,
+    34.5404
+   ],
+   "classes": [
+    "Q37993793",
+    "Q1081138"
+   ],
+   "label": "New Echota"
+  },
+  "Spitalfields": {
+   "qid": "Q123219",
+   "coord": [
+    -0.075,
+    51.5166
+   ],
+   "classes": [
+    "Q2755753"
+   ],
+   "label": "Spitalfields"
+  },
+  "Palashi": {
+   "qid": "Q3346548",
+   "coord": [
+    88.2583,
+    23.7898
+   ],
+   "classes": [
+    "Q56436498"
+   ],
+   "label": "Palashi"
+  },
+  "Shimonoseki": {
+   "qid": "Q203308",
+   "coord": [
+    130.9413,
+    33.9579
+   ],
+   "classes": [
+    "Q2264924",
+    "Q1549591",
+    "Q1137833"
+   ],
+   "label": "Shimonoseki"
+  },
+  "Port Arthur": {
+   "qid": "Q347517",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Port Arthur"
+  },
+  "Isandlwana": {
+   "qid": "Q3782078",
+   "coord": [
+    30.6528,
+    -28.3589
+   ],
+   "classes": [
+    "Q54050",
+    "Q8502"
+   ],
+   "label": "Isandlwana"
+  },
+  "Adwa": {
+   "qid": "Q380096",
+   "coord": [
+    38.9,
+    14.1667
+   ],
+   "classes": [
+    "Q690840",
+    "Q515"
+   ],
+   "label": "Adwa"
+  },
+  "Waterberg": {
+   "qid": "Q407762",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Waterberg"
+  },
+  "Sydney Cove": {
+   "qid": "Q1756937",
+   "coord": [
+    151.2117,
+    -33.8586
+   ],
+   "classes": [
+    "Q31615"
+   ],
+   "label": "Sydney Cove"
+  },
+  "Waitangi": {
+   "qid": "Q422840",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Waitangi"
+  },
+  "Meaux": {
+   "qid": "Q207620",
+   "coord": [
+    2.8878,
+    48.9594
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Meaux"
+  },
+  "Verdun": {
+   "qid": "Q154748",
+   "coord": [
+    5.3828,
+    49.1597
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Verdun"
+  },
+  "Albert": {
+   "qid": "Q2637730",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Albert"
+  },
+  "Gallipoli": {
+   "qid": "Q192860",
+   "coord": [
+    26.45,
+    40.35
+   ],
+   "classes": [
+    "Q34763"
+   ],
+   "label": "Gallipoli"
+  },
+  "Heart's Content": {
+   "qid": "Q5691726",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Heart's Content"
+  },
+  "Petrograd": null,
+  "Simbirsk": null,
+  "Shaoshan": {
+   "qid": "Q838542",
+   "coord": [
+    112.48,
+    27.91
+   ],
+   "classes": [
+    "Q1070990"
+   ],
+   "label": "Shaoshan"
+  },
+  "Korean War": {
+   "qid": "Q8663",
+   "coord": null,
+   "classes": [
+    "Q198"
+   ],
+   "label": "Korean War"
+  },
+  "invasion of Poland": null,
+  "Predappio": {
+   "qid": "Q99950",
+   "coord": [
+    11.985,
+    44.1042
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Predappio"
+  },
+  "Braunau am Inn": {
+   "qid": "Q131128",
+   "coord": [
+    13.0333,
+    48.2583
+   ],
+   "classes": [
+    "Q13539802",
+    "Q667509",
+    "Q515"
+   ],
+   "label": "Braunau am Inn"
+  },
+  "Berlin Blockade": {
+   "qid": "Q151349",
+   "coord": [
+    13.28,
+    52.5
+   ],
+   "classes": [
+    "Q273976"
+   ],
+   "label": "Berlin Blockade"
+  },
+  "Dunkirk evacuation": {
+   "qid": "Q911972",
+   "coord": [
+    2.3575,
+    51.0575
+   ],
+   "classes": [
+    "Q30129955",
+    "Q1261499",
+    "Q645883"
+   ],
+   "label": "Dunkirk evacuation"
+  },
+  "Blitz": {
+   "qid": "Q228704",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Blitz"
+  },
+  "Leningrad": {
+   "qid": "Q27899309",
+   "coord": null,
+   "classes": [
+    "Q65208402"
+   ],
+   "label": "Leningrad"
+  },
+  "Stalingrad": null,
+  "Nanjing Massacre": {
+   "qid": "Q192055",
+   "coord": [
+    118.7375,
+    32.0375
+   ],
+   "classes": [
+    "Q3199915",
+    "Q2408310",
+    "Q701321"
+   ],
+   "label": "Nanjing Massacre"
+  },
+  "Midway": {
+   "qid": "Q226620",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Midway"
+  },
+  "Second Battle of El Alamein": {
+   "qid": "Q153376",
+   "coord": [
+    28.9431,
+    30.8414
+   ],
+   "classes": [
+    "Q178561"
+   ],
+   "label": "Second Battle of El Alamein"
+  },
+  "Auschwitz": null,
+  "Normandy landings": {
+   "qid": "Q16470",
+   "coord": [
+    -0.6,
+    49.34
+   ],
+   "classes": [
+    "Q348120",
+    "Q178561"
+   ],
+   "label": "Normandy landings"
+  },
+  "Battle of the Bulge": {
+   "qid": "Q151018",
+   "coord": [
+    6.1372,
+    50.6243
+   ],
+   "classes": [
+    "Q2001676"
+   ],
+   "label": "Battle of the Bulge"
+  },
+  "Battle of Berlin": {
+   "qid": "Q154182",
+   "coord": [
+    13.3761,
+    52.5186
+   ],
+   "classes": [
+    "Q178561"
+   ],
+   "label": "Battle of Berlin"
+  },
+  "Atomic bombings of Hiroshima and Nagasaki": {
+   "qid": "Q488",
+   "coord": [
+    132.4546,
+    34.3947
+   ],
+   "classes": [
+    "Q29431432",
+    "Q4688003"
+   ],
+   "label": "atomic bombings of Hiroshima and Nagasaki"
+  },
+  "Hungarian Revolution of 1956": {
+   "qid": "Q164348",
+   "coord": null,
+   "classes": [
+    "Q124734"
+   ],
+   "label": "Hungarian Revolution of 1956"
+  },
+  "Berlin Wall": {
+   "qid": "Q5086",
+   "coord": [
+    13.4411,
+    52.5044
+   ],
+   "classes": [
+    "Q27627826",
+    "Q19860854",
+    "Q2973801",
+    "Q1784293"
+   ],
+   "label": "Berlin Wall"
+  },
+  "San Cristóbal": {
+   "qid": "Q227033",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "San Cristóbal"
+  },
+  "Cape Canaveral": {
+   "qid": "Q193401",
+   "coord": [
+    -80.5278,
+    28.4556
+   ],
+   "classes": [
+    "Q191992",
+    "Q185113"
+   ],
+   "label": "Cape Canaveral"
+  },
+  "Saigon": {
+   "qid": "Q105076326",
+   "coord": [
+    106.6969,
+    10.8022
+   ],
+   "classes": [
+    "Q10864048",
+    "Q15284",
+    "Q5119",
+    "Q515"
+   ],
+   "label": "Saigon"
+  },
+  "Tiananmen Square protests": null,
+  "Belovezhskaya Pushcha": null,
+  "World Trade Center": {
+   "qid": "Q226826",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "World Trade Center"
+  },
+  "Suez Crisis": {
+   "qid": "Q49101",
+   "coord": null,
+   "classes": [
+    "Q2001676",
+    "Q1384277"
+   ],
+   "label": "Suez Crisis"
+  },
+  "Algerian War": {
+   "qid": "Q200790",
+   "coord": null,
+   "classes": [
+    "Q21994376",
+    "Q1006311"
+   ],
+   "label": "Algerian War"
+  },
+  "Verona": {
+   "qid": "Q2028",
+   "coord": [
+    10.9928,
+    45.4386
+   ],
+   "classes": [
+    "Q4115680",
+    "Q1549591",
+    "Q747074",
+    "Q702492",
+    "Q515"
+   ],
+   "label": "Verona"
+  },
+  "Lower Germanic Limes": {
+   "qid": "Q1265889",
+   "coord": [
+    6.4539,
+    51.6622
+   ],
+   "classes": [
+    "Q18247357",
+    "Q839954",
+    "Q146924"
+   ],
+   "label": "Lower German Limes"
+  },
+  "Danubian Limes": {
+   "qid": "Q875638",
+   "coord": null,
+   "classes": [
+    "Q146924"
+   ],
+   "label": "Danubian Limes"
+  },
+  "Londinium": {
+   "qid": "Q927198",
+   "coord": [
+    -0.0885,
+    51.5142
+   ],
+   "classes": [
+    "Q2202509"
+   ],
+   "label": "Londinium"
+  },
+  "Narbo Martius": null,
+  "Leptis Magna": {
+   "qid": "Q191504",
+   "coord": [
+    14.2905,
+    32.6383
+   ],
+   "classes": [
+    "Q15661340",
+    "Q2202509",
+    "Q839954",
+    "Q655593"
+   ],
+   "label": "Leptis Magna"
+  },
+  "Caesarea Maritima": {
+   "qid": "Q319242",
+   "coord": [
+    34.8923,
+    32.5011
+   ],
+   "classes": [
+    "Q22674925",
+    "Q21752084",
+    "Q12232785",
+    "Q756780",
+    "Q486972",
+    "Q532"
+   ],
+   "label": "Caesarea Maritima"
+  },
+  "Parthian Empire": {
+   "qid": "Q1986139",
+   "coord": [
+    44.5808,
+    33.0936
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Parthian Empire"
+  },
+  "Bithynia and Pontus": {
+   "qid": "Q913382",
+   "coord": [
+    33.26,
+    41.5
+   ],
+   "classes": [
+    "Q182547"
+   ],
+   "label": "Bithynia et Pontus"
+  },
+  "Pannonia": {
+   "qid": "Q170062",
+   "coord": [
+    19.02,
+    44.9
+   ],
+   "classes": [
+    "Q182547"
+   ],
+   "label": "Pannonia"
+  },
+  "Sarmizegetusa": {
+   "qid": "Q524288",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Sarmizegetusa"
+  },
+  "Calleva Atrebatum": {
+   "qid": "Q1027253",
+   "coord": [
+    -1.0829,
+    51.3573
+   ],
+   "classes": [
+    "Q839954",
+    "Q744099",
+    "Q192601"
+   ],
+   "label": "Calleva Atrebatum"
+  },
+  "Muziris": {
+   "qid": "Q2974112",
+   "coord": [
+    76.2,
+    10.15
+   ],
+   "classes": [
+    "Q2974842"
+   ],
+   "label": "Muziris"
+  },
+  "Yangzhou": {
+   "qid": "Q57906",
+   "coord": [
+    119.4363,
+    32.3912
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Yangzhou"
+  },
+  "Liaoyang": {
+   "qid": "Q75203",
+   "coord": [
+    123.1772,
+    41.2643
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Liaoyang"
+  },
+  "Yulin": {
+   "qid": "Q299247",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Yulin"
+  },
+  "Qianling Mausoleum": {
+   "qid": "Q950653",
+   "coord": [
+    108.2147,
+    34.5692
+   ],
+   "classes": [
+    "Q6838244",
+    "Q839954",
+    "Q162875"
+   ],
+   "label": "Qianling Mausoleum"
+  },
+  "Daming Palace": {
+   "qid": "Q1158530",
+   "coord": [
+    108.9594,
+    34.2914
+   ],
+   "classes": [
+    "Q6838244",
+    "Q839954",
+    "Q33506",
+    "Q16560"
+   ],
+   "label": "Daming Palace"
+  },
+  "Xingping": {
+   "qid": "Q1201091",
+   "coord": [
+    108.4816,
+    34.2999
+   ],
+   "classes": [
+    "Q1070990"
+   ],
+   "label": "Xingping"
+  },
+  "Chaoyang": {
+   "qid": "Q357462",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Chaoyang"
+  },
+  "Daming County": {
+   "qid": "Q59898",
+   "coord": [
+    115.142,
+    36.2853
+   ],
+   "classes": [
+    "Q1289426"
+   ],
+   "label": "Daming County"
+  },
+  "Ordu-Baliq": {
+   "qid": "Q2475401",
+   "coord": [
+    102.6594,
+    47.4311
+   ],
+   "classes": [
+    "Q839954",
+    "Q486972"
+   ],
+   "label": "Ordu-Baliq"
+  },
+  "Dali": {
+   "qid": "Q231697",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Dali"
+  },
+  "Famen Temple": {
+   "qid": "Q614916",
+   "coord": [
+    107.905,
+    34.4399
+   ],
+   "classes": [
+    "Q6838244",
+    "Q5393308"
+   ],
+   "label": "Famen Temple"
+  },
+  "Giant Wild Goose Pagoda": {
+   "qid": "Q1047061",
+   "coord": [
+    108.9593,
+    34.2198
+   ],
+   "classes": [
+    "Q6838244",
+    "Q797765",
+    "Q199451"
+   ],
+   "label": "Giant Wild Goose Pagoda"
+  },
+  "Dangtu County": {
+   "qid": "Q1159662",
+   "coord": [
+    118.4889,
+    31.5511
+   ],
+   "classes": [
+    "Q1289426"
+   ],
+   "label": "Dangtu County"
+  },
+  "Du Fu Thatched Cottage": {
+   "qid": "Q4390891",
+   "coord": [
+    104.0263,
+    30.6622
+   ],
+   "classes": [
+    "Q10300916",
+    "Q33506"
+   ],
+   "label": "Du Fu Thatched Cottage"
+  },
+  "West Lake": {
+   "qid": "Q502371",
+   "coord": [
+    120.1408,
+    30.2375
+   ],
+   "classes": [
+    "Q6838244",
+    "Q23397"
+   ],
+   "label": "West Lake"
+  },
+  "Chaozhou": {
+   "qid": "Q59227",
+   "coord": [
+    116.63,
+    23.67
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Chaozhou"
+  },
+  "Wadi Kubbaniya": {
+   "qid": "Q109535880",
+   "coord": [
+    32.785,
+    24.0925
+   ],
+   "classes": [
+    "Q12137573"
+   ],
+   "label": "Wadi Kubbaniya"
+  },
+  "Gebel Ramlah": {
+   "qid": "Q85762876",
+   "coord": [
+    30.5047,
+    22.7103
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Gebel Ramlah"
+  },
+  "Bir Kiseiba": {
+   "qid": "Q28162746",
+   "coord": [
+    29.9167,
+    22.6833
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Bir Kiseiba"
+  },
+  "El Omari": null,
+  "Merimde Beni Salama": {
+   "qid": "Q111948182",
+   "coord": [
+    30.85,
+    30.316
+   ],
+   "classes": [],
+   "label": "Merimde Beni Salama"
+  },
+  "Badarian culture": {
+   "qid": "Q798844",
+   "coord": [
+    31.4167,
+    27
+   ],
+   "classes": [
+    "Q839954",
+    "Q465299"
+   ],
+   "label": "Badari culture"
+  },
+  "Naqada": {
+   "qid": "Q959859",
+   "coord": [
+    32.7242,
+    25.9017
+   ],
+   "classes": [
+    "Q839954",
+    "Q3957",
+    "Q515"
+   ],
+   "label": "Naqada"
+  },
+  "Hierakonpolis": {
+   "qid": "Q278988",
+   "coord": [
+    32.7794,
+    25.0972
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Nekhen"
+  },
+  "Tomb 100": null,
+  "Umm el-Qa'ab": null,
+  "Buto": {
+   "qid": "Q739278",
+   "coord": [
+    30.7447,
+    31.1964
+   ],
+   "classes": [
+    "Q839954",
+    "Q755017"
+   ],
+   "label": "Buto"
+  },
+  "Maadi": {
+   "qid": "Q589934",
+   "coord": [
+    31.25,
+    29.9675
+   ],
+   "classes": [
+    "Q7495728"
+   ],
+   "label": "Maadi"
+  },
+  "Tell es-Sakan": {
+   "qid": "Q7697545",
+   "coord": [
+    34.4047,
+    31.4758
+   ],
+   "classes": [
+    "Q839954",
+    "Q755017"
+   ],
+   "label": "Tell es-Sakan"
+  },
+  "Tomb U-j": null,
+  "Shunet el-Zebib": null,
+  "Tell el-Farkha": {
+   "qid": "Q135678492",
+   "coord": [
+    31.6016,
+    30.875
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Tell el-Farkha"
+  },
+  "Abydos boats": {
+   "qid": "Q4670724",
+   "coord": null,
+   "classes": [],
+   "label": "Abydos boats"
+  },
+  "Wadi Hammamat": {
+   "qid": "Q1479250",
+   "coord": [
+    33.5644,
+    25.982
+   ],
+   "classes": [
+    "Q839954",
+    "Q188040",
+    "Q187971"
+   ],
+   "label": "Wadi Hammamat"
+  },
+  "Wadi Maghareh": {
+   "qid": "Q1548813",
+   "coord": [
+    33.45,
+    29.0333
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Wadi Maghareh"
+  },
+  "Gisr el-Mudir": {
+   "qid": "Q1527638",
+   "coord": [
+    31.2063,
+    29.8665
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Gisr el-Mudir"
+  },
+  "Pyramid of Djoser": {
+   "qid": "Q192418",
+   "coord": [
+    31.2167,
+    29.8711
+   ],
+   "classes": [
+    "Q1456099",
+    "Q839954",
+    "Q175582"
+   ],
+   "label": "Pyramid of Djoser"
+  },
+  "serdab": null,
+  "Heb-sed court": null,
+  "Buried Pyramid": {
+   "qid": "Q135318",
+   "coord": [
+    31.213,
+    29.8664
+   ],
+   "classes": [
+    "Q136706915",
+    "Q1570262",
+    "Q1456099",
+    "Q175582"
+   ],
+   "label": "Buried Pyramid"
+  },
+  "Dahshur": {
+   "qid": "Q685414",
+   "coord": [
+    31.2333,
+    29.8
+   ],
+   "classes": [
+    "Q125366925",
+    "Q839954",
+    "Q200141",
+    "Q56061",
+    "Q532"
+   ],
+   "label": "Dahshur"
+  },
+  "Meidum Pyramid": {
+   "qid": "Q13444093",
+   "coord": [
+    31.1569,
+    29.3883
+   ],
+   "classes": [
+    "Q1456099",
+    "Q175582"
+   ],
+   "label": "Meidum Pyramid"
+  },
+  "Gaoping": {
+   "qid": "Q1363661",
+   "coord": [
+    112.9259,
+    35.7911
+   ],
+   "classes": [
+    "Q1070990"
+   ],
+   "label": "Gaoping"
+  },
+  "Ying County": {
+   "qid": "Q1197322",
+   "coord": [
+    113.1839,
+    39.5542
+   ],
+   "classes": [
+    "Q1289426"
+   ],
+   "label": "Ying County"
+  },
+  "Chuzhou": {
+   "qid": "Q114045",
+   "coord": [
+    118.3115,
+    32.3062
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Chuzhou"
+  },
+  "Yongzhou": {
+   "qid": "Q266014",
+   "coord": [
+    111.5953,
+    26.4515
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Yongzhou"
+  },
+  "Jiangning": null,
+  "Meishan": {
+   "qid": "Q427097",
+   "coord": [
+    103.8381,
+    30.0575
+   ],
+   "classes": [
+    "Q748149"
+   ],
+   "label": "Meishan"
+  },
+  "Tangyin": null,
+  "Xinhui": null,
+  "Ejina Banner": null,
+  "Shangdu": {
+   "qid": "Q471765",
+   "coord": [
+    116.1852,
+    42.358
+   ],
+   "classes": [
+    "Q15661340",
+    "Q2912045",
+    "Q1074523",
+    "Q839954"
+   ],
+   "label": "Xanadu"
+  },
+  "Kediri": {
+   "qid": "Q176766",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Kediri"
+  },
+  "Khanbaliq": null,
+  "Yingzhou": {
+   "qid": "Q8053732",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Yingzhou"
+  },
+  "Abu Rawash": {
+   "qid": "Q335278",
+   "coord": [
+    31.0747,
+    30.0322
+   ],
+   "classes": [
+    "Q125366925",
+    "Q839954",
+    "Q200141",
+    "Q532"
+   ],
+   "label": "Abu Rawash"
+  },
+  "Abusir": {
+   "qid": "Q336098",
+   "coord": [
+    31.2036,
+    29.8961
+   ],
+   "classes": [
+    "Q125366925",
+    "Q839954",
+    "Q200141",
+    "Q532"
+   ],
+   "label": "Abusir"
+  },
+  "Abu Gorab": {
+   "qid": "Q2038886",
+   "coord": [
+    31.1942,
+    29.9039
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Abu Gorab"
+  },
+  "Pyramid of Sahure": {
+   "qid": "Q131820",
+   "coord": [
+    31.2033,
+    29.8978
+   ],
+   "classes": [
+    "Q4363262",
+    "Q839954",
+    "Q175582"
+   ],
+   "label": "Pyramid of Sahure"
+  },
+  "Pyramid of Neferirkare": {
+   "qid": "Q1609149",
+   "coord": [
+    31.2024,
+    29.895
+   ],
+   "classes": [
+    "Q1456099",
+    "Q175582"
+   ],
+   "label": "Pyramid of Neferirkare"
+  },
+  "Pyramid of Nyuserre": {
+   "qid": "Q1751693",
+   "coord": [
+    31.2036,
+    29.8957
+   ],
+   "classes": [
+    "Q4363262",
+    "Q175582"
+   ],
+   "label": "Pyramid of Nyuserre Ini"
+  },
+  "Pyramid of Unas": {
+   "qid": "Q1478801",
+   "coord": [
+    31.2147,
+    29.8683
+   ],
+   "classes": [
+    "Q4363262",
+    "Q175582"
+   ],
+   "label": "Pyramid of Unas"
+  },
+  "Pyramid of Teti": {
+   "qid": "Q1278166",
+   "coord": [
+    31.2216,
+    29.8753
+   ],
+   "classes": [
+    "Q4363262",
+    "Q175582"
+   ],
+   "label": "Pyramid of Teti"
+  },
+  "Pyramid of Pepi I": {
+   "qid": "Q1536118",
+   "coord": [
+    31.2189,
+    29.8544
+   ],
+   "classes": [
+    "Q4363262",
+    "Q175582"
+   ],
+   "label": "mortuary complex of Pepi I"
+  },
+  "Qubbet el-Hawa": {
+   "qid": "Q1518125",
+   "coord": [
+    32.8903,
+    24.103
+   ],
+   "classes": [
+    "Q839954",
+    "Q8502"
+   ],
+   "label": "Qubbet el-Hawa"
+  },
+  "Qift": {
+   "qid": "Q935454",
+   "coord": [
+    32.8167,
+    26
+   ],
+   "classes": [
+    "Q839954",
+    "Q515"
+   ],
+   "label": "Qift"
+  },
+  "Heracleopolis Magna": {
+   "qid": "Q249480",
+   "coord": [
+    30.9344,
+    29.0856
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Herakleopolis Magna"
+  },
+  "Gebelein": {
+   "qid": "Q1496830",
+   "coord": [
+    32.4833,
+    25.4833
+   ],
+   "classes": [
+    "Q125366925",
+    "Q839954",
+    "Q532"
+   ],
+   "label": "Gebelein"
+  },
+  "Dendera": {
+   "qid": "Q29019",
+   "coord": [
+    32.6697,
+    26.1422
+   ],
+   "classes": [
+    "Q855747",
+    "Q839954",
+    "Q532"
+   ],
+   "label": "Dendera"
+  },
+  "Qaw el-Kebir": {
+   "qid": "Q548283",
+   "coord": [
+    31.5167,
+    26.9
+   ],
+   "classes": [
+    "Q125366925",
+    "Q486972"
+   ],
+   "label": "Tjebu"
+  },
+  "Deir el-Bahari": {
+   "qid": "Q373909",
+   "coord": [
+    32.6075,
+    25.7375
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Deir el-Bahari"
+  },
+  "Hatnub": {
+   "qid": "Q922009",
+   "coord": [
+    31,
+    27.55
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Hatnub"
+  },
+  "Lisht": {
+   "qid": "Q287779",
+   "coord": [
+    31.2311,
+    29.5703
+   ],
+   "classes": [
+    "Q125366925",
+    "Q839954",
+    "Q200141",
+    "Q532"
+   ],
+   "label": "Lisht"
+  },
+  "El Lahun": {
+   "qid": "Q56924",
+   "coord": [
+    30.9667,
+    29.2286
+   ],
+   "classes": [
+    "Q125366925",
+    "Q839954",
+    "Q200141"
+   ],
+   "label": "El-Lahun"
+  },
+  "Deir El Bersha": {
+   "qid": "Q1157646",
+   "coord": [
+    30.91,
+    27.7572
+   ],
+   "classes": [
+    "Q125366925",
+    "Q839954",
+    "Q532"
+   ],
+   "label": "Deir el-Bersha"
+  },
+  "Mirgissa": {
+   "qid": "Q1571695",
+   "coord": [
+    31.1667,
+    21.8167
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Mirgissa"
+  },
+  "Buhen": {
+   "qid": "Q1002656",
+   "coord": [
+    31.2833,
+    21.9167
+   ],
+   "classes": [
+    "Q839954",
+    "Q57831"
+   ],
+   "label": "Buhen"
+  },
+  "Semna": null,
+  "Hawara": {
+   "qid": "Q26237",
+   "coord": [
+    30.899,
+    29.274
+   ],
+   "classes": [
+    "Q125866682",
+    "Q125366925"
+   ],
+   "label": "Hawara"
+  },
+  "Tanis": {
+   "qid": "Q210598",
+   "coord": [
+    31.88,
+    30.9769
+   ],
+   "classes": [
+    "Q125366925",
+    "Q15661340",
+    "Q839954",
+    "Q532"
+   ],
+   "label": "Tanis"
+  },
+  "puticuli": null,
+  "hortus": null,
+  "curatores alvei Tiberis": null,
+  "castellum aquae": null,
+  "Portus": {
+   "qid": "Q2037271",
+   "coord": [
+    12.2667,
+    41.7792
+   ],
+   "classes": [
+    "Q3398414",
+    "Q839954"
+   ],
+   "label": "Portus"
+  },
+  "programma": null,
+  "Falernian wine": {
+   "qid": "Q776180",
+   "coord": null,
+   "classes": [],
+   "label": "Falernian wine"
+  },
+  "Las Médulas": {
+   "qid": "Q696803",
+   "coord": [
+    -6.759,
+    42.4587
+   ],
+   "classes": [
+    "Q4989906",
+    "Q839954",
+    "Q820477"
+   ],
+   "label": ""
+  },
+  "ludi Romani": null,
+  "Ludus Magnus": {
+   "qid": "Q1232473",
+   "coord": [
+    12.495,
+    41.89
+   ],
+   "classes": [
+    "Q14752696",
+    "Q7362268",
+    "Q6699052",
+    "Q839954",
+    "Q641226"
+   ],
+   "label": "Ludus Magnus"
+  },
+  "naumachia": null,
+  "chariot racing": null,
+  "Via Appia Antica": null,
+  "Baths of Diocletian": {
+   "qid": "Q836108",
+   "coord": [
+    12.4983,
+    41.9028
+   ],
+   "classes": [
+    "Q6581615",
+    "Q839954"
+   ],
+   "label": "Baths of Diocletian"
+  },
+  "pulvinar": null,
+  "Temple of Castor and Pollux": {
+   "qid": "Q380530",
+   "coord": [
+    12.4856,
+    41.8917
+   ],
+   "classes": [
+    "Q867143",
+    "Q109607"
+   ],
+   "label": "Temple of Castor and Pollux"
+  },
+  "Vestal Virgin": {
+   "qid": "Q188761",
+   "coord": null,
+   "classes": [
+    "Q4504549",
+    "Q4164871",
+    "Q2061186"
+   ],
+   "label": "Vestal Virgin"
+  },
+  "Vesta": {
+   "qid": "Q226152",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Vesta"
+  },
+  "Tiber Island": {
+   "qid": "Q545404",
+   "coord": [
+    12.4772,
+    41.8908
+   ],
+   "classes": [
+    "Q162602"
+   ],
+   "label": "Tiber Island"
+  },
+  "Dura-Europos": {
+   "qid": "Q464266",
+   "coord": [
+    40.73,
+    34.747
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q56061"
+   ],
+   "label": "Dura-Europos"
+  },
+  "Tomb of the Scipios": {
+   "qid": "Q1540716",
+   "coord": [
+    12.5008,
+    41.8761
+   ],
+   "classes": [
+    "Q839954",
+    "Q173387"
+   ],
+   "label": "Tomb of the Scipios"
+  },
+  "Sarsina": {
+   "qid": "Q99956",
+   "coord": [
+    12.15,
+    43.9167
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Sarsina"
+  },
+  "Suessa Aurunca": null,
+  "Venusia": null,
+  "Sulmo": null,
+  "Tomis": {
+   "qid": "Q12742399",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Tomis"
+  },
+  "Patavium": null,
+  "Cancelleria Reliefs": {
+   "qid": "Q5031377",
+   "coord": null,
+   "classes": [
+    "Q860861"
+   ],
+   "label": "Cancelleria Reliefs"
+  },
+  "Farnese Hercules": {
+   "qid": "Q374591",
+   "coord": [
+    14.2505,
+    40.8534
+   ],
+   "classes": [
+    "Q179700"
+   ],
+   "label": "Farnese Hercules"
+  },
+  "Piazza Armerina": {
+   "qid": "Q56208",
+   "coord": [
+    14.3667,
+    37.3833
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Piazza Armerina"
+  },
+  "Nîmes": {
+   "qid": "Q42807",
+   "coord": [
+    4.3597,
+    43.8383
+   ],
+   "classes": [
+    "Q1549591",
+    "Q484170"
+   ],
+   "label": "Nîmes"
+  },
+  "Montecitorio": null,
+  "Aqua Marcia": {
+   "qid": "Q622943",
+   "coord": [
+    12.5633,
+    41.8468
+   ],
+   "classes": [
+    "Q13218676",
+    "Q839954"
+   ],
+   "label": "Aqua Marcia"
+  },
+  "Vers-Pont-du-Gard": {
+   "qid": "Q379644",
+   "coord": [
+    4.5244,
+    43.9686
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Vers-Pont-du-Gard"
+  },
+  "Sinuessa": {
+   "qid": "Q1349926",
+   "coord": [
+    13.8476,
+    41.1539
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Sinuessa"
+  },
+  "Fano": {
+   "qid": "Q13142",
+   "coord": [
+    13.0136,
+    43.8425
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Fano"
+  },
+  "Barbegal": null,
+  "Lucrine Lake": null,
+  "Dadu": {
+   "qid": "Q1157020",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Dadu"
+  },
+  "Changle": null,
+  "Shuangyu": {
+   "qid": "Q10911959",
+   "coord": [
+    122.1,
+    29.73
+   ],
+   "classes": [],
+   "label": "Shuangyu"
+  },
+  "She County": {
+   "qid": "Q1177941",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "She County"
+  },
+  "Zhaoqing": {
+   "qid": "Q59164",
+   "coord": [
+    112.4667,
+    23.05
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Zhaoqing"
+  },
+  "Coal Hill": {
+   "qid": "Q1104205",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Coal Hill"
+  },
+  "Hetu Ala": {
+   "qid": "Q842950",
+   "coord": [
+    124.858,
+    41.702
+   ],
+   "classes": [
+    "Q27554677"
+   ],
+   "label": "Hetu Ala City"
+  },
+  "Penghu": {
+   "qid": "Q918799",
+   "coord": [
+    119.5775,
+    23.5675
+   ],
+   "classes": [
+    "Q15239622",
+    "Q1402592",
+    "Q33837"
+   ],
+   "label": "Penghu Islands"
+  },
+  "Nerchinsk": {
+   "qid": "Q146043",
+   "coord": [
+    116.5833,
+    51.9833
+   ],
+   "classes": [
+    "Q7930989",
+    "Q192287"
+   ],
+   "label": "Nerchinsk"
+  },
+  "Old Summer Palace": {
+   "qid": "Q907894",
+   "coord": [
+    116.3068,
+    40.012
+   ],
+   "classes": [
+    "Q6838244",
+    "Q4156067",
+    "Q473972",
+    "Q109607",
+    "Q47692"
+   ],
+   "label": "Old Summer Palace"
+  },
+  "Forbidden City": {
+   "qid": "Q80290",
+   "coord": [
+    116.3908,
+    39.9158
+   ],
+   "classes": [
+    "Q6838244",
+    "Q1497364",
+    "Q33506",
+    "Q16560"
+   ],
+   "label": "Forbidden City"
+  },
+  "Hall of Mental Cultivation": {
+   "qid": "Q5642706",
+   "coord": [
+    116.3894,
+    39.9183
+   ],
+   "classes": [
+    "Q41176"
+   ],
+   "label": "Hall of Mental Cultivation"
+  },
+  "Chengde Mountain Resort": {
+   "qid": "Q1046818",
+   "coord": [
+    117.9375,
+    40.9875
+   ],
+   "classes": [
+    "Q6838244",
+    "Q47692"
+   ],
+   "label": "Chengde Mountain Resort and its outlying temples"
+  },
+  "Thirteen Factories": {
+   "qid": "Q371818",
+   "coord": [
+    113.248,
+    23.1138
+   ],
+   "classes": [
+    "Q93465891",
+    "Q123705"
+   ],
+   "label": "Thirteen Factories"
+  },
+  "Lintin Island": null,
+  "Humen": {
+   "qid": "Q477137",
+   "coord": [
+    113.6052,
+    22.8018
+   ],
+   "classes": [
+    "Q37901"
+   ],
+   "label": "Humen Strait"
+  },
+  "Huaxian": null,
+  "Zhiheji": null,
+  "Liugong Island": {
+   "qid": "Q842587",
+   "coord": [
+    122.185,
+    37.5061
+   ],
+   "classes": [
+    "Q6838244",
+    "Q23442"
+   ],
+   "label": "Liugong Island"
+  },
+  "Beijing Legation Quarter": null,
+  "Wuchang": null,
+  "Noyelles-sur-Mer": {
+   "qid": "Q489451",
+   "coord": [
+    1.7089,
+    50.1836
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Noyelles-sur-Mer"
+  },
+  "Tiananmen": {
+   "qid": "Q83973",
+   "coord": [
+    116.3912,
+    39.9074
+   ],
+   "classes": [
+    "Q53060"
+   ],
+   "label": "Tiananmen"
+  },
+  "Zhabei": {
+   "qid": "Q197124",
+   "coord": [
+    121.4551,
+    31.2491
+   ],
+   "classes": [
+    "Q19953632"
+   ],
+   "label": "Zhabei District"
+  },
+  "Bund": {
+   "qid": "Q128590",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Bund"
+  },
+  "Ruijin": {
+   "qid": "Q1025459",
+   "coord": [
+    116.0333,
+    25.8833
+   ],
+   "classes": [
+    "Q1070990",
+    "Q1044880"
+   ],
+   "label": "Ruijin"
+  },
+  "Zunyi": {
+   "qid": "Q28994",
+   "coord": [
+    106.9336,
+    27.705
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Zunyi"
+  },
+  "Yan'an": {
+   "qid": "Q515388",
+   "coord": [
+    109.4863,
+    36.5952
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Yan'an"
+  },
+  "Xi'an Incident": {
+   "qid": "Q244941",
+   "coord": [
+    108.9333,
+    34.2667
+   ],
+   "classes": [
+    "Q12890393",
+    "Q511866"
+   ],
+   "label": "Xi'an Incident"
+  },
+  "Double Tenth Agreement": {
+   "qid": "Q5299900",
+   "coord": null,
+   "classes": [
+    "Q2006324",
+    "Q321839"
+   ],
+   "label": "Double Tenth Agreement"
+  },
+  "Beiping": null,
+  "Lugou Bridge": null,
+  "Battle of Wuhan": {
+   "qid": "Q2038907",
+   "coord": [
+    114.267,
+    30.5667
+   ],
+   "classes": [
+    "Q178561"
+   ],
+   "label": "Battle of Wuhan"
+  },
+  "Bombing of Chongqing": {
+   "qid": "Q705165",
+   "coord": [
+    106.9382,
+    29.4814
+   ],
+   "classes": [
+    "Q4688003",
+    "Q831663"
+   ],
+   "label": "Bombing of Chongqing"
+  },
+  "Huayuankou": {
+   "qid": "Q15891172",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Huayuankou"
+  },
+  "Jing County": {
+   "qid": "Q1177937",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Jing County"
+  },
+  "Pingfang": null,
+  "Lushan": null,
+  "Xiaogang": {
+   "qid": "Q3570965",
+   "coord": null,
+   "classes": [
+    "Q22808320"
+   ],
+   "label": "Xiaogang"
+  },
+  "Tiananmen Square": {
+   "qid": "Q164055",
+   "coord": [
+    116.3914,
+    39.9046
+   ],
+   "classes": [
+    "Q174782"
+   ],
+   "label": "Tiananmen Square"
+  },
+  "handover of Hong Kong": null,
+  "Presidential Office Building": {
+   "qid": "Q111703461",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Presidential Office Building"
+  },
+  "Zhongshan Hall": {
+   "qid": "Q6145247",
+   "coord": [
+    121.51,
+    25.0431
+   ],
+   "classes": [
+    "Q25550691",
+    "Q1763828",
+    "Q41253"
+   ],
+   "label": "Zhongshan Hall"
+  },
+  "Chiang Kai-shek Memorial Hall": {
+   "qid": "Q540794",
+   "coord": [
+    121.5217,
+    25.0344
+   ],
+   "classes": [
+    "Q5003624",
+    "Q4989906"
+   ],
+   "label": "Chiang Kai-shek Memorial Hall"
+  },
+  "Jiangnan Examination Hall": {
+   "qid": "Q6191673",
+   "coord": [
+    118.7904,
+    32.0219
+   ],
+   "classes": [
+    "Q811979"
+   ],
+   "label": "Jiangnan Examination Hall"
+  },
+  "Xuanwu Lake": {
+   "qid": "Q7361660",
+   "coord": [
+    118.798,
+    32.0731
+   ],
+   "classes": [
+    "Q23397"
+   ],
+   "label": "Xuanwu Lake"
+  },
+  "Shanhai Pass": {
+   "qid": "Q1048381",
+   "coord": [
+    119.7536,
+    40.0092
+   ],
+   "classes": [
+    "Q10300916",
+    "Q6838244",
+    "Q82117",
+    "Q23413"
+   ],
+   "label": "Shanhai Pass"
+  },
+  "Stele Forest": {
+   "qid": "Q641427",
+   "coord": [
+    108.9482,
+    34.2557
+   ],
+   "classes": [
+    "Q16735822",
+    "Q2668072"
+   ],
+   "label": "Stele Forest"
+  },
+  "Temple of Agriculture": {
+   "qid": "Q341718",
+   "coord": [
+    116.3862,
+    39.8768
+   ],
+   "classes": [
+    "Q33506"
+   ],
+   "label": "Temple of Agriculture"
+  },
+  "Palace of Heavenly Purity": {
+   "qid": "Q7126241",
+   "coord": [
+    116.3905,
+    39.9188
+   ],
+   "classes": [
+    "Q16560"
+   ],
+   "label": "Palace of Heavenly Purity"
+  },
+  "Chen Clan Ancestral Hall": {
+   "qid": "Q5090739",
+   "coord": [
+    113.2401,
+    23.1298
+   ],
+   "classes": [
+    "Q33506"
+   ],
+   "label": "Chen Clan Academy"
+  },
+  "Zhonghua Gate": null,
+  "Jokhang": {
+   "qid": "Q735914",
+   "coord": [
+    91.1322,
+    29.6531
+   ],
+   "classes": [
+    "Q10300916",
+    "Q6838244",
+    "Q5393308"
+   ],
+   "label": "Jokhang"
+  },
+  "Great Mosque of Xi'an": {
+   "qid": "Q820842",
+   "coord": [
+    108.9367,
+    34.2634
+   ],
+   "classes": [
+    "Q32815"
+   ],
+   "label": "Great Mosque of Xi'an"
+  },
+  "Shikanoshima": null,
+  "Green Island": {
+   "qid": "Q403582",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Green Island"
+  },
+  "Yodok": null,
+  "Siege of the Polytechnic University": null,
+  "Panama Canal Zone": {
+   "qid": "Q498979",
+   "coord": [
+    -79.7202,
+    9.1177
+   ],
+   "classes": [
+    "Q783733"
+   ],
+   "label": "Panama Canal Zone"
+  },
+  "Strait of Hormuz": {
+   "qid": "Q79883",
+   "coord": [
+    56.5,
+    26.6
+   ],
+   "classes": [
+    "Q37901"
+   ],
+   "label": "Strait of Hormuz"
+  },
+  "Kosovo": {
+   "qid": "Q1246",
+   "coord": [
+    20.8333,
+    42.55
+   ],
+   "classes": [
+    "Q10711424",
+    "Q3624078",
+    "Q179164",
+    "Q123480",
+    "Q6256"
+   ],
+   "label": "Kosovo"
+  },
+  "Sudan": {
+   "qid": "Q1049",
+   "coord": [
+    32,
+    15
+   ],
+   "classes": [
+    "Q3624078",
+    "Q1088391",
+    "Q7270",
+    "Q6256"
+   ],
+   "label": "Sudan"
+  },
+  "Afar Region": {
+   "qid": "Q193494",
+   "coord": [
+    41.4167,
+    11.8167
+   ],
+   "classes": [
+    "Q1057504"
+   ],
+   "label": "Afar Region"
+  },
+  "Alaska": {
+   "qid": "Q797",
+   "coord": [
+    -150,
+    64
+   ],
+   "classes": [
+    "Q933394",
+    "Q35657"
+   ],
+   "label": "Alaska"
+  },
+  "Awash River": {
+   "qid": "Q782845",
+   "coord": [
+    41.7077,
+    11.1861
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Awash River"
+  },
+  "Cave of Altamira": {
+   "qid": "Q133575",
+   "coord": [
+    -4.1167,
+    43.3833
+   ],
+   "classes": [
+    "Q11269813",
+    "Q4989906",
+    "Q4443227"
+   ],
+   "label": "Cave of Altamira"
+  },
+  "Chauvet Cave": {
+   "qid": "Q374096",
+   "coord": [
+    4.4161,
+    44.3881
+   ],
+   "classes": [
+    "Q12137573",
+    "Q11269813"
+   ],
+   "label": "Chauvet Cave"
+  },
+  "Fennoscandia": {
+   "qid": "Q604496",
+   "coord": [
+    17,
+    63
+   ],
+   "classes": [
+    "Q271669",
+    "Q82794"
+   ],
+   "label": "Fennoscandia"
+  },
+  "Gona, Ethiopia": {
+   "qid": "Q12314119",
+   "coord": [
+    39.2333,
+    12.2333
+   ],
+   "classes": [
+    "Q839954",
+    "Q4022"
+   ],
+   "label": "Gona"
+  },
+  "Gona": {
+   "qid": "Q15812561",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Gona"
+  },
+  "Great Britain": {
+   "qid": "Q23666",
+   "coord": [
+    -2.4167,
+    53.8333
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Great Britain"
+  },
+  "Hadar, Ethiopia": {
+   "qid": "Q1567353",
+   "coord": [
+    40.5999,
+    11.1932
+   ],
+   "classes": [
+    "Q839954",
+    "Q532"
+   ],
+   "label": "Hadar"
+  },
+  "Lake Turkana": {
+   "qid": "Q182719",
+   "coord": [
+    36.0167,
+    4.05
+   ],
+   "classes": [
+    "Q9019918",
+    "Q188025"
+   ],
+   "label": "Lake Turkana"
+  },
+  "Lascaux": {
+   "qid": "Q172125",
+   "coord": [
+    1.171,
+    45.0538
+   ],
+   "classes": [
+    "Q12137573",
+    "Q11269813"
+   ],
+   "label": "Lascaux"
+  },
+  "Le Moustier": {
+   "qid": "Q602572",
+   "coord": [
+    1.06,
+    44.9939
+   ],
+   "classes": [
+    "Q56320584"
+   ],
+   "label": "Le Moustier"
+  },
+  "Lomekwi": {
+   "qid": "Q19833854",
+   "coord": [
+    35.8503,
+    3.9108
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Lomekwi"
+  },
+  "Near East": {
+   "qid": "Q48214",
+   "coord": [
+    35.6,
+    32.8
+   ],
+   "classes": [
+    "Q137186904",
+    "Q66747521",
+    "Q3502482"
+   ],
+   "label": "Near East"
+  },
+  "Sahara": {
+   "qid": "Q6583",
+   "coord": [
+    12.6122,
+    23.0797
+   ],
+   "classes": [
+    "Q8514"
+   ],
+   "label": "Sahara"
+  },
+  "Saint-Acheul": {
+   "qid": "Q670003",
+   "coord": [
+    2.1636,
+    50.1906
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Saint-Acheul"
+  },
+  "Siberia": {
+   "qid": "Q5428",
+   "coord": [
+    105,
+    60
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Siberia"
+  },
+  "Sicily": {
+   "qid": "Q1460",
+   "coord": [
+    14.0167,
+    37.6
+   ],
+   "classes": [
+    "Q3502482",
+    "Q1710033"
+   ],
+   "label": "Sicily"
+  },
+  "Skhul Cave": {
+   "qid": "Q287341",
+   "coord": [
+    34.9585,
+    32.6259
+   ],
+   "classes": [
+    "Q12137573",
+    "Q1149405",
+    "Q839954",
+    "Q35509"
+   ],
+   "label": "Skhul Cave"
+  },
+  "Sulawesi": {
+   "qid": "Q3812",
+   "coord": [
+    121,
+    -2
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Sulawesi"
+  },
+  "Sungir": {
+   "qid": "Q1779534",
+   "coord": [
+    40.5092,
+    56.1758
+   ],
+   "classes": [
+    "Q12137573",
+    "Q839954"
+   ],
+   "label": "Sungir"
+  },
+  "Swabian Jura": {
+   "qid": "Q159589",
+   "coord": [
+    9.35,
+    48.3
+   ],
+   "classes": [
+    "Q674541"
+   ],
+   "label": "Swabian Jura"
+  },
+  "Taung": {
+   "qid": "Q2096879",
+   "coord": [
+    24.7481,
+    -27.5625
+   ],
+   "classes": [
+    "Q3957"
+   ],
+   "label": "Taung"
   }
  },
  "around": {},
- "classes": {}
+ "classes": {
+  "Q12137573": {
+   "label": "Paleolithic site",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954",
+    "Q486972"
+   ]
+  },
+  "Q2197893": {
+   "label": "chine",
+   "tops": [
+    "Q2221906",
+    "Q190429",
+    "Q82794",
+    "Q39816"
+   ]
+  },
+  "Q515": {
+   "label": "city",
+   "tops": [
+    "Q515",
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q23038290": {
+   "label": "fossil taxon",
+   "tops": []
+  },
+  "Q10868922": {
+   "label": "area of Beijing",
+   "tops": []
+  },
+  "Q735428": {
+   "label": "town of China",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q1620908",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q3957"
+   ]
+  },
+  "Q839954": {
+   "label": "archaeological site",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q839954"
+   ]
+  },
+  "Q35509": {
+   "label": "cave",
+   "tops": [
+    "Q35509",
+    "Q2221906"
+   ]
+  },
+  "Q7558985": {
+   "label": "solutional cave",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q107425",
+    "Q82794",
+    "Q35509"
+   ]
+  },
+  "Q11269813": {
+   "label": "cave with prehistoric art",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q41176",
+    "Q839954",
+    "Q35509"
+   ]
+  },
+  "Q465299": {
+   "label": "archaeological culture",
+   "tops": [
+    "Q465299"
+   ]
+  },
+  "Q204324": {
+   "label": "volcanic crater lake",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q15324",
+    "Q23397",
+    "Q2221906"
+   ]
+  },
+  "Q484170": {
+   "label": "commune of France",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q15284",
+    "Q1048835",
+    "Q484170"
+   ]
+  },
+  "Q4167410": {
+   "label": "Wikimedia disambiguation page",
+   "tops": []
+  },
+  "Q123095923": {
+   "label": "municipality of Cantabria",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q1048835",
+    "Q82794",
+    "Q15284"
+   ]
+  },
+  "Q4443227": {
+   "label": "Stone Age site",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q486972",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q1149405": {
+   "label": "rock shelter",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q41176",
+    "Q2221906",
+    "Q839954",
+    "Q35509"
+   ]
+  },
+  "Q864812": {
+   "label": "land bridge",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q486972": {
+   "label": "human settlement",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q205895": {
+   "label": "landmass",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q23442": {
+   "label": "island",
+   "tops": [
+    "Q23442",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q120964921": {
+   "label": "organized archaeological site",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794"
+   ]
+  },
+  "Q148837": {
+   "label": "polis",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q486972",
+    "Q2221906",
+    "Q1048835",
+    "Q839954",
+    "Q7275",
+    "Q515",
+    "Q15661340",
+    "Q133442"
+   ]
+  },
+  "Q207524": {
+   "label": "islet",
+   "tops": [
+    "Q82794",
+    "Q23442",
+    "Q2221906",
+    "Q207524"
+   ]
+  },
+  "Q532": {
+   "label": "village",
+   "tops": [
+    "Q532",
+    "Q2221906",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q1200957": {
+   "label": "tourist destination",
+   "tops": [
+    "Q1200957",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q65064889": {
+   "label": "Bronze Age settlement",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q29048715": {
+   "label": "archaeological site in Greece",
+   "tops": [
+    "Q4989906",
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794"
+   ]
+  },
+  "Q15661340": {
+   "label": "ancient city",
+   "tops": [
+    "Q15661340",
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q486972",
+    "Q82794",
+    "Q515"
+   ]
+  },
+  "Q82117": {
+   "label": "city gate",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q57821"
+   ]
+  },
+  "Q261201": {
+   "label": "beehive tomb",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q5003624",
+    "Q4989906",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q16560": {
+   "label": "palace",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q88291": {
+   "label": "citadel",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q4835091",
+    "Q57821"
+   ]
+  },
+  "Q3497768": {
+   "label": "dry lake",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q15324",
+    "Q190429",
+    "Q23397"
+   ]
+  },
+  "Q23397": {
+   "label": "lake",
+   "tops": [
+    "Q23397",
+    "Q4835091",
+    "Q15324",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q93267": {
+   "label": "isthmus",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q1708422": {
+   "label": "settlement site",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q133442": {
+   "label": "city-state",
+   "tops": [
+    "Q133442",
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q1048835",
+    "Q7275",
+    "Q515"
+   ]
+  },
+  "Q37901": {
+   "label": "strait",
+   "tops": [
+    "Q37901",
+    "Q15324",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q173387": {
+   "label": "grave",
+   "tops": [
+    "Q2221906",
+    "Q5003624",
+    "Q4989906"
+   ]
+  },
+  "Q102202066": {
+   "label": "Samian Ware Discovery Site",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794"
+   ]
+  },
+  "Q56304522": {
+   "label": "ancient Greek necropolis",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794"
+   ]
+  },
+  "Q123705": {
+   "label": "neighborhood",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q486972",
+    "Q123705"
+   ]
+  },
+  "Q1057440": {
+   "label": "Heraion",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q1370598",
+    "Q41176",
+    "Q2221906",
+    "Q839954",
+    "Q44539"
+   ]
+  },
+  "Q93342462": {
+   "label": "Ancient Greek archaeological site",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794"
+   ]
+  },
+  "Q83620": {
+   "label": "thoroughfare",
+   "tops": []
+  },
+  "Q12719343": {
+   "label": "water tunnel",
+   "tops": [
+    "Q2221906",
+    "Q355304",
+    "Q82794",
+    "Q15324"
+   ]
+  },
+  "Q1852785": {
+   "label": "trench",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q1620908": {
+   "label": "historical region",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1620908"
+   ]
+  },
+  "Q124830213": {
+   "label": "museum of a public entity",
+   "tops": []
+  },
+  "Q3363945": {
+   "label": "archaeological park",
+   "tops": [
+    "Q41176",
+    "Q82794",
+    "Q4835091",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q747074": {
+   "label": "comune of Italy",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q15284"
+   ]
+  },
+  "Q124830411": {
+   "label": "Museum of the Italian Ministry of Culture",
+   "tops": []
+  },
+  "Q3329412": {
+   "label": "archaeological museum",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q33506": {
+   "label": "museum",
+   "tops": []
+  },
+  "Q82794": {
+   "label": "region",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q69391739": {
+   "label": "Greek colony",
+   "tops": [
+    "Q15661340",
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q839954",
+    "Q486972",
+    "Q133442",
+    "Q82794",
+    "Q7275",
+    "Q515"
+   ]
+  },
+  "Q46831": {
+   "label": "mountain range",
+   "tops": [
+    "Q46831",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q3024240": {
+   "label": "historical country",
+   "tops": [
+    "Q3024240",
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1620908"
+   ]
+  },
+  "Q16110": {
+   "label": "region of Italy",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q1234255": {
+   "label": "regional unit of Greece",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q106491339": {
+   "label": "Neolithic settlement",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q755017": {
+   "label": "tell",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q4989906",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q7251867": {
+   "label": "proto-city",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q1292119": {
+   "label": "style",
+   "tops": []
+  },
+  "Q16735822": {
+   "label": "history museum",
+   "tops": []
+  },
+  "Q4989906": {
+   "label": "monument",
+   "tops": [
+    "Q4989906"
+   ]
+  },
+  "Q1035294": {
+   "label": "henge",
+   "tops": []
+  },
+  "Q935773": {
+   "label": "cromlech",
+   "tops": [
+    "Q4989906",
+    "Q839954",
+    "Q82794",
+    "Q5003624",
+    "Q4835091",
+    "Q2221906"
+   ]
+  },
+  "Q8502": {
+   "label": "mountain",
+   "tops": [
+    "Q8502",
+    "Q2221906"
+   ]
+  },
+  "Q2055789": {
+   "label": "Irish passage tomb",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954",
+    "Q4989906",
+    "Q5003624"
+   ]
+  },
+  "Q381885": {
+   "label": "tomb",
+   "tops": [
+    "Q2221906",
+    "Q4989906",
+    "Q5003624"
+   ]
+  },
+  "Q1356770": {
+   "label": "Heroön",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q1370598",
+    "Q41176",
+    "Q2221906",
+    "Q839954",
+    "Q5003624",
+    "Q4989906"
+   ]
+  },
+  "Q631305": {
+   "label": "rock formation",
+   "tops": []
+  },
+  "Q54050": {
+   "label": "hill",
+   "tops": [
+    "Q54050",
+    "Q2221906"
+   ]
+  },
+  "Q30304302": {
+   "label": "National Park System unit",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q893775": {
+   "label": "National Monument of the United States",
+   "tops": [
+    "Q82794",
+    "Q2221906"
+   ]
+  },
+  "Q893745": {
+   "label": "national monument",
+   "tops": [
+    "Q4989906"
+   ]
+  },
+  "Q96196009": {
+   "label": "former or current state",
+   "tops": []
+  },
+  "Q28171280": {
+   "label": "ancient civilization",
+   "tops": [
+    "Q28171280"
+   ]
+  },
+  "Q3502482": {
+   "label": "cultural region",
+   "tops": [
+    "Q3502482",
+    "Q2221906",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q11042": {
+   "label": "culture",
+   "tops": []
+  },
+  "Q3247173": {
+   "label": "type site",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q417175": {
+   "label": "kingdom",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794",
+    "Q7275",
+    "Q417175"
+   ]
+  },
+  "Q11514315": {
+   "label": "historical period",
+   "tops": [
+    "Q11514315"
+   ]
+  },
+  "Q17431399": {
+   "label": "national museum",
+   "tops": []
+  },
+  "Q267596": {
+   "label": "ancient Greek temple",
+   "tops": [
+    "Q4835091",
+    "Q1370598",
+    "Q82794",
+    "Q41176",
+    "Q2221906",
+    "Q839954",
+    "Q44539"
+   ]
+  },
+  "Q18706315": {
+   "label": "hypothetical entity",
+   "tops": []
+  },
+  "Q12857432": {
+   "label": "Chinese dynasty",
+   "tops": [
+    "Q11514315"
+   ]
+  },
+  "Q836688": {
+   "label": "ancient Chinese state",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1620908",
+    "Q3024240"
+   ]
+  },
+  "Q19860854": {
+   "label": "destroyed building or structure",
+   "tops": []
+  },
+  "Q1239455": {
+   "label": "treasury (ancient Greece)",
+   "tops": [
+    "Q4835091",
+    "Q1370598",
+    "Q82794",
+    "Q41176",
+    "Q2221906",
+    "Q839954",
+    "Q44539"
+   ]
+  },
+  "Q125366925": {
+   "label": "village in Egypt",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q200141": {
+   "label": "necropolis",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q3748441": {
+   "label": "forum venalium",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q839954",
+    "Q2221906"
+   ]
+  },
+  "Q174782": {
+   "label": "square",
+   "tops": [
+    "Q82794",
+    "Q2221906"
+   ]
+  },
+  "Q3951623": {
+   "label": "drain",
+   "tops": []
+  },
+  "Q156849": {
+   "label": "sewer network",
+   "tops": []
+  },
+  "Q477396": {
+   "label": "circus",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q14524493": {
+   "label": "terrain",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q57346": {
+   "label": "defensive wall",
+   "tops": [
+    "Q4835091",
+    "Q57821",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q14752696": {
+   "label": "ancient Roman structure",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q867143": {
+   "label": "Roman temple",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1370598",
+    "Q41176",
+    "Q839954",
+    "Q44539"
+   ]
+  },
+  "Q44539": {
+   "label": "temple",
+   "tops": [
+    "Q44539",
+    "Q41176",
+    "Q1370598"
+   ]
+  },
+  "Q133444874": {
+   "label": "roman ruins",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q1062780": {
+   "label": "forum",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q839954",
+    "Q2221906"
+   ]
+  },
+  "Q684740": {
+   "label": "real property",
+   "tops": []
+  },
+  "Q123223970": {
+   "label": "Ancient Roman inscription",
+   "tops": []
+  },
+  "Q697295": {
+   "label": "shrine",
+   "tops": [
+    "Q1370598",
+    "Q41176"
+   ]
+  },
+  "Q178743": {
+   "label": "stele",
+   "tops": [
+    "Q4989906"
+   ]
+  },
+  "Q1223230": {
+   "label": "Roman bridge",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q1055465": {
+   "label": "girder bridge",
+   "tops": []
+  },
+  "Q110775381": {
+   "label": "drained lake",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q23397",
+    "Q15324"
+   ]
+  },
+  "Q39816": {
+   "label": "valley",
+   "tops": [
+    "Q39816",
+    "Q2221906",
+    "Q190429",
+    "Q82794"
+   ]
+  },
+  "Q1549591": {
+   "label": "big city",
+   "tops": [
+    "Q1549591",
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q748149": {
+   "label": "prefecture-level city of China",
+   "tops": [
+    "Q1620908",
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515",
+    "Q1048835",
+    "Q15284"
+   ]
+  },
+  "Q1070990": {
+   "label": "county-level city of China",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q1048835"
+   ]
+  },
+  "Q350895": {
+   "label": "abandoned village",
+   "tops": [
+    "Q2221906",
+    "Q486972",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q6838244": {
+   "label": "Chinese AAAAA-rated tourist attraction",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q3957": {
+   "label": "town",
+   "tops": [
+    "Q3957",
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q48349": {
+   "label": "empire",
+   "tops": [
+    "Q2221906",
+    "Q7275",
+    "Q6256",
+    "Q4835091",
+    "Q3624078",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q655593": {
+   "label": "emporium",
+   "tops": [
+    "Q4835091",
+    "Q7275",
+    "Q2221906",
+    "Q1048835",
+    "Q515",
+    "Q839954",
+    "Q133442",
+    "Q82794",
+    "Q15661340",
+    "Q486972"
+   ]
+  },
+  "Q1250464": {
+   "label": "realm",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794",
+    "Q7275"
+   ]
+  },
+  "Q3257686": {
+   "label": "locality",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q2065736": {
+   "label": "cultural property",
+   "tops": []
+  },
+  "Q2319498": {
+   "label": "architectural landmark",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q2434238": {
+   "label": "heritage",
+   "tops": []
+  },
+  "Q56557504": {
+   "label": "city of Iran",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q2312410": {
+   "label": "sports discipline",
+   "tops": []
+  },
+  "Q131668": {
+   "label": "acropolis",
+   "tops": [
+    "Q1620908",
+    "Q4835091",
+    "Q82794",
+    "Q515",
+    "Q2221906",
+    "Q486972",
+    "Q57821",
+    "Q839954"
+   ]
+  },
+  "Q11626664": {
+   "label": "court official",
+   "tops": []
+  },
+  "Q355567": {
+   "label": "noble title",
+   "tops": []
+  },
+  "Q1134686": {
+   "label": "frazione",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q2221906",
+    "Q486972",
+    "Q532"
+   ]
+  },
+  "Q5194727": {
+   "label": "curia",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q594648": {
+   "label": "exedra",
+   "tops": [
+    "Q2221906",
+    "Q4989906",
+    "Q5003624"
+   ]
+  },
+  "Q1136601": {
+   "label": "unitary authority area",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q769603": {
+   "label": "non-metropolitan county",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q180673": {
+   "label": "ceremonial county of England",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q6428674": {
+   "label": "era",
+   "tops": [
+    "Q11514315"
+   ]
+  },
+  "Q50068795": {
+   "label": "historical Chinese state",
+   "tops": [
+    "Q4835091",
+    "Q3024240",
+    "Q2221906",
+    "Q1620908",
+    "Q82794"
+   ]
+  },
+  "Q4204060": {
+   "label": "Islamic state",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835",
+    "Q7275"
+   ]
+  },
+  "Q1323642": {
+   "label": "transcontinental country",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q4835091",
+    "Q1048835",
+    "Q6256"
+   ]
+  },
+  "Q131401": {
+   "label": "caliphate",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q7275",
+    "Q1048835"
+   ]
+  },
+  "Q12759805": {
+   "label": "sultanate",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794",
+    "Q7275"
+   ]
+  },
+  "Q4022": {
+   "label": "river",
+   "tops": [
+    "Q4022",
+    "Q4835091",
+    "Q15324",
+    "Q2221906",
+    "Q355304",
+    "Q82794"
+   ]
+  },
+  "Q2202509": {
+   "label": "Roman city",
+   "tops": [
+    "Q1620908",
+    "Q4835091",
+    "Q82794",
+    "Q486972",
+    "Q2221906",
+    "Q1048835",
+    "Q839954",
+    "Q515",
+    "Q15661340"
+   ]
+  },
+  "Q756780": {
+   "label": "Roman colony",
+   "tops": [
+    "Q1620908",
+    "Q4835091",
+    "Q486972",
+    "Q2221906",
+    "Q515",
+    "Q839954",
+    "Q1048835",
+    "Q15661340",
+    "Q82794"
+   ]
+  },
+  "Q22674925": {
+   "label": "former settlement",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q22988604": {
+   "label": "mythological Greek character",
+   "tops": []
+  },
+  "Q213468": {
+   "label": "municipium",
+   "tops": [
+    "Q1620908",
+    "Q4835091",
+    "Q82794",
+    "Q486972",
+    "Q2221906",
+    "Q1048835",
+    "Q515",
+    "Q839954",
+    "Q15661340"
+   ]
+  },
+  "Q1617500": {
+   "label": "hieron",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q1370598",
+    "Q41176",
+    "Q839954",
+    "Q2221906"
+   ]
+  },
+  "Q217123": {
+   "label": "oracle",
+   "tops": []
+  },
+  "Q194029": {
+   "label": "Roman road",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q6857854": {
+   "label": "military road",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q1544071": {
+   "label": "narrows",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q96352513": {
+   "label": "religious building ruin",
+   "tops": [
+    "Q1370598",
+    "Q41176"
+   ]
+  },
+  "Q115346835": {
+   "label": "temperate steppe",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q107425",
+    "Q82794"
+   ]
+  },
+  "Q183366": {
+   "label": "territory",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q4204501": {
+   "label": "historical ethnic group",
+   "tops": [
+    "Q41710"
+   ]
+  },
+  "Q3932035": {
+   "label": "ancient Roman client kingdom",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1620908",
+    "Q1048835",
+    "Q7275",
+    "Q3024240"
+   ]
+  },
+  "Q3932025": {
+   "label": "Hellenistic kingdom",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q1048835",
+    "Q82794",
+    "Q7275",
+    "Q3024240"
+   ]
+  },
+  "Q120312205": {
+   "label": "spirit",
+   "tops": []
+  },
+  "Q211364": {
+   "label": "principle",
+   "tops": []
+  },
+  "Q107487333": {
+   "label": "type of musical work/composition",
+   "tops": []
+  },
+  "Q4263830": {
+   "label": "literary form",
+   "tops": []
+  },
+  "Q483394": {
+   "label": "genre",
+   "tops": []
+  },
+  "Q109607": {
+   "label": "ruins",
+   "tops": []
+  },
+  "Q1143046": {
+   "label": "odeon",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q41176": {
+   "label": "building",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q5003624": {
+   "label": "memorial",
+   "tops": [
+    "Q5003624",
+    "Q2221906",
+    "Q4989906"
+   ]
+  },
+  "Q327328": {
+   "label": "stoa",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q16521": {
+   "label": "taxon",
+   "tops": []
+  },
+  "Q672490": {
+   "label": "deme",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q1620908",
+    "Q2221906"
+   ]
+  },
+  "Q1402592": {
+   "label": "island group",
+   "tops": [
+    "Q1402592",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q24336031": {
+   "label": "mythical river",
+   "tops": []
+  },
+  "Q12284": {
+   "label": "canal",
+   "tops": [
+    "Q12284",
+    "Q2221906",
+    "Q15324",
+    "Q355304",
+    "Q82794"
+   ]
+  },
+  "Q2772772": {
+   "label": "military museum",
+   "tops": []
+  },
+  "Q162875": {
+   "label": "mausoleum",
+   "tops": [
+    "Q2221906",
+    "Q41176",
+    "Q5003624",
+    "Q4989906"
+   ]
+  },
+  "Q10874708": {
+   "label": "Chinese salvationist religion",
+   "tops": []
+  },
+  "Q276548": {
+   "label": "secret society",
+   "tops": []
+  },
+  "Q29428373": {
+   "label": "tetrad",
+   "tops": []
+  },
+  "Q517267": {
+   "label": "commandery",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q1048835"
+   ]
+  },
+  "Q210272": {
+   "label": "cultural heritage",
+   "tops": []
+  },
+  "Q190429": {
+   "label": "depression",
+   "tops": [
+    "Q190429",
+    "Q2221906"
+   ]
+  },
+  "Q43742": {
+   "label": "oasis",
+   "tops": []
+  },
+  "Q25810847": {
+   "label": "folklore character",
+   "tops": []
+  },
+  "Q16326794": {
+   "label": "mythological serpent",
+   "tops": []
+  },
+  "Q15831596": {
+   "label": "class of fictional entities",
+   "tops": []
+  },
+  "Q112826905": {
+   "label": "class of anatomical entity",
+   "tops": []
+  },
+  "Q4936952": {
+   "label": "anatomical structure",
+   "tops": []
+  },
+  "Q1088391": {
+   "label": "rump state",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q7275"
+   ]
+  },
+  "Q19953632": {
+   "label": "former administrative territorial entity",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q82794"
+   ]
+  },
+  "Q18511725": {
+   "label": "market town",
+   "tops": [
+    "Q2221906",
+    "Q486972",
+    "Q3957"
+   ]
+  },
+  "Q1115575": {
+   "label": "civil parish",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q7897276": {
+   "label": "unparished area",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q1357964": {
+   "label": "county town",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q486972",
+    "Q123705",
+    "Q3957"
+   ]
+  },
+  "Q5156823": {
+   "label": "compound",
+   "tops": []
+  },
+  "Q1595289": {
+   "label": "sacred mountain",
+   "tops": [
+    "Q2221906",
+    "Q8502"
+   ]
+  },
+  "Q32815": {
+   "label": "mosque",
+   "tops": [
+    "Q41176",
+    "Q1370598"
+   ]
+  },
+  "Q1413420": {
+   "label": "water-meadow",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q107425",
+    "Q82794",
+    "Q15324"
+   ]
+  },
+  "Q1107656": {
+   "label": "garden",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q4835091",
+    "Q107425"
+   ]
+  },
+  "Q61856863": {
+   "label": "urban district in Schleswig-Holstein",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q42744322": {
+   "label": "urban municipality in Germany",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q707813": {
+   "label": "Hanseatic city",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q253030": {
+   "label": "major regional center",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q1089515": {
+   "label": "conquest dynasty",
+   "tops": [
+    "Q11514315"
+   ]
+  },
+  "Q39594": {
+   "label": "bay",
+   "tops": [
+    "Q39594",
+    "Q2221906",
+    "Q82794",
+    "Q15324"
+   ]
+  },
+  "Q164950": {
+   "label": "dynasty",
+   "tops": []
+  },
+  "Q27554677": {
+   "label": "former capital",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1620908",
+    "Q486972"
+   ]
+  },
+  "Q11643523": {
+   "label": "capital city wall",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q82794",
+    "Q486972",
+    "Q57821",
+    "Q5119",
+    "Q515"
+   ]
+  },
+  "Q1074523": {
+   "label": "planned community",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q1025961": {
+   "label": "capital of Japan",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q1620908",
+    "Q2221906",
+    "Q486972",
+    "Q5119",
+    "Q515"
+   ]
+  },
+  "Q4482688": {
+   "label": "feudal monarchy",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q1074150": {
+   "label": "shogunate",
+   "tops": []
+  },
+  "Q58621988": {
+   "label": "temple complex",
+   "tops": [
+    "Q1370598",
+    "Q44539",
+    "Q41176"
+   ]
+  },
+  "Q5393308": {
+   "label": "Buddhist temple",
+   "tops": [
+    "Q1370598",
+    "Q44539",
+    "Q41176"
+   ]
+  },
+  "Q842402": {
+   "label": "Hindu temple",
+   "tops": [
+    "Q1370598",
+    "Q41176",
+    "Q44539"
+   ]
+  },
+  "Q2074737": {
+   "label": "municipality of Spain",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q15284"
+   ]
+  },
+  "Q34763": {
+   "label": "peninsula",
+   "tops": [
+    "Q34763",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q925381": {
+   "label": "city with powiat rights in Poland",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q2616791": {
+   "label": "urban municipality of Poland",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q1048835",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q3558970": {
+   "label": "village of Poland",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q486972",
+    "Q1048835",
+    "Q532"
+   ]
+  },
+  "Q7930989": {
+   "label": "city or town",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q846025": {
+   "label": "Mahajanapada",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q82794",
+    "Q3024240"
+   ]
+  },
+  "Q8432": {
+   "label": "civilization",
+   "tops": []
+  },
+  "Q1228650": {
+   "label": "region of ancient Greece",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q20616831": {
+   "label": "submerged settlement",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q515"
+   ]
+  },
+  "Q191992": {
+   "label": "headland",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q107425",
+    "Q34763"
+   ]
+  },
+  "Q185113": {
+   "label": "cape",
+   "tops": [
+    "Q185113",
+    "Q4835091",
+    "Q107425",
+    "Q82794",
+    "Q2221906",
+    "Q34763"
+   ]
+  },
+  "Q125866553": {
+   "label": "Ancient Egyptian archaeological site",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794"
+   ]
+  },
+  "Q2736554": {
+   "label": "Candi",
+   "tops": [
+    "Q4835091",
+    "Q1370598",
+    "Q82794",
+    "Q41176",
+    "Q2221906",
+    "Q839954",
+    "Q44539"
+   ]
+  },
+  "Q702492": {
+   "label": "urban area",
+   "tops": [
+    "Q2221906",
+    "Q486972",
+    "Q702492"
+   ]
+  },
+  "Q1129474": {
+   "label": "cultural landscape",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q107425"
+   ]
+  },
+  "Q2479824": {
+   "label": "altepetl",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q486972",
+    "Q1048835",
+    "Q7275",
+    "Q133442",
+    "Q515"
+   ]
+  },
+  "Q2734310": {
+   "label": "territorial demarcation of Mexico City",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q9259": {
+   "label": "World Heritage Site",
+   "tops": []
+  },
+  "Q5999924": {
+   "label": "Illinois state park",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q1088552": {
+   "label": "Catholic church building",
+   "tops": [
+    "Q1370598",
+    "Q41176",
+    "Q44539",
+    "Q16970"
+   ]
+  },
+  "Q108325": {
+   "label": "chapel",
+   "tops": [
+    "Q41176",
+    "Q16970",
+    "Q1370598",
+    "Q44539"
+   ]
+  },
+  "Q210077": {
+   "label": "baptistery",
+   "tops": [
+    "Q41176",
+    "Q44539",
+    "Q16970",
+    "Q1370598"
+   ]
+  },
+  "Q120560": {
+   "label": "minor basilica",
+   "tops": [
+    "Q16970",
+    "Q1370598",
+    "Q44539",
+    "Q41176"
+   ]
+  },
+  "Q25550691": {
+   "label": "city hall",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q7328910": {
+   "label": "art collection",
+   "tops": []
+  },
+  "Q2651004": {
+   "label": "Palazzo",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q207694": {
+   "label": "art museum",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q85631896": {
+   "label": "urban district of Bavaria",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q1547289": {
+   "label": "Lutherstadt",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q1187811": {
+   "label": "college town",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q123705",
+    "Q515"
+   ]
+  },
+  "Q134626": {
+   "label": "district capital",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q15284",
+    "Q2221906",
+    "Q1048835"
+   ]
+  },
+  "Q23413": {
+   "label": "castle",
+   "tops": [
+    "Q23413",
+    "Q4835091",
+    "Q57821",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q1180262": {
+   "label": "residenz",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q85632032": {
+   "label": "urban district of Rhineland-Palatinate",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q2755753": {
+   "label": "area of London",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q106517174": {
+   "label": "Option municipality",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q85635630": {
+   "label": "urban district of North Rhine-Westphalia",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q1392581": {
+   "label": "cycling city",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q2087181": {
+   "label": "historic house museum",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q1343246": {
+   "label": "English country house",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q879050": {
+   "label": "manor house",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q2385804": {
+   "label": "educational institution",
+   "tops": []
+  },
+  "Q708676": {
+   "label": "charitable organization",
+   "tops": []
+  },
+  "Q129268952": {
+   "label": "former national capital",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1620908",
+    "Q486972"
+   ]
+  },
+  "Q2264924": {
+   "label": "port city",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q1907114": {
+   "label": "metropolitan area",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q486972",
+    "Q82794",
+    "Q1048835",
+    "Q702492"
+   ]
+  },
+  "Q174844": {
+   "label": "megacity",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q15149663": {
+   "label": "state of Mexico",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835",
+    "Q7275"
+   ]
+  },
+  "Q17343829": {
+   "label": "unincorporated community",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q192287": {
+   "label": "administrative divisions of Russia",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q1161185": {
+   "label": "volcanic island",
+   "tops": [
+    "Q82794",
+    "Q2221906",
+    "Q23442"
+   ]
+  },
+  "Q6958514": {
+   "label": "Municipal council (India)",
+   "tops": []
+  },
+  "Q1785071": {
+   "label": "fort",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q57821"
+   ]
+  },
+  "Q677678": {
+   "label": "fortified town",
+   "tops": [
+    "Q4835091",
+    "Q1620908",
+    "Q515",
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q57821"
+   ]
+  },
+  "Q676050": {
+   "label": "old town",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q1145012": {
+   "label": "special city of Japan",
+   "tops": [
+    "Q2221906",
+    "Q15284",
+    "Q486972",
+    "Q1048835",
+    "Q1549591",
+    "Q515",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q494721": {
+   "label": "city of Japan",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q15284",
+    "Q1048835",
+    "Q486972"
+   ]
+  },
+  "Q327333": {
+   "label": "government agency",
+   "tops": []
+  },
+  "Q3289824": {
+   "label": "slave market",
+   "tops": []
+  },
+  "Q1393765": {
+   "label": "factory",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q896881": {
+   "label": "average city",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q16124843": {
+   "label": "municipality of Libya",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q15284"
+   ]
+  },
+  "Q20202352": {
+   "label": "locality of Mexico",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q188509": {
+   "label": "suburb",
+   "tops": [
+    "Q2221906",
+    "Q702492",
+    "Q486972"
+   ]
+  },
+  "Q97621821": {
+   "label": "arula (altar)",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q3822604": {
+   "label": "roman mausoleum",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q41176",
+    "Q5003624",
+    "Q839954",
+    "Q4989906"
+   ]
+  },
+  "Q3575964": {
+   "label": "zone of Rome",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q486972"
+   ]
+  },
+  "Q253019": {
+   "label": "Ortsteil",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q486972",
+    "Q2221906"
+   ]
+  },
+  "Q56061": {
+   "label": "administrative territorial entity",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q131263": {
+   "label": "barracks",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q4835091",
+    "Q41176"
+   ]
+  },
+  "Q88205": {
+   "label": "castrum",
+   "tops": [
+    "Q41176",
+    "Q82794",
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q4989906",
+    "Q839954",
+    "Q57821"
+   ]
+  },
+  "Q22698": {
+   "label": "park",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q4835091"
+   ]
+  },
+  "Q6881511": {
+   "label": "enterprise",
+   "tops": []
+  },
+  "Q4830453": {
+   "label": "business",
+   "tops": []
+  },
+  "Q136351774": {
+   "label": "Ancient Roman imperial palace",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794",
+    "Q41176"
+   ]
+  },
+  "Q112132548": {
+   "label": "archaeological artifact museum",
+   "tops": []
+  },
+  "Q112132522": {
+   "label": "historical civil building museum",
+   "tops": []
+  },
+  "Q3867560": {
+   "label": "Italian national museum",
+   "tops": []
+  },
+  "Q782970": {
+   "label": "domus",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954",
+    "Q41176"
+   ]
+  },
+  "Q252021": {
+   "label": "villa rustica",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954",
+    "Q41176"
+   ]
+  },
+  "Q57831": {
+   "label": "fortress",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q57821",
+    "Q4835091"
+   ]
+  },
+  "Q143912": {
+   "label": "triumphal arch",
+   "tops": [
+    "Q4989906"
+   ]
+  },
+  "Q7362268": {
+   "label": "Roman amphitheatre",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q41176",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q483110": {
+   "label": "stadium",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q14616455": {
+   "label": "destroyed city",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954",
+    "Q486972"
+   ]
+  },
+  "Q5228121": {
+   "label": "dava",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q15661340",
+    "Q2221906",
+    "Q839954",
+    "Q486972",
+    "Q57821",
+    "Q515"
+   ]
+  },
+  "Q14276458": {
+   "label": "deck arch bridge",
+   "tops": []
+  },
+  "Q11486300": {
+   "label": "former bridge",
+   "tops": []
+  },
+  "Q3397526": {
+   "label": "stone bridge",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q537127": {
+   "label": "road bridge",
+   "tops": []
+  },
+  "Q428759": {
+   "label": "wooden bridge",
+   "tops": []
+  },
+  "Q1930585": {
+   "label": "victory column",
+   "tops": [
+    "Q2221906",
+    "Q5003624",
+    "Q4989906"
+   ]
+  },
+  "Q8514": {
+   "label": "desert",
+   "tops": [
+    "Q8514",
+    "Q4835091",
+    "Q2221906",
+    "Q107425",
+    "Q82794"
+   ]
+  },
+  "Q26883974": {
+   "label": "nomadic confederacy",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q331644": {
+   "label": "khanate",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q7275",
+    "Q82794",
+    "Q3024240",
+    "Q1048835"
+   ]
+  },
+  "Q5084": {
+   "label": "hamlet",
+   "tops": [
+    "Q1048835",
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q695793": {
+   "label": "rapids",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q355304",
+    "Q15324"
+   ]
+  },
+  "Q1959314": {
+   "label": "protected area of Russia",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q107425",
+    "Q82794"
+   ]
+  },
+  "Q1081138": {
+   "label": "historic site",
+   "tops": [
+    "Q4989906",
+    "Q82794",
+    "Q5003624",
+    "Q4835091",
+    "Q2221906"
+   ]
+  },
+  "Q5123999": {
+   "label": "city of regional significance of Ukraine",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q12131624": {
+   "label": "city in Ukraine",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q15284",
+    "Q515"
+   ]
+  },
+  "Q89487741": {
+   "label": "city in Bulgaria",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q15344922": {
+   "label": "oblast seat",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q15303838": {
+   "label": "municipality seat",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q902814": {
+   "label": "border city",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q4100864": {
+   "label": "urban-type settlement in Ukraine",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972"
+   ]
+  },
+  "Q11784935": {
+   "label": "eastern orthodox monastery",
+   "tops": [
+    "Q2221906",
+    "Q41710",
+    "Q41176",
+    "Q1370598",
+    "Q486972"
+   ]
+  },
+  "Q263274": {
+   "label": "kremlin",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q57821"
+   ]
+  },
+  "Q3920245": {
+   "label": "Historical city of Russia",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954",
+    "Q515",
+    "Q15661340",
+    "Q486972"
+   ]
+  },
+  "Q4835091": {
+   "label": "territory",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q1371288": {
+   "label": "vassal state",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835",
+    "Q7275"
+   ]
+  },
+  "Q208500": {
+   "label": "principality",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q7275",
+    "Q4835091",
+    "Q1048835"
+   ]
+  },
+  "Q202595": {
+   "label": "prefecture of Greece",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q98966309": {
+   "label": "classification of human settlements",
+   "tops": []
+  },
+  "Q1048163": {
+   "label": "traditional geographic divisions of Greece",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q15069452": {
+   "label": "Natura 2000 site",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q158454": {
+   "label": "biosphere reserve",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q2221906",
+    "Q107425"
+   ]
+  },
+  "Q46169": {
+   "label": "national park",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q2221906"
+   ]
+  },
+  "Q17197366": {
+   "label": "type of organization",
+   "tops": []
+  },
+  "Q107539372": {
+   "label": "decipoint",
+   "tops": []
+  },
+  "Q169358": {
+   "label": "stratovolcano",
+   "tops": [
+    "Q2221906",
+    "Q8502",
+    "Q8072"
+   ]
+  },
+  "Q1289426": {
+   "label": "county of China",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q2989398": {
+   "label": "commune of Algeria",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q15284"
+   ]
+  },
+  "Q918230": {
+   "label": "Roman villa",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954",
+    "Q41176"
+   ]
+  },
+  "Q104805859": {
+   "label": "Jewish organization",
+   "tops": []
+  },
+  "Q2967401": {
+   "label": "youth movement",
+   "tops": []
+  },
+  "Q2738074": {
+   "label": "political movement",
+   "tops": []
+  },
+  "Q49773": {
+   "label": "social movement",
+   "tops": []
+  },
+  "Q756102": {
+   "label": "open-air museum",
+   "tops": []
+  },
+  "Q10460934": {
+   "label": "artificial hill",
+   "tops": [
+    "Q2221906",
+    "Q54050"
+   ]
+  },
+  "Q1131329": {
+   "label": "grotto",
+   "tops": [
+    "Q2221906",
+    "Q35509"
+   ]
+  },
+  "Q21752084": {
+   "label": "Roman archaeological site",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794"
+   ]
+  },
+  "Q37800986": {
+   "label": "Serbian city",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794",
+    "Q515"
+   ]
+  },
+  "Q101687": {
+   "label": "altar",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q1497375": {
+   "label": "architectural ensemble",
+   "tops": []
+  },
+  "Q16334295": {
+   "label": "group of humans",
+   "tops": []
+  },
+  "Q116291578": {
+   "label": "holy city of Christianity",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q6936404": {
+   "label": "municipality of the State of Palestine",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q15284"
+   ]
+  },
+  "Q51645": {
+   "label": "ecumenical council",
+   "tops": [
+    "Q41710"
+   ]
+  },
+  "Q645883": {
+   "label": "military operation",
+   "tops": []
+  },
+  "Q16744570": {
+   "label": "tablet",
+   "tops": []
+  },
+  "Q87167": {
+   "label": "manuscript",
+   "tops": []
+  },
+  "Q35989030": {
+   "label": "Passport to Your National Parks cancellation location",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q20097897": {
+   "label": "sea fort",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q57821"
+   ]
+  },
+  "Q37993793": {
+   "label": "Georgia state park",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q56436498": {
+   "label": "village in India",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794",
+    "Q532"
+   ]
+  },
+  "Q1137833": {
+   "label": "core city of Japan",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q1048835",
+    "Q15284",
+    "Q515",
+    "Q1549591"
+   ]
+  },
+  "Q690840": {
+   "label": "district of Ethiopia",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q31615": {
+   "label": "cove",
+   "tops": [
+    "Q2221906",
+    "Q39594",
+    "Q15324",
+    "Q82794"
+   ]
+  },
+  "Q198": {
+   "label": "war",
+   "tops": []
+  },
+  "Q13539802": {
+   "label": "place with town rights and privileges",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q667509": {
+   "label": "municipality of Austria",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q15284"
+   ]
+  },
+  "Q273976": {
+   "label": "blockade",
+   "tops": []
+  },
+  "Q30129955": {
+   "label": "maritime evacuation",
+   "tops": []
+  },
+  "Q1261499": {
+   "label": "naval battle",
+   "tops": [
+    "Q178561"
+   ]
+  },
+  "Q65208402": {
+   "label": "astionym",
+   "tops": []
+  },
+  "Q3199915": {
+   "label": "massacre",
+   "tops": []
+  },
+  "Q2408310": {
+   "label": "wartime sexual violence",
+   "tops": []
+  },
+  "Q701321": {
+   "label": "Japanese war crimes",
+   "tops": []
+  },
+  "Q178561": {
+   "label": "battle",
+   "tops": [
+    "Q178561"
+   ]
+  },
+  "Q348120": {
+   "label": "amphibious warfare",
+   "tops": []
+  },
+  "Q2001676": {
+   "label": "offensive",
+   "tops": []
+  },
+  "Q29431432": {
+   "label": "dyad",
+   "tops": []
+  },
+  "Q4688003": {
+   "label": "aerial bombing of a city",
+   "tops": []
+  },
+  "Q124734": {
+   "label": "rebellion",
+   "tops": []
+  },
+  "Q27627826": {
+   "label": "separation barrier",
+   "tops": []
+  },
+  "Q2973801": {
+   "label": "defense line",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q57821"
+   ]
+  },
+  "Q1784293": {
+   "label": "cordon",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q57821"
+   ]
+  },
+  "Q10864048": {
+   "label": "first-level administrative division",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q15284": {
+   "label": "municipality",
+   "tops": [
+    "Q15284",
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q5119": {
+   "label": "capital city",
+   "tops": [
+    "Q5119",
+    "Q4835091",
+    "Q82794",
+    "Q486972",
+    "Q515",
+    "Q2221906"
+   ]
+  },
+  "Q1384277": {
+   "label": "military expedition",
+   "tops": []
+  },
+  "Q21994376": {
+   "label": "war of independence",
+   "tops": []
+  },
+  "Q1006311": {
+   "label": "war of national liberation",
+   "tops": []
+  },
+  "Q4115680": {
+   "label": "Italian city-state",
+   "tops": [
+    "Q486972",
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1620908",
+    "Q1048835",
+    "Q3024240",
+    "Q133442",
+    "Q7275",
+    "Q515"
+   ]
+  },
+  "Q18247357": {
+   "label": "group of structures or buildings",
+   "tops": []
+  },
+  "Q146924": {
+   "label": "Roman limes",
+   "tops": [
+    "Q2221906",
+    "Q839954",
+    "Q82794",
+    "Q4835091",
+    "Q57821"
+   ]
+  },
+  "Q12232785": {
+   "label": "depopulated Palestinian village",
+   "tops": [
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q532"
+   ]
+  },
+  "Q182547": {
+   "label": "Roman province",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q1048835"
+   ]
+  },
+  "Q744099": {
+   "label": "hillfort",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q57821"
+   ]
+  },
+  "Q192601": {
+   "label": "oppidum",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q515",
+    "Q839954",
+    "Q486972",
+    "Q57821",
+    "Q15661340",
+    "Q702492"
+   ]
+  },
+  "Q2974842": {
+   "label": "lost city",
+   "tops": [
+    "Q839954",
+    "Q486972",
+    "Q4835091",
+    "Q82794",
+    "Q2221906"
+   ]
+  },
+  "Q797765": {
+   "label": "inclined tower",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q199451": {
+   "label": "pagoda",
+   "tops": [
+    "Q41176",
+    "Q1370598"
+   ]
+  },
+  "Q10300916": {
+   "label": "cultural heritage of China",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q7495728": {
+   "label": "shiyakha",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q188040": {
+   "label": "quarry",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q187971": {
+   "label": "wadi",
+   "tops": [
+    "Q4835091",
+    "Q15324",
+    "Q4022",
+    "Q2221906",
+    "Q355304",
+    "Q47521",
+    "Q190429",
+    "Q82794",
+    "Q39816"
+   ]
+  },
+  "Q1456099": {
+   "label": "step pyramid",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q175582": {
+   "label": "Egyptian pyramids",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954",
+    "Q41176"
+   ]
+  },
+  "Q136706915": {
+   "label": "funeral complex",
+   "tops": []
+  },
+  "Q1570262": {
+   "label": "unfinished building",
+   "tops": []
+  },
+  "Q2912045": {
+   "label": "summer capital",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q486972",
+    "Q2221906",
+    "Q5119",
+    "Q515"
+   ]
+  },
+  "Q4363262": {
+   "label": "smooth-sided pyramid",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q855747": {
+   "label": "Egyptian temple",
+   "tops": [
+    "Q1370598",
+    "Q41176",
+    "Q44539"
+   ]
+  },
+  "Q125866682": {
+   "label": "Ancient Egyptian necropolis",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794"
+   ]
+  },
+  "Q3398414": {
+   "label": "ancient port",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q15324",
+    "Q39594"
+   ]
+  },
+  "Q820477": {
+   "label": "mine",
+   "tops": []
+  },
+  "Q6699052": {
+   "label": "ludus",
+   "tops": []
+  },
+  "Q641226": {
+   "label": "arena",
+   "tops": []
+  },
+  "Q6581615": {
+   "label": "thermae",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q839954",
+    "Q82794",
+    "Q41176"
+   ]
+  },
+  "Q4504549": {
+   "label": "religious role",
+   "tops": []
+  },
+  "Q4164871": {
+   "label": "position",
+   "tops": []
+  },
+  "Q2061186": {
+   "label": "religious order",
+   "tops": []
+  },
+  "Q162602": {
+   "label": "river island",
+   "tops": [
+    "Q82794",
+    "Q2221906",
+    "Q23442"
+   ]
+  },
+  "Q860861": {
+   "label": "sculpture",
+   "tops": []
+  },
+  "Q179700": {
+   "label": "statue",
+   "tops": []
+  },
+  "Q13218676": {
+   "label": "Roman aqueduct",
+   "tops": [
+    "Q2221906",
+    "Q355304",
+    "Q82794",
+    "Q15324"
+   ]
+  },
+  "Q15239622": {
+   "label": "disputed territory",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q33837": {
+   "label": "archipelago",
+   "tops": [
+    "Q2221906",
+    "Q1402592",
+    "Q82794"
+   ]
+  },
+  "Q4156067": {
+   "label": "palace complex",
+   "tops": []
+  },
+  "Q473972": {
+   "label": "protected area",
+   "tops": [
+    "Q82794",
+    "Q2221906"
+   ]
+  },
+  "Q47692": {
+   "label": "Chinese garden",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q4835091",
+    "Q107425"
+   ]
+  },
+  "Q1497364": {
+   "label": "building complex",
+   "tops": []
+  },
+  "Q93465891": {
+   "label": "tridecad",
+   "tops": []
+  },
+  "Q53060": {
+   "label": "gate",
+   "tops": []
+  },
+  "Q1044880": {
+   "label": "subprefecture-level city",
+   "tops": [
+    "Q82794",
+    "Q4835091",
+    "Q2221906",
+    "Q1620908",
+    "Q1048835"
+   ]
+  },
+  "Q12890393": {
+   "label": "incident",
+   "tops": []
+  },
+  "Q511866": {
+   "label": "mutiny",
+   "tops": []
+  },
+  "Q2006324": {
+   "label": "agreement",
+   "tops": []
+  },
+  "Q321839": {
+   "label": "agreement",
+   "tops": []
+  },
+  "Q831663": {
+   "label": "military campaign",
+   "tops": []
+  },
+  "Q22808320": {
+   "label": "Wikimedia human name disambiguation page",
+   "tops": []
+  },
+  "Q1763828": {
+   "label": "multi-purpose hall",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q41253": {
+   "label": "movie theater",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q811979": {
+   "label": "built structure",
+   "tops": []
+  },
+  "Q2668072": {
+   "label": "collection",
+   "tops": []
+  },
+  "Q783733": {
+   "label": "unincorporated territory of the United States",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q10711424": {
+   "label": "state with limited recognition",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794",
+    "Q7275"
+   ]
+  },
+  "Q3624078": {
+   "label": "sovereign state",
+   "tops": [
+    "Q3624078",
+    "Q2221906",
+    "Q4835091",
+    "Q1048835",
+    "Q82794",
+    "Q7275",
+    "Q6256"
+   ]
+  },
+  "Q179164": {
+   "label": "unitary state",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q7275",
+    "Q1048835"
+   ]
+  },
+  "Q123480": {
+   "label": "landlocked country",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q7275",
+    "Q6256",
+    "Q4835091",
+    "Q1048835"
+   ]
+  },
+  "Q6256": {
+   "label": "country",
+   "tops": [
+    "Q6256",
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q7270": {
+   "label": "republic",
+   "tops": []
+  },
+  "Q1057504": {
+   "label": "region of Ethiopia",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q933394": {
+   "label": "exclave",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q35657": {
+   "label": "U.S. state",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q7275",
+    "Q1048835"
+   ]
+  },
+  "Q271669": {
+   "label": "landform",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q9019918": {
+   "label": "endorheic lake",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q23397",
+    "Q15324"
+   ]
+  },
+  "Q188025": {
+   "label": "salt lake",
+   "tops": [
+    "Q4835091",
+    "Q15324",
+    "Q2221906",
+    "Q82794",
+    "Q23397"
+   ]
+  },
+  "Q56320584": {
+   "label": "prehistoric archaeological site",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q839954"
+   ]
+  },
+  "Q137186904": {
+   "label": "transcontinental region",
+   "tops": [
+    "Q2221906",
+    "Q82794"
+   ]
+  },
+  "Q66747521": {
+   "label": "geography term",
+   "tops": []
+  },
+  "Q1710033": {
+   "label": "autonomous region with special statute",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q674541": {
+   "label": "low mountain range",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q1437459",
+    "Q46831"
+   ]
+  }
+ },
+ "labels": {
+  "Lomekwi 3": [],
+  "Nariokotome, West Turkana": [],
+  "Nariokotome": [],
+  "Java Man": [],
+  "Sierra de Atapuerca": [
+   {
+    "qid": "Q48782131",
+    "coord": [
+     -3.5183,
+     42.3525
+    ],
+    "label": "Sierra de Atapuerca",
+    "title": "Atapuerca Mountains",
+    "classes": [
+     "Q2624046"
+    ]
+   }
+  ],
+  "Jebel Irhoud site": [],
+  "Omo Kibish": [],
+  "Howiesons Poort": []
+ }
 }
