@@ -371,7 +371,7 @@ Antonio De Lauri, CMI Brief 2018:4. Complete (4 pp.); locators are its headings.
   gga-177  Politicisation of access to aid — (The politicization of access to aid)
   gga-178  Safe havens — Bosnia to Syria · (The politicization of access to aid)
   gga-179  Turkey's humanitarian diplomacy — Somalia, then Syria · (Case studies)
-  gga-180  The non-stop mediator — Qatar · (Case studies)
+  gga-180  Non-stop mediator — Qatar · (Case studies)
   gga-181  International Humanitarian City — Dubai · (Case studies)
   gga-182  UAE Soft Power Strategy — September 2017 · (Case studies)
   gga-183  Leave no one behind — the 2030 Agenda · (opening; New research)
@@ -383,16 +383,16 @@ Nancy E. Lindborg and J. Joseph Hewitt, *Dædalus* 147 (1), Winter 2018, pp. 158
 
   gga-185  State fragility — the absence or breakdown of the social contract · (pp. 158–160)
   gga-186  Legitimacy and effectiveness — the two sources of fragility · (p. 159)
-  gga-187  The fifty most fragile states — 43 per cent of the world's most impoverished · (p. 160)
+  gga-187  Fifty most fragile states — 43 per cent of the world's most impoverished · (p. 160)
   gga-188  Internationalised internal conflicts — 3 per cent then, a third now · (p. 160)
-  gga-189  A crisis-driven focus — (A crisis-driven focus)
+  gga-189  Crisis-driven focus — (A crisis-driven focus)
   gga-190  Stovepiped bureaucracies — diplomacy, development, defence · (Bureaucratic impediments)
   gga-191  Shared consciousness — McChrystal · (Lack of a shared consciousness)
   gga-192  Three lines of effort in Afghanistan — intelligence, military, development · (Lack of a shared consciousness)
   gga-193  Millennium Development Goals — they avoided conflict, inequity and justice · (the development-sector section)
   gga-194  New Deal for Engagement in Fragile States — the g7+; Busan, 2011 · (Fragile states self-identify for the first time)
   gga-195  Sustainable Development Goal 16 — (Sustainable development goals prioritize inclusivity and accountability)
-  gga-196  Pathways to Peace — UN–World Bank, October 2017 · (the development-sector section)
+  gga-196  Pathways for Peace — UN–World Bank, October 2017 · (the development-sector section)
   gga-197  Four S approach — strategic, selective, systemic, sustained · (the closing pages)
   gga-198  Plan Colombia — (the closing pages)
 
@@ -401,8 +401,8 @@ Nancy E. Lindborg and J. Joseph Hewitt, *Dædalus* 147 (1), Winter 2018, pp. 158
 Henry Farrell and Abraham Newman, *Foreign Affairs*, Sep/Oct 2025. **Partial:** the opening, the Europe passage and the last third ("Self-Sabotage", "Time to Rebuild") are in hand; the middle — where the article builds its case and turns to China — is not. The Lecture 4 slides 16–19, which summarise the article, fill part of that gap. Do not write cards about China's side from the article.
 
   gga-199  Weaponised interdependence — the opening of the age · (opening; L4 s16)
-  gga-200  The June 2025 framework deal — chip-design software for rare earths · (opening)
-  gga-201  The American stack — (Self-Sabotage)
+  gga-200  June 2025 framework deal — chip-design software for rare earths · (opening)
+  gga-201  American stack — (Self-Sabotage)
   gga-202  Technological stack — (L4 s17)
   gga-203  Rare-earth refining — China, 90 per cent · (L4 s17)
   gga-204  TSMC — (L4 s17)
@@ -436,9 +436,9 @@ David Oks and Henry Williams, *American Affairs*, Winter 2022. Complete, with it
   gga-222  Manufacturing employment share — 18–20 per cent · (The Manufacturing Path)
   gga-223  China's share of poverty reduction — 45 per cent at $2.15, 70 per cent at $10 · (Deng's World)
   gga-224  Statistical compensation — East Asia masking the rest · (intro; Deng's World)
-  gga-225  The $2.15-a-day line — (intro)
+  gga-225  $2.15-a-day line — (intro)
   gga-226  Commodity supercycle — 2000–15 · (Deng's World; Deindustrialization and Deagrarianization)
-  gga-227  The golden age of development — 1950–80 · (The Golden Age)
+  gga-227  Golden age of development — 1950–80 · (The Golden Age)
   gga-228  Volcker shock — (After Us, the Deluge)
   gga-229  Década perdida — the two lost decades · (After Us, the Deluge)
   gga-230  Structural adjustment — (After Us, the Deluge)
@@ -452,7 +452,7 @@ David Oks and Henry Williams, *American Affairs*, Winter 2022. Complete, with it
   gga-238  Flying geese — (Better Late Than Never?)
   gga-239  Middle-income trap — (Better Late Than Never?)
   gga-240  Farmer–herder conflict — the Sahel and Nigeria · (Our Shrinking World)
-  gga-241  The problem of the border line — Du Bois turned over · (Facing the Crisis)
+  gga-241  Problem of the border line — Du Bois turned over · (Facing the Crisis)
 
 ## Reading 8 · The Economic Legacy of Civil War (Collier & Duponchel) — `gga-r8`
 
@@ -464,7 +464,7 @@ Paul Collier and Marguerite Duponchel, *Journal of Conflict Resolution* 57 (1), 
   gga-245  Revolutionary United Front — (WP §1)
   gga-246  Sierra Leone Employers Survey — five districts, 2006 · (notes (2013); WP §4)
   gga-247  Geographic variation in conflict intensity — the identification strategy · (WP §1)
-  gga-248  A lower bound — why the estimates understate the damage · (WP §1)
+  gga-248  Lower bound — why the estimates understate the damage · (WP §1)
   gga-249  Willingness to pay for training — the measure of skill scarcity · (Table 4; conclusion (2013))
   gga-250  Diaspora knowledge transfer — the remedy proposed · (conclusion (2013))
 
@@ -478,7 +478,7 @@ Dani Rodrik, *Foreign Affairs*, Jul/Aug 2019, pp. 26–33. **Partial:** pp. 26�
   gga-254  The golden straitjacket — (p. 27 (heading))
   gga-255  Beyond tariffs — the WTO reaches into domestic policy · (p. 26)
   gga-256  Liberalised capital flows — (p. 26)
-  gga-257  Globalisation as a force of nature — Clinton and Blair · (p. 27)
+  gga-257  Force of nature — Clinton and Blair · (p. 27)
   gga-258  Austerity after the crash — (p. 26)
 
 ## Reading 10 · Investing in Fragile and Conflict-Affected States (FMO) — `gga-r10`
@@ -486,7 +486,7 @@ Dani Rodrik, *Foreign Affairs*, Jul/Aug 2019, pp. 26–33. **Partial:** pp. 26�
 FMO's summary of the NIRAS and TrustWorks Global study. Complete (3 pp.); locators are its headings. The full report it links to is not in the course material.
 
   gga-259  Fragile and conflict-affected states — 80 per cent of the extreme poor by 2030 · (opening)
-  gga-260  Development finance institutions — (opening)
+  gga-260  Development financial institutions — (opening)
   gga-261  MASSIF — (opening)
   gga-262  Conflict sensitivity — (Recommendations for DFIs)
   gga-263  Do no harm — (Recommendations for DFIs)
@@ -503,7 +503,7 @@ Jonathan M. Winer, Middle East Institute, 4 May 2026. **Partial:** the first thr
   gga-269  Rain-fed planting window — (The Impact of Fertilizer Disruption)
   gga-270  Liptako-Gourma — (opening)
   gga-271  OCP Group — (The Capacities of the Maghreb and Egypt)
-  gga-272  Imported sulfur — (The Capacities of the Maghreb and Egypt)
+  gga-272  Imported sulphur — (The Capacities of the Maghreb and Egypt)
   gga-273  Algeria's gas-to-nitrogen link — (The Capacities of the Maghreb and Egypt)
   gga-274  Egypt's urea and wheat — (The Capacities of the Maghreb and Egypt)
 
@@ -516,7 +516,7 @@ Jonathan M. Winer, Middle East Institute, 4 May 2026. **Partial:** the first thr
   gga-277  Agents escaping their sandboxes — (paragraph 2)
   gga-278  Misuse by malign actors — Mali, the Houthis · (paragraph 2)
   gga-279  Millennium Prize problem — (paragraph 3)
-  gga-280  AI in the destruction of Ukraine — (paragraph 1)
+  gga-280  Conflicting lessons — (paragraph 1)
 
 ## Reading 13 · EU–AU security partnership (Staeger) — `gga-r13`
 
@@ -525,13 +525,13 @@ Ueli Staeger, "Resource mobilization in security partnerships: Explaining cooper
   gga-281  Recipient agency — the capacity to act intentionally: a secretariat's agenda and capacity · (A theory of agency outcomes in security partnerships)
   gga-282  Cooperative and coercive interaction modes — how a funder can raise or lower a recipient's agency · (Inter-organizational interaction modes)
   gga-283  Agenda-setting and capacity-building — the two mechanisms of agency change · (Mechanisms of agency change)
-  gga-284  The postcolonial paradox — why direct coercion is costly for the EU · (The postcolonial paradox shaping power in the EU–AU security partnership)
+  gga-284  Postcolonial paradox — why direct coercion is costly for the EU · (The postcolonial paradox shaping power in the EU–AU security partnership)
   gga-285  African Peace Facility — a purse without power · (Agenda-setting: the EU as a "big payer" but "small player")
   gga-286  Big payer, small player — the EU's "stop being a payer and start being a player" · (introduction; Agenda-setting)
   gga-287  AMISOM troop reimbursements — the EU cap of 2016 as coercive agenda-setting · (EU coercion in the AMISOM troop reimbursement incident)
   gga-288  Pillar Assessment — the EU's financial-management test of the AU Commission · (EU coercion through capacity-building: the Pillar Assessment)
   gga-289  Capacity substitution — help that crowds out the secretariat's own capacity · (Capacity-building: capacity substitution and cushioned conditionality)
-  gga-290  Forum-shopping and the European Peace Facility — the EU's way round the AU · (African security beyond the AUC)
+  gga-290  Forum-shopping — the EU's way round the AU · (African security beyond the AUC)
 
 ## Reading 14 · EU rules beyond EU borders (Lavenex & Schimmelfennig) — `gga-r14`
 
