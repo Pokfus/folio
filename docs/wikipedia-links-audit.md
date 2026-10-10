@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4553 | the title is the article |
-| `redirect-variant` | 297 | spelling / plural / qualifier differed; same subject |
+| `ok` | 4554 | the title is the article |
+| `redirect-variant` | 298 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 68 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 390 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 391 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 92 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 126 | only a disambiguation page; no link could be chosen |
-| `none` | 581 | nothing matched; no link |
+| `none` | 583 | nothing matched; no link |
 
-**5313 of 6121 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5316 of 6126 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (390)
+## Redirected to a differently named article — check each (391)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -117,6 +117,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `fl-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fl-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
 - `geo-517` **St. Paul** → [Paul the Apostle](https://en.wikipedia.org/wiki/Paul_the_Apostle) (from `St. Paul`)
+- `gga-048` **Brahimi Report** → [Report of the Panel on United Nations Peace Operations](https://en.wikipedia.org/wiki/Report_of_the_Panel_on_United_Nations_Peace_Operations) (from `Brahimi Report`)
 - `gr-001` **Aegean Bronze Age** → [Aegean civilization](https://en.wikipedia.org/wiki/Aegean_civilization) (from `Aegean Bronze Age`)
 - `gr-002` **Cycladic civilisation** → [Cycladic culture](https://en.wikipedia.org/wiki/Cycladic_culture) (from `Cycladic civilisation`)
 - `gr-003` **Cycladic figurines** → [Cycladic art](https://en.wikipedia.org/wiki/Cycladic_art) (from `Cycladic figurines`)
@@ -757,7 +758,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (581)
+## No article found (583)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -914,7 +915,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-078` **jar sealing** — search suggests `Early Dynastic Period of Egypt`, `Narmer`, `Egypt–Mesopotamia relations`, `Mausoleum at Halicarnassus`, `Baghdad Battery`
 - `eg-080` **Egyptian stone vessels** — search suggests `Stone vessels in ancient Egypt`, `First Dynasty of Egypt`, `Egyptian faience`, `Prehistoric Egypt`, `Ancient Egyptian technology`
 - `eg-113` **Heit el-Ghurab** — search suggests `Fourth Dynasty of Egypt`, `Memphite Necropolis`, `Great Pyramid of Giza`, `List of Egyptian pyramidia`, `Kanefer`
-- `gga-023` **Two-level game** — search suggests `Two-level game theory`, `Level (video games)`, `It Takes Two (video game)`, `Levels of the Game`, `Two Dots (video game)`
+- `gga-049` **High-level Independent Panel on Peace Operations**
+- `gga-050` **Four essential shifts**
+- `gga-051` **No peace to keep**
 - `gr-005` **Early Minoan Crete** — search suggests `Minoan civilization`, `Crete`, `Minoan pottery`, `History of Crete`, `Minoan palaces`
 - `gr-010` **Throne Room at Knossos** — search suggests `Throne Room, Knossos`, `Knossos`, `Modern history of Knossos`, `Bull-Leaping Fresco`, `Émile Gilliéron`
 - `gr-015` **Protopalatial period** — search suggests `Minoan chronology`, `Minoan palaces`, `Malia (archaeological site)`, `Petsofas`, `Papoura Hill Circular Structure`

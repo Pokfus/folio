@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-10T13:43Z",
+ "generated": "2026-10-10T14:13Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4553,
-  "redirect-broader": 390,
-  "redirect-variant": 297,
+  "ok": 4554,
+  "redirect-broader": 391,
+  "redirect-variant": 298,
   "section-redirect": 92,
   "disambiguation": 126,
-  "none": 581,
+  "none": 583,
   "disambig-resolved": 68,
   "list-page": 6,
   "search-match": 5,
@@ -48653,6 +48653,43 @@
    "via": "answer",
    "status": "ok",
    "manual": true
+  },
+  "gga-047": {
+   "answer": "Responsibility to Protect",
+   "title": "Responsibility to protect",
+   "url": "https://en.wikipedia.org/wiki/Responsibility_to_protect",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Responsibility to Protect"
+  },
+  "gga-048": {
+   "answer": "Brahimi Report",
+   "title": "Report of the Panel on United Nations Peace Operations",
+   "url": "https://en.wikipedia.org/wiki/Report_of_the_Panel_on_United_Nations_Peace_Operations",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Brahimi Report"
+  },
+  "gga-049": {
+   "answer": "High-level Independent Panel on Peace Operations",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-050": {
+   "answer": "Four essential shifts",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-051": {
+   "answer": "No peace to keep",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
   }
  }
 }
