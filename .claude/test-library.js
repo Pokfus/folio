@@ -832,6 +832,96 @@ function ptahhotepChecks() {
   return o;
 }
 
+/* THE CLASSIC OF TEA, read off the two files that shipped. Its reader serves ONE book — a section of an
+   OCR'd trade volume on the English side and ten wiki pages of WIKITEXT on the Chinese — so it cannot be
+   proved inert by re-running a sibling, and the shipped-data sweep is what stands in for that check.
+
+   EVERY FAULT IT LOOKS FOR IS SILENT. The English is Google's OCR of a printed page, and its faults are the
+   kind no count sees: five italic words read as other English words ("one ton, two torn"), a fraction read
+   as a percent sign, and a footnote mark read as a letter; so the repaired strings are asserted PRESENT and
+   the damaged ones ABSENT. The ten parts and the eight footnotes (2, 3, 0, 0, 0, 1, 2, 0, 0, 0 by part) are
+   asserted exactly, because a part short of its notes would still read. The Chinese is typed wikitext, and
+   what leaks from that is markup — a `{{*|…}}` note, an `[[File:…]]`, a `'''` — or the typist's ASCII
+   punctuation between characters, neither of which a count of parts can see. And the two columns pair on a
+   single marker per part: a second marker in either would change how bookRows pairs them. */
+function chajingChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "classic-of-tea.js"), zhF = path.join(dir, "classic-of-tea.zh.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(zhF)) return null;
+  global.window = {};
+  [enF, zhF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "classic-of-tea");
+  const zh = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "classic-of-tea");
+  if (!en || !zh) return null;
+  const TITLES = ["The Origin of Tea", "The Utensils", "Manipulation of Leaf", "Implements for Preparation",
+    "Infusion", "Drinking", "Historical Record", "Producing Districts", "General Summary", "Memo Regarding Plates"];
+  const ZH = zh.chapters;
+  const enAll = en.chapters.map((c) => c.html).join("\n");
+  const zhAll = ZH.map((c) => c.html).join("\n");
+  const o = {
+    n: en.chapters.length, nz: ZH.length,
+    titles: en.chapters.map((c) => c.t), want: TITLES,
+    notesBy: en.chapters.map((c) => (c.notes || []).length),
+    dead: 0, unref: 0, enMarks: [], zhMarks: [], bal: [],
+    intro: en.intro || "", quotes: (enAll.match(/<blockquote>/g) || []).length,
+    damaged: [], missing: [],
+    zhStrays: [], implements: 0, zhNotes: (zhAll.match(/〔/g) || []).length, zhNotesShut: (zhAll.match(/〕/g) || []).length,
+  };
+  en.chapters.forEach((c, i) => {
+    o.enMarks.push((c.html.match(/class="bk-n" data-n="(\d+)"/g) || []).join("|"));
+    const ns = c.notes || [];
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    ms.forEach((n) => { if (n < 1 || n > ns.length) o.dead++; });
+    ns.forEach((_, k) => { if (!ms.includes(k + 1)) o.unref++; });
+    ["p", "blockquote", "sup", "span"].forEach((t) => {
+      const open = (c.html.match(new RegExp("<" + t + "\\b", "g")) || []).length;
+      const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push(c.t + " " + t + " " + open + "/" + shut);
+    });
+  });
+  ZH.forEach((c) => o.zhMarks.push((c.html.match(/class="bk-n" data-n="(\d+)"/g) || []).join("|")));
+  /* the OCR's own faults, each one found by reading the page: absent */
+  [[/Digitized|⟦|\([a-z]/, "scan furniture or an unconverted aspirate"],
+   [/shengsy|\bton\b|\btorn\b|Sheriff|wTood|cKa|cKuan|Chfi|Chliu|uKia/, "a misread word"],
+   [/\d%/, "a fraction read as a percent sign"],
+   [/[A-Za-z]- [a-z]/, "a line-end hyphen left in"],
+   [/\bb\.c\.|\ba\.d\./, "A.D. or B.C. left in lower case"],
+   [/\d-\d/, "a hyphen where the page has an en dash"],
+   [/ [;:,.\]]/, "a space before punctuation"]]
+    .forEach(([rx, why]) => { if (rx.test(enAll + (en.chapters.map((c) => (c.notes || []).join(" ")).join(" ")))) o.damaged.push(why); });
+  /* the repaired strings, each of which the OCR had wrong: present */
+  [["five shengs, one tou, two tous, or three tous", "Part II's italic words"],
+   ["approximately 1⅓ pounds", "footnote 5's fraction"], ["about 2⅓ gallons", "item 12's fraction"],
+   ["10 shengs=1 tou=2.315 gallons", "footnote 3"], ["Ch‘i,", "the state of Ch‘i"], ["Ch‘un Ch‘iu", "Yen Tzu Ch‘un Ch‘iu"],
+   ["A.D. 242–283]", "Sun Hao's dates"], ["53 B.C.–A.D. 18", "Yang Hsiung's dates"], ["goosefoot", "a word the scan breaks across a line"],
+   ["Eastern-Han", "a compound the scan breaks across a line"], ["sweetish-bitter", "a compound the scan breaks across a line"]]
+    .forEach(([s, why]) => {
+      const hay = enAll + en.chapters.map((c) => (c.notes || []).join(" ")).join(" ");
+      if (!hay.includes(s)) o.missing.push(why);
+    });
+  const p = (n) => (en.chapters[n - 1] || { html: "" }).html;
+  o.opens = /^<p><span class="bk-n" data-n="1">1<\/span><\/p>\n<p>Tea is a fine tree of the South\./.test(p(1));
+  o.closes = /Thus, the Tea Classic is complete from the beginning to the end\.<\/p>$/.test(p(10));
+  /* footnote 6 hangs after the semicolon, where the page puts it and the OCR did not */
+  o.mark6 = /d\. 1105 B\.C\.\];<sup class="fn" data-fn="1"><\/sup> Yen Ying/.test(p(6));
+  /* the paragraph that crosses a page between "your uncle" and a bracket, and the one split inside a quotation */
+  o.joined = /social status of your uncle \[by becoming a high official/.test(p(7)) && /“When Huan Wen \[A\.D\. 312–373\] was the governor/.test(p(7));
+  o.lines24 = (p(4).match(/<p>\d{1,2}\.—/g) || []).length;
+  /* the Chinese */
+  const zp = (n) => (ZH[n - 1] || { html: "" }).html;
+  o.implements = (zp(4).match(/<p><b>/g) || []).length;
+  if (/\{\{|\}\}|\[\[|\]\]|'''|&lt;|&gt;|︰/.test(zhAll)) o.zhStrays.push("wiki markup or a presentation form");
+  if (/[\p{Script=Han}][,.;:?!]|[,.;:?!][\p{Script=Han}]/u.test(zhAll)) o.zhStrays.push("ASCII punctuation beside a character");
+  if (/[A-Za-z']/.test(zhAll.replace(/<[^>]*>/g, ""))) o.zhStrays.push("a Latin letter or apostrophe in the text");
+  if (/\s[\p{Script=Han}]|[\p{Script=Han}]\s/u.test(zhAll.replace(/<\/p>\n<p>/g, "").replace(/<[^>]*>/g, ""))) o.zhStrays.push("a space beside a character");
+  o.zhOpens = /^<p><span class="bk-n" data-n="1">1<\/span><\/p>\n<p>茶者，南方之嘉木也。/.test(zp(1));
+  o.zhCloses = /於是《茶經》之始終備焉。<\/p>$/.test(zp(10));
+  o.zhMao = !/明州縣/.test(zhAll) ? "" : "明州縣";   // the one character the wiki shows as an image is LEFT OUT, not guessed
+  o.zhRare = /𣗪|𥥛|𡏻|𨫀/.test(zhAll);
+  o.zhLen = zhAll.replace(/<[^>]*>/g, "").length;
+  return o;
+}
+
 /* THE RAMAYANA, read off the two files that shipped. Its reader serves ONE book — a Project Gutenberg
    TEI on the English side and a four-shaped wiki on the Sanskrit — so it cannot be proved inert by
    re-running a sibling, and the shipped-data sweep is what stands in for that check.
@@ -1865,6 +1955,56 @@ function aeneidChecks() {
         /Uttara/.test(ram.intro) && /111/.test(ram.intro), String(ram.intro.length));
     } else {
       check("[ramayana] both halves of the book are on disk", false, "missing books/ramayana*.js");
+    }
+
+    /* THE CLASSIC OF TEA — see chajingChecks above for what each of these can see. */
+    const ct = chajingChecks();
+    if (ct) {
+      check("[classic-of-tea] ten parts shipped on each side", ct.n === 10 && ct.nz === 10, ct.n + "/" + ct.nz);
+      /* The tab carries the digest's own heading for each part; the first is printed with a lower-case
+         "the" on the 1935 page and is capitalised, which is the one liberty taken with a title. */
+      check("[classic-of-tea] the tabs carry the digest's own titles, Part I to Part X",
+        ct.titles.join("|") === ct.want.join("|"), ct.titles.join(", "));
+      /* One marker per part, carrying the part's own number, in BOTH columns: neither edition numbers
+         anything inside a part, and a second marker would change how bookRows pairs them. */
+      check("[classic-of-tea] one pairing marker per part, numbered 1–10, in the English",
+        ct.enMarks.every((m, i) => m === 'class="bk-n" data-n="' + (i + 1) + '"'), ct.enMarks.join(" ; "));
+      check("[classic-of-tea] ...and the same in the Chinese",
+        ct.zhMarks.every((m, i) => m === 'class="bk-n" data-n="' + (i + 1) + '"'), ct.zhMarks.join(" ; "));
+      check("[classic-of-tea] the eight footnotes fall 2, 3, 0, 0, 0, 1, 2, 0, 0, 0 by part",
+        ct.notesBy.join(",") === "2,3,0,0,0,1,2,0,0,0", ct.notesBy.join(","));
+      check("[classic-of-tea] every footnote marker resolves", ct.dead === 0, String(ct.dead));
+      check("[classic-of-tea] every note is referenced", ct.unref === 0, String(ct.unref));
+      check("[classic-of-tea] every tag is closed", ct.bal.length === 0, ct.bal.join("; "));
+      /* The OCR's own faults, each read off the page: gone. */
+      check("[classic-of-tea] none of the OCR's faults survives", ct.damaged.length === 0, ct.damaged.join("; "));
+      check("[classic-of-tea] every string the OCR had wrong is repaired", ct.missing.length === 0, ct.missing.join("; "));
+      check("[classic-of-tea] it opens on the tree of the South and closes on the Tea Classic complete",
+        ct.opens && ct.closes, ct.opens + "/" + ct.closes);
+      check("[classic-of-tea] footnote 6 hangs after the semicolon, where the page puts it", ct.mark6, "");
+      check("[classic-of-tea] the two paragraphs the print runs across a page are one each", ct.joined, "");
+      check("[classic-of-tea] Part IV lists the twenty-four implements, numbered as printed", ct.lines24 === 24, String(ct.lines24));
+      check("[classic-of-tea] the eleven extracts the print sets in small type are block quotations", ct.quotes === 11, String(ct.quotes));
+      /* The front matter has to say what this is and is not: a reader who knows the book will look for
+         the whole of it, and being told why they will not find it is the whole of the honesty here. */
+      check("[classic-of-tea] the front matter says it is a condensation and names its sources",
+        /condensation/.test(ct.intro) && /Ukers/.test(ct.intro) && /Yih/.test(ct.intro) && /not the text Ukers/.test(ct.intro), String(ct.intro.length));
+      check("[classic-of-tea] Chinese: twenty-five headed implements in Part IV (the twenty-four, and the carrying basket)",
+        ct.implements === 25, String(ct.implements));
+      check("[classic-of-tea] Chinese: no wiki markup, ASCII punctuation, Latin letter or stray space left in the text",
+        ct.zhStrays.length === 0, ct.zhStrays.join("; "));
+      check("[classic-of-tea] Chinese: Lu Yu's small-print notes are bracketed and balanced",
+        ct.zhNotes === 50 && ct.zhNotes === ct.zhNotesShut, ct.zhNotes + "/" + ct.zhNotesShut);
+      check("[classic-of-tea] Chinese: opens on 茶者，南方之嘉木也 and closes on 《茶經》之始終備焉",
+        ct.zhOpens && ct.zhCloses, ct.zhOpens + "/" + ct.zhCloses);
+      /* The wiki shows one character (the county of 明州) as an IMAGE. It is left out and reported, never
+         guessed; the day it is typed, this check should be replaced by one that expects the character. */
+      check("[classic-of-tea] Chinese: the one character the wiki shows as an image is left out, not guessed",
+        ct.zhMao === "明州縣", ct.zhMao);
+      check("[classic-of-tea] Chinese: the rare characters the wiki wraps in a template are carried", ct.zhRare, "");
+      check("[classic-of-tea] Chinese: the full text is there (about 9,300 characters)", ct.zhLen > 9000 && ct.zhLen < 9600, String(ct.zhLen));
+    } else {
+      check("[classic-of-tea] both halves of the book are on disk", false, "missing books/classic-of-tea*.js");
     }
 
     /* THE MAXIMS OF PTAHHOTEP — see ptahhotepChecks above for what each of these can see. */
@@ -3298,6 +3438,66 @@ function aeneidChecks() {
       /GHOSTS WHO ENTER THE UNDERWORLD/.test(ch11), "its two halves are joined");
     check("[journey] ...while all 100 chapters survive the widened head rule",
       got.chapters === 100, got.chapters + " chapters");
+    await page.close();
+  }
+
+  /* ================= 6u. the Classic of Tea: a digest, and the Chinese beside it =================
+     The page has to SAY it is a condensation and why it may be served, the ten parts have to be tabs, the
+     footnotes have to be numbered by the site's own pass (a marker whose note is missing is removed
+     silently), and turning the Chinese on has to give one row per part with the same number in both
+     columns — the pairing is by part only, so a part that drew no Chinese would show an empty cell. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/classic-of-tea", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    const front = await page.evaluate(() => ({
+      body: document.body.innerText,
+      tabs: [...document.querySelectorAll(".bk-tab")].filter((t) => +t.dataset.ch >= 1).length,
+    }));
+    check("[classic-of-tea] the book opens, with ten numbered tabs", front.tabs === 10, String(front.tabs));
+    check("[classic-of-tea] the page says it is a condensation",
+      /condensation/i.test(front.body) && /Translation Digest/.test(front.body), "");
+    check("[classic-of-tea] ...and states the licence ground and the limit on it",
+      /not\s+renewed/.test(front.body) && /1962/.test(front.body) && /dates are not\s+known/.test(front.body), "");
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "2"); if (t) t.click(); });
+    await page.waitForTimeout(900);
+    const p2 = await page.evaluate(() => ({
+      markers: [...document.querySelectorAll(".bk-prose sup.fn")].length,
+      nums: [...document.querySelectorAll(".bk-prose sup.fn")].map((s) => s.textContent.trim()).join(","),
+      items: document.querySelectorAll(".bk-notes .src-item").length,
+      text: (document.querySelector(".bk-prose") || document.body).innerText,
+    }));
+    check("[classic-of-tea] Part II's three footnote markers are numbered 1, 2, 3 by the site's own pass",
+      p2.markers === 3 && p2.nums === "1,2,3", p2.markers + " [" + p2.nums + "]");
+    check("[classic-of-tea] ...with three notes behind them", p2.items === 3, String(p2.items));
+    check("[classic-of-tea] Part II reads “one tou, two tous, or three tous”, not the OCR's “ton, torn, tons”",
+      /five shengs, one tou, two tous, or three tous/.test(p2.text), "");
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "4"); if (t) t.click(); });
+    await page.waitForTimeout(700);
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+    const bi = await page.evaluate(() => {
+      const box = document.querySelector(".bk-bi");
+      const rows = [...document.querySelectorAll(".bk-row")];
+      const r = document.querySelector(".bk-row[data-sec='4']");
+      const a = r ? r.querySelector(".bk-col-en").getBoundingClientRect() : null;
+      const b = r ? r.querySelector(".bk-col-or").getBoundingClientRect() : null;
+      return {
+        mode: box && box.dataset.lang, rows: rows.length,
+        en: r ? r.querySelector(".bk-col-en").innerText : "", zh: r ? r.querySelector(".bk-col-or").innerText : "",
+        zhLang: r ? r.querySelector(".bk-col-or").getAttribute("lang") : "",
+        side: !!(a && b) && b.x > a.x + 100,
+        markEn: r && r.querySelector(".bk-col-en .bk-n") ? r.querySelector(".bk-col-en .bk-n").textContent.trim() : "",
+        markZh: r && r.querySelector(".bk-col-or .bk-n") ? r.querySelector(".bk-col-or .bk-n").textContent.trim() : "",
+      };
+    });
+    check("[classic-of-tea] turning the Chinese on sets one row for Part IV, the two columns side by side",
+      bi.mode === "both" && bi.rows === 1 && bi.side, JSON.stringify({ mode: bi.mode, rows: bi.rows, side: bi.side }));
+    check("[classic-of-tea] ...numbered 4 in both columns", bi.markEn === "4" && bi.markZh === "4", bi.markEn + "/" + bi.markZh);
+    check("[classic-of-tea] ...the English holding the tripod stove and the Chinese the 風爐, both complete",
+      /ancient tripod/.test(bi.en) && /風爐/.test(bi.zh) && /都籃/.test(bi.zh) && /all-in-one bamboo basket/.test(bi.en), "");
+    check("[classic-of-tea] ...the Chinese column is marked lang=zh", /^zh/.test(bi.zhLang), bi.zhLang);
     await page.close();
   }
 

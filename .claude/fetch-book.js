@@ -864,6 +864,19 @@ PTAH_KEYS.push("C");
 for (let i = 38; i <= 43; i++) PTAH_KEYS.push(String(i));
 PTAH_KEYS.push("D");
 
+/* THE CLASSIC OF TEA's ten parts, in the order both columns divide the work. The English titles are the
+   ones the digest prints over each part (the first is printed with a lower-case "the", a slip in the
+   1935 page that is capitalised here and nowhere else); the Chinese are the names of the ten pages
+   Chinese Wikisource keeps, which are also the author's own names for his parts, 一之源 to 十之圖. Both
+   are asserted against the files in `extractChajing` and `fetchChajingOriginal`, and are declared here
+   because the BOOKS literal below reads them. */
+const CHAJING_TITLES = [null, "The Origin of Tea", "The Utensils", "Manipulation of Leaf",
+  "Implements for Preparation", "Infusion", "Drinking", "Historical Record", "Producing Districts",
+  "General Summary", "Memo Regarding Plates"];
+const CHAJING_ZH = [null, "一之源", "二之具", "三之造", "四之器", "五之煮", "六之飲", "七之事", "八之出",
+  "九之略", "十之圖"];
+const CHAJING_ROMAN = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8, IX: 9, X: 10 };
+
 
 /* ---------- DON QUIXOTE'S 126 CHAPTERS ----------
    Ormsby heads every chapter, and the two volume index pages carry each title in its own link
@@ -16534,6 +16547,278 @@ const BOOKS = {
     chapters: [1, 2, 3, 4, 5],
   },
 
+  "classic-of-tea": {
+    title: "The Classic of Tea",
+    subtitle: "The Ch‘a Ching, the First Book About Tea",
+    author: "Lu Yu",
+    translator: "Z. L. Yih, as condensed by William H. Ukers",
+    edition:
+      "“Translation Digest of Ch‘a Ching”, in William H. Ukers, All About Tea, vol. 1, " +
+      "ch. 2, The Tea and Coffee Trade Journal Company, New York, 1935, pp. 15–22",
+    written: "c. 760–780",
+    /* The date is a RANGE, and the three witnesses disagree about where in it the book falls: Ukers says
+       "about A.D. 780" and that Lu Yu retired in 775; the Chinese Wikisource header says 760 to 780; the
+       English Wikipedia article gives 760 to 762 for the first draft. The key is the end of the range so
+       that the book files after every date any of them gives for its writing. */
+    year: 780,
+
+    /* ---------- THE LICENCE — A DIGEST, ON A GROUND THAT HAS TO BE SHOWN RATHER THAN READ OFF ----------
+       THIS IS THE SHELF'S FIRST ENGLISH TEXT THAT IS PUBLIC DOMAIN BY NON-RENEWAL RATHER THAN BY THE
+       PRE-1929 RULE, and it is a digest and not a translation, so both halves of the licence are
+       unusual. What was looked at and why this one:
+       · Francis Ross Carpenter's *The Classic of Tea* (Little, Brown, 1974; Ecco, 1995) is the one
+         complete English translation in print and is in copyright. Not used.
+       · Wu Juenong and Tony Blishen's *An Illustrated Modern Reader of "The Classic of Tea"* (2017) is
+         modern. Not used.
+       · NO OTHER FREE ENGLISH TEXT EXISTS ON THE THREE SITES THIS SHELF READS. Searched (Oct 2026) under
+         "Ch'a Ching", "Cha Jing", "Classic of Tea", "Tea Classic" and Lu Yu: English Wikisource's only
+         hits are a quotation inside two pulp-magazine stories; Project Gutenberg's only Cha Jing is the
+         CHINESE (ebook 7406); the Internet Archive's two titles called The Classic of Tea are Carpenter's
+         1974 translation, both lending-library scans. Chinese Wikisource has the Chinese only.
+       · PROJECT GUTENBERG'S CHINESE WAS LOOKED AT AS THE ORIGINAL AND REJECTED: it carries none of Lu Yu's
+         small-print notes, writes rare characters as placeholders (`<艸設>`, `<穴犮>`), and has runs that
+         are not text at all — Part II's 「惟恒用者佳。規」 reads 「惟琤峈怢峞C規」, Part IV's 「置墆𡏻於其內，設
+         三格」 reads 「置墆粟憍顙鉹滿A設三格」 — over a text that is otherwise written in a mixed set of
+         simplified and traditional forms. The wiki's typing has the notes the digest folds into its
+         sentences, so the two columns can be read side by side.
+       · What is free is the "Translation Digest of Ch'a Ching" Ukers printed in *All About Tea*,
+         vol. 1 (1935), pp. 15-22: all ten parts, condensed, from a translation of a Ming copy in the
+         library of the University of London made by Mr Z. L. Yih of the School of Oriental Studies
+         "with the help of the late Sir Edward Denison Ross", which Ukers says he "closely followed"
+         and which he marks off from his own bracketed explanations.
+       THE GROUND IS NON-RENEWAL, AND IT WAS CHECKED RATHER THAN ASSUMED. A US book of 1935 carried a
+       28-year first term and fell into the public domain by the start of 1964 unless its claimant
+       renewed in 1962-63 (the window for a book registered in 1935). The Library of Congress's *Catalog of Copyright Entries*, Third Series, for
+       the whole of 1962 and 1963 and for 1964 (Part 1, Books, both halves of each year; the
+       Internet Archive's OCR of the volumes) was searched for "All About Tea", for "Ukers" and for the
+       publisher: no renewal entry for the book. The one Ukers entry in them is a NEW registration of
+       Ukers' International Tea and Coffee Buyers' Guide (1962-63 edition, A611494), a different work.
+       The method's limit is the OCR's and is stated rather than hidden: a renewal whose entry the OCR
+       garbled beyond "Ukers" and beyond "All about tea" would not have been found. The Internet
+       Archive's own record carries the Public Domain Mark for this scan; that is not the evidence
+       relied on.
+       WILLIAM H. UKERS lived 1873-1945, given identically by the Internet Archive's record, the New
+       York Public Library's catalogue and the Japanese National Diet Library's authority file, so
+       his part also cleared life plus seventy (2016). Z. L. YIH'S DATES ARE NOT KNOWN to this shelf —
+       no source consulted gives them — and that is the LIMIT: the translation that sits under the
+       digest rests on the US ground alone, and nothing is claimed for countries that run a term from
+       the translator's death.
+       WHAT UKERS PRINTED THAT IS NOT TAKEN: his bracketed one-paragraph summary of the ten parts (page 14,
+       above the title); the twelve numbered figures of utensils on pages 16-18, redrawn from the Ming
+       copy, with their Chinese titles and captions; and the engraving of a tea district on page 15 —
+       pictures, as the Republic's plates were. His own footnotes ARE taken, being notes on the text.
+       The rest of his chapter is history of the work and of Lu Yu in his own words, and is not the
+       classic. */
+    rights:
+      "Public domain in the United States. The English is the “Translation Digest of Ch‘a " +
+      "Ching” that William H. Ukers printed in All About Tea (New York, 1935), condensed from a " +
+      "translation by Z. L. Yih of the School of Oriental Studies, London. Its copyright was not " +
+      "renewed — the Catalog of Copyright Entries for 1962–1964 lists no renewal — so it " +
+      "was in the public domain by the start of 1964. Ukers died in 1945; Yih’s dates are not " +
+      "known, so nothing is claimed for countries that count the term from a translator’s death. " +
+      "The Chinese beside it is an eighth-century text, public domain everywhere, as typed and " +
+      "punctuated by the volunteers of Chinese Wikisource and shared on that wiki’s licence " +
+      "(CC BY-SA). Francis Ross Carpenter’s complete translation (1974) is still in copyright and " +
+      "is not used.",
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/AllAboutTeaV1",
+    url: "https://archive.org/download/AllAboutTeaV1/AllAboutTeaV1_djvu.txt",
+
+    layout: "chajing",
+    chapterWord: "Part",
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    titleOf: (n) => CHAJING_TITLES[n],
+    minChars: 200,
+    /* ONE MARKER PER PART, CARRYING THE PART'S NUMBER. Neither column numbers anything inside a part —
+       the Chinese has no section marks and the digest prints none — so the pairing is the part and
+       each column runs at its own length within it: a coarse join and a true one, the Canterbury
+       Tales' answer for the same reason. The ten also happen to be the author's own numbering (一之源 is
+       "of the origin, first"). */
+    sections: "whole",
+
+    /* WHERE THE DIGEST SITS IN THE SCAN'S TEXT — the heading over Part I, and the first line of the next
+       chapter. Both are asserted to occur exactly where stated: the scan's OCR holds the whole 700-page
+       volume, and a digest that quietly began or ended somewhere else would still look like a book. */
+    begin: /^THE CH.?A CHING$/m,
+    end: /^CHAPTER III$/m,
+
+    /* PAGE FURNITURE WITH NO PLACE IN A READING TEXT — the captions of the pictures, which are not here:
+       the engraving of a tea district and the twelve figures of utensils, three to a page, whose
+       captions run to four lines. Each pattern must drop exactly the block it names, and the count is
+       printed. */
+    captions: [
+      /^In a Green Tea District$/,
+      /^Scene in Kiang-nan, Anhwei, as drawn for Fortune’s Visit to the Tea Districts of China and India, 1852\.$/,
+      /^Utensils Used in the Preparation of Tea in the Time of Lu Yu$/,
+      /^Fig\. 1 is a bamboo basket for firing tea\./,
+      /^Additional Utensils Called for and Described by Lu Yu in the Ch.a Ching$/,
+      /^Fig\. 5 is a gourd or ladle for measuring water\./,
+      /^These Illustrations of Tea Utensils Are Also from Lu Yu’s Ch.a Ching$/,
+      /^Fig\. 9 is a China cup\./,
+      /^the Ch.a Ching\.$/,
+    ],
+
+    /* A COMPOUND THAT HAS A HYPHEN IN THE PRINT AND ALSO FALLS AT A LINE END. Every other word the
+       scan breaks across a line is rejoined without it. Printed as one word everywhere else it occurs:
+       "sweetish-bitter" (Pen Ts'ao Chu). "Eastern-Han" needs no row, a hyphen followed by a capital
+       being kept as a rule. */
+    keepHyphens: ["sweetish-bitter"],
+
+    /* THE EXTRACTS THE PRINT SETS IN SMALLER TYPE — the long quotations under Part VII's "Extract from …"
+       lines, which are the quoted books' words and not the translator's paraphrase. Each is wrapped as a
+       block quotation; read off pages 20 and 21 of the scan, where the type size shows. A prefix must
+       open exactly one paragraph. The shorter extracts, which the print sets full size inside the
+       sentence, are left as paragraphs. */
+    quoteStarts: [
+      "In the district between the provinces of Hupeh",
+      "Whenever Sun Hao",
+      "A catty of dried ginger",
+      "The plant [tea] is as small as the gardenia",
+      "While Wang Su",
+      "The people of Hsi Yang",
+      "In Pa Tung",
+      "In the South there is the kua lu tree",
+      "Three hundred and fifty lis",
+      "Ch‘a [tea] Ling [mound or hill]",
+      "“In The Book of Odes",
+    ],
+
+    /* ---------- WHAT THE OCR GOT WRONG, AND WHAT THE PRINTED PAGE SAYS ----------
+       Every row below was read against the page image (leaves 37-44 of the Internet Archive's scan
+       of the volume), and the second OCR of the same scan (the "all-about-tea-vol.-i-by-william-h.-
+       ukers-1935" item) was word-diffed against this one first, so that the rows are the places where
+       the two disagreed or where both are plainly wrong. Google's engine is very good on roman type:
+       over 5,700 words the faults are in ITALIC words, in FRACTIONS, in the footnote marks, in the
+       aspirate mark of the romanisation, and in the printed Chinese characters.
+       THE REAL-WORD ERRORS ARE THE ONES NO DICTIONARY WOULD CATCH: Part II's "five shengs, one tou,
+       two tous, or three tous" is read "five shengsy one ton, two torn, or three tons", every word of
+       which is English. The second OCR had it right and the page confirms it. Likewise 1⅓ and 2⅓ are
+       read 1% and 2% — and 10 shengs = 1 tou = 2.315 gallons, the digest's own note, puts the second
+       at 2⅓, not 2.6. A table of fractions is the only repair for these; none is guessed. */
+    fixes: [
+      ["“grass/’ 4#, as its radical part", "“grass,” as its radical part",
+       "the printed Chinese character for the grass radical, which the OCR reads as `4#` — illegible " +
+       "at the size it is printed, so it is left out and the sentence keeps its words"],
+      ["“tree,” *, as its radical part", "“tree,” as its radical part",
+       "the printed character for the tree radical (`*`), left out for the same reason"],
+      ["is the ch(a, *$, which is found in", "is the ch(a, which is found in",
+       "the printed character 茶 (`*$`), left out; the Chinese column carries it"],
+      ["is the t(u, *•£, which is found in", "is the t(u, which is found in",
+       "the printed character for t‘u (`*•£`), left out"],
+      ["under the name of kia, *§; k(u t‘u, yf].", "under the name of kia; k(u t‘u].",
+       "two printed characters (`*§`, `yf`), left out with their commas"],
+      ["it says: 'T'u is an all", "it says: ‘T'u is an all",
+       "the opening single quotation mark, set in ASCII by the OCR"],
+      ["called bitter ch'a .’ ”", "called bitter ch'a.’”",
+       "a printed character after ch‘a (read as `*##`), left out; the stray space with it"],
+      ["character cKa, it has", "character ch‘a, it has",
+       "the aspirate mark read as `K` — a lower-case c and a capital K, where the page has ch‘a"],
+      ["and cKuan instead", "and ch‘uan instead", "the same misreading, in ch‘uan"],
+      ["Ch‘un Chliu", "Ch‘un Ch‘iu",
+       "the aspirate read as `l` — Yen Tzu Ch‘un Ch‘iu; the second OCR reads `Chiu`, which is also wrong"],
+      ["Duke of Chfi,", "Duke of Ch‘i,",
+       "the aspirate read as `f`; the page reads “the Duke of Ch‘i”"],
+      [": uKia means bitter t‘u”", ": “Kia means bitter t‘u.”",
+       "the opening quotation mark read as `u`, and the full stop before the closing mark dropped"],
+      ["[a.d. 242-2831,", "[a.d. 242-283],",
+       "a closing bracket read as `1`, in Sun Hao’s dates; the second OCR reads it right"],
+      ["wTood", "wood", "a capital T inside a word, in the lacquered-wood sieve case (item 10)"],
+      ["five shengsy one ton , two torn, or three tons is made of bamboo.3 The tea",
+       "five shengs, one tou, two tous, or three tous is made of bamboo.⟦3⟧ The tea",
+       "FIVE ITALIC WORDS misread as English ones — see the note above — and footnote 3's mark"],
+      ["materia medica].1 The character", "materia medica].⟦1⟧ The character", "footnote 1's mark"],
+      ["is cooling.2 As a drink", "is cooling.⟦2⟧ As a drink", "footnote 2's mark"],
+      ["feet,4 having a handle", "feet,⟦4⟧ having a handle", "footnote 4's mark"],
+      ["fifty catties.5 A basket", "fifty catties.⟦5⟧ A basket", "footnote 5's mark"],
+      ["d. 1105 b.c.] ; G Yen Ying", "d. 1105 b.c.];⟦6⟧ Yen Ying",
+       "footnote 6's mark, read as a capital `G` and set after a stray space; the page puts it after " +
+       "the semicolon"],
+      ["by Shen Nung: 6 7 “To drink", "by Shen Nung:⟦7⟧ “To drink",
+       "footnote 7's mark, read as `6 7` — there is one mark on the page, and it is 7"],
+      ["called ch‘a 8 and what", "called ch‘a⟦8⟧ and what", "footnote 8's mark"],
+      ["1% pounds avoirdupois", "1⅓ pounds avoirdupois",
+       "the fraction one third, read as `%` — footnote 5, and a catty is a third over a pound"],
+      ["about 2% gallons", "about 2⅓ gallons", "the fraction one third, read as `%`, in item 12"],
+      ["shengs=l tou= 2.315 gallons", "shengs=1 tou=2.315 gallons", "an `l` for a `1`, and a stray space"],
+      ["3 Sheriff, a Chinese pint", "3 Sheng, a Chinese pint",
+       "an italic word read as `Sheriff`; the second OCR reads `Sheng`, as does the page"],
+      ["Kuo P‘o about a.d.\n\n350.", "Kuo P‘o about a.d. 350.",
+       "footnote 6 ends on a line of its own, which the OCR sets as a block of its own"],
+    ],
+
+    /* THE ASPIRATE MARK, AND THE PRINT'S TYPOGRAPHY, as rules because they are the same fault in dozens
+       of places: Wade-Giles ch‘a, t‘u, k‘ai is printed with a single opening quotation mark and the
+       OCR reads it as `(`, as an ASCII apostrophe, and in the italic words as `K`. The lookbehind is
+       what keeps this to Wade-Giles syllables: a letter that takes the aspirate, at the start of a
+       word, and a vowel after. The small capitals of A.D. and B.C. arrive in lower case; the ranges
+       the print sets with an en dash arrive with a hyphen; and the OCR sets a space before most
+       punctuation that the page does not. Every row must fire. */
+    reFixes: [
+      [/(?<=(?<![A-Za-z])(?:Ch|ch|Ts|ts|[KkPpTt]))[('](?=[aeiou])/g, "‘",
+       "the aspirate mark of the Wade-Giles romanisation, read as `(` or an ASCII apostrophe"],
+      [/\ba\.d\./g, "A.D.", "A.D., which the print sets in small capitals and the OCR in lower case"],
+      [/\bb\.c\./g, "B.C.", "B.C., likewise"],
+      [/(?<=\d)-(?=\d)/g, "–", "a range of years or figures, which the print sets with an en dash"],
+      [/(?<=B\.C\.)-(?=A\.D\.)/g, "–", "the en dash in `53 B.C.–A.D. 18`"],
+      [/ +(?=[;:,.\]])/g, "", "a space before punctuation or a closing bracket that the page does not set"],
+      [/ ?— ?/g, "—", "the em dash, which the page sets without spaces (`1.—A stove`, `frost—both`)"],
+    ],
+
+    about: [
+      "The Classic of Tea is the first book devoted to tea. Lu Yu, who lived from 733 to 804 under the " +
+        "Tang dynasty, composed it somewhere between about 760 and 780, when, as he says himself, drinking " +
+        "tea had become very popular. Most people still boiled it with onion, ginger and orange peel, " +
+        "which he called “the slop water of a ditch”. In ten short parts he describes where the " +
+        "plant grows and how to recognise a good leaf, the tools for picking it and pressing it into " +
+        "cakes, the twenty-four pieces of equipment for making a bowl of it, how to roast, grind and " +
+        "boil, how to tell the three stages of boiling water, and which cups are worth drinking; in the " +
+        "part about the past he gathers what earlier writers had said about tea, and in the last two " +
+        "he says which districts grow the best and which of the twenty-four implements a traveller can " +
+        "leave behind.",
+      "<b>This is a condensation, and it is not Lu Yu’s whole book.</b> Francis Ross Carpenter’s " +
+        "translation of 1974, and the newer ones, are all in copyright, so the English here is the " +
+        "“Translation Digest” that William H. Ukers published in 1935 in <i>All About Tea</i>. " +
+        "It covers all ten parts, in order, and follows a translation of a Ming copy in the library of " +
+        "the University of London made by Z. L. Yih, of the School of Oriental Studies, with Sir " +
+        "Edward Denison Ross’s help; but it is shorter than the Chinese, in places much shorter. In " +
+        "Part IV the stove’s inscriptions and the three trigrams on its sides are gone, and Part VII " +
+        "keeps only a selection of the quotations Lu Yu collects. Nothing has been added to Ukers’s " +
+        "text beyond the repair of the scan’s misreadings.",
+      "The square brackets are Ukers’s or the translator’s own explanations, as printed — a place, a " +
+        "date, a Chinese word glossed — and the numbered notes are Ukers’s footnotes. The longer " +
+        "quotations in Part VII, which the printed page sets in smaller type, are set apart. The " +
+        "book also prints twelve figures of the utensils, redrawn from the Ming copy; they are not " +
+        "reproduced here, and neither are the Chinese characters it prints inside its sentences, which " +
+        "are too small in the scan to read with confidence and which the Chinese column anyway supplies.",
+      "The Chinese beside it is the full text of each part, and it is <b>not the text Ukers’s translator " +
+        "worked from</b>. It is the transcription on Chinese Wikisource, typed and punctuated by " +
+        "volunteers, which does not name the edition it follows and is marked there as not yet checked " +
+        "against a scan; so wording will differ from the English in places, and the two columns line up " +
+        "only part by part. Lu Yu’s own small-print notes, which the English folds into its sentences, " +
+        "are set in 〔 〕 here. A few rare characters in the transcription need a font with the " +
+        "extended Chinese ranges and may show as boxes on some devices.",
+    ],
+
+    original: {
+      lang: "zh",
+      langName: "Chinese",
+      source: "wikitext",
+      layout: "chajing",
+      host: "zh.wikisource.org",
+      page: (n) => "茶經/" + CHAJING_ZH[n],
+      edition:
+        "The Chinese text of the Classic of Tea as transcribed on Chinese Wikisource, one page for each " +
+        "of the ten parts; the wiki does not name the edition it follows",
+      rights:
+        "Public domain worldwide: the Chinese text is an eighth-century work. The transcription is " +
+        "the volunteers’ of Chinese Wikisource, who typed and punctuated it (the pages carry the wiki’s " +
+        "public-domain tag and a quality mark of 25%, meaning not yet proofread against a scan), and it " +
+        "is shared on that wiki’s licence (CC BY-SA); credit is given by the source link.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://zh.wikisource.org/wiki/茶經",
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -26640,6 +26925,219 @@ function chapterTitle(n) {
   return BOOK.titleOf ? BOOK.titleOf(n) : BOOK.chapterWord + " " + n;
 }
 
+/* ============================================================
+   A DIGEST READ OFF A SCAN'S OCR, AND A CHINESE TEXT READ OFF A WIKI'S WIKITEXT     (layout: "chajing")
+   ============================================================
+   Oct 2026, adding the Classic of Tea. The first book whose English is a section of a printed
+   volume that holds a great deal else — it is pages 15-22 of a 700-page trade book, found by two
+   sentinel lines — and the first whose original is read from WIKITEXT rather than from rendered HTML.
+   Both are small (about 4,500 words of English, ten parts), so the design is the plainest one that
+   can be checked end to end, and what it settled is about the FURNITURE of a printed page.
+
+   THE ENGLISH IS BLOCKS, AND EVERY REPAIR IS A ROW AGAINST ONE LINE OF PROSE. The Internet Archive's OCR
+   keeps the printed line breaks and separates blocks with a blank line; the blocks are rebuilt as
+   single lines and joined with a blank line, and `correctRaw` runs over that text before anything else
+   looks at it. A `fixes` row is then written against the shape a reader meets, not the shape of a
+   page — and the one row that has to span two blocks (footnote 6, which the OCR sets on two) says so
+   with its own `\n\n`.
+
+   A BLOCK IS ONE OF FIVE THINGS, tried in this order: page furniture (the running heads, the page
+   number, the engine's "Digitized by" line — all matched on SHAPE, never on the OCR's spelling of
+   them, which differs on every page); a caption of a picture (declared, and each pattern must drop
+   exactly one block); a part heading; a footnote; or prose. A footnote is a block opening on its own
+   number AND the number the sequence expects, so a paragraph that happens to open on a figure is
+   not taken for one; the printed marks in the prose are written into the fixes as ⟦N⟧ and turned
+   into the reader's empty `<sup class="fn">` here, renumbered from 1 inside each part.
+
+   A PARAGRAPH THAT CROSSES A COLUMN OR A PAGE IS REJOINED ON A TEST WIDER THAN THE ANALECTS' ONE, AND IT
+   HAD TO BE. The narrow rule (the first ends on no sentence punctuation AND the second opens
+   lower-case) misses two shapes this page has: a block that continues in capitals because the next word
+   is a place name ("[Ch'ang" / "Te, a district in Hunan]") and one that continues inside a bracket ("your
+   uncle" / "[by becoming a high official …"; "When Huan Wen" / "[A.D. 312–373] was the governor"). So the
+   second condition is also met when the first leaves a bracket open or the next opens on one, and a
+   leading bracket or quotation mark is looked past. A bracketed paragraph after a heading is never
+   joined, there being nothing before it to join to. Every join is counted and
+   the count is the thing to compare with the page.
+   A LINE-END HYPHEN IS REMOVED EXCEPT WHERE THE WORD KEEPS ONE — `keepHyphens`, and a hyphen before a
+   capital ("Eastern- Han") — and the words it joined were checked against the English the rest of
+   the shelf already uses: the three that were not words are the three cases just named.
+
+   THE ORIGINAL IS READ FROM WIKITEXT because the wiki's rendered page buries each of Lu Yu's small-print
+   notes in a styled span and each rare character in a font template, while the source says `{{*|…}}`
+   and `{{僻字|…}}`. The notes are KEPT, in 〔 〕, because the translation folds them into its sentences
+   and a column without them would not be the text the English is translating; the rare-character
+   template is unwrapped to its character; a character the wiki could not type and shows as an image is
+   REPORTED and left out, never guessed. The typist's ASCII `,` and `.` between Chinese characters are
+   set as ， and 。 and the presentation form ︰ as ：, counted, because the page's own punctuation is
+   fullwidth everywhere else. The page is tagged 25% quality — typed, not proofread — and that is said in
+   the book's front matter and in its rights string rather than here alone. */
+function extractChajing(raw, BOOK, warn) {
+  const c = { furniture: 0, captions: 0, heads: 0, notes: 0, joins: 0, hyphens: 0, quotes: 0, marks: 0 };
+  /* The OCR sets two spaces between words and a space at some line ends; one space and a trimmed line
+     is the shape every pattern below is written against. */
+  raw = raw.replace(/\r/g, "").split("\n").map((l) => l.replace(/[ \t]+/g, " ").trim()).join("\n");
+  const starts = (raw.match(new RegExp(BOOK.begin.source, "gm")) || []).length;
+  if (starts !== 1)
+    throw new Error("the digest's opening line " + BOOK.begin + " occurs " + starts + " times in the scan's text, not once");
+  const tail = raw.slice(raw.search(BOOK.begin));
+  const stop = tail.search(BOOK.end);
+  if (stop < 0) throw new Error("the line that ends the digest, " + BOOK.end + ", is not in the scan's text after it");
+
+  const blocks = tail.slice(0, stop).split(/\n{2,}/)
+    .map((b) => b.split("\n").join(" ").trim())
+    .filter(Boolean);
+  const list = correctRaw(blocks.join("\n\n")).split("\n\n");
+
+  const furniture = /^(?:Digitized by\b.*|THE CH.?A CHING|CHINA AND THE CH.A CHING|ALL ABOUT TEA|\d{1,3})$/;
+  const dehyphen = (x) => x.replace(/([A-Za-z]+)- ([a-z]+)/g, (w, l, r) => {
+    if (BOOK.keepHyphens.includes((l + "-" + r).toLowerCase())) return l + "-" + r;
+    c.hyphens++;
+    return l + r;
+  }).replace(/([a-z])- ([A-Z])/g, (w, l, r) => { c.hyphens++; return l + "-" + r; });
+  const capHits = BOOK.captions.map(() => 0);
+  const notes = {};
+  let nextNote = 1, curN = 0, cur = null;
+  const parts = {};
+  for (const t of list) {
+    if (furniture.test(t)) { c.furniture++; continue; }
+    const ci = BOOK.captions.findIndex((rx) => rx.test(t));
+    if (ci >= 0) { capHits[ci]++; c.captions++; continue; }
+    const hm = /^Part ([IVX]+)\.—(.+)$/.exec(t);
+    if (hm) {
+      const n = CHAJING_ROMAN[hm[1]];
+      if (n !== curN + 1) warn("Part " + hm[1] + " follows part " + curN + " — the headings are out of order");
+      const title = hm[2].charAt(0).toUpperCase() + hm[2].slice(1);
+      if (title !== CHAJING_TITLES[n]) warn("Part " + n + " is headed “" + title + "”, not “" + CHAJING_TITLES[n] + "”");
+      curN = n; cur = parts[n] = []; c.heads++;
+      continue;
+    }
+    if (!cur) { warn("text before the first part heading: " + t.slice(0, 60)); continue; }
+    const fm = /^(\d{1,2}|i) (?=[A-Z])/.exec(t);
+    if (fm && (fm[1] === "i" ? 1 : +fm[1]) === nextNote) {
+      notes[nextNote] = dehyphen(t.slice(fm[0].length)); nextNote++; c.notes++;
+      continue;
+    }
+    const para = dehyphen(t);
+    const last = cur.length ? cur[cur.length - 1] : null;
+    if (last !== null) {
+      const open = !/[.!?:;”’\]]$/.test(last);
+      const lower = /^[\s\[“‘(]*[a-z]/.test(para);
+      const bracketed = para.startsWith("[");
+      const unclosed = (last.match(/\[/g) || []).length > (last.match(/\]/g) || []).length;
+      if (open && (lower || bracketed || unclosed)) {
+        cur[cur.length - 1] = last.endsWith("-") ? last.slice(0, -1) + para : last + " " + para;
+        c.joins++;
+        continue;
+      }
+    }
+    cur.push(para);
+  }
+  BOOK.captions.forEach((rx, i) => {
+    if (capHits[i] !== 1) warn("caption pattern " + rx + " dropped " + capHits[i] + " block(s), not one");
+  });
+
+  const text = (x) => x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const cites = {};
+  const quoteHits = BOOK.quoteStarts.map(() => 0);
+  const chapters = [];
+  for (let n = 1; n <= CHAJING_TITLES.length - 1; n++) {
+    const ps = parts[n];
+    if (!ps || !ps.length) { warn("part " + n + " is missing from the digest"); continue; }
+    const seen = [], map = {};
+    const body = ps.map((p) => {
+      const qi = BOOK.quoteStarts.findIndex((q) => p.startsWith(q));
+      const h = text(p).replace(/⟦(\d)⟧/g, (w, k) => {
+        if (!(k in notes)) { warn("part " + n + " cites a note " + k + " that is not printed"); return ""; }
+        cites[k] = (cites[k] || 0) + 1;
+        if (!map[k]) { seen.push(text(notes[k])); map[k] = seen.length; }
+        c.marks++;
+        return '<sup class="fn" data-fn="' + map[k] + '"></sup>';
+      });
+      if (qi >= 0) { quoteHits[qi]++; c.quotes++; return "<blockquote>\n<p>" + h + "</p>\n</blockquote>"; }
+      return "<p>" + h + "</p>";
+    });
+    chapters.push({
+      n: n, t: CHAJING_TITLES[n], notes: seen,
+      html: '<p><span class="bk-n" data-n="' + n + '">' + n + "</span></p>\n" + body.join("\n"),
+    });
+  }
+  BOOK.quoteStarts.forEach((q, i) => {
+    if (quoteHits[i] !== 1) warn("the extract opening “" + q + "” matched " + quoteHits[i] + " paragraph(s), not one");
+  });
+  for (const k of Object.keys(notes)) if (cites[k] !== 1) warn("footnote " + k + " is cited " + (cites[k] || 0) + " time(s), not once");
+  const left = (chapters.map((x) => x.html).join(" ").match(/⟦|\([a-z]|Digitized/g) || []).length;
+  if (left) warn(left + " stray ⟦, an opening bracket before a letter (an aspirate the rule missed) or “Digitized” left in the English");
+  return { chapters: chapters, counts: c };
+}
+
+/* A MediaWiki page's WIKITEXT, as the API serves it, with the revision it came from. Cached as served, so
+   the revision id and timestamp are in the cache beside the text. The wiki answers a fast walk with a
+   plain-text rate-limit notice, which fails the JSON parse and retries here — and for far longer than
+   `api` waits, because this wiki held it for two to three minutes on a ten-page walk. */
+async function fetchWikitext(page, host) {
+  const url = "https://" + host + "/w/api.php?action=query&prop=revisions&rvprop=content|timestamp|ids" +
+    "&rvslots=main&format=json&formatversion=2&titles=" + encodeURIComponent(page);
+  let last = "";
+  for (let a = 0; a < 8; a++) {
+    try {
+      const r = await fetch(url, { headers: { "User-Agent": UA, Accept: "application/json" } });
+      const txt = await r.text();
+      const pg = JSON.parse(txt).query.pages[0];
+      if (pg.missing || !pg.revisions) throw new Error("no such page");
+      return txt;
+    } catch (e) {
+      last = e.message;
+      await sleep(8000 + a * 12000);
+    }
+  }
+  throw new Error("could not fetch " + page + ": " + last);
+}
+
+/* One part of the Chinese, from its page's wikitext to the reader's paragraphs. See the block above
+   extractChajing for what each step is for. Returns the part's html, with the part marker at its head. */
+function chajingZhPart(json, n, warn, c) {
+  const rev = JSON.parse(json).query.pages[0].revisions[0];
+  let t = rev.slots.main.content;
+  const hs = t.search(/\{\{header\b/i);
+  if (hs < 0) throw new Error("part " + n + ": no header template to cut the body after");
+  let depth = 0, i = hs;
+  while (i < t.length) {
+    if (t.startsWith("{{", i)) { depth++; i += 2; }
+    else if (t.startsWith("}}", i)) { depth--; i += 2; if (depth === 0) break; }
+    else i++;
+  }
+  t = t.slice(i);
+  const end = t.search(/\{\{(?:PD-old|footer)\b/i);
+  if (end >= 0) t = t.slice(0, end);
+
+  t = t.replace(/\{\{僻字\|([^{}|]*)\}\}/g, (w, ch) => { c.rare++; return ch; });
+  t = t.replace(/\[\[File:([^\]|]*)[^\]]*\]\]/g, (w, f) => {
+    c.images++;
+    warn("part " + n + ": an image of a character the wiki could not type (" + f + ") is left out");
+    return "";
+  });
+  t = t.replace(/\{\{\*\|([^{}]*)\}\}/g, (w, note) => { c.notes++; return "〔" + note + "〕"; });
+  const markup = t.match(/.{0,12}(?:\{\{|\}\}|\[\[|\]\]).{0,12}/);
+  if (markup) warn("part " + n + ": wiki markup is left in the text: " + markup[0]);
+  t = t.replace(/<br\s*\/?>/gi, "\n");
+  t = t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  t = t.replace(/'''([^'\n]+?)'''/g, "<b>$1</b>");
+  t = t.replace(/'/g, () => { c.stray++; return ""; });
+  t = t.replace(/︰/g, () => { c.forms++; return "："; });
+  const isHan = (ch) => ch !== undefined && /[\p{Script=Han}〔〕「」『』《》（）、，。：；？！]/u.test(ch);
+  t = t.replace(/[,.;:?!]/g, (m, off, str) => {
+    const prev = [...str.slice(Math.max(0, off - 2), off)].pop();
+    if (!isHan(prev) && !isHan(str[off + 1])) return m;
+    c.punct++;
+    return { ",": "，", ".": "。", ";": "；", ":": "：", "?": "？", "!": "！" }[m];
+  });
+  t = t.replace(/[ \t　]+/g, () => { c.spaces++; return ""; });
+  const ps = t.split("\n").map((l) => l.trim()).filter(Boolean).map((l) => "<p>" + l + "</p>");
+  if (!ps.length) throw new Error("part " + n + " came back empty");
+  c.ts[n] = rev.timestamp;
+  return '<p><span class="bk-n" data-n="' + n + '">' + n + "</span></p>\n" + ps.join("\n");
+}
+
 async function fetchEnglish() {
   /* A book with no `translator` is not a gap in its entry — it is a book that was written in English
      and has nobody standing between the reader and the author. Le Morte d'Arthur is the first, so the
@@ -27279,6 +27777,27 @@ async function fetchEnglish() {
       if (b.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + b.n + " came back short (" + b.html.length + " chars)");
       chapters.push({ n: b.n, t: titles[b.n] || chapterTitle(b.n), p: partOf(b.n), html: b.html, notes: b.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  if (BOOK.layout === "chajing") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-text.txt");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractChajing(raw, BOOK, warn);
+    const c = got.counts;
+    console.log("  " + got.chapters.length + " parts; dropped " + c.furniture + " running head / page number / " +
+      "scan-credit line(s) and " + c.captions + " picture caption(s); " + c.notes + " footnotes, " + c.marks +
+      " marker(s); " + c.joins + " paragraph(s) rejoined across a column or page; " + c.hyphens +
+      " line-end hyphen(s) removed; " + c.quotes + " extract(s) set as block quotations");
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
     });
     return writeEnglish(chapters, warnings);
   }
@@ -28169,6 +28688,29 @@ async function fetchOriginal() {
       }
       if (rec.orig) byNum[n] = rec.orig;
     }
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* THE CLASSIC OF TEA'S CHINESE — one wiki page per part, read as WIKITEXT and cached as the API served
+     it (revision id and timestamp inside), so a re-extract needs no network and --force refetches. */
+  if (O.source === "wikitext" && O.layout === "chajing") {
+    console.log("\nFetching the " + O.langName + " original — " + O.edition);
+    const zdir = path.join(CACHE, O.lang);
+    fs.mkdirSync(zdir, { recursive: true });
+    const c = { rare: 0, images: 0, notes: 0, stray: 0, forms: 0, punct: 0, spaces: 0, ts: {} };
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const cf = path.join(zdir, "part-" + n + ".json");
+      let json;
+      if (!FORCE && fs.existsSync(cf)) json = fs.readFileSync(cf, "utf8");
+      else { json = await fetchWikitext(O.page(n), O.host); fs.writeFileSync(cf, json); await sleep(2500); }
+      byNum[n] = chajingZhPart(json, n, warn, c);
+    }
+    console.log("  " + Object.keys(byNum).length + " parts; " + c.notes + " small-print notes set in 〔 〕, " + c.rare +
+      " rare-character template(s) unwrapped, " + c.images + " image(s) of a character left out, " + c.punct +
+      " ASCII punctuation mark(s) set fullwidth, " + c.forms + " presentation-form colon(s), " + c.stray +
+      " stray apostrophe(s), " + c.spaces + " space(s) between characters removed");
+    console.log("  revisions read: " + Object.keys(c.ts).map((k) => k + ": " + c.ts[k].slice(0, 10)).join(", "));
     return writeOriginal(byNum, warnings);
   }
 

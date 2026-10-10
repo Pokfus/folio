@@ -2413,3 +2413,38 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
 - Fetching: the API rate-limited a fresh walk hard (Oct 2026). The cache was primed by a slow loop
   with long backoff; `action=render` answers when `api.php` will not, but returns Parsoid markup,
   which this extractor was not written against.
+
+## The `chajing` layout — a digest read off a scan's OCR, beside a Chinese text read off wikitext (Oct 2026, the Classic of Tea)
+
+`extractChajing` / `fetchWikitext` / `chajingZhPart`; the English is pages 15–22 of one 700-page OCR text file
+(cached as `.claude/book-cache/classic-of-tea/en-text.txt`), the Chinese ten wiki pages cached as served
+(`…/zh/part-N.json`, revision id and timestamp inside). The book-level findings are in
+`docs/library-books.md`; what is worth carrying to the next book read this way:
+
+- **Find a section of a volume by two sentinel lines and assert both**: the digest's heading must occur exactly
+  once in the whole OCR and the next chapter's heading after it. A slice that began or ended somewhere else
+  would still look like a book.
+- **Normalise the whitespace before any pattern runs.** Google's OCR sets two spaces between words; a sentinel
+  written for one space matches nothing and the run says "occurs 0 times". Then rebuild each block as one line
+  and apply `correctRaw` to the joined text, so a `fixes` row is written against a line of prose; the one row
+  that must span two blocks says so with `\n\n`.
+- **Match page furniture on SHAPE** (running head, page number, the engine's credit line), declare picture
+  captions and assert each pattern drops exactly one block, and take a footnote only where its number is the
+  one the sequence expects. Footnote marks are written into the `fixes` as `⟦N⟧` and turned into the reader's
+  empty `<sup class="fn">` per part.
+- **A paragraph that crosses a column or page is rejoined when the first leaves a bracket open or the next
+  opens on one**, as well as on the narrow no-punctuation / lower-case test. Compare the printed count of turns.
+- **Fractions, italic words and footnote marks are where an OCR is wrong in this shelf's books**, and a
+  dictionary sweep finds none of them. Word-diff against a second OCR run of the same scan, then read each
+  disagreement against the page image (`archive.org/download/<id>/page/n<leaf>_w1600.jpg`; the leaf number is
+  the printed page plus an offset read from `<id>_scandata.xml`). A scan of a page of Chinese characters
+  printed inside English may be too small to read; leave the characters out and count them.
+- **Read wikitext, not rendered HTML, when the source marks structure with templates**: `{{*|…}}` notes,
+  `{{僻字|…}}` rare characters and `<br>` lines are one-token rules in the source and a nest of styled spans
+  after rendering. Cut the body after the header template by balanced braces. A character the wiki shows as
+  an image is reported and left out. The wiki rate-limits a ten-page walk for minutes: `fetchWikitext` waits
+  8 s + 12 s per attempt, up to eight attempts, and the cache makes a re-run free.
+- **Measure an unproofread transcription against a proofread one on the same wiki** and say what the number
+  means: here 482 runs over 6,889 characters, most of them variant forms.
+- Re-run after touching: `node .claude/fetch-book.js classic-of-tea` (English, then Chinese; both read the
+  cache), `node .claude/test-library.js` (33 `[classic-of-tea]` checks) and `node .claude/check-pairing.js`.

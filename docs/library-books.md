@@ -12,7 +12,70 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty-nine:
+  matter (chapter 0 — see the Library bullet). Currently fifty:
+  `classic-of-tea` (~34 KB English, ~13 KB Chinese, all ten parts, **8 notes**, original **Chinese** — Lu Yu's
+  *Cha Jing* in **a condensation**: the "Translation Digest of Ch'a Ching" William H. Ukers printed in *All
+  About Tea* (1935), pp. 15–22, from a translation of a Ming copy by Z. L. Yih; `layout: "chajing"` →
+  `extractChajing` / `fetchWikitext` / `chajingZhPart`; the Chinese is Chinese Wikisource's wikitext). **The
+  shelf's first book from a SECTION of a larger printed volume and its first original read from wikitext.**
+  Eight things it settled.
+  · **THE ONLY FREE ENGLISH IS A DIGEST, and the book says so on its first page.** Carpenter's 1974
+  translation and Wu and Blishen's 2017 reader are in copyright; English Wikisource, Project Gutenberg and
+  the Internet Archive hold no other English text (searched Oct 2026 under five spellings). Ukers's digest
+  covers all ten parts and is shorter than the Chinese, in places much shorter — Part IV's stove loses its
+  inscriptions and three trigrams, Part VII keeps a selection of the quotations. It is *Journey to the West*'s
+  judgement again: ship the one candidate the shelf's own bar leaves and say what it is, with the complete
+  Chinese beside it. The shelf banner's "Whole books, not extracts … complete" is now untrue of three books
+  (this, the Journey, the Classic of Poetry's 102 of 305); the banner was left alone.
+  · **PUBLIC DOMAIN BY NON-RENEWAL, WHICH IS THE FIRST TIME**, so the ground was shown rather than read off a
+  date: a 1935 US book needed renewing in 1962–63; the *Catalog of Copyright Entries* Books volumes for all of
+  1962, 1963 and 1964 (the Internet Archive's OCR) were searched for "All About Tea", "Ukers" and the
+  publisher and hold no renewal (the one Ukers entry is a new registration of a different work, the 1962–63
+  *Buyers' Guide*). **The method's limit is the OCR's**, and `rights` says "lists no renewal" and not "was
+  never renewed". Ukers (1873–1945) is given identically by three authority files; **Yih's dates are not known**,
+  so nothing is claimed for countries that count a term from a translator's death.
+  · **THE OCR'S FAULTS WERE IN ITALIC WORDS, FRACTIONS AND FOOTNOTE MARKS, none of which a dictionary sees.**
+  Part II's "five *shengs*, one *tou*, two *tous*, or three *tous*" is read "ton … torn … tons", every word
+  English; ⅓ is read `%` twice (and 10 shengs = 1 tou = 2.315 gallons puts the second at 2⅓, not 2.6). Found by
+  word-diffing the scan against a second OCR run of the same scan (5,700 words; about a dozen differences that
+  were not the second run's own noise) and reading every one against the page image, and by reading all eight pages. **A second OCR of ONE scan is a
+  prompt and not a witness**: each run had faults the other did not, and the diff found the places to look.
+  The Chinese characters Ukers prints inside his sentences (the radicals, ch'a 茶 and t'u) are too small and
+  blurred in the scan to read, so they are LEFT OUT and counted (6 rows), never guessed; the Chinese column
+  carries the characters.
+  · **A PARAGRAPH CROSSES A COLUMN OR PAGE IN THREE SHAPES, and the Analects' narrow rejoin test saw one.** A
+  place name opens the continuation in capitals ("[Ch'ang" / "Te, a district in Hunan]"); the continuation
+  opens on a bracket ("your uncle" / "[by becoming a high official …"); and the converted "A.D." is capital
+  ("When Huan Wen" / "[A.D. 312–373] …"). 13 joins, each one a column or page turn. Line-end hyphens: 68
+  removed; the three joins that were not words are `Eastern-Han` and `sweetish-bitter` (kept) and `goosefoot`
+  (joined).
+  · **THE CHINESE IS TYPED, NOT PROOFREAD** — each page is tagged 25% quality and names no edition. Read as
+  wikitext: Lu Yu's 50 small-print notes are `{{*|…}}` and are KEPT in 〔 〕, because the digest folds them into
+  its sentences; 7 rare-character templates are unwrapped; **1 character the wiki shows as an image is left
+  out and reported (never filled in)**; 9 ASCII punctuation marks between characters, 13 presentation-form
+  colons and 1 stray apostrophe are set right and counted. **Measured against the proofread Siku Quanshu text
+  on the same wiki**: 482 differing runs over 6,889 characters, of which 265 are 55 recurring variant-form
+  swaps (爲/為, 黃/黄, 煮/煑 …) and the other 137 one-off swaps were read in full — variant forms, or readings
+  where the Siku copy is the odd one — and none was a typing error on the wiki's side that could be found. The
+  Siku copy is a different recension (Part IV's stove reads 「聖唐年號某年鑄」 where the typing has 「聖唐滅胡明年鑄」),
+  so it is a measure and not a source. Project Gutenberg's 茶經 (#7406) was looked at and rejected: no notes,
+  `<艸設>` placeholders, and runs that are not text (「惟琤峈怢峞C規」 for 「惟恒用者佳。規」).
+  · **THE PAIRING IS THE PART AND NOTHING FINER**: `sections: "whole"`, one `bk-n` per part, the Canterbury
+  Tales' answer — neither side numbers anything inside a part. A part with the English at a tenth of the
+  Chinese's length is a coarse join and a true one. `check-pairing.js` reports it with no part unpaired.
+  · **WHAT UKERS PRINTED THAT IS NOT TAKEN**: his bracketed summary of the ten parts (p. 14), the twelve
+  figures of utensils on pp. 16–18 with their Chinese titles, and the engraving on p. 15 — pictures — and
+  the rest of his chapter, which is history of the work. His footnotes are taken. The type size marks
+  eleven long extracts in Part VII, which are set as block quotations; the shorter ones are paragraphs.
+  The italic of the print is not carried (OCR text has none), so the Chinese titles in roman.
+  · **ITS COLOUR AND ITS GLOSSARY LINKS were measured, not chosen.** `"Lu Yu": "#96009F"` is the magenta the
+  Macbeth row set aside on the Euripides test (19.5 from Euripides) — nothing like that applies to a book
+  about tea — and **a tea green was measured and refused** (best green 15.8, teal 15.1, olive 15.7, against a
+  floor of 16.6). `glossOff` removes seven links the auto-linker made wrongly (Digest of Roman law on
+  "Translation Digest", the Yuan, Shang and Zhou dynasties on place names, the emperor Yao on Wei Yao, two
+  Liu and Wu rulers of other dynasties on a nephew and an emperor of the Southern Ch'i) after a headless
+  sweep of every `.ttip`; Shen Nung, the Duke of Chou, Sun Hao, Huan Wen, Confucius and the Odes link rightly.
+  Re-run it after a batch of glossary terms.
   `macbeth` (~206 KB, all 5 acts, **484 notes**, no original — Shakespeare's own English in the
   Yale Shakespeare of 1918, ed. Charlton M. Lewis, **the first play here in English and the first
   page of VERSE with its own line numbers**; `layout: "yale"` → `extractYale` / `yaleEndnotes` /
