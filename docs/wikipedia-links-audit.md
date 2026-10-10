@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4564 | the title is the article |
+| `ok` | 4567 | the title is the article |
 | `redirect-variant` | 299 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 69 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 92 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 601 | nothing matched; no link |
+| `none` | 603 | nothing matched; no link |
 
-**5333 of 6163 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5336 of 6168 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -765,7 +765,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (601)
+## No article found (603)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -925,6 +925,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-007` **Crisis of authority** — search suggests `Organic crisis`, `Cuban Missile Crisis`, `Martin Gurri`, `2008 financial crisis`, `AlMaghrib Institute`
 - `gga-008` **Post-unipolar world** — search suggests `New world order (politics)`, `Polarity (international relations)`, `Post–Cold War era`, `Major depressive disorder`, `Estonia`
 - `gga-009` **Five superpowers** — search suggests `Superpower`, `Alisa Xayalith`, `Founder mode`, `Hi-Five (film)`, `American Century`
+- `gga-012` **Cold War mentality** — search suggests `Mindset`, `Cold war (term)`, `Li Qiang`, `Communist Party USA`, `AUKUS`
+- `gga-015` **South-South trade** — search suggests `Congress of South African Trade Unions`, `South–South cooperation`, `South Asian Association for Regional Cooperation`, `Japan–South Korea trade dispute`, `Global North and Global South`
 - `gga-016` **Weaponisation of everything** — search suggests `Mark Galeotti`, `Battlespace`, `Beetle`, `Media coverage of the Gaza war`, `Jawaharlal Nehru`
 - `gga-017` **Mutually assured economic pain** — search suggests `Economic impact of the 2026 Iran war`, `Workers' compensation`, `The Theory of Moral Sentiments`, `Harriet Taylor Mill`, `George C. Homans`
 - `gga-026` **Explosion of connectivity** — search suggests `2007 New York City steam explosion`, `Paraconsistent logic`, `2026 Internet blackout in Iran`, `2026 Iran war`, `List of Amazon Leo launches`

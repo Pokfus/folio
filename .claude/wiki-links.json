@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-10T14:27Z",
+ "generated": "2026-10-10T14:29Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4564,
+  "ok": 4567,
   "redirect-broader": 396,
   "redirect-variant": 299,
   "section-redirect": 92,
   "disambiguation": 127,
-  "none": 601,
+  "none": 603,
   "disambig-resolved": 69,
   "list-page": 6,
   "search-match": 5,
@@ -49088,6 +49088,55 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Anti-colonialism"
+  },
+  "gga-011": {
+   "answer": "Shanghai Cooperation Organisation",
+   "title": "Shanghai Cooperation Organisation",
+   "url": "https://en.wikipedia.org/wiki/Shanghai_Cooperation_Organisation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-012": {
+   "answer": "Cold War mentality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mindset",
+    "Cold war (term)",
+    "Li Qiang",
+    "Communist Party USA",
+    "AUKUS"
+   ]
+  },
+  "gga-013": {
+   "answer": "Demographic transition",
+   "title": "Demographic transition",
+   "url": "https://en.wikipedia.org/wiki/Demographic_transition",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-014": {
+   "answer": "Convergence clubs",
+   "title": "Convergence clubs",
+   "url": "https://en.wikipedia.org/wiki/Convergence_clubs",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-015": {
+   "answer": "South-South trade",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Congress of South African Trade Unions",
+    "South–South cooperation",
+    "South Asian Association for Regional Cooperation",
+    "Japan–South Korea trade dispute",
+    "Global North and Global South"
+   ]
   }
  }
 }
