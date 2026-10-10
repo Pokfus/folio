@@ -2534,7 +2534,9 @@ candidate slide and the reach are taken over the on-screen vertices and stop at 
 screen keeps the margin box. (2) **The phone rail is two lines**: at 390 px one line with 44 px targets squeezed the track to
 about 85 px for twelve thousand years and pushed the speed select past the edge; the row now wraps — ‹ track › above, then
 the year field, play and speed — and `--atlas2-rail-h` on a phone is 104 px, so the card, the sheets, the caption and the
-mode note step up with it. Checked in the same pass and found sound: the fills stop at the tile coast with no sea tint and no
+mode note step up with it; a phone on its side (the 844×390 audit view, under 300 px of atlas) keeps one line of 56 px, the
+rail stopping 68 px short of the right edge where the control stack reaches the bottom — two lines there put the ? button
+under the rail and left the label layout no free cell (the phone suite's landscape context never settled). Checked in the same pass and found sound: the fills stop at the tile coast with no sea tint and no
 plain-land gap at any of the fifteen views; the contested Etruria–Rome face hatches at 500 BCE and the Ptolemaic gap draws
 plain land with the caption at 323 BCE; no label sits under a control or reads upside down; the three themes keep their own
 land, sea and ink (the first series had all three alike — the probe set the theme before the app booted and the app's

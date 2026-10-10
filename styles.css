@@ -10813,8 +10813,21 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 /* a phone on its side (the 844×390 audit): the atlas is under 300 px tall and the rule above left the up sheet 96 px — a title
    and no body. There the up sheet takes the height below the search box and the zoom stack steps out from under it */
 @media (orientation: landscape) and (max-height: 500px){
-  .atlas2-phone .atlas2-card{max-height:calc(100% - 68px);}
+  .atlas2-phone .atlas2-card{max-height:calc(100% - 68px - var(--atlas2-rail-h, 56px) - 12px);}
   .atlas2-phone.atlas2-card-up .atlas2-zoom{display:none;}
+  /* Phase 2a: the rail is one line again on a phone on its side (844 px holds it; two lines put the ? button under the rail),
+     and it stops 68 px short of the right edge, where the control stack (search, zoom, home, legend, ?) reaches the bottom */
+  .atlas2-phone .atlas2-rail-row{flex-wrap:nowrap;}
+  .atlas2-phone .atlas2-rail-track{flex:1 1 auto;}
+  .atlas2-phone .atlas2-rail-year{flex:none;}
+  .atlas2-phone{--atlas2-rail-h:56px;}   /* 5 + 44 + 5 + the border */
+  .atlas2-phone .atlas2-rail, .atlas2-phone.atlas2-has-card .atlas2-rail{right:calc(68px + env(safe-area-inset-right));}
+  /* the legend chip sits in a flex column 32 px tall here (top 168, bottom 24 + the rail, in a 280 px atlas) and shrank to it:
+     a button never shrinks; the About sheet is bounded by the atlas height less the search box and the rail (42vh ran 8 px
+     under the search box); the zoom stack steps out while any card is open (the shut strip alone covers it — pinch zooms) */
+  .atlas2-phone .atlas2-layers-btn, .atlas2-phone .atlas2-about-btn{flex:none;}
+  .atlas2-phone .atlas2-help .atlas2-about{max-height:calc(var(--atlas2-h, 100vh) - 68px - var(--atlas2-rail-h, 56px) - 24px);}
+  .atlas2-phone.atlas2-has-card .atlas2-zoom{display:none;}
 }
 /* a desktop with the card column open and under about 900 px (a tablet): the search box yields to the zoom stack the column pushed left */
 .atlas2-has-card .atlas2-search{width:min(300px, calc(100% - 486px));}
