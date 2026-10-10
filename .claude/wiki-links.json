@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-10T15:34Z",
+ "generated": "2026-10-10T15:41Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4632,
-  "redirect-broader": 412,
-  "redirect-variant": 304,
-  "section-redirect": 96,
-  "disambiguation": 132,
-  "none": 749,
-  "disambig-resolved": 70,
+  "ok": 4713,
+  "redirect-broader": 424,
+  "redirect-variant": 318,
+  "section-redirect": 97,
+  "disambiguation": 135,
+  "none": 756,
+  "disambig-resolved": 72,
   "list-page": 6,
   "search-match": 6,
   "no-article": 3
@@ -48631,6 +48631,951 @@
    "url": "https://en.wikipedia.org/wiki/Four_occupations",
    "via": "glossary",
    "status": "ok"
+  },
+  "pea-141": {
+   "answer": "Chiang Ching-kuo",
+   "title": "Chiang Ching-kuo",
+   "url": "https://en.wikipedia.org/wiki/Chiang_Ching-kuo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-142": {
+   "answer": "Lee Teng-hui",
+   "title": "Lee Teng-hui",
+   "url": "https://en.wikipedia.org/wiki/Lee_Teng-hui",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-143": {
+   "answer": "Wild Lily movement",
+   "title": "Wild Lily student movement",
+   "url": "https://en.wikipedia.org/wiki/Wild_Lily_student_movement",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-144": {
+   "answer": "Third Taiwan Strait Crisis",
+   "title": "Third Taiwan Strait Crisis",
+   "url": "https://en.wikipedia.org/wiki/Third_Taiwan_Strait_Crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-145": {
+   "answer": "Taiwanisation",
+   "title": "Taiwanization",
+   "url": "https://en.wikipedia.org/wiki/Taiwanization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Taiwanisation"
+  },
+  "pea-101": {
+   "answer": "Juche",
+   "title": "Juche",
+   "url": "https://en.wikipedia.org/wiki/Juche",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-102": {
+   "answer": "Songbun",
+   "title": "Songbun",
+   "url": "https://en.wikipedia.org/wiki/Songbun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-103": {
+   "answer": "Songun",
+   "title": "Songun",
+   "url": "https://en.wikipedia.org/wiki/Songun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-104": {
+   "answer": "Kim Il-sung",
+   "title": "Kim Il Sung",
+   "url": "https://en.wikipedia.org/wiki/Kim_Il_Sung",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kim Il-sung"
+  },
+  "pea-105": {
+   "answer": "Kim Jong-il",
+   "title": "Kim Jong Il",
+   "url": "https://en.wikipedia.org/wiki/Kim_Jong_Il",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kim Jong-il"
+  },
+  "pea-146": {
+   "answer": "Guoyu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Guoyu",
+   "suggestions": [
+    "Guoyu (book)",
+    "Guoyu (name)"
+   ]
+  },
+  "pea-147": {
+   "answer": "Benshengren",
+   "title": "Benshengren",
+   "url": "https://en.wikipedia.org/wiki/Benshengren",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-148": {
+   "answer": "Waishengren",
+   "title": "Waishengren",
+   "url": "https://en.wikipedia.org/wiki/Waishengren",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-149": {
+   "answer": "Pan-Blue Coalition",
+   "title": "Pan-Blue Coalition",
+   "url": "https://en.wikipedia.org/wiki/Pan-Blue_Coalition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-150": {
+   "answer": "Pan-Green Coalition",
+   "title": "Pan-Green Coalition",
+   "url": "https://en.wikipedia.org/wiki/Pan-Green_Coalition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-111": {
+   "answer": "Kotjebi",
+   "title": "Kotjebi",
+   "url": "https://en.wikipedia.org/wiki/Kotjebi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-112": {
+   "answer": "Jangmadang",
+   "title": "Jangmadang",
+   "url": "https://en.wikipedia.org/wiki/Jangmadang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-113": {
+   "answer": "Public Distribution System",
+   "title": "Public Distribution System (India)",
+   "url": "https://en.wikipedia.org/wiki/Public_Distribution_System_(India)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Public Distribution System"
+  },
+  "pea-114": {
+   "answer": "Workers' Party of Korea",
+   "title": "Workers' Party of Korea",
+   "url": "https://en.wikipedia.org/wiki/Workers'_Party_of_Korea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-115": {
+   "answer": "Korean People's Army",
+   "title": "Korean People's Army",
+   "url": "https://en.wikipedia.org/wiki/Korean_People's_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-116": {
+   "answer": "National Defence Commission",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "National Defense Commission",
+   "suggestions": []
+  },
+  "pea-117": {
+   "answer": "State Affairs Commission",
+   "title": "State Affairs Commission of North Korea",
+   "url": "https://en.wikipedia.org/wiki/State_Affairs_Commission_of_North_Korea",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "State Affairs Commission"
+  },
+  "pea-118": {
+   "answer": "Ten Principles for the Establishment of a Monolithic Ideological System",
+   "title": "Ten Principles for the Establishment of a Monolithic Ideological System",
+   "url": "https://en.wikipedia.org/wiki/Ten_Principles_for_the_Establishment_of_a_Monolithic_Ideological_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-119": {
+   "answer": "Sadae",
+   "title": "Sadae",
+   "url": "https://en.wikipedia.org/wiki/Sadae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-120": {
+   "answer": "Six-Party Talks",
+   "title": "Six-party talks",
+   "url": "https://en.wikipedia.org/wiki/Six-party_talks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-131": {
+   "answer": "Republic of China",
+   "title": "Republic of China (1912–1949)",
+   "url": "https://en.wikipedia.org/wiki/Republic_of_China_(1912%E2%80%931949)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-132": {
+   "answer": "Sun Yat-sen",
+   "title": "Sun Yat-sen",
+   "url": "https://en.wikipedia.org/wiki/Sun_Yat-sen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-133": {
+   "answer": "One China principle",
+   "title": "One China principle",
+   "url": "https://en.wikipedia.org/wiki/One_China_principle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-134": {
+   "answer": "One China policy",
+   "title": "One China",
+   "url": "https://en.wikipedia.org/wiki/One_China",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "One China policy"
+  },
+  "pea-135": {
+   "answer": "UN General Assembly Resolution 2758",
+   "title": "United Nations General Assembly Resolution 2758 (XXVI)",
+   "url": "https://en.wikipedia.org/wiki/United_Nations_General_Assembly_Resolution_2758_(XXVI)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "UN General Assembly Resolution 2758"
+  },
+  "pea-136": {
+   "answer": "February 28 Incident",
+   "title": "February 28 incident",
+   "url": "https://en.wikipedia.org/wiki/February_28_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-137": {
+   "answer": "White Terror",
+   "title": "White Terror (Taiwan)",
+   "url": "https://en.wikipedia.org/wiki/White_Terror_(Taiwan)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-138": {
+   "answer": "Martial law in Taiwan",
+   "title": "Martial law in Taiwan",
+   "url": "https://en.wikipedia.org/wiki/Martial_law_in_Taiwan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-139": {
+   "answer": "Green Island",
+   "title": "Green Island, Taiwan",
+   "url": "https://en.wikipedia.org/wiki/Green_Island,_Taiwan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-140": {
+   "answer": "Chiang Kai-shek",
+   "title": "Chiang Kai-shek",
+   "url": "https://en.wikipedia.org/wiki/Chiang_Kai-shek",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-151": {
+   "answer": "Kuomintang",
+   "title": "Kuomintang",
+   "url": "https://en.wikipedia.org/wiki/Kuomintang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-152": {
+   "answer": "Democratic Progressive Party",
+   "title": "Democratic Progressive Party",
+   "url": "https://en.wikipedia.org/wiki/Democratic_Progressive_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-153": {
+   "answer": "Ma Ying-jeou",
+   "title": "Ma Ying-jeou",
+   "url": "https://en.wikipedia.org/wiki/Ma_Ying-jeou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-154": {
+   "answer": "Cross-Strait Service Trade Agreement",
+   "title": "Cross-Strait Service Trade Agreement",
+   "url": "https://en.wikipedia.org/wiki/Cross-Strait_Service_Trade_Agreement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-155": {
+   "answer": "Sunflower Movement",
+   "title": "Sunflower Student Movement",
+   "url": "https://en.wikipedia.org/wiki/Sunflower_Student_Movement",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Sunflower Movement"
+  },
+  "pea-106": {
+   "answer": "Kim Jong-un",
+   "title": "Kim Jong Un",
+   "url": "https://en.wikipedia.org/wiki/Kim_Jong_Un",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kim Jong-un"
+  },
+  "pea-107": {
+   "answer": "Inminban",
+   "title": "Inminban",
+   "url": "https://en.wikipedia.org/wiki/Inminban",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-108": {
+   "answer": "Kwan-li-so",
+   "title": "Kwanliso",
+   "url": "https://en.wikipedia.org/wiki/Kwanliso",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-109": {
+   "answer": "Kyo-hwa-so",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Song Hye-kyo",
+    "Committee for Human Rights in North Korea",
+    "The Glory (TV series)",
+    "Descendants of the Sun",
+    "Ella Gross"
+   ]
+  },
+  "pea-110": {
+   "answer": "Arduous March",
+   "title": "1990s North Korean famine",
+   "url": "https://en.wikipedia.org/wiki/1990s_North_Korean_famine",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Arduous March"
+  },
+  "pea-126": {
+   "answer": "Hereditary succession",
+   "title": "Order of succession",
+   "url": "https://en.wikipedia.org/wiki/Order_of_succession",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Hereditary succession"
+  },
+  "pea-127": {
+   "answer": "Law on the Elimination of Reactionary Thought and Culture",
+   "title": "Law on Rejecting Reactionary Ideology and Culture",
+   "url": "https://en.wikipedia.org/wiki/Law_on_Rejecting_Reactionary_Ideology_and_Culture",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-128": {
+   "answer": "North Korean nuclear programme",
+   "title": "North Korea and weapons of mass destruction",
+   "url": "https://en.wikipedia.org/wiki/North_Korea_and_weapons_of_mass_destruction",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "North Korean nuclear program"
+  },
+  "pea-130": {
+   "answer": "Jang Song-thaek",
+   "title": "Jang Song-thaek",
+   "url": "https://en.wikipedia.org/wiki/Jang_Song-thaek",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-129": {
+   "answer": "Great Leader",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Great Leader",
+   "suggestions": [
+    "Great Leader (concept)"
+   ]
+  },
+  "pea-121": {
+   "answer": "Great Fatherland Liberation War",
+   "title": "Korean War",
+   "url": "https://en.wikipedia.org/wiki/Korean_War",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Great Fatherland Liberation War"
+  },
+  "pea-122": {
+   "answer": "Totalitarianism",
+   "title": "Totalitarianism",
+   "url": "https://en.wikipedia.org/wiki/Totalitarianism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-123": {
+   "answer": "Organisational life",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "China",
+    "Organization of the Chinese Communist Party",
+    "Republic of China (1912–1949)",
+    "Wufu",
+    "Democracy in China"
+   ]
+  },
+  "pea-125": {
+   "answer": "Historical materialism",
+   "title": "Historical materialism",
+   "url": "https://en.wikipedia.org/wiki/Historical_materialism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-124": {
+   "answer": "Yodok",
+   "title": "Yodok County",
+   "url": "https://en.wikipedia.org/wiki/Yodok_County",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Yodok"
+  },
+  "pea-156": {
+   "answer": "Tsai Ing-wen",
+   "title": "Tsai Ing-wen",
+   "url": "https://en.wikipedia.org/wiki/Tsai_Ing-wen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-158": {
+   "answer": "Chen Shui-bian",
+   "title": "Chen Shui-bian",
+   "url": "https://en.wikipedia.org/wiki/Chen_Shui-bian",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-159": {
+   "answer": "Taiwanese indigenous peoples",
+   "title": "Taiwanese indigenous peoples",
+   "url": "https://en.wikipedia.org/wiki/Taiwanese_indigenous_peoples",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-160": {
+   "answer": "Legislative Yuan",
+   "title": "Legislative Yuan",
+   "url": "https://en.wikipedia.org/wiki/Legislative_Yuan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-157": {
+   "answer": "Lai Ching-te",
+   "title": "Lai Ching-te",
+   "url": "https://en.wikipedia.org/wiki/Lai_Ching-te",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-166": {
+   "answer": "Executive Council",
+   "title": "Executive Council of Hong Kong",
+   "url": "https://en.wikipedia.org/wiki/Executive_Council_of_Hong_Kong",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Executive Council"
+  },
+  "pea-168": {
+   "answer": "Functional constituencies",
+   "title": "Functional constituency",
+   "url": "https://en.wikipedia.org/wiki/Functional_constituency",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Functional constituencies"
+  },
+  "pea-170": {
+   "answer": "Umbrella Movement",
+   "title": "Umbrella Movement",
+   "url": "https://en.wikipedia.org/wiki/Umbrella_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-167": {
+   "answer": "Legislative Council",
+   "title": "Legislative council",
+   "url": "https://en.wikipedia.org/wiki/Legislative_council",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Legislative Council"
+  },
+  "pea-169": {
+   "answer": "Occupy Central with Love and Peace",
+   "title": "Occupy Central with Love and Peace",
+   "url": "https://en.wikipedia.org/wiki/Occupy_Central_with_Love_and_Peace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-161": {
+   "answer": "Sino-British Joint Declaration",
+   "title": "Sino-British Joint Declaration",
+   "url": "https://en.wikipedia.org/wiki/Sino-British_Joint_Declaration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-162": {
+   "answer": "One Country, Two Systems",
+   "title": "One country, two systems",
+   "url": "https://en.wikipedia.org/wiki/One_country,_two_systems",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "One Country, Two Systems"
+  },
+  "pea-163": {
+   "answer": "Basic Law",
+   "title": "Basic law",
+   "url": "https://en.wikipedia.org/wiki/Basic_law",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Basic Law"
+  },
+  "pea-164": {
+   "answer": "Chief Executive",
+   "title": "Chief executive officer",
+   "url": "https://en.wikipedia.org/wiki/Chief_executive_officer",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Chief Executive"
+  },
+  "pea-165": {
+   "answer": "Election Committee",
+   "title": "Election Committee",
+   "url": "https://en.wikipedia.org/wiki/Election_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-181": {
+   "answer": "Joshua Wong",
+   "title": "Joshua Wong",
+   "url": "https://en.wikipedia.org/wiki/Joshua_Wong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-182": {
+   "answer": "Nathan Law",
+   "title": "Nathan Law",
+   "url": "https://en.wikipedia.org/wiki/Nathan_Law",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-183": {
+   "answer": "Agnes Chow",
+   "title": "Agnes Chow",
+   "url": "https://en.wikipedia.org/wiki/Agnes_Chow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-184": {
+   "answer": "Jimmy Lai",
+   "title": "Jimmy Lai",
+   "url": "https://en.wikipedia.org/wiki/Jimmy_Lai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-185": {
+   "answer": "Siege of the Polytechnic University",
+   "title": "2019 Hong Kong Polytechnic University campus conflict",
+   "url": "https://en.wikipedia.org/wiki/2019_Hong_Kong_Polytechnic_University_campus_conflict",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-176": {
+   "answer": "Five Demands",
+   "title": "Five Demands, Not One Less",
+   "url": "https://en.wikipedia.org/wiki/Five_Demands,_Not_One_Less",
+   "via": "search",
+   "status": "ok"
+  },
+  "pea-177": {
+   "answer": "Civil Human Rights Front",
+   "title": "Civil Human Rights Front",
+   "url": "https://en.wikipedia.org/wiki/Civil_Human_Rights_Front",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-178": {
+   "answer": "Yuen Long attack",
+   "title": "2019 Yuen Long attack",
+   "url": "https://en.wikipedia.org/wiki/2019_Yuen_Long_attack",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Yuen Long attack"
+  },
+  "pea-179": {
+   "answer": "Prince Edward station attack",
+   "title": "2019 Prince Edward station attack",
+   "url": "https://en.wikipedia.org/wiki/2019_Prince_Edward_station_attack",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-180": {
+   "answer": "Hong Kong National Security Law",
+   "title": "2020 Hong Kong national security law",
+   "url": "https://en.wikipedia.org/wiki/2020_Hong_Kong_national_security_law",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Hong Kong National Security Law"
+  },
+  "pea-196": {
+   "answer": "Seventh Congress of the Workers' Party of Korea",
+   "title": "7th Congress of the Workers' Party of Korea",
+   "url": "https://en.wikipedia.org/wiki/7th_Congress_of_the_Workers'_Party_of_Korea",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-197": {
+   "answer": "Supreme People's Assembly",
+   "title": "Supreme People's Assembly",
+   "url": "https://en.wikipedia.org/wiki/Supreme_People's_Assembly",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-198": {
+   "answer": "Eternal President",
+   "title": "Eternal leaders of North Korea",
+   "url": "https://en.wikipedia.org/wiki/Eternal_leaders_of_North_Korea",
+   "via": "glossary",
+   "status": "ok",
+   "from": "Eternal President",
+   "target": "Eternal leaders of North Korea#\"Eternal President\"",
+   "manual": true
+  },
+  "pea-199": {
+   "answer": "Chondoist Chongu Party",
+   "title": "Chondoist Chongu Party",
+   "url": "https://en.wikipedia.org/wiki/Chondoist_Chongu_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-200": {
+   "answer": "Partisan faction",
+   "title": "Guerrilla faction",
+   "url": "https://en.wikipedia.org/wiki/Guerrilla_faction",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Partisan faction"
+  },
+  "pea-216": {
+   "answer": "China Dream",
+   "title": "Chinese Dream",
+   "url": "https://en.wikipedia.org/wiki/Chinese_Dream",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "China Dream"
+  },
+  "pea-217": {
+   "answer": "Venezuela crisis of 1902",
+   "title": "Venezuelan crisis of 1902–1903",
+   "url": "https://en.wikipedia.org/wiki/Venezuelan_crisis_of_1902%E2%80%931903",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-218": {
+   "answer": "Panama Canal Zone",
+   "title": "Panama Canal Zone",
+   "url": "https://en.wikipedia.org/wiki/Panama_Canal_Zone",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-219": {
+   "answer": "Purchasing power parity",
+   "title": "Purchasing power parity",
+   "url": "https://en.wikipedia.org/wiki/Purchasing_power_parity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-220": {
+   "answer": "Lee Kuan Yew",
+   "title": "Lee Kuan Yew",
+   "url": "https://en.wikipedia.org/wiki/Lee_Kuan_Yew",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-201": {
+   "answer": "1992 Consensus",
+   "title": "1992 Consensus",
+   "url": "https://en.wikipedia.org/wiki/1992_Consensus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-202": {
+   "answer": "Single-member district system",
+   "title": "Single-member district",
+   "url": "https://en.wikipedia.org/wiki/Single-member_district",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-203": {
+   "answer": "Referendum Act",
+   "title": "Referendums in Taiwan",
+   "url": "https://en.wikipedia.org/wiki/Referendums_in_Taiwan",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Referendum Act"
+  },
+  "pea-204": {
+   "answer": "Taiwan People's Party",
+   "title": "Taiwan People's Party",
+   "url": "https://en.wikipedia.org/wiki/Taiwan_People's_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-205": {
+   "answer": "You live, I die",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Edge of Tomorrow",
+    "Live and Let Die (song)",
+    "May you live in interesting times",
+    "I Never Die",
+    "PewDiePie"
+   ]
+  },
+  "pea-206": {
+   "answer": "Black Island Nation Youth Front",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sent-down youth",
+    "Sunflower Student Movement",
+    "GANEFO",
+    "Spratly Islands dispute",
+    "World Skate Games"
+   ]
+  },
+  "pea-207": {
+   "answer": "Lin Fei-fan",
+   "title": "Lin Fei-fan",
+   "url": "https://en.wikipedia.org/wiki/Lin_Fei-fan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-208": {
+   "answer": "g0v",
+   "title": "G0v movement",
+   "url": "https://en.wikipedia.org/wiki/G0v_movement",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "G0v"
+  },
+  "pea-209": {
+   "answer": "Anti-media monopoly movement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "New Brandeis movement",
+    "American Communist Party (2024)",
+    "Monopoly (game)",
+    "Jackson Hinkle",
+    "China Media Group"
+   ]
+  },
+  "pea-210": {
+   "answer": "Economic Cooperation Framework Agreement",
+   "title": "Economic Cooperation Framework Agreement",
+   "url": "https://en.wikipedia.org/wiki/Economic_Cooperation_Framework_Agreement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-211": {
+   "answer": "Thucydides Trap",
+   "title": "Thucydides Trap",
+   "url": "https://en.wikipedia.org/wiki/Thucydides_Trap",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-212": {
+   "answer": "Peloponnesian War",
+   "title": "Peloponnesian War",
+   "url": "https://en.wikipedia.org/wiki/Peloponnesian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-213": {
+   "answer": "Eyre Crowe memorandum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Paris Peace Conference (1919–1920)",
+    "Levant Company",
+    "International relations (1919–1939)",
+    "Robert Cecil, Viscount Cecil of Chelwood",
+    "Defensively equipped merchant ship"
+   ]
+  },
+  "pea-214": {
+   "answer": "Anglo-German naval arms race",
+   "title": "Anglo-German naval arms race",
+   "url": "https://en.wikipedia.org/wiki/Anglo-German_naval_arms_race",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-215": {
+   "answer": "Hide and bide",
+   "title": "Hide your strength, bide your time",
+   "url": "https://en.wikipedia.org/wiki/Hide_your_strength,_bide_your_time",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-171": {
+   "answer": "Demosistō",
+   "title": "Demosisto",
+   "url": "https://en.wikipedia.org/wiki/Demosisto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-172": {
+   "answer": "Causeway Bay Books disappearances",
+   "title": "Causeway Bay Books disappearances",
+   "url": "https://en.wikipedia.org/wiki/Causeway_Bay_Books_disappearances",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-173": {
+   "answer": "Carrie Lam",
+   "title": "Carrie Lam",
+   "url": "https://en.wikipedia.org/wiki/Carrie_Lam",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-174": {
+   "answer": "John Lee",
+   "title": "John Lee Ka-chiu",
+   "url": "https://en.wikipedia.org/wiki/John_Lee_Ka-chiu",
+   "via": "glossary",
+   "status": "ok",
+   "from": "John Lee",
+   "manual": true
+  },
+  "pea-175": {
+   "answer": "Extradition Bill",
+   "title": "2019 Hong Kong extradition bill",
+   "url": "https://en.wikipedia.org/wiki/2019_Hong_Kong_extradition_bill",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-186": {
+   "answer": "Uncivil disobedience",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Civil resistance",
+    "Reprisals against commentators on the Charlie Kirk assassination",
+    "Art of the 2019–2020 Hong Kong protests",
+    "Transcendental whistling",
+    "Civil discourse"
+   ]
+  },
+  "pea-187": {
+   "answer": "Deng Xiaoping",
+   "title": "Deng Xiaoping",
+   "url": "https://en.wikipedia.org/wiki/Deng_Xiaoping",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-188": {
+   "answer": "Unequal treaties",
+   "title": "Unequal treaties",
+   "url": "https://en.wikipedia.org/wiki/Unequal_treaties",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-189": {
+   "answer": "Hong Kong civil service",
+   "title": "Hong Kong Civil Service",
+   "url": "https://en.wikipedia.org/wiki/Hong_Kong_Civil_Service",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-190": {
+   "answer": "Hong Kong Police Force",
+   "title": "Hong Kong Police Force",
+   "url": "https://en.wikipedia.org/wiki/Hong_Kong_Police_Force",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-191": {
+   "answer": "Personal rule",
+   "title": "Personal Rule",
+   "url": "https://en.wikipedia.org/wiki/Personal_Rule",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Personal rule"
+  },
+  "pea-192": {
+   "answer": "Byungjin line",
+   "title": "Pyŏngjin",
+   "url": "https://en.wikipedia.org/wiki/Py%C5%8Fngjin",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "pea-193": {
+   "answer": "Secret Speech",
+   "title": "On the Cult of Personality and Its Consequences",
+   "url": "https://en.wikipedia.org/wiki/On_the_Cult_of_Personality_and_Its_Consequences",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Secret Speech"
+  },
+  "pea-194": {
+   "answer": "Rodong Sinmun",
+   "title": "Rodong Sinmun",
+   "url": "https://en.wikipedia.org/wiki/Rodong_Sinmun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "pea-195": {
+   "answer": "Kimilsungism–Kimjongilism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Kimilsungism–Kimjongilism",
+   "target": "Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism"
   },
   "eep-001": {
    "answer": "Iceland referendum",

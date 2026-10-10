@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4632 | the title is the article |
-| `redirect-variant` | 304 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 70 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 4713 | the title is the article |
+| `redirect-variant` | 318 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 72 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 412 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 424 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 96 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 132 | only a disambiguation page; no link could be chosen |
-| `none` | 749 | nothing matched; no link |
+| `section-redirect` | 97 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 135 | only a disambiguation page; no link could be chosen |
+| `none` | 756 | nothing matched; no link |
 
-**5424 of 6410 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5533 of 6530 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (412)
+## Redirected to a differently named article — check each (424)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -270,6 +270,18 @@ The answer redirects to an article with another name. Most are the same subject 
 - `pea-080` **Choi Soon-sil gate** → [2016 South Korean political scandal](https://en.wikipedia.org/wiki/2016_South_Korean_political_scandal) (from `Choi Soon-sil gate`)
 - `pea-084` **Lee Jae-myung** → [Lee Jae Myung](https://en.wikipedia.org/wiki/Lee_Jae_Myung) (from `Lee Jae-myung`)
 - `pea-092` **Party cells** → [Organization of the Communist Party of the Soviet Union](https://en.wikipedia.org/wiki/Organization_of_the_Communist_Party_of_the_Soviet_Union) (from `Party cell`)
+- `pea-104` **Kim Il-sung** → [Kim Il Sung](https://en.wikipedia.org/wiki/Kim_Il_Sung) (from `Kim Il-sung`)
+- `pea-105` **Kim Jong-il** → [Kim Jong Il](https://en.wikipedia.org/wiki/Kim_Jong_Il) (from `Kim Jong-il`)
+- `pea-106` **Kim Jong-un** → [Kim Jong Un](https://en.wikipedia.org/wiki/Kim_Jong_Un) (from `Kim Jong-un`)
+- `pea-110` **Arduous March** → [1990s North Korean famine](https://en.wikipedia.org/wiki/1990s_North_Korean_famine) (from `Arduous March`)
+- `pea-121` **Great Fatherland Liberation War** → [Korean War](https://en.wikipedia.org/wiki/Korean_War) (from `Great Fatherland Liberation War`)
+- `pea-126` **Hereditary succession** → [Order of succession](https://en.wikipedia.org/wiki/Order_of_succession) (from `Hereditary succession`)
+- `pea-128` **North Korean nuclear programme** → [North Korea and weapons of mass destruction](https://en.wikipedia.org/wiki/North_Korea_and_weapons_of_mass_destruction) (from `North Korean nuclear program`)
+- `pea-134` **One China policy** → [One China](https://en.wikipedia.org/wiki/One_China) (from `One China policy`)
+- `pea-135` **UN General Assembly Resolution 2758** → [United Nations General Assembly Resolution 2758 (XXVI)](https://en.wikipedia.org/wiki/United_Nations_General_Assembly_Resolution_2758_(XXVI)) (from `UN General Assembly Resolution 2758`)
+- `pea-193` **Secret Speech** → [On the Cult of Personality and Its Consequences](https://en.wikipedia.org/wiki/On_the_Cult_of_Personality_and_Its_Consequences) (from `Secret Speech`)
+- `pea-200` **Partisan faction** → [Guerrilla faction](https://en.wikipedia.org/wiki/Guerrilla_faction) (from `Partisan faction`)
+- `pea-216` **China Dream** → [Chinese Dream](https://en.wikipedia.org/wiki/Chinese_Dream) (from `China Dream`)
 - `ps-004` **mental process** → [Cognition](https://en.wikipedia.org/wiki/Cognition) (from `Mental process`)
 - `ps-011` **nature and nurture** → [Nature versus nurture](https://en.wikipedia.org/wiki/Nature_versus_nurture) (from `Nature and nurture`)
 - `ps-024` **blank slate** → [Tabula rasa](https://en.wikipedia.org/wiki/Tabula_rasa) (from `Blank slate`)
@@ -457,7 +469,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-147` **German-Soviet Frontier Treaty** → [German–Soviet Boundary and Friendship Treaty](https://en.wikipedia.org/wiki/German%E2%80%93Soviet_Boundary_and_Friendship_Treaty) (from `German-Soviet Frontier Treaty`)
 - `ww2-153` **AB-Aktion** → [Aktion AB](https://en.wikipedia.org/wiki/Aktion_AB) (from `AB-Aktion`)
 
-## Settled from a disambiguation page (70)
+## Settled from a disambiguation page (72)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -513,6 +525,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `pea-052` **Cabinet** → [Cabinet (government)](https://en.wikipedia.org/wiki/Cabinet_(government)) (via the disambiguation page `Cabinet`)
 - `pea-067` **Regionalism** → [Regionalism (politics)](https://en.wikipedia.org/wiki/Regionalism_(politics)) (via the disambiguation page `Regionalism`)
 - `pea-068` **National Security Law** → [National Security Law of the People's Republic of China](https://en.wikipedia.org/wiki/National_Security_Law_of_the_People's_Republic_of_China) (via the disambiguation page `National Security Act`)
+- `pea-166` **Executive Council** → [Executive Council of Hong Kong](https://en.wikipedia.org/wiki/Executive_Council_of_Hong_Kong) (via the disambiguation page `Executive Council`)
+- `pea-203` **Referendum Act** → [Referendums in Taiwan](https://en.wikipedia.org/wiki/Referendums_in_Taiwan) (via the disambiguation page `Referendum Act`)
 - `ps-027` **nativism** → [Psychological nativism](https://en.wikipedia.org/wiki/Psychological_nativism) (via the disambiguation page `Nativism`)
 - `rm-119` **legion** → [Roman legion](https://en.wikipedia.org/wiki/Roman_legion) (via the disambiguation page `Legion`)
 - `rm-144` **praefectura** → [Praefectura (Roman settlement)](https://en.wikipedia.org/wiki/Praefectura_(Roman_settlement)) (via the disambiguation page `Praefectura`)
@@ -543,7 +557,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 
-## Disambiguation pages that could not be settled (132)
+## Disambiguation pages that could not be settled (135)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -636,6 +650,9 @@ Pick the right article by hand, or leave the card without a link.
 - `pea-035` **Okinawa** — `Okinawa` is a disambiguation page; its links: `Okinawa Prefecture`, `Okinawa Islands`, `Okinawa Island`, `Okinawa Prefecture`, `Okinawa Island`, `Okinawa Islands`
 - `pea-044` **Fukushima disaster** — `Fukushima disaster` is a disambiguation page
 - `pea-087` **Democratic Party of Korea** — `Minjudang` is a disambiguation page; its links: `Korea Democratic Party`
+- `pea-116` **National Defence Commission** — `National Defense Commission` is a disambiguation page
+- `pea-129` **Great Leader** — `Great Leader` is a disambiguation page; its links: `Great Leader (concept)`
+- `pea-146` **Guoyu** — `Guoyu` is a disambiguation page; its links: `Guoyu (book)`, `Guoyu (name)`
 - `ps-041` **mental test** — `Mental test` is a disambiguation page
 - `rm-019` **Veneti** — `Veneti` is a disambiguation page; its links: `Adriatic Veneti`, `Veneti (Gaul)`, `Vistula Veneti`
 - `rm-163` **Tarentum** — `Tarentum` is a disambiguation page; its links: `Tarentum, Pennsylvania`, `Tarentum Bridge`, `Tarentum (Campus Martius)`
@@ -691,7 +708,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (96)
+## Section redirects — no dedicated page (97)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -747,6 +764,7 @@ Wikipedia treats these as part of another article. No link.
 - `ko-038` **Early Iron Age** — `Early Iron Age` only redirects into `Iron Age#Beginning`
 - `ko-039` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `pea-061` **Candlelight Revolution** — `Candlelight Revolution` only redirects into `2016–2017 South Korean protests#Protests against Park Geun-hye`
+- `pea-195` **Kimilsungism–Kimjongilism** — `Kimilsungism–Kimjongilism` only redirects into `Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism`
 - `ps-025` **substance dualism** — `Substance dualism` only redirects into `Mind–body dualism#Substance dualism`
 - `ps-050` **imageless thought** — `Imageless thought` only redirects into `Oswald Külpe#Imageless thought`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
@@ -792,7 +810,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (749)
+## No article found (756)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1367,6 +1385,13 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `pea-098` **Red capitalists** — search suggests `Red Guards`, `Capitalist roader`, `Chinese New Left`, `Left communism in China`, `Red Roulette`
 - `pea-099` **Advance of the state, retreat of the private** — search suggests `Retreat of the government of the Republic of China to Taiwan`, `Retreat of the state, advance of the private sector`, `The state advances as the private sector retreats`, `China`, `Territorial disputes of China`
 - `pea-100` **Reds and experts** — search suggests `Both red and expert`, `Red Guards`, `2026 Nepal–Tibet floods`, `China`, `Conservative Faction (Cultural Revolution)`
+- `pea-109` **Kyo-hwa-so** — search suggests `Song Hye-kyo`, `Committee for Human Rights in North Korea`, `The Glory (TV series)`, `Descendants of the Sun`, `Ella Gross`
+- `pea-123` **Organisational life** — search suggests `China`, `Organization of the Chinese Communist Party`, `Republic of China (1912–1949)`, `Wufu`, `Democracy in China`
+- `pea-186` **Uncivil disobedience** — search suggests `Civil resistance`, `Reprisals against commentators on the Charlie Kirk assassination`, `Art of the 2019–2020 Hong Kong protests`, `Transcendental whistling`, `Civil discourse`
+- `pea-205` **You live, I die** — search suggests `Edge of Tomorrow`, `Live and Let Die (song)`, `May you live in interesting times`, `I Never Die`, `PewDiePie`
+- `pea-206` **Black Island Nation Youth Front** — search suggests `Sent-down youth`, `Sunflower Student Movement`, `GANEFO`, `Spratly Islands dispute`, `World Skate Games`
+- `pea-209` **Anti-media monopoly movement** — search suggests `New Brandeis movement`, `American Communist Party (2024)`, `Monopoly (game)`, `Jackson Hinkle`, `China Media Group`
+- `pea-213` **Eyre Crowe memorandum** — search suggests `Paris Peace Conference (1919–1920)`, `Levant Company`, `International relations (1919–1939)`, `Robert Cecil, Viscount Cecil of Chelwood`, `Defensively equipped merchant ship`
 - `ps-002` **behaviour and mental processes** — search suggests `Compulsive sexual behaviour disorder`, `Social science`, `Mind`, `Structuralism (psychology)`, `Ironic process theory`
 - `ps-030` **localisation of function** — search suggests `Id, ego and superego`, `Functional specialization (brain)`, `Neuropsychology`, `Lateralization of brain function`, `Interaural time difference`
 - `ps-033` **specific nerve energies** — search suggests `Perception`, `Pain theories`, `Sense`, `Physiological psychology`, `Parasympathetic nervous system`
