@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-10T14:25Z",
+ "generated": "2026-10-10T16:39Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4620,
-  "redirect-broader": 402,
-  "redirect-variant": 311,
-  "section-redirect": 94,
-  "disambiguation": 130,
-  "none": 597,
-  "disambig-resolved": 70,
+  "ok": 4782,
+  "redirect-broader": 439,
+  "redirect-variant": 326,
+  "section-redirect": 102,
+  "disambiguation": 139,
+  "none": 937,
+  "disambig-resolved": 75,
   "list-page": 6,
-  "search-match": 5,
-  "no-article": 3
+  "search-match": 6,
+  "no-article": 15
  },
  "cards": {
   "wh-001": {
@@ -49576,6 +49576,6326 @@
    "status": "section-redirect",
    "from": "Kimilsungism–Kimjongilism",
    "target": "Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism"
+  },
+  "eep-001": {
+   "answer": "Iceland referendum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2026 Icelandic European Union membership negotiations referendum",
+    "Iceland–European Union relations",
+    "1944 Icelandic constitutional referendum",
+    "Icelandic referendum",
+    "Referendums related to the European Union"
+   ]
+  },
+  "eep-002": {
+   "answer": "Kaja Kallas",
+   "title": "Kaja Kallas",
+   "url": "https://en.wikipedia.org/wiki/Kaja_Kallas",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-003": {
+   "answer": "Spheres of influence",
+   "title": "Sphere of influence",
+   "url": "https://en.wikipedia.org/wiki/Sphere_of_influence",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Spheres of influence"
+  },
+  "eep-004": {
+   "answer": "External action",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European External Action Service",
+    "List of ambassadors of the European Union",
+    "European Union Intelligence and Situation Centre",
+    "European Union Military Staff",
+    "High Representative of the Union for Foreign Affairs and Security Policy"
+   ]
+  },
+  "eep-005": {
+   "answer": "Composite foreign policy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Franco-British Union",
+    "European Commissioner for External Relations",
+    "List of countries by exchange rate regime",
+    "SSE Composite Index",
+    "Eastern Partnership"
+   ]
+  },
+  "eep-006": {
+   "answer": "External dimension",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Northern Dimension",
+    "European External Action Service",
+    "Member state of the European Union",
+    "Presidency of the Council of the European Union",
+    "Pan-European corridors"
+   ]
+  },
+  "eep-007": {
+   "answer": "Strategic autonomy",
+   "title": "Strategic autonomy",
+   "url": "https://en.wikipedia.org/wiki/Strategic_autonomy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-008": {
+   "answer": "Capacity to act",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mental Capacity Act 2005",
+    "Member state of the European Union",
+    "European Union",
+    "European Chips Act",
+    "Enlargement of the European Union"
+   ]
+  },
+  "eep-009": {
+   "answer": "Critical juncture",
+   "title": "Critical juncture theory",
+   "url": "https://en.wikipedia.org/wiki/Critical_juncture_theory",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Critical juncture"
+  },
+  "eep-010": {
+   "answer": "Capoccia and Kelemen",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "R. Daniel Kelemen",
+    "Critical juncture theory",
+    "New institutionalism"
+   ]
+  },
+  "eep-011": {
+   "answer": "Camille Grand",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Camille Gutt",
+    "Camille Kovalev",
+    "Camille (French singer)",
+    "Pavel Kovalev (figure skater)",
+    "Camille Pissarro"
+   ]
+  },
+  "eep-012": {
+   "answer": "Defending Europe with Less America",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Law of the European Union",
+    "Europe",
+    "Islam in Europe",
+    "UEFA European Championship",
+    "European colonization of the Americas"
+   ]
+  },
+  "eep-013": {
+   "answer": "Peace dividend",
+   "title": "Peace dividend",
+   "url": "https://en.wikipedia.org/wiki/Peace_dividend",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-014": {
+   "answer": "Draghi report",
+   "title": "Draghi report",
+   "url": "https://en.wikipedia.org/wiki/Draghi_report",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-015": {
+   "answer": "Rimini speech",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "COVID-19 pandemic in Europe",
+    "Roberto Vannacci",
+    "Italian General Confederation of Labour",
+    "Giuseppe Garibaldi",
+    "San Marino in the Eurovision Song Contest 2014"
+   ]
+  },
+  "eep-016": {
+   "answer": "Geoeconomics",
+   "title": "Geoeconomics",
+   "url": "https://en.wikipedia.org/wiki/Geoeconomics",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-207": {
+   "answer": "Europe's Pitch Book",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of the European Union",
+    "Men's European Volleyball Championship",
+    "European Super League",
+    "Individual Speedway European Championship",
+    "A440 (pitch standard)"
+   ]
+  },
+  "eep-208": {
+   "answer": "Marieke Blom",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Post-mortem privacy",
+    "List of candidates in the 2024 European Parliament election in the Netherlands",
+    "List of works about Rembrandt",
+    "Bern",
+    "List of candidates in the 2006 Dutch general election"
+   ]
+  },
+  "eep-209": {
+   "answer": "Self-fulfilling pessimism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of philosophical pessimism",
+    "European Central Bank",
+    "Communism",
+    "History of the Soviet Union (1964–1982)",
+    "Committee of Union and Progress"
+   ]
+  },
+  "eep-210": {
+   "answer": "Panic politics",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Moral panic",
+    "Panic of 1893",
+    "Panic of 1873",
+    "List of moral panics",
+    "Brexit"
+   ]
+  },
+  "eep-211": {
+   "answer": "Bad news sells",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Brexit",
+    "2016 United Kingdom European Union membership referendum",
+    "Bad Day (Daniel Powter song)",
+    "Russia–European Union relations",
+    "Newport News, Virginia"
+   ]
+  },
+  "eep-212": {
+   "answer": "Five ugly challenges",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Eteri Tutberidze",
+    "1984 European Super Cup",
+    "Michael Fay (banker)",
+    "1994 European Super Cup",
+    "Eli Wallach"
+   ]
+  },
+  "eep-032": {
+   "answer": "European Defence Community",
+   "title": "Treaty establishing the European Defence Community",
+   "url": "https://en.wikipedia.org/wiki/Treaty_establishing_the_European_Defence_Community",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "European Defence Community"
+  },
+  "eep-033": {
+   "answer": "Fouchet Plans",
+   "title": "Fouchet Plan",
+   "url": "https://en.wikipedia.org/wiki/Fouchet_Plan",
+   "via": "variant",
+   "status": "ok"
+  },
+  "eep-034": {
+   "answer": "Western European Union",
+   "title": "Western European Union",
+   "url": "https://en.wikipedia.org/wiki/Western_European_Union",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-035": {
+   "answer": "NATO",
+   "title": "NATO",
+   "url": "https://en.wikipedia.org/wiki/NATO",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eep-036": {
+   "answer": "European Political Cooperation",
+   "title": "European Political Co-operation",
+   "url": "https://en.wikipedia.org/wiki/European_Political_Co-operation",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "European Political Cooperation"
+  },
+  "eep-037": {
+   "answer": "Single European Act",
+   "title": "Single European Act",
+   "url": "https://en.wikipedia.org/wiki/Single_European_Act",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-038": {
+   "answer": "Maastricht Treaty",
+   "title": "Maastricht Treaty",
+   "url": "https://en.wikipedia.org/wiki/Maastricht_Treaty",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-039": {
+   "answer": "Common Foreign and Security Policy",
+   "title": "Common Foreign and Security Policy",
+   "url": "https://en.wikipedia.org/wiki/Common_Foreign_and_Security_Policy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-017": {
+   "answer": "Civilian power",
+   "title": "Civil and political rights",
+   "url": "https://en.wikipedia.org/wiki/Civil_and_political_rights",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Civilian power"
+  },
+  "eep-018": {
+   "answer": "François Duchêne",
+   "title": "François Duchêne",
+   "url": "https://en.wikipedia.org/wiki/Fran%C3%A7ois_Duch%C3%AAne",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-019": {
+   "answer": "Soft power",
+   "title": "Soft power",
+   "url": "https://en.wikipedia.org/wiki/Soft_power",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-020": {
+   "answer": "Joseph Nye",
+   "title": "Joseph Nye",
+   "url": "https://en.wikipedia.org/wiki/Joseph_Nye",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-021": {
+   "answer": "Normative power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Great power",
+    "Safety",
+    "European integration",
+    "European values",
+    "Demoicracy"
+   ]
+  },
+  "eep-022": {
+   "answer": "Ian Manners",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union studies",
+    "European Central Bank",
+    "Ian Kershaw",
+    "Foreign Policy Centre",
+    "Richard G. Whitman"
+   ]
+  },
+  "eep-023": {
+   "answer": "Norm diffusion",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Amitav Acharya",
+    "Bystander effect",
+    "Europeanisation",
+    "European Union competition law",
+    "Health informatics"
+   ]
+  },
+  "eep-024": {
+   "answer": "Transformative power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "Law of the European Union",
+    "Great power",
+    "Monarchies in Europe",
+    "Western European Union"
+   ]
+  },
+  "eep-025": {
+   "answer": "Heather Grabbe",
+   "title": "Heather Grabbe",
+   "url": "https://en.wikipedia.org/wiki/Heather_Grabbe",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-026": {
+   "answer": "Collective power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Member state of the European Union",
+    "Collective security",
+    "Nuclear power in the European Union",
+    "Subsidiarity (European Union)",
+    "Law of the European Union"
+   ]
+  },
+  "eep-027": {
+   "answer": "Brigid Laffan",
+   "title": "Brigid Laffan",
+   "url": "https://en.wikipedia.org/wiki/Brigid_Laffan",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-028": {
+   "answer": "Power over",
+   "title": "Power over",
+   "url": "https://en.wikipedia.org/wiki/Power_over",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-029": {
+   "answer": "Power to",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nuclear power in the European Union",
+    "Solar power in the European Union",
+    "European Union",
+    "Member state of the European Union",
+    "Institutions of the European Union"
+   ]
+  },
+  "eep-031": {
+   "answer": "Language of power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Languages of the European Union",
+    "Member state of the European Union",
+    "Nuclear power in the European Union",
+    "European balance of power",
+    "European Union"
+   ]
+  },
+  "eep-030": {
+   "answer": "Geopolitical power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Geopolitics",
+    "2026 Icelandic European Union membership negotiations referendum",
+    "Strategic autonomy",
+    "Great power",
+    "Potential superpower"
+   ]
+  },
+  "eep-040": {
+   "answer": "Petersberg tasks",
+   "title": "Petersberg Declaration",
+   "url": "https://en.wikipedia.org/wiki/Petersberg_Declaration",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Petersberg tasks"
+  },
+  "eep-041": {
+   "answer": "Treaty of Amsterdam",
+   "title": "Treaty of Amsterdam",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Amsterdam",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-042": {
+   "answer": "Saint-Malo Declaration",
+   "title": "Saint-Malo declaration",
+   "url": "https://en.wikipedia.org/wiki/Saint-Malo_declaration",
+   "via": "search",
+   "status": "ok"
+  },
+  "eep-043": {
+   "answer": "Helsinki European Council",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Member state of the European Union",
+    "Helsinki Accords",
+    "European Chemicals Agency",
+    "European Union–Turkey Customs Union",
+    "European Union Military Committee"
+   ]
+  },
+  "eep-044": {
+   "answer": "Treaty of Nice",
+   "title": "Treaty of Nice",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Nice",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-045": {
+   "answer": "European Defence Agency",
+   "title": "European Defence Agency",
+   "url": "https://en.wikipedia.org/wiki/European_Defence_Agency",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-046": {
+   "answer": "Operation Artemis",
+   "title": "Operation Artemis",
+   "url": "https://en.wikipedia.org/wiki/Operation_Artemis",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-047": {
+   "answer": "Treaty of Lisbon",
+   "title": "Treaty of Lisbon",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Lisbon",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-048": {
+   "answer": "Common Security and Defence Policy",
+   "title": "Common Security and Defence Policy",
+   "url": "https://en.wikipedia.org/wiki/Common_Security_and_Defence_Policy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-061": {
+   "answer": "Unanimity",
+   "title": "Unanimity",
+   "url": "https://en.wikipedia.org/wiki/Unanimity",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-062": {
+   "answer": "Qualified majority voting",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Qualified majority voting",
+   "target": "Voting in the Council of the European Union#Treaty of Lisbon"
+  },
+  "eep-063": {
+   "answer": "Community method",
+   "title": "Community method",
+   "url": "https://en.wikipedia.org/wiki/Community_method",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-064": {
+   "answer": "Constructive abstention",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Unanimity",
+    "EU Carbon Border Adjustment Mechanism",
+    "Neutral member states in the European Union",
+    "Constructive vote of no confidence",
+    "Treaty establishing the European Defence Community"
+   ]
+  },
+  "eep-065": {
+   "answer": "Article 31(2) TEU",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Member state of the European Union",
+    "Law of the European Union",
+    "Maastricht Treaty",
+    "Withdrawal from the European Union",
+    "European Union"
+   ]
+  },
+  "eep-066": {
+   "answer": "Passerelle clause",
+   "title": "Passerelle clause",
+   "url": "https://en.wikipedia.org/wiki/Passerelle_clause",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-068": {
+   "answer": "Mutual assistance clause",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Member state of the European Union",
+    "Western European Union",
+    "Treaty establishing a Constitution for Europe",
+    "Western Union (alliance)",
+    "Neutral member states in the European Union"
+   ]
+  },
+  "eep-069": {
+   "answer": "Coalitions of the willing",
+   "title": "Coalition of the willing (Russo-Ukrainian war)",
+   "url": "https://en.wikipedia.org/wiki/Coalition_of_the_willing_(Russo-Ukrainian_war)",
+   "via": "search",
+   "status": "search-match"
+  },
+  "eep-070": {
+   "answer": "Emergency brake",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Emergency brake",
+   "suggestions": [
+    "Emergency brake (train)",
+    "Emergency brake assist"
+   ]
+  },
+  "eep-071": {
+   "answer": "Court of Justice of the EU",
+   "title": "Court of Justice of the European Union",
+   "url": "https://en.wikipedia.org/wiki/Court_of_Justice_of_the_European_Union",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Court of Justice of the EU"
+  },
+  "eep-049": {
+   "answer": "European Security Strategy",
+   "title": "European Security Strategy",
+   "url": "https://en.wikipedia.org/wiki/European_Security_Strategy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-050": {
+   "answer": "EU Global Strategy",
+   "title": "European Union Global Strategy",
+   "url": "https://en.wikipedia.org/wiki/European_Union_Global_Strategy",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "EU Global Strategy"
+  },
+  "eep-052": {
+   "answer": "Coordinated Annual Review on Defence",
+   "title": "Coordinated Annual Review on Defence",
+   "url": "https://en.wikipedia.org/wiki/Coordinated_Annual_Review_on_Defence",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-053": {
+   "answer": "European Peace Facility",
+   "title": "European Peace Facility",
+   "url": "https://en.wikipedia.org/wiki/European_Peace_Facility",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-054": {
+   "answer": "Military Planning and Conduct Capability",
+   "title": "Military Planning and Conduct Capability",
+   "url": "https://en.wikipedia.org/wiki/Military_Planning_and_Conduct_Capability",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-055": {
+   "answer": "Strategic Compass",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Strategic Compass for Security and Defence",
+    "Security and defence partnerships of the European Union",
+    "European Union Global Strategy",
+    "European Union",
+    "Security Action for Europe"
+   ]
+  },
+  "eep-056": {
+   "answer": "EU–China Strategic Outlook",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "China–European Union relations",
+    "Canada–European Union relations",
+    "European Union",
+    "Potential superpower",
+    "Accession of Armenia to the European Union"
+   ]
+  },
+  "eep-057": {
+   "answer": "Sanctions against Russia",
+   "title": "Sanctions involving Russia",
+   "url": "https://en.wikipedia.org/wiki/Sanctions_involving_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Sanctions against Russia"
+  },
+  "eep-058": {
+   "answer": "Andrius Kubilius",
+   "title": "Andrius Kubilius",
+   "url": "https://en.wikipedia.org/wiki/Andrius_Kubilius",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-059": {
+   "answer": "European Defence Industrial Strategy",
+   "title": "European Defence Industrial Strategy",
+   "url": "https://en.wikipedia.org/wiki/European_Defence_Industrial_Strategy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-060": {
+   "answer": "European Court of Auditors",
+   "title": "European Court of Auditors",
+   "url": "https://en.wikipedia.org/wiki/European_Court_of_Auditors",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-067": {
+   "answer": "Enhanced cooperation",
+   "title": "Enhanced cooperation",
+   "url": "https://en.wikipedia.org/wiki/Enhanced_cooperation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-051": {
+   "answer": "Implementation Plan on Security and Defence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Common Security and Defence Policy",
+    "Member state of the European Union",
+    "European Union–NATO relations",
+    "European Union Military Staff",
+    "Defence forces of the European Union"
+   ]
+  },
+  "eep-072": {
+   "answer": "Veto players",
+   "title": "Veto Players",
+   "url": "https://en.wikipedia.org/wiki/Veto_Players",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Veto players"
+  },
+  "eep-073": {
+   "answer": "George Tsebelis",
+   "title": "George Tsebelis",
+   "url": "https://en.wikipedia.org/wiki/George_Tsebelis",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-074": {
+   "answer": "Joint decision trap",
+   "title": "Joint decision trap",
+   "url": "https://en.wikipedia.org/wiki/Joint_decision_trap",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-075": {
+   "answer": "Fritz Scharpf",
+   "title": "Fritz W. Scharpf",
+   "url": "https://en.wikipedia.org/wiki/Fritz_W._Scharpf",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Fritz Scharpf"
+  },
+  "eep-076": {
+   "answer": "Norm contestation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Law of the European Union",
+    "Russia–European Union relations",
+    "Accession of Ukraine to the European Union",
+    "Potential enlargement of the European Union",
+    "Israel–European Union relations"
+   ]
+  },
+  "eep-077": {
+   "answer": "Issue linkage",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union Emissions Trading System",
+    "Linkage (policy)",
+    "President of the European Commission",
+    "European Union and the United Nations",
+    "European Coal and Steel Community"
+   ]
+  },
+  "eep-078": {
+   "answer": "Delay of sanctions against Belarus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of people and organizations sanctioned in relation to human rights violations in Belarus",
+    "Belarus",
+    "International sanctions during the Russo-Ukrainian war",
+    "International sanctions during the Russian invasion of Ukraine",
+    "Slovak opposition to sanctions on Russia"
+   ]
+  },
+  "eep-079": {
+   "answer": "Strategic culture",
+   "title": "Strategic culture",
+   "url": "https://en.wikipedia.org/wiki/Strategic_culture",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-080": {
+   "answer": "European Council",
+   "title": "European Council",
+   "url": "https://en.wikipedia.org/wiki/European_Council",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-081": {
+   "answer": "Foreign Affairs Council",
+   "title": "Foreign Affairs Council",
+   "url": "https://en.wikipedia.org/wiki/Foreign_Affairs_Council",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-082": {
+   "answer": "Political and Security Committee",
+   "title": "Political and Security Committee",
+   "url": "https://en.wikipedia.org/wiki/Political_and_Security_Committee",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-083": {
+   "answer": "EU Military Committee",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Chairman of the European Union Military Committee",
+    "List of military and civilian missions of the European Union",
+    "European Union Military Committee",
+    "Member state of the European Union",
+    "European Union Military Staff"
+   ]
+  },
+  "eep-084": {
+   "answer": "Committee for Civilian Aspects of Crisis Management",
+   "title": "Committee for Civilian Aspects of Crisis Management",
+   "url": "https://en.wikipedia.org/wiki/Committee_for_Civilian_Aspects_of_Crisis_Management",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-085": {
+   "answer": "High Representative and Vice-President",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Vice-president of the European Commission",
+    "Vice-President of the European Parliament",
+    "Presidents of the European Union",
+    "President of the European Commission",
+    "Joe Biden"
+   ]
+  },
+  "eep-086": {
+   "answer": "European External Action Service",
+   "title": "European External Action Service",
+   "url": "https://en.wikipedia.org/wiki/European_External_Action_Service",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-087": {
+   "answer": "EU Delegations",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of ambassadors of the European Union",
+    "Diplomatic missions of the European Union",
+    "Foreign relations of the European Union",
+    "Canada–European Union relations",
+    "Potential enlargement of the European Union"
+   ]
+  },
+  "eep-088": {
+   "answer": "Intelligence and Situation Centre",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union Intelligence and Situation Centre",
+    "Joint European Union Intelligence School",
+    "European Centre for Disease Prevention and Control",
+    "European Union",
+    "Europol"
+   ]
+  },
+  "eep-089": {
+   "answer": "Civilian Planning and Conduct Capability",
+   "title": "Civilian Planning and Conduct Capability",
+   "url": "https://en.wikipedia.org/wiki/Civilian_Planning_and_Conduct_Capability",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-090": {
+   "answer": "Geopolitical Commission",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Canada–European Union relations",
+    "European Chips Act",
+    "Accession of Turkey to the European Union",
+    "Accession of Bosnia and Herzegovina to the European Union",
+    "Central and Eastern Europe"
+   ]
+  },
+  "eep-091": {
+   "answer": "DG NEAR",
+   "title": "Directorate-General for Neighbourhood and Enlargement Negotiations",
+   "url": "https://en.wikipedia.org/wiki/Directorate-General_for_Neighbourhood_and_Enlargement_Negotiations",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "DG NEAR"
+  },
+  "eep-092": {
+   "answer": "Service for Foreign Policy Instruments",
+   "title": "Service for Foreign Policy Instruments",
+   "url": "https://en.wikipedia.org/wiki/Service_for_Foreign_Policy_Instruments",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-093": {
+   "answer": "Assent procedure",
+   "title": "Consent procedure",
+   "url": "https://en.wikipedia.org/wiki/Consent_procedure",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Assent procedure"
+  },
+  "eep-094": {
+   "answer": "Global Gateway",
+   "title": "Global Gateway",
+   "url": "https://en.wikipedia.org/wiki/Global_Gateway",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-095": {
+   "answer": "Global Human Rights Sanctions Regime",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union sanctions",
+    "EU Global Human Rights Sanctions Regime",
+    "List of people and organizations sanctioned in relation to human rights violations in Belarus",
+    "List of sanctions involving Israel",
+    "United States government sanctions"
+   ]
+  },
+  "eep-096": {
+   "answer": "International Procurement Instrument",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Government procurement in the European Union",
+    "Procurement",
+    "Government procurement",
+    "E-procurement",
+    "List of European Union regulations"
+   ]
+  },
+  "eep-097": {
+   "answer": "Anti-Coercion Instrument",
+   "title": "Anti-Coercion Instrument",
+   "url": "https://en.wikipedia.org/wiki/Anti-Coercion_Instrument",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-098": {
+   "answer": "Critical Raw Materials Act",
+   "title": "Critical Raw Materials Act",
+   "url": "https://en.wikipedia.org/wiki/Critical_Raw_Materials_Act",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-099": {
+   "answer": "Sakharov Prize",
+   "title": "Sakharov Prize",
+   "url": "https://en.wikipedia.org/wiki/Sakharov_Prize",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-100": {
+   "answer": "Costs of Non-Europe in foreign policy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Languages of the European Union",
+    "Energy policy of the European Union",
+    "Economy of the European Union",
+    "Treaties of the European Union",
+    "2004 enlargement of the European Union"
+   ]
+  },
+  "eep-101": {
+   "answer": "EEAS reform",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Reform UK",
+    "European Economic Area",
+    "2026 Icelandic European Union membership negotiations referendum",
+    "Member state of the European Union",
+    "European External Action Service"
+   ]
+  },
+  "eep-102": {
+   "answer": "Permanent Structured Cooperation",
+   "title": "Permanent Structured Cooperation",
+   "url": "https://en.wikipedia.org/wiki/Permanent_Structured_Cooperation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-103": {
+   "answer": "European Defence Fund",
+   "title": "European Defence Fund",
+   "url": "https://en.wikipedia.org/wiki/European_Defence_Fund",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-104": {
+   "answer": "Airborne Electronic Attack",
+   "title": "Airborne Electronic Attack",
+   "url": "https://en.wikipedia.org/wiki/Airborne_Electronic_Attack",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-127": {
+   "answer": "Russkiy Mir Foundation",
+   "title": "Russkiy Mir Foundation",
+   "url": "https://en.wikipedia.org/wiki/Russkiy_Mir_Foundation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-128": {
+   "answer": "Rossotrudnichestvo",
+   "title": "Rossotrudnichestvo",
+   "url": "https://en.wikipedia.org/wiki/Rossotrudnichestvo",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-129": {
+   "answer": "Coordinating Councils of Russian Compatriots",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia–European Union relations",
+    "Russia under Vladimir Putin",
+    "Government and intergovernmental reactions to the Russian invasion of Ukraine",
+    "United Russia",
+    "Federal Security Service"
+   ]
+  },
+  "eep-130": {
+   "answer": "Action Plan against Disinformation",
+   "title": "Action Plan against Disinformation",
+   "url": "https://en.wikipedia.org/wiki/Action_Plan_against_Disinformation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-131": {
+   "answer": "East StratCom Task Force",
+   "title": "East StratCom Task Force",
+   "url": "https://en.wikipedia.org/wiki/East_StratCom_Task_Force",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-133": {
+   "answer": "Communication on tackling hybrid threats",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "Common Security and Defence Policy",
+    "Disinformation research",
+    "Digital Services Act",
+    "Russia–European Union relations"
+   ]
+  },
+  "eep-134": {
+   "answer": "EuroDRONE",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia–European Union relations",
+    "European Union–United States relations",
+    "Belarus–European Union border crisis",
+    "UEFA Euro 2016 qualifying",
+    "China–European Union relations"
+   ]
+  },
+  "eep-135": {
+   "answer": "IRIS assessment of PESCO",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2021 in science"
+   ]
+  },
+  "eep-136": {
+   "answer": "RT",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "RT",
+   "suggestions": [
+    "R/T",
+    "RT!",
+    "Lil RT",
+    "RT (energy)",
+    "RT America",
+    "RT Arabic"
+   ]
+  },
+  "eep-132": {
+   "answer": "EUvsDisinfo",
+   "title": "East StratCom Task Force",
+   "url": "https://en.wikipedia.org/wiki/East_StratCom_Task_Force",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "EUvsDisinfo"
+  },
+  "eep-105": {
+   "answer": "Brussels effect",
+   "title": "Brussels effect",
+   "url": "https://en.wikipedia.org/wiki/Brussels_effect",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-106": {
+   "answer": "Anu Bradford",
+   "title": "Anu Bradford",
+   "url": "https://en.wikipedia.org/wiki/Anu_Bradford",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-107": {
+   "answer": "De jure Brussels effect",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "De facto and de jure",
+    "Cyprus and the European Union",
+    "Accession of Armenia to the European Union",
+    "Special territories of members of the European Economic Area",
+    "Soviet Union"
+   ]
+  },
+  "eep-108": {
+   "answer": "De facto Brussels effect",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Brussels effect",
+    "De facto and de jure",
+    "Brussels",
+    "Western Union (alliance)",
+    "Flag of Europe"
+   ]
+  },
+  "eep-109": {
+   "answer": "Regulatory capacity",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Regulatory agency",
+    "Canada–European Union relations",
+    "Law of the European Union",
+    "Body of European Regulators for Electronic Communications",
+    "European Union Agency for the Cooperation of Energy Regulators"
+   ]
+  },
+  "eep-110": {
+   "answer": "Inelastic targets",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Dynamic pricing",
+    "Henry Way Kendall",
+    "Neutron diffraction",
+    "Dutch East India Company",
+    "Tax revenue"
+   ]
+  },
+  "eep-111": {
+   "answer": "Indivisibility",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Glossary of European Union concepts, acronyms, and jargon",
+    "European values",
+    "Personal union",
+    "Delegation of the European Union to the Republic of South Africa",
+    "Treaty establishing the European Defence Community"
+   ]
+  },
+  "eep-112": {
+   "answer": "Three models of digital regulation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Artificial Intelligence Act",
+    "Digital Services Act",
+    "Regulation of artificial intelligence",
+    "Regulation to Prevent and Combat Child Sexual Abuse",
+    "Digital Markets Act"
+   ]
+  },
+  "eep-113": {
+   "answer": "Cross-issue bargaining",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Law of the European Union",
+    "Trade union",
+    "European Trade Union Confederation",
+    "International comparisons of trade unions",
+    "European Union"
+   ]
+  },
+  "eep-115": {
+   "answer": "De-centring the EU",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Member state of the European Union",
+    "Potential enlargement of the European Union",
+    "Law of the European Union",
+    "Canada–European Union relations",
+    "Norway–European Union relations"
+   ]
+  },
+  "eep-114": {
+   "answer": "Actorness",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "Equity (British trade union)",
+    "Law of the European Union",
+    "Arctic policy of the European Union",
+    "History of the European Union"
+   ]
+  },
+  "eep-116": {
+   "answer": "Henrik Larsen",
+   "title": "Henrik Larsen",
+   "url": "https://en.wikipedia.org/wiki/Henrik_Larsen",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-117": {
+   "answer": "Othering",
+   "title": "Other (philosophy)",
+   "url": "https://en.wikipedia.org/wiki/Other_(philosophy)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Othering"
+  },
+  "eep-118": {
+   "answer": "Relational perception",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Migration and asylum policy of the European Union",
+    "Red tape",
+    "Carlo Rovelli",
+    "Dwight Nelson",
+    "Whistleblowing"
+   ]
+  },
+  "eep-119": {
+   "answer": "Colonial legacy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of colonialism",
+    "Colonialism",
+    "Legacy of the British Raj",
+    "Colonial history of the United States",
+    "Analysis of European colonialism and colonization"
+   ]
+  },
+  "eep-120": {
+   "answer": "Informational monopoly",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Operation Monopoly",
+    "European Commission",
+    "Monopoly",
+    "History of Monopoly",
+    "Presidency of the Council of the European Union"
+   ]
+  },
+  "eep-121": {
+   "answer": "Counterweight to the United States",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "States of Germany",
+    "Institutions of the European Union",
+    "Democratic Party (United States)",
+    "Federal Europe",
+    "United States foreign policy in the Middle East"
+   ]
+  },
+  "eep-122": {
+   "answer": "Woo, Dong and Kübler",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2022 in sports"
+   ]
+  },
+  "eep-123": {
+   "answer": "Bot-generated hashtags",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Chris Messina (inventor)",
+    "Social bot",
+    "Hashtag activism",
+    "Social media",
+    "X (social network)"
+   ]
+  },
+  "eep-124": {
+   "answer": "Unitary actor",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Unitary state",
+    "Law of the European Union",
+    "Soviet Union",
+    "Barbados Agreement",
+    "List of companies of Hungary"
+   ]
+  },
+  "eep-125": {
+   "answer": "EU Neighbours East opinion surveys",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "Accession of Armenia to the European Union",
+    "Potential enlargement of the European Union",
+    "Accession of Moldova to the European Union",
+    "Ukraine–European Union relations"
+   ]
+  },
+  "eep-126": {
+   "answer": "TV news monitoring",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "Dušan Bajatović",
+    "Euronews",
+    "European Broadcasting Union",
+    "Law of the European Union"
+   ]
+  },
+  "eep-137": {
+   "answer": "Enlargement governance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2004 enlargement of the European Union",
+    "Potential enlargement of the European Union",
+    "Enlargement of the European Union",
+    "Member state of the European Union",
+    "Accession of Albania to the European Union"
+   ]
+  },
+  "eep-138": {
+   "answer": "Copenhagen criteria",
+   "title": "Copenhagen criteria",
+   "url": "https://en.wikipedia.org/wiki/Copenhagen_criteria",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-139": {
+   "answer": "Conditionality",
+   "title": "Conditionality",
+   "url": "https://en.wikipedia.org/wiki/Conditionality",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-140": {
+   "answer": "Acquis communautaire",
+   "title": "Acquis communautaire",
+   "url": "https://en.wikipedia.org/wiki/Acquis_communautaire",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-141": {
+   "answer": "Big bang enlargement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Copenhagen criteria",
+    "Enlargement of the eurozone",
+    "UK rebate",
+    "Adoption of the euro in Cyprus",
+    "European School, Brussels III"
+   ]
+  },
+  "eep-142": {
+   "answer": "Wim Kok",
+   "title": "Wim Kok",
+   "url": "https://en.wikipedia.org/wiki/Wim_Kok",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-143": {
+   "answer": "Olli Rehn",
+   "title": "Olli Rehn",
+   "url": "https://en.wikipedia.org/wiki/Olli_Rehn",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-144": {
+   "answer": "First enlargement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Enlargement of the European Union",
+    "Potential enlargement of the European Union",
+    "2004 enlargement of the European Union",
+    "2007 enlargement of the European Union",
+    "1995 enlargement of the European Union"
+   ]
+  },
+  "eep-145": {
+   "answer": "European Regional Development Fund",
+   "title": "European Regional Development Fund",
+   "url": "https://en.wikipedia.org/wiki/European_Regional_Development_Fund",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-146": {
+   "answer": "Agenda 2000",
+   "title": "Agenda 2000",
+   "url": "https://en.wikipedia.org/wiki/Agenda_2000",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-147": {
+   "answer": "Asymmetric interdependence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Weaponized interdependence",
+    "Complex interdependence",
+    "Superpower",
+    "Postfunctionalism",
+    "Liberal intergovernmentalism"
+   ]
+  },
+  "eep-148": {
+   "answer": "COREPER",
+   "title": "Committee of Permanent Representatives",
+   "url": "https://en.wikipedia.org/wiki/Committee_of_Permanent_Representatives",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "COREPER"
+  },
+  "eep-149": {
+   "answer": "Commission opinion",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Potential re-accession of the United Kingdom to the European Union",
+    "European Union legislative procedure",
+    "Accession of Montenegro to the European Union",
+    "European Commission",
+    "Opinion polling for the United Kingdom European Union membership referendum"
+   ]
+  },
+  "eep-150": {
+   "answer": "Screening",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Screening",
+   "suggestions": [
+    "Baggage screening",
+    "Call screening",
+    "Electric-field screening",
+    "High-throughput screening",
+    "Mechanical screening",
+    "Screening (economics)"
+   ]
+  },
+  "eep-151": {
+   "answer": "Negotiating framework",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accession of Montenegro to the European Union",
+    "Law of the European Union",
+    "Member state of the European Union",
+    "Windsor Framework",
+    "Potential enlargement of the European Union"
+   ]
+  },
+  "eep-152": {
+   "answer": "Cluster",
+   "title": "Open cluster",
+   "url": "https://en.wikipedia.org/wiki/Open_cluster",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Cluster"
+  },
+  "eep-153": {
+   "answer": "Fundamentals cluster",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accession of Ukraine to the European Union",
+    "Accession of Albania to the European Union",
+    "Accession of Moldova to the European Union",
+    "Potential enlargement of the European Union",
+    "Accession of Montenegro to the European Union"
+   ]
+  },
+  "eep-154": {
+   "answer": "Chapters of the acquis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Acquis communautaire",
+    "Potential enlargement of the European Union",
+    "Accession of Montenegro to the European Union",
+    "Accession of Turkey to the European Union",
+    "Enlargement of the European Union"
+   ]
+  },
+  "eep-155": {
+   "answer": "Treaty of Accession",
+   "title": "Treaty of Accession",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Accession",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-156": {
+   "answer": "Convergence machine",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Economic and Monetary Union of the European Union",
+    "European Union",
+    "Currency union",
+    "Law of the European Union",
+    "North American Union"
+   ]
+  },
+  "eep-157": {
+   "answer": "Capacity building",
+   "title": "Capacity building",
+   "url": "https://en.wikipedia.org/wiki/Capacity_building",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-158": {
+   "answer": "Safeguard clause",
+   "title": "Safeguard",
+   "url": "https://en.wikipedia.org/wiki/Safeguard",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Safeguard clause"
+  },
+  "eep-159": {
+   "answer": "Regular report",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Member state of the European Union",
+    "European Union",
+    "Canada–European Union relations",
+    "Enlargement of the European Union",
+    "European People's Party"
+   ]
+  },
+  "eep-160": {
+   "answer": "Rule of law reporting",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rule of Law Report",
+    "Law of the European Union",
+    "European Rule of Law Mechanism",
+    "European Union Rule of Law Mission in Kosovo",
+    "Member state of the European Union"
+   ]
+  },
+  "eep-186": {
+   "answer": "Swiss bilateral agreements",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Switzerland–European Union relations",
+    "List of bilateral free trade agreements",
+    "European Economic Area",
+    "Trade agreements of the European Union",
+    "Trade agreement"
+   ]
+  },
+  "eep-187": {
+   "answer": "Bilaterals III",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2004 enlargement of the European Union",
+    "European Union",
+    "Canada–European Union relations",
+    "Accession of Montenegro to the European Union",
+    "European single market"
+   ]
+  },
+  "eep-188": {
+   "answer": "Institutional Framework Agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union association agreement",
+    "Institutional seats of the European Union",
+    "Member state of the European Union",
+    "Trade agreements of the European Union",
+    "Institutions of the European Union"
+   ]
+  },
+  "eep-189": {
+   "answer": "Dynamic harmonisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Harmonisation of law",
+    "Download",
+    "Maastricht Treaty",
+    "Worldwide Harmonised Light Vehicles Test Procedure",
+    "European Union energy label"
+   ]
+  },
+  "eep-190": {
+   "answer": "Double majority",
+   "title": "Double majority",
+   "url": "https://en.wikipedia.org/wiki/Double_majority",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-191": {
+   "answer": "EU–Turkey Customs Union",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union–Turkey Customs Union",
+    "European Union Customs Union",
+    "Customs union",
+    "Turkey–European Union relations",
+    "Accession of Turkey to the European Union"
+   ]
+  },
+  "eep-192": {
+   "answer": "EU–Japan Economic Partnership Agreement",
+   "title": "Japan–European Union relations",
+   "url": "https://en.wikipedia.org/wiki/Japan%E2%80%93European_Union_relations",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "EU–Japan Economic Partnership Agreement"
+  },
+  "eep-193": {
+   "answer": "EU–Chile Advanced Framework Agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "EU-U.S. trade agreement",
+    "Canada–European Union relations",
+    "Free trade agreements of the United Kingdom",
+    "European Free Trade Association",
+    "European integration"
+   ]
+  },
+  "eep-194": {
+   "answer": "EU–Mercosur Interim Trade Agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union association agreement",
+    "List of bilateral free trade agreements",
+    "Free trade agreements of the European Union",
+    "Free trade agreements of the United Kingdom",
+    "Trade agreements of the European Union"
+   ]
+  },
+  "eep-195": {
+   "answer": "EU–Mercosur Partnership Agreement",
+   "title": "EU–Mercosur Partnership Agreement",
+   "url": "https://en.wikipedia.org/wiki/EU%E2%80%93Mercosur_Partnership_Agreement",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-196": {
+   "answer": "Armenia CEPA",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "EU-Armenia Comprehensive and Enhanced Partnership Agreement",
+    "Accession of Armenia to the European Union",
+    "Armenia–European Union relations",
+    "Civil Contract (Armenia)",
+    "Armenia"
+   ]
+  },
+  "eep-161": {
+   "answer": "Reform and Growth Facility",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accession of Albania to the European Union",
+    "Potential enlargement of the European Union",
+    "Cyprus and the European Union",
+    "Stability and Growth Pact",
+    "Economic and Monetary Union of the European Union"
+   ]
+  },
+  "eep-162": {
+   "answer": "Ukraine Facility",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Peace Facility",
+    "Potential enlargement of the European Union",
+    "Member state of the European Union",
+    "European Union Military Assistance Mission in support of Ukraine",
+    "European Union"
+   ]
+  },
+  "eep-163": {
+   "answer": "Revised enlargement methodology",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accession of Montenegro to the European Union",
+    "Accession of Serbia to the European Union",
+    "Accession of North Macedonia to the European Union",
+    "Opinion polling on the United Kingdom's membership of the European Union (2016–2020)",
+    "Law of the European Union"
+   ]
+  },
+  "eep-164": {
+   "answer": "Belt and Road in the Western Balkans",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Regions of Europe",
+    "Southern Europe",
+    "Global Gateway",
+    "Slavic migrations to the Balkans",
+    "Trans-European Transport Network"
+   ]
+  },
+  "eep-165": {
+   "answer": "Ukraine’s membership application",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accession of Ukraine to the European Union",
+    "Member state of the European Union",
+    "Ukraine–European Union relations",
+    "Accession of Georgia to the European Union",
+    "Potential enlargement of the European Union"
+   ]
+  },
+  "eep-166": {
+   "answer": "Accession through war",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accession of Armenia to the European Union",
+    "Accession of Montenegro to the European Union",
+    "Accession of Turkey to the European Union",
+    "Accession of Albania to the European Union",
+    "Accession of Moldova to the European Union"
+   ]
+  },
+  "eep-167": {
+   "answer": "Reverse enlargement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2013 enlargement of the European Union",
+    "Member state of the European Union",
+    "Referendums related to the European Union",
+    "Accession of Turkey to the European Union",
+    "National identity cards in the European Economic Area and Switzerland"
+   ]
+  },
+  "eep-168": {
+   "answer": "Importing instability",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Iceland–European Union relations",
+    "European Union–Ukraine Association Agreement",
+    "Soviet Union",
+    "European Central Bank",
+    "European Union Emissions Trading System"
+   ]
+  },
+  "eep-169": {
+   "answer": "Absorption capacity",
+   "title": "Enlargement of the European Union",
+   "url": "https://en.wikipedia.org/wiki/Enlargement_of_the_European_Union",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Absorption capacity"
+  },
+  "eep-170": {
+   "answer": "Constitutionalisation versus bilateralisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eep-171": {
+   "answer": "Merit-based enlargement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Law of the European Union",
+    "Enlargement of the eurozone",
+    "European Union citizenship",
+    "European Economic Area",
+    "Eastern Partnership"
+   ]
+  },
+  "eep-172": {
+   "answer": "Candidate status",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Potential enlargement of the European Union",
+    "Accession of Ukraine to the European Union",
+    "Accession of Georgia to the European Union",
+    "Enlargement of the European Union",
+    "Member state of the European Union"
+   ]
+  },
+  "eep-173": {
+   "answer": "European perspective",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Institutions of the European Union",
+    "European Union",
+    "Enlargement of the European Union",
+    "Official Journal of the European Union",
+    "Flag of Europe"
+   ]
+  },
+  "eep-174": {
+   "answer": "North Macedonia veto",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accession of North Macedonia to the European Union",
+    "North Macedonia",
+    "Accession of Albania to the European Union",
+    "VMRO-DPMNE",
+    "Veto"
+   ]
+  },
+  "eep-197": {
+   "answer": "Azerbaijan PCA",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Azerbaijan–European Union relations",
+    "European Azerbaijan",
+    "European Union association agreement",
+    "Accession of Armenia to the European Union",
+    "European Union"
+   ]
+  },
+  "eep-198": {
+   "answer": "Market power Europe",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European single market",
+    "Member state of the European Union",
+    "Solar power in the European Union",
+    "Nuclear power in the European Union",
+    "European Union Customs Union"
+   ]
+  },
+  "eep-199": {
+   "answer": "Chad Damro",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Heather Grabbe"
+   ]
+  },
+  "eep-200": {
+   "answer": "Geopoliticisation of trade",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eep-201": {
+   "answer": "Meunier and Nicolaidis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of political scientists"
+   ]
+  },
+  "eep-202": {
+   "answer": "TTIP",
+   "title": "Transatlantic Trade and Investment Partnership",
+   "url": "https://en.wikipedia.org/wiki/Transatlantic_Trade_and_Investment_Partnership",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "TTIP"
+  },
+  "eep-203": {
+   "answer": "Eurasian Economic Union",
+   "title": "Eurasian Economic Union",
+   "url": "https://en.wikipedia.org/wiki/Eurasian_Economic_Union",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-204": {
+   "answer": "Euromaidan",
+   "title": "Euromaidan",
+   "url": "https://en.wikipedia.org/wiki/Euromaidan",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-205": {
+   "answer": "Dutch referendum on the Association Agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union–Ukraine Association Agreement",
+    "2016 Dutch Ukraine–European Union Association Agreement referendum",
+    "Andorra—San Marino—European Union Association Agreement",
+    "Withdrawal from the European Union",
+    "Brexit"
+   ]
+  },
+  "eep-206": {
+   "answer": "Multilateralism",
+   "title": "Multilateralism",
+   "url": "https://en.wikipedia.org/wiki/Multilateralism",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-175": {
+   "answer": "External governance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Treaty on European Union",
+    "Special territories of members of the European Economic Area",
+    "Governance",
+    "Member state of the European Union",
+    "European University Institute"
+   ]
+  },
+  "eep-176": {
+   "answer": "Sandra Lavenex",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Parmesan"
+   ]
+  },
+  "eep-177": {
+   "answer": "Modes of external governance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Governance",
+    "Law of the European Union",
+    "European Union",
+    "Baku Initiative",
+    "Soviet Union"
+   ]
+  },
+  "eep-178": {
+   "answer": "Governance versus policy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Regulation of artificial intelligence",
+    "Law of the European Union",
+    "Governance",
+    "European Union Emissions Trading System",
+    "United Kingdom membership of the European Union"
+   ]
+  },
+  "eep-179": {
+   "answer": "European Economic Area",
+   "title": "European Economic Area",
+   "url": "https://en.wikipedia.org/wiki/European_Economic_Area",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-180": {
+   "answer": "Association agreement",
+   "title": "European Union association agreement",
+   "url": "https://en.wikipedia.org/wiki/European_Union_association_agreement",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Association agreement"
+  },
+  "eep-181": {
+   "answer": "DCFTA",
+   "title": "Deep and Comprehensive Free Trade Area",
+   "url": "https://en.wikipedia.org/wiki/Deep_and_Comprehensive_Free_Trade_Area",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "DCFTA"
+  },
+  "eep-182": {
+   "answer": "Everything but the institutions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Enlargement of the European Union",
+    "European Union",
+    "Law of the European Union",
+    "Brussels and the European Union",
+    "European Commission"
+   ]
+  },
+  "eep-183": {
+   "answer": "Mixed agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Mixed agreement",
+   "target": "Common Commercial Policy (EU)#Mixed agreements"
+  },
+  "eep-184": {
+   "answer": "Association Council",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union association agreement",
+    "Presidency of the Council of the European Union",
+    "Council of the European Union",
+    "European Union–Ukraine Association Agreement",
+    "Member state of the European Union"
+   ]
+  },
+  "eep-185": {
+   "answer": "Democracy and human rights clause",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Member state of the European Union",
+    "Democracy",
+    "Law of the European Union",
+    "Framework Convention on Artificial Intelligence",
+    "European Union"
+   ]
+  },
+  "eep-228": {
+   "answer": "Stairway of change",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Brexit negotiations",
+    "Indo-European vocabulary",
+    "Black Elk Peak",
+    "Neues Museum",
+    "2021 European floods"
+   ]
+  },
+  "eep-229": {
+   "answer": "Scope of change",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Economy of the European Union",
+    "European Union Emissions Trading System",
+    "Withdrawal from the European Union",
+    "Single Euro Payments Area",
+    "Canada–European Union relations"
+   ]
+  },
+  "eep-230": {
+   "answer": "Sustainability of change",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Climate change in Europe",
+    "Potential re-accession of the United Kingdom to the European Union",
+    "European Union",
+    "Climate change",
+    "Corporate Sustainability Due Diligence Directive"
+   ]
+  },
+  "eep-231": {
+   "answer": "Constitutional-level change",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Member state of the European Union",
+    "Accession of Montenegro to the European Union",
+    "Law of the European Union",
+    "Climate change in Europe",
+    "2024 Moldovan European Union membership constitutional referendum"
+   ]
+  },
+  "eep-232": {
+   "answer": "Punctuated equilibrium",
+   "title": "Punctuated equilibrium",
+   "url": "https://en.wikipedia.org/wiki/Punctuated_equilibrium",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-233": {
+   "answer": "Discursive institutionalism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Discursive institutionalism",
+   "target": "New institutionalism#Constructivist institutionalism"
+  },
+  "eep-234": {
+   "answer": "Historical institutionalism",
+   "title": "Historical institutionalism",
+   "url": "https://en.wikipedia.org/wiki/Historical_institutionalism",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-235": {
+   "answer": "Path dependence",
+   "title": "Path dependence",
+   "url": "https://en.wikipedia.org/wiki/Path_dependence",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-236": {
+   "answer": "Permissive conditions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Permissive action link",
+    "Permissive software license",
+    "Operation Barbarossa",
+    "Pornography in Europe",
+    "Collective agreement coverage"
+   ]
+  },
+  "eep-237": {
+   "answer": "Versailles Declaration",
+   "title": "Versailles declaration",
+   "url": "https://en.wikipedia.org/wiki/Versailles_declaration",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Versailles Declaration"
+  },
+  "eep-238": {
+   "answer": "Ukraine is one of us",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accession of Ukraine to the European Union",
+    "European Union–Ukraine Association Agreement",
+    "Ukraine–European Union relations",
+    "Russo-Ukrainian war (2022–present)",
+    "Ukraine"
+   ]
+  },
+  "eep-239": {
+   "answer": "Geopolitical imperative",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Geopolitics",
+    "India–Middle East–Europe Economic Corridor",
+    "The Grand Chessboard",
+    "Federal Europe",
+    "Eurasia"
+   ]
+  },
+  "eep-240": {
+   "answer": "Group of Friends on Qualified Majority Voting",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Law of the European Union",
+    "2016 United Kingdom European Union membership referendum",
+    "2014 Scottish independence referendum",
+    "Dissolution of the Soviet Union",
+    "Women's suffrage by country"
+   ]
+  },
+  "eep-241": {
+   "answer": "Granada Declaration",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Colombian War of Independence",
+    "European Political Community",
+    "United States Declaration of Independence",
+    "Islam in Europe",
+    "Colombian Constitution of 1821"
+   ]
+  },
+  "eep-242": {
+   "answer": "Sailing on High Seas",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "International waters",
+    "United Nations Convention on the Law of the Sea",
+    "Northern Sea Route",
+    "Glossary of nautical terms (A–L)",
+    "Dogger Bank"
+   ]
+  },
+  "eep-243": {
+   "answer": "Parliament’s treaty-change resolution",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Treaties of the European Union",
+    "Treaty of Brussels",
+    "Treaty of Lisbon",
+    "Treaty on European Union",
+    "Maastricht Treaty"
+   ]
+  },
+  "eep-244": {
+   "answer": "Danish defence opt-out referendum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Opt-outs in the European Union",
+    "2022 Danish European Union opt-out referendum",
+    "Danish opt-outs from the European Union",
+    "Referendums related to the European Union",
+    "United Kingdom opt-outs from EU legislation"
+   ]
+  },
+  "eep-245": {
+   "answer": "EUMAM Ukraine",
+   "title": "European Union Military Assistance Mission in support of Ukraine",
+   "url": "https://en.wikipedia.org/wiki/European_Union_Military_Assistance_Mission_in_support_of_Ukraine",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "EUMAM Ukraine"
+  },
+  "eep-246": {
+   "answer": "Ukraine Assistance Fund",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Peace Facility",
+    "Ukraine–European Union relations",
+    "List of humanitarian aid to Ukraine during the Russo-Ukrainian war",
+    "Ukraine",
+    "Member state of the European Union"
+   ]
+  },
+  "eep-247": {
+   "answer": "Article 122 TFEU",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Treaty on the Functioning of the European Union",
+    "Member state of the European Union",
+    "European Union",
+    "National parliaments of the European Union",
+    "Foreign relations of the European Union"
+   ]
+  },
+  "eep-248": {
+   "answer": "Enlargement fatigue",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Enlargement of the European Union",
+    "Accession of Ukraine to the European Union",
+    "Ukraine–European Union relations",
+    "Eastern Partnership",
+    "Amyloidosis"
+   ]
+  },
+  "eep-249": {
+   "answer": "Post-modern DNA",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Genetic studies of Jews",
+    "History of Europe",
+    "Genealogical DNA test",
+    "Demographics of Europe",
+    "Genetic testing"
+   ]
+  },
+  "eep-250": {
+   "answer": "EUFOR Tchad/RCA",
+   "title": "European Union Military Operation in Chad and the Central African Republic",
+   "url": "https://en.wikipedia.org/wiki/European_Union_Military_Operation_in_Chad_and_the_Central_African_Republic",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "EUFOR Tchad/RCA"
+  },
+  "eep-251": {
+   "answer": "Lethal aid through the EPF",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Timeline of the Russo-Ukrainian war (12 November 2022 – 7 June 2023)"
+   ]
+  },
+  "eep-213": {
+   "answer": "European Zeitenwende",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Green Party",
+    "Zeitenwende speech",
+    "Danish opt-outs from the European Union",
+    "2020s in Europe",
+    "Social Democratic Party of Germany"
+   ]
+  },
+  "eep-214": {
+   "answer": "Guns or butter",
+   "title": "Guns versus butter model",
+   "url": "https://en.wikipedia.org/wiki/Guns_versus_butter_model",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Guns or butter"
+  },
+  "eep-215": {
+   "answer": "Eurobarometer",
+   "title": "Eurobarometer",
+   "url": "https://en.wikipedia.org/wiki/Eurobarometer",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-216": {
+   "answer": "eupinions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Prague European Summit"
+   ]
+  },
+  "eep-217": {
+   "answer": "Eroding public support",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accession of Ukraine to the European Union",
+    "Christian Democratic Union of Germany",
+    "Democratic legitimacy of the European Union",
+    "Eurozone crisis",
+    "Accession of North Macedonia to the European Union"
+   ]
+  },
+  "eep-218": {
+   "answer": "Populist backlash",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Populism",
+    "Right-wing populism",
+    "Radical right (Europe)",
+    "Brexit",
+    "Valence populism"
+   ]
+  },
+  "eep-219": {
+   "answer": "Honest narrative",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia–European Union relations",
+    "Whistleblowing",
+    "History of the Communist Party of the Soviet Union (Bolsheviks)",
+    "Henry Bibb",
+    "President (band)"
+   ]
+  },
+  "eep-271": {
+   "answer": "MILEX26",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eep-272": {
+   "answer": "Rapid Deployment Capacity",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Rapid Deployment Capacity",
+   "target": "Defence forces of the European Union#Rapid Deployment Capacity"
+  },
+  "eep-273": {
+   "answer": "EU Battlegroups",
+   "title": "EU battlegroup",
+   "url": "https://en.wikipedia.org/wiki/EU_battlegroup",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "EU Battlegroups"
+  },
+  "eep-274": {
+   "answer": "Strategic enablers",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Brexit",
+    "Accession of Albania to the European Union",
+    "Enlargement of the European Union",
+    "European Union–United States relations",
+    "European single market"
+   ]
+  },
+  "eep-275": {
+   "answer": "European army",
+   "title": "European army",
+   "url": "https://en.wikipedia.org/wiki/European_army",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-276": {
+   "answer": "Kabul evacuation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2021 Kabul airlift",
+    "Fall of Kabul (2021)",
+    "2021 Kabul airport attack",
+    "Kabul airlift of 1928–1929",
+    "Reactions to the fall of Kabul (2021)"
+   ]
+  },
+  "eep-277": {
+   "answer": "Force generation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "List of military and civilian missions of the European Union",
+    "Common Security and Defence Policy",
+    "Law of the European Union",
+    "Demographics of the European Union"
+   ]
+  },
+  "eep-278": {
+   "answer": "Defending Europe without the US",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Europe",
+    "Law of the European Union",
+    "European Union–United States relations",
+    "UEFA Champions League",
+    "Greenland and the European Union"
+   ]
+  },
+  "eep-279": {
+   "answer": "Twenty-nine national armies",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "American Civil War",
+    "United States Army Europe and Africa",
+    "World War II",
+    "European Union citizenship"
+   ]
+  },
+  "eep-280": {
+   "answer": "Fifty new brigades",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Red Brigades",
+    "Labour Party (UK) affiliated trade union",
+    "World War II",
+    "Infantry in the American Civil War",
+    "2020s European rearmament"
+   ]
+  },
+  "eep-281": {
+   "answer": "Minimum deterrence package",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "FGC-9",
+    "Common Security and Defence Policy",
+    "List of minimum driving ages",
+    "History of the European Union",
+    "2015 Greek bailout referendum"
+   ]
+  },
+  "eep-282": {
+   "answer": "Three and a half per cent of GDP",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "United Kingdom membership of the European Union",
+    "Law of the European Union",
+    "Economy of Lithuania",
+    "Eurozone crisis"
+   ]
+  },
+  "eep-283": {
+   "answer": "€250 billion a year",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "Law of the European Union",
+    "List of continents by GDP",
+    "Dublin–Belfast corridor",
+    "Economy of the European Union"
+   ]
+  },
+  "eep-284": {
+   "answer": "155mm shell stockpile",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Peace Facility",
+    "Shell (projectile)",
+    "Ukraine Defense Contact Group",
+    "Use of cluster munitions in the Russian invasion of Ukraine",
+    "List of military aid to Ukraine during the Russo-Ukrainian war"
+   ]
+  },
+  "eep-285": {
+   "answer": "Zapad exercises",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Zapad-81",
+    "Zapad 2025",
+    "List of Zapad exercises",
+    "Zapad 2009",
+    "Zapad 2021"
+   ]
+  },
+  "eep-286": {
+   "answer": "150,000 European troops",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Europe",
+    "Immigration to Europe",
+    "Belarus–European Union border crisis",
+    "European theatre of World War II",
+    "2020s in Europe"
+   ]
+  },
+  "eep-287": {
+   "answer": "Russian production surge",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Soviet Union",
+    "Russia in the European energy sector",
+    "Support for Russia in the Russo-Ukrainian war",
+    "2022–2023 Russia–European Union gas dispute",
+    "Finland–Russia relations"
+   ]
+  },
+  "eep-252": {
+   "answer": "Maturation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Maturation",
+   "suggestions": [
+    "Tissue maturation"
+   ]
+  },
+  "eep-253": {
+   "answer": "National acceptability",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Parliament",
+    "Turkey–European Union relations",
+    "Russia national rugby union team",
+    "Neutral member states in the European Union",
+    "Poland and the European Union"
+   ]
+  },
+  "eep-254": {
+   "answer": "Political beliefs, perceptions and goals",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Political views of Adolf Hitler",
+    "European Union",
+    "Accession of Turkey to the European Union",
+    "Accession of Albania to the European Union",
+    "Brexit"
+   ]
+  },
+  "eep-255": {
+   "answer": "Open strategic autonomy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Chips Act",
+    "Accession of Serbia to the European Union",
+    "Cyprus and the European Union",
+    "Digital sovereignty",
+    "2021 Portuguese Presidency of the Council of the European Union"
+   ]
+  },
+  "eep-256": {
+   "answer": "Autonomy rather than independence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Scottish independence",
+    "Central bank independence",
+    "French Union",
+    "Special territories of members of the European Economic Area",
+    "Rise of nationalism in Europe"
+   ]
+  },
+  "eep-257": {
+   "answer": "Berlin Plus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Berlin Plus",
+   "suggestions": [
+    "Berlin Plus agreement",
+    "Berlin Plus package"
+   ]
+  },
+  "eep-258": {
+   "answer": "Helsinki Headline Goal",
+   "title": "Helsinki Headline Goal",
+   "url": "https://en.wikipedia.org/wiki/Helsinki_Headline_Goal",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-259": {
+   "answer": "Civilian Headline Goal",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Helsinki Headline Goal",
+    "European Union",
+    "European Union Military Staff",
+    "European Union Military Committee",
+    "EU battlegroup"
+   ]
+  },
+  "eep-260": {
+   "answer": "December 2013 European Council",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Council of the European Union",
+    "Presidency of the Council of the European Union",
+    "Member state of the European Union",
+    "2013 enlargement of the European Union",
+    "European Union Customs Union"
+   ]
+  },
+  "eep-261": {
+   "answer": "Atlanticist–Europeanist spectrum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2022 Italian general election",
+    "Lega (political party)",
+    "Scottish National Party"
+   ]
+  },
+  "eep-262": {
+   "answer": "Deliberate ambiguity",
+   "title": "Policy of deliberate ambiguity",
+   "url": "https://en.wikipedia.org/wiki/Policy_of_deliberate_ambiguity",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Deliberate ambiguity"
+  },
+  "eep-263": {
+   "answer": "Anglo-French consensus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European social model",
+    "Pan-European nationalism",
+    "European Union",
+    "Dual monarchy of England and France",
+    "Euro"
+   ]
+  },
+  "eep-264": {
+   "answer": "Irish triple lock",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Irish neutrality",
+    "Ireland women's national rugby union team",
+    "Rugby union in Ireland",
+    "Neutral member states in the European Union",
+    "Ireland–NATO relations"
+   ]
+  },
+  "eep-265": {
+   "answer": "Complementarity with NATO",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Canada–European Union relations",
+    "Permanent Structured Cooperation",
+    "Kosovo–North Macedonia relations",
+    "Andrei Kozyrev",
+    "Colombia–European Union relations"
+   ]
+  },
+  "eep-266": {
+   "answer": "Turkey–Cyprus stalemate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Cyprus problem",
+    "Foreign relations of Northern Cyprus",
+    "United Nations Peacekeeping Force in Cyprus",
+    "Greece–Turkey relations",
+    "Aegean dispute"
+   ]
+  },
+  "eep-267": {
+   "answer": "Eastern Flank",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Eastern Europe",
+    "Accession of Armenia to the European Union",
+    "Eastern Front (World War II)",
+    "Bucharest Nine",
+    "Warsaw Pact"
+   ]
+  },
+  "eep-268": {
+   "answer": "Security momentum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Common Security and Defence Policy",
+    "Federalisation of the European Union",
+    "Pro-Europeanism",
+    "Momentum (organisation)",
+    "Neutral member states in the European Union"
+   ]
+  },
+  "eep-269": {
+   "answer": "Muscled-up junior partner",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2022–23 Glasgow Warriors season",
+    "EastEnders"
+   ]
+  },
+  "eep-270": {
+   "answer": "Strategic interdependence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Weaponized interdependence",
+    "Complex interdependence",
+    "Abraham L. Newman",
+    "European Youth Forum",
+    "Turkey–European Union relations"
+   ]
+  },
+  "eep-288": {
+   "answer": "European Iron Network",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Economy of the European Union",
+    "Law of the European Union",
+    "European Green Belt",
+    "Europe",
+    "Cultural Route of the Council of Europe"
+   ]
+  },
+  "eep-289": {
+   "answer": "Iron Triangle",
+   "title": "Iron triangle (US politics)",
+   "url": "https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Iron Triangle"
+  },
+  "eep-290": {
+   "answer": "Golden pentangles",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of 2026 deaths in popular music",
+    "Deaths in September 2025",
+    "Bee Gees",
+    "Deaths in March 2026",
+    "The Smiths"
+   ]
+  },
+  "eep-291": {
+   "answer": "Article 346 TFEU",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Law of the European Union",
+    "Special territories of members of the European Economic Area",
+    "Foreign relations of the European Union",
+    "European Stability Mechanism",
+    "European multilateral defence procurement"
+   ]
+  },
+  "eep-292": {
+   "answer": "Core, semi-periphery and periphery",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Semi-periphery countries",
+    "Periphery countries",
+    "Core countries",
+    "World-systems theory",
+    "Attica (region)"
+   ]
+  },
+  "eep-293": {
+   "answer": "Buy European",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "United Kingdom membership of the European Union",
+    "European Union–United States relations",
+    "Brexit",
+    "European single market"
+   ]
+  },
+  "eep-294": {
+   "answer": "SAFE",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "SAFE",
+   "suggestions": [
+    "Safe (disambiguation)",
+    "Safe Ireland",
+    "SAFE (cable system)",
+    "SAFE Act (disambiguation)",
+    "SAFE (New Zealand organisation)",
+    "Safe affordable fission engine"
+   ]
+  },
+  "eep-295": {
+   "answer": "ReArm Europe",
+   "title": "Readiness 2030",
+   "url": "https://en.wikipedia.org/wiki/Readiness_2030",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "ReArm Europe"
+  },
+  "eep-296": {
+   "answer": "White Paper for European Defence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Defence Agency",
+    "Law of the European Union",
+    "Security Action for Europe",
+    "Green paper",
+    "Economy of the European Union"
+   ]
+  },
+  "eep-297": {
+   "answer": "Act in Support of Ammunition Production",
+   "title": "Act in Support of Ammunition Production",
+   "url": "https://en.wikipedia.org/wiki/Act_in_Support_of_Ammunition_Production",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eep-298": {
+   "answer": "Twenty-seven military-industrial complexes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "American Civil War",
+    "Soviet Union",
+    "History of the Soviet Union (1927–1953)",
+    "Cold War"
+   ]
+  },
+  "eep-299": {
+   "answer": "Ukraine’s drone industry",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ukrainian strikes on Wildberries warehouses",
+    "Defence industry of Ukraine",
+    "Russo-Ukrainian war (2022–present)",
+    "Russo-Ukrainian war",
+    "Centauros anti drone system"
+   ]
+  },
+  "eep-300": {
+   "answer": "EU–UK defence pact",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Defence Agency",
+    "Canada–European Union relations",
+    "United Kingdom–European Union relations",
+    "European Union–NATO relations",
+    "Brexit"
+   ]
+  },
+  "gga-006": {
+   "answer": "Interregnum",
+   "title": "Interregnum",
+   "url": "https://en.wikipedia.org/wiki/Interregnum",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-010": {
+   "answer": "Multi-alignment",
+   "title": "Multi-alignment",
+   "url": "https://en.wikipedia.org/wiki/Multi-alignment",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-023": {
+   "answer": "Two-level game",
+   "title": "Two-level game theory",
+   "url": "https://en.wikipedia.org/wiki/Two-level_game_theory",
+   "via": "answer",
+   "status": "ok",
+   "manual": true
+  },
+  "gga-047": {
+   "answer": "Responsibility to Protect",
+   "title": "Responsibility to protect",
+   "url": "https://en.wikipedia.org/wiki/Responsibility_to_protect",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Responsibility to Protect"
+  },
+  "gga-048": {
+   "answer": "Brahimi Report",
+   "title": "Report of the Panel on United Nations Peace Operations",
+   "url": "https://en.wikipedia.org/wiki/Report_of_the_Panel_on_United_Nations_Peace_Operations",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Brahimi Report"
+  },
+  "gga-049": {
+   "answer": "High-level Independent Panel on Peace Operations",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-050": {
+   "answer": "Four essential shifts",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-051": {
+   "answer": "No peace to keep",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-042": {
+   "answer": "Penholder",
+   "title": "Penholder (United Nations)",
+   "url": "https://en.wikipedia.org/wiki/Penholder_(United_Nations)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Penholder"
+  },
+  "gga-043": {
+   "answer": "Christmas tree mandates",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Christmas tree cultivation",
+    "Observance of Christmas by country",
+    "Christmas Tree Promotion, Research, and Information Order",
+    "A Charlie Brown Christmas",
+    "A Very Harold & Kumar 3D Christmas"
+   ]
+  },
+  "gga-044": {
+   "answer": "UNPROFOR, UNOSOM and UNAMIR",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Canadian peacekeeping",
+    "United Nations peacekeeping",
+    "Pakistan Army Medical Corps",
+    "Awards and decorations of the Irish Defence Forces",
+    "United Nations Medal"
+   ]
+  },
+  "gga-045": {
+   "answer": "Independent Inquiry into the Rwanda genocide",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rwandan genocide",
+    "Gaza genocide",
+    "International response to the Rwandan genocide",
+    "Intent and incitement in the Gaza genocide",
+    "List of genocides"
+   ]
+  },
+  "gga-046": {
+   "answer": "Blair Doctrine",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Blairism",
+    "Arika",
+    "George Orwell",
+    "Premiership of Tony Blair",
+    "Liberal internationalism"
+   ]
+  },
+  "gga-036": {
+   "answer": "Resolution 2085",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Stepanakert",
+    "United Nations Security Council Resolution 2085",
+    "Azerbaijan",
+    "Council of Europe Parliamentary Assembly Resolution 2085 (2016)",
+    "Mikhail Gorbachev"
+   ]
+  },
+  "gga-037": {
+   "answer": "MINUSMA",
+   "title": "United Nations Multidimensional Integrated Stabilization Mission in Mali",
+   "url": "https://en.wikipedia.org/wiki/United_Nations_Multidimensional_Integrated_Stabilization_Mission_in_Mali",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "MINUSMA"
+  },
+  "gga-038": {
+   "answer": "Algiers Agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Algiers Agreement",
+   "suggestions": [
+    "1975 Algiers Agreement",
+    "Algiers Agreement (2000)"
+   ]
+  },
+  "gga-039": {
+   "answer": "Africa Corps",
+   "title": "Afrika Korps",
+   "url": "https://en.wikipedia.org/wiki/Afrika_Korps",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Africa Corps"
+  },
+  "gga-040": {
+   "answer": "Assimi Goïta",
+   "title": "Assimi Goïta",
+   "url": "https://en.wikipedia.org/wiki/Assimi_Go%C3%AFta",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-041": {
+   "answer": "Operation Barkhane",
+   "title": "Operation Barkhane",
+   "url": "https://en.wikipedia.org/wiki/Operation_Barkhane",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-025": {
+   "answer": "Hybrid warfare",
+   "title": "Hybrid warfare",
+   "url": "https://en.wikipedia.org/wiki/Hybrid_warfare",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-026": {
+   "answer": "Explosion of connectivity",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2007 New York City steam explosion",
+    "Paraconsistent logic",
+    "2026 Internet blackout in Iran",
+    "2026 Iran war",
+    "List of Amazon Leo launches"
+   ]
+  },
+  "gga-027": {
+   "answer": "States acting like nonstate actors",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Anti-corruption",
+    "Battle of Mogadishu (1993)",
+    "Corruption",
+    "War on drugs",
+    "Somali National Alliance"
+   ]
+  },
+  "gga-028": {
+   "answer": "Mutually hurting stalemate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mutually assured destruction",
+    "Conflict resolution",
+    "Peacebuilding",
+    "2026 Iran war",
+    "India–Pakistan war of 1965"
+   ]
+  },
+  "gga-029": {
+   "answer": "Drone warfare",
+   "title": "Drone warfare",
+   "url": "https://en.wikipedia.org/wiki/Drone_warfare",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-016": {
+   "answer": "Weaponisation of everything",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mark Galeotti",
+    "Battlespace",
+    "Beetle",
+    "Media coverage of the Gaza war",
+    "Jawaharlal Nehru"
+   ]
+  },
+  "gga-017": {
+   "answer": "Mutually assured economic pain",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Economic impact of the 2026 Iran war",
+    "Workers' compensation",
+    "The Theory of Moral Sentiments",
+    "Harriet Taylor Mill",
+    "George C. Homans"
+   ]
+  },
+  "gga-018": {
+   "answer": "GPS spoofing",
+   "title": "GNSS spoofing",
+   "url": "https://en.wikipedia.org/wiki/GNSS_spoofing",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "GPS spoofing"
+  },
+  "gga-022": {
+   "answer": "Ibrahim Traoré",
+   "title": "Ibrahim Traoré",
+   "url": "https://en.wikipedia.org/wiki/Ibrahim_Traor%C3%A9",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-024": {
+   "answer": "Pedro Sánchez",
+   "title": "Pedro Sánchez",
+   "url": "https://en.wikipedia.org/wiki/Pedro_S%C3%A1nchez",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-052": {
+   "answer": "Protection of civilians",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-053": {
+   "answer": "Exit strategy",
+   "title": "Exit strategy",
+   "url": "https://en.wikipedia.org/wiki/Exit_strategy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-054": {
+   "answer": "Jean-Marie Guéhenno",
+   "title": "Jean-Marie Guéhenno",
+   "url": "https://en.wikipedia.org/wiki/Jean-Marie_Gu%C3%A9henno",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-055": {
+   "answer": "Strategic retrenchment",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Post–Cold War era",
+    "Turnaround management",
+    "July 1946",
+    "Sav-A-Center",
+    "Corporate recovery"
+   ]
+  },
+  "gga-056": {
+   "answer": "Commodified peace",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Gift economy",
+    "Horse (novel)",
+    "Das Judenthum in der Musik",
+    "Roger A. Freeman (economist)",
+    "Pocahontas"
+   ]
+  },
+  "gga-030": {
+   "answer": "Traditional peacekeeping",
+   "title": "Peacekeeping",
+   "url": "https://en.wikipedia.org/wiki/Peacekeeping",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Traditional peacekeeping"
+  },
+  "gga-031": {
+   "answer": "Holy trinity of peacekeeping",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Andrew Parker Bowles",
+    "Orders, decorations, and medals of Ethiopia",
+    "Religious war",
+    "Three-finger salute (Serbian)",
+    "Crusades against Christians"
+   ]
+  },
+  "gga-032": {
+   "answer": "United Nations Truce Supervision Organization",
+   "title": "United Nations Truce Supervision Organization",
+   "url": "https://en.wikipedia.org/wiki/United_Nations_Truce_Supervision_Organization",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-033": {
+   "answer": "Multinational Force and Observers",
+   "title": "Multinational Force and Observers",
+   "url": "https://en.wikipedia.org/wiki/Multinational_Force_and_Observers",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-034": {
+   "answer": "Generations of peacekeeping",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United Nations peacekeeping",
+    "Generations of warfare",
+    "United Nations",
+    "Canadian Armed Forces",
+    "Egyptian Peacekeeping Forces"
+   ]
+  },
+  "gga-035": {
+   "answer": "Stabilisation missions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United Nations Stabilisation Mission in Haiti",
+    "United Nations Multidimensional Integrated Stabilization Mission in Mali",
+    "United Nations Mission for Justice Support in Haiti",
+    "List of United Nations peacekeeping missions",
+    "Canadian peacekeeping"
+   ]
+  },
+  "gga-007": {
+   "answer": "Crisis of authority",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Organic crisis",
+    "Cuban Missile Crisis",
+    "Martin Gurri",
+    "2008 financial crisis",
+    "AlMaghrib Institute"
+   ]
+  },
+  "gga-008": {
+   "answer": "Post-unipolar world",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "New world order (politics)",
+    "Polarity (international relations)",
+    "Post–Cold War era",
+    "Major depressive disorder",
+    "Estonia"
+   ]
+  },
+  "gga-009": {
+   "answer": "Five superpowers",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Superpower",
+    "Alisa Xayalith",
+    "Founder mode",
+    "Hi-Five (film)",
+    "American Century"
+   ]
+  },
+  "gga-019": {
+   "answer": "Revisionist powers",
+   "title": "Revisionist state",
+   "url": "https://en.wikipedia.org/wiki/Revisionist_state",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Revisionist power"
+  },
+  "gga-020": {
+   "answer": "Anti-colonialism",
+   "title": "Decolonization",
+   "url": "https://en.wikipedia.org/wiki/Decolonization",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Anti-colonialism"
+  },
+  "gga-011": {
+   "answer": "Shanghai Cooperation Organisation",
+   "title": "Shanghai Cooperation Organisation",
+   "url": "https://en.wikipedia.org/wiki/Shanghai_Cooperation_Organisation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-012": {
+   "answer": "Cold War mentality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mindset",
+    "Cold war (term)",
+    "Li Qiang",
+    "Communist Party USA",
+    "AUKUS"
+   ]
+  },
+  "gga-013": {
+   "answer": "Demographic transition",
+   "title": "Demographic transition",
+   "url": "https://en.wikipedia.org/wiki/Demographic_transition",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-014": {
+   "answer": "Convergence clubs",
+   "title": "Convergence clubs",
+   "url": "https://en.wikipedia.org/wiki/Convergence_clubs",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-015": {
+   "answer": "South-South trade",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Congress of South African Trade Unions",
+    "South–South cooperation",
+    "South Asian Association for Regional Cooperation",
+    "Japan–South Korea trade dispute",
+    "Global North and Global South"
+   ]
+  },
+  "gga-001": {
+   "answer": "Security, prosperity and values",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Prosperity theology",
+    "Core Socialist Values",
+    "National interest",
+    "Personal life of Mahathir Mohamad",
+    "Greater East Asia Co-Prosperity Sphere"
+   ]
+  },
+  "gga-002": {
+   "answer": "Polarity",
+   "title": "Polarity (international relations)",
+   "url": "https://en.wikipedia.org/wiki/Polarity_(international_relations)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Polarity"
+  },
+  "gga-003": {
+   "answer": "Structural power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-004": {
+   "answer": "Operational code",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-005": {
+   "answer": "Leader personality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-168": {
+   "answer": "Secondary sanctions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Secondary sanctions",
+   "target": "United States government sanctions#Secondary sanctions"
+  },
+  "gga-169": {
+   "answer": "Teapot refiners",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Steeping",
+    "China in the 2026 Iran war",
+    "Sinclair Oil Corporation",
+    "Hengli Group",
+    "United States sanctions against China"
+   ]
+  },
+  "gga-170": {
+   "answer": "China's anti-sanctions regime",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Anti-Foreign Sanctions Law",
+    "United States government sanctions",
+    "Anti-American sentiment in China",
+    "International sanctions during apartheid",
+    "Support for Russia in the Russo-Ukrainian war"
+   ]
+  },
+  "gga-171": {
+   "answer": "One-year trade truce",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Twelve Years' Truce",
+    "Truce of Andrusovo",
+    "Christmas truce",
+    "Busan Summit",
+    "Danish–Hanseatic War (1361–1370)"
+   ]
+  },
+  "gga-172": {
+   "answer": "90 per cent of Iran's oil",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2026 Iran war",
+    "2026 Iran war fuel crisis",
+    "Economic impact of the 2026 Iran war",
+    "Subsidies in Iran",
+    "Anglo-Persian Oil Company"
+   ]
+  },
+  "gga-173": {
+   "answer": "Illicit unilateral sanctions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States government sanctions",
+    "Economic sanctions",
+    "International sanctions against Iran",
+    "International sanctions during the Russo-Ukrainian war",
+    "United States sanctions against Iran"
+   ]
+  },
+  "gga-057": {
+   "answer": "Wandel durch Annäherung",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Wandel durch Handel",
+    "Egon Bahr",
+    "Ostpolitik",
+    "Evangelische Akademie Tutzing",
+    "Bulthaup"
+   ]
+  },
+  "gga-058": {
+   "answer": "Dollar clearing system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Clearing (finance)",
+    "Clearing House Interbank Payments System",
+    "Clearing House Automated Transfer System",
+    "The Clearing House",
+    "China National Clearing Center"
+   ]
+  },
+  "gga-059": {
+   "answer": "SWIFT",
+   "title": "SWIFT",
+   "url": "https://en.wikipedia.org/wiki/SWIFT",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-060": {
+   "answer": "ASML",
+   "title": "ASML",
+   "url": "https://en.wikipedia.org/wiki/ASML",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-061": {
+   "answer": "Rodrik's trilemma",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-062": {
+   "answer": "America First",
+   "title": "America First",
+   "url": "https://en.wikipedia.org/wiki/America_First",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-063": {
+   "answer": "Washington Consensus",
+   "title": "Washington Consensus",
+   "url": "https://en.wikipedia.org/wiki/Washington_Consensus",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-064": {
+   "answer": "Ever closer European Union",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "Canada–European Union relations",
+    "2015–2016 United Kingdom renegotiation of European Union membership",
+    "Brexit",
+    "Accession of Armenia to the European Union"
+   ]
+  },
+  "gga-065": {
+   "answer": "Policy space",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-142": {
+   "answer": "2025 Strategic Foresight Report",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Foresight (futures studies)",
+    "Futures studies",
+    "Diego Rubio (politician)",
+    "Sundeep Waslekar",
+    "Cost of conflict"
+   ]
+  },
+  "gga-143": {
+   "answer": "International law is politics, but not just politics",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Tragedy of Great Power Politics",
+    "Politics",
+    "International relations",
+    "Comparative politics",
+    "Outline of political science"
+   ]
+  },
+  "gga-148": {
+   "answer": "States behave as if bound",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Bound state",
+    "Majorana fermion",
+    "Cramér–Rao bound",
+    "Atom",
+    "List of states of matter"
+   ]
+  },
+  "gga-149": {
+   "answer": "Death rate in armed conflicts",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of ongoing armed conflicts",
+    "List of countries by intentional homicide rate",
+    "List of countries by intentional death rate",
+    "Colombian conflict",
+    "Civilian casualty ratio"
+   ]
+  },
+  "gga-076": {
+   "answer": "Srebrenica",
+   "title": "Srebrenica",
+   "url": "https://en.wikipedia.org/wiki/Srebrenica",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-077": {
+   "answer": "DNA identification",
+   "title": "DNA profiling",
+   "url": "https://en.wikipedia.org/wiki/DNA_profiling",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "DNA identification"
+  },
+  "gga-078": {
+   "answer": "Missing Persons Group",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Missing Persons (band)",
+    "Missing persons in Mexico",
+    "Missing person",
+    "List of solved missing person cases (1950–1969)",
+    "Missing Persons"
+   ]
+  },
+  "gga-079": {
+   "answer": "Syria's missing",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "National Commission for Missing Persons (Syria)",
+    "Ba'athist Syria",
+    "Austin Tice",
+    "Syrian occupation of Lebanon",
+    "Ahmed al-Sharaa"
+   ]
+  },
+  "gga-080": {
+   "answer": "Online Inquiry Center",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Center for Inquiry",
+    "Committee for Skeptical Inquiry",
+    "Critical Inquiry",
+    "Scam center",
+    "Online age verification laws by country"
+   ]
+  },
+  "gga-081": {
+   "answer": "State responsibility to investigate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Forensic science",
+    "Oklahoma State Bureau of Investigation",
+    "Tennessee Bureau of Investigation",
+    "Moral responsibility",
+    "Social responsibility"
+   ]
+  },
+  "gga-082": {
+   "answer": "Political will",
+   "title": "Political will",
+   "url": "https://en.wikipedia.org/wiki/Political_will",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-083": {
+   "answer": "Ukraine's missing persons",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Missing person",
+    "List of solved missing person cases (1950–1969)",
+    "List of solved missing person cases (pre-1950)",
+    "List of solved missing person cases (2020s)",
+    "List of solved missing person cases (2010s)"
+   ]
+  },
+  "gga-150": {
+   "answer": "Rotten-tail world",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "A Warrior's Tail",
+    "An American Tail",
+    "Public Image Ltd",
+    "An American Tail: Fievel Goes West",
+    "Jurassic World Rebirth"
+   ]
+  },
+  "gga-151": {
+   "answer": "Un-order",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United Nations",
+    "Taesongsan",
+    "Member states of the United Nations",
+    "United Nations Security Council",
+    "Orange Order"
+   ]
+  },
+  "gga-152": {
+   "answer": "Kissinger's two pillars",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States",
+    "FinVect",
+    "Operation Condor",
+    "Islamic State",
+    "Charlie Kirk"
+   ]
+  },
+  "gga-153": {
+   "answer": "Fragmentation, contagion and strangulation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "gga-154": {
+   "answer": "Epistemic fragmentation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Epistemic community",
+    "Echo chamber (media)",
+    "Stephen Stich",
+    "Reliabilism",
+    "Africa"
+   ]
+  },
+  "gga-155": {
+   "answer": "Pax Silica",
+   "title": "Pax Silica",
+   "url": "https://en.wikipedia.org/wiki/Pax_Silica",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-156": {
+   "answer": "Disinhibition",
+   "title": "Disinhibition",
+   "url": "https://en.wikipedia.org/wiki/Disinhibition",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-157": {
+   "answer": "Chokepoints as a marker of power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Glossary of video game terms",
+    "Philippines",
+    "Horn of Africa",
+    "Hegemony (video game series)",
+    "2020s"
+   ]
+  },
+  "gga-158": {
+   "answer": "Foreign direct product rule",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Coordinating Committee for Multilateral Export Controls",
+    "Semiconductor Manufacturing International Corporation",
+    "Markovnikov's rule",
+    "Economy of Georgia (country)",
+    "Economy of Kenya"
+   ]
+  },
+  "gga-159": {
+   "answer": "2010 rare-earth cut-off to Japan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rare-earth element",
+    "Rare-earth industry in China",
+    "Goya Robles",
+    "Neodymium magnet",
+    "Weaponized interdependence"
+   ]
+  },
+  "gga-160": {
+   "answer": "Russian reserves freeze",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Economy of Russia",
+    "Confiscation of Russian central bank funds",
+    "Central Bank of Russia",
+    "Zeya Nature Reserve",
+    "Tether (cryptocurrency)"
+   ]
+  },
+  "gga-161": {
+   "answer": "Strait of Hormuz",
+   "title": "Strait of Hormuz",
+   "url": "https://en.wikipedia.org/wiki/Strait_of_Hormuz",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-162": {
+   "answer": "Architects and artisans",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Residential colleges of Yale University",
+    "Morris Adjmi Architects",
+    "Charles de Batz de Castelmore d'Artagnan",
+    "List of architects",
+    "Akbar's tomb"
+   ]
+  },
+  "gga-163": {
+   "answer": "Artisan state",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-164": {
+   "answer": "Lobito Corridor",
+   "title": "Lobito Corridor",
+   "url": "https://en.wikipedia.org/wiki/Lobito_Corridor",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-165": {
+   "answer": "Frugal ways of war",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Frugality",
+    "The Empire Strikes Back",
+    "China–United States trade war",
+    "Ronald Read (philanthropist)",
+    "Chinese Communist Revolution"
+   ]
+  },
+  "gga-166": {
+   "answer": "Technological sovereignty",
+   "title": "Technological sovereignty",
+   "url": "https://en.wikipedia.org/wiki/Technological_sovereignty",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-167": {
+   "answer": "Carbon Border Adjustment Mechanism",
+   "title": "Carbon tariff",
+   "url": "https://en.wikipedia.org/wiki/Carbon_tariff",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Carbon Border Adjustment Mechanism"
+  },
+  "gga-105": {
+   "answer": "Ripeness",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-106": {
+   "answer": "Precipice",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-107": {
+   "answer": "Incomplete mutually hurting stalemate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "German spring offensive",
+    "Conflict resolution",
+    "2024 NFL season",
+    "Suicide attack",
+    "Cyprus problem"
+   ]
+  },
+  "gga-108": {
+   "answer": "Limiting choices",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Choice architecture",
+    "DSV Limiting Factor",
+    "Samsung",
+    "The Paradox of Choice",
+    "Korean mixed script"
+   ]
+  },
+  "gga-109": {
+   "answer": "South Africa's preventative peace",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "South Africa's genocide case against Israel",
+    "South Africa",
+    "President of South Africa",
+    "2026 Nobel Peace Prize",
+    "South Africa and weapons of mass destruction"
+   ]
+  },
+  "gga-110": {
+   "answer": "Helsinki Accords",
+   "title": "Helsinki Accords",
+   "url": "https://en.wikipedia.org/wiki/Helsinki_Accords",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-111": {
+   "answer": "Deterrence and dialogue",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ko Wen-je",
+    "List of international presidential trips made by Sauli Niinistö",
+    "Deterrence (film)",
+    "Conflict resolution",
+    "Negotiation"
+   ]
+  },
+  "gga-112": {
+   "answer": "War guilt and reparations",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Article 231 of the Treaty of Versailles",
+    "World War I reparations",
+    "White guilt",
+    "1932 Lausanne Conference",
+    "War guilt question"
+   ]
+  },
+  "gga-113": {
+   "answer": "Europe whole and free",
+   "title": "Europe Whole and Free",
+   "url": "https://en.wikipedia.org/wiki/Europe_Whole_and_Free",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Europe whole and free"
+  },
+  "gga-114": {
+   "answer": "Bush's 'one inch' promise",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Not One Inch",
+    "Promise Me (Beverley Craven song)",
+    "Nine Inch Nails",
+    "Jeffrey Dahmer",
+    "Heisman Trophy"
+   ]
+  },
+  "gga-115": {
+   "answer": "Partnership for Peace",
+   "title": "Partnership for Peace",
+   "url": "https://en.wikipedia.org/wiki/Partnership_for_Peace",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-116": {
+   "answer": "Permanent Joint Council",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia–NATO relations",
+    "2002 Rome NATO–Russia summit",
+    "Secretary General of NATO",
+    "NATO",
+    "Joint industrial council"
+   ]
+  },
+  "gga-117": {
+   "answer": "Kosovo",
+   "title": "Kosovo",
+   "url": "https://en.wikipedia.org/wiki/Kosovo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gga-067": {
+   "answer": "Race to the bottom",
+   "title": "Race to the bottom",
+   "url": "https://en.wikipedia.org/wiki/Race_to_the_bottom",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-068": {
+   "answer": "Paris Agreement",
+   "title": "Paris Agreement",
+   "url": "https://en.wikipedia.org/wiki/Paris_Agreement",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-069": {
+   "answer": "Hormuz–Sahel transmission",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Starlink",
+    "General Atomics MQ-9 Reaper",
+    "Islamic world"
+   ]
+  },
+  "gga-070": {
+   "answer": "Fiscal feedback loop",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Inertial inflation",
+    "Circle Line (Kuala Lumpur)",
+    "G (SEPTA Metro)",
+    "Stock market bubble",
+    "National debt of the United States"
+   ]
+  },
+  "gga-071": {
+   "answer": "Multilateral shock response",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "1973 oil crisis",
+    "Military exercise",
+    "BRICS",
+    "United Nations response to the COVID-19 pandemic",
+    "World Bank Group"
+   ]
+  },
+  "gga-072": {
+   "answer": "International Commission on Missing Persons",
+   "title": "International Commission on Missing Persons",
+   "url": "https://en.wikipedia.org/wiki/International_Commission_on_Missing_Persons",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-073": {
+   "answer": "Enforced disappearance",
+   "title": "Enforced disappearance",
+   "url": "https://en.wikipedia.org/wiki/Enforced_disappearance",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-074": {
+   "answer": "International Convention for the Protection of All Persons from Enforced Disappearance",
+   "title": "International Convention for the Protection of All Persons from Enforced Disappearance",
+   "url": "https://en.wikipedia.org/wiki/International_Convention_for_the_Protection_of_All_Persons_from_Enforced_Disappearance",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-075": {
+   "answer": "Right to the truth",
+   "title": "Right to truth",
+   "url": "https://en.wikipedia.org/wiki/Right_to_truth",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Right to the truth"
+  },
+  "gga-084": {
+   "answer": "Economic diplomacy",
+   "title": "Economic statecraft",
+   "url": "https://en.wikipedia.org/wiki/Economic_statecraft",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Economic diplomacy"
+  },
+  "gga-085": {
+   "answer": "0.7 per cent",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Global Peace Index",
+    "Percentage",
+    "European Union",
+    "Angmering",
+    "Straits Times Index"
+   ]
+  },
+  "gga-086": {
+   "answer": "Aid conditionality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Conditionality",
+    "Poverty Reduction Strategy Paper",
+    "Aid",
+    "ACP–EU development cooperation",
+    "Aid effectiveness"
+   ]
+  },
+  "gga-088": {
+   "answer": "Interconnected but fragmented",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "A Lover's Discourse: Fragments",
+    "Karmanye Vadhikaraste",
+    "Inter-connected Stock Exchange of India",
+    "A Sentimental Journey Through France and Italy",
+    "Corregidora (novel)"
+   ]
+  },
+  "gga-089": {
+   "answer": "Most armed conflicts since 1946",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of ongoing armed conflicts",
+    "List of non-international armed conflicts",
+    "Communist armed conflicts in the Philippines",
+    "List of armed conflicts in 2016",
+    "War"
+   ]
+  },
+  "gga-090": {
+   "answer": "Partners for Multilateralism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Multilateralism",
+    "Kinshasa Declaration on Great Apes",
+    "Foreign relations of Indonesia",
+    "Member states of BRICS",
+    "Ministry of Defence (United Kingdom)"
+   ]
+  },
+  "gga-091": {
+   "answer": "Core Charter principles",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2017 Hamas charter",
+    "Charter of the United Nations",
+    "Freedom Charter",
+    "Humanitarian principles",
+    "Singapore Declaration"
+   ]
+  },
+  "gga-092": {
+   "answer": "Power politics by other means",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Power (political science)",
+    "Soft power",
+    "Hard power",
+    "Benjamin Ginsberg (political scientist)",
+    "Political power grows out of the barrel of a gun"
+   ]
+  },
+  "gga-093": {
+   "answer": "World Trade Organization",
+   "title": "World Trade Organization",
+   "url": "https://en.wikipedia.org/wiki/World_Trade_Organization",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gga-094": {
+   "answer": "Most-favoured-nation principle",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Most favoured nation",
+    "Global System of Trade Preferences among Developing Countries",
+    "Economic and Financial Organization of the League of Nations",
+    "National treatment",
+    "Anglo-Brunei Treaty of Friendship (1847)"
+   ]
+  },
+  "gga-095": {
+   "answer": "Doha Round",
+   "title": "Doha Development Round",
+   "url": "https://en.wikipedia.org/wiki/Doha_Development_Round",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Doha Round"
+  },
+  "gga-096": {
+   "answer": "Appellate Body",
+   "title": "Appellate Body",
+   "url": "https://en.wikipedia.org/wiki/Appellate_Body",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-097": {
+   "answer": "Plurilateral agreements",
+   "title": "Plurilateral agreement",
+   "url": "https://en.wikipedia.org/wiki/Plurilateral_agreement",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Plurilateral agreements"
+  },
+  "gga-098": {
+   "answer": "Ngozi Okonjo-Iweala",
+   "title": "Ngozi Okonjo-Iweala",
+   "url": "https://en.wikipedia.org/wiki/Ngozi_Okonjo-Iweala",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-099": {
+   "answer": "Stable core within an unstable equilibrium",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Hydrostatic equilibrium",
+    "Game theory",
+    "General equilibrium theory",
+    "Chicken (game)",
+    "Statics"
+   ]
+  },
+  "gga-100": {
+   "answer": "Liberation Day",
+   "title": "Liberation Day",
+   "url": "https://en.wikipedia.org/wiki/Liberation_Day",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-101": {
+   "answer": "Over-dependence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Third-party logistics",
+    "Business process outsourcing",
+    "Nicotine dependence",
+    "Substance dependence",
+    "Benzodiazepine dependence"
+   ]
+  },
+  "gga-102": {
+   "answer": "Two-tier world",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Two-tier healthcare",
+    "World of Tiers",
+    "Test cricket",
+    "Tier",
+    "2026 FIFA U-15 World Cup & Festival"
+   ]
+  },
+  "gga-103": {
+   "answer": "Standard-setting power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Standards organization",
+    "The Power of 10: Rules for Developing Safety-Critical Code",
+    "Power supply unit (computer)",
+    "IEC 60320",
+    "USB"
+   ]
+  },
+  "gga-104": {
+   "answer": "Dependence and autarky",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Autarky",
+    "Self-sustainability",
+    "Energy independence",
+    "Technological sovereignty",
+    "Sovereign AI"
+   ]
+  },
+  "gga-118": {
+   "answer": "2007 Munich Conference",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2007 Munich speech of Vladimir Putin",
+    "Munich Security Conference",
+    "Munich Agreement",
+    "Munich",
+    "2025 JD Vance speech at the Munich Security Conference"
+   ]
+  },
+  "gga-119": {
+   "answer": "Bucharest Summit",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2008 Bucharest NATO summit",
+    "Bucharest Nine",
+    "Stripchat",
+    "Georgia–NATO relations",
+    "Ukraine–NATO relations"
+   ]
+  },
+  "gga-120": {
+   "answer": "Destructive ambiguity",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Ethics of Ambiguity",
+    "Windsor Framework",
+    "Cathy Ames",
+    "The End of Evangelion",
+    "Book scanning"
+   ]
+  },
+  "gga-121": {
+   "answer": "Minsk agreements",
+   "title": "Minsk agreements",
+   "url": "https://en.wikipedia.org/wiki/Minsk_agreements",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-122": {
+   "answer": "Nord Stream 2",
+   "title": "Nord Stream 2",
+   "url": "https://en.wikipedia.org/wiki/Nord_Stream_2",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-123": {
+   "answer": "Appeasement or gaining time",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Appeasement",
+    "Appeasing Hitler",
+    "Bread and circuses",
+    "R. A. C. Parker",
+    "Munich Agreement"
+   ]
+  },
+  "gga-124": {
+   "answer": "War is normalcy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Normalcy bias",
+    "Return to normalcy",
+    "Cold War",
+    "Japanese–Italian War",
+    "United States in World War I"
+   ]
+  },
+  "gga-125": {
+   "answer": "Absolute victory",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Z.H.P. Unlosing Ranger VS Darkdeath Evilman",
+    "Absolute Batman",
+    "Milo of Croton",
+    "Abode of Chaos",
+    "Supreme People's Council (South Yemen)"
+   ]
+  },
+  "gga-126": {
+   "answer": "Armistice agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-127": {
+   "answer": "Political settlement",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-128": {
+   "answer": "Finlandisation",
+   "title": "Finlandization",
+   "url": "https://en.wikipedia.org/wiki/Finlandization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Finlandisation"
+  },
+  "gga-129": {
+   "answer": "Dirty deal",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-130": {
+   "answer": "Energy ceasefire",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-131": {
+   "answer": "Horizontal legal order",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of national flags of sovereign states",
+    "Precedent",
+    "Flag of Poland",
+    "Transgender flag",
+    "List of national flags by design"
+   ]
+  },
+  "gga-132": {
+   "answer": "Sovereignty",
+   "title": "Sovereignty",
+   "url": "https://en.wikipedia.org/wiki/Sovereignty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gga-133": {
+   "answer": "Territorial integrity and non-interference",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mohamed Muizzu",
+    "Political status of the Cook Islands and Niue",
+    "Australia–Indonesia relations",
+    "Iran–Ukraine relations",
+    "United Nations General Assembly Resolution 3212 (XXIX)"
+   ]
+  },
+  "gga-134": {
+   "answer": "De iure belli ac pacis",
+   "title": "De jure belli ac pacis",
+   "url": "https://en.wikipedia.org/wiki/De_jure_belli_ac_pacis",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "De iure belli ac pacis"
+  },
+  "gga-135": {
+   "answer": "Anarchical Society",
+   "title": "The Anarchical Society",
+   "url": "https://en.wikipedia.org/wiki/The_Anarchical_Society",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Anarchical Society"
+  },
+  "gga-136": {
+   "answer": "Charter of the United Nations",
+   "title": "Charter of the United Nations",
+   "url": "https://en.wikipedia.org/wiki/Charter_of_the_United_Nations",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-137": {
+   "answer": "Rule of law",
+   "title": "Rule of law",
+   "url": "https://en.wikipedia.org/wiki/Rule_of_law",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-138": {
+   "answer": "Rules-based international order",
+   "title": "Liberal international order",
+   "url": "https://en.wikipedia.org/wiki/Liberal_international_order",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rules-based international order"
+  },
+  "gga-139": {
+   "answer": "Legitimacy, equity and self-confidence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "French and Raven's bases of power",
+    "Legitimation crisis",
+    "History of private equity and venture capital",
+    "Cooperative",
+    "Gender equality"
+   ]
+  },
+  "gga-140": {
+   "answer": "Putin's Article 51 claim",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Putin's Palace",
+    "Vladimir Putin speech on invading Ukraine",
+    "Vladimir Putin",
+    "Chapter VII of the United Nations Charter",
+    "On the Historical Unity of Russians and Ukrainians"
+   ]
+  },
+  "gga-192": {
+   "answer": "Three lines of effort in Afghanistan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2026 Kohat attack",
+    "Soviet–Afghan War",
+    "2026 Afghanistan–Pakistan war",
+    "War in Afghanistan (2001–2021)",
+    "United States invasion of Afghanistan"
+   ]
+  },
+  "gga-193": {
+   "answer": "Millennium Development Goals",
+   "title": "Millennium Development Goals",
+   "url": "https://en.wikipedia.org/wiki/Millennium_Development_Goals",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-194": {
+   "answer": "New Deal for Engagement in Fragile States",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Group of Seven Plus",
+    "Extreme poverty",
+    "Tobi Nussbaum",
+    "European Green Deal",
+    "2026 in the United States"
+   ]
+  },
+  "gga-195": {
+   "answer": "Sustainable Development Goal 16",
+   "title": "Sustainable Development Goal 16",
+   "url": "https://en.wikipedia.org/wiki/Sustainable_Development_Goal_16",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-196": {
+   "answer": "Pathways for Peace",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "National Christmas Tree (United States)",
+    "Global Peace Index",
+    "USS Missouri (BB-63)",
+    "Serenity Prayer",
+    "International Day of Peace"
+   ]
+  },
+  "gga-197": {
+   "answer": "Four S approach",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Four-field approach",
+    "Turkish Airlines Flight 6491",
+    "The Four Seasons (TV series)",
+    "The Fantastic Four: First Steps",
+    "Xbox Series X and Series S"
+   ]
+  },
+  "gga-198": {
+   "answer": "Plan Colombia",
+   "title": "Plan Colombia",
+   "url": "https://en.wikipedia.org/wiki/Plan_Colombia",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-281": {
+   "answer": "Recipient agency",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Food Donation Connection",
+    "Prince Faisal bin Hussein",
+    "Mohd Shuhaily Mohd Zain",
+    "Message",
+    "Pork barrel scam"
+   ]
+  },
+  "gga-282": {
+   "answer": "Cooperative and coercive interaction modes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Human–AI interaction",
+    "The Dark Pictures Anthology: Man of Medan",
+    "Democracy",
+    "Capitalism",
+    "Anarcho-capitalism"
+   ]
+  },
+  "gga-283": {
+   "answer": "Agenda-setting and capacity-building",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Agenda-setting theory",
+    "Capacity building",
+    "National Innovation Council (Philippines)",
+    "Sustainable Development Goals",
+    "State-building"
+   ]
+  },
+  "gga-284": {
+   "answer": "Postcolonial paradox",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Postcolonialism",
+    "Jeannie Suk",
+    "Postcolonial literature",
+    "Firelei Báez",
+    "Adom Getachew"
+   ]
+  },
+  "gga-285": {
+   "answer": "African Peace Facility",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "African Peace Facility",
+   "target": "African Union#Africa–EU relations"
+  },
+  "gga-286": {
+   "answer": "Big payer, small player",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Grayson High School",
+    "Public health insurance option",
+    "Major League Baseball luxury tax",
+    "National Health Service (England)",
+    "Danny Greene"
+   ]
+  },
+  "gga-287": {
+   "answer": "AMISOM troop reimbursements",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "War on terror"
+   ]
+  },
+  "gga-288": {
+   "answer": "Pillar Assessment",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Heliodorus pillar",
+    "Four Pillars of Destiny",
+    "Paul R. Pillar",
+    "Room and pillar mining",
+    "Own risk and solvency assessment"
+   ]
+  },
+  "gga-289": {
+   "answer": "Capacity substitution",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Substitute Decisions Act",
+    "Electrophilic aromatic substitution",
+    "Specific heat capacity",
+    "2028 UEFA Champions League final",
+    "Blood"
+   ]
+  },
+  "gga-290": {
+   "answer": "Forum-shopping",
+   "title": "Forum shopping",
+   "url": "https://en.wikipedia.org/wiki/Forum_shopping",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Forum-shopping"
+  },
+  "gga-185": {
+   "answer": "State fragility",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Fragile state",
+    "List of countries by Fragile States Index",
+    "Failed state",
+    "Fragile States Index",
+    "The Fragile"
+   ]
+  },
+  "gga-186": {
+   "answer": "Legitimacy and effectiveness",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Political legitimacy",
+    "Legitimacy of the State of Israel",
+    "America at the Crossroads",
+    "After the Empire",
+    "Cultural Revolution in Iran"
+   ]
+  },
+  "gga-187": {
+   "answer": "Fifty most fragile states",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "A Fragile Thing",
+    "Hobby Lobby smuggling scandal",
+    "President of the United States",
+    "Japan–United States relations",
+    "Elizabeth Monroe"
+   ]
+  },
+  "gga-188": {
+   "answer": "Internationalised internal conflicts",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Internationalization",
+    "Internet",
+    "2026 Ebola epidemic",
+    "Kargil War",
+    "Mahathir Mohamad"
+   ]
+  },
+  "gga-189": {
+   "answer": "Crisis-driven focus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2008 financial crisis",
+    "Rowan Atkinson",
+    "Cuban Missile Crisis",
+    "Mengo Crisis",
+    "2026 Iran war fuel crisis"
+   ]
+  },
+  "gga-190": {
+   "answer": "Stovepiped bureaucracies",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Abraham Lincoln",
+    "United States Department of Homeland Security",
+    "Assassination of Abraham Lincoln",
+    "Legislative history of United States four-star officers from 2017",
+    "International counter-terrorism activities of the CIA"
+   ]
+  },
+  "gga-191": {
+   "answer": "Shared consciousness",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Consciousness",
+    "Collective consciousness",
+    "Social consciousness",
+    "Krista and Tatiana Hogan",
+    "Artificial consciousness"
+   ]
+  },
+  "gga-210": {
+   "answer": "Slowbalisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Globalization",
+    "Aditya Birla Group"
+   ]
+  },
+  "gga-211": {
+   "answer": "Efficiency against resilience",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Department of Government Efficiency",
+    "Prepare",
+    "ISO 22301",
+    "Ecological resilience",
+    "Efficient energy use"
+   ]
+  },
+  "gga-212": {
+   "answer": "Change through trade",
+   "title": "Wandel durch Handel",
+   "url": "https://en.wikipedia.org/wiki/Wandel_durch_Handel",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Change through trade"
+  },
+  "gga-213": {
+   "answer": "Precautionary inventories",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Demand for money",
+    "Life-cycle assessment",
+    "Preparedness",
+    "Prudence",
+    "1914 French mobilization"
+   ]
+  },
+  "gga-214": {
+   "answer": "Strategic autonomy",
+   "title": "Strategic autonomy",
+   "url": "https://en.wikipedia.org/wiki/Strategic_autonomy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-215": {
+   "answer": "Dual sourcing",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Apple A9",
+    "CT scan",
+    "Multi-licensing",
+    "DualShock",
+    "History of computed tomography"
+   ]
+  },
+  "gga-216": {
+   "answer": "Vertical integration",
+   "title": "Vertical integration",
+   "url": "https://en.wikipedia.org/wiki/Vertical_integration",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-217": {
+   "answer": "Local reinvestment",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Dividend",
+    "American Recovery and Reinvestment Act of 2009",
+    "NeighborWorks America",
+    "German Brazilians",
+    "Community Reinvestment Act"
+   ]
+  },
+  "gga-218": {
+   "answer": "Autocracies' chokepoints",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Philippines",
+    "Famine"
+   ]
+  },
+  "gga-291": {
+   "answer": "External governance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Governance",
+    "Data governance",
+    "Self-governance",
+    "Corporate governance",
+    "Environmental, social, and governance"
+   ]
+  },
+  "gga-292": {
+   "answer": "Acquis communautaire",
+   "title": "Acquis communautaire",
+   "url": "https://en.wikipedia.org/wiki/Acquis_communautaire",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-293": {
+   "answer": "Hierarchical governance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-294": {
+   "answer": "Network governance",
+   "title": "Network governance",
+   "url": "https://en.wikipedia.org/wiki/Network_governance",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-295": {
+   "answer": "Market governance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-296": {
+   "answer": "Rule selection, adoption and application",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-297": {
+   "answer": "Governance by conditionality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-298": {
+   "answer": "Governance by externalisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-299": {
+   "answer": "Asymmetric interdependence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-300": {
+   "answer": "European Neighbourhood Policy",
+   "title": "European Neighbourhood Policy",
+   "url": "https://en.wikipedia.org/wiki/European_Neighbourhood_Policy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-267": {
+   "answer": "Lean season",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Fallout (American TV series)",
+    "Fallout season 3",
+    "Food insecurity and famine in South Sudan",
+    "Lean on Me (film)",
+    "Pollution of the Ganges"
+   ]
+  },
+  "gga-268": {
+   "answer": "Urea price spike",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Economic impact of the 2026 Iran war",
+    "2026 Iran war fuel crisis",
+    "2007–2008 world food price crisis",
+    "Prescription drug prices in the United States",
+    "Nickel"
+   ]
+  },
+  "gga-269": {
+   "answer": "Rain-fed planting window",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rain gutter",
+    "Robert Plant",
+    "Foss Creek",
+    "Hay",
+    "List of Spidey and His Amazing Friends episodes"
+   ]
+  },
+  "gga-270": {
+   "answer": "Liptako-Gourma",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-271": {
+   "answer": "OCP Group",
+   "title": "OCP Group",
+   "url": "https://en.wikipedia.org/wiki/OCP_Group",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-272": {
+   "answer": "Imported sulphur",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-273": {
+   "answer": "Algeria's gas-to-nitrogen link",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-274": {
+   "answer": "Egypt's urea and wheat",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-219": {
+   "answer": "No development without industrialisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Industrialisation in Africa",
+    "History of industrialisation",
+    "Proto-industrialization",
+    "Development economics",
+    "Industrial Revolution"
+   ]
+  },
+  "gga-220": {
+   "answer": "Unconditional convergence",
+   "title": "Unconditional convergence",
+   "url": "https://en.wikipedia.org/wiki/Unconditional_convergence",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-221": {
+   "answer": "Rostow's take-off",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rostow's stages of growth",
+    "Walt Rostow",
+    "Orthodox Development",
+    "Mohammed Tamim",
+    "Underdevelopment"
+   ]
+  },
+  "gga-222": {
+   "answer": "Manufacturing employment share",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Manufacturing in the United States",
+    "Deindustrialization",
+    "Employment",
+    "Manufacturing engineering",
+    "Self-employment"
+   ]
+  },
+  "gga-223": {
+   "answer": "China's share of poverty reduction",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Poverty in China",
+    "Poverty reduction",
+    "Poverty",
+    "Extreme poverty",
+    "Targeted Poverty Alleviation"
+   ]
+  },
+  "gga-224": {
+   "answer": "Statistical compensation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of highest-paid NBA players by season",
+    "Compensation of employees",
+    "National Compensation Survey",
+    "Enthalpy–entropy compensation",
+    "Workers' compensation (United States)"
+   ]
+  },
+  "gga-225": {
+   "answer": "$2.15-a-day line",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Terminator 2: Judgment Day",
+    "Independence Day (India)",
+    "Paris Metro Line 15",
+    "Victory over Japan Day",
+    "East Central Railway zone"
+   ]
+  },
+  "gga-226": {
+   "answer": "Commodity supercycle",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Commodity",
+    "Jeffrey Currie",
+    "2000s commodities boom",
+    "Commodity market",
+    "2020s commodities boom"
+   ]
+  },
+  "gga-227": {
+   "answer": "Golden age of development",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Golden Age of India",
+    "Golden Age of Piracy",
+    "Age of Sail",
+    "Golden Age of Television (2000s–2023)",
+    "Golden Age of Porn"
+   ]
+  },
+  "gga-228": {
+   "answer": "Volcker shock",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-229": {
+   "answer": "Década perdida",
+   "title": "Década Perdida",
+   "url": "https://en.wikipedia.org/wiki/D%C3%A9cada_Perdida",
+   "via": "search",
+   "status": "ok"
+  },
+  "gga-230": {
+   "answer": "Structural adjustment",
+   "title": "Structural adjustment",
+   "url": "https://en.wikipedia.org/wiki/Structural_adjustment",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-231": {
+   "answer": "Government by means of the aid industry",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-232": {
+   "answer": "Premature deindustrialisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Premature deindustrialization",
+   "target": "Technological unemployment#Premature deindustrialization"
+  },
+  "gga-233": {
+   "answer": "Deagrarianisation",
+   "title": "Deagrarianization",
+   "url": "https://en.wikipedia.org/wiki/Deagrarianization",
+   "via": "variant",
+   "status": "ok"
+  },
+  "gga-234": {
+   "answer": "Decomplexification",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Decomplexification",
+   "target": "Complexification#decomplexification"
+  },
+  "gga-235": {
+   "answer": "Reprimarisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-236": {
+   "answer": "Hayateen",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-237": {
+   "answer": "Remittances as lifelines",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-238": {
+   "answer": "Flying geese",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-239": {
+   "answer": "Middle-income trap",
+   "title": "Middle income trap",
+   "url": "https://en.wikipedia.org/wiki/Middle_income_trap",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Middle-income trap"
+  },
+  "gga-240": {
+   "answer": "Farmer–herder conflict",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-241": {
+   "answer": "Problem of the border line",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-199": {
+   "answer": "Weaponised interdependence",
+   "title": "Weaponized interdependence",
+   "url": "https://en.wikipedia.org/wiki/Weaponized_interdependence",
+   "via": "variant",
+   "status": "ok"
+  },
+  "gga-200": {
+   "answer": "June 2025 framework deal",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2025–2026 Iran–United States negotiations",
+    "2025 DRC–Rwanda peace agreement",
+    "Iran nuclear deal framework",
+    "2025",
+    "EU–US Data Privacy Framework"
+   ]
+  },
+  "gga-201": {
+   "answer": "American stack",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Stack",
+    "Robert Stack",
+    "Timothy Stack",
+    "Clara Stack",
+    "Patrick Stack"
+   ]
+  },
+  "gga-202": {
+   "answer": "Technological stack",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Eclipse Che",
+    "Digital public infrastructure",
+    "EuroStack",
+    "Emerging technologies",
+    "Marshall Amplification"
+   ]
+  },
+  "gga-203": {
+   "answer": "Rare-earth refining",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-204": {
+   "answer": "TSMC",
+   "title": "TSMC",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-205": {
+   "answer": "Nvidia",
+   "title": "Nvidia",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-206": {
+   "answer": "Whole-of-nation approach",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-207": {
+   "answer": "EuroStack",
+   "title": "EuroStack",
+   "url": "https://en.wikipedia.org/wiki/EuroStack",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-208": {
+   "answer": "Anti-coercion instrument",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-209": {
+   "answer": "Institutional decay at OFAC",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-174": {
+   "answer": "Humanitarian diplomacy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Diplomacy",
+    "Humanitarian aid",
+    "Under Secretary of State for Foreign Assistance, Humanitarian Affairs, and Religious Freedom",
+    "Bureau of Global Health Security and Diplomacy",
+    "Jakob Kellenberger"
+   ]
+  },
+  "gga-175": {
+   "answer": "Compromise against principle",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Three-fifths Compromise",
+    "Missouri Compromise",
+    "Austro-Hungarian Compromise of 1867",
+    "Kansas–Nebraska Act",
+    "Le Chatelier's principle"
+   ]
+  },
+  "gga-176": {
+   "answer": "Humanitarian principles",
+   "title": "Humanitarian principles",
+   "url": "https://en.wikipedia.org/wiki/Humanitarian_principles",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-177": {
+   "answer": "Politicisation of access to aid",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2019 shipping of humanitarian aid to Venezuela",
+    "South Africa's genocide case against Israel",
+    "Nepal",
+    "Pamela Hemphill",
+    "London Street Commune"
+   ]
+  },
+  "gga-178": {
+   "answer": "Safe havens",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-179": {
+   "answer": "Turkey's humanitarian diplomacy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Humanitarian response to the 2023 Turkey–Syria earthquakes",
+    "Greek–Turkish earthquake diplomacy",
+    "Diplomacy",
+    "Turkish–Azeri blockade of Armenia",
+    "Palestine–Turkey relations"
+   ]
+  },
+  "gga-180": {
+   "answer": "Non-stop mediator",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Non-stop decay",
+    "Stop & Shop",
+    "Symbol",
+    "MRNA surveillance",
+    "Nonsense-mediated decay"
+   ]
+  },
+  "gga-181": {
+   "answer": "International Humanitarian City",
+   "title": "International Humanitarian City",
+   "url": "https://en.wikipedia.org/wiki/International_Humanitarian_City",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-182": {
+   "answer": "UAE Soft Power Strategy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mansour bin Zayed Al Nahyan",
+    "Qatari soft power",
+    "United Arab Emirates",
+    "Abu Dhabi",
+    "List of missions to Venus"
+   ]
+  },
+  "gga-183": {
+   "answer": "Leave no one behind",
+   "title": "Leave No One Behind",
+   "url": "https://en.wikipedia.org/wiki/Leave_No_One_Behind",
+   "via": "search",
+   "status": "ok"
+  },
+  "gga-184": {
+   "answer": "Means and ends",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-242": {
+   "answer": "Forgetting by not doing",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-243": {
+   "answer": "Technical regress",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-244": {
+   "answer": "Sierra Leone's civil war",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-245": {
+   "answer": "Revolutionary United Front",
+   "title": "Revolutionary United Front",
+   "url": "https://en.wikipedia.org/wiki/Revolutionary_United_Front",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-246": {
+   "answer": "Sierra Leone Employers Survey",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-247": {
+   "answer": "Geographic variation in conflict intensity",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-248": {
+   "answer": "Lower bound",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-249": {
+   "answer": "Willingness to pay for training",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-250": {
+   "answer": "Diaspora knowledge transfer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-251": {
+   "answer": "Hyperglobalisation",
+   "title": "Hyper-globalization",
+   "url": "https://en.wikipedia.org/wiki/Hyper-globalization",
+   "via": "variant",
+   "status": "redirect-variant",
+   "from": "Hyperglobalization"
+  },
+  "gga-252": {
+   "answer": "Gold standard",
+   "title": "Gold standard",
+   "url": "https://en.wikipedia.org/wiki/Gold_standard",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gga-253": {
+   "answer": "Bretton Woods",
+   "title": "Bretton Woods system",
+   "url": "https://en.wikipedia.org/wiki/Bretton_Woods_system",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Bretton Woods"
+  },
+  "gga-255": {
+   "answer": "Beyond tariffs",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-256": {
+   "answer": "Liberalised capital flows",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-257": {
+   "answer": "Force of nature",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Force of nature",
+   "suggestions": [
+    "Force of Nature (duo)",
+    "Forces of Nature (Teen Titans)",
+    "Forces of Nature (book)",
+    "Force of Nature (novel)",
+    "Force of Nature (comics)",
+    "Forces of Nature (1999 film)"
+   ]
+  },
+  "gga-275": {
+   "answer": "Pace the frontier",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-276": {
+   "answer": "Alignment",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Alignment",
+   "suggestions": [
+    "The Alignment",
+    "Alignment (archaeology)",
+    "Stone alignment",
+    "Structural alignment",
+    "Sequence alignment",
+    "Alignment program"
+   ]
+  },
+  "gga-277": {
+   "answer": "Agents escaping their sandboxes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-278": {
+   "answer": "Misuse by malign actors",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-280": {
+   "answer": "Conflicting lessons",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-259": {
+   "answer": "Fragile and conflict-affected states",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-260": {
+   "answer": "Development financial institutions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-261": {
+   "answer": "MASSIF",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-262": {
+   "answer": "Conflict sensitivity",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-263": {
+   "answer": "Do no harm",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "First Do No Harm (disambiguation)",
+   "suggestions": [
+    "First do no harm",
+    "Do No Harm (Lost)",
+    "...First Do No Harm",
+    "Do No Harm (organization)",
+    "Do No Harm (Burn Notice)",
+    "Do No Harm (HR report on Bahrain)"
+   ]
+  },
+  "gga-264": {
+   "answer": "Competing sources of governance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-265": {
+   "answer": "Humanitarian-development-peace nexus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-266": {
+   "answer": "Transformative development impact",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-021": {
+   "answer": "Radical uncertainty",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Uncertainty",
+    "Uncertainty principle",
+    "A Treatise on Probability",
+    "James Crotty (economist)",
+    "Knightian uncertainty"
+   ]
+  },
+  "gga-066": {
+   "answer": "Conflict prevention",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The World Is Flat",
+    "The Lexus and the Olive Tree",
+    "Organization for Security and Co-operation in Europe",
+    "High Commissioner on National Minorities",
+    "Global Partnership for the Prevention of Armed Conflict"
+   ]
+  },
+  "gga-087": {
+   "answer": "Security dependence on the United States",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2024 United States presidential election",
+    "United States energy independence",
+    "United States Commission on National Security/21st Century",
+    "United States Congress",
+    "Timeline of the 2025–2026 United States trade war with Canada"
+   ]
+  },
+  "gga-141": {
+   "answer": "Child mortality rate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Child mortality rate",
+   "target": "Child mortality#Rate"
+  },
+  "gga-144": {
+   "answer": "Nuclear warhead stockpiles",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "W80 (nuclear warhead)",
+    "List of states with nuclear weapons",
+    "Astraea (nuclear warhead)",
+    "Trident (UK nuclear programme)",
+    "Nuclear weapons of the United States"
+   ]
+  },
+  "gga-145": {
+   "answer": "Human Development Index",
+   "title": "Human Development Index",
+   "url": "https://en.wikipedia.org/wiki/Human_Development_Index",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-146": {
+   "answer": "Famine",
+   "title": "Famine",
+   "url": "https://en.wikipedia.org/wiki/Famine",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-147": {
+   "answer": "Sudan",
+   "title": "Sudan",
+   "url": "https://en.wikipedia.org/wiki/Sudan",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

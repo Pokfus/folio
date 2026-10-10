@@ -1124,6 +1124,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   taught. And **the answer terms come from the supplied material**, with the backgrounds researched out
   and cited like any other card. The next card to write is the lowest `pea-NNN` not yet in `data.js`;
   the index table under "THE PLANNED COLLECTIONS" is the lookup. Not part of the site.
+- **📖 `docs/gateway-to-global-affairs-card-plan.md` — READ BEFORE WRITING A `gga-` CARD.** The running
+  order for the **Gateway to Global Affairs** collection (`gga`), the **second course** after Politics: East Asia
+  and **the first whose plan runs ahead of the writing**: 300 numbers over 21 decks (Lectures 1–7, Readings
+  1–14), because the lectures and readings were supplied before the first card. It sits in the **Special**
+  section. Three things to know. **Every line carries a locator** (a slide number, a section head or a page) so
+  a writer need not search for the source, and the slide numbers were checked by script. **Five readings were
+  supplied incomplete** (R5, R8, R9, R11, R12) and their decks are shortlists from the pages in hand — the plan's
+  "Source status" table says which pages are missing, and **no card is written about a missing page**. And
+  **the material runs past what any reference work yet holds** (2026), so those cards cite the supplied article
+  and a dated second source and say "according to" where there is one. **From `gga-057` on the cards rest on the
+  course's slides and readings ONLY** (the owner's ruling, Oct 2026: a private study deck): the source bar is 2
+  (`SRC_TARGET_BY_PREFIX` in `app.js`, sliced by `.claude/src-target.js`), each source is a course text at a distinct
+  slide or page ending ` [Course material]`, and `add-card.js` lets exactly that form off the link rule (only on a
+  prefix that has its own bar). Lecture 7 (Russia) takes `gga-301` onward when its slides arrive. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -8118,6 +8132,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | **COMPLETE, 162 of 162 writable** across 163 numbers — the 83 federal subjects and 79 of the 80 centres; **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION. **`gru-502` Krasnogorsk is DEFERRED, and its number stays reserved**: the deck's question asks for *the administrative centre of the federal subject shaded around it*, and no source of the kind this site cites says which city that is for Moscow Oblast — its own charter of 2022 names none, nor does any law on the state portal. A FACT refusal, `gw-596` Jerusalem's shape one level down, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
+| Gateway to Global Affairs | `gga` | `gga-` | `docs/gateway-to-global-affairs-card-plan.md` | 21 / 21 | a COURSE (Leiden, 2026), the second after Politics: East Asia, but **planned in full** — 300 numbers over 7 lectures and 14 readings, because every deck's source was supplied before the first card; Lecture 7 awaits slides and takes `gga-301` on |
 
 The next id for any of them (substitute the prefix):
 
