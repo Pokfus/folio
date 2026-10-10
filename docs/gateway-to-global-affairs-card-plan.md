@@ -140,11 +140,11 @@ A note is a pointer to the source, not an answer.
 
 Source: Lecture 1 (*Diplomacy in Practice*), the framework and the vignettes. Slide 14 summarises the Leonard article, which is carded in Reading 1. Slides 24–26 (*Narratives*, from the European Council on Foreign Relations) are images and were not available.
 
-  gga-001  Security, prosperity and values — the policy-goal triangle (Weerbaarheid, Welvaart, Waarden) · (s15,30)
-  gga-002  Power centres — the first lens · (s16)
-  gga-003  Arenas where power is exercised — the second lens · (s21)
-  gga-004  Worldviews — the third lens · (s27)
-  gga-005  Personalities — the "plus one" lens · (s30)
+  gga-001  Security, prosperity and values — the policy-goal triangle, as the lecture words it in Dutch · (s15,30)
+  gga-002  Polarity — the first lens · (s16)
+  gga-003  Structural power — the second lens · (s21)
+  gga-004  Operational code — the third lens · (s27)
+  gga-005  Leader personality — the "plus one" lens · (s30)
   gga-006  Interregnum — Gramsci: the old is dying and the new cannot be born · (s13)
   gga-007  Crisis of authority — the old order can no longer lead through consent · (s13)
   gga-008  Post-unipolar world — (s16)

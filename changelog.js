@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.991", released: "2026-10-10T00:40Z" };
+window.FOLIO_VERSION = { v: "1.992", released: "2026-10-10T14:34Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-10",
     t: "The credits page tells the two Atlases apart",
     items: [
+      "<b>Gateway to Global Affairs</b>: a new collection in the Special section for a university course on global affairs, opening with 55 cards on power, diplomacy and military force.",
       "<b>Sources and credits</b>: the page now says which sources belong to the new globe and lists the current Atlas's own sources, licences and attributions in a section of their own.",
     ],
   },

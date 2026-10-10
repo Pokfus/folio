@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10T14:29Z",
+ "generated": "2026-10-10T14:34Z",
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 4567,
@@ -7,8 +7,8 @@
   "redirect-variant": 299,
   "section-redirect": 92,
   "disambiguation": 127,
-  "none": 603,
-  "disambig-resolved": 69,
+  "none": 607,
+  "disambig-resolved": 70,
   "list-page": 6,
   "search-match": 5,
   "no-article": 4
@@ -49137,6 +49137,42 @@
     "Japan–South Korea trade dispute",
     "Global North and Global South"
    ]
+  },
+  "gga-001": {
+   "answer": "Security, prosperity and values",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-002": {
+   "answer": "Polarity",
+   "title": "Polarity (international relations)",
+   "url": "https://en.wikipedia.org/wiki/Polarity_(international_relations)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Polarity"
+  },
+  "gga-003": {
+   "answer": "Structural power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-004": {
+   "answer": "Operational code",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-005": {
+   "answer": "Leader personality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
   }
  }
 }

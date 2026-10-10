@@ -28,15 +28,15 @@ accepted only when the title IS the answer. Nothing is guessed.
 |---|---:|---|
 | `ok` | 4567 | the title is the article |
 | `redirect-variant` | 299 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 69 | chosen from a disambiguation page by hint words — listed below |
+| `disambig-resolved` | 70 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 396 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 92 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 603 | nothing matched; no link |
+| `none` | 607 | nothing matched; no link |
 
-**5336 of 6168 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5337 of 6173 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -441,7 +441,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-147` **German-Soviet Frontier Treaty** → [German–Soviet Boundary and Friendship Treaty](https://en.wikipedia.org/wiki/German%E2%80%93Soviet_Boundary_and_Friendship_Treaty) (from `German-Soviet Frontier Treaty`)
 - `ww2-153` **AB-Aktion** → [Aktion AB](https://en.wikipedia.org/wiki/Aktion_AB) (from `AB-Aktion`)
 
-## Settled from a disambiguation page (69)
+## Settled from a disambiguation page (70)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -455,6 +455,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `cnh-322` **Liu Yu** → [Liu Yu (Western Jin)](https://en.wikipedia.org/wiki/Liu_Yu_(Western_Jin)) (via the disambiguation page `Liu Yu`)
 - `cnh-350` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `cnh-373` **Emperor Xuanzong** → [Emperor Xuanzong of Tang](https://en.wikipedia.org/wiki/Emperor_Xuanzong_of_Tang) (via the disambiguation page `Xuanzong`)
+- `gga-002` **Polarity** → [Polarity (international relations)](https://en.wikipedia.org/wiki/Polarity_(international_relations)) (via the disambiguation page `Polarity`)
 - `gga-042` **Penholder** → [Penholder (United Nations)](https://en.wikipedia.org/wiki/Penholder_(United_Nations)) (via the disambiguation page `Penholder`)
 - `gr-012` **Malia** → [Malia, Crete](https://en.wikipedia.org/wiki/Malia,_Crete) (via the disambiguation page `Malia`)
 - `gr-042` **Akrotiri** → [Akrotiri, Crete](https://en.wikipedia.org/wiki/Akrotiri,_Crete) (via the disambiguation page `Akrotiri`)
@@ -765,7 +766,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (603)
+## No article found (607)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -922,6 +923,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-078` **jar sealing** — search suggests `Early Dynastic Period of Egypt`, `Narmer`, `Egypt–Mesopotamia relations`, `Mausoleum at Halicarnassus`, `Baghdad Battery`
 - `eg-080` **Egyptian stone vessels** — search suggests `Stone vessels in ancient Egypt`, `First Dynasty of Egypt`, `Egyptian faience`, `Prehistoric Egypt`, `Ancient Egyptian technology`
 - `eg-113` **Heit el-Ghurab** — search suggests `Fourth Dynasty of Egypt`, `Memphite Necropolis`, `Great Pyramid of Giza`, `List of Egyptian pyramidia`, `Kanefer`
+- `gga-001` **Security, prosperity and values**
+- `gga-003` **Structural power**
+- `gga-004` **Operational code**
+- `gga-005` **Leader personality**
 - `gga-007` **Crisis of authority** — search suggests `Organic crisis`, `Cuban Missile Crisis`, `Martin Gurri`, `2008 financial crisis`, `AlMaghrib Institute`
 - `gga-008` **Post-unipolar world** — search suggests `New world order (politics)`, `Polarity (international relations)`, `Post–Cold War era`, `Major depressive disorder`, `Estonia`
 - `gga-009` **Five superpowers** — search suggests `Superpower`, `Alisa Xayalith`, `Founder mode`, `Hi-Five (film)`, `American Century`
