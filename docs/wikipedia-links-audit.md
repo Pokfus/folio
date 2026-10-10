@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4571 | the title is the article |
-| `redirect-variant` | 299 | spelling / plural / qualifier differed; same subject |
+| `ok` | 4596 | the title is the article |
+| `redirect-variant` | 304 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 70 | chosen from a disambiguation page by hint words — listed below |
-| `search-match` | 5 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 396 | redirected to a differently named article — listed below, a glance each |
+| `search-match` | 6 | a search hit with the answer's words in another order — listed below |
+| `redirect-broader` | 404 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 93 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 619 | nothing matched; no link |
+| `none` | 671 | nothing matched; no link |
 
-**5341 of 6192 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5380 of 6283 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (396)
+## Redirected to a differently named article — check each (404)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -123,6 +123,14 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gga-030` **Traditional peacekeeping** → [Peacekeeping](https://en.wikipedia.org/wiki/Peacekeeping) (from `Traditional peacekeeping`)
 - `gga-037` **MINUSMA** → [United Nations Multidimensional Integrated Stabilization Mission in Mali](https://en.wikipedia.org/wiki/United_Nations_Multidimensional_Integrated_Stabilization_Mission_in_Mali) (from `MINUSMA`)
 - `gga-048` **Brahimi Report** → [Report of the Panel on United Nations Peace Operations](https://en.wikipedia.org/wiki/Report_of_the_Panel_on_United_Nations_Peace_Operations) (from `Brahimi Report`)
+- `gga-075` **Right to the truth** → [Right to truth](https://en.wikipedia.org/wiki/Right_to_truth) (from `Right to the truth`)
+- `gga-077` **DNA identification** → [DNA profiling](https://en.wikipedia.org/wiki/DNA_profiling) (from `DNA identification`)
+- `gga-084` **Economic diplomacy** → [Economic statecraft](https://en.wikipedia.org/wiki/Economic_statecraft) (from `Economic diplomacy`)
+- `gga-106` **Precipice** → [Cliff](https://en.wikipedia.org/wiki/Cliff) (from `Precipice`)
+- `gga-127` **Political settlement** → [Elite pact](https://en.wikipedia.org/wiki/Elite_pact) (from `Political settlement`)
+- `gga-134` **De iure belli ac pacis** → [De jure belli ac pacis](https://en.wikipedia.org/wiki/De_jure_belli_ac_pacis) (from `De iure belli ac pacis`)
+- `gga-138` **Rules-based international order** → [Liberal international order](https://en.wikipedia.org/wiki/Liberal_international_order) (from `Rules-based international order`)
+- `gga-167` **Carbon Border Adjustment Mechanism** → [Carbon tariff](https://en.wikipedia.org/wiki/Carbon_tariff) (from `Carbon Border Adjustment Mechanism`)
 - `gr-001` **Aegean Bronze Age** → [Aegean civilization](https://en.wikipedia.org/wiki/Aegean_civilization) (from `Aegean Bronze Age`)
 - `gr-002` **Cycladic civilisation** → [Cycladic culture](https://en.wikipedia.org/wiki/Cycladic_culture) (from `Cycladic civilisation`)
 - `gr-003` **Cycladic figurines** → [Cycladic art](https://en.wikipedia.org/wiki/Cycladic_art) (from `Cycladic figurines`)
@@ -516,11 +524,12 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ww2-006` **reparations** → [World War I reparations](https://en.wikipedia.org/wiki/World_War_I_reparations) (via the disambiguation page `Reparation`)
 - `ww2-035` **Article 48** → [Article 48 of the Weimar Constitution](https://en.wikipedia.org/wiki/Article_48_of_the_Weimar_Constitution) (via the disambiguation page `Article 48`)
 
-## Matched by search — check each (5)
+## Matched by search — check each (6)
 
 No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.
 
 - `cnh-013` **Chinese flood myth** → [Chinese flood myths](https://en.wikipedia.org/wiki/Chinese_flood_myths)
+- `gga-163` **Artisan state** → [Artisan](https://en.wikipedia.org/wiki/Artisan)
 - `gr-499` **Parthenon metopes** → [Metopes of the Parthenon](https://en.wikipedia.org/wiki/Metopes_of_the_Parthenon)
 - `jp-037` **moated settlement** → [Moated settlements](https://en.wikipedia.org/wiki/Moated_settlements)
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
@@ -767,7 +776,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (619)
+## No article found (671)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -954,10 +963,62 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-057` **Wandel durch Annäherung** — search suggests `Wandel durch Handel`, `Egon Bahr`, `Ostpolitik`, `Evangelische Akademie Tutzing`, `Bulthaup`
 - `gga-058` **Dollar clearing system** — search suggests `Clearing (finance)`, `Clearing House Interbank Payments System`, `Clearing House Automated Transfer System`, `The Clearing House`, `China National Clearing Center`
 - `gga-064` **Ever closer European Union** — search suggests `European Union`, `Canada–European Union relations`, `2015–2016 United Kingdom renegotiation of European Union membership`, `Brexit`, `Accession of Armenia to the European Union`
+- `gga-069` **Hormuz–Sahel transmission** — search suggests `Starlink`, `General Atomics MQ-9 Reaper`, `Islamic world`
+- `gga-070` **Fiscal feedback loop** — search suggests `Inertial inflation`, `Circle Line (Kuala Lumpur)`, `G (SEPTA Metro)`, `Stock market bubble`, `National debt of the United States`
+- `gga-071` **Multilateral shock response** — search suggests `1973 oil crisis`, `Military exercise`, `BRICS`, `United Nations response to the COVID-19 pandemic`, `World Bank Group`
+- `gga-078` **Missing Persons Group** — search suggests `Missing Persons (band)`, `Missing persons in Mexico`, `Missing person`, `List of solved missing person cases (1950–1969)`, `Missing Persons`
+- `gga-079` **Syria's missing** — search suggests `National Commission for Missing Persons (Syria)`, `Ba'athist Syria`, `Austin Tice`, `Syrian occupation of Lebanon`, `Ahmed al-Sharaa`
+- `gga-080` **Online Inquiry Center** — search suggests `Center for Inquiry`, `Committee for Skeptical Inquiry`, `Critical Inquiry`, `Scam center`, `Online age verification laws by country`
+- `gga-081` **State responsibility to investigate** — search suggests `Forensic science`, `Oklahoma State Bureau of Investigation`, `Tennessee Bureau of Investigation`, `Moral responsibility`, `Social responsibility`
+- `gga-083` **Ukraine's missing persons** — search suggests `Missing person`, `List of solved missing person cases (1950–1969)`, `List of solved missing person cases (pre-1950)`, `List of solved missing person cases (2020s)`, `List of solved missing person cases (2010s)`
+- `gga-085` **0.7 per cent** — search suggests `Global Peace Index`, `Percentage`, `European Union`, `Angmering`, `Straits Times Index`
+- `gga-086` **Aid conditionality** — search suggests `Conditionality`, `Poverty Reduction Strategy Paper`, `Aid`, `ACP–EU development cooperation`, `Aid effectiveness`
+- `gga-088` **Interconnected but fragmented** — search suggests `A Lover's Discourse: Fragments`, `Karmanye Vadhikaraste`, `Inter-connected Stock Exchange of India`, `A Sentimental Journey Through France and Italy`, `Corregidora (novel)`
+- `gga-089` **Most armed conflicts since 1946** — search suggests `List of ongoing armed conflicts`, `List of non-international armed conflicts`, `Communist armed conflicts in the Philippines`, `List of armed conflicts in 2016`, `War`
+- `gga-090` **Partners for Multilateralism** — search suggests `Multilateralism`, `Kinshasa Declaration on Great Apes`, `Foreign relations of Indonesia`, `Member states of BRICS`, `Ministry of Defence (United Kingdom)`
+- `gga-091` **Core Charter principles** — search suggests `2017 Hamas charter`, `Charter of the United Nations`, `Freedom Charter`, `Humanitarian principles`, `Singapore Declaration`
+- `gga-092` **Power politics by other means** — search suggests `Power (political science)`, `Soft power`, `Hard power`, `Benjamin Ginsberg (political scientist)`, `Political power grows out of the barrel of a gun`
+- `gga-094` **Most-favoured-nation principle** — search suggests `Most favoured nation`, `Global System of Trade Preferences among Developing Countries`, `Economic and Financial Organization of the League of Nations`, `National treatment`, `Anglo-Brunei Treaty of Friendship (1847)`
+- `gga-099` **Stable core within an unstable equilibrium** — search suggests `Hydrostatic equilibrium`, `Game theory`, `General equilibrium theory`, `Chicken (game)`, `Statics`
+- `gga-101` **Over-dependence** — search suggests `Third-party logistics`, `Business process outsourcing`, `Nicotine dependence`, `Substance dependence`, `Benzodiazepine dependence`
+- `gga-102` **Two-tier world** — search suggests `Two-tier healthcare`, `World of Tiers`, `Test cricket`, `Tier`, `2026 FIFA U-15 World Cup & Festival`
+- `gga-103` **Standard-setting power** — search suggests `Standards organization`, `The Power of 10: Rules for Developing Safety-Critical Code`, `Power supply unit (computer)`, `IEC 60320`, `USB`
+- `gga-104` **Dependence and autarky** — search suggests `Autarky`, `Self-sustainability`, `Energy independence`, `Technological sovereignty`, `Sovereign AI`
+- `gga-107` **Incomplete mutually hurting stalemate** — search suggests `German spring offensive`, `Conflict resolution`, `2024 NFL season`, `Suicide attack`, `Cyprus problem`
+- `gga-108` **Limiting choices** — search suggests `Choice architecture`, `DSV Limiting Factor`, `Samsung`, `The Paradox of Choice`, `Korean mixed script`
+- `gga-109` **South Africa's preventative peace** — search suggests `South Africa's genocide case against Israel`, `South Africa`, `President of South Africa`, `2026 Nobel Peace Prize`, `South Africa and weapons of mass destruction`
+- `gga-111` **Deterrence and dialogue** — search suggests `Ko Wen-je`, `List of international presidential trips made by Sauli Niinistö`, `Deterrence (film)`, `Conflict resolution`, `Negotiation`
+- `gga-112` **War guilt and reparations** — search suggests `Article 231 of the Treaty of Versailles`, `World War I reparations`, `White guilt`, `1932 Lausanne Conference`, `War guilt question`
+- `gga-114` **Bush's 'one inch' promise** — search suggests `Not One Inch`, `Promise Me (Beverley Craven song)`, `Nine Inch Nails`, `Jeffrey Dahmer`, `Heisman Trophy`
+- `gga-116` **Permanent Joint Council** — search suggests `Russia–NATO relations`, `2002 Rome NATO–Russia summit`, `Secretary General of NATO`, `NATO`, `Joint industrial council`
+- `gga-118` **2007 Munich Conference** — search suggests `2007 Munich speech of Vladimir Putin`, `Munich Security Conference`, `Munich Agreement`, `Munich`, `2025 JD Vance speech at the Munich Security Conference`
+- `gga-119` **Bucharest Summit** — search suggests `2008 Bucharest NATO summit`, `Bucharest Nine`, `Stripchat`, `Georgia–NATO relations`, `Ukraine–NATO relations`
+- `gga-120` **Destructive ambiguity** — search suggests `The Ethics of Ambiguity`, `Windsor Framework`, `Cathy Ames`, `The End of Evangelion`, `Book scanning`
+- `gga-123` **Appeasement or gaining time** — search suggests `Appeasement`, `Appeasing Hitler`, `Bread and circuses`, `R. A. C. Parker`, `Munich Agreement`
+- `gga-124` **War is normalcy** — search suggests `Normalcy bias`, `Return to normalcy`, `Cold War`, `Japanese–Italian War`, `United States in World War I`
+- `gga-125` **Absolute victory** — search suggests `Z.H.P. Unlosing Ranger VS Darkdeath Evilman`, `Absolute Batman`, `Milo of Croton`, `Abode of Chaos`, `Supreme People's Council (South Yemen)`
+- `gga-126` **Armistice agreement**
+- `gga-129` **Dirty deal**
+- `gga-130` **Energy ceasefire**
+- `gga-131` **Horizontal legal order** — search suggests `List of national flags of sovereign states`, `Precedent`, `Flag of Poland`, `Transgender flag`, `List of national flags by design`
+- `gga-133` **Territorial integrity and non-interference** — search suggests `Mohamed Muizzu`, `Political status of the Cook Islands and Niue`, `Australia–Indonesia relations`, `Iran–Ukraine relations`, `United Nations General Assembly Resolution 3212 (XXIX)`
+- `gga-139` **Legitimacy, equity and self-confidence** — search suggests `French and Raven's bases of power`, `Legitimation crisis`, `History of private equity and venture capital`, `Cooperative`, `Gender equality`
+- `gga-140` **Putin's Article 51 claim** — search suggests `Putin's Palace`, `Vladimir Putin speech on invading Ukraine`, `Vladimir Putin`, `Chapter VII of the United Nations Charter`, `On the Historical Unity of Russians and Ukrainians`
 - `gga-142` **2025 Strategic Foresight Report** — search suggests `Foresight (futures studies)`, `Futures studies`, `Diego Rubio (politician)`, `Sundeep Waslekar`, `Cost of conflict`
 - `gga-143` **International law is politics, but not just politics** — search suggests `The Tragedy of Great Power Politics`, `Politics`, `International relations`, `Comparative politics`, `Outline of political science`
 - `gga-148` **States behave as if bound** — search suggests `Bound state`, `Majorana fermion`, `Cramér–Rao bound`, `Atom`, `List of states of matter`
 - `gga-149` **Death rate in armed conflicts** — search suggests `List of ongoing armed conflicts`, `List of countries by intentional homicide rate`, `List of countries by intentional death rate`, `Colombian conflict`, `Civilian casualty ratio`
+- `gga-150` **Rotten-tail world** — search suggests `A Warrior's Tail`, `An American Tail`, `Public Image Ltd`, `An American Tail: Fievel Goes West`, `Jurassic World Rebirth`
+- `gga-151` **Un-order** — search suggests `United Nations`, `Taesongsan`, `Member states of the United Nations`, `United Nations Security Council`, `Orange Order`
+- `gga-152` **Kissinger's two pillars** — search suggests `United States`, `FinVect`, `Operation Condor`, `Islamic State`, `Charlie Kirk`
+- `gga-153` **Fragmentation, contagion and strangulation**
+- `gga-154` **Epistemic fragmentation** — search suggests `Epistemic community`, `Echo chamber (media)`, `Stephen Stich`, `Reliabilism`, `Africa`
+- `gga-157` **Chokepoints as a marker of power** — search suggests `Glossary of video game terms`, `Philippines`, `Horn of Africa`, `Hegemony (video game series)`, `2020s`
+- `gga-158` **Foreign direct product rule** — search suggests `Coordinating Committee for Multilateral Export Controls`, `Semiconductor Manufacturing International Corporation`, `Markovnikov's rule`, `Economy of Georgia (country)`, `Economy of Kenya`
+- `gga-159` **2010 rare-earth cut-off to Japan** — search suggests `Rare-earth element`, `Rare-earth industry in China`, `Goya Robles`, `Neodymium magnet`, `Weaponized interdependence`
+- `gga-160` **Russian reserves freeze** — search suggests `Economy of Russia`, `Confiscation of Russian central bank funds`, `Central Bank of Russia`, `Zeya Nature Reserve`, `Tether (cryptocurrency)`
+- `gga-162` **Architects and artisans** — search suggests `Residential colleges of Yale University`, `Morris Adjmi Architects`, `Charles de Batz de Castelmore d'Artagnan`, `List of architects`, `Akbar's tomb`
+- `gga-165` **Frugal ways of war** — search suggests `Frugality`, `The Empire Strikes Back`, `China–United States trade war`, `Ronald Read (philanthropist)`, `Chinese Communist Revolution`
 - `gga-169` **Teapot refiners** — search suggests `Steeping`, `China in the 2026 Iran war`, `Sinclair Oil Corporation`, `Hengli Group`, `United States sanctions against China`
 - `gga-170` **China's anti-sanctions regime** — search suggests `Anti-Foreign Sanctions Law`, `United States government sanctions`, `Anti-American sentiment in China`, `International sanctions during apartheid`, `Support for Russia in the Russo-Ukrainian war`
 - `gga-171` **One-year trade truce** — search suggests `Twelve Years' Truce`, `Truce of Andrusovo`, `Christmas truce`, `Busan Summit`, `Danish–Hanseatic War (1361–1370)`

@@ -1,16 +1,16 @@
 {
- "generated": "2026-10-10T15:25Z",
+ "generated": "2026-10-10T15:42Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4571,
-  "redirect-broader": 396,
-  "redirect-variant": 299,
+  "ok": 4596,
+  "redirect-broader": 404,
+  "redirect-variant": 304,
   "section-redirect": 93,
   "disambiguation": 127,
-  "none": 619,
+  "none": 671,
   "disambig-resolved": 70,
   "list-page": 6,
-  "search-match": 5,
+  "search-match": 6,
   "no-article": 6
  },
  "cards": {
@@ -49393,6 +49393,993 @@
     "List of countries by intentional death rate",
     "Colombian conflict",
     "Civilian casualty ratio"
+   ]
+  },
+  "gga-076": {
+   "answer": "Srebrenica",
+   "title": "Srebrenica",
+   "url": "https://en.wikipedia.org/wiki/Srebrenica",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-077": {
+   "answer": "DNA identification",
+   "title": "DNA profiling",
+   "url": "https://en.wikipedia.org/wiki/DNA_profiling",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "DNA identification"
+  },
+  "gga-078": {
+   "answer": "Missing Persons Group",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Missing Persons (band)",
+    "Missing persons in Mexico",
+    "Missing person",
+    "List of solved missing person cases (1950–1969)",
+    "Missing Persons"
+   ]
+  },
+  "gga-079": {
+   "answer": "Syria's missing",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "National Commission for Missing Persons (Syria)",
+    "Ba'athist Syria",
+    "Austin Tice",
+    "Syrian occupation of Lebanon",
+    "Ahmed al-Sharaa"
+   ]
+  },
+  "gga-080": {
+   "answer": "Online Inquiry Center",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Center for Inquiry",
+    "Committee for Skeptical Inquiry",
+    "Critical Inquiry",
+    "Scam center",
+    "Online age verification laws by country"
+   ]
+  },
+  "gga-081": {
+   "answer": "State responsibility to investigate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Forensic science",
+    "Oklahoma State Bureau of Investigation",
+    "Tennessee Bureau of Investigation",
+    "Moral responsibility",
+    "Social responsibility"
+   ]
+  },
+  "gga-082": {
+   "answer": "Political will",
+   "title": "Political will",
+   "url": "https://en.wikipedia.org/wiki/Political_will",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-083": {
+   "answer": "Ukraine's missing persons",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Missing person",
+    "List of solved missing person cases (1950–1969)",
+    "List of solved missing person cases (pre-1950)",
+    "List of solved missing person cases (2020s)",
+    "List of solved missing person cases (2010s)"
+   ]
+  },
+  "gga-150": {
+   "answer": "Rotten-tail world",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "A Warrior's Tail",
+    "An American Tail",
+    "Public Image Ltd",
+    "An American Tail: Fievel Goes West",
+    "Jurassic World Rebirth"
+   ]
+  },
+  "gga-151": {
+   "answer": "Un-order",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United Nations",
+    "Taesongsan",
+    "Member states of the United Nations",
+    "United Nations Security Council",
+    "Orange Order"
+   ]
+  },
+  "gga-152": {
+   "answer": "Kissinger's two pillars",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States",
+    "FinVect",
+    "Operation Condor",
+    "Islamic State",
+    "Charlie Kirk"
+   ]
+  },
+  "gga-153": {
+   "answer": "Fragmentation, contagion and strangulation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "gga-154": {
+   "answer": "Epistemic fragmentation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Epistemic community",
+    "Echo chamber (media)",
+    "Stephen Stich",
+    "Reliabilism",
+    "Africa"
+   ]
+  },
+  "gga-155": {
+   "answer": "Pax Silica",
+   "title": "Pax Silica",
+   "url": "https://en.wikipedia.org/wiki/Pax_Silica",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-156": {
+   "answer": "Disinhibition",
+   "title": "Disinhibition",
+   "url": "https://en.wikipedia.org/wiki/Disinhibition",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-157": {
+   "answer": "Chokepoints as a marker of power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Glossary of video game terms",
+    "Philippines",
+    "Horn of Africa",
+    "Hegemony (video game series)",
+    "2020s"
+   ]
+  },
+  "gga-158": {
+   "answer": "Foreign direct product rule",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Coordinating Committee for Multilateral Export Controls",
+    "Semiconductor Manufacturing International Corporation",
+    "Markovnikov's rule",
+    "Economy of Georgia (country)",
+    "Economy of Kenya"
+   ]
+  },
+  "gga-159": {
+   "answer": "2010 rare-earth cut-off to Japan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rare-earth element",
+    "Rare-earth industry in China",
+    "Goya Robles",
+    "Neodymium magnet",
+    "Weaponized interdependence"
+   ]
+  },
+  "gga-160": {
+   "answer": "Russian reserves freeze",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Economy of Russia",
+    "Confiscation of Russian central bank funds",
+    "Central Bank of Russia",
+    "Zeya Nature Reserve",
+    "Tether (cryptocurrency)"
+   ]
+  },
+  "gga-161": {
+   "answer": "Strait of Hormuz",
+   "title": "Strait of Hormuz",
+   "url": "https://en.wikipedia.org/wiki/Strait_of_Hormuz",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-162": {
+   "answer": "Architects and artisans",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Residential colleges of Yale University",
+    "Morris Adjmi Architects",
+    "Charles de Batz de Castelmore d'Artagnan",
+    "List of architects",
+    "Akbar's tomb"
+   ]
+  },
+  "gga-163": {
+   "answer": "Artisan state",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-164": {
+   "answer": "Lobito Corridor",
+   "title": "Lobito Corridor",
+   "url": "https://en.wikipedia.org/wiki/Lobito_Corridor",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-165": {
+   "answer": "Frugal ways of war",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Frugality",
+    "The Empire Strikes Back",
+    "China–United States trade war",
+    "Ronald Read (philanthropist)",
+    "Chinese Communist Revolution"
+   ]
+  },
+  "gga-166": {
+   "answer": "Technological sovereignty",
+   "title": "Technological sovereignty",
+   "url": "https://en.wikipedia.org/wiki/Technological_sovereignty",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-167": {
+   "answer": "Carbon Border Adjustment Mechanism",
+   "title": "Carbon tariff",
+   "url": "https://en.wikipedia.org/wiki/Carbon_tariff",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Carbon Border Adjustment Mechanism"
+  },
+  "gga-105": {
+   "answer": "Ripeness",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-106": {
+   "answer": "Precipice",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-107": {
+   "answer": "Incomplete mutually hurting stalemate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "German spring offensive",
+    "Conflict resolution",
+    "2024 NFL season",
+    "Suicide attack",
+    "Cyprus problem"
+   ]
+  },
+  "gga-108": {
+   "answer": "Limiting choices",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Choice architecture",
+    "DSV Limiting Factor",
+    "Samsung",
+    "The Paradox of Choice",
+    "Korean mixed script"
+   ]
+  },
+  "gga-109": {
+   "answer": "South Africa's preventative peace",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "South Africa's genocide case against Israel",
+    "South Africa",
+    "President of South Africa",
+    "2026 Nobel Peace Prize",
+    "South Africa and weapons of mass destruction"
+   ]
+  },
+  "gga-110": {
+   "answer": "Helsinki Accords",
+   "title": "Helsinki Accords",
+   "url": "https://en.wikipedia.org/wiki/Helsinki_Accords",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-111": {
+   "answer": "Deterrence and dialogue",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ko Wen-je",
+    "List of international presidential trips made by Sauli Niinistö",
+    "Deterrence (film)",
+    "Conflict resolution",
+    "Negotiation"
+   ]
+  },
+  "gga-112": {
+   "answer": "War guilt and reparations",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Article 231 of the Treaty of Versailles",
+    "World War I reparations",
+    "White guilt",
+    "1932 Lausanne Conference",
+    "War guilt question"
+   ]
+  },
+  "gga-113": {
+   "answer": "Europe whole and free",
+   "title": "Europe Whole and Free",
+   "url": "https://en.wikipedia.org/wiki/Europe_Whole_and_Free",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Europe whole and free"
+  },
+  "gga-114": {
+   "answer": "Bush's 'one inch' promise",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Not One Inch",
+    "Promise Me (Beverley Craven song)",
+    "Nine Inch Nails",
+    "Jeffrey Dahmer",
+    "Heisman Trophy"
+   ]
+  },
+  "gga-115": {
+   "answer": "Partnership for Peace",
+   "title": "Partnership for Peace",
+   "url": "https://en.wikipedia.org/wiki/Partnership_for_Peace",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-116": {
+   "answer": "Permanent Joint Council",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia–NATO relations",
+    "2002 Rome NATO–Russia summit",
+    "Secretary General of NATO",
+    "NATO",
+    "Joint industrial council"
+   ]
+  },
+  "gga-117": {
+   "answer": "Kosovo",
+   "title": "Kosovo",
+   "url": "https://en.wikipedia.org/wiki/Kosovo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gga-067": {
+   "answer": "Race to the bottom",
+   "title": "Race to the bottom",
+   "url": "https://en.wikipedia.org/wiki/Race_to_the_bottom",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-068": {
+   "answer": "Paris Agreement",
+   "title": "Paris Agreement",
+   "url": "https://en.wikipedia.org/wiki/Paris_Agreement",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-069": {
+   "answer": "Hormuz–Sahel transmission",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Starlink",
+    "General Atomics MQ-9 Reaper",
+    "Islamic world"
+   ]
+  },
+  "gga-070": {
+   "answer": "Fiscal feedback loop",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Inertial inflation",
+    "Circle Line (Kuala Lumpur)",
+    "G (SEPTA Metro)",
+    "Stock market bubble",
+    "National debt of the United States"
+   ]
+  },
+  "gga-071": {
+   "answer": "Multilateral shock response",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "1973 oil crisis",
+    "Military exercise",
+    "BRICS",
+    "United Nations response to the COVID-19 pandemic",
+    "World Bank Group"
+   ]
+  },
+  "gga-072": {
+   "answer": "International Commission on Missing Persons",
+   "title": "International Commission on Missing Persons",
+   "url": "https://en.wikipedia.org/wiki/International_Commission_on_Missing_Persons",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-073": {
+   "answer": "Enforced disappearance",
+   "title": "Enforced disappearance",
+   "url": "https://en.wikipedia.org/wiki/Enforced_disappearance",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-074": {
+   "answer": "International Convention for the Protection of All Persons from Enforced Disappearance",
+   "title": "International Convention for the Protection of All Persons from Enforced Disappearance",
+   "url": "https://en.wikipedia.org/wiki/International_Convention_for_the_Protection_of_All_Persons_from_Enforced_Disappearance",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-075": {
+   "answer": "Right to the truth",
+   "title": "Right to truth",
+   "url": "https://en.wikipedia.org/wiki/Right_to_truth",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Right to the truth"
+  },
+  "gga-084": {
+   "answer": "Economic diplomacy",
+   "title": "Economic statecraft",
+   "url": "https://en.wikipedia.org/wiki/Economic_statecraft",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Economic diplomacy"
+  },
+  "gga-085": {
+   "answer": "0.7 per cent",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Global Peace Index",
+    "Percentage",
+    "European Union",
+    "Angmering",
+    "Straits Times Index"
+   ]
+  },
+  "gga-086": {
+   "answer": "Aid conditionality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Conditionality",
+    "Poverty Reduction Strategy Paper",
+    "Aid",
+    "ACP–EU development cooperation",
+    "Aid effectiveness"
+   ]
+  },
+  "gga-088": {
+   "answer": "Interconnected but fragmented",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "A Lover's Discourse: Fragments",
+    "Karmanye Vadhikaraste",
+    "Inter-connected Stock Exchange of India",
+    "A Sentimental Journey Through France and Italy",
+    "Corregidora (novel)"
+   ]
+  },
+  "gga-089": {
+   "answer": "Most armed conflicts since 1946",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of ongoing armed conflicts",
+    "List of non-international armed conflicts",
+    "Communist armed conflicts in the Philippines",
+    "List of armed conflicts in 2016",
+    "War"
+   ]
+  },
+  "gga-090": {
+   "answer": "Partners for Multilateralism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Multilateralism",
+    "Kinshasa Declaration on Great Apes",
+    "Foreign relations of Indonesia",
+    "Member states of BRICS",
+    "Ministry of Defence (United Kingdom)"
+   ]
+  },
+  "gga-091": {
+   "answer": "Core Charter principles",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2017 Hamas charter",
+    "Charter of the United Nations",
+    "Freedom Charter",
+    "Humanitarian principles",
+    "Singapore Declaration"
+   ]
+  },
+  "gga-092": {
+   "answer": "Power politics by other means",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Power (political science)",
+    "Soft power",
+    "Hard power",
+    "Benjamin Ginsberg (political scientist)",
+    "Political power grows out of the barrel of a gun"
+   ]
+  },
+  "gga-093": {
+   "answer": "World Trade Organization",
+   "title": "World Trade Organization",
+   "url": "https://en.wikipedia.org/wiki/World_Trade_Organization",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gga-094": {
+   "answer": "Most-favoured-nation principle",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Most favoured nation",
+    "Global System of Trade Preferences among Developing Countries",
+    "Economic and Financial Organization of the League of Nations",
+    "National treatment",
+    "Anglo-Brunei Treaty of Friendship (1847)"
+   ]
+  },
+  "gga-095": {
+   "answer": "Doha Round",
+   "title": "Doha Development Round",
+   "url": "https://en.wikipedia.org/wiki/Doha_Development_Round",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Doha Round"
+  },
+  "gga-096": {
+   "answer": "Appellate Body",
+   "title": "Appellate Body",
+   "url": "https://en.wikipedia.org/wiki/Appellate_Body",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-097": {
+   "answer": "Plurilateral agreements",
+   "title": "Plurilateral agreement",
+   "url": "https://en.wikipedia.org/wiki/Plurilateral_agreement",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Plurilateral agreements"
+  },
+  "gga-098": {
+   "answer": "Ngozi Okonjo-Iweala",
+   "title": "Ngozi Okonjo-Iweala",
+   "url": "https://en.wikipedia.org/wiki/Ngozi_Okonjo-Iweala",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-099": {
+   "answer": "Stable core within an unstable equilibrium",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Hydrostatic equilibrium",
+    "Game theory",
+    "General equilibrium theory",
+    "Chicken (game)",
+    "Statics"
+   ]
+  },
+  "gga-100": {
+   "answer": "Liberation Day",
+   "title": "Liberation Day",
+   "url": "https://en.wikipedia.org/wiki/Liberation_Day",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-101": {
+   "answer": "Over-dependence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Third-party logistics",
+    "Business process outsourcing",
+    "Nicotine dependence",
+    "Substance dependence",
+    "Benzodiazepine dependence"
+   ]
+  },
+  "gga-102": {
+   "answer": "Two-tier world",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Two-tier healthcare",
+    "World of Tiers",
+    "Test cricket",
+    "Tier",
+    "2026 FIFA U-15 World Cup & Festival"
+   ]
+  },
+  "gga-103": {
+   "answer": "Standard-setting power",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Standards organization",
+    "The Power of 10: Rules for Developing Safety-Critical Code",
+    "Power supply unit (computer)",
+    "IEC 60320",
+    "USB"
+   ]
+  },
+  "gga-104": {
+   "answer": "Dependence and autarky",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Autarky",
+    "Self-sustainability",
+    "Energy independence",
+    "Technological sovereignty",
+    "Sovereign AI"
+   ]
+  },
+  "gga-118": {
+   "answer": "2007 Munich Conference",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2007 Munich speech of Vladimir Putin",
+    "Munich Security Conference",
+    "Munich Agreement",
+    "Munich",
+    "2025 JD Vance speech at the Munich Security Conference"
+   ]
+  },
+  "gga-119": {
+   "answer": "Bucharest Summit",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2008 Bucharest NATO summit",
+    "Bucharest Nine",
+    "Stripchat",
+    "Georgia–NATO relations",
+    "Ukraine–NATO relations"
+   ]
+  },
+  "gga-120": {
+   "answer": "Destructive ambiguity",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Ethics of Ambiguity",
+    "Windsor Framework",
+    "Cathy Ames",
+    "The End of Evangelion",
+    "Book scanning"
+   ]
+  },
+  "gga-121": {
+   "answer": "Minsk agreements",
+   "title": "Minsk agreements",
+   "url": "https://en.wikipedia.org/wiki/Minsk_agreements",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-122": {
+   "answer": "Nord Stream 2",
+   "title": "Nord Stream 2",
+   "url": "https://en.wikipedia.org/wiki/Nord_Stream_2",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-123": {
+   "answer": "Appeasement or gaining time",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Appeasement",
+    "Appeasing Hitler",
+    "Bread and circuses",
+    "R. A. C. Parker",
+    "Munich Agreement"
+   ]
+  },
+  "gga-124": {
+   "answer": "War is normalcy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Normalcy bias",
+    "Return to normalcy",
+    "Cold War",
+    "Japanese–Italian War",
+    "United States in World War I"
+   ]
+  },
+  "gga-125": {
+   "answer": "Absolute victory",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Z.H.P. Unlosing Ranger VS Darkdeath Evilman",
+    "Absolute Batman",
+    "Milo of Croton",
+    "Abode of Chaos",
+    "Supreme People's Council (South Yemen)"
+   ]
+  },
+  "gga-126": {
+   "answer": "Armistice agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-127": {
+   "answer": "Political settlement",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-128": {
+   "answer": "Finlandisation",
+   "title": "Finlandization",
+   "url": "https://en.wikipedia.org/wiki/Finlandization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Finlandisation"
+  },
+  "gga-129": {
+   "answer": "Dirty deal",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-130": {
+   "answer": "Energy ceasefire",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "gga-131": {
+   "answer": "Horizontal legal order",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of national flags of sovereign states",
+    "Precedent",
+    "Flag of Poland",
+    "Transgender flag",
+    "List of national flags by design"
+   ]
+  },
+  "gga-132": {
+   "answer": "Sovereignty",
+   "title": "Sovereignty",
+   "url": "https://en.wikipedia.org/wiki/Sovereignty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gga-133": {
+   "answer": "Territorial integrity and non-interference",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mohamed Muizzu",
+    "Political status of the Cook Islands and Niue",
+    "Australia–Indonesia relations",
+    "Iran–Ukraine relations",
+    "United Nations General Assembly Resolution 3212 (XXIX)"
+   ]
+  },
+  "gga-134": {
+   "answer": "De iure belli ac pacis",
+   "title": "De jure belli ac pacis",
+   "url": "https://en.wikipedia.org/wiki/De_jure_belli_ac_pacis",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "De iure belli ac pacis"
+  },
+  "gga-135": {
+   "answer": "Anarchical Society",
+   "title": "The Anarchical Society",
+   "url": "https://en.wikipedia.org/wiki/The_Anarchical_Society",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Anarchical Society"
+  },
+  "gga-136": {
+   "answer": "Charter of the United Nations",
+   "title": "Charter of the United Nations",
+   "url": "https://en.wikipedia.org/wiki/Charter_of_the_United_Nations",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-137": {
+   "answer": "Rule of law",
+   "title": "Rule of law",
+   "url": "https://en.wikipedia.org/wiki/Rule_of_law",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-138": {
+   "answer": "Rules-based international order",
+   "title": "Liberal international order",
+   "url": "https://en.wikipedia.org/wiki/Liberal_international_order",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rules-based international order"
+  },
+  "gga-139": {
+   "answer": "Legitimacy, equity and self-confidence",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "French and Raven's bases of power",
+    "Legitimation crisis",
+    "History of private equity and venture capital",
+    "Cooperative",
+    "Gender equality"
+   ]
+  },
+  "gga-140": {
+   "answer": "Putin's Article 51 claim",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Putin's Palace",
+    "Vladimir Putin speech on invading Ukraine",
+    "Vladimir Putin",
+    "Chapter VII of the United Nations Charter",
+    "On the Historical Unity of Russians and Ukrainians"
    ]
   }
  }
