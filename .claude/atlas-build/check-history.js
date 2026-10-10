@@ -106,8 +106,66 @@ const ASSERT = [
 /* a failing assertion of the source's own making: listed here with its reason once read, never forced (the brief) */
 // the capital facts (Phase 2b) that fail against Cliopatria's polygons, each checked by hand against the raw row of the year
 const KNOWN_CAPITAL_FAULTS = {
+  // each checked 2026-10-10 against the raw Cliopatria row(s) of the year (point in polygon on the GeoJSON itself): either no row
+  // of the polity is alive in that year, or the row's polygon leaves the capital outside — a fault of the source or of the
+  // capital statement's dates, never bent here
+  "Baghdad 1075 in pol:abbasid": "Cliopatria has no row of this polity alive in 1075; the point lies in seljuk (wh-469)",
+  "Tenochtitlan 1429 in pol:aztec": "Cliopatria's row(s) of aztec alive in 1429 leave Tenochtitlan outside the polygon (checked against the raw row) (wh-605)",
+  "Wiryeseong 504 in pol:baekje": "Cliopatria's row(s) of baekje alive in 504 leave Wiryeseong outside the polygon (checked against the raw row) (jp-054)",
+  "Wiryeseong 660 in pol:baekje": "Cliopatria's row(s) of baekje alive in 660 leave Wiryeseong outside the polygon (checked against the raw row) (jp-054)",
+  "Carthage -650 in pol:carthage": "Cliopatria's row(s) of carthage alive in -650 leave Carthage outside the polygon (checked against the raw row) (rm-182)",
+  "Puhar 850 in pol:chola": "Cliopatria's row(s) of chola alive in 850 leave Puhar outside the polygon (checked against the raw row) (wh-547)",
+  "Puhar 1259 in pol:chola": "Cliopatria's row(s) of chola alive in 1259 leave Puhar outside the polygon (checked against the raw row) (wh-547)",
+  "Cairo 1171 in pol:fatimid": "Cliopatria's row(s) of fatimid alive in 1171 leave Cairo outside the polygon (checked against the raw row) (wh-478)",
+  "Tbilisi 1122 in pol:georgia": "Cliopatria's row(s) of georgia alive in 1122 leave Tbilisi outside the polygon (checked against the raw row); the point lies in seljuk (wh-454)",
+  "Ganghwa Island 1270 in pol:goryeo": "Cliopatria has no row of this polity alive in 1270; the point lies in mongol (wh-540)",
+  "Chang'an 9 in pol:han": "Cliopatria's row(s) of han alive in 9 leave Chang'an outside the polygon (checked against the raw row); the point lies in xin (cnh-213)",
+  "Luoyang 25 in pol:han": "Cliopatria has no row of this polity alive in 25 (cnh-213)",
+  "Xuchang 208 in pol:han": "Cliopatria's row(s) of han alive in 208 leave Xuchang outside the polygon (checked against the raw row) (cnh-213)",
+  "Xuchang 220 in pol:han": "Cliopatria's row(s) of han alive in 220 leave Xuchang outside the polygon (checked against the raw row) (cnh-213)",
+  "Cusco 1440 in pol:inca": "Cliopatria's row(s) of inca alive in 1440 leave Cusco outside the polygon (checked against the raw row) (wh-612)",
+  "Cusco 1571 in pol:inca": "Cliopatria's row(s) of inca alive in 1571 leave Cusco outside the polygon (checked against the raw row); the point lies in spanish_empire (wh-612)",
+  "Alexandria on the Caucasus -56 in pol:indo_greeks": "Cliopatria has no row of this polity alive in -56 (gr-784)",
+  "Alexandria on the Caucasus 13 in pol:indo_greeks": "Cliopatria's row(s) of indo_greeks alive in 13 leave Alexandria on the Caucasus outside the polygon (checked against the raw row) (gr-784)",
+  "Old Dongola 347 in pol:makuria": "Cliopatria's row(s) of makuria alive in 347 leave Old Dongola outside the polygon (checked against the raw row) (wh-585)",
+  "Old Dongola 881 in pol:makuria": "Cliopatria's row(s) of makuria alive in 881 leave Old Dongola outside the polygon (checked against the raw row) (wh-585)",
+  "Old Dongola 1414 in pol:makuria": "Cliopatria's row(s) of makuria alive in 1414 leave Old Dongola outside the polygon (checked against the raw row) (wh-585)",
+  "Malacca 1459 in pol:malacca": "Cliopatria's row(s) of malacca alive in 1459 leave Malacca outside the polygon (checked against the raw row) (wh-565)",
+  "Malacca 1485 in pol:malacca": "Cliopatria's row(s) of malacca alive in 1485 leave Malacca outside the polygon (checked against the raw row) (wh-565)",
+  "Malacca 1511 in pol:malacca": "Cliopatria's row(s) of malacca alive in 1511 leave Malacca outside the polygon (checked against the raw row) (wh-565)",
+  "Cairo 1241 in pol:mamluk_egypt": "Cliopatria's row(s) of mamluk_egypt alive in 1241 leave Cairo outside the polygon (checked against the raw row) (wh-485)",
+  "Tell el Fakhariya -1241 in pol:mitanni": "Cliopatria's row(s) of mitanni alive in -1241 leave Tell el Fakhariya outside the polygon (checked against the raw row) (wh-200)",
+  "Agra 1540 in pol:mughal": "Cliopatria's row(s) of mughal alive in 1540 leave Agra outside the polygon (checked against the raw row) (wh-699)",
+  "Pingcheng 460 in pol:northern_wei": "Cliopatria's row(s) of northern_wei alive in 460 leave Pingcheng outside the polygon (checked against the raw row) (cnh-330)",
+  "Pingcheng 533 in pol:northern_wei": "Cliopatria's row(s) of northern_wei alive in 533 leave Pingcheng outside the polygon (checked against the raw row) (cnh-330)",
+  "Didymoteicho 1361 in pol:ottoman": "Cliopatria's row(s) of ottoman alive in 1361 leave Didymoteicho outside the polygon (checked against the raw row); the point lies in byzantium (wh-687)",
+  "Didymoteicho 1362 in pol:ottoman": "Cliopatria's row(s) of ottoman alive in 1362 leave Didymoteicho outside the polygon (checked against the raw row); the point lies in byzantium (wh-687)",
+  "Didymoteicho 1363 in pol:ottoman": "Cliopatria's row(s) of ottoman alive in 1363 leave Didymoteicho outside the polygon (checked against the raw row); the point lies in byzantium (wh-687)",
+  "Edirne 1365 in pol:ottoman": "Cliopatria's row(s) of ottoman alive in 1365 leave Edirne outside the polygon (checked against the raw row); the point lies in byzantium (wh-687)",
+  "Constantinople 1922 in pol:ottoman": "Cliopatria's row(s) of ottoman alive in 1922 leave Constantinople outside the polygon (checked against the raw row) (wh-687)",
+  "Bagan 850 in pol:pagan": "Cliopatria's row(s) of pagan alive in 850 leave Bagan outside the polygon (checked against the raw row) (wh-558)",
+  "Xianyang -750 in pol:qin": "Cliopatria's row(s) of qin alive in -750 leave Xianyang outside the polygon (checked against the raw row) (cnh-191)",
+  "Xianyang -479 in pol:qin": "Cliopatria's row(s) of qin alive in -479 leave Xianyang outside the polygon (checked against the raw row) (cnh-191)",
+  "Mukden 1625 in pol:qing": "Cliopatria's row(s) of qing alive in 1625 leave Mukden outside the polygon (checked against the raw row); the point lies in ming (wh-716)",
+  "Beijing 1644 in pol:qing": "Cliopatria's row(s) of qing alive in 1644 leave Beijing outside the polygon (checked against the raw row); the point lies in ming (wh-716)",
+  "Rome -750 in pol:roman_kingdom": "Cliopatria's row(s) of roman_kingdom alive in -750 leave Rome outside the polygon (checked against the raw row); the point lies in etruscans (rm-046)",
+  "Rome -615 in pol:roman_kingdom": "Cliopatria's row(s) of roman_kingdom alive in -615 leave Rome outside the polygon (checked against the raw row); the point lies in etruscans (rm-046)",
+  "Rome -481 in pol:roman_kingdom": "Cliopatria's row(s) of roman_kingdom alive in -481 leave Rome outside the polygon (checked against the raw row) (rm-046)",
+  "Rome -500 in pol:rome": "Cliopatria's row(s) of rome alive in -500 leave Rome outside the polygon (checked against the raw row) (rm-091)",
+  "Milan 402 in pol:rome": "Cliopatria's row(s) of rome alive in 402 leave Milan outside the polygon (checked against the raw row) (wh-358)",
+  "Kyiv 1240 in pol:rus": "Cliopatria's row(s) of rus alive in 1240 leave Kyiv outside the polygon (checked against the raw row) (ru-036)",
+  "Babylon -312 in pol:seleucid": "Cliopatria has no row of this polity alive in -312; the point lies in macedon (gr-769)",
+  "Babylon -308 in pol:seleucid": "Cliopatria has no row of this polity alive in -308; the point lies in macedon (gr-769)",
+  "Gao 1608 in pol:songhai": "Cliopatria's row(s) of songhai alive in 1608 leave Gao outside the polygon (checked against the raw row) (wh-572)",
+  "Chang'an 627 in pol:sui": "Cliopatria's row(s) of sui alive in 627 leave Chang'an outside the polygon (checked against the raw row); the point lies in tang (wh-521)",
 };
 const KNOWN_FAULTS = {
+  // Phase 2b, the cards' extents against every series (checked against the raw rows as above)
+  "Megara -413 out pol:peloponnesian_league": "Cliopatria's peloponnesian_league row of -413 includes Megara where the card's extent leaves it out (gr-561)",
+  "Zhengzhou -1046 in pol:shang": "Cliopatria's shang row of -1046 leaves Zhengzhou outside where the card's extent has it in (cnh-103)",
+  "Philadelphia 1779 in pol:usa": "Cliopatria's usa row of 1779 leaves Philadelphia outside where the card's extent has it in (us-071)",
+  "Newtown 1779 out pol:usa": "Cliopatria's usa row of 1779 includes Newtown where the card's extent leaves it out (us-071)",
+
   // "Place year in/out entity": "why the source draws it so" — every entry was checked against the raw Cliopatria polygon of the year
   "Rome -343 in pol:rome": "Cliopatria's Roman Republic -480..-338 leaves Rome unmapped where the card's extent has it in (rm-152)",
   "Capua -343 in pol:rome": "Cliopatria's Roman Republic -480..-338 leaves Capua unmapped where the card's extent has it in (rm-152)",
@@ -373,7 +431,7 @@ function run() {
   const ringsOf = (fi) => { let r = faceRings.get(fi); if (r) return r; r = T.faces[fi].rings.map((ring) => { const pts = []; for (const ref of ring) { const g = geom(Math.abs(ref) - 1, LODS - 1); if (ref > 0) for (let i = 0; i < g.length - 1; i++) pts.push(g[i]); else for (let i = g.length - 1; i > 0; i--) pts.push(g[i]); } return unwrap(pts); }); faceRings.set(fi, r); return r; };
   const inFace = (fi, px, py) => { let inside = false; for (const { X, Y, n } of ringsOf(fi)) { for (const qx of [px, px + 2 * X180, px - 2 * X180]) { let c = false; for (let i = 0, j = n - 1; i < n; j = i++) if ((Y[i] > py) !== (Y[j] > py) && qx < (X[j] - X[i]) * (py - Y[i]) / (Y[j] - Y[i]) + X[i]) c = !c; if (c) { inside = !inside; break; } } } return inside; };
   const entityAt = (lon, lat, y) => { const px = Math.round(lon / Q), py = Math.round(lat / Q); const out = []; for (const fi of aliveAt(y)) if (inFace(fi, px, py)) out.push(H.entities[T.faces[fi].entity]); return out; };
-  const holds = (entId, found) => found.some((e) => e.id === entId || (e.kind === "contested" && e.partners.includes(entId)));
+  const holds = (entId, found) => found.some((e) => e.id === entId || ((e.kind === "contested" || e.kind === "nested") && e.partners.includes(entId)));   // a nested face is the member's land and the overlord's (2b)
   {
     let okN = 0, known = 0; const failed = [];
     for (const [place, lon, lat, y, want, ent] of ASSERT) {

@@ -272,7 +272,9 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
     if (ci < 0) check("a contested face exists (none in this pilot: the test is moot)", true);
     else {
       const st = stepsOf.get(ci)[0]; const e = H.entities[ci];
-      const row = await C(page, (id) => { const r = document.querySelector(".atlas2").__atlas2.gazetteer().byId.get(id); return r ? r.at : null; }, e.id);
+      // the face's own anchor (a point inside its largest piece, from the header), not the entity's cap centre: a contested face of
+      // scattered pieces (Lydia and the Neo-Assyrians at 630 BCE in the 2b file) has its cap centre outside itself
+      const row = (H.faceAnchor && H.faceAnchor[st[3]]) || await C(page, (id) => { const r = document.querySelector(".atlas2").__atlas2.gazetteer().byId.get(id); return r ? r.at : null; }, e.id);
       await at(page, row[0], row[1], 1, st[1]);
       const stack = await stackAtPlace(page, row[0], row[1]);
       check(`${e.name} (contested, ${st[1]}): the stack names both claimants`, e.partners.every((p) => stack.includes(p)), stack.join(" > "));
@@ -330,12 +332,12 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
       return { worst, measured, rows };
     });
     check(`the seam at the cap: at most 2 px of plain land between the tile coast and the fill (worst ${seam.worst} px over ${seam.measured} rows: ${seam.rows.join(" ")})`, seam.measured >= 3 && seam.worst <= 2);
-    // China at 3 km/px: at 6 km/px a 1280 px view centred on 110° E reaches 76° E and a sliver of the Indo-Greek face
-    const noteFar = await (async () => { await at(page, 110, 35, 3, 1); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
+    // North America at 3 km/px in 1 CE (2b: China at 1 CE is the Han dynasty now, a card-linked state; no card's state is in the Americas before the Aztecs)
+    const noteFar = await (async () => { await at(page, -100, 40, 3, 1); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
     const noteMed = await (async () => { await at(page, 15, 40, 6, 1); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
     const noteDeep = await (async () => { await at(page, 15, 40, 6, -9000); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
     const noteNow = await (async () => { await at(page, 110, 35, 6, TODAY); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
-    check("\"No state taught by Folio’s cards is mapped for this year yet\" shows over China at 1 CE and over the Mediterranean at 9000 BCE, not over the Mediterranean at 1 CE nor today", noteFar && noteDeep && !noteMed && !noteNow, `${noteFar} ${noteDeep} ${noteMed} ${noteNow}`);
+    check("\"No state taught by Folio’s cards is mapped for this year yet\" shows over North America at 1 CE and over the Mediterranean at 9000 BCE, not over the Mediterranean at 1 CE nor today", noteFar && noteDeep && !noteMed && !noteNow, `${noteFar} ${noteDeep} ${noteMed} ${noteNow}`);
   }
 
   console.log("\n\x1b[1m11) the year-change cost\x1b[0m\n");

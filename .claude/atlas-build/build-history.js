@@ -248,7 +248,25 @@ for (const [key, p] of Object.entries(spec.polities)) {
 }
 say(`series: ${series.length} with rows in ${Y0}..${Y1} (${series.reduce((n, s) => n + s.rows.length, 0)} rows); deferred ${deferred.length}: ${deferred.map((d) => d.key + " (" + d.why + ")").join(", ")}`);
 
-/* a row's polygon: rings quantised, deduped, spikes cut; holes by nesting depth */
+/* a row's polygon: rings quantised, deduped, spikes cut, long edges densified along the great circle; holes by nesting depth */
+// MAX_CHORD_M (2b): a source edge longer than this is split into great-circle pieces of at most this length. Everything downstream
+// reads a straight edge two ways — the face walk's angles and the noding's crossing point in the unwrapped lon/lat plane, the
+// crossing GATE, the level repair, the checker and the renderer on the sphere — and the two differ by the chord's bow,
+// L²/8R: 4.6 km for the Tang border's 281 km edge leaving Laizhou Bay (623 CE), which the sphere crossed on one coast segment
+// and the plane on its neighbour, so neither test split it and the walk carried the ocean into the empire (118 epochs of the
+// first 2b build leaked that way). At 50 km the bow is 50 m, under two quanta of the plane's rounding
+const MAX_CHORD_M = 50000; let densifiedN = 0;
+const unitsOfVec = (v) => { const lon = Math.atan2(v[1], v[0]) / D2R, lat = Math.asin(Math.max(-1, Math.min(1, v[2]))) / D2R; let x = Math.round(lon / Q); if (x >= X180) x -= 2 * X180; if (x < -X180) x += 2 * X180; return [x, Math.round(lat / Q)]; };
+function densify(pts) {
+  const out = [];
+  for (let i = 0; i < pts.length; i++) {
+    const a = pts[i], b = pts[(i + 1) % pts.length]; out.push(a);
+    const m = metresU(a[0], a[1], b[0], b[1]); if (m <= MAX_CHORD_M) continue;
+    const n = Math.ceil(m / MAX_CHORD_M), va = G.vec(a[0], a[1], Q), vb = G.vec(b[0], b[1], Q);
+    for (let k = 1; k < n; k++) { const t = k / n; const v = [va[0] * (1 - t) + vb[0] * t, va[1] * (1 - t) + vb[1] * t, va[2] * (1 - t) + vb[2] * t]; const l = Math.hypot(v[0], v[1], v[2]) || 1; const p = unitsOfVec([v[0] / l, v[1] / l, v[2] / l]); if (p[0] !== out[out.length - 1][0] || p[1] !== out[out.length - 1][1]) { out.push(p); densifiedN++; } }
+  }
+  return out;
+}
 const allRows = [];
 for (const s of series) for (const r of s.rows) {
   const g = r.f.geometry, polys = g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : [];
@@ -257,7 +275,7 @@ for (const s of series) for (const r of s.rows) {
     let pts = ring.map((p) => R.qpt(p));
     pts = R.dedupeRing(pts); R.cutSpikes(pts, R.eqPt);   // in place
     if (pts.length < 3) continue;
-    rs.push(pts);
+    rs.push(densify(pts));
   }
   r.series = s; r.rings = rs;
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity, nv = 0;
@@ -268,7 +286,7 @@ for (const s of series) for (const r of s.rows) {
 }
 allRows.sort((a, b) => a.series.key.localeCompare(b.series.key) || a.from - b.from);
 allRows.forEach((r, i) => { r.id = i; });
-say(`rows: ${allRows.length}, vertices ${allRows.reduce((s, r) => s + r.nv, 0)}`);
+say(`rows: ${allRows.length}, vertices ${allRows.reduce((s, r) => s + r.nv, 0)} (${densifiedN} added along great circles on edges over ${MAX_CHORD_M / 1000} km)`);
 
 /* ================= 2. --measure: the distributions behind D1, D2, D3 ================= */
 const hist = (vals, bins) => { const out = {}; let lo = 0; const sorted = vals.slice().sort((a, b) => a - b); for (const b of bins) { out[(b === Infinity ? "beyond" : lo + "–" + b) + " m"] = sorted.filter((v) => v >= lo && v < b).length; lo = b; } const p = (q) => sorted.length ? Math.round(sorted[Math.min(sorted.length - 1, Math.floor(q * sorted.length))]) : null; return { n: sorted.length, p50: p(0.5), p75: p(0.75), p90: p(0.9), p95: p(0.95), p99: p(0.99), bins: out }; };
@@ -289,7 +307,7 @@ for (let i = 0; i + 1 < yearList.length; i++) {
   epochs.push({ from, to, alive, key });
 }
 say(`epochs: ${epochs.length} over ${yearList[0]}–${yearList[yearList.length - 1] - 1}; distinct alive sets ${new Set(epochs.map((e) => e.key)).size}`);
-report.epochs = epochs.length;
+report.epochs = epochs.length; report.densified = densifiedN;
 if (MEASURE) {
   const d1 = [], d3 = [], d2 = [], pairs = {};
   for (const r of allRows) for (const ring of r.rings) for (const [x, y] of ring) { const n = nearest(x, y, 60000, coastIdx, coastSeg); d1.push(n ? n.metres : 60000); const b = nearest(x, y, 60000, bordIdx, bordSeg); d3.push(b ? b.metres : 60000); }
@@ -496,12 +514,20 @@ function conflate(alive, label) {
       coastIdx.near(cx, cy, Math.min(rU, 400 * CELL), (k) => {
         if (offRing(k)) return;
         const i1 = segV[k], i0 = i1 - 1;
-        if ((VON[e.a] && VON[e.a].coast && VON[e.a].coast.k === k) || (VON[e.b] && VON[e.b].coast && VON[e.b].coast.k === k)) return;   // the chord starts or ends on this segment
+        // the chord starts or ends on this segment: its own junction is no crossing, but a chord that leaves a junction on the sea side
+        // of a long, nearly straight shore and cuts back over THE SAME segment a few kilometres on is one — skipping the segment
+        // altogether let such a chord (the Tang border leaving Laizhou Bay at 623, 281 km inland) walk the face into the sea and
+        // merge land and ocean into one cycle (118 epochs of the first 2b build). The crossing counts when it lies more than
+        // SAME_SEG_U from the chord's junction on that segment
+        const SAME_SEG_U = 8 * DUP_U;
+        const ownA = VON[e.a] && VON[e.a].coast && VON[e.a].coast.k === k, ownB = VON[e.b] && VON[e.b].coast && VON[e.b].coast.k === k;
         // through a coast vertex: a crossing AT the vertex is outside crossPoint's open interval and the walk then sees a chord on the
         // sea side of the coast's tangent (measured: the Argolid at 100 CE, a chord ending 50 m past a coast vertex); split there
         for (const [i, t] of [[i1, 1]]) { const tc = onChord(core.lon[i], core.lat[i], e); if (tc == null) continue; const v = vertAt(core.lon[i], core.lat[i]); if (v === e.a || v === e.b) continue; if (!VON[v]) { VON[v] = { coast: { k, t } }; coastJunctions.push({ k, t, v }); } let l = splitsEdge.get(e); if (!l) splitsEdge.set(e, l = []); if (!l.some((o) => o.v === v)) { l.push({ t: tc, v }); found++; stat.throughVertex = (stat.throughVertex || 0) + 1; } return; }
         if (!G.segmentsCross(pa, pb, coreVec(i0), coreVec(i1))) return;
         const X = crossPoint(x1, y1, x2, y2, core.lon[i0], core.lat[i0], core.lon[i1], core.lat[i1]); if (!X) return;
+        if ((ownA && Math.abs(X.x - x1) <= SAME_SEG_U && Math.abs(X.y - y1) <= SAME_SEG_U) || (ownB && Math.abs(X.x - x2) <= SAME_SEG_U && Math.abs(X.y - y2) <= SAME_SEG_U)) return;   // the junction itself
+        if (ownA || ownB) stat.sameSegCross = (stat.sameSegCross || 0) + 1;
         const twin = coastJunctions.find((j) => j.k === k && Math.abs(VX[j.v] - X.x) <= DUP_U && Math.abs(VY[j.v] - X.y) <= DUP_U);
         const v = twin ? twin.v : vertAt(X.x, X.y); if (!twin && VON[v]) return; if (twin && (twin.v === e.a || twin.v === e.b)) return;
         if (!twin) { VON[v] = { coast: { k, t: X.u } }; coastJunctions.push({ k, t: X.u, v }); }
@@ -615,8 +641,15 @@ function conflate(alive, label) {
     const posA = ta <= 0 ? ia - 1 : ta >= 1 ? ia : ia - 0.5, posB = tb <= 0 ? ib - 1 : tb >= 1 ? ib : ib - 0.5;
     if (coastDir[a] > 0) { lo = Math.floor(posA) + 1; hi = Math.ceil(posB) - 1; } else { lo = Math.floor(posB) + 1; hi = Math.ceil(posA) - 1; }
     lo = Math.max(lo, s); hi = Math.min(hi, e - 1);
-    const from = coastDir[a] > 0 ? lo - s : hi - s, to = coastDir[a] > 0 ? hi - s : lo - s;   // walked in the land-left direction; from > to when backwards
-    const empty = lo > hi;
+    let from = coastDir[a] > 0 ? lo - s : hi - s, to = coastDir[a] > 0 ? hi - s : lo - s;   // walked in the land-left direction; from > to when backwards
+    const step = coastDir[a] > 0 ? 1 : -1;
+    let empty = lo > hi;
+    // a junction that IS a core vertex (a piece from an arc's head, a junction at t = 1 on the segment before the next arc's first vertex)
+    // must not list that vertex among the inner ones too: the piece's first segment was then zero-length and its outgoing angle
+    // atan2(0, 0) = 0, which put the piece out of order at the junction and let the face walk cross from land into the sea (2b,
+    // measured: the Seljuk border at Kuwait's coast in 1056–1071, a two-arc islet off Venezuela in 1516–1804)
+    while (!empty && core.lon[s + from] === VX[va] && core.lat[s + from] === VY[va]) { from += step; empty = step > 0 ? from > to : from < to; }
+    while (!empty && core.lon[s + to] === VX[vb] && core.lat[s + to] === VY[vb]) { to -= step; empty = step > 0 ? from > to : from < to; }
     const key = `c:${a}:${empty ? "-" : from + ":" + to}:${VX[va]},${VY[va]}:${VX[vb]},${VY[vb]}`;
     // the junctions' segments (the END vertex's offset within the arc; 0 at the arc's own endpoint)
     const segOf = (i, t) => (t <= 0 && i - 1 === s) || (t >= 1 && i === e - 1) ? 0 : (t >= 1 ? Math.min(e - 1, i + 1) - s : i - s);
@@ -941,7 +974,7 @@ function conflate(alive, label) {
    the same functions in the same order) */
 const CACHE_DIR = (() => {
   const h = crypto.createHash("sha256");
-  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, v: 4 }));
+  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, MAX_CHORD_M, v: 7 }));
   return path.join(OUT, "history-cache", h.digest("hex").slice(0, 16));
 })();
 if (USE_CACHE) { fs.mkdirSync(CACHE_DIR, { recursive: true }); say(`epoch cache: ${path.relative(HERE, CACHE_DIR)} (${fs.readdirSync(CACHE_DIR).length} epochs cached)`); }
