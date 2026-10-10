@@ -145,6 +145,14 @@ jobs:
       # share-alike (ODbL) file is missing from the statement — a stale credits page is a licence problem nobody sees.
       - name: check-credits (Atlas v2, the Sources and credits page)
         run: node .claude/atlas-build/check-credits.js
+      # THE STEP TOPOLOGY IS A GENERATED FILE WITH THE SAME SILENT FAILURES (Oct 2026, Phase 2a; docs/atlas-v2-design.md §2.3 "The step
+      # topology file", §2.4, §7 "Phase 2a — as built"). check-history.js reads atlas/data/history.bin and the core beside it and proves:
+      # the buildId is the committed core's, every core reference exists with the core arc's kind, every step lies inside its entity's
+      # span, at every change year every historical border is used by exactly two alive faces (or once when OPEN), every coast
+      # reference by one face forward, no two drawn segments of the alive faces cross at any level, and the point assertions —
+      # the repo's own extent assertions and an independent list — hold or are listed as known source faults.
+      - name: check-history (Atlas v2, the step topology)
+        run: node --max-old-space-size=4000 .claude/atlas-build/check-history.js
       # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
       # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
       # for every visitor -- and the only symptom is a slower site.

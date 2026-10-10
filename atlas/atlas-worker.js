@@ -25,6 +25,15 @@
                                                      (two Chaikin passes over every vertex) for the tile zooms
      in   { type: "water-tile", key, buffer }        one water tile (atlas/data/water/<x>-<y>.bin)
      out  { type: "water-tile", key, lakeSegs…, facePos… }
+     in   { type: "history", buffer }                atlas/data/history.bin (Phase 2a): the step topology of the historical
+                                                     polities, conflated onto this core (header.core.buildId must match)
+     out  { type: "history-meta", header, faceEntity, faceCap, faceArea }
+     out  { type: "history-segs", level, segs… }     per resident level: the historical borders (own arcs and inherited
+                                                     present-day border references) as a bucketed segment list, tag kind 7
+     in   { type: "history-faces", level, faces, seq } the alive faces a year needs at a level (and the look-ahead ones)
+     out  { type: "history-faces", level, meshes, seq } the meshes not yet resident on the main thread, each a small
+                                                     (pos, idx) pair triangulated here and cached in an LRU
+     in   { type: "history-evict", keys }            the main thread dropped these face:level meshes (its own LRU)
      in   { type: "relief", key, w, h, hi, lo, sh }  three greyscale ImageBitmaps (Phase 1b), transferred
      out  { type: "relief", key, w, h, rgb }         one RGB Uint8Array: shade, height high byte, low byte —
                                                      composed here on an OffscreenCanvas so the main thread
@@ -306,12 +315,15 @@
     if (msg.type === "water") return handleWater(msg, post);
     if (msg.type === "water-tile") return handleWaterTile(msg, post);
     if (msg.type === "relief") { handleRelief(msg, post); return null; }
+    if (msg.type === "history") return guard(handleHistory(msg, post), "history: ");
+    if (msg.type === "history-faces") return guard(handleHistoryFaces(msg, post), "history faces: ");
+    if (msg.type === "history-evict") { if (HIST) for (const k of msg.keys || []) HIST.resident.delete(k); return null; }
     if (msg.type === "gazetteer") { loadGazetteer(msg.table); post({ type: "gazetteer", rows: GZ.rows.length }); return null; }
     if (msg.type === "metrics") { METRICS = msg.styles; return null; }
     if (msg.type === "layout") { handleLayout(msg, post); return null; }
     /* a lost GL context (Phase 1c): the main thread keeps nothing after upload, so the resident levels are
        rebuilt here from the raw files this worker kept — the same code path as the first load */
-    if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); })(); }
+    if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); if (RAW.history) { HIST = null; await handleHistory({ type: "history", buffer: RAW.history }, post); } })(); }
     if (msg.type === "load") return guard(handleLoad(msg, post), "topology: ");
     return null;
   }
@@ -323,6 +335,8 @@
     RAW.topology = msg.buffer;
     await tick("Reading the earth…", 0.33);
     const pos = await unitVectors(T);
+    CORE = { T, pos };
+    if (HIST_PENDING) { const m = HIST_PENDING; HIST_PENDING = null; handle(m, post); }
     const faceEntity = new Uint32Array(T.faces.length);
     T.faces.forEach((f, i) => { faceEntity[i] = f.entity; });
     post({ type: "meta", header: T.header, faceEntity, parseMs: now() - t0 }, [faceEntity.buffer]);
@@ -363,7 +377,8 @@
      path is too short or too bent; a river repeats every ~400 px along its polyline; a city sits beside its
      marker on the first free side of four. Labels behind the horizon are not candidates; those near the limb
      carry an alpha for the fade. */
-  const RAW = { topology: null, water: null };
+  const RAW = { topology: null, water: null, history: null };
+  let CORE = null, HIST = null, HIST_PENDING = null;
   let GZ = null, RIVER_LINES = null, RIVER_CAPS = null, METRICS = null;
   const D2R_ = Math.PI / 180;
   const KW = { capital: 0, country: 1, ocean: 2, sea: 3, admin1: 4, region: 5, range: 5, "island-group": 6, island: 6, gulf: 6, strait: 6, city: 7, lake: 8, town: 9, river: 10 };
@@ -387,7 +402,7 @@
   // the style a row is drawn in, by kind and by how much room it has (CSS px of chord)
   function styleFor(row, chordPx) {
     switch (row.kind) {
-      case "country": return chordPx >= 700 ? "country-l" : chordPx >= 260 ? "country-m" : "country-s";
+      case "polity": case "country": return chordPx >= 700 ? "country-l" : chordPx >= 260 ? "country-m" : "country-s";
       case "admin1": return "admin1";
       case "capital": return "capital"; case "city": return "city"; case "town": return "town";
       case "ocean": return "water-l"; case "sea": return chordPx >= 500 ? "water-l" : "water-m";
@@ -417,7 +432,9 @@
   function handleLayout(msg, post) {
     const t0 = now();
     if (!GZ || !METRICS) { post({ type: "layout", seq: msg.seq, placed: [], ms: 0, candidates: 0, reason: !GZ ? "no gazetteer" : "no metrics" }); return; }
-    const res = layout(msg);
+    let res;
+    try { res = layout(msg); }
+    catch (e) { res = { placed: [], candidates: 0, cap: 0, error: String(e && e.stack || e) }; }   // a layout that throws must still answer, or the main thread waits for ever (Phase 2a)
     res.type = "layout"; res.seq = msg.seq; res.ms = now() - t0;
     post(res);
   }
@@ -439,8 +456,24 @@
     const drop = (reason) => { if (why) why.push(dropping ? dropping.name + ": " + reason : reason); };
     /* ---- candidates ---- */
     const cands = [];
+    /* PHASE 2a: in a year before the present (q.present false) the present-day countries, provinces, capitals, cities and
+       towns are not alive and are not named (the owner's decision: hide the anachronistic ones; the physical names stay);
+       the alive polities are named along a path of their own, and the period capitals of the year are marked and named */
+    const present = q.present !== false;
+    const histRows = [];
+    if (HIST && q.aliveFaces && q.aliveFaces.length) {
+      for (const fi of q.aliveFaces) {
+        const e = HIST.H.entities[HIST.T.faces[fi].entity]; if (!e || e.kind !== "polity") continue;
+        const path = histLabelPath(fi, proj, W, H); if (!path) continue;
+        const km2 = HIST.H.faceKm2 ? HIST.H.faceKm2[fi] : 0;
+        histRows.push({ id: e.id, name: e.name, kind: "polity", rank: km2 >= 2e6 ? 0 : km2 >= 5e5 ? 1 : km2 >= 1e5 ? 2 : km2 >= 2e4 ? 3 : 4, path, len: path.len * kmpp, face: fi });
+      }
+    }
+    for (const row of histRows) { const chordPx = row.path.len; if (!show.countries || chordPx < MIN_CHORD_PX) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + row.rank * 10 + KW.country, hist: true }); }
+    for (const c of q.capitals || []) { const a = proj(unitOf(c.lon, c.lat)); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; if (!show.cities) continue; cands.push({ row: { id: "cap:" + c.entity + ":" + c.name, name: c.name, kind: "capital", rank: 0, a: unitOf(c.lon, c.lat) }, chordPx: 0, a, score: 0 + KW.capital, hist: true }); }
     for (const row of GZ.rows) {
       const k = row.kind;
+      if (!present && (k === "country" || k === "admin1" || k === "capital" || k === "city" || k === "town")) continue;
       let chordPx = row.len / kmpp;
       if (k === "country") { if (!show.countries || chordPx < MIN_CHORD_PX) continue; if (row.z && zl > row.z[1] + 2) continue; }
       else if (k === "admin1") { if (!show.countries || !show.provinces || !q.admin1 || chordPx < MIN_CHORD_PX) continue; }
@@ -470,6 +503,19 @@
     const cellsOf = (r, fn) => { const x0 = clampC(Math.floor(r[0] / CELL) + 1, cols), x1 = clampC(Math.floor(r[2] / CELL) + 1, cols), y0 = clampC(Math.floor(r[1] / CELL) + 1, rows), y1 = clampC(Math.floor(r[3] / CELL) + 1, rows); for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) fn(y * cols + x); };   // a rectangle beyond the viewport shares the edge cells, so off-screen labels still collide with each other
     const free = (r) => { let ok = true; cellsOf(r, (c) => { if (!ok) return; const list = cells.get(c); if (!list) return; for (const i of list) { const o = rects[i]; if (r[0] < o[2] + pad && r[2] > o[0] - pad && r[1] < o[3] + pad && r[3] > o[1] - pad) { ok = false; return; } } }); return ok; };
     const take = (r) => { const i = rects.length; rects.push(r); cellsOf(r, (c) => { let list = cells.get(c); if (!list) cells.set(c, list = []); list.push(i); }); };
+    /* THE CHROME IS OCCUPIED GROUND (Phase 2a, task 0d). atlas.js measures the rectangles of its controls — the search box
+       and its list, the zoom stack, the Legend and ? chips, an open sheet, the card or its phone strip, the stack chip, the
+       year rail — at every layout and resize and sends them as `chrome`; they are taken before any label is placed, so no
+       label can be placed under a control (the owner's phone had "Berlin" cut by the zoom buttons and "NORTH EUROPE" under
+       the search box). A POINT label (a city and its marker) must be wholly on screen; an AREA or PATH label may be clipped
+       by the viewport edge by at most a quarter of its length and never by a control. */
+    const chrome = Array.isArray(q.chrome) ? q.chrome : [];
+    const fullyOn = (r) => r[0] >= 0 && r[1] >= 0 && r[2] <= W && r[3] <= H;
+    const hitsChrome = (r) => chrome.some((c) => r[0] < c[2] && r[2] > c[0] && r[1] < c[3] && r[3] > c[1]);
+    // the fraction of a chain of glyph boxes (or one box) lying beyond the viewport, by box area
+    const clippedFrac = (rs) => { let a = 0, v = 0; for (const r of rs) { const w = r[2] - r[0], h = r[3] - r[1]; if (w <= 0 || h <= 0) continue; a += w * h; v += Math.max(0, Math.min(r[2], W) - Math.max(r[0], 0)) * Math.max(0, Math.min(r[3], H) - Math.max(r[1], 0)); } return a > 0 ? 1 - v / a : 1; };
+    const MAX_CLIP = 0.25;
+    for (const c of chrome) take(c);   // the controls' rectangles are taken first (padded like any label), so nothing is laid out under them
     const placed = [];
     const union = (list) => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const r of list) { if (r[0] < x0) x0 = r[0]; if (r[1] < y0) y0 = r[1]; if (r[2] > x1) x1 = r[2]; if (r[3] > y1) y1 = r[3]; } return [x0, y0, x1, y1]; };
     /* a straight run of glyphs centred at (x, y) at angle `ang` (radians, screen y down): glyph origins and one rect */
@@ -486,7 +532,7 @@
        length s0; null when the text would bend more than a reader can follow */
     const along = (sh, S, cum, s0, st) => {
       const glyphs = [], rs = [];
-      let s = s0 - sh.w / 2, seg = 0, prev = null, turned = 0;
+      let s = s0 - sh.w / 2, seg = 0, prev = null, turned = 0, sumCos = 0, sumSin = 0;
       for (let i = 0; i < sh.chars.length; i++) {
         const mid = s + sh.adv[i] / 2;
         while (seg + 1 < cum.length - 1 && cum[seg + 1] < mid) seg++;
@@ -494,8 +540,12 @@
         const L = cum[seg + 1] - cum[seg] || 1, u = Math.max(0, Math.min(1, (mid - cum[seg]) / L));
         const x = S[seg][0] + (S[seg + 1][0] - S[seg][0]) * u, y = S[seg][1] + (S[seg + 1][1] - S[seg][1]) * u;
         const ang = Math.atan2(S[seg + 1][1] - S[seg][1], S[seg + 1][0] - S[seg][0]);
+        // a glyph rotated beyond 90° from upright is upside down (the owner's "Danube" and "Rhône": a run whose ends read left
+        // to right but whose middle, where the name sits, runs the other way) — the caller then tries the path reversed
+        if (Math.abs(ang) > Math.PI / 2) return null;
         if (prev != null) { let d = ang - prev; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI; if (Math.abs(d) > 0.4) return null; turned += Math.abs(d); if (turned > 1.6) return null; }
         prev = ang;
+        sumCos += Math.cos(ang); sumSin += Math.sin(ang);
         // the glyph's origin is its left edge on the baseline; the baseline sits a quarter of the size under the line so the text straddles a river rather than riding above it
         const nx = Math.sin(ang) * st.size * 0.35, ny = -Math.cos(ang) * st.size * 0.35;
         const ox = x - Math.cos(ang) * sh.adv[i] / 2 + nx, oy = y - Math.sin(ang) * sh.adv[i] / 2 + ny;
@@ -504,7 +554,14 @@
         rs.push([x - hs, y - hs, x + hs, y + hs]);
         s += sh.adv[i] + st.track;
       }
-      return { glyphs, rects: rs };
+      if (sumCos < 0) return null;   // the mean direction points left: the text would read backwards
+      return { glyphs, rects: rs, meanAngle: Math.atan2(sumSin, sumCos) };
+    };
+    // along the polyline, and failing that along the polyline reversed (the same spot measured from the other end)
+    const alongEither = (sh, S, cum, s0, st) => {
+      const g = along(sh, S, cum, s0, st); if (g) return g;
+      const Sr = S.slice().reverse(), cumR = polyline(Sr), L = cum[cum.length - 1];
+      return along(sh, Sr, cumR, L - s0, st);
     };
     // a run averaged along its length: every vertex becomes the mean of the vertices within `radius` px of arc length
     // of it (the count and the order are kept, so an index into the smoothed run is an index into the real one)
@@ -528,16 +585,32 @@
       if (!st) { drop(k + " no metrics for style " + styleId); continue; }
       const text = row.name;
       const sh = shape(text, st, missing); sh.style = styleId;
-      const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected };
+      const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face };
+      if (k === "polity") {
+        // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
+        const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
+        const cum = polyline(S2), Ls = cum[cum.length - 1];
+        let got = null, curved = false;
+        if (Ls >= sh.w * 1.02) { const g = alongEither(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && clippedFrac(g.rects) <= MAX_CLIP) { got = g; curved = true; } }
+        if (!got) { if (sh.w > row.path.len * 1.8) { drop("polity name wider than its path"); continue; } const g = straight(sh, c.a[0], c.a[1], 0); if (clippedFrac(g.rects) > MAX_CLIP) { drop("polity label clipped"); continue; } if (!free(g.rects[0])) { drop("polity collides"); continue; } got = g; }
+        const ub = union(got.rects); if (offScreen(ub)) { drop("polity label wholly off screen"); continue; }
+        got.rects.forEach(take);
+        // the anchor's unit vector: unproject the screen anchor (the label follows the globe between layouts)
+        const ax = (c.a[0] - cx) / radius, ay = -(c.a[1] - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay));
+        const aw = [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az];
+        placed.push(Object.assign(base, { a: aw, sx: c.a[0], sy: c.a[1], alpha: 1, glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
+        continue;
+      }
       if (k === "capital" || k === "city" || k === "town") {
         const r = MARKER_R[k], x = c.a[0], y = c.a[1];
         const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
+        if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
         if (!free(mrect)) { drop("marker collides"); continue; }
         if (!show.places) { take(mrect); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
         const tries = [[x + r + 3 + sh.w / 2, y, 0], [x - r - 3 - sh.w / 2, y, 0], [x, y - r - 3 - sh.h / 2, 0], [x, y + r + 3 + sh.h / 2, 0]];
         let got = null;
-        for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (onScreen(tx, ty, 0) && free(g.rects[0])) { got = g; break; } }
-        if (!got) { drop(onScreen(x, y, 0) ? "city label collides on all four sides" : "city off screen"); continue; }
+        for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (fullyOn(g.rects[0]) && free(g.rects[0])) { got = g; break; } }
+        if (!got) { drop(onScreen(x, y, 0) ? "city label collides on all four sides, or is not wholly on screen" : "city off screen"); continue; }
         take(got.rects[0]); take(mrect);
         placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
         continue;
@@ -564,9 +637,9 @@
             for (const off of [0, 60, -60, 120, -120]) {
               s1 = s0 + off; if (s1 - sh.w / 2 < 10 || s1 + sh.w / 2 + 10 > LrS) continue;
               tried++;
-              const t = along(sh, runS, cumS, s1, st); if (!t) { bent++; continue; }
+              const t = alongEither(sh, runS, cumS, s1, st); if (!t) { bent++; continue; }
               if (!t.rects.every(free)) { collided++; continue; }
-              if (!t.rects.every((r) => onScreen((r[0] + r[2]) / 2, (r[1] + r[3]) / 2, 0))) continue;   // a run reaches 60 px past the canvas; the text must not
+              if (clippedFrac(t.rects) > MAX_CLIP) continue;   // a run reaches 60 px past the canvas; the text may hang over the edge by a quarter at most
               g = t; break;
             }
             if (!g) continue;
@@ -574,7 +647,7 @@
             // the anchor: the vertex nearest the label's centre
             let seg = 0; while (seg + 1 < cumS.length - 1 && cumS[seg + 1] < s1) seg++;
             const av = runV[seg];
-            placed.push(Object.assign({}, base, { a: av, sx: run[seg][0], sy: run[seg][1], alpha: 1, glyphs: g.glyphs, box: union(g.rects), rects: g.rects, marker: null, hit: union(g.rects), curved: true }));
+            placed.push(Object.assign({}, base, { a: av, sx: run[seg][0], sy: run[seg][1], alpha: 1, glyphs: g.glyphs, box: union(g.rects), rects: g.rects, marker: null, hit: union(g.rects), curved: true, meanAngle: g.meanAngle }));
             perRiver++; riverLabels++;
           }
           run = []; runV = [];
@@ -597,13 +670,14 @@
           const S2 = S.map((p) => [p[0], p[1]]);
           if (!reads(S2)) S2.reverse();
           const cum = polyline(S2), Ls = cum[cum.length - 1];
-          if (Ls >= sh.w * 1.02) { const g = along(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && !offScreen(union(g.rects))) { got = g; curved = true; } }   // a run whose glyphs all lie beyond the viewport falls back to the straight name at the anchor
+          if (Ls >= sh.w * 1.02) { const g = alongEither(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && clippedFrac(g.rects) <= MAX_CLIP) { got = g; curved = true; } }   // a run clipped by the edge by more than a quarter falls back to the straight name at the anchor
         }
       }
       if (!got) {
         if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") { drop(k + " name wider than its shape"); continue; }   // the name would overhang the shape by most of its length
         const g = straight(sh, c.a[0], c.a[1], 0);
         if (!onScreen(c.a[0], c.a[1], 0)) { drop(k + " anchor off screen"); continue; }
+        if (clippedFrac(g.rects) > MAX_CLIP) { drop(k + " label clipped by the edge by more than a quarter"); continue; }
         if (!free(g.rects[0])) { drop(k + " collides"); continue; }
         got = g;
       }
@@ -612,9 +686,149 @@
       const ub = union(got.rects);
       if (offScreen(ub)) { drop(k + " label wholly off screen"); continue; }
       got.rects.forEach(take);
-      placed.push(Object.assign(base, { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved }));
+      placed.push(Object.assign(base, { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
     }
-    return { placed, candidates: cands.length, cap, missing: [...missing].map((m) => m.split("\u0001")), rivers: riverLabels, why };
+    void hitsChrome;
+    return { placed, candidates: cands.length, cap, chrome: chrome.length, missing: [...missing].map((m) => m.split("\u0001")), rivers: riverLabels, why };
+  }
+  /* ================= Phase 2a: the step topology (atlas/data/history.bin) =================
+     The file's faces are rings of signed arc references; an arc is either its own vertices (a historical border, with
+     Visvalingam ranks for the three resident levels) or a REFERENCE to a core arc — a coast run or an inherited
+     present-day border — stored as its two junction vertices plus (core arc, from, to): its geometry at a level is
+     junction A, the core vertices of that range surviving the level, junction B. So the land partition this file was
+     conflated onto is the core this worker already holds (CORE), and the buildId in the header must be the core's.
+     A year's faces are triangulated LAZILY, one (face, level) at a time, into an LRU here; the main thread asks for the
+     alive set of the year it shows and of the next change year in the direction of the scrub, so a year change never
+     waits for earcut (§2.3, §2.4). The borders are one bucketed segment list per level with the arc index in the tag (kind
+     7), and the main thread's per-arc style table decides which are drawn in a year — a year change costs a table. */
+  const HIST_KIND = 7, HIST_LRU = 600;
+  // the arc's geometry at a level (atlas-format.js historyArcGeometry: a coast junction moves onto the level's line)
+  function histGeom(a, level) { return { own: false, pts: root.AtlasFormat.historyArcGeometry(HIST.T, CORE.T, a, level, HIST.junctions, HIST.empty) }; }
+  // the geometry of every arc at a level as one local topology (lon, lat, rank 0, arcOffset), cached per level
+  function histLevel(level) {
+    let L = HIST.levels[level]; if (L) return L;
+    const T = HIST.T, nA = T.arcOffset.length - 1;
+    const lon = [], lat = [], arcOffset = new Uint32Array(nA + 1);
+    for (let a = 0; a < nA; a++) {
+      arcOffset[a] = lon.length;
+      for (const p of histGeom(a, level).pts) { lon.push(p[0]); lat.push(p[1]); }
+    }
+    arcOffset[nA] = lon.length;
+    const LT = { lon: Int32Array.from(lon), lat: Int32Array.from(lat), rank: new Uint8Array(lon.length), arcOffset, arcKind: T.arcKind, arcFlags: T.arcFlags, arcMinLod: new Uint8Array(nA), quantum: T.quantum };
+    const D2R = Math.PI / 180, q = T.quantum, n = lon.length, pos = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) { const la = lat[i] * q * D2R, lo = lon[i] * q * D2R, c = Math.cos(la); pos[3 * i] = c * Math.cos(lo); pos[3 * i + 1] = c * Math.sin(lo); pos[3 * i + 2] = Math.sin(la); }
+    L = { T: LT, pos }; HIST.levels[level] = L; return L;
+  }
+  async function handleHistory(msg, post) {
+    if (!CORE) { HIST_PENDING = msg; return; }   // the core is still loading: parsed once it is in
+    const t0 = now();
+    let T;
+    try { T = await readTopology(msg.buffer); } catch (e) { post({ type: "error", message: "history: " + e.message }); return; }
+    const H = T.header;
+    if (!H.core || H.core.buildId !== CORE.T.header.buildId) { post({ type: "error", message: "history: built on core " + (H.core && H.core.buildId) + ", this is " + CORE.T.header.buildId }); return; }
+    if (!T.coreArc) { post({ type: "error", message: "history: no coreRef section" }); return; }
+    RAW.history = msg.buffer;
+    HIST = { T, H, empty: H.arcEmpty || null, levels: [], meshes: new Map(), resident: new Set(), order: [], junctions: root.AtlasFormat.historyJunctions(T, CORE.T) };
+    await tick();
+    // per face: the bounding cap (centre, angular radius) and the area at LOD 0, for the rail's "what is on screen" and the label rank
+    const nF = T.faces.length, faceCap = new Float32Array(nF * 4), faceEntity = new Uint32Array(nF);
+    const L0 = histLevel(0);
+    for (let fi = 0; fi < nF; fi++) {
+      faceEntity[fi] = T.faces[fi].entity;
+      let cx = 0, cy = 0, cz = 0, n = 0;
+      const rings = faceRings(L0.T, T.faces[fi], 0);
+      for (const ring of rings) for (const i of ring) { cx += L0.pos[3 * i]; cy += L0.pos[3 * i + 1]; cz += L0.pos[3 * i + 2]; n++; }
+      const cl = Math.hypot(cx, cy, cz) || 1; cx /= cl; cy /= cl; cz /= cl;
+      let r = 0; for (const ring of rings) for (const i of ring) { const d = Math.max(-1, Math.min(1, cx * L0.pos[3 * i] + cy * L0.pos[3 * i + 1] + cz * L0.pos[3 * i + 2])); const a = Math.acos(d); if (a > r) r = a; }
+      faceCap[4 * fi] = cx; faceCap[4 * fi + 1] = cy; faceCap[4 * fi + 2] = cz; faceCap[4 * fi + 3] = r;
+      if ((fi & 31) === 31) await tick();
+    }
+    // per face: its non-coast arcs (the borders a year draws), flat with offsets, so the main thread's arc table costs no geometry
+    const faceArcOff = new Uint32Array(nF + 1), fa = [];
+    for (let fi = 0; fi < nF; fi++) { faceArcOff[fi] = fa.length; const seen = new Set(); for (const ring of T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (T.arcKind[a] === 0 || seen.has(a)) continue; seen.add(a); fa.push(a); } }
+    faceArcOff[nF] = fa.length; const faceArcs = Uint32Array.from(fa);
+    post({ type: "history-meta", header: H, faceEntity, faceCap, faceArcOff, faceArcs, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, faceCap.buffer, faceArcOff.buffer, faceArcs.buffer]);
+    // the borders per level: every arc that is not a coast reference, tag = arc × 64 + (flags & 7) × 8 + HIST_KIND
+    for (let level = 0; level < 3; level++) {
+      const L = histLevel(level);
+      const nA = T.arcOffset.length - 1;
+      let count = 0;
+      for (let a = 0; a < nA; a++) { if (T.arcKind[a] === 0) continue; count += Math.max(0, L.T.arcOffset[a + 1] - L.T.arcOffset[a] - 1); }
+      const segs = new Float32Array(count * 7); let k = 0;
+      for (let a = 0; a < nA; a++) {
+        if (T.arcKind[a] === 0) continue;
+        const tag = a * 64 + (T.arcFlags[a] & 7) * 8 + HIST_KIND;
+        for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) { const p = L.pos; segs[k++] = p[3 * (i - 1)]; segs[k++] = p[3 * (i - 1) + 1]; segs[k++] = p[3 * (i - 1) + 2]; segs[k++] = p[3 * i]; segs[k++] = p[3 * i + 1]; segs[k++] = p[3 * i + 2]; segs[k++] = tag; }
+      }
+      const S = await bucketSegments(segs);
+      post({ type: "history-segs", level, segs: S.segs, segRange: S.segRange, segCap: S.segCap, count }, [S.segs.buffer, S.segRange.buffer, S.segCap.buffer]);
+      await tick();
+    }
+    post({ type: "history-done", ms: Math.round(now() - t0), arcs: T.arcOffset.length - 1, faces: nF });
+  }
+  async function handleHistoryFaces(msg, post) {
+    if (!HIST) return;
+    const level = Math.min(2, msg.level | 0), L = histLevel(level), meshes = [];
+    const t0 = now();
+    for (const fi of msg.faces || []) {
+      const key = fi + ":" + level;
+      if (HIST.resident.has(key)) continue;
+      let m = HIST.meshes.get(key);
+      if (!m) {
+        const sink = Sink();
+        await triangulateFace(L.T, L.pos, HIST.T.faces[fi], fi, level, sink);
+        const F = sink.result();
+        // the face's coast edges at this level, for the fill-against-stroke stroke at the tile zooms (§2.3, Phase 2a)
+        const coast = [];
+        for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (HIST.T.arcKind[a] !== 0) continue; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) coast.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], fi * 64 + HIST_KIND); }
+        m = { face: fi, level, pos: F.pos, idx: F.triangles * 3 <= 65535 && F.vertices <= 65535 ? Uint16Array.from(F.idx) : F.idx, coast: Float32Array.from(coast), triangles: F.triangles };
+        HIST.meshes.set(key, m); HIST.order.push(key);
+        while (HIST.order.length > HIST_LRU) { const old = HIST.order.shift(); if (!HIST.resident.has(old)) HIST.meshes.delete(old); else HIST.order.push(old); if (HIST.order.length > HIST_LRU * 2) break; }
+      }
+      HIST.resident.add(key);
+      meshes.push({ face: fi, level, pos: m.pos.slice(), idx: m.idx.slice(), coast: m.coast.slice(), triangles: m.triangles });
+    }
+    const transfer = []; for (const m of meshes) transfer.push(m.pos.buffer, m.idx.buffer, m.coast.buffer);
+    post({ type: "history-faces", level, meshes, seq: msg.seq, ms: Math.round(now() - t0) }, transfer);
+  }
+  /* the label path of an alive face on screen: the area-weighted centre of its LOD 0 fill and the principal axis of its
+     projected vertices, walked both ways from the centre while inside the projected rings (even-odd) — a straight run of
+     up to five points, the polity's name laid along it in small capitals like a country's (§2.6) */
+  function histLabelPath(fi, proj, W, H) {
+    const L = histLevel(0), T = HIST.T;
+    const rings = faceRings(L.T, T.faces[fi], 0).map((ring) => ring.map((i) => proj([L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2]])));
+    const vis = rings.map((r) => r.filter((p) => p[2] > 0.02));
+    if (!vis.some((r) => r.length >= 3)) return null;
+    // the visible polygon's centroid and covariance (vertex-weighted; a fill's area needs the mesh — the vertices are enough for an axis).
+    // "Visible" means ON SCREEN when at least three vertices are: a face reaching past the viewport (the Eastern Roman Empire at
+    // 500 CE at 3 km/px, its Balkan third on screen and Anatolia, Syria and Egypt beyond the right edge) takes its name on the
+    // part a reader sees, as a printed sheet names a country on the part the sheet shows; otherwise the margin box as before
+    const inView = (x, y) => x >= 0 && x <= W && y >= 0 && y <= H;
+    const inBox = (x, y) => x >= -W && x <= 2 * W && y >= -H && y <= 2 * H;
+    let nIn = 0; for (const r of vis) for (const p of r) if (inView(p[0], p[1])) nIn++;
+    const take = nIn >= 3 ? inView : inBox;
+    let n = 0, sx = 0, sy = 0;
+    for (const r of vis) for (const p of r) { if (!take(p[0], p[1])) continue; sx += p[0]; sy += p[1]; n++; }
+    if (n < 3) return null;
+    const cx = sx / n, cy = sy / n;
+    let sxx = 0, sxy = 0, syy = 0;
+    for (const r of vis) for (const p of r) { if (!take(p[0], p[1])) continue; const dx = p[0] - cx, dy = p[1] - cy; sxx += dx * dx; sxy += dx * dy; syy += dy * dy; }
+    const ang = 0.5 * Math.atan2(2 * sxy, sxx - syy);
+    const inside = (x, y) => { let c = false; for (const r of rings) { if (r.length < 3) continue; let hit = false; for (let i = 0, j = r.length - 1; i < r.length; j = i++) { const a = r[i], b = r[j]; if (a[2] <= 0 || b[2] <= 0) continue; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) hit = !hit; } if (hit) c = !c; } return c; };
+    // the centre may fall outside a crescent (the Eastern Roman Empire round the Aegean at 500 CE: its centroid is at sea, and the
+    // major axis through the nearest land point crosses the water at once). Candidates: the centroid when inside, then the inside
+    // points met sliding from it along the minor and the major axis, both ways; at each, the reach along the major axis and along
+    // the minor one; the longest run wins, so the label follows the crescent's limb rather than its chord
+    const reachAt = (x, y, dx, dy) => { const go = (sgn) => { let d = 0; for (;;) { const nd = d + 6, px = x + dx * nd * sgn, py = y + dy * nd * sgn; if (!inside(px, py) || !take(px, py) || nd > Math.hypot(W, H)) break; d = nd; } return d; }; return [go(-1), go(1)]; };   // the reach stops at the screen edge when the face is on screen: the name lies on what is drawn
+    const cands = []; if (inside(cx, cy)) cands.push([cx, cy]);
+    for (const [ux, uy] of [[-Math.sin(ang), Math.cos(ang)], [Math.cos(ang), Math.sin(ang)]]) for (const sgn of [1, -1]) { let found = 0; for (let d = 4; d < Math.max(W, H) && found < 2; d += 4) { const x = cx + ux * d * sgn, y = cy + uy * d * sgn; if (!take(x, y)) break; if (inside(x, y)) { cands.push([x, y]); found++; d += 40; } } }
+    if (!cands.length) return null;
+    let best = null;
+    for (const [x, y] of cands) for (const [dx, dy] of [[Math.cos(ang), Math.sin(ang)], [-Math.sin(ang), Math.cos(ang)]]) { const [a, b] = reachAt(x, y, dx, dy); if (!best || a + b > best.len) best = { x, y, dx, dy, a, b, len: a + b }; }
+    if (!best || best.len < 24) return null;
+    const { x: ox, y: oy, dx, dy, a, b } = best;
+    const pts = []; for (let k = 0; k <= 4; k++) { const t = -a + (a + b) * k / 4; pts.push([ox + dx * t, oy + dy * t]); }
+    return { pts, len: a + b, anchor: [ox, oy] };
   }
   /* ---------- water (Phase 1b): lake shores, rivers and lake fills, per resident level and per tile ----------
      Rivers come from a 1:10M source (chords 1.8 km at the median), so at the tile zooms (under 1 km/px)

@@ -79,6 +79,7 @@
   const D2R = Math.PI / 180, R2D = 180 / Math.PI;
   const R_KM = 6371.0088;
   const LOD_KM_PER_PX = [16, 5, 1, 0.5];     // LOD 0 while km/px ≥ 16, 1 while ≥ 5, 2 while ≥ 1, 3 while ≥ 0.5, else 4
+  const LOD_M_RESIDENT = [10000, 2500, 500];  // the resident levels' tolerances (§2.3), for the fill-against-stroke stroke at the tile zooms
   const ZMIN = 0.8;
   const KM_PER_PX_FLOOR = 0.15;              // the zoom cap (Q-A6 a): 150 m per pixel, where the LOD 4 tolerance is half a pixel
   const ADMIN1_KM_PER_PX = 4;                // admin-1 borders are drawn below this
@@ -89,6 +90,23 @@
   const RELIEF_FADE = [2.5, 1.0];            // km/px: full strength above the first, gone below the second (L1's texel is 4.9 km)
   const RELIEF_CACHE = 10;                   // L0 + up to nine L1 tiles resident (2048² RGB is 12 MB each on the GPU)
   const LAYERS_KEY = "folio_atlas2_layers_v2";   // v2 (Phase 1c): the legend's fields replace the layers control's
+  const PERF_KEY = "folio_atlas2_perf";           // Phase 2a: the About sheet's "Show frame statistics" switch
+  /* TIME (Phase 2a; docs/atlas-v2-design.md §2.4, §7 "Phase 2a — as built"). The rail runs from 10,000 BCE to today, piecewise
+     linear with a knee so the last 2,500 years take 70 % of its width (Q-T1 a, Q-T2 a); the year the reader last used is the
+     default (YEAR_KEY, localStorage behind try/catch), else today (the owner's instruction for 2a). The present-day faces of the
+     core are alive from PRESENT_YEAR (their step is [2022, null]): before it they are not entities — the land draws plain, the
+     present-day borders, provinces, countries' names and cities are not shown (the owner's decision: hide the anachronistic
+     ones; the physical names stay) — and the historical polities of atlas/data/history.bin are what the year shows. A year change
+     is a table: the alive set by binary search over each entity's steps, then a style texel per face and per arc; the meshes
+     come lazily from the worker, the year the reader is on first and the next change year in the scrub's direction after it. */
+  const YEAR_KEY = "folio_atlas2_year";
+  const PRESENT_YEAR = 2022;
+  const TODAY = new Date().getUTCFullYear();
+  const RAIL_FROM = -10000, RAIL_KNEE_YEAR = TODAY - 2500, RAIL_KNEE_X = 0.30;
+  const FADE_MS = 250;                            // the crossfade at a step when the reader steps or plays (none while dragging, none under reduced motion)
+  const MESH_LRU = 400;                           // (face, level) meshes kept on the GPU
+  const HIST_FILL_ALPHA = 0.42, HIST_FILL_ALPHA_DARK = 0.5, HIST_SEL_ALPHA = 0.72;
+  const SPEEDS = [1, 5, 25, 100];                 // years per second (Q-T4 b: every year is played)
   const PHONE = (() => { try { return matchMedia("(pointer: coarse)").matches && Math.min(screen.width, screen.height) < 768; } catch (e) { return false; } })();
   const TOUCH = (() => { try { return matchMedia("(pointer: coarse)").matches; } catch (e) { return false; } })();
   const RELIEF_MAX_LEVEL = PHONE ? 1 : 2;    // Q-M1 a: a phone never fetches L2
@@ -284,7 +302,9 @@
               <div><dt>Esc</dt><dd>close the place, the legend or this</dd></div>
               <div><dt>R</dt><dd>relief on or off</dd></div>
               <div><dt>/</dt><dd>find a place</dd></div>
+              <div><dt>[ ]</dt><dd>the previous or next change year of what is on screen</dd></div>
             </dl>
+            <label class="atlas2-about-perf"><input type="checkbox" class="atlas2-perf-switch"> Show frame statistics</label>
           </div>
         </div>
         <button type="button" class="atlas2-stack" hidden aria-live="polite"></button>
@@ -298,6 +318,17 @@
           <div class="atlas2-card-body"></div>
         </aside>
         <div class="atlas2-keys vh" aria-label="Places named on the map"><ul></ul></div>
+        <div class="atlas2-rail" role="group" aria-label="Year">
+          <p class="atlas2-rail-note" hidden>No states are mapped for this year yet.</p>
+          <div class="atlas2-rail-row">
+            <button type="button" class="atlas2-rail-btn atlas2-rail-prev" aria-label="Previous change year" title="Previous change year ([)">‹</button>
+            <div class="atlas2-rail-track"><canvas class="atlas2-rail-ticks" aria-hidden="true"></canvas><div class="atlas2-rail-pin" role="slider" tabindex="0" aria-label="Year" aria-valuemin="${RAIL_FROM}" aria-valuemax="${TODAY}" aria-valuenow="${TODAY}" aria-valuetext="${TODAY}" aria-orientation="horizontal"></div><div class="atlas2-rail-mag" hidden aria-hidden="true"></div></div>
+            <button type="button" class="atlas2-rail-btn atlas2-rail-next" aria-label="Next change year" title="Next change year (])">›</button>
+            <input class="atlas2-rail-year" type="text" inputmode="text" aria-label="Year — for example 500 BCE, 1066 or -44" autocomplete="off" spellcheck="false">
+            <button type="button" class="atlas2-rail-btn atlas2-rail-play" aria-label="Play" aria-pressed="false" title="Play every year">▶</button>
+            <select class="atlas2-rail-speed" aria-label="Playback speed, years per second">${SPEEDS.map((v) => '<option value="' + v + '"' + (v === 25 ? ' selected' : '') + '>' + v + '/s</option>').join("")}</select>
+          </div>
+        </div>
         <pre class="atlas2-perf" hidden aria-hidden="true"></pre>
       </div>`;
     const el = host.querySelector(".atlas2"), canvas = el.querySelector(".atlas2-canvas"), status = el.querySelector(".atlas2-status"), note = el.querySelector(".atlas2-note"), bar = el.querySelector(".atlas2-bar i"), caption = el.querySelector(".atlas2-caption"), perfEl = el.querySelector(".atlas2-perf");
@@ -305,6 +336,7 @@
     const labelCanvas = el.querySelector(".atlas2-labels"), lctx = labelCanvas.getContext("2d");
     const stackBtn = el.querySelector(".atlas2-stack"), cardEl = el.querySelector(".atlas2-card"), cardTitle = el.querySelector(".atlas2-card-title"), cardKind = el.querySelector(".atlas2-card-kind"), cardBody = el.querySelector(".atlas2-card-body"), keysUl = el.querySelector(".atlas2-keys ul");
     const searchIn = el.querySelector(".atlas2-search-in"), resultsUl = el.querySelector(".atlas2-results");
+    const railEl = el.querySelector(".atlas2-rail"), railTrack = el.querySelector(".atlas2-rail-track"), railPin = el.querySelector(".atlas2-rail-pin"), railTicks = el.querySelector(".atlas2-rail-ticks"), railMag = el.querySelector(".atlas2-rail-mag"), railYear = el.querySelector(".atlas2-rail-year"), railPlay = el.querySelector(".atlas2-rail-play"), railSpeed = el.querySelector(".atlas2-rail-speed"), railNote = el.querySelector(".atlas2-rail-note");
     const say = (t, frac) => { note.textContent = t; if (frac != null) { bar.style.width = Math.round(frac * 100) + "%"; bar.parentNode.hidden = false; } };
     const fail = (t) => { status.classList.add("atlas2-fail"); bar.parentNode.hidden = true; note.textContent = t; };
 
@@ -333,7 +365,7 @@
 
     /* ---------- view and layers ---------- */
     const layers = loadLayers();
-    const view = { lon: 10, lat: 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
+    const view = { history: null, lon: 10, lat: 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
     let cssW = 0, cssH = 0, base = 100, dprNow = 1;
     /* ADAPTIVE DEGRADATION DURING A GESTURE (Phase 1d). The owner's gate holds every frame of a gesture to 100 ms, and on
        a slow GPU a full-screen frame does not fit it: on software GL the globe costs 100–130 ms at full resolution (fill
@@ -348,24 +380,75 @@
          stage 2: a gesture also draws one level coarser than the view wants (never finer than the one it started at), as a
                   map app shows the coarser tiles under a pinch; the wanted level comes with the release frame.
        A GPU that draws the frame in 16.7 ms (the owner's phone) never reaches the threshold and never sees either. */
-    const RES_DROP_MS = 70, SLOW_FRAMES = 2;
-    let resScale = 1, lastWheelT = 0, wheelTimer = 0, stage = 0, slowFrames = 0, gestureT = 0, lastFrameT = 0, wasLive = false;
-    const gestureLive = () => ptrs.size > 0 || coasting || !!flying || (performance.now() - lastWheelT < 200);
+    /* PHASE 2a (task 0b of the brief): the stages RECOVER, IGNORE MAIN-THREAD STALLS, and read the GPU where it can be read.
+         · a frame counts toward escalation only if no main-thread task over LONG_TASK_MS ran inside its interval: this thread
+           brackets its own heavy work (a tile's or a level's upload, the relief compose, the label sprites — `bracket`) and
+           the browser's long-task entries are observed too, so a collector's pause or a stall from outside the Atlas never
+           teaches the view a slower GPU than it has. The decision is taken one frame late (a candidate waits in `pendingSlow`
+           until the next frame), because a long-task entry is delivered after the task, possibly after the next frame began;
+         · where EXT_disjoint_timer_query_webgl2 exists the GPU's own time per frame (atlas-gl.js `gpuMs`) is what is read
+           against RES_DROP_MS; elsewhere the frame delta, as before;
+         · recovery: the learnt stage is the ceiling, not the floor — a gesture starts one stage lower than the learnt stage
+           when the last FAST_FRAMES gesture frames at the learnt stage ran under FAST_MS, and if that trial gesture itself runs
+           FAST_FRAMES fast frames the learnt stage comes down to it; a slow frame in a trial sends the gesture back up.
+         The overlay's first line prints the stage, the learnt stage, the escalations, the recoveries and the stalls ignored. */
+    const RES_DROP_MS = 70, SLOW_FRAMES = 2, FAST_MS = 25, FAST_FRAMES = 20, LONG_TASK_MS = 20;
+    let resScale = 1, lastWheelT = 0, wheelTimer = 0, stage = 0, learnt = 0, slowFrames = 0, gestureT = 0, lastFrameT = 0, wasLive = false, fastRun = 0, trialFast = 0, stageLocked = false;
+    const longTasks = [];     // [start, end] of main-thread tasks over LONG_TASK_MS: this thread's own brackets and the browser's long-task entries
+    const pendingSlow = [];   // gesture frames awaiting the long-task entries of their interval before they count
+    const stageTrace = [];    // the last settled gesture frames: [interval ms, slow, fast, stalled, stage] — for the suites and the owner's console
+    const frameSpans = [];    // the last frames' own CPU spans: a browser long-task entry that STARTS inside one is the frame's task (on software GL
+                              // the draw blocks on the GPU process inside the rAF task, and every slow frame reads as a long task), not a stall
+    function noteTask(t0, t1, observed) {
+      if (t1 - t0 <= LONG_TASK_MS) return;
+      if (observed && frameSpans.some((f) => t0 >= f[0] - 1 && t0 <= f[1] + 1)) { stats.frameTasks = (stats.frameTasks || 0) + 1; return; }
+      longTasks.push([t0, t1]); if (longTasks.length > 64) longTasks.shift(); stats.longTasks++;
+    }
+    // run `fn` and record it as a long task if it was one (the brackets the brief asks for)
+    function bracket(fn, name) { const t0 = performance.now(); try { return fn(); } finally { const t1 = performance.now(); noteTask(t0, t1); if (name) { const b = stats.taskMs || (stats.taskMs = {}); b[name] = (b[name] || 0) + (t1 - t0); } } }
+    const timed = bracket;   // the same, named: the buckets show in statsNow().taskMs (what a slow frame spent its time on)
+    let longObs = null;
+    try { if (typeof PerformanceObserver === "function" && PerformanceObserver.supportedEntryTypes && PerformanceObserver.supportedEntryTypes.includes("longtask")) { longObs = new PerformanceObserver((list) => { for (const e of list.getEntries()) noteTask(e.startTime, e.startTime + e.duration, true); }); longObs.observe({ entryTypes: ["longtask"] }); } } catch (e) { longObs = null; }
+    const stalled = (t0, t1) => longTasks.some(([a, b]) => b > t0 && a < t1);
+    const gestureLive = () => ptrs.size > 0 || coasting || !!flying || (performance.now() - lastWheelT < 200) || !!(time && time.dragging);   // a rail scrub is a gesture too: its frames re-rasterise every fill, and a slow GPU drops to half resolution for it as for a pan
     const lodBias = () => (stage >= 2 && !STATIC2D && gestureLive() ? 1 : 0);
     function setRes(sc) { if (sc === resScale) return; resScale = sc; R.resize(cssW, cssH, (window.devicePixelRatio || 1) * resScale); stats.resDrops = (stats.resDrops || 0) + (sc < 1 ? 1 : 0); invalidate(); }
     function gestureEnded() { wasLive = false; if (resScale < 1 && !gestureLive()) setRes(1); if (stage >= 2 && !gestureLive()) invalidate(); }
-    // the frame loop's bookkeeping: `t` is the frame's timestamp. A slow frame counts only when the previous frame belonged
+    function applyStage(s) { stage = s; stats.stage = stage; stats.learnt = learnt; if (gestureLive()) setRes(stage >= 1 ? 0.5 : 1); invalidate(); }
+    function escalate() { if (stageLocked || stage >= 2) return; slowFrames = 0; fastRun = 0; trialFast = 0; stats.escalations++; if (stage + 1 > learnt) learnt = stage + 1; applyStage(stage + 1); }
+    // the frame loop's bookkeeping: `t` is the frame's timestamp. A frame is a candidate only when the previous frame belonged
     // to the same gesture (so the pause before a gesture is never a slow frame) and was less than a second ago
     function gestureFrame(t) {
       if (STATIC2D) return;
       const live = gestureLive();
-      if (live && !wasLive) { gestureT = t; if (stage >= 1) setRes(0.5); }
-      else if (live && lastFrameT >= gestureT && t - lastFrameT > RES_DROP_MS && t - lastFrameT < 1000 && ++slowFrames >= SLOW_FRAMES && stage < 2) {
-        stage++; slowFrames = 0; stats.stage = stage;
-        if (stage === 1) setRes(0.5); else invalidate();
+      if (live && !wasLive) {
+        gestureT = t; pendingSlow.length = 0; slowFrames = 0;
+        if (!stageLocked) { if (learnt > 0 && fastRun >= FAST_FRAMES && stage === learnt) { trialFast = 0; fastRun = 0; applyStage(learnt - 1); } else if (stage !== learnt && trialFast < FAST_FRAMES) applyStage(learnt); }
+        if (stage >= 1) setRes(0.5);
+      } else if (live && lastFrameT >= gestureT && t - lastFrameT < 1000) {
+        const g = R.gpuMs ? R.gpuMs() : null;   // the GPU's own time where the timer extension answers, else the frame delta
+        const dt = g != null ? g : t - lastFrameT;
+        pendingSlow.push({ a: lastFrameT, b: t, slow: dt > RES_DROP_MS, fast: dt < FAST_MS, gpu: g != null });
+      }
+      // settle the candidates older than one frame
+      while (pendingSlow.length > 1) {
+        const c = pendingSlow.shift();
+        // the frame's own cost for the recovery test: the GPU time where the timer answers, else the frame's main-thread span (a 60 Hz
+        // loop or a throttled tab stretches the interval between frames to 33 ms however light the frame is); escalation keeps the interval
+        if (!c.gpu) { const span = frameSpans.find((f) => f[0] >= c.b - 4 && f[0] <= c.b + 40); if (span) c.fast = span[1] - span[0] < FAST_MS; }
+        const wasStalled = stalled(c.a, c.b); stageTrace.push([Math.round(c.b - c.a), c.slow ? 1 : 0, c.fast ? 1 : 0, wasStalled ? 1 : 0, stage]); if (stageTrace.length > 48) stageTrace.shift();
+        if (wasStalled) { stats.stallsIgnored++; continue; }
+        if (c.slow) { if (++slowFrames >= SLOW_FRAMES) escalate(); }
+        else slowFrames = 0;
+        if (c.fast) {
+          if (stage === learnt) fastRun++;
+          else if (++trialFast >= FAST_FRAMES && !stageLocked) { learnt = stage; stats.learnt = learnt; stats.recoveries++; fastRun = 0; trialFast = 0; }
+        } else { fastRun = 0; if (stage !== learnt) trialFast = 0; }
       }
       wasLive = live; lastFrameT = t;
     }
+    // the suites: pin the stage (and stop it learning) or let it learn again
+    function forceStage(n, lock) { if (n == null) { stageLocked = false; return; } stageLocked = !!lock; learnt = Math.max(learnt, n); slowFrames = 0; fastRun = 0; trialFast = 0; applyStage(n); if (!lock) learnt = n; stats.learnt = learnt; }
     function layout() {
       const r = el.getBoundingClientRect();
       cssW = Math.max(1, Math.round(r.width)); cssH = Math.max(1, Math.round(r.height));
@@ -503,36 +586,53 @@
     }
 
     /* ---------- frame loop ---------- */
-    const stats = { frames: [], draw: [], uploads: {}, worker: null, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, reliefCost: [], labelLayout: [], labelSprite: [], labelDraw: [], gazetteer: null };
-    let needs = true, raf = 0, lastT = 0, disposed = false, perfOn = /[?&#/]perf\b/.test(location.hash || ""), stillAt = null;
+    const stats = { frames: [], draw: [], uploads: {}, worker: null, escalations: 0, recoveries: 0, stallsIgnored: 0, longTasks: 0, stage: 0, learnt: 0, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, reliefCost: [], labelLayout: [], labelSprite: [], labelDraw: [], gazetteer: null };
+    const perfInHash = /[?&#/]perf\b/.test(location.hash || "");
+    let needs = true, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
     const t0 = performance.now();
+    let lastPerfText = 0, lastTraceT = 0;
     function frame(t) {
       raf = 0;
       if (disposed) return;
       if (!el.isConnected) { dispose(); return; }
       if (lastT) { const dt = t - lastT; stats.frames.push(dt); if (stats.frames.length > 600) stats.frames.shift(); }
-      lastT = t;
+      if (perfOn && lastTraceT && t - lastTraceT < 1000) { (stats.frameTrace || (stats.frameTrace = [])).push([Math.round(t - lastTraceT), Object.assign({ histTri: R.rawStats.historyTriangles, meshes: R.rawStats.historyMeshes, resident: time.resident ? time.resident.size : 0 }, stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v * 10) / 10])) : {})]); if (stats.frameTrace.length > 400) stats.frameTrace.shift(); }   // the suites and the console: what each frame spent its time on
+      lastT = t; lastTraceT = t;
+      const fs0 = performance.now();
       gestureFrame(t);
+      if (time.fade && !STATIC2D) { timed(() => fadeStep(t), "fade"); needs = true; }
+      if (time.playing) { timed(() => playStep(t), "play"); }
       if (needs) {
         needs = false;
-        plan();
+        timed(plan, "plan");
         if (STATIC2D && ((dragging && moved) || coasting) && stillAt) {
           // the still view during a drag: the last frame blitted by the pointer's travel; the true frame comes on release
           const k = R2D / view.radius; let dl = view.lon - stillAt.lon; if (dl > 180) dl -= 360; else if (dl < -180) dl += 360;
           R.shift(-dl / k, (view.lat - stillAt.lat) / k);
-        } else { R.render(view); if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
+        } else { timed(() => R.render(view), "render"); if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
         stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift();
-        drawLabels();
+        timed(drawLabels, "labelsDraw");
         if (!stats.firstPaintMs && R.levelLoaded(0)) stats.firstPaintMs = Math.round(performance.now() - t0);
-        if (perfOn) perfText();
+        if (perfOn && t - lastPerfText > 200) { lastPerfText = t; timed(perfText, "perfText"); }   // five times a second: the overlay is a DOM text block, and its relayout every frame cost more than the frame on a software rasteriser
       }
+      frameSpans.push([fs0, performance.now()]); if (frameSpans.length > 8) frameSpans.shift();
       if (coasting) { coast(); }
       if (flying) { fly(t); }
-      if (needs || coasting || flying) raf = requestAnimationFrame(frame); else lastT = 0;
+      if (needs || coasting || flying || time.fade || time.playing) raf = requestAnimationFrame(frame); else lastT = 0;
     }
     // the view's derived state: level, admin-1 visibility, the tiles it wants (requested at once), the water and
     // relief it wants. Run by every frame and by setView, so `tilesSettled()` right after a setView already asks
     // about the NEW tiles
+    let onScreenKey = "";
+    function refreshOnScreen() {   // the change years, the ticks and the "no states" note follow the VIEW as well as the year
+      if (!time.hist || !time.hist.ready || !time.faceCap) return;
+      // keyed by the view and the ALIVE SET, not the year: the ticks are DOM (177 of them), and rebuilding them on every year of a
+      // scrub cost a third of the frame (measured: 100 ms pointer frames against 67 ms for the same year changes without the DOM)
+      const k = view.lon.toFixed(2) + "," + view.lat.toFixed(2) + "," + view.zoom.toFixed(3) + "," + (time.aliveKey || "") + "," + (time.present ? 1 : 0) + "," + cssW + "x" + cssH;
+      if (k === onScreenKey) return; onScreenKey = k;
+      const ys = changeYearsOnScreen(); const same = ys.length === time.changeYears.length && ys.every((y, i) => y === time.changeYears[i]); time.changeYears = ys; if (!same) drawTicks();
+      railNote.hidden = time.present || time.onScreen.length > 0;
+    }
     function plan() {
       clampView();
       view.radius = base * view.zoom; rotation();
@@ -546,7 +646,8 @@
       // a level the bias chose is the gesture's, not the labels': nothing is added or dropped while the globe moves (§2.9),
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
-      view.admin1 = layers.provinces && k < ADMIN1_KM_PER_PX;
+      view.admin1 = layers.provinces && k < ADMIN1_KM_PER_PX && time.present;
+      view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0;   // the coast stroke at the tile zooms: the resident level's tolerance, both sides
       view.borders = layers.borders;
       const box = view.level >= 3 || (view.relief.on && k < RELIEF_L1_KM_PER_PX) ? viewBox() : null;
       if (view.level >= 3 && tileIndex) {
@@ -572,13 +673,15 @@
       if (layers.relief && reliefIndex && view.relief.fade > 0 && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
       else view.relief.tiles = [];
       stats.level = view.level;
+      refreshOnScreen();   // with the rotation and the level of THIS view (the ticks, [ ] and the "no states" note follow the view)
     }
     function invalidate() { needs = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
     function perfText() {
       const f = stats.frames.slice(-120).sort((a, b) => a - b), n = f.length;
       const mean = n ? f.reduce((a, b) => a + b, 0) / n : 0, p95 = n ? f[Math.min(n - 1, Math.floor(0.95 * n))] : 0, max = n ? f[n - 1] : 0;
       const s = R.stats(), lt = landTiles.stats, wt = waterTiles.stats, rt = reliefTiles.stats;
-      perfEl.textContent = `frame ms (last ${n}): mean ${mean.toFixed(1)}  p95 ${p95.toFixed(1)}  max ${max.toFixed(1)}\n` +
+      perfEl.textContent = `gesture stage ${stage} (learnt ${learnt}${stageLocked ? ", locked" : ""})  escalations ${stats.escalations}  recoveries ${stats.recoveries}  stalls ignored ${stats.stallsIgnored}  heap ${heapMB() == null ? "n/a" : heapMB() + " MB"}${R.gpuMs && R.gpuMs() != null ? "  gpu " + R.gpuMs().toFixed(1) + " ms" : ""}\n` +
+        `frame ms (last ${n}): mean ${mean.toFixed(1)}  p95 ${p95.toFixed(1)}  max ${max.toFixed(1)}\n` +
         `draw ${s.lastMs.toFixed(2)} ms  ${s.triangles} tri  ${s.segments} seg  ${s.draws} calls\n` +
         `water: ${s.riverSegments} river seg${view.smoothRivers ? " (smoothed)" : ""}  ${s.lakeSegments} lake seg  ${s.lakeTriangles} lake tri  level ${s.waterLevel}  tiles ${s.waterTilesDrawn}/${view.waterTiles.length} (${wt.resident} resident)\n` +
         `relief: ${view.relief.on ? "on" : "off"} strength ${view.relief.strength.toFixed(2)} fade ${view.relief.fade.toFixed(2)}  patches ${s.reliefPatches}/${view.relief.tiles.length} (${s.reliefResident} resident, ${(rt.bytes / 1048576).toFixed(1)} MB fetched)\n` +
@@ -586,11 +689,17 @@
         `tiles: ${s.tilesDrawn} drawn, ${s.parentsDrawn} parents, ${view.tiles.length} wanted, ${lt.pending} pending, ${lt.resident} resident, ${lt.fetched} fetched (${(lt.bytes / 1024).toFixed(0)} KB), ${lt.evicted} evicted\n` +
         `lakes culled: ${s.lakeCulled} tri  ${s.lakeSegCulled} seg (under ${2} px²)\n` +
         `labels: ${L.placed.length} placed of ${L.candidates} (${layers.density}${PHONE ? ", phone" : ""})  layout ${L.lastLayoutMs.toFixed(1)} ms (p95 ${pct95(stats.labelLayout).toFixed(1)})  sprites ${(L.lastSpriteMs || 0).toFixed(1)} ms (p95 ${pct95(stats.labelSprite).toFixed(1)})  draw ${L.lastDrawMs.toFixed(2)} ms (p95 ${pct95(stats.labelDraw).toFixed(2)})\n` +
+        `year ${fmtYear(time.year)}${time.present ? " (present)" : ""}  alive ${time.alive.length}  history ${s.historyFaces} faces ${s.historyTriangles} tri ${s.historySegments} seg  meshes ${s.historyMeshes}  year change p95 ${pct95(time.yearChange).toFixed(2)} ms${time.fade ? "  fading" : ""}${time.playing ? "  playing " + time.speed + "/s" : ""}\n` +
         `heap ${heapMB() == null ? "n/a" : heapMB() + " MB"}  dpr ${Math.min(2, window.devicePixelRatio || 1)}  ${cssW}×${cssH}${PHONE ? "  phone" : ""}`;
     }
     const pct95 = (arr) => { if (!arr.length) return 0; const a = arr.slice().sort((x, y) => x - y); return a[Math.min(a.length - 1, Math.floor(0.95 * a.length))]; };
     const heapMB = () => (performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : null);
-    function setPerf(on) { perfOn = on; perfEl.hidden = !on; if (on) perfText(); }
+    /* the overlay: on from `#map2?perf`, from the P key, or from the About sheet's "Show frame statistics" switch, which is
+       remembered per reader (PERF_KEY, localStorage behind try/catch) so the owner can turn it on from a phone with no special
+       address; the address keeps its ?perf whatever the switch says */
+    const perfSwitch = el.querySelector(".atlas2-perf-switch");
+    function setPerf(on, remember) { perfOn = on; perfEl.hidden = !on; if (perfSwitch) perfSwitch.checked = !!on; if (remember) { try { localStorage.setItem(PERF_KEY, on ? "1" : "0"); } catch (e) {} } if (on) perfText(); }
+    if (perfSwitch) perfSwitch.addEventListener("change", () => setPerf(perfSwitch.checked, true));
 
     /* ---------- the legend (Phase 1c; the layers control until then) ---------- */
     const inputs = {}; sheet.querySelectorAll("[data-layer]").forEach((i) => { const k = i.getAttribute("data-layer"); if (k === "density") (inputs.density = inputs.density || []).push(i); else inputs[k] = i; });
@@ -612,15 +721,15 @@
     reflectLayers();
     const sheetOpenClass = () => el.classList.toggle("atlas2-sheet-open", !sheet.hidden || !el.querySelector(".atlas2-about").hidden);
     const openSheet = (open) => { sheet.hidden = !open; layersBtn.setAttribute("aria-expanded", String(open)); if (open) { const ab = el.querySelector(".atlas2-about"); if (ab && !ab.hidden) { ab.hidden = true; el.querySelector(".atlas2-about-btn").setAttribute("aria-expanded", "false"); } } if (open && PHONE) closeCard(); sheetOpenClass(); };
-    layersBtn.addEventListener("click", () => openSheet(sheet.hidden));
-    el.querySelector(".atlas2-sheet .atlas2-sheet-close").addEventListener("click", () => openSheet(false));
+    layersBtn.addEventListener("click", () => { openSheet(sheet.hidden); requestLayout("chrome"); });
+    el.querySelector(".atlas2-sheet .atlas2-sheet-close").addEventListener("click", () => { openSheet(false); requestLayout("chrome"); });
     /* About this map (Phase 1d): the `?` control, keyboard help, the caution sentence, the credits link. Opening it shuts
        the legend (one sheet at a time, on a phone they share the bottom); focus goes to its title and comes back to the
        button on close */
     const aboutBtn = el.querySelector(".atlas2-about-btn"), aboutEl = el.querySelector(".atlas2-about");
     const openAbout = (open) => { aboutEl.hidden = !open; aboutBtn.setAttribute("aria-expanded", String(open)); if (open) { openSheet(false); if (PHONE) closeCard(); aboutEl.querySelector(".atlas2-about-close").focus({ preventScroll: true }); } else if (aboutEl.contains(document.activeElement)) aboutBtn.focus({ preventScroll: true }); sheetOpenClass(); };
-    aboutBtn.addEventListener("click", () => openAbout(aboutEl.hidden));
-    el.querySelector(".atlas2-about-close").addEventListener("click", () => openAbout(false));
+    aboutBtn.addEventListener("click", () => { openAbout(aboutEl.hidden); requestLayout("chrome"); });
+    el.querySelector(".atlas2-about-close").addEventListener("click", () => { openAbout(false); requestLayout("chrome"); });
     sheet.addEventListener("change", (e) => { const k = e.target.getAttribute("data-layer"); if (!k) return; setLayers({ [k]: e.target.type === "checkbox" ? e.target.checked : e.target.type === "radio" ? e.target.value : Number(e.target.value) }); });
     sheet.addEventListener("input", (e) => { if (e.target.getAttribute("data-layer") === "strength") { layers.strength = Number(e.target.value); invalidate(); } });
 
@@ -722,8 +831,9 @@
       else if (e.key === "Escape") { if (!aboutEl.hidden) openAbout(false); else if (!sheet.hidden) openSheet(false); else clearSelection(); }
       else if (e.key === "?") openAbout(aboutEl.hidden);
       else if (e.key === "/") { searchIn.focus(); searchIn.select(); }
-      else if (e.key === "p" || e.key === "P") setPerf(!perfOn);
+      else if (e.key === "p" || e.key === "P") setPerf(!perfOn, true);
       else if (e.key === "r" || e.key === "R") setLayers({ relief: !layers.relief });
+      else if (e.key === "[") stepChange(-1); else if (e.key === "]") stepChange(1);
       else used = false;
       if (used) { e.preventDefault(); clampView(); invalidate(); touched(); }
     });
@@ -765,6 +875,7 @@
         entityIndexById = new Map(header.entities.map((e, i) => [e.id, i]));
         if (pendingZoom) { view.zoom = pendingZoom; pendingZoom = 0; clampView(); plan(); invalidate(); }   // a deep link's zoom past the old floor, now that the tile index says the cap is 150 m/px
         if (!gazStarted) startGazetteer();
+        if (!histStarted) startHistory();
         say("Shaping the land…", 0.35); return;
       }
       if (m.type === "gazetteer") { gazInWorker = true; requestLayout("gazetteer", true); return; }
@@ -772,13 +883,13 @@
       if (m.type === "layout") { applyLayout(m); return; }
       if (m.type === "lod") {
         const tu = performance.now();
-        R.setLevel(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap });
+        bracket(() => R.setLevel(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }));
         stats.uploads[m.level] = Math.round(performance.now() - tu);
         say(m.level === 0 ? "Drawing…" : "Adding detail…", 0.5 + 0.17 * (m.level + 1));
         invalidate();
         return;
       }
-      if (m.type === "tile") { landTiles.arrived(m.key, { tile: m.tile, stats: m.stats }); R.setTile(m.key, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }, m.tile); stats.tiles.push(m.stats); if (stats.tiles.length > 200) stats.tiles.shift(); invalidate(); return; }
+      if (m.type === "tile") { landTiles.arrived(m.key, { tile: m.tile, stats: m.stats }); bracket(() => R.setTile(m.key, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }, m.tile)); stats.tiles.push(m.stats); if (stats.tiles.length > 200) stats.tiles.shift(); invalidate(); return; }
       if (m.type === "water-meta") {
         waterKeep = null;
         waterHeader = m.header; waterFaceEntity = m.faceEntity || null; arcRiver = m.arcRiver || null;
@@ -791,27 +902,32 @@
       if (m.type === "water-lod") {
         const d = { lakeSegs: m.lakeSegs, lakeRange: m.lakeRange, lakeCap: m.lakeCap, riverSegs: m.riverSegs, riverRange: m.riverRange, riverCap: m.riverCap, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap, lakeBins: m.lakeBins || null };
         if (m.smoothSegs) { d.smoothSegs = m.smoothSegs; d.smoothRange = m.smoothRange; d.smoothCap = m.smoothCap; }
-        R.setWaterLevel(m.level, d);
+        bracket(() => R.setWaterLevel(m.level, d), "waterLevel");
         if (stats.water) stats.water.levels.push(m.stats);
         invalidate(); return;
       }
-      if (m.type === "water-tile") { waterTiles.arrived(m.key, { tile: m.tile, stats: m.stats }); R.setWaterTile(m.key, { lakeSegs: m.lakeSegs, lakeRange: m.lakeRange, lakeCap: m.lakeCap, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }, m.tile); invalidate(); return; }
+      if (m.type === "water-tile") { waterTiles.arrived(m.key, { tile: m.tile, stats: m.stats }); bracket(() => R.setWaterTile(m.key, { lakeSegs: m.lakeSegs, lakeRange: m.lakeRange, lakeCap: m.lakeCap, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }, m.tile), "waterTile"); invalidate(); return; }
       if (m.type === "relief") {
         let rgb = m.rgb;
         if (!rgb && m.planes) rgb = composeOnMain(m.planes, m.w, m.h);   // no OffscreenCanvas in the worker: compose here
         reliefTiles.arrived(m.key, { w: m.w, h: m.h });
         const tu = performance.now();
-        R.setRelief(m.key, { w: m.w, h: m.h, rgb, tile: m.key === "0" ? null : reliefTileOf(m.key) });
+        bracket(() => R.setRelief(m.key, { w: m.w, h: m.h, rgb, tile: m.key === "0" ? null : reliefTileOf(m.key) }), "relief");
         { const c = stats.reliefCost.find((x) => x.key === m.key && x.uploadMs == null); if (c) { c.composeMs = Math.round(tu - c.at); c.uploadMs = Math.round((performance.now() - tu) * 10) / 10; delete c.at; } }
         stats.relief = stats.relief || { tiles: 0 }; stats.relief.tiles++;
         invalidate(); return;
       }
-      if (m.type === "done") { loadBuffer = null; stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace && G.ready) { selectById(pendingPlace, { open: true, fly: false, push: false }); pendingPlace = null; } invalidate(); requestLayout("ready", true); }
+      if (m.type === "history-meta") { onHistoryMeta(m); return; }
+      if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
+      if (m.type === "history-faces") { onHistoryFaces(m); return; }
+      if (m.type === "history-done") { if (time.hist) { time.hist.ready = true; time.hist.stats = { ms: m.ms, arcs: m.arcs, faces: m.faces }; } applyYear(time.year, { why: "ready" }); return; }
+      if (m.type === "done") { loadBuffer = null; stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace && G.ready && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null; invalidate(); requestLayout("ready", true); }
     }
     /* a restored GL context (Phase 1c): the renderer dropped everything; the worker sends the resident levels
        again from the files it kept, the loaders fetch their tiles again, relief is asked for again */
     function restoreAfterLoss() {
       landTiles.reset(); waterTiles.reset(); reliefTiles.reset();
+      time.resident.clear(); time.lru.length = 0; time.wanted.clear();
       postToWorker({ type: "rebuild" });
       if (layers.relief && reliefIndex) reliefTiles.want(["0"]);
       invalidate();
@@ -921,6 +1037,271 @@
       }).catch((e) => { reliefFailed = true; layersNote.hidden = false; layersNote.textContent = "The relief didn’t arrive (" + (e && e.message ? e.message : e) + ")."; });
     }
 
+    /* ================= Phase 2a: time — the step topology, the year, the rail, playback =================
+       (docs/atlas-v2-design.md §1.4, §2.4, §2.9 and §7 "Phase 2a — as built"; the worker's half is in atlas-worker.js) */
+    const time = { year: TODAY, present: true, hist: null, faceEntity: null, faceCap: null, faceArcOff: null, faceArcs: null, stepsOf: new Map(), ents: [], alive: [], aliveSet: new Set(), aliveArcs: new Set(), view: null, fade: null, prev: null,
+      resident: new Set(), lru: [], wanted: new Set(), pending: 0, selected: -1, playing: false, speed: 25, playY: 0, playT: 0, dir: 1, lastYear: TODAY, dragging: false, seq: 0, changeYears: [], onScreen: [], capitals: [], style: null, arcTab: null, yearChange: [], loadMs: 0, histStarted: false, failed: false };
+    let histStarted = false;
+    const reducedNow = () => reduced();
+    const fmtYear = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : String(y));
+    // "500 BCE", "500 BC", "-44", "44", "44 CE", "AD 70", "1066": null when it is none of these
+    function parseYear(text) {
+      const t = String(text || "").trim().replace(/[,\.]/g, "").toUpperCase();
+      let m = /^(-?\d{1,5})$/.exec(t); if (m) return Number(m[1]);
+      m = /^(\d{1,5})\s*(BCE|BC)$/.exec(t); if (m) return -Number(m[1]);
+      m = /^(\d{1,5})\s*(CE|AD)$/.exec(t); if (m) return Number(m[1]);
+      m = /^(AD|CE)\s*(\d{1,5})$/.exec(t); if (m) return Number(m[2]);
+      return null;
+    }
+    const clampYear = (y) => Math.max(RAIL_FROM, Math.min(TODAY, Math.round(y)));
+    /* the rail's scale: piecewise linear with the knee (Q-T2 a) */
+    const railX = (y) => (y <= RAIL_KNEE_YEAR ? (y - RAIL_FROM) / (RAIL_KNEE_YEAR - RAIL_FROM) * RAIL_KNEE_X : RAIL_KNEE_X + (y - RAIL_KNEE_YEAR) / (TODAY - RAIL_KNEE_YEAR) * (1 - RAIL_KNEE_X));
+    const railYearAt = (x) => (x <= RAIL_KNEE_X ? RAIL_FROM + x / RAIL_KNEE_X * (RAIL_KNEE_YEAR - RAIL_FROM) : RAIL_KNEE_YEAR + (x - RAIL_KNEE_X) / (1 - RAIL_KNEE_X) * (TODAY - RAIL_KNEE_YEAR));
+    function startHistory() {
+      histStarted = true; time.histStarted = true;
+      const t = performance.now();
+      const url = opts.historyUrl || "atlas/data/history.bin";
+      (FILE ? loadTwin("history.bin", "the borders of the past") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
+        if (disposed) return;
+        time.loadMs = Math.round(performance.now() - t); time.bytes = buffer.byteLength;
+        postToWorker({ type: "history", buffer });
+      }).catch((e) => { time.failed = true; time.failWhy = String(e && e.message || e); railNote.hidden = false; railNote.textContent = "The borders of the past didn’t arrive (" + time.failWhy + ")."; });
+    }
+    function onHistoryMeta(m) {
+      const H = m.header;
+      time.hist = { header: H, ready: false, segLevels: 0 };
+      time.faceEntity = m.faceEntity; time.faceCap = m.faceCap; time.faceArcOff = m.faceArcOff; time.faceArcs = m.faceArcs;
+      time.ents = H.entities;
+      // steps per entity, sorted by year, as [from, to, face]
+      time.stepsOf = new Map();
+      for (const st of H.steps) { let l = time.stepsOf.get(st[0]); if (!l) time.stepsOf.set(st[0], l = []); l.push([st[1], st[2], st[3]]); }
+      for (const [, l] of time.stepsOf) l.sort((a, b) => a[0] - b[0]);
+      // synthetic rows so the labels, the stack and the card know these places
+      H.entities.forEach((e, i) => {
+        const steps = time.stepsOf.get(i) || [];
+        const faceOfFirst = steps.length ? steps[0][2] : -1; let at = null;
+        if (faceOfFirst >= 0) { const c = [time.faceCap[4 * faceOfFirst], time.faceCap[4 * faceOfFirst + 1], time.faceCap[4 * faceOfFirst + 2]]; at = [Math.atan2(c[1], c[0]) * R2D, Math.asin(Math.max(-1, Math.min(1, c[2]))) * R2D]; }
+        const row = { id: e.id, name: e.name, kind: e.kind, hist: true, ent: i, at, span: e.span, wiki: e.wiki || null, qid: e.qid || null, key: fold(e.name), akeys: (e.sourceNames || []).map(fold), rank: 0, len: 0, aliases: [] };
+        G.byId.set(e.id, row);
+      });
+      for (const c of H.cities || []) { const id = "cap:" + c.entity + ":" + c.name; if (!G.byId.has(id)) G.byId.set(id, { id, name: c.name, kind: "capital", hist: true, city: c, at: [c.lon, c.lat], within: c.entity, key: fold(c.name), akeys: [], rank: 0, len: 0, aliases: [] }); }
+      if (pendingPlace && G.ready && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;   // the deep link's history place, now that its row exists
+      // the colour of each entity, stable: its index on a golden-angle hue wheel (the table's order is the file's)
+      histColours();
+      applyYear(time.year, { why: "meta" });
+    }
+    let histRGB = [], histBorderCss = "";
+    function histColours() {
+      const { ink, paper, dark } = themeTokens();
+      const hsl = (h, sat, lum) => { const c = (1 - Math.abs(2 * lum - 1)) * sat, x = c * (1 - Math.abs((h / 60) % 2 - 1)), mm = lum - c / 2; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [r + mm, g + mm, b + mm]; };
+      histRGB = time.ents.map((e, i) => { if (e.kind === "contested") return null; const h = (i * 137.508) % 360; return dark ? mix(hsl(h, 0.55, 0.62), paper, 0.1) : mix(hsl(h, 0.6, 0.48), ink, 0.08); });
+      const hb = dark ? mix(paper, ink, 0.35) : mix(paper, ink, 0.58);
+      histBorderCss = hb; R.setHistoryBorderColor(hb);
+      void paper;
+    }
+    const entColour = (i) => { const e = time.ents[i]; if (!e) return [0.5, 0.5, 0.5]; if (e.kind === "contested") { const a = entityIndexOfId(e.partners[0]); return histRGB[a] || [0.5, 0.5, 0.5]; } return histRGB[i] || [0.5, 0.5, 0.5]; };
+    const entityIndexOfId = (id) => time.ents.findIndex((e) => e.id === id);
+    /* the alive set of a year: a binary search over each entity's steps */
+    function aliveAt(y) {
+      const out = [];
+      for (const [ent, l] of time.stepsOf) { let lo = 0, hi = l.length - 1; while (lo <= hi) { const m = (lo + hi) >> 1; if (l[m][1] < y) lo = m + 1; else if (l[m][0] > y) hi = m - 1; else { out.push({ face: l[m][2], ent, from: l[m][0], to: l[m][1] }); break; } } }
+      return out;
+    }
+    /* the change years of the faces on screen (the rail's ticks and [ ]) */
+    function changeYearsOnScreen() {
+      if (!time.faceCap) return [];
+      const rot = view.rot, viewAngle = Math.min(Math.PI / 2, (Math.hypot(cssW, cssH) / 2 + 80) / view.radius) + 0.02;
+      const visEnt = new Set(), onScreen = [];
+      for (const [ent, l] of time.stepsOf) for (const st of l) { const fi = st[2]; const d = Math.max(-1, Math.min(1, time.faceCap[4 * fi] * rot[6] + time.faceCap[4 * fi + 1] * rot[7] + time.faceCap[4 * fi + 2] * rot[8])); if (Math.acos(d) - time.faceCap[4 * fi + 3] <= viewAngle) { visEnt.add(ent); if (st[0] <= time.year && st[1] >= time.year) onScreen.push(fi); } }
+      const ys = new Set();
+      for (const ent of visEnt) for (const st of time.stepsOf.get(ent)) { ys.add(st[0]); if (st[1] + 1 <= TODAY) ys.add(st[1] + 1); }
+      ys.add(PRESENT_YEAR);
+      time.onScreen = onScreen;
+      return [...ys].filter((y) => y >= RAIL_FROM && y <= TODAY).sort((a, b) => a - b);
+    }
+    /* THE YEAR: the alive set, the style tables, the meshes wanted (and the look-ahead), the layout */
+    function applyYear(y, o) {
+      o = o || {};
+      const t0 = performance.now();
+      y = clampYear(y);
+      const wasPresent = time.present;
+      time.dir = y >= time.lastYear ? 1 : -1; time.lastYear = time.year; time.year = y;
+      time.present = y >= PRESENT_YEAR;
+      railPin.setAttribute("aria-valuenow", String(y)); railPin.setAttribute("aria-valuetext", fmtYear(y));
+      railPin.style.left = (railX(y) * 100) + "%";
+      if (document.activeElement !== railYear) railYear.value = fmtYear(y);
+      if (time.hist) {
+        const alive = aliveAt(y);
+        const key = alive.map((a) => a.face).join(",");
+        const changed = key !== time.aliveKey;
+        if (changed) {
+          const prevFaces = time.alive;
+          time.aliveKey = key; time.alive = alive; time.aliveSet = new Set(alive.map((a) => a.face)); time.aliveEnt = new Set(alive.map((a) => time.ents[a.ent].id));
+          time.aliveArcs = new Set(); for (const a of alive) for (let k = time.faceArcOff[a.face]; k < time.faceArcOff[a.face + 1]; k++) time.aliveArcs.add(time.faceArcs[k]);
+          // the crossfade: when stepping or playing, never while the pin is dragged, never under reduced motion
+          if (!o.drag && !reducedNow() && prevFaces.length + alive.length && o.why !== "meta" && o.why !== "ready") { time.fade = { from: prevFaces, fromArcs: time.prevArcs || new Set(), t0: performance.now() }; } else time.fade = null;
+          time.prevArcs = time.aliveArcs;
+          wantMeshes(alive.map((a) => a.face), true);
+          if (!o.drag) lookAhead();
+        }
+        if (changed || time.fade || wasPresent !== time.present || o.force) uploadStyle(changed ? 1 : 1);
+        time.view = { faces: alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })), present: time.present, strokePx: 0 };
+        time.capitals = (time.hist.header.cities || []).filter((c) => c.from <= y && c.to >= y && alive.some((a) => time.ents[a.ent].id === c.entity)).map((c) => ({ entity: c.entity, name: c.name, lon: c.lon, lat: c.lat }));
+        refreshOnScreen();   // the ticks and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
+      } else { time.view = { faces: [], present: time.present, strokePx: 0 }; railNote.hidden = true; }
+      if (wasPresent !== time.present) { if (sel.id && !G.byId.get(sel.id)?.hist && !time.present) clearSelection(); }
+      if (!o.drag) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
+      plan(); invalidate();
+      if (o.why === "play") { const now = performance.now(); if (now - (time.lastPlayLayout || 0) > 500) { time.lastPlayLayout = now; requestLayout("year", true); } else requestLayout("year"); writeHash(false); }   // playing: a layout twice a second at most (one per frame starved the frame on a software rasteriser)
+      else if (!o.drag) { requestLayout("year", true); writeHash(false); announce(fmtYear(y)); }
+      else requestLayout("year");
+      const ms = performance.now() - t0; time.yearChange.push(ms); if (time.yearChange.length > 600) time.yearChange.shift();
+    }
+    /* the style tables: a texel per face (colour, alpha) and per arc (alpha); the crossfade writes both sets with their alphas */
+    function uploadStyle() {
+      if (!time.hist || !time.faceEntity) return;
+      const nF = time.faceEntity.length, nA = time.hist.header.counts.arcs;
+      if (!time.style || time.style.length < Math.ceil(nF / 256) * 256 * 4) time.style = new Uint8Array(Math.max(1, Math.ceil(nF / 256)) * 256 * 4);
+      if (!time.arcTab || time.arcTab.length < Math.ceil(nA / 256) * 256 * 4) time.arcTab = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256 * 4);
+      time.style.fill(0); time.arcTab.fill(0);
+      const { dark } = themeTokens(); const base = dark ? HIST_FILL_ALPHA_DARK : HIST_FILL_ALPHA;
+      let tNow = 1; if (time.fade) tNow = Math.min(1, (performance.now() - time.fade.t0) / FADE_MS);
+      const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const a = (time.selected === ent ? HIST_SEL_ALPHA : base) * alphaScale; const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
+      if (time.fade) for (const a of time.fade.from) if (!time.aliveSet.has(a.face)) put(a.face, 1 - tNow);
+      for (const a of time.alive) put(a.face, time.fade ? tNow : 1);
+      const putArc = (ai, alpha) => { const o = 4 * ai + 3; time.arcTab[o] = Math.max(time.arcTab[o], Math.round(alpha * 255)); };
+      if (time.fade) for (const ai of time.fade.fromArcs) if (!time.aliveArcs.has(ai)) putArc(ai, 1 - tNow);
+      for (const ai of time.aliveArcs) putArc(ai, time.fade ? tNow : 1);
+      R.setHistoryStyle(nF, time.style); R.setHistoryArcTable(nA, time.arcTab);
+    }
+    function fadeStep(t) {
+      if (!time.fade) return;
+      const u = (t - time.fade.t0) / FADE_MS;
+      // the fading faces stay in the draw list until the fade ends
+      const fromFaces = time.fade.from.filter((a) => !time.aliveSet.has(a.face)).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: null }));
+      if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })).concat(fromFaces);
+      uploadStyle();
+      if (u >= 1) { time.fade = null; if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); uploadStyle(); }
+    }
+    /* the meshes: ask the worker for what the year needs at the view's level, keep an LRU on the GPU */
+    // the history level: the resident level, one coarser while a gesture (a pan, a scrub) runs at stage ≥ 1 — the fills are masked by the
+    // land stencil at full resolution either way, and a software rasteriser pays per triangle and per segment, not per pixel (measured)
+    const histLevelNow = () => Math.max(0, Math.min(2, view.level) - (stage >= 1 && !STATIC2D && gestureLive() ? 1 : 0));
+    function wantMeshes(faces, urgent) {
+      if (!time.hist) return;
+      const level = histLevelNow();
+      const need = faces.filter((fi) => !time.resident.has(fi + ":" + level) && !time.wanted.has(fi + ":" + level));
+      if (!need.length) return;
+      for (const fi of need) time.wanted.add(fi + ":" + level);
+      time.pending++;
+      postToWorker({ type: "history-faces", level, faces: need, seq: ++time.seq, urgent: !!urgent });
+    }
+    function lookAhead() {
+      // the next change year in the direction of the scrub or the playback: its faces are asked for after the year's own
+      const ys = time.changeYears.length ? time.changeYears : changeYearsOnScreen();
+      const next = time.dir > 0 ? ys.find((y) => y > time.year) : ys.slice().reverse().find((y) => y < time.year);
+      if (next == null) return;
+      wantMeshes(aliveAt(next).map((a) => a.face), false);
+    }
+    function onHistoryFaces(m) {
+      time.pending = Math.max(0, time.pending - 1);
+      bracket(() => { for (const mesh of m.meshes) { const key = mesh.face + ":" + mesh.level; time.wanted.delete(key); R.setHistoryMesh(key, mesh); time.resident.add(key); time.lru.push(key); } }, "histMesh");
+      for (const fi of m.faces || []) time.wanted.delete(fi + ":" + m.level);
+      // the LRU: drop the oldest meshes the year does not draw
+      const evicted = [];
+      while (time.lru.length > MESH_LRU) { const key = time.lru.shift(); const fi = Number(key.split(":")[0]); if (time.aliveSet.has(fi)) { time.lru.push(key); if (evicted.length > MESH_LRU) break; continue; } R.dropHistoryMesh(key); time.resident.delete(key); evicted.push(key); }
+      if (evicted.length) postToWorker({ type: "history-evict", keys: evicted });
+      invalidate();
+    }
+    const historySettled = () => !histStarted || time.failed || (!!time.hist && time.hist.ready && time.hist.segLevels >= 3 && time.alive.every((a) => time.resident.has(a.face + ":" + Math.min(2, view.level))));
+    /* ---- the rail ---- */
+    function drawTicks() {
+      const r = railTrack.getBoundingClientRect(); const w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
+      const d = Math.min(2, window.devicePixelRatio || 1);
+      if (railTicks.width !== Math.round(w * d) || railTicks.height !== Math.round(h * d)) { railTicks.width = Math.round(w * d); railTicks.height = Math.round(h * d); }
+      const x = railTicks.getContext("2d"); x.setTransform(d, 0, 0, d, 0, 0); x.clearRect(0, 0, w, h);
+      const { ink, dark } = themeTokens(); const hex = (c) => "#" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255).toString(16).padStart(2, "0")).join("");
+      x.strokeStyle = hex(mix(ink, [0.5, 0.5, 0.5], dark ? 0.3 : 0.5)); x.lineWidth = 1;
+      // the knee and the big marks
+      x.globalAlpha = 0.45; x.beginPath(); x.moveTo(0, h / 2 + 0.5); x.lineTo(w, h / 2 + 0.5); x.stroke();
+      x.globalAlpha = 0.7;
+      for (const y of [-10000, -5000, -3000, -2000, -1000, -500, 1, 500, 1000, 1500, 2000]) { const px = Math.round(railX(y) * w) + 0.5; x.beginPath(); x.moveTo(px, h / 2 - 4); x.lineTo(px, h / 2 + 4); x.stroke(); }
+      x.globalAlpha = 1; x.strokeStyle = hex(ink);
+      for (const y of time.changeYears) { const px = Math.round(railX(y) * w) + 0.5; x.beginPath(); x.moveTo(px, h / 2 - 3); x.lineTo(px, h / 2 + 3); x.stroke(); }
+    }
+    function stepChange(dir) {
+      const ys = time.changeYears.length ? time.changeYears : changeYearsOnScreen();
+      const next = dir > 0 ? ys.find((y) => y > time.year) : ys.slice().reverse().find((y) => y < time.year);
+      if (next != null) setYear(next);
+    }
+    function setYear(y, o) { stopPlay(); applyYear(y, o); }
+    // dragging the pin, with the magnifier: the pointer's x maps through the knee; a pointer lifted more than 30 px above the
+    // rail enters FINE mode — one year per 3 px of travel from the year where it left the rail — for one-year precision on
+    // a phone, where the coarse scale is a decade a pixel
+    let railDrag = null;
+    const railYearFromX = (clientX, rect) => { const r = rect || railTrack.getBoundingClientRect(); return clampYear(railYearAt(Math.max(0, Math.min(1, (clientX - r.left) / Math.max(1, r.width))))); };
+    railTrack.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0 && e.pointerType === "mouse") return;
+      e.preventDefault(); stopPlay();
+      try { railTrack.setPointerCapture(e.pointerId); } catch (x) {}
+      const y = railYearFromX(e.clientX);
+      const rect0 = railTrack.getBoundingClientRect();
+      railDrag = { id: e.pointerId, fine: false, fineX: 0, fineY: y, railTop: rect0.top, rect: rect0 };   // the track's box, measured once: a measure after a style write forces a layout on every move
+      time.dragging = true; railMag.hidden = false; railPin.classList.add("atlas2-rail-live");
+      applyYear(y, { drag: true }); showMag(y, false);
+      railPin.focus({ preventScroll: true });
+    });
+    railTrack.addEventListener("pointermove", (e) => {
+      if (!railDrag || e.pointerId !== railDrag.id) return;
+      const above = railDrag.railTop - e.clientY;
+      let y;
+      if (above > 30) { if (!railDrag.fine) { railDrag.fine = true; railDrag.fineX = e.clientX; railDrag.fineY = time.year; } y = clampYear(railDrag.fineY + Math.round((e.clientX - railDrag.fineX) / 3)); }
+      else { railDrag.fine = false; y = railYearFromX(e.clientX, railDrag.rect); }
+      if (y !== time.year) applyYear(y, { drag: true });
+      showMag(y, railDrag.fine);
+    });
+    const endRailDrag = (e) => { if (!railDrag || (e && e.pointerId !== railDrag.id)) return; railDrag = null; time.dragging = false; railMag.hidden = true; railPin.classList.remove("atlas2-rail-live"); applyYear(time.year, { force: true }); touched(); };
+    railTrack.addEventListener("pointerup", endRailDrag); railTrack.addEventListener("pointercancel", endRailDrag);
+    function showMag(y, fine) {
+      railMag.textContent = fmtYear(y) + (fine ? " · fine" : "");
+      railMag.style.left = (railX(y) * 100) + "%";
+    }
+    railPin.addEventListener("keydown", (e) => {
+      let used = true;
+      if (e.key === "ArrowLeft" || e.key === "ArrowDown") setYear(time.year - (e.shiftKey ? 10 : 1));
+      else if (e.key === "ArrowRight" || e.key === "ArrowUp") setYear(time.year + (e.shiftKey ? 10 : 1));
+      else if (e.key === "PageDown") setYear(time.year - 100); else if (e.key === "PageUp") setYear(time.year + 100);
+      else if (e.key === "Home") setYear(RAIL_FROM); else if (e.key === "End") setYear(TODAY);
+      else if (e.key === "[") stepChange(-1); else if (e.key === "]") stepChange(1);
+      else if (e.key === " " || e.key === "Enter") togglePlay();
+      else used = false;
+      if (used) e.preventDefault();
+    });
+    el.querySelector(".atlas2-rail-prev").addEventListener("click", () => stepChange(-1));
+    el.querySelector(".atlas2-rail-next").addEventListener("click", () => stepChange(1));
+    const commitYearInput = () => { const y = parseYear(railYear.value); if (y == null) { railYear.classList.add("atlas2-rail-bad"); railYear.setAttribute("aria-invalid", "true"); return false; } railYear.classList.remove("atlas2-rail-bad"); railYear.removeAttribute("aria-invalid"); setYear(y); return true; };
+    railYear.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); if (commitYearInput()) railYear.blur(); } else if (e.key === "Escape") { railYear.value = fmtYear(time.year); railYear.blur(); } });
+    railYear.addEventListener("change", commitYearInput);
+    railYear.addEventListener("blur", () => { if (!commitYearInput()) railYear.value = fmtYear(time.year); });
+    /* playback: every year, at the chosen speed; the counter ticks every year, the map changes only at steps */
+    function togglePlay() { if (time.playing) stopPlay(); else startPlay(); }
+    function startPlay() { if (time.year >= TODAY) applyYear(RAIL_FROM, { why: "play" }); time.playing = true; time.playY = time.year; time.playT = 0; railPlay.setAttribute("aria-pressed", "true"); railPlay.textContent = "❚❚"; railPlay.setAttribute("aria-label", "Pause"); invalidate(); }
+    function stopPlay() { if (!time.playing) return; time.playing = false; railPlay.setAttribute("aria-pressed", "false"); railPlay.textContent = "▶"; railPlay.setAttribute("aria-label", "Play"); applyYear(time.year, { force: true }); }
+    function playStep(t) {
+      if (!time.playT) { time.playT = t; return; }
+      const dt = Math.min(250, t - time.playT); time.playT = t;
+      time.playY += time.speed * dt / 1000;
+      const y = Math.floor(time.playY);
+      if (y !== time.year) { if (y >= TODAY) { applyYear(TODAY, { why: "play" }); stopPlay(); return; } applyYear(y, { why: "play" }); }
+    }
+    railPlay.addEventListener("click", togglePlay);
+    railSpeed.addEventListener("change", () => { time.speed = Number(railSpeed.value) || 25; });
+    /* the rail's chrome follows the card on a phone (the sheet sits above it) */
+    const railResize = () => { drawTicks(); };
+    window.addEventListener("resize", railResize);
+    // the initial year: the deep link's, else the last used, else today
+    { let y = null; try { const v = localStorage.getItem(YEAR_KEY); if (v != null && v !== "" && isFinite(Number(v))) y = clampYear(Number(v)); } catch (e) {} time.year = y == null ? TODAY : y; time.lastYear = time.year; time.present = time.year >= PRESENT_YEAR; railPin.style.left = (railX(time.year) * 100) + "%"; railYear.value = fmtYear(time.year); railPin.setAttribute("aria-valuenow", String(time.year)); railPin.setAttribute("aria-valuetext", fmtYear(time.year)); }
+
     /* ================= Phase 1c: names, picking, the place card, search, deep links, the keyboard =================
        (docs/atlas-v2-design.md §2.6, §2.8, §2.9 and §7 "Phase 1c — as built"; the worker's half is in atlas-worker.js) */
     const G = { rows: [], byId: new Map(), byRiver: new Map(), ready: false };
@@ -943,7 +1324,7 @@
         for (const r of G.rows) { G.byId.set(r.id, r); if (typeof r.geom === "string" && r.geom[0] === "r") { G.byRiver.set(Number(r.geom.slice(1)), r); for (const ei of (Array.isArray(r.alt) ? r.alt : [])) G.byRiver.set(ei, r); } }   // a merged river answers for every stretch (Phase 1d)
         G.ready = true;
         stats.gazetteer = { rows: G.rows.length, ms: Math.round(performance.now() - t) };
-        if (pendingPlace && stats.ready) { selectById(pendingPlace, { open: true, fly: false, push: false }); pendingPlace = null; }
+        if (pendingPlace && stats.ready && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;
         postToWorker({ type: "gazetteer", table: T });
         measureMetrics();
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!disposed) measureMetrics(); });
@@ -981,7 +1362,7 @@
     let layoutTimer = 0, layoutSeq = 0, lastLevelLayout = 0, layoutHeld = null;
     // "moving" is the pointer's state, not a quiet clock: on a slow machine a drag's moves can be 150 ms apart
     // and a settle timer would lay out between them (measured: one layout per move on the CI-class runner)
-    const moving = () => dragging || ptrs.size > 0 || coasting || !!flying;
+    const moving = () => dragging || ptrs.size > 0 || coasting || !!flying || !!time.dragging;   // a rail scrub holds the layout too: the names move when the pin drops
     function requestLayout(reason, now) {
       if (disposed) return;
       if (reason === "level") { const t = performance.now(); if (t - lastLevelLayout < 100) return; lastLevelLayout = t; now = true; }
@@ -991,20 +1372,39 @@
       layoutTimer = setTimeout(() => { layoutTimer = 0; if (moving()) { layoutHeld = reason; return; } sendLayout(reason); }, SETTLE_MS);
     }
     function touched() { if (moving()) { layoutHeld = "settle"; return; } requestLayout(layoutHeld || "settle"); layoutHeld = null; }
+    /* THE CHROME'S RECTANGLES (Phase 2a, task 0d): every visible control, measured against the Atlas's box, sent with each
+       layout as occupied ground — the search box and its list, the zoom stack, the Legend and ? chips, an open sheet, the
+       card (or its phone strip), the stack chip, the status line, the mode note, the year rail. A sheet opening or closing
+       asks for a layout, so the names step out from under it. */
+    const CHROME = [".atlas2-search-in", ".atlas2-results", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
+    function chromeRects() {
+      const base = el.getBoundingClientRect(), out = [], seen = new Set();
+      for (const sel of CHROME) for (const node of el.querySelectorAll(sel)) {
+        if (seen.has(node) || node.hidden || node.closest("[hidden]")) continue; seen.add(node);
+        const cs = getComputedStyle(node); if (cs.display === "none" || cs.visibility === "hidden") continue;
+        const r = node.getBoundingClientRect(); if (r.width < 1 || r.height < 1) continue;
+        const x0 = Math.max(0, r.left - base.left), y0 = Math.max(0, r.top - base.top), x1 = Math.min(cssW, r.right - base.left), y1 = Math.min(cssH, r.bottom - base.top);
+        if (x1 > x0 && y1 > y0) out.push([x0, y0, x1, y1]);
+      }
+      return out;
+    }
     function sendLayout(reason) {
       if (!gazInWorker || !metricsSent || disposed) return;
       plan();
       const seq = ++layoutSeq;
       L.sentAt = performance.now();
-      postToWorker({ type: "layout", seq, reason, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
+      postToWorker({ type: "layout", seq, reason, chrome: chromeRects(), year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
       if (reason === "settle" || reason === "level") writeHash(false);
     }
     function applyLayout(m) {
       if (m.seq !== layoutSeq) { if (m.seq < layoutSeq) return; }   // a newer request is on its way: this one is stale
       L.lastLayoutMs = m.ms || 0; stats.labelLayout.push(L.lastLayoutMs); if (stats.labelLayout.length > 600) stats.labelLayout.shift();
       L.candidates = m.candidates || 0; L.cap = m.cap || 0; L.seq = m.seq; L.why = m.why || null;
+      if (m.error) console.error("atlas2 layout failed: " + m.error);
       const t0 = performance.now();
-      for (const p of m.placed) { p.chars = [...p.text]; p.sprite = renderSprite(p); }
+      // sprites are cached by what they look like (text, style, glyph layout, selection, dpr, theme): a layout re-renders only the
+      // labels that are new or moved along a path — a scrub's layouts cost 100 ms of canvas text a second before this (measured)
+      bracket(() => { for (const p of m.placed) { p.chars = [...p.text]; p.sprite = spriteFor(p); } }, "sprites");
       L.lastSpriteMs = performance.now() - t0; stats.labelSprite.push(L.lastSpriteMs); if (stats.labelSprite.length > 600) stats.labelSprite.shift();
       L.placed = m.placed;
       if (m.missing && m.missing.length) { let grew = false; for (const [, ch] of m.missing) if (!extraChars.has(ch)) { extraChars.add(ch); grew = true; } if (grew && extraChars.size < 400) measureMetrics(); }
@@ -1028,6 +1428,9 @@
     labelColours();
     const WATER_KINDS = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1 };
     const inkFor = (p) => (p.id === sel.id ? selCss : WATER_KINDS[p.kind] ? waterCss : inkCss);
+    const spriteCache = new Map(); let spriteGen = 0;   // key → sprite; spriteGen bumps on a theme or font change
+    function spriteKey(p) { if (!p.glyphs || !p.glyphs.length) return null; const x0 = Math.floor(p.box[0]), y0 = Math.floor(p.box[1]); let g = ""; for (const q of p.glyphs) g += (Math.round((q[0] - x0) * 4) + "," + Math.round((q[1] - y0) * 4) + "," + (q[2] ? Math.round(q[2] * 100) : 0) + "," + (q[3] ? 1 : 0) + ";"); return p.id + "|" + p.style + "|" + p.text + "|" + (p.id === sel.id ? 1 : 0) + "|" + dprNow + "|" + spriteGen + "|" + g; }
+    function spriteFor(p) { const k = spriteKey(p); if (!k) return null; let sp = spriteCache.get(k); if (sp) { spriteCache.delete(k); spriteCache.set(k, sp); return sp; } sp = renderSprite(p); if (sp) { spriteCache.set(k, sp); if (spriteCache.size > 600) spriteCache.delete(spriteCache.keys().next().value); } return sp; }
     function renderSprite(p) {
       if (!p.glyphs || !p.glyphs.length) return null;
       const st = STYLE_BY_ID[p.style]; if (!st) return null;
@@ -1066,6 +1469,7 @@
       const live = [];
       for (const p of L.placed) {
         const a = p.a; if (!a) continue;
+        if (p.hist && time.aliveEnt && p.id.charCodeAt(0) === 112 && p.id.startsWith("pol:") && !time.aliveEnt.has(p.id)) continue;   // a polity no longer alive (the layout is held while the pin is dragged)
         const z = rot[6] * a[0] + rot[7] * a[1] + rot[8] * a[2];
         if (z < 0.005) continue;
         const sx = cx + (rot[0] * a[0] + rot[1] * a[1] + rot[2] * a[2]) * r, sy = cy - (rot[3] * a[0] + rot[4] * a[1] + rot[5] * a[2]) * r;
@@ -1101,7 +1505,10 @@
         if (w && w.waterArc != null && arcRiver) { const ri = arcRiver[w.waterArc]; if (ri >= 0) add(G.byRiver.get(ri)); }
         if (w && w.lakeFace != null && waterFaceEntity && waterHeader) { const e = waterHeader.entities[waterFaceEntity[w.lakeFace]]; if (e) add(G.byId.get(e.id)); }
         const f = R.pick(view, x, y, "land");
-        if (f && f.face != null && header && faceEntity) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(G.byId.get(ent.id)); if (ent.parent) add(G.byId.get(ent.parent)); } }
+        // Phase 2a: a historical face answers first — the polity, or a contested face's two claimants; the present-day country
+        // only in a present year (before it, it is not an entity)
+        if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(G.byId.get(p)); add(G.byId.get(e.id)); } else add(G.byId.get(e.id)); } }
+        else if (f && f.face != null && header && faceEntity && time.present) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(G.byId.get(ent.id)); if (ent.parent) add(G.byId.get(ent.parent)); } }
       }
       if (!out.length) {
         // open water: the nearest sea or ocean label on screen, else the nearest sea or ocean by angle
@@ -1139,8 +1546,9 @@
     function selectRow(row, o) {
       o = o || {};
       sel.id = row.id;
-      const face = (row.kind === "country" || row.kind === "admin1") ? faceOfId(row.id) : null;
+      const face = (row.kind === "country" || row.kind === "admin1") && time.present ? faceOfId(row.id) : null;
       R.select(face);
+      time.selected = row.hist && row.ent != null ? row.ent : -1; if (time.hist) uploadStyle();
       caption.textContent = "";
       announce(row.name + ", " + (KIND_LABEL[row.kind] || row.kind).toLowerCase() + (sel.stack.length > 1 ? "; " + sel.stack.length + " places here" : ""));
       if (o.open) openCard(row);
@@ -1156,6 +1564,7 @@
       const had = sel.id;
       sel.id = null; sel.stack = []; sel.index = 0; sel.at = null;
       R.select(null); caption.textContent = ""; stackBtn.hidden = true;
+      if (time.selected >= 0) { time.selected = -1; if (time.hist) uploadStyle(); }
       if (had) announce("Nothing selected");
       closeCard();
       if (had) { for (const p of L.placed) if (p.id === had) p.sprite = renderSprite(p); writeHash(false); requestLayout("select", true); }
@@ -1169,7 +1578,7 @@
       const h = hitAt(x, y)[0];
       if (h) { const row = G.byId.get(h.p.id); caption.textContent = row ? row.name : h.p.text; canvas.style.cursor = "pointer"; return; }
       canvas.style.cursor = "";
-      hoverTimer = setTimeout(() => { hoverTimer = 0; if (disposed || dragging || !R.levelLoaded(0)) return; const f = R.pick(view, x, y, "land"); const ent = f && f.face != null && header ? header.entities[faceEntity[f.face]] : null; caption.textContent = ent ? ent.name : ""; }, 180);
+      hoverTimer = setTimeout(() => { hoverTimer = 0; if (disposed || dragging || !R.levelLoaded(0)) return; const f = R.pick(view, x, y, "land"); const ent = f && f.histFace != null && time.hist ? time.ents[time.faceEntity[f.histFace]] : f && f.face != null && header && time.present ? header.entities[faceEntity[f.face]] : null; caption.textContent = ent ? ent.name : ""; }, 180);
     }
 
     /* ---- the place card: a side column, a bottom sheet on a phone that opens shut ---- */
@@ -1210,7 +1619,36 @@
     function withinButton(row) { const w = row.within ? G.byId.get(row.within) : null; return w ? `<p class="atlas2-card-within">In <button type="button" class="atlas2-link" data-select="${escText(w.id)}">${escText(w.name)}</button></p>` : ""; }
     function wikiLine(row) { const title = row.wiki === 1 ? row.name : row.wiki; return title ? `<p class="atlas2-card-link"><a href="${wikiUrl(title)}" target="_blank" rel="noopener">Wikipedia: ${escText(title)}</a></p>` : ""; }
     function renderPlaceCard(row) {
+      if (row.hist) { renderHistoryCard(row); return; }
       cardBody.innerHTML = withinButton(row) + wikiLine(row);
+    }
+    /* Phase 2a: a historical place — kind, span, the step list as a small timeline with the source on each step, the
+       uncertainty sentence, the gaps in the span, the Wikipedia link from the source's own property; no prose yet */
+    function renderHistoryCard(row) {
+      if (row.kind === "capital" && row.city) { const e = time.ents.find((x) => x.id === row.city.entity); cardKind.textContent = "Capital of " + (e ? e.name : row.city.entity) + " · " + fmtYear(row.city.from) + " – " + fmtYear(row.city.to); cardBody.innerHTML = `<p class="atlas2-card-span">A period capital from Wikidata (the state's own capital statements, with their dates; CC0), through the card ${escText(row.city.card || "")}.</p>` + (e ? `<p class="atlas2-card-within">In <button type="button" class="atlas2-link" data-select="${escText(e.id)}">${escText(e.name)}</button></p>` : ""); return; }
+      const e = time.ents[row.ent]; const steps = time.stepsOf.get(row.ent) || [];
+      const src = (time.hist.header.sources || []).find((s) => s.id === "cliopatria");
+      const srcName = src ? "Cliopatria " + src.version : "Cliopatria";
+      cardKind.textContent = (e.kind === "contested" ? "Contested between " + e.partners.map((p) => { const r = G.byId.get(p); return r ? r.name : p; }).join(" and ") : "Polity") + (e.span ? " · " + fmtYear(e.span[0]) + " – " + fmtYear(e.span[1]) : "");
+      let html = "";
+      if (e.span) html += `<p class="atlas2-card-span">Mapped from ${escText(fmtYear(e.span[0]))} to ${escText(fmtYear(e.span[1]))}, in ${steps.length} step${steps.length === 1 ? "" : "s"}.</p>`;
+      // the step list as a small timeline: one bar per step across the span, the current year marked
+      if (steps.length && e.span) {
+        const s0 = e.span[0], s1 = e.span[1] + 1, W = Math.max(1, s1 - s0);
+        html += '<div class="atlas2-steps" role="list" aria-label="Steps">';
+        for (const st of steps) { const l = (st[0] - s0) / W * 100, w = Math.max(0.4, (st[1] + 1 - st[0]) / W * 100); const cur = st[0] <= time.year && st[1] >= time.year; html += `<button type="button" role="listitem" class="atlas2-step${cur ? " atlas2-step-now" : ""}" style="left:${l.toFixed(2)}%;width:${w.toFixed(2)}%" data-year="${st[0]}" title="${escText(fmtYear(st[0]))} – ${escText(fmtYear(st[1]))}: ${escText(srcName)}" aria-label="${escText(fmtYear(st[0]))} to ${escText(fmtYear(st[1]))}, ${escText(srcName)}"></button>`; }
+        if (time.year >= s0 && time.year <= e.span[1]) html += `<i class="atlas2-step-pin" style="left:${((time.year - s0) / W * 100).toFixed(2)}%" aria-hidden="true"></i>`;
+        html += "</div>";
+        html += `<p class="atlas2-card-steps-note">Each step is a shape the source gives for those years — ${escText(srcName)} — and the map changes only at a step.</p>`;
+      }
+      html += `<p class="atlas2-card-uncert">Approximate: ${escText(srcName)}, CC BY 4.0. A border here is one reading of incomplete evidence, drawn at the source's own precision.</p>`;
+      // the gaps in the span
+      const gaps = []; for (let i = 1; i < steps.length; i++) if (steps[i][0] > steps[i - 1][1] + 1) gaps.push([steps[i - 1][1] + 1, steps[i][0] - 1]);
+      html += gaps.length ? `<p class="atlas2-card-gaps">No source for ${gaps.map((g) => escText(fmtYear(g[0]) + (g[1] > g[0] ? "–" + fmtYear(g[1]) : ""))).join(", ")}: nothing is drawn in those years.</p>` : (steps.length > 1 ? '<p class="atlas2-card-gaps">No gaps in the span.</p>' : "");
+      if (e.kind === "contested") html += e.partners.map((p) => { const r = G.byId.get(p); return r ? `<p class="atlas2-card-within">Claimed by <button type="button" class="atlas2-link" data-select="${escText(r.id)}">${escText(r.name)}</button></p>` : ""; }).join("");
+      if (e.wiki) html += `<p class="atlas2-card-link"><a href="${wikiUrl(e.wiki)}" target="_blank" rel="noopener">Wikipedia: ${escText(e.wiki)}</a></p>`;
+      if (e.alsoWiki && e.alsoWiki.length) html += `<p class="atlas2-card-link atlas2-card-also">Also in the source: ${e.alsoWiki.filter((w) => w.wiki).map((w) => `<a href="${wikiUrl(w.wiki)}" target="_blank" rel="noopener">${escText(w.wiki)}</a>`).join(", ")}</p>`;
+      cardBody.innerHTML = html;
     }
     function renderCountryCard(row) {
       const bundle = "atlas2prose";
@@ -1243,7 +1681,7 @@
       cardBody.innerHTML = html;
       if (H.wireFootnotes) { try { H.wireFootnotes(cardBody); } catch (e) {} }
     }
-    cardBody.addEventListener("click", (e) => { const b = e.target.closest("button[data-select]"); if (!b) return; const row = G.byId.get(b.getAttribute("data-select")); if (row) flyToRow(row, true); });
+    cardBody.addEventListener("click", (e) => { const st = e.target.closest("button[data-year]"); if (st) { setYear(Number(st.getAttribute("data-year"))); if (cardRow) openCard(cardRow); return; } const b = e.target.closest("button[data-select]"); if (!b) return; const row = G.byId.get(b.getAttribute("data-select")); if (row) { if (row.hist) selectRow(row, { open: true, push: true }); else flyToRow(row, true); } });
 
     /* ---- search: one input, diacritic-folded prefix then substring over names and aliases ---- */
     let results = [], active = -1;
@@ -1315,8 +1753,9 @@
     /* ---- deep links: #map2/<lon>/<lat>/<zoom>/<place>, written on settle, pushed on a selection ---- */
     const HASH_RE = /^#map2\/(-?[\d.]+)\/(-?[\d.]+)\/(-?[\d.]+)(?:\/([^?]*))?(\?.*)?$/;
     const zoomLevel = () => Math.log2(156.543 / kmPerPx());
-    function readHash() { const m = HASH_RE.exec(location.hash || ""); if (!m) return null; let place = m[4] || null; if (place) { try { place = decodeURIComponent(place); } catch (e) {} } return { lon: Number(m[1]), lat: Number(m[2]), z: Number(m[3]), place }; }
-    function hashNow() { return "#map2/" + view.lon.toFixed(2) + "/" + view.lat.toFixed(2) + "/" + zoomLevel().toFixed(2) + (sel.id ? "/" + encodeURIComponent(sel.id) : "") + (perfOn ? "?perf" : ""); }
+    function readHash() { const m = HASH_RE.exec(location.hash || ""); if (!m) return null; let place = m[4] || null; if (place) { try { place = decodeURIComponent(place); } catch (e) {} } let year = null; const q = /[?&]y=(-?\d{1,5})\b/.exec(m[5] || ""); if (q) year = clampYear(Number(q[1])); return { lon: Number(m[1]), lat: Number(m[2]), z: Number(m[3]), place, year }; }
+    // the query: ?y=<year> (Phase 2a) and perf; the existing form #map2/<lon>/<lat>/<zoom>/<place> is unchanged
+    function hashNow() { const q = []; if (time.hist || time.year !== TODAY) q.push("y=" + time.year); if (perfInHash) q.push("perf"); return "#map2/" + view.lon.toFixed(2) + "/" + view.lat.toFixed(2) + "/" + zoomLevel().toFixed(2) + (sel.id ? "/" + encodeURIComponent(sel.id) : "") + (q.length ? "?" + q.join("&") : ""); }
     function writeHash(push) {
       if (!/^#map2(\/|\?|$)/.test(location.hash || "")) return;   // the reader has left the Atlas
       const h = hashNow(); if (h === location.hash) return;
@@ -1327,8 +1766,9 @@
       if (!d || !isFinite(d.lon) || !isFinite(d.lat) || !isFinite(d.z)) return;
       const z = R_KM / ((156.543 / Math.pow(2, d.z)) * base);
       view.lon = d.lon; view.lat = d.lat; view.zoom = z; clampView(); flying = null; coasting = false;
+      if (d.year != null && d.year !== time.year) applyYear(d.year, { why: "hash" });
       if (!tileIndex) pendingZoom = z;   // the cap is not known until the header arrives: the asked-for zoom is clamped again then
-      if (d.place) { if (G.ready && stats.ready) selectById(d.place, { open: true, push: false }); else pendingPlace = d.place; } else if (sel.id) clearSelection();
+      if (d.place) { const histId = /^(pol|cap|contested):/.test(d.place); if (G.ready && stats.ready && (!histId || time.ents) && selectById(d.place, { open: true, push: false })) pendingPlace = null; else pendingPlace = d.place; } else if (sel.id) clearSelection();   // a history place (pol:, cap:) waits for the history header
       plan(); invalidate(); requestLayout("hash", true);
     }
     // pushState and replaceState fire no event, so every hashchange or popstate is the reader's: Back, Forward, a typed link.
@@ -1376,11 +1816,12 @@
     const mo = new MutationObserver(() => { if (!el.isConnected) dispose(); });
     mo.observe(viewHost, { childList: true });
     // a theme change (data-theme, or the night class) re-reads the tokens: the palette and the relief ramp follow
-    const themeObs = new MutationObserver(() => { if (!el.isConnected) return; palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (G.ready) measureMetrics(); invalidate(); });
+    const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); drawTicks(); } if (G.ready) measureMetrics(); invalidate(); });
     themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme"] });
     function dispose() {
       if (disposed) return;
       disposed = true;
+      window.removeEventListener("resize", railResize);
       try { mo.disconnect(); themeObs.disconnect(); if (sizeObs) sizeObs.disconnect(); } catch (e) {}
       window.removeEventListener("resize", onResize);
       if (vv) { vv.removeEventListener("resize", onVisual); vv.removeEventListener("scroll", onVisual); }
@@ -1389,6 +1830,7 @@
       if (raf) cancelAnimationFrame(raf);
       if (layoutTimer) clearTimeout(layoutTimer);
       if (tapTimer) clearTimeout(tapTimer);
+      if (longObs) { try { longObs.disconnect(); } catch (e) {} }
       landTiles.abortAll(); waterTiles.abortAll(); reliefTiles.abortAll();
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
       R.dispose();
@@ -1397,6 +1839,7 @@
     layout();
     // a deep link (#map2/<lon>/<lat>/<zoom>/<place>) sets the first view; the place opens once the data is in
     { const d = readHash(); if (d) { lastWrittenHash = location.hash; applyHash(d); } }
+    drawTicks();
     invalidate();
     // the view set from outside (the perf suite's fixed views): centre, zoom, then wait for `tilesSettled()`
     function setView(lon, lat, kmPerPixel) { view.lon = lon; view.lat = lat; view.zoom = R_KM / (kmPerPixel * base); flying = null; coasting = false; plan(); invalidate(); touched(); }
@@ -1405,17 +1848,29 @@
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
     const controller = { dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
+      stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
+      forceStage, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
+      perfOn: () => perfOn,
       mode: () => ({ file: FILE, static2d: STATIC2D, shim: !!shim, worker: !!worker, resScale, stage, lodBias: lodBias(), shimWhy: stats.shim || null, workerError: stats.workerError || null, twinVerified: stats.twinVerified || 0 }),
       input: () => ({ pointers: [...ptrs.entries()].map(([id, p]) => [id, Math.round(p.x), Math.round(p.y)]), dragging, moved, pinch: Math.round(pinch), coasting, flying: !!flying }),   // for the suites
-      statsNow: () => Object.assign(R.stats(), { kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
-        labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
+      statsNow: () => Object.assign(R.stats(), { frameTrace: stats.frameTrace ? stats.frameTrace.slice() : null, taskMs: stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v)])) : null, frameMsP95: pct95(stats.frames), frameMsMean: stats.frames.length ? Math.round(stats.frames.reduce((p, q) => p + q, 0) / stats.frames.length) : 0, kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
+        year: time.year, historyFaces: time.alive.length, labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
       // Phase 1c, for the suites and the console
       labels: () => L.placed, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
       gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, shut: cardEl.classList.contains("atlas2-card-shut") }),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,
-      hash: hashNow, readHash, metricsCount: () => metricsSent, requestLayout: (why) => requestLayout(why || "test", true), labelDebug: (on) => { L.debug = !!on; }, labelWhy: () => L.why };
+      chromeRects, hash: hashNow, readHash, metricsCount: () => metricsSent,
+      /* Phase 2a: time */
+      setYear: (y, o) => setYear(y, o), year: () => time.year, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
+      alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !!(time.hist && time.hist.ready),
+      timeInfo: () => ({ year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
+      // one device pixel of the GL canvas, read right after a render in the same task (the drawing buffer is not preserved between tasks)
+      // one CSS row of the GL canvas as [r,g,b,a,…] per CSS pixel (one render, one readback — a scan by pixelAt would render once per pixel)
+      pixelRow: (y) => { const g = R.gl; if (!g) return null; R.render(view); const d = Math.min(2, (window.devicePixelRatio || 1) * resScale); const w = g.drawingBufferWidth; const row = new Uint8Array(w * 4); g.readPixels(0, g.drawingBufferHeight - 1 - Math.round(y * d), w, 1, g.RGBA, g.UNSIGNED_BYTE, row); const n = Math.floor(w / d); const out = new Array(n * 4); for (let i = 0; i < n; i++) { const j = Math.round(i * d) * 4; out[i * 4] = row[j]; out[i * 4 + 1] = row[j + 1]; out[i * 4 + 2] = row[j + 2]; out[i * 4 + 3] = row[j + 3]; } return out; },
+      pixelAt: (x, y) => { const g = R.gl; if (!g) return null; R.render(view); const d = Math.min(2, (window.devicePixelRatio || 1) * resScale); const px = new Uint8Array(4); g.readPixels(Math.round(x * d), g.drawingBufferHeight - 1 - Math.round(y * d), 1, 1, g.RGBA, g.UNSIGNED_BYTE, px); return [px[0], px[1], px[2], px[3]]; },
+      parseYear, fmtYear, railX, railYearAt, histColour: (id) => { const i = entityIndexOfId(id); return i < 0 ? null : entColour(i); }, requestLayout: (why) => requestLayout(why || "test", true), labelDebug: (on) => { L.debug = !!on; }, labelWhy: () => L.why };
     el.__atlas2 = controller;
     return controller;
   }

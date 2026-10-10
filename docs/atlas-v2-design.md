@@ -351,6 +351,105 @@ before water, 7.0 MB with rivers and lakes (the defaults); relief adds 8.9 MB at
 per L1 tile under 6 km/px — more than the first estimate (2.5 MB), because 16-bit heights at 1 m do not
 compress below about 2 bits a texel, measured.
 
+**The step topology — `atlas/data/history.bin` (Phase 2a, as built 2026-10-10; the pilot slice).** The
+polities' steps live in a file OF THEIR OWN beside the core, so a history rebuild leaves the land, water
+and relief files byte-identical (`sha256sum`, §7 "Phase 2a — as built"). The file is the `.bin` of this
+section with four things added: an **entity table** in the header (`id` `pol:<slug>`, name, kind,
+Wikidata QID and Wikipedia title taken from Cliopatria's own `Wikidata`/`Wikipedia` properties, span); a
+**step table** `[entity, from, to, face]`; a **`coreRef` section** — a history arc that lies on the
+core's coast, or on a present-day border, stores no vertices but the core arc's id, the range of core
+vertices strictly inside the piece, and the two junctions' core segments, so the coast is drawn from the
+core's line at every level and never as a second line a few hundred metres off; and a **`jpos`
+section** — each junction's position and level segment at the two coarser levels (below). The header's
+`extra` carries the uncertainty class per face and per arc (`approximate` for every Cliopatria face,
+`contested` for an overlap face, `firm` for a core reference), the core's `buildId` (the checker
+refuses a history file built against another core), the period capitals, a face's area and an interior
+anchor, and the pilot's constants. Licence: the file embeds junctions snapped onto OSM geometry and
+references OSM arcs by id, so its header states **ODbL 1.0 as a whole, with the Cliopatria CC BY 4.0
+attribution kept**, and the credits page lists it under the share-alike statement. **That reading is
+flagged for counsel**: whether referencing an ODbL arc by id (no OSM coordinate is copied, only the
+snapped junctions are) makes the file a derivative is a judgement the owner has not yet taken.
+
+*The pilot slice (owner's decision, 2026-10-09):* the Mediterranean and Near East (−20…80° E, 5…60° N),
+550 BCE to 650 CE; the core series `rome`, `carthage`, `achaemenid`, `macedon` (Antigonid),
+`ptolemaic`, `seleucid`, `byzantium`, `sasanian`, plus every `polity-spec.json` series that touches
+them in those years (a shared arc, or a line within 25 km of a core polity's in some epoch — 24 kept;
+`bosporus`, `peloponnesian_league`, `scythia`, `kushan`, `aksum` and `makuria` are in the region
+but touch nothing and are left for 2b). Present-day faces keep their step `[2022, null]`; outside the
+pilot's coverage the land draws plain and the rail says "No states are mapped for this year yet".
+Period capitals: `state-capitals-spec.json` rows whose card maps to a pilot polity (the mapping is by
+the row's title against the series' names, with two aliases) become city steps — 19 rows from 18 cards.
+
+*The conflation, as built (`.claude/atlas-build/build-history.js`), per epoch — a maximal interval over
+which the alive set and every shape are constant (175 epochs, 175 distinct alive sets):*
+
+1. **d1, the coast**: a vertex within **15 km** of the OSM coast projects onto it (**172,674** of the
+   pilot's 219,407 vertices; the measured distribution is in §7). A chord between two coast junctions
+   on one ring is a *run* and is replaced by the coast when the coast path between them is at most three
+   times the chord (or 3 km) **and the chord's middle lies within 15 km of a coast** — without the second
+   clause a border crossing western Sicily shore to shore (Carthage, 300 BCE) was taken for a run and the
+   island merged. Junctions within two quanta of a core vertex take the vertex.
+2. **d3, present-day borders**: a run of vertices within **2 km** of a present-day border (never a lone
+   vertex) becomes a reference to the core's border arc (2,119 vertices, 102 references).
+3. **d2, neighbours**: a vertex within **8 km** of a neighbour's line snaps onto it when it is surely on
+   the line (≤ 1 km) or it and the next vertex of its own line reach the same line as a run; the
+   neighbour's line **gains the point** (735 snaps, 10,223 insertions). A vertex lying ON a neighbour's
+   chord (0 m: Cliopatria neighbours share edges) is inserted too — a T-junction the crossing test cannot
+   see.
+4. **Noding**: chord × coast, chord × chord and chord × referenced border are split at every crossing
+   (planar intersection in the unwrapped frame, six rounds), with three cases the open-interval test
+   misses handled by name: a chord's endpoint on another chord's interior (a T-junction, checked BEFORE
+   the shared-endpoint rule, because a polygon folding back along its own edge — a collinear spike —
+   shares an end with the chord it lies on); a chord through a coast VERTEX (split at the vertex); and a
+   chord leaving a present-day border's junction that cuts back across that border's bends (only the
+   segments touching the shared endpoint are exempt).
+5. **Sea chords**: after the noding every chord lies wholly on land or wholly at sea, so a chord between
+   two shore points whose middle is at sea (the parity of an eastward ray against the region's coast
+   rings) is dropped — a polygon drawn across a strait or a gulf (Pontus over the Marmara at 87 BCE, Rome
+   over the Adriatic at 215 BCE, Lydia across the Gulf of Antalya) otherwise closes a face round the
+   WATER and walks the far shore with the sea on its left. A second test at the face walk catches what the
+   midpoint test cannot: a chord that leaves a coast junction outside the land wedge there (between the
+   land-left coast half and the sea-left one, counter-clockwise) is at sea (150 such, three distinct
+   sites — an inlet 300 m wide the midpoint test could not see).
+6. **The face walk**: every coast piece of every ring in the region is in the graph (so land closes along
+   its coast where no polity reaches), the planar faces are walked by angular order, each land cycle's
+   owners are the rows holding a majority of **interior samples on a grid over the piece** (an edge
+   sample sits 3 km from the boundary, and a boundary that is a coast may be 15 km from where the source
+   drew it), containment by the **non-zero rule** with holes by nesting depth (Cliopatria draws some
+   polygons as figure-eights); a piece claimed by nobody or by several that is under **120 km²** or
+   narrower than **4 km** goes to the neighbour with the longest shared edge (9,284 over all epochs,
+   509,000 km² in all); an overlap above that is a **contested face** owned by both (8 in the pilot);
+   land no polity claims stays unmapped (3,251 gap pieces over all epochs, 7.18 M km² — mostly the
+   continents' remainders beyond the pilot's series). Pieces are keyed by their arc set, so a face that
+   does not change between epochs is one face; arcs by exact vertex key, so an unchanged border is one arc
+   across every step it bounds (**534 steps share 519 faces and 9,389 arcs: 6,268 coast references, 102
+   border references, 3,019 own arcs of 29,594 vertices**).
+7. **Levels**: own arcs take Visvalingam ranks at the core's three intervals; a core reference takes the
+   core's own ranks. **Junctions at coarser levels** sit on the level's straightened coast: by default
+   at the same fraction of arc length along the level segment that holds the LOD 2 segment
+   (`junctionAt`), and — where a border's first drawn segments at that level cross the level's coast
+   because the level cut off the bay or the headland they stood on — at the point where the border
+   crosses the coast within three tolerances, with the border's vertices before it hidden at that
+   level and the coast pieces' inner vertices bounded by the junctions' level segments (`jpos`; 140
+   junctions moved, 24 vertices hidden, 105 crossings too far to move). A crossing left at a coarser
+   level is a residue the checker counts against a budget (below); the finest level is exactly planar.
+8. Every snap is logged; the build fails on one over the source's 15 km (the largest was 14,916 m,
+   none over); two runs give one sha256 (no clock in the header).
+
+*Fill against stroke at fine zoom — settled:* a historical fill is drawn from the **resident level's
+mesh** (the meshes are per face and per level, triangulated lazily in the worker and kept in an LRU of
+600 there and 400 on the main thread), masked by the **land stencil the land fills leave** — so a fill
+never spills over water, and at the tile zooms (under 1 km/px) the finer coast is the tiles' and the
+fill stops at it, not at the resident coast. The resident coast is stroked over the fill in the fill's
+own colour, as wide as the level's tolerance in pixels, so the band between the resident and the tile
+coast reads as fill rather than as plain land. The seam measured at the cap is in §7.
+
+*The planarity budget:* `check-history.js` requires exact planarity among the alive faces at the finest
+level in every epoch, and counts crossings at the two coarser levels against a budget of 200 over all
+alive sets (the pilot measured 125: 66 at level 0, 59 at level 1, 25 distinct arc pairs — one site, a
+border leaving the Bay of Cádiz at the 2.5 km level in thirty epochs, is most of it); a regression
+shows, the known residue does not fail CI.
+
 Loading strategy: `topology.bin` and `gazetteer.js` are the Atlas's two required files, fetched
 with a determinate progress bar; tiles and relief are fetched on demand with a small LRU; the
 worker triangulates faces for the *current* year first, then the rest at idle, so the globe paints
@@ -364,13 +463,13 @@ topojson-server/-simplify ISC, polygon-clipping MIT, earcut ISC, pngjs/sharp MIT
 | 0 | `fetch-sources.js` | `sources.json` (URL, version, sha256, licence, attribution text) | `src/` cache, never committed |
 | 1 | `build-land.js` | coastline source | land/sea partition at LOD 4, simplified to LOD 0–3 |
 | 2 | `build-admin.js` | Natural Earth 10m admin-0 (PD) [+ admin-1 for the three subdivision layers] | present-day faces conflated onto the land partition |
-| 3 | `build-polities.js` | Cliopatria v0.2.0 rows per `polity-spec.json` (reused), OHM relations where whitelisted, traced plates where the spec names one | polity steps conflated per §2.3; the snap log |
+| 3 | `build-history.js` (2a; `build-polities.js` in the first plan) | the committed core, Cliopatria v0.2.0 rows per `polity-spec.json`, `state-capitals-spec.json` + `state-capitals.js`; later OHM relations where whitelisted and traced plates where the spec names one | `history.bin`: polity steps conflated per §2.3 and the snap log; `history-report.json` with the distributions and the forecast |
 | 4 | `build-peoples.js` | Cliopatria "people" rows, site hulls (Hosner), traced soft outlines | soft faces with the uncertainty flag |
 | 5 | `build-water.js` | Natural Earth 10m rivers (scale-rank edition), HydroLAKES, the committed land partition (`lib/landindex.js`) | `out/water-full.bin`: river arcs by scale rank, lake faces at four levels; `pack-water.js` splits it into `water.bin` and the water tiles |
 | 6 | `build-gazetteer.js` | cards + glossary + books (place references, §2.8), Wikidata | `gazetteer.js`: entities, kinds, anchors, label paths |
 | 7 | `build-relief.js` | ETOPO 2022 60 arc-second (CC0) | `relief/L0.*.png`, `relief/L1/*.png`, `relief.json` |
 | 8 | `pack.js` | everything above | `topology.bin`, `tiles/`, the attribution text for the help card |
-| 9 | `check-topology.js`, `check-water.js`, `check-relief.js` | outputs | fail on any §2.11 invariant |
+| 9 | `check-topology.js`, `check-water.js`, `check-relief.js`, `check-history.js` (2a) | outputs | fail on any §2.11 invariant |
 
 Every step is deterministic given `sources.json`; every output file header names its sources,
 versions and licences; the help card's attribution block is generated from the same manifest, so a
@@ -420,6 +519,19 @@ the partition stays planar: every point on land belongs to exactly one face per 
 
 **Present-day admin-1** (US states, Chinese provinces, Russian federal subjects) are faces at a
 lower level, present-day only, shown when zoomed past country scale or when a card asks for them.
+
+**As built in Phase 2a (2026-10-10).** The year query is a binary search over each entity's steps in
+the main thread (39 entities in the pilot; the worker holds the same table for layout); a year change
+uploads two small style textures (a face's RGBA — colour, alpha, hatch flag, selection — and an arc's
+alpha), never geometry, and costs under 5 ms at p95 on the main thread (§7). The crossfade is 250 ms
+between the two years' style tables when the reader steps or plays, none while the pin is dragged and
+none under `prefers-reduced-motion`. Playback advances `speed × dt` years per frame (dt capped at
+250 ms), so a slow frame skips the display of some years but never a step boundary. **Present-day faces,
+borders, and the present-day city, town, capital, country and admin-1 names are hidden for a year
+before 2022** (the owner's decision: an anachronistic Rome-the-capital-of-Italy is worse than no city);
+physical names stay; the period capitals of the pilot polities are the only dated cities. A polity's
+colour is a golden-angle hue per entity, blended with the theme's ink and land tokens and recoloured on a
+theme change, so it is stable across years and legible in all fifteen themes.
 
 **Deep time.** Cliopatria begins at 3400 BCE. Before that there are no polities to draw; sites and
 cultures (soft) still appear. The rail's range is a question (Q-T1); the recommendation is a rail
@@ -2300,6 +2412,148 @@ the 1,705 in/out assertions from `card-war.js` migrated to run on the built topo
 assertions per batch; `test-atlas-render.js` at twelve (year, view) pairs; `test-atlas-perf.js`
 scrub and playback with ≤ 5 ms main-thread cost per year change; a people and a state overlapping
 read as distinct in the screenshot diff for the "Scythians over Bosporus 450 BCE" view.
+
+### Phase 2a — as built (2026-10-10): the step topology, the year query and the rail, on the pilot slice
+
+**Scope.** Sub-phase 2a only — the pilot slice of §2.3, behind the unlinked `#map2`. Not started: 2b (all
+164 series), 2c (peoples), 2d (wars, fronts, prose). Preceded by Task 0, four fixes from the 1d review and
+the owner's phone (below).
+
+**Task 0 (the 1d review).** 0a — the credits page now says it covers the new globe (`#map2`) and carries
+a separate, clearly headed section for the current Atlas (`#map`) with the sources, licences and
+attributions recorded verbatim in `docs/atlas-borders-audit.md` §3 and v1's help card (Cliopatria,
+Hosner 2016, the Commons and US Army WW2 maps, historical-basemaps marked "under owner review" in the
+audit's words, Natural Earth and the terrain tiles, the last two with "licence not recorded in Folio's v1
+documents" rather than a licence from memory). 0b — the gesture stages: a frame counts toward escalation
+only if no main-thread task over 20 ms ran in it (the tile ingest, relief compose, layout and sprite work
+are bracketed; a long-task observer catches the rest; a browser long task that STARTS inside a frame's
+own span is the frame's work, not a stall — on software GL every slow frame reads as one); the GPU's own
+time where `EXT_disjoint_timer_query_webgl2` answers; recovery — a gesture starts one stage lower than
+the learnt stage once twenty gesture frames at the learnt stage ran under 25 ms (the frame's own cost:
+the GPU time where the timer answers, else the frame's main-thread span — the interval between frames is
+a 60 Hz loop's or a throttled tab's and says nothing about the frame); the deep-link writer keeps
+`?perf` (now `?y=<year>&perf`); the About sheet's "Show frame statistics" switch (localStorage, try/catch);
+the overlay's first line is the stage, the escalations, the recoveries, the stalls ignored and the heap,
+updated five times a second (a DOM text block relaid out every frame cost more than the frame on a
+software rasteriser). 0c — the worst-frame rule in the gate: across the three drag repeats at most two
+frames over 100 ms and none over 200 ms, the same for the pinch's during-gesture worst. 0d — the
+controls' rectangles (search, zoom stack, home, legend chip, ?, the open sheet, and now the rail) are
+measured at every layout and resize and fed to the label layout as occupied cells; a point label must be
+wholly on screen and outside every control; an area or path label may be clipped by the edge by a quarter
+of its length and never by a control; **the upside-down river labels were confirmed** by a glyph-rotation
+probe against the 1d worker (Danube 157°, Rhône 134°, Po −169° from upright) and fixed: a path is
+reversed when its mean direction points left and no glyph may be rotated past 90°; asserted at 1280×800
+and 390×844 in `test-atlas-labels.js` (0 of 35 curved labels beyond 90° at the Alps view, where the old
+worker had 6).
+
+**Measured first — the distributions (`build-history.js --measure`, 219,407 vertices of the 557 rows
+alive in the pilot's years).** d1, vertex to the OSM coast: median 7.6 km; 4,338 under 250 m, 5,615 to
+500 m, 9,274 to 1 km, 17,822 to 2 km, 14,295 to 3 km, 14,138 to 4 km, 26,315 to 6 km, 22,710 to 8 km,
+15,293 to 10 km, 12,167 to 15 km, 2,272 to 20 km, 4,254 to 30 km, 6,588 to 50 km, 64,326 beyond — a
+shoulder that falls off between 10 and 15 km, so **D1 = 15 km** (Cliopatria draws its coasts within that
+of the shore; the band 15–20 km is a tenth of the one below it). d3, vertex to a present-day border:
+757 under 250 m, 1,106 to 500 m, 1,358 to 1 km, 2,207 to 2 km, then rising with distance (2,687 to 3 km
+… 15,967 to 50 km, 164,378 beyond) — no shoulder, so **D3 = 2 km, runs only**: a lone vertex 2 km from a
+present-day border is not evidence that the historical line followed it. d2, vertex to a neighbour's
+line in the same epoch (303,534 vertex–neighbour pairs): 22,535 under 250 m, then nothing to 500 m, 1 to
+1 km, 118 to 2 km, 72 to 3 km, 49 to 4 km, 290 to 6 km, 2,745 to 8 km, 147 to 10 km — two populations,
+shared edges (exact, under 250 m) and the 6–8 km band where two sources drew one frontier twice, so
+**D2 = 8 km with a sure threshold of 1 km and the run rule between**. The per-pair table (Ptolemaic–
+Seleucid 1,838 exact and 456 at 6–10 km; Byzantium–Sasanian 2,192 and 86; Avars–Byzantium 1,568 and 91)
+is in `out/history-report.json`.
+
+**Counts (the pilot).** 32 series kept of 38 candidates (6 touch nothing: Bosporus, the Peloponnesian
+League, Scythia, Kushan, Aksum, Makuria); 557 source rows → **39 entities (6 contested), 534 steps, 519
+faces (8 contested), 9,389 arcs: 6,268 coast references, 102 present-day border references, 3,019 own
+arcs of 29,594 vertices**; 175 epochs over −550…650; 175,528 snaps, largest 14,916 m, none over the
+15 km tolerance; 182,875 coast runs dropped, 1,519 border runs, 83,810 chord splits, 148 border
+references cut by a crossing chord; 150 sea chords at 3 sites; 9,284 slivers merged (509,000 km² over
+all epochs); 3,251 gap pieces unmapped (7.18 M km² over all epochs, the continents' remainders mostly).
+Junctions at the coarser levels: 140 moved to the border's coast crossing, 24 border vertices hidden
+there, 105 crossings too far to move, 13 reverted for coast order, 6 piece ends reverted. Planarity
+residue after the repair: level 0 66, level 1 59, level 2 **0**, 25 distinct arc pairs — the checker's
+coarse-level budget is 200.
+
+**Bytes and the forecast (the stop rule).** `history.bin` **958,996 bytes (0.959 MB decimal)**: header
+72.0 KB, vertices 144.5 KB, ranks 10.3 KB, arcs 45.8 KB, faces 513.2 KB, coreRef 67.3 KB, jpos 83.3 KB.
+1,796 bytes per step × 2,648 steps of all 164 spec series = **4.76 MB decimal forecast**, under the 12 MB
+stop rule; the `file://` twin is 1.28 MB and the three twins together 11.12 MB, under the owner's 12 MB.
+Two builds: one sha256 (`967a90d4…` before the face anchors, `9d486736…` committed). The land, water
+and relief files are byte-identical before and after (`topology.bin` `26629af5…`, `water.bin`
+`30bea9ba…`, every tile and relief file; `git diff --quiet` over `atlas/data` apart from the three
+history files and `credits.js`).
+
+**Known source faults found by the assertions (listed in `check-history.js` KNOWN_FAULTS, never forced).**
+140 independent point assertions (Natural Earth populated-places coordinates; the claims are textbook
+facts I checked one by one — **not one named independent source**, which the brief asked for and which I
+could not supply honestly without a reference work at hand; the owner may want them re-sourced) — 139
+hold, 1 known fault; 220 extent assertions from the cards' war extents through `polity-spec.json`
+(asserted at the war's outbreak year, a side of several polities holding a place when any of them does)
+— 173 hold, 47 known faults. The faults, each checked against the raw Cliopatria polygon of the year:
+Cliopatria's Roman Republic of 480–338 BCE is a 12-vertex block whose east edge (12.45° E) leaves the
+city of Rome, Tibur and Capua outside (rm-152, rm-153, rm-156, rm-158, rm-159); its Republic rows of
+218–63 BCE include Milan and Bologna where the cards' extents leave Cisalpine Gaul out (rm-209 … rm-333,
+11 pairs); Florence is unmapped at 264 and 229 BCE (rm-186, rm-237); Larissa belongs to "Greek
+City-States", not Antigonid Macedonia, at 171 BCE (rm-249), as does Sparta against the Achaean League at
+146 BCE (rm-255) and Ephesus and Miletus against Lydia at 547 BCE (gr-383); Hippo Regius is unmapped
+under Numidia at 112 BCE (rm-292); Pydna lies outside the Macedonian polygons' coarse coast at 334 and
+323 BCE (wh-310, gr-755); Damascus is Ptolemaic at 250 BCE and Cyrenaica unmapped (Magas) — two of my
+own first assertions, replaced by sounder years; the Rashidun have no Cliopatria row alive in 632
+(wh-463). Conflation limits, documented as such: Carthage's Sicily of 301–278 BCE is a coastal strip
+under 15 km wide round an unclaimed interior (a keyhole ring) and collapses onto the coast within the
+tolerance, leaving Palermo unclaimed; Corfu is Illyrian at 229 BCE by majority of the island's interior
+(20 of 34 samples inside the drawn polygon) where the card's extent leaves it out; coastal notches
+narrower than the tolerance at Hippo Regius (480 BCE), Syracuse (58 BCE) and Carthage (632 CE) join the
+surrounding face.
+
+**What the renderer learnt from the gate (software GL, 1280×800, measured frame by frame with the new per-frame trace,
+`statsNow().frameTrace`).** A frame on the runner's software rasteriser is priced per primitive, not per pixel: about 2 µs a
+segment and 0.7 µs a triangle, so the Mediterranean at 6 km/px — 58,000 land triangles, 42,000 segments of coast, border,
+river and lake, and the pilot's 32,000 fill triangles and 12,000 border segments — cost 130 ms a frame while a scrub changed
+only the year, and half resolution changed nothing. Four things followed, all in `atlas-gl.js` and `atlas.js`: (1) **the line
+layer** — the water and the land's lines are drawn into a texture keyed by the view, the sizes and every upload, and
+composited with one triangle a frame; (2) **the still cache** — while the view does not move the base (sphere, faces, relief)
+is rendered once into a texture with its stencil, copied into a scratch target each frame, and only the year's layers (fills,
+the line layer, borders) are drawn on the copy; a moving view draws straight to the canvas as before, so the cache costs a
+frame nothing until the second frame at one view, and both paths draw in the same order (faces, relief, fills, lines,
+borders — the fills now sit over the relief shading, which the 42 % alpha tolerates); (3) **label sprites are cached** by
+text, style, glyph layout, selection, dpr and theme — a layout re-renders only the labels that are new or moved along a path
+(a scrub's layouts cost 100 ms of canvas text a second before); the layout is HELD while the pin is dragged and the rail's
+ticks (177 DOM nodes) are rebuilt only when the change years change, and the pin's track is measured once per drag (a measure
+after a style write forced a layout on every move); (4) **a rail scrub is a gesture** for the stage logic, and at stage ≥ 1
+the history is drawn one level coarser (the fills are masked by the land stencil at full resolution either way). A still
+frame at the Mediterranean fell from 86 ms to 50; a year-change frame from 67 to 50; the base map alone from 71 to 43.
+
+**From the screenshot review (the series under §7 "Proof", 2026-10-10).** Two faults, both fixed before the push: (1) **a polity's
+name is placed on the part of its face a reader sees.** The label path took the whole visible polygon (every vertex on the
+near side of the sphere, within a margin of one viewport each way), so the Eastern Roman Empire at 500 CE at 3 km/px — its
+Balkan third on screen, Anatolia, Syria and Egypt beyond the right edge — had its centroid, its candidates and its reach off
+screen, and no name at all; now, when at least three of the face's vertices are on screen, the centroid, the covariance, the
+candidate slide and the reach are taken over the on-screen vertices and stop at the screen edge (`histLabelPath`,
+`atlas-worker.js`), as a printed sheet names a country on the part the sheet shows; a face with fewer than three vertices on
+screen keeps the margin box. (2) **The phone rail is two lines**: at 390 px one line with 44 px targets squeezed the track to
+about 85 px for twelve thousand years and pushed the speed select past the edge; the row now wraps — ‹ track › above, then
+the year field, play and speed — and `--atlas2-rail-h` on a phone is 104 px, so the card, the sheets, the caption and the
+mode note step up with it. Checked in the same pass and found sound: the fills stop at the tile coast with no sea tint and no
+plain-land gap at any of the fifteen views; the contested Etruria–Rome face hatches at 500 BCE and the Ptolemaic gap draws
+plain land with the caption at 323 BCE; no label sits under a control or reads upside down; the three themes keep their own
+land, sea and ink (the first series had all three alike — the probe set the theme before the app booted and the app's
+settings overwrote it; the retake sets `data-theme` and `.night` on the body as the labels suite does).
+
+**Perf (the gate, `test-atlas-perf.js`, software GL at 1280×800, three repeats pooled, relief off unless said).** Drag v2 p90 33.4 ms against v1 133.3 (25 %), wheel 33.2 against 349.9 (9 %), pinch 33.4 against 350.0 (10 %); the drag's worst frame over 1,227 frames 66.7 ms (0 over 100), the pinch's during-gesture worst 83.4 over 409 frames (0 over 100), its first full frame after release 133 ms (≤ 300); **the scrub: v2 pooled p90 16.8 ms against v1 116.6 (14 %), worst 66.7** — before the still cache the same row read 100 ms (86 %); **a year change 2.2 ms at p95 on the main thread over 174 changes** (budget 5); the Mediterranean at 1 CE, 6 km/px: 48,900 triangles, 24,221 segments, 4,957 river and 8,706 lake-shore segments, 8,073 lake triangles, **32,949 historical fill triangles in 4 faces and 20,988 historical border segments** (budgets 42,000 and 26,000, the measurements × 1.25); relief on, the drag/wheel/pinch p90 stays 33 ms (v1 with its heightmap 50–100); the JS heap after the gestures 45 MB against v1's 197 (23 %).
+
+**The seam at the cap.** Measured by `test-atlas-time.js` at Ostia, 200 CE, 0.15 km/px (the cap): scanning thirteen rows from the sea eastward, the plain-land pixels between the tile coast and the first fill-tinted pixel number **0 on every row** (the rule allows 2) — the fill, masked by the land stencil the tile fills wrote, meets the tile coast exactly; the resident coast stroke in the fill's colour covers the band where the resident fill ring stops short.
+
+**The stage logic's tests (`test-atlas-stages.js`, software GL, 18 checks).** A drag at 1280×800 reaches stage 1 (frame intervals 50–83 ms); at 320×420, after a warm-up drag, a plain drag stays at stage 0 (every frame 33–50 ms); ten injected 150 ms main-thread stalls during a drag leave the stage at 0 and are counted (13 stalls ignored, 19 long tasks seen); with stage 2 learnt, the first light-load drag runs fast frames at the learnt stage and the second drag starts a stage lower and brings the learnt stage down (learnt 2 → 1, two recoveries, stage 0 at the end); `?perf` survives a mouse pan and a reload on the desktop and a touch pan and a reload on a phone (as `?y=<year>&perf`); the About sheet's switch turns the overlay on, stores the choice, survives a reload and turns it off again; no page errors. The suite must run alone: three Chromium instances on the four-core runner stretch every frame to 100–150 ms and the plain drag escalates for that reason, not the Atlas's.
+
+**What contradicts the design.** (1) §2.3 said a face's fill and its stroke must come from one ring; a
+historical fill comes from the resident mesh and is masked by the land stencil instead — the decision
+recorded above. (2) §2.4 planned the year query in the worker; it runs on the main thread (39 entities,
+under a millisecond) and the worker keeps a copy for layout — the style tables are the main thread's to
+upload. (3) The design's "planar per epoch" is exact at the finest level and a counted budget at the two
+coarser ones, for the reason given in §2.3. (4) The pilot's first plan made Cliopatria's steps part of
+`topology.bin`; they are a file of their own so the land stays byte-identical. (5) The independent point
+assertions are not from one named source (above).
 
 ### Phase 3 — The gazetteer and the study material (ships `#map2` with Your atlas; ~6–8 sessions)
 

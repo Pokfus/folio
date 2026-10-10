@@ -10638,7 +10638,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-src-h{margin:0; color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
 .atlas2-card-loading{color:var(--ink-soft); font:calc(14px * var(--fs, 1))/1.4 var(--sans);}
 /* …and a bottom sheet with a grip on a phone, opening shut (the title strip alone) like v1's */
-.atlas2-phone .atlas2-card{left:0; right:0; top:auto; bottom:0; width:auto; max-height:70%; border-radius:16px 16px 0 0; border-bottom:0;}
+.atlas2-phone .atlas2-card{left:0; right:0; top:auto; bottom:calc(var(--atlas2-rail-h, 62px) + 12px); width:auto; max-height:60%; border-radius:16px; border-bottom:1px solid var(--rule);}   /* Phase 2a: above the rail, which stays in reach */
 .atlas2-phone .atlas2-card-shut{max-height:none; height:auto;}
 .atlas2-phone .atlas2-card-shut .atlas2-card-body{display:none;}
 .atlas2-phone .atlas2-grip{display:block; appearance:none; border:0; background:none; padding:8px 0 2px; cursor:pointer; width:100%;}
@@ -10670,9 +10670,19 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .credits .cred-src p{margin:6px 0 0;}
 .cred-foot{margin:4px 0 0; color:var(--ink-quiet);}
 .cred-foot a, .credits .msn-card a{color:var(--indigo);}
+/* the current Atlas (#map) section, Phase 2a task 0a: hand-listed rows (not .cred-src — nothing here comes from a file header) */
+.cred-v1-intro{margin:0 0 10px;}
+.credits .cred-v1-src{padding:10px 0 12px; border-top:1px solid var(--rule); font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.5; color:var(--ink);}
+.credits .cred-v1-src:first-child{border-top:0; padding-top:0;}
+.credits .cred-v1-src p{margin:6px 0 0;}
+.credits .cred-v1-src .cr-lic{color:var(--ink-soft);}
 
 /* ---------- Atlas v2, Phase 1d: the About sheet, the announcer (Oct 2026) ---------- */
 .atlas2-help{position:absolute; right:12px; top:180px; display:flex; flex-direction:column; align-items:flex-end; gap:6px; z-index:4;}
+/* Phase 2a: the legend and About columns end above the rail, so an open sheet scrolls inside its column instead of running under the rail (the About switch sat under the rail's › button at 1280×800) */
+.atlas2-layers, .atlas2-help{bottom:calc(24px + var(--atlas2-rail-h, 52px)); pointer-events:none;}
+.atlas2-layers > *, .atlas2-help > *{pointer-events:auto;}
+.atlas2-layers .atlas2-sheet, .atlas2-help .atlas2-sheet{min-height:0; overflow:auto; box-sizing:border-box;}
 .atlas2-about{max-width:min(340px, calc(100vw - 48px)); font-size:calc(13.5px * var(--fs, 1));}
 .atlas2-about-p{margin:0; line-height:1.5;}
 .atlas2-about-caution{color:var(--ink-soft);}
@@ -10681,12 +10691,64 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-keys-help div{display:contents;}
 .atlas2-keys-help dt{font-family:var(--mono); font-size:calc(11.5px * var(--fs, 1)); color:var(--ink-quiet); white-space:nowrap;}
 .atlas2-keys-help dd{margin:0; color:var(--ink-soft);}
+.atlas2-about-perf{display:flex; align-items:center; gap:8px; margin:8px 0 0; font-size:calc(13px * var(--fs, 1)); color:var(--ink-soft); cursor:pointer;}   /* Phase 2a: the frame-statistics switch */
 .atlas2-phone .atlas2-help{top:auto; bottom:calc(60px + env(safe-area-inset-bottom)); right:12px;}
-.atlas2-phone .atlas2-about{position:fixed; left:0; right:0; bottom:0; max-width:none; z-index:6; border-radius:16px 16px 0 0; max-height:70vh; overflow:auto; box-shadow:0 -8px 24px rgba(0,0,0,.18); padding-bottom:calc(12px + env(safe-area-inset-bottom));}
+.atlas2-phone .atlas2-about{position:fixed; left:0; right:0; bottom:calc(var(--atlas2-rail-h, 62px) + 12px); max-width:none; z-index:6; border-radius:16px 16px 0 0; max-height:70vh; overflow:auto; box-shadow:0 -8px 24px rgba(0,0,0,.18); padding-bottom:calc(12px + env(safe-area-inset-bottom));}
 .atlas2-announce{position:absolute;}
 .atlas2-mode{position:absolute; left:12px; right:12px; bottom:12px; margin:0; padding:8px 12px; border-radius:10px; background:var(--card); color:var(--ink-soft); font:calc(13px * var(--fs, 1))/1.4 var(--sans); max-width:520px; box-shadow:0 2px 8px rgba(0,0,0,.08);}
 .atlas2-mode[hidden]{display:none;}
 .atlas2-phone .atlas2-mode{bottom:calc(12px + env(safe-area-inset-bottom)); right:12px; left:12px;}
+
+/* ---------- Atlas v2, Phase 2a: the year rail, the historical place card (Oct 2026; docs/atlas-v2-design.md §2.4, §2.9) ---------- */
+/* The rail sits along the foot of the Atlas (the design: "along the bottom runs a year rail"); the status line, the caption, the
+   mode note and the perf overlay step up above it (--atlas2-rail-h), the card column stops it on the right, and on a phone the
+   card sheet sits above it. Its rectangle is one of the chrome rectangles the label layout keeps clear. */
+.atlas2{--atlas2-rail-h:52px;}
+.atlas2-rail{position:absolute; left:12px; right:12px; bottom:12px; z-index:4; display:flex; flex-direction:column; gap:4px; pointer-events:none;}
+.atlas2-rail-row{display:flex; align-items:center; gap:6px; padding:6px 8px; border-radius:12px; border:1px solid var(--rule); background:var(--card); box-shadow:var(--shadow-sm); pointer-events:auto;}
+.atlas2-rail-note{align-self:flex-start; margin:0; padding:5px 10px; border-radius:9px; background:var(--card); border:1px solid var(--rule); color:var(--ink-soft); font:calc(12.5px * var(--fs, 1))/1.4 var(--sans); pointer-events:auto;}
+.atlas2-rail-note[hidden]{display:none;}
+.atlas2-rail-btn{appearance:none; flex:none; width:36px; height:36px; border-radius:8px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); font:600 calc(16px * var(--fs, 1))/1 var(--sans); cursor:pointer; display:inline-flex; align-items:center; justify-content:center;}
+.atlas2-rail-btn:hover{background:var(--paper-2);}
+.atlas2-rail-play{font-size:calc(13px * var(--fs, 1));}
+.atlas2-rail-play[aria-pressed="true"]{background:var(--indigo-wash); border-color:var(--indigo);}
+.atlas2-rail-track{position:relative; flex:1 1 auto; height:30px; min-width:80px; cursor:pointer; touch-action:none;}
+.atlas2-rail-ticks{position:absolute; inset:0; width:100%; height:100%; display:block;}
+.atlas2-rail-pin{position:absolute; top:50%; left:0; width:14px; height:22px; margin:-11px 0 0 -7px; border-radius:7px; border:2px solid var(--indigo); background:var(--card); box-sizing:border-box; cursor:grab; outline:none;}
+.atlas2-rail-pin:focus-visible{box-shadow:0 0 0 3px var(--indigo-wash), 0 0 0 4px var(--indigo);}
+.atlas2-rail-pin.atlas2-rail-live{background:var(--indigo); cursor:grabbing;}
+.atlas2-rail-mag{position:absolute; bottom:calc(100% + 8px); left:0; transform:translateX(-50%); padding:4px 10px; border-radius:9px; border:1px solid var(--indigo); background:var(--card); color:var(--ink); font:700 calc(18px * var(--fs, 1))/1.2 var(--display); white-space:nowrap; pointer-events:none; box-shadow:var(--shadow-md);}
+.atlas2-rail-mag[hidden]{display:none;}
+.atlas2-rail-year{flex:none; width:7.5em; box-sizing:border-box; padding:5px 8px; border-radius:8px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); font:calc(13.5px * var(--fs, 1))/1.3 var(--mono); text-align:center;}
+.atlas2-rail-year:focus-visible{box-shadow:0 0 0 2px var(--indigo); outline:none;}
+.atlas2-rail-year.atlas2-rail-bad{border-color:var(--zh); color:var(--zh);}
+.atlas2-rail-speed{flex:none; appearance:auto; padding:4px 4px; border-radius:8px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); font:calc(12.5px * var(--fs, 1))/1.3 var(--sans);}
+.atlas2-status, .atlas2-mode{bottom:calc(12px + var(--atlas2-rail-h) + 8px);}
+.atlas2-caption, .atlas2-phone .atlas2-caption{bottom:calc(12px + var(--atlas2-rail-h) + 8px);}
+.atlas2-perf{bottom:calc(12px + var(--atlas2-rail-h) + 8px); max-height:calc(100% - 24px - var(--atlas2-rail-h) - 8px);}
+.atlas2-has-card .atlas2-rail{right:calc(min(380px, calc(100% - 24px)) + 24px);}
+.atlas2-phone .atlas2-rail{left:max(12px, env(safe-area-inset-left)); right:max(12px, env(safe-area-inset-right)); bottom:calc(12px + env(safe-area-inset-bottom));}
+.atlas2-phone .atlas2-rail-row{gap:4px; padding:5px 6px; flex-wrap:wrap;}   /* two lines: ‹ track › above, then year · play · speed — one line squeezed the track to ~85 px at 390 and pushed the speed select off the edge */
+.atlas2-phone .atlas2-rail-track{flex:1 1 60%;}
+.atlas2-phone .atlas2-rail-year{flex:1 1 6.2em;}
+.atlas2-phone .atlas2-rail-btn{width:44px; height:44px;}   /* the phone target size (test-atlas-phone) */
+.atlas2-phone .atlas2-rail-track{height:40px;}
+.atlas2-phone .atlas2-rail-year{width:6.2em; min-height:40px;}
+.atlas2-phone .atlas2-rail-speed{min-height:40px;}
+.atlas2-phone{--atlas2-rail-h:104px;}   /* 5 + 44 + 4 + 44 + 5 + the border */
+.atlas2-phone.atlas2-has-card .atlas2-rail{right:max(12px, env(safe-area-inset-right));}
+.atlas2-phone.atlas2-has-card .atlas2-card{z-index:5;}
+.atlas2-phone .atlas2-help{bottom:calc(60px + var(--atlas2-rail-h) + env(safe-area-inset-bottom));}
+.atlas2-phone .atlas2-mode{bottom:calc(12px + var(--atlas2-rail-h) + 8px + env(safe-area-inset-bottom));}
+/* the historical place card */
+.atlas2-steps{position:relative; height:18px; margin:4px 0 6px; border-radius:4px; background:var(--paper-2);}
+.atlas2-step{position:absolute; top:3px; height:12px; appearance:none; border:0; padding:0; border-radius:2px; background:var(--ink-faint); cursor:pointer; min-width:2px;}
+.atlas2-step:hover, .atlas2-step:focus-visible{background:var(--indigo-bright); outline:none;}
+.atlas2-step-now{background:var(--indigo);}
+.atlas2-step-pin{position:absolute; top:-2px; width:2px; height:22px; margin-left:-1px; background:var(--zh);}
+.atlas2-card-steps-note, .atlas2-card-uncert, .atlas2-card-gaps{margin:0 0 8px; color:var(--ink-soft); font:calc(13px * var(--fs, 1))/1.45 var(--sans);}
+.atlas2-card-uncert{color:var(--ink);}
+.atlas2-card-also{color:var(--ink-quiet);}
 
 /* ---------- Atlas v2, Phase 1d: reduced motion and forced colours ---------- */
 /* under reduced motion nothing in the Atlas transitions or animates (the site's own colour transitions included): a sheet appears, a bar jumps, the globe lands */
@@ -10696,6 +10758,8 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 @media (forced-colors:active){
   .atlas2-canvas:focus-visible{outline:3px solid Highlight; outline-offset:-3px; box-shadow:none;}
   .atlas2-btn, .atlas2-sheet, .atlas2-card, .atlas2-search-in, .atlas2-results, .atlas2-stack, .atlas2-status, .atlas2-caption, .atlas2-mode{border:1px solid CanvasText; box-shadow:none; background:Canvas; color:CanvasText;}
+  .atlas2-rail-row, .atlas2-rail-btn, .atlas2-rail-year, .atlas2-rail-mag, .atlas2-rail-note, .atlas2-rail-pin{border:1px solid CanvasText; box-shadow:none; background:Canvas; color:CanvasText;}
+  .atlas2-rail-pin:focus-visible{outline:3px solid Highlight;}
   .atlas2-btn[aria-pressed="true"]{background:Highlight; color:HighlightText;}
   .atlas2-results li.active, .atlas2-results li:hover{background:Highlight; color:HighlightText;}
   .atlas2-search-in:focus-visible, .atlas2-btn:focus-visible, .atlas2-link:focus-visible, .atlas2-sheet-close:focus-visible, .atlas2-card-close:focus-visible, .atlas2-grip:focus-visible, .atlas2-card-title:focus-visible{outline:2px solid Highlight; outline-offset:2px; box-shadow:none;}
@@ -10726,8 +10790,8 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-phone .atlas2-stack{min-height:44px;}
 .atlas2-phone .atlas2-status, .atlas2-phone .atlas2-caption{left:max(12px, env(safe-area-inset-left)); bottom:calc(12px + env(safe-area-inset-bottom)); right:auto; max-width:calc(100% - 80px);}
 .atlas2-phone .atlas2-mode{bottom:calc(64px + env(safe-area-inset-bottom)); left:max(12px, env(safe-area-inset-left)); right:max(12px, env(safe-area-inset-right));}
-.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 140px)); padding-bottom:env(safe-area-inset-bottom);}
-.atlas2-phone .atlas2-sheet, .atlas2-phone .atlas2-about{max-height:min(70vh, calc(100% - 140px)); padding-bottom:calc(12px + env(safe-area-inset-bottom));}
+.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 140px - var(--atlas2-rail-h, 62px) - 12px)); padding-bottom:env(safe-area-inset-bottom);}   /* Phase 2a: the rail below the card takes its share */
+.atlas2-phone .atlas2-sheet, .atlas2-phone .atlas2-about{max-height:42vh;   /* Phase 2a: well under half the screen, so the map above an open sheet keeps its labels (min() with a percentage resolved against the wrong box) */ padding-bottom:calc(12px + env(safe-area-inset-bottom));}
 .atlas2-phone.atlas2-has-card .atlas2-layers, .atlas2-phone.atlas2-has-card .atlas2-help, .atlas2-phone.atlas2-has-card .atlas2-caption{display:none;}
 
 /* the two sheets open to the LEFT of the right-hand chip column on a desktop, never over it (Phase 1d, the phone audit found
@@ -10739,12 +10803,13 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
    max-height:calc(100% - 24px) against a 34 px container and showed the About sheet as a one-line strip): --atlas2-h is the
    Atlas's own height, set by atlas.js on every layout */
 .atlas2-layers .atlas2-sheet{max-height:calc(var(--atlas2-h, 100vh) - 150px);}
-.atlas2-help .atlas2-about{max-height:calc(var(--atlas2-h, 100vh) - 192px);}
+.atlas2-help .atlas2-about{max-height:calc(var(--atlas2-h, 100vh) - 192px - var(--atlas2-rail-h, 52px) - 12px);}   /* Phase 2a: the rail's height too, so the sheet never runs under it */
 .atlas2-layers, .atlas2-help{max-height:none;}
 .atlas2-phone .atlas2-layers .atlas2-sheet, .atlas2-phone .atlas2-help .atlas2-about{position:fixed; right:0; top:auto;}
+.atlas2-phone .atlas2-layers .atlas2-sheet, .atlas2-phone .atlas2-help .atlas2-about{max-height:42vh;}   /* Phase 2a: well under half the screen on a phone, so the map above an open sheet keeps its labels */
 .atlas2-phone.atlas2-sheet-open .atlas2-zoom, .atlas2-phone.atlas2-sheet-open .atlas2-layers-btn, .atlas2-phone.atlas2-sheet-open .atlas2-about-btn, .atlas2-phone.atlas2-sheet-open .atlas2-caption, .atlas2-phone.atlas2-sheet-open .atlas2-stack{display:none;}
 /* the expanded card sheet stops short of the zoom stack (three 44 px buttons from the top on a phone) */
-.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 184px));}
+.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 184px - var(--atlas2-rail-h, 62px) - 12px));}
 /* a phone on its side (the 844×390 audit): the atlas is under 300 px tall and the rule above left the up sheet 96 px — a title
    and no body. There the up sheet takes the height below the search box and the zoom stack steps out from under it */
 @media (orientation: landscape) and (max-height: 500px){
