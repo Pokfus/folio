@@ -221,7 +221,7 @@ Source: Lecture 3, including Kathryne Bomberger's guest lecture for the Internat
   gga-061  Rodrik's trilemma — hyper-globalisation, national sovereignty, democracy: choose two · (s24,25)
   gga-062  America First — national sovereignty and democracy; limits on globalisation · (s25)
   gga-063  Washington Consensus — national sovereignty and globalisation; limits on democracy · (s25)
-  gga-064  Ever closer union — globalisation and democracy; limits on national sovereignty · (s25)
+  gga-064  Ever closer European Union — globalisation and democracy; limits on national sovereignty · (s25)
   gga-065  Policy space — the African objection in the EPA talks · (s24)
   gga-066  Economic Partnership Agreements — (s24)
   gga-067  Race to the bottom — why markets want rules at the global level · (s24)

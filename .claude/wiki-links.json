@@ -1,16 +1,16 @@
 {
- "generated": "2026-10-10T15:04Z",
+ "generated": "2026-10-10T15:11Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4567,
-  "redirect-broader": 396,
+  "ok": 4571,
+  "redirect-broader": 397,
   "redirect-variant": 299,
   "section-redirect": 93,
   "disambiguation": 127,
-  "none": 612,
+  "none": 615,
   "disambig-resolved": 70,
   "list-page": 6,
-  "search-match": 5,
+  "search-match": 6,
   "no-article": 4
  },
  "cards": {
@@ -49252,6 +49252,92 @@
     "International sanctions during the Russo-Ukrainian war",
     "United States sanctions against Iran"
    ]
+  },
+  "gga-057": {
+   "answer": "Wandel durch Annäherung",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Wandel durch Handel",
+    "Egon Bahr",
+    "Ostpolitik",
+    "Evangelische Akademie Tutzing",
+    "Bulthaup"
+   ]
+  },
+  "gga-058": {
+   "answer": "Dollar clearing system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Clearing (finance)",
+    "Clearing House Interbank Payments System",
+    "Clearing House Automated Transfer System",
+    "The Clearing House",
+    "China National Clearing Center"
+   ]
+  },
+  "gga-059": {
+   "answer": "SWIFT",
+   "title": "SWIFT",
+   "url": "https://en.wikipedia.org/wiki/SWIFT",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-060": {
+   "answer": "ASML",
+   "title": "ASML",
+   "url": "https://en.wikipedia.org/wiki/ASML",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-061": {
+   "answer": "Rodrik's trilemma",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-062": {
+   "answer": "America First",
+   "title": "America First",
+   "url": "https://en.wikipedia.org/wiki/America_First",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-063": {
+   "answer": "Washington Consensus",
+   "title": "Washington Consensus",
+   "url": "https://en.wikipedia.org/wiki/Washington_Consensus",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-064": {
+   "answer": "Ever closer European Union",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "European Union",
+    "Canada–European Union relations",
+    "2015–2016 United Kingdom renegotiation of European Union membership",
+    "Brexit",
+    "Accession of Armenia to the European Union"
+   ]
+  },
+  "gga-065": {
+   "answer": "Policy space",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
   }
  }
 }
