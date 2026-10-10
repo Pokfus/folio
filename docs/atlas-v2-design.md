@@ -2161,7 +2161,10 @@ them now (`test-atlas-perf.js`, `RELIEF_FACTOR`, `RELEASE_MS`, `HEAP_RATIO`):
 - **Heap**: v2's JS heap after its gestures, read after a forced collection, is at most 50 % of v1's in the same run; the
   absolute value is reported. The absolute 48 MB ceiling is gone.
 - **Unchanged**: v2's pooled p90 at most 40 % of v1's for drag, wheel and pinch; the drag's worst frame at most 100 ms
-  with the millisecond of slack; the primitive budgets per fixed view.
+  with the millisecond of slack; the primitive budgets per fixed view. *(Restated twice since: Phase 2a task 0c allowed at
+  most two frames over 100 ms across the repeats and none over 200; Phase 3a task 0b, 2026-10-10, reads it as at most 0.5 %
+  of a gesture's frames over 100 ms and none over 200 ms, for the drag and for the pinch's during-gesture frames — a share
+  scales with the sample where a count did not. Nothing else loosened; `WORST_SHARE` in `test-atlas-perf.js`.)*
 
 **One renderer change the rules asked for: adaptive degradation during a gesture, in two sticky stages.** Measured on
 the session's runner (software GL), the gesture frames the 100 ms rule forbids had two causes, found by sampling the

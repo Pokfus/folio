@@ -337,8 +337,9 @@ jobs:
   # §7 Phase 1b–1d). The browser job above is red on main because of three suites that fail for reasons of
   # their own, and a red job is one nobody opens -- so the one suite whose verdict the owner asked to
   # read on every push runs here, alone, and speaks for itself in the job list. The rules since Phase 1d
-  # (2026-10-09): v2's pooled p90 at most 40 % of v1's for drag, wheel and pinch; the drag's worst frame at most
-  # 100 ms; the pinch's worst frame DURING the gesture at most 100 ms and its first full-screen frame after release
+  # (2026-10-09): v2's pooled p90 at most 40 % of v1's for drag, wheel and pinch; the drag's frames over 100 ms at
+  # most 0.5 % of the sample and none over 200 ms (Phase 3a, task 0b, 2026-10-10; "at most two frames" before);
+  # the same for the pinch's frames DURING the gesture, and its first full-screen frame after release
   # at most 300 ms, reported with that frame's primitive count; relief on, with the view's L1 patches warmed first,
   # at most 2.0 x relief off; the first-use cost of a patch reported, ungated; the JS heap at most 50 % of v1's in
   # the same run; the primitive budgets per fixed view. It needs only Chromium; it installs Playwright outside

@@ -11,7 +11,9 @@
 
      1. with relief OFF (rivers and lakes on, the defaults): v2's p95 frame interval is at most 40 % of
         v1's on the same run, for drag, wheel and pinch;
-     2. the worst frame during drag and pinch, relief off, is at most 100 ms;
+     2. the worst frame during drag and pinch, relief off, is at most 100 ms — read since Phase 3a (task 0b) as:
+        at most 0.5 % of the gesture's frames across the repeats over 100 ms, and none over 200 ms (WORST_SHARE,
+        WORST_CAP_MS; the Phase 2a count of "at most two frames" is gone);
      3. a deterministic primitive budget: `__atlas2.statsNow()` reports the triangles and line
         segments the renderer drew in the last frame — land, rivers, lake shores, lake fills — and
         four fixed views must stay under the budgets below — the globe, Europe, the Aegean, and the
@@ -80,8 +82,8 @@ const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = Object.assign(process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {}, { args: ["--js-flags=--expose-gc"] });   // the heap is read after a forced collection: what is live, not what the collector has not got to
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream" };
 const RATIO = 0.40;             // v2 p95 ≤ 40 % of v1 p95
-const WORST_MS = 100;           // worst frame during drag and pinch, relief off (Phase 2a, task 0c: at most WORST_OVER frames over it across the repeats, none over WORST_CAP_MS)
-const WORST_OVER = 2;           // the owner's worst-frame rule (2026-10-09, Phase 2a): across the three drag repeats (about 1,200 frames) at most two frames over WORST_MS and none over WORST_CAP_MS; the same for the pinch's during-gesture frames
+const WORST_MS = 100;           // worst frame during drag and pinch, relief off (Phase 2a, task 0c; restated in Phase 3a, task 0b: at most WORST_SHARE of the gesture frames over it across the repeats, none over WORST_CAP_MS)
+const WORST_SHARE = 0.005;      // the owner's worst-frame rule (2026-10-10, Phase 3a): across the repeats at most 0.5 % of a gesture's frames over WORST_MS and none over WORST_CAP_MS; the same for the pinch's during-gesture frames. It replaced "at most 2 frames" (Phase 2a), which on the two-core CI runner read 4 of 1,177 (0.34 %) and failed a renderer that was not slower; the share scales with the sample, a count did not. Nothing else loosened.
 const WORST_CAP_MS = 200;
 const RELIEF_FACTOR = 2.0;      // relief on: v2 pooled p90 ≤ this × v2's own relief-off pooled p90, patches warmed first (Phase 1d; 1.5 before, with the fetch inside the gesture)
 const RELIEF_VS_V1 = false;     // true = the owner's literal gate instead: v2 relief-on p95 ≤ RATIO × v1-with-heightmap p95
@@ -413,7 +415,8 @@ async function fixedViews(page, cx, cy) {
 
   let fails = 0;
   const check = (name, ok, detail) => { console.log(`  ${ok ? "\x1b[32mok\x1b[0m  " : "\x1b[31mFAIL\x1b[0m"}  ${name}${detail ? "  \x1b[2m" + detail + "\x1b[0m" : ""}`); if (!ok) fails++; };
-  console.log(`\nThe gate (owner's redefinition 2026-10-08, extended for Phase 1b, sampled over ${REPEATS} repeats since Phase 1c, the Phase 1d rules of 2026-10-09): relief off — v2 pooled p90 ≤ ${RATIO * 100} % of v1's for drag, wheel, pinch; the drag's worst frame of any repeat ≤ ${WORST_MS} ms; the pinch's worst frame DURING the gesture ≤ ${WORST_MS} ms and its first frame after release ≤ ${RELEASE_MS} ms; primitive budgets per view; relief on, patches warmed — ${RELIEF_VS_V1 ? "v2 pooled p90 ≤ " + RATIO * 100 + " % of v1's with its heightmap on" : "v2 pooled p90 ≤ " + RELIEF_FACTOR + " × its own relief-off pooled p90 (the v1 heightmap ratio is printed; see the header)"}; heap ≤ ${HEAP_RATIO * 100} % of v1's\n`);
+  const pctS = (x) => (100 * x).toFixed(2) + " %";
+  console.log(`\nThe gate (owner's redefinition 2026-10-08, extended for Phase 1b, sampled over ${REPEATS} repeats since Phase 1c, the Phase 1d rules of 2026-10-09): relief off — v2 pooled p90 ≤ ${RATIO * 100} % of v1's for drag, wheel, pinch; the drag's frames over ${WORST_MS} ms at most ${pctS(WORST_SHARE)} of the sample and none over ${WORST_CAP_MS}; the same for the pinch's frames DURING the gesture, and its first frame after release ≤ ${RELEASE_MS} ms; primitive budgets per view; relief on, patches warmed — ${RELIEF_VS_V1 ? "v2 pooled p90 ≤ " + RATIO * 100 + " % of v1's with its heightmap on" : "v2 pooled p90 ≤ " + RELIEF_FACTOR + " × its own relief-off pooled p90 (the v1 heightmap ratio is printed; see the header)"}; heap ≤ ${HEAP_RATIO * 100} % of v1's\n`);
   for (const g of ["drag", "wheel", "pinch"]) {
     const a = results.v1[g], b = results.v2[g];
     check(`${g}: v2 pooled p90 ≤ ${RATIO * 100} % of v1 pooled p90`, b.p90 <= a.p90 * RATIO, `v2 ${b.p90.toFixed(1)} ms vs v1 ${a.p90.toFixed(1)} ms (${(100 * b.p90 / a.p90).toFixed(0)} %); per-repeat p95 medians v2 ${b.p95med.toFixed(1)} / v1 ${a.p95med.toFixed(1)}`);
@@ -421,13 +424,15 @@ async function fixedViews(page, cx, cy) {
   // rAF timestamps come in multiples of the 60 Hz refresh, 16.68 ms: a six-refresh frame reads 100.0 or
   // 100.1 depending on jitter, and "100 ms" means six refreshes, so a millisecond of timestamp slack is
   // allowed — a seven-refresh frame (116.7) still fails
-  // THE WORST-FRAME RULE (owner-approved, Phase 2a task 0c): across the repeats at most WORST_OVER frames over WORST_MS and none over
-  // WORST_CAP_MS — a collector's pause on a one-core runner is one frame in 1,263, not a renderer regression
+  // THE WORST-FRAME RULE (owner-approved, Phase 2a task 0c; restated Phase 3a task 0b): across the repeats at most WORST_SHARE of a
+  // gesture's frames over WORST_MS and none over WORST_CAP_MS — a collector's pause on a one-core runner is one frame in 1,263, not a
+  // renderer regression, and a share scales with the sample where the old count of two did not
   const overCount = (raw) => raw.filter((x) => x > WORST_MS + 1).length;
+  const overShare = (raw) => (raw.length ? overCount(raw) / raw.length : 0);
   { const d = results.v2.drag;
-    check(`drag: across ${REPEATS} repeats (${d.n} frames) at most ${WORST_OVER} frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms (relief off)`, overCount(d.raw) <= WORST_OVER && d.max <= WORST_CAP_MS + 1, `${overCount(d.raw)} over ${WORST_MS}, worst ${d.max.toFixed(1)} ms (per repeat ${d.runs.map((s) => s.max.toFixed(1)).join(" / ")})`); }
+    check(`drag: across ${REPEATS} repeats (${d.n} frames) at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms (relief off)`, overShare(d.raw) <= WORST_SHARE && d.max <= WORST_CAP_MS + 1, `${overCount(d.raw)} over ${WORST_MS} (${pctS(overShare(d.raw))}), worst ${d.max.toFixed(1)} ms (per repeat ${d.runs.map((s) => s.max.toFixed(1)).join(" / ")})`); }
   { const p = results.v2.pinch, w = p.releaseWorst;
-    check(`pinch: DURING the gesture, across ${REPEATS} repeats at most ${WORST_OVER} frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms (relief off)`, !!p.during && overCount(p.during.raw) <= WORST_OVER && p.during.max <= WORST_CAP_MS + 1, p.during ? `${overCount(p.during.raw)} over ${WORST_MS}, worst ${p.during.max.toFixed(1)} ms over ${p.during.n} frames (per repeat ${p.runs.map((s) => s.during ? s.during.max.toFixed(1) : "?").join(" / ")})` : "no marks recorded");
+    check(`pinch: DURING the gesture, across ${REPEATS} repeats at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms (relief off)`, !!p.during && overShare(p.during.raw) <= WORST_SHARE && p.during.max <= WORST_CAP_MS + 1, p.during ? `${overCount(p.during.raw)} over ${WORST_MS} (${pctS(overShare(p.during.raw))}), worst ${p.during.max.toFixed(1)} ms over ${p.during.n} frames (per repeat ${p.runs.map((s) => s.during ? s.during.max.toFixed(1) : "?").join(" / ")})` : "no marks recorded");
     check(`pinch: v2 first full-screen frame after release ≤ ${RELEASE_MS} ms (relief off)`, !!w && w.max <= RELEASE_MS + 1, w ? `${w.max.toFixed(1)} ms (${p.release.map((x) => x.max.toFixed(1)).join(" / ")})${w.stats ? ` — that frame: LOD ${w.stats.level}, ${w.stats.triangles} triangles + ${w.stats.segments} segments, ${w.stats.lakeTriangles} lake triangles, ${w.stats.draws} draw calls` : ""}` : "no release frame recorded"); }
   for (const { V, still, settled } of views) {
     check(`${V.name}: tiles, water and relief settled`, settled, `${still.tilesDrawn} drawn, ${still.pending} pending, water ${still.waterTilesDrawn}/${still.waterWanted}`);
