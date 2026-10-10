@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4562 | the title is the article |
+| `ok` | 4564 | the title is the article |
 | `redirect-variant` | 299 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 69 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 92 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 595 | nothing matched; no link |
+| `none` | 598 | nothing matched; no link |
 
-**5329 of 6152 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5331 of 6158 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -118,9 +118,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `fl-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
 - `geo-517` **St. Paul** → [Paul the Apostle](https://en.wikipedia.org/wiki/Paul_the_Apostle) (from `St. Paul`)
 - `gga-018` **GPS spoofing** → [GNSS spoofing](https://en.wikipedia.org/wiki/GNSS_spoofing) (from `GPS spoofing`)
+- `gga-030` **Traditional peacekeeping** → [Peacekeeping](https://en.wikipedia.org/wiki/Peacekeeping) (from `Traditional peacekeeping`)
 - `gga-037` **MINUSMA** → [United Nations Multidimensional Integrated Stabilization Mission in Mali](https://en.wikipedia.org/wiki/United_Nations_Multidimensional_Integrated_Stabilization_Mission_in_Mali) (from `MINUSMA`)
 - `gga-048` **Brahimi Report** → [Report of the Panel on United Nations Peace Operations](https://en.wikipedia.org/wiki/Report_of_the_Panel_on_United_Nations_Peace_Operations) (from `Brahimi Report`)
-- `gga-052` **Protection of civilians** → [Human rights](https://en.wikipedia.org/wiki/Human_rights) (from `Protection of civilians`)
 - `gr-001` **Aegean Bronze Age** → [Aegean civilization](https://en.wikipedia.org/wiki/Aegean_civilization) (from `Aegean Bronze Age`)
 - `gr-002` **Cycladic civilisation** → [Cycladic culture](https://en.wikipedia.org/wiki/Cycladic_culture) (from `Cycladic civilisation`)
 - `gr-003` **Cycladic figurines** → [Cycladic art](https://en.wikipedia.org/wiki/Cycladic_art) (from `Cycladic figurines`)
@@ -763,7 +763,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (595)
+## No article found (598)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -925,6 +925,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-026` **Explosion of connectivity** — search suggests `2007 New York City steam explosion`, `Paraconsistent logic`, `2026 Internet blackout in Iran`, `2026 Iran war`, `List of Amazon Leo launches`
 - `gga-027` **States acting like nonstate actors** — search suggests `Anti-corruption`, `Battle of Mogadishu (1993)`, `Corruption`, `War on drugs`, `Somali National Alliance`
 - `gga-028` **Mutually hurting stalemate** — search suggests `Mutually assured destruction`, `Conflict resolution`, `Peacebuilding`, `2026 Iran war`, `India–Pakistan war of 1965`
+- `gga-031` **Holy trinity of peacekeeping** — search suggests `Andrew Parker Bowles`, `Orders, decorations, and medals of Ethiopia`, `Religious war`, `Three-finger salute (Serbian)`, `Crusades against Christians`
+- `gga-034` **Generations of peacekeeping** — search suggests `United Nations peacekeeping`, `Generations of warfare`, `United Nations`, `Canadian Armed Forces`, `Egyptian Peacekeeping Forces`
+- `gga-035` **Stabilisation missions** — search suggests `United Nations Stabilisation Mission in Haiti`, `United Nations Multidimensional Integrated Stabilization Mission in Mali`, `United Nations Mission for Justice Support in Haiti`, `List of United Nations peacekeeping missions`, `Canadian peacekeeping`
 - `gga-036` **Resolution 2085** — search suggests `Stepanakert`, `United Nations Security Council Resolution 2085`, `Azerbaijan`, `Council of Europe Parliamentary Assembly Resolution 2085 (2016)`, `Mikhail Gorbachev`
 - `gga-043` **Christmas tree mandates** — search suggests `Christmas tree cultivation`, `Observance of Christmas by country`, `Christmas Tree Promotion, Research, and Information Order`, `A Charlie Brown Christmas`, `A Very Harold & Kumar 3D Christmas`
 - `gga-044` **UNPROFOR, UNOSOM and UNAMIR** — search suggests `Canadian peacekeeping`, `United Nations peacekeeping`, `Pakistan Army Medical Corps`, `Awards and decorations of the Irish Defence Forces`, `United Nations Medal`
