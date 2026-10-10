@@ -510,6 +510,10 @@ for (const c of cards) {
   // 1
   const modern = {}, ancient = {};
   for (const s of srcs) {
+    // a lecture's own slides (`[Course material]`, Oct 2026) are the course itself, not an independent source:
+    // the diversity rule is about how many witnesses a card rests on, and slides by the lecturer who also wrote
+    // two of the readings would otherwise count her three times
+    if (/\[Course material\]\s*$/.test(s)) continue;
     const a = authorOf(s), k = surnameKey(a);
     if (!k) continue;
     (ANCIENT.test(a) ? ancient : modern)[k] = ((ANCIENT.test(a) ? ancient : modern)[k] || 0) + 1;

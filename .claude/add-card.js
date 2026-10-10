@@ -64,6 +64,14 @@ const Q_MIN = 20, Q_MAX = 34;
    never checked here, which is how several cards reached 331–342 unremarked; the ceiling is easy to pass
    by a word or two while trimming for something else, and nothing else in the pipeline measures it. */
 const A_MIN = 270, A_MAX = 330;
+/* COURSE-ONLY CARDS (Oct 2026, on request — see src-target.js): a card whose id is `eep-` is built from the
+   course's own slides and readings and nothing else, so its background is as long as THAT MATERIAL supports
+   rather than padded to ten sentences with facts from outside it. It still ends every sentence on a marker
+   and still carries between 3 and 10 sentences in one or two blocks; only the 270-word floor and the strict
+   5+5 shape are lifted. A citation tagged `[Course material]` (a lecture's slides, which have no public
+   URL) is exempt from the must-end-in-a-link rule below. */
+const COURSE_ONLY = /^eep-/;
+const COURSE_A_MIN = 40, COURSE_SENTENCES = [3, 10];
 // Translations are checked loosely: Chinese/Japanese by character, the rest by word, both generous enough
 // that only a question that was never shortened trips them.
 const Q_TR_MAX_WORDS = 40, Q_TR_MAX_CHARS = 95;
@@ -659,10 +667,11 @@ if ("undatable" in card && typeof card.undatable !== "boolean") {
 }
 if (card.undatable === false) delete card.undatable;   // the absent state, written out rather than shipped as a field that says nothing
 
+const IS_COURSE = COURSE_ONLY.test(String(card.id || ""));
 const aWords = qWords(card.abstract);
-if (aWords < A_MIN || aWords > A_MAX) {
-  console.error("ERROR: the background is " + aWords + " words — it must be " + A_MIN + "–" + A_MAX +
-    " (aim for ~300, in two blocks of five sentences; see CLAUDE.md).");
+if (aWords < (IS_COURSE ? COURSE_A_MIN : A_MIN) || aWords > A_MAX) {
+  console.error("ERROR: the background is " + aWords + " words — it must be " + (IS_COURSE ? COURSE_A_MIN : A_MIN) + "–" + A_MAX +
+    (IS_COURSE ? " (a course-only card is as long as the course material supports, up to " + COURSE_SENTENCES[1] + " sentences)." : " (aim for ~300, in two blocks of five sentences; see CLAUDE.md)."));
   process.exit(1);
 }
 
@@ -679,7 +688,14 @@ if (aWords < A_MIN || aWords > A_MAX) {
    THE SPLITTER IS split-abstract.js's, not a second copy: it is the module the citation passes place
    markers by sentence index with, so a card this accepts is a card those can mark. */
 const SHAPE = require("./split-abstract.js").count(card.abstract);
-if (SHAPE.length !== 2 || SHAPE[0] !== 5 || SHAPE[1] !== 5) {
+const SHAPE_TOTAL = SHAPE.reduce((a, b) => a + b, 0);
+if (IS_COURSE) {
+  if (SHAPE.length < 1 || SHAPE.length > 2 || SHAPE_TOTAL < COURSE_SENTENCES[0] || SHAPE_TOTAL > COURSE_SENTENCES[1]) {
+    console.error("ERROR: a course-only background is " + COURSE_SENTENCES[0] + "–" + COURSE_SENTENCES[1] + " sentences in one or two blocks " +
+      "(separated by ` <br><br> `); this one splits " + JSON.stringify(SHAPE) + ". If the prose really is in range, look for a sentence ending in a lone capital letter.");
+    process.exit(1);
+  }
+} else if (SHAPE.length !== 2 || SHAPE[0] !== 5 || SHAPE[1] !== 5) {
   console.error("ERROR: the background splits " + JSON.stringify(SHAPE) + " — it must be exactly ten " +
     "sentences in two blocks of five, separated by ` <br><br> ` (see CLAUDE.md).");
   console.error("       If the prose really is 5+5, look for a sentence ending in a lone capital " +
@@ -717,13 +733,14 @@ if (!card.skipSources) {
   // warns instead), because raising it may be genuinely impossible; a card being written now is not in
   // that position — if five qualifying sources cannot be found for it, its ten sentences are not ready.
   if (src.length < srcTargetFor(card)) { console.error("ERROR: card has " + src.length + " source(s) — a new card at difficulty " + card.difficulty + " carries at least " + srcTargetFor(card) + " (the bar is tiered: 1 → 9, 2 → 8, 3 → 7, 4 → 6, 5 → 5; SRC_TARGET_BY_DIFFICULTY in app.js). Ten sentences making ten claims are not honestly covered by fewer."); process.exit(1); }
-  const openN = src.filter(s => /\[Open access\]/.test(s)).length;
+  const openN = src.filter(s => /\[Open access\]/.test(s) || (IS_COURSE && /\[Course material\]\s*$/.test(s))).length;
   if (openN <= src.length / 2) console.warn("WARNING: only " + openN + " of this card's " + src.length + " sources are labelled [Open access]. The majority of any card's list must be open — a paywalled work earns its place only as the landmark a claim is actually built on.");
   /* A LANGUAGE MARKER MUST BE ONE app.js CAN DRAW (Sep 2026). A non-English citation ends in `[in
      French]`, lifted into a chip beside the access one; a typo is not an error anywhere, it is a chip
      that never appears, which nothing on the page can report. The list is SLICED out of app.js. */
   src.forEach((s) => { const bad = checkCitationLang(s); if (bad) { console.error("ERROR: a citation " + bad); process.exit(1); } });
-  const unlinked = src.filter(s => !SRC_URL.test(s));
+  // a course-only card may cite its lecture's slides, which have no public address, tagged `[Course material]`
+  const unlinked = src.filter(s => !SRC_URL.test(s) && !(IS_COURSE && /\[Course material\]\s*$/.test(s)));
   if (unlinked.length) {
     console.error("ERROR: every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none.\n" +
       "       Cite something publicly reachable and put its DOI or permalink last, as Chicago prints it:\n" +
