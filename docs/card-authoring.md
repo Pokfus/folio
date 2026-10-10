@@ -79,6 +79,7 @@ exists).
 | `why` | 3 "think it through" questions with answers — see **Why** |
 | `undatable` | `true` or `false` — see **Undatable** (required in some cases) |
 | `locator` | optional — see **Locator** |
+| `places` | optional — see **Places**; normally derived, not written |
 | `notes` | optional — a list of strings: anything you were unsure of or left out |
 | `traditional`, `hanzi`, `pinyin`, `translations`, `citation` | always `""` (except Chinese terms: `hanzi`/`traditional`/`pinyin` may be filled; `translations` stays `""`) |
 
@@ -218,6 +219,35 @@ importer fetches the real coordinates, so **never write coordinates**:
 - For a battle add `"kind": "battle"`; for a river `"kind": "river"`. Leave regions and ranges out
   (they need hand-drawn shapes).
 - A concept, a technique or a word gets no locator.
+
+### Places (optional)
+
+`places` is the Atlas v2 field (Phase 3a): a sorted list of ids into the **places registry** — the gazetteer
+(`atlas/data/gazetteer.js`: `adm0:…` countries, `adm1:…` provinces, `city:…`, `sea:…`, `lake:…`, `river:…`,
+`reg:…`), the places the cards need beyond it (`atlas/data/places.js`: `pl:q<Wikidata number>` — ancient
+cities and sites, caves, battlefields, mountains, historical regions) and the polity entities of the history
+file (`pol:<key>`: Rome, the Ottoman Empire…). It is a heavy field (data-extra/) and nothing reads it until
+Phase 3b, when the Personal Atlas is derived from it by id instead of by name-matching.
+
+**Do not write it in a batch.** It is DERIVED from the card's `locator`, `war` and `map` by
+`node .claude/migrate-places.js` (additive, idempotent, Wikidata-checked; its report is
+`docs/atlas-places-report.md`), and corrected per card with the tool:
+
+```
+node .claude/add-places.js --find "Knossos"              # which ids exist for a name
+node .claude/add-places.js gr-008 pl:q173527             # add a place to a card
+node .claude/add-places.js gr-008 -pl:q173527            # remove one (a derived place cannot be removed)
+node .claude/add-places.js gr-008 --list
+```
+
+A place the registry lacks is added first, by its Wikidata item, with a reason — the coordinate and the kind
+come from the service, never from a keyboard:
+
+```
+node .claude/atlas-build/add-place.js --qid Q121378 --kind island --reason "Corfu: gr-612's temple is on it"
+```
+
+An id that resolves to nothing fails `check-cards.js` (rule 9) and `migrate-places.js --check` in CI.
 
 ---
 

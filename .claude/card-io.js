@@ -54,7 +54,7 @@ const EXTRA_DIR = path.join(ROOT, "data-extra");
    — the two are compared by .claude/split-cards.js --check, which fails if they
    have drifted, because a field app.js expects lazily and the splitter leaves
    eager is a field that silently doubles. */
-const EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions"];
+const EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions", "places"];   // `places` (Atlas v2 Phase 3a): the registry ids a card points at — heavy because nothing on the eager path reads it yet (3b derives the Personal Atlas in the worker from it); written only by migrate-places.js and add-places.js
 
 /* An artwork card's picture is its question, so it never moves. */
 const keepsImage = (c) => !!c.artwork;
@@ -243,7 +243,7 @@ try {
     const body =
       "/* The heavy half of the " + p + " cards — GENERATED, never hand-edited.\n" +
       " *\n" +
-      " * abstract / sources / why / quote / wiki / image, for the cards whose ids begin `" + p + "-`. None of it is\n" +
+      " * abstract / sources / why / quote / wiki / image / places, for the cards whose ids begin `" + p + "-`. None of it is\n" +
       " * read until a reader REVEALS a card in this collection, so it is fetched then (bundle\n" +
       " * `cardExtra:" + p + "`) rather than downloaded by every visitor before they can flip one.\n" +
       " *\n" +

@@ -145,6 +145,18 @@ jobs:
       # share-alike (ODbL) file is missing from the statement — a stale credits page is a licence problem nobody sees.
       - name: check-credits (Atlas v2, the Sources and credits page)
         run: node .claude/atlas-build/check-credits.js
+      # THE PLACES REGISTRY AND THE CARDS' `places` FIELD (Oct 2026, Atlas v2 Phase 3a; docs/atlas-v2-design.md §2.8, §7
+      # "Phase 3a — as built"). check-places.js proves atlas/data/places.js against its spec and the Wikidata cache (every row's
+      # item, coordinate and classes — offline); migrate-places.js --check proves every id in every card's places resolves,
+      # that no card lost an id the migration derives from its own locator / war / map, and that every polity's linked cards
+      # carry the polity; test-places.js is the Node-only suite over the registry, the resolver and the tooling. None needs
+      # the network: the cache is committed.
+      - name: check-places (Atlas v2, the Phase 3 places file)
+        run: node .claude/atlas-build/check-places.js
+      - name: migrate-places --check (every card's places resolve, nothing derived lost)
+        run: node .claude/migrate-places.js --check
+      - name: test-places
+        run: node .claude/test-places.js
       # THE STEP TOPOLOGY IS A GENERATED FILE WITH THE SAME SILENT FAILURES (Oct 2026, Phase 2a; docs/atlas-v2-design.md §2.3 "The step
       # topology file", §2.4, §7 "Phase 2a — as built"). check-history.js reads atlas/data/history.bin and the core beside it and proves:
       # the buildId is the committed core's, every core reference exists with the core arc's kind, every step lies inside its entity's

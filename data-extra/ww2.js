@@ -1,6 +1,6 @@
 /* The heavy half of the ww2 cards — GENERATED, never hand-edited.
  *
- * abstract / sources / why / quote / wiki / image, for the cards whose ids begin `ww2-`. None of it is
+ * abstract / sources / why / quote / wiki / image / places, for the cards whose ids begin `ww2-`. None of it is
  * read until a reader REVEALS a card in this collection, so it is fetched then (bundle
  * `cardExtra:ww2`) rather than downloaded by every visitor before they can flip one.
  *

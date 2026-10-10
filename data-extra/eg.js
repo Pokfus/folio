@@ -1,6 +1,6 @@
 /* The heavy half of the eg cards — GENERATED, never hand-edited.
  *
- * abstract / sources / why / quote / wiki / image, for the cards whose ids begin `eg-`. None of it is
+ * abstract / sources / why / quote / wiki / image / places, for the cards whose ids begin `eg-`. None of it is
  * read until a reader REVEALS a card in this collection, so it is fetched then (bundle
  * `cardExtra:eg`) rather than downloaded by every visitor before they can flip one.
  *
