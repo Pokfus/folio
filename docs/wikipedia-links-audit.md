@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4556 | the title is the article |
+| `ok` | 4558 | the title is the article |
 | `redirect-variant` | 299 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 69 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 92 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 588 | nothing matched; no link |
+| `none` | 591 | nothing matched; no link |
 
-**5321 of 6137 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5323 of 6142 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -761,7 +761,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (588)
+## No article found (591)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -918,6 +918,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-078` **jar sealing** — search suggests `Early Dynastic Period of Egypt`, `Narmer`, `Egypt–Mesopotamia relations`, `Mausoleum at Halicarnassus`, `Baghdad Battery`
 - `eg-080` **Egyptian stone vessels** — search suggests `Stone vessels in ancient Egypt`, `First Dynasty of Egypt`, `Egyptian faience`, `Prehistoric Egypt`, `Ancient Egyptian technology`
 - `eg-113` **Heit el-Ghurab** — search suggests `Fourth Dynasty of Egypt`, `Memphite Necropolis`, `Great Pyramid of Giza`, `List of Egyptian pyramidia`, `Kanefer`
+- `gga-026` **Explosion of connectivity** — search suggests `2007 New York City steam explosion`, `Paraconsistent logic`, `2026 Internet blackout in Iran`, `2026 Iran war`, `List of Amazon Leo launches`
+- `gga-027` **States acting like nonstate actors** — search suggests `Anti-corruption`, `Battle of Mogadishu (1993)`, `Corruption`, `War on drugs`, `Somali National Alliance`
+- `gga-028` **Mutually hurting stalemate** — search suggests `Mutually assured destruction`, `Conflict resolution`, `Peacebuilding`, `2026 Iran war`, `India–Pakistan war of 1965`
 - `gga-036` **Resolution 2085** — search suggests `Stepanakert`, `United Nations Security Council Resolution 2085`, `Azerbaijan`, `Council of Europe Parliamentary Assembly Resolution 2085 (2016)`, `Mikhail Gorbachev`
 - `gga-043` **Christmas tree mandates** — search suggests `Christmas tree cultivation`, `Observance of Christmas by country`, `Christmas Tree Promotion, Research, and Information Order`, `A Charlie Brown Christmas`, `A Very Harold & Kumar 3D Christmas`
 - `gga-044` **UNPROFOR, UNOSOM and UNAMIR** — search suggests `Canadian peacekeeping`, `United Nations peacekeeping`, `Pakistan Army Medical Corps`, `Awards and decorations of the Irish Defence Forces`, `United Nations Medal`

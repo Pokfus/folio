@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-10T14:16Z",
+ "generated": "2026-10-10T14:18Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4556,
+  "ok": 4558,
   "redirect-broader": 392,
   "redirect-variant": 299,
   "section-redirect": 92,
   "disambiguation": 127,
-  "none": 588,
+  "none": 591,
   "disambig-resolved": 69,
   "list-page": 6,
   "search-match": 5,
@@ -48808,6 +48808,62 @@
    "answer": "Operation Barkhane",
    "title": "Operation Barkhane",
    "url": "https://en.wikipedia.org/wiki/Operation_Barkhane",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-025": {
+   "answer": "Hybrid warfare",
+   "title": "Hybrid warfare",
+   "url": "https://en.wikipedia.org/wiki/Hybrid_warfare",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-026": {
+   "answer": "Explosion of connectivity",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2007 New York City steam explosion",
+    "Paraconsistent logic",
+    "2026 Internet blackout in Iran",
+    "2026 Iran war",
+    "List of Amazon Leo launches"
+   ]
+  },
+  "gga-027": {
+   "answer": "States acting like nonstate actors",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Anti-corruption",
+    "Battle of Mogadishu (1993)",
+    "Corruption",
+    "War on drugs",
+    "Somali National Alliance"
+   ]
+  },
+  "gga-028": {
+   "answer": "Mutually hurting stalemate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mutually assured destruction",
+    "Conflict resolution",
+    "Peacebuilding",
+    "2026 Iran war",
+    "India–Pakistan war of 1965"
+   ]
+  },
+  "gga-029": {
+   "answer": "Drone warfare",
+   "title": "Drone warfare",
+   "url": "https://en.wikipedia.org/wiki/Drone_warfare",
    "via": "answer",
    "status": "ok"
   }
