@@ -152,15 +152,20 @@ const nCS = segA.length;
 const CELL = Math.round(0.05 / Q);
 const coastIdx = SegIndex.build(nCS, CELL, (k) => [core.lon[segV[k] - 1], core.lat[segV[k] - 1], core.lon[segV[k]], core.lat[segV[k]]]);
 say(`coast segments in the region: ${nCS}`);
-// land or sea at a point: the parity of an eastward ray against the region's coast rings (whole rings, so the parity is exact);
-// the segments are bucketed by latitude strip so a query touches a few dozen of them. The earlier test — the side of the
-// nearest segment — misjudged the mouth of the Argolic Gulf (a chord across it at the vertex of a headland) in every epoch
+// land or sea at a point: the parity of a ray NORTH to the pole against the coast rings (whole rings, so the parity is exact);
+// the segments are bucketed by longitude strip so a query touches a few dozen of them. The 2a test cast the ray EAST and unwrapped
+// every segment about the point, so at global scale (2b) the ray ran half round the globe and ended on the far side — on land for
+// most of Eurasia — and the parity inverted: chords across the Mongol Empire read as sea chords and were dropped, its ring opened
+// and its interior belonged to nobody (measured: 24,543 km² for 1241–1249). The North Pole is sea in the OSM partition, so a ray
+// to it ends at sea from every point. (The earlier test — the side of the nearest segment — misjudged the mouth of the Argolic
+// Gulf, a chord across it at the vertex of a headland, in every epoch.)
 const STRIP = CELL; const strips = new Map();
-for (let k = 0; k < nCS; k++) { const y0 = core.lat[segV[k] - 1], y1 = core.lat[segV[k]]; const s0 = Math.floor(Math.min(y0, y1) / STRIP), s1 = Math.floor(Math.max(y0, y1) / STRIP); for (let st = s0; st <= s1; st++) { let l = strips.get(st); if (!l) strips.set(st, l = []); l.push(k); } }
+const NSTRIP = Math.round(2 * X180 / STRIP);
+for (let k = 0; k < nCS; k++) { let x0 = core.lon[segV[k] - 1], x1 = core.lon[segV[k]]; if (x1 - x0 > X180) x1 -= 2 * X180; else if (x0 - x1 > X180) x1 += 2 * X180; const s0 = Math.floor(Math.min(x0, x1) / STRIP), s1 = Math.floor(Math.max(x0, x1) / STRIP); for (let st = s0; st <= s1; st++) { const key = ((st % NSTRIP) + NSTRIP) % NSTRIP; let l = strips.get(key); if (!l) strips.set(key, l = []); l.push(k); } }
 for (const [st, l] of strips) strips.set(st, Int32Array.from(l));
 const landAt = (x, y) => {
-  const l = strips.get(Math.floor(y / STRIP)); if (!l) return false; let c = 0;
-  for (let i = 0; i < l.length; i++) { const k = l[i]; const y0 = core.lat[segV[k] - 1], y1 = core.lat[segV[k]]; if ((y0 > y) === (y1 > y)) continue; let x0 = core.lon[segV[k] - 1], x1 = core.lon[segV[k]]; if (x0 - x > X180) x0 -= 2 * X180; else if (x - x0 > X180) x0 += 2 * X180; if (x1 - x0 > X180) x1 -= 2 * X180; else if (x0 - x1 > X180) x1 += 2 * X180; const xi = x0 + (y - y0) * (x1 - x0) / (y1 - y0); if (xi > x) c++; }
+  const l = strips.get(((Math.floor(x / STRIP) % NSTRIP) + NSTRIP) % NSTRIP); if (!l) return false; let c = 0;
+  for (let i = 0; i < l.length; i++) { const k = l[i]; let x0 = core.lon[segV[k] - 1], x1 = core.lon[segV[k]]; const y0 = core.lat[segV[k] - 1], y1 = core.lat[segV[k]]; if (x0 - x > X180) x0 -= 2 * X180; else if (x - x0 > X180) x0 += 2 * X180; if (x1 - x0 > X180) x1 -= 2 * X180; else if (x0 - x1 > X180) x1 += 2 * X180; if ((x0 > x) === (x1 > x)) continue; const yi = y0 + (x - x0) * (y1 - y0) / (x1 - x0); if (yi > y) c++; }
   return (c & 1) === 1;
 };
 if (process.env.DEBUG_LAND) { for (const p of process.env.DEBUG_LAND.split(";")) { const [lon, lat] = p.split(",").map(Number); const x = R.U(lon), y = R.U(lat); const l = strips.get(Math.floor(y / STRIP)); console.log(`DEBUG_LAND ${lon},${lat}: land ${landAt(x, y)} (strip has ${l ? l.length : 0} segments)`); } process.exit(0); }
@@ -936,7 +941,7 @@ function conflate(alive, label) {
    the same functions in the same order) */
 const CACHE_DIR = (() => {
   const h = crypto.createHash("sha256");
-  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, v: 3 }));
+  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, v: 4 }));
   return path.join(OUT, "history-cache", h.digest("hex").slice(0, 16));
 })();
 if (USE_CACHE) { fs.mkdirSync(CACHE_DIR, { recursive: true }); say(`epoch cache: ${path.relative(HERE, CACHE_DIR)} (${fs.readdirSync(CACHE_DIR).length} epochs cached)`); }

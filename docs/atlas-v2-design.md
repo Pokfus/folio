@@ -380,6 +380,31 @@ pilot's coverage the land draws plain and the rail says "No states are mapped fo
 Period capitals: `state-capitals-spec.json` rows whose card maps to a pilot polity (the mapping is by
 the row's title against the series' names, with two aliases) become city steps — 19 rows from 18 cards.
 
+*At full scale (Phase 2b, as built 2026-10-10; the owner's scope decision of the same day):* the file holds **the states Folio's
+cards teach** — every card-linked polity series of `polity-spec.json` that Cliopatria carries («BUILT» series, including the
+assembled ones: northern and central Italy from seven series each with its own border, the Zhou from "Zhou Dynasty" and "Later
+Zhou", Rome from its three Cliopatria names, the Qing from "Later Jin Dynasty" and "Qing Dynasty" …), over the whole globe and
+Cliopatria's whole span, 3400 BCE to 2021 CE (the present-day faces hold 2022 onward) — and not every state of the period, which
+the rail's caption, the About sheet, the credits page and the place card each say once. Deferred to 2c: the eight series the
+audit keeps as *peoples* (`scythia`, `galatia`, `gothia`, `huns`, `avars`, `old_great_bulgaria`, `khazaria`, `magyars` — the
+2a pilot drew the Avars as a state; it no longer does), the coastline series (`cyclades`, `crete`) and the site-hull cultures
+(`yangshao`, `longshan`); to 2d the WW2 fronts and the war sides. The builder is the 2a pipeline with four changes: an epoch
+conflates only the coast rings its alive rows can touch (a ring's box against the rows' boxes grown by D1), so the Pacific costs
+a Mediterranean epoch nothing; the land/sea parity test casts its ray **north to the pole** (sea in the OSM partition) instead of
+east — at global scale the eastward ray, unwrapped about the point, ran half round the globe and ended on land for most of
+Eurasia, inverting the parity, so chords across the Mongol Empire read as sea chords and were dropped and its interior belonged
+to nobody (24,543 km² for 1241–1249 in the first full build; the fix is the first thing the 2b note records); the build is
+**resumable** (every finished epoch's contribution — its new arcs, faces and entities, the owner rows, the stat and snap-count
+deltas — is a JSON under `out/history-cache/<hash>/`, replayed in order into the same registries; a cached and a fresh build give
+one sha256, `check-history.js --determinism`); and a mutual overlap above the sliver threshold is still a **contested** face, but
+an overlap that holds at least 80 % of the smaller claimant while the larger is at least twice it is a **nested** face — the
+member drawn as itself, its overlord named on the card and drawn by its own border — the default recorded for the owner to
+confirm (`NEST_SHARE`, `NEST_RATIO`). The entity table carries each polity's **card ids** (`cards`, from the spec's links) as data
+for Phase 3's `places` field; nothing draws from them yet. The `file://` twin carries the **pilot slice only** (the full file's
+twin would pass the 12 MB the three twins share), and its header says so in a sentence the rail shows. The file measured
+«BYTES» for «STEPS» steps — under the 6 MB that would have split it into windows (the stop rule's forecast from the 650–1500
+band was 3.04 MB; from the pilot 4.76) — so it stays one file, fetched the first time the rail leaves today.
+
 *The conflation, as built (`.claude/atlas-build/build-history.js`), per epoch — a maximal interval over
 which the alive set and every shape are constant (175 epochs, 175 distinct alive sets):*
 
@@ -445,10 +470,12 @@ own colour, as wide as the level's tolerance in pixels, so the band between the 
 coast reads as fill rather than as plain land. The seam measured at the cap is in §7.
 
 *The planarity budget:* `check-history.js` requires exact planarity among the alive faces at the finest
-level in every epoch, and counts crossings at the two coarser levels against a budget of 200 over all
-alive sets (the pilot measured 125: 66 at level 0, 59 at level 1, 25 distinct arc pairs — one site, a
-border leaving the Bay of Cádiz at the 2.5 km level in thirty epochs, is most of it); a regression
-shows, the known residue does not fail CI.
+level in every epoch, and counts crossings at the two coarser levels against a hard ceiling over all alive
+sets — the pilot measured 125 (66 at level 0, 59 at level 1, 25 distinct arc pairs — one site, a border
+leaving the Bay of Cádiz at the 2.5 km level in thirty epochs, was most of it) against a budget of 200; the
+2b file measured «COARSE» over 494 alive sets (level 0 «L0», level 1 «L1»), the same class of residue — a bend
+a straightened coast cuts off — and the ceiling is a quarter above that («CEIL», `COARSE_MEASURED` in the
+checker); a regression shows, the known residue does not fail CI.
 
 Loading strategy: `topology.bin` and `gazetteer.js` are the Atlas's two required files, fetched
 with a determinate progress bar; tiles and relief are fetched on demand with a small LRU; the
@@ -532,6 +559,26 @@ before 2022** (the owner's decision: an anachronistic Rome-the-capital-of-Italy 
 physical names stay; the period capitals of the pilot polities are the only dated cities. A polity's
 colour is a golden-angle hue per entity, blended with the theme's ink and land tokens and recoloured on a
 theme change, so it is stable across years and legible in all fifteen themes.
+
+**As built in Phase 2b (2026-10-10).** The history file is fetched **lazily**, the first time the rail leaves today (a year
+before 2022 from the pin, the year box, `[`, a deep link's `?y=` or a suite's `ensureHistory()`), with a quiet "Loading the
+years…" in the rail's note and never a blank; `[` before the file is in fetches it and steps to 2021. The year query stays a
+binary search on the main thread: «YQ» ms at p95 over the largest alive sets (Europe near 1500, China in the Warring States),
+under the 5 ms that would have moved it to the worker. **Colour** is a fixed palette of sixteen slots (golden-angle hues, two
+lightness steps, blended with the theme's ink or paper so every theme keeps its own land and ink) assigned once at load by a
+greedy walk over every epoch of the file: a polity keeps its slot across the years unless an alive neighbour (a face sharing a
+border arc; a contested face joins both partners) holds it, and then takes the first slot no neighbour holds, preferring one
+no alive polity holds at all — «CLASHES» clashes over «EPOCHS» epochs and «PAIRS» adjacent pairs, «CHANGES» forced changes
+across «ENTS» entities (`colourAudit`); the label ink's contrast on every slot's fill is at least «CONTRAST» in all fifteen
+themes and folio's night (`contrastAudit`). The mesh LRUs are sized by **bytes** (48 MB on the GPU, 96 MB in the worker), not
+by count. Polity labels are ranked by their **area on screen** (the face's area times the share of its vertices on screen, in
+pixels), so a view with many alive faces names what a reader sees most of first and keeps that order as the view moves; a
+nested face is named as its member. The rail draws at most about **200 ticks** a view — change years closer than a
+two-hundredth of the track merge into one tick, drawn taller — while `[` and `]` still step through every change year and
+playback every year. The place card shows a long series (Rome's 123 steps, Byzantium's 124) as **ranges** of consecutive steps
+with the full list under a disclosure, each step a button that sets the year; the gaps; the members drawn inside a polity and
+the overlords it is drawn within, with their years; the source and the uncertainty sentence; and the sentence that the past
+here shows the states Folio's cards teach.
 
 **Deep time.** Cliopatria begins at 3400 BCE. Before that there are no polities to draw; sites and
 cultures (soft) still appear. The rail's range is a question (Q-T1); the recommendation is a rail
@@ -2570,6 +2617,72 @@ upload. (3) The design's "planar per epoch" is exact at the finest level and a c
 coarser ones, for the reason given in §2.3. (4) The pilot's first plan made Cliopatria's steps part of
 `topology.bin`; they are a file of their own so the land stays byte-identical. (5) The independent point
 assertions are not from one named source (above).
+
+### Phase 2b — as built (2026-10-10): every card-linked polity, with the pilot's fixes
+
+**Scope.** Sub-phase 2b only — the 164 series of `polity-spec.json` as the audit's batches define them, built where
+Cliopatria carries them and the audit calls them states («BUILT» series, «ENTS» entities with the contested and nested faces,
+«STEPS» steps); the twelve deferred are listed in §2.3 and in `docs/atlas-v2-coverage.md` with the full inventory (kind, years,
+cards, built or deferred). Not started: 2c (peoples, cultures, coastline and site-hull series), 2d (wars, fronts, prose), 1e,
+1f. Preceded by Task 0, three defects of the merged 2a.
+
+**Task 0.** 0a — *the two artefacts had one root cause, in the renderer, not the data*: the worker packed each face mesh's
+coast-stroke segment as seven floats (two points and a tag) where `uploadSegs` reads eight per segment (point, tag, point,
+pad), so every segment after the first read misaligned floats and drew a chord between unrelated points, in the face's own
+colour, as wide as the level's tolerance in pixels — the stroke only exists at the tile zooms, hence thick at the cap, thin at
+0.6 km/px and absent at 5 km/px; the fan over Sicily was the same misalignment over a face with many coast pieces. Proven by
+reading the two views' pixels: on the 2a worker 5,097 of 5,148 full-colour pixels at Tuscany and 156 of 191 at Sicily lie
+further than the stroke from any water; on the fixed worker none (`test-atlas-review.js`, which fails on the 2a worker and
+passes on this one). The data was sound — which is why `check-history.js` passed — and the brief's checker rules were added
+anyway: every core reference's drawn path at every level is at least a quarter of the line it replaces (a piece the level hid
+altogether, an islet collapsing to a point at 2.5 km, exempt) and no drawn segment's middle lies further than three
+tolerances from the real line (30 / 7.5 / 1.5 km per level; a chord across land fails whatever its length ratio). 0b — the
+phone rail: the two-line layout now follows the container's width (`atlas2-narrow` under 600 px), not the coarse-pointer flag
+the owner's phone had missed, with the track's flex basis forcing the wrap rather than leaving it to the content (at 390 px
+the controls fitted one line at their minimum widths and the speed select was clipped to "25/"); `fmtYear` gives every year its
+era ("1 CE", "300 BCE", "2026 CE") and `parseYear` reads them back; the suite measures 360, 390 and 430 px with and without the
+flag, with and without a card. 0c — `feedGesture(costs)` runs a gesture of injected frame costs through the stage logic's own
+bookkeeping, so the stages suite asserts twenty fast frames, the recovery a gesture later, the escalation on three slow frames
+and none on alternating ones, on any runner; the runner's own two drags are reported, ungated.
+
+**Measured first — the stop rule.** The 650–1500 band, built globally as the measurement: 128 epochs, 792 steps, 0.948 MB —
+1,198 bytes a step × 2,542 steps of every series = **3.04 MB forecast** (the pilot's forecast was 4.76), under 6 MB, so one
+file. The full build: **«BYTES»** («BYTESMB» MB decimal) for «STEPS» steps («BPS» bytes a step; the forecast from the band was
+low because the medieval band's polities are smaller than the empires' faces elsewhere), the slice twin «TWINMB» MB and the
+three twins «TWINS» MB together.
+
+**Counts (the full file).** «COUNTS»
+
+**The pipeline.** «PIPE»
+
+**Colour, labels, the rail, the card.** §2.4 "As built in Phase 2b".
+
+**The coverage report** (`docs/atlas-v2-coverage.md`, generated): «COVER»
+
+**Checkers and tests.** `check-history.js` on the full file: «CHECK». The named independent source of the brief: Wikidata's own
+capital statements (P36 with their date qualifiers, CC0, as `state-capitals.js` carries them — «CAPS» capitals, «CAPFACTS»
+facts at each capital's first, middle and last year), counted per millennium: «CAPMIL»; a millennium with fewer than 25 is said
+so, not padded. «CAPKNOWN». The 2a point assertions and the cards' extent assertions stay («OLDASSERT»). Suites: `test-atlas-review.js`
+(new: the artefact views, the narrow rail, the era), `test-atlas-time.js` (+ the year query at the largest alive sets, the
+colouring over every epoch, the contrast in every theme, the largest face on screen named, the captions and the card),
+`test-atlas-stages.js` (injected frames), `test-atlas-perf.js` (+ Europe in 1500 and in 1900 with their history budgets, the
+whole rail scrubbed with the year-change gate). «PERF»
+
+**Screenshots reviewed.** «SHOTS»
+
+**The default for the owner to confirm.** A polity and its own member both in the spec: the overlap is a *nested* face — drawn
+as the member's, the overlord named on the card and present by its border (its face is the rest of its land) — when the
+overlap holds ≥ 80 % of the smaller claimant and the larger is ≥ 2× it; any other overlap above the sliver threshold stays
+*contested* (hatched, both named). The 2b file has «NESTED» nested faces: «NESTLIST».
+
+**What contradicts the design.** (1) §2.3 planned a planarity budget of 200 coarse-level crossings; at full scale the same
+residue class measures «COARSE» and the ceiling is restated above it (the finest level stays exact). (2) §2.4's year query
+stays on the main thread (measured under the 5 ms rule at the largest alive sets). (3) The file:// twin is a slice, not the
+file. (4) The 2a pilot drew the Avars as a state; the audit keeps them a people, so 2b drops them until 2c. (5) The design's
+"every arc and face traces to a source" holds; the independent facts are from one named source now (Wikidata), with the 2a
+textbook list kept beside it.
+
+**CI.** «CI»
 
 ### Phase 3 — The gazetteer and the study material (ships `#map2` with Your atlas; ~6–8 sessions)
 

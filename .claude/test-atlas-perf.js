@@ -96,7 +96,7 @@ const RELEASE_SETTLE_MS = 500;  // how long the pinch waits after each release b
    and lake-fill triangles measured 2026-10-08 on the Phase 1b build (globe 2,674 / 3,002 / 2,612; Europe
    22,173 / 71,465 / 64,628; the Aegean 4,390 / 2,381 / 2,157; the cap 0 / 1,708 / 1,553 — rivers are not
    drawn at the cap), each rounded up by a quarter. A view is (lon, lat, km per pixel). */
-const HIST_BUDGET_1500 = [120000, 60000], HIST_BUDGET_1900 = [120000, 60000];   // placeholders until measured (set below from the 2b build)
+const HIST_BUDGET_1500 = [81000, 50000], HIST_BUDGET_1900 = [84000, 50000];   // measured 2026-10-10 on the 2b file at 1280×800: 64,460 fill triangles in 27 faces and 39,911 border segments in 1500; 66,574 in 9 faces and 39,911 in 1900 (the segments are the level's arcs in view, whatever the year), each rounded up by a quarter
 const VIEWS = [
   { name: "globe", lon: 10, lat: 20, kmpp: 24.0, tri: 54000, seg: 25000, river: 3400, lakeSeg: 3800, lakeTri: 3300 },
   { name: "Europe", lon: 10, lat: 50, kmpp: 3.0, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600 },

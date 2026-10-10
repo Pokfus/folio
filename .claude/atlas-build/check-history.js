@@ -158,6 +158,7 @@ const KNOWN_FAULTS = {
   "Carthage 632 out pol:byzantium|pol:sasanian": "Cliopatria's Eastern Roman Empire 630–632 excludes the city of Carthage by a coastal notch under the coast tolerance, absorbed into the surrounding face (wh-463)",
 };
 
+const T_START = Date.now();
 function run() {
   const bytes = fs.readFileSync(file);
   console.log(`\ncheck-history: ${path.relative(process.cwd(), file)} (${bytes.length} bytes, ${(bytes.length / 1e6).toFixed(3)} MB decimal)\n`);
@@ -244,7 +245,7 @@ function run() {
      length under twice the tolerance) is exempt from the ratio: nothing is drawn, so nothing is wrong. CHORD_MAX_M bounds the longest
      chord the checker tolerates (the empty range: two junctions on one core segment, where the chord IS the segment). */
   {
-    const CHORD_FACTOR = 4, CHORD_OFF_M = [30000, 7500, 1500], CHORD_MAX_M = 20000;   // 3 × the level's tolerance; an empty range's chord stays on its own segment
+    const CHORD_FACTOR = 6, CHORD_OFF_M = [30000, 7500, 1500], CHORD_MAX_M = 20000;   // 3 × the level's tolerance; an empty range's chord stays on its own segment. The factor: a fractal coast loses most of its length at a coarser level honestly (measured on the 2b file: Clew Bay's 79 km of shore drawn as 19 km at 2.5 km, the Georgia sea islands' 317 km as 71 km at 10 km — ratios to 4.5), while a collapsed range reads as a chord at ratios past 10 and fails the distance rule too
     const vec = (p) => G.vec(p[0], p[1], Q);
     const lenOf = (pts) => { let m = 0; for (let i = 1; i < pts.length; i++) m += G.chordMetres(vec(pts[i - 1]), vec(pts[i])); return m; };
     // every core segment of the kinds referenced, in one index
@@ -359,7 +360,10 @@ function run() {
     // sits on the level's straightened coast and a border's first segment can still cut a bend the level removed (design §2.3,
     // "junctions at coarser levels"): those crossings are counted against a budget — the pilot measured 125 over 174 alive sets
     // (66 at level 0, 59 at level 1), 25 distinct arc pairs — so a regression shows while the known residue does not fail CI
-    const COARSE_BUDGET = 200; const fine = crossByLod[LODS - 1], coarse = crossBad - fine;
+    // the ceiling at full scale (Phase 2b): the 2b build measured COARSE_MEASURED coarse-level crossings over its alive sets (level 0 and
+    // level 1; level 2 exact) — bends a coarser level's straightened coast cuts off, the Bay of Cádiz class of residue — and the hard
+    // ceiling is a quarter above that; a regression shows, the known residue does not fail CI
+    const COARSE_MEASURED = 1148, COARSE_BUDGET = Math.ceil(COARSE_MEASURED * 1.25); const fine = crossByLod[LODS - 1], coarse = crossBad - fine;
     (fine || coarse > COARSE_BUDGET) ? bad("per epoch: no two drawn segments of the alive faces cross at the finest level, and under " + COARSE_BUDGET + " at the coarser levels", `${crossBad} (${crossSites.size} distinct arc pairs × LOD; per LOD ${crossByLod.join("/")}); ${(verbose ? samples : samples.slice(0, 6)).filter((s) => s.startsWith("crossing")).join("; ")}`) : ok("per epoch: no two drawn segments of the alive faces cross at the finest level; coarser levels within budget", `${coarse} coarse-level crossings over all alive sets (budget ${COARSE_BUDGET}; per LOD ${crossByLod.join("/")}, ${crossSites.size} distinct arc pairs × LOD)`);
     contestedBad ? bad("per epoch: a contested face's partners are alive", `${contestedBad}`) : ok("per epoch: a contested face's partners are alive");
   }
@@ -442,5 +446,7 @@ function run() {
   note(`bytes ${bytes.length} (${(bytes.length / 1e6).toFixed(3)} MB decimal), sha256 ${crypto.createHash("sha256").update(bytes).digest("hex")}`);
 }
 run();
+// the time budget (Phase 2b): CI runs this once per push on the whole file; the 2b file took about 150 s on a four-core runner
+{ const sec = (Date.now() - T_START) / 1000, CHECK_BUDGET_S = 600; sec <= CHECK_BUDGET_S ? ok(`the check ran within its budget`, `${sec.toFixed(0)} s of ${CHECK_BUDGET_S}`) : bad(`the check ran within its budget`, `${sec.toFixed(0)} s of ${CHECK_BUDGET_S}`); }
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);
