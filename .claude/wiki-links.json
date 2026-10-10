@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-10T15:11Z",
+ "generated": "2026-10-10T15:25Z",
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 4571,
-  "redirect-broader": 397,
+  "redirect-broader": 396,
   "redirect-variant": 299,
   "section-redirect": 93,
   "disambiguation": 127,
-  "none": 615,
+  "none": 619,
   "disambig-resolved": 70,
   "list-page": 6,
-  "search-match": 6,
-  "no-article": 4
+  "search-match": 5,
+  "no-article": 6
  },
  "cards": {
   "wh-001": {
@@ -49338,6 +49338,62 @@
    "via": "answer",
    "status": "no-article",
    "manual": true
+  },
+  "gga-142": {
+   "answer": "2025 Strategic Foresight Report",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Foresight (futures studies)",
+    "Futures studies",
+    "Diego Rubio (politician)",
+    "Sundeep Waslekar",
+    "Cost of conflict"
+   ]
+  },
+  "gga-143": {
+   "answer": "International law is politics, but not just politics",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Tragedy of Great Power Politics",
+    "Politics",
+    "International relations",
+    "Comparative politics",
+    "Outline of political science"
+   ]
+  },
+  "gga-148": {
+   "answer": "States behave as if bound",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Bound state",
+    "Majorana fermion",
+    "Cramér–Rao bound",
+    "Atom",
+    "List of states of matter"
+   ]
+  },
+  "gga-149": {
+   "answer": "Death rate in armed conflicts",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of ongoing armed conflicts",
+    "List of countries by intentional homicide rate",
+    "List of countries by intentional death rate",
+    "Colombian conflict",
+    "Civilian casualty ratio"
+   ]
   }
  }
 }

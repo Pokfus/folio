@@ -314,14 +314,14 @@ Source: Lecture 6, the guest lecture by Dr Ernst Dijxhoorn (locators are the foo
   gga-139  Legitimacy, equity and self-confidence — the three challenges · (s30)
   gga-140  Putin's Article 51 claim — the address of 24 February 2022 · (s31)
   gga-141  Double standards — Richard Gowan, NRC 2024 · (s34)
-  gga-142  Strategic Foresight Report 2025 — European Commission · (s38)
-  gga-143  International law is politics — but not just politics · (s26)
+  gga-142  2025 Strategic Foresight Report — European Commission · (s38)
+  gga-143  International law is politics, but not just politics — but not just politics · (s26)
   gga-144  International Law: 100 Ways It Shapes Our Lives — ASIL, 2018 · (s27)
   gga-145  South China Sea arbitration — link-only slide · (s39)
   gga-146  Arctic Sunrise — link-only slide · (s39)
   gga-147  Bolton and the International Criminal Court — link-only slide · (s39)
   gga-148  States behave as if bound — (s29)
-  gga-149  Conflict death rates, 2024 — Our World in Data chart · (slide 8)
+  gga-149  Death rate in armed conflicts — Our World in Data chart · (slide 8)
 
 ## Lecture 7 · Russia — `gga-l7`
 

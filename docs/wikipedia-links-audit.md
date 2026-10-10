@@ -29,18 +29,18 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `ok` | 4571 | the title is the article |
 | `redirect-variant` | 299 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 70 | chosen from a disambiguation page by hint words — listed below |
-| `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 397 | redirected to a differently named article — listed below, a glance each |
+| `search-match` | 5 | a search hit with the answer's words in another order — listed below |
+| `redirect-broader` | 396 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 93 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 615 | nothing matched; no link |
+| `none` | 619 | nothing matched; no link |
 
-**5343 of 6188 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5341 of 6192 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (397)
+## Redirected to a differently named article — check each (396)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -123,7 +123,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gga-030` **Traditional peacekeeping** → [Peacekeeping](https://en.wikipedia.org/wiki/Peacekeeping) (from `Traditional peacekeeping`)
 - `gga-037` **MINUSMA** → [United Nations Multidimensional Integrated Stabilization Mission in Mali](https://en.wikipedia.org/wiki/United_Nations_Multidimensional_Integrated_Stabilization_Mission_in_Mali) (from `MINUSMA`)
 - `gga-048` **Brahimi Report** → [Report of the Panel on United Nations Peace Operations](https://en.wikipedia.org/wiki/Report_of_the_Panel_on_United_Nations_Peace_Operations) (from `Brahimi Report`)
-- `gga-061` **Rodrik's trilemma** → [Impossible trinity](https://en.wikipedia.org/wiki/Impossible_trinity) (from `Rodrik's trilemma`)
 - `gr-001` **Aegean Bronze Age** → [Aegean civilization](https://en.wikipedia.org/wiki/Aegean_civilization) (from `Aegean Bronze Age`)
 - `gr-002` **Cycladic civilisation** → [Cycladic culture](https://en.wikipedia.org/wiki/Cycladic_culture) (from `Cycladic civilisation`)
 - `gr-003` **Cycladic figurines** → [Cycladic art](https://en.wikipedia.org/wiki/Cycladic_art) (from `Cycladic figurines`)
@@ -517,12 +516,11 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ww2-006` **reparations** → [World War I reparations](https://en.wikipedia.org/wiki/World_War_I_reparations) (via the disambiguation page `Reparation`)
 - `ww2-035` **Article 48** → [Article 48 of the Weimar Constitution](https://en.wikipedia.org/wiki/Article_48_of_the_Weimar_Constitution) (via the disambiguation page `Article 48`)
 
-## Matched by search — check each (6)
+## Matched by search — check each (5)
 
 No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.
 
 - `cnh-013` **Chinese flood myth** → [Chinese flood myths](https://en.wikipedia.org/wiki/Chinese_flood_myths)
-- `gga-065` **Policy space** → [Space policy](https://en.wikipedia.org/wiki/Space_policy)
 - `gr-499` **Parthenon metopes** → [Metopes of the Parthenon](https://en.wikipedia.org/wiki/Metopes_of_the_Parthenon)
 - `jp-037` **moated settlement** → [Moated settlements](https://en.wikipedia.org/wiki/Moated_settlements)
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
@@ -769,7 +767,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (615)
+## No article found (619)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -956,6 +954,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-057` **Wandel durch Annäherung** — search suggests `Wandel durch Handel`, `Egon Bahr`, `Ostpolitik`, `Evangelische Akademie Tutzing`, `Bulthaup`
 - `gga-058` **Dollar clearing system** — search suggests `Clearing (finance)`, `Clearing House Interbank Payments System`, `Clearing House Automated Transfer System`, `The Clearing House`, `China National Clearing Center`
 - `gga-064` **Ever closer European Union** — search suggests `European Union`, `Canada–European Union relations`, `2015–2016 United Kingdom renegotiation of European Union membership`, `Brexit`, `Accession of Armenia to the European Union`
+- `gga-142` **2025 Strategic Foresight Report** — search suggests `Foresight (futures studies)`, `Futures studies`, `Diego Rubio (politician)`, `Sundeep Waslekar`, `Cost of conflict`
+- `gga-143` **International law is politics, but not just politics** — search suggests `The Tragedy of Great Power Politics`, `Politics`, `International relations`, `Comparative politics`, `Outline of political science`
+- `gga-148` **States behave as if bound** — search suggests `Bound state`, `Majorana fermion`, `Cramér–Rao bound`, `Atom`, `List of states of matter`
+- `gga-149` **Death rate in armed conflicts** — search suggests `List of ongoing armed conflicts`, `List of countries by intentional homicide rate`, `List of countries by intentional death rate`, `Colombian conflict`, `Civilian casualty ratio`
 - `gga-169` **Teapot refiners** — search suggests `Steeping`, `China in the 2026 Iran war`, `Sinclair Oil Corporation`, `Hengli Group`, `United States sanctions against China`
 - `gga-170` **China's anti-sanctions regime** — search suggests `Anti-Foreign Sanctions Law`, `United States government sanctions`, `Anti-American sentiment in China`, `International sanctions during apartheid`, `Support for Russia in the Russo-Ukrainian war`
 - `gga-171` **One-year trade truce** — search suggests `Twelve Years' Truce`, `Truce of Andrusovo`, `Christmas truce`, `Busan Summit`, `Danish–Hanseatic War (1361–1370)`
