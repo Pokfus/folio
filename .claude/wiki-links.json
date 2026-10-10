@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-10T14:18Z",
+ "generated": "2026-10-10T14:20Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4558,
-  "redirect-broader": 392,
+  "ok": 4560,
+  "redirect-broader": 393,
   "redirect-variant": 299,
   "section-redirect": 92,
   "disambiguation": 127,
-  "none": 591,
+  "none": 593,
   "disambig-resolved": 69,
   "list-page": 6,
   "search-match": 5,
@@ -48864,6 +48864,56 @@
    "answer": "Drone warfare",
    "title": "Drone warfare",
    "url": "https://en.wikipedia.org/wiki/Drone_warfare",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-016": {
+   "answer": "Weaponisation of everything",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mark Galeotti",
+    "Battlespace",
+    "Beetle",
+    "Media coverage of the Gaza war",
+    "Jawaharlal Nehru"
+   ]
+  },
+  "gga-017": {
+   "answer": "Mutually assured economic pain",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Economic impact of the 2026 Iran war",
+    "Workers' compensation",
+    "The Theory of Moral Sentiments",
+    "Harriet Taylor Mill",
+    "George C. Homans"
+   ]
+  },
+  "gga-018": {
+   "answer": "GPS spoofing",
+   "title": "GNSS spoofing",
+   "url": "https://en.wikipedia.org/wiki/GNSS_spoofing",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "GPS spoofing"
+  },
+  "gga-022": {
+   "answer": "Ibrahim Traoré",
+   "title": "Ibrahim Traoré",
+   "url": "https://en.wikipedia.org/wiki/Ibrahim_Traor%C3%A9",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-024": {
+   "answer": "Pedro Sánchez",
+   "title": "Pedro Sánchez",
+   "url": "https://en.wikipedia.org/wiki/Pedro_S%C3%A1nchez",
    "via": "answer",
    "status": "ok"
   }
