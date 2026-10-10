@@ -27,8 +27,10 @@ running order below covers exactly the material that has been supplied, and grow
 Three consequences, each deliberate:
 
 - **The numbering is sequential in the order the lectures are covered**, not blocked out per deck.
-  Lecture 1 took `pea-001`–`pea-030`, Lecture 2 `pea-031`–`pea-060`, Lecture 3 `pea-061`–`pea-090` and
-  Extra 1 `pea-091`–`pea-100`. A card id is a permanent address, so the blocks are what they are and
+  Lecture 1 took `pea-001`–`pea-030`, Lecture 2 `pea-031`–`pea-060`, Lecture 3 `pea-061`–`pea-090`,
+  Extra 1 `pea-091`–`pea-100`, then Lecture 4 `pea-101`–`pea-130`, Lecture 5 `pea-131`–`pea-160`,
+  Lecture 6 `pea-161`–`pea-190`, Extra 4 `pea-191`–`pea-200`, Extra 5 `pea-201`–`pea-210` and Extra 7
+  `pea-211`–`pea-220`. A card id is a permanent address, so the blocks are what they are and
   are never renumbered to tidy them.
 - **The volume is 30 cards a lecture and 10 for each set reading**, which is what the collection's
   `total` of 480 counts. The 20 decks with no cards in them are coming-soon automatically —
@@ -164,17 +166,104 @@ one naming the 1994 campaign returns the work on it.
   pea-089  Gender conflict
   pea-090  Rhee Syngman
 
-## Lecture 4 — `pea-l4`
+## Lecture 4 · The politics of North Korea — `pea-l4`
 
-*Not yet written — the lecture it covers has not been supplied.*
+  pea-101  Juche
+  pea-102  Songbun
+  pea-103  Songun
+  pea-104  Kim Il-sung
+  pea-105  Kim Jong-il
+  pea-106  Kim Jong-un
+  pea-107  Inminban
+  pea-108  Kwan-li-so
+  pea-109  Kyo-hwa-so
+  pea-110  Arduous March
+  pea-111  Kotjebi
+  pea-112  Jangmadang
+  pea-113  Public Distribution System
+  pea-114  Workers' Party of Korea
+  pea-115  Korean People's Army
+  pea-116  National Defence Commission
+  pea-117  State Affairs Commission
+  pea-118  Ten Principles for the Establishment of a Monolithic Ideological System
+  pea-119  Sadae
+  pea-120  Six-Party Talks
+  pea-121  Great Fatherland Liberation War
+  pea-122  Totalitarianism
+  pea-123  Organisational life
+  pea-124  Yodok
+  pea-125  Historical materialism
+  pea-126  Hereditary succession
+  pea-127  Law on the Elimination of Reactionary Thought and Culture
+  pea-128  North Korean nuclear programme
+  pea-129  Great Leader
+  pea-130  Jang Song-thaek
 
-## Lecture 5 — `pea-l5`
+## Lecture 5 · The politics of Taiwan — `pea-l5`
 
-*Not yet written — the lecture it covers has not been supplied.*
+  pea-131  Republic of China
+  pea-132  Sun Yat-sen
+  pea-133  One China principle
+  pea-134  One China policy
+  pea-135  UN General Assembly Resolution 2758
+  pea-136  February 28 Incident
+  pea-137  White Terror
+  pea-138  Martial law in Taiwan
+  pea-139  Green Island
+  pea-140  Chiang Kai-shek
+  pea-141  Chiang Ching-kuo
+  pea-142  Lee Teng-hui
+  pea-143  Wild Lily movement
+  pea-144  Third Taiwan Strait Crisis
+  pea-145  Taiwanisation
+  pea-146  Guoyu
+  pea-147  Benshengren
+  pea-148  Waishengren
+  pea-149  Pan-Blue Coalition
+  pea-150  Pan-Green Coalition
+  pea-151  Kuomintang
+  pea-152  Democratic Progressive Party
+  pea-153  Ma Ying-jeou
+  pea-154  Cross-Strait Service Trade Agreement
+  pea-155  Sunflower Movement
+  pea-156  Tsai Ing-wen
+  pea-157  Lai Ching-te
+  pea-158  Chen Shui-bian
+  pea-159  Taiwanese indigenous peoples
+  pea-160  Legislative Yuan
 
-## Lecture 6 — `pea-l6`
+## Lecture 6 · The politics of Hong Kong — `pea-l6`
 
-*Not yet written — the lecture it covers has not been supplied.*
+  pea-161  Sino-British Joint Declaration
+  pea-162  One Country, Two Systems
+  pea-163  Basic Law
+  pea-164  Chief Executive
+  pea-165  Election Committee
+  pea-166  Executive Council
+  pea-167  Legislative Council
+  pea-168  Functional constituencies
+  pea-169  Occupy Central with Love and Peace
+  pea-170  Umbrella Movement
+  pea-171  Demosistō
+  pea-172  Causeway Bay Books disappearances
+  pea-173  Carrie Lam
+  pea-174  John Lee
+  pea-175  Extradition Bill
+  pea-176  Five Demands
+  pea-177  Civil Human Rights Front
+  pea-178  Yuen Long attack
+  pea-179  Prince Edward station attack
+  pea-180  Hong Kong National Security Law
+  pea-181  Joshua Wong
+  pea-182  Nathan Law
+  pea-183  Agnes Chow
+  pea-184  Jimmy Lai
+  pea-185  Siege of the Polytechnic University
+  pea-186  Uncivil disobedience
+  pea-187  Deng Xiaoping
+  pea-188  Unequal treaties
+  pea-189  Hong Kong civil service
+  pea-190  Hong Kong Police Force
 
 ## Lecture 7 — `pea-l7`
 
@@ -221,21 +310,60 @@ one naming the 1994 campaign returns the work on it.
 
 *Not yet written — the lecture it covers has not been supplied.*
 
-## Extra 4 — `pea-e4`
+## Extra 4 · Isozaki, *Understanding the North Korean Regime* — `pea-e4`
 
-*Not yet written — the lecture it covers has not been supplied.*
+The Lecture 4 reading (Wilson Center, 2017, pp. 1–53). Ten cards for what the paper adds to the lecture.
 
-## Extra 5 — `pea-e5`
+  pea-191  Personal rule
+  pea-192  Byungjin line
+  pea-193  Secret Speech
+  pea-194  Rodong Sinmun
+  pea-195  Kimilsungism–Kimjongilism
+  pea-196  Seventh Congress of the Workers' Party of Korea
+  pea-197  Supreme People's Assembly
+  pea-198  Eternal President
+  pea-199  Chondoist Chongu Party
+  pea-200  Partisan faction
 
-*Not yet written — the lecture it covers has not been supplied.*
+## Extra 5 · Bush and Rowen on Taiwan — `pea-e5`
+
+The Lecture 5 readings: Richard Bush, "Taiwan's democracy and the China challenge" (Brookings, 2021) and
+Ian Rowen, "Inside Taiwan's Sunflower Movement" (*Journal of Asian Studies*, 2015). Five cards from each
+(the volume is ten a week, not ten a reading); the videos are not carded.
+
+  pea-201  1992 Consensus
+  pea-202  Single-member district system
+  pea-203  Referendum Act
+  pea-204  Taiwan People's Party
+  pea-205  You live, I die
+  pea-206  Black Island Nation Youth Front
+  pea-207  Lin Fei-fan
+  pea-208  g0v
+  pea-209  Anti-media monopoly movement
+  pea-210  Economic Cooperation Framework Agreement
 
 ## Extra 6 — `pea-e6`
 
-*Not yet written — the lecture it covers has not been supplied.*
+*Not yet written — the reading it covers (Richards, "'It was you who taught me that peaceful marches did
+not work'", Asia-Pacific Journal on Human Rights and the Law 21, 2020, the Lecture 6 reading) is paywalled and
+has not been supplied; the slides quote it only in fragments, and a card may not rest on a text nobody opened.*
 
-## Extra 7 — `pea-e7`
+## Extra 7 · Allison, "The Thucydides Trap" — `pea-e7`
 
-*Not yet written — the lecture it covers has not been supplied.*
+Graham Allison, "The Thucydides Trap: Are the U.S. and China Headed for War?" (*The Atlantic*, 24 September
+2015), supplied as a scan with the Lecture 4–6 material and filed here, the next reading slot, because it
+belongs to none of Lectures 1–6. Ten cards.
+
+  pea-211  Thucydides Trap
+  pea-212  Peloponnesian War
+  pea-213  Eyre Crowe memorandum
+  pea-214  Anglo-German naval arms race
+  pea-215  Hide and bide
+  pea-216  China Dream
+  pea-217  Venezuela crisis of 1902
+  pea-218  Panama Canal Zone
+  pea-219  Purchasing power parity
+  pea-220  Lee Kuan Yew
 
 ## Extra 8 — `pea-e8`
 
