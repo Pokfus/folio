@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-05T15:14Z",
+ "generated": "2026-10-10T13:43Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4543,
+  "ok": 4553,
   "redirect-broader": 390,
-  "redirect-variant": 298,
-  "section-redirect": 93,
-  "disambiguation": 127,
-  "none": 586,
+  "redirect-variant": 297,
+  "section-redirect": 92,
+  "disambiguation": 126,
+  "none": 581,
   "disambig-resolved": 68,
   "list-page": 6,
   "search-match": 5,
-  "no-article": 2
+  "no-article": 3
  },
  "cards": {
   "wh-001": {
@@ -48631,6 +48631,28 @@
    "url": "https://en.wikipedia.org/wiki/Four_occupations",
    "via": "glossary",
    "status": "ok"
+  },
+  "gga-006": {
+   "answer": "Interregnum",
+   "title": "Interregnum",
+   "url": "https://en.wikipedia.org/wiki/Interregnum",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-010": {
+   "answer": "Multi-alignment",
+   "title": "Multi-alignment",
+   "url": "https://en.wikipedia.org/wiki/Multi-alignment",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-023": {
+   "answer": "Two-level game",
+   "title": "Two-level game theory",
+   "url": "https://en.wikipedia.org/wiki/Two-level_game_theory",
+   "via": "answer",
+   "status": "ok",
+   "manual": true
   }
  }
 }
