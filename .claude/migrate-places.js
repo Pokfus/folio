@@ -90,8 +90,8 @@ const DISAMBIG = "Q4167410";
 function loadCache() { try { return JSON.parse(fs.readFileSync(CACHE_FILE, "utf8")); } catch (e) { return { retrieved: null, titles: {}, around: {}, classes: {} }; } }
 function saveCache(c) { c.retrieved = new Date().toISOString().slice(0, 10); fs.writeFileSync(CACHE_FILE, JSON.stringify(c, null, 1) + "\n"); }
 const W = require("./atlas-build/lib/wikidata.js");
-function sparqlRetry(q, what) {
-  for (let attempt = 0; attempt < 6; attempt++) {
+function sparqlRetry(q, what, tries) {
+  for (let attempt = 0; attempt < (tries || 6); attempt++) {
     try { return W.sparql(q); } catch (e) { const wait = [5, 15, 30, 60, 120, 120][attempt]; log("  " + what + " refused (" + e.message.slice(0, 80) + "), waiting " + wait + " s"); spawnSync("sleep", [String(wait)]); }
   }
   throw new Error("Wikidata did not answer for " + what + "; re-run --fetch later (the cache keeps what arrived)");
@@ -121,10 +121,14 @@ function fetchAround(cache, keys) {
   const want = keys.filter((k) => !(k in cache.around));
   let n = 0;
   for (const k of want) {
-    const [lon, lat, r] = k.split(",").map(Number);
-    const q = "SELECT ?item ?coord ?label ?article (GROUP_CONCAT(DISTINCT ?cls; separator=\" \") AS ?classes) WHERE { SERVICE wikibase:around { ?item wdt:P625 ?coord . bd:serviceParam wikibase:center \"Point(" + lon + " " + lat + ")\"^^geo:wktLiteral . bd:serviceParam wikibase:radius \"" + r + "\" . } ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> . OPTIONAL { ?item wdt:P31 ?cls } OPTIONAL { ?item rdfs:label ?label FILTER(lang(?label) = \"en\") } } GROUP BY ?item ?coord ?label ?article LIMIT 600";
+    const [lon, lat, r0] = k.split(",").map(Number);
     const seen = new Set(), list = [];
-    for (const b of sparqlRetry(q, "around " + k)) { const qid = b.item.value.split("/").pop(); if (seen.has(qid)) continue; seen.add(qid); list.push({ qid, coord: wktPoint(b.coord.value), label: b.label ? b.label.value : "", title: iriTitle(b.article.value), classes: (b.classes && b.classes.value ? b.classes.value.split(" ") : []).map((x) => x.split("/").pop()).filter(Boolean) }); }
+    // a circle the service cannot answer within its limit (504 / 400) is tried again at half the radius, down to 6 km; a failure
+    // there is recorded (cache.aroundErrors) and the toponym stays unresolved with that reason — never guessed
+    let r = r0, rows = null, err = null;
+    while (r >= 6 && !rows) { try { rows = sparqlRetry("SELECT ?item ?coord ?label ?article (GROUP_CONCAT(DISTINCT ?cls; separator=\" \") AS ?classes) WHERE { SERVICE wikibase:around { ?item wdt:P625 ?coord . bd:serviceParam wikibase:center \"Point(" + lon + " " + lat + ")\"^^geo:wktLiteral . bd:serviceParam wikibase:radius \"" + r + "\" . } ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> . OPTIONAL { ?item wdt:P31 ?cls } OPTIONAL { ?item rdfs:label ?label FILTER(lang(?label) = \"en\") } } GROUP BY ?item ?coord ?label ?article LIMIT 400", "around " + k + " at " + r + " km", 2); } catch (e) { err = e.message; r = r / 2; } }
+    if (!rows) { cache.aroundErrors = cache.aroundErrors || {}; cache.aroundErrors[k] = err; log("  around " + k + ": the service could not answer (" + err.slice(0, 60) + "); recorded"); rows = []; }
+    for (const b of rows) { const qid = b.item.value.split("/").pop(); if (seen.has(qid)) continue; seen.add(qid); list.push({ qid, coord: wktPoint(b.coord.value), label: b.label ? b.label.value : "", title: iriTitle(b.article.value), classes: (b.classes && b.classes.value ? b.classes.value.split(" ") : []).map((x) => x.split("/").pop()).filter(Boolean) }); }
     cache.around[k] = list; n++;
     saveCache(cache); process.stdout.write(`  around ${n}/${want.length}  (${k}: ${list.length} items)        \r`); spawnSync("sleep", ["1.2"]);
   }
@@ -227,6 +231,7 @@ function makeResolver(reg, cache) {
     if (labelled.length > 1) return { ambiguous: labelled.map((it) => it.qid + " " + (it.label || it.title) + " [" + classNames(cache, it.classes) + "], " + Math.round(km(it.coord, t.at)) + " km") };
     // 4. Wikidata around the coordinate (items with an English article), by label or title
     const ak = aroundKey(t); const list = cache.around[ak]; if (list === undefined) return { unresolved: labelsAsked ? "not fetched (run --fetch: the search around the coordinate)" : "not fetched (run --fetch)" };
+    if (!list.length && cache.aroundErrors && cache.aroundErrors[ak]) return { unresolved: "no item of that name by title or label within " + r + " km, and the search around the coordinate could not be answered by the service (" + String(cache.aroundErrors[ak]).slice(0, 40) + ")" };
     const cands = list.filter((it) => wantNames.includes(fold(it.label)) || wantNames.includes(fold(it.title)) || wantNames.includes(fold(it.title.replace(/\s*\([^)]*\)\s*$/, ""))));
     if (cands.length === 1) return accept(cands[0].qid, cands[0], t.name, km(cands[0].coord, t.at), "around");
     if (cands.length > 1) return { ambiguous: cands.map((it) => it.qid + " " + (it.label || it.title) + " [" + classNames(cache, it.classes) + "], " + Math.round(km(it.coord, t.at)) + " km") };
@@ -244,7 +249,8 @@ function makeResolver(reg, cache) {
   }
   return { resolve, byQid };
 }
-const aroundKey = (t) => t.at[0].toFixed(3) + "," + t.at[1].toFixed(3) + "," + radiusOf(t.kind);
+const AROUND_MAX_KM = 50;   // a search around a coordinate is capped here: a 300 km circle over central Europe holds tens of thousands of items and the service answers 504 (measured 2026-10-10); a region whose item lies further than 50 km from the card's own anchor is reported, not guessed
+const aroundKey = (t) => t.at[0].toFixed(3) + "," + t.at[1].toFixed(3) + "," + Math.min(radiusOf(t.kind), AROUND_MAX_KM);
 
 /* ---------- the run ---------- */
 function run() {
