@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-10T14:34Z",
+ "generated": "2026-10-10T15:04Z",
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 4567,
   "redirect-broader": 396,
   "redirect-variant": 299,
-  "section-redirect": 92,
+  "section-redirect": 93,
   "disambiguation": 127,
-  "none": 607,
+  "none": 612,
   "disambig-resolved": 70,
   "list-page": 6,
   "search-match": 5,
@@ -49173,6 +49173,85 @@
    "url": null,
    "via": null,
    "status": "none"
+  },
+  "gga-168": {
+   "answer": "Secondary sanctions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Secondary sanctions",
+   "target": "United States government sanctions#Secondary sanctions"
+  },
+  "gga-169": {
+   "answer": "Teapot refiners",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Steeping",
+    "China in the 2026 Iran war",
+    "Sinclair Oil Corporation",
+    "Hengli Group",
+    "United States sanctions against China"
+   ]
+  },
+  "gga-170": {
+   "answer": "China's anti-sanctions regime",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Anti-Foreign Sanctions Law",
+    "United States government sanctions",
+    "Anti-American sentiment in China",
+    "International sanctions during apartheid",
+    "Support for Russia in the Russo-Ukrainian war"
+   ]
+  },
+  "gga-171": {
+   "answer": "One-year trade truce",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Twelve Years' Truce",
+    "Truce of Andrusovo",
+    "Christmas truce",
+    "Busan Summit",
+    "Danish–Hanseatic War (1361–1370)"
+   ]
+  },
+  "gga-172": {
+   "answer": "90 per cent of Iran's oil",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2026 Iran war",
+    "2026 Iran war fuel crisis",
+    "Economic impact of the 2026 Iran war",
+    "Subsidies in Iran",
+    "Anglo-Persian Oil Company"
+   ]
+  },
+  "gga-173": {
+   "answer": "Illicit unilateral sanctions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States government sanctions",
+    "Economic sanctions",
+    "International sanctions against Iran",
+    "International sanctions during the Russo-Ukrainian war",
+    "United States sanctions against Iran"
+   ]
   }
  }
 }

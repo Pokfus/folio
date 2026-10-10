@@ -32,11 +32,11 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 396 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 92 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 93 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 607 | nothing matched; no link |
+| `none` | 612 | nothing matched; no link |
 
-**5337 of 6173 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5337 of 6179 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -669,7 +669,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (92)
+## Section redirects — no dedicated page (93)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -687,6 +687,7 @@ Wikipedia treats these as part of another article. No link.
 - `eg-018` **Faiyum A culture** — `Faiyum A culture` only redirects into `Prehistoric Egypt#Faiyum A culture`
 - `eg-096` **Heb-sed court** — `Heb-sed court` only redirects into `Pyramid of Djoser#Heb-sed court`
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
+- `gga-168` **Secondary sanctions** — `Secondary sanctions` only redirects into `United States government sanctions#Secondary sanctions`
 - `gr-016` **Neopalatial period** — `Neopalatial period` only redirects into `Minoan chronology#Neopalatial period`
 - `gr-075` **decipherment of Linear B** — `Decipherment of Linear B` only redirects into `Linear B#Discovery and decipherment`
 - `gr-092` **Vapheio cups** — `Vapheio cups` only redirects into `Vaphio#The gold cups`
@@ -766,7 +767,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (607)
+## No article found (612)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -950,6 +951,11 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-051` **No peace to keep**
 - `gga-055` **Strategic retrenchment** — search suggests `Post–Cold War era`, `Turnaround management`, `July 1946`, `Sav-A-Center`, `Corporate recovery`
 - `gga-056` **Commodified peace** — search suggests `Gift economy`, `Horse (novel)`, `Das Judenthum in der Musik`, `Roger A. Freeman (economist)`, `Pocahontas`
+- `gga-169` **Teapot refiners** — search suggests `Steeping`, `China in the 2026 Iran war`, `Sinclair Oil Corporation`, `Hengli Group`, `United States sanctions against China`
+- `gga-170` **China's anti-sanctions regime** — search suggests `Anti-Foreign Sanctions Law`, `United States government sanctions`, `Anti-American sentiment in China`, `International sanctions during apartheid`, `Support for Russia in the Russo-Ukrainian war`
+- `gga-171` **One-year trade truce** — search suggests `Twelve Years' Truce`, `Truce of Andrusovo`, `Christmas truce`, `Busan Summit`, `Danish–Hanseatic War (1361–1370)`
+- `gga-172` **90 per cent of Iran's oil** — search suggests `2026 Iran war`, `2026 Iran war fuel crisis`, `Economic impact of the 2026 Iran war`, `Subsidies in Iran`, `Anglo-Persian Oil Company`
+- `gga-173` **Illicit unilateral sanctions** — search suggests `United States government sanctions`, `Economic sanctions`, `International sanctions against Iran`, `International sanctions during the Russo-Ukrainian war`, `United States sanctions against Iran`
 - `gr-005` **Early Minoan Crete** — search suggests `Minoan civilization`, `Crete`, `Minoan pottery`, `History of Crete`, `Minoan palaces`
 - `gr-010` **Throne Room at Knossos** — search suggests `Throne Room, Knossos`, `Knossos`, `Modern history of Knossos`, `Bull-Leaping Fresco`, `Émile Gilliéron`
 - `gr-015` **Protopalatial period** — search suggests `Minoan chronology`, `Minoan palaces`, `Malia (archaeological site)`, `Petsofas`, `Papoura Hill Circular Structure`

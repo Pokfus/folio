@@ -197,7 +197,7 @@ Source: Lecture 2. **The Lecture 3 deck repeats the Mali and peacekeeping slides
   gga-042  Penholder — (s18)
   gga-043  Christmas tree mandates — (s29)
   gga-044  UNPROFOR, UNOSOM and UNAMIR — the "fatal trilogy" of the slide; no source uses that phrase · (s20)
-  gga-045  Independent inquiry into the Rwanda genocide — (s21)
+  gga-045  Independent Inquiry into the Rwanda genocide — (s21)
   gga-046  Blair Doctrine — Chicago, April 1999 · (s22)
   gga-047  Responsibility to Protect — the three pillars · (s23)
   gga-048  Brahimi Report — 2000 · (s24)
@@ -358,7 +358,7 @@ Joe Leahy, *Financial Times*, 25 August 2026. Complete. Paragraphs are counted f
   gga-169  Teapot refiners — (paras 8–9)
   gga-170  China's anti-sanctions regime — (para 10)
   gga-171  One-year trade truce — Trump and Xi · (paras 3–4)
-  gga-172  Ninety per cent of Iran's oil — (para 3)
+  gga-172  90 per cent of Iran's oil — (para 3)
   gga-173  Illicit unilateral sanctions — the Chinese foreign ministry's position · (para 6)
 
 ## Reading 3 · Humanitarian Diplomacy (De Lauri) — `gga-r3`
