@@ -18,7 +18,10 @@
        The gnomonic projection keeps planar and spherical triangles the same (atlas-worker.js, triangulateFace).
      · THE RAIL ON NARROW SCREENS. At 360, 390 and 430 px wide — with the phone flag (a coarse pointer) and WITHOUT it (the owner's
        phone took one clipped line: the flag had missed it) — every rail control is wholly inside the rail's row and the atlas, the
-       row does not overflow, and a card open does not squeeze the rail away.
+       row does not overflow, and a card open does not squeeze the rail away. AND THE TICKS DO NOT MERGE INTO A BAR (Phase 3a, task 0c):
+       the ticks canvas, read back column by column, has no run of ink wider than one tick (2 CSS px), the ticks drawn number at
+       most the track's width over 4 px, more than one change year stands behind some tick, and the view's change years still
+       outnumber the ticks (merged, not dropped) — at 390 px the 2b rail drew runs of 9 CSS px of unbroken ink, at 360 px 28.
      · EVERY YEAR CARRIES ITS ERA: "1 CE", "300 BCE", "2026 CE" in the year box, the pin's text and fmtYear; parseYear reads them back.
 
    Exit 1 on any failure. */
@@ -161,6 +164,15 @@ async function strokePixelsFarFromWater(page) {
     const bad0 = m0.ctrls.filter((c) => !inside(c, m0.row) || !inside(c, m0.host));
     check(`${tag}: the rail takes two lines and no control leaves its row`, m0.narrow && m0.lines === 2 && bad0.length === 0 && m0.overflow <= 0, `phone ${m0.phone}, narrow ${m0.narrow}, lines ${m0.lines}, overflow ${m0.overflow}` + (bad0.length ? "; outside: " + bad0.map((c) => c.sel).join(" ") : ""));
     check(`${tag}: the year box reads "1 CE"`, m0.year === "1 CE", JSON.stringify(m0.year));
+    // task 0c (Phase 3a): the ticks thin with the width — read the ticks canvas back, column by column, above the baseline
+    const tk = await C(page, () => {
+      const c = document.querySelector(".atlas2-rail-ticks"), x = c.getContext("2d"), w = c.width, h = c.height, dpr = w / Math.max(1, c.clientWidth);
+      const d = x.getImageData(0, 0, w, h).data, row = Math.round(h / 2) - Math.round(h / 8);
+      let run = 0, longest = 0, cols = 0; for (let i = 0; i < w; i++) { if (d[(row * w + i) * 4 + 3] > 40) { cols++; run++; if (run > longest) longest = run; } else run = 0; }
+      return { longest, cols, dpr, stats: document.querySelector(".atlas2").__atlas2.railTicks() };
+    });
+    const st = tk.stats || {};
+    check(`${tag}: the rail's ticks are thinned to the width — no ink run wider than a tick, at most width/4 ticks, merged not dropped`, !!tk.stats && tk.longest <= 2 * tk.dpr && st.ticks > 0 && st.ticks <= Math.floor(st.width / 4) + 1 && st.maxMerged >= 2 && st.years > st.ticks, `${st.ticks} ticks for ${st.years} change years over ${st.width} px (bucket ${st.bucket} px, up to ${st.maxMerged} years a tick); longest ink run ${tk.longest} device px at dpr ${tk.dpr}`);
     await C(page, () => document.querySelector(".atlas2").__atlas2.select("pol:rome")); await sleep(300);
     const m1 = await measure();
     const bad1 = m1.ctrls.filter((c) => !inside(c, m1.row) || !inside(c, m1.host));
