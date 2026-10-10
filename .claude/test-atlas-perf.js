@@ -80,7 +80,9 @@ const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = Object.assign(process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {}, { args: ["--js-flags=--expose-gc"] });   // the heap is read after a forced collection: what is live, not what the collector has not got to
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream" };
 const RATIO = 0.40;             // v2 p95 ≤ 40 % of v1 p95
-const WORST_MS = 100;           // worst frame during drag and pinch, relief off
+const WORST_MS = 100;           // worst frame during drag and pinch, relief off (Phase 2a, task 0c: at most WORST_OVER frames over it across the repeats, none over WORST_CAP_MS)
+const WORST_OVER = 2;           // the owner's worst-frame rule (2026-10-09, Phase 2a): across the three drag repeats (about 1,200 frames) at most two frames over WORST_MS and none over WORST_CAP_MS; the same for the pinch's during-gesture frames
+const WORST_CAP_MS = 200;
 const RELIEF_FACTOR = 2.0;      // relief on: v2 pooled p90 ≤ this × v2's own relief-off pooled p90, patches warmed first (Phase 1d; 1.5 before, with the fetch inside the gesture)
 const RELIEF_VS_V1 = false;     // true = the owner's literal gate instead: v2 relief-on p95 ≤ RATIO × v1-with-heightmap p95
 const REPEATS = 3;              // every gesture runs this many times; the relative gates read the pooled p90 (see the header)
@@ -99,6 +101,7 @@ const VIEWS = [
   { name: "Europe", lon: 10, lat: 50, kmpp: 3.0, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600 },
   { name: "Aegean", lon: 25, lat: 38, kmpp: 0.5, tri: 33000, seg: 29000, river: 5500, lakeSeg: 3000, lakeTri: 2700 },
   { name: "Aegean at the cap", lon: 25, lat: 38, kmpp: 0.15, tri: 26000, seg: 23000, river: 0, lakeSeg: 2200, lakeTri: 2000 },
+  { name: "Mediterranean, 1 CE", lon: 15, lat: 38, kmpp: 6.0, year: 1, tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 42000, histSeg: 26000 },
 ];
 const PORT = 5612;
 
@@ -186,6 +189,21 @@ async function pinch(page, cdp, cx, cy, probe) {
   releases.push(await prims());
   return { releases };
 }
+// Phase 2a: the v2 scrub — the rail's pin dragged across sixty years of the Mediterranean at 300 BCE (the view where the
+// pilot's faces change most), with the year-change cost read from the controller afterwards
+async function scrubV2(page) {
+  const pin = await page.$(".atlas2-rail-pin"), track = await page.$(".atlas2-rail-track");
+  if (!pin || !track) return null;
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setYear(-300));
+  const pb = await pin.boundingBox(), tb = await track.boundingBox();
+  if (!pb || !tb) return null;
+  const y = pb.y + pb.height / 2, x0 = pb.x + pb.width / 2;
+  await page.mouse.move(x0, y); await page.mouse.down();
+  await page.mouse.move(x0, y - 60);   // fine mode: one year per 3 px
+  for (let i = 1; i <= 40; i++) { await page.mouse.move(x0 + i * 4.5, y - 60); await sleep(30); }
+  await page.mouse.up();
+  await sleep(300);
+}
 async function scrub(page) {
   const pin = await page.$("#tlPin"), track = await page.$("#tlTrack");
   if (!pin || !track) return null;
@@ -231,13 +249,14 @@ async function gestures(page, cdp, cx, cy, withScrub, pinchProbe, v2) {
   r.pinch = await repeated(page, () => pinch(page, cdp, cx, cy, pinchProbe), v2 ? () => warmV2(page, () => pinch(page, cdp, cx, cy)) : null);
   r.scrub = withScrub ? await repeated(page, () => scrub(page)) : null;
   if (withScrub && r.scrub && !r.scrub.n) r.scrub = null;
+  if (v2) { await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(15, 40, 6)); await settle(page); await sleep(200); r.scrub = await repeated(page, () => scrubV2(page), () => warmV2(page, () => scrubV2(page))); if (r.scrub && !r.scrub.n) r.scrub = null; r.yearChange = await page.evaluate(() => { const t = document.querySelector(".atlas2").__atlas2.timeInfo(); return { p95: t.yearChangeP95, n: t.yearChangeN }; }); await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(new Date().getUTCFullYear()); c.setView(10, 20, 24); }); await settle(page); }
   return r;
 }
 const settle = (page) => page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.tilesSettled() && c.waterSettled(); }, null, { timeout: 90000 }).then(() => true, () => false);
 async function fixedViews(page, cx, cy) {
   const views = [];
   for (const V of VIEWS) {
-    await page.evaluate((v) => document.querySelector(".atlas2").__atlas2.setView(v.lon, v.lat, v.kmpp), V);
+    await page.evaluate((v) => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(v.year != null ? v.year : new Date().getUTCFullYear()); c.setView(v.lon, v.lat, v.kmpp); }, V);
     const settled = await settle(page);
     await page.waitForTimeout(400);
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate());
@@ -247,7 +266,7 @@ async function fixedViews(page, cx, cy) {
     const overlay = await page.evaluate(() => document.querySelector(".atlas2-perf").textContent);
     views.push({ V, settled, still, frames, overlay });
   }
-  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(10, 20, 24));
+  await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(new Date().getUTCFullYear()); c.setView(10, 20, 24); });
   await settle(page);
   return views;
 }
@@ -317,6 +336,11 @@ async function fixedViews(page, cx, cy) {
     let zoomDuring = 0;
     Object.assign(r, await gestures(page, cdp, cx, cy, false, async () => { zoomDuring = Math.max(zoomDuring, await page.evaluate(() => document.querySelector(".atlas2").__atlas2.view.zoom)); }, true));
     r.pinchZoom = { before: zoomBefore, peak: zoomDuring };
+    // Phase 2a (task 0b): the same drag with the gesture stage FORCED to 0 and locked — full quality on this GPU, reported, not gated
+    r.stage = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.stageInfo());
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.forceStage(0, true));
+    r.drag0 = await repeated(page, () => drag(page, cx, cy), () => warmV2(page, () => drag(page, cx, cy)));
+    await page.evaluate((st) => { const c = document.querySelector(".atlas2").__atlas2; c.forceStage(st.learnt, true); c.forceStage(null); }, r.stage);
     r.draw = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, s = c.stats; const d = s.draw.slice(-200).sort((a, b) => a - b); return Object.assign({ p50: d[Math.floor(d.length / 2)], max: d[d.length - 1] }, c.statsNow()); });
     r.heapMB = await page.evaluate(() => { if (window.gc) window.gc(); return performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : NaN; });
     // the ID pass: a tap on the globe's centre must name a face — at the home view (10° E, 20° N: the Sahara),
@@ -348,6 +372,8 @@ async function fixedViews(page, cx, cy) {
   console.log(`\nFrame intervals, ms (rAF to rAF), pooled over ${REPEATS} repeats of each gesture; v1 = #map Full atlas, v2 = #map2 (rivers and lakes on); +relief = v1 with its heightmap, v2 with relief\n`);
   console.log("  gesture   target        n    mean     p50     p90     p95     p99     max  >50ms   per-repeat p95 (median)");
   const row = (g, name, s) => { if (!s) { console.log(`  ${g.padEnd(9)} ${name.padEnd(9)}  n/a`); return; } console.log(`  ${g.padEnd(9)} ${name.padEnd(9)} ${String(s.n).padStart(4)} ${fmt(s.mean)} ${fmt(s.p50)} ${fmt(s.p90)} ${fmt(s.p95)} ${fmt(s.p99)} ${fmt(s.max)} ${String(s.over50).padStart(6)}   ${(s.p95s || []).map((v) => v.toFixed(1)).join(" / ")} (${s.p95med != null ? s.p95med.toFixed(1) : "n/a"})`); };
+  row("drag", "v2 stage0", results.v2.drag0);
+  console.log(`  (v2 stage0: the drag with the gesture stage forced to 0 and locked — full resolution, the view's own level — reported, not gated; the learnt stage after the gestures was ${results.v2.stage && results.v2.stage.learnt}, escalations ${results.v2.stage && results.v2.stage.escalations}, stalls ignored ${results.v2.stage && results.v2.stage.stallsIgnored}, GPU timer ${results.v2.stage && results.v2.stage.gpuTimer})`);
   for (const g of ["drag", "wheel", "pinch", "scrub"]) { row(g, "v1", results.v1[g]); row(g, "v2", results.v2[g]); if (g !== "scrub") { row(g, "v1+relief", results.v1hm && results.v1hm[g]); row(g, "v2+relief", results.v2relief[g]); } }
   const relRow = (name, s) => { if (!s || !s.during) return; const w = s.releaseWorst; console.log(`  ${"pinch".padEnd(9)} ${name.padEnd(9)}  during the gesture: n ${s.during.n} p90 ${fmt(s.during.p90)} max ${fmt(s.during.max)};  release frames: ${s.release.map((x) => x.max.toFixed(1)).join(" / ")} ms, worst ${w.max.toFixed(1)} ms${w.stats ? ` at LOD ${w.stats.level}: ${w.stats.triangles} tri + ${w.stats.segments} seg, ${w.stats.riverSegments} river, ${w.stats.lakeSegments} lake seg, ${w.stats.lakeTriangles} lake tri, ${w.stats.draws} draws` : ""}`); };
   relRow("v2", results.v2.pinch); relRow("v2+relief", results.v2relief.pinch);
@@ -358,8 +384,8 @@ async function fixedViews(page, cx, cy) {
   console.log(`  JS heap: v1 ${results.v1.heapMB} MB, v2 ${results.v2.heapMB} MB; v2 pick at centre: "${results.v2.pick}"; v1 heightmap loaded: ${results.v1hm && results.v1hm.on}; v2 relief loaded: ${results.v2relief.ready} (${results.v2relief.stats.reliefResident} textures, ${(results.v2relief.stats.reliefBytes / 1048576).toFixed(1)} MB)`);
   const printViews = (title, vs) => {
     console.log(`\n${title}\n`);
-    console.log("  view                 km/px   LOD  tiles   triangles  segments   rivers  lakeSeg  lakeTri  relief   draws    mean     p95     max");
-    for (const { V, still, frames } of vs) console.log(`  ${V.name.padEnd(20)} ${String(V.kmpp).padStart(5)}   ${String(still.level).padStart(3)}  ${String(still.tilesDrawn).padStart(5)}   ${String(still.triangles).padStart(9)}  ${String(still.segments).padStart(8)}  ${String(still.riverSegments).padStart(7)}  ${String(still.lakeSegments).padStart(7)}  ${String(still.lakeTriangles).padStart(7)}  ${String(still.reliefOn ? still.reliefPatches + "p f" + still.reliefFade.toFixed(1) : "off").padStart(7)} ${String(still.draws).padStart(5)} ${fmt(frames.mean)} ${fmt(frames.p95)} ${fmt(frames.max)}`);
+    console.log("  view                 km/px   LOD  tiles   triangles  segments   rivers  lakeSeg  lakeTri  relief   draws    mean     p95     max   history tri/seg/faces");
+    for (const { V, still, frames } of vs) console.log(`  ${V.name.padEnd(20)} ${String(V.kmpp).padStart(5)}   ${String(still.level).padStart(3)}  ${String(still.tilesDrawn).padStart(5)}   ${String(still.triangles).padStart(9)}  ${String(still.segments).padStart(8)}  ${String(still.riverSegments).padStart(7)}  ${String(still.lakeSegments).padStart(7)}  ${String(still.lakeTriangles).padStart(7)}  ${String(still.reliefOn ? still.reliefPatches + "p f" + still.reliefFade.toFixed(1) : "off").padStart(7)} ${String(still.draws).padStart(5)} ${fmt(frames.mean)} ${fmt(frames.p95)} ${fmt(frames.max)}   ${still.historyTriangles || 0}/${still.historySegments || 0}/${still.historyFaces || 0}`);
   };
   printViews("Fixed views (v2, relief off): primitives in a still frame, then frame intervals over a 40-step drag", views);
   printViews("Fixed views (v2, relief on)", viewsRelief);
@@ -375,9 +401,13 @@ async function fixedViews(page, cx, cy) {
   // rAF timestamps come in multiples of the 60 Hz refresh, 16.68 ms: a six-refresh frame reads 100.0 or
   // 100.1 depending on jitter, and "100 ms" means six refreshes, so a millisecond of timestamp slack is
   // allowed — a seven-refresh frame (116.7) still fails
-  check(`drag: v2 worst frame of ${REPEATS} repeats ≤ ${WORST_MS} ms (relief off)`, results.v2.drag.max <= WORST_MS + 1, `${results.v2.drag.max.toFixed(1)} ms (per repeat ${results.v2.drag.runs.map((s) => s.max.toFixed(1)).join(" / ")})`);
+  // THE WORST-FRAME RULE (owner-approved, Phase 2a task 0c): across the repeats at most WORST_OVER frames over WORST_MS and none over
+  // WORST_CAP_MS — a collector's pause on a one-core runner is one frame in 1,263, not a renderer regression
+  const overCount = (raw) => raw.filter((x) => x > WORST_MS + 1).length;
+  { const d = results.v2.drag;
+    check(`drag: across ${REPEATS} repeats (${d.n} frames) at most ${WORST_OVER} frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms (relief off)`, overCount(d.raw) <= WORST_OVER && d.max <= WORST_CAP_MS + 1, `${overCount(d.raw)} over ${WORST_MS}, worst ${d.max.toFixed(1)} ms (per repeat ${d.runs.map((s) => s.max.toFixed(1)).join(" / ")})`); }
   { const p = results.v2.pinch, w = p.releaseWorst;
-    check(`pinch: v2 worst frame DURING the gesture, ${REPEATS} repeats ≤ ${WORST_MS} ms (relief off)`, !!p.during && p.during.max <= WORST_MS + 1, p.during ? `${p.during.max.toFixed(1)} ms over ${p.during.n} frames (per repeat ${p.runs.map((s) => s.during ? s.during.max.toFixed(1) : "?").join(" / ")})` : "no marks recorded");
+    check(`pinch: DURING the gesture, across ${REPEATS} repeats at most ${WORST_OVER} frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms (relief off)`, !!p.during && overCount(p.during.raw) <= WORST_OVER && p.during.max <= WORST_CAP_MS + 1, p.during ? `${overCount(p.during.raw)} over ${WORST_MS}, worst ${p.during.max.toFixed(1)} ms over ${p.during.n} frames (per repeat ${p.runs.map((s) => s.during ? s.during.max.toFixed(1) : "?").join(" / ")})` : "no marks recorded");
     check(`pinch: v2 first full-screen frame after release ≤ ${RELEASE_MS} ms (relief off)`, !!w && w.max <= RELEASE_MS + 1, w ? `${w.max.toFixed(1)} ms (${p.release.map((x) => x.max.toFixed(1)).join(" / ")})${w.stats ? ` — that frame: LOD ${w.stats.level}, ${w.stats.triangles} triangles + ${w.stats.segments} segments, ${w.stats.lakeTriangles} lake triangles, ${w.stats.draws} draw calls` : ""}` : "no release frame recorded"); }
   for (const { V, still, settled } of views) {
     check(`${V.name}: tiles, water and relief settled`, settled, `${still.tilesDrawn} drawn, ${still.pending} pending, water ${still.waterTilesDrawn}/${still.waterWanted}`);
@@ -386,6 +416,7 @@ async function fixedViews(page, cx, cy) {
     check(`${V.name}: river segments ≤ ${V.river}`, still.riverSegments <= V.river, `${still.riverSegments}`);
     check(`${V.name}: lake-shore segments ≤ ${V.lakeSeg}`, still.lakeSegments <= V.lakeSeg, `${still.lakeSegments}`);
     check(`${V.name}: lake-fill triangles ≤ ${V.lakeTri}`, still.lakeTriangles <= V.lakeTri, `${still.lakeTriangles}`);
+    if (V.histTri != null) { check(`${V.name}: historical fill triangles ≤ ${V.histTri}`, still.historyTriangles <= V.histTri, `${still.historyTriangles} in ${still.historyFaces} faces`); check(`${V.name}: historical border segments ≤ ${V.histSeg}`, still.historySegments <= V.histSeg, `${still.historySegments}`); }
   }
   for (const g of ["drag", "wheel", "pinch"]) {
     const a = results.v1hm && results.v1hm.on ? results.v1hm[g] : null, b = results.v2relief[g], off = results.v2[g];
@@ -400,6 +431,11 @@ async function fixedViews(page, cx, cy) {
   for (const { V, settled } of viewsRelief) check(`${V.name}, relief on: tiles and relief settled`, settled);
   check("v2 pinch reached the globe (zoom rose during the spread)", results.v2.pinchZoom.peak > results.v2.pinchZoom.before * 1.5, `zoom ${results.v2.pinchZoom.before} → ${results.v2.pinchZoom.peak && results.v2.pinchZoom.peak.toFixed(2)}`);
   check("v2 names the face under a tap (ID pass)", !!results.v2.pick, results.v2.pick);
+  // Phase 2a: the scrub (v1's rail against v2's), and the year change on the main thread
+  { const a = results.v1.scrub, b = results.v2.scrub;
+    if (a && b) check(`scrub: v2 pooled p90 ≤ ${RATIO * 100} % of v1 pooled p90`, b.p90 <= a.p90 * RATIO, `v2 ${b.p90.toFixed(1)} ms vs v1 ${a.p90.toFixed(1)} ms (${(100 * b.p90 / a.p90).toFixed(0)} %); worst v2 ${b.max.toFixed(1)}`);
+    else check("scrub: both rails measured", false, `v1 ${a ? a.n : "none"}, v2 ${b ? b.n : "none"}`);
+    const yc = results.v2.yearChange; check("a year change costs at most 5 ms on the main thread at p95", !!yc && yc.p95 <= 5, yc ? `${yc.p95.toFixed(2)} ms over ${yc.n} changes` : "no reading"); }
   check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
   console.log("");
   process.exit(fails ? 1 : 0);

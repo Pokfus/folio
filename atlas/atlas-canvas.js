@@ -169,6 +169,9 @@
         return f >= 0 ? { face: f } : null;
       },
       stats() { return { triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, complete: true, tilesResident: 0, waterTilesResident: 0, reliefResident: 0, reliefL0: -1, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: 0, restores: 0, static2d: true }; },
+      // Phase 2a: the still view draws no history (the year rail still works; the fills come with WebGL2) — the main thread calls these on any renderer
+      setHistorySegs() {}, historySegsLoaded() { return false; }, setHistoryMesh() {}, dropHistoryMesh() {}, historyMeshLoaded() { return false; }, historyMeshCount() { return 0; },
+      setHistoryStyle() {}, setHistoryArcTable() {}, setHistoryBorderColor() {}, clearHistory() {}, linesCache() {}, stillCache() {},
       rawStats: stats,
       dispose() { snapshot = null; },
     };

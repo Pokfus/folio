@@ -20,7 +20,12 @@
      · LABEL CONTRAST against the theme's land and sea fills, in all fifteen themes and folio's night: ink names
        ≥ 4.5:1 on the land fill, water names ≥ 3:1 on the sea and on the land (every label also carries a halo);
      · THE BUDGETS: the label canvas redraw ≤ 3 ms at p95 and the worker's layout ≤ 50 ms at p95, as the
-       controller reports them (relaxed ×3 on software GL runners, which this suite detects by the renderer string).
+       controller reports them (relaxed ×3 on software GL runners, which this suite detects by the renderer string);
+     · NO LABEL UNDER THE CHROME AND NONE UPSIDE DOWN (Phase 2a, task 0d; the owner's phone screenshots of 2026-10-09): at
+       1280×800 and at 390×844 — with the legend shut and open, the About sheet open, a card open — no placed label's rectangle
+       intersects a control's rectangle (search, zoom stack, chips, sheets, card, stack chip); every point label (a city and
+       its marker) is wholly on screen; an area or path label hangs past the viewport edge by at most a quarter of its boxes;
+       every curved label's mean glyph rotation lies within ±90° of upright and no glyph of it is rotated beyond 90°.
 */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -69,7 +74,7 @@ async function layoutAt(page, V, density) {
   if (density) await page.evaluate((d) => document.querySelector(".atlas2").__atlas2.setLayers({ density: d }), density);
   await page.evaluate((v) => document.querySelector(".atlas2").__atlas2.setView(v.lon, v.lat, v.k), V);
   await settle(page); await sleep(100);
-  const placed = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow().then((p) => p.map((x) => ({ id: x.id, kind: x.kind, text: x.text, rects: x.rects, box: x.box, marker: !!x.marker, curved: !!x.curved, score: x.score }))));
+  const placed = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow().then((p) => p.map((x) => ({ id: x.id, kind: x.kind, text: x.text, rects: x.rects, box: x.box, marker: !!x.marker, curved: !!x.curved, score: x.score, glyphs: x.glyphs ? x.glyphs.map((g) => g[2]) : [], meanAngle: x.meanAngle || 0 }))));
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate()); await sleep(60);
   const s = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.statsNow());
   return { placed, stats: s };
@@ -131,7 +136,7 @@ async function inkInBoxes(page, placed) {
     // the cap is 120, the SUPPLY at this view is not: of 335 candidates about 100 are on screen (the rest are rivers whose
     // line is off screen and places in the 200 px margin), and the v0 gazetteer has no town under 100,000 and no lake
     // under a 40 px chord here — 57 placed on the session's runner; the floor is 40 % of the cap (§7 "Phase 1c — as built")
-    check("country scale (1 km/px), normal: the cap is about 120 and the placed count at least 40 % of it", stats.labelCap === 120 && placed.length >= 48, `cap ${stats.labelCap}, placed ${placed.length}`);
+    check("country scale (1 km/px), normal: the cap is about 120 and the placed count at least a third of it (the controls' rectangles take cells since 0d)", stats.labelCap === 120 && placed.length >= 40, `cap ${stats.labelCap}, placed ${placed.length}`);
   }
 
   console.log("\n\x1b[1m3) nothing added or dropped while the globe moves\x1b[0m\n");
@@ -190,6 +195,39 @@ async function inkInBoxes(page, placed) {
     check(`worker layout ≤ ${s.labelBudgets.layoutMs * f} ms at p95`, s.labelLayoutP95 <= s.labelBudgets.layoutMs * f, `${s.labelLayoutP95.toFixed(1)} ms (last ${s.labelLayoutMs.toFixed(1)}, ${s.labelCandidates} candidates)`);
   }
 
+  /* ---- Phase 2a, task 0d: the chrome and the orientation, on the desktop and on a phone ---- */
+  const POINT_KINDS = /^(capital|city|town)$/;
+  const norm = (a) => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; };
+  async function chromeChecks(pg, label, V, density) {
+    const { placed } = await layoutAt(pg, V, density);
+    const chrome = await pg.evaluate(() => document.querySelector(".atlas2").__atlas2.chromeRects());
+    const size = await pg.evaluate(() => { const r = document.querySelector(".atlas2").getBoundingClientRect(); return [r.width, r.height]; });
+    const under = [];
+    for (const p of placed) for (const r of p.rects) if (chrome.some((c) => intersects(r, c))) { under.push(p.text || p.id); break; }
+    check(`${label}: none of ${placed.length} labels lies under a control (${chrome.length} chrome rectangles)`, placed.length > 0 && under.length === 0, under.slice(0, 4).join(", "));
+    const offPoint = placed.filter((p) => POINT_KINDS.test(p.kind) && p.rects.some((r) => r[0] < 0 || r[1] < 0 || r[2] > size[0] || r[3] > size[1])).map((p) => p.text || p.id);
+    check(`${label}: every point label and marker is wholly on screen`, offPoint.length === 0, offPoint.slice(0, 4).join(", "));
+    const clipped = placed.filter((p) => !POINT_KINDS.test(p.kind)).map((p) => { let a = 0, v = 0; for (const r of p.rects) { const w = r[2] - r[0], h = r[3] - r[1]; a += w * h; v += Math.max(0, Math.min(r[2], size[0]) - Math.max(r[0], 0)) * Math.max(0, Math.min(r[3], size[1]) - Math.max(r[1], 0)); } return [p.text || p.id, a > 0 ? 1 - v / a : 0]; }).filter(([, f]) => f > 0.26);
+    check(`${label}: no area or path label hangs past the edge by more than a quarter`, clipped.length === 0, clipped.slice(0, 4).map(([t, f]) => `${t} ${(f * 100).toFixed(0)} %`).join(", "));
+    const upside = placed.filter((p) => p.curved && (Math.abs(norm(p.meanAngle)) > Math.PI / 2 || p.glyphs.some((g) => Math.abs(norm(g)) > Math.PI / 2 + 1e-6))).map((p) => p.text + " " + (p.meanAngle * 180 / Math.PI).toFixed(0) + "°");
+    check(`${label}: every curved label reads upright (mean rotation within ±90°, no glyph beyond)`, upside.length === 0, upside.slice(0, 4).join(", ") || `${placed.filter((p) => p.curved).length} curved`);
+    return placed;
+  }
+  console.log("\n\x1b[1m8a) the chrome and the orientation, desktop 1280×800\x1b[0m\n");
+  {
+    await chromeChecks(page, "desktop, Europe (Berlin by the zoom stack)", { lon: 13.4, lat: 52.5, k: 3 }, "dense");
+    await chromeChecks(page, "desktop, the Alps 1 km/px (Danube, Rhône)", { lon: 9, lat: 46.5, k: 1 }, "dense");
+    await chromeChecks(page, "desktop, the Rhine 0.5 km/px", { lon: 7.5, lat: 50.5, k: 0.5 }, "dense");
+    await page.click(".atlas2-layers-btn"); await sleep(250);
+    await chromeChecks(page, "desktop, Europe with the legend open", { lon: 10, lat: 50, k: 3 }, "dense");
+    await page.click(".atlas2-about-btn"); await sleep(250);
+    await chromeChecks(page, "desktop, Europe with the About sheet open", { lon: 10, lat: 50, k: 3 }, "dense");
+    await page.keyboard.press("Escape"); await sleep(150);
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:fra", { open: true, push: false })); await sleep(300);
+    await chromeChecks(page, "desktop, Europe with France's card open", { lon: 10, lat: 50, k: 3 }, "dense");
+    await page.keyboard.press("Escape"); await sleep(150);
+  }
+
   console.log("\n\x1b[1m8) a 390 px phone\x1b[0m\n");
   await page.close();
   const phone = await browser.newContext({ viewport: { width: 390, height: 700 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
@@ -200,6 +238,18 @@ async function inkInBoxes(page, placed) {
     check(`phone, ${V.name}, normal: ${placed.length} labels (cap ${stats.labelCap}), none overlapping`, placed.length > 0 && bad.length === 0 && stats.phone === true, bad.slice(0, 3).join("; ") + (stats.phone ? "" : " (not read as a phone)"));
     if (V.name === "globe") check("phone, globe: one notch sparser than the desktop's normal", stats.labelCap < counts["globe/normal"].cap, `cap ${stats.labelCap} vs ${counts["globe/normal"].cap}`);
   }
+  console.log("\n\x1b[1m8b) the chrome and the orientation, phone 390×844\x1b[0m\n");
+  await P.page.setViewportSize({ width: 390, height: 844 }); await sleep(300);
+  await chromeChecks(P.page, "phone, central Europe (Berlin)", { lon: 13.4, lat: 51.5, k: 3 }, "dense");
+  await chromeChecks(P.page, "phone, the Baltic (NORTH EUROPE, SCANDINAVIA by the search box)", { lon: 20, lat: 59, k: 6 }, "dense");
+  await chromeChecks(P.page, "phone, the Alps 1.5 km/px (Danube, Rhône)", { lon: 9, lat: 46.5, k: 1.5 }, "dense");
+  await chromeChecks(P.page, "phone, Iraq and Kuwait", { lon: 45, lat: 32, k: 5 }, "dense");
+  await P.page.click(".atlas2-about-btn"); await sleep(300);
+  await chromeChecks(P.page, "phone, the Baltic with the About sheet open", { lon: 20, lat: 59, k: 6 }, "dense");
+  await P.page.keyboard.press("Escape"); await sleep(150);
+  await P.page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:deu", { open: true, push: false })); await sleep(300);
+  await chromeChecks(P.page, "phone, central Europe with Germany's card strip open", { lon: 13.4, lat: 51.5, k: 3 }, "dense");
+  await P.page.keyboard.press("Escape"); await sleep(150);
   check("no page errors on #map2 (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));
   check("no page errors on #map2 (phone)", P.errors.length === 0, P.errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();

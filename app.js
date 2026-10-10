@@ -15145,7 +15145,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     browse:    ["Card browser — Folio", "Search every card you could study by state, flag, deck, tag or how often you have forgotten it."],
     warofages: ["Project W — Folio", "A game in the making. Not yet open to readers."],
     settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
-    credits:   ["Sources and credits — Folio", "Every data source behind the Atlas's globe, with its licence, version and the files derived from it."],
+    credits:   ["Sources and credits — Folio", "Every data source behind the new globe, with its licence, version and the files derived from it, and the current Atlas's sources as Folio records them."],
     challenge: ["Multiple Choice — Folio", "Today's five-question history quiz."],
     chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
     truefalse: ["True or False — Folio", "Today's historical myths and surprising truths."],
@@ -46545,7 +46545,7 @@ let prev = null;
     const odblFiles = [...new Set(odbl.flatMap((s) => s.variants.filter((v) => v.licence === "ODbL-1.0").flatMap((v) => v.files.map((f) => f.path + (f.count > 1 ? ` (${f.count} files)` : "")))))].sort();
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Folio</span><h1>Sources and credits</h1>
-        <p>Every data source behind the Atlas’s globe — coastlines, borders, rivers, lakes, relief and place names — with its licence, its version and the Folio files made from it. This list is generated from the data files’ own headers, so it cannot fall behind them.</p></div>
+        <p>Every data source behind the <b>new globe</b> (the Atlas preview at <code>#map2</code>) — coastlines, borders, rivers, lakes, relief and place names — with its licence, its version and the Folio files made from it. This list is generated from the data files’ own headers, so it cannot fall behind them. The sources of the <b>current Atlas</b> (<code>#map</code>) are listed separately below.</p></div>
       <div class="mission credits">
         <div class="msn-card cred-caution">
           <h2>A caution about borders</h2>
@@ -46564,6 +46564,42 @@ let prev = null;
           <ul class="cred-odbl-files">${odblFiles.map((f) => `<li><code>${esc(f)}</code></li>`).join("")}</ul>
         </div>` : ""}
         <p class="cred-foot">Generated ${when(C.generated)} from ${C.filesRead || 0} data files. The rest of Folio’s credits — the texts, the fonts, the schedulers — are on the <a href="#mission">About page</a>.</p>
+        ${/* THE CURRENT ATLAS (#map) IS NOT MADE FROM THESE FILES (Oct 2026, Atlas v2 Phase 2a, task 0a of the brief). Its
+              globe draws v1's own bundles — world.js, timeline.js, polities.js, fronts.js, site-hulls.js, heightmap.js — and
+              the page above said "every data source behind the Atlas's globe" while listing only the new globe's eleven.
+              This section lists what v1's OWN RECORDS say — docs/atlas-borders-audit.md §3 and the help card of #map
+              (app.js, "Reading the Atlas") — with the licence and attribution exactly as those documents give them, and
+              says plainly where a document records a source but no licence line. Nothing here is typed from memory, and
+              the rows are not .cred-src: they are not generated from a file header, and the credits checker must not
+              take them for one. historical-basemaps is marked "under owner review": the audit found its repository's
+              LICENSE file to be GPL-3.0 where docs/atlas.md says CC BY-SA 4.0. */""}
+        <div class="msn-card cred-v1 notranslate" id="credits-v1">
+          <h2>The current Atlas (<code>#map</code>)</h2>
+          <p class="cred-v1-intro">The globe at <code>#map</code> is drawn from Folio’s earlier data bundles, not from the files above. Its sources, as Folio’s own records give them (the borders audit of October 2026 and the Atlas’s help card), with the licence each record states:</p>
+          <ul class="credits-list cred-v1-list">
+            <li class="cred-v1-src"><b class="cred-name">Cliopatria (Seshat Global History Databank)</b> — <span class="cr-lic">${ext("https://creativecommons.org/licenses/by/4.0/", "CC BY 4.0")}</span>
+              <p class="cred-attr">“Borders that move with the year — where a state or a side in a war has dated borders, they come from Cliopatria (Seshat Global History Databank), licensed CC BY 4.0, simplified for the globe.” (the help card); “CC BY 4.0 (LICENSE.md; Zenodo records 13363121 and 20274630, v0.2.0 of 2026-05-16) … Credit, a link to the licence and a note of changes are required.” (the audit, §3)</p>
+              <p class="cred-files">${ext("https://github.com/Seshat-Global-History-Databank/cliopatria", "Where it was taken from")}. Folio files: <code>polities.js</code>, <code>country-series.js</code>.</p></li>
+            <li class="cred-v1-src"><b class="cred-name">Hosner et al. 2016, Chinese Neolithic site data (PANGAEA)</b> — <span class="cr-lic">${ext("https://creativecommons.org/licenses/by/3.0/", "CC BY 3.0")}</span>
+              <p class="cred-attr">“Chinese Neolithic cultures are outlined from the sites in Hosner et al. 2016 (PANGAEA, CC BY 3.0).” (the help card)</p>
+              <p class="cred-files">${ext("https://doi.org/10.1594/PANGAEA.860072", "Where it was taken from")}. Folio files: <code>site-hulls.js</code>.</p></li>
+            <li class="cred-v1-src"><b class="cred-name">Second World War front maps, 1939–42 (San Jose, Wikimedia Commons; vectorised by ww2-atlas)</b> — <span class="cr-lic">public domain</span>
+              <p class="cred-attr">“Maps for 1939–42 by San Jose on Wikimedia Commons (public domain), vectorised by ww2-atlas” (the help card)</p>
+              <p class="cred-files">${ext("https://github.com/tanimutomo/ww2-atlas", "ww2-atlas")}. Folio files: <code>fronts.js</code>.</p></li>
+            <li class="cred-v1-src"><b class="cred-name">Atlas of the World Battle Fronts in Semimonthly Phases (US Army, 1945), 1943–45</b> — <span class="cr-lic">public domain</span>
+              <p class="cred-attr">“for 1943–45 the US Army’s Atlas of the World Battle Fronts (public domain)” (the help card); “Atlas of the World Battle Fronts in Semimonthly Phases (US Army, 1945) — WW2 fronts, Europe and Pacific incl. China — fortnightly, Jul 1943 – Aug 1945 — public domain — fronts, traced” (the audit, §3)</p>
+              <p class="cred-files">Folio files: <code>fronts.js</code>.</p></li>
+            <li class="cred-v1-src"><b class="cred-name">historical-basemaps (A. Ourednik)</b> — <span class="cr-lic">GPL-3.0</span> — per the repository’s LICENSE file, <b>under owner review</b>
+              <p class="cred-attr">“historical-basemaps (A. Ourednik) — world, 54 snapshots from 123,000 BCE to 2010 (Folio uses 11) — static snapshot — GPL-3.0 per the repo’s LICENSE file — see the warning below” and “A LICENCE QUESTION FOR THE OWNER, FOUND BY THIS AUDIT. docs/atlas.md describes historical-basemaps as CC BY-SA 4.0. The repository’s LICENSE file, fetched 2026-10-01, is the GNU GPL-3.0, and its README states no other licence. Folio already ships eleven era maps derived from it. This audit does not change anything about that; it records the discrepancy so it can be checked (not legal advice).” (the audit, §3)</p>
+              <p class="cred-files">${ext("https://github.com/aourednik/historical-basemaps", "Where it was taken from")}. Folio files: <code>timeline.js</code> (the eras).</p></li>
+            <li class="cred-v1-src"><b class="cred-name">Natural Earth, 1:10m (coastlines, lakes, rivers, populated places)</b> — <span class="cr-lic">licence not recorded in Folio’s v1 documents</span>
+              <p class="cred-attr">Folio’s v1 build scripts name the source — “Natural Earth 10m coast chains”, “Natural Earth 10m lakes”, “Natural Earth 10m river centerlines”, “Natural Earth 10m populated places” — and record no licence or attribution line beside it; the new globe’s Natural Earth entries above link its terms of use.</p>
+              <p class="cred-files">Folio files: <code>world.js</code>, <code>lakes.js</code>, <code>rivers.js</code>, <code>world-capitals.js</code>, <code>cities.js</code>.</p></li>
+            <li class="cred-v1-src"><b class="cred-name">AWS open “Terrain Tiles” (terrarium) — the heightmap</b> — <span class="cr-lic">licence not recorded in Folio’s v1 documents</span>
+              <p class="cred-attr">“Source: the AWS open ‘Terrain Tiles’ terrarium dataset (key-free; the same data behind tangrams.github.io/heightmapper).” (the heightmap builder’s own header); no licence or attribution line is recorded.</p>
+              <p class="cred-files">Folio files: <code>heightmap.js</code>, <code>heightmap-ultra.js</code>.</p></li>
+          </ul>
+        </div>
       </div>`;
   };
   PAGES.findit = function (root) {
