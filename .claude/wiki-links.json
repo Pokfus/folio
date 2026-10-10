@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-10T14:20Z",
+ "generated": "2026-10-10T14:24Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4560,
-  "redirect-broader": 393,
+  "ok": 4562,
+  "redirect-broader": 394,
   "redirect-variant": 299,
   "section-redirect": 92,
   "disambiguation": 127,
-  "none": 593,
+  "none": 595,
   "disambig-resolved": 69,
   "list-page": 6,
   "search-match": 5,
@@ -48916,6 +48916,56 @@
    "url": "https://en.wikipedia.org/wiki/Pedro_S%C3%A1nchez",
    "via": "answer",
    "status": "ok"
+  },
+  "gga-052": {
+   "answer": "Protection of civilians",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "gga-053": {
+   "answer": "Exit strategy",
+   "title": "Exit strategy",
+   "url": "https://en.wikipedia.org/wiki/Exit_strategy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-054": {
+   "answer": "Jean-Marie Guéhenno",
+   "title": "Jean-Marie Guéhenno",
+   "url": "https://en.wikipedia.org/wiki/Jean-Marie_Gu%C3%A9henno",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-055": {
+   "answer": "Strategic retrenchment",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Post–Cold War era",
+    "Turnaround management",
+    "July 1946",
+    "Sav-A-Center",
+    "Corporate recovery"
+   ]
+  },
+  "gga-056": {
+   "answer": "Commodified peace",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Gift economy",
+    "Horse (novel)",
+    "Das Judenthum in der Musik",
+    "Roger A. Freeman (economist)",
+    "Pocahontas"
+   ]
   }
  }
 }

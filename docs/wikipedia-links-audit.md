@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4560 | the title is the article |
+| `ok` | 4562 | the title is the article |
 | `redirect-variant` | 299 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 69 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 393 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 394 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 92 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 593 | nothing matched; no link |
+| `none` | 595 | nothing matched; no link |
 
-**5326 of 6147 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5329 of 6152 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (393)
+## Redirected to a differently named article — check each (394)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -120,6 +120,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gga-018` **GPS spoofing** → [GNSS spoofing](https://en.wikipedia.org/wiki/GNSS_spoofing) (from `GPS spoofing`)
 - `gga-037` **MINUSMA** → [United Nations Multidimensional Integrated Stabilization Mission in Mali](https://en.wikipedia.org/wiki/United_Nations_Multidimensional_Integrated_Stabilization_Mission_in_Mali) (from `MINUSMA`)
 - `gga-048` **Brahimi Report** → [Report of the Panel on United Nations Peace Operations](https://en.wikipedia.org/wiki/Report_of_the_Panel_on_United_Nations_Peace_Operations) (from `Brahimi Report`)
+- `gga-052` **Protection of civilians** → [Human rights](https://en.wikipedia.org/wiki/Human_rights) (from `Protection of civilians`)
 - `gr-001` **Aegean Bronze Age** → [Aegean civilization](https://en.wikipedia.org/wiki/Aegean_civilization) (from `Aegean Bronze Age`)
 - `gr-002` **Cycladic civilisation** → [Cycladic culture](https://en.wikipedia.org/wiki/Cycladic_culture) (from `Cycladic civilisation`)
 - `gr-003` **Cycladic figurines** → [Cycladic art](https://en.wikipedia.org/wiki/Cycladic_art) (from `Cycladic figurines`)
@@ -762,7 +763,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (593)
+## No article found (595)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -932,6 +933,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-049` **High-level Independent Panel on Peace Operations**
 - `gga-050` **Four essential shifts**
 - `gga-051` **No peace to keep**
+- `gga-055` **Strategic retrenchment** — search suggests `Post–Cold War era`, `Turnaround management`, `July 1946`, `Sav-A-Center`, `Corporate recovery`
+- `gga-056` **Commodified peace** — search suggests `Gift economy`, `Horse (novel)`, `Das Judenthum in der Musik`, `Roger A. Freeman (economist)`, `Pocahontas`
 - `gr-005` **Early Minoan Crete** — search suggests `Minoan civilization`, `Crete`, `Minoan pottery`, `History of Crete`, `Minoan palaces`
 - `gr-010` **Throne Room at Knossos** — search suggests `Throne Room, Knossos`, `Knossos`, `Modern history of Knossos`, `Bull-Leaping Fresco`, `Émile Gilliéron`
 - `gr-015` **Protopalatial period** — search suggests `Minoan chronology`, `Minoan palaces`, `Malia (archaeological site)`, `Petsofas`, `Papoura Hill Circular Structure`
