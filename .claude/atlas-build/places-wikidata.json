@@ -1,0 +1,7561 @@
+{
+ "retrieved": "2026-10-10",
+ "titles": {
+  "Lomekwi 3": null,
+  "Olduvai Gorge": {
+   "qid": "Q217043",
+   "coord": [
+    35.35,
+    -2.9833
+   ],
+   "classes": [
+    "Q12137573",
+    "Q2197893"
+   ],
+   "label": "Olduvai Gorge"
+  },
+  "Nariokotome, West Turkana": null,
+  "Nariokotome": null,
+  "Dmanisi": {
+   "qid": "Q261243",
+   "coord": [
+    44.2044,
+    41.3322
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Dmanisi"
+  },
+  "Java Man": {
+   "qid": "Q192993",
+   "coord": null,
+   "classes": [
+    "Q23038290"
+   ],
+   "label": "Java Man"
+  },
+  "Zhoukoudian": {
+   "qid": "Q13659137",
+   "coord": [
+    115.946,
+    39.6797
+   ],
+   "classes": [
+    "Q10868922",
+    "Q735428"
+   ],
+   "label": "Zhoukoudian"
+  },
+  "Wonderwerk Cave": {
+   "qid": "Q2543042",
+   "coord": [
+    23.5539,
+    -27.845
+   ],
+   "classes": [
+    "Q839954",
+    "Q35509"
+   ],
+   "label": "Wonderwerk Cave"
+  },
+  "Sierra de Atapuerca": null,
+  "Denisova Cave": {
+   "qid": "Q1029322",
+   "coord": [
+    84.6762,
+    51.3976
+   ],
+   "classes": [
+    "Q12137573",
+    "Q7558985",
+    "Q35509"
+   ],
+   "label": "Denisova Cave"
+  },
+  "Jebel Irhoud site": null,
+  "Omo Kibish": null,
+  "Blombos Cave": {
+   "qid": "Q884971",
+   "coord": [
+    21.2225,
+    -34.4144
+   ],
+   "classes": [
+    "Q11269813",
+    "Q839954",
+    "Q35509"
+   ],
+   "label": "Blombos Cave"
+  },
+  "Howiesons Poort": {
+   "qid": "Q585988",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Howiesons Poort"
+  },
+  "Lake Toba": {
+   "qid": "Q183360",
+   "coord": [
+    98.8875,
+    2.67
+   ],
+   "classes": [
+    "Q204324"
+   ],
+   "label": "Lake Toba"
+  },
+  "Les Eyzies": {
+   "qid": "Q57506528",
+   "coord": [
+    1.0181,
+    44.9367
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Les Eyzies"
+  },
+  "Stadel cave": null,
+  "Willendorf, Lower Austria": null,
+  "Willendorf": {
+   "qid": "Q15886047",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Willendorf"
+  },
+  "Vallon-Pont-d'Arc": {
+   "qid": "Q238386",
+   "coord": [
+    4.3936,
+    44.4069
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Vallon-Pont-d'Arc"
+  },
+  "Montignac": {
+   "qid": "Q233323",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Montignac"
+  },
+  "Santillana del Mar": {
+   "qid": "Q493817",
+   "coord": [
+    -4.1047,
+    43.3933
+   ],
+   "classes": [
+    "Q123095923"
+   ],
+   "label": "Santillana del Mar"
+  },
+  "Qafzeh Cave": {
+   "qid": "Q2121357",
+   "coord": [
+    35.318,
+    32.6885
+   ],
+   "classes": [
+    "Q4443227",
+    "Q1149405",
+    "Q839954",
+    "Q35509"
+   ],
+   "label": "Qafzeh Cave"
+  },
+  "Madjedbebe rock shelter": null,
+  "Lake Mungo lunette": null,
+  "Mal'ta, Belaya River": null,
+  "Mal'ta": null,
+  "Beringia": {
+   "qid": "Q190927",
+   "coord": [
+    -170,
+    65
+   ],
+   "classes": [
+    "Q864812"
+   ],
+   "label": "Beringia"
+  },
+  "Monte Verde": {
+   "qid": "Q975775",
+   "coord": [
+    -73.2044,
+    -41.5047
+   ],
+   "classes": [
+    "Q839954",
+    "Q486972"
+   ],
+   "label": "Monte Verde"
+  },
+  "Clovis culture": {
+   "qid": "Q3485378",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Clovis culture"
+  },
+  "Folsom": {
+   "qid": "Q257124",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Folsom"
+  },
+  "Doggerland": {
+   "qid": "Q1138308",
+   "coord": [
+    3,
+    52
+   ],
+   "classes": [
+    "Q864812",
+    "Q205895"
+   ],
+   "label": "Doggerland"
+  },
+  "Keros": {
+   "qid": "Q546109",
+   "coord": [
+    25.6486,
+    36.8914
+   ],
+   "classes": [
+    "Q839954",
+    "Q23442"
+   ],
+   "label": "Keros"
+  },
+  "Knossos": {
+   "qid": "Q173527",
+   "coord": [
+    25.1632,
+    35.298
+   ],
+   "classes": [
+    "Q120964921",
+    "Q148837"
+   ],
+   "label": "Knossos"
+  },
+  "Phaistos": {
+   "qid": "Q249707",
+   "coord": [
+    24.8143,
+    35.0512
+   ],
+   "classes": [
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Phaistos"
+  },
+  "Malia": {
+   "qid": "Q346877",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Malia"
+  },
+  "Zakros": {
+   "qid": "Q60218",
+   "coord": [
+    26.2614,
+    35.0981
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Zakros"
+  },
+  "Gournia": {
+   "qid": "Q1540236",
+   "coord": [
+    25.7925,
+    35.1092
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Gournia"
+  },
+  "Ayia Triada": null,
+  "Mesara": null,
+  "Mochlos": {
+   "qid": "Q25094151",
+   "coord": [
+    25.9067,
+    35.1869
+   ],
+   "classes": [
+    "Q839954",
+    "Q207524"
+   ],
+   "label": "Mochlos islet"
+  },
+  "Pseira": {
+   "qid": "Q473606",
+   "coord": [
+    25.8614,
+    35.1899
+   ],
+   "classes": [
+    "Q207524"
+   ],
+   "label": "Pseira"
+  },
+  "Palaikastro": {
+   "qid": "Q941860",
+   "coord": [
+    26.2547,
+    35.1978
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Palekastro"
+  },
+  "Petras": {
+   "qid": "Q3901049",
+   "coord": [
+    26.1149,
+    35.1974
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Petras"
+  },
+  "Akrotiri": {
+   "qid": "Q295514",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Akrotiri"
+  },
+  "Santorini": {
+   "qid": "Q129296",
+   "coord": [
+    25.4325,
+    36.415
+   ],
+   "classes": [
+    "Q1200957",
+    "Q23442"
+   ],
+   "label": "Santorini"
+  },
+  "Kythera": null,
+  "Praisos": null,
+  "Idaean Cave": null,
+  "Mycenaean civilisation": null,
+  "22.25,37.85": null,
+  "Mycenae": {
+   "qid": "Q132564",
+   "coord": [
+    22.7561,
+    37.7308
+   ],
+   "classes": [
+    "Q65064889",
+    "Q29048715",
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Mycenae"
+  },
+  "Lion Gate": {
+   "qid": "Q1450403",
+   "coord": [
+    22.7564,
+    37.7308
+   ],
+   "classes": [
+    "Q82117"
+   ],
+   "label": "Lion Gate"
+  },
+  "Grave Circle A": null,
+  "Grave Circle B": null,
+  "Treasury of Atreus": {
+   "qid": "Q1262524",
+   "coord": [
+    22.7536,
+    37.7268
+   ],
+   "classes": [
+    "Q261201"
+   ],
+   "label": "Treasury of Atreus"
+  },
+  "Tiryns": {
+   "qid": "Q217379",
+   "coord": [
+    22.7997,
+    37.5994
+   ],
+   "classes": [
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Tiryns"
+  },
+  "Palace of Nestor": {
+   "qid": "Q2047396",
+   "coord": [
+    21.695,
+    37.0272
+   ],
+   "classes": [
+    "Q839954",
+    "Q16560"
+   ],
+   "label": "Palace of Nestor"
+  },
+  "Thebes": {
+   "qid": "Q2416389",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Thebes"
+  },
+  "Midea": {
+   "qid": "Q6013596",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Midea"
+  },
+  "Gla": {
+   "qid": "Q636506",
+   "coord": [
+    23.1819,
+    38.4833
+   ],
+   "classes": [
+    "Q839954",
+    "Q486972",
+    "Q88291"
+   ],
+   "label": "Gla"
+  },
+  "Miletus": {
+   "qid": "Q169460",
+   "coord": [
+    27.2756,
+    37.5311
+   ],
+   "classes": [
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Miletus"
+  },
+  "Lake Copais": {
+   "qid": "Q1234240",
+   "coord": [
+    23.05,
+    38.45
+   ],
+   "classes": [
+    "Q3497768",
+    "Q23397"
+   ],
+   "label": "Lake Copais"
+  },
+  "Kazarma bridge": null,
+  "Isthmus of Corinth": {
+   "qid": "Q215200",
+   "coord": [
+    22.9837,
+    37.9329
+   ],
+   "classes": [
+    "Q93267"
+   ],
+   "label": "Isthmus of Corinth"
+  },
+  "Troy": {
+   "qid": "Q22647",
+   "coord": [
+    26.2389,
+    39.9575
+   ],
+   "classes": [
+    "Q65064889",
+    "Q1708422",
+    "Q148837",
+    "Q133442"
+   ],
+   "label": "Troy"
+  },
+  "Dardanelles": {
+   "qid": "Q6514",
+   "coord": [
+    26.4,
+    40.2
+   ],
+   "classes": [
+    "Q37901"
+   ],
+   "label": "Dardanelles"
+  },
+  "Lefkandi": {
+   "qid": "Q634655",
+   "coord": [
+    23.6728,
+    38.4132
+   ],
+   "classes": [
+    "Q839954",
+    "Q173387"
+   ],
+   "label": "Lefkandi"
+  },
+  "Nichoria": {
+   "qid": "Q1595514",
+   "coord": [
+    21.9142,
+    37.0022
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Nichoria"
+  },
+  "Zagora": {
+   "qid": "Q1408803",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Zagora"
+  },
+  "Kerameikos": {
+   "qid": "Q630974",
+   "coord": [
+    23.7186,
+    37.9783
+   ],
+   "classes": [
+    "Q102202066",
+    "Q56304522",
+    "Q123705"
+   ],
+   "label": "Kerameikos"
+  },
+  "Ascra": {
+   "qid": "Q936920",
+   "coord": [
+    23.0964,
+    38.3183
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Ascra"
+  },
+  "Pithekoussai": null,
+  "Al Mina": null,
+  "Olympia": {
+   "qid": "Q158763",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Olympia"
+  },
+  "Delphi": {
+   "qid": "Q75459",
+   "coord": [
+    22.5017,
+    38.4822
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Delphi"
+  },
+  "Heraion of Samos": {
+   "qid": "Q841207",
+   "coord": [
+    26.8856,
+    37.6719
+   ],
+   "classes": [
+    "Q1057440",
+    "Q839954"
+   ],
+   "label": "Heraion of Samos"
+  },
+  "Perachora": {
+   "qid": "Q2973204",
+   "coord": [
+    22.9486,
+    38.0314
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": ""
+  },
+  "Dreros": {
+   "qid": "Q5306985",
+   "coord": [
+    25.6283,
+    35.2567
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Dreros"
+  },
+  "Corinth": {
+   "qid": "Q232697",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Corinth"
+  },
+  "Diolkos": {
+   "qid": "Q1226902",
+   "coord": [
+    22.9624,
+    37.9491
+   ],
+   "classes": [
+    "Q93342462",
+    "Q83620"
+   ],
+   "label": "Diolkos"
+  },
+  "Tunnel of Eupalinos": {
+   "qid": "Q955894",
+   "coord": [
+    26.9305,
+    37.6945
+   ],
+   "classes": [
+    "Q12719343",
+    "Q1852785",
+    "Q839954"
+   ],
+   "label": "tunnel of Eupalinos"
+  },
+  "Argos": {
+   "qid": "Q218956",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Argos"
+  },
+  "Aegina": {
+   "qid": "Q191082",
+   "coord": [
+    23.49,
+    37.73
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Aegina"
+  },
+  "Chalcis": {
+   "qid": "Q200133",
+   "coord": [
+    23.595,
+    38.4625
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Chalkída"
+  },
+  "Ionia": {
+   "qid": "Q620874",
+   "coord": [
+    27.5,
+    38.2
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Ionia"
+  },
+  "Panionion": null,
+  "Artemision at Ephesus": null,
+  "Cyrene": {
+   "qid": "Q233409",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Cyrene"
+  },
+  "Syracuse": {
+   "qid": "Q2376565",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Syracuse"
+  },
+  "Megara Hyblaea": {
+   "qid": "Q1457477",
+   "coord": [
+    15.1818,
+    37.2037
+   ],
+   "classes": [
+    "Q124830213",
+    "Q93342462",
+    "Q3363945",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Megara Hyblaea"
+  },
+  "Gela": {
+   "qid": "Q39971",
+   "coord": [
+    14.25,
+    37.0667
+   ],
+   "classes": [
+    "Q747074",
+    "Q148837"
+   ],
+   "label": "Gela"
+  },
+  "Selinus": null,
+  "Sybaris": {
+   "qid": "Q220583",
+   "coord": [
+    16.4937,
+    39.7166
+   ],
+   "classes": [
+    "Q124830411",
+    "Q3363945",
+    "Q3329412",
+    "Q839954",
+    "Q148837",
+    "Q33506"
+   ],
+   "label": "Sybaris"
+  },
+  "Croton": {
+   "qid": "Q524933",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Croton"
+  },
+  "Taras": {
+   "qid": "Q342837",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Taras"
+  },
+  "Cumae": {
+   "qid": "Q243456",
+   "coord": [
+    14.0536,
+    40.8486
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Cumae"
+  },
+  "Toros-Menalla, Djurab Desert": null,
+  "Toros-Menalla": null,
+  "Middle Awash, Afar Region": null,
+  "Middle Awash": {
+   "qid": "Q499030",
+   "coord": [
+    40,
+    10
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Middle Awash"
+  },
+  "Hadar": {
+   "qid": "Q342800",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Hadar"
+  },
+  "Laetoli, Site G": null,
+  "Laetoli": {
+   "qid": "Q672146",
+   "coord": [
+    35.3524,
+    -2.9962
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Laetoli"
+  },
+  "Buxton Limeworks, Taung": null,
+  "Buxton Limeworks": null,
+  "Torres Strait land bridge": null,
+  "Star Carr": {
+   "qid": "Q2299200",
+   "coord": [
+    -0.4237,
+    54.2143
+   ],
+   "classes": [
+    "Q1708422"
+   ],
+   "label": "Star Carr"
+  },
+  "Fertile Crescent": {
+   "qid": "Q170526",
+   "coord": [
+    40,
+    36
+   ],
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Fertile Crescent"
+  },
+  "40.5,36.7": null,
+  "Natufian culture": {
+   "qid": "Q733489",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Natufian culture"
+  },
+  "Massalia": {
+   "qid": "Q2566850",
+   "coord": [
+    5.3825,
+    43.2969
+   ],
+   "classes": [
+    "Q69391739",
+    "Q148837"
+   ],
+   "label": "Massalia"
+  },
+  "Emporion": null,
+  "Byzantium": {
+   "qid": "Q23725",
+   "coord": [
+    28.9836,
+    41.0134
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Byzantium"
+  },
+  "Olbia": {
+   "qid": "Q13630",
+   "coord": [
+    9.5,
+    40.9167
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Olbia"
+  },
+  "Naucratis": {
+   "qid": "Q137721",
+   "coord": [
+    30.6167,
+    30.9
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Naucratis"
+  },
+  "Italian peninsula": null,
+  "Apennines": null,
+  "Latium": {
+   "qid": "Q1048669",
+   "coord": null,
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Latium"
+  },
+  "Alban Hills": {
+   "qid": "Q1129380",
+   "coord": [
+    12.75,
+    41.75
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Alban Hills"
+  },
+  "Terramare culture": {
+   "qid": "Q1410539",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Terramare cultura"
+  },
+  "Villanovan culture": {
+   "qid": "Q587309",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Villanovan culture"
+  },
+  "Latin League": {
+   "qid": "Q874283",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Latin League"
+  },
+  "12.72,41.78": null,
+  "Sabine country": null,
+  "Samnium": {
+   "qid": "Q463459",
+   "coord": [
+    14.6228,
+    41.4322
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Samnium"
+  },
+  "Umbria": {
+   "qid": "Q1280",
+   "coord": [
+    12.5667,
+    42.9833
+   ],
+   "classes": [
+    "Q16110"
+   ],
+   "label": "Umbria"
+  },
+  "Iguvium": null,
+  "Satricum": {
+   "qid": "Q2137162",
+   "coord": [
+    12.7551,
+    41.5131
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": ""
+  },
+  "Liguria": {
+   "qid": "Q1256",
+   "coord": [
+    8.7667,
+    44.45
+   ],
+   "classes": [
+    "Q16110"
+   ],
+   "label": "Liguria"
+  },
+  "Venetia": {
+   "qid": "Q7919722",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Venetia"
+  },
+  "Messapia": {
+   "qid": "Q6821848",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Messapia"
+  },
+  "Etruscan civilisation": null,
+  "11.55,42.85": null,
+  "Pyrgi": {
+   "qid": "Q1724661",
+   "coord": [
+    11.9634,
+    42.0152
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Pyrgi"
+  },
+  "Tarquinia": {
+   "qid": "Q179999",
+   "coord": [
+    11.7561,
+    42.2492
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Tarquinia"
+  },
+  "Caere": {
+   "qid": "Q2914373",
+   "coord": [
+    12.1083,
+    42.0017
+   ],
+   "classes": [
+    "Q839954",
+    "Q133442"
+   ],
+   "label": "Caere"
+  },
+  "Banditaccia necropolis": null,
+  "Veii": {
+   "qid": "Q677935",
+   "coord": [
+    12.4014,
+    42.0239
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Veii"
+  },
+  "Vulci": {
+   "qid": "Q931172",
+   "coord": [
+    11.6281,
+    42.4191
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q133442"
+   ],
+   "label": "Vulci"
+  },
+  "Portonaccio sanctuary, Veii": null,
+  "Portonaccio sanctuary": null,
+  "Campania": {
+   "qid": "Q1438",
+   "coord": [
+    14.95,
+    40.75
+   ],
+   "classes": [
+    "Q16110"
+   ],
+   "label": "Campania"
+  },
+  "Sparta": {
+   "qid": "Q5690",
+   "coord": [
+    22.4236,
+    37.0819
+   ],
+   "classes": [
+    "Q93342462",
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Sparta"
+  },
+  "Laconia": {
+   "qid": "Q11723836",
+   "coord": [
+    22.5833,
+    37
+   ],
+   "classes": [
+    "Q1234255"
+   ],
+   "label": "Laconia Regional Unit"
+  },
+  "Lacedaemon": null,
+  "Bhimbetka rock shelters": {
+   "qid": "Q331603",
+   "coord": [
+    77.6144,
+    22.9386
+   ],
+   "classes": [
+    "Q11269813",
+    "Q1149405",
+    "Q839954"
+   ],
+   "label": "Bhimbetka rock shelters"
+  },
+  "Göbekli Tepe": {
+   "qid": "Q214944",
+   "coord": [
+    38.9225,
+    37.2231
+   ],
+   "classes": [
+    "Q106491339",
+    "Q755017"
+   ],
+   "label": "Göbekli Tepe"
+  },
+  "Tell es-Sultan": {
+   "qid": "Q2402267",
+   "coord": [
+    35.4446,
+    31.8717
+   ],
+   "classes": [
+    "Q106491339",
+    "Q65064889",
+    "Q7251867"
+   ],
+   "label": "Tell es-Sultan"
+  },
+  "Çatalhöyük": {
+   "qid": "Q192522",
+   "coord": [
+    32.8283,
+    37.6675
+   ],
+   "classes": [
+    "Q106491339",
+    "Q7251867",
+    "Q755017"
+   ],
+   "label": "Çatalhöyük"
+  },
+  "’Ain Ghazal": null,
+  "Linear Pottery culture": {
+   "qid": "Q806348",
+   "coord": null,
+   "classes": [
+    "Q1292119",
+    "Q465299"
+   ],
+   "label": "Linear Pottery culture"
+  },
+  "Stonehenge": {
+   "qid": "Q39671",
+   "coord": [
+    -1.8261,
+    51.1789
+   ],
+   "classes": [
+    "Q16735822",
+    "Q4989906",
+    "Q1035294",
+    "Q935773",
+    "Q839954"
+   ],
+   "label": "Stonehenge"
+  },
+  "Similaun": {
+   "qid": "Q697937",
+   "coord": [
+    10.8806,
+    46.7636
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Similaun"
+  },
+  "Skara Brae": {
+   "qid": "Q816437",
+   "coord": [
+    -3.3417,
+    59.0487
+   ],
+   "classes": [
+    "Q106491339",
+    "Q839954"
+   ],
+   "label": "Skara Brae"
+  },
+  "Newgrange": {
+   "qid": "Q339503",
+   "coord": [
+    -6.4756,
+    53.6947
+   ],
+   "classes": [
+    "Q2055789",
+    "Q381885"
+   ],
+   "label": "Newgrange"
+  },
+  "Varna necropolis": null,
+  "Yangshao culture": {
+   "qid": "Q854631",
+   "coord": [
+    109.1,
+    36.3
+   ],
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Yangshao culture"
+  },
+  "Longshan culture": {
+   "qid": "Q1057935",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Longshan culture"
+  },
+  "Mehrgarh": {
+   "qid": "Q242148",
+   "coord": [
+    67.6708,
+    29.2125
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Mehrgarh"
+  },
+  "Menelaion": {
+   "qid": "Q23069794",
+   "coord": [
+    22.4535,
+    37.0658
+   ],
+   "classes": [
+    "Q1356770",
+    "Q839954"
+   ],
+   "label": "Menelaion"
+  },
+  "Artemis Orthia": null,
+  "Tegea": {
+   "qid": "Q645234",
+   "coord": [
+    22.4285,
+    37.4644
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Tegea"
+  },
+  "Thyrea": {
+   "qid": "Q16798412",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Thyrea"
+  },
+  "Attica": {
+   "qid": "Q122443",
+   "coord": [
+    23.8,
+    38
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Attica"
+  },
+  "Areopagus": {
+   "qid": "Q202487",
+   "coord": [
+    23.7236,
+    37.9722
+   ],
+   "classes": [
+    "Q631305",
+    "Q54050"
+   ],
+   "label": "Areopagus"
+  },
+  "Nabta Playa": {
+   "qid": "Q1535226",
+   "coord": [
+    30.7257,
+    22.5079
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Nabta Playa"
+  },
+  "Kuk Swamp": {
+   "qid": "Q1165562",
+   "coord": [
+    144.33,
+    -5.7825
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Kuk Swamp"
+  },
+  "Poverty Point": {
+   "qid": "Q964745",
+   "coord": [
+    -91.4083,
+    32.6425
+   ],
+   "classes": [
+    "Q30304302",
+    "Q893775",
+    "Q893745",
+    "Q839954"
+   ],
+   "label": "Poverty Point"
+  },
+  "Sumer": {
+   "qid": "Q35355",
+   "coord": [
+    45.5,
+    32
+   ],
+   "classes": [
+    "Q96196009",
+    "Q28171280",
+    "Q3502482",
+    "Q1620908",
+    "Q1292119",
+    "Q465299",
+    "Q11042"
+   ],
+   "label": "Sumer"
+  },
+  "Uruk": {
+   "qid": "Q168518",
+   "coord": [
+    45.6374,
+    31.3259
+   ],
+   "classes": [
+    "Q15661340",
+    "Q3247173",
+    "Q839954",
+    "Q486972",
+    "Q133442"
+   ],
+   "label": "Uruk"
+  },
+  "Ur": {
+   "qid": "Q5699",
+   "coord": [
+    46.1044,
+    30.9622
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Ur"
+  },
+  "Abu Shahrayn": null,
+  "Tell el-Muqayyar": null,
+  "Akkadian Empire": {
+   "qid": "Q4461035",
+   "coord": [
+    44.1,
+    33.1
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Akkadian Empire"
+  },
+  "Babylon": {
+   "qid": "Q5684",
+   "coord": [
+    44.4211,
+    32.5425
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q133442"
+   ],
+   "label": "Babylon"
+  },
+  "Dur-Kurigalzu": {
+   "qid": "Q622719",
+   "coord": [
+    44.2023,
+    33.3537
+   ],
+   "classes": [
+    "Q839954",
+    "Q486972",
+    "Q82794"
+   ],
+   "label": "Dur-Kurigalzu"
+  },
+  "Elam": {
+   "qid": "Q128904",
+   "coord": [
+    52.4,
+    29.9
+   ],
+   "classes": [
+    "Q28171280",
+    "Q3024240"
+   ],
+   "label": "Elam"
+  },
+  "Mitanni": {
+   "qid": "Q178665",
+   "coord": [
+    39.8919,
+    37.6496
+   ],
+   "classes": [
+    "Q3024240",
+    "Q417175"
+   ],
+   "label": "Mitanni"
+  },
+  "Alalia": null,
+  "Gulf of Tarentum": null,
+  "Roman Kingdom": {
+   "qid": "Q201038",
+   "coord": [
+    12.4833,
+    41.8833
+   ],
+   "classes": [
+    "Q11514315",
+    "Q3024240"
+   ],
+   "label": "Roman Kingdom"
+  },
+  "12.48,41.89": null,
+  "seven hills of Rome": null,
+  "Palatine Hill": {
+   "qid": "Q200642",
+   "coord": [
+    12.4869,
+    41.8883
+   ],
+   "classes": [
+    "Q17431399",
+    "Q839954",
+    "Q54050"
+   ],
+   "label": "Palatine Hill"
+  },
+  "Capitoline Hill": {
+   "qid": "Q34925",
+   "coord": [
+    12.4831,
+    41.8933
+   ],
+   "classes": [
+    "Q54050"
+   ],
+   "label": "Capitoline Hill"
+  },
+  "Old Temple of Athena": {
+   "qid": "Q683988",
+   "coord": [
+    23.7264,
+    37.9719
+   ],
+   "classes": [
+    "Q839954",
+    "Q267596"
+   ],
+   "label": "Old Temple of Athena"
+  },
+  "Laurion": null,
+  "Xia dynasty": {
+   "qid": "Q169705",
+   "coord": null,
+   "classes": [
+    "Q18706315",
+    "Q12857432",
+    "Q836688"
+   ],
+   "label": "Xia dynasty"
+  },
+  "Temple of Artemis at Corfu": null,
+  "Siphnian Treasury": {
+   "qid": "Q1754028",
+   "coord": [
+    22.5015,
+    38.4816
+   ],
+   "classes": [
+    "Q19860854",
+    "Q1239455"
+   ],
+   "label": "Siphnian Treasury"
+  },
+  "Naqada culture": {
+   "qid": "Q753391",
+   "coord": [
+    32.7333,
+    25.95
+   ],
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Naqada culture"
+  },
+  "Saqqara": {
+   "qid": "Q192134",
+   "coord": [
+    31.2333,
+    29.85
+   ],
+   "classes": [
+    "Q125366925",
+    "Q839954",
+    "Q200141",
+    "Q532"
+   ],
+   "label": "Saqqara"
+  },
+  "Giza plateau": null,
+  "Forum Boarium": {
+   "qid": "Q283650",
+   "coord": [
+    12.4811,
+    41.8889
+   ],
+   "classes": [
+    "Q3748441",
+    "Q174782"
+   ],
+   "label": "Forum Boarium"
+  },
+  "casa Romuli": null,
+  "Lavinium": {
+   "qid": "Q1352586",
+   "coord": [
+    12.4726,
+    41.6531
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Lavinium"
+  },
+  "Alba Longa": {
+   "qid": "Q335070",
+   "coord": [
+    12.6503,
+    41.7469
+   ],
+   "classes": [
+    "Q15661340",
+    "Q3024240",
+    "Q133442"
+   ],
+   "label": "Alba Longa"
+  },
+  "Cures": null,
+  "Ostia": {
+   "qid": "Q593421",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Ostia"
+  },
+  "Tarquinii": null,
+  "Cloaca Maxima": {
+   "qid": "Q746102",
+   "coord": [
+    12.4803,
+    41.8889
+   ],
+   "classes": [
+    "Q3951623",
+    "Q839954",
+    "Q156849"
+   ],
+   "label": "Cloaca Maxima"
+  },
+  "Circus Maximus": {
+   "qid": "Q207808",
+   "coord": [
+    12.4857,
+    41.8859
+   ],
+   "classes": [
+    "Q839954",
+    "Q477396"
+   ],
+   "label": "Circus Maximus"
+  },
+  "Campus Martius": {
+   "qid": "Q242839",
+   "coord": [
+    12.4772,
+    41.8978
+   ],
+   "classes": [
+    "Q14524493"
+   ],
+   "label": "Campus Martius"
+  },
+  "Servian Wall": {
+   "qid": "Q281330",
+   "coord": [
+    12.5017,
+    41.9017
+   ],
+   "classes": [
+    "Q839954",
+    "Q57346"
+   ],
+   "label": "Servian Wall"
+  },
+  "Gabii": {
+   "qid": "Q614510",
+   "coord": [
+    12.7158,
+    41.8869
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Gabii"
+  },
+  "Temple of Jupiter Optimus Maximus": {
+   "qid": "Q586468",
+   "coord": [
+    12.4817,
+    41.8922
+   ],
+   "classes": [
+    "Q19860854",
+    "Q14752696",
+    "Q867143",
+    "Q839954",
+    "Q44539"
+   ],
+   "label": "Temple of Jupiter Optimus Maximus"
+  },
+  "Collatia": {
+   "qid": "Q1108919",
+   "coord": [
+    12.6666,
+    41.9251
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Collatia"
+  },
+  "Roman Forum": {
+   "qid": "Q180212",
+   "coord": [
+    12.4852,
+    41.8922
+   ],
+   "classes": [
+    "Q133444874",
+    "Q1200957",
+    "Q1062780",
+    "Q839954",
+    "Q684740",
+    "Q174782"
+   ],
+   "label": "Roman Forum"
+  },
+  "Aventine Hill": {
+   "qid": "Q194103",
+   "coord": [
+    12.4833,
+    41.8833
+   ],
+   "classes": [
+    "Q54050"
+   ],
+   "label": "Aventine Hill"
+  },
+  "pomerium": null,
+  "Forum Romanum": null,
+  "Lapis Niger": {
+   "qid": "Q841388",
+   "coord": [
+    12.4847,
+    41.8925
+   ],
+   "classes": [
+    "Q123223970",
+    "Q697295",
+    "Q178743"
+   ],
+   "label": "Lapis Niger"
+  },
+  "Roman Republic": {
+   "qid": "Q17167",
+   "coord": [
+    12.5,
+    41.9
+   ],
+   "classes": [
+    "Q11514315",
+    "Q3024240"
+   ],
+   "label": "Roman Republic"
+  },
+  "Pons Sublicius": {
+   "qid": "Q1466700",
+   "coord": [
+    12.4797,
+    41.888
+   ],
+   "classes": [
+    "Q19860854",
+    "Q1223230",
+    "Q1055465"
+   ],
+   "label": "Pons Sublicius"
+  },
+  "Clusium": {
+   "qid": "Q843729",
+   "coord": [
+    11.95,
+    43.0167
+   ],
+   "classes": [
+    "Q133442"
+   ],
+   "label": "Clusium"
+  },
+  "Lake Regillus": {
+   "qid": "Q17051922",
+   "coord": [
+    12.6931,
+    41.8797
+   ],
+   "classes": [
+    "Q110775381",
+    "Q23397"
+   ],
+   "label": "Regillus"
+  },
+  "Tell Nebi Mend": null,
+  "Valley of the Kings": {
+   "qid": "Q133423",
+   "coord": [
+    32.6024,
+    25.7403
+   ],
+   "classes": [
+    "Q839954",
+    "Q200141",
+    "Q39816"
+   ],
+   "label": "Valley of the Kings"
+  },
+  "Karnak": {
+   "qid": "Q522862",
+   "coord": [
+    32.6583,
+    25.7183
+   ],
+   "classes": [
+    "Q839954",
+    "Q44539"
+   ],
+   "label": "Karnak Temple Complex"
+  },
+  "Kerma": {
+   "qid": "Q1107569",
+   "coord": [
+    30.4097,
+    19.6008
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Kerma"
+  },
+  "Sahiwal district": null,
+  "Mohenjo-daro": {
+   "qid": "Q5725",
+   "coord": [
+    68.1389,
+    27.3292
+   ],
+   "classes": [
+    "Q65064889",
+    "Q15661340"
+   ],
+   "label": "Mohenjo-daro"
+  },
+  "Dholavira, Khadir island": null,
+  "Dholavira": {
+   "qid": "Q9468",
+   "coord": [
+    70.2167,
+    23.8861
+   ],
+   "classes": [
+    "Q839954",
+    "Q486972"
+   ],
+   "label": "Dholavira"
+  },
+  "Lothal": {
+   "qid": "Q9443",
+   "coord": [
+    72.2494,
+    22.5214
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Lothal"
+  },
+  "Erlitou culture": {
+   "qid": "Q1051663",
+   "coord": [
+    112.6971,
+    34.7018
+   ],
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Erlitou culture"
+  },
+  "Shang dynasty": {
+   "qid": "Q128938",
+   "coord": [
+    114.325,
+    36.1208
+   ],
+   "classes": [
+    "Q12857432",
+    "Q11514315",
+    "Q1292119",
+    "Q836688",
+    "Q11042"
+   ],
+   "label": "Shang dynasty"
+  },
+  "114.3,35.7": null,
+  "Anyang": {
+   "qid": "Q324293",
+   "coord": [
+    114.3461,
+    36.0956
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Anyang"
+  },
+  "Guanghan": {
+   "qid": "Q607961",
+   "coord": [
+    104.28,
+    30.9793
+   ],
+   "classes": [
+    "Q1070990"
+   ],
+   "label": "Guanghan"
+  },
+  "Jiahu": {
+   "qid": "Q1688860",
+   "coord": [
+    113.6614,
+    33.6144
+   ],
+   "classes": [
+    "Q839954",
+    "Q350895"
+   ],
+   "label": "Jiahu"
+  },
+  "Banpo": {
+   "qid": "Q806929",
+   "coord": [
+    109.0475,
+    34.2744
+   ],
+   "classes": [
+    "Q839954",
+    "Q515"
+   ],
+   "label": "Banpo"
+  },
+  "Hongshan culture": {
+   "qid": "Q1195031",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Hongshan culture"
+  },
+  "Liangzhu culture": {
+   "qid": "Q1204909",
+   "coord": [
+    119.9908,
+    30.3956
+   ],
+   "classes": [
+    "Q3502482",
+    "Q465299"
+   ],
+   "label": "Liangzhu culture"
+  },
+  "Yinxu": {
+   "qid": "Q464904",
+   "coord": [
+    114.3186,
+    36.1225
+   ],
+   "classes": [
+    "Q6838244",
+    "Q839954",
+    "Q515"
+   ],
+   "label": "Yinxu"
+  },
+  "Achaemenid Empire": {
+   "qid": "Q389688",
+   "coord": [
+    44.4208,
+    32.5364
+   ],
+   "classes": [
+    "Q11514315",
+    "Q3024240"
+   ],
+   "label": "Achaemenid Empire"
+  },
+  "Lade": {
+   "qid": "Q243832",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Lade"
+  },
+  "Western Zhou": {
+   "qid": "Q1069609",
+   "coord": null,
+   "classes": [
+    "Q12857432",
+    "Q11514315",
+    "Q836688"
+   ],
+   "label": "Western Zhou"
+  },
+  "Yamnaya culture": {
+   "qid": "Q426737",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Yamnaya culture"
+  },
+  "Minoan civilisation": null,
+  "Thera": null,
+  "Hattusa, the Hittite capital": null,
+  "Hattusa": {
+   "qid": "Q181007",
+   "coord": [
+    34.6153,
+    40.0197
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Hattusa"
+  },
+  "Boğazkale": {
+   "qid": "Q848800",
+   "coord": [
+    34.6097,
+    40.0211
+   ],
+   "classes": [
+    "Q3957"
+   ],
+   "label": "Boğazkale"
+  },
+  "Uluburun, near Kaş": null,
+  "Uluburun": null,
+  "Bell Beaker culture": {
+   "qid": "Q470867",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Bell beaker culture"
+  },
+  "Únětice culture": {
+   "qid": "Q773818",
+   "coord": null,
+   "classes": [
+    "Q465299"
+   ],
+   "label": "Unetice culture"
+  },
+  "Mittelberg near Nebra": null,
+  "Neo-Assyrian Empire": {
+   "qid": "Q10914393",
+   "coord": [
+    43.2625,
+    35.4567
+   ],
+   "classes": [
+    "Q11514315",
+    "Q3024240",
+    "Q1292119",
+    "Q48349"
+   ],
+   "label": "Neo-Assyrian Empire"
+  },
+  "Nineveh": {
+   "qid": "Q5680",
+   "coord": [
+    43.1528,
+    36.3594
+   ],
+   "classes": [
+    "Q15661340",
+    "Q3247173",
+    "Q839954",
+    "Q755017"
+   ],
+   "label": "Nineveh"
+  },
+  "Neo-Babylonian Empire": {
+   "qid": "Q624887",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Neo-Babylonian Empire"
+  },
+  "Israel and Judah": null,
+  "Tyre": {
+   "qid": "Q1164063",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Tyre"
+  },
+  "Carthage": {
+   "qid": "Q6343",
+   "coord": [
+    10.3235,
+    36.8526
+   ],
+   "classes": [
+    "Q15661340",
+    "Q655593",
+    "Q133442"
+   ],
+   "label": "Carthage"
+  },
+  "Urartu": {
+   "qid": "Q185068",
+   "coord": [
+    43.3425,
+    38.5
+   ],
+   "classes": [
+    "Q28171280",
+    "Q3024240"
+   ],
+   "label": "Urartu"
+  },
+  "Lydia": {
+   "qid": "Q620765",
+   "coord": [
+    30,
+    40
+   ],
+   "classes": [
+    "Q3502482",
+    "Q3024240",
+    "Q1620908",
+    "Q1250464"
+   ],
+   "label": "Lydia"
+  },
+  "Ecbatana": {
+   "qid": "Q696193",
+   "coord": [
+    48.5162,
+    34.8065
+   ],
+   "classes": [
+    "Q15661340",
+    "Q3257686",
+    "Q2065736",
+    "Q839954"
+   ],
+   "label": "Ecbatana"
+  },
+  "Persepolis": {
+   "qid": "Q129072",
+   "coord": [
+    52.89,
+    29.935
+   ],
+   "classes": [
+    "Q15661340",
+    "Q2319498",
+    "Q2065736",
+    "Q839954"
+   ],
+   "label": "Persepolis"
+  },
+  "Sardis": {
+   "qid": "Q232615",
+   "coord": [
+    28.0403,
+    38.4883
+   ],
+   "classes": [
+    "Q15661340",
+    "Q3257686",
+    "Q2434238",
+    "Q839954",
+    "Q486972",
+    "Q148837"
+   ],
+   "label": "Sardis"
+  },
+  "Bisotun": {
+   "qid": "Q740141",
+   "coord": [
+    47.445,
+    34.3997
+   ],
+   "classes": [
+    "Q56557504"
+   ],
+   "label": "Bisotun"
+  },
+  "Marathon": {
+   "qid": "Q40244",
+   "coord": null,
+   "classes": [
+    "Q2312410"
+   ],
+   "label": "marathon"
+  },
+  "Thermopylae pass": null,
+  "Strait of Salamis": null,
+  "Acropolis of Athens": {
+   "qid": "Q131013",
+   "coord": [
+    23.7261,
+    37.9717
+   ],
+   "classes": [
+    "Q93342462",
+    "Q131668"
+   ],
+   "label": "Acropolis of Athens"
+  },
+  "Palatine": {
+   "qid": "Q3486690",
+   "coord": null,
+   "classes": [
+    "Q11626664",
+    "Q355567"
+   ],
+   "label": "Palatine"
+  },
+  "Cannae": {
+   "qid": "Q568611",
+   "coord": [
+    16.1517,
+    41.2964
+   ],
+   "classes": [
+    "Q1134686",
+    "Q839954"
+   ],
+   "label": "Cannae"
+  },
+  "Byrsa hill": null,
+  "Curia of Pompey": {
+   "qid": "Q3007659",
+   "coord": [
+    12.475,
+    41.8953
+   ],
+   "classes": [
+    "Q5194727",
+    "Q839954",
+    "Q594648"
+   ],
+   "label": "Curia of Pompey"
+  },
+  "Roman Empire": {
+   "qid": "Q2277",
+   "coord": [
+    12.5,
+    41.9
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Roman Empire"
+  },
+  "Pompeii": {
+   "qid": "Q43332",
+   "coord": [
+    14.4897,
+    40.7506
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Pompeii"
+  },
+  "Northumberland": {
+   "qid": "Q23079",
+   "coord": [
+    -2,
+    55.1667
+   ],
+   "classes": [
+    "Q1136601",
+    "Q769603",
+    "Q180673"
+   ],
+   "label": "Northumberland"
+  },
+  "Nicaea": {
+   "qid": "Q739037",
+   "coord": [
+    29.7195,
+    40.429
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Nicaea"
+  },
+  "Maurya Empire": {
+   "qid": "Q62943",
+   "coord": [
+    85.1414,
+    25.61
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Maurya empire"
+  },
+  "Sanchi": null,
+  "Indo-Greek kingdoms": null,
+  "Kushan Empire": {
+   "qid": "Q25979",
+   "coord": [
+    69.3,
+    34.9833
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Kushan Empire"
+  },
+  "Gupta Empire": {
+   "qid": "Q11774",
+   "coord": [
+    88.7311,
+    23.9889
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Gupta Empire"
+  },
+  "Eastern Zhou": {
+   "qid": "Q307066",
+   "coord": null,
+   "classes": [
+    "Q12857432",
+    "Q11514315",
+    "Q6428674",
+    "Q836688"
+   ],
+   "label": "Eastern Zhou"
+  },
+  "Qin dynasty": {
+   "qid": "Q7183",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q11514315"
+   ],
+   "label": "Qin dynasty"
+  },
+  "Han dynasty": {
+   "qid": "Q7209",
+   "coord": [
+    108.8572,
+    34.3044
+   ],
+   "classes": [
+    "Q50068795",
+    "Q12857432",
+    "Q11514315",
+    "Q3024240"
+   ],
+   "label": "Han dynasty"
+  },
+  "Kingdom of Kush": {
+   "qid": "Q241790",
+   "coord": [
+    33.83,
+    17.18
+   ],
+   "classes": [
+    "Q3024240",
+    "Q417175"
+   ],
+   "label": "Kingdom of Kush"
+  },
+  "Kingdom of Aksum": {
+   "qid": "Q139377",
+   "coord": [
+    38.7173,
+    14.1284
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Kingdom of Aksum"
+  },
+  "Byzantine Empire": {
+   "qid": "Q12544",
+   "coord": [
+    28.98,
+    41.0125
+   ],
+   "classes": [
+    "Q11514315",
+    "Q3024240"
+   ],
+   "label": "Byzantine Empire"
+  },
+  "Kievan Rus’": null,
+  "First Bulgarian Empire": {
+   "qid": "Q203817",
+   "coord": [
+    27.1167,
+    43.3667
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "First Bulgarian Empire"
+  },
+  "Kingdom of Georgia": {
+   "qid": "Q154667",
+   "coord": null,
+   "classes": [
+    "Q3024240",
+    "Q417175"
+   ],
+   "label": "Kingdom of Georgia"
+  },
+  "Rashidun Caliphate": {
+   "qid": "Q12490507",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Rashidun Caliphate"
+  },
+  "Umayyad Caliphate": {
+   "qid": "Q8575586",
+   "coord": [
+    44.3661,
+    33.3153
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Umayyad Caliphate"
+  },
+  "Abbasid Caliphate": {
+   "qid": "Q12536",
+   "coord": [
+    44.3661,
+    33.3153
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Abbasid Caliphate"
+  },
+  "Fatimid Caliphate": {
+   "qid": "Q160307",
+   "coord": null,
+   "classes": [
+    "Q4204060",
+    "Q3024240",
+    "Q1323642",
+    "Q131401"
+   ],
+   "label": "Fatimid Caliphate"
+  },
+  "Seljuk Empire": {
+   "qid": "Q3708094",
+   "coord": [
+    58.8,
+    36.2
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Seljuk Empire"
+  },
+  "Mamluk Sultanate": {
+   "qid": "Q282428",
+   "coord": [
+    31.3667,
+    30.0833
+   ],
+   "classes": [
+    "Q12759805",
+    "Q3024240",
+    "Q1620908"
+   ],
+   "label": "Mamluk Sultanate of Egypt"
+  },
+  "Sacred Mount": null,
+  "Temple of Saturn": {
+   "qid": "Q746721",
+   "coord": [
+    12.4841,
+    41.8924
+   ],
+   "classes": [
+    "Q14752696",
+    "Q867143",
+    "Q44539"
+   ],
+   "label": "Temple of Saturn"
+  },
+  "Allia": {
+   "qid": "Q369581",
+   "coord": [
+    12.52,
+    42.0175
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Allia"
+  },
+  "Via Appia": null,
+  "Porta Capena": {
+   "qid": "Q1632777",
+   "coord": [
+    12.4905,
+    41.8839
+   ],
+   "classes": [
+    "Q82117"
+   ],
+   "label": "Porta Capena"
+  },
+  "Alban Mount": null,
+  "Capua": {
+   "qid": "Q58477",
+   "coord": [
+    14.2139,
+    41.1056
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Capua"
+  },
+  "Alba Fucens": {
+   "qid": "Q944515",
+   "coord": [
+    13.4115,
+    42.0791
+   ],
+   "classes": [
+    "Q2202509",
+    "Q839954",
+    "Q756780"
+   ],
+   "label": "Alba Fucens"
+  },
+  "Norba": {
+   "qid": "Q2026618",
+   "coord": [
+    12.9623,
+    41.5922
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Norba"
+  },
+  "Bovianum": {
+   "qid": "Q4950539",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Bovianum"
+  },
+  "Saticula": {
+   "qid": "Q1228725",
+   "coord": [
+    14.5,
+    41.0833
+   ],
+   "classes": [
+    "Q22674925",
+    "Q15661340"
+   ],
+   "label": "Saticula"
+  },
+  "Neapolis": null,
+  "Caudine Forks": null,
+  "Perusia": {
+   "qid": "Q1130478",
+   "coord": [
+    12.3906,
+    43.1117
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Perusia"
+  },
+  "Sentinum": {
+   "qid": "Q683244",
+   "coord": [
+    12.8524,
+    43.4185
+   ],
+   "classes": [
+    "Q15661340",
+    "Q3363945"
+   ],
+   "label": "Sentinum"
+  },
+  "Sutrium": null,
+  "Mevania": {
+   "qid": "Q17051264",
+   "coord": [
+    12.6094,
+    42.9403
+   ],
+   "classes": [
+    "Q2202509"
+   ],
+   "label": "Mevania"
+  },
+  "Sena Gallica": null,
+  "Telamon": {
+   "qid": "Q331327",
+   "coord": null,
+   "classes": [
+    "Q22988604"
+   ],
+   "label": "Telamon"
+  },
+  "Mediolanum": {
+   "qid": "Q729978",
+   "coord": [
+    9.1853,
+    45.4629
+   ],
+   "classes": [
+    "Q15661340",
+    "Q2202509",
+    "Q839954",
+    "Q213468",
+    "Q515"
+   ],
+   "label": "Mediolanum"
+  },
+  "Tarentum": {
+   "qid": "Q1348237",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Tarentum"
+  },
+  "Dodona": {
+   "qid": "Q382317",
+   "coord": [
+    20.7878,
+    39.5464
+   ],
+   "classes": [
+    "Q1617500",
+    "Q839954",
+    "Q217123",
+    "Q148837"
+   ],
+   "label": "Dodona"
+  },
+  "Heraclea": {
+   "qid": "Q225363",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Heraclea"
+  },
+  "Asculum": {
+   "qid": "Q108911210",
+   "coord": null,
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Asculum"
+  },
+  "Beneventum": {
+   "qid": "Q16032461",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Beneventum"
+  },
+  "Via Flaminia": {
+   "qid": "Q374149",
+   "coord": [
+    12.5868,
+    42.7303
+   ],
+   "classes": [
+    "Q14752696",
+    "Q194029"
+   ],
+   "label": "Via Flaminia"
+  },
+  "Via Aemilia": {
+   "qid": "Q732597",
+   "coord": null,
+   "classes": [
+    "Q6857854",
+    "Q194029"
+   ],
+   "label": "Via Aemilia"
+  },
+  "Carthaginian empire": null,
+  "Messana": null,
+  "Naupactus": null,
+  "Phoenice": {
+   "qid": "Q781463",
+   "coord": [
+    20.0577,
+    39.9123
+   ],
+   "classes": [
+    "Q93342462",
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Phoenice"
+  },
+  "Macedon": null,
+  "Scotussa": {
+   "qid": "Q8777773",
+   "coord": [
+    22.5833,
+    39.5833
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Skotoussa"
+  },
+  "Soros": null,
+  "Hellespont bridges at Abydos": null,
+  "Athos canal": null,
+  "Thermopylae": {
+   "qid": "Q194450",
+   "coord": [
+    22.5367,
+    38.7956
+   ],
+   "classes": [
+    "Q1544071",
+    "Q839954"
+   ],
+   "label": "Thermopylae"
+  },
+  "Cape Artemisium": null,
+  "Salamis": {
+   "qid": "Q224032",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Salamis"
+  },
+  "Plataea": {
+   "qid": "Q742538",
+   "coord": [
+    23.2739,
+    38.2214
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Plataea"
+  },
+  "Mount Mycale": null,
+  "Themistoclean Wall at the Kerameikos": null,
+  "Piraeus wall": null,
+  "Himera": {
+   "qid": "Q1111219",
+   "coord": [
+    13.8217,
+    37.9681
+   ],
+   "classes": [
+    "Q93342462",
+    "Q3363945",
+    "Q148837"
+   ],
+   "label": "Himera"
+  },
+  "Scyros": null,
+  "Eurymedon": {
+   "qid": "Q255718",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Eurymedon"
+  },
+  "Piraeus": {
+   "qid": "Q58976",
+   "coord": [
+    23.6469,
+    37.943
+   ],
+   "classes": [
+    "Q1549591"
+   ],
+   "label": "Piraeus"
+  },
+  "Long Walls (their line through Kallithea)": null,
+  "Parthenon": {
+   "qid": "Q10288",
+   "coord": [
+    23.7266,
+    37.9715
+   ],
+   "classes": [
+    "Q96352513",
+    "Q93342462",
+    "Q267596"
+   ],
+   "label": "Parthenon"
+  },
+  "Eurasian Steppe": {
+   "qid": "Q77120",
+   "coord": [
+    70.5,
+    48.7
+   ],
+   "classes": [
+    "Q115346835",
+    "Q183366"
+   ],
+   "label": "Eurasian Steppe"
+  },
+  "Pontic-Caspian steppe": null,
+  "Cimmerians": {
+   "qid": "Q192730",
+   "coord": null,
+   "classes": [
+    "Q4204501"
+   ],
+   "label": "Cimmerians"
+  },
+  "Scythians": {
+   "qid": "Q131802",
+   "coord": null,
+   "classes": [
+    "Q4204501"
+   ],
+   "label": "Scythians"
+  },
+  "Sarmatia": {
+   "qid": "Q2528503",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Sarmatia"
+  },
+  "Bosporan Kingdom": {
+   "qid": "Q321371",
+   "coord": [
+    37.04,
+    45.26
+   ],
+   "classes": [
+    "Q3932035",
+    "Q3932025"
+   ],
+   "label": "Bosporan Kingdom"
+  },
+  "36.05,45.22": null,
+  "Compiègne": {
+   "qid": "Q180871",
+   "coord": [
+    2.8222,
+    49.4142
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Compiègne"
+  },
+  "successor states": null,
+  "Weimar Republic": {
+   "qid": "Q41304",
+   "coord": [
+    13.375,
+    52.52
+   ],
+   "classes": [
+    "Q11514315",
+    "Q3024240"
+   ],
+   "label": "Weimar Republic"
+  },
+  "Empire of Japan": {
+   "qid": "Q188712",
+   "coord": [
+    139.7528,
+    35.6825
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Empire of Japan"
+  },
+  "Taebaek Mountains": {
+   "qid": "Q562098",
+   "coord": [
+    128.1833,
+    38.2167
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Taebaek Mountains"
+  },
+  "Baekdudaegan": null,
+  "Jeongok-ri": null,
+  "Gojoseon": null,
+  "Wiman Joseon": null,
+  "Yan": {
+   "qid": "Q40077",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Yan"
+  },
+  "Mumun culture": null,
+  "Baekje": null,
+  "Asuka": {
+   "qid": "Q295779",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Asuka"
+  },
+  "Zhou dynasty": {
+   "qid": "Q35216",
+   "coord": null,
+   "classes": [
+    "Q12857432",
+    "Q11514315",
+    "Q836688"
+   ],
+   "label": "Zhou dynasty"
+  },
+  "Qi": {
+   "qid": "Q202742",
+   "coord": null,
+   "classes": [
+    "Q120312205",
+    "Q211364"
+   ],
+   "label": "qi"
+  },
+  "Jin": {
+   "qid": "Q29005",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Jin"
+  },
+  "Chu": {
+   "qid": "Q227482",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Chu"
+  },
+  "Qin": {
+   "qid": "Q29054",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Qin"
+  },
+  "Lu": {
+   "qid": "Q224451",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Lu"
+  },
+  "Song": {
+   "qid": "Q7366",
+   "coord": null,
+   "classes": [
+    "Q107487333",
+    "Q4263830",
+    "Q483394"
+   ],
+   "label": "song"
+  },
+  "Yue": {
+   "qid": "Q344603",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Yue"
+  },
+  "seven warring states": null,
+  "Qin state after Shang Yang": null,
+  "Propylaea": null,
+  "Erechtheion": {
+   "qid": "Q242741",
+   "coord": [
+    23.7265,
+    37.9721
+   ],
+   "classes": [
+    "Q839954",
+    "Q267596",
+    "Q109607"
+   ],
+   "label": "Erechtheion"
+  },
+  "Temple of Athena Nike": {
+   "qid": "Q384813",
+   "coord": [
+    23.7249,
+    37.9715
+   ],
+   "classes": [
+    "Q839954",
+    "Q267596"
+   ],
+   "label": "Temple of Athena Nike"
+  },
+  "Odeon of Pericles": {
+   "qid": "Q2704249",
+   "coord": [
+    23.7286,
+    37.9706
+   ],
+   "classes": [
+    "Q1143046",
+    "Q839954"
+   ],
+   "label": "Odeon of Pericles"
+  },
+  "Telesterion": {
+   "qid": "Q1819712",
+   "coord": [
+    23.5386,
+    38.0408
+   ],
+   "classes": [
+    "Q41176"
+   ],
+   "label": "Telesterion"
+  },
+  "Athenian Agora": null,
+  "Stoa Poikile": {
+   "qid": "Q936234",
+   "coord": [
+    23.723,
+    37.9763
+   ],
+   "classes": [
+    "Q5003624",
+    "Q327328"
+   ],
+   "label": "Stoa Poikile"
+  },
+  "Epidamnus": null,
+  "Sybota": {
+   "qid": "Q3506770",
+   "coord": null,
+   "classes": [
+    "Q16521"
+   ],
+   "label": "Sybota"
+  },
+  "Potidaea": {
+   "qid": "Q999468",
+   "coord": [
+    23.3333,
+    40.2
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Potidaea"
+  },
+  "Acharnae": {
+   "qid": "Q576319",
+   "coord": [
+    23.7333,
+    38.0833
+   ],
+   "classes": [
+    "Q672490"
+   ],
+   "label": "Acharnae"
+  },
+  "Mytilene": {
+   "qid": "Q189059",
+   "coord": [
+    26.5536,
+    39.1047
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Mytilene"
+  },
+  "Pylos": {
+   "qid": "Q7263152",
+   "coord": [
+    21.6964,
+    36.9139
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Pylos"
+  },
+  "Sphacteria": {
+   "qid": "Q1303524",
+   "coord": [
+    21.6657,
+    36.9301
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Sphacteria"
+  },
+  "Amphipolis": {
+   "qid": "Q217414",
+   "coord": [
+    23.8478,
+    40.8238
+   ],
+   "classes": [
+    "Q148837"
+   ],
+   "label": "Amphipolis"
+  },
+  "Eion": {
+   "qid": "Q1268859",
+   "coord": [
+    23.8906,
+    40.7888
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Eion"
+  },
+  "Mantinea": {
+   "qid": "Q1160195",
+   "coord": [
+    22.3919,
+    37.6166
+   ],
+   "classes": [
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Mantineia"
+  },
+  "Egesta": null,
+  "Assinarus": null,
+  "Great Harbour of Syracuse": null,
+  "Colonus": {
+   "qid": "Q2478487",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Colonus"
+  },
+  "Cynossema": {
+   "qid": "Q122999785",
+   "coord": null,
+   "classes": [],
+   "label": "Cynossema"
+  },
+  "Cyzicus": {
+   "qid": "Q615449",
+   "coord": [
+    27.8706,
+    40.3878
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Cyzicus"
+  },
+  "Arginusae": {
+   "qid": "Q23822737",
+   "coord": [
+    26.7903,
+    39.0053
+   ],
+   "classes": [
+    "Q1402592"
+   ],
+   "label": "Arginusae"
+  },
+  "Aegospotami": {
+   "qid": "Q404513",
+   "coord": [
+    26.6308,
+    40.3641
+   ],
+   "classes": [
+    "Q24336031",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Aegospotami"
+  },
+  "Munychia": null,
+  "Shuihudi": null,
+  "Lingqu": {
+   "qid": "Q966140",
+   "coord": [
+    110.6625,
+    25.6215
+   ],
+   "classes": [
+    "Q12284"
+   ],
+   "label": "Lingqu"
+  },
+  "Qin Shi Huang's mausoleum": null,
+  "Terracotta Army": {
+   "qid": "Q47672",
+   "coord": [
+    109.2731,
+    34.385
+   ],
+   "classes": [
+    "Q2772772",
+    "Q839954",
+    "Q162875"
+   ],
+   "label": "Terracotta Army"
+  },
+  "Shaqiu": null,
+  "Xingyang": {
+   "qid": "Q1360089",
+   "coord": [
+    113.3839,
+    34.7875
+   ],
+   "classes": [
+    "Q1070990"
+   ],
+   "label": "Xingyang"
+  },
+  "Xiaxiang": null,
+  "Pei": {
+   "qid": "Q407878",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Pei"
+  },
+  "Hongmen": {
+   "qid": "Q213387",
+   "coord": null,
+   "classes": [
+    "Q10874708",
+    "Q276548"
+   ],
+   "label": "Tiandihui"
+  },
+  "Gaixia": null,
+  "Dingtao": null,
+  "Chang'an": {
+   "qid": "Q6501000",
+   "coord": [
+    108.8583,
+    34.3083
+   ],
+   "classes": [
+    "Q839954",
+    "Q486972"
+   ],
+   "label": "Chang'an"
+  },
+  "Suiyang": {
+   "qid": "Q358371",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Suiyang"
+  },
+  "Mayi": {
+   "qid": "Q15834613",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Mayi"
+  },
+  "Baideng": null,
+  "Jiuquan": {
+   "qid": "Q533432",
+   "coord": [
+    98.5049,
+    39.737
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Jiuquan"
+  },
+  "Hanzhong": {
+   "qid": "Q515573",
+   "coord": [
+    107.026,
+    33.0794
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Hanzhong"
+  },
+  "Dunhuang": {
+   "qid": "Q319114",
+   "coord": [
+    94.6639,
+    40.1411
+   ],
+   "classes": [
+    "Q1070990"
+   ],
+   "label": "Dunhuang"
+  },
+  "Nanyue": {
+   "qid": "Q827040",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Nanyue"
+  },
+  "Four Commanderies of Han": {
+   "qid": "Q706841",
+   "coord": null,
+   "classes": [
+    "Q29428373",
+    "Q517267"
+   ],
+   "label": "Four Commanderies of Han"
+  },
+  "Weiyang Palace": {
+   "qid": "Q3051521",
+   "coord": [
+    108.8572,
+    34.3044
+   ],
+   "classes": [
+    "Q210272"
+   ],
+   "label": "Weiyang Palace"
+  },
+  "Xin dynasty": {
+   "qid": "Q504769",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q12857432"
+   ],
+   "label": "Xin dynasty"
+  },
+  "Pella": {
+   "qid": "Q213679",
+   "coord": [
+    22.5256,
+    40.76
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Pella"
+  },
+  "Aegae": {
+   "qid": "Q141491688",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Aegae"
+  },
+  "Hellespont": null,
+  "Granicus": {
+   "qid": "Q11924634",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Granicus"
+  },
+  "Halicarnassus": {
+   "qid": "Q5843680",
+   "coord": [
+    27.4242,
+    37.0378
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Halicarnassus"
+  },
+  "Gordium": null,
+  "Issus": {
+   "qid": "Q416605",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Issus"
+  },
+  "Memphis": {
+   "qid": "Q4376240",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Memphis"
+  },
+  "Siwa Oasis": {
+   "qid": "Q2008735",
+   "coord": [
+    25.5194,
+    29.2053
+   ],
+   "classes": [
+    "Q190429",
+    "Q43742"
+   ],
+   "label": "Siwa Oasis"
+  },
+  "Gaugamela": null,
+  "Susa": {
+   "qid": "Q180773",
+   "coord": [
+    48.2561,
+    32.1894
+   ],
+   "classes": [
+    "Q15661340",
+    "Q2319498",
+    "Q839954"
+   ],
+   "label": "Susa"
+  },
+  "Hyphasis": null,
+  "Gedrosia": {
+   "qid": "Q1348342",
+   "coord": null,
+   "classes": [
+    "Q82794"
+   ],
+   "label": "Gedrosia"
+  },
+  "Harmozeia": null,
+  "Alexandria Eschate": {
+   "qid": "Q2280882",
+   "coord": [
+    69.6172,
+    40.2861
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Alexandria Eschate"
+  },
+  "Lamia": {
+   "qid": "Q200073",
+   "coord": null,
+   "classes": [
+    "Q25810847",
+    "Q22988604",
+    "Q16326794",
+    "Q15831596"
+   ],
+   "label": "Lamia"
+  },
+  "Crannon": null,
+  "Calauria": null,
+  "Cardia": {
+   "qid": "Q1542842",
+   "coord": null,
+   "classes": [
+    "Q112826905",
+    "Q4936952"
+   ],
+   "label": "cardia"
+  },
+  "Cassandreia": {
+   "qid": "Q81248",
+   "coord": [
+    23.33,
+    40.195
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Cassandreia"
+  },
+  "Celaenae": {
+   "qid": "Q1163924",
+   "coord": [
+    30.1656,
+    38.0717
+   ],
+   "classes": [
+    "Q15661340",
+    "Q515"
+   ],
+   "label": "Celaenae"
+  },
+  "Demetrias": {
+   "qid": "Q1150349",
+   "coord": [
+    22.9242,
+    39.3435
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Demetrias"
+  },
+  "Rhodes": {
+   "qid": "Q43048",
+   "coord": [
+    27.92,
+    36.17
+   ],
+   "classes": [
+    "Q148837",
+    "Q23442"
+   ],
+   "label": "Rhodes"
+  },
+  "Ipsus": {
+   "qid": "Q2732880",
+   "coord": [
+    30.5492,
+    38.8562
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Ipsos"
+  },
+  "Seleucia on the Tigris": null,
+  "Seleucid Empire": {
+   "qid": "Q93180",
+   "coord": [
+    44.5222,
+    33.0944
+   ],
+   "classes": [
+    "Q3932025",
+    "Q3024240",
+    "Q1088391",
+    "Q48349"
+   ],
+   "label": "Seleucid Empire"
+  },
+  "Macedonia": {
+   "qid": "Q39702",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Macedonia"
+  },
+  "Corfinium": {
+   "qid": "Q2428630",
+   "coord": [
+    13.8352,
+    42.1174
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Corfinium"
+  },
+  "Dardanus": {
+   "qid": "Q249913",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Dardanus"
+  },
+  "Sinope": {
+   "qid": "Q231650",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Sinope"
+  },
+  "Ephesus": {
+   "qid": "Q47611",
+   "coord": [
+    27.3408,
+    37.9397
+   ],
+   "classes": [
+    "Q93342462",
+    "Q1708422",
+    "Q148837"
+   ],
+   "label": "Ephesus"
+  },
+  "Brundusium": null,
+  "Osca": {
+   "qid": "Q2032589",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Osca"
+  },
+  "Auximum": null,
+  "Vesuvius": null,
+  "Rhegium": null,
+  "Rough Cilicia": null,
+  "Chalcedon": {
+   "qid": "Q337381",
+   "coord": [
+    29.0333,
+    40.9833
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Chalcedon"
+  },
+  "Utica": {
+   "qid": "Q228821",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Utica"
+  },
+  "Dyrrachium": null,
+  "Luca": {
+   "qid": "Q417711",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Luca"
+  },
+  "Gaul": {
+   "qid": "Q38060",
+   "coord": [
+    2.9,
+    46.5
+   ],
+   "classes": [
+    "Q28171280",
+    "Q19953632",
+    "Q1620908"
+   ],
+   "label": "Gaul"
+  },
+  "L'Anse aux Meadows": {
+   "qid": "Q189113",
+   "coord": [
+    -55.5312,
+    51.5953
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "L'Anse aux Meadows"
+  },
+  "Hastings": {
+   "qid": "Q29245",
+   "coord": [
+    0.5833,
+    50.855
+   ],
+   "classes": [
+    "Q18511725",
+    "Q1115575",
+    "Q3957"
+   ],
+   "label": "Hastings"
+  },
+  "Winchester": {
+   "qid": "Q172157",
+   "coord": [
+    -1.3086,
+    51.0633
+   ],
+   "classes": [
+    "Q7897276",
+    "Q1357964",
+    "Q515"
+   ],
+   "label": "Winchester"
+  },
+  "Temple Mount": {
+   "qid": "Q193163",
+   "coord": [
+    35.2356,
+    31.7778
+   ],
+   "classes": [
+    "Q5156823",
+    "Q1595289",
+    "Q123705",
+    "Q54050",
+    "Q32815"
+   ],
+   "label": "Temple Mount"
+  },
+  "Saint-Denis": null,
+  "Roccasecca": {
+   "qid": "Q117211",
+   "coord": [
+    13.6667,
+    41.55
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Roccasecca"
+  },
+  "Runnymede": {
+   "qid": "Q1483542",
+   "coord": [
+    -0.5654,
+    51.4445
+   ],
+   "classes": [
+    "Q1413420",
+    "Q1107656"
+   ],
+   "label": "Runnymede"
+  },
+  "Lübeck": {
+   "qid": "Q2843",
+   "coord": [
+    10.6864,
+    53.8697
+   ],
+   "classes": [
+    "Q61856863",
+    "Q42744322",
+    "Q1549591",
+    "Q707813",
+    "Q253030"
+   ],
+   "label": "Lübeck"
+  },
+  "Sui dynasty": {
+   "qid": "Q7405",
+   "coord": null,
+   "classes": [
+    "Q50068795"
+   ],
+   "label": "Sui dynasty"
+  },
+  "Tang dynasty": {
+   "qid": "Q9683",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q12857432",
+    "Q11514315",
+    "Q1292119",
+    "Q11042"
+   ],
+   "label": "Tang dynasty"
+  },
+  "Fanyang": null,
+  "Song dynasty": {
+   "qid": "Q7462",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q12857432"
+   ],
+   "label": "Song dynasty"
+  },
+  "Kaifeng": {
+   "qid": "Q208471",
+   "coord": [
+    114.345,
+    34.795
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Kaifeng"
+  },
+  "Jingdezhen": {
+   "qid": "Q34405",
+   "coord": [
+    117.2036,
+    29.2942
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Jingdezhen"
+  },
+  "Yuan dynasty": {
+   "qid": "Q7313",
+   "coord": [
+    116.39,
+    39.915
+   ],
+   "classes": [
+    "Q50068795",
+    "Q11514315",
+    "Q1089515"
+   ],
+   "label": "Yuan dynasty"
+  },
+  "Hakata Bay": {
+   "qid": "Q2344806",
+   "coord": [
+    130.3734,
+    33.632
+   ],
+   "classes": [
+    "Q39594"
+   ],
+   "label": "Hakata Bay"
+  },
+  "Goryeo": {
+   "qid": "Q28208",
+   "coord": [
+    126.55,
+    37.9667
+   ],
+   "classes": [
+    "Q3024240",
+    "Q164950"
+   ],
+   "label": "Goryeo"
+  },
+  "Hanseong": null,
+  "Heian-kyō": {
+   "qid": "Q751907",
+   "coord": [
+    135.7667,
+    35
+   ],
+   "classes": [
+    "Q27554677",
+    "Q11643523",
+    "Q1074523",
+    "Q1025961"
+   ],
+   "label": "Heian-kyō"
+  },
+  "Kamakura shogunate": {
+   "qid": "Q736839",
+   "coord": [
+    139.55,
+    35.3167
+   ],
+   "classes": [
+    "Q4482688",
+    "Q3024240",
+    "Q1074150"
+   ],
+   "label": "Kamakura shogunate"
+  },
+  "Kannauj": {
+   "qid": "Q614890",
+   "coord": [
+    79.922,
+    27.0313
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Kannauj"
+  },
+  "Chola dynasty": {
+   "qid": "Q151148",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Chola dynasty"
+  },
+  "Delhi Sultanate": {
+   "qid": "Q229411",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Delhi Sultanate"
+  },
+  "Vijayanagara Empire": {
+   "qid": "Q167639",
+   "coord": [
+    77.5,
+    12.75
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Vijayanagara Empire"
+  },
+  "Banbhore": {
+   "qid": "Q491993",
+   "coord": [
+    67.522,
+    24.7522
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Banbhore"
+  },
+  "Srivijaya": {
+   "qid": "Q234197",
+   "coord": [
+    102,
+    0
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Srivijaya"
+  },
+  "Majapahit": {
+   "qid": "Q49326",
+   "coord": [
+    112.5,
+    -7.7
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Majapahit"
+  },
+  "Khmer Empire": {
+   "qid": "Q201705",
+   "coord": [
+    103.8333,
+    13.4333
+   ],
+   "classes": [
+    "Q11514315",
+    "Q3024240"
+   ],
+   "label": "Khmer Empire"
+  },
+  "Angkor Wat": {
+   "qid": "Q43473",
+   "coord": [
+    103.8667,
+    13.4125
+   ],
+   "classes": [
+    "Q58621988",
+    "Q5393308",
+    "Q842402",
+    "Q839954"
+   ],
+   "label": "Angkor Wat"
+  },
+  "Pagan Kingdom": {
+   "qid": "Q888574",
+   "coord": [
+    94.8603,
+    21.1722
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Pagan kingdom"
+  },
+  "Dai Viet": null,
+  "Nomonhan": null,
+  "Guernica": {
+   "qid": "Q189848",
+   "coord": [
+    -2.6767,
+    43.3169
+   ],
+   "classes": [
+    "Q2074737"
+   ],
+   "label": "Guernica"
+  },
+  "Karlsbad": {
+   "qid": "Q13741789",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Karlsbad"
+  },
+  "Thionville": {
+   "qid": "Q22640",
+   "coord": [
+    6.1683,
+    49.3581
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Thionville"
+  },
+  "Westerplatte": {
+   "qid": "Q517081",
+   "coord": [
+    18.6714,
+    54.4075
+   ],
+   "classes": [
+    "Q34763"
+   ],
+   "label": "Westerplatte"
+  },
+  "Gliwice": {
+   "qid": "Q105084",
+   "coord": [
+    18.6658,
+    50.2942
+   ],
+   "classes": [
+    "Q1549591",
+    "Q1200957",
+    "Q925381",
+    "Q515"
+   ],
+   "label": "Gliwice"
+  },
+  "Sochaczew": {
+   "qid": "Q250485",
+   "coord": [
+    20.2333,
+    52.225
+   ],
+   "classes": [
+    "Q2616791"
+   ],
+   "label": "Sochaczew"
+  },
+  "Brześć": null,
+  "Palmiry": {
+   "qid": "Q3117935",
+   "coord": [
+    20.7833,
+    52.3667
+   ],
+   "classes": [
+    "Q3558970"
+   ],
+   "label": "Palmiry"
+  },
+  "Lwów": null,
+  "Katyn Forest": null,
+  "Ostashkov": {
+   "qid": "Q176761",
+   "coord": [
+    33.1,
+    57.15
+   ],
+   "classes": [
+    "Q7930989"
+   ],
+   "label": "Ostashkov"
+  },
+  "Karelian Isthmus": {
+   "qid": "Q209010",
+   "coord": [
+    29.9,
+    60.5
+   ],
+   "classes": [
+    "Q93267",
+    "Q82794"
+   ],
+   "label": "Karelian Isthmus"
+  },
+  "Viipuri": null,
+  "Juxian": null,
+  "Kunyang": null,
+  "Eastern Han": {
+   "qid": "Q1147037",
+   "coord": [
+    112.4,
+    34.66
+   ],
+   "classes": [
+    "Q50068795",
+    "Q11514315",
+    "Q1292119",
+    "Q11042"
+   ],
+   "label": "Eastern Han"
+  },
+  "Kucha": {
+   "qid": "Q1328546",
+   "coord": [
+    82.9,
+    41.65
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Kucha"
+  },
+  "Lysimacheia": null,
+  "Corupedium": null,
+  "Dura Europos": null,
+  "Ai-Khanoum": {
+   "qid": "Q857845",
+   "coord": [
+    69.4108,
+    37.1664
+   ],
+   "classes": [
+    "Q3257686",
+    "Q839954"
+   ],
+   "label": "Ai-Khanoum"
+  },
+  "Bactria": {
+   "qid": "Q132646",
+   "coord": [
+    66.8989,
+    36.7581
+   ],
+   "classes": [
+    "Q1620908",
+    "Q82794"
+   ],
+   "label": "Bactria"
+  },
+  "Gandhara": {
+   "qid": "Q213651",
+   "coord": [
+    72.8291,
+    33.756
+   ],
+   "classes": [
+    "Q1620908",
+    "Q846025",
+    "Q8432"
+   ],
+   "label": "Gandhara"
+  },
+  "Sagala": {
+   "qid": "Q1069204",
+   "coord": [
+    74.5342,
+    32.5053
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Sagala"
+  },
+  "Galatia": {
+   "qid": "Q26847",
+   "coord": [
+    32.9833,
+    39.2667
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Galatia"
+  },
+  "Attalid dynasty": {
+   "qid": "Q321029",
+   "coord": null,
+   "classes": [
+    "Q164950"
+   ],
+   "label": "Attalid dynasty"
+  },
+  "Magnesia ad Sipylum": {
+   "qid": "Q920866",
+   "coord": [
+    27.4258,
+    38.6131
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Magnesia ad Sipylum"
+  },
+  "Coele-Syria": {
+   "qid": "Q1123749",
+   "coord": [
+    36.15,
+    36.2
+   ],
+   "classes": [
+    "Q1620908"
+   ],
+   "label": "Coele-Syria"
+  },
+  "Raphia": {
+   "qid": "Q398678",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Raphia"
+  },
+  "Aetolia": {
+   "qid": "Q26857",
+   "coord": [
+    21.4,
+    38.6167
+   ],
+   "classes": [
+    "Q1620908",
+    "Q1228650"
+   ],
+   "label": "Aetolia"
+  },
+  "Aegium": {
+   "qid": "Q60790078",
+   "coord": [
+    22.082,
+    38.2527
+   ],
+   "classes": [
+    "Q148837"
+   ],
+   "label": "Aegium"
+  },
+  "Sicyon": {
+   "qid": "Q368628",
+   "coord": [
+    22.7111,
+    37.9841
+   ],
+   "classes": [
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Sicyon"
+  },
+  "Sellasia": {
+   "qid": "Q15709786",
+   "coord": [
+    22.4167,
+    37.1675
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Sellasia"
+  },
+  "Mutina": null,
+  "Caieta": {
+   "qid": "Q3649829",
+   "coord": null,
+   "classes": [
+    "Q22988604"
+   ],
+   "label": "Caieta"
+  },
+  "Philippi": {
+   "qid": "Q379652",
+   "coord": [
+    24.2864,
+    41.0131
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Philippi"
+  },
+  "Brundisium": null,
+  "Naulochus": {
+   "qid": "Q2449559",
+   "coord": [
+    15.3745,
+    38.2217
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Naulochus"
+  },
+  "Baiae": {
+   "qid": "Q290097",
+   "coord": [
+    14.0697,
+    40.8167
+   ],
+   "classes": [
+    "Q20616831",
+    "Q15661340",
+    "Q1134686"
+   ],
+   "label": "Baia"
+  },
+  "Tarsus": {
+   "qid": "Q48001",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Tarsus"
+  },
+  "Actium": {
+   "qid": "Q216551",
+   "coord": [
+    20.768,
+    38.953
+   ],
+   "classes": [
+    "Q191992",
+    "Q185113"
+   ],
+   "label": "Akri"
+  },
+  "Pelusium": {
+   "qid": "Q1145715",
+   "coord": [
+    32.6,
+    31.05
+   ],
+   "classes": [
+    "Q125866553",
+    "Q15661340",
+    "Q515"
+   ],
+   "label": "Pelusium"
+  },
+  "Ancyra": {
+   "qid": "Q141491716",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Ancyra"
+  },
+  "Borobudur": {
+   "qid": "Q42798",
+   "coord": [
+    110.2038,
+    -7.6079
+   ],
+   "classes": [
+    "Q5393308",
+    "Q2736554",
+    "Q839954"
+   ],
+   "label": "Borobudur Temple"
+  },
+  "Banda Islands": {
+   "qid": "Q739411",
+   "coord": [
+    129.9167,
+    -4.5833
+   ],
+   "classes": [
+    "Q1402592"
+   ],
+   "label": "Banda Islands"
+  },
+  "Malacca Sultanate": {
+   "qid": "Q46652",
+   "coord": [
+    102.3844,
+    2.1889
+   ],
+   "classes": [
+    "Q12759805",
+    "Q3024240"
+   ],
+   "label": "Malacca sultanate"
+  },
+  "Ghana Empire": {
+   "qid": "Q206789",
+   "coord": [
+    -8,
+    15.6667
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Ghana Empire"
+  },
+  "Sijilmasa": {
+   "qid": "Q1334331",
+   "coord": [
+    -4.28,
+    31.28
+   ],
+   "classes": [
+    "Q839954",
+    "Q486972"
+   ],
+   "label": "Sijilmasa"
+  },
+  "Mali Empire": {
+   "qid": "Q184536",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Mali Empire"
+  },
+  "Timbuktu": {
+   "qid": "Q9427",
+   "coord": [
+    -2.9994,
+    16.7733
+   ],
+   "classes": [
+    "Q702492",
+    "Q515"
+   ],
+   "label": "Timbuktu"
+  },
+  "Songhai Empire": {
+   "qid": "Q202687",
+   "coord": [
+    -0.05,
+    16.2667
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Songhai Empire"
+  },
+  "Kanem-Bornu": null,
+  "Kilwa Kisiwani": {
+   "qid": "Q1741475",
+   "coord": [
+    39.5172,
+    -8.9817
+   ],
+   "classes": [
+    "Q486972",
+    "Q23442"
+   ],
+   "label": "Kilwa Kisiwani"
+  },
+  "Great Zimbabwe": {
+   "qid": "Q209217",
+   "coord": [
+    30.933,
+    -20.27
+   ],
+   "classes": [
+    "Q839954",
+    "Q109607",
+    "Q515"
+   ],
+   "label": "Great Zimbabwe"
+  },
+  "Kingdom of Kongo": {
+   "qid": "Q796583",
+   "coord": [
+    14.25,
+    -6.2667
+   ],
+   "classes": [
+    "Q3024240",
+    "Q1292119",
+    "Q1250464",
+    "Q11042"
+   ],
+   "label": "Kingdom of Kongo"
+  },
+  "Zagwe dynasty": {
+   "qid": "Q140446",
+   "coord": null,
+   "classes": [
+    "Q3024240",
+    "Q164950"
+   ],
+   "label": "Zagwe dynasty"
+  },
+  "Makuria": {
+   "qid": "Q829356",
+   "coord": [
+    30.7425,
+    18.2244
+   ],
+   "classes": [
+    "Q3024240",
+    "Q417175"
+   ],
+   "label": "Kingdom of Makuria"
+  },
+  "Lalibela": {
+   "qid": "Q207590",
+   "coord": [
+    39.0462,
+    12.0356
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Lalibela"
+  },
+  "Orkhon valley": null,
+  "Sarkel": {
+   "qid": "Q1068190",
+   "coord": [
+    42.2731,
+    47.705
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Sarkel"
+  },
+  "Burkhan Khaldun": {
+   "qid": "Q1010335",
+   "coord": [
+    109.1667,
+    48.7833
+   ],
+   "classes": [
+    "Q1129474",
+    "Q8502"
+   ],
+   "label": "Burkhan Khaldun"
+  },
+  "Mongol Empire": {
+   "qid": "Q12557",
+   "coord": [
+    109.1667,
+    47.1
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Mongol Empire"
+  },
+  "Kalka river": null,
+  "Golden Horde": {
+   "qid": "Q79965",
+   "coord": [
+    60,
+    52
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Golden Horde"
+  },
+  "Okinawa": {
+   "qid": "Q27931",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Okinawa"
+  },
+  "Fukushima Daiichi": null,
+  "Tikal": {
+   "qid": "Q181172",
+   "coord": [
+    -89.6236,
+    17.2221
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Tikal"
+  },
+  "Southern Maya lowlands": null,
+  "Chichen Itza": {
+   "qid": "Q5859",
+   "coord": [
+    -88.5686,
+    20.6831
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Chichen Itza"
+  },
+  "Tula": {
+   "qid": "Q226319",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Tula"
+  },
+  "Aztec Empire": {
+   "qid": "Q2608489",
+   "coord": [
+    -99.1333,
+    19.4333
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Aztec Empire"
+  },
+  "Tenochtitlan": {
+   "qid": "Q13695",
+   "coord": [
+    -99.1314,
+    19.435
+   ],
+   "classes": [
+    "Q2479824",
+    "Q1549591",
+    "Q133442"
+   ],
+   "label": "Tenochtitlan"
+  },
+  "Mount Tlaloc": null,
+  "Xaltocan": {
+   "qid": "Q796347",
+   "coord": [
+    -98.2,
+    19.417
+   ],
+   "classes": [
+    "Q133442"
+   ],
+   "label": "Xaltocan"
+  },
+  "Xochimilco": {
+   "qid": "Q643026",
+   "coord": [
+    -99.0982,
+    19.2476
+   ],
+   "classes": [
+    "Q2734310"
+   ],
+   "label": "Xochimilco"
+  },
+  "Huari": {
+   "qid": "Q405406",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Huari"
+  },
+  "Tiwanaku": {
+   "qid": "Q61750",
+   "coord": [
+    -68.6733,
+    -16.5547
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Tiwanaku"
+  },
+  "Inca Empire": {
+   "qid": "Q28573",
+   "coord": [
+    -71.9667,
+    -13.5167
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Inca Empire"
+  },
+  "Machu Picchu": {
+   "qid": "Q676203",
+   "coord": [
+    -72.5456,
+    -13.1633
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q9259"
+   ],
+   "label": "Machu Picchu"
+  },
+  "Ocmulgee": null,
+  "Cahokia": {
+   "qid": "Q333661",
+   "coord": [
+    -90.0644,
+    38.6539
+   ],
+   "classes": [
+    "Q15661340",
+    "Q5999924",
+    "Q839954"
+   ],
+   "label": "Cahokia"
+  },
+  "Mesa Verde": null,
+  "Chaco Canyon": null,
+  "Northern and central Italy": null,
+  "Mantua": {
+   "qid": "Q6247",
+   "coord": [
+    10.7911,
+    45.1564
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Mantua"
+  },
+  "Arquà Petrarca": {
+   "qid": "Q34638",
+   "coord": [
+    11.7167,
+    45.2667
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Arquà Petrarca"
+  },
+  "Vinci": {
+   "qid": "Q357706",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Vinci"
+  },
+  "Sistine Chapel": {
+   "qid": "Q2943",
+   "coord": [
+    12.4544,
+    41.903
+   ],
+   "classes": [
+    "Q2065736",
+    "Q1088552",
+    "Q108325"
+   ],
+   "label": "Sistine Chapel"
+  },
+  "Florence Baptistery": {
+   "qid": "Q732511",
+   "coord": [
+    11.255,
+    43.7731
+   ],
+   "classes": [
+    "Q210077",
+    "Q120560"
+   ],
+   "label": "Florence Baptistery"
+  },
+  "Palazzo Vecchio": {
+   "qid": "Q271928",
+   "coord": [
+    11.2561,
+    43.7694
+   ],
+   "classes": [
+    "Q25550691",
+    "Q7328910",
+    "Q2651004",
+    "Q207694",
+    "Q33506"
+   ],
+   "label": "Palazzo Vecchio"
+  },
+  "Augsburg": {
+   "qid": "Q2749",
+   "coord": [
+    10.8978,
+    48.3689
+   ],
+   "classes": [
+    "Q85631896",
+    "Q42744322",
+    "Q19953632",
+    "Q1549591",
+    "Q1547289",
+    "Q1187811",
+    "Q253030",
+    "Q134626"
+   ],
+   "label": "Augsburg"
+  },
+  "Wartburg": {
+   "qid": "Q151545",
+   "coord": [
+    10.3064,
+    50.9661
+   ],
+   "classes": [
+    "Q41176",
+    "Q33506",
+    "Q23413"
+   ],
+   "label": "Wartburg"
+  },
+  "Wittenberg": {
+   "qid": "Q6837",
+   "coord": [
+    12.6484,
+    51.8671
+   ],
+   "classes": [
+    "Q42744322",
+    "Q1547289",
+    "Q1180262",
+    "Q134626"
+   ],
+   "label": "Lutherstadt Wittenberg"
+  },
+  "Speyer": {
+   "qid": "Q6829",
+   "coord": [
+    8.4336,
+    49.3166
+   ],
+   "classes": [
+    "Q85632032",
+    "Q42744322",
+    "Q1547289"
+   ],
+   "label": "Speyer"
+  },
+  "Westminster": {
+   "qid": "Q189960",
+   "coord": [
+    -0.1333,
+    51.4995
+   ],
+   "classes": [
+    "Q18511725",
+    "Q2755753"
+   ],
+   "label": "Westminster"
+  },
+  "Hampton Court": null,
+  "Trent": {
+   "qid": "Q227522",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Trent"
+  },
+  "Münster": {
+   "qid": "Q2742",
+   "coord": [
+    7.6256,
+    51.9625
+   ],
+   "classes": [
+    "Q106517174",
+    "Q85635630",
+    "Q42744322",
+    "Q1549591",
+    "Q1392581",
+    "Q1187811",
+    "Q707813"
+   ],
+   "label": "Münster"
+  },
+  "Frombork": {
+   "qid": "Q497115",
+   "coord": [
+    19.6833,
+    54.3583
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Frombork"
+  },
+  "Padua": {
+   "qid": "Q617",
+   "coord": [
+    11.8733,
+    45.4078
+   ],
+   "classes": [
+    "Q1549591",
+    "Q1187811",
+    "Q747074",
+    "Q133442"
+   ],
+   "label": "Padua"
+  },
+  "Woolsthorpe Manor": {
+   "qid": "Q3316008",
+   "coord": [
+    -0.6306,
+    52.8092
+   ],
+   "classes": [
+    "Q2087181",
+    "Q1343246",
+    "Q879050"
+   ],
+   "label": "Woolsthorpe Manor"
+  },
+  "Gresham College": {
+   "qid": "Q788375",
+   "coord": [
+    -0.1098,
+    51.5177
+   ],
+   "classes": [
+    "Q2385804",
+    "Q708676"
+   ],
+   "label": "Gresham College"
+  },
+  "Sagres": {
+   "qid": "Q422697",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Sagres"
+  },
+  "Lagos": {
+   "qid": "Q8673",
+   "coord": [
+    3.3936,
+    6.4561
+   ],
+   "classes": [
+    "Q129268952",
+    "Q2264924",
+    "Q1907114",
+    "Q1549591",
+    "Q174844",
+    "Q515"
+   ],
+   "label": "Lagos"
+  },
+  "Cape of Good Hope": {
+   "qid": "Q4092",
+   "coord": [
+    18.4719,
+    -34.3581
+   ],
+   "classes": [
+    "Q191992",
+    "Q185113"
+   ],
+   "label": "Cape of Good Hope"
+  },
+  "Calicut": null,
+  "Palos de la Frontera": {
+   "qid": "Q622030",
+   "coord": [
+    -6.8932,
+    37.2278
+   ],
+   "classes": [
+    "Q2074737"
+   ],
+   "label": "Palos de la Frontera"
+  },
+  "Tordesillas": {
+   "qid": "Q286004",
+   "coord": [
+    -5.0005,
+    41.5009
+   ],
+   "classes": [
+    "Q2074737"
+   ],
+   "label": "Tordesillas"
+  },
+  "Sanlúcar de Barrameda": {
+   "qid": "Q210887",
+   "coord": [
+    -6.3539,
+    36.7789
+   ],
+   "classes": [
+    "Q2074737"
+   ],
+   "label": "Sanlúcar de Barrameda"
+  },
+  "Veracruz": {
+   "qid": "Q60130",
+   "coord": [
+    -96.0556,
+    19.8394
+   ],
+   "classes": [
+    "Q15149663"
+   ],
+   "label": "Veracruz"
+  },
+  "Vilcabamba": {
+   "qid": "Q425118",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Vilcabamba"
+  },
+  "Teposcolula-Yucundaa": null,
+  "Spanish Empire": {
+   "qid": "Q80702",
+   "coord": [
+    -3.6833,
+    40.4167
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Spanish Empire"
+  },
+  "Portuguese Empire": {
+   "qid": "Q200464",
+   "coord": [
+    -9.1333,
+    38.7167
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Portuguese Empire"
+  },
+  "Jamestown": {
+   "qid": "Q323813",
+   "coord": [
+    -76.7775,
+    37.2092
+   ],
+   "classes": [
+    "Q17343829"
+   ],
+   "label": "Jamestown"
+  },
+  "Plymouth": {
+   "qid": "Q43382",
+   "coord": [
+    -4.1422,
+    50.3714
+   ],
+   "classes": [
+    "Q1549591",
+    "Q1115575",
+    "Q515"
+   ],
+   "label": "Plymouth"
+  },
+  "Tobolsk": {
+   "qid": "Q168782",
+   "coord": [
+    68.2581,
+    58.1953
+   ],
+   "classes": [
+    "Q7930989",
+    "Q192287"
+   ],
+   "label": "Tobolsk"
+  },
+  "Tahiti": {
+   "qid": "Q42000",
+   "coord": [
+    -149.4667,
+    -17.6667
+   ],
+   "classes": [
+    "Q1161185",
+    "Q23442"
+   ],
+   "label": "Tahiti"
+  },
+  "Theodosian Walls": null,
+  "Ottoman Empire": {
+   "qid": "Q12560",
+   "coord": [
+    29,
+    41
+   ],
+   "classes": [
+    "Q12759805",
+    "Q3024240",
+    "Q48349"
+   ],
+   "label": "Ottoman Empire"
+  },
+  "Hagia Sophia": {
+   "qid": "Q12506",
+   "coord": [
+    28.98,
+    41.0083
+   ],
+   "classes": [
+    "Q33506",
+    "Q32815"
+   ],
+   "label": "Hagia Sophia"
+  },
+  "Lepanto": {
+   "qid": "Q404292",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Lepanto"
+  },
+  "Kahlenberg": {
+   "qid": "Q697119",
+   "coord": [
+    16.3333,
+    48.2761
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Kahlenberg"
+  },
+  "Safavid Empire": null,
+  "Mughal Empire": {
+   "qid": "Q33296",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Mughal Empire"
+  },
+  "Fatehpur Sikri": {
+   "qid": "Q179046",
+   "coord": [
+    77.6611,
+    27.0911
+   ],
+   "classes": [
+    "Q6958514",
+    "Q1785071",
+    "Q515"
+   ],
+   "label": "Fatehpur Sikri"
+  },
+  "Shahjahanabad": {
+   "qid": "Q3242297",
+   "coord": [
+    77.23,
+    28.66
+   ],
+   "classes": [
+    "Q677678",
+    "Q676050"
+   ],
+   "label": "Old Delhi"
+  },
+  "Taj Mahal": {
+   "qid": "Q9141",
+   "coord": [
+    78.0419,
+    27.175
+   ],
+   "classes": [
+    "Q381885",
+    "Q162875"
+   ],
+   "label": "Taj Mahal"
+  },
+  "Khuldabad": {
+   "qid": "Q1025625",
+   "coord": [
+    75.1888,
+    20.0095
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Khuldabad"
+  },
+  "Maratha Empire": {
+   "qid": "Q83618",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Maratha Empire"
+  },
+  "Crimean Khanate": {
+   "qid": "Q160440",
+   "coord": [
+    33.8525,
+    44.755
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Crimean Khanate"
+  },
+  "Ming dynasty": {
+   "qid": "Q9903",
+   "coord": [
+    103.0833,
+    32.8
+   ],
+   "classes": [
+    "Q50068795",
+    "Q11514315"
+   ],
+   "label": "Ming dynasty"
+  },
+  "Qing dynasty": {
+   "qid": "Q8733",
+   "coord": [
+    103,
+    38
+   ],
+   "classes": [
+    "Q50068795",
+    "Q11514315",
+    "Q3024240"
+   ],
+   "label": "Qing dynasty"
+  },
+  "Chengde": {
+   "qid": "Q58675",
+   "coord": [
+    117.9322,
+    40.9739
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Chengde"
+  },
+  "Odawara": {
+   "qid": "Q267258",
+   "coord": [
+    139.1522,
+    35.2646
+   ],
+   "classes": [
+    "Q1549591",
+    "Q1145012",
+    "Q494721"
+   ],
+   "label": "Odawara"
+  },
+  "Tokugawa shogunate": {
+   "qid": "Q205662",
+   "coord": [
+    139.7744,
+    35.6839
+   ],
+   "classes": [
+    "Q3024240",
+    "Q1074150",
+    "Q327333"
+   ],
+   "label": "Tokugawa shogunate"
+  },
+  "Elmina": {
+   "qid": "Q968662",
+   "coord": [
+    -1.3509,
+    5.0847
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Elmina"
+  },
+  "Liverpool": {
+   "qid": "Q24826",
+   "coord": [
+    -2.9917,
+    53.4072
+   ],
+   "classes": [
+    "Q1549591",
+    "Q515"
+   ],
+   "label": "Liverpool"
+  },
+  "Port Maria": {
+   "qid": "Q265115",
+   "coord": [
+    -76.8903,
+    18.3703
+   ],
+   "classes": [
+    "Q3957",
+    "Q515"
+   ],
+   "label": "Port Maria La luz"
+  },
+  "Accompong": {
+   "qid": "Q4672706",
+   "coord": [
+    -77.75,
+    18.2333
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Accompong"
+  },
+  "Cape Coast Castle": {
+   "qid": "Q1254826",
+   "coord": [
+    -1.2412,
+    5.1036
+   ],
+   "classes": [
+    "Q3289824",
+    "Q1393765",
+    "Q23413"
+   ],
+   "label": "Cape Coast Castle"
+  },
+  "Abomey": {
+   "qid": "Q189685",
+   "coord": [
+    1.9914,
+    7.1853
+   ],
+   "classes": [
+    "Q896881",
+    "Q486972",
+    "Q515"
+   ],
+   "label": "Abomey"
+  },
+  "Ashanti Empire": null,
+  "Murzuk": {
+   "qid": "Q526822",
+   "coord": [
+    13.9336,
+    25.9136
+   ],
+   "classes": [
+    "Q16124843",
+    "Q515"
+   ],
+   "label": "Murzuk"
+  },
+  "Black River": {
+   "qid": "Q347247",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Black River"
+  },
+  "Oxford": {
+   "qid": "Q34217",
+   "coord": [
+    -1.2578,
+    51.7519
+   ],
+   "classes": [
+    "Q7897276",
+    "Q1357964",
+    "Q1187811",
+    "Q515"
+   ],
+   "label": "Oxford"
+  },
+  "La Brède": {
+   "qid": "Q244712",
+   "coord": [
+    -0.5286,
+    44.6814
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "La Brède"
+  },
+  "Ferney": null,
+  "Yorktown": {
+   "qid": "Q254806",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Yorktown"
+  },
+  "Place de la Bastille": {
+   "qid": "Q778784",
+   "coord": [
+    2.3691,
+    48.8531
+   ],
+   "classes": [
+    "Q174782"
+   ],
+   "label": "Place de la Bastille"
+  },
+  "Versailles": null,
+  "Saint-Cloud": {
+   "qid": "Q189153",
+   "coord": [
+    2.2153,
+    48.8464
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Saint-Cloud"
+  },
+  "Waterloo": {
+   "qid": "Q189009",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Waterloo"
+  },
+  "Dolores Hidalgo": {
+   "qid": "Q17487868",
+   "coord": [
+    -100.9325,
+    21.1561
+   ],
+   "classes": [
+    "Q20202352"
+   ],
+   "label": "Dolores Hidalgo"
+  },
+  "Raynham": {
+   "qid": "Q443161",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Raynham"
+  },
+  "Griff": {
+   "qid": "Q1546564",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Griff"
+  },
+  "Soho, Birmingham": null,
+  "Soho": {
+   "qid": "Q124010",
+   "coord": [
+    -0.131,
+    51.513
+   ],
+   "classes": [
+    "Q2755753"
+   ],
+   "label": "Soho"
+  },
+  "Blackburn district": null,
+  "Hebburn Colliery": null,
+  "Stockton and Darlington": null,
+  "Rainhill": {
+   "qid": "Q2429969",
+   "coord": [
+    -2.7625,
+    53.4157
+   ],
+   "classes": [
+    "Q1115575",
+    "Q188509"
+   ],
+   "label": "Rainhill"
+  },
+  "Worsley": {
+   "qid": "Q1617033",
+   "coord": [
+    -2.3845,
+    53.5093
+   ],
+   "classes": [
+    "Q7897276",
+    "Q188509"
+   ],
+   "label": "Worsley"
+  },
+  "Shrewsbury": {
+   "qid": "Q201970",
+   "coord": [
+    -2.7544,
+    52.7081
+   ],
+   "classes": [
+    "Q18511725",
+    "Q1357964",
+    "Q1115575"
+   ],
+   "label": "Shrewsbury"
+  },
+  "Nottingham": {
+   "qid": "Q41262",
+   "coord": [
+    -1.1492,
+    52.955
+   ],
+   "classes": [
+    "Q1549591",
+    "Q1357964",
+    "Q515"
+   ],
+   "label": "Nottingham"
+  },
+  "Trier": {
+   "qid": "Q3138",
+   "coord": [
+    6.6394,
+    49.7557
+   ],
+   "classes": [
+    "Q85632032",
+    "Q42744322",
+    "Q15661340",
+    "Q1549591",
+    "Q134626",
+    "Q515"
+   ],
+   "label": "Trier"
+  },
+  "New Lanark": {
+   "qid": "Q743108",
+   "coord": [
+    -3.7814,
+    55.6636
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "New Lanark"
+  },
+  "Euston": {
+   "qid": "Q412332",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Euston"
+  },
+  "Marsala": {
+   "qid": "Q481514",
+   "coord": [
+    12.4342,
+    37.7981
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Marsala"
+  },
+  "Sedan": {
+   "qid": "Q224210",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Sedan"
+  },
+  "Austria-Hungary": {
+   "qid": "Q28513",
+   "coord": [
+    16.365,
+    48.2075
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Austria–Hungary"
+  },
+  "Temple of Apollo Palatinus": {
+   "qid": "Q1236860",
+   "coord": [
+    12.4858,
+    41.8889
+   ],
+   "classes": [
+    "Q14752696",
+    "Q867143",
+    "Q109607"
+   ],
+   "label": "Temple of Apollo Palatinus"
+  },
+  "Forum of Augustus": {
+   "qid": "Q770797",
+   "coord": [
+    12.4867,
+    41.8942
+   ],
+   "classes": [
+    "Q839954",
+    "Q684740"
+   ],
+   "label": "Forum of Augustus"
+  },
+  "Ara Pacis": {
+   "qid": "Q623612",
+   "coord": [
+    12.4756,
+    41.9064
+   ],
+   "classes": [
+    "Q97621821",
+    "Q839954",
+    "Q697295",
+    "Q33506"
+   ],
+   "label": "Ara Pacis"
+  },
+  "Mausoleum of Augustus": {
+   "qid": "Q770847",
+   "coord": [
+    12.4764,
+    41.9061
+   ],
+   "classes": [
+    "Q3822604",
+    "Q839954"
+   ],
+   "label": "Mausoleum of Augustus"
+  },
+  "Prima Porta": {
+   "qid": "Q1760467",
+   "coord": [
+    12.4833,
+    42
+   ],
+   "classes": [
+    "Q3575964"
+   ],
+   "label": "Prima Porta"
+  },
+  "Pandateria": null,
+  "Porticus Liviae": null,
+  "Planasia": null,
+  "Mogontiacum": {
+   "qid": "Q571790",
+   "coord": [
+    8.2711,
+    50
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Mogontiacum"
+  },
+  "Kalkriese": {
+   "qid": "Q60176450",
+   "coord": [
+    8.1294,
+    52.4081
+   ],
+   "classes": [
+    "Q486972",
+    "Q253019",
+    "Q56061"
+   ],
+   "label": "Kalkriese"
+  },
+  "Nola": {
+   "qid": "Q72288",
+   "coord": [
+    14.5333,
+    40.9333
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Nola"
+  },
+  "Misenum": null,
+  "Celenderis": null,
+  "Castra Praetoria": {
+   "qid": "Q1049836",
+   "coord": [
+    12.5079,
+    41.9088
+   ],
+   "classes": [
+    "Q14752696",
+    "Q839954",
+    "Q131263",
+    "Q88205"
+   ],
+   "label": "Castra Praetoria"
+  },
+  "Gemonian Stairs": null,
+  "Capreae": null,
+  "Curia Julia": {
+   "qid": "Q1144514",
+   "coord": [
+    12.4854,
+    41.8929
+   ],
+   "classes": [
+    "Q5194727",
+    "Q839954"
+   ],
+   "label": "Curia Julia"
+  },
+  "Antium": {
+   "qid": "Q16010710",
+   "coord": [
+    12.6286,
+    41.4483
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Antium"
+  },
+  "Lugdunum": {
+   "qid": "Q665",
+   "coord": [
+    4.8194,
+    45.7597
+   ],
+   "classes": [
+    "Q2202509",
+    "Q756780"
+   ],
+   "label": "Lugdunum"
+  },
+  "Camulodunum": {
+   "qid": "Q630604",
+   "coord": [
+    0.898,
+    51.892
+   ],
+   "classes": [
+    "Q14752696",
+    "Q839954",
+    "Q88205"
+   ],
+   "label": "Camulodunum"
+  },
+  "Vasio": null,
+  "Porta Maggiore": {
+   "qid": "Q751318",
+   "coord": [
+    12.5152,
+    41.8915
+   ],
+   "classes": [
+    "Q839954",
+    "Q82117"
+   ],
+   "label": "Porta Maggiore"
+  },
+  "Pincian Hill": {
+   "qid": "Q550215",
+   "coord": [
+    12.4797,
+    41.9118
+   ],
+   "classes": [
+    "Q54050",
+    "Q22698"
+   ],
+   "label": "Pincian Hill"
+  },
+  "Bauli": {
+   "qid": "Q782064",
+   "coord": null,
+   "classes": [
+    "Q6881511",
+    "Q4830453"
+   ],
+   "label": "Bauli"
+  },
+  "Venta Icenorum": {
+   "qid": "Q1407535",
+   "coord": [
+    1.2909,
+    52.5835
+   ],
+   "classes": [
+    "Q2202509"
+   ],
+   "label": "Venta Icenorum"
+  },
+  "Cenchreae": null,
+  "Domus Aurea": {
+   "qid": "Q622438",
+   "coord": [
+    12.4953,
+    41.8914
+   ],
+   "classes": [
+    "Q136351774",
+    "Q124830411",
+    "Q112132548",
+    "Q112132522",
+    "Q14752696",
+    "Q3867560",
+    "Q839954",
+    "Q782970",
+    "Q252021",
+    "Q16560"
+   ],
+   "label": "Domus Aurea"
+  },
+  "Circus of Nero": {
+   "qid": "Q676074",
+   "coord": [
+    12.4553,
+    41.9017
+   ],
+   "classes": [
+    "Q19860854",
+    "Q839954",
+    "Q477396"
+   ],
+   "label": "circus of Nero"
+  },
+  "Aventine": {
+   "qid": "Q16254520",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Aventine"
+  },
+  "Caesarea": {
+   "qid": "Q223962",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Cesarea"
+  },
+  "Vesontio": null,
+  "Alsium": {
+   "qid": "Q4735811",
+   "coord": [
+    12.1,
+    41.9333
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Alsium"
+  },
+  "Carthago Nova": {
+   "qid": "Q2727884",
+   "coord": [
+    -0.9833,
+    37.6
+   ],
+   "classes": [
+    "Q15661340",
+    "Q756780"
+   ],
+   "label": "Carthago Nova"
+  },
+  "Brixellum": {
+   "qid": "Q3645134",
+   "coord": [
+    10.5167,
+    44.9
+   ],
+   "classes": [
+    "Q2202509"
+   ],
+   "label": "Brixellum"
+  },
+  "Bedriacum": null,
+  "Colonia Agrippinensis": null,
+  "Cremona": {
+   "qid": "Q6231",
+   "coord": [
+    10.0247,
+    45.1333
+   ],
+   "classes": [
+    "Q747074",
+    "Q133442",
+    "Q515"
+   ],
+   "label": "Cremona"
+  },
+  "Capitoline": null,
+  "Vetera": {
+   "qid": "Q532466",
+   "coord": [
+    6.47,
+    51.6464
+   ],
+   "classes": [
+    "Q14752696",
+    "Q839954",
+    "Q88205"
+   ],
+   "label": "Castra Vetera"
+  },
+  "Reate": null,
+  "Capitoline Museums": {
+   "qid": "Q333906",
+   "coord": [
+    12.4828,
+    41.8931
+   ],
+   "classes": [
+    "Q124830213",
+    "Q3329412",
+    "Q207694",
+    "Q33506"
+   ],
+   "label": "Capitoline Museums"
+  },
+  "Aquae Cutiliae": {
+   "qid": "Q383071",
+   "coord": [
+    13.0088,
+    42.3801
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Aquae Cutiliae"
+  },
+  "Masada": {
+   "qid": "Q186312",
+   "coord": [
+    35.3539,
+    31.3156
+   ],
+   "classes": [
+    "Q839954",
+    "Q57831",
+    "Q9259"
+   ],
+   "label": "Masada"
+  },
+  "Arch of Titus": {
+   "qid": "Q723887",
+   "coord": [
+    12.4886,
+    41.8907
+   ],
+   "classes": [
+    "Q839954",
+    "Q143912"
+   ],
+   "label": "Arch of Titus"
+  },
+  "Colosseum": {
+   "qid": "Q10285",
+   "coord": [
+    12.4922,
+    41.8903
+   ],
+   "classes": [
+    "Q133444874",
+    "Q124830411",
+    "Q112132548",
+    "Q112132522",
+    "Q7362268",
+    "Q3867560",
+    "Q839954",
+    "Q483110"
+   ],
+   "label": "Colosseum"
+  },
+  "Herculaneum": {
+   "qid": "Q178813",
+   "coord": [
+    14.3475,
+    40.8061
+   ],
+   "classes": [
+    "Q133444874",
+    "Q15661340",
+    "Q14616455",
+    "Q839954",
+    "Q33506"
+   ],
+   "label": "Herculaneum"
+  },
+  "Tapae": {
+   "qid": "Q7684406",
+   "coord": [
+    22.7247,
+    45.5056
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Tapae"
+  },
+  "Forum Julii": null,
+  "Inchtuthil": {
+   "qid": "Q2309575",
+   "coord": [
+    -3.424,
+    56.541
+   ],
+   "classes": [
+    "Q14752696",
+    "Q839954",
+    "Q88205"
+   ],
+   "label": "Castra Pinnata"
+  },
+  "Flavian Palace": {
+   "qid": "Q529806",
+   "coord": [
+    12.4869,
+    41.8885
+   ],
+   "classes": [
+    "Q136351774",
+    "Q14752696",
+    "Q839954",
+    "Q782970"
+   ],
+   "label": "Flavian Palace"
+  },
+  "Sarmizegetusa Regia": {
+   "qid": "Q739802",
+   "coord": [
+    23.3103,
+    45.6228
+   ],
+   "classes": [
+    "Q15661340",
+    "Q5228121",
+    "Q839954",
+    "Q57831",
+    "Q44539"
+   ],
+   "label": "Sarmizegetusa Regia"
+  },
+  "Forum of Trajan": null,
+  "Veleia": {
+   "qid": "Q2805038",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Veleia"
+  },
+  "Trajan's Bridge": {
+   "qid": "Q849786",
+   "coord": [
+    22.6671,
+    44.6238
+   ],
+   "classes": [
+    "Q14276458",
+    "Q11486300",
+    "Q3397526",
+    "Q1223230",
+    "Q537127",
+    "Q428759"
+   ],
+   "label": "Trajan's Bridge"
+  },
+  "Trajan's Column": {
+   "qid": "Q192784",
+   "coord": [
+    12.4842,
+    41.8958
+   ],
+   "classes": [
+    "Q1930585",
+    "Q839954"
+   ],
+   "label": "Trajan's Column"
+  },
+  "Trajan's Market": {
+   "qid": "Q478642",
+   "coord": [
+    12.4862,
+    41.8956
+   ],
+   "classes": [
+    "Q839954",
+    "Q109607"
+   ],
+   "label": "Trajan's Market"
+  },
+  "Nile": {
+   "qid": "Q3392",
+   "coord": [
+    30.3667,
+    31.4653
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Nile"
+  },
+  "Faiyum": {
+   "qid": "Q203299",
+   "coord": [
+    30.8333,
+    29.3
+   ],
+   "classes": [
+    "Q1549591",
+    "Q515"
+   ],
+   "label": "Faiyum"
+  },
+  "Eastern Desert": {
+   "qid": "Q624170",
+   "coord": [
+    32.6,
+    27.3
+   ],
+   "classes": [
+    "Q8514"
+   ],
+   "label": "Eastern Desert"
+  },
+  "Kharga Oasis": {
+   "qid": "Q428570",
+   "coord": [
+    30.55,
+    25.25
+   ],
+   "classes": [
+    "Q190429",
+    "Q43742"
+   ],
+   "label": "Kharga Oasis"
+  },
+  "Gothia": {
+   "qid": "Q422253",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Gothia"
+  },
+  "Huns": {
+   "qid": "Q45813",
+   "coord": null,
+   "classes": [
+    "Q4204501"
+   ],
+   "label": "Huns"
+  },
+  "Avars": null,
+  "Old Great Bulgaria": {
+   "qid": "Q191484",
+   "coord": [
+    42,
+    48
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Old Great Bulgaria"
+  },
+  "Volga Bulgaria": {
+   "qid": "Q185488",
+   "coord": [
+    49.0333,
+    54.9667
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Volga Bulgaria"
+  },
+  "Khazaria": {
+   "qid": "Q2090473",
+   "coord": null,
+   "classes": [
+    "Q26883974",
+    "Q3024240",
+    "Q331644"
+   ],
+   "label": "Khazar Khaganate"
+  },
+  "Samosdelka": {
+   "qid": "Q4406882",
+   "coord": [
+    47.8406,
+    46.0256
+   ],
+   "classes": [
+    "Q839954",
+    "Q486972"
+   ],
+   "label": "Samosdelka"
+  },
+  "Etelköz": null,
+  "Patzinakia": null,
+  "Noviodunum": {
+   "qid": "Q1706885",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Noviodunum"
+  },
+  "Upper Oka": null,
+  "Peryn": {
+   "qid": "Q4359567",
+   "coord": [
+    31.2736,
+    58.4728
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Peryn"
+  },
+  "Rostov": null,
+  "Sambia": {
+   "qid": "Q7409047",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Sambia"
+  },
+  "Ingelheim": null,
+  "Staraya Ladoga": {
+   "qid": "Q216794",
+   "coord": [
+    32.2958,
+    59.9989
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Staraya Ladoga"
+  },
+  "Gnyozdovo": {
+   "qid": "Q13424755",
+   "coord": [
+    31.864,
+    54.783
+   ],
+   "classes": [
+    "Q5084"
+   ],
+   "label": "Gnyozdovo"
+  },
+  "Dnieper rapids": {
+   "qid": "Q4163154",
+   "coord": [
+    35.1889,
+    48.1833
+   ],
+   "classes": [
+    "Q695793"
+   ],
+   "label": "Dnieper Rapids"
+  },
+  "Bulgar": {
+   "qid": "Q1262283",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Bulgar"
+  },
+  "Izborsk": {
+   "qid": "Q1135534",
+   "coord": [
+    27.8605,
+    57.7094
+   ],
+   "classes": [
+    "Q1959314",
+    "Q1081138",
+    "Q5084"
+   ],
+   "label": "Izborsk"
+  },
+  "Constantinople": {
+   "qid": "Q16869",
+   "coord": [
+    28.976,
+    41.0122
+   ],
+   "classes": [
+    "Q15661340",
+    "Q56061",
+    "Q515"
+   ],
+   "label": "Constantinople"
+  },
+  "Korosten": {
+   "qid": "Q158904",
+   "coord": [
+    28.65,
+    50.95
+   ],
+   "classes": [
+    "Q5123999"
+   ],
+   "label": "Korosten"
+  },
+  "Vyshhorod": {
+   "qid": "Q1004257",
+   "coord": [
+    30.4853,
+    50.5833
+   ],
+   "classes": [
+    "Q12131624"
+   ],
+   "label": "Vyshhorod"
+  },
+  "Silistra": {
+   "qid": "Q182428",
+   "coord": [
+    27.2654,
+    44.1092
+   ],
+   "classes": [
+    "Q89487741",
+    "Q15344922",
+    "Q15303838",
+    "Q902814"
+   ],
+   "label": "Silistra"
+  },
+  "Chersonesus": {
+   "qid": "Q638445",
+   "coord": [
+    33.4933,
+    44.6116
+   ],
+   "classes": [
+    "Q15661340",
+    "Q2065736",
+    "Q1081138",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Chersonesus"
+  },
+  "Liubech": {
+   "qid": "Q76561",
+   "coord": [
+    30.6617,
+    51.7052
+   ],
+   "classes": [
+    "Q4100864",
+    "Q486972"
+   ],
+   "label": "Liubech"
+  },
+  "Kyiv Pechersk Lavra": {
+   "qid": "Q242711",
+   "coord": [
+    30.5583,
+    50.4341
+   ],
+   "classes": [
+    "Q11784935"
+   ],
+   "label": "Kyiv Pechersk Lavra"
+  },
+  "Novgorod Detinets": {
+   "qid": "Q1277545",
+   "coord": [
+    31.2757,
+    58.5215
+   ],
+   "classes": [
+    "Q2319498",
+    "Q263274"
+   ],
+   "label": "Novgorod Kremlin"
+  },
+  "Murom": {
+   "qid": "Q162677",
+   "coord": [
+    42.0538,
+    55.5809
+   ],
+   "classes": [
+    "Q7930989",
+    "Q3920245",
+    "Q1549591"
+   ],
+   "label": "Murom"
+  },
+  "Desht-i Qipchaq": null,
+  "Novgorod Republic": {
+   "qid": "Q151536",
+   "coord": [
+    31.2753,
+    58.5214
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Novgorod Republic"
+  },
+  "Yugra": {
+   "qid": "Q1580934",
+   "coord": null,
+   "classes": [
+    "Q4835091"
+   ],
+   "label": "Yugra"
+  },
+  "Vladimir-Suzdal": {
+   "qid": "Q83546",
+   "coord": [
+    40.4058,
+    56.1286
+   ],
+   "classes": [
+    "Q3024240",
+    "Q1371288"
+   ],
+   "label": "Grand Principality of Vladimir"
+  },
+  "Bogolyubovo": {
+   "qid": "Q4089554",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Bogolyubovo"
+  },
+  "Galicia–Volhynia": null,
+  "Principality of Polotsk": {
+   "qid": "Q517333",
+   "coord": [
+    28.8333,
+    55.5
+   ],
+   "classes": [
+    "Q3024240",
+    "Q1371288",
+    "Q208500"
+   ],
+   "label": "Principality of Polotsk"
+  },
+  "Principality of Chernigov": {
+   "qid": "Q1322662",
+   "coord": [
+    32,
+    51.5
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Principality of Chernigov"
+  },
+  "Novhorod-Siverskyi": {
+   "qid": "Q147758",
+   "coord": [
+    33.2667,
+    51.9972
+   ],
+   "classes": [
+    "Q5123999",
+    "Q486972"
+   ],
+   "label": "Novhorod-Siverskyi"
+  },
+  "Torzhok": {
+   "qid": "Q196678",
+   "coord": [
+    34.9667,
+    57.0333
+   ],
+   "classes": [
+    "Q7930989",
+    "Q192287"
+   ],
+   "label": "Torzhok"
+  },
+  "Old Ryazan": null,
+  "Mohi": {
+   "qid": "Q16877296",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Mohi"
+  },
+  "Pharos": {
+   "qid": "Q2696558",
+   "coord": [
+    29.885,
+    31.2142
+   ],
+   "classes": [
+    "Q839954",
+    "Q34763",
+    "Q23442"
+   ],
+   "label": "Pharos"
+  },
+  "Samothrace": {
+   "qid": "Q203175",
+   "coord": [
+    25.5875,
+    40.45
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Samothrace"
+  },
+  "Perga": {
+   "qid": "Q719815",
+   "coord": [
+    30.8551,
+    36.9622
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Perge"
+  },
+  "Syene": null,
+  "Samos": {
+   "qid": "Q156882",
+   "coord": [
+    26.8333,
+    37.75
+   ],
+   "classes": [
+    "Q148837",
+    "Q23442"
+   ],
+   "label": "Samos"
+  },
+  "Antikythera": {
+   "qid": "Q213730",
+   "coord": [
+    23.305,
+    35.8642
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Antikythera"
+  },
+  "Elis": {
+   "qid": "Q1063649",
+   "coord": [
+    21.5,
+    37.6667
+   ],
+   "classes": [
+    "Q1234255",
+    "Q202595"
+   ],
+   "label": "Elis Regional Unit"
+  },
+  "Pergamon": {
+   "qid": "Q18986",
+   "coord": [
+    27.1841,
+    39.1295
+   ],
+   "classes": [
+    "Q93342462",
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Pergamon"
+  },
+  "Ambracia": {
+   "qid": "Q661559",
+   "coord": [
+    20.9903,
+    39.1549
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Ambracia"
+  },
+  "Rhizon": {
+   "qid": "Q7320766",
+   "coord": [
+    18.695,
+    42.5147
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Rhizon"
+  },
+  "Abydos": {
+   "qid": "Q224842",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Abydos"
+  },
+  "Apamea": {
+   "qid": "Q41444",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Apamea"
+  },
+  "Thessalonica": null,
+  "Megalopolis": {
+   "qid": "Q471822",
+   "coord": null,
+   "classes": [
+    "Q98966309"
+   ],
+   "label": "megalopolis"
+  },
+  "Delos": {
+   "qid": "Q173148",
+   "coord": [
+    25.2712,
+    37.3912
+   ],
+   "classes": [
+    "Q486972",
+    "Q23442",
+    "Q9259"
+   ],
+   "label": "Delos"
+  },
+  "Orchomenus": {
+   "qid": "Q735027",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Orchomenus"
+  },
+  "Thessaly": {
+   "qid": "Q166919",
+   "coord": [
+    22.2,
+    39.6
+   ],
+   "classes": [
+    "Q1620908",
+    "Q1048163",
+    "Q82794"
+   ],
+   "label": "Thessaly"
+  },
+  "Achaea": {
+   "qid": "Q2495811",
+   "coord": [
+    21.8598,
+    38.0868
+   ],
+   "classes": [
+    "Q1234255"
+   ],
+   "label": "Achaea Regional Unit"
+  },
+  "Lyktos": {
+   "qid": "Q1001533",
+   "coord": [
+    25.3703,
+    35.2129
+   ],
+   "classes": [
+    "Q93342462",
+    "Q148837"
+   ],
+   "label": "Lyctus"
+  },
+  "Argive Heraion": null,
+  "Sounion": {
+   "qid": "Q1136637",
+   "coord": [
+    24.0301,
+    37.649
+   ],
+   "classes": [
+    "Q839954",
+    "Q191992",
+    "Q185113"
+   ],
+   "label": "Sounion"
+  },
+  "Eleusis": null,
+  "Brauron": {
+   "qid": "Q475497",
+   "coord": [
+    23.9937,
+    37.9262
+   ],
+   "classes": [
+    "Q1617500",
+    "Q839954",
+    "Q672490"
+   ],
+   "label": "Brauron"
+  },
+  "Palaepaphos": null,
+  "Lemnos": {
+   "qid": "Q192483",
+   "coord": [
+    25.25,
+    39.9167
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Lemnos"
+  },
+  "Mount Cyllene": null,
+  "Mount Olympus": {
+   "qid": "Q80344",
+   "coord": [
+    22.35,
+    40.0833
+   ],
+   "classes": [
+    "Q15069452",
+    "Q158454",
+    "Q46169",
+    "Q8502"
+   ],
+   "label": "Mount Olympus"
+  },
+  "Academy": {
+   "qid": "Q162633",
+   "coord": null,
+   "classes": [
+    "Q17197366"
+   ],
+   "label": "academy"
+  },
+  "Mount Parnassus": {
+   "qid": "Q105261",
+   "coord": [
+    22.6167,
+    38.533
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Parnassus"
+  },
+  "Pallene": {
+   "qid": "Q356420",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Pallene"
+  },
+  "Mount Etna": {
+   "qid": "Q16990",
+   "coord": [
+    14.9932,
+    37.7508
+   ],
+   "classes": [
+    "Q107539372",
+    "Q169358"
+   ],
+   "label": "Mount Etna"
+  },
+  "Mount Helicon": {
+   "qid": "Q215516",
+   "coord": [
+    22.825,
+    38.3522
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Helicon"
+  },
+  "Ithaca": {
+   "qid": "Q227940",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Ithaca"
+  },
+  "Mount Pelion": null,
+  "Nemea": {
+   "qid": "Q748108",
+   "coord": [
+    22.7103,
+    37.809
+   ],
+   "classes": [
+    "Q1617500",
+    "Q839954"
+   ],
+   "label": "Nemea"
+  },
+  "Lerna": {
+   "qid": "Q1236078",
+   "coord": [
+    22.7182,
+    37.5512
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Lerna"
+  },
+  "Seriphos": null,
+  "Troezen": {
+   "qid": "Q581494",
+   "coord": [
+    23.3631,
+    37.4972
+   ],
+   "classes": [
+    "Q532"
+   ],
+   "label": "Troezen"
+  },
+  "Naxos": {
+   "qid": "Q188527",
+   "coord": [
+    25.4667,
+    37.0833
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "Naxos Island"
+  },
+  "Iolcus": {
+   "qid": "Q662613",
+   "coord": [
+    22.9689,
+    39.3663
+   ],
+   "classes": [
+    "Q15661340",
+    "Q148837"
+   ],
+   "label": "Iolcos"
+  },
+  "Phasis": {
+   "qid": "Q1177302",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Phasis"
+  },
+  "Xanthos": {
+   "qid": "Q464936",
+   "coord": [
+    29.3274,
+    36.3627
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837",
+    "Q133442"
+   ],
+   "label": "Xanthos"
+  },
+  "Oropos": {
+   "qid": "Q663353",
+   "coord": [
+    23.7544,
+    38.3028
+   ],
+   "classes": [
+    "Q486972"
+   ],
+   "label": "Oropos"
+  },
+  "Glisas": {
+   "qid": "Q11924352",
+   "coord": [
+    23.3969,
+    38.3918
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Glisas"
+  },
+  "Mount Ida": {
+   "qid": "Q6421270",
+   "coord": null,
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Ida"
+  },
+  "Therapne": {
+   "qid": "Q15940498",
+   "coord": [
+    22.55,
+    37.083
+   ],
+   "classes": [
+    "Q15661340"
+   ],
+   "label": "Therapne"
+  },
+  "Acropolis": {
+   "qid": "Q131668",
+   "coord": null,
+   "classes": [],
+   "label": "acropolis"
+  },
+  "Epidaurus": {
+   "qid": "Q233576",
+   "coord": [
+    23.1601,
+    37.6333
+   ],
+   "classes": [
+    "Q20616831",
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Epidaurus"
+  },
+  "Thurii": {
+   "qid": "Q602564",
+   "coord": [
+    16.4502,
+    39.7507
+   ],
+   "classes": [
+    "Q148837",
+    "Q515"
+   ],
+   "label": "Thurii"
+  },
+  "Julu": {
+   "qid": "Q47545414",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Julu"
+  },
+  "White Horse Temple": {
+   "qid": "Q1264618",
+   "coord": [
+    112.5997,
+    34.7239
+   ],
+   "classes": [
+    "Q5393308"
+   ],
+   "label": "White Horse Temple"
+  },
+  "Guangzong": {
+   "qid": "Q1552782",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Guangzong"
+  },
+  "Ye": {
+   "qid": "Q233955",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Ye"
+  },
+  "Xuchang": {
+   "qid": "Q404529",
+   "coord": [
+    113.8201,
+    34.0244
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Xuchang"
+  },
+  "Zhongmou": null,
+  "Cao Wei": {
+   "qid": "Q320930",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q3024240",
+    "Q1292119"
+   ],
+   "label": "Cao Wei"
+  },
+  "Shu Han": {
+   "qid": "Q320925",
+   "coord": null,
+   "classes": [
+    "Q50068795"
+   ],
+   "label": "Shu Han"
+  },
+  "Wuzhangyuan": null,
+  "Eastern Wu": {
+   "qid": "Q274488",
+   "coord": [
+    118.7965,
+    32.0584
+   ],
+   "classes": [
+    "Q50068795"
+   ],
+   "label": "Eastern Wu"
+  },
+  "Dangyang": {
+   "qid": "Q1159699",
+   "coord": [
+    111.791,
+    30.8258
+   ],
+   "classes": [
+    "Q1070990"
+   ],
+   "label": "Dangyang"
+  },
+  "Jin dynasty": null,
+  "Xiuwu": null,
+  "Han-Zhao": {
+   "qid": "Q1574107",
+   "coord": null,
+   "classes": [
+    "Q50068795"
+   ],
+   "label": "Han Zhao"
+  },
+  "Xingtai": {
+   "qid": "Q58576",
+   "coord": [
+    114.4753,
+    37.0659
+   ],
+   "classes": [
+    "Q748149"
+   ],
+   "label": "Xingtai"
+  },
+  "Former Yan": {
+   "qid": "Q1472004",
+   "coord": null,
+   "classes": [
+    "Q50068795"
+   ],
+   "label": "Former Yan"
+  },
+  "Former Qin": {
+   "qid": "Q1471995",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q164950"
+   ],
+   "label": "Former Qin"
+  },
+  "Shou County": {
+   "qid": "Q1349884",
+   "coord": [
+    116.7794,
+    32.5782
+   ],
+   "classes": [
+    "Q1289426"
+   ],
+   "label": "Shou County"
+  },
+  "Zhenjiang": {
+   "qid": "Q57958",
+   "coord": [
+    119.4551,
+    32.2109
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Zhenjiang"
+  },
+  "Eastern Jin": {
+   "qid": "Q306928",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q12857432"
+   ],
+   "label": "Eastern Jin dynasty"
+  },
+  "Qi County": {
+   "qid": "Q849306",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Qi County"
+  },
+  "Jingzhou": {
+   "qid": "Q71247",
+   "coord": [
+    112.2361,
+    30.3244
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Jingzhou"
+  },
+  "Shaoxing": {
+   "qid": "Q42666",
+   "coord": [
+    120.5833,
+    30
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Shaoxing"
+  },
+  "Jiujiang": {
+   "qid": "Q216077",
+   "coord": [
+    116.0021,
+    29.7048
+   ],
+   "classes": [
+    "Q1549591",
+    "Q748149"
+   ],
+   "label": "Jiujiang"
+  },
+  "Liu Song": null,
+  "Southern Qi": {
+   "qid": "Q62456",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q12857432"
+   ],
+   "label": "Southern Qi"
+  },
+  "Liang dynasty": {
+   "qid": "Q1069868",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q12857432"
+   ],
+   "label": "Liang dynasty"
+  },
+  "Jiming Temple": {
+   "qid": "Q2624443",
+   "coord": [
+    118.79,
+    32.0631
+   ],
+   "classes": [
+    "Q5393308"
+   ],
+   "label": "Jiming Temple"
+  },
+  "Chen dynasty": {
+   "qid": "Q62454",
+   "coord": null,
+   "classes": [
+    "Q50068795",
+    "Q12857432"
+   ],
+   "label": "Chen dynasty"
+  },
+  "Northern Wei": {
+   "qid": "Q875305",
+   "coord": [
+    108.9,
+    34.2667
+   ],
+   "classes": [
+    "Q50068795"
+   ],
+   "label": "Northern Wei"
+  },
+  "Ctesiphon": {
+   "qid": "Q192541",
+   "coord": [
+    44.5808,
+    33.0936
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Ctesiphon"
+  },
+  "Bostra": null,
+  "Olympieion": null,
+  "Housesteads": null,
+  "Lambaesis": {
+   "qid": "Q1309744",
+   "coord": [
+    6.2558,
+    35.4889
+   ],
+   "classes": [
+    "Q14752696",
+    "Q2989398",
+    "Q2202509",
+    "Q839954",
+    "Q88205"
+   ],
+   "label": "Castra Lambaesis"
+  },
+  "Pantheon": {
+   "qid": "Q3574594",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Pantheon"
+  },
+  "Hadrian's Villa": {
+   "qid": "Q272777",
+   "coord": [
+    12.7753,
+    41.9419
+   ],
+   "classes": [
+    "Q124830411",
+    "Q3867560",
+    "Q3363945",
+    "Q918230",
+    "Q839954"
+   ],
+   "label": "Hadrian's Villa"
+  },
+  "Antinoöpolis": {
+   "qid": "Q124281",
+   "coord": [
+    30.8728,
+    27.8075
+   ],
+   "classes": [
+    "Q2202509",
+    "Q839954"
+   ],
+   "label": "Antinoöpolis"
+  },
+  "Betar": {
+   "qid": "Q713120",
+   "coord": null,
+   "classes": [
+    "Q104805859",
+    "Q2967401",
+    "Q2738074",
+    "Q49773"
+   ],
+   "label": "Betar"
+  },
+  "Rough Castle": null,
+  "Cyrrhus": {
+   "qid": "Q536924",
+   "coord": [
+    36.9592,
+    36.7442
+   ],
+   "classes": [
+    "Q839954",
+    "Q162875"
+   ],
+   "label": "Cyrrhus"
+  },
+  "Seleucia": {
+   "qid": "Q1136681",
+   "coord": [
+    44.5172,
+    33.1372
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Seleucia"
+  },
+  "Carnuntum": {
+   "qid": "Q508815",
+   "coord": [
+    16.8614,
+    48.1133
+   ],
+   "classes": [
+    "Q839954",
+    "Q756102",
+    "Q213468",
+    "Q88205"
+   ],
+   "label": "Carnuntum"
+  },
+  "Piazza Colonna": {
+   "qid": "Q63785",
+   "coord": [
+    12.4799,
+    41.9011
+   ],
+   "classes": [
+    "Q174782"
+   ],
+   "label": "Piazza Colonna"
+  },
+  "Timgad": {
+   "qid": "Q459629",
+   "coord": [
+    6.4687,
+    35.4842
+   ],
+   "classes": [
+    "Q2989398",
+    "Q2202509",
+    "Q839954"
+   ],
+   "label": "Timgad"
+  },
+  "Prusa": {
+   "qid": "Q1334389",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Prusa"
+  },
+  "Monte Testaccio": {
+   "qid": "Q781595",
+   "coord": [
+    12.4757,
+    41.876
+   ],
+   "classes": [
+    "Q10460934",
+    "Q839954"
+   ],
+   "label": "Monte Testaccio"
+  },
+  "Albanum": null,
+  "Emesa": null,
+  "Eboracum": {
+   "qid": "Q958954",
+   "coord": [
+    -1.0806,
+    53.9617
+   ],
+   "classes": [
+    "Q2202509",
+    "Q839954",
+    "Q213468"
+   ],
+   "label": "Eboracum"
+  },
+  "Aquileia": {
+   "qid": "Q53216",
+   "coord": [
+    13.3667,
+    45.7667
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Aquileia"
+  },
+  "Philippopolis": {
+   "qid": "Q425163",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Philippopolis"
+  },
+  "Sasanian Empire": {
+   "qid": "Q83891",
+   "coord": [
+    53,
+    33
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Sasanian Empire"
+  },
+  "Naqsh-e Rustam": null,
+  "Edessa": {
+   "qid": "Q1190403",
+   "coord": [
+    38.7761,
+    37.1764
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Edessa"
+  },
+  "Abritus": {
+   "qid": "Q331488",
+   "coord": [
+    26.5517,
+    43.5211
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q33506"
+   ],
+   "label": "Abritus"
+  },
+  "Gallic Empire": {
+   "qid": "Q273025",
+   "coord": null,
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Gallic Empire"
+  },
+  "Palmyrene Empire": {
+   "qid": "Q877875",
+   "coord": [
+    38.2675,
+    34.555
+   ],
+   "classes": [
+    "Q3024240"
+   ],
+   "label": "Palmyrene Empire"
+  },
+  "Palmyra": {
+   "qid": "Q5747",
+   "coord": [
+    38.2698,
+    34.5504
+   ],
+   "classes": [
+    "Q93342462",
+    "Q15661340",
+    "Q109607"
+   ],
+   "label": "Palmyra"
+  },
+  "Sirmium": {
+   "qid": "Q833060",
+   "coord": [
+    19.6106,
+    44.9661
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Sirmium"
+  },
+  "Nicomedia": {
+   "qid": "Q209349",
+   "coord": [
+    29.9175,
+    40.7625
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954"
+   ],
+   "label": "Nicomedia"
+  },
+  "Aphrodisias": {
+   "qid": "Q618495",
+   "coord": [
+    28.7236,
+    37.7083
+   ],
+   "classes": [
+    "Q15661340",
+    "Q839954",
+    "Q148837"
+   ],
+   "label": "Aphrodisias"
+  },
+  "York": {
+   "qid": "Q42462",
+   "coord": [
+    -1.0833,
+    53.95
+   ],
+   "classes": [
+    "Q7897276",
+    "Q1549591",
+    "Q1357964",
+    "Q515"
+   ],
+   "label": "York"
+  }
+ },
+ "around": {},
+ "classes": {}
+}
