@@ -2738,7 +2738,15 @@ textbook list kept beside it. (6) §2.3 planned the year's faces triangulated "f
 idle" and the borders as one list per level; at full scale the renderer draws, meshes and tables only the faces on screen,
 and the borders ride each face's mesh (§2.4 "As built in Phase 2b") — a Mediterranean view no longer pays for the Han.
 
-**CI.** «CI»
+**CI.** Run 38057576073 on `dff85a4` (the final code; the commit after it changes this document only): the fast job green
+(check-history 3 min 32 s within its 600 s budget); the Playwright job with every Atlas suite green — `test-atlas-time` 81 ok,
+`-review` 32, `-stages` 21, `-labels` 128, `-card` 25, `-phone` 138, `-render`, `-search`, `-a11y`, `-relief`, `-places`,
+`-credits`, `-fallbacks`, `-session` — and only the five suites red on main for reasons of their own (`test-draw-cards`,
+`-tour`, `-personal-atlas`, `-war-cards`, `-review-decks`); the frame gate red on its first attempt by Phase 1d's drag rule
+alone (4 frames over 100 ms of 1,177 across three repeats, worst 116.7 ms, where the rule allows two — every 2b line green,
+the year change 1.5 ms at p95 and 1.2 ms over the whole rail) and green on the one re-run the rules allow, as it was on run
+38056150477 (`8cb34ac`, the same renderer) — three frame-gate readings on this renderer, two green, the red one the
+two-core runner's drag frames and not a 2b line; locally the drag's worst frame reads 67–100 ms across four runs today.
 
 ### Phase 3 — The gazetteer and the study material (ships `#map2` with Your atlas; ~6–8 sessions)
 
