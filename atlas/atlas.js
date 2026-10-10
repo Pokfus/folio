@@ -647,6 +647,19 @@
       const k = view.lon.toFixed(2) + "," + view.lat.toFixed(2) + "," + view.zoom.toFixed(3) + "," + (time.aliveKey || "") + "," + (time.present ? 1 : 0) + "," + cssW + "x" + cssH;
       if (k === onScreenKey) return; onScreenKey = k;
       const ys = changeYearsOnScreen(); const same = ys.length === time.changeYears.length && ys.every((y, i) => y === time.changeYears[i]); time.changeYears = ys; if (!same) drawTicks();
+      // the alive faces now on screen (a pan since the last year change): their meshes, their arcs, the draw list
+      if (time.alive.length && time.onScreenKey !== (time.aliveKey || "") + "@" + k) {
+        const va = viewAngleNow(); const now = time.alive.filter((a) => faceOnScreen(a.face, va)); const nowKey = now.map((a) => a.face).join(",");
+        if (nowKey !== (time.onScreenAlive || []).map((a) => a.face).join(",")) {
+          time.onScreenAlive = now;
+          time.aliveArcs = new Set(); for (const a of now) for (let kk = time.faceArcOff[a.face]; kk < time.faceArcOff[a.face + 1]; kk++) time.aliveArcs.add(time.faceArcs[kk]);
+          time.prevArcs = time.aliveArcs;
+          wantMeshes(now.map((a) => a.face), true);
+          if (time.view) time.view.faces = now.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })).concat(time.fade ? time.view.faces.filter((f) => !time.aliveSet.has(f.face)) : []);
+          uploadStyle(); invalidate();
+        }
+        time.onScreenKey = (time.aliveKey || "") + "@" + k;
+      }
       railNote.hidden = time.present || time.onScreen.length > 0;
       if (!railNote.hidden) railNote.textContent = (time.hist.header.history && time.hist.header.history.slice ? "This copy carries the pilot slice of the past only (the Mediterranean and Near East, 550 BCE to 650 CE); open the Atlas over http for every state. " : "") + "No state taught by Folio’s cards is mapped for this year yet.";   // the layer shows the states the cards teach, not every state of the period (2b)
     }
@@ -1170,6 +1183,11 @@
       for (const [ent, l] of time.stepsOf) { let lo = 0, hi = l.length - 1; while (lo <= hi) { const m = (lo + hi) >> 1; if (l[m][1] < y) lo = m + 1; else if (l[m][0] > y) hi = m - 1; else { out.push({ face: l[m][2], ent, from: l[m][0], to: l[m][1] }); break; } } }
       return out;
     }
+    /* a face is ON SCREEN when its bounding cap meets the view's disc (a superset of the faces with a vertex in view) — the set the
+       renderer draws, the meshes it asks for and the arc table it fills since 2b: at full scale a year has tens of faces alive the
+       world over, and a Mediterranean view owes nothing to the Han dynasty's mesh or the Inca's borders */
+    const viewAngleNow = () => Math.min(Math.PI / 2, (Math.hypot(cssW, cssH) / 2 + 80) / view.radius) + 0.02;
+    const faceOnScreen = (fi, viewAngle) => { const rot = view.rot; const d = Math.max(-1, Math.min(1, time.faceCap[4 * fi] * rot[6] + time.faceCap[4 * fi + 1] * rot[7] + time.faceCap[4 * fi + 2] * rot[8])); return Math.acos(d) - time.faceCap[4 * fi + 3] <= (viewAngle != null ? viewAngle : viewAngleNow()); };
     /* the change years of the faces on screen (the rail's ticks and [ ]) */
     function changeYearsOnScreen() {
       if (!time.faceCap) return [];
@@ -1199,17 +1217,18 @@
         const key = alive.map((a) => a.face).join(",");
         const changed = key !== time.aliveKey;
         if (changed) {
-          const prevFaces = time.alive;
+          const prevFaces = time.onScreenAlive || [];
           time.aliveKey = key; time.alive = alive; time.aliveSet = new Set(alive.map((a) => a.face)); time.aliveEnt = new Set(alive.map((a) => time.ents[a.ent].id));
-          time.aliveArcs = new Set(); for (const a of alive) for (let k = time.faceArcOff[a.face]; k < time.faceArcOff[a.face + 1]; k++) time.aliveArcs.add(time.faceArcs[k]);
+          const va = viewAngleNow(); time.onScreenAlive = alive.filter((a) => faceOnScreen(a.face, va)); time.onScreenKey = key + "@" + onScreenKey;
+          time.aliveArcs = new Set(); for (const a of time.onScreenAlive) for (let k = time.faceArcOff[a.face]; k < time.faceArcOff[a.face + 1]; k++) time.aliveArcs.add(time.faceArcs[k]);
           // the crossfade: when stepping or playing, never while the pin is dragged, never under reduced motion
           if (!o.drag && !reducedNow() && prevFaces.length + alive.length && o.why !== "meta" && o.why !== "ready") { time.fade = { from: prevFaces, fromArcs: time.prevArcs || new Set(), t0: performance.now() }; } else time.fade = null;
           time.prevArcs = time.aliveArcs;
-          wantMeshes(alive.map((a) => a.face), true);
+          wantMeshes(time.onScreenAlive.map((a) => a.face), true);
           if (!o.drag) lookAhead();
         }
         if (changed || time.fade || wasPresent !== time.present || o.force) uploadStyle(changed ? 1 : 1);
-        time.view = { faces: alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })), present: time.present, strokePx: 0 };
+        time.view = { faces: time.onScreenAlive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })), present: time.present, strokePx: 0 };
         time.capitals = (time.hist.header.cities || []).filter((c) => c.from <= y && c.to >= y && alive.some((a) => time.ents[a.ent].id === c.entity)).map((c) => ({ entity: c.entity, name: c.name, lon: c.lon, lat: c.lat }));
         refreshOnScreen();   // the ticks and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
       } else { time.view = { faces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
@@ -1232,7 +1251,7 @@
       let tNow = 1; if (time.fade) tNow = Math.min(1, (performance.now() - time.fade.t0) / FADE_MS);
       const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const a = (time.selected === ent ? HIST_SEL_ALPHA : base) * alphaScale; const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
       if (time.fade) for (const a of time.fade.from) if (!time.aliveSet.has(a.face)) put(a.face, 1 - tNow);
-      for (const a of time.alive) put(a.face, time.fade ? tNow : 1);
+      for (const a of (time.onScreenAlive || time.alive)) put(a.face, time.fade ? tNow : 1);
       const putArc = (ai, alpha) => { const o = 4 * ai + 3; time.arcTab[o] = Math.max(time.arcTab[o], Math.round(alpha * 255)); };
       if (time.fade) for (const ai of time.fade.fromArcs) if (!time.aliveArcs.has(ai)) putArc(ai, 1 - tNow);
       for (const ai of time.aliveArcs) putArc(ai, time.fade ? tNow : 1);
@@ -1243,9 +1262,9 @@
       const u = (t - time.fade.t0) / FADE_MS;
       // the fading faces stay in the draw list until the fade ends
       const fromFaces = time.fade.from.filter((a) => !time.aliveSet.has(a.face)).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: null }));
-      if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })).concat(fromFaces);
+      if (time.view) time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })).concat(fromFaces);
       uploadStyle();
-      if (u >= 1) { time.fade = null; if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })); uploadStyle(); }
+      if (u >= 1) { time.fade = null; if (time.view) time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })); uploadStyle(); }
     }
     /* the meshes: ask the worker for what the year needs at the view's level, keep an LRU on the GPU */
     // the history level: the resident level, one coarser while a gesture (a pan, a scrub) runs at stage ≥ 1 — the fills are masked by the
@@ -1265,7 +1284,7 @@
       const ys = time.changeYears.length ? time.changeYears : changeYearsOnScreen();
       const next = time.dir > 0 ? ys.find((y) => y > time.year) : ys.slice().reverse().find((y) => y < time.year);
       if (next == null) return;
-      wantMeshes(aliveAt(next).map((a) => a.face), false);
+      const va = viewAngleNow(); wantMeshes(aliveAt(next).filter((a) => faceOnScreen(a.face, va)).map((a) => a.face), false);
     }
     function onHistoryFaces(m) {
       time.pending = Math.max(0, time.pending - 1);
@@ -1277,7 +1296,7 @@
       if (evicted.length) postToWorker({ type: "history-evict", keys: evicted });
       invalidate();
     }
-    const historySettled = () => !histStarted || time.failed || (!!time.hist && time.hist.ready && time.hist.segLevels >= 3 && time.alive.every((a) => time.resident.has(a.face + ":" + Math.min(2, view.level))));
+    const historySettled = () => !histStarted || time.failed || (!!time.hist && time.hist.ready && (time.onScreenAlive || []).every((a) => time.resident.has(a.face + ":" + Math.min(2, view.level))));
     /* ---- the rail ---- */
     function drawTicks() {
       const r = railTrack.getBoundingClientRect(); const w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
@@ -1950,7 +1969,7 @@
       chromeRects, hash: hashNow, readHash, metricsCount: () => metricsSent,
       /* Phase 2a: time */
       setYear: (y, o) => setYear(y, o), year: () => time.year, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
-      alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
+      alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
       timeInfo: () => ({ year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
       // one device pixel of the GL canvas, read right after a render in the same task (the drawing buffer is not preserved between tasks)
       // one CSS row of the GL canvas as [r,g,b,a,…] per CSS pixel (one render, one readback — a scan by pixelAt would render once per pixel)
@@ -1981,7 +2000,10 @@
         let min = Infinity, worst = -1; slots.forEach((sl, k) => { const fill = mix(landC, sl, a); const r = ratio(tokensNow.ink, fill); if (r < min) { min = r; worst = k; } });
         return { min, worst, alpha: a };
       },
-      largestOnScreen: () => { if (!time.hist) return null; let best = null; for (const fi of time.onScreen || []) { const km2 = (time.hist.header.faceKm2 || [])[fi] || 0; if (!best || km2 > best.km2) best = { face: fi, km2 }; } if (!best) return null; const e = time.ents[time.faceEntity[best.face]]; const id = e.kind === "polity" ? e.id : e.partners[0]; return { id, name: (G.byId.get(id) || e).name, km2: best.km2 }; }, requestLayout: (why) => requestLayout(why || "test", true), labelDebug: (on) => { L.debug = !!on; }, labelWhy: () => L.why };
+      largestOnScreen: () => {   // the largest alive face whose ANCHOR (a point inside it) is on screen: a cap that meets the view is not a face a reader sees
+        if (!time.hist) return null; const anchors = time.hist.header.faceAnchor || []; const rot = view.rot; let best = null;
+        for (const a of time.alive) { const p = anchors[a.face]; if (!p) continue; const lo = p[0] * D2R, la = p[1] * D2R, v = [Math.cos(la) * Math.cos(lo), Math.cos(la) * Math.sin(lo), Math.sin(la)]; const x = v[0] * rot[0] + v[1] * rot[1] + v[2] * rot[2], y = v[0] * rot[3] + v[1] * rot[4] + v[2] * rot[5], z = v[0] * rot[6] + v[1] * rot[7] + v[2] * rot[8]; if (z <= 0 || Math.abs(x) * view.radius > cssW / 2 || Math.abs(y) * view.radius > cssH / 2) continue; const km2 = (time.hist.header.faceKm2 || [])[a.face] || 0; if (!best || km2 > best.km2) best = { face: a.face, km2 }; }
+        if (!best) return null; const e = time.ents[time.faceEntity[best.face]]; const id = e.kind === "polity" ? e.id : e.partners[0]; return { id, name: (G.byId.get(id) || e).name, km2: best.km2 }; }, requestLayout: (why) => requestLayout(why || "test", true), labelDebug: (on) => { L.debug = !!on; }, labelWhy: () => L.why };
     el.__atlas2 = controller;
     return controller;
   }

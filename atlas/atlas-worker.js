@@ -754,22 +754,7 @@
     for (let fi = 0; fi < nF; fi++) { faceArcOff[fi] = fa.length; const seen = new Set(); for (const ring of T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (T.arcKind[a] === 0 || seen.has(a)) continue; seen.add(a); fa.push(a); } }
     faceArcOff[nF] = fa.length; const faceArcs = Uint32Array.from(fa);
     post({ type: "history-meta", header: H, faceEntity, faceCap, faceArcOff, faceArcs, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, faceCap.buffer, faceArcOff.buffer, faceArcs.buffer]);
-    // the borders per level: every arc that is not a coast reference, tag = arc × 64 + (flags & 7) × 8 + HIST_KIND
-    for (let level = 0; level < 3; level++) {
-      const L = histLevel(level);
-      const nA = T.arcOffset.length - 1;
-      let count = 0;
-      for (let a = 0; a < nA; a++) { if (T.arcKind[a] === 0) continue; count += Math.max(0, L.T.arcOffset[a + 1] - L.T.arcOffset[a] - 1); }
-      const segs = new Float32Array(count * 7); let k = 0;
-      for (let a = 0; a < nA; a++) {
-        if (T.arcKind[a] === 0) continue;
-        const tag = a * 64 + (T.arcFlags[a] & 7) * 8 + HIST_KIND;
-        for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) { const p = L.pos; segs[k++] = p[3 * (i - 1)]; segs[k++] = p[3 * (i - 1) + 1]; segs[k++] = p[3 * (i - 1) + 2]; segs[k++] = p[3 * i]; segs[k++] = p[3 * i + 1]; segs[k++] = p[3 * i + 2]; segs[k++] = tag; }
-      }
-      const S = await bucketSegments(segs);
-      post({ type: "history-segs", level, segs: S.segs, segRange: S.segRange, segCap: S.segCap, count }, [S.segs.buffer, S.segRange.buffer, S.segCap.buffer]);
-      await tick();
-    }
+    // the borders travel with each face's mesh since 2b (handleHistoryFaces); the three per-level lists of every border are gone
     post({ type: "history-done", ms: Math.round(now() - t0), arcs: T.arcOffset.length - 1, faces: nF });
   }
   async function handleHistoryFaces(msg, post) {
@@ -784,18 +769,21 @@
         const sink = Sink();
         await triangulateFace(L.T, L.pos, HIST.T.faces[fi], fi, level, sink);
         const F = sink.result();
-        // the face's coast edges at this level, for the fill-against-stroke stroke at the tile zooms (§2.3, Phase 2a)
-        const coast = [];
-        for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (HIST.T.arcKind[a] !== 0) continue; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) coast.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], fi * 64 + HIST_KIND, L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], 0); }   // EIGHT floats a segment — (a.xyz, tag) (b.xyz, 0), the two texels uploadSegs reads — never the seven-float form bucketSegments takes: seven floats read as eight drew every segment after the first between unrelated points (the 2a review's chord across Latium and the fan over Sicily, fixed in 2b)
-        m = { face: fi, level, pos: F.pos, idx: F.triangles * 3 <= 65535 && F.vertices <= 65535 ? Uint16Array.from(F.idx) : F.idx, coast: Float32Array.from(coast), triangles: F.triangles };
-        m.bytes = m.pos.byteLength + m.idx.byteLength + m.coast.byteLength;
+        // the face's coast edges at this level, for the fill-against-stroke stroke at the tile zooms (§2.3, Phase 2a), and — since 2b —
+        // its BORDER edges (every non-coast arc, tagged with the arc index so the main thread's arc table still fades them), so the
+        // renderer draws the borders of the faces on screen and no others: one list per level held every border of the file (51,025
+        // arcs at full scale, 70,000 segments in a Mediterranean view with most at alpha 0), and a software rasteriser pays per segment
+        const coast = [], border = [];
+        for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; const list = HIST.T.arcKind[a] === 0 ? coast : border, tag = HIST.T.arcKind[a] === 0 ? fi * 64 + HIST_KIND : a * 64 + (HIST.T.arcFlags[a] & 7) * 8 + HIST_KIND; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) list.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], tag, L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], 0); }   // EIGHT floats a segment — (a.xyz, tag) (b.xyz, 0), the two texels uploadSegs reads — never the seven-float form bucketSegments takes: seven floats read as eight drew every segment after the first between unrelated points (the 2a review's chord across Latium and the fan over Sicily, fixed in 2b)
+        m = { face: fi, level, pos: F.pos, idx: F.triangles * 3 <= 65535 && F.vertices <= 65535 ? Uint16Array.from(F.idx) : F.idx, coast: Float32Array.from(coast), border: Float32Array.from(border), triangles: F.triangles };
+        m.bytes = m.pos.byteLength + m.idx.byteLength + m.coast.byteLength + m.border.byteLength;
         HIST.meshes.set(key, m); HIST.order.push(key); HIST.bytes = (HIST.bytes || 0) + m.bytes;
         let spins = 0; while (HIST.bytes > HIST_LRU_BYTES && HIST.order.length && spins++ < HIST.order.length * 2) { const old = HIST.order.shift(); if (!HIST.resident.has(old)) { const om = HIST.meshes.get(old); if (om) HIST.bytes -= om.bytes; HIST.meshes.delete(old); } else HIST.order.push(old); }
       }
       HIST.resident.add(key);
-      meshes.push({ face: fi, level, pos: m.pos.slice(), idx: m.idx.slice(), coast: m.coast.slice(), triangles: m.triangles });
+      meshes.push({ face: fi, level, pos: m.pos.slice(), idx: m.idx.slice(), coast: m.coast.slice(), border: m.border.slice(), triangles: m.triangles });
     }
-    const transfer = []; for (const m of meshes) transfer.push(m.pos.buffer, m.idx.buffer, m.coast.buffer);
+    const transfer = []; for (const m of meshes) transfer.push(m.pos.buffer, m.idx.buffer, m.coast.buffer, m.border.buffer);
     post({ type: "history-faces", level, meshes, seq: msg.seq, ms: Math.round(now() - t0) }, transfer);
   }
   /* the label path of an alive face on screen: the area-weighted centre of its LOD 0 fill and the principal axis of its

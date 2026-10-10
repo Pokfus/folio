@@ -580,7 +580,14 @@ border arc; a contested face joins both partners) holds it, and then takes the f
 no alive polity holds at all — «CLASHES» clashes over «EPOCHS» epochs and «PAIRS» adjacent pairs, «CHANGES» forced changes
 across 194 entities (`colourAudit`); the label ink's contrast on every slot's fill is at least «CONTRAST» in all fifteen
 themes and folio's night (`contrastAudit`). The mesh LRUs are sized by **bytes** (48 MB on the GPU, 96 MB in the worker), not
-by count. Polity labels are ranked by their **area on screen** (the face's area times the share of its vertices on screen, in
+by count. **Only the faces on screen are drawn, meshed and tabled** (2b, after the first full-scale measurement): a face
+whose bounding cap meets the view's disc is on screen; the year's draw list, the meshes asked of the worker, the arc table's
+alive rows and the settle rule are over that set, recomputed on a pan as on a year change (`faceOnScreen`,
+`refreshOnScreen`) — at Europe in 1500 fourteen of the year's 27 faces, so the Inca and the Ming cost the view nothing. The
+historical **borders travel with each face's mesh** at its level (tagged with the arc index, so the arc table still fades
+them) instead of one segment list per level holding every border of the file: the Mediterranean at 1 CE drew 70,725 border
+segments of the 2b file at alpha 0 before (20,988 in the pilot), 542 now; Europe at 1500 1,078 instead of 45,387. A border
+two on-screen faces share is drawn twice, in one place. Polity labels are ranked by their **area on screen** (the face's area times the share of its vertices on screen, in
 pixels), so a view with many alive faces names what a reader sees most of first and keeps that order as the view moves; a
 nested face is named as its member. The rail draws at most about **200 ticks** a view — change years closer than a
 two-hundredth of the track merge into one tick, drawn taller — while `[` and `]` still step through every change year and
@@ -2689,7 +2696,9 @@ residue class measures 1,120 and the ceiling is restated above it (the finest le
 stays on the main thread (measured under the 5 ms rule at the largest alive sets). (3) The file:// twin is a slice, not the
 file. (4) The 2a pilot drew the Avars as a state; the audit keeps them a people, so 2b drops them until 2c. (5) The design's
 "every arc and face traces to a source" holds; the independent facts are from one named source now (Wikidata), with the 2a
-textbook list kept beside it.
+textbook list kept beside it. (6) §2.3 planned the year's faces triangulated "for the current year first, then the rest at
+idle" and the borders as one list per level; at full scale the renderer draws, meshes and tables only the faces on screen,
+and the borders ride each face's mesh (§2.4 "As built in Phase 2b") — a Mediterranean view no longer pays for the Han.
 
 **CI.** «CI»
 
