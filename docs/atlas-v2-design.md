@@ -403,7 +403,16 @@ confirm (`NEST_SHARE`, `NEST_RATIO`). The entity table carries each polity's **c
 for Phase 3's `places` field; nothing draws from them yet. The `file://` twin carries the **pilot slice only** (the full file's
 twin would pass the 12 MB the three twins share), and its header says so in a sentence the rail shows. The file measured
 «BYTES» for «STEPS» steps — under the 6 MB that would have split it into windows (the stop rule's forecast from the 650–1500
-band was 3.04 MB; from the pilot 4.76) — so it stays one file, fetched the first time the rail leaves today.
+band was 3.04 MB; from the pilot 4.76) — so it stays one file, fetched the first time the rail leaves today. It crossed
+6 MB once: with the great-circle densification the plain-coded file reached 6.24 MB, 3.64 MB of it the **face table** —
+1.37 million signed arc references, three bytes each, because a face walks every coast piece of its shore and an island
+empire's face (Japan's: 7,500 pieces) is written afresh at every step that changes anything. The format now writes the
+history file's face rings **delta-coded** (`faceRefs: "delta"` in the header; a ring's first reference as is, each later one
+as the zig-zag difference from the one before — consecutive coast pieces are consecutive arcs, so a step costs a byte), which
+the shared reader honours and the core and the tiles do not use, byte for byte: the face table fell to «FACES1» and the
+file to «BYTES». The window loader of the brief (3 MB windows under an index, the current year's window fetched, the next
+in the rail's direction prefetched, an LRU, a step spanning a boundary carried by both) is therefore not built; the rule
+that would call for it stays as stated.
 
 *The conflation, as built (`.claude/atlas-build/build-history.js`), per epoch — a maximal interval over
 which the alive set and every shape are constant (175 epochs, 175 distinct alive sets):*

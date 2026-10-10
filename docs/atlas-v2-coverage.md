@@ -103,7 +103,7 @@ Deferred to later phases (not in this file): `scythia` (kept as a people by the 
 | `yan` | Cliopatria state | Yan | 750 BCE – 204 BCE | 6 | cnh-164, cnh-188, ko-056 | built |
 | `qi` | Cliopatria state | Qi | 750 BCE – 204 BCE | 10 | cnh-152, cnh-164, cnh-188 | built |
 | `han` | Cliopatria state | Han Dynasty | 202 BCE – 237 CE | 28 | cnh-213, cnh-224, cnh-253, wh-408 | built |
-| `xiongnu` | Cliopatria state | Xiongnu | 208 BCE – 153 CE | 24 | cnh-224 | built |
+| `xiongnu` | Cliopatria state | Xiongnu | 208 BCE – 153 CE | 23 | cnh-224 | built |
 | `western_jin` | Cliopatria state | Western Jin | 265 CE – 425 CE | 20 | cnh-293, cnh-295, cnh-313 | built |
 | `eastern_wu` | Cliopatria state | Eastern Wu | 207 CE – 282 CE | 5 | cnh-284, cnh-295 | built |
 | `rashidun` | Cliopatria state | Rashidun Caliphate | 633 CE – 665 CE | 8 | wh-462, wh-463 | built |
@@ -117,7 +117,7 @@ Deferred to later phases (not in this file): `scythia` (kept as a people by the 
 | `italian_africa` | Cliopatria state | Italian Africa | 1890 CE – 1943 CE | 15 | ww2-042 | built |
 | `ethiopia` | Cliopatria state | Ethiopian Empire | 1900 CE – 1935 CE | 3 | ww2-042 | built |
 | `roc` | Cliopatria state | Republic of China | 1912 CE – 1949 CE | 17 | ww2-096 | built |
-| `ccp` | Cliopatria state | Communist Party of China | 1932 CE – 1949 CE | 11 | ww2-096 | built |
+| `ccp` | Cliopatria state | Communist Party of China | 1932 CE – 1949 CE | 9 | ww2-096 | built |
 | `ussr` | Cliopatria state | Union of Soviet Socialist Republics | 1922 CE – 1945 CE | 13 | ww2-100, ww2-159 | built |
 | `mongolia_pr` | Cliopatria state | Mongolian People's Republic | 1926 CE – 1945 CE | 10 | ww2-100 | built |
 | `finland` | Cliopatria state | Republic of Finland | 1918 CE – 1945 CE | 7 | ww2-008, ww2-159 | built |
@@ -134,7 +134,7 @@ Deferred to later phases (not in this file): `scythia` (kept as a people by the 
 | `zhou` | assembled from 2 Cliopatria series | Zhou Dynasty, Later Zhou | 1000 BCE – 257 BCE | 6 | cnh-111, wh-251, wh-396 | built |
 | `indo_greeks` | Cliopatria state | Indo-Greeks | 126 BCE – 13 CE | 8 | gr-784, wh-390 | built |
 | `venice` | Cliopatria state | Republic of Venice | 705 CE – 1796 CE | 82 | wh-622 | built |
-| `genoa` | Cliopatria state | Republic of Genoa | 1010 CE – 1795 CE | 53 | wh-622 | built |
+| `genoa` | Cliopatria state | Republic of Genoa | 1010 CE – 1795 CE | 54 | wh-622 | built |
 | `pisa` | Cliopatria state | Republic of Pisa | 1010 CE – 1401 CE | 13 | wh-622 | built |
 | `florence` | Cliopatria state | Republic of Florence | 1260 CE – 1737 CE | 19 | wh-622 | built |
 | `milan` | Cliopatria state | Duchy of Milan | 1402 CE – 1539 CE | 12 | wh-622 | built |
@@ -162,7 +162,7 @@ Deferred to later phases (not in this file): `scythia` (kept as a people by the 
 | `umayyad` | Cliopatria state | Umayyad Caliphate | 656 CE – 756 CE | 15 | wh-465 | built |
 | `abbasid` | Cliopatria state | Abbasid Caliphate | 750 CE – 1259 CE | 38 | wh-469 | built |
 | `fatimid` | Cliopatria state | Fatimid Caliphate | 911 CE – 1176 CE | 19 | wh-478 | built |
-| `seljuk` | Cliopatria state | Great Seljuk Empire | 1040 CE – 1201 CE | 16 | wh-483 | built |
+| `seljuk` | Cliopatria state | Great Seljuk Empire | 1040 CE – 1201 CE | 17 | wh-483 | built |
 | `mamluk_egypt` | Cliopatria state | Mamluk Sultanate | 1241 CE – 1518 CE | 16 | wh-485 | built |
 | `estonia_1918` | Cliopatria state | Estonia | 1919 CE – 1939 CE | 4 | ww2-008 | built |
 | `latvia_1918` | Cliopatria state | Republic of Latvia | 1920 CE – 2021 CE | 5 | ww2-008 | built |
@@ -199,7 +199,7 @@ Deferred to later phases (not in this file): `scythia` (kept as a people by the 
 | `mali` | Cliopatria state | Mali Empire | 1236 CE – 1611 CE | 7 | wh-568 | built |
 | `songhai` | Cliopatria state | Songhai Empire | 1463 CE – 1608 CE | 6 | wh-572 | built |
 | `kanem_bornu` | assembled from 2 Cliopatria series | Empire of Kanem, Bornu Empire | 1072 CE – 1894 CE | 11 | wh-573 | built |
-| `kongo` | Cliopatria state | Kingdom of Kongo | 1440 CE – 1669 CE | 2 | wh-580 | built |
+| `kongo` | Cliopatria state | Kingdom of Kongo | 1440 CE – 1669 CE | 1 | wh-580 | built |
 | `zagwe` | Cliopatria state | Zagwe dynasty | 947 CE – 1271 CE | 1 | wh-581 | built |
 | `makuria` | Cliopatria state | Makuria | 347 CE – 1414 CE | 10 | wh-585 | built |
 | `golden_horde` | Cliopatria state | Golden Horde | 1294 CE – 1501 CE | 15 | wh-598 | built |
@@ -219,7 +219,7 @@ Deferred to later phases (not in this file): `scythia` (kept as a people by the 
 | `vladimir_suzdal` | assembled from 2 Cliopatria series | Principality of Rostov-Suzdal, Principality of Vladimir-Suzdal | 1056 CE – 1486 CE | 18 | ru-079 | built |
 | `galicia_volhynia` | assembled from 2 Cliopatria series | Principality of Galicia-Volhynia, Galicia-Volhynia | 1202 CE – 1351 CE | 7 | ru-083 | built |
 | `polotsk` | Cliopatria state | Principality of Polotsky | 1056 CE – 1249 CE | 7 | ru-084 | built |
-| `chernigov` | Cliopatria state | Principality of Chernigov | 1056 CE – 1240 CE | 4 | ru-085 | built |
+| `chernigov` | Cliopatria state | Principality of Chernigov | 1072 CE – 1240 CE | 3 | ru-085 | built |
 | `cao_wei` | Cliopatria state | Cao Wei | 224 CE – 264 CE | 3 | cnh-277 | built |
 | `shu_han` | Cliopatria state | Shu Han | 224 CE – 262 CE | 2 | cnh-279 | built |
 | `han_zhao` | Cliopatria state | Former Zhao | 306 CE – 336 CE | 3 | cnh-305 | built |

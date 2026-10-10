@@ -1215,7 +1215,7 @@ sources.push({ id: SRC.wd, name: "Wikidata — the period capitals of the pilot 
 const topology = {
   quantum: Q, lod: { intervals_m: LOD_M, note: "the core's three resident levels; a core-referencing arc takes the core's ranks" },
   generated: null, generator: "folio atlas-build: build-history.js (" + require("./package.json").version + ")", sources,
-  entities: entsOut, steps: stepsOut,
+  entities: entsOut, steps: stepsOut, faceDelta: true,   // the face table delta-coded (atlas-format.js): a ring's consecutive coast pieces cost a byte each
   vertices: { lon, lat }, rank, arcs: arcRecs, faces: facesOut.map((f) => ({ entity: f.entity, source: 0, rings: f.rings })), coreRef, jpos,
   extra: {
     kindOf: "history", core: { file: "atlas/data/topology.bin", buildId, arcs: nCA },
