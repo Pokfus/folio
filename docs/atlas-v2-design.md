@@ -573,8 +573,13 @@ theme change, so it is stable across years and legible in all fifteen themes.
 **As built in Phase 2b (2026-10-10).** The history file is fetched **lazily**, the first time the rail leaves today (a year
 before 2022 from the pin, the year box, `[`, a deep link's `?y=` or a suite's `ensureHistory()`), with a quiet "Loading the
 years…" in the rail's note and never a blank; `[` before the file is in fetches it and steps to 2021. The year query stays a
-binary search on the main thread: «YQ» ms at p95 over the largest alive sets (Europe near 1500, China in the Warring States),
-under the 5 ms that would have moved it to the worker. **Colour** is a fixed palette of sixteen slots (golden-angle hues, two
+binary search on the main thread: 0.05 ms a change on average over the largest alive sets (Europe near 1500 and China in the
+Warring States, sixty one-year changes each, 22 and 21 faces alive), far under the 5 ms that would have moved it to the worker;
+the whole year change (the query, the on-screen filter, the style tables, the meshes asked for, the ticks, the layout) averages
+0.9 ms there, and its p95 over sixty changes reads 4.2–5.9 ms on the four-core software-GL runner — profiled phase by phase,
+every phase shows a lone 3–5 ms maximum at a different change, the rail's two DOM writes included: the runner's own stalls, not
+work a worker would take. `test-atlas-time.js` gates the query at 5 ms p95 and the whole change at a 2 ms median, and reports
+the change's p95. **Colour** is a fixed palette of sixteen slots (golden-angle hues, two
 lightness steps, blended with the theme's ink or paper so every theme keeps its own land and ink) assigned once at load by a
 greedy walk over every epoch of the file: a polity keeps its slot across the years unless an alive neighbour (a face sharing a
 border arc; a contested face joins both partners) holds it, and then takes the first slot no neighbour holds, preferring one
@@ -2683,7 +2688,12 @@ so, not padded. Every one of the 49 failing facts was checked against the raw Cl
 (new: the artefact views, the narrow rail, the era), `test-atlas-time.js` (+ the year query at the largest alive sets, the
 colouring over every epoch, the contrast in every theme, the largest face on screen named, the captions and the card),
 `test-atlas-stages.js` (injected frames), `test-atlas-perf.js` (+ Europe in 1500 and in 1900 with their history budgets, the
-whole rail scrubbed with the year-change gate). «PERF»
+whole rail scrubbed with the year-change gate). The perf gate on the final head, alone on the four-core software-GL
+runner: drag 25 % of v1's pooled p90, wheel 9 %, pinch 12 %; Europe at 3 km/px 133,391 land triangles and 96,933
+segments with, in 1500, 28,683 history triangles and 1,078 border segments in 27 faces (budget 36,000 / 1,400) and, in 1900,
+25,449 / 1,131 in 9 (32,000 / 1,500); the Mediterranean in 1 CE at 6 km/px 7,032 / 542 in 8 faces (8,800 / 700); a year
+change 2.40 ms at p95 over the Mediterranean scrub (174 changes) and 2.40 ms over the whole rail, 10,000 BCE to today (426
+changes; frames p90 16.7 ms); the JS heap 40 MB against v1's 242.
 
 **The fills, after the screenshots.** The review's Mongol Empire of 1245 showed a thin darker line from the Volga to Lake
 Baikal through the fill. It was a *fold*, not a crack: the worker projected a face azimuthally about its centroid, earcut
@@ -2702,7 +2712,17 @@ beyond the fill's tone towards a polity's full colour (a fold) and no run of lan
 crack); it fails on the committed 2a worker (1,506 pixels in runs) and passes on this one (4 lone pixels, the data's own
 sub-pixel spikes at ring vertices, let through).
 
-**Screenshots reviewed.** «SHOTS»
+**Screenshots reviewed** (headless Chromium at 1280 × 800, the final worker; rivers, lakes, places and the present-day borders
+on, relief off): the two 2a artefact views (Tuscany and Latium at the cap in 1 CE, Sicily and Calabria at 0.6 km/px in 250
+BCE — the chord and the fan gone, the coast stroke at the coast); Europe in 1500 and in 1900 at 7 km/px; China in 300 BCE
+(the Warring States) and 1100; the Americas in 1500 at the globe; India in 100 CE; Italy in 1460 at 2.4 km/px (the
+city-states, Savoy, Milan, Venice, Florence, the Papal States, Naples); North America in 800 (no state: the caption); the
+Mongol Empire of 1245 over Europe and about the Ob (the fold found and fixed above); the Mediterranean in 500 in the folio,
+synth and gazette themes; the phone at 390 × 844. Looked for: fills over the sea, doubled borders, stripes, folds, label
+collisions, clipped controls. Found and fixed: the Mongol fold; the Kingdom of Kongo's name past the limb (the label path now
+clamps to the disc); the phone rail (Task 0b). Left as is: not every alive face is named at a zoom (the labels are ranked by
+on-screen area and yield to the physical names and cities; the Ottoman Empire over Europe in 1500 at 7 km/px is unlabelled
+while the Golden Horde and the Papal States are) — a ranking question for the owner, not a fault.
 
 **The default for the owner to confirm.** A polity and its own member both in the spec: the overlap is a *nested* face — drawn
 as the member's, the overlord named on the card and present by its border (its face is the rest of its land) — when the

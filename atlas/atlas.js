@@ -723,6 +723,7 @@
         `heap ${heapMB() == null ? "n/a" : heapMB() + " MB"}  dpr ${Math.min(2, window.devicePixelRatio || 1)}  ${cssW}×${cssH}${PHONE ? "  phone" : ""}`;
     }
     const pct95 = (arr) => { if (!arr.length) return 0; const a = arr.slice().sort((x, y) => x - y); return a[Math.min(a.length - 1, Math.floor(0.95 * a.length))]; };
+    const pct50 = (arr) => { if (!arr.length) return 0; const a = arr.slice().sort((x, y) => x - y); return a[Math.floor(0.5 * a.length)]; };
     const heapMB = () => (performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : null);
     /* the overlay: on from `#map2?perf`, from the P key, or from the About sheet's "Show frame statistics" switch, which is
        remembered per reader (PERF_KEY, localStorage behind try/catch) so the owner can turn it on from a phone with no special
@@ -1070,7 +1071,7 @@
     /* ================= Phase 2a: time — the step topology, the year, the rail, playback =================
        (docs/atlas-v2-design.md §1.4, §2.4, §2.9 and §7 "Phase 2a — as built"; the worker's half is in atlas-worker.js) */
     const time = { year: TODAY, present: true, hist: null, faceEntity: null, faceCap: null, faceArcOff: null, faceArcs: null, stepsOf: new Map(), ents: [], alive: [], aliveSet: new Set(), aliveArcs: new Set(), view: null, fade: null, prev: null,
-      resident: new Set(), lru: [], meshBytes: new Map(), meshTotal: 0, wanted: new Set(), pending: 0, selected: -1, playing: false, speed: 25, playY: 0, playT: 0, dir: 1, lastYear: TODAY, dragging: false, seq: 0, changeYears: [], onScreen: [], capitals: [], style: null, arcTab: null, yearChange: [], loadMs: 0, histStarted: false, failed: false };
+      resident: new Set(), lru: [], meshBytes: new Map(), meshTotal: 0, wanted: new Set(), pending: 0, selected: -1, playing: false, speed: 25, playY: 0, playT: 0, dir: 1, lastYear: TODAY, dragging: false, seq: 0, changeYears: [], onScreen: [], capitals: [], style: null, arcTab: null, yearChange: [], yearQuery: [], loadMs: 0, histStarted: false, failed: false };
     let histStarted = false, histWanted = false, coreIn = false;
     // the first touch of the rail, a year before today, a deep link's year or a suite: fetch the history file now (once)
     function ensureHistory() { histWanted = true; if (!histStarted && coreIn) startHistory(); }
@@ -1215,7 +1216,7 @@
       railPin.style.left = (railX(y) * 100) + "%";
       if (document.activeElement !== railYear) railYear.value = fmtYear(y);
       if (time.hist) {
-        const alive = aliveAt(y);
+        const tq = performance.now(); const alive = aliveAt(y); time.yearQuery.push(performance.now() - tq); if (time.yearQuery.length > 600) time.yearQuery.shift();   // the query alone (2b): what the 5 ms rule names
         const key = alive.map((a) => a.face).join(",");
         const changed = key !== time.aliveKey;
         if (changed) {
@@ -1971,7 +1972,7 @@
       /* Phase 2a: time */
       setYear: (y, o) => setYear(y, o), year: () => time.year, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
       alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
-      timeInfo: () => ({ year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
+      timeInfo: () => ({ year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeMedian: pct50(time.yearChange), yearQueryP95: pct95(time.yearQuery), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
       // one device pixel of the GL canvas, read right after a render in the same task (the drawing buffer is not preserved between tasks)
       // one CSS row of the GL canvas as [r,g,b,a,…] per CSS pixel (one render, one readback — a scan by pixelAt would render once per pixel)
       pixelRow: (y) => { const g = R.gl; if (!g) return null; R.render(view); const d = Math.min(2, (window.devicePixelRatio || 1) * resScale); const w = g.drawingBufferWidth; const row = new Uint8Array(w * 4); g.readPixels(0, g.drawingBufferHeight - 1 - Math.round(y * d), w, 1, g.RGBA, g.UNSIGNED_BYTE, row); const n = Math.floor(w / d); const out = new Array(n * 4); for (let i = 0; i < n; i++) { const j = Math.round(i * d) * 4; out[i * 4] = row[j]; out[i * 4 + 1] = row[j + 1]; out[i * 4 + 2] = row[j + 2]; out[i * 4 + 3] = row[j + 3]; } return out; },
