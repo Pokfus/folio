@@ -94,7 +94,7 @@ const PLANS = {
      has been supplied so far, sequential in the order the lectures were covered (30 cards a lecture,
      10 for each set reading), and it is widened as a lecture lands rather than declared at 480 and
      left full of holes. A hole inside the declared range still fails here, which is the point. */
-  "politics-east-asia": ["pea", "pea-", [[1, 100]]],
+  "politics-east-asia": ["pea", "pea-", [[1, 220]]],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */
