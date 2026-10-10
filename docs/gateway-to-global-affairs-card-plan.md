@@ -7,9 +7,12 @@ lowest `gga-NNN` not yet in `data.js`, and its deck comes from the running order
 plan's "What this collection is about" first if this is the first course plan you have met**; the
 reasoning is not repeated here.
 
-**State: WIRED, cards in progress.** The collection is in `COLLECTION_TREE`, `app.js` (the Special section
-and its colour) and `test-card-plans.js`; the cards are written deck by deck and `node .claude/next-cards.js gga- 10`
-lists the next ten. A deck with no cards in it is coming-soon, so nothing is un-flagged as a lecture lands.
+**State: WRITTEN — 297 of the 300 numbers (Oct 2026).** Lectures 1–6 and Readings 1–14 are done: `gga-001`–`gga-056`
+from outside scholarship, `gga-057` on from the course texts only (see "Where the content comes from"). Three
+numbers are deliberately unwritten (`gga-254`, `gga-258`, `gga-279`: the supplied pages of Rodrik and of the
+Economist opening hold one sentence each on them), and eight lines whose terms the course texts could not
+support were replaced by other terms from the same deck (their lines say so). Lecture 7 awaits its slides and
+takes `gga-301` onward. A deck with no cards in it is coming-soon, so nothing is un-flagged as a lecture lands.
 
 ## What this collection is about
 
@@ -313,13 +316,13 @@ Source: Lecture 6, the guest lecture by Dr Ernst Dijxhoorn (locators are the foo
   gga-138  Rules-based international order — the lecture's opening question · (s2)
   gga-139  Legitimacy, equity and self-confidence — the three challenges · (s30)
   gga-140  Putin's Article 51 claim — the address of 24 February 2022 · (s31)
-  gga-141  Double standards — Richard Gowan, NRC 2024 · (s34)
+  gga-141  Child mortality rate — Our World in Data line chart of the estimated share of newborns who die before reaching the age of five, 1816–2023, ten countries; replaces "Double standards", which the slides gave no text for · (s3)
   gga-142  2025 Strategic Foresight Report — European Commission · (s38)
   gga-143  International law is politics, but not just politics — (s26)
-  gga-144  International Law: 100 Ways It Shapes Our Lives — ASIL, 2018 · (s27)
-  gga-145  South China Sea arbitration — link-only slide · (s39)
-  gga-146  Arctic Sunrise — link-only slide · (s39)
-  gga-147  Bolton and the International Criminal Court — link-only slide · (s39)
+  gga-144  Nuclear warhead stockpiles — Our World in Data chart of estimated warhead stockpiles for the world and ten countries, 1945–2023; replaces "International Law: 100 Ways It Shapes Our Lives", which the slides gave no text for · (s5)
+  gga-145  Human Development Index — the "HDI trends between 1990 and 2021" chart of regional lines, image-only slide; replaces "South China Sea arbitration", which the slides gave no text for · (s33)
+  gga-146  Famine — named in the headline of the article shown on the image slide about Sudan; replaces "Arctic Sunrise", which the slides gave no text for · (s32)
+  gga-147  Sudan — the country in the headline of the article shown on the image slide, and a case named across the slides and readings; replaces "Bolton and the International Criminal Court", which the slides gave no text for · (s32)
   gga-148  States behave as if bound — (s29)
   gga-149  Death rate in armed conflicts — Our World in Data chart · (slide 8)
 
@@ -475,11 +478,11 @@ Dani Rodrik, *Foreign Affairs*, Jul/Aug 2019, pp. 26–33. **Partial:** pp. 26�
   gga-251  Hyperglobalisation — (p. 26)
   gga-252  Gold standard — (p. 27)
   gga-253  Bretton Woods — (p. 27)
-  gga-254  The golden straitjacket — (p. 27 (heading))
+  gga-254  The golden straitjacket — not written: the supplied pages hold only a heading and one sentence on it · (p. 27 (heading))
   gga-255  Beyond tariffs — the WTO reaches into domestic policy · (p. 26)
   gga-256  Liberalised capital flows — (p. 26)
   gga-257  Force of nature — Clinton and Blair · (p. 27)
-  gga-258  Austerity after the crash — (p. 26)
+  gga-258  Austerity after the crash — not written: one sentence in the supplied pages · (p. 26)
 
 ## Reading 10 · Investing in Fragile and Conflict-Affected States (FMO) — `gga-r10`
 
@@ -515,7 +518,7 @@ Jonathan M. Winer, Middle East Institute, 4 May 2026. **Partial:** the first thr
   gga-276  Alignment — (paragraph 2)
   gga-277  Agents escaping their sandboxes — (paragraph 2)
   gga-278  Misuse by malign actors — Mali, the Houthis · (paragraph 2)
-  gga-279  Millennium Prize problem — (paragraph 3)
+  gga-279  Millennium Prize problem — not written: one sentence in the supplied opening · (paragraph 3)
   gga-280  Conflicting lessons — (paragraph 1)
 
 ## Reading 13 · EU–AU security partnership (Staeger) — `gga-r13`

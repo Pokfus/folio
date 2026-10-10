@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-10T16:33Z",
+ "generated": "2026-10-10T16:34Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4617,
+  "ok": 4620,
   "redirect-broader": 405,
   "redirect-variant": 305,
-  "section-redirect": 96,
+  "section-redirect": 97,
   "disambiguation": 130,
-  "none": 760,
+  "none": 761,
   "disambig-resolved": 71,
   "list-page": 6,
   "search-match": 5,
@@ -51646,6 +51646,50 @@
     "United States Congress",
     "Timeline of the 2025–2026 United States trade war with Canada"
    ]
+  },
+  "gga-141": {
+   "answer": "Child mortality rate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Child mortality rate",
+   "target": "Child mortality#Rate"
+  },
+  "gga-144": {
+   "answer": "Nuclear warhead stockpiles",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "W80 (nuclear warhead)",
+    "List of states with nuclear weapons",
+    "Astraea (nuclear warhead)",
+    "Trident (UK nuclear programme)",
+    "Nuclear weapons of the United States"
+   ]
+  },
+  "gga-145": {
+   "answer": "Human Development Index",
+   "title": "Human Development Index",
+   "url": "https://en.wikipedia.org/wiki/Human_Development_Index",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-146": {
+   "answer": "Famine",
+   "title": "Famine",
+   "url": "https://en.wikipedia.org/wiki/Famine",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gga-147": {
+   "answer": "Sudan",
+   "title": "Sudan",
+   "url": "https://en.wikipedia.org/wiki/Sudan",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

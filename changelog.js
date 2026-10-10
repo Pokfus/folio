@@ -42,7 +42,7 @@ window.CHANGELOG = [
     d: "2026-10-10",
     t: "The credits page tells the two Atlases apart",
     items: [
-      "<b>Gateway to Global Affairs</b>: a new collection in the Special section for a university course on global affairs, opening with 55 cards on power, diplomacy and military force.",
+      "<b>Gateway to Global Affairs</b>: a new collection in the Special section for a university course on global affairs, with 297 cards on its lectures and readings.",
       "<b>Sources and credits</b>: the page now says which sources belong to the new globe and lists the current Atlas's own sources, licences and attributions in a section of their own.",
     ],
   },

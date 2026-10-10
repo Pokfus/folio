@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4617 | the title is the article |
+| `ok` | 4620 | the title is the article |
 | `redirect-variant` | 305 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 71 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 405 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 96 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 97 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 130 | only a disambiguation page; no link could be chosen |
-| `none` | 760 | nothing matched; no link |
+| `none` | 761 | nothing matched; no link |
 
-**5403 of 6410 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5406 of 6415 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -682,7 +682,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (96)
+## Section redirects — no dedicated page (97)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -700,6 +700,7 @@ Wikipedia treats these as part of another article. No link.
 - `eg-018` **Faiyum A culture** — `Faiyum A culture` only redirects into `Prehistoric Egypt#Faiyum A culture`
 - `eg-096` **Heb-sed court** — `Heb-sed court` only redirects into `Pyramid of Djoser#Heb-sed court`
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
+- `gga-141` **Child mortality rate** — `Child mortality rate` only redirects into `Child mortality#Rate`
 - `gga-168` **Secondary sanctions** — `Secondary sanctions` only redirects into `United States government sanctions#Secondary sanctions`
 - `gga-232` **Premature deindustrialisation** — `Premature deindustrialization` only redirects into `Technological unemployment#Premature deindustrialization`
 - `gga-234` **Decomplexification** — `Decomplexification` only redirects into `Complexification#decomplexification`
@@ -783,7 +784,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (760)
+## No article found (761)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1016,6 +1017,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gga-140` **Putin's Article 51 claim** — search suggests `Putin's Palace`, `Vladimir Putin speech on invading Ukraine`, `Vladimir Putin`, `Chapter VII of the United Nations Charter`, `On the Historical Unity of Russians and Ukrainians`
 - `gga-142` **2025 Strategic Foresight Report** — search suggests `Foresight (futures studies)`, `Futures studies`, `Diego Rubio (politician)`, `Sundeep Waslekar`, `Cost of conflict`
 - `gga-143` **International law is politics, but not just politics** — search suggests `The Tragedy of Great Power Politics`, `Politics`, `International relations`, `Comparative politics`, `Outline of political science`
+- `gga-144` **Nuclear warhead stockpiles** — search suggests `W80 (nuclear warhead)`, `List of states with nuclear weapons`, `Astraea (nuclear warhead)`, `Trident (UK nuclear programme)`, `Nuclear weapons of the United States`
 - `gga-148` **States behave as if bound** — search suggests `Bound state`, `Majorana fermion`, `Cramér–Rao bound`, `Atom`, `List of states of matter`
 - `gga-149` **Death rate in armed conflicts** — search suggests `List of ongoing armed conflicts`, `List of countries by intentional homicide rate`, `List of countries by intentional death rate`, `Colombian conflict`, `Civilian casualty ratio`
 - `gga-150` **Rotten-tail world** — search suggests `A Warrior's Tail`, `An American Tail`, `Public Image Ltd`, `An American Tail: Fievel Goes West`, `Jurassic World Rebirth`

@@ -230,7 +230,7 @@ have not this session.
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | complete |
 | Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | complete (`gru-502` deferred) |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | live, planned a lecture at a time |
-| Gateway to Global Affairs | `gga` | `gga-` | `docs/gateway-to-global-affairs-card-plan.md` | 21 / 21 | a COURSE (Leiden), 300 cards planned in full over 7 lectures and 14 readings; written deck by deck, Lecture 7 awaits slides |
+| Gateway to Global Affairs | `gga` | `gga-` | `docs/gateway-to-global-affairs-card-plan.md` | 21 / 21 | a COURSE (Leiden), 297 of 300 cards written over Lectures 1–6 and 14 readings (from `gga-057` on, from the course texts only); Lecture 7 awaits slides |
 
 The lowest unused id for a prefix (substitute it); `next-cards.js` does this and also prints the topic:
 
