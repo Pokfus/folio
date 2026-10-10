@@ -30,17 +30,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `redirect-variant` | 299 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 69 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 5 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 394 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 396 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 92 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 127 | only a disambiguation page; no link could be chosen |
-| `none` | 598 | nothing matched; no link |
+| `none` | 601 | nothing matched; no link |
 
-**5331 of 6158 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5333 of 6163 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (394)
+## Redirected to a differently named article — check each (396)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -118,6 +118,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `fl-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
 - `geo-517` **St. Paul** → [Paul the Apostle](https://en.wikipedia.org/wiki/Paul_the_Apostle) (from `St. Paul`)
 - `gga-018` **GPS spoofing** → [GNSS spoofing](https://en.wikipedia.org/wiki/GNSS_spoofing) (from `GPS spoofing`)
+- `gga-019` **Revisionist powers** → [Revisionist state](https://en.wikipedia.org/wiki/Revisionist_state) (from `Revisionist power`)
+- `gga-020` **Anti-colonialism** → [Decolonization](https://en.wikipedia.org/wiki/Decolonization) (from `Anti-colonialism`)
 - `gga-030` **Traditional peacekeeping** → [Peacekeeping](https://en.wikipedia.org/wiki/Peacekeeping) (from `Traditional peacekeeping`)
 - `gga-037` **MINUSMA** → [United Nations Multidimensional Integrated Stabilization Mission in Mali](https://en.wikipedia.org/wiki/United_Nations_Multidimensional_Integrated_Stabilization_Mission_in_Mali) (from `MINUSMA`)
 - `gga-048` **Brahimi Report** → [Report of the Panel on United Nations Peace Operations](https://en.wikipedia.org/wiki/Report_of_the_Panel_on_United_Nations_Peace_Operations) (from `Brahimi Report`)
@@ -763,7 +765,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (598)
+## No article found (601)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -920,6 +922,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-078` **jar sealing** — search suggests `Early Dynastic Period of Egypt`, `Narmer`, `Egypt–Mesopotamia relations`, `Mausoleum at Halicarnassus`, `Baghdad Battery`
 - `eg-080` **Egyptian stone vessels** — search suggests `Stone vessels in ancient Egypt`, `First Dynasty of Egypt`, `Egyptian faience`, `Prehistoric Egypt`, `Ancient Egyptian technology`
 - `eg-113` **Heit el-Ghurab** — search suggests `Fourth Dynasty of Egypt`, `Memphite Necropolis`, `Great Pyramid of Giza`, `List of Egyptian pyramidia`, `Kanefer`
+- `gga-007` **Crisis of authority** — search suggests `Organic crisis`, `Cuban Missile Crisis`, `Martin Gurri`, `2008 financial crisis`, `AlMaghrib Institute`
+- `gga-008` **Post-unipolar world** — search suggests `New world order (politics)`, `Polarity (international relations)`, `Post–Cold War era`, `Major depressive disorder`, `Estonia`
+- `gga-009` **Five superpowers** — search suggests `Superpower`, `Alisa Xayalith`, `Founder mode`, `Hi-Five (film)`, `American Century`
 - `gga-016` **Weaponisation of everything** — search suggests `Mark Galeotti`, `Battlespace`, `Beetle`, `Media coverage of the Gaza war`, `Jawaharlal Nehru`
 - `gga-017` **Mutually assured economic pain** — search suggests `Economic impact of the 2026 Iran war`, `Workers' compensation`, `The Theory of Moral Sentiments`, `Harriet Taylor Mill`, `George C. Homans`
 - `gga-026` **Explosion of connectivity** — search suggests `2007 New York City steam explosion`, `Paraconsistent logic`, `2026 Internet blackout in Iran`, `2026 Iran war`, `List of Amazon Leo launches`

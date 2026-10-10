@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-10T14:26Z",
+ "generated": "2026-10-10T14:27Z",
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 4564,
-  "redirect-broader": 394,
+  "redirect-broader": 396,
   "redirect-variant": 299,
   "section-redirect": 92,
   "disambiguation": 127,
-  "none": 598,
+  "none": 601,
   "disambig-resolved": 69,
   "list-page": 6,
   "search-match": 5,
@@ -49030,6 +49030,64 @@
     "List of United Nations peacekeeping missions",
     "Canadian peacekeeping"
    ]
+  },
+  "gga-007": {
+   "answer": "Crisis of authority",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Organic crisis",
+    "Cuban Missile Crisis",
+    "Martin Gurri",
+    "2008 financial crisis",
+    "AlMaghrib Institute"
+   ]
+  },
+  "gga-008": {
+   "answer": "Post-unipolar world",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "New world order (politics)",
+    "Polarity (international relations)",
+    "Post–Cold War era",
+    "Major depressive disorder",
+    "Estonia"
+   ]
+  },
+  "gga-009": {
+   "answer": "Five superpowers",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Superpower",
+    "Alisa Xayalith",
+    "Founder mode",
+    "Hi-Five (film)",
+    "American Century"
+   ]
+  },
+  "gga-019": {
+   "answer": "Revisionist powers",
+   "title": "Revisionist state",
+   "url": "https://en.wikipedia.org/wiki/Revisionist_state",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Revisionist power"
+  },
+  "gga-020": {
+   "answer": "Anti-colonialism",
+   "title": "Decolonization",
+   "url": "https://en.wikipedia.org/wiki/Decolonization",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Anti-colonialism"
   }
  }
 }
