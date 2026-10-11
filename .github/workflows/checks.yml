@@ -157,6 +157,13 @@ jobs:
         run: node .claude/migrate-places.js --check
       - name: test-places
         run: node .claude/test-places.js
+      # THE STUDY INTEGRATION'S ARITHMETIC (Oct 2026, Atlas v2 Phase 3b; docs/atlas-v2-design.md §2.8, §7 "Phase 3b — as built").
+      # check-places.js (above) also proves atlas/data/card-places.js — the light card-to-places index — is exactly what the cards'
+      # `places` build, within its 200 KB budget; test-study.js is the Node-only suite over the studied set (v1's definition, one
+      # definition), the flags, the sentences, the place card's list and the stacks. test-atlas-study.js is a Playwright suite and
+      # is picked up by name in the browser job below.
+      - name: test-study (Atlas v2, the study integration, no browser)
+        run: node .claude/test-study.js
       # THE STEP TOPOLOGY IS A GENERATED FILE WITH THE SAME SILENT FAILURES (Oct 2026, Phase 2a; docs/atlas-v2-design.md §2.3 "The step
       # topology file", §2.4, §7 "Phase 2a — as built"). check-history.js reads atlas/data/history.bin and the core beside it and proves:
       # the buildId is the committed core's, every core reference exists with the core arc's kind, every step lies inside its entity's
@@ -329,7 +336,9 @@ jobs:
       # "playwright" runs here — including Phase 1c's five Atlas v2 suites (test-atlas-render.js,
       # test-atlas-labels.js, test-atlas-card.js, test-atlas-search.js, test-atlas-a11y.js) and Phase 1d's four
       # (test-atlas-credits.js, test-atlas-fallbacks.js — file://, no WebGL2, context loss, a failed worker —,
-      # test-atlas-phone.js and the five-minute test-atlas-session.js), which the loop picks up by name like any other.
+      # test-atlas-phone.js and the five-minute test-atlas-session.js) and Phase 3b's test-atlas-study.js (the Map / Personal / Full
+      # switch, collection switches, stacks, the cards on a place card, the empty states, the phone), which the loop picks up by name
+      # like any other.
       - name: Run the browser suites
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules

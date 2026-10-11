@@ -237,7 +237,9 @@ async function inkInBoxes(page, placed) {
   await page.close();
   const phone = await browser.newContext({ viewport: { width: 390, height: 700 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
   const P = await open(phone);
-  for (const V of [VIEWS[0], VIEWS[1], VIEWS[2]]) {
+  // the Aegean on a phone is centred a little south (37.3°, not 38°): the study panel (Phase 3b) is chrome across the top 120 px of a 700 px
+  // frame, and at 0.5 km/px the Aegean Sea's own name sits under it from 38° — the engine rightly keeps every name out from under a control
+  for (const V of [VIEWS[0], VIEWS[1], Object.assign({}, VIEWS[2], { lat: 37.3 })]) {
     const { placed, stats } = await layoutAt(P.page, V, "normal");
     const bad = overlaps(placed);
     check(`phone, ${V.name}, normal: ${placed.length} labels (cap ${stats.labelCap}), none overlapping`, placed.length > 0 && bad.length === 0 && stats.phone === true, bad.slice(0, 3).join("; ") + (stats.phone ? "" : " (not read as a phone)"));

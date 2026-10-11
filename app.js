@@ -15288,6 +15288,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : name === "card" && current.params.id ? "card/" + encodeURIComponent(current.params.id)
       : name === "u" && current.params.name ? "u/" + encodeURIComponent(current.params.name)
       : name === "sample" && current.params.id ? "sample/" + encodeURIComponent(current.params.id)
+      /* #map2/<lon>/<lat>/<zoom>/<place> — the Atlas v2's own address (Phase 3b): Back from a card it listed lands here, and the page reads
+         the place back off the hash when it mounts, so the hash the reader came from is kept rather than cut to the bare name */
+      : name === "map2" && current.params.hash ? String(current.params.hash).replace(/^#/, "")
       : name;
     render();
   }
@@ -53761,6 +53764,10 @@ let prev = null;
       let cid = parts[1] || "";
       try { cid = decodeURIComponent(cid); } catch (e) {}
       if (!(current.name === "card" && current.params.id === cid)) route("card", { id: cid });
+      return;
+    }
+    if (parts[0] === "map2" && parts.length > 1 && /^map2\/-?[\d.]+\/-?[\d.]+\/-?[\d.]+/.test(hh)) {   // #map2/<lon>/<lat>/<zoom>[/<place>] followed back onto the Atlas (Phase 3b)
+      if (current.name !== "map2") route("map2", { hash: location.hash });
       return;
     }
     if (parts[0] === "book") {   // #book/<id>[/<n>] pasted or followed mid-session

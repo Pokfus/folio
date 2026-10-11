@@ -2071,7 +2071,7 @@
       if (!live) return;
       const sumEl = studyEl.querySelector(".atlas2-study-sum"), noteEl = studyEl.querySelector(".atlas2-study-note"), emptyEl = studyEl.querySelector(".atlas2-study-empty"), collsEl = studyEl.querySelector(".atlas2-study-colls");
       studyEl.setAttribute("data-mode", ST.mode); studyEl.setAttribute("data-ready", ST.ready ? "1" : "0");
-      for (const b of studyEl.querySelectorAll("[data-mode]")) { const on = b.getAttribute("data-mode") === ST.mode; b.setAttribute("aria-checked", String(on)); b.classList.toggle("on", on); b.disabled = !ST.ready; }
+      for (const b of studyEl.querySelectorAll("button[data-mode]")) { const on = b.getAttribute("data-mode") === ST.mode; b.setAttribute("aria-checked", String(on)); b.classList.toggle("on", on); b.disabled = !ST.ready; }
       if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; return; }
       const sm = AS.summary(ST.st, ST.mode, ST.flags);
       sumEl.textContent = sm.text; sumEl.hidden = !sm.text;
@@ -2085,13 +2085,13 @@
     }
     if (studyEl) {
       studyEl.addEventListener("click", (e) => {
-        const m = e.target.closest("[data-mode]"); if (m) { setStudyMode(m.getAttribute("data-mode")); return; }
-        const c = e.target.closest("[data-coll]"); if (c) { toggleColl(c.getAttribute("data-coll")); const again = studyEl.querySelector(`[data-coll="${c.getAttribute("data-coll").replace(/"/g, '\\"')}"]`); if (again) again.focus({ preventScroll: true }); }
+        const m = e.target.closest("button[data-mode]"); if (m) { setStudyMode(m.getAttribute("data-mode")); return; }
+        const c = e.target.closest("button[data-coll]"); if (c) { toggleColl(c.getAttribute("data-coll")); const again = studyEl.querySelector(`[data-coll="${c.getAttribute("data-coll").replace(/"/g, '\\"')}"]`); if (again) again.focus({ preventScroll: true }); }
       });
       // radio-group arrow keys, the way the legend's density stops behave
       studyEl.querySelector(".atlas2-study-modes").addEventListener("keydown", (e) => {
         if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-        const bs = [...studyEl.querySelectorAll("[data-mode]")].filter((b) => !b.disabled), i = bs.findIndex((b) => b === document.activeElement); if (i < 0) return;
+        const bs = [...studyEl.querySelectorAll("button[data-mode]")].filter((b) => !b.disabled), i = bs.findIndex((b) => b === document.activeElement); if (i < 0) return;
         e.preventDefault(); const n = bs[(i + (e.key === "ArrowRight" ? 1 : bs.length - 1)) % bs.length]; n.focus(); setStudyMode(n.getAttribute("data-mode"));
       });
     }
@@ -2170,7 +2170,7 @@
       // Phase 1c, for the suites and the console
       study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
         flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl, expandStack: (id) => { const p = L.placed.find((x) => x.id === id); if (p) expandStack(p); return !!p; },
-        marks: () => L.placed.filter((p) => p.st).map((p) => ({ id: p.id, kind: p.kind, st: p.st, text: p.text, n: p.n || 0, members: p.members || null, marker: p.marker ? p.marker[3] : null, box: p.box, sx: p.sx, sy: p.sy })), index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false) },
+        marks: () => L.placed.filter((p) => p.st).map((p) => ({ id: p.id, kind: p.kind, st: p.st, text: p.text, n: p.n || 0, members: p.members || null, marker: p.marker ? p.marker[3] : null, box: p.box, sx: p.sx, sy: p.sy })), index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0 },
       labels: () => L.placed, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
       gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
