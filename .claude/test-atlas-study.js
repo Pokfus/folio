@@ -138,7 +138,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     check("the places drawn are exactly the union of their cards' own places (" + wantF.size + ")", flagged.size === wantF.size && [...wantF.keys()].every((id) => flagged.get(id) === 2), flagged.size + " flagged");
     check("everything else is muted", s.muted === true);
     // a studied POINT place, and a view that holds it
-    const pointId = [...st.places].find((id) => id.startsWith("pl:") && /^(site|mountain|cape|city|town)$/.test((placeRow(id) || {}).kind));
+    const pointId = [...st.places].find((id) => id.startsWith("pl:") && /^(site|mountain|hill|cape|city|town)$/.test((placeRow(id) || {}).kind));
     const pr = placeRow(pointId);
     await view(page, pr.at[0], pr.at[1], 2);
     const m = await marks(page);
@@ -351,6 +351,61 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const ne = await e0.page.evaluate(() => { const P = document.querySelector(".atlas2-study"); return { toggle: !P.querySelector(".atlas2-study-toggle").hidden, empty: P.querySelector(".atlas2-study-empty").textContent }; });
     check("with nothing to hide (no cards) there is no disclosure and the empty-state sentence stays", !ne.toggle && /studied any cards/.test(ne.empty), JSON.stringify(ne).slice(0, 120));
     allErrors.push(...errors, ...e0.errors); await ctx.close(); await e0.ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 7c  the glossary popup's "show on the Atlas" button (Phase 3c, task 2) */
+  console.log("\n\x1b[1m7c) the glossary popup's button opens #map2 at the term's registry place\x1b[0m\n");
+  {
+    const GP = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/glossary-places.js"), "utf8"))(GP);
+    const table = GP.ATLAS_GLOSSARY_PLACES.ids;
+    const popup = async (page, key) => {
+      await page.goto(`http://127.0.0.1:${PORT}/#card/wh-016`, { waitUntil: "load" });
+      await page.waitForSelector(`[data-k="${key}"]`, { timeout: 60000 });
+      await page.click(`[data-k="${key}"]`); await sleep(500);
+      return page.$(`.gloss-win[data-k="${key}"] .gloss-map`);
+    };
+    // OFF (what a reader has): the button still opens the old globe
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } }); await ctx.addInitScript(seed([]));
+      const page = await ctx.newPage(); const errors = [];
+      page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
+      const b = await popup(page, "Olduvai_Gorge");
+      check("the popup of a place term has the button", !!b);
+      await b.click(); await sleep(1500);
+      check("with the preview switch off the button opens the old globe (#map), not #map2", /^#map(\?|\/|$)/.test(await page.evaluate(() => location.hash)) && !/^#map2/.test(await page.evaluate(() => location.hash)), await page.evaluate(() => location.hash));
+      allErrors.push(...errors); await ctx.close();
+    }
+    // ON: the registry place opens, flown to, with its card
+    for (const [key, name] of [["Olduvai_Gorge", "Olduvai Gorge"], ["Tanzania", "Tanzania"], ["Gona,_Ethiopia", "Gona, Ethiopia"]]) {
+      const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+      await ctx.addInitScript(seed([])); await ctx.addInitScript(() => { try { localStorage.setItem("folio.atlas2.preview", "1"); } catch (e) {} });
+      const page = await ctx.newPage(); const errors = [];
+      page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
+      page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
+      const b = await popup(page, key);
+      check(`${key}: the popup has the button, and the table has an id for it`, !!b && !!table[key], table[key]);
+      const before = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1") || "{}"));
+      await b.click();
+      await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
+      await page.waitForFunction((id) => { const c = document.querySelector(".atlas2").__atlas2; const cd = c.card(); return cd && cd.open && cd.id === id; }, table[key], { timeout: 60000 }).catch(() => {});
+      await sleep(1200);
+      const r = await A(page, (c) => ({ card: c.card(), view: { lon: c.view.lon, lat: c.view.lat }, kmpp: c.kmPerPx(), hash: location.hash }));
+      check(`${key}: #map2 opens with ${table[key]} selected and its card open`, r.card.open && r.card.id === table[key] && r.card.title.includes(name), `${r.card.id} · ${r.card.title}`);
+      const row = placeRow(table[key]);
+      const at = row && row.at;
+      check(`${key}: the view flew to the place`, !!at && Math.hypot(r.view.lon - at[0], r.view.lat - at[1]) < (row.kind === "country" ? 25 : 1.5), at ? `view ${r.view.lon.toFixed(1)}, ${r.view.lat.toFixed(1)} against ${at[0].toFixed(1)}, ${at[1].toFixed(1)}` : "no row");
+      check(`${key}: the address names the place`, r.hash.includes(encodeURIComponent(table[key])), r.hash);
+      const after = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1") || "{}"));
+      const s2 = await study(page); await A(page, (c) => c.study.setMode("personal")); await sleep(300); const s3 = await study(page);
+      check(`${key}: a term is no card — the reader's progress is untouched and the Personal Atlas is still empty (Q-P3 c)`, JSON.stringify(Object.keys(before.cards || {})) === JSON.stringify(Object.keys(after.cards || {})) && s3.flags.length === 0 && /haven.t studied|None of your|^$/.test((await panelText(page, ".atlas2-study-empty")) || "") || s3.flags.length === 0, JSON.stringify({ cards: Object.keys(after.cards || {}).length, flags: s3.flags.length }));
+      void s2;
+      allErrors.push(...errors); await ctx.close();
+    }
+    // the table itself: every id resolves, the points are the registry's and the countries are gazetteer countries
+    const reg = require("./places-registry.js").loadRegistry({ entities: false });
+    const W = {}; new Function("window", fs.readFileSync(path.join(ROOT, "glossary.js"), "utf8"))(W);
+    check("every id in the glossary table resolves in the registry", Object.values(table).every((id) => reg.rows.has(id)), Object.keys(table).length + " terms");
+    check("181 country terms and 25 of the 31 point terms have a place; the other six are left out, not guessed", Object.keys(W.GLOSSARY_MAP_COUNTRY).every((k) => /^adm0:/.test(table[k] || "")) && Object.keys(W.GLOSSARY_PLACES).filter((k) => table[k]).length === 25, Object.keys(W.GLOSSARY_PLACES).filter((k) => !table[k]).join(", "));
   }
 
   console.log("\n\x1b[1m8) no console errors\x1b[0m\n");

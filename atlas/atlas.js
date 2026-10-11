@@ -116,7 +116,7 @@
   const LABEL_DRAW_BUDGET_MS = 3;            // the label canvas redraw at p95 (reported; test-atlas-labels.js asserts it)
   const LABEL_LAYOUT_BUDGET_MS = 50;         // the worker's layout at p95
   const KEY_LIST_MAX = 60;                   // the hidden button list mirrors at most this many labels
-  const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", cape: "Cape" };
+  const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", hill: "Hill", cape: "Cape" };
   /* THE LABEL STYLES (Q-L2 a): small capitals for territories and regions, italic for water, upright for
      cities, in the site's own font tokens — the display face for names of places, the serif for water.
      `size` is CSS px; `track` the letter spacing in px (ours, drawn glyph by glyph — never the canvas's
@@ -976,7 +976,7 @@
       if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
       if (m.type === "history-faces") { onHistoryFaces(m); return; }
       if (m.type === "history-done") { if (time.hist) { time.hist.ready = true; time.hist.stats = { ms: m.ms, arcs: m.arcs, faces: m.faces }; } applyYear(time.year, { why: "ready" }); return; }
-      if (m.type === "done") { loadBuffer = null; stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace && G.ready && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null; invalidate(); requestLayout("ready", true); }
+      if (m.type === "done") { loadBuffer = null; stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace && G.ready && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null; invalidate(); requestLayout("ready", true); }
     }
     /* a restored GL context (Phase 1c): the renderer dropped everything; the worker sends the resident levels
        again from the files it kept, the loaders fetch their tiles again, relief is asked for again */
@@ -1143,7 +1143,7 @@
         G.byId.set(e.id, row);
       });
       for (const c of H.cities || []) { const id = "cap:" + c.entity + ":" + c.name; if (!G.byId.has(id)) G.byId.set(id, { id, name: c.name, kind: "capital", hist: true, city: c, at: [c.lon, c.lat], within: c.entity, key: fold(c.name), akeys: [], rank: 0, len: 0, aliases: [] }); }
-      if (pendingPlace && G.ready && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;   // the deep link's history place, now that its row exists
+      if (pendingPlace && G.ready && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null;   // the deep link's history place, now that its row exists
       // the colour of each entity (2b): a slot of a fixed palette, chosen once over every epoch so that two polities sharing a
       // border in a year never share a slot, and an entity keeps its slot across the years wherever that allows
       assignSlots();
@@ -1430,7 +1430,7 @@
     const G = { rows: [], byId: new Map(), byRiver: new Map(), ready: false };
     const L = { placed: [], live: [], candidates: 0, cap: 0, seq: 0, lastLayoutMs: 0, lastDrawMs: 0, keyIds: "" };
     const STYLE_BY_ID = Object.fromEntries(STYLES.map((s) => [s.id, s]));
-    let gazStarted = false, gazInWorker = false, faceOfEntity = null, entityIndexById = null, pendingPlace = null, pendingZoom = 0, focusId = null, flying = null, lastWrittenHash = null;
+    let gazStarted = false, gazInWorker = false, faceOfEntity = null, entityIndexById = null, pendingPlace = null, pendingFly = false, pendingZoom = 0, focusId = null, flying = null, lastWrittenHash = null;
     const sel = { id: null, stack: [], index: 0, at: null, t: 0 };
     const layoutWaiters = [];
     const reduced = () => { try { return H.reducedMotion ? !!H.reducedMotion() : matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } };
@@ -1447,7 +1447,7 @@
         for (const r of G.rows) { G.byId.set(r.id, r); if (typeof r.geom === "string" && r.geom[0] === "r") { G.byRiver.set(Number(r.geom.slice(1)), r); for (const ei of (Array.isArray(r.alt) ? r.alt : [])) G.byRiver.set(ei, r); } }   // a merged river answers for every stretch (Phase 1d)
         G.ready = true;
         stats.gazetteer = { rows: G.rows.length, ms: Math.round(performance.now() - t) };
-        if (pendingPlace && stats.ready && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;
+        if (pendingPlace && stats.ready && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null;
         postToWorker({ type: "gazetteer", table: T });
         loadStudy();   // the study layer's two lazy files, once the gazetteer's rows are in G (Phase 3b)
         measureMetrics();
@@ -1578,7 +1578,7 @@
       return { c, x0, y0, w, h };
     }
     /* the study layer's marks (Phase 3b), distinct from every label and from the city dots and capital squares: a DIAMOND for a
-       settlement or a site, a TRIANGLE for a mountain or a cape, a ringed disc with its COUNT for a stack. The reader's own are filled
+       settlement or a site, a TRIANGLE for a mountain or a cape (a smaller one for a hill), a ringed disc with its COUNT for a stack. The reader's own are filled
        with the accent, the rest of the Full Atlas hollow. */
     function drawStudyMarker(ctx, x, y, r, kind, hot, p) {
       const mine = !!p && p.st === 2;
@@ -1705,6 +1705,14 @@
     // a selection made by a reader (a tap, a search result, the console) pushes a history entry so Back undoes it; one made
     // by Back or by a deep link at load (push: false) does not
     function selectById(id, o) { const row = G.byId.get(id); if (!row) return false; o = Object.assign({ push: true }, o || {}); if (o.fly) flyToRow(row, o.open); else selectRow(row, o); return true; }
+    /* the glossary popup's "show on the Atlas" (Phase 3c): open a place by its registry id and fly there. The row may not be in
+       `G` yet (a places.js row joins it when the study layer has loaded), so it waits like a deep link's place does — but flies */
+    function showPlace(id) {
+      if (!id || typeof id !== "string") return false;
+      pendingFly = true;
+      if (G.ready && stats.ready && G.byId.has(id) && selectById(id, { open: true, fly: true, push: true })) { pendingPlace = null; return true; }
+      pendingPlace = id; return false;
+    }
     function clearSelection() {
       const had = sel.id;
       sel.id = null; sel.stack = []; sel.index = 0; sel.at = null;
@@ -1849,7 +1857,7 @@
 
     /* ---- search: one input, diacritic-folded prefix then substring over names and aliases ---- */
     let results = [], active = -1;
-    const KIND_ORDER = { country: 0, capital: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5, site: 5, mountain: 5, cape: 6 };
+    const KIND_ORDER = { country: 0, capital: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5, site: 5, mountain: 5, hill: 6, cape: 6 };
     function runSearch(q) {
       const k = fold(String(q || "").trim());
       if (k.length < 2 || !G.ready) { closeResults(); return []; }
@@ -1884,7 +1892,7 @@
     document.addEventListener("pointerdown", (e) => { if (!resultsUl.hidden && !e.target.closest(".atlas2-search")) closeResults(); }, true);
 
     /* ---- flying to a place: an eased move, instant under reduced motion ---- */
-    const PLACES_KMPP = { region: 8, range: 6, island: 3, "island-group": 8, sea: 10, gulf: 4, strait: 3, lake: 3, river: 6, ocean: 24, city: 1.5, town: 0.8, site: 0.8, mountain: 3, cape: 2 };   // a places.js row has a point and no extent: its zoom is by kind (Phase 3b)
+    const PLACES_KMPP = { region: 8, range: 6, island: 3, "island-group": 8, sea: 10, gulf: 4, strait: 3, lake: 3, river: 6, ocean: 24, city: 1.5, town: 0.8, site: 0.8, mountain: 3, hill: 1.5, cape: 2 };   // a places.js row has a point and no extent: its zoom is by kind (Phase 3b)
     const kmppFor = (row) => {
       if (row.src === "places") return PLACES_KMPP[row.kind] || 2;
       const short = Math.min(cssW, cssH) * (PHONE ? 0.9 : 0.5);
@@ -1934,7 +1942,7 @@
       view.lon = d.lon; view.lat = d.lat; view.zoom = z; clampView(); flying = null; coasting = false;
       if (d.year != null && d.year !== time.year) applyYear(d.year, { why: "hash" });
       if (!tileIndex) pendingZoom = z;   // the cap is not known until the header arrives: the asked-for zoom is clamped again then
-      if (d.place) { const histId = /^(pol|cap|contested):/.test(d.place); if (G.ready && stats.ready && (!histId || time.ents) && selectById(d.place, { open: true, push: false })) pendingPlace = null; else pendingPlace = d.place; } else if (sel.id) clearSelection();   // a history place (pol:, cap:) waits for the history header
+      if (d.place) { const histId = /^(pol|cap|contested):/.test(d.place); if (G.ready && stats.ready && (!histId || time.ents) && selectById(d.place, { open: true, push: false })) pendingPlace = null; else { pendingPlace = d.place; pendingFly = false; } } else if (sel.id) clearSelection();   // a history place (pol:, cap:) waits for the history header
       plan(); invalidate(); requestLayout("hash", true);
     }
     // pushState and replaceState fire no event, so every hashchange or popstate is the reader's: Back, Forward, a typed link.
@@ -2020,7 +2028,7 @@
       for (const o of G.rows) { o.key = fold(o.name); o.akeys = (o.aliases || []).map(fold); }
       return n;
     }
-    const POINT_KIND = /^(capital|city|town|site|mountain|cape)$/;
+    const POINT_KIND = /^(capital|city|town|site|mountain|hill|cape)$/;
     // what the worker needs of a place it has no geometry for: a mark (a point kind, from either file) or a name at a point (an area of places.js)
     function sendStudyRows() {
       const rows = [];
@@ -2053,7 +2061,7 @@
           sendStudyRows(); const t4 = performance.now();
           refreshStudy(true); const t5 = performance.now();
           stats.study = { register: Math.round(t1 - t0), parse: Math.round(t2 - t1), warm: Math.round(t3 - t2), rows: Math.round(t4 - t3), refresh: Math.round(t5 - t4) };   // main-thread ms of each step (the warm-up is many tasks of 8 ms), for the suites
-          if (pendingPlace && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;
+          if (pendingPlace && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null;
         };
         setTimeout(slice, 0);
       }).catch((e) => { ST.failed = true; ST.loading = false; renderStudyPanel(); if (typeof console !== "undefined") console.warn("atlas2 study data failed: " + (e && e.message || e)); });
@@ -2215,7 +2223,7 @@
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, shut: cardEl.classList.contains("atlas2-card-shut") }),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,
-      chromeRects, hash: hashNow, readHash, metricsCount: () => metricsSent,
+      chromeRects, showPlace, hash: hashNow, readHash, metricsCount: () => metricsSent,
       /* Phase 2a: time */
       setYear: (y, o) => setYear(y, o), year: () => time.year, railTicks: () => time.tickStats || null, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
       alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,

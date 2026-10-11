@@ -18048,5 +18048,32 @@
    ]
   }
  },
- "merges": {}
+ "merges": {},
+ "glossary": {
+  "Afar_Region": "pl:q193494",
+  "Awash_River": "pl:q782845",
+  "Blombos_Cave": "pl:q884971",
+  "Cave_of_Altamira": "pl:q133575",
+  "Chauvet_Cave": "pl:q374096",
+  "Dmanisi": "pl:q261243",
+  "Doggerland": "pl:q1138308",
+  "Fennoscandia": "pl:q604496",
+  "Fertile_Crescent": "pl:q170526",
+  "Gona,_Ethiopia": "pl:q12314119",
+  "Hadar,_Ethiopia": "pl:q1567353",
+  "Johannesburg": "city:1159151515",
+  "Lascaux": "pl:q172125",
+  "Le_Moustier": "pl:q602572",
+  "Lomekwi": "pl:q19833854",
+  "Near_East": "pl:q48214",
+  "Olduvai_Gorge": "pl:q217043",
+  "Qafzeh_Cave": "pl:q2121357",
+  "Saint-Acheul": "pl:q670003",
+  "Sicily": "pl:q1460",
+  "Skhul_Cave": "pl:q287341",
+  "Sulawesi": "reg:1159103785",
+  "Sungir": "pl:q1779534",
+  "Swabian_Jura": "pl:q159589",
+  "Taung": "pl:q2096879"
+ }
 }

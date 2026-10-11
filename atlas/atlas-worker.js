@@ -439,13 +439,13 @@
   const POLITY_NUDGE = [0, -1.2, 1.2, -2.4, 2.4, -3.6, 3.6];                    // the lines a straight polity name moves up or down from its anchor when the anchor is taken
   function unitOf(lon, lat) { const la = lat * D2R_, lo = lon * D2R_, c = Math.cos(la); return [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; }
   /* PHASE 3b — THE STUDY LAYER'S STATE. `rows`: the places the worker does not already have geometry for — every study place that is
-     drawn as a MARK (a capital, city, town, site, mountain, cape: a point) and every place of places.js that is an area or a water
+     drawn as a MARK (a capital, city, town, site, mountain, hill, cape: a point) and every place of places.js that is an area or a water
      (a region, an island, a range …: a name at a point, no dot) — id → { id, name, kind, sub, a (unit vector), n (cards), pd
      (a present-day settlement: not alive in a past year) }. `flags`: id → 1 (a place of the Full Atlas) | 2 (the reader's own);
      absent = not drawn. A gazetteer AREA (a country, a province, a sea, a river …) and a polity are flagged only: the ordinary pass
      draws them in their own shape and the flag lifts them past the density rules, raises their score and tints them. */
   let STUDY = null;
-  const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, cape: 1 };
+  const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, hill: 1, cape: 1 };
   function setStudyRows(rows) {
     const m = new Map(), points = new Set();
     for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd }); if (STUDY_POINT[r.kind]) points.add(r.id); }
@@ -698,9 +698,9 @@
     const polyline = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return cum; };
     const reads = (S) => { const dx = S[S.length - 1][0] - S[0][0], dy = S[S.length - 1][1] - S[0][1]; return Math.abs(dx) >= Math.abs(dy) * 0.35 ? dx >= 0 : dy <= 0; };   // left to right, else upward
     /* ---- PHASE 3b: THE STUDY PASS — before the ordinary labels, so the places a reader studies take their ground first ----
-       Marks (a capital, city, town, site, mountain, cape): the places within STACK_PX of one another on screen become ONE marker
+       Marks (a capital, city, town, site, mountain, hill, cape): the places within STACK_PX of one another on screen become ONE marker
        with a count (they separate as the reader zooms, and a tap zooms to them); a place alone is a mark of its own shape — a diamond,
-       a triangle for a mountain or a cape — never the dot of a city — with its name beside it where a side is free. Areas and waters of
+       a triangle for a mountain or a cape, a smaller one for a hill — never the dot of a city — with its name beside it where a side is free. Areas and waters of
        places.js (a region, an island, a range …) are a name at a point, no mark. A mark never lies under a control (the chrome is
        already taken) or off the frame; a place is dropped only for that, and the drop reason says so. */
     const STACK_PX = q.phone ? 34 : 30;   // > the radii of two marks and the gap between them: see AtlasStudy.cluster
@@ -727,7 +727,7 @@
           placed.push({ id: "stack:" + top.id, kind: "stack", style: "", text: "", score: -300 - f * 10, selected: false, hist: false, st: f, n: g.n, members: g.ids.slice(0, 60), a: unitAt(x, y), sx: x, sy: y, alpha: Math.min(1, top.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, "stack"], hit: mrect });
           continue;
         }
-        const row = top.row, markShape = row.kind === "mountain" || row.kind === "cape" ? "triangle" : "diamond", r = 6, x = top.x, y = top.y;
+        const row = top.row, markShape = row.kind === "mountain" || row.kind === "hill" || row.kind === "cape" ? "triangle" : "diamond", r = row.kind === "hill" ? 4 : 6,   /* a hill is the smaller triangle (Phase 3c) */ x = top.x, y = top.y;
         const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
         dropping = row;
         if (!fullyOn(mrect) || !free(mrect)) { drop("study mark has no free ground (a control, a capital's mark or the frame's edge)"); continue; }
