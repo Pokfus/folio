@@ -84,7 +84,7 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
   them). A new theme adds no webfont and must override `.collection-deco`.
 - `data.js` + `data-extra/<collection>.js` — the cards, **split in two**: `data.js` holds the light
   half (question, answer, date line, tags, difficulty, locator, war…), `data-extra/` the heavy half
-  (abstract, sources, why, quote, image, and the `questions` phrasing pool). **Every helper goes through `.claude/card-io.js`**
+  (abstract, sources, why, quote, image, the `questions` phrasing pool, and the Atlas v2 `places` ids). **Every helper goes through `.claude/card-io.js`**
   (`loadCards`/`writeCards`); a helper that evaluates `data.js` alone sees empty abstracts and does not
   fail. `writeCards` ignores tree edits — edit `COLLECTION_TREE` as text.
 - `glossary.js` + `glossary-extra.js` — the glossary, split the same way: `glossary.js` holds every KEY (with
@@ -171,7 +171,8 @@ have not this session.
 - Other writers: `add-sources.js` (citations onto existing content), `set-date-line.js`,
   `fix-field.js`, `add-questions.js`, `add-card-links.js` (why / leadsTo), `add-locators.js`,
   `add-card-wars.js`, `add-card-difficulty.js`, `add-card-tags.js`, `mark-undatable.js`,
-  `set-facts.js`, `add-images.js` — each documents itself in its header.
+  `set-facts.js`, `add-images.js`, `add-places.js` (the Atlas v2 `places` ids on one card; `migrate-places.js` derives
+  them from `locator` / `war` / `map`, `atlas-build/add-place.js` adds a place to the registry) — each documents itself in its header.
 - After a batch: `check-style.js`, `check-questions.js`, `node .claude/check-cards.js --prefix=<p>`
   (report only), `test-card-plans.js`.
 - **Wikipedia links** (the "Learn more" tile at the foot of a card, `learnMoreHTML`): `.claude/wiki-links.json` maps

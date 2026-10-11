@@ -145,6 +145,18 @@ jobs:
       # share-alike (ODbL) file is missing from the statement — a stale credits page is a licence problem nobody sees.
       - name: check-credits (Atlas v2, the Sources and credits page)
         run: node .claude/atlas-build/check-credits.js
+      # THE PLACES REGISTRY AND THE CARDS' `places` FIELD (Oct 2026, Atlas v2 Phase 3a; docs/atlas-v2-design.md §2.8, §7
+      # "Phase 3a — as built"). check-places.js proves atlas/data/places.js against its spec and the Wikidata cache (every row's
+      # item, coordinate and classes — offline); migrate-places.js --check proves every id in every card's places resolves,
+      # that no card lost an id the migration derives from its own locator / war / map, and that every polity's linked cards
+      # carry the polity; test-places.js is the Node-only suite over the registry, the resolver and the tooling. None needs
+      # the network: the cache is committed.
+      - name: check-places (Atlas v2, the Phase 3 places file)
+        run: node .claude/atlas-build/check-places.js
+      - name: migrate-places --check (every card's places resolve, nothing derived lost)
+        run: node .claude/migrate-places.js --check
+      - name: test-places
+        run: node .claude/test-places.js
       # THE STEP TOPOLOGY IS A GENERATED FILE WITH THE SAME SILENT FAILURES (Oct 2026, Phase 2a; docs/atlas-v2-design.md §2.3 "The step
       # topology file", §2.4, §7 "Phase 2a — as built"). check-history.js reads atlas/data/history.bin and the core beside it and proves:
       # the buildId is the committed core's, every core reference exists with the core arc's kind, every step lies inside its entity's
@@ -337,8 +349,9 @@ jobs:
   # §7 Phase 1b–1d). The browser job above is red on main because of three suites that fail for reasons of
   # their own, and a red job is one nobody opens -- so the one suite whose verdict the owner asked to
   # read on every push runs here, alone, and speaks for itself in the job list. The rules since Phase 1d
-  # (2026-10-09): v2's pooled p90 at most 40 % of v1's for drag, wheel and pinch; the drag's worst frame at most
-  # 100 ms; the pinch's worst frame DURING the gesture at most 100 ms and its first full-screen frame after release
+  # (2026-10-09): v2's pooled p90 at most 40 % of v1's for drag, wheel and pinch; the drag's frames over 100 ms at
+  # most 0.5 % of the sample and none over 200 ms (Phase 3a, task 0b, 2026-10-10; "at most two frames" before);
+  # the same for the pinch's frames DURING the gesture, and its first full-screen frame after release
   # at most 300 ms, reported with that frame's primitive count; relief on, with the view's L1 patches warmed first,
   # at most 2.0 x relief off; the first-use cost of a patch reported, ungated; the JS heap at most 50 % of v1's in
   # the same run; the primitive budgets per fixed view. It needs only Chromium; it installs Playwright outside

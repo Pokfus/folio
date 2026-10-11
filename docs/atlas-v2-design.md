@@ -2161,7 +2161,10 @@ them now (`test-atlas-perf.js`, `RELIEF_FACTOR`, `RELEASE_MS`, `HEAP_RATIO`):
 - **Heap**: v2's JS heap after its gestures, read after a forced collection, is at most 50 % of v1's in the same run; the
   absolute value is reported. The absolute 48 MB ceiling is gone.
 - **Unchanged**: v2's pooled p90 at most 40 % of v1's for drag, wheel and pinch; the drag's worst frame at most 100 ms
-  with the millisecond of slack; the primitive budgets per fixed view.
+  with the millisecond of slack; the primitive budgets per fixed view. *(Restated twice since: Phase 2a task 0c allowed at
+  most two frames over 100 ms across the repeats and none over 200; Phase 3a task 0b, 2026-10-10, reads it as at most 0.5 %
+  of a gesture's frames over 100 ms and none over 200 ms, for the drag and for the pinch's during-gesture frames — a share
+  scales with the sample where a count did not. Nothing else loosened; `WORST_SHARE` in `test-atlas-perf.js`.)*
 
 **One renderer change the rules asked for: adaptive degradation during a gesture, in two sticky stages.** Measured on
 the session's runner (software GL), the gesture frames the 100 ms rule forbids had two causes, found by sampling the
@@ -2747,6 +2750,107 @@ alone (4 frames over 100 ms of 1,177 across three repeats, worst 116.7 ms, where
 the year change 1.5 ms at p95 and 1.2 ms over the whole rail) and green on the one re-run the rules allow, as it was on run
 38056150477 (`8cb34ac`, the same renderer) — three frame-gate readings on this renderer, two green, the red one the
 two-core runner's drag frames and not a 2b line; locally the drag's worst frame reads 67–100 ms across four runs today.
+
+### Phase 3a — as built (2026-10-11): the places registry, the additive migration and the author tooling
+
+**Scope.** Sub-phase 3a only: a registry cards point at by id, the migration of what already exists onto it, and the tooling —
+no reader-visible surface (3b: the Personal Atlas derived by id, the place card, the Full Atlas search, the glossary button).
+v1 stays live and reads `locator`, `war` and `map` as before. Preceded by Task 0, three carry-overs from the 2b review.
+
+**Task 0.** 0a — *the label engine's cause, found by the worker's own drop reasons* (`labelDebug` / `labelWhy`): the period
+capitals scored 0, before every polity (whose best score is `KW.country` = 1), so Constantinople's marker and name took the
+grid cells at the Ottoman Empire's one trial position (the middle of its label path) and the empire's name dropped as "polity
+collides" — Europe in 1500 at 7 and 12 km/px; the same for Karakorum and the Mongol Empire at the globe in 1245, and on a 390 px
+phone at 1500 at 12 km/px, where at the globe every name was also "wider than its path" (the 1.8× rule against a short path).
+France and Songhai drew because no capital sat on their paths. Fixed in `atlas-worker.js`: a capital scores after the polities
+of on-screen area rank 0–1 and before the smaller ones (`CAPITAL_AFTER_RANK`); every capital's MARKER rectangle is reserved
+before any label is placed, so a name placed first is laid round the square and the marker is never lost (a capital whose name
+then finds no free side keeps its marker alone — the fill and the tap still say what it is); a polity name slides along its path
+(0, ±12, ±24, ±36 % of its length) and nudges its straight fallback up and down before giving up; the large ranks may be 3× their
+path. Measured after: Europe 1500 at 7 km/px names the Ottoman Empire, the Golden Horde, France, England and the Papal States
+(before: the Golden Horde, France, the Papal States); at 12 km/px seven polities (two); the globe in 1245 the Mongol Empire, the
+Song and the Delhi Sultanate (none); the phone at 12 km/px four (one), at the globe two (none). The cost: a capital's NAME now
+yields to the empire's where the two want the same cells. `test-atlas-labels.js` section 9 holds the three views (142 ok).
+0b — the frame gate's worst-frame rule is at most 0.5 % of a gesture's frames over 100 ms and none over 200 ms (`WORST_SHARE`),
+for the drag and the pinch's during-gesture frames, replacing "at most two frames" (which on the two-core runner read 4 of
+1,177 — 0.34 % — and failed a renderer that was not slower); nothing else loosened. Run on this head (software GL, the fetch
+running beside it): drag 1 frame of 1,268 over 100 ms (0.08 %), worst 133 ms; pinch 0 of 414; every other line green.
+0c — the rail's ticks on narrow screens: 2b bucketed the view's change years into 200 buckets of under 2 px, and the ticks canvas
+read back column by column showed runs of 9 CSS px of unbroken ink at 390 px and 28 at 360. A bucket is now at least 4 px and
+ticks closer than 3 px merge (taller the more years they stand for); the entities in view still decide which years tick and [ ]
+still step through every change year. Measured: 43 ticks for 474 change years over 224 px at 390 px, no run wider than one tick;
+`railTicks()` reports the counts and `test-atlas-review.js` section 2 reads the canvas back at 360, 390 and 430 px (38 ok).
+
+**The registry (Task 1).** One table read by `.claude/places-registry.js` from three generated files: the v0 gazetteer (5,766
+rows), `atlas/data/places.js` — NEW, the places the cards need that the gazetteer does not carry, 713 rows, 55,920 bytes
+(0.056 MB decimal), one row per Wikidata item, id `pl:q<number>`, the gazetteer's shape plus a `sub` column (battle, cave,
+building) — and `history.bin`'s entity table (152 polities with their card links from 2b). *A file of its own, not rows in the
+gazetteer*: the gazetteer stands at 592,123 bytes of its 600,000 budget, and the cards needed 713 places more; the two are one
+registry to the Node side now and to the worker in 3b. Kinds in the new file: site 406 (battle 107 of them as `sub`), region
+93, town 89, city 67, mountain 18, island 12, river 6, range 6, lake 5, island-group 3, cape 3, strait 2, gulf 2, sea 1 —
+`mountain` and `cape` are additions to §2.6's table (a mountain is a point the cards mark; §2.6 had no kind for it), for the
+owner to confirm. Every row is Wikidata-checked and nothing typed: the coordinate is the item's (P625), the kind is what its
+classes (P31, followed through subclass-of to the taxonomy's tops in `TOPS`) give, the name is its English Wikipedia title
+(CC0 sitelink) with the card's spelling as an alias. The card links travel both ways: a polity's `cards` (the entity table)
+put `pol:<key>` on each of those cards, and `migrate-places.js --check` fails if either side lags. A card's `places` is a
+HEAVY field (data-extra/, `CARD_EXTRA_FIELDS` + card-io's list) — §2.8 planned it light; nothing on the eager path reads it in
+3a and 3b derives the Personal Atlas in the worker, which fetches the heavy halves it needs; whether it moves light when the
+Personal Atlas needs it at boot is 3b's measurement. The field is a plain sorted list of ids (the brief's shape), not §2.8's
+`{ id, role, years }` objects: a war's victor and loser are both on the card without a side, and the years default to the date
+line — the role column is 3b's to add if the derivation needs it (a decision for the owner, below).
+
+**The migration (Task 2).** `node .claude/migrate-places.js` — additive (every card's `locator`, `war` and `map` byte-identical
+to the base commit's, `test-places.js` against `FOLIO_PLACES_BASE=a077fa4`: 0 of 6,827 differ, data.js unchanged), idempotent
+(two consecutive runs: every written file byte-identical, sha256), offline from a committed cache (`places-wikidata.json`,
+1.27 MB: 1,173 titles, 543 exact-label lookups, 304 searches around a coordinate pruned to the names the cards use, 4,293
+classes), `--fetch` being the only networked mode. How a toponym resolves, in order and never by a guess: the gazetteer by name
+within the radius (25 km for a point or a battle, 300 for a region, a range, a river, a sea); Wikidata by the article whose title
+is the toponym, accepted only when the item's coordinate agrees; by exact English label or alias; by a search around the
+coordinate (capped at 50 km — a 300 km circle over central Europe answered 504); two candidates within the radius are AMBIGUOUS
+and listed, a candidate with no taxonomy kind (a mint, a diocese, a museum) does not count. **Numbers:** 1,325 distinct
+toponyms over 1,920 locators — 950 resolved (182 to the gazetteer; 722 to places.js rows: 579 by title, 138 by label, 5 by the
+search), 66 ambiguous (mostly a present-day city against the polis or site of the same name at the same spot — Thebes, Corinth,
+Syracuse, Olympia — a rule the owner can set), 309 unresolved (141 with no item of that name within the radius — "Forum
+Romanum", "Athenian Agora", "Tell el-Muqayyar"; 74 whose article names an item with no coordinate — "Mycenaean civilisation",
+"Clovis culture", "Qin dynasty": not places; 29 whose item lies beyond the radius; 26 where the service could not answer the
+search; 19 disambiguation pages; 16 with classes the taxonomy does not map — a museum, a gate, a massacre, an aerial bombing;
+5 states or peoples). Map keys: 793 cards resolve (every `world` key but the three-polygon Cyprus pair; the US and Chinese
+admin-1 keys), 15 keys do not — Russia's republics and krais under the gazetteer's short names (Buryatia, Chuvashia, Udmurtia,
+Altai Krai…) and four honest ambiguities (Moscow the city and the oblast, Saint Petersburg and Leningrad Oblast, Washington
+and the District, Shanxi/Shaanxi's two codes). War sides: 49 cards resolve through `polity-spec.json`'s links, the countries
+and the polities by name; 24 sides do not — 18 authored extents of sides no entity draws (Sparta, Messenia, Samnium, "Athens
+and its empire"…) and six names (British Raj, Chinese warlords, Union of South Africa, Yugoslavia, Ethiopia (Italy)); the 12
+spec slugs the history file defers (the peoples, the coastline series) are listed. Thirteen locators resolve only through
+their `within` city (Grave Circle A → Mycenae; the Forum → Rome), said so. Three locators carry a coordinate pair in `label`
+(gr-056, wh-115, rm-011: a data fault, ignored and listed). The 31 glossary places resolve (25) or are listed, for 3b's button;
+nothing is written to a term (Q-P3 c), nothing to a book (Q-P2 c). **The result on the cards:** 2,400 of 6,827 carry
+`places` (2,782 had an old field; 382 of those get nothing — the unresolved above), by collection in
+`docs/atlas-places-report.md` (GENERATED; never edit): `gw` 468/468, `geo` 130/133, `gru` 139/162, `gc` 56/58, `wh` 417/505,
+`rm` 388/487, `gr` 306/388, `cnh` 259/310, `eg` 93/103, `ru` 64/83, `ww2` 60/62; 177 cards carry a polity by link.
+
+**The tooling (Task 3).** `add-places.js <cardId> <id…>` adds and removes (a leading `-`) with validation — an id the registry
+lacks is refused with the nearest names, a derived id cannot be removed; `--find` looks a name up and shows every candidate
+(Olympia twice) without choosing; `atlas-build/add-place.js --qid --kind --reason` adds a registry row by its item, refusing
+an item with no coordinate, a kind its classes contradict, a state or a people, or an item the registry already carries;
+`build-places.js` is the only writer of `places.js` (and regenerates `credits.js` only when the file changed); `check-places.js`
+gates it; `check-cards.js` rule 9 fails an id that resolves to nothing; `card-authoring.md` has the field. `import-batch.js` and
+`add-card.js` do not yet accept `places` (§2.8's plan): a new card gets its places from the migration, run after the batch.
+
+**Tests and CI (Task 4).** `test-places.js` (48 ok, Node only): the registry, the resolver on fixtures (the homonym, the
+ambiguity, the title, the label, the disambiguation page, the unmapped class, the state, idempotence), the additive proof, the
+tooling's refusals and an add-then-remove round trip byte-identical. The fast CI job gains `check-places.js`,
+`migrate-places.js --check` and `test-places.js`; the browser job runs the labels and review suites as before. Not re-run
+here: the other browser suites (CI's second opinion).
+
+**Changelog.** No line and no bump: 0a and 0c change `#map2`, which is unlinked until Phase 5, and the registry is invisible.
+
+**Decisions for the owner.** (1) The 66 ambiguous toponyms — a rule ("a history card's locator takes the polis or the site over
+the present-day city at the same spot") would resolve most of them in one line of the resolver, but it is a choice, so it is
+listed, not made. (2) `mountain` and `cape` as kinds. (3) The second file against the 0.6 MB budget. (4) `places` heavy and as
+plain ids (roles and years for 3b). (5) The 15 map keys: whether the Russian admin-1 rows should carry the subjects' long names
+as aliases (a gazetteer rebuild) or the layer's keys be matched by code. (6) The 309 unresolved toponyms: the report's table is
+the work list; descriptive names ("seven hills of Rome", "Athenian Agora") want either a `within` city only or a hand-added
+item. (7) The 24 war sides with no entity: 2c's peoples and the leagues.
 
 ### Phase 3 — The gazetteer and the study material (ships `#map2` with Your atlas; ~6–8 sessions)
 

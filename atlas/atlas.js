@@ -1312,11 +1312,20 @@
       x.globalAlpha = 0.7;
       for (const y of [-10000, -5000, -3000, -2000, -1000, -500, 1, 500, 1000, 1500, 2000]) { const px = Math.round(railX(y) * w) + 0.5; x.beginPath(); x.moveTo(px, h / 2 - 4); x.lineTo(px, h / 2 + 4); x.stroke(); }
       x.globalAlpha = 1; x.strokeStyle = hex(ink);
-      // at most about TICKS_MAX ticks a view (2b): change years closer than a bucket merge into one tick, drawn taller the more it
-      // stands for; [ and ] still step through every change year (stepChange reads the full list)
-      const TICKS_MAX = 200; const bucket = w / TICKS_MAX; const merged = new Map();
+      // at most about TICKS_MAX ticks a view (2b), AND NEVER MORE THAN THE WIDTH CAN SHOW APART (Phase 3a, task 0c): change years
+      // closer than a bucket merge into one tick, drawn taller the more it stands for; the bucket is at least TICK_PX wide, so on a
+      // 390 px phone (a 224 px track) the view's 177 change years become at most 56 ticks instead of a solid bar (measured: runs of
+      // 9 and 28 CSS px of unbroken ink at 390 and 360 px). The entities in view still decide WHICH years tick; [ and ] still step
+      // through every change year (stepChange reads the full list)
+      const TICKS_MAX = 200, TICK_PX = 4; const bucket = Math.max(w / TICKS_MAX, TICK_PX); const merged = new Map();
       for (const y of time.changeYears) { const px = railX(y) * w; const b = Math.floor(px / bucket); let m = merged.get(b); if (!m) merged.set(b, m = { sx: 0, n: 0 }); m.sx += px; m.n++; }
-      for (const [, m] of merged) { const px = Math.round(m.sx / m.n) + 0.5, hh = m.n > 1 ? 5 : 3; x.beginPath(); x.moveTo(px, h / 2 - hh); x.lineTo(px, h / 2 + hh); x.stroke(); }
+      // two buckets' means can still sit a pixel apart across their boundary (measured: a run of 3 px at 430 px); ticks closer
+      // than TICK_GAP merge too, so every tick has blank pixels on both sides
+      const TICK_GAP = 3; const ticks = [];
+      for (const [, m] of [...merged].sort((p, q) => p[1].sx / p[1].n - q[1].sx / q[1].n)) { const px = m.sx / m.n; const last = ticks[ticks.length - 1]; if (last && px - last.px < TICK_GAP) { last.px = (last.px * last.n + px * m.n) / (last.n + m.n); last.n += m.n; } else ticks.push({ px, n: m.n }); }
+      let maxN = 0, minGap = Infinity;
+      for (let i = 0; i < ticks.length; i++) { const t = ticks[i], px = Math.round(t.px) + 0.5, hh = t.n > 1 ? 5 : 3; x.beginPath(); x.moveTo(px, h / 2 - hh); x.lineTo(px, h / 2 + hh); x.stroke(); if (t.n > maxN) maxN = t.n; if (i && Math.round(t.px) - Math.round(ticks[i - 1].px) < minGap) minGap = Math.round(t.px) - Math.round(ticks[i - 1].px); }
+      time.tickStats = { years: time.changeYears.length, ticks: ticks.length, width: w, bucket, minGap: ticks.length > 1 ? minGap : null, maxMerged: maxN };   // for the suites (test-atlas-review.js section 2)
     }
     function stepChange(dir) {
       if (!time.hist) { ensureHistory(); if (dir < 0 && time.present) setYear(PRESENT_YEAR - 1); return; }   // the file loads on the first step back (2b); the change years follow once it is in
@@ -1970,7 +1979,7 @@
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,
       chromeRects, hash: hashNow, readHash, metricsCount: () => metricsSent,
       /* Phase 2a: time */
-      setYear: (y, o) => setYear(y, o), year: () => time.year, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
+      setYear: (y, o) => setYear(y, o), year: () => time.year, railTicks: () => time.tickStats || null, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
       alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
       timeInfo: () => ({ year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeMedian: pct50(time.yearChange), yearQueryP95: pct95(time.yearQuery), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
       // one device pixel of the GL canvas, read right after a render in the same task (the drawing buffer is not preserved between tasks)

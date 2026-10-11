@@ -472,7 +472,7 @@
      Keep this list in step with EXTRA_FIELDS in .claude/card-io.js — split-cards.js --check slices
      this declaration out by text and fails if the two have drifted, because a field app.js expects
      lazily and the splitter leaves eager is a field that ships twice. */
-  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions"];
+  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions", "places"];   // `places` (Atlas v2 Phase 3a): the registry ids a card points at; nothing reads it until 3b
   const cardExtraPrefix = (id) => String(id || "").replace(/-\d+$/, "");
   /* Has this card's heavy half arrived? A community card never has one (its whole record is in the
      deck file), and a card with no prefix we ship simply answers yes so nothing waits for ever. */

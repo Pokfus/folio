@@ -25,7 +25,12 @@
        1280×800 and at 390×844 — with the legend shut and open, the About sheet open, a card open — no placed label's rectangle
        intersects a control's rectangle (search, zoom stack, chips, sheets, card, stack chip); every point label (a city and
        its marker) is wholly on screen; an area or path label hangs past the viewport edge by at most a quarter of its boxes;
-       every curved label's mean glyph rotation lies within ±90° of upright and no glyph of it is rotated beyond 90°.
+       every curved label's mean glyph rotation lies within ±90° of upright and no glyph of it is rotated beyond 90°;
+     · A LARGE POLITY'S NAME OUTRANKS THE CAPITAL MARKERS INSIDE IT (Phase 3a, task 0a; the 2b review): with the history
+       loaded, at Europe in 1500 at 7 km/px the Ottoman Empire is named and Constantinople's marker is still drawn; at the
+       globe in 1245 the Mongol Empire is named and Karakorum's marker drawn; on a 390 px phone at 1500 the Ottoman Empire is
+       named at 12 km/px and at least one polity at the globe — the three views that drew a fill and capitals but no name,
+       because a period capital scored before every polity and took the cells at the name's one trial position.
 */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -250,6 +255,39 @@ async function inkInBoxes(page, placed) {
   await P.page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:deu", { open: true, push: false })); await sleep(300);
   await chromeChecks(P.page, "phone, central Europe with Germany's card strip open", { lon: 13.4, lat: 51.5, k: 3 }, "dense");
   await P.page.keyboard.press("Escape"); await sleep(150);
+  /* ---- Phase 3a, task 0a: a large polity's name outranks the capital markers inside it ---- */
+  console.log("\n\x1b[1m9) a large polity's name outranks the capital markers inside it (the history loaded)\x1b[0m\n");
+  async function withHistory(pg) {
+    await pg.evaluate(() => document.querySelector(".atlas2").__atlas2.ensureHistory());
+    await pg.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyStarted() && c.historyReady(); }, null, { timeout: 120000 });
+  }
+  async function polityView(pg, label, V, year, polity, capital) {
+    await pg.evaluate((y) => document.querySelector(".atlas2").__atlas2.setYear(y), year);
+    await pg.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historySettled(), null, { timeout: 120000 }).catch(() => {});
+    const { placed } = await layoutAt(pg, V, "normal");
+    await pg.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historySettled(), null, { timeout: 120000 }).catch(() => {});
+    const again = (await layoutAt(pg, V, "normal")).placed;   // a second layout once the year's meshes have settled: the first may precede them
+    const names = again.filter((p) => p.kind === "polity");
+    const bad = overlaps(again);
+    check(`${label}: ${names.length} polities named, none overlapping`, names.length >= 1 && bad.length === 0, names.map((p) => p.text).join(", ") + (bad.length ? "; overlaps: " + bad.slice(0, 3).join("; ") : ""));
+    if (polity) check(`${label}: ${polity.name} is named`, again.some((p) => p.id === polity.id), names.map((p) => p.text).join(", ") || "no polity named");
+    if (capital) { const m = again.find((p) => p.kind === "capital" && p.id.startsWith("cap:" + polity.id + ":") && p.marker); check(`${label}: ${capital}'s marker is still drawn inside the named polity`, !!m, m ? (m.text ? "with its name" : "marker alone, the name yielded to the polity's") : again.filter((p) => p.kind === "capital").map((p) => p.id).join(", ") || "no capital placed"); }
+    return placed;
+  }
+  const D = await open(context);
+  await withHistory(D.page);
+  await polityView(D.page, "desktop, Europe in 1500 at 7 km/px", { lon: 10, lat: 50, k: 7 }, 1500, { id: "pol:ottoman", name: "the Ottoman Empire" }, "Constantinople");
+  await polityView(D.page, "desktop, the globe in 1245", { lon: 80, lat: 45, k: 24 }, 1245, { id: "pol:mongol", name: "the Mongol Empire" }, "Karakorum");
+  await polityView(D.page, "desktop, Europe in 1500 at 12 km/px", { lon: 20, lat: 45, k: 12 }, 1500, { id: "pol:ottoman", name: "the Ottoman Empire" }, "Constantinople");
+  check("no page errors on #map2 (desktop, the history loaded)", D.errors.length === 0, D.errors.slice(0, 3).join(" | "));
+  await D.page.close();
+  const PH = await open(phone);
+  await PH.page.setViewportSize({ width: 390, height: 844 }); await sleep(300);
+  await withHistory(PH.page);
+  await polityView(PH.page, "phone 390×844, the Mediterranean in 1500 at 12 km/px", { lon: 15, lat: 45, k: 12 }, 1500, { id: "pol:ottoman", name: "the Ottoman Empire" }, null);
+  await polityView(PH.page, "phone 390×844, the globe in 1500", { lon: 20, lat: 40, k: 24 }, 1500, null, null);
+  check("no page errors on #map2 (phone, the history loaded)", PH.errors.length === 0, PH.errors.slice(0, 3).join(" | "));
+  await PH.page.close();
   check("no page errors on #map2 (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));
   check("no page errors on #map2 (phone)", P.errors.length === 0, P.errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();

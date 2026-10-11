@@ -57,6 +57,13 @@
      marking a gap and each side of it checked on its own.  A book that is not on disk is skipped
      rather than failed.
 
+  9. A PLACE ID THAT RESOLVES TO NOTHING (Atlas v2 Phase 3a).  `card.places` is a list of ids into
+     the places registry (.claude/places-registry.js: the gazetteer, atlas/data/places.js, the
+     polity entity table), and an id nobody resolves draws nothing and says nothing — a renamed
+     gazetteer row or a typo in add-places.js would leave the card pointing into the void with
+     every other check green.  Every id must be a well-formed place id the registry holds; the
+     list must be sorted and distinct (what the writers produce, so a hand edit shows).
+
   WHAT IT REPORTS TODAY, so a run is not read as a regression.  Over the whole corpus it
   finds a large standing backlog of 1 and 6 — the Ancient Greece collection's early decks
   rest heavily on one Dartmouth course site and on the French excavation reports, because
@@ -120,6 +127,9 @@ const GL = (() => {
   } catch { return new Set(); }
 })();
 const cards = (win.CARD_DATA || []).filter(c => !PREFIX || String(c.id).startsWith(PREFIX));
+/* the places registry for rule 9 (Atlas v2 Phase 3a): the gazetteer, places.js and the entity table, read once */
+const REGISTRY = require("./places-registry.js");
+const REG = (() => { try { return REGISTRY.loadRegistry(); } catch (e) { console.error("check-cards: the places registry did not load (" + e.message + "); rule 9 reports every id"); return { rows: new Map() }; } })();
 
 const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
@@ -600,6 +610,18 @@ for (const c of cards) {
        flag is actually there: a flag card with no flag draws a prompt naming nothing, and `add-card.js`
        refuses one. */
     notes.push(["no-picture", `${id}: ${c.answerText || ""}`, id]);
+  }
+
+  // 9
+  if (c.places !== undefined) {
+    if (!Array.isArray(c.places) || !c.places.length) fails.push(["places-empty", `${id}: places is not a non-empty list`, id]);
+    else {
+      for (const p of c.places) {
+        if (!REGISTRY.validId(p)) fails.push(["places-bad-id", `${id}: "${p}" is not a place id`, id]);
+        else if (!REG.rows.has(p)) fails.push(["places-unresolved", `${id}: ${p} resolves to nothing in the registry`, id]);
+      }
+      if (c.places.slice().sort().join() !== c.places.join() || new Set(c.places).size !== c.places.length) fails.push(["places-order", `${id}: places is not sorted and distinct`, id]);
+    }
   }
 
   // 6
