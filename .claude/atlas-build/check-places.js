@@ -92,6 +92,18 @@ noClass.length ? bad("every row's item carries classes", noClass.slice(0, 5).joi
     dead.length ? bad("every id in the table resolves in the registry", dead.slice(0, 5).map((e) => e.join("→")).join(", ")) : ok("every id in the table resolves in the registry");
   }
 }
+/* the polity index (Phase 3c, task 3): atlas/data/polity-index.js is a pure function of history.bin's header */
+{
+  const PI = require("./build-polity-index.js");
+  console.log("\n\x1b[1mpolity-index\x1b[0m " + path.relative(ROOT, PI.TARGET) + "\n");
+  if (!fs.existsSync(PI.TARGET)) bad("atlas/data/polity-index.js exists", "run: node .claude/atlas-build/build-polity-index.js --install");
+  else {
+    const st4 = PI.build({ check: true, log: () => {} });
+    st4.ok ? ok("in step with history.bin's header", st4.index.counts.polities + " polities, " + st4.index.counts.ranges + " ranges, " + st4.index.counts.capitals + " capitals") : bad("in step with history.bin's header", st4.why);
+    const first = fs.readFileSync(PI.TARGET, "utf8").split("\n")[0];
+    /^\/\* sources: \[.*cliopatria.*\] \*\/$/.test(first) ? ok("first line carries `sources` (Cliopatria and Wikidata, copied from history.bin)") : bad("first line carries `sources`");
+  }
+}
 /* the light card-to-places index (Phase 3b, decision 4): atlas/data/card-places.js is a pure function of the cards' `places` */
 {
   const C = require("./build-card-places.js");

@@ -10601,6 +10601,15 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-search-in:focus-visible{box-shadow:0 0 0 2px var(--indigo);}
 .atlas2-results{position:absolute; left:0; right:0; top:calc(100% + 4px); margin:0; padding:4px 0; list-style:none; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:calc(14px * var(--fs, 1))/1.3 var(--sans); box-shadow:0 8px 24px rgba(0,0,0,.14); max-height:min(360px, 60vh, var(--atlas2-list-max, 100vh)); overflow:auto;}   /* --atlas2-list-max: the room between the list's top and the visual viewport's bottom, so the list stays above a soft keyboard (Phase 1d) */
 .atlas2-results[hidden]{display:none;}
+.atlas2-res-yrs{margin-left:auto; padding-left:8px; color:var(--ink-quiet); font:calc(11.5px * var(--fs, 1))/1.3 var(--mono); white-space:nowrap;}
+.atlas2-search-note{position:absolute; left:0; right:0; top:calc(100% + 4px); display:flex; flex-direction:column; gap:4px; padding:8px 10px; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:calc(13.5px * var(--fs, 1))/1.35 var(--sans); box-shadow:0 8px 24px rgba(0,0,0,.14);}   /* Phase 3c: a polity that is not on the map in the rail's year, with the nearest year it is */
+.atlas2-search-note[hidden]{display:none;}
+.atlas2-sn-b{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.atlas2-sn-go{min-height:34px; text-align:left;}
+.atlas2-sn-x{flex:none; appearance:none; min-width:34px; min-height:34px; border:0; border-radius:8px; background:none; color:var(--ink-soft); font:calc(18px * var(--fs, 1))/1 var(--sans); cursor:pointer;}
+.atlas2-sn-x:hover{background:var(--indigo-wash);}
+.atlas2-sn-x:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.atlas2-phone .atlas2-sn-go, .atlas2-phone .atlas2-sn-x{min-height:44px; min-width:44px;}
 .atlas2-results li{display:flex; align-items:baseline; gap:8px; padding:7px 12px; cursor:pointer;}
 .atlas2-results li.active, .atlas2-results li:hover{background:var(--indigo-wash);}
 .atlas2-res-name{flex:none;}

@@ -46621,6 +46621,10 @@ let prev = null;
         return { title: plain(c.answerText) || plain(c.answer) || plain(c.question) || id, collId: root0 ? root0.id : "", coll: root0 ? nodeTitle(root0) : "" };
       },
       cardHref: (id) => "#card/" + id,
+      // "New discovery" on a place card (Phase 3c): the existing `placesSeen` register v1's Atlas panels write — read, and written on first sight
+      // exactly as `showCountryPopupName` does (markSeen), without v1's sound or achievements check. No new field; the blob's shape is unchanged.
+      seenPlace: (name) => !!(S.placesSeen && S.placesSeen[name]),
+      discover: (name) => markSeen("placesSeen", name),
     };
     const atlas = window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion, study: studyHost } });
     if (current.params && current.params.place && atlas && atlas.showPlace) atlas.showPlace(current.params.place);   // the glossary popup's button (Phase 3c)
