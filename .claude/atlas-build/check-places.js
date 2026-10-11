@@ -77,5 +77,26 @@ for (const r of rows) { const it = items[r.qid]; if (!it) { unchecked.push(r.id)
 unchecked.length ? bad("every row's item is in the Wikidata cache", unchecked.length + ": " + unchecked.slice(0, 5).join(", ")) : ok("every row's item is in the Wikidata cache", rows.length + " items, retrieved " + (cache.retrieved || "never"));
 far.length ? bad("every row's `at` is the item's coordinate (within 1 km)", far.slice(0, 5).join("; ")) : ok("every row's `at` is the item's coordinate (within 1 km)");
 noClass.length ? bad("every row's item carries classes", noClass.slice(0, 5).join(", ")) : ok("every row's item carries classes");
+/* the light card-to-places index (Phase 3b, decision 4): atlas/data/card-places.js is a pure function of the cards' `places` */
+{
+  const C = require("./build-card-places.js");
+  console.log("\n\x1b[1mcard-places\x1b[0m " + path.relative(ROOT, C.TARGET) + "\n");
+  if (!fs.existsSync(C.TARGET)) bad("atlas/data/card-places.js exists", "run: node .claude/atlas-build/build-card-places.js --install");
+  else {
+    const t2 = fs.readFileSync(C.TARGET, "utf8");
+    /^\/\* sources: \[\] \*\/$/.test(t2.split("\n")[0]) ? ok("first line carries `sources` (empty: no third-party data)") : bad("first line carries `sources`");
+    let st; try { st = C.build({ check: true, log: () => {} }); } catch (e) { bad("the index builds within its budget", e.message); st = null; }
+    if (st) {
+      st.ok ? ok("in step with the cards' `places`", st.index.counts.cards + " cards, " + st.index.ids.length + " ids, " + st.index.counts.links + " links") : bad("in step with the cards' `places`", st.why);
+      const bytes2 = Buffer.byteLength(t2, "utf8");
+      bytes2 <= C.BUDGET ? ok("size " + bytes2 + " bytes ≤ " + C.BUDGET + " (a split is proposed above it, not built)") : bad("size over the " + C.BUDGET + "-byte budget: propose a split", bytes2 + " bytes");
+      const w2 = {}; new Function("window", t2)(w2); const X = w2.ATLAS_CARD_PLACES;
+      const unresolved = X.ids.filter((id) => !reg.rows.has(id));
+      unresolved.length ? bad("every id in the index resolves in the registry", unresolved.slice(0, 5).join(", ")) : ok("every id in the index resolves in the registry", X.ids.length + " ids");
+      const badIdx = Object.entries(X.cards).filter(([, a]) => !Array.isArray(a) || !a.length || a.some((i) => !Number.isInteger(i) || i < 0 || i >= X.ids.length) || new Set(a).size !== a.length);
+      badIdx.length ? bad("every entry is a non-empty list of distinct indices into `ids`", badIdx.slice(0, 3).map((e) => e[0]).join(", ")) : ok("every entry is a non-empty list of distinct indices into `ids`");
+    }
+  }
+}
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);

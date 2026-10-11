@@ -61,7 +61,7 @@
 "use strict";
 (function (root) {
   const IN_WORKER = typeof importScripts === "function";
-  if (IN_WORKER) importScripts("atlas-format.js", "vendor/earcut.js");
+  if (IN_WORKER) importScripts("atlas-format.js", "vendor/earcut.js", "study.js");
 
   const CHORD_DEG = [4.1, 2.3, 1.0, 0.5, 0.3];   // per level 0–4: a quarter pixel of sag at each level's first use (levels 3–4 are tiles)
   /* COOPERATIVE YIELDING (Phase 1d). In a Worker nothing here needs to yield: a frame is never behind this thread. On
@@ -362,6 +362,8 @@
     if (msg.type === "history-faces") return guard(handleHistoryFaces(msg, post), "history faces: ");
     if (msg.type === "history-evict") { if (HIST) for (const k of msg.keys || []) HIST.resident.delete(k); return null; }
     if (msg.type === "gazetteer") { loadGazetteer(msg.table); post({ type: "gazetteer", rows: GZ.rows.length }); return null; }
+    if (msg.type === "study-rows") { setStudyRows(msg.rows); post({ type: "study-rows", n: STUDY ? STUDY.rows.size : 0 }); return null; }
+    if (msg.type === "study-flags") { setStudyFlags(msg); return null; }
     if (msg.type === "metrics") { METRICS = msg.styles; return null; }
     if (msg.type === "layout") { handleLayout(msg, post); return null; }
     /* a lost GL context (Phase 1c): the main thread keeps nothing after upload, so the resident levels are
@@ -436,6 +438,23 @@
   const POLITY_SIDE = [0, -0.25, 0.25, -0.45, 0.45];                                // the fractions of its own width a straight polity name moves sideways from its anchor when the anchor's place is taken (3b)
   const POLITY_NUDGE = [0, -1.2, 1.2, -2.4, 2.4, -3.6, 3.6];                    // the lines a straight polity name moves up or down from its anchor when the anchor is taken
   function unitOf(lon, lat) { const la = lat * D2R_, lo = lon * D2R_, c = Math.cos(la); return [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; }
+  /* PHASE 3b — THE STUDY LAYER'S STATE. `rows`: the places the worker does not already have geometry for — every study place that is
+     drawn as a MARK (a capital, city, town, site, mountain, cape: a point) and every place of places.js that is an area or a water
+     (a region, an island, a range …: a name at a point, no dot) — id → { id, name, kind, sub, a (unit vector), n (cards), pd
+     (a present-day settlement: not alive in a past year) }. `flags`: id → 1 (a place of the Full Atlas) | 2 (the reader's own);
+     absent = not drawn. A gazetteer AREA (a country, a province, a sea, a river …) and a polity are flagged only: the ordinary pass
+     draws them in their own shape and the flag lifts them past the density rules, raises their score and tints them. */
+  let STUDY = null;
+  const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, cape: 1 };
+  function setStudyRows(rows) {
+    const m = new Map(), points = new Set();
+    for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd }); if (STUDY_POINT[r.kind]) points.add(r.id); }
+    STUDY = Object.assign(STUDY || { flags: new Map(), mode: "", rev: 0 }, { rows: m, points });
+  }
+  function setStudyFlags(msg) {
+    const f = new Map(); for (const [id, v] of msg.entries || []) if (v) f.set(id, v);
+    STUDY = Object.assign(STUDY || { rows: new Map(), points: new Set() }, { flags: f, mode: msg.mode || "", rev: msg.rev || 0 });
+  }
   function loadGazetteer(table) {
     const col = {}; table.cols.forEach((c, i) => { col[c] = i; });
     const rows = table.rows.map((r, i) => {
@@ -508,6 +527,7 @@
        towns are not alive and are not named (the owner's decision: hide the anachronistic ones; the physical names stay);
        the alive polities are named along a path of their own, and the period capitals of the year are marked and named */
     const present = q.present !== false;
+    const study = STUDY && STUDY.mode && STUDY.flags.size ? STUDY : null;   // the study layer is on (3b)
     const histRows = [];
     if (HIST && q.aliveFaces && q.aliveFaces.length) {
       for (const fi of q.aliveFaces) {
@@ -523,7 +543,7 @@
       }
       histRows.sort((p, q) => q.px2 - p.px2);
     }
-    for (const row of histRows) { const chordPx = row.path.len; if (!show.countries || chordPx < MIN_CHORD_PX) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + row.rank * 10 + KW.country, hist: true }); }
+    for (const row of histRows) { const chordPx = row.path.len; const hl = study ? (study.flags.get(row.id) || 0) : 0; if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + (hl ? -400 - (hl === 2 ? 40 : 0) : 0) + row.rank * 10 + KW.country, hist: true, hl }); }
     /* A LARGE POLITY'S NAME OUTRANKS THE CAPITAL MARKERS INSIDE IT (Phase 3a, task 0a; the 2b review's Ottoman Empire of 1500
        and Mongol Empire of 1245 drew a fill and their capitals but no name). The period capitals scored 0 — before every
        polity, whose best score is KW.country — so Constantinople's marker and name took the cells at the Ottoman label's one
@@ -535,25 +555,30 @@
     for (const row of GZ.rows) {
       const k = row.kind;
       if (!present && (k === "country" || k === "admin1" || k === "capital" || k === "city" || k === "town")) continue;
+      /* a study place (3b) is lifted past the density rules: a country, a province, a sea, a river, a lake, an island the reader's cards are
+         about is drawn whatever the density, the zoom band or the Names toggles say (the present-day rules above still hold: a past year has
+         no present-day country); a settlement the study pass draws as a mark is not drawn twice */
+      const hl = study ? (study.flags.get(row.id) || 0) : 0;
+      if (hl && study.points.has(row.id)) continue;
       let chordPx = row.len / kmpp;
-      if (k === "country") { if (!show.countries || chordPx < MIN_CHORD_PX) continue; if (row.z && zl > row.z[1] + 2) continue; }
-      else if (k === "admin1") { if (!show.countries || !show.provinces || !q.admin1 || chordPx < MIN_CHORD_PX) continue; }
+      if (k === "country") { if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; if (!hl && row.z && zl > row.z[1] + 2) continue; }
+      else if (k === "admin1") { if (!hl && (!show.countries || !show.provinces || !q.admin1 || chordPx < MIN_CHORD_PX)) continue; }
       else if (k === "capital" || k === "city" || k === "town") { if (!show.cities) continue; if (row.z && row.z > zl + shift) continue; }
       else if (PHYSICAL[k]) {
-        if (!show.physical) continue;
-        if (k === "lake") { if (!show.lakes || Math.max(row.len, 1) / kmpp < MIN_CHORD_PX) continue; }
+        if (!hl && !show.physical) continue;
+        if (k === "lake") { if (!hl && (!show.lakes || Math.max(row.len, 1) / kmpp < MIN_CHORD_PX)) continue; }
         else if (k === "river") {
-          if (!show.rivers || !q.riversDrawn || row.river < 0) continue;
+          if (!(hl || show.rivers) || !q.riversDrawn || row.river < 0) continue;
           const maxRank = q.level === 0 ? 3 : q.level === 1 ? 6 : 99; if (row.rank > maxRank) continue;
           // the river's caps (one per stretch of a merged row) — none reaching the view means no vertex is projected
           if (!RIVER_CAPS || !row.rivers.some((ei) => { const capR = RIVER_CAPS.get(ei); if (!capR) return false; const d = Math.max(-1, Math.min(1, capR[0] * rot[6] + capR[1] * rot[7] + capR[2] * rot[8])); return Math.acos(d) - capR[3] <= viewAngle; })) continue;
         }
-        else { const z = Array.isArray(row.z) ? row.z : null; if (z && (zl + shift < z[0] || zl > z[1] + 1)) continue; if (!z && !row.p) continue; if (row.p && chordPx < MIN_CHORD_PX) continue; }
+        else { const z = Array.isArray(row.z) ? row.z : null; if (!hl && z && (zl + shift < z[0] || zl > z[1] + 1)) continue; if (!z && !row.p) continue; if (!hl && row.p && chordPx < MIN_CHORD_PX) continue; }
       } else continue;
       let a = null;
       if (k !== "river") { a = proj(row.a); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; }   // nearer the limb than LIMB_Z a name is foreshortened past reading and faded: not a candidate
-      const score = (row.id === q.selected ? -1000 : 0) + row.rank * 10 + (KW[k] || 5);
-      cands.push({ row, chordPx, a, score });
+      const score = (row.id === q.selected ? -1000 : 0) + (hl ? -400 - (hl === 2 ? 40 : 0) : 0) + row.rank * 10 + (KW[k] || 5);
+      cands.push({ row, chordPx, a, score, hl });
     }
     cands.sort((p, r) => p.score - r.score);
     /* ---- the grid ---- */
@@ -612,8 +637,9 @@
     const placed = [];
     // the period capitals' MARKERS are reserved before any label (task 0a): a polity name placed earlier in the order is laid
     // round them, and the marker itself cannot be lost to a name; the capital's own name is placed in its turn
+    // (with the study layer on, a PRESENT-DAY capital's dot is not reserved: the reader's own marks take the ground first, and the dot yields)
     const reservedMarker = new Map();
-    for (const c of cands) { if (c.row.kind !== "capital") continue; const r = MARKER_R.capital, x = c.a[0], y = c.a[1]; const m = [x - r - 1, y - r - 1, x + r + 1, y + r + 1]; if (fullyOn(m) && free(m)) { take(m); reservedMarker.set(c.row.id, m); } }
+    for (const c of cands) { if (c.row.kind !== "capital" || (study && !c.hist)) continue; const r = MARKER_R.capital, x = c.a[0], y = c.a[1]; const m = [x - r - 1, y - r - 1, x + r + 1, y + r + 1]; if (fullyOn(m) && free(m)) { take(m); reservedMarker.set(c.row.id, m); } }
     const union = (list) => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const r of list) { if (r[0] < x0) x0 = r[0]; if (r[1] < y0) y0 = r[1]; if (r[2] > x1) x1 = r[2]; if (r[3] > y1) y1 = r[3]; } return [x0, y0, x1, y1]; };
     /* a straight run of glyphs centred at (x, y) at angle `ang` (radians, screen y down): glyph origins and one rect */
     const straight = (sh, x, y, ang) => {
@@ -674,15 +700,74 @@
     };
     const polyline = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return cum; };
     const reads = (S) => { const dx = S[S.length - 1][0] - S[0][0], dy = S[S.length - 1][1] - S[0][1]; return Math.abs(dx) >= Math.abs(dy) * 0.35 ? dx >= 0 : dy <= 0; };   // left to right, else upward
+    /* ---- PHASE 3b: THE STUDY PASS — before the ordinary labels, so the places a reader studies take their ground first ----
+       Marks (a capital, city, town, site, mountain, cape): the places within STACK_PX of one another on screen become ONE marker
+       with a count (they separate as the reader zooms, and a tap zooms to them); a place alone is a mark of its own shape — a diamond,
+       a triangle for a mountain or a cape — never the dot of a city — with its name beside it where a side is free. Areas and waters of
+       places.js (a region, an island, a range …) are a name at a point, no mark. A mark never lies under a control (the chrome is
+       already taken) or off the frame; a place is dropped only for that, and the drop reason says so. */
+    const STACK_PX = q.phone ? 34 : 30;   // > the radii of two marks and the gap between them: see AtlasStudy.cluster
+    if (study) {
+      const pts = [], names = [];
+      for (const [id, f] of study.flags) {
+        const row = study.rows.get(id); if (!row) continue;
+        if (!present && row.pd) continue;   // a present-day city is not alive in a past year
+        const a = proj(row.a); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 0)) continue;
+        (STUDY_POINT[row.kind] ? pts : names).push({ id, row, f, a, x: a[0], y: a[1], w: f * 1e6 + row.n });
+      }
+      const byW = (p, r) => r.w - p.w || (p.id < r.id ? -1 : 1);
+      pts.sort(byW); names.sort(byW);
+      const byId = new Map(pts.map((p) => [p.id, p]));
+      const unitAt = (x, y) => { const ax = (x - cx) / radius, ay = -(y - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay)); return [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az]; };
+      const groups = root.AtlasStudy.cluster(pts.map((p) => ({ id: p.id, x: p.x, y: p.y })), STACK_PX);
+      for (const g of groups) {
+        const mem = g.ids.map((i) => byId.get(i)), top = mem[0], f = Math.max(...mem.map((m) => m.f));
+        if (g.n > 1) {
+          dropping = { name: "stack of " + g.n };
+          const r = g.n > 9 ? 11 : 9, x = g.x, y = g.y, mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
+          if (!fullyOn(mrect) || !free(mrect)) { drop("a stack of " + g.n + " places has no free ground (a control, a capital's mark or the frame's edge)"); continue; }
+          take(mrect);
+          placed.push({ id: "stack:" + top.id, kind: "stack", style: "", text: "", score: -300 - f * 10, selected: false, hist: false, st: f, n: g.n, members: g.ids.slice(0, 60), a: unitAt(x, y), sx: x, sy: y, alpha: Math.min(1, top.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, "stack"], hit: mrect });
+          continue;
+        }
+        const row = top.row, markShape = row.kind === "mountain" || row.kind === "cape" ? "triangle" : "diamond", r = 6, x = top.x, y = top.y;
+        const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
+        dropping = row;
+        if (!fullyOn(mrect) || !free(mrect)) { drop("study mark has no free ground (a control, a capital's mark or the frame's edge)"); continue; }
+        take(mrect);
+        const base = { id: row.id, kind: row.kind, style: row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town", text: "", score: -300 - f * 10, selected: row.id === q.selected, hist: false, st: f };
+        const st2 = METRICS[base.style];
+        let got = null, sh = null;
+        if (show.places && st2 && row.name) {
+          sh = shape(row.name, st2, missing); sh.style = base.style;
+          for (const [tx, ty] of [[x + r + 3 + sh.w / 2, y], [x - r - 3 - sh.w / 2, y], [x, y - r - 3 - sh.h / 2], [x, y + r + 3 + sh.h / 2]]) { const g2 = straight(sh, tx, ty, 0); if (fullyOn(g2.rects[0]) && free(g2.rects[0])) { got = g2; break; } }
+        }
+        if (got) { take(got.rects[0]); base.text = sh.chars.join(""); }
+        const box = got ? union([got.rects[0], mrect]) : mrect;
+        placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, top.a[2] / 0.2), glyphs: got ? got.glyphs : [], box, rects: got ? [got.rects[0], mrect] : [mrect], marker: [x, y, r, markShape], hit: box }));
+      }
+      for (const nm of names) {
+        const row = nm.row; dropping = row;
+        if (!show.places) continue;
+        const style = styleFor(row, 0), st2 = METRICS[style]; if (!st2 || !row.name) continue;
+        const sh = shape(row.name, st2, missing); sh.style = style;
+        const g2 = straight(sh, nm.x, nm.y, 0);
+        if (!fullyOn(g2.rects[0])) { drop("study name is not wholly on screen"); continue; }
+        if (!free(g2.rects[0])) { drop("study name collides"); continue; }
+        take(g2.rects[0]);
+        placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: -300 - nm.f * 10, selected: row.id === q.selected, hist: false, st: nm.f, a: row.a, sx: nm.x, sy: nm.y, alpha: Math.min(1, nm.a[2] / 0.2), glyphs: g2.glyphs, box: g2.rects[0], rects: g2.rects, marker: null, hit: g2.rects[0], curved: false, meanAngle: 0 });
+      }
+    }
+    const capAll = cap + placed.length;   // the density cap counts the ordinary labels only: the study pass is the reader's own
     let riverLabels = 0;
     for (const c of cands) {
-      if (placed.length >= cap) break;
+      if (placed.length >= capAll) break;
       const row = c.row, k = row.kind; dropping = row;
       const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
       if (!st) { drop(k + " no metrics for style " + styleId); continue; }
       const text = row.name;
       const sh = shape(text, st, missing); sh.style = styleId;
-      const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face };
+      const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
       if (k === "polity") {
         // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
         const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
@@ -743,7 +828,7 @@
           const runS = smoothRun(run, cum, st.size * 2), cumS = polyline(runS);
           // the name every RIVER_REPEAT_PX along the run; a run shorter than that carries it once, at its middle
           const LrS = cumS[cumS.length - 1];
-          for (let s0 = LrS < RIVER_REPEAT_PX ? LrS / 2 : RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < LrS && placed.length < cap; s0 += RIVER_REPEAT_PX) {
+          for (let s0 = LrS < RIVER_REPEAT_PX ? LrS / 2 : RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < LrS && placed.length < capAll; s0 += RIVER_REPEAT_PX) {
             // a spot that bends or collides is not the stretch's last word: the text slides up to 120 px either way
             let g = null, s1 = s0;
             for (const off of [0, 60, -60, 120, -120]) {

@@ -427,6 +427,30 @@ One place per physical site. Two ways, both from the owner's decision 1: **topon
 | city:1159135147 İzmit | Q209349 Nicomedia (site, 1.9 km) |
 | city:1159146389 Şanlıurfa | Q1190403 Edessa (site, 1.8 km) |
 
+## Kinds corrected by the 3b class rules
+
+A row's kind is what its classes give (a natural feature named directly by a class — an island, a mountain, a cape, a river, a lake — decides before anything reached by subclass-of; a polis is read last, so an island that is also a polis stays an island). 3a read the first row of the table that any class reached, so these rows had another kind:
+
+| the place | kind in 3a | kind now |
+|---|---|---|
+| pl:q1136637 Sounion | site/site | cape |
+| pl:q129296 Santorini | site/site | island |
+| pl:q1443132 Kalaureia | site/site | island |
+| pl:q1518125 Qubbet el-Hawa | site/site | mountain |
+| pl:q156882 Samos | site/site | island |
+| pl:q173148 Delos | town | island |
+| pl:q1741475 Kilwa Kisiwani | town | island |
+| pl:q1799887 Lade | site/site | island |
+| pl:q192980 Lamia (city) | site/site | city |
+| pl:q193163 Temple Mount | site/building | mountain |
+| pl:q200642 Palatine Hill | site/site | mountain |
+| pl:q208566 Skyros | site/site | island |
+| pl:q25094151 Mochlos | site/site | island |
+| pl:q2696558 Pharos | site/site | island |
+| pl:q39971 Gela | site/site | town |
+| pl:q546109 Keros | site/site | island |
+| pl:q602564 Thurii | site/site | city |
+
 ## Period settlements 2–25 km from another settlement, NOT merged (for the owner)
 
 Too far apart to be the same site on coordinates alone; each pair is the owner's to decide — add `"<id>": { "into": "<id>", "reason": "…" }` under `merges` in places-spec.json and re-run. (Knossos and Heraklion are 4 km apart and are different places; Chang'an and Xi'an are 4.7 km apart and are not.)

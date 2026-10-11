@@ -1124,8 +1124,8 @@
   },
   "pl:q1136637": {
    "name": "Sounion",
-   "kind": "site",
-   "sub": "site",
+   "kind": "cape",
+   "sub": "",
    "qid": "Q1136637",
    "at": [
     24.0301,
@@ -1144,7 +1144,8 @@
     "via": "title",
     "km": 0.5
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q1136681": {
    "name": "Seleucia",
@@ -2629,8 +2630,8 @@
   },
   "pl:q129296": {
    "name": "Santorini",
-   "kind": "site",
-   "sub": "site",
+   "kind": "island",
+   "sub": "",
    "qid": "Q129296",
    "at": [
     25.4325,
@@ -2648,7 +2649,8 @@
     "via": "title",
     "km": 3.2
    },
-   "cards": 2
+   "cards": 2,
+   "kindWas": "site/site"
   },
   "pl:q1303524": {
    "name": "Sphacteria",
@@ -3658,8 +3660,8 @@
   },
   "pl:q1443132": {
    "name": "Kalaureia",
-   "kind": "site",
-   "sub": "site",
+   "kind": "island",
+   "sub": "",
    "qid": "Q1443132",
    "at": [
     23.4792,
@@ -3679,7 +3681,8 @@
     "via": "label",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q1450403": {
    "name": "Lion Gate",
@@ -4036,8 +4039,8 @@
   },
   "pl:q1518125": {
    "name": "Qubbet el-Hawa",
-   "kind": "site",
-   "sub": "site",
+   "kind": "mountain",
+   "sub": "",
    "qid": "Q1518125",
    "at": [
     32.8903,
@@ -4055,7 +4058,8 @@
     "via": "title",
     "km": 0.2
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q1527638": {
    "name": "Gisr el-Mudir",
@@ -4284,8 +4288,8 @@
   },
   "pl:q156882": {
    "name": "Samos",
-   "kind": "site",
-   "sub": "site",
+   "kind": "island",
+   "sub": "",
    "qid": "Q156882",
    "at": [
     26.8333,
@@ -4303,7 +4307,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q15709786": {
    "name": "Sellasia",
@@ -5181,7 +5186,7 @@
   },
   "pl:q173148": {
    "name": "Delos",
-   "kind": "town",
+   "kind": "island",
    "sub": "",
    "qid": "Q173148",
    "at": [
@@ -5201,7 +5206,8 @@
     "via": "title",
     "km": 0.2
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "town"
   },
   "pl:q173292": {
    "name": "Capri",
@@ -5278,7 +5284,7 @@
   },
   "pl:q1741475": {
    "name": "Kilwa Kisiwani",
-   "kind": "town",
+   "kind": "island",
    "sub": "",
    "qid": "Q1741475",
    "at": [
@@ -5297,7 +5303,8 @@
     "via": "title",
     "km": 2.5
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "town"
   },
   "pl:q17487868": {
    "name": "Dolores Hidalgo",
@@ -5508,8 +5515,8 @@
   },
   "pl:q1799887": {
    "name": "Lade",
-   "kind": "site",
-   "sub": "site",
+   "kind": "island",
+   "sub": "",
    "qid": "Q1799887",
    "at": [
     27.225,
@@ -5527,7 +5534,8 @@
     "via": "label",
     "km": 11.3
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q179999": {
    "name": "Tarquinia",
@@ -6339,8 +6347,8 @@
   },
   "pl:q192980": {
    "name": "Lamia (city)",
-   "kind": "site",
-   "sub": "site",
+   "kind": "city",
+   "sub": "",
    "qid": "Q192980",
    "at": [
     22.4311,
@@ -6360,12 +6368,13 @@
     "via": "label",
     "km": 0.4
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q193163": {
    "name": "Temple Mount",
-   "kind": "site",
-   "sub": "building",
+   "kind": "mountain",
+   "sub": "",
    "qid": "Q193163",
    "at": [
     35.2356,
@@ -6386,7 +6395,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 2
+   "cards": 2,
+   "kindWas": "site/building"
   },
   "pl:q193342": {
    "name": "Rostov Veliky",
@@ -6670,8 +6680,8 @@
   },
   "pl:q200642": {
    "name": "Palatine Hill",
-   "kind": "site",
-   "sub": "site",
+   "kind": "mountain",
+   "sub": "",
    "qid": "Q200642",
    "at": [
     12.4869,
@@ -6692,7 +6702,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 3
+   "cards": 3,
+   "kindWas": "site/site"
   },
   "pl:q2008735": {
    "name": "Siwa Oasis",
@@ -7160,8 +7171,8 @@
   },
   "pl:q208566": {
    "name": "Skyros",
-   "kind": "site",
-   "sub": "site",
+   "kind": "island",
+   "sub": "",
    "qid": "Q208566",
    "at": [
     24.525,
@@ -7181,7 +7192,8 @@
     "via": "label",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q209010": {
    "name": "Karelian Isthmus",
@@ -8568,8 +8580,8 @@
   },
   "pl:q25094151": {
    "name": "Mochlos",
-   "kind": "site",
-   "sub": "site",
+   "kind": "island",
+   "sub": "",
    "qid": "Q25094151",
    "at": [
     25.9067,
@@ -8587,7 +8599,8 @@
     "via": "title",
     "km": 0.1
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q2511513": {
    "name": "Veleia",
@@ -8901,8 +8914,8 @@
   },
   "pl:q2696558": {
    "name": "Pharos",
-   "kind": "site",
-   "sub": "site",
+   "kind": "island",
+   "sub": "",
    "qid": "Q2696558",
    "at": [
     29.885,
@@ -8921,7 +8934,8 @@
     "via": "title",
     "km": 0.1
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q270273": {
    "name": "Lutetia",
@@ -11218,8 +11232,8 @@
   },
   "pl:q39971": {
    "name": "Gela",
-   "kind": "site",
-   "sub": "site",
+   "kind": "town",
+   "sub": "",
    "qid": "Q39971",
    "at": [
     14.25,
@@ -11237,7 +11251,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 2
+   "cards": 2,
+   "kindWas": "site/site"
   },
   "pl:q404513": {
    "name": "Aegospotami",
@@ -12897,8 +12912,8 @@
   },
   "pl:q546109": {
    "name": "Keros",
-   "kind": "site",
-   "sub": "site",
+   "kind": "island",
+   "sub": "",
    "qid": "Q546109",
    "at": [
     25.6486,
@@ -12916,7 +12931,8 @@
     "via": "title",
     "km": 0.2
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q548283": {
    "name": "Qaw el-Kebir",
@@ -13825,8 +13841,8 @@
   },
   "pl:q602564": {
    "name": "Thurii",
-   "kind": "site",
-   "sub": "site",
+   "kind": "city",
+   "sub": "",
    "qid": "Q602564",
    "at": [
     16.4502,
@@ -13844,7 +13860,8 @@
     "via": "title",
     "km": 5.4
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q602572": {
    "name": "Le Moustier",

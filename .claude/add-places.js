@@ -50,4 +50,5 @@ const next = [...new Set(have.filter((id) => !remove.includes(id)).concat(add))]
 if (JSON.stringify(next) === JSON.stringify(have)) { console.log(cardId + ": unchanged"); process.exit(0); }
 if (next.length) card.places = next; else delete card.places;
 writeCards(cards, tree);
+require("./atlas-build/build-card-places.js").build({ cards, install: true, log: () => {} });   // the light index follows the card (Phase 3b)
 console.log(cardId + ": " + (next.length ? "" : "no places")); for (const id of next) console.log("  " + (have.includes(id) ? "  " : "+ ") + describe(id)); for (const id of remove) if (have.includes(id)) console.log("  - " + describe(id));

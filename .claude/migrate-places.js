@@ -82,7 +82,7 @@ const TOPS = [
   ["people", "", ["Q41710", "Q2472587", "Q465299", "Q11514315", "Q1792644"]],   // ethnic group, people, archaeological culture, historical period, art style (reported, never a row)
 ];
 const TOP_IDS = [...new Set(TOPS.flatMap((t) => t[2]))];
-const DIRECT_NATURAL = ["island", "island-group", "range", "mountain", "cape", "river", "lake"];   // the rows whose class lists are clean natural features
+const DIRECT_NATURAL = ["island", "island-group", "range", "mountain", "cape"];   // the rows whose class lists are clean natural features (a river or a lake that is also a site stays a site: an archaeological site named for its river is the site)
 const RADIUS = { point: 25, battle: 25, river: 300, region: 300, range: 300, sea: 300, shelf: 300 };
 const radiusOf = (kind) => RADIUS[kind] || 25;
 const DISAMBIG = "Q4167410";
@@ -338,7 +338,7 @@ function makeResolver(reg, cache, mergedQ) {
     if (!k) return { unresolved: "the item " + qid + " (" + (item.label || item.title || name) + ") has no class the taxonomy maps: " + classNames(cache, item.classes || []), qid };
     if (k.kind === "polity") return { unresolved: "the item " + qid + " (" + (item.label || name) + ") is a state, not a place row — link it through polity-spec.json (" + classNames(cache, item.classes) + ")", qid };
     if (k.kind === "people") return { unresolved: "the item " + qid + " (" + (item.label || name) + ") is a people or a culture (Phase 2c), not a place row (" + classNames(cache, item.classes) + ")", qid };
-    return { id: "pl:q" + qid.slice(1), via, d, item: { qid, kind: k.kind, sub: k.sub, coord: item.coord, label: item.label || "", title: item.title || (cache.titles[name] && cache.titles[name].qid === qid ? name : ""), classes: item.classes || [] } };
+    return { id: "pl:q" + qid.slice(1), via, d, item: { qid, kind: k.kind, sub: k.sub, forced: !!forceKind, coord: item.coord, label: item.label || "", title: item.title || (cache.titles[name] && cache.titles[name].qid === qid ? name : ""), classes: item.classes || [] } };
   }
   return { resolve, byQid };
 }
@@ -463,7 +463,7 @@ function run() {
   /* the rows the cards need that the registry lacks → the spec */
   const newRows = {};
   const topoById = new Map();
-  for (const [k, t] of topo) { const r = res.get(k); if (!r.id) continue; let l = topoById.get(r.id); if (!l) topoById.set(r.id, l = []); l.push(t); if (r.item) { const row = newRows[r.id] || (newRows[r.id] = { name: r.item.title || r.item.label || t.name, kind: r.item.kind, sub: r.item.sub || "", qid: r.item.qid, at: r.item.coord, within: "", aliases: [], wiki: r.item.title || "", by: "migration", evidence: { classes: r.item.classes, via: r.via, km: Math.round((r.d || 0) * 10) / 10 }, cards: 0 }); for (const n of [t.name, t.label]) if (n && fold(n) !== fold(row.name) && !row.aliases.some((a) => fold(a) === fold(n))) row.aliases.push(n); row.cards += t.cards.length; } }
+  for (const [k, t] of topo) { const r = res.get(k); if (!r.id) continue; let l = topoById.get(r.id); if (!l) topoById.set(r.id, l = []); l.push(t); if (r.item) { const row = newRows[r.id] || (newRows[r.id] = Object.assign({ name: r.item.title || r.item.label || t.name, kind: r.item.kind, sub: r.item.sub || "", qid: r.item.qid, at: r.item.coord, within: "", aliases: [], wiki: r.item.title || "", by: "migration", evidence: { classes: r.item.classes, via: r.via, km: Math.round((r.d || 0) * 10) / 10 }, cards: 0 }, r.item.forced ? { forced: true } : {})); for (const n of [t.name, t.label]) if (n && fold(n) !== fold(row.name) && !row.aliases.some((a) => fold(a) === fold(n))) row.aliases.push(n); row.cards += t.cards.length; } }
   for (const g of glossRes) if (g.r.item && !newRows[g.r.id] && !reg.rows.has(g.r.id)) newRows[g.r.id] = { name: g.r.item.title || g.r.item.label || g.g.name, kind: g.r.item.kind, sub: g.r.item.sub || "", qid: g.r.item.qid, at: g.r.item.coord, within: "", aliases: fold(g.g.name) === fold(g.r.item.title || g.r.item.label) ? [] : [g.g.name], wiki: g.r.item.title || "", by: "migration (glossary place)", evidence: { classes: g.r.item.classes, via: g.r.via, km: Math.round((g.r.d || 0) * 10) / 10 }, cards: 0 };
   for (const [id, names] of X.aliases) if (newRows[id]) for (const n of names) if (n && fold(n) !== fold(newRows[id].name) && !newRows[id].aliases.some((a) => fold(a) === fold(n))) newRows[id].aliases.push(n);
   for (const [id, l] of foldedItems) if (newRows[id]) newRows[id].merged = l.slice().sort((a, b) => (a.qid < b.qid ? -1 : 1));
@@ -514,7 +514,9 @@ function run() {
     const byId = new Map(cards.map((c) => [c.id, c]));
     for (const e of reg.entities) if (e.kind === "polity") for (const cid of e.cards || []) { const c = byId.get(cid); if (!c) bad(e.id + " links " + cid + ", which is not a card"); else if (!(c.places || []).includes(e.id)) bad(e.id + " links " + cid + " but the card's places lack it"); }
     for (const c of cards) for (const id of c.places || []) if (id.startsWith("pol:") && !(reg.cardsOf(id) || []).includes(c.id)) { /* a card may point at a polity the spec does not link (an author's addition): allowed, reported */ }
+    { const rest = crossMerge([...new Set(cards.flatMap((c) => c.places || []))].filter((id) => !id.startsWith("pol:")).map((id) => ({ id })), reg, spec.rows || {}, spec.merges || {}); for (const m of rest.list) bad("two places of one site: " + m.id + " " + m.name + " lies " + m.km + " km from " + m.into + " " + m.intoName + " (run node .claude/migrate-places.js, which folds it in)"); }
     const B = require("./atlas-build/build-places.js"); const r = B.build({ check: true, log: () => {} }); if (!r.ok) bad("places-spec.json and atlas/data/places.js are not in step: " + r.why + " (run node .claude/atlas-build/build-places.js --install)");
+    { const C = require("./atlas-build/build-card-places.js").build({ cards, check: true, log: () => {} }); if (!C.ok) bad("atlas/data/card-places.js is not in step with the cards: " + C.why + " (run node .claude/atlas-build/build-card-places.js --install)"); }
     log(fails ? `\n${fails} failed\n` : "\nmigrate-places --check: every place id resolves, every derived id is on its card, every polity's cards carry it, the spec is in step\n");
     process.exit(fails ? 1 : 0);
   }
@@ -528,6 +530,17 @@ function run() {
     // row the first had written and the file oscillated (measured 2026-10-11: idempotence is this line)
     const needed = new Set([...topoById.keys()].concat(glossRes.filter((g) => g.r.id).map((g) => g.r.id)));
     for (const id of Object.keys(rows)) if (!rows[id].manual && !newRows[id] && !needed.has(id)) delete rows[id];
+    /* 3b, decision 2 and the polis rule: a row's kind is what its classes give, recomputed every run — a row written by 3a from
+       the first-match rule (an island that is also a tourist destination was a `site`) is corrected, and the old kind is kept as
+       `kindWas` so the report can say so. A row whose kind was forced (a settlement-scale district or port, a town) or entered by hand
+       is left alone. */
+    for (const [id, row] of Object.entries(rows)) {
+      if (row.manual || row.forced || !row.evidence || !row.evidence.classes || !row.evidence.classes.length) continue;
+      const k = kindOf(cache, row.evidence.classes);
+      if (!k || k.kind === "polity" || k.kind === "people" || !R.PLACE_KINDS.includes(k.kind)) continue;
+      if (k.kind === "region" && /^(town|city|site)$/.test(row.kind)) continue;   // never degrade a settlement to a generic region
+      if (k.kind !== row.kind || (k.sub || "") !== (row.sub || "")) { if (!row.kindWas) row.kindWas = row.kind + (row.sub ? "/" + row.sub : ""); row.kind = k.kind; row.sub = k.sub || ""; }
+    }
     // 3b: the names and items folded into a place. An owned row carries them itself; a gazetteer row (never edited) carries them
     // as an OVERLAY in the spec, which build-places.js writes into places.js and the registry reads back as aliases.
     const unionNames = (have, add) => { const l = (have || []).slice(); for (const n of add || []) if (n && !l.some((a) => fold(a) === fold(n))) l.push(n); return l.slice(0, 12); };
@@ -547,6 +560,7 @@ function run() {
     const reg2 = R.loadRegistry(); let changed = 0;
     for (const c of cards) { const d = derived.get(c.id); const have = Array.isArray(c.places) ? c.places.map(mapId).filter((id) => reg2.rows.has(id)) : []; const next = [...new Set(have.concat(d ? [...d].filter((id) => reg2.rows.has(id)) : []))].sort(); if (!next.length) { if (c.places !== undefined) { delete c.places; changed++; } continue; } if (JSON.stringify(next) !== JSON.stringify(c.places)) { c.places = next; changed++; } }
     writeCards(cards, tree);
+    require("./atlas-build/build-card-places.js").build({ cards, install: true, log: VERBOSE ? log : () => {} });   // the light index follows the cards (3b, decision 4)
     log(`wrote places on ${changed} cards (${derived.size} carry a derived place); spec ${Object.keys(out.rows).length} rows (${Object.keys(newRows).length} from this migration)`);
   }
   /* the report */
@@ -574,6 +588,9 @@ function run() {
   if (DRY) for (const [id, l] of foldedItems) { const have = absorbed.get(id) || { name: (reg.rows.get(id) || newRows[id] || {}).name || id, items: [] }; for (const m of l) if (!have.items.some((x) => x.qid === m.qid)) have.items = have.items.concat([m]); absorbed.set(id, have); }
   lines.push("", "## Same-site items and period names folded into one place (decision 1)", "", absorbed.size ? "One place per physical site. Two ways, both from the owner's decision 1: **toponym** — several Wikidata items within " + SAME_SITE_KM + " km of one another and of one kind family answered one toponym, and the nearest to the card's own coordinate is the place (a tie within a kilometre goes to the item whose title is the toponym, then the gazetteer's own row, then the lowest Wikidata number); **site** — a period name (an ancient city, a polis) this migration owns lay within " + CROSS_SITE_KM + " km of a modern city (or within 1 km of another period name of the same city) and was folded into it. The absorbed names are the place's aliases; the gazetteer is never edited (its aliases are the overlay in places-spec.json, `alias` in places.js)." : "None.", ...(absorbed.size ? ["", "| the place | absorbed |", "|---|---|"] : []));
   for (const [id, a] of [...absorbed].sort((x, y) => (x[1].name < y[1].name ? -1 : x[1].name > y[1].name ? 1 : x[0] < y[0] ? -1 : 1))) lines.push(`| ${id} ${a.name} | ${a.items.map((m) => m.qid + " " + m.name + (m.how === "site" ? " (site" + (m.km != null ? ", " + m.km + " km" : "") + ")" : m.how === "toponym" ? " (toponym)" : "")).join("; ")} |`);
+  { const fixed = Object.entries(specNow.rows || {}).filter(([, r]) => r.kindWas && !r.manual);
+    lines.push("", "## Kinds corrected by the 3b class rules", "", fixed.length ? "A row's kind is what its classes give (a natural feature named directly by a class — an island, a mountain, a cape, a river, a lake — decides before anything reached by subclass-of; a polis is read last, so an island that is also a polis stays an island). 3a read the first row of the table that any class reached, so these rows had another kind:" : "None.", ...(fixed.length ? ["", "| the place | kind in 3a | kind now |", "|---|---|---|"] : []));
+    for (const [id, r] of fixed.sort(([a], [b]) => (a < b ? -1 : 1))) lines.push(`| ${id} ${r.name} | ${r.kindWas} | ${r.kind}${r.sub ? "/" + r.sub : ""} |`); }
   lines.push("", "## Period settlements 2–25 km from another settlement, NOT merged (for the owner)", "", X.near.length ? "Too far apart to be the same site on coordinates alone; each pair is the owner's to decide — add `\"<id>\": { \"into\": \"<id>\", \"reason\": \"…\" }` under `merges` in places-spec.json and re-run. (Knossos and Heraklion are 4 km apart and are different places; Chang'an and Xi'an are 4.7 km apart and are not.)" : "None.", ...(X.near.length ? ["", "| the period settlement | the nearest settlement | km |", "|---|---|---|"] : []));
   for (const m of X.near.sort((a, b) => a.km - b.km)) lines.push(`| ${m.id} ${m.name} | ${m.into} ${m.intoName} | ${m.km} |`);
   lines.push("", "## Locators resolved only through their `within` city", "", withinOnly.length ? withinOnly.map((x) => "- " + x).join("\n") : "None.");

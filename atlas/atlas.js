@@ -116,7 +116,7 @@
   const LABEL_DRAW_BUDGET_MS = 3;            // the label canvas redraw at p95 (reported; test-atlas-labels.js asserts it)
   const LABEL_LAYOUT_BUDGET_MS = 50;         // the worker's layout at p95
   const KEY_LIST_MAX = 60;                   // the hidden button list mirrors at most this many labels
-  const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region" };
+  const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", cape: "Cape" };
   /* THE LABEL STYLES (Q-L2 a): small capitals for territories and regions, italic for water, upright for
      cities, in the site's own font tokens — the display face for names of places, the serif for water.
      `size` is CSS px; `track` the letter spacing in px (ours, drawn glyph by glyph — never the canvas's
@@ -251,6 +251,18 @@
     const reliefUrl = opts.reliefUrl || "atlas/data/relief/";
     const gazetteerUrl = opts.gazetteerUrl || "atlas/data/gazetteer.js";
     const H = opts.host || {};
+    const studyPanel = H.study && root.AtlasStudy ? `
+        <div class="atlas2-study" role="group" aria-label="What the map shows from your cards" data-mode="map" data-ready="0">
+          <div class="atlas2-study-modes" role="radiogroup" aria-label="Atlas view">
+            <button type="button" role="radio" aria-checked="true" data-mode="map" title="The plain map" disabled>Map</button>
+            <button type="button" role="radio" aria-checked="false" data-mode="personal" title="Your Atlas: the places in the cards you have studied" disabled>Personal</button>
+            <button type="button" role="radio" aria-checked="false" data-mode="full" title="The Full Atlas: every place any card is about" disabled>Full</button>
+          </div>
+          <p class="atlas2-study-sum" aria-live="polite"></p>
+          <p class="atlas2-study-note" hidden></p>
+          <p class="atlas2-study-empty" role="status" hidden></p>
+          <div class="atlas2-study-colls" role="group" aria-label="Collections" hidden></div>
+        </div>` : "";
     host.innerHTML = `
       <div class="atlas2${PHONE ? " atlas2-phone" : ""}" role="region" aria-label="Atlas (preview)">
         <canvas class="atlas2-canvas" tabindex="0" role="application" aria-label="Interactive globe — drag to turn, scroll or pinch to zoom, arrow keys turn, plus and minus zoom, Home resets; Tab walks the names on the map"></canvas>
@@ -258,7 +270,7 @@
         <div class="atlas2-search">
           <input type="search" class="atlas2-search-in" placeholder="Find a place" aria-label="Find a place" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="atlas2-results" aria-autocomplete="list">
           <ul class="atlas2-results" id="atlas2-results" role="listbox" aria-label="Places found" hidden></ul>
-        </div>
+        </div>${studyPanel}
         <div class="atlas2-zoom" role="group" aria-label="Zoom">
           <button type="button" class="atlas2-btn" data-zoom="in" title="Zoom in" aria-label="Zoom in">+</button>
           <button type="button" class="atlas2-btn" data-zoom="out" title="Zoom out" aria-label="Zoom out">−</button>
@@ -1425,6 +1437,7 @@
         stats.gazetteer = { rows: G.rows.length, ms: Math.round(performance.now() - t) };
         if (pendingPlace && stats.ready && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;
         postToWorker({ type: "gazetteer", table: T });
+        loadStudy();   // the study layer's two lazy files, once the gazetteer's rows are in G (Phase 3b)
         measureMetrics();
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!disposed) measureMetrics(); });
       }).catch((e) => { layersNote.hidden = false; layersNote.textContent = "The place names didn’t arrive (" + (e && e.message ? e.message : e) + ")."; });
@@ -1475,7 +1488,7 @@
        layout as occupied ground — the search box and its list, the zoom stack, the Legend and ? chips, an open sheet, the
        card (or its phone strip), the stack chip, the status line, the mode note, the year rail. A sheet opening or closing
        asks for a layout, so the names step out from under it. */
-    const CHROME = [".atlas2-search-in", ".atlas2-results", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
+    const CHROME = [".atlas2-search-in", ".atlas2-results", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
     function chromeRects() {
       const base = el.getBoundingClientRect(), out = [], seen = new Set();
       for (const sel of CHROME) for (const node of el.querySelectorAll(sel)) {
@@ -1513,7 +1526,7 @@
     }
 
     /* ---- sprites: a label rendered once, glyph by glyph, halo then ink, at its layout position ---- */
-    let haloCss = "", inkCss = "", waterCss = "", selCss = "";
+    let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "";
     function labelColours() {
       const { ink, paper, paper2, indigo, ochre, dark } = themeTokens();
       const hex = (c) => "#" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255).toString(16).padStart(2, "0")).join("");
@@ -1522,13 +1535,14 @@
       // water names: a deep blue-ink in a light theme, a pale blue in a dark one — read against both the sea and the land
       waterCss = hex(dark ? mix([0.55, 0.8, 1], paper, 0.12) : mix(ink, [31 / 255, 122 / 255, 170 / 255], 0.5));
       selCss = hex(dark ? mix(paper, ochre, 0.5) : mix(ink, ochre, 0.55));
+      accentCss = hex(ochre);   // the fill of the reader's own marks (Phase 3b)
       void paper2; void indigo;
     }
     labelColours();
     const WATER_KINDS = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1 };
-    const inkFor = (p) => (p.id === sel.id ? selCss : WATER_KINDS[p.kind] ? waterCss : inkCss);
+    const inkFor = (p) => (p.id === sel.id || p.st === 2 ? selCss : WATER_KINDS[p.kind] ? waterCss : inkCss);   // the reader's own places (Phase 3b) take the accent the selection has
     const spriteCache = new Map(); let spriteGen = 0;   // key → sprite; spriteGen bumps on a theme or font change
-    function spriteKey(p) { if (!p.glyphs || !p.glyphs.length) return null; const x0 = Math.floor(p.box[0]), y0 = Math.floor(p.box[1]); let g = ""; for (const q of p.glyphs) g += (Math.round((q[0] - x0) * 4) + "," + Math.round((q[1] - y0) * 4) + "," + (q[2] ? Math.round(q[2] * 100) : 0) + "," + (q[3] ? 1 : 0) + ";"); return p.id + "|" + p.style + "|" + p.text + "|" + (p.id === sel.id ? 1 : 0) + "|" + dprNow + "|" + spriteGen + "|" + g; }
+    function spriteKey(p) { if (!p.glyphs || !p.glyphs.length) return null; const x0 = Math.floor(p.box[0]), y0 = Math.floor(p.box[1]); let g = ""; for (const q of p.glyphs) g += (Math.round((q[0] - x0) * 4) + "," + Math.round((q[1] - y0) * 4) + "," + (q[2] ? Math.round(q[2] * 100) : 0) + "," + (q[3] ? 1 : 0) + ";"); return p.id + "|" + p.style + "|" + p.text + "|" + (p.id === sel.id ? 1 : 0) + (p.st === 2 ? "m" : "") + "|" + dprNow + "|" + spriteGen + "|" + g; }
     function spriteFor(p) { const k = spriteKey(p); if (!k) return null; let sp = spriteCache.get(k); if (sp) { spriteCache.delete(k); spriteCache.set(k, sp); return sp; } sp = renderSprite(p); if (sp) { spriteCache.set(k, sp); if (spriteCache.size > 600) spriteCache.delete(spriteCache.keys().next().value); } return sp; }
     function renderSprite(p) {
       if (!p.glyphs || !p.glyphs.length) return null;
@@ -1551,7 +1565,24 @@
       }
       return { c, x0, y0, w, h };
     }
-    function drawMarker(ctx, x, y, r, kind, hot) {
+    /* the study layer's marks (Phase 3b), distinct from every label and from the city dots and capital squares: a DIAMOND for a
+       settlement or a site, a TRIANGLE for a mountain or a cape, a ringed disc with its COUNT for a stack. The reader's own are filled
+       with the accent, the rest of the Full Atlas hollow. */
+    function drawStudyMarker(ctx, x, y, r, kind, hot, p) {
+      const mine = !!p && p.st === 2;
+      ctx.lineJoin = "round"; ctx.lineWidth = 2; ctx.strokeStyle = hot ? selCss : inkCss; ctx.fillStyle = mine ? accentCss : haloCss;
+      ctx.beginPath();
+      if (kind === "diamond") { ctx.moveTo(x, y - r - 1); ctx.lineTo(x + r + 1, y); ctx.lineTo(x, y + r + 1); ctx.lineTo(x - r - 1, y); ctx.closePath(); }
+      else if (kind === "triangle") { ctx.moveTo(x, y - r - 1); ctx.lineTo(x + r + 1, y + r); ctx.lineTo(x - r - 1, y + r); ctx.closePath(); }
+      else ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+      if (kind === "stack" && p && p.n) {
+        ctx.fillStyle = inkCss; ctx.font = fontOf(STYLE_BY_ID.town || STYLE_BY_ID.city, p.n > 99 ? 9 : 11);
+        ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(String(p.n > 99 ? "99+" : p.n), x, y + 0.5); ctx.textAlign = "left";
+      }
+    }
+    function drawMarker(ctx, x, y, r, kind, hot, p) {
+      if (kind === "diamond" || kind === "triangle" || kind === "stack") { drawStudyMarker(ctx, x, y, r, kind, hot, p); return; }
       ctx.fillStyle = hot ? selCss : inkCss; ctx.strokeStyle = haloCss; ctx.lineWidth = 1.5;
       ctx.beginPath();
       if (kind === "capital") ctx.rect(x - r, y - r, 2 * r, 2 * r); else ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -1566,6 +1597,7 @@
       ctx.clearRect(0, 0, cssW, cssH);
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy;
       const live = [];
+      const muteOthers = ST.mode === "personal" && ST.flags.size > 0;
       for (const p of L.placed) {
         const a = p.a; if (!a) continue;
         if (p.hist && time.aliveEnt && p.id.charCodeAt(0) === 112 && p.id.startsWith("pol:") && !time.aliveEnt.has(p.id)) continue;   // a polity no longer alive (the layout is held while the pin is dragged)
@@ -1573,8 +1605,8 @@
         if (z < 0.005) continue;
         const sx = cx + (rot[0] * a[0] + rot[1] * a[1] + rot[2] * a[2]) * r, sy = cy - (rot[3] * a[0] + rot[4] * a[1] + rot[5] * a[2]) * r;
         const dx = sx - p.sx, dy = sy - p.sy;
-        ctx.globalAlpha = Math.min(1, z / 0.2);
-        if (p.marker) drawMarker(ctx, p.marker[0] + dx, p.marker[1] + dy, p.marker[2], p.marker[3], p.id === sel.id);
+        ctx.globalAlpha = Math.min(1, z / 0.2) * (muteOthers && !p.st ? 0.4 : 1);   // the Personal Atlas mutes everything that is not the reader's (Phase 3b)
+        if (p.marker) drawMarker(ctx, p.marker[0] + dx, p.marker[1] + dy, p.marker[2], p.marker[3], p.id === sel.id, p);
         if (p.sprite) ctx.drawImage(p.sprite.c, p.sprite.x0 + dx, p.sprite.y0 + dy, p.sprite.w, p.sprite.h);
         const hit = [p.hit[0] + dx, p.hit[1] + dy, p.hit[2] + dx, p.hit[3] + dy];
         if (p.id === focusId) { ctx.strokeStyle = "#45549c"; ctx.lineWidth = 2; ctx.strokeRect(hit[0] - 3, hit[1] - 3, hit[2] - hit[0] + 6, hit[3] - hit[1] + 6); }
@@ -1622,6 +1654,8 @@
       if (!stats.ready && !R.levelLoaded(0)) return;
       const again = sel.at && Math.hypot(sel.at[0] - x, sel.at[1] - y) < 10 && performance.now() - sel.t < 5000 && sel.stack.length > 1;
       if (again) { sel.index = (sel.index + 1) % sel.stack.length; sel.t = performance.now(); showStack(); selectRow(sel.stack[sel.index], { open: true, push: true }); return; }
+      const sk = hitAt(x, y).find((h) => h.p.kind === "stack");
+      if (sk) { expandStack(sk.p); return; }
       const stack = stackAt(x, y);
       sel.at = [x, y]; sel.t = performance.now(); sel.stack = stack; sel.index = 0;
       if (!stack.length) { clearSelection(); return; }
@@ -1694,6 +1728,7 @@
       cardBody.innerHTML = "";
       cardBody.scrollTop = 0;
       if (row.kind === "country") renderCountryCard(row); else renderPlaceCard(row);
+      appendStudyCards(row);   // the cards about this place (Phase 3b); the country's prose arrives later and appends again
       el.classList.add("atlas2-has-card");
       // focus moves to the heading when the card OPENS (not when a second place replaces the first); the opener is
       // remembered unless focus was already inside the card
@@ -1796,12 +1831,13 @@
       if (src && src.length && H.sourceListHTML) html += `<div class="src-note atlas2-srcnote"><h3 class="atlas2-src-h">Sources</h3>${H.sourceListHTML(src)}</div>`;
       cardBody.innerHTML = html;
       if (H.wireFootnotes) { try { H.wireFootnotes(cardBody); } catch (e) {} }
+      appendStudyCards(row);
     }
     cardBody.addEventListener("click", (e) => { const st = e.target.closest("button[data-year]"); if (st) { setYear(Number(st.getAttribute("data-year"))); if (cardRow) openCard(cardRow); return; } const b = e.target.closest("button[data-select]"); if (!b) return; const row = G.byId.get(b.getAttribute("data-select")); if (row) { if (row.hist) selectRow(row, { open: true, push: true }); else flyToRow(row, true); } });
 
     /* ---- search: one input, diacritic-folded prefix then substring over names and aliases ---- */
     let results = [], active = -1;
-    const KIND_ORDER = { country: 0, capital: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5 };
+    const KIND_ORDER = { country: 0, capital: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5, site: 5, mountain: 5, cape: 6 };
     function runSearch(q) {
       const k = fold(String(q || "").trim());
       if (k.length < 2 || !G.ready) { closeResults(); return []; }
@@ -1836,7 +1872,9 @@
     document.addEventListener("pointerdown", (e) => { if (!resultsUl.hidden && !e.target.closest(".atlas2-search")) closeResults(); }, true);
 
     /* ---- flying to a place: an eased move, instant under reduced motion ---- */
+    const PLACES_KMPP = { region: 8, range: 6, island: 3, "island-group": 8, sea: 10, gulf: 4, strait: 3, lake: 3, river: 6, ocean: 24, city: 1.5, town: 0.8, site: 0.8, mountain: 3, cape: 2 };   // a places.js row has a point and no extent: its zoom is by kind (Phase 3b)
     const kmppFor = (row) => {
+      if (row.src === "places") return PLACES_KMPP[row.kind] || 2;
       const short = Math.min(cssW, cssH) * (PHONE ? 0.9 : 0.5);
       const fit = (km, floor) => Math.max(floor, Math.min(24, (km || 0) / short));
       switch (row.kind) {
@@ -1895,15 +1933,15 @@
 
     /* ---- the keyboard: a hidden list of buttons mirroring the visible labels in rank order ---- */
     function updateKeys() {
-      const list = L.placed.filter((p) => p.text).slice().sort((a, b) => a.score - b.score).slice(0, KEY_LIST_MAX);
+      const list = L.placed.filter((p) => p.text || p.kind === "stack").slice().sort((a, b) => a.score - b.score).slice(0, KEY_LIST_MAX);
       const ids = list.map((p) => p.id).join("\n");
       if (ids === L.keyIds) return;
       L.keyIds = ids;
       const had = document.activeElement && keysUl.contains(document.activeElement) ? document.activeElement.getAttribute("data-id") : null;
-      keysUl.innerHTML = list.map((p) => { const row = G.byId.get(p.id); return `<li><button type="button" data-id="${escText(p.id)}">${escText(row ? row.name : p.text)}, ${escText(KIND_LABEL[p.kind] || p.kind)}</button></li>`; }).join("");
+      keysUl.innerHTML = list.map((p) => { if (p.kind === "stack") return `<li><button type="button" data-id="${escText(p.id)}">${p.n} places here, activate to zoom in</button></li>`; const row = G.byId.get(p.id); return `<li><button type="button" data-id="${escText(p.id)}">${escText(row ? row.name : p.text)}, ${escText(KIND_LABEL[p.kind] || p.kind)}</button></li>`; }).join("");
       if (had) { const b = keysUl.querySelector(`button[data-id="${had.replace(/"/g, '\\"')}"]`); if (b) b.focus({ preventScroll: true }); }
     }
-    keysUl.addEventListener("click", (e) => { const b = e.target.closest("button[data-id]"); if (!b) return; const row = G.byId.get(b.getAttribute("data-id")); if (row) selectRow(row, { open: true, push: true }); });
+    keysUl.addEventListener("click", (e) => { const b = e.target.closest("button[data-id]"); if (!b) return; const id = b.getAttribute("data-id"); if (id.startsWith("stack:")) { const sk = L.placed.find((p) => p.id === id); if (sk) expandStack(sk); return; } const row = G.byId.get(id); if (row) selectRow(row, { open: true, push: true }); });
     keysUl.addEventListener("focusin", (e) => { const b = e.target.closest("button[data-id]"); focusId = b ? b.getAttribute("data-id") : null; if (focusId) { const row = G.byId.get(focusId); caption.textContent = row ? row.name : ""; } invalidate(); });
     keysUl.addEventListener("focusout", () => { focusId = null; invalidate(); });
 
@@ -1934,6 +1972,164 @@
     // a theme change (data-theme, or the night class) re-reads the tokens: the palette and the relief ramp follow
     const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); drawTicks(); } if (G.ready) measureMetrics(); invalidate(); });
     themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme"] });
+    /* ============================================================================================================
+       PHASE 3b — THE STUDY LAYER (docs/atlas-v2-design.md §2.8, §7 "Phase 3b — as built")
+       The host (app.js) hands over `H.study`: the ids of the cards the reader has a record for (studied: v1's own definition, see
+       study.js), what a card is called and which collection owns it, and where it opens. Everything below is COMPUTED from that and
+       from two lazy files — atlas/data/card-places.js (card → registry ids) and atlas/data/places.js (the places the gazetteer does
+       not carry); nothing is stored but two per-viewer conveniences in localStorage (the view and the collections switched off), and
+       nothing is written to the progress blob (docs/accounts-sync.md). Three views: the plain Map (the study layer off), the PERSONAL
+       Atlas (the places of the studied cards drawn, everything else muted) and the FULL Atlas (every place any card is about, the
+       reader's own filled). A collection's switch hides the cards it owns in either view.
+       ============================================================================================================ */
+    const AS = root.AtlasStudy;
+    const SU = H.study || null;
+    const MODE_KEY = "folio.atlas2.study", COLL_KEY = "folio.atlas2.studyOff";
+    const ST = { ready: false, loading: false, failed: false, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), colls: [], rev: 0, limit: new Map() };
+    const stRead = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    const stWrite = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+    const studyEl = el.querySelector(".atlas2-study");
+    const infoCache = new Map();
+    const info = (cid) => { let v = infoCache.get(cid); if (v === undefined) { try { v = SU.cardInfo(cid) || null; } catch (e) { v = null; } infoCache.set(cid, v); } return v; };
+    // the places.js rows join the gazetteer's in G (selectable, searchable, openable by hash); a gazetteer-shaped row with `src: "places"`
+    function registerPlaces(T) {
+      if (!T || !Array.isArray(T.rows) || !Array.isArray(T.cols)) return 0;
+      let n = 0;
+      for (const r of T.rows) {
+        const o = { i: G.rows.length }; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; });
+        if (G.byId.has(o.id)) continue;
+        o.aliases = Array.isArray(o.aliases) ? o.aliases.slice() : []; o.at = Array.isArray(o.at) ? o.at : null; o.qid = o.qid ? "Q" + o.qid : ""; if (o.wiki === 1) o.wiki = o.name; if (!o.wiki) o.wiki = "";
+        o.rank = 9; o.len = 0; o.src = "places"; o.within = o.within || 0;
+        G.rows.push(o); G.byId.set(o.id, o); n++;
+      }
+      // the alias overlay: the period names folded into a gazetteer row (Epidamnos for Durrës), which the file does not own
+      for (const [id, names] of Object.entries(T.alias || {})) { const row = G.byId.get(id); if (!row) continue; if (!Array.isArray(row.aliases)) row.aliases = []; for (const nm of names) if (!row.aliases.includes(nm)) row.aliases.push(nm); }
+      for (const o of G.rows) { o.key = fold(o.name); o.akeys = (o.aliases || []).map(fold); }
+      return n;
+    }
+    const POINT_KIND = /^(capital|city|town|site|mountain|cape)$/;
+    // what the worker needs of a place it has no geometry for: a mark (a point kind, from either file) or a name at a point (an area of places.js)
+    function sendStudyRows() {
+      const rows = [];
+      for (const id of ST.idx.ids) {
+        const row = G.byId.get(id); if (!row || !row.at || id.startsWith("pol:")) continue;
+        const own = row.src === "places";
+        if (!POINT_KIND.test(row.kind) && !own) continue;   // a gazetteer area is drawn by the ordinary pass, flagged only
+        rows.push({ id, name: row.name, kind: row.kind, sub: row.sub || "", lon: row.at[0], lat: row.at[1], n: (ST.idx.cardsOfPlace.get(id) || []).length, pd: !own && POINT_KIND.test(row.kind) });
+      }
+      postToWorker({ type: "study-rows", rows });
+    }
+    function loadStudy() {
+      if (!SU || !AS || ST.ready || ST.loading) return;
+      ST.loading = true;
+      Promise.all([loadScript(opts.placesUrl || "atlas/data/places.js"), loadScript(opts.cardPlacesUrl || "atlas/data/card-places.js")]).then(() => {
+        if (disposed) return;
+        registerPlaces(root.ATLAS_PLACES);
+        ST.idx = AS.parse(root.ATLAS_CARD_PLACES);
+        ST.ready = true; ST.loading = false;
+        sendStudyRows();
+        refreshStudy(true);
+        if (pendingPlace && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;
+      }).catch((e) => { ST.failed = true; ST.loading = false; renderStudyPanel(); if (typeof console !== "undefined") console.warn("atlas2 study data failed: " + (e && e.message || e)); });
+    }
+    // the studied set, the collections, the remembered view — recomputed whenever the host's progress could have moved (a mount; a toggle)
+    function refreshStudy(first) {
+      let ids = []; try { ids = SU.studiedCards() || []; } catch (e) { ids = []; }
+      ST.st = AS.studied(ST.idx, ids);
+      ST.colls = AS.collections(ST.idx, ST.st, info);
+      if (first) {
+        let hidden = []; try { hidden = JSON.parse(stRead(COLL_KEY) || "[]"); } catch (e) { hidden = []; }
+        const known = new Set(ST.colls.map((c) => c.id));
+        ST.hidden = new Set((Array.isArray(hidden) ? hidden : []).filter((h) => typeof h === "string" && known.has(h)));
+        const m = stRead(MODE_KEY);
+        ST.mode = m === "personal" || m === "full" || m === "map" ? m : (ST.st.total > 0 ? "personal" : "map");
+      }
+      applyStudy();
+    }
+    function applyStudy() {
+      ST.flags = ST.ready ? AS.flags(ST.idx, ST.st, ST.mode, ST.hidden, info) : new Map();
+      ST.rev++;
+      postToWorker({ type: "study-flags", mode: ST.mode === "map" ? "" : ST.mode, entries: [...ST.flags], rev: ST.rev });
+      renderStudyPanel();
+      if (cardOpen && cardRow) appendStudyCards(cardRow);
+      invalidate(); requestLayout("study", true);
+    }
+    function setStudyMode(m) {
+      if (!ST.ready || !/^(map|personal|full)$/.test(m) || m === ST.mode) return;
+      ST.mode = m; stWrite(MODE_KEY, m); applyStudy();
+    }
+    function toggleColl(id, on) {
+      const was = !ST.hidden.has(id), want = on == null ? !was : !!on;
+      if (want === was) return;
+      if (want) ST.hidden.delete(id); else ST.hidden.add(id);
+      stWrite(COLL_KEY, JSON.stringify([...ST.hidden])); applyStudy();
+    }
+    function renderStudyPanel() {
+      if (!studyEl) return;
+      const live = SU && AS && !ST.failed;
+      studyEl.hidden = !live;
+      if (!live) return;
+      const sumEl = studyEl.querySelector(".atlas2-study-sum"), noteEl = studyEl.querySelector(".atlas2-study-note"), emptyEl = studyEl.querySelector(".atlas2-study-empty"), collsEl = studyEl.querySelector(".atlas2-study-colls");
+      studyEl.setAttribute("data-mode", ST.mode); studyEl.setAttribute("data-ready", ST.ready ? "1" : "0");
+      for (const b of studyEl.querySelectorAll("[data-mode]")) { const on = b.getAttribute("data-mode") === ST.mode; b.setAttribute("aria-checked", String(on)); b.classList.toggle("on", on); b.disabled = !ST.ready; }
+      if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; return; }
+      const sm = AS.summary(ST.st, ST.mode, ST.flags);
+      sumEl.textContent = sm.text; sumEl.hidden = !sm.text;
+      noteEl.textContent = sm.note; noteEl.hidden = !sm.note;
+      emptyEl.textContent = sm.empty; emptyEl.hidden = !sm.empty;
+      // the collections that have places (in the Personal Atlas, those the reader has a place in): a switch each, all on by default
+      const list = ST.mode === "map" ? [] : ST.colls.filter((c) => (ST.mode === "personal" ? c.mine : c.places) > 0);
+      collsEl.hidden = !list.length;
+      collsEl.innerHTML = list.map((c) => `<button type="button" role="checkbox" class="atlas2-study-coll${ST.hidden.has(c.id) ? "" : " on"}" aria-checked="${ST.hidden.has(c.id) ? "false" : "true"}" data-coll="${escText(c.id)}" title="${escText(c.name)}: ${ST.mode === "personal" ? c.mine + " of " + c.places + " places yours" : c.places + " places"}"><span class="atlas2-study-coll-n">${escText(c.name)}</span><i>${ST.mode === "personal" ? c.mine : c.places}</i></button>`).join("");
+      requestLayout("chrome");   // the panel's height moved: the names step out from under it
+    }
+    if (studyEl) {
+      studyEl.addEventListener("click", (e) => {
+        const m = e.target.closest("[data-mode]"); if (m) { setStudyMode(m.getAttribute("data-mode")); return; }
+        const c = e.target.closest("[data-coll]"); if (c) { toggleColl(c.getAttribute("data-coll")); const again = studyEl.querySelector(`[data-coll="${c.getAttribute("data-coll").replace(/"/g, '\\"')}"]`); if (again) again.focus({ preventScroll: true }); }
+      });
+      // radio-group arrow keys, the way the legend's density stops behave
+      studyEl.querySelector(".atlas2-study-modes").addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        const bs = [...studyEl.querySelectorAll("[data-mode]")].filter((b) => !b.disabled), i = bs.findIndex((b) => b === document.activeElement); if (i < 0) return;
+        e.preventDefault(); const n = bs[(i + (e.key === "ArrowRight" ? 1 : bs.length - 1)) % bs.length]; n.focus(); setStudyMode(n.getAttribute("data-mode"));
+      });
+    }
+    /* a stack of places (one mark with a count): a tap zooms to its members until they part; where they cannot part (the same point,
+       or the zoom is at its floor) the stack becomes the "N places here" chip, which cycles them like any other stack */
+    function expandStack(p) {
+      const rows = (p.members || []).map((id) => G.byId.get(id)).filter((r) => r && r.at);
+      if (!rows.length) return;
+      let sx = 0, sy = 0, sz = 0; for (const r of rows) { const la = r.at[1] * D2R, lo = r.at[0] * D2R; sx += Math.cos(la) * Math.cos(lo); sy += Math.cos(la) * Math.sin(lo); sz += Math.sin(la); }
+      const n = Math.hypot(sx, sy, sz) || 1, lat = Math.asin(sz / n) / D2R, lon = Math.atan2(sy, sx) / D2R;
+      let ext = 0; for (const r of rows) { const a = r.at, dl = (a[0] - lon) * D2R * Math.cos(lat * D2R), dp = (a[1] - lat) * D2R; ext = Math.max(ext, Math.hypot(dl, dp) * R_KM); }
+      const short = Math.min(cssW, cssH) * (PHONE ? 0.8 : 0.5);
+      const target = Math.min(view.kmpp / 2.4, Math.max(0.05, (ext * 2.6) / short));
+      if (ext < 0.2 || view.kmpp <= 0.06) {   // they share a point, or the floor is reached
+        sel.stack = rows; sel.at = [p.sx, p.sy]; sel.t = performance.now(); sel.index = 0; showStack(); selectRow(rows[0], { open: true, push: true }); return;
+      }
+      flyTo(lon, lat, target);
+    }
+    // the cards about a place, appended to whatever the card's own renderer wrote: idempotent (one section), capped with "and N more"
+    function appendStudyCards(row) {
+      for (const old of cardBody.querySelectorAll(".atlas2-study-cards")) old.remove();
+      if (!SU || !AS || !ST.ready || !row) return;
+      const mode = ST.mode === "personal" ? "personal" : "full";
+      const limit = ST.limit.get(row.id) || AS.LIST_CAP;
+      const r = AS.cardsFor(ST.idx, row.id, ST.st, mode, ST.hidden, info, limit);
+      if (!r.total && !r.others) return;
+      const sec = document.createElement("section"); sec.className = "atlas2-study-cards"; sec.setAttribute("aria-label", "Cards about this place");
+      const head = mode === "personal" ? "From your cards" : "Cards about this place";
+      const li = (c) => { const i = info(c.id) || {}; return `<li><a class="atlas2-study-card" href="${escText(SU.cardHref ? SU.cardHref(c.id) : "#card/" + c.id)}" data-card="${escText(c.id)}"><span class="atlas2-study-title">${escText(i.title || c.id)}</span>${i.coll ? `<span class="atlas2-chip atlas2-study-chip">${escText(i.coll)}</span>` : ""}${c.mine && mode === "full" ? '<span class="atlas2-study-mine" title="You have studied this card">studied</span>' : ""}</a></li>`; };
+      sec.innerHTML = `<h3 class="atlas2-study-h">${escText(head)}</h3>` + (r.shown.length ? `<ul class="atlas2-study-list">${r.shown.map(li).join("")}</ul>` : "") +
+        (r.more ? `<button type="button" class="atlas2-link atlas2-study-more" data-more="${escText(row.id)}">and ${r.more} more</button>` : "") +
+        (r.others ? `<p class="atlas2-study-others">${r.others} more ${r.others === 1 ? "card is" : "cards are"} about this place that you haven’t studied yet.</p>` : "");
+      cardBody.appendChild(sec);
+    }
+    cardBody.addEventListener("click", (e) => {
+      const more = e.target.closest("button[data-more]");
+      if (more) { const id = more.getAttribute("data-more"); ST.limit.set(id, (ST.limit.get(id) || AS.LIST_CAP) + 20); const keep = cardBody.scrollTop; if (cardRow && cardRow.id === id) appendStudyCards(cardRow); cardBody.scrollTop = keep; }
+    });
     function dispose() {
       if (disposed) return;
       disposed = true;
@@ -1972,6 +2168,9 @@
       statsNow: () => Object.assign(R.stats(), { frameTrace: stats.frameTrace ? stats.frameTrace.slice() : null, taskMs: stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v)])) : null, frameMsP95: pct95(stats.frames), frameMsMean: stats.frames.length ? Math.round(stats.frames.reduce((p, q) => p + q, 0) / stats.frames.length) : 0, kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
         year: time.year, historyFaces: time.alive.length, labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
       // Phase 1c, for the suites and the console
+      study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
+        flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl, expandStack: (id) => { const p = L.placed.find((x) => x.id === id); if (p) expandStack(p); return !!p; },
+        marks: () => L.placed.filter((p) => p.st).map((p) => ({ id: p.id, kind: p.kind, st: p.st, text: p.text, n: p.n || 0, members: p.members || null, marker: p.marker ? p.marker[3] : null, box: p.box, sx: p.sx, sy: p.sy })), index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false) },
       labels: () => L.placed, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
       gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
