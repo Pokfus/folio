@@ -486,7 +486,7 @@
       labelCanvas.width = Math.round(cssW * dprNow); labelCanvas.height = Math.round(cssH * dprNow);
       base = Math.min(cssW, cssH) * 0.46;
       view.cx = cssW / 2; view.cy = cssH / 2;
-      needs = true;
+      needs = true; needsGlobe = true;
       requestLayout("resize");
     }
     const zmax = () => Math.max(1, R_KM / (kmFloor() * base));
@@ -616,7 +616,7 @@
     /* ---------- frame loop ---------- */
     const stats = { frames: [], draw: [], uploads: {}, worker: null, escalations: 0, recoveries: 0, stallsIgnored: 0, longTasks: 0, stage: 0, learnt: 0, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, reliefCost: [], labelLayout: [], labelSprite: [], labelDraw: [], gazetteer: null };
     const perfInHash = /[?&#/]perf\b/.test(location.hash || "");
-    let needs = true, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
+    let needs = true, needsGlobe = true, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
     const t0 = performance.now();
     let lastPerfText = 0, lastTraceT = 0;
     function frame(t) {
@@ -633,12 +633,15 @@
       if (needs) {
         needs = false;
         timed(plan, "plan");
-        if (STATIC2D && ((dragging && moved) || coasting) && stillAt) {
+        const globe = needsGlobe; needsGlobe = false;
+        if (STATIC2D && !globe && stillAt) {
+          // names only: the globe on screen is already the true one
+        } else if (STATIC2D && ((dragging && moved) || coasting) && stillAt) {
           // the still view during a drag: the last frame blitted by the pointer's travel; the true frame comes on release
           const k = R2D / view.radius; let dl = view.lon - stillAt.lon; if (dl > 180) dl -= 360; else if (dl < -180) dl += 360;
           R.shift(-dl / k, (view.lat - stillAt.lat) / k);
         } else { timed(() => R.render(view), "render"); if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
-        stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift();
+        if (globe) { stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift(); }
         timed(drawLabels, "labelsDraw");
         if (!stats.firstPaintMs && R.levelLoaded(0)) stats.firstPaintMs = Math.round(performance.now() - t0);
         if (perfOn && t - lastPerfText > 200) { lastPerfText = t; timed(perfText, "perfText"); }   // five times a second: the overlay is a DOM text block, and its relayout every frame cost more than the frame on a software rasteriser
@@ -717,7 +720,11 @@
       stats.level = view.level;
       refreshOnScreen();   // with the rotation and the level of THIS view (the ticks, [ ] and the "no states" note follow the view)
     }
-    function invalidate() { needs = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
+    function invalidate() { needs = true; needsGlobe = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
+    /* a redraw of the NAMES alone (a layout arrived, the study layer changed what is marked): the labels have their own canvas, so the
+       still view (Canvas 2D, a full frame of seconds on a software renderer) keeps the globe it has and repaints only them — Phase 3c: the
+       study layer's last slice landed during the frame gate's drag and its layout cost the drag a full frame */
+    function invalidateLabels() { needs = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
     function perfText() {
       const f = stats.frames.slice(-120).sort((a, b) => a - b), n = f.length;
       const mean = n ? f.reduce((a, b) => a + b, 0) / n : 0, p95 = n ? f[Math.min(n - 1, Math.floor(0.95 * n))] : 0, max = n ? f[n - 1] : 0;
@@ -852,7 +859,7 @@
     function coast() {
       view.lon += velLon * 16; view.lat += velLat * 16; velLon *= 0.92; velLat *= 0.92;
       if (Math.hypot(velLon, velLat) < 0.002) { coasting = false; touched(); gestureEnded(); }
-      needs = true;
+      needs = true; needsGlobe = true;   // the globe moves with it: the still view blits it, and the frame after the last step draws the true one
     }
     canvas.addEventListener("wheel", (e) => {
       e.preventDefault();
@@ -1521,7 +1528,7 @@
       L.placed = m.placed;
       if (m.missing && m.missing.length) { let grew = false; for (const [, ch] of m.missing) if (!extraChars.has(ch)) { extraChars.add(ch); grew = true; } if (grew && extraChars.size < 400) measureMetrics(); }
       updateKeys();
-      invalidate();
+      invalidateLabels();
       while (layoutWaiters.length) layoutWaiters.shift()(L.placed);
     }
 
@@ -1900,7 +1907,7 @@
       if (!f.t0) f.t0 = t;
       const u = Math.min(1, (t - f.t0) / f.dur), e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
       view.lon = f.from.lon + (f.to.lon - f.from.lon) * e; view.lat = f.from.lat + (f.to.lat - f.from.lat) * e; view.zoom = Math.exp(f.from.lz + (f.to.lz - f.from.lz) * e);
-      clampView(); needs = true;
+      clampView(); needs = true; needsGlobe = true;
       if (u >= 1) { flying = null; touched(); gestureEnded(); if (f.done) f.done(); }
     }
 
@@ -2065,7 +2072,7 @@
       postToWorker({ type: "study-flags", mode: ST.mode === "map" ? "" : ST.mode, entries: [...ST.flags], rev: ST.rev });
       renderStudyPanel();
       if (cardOpen && cardRow) appendStudyCards(cardRow);
-      invalidate(); requestLayout("study", true);
+      invalidateLabels(); requestLayout("study", true);
     }
     function setStudyMode(m) {
       if (!ST.ready || !/^(map|personal|full)$/.test(m) || m === ST.mode) return;

@@ -111,6 +111,17 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
     await page.mouse.up(); await sleep(600);
     const fAfter = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.renderer.rawStats.frames);
     check("a drag turns the globe without a full redraw, and one full frame follows the release", fDuring === f0 && fAfter > f0 && lonDuring !== 10, `frames ${f0} → ${fDuring} during → ${fAfter} after; lon ${lonDuring.toFixed(1)}`);
+    // Phase 3c: a redraw asked while the button is down but before the pointer has travelled 5 px (the study layer's last slice landed 23 ms after
+    // the press and cost the drag a full frame of seconds) is a zero-travel blit; the release draws the true frame
+    await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.study.ready(), null, { timeout: 120000 }); await sleep(1500);
+    const g0 = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.renderer.rawStats.frames);
+    await page.mouse.move(cx, cy); await page.mouse.down();
+    await page.evaluate(() => { const s = document.querySelector(".atlas2").__atlas2.study; s.setMode(s.mode() === "full" ? "personal" : "full"); });   // applyStudy → invalidate(), as the last slice does
+    await sleep(1200);
+    const gDown = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.renderer.rawStats.frames);
+    await page.mouse.up(); await sleep(1500);
+    const gUp = await page.evaluate(() => { const a = document.querySelector(".atlas2").__atlas2; a.study.setMode("map"); return a.renderer.rawStats.frames; });
+    check("a redraw asked before the pointer has travelled draws no full frame, and the release draws one", gDown === g0 && gUp > g0, `frames ${g0} → ${gDown} while pressed → ${gUp} after the release`);
     const picked = await tapCentre(page);
     check("a tap names the country under it (CPU pick)", picked === "Niger", picked);
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(10, 50, 0.5)); await sleep(300);
