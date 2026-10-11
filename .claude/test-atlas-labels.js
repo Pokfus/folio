@@ -270,6 +270,13 @@ async function inkInBoxes(page, placed) {
     const names = again.filter((p) => p.kind === "polity");
     const bad = overlaps(again);
     check(`${label}: ${names.length} polities named, none overlapping`, names.length >= 1 && bad.length === 0, names.map((p) => p.text).join(", ") + (bad.length ? "; overlaps: " + bad.slice(0, 3).join("; ") : ""));
+    // task 0c (Phase 3b): a polity's name is never cut by the frame's edge, and a name broken onto two lines keeps its glyphs index for index with its text
+    const frame = await pg.evaluate(() => { const r = document.querySelector(".atlas2-canvas").getBoundingClientRect(); return [r.width, r.height]; });
+    const out = names.filter((p) => p.rects.some((r) => r[0] < 0 || r[1] < 0 || r[2] > frame[0] || r[3] > frame[1]));
+    check(`${label}: every polity name lies wholly inside the ${Math.round(frame[0])}×${Math.round(frame[1])} frame`, out.length === 0, out.map((p) => p.text + " " + JSON.stringify(p.box.map(Math.round))).join("; ") || names.length + " names");
+    const skew = names.filter((p) => p.glyphs.length !== [...p.text].length);
+    check(`${label}: every polity name has one glyph per character (a name on two lines too)`, skew.length === 0, skew.map((p) => p.text).join(", "));
+    if (names.length) { const ink = await inkInBoxes(pg, names); check(`${label}: every polity name is painted where the layout puts it`, ink.empty.length === 0, ink.empty.join(", ") || ink.painted + " painted"); }
     if (polity) check(`${label}: ${polity.name} is named`, again.some((p) => p.id === polity.id), names.map((p) => p.text).join(", ") || "no polity named");
     if (capital) { const m = again.find((p) => p.kind === "capital" && p.id.startsWith("cap:" + polity.id + ":") && p.marker); check(`${label}: ${capital}'s marker is still drawn inside the named polity`, !!m, m ? (m.text ? "with its name" : "marker alone, the name yielded to the polity's") : again.filter((p) => p.kind === "capital").map((p) => p.id).join(", ") || "no capital placed"); }
     return placed;
@@ -285,7 +292,16 @@ async function inkInBoxes(page, placed) {
   await PH.page.setViewportSize({ width: 390, height: 844 }); await sleep(300);
   await withHistory(PH.page);
   await polityView(PH.page, "phone 390×844, the Mediterranean in 1500 at 12 km/px", { lon: 15, lat: 45, k: 12 }, 1500, { id: "pol:ottoman", name: "the Ottoman Empire" }, null);
-  await polityView(PH.page, "phone 390×844, the globe in 1500", { lon: 20, lat: 40, k: 24 }, 1500, null, null);
+  await polityView(PH.page, "phone 390×844, the globe in 1500", { lon: 20, lat: 40, k: 24 }, 1500, { id: "pol:ottoman", name: "the Ottoman Empire" }, null);   // 3a left it unnamed: 97 px of name against a 42 px polity; it now breaks onto two lines
+  // the owner's phone: the Mali Empire cut by the frame's edge (task 0c). The same view names it, wholly inside
+  {
+    const m = (await layoutAt(PH.page, { lon: 20, lat: 40, k: 24 }, "normal")).placed.find((p) => p.id === "pol:mali");
+    check("phone 390×844, the globe in 1500: the Mali Empire is named and not cut by the frame", !!m && m.rects.every((r) => r[0] >= 0), m ? JSON.stringify(m.box.map(Math.round)) : "not named");
+    const o = (await layoutAt(PH.page, { lon: 20, lat: 40, k: 24 }, "normal")).placed.find((p) => p.id === "pol:ottoman");
+    check("phone 390×844, the globe in 1500: the Ottoman Empire's name is on two lines (two rows of glyphs, as wide as its land)", !!o && o.rects.length === 2 && o.rects[0][3] <= o.rects[1][1] + 1, o ? o.rects.length + " rects" : "not named");
+  }
+  // a sweep of phone views over the 1500 map: no polity name, in any of them, cut by an edge
+  for (const V of [{ lon: -5, lat: 15, k: 12 }, { lon: 30, lat: 40, k: 16 }, { lon: 30, lat: 38, k: 12 }, { lon: 10, lat: 50, k: 12 }, { lon: 35, lat: 40, k: 24 }]) await polityView(PH.page, `phone 390×844, 1500 at ${V.lon}°, ${V.lat}°, ${V.k} km/px`, V, 1500, null, null);
   check("no page errors on #map2 (phone, the history loaded)", PH.errors.length === 0, PH.errors.slice(0, 3).join(" | "));
   await PH.page.close();
   check("no page errors on #map2 (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));

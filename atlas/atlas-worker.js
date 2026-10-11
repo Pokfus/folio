@@ -433,7 +433,8 @@
   const CAPITAL_AFTER_RANK = 1;       // a period capital is placed after the polities of on-screen area rank 0..this (task 0a, Phase 3a)
   const POLITY_WIDE = 1.8, POLITY_WIDE_LARGE = 3.0;   // a polity name may be this much wider than its label path and still sit straight at the anchor (the larger figure for the rank 0..CAPITAL_AFTER_RANK polities, whose name at globe scale is the one thing the view is for)
   const POLITY_SLIDE = [0, -0.12, 0.12, -0.24, 0.24, -0.36, 0.36];   // the fractions of the path's length a polity name slides from the middle when the middle is taken
-  const POLITY_NUDGE = [0, -1.2, 1.2, -2.4, 2.4];                    // the lines a straight polity name moves up or down from its anchor when the anchor is taken
+  const POLITY_SIDE = [0, -0.25, 0.25, -0.45, 0.45];                                // the fractions of its own width a straight polity name moves sideways from its anchor when the anchor's place is taken (3b)
+  const POLITY_NUDGE = [0, -1.2, 1.2, -2.4, 2.4, -3.6, 3.6];                    // the lines a straight polity name moves up or down from its anchor when the anchor is taken
   function unitOf(lon, lat) { const la = lat * D2R_, lo = lon * D2R_, c = Math.cos(la); return [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; }
   function loadGazetteer(table) {
     const col = {}; table.cols.forEach((c, i) => { col[c] = i; });
@@ -575,6 +576,38 @@
     // the fraction of a chain of glyph boxes (or one box) lying beyond the viewport, by box area
     const clippedFrac = (rs) => { let a = 0, v = 0; for (const r of rs) { const w = r[2] - r[0], h = r[3] - r[1]; if (w <= 0 || h <= 0) continue; a += w * h; v += Math.max(0, Math.min(r[2], W) - Math.max(r[0], 0)) * Math.max(0, Math.min(r[3], H) - Math.max(r[1], 0)); } return a > 0 ? 1 - v / a : 1; };
     const MAX_CLIP = 0.25;
+    /* A POLITY'S NAME STAYS INSIDE THE FRAME (Phase 3b, task 0c; the owner's phone had "Mali Empire" cut by the frame's edge and the
+       Ottoman Empire of 1500 unnamed). The quarter an area label may hang over the edge (MAX_CLIP) is kept for seas, rivers and
+       regions; a polity's name is a title a reader needs whole, so it is slid back inside the frame by at most a third of its
+       own width (and two lines' height) or it is not placed, and a name wider than its polity may break at a space onto two
+       lines, which keeps it over the polity at a zoom where one line would hang far past the border. */
+    const FRAME_PAD = 2;
+    const inFrame = (rs) => rs.every((r) => r[0] >= FRAME_PAD && r[1] >= FRAME_PAD && r[2] <= W - FRAME_PAD && r[3] <= H - FRAME_PAD);
+    const intoFrame = (g, lineH) => {
+      let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      for (const r of g.rects) { x0 = Math.min(x0, r[0]); y0 = Math.min(y0, r[1]); x1 = Math.max(x1, r[2]); y1 = Math.max(y1, r[3]); }
+      const dx = x0 < FRAME_PAD ? FRAME_PAD - x0 : x1 > W - FRAME_PAD ? W - FRAME_PAD - x1 : 0;
+      const dy = y0 < FRAME_PAD ? FRAME_PAD - y0 : y1 > H - FRAME_PAD ? H - FRAME_PAD - y1 : 0;
+      if (!dx && !dy) return g;
+      if (Math.abs(dx) > (x1 - x0) / 3 || Math.abs(dy) > 2 * lineH) return null;
+      return { glyphs: g.glyphs.map((q) => [q[0] + dx, q[1] + dy, q[2], q[3]]), rects: g.rects.map((r) => [r[0] + dx, r[1] + dy, r[2] + dx, r[3] + dy]) };
+    };
+    // a name broken at the space that makes the two lines most nearly equal; null when it has no space. The glyph list keeps one
+    // glyph for the space, so it stays index for index with the text (the painter reads the two together).
+    const splitName = (text, st, styleId) => {
+      let best = null;
+      for (let i = 1; i < text.length - 1; i++) {
+        if (text[i] !== " ") continue;
+        const a = shape(text.slice(0, i), st, missing), b = shape(text.slice(i + 1), st, missing); a.style = b.style = styleId;
+        const wide = Math.max(a.w, b.w); if (!best || wide < best.wide) best = { a, b, wide, at: i };
+      }
+      return best;
+    };
+    const stacked = (two, x, y) => {
+      const lh = two.a.h, g1 = straight(two.a, x, y - lh / 2, 0), g2 = straight(two.b, x, y + lh / 2, 0);
+      const last = g1.glyphs[g1.glyphs.length - 1];
+      return { glyphs: g1.glyphs.concat([[last[0], last[1], 0, 0]], g2.glyphs), rects: g1.rects.concat(g2.rects) };
+    };
     for (const c of chrome) take(c);   // the controls' rectangles are taken first (padded like any label), so nothing is laid out under them
     const placed = [];
     // the period capitals' MARKERS are reserved before any label (task 0a): a polity name placed earlier in the order is laid
@@ -654,14 +687,17 @@
         // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
         const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
         const cum = polyline(S2), Ls = cum[cum.length - 1];
-        let got = null, curved = false;
+        let got = null, curved = false, lines = 1;
         // along the path: at its middle first, then slid either way (task 0a: the one trial at the middle was where the capital sat)
-        if (Ls >= sh.w * 1.02) for (const f of POLITY_SLIDE) { const s0 = Ls / 2 + f * Ls; if (s0 - sh.w / 2 < 0 || s0 + sh.w / 2 > Ls) continue; const g = alongEither(sh, S2, cum, s0, st); if (g && g.rects.every(free) && clippedFrac(g.rects) <= MAX_CLIP) { got = g; curved = true; break; } }
+        if (Ls >= sh.w * 1.02) for (const f of POLITY_SLIDE) { const s0 = Ls / 2 + f * Ls; if (s0 - sh.w / 2 < 0 || s0 + sh.w / 2 > Ls) continue; const g = alongEither(sh, S2, cum, s0, st); if (g && g.rects.every(free) && inFrame(g.rects)) { got = g; curved = true; break; } }
         if (!got) {
-          if (sh.w > row.path.len * (row.rank <= CAPITAL_AFTER_RANK ? POLITY_WIDE_LARGE : POLITY_WIDE)) { drop("polity name wider than its path"); continue; }
+          const wide = row.path.len * (row.rank <= CAPITAL_AFTER_RANK ? POLITY_WIDE_LARGE : POLITY_WIDE);
           let clipped = 0, collided = 0;
-          for (const n of POLITY_NUDGE) { const g = straight(sh, c.a[0], c.a[1] + n * sh.h, 0); if (clippedFrac(g.rects) > MAX_CLIP) { clipped++; continue; } if (!free(g.rects[0])) { collided++; continue; } got = g; break; }
-          if (!got) { drop(clipped > collided ? "polity label clipped" : "polity collides"); continue; }
+          const straightTry = (make, w) => { for (const n of POLITY_NUDGE) for (const f of POLITY_SIDE) { const g = intoFrame(make(c.a[0] + f * w, c.a[1] + n * sh.h), sh.h); if (!g) { clipped++; continue; } if (!g.rects.every(free)) { collided++; continue; } return g; } return null; };
+          if (sh.w <= wide) got = straightTry((x, y) => straight(sh, x, y, 0), sh.w);
+          let two = null;
+          if (!got) { two = splitName(text, st, styleId); if (two && two.wide <= wide) { got = straightTry((x, y) => stacked(two, x, y), two.wide); if (got) lines = 2; } }
+          if (!got) { drop(sh.w > wide && !(two && two.wide <= wide) ? "polity name wider than its path (" + Math.round(sh.w) + " px, " + (two ? Math.round(two.wide) + " px on two lines" : "no space to break at") + ", against " + Math.round(row.path.len) + ", rank " + row.rank + ")" : clipped > collided ? "polity label clipped" : "polity collides"); continue; }
         }
         const ub = union(got.rects); if (offScreen(ub)) { drop("polity label wholly off screen"); continue; }
         got.rects.forEach(take);
