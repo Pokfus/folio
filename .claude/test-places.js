@@ -119,9 +119,9 @@ console.log("\n2b) decision 1 and decision 2: one place per site, 25 km, kinds (
   x = via("Thebes", [23.32, 38.32], "point", [item("Q11225429", "Thebes", [23.32, 38.32], [POLIS], "Thebes"), item("Q5760", "Thebes", [23.32, 38.32], [CITY], "Thebes, Greece"), item("Q127431406", "Thebes", [23.32, 38.32], [MINT], "Thebes")]);
   check("a polis alone is an ancient city, not a state: Thebes resolves, a tie goes to the item whose title is the toponym", x.id === "pl:q11225429" && x.item.kind === "site", JSON.stringify(x).slice(0, 200));
   x = via("Thera", [25.43, 36.42], "point", [item("Q129296", "Thera", [25.43, 36.4], [ISLAND, "Q1200957"], "Santorini"), item("Q433004", "Thera", [25.5, 36.36], [POLIS, "Q839954"], "Ancient Thera")]);
-  check("an island and an ancient city 7 km apart are DIFFERENT kinds: ambiguous, none chosen (an island that is also a tourist destination stays an island)", Array.isArray(x.ambiguous) && /different kinds \(island, settlement\)/.test(x.why), x.why);
+  check("an island and the polis of the same name 7 km apart are ONE site (3c, decision 1): the island is the place, an island that is also a tourist destination stays an island", x.id === "pl:q129296" && x.item.kind === "island" && x.merged && x.merged.length === 1 && x.merged[0].qid === "Q433004" && x.merged[0].how === "island-polis", JSON.stringify(x).slice(0, 200));
   x = via("Salamis", [23.5, 37.95], "battle", [item("Q202422", "Salamis", [23.5, 37.95], [ISLAND, POLIS], "Salamis Island"), item("Q28721684", "Salamis", [23.47, 37.92], [ANCIENT], "Salamis")]);
-  check("an island that is also a polis is still an island (the polis class is read last)", Array.isArray(x.ambiguous) && /island/.test(x.why), x.why);
+  check("an island that is also a polis is still an island (the polis class is read last), and the ancient city of that name folds into it", x.id === "pl:q202422" && x.item.kind === "island" && x.merged && x.merged[0].qid === "Q28721684", JSON.stringify(x).slice(0, 200));
   x = via("Macedonia", [22.0, 40.5], "region", [item("Q81734", "Macedonia", [22.0, 40.6], ["Q82794", "Q1620908"], "Macedonia"), item("Q103251", "Macedonia", [22.0, 41.1], ["Q82794", "Q1620908"], "Macedonia (region)")]);
   check("two regions more than 25 km apart are ambiguous even of one kind", Array.isArray(x.ambiguous) && /more than 25 km apart/.test(x.why), x.why);
   x = via("Sagres", [-8.94, 37.01], "point", [item("Q926672", "Sagres", [-8.94, 37.01], [FREGUESIA], "Sagres (Vila do Bispo)"), item("Q49364942", "Sagres", [-8.94, 37.01], [TOWN_PT], "Sagres")]);
@@ -155,6 +155,94 @@ console.log("\n2b) decision 1 and decision 2: one place per site, 25 km, kinds (
   const usedIds = [...new Set(loadCards().cards.flatMap((c) => c.places || []))].filter((id) => !id.startsWith("pol:"));
   const rest = M.crossMerge(usedIds.map((id) => ({ id })), regNow, JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "places-spec.json"), "utf8")).rows || {}, {});
   check("no two places of one site remain among the places the cards use (the migration is at its fixed point)", rest.list.length === 0, rest.list.slice(0, 3).map((m) => m.name + " → " + m.intoName).join("; "));
+}
+
+console.log("\n2c) Phase 3c: island and polis, Wikidata-linked period settlements, the hill kind\n");
+{
+  const real = M.loadCache().classes;
+  const item = (qid, label, coord, classes, title) => ({ qid, coord, label, title: title || label, classes });
+  const via = (name, at, kind, items) => {
+    const t = T(name, at, kind);
+    const key = at[0].toFixed(3) + "," + at[1].toFixed(3) + "," + Math.min(M.RADIUS[kind || "point"] || 25, 50);
+    return M.makeResolver(fixtureRegistry([]), { titles: { [name]: null }, labels: {}, around: { [key]: items }, classes: real, items: {} }).resolve(t);
+  };
+  const viaL = (name, at, kind, items) => {   // candidates arrive through the exact-label lookup (the resolver keeps those within the radius)
+    const t = T(name, at, kind);
+    return M.makeResolver(fixtureRegistry([]), { titles: { [name]: null }, labels: { [name]: items }, around: {}, classes: real, items: {} }).resolve(t);
+  };
+  const POLIS = "Q148837", ANCIENT = "Q15661340", ISLAND = "Q23442", VILLAGE = "Q532", CITY = "Q515", MOUNTAIN = "Q8502", HILL = "Q54050", PALACE = "Q16560", BATTLE = "Q178561";
+  /* decision 1 */
+  let x = viaL("Seriphos", [24.5, 37.15], "point", [item("Q217214", "Serifos", [24.5, 37.15], [ISLAND], "Serifos"), item("Q65244370", "Serifos", [24.5061, 37.1547], [POLIS], "Serifos (polis)")]);
+  check("3c: an island and a polis of one name (Seriphos) fold into the ISLAND row, the polis its merged item", x.id === "pl:q217214" && x.item.kind === "island" && x.merged.length === 1 && x.merged[0].qid === "Q65244370" && x.merged[0].how === "island-polis", JSON.stringify(x).slice(0, 220));
+  x = viaL("Ithaca", [20.72, 38.36], "point", [item("Q187471", "Ithaca", [20.6667, 38.4167], [ISLAND, POLIS], "Ithaca (island)"), item("Q3555023", "Vathy", [20.7202, 38.3647], ["Q486972"], "Vathy, Ithaca")]);
+  check("3c: an island that is itself a polis (Ithaca) is the island, even when a modern town carrying the name only as an alias lies nearer the card — that town is set aside, not folded and not a rival", x.id === "pl:q187471" && x.item.kind === "island" && (x.merged || []).length === 0 && x.aside && x.aside[0].qid === "Q3555023", JSON.stringify(x).slice(0, 240));
+  x = viaL("Rhodes", [28.2, 36.43], "point", [item("Q1", "Rhodes", [28.2, 36.3], [ISLAND], "Rhodes"), item("Q2", "Rhodes", [28.22, 36.43], [CITY], "Rhodes (city)")]);
+  check("3c: an island and a MODERN town that bears the name itself are still different kinds: ambiguous", Array.isArray(x.ambiguous) && /different kinds/.test(x.why), x.why);
+  x = viaL("Thera", [25.43, 36.42], "point", [item("Q129296", "Thera", [25.43, 36.4], [ISLAND], "Santorini"), item("Q433004", "Thera", [25.5, 36.36], [POLIS], "Ancient Thera"), item("Q65084301", "Thera", [28.28, 37.14], [ANCIENT], "Thera (Caria)")]);
+  check("3c: a namesake polis 300 km away does not enter the fold (the radius still decides)", x.id === "pl:q129296" && x.merged.length === 1, JSON.stringify(x).slice(0, 160));
+  x = viaL("Versailles", [2.12, 48.8], "point", [item("Q621", "Versailles", [2.1301, 48.8014], ["Q484170"], "Versailles"), item("Q2946", "Versailles", [2.1204, 48.8049], [PALACE, "Q751876"], "Palace of Versailles")]);
+  check("3c: a palace and the commune beside it (Versailles) STAY ambiguous, listed for a human", Array.isArray(x.ambiguous) && /different kinds/.test(x.why), x.why);
+  x = viaL("Waterloo", [4.4, 50.68], "battle", [item("Q179034", "Waterloo", [4.3994, 50.7147], ["Q493522"], "Waterloo"), item("Q48314", "Waterloo", [4.41, 50.68], [BATTLE], "Battle of Waterloo")]);
+  check("3c: a battlefield and the town beside it (Waterloo) STAY ambiguous", Array.isArray(x.ambiguous) && /different kinds/.test(x.why), x.why);
+  /* decision 2: only a Wikidata link folds a period settlement 2-25 km from a modern city */
+  const fxr = fixtureRegistry([
+    { id: "city:90", name: "Heraklion", kind: "city", at: [25.1442, 35.3387], qid: "Q160544", aliases: [] },
+    { id: "city:91", name: "Constanța", kind: "city", at: [28.6348, 44.1733], qid: "Q79808", aliases: [] },
+    { id: "city:92", name: "Manisa", kind: "city", at: [27.4289, 38.6191], qid: "Q147089", aliases: [] },
+    { id: "city:93", name: "Xi'an", kind: "city", at: [108.94, 34.34], qid: "Q5826", aliases: [] },
+    { id: "city:94", name: "Modern A", kind: "city", at: [10.0, 40.0], qid: "Q9001", aliases: [] },
+  ]);
+  const own = (qid, name, coord) => ({ id: "pl:q" + qid.slice(1), via: "title", d: 0, item: { qid, kind: "site", sub: "site", coord, label: name, title: name, classes: [ANCIENT] } });
+  const mk = () => [own("Q173527", "Knossos", [25.1632, 35.298]), own("Q2441154", "Tomis", [28.6603, 44.1766]), own("Q920866", "Magnesia ad Sipylum", [27.4, 38.6]), own("Q11111", "Changan", [108.9, 34.31]), own("Q9002", "Old B", [10.04, 40.0])];
+  const km2 = (a, b) => R.km(a, b);
+  const links = {
+    Q173527: { enwiki: "Knossos" }, Q160544: { enwiki: "Heraklion", P1365: ["Q65075667"] },
+    Q2441154: { enwiki: null, P460: ["Q79808"] }, Q79808: { enwiki: "Constanța", P460: ["Q2441154"] },
+    Q920866: { enwiki: "Magnesia ad Sipylum", P1366: ["Q147089"] }, Q147089: { enwiki: "Manisa" },
+    Q11111: { enwiki: "Chang'an" }, Q5826: { enwiki: "Xi'an", P1365: ["Q999999"] },
+    Q9002: { enwiki: "Shared Title" }, Q9001: { enwiki: "Shared Title" },
+  };
+  let results = mk(); let X = M.crossMerge(results, fxr, {}, {}, links);
+  check("3c: Knossos 4.3 km from Heraklion with NO Wikidata link between them stays its own place (distance alone never folds)", km2([25.1632, 35.298], [25.1442, 35.3387]) > 4 && !X.into.has("pl:q173527") && X.near.some((m) => m.id === "pl:q173527" && /no Wikidata link found/.test(m.evidence)), JSON.stringify(X.near.find((m) => m.id === "pl:q173527")));
+  check("3c: Tomis folds into Constanța where Wikidata says so (P460), the evidence recorded", X.into.get("pl:q2441154") === "city:91" && /P460/.test((X.list.find((m) => m.id === "pl:q2441154") || {}).evidence || ""), JSON.stringify(X.list.find((m) => m.id === "pl:q2441154")));
+  check("3c: a period settlement folds where it is 'replaced by' the modern city (P1366)", X.into.get("pl:q920866") === "city:92" && /P1366 replaced by/.test((X.list.find((m) => m.id === "pl:q920866") || {}).evidence || ""));
+  check("3c: Chang'an 4.7 km from Xi'an with no link between the two items stays separate (a link to some OTHER item is not evidence)", !X.into.has("pl:q11111"));
+  check("3c: two items sharing one English Wikipedia article count as linked", X.into.get("pl:q9002") === "city:94" && /same English Wikipedia article/.test((X.list.find((m) => m.id === "pl:q9002") || {}).evidence || ""));
+  check("3c: the fold's aliases carry the period name onto the modern city's overlay", (X.aliases.get("city:91") || []).includes("Tomis") && results[1].id === "city:91");
+  check("3c: crossMerge reports the Wikidata items it needs (--fetch asks for exactly these)", X.wanted.includes("Q173527") && X.wanted.includes("Q160544") && X.wanted.every((q) => /^Q\d+$/.test(q)), X.wanted.join(","));
+  results = mk(); X = M.crossMerge(results, fxr, {}, {}, {});
+  check("3c: with no links in the cache nothing folds and every pair says it could not be checked (never a guess)", X.list.length === 0 && X.near.length >= 4 && X.near.every((m) => /could not check/.test(m.evidence)), X.near.map((m) => m.evidence).join(" | ").slice(0, 160));
+  results = mk(); X = M.crossMerge(results, fxr, {}, {}, undefined);
+  check("3c: …and the same when the cache has no `links` at all", X.list.length === 0);
+  results = mk(); const a1 = JSON.stringify(M.crossMerge(results, fxr, {}, {}, links).list), a2 = JSON.stringify(M.crossMerge(mk(), fxr, {}, {}, links).list);
+  check("3c: the evidence fold is deterministic (idempotent)", a1 === a2);
+  /* decision 3: hill */
+  check("3c: HILL is a registry kind and the taxonomy reads Q54050 as hill, mountain first", R.PLACE_KINDS.includes("hill") && M.TOPS.findIndex((t) => t[0] === "mountain") < M.TOPS.findIndex((t) => t[0] === "hill") && !M.TOPS.find((t) => t[0] === "mountain")[2].includes(HILL));
+  x = viaL("Palatine Hill", [12.49, 41.89], "point", [item("Q200642", "Palatine Hill", [12.4879, 41.8895], ["Q17431399", "Q839954", HILL], "Palatine Hill")]);
+  check("3c: an item whose class is hill becomes a row of kind hill (a hill that is also an archaeological site stays a hill)", x.id === "pl:q200642" && x.item.kind === "hill", JSON.stringify(x).slice(0, 200));
+  x = viaL("Mount Olympus", [22.35, 40.09], "point", [item("Q80344", "Mount Olympus", [22.35, 40.09], ["Q46169", MOUNTAIN], "Mount Olympus")]);
+  check("3c: …while a mountain stays a mountain", x.item.kind === "mountain", JSON.stringify(x).slice(0, 160));
+  x = viaL("Isandlwana", [30.65, -28.35], "point", [item("Q3782078", "Isandlwana", [30.65, -28.35], [HILL, MOUNTAIN], "Isandlwana")]);
+  check("3c: an item Wikidata classes as BOTH a hill and a mountain is a mountain (the mountain rule is read first; neither swallows the other's own class)", x.item.kind === "mountain", JSON.stringify(x).slice(0, 160));
+  check("3c: kindOf: hill alone is hill, mountain alone is mountain, a subclass of hill (a tell is not mapped, an artificial hill is) is hill", M.kindOf({ classes: real }, [HILL]).kind === "hill" && M.kindOf({ classes: real }, [MOUNTAIN]).kind === "mountain" && M.kindOf({ classes: real }, ["Q10460934"]).kind === "hill");
+  x = viaL("Pelion", [23.05, 39.44], "range", [item("Q192345", "Pelion", [23.05, 39.44], [HILL], "Pelion")]);
+  check("3c: a locator of kind range still takes a hill (as it took a mountain)", x.id === "pl:q192345" && x.item.kind === "hill", JSON.stringify(x).slice(0, 120));
+  /* the real data */
+  const regNow = R.loadRegistry();
+  const rowOf = (n) => (regNow.byName.get(R.fold(n)) || []).filter((r) => r.id.startsWith("pl:"));
+  check("3c: the Palatine, the Temple Mount and the Capitoline are `hill` in the real registry", ["Palatine Hill", "Temple Mount", "Capitoline Hill"].every((n) => rowOf(n).some((r) => r.kind === "hill")), ["Palatine Hill", "Temple Mount", "Capitoline Hill"].map((n) => n + ":" + rowOf(n).map((r) => r.kind).join("/")).join(" "));
+  check("3c: Mount Olympus and Mount Etna are still `mountain`", ["Mount Olympus", "Mount Etna"].every((n) => rowOf(n).some((r) => r.kind === "mountain")));
+  const placeRows = [...regNow.rows.values()].filter((r) => r.id.startsWith("pl:"));
+  check("3c: no hill-classed row is left as a mountain (every row whose cached classes include only the hill class is a hill)", placeRows.filter((r) => r.kind === "mountain").every((r) => { const it = (M.loadCache().items || {})[r.qid]; return !it || !(it.classes || []).includes(HILL) || (it.classes || []).includes(MOUNTAIN); }), placeRows.filter((r) => r.kind === "hill").length + " hills, " + placeRows.filter((r) => r.kind === "mountain").length + " mountains");
+  /* Knossos and Heraklion in the real data: two places unless the cache really links them */
+  const cacheNow = M.loadCache(), L = cacheNow.links || {};
+  const knossos = rowOf("Knossos").find((r) => r.kind === "site"), herak = regNow.rows.get("city:1159148617");
+  const linkedReal = knossos && herak && ((L[knossos.qid] || {}).P1366 || []).concat((L[knossos.qid] || {}).P1365 || [], (L[knossos.qid] || {}).P460 || []).includes(herak.qid) || ((L[herak && herak.qid] || {}).P1366 || []).concat((L[herak && herak.qid] || {}).P1365 || [], (L[herak && herak.qid] || {}).P460 || []).includes(knossos && knossos.qid) || (knossos && herak && (L[knossos.qid] || {}).enwiki && (L[knossos.qid] || {}).enwiki === (L[herak.qid] || {}).enwiki);
+  check("3c: in the real data Knossos and Heraklion are two places unless the committed cache links them (it does not: distance alone never folds)", !!knossos && !!herak && knossos.id !== herak.id && !linkedReal, (knossos || {}).id + " / " + (herak || {}).id);
+  const realUsed = [...new Set(loadCards().cards.flatMap((c) => c.places || []))];
+  check("3c: every period pair folded by Wikidata evidence is persisted with that evidence, and none rests on distance alone", (() => { const sp = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "places-spec.json"), "utf8")); const items = [].concat(...Object.values(sp.rows).map((r) => r.merged || []), ...Object.values(sp.overlay || {}).map((o) => o.merged || [])).filter((m) => m.how === "wikidata"); return items.every((m) => m.evidence && /^(P1366|P1365|P460|the same English Wikipedia article)/.test(m.evidence) && m.km > 2); })(), "folded: " + (() => { const sp = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "places-spec.json"), "utf8")); return [].concat(...Object.values(sp.rows).map((r) => r.merged || []), ...Object.values(sp.overlay || {}).map((o) => o.merged || [])).filter((m) => m.how === "wikidata").map((m) => m.name).join(", "); })());
+  check("3c: the island-and-polis names resolve in the real registry to one island row each (Thera, Salamis, Ithaca, Seriphos)", [["Thera", "Santorini"], ["Salamis", "Salamis Island"], ["Ithaca", "Ithaca (island)"], ["Seriphos", "Serifos"]].every(([n, nm]) => { const l = (regNow.byName.get(R.fold(n)) || []).filter((r) => r.kind === "island"); return l.length === 1 && l[0].name === nm; }));
+  check("3c: the real registry's period-pair folds are at a fixed point (the idempotence check above)", realUsed.length > 0);
 }
 
 console.log("\n3) the migration is additive\n");

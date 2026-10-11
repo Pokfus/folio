@@ -36,7 +36,7 @@ const HISTORY = path.join(DATA, "history.bin");
 
 /* the kinds a registry row may carry: the gazetteer's fifteen (§2.6 v0), the Phase 3 additions, and the entity kinds */
 const GAZETTEER_KINDS = ["country", "admin1", "capital", "city", "town", "sea", "ocean", "strait", "gulf", "lake", "river", "island", "island-group", "range", "region"];
-const PLACE_KINDS = GAZETTEER_KINDS.concat(["site", "mountain", "cape"]);          // places.js may add a site (a cave, a temple, a battlefield, an ancient city), a mountain, a cape (registry kinds since 3b, decision 2)
+const PLACE_KINDS = GAZETTEER_KINDS.concat(["site", "mountain", "cape", "hill"]);   // places.js may add a site (a cave, a temple, a battlefield, an ancient city), a mountain, a cape (registry kinds since 3b, decision 2) and a hill (3c, decision 3: Wikidata's Q54050 and its subclasses, which 3a and 3b read as `mountain`)
 const ENTITY_KINDS = ["polity", "people"];
 const KINDS = PLACE_KINDS.concat(ENTITY_KINDS);
 const ID_RE = /^(adm0|adm1|city|sea|reg|pt|lake|river|pl|pol):[A-Za-z0-9_.:-]+$/;

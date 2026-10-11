@@ -71,7 +71,8 @@ const TOPS = [
   ["island-group", "", ["Q1402592"]],                                           // archipelago
   ["island", "", ["Q23442", "Q207524"]],                                        // island, atoll
   ["range", "", ["Q46831", "Q1437459", "Q1061151"]],                            // mountain range, massif, highland
-  ["mountain", "", ["Q8502", "Q7944", "Q54050", "Q8072"]],                      // mountain, volcano, hill
+  ["mountain", "", ["Q8502", "Q7944", "Q8072"]],                                // mountain, volcano (and Q7944, kept as 3a wrote it)
+  ["hill", "", ["Q54050"]],                                                     // hill (3c, decision 3): AFTER mountain, so an item Wikidata classes as both is the mountain
   ["cape", "", ["Q185113"]],                                                    // cape
   ["strait", "", ["Q39594"]],
   ["gulf", "", ["Q1322134", "Q39594", "Q37901", "Q47053"]],                     // gulf, bay, fjord
@@ -82,7 +83,7 @@ const TOPS = [
   ["people", "", ["Q41710", "Q2472587", "Q465299", "Q11514315", "Q1792644"]],   // ethnic group, people, archaeological culture, historical period, art style (reported, never a row)
 ];
 const TOP_IDS = [...new Set(TOPS.flatMap((t) => t[2]))];
-const DIRECT_NATURAL = ["island", "island-group", "range", "mountain", "cape"];   // the rows whose class lists are clean natural features (a river or a lake that is also a site stays a site: an archaeological site named for its river is the site)
+const DIRECT_NATURAL = ["island", "island-group", "range", "mountain", "hill", "cape"];   // the rows whose class lists are clean natural features (a river or a lake that is also a site stays a site: an archaeological site named for its river is the site)
 const RADIUS = { point: 25, battle: 25, river: 300, region: 300, range: 300, sea: 300, shelf: 300 };
 const radiusOf = (kind) => RADIUS[kind] || 25;
 const DISAMBIG = "Q4167410";
@@ -96,8 +97,11 @@ const DISAMBIG = "Q4167410";
        so Thera the island and Ancient Thera the site, or Akrotiri the site and Akrotiri the cape, remain ambiguous.
    Across toponyms the same site is looser evidence (two different names, two different Wikidata items): the migration merges
    only a settlement row IT OWNS into another settlement row within CROSS_SITE_KM (2 km), never touching the gazetteer; period
-   names 2–25 km from a modern settlement stay two places and are listed in the report for the owner (`merges` in
-   places-spec.json takes the owner's decision). */
+   names 2–25 km from a modern settlement stay two places UNLESS Wikidata itself links the two items (Phase 3c, decision 2: P1366
+   replaced by, P1365 replaces, P460 said to be the same as, or one shared English Wikipedia article — `crossMerge`'s `links`, read
+   from the cache), and are otherwise listed in the report with the evidence checked (`merges` in places-spec.json takes the
+   owner's decision). Also Phase 3c: an island and the polis of the same name are one site (`islandPolis`), and Wikidata's hill
+   (Q54050) is the kind `hill`, read after `mountain` (TOPS). */
 const SAME_SITE_KM = 25, CROSS_SITE_KM = 2;
 const Q_POLIS = "Q148837", Q_ANCIENT_CITY = "Q15661340";
 const PERIOD_CLASSES = [Q_ANCIENT_CITY, Q_POLIS];                                          // an ancient city, a polis
@@ -184,6 +188,34 @@ function fetchLabels(cache, names) {
   if (want.length) log("");
   return want.length;
 }
+/* PHASE 3c, DECISION 2: what Wikidata itself says links two items — P1366 replaced by, P1365 replaces, P460 said to be the same as, and the
+   English Wikipedia sitelink — from Special:EntityData (the SPARQL service answered 429 "1 req / min" on 2026-10-11; this endpoint
+   answered). cache.links[Q] = { enwiki, P1366?, P1365?, P460? } (an empty list is left out); a failed item is NOT recorded, so the
+   pair stays "could not check" and the next --fetch asks again. Written after every ten, `retrieved` untouched. */
+const UA = "folio-atlas-build/0.1 (https://folio.study) curl";
+function fetchLinks(cache, qids) {
+  cache.links = cache.links || {};
+  const want = qids.filter((q) => /^Q\d+$/.test(q) && !(q in cache.links));
+  let n = 0, failed = 0;
+  for (const q of want) {
+    let e = null, err = "";
+    for (let attempt = 0; attempt < 5 && !e; attempt++) {
+      const r = spawnSync("curl", ["-sS", "-L", "-m", "60", "-A", UA, "-w", "\n%{http_code}", "https://www.wikidata.org/wiki/Special:EntityData/" + q + ".json"], { encoding: "utf8", maxBuffer: 1 << 27 });
+      const nl = (r.stdout || "").lastIndexOf("\n"), code = r.status === 0 ? (r.stdout || "").slice(nl + 1).trim() : "curl";
+      if (code === "200") { try { const j = JSON.parse(r.stdout.slice(0, nl)); e = j.entities && (j.entities[q] || Object.values(j.entities)[0]); if (!e) err = "no entity in the answer"; } catch (x) { err = "unparsable answer"; } if (!e) break; }
+      else { err = "HTTP " + code; if (code === "404") break; const wait = [5, 15, 30, 60, 120][attempt]; log("  " + q + " refused (" + err + "), waiting " + wait + " s"); spawnSync("sleep", [String(wait)]); }
+    }
+    if (!e) { failed++; log("  " + q + ": could not be read (" + err + "); not recorded"); continue; }
+    const ids = (p) => [...new Set(((e.claims || {})[p] || []).filter((c) => c.rank !== "deprecated" && c.mainsnak && c.mainsnak.datavalue && c.mainsnak.datavalue.value && c.mainsnak.datavalue.value.id).map((c) => c.mainsnak.datavalue.value.id))].sort();
+    const rec = { enwiki: (e.sitelinks && e.sitelinks.enwiki && e.sitelinks.enwiki.title) || null };
+    for (const p of ["P1366", "P1365", "P460"]) { const l = ids(p); if (l.length) rec[p] = l; }
+    cache.links[q] = rec; n++;
+    if (n % 10 === 0) { fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 1) + "\n"); }
+    process.stdout.write(`  links ${n + failed}/${want.length}\r`); spawnSync("sleep", ["1.5"]);
+  }
+  if (want.length) { fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 1) + "\n"); log(`  links: ${n} read, ${failed} failed, of ${want.length} asked`); }
+  return n;
+}
 /* which of the taxonomy's tops each class reaches by subclass-of */
 function fetchClasses(cache, classes) {
   const want = classes.filter((c) => !(c in cache.classes));
@@ -257,7 +289,7 @@ function makeResolver(reg, cache, mergedQ) {
   if (mergedQ) for (const [q, id] of mergedQ) if (!byQid.has(q) && reg.rows.has(id)) byQid.set(q, reg.rows.get(id));
   const kindOk = (want, have) => {
     if (want === "point" || want === "battle") return !/^(country|admin1|sea|ocean|gulf|strait|lake|river|range|region|island-group|polity|people)$/.test(have);
-    if (want === "river") return have === "river"; if (want === "range") return have === "range" || have === "mountain"; if (want === "sea" || want === "shelf") return /^(sea|ocean|gulf|strait|region)$/.test(have);
+    if (want === "river") return have === "river"; if (want === "range") return have === "range" || have === "mountain" || have === "hill"; if (want === "sea" || want === "shelf") return /^(sea|ocean|gulf|strait|region)$/.test(have);
     if (want === "region") return /^(region|range|island|island-group|admin1|country|sea|gulf|lake)$/.test(have);
     return true;
   };
@@ -268,16 +300,38 @@ function makeResolver(reg, cache, mergedQ) {
      The representative is the candidate nearest the card's own coordinate (a tie is anything within a kilometre of the nearest),
      then the one whose name or title IS the toponym, then the gazetteer's own row, then the lowest Wikidata number: the card's
      coordinate is the author's statement of where the site is, so the item standing there is the one the card is about. */
+  /* PHASE 3c, THE OWNER'S DECISION 1 — AN ISLAND AND THE POLIS OF THE SAME NAME ARE ONE SITE (Thera, Salamis, Ithaca, Seriphos). When
+     the candidates are islands and settlements only, within SAME_SITE_KM, and the settlement side is a polis or an ancient city (a
+     separate item of that class, or the island's own item carrying the polis class — Ithaca, Salamis Island), they fold into the
+     ISLAND row: the toponym names the island, and the polis becomes an alias and a `merged` item. A modern settlement that carries
+     the toponym only as an alias (Vathy answers "Ithaca") is not the toponym's place and is SET ASIDE, not folded and not
+     reported as a rival; one that bears the name itself (a town called Rhodes beside the island) is a different kind and keeps the
+     toponym ambiguous. A palace or a battlefield and the town beside it (Versailles, Waterloo) are not this case and stay ambiguous. */
+  const periodCand = (c) => c.it ? (c.it.classes || []).some((x) => PERIOD_CLASSES.includes(x)) : !!(c.row && c.row.kind === "site" && (c.row.sub === "site" || !c.row.sub));
+  const ownNameCand = (c, want) => c.it ? [c.it.label, c.it.title, String(c.it.title || "").replace(/\s*\([^)]*\)\s*$/, "")].some((n) => n && want.has(fold(n))) : want.has(fold(c.name));
+  function islandPolis(list, want) {
+    const fam = (c) => c.fam || familyOf(c.kind, c.sub);
+    if (!list.every((c) => fam(c) === "island" || fam(c) === "settlement")) return null;
+    const islands = list.filter((c) => fam(c) === "island"), settle = list.filter((c) => fam(c) === "settlement");
+    if (!islands.length || !settle.length) return null;
+    const period = settle.filter(periodCand), other = settle.filter((c) => !periodCand(c));
+    if (other.some((c) => ownNameCand(c, want))) return null;
+    if (!period.length && !islands.some((c) => c.it && (c.it.classes || []).includes(Q_POLIS))) return null;
+    return { islands, members: islands.concat(period), aside: other };
+  }
   function sameSite(list, t, show) {
-    const fams = [...new Set(list.map((c) => c.fam || familyOf(c.kind, c.sub)))];
-    let span = 0; for (let i = 0; i < list.length; i++) for (let j = i + 1; j < list.length; j++) if (list[i].at && list[j].at) span = Math.max(span, km(list[i].at, list[j].at));
+    const want = new Set(nameParts(t).map(fold));
+    let fams = [...new Set(list.map((c) => c.fam || familyOf(c.kind, c.sub)))];
+    let pool = list, aside = [], ip = null;
+    if (fams.length > 1) { ip = islandPolis(list, want); if (ip) { pool = ip.members; aside = ip.aside; fams = ["island"]; } }
+    let span = 0; for (let i = 0; i < pool.length; i++) for (let j = i + 1; j < pool.length; j++) if (pool[i].at && pool[j].at) span = Math.max(span, km(pool[i].at, pool[j].at));
     if (fams.length > 1 || span > SAME_SITE_KM) return { ambiguous: list.map(show), why: fams.length > 1 ? "different kinds (" + fams.join(", ") + ")" : "more than " + SAME_SITE_KM + " km apart (" + Math.round(span) + " km)" };
-    const want = new Set(nameParts(t).map(fold)), dmin = Math.min(...list.map((c) => (c.d == null ? 0 : c.d)));
-    const tie = list.filter((c) => (c.d == null ? 0 : c.d) <= dmin + 1);
+    const cands = ip ? ip.islands : pool, dmin = Math.min(...cands.map((c) => (c.d == null ? 0 : c.d)));
+    const tie = cands.filter((c) => (c.d == null ? 0 : c.d) <= dmin + 1);
     const num = (c) => Number(String(c.key).replace(/\D/g, "")) || 0;
     const pulled = (c) => (c.fam && c.fam !== familyOf(c.kind, c.sub) ? 1 : 0);   // a district or a port that is only a settlement by its class label is the second choice
     tie.sort((a, b) => pulled(a) - pulled(b) || (want.has(fold(b.name)) ? 1 : 0) - (want.has(fold(a.name)) ? 1 : 0) || a.rank - b.rank || num(a) - num(b) || (a.key < b.key ? -1 : 1));
-    return { rep: tie[0], others: list.filter((c) => c !== tie[0]) };
+    return { rep: tie[0], others: pool.filter((c) => c !== tie[0]), aside, islandPolis: !!ip };
   }
   /* resolve one toponym (name, kind, at): { id, via, row?, item? } | { ambiguous: [...] } | { unresolved: reason, classes? } */
   function resolve(t) {
@@ -316,7 +370,7 @@ function makeResolver(reg, cache, mergedQ) {
       const g = sameSite(entries, t, (c) => c.key + " " + (c.it.label || c.it.title) + " [" + classNames(cache, c.it.classes) + "], " + Math.round(c.d) + " km");
       if (g.ambiguous) return { ambiguous: g.ambiguous, why: g.why };
       const out = accept(g.rep.it.qid, g.rep.it, t.name, g.rep.d, via, g.rep.fam && g.rep.fam !== familyOf(g.rep.kind, g.rep.sub) ? { kind: "town", sub: "" } : null);   // a settlement-scale district or port is the town it is named for
-      if (out.id) out.merged = g.others.map((c) => ({ qid: c.key, name: c.it.title || c.it.label || "", label: c.it.label || "", title: c.it.title || "", kind: c.kind, at: c.at }));
+      if (out.id) { out.merged = g.others.map((c) => Object.assign({ qid: c.key, name: c.it.title || c.it.label || "", label: c.it.label || "", title: c.it.title || "", kind: c.kind, at: c.at }, g.islandPolis ? { how: "island-polis" } : {})); if (g.aside.length) out.aside = g.aside.map((c) => ({ qid: c.key, name: c.it.title || c.it.label || "" })); }
       return out;
     };
     const lab = placeLike(labelled);
@@ -351,7 +405,7 @@ const aroundKey = (t) => t.at[0].toFixed(3) + "," + t.at[1].toFixed(3) + "," + M
    strict order — the gazetteer's own row, then a places.js row that is not an ancient city or polis, then one that is, then the
    lower Wikidata number — so no cycle can form and two runs agree. Returns { into: Map loser → keeper, aliases: Map keeper →
    [names], list: [...], near: [...] } (`near` — period settlements 2–25 km from a settlement, NOT merged, for the owner). */
-function crossMerge(results, reg, oldRows, manual) {
+function crossMerge(results, reg, oldRows, manual, links) {
   const classesOf = (id, item) => (item && item.classes) || ((oldRows[id] && oldRows[id].evidence && oldRows[id].evidence.classes) || []);
   const fresh = new Map(), freshR = new Map(); for (const r of results) if (r.id && r.item && !fresh.has(r.id)) { fresh.set(r.id, r.item); freshR.set(r.id, { item: r.item, via: r.via, d: r.d }); }
   const owned = (id) => /^pl:q\d+$/.test(id) && !(oldRows[id] && oldRows[id].manual);
@@ -368,20 +422,35 @@ function crossMerge(results, reg, oldRows, manual) {
     // (a village, a frazione, a necropolis, a neighbourhood is not one — it never takes a period name in)
     const modern = src === "gazetteer" ? /^(capital|city|town)$/.test(kind) : modernClass;
     const tier = src === "gazetteer" ? 0 : period ? 2 : 1;
-    return { id, name: it ? (it.title || it.label || id) : row.name, at, kind, sub, settle: settle && familyOf(kind, sub) === "settlement" && !!at, period, modern, tier, num: Number(id.replace(/\D/g, "")) || 0, owned: owned(id) };
+    const qid = (it && it.qid) || (row && row.qid) || (/^pl:q\d+$/.test(id) ? "Q" + id.slice(4) : "");
+    return { id, qid, name: it ? (it.title || it.label || id) : row.name, at, kind, sub, settle: settle && familyOf(kind, sub) === "settlement" && !!at, period, modern, tier, num: Number(id.replace(/\D/g, "")) || 0, owned: owned(id) };
   };
   const better = (b, a) => b.tier !== a.tier ? b.tier < a.tier : b.num !== a.num ? b.num < a.num : b.id < a.id;
+  /* PHASE 3c, DECISION 2 — a period settlement 2-25 km from a modern city folds ONLY where Wikidata itself links the two items:
+     P1366 "replaced by" or P1365 "replaces" in either direction, P460 "said to be the same as" (the owner wrote P1705, which is
+     "native label" and links nothing), or both items sharing one English Wikipedia article. Never on distance alone. The facts are
+     the cache's `links` (fetched by --fetch from Special:EntityData); a pair whose items are not in it is "not checked", never a guess. */
+  const linkEvidence = (a, b) => {
+    const la = links && a.qid && links[a.qid], lb = links && b.qid && links[b.qid];
+    if (!la || !lb) return { state: "unchecked" };
+    for (const [p, what] of [["P1366", "replaced by"], ["P1365", "replaces"], ["P460", "said to be the same as"]]) {
+      if ((la[p] || []).includes(b.qid)) return { state: "linked", how: p + " " + what + ": " + a.qid + " " + a.name + " \u2192 " + b.qid + " " + b.name };
+      if ((lb[p] || []).includes(a.qid)) return { state: "linked", how: p + " " + what + ": " + b.qid + " " + b.name + " \u2192 " + a.qid + " " + a.name };
+    }
+    if (la.enwiki && la.enwiki === lb.enwiki) return { state: "linked", how: "the same English Wikipedia article \"" + la.enwiki + "\" (" + a.qid + " and " + b.qid + ")" };
+    return { state: "none" };
+  };
   const pool = []; const seen = new Set();
   for (const id of reg.rows.keys()) { if (id.startsWith("pol:")) continue; const d = describe(id); if (d && d.settle) { pool.push(d); seen.add(id); } }
   for (const id of fresh.keys()) if (!seen.has(id)) { const d = describe(id); if (d && d.settle) pool.push(d); }
-  const into = new Map(), list = [], near = [];
+  const into = new Map(), list = [], near = [], wanted = new Set();
   for (const [loser, v] of Object.entries(manual || {})) if (v && v.into) into.set(loser, v.into);
   const used = [...new Set(results.filter((r) => r.id).map((r) => r.id))].sort();
   for (const id of used) {
     if (into.has(id) || !owned(id)) continue;
     const a = describe(id); if (!a || !a.settle) continue;
     if (!a.period) continue;   // only a period name (an ancient city, a polis) is folded into another place; a modern town, a neighbourhood, a district stays itself
-    let best = null, nearest = null;
+    let best = null, nearest = null, linked = null, unchecked = 0, checked = 0;
     for (const b of pool) {
       if (b.id === a.id) continue;
       const d = km(a.at, b.at);
@@ -389,10 +458,17 @@ function crossMerge(results, reg, oldRows, manual) {
       // is folded into the better of the two within 1 km — never into a village, a frazione, a necropolis or a neighbourhood
       const fits = (b.modern && d <= CROSS_SITE_KM) || (b.period && better(b, a) && d <= 1);
       if (fits) { if (!best || d < best.d - 1e-9 || (Math.abs(d - best.d) <= 1e-9 && better(b, best.b))) best = { b, d }; }
-      else if (b.modern && d > CROSS_SITE_KM && d <= SAME_SITE_KM && (!nearest || d < nearest.d)) nearest = { b, d };
+      else if (b.modern && d > CROSS_SITE_KM && d <= SAME_SITE_KM) {
+        if (!nearest || d < nearest.d) nearest = { b, d };
+        wanted.add(a.qid); wanted.add(b.qid);
+        const ev = linkEvidence(a, b);
+        if (ev.state === "unchecked") unchecked++; else checked++;
+        if (ev.state === "linked" && (!linked || d < linked.d - 1e-9 || (Math.abs(d - linked.d) <= 1e-9 && better(b, linked.b)))) linked = { b, d, ev: ev.how };
+      }
     }
-    if (best) { into.set(id, best.b.id); list.push({ id, name: a.name, into: best.b.id, intoName: best.b.name, km: Math.round(best.d * 10) / 10 }); }
-    else if (nearest) near.push({ id, name: a.name, into: nearest.b.id, intoName: nearest.b.name, km: Math.round(nearest.d * 10) / 10 });
+    if (!best && linked) best = linked;
+    if (best) { into.set(id, best.b.id); list.push(Object.assign({ id, name: a.name, into: best.b.id, intoName: best.b.name, km: Math.round(best.d * 10) / 10 }, best.ev ? { evidence: best.ev } : {})); }
+    else if (nearest) near.push({ id, name: a.name, into: nearest.b.id, intoName: nearest.b.name, km: Math.round(nearest.d * 10) / 10, evidence: unchecked ? "could not check: Wikidata's links for " + (unchecked === 1 && !checked ? "this pair" : unchecked + " of " + (unchecked + checked) + " nearby settlements") + " are not in the cache (run migrate-places.js --fetch)" : "no Wikidata link found (P1366, P1365, P460 or a shared English article, against " + checked + " settlement(s) within " + SAME_SITE_KM + " km)" });
   }
   const keeperOf = (id) => { let x = id; const guard = new Set(); while (into.has(x) && !guard.has(x)) { guard.add(x); x = into.get(x); } return x; };
   const final = new Map(); for (const id of into.keys()) final.set(id, keeperOf(id));
@@ -409,7 +485,7 @@ function crossMerge(results, reg, oldRows, manual) {
     r.via = kr ? kr.via : (keeper.startsWith("pl:") ? "places" : "gazetteer") + " (same site as " + r.mergedFrom.name + ")";
     if (kr) r.d = kr.d;
   }
-  return { into: final, aliases, list, near, fresh };
+  return { into: final, aliases, list, near, fresh, wanted: [...wanted].filter(Boolean).sort() };
 }
 
 /* ---------- the run ---------- */
@@ -447,18 +523,23 @@ function run() {
   const res = new Map(); for (const [k, t] of topo) res.set(k, resolver.resolve(t));
   const glossRes = gloss.map((g) => ({ g, r: resolver.resolve({ name: g.name, label: "", kind: "point", at: g.at, cards: [] }) }));
   /* 3b, decision 1: the same site under two names (Byzantium and Constantinople) is one place */
-  const X = crossMerge([...res.values(), ...glossRes.map((g) => g.r)], reg, spec.rows || {}, spec.merges || {});
+  if (FETCH) {   // 3c, decision 2: ask Wikidata whether it links each period settlement to the modern city 2-25 km away
+    const probe = crossMerge([...res.values(), ...glossRes.map((g) => g.r)].map((r) => Object.assign({}, r)), reg, spec.rows || {}, spec.merges || {}, cache.links);
+    log(`fetch: ${probe.wanted.length} items to read for the period-settlement pairs 2-${SAME_SITE_KM} km apart`);
+    fetchLinks(cache, probe.wanted);
+  }
+  const X = crossMerge([...res.values(), ...glossRes.map((g) => g.r)], reg, spec.rows || {}, spec.merges || {}, cache.links);
   const pushAlias = (keeper, n) => { if (!n) return; let l = X.aliases.get(keeper); if (!l) X.aliases.set(keeper, l = []); if (!l.some((a) => fold(a) === fold(n))) l.push(n); };
-  for (const [k, t] of topo) { const r = res.get(k); if (r.mergedFrom) { pushAlias(r.id, t.name); pushAlias(r.id, t.label); } }
+  for (const [k, t] of topo) { const r = res.get(k); if (r.mergedFrom) { pushAlias(r.id, t.name); pushAlias(r.id, t.label); } else if (r.id && (r.merged || []).some((m) => m.how === "island-polis")) { pushAlias(r.id, t.name); pushAlias(r.id, t.label); } }   // 3c: the toponym names the island, so the island answers to it
   for (const g of glossRes) if (g.r.mergedFrom) pushAlias(g.r.id, g.g.name);
   // every place a toponym's candidates folded into the one it resolved to (same-site candidates of ONE toponym), as names and as items
   const foldedItems = new Map();   // keeper → [{ qid, name }]
-  const noteMerged = (keeper, m) => { let l = foldedItems.get(keeper); if (!l) foldedItems.set(keeper, l = []); if (m.qid && !l.some((x) => x.qid === m.qid)) l.push(Object.assign({ qid: m.qid, name: m.name || "" }, m.how ? { how: m.how } : {}, m.km != null ? { km: m.km } : {})); };
+  const noteMerged = (keeper, m) => { let l = foldedItems.get(keeper); if (!l) foldedItems.set(keeper, l = []); if (m.qid && !l.some((x) => x.qid === m.qid)) l.push(Object.assign({ qid: m.qid, name: m.name || "" }, m.how ? { how: m.how } : {}, m.km != null ? { km: m.km } : {}, m.evidence ? { evidence: m.evidence } : {})); };
   for (const r of [...res.values(), ...glossRes.map((g) => g.r)]) {
     if (!r.id) continue;
-    for (const m of r.merged || []) { if (m.qid) { noteMerged(r.id, Object.assign({}, m, { how: "toponym" })); pushAlias(r.id, m.name); pushAlias(r.id, m.label); pushAlias(r.id, m.title); } }
+    for (const m of r.merged || []) { if (m.qid) { noteMerged(r.id, Object.assign({}, m, { how: m.how || "toponym" })); pushAlias(r.id, m.name); pushAlias(r.id, m.label); pushAlias(r.id, m.title); } }
   }
-  for (const [loser, keeper] of X.into) if (/^pl:q\d+$/.test(loser)) { const m = X.list.find((x) => x.id === loser); noteMerged(keeper, { qid: "Q" + loser.slice(4), name: (X.fresh.get(loser) && (X.fresh.get(loser).title || X.fresh.get(loser).label)) || (reg.rows.get(loser) || {}).name || "", how: "site", km: m ? m.km : null }); }
+  for (const [loser, keeper] of X.into) if (/^pl:q\d+$/.test(loser)) { const m = X.list.find((x) => x.id === loser); noteMerged(keeper, Object.assign({ qid: "Q" + loser.slice(4), name: (X.fresh.get(loser) && (X.fresh.get(loser).title || X.fresh.get(loser).label)) || (reg.rows.get(loser) || {}).name || "", how: m && m.evidence ? "wikidata" : "site", km: m ? m.km : null }, m && m.evidence ? { evidence: m.evidence } : {})); }
   const mapId = (id) => X.into.get(id) || (/^pl:q\d+$/.test(id) && mergedQ.get("Q" + id.slice(4))) || id;   // a place folded into another, by this run or an earlier one
   /* the rows the cards need that the registry lacks → the spec */
   const newRows = {};
@@ -467,6 +548,7 @@ function run() {
   for (const g of glossRes) if (g.r.item && !newRows[g.r.id] && !reg.rows.has(g.r.id)) newRows[g.r.id] = { name: g.r.item.title || g.r.item.label || g.g.name, kind: g.r.item.kind, sub: g.r.item.sub || "", qid: g.r.item.qid, at: g.r.item.coord, within: "", aliases: fold(g.g.name) === fold(g.r.item.title || g.r.item.label) ? [] : [g.g.name], wiki: g.r.item.title || "", by: "migration (glossary place)", evidence: { classes: g.r.item.classes, via: g.r.via, km: Math.round((g.r.d || 0) * 10) / 10 }, cards: 0 };
   for (const [id, names] of X.aliases) if (newRows[id]) for (const n of names) if (n && fold(n) !== fold(newRows[id].name) && !newRows[id].aliases.some((a) => fold(a) === fold(n))) newRows[id].aliases.push(n);
   for (const [id, l] of foldedItems) if (newRows[id]) newRows[id].merged = l.slice().sort((a, b) => (a.qid < b.qid ? -1 : 1));
+  for (const r of [...res.values(), ...glossRes.map((g) => g.r)]) if (r.id && r.aside && r.aside.length && newRows[r.id]) { const have = newRows[r.id].setAside || []; for (const a of r.aside) if (!have.some((x) => x.qid === a.qid)) have.push(a); newRows[r.id].setAside = have.sort((a, b) => (a.qid < b.qid ? -1 : 1)); }
   // the lists around each coordinate are pruned to the items whose label or title is a name a card uses (the only ones the
   // resolver can match), with the count the list had: the fetched lists are 12 MB of items the migration never reads
   const useNames = new Set(); for (const t of topo.values()) for (const n of [t.name, t.label].concat(t.name.includes(",") ? [t.name.split(",")[0].trim()] : [])) if (n) useNames.add(fold(n)); for (const g of gloss) useNames.add(fold(g.name));
@@ -514,7 +596,7 @@ function run() {
     const byId = new Map(cards.map((c) => [c.id, c]));
     for (const e of reg.entities) if (e.kind === "polity") for (const cid of e.cards || []) { const c = byId.get(cid); if (!c) bad(e.id + " links " + cid + ", which is not a card"); else if (!(c.places || []).includes(e.id)) bad(e.id + " links " + cid + " but the card's places lack it"); }
     for (const c of cards) for (const id of c.places || []) if (id.startsWith("pol:") && !(reg.cardsOf(id) || []).includes(c.id)) { /* a card may point at a polity the spec does not link (an author's addition): allowed, reported */ }
-    { const rest = crossMerge([...new Set(cards.flatMap((c) => c.places || []))].filter((id) => !id.startsWith("pol:")).map((id) => ({ id })), reg, spec.rows || {}, spec.merges || {}); for (const m of rest.list) bad("two places of one site: " + m.id + " " + m.name + " lies " + m.km + " km from " + m.into + " " + m.intoName + " (run node .claude/migrate-places.js, which folds it in)"); }
+    { const rest = crossMerge([...new Set(cards.flatMap((c) => c.places || []))].filter((id) => !id.startsWith("pol:")).map((id) => ({ id })), reg, spec.rows || {}, spec.merges || {}, cache.links); for (const m of rest.list) bad("two places of one site: " + m.id + " " + m.name + " lies " + m.km + " km from " + m.into + " " + m.intoName + " (run node .claude/migrate-places.js, which folds it in)"); }
     const B = require("./atlas-build/build-places.js"); const r = B.build({ check: true, log: () => {} }); if (!r.ok) bad("places-spec.json and atlas/data/places.js are not in step: " + r.why + " (run node .claude/atlas-build/build-places.js --install)");
     { const C = require("./atlas-build/build-card-places.js").build({ cards, check: true, log: () => {} }); if (!C.ok) bad("atlas/data/card-places.js is not in step with the cards: " + C.why + " (run node .claude/atlas-build/build-card-places.js --install)"); }
     log(fails ? `\n${fails} failed\n` : "\nmigrate-places --check: every place id resolves, every derived id is on its card, every polity's cards carry it, the spec is in step\n");
@@ -539,12 +621,12 @@ function run() {
       const k = kindOf(cache, row.evidence.classes);
       if (!k || k.kind === "polity" || k.kind === "people" || !R.PLACE_KINDS.includes(k.kind)) continue;
       if (k.kind === "region" && /^(town|city|site)$/.test(row.kind)) continue;   // never degrade a settlement to a generic region
-      if (k.kind !== row.kind || (k.sub || "") !== (row.sub || "")) { if (!row.kindWas) row.kindWas = row.kind + (row.sub ? "/" + row.sub : ""); row.kind = k.kind; row.sub = k.sub || ""; }
+      if (k.kind !== row.kind || (k.sub || "") !== (row.sub || "")) { if (k.kind === "hill" && row.kind === "mountain") { if (!row.kindWas3c) row.kindWas3c = "mountain"; } else if (!row.kindWas) row.kindWas = row.kind + (row.sub ? "/" + row.sub : ""); row.kind = k.kind; row.sub = k.sub || ""; }
     }
     // 3b: the names and items folded into a place. An owned row carries them itself; a gazetteer row (never edited) carries them
     // as an OVERLAY in the spec, which build-places.js writes into places.js and the registry reads back as aliases.
     const unionNames = (have, add) => { const l = (have || []).slice(); for (const n of add || []) if (n && !l.some((a) => fold(a) === fold(n))) l.push(n); return l.slice(0, 12); };
-    const unionItems = (have, add) => { const l = (have || []).slice(); for (const m of add || []) if (m.qid && !l.some((x) => x.qid === m.qid)) l.push(Object.assign({ qid: m.qid, name: m.name || "" }, m.how ? { how: m.how } : {}, m.km != null ? { km: m.km } : {})); return l.sort((a, b) => (a.qid < b.qid ? -1 : 1)); };
+    const unionItems = (have, add) => { const l = (have || []).slice(); for (const m of add || []) if (m.qid && !l.some((x) => x.qid === m.qid)) l.push(Object.assign({ qid: m.qid, name: m.name || "" }, m.how ? { how: m.how } : {}, m.km != null ? { km: m.km } : {}, m.evidence ? { evidence: m.evidence } : {})); return l.sort((a, b) => (a.qid < b.qid ? -1 : 1)); };
     const overlay = {};
     for (const [id, o] of Object.entries(spec.overlay || {})) if (needed.has(id)) overlay[id] = o;
     for (const [id, names] of X.aliases) {
@@ -566,7 +648,7 @@ function run() {
   /* the report */
   const lines = [];
   const fmtY = (y) => y;
-  lines.push("# Atlas v2 — the places migration report (Phases 3a and 3b)", "", "GENERATED by `node .claude/migrate-places.js` on " + new Date().toISOString().slice(0, 10) + " — never edit by hand; re-run the script. What it is: every card's `locator`, `war` and `map` resolved against the places registry (the gazetteer, `atlas/data/places.js`, the polity entity table) into the heavy field `places`; the old fields are untouched (v1 reads them until Phase 5). An unresolved or ambiguous toponym below is a decision for the owner, not a guess the script made. 📖 `docs/atlas-v2-design.md` §2.8 and §7 \"Phase 3a — as built\".", "");
+  lines.push("# Atlas v2 — the places migration report (Phases 3a, 3b and 3c)", "", "GENERATED by `node .claude/migrate-places.js` on " + new Date().toISOString().slice(0, 10) + " — never edit by hand; re-run the script. What it is: every card's `locator`, `war` and `map` resolved against the places registry (the gazetteer, `atlas/data/places.js`, the polity entity table) into the heavy field `places`; the old fields are untouched (v1 reads them until Phase 5). An unresolved or ambiguous toponym below is a decision for the owner, not a guess the script made. 📖 `docs/atlas-v2-design.md` §2.8 and §7 \"Phase 3a — as built\".", "");
   lines.push("## Counts per collection", "", "| collection | cards | with an old field | with `places` | by locator | by map | by war | by polity link | old field but no place |", "|---|---|---|---|---|---|---|---|---|");
   for (const [p, o] of Object.entries(per).sort()) lines.push(`| \`${p}\` | ${o.cards} | ${o.old} | ${o.placed} | ${o.byLocator} | ${o.byMap} | ${o.byWar} | ${o.byLink} | ${o.noneOld.length} |`);
   const tot = Object.values(per).reduce((s, o) => { for (const k of ["cards", "old", "placed", "byLocator", "byMap", "byWar", "byLink"]) s[k] = (s[k] || 0) + o[k]; s.noneOld = (s.noneOld || 0) + o.noneOld.length; return s; }, {});
@@ -587,12 +669,27 @@ function run() {
   for (const [id, o] of Object.entries(specNow.overlay || {})) if ((o.merged || []).length) absorbed.set(id, { name: (reg.rows.get(id) || {}).name || id, items: o.merged });
   if (DRY) for (const [id, l] of foldedItems) { const have = absorbed.get(id) || { name: (reg.rows.get(id) || newRows[id] || {}).name || id, items: [] }; for (const m of l) if (!have.items.some((x) => x.qid === m.qid)) have.items = have.items.concat([m]); absorbed.set(id, have); }
   lines.push("", "## Same-site items and period names folded into one place (decision 1)", "", absorbed.size ? "One place per physical site. Two ways, both from the owner's decision 1: **toponym** — several Wikidata items within " + SAME_SITE_KM + " km of one another and of one kind family answered one toponym, and the nearest to the card's own coordinate is the place (a tie within a kilometre goes to the item whose title is the toponym, then the gazetteer's own row, then the lowest Wikidata number); **site** — a period name (an ancient city, a polis) this migration owns lay within " + CROSS_SITE_KM + " km of a modern city (or within 1 km of another period name of the same city) and was folded into it. The absorbed names are the place's aliases; the gazetteer is never edited (its aliases are the overlay in places-spec.json, `alias` in places.js)." : "None.", ...(absorbed.size ? ["", "| the place | absorbed |", "|---|---|"] : []));
-  for (const [id, a] of [...absorbed].sort((x, y) => (x[1].name < y[1].name ? -1 : x[1].name > y[1].name ? 1 : x[0] < y[0] ? -1 : 1))) lines.push(`| ${id} ${a.name} | ${a.items.map((m) => m.qid + " " + m.name + (m.how === "site" ? " (site" + (m.km != null ? ", " + m.km + " km" : "") + ")" : m.how === "toponym" ? " (toponym)" : "")).join("; ")} |`);
+  for (const [id, a] of [...absorbed].sort((x, y) => (x[1].name < y[1].name ? -1 : x[1].name > y[1].name ? 1 : x[0] < y[0] ? -1 : 1))) lines.push(`| ${id} ${a.name} | ${a.items.map((m) => m.qid + " " + m.name + (m.how === "site" ? " (site" + (m.km != null ? ", " + m.km + " km" : "") + ")" : m.how === "wikidata" ? " (Wikidata link" + (m.km != null ? ", " + m.km + " km" : "") + ")" : m.how === "island-polis" ? " (island and polis)" : m.how === "toponym" ? " (toponym)" : "")).join("; ")} |`);
   { const fixed = Object.entries(specNow.rows || {}).filter(([, r]) => r.kindWas && !r.manual);
     lines.push("", "## Kinds corrected by the 3b class rules", "", fixed.length ? "A row's kind is what its classes give (a natural feature named directly by a class — an island, a mountain, a cape, a river, a lake — decides before anything reached by subclass-of; a polis is read last, so an island that is also a polis stays an island). 3a read the first row of the table that any class reached, so these rows had another kind:" : "None.", ...(fixed.length ? ["", "| the place | kind in 3a | kind now |", "|---|---|---|"] : []));
     for (const [id, r] of fixed.sort(([a], [b]) => (a < b ? -1 : 1))) lines.push(`| ${id} ${r.name} | ${r.kindWas} | ${r.kind}${r.sub ? "/" + r.sub : ""} |`); }
-  lines.push("", "## Period settlements 2–25 km from another settlement, NOT merged (for the owner)", "", X.near.length ? "Too far apart to be the same site on coordinates alone; each pair is the owner's to decide — add `\"<id>\": { \"into\": \"<id>\", \"reason\": \"…\" }` under `merges` in places-spec.json and re-run. (Knossos and Heraklion are 4 km apart and are different places; Chang'an and Xi'an are 4.7 km apart and are not.)" : "None.", ...(X.near.length ? ["", "| the period settlement | the nearest settlement | km |", "|---|---|---|"] : []));
-  for (const m of X.near.sort((a, b) => a.km - b.km)) lines.push(`| ${m.id} ${m.name} | ${m.into} ${m.intoName} | ${m.km} |`);
+  /* 3c, decision 1: an island and the polis of the same name; read from what the spec persists, so a second run writes the same text */
+  const ipRows = Object.entries(specNow.rows || {}).filter(([, r]) => ((r.merged || []).some((m) => m.how === "island-polis") || (r.setAside || []).length) && !r.manual);
+  lines.push("", "## An island and the polis of the same name, one place (3c, decision 1)", "", ipRows.length ? "Candidates of one toponym that are islands and settlements only, within " + SAME_SITE_KM + " km, where the settlement side is a polis or an ancient city (a separate item, or the island's own item carrying the polis class), are ONE site: the island row survives (the toponym names the island) and the polis is its alias and a `merged` item. A modern settlement that carries the toponym only as an alias is set aside (named below), not folded. A palace or a battlefield and the town beside it (Versailles, Waterloo) are NOT this case and stay in the ambiguous list." : "None.", ...(ipRows.length ? ["", "| the place (island) | the polis folded in | a settlement set aside (alias only) |", "|---|---|---|"] : []));
+  for (const [id, r] of ipRows.sort(([a], [b]) => (a < b ? -1 : 1))) lines.push(`| ${id} ${r.name} | ${(r.merged || []).filter((m) => m.how === "island-polis").map((m) => m.qid + " " + m.name).join("; ") || (((r.evidence && r.evidence.classes) || []).includes(Q_POLIS) ? "— (the island's own item is also a polis)" : "—")} | ${(r.setAside || []).map((m) => m.qid + " " + m.name).join("; ") || "—"} |`);
+  /* 3c, decision 2: Wikidata-linked pairs folded, and every pair left alone, each with its evidence */
+  const wdFolded = [];
+  for (const [id, row] of Object.entries(specNow.rows || {})) for (const m of row.merged || []) if (m.how === "wikidata") wdFolded.push({ into: id, intoName: row.name, m });
+  for (const [id, o] of Object.entries(specNow.overlay || {})) for (const m of o.merged || []) if (m.how === "wikidata") wdFolded.push({ into: id, intoName: (reg.rows.get(id) || {}).name || id, m });
+  if (DRY) for (const m of X.list) if (m.evidence && !wdFolded.some((w) => w.m.qid === "Q" + m.id.slice(4))) wdFolded.push({ into: m.into, intoName: m.intoName, m: { qid: "Q" + m.id.slice(4), name: m.name, km: m.km, evidence: m.evidence } });
+  lines.push("", "## Period settlements folded into a modern city because Wikidata links them (3c, decision 2)", "", wdFolded.length ? "A period settlement 2–" + SAME_SITE_KM + " km from a modern city folds only where Wikidata itself links the two items — P1366 replaced by, P1365 replaces, P460 said to be the same as, or one shared English Wikipedia article (the cache's `links`, fetched from Special:EntityData). Never on distance alone. The period name becomes the city's alias." : "None: no Wikidata link was found for any pair (or the links are not in the cache — see the next section).", ...(wdFolded.length ? ["", "| the period settlement | folded into | km | the evidence |", "|---|---|---|---|"] : []));
+  for (const w of wdFolded.sort((x, y) => (x.m.qid < y.m.qid ? -1 : 1))) lines.push(`| ${w.m.qid} ${w.m.name} | ${w.into} ${w.intoName} | ${w.m.km != null ? w.m.km : "—"} | ${w.m.evidence || ""} |`);
+  lines.push("", "## Period settlements 2–25 km from another settlement, NOT merged (for the owner)", "", X.near.length ? "Too far apart to be the same site on coordinates alone, and Wikidata does not link them (the evidence column says what was checked). Each pair is the owner's to decide — add `\"<id>\": { \"into\": \"<id>\", \"reason\": \"…\" }` under `merges` in places-spec.json and re-run. (Knossos and Heraklion are 4 km apart and are different places.)" : "None.", ...(X.near.length ? ["", "| the period settlement | the nearest settlement | km | Wikidata evidence |", "|---|---|---|---|"] : []));
+  for (const m of X.near.sort((a, b) => a.km - b.km || (a.id < b.id ? -1 : 1))) lines.push(`| ${m.id} ${m.name} | ${m.into} ${m.intoName} | ${m.km} | ${m.evidence} |`);
+  /* 3c, decision 3: hills */
+  const hills = Object.entries(specNow.rows || {}).filter(([, r]) => r.kind === "hill");
+  lines.push("", "## Hills — a kind of their own (3c, decision 3)", "", hills.length ? "Wikidata's hill (Q54050 and its subclasses) is the kind `hill`, no longer `mountain`. A natural feature named directly by a class decides before subclass-of; an item Wikidata classes as BOTH a mountain and a hill is the mountain (the mountain rule is read first), so \"Mount X\" that is a mountain stays one. Rows of this kind, and the kind each had before:" : "None.", ...(hills.length ? ["", "| the place | kind before 3c | classes |", "|---|---|---|"] : []));
+  for (const [id, r] of hills.sort(([a], [b]) => (a < b ? -1 : 1))) lines.push(`| ${id} ${r.name} | ${r.kindWas3c || "hill"} | ${((r.evidence && r.evidence.classes) || []).map((c) => c + (cache.classes[c] && cache.classes[c].label ? " (" + cache.classes[c].label + ")" : "")).join(", ")} |`);
   lines.push("", "## Locators resolved only through their `within` city", "", withinOnly.length ? withinOnly.map((x) => "- " + x).join("\n") : "None.");
   lines.push("", "## War sides that resolve to nothing", "", unresolvedWar.size ? "| side | cards |" : "None.", ...(unresolvedWar.size ? ["|---|---|"] : []));
   for (const [k, l] of [...unresolvedWar].sort()) lines.push(`| ${k} | ${l.join(", ")} |`);
@@ -607,7 +704,12 @@ function run() {
   const text = lines.join("\n") + "\n";
   if (DRY || VERBOSE) log(text);
   if (!DRY) { fs.writeFileSync(REPORT_FILE, text); log("wrote " + path.relative(ROOT, REPORT_FILE)); }
+  /* 3c: the decisions, stated with their evidence (from what the spec persists, so every run prints the same) */
+  log(`\nisland and polis folded (decision 1): ${ipRows.length}` + ipRows.map(([id, r]) => `\n  ${r.name} (${id}) <- ` + (r.merged || []).filter((m) => m.how === "island-polis").map((m) => m.qid + " " + m.name).join("; ") + (!(r.merged || []).some((m) => m.how === "island-polis") ? "(the island's own item is also a polis)" : "") + ((r.setAside || []).length ? "   [set aside, alias only: " + r.setAside.map((m) => m.qid + " " + m.name).join("; ") + "]" : "")).join(""));
+  log(`period settlements folded because Wikidata links them (decision 2): ${wdFolded.length}` + wdFolded.map((w) => `\n  ${w.m.qid} ${w.m.name} -> ${w.into} ${w.intoName} (${w.m.km} km): ${w.m.evidence}`).join(""));
+  log(`period settlements 2-${SAME_SITE_KM} km from a modern city left unfolded: ${X.near.length}` + X.near.sort((a, b) => a.km - b.km || (a.id < b.id ? -1 : 1)).map((m) => `\n  ${m.id} ${m.name} -> ${m.into} ${m.intoName} (${m.km} km): ${m.evidence}`).join(""));
+  log(`hills (decision 3): ${hills.length} rows of kind hill, ${hills.filter(([, r]) => r.kindWas3c).length} reclassified from mountain: ${hills.map(([, r]) => r.name + (r.kindWas3c ? "" : " (new)")).join(", ")}`);
   log(`resolved ${resolvedTopo}/${topo.size} toponyms, ${ambiguousTopo.length} ambiguous, ${unresolvedTopo.length} unresolved; ${derived.size} cards derive a place; ${noPlaceOld.length} cards with an old field get none`);
 }
-module.exports = { TOPS, TOP_IDS, RADIUS, SAME_SITE_KM, CROSS_SITE_KM, familyOf, kindOf, crossMerge, collect, makeResolver, loadCache, CACHE_FILE, SPEC_FILE, REPORT_FILE };
+module.exports = { TOPS, TOP_IDS, RADIUS, SAME_SITE_KM, CROSS_SITE_KM, familyOf, kindOf, crossMerge, fetchLinks, collect, makeResolver, loadCache, CACHE_FILE, SPEC_FILE, REPORT_FILE };
 if (require.main === module) run();

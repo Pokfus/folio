@@ -85982,6 +85982,313 @@
    ],
    "label": "",
    "title": ""
+  },
+  "Q202422": {
+   "coord": [
+    23.4853,
+    37.9381
+   ],
+   "classes": [
+    "Q23442",
+    "Q148837"
+   ],
+   "label": "",
+   "title": "Salamis Island"
+  },
+  "Q187471": {
+   "coord": [
+    20.6667,
+    38.4167
+   ],
+   "classes": [
+    "Q23442",
+    "Q148837"
+   ],
+   "label": "",
+   "title": "Ithaca (island)"
+  },
+  "Q217214": {
+   "coord": [
+    24.5,
+    37.15
+   ],
+   "classes": [
+    "Q23442"
+   ],
+   "label": "",
+   "title": "Serifos"
+  }
+ },
+ "links": {
+  "Q1012797": {
+   "enwiki": "Ostia Antica"
+  },
+  "Q1108919": {
+   "enwiki": "Collatia"
+  },
+  "Q1150349": {
+   "enwiki": "Demetrias",
+   "P460": [
+    "Q16330289"
+   ]
+  },
+  "Q11907359": {
+   "enwiki": null
+  },
+  "Q11918833": {
+   "enwiki": null
+  },
+  "Q11924352": {
+   "enwiki": "Glisas"
+  },
+  "Q13666": {
+   "enwiki": "Messina",
+   "P1365": [
+    "Q4023782"
+   ]
+  },
+  "Q13670": {
+   "enwiki": "Syracuse, Sicily",
+   "P1365": [
+    "Q4420718"
+   ]
+  },
+  "Q137721": {
+   "enwiki": "Naucratis"
+  },
+  "Q1457477": {
+   "enwiki": "Megara Hyblaea"
+  },
+  "Q147089": {
+   "enwiki": "Manisa"
+  },
+  "Q1524": {
+   "enwiki": "Athens"
+  },
+  "Q160544": {
+   "enwiki": "Heraklion",
+   "P1365": [
+    "Q65075667"
+   ]
+  },
+  "Q16869": {
+   "enwiki": "Constantinople",
+   "P1366": [
+    "Q406"
+   ],
+   "P1365": [
+    "Q23725"
+   ],
+   "P460": [
+    "Q2008228"
+   ]
+  },
+  "Q1720": {
+   "enwiki": "Mainz"
+  },
+  "Q1721": {
+   "enwiki": "Wiesbaden"
+  },
+  "Q173527": {
+   "enwiki": "Knossos"
+  },
+  "Q178405": {
+   "enwiki": "Larissa"
+  },
+  "Q178813": {
+   "enwiki": "Herculaneum"
+  },
+  "Q191504": {
+   "enwiki": "Leptis Magna"
+  },
+  "Q19900818": {
+   "enwiki": null
+  },
+  "Q200036": {
+   "enwiki": "Volos"
+  },
+  "Q200133": {
+   "enwiki": "Chalcis"
+  },
+  "Q220": {
+   "enwiki": "Rome",
+   "P460": [
+    "Q18287233"
+   ]
+  },
+  "Q220583": {
+   "enwiki": "Sybaris"
+  },
+  "Q237": {
+   "enwiki": "Vatican City",
+   "P1365": [
+    "Q170174"
+   ]
+  },
+  "Q243456": {
+   "enwiki": "Cumae"
+  },
+  "Q243846": {
+   "enwiki": "Hillah"
+  },
+  "Q2441154": {
+   "enwiki": null,
+   "P460": [
+    "Q79808"
+   ]
+  },
+  "Q2449559": {
+   "enwiki": "Naulochus"
+  },
+  "Q249480": {
+   "enwiki": "Heracleopolis Magna"
+  },
+  "Q2634": {
+   "enwiki": "Naples",
+   "P1365": [
+    "Q1383830",
+    "Q15122630"
+   ]
+  },
+  "Q290097": {
+   "enwiki": "Baiae"
+  },
+  "Q310381": {
+   "enwiki": "Al-Khums"
+  },
+  "Q328153": {
+   "enwiki": "Damanhur"
+  },
+  "Q333661": {
+   "enwiki": "Cahokia"
+  },
+  "Q335070": {
+   "enwiki": "Alba Longa"
+  },
+  "Q337381": {
+   "enwiki": "Chalcedon",
+   "P460": [
+    "Q932886"
+   ]
+  },
+  "Q3415": {
+   "enwiki": "Ancona",
+   "P1365": [
+    "Q48075573"
+   ]
+  },
+  "Q3429952": {
+   "enwiki": null,
+   "P1366": [
+    "Q8471"
+   ]
+  },
+  "Q3515347": {
+   "enwiki": "Chrysopolis (Bithynia)"
+  },
+  "Q3572": {
+   "enwiki": "Tunis"
+  },
+  "Q38022": {
+   "enwiki": "St. Louis"
+  },
+  "Q38811": {
+   "enwiki": "Nasiriyah"
+  },
+  "Q394080": {
+   "enwiki": "Beni Suef"
+  },
+  "Q406": {
+   "enwiki": "Istanbul",
+   "P1365": [
+    "Q16869"
+   ]
+  },
+  "Q43332": {
+   "enwiki": "Pompeii"
+  },
+  "Q543895": {
+   "enwiki": null,
+   "P1365": [
+    "Q12883442",
+    "Q13574822",
+    "Q16322958"
+   ]
+  },
+  "Q56427665": {
+   "enwiki": "Cranon"
+  },
+  "Q5684": {
+   "enwiki": "Babylon",
+   "P460": [
+    "Q277372"
+   ]
+  },
+  "Q5699": {
+   "enwiki": "Ur",
+   "P460": [
+    "Q5373099"
+   ]
+  },
+  "Q5715": {
+   "enwiki": "Memphis, Egypt"
+  },
+  "Q571790": {
+   "enwiki": "Mogontiacum"
+  },
+  "Q58976": {
+   "enwiki": "Piraeus"
+  },
+  "Q602564": {
+   "enwiki": "Thurii"
+  },
+  "Q614510": {
+   "enwiki": "Gabii"
+  },
+  "Q6343": {
+   "enwiki": "Carthage"
+  },
+  "Q638445": {
+   "enwiki": "Chersonesus"
+  },
+  "Q6487": {
+   "enwiki": "Antalya"
+  },
+  "Q677935": {
+   "enwiki": "Veii"
+  },
+  "Q719815": {
+   "enwiki": "Perga"
+  },
+  "Q7525": {
+   "enwiki": "Sevastopol"
+  },
+  "Q79808": {
+   "enwiki": "Constanța",
+   "P460": [
+    "Q2441154"
+   ]
+  },
+  "Q811456": {
+   "enwiki": null
+  },
+  "Q81788": {
+   "enwiki": "Giza"
+  },
+  "Q85": {
+   "enwiki": "Cairo"
+  },
+  "Q8777773": {
+   "enwiki": "Scotussa"
+  },
+  "Q920866": {
+   "enwiki": "Magnesia ad Sipylum",
+   "P1366": [
+    "Q147089"
+   ]
+  },
+  "Q936920": {
+   "enwiki": "Ascra"
   }
  }
 }
