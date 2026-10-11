@@ -8,6 +8,11 @@
      · THE REGISTRY LOADS AS ONE TABLE: the gazetteer, atlas/data/places.js and the history entity table, every id unique
        and well formed, every kind in the taxonomy, names folded for lookup (Athens by name; a polity by its entity id), the
        polity → cards links readable (cardsOf) and every linked card a real card;
+     · PHASE 3b, THE OWNER'S TWO DECISIONS ON THE REGISTRY: candidates of one kind family (a capital, city, town, ancient city, polis
+       — the settlement) within 25 km are ONE place (the nearest to the card's own coordinate), names kept as aliases; they are
+       ambiguous only across kinds (an island and an ancient city) or beyond 25 km; a mint or a diocese is not a place; a period
+       name within 2 km of a modern city is folded into it and never the gazetteer edited (the alias overlay); `mountain` and `cape`
+       are registry kinds; a second run changes nothing;
      · THE RESOLVER NEVER GUESSES, on fixtures: a gazetteer row by name within the radius resolves; a homonym beyond it does not
        (Olympia in Washington is not Olympia in Elis); two rows within the radius are AMBIGUOUS, none chosen; a Wikidata title
        whose coordinate agrees becomes a `pl:q…` row with the kind its classes give; a title that is far yields to a unique item
@@ -87,7 +92,7 @@ let r;
 r = res.resolve(T("Athinai", [23.70, 37.99])); check("a gazetteer row by alias within the radius resolves", r.id === "city:2" && r.via === "gazetteer", JSON.stringify(r));
 r = res.resolve(T("Olympia", olympiaGR)); check("a homonym 9,900 km away is not matched; the unique item around the coordinate is", r.id === "pl:q1395" && r.via === "around" && r.item && r.item.kind === "site", JSON.stringify(r).slice(0, 160));
 r = res.resolve(T("Olympia", olympiaWA)); check("the same name at the other coordinate resolves to the gazetteer's town", r.id === "city:1", JSON.stringify(r));
-r = res.resolve(T("Springfield", [10.02, 50.01])); check("two rows within the radius are ambiguous, none chosen", Array.isArray(r.ambiguous) && r.ambiguous.length === 2 && !r.id, JSON.stringify(r));
+r = res.resolve(T("Springfield", [10.02, 50.01])); check("two rows of one kind family within 25 km are ONE site: the nearer is the place, the other is merged in (3b, decision 1)", r.id === "city:3" && r.merged && r.merged.length === 1 && r.merged[0].id === "city:4", JSON.stringify(r));
 r = res.resolve(T("Knossos", [25.16, 35.30])); check("a Wikidata title whose coordinate agrees becomes a pl:q row of kind site", r.id === "pl:q173527" && r.via === "title" && r.item.kind === "site" && r.item.sub === "site", JSON.stringify(r).slice(0, 160));
 r = res.resolve(T("Knossos", [26.30, 35.10])); check("the same title 100 km away does not: unresolved with the distance named", !r.id && /km from the card/.test(r.unresolved), r.unresolved);
 r = res.resolve(T("Folsom", [26.30, 35.10])); check("a disambiguation page is unresolved, named as such", !r.id && /disambiguation/.test(r.unresolved), r.unresolved);
@@ -98,6 +103,59 @@ r = res.resolve(T("Thessaly", [22.9, 39.2], "region")); check("a region matches 
 r = res.resolve(T("Thessaly", [22.9, 39.2], "point")); check("…but a point of that name does not take a region row (kind-compatible only)", r.id !== "reg:5", JSON.stringify(r).slice(0, 100));
 const a1 = JSON.stringify(res.resolve(T("Olympia", olympiaGR))), a2 = JSON.stringify(res.resolve(T("Olympia", olympiaGR))); check("resolution is idempotent", a1 === a2);
 r = res.resolve(T("Nowhere Special", [50, 50])); check("a toponym the cache has not been asked about says so", !r.id && /not fetched/.test(r.unresolved), r.unresolved);
+
+console.log("\n2b) decision 1 and decision 2: one place per site, 25 km, kinds (Phase 3b)\n");
+{
+  const real = M.loadCache().classes;
+  const item = (qid, label, coord, classes, title) => ({ qid, coord, label, title: title || label, classes });
+  const via = (name, at, kind, items) => {   // candidates arrive through the search around the coordinate
+    const t = T(name, at, kind);
+    const key = at[0].toFixed(3) + "," + at[1].toFixed(3) + "," + Math.min(M.RADIUS[kind || "point"] || 25, 50);
+    return M.makeResolver(fixtureRegistry([]), { titles: { [name]: null }, labels: {}, around: { [key]: items }, classes: real, items: {} }).resolve(t);
+  };
+  const POLIS = "Q148837", ANCIENT = "Q15661340", CITY = "Q515", TOWN = "Q3957", ISLAND = "Q23442", MINT = "Q464780", MOUNTAIN = "Q8502", CAPE = "Q185113", FREGUESIA = "Q1131296", TOWN_PT = "Q19833170";
+  let x = via("Corinth", [22.88, 37.91], "point", [item("Q1363688", "Corinth", [22.8808, 37.9058], [POLIS, ANCIENT], "Ancient Corinth"), item("Q103011", "Corinth", [22.9333, 37.9333], [CITY], "Corinth (modern city)"), item("Q127430042", "Corinth", [22.9, 37.9], [MINT], "Corinth"), item("Q127430043", "Corinth", [22.88, 37.9], [MINT], "Corinth")]);
+  check("a polis, an ancient city and a modern city 6 km apart are one place (the nearest to the card; the mints are not places)", x.id === "pl:q1363688" && x.merged && x.merged.length === 1 && x.merged[0].qid === "Q103011", JSON.stringify(x).slice(0, 220));
+  x = via("Thebes", [23.32, 38.32], "point", [item("Q11225429", "Thebes", [23.32, 38.32], [POLIS], "Thebes"), item("Q5760", "Thebes", [23.32, 38.32], [CITY], "Thebes, Greece"), item("Q127431406", "Thebes", [23.32, 38.32], [MINT], "Thebes")]);
+  check("a polis alone is an ancient city, not a state: Thebes resolves, a tie goes to the item whose title is the toponym", x.id === "pl:q11225429" && x.item.kind === "site", JSON.stringify(x).slice(0, 200));
+  x = via("Thera", [25.43, 36.42], "point", [item("Q129296", "Thera", [25.43, 36.4], [ISLAND, "Q1200957"], "Santorini"), item("Q433004", "Thera", [25.5, 36.36], [POLIS, "Q839954"], "Ancient Thera")]);
+  check("an island and an ancient city 7 km apart are DIFFERENT kinds: ambiguous, none chosen (an island that is also a tourist destination stays an island)", Array.isArray(x.ambiguous) && /different kinds \(island, settlement\)/.test(x.why), x.why);
+  x = via("Salamis", [23.5, 37.95], "battle", [item("Q202422", "Salamis", [23.5, 37.95], [ISLAND, POLIS], "Salamis Island"), item("Q28721684", "Salamis", [23.47, 37.92], [ANCIENT], "Salamis")]);
+  check("an island that is also a polis is still an island (the polis class is read last)", Array.isArray(x.ambiguous) && /island/.test(x.why), x.why);
+  x = via("Macedonia", [22.0, 40.5], "region", [item("Q81734", "Macedonia", [22.0, 40.6], ["Q82794", "Q1620908"], "Macedonia"), item("Q103251", "Macedonia", [22.0, 41.1], ["Q82794", "Q1620908"], "Macedonia (region)")]);
+  check("two regions more than 25 km apart are ambiguous even of one kind", Array.isArray(x.ambiguous) && /more than 25 km apart/.test(x.why), x.why);
+  x = via("Sagres", [-8.94, 37.01], "point", [item("Q926672", "Sagres", [-8.94, 37.01], [FREGUESIA], "Sagres (Vila do Bispo)"), item("Q49364942", "Sagres", [-8.94, 37.01], [TOWN_PT], "Sagres")]);
+  check("a freguesia and the town it is named for are one place, and the place is a town", x.id === "pl:q49364942" && x.item.kind !== "region", JSON.stringify(x).slice(0, 160));
+  x = via("Mount Pelion", [23.05, 39.44], "point", [item("Q192345", "Pelion", [23.05, 39.44], [MOUNTAIN], "Mount Pelion")]);
+  check("MOUNTAIN is a registry kind: an item whose class is mountain becomes a row of kind mountain", x.id === "pl:q192345" && x.item.kind === "mountain" && R.PLACE_KINDS.includes("mountain"), JSON.stringify(x).slice(0, 160));
+  x = via("Cape Sounion", [24.02, 37.65], "point", [item("Q1013001", "Cape Sounion", [24.02, 37.65], [CAPE], "Cape Sounion")]);
+  check("CAPE is a registry kind: an item whose class is cape becomes a row of kind cape", x.id === "pl:q1013001" && x.item.kind === "cape" && R.PLACE_KINDS.includes("cape"), JSON.stringify(x).slice(0, 160));
+  x = via("Olympus", [22.35, 40.09], "point", [item("Q1", "Mount Olympus", [22.35, 40.09], [MOUNTAIN], "Olympus"), item("Q2", "Olympus", [22.4, 40.1], [TOWN], "Olympus")]);
+  check("a mountain and a town of the same name are different kinds: ambiguous", Array.isArray(x.ambiguous) && /mountain/.test(x.why), x.why);
+  check("two runs of the same fixture give the same answer (idempotent)", JSON.stringify(via("Corinth", [22.88, 37.91], "point", [item("Q1363688", "Corinth", [22.8808, 37.9058], [POLIS, ANCIENT]), item("Q103011", "Corinth", [22.9333, 37.9333], [CITY])])) === JSON.stringify(via("Corinth", [22.88, 37.91], "point", [item("Q1363688", "Corinth", [22.8808, 37.9058], [POLIS, ANCIENT]), item("Q103011", "Corinth", [22.9333, 37.9333], [CITY])])));
+  /* across toponyms: a period name this migration owns is folded into a modern city within 2 km, and never otherwise */
+  const fxr = fixtureRegistry([
+    { id: "city:90", name: "Istanbul", kind: "city", at: [28.9784, 41.0082], aliases: [] },
+    { id: "city:91", name: "Heraklion", kind: "city", at: [25.1442, 35.3387], aliases: [] },
+    { id: "city:92", name: "London", kind: "capital", at: [-0.1276, 51.5072], aliases: [] },
+  ]);
+  const own = (qid, name, coord, classes, kind, sub) => ({ id: "pl:q" + qid.slice(1), via: "title", d: 0, item: { qid, kind: kind || "site", sub: sub || "site", coord, label: name, title: name, classes } });
+  const results = [own("Q23725", "Byzantium", [28.9833, 41.0136], [ANCIENT]), own("Q173527", "Knossos", [25.1632, 35.298], [ANCIENT, "Q839954"]), own("Q189960", "Westminster", [-0.1357, 51.4975], [TOWN], "town", ""), own("Q300", "Ancient Tarquinia", [11.76, 42.25], [ANCIENT]), own("Q301", "Tarquinia", [11.7667, 42.25], [ANCIENT])];
+  const X = M.crossMerge(results, fxr, {}, {});
+  check("Byzantium (an ancient city 0.7 km from Istanbul) is folded into Istanbul, and its name becomes the gazetteer row's alias", X.into.get("pl:q23725") === "city:90" && (X.aliases.get("city:90") || []).includes("Byzantium") && results[0].id === "city:90" && !results[0].item, JSON.stringify([...X.into]));
+  check("Knossos 4.3 km from Heraklion stays its own place and is listed for the owner instead", !X.into.has("pl:q173527") && X.near.some((m) => m.id === "pl:q173527" && m.km > 2), JSON.stringify(X.near));
+  check("a modern town (Westminster) is never folded into a city, however near", !X.into.has("pl:q189960"));
+  check("two period names of one ancient city within 1 km become one place (the lower Wikidata number keeps it)", X.into.get("pl:q301") === "pl:q300" || X.into.get("pl:q300") === "pl:q301", JSON.stringify([...X.into]));
+  const X2 = M.crossMerge([{ id: "pl:q23725", item: results[0].item, via: "title", d: 0 }], fxr, {}, { "pl:q23725": { into: "city:91", reason: "owner" } });
+  check("the owner's merges (places-spec.json `merges`) are honoured before any rule", X2.into.get("pl:q23725") === "city:91");
+  /* the real registry after this migration: the overlay reads back, and no two places of one site remain */
+  const regNow = R.loadRegistry();
+  check("the alias overlay is read back: Epidamnos finds Durrës, a gazetteer row the migration never edited", (regNow.byName.get("epidamnos") || []).some((r) => r.id === "city:1159144543"), (regNow.byName.get("epidamnos") || []).map((r) => r.id).join(","));
+  check("Byzantium finds Constantinople (one place, period names as aliases)", (regNow.byName.get("byzantium") || []).some((r) => r.id === "pl:q16869"), (regNow.byName.get("byzantium") || []).map((r) => r.id).join(","));
+  const usedIds = [...new Set(loadCards().cards.flatMap((c) => c.places || []))].filter((id) => !id.startsWith("pol:"));
+  const rest = M.crossMerge(usedIds.map((id) => ({ id })), regNow, JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "places-spec.json"), "utf8")).rows || {}, {});
+  check("no two places of one site remain among the places the cards use (the migration is at its fixed point)", rest.list.length === 0, rest.list.slice(0, 3).map((m) => m.name + " → " + m.intoName).join("; "));
+}
 
 console.log("\n3) the migration is additive\n");
 {

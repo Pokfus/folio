@@ -128,11 +128,16 @@ ok(A.glossSeenCount({ glossSeen: readEverything }) === A.glossTotalCount(), "rea
 
 // ---- 3. the cap must stay above the shipped universe ----
 console.log("\n-- SEEN_CAP vs the data that actually ships --");
-ok(A.SEEN_CAP > allPlaceNames.size,
-  "the cap clears every clickable place name — a completionist is never pruned",
-  "cap " + A.SEEN_CAP + " vs " + allPlaceNames.size + " places");
-ok(A.SEEN_CAP > Object.keys(GLOSS).length,
-  "…and every glossary term", "cap " + A.SEEN_CAP + " vs " + Object.keys(GLOSS).length + " terms");
+// The cap must clear each register's shipped universe with 20 % to spare: the glossary grows by the
+// hundred in a batch, and a cap that merely clears today's count is outgrown by the next one (6,058
+// terms against a cap of 6,000 failed CI in Oct 2026).
+const NEED = 1.2;
+ok(A.SEEN_CAP >= Math.ceil(allPlaceNames.size * NEED),
+  "the cap clears every clickable place name with 20% to spare — a completionist is never pruned",
+  "cap " + A.SEEN_CAP + " vs " + allPlaceNames.size + " places (needs " + Math.ceil(allPlaceNames.size * NEED) + ")");
+ok(A.SEEN_CAP >= Math.ceil(Object.keys(GLOSS).length * NEED),
+  "…and every glossary term, with 20% to spare",
+  "cap " + A.SEEN_CAP + " vs " + Object.keys(GLOSS).length + " terms (needs " + Math.ceil(Object.keys(GLOSS).length * NEED) + ")");
 // headroom, so that adding one more geo era does not silently start pruning
 const headroom = A.SEEN_CAP - allPlaceNames.size;
 ok(headroom >= 1000, "with room for the eras still to be added", headroom + " names of headroom");

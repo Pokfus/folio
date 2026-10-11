@@ -1821,12 +1821,12 @@
      THE CAP MUST STAY ABOVE THE SHIPPED UNIVERSE OF BOTH REGISTERS, because these numbers are now shown
      to the reader as progress towards completion (the discovery marks on gloss links and the Atlas panel,
      and the account meters). A prune would make a completion count go BACKWARDS and re-flag a place as
-     newly discovered — the exact opposite of what the marks promise. Measured today: 333 curated glossary
-     terms, and 1,211 distinct clickable place names (258 present-day + 1,194 across the 13 shipped eras,
-     overlapping) — which was already 80% of the old 1500 cap, and every new geo era adds territory names.
-     Fully seen, placesSeen is ~34 KB of the progress blob, so the headroom is nearly free; the cap remains
-     only as a backstop against unbounded growth. */
-  const SEEN_CAP = 6000;
+     newly discovered — the exact opposite of what the marks promise. Measured Oct 2026: 6,058 glossary
+     terms (the cap, 6,000, had been outgrown) and 1,211 distinct clickable place names (258 present-day +
+     1,194 across the 13 shipped eras, overlapping). Fully seen, glossSeen is ~187 KB and placesSeen ~34 KB
+     of the progress blob; the cap (9,000, 20 % over the larger register) is only a backstop against
+     unbounded growth, and test-discovery.js demands that 20 % so a glossary batch cannot outgrow it again. */
+  const SEEN_CAP = 9000;
   function markSeen(field, key) {
     if (!key) return false;
     if (!S[field] || typeof S[field] !== "object") S[field] = {};   // back-fill for saves made before the register existed
@@ -10941,7 +10941,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Phase 0). Three plain scripts, each assigning one global (AtlasFormat, AtlasGL, AtlasV2); the worker
        and earcut are fetched by atlas.js itself, and the topology (atlas/data/topology.bin) by fetch(), so
        nothing here touches the eager path. v1's `atlas` bundle below is untouched until Phase 5. */
-    atlas2: { files: ["atlas/atlas-format.js", "atlas/atlas-gl.js", "atlas/atlas-canvas.js", "atlas/atlas.js"] },   // atlas-canvas.js: the still 2D view for a browser without WebGL2 (Phase 1d)
+    atlas2: { files: ["atlas/atlas-format.js", "atlas/study.js", "atlas/atlas-gl.js", "atlas/atlas-canvas.js", "atlas/atlas.js"] },   // atlas-canvas.js: the still 2D view for a browser without WebGL2 (Phase 1d)
     /* …and the PROSE its place card shows for a present-day country (Phase 1c): the same four files v1's
        `atlas` bundle carries for its popup — descriptions, figures, spans, citations — WITHOUT timeline.js
        or the v1 geometry, so opening a country on #map2 never pulls the old eras in. The two bundles share
@@ -15288,6 +15288,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : name === "card" && current.params.id ? "card/" + encodeURIComponent(current.params.id)
       : name === "u" && current.params.name ? "u/" + encodeURIComponent(current.params.name)
       : name === "sample" && current.params.id ? "sample/" + encodeURIComponent(current.params.id)
+      /* #map2/<lon>/<lat>/<zoom>/<place> — the Atlas v2's own address (Phase 3b): Back from a card it listed lands here, and the page reads
+         the place back off the hash when it mounts, so the hash the reader came from is kept rather than cut to the bare name */
+      : name === "map2" && current.params.hash ? String(current.params.hash).replace(/^#/, "")
       : name;
     render();
   }
@@ -46596,7 +46599,22 @@ let prev = null;
        prose bundle, the sanitiser every surface of prose Folio did not necessarily author goes through, the
        source list and the footnote apparatus, and the reduced-motion reading — handed over rather than
        reached, since the Atlas bundle is a plain script outside this IIFE */
-    window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion } });
+    /* THE STUDY LAYER'S HOST (Phase 3b): what the Atlas needs of the reader's cards and nothing it could write. `studiedCards` is v1's own
+       definition of "studied" — every key of `S.cards`, a card the reader has a record for (`atlasRegisterAll` asks the same of the
+       same keys) — filtered to cards this build ships, since a community-deck card names no place. `cardInfo` is what a place card
+       lists a card as: its answer (what the card is about, as v1's `atlasRegister` titles it) and the collection that owns it. Nothing
+       here writes to `S`: the Personal Atlas is computed, never stored, and so is not in the progress blob. */
+    const studyHost = {
+      studiedCards: () => Object.keys(S.cards || {}).filter((id) => CARD_BY_ID[id]),
+      cardInfo: (id) => {
+        const c = CARD_BY_ID[id]; if (!c) return null;
+        const plain = (x) => String(x == null ? "" : x).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+        const root0 = cardCollectionRoot(id);
+        return { title: plain(c.answerText) || plain(c.answer) || plain(c.question) || id, collId: root0 ? root0.id : "", coll: root0 ? nodeTitle(root0) : "" };
+      },
+      cardHref: (id) => "#card/" + id,
+    };
+    window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion, study: studyHost } });
   };
   /* SOURCES AND CREDITS (Oct 2026, Atlas v2 Phase 1d — the phase's one reader-visible change; docs/atlas-v2-design.md §2.10a).
      Every string about a source — its name, version, licence, licence link, attribution and retrieval date — is what
@@ -53746,6 +53764,10 @@ let prev = null;
       let cid = parts[1] || "";
       try { cid = decodeURIComponent(cid); } catch (e) {}
       if (!(current.name === "card" && current.params.id === cid)) route("card", { id: cid });
+      return;
+    }
+    if (parts[0] === "map2" && parts.length > 1 && /^map2\/-?[\d.]+\/-?[\d.]+\/-?[\d.]+/.test(hh)) {   // #map2/<lon>/<lat>/<zoom>[/<place>] followed back onto the Atlas (Phase 3b)
+      if (current.name !== "map2") route("map2", { hash: location.hash });
       return;
     }
     if (parts[0] === "book") {   // #book/<id>[/<n>] pasted or followed mid-session

@@ -11,7 +11,8 @@
        "<place>, <kind>", so Tab walks the names on the map;
      · Tab from the globe reaches the first of them, Enter opens the place's card, the focused label draws a
        ring on the label layer, Escape clears the selection and shuts the card;
-     · the list is refreshed by a layout without losing the focused button;
+     · the list is refreshed by a layout without losing the focused button — and when a card opens it SHRINKS, by design: the
+       card is a chrome rectangle and the names under it leave the map and the list (Phase 3b, task 0b), so the suite re-reads it;
      · the search box, the legend's controls and the card's close button are reachable and labelled;
      · the globe keeps its role and name, and the hidden list stays out of sight (1 px, clipped).
 */
@@ -67,14 +68,47 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   check("Tab reaches the first place button", !!reached && reached === list.btns[0].id, reached);
   const ring = await page.evaluate(() => { const c = document.querySelector(".atlas2-labels"), x = c.getContext("2d"); const d = x.getImageData(0, 0, c.width, c.height).data; let indigo = 0; for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 200 && d[i] < 90 && d[i + 1] < 110 && d[i + 2] > 130) indigo++; return indigo; });
   check("the focused label draws a focus ring on the label layer", ring > 40, ring + " ring pixels");
-  await page.keyboard.press("Enter"); await sleep(200);
+  /* Opening a card changes the chrome: on a desktop the card is a side column, and the label engine keeps every name out of the
+     chrome's rectangles (CHROME in atlas.js), so the names under the column drop and the hidden list shrinks with them. That is
+     the list doing its job, not instability — the Phase 3a regression of this suite read the old list's second button after the
+     card had taken its label's place. So the list is read again after Enter, and the change is held to its cause. */
+  const snap = () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const rects = c.chromeRects(); const card = rects.find((r) => r[2] - r[0] > 300 && r[3] - r[1] > 400) || null; return { rects, view: JSON.stringify([c.view.lon, c.view.lat, c.view.zoom]), card, labels: c.labels().filter((p) => p.text).map((p) => ({ id: p.id, box: p.box, score: p.score })), ids: [...document.querySelectorAll(".atlas2-keys button")].map((b) => b.getAttribute("data-id")) }; });
+  const before = await snap();
+  await page.keyboard.press("Enter"); await sleep(300);
   const opened = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { sel: c.selectedId(), card: c.card() }; });
   check("Enter opens the place's card", opened.sel === list.btns[0].id && opened.card.open && opened.card.id === list.btns[0].id, opened.card.title);
-  // a layout keeps the focused button
-  await page.focus(`.atlas2-keys button[data-id="${list.btns[1].id.replace(/"/g, '\\"')}"]`);
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(150);
+  const after = await snap();
+  check("opening the card does not move the globe", before.view === after.view, after.view);
+  const hit = (b, r) => b && r && b[0] < r[2] && b[2] > r[0] && b[1] < r[3] && b[3] > r[1];
+  /* a river carries several names under one id, so ids are compared where they are unique in both layouts (the hidden list has
+     one button per id as it is, which is why the duplicates are not in it) */
+  const uniq = (arr) => { const n = new Map(); arr.forEach((l) => n.set(l.id, (n.get(l.id) || 0) + 1)); return arr.filter((l) => n.get(l.id) === 1); };
+  const stillThere = new Set(after.labels.map((l) => l.id));
+  const beforeU = uniq(before.labels);
+  const dropped = beforeU.filter((l) => !stillThere.has(l.id));
+  check("the card is a chrome rectangle on the desktop, and the list lost names", !!after.card && !before.card && dropped.length > 0, `${before.labels.length} → ${after.labels.length} labels, card ${JSON.stringify(after.card && after.card.map(Math.round))}`);
+  /* a label's box is its text; the engine tests a padded rectangle (marker, halo, the gap it keeps from a control), so the
+     comparison is made with a 12 px margin. In the NEW layout no placed name lies more than 12 px inside a chrome rectangle (a
+     name that would have is re-seated on another side of its marker or dropped); of the names the list lost, each lay within
+     12 px of a rectangle in the OLD layout. The 12 px is the measured spread (a dropped river 3 px short of the bottom
+     controls), not a tolerance for a stray name: the other dropped names lie wholly inside a rectangle. */
+  const grow = (r, m) => [r[0] - m, r[1] - m, r[2] + m, r[3] + m];
+  const nearChrome = (l) => after.rects.some((r) => hit(l.box, grow(r, 12)));
+  const inChrome = (l) => after.rects.some((r) => hit(l.box, grow(r, -12)));
+  const wholly = dropped.filter((l) => after.rects.some((r) => hit(l.box, r))).length;
+  const stayed = after.labels.filter((l) => inChrome(l));
+  check("every name the list lost lay at the card or a control it moved, and no name in the new layout is more than 12 px inside one", dropped.every(nearChrome) && !stayed.length, `${dropped.length} lost (${wholly} wholly inside a rectangle), ${after.labels.length} placed, ${after.rects.length} chrome rectangles` + (dropped.every(nearChrome) ? "" : " lost far from any: " + JSON.stringify(dropped.filter((l) => !nearChrome(l)).map((l) => [l.id, l.box.map(Math.round)]))) + (stayed.length ? " placed inside: " + JSON.stringify(stayed.map((l) => [l.id, l.box.map(Math.round)])) : ""));
+  check("the list is again one button per visible label in rank order, at most 60", after.ids.length === Math.min(60, after.labels.length) && after.ids.join() === after.labels.slice().sort((a, b) => a.score - b.score).slice(0, 60).map((l) => l.id).join(), `${after.ids.length} buttons`);
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(150);
+  const again = await snap();
+  check("the list is stable once the card is open (a second layout leaves it as it was)", JSON.stringify(again.ids) === JSON.stringify(after.ids), `${again.ids.length} buttons`);
+  // a layout keeps the focused button (the new list's second name)
+  const second = after.ids[1];
+  await page.focus(`.atlas2-keys button[data-id="${second.replace(/"/g, '\\"')}"]`);
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(100);
   const kept = await page.evaluate(() => { const a = document.activeElement; return a && a.closest(".atlas2-keys") ? a.getAttribute("data-id") : null; });
-  check("a new layout keeps the focused button", kept === list.btns[1].id, kept);
+  check("a new layout keeps the focused button", kept === second, kept);
   await page.keyboard.press("Escape"); await sleep(150);
   const cleared = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { sel: c.selectedId(), card: c.card().open, focus: document.activeElement === document.querySelector(".atlas2-canvas") }; });
   check("Escape clears the selection, shuts the card and returns focus to the globe", cleared.sel === null && !cleared.card && cleared.focus, JSON.stringify(cleared));
