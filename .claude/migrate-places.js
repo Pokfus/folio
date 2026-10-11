@@ -235,14 +235,19 @@ function makeResolver(reg, cache) {
     const wantNames = nameParts(t).map(fold);
     const labelled = []; let labelsAsked = false;
     for (const n of nameParts(t)) { const l = (cache.labels || {})[n]; if (l === undefined) continue; labelsAsked = true; for (const it of l) { if (!it.coord || km(it.coord, t.at) > r) continue; if (it.classes.includes(DISAMBIG)) continue; if (!labelled.some((x) => x.qid === it.qid)) labelled.push(it); } }
-    if (labelled.length === 1) return accept(labelled[0].qid, labelled[0], t.name, km(labelled[0].coord, t.at), "label");
-    if (labelled.length > 1) return { ambiguous: labelled.map((it) => it.qid + " " + (it.label || it.title) + " [" + classNames(cache, it.classes) + "], " + Math.round(km(it.coord, t.at)) + " km") };
+    // a candidate whose classes map to no kind of the taxonomy (a mint, a diocese, a conservation area, a museum) is not a place
+    // the registry could hold, so it does not make the match ambiguous — the kind rule, not a choice
+    const placeLike = (l) => { const k = l.filter((it) => kindOf(cache, it.classes)); return k.length ? k : l; };
+    const lab = placeLike(labelled);
+    if (lab.length === 1) return accept(lab[0].qid, lab[0], t.name, km(lab[0].coord, t.at), "label");
+    if (lab.length > 1) return { ambiguous: lab.map((it) => it.qid + " " + (it.label || it.title) + " [" + classNames(cache, it.classes) + "], " + Math.round(km(it.coord, t.at)) + " km") };
     // 4. Wikidata around the coordinate (items with an English article), by label or title
     const ak = aroundKey(t); const list = cache.around[ak]; if (list === undefined) return { unresolved: labelsAsked ? "not fetched (run --fetch: the search around the coordinate)" : "not fetched (run --fetch)" };
     if (!list.length && cache.aroundErrors && cache.aroundErrors[ak]) return { unresolved: "no item of that name by title or label within " + r + " km, and the search around the coordinate could not be answered by the service (" + String(cache.aroundErrors[ak]).slice(0, 40) + ")" };
     const cands = list.filter((it) => wantNames.includes(fold(it.label)) || wantNames.includes(fold(it.title)) || wantNames.includes(fold(it.title.replace(/\s*\([^)]*\)\s*$/, ""))));
-    if (cands.length === 1) return accept(cands[0].qid, cands[0], t.name, km(cands[0].coord, t.at), "around");
-    if (cands.length > 1) return { ambiguous: cands.map((it) => it.qid + " " + (it.label || it.title) + " [" + classNames(cache, it.classes) + "], " + Math.round(km(it.coord, t.at)) + " km") };
+    const cs = placeLike(cands);
+    if (cs.length === 1) return accept(cs[0].qid, cs[0], t.name, km(cs[0].coord, t.at), "around");
+    if (cs.length > 1) return { ambiguous: cs.map((it) => it.qid + " " + (it.label || it.title) + " [" + classNames(cache, it.classes) + "], " + Math.round(km(it.coord, t.at)) + " km") };
     if (farTitle) return { unresolved: "the article \"" + farTitle.n + "\" names an item but " + farTitle.why + "; nothing of that name within " + r + " km" };
     if (disambig) return { unresolved: "the title is a disambiguation page and nothing of that name lies within " + r + " km" };
     return { unresolved: "no Wikidata item of that name within " + r + " km (" + list.length + " items with an article there)" };
