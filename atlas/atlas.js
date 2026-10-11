@@ -2021,15 +2021,28 @@
     }
     function loadStudy() {
       if (!SU || !AS || ST.ready || ST.loading) return;
-      ST.loading = true;
+      ST.loading = true; renderStudyPanel();
       Promise.all([loadScript(opts.placesUrl || "atlas/data/places.js"), loadScript(opts.cardPlacesUrl || "atlas/data/card-places.js")]).then(() => {
         if (disposed) return;
-        registerPlaces(root.ATLAS_PLACES);
-        ST.idx = AS.parse(root.ATLAS_CARD_PLACES);
-        ST.ready = true; ST.loading = false;
-        sendStudyRows();
-        refreshStudy(true);
-        if (pendingPlace && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;
+        const t0 = performance.now();
+        registerPlaces(root.ATLAS_PLACES); const t1 = performance.now();
+        ST.idx = AS.parse(root.ATLAS_CARD_PLACES); const t2 = performance.now();
+        /* what a card is called and which collection owns it is asked of the host for every card of the index (2,476 asks, ~70 µs each:
+           145–200 ms in ONE task landed on the first frames of a pinch in the frame gate, 3 of 3 local runs) — so it is done in slices
+           of 8 ms, a task each, and the panel reads "Reading your cards…" until the last slice is in */
+        const ids = ST.idx.cardIds; let i = 0;
+        const slice = () => {
+          if (disposed) return;
+          const s0 = performance.now(); while (i < ids.length && performance.now() - s0 < 8) info(ids[i++]);
+          if (i < ids.length) { setTimeout(slice, 0); return; }
+          const t3 = performance.now();
+          ST.ready = true; ST.loading = false;
+          sendStudyRows(); const t4 = performance.now();
+          refreshStudy(true); const t5 = performance.now();
+          stats.study = { register: Math.round(t1 - t0), parse: Math.round(t2 - t1), warm: Math.round(t3 - t2), rows: Math.round(t4 - t3), refresh: Math.round(t5 - t4) };   // main-thread ms of each step (the warm-up is many tasks of 8 ms), for the suites
+          if (pendingPlace && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;
+        };
+        setTimeout(slice, 0);
       }).catch((e) => { ST.failed = true; ST.loading = false; renderStudyPanel(); if (typeof console !== "undefined") console.warn("atlas2 study data failed: " + (e && e.message || e)); });
     }
     // the studied set, the collections, the remembered view — recomputed whenever the host's progress could have moved (a mount; a toggle)
