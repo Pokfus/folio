@@ -5345,9 +5345,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     trace**. **Both meters count against the set they are measured by, NOT the whole register**, and each
     was wrong once the same way (412 of 258 countries; a retired term pushing the figure past the total).
     Keep new callers on `countryNameSet` / `countryTotalCount` / `countrySeenCount` / `glossSeenCount` /
-    `glossTotalCount`. **`SEEN_CAP` must stay above the SHIPPED universe of both registers** — these are
+    `glossTotalCount`. **`SEEN_CAP` must stay above the SHIPPED universe of both registers, by 20 %** — these are
     shown as progress towards completion, so a prune makes a count go backwards; `test-discovery.js`
-    asserts the clearance against the real data files, and **if it fires, raise the cap, don't trim data.**
+    asserts the clearance (universe × 1.2) against the real data files, and **if it fires, raise the cap, don't
+    trim data.** Oct 2026: the glossary (6,058 terms) outgrew the old 6,000 and CI's fast job went red at
+    test-discovery; the cap is now 9,000. Worst case for the synced blob, measured with the real slugs and a
+    13-digit timestamp (~31 bytes a glossary entry, ~28 a place): a reader who has opened every term and
+    place carries 187 KB (glossSeen) + 34 KB (placesSeen) = 221 KB, the growth the raise allows over the old
+    cap being 58 terms (1.8 KB); the 9,000 backstop itself would be ≤ 529 KB if both registers ever filled it.
   · **Discovery marks**: `markSeen` **returns `true` only on first sight**, and that return is the whole
     signal — capture it at the top, since anything asking at render time is always told no. **The
     UNDISCOVERED term is the marked one** (`data-new`, `--newterm` teal); a read term renders exactly as

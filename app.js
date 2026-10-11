@@ -1821,12 +1821,12 @@
      THE CAP MUST STAY ABOVE THE SHIPPED UNIVERSE OF BOTH REGISTERS, because these numbers are now shown
      to the reader as progress towards completion (the discovery marks on gloss links and the Atlas panel,
      and the account meters). A prune would make a completion count go BACKWARDS and re-flag a place as
-     newly discovered — the exact opposite of what the marks promise. Measured today: 333 curated glossary
-     terms, and 1,211 distinct clickable place names (258 present-day + 1,194 across the 13 shipped eras,
-     overlapping) — which was already 80% of the old 1500 cap, and every new geo era adds territory names.
-     Fully seen, placesSeen is ~34 KB of the progress blob, so the headroom is nearly free; the cap remains
-     only as a backstop against unbounded growth. */
-  const SEEN_CAP = 6000;
+     newly discovered — the exact opposite of what the marks promise. Measured Oct 2026: 6,058 glossary
+     terms (the cap, 6,000, had been outgrown) and 1,211 distinct clickable place names (258 present-day +
+     1,194 across the 13 shipped eras, overlapping). Fully seen, glossSeen is ~187 KB and placesSeen ~34 KB
+     of the progress blob; the cap (9,000, 20 % over the larger register) is only a backstop against
+     unbounded growth, and test-discovery.js demands that 20 % so a glossary batch cannot outgrow it again. */
+  const SEEN_CAP = 9000;
   function markSeen(field, key) {
     if (!key) return false;
     if (!S[field] || typeof S[field] !== "object") S[field] = {};   // back-fill for saves made before the register existed
