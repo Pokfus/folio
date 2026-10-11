@@ -69,6 +69,28 @@
    },
    "cards": 2
   },
+  "pl:q100707898": {
+   "name": "Osca",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q100707898",
+   "at": [
+    -0.4085,
+    42.1392
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q213468"
+    ],
+    "via": "label",
+    "km": 0.9
+   },
+   "cards": 1
+  },
   "pl:q1010335": {
    "name": "Burkhan Khaldun",
    "kind": "mountain",
@@ -92,29 +114,39 @@
    },
    "cards": 2
   },
-  "pl:q101186473": {
-   "name": "Dadu (Beijing)",
+  "pl:q1012797": {
+   "name": "Ostia Antica",
    "kind": "site",
    "sub": "site",
-   "qid": "Q101186473",
+   "qid": "Q1012797",
    "at": [
-    116.4,
-    39.9333
+    12.2875,
+    41.7542
    ],
    "within": "",
    "aliases": [
-    "Dadu"
+    "Ostia",
+    "Ostia (Rome)",
+    "Lido di Ostia"
    ],
-   "wiki": "Dadu (Beijing)",
+   "wiki": "Ostia Antica",
    "by": "migration",
    "evidence": {
     "classes": [
+     "Q839954",
      "Q15661340"
     ],
     "via": "label",
-    "km": 3
+    "km": 0.4
    },
-   "cards": 1
+   "cards": 3,
+   "merged": [
+    {
+     "qid": "Q11171297",
+     "name": "Ostia (Rome)",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q1025459": {
    "name": "Ruijin",
@@ -261,6 +293,39 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q103155084": {
+   "name": "Brundisium",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q103155084",
+   "at": [
+    17.95,
+    40.62
+   ],
+   "within": "",
+   "aliases": [
+    "Brindisi"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q839954",
+     "Q15661340",
+     "Q102202066"
+    ],
+    "via": "label",
+    "km": 2
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q13496",
+     "name": "Brindisi",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q1046818": {
    "name": "Chengde Mountain Resort",
@@ -614,6 +679,40 @@
    },
    "cards": 1
   },
+  "pl:q107557833": {
+   "name": "Sinope",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q107557833",
+   "at": [
+    35.143,
+    42.025
+   ],
+   "within": "",
+   "aliases": [
+    "Sinop, Turkey",
+    "Sinop"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q148837",
+     "Q839954",
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 0.7
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q599416",
+     "name": "Sinop, Turkey",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q109412796": {
    "name": "Gaixia Site",
    "kind": "region",
@@ -775,6 +874,37 @@
     "km": 0.5
    },
    "cards": 1
+  },
+  "pl:q11225429": {
+   "name": "Thebes",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q11225429",
+   "at": [
+    23.3174,
+    38.3192
+   ],
+   "within": "",
+   "aliases": [
+    "Thebes, Greece"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q148837"
+    ],
+    "via": "label",
+    "km": 0.2
+   },
+   "cards": 4,
+   "merged": [
+    {
+     "qid": "Q5760",
+     "name": "Thebes, Greece",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q1123019": {
    "name": "Temple of Olympian Zeus, Athens",
@@ -1112,6 +1242,38 @@
    },
    "cards": 2
   },
+  "pl:q11443": {
+   "name": "Kediri (city)",
+   "kind": "city",
+   "sub": "",
+   "qid": "Q11443",
+   "at": [
+    112.0047,
+    -7.8111
+   ],
+   "within": "",
+   "aliases": [
+    "Kediri",
+    "Kediri Regency"
+   ],
+   "wiki": "Kediri (city)",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q3199141"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q11084",
+     "name": "Kediri Regency",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q1144514": {
    "name": "Curia Julia",
    "kind": "site",
@@ -1158,6 +1320,37 @@
     "km": 5.3
    },
    "cards": 1
+  },
+  "pl:q114571906": {
+   "name": "Cythera (ancient town)",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q114571906",
+   "at": [
+    23.0234,
+    36.2317
+   ],
+   "within": "",
+   "aliases": [
+    "Kythera"
+   ],
+   "wiki": "Cythera (ancient town)",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q148837"
+    ],
+    "via": "label",
+    "km": 3.7
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q11855334",
+     "name": "Kythera",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q1147037": {
    "name": "Eastern Han",
@@ -1356,7 +1549,10 @@
     38.0717
    ],
    "within": "",
-   "aliases": [],
+   "aliases": [
+    "Apamea (Phrygia)",
+    "Apamea"
+   ],
    "wiki": "Celaenae",
    "by": "migration",
    "evidence": {
@@ -1367,7 +1563,15 @@
     "via": "title",
     "km": 0.6
    },
-   "cards": 1
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q617518",
+     "name": "Apamea (Phrygia)",
+     "how": "site",
+     "km": 0.1
+    }
+   ]
   },
   "pl:q1165562": {
    "name": "Kuk Swamp",
@@ -1457,30 +1661,6 @@
    },
    "cards": 1
   },
-  "pl:q1190403": {
-   "name": "Edessa",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q1190403",
-   "at": [
-    38.7761,
-    37.1764
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Edessa",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340",
-     "Q839954",
-     "Q148837"
-    ],
-    "via": "title",
-    "km": 3
-   },
-   "cards": 1
-  },
   "pl:q11907359": {
    "name": "Auximum",
    "kind": "site",
@@ -1502,6 +1682,71 @@
     "km": 0.3
    },
    "cards": 1
+  },
+  "pl:q11909916": {
+   "name": "Bovianum",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q11909916",
+   "at": [
+    14.4671,
+    41.4826
+   ],
+   "within": "",
+   "aliases": [
+    "Bojano"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 0.6
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q277374",
+     "name": "Bojano",
+     "how": "toponym"
+    }
+   ]
+  },
+  "pl:q11918833": {
+   "name": "Eleusis",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q11918833",
+   "at": [
+    23.5333,
+    38.0333
+   ],
+   "within": "",
+   "aliases": [
+    "Elefsina"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q148837",
+     "Q672490",
+     "Q839954",
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 3,
+   "merged": [
+    {
+     "qid": "Q204905",
+     "name": "Elefsina",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q119240047": {
    "name": "Suessa Aurunca",
@@ -2149,6 +2394,75 @@
    },
    "cards": 1
   },
+  "pl:q12725121": {
+   "name": "Sarmizegetusa",
+   "kind": "town",
+   "sub": "",
+   "qid": "Q12725121",
+   "at": [
+    22.7825,
+    45.5153
+   ],
+   "within": "",
+   "aliases": [
+    "Sarmizegetusa, Hunedoara",
+    "Ulpia Traiana Sarmizegetusa"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q532",
+     "Q34841063"
+    ],
+    "via": "label",
+    "km": 0.2
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q1069821",
+     "name": "Sarmizegetusa, Hunedoara",
+     "how": "toponym"
+    },
+    {
+     "qid": "Q2671791",
+     "name": "Ulpia Traiana Sarmizegetusa",
+     "how": "toponym"
+    }
+   ]
+  },
+  "pl:q127429784": {
+   "name": "Bostra",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q127429784",
+   "at": [
+    36.4837,
+    32.5178
+   ],
+   "within": "",
+   "aliases": [
+    "Bosra"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 0.3
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q272680",
+     "name": "Bosra",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q127431116": {
    "name": "Reate",
    "kind": "site",
@@ -2643,6 +2957,31 @@
    },
    "cards": 0
   },
+  "pl:q13373": {
+   "name": "Lucca",
+   "kind": "city",
+   "sub": "",
+   "qid": "Q13373",
+   "at": [
+    10.5167,
+    43.85
+   ],
+   "within": "",
+   "aliases": [
+    "Luca"
+   ],
+   "wiki": "Lucca",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q515",
+     "Q747074"
+    ],
+    "via": "label",
+    "km": 1.4
+   },
+   "cards": 1
+  },
   "pl:q13424755": {
    "name": "Gnyozdovo",
    "kind": "town",
@@ -2736,6 +3075,43 @@
     "km": 0.7
    },
    "cards": 1
+  },
+  "pl:q13498": {
+   "name": "Taranto",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q13498",
+   "at": [
+    17.2431,
+    40.4711
+   ],
+   "within": "",
+   "aliases": [
+    "Taras",
+    "Tarentum",
+    "Taras, Italy"
+   ],
+   "wiki": "Taranto",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q515",
+     "Q148837",
+     "Q747074",
+     "Q1200957",
+     "Q1549591"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 5,
+   "merged": [
+    {
+     "qid": "Q3981082",
+     "name": "Taras, Italy",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q1349884": {
    "name": "Shou County",
@@ -2946,6 +3322,30 @@
    },
    "cards": 1
   },
+  "pl:q1360503": {
+   "name": "Issus (Cilicia)",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q1360503",
+   "at": [
+    36.1644,
+    36.8383
+   ],
+   "within": "",
+   "aliases": [
+    "Issus"
+   ],
+   "wiki": "Issus (Cilicia)",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q839954"
+    ],
+    "via": "label",
+    "km": 1.8
+   },
+   "cards": 1
+  },
   "pl:q1363661": {
    "name": "Gaoping",
    "kind": "region",
@@ -2967,6 +3367,39 @@
     "km": 0.8
    },
    "cards": 1
+  },
+  "pl:q1363688": {
+   "name": "Ancient Corinth",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q1363688",
+   "at": [
+    22.8787,
+    37.9058
+   ],
+   "within": "",
+   "aliases": [
+    "Corinth",
+    "Corinth (modern city)"
+   ],
+   "wiki": "Ancient Corinth",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q148837",
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 0.1
+   },
+   "cards": 5,
+   "merged": [
+    {
+     "qid": "Q103011",
+     "name": "Corinth (modern city)",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q13659137": {
    "name": "Zhoukoudian",
@@ -2990,6 +3423,76 @@
     "km": 0
    },
    "cards": 2
+  },
+  "pl:q13666": {
+   "name": "Messina",
+   "kind": "city",
+   "sub": "",
+   "qid": "Q13666",
+   "at": [
+    15.5542,
+    38.1936
+   ],
+   "within": "",
+   "aliases": [
+    "Messana"
+   ],
+   "wiki": "Messina",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q515",
+     "Q148837",
+     "Q747074",
+     "Q1549591"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q4023782",
+     "name": "Messana",
+     "how": "toponym"
+    }
+   ]
+  },
+  "pl:q13670": {
+   "name": "Syracuse, Sicily",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q13670",
+   "at": [
+    15.2875,
+    37.0692
+   ],
+   "within": "",
+   "aliases": [
+    "Syracuse",
+    "Ancient Syracuse"
+   ],
+   "wiki": "Syracuse, Sicily",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q515",
+     "Q148837",
+     "Q747074",
+     "Q1200957",
+     "Q1549591"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 5,
+   "merged": [
+    {
+     "qid": "Q4420718",
+     "name": "Ancient Syracuse",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q13695": {
    "name": "Tenochtitlan",
@@ -3960,6 +4463,38 @@
    },
    "cards": 1
   },
+  "pl:q160506": {
+   "name": "Saint-Denis",
+   "kind": "town",
+   "sub": "",
+   "qid": "Q160506",
+   "at": [
+    2.3539,
+    48.9356
+   ],
+   "within": "",
+   "aliases": [
+    "Saint-Denis, Seine-Saint-Denis"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q484170",
+     "Q19730508"
+    ],
+    "via": "label",
+    "km": 0.4
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q131575588",
+     "name": "Saint-Denis, Seine-Saint-Denis",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q1607754": {
    "name": "Heraion of Argos",
    "kind": "site",
@@ -4231,7 +4766,9 @@
     41.0122
    ],
    "within": "",
-   "aliases": [],
+   "aliases": [
+    "Byzantium"
+   ],
    "wiki": "Constantinople",
    "by": "migration",
    "evidence": {
@@ -4243,7 +4780,15 @@
     "via": "title",
     "km": 0.3
    },
-   "cards": 5
+   "cards": 5,
+   "merged": [
+    {
+     "qid": "Q23725",
+     "name": "Byzantium",
+     "how": "site",
+     "km": 0.7
+    }
+   ]
   },
   "pl:q168782": {
    "name": "Tobolsk",
@@ -4453,6 +4998,43 @@
    },
    "cards": 2
   },
+  "pl:q17173672": {
+   "name": "Asuka",
+   "kind": "town",
+   "sub": "",
+   "qid": "Q17173672",
+   "at": [
+    135.8204,
+    34.4798
+   ],
+   "within": "",
+   "aliases": [
+    "Asuka, Yamato",
+    "Asuka, Nara"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q18663566"
+    ],
+    "via": "label",
+    "km": 0.1
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q752394",
+     "name": "Asuka, Yamato",
+     "how": "toponym"
+    },
+    {
+     "qid": "Q752397",
+     "name": "Asuka, Nara",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q172125": {
    "name": "Lascaux",
    "kind": "site",
@@ -4497,6 +5079,31 @@
     ],
     "via": "title",
     "km": 0
+   },
+   "cards": 1
+  },
+  "pl:q172343": {
+   "name": "Rafah",
+   "kind": "city",
+   "sub": "",
+   "qid": "Q172343",
+   "at": [
+    34.2519,
+    31.2886
+   ],
+   "within": "",
+   "aliases": [
+    "Raphia"
+   ],
+   "wiki": "Rafah",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q515",
+     "Q902814"
+    ],
+    "via": "label",
+    "km": 1.9
    },
    "cards": 1
   },
@@ -5180,29 +5787,6 @@
    },
    "cards": 1
   },
-  "pl:q1873411": {
-   "name": "Vesontio",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q1873411",
-   "at": [
-    6.0299,
-    47.2346
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q839954",
-     "Q15661340"
-    ],
-    "via": "label",
-    "km": 1
-   },
-   "cards": 1
-  },
   "pl:q188527": {
    "name": "Naxos",
    "kind": "island",
@@ -5224,6 +5808,70 @@
     "km": 5.6
    },
    "cards": 1
+  },
+  "pl:q188731": {
+   "name": "Rhodes (city)",
+   "kind": "town",
+   "sub": "",
+   "qid": "Q188731",
+   "at": [
+    28.2167,
+    36.4333
+   ],
+   "within": "",
+   "aliases": [
+    "Rhodes",
+    "Ancient Rhodes"
+   ],
+   "wiki": "Rhodes (city)",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q3957"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 3,
+   "merged": [
+    {
+     "qid": "Q13533316",
+     "name": "Ancient Rhodes",
+     "how": "toponym"
+    }
+   ]
+  },
+  "pl:q1887316": {
+   "name": "Malia (archaeological site)",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q1887316",
+   "at": [
+    25.4908,
+    35.2939
+   ],
+   "within": "",
+   "aliases": [
+    "Malia",
+    "Malia, Crete"
+   ],
+   "wiki": "Malia (archaeological site)",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q839954"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q284463",
+     "name": "Malia, Crete",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q189059": {
    "name": "Mytilene",
@@ -5966,6 +6614,38 @@
    },
    "cards": 1
   },
+  "pl:q19900818": {
+   "name": "Misenum",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q19900818",
+   "at": [
+    14.0864,
+    40.7864
+   ],
+   "within": "",
+   "aliases": [
+    "Miseno"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q3398414",
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 0.2
+   },
+   "cards": 3,
+   "merged": [
+    {
+     "qid": "Q401231",
+     "name": "Miseno",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q200133": {
    "name": "Chalcis",
    "kind": "city",
@@ -6036,6 +6716,42 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q20108952": {
+   "name": "Sulmo",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q20108952",
+   "at": [
+    13.927,
+    42.0474
+   ],
+   "within": "",
+   "aliases": [
+    "Sulmona"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 1.7
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q31075128",
+     "name": "Sulmo",
+     "how": "toponym"
+    },
+    {
+     "qid": "Q50157",
+     "name": "Sulmona",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q201970": {
    "name": "Shrewsbury",
@@ -6179,6 +6895,38 @@
    },
    "cards": 1
   },
+  "pl:q2034500": {
+   "name": "Malpas, Cheshire",
+   "kind": "town",
+   "sub": "",
+   "qid": "Q2034500",
+   "at": [
+    -2.764,
+    53.019
+   ],
+   "within": "",
+   "aliases": [
+    "Malpas"
+   ],
+   "wiki": "Malpas, Cheshire",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q532",
+     "Q1115575"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q24663014",
+     "name": "Malpas",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q2037271": {
    "name": "Portus",
    "kind": "site",
@@ -6243,6 +6991,30 @@
     ],
     "via": "title",
     "km": 4.3
+   },
+   "cards": 1
+  },
+  "pl:q20445370": {
+   "name": "1 World Trade Center (1970–2001)",
+   "kind": "site",
+   "sub": "building",
+   "qid": "Q20445370",
+   "at": [
+    -74.0132,
+    40.7121
+   ],
+   "within": "",
+   "aliases": [
+    "World Trade Center"
+   ],
+   "wiki": "1 World Trade Center (1970–2001)",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q11303"
+    ],
+    "via": "label",
+    "km": 0
    },
    "cards": 1
   },
@@ -6457,29 +7229,6 @@
     "km": 0.4
    },
    "cards": 1
-  },
-  "pl:q209349": {
-   "name": "Nicomedia",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q209349",
-   "at": [
-    29.9175,
-    40.7625
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Nicomedia",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340",
-     "Q839954"
-    ],
-    "via": "title",
-    "km": 0
-   },
-   "cards": 3
   },
   "pl:q2096879": {
    "name": "Taung",
@@ -6948,6 +7697,37 @@
    },
    "cards": 1
   },
+  "pl:q223917": {
+   "name": "Boma, Democratic Republic of the Congo",
+   "kind": "city",
+   "sub": "",
+   "qid": "Q223917",
+   "at": [
+    13.05,
+    -5.85
+   ],
+   "within": "",
+   "aliases": [
+    "Boma"
+   ],
+   "wiki": "Boma, Democratic Republic of the Congo",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q117214267"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q111387561",
+     "name": "Boma",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q2246183": {
    "name": "Cures, Sabinum",
    "kind": "site",
@@ -7038,28 +7818,6 @@
     ],
     "via": "title",
     "km": 1.6
-   },
-   "cards": 1
-  },
-  "pl:q2280882": {
-   "name": "Alexandria Eschate",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q2280882",
-   "at": [
-    69.6172,
-    40.2861
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Alexandria Eschate",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340"
-    ],
-    "via": "title",
-    "km": 0
    },
    "cards": 1
   },
@@ -7351,29 +8109,6 @@
     ],
     "via": "label",
     "km": 105.1
-   },
-   "cards": 1
-  },
-  "pl:q23725": {
-   "name": "Byzantium",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q23725",
-   "at": [
-    28.9836,
-    41.0134
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Byzantium",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340",
-     "Q148837"
-    ],
-    "via": "title",
-    "km": 0.2
    },
    "cards": 1
   },
@@ -7922,28 +8657,38 @@
    },
    "cards": 1
   },
-  "pl:q2566850": {
-   "name": "Massalia",
+  "pl:q2548027": {
+   "name": "Emesa",
    "kind": "site",
    "sub": "site",
-   "qid": "Q2566850",
+   "qid": "Q2548027",
    "at": [
-    5.3825,
-    43.2969
+    36.7145,
+    34.7232
    ],
    "within": "",
-   "aliases": [],
-   "wiki": "Massalia",
+   "aliases": [
+    "Homs"
+   ],
+   "wiki": "",
    "by": "migration",
    "evidence": {
     "classes": [
-     "Q69391739",
-     "Q148837"
+     "Q756780",
+     "Q2202509",
+     "Q81830252"
     ],
-    "via": "title",
+    "via": "label",
     "km": 1
    },
-   "cards": 2
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q131301",
+     "name": "Homs",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q261243": {
    "name": "Dmanisi",
@@ -8223,6 +8968,37 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q27102003": {
+   "name": "Utica",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q27102003",
+   "at": [
+    10.0619,
+    37.0569
+   ],
+   "within": "",
+   "aliases": [
+    "Utica, Tunisia"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q166523",
+     "name": "Utica, Tunisia",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q271928": {
    "name": "Palazzo Vecchio",
@@ -8542,6 +9318,38 @@
    },
    "cards": 1
   },
+  "pl:q28729": {
+   "name": "Kozhikode",
+   "kind": "city",
+   "sub": "",
+   "qid": "Q28729",
+   "at": [
+    75.7803,
+    11.2478
+   ],
+   "within": "",
+   "aliases": [
+    "Calicut"
+   ],
+   "wiki": "Kozhikode",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q515",
+     "Q1549591"
+    ],
+    "via": "label",
+    "km": 0.4
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q111387013",
+     "name": "Calicut",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q287341": {
    "name": "Skhul Cave",
    "kind": "site",
@@ -8777,6 +9585,37 @@
     "km": 1.2
    },
    "cards": 1
+  },
+  "pl:q30031896": {
+   "name": "Vinci",
+   "kind": "town",
+   "sub": "",
+   "qid": "Q30031896",
+   "at": [
+    10.9237,
+    43.7813
+   ],
+   "within": "",
+   "aliases": [
+    "Vinci, Tuscany"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q15303838"
+    ],
+    "via": "label",
+    "km": 0.3
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q82884",
+     "name": "Vinci, Tuscany",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q3007659": {
    "name": "Curia of Pompey",
@@ -9018,6 +9857,39 @@
    },
    "cards": 3
   },
+  "pl:q31918813": {
+   "name": "Mérida",
+   "kind": "city",
+   "sub": "",
+   "qid": "Q31918813",
+   "at": [
+    -6.3437,
+    38.9161
+   ],
+   "within": "",
+   "aliases": [
+    "Mérida, Spain"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q515",
+     "Q11939023",
+     "Q121289819"
+    ],
+    "via": "label",
+    "km": 2
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q14323",
+     "name": "Mérida, Spain",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q319242": {
    "name": "Caesarea Maritima",
    "kind": "site",
@@ -9042,30 +9914,6 @@
     ],
     "via": "title",
     "km": 0.1
-   },
-   "cards": 1
-  },
-  "pl:q3228826": {
-   "name": "Prusa (Bithynia)",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q3228826",
-   "at": [
-    29.0615,
-    40.1848
-   ],
-   "within": "",
-   "aliases": [
-    "Prusa"
-   ],
-   "wiki": "Prusa (Bithynia)",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340"
-    ],
-    "via": "label",
-    "km": 1.4
    },
    "cards": 1
   },
@@ -9614,6 +10462,38 @@
    },
    "cards": 1
   },
+  "pl:q3515797": {
+   "name": "Tarquinia",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q3515797",
+   "at": [
+    11.7582,
+    42.2545
+   ],
+   "within": "",
+   "aliases": [
+    "Tarquinii"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q839954",
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 0.6
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q21580466",
+     "name": "Tarquinia",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q35355": {
    "name": "Sumer",
    "kind": "region",
@@ -9666,32 +10546,49 @@
    },
    "cards": 1
   },
-  "pl:q3567546": {
-   "name": "Epidamnos",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q3567546",
+  "pl:q35710384": {
+   "name": "Lagos",
+   "kind": "city",
+   "sub": "",
+   "qid": "Q35710384",
    "at": [
-    19.4474,
-    41.3163
+    -8.6742,
+    37.102
    ],
    "within": "",
    "aliases": [
-    "Epidamnus",
-    "Dyrrachium"
+    "Lagos, Portugal",
+    "Freguesia de São Sebastião",
+    "Freguesia de Santa Maria"
    ],
-   "wiki": "Epidamnos",
+   "wiki": "",
    "by": "migration",
    "evidence": {
     "classes": [
-     "Q148837",
-     "Q15661340",
-     "Q93342462"
+     "Q15303838",
+     "Q15647906"
     ],
     "via": "label",
-    "km": 7.1
+    "km": 0.2
    },
-   "cards": 2
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q2165083",
+     "name": "Freguesia de São Sebastião",
+     "how": "toponym"
+    },
+    {
+     "qid": "Q2451180",
+     "name": "Freguesia de Santa Maria",
+     "how": "toponym"
+    },
+    {
+     "qid": "Q732548",
+     "name": "Lagos, Portugal",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q35733005": {
    "name": "Montignac",
@@ -10211,6 +11108,34 @@
    },
    "cards": 1
   },
+  "pl:q38888": {
+   "name": "Olympia, Greece",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q38888",
+   "at": [
+    21.63,
+    37.6383
+   ],
+   "within": "",
+   "aliases": [
+    "Olympia"
+   ],
+   "wiki": "Olympia, Greece",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q148837",
+     "Q1617500",
+     "Q93342462",
+     "Q102202066",
+     "Q120964921"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 6
+  },
   "pl:q3901049": {
    "name": "Petras",
    "kind": "site",
@@ -10258,6 +11183,38 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q3991738": {
+   "name": "Tyre",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q3991738",
+   "at": [
+    35.1958,
+    33.2692
+   ],
+   "within": "",
+   "aliases": [
+    "Tyre, Lebanon"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q839954",
+     "Q15661340"
+    ],
+    "via": "label",
+    "km": 0.2
+   },
+   "cards": 3,
+   "merged": [
+    {
+     "qid": "Q82070",
+     "name": "Tyre, Lebanon",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q39971": {
    "name": "Gela",
@@ -11244,6 +12201,38 @@
    },
    "cards": 1
   },
+  "pl:q49364942": {
+   "name": "Sagres",
+   "kind": "town",
+   "sub": "",
+   "qid": "Q49364942",
+   "at": [
+    -8.9431,
+    37.0086
+   ],
+   "within": "",
+   "aliases": [
+    "Sagres (Vila do Bispo)"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q486972",
+     "Q19833170"
+    ],
+    "via": "label",
+    "km": 0.4
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q926672",
+     "name": "Sagres (Vila do Bispo)",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q493817": {
    "name": "Santillana del Mar",
    "kind": "town",
@@ -11853,6 +12842,37 @@
    },
    "cards": 1
   },
+  "pl:q543895": {
+   "name": "Orchomenus",
+   "kind": "town",
+   "sub": "",
+   "qid": "Q543895",
+   "at": [
+    22.981,
+    38.493
+   ],
+   "within": "",
+   "aliases": [
+    "Orchomenus (Boeotia)"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q3957"
+    ],
+    "via": "label",
+    "km": 1.1
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q13574822",
+     "name": "Orchomenus (Boeotia)",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q545404": {
    "name": "Tiber Island",
    "kind": "island",
@@ -12081,31 +13101,6 @@
      "Q15661340"
     ],
     "via": "label",
-    "km": 0
-   },
-   "cards": 1
-  },
-  "pl:q5680": {
-   "name": "Nineveh",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q5680",
-   "at": [
-    43.1528,
-    36.3594
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Nineveh",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340",
-     "Q3247173",
-     "Q839954",
-     "Q755017"
-    ],
-    "via": "title",
     "km": 0
    },
    "cards": 1
@@ -13104,32 +14099,6 @@
    },
    "cards": 1
   },
-  "pl:q617518": {
-   "name": "Apamea (Phrygia)",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q617518",
-   "at": [
-    30.166,
-    38.071
-   ],
-   "within": "",
-   "aliases": [
-    "Apamea"
-   ],
-   "wiki": "Apamea (Phrygia)",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q839954",
-     "Q2434238",
-     "Q15661340"
-    ],
-    "via": "label",
-    "km": 0.1
-   },
-   "cards": 1
-  },
   "pl:q618495": {
    "name": "Aphrodisias",
    "kind": "site",
@@ -13348,6 +14317,39 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q623329": {
+   "name": "Lüshunkou",
+   "kind": "town",
+   "sub": "",
+   "qid": "Q623329",
+   "at": [
+    121.2569,
+    38.8508
+   ],
+   "within": "",
+   "aliases": [
+    "Port Arthur",
+    "Lüshun Port",
+    "Port Lüshun"
+   ],
+   "wiki": "Lüshunkou",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q1065118"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q11085373",
+     "name": "Lüshun Port",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q623612": {
    "name": "Ara Pacis",
@@ -13729,29 +14731,6 @@
    },
    "cards": 2
   },
-  "pl:q662613": {
-   "name": "Iolcus",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q662613",
-   "at": [
-    22.9689,
-    39.3663
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Iolcus",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340",
-     "Q148837"
-    ],
-    "via": "title",
-    "km": 2.3
-   },
-   "cards": 1
-  },
   "pl:q663353": {
    "name": "Oropos",
    "kind": "town",
@@ -14034,31 +15013,6 @@
     "km": 2.5
    },
    "cards": 6
-  },
-  "pl:q696193": {
-   "name": "Ecbatana",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q696193",
-   "at": [
-    48.5162,
-    34.8065
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Ecbatana",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340",
-     "Q3257686",
-     "Q2065736",
-     "Q839954"
-    ],
-    "via": "title",
-    "km": 0
-   },
-   "cards": 2
   },
   "pl:q696803": {
    "name": "Las Médulas",
@@ -14456,6 +15410,38 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q7342": {
+   "name": "Oświęcim",
+   "kind": "city",
+   "sub": "",
+   "qid": "Q7342",
+   "at": [
+    19.2214,
+    50.0381
+   ],
+   "within": "",
+   "aliases": [
+    "Auschwitz",
+    "Auschwitz concentration camp"
+   ],
+   "wiki": "Oświęcim",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q2616791"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q7341",
+     "name": "Auschwitz concentration camp",
+     "how": "toponym"
+    }
+   ]
   },
   "pl:q734499": {
    "name": "Jingshan Park",
@@ -15375,7 +16361,9 @@
     40.195
    ],
    "within": "",
-   "aliases": [],
+   "aliases": [
+    "Potidaea"
+   ],
    "wiki": "Cassandreia",
    "by": "migration",
    "evidence": {
@@ -15385,7 +16373,15 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q999468",
+     "name": "Potidaea",
+     "how": "site",
+     "km": 0.6
+    }
+   ]
   },
   "pl:q816437": {
    "name": "Skara Brae",
@@ -16066,6 +17062,37 @@
    },
    "cards": 1
   },
+  "pl:q93335904": {
+   "name": "Emporion",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q93335904",
+   "at": [
+    3.1206,
+    42.1347
+   ],
+   "within": "",
+   "aliases": [
+    "Empúries"
+   ],
+   "wiki": "",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q655593"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q1229367",
+     "name": "Empúries",
+     "how": "toponym"
+    }
+   ]
+  },
   "pl:q935454": {
    "name": "Qift",
    "kind": "site",
@@ -16344,6 +17371,31 @@
     ],
     "via": "title",
     "km": 0.6
+   },
+   "cards": 1
+  },
+  "pl:q950952": {
+   "name": "Dardanus (city)",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q950952",
+   "at": [
+    26.3628,
+    40.0758
+   ],
+   "within": "",
+   "aliases": [
+    "Dardanus"
+   ],
+   "wiki": "Dardanus (city)",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q148837",
+     "Q839954"
+    ],
+    "via": "label",
+    "km": 1.2
    },
    "cards": 1
   },
@@ -16644,29 +17696,6 @@
    },
    "cards": 1
   },
-  "pl:q999468": {
-   "name": "Potidaea",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q999468",
-   "at": [
-    23.3333,
-    40.2
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Potidaea",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340",
-     "Q148837"
-    ],
-    "via": "title",
-    "km": 0.8
-   },
-   "cards": 1
-  },
   "pl:q99950": {
    "name": "Predappio",
    "kind": "town",
@@ -16711,5 +17740,201 @@
    },
    "cards": 1
   }
- }
+ },
+ "overlay": {
+  "city:1159130531": {
+   "aliases": [
+    "Vesontio"
+   ],
+   "merged": [
+    {
+     "qid": "Q1873411",
+     "name": "Vesontio",
+     "how": "site",
+     "km": 0.5
+    }
+   ]
+  },
+  "city:1159130689": {
+   "aliases": [
+    "Iolcus"
+   ],
+   "merged": [
+    {
+     "qid": "Q662613",
+     "name": "Iolcus",
+     "how": "site",
+     "km": 1.7
+    }
+   ]
+  },
+  "city:1159135147": {
+   "aliases": [
+    "Nicomedia"
+   ],
+   "merged": [
+    {
+     "qid": "Q209349",
+     "name": "Nicomedia",
+     "how": "site",
+     "km": 1.9
+    }
+   ]
+  },
+  "city:1159139597": {
+   "aliases": [],
+   "merged": [
+    {
+     "qid": "Q33721822",
+     "name": "Trento",
+     "how": "toponym"
+    }
+   ]
+  },
+  "city:1159144543": {
+   "aliases": [
+    "Epidamnos",
+    "Epidamnus",
+    "Dyrrachium"
+   ],
+   "merged": [
+    {
+     "qid": "Q3567546",
+     "name": "Epidamnos",
+     "how": "site",
+     "km": 0.2
+    }
+   ]
+  },
+  "city:1159146327": {
+   "aliases": [
+    "Alexandria Eschate"
+   ],
+   "merged": [
+    {
+     "qid": "Q2280882",
+     "name": "Alexandria Eschate",
+     "how": "site",
+     "km": 0.5
+    }
+   ]
+  },
+  "city:1159146389": {
+   "aliases": [
+    "Edessa"
+   ],
+   "merged": [
+    {
+     "qid": "Q1190403",
+     "name": "Edessa",
+     "how": "site",
+     "km": 1.8
+    }
+   ]
+  },
+  "city:1159149373": {
+   "aliases": [
+    "Prusa (Bithynia)",
+    "Prusa"
+   ],
+   "merged": [
+    {
+     "qid": "Q3228826",
+     "name": "Prusa (Bithynia)",
+     "how": "site",
+     "km": 2
+    }
+   ]
+  },
+  "city:1159150037": {
+   "aliases": [
+    "Massalia"
+   ],
+   "merged": [
+    {
+     "qid": "Q2566850",
+     "name": "Massalia",
+     "how": "site",
+     "km": 0.9
+    }
+   ]
+  },
+  "city:1159150087": {
+   "aliases": [
+    "Nineveh"
+   ],
+   "merged": [
+    {
+     "qid": "Q5680",
+     "name": "Nineveh",
+     "how": "site",
+     "km": 1.6
+    }
+   ]
+  },
+  "city:1159150133": {
+   "aliases": [
+    "Ecbatana"
+   ],
+   "merged": [
+    {
+     "qid": "Q696193",
+     "name": "Ecbatana",
+     "how": "site",
+     "km": 1.2
+    }
+   ]
+  },
+  "city:1159151313": {
+   "aliases": [
+    "Neapolis"
+   ],
+   "merged": [
+    {
+     "qid": "Q15122630",
+     "name": "Neapolis",
+     "how": "site",
+     "km": 0.9
+    },
+    {
+     "qid": "Q2634",
+     "name": "Naples",
+     "how": "toponym"
+    }
+   ]
+  },
+  "city:1159151523": {
+   "aliases": [
+    "Hanseongbu"
+   ],
+   "merged": [
+    {
+     "qid": "Q624467",
+     "name": "Hanseongbu",
+     "how": "toponym"
+    }
+   ]
+  },
+  "city:1159151595": {
+   "aliases": [
+    "Dadu (Beijing)",
+    "Dadu",
+    "Khanbaliq",
+    "Pei-p'ing"
+   ],
+   "merged": [
+    {
+     "qid": "Q101186473",
+     "name": "Dadu (Beijing)",
+     "how": "toponym"
+    },
+    {
+     "qid": "Q17579219",
+     "name": "Pei-p'ing",
+     "how": "toponym"
+    }
+   ]
+  }
+ },
+ "merges": {}
 }

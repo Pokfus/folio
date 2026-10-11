@@ -36,7 +36,7 @@ const HISTORY = path.join(DATA, "history.bin");
 
 /* the kinds a registry row may carry: the gazetteer's fifteen (§2.6 v0), the Phase 3 additions, and the entity kinds */
 const GAZETTEER_KINDS = ["country", "admin1", "capital", "city", "town", "sea", "ocean", "strait", "gulf", "lake", "river", "island", "island-group", "range", "region"];
-const PLACE_KINDS = GAZETTEER_KINDS.concat(["site", "mountain", "cape"]);          // places.js may add a site (a cave, a temple, a battlefield, an ancient city), a mountain, a cape
+const PLACE_KINDS = GAZETTEER_KINDS.concat(["site", "mountain", "cape"]);          // places.js may add a site (a cave, a temple, a battlefield, an ancient city), a mountain, a cape (registry kinds since 3b, decision 2)
 const ENTITY_KINDS = ["polity", "people"];
 const KINDS = PLACE_KINDS.concat(ENTITY_KINDS);
 const ID_RE = /^(adm0|adm1|city|sea|reg|pt|lake|river|pl|pol):[A-Za-z0-9_.:-]+$/;
@@ -72,7 +72,13 @@ function loadRegistry(opts) {
   const gz = readTable(GAZETTEER, "ATLAS_GAZETTEER");
   for (const r of gz.rows) add(r, "gazetteer");
   let places = { table: null, rows: [] };
-  if (fs.existsSync(PLACES)) { places = readTable(PLACES, "ATLAS_PLACES"); for (const r of places.rows) add(r, "places"); }
+  if (fs.existsSync(PLACES)) {
+    places = readTable(PLACES, "ATLAS_PLACES"); for (const r of places.rows) add(r, "places");
+    /* THE ALIAS OVERLAY (3b, decision 1): names folded into a row this file does not own — a gazetteer row is generated from public
+       sources and never edited — so "Epidamnos" finds Durrës. `places.table.alias` is { rowId: [names] }. */
+    const alias = (places.table && places.table.alias) || {};
+    for (const [id, names] of Object.entries(alias)) { const row = rows.get(id); if (!row) throw new Error("places.js: alias overlay for " + id + ", which is not a registry row"); for (const n of names) { if (!row.aliases.includes(n)) row.aliases.push(n); const k = fold(n); let l = byName.get(k); if (!l) byName.set(k, l = []); if (!l.includes(row)) l.push(row); } }
+  }
   const entities = opts.entities === false ? [] : readEntities();
   for (const e of entities) if (e.kind === "polity" || e.kind === "people") add(e, "history");
   const cardsOf = (id) => { const e = rows.get(id); return e && e.cards ? e.cards.slice() : []; };
