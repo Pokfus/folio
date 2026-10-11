@@ -10657,6 +10657,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-study[hidden]{display:none;}
 .atlas2-has-card .atlas2-study{width:min(300px, calc(100% - 486px));}
 .atlas2-phone .atlas2-study{left:max(12px, env(safe-area-inset-left)); top:68px; width:min(300px, calc(100% - 112px - env(safe-area-inset-left) - env(safe-area-inset-right)));}   /* the Legend pill is the widest control of the right-hand column on a phone (69 px at 16 px text): the panel stops short of it */
+.atlas2-phone .atlas2-study{max-height:calc(var(--atlas2-h, 100vh) - 68px - var(--atlas2-rail-h, 62px) - 24px); overflow-y:auto;}   /* Phase 3c: opened on a phone on its side it stops above the year rail and scrolls inside itself */
 .atlas2-study-modes{display:flex; gap:2px; padding:2px; border-radius:9px; background:var(--paper-2);}
 .atlas2-study-modes button{flex:1 1 0; min-width:0; min-height:34px; appearance:none; border:0; border-radius:7px; padding:5px 6px; background:none; color:var(--ink-soft); font:600 calc(13px * var(--fs, 1))/1.2 var(--sans); cursor:pointer;}
 .atlas2-phone .atlas2-study-modes button{min-height:44px;}
@@ -10664,7 +10665,19 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-study-modes button:disabled{opacity:.55; cursor:default;}
 .atlas2-study-modes button:focus-visible, .atlas2-study-coll:focus-visible, .atlas2-study-card:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
 .atlas2-study-sum, .atlas2-study-note, .atlas2-study-empty{margin:0; padding:0 4px; color:var(--ink-soft);}
-.atlas2-study-sum{color:var(--ink); font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.atlas2-study-top{display:flex; align-items:center; gap:4px; min-width:0;}
+.atlas2-study-top .atlas2-study-modes{flex:1 1 auto; min-width:0;}
+.atlas2-study-sum{color:var(--ink); font-weight:600; white-space:normal; overflow-wrap:normal; word-break:normal; hyphens:none;}   /* wraps at a space, never mid-word and never with an ellipsis */
+.atlas2-study-toggle{flex:none; appearance:none; display:inline-flex; align-items:center; justify-content:center; min-width:34px; min-height:34px; padding:0; border:0; border-radius:9px; background:none; color:var(--indigo-bright); cursor:pointer;}
+.atlas2-study-toggle[hidden]{display:none;}
+.atlas2-study-toggle i{display:inline-block; width:.5em; height:.5em; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:translateY(-.12em) rotate(45deg); transition:transform .15s;}
+.atlas2-study-toggle[aria-expanded="true"] i{transform:translateY(.12em) rotate(-135deg);}
+.atlas2-study-toggle:hover{background:var(--indigo-wash);}
+.atlas2-study-toggle:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.atlas2-phone .atlas2-study-toggle{min-height:44px; min-width:44px;}
+.atlas2-study-details{display:flex; flex-direction:column; gap:5px; min-width:0;}
+.atlas2-study-details[hidden]{display:none;}
+@media (prefers-reduced-motion: reduce){ .atlas2-study-toggle i{transition:none;} }
 .atlas2-study-sum:empty{display:none;}
 .atlas2-study-note{font-size:calc(12px * var(--fs, 1)); color:var(--ink-quiet);}
 .atlas2-study-note[hidden], .atlas2-study-empty[hidden]{display:none;}
@@ -10689,7 +10702,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 @media (forced-colors:active){
   .atlas2-study{border:1px solid CanvasText; box-shadow:none; background:Canvas; color:CanvasText;}
   .atlas2-study-modes button.on, .atlas2-study-coll.on{outline:2px solid Highlight;}
-  .atlas2-study-modes button:focus-visible, .atlas2-study-coll:focus-visible, .atlas2-study-card:focus-visible{outline:2px solid Highlight;}
+  .atlas2-study-modes button:focus-visible, .atlas2-study-coll:focus-visible, .atlas2-study-card:focus-visible, .atlas2-study-toggle:focus-visible{outline:2px solid Highlight;}
 }
 
 /* ---------- Sources and credits (#credits), Oct 2026, Atlas v2 Phase 1d ---------- */
@@ -10862,7 +10875,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-layers, .atlas2-help{max-height:none;}
 .atlas2-phone .atlas2-layers .atlas2-sheet, .atlas2-phone .atlas2-help .atlas2-about{position:fixed; right:0; top:auto;}
 .atlas2-phone .atlas2-layers .atlas2-sheet, .atlas2-phone .atlas2-help .atlas2-about{max-height:42vh;}   /* Phase 2a: well under half the screen on a phone, so the map above an open sheet keeps its labels */
-.atlas2-phone.atlas2-sheet-open .atlas2-zoom, .atlas2-phone.atlas2-sheet-open .atlas2-layers-btn, .atlas2-phone.atlas2-sheet-open .atlas2-about-btn, .atlas2-phone.atlas2-sheet-open .atlas2-caption, .atlas2-phone.atlas2-sheet-open .atlas2-stack{display:none;}
+.atlas2-phone.atlas2-sheet-open .atlas2-zoom, .atlas2-phone.atlas2-sheet-open .atlas2-layers-btn, .atlas2-phone.atlas2-sheet-open .atlas2-about-btn, .atlas2-phone.atlas2-sheet-open .atlas2-caption, .atlas2-phone.atlas2-sheet-open .atlas2-stack, .atlas2-phone.atlas2-sheet-open .atlas2-study{display:none;}
 /* the expanded card sheet stops short of the zoom stack (three 44 px buttons from the top on a phone) */
 .atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 184px - var(--atlas2-rail-h, 62px) - 12px));}
 /* a phone on its side (the 844×390 audit): the atlas is under 300 px tall and the rule above left the up sheet 96 px — a title
@@ -10883,6 +10896,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
   .atlas2-phone .atlas2-layers-btn, .atlas2-phone .atlas2-about-btn{flex:none;}
   .atlas2-phone .atlas2-help .atlas2-about{max-height:calc(var(--atlas2-h, 100vh) - 68px - var(--atlas2-rail-h, 56px) - 24px);}
   .atlas2-phone.atlas2-has-card .atlas2-zoom{display:none;}
+  .atlas2-phone.atlas2-has-card .atlas2-study{display:none;}   /* Phase 3c: the card takes the whole side of a phone on its side, and the study panel steps out like the chips */
 }
 /* a desktop with the card column open and under about 900 px (a tablet): the search box yields to the zoom stack the column pushed left */
 .atlas2-has-card .atlas2-search{width:min(300px, calc(100% - 486px));}

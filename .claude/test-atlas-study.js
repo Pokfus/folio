@@ -297,8 +297,16 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const hit = (a, b) => a && b && a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
     check("the panel lies wholly inside the Atlas's frame and the viewport", R.panel[0] >= R.frame[0] - 0.5 && R.panel[2] <= R.frame[2] + 0.5 && R.panel[2] <= R.vw && R.panel[1] >= R.frame[1], JSON.stringify(R.panel.map(Math.round)));
     check("…and clear of the search box, the zoom stack, the legend, the ? chip and the year rail", ![R.search, R.zoom, R.layers, R.help, R.rail].some((b) => hit(R.panel, b)), "no overlap");
-    const targets = await page.$$eval(".atlas2-study button", (b) => b.map((x) => { const r = x.getBoundingClientRect(); return Math.round(Math.min(r.width, r.height)); }));
-    check("every control in it is at least 44 px high, a touch target", targets.every((t) => t >= 44), targets.join(","));
+    const targets = await page.$$eval(".atlas2-study button", (b) => b.filter((x) => x.offsetParent).map((x) => { const r = x.getBoundingClientRect(); return Math.round(Math.min(r.width, r.height)); }));
+    check("every control in it is at least 44 px high, a touch target", targets.length >= 4 && targets.every((t) => t >= 44), targets.join(","));
+    // Phase 3c, decision 7: the panel is collapsible, and on a phone it starts collapsed to the switch and the count line
+    const pc = await page.evaluate(() => { const P = document.querySelector(".atlas2-study"), vis = (e) => !!e && !e.hidden && !e.closest("[hidden]") && getComputedStyle(e).display !== "none"; return { open: P.getAttribute("data-open"), modes: vis(P.querySelector(".atlas2-study-modes")), sum: P.querySelector(".atlas2-study-sum").textContent, colls: vis(P.querySelector(".atlas2-study-colls")), note: vis(P.querySelector(".atlas2-study-note")), h: P.getBoundingClientRect().height, exp: P.querySelector(".atlas2-study-toggle").getAttribute("aria-expanded") }; });
+    check("on a phone the panel starts collapsed to the switch and the count line (no chips, no note)", pc.open === "0" && pc.exp === "false" && pc.modes && /places? .*from \d+ cards?/.test(pc.sum) && !pc.colls && !pc.note, `${pc.h | 0} px high; "${pc.sum}"`);
+    await page.click(".atlas2-study-toggle"); await sleep(250);
+    const po = await page.evaluate(() => { const P = document.querySelector(".atlas2-study"); return { open: P.getAttribute("data-open"), exp: P.querySelector(".atlas2-study-toggle").getAttribute("aria-expanded"), chips: [...P.querySelectorAll("[data-coll]")].filter((e) => e.offsetParent).length, h: P.getBoundingClientRect().height }; });
+    check("the disclosure opens the collection chips and the panel grows", po.open === "1" && po.exp === "true" && po.chips > 0 && po.h > pc.h, `${pc.h | 0} → ${po.h | 0} px, ${po.chips} chips`);
+    await page.click(".atlas2-study-toggle"); await sleep(250);
+    check("…and collapses them again", (await page.evaluate(() => document.querySelector(".atlas2-study").getAttribute("data-open"))) === "0");
     await page.click('.atlas2-study [data-mode="full"]'); await sleep(250);
     await view(page, 23, 38, 12); await view(page, 22.5, 38.5, 10);
     const placed = await A(page, (c) => ({ labels: c.labels().map((p) => ({ id: p.id, rects: p.rects })), chrome: c.chromeRects() }));
@@ -316,6 +324,33 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
       check("a tap on a mark opens that place's card (touch)", cd.open && cd.id === single.id, cd.title);
     } else check("a tap on a mark opens that place's card (touch)", false, "no single mark in view");
     allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 7b  the panel is collapsible on a desktop too */
+  console.log("\n\x1b[1m7b) the collapsible panel on a desktop\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, READER_ALL);
+    const st = () => page.evaluate(() => { const P = document.querySelector(".atlas2-study"), vis = (e) => !!e && !e.hidden && !e.closest("[hidden]") && getComputedStyle(e).display !== "none"; const t = P.querySelector(".atlas2-study-toggle"); return { open: P.getAttribute("data-open"), exp: t.getAttribute("aria-expanded"), label: t.getAttribute("aria-label"), toggle: vis(t), chips: vis(P.querySelector(".atlas2-study-colls")), note: vis(P.querySelector(".atlas2-study-note")), modes: vis(P.querySelector(".atlas2-study-modes")), sum: P.querySelector(".atlas2-study-sum").textContent, h: P.getBoundingClientRect().height, api: document.querySelector(".atlas2").__atlas2.study.open() }; });
+    let a = await st();
+    check("on a desktop the panel starts open: chips and note shown, the disclosure says what it hides", a.open === "1" && a.exp === "true" && a.chips && a.note && a.toggle && /Hide the collections/.test(a.label) && a.api === true, JSON.stringify({ h: a.h | 0, label: a.label }));
+    await page.focus(".atlas2-study-toggle"); await page.keyboard.press("Enter"); await sleep(250);
+    let b = await st();
+    check("Enter on the disclosure collapses it (keyboard), focus stays on it, the switch and the count line stay", b.open === "0" && b.exp === "false" && !b.chips && !b.note && b.modes && b.sum === a.sum && b.h < a.h && /Show the collections/.test(b.label) && (await page.evaluate(() => document.activeElement.className)) === "atlas2-study-toggle", `${a.h | 0} → ${b.h | 0} px`);
+    const pl = await A(page, (c) => c.chromeRects());
+    const bb = await page.evaluate(() => { const r = document.querySelector(".atlas2-study").getBoundingClientRect(), f = document.querySelector(".atlas2").getBoundingClientRect(); return [r.left - f.left, r.top - f.top, r.right - f.left, r.bottom - f.top]; });
+    check("the label engine's chrome follows the panel's new height", pl.some((c) => Math.abs(c[3] - bb[3]) < 2 && Math.abs(c[0] - bb[0]) < 2), "panel bottom " + Math.round(bb[3]));
+    await page.keyboard.press("Space"); await sleep(250);
+    check("Space opens it again", (await st()).open === "1");
+    await page.keyboard.press("Space"); await sleep(250);
+    await page.reload({ waitUntil: "load" }); await ready(page);
+    check("the choice is remembered across a reload", (await st()).open === "0");
+    await page.click(".atlas2-study-toggle"); await sleep(200);
+    check("with the chips shown a click on a chip still switches its collection (toggle state has no effect on them)", await page.evaluate(() => { const b = document.querySelector(".atlas2-study [data-coll]"); const was = b.getAttribute("aria-checked"); b.click(); const now = document.querySelector(".atlas2-study [data-coll]").getAttribute("aria-checked"); document.querySelector(".atlas2-study [data-coll]").click(); return was !== now; }));
+    const e0 = await open(browser, []);
+    await e0.page.click('.atlas2-study [data-mode="personal"]'); await sleep(250);
+    const ne = await e0.page.evaluate(() => { const P = document.querySelector(".atlas2-study"); return { toggle: !P.querySelector(".atlas2-study-toggle").hidden, empty: P.querySelector(".atlas2-study-empty").textContent }; });
+    check("with nothing to hide (no cards) there is no disclosure and the empty-state sentence stays", !ne.toggle && /studied any cards/.test(ne.empty), JSON.stringify(ne).slice(0, 120));
+    allErrors.push(...errors, ...e0.errors); await ctx.close(); await e0.ctx.close();
   }
 
   console.log("\n\x1b[1m8) no console errors\x1b[0m\n");

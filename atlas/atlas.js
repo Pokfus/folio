@@ -253,15 +253,20 @@
     const H = opts.host || {};
     const studyPanel = H.study && root.AtlasStudy ? `
         <div class="atlas2-study" role="group" aria-label="What the map shows from your cards" data-mode="map" data-ready="0">
-          <div class="atlas2-study-modes" role="radiogroup" aria-label="Atlas view">
-            <button type="button" role="radio" aria-checked="true" data-mode="map" title="The plain map" disabled>Map</button>
-            <button type="button" role="radio" aria-checked="false" data-mode="personal" title="Your Atlas: the places in the cards you have studied" disabled>Personal</button>
-            <button type="button" role="radio" aria-checked="false" data-mode="full" title="The Full Atlas: every place any card is about" disabled>Full</button>
+          <div class="atlas2-study-top">
+            <div class="atlas2-study-modes" role="radiogroup" aria-label="Atlas view">
+              <button type="button" role="radio" aria-checked="true" data-mode="map" title="The plain map" disabled>Map</button>
+              <button type="button" role="radio" aria-checked="false" data-mode="personal" title="Your Atlas: the places in the cards you have studied" disabled>Personal</button>
+              <button type="button" role="radio" aria-checked="false" data-mode="full" title="The Full Atlas: every place any card is about" disabled>Full</button>
+            </div>
+            <button type="button" class="atlas2-study-toggle" aria-expanded="false" aria-controls="atlas2-study-details" aria-label="Show the collections" title="Show the collections" hidden><i aria-hidden="true"></i></button>
           </div>
           <p class="atlas2-study-sum" aria-live="polite"></p>
-          <p class="atlas2-study-note" hidden></p>
           <p class="atlas2-study-empty" role="status" hidden></p>
-          <div class="atlas2-study-colls" role="group" aria-label="Collections" hidden></div>
+          <div class="atlas2-study-details" id="atlas2-study-details" hidden>
+            <p class="atlas2-study-note" hidden></p>
+            <div class="atlas2-study-colls" role="group" aria-label="Collections" hidden></div>
+          </div>
         </div>` : "";
     host.innerHTML = `
       <div class="atlas2${PHONE ? " atlas2-phone" : ""}" role="region" aria-label="Atlas (preview)">
@@ -1991,9 +1996,10 @@
        ============================================================================================================ */
     const AS = root.AtlasStudy;
     const SU = H.study || null;
-    const MODE_KEY = "folio.atlas2.study", COLL_KEY = "folio.atlas2.studyOff";
-    const ST = { ready: false, loading: false, failed: false, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), colls: [], rev: 0, limit: new Map() };
+    const MODE_KEY = "folio.atlas2.study", COLL_KEY = "folio.atlas2.studyOff", OPEN_KEY = "folio.atlas2.studyOpen";
+    const ST = { ready: false, loading: false, failed: false, open: !PHONE, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), colls: [], rev: 0, limit: new Map() };
     const stRead = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    { const v = stRead(OPEN_KEY); if (v === "1" || v === "0") ST.open = v === "1"; }   // a stored choice wins over the phone default (collapsed)
     const stWrite = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
     const studyEl = el.querySelector(".atlas2-study");
     const infoCache = new Map();
@@ -2078,6 +2084,11 @@
       if (!ST.ready || !/^(map|personal|full)$/.test(m) || m === ST.mode) return;
       ST.mode = m; stWrite(MODE_KEY, m); applyStudy();
     }
+    function setStudyOpen(on) {
+      on = !!on; if (on === ST.open) return;
+      ST.open = on; stWrite(OPEN_KEY, on ? "1" : "0"); renderStudyPanel();
+      const t = studyEl && studyEl.querySelector(".atlas2-study-toggle"); if (t && !t.hidden && studyEl.contains(document.activeElement)) t.focus({ preventScroll: true });
+    }
     function toggleColl(id, on) {
       const was = !ST.hidden.has(id), want = on == null ? !was : !!on;
       if (want === was) return;
@@ -2089,10 +2100,11 @@
       const live = SU && AS && !ST.failed;
       studyEl.hidden = !live;
       if (!live) return;
+      const moreEl = studyEl.querySelector(".atlas2-study-details"), toggleEl = studyEl.querySelector(".atlas2-study-toggle");
       const sumEl = studyEl.querySelector(".atlas2-study-sum"), noteEl = studyEl.querySelector(".atlas2-study-note"), emptyEl = studyEl.querySelector(".atlas2-study-empty"), collsEl = studyEl.querySelector(".atlas2-study-colls");
       studyEl.setAttribute("data-mode", ST.mode); studyEl.setAttribute("data-ready", ST.ready ? "1" : "0");
       for (const b of studyEl.querySelectorAll("button[data-mode]")) { const on = b.getAttribute("data-mode") === ST.mode; b.setAttribute("aria-checked", String(on)); b.classList.toggle("on", on); b.disabled = !ST.ready; }
-      if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; return; }
+      if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; moreEl.hidden = true; toggleEl.hidden = true; return; }
       const sm = AS.summary(ST.st, ST.mode, ST.flags);
       sumEl.textContent = sm.text; sumEl.hidden = !sm.text;
       noteEl.textContent = sm.note; noteEl.hidden = !sm.note;
@@ -2101,11 +2113,18 @@
       const list = ST.mode === "map" ? [] : ST.colls.filter((c) => (ST.mode === "personal" ? c.mine : c.places) > 0);
       collsEl.hidden = !list.length;
       collsEl.innerHTML = list.map((c) => `<button type="button" role="checkbox" class="atlas2-study-coll${ST.hidden.has(c.id) ? "" : " on"}" aria-checked="${ST.hidden.has(c.id) ? "false" : "true"}" data-coll="${escText(c.id)}" title="${escText(c.name)}: ${ST.mode === "personal" ? c.mine + " of " + c.places + " places yours" : c.places + " places"}"><span class="atlas2-study-coll-n">${escText(c.name)}</span><i>${ST.mode === "personal" ? c.mine : c.places}</i></button>`).join("");
+      // the collection chips and the note sit under a disclosure (collapsed by default on a phone, where the panel is 120 px of a 700 px frame):
+      // the switch and the count line stay, the empty-state sentence is a count line too
+      const hasMore = !!list.length || !noteEl.hidden;
+      toggleEl.hidden = !hasMore; moreEl.hidden = !(hasMore && ST.open);
+      toggleEl.setAttribute("aria-expanded", String(hasMore && ST.open)); { const t = (hasMore && ST.open ? "Hide" : "Show") + (list.length ? " the collections" : " the details"); toggleEl.setAttribute("aria-label", t); toggleEl.title = t; }
+      studyEl.setAttribute("data-open", hasMore && ST.open ? "1" : "0");
       requestLayout("chrome");   // the panel's height moved: the names step out from under it
     }
     if (studyEl) {
       studyEl.addEventListener("click", (e) => {
         const m = e.target.closest("button[data-mode]"); if (m) { setStudyMode(m.getAttribute("data-mode")); return; }
+        if (e.target.closest(".atlas2-study-toggle")) { setStudyOpen(!ST.open); return; }
         const c = e.target.closest("button[data-coll]"); if (c) { toggleColl(c.getAttribute("data-coll")); const again = studyEl.querySelector(`[data-coll="${c.getAttribute("data-coll").replace(/"/g, '\\"')}"]`); if (again) again.focus({ preventScroll: true }); }
       });
       // radio-group arrow keys, the way the legend's density stops behave
@@ -2188,7 +2207,7 @@
       statsNow: () => Object.assign(R.stats(), { frameTrace: stats.frameTrace ? stats.frameTrace.slice() : null, taskMs: stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v)])) : null, frameMsP95: pct95(stats.frames), frameMsMean: stats.frames.length ? Math.round(stats.frames.reduce((p, q) => p + q, 0) / stats.frames.length) : 0, kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
         year: time.year, historyFaces: time.alive.length, labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
       // Phase 1c, for the suites and the console
-      study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
+      study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, open: () => ST.open, setOpen: setStudyOpen, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
         flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl, expandStack: (id) => { const p = L.placed.find((x) => x.id === id); if (p) expandStack(p); return !!p; },
         marks: () => L.placed.filter((p) => p.st).map((p) => ({ id: p.id, kind: p.kind, st: p.st, text: p.text, n: p.n || 0, members: p.members || null, marker: p.marker ? p.marker[3] : null, box: p.box, sx: p.sx, sy: p.sy })), index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0 },
       labels: () => L.placed, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
