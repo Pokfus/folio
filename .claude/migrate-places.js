@@ -96,6 +96,14 @@ function sparqlRetry(q, what, tries) {
   }
   throw new Error("Wikidata did not answer for " + what + "; re-run --fetch later (the cache keeps what arrived)");
 }
+/* a query that may be too heavy for the service: a 429 is waited out like any other (the full back-off), a 400 or 504 (the
+   service's own limit) is thrown at once so the caller can shrink the question */
+function sparqlHeavy(q, what) {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    try { return W.sparql(q); } catch (e) { if (/HTTP (400|504)/.test(e.message)) throw e; const wait = [5, 15, 30, 60, 120, 120][attempt]; log("  " + what + " refused (" + e.message.slice(0, 60) + "), waiting " + wait + " s"); spawnSync("sleep", [String(wait)]); }
+  }
+  throw new Error("HTTP 429: Wikidata did not answer for " + what);
+}
 const titleIri = (t) => "<https://en.wikipedia.org/wiki/" + encodeURIComponent(String(t).trim().replace(/ /g, "_")).replace(/%2C/g, ",").replace(/%3A/g, ":").replace(/%21/g, "!").replace(/%2A/g, "*").replace(/'/g, "%27") + ">";
 const iriTitle = (iri) => decodeURIComponent(String(iri).split("/wiki/")[1] || "").replace(/_/g, " ");
 const wktPoint = (s) => { const m = /Point\(\s*(-?[\d.]+)\s+(-?[\d.]+)\s*\)/.exec(s || ""); return m ? [Math.round(Number(m[1]) * 1e4) / 1e4, Math.round(Number(m[2]) * 1e4) / 1e4] : null; };
@@ -126,7 +134,7 @@ function fetchAround(cache, keys) {
     // a circle the service cannot answer within its limit (504 / 400) is tried again at half the radius, down to 6 km; a failure
     // there is recorded (cache.aroundErrors) and the toponym stays unresolved with that reason — never guessed
     let r = r0, rows = null, err = null;
-    while (r >= 6 && !rows) { try { rows = sparqlRetry("SELECT ?item ?coord ?label ?article (GROUP_CONCAT(DISTINCT ?cls; separator=\" \") AS ?classes) WHERE { SERVICE wikibase:around { ?item wdt:P625 ?coord . bd:serviceParam wikibase:center \"Point(" + lon + " " + lat + ")\"^^geo:wktLiteral . bd:serviceParam wikibase:radius \"" + r + "\" . } ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> . OPTIONAL { ?item wdt:P31 ?cls } OPTIONAL { ?item rdfs:label ?label FILTER(lang(?label) = \"en\") } } GROUP BY ?item ?coord ?label ?article LIMIT 400", "around " + k + " at " + r + " km", 2); } catch (e) { err = e.message; r = r / 2; } }
+    while (r >= 6 && !rows) { try { rows = sparqlHeavy("SELECT ?item ?coord ?label ?article (GROUP_CONCAT(DISTINCT ?cls; separator=\" \") AS ?classes) WHERE { SERVICE wikibase:around { ?item wdt:P625 ?coord . bd:serviceParam wikibase:center \"Point(" + lon + " " + lat + ")\"^^geo:wktLiteral . bd:serviceParam wikibase:radius \"" + r + "\" . } ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> . OPTIONAL { ?item wdt:P31 ?cls } OPTIONAL { ?item rdfs:label ?label FILTER(lang(?label) = \"en\") } } GROUP BY ?item ?coord ?label ?article LIMIT 400", "around " + k + " at " + r + " km"); } catch (e) { err = e.message; r = r / 2; } }
     if (!rows) { cache.aroundErrors = cache.aroundErrors || {}; cache.aroundErrors[k] = err; log("  around " + k + ": the service could not answer (" + err.slice(0, 60) + "); recorded"); rows = []; }
     for (const b of rows) { const qid = b.item.value.split("/").pop(); if (seen.has(qid)) continue; seen.add(qid); list.push({ qid, coord: wktPoint(b.coord.value), label: b.label ? b.label.value : "", title: iriTitle(b.article.value), classes: (b.classes && b.classes.value ? b.classes.value.split(" ") : []).map((x) => x.split("/").pop()).filter(Boolean) }); }
     cache.around[k] = list; n++;
