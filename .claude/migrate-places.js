@@ -242,15 +242,16 @@ function makeResolver(reg, cache) {
     if (lab.length === 1) return accept(lab[0].qid, lab[0], t.name, km(lab[0].coord, t.at), "label");
     if (lab.length > 1) return { ambiguous: lab.map((it) => it.qid + " " + (it.label || it.title) + " [" + classNames(cache, it.classes) + "], " + Math.round(km(it.coord, t.at)) + " km") };
     // 4. Wikidata around the coordinate (items with an English article), by label or title
-    const ak = aroundKey(t); const list = cache.around[ak]; if (list === undefined) return { unresolved: labelsAsked ? "not fetched (run --fetch: the search around the coordinate)" : "not fetched (run --fetch)" };
-    if (!list.length && cache.aroundErrors && cache.aroundErrors[ak]) return { unresolved: "no item of that name by title or label within " + r + " km, and the search around the coordinate could not be answered by the service (" + String(cache.aroundErrors[ak]).slice(0, 40) + ")" };
+    const ak = aroundKey(t); const got = cache.around[ak]; if (got === undefined) return { unresolved: labelsAsked ? "not fetched (run --fetch: the search around the coordinate)" : "not fetched (run --fetch)" };
+    const list = Array.isArray(got) ? got : got.items, nAround = Array.isArray(got) ? got.length : got.n;   // a fetched list, or one pruned to the names the cards use (with the count it had)
+    if (!nAround && cache.aroundErrors && cache.aroundErrors[ak]) return { unresolved: "no item of that name by title or label within " + r + " km, and the search around the coordinate could not be answered by the service (" + String(cache.aroundErrors[ak]).slice(0, 40) + ")" };
     const cands = list.filter((it) => wantNames.includes(fold(it.label)) || wantNames.includes(fold(it.title)) || wantNames.includes(fold(it.title.replace(/\s*\([^)]*\)\s*$/, ""))));
     const cs = placeLike(cands);
     if (cs.length === 1) return accept(cs[0].qid, cs[0], t.name, km(cs[0].coord, t.at), "around");
     if (cs.length > 1) return { ambiguous: cs.map((it) => it.qid + " " + (it.label || it.title) + " [" + classNames(cache, it.classes) + "], " + Math.round(km(it.coord, t.at)) + " km") };
     if (farTitle) return { unresolved: "the article \"" + farTitle.n + "\" names an item but " + farTitle.why + "; nothing of that name within " + r + " km" };
     if (disambig) return { unresolved: "the title is a disambiguation page and nothing of that name lies within " + r + " km" };
-    return { unresolved: "no Wikidata item of that name within " + r + " km (" + list.length + " items with an article there)" };
+    return { unresolved: "no Wikidata item of that name within " + r + " km (" + nAround + " items with an article there)" };
   }
   function accept(qid, item, name, d, via) {
     const have = byQid.get(qid); if (have) return { id: have.id, via: reg.source(have.id) + " (by QID through the " + via + ")", d };
@@ -290,7 +291,7 @@ function run() {
     const still = open2.filter((t) => t.at && !resolver.resolve(t).id && !resolver.resolve(t).ambiguous);
     log(`fetch: ${still.length} toponyms still open after the labels; asking around each coordinate`);
     fetchAround(cache, [...new Set(still.map(aroundKey))]);
-    fetchClasses(cache, [...new Set(Object.values(cache.around).flat().flatMap((h) => h.classes))]);
+    fetchClasses(cache, [...new Set(Object.values(cache.around).flatMap((v) => (Array.isArray(v) ? v : v.items)).flatMap((h) => h.classes))]);
   }
   /* resolve every toponym */
   const res = new Map(); for (const [k, t] of topo) res.set(k, resolver.resolve(t));
@@ -300,8 +301,13 @@ function run() {
   const topoById = new Map();
   for (const [k, t] of topo) { const r = res.get(k); if (!r.id) continue; let l = topoById.get(r.id); if (!l) topoById.set(r.id, l = []); l.push(t); if (r.item) { const row = newRows[r.id] || (newRows[r.id] = { name: r.item.title || r.item.label || t.name, kind: r.item.kind, sub: r.item.sub || "", qid: r.item.qid, at: r.item.coord, within: "", aliases: [], wiki: r.item.title || "", by: "migration", evidence: { classes: r.item.classes, via: r.via, km: Math.round((r.d || 0) * 10) / 10 }, cards: 0 }); for (const n of [t.name, t.label]) if (n && fold(n) !== fold(row.name) && !row.aliases.some((a) => fold(a) === fold(n))) row.aliases.push(n); row.cards += t.cards.length; } }
   for (const g of glossRes) if (g.r.item && !newRows[g.r.id] && !reg.rows.has(g.r.id)) newRows[g.r.id] = { name: g.r.item.title || g.r.item.label || g.g.name, kind: g.r.item.kind, sub: g.r.item.sub || "", qid: g.r.item.qid, at: g.r.item.coord, within: "", aliases: fold(g.g.name) === fold(g.r.item.title || g.r.item.label) ? [] : [g.g.name], wiki: g.r.item.title || "", by: "migration (glossary place)", evidence: { classes: g.r.item.classes, via: g.r.via, km: Math.round((g.r.d || 0) * 10) / 10 }, cards: 0 };
+  // the lists around each coordinate are pruned to the items whose label or title is a name a card uses (the only ones the
+  // resolver can match), with the count the list had: the fetched lists are 12 MB of items the migration never reads
+  const useNames = new Set(); for (const t of topo.values()) for (const n of [t.name, t.label].concat(t.name.includes(",") ? [t.name.split(",")[0].trim()] : [])) if (n) useNames.add(fold(n)); for (const g of gloss) useNames.add(fold(g.name));
+  let pruned = 0;
+  for (const [k, v] of Object.entries(cache.around)) { if (!Array.isArray(v)) continue; cache.around[k] = { n: v.length, items: v.filter((it) => useNames.has(fold(it.label)) || useNames.has(fold(it.title)) || useNames.has(fold(it.title.replace(/\s*\([^)]*\)\s*$/, "")))) }; pruned++; }
   // every accepted item is recorded under cache.items, so check-places.js can prove each row's coordinate and classes offline
-  cache.items = cache.items || {}; let cacheGrew = false;
+  cache.items = cache.items || {}; let cacheGrew = pruned > 0;
   for (const row of Object.values(newRows)) { const it = row.evidence && row.qid ? { coord: row.at, classes: row.evidence.classes || [], label: "", title: row.wiki || "" } : null; if (it && JSON.stringify(cache.items[row.qid]) !== JSON.stringify(it)) { cache.items[row.qid] = it; cacheGrew = true; } }
   if (cacheGrew && !DRY) saveCache(cache);
   // `within`: a site's city, when the locator says so and the city resolves (the gazetteer's cities, or a new row of this run)
@@ -326,7 +332,7 @@ function run() {
       const L = c.locator; const at = Array.isArray(L.at) && isFinite(L.at[0]) ? [Number(L.at[0]), Number(L.at[1])] : null;
       const k = fold(L.name) + "@" + (at ? at[0].toFixed(2) + "," + at[1].toFixed(2) : "-"); const r = res.get(k);
       if (r && r.id) { ids.add(r.id); bump(p, "byLocator"); }
-      else { const t = topo.get(k); const w = t ? withinOf(t) : ""; if (w) { ids.add(w); withinOnly.push(c.id + " " + L.name + " → within " + L.within + " (" + w + ")"); bump(p, "byLocator"); } }
+      else { const t = topo.get(k); const w = t ? withinOf(t) : ""; if (w) { ids.add(w); withinOnly.push(c.id + " " + L.name + " → within " + t.within + " (" + w + ")"); bump(p, "byLocator"); } }
     }
     if (c.map) { const keys = Array.isArray(c.map.key) ? c.map.key : [c.map.key]; let any = false; for (const key of keys) { let row = c.map.layer === "world" ? countryOf(key) : admin1Of(c.map.layer, key); if (row && row.ambiguous) { unresolvedMap.set(c.map.layer + ":" + key, "ambiguous: " + row.ambiguous.map((r) => r.id).join(", ")); row = null; } if (row) { ids.add(row.id); any = true; } else if (!unresolvedMap.has(c.map.layer + ":" + key)) unresolvedMap.set(c.map.layer + ":" + key, "no " + (c.map.layer === "world" ? "country" : "admin-1 row of the layer's country") + " of that name in the gazetteer"); } if (any) bump(p, "byMap"); }
     if (c.war) { let any = false; const link = polSpec.links[c.id] || {}; for (const side of ["victors", "losers"]) { const d = c.war[side]; if (!d) continue; const slugs = (side === "victors" ? link.v : link.l) || []; for (const s of slugs) { const e = entByKey.get(s); if (e) { ids.add(e.id); any = true; } else unresolvedLinks.add(s); } if (d.keys) for (const key of d.keys) { const row = countryOf(key) || entByName.get(fold(key)) || entByKey.get(fold(key).replace(/\s+/g, "_")); if (row) { ids.add(row.id); any = true; } else { let l = unresolvedWar.get(key); if (!l) unresolvedWar.set(key, l = []); l.push(c.id); } } else if (!slugs.length) { const e = entByName.get(fold(d.name)); if (e) { ids.add(e.id); any = true; } else { const key = d.name + " (authored extent)"; let l = unresolvedWar.get(key); if (!l) unresolvedWar.set(key, l = []); l.push(c.id); } } } if (any) bump(p, "byWar"); }
@@ -351,8 +357,11 @@ function run() {
   if (!DRY) {
     const rows = Object.assign({}, spec.rows || {});
     for (const [id, row] of Object.entries(newRows)) { const old = rows[id]; if (old && old.manual) continue; rows[id] = Object.assign({}, old || {}, row); }
-    // a migration row no card needs any more is dropped (a manual row is kept)
-    for (const id of Object.keys(rows)) if (!rows[id].manual && !newRows[id]) delete rows[id];
+    // a migration row no toponym resolves to any more is dropped (a manual row is kept). A row of an earlier run that a toponym
+    // now resolves to THROUGH THE REGISTRY (step 1, `via: places`) is still needed — without this the second run dropped every
+    // row the first had written and the file oscillated (measured 2026-10-11: idempotence is this line)
+    const needed = new Set([...topoById.keys()].concat(glossRes.filter((g) => g.r.id).map((g) => g.r.id)));
+    for (const id of Object.keys(rows)) if (!rows[id].manual && !newRows[id] && !needed.has(id)) delete rows[id];
     const out = { _about: "The places the cards need that the v0 gazetteer does not carry (Atlas v2 Phase 3a; docs/atlas-v2-design.md §2.8). GENERATED rows (`by: migration`) are written by .claude/migrate-places.js from the cards' own locators, each a Wikidata item whose coordinate lies within the card's radius and whose class maps to a kind of the taxonomy (`evidence`); MANUAL rows (`manual: true`, with a `reason`) are added by .claude/atlas-build/add-place.js and never overwritten. `node .claude/atlas-build/build-places.js --install` writes atlas/data/places.js from this file. Never edit a coordinate by hand.", rows: Object.fromEntries(Object.entries(rows).sort(([a], [b]) => (a < b ? -1 : 1))) };
     fs.writeFileSync(SPEC_FILE, JSON.stringify(out, null, 1) + "\n");
     const B = require("./atlas-build/build-places.js"); B.build({ install: true, log: VERBOSE ? log : () => {} });
@@ -370,7 +379,10 @@ function run() {
   for (const [p, o] of Object.entries(per).sort()) lines.push(`| \`${p}\` | ${o.cards} | ${o.old} | ${o.placed} | ${o.byLocator} | ${o.byMap} | ${o.byWar} | ${o.byLink} | ${o.noneOld.length} |`);
   const tot = Object.values(per).reduce((s, o) => { for (const k of ["cards", "old", "placed", "byLocator", "byMap", "byWar", "byLink"]) s[k] = (s[k] || 0) + o[k]; s.noneOld = (s.noneOld || 0) + o.noneOld.length; return s; }, {});
   lines.push(`| **all** | ${tot.cards} | ${tot.old} | ${tot.placed} | ${tot.byLocator} | ${tot.byMap} | ${tot.byWar} | ${tot.byLink} | ${tot.noneOld} |`, "");
-  lines.push(`Locator toponyms: ${topo.size} distinct (name + coordinate) over ${[...topo.values()].reduce((s, t) => s + t.cards.length, 0)} locators — ${resolvedTopo} resolved (${[...res.values()].filter((r) => r.id && /gazetteer/.test(r.via)).length} to the gazetteer, ${[...res.values()].filter((r) => r.id && /^places/.test(r.via)).length} to places.js rows of an earlier run, ${[...res.values()].filter((r) => r.id && r.item).length} to Wikidata items that became places.js rows: ${[...res.values()].filter((r) => r.id && r.via === "title").length} by article title, ${[...res.values()].filter((r) => r.id && r.via === "label").length} by exact label, ${[...res.values()].filter((r) => r.id && r.via === "around").length} by a search around the coordinate), ${ambiguousTopo.length} ambiguous, ${unresolvedTopo.length} unresolved. ${withinOnly.length} locators resolve only through their \`within\` city (listed below). Wikidata cache: ${Object.keys(cache.titles).length} titles, ${Object.keys(cache.labels || {}).length} labels, ${Object.keys(cache.around).length} searches, ${Object.keys(cache.classes).length} classes (retrieved ${cache.retrieved || "never"}).`, "");
+  const specRows = (DRY ? spec.rows : JSON.parse(fs.readFileSync(SPEC_FILE, "utf8")).rows) || {};
+  const viaOf = (r) => (r.item ? r.via : (specRows[r.id] && specRows[r.id].evidence && specRows[r.id].evidence.via) || "");   // how a places.js row was found, whether this run or an earlier one wrote it
+  const nVia = (v) => [...res.values()].filter((r) => r.id && r.id.startsWith("pl:") && viaOf(r) === v).length;
+  lines.push(`Locator toponyms: ${topo.size} distinct (name + coordinate) over ${[...topo.values()].reduce((s, t) => s + t.cards.length, 0)} locators — ${resolvedTopo} resolved (${[...res.values()].filter((r) => r.id && /gazetteer/.test(r.via)).length} to the gazetteer; ${[...res.values()].filter((r) => r.id && r.id.startsWith("pl:")).length} to places.js rows, each a Wikidata item checked against the card's coordinate: ${nVia("title")} found by article title, ${nVia("label")} by exact label, ${nVia("around")} by a search around the coordinate, ${nVia("add-place")} added by hand), ${ambiguousTopo.length} ambiguous, ${unresolvedTopo.length} unresolved. ${withinOnly.length} locators resolve only through their \`within\` city (listed below). Wikidata cache: ${Object.keys(cache.titles).length} titles, ${Object.keys(cache.labels || {}).length} labels, ${Object.keys(cache.around).length} searches, ${Object.keys(cache.classes).length} classes (retrieved ${cache.retrieved || "never"}).`, "");
   lines.push("## Unresolved toponyms (locators)", "", unresolvedTopo.length ? "| toponym | kind | coordinate | cards | why |" : "None.", ...(unresolvedTopo.length ? ["|---|---|---|---|---|"] : []));
   for (const [k, r] of unresolvedTopo.sort((a, b) => topo.get(b[0]).cards.length - topo.get(a[0]).cards.length || (a[0] < b[0] ? -1 : 1))) { const t = topo.get(k); lines.push(`| ${t.name}${t.label ? " (" + t.label + ")" : ""}${t.within ? ", within " + t.within : ""} | ${t.kind} | ${t.at ? t.at.join(", ") : "—"} | ${t.cards.slice(0, 6).join(", ")}${t.cards.length > 6 ? " +" + (t.cards.length - 6) : ""} | ${r.unresolved} |`); }
   lines.push("", "## Ambiguous matches (listed, none chosen)", "", ambiguousTopo.length ? "| toponym | kind | cards | candidates |" : "None.", ...(ambiguousTopo.length ? ["|---|---|---|---|"] : []));

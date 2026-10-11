@@ -77,7 +77,12 @@ function build(opts) {
   if (opts.check) { const have = fs.existsSync(TARGET) ? fs.readFileSync(TARGET, "utf8") : ""; const ok = have === body; return { ok, why: ok ? "" : have ? "the committed file differs from what the spec builds" : "atlas/data/places.js is missing", rows, bytes }; }
   if (opts.dry) return { ok: true, rows, bytes, body };
   fs.mkdirSync(OUT, { recursive: true }); fs.writeFileSync(path.join(OUT, "places.js"), body);
-  if (opts.install) { fs.writeFileSync(TARGET, body); log("installed atlas/data/places.js"); require("./build-credits.js").build({ install: true, log: () => {} }); log("regenerated atlas/data/credits.js"); } else log("wrote out/places.js (--install copies it into atlas/data/ and regenerates credits.js)");
+  if (opts.install) {
+    // the credits page is regenerated only when the file changed: its header carries a fresh `generated` stamp, and a migration
+    // run that changes nothing must write nothing (idempotence, measured byte for byte)
+    const same = fs.existsSync(TARGET) && fs.readFileSync(TARGET, "utf8") === body;
+    if (!same) { fs.writeFileSync(TARGET, body); log("installed atlas/data/places.js"); require("./build-credits.js").build({ install: true, log: () => {} }); log("regenerated atlas/data/credits.js"); } else log("atlas/data/places.js unchanged");
+  } else log("wrote out/places.js (--install copies it into atlas/data/ and regenerates credits.js)");
   return { ok: true, rows, bytes, body };
 }
 
