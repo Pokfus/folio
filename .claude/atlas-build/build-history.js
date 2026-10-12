@@ -75,13 +75,69 @@ const YEAR_MIN = -3400, YEAR_MAX = 2021;   // Cliopatria begins at 3400 BCE; the
 // the series the audit keeps as PEOPLES (docs/atlas-borders-audit.md §4 C28–C41, "the khaganates and confederations stay peoples"):
 // their Cliopatria rows are the WHERE of a soft face in Phase 2c, never a state's border here
 const PEOPLES = ["scythia", "galatia", "gothia", "huns", "avars", "old_great_bulgaria", "khazaria", "magyars"];
+// Phase 2c: the PRESENCE layer. Peoples (kind "people": Cliopatria's rows as soft faces) and cultures (kind "culture": the coastline series
+// cyclades and crete — the island itself — and the site-hull series yangshao and longshan — an outline of dated sites) are drawn as a
+// presence, not a territory (design §2.5): no border line, so each is conflated ALONE (an overlap with a state or another people is the
+// point, not a contest), onto the coast (d1) and nothing else (no d2, no d3), its own arcs are the soft edge (KIND.SOFT) and its faces
+// are class SOFT.
+const CULTURES = ["cyclades", "crete", "yangshao", "longshan"];
+const isPresenceKind = (k) => k === "people" || k === "culture";
+const isSeriesKind = (k) => k === "polity" || isPresenceKind(k);
+/* what a reader is told about WHERE each presence lay, in the audit's own words (docs/atlas-borders-audit.md §4.C, the rows C3, C4,
+   C17, C18, C25, C29, C32–C38) — never more than the audit says; the place card prints it under the uncertainty sentence */
+const PRESENCE_NOTES = {
+  scythia: "The seventh-century row is maximalist: it includes the Near-Eastern raids. The audit reads the row of 550–451 BCE as the Scythians' dominant range; every shape here is a presence, not a border.",
+  galatia: "The earlier shapes are the Galatians' settlement and the shape of 27 BCE is the Roman province; the audit rates the source high-confidence.",
+  gothia: "The audit takes the rows of 270–372 CE as the steppe-era Gothia; the shape is a presence north of the Black Sea, not a territory with a border.",
+  huns: "Cliopatria draws the Huns at their maximal hegemony, not where they settled; the audit rates the rows of 371–469 CE moderate-confidence.",
+  avars: "The audit rates the Carpathian Basin core rows high-confidence; the shape is a presence, not a border.",
+  old_great_bulgaria: "The core row of 633–655 CE and the later Volga and Danube branches are drawn; the source covers a small share (14 %) of the span.",
+  khazaria: "The shape is the khaganate at its height; its archaeological correlate (the Saltovo–Mayaki culture) is narrower.",
+  magyars: "Where Etelköz lay is disputed; the shape is Cliopatria's reading of it, drawn soft.",
+  cyclades: "The islands themselves, as the present coastline draws them; Cycladic traits reaching Attica and Euboea are said in text, not drawn.",
+  crete: "The island itself, as the present coastline draws it; the years are those of the cards that link it.",
+  yangshao: "An outline of where recorded Yangshao sites lie, phase by phase (Hosner et al. 2016): a distribution of sites, not a border.",
+  longshan: "An outline of where recorded Longshan sites lie (Hosner et al. 2016), one phase: the source gives no earlier and later Longshan split.",
+};
+/* THE 24 WAR SIDES THAT RESOLVED TO NO ENTITY (docs/atlas-places-report.md "War sides that resolve to nothing"; the 3a and 2b notes, item 7).
+   Phase 2c's inventory: for each, whether one of the twelve presence series now resolves it (none does: the cards that link the twelve
+   are not the cards these sides stand in, and no side names one of them), and what the rest wait for. No entity is created for a war
+   side in this phase; Phase 2d resolves them from the audit's own batches (docs/atlas-borders-audit.md §6, batches 5 and 6) or leaves
+   them silent. Each row: side, cards, the reason it is still open, the audit batch that names the work. */
+const WAR_SIDES_2C = [
+  ["Athens and its empire", "wh-330, gr-521, gr-552, gr-561", "a league: no open polygon; traced from Shepherd's plate of c. 450 BCE (public domain)", "batch 6"],
+  ["British Raj", "ww2-001", "a state in the Allied side of a grouping war: membership by date over a Cliopatria row, not a people", "batch 3"],
+  ["Celtiberians", "rm-262, rm-265", "an Iberian people: no open dataset; a soft outline from cited maps", "batch 6"],
+  ["Chinese warlords", "ww2-001, ww2-096, cnh-631", "not a polity: no open source draws the warlords' territories", "none"],
+  ["Cisalpine Gauls", "rm-162", "a Gallic people: Cliopatria has none; a soft outline from cited maps", "batch 6"],
+  ["Ethiopia (Italy)", "ww2-042", "the occupied state: Italy and Italian Africa were built (batch 3), the Ethiopian side was not", "batch 3"],
+  ["Gallic tribes", "wh-354, rm-350", "Caesar's Gaul: Galatia (Anatolia) is a different people, so the new series do not resolve it", "batch 6"],
+  ["Greek allies", "wh-319, gr-755", "a coalition (the Hellenic League of 481 and the Lamian coalition): member list from Pleiades, shapes traced", "batch 6"],
+  ["Lusitanians", "rm-263", "an Iberian people: no open dataset", "batch 6"],
+  ["Macedon and the Greek leagues", "wh-349", "a composite of entities already built (macedon, the Achaean and Aetolian Leagues): an assembly, not a new shape", "batch 5"],
+  ["Messenia", "gr-235, gr-236, gr-237, gr-461", "needs the Laconia–Messenia split at Taygetos (OHM, CC0)", "batch 5"],
+  ["Samnium", "rm-151, rm-152, rm-153, rm-156", "an Italic people: one block from Barrington label positions, cut by Rome's series at 343, 304 and 290 BCE", "batch 6"],
+  ["Seneca and Cayuga", "us-071", "Cliopatria's Haudenosaunee is the whole confederacy, an over-claim for two nations", "none"],
+  ["Sicilian Greeks", "gr-448", "Cliopatria draws one 'Greek City-States' blob", "batch 6"],
+  ["Sparta", "gr-235, gr-236, gr-237, gr-461", "the Laconia–Messenia split (OHM, CC0)", "batch 5"],
+  ["Sparta and its allies", "wh-330, gr-521", "the Peloponnesian League is built (gr-561): an assembly of built entities, not a new shape", "batch 5"],
+  ["Syracuse", "gr-552", "Cliopatria draws one 'Greek City-States' blob", "batch 6"],
+  ["Umbria and Picenum", "rm-159", "Italic peoples whose earlier, larger range is text-only: a soft zone with the uncertainty said", "batch 8"],
+  ["Union of South Africa", "ww2-001", "a state in the Allied side of a grouping war: membership by date", "batch 3"],
+  ["Western Confederacy", "us-072", "the Native-held interior: the USFS Indian Land Cessions (public domain)", "batch 6"],
+  ["Yugoslavia", "ww2-001", "a state in the Allied side of a grouping war: membership by date", "batch 3"],
+  ["the Celtiberians and Lusitanians", "rm-261", "two Iberian peoples: no open dataset", "batch 6"],
+  ["the Yue peoples", "cnh-205", "Cliopatria's Minyue lies in Fujian; the conquest of 214 BCE was in Lingnan", "none"],
+  ["the allies", "gr-676", "the Second Athenian League: members from Pleiades, shapes traced", "batch 6"],
+];
+const SRC_IDX = { clio: 0, coast: 1, adm0: 2, wd: 3, hosner: 4 };   // the index of each source in the header's list (arcs and faces name theirs by it)
 const NEST_SHARE = 0.8, NEST_RATIO = 2;   // nested, not contested: the overlap holds ≥ 80 % of the smaller claimant and the larger is ≥ 2× it
 // the pilot slice (2a; the file:// twin carries this much, with a sentence): the Mediterranean and Near East, 550 BCE – 650 CE
 const SLICE = { years: [-550, 650], region: { lon0: -25, lat0: 5, lon1: 95, lat1: 62 }, series: ["rome", "carthage", "achaemenid", "macedon", "ptolemaic", "seleucid", "byzantium", "sasanian"] };
 const BAND = (() => { const i = argv.indexOf("--years"); if (i < 0) return null; const [a, b] = argv[i + 1].split(",").map(Number); if (!(a < b)) throw new Error("--years A,B"); return [a, b]; })();
 const USE_CACHE = !argv.includes("--no-cache");
 /* ---------- the tolerances, chosen from --measure (§7 "Phase 2a — as built") ---------- */
-const SRC = { clio: "cliopatria", coast: "osm-land-polygons", adm0: "ne-10m-admin0", wd: "wikidata-capitals" };
+const SRC = { clio: "cliopatria", coast: "osm-land-polygons", adm0: "ne-10m-admin0", wd: "wikidata-capitals", hosner: "hosner-2016" };
 const TOLERANCE_M = { [SRC.clio]: 15000 };    // Cliopatria's stated precision class (§2.3 step 4): no snap may exceed it
 /* MEASURED 2026-10-09 (out/history-measure.json, 267,932 pilot vertices): vertex → OSM coast has NO knee — 4,856 within 250 m,
    then a hump from 2 to 10 km (the coast-following vertices of a 10 km source sit 5 km off the shore) thinning past 15 km
@@ -229,10 +285,10 @@ say(`Cliopatria: ${GJ.features.length} rows, ${byName.size} names`);
 // locator's { area } or a war's { v, l } name series by key) — Phase 3's `places` field reads them, nothing draws from them yet
 const [Y0, Y1] = BAND || [YEAR_MIN, YEAR_MAX];
 const cardsOf = new Map(); for (const [card, l] of Object.entries(spec.links || {})) for (const k of [].concat(l.area || [], l.v || [], l.l || [])) { let c = cardsOf.get(k); if (!c) cardsOf.set(k, c = []); if (!c.includes(card)) c.push(card); }
-const series = [], deferred = [];
+const series = [], presenceSeries = [], deferred = [];
 for (const [key, p] of Object.entries(spec.polities)) {
-  if (!p.cliopatria) { deferred.push({ key, why: p.coast ? "coastline series (2c)" : p.sites ? "site-hull series (2c)" : "no source" }); continue; }
-  if (PEOPLES.includes(key)) { deferred.push({ key, why: "kept as a people by the audit (2c)" }); continue; }
+  if (!p.cliopatria) { if (!CULTURES.includes(key)) deferred.push({ key, why: "no source" }); continue; }   // the coastline and site-hull series are the presence layer's, built below
+  const presence = PEOPLES.includes(key);
   const rows = [];
   for (const name of p.cliopatria) for (const f of byName.get(name) || []) {
     let from = f.properties.FromYear, to = f.properties.ToYear;
@@ -244,7 +300,7 @@ for (const [key, p] of Object.entries(spec.polities)) {
   if (!rows.length) { if (!BAND) deferred.push({ key, why: "no Cliopatria row for " + p.cliopatria.join(" / ") }); continue; }
   rows.sort((a, b) => a.from - b.from || a.name.localeCompare(b.name));
   for (let i = 1; i < rows.length; i++) if (rows[i].from <= rows[i - 1].to) throw new Error(`series ${key}: rows overlap in time (${rows[i - 1].name} ${rows[i - 1].from}–${rows[i - 1].to} and ${rows[i].name} ${rows[i].from}–${rows[i].to})`);
-  series.push({ key, label: p.label, rows, cards: (cardsOf.get(key) || []).slice().sort() });
+  (presence ? presenceSeries : series).push(Object.assign({ key, label: p.label, rows, cards: (cardsOf.get(key) || []).slice().sort() }, presence ? { kind: "people", presence: true, src: SRC_IDX.clio, srcId: SRC.clio } : { kind: "polity", src: SRC_IDX.clio, srcId: SRC.clio }));
 }
 say(`series: ${series.length} with rows in ${Y0}..${Y1} (${series.reduce((n, s) => n + s.rows.length, 0)} rows); deferred ${deferred.length}: ${deferred.map((d) => d.key + " (" + d.why + ")").join(", ")}`);
 
@@ -268,24 +324,100 @@ function densify(pts) {
   return out;
 }
 const allRows = [];
-for (const s of series) for (const r of s.rows) {
-  const g = r.f.geometry, polys = g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : [];
-  const rs = [];
-  for (const poly of polys) for (const ring of poly) {
-    let pts = ring.map((p) => R.qpt(p));
-    pts = R.dedupeRing(pts); R.cutSpikes(pts, R.eqPt);   // in place
-    if (pts.length < 3) continue;
-    rs.push(densify(pts));
+/* a row's rings, box and vertex count; `r.rings` already set (the island and site-hull rows) is kept as given */
+function prepareRow(s, r) {
+  let rs = r.rings;
+  if (!rs) {
+    const g = r.f.geometry, polys = g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : [];
+    rs = [];
+    for (const poly of polys) for (const ring of poly) {
+      let pts = ring.map((p) => R.qpt(p));
+      pts = R.dedupeRing(pts); R.cutSpikes(pts, R.eqPt);   // in place
+      if (pts.length < 3) continue;
+      rs.push(densify(pts));
+    }
   }
   r.series = s; r.rings = rs;
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity, nv = 0;
   for (const ring of rs) for (const [x, y] of ring) { nv++; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
   r.bbox = [x0, y0, x1, y1]; r.nv = nv;
-  r.wd = r.f.properties.Wikidata || null; r.wiki = r.f.properties.Wikipedia || null;
-  allRows.push(r);
+  r.wd = (r.f && r.f.properties.Wikidata) || null; r.wiki = (r.f && r.f.properties.Wikipedia) || null;
 }
+for (const s of series) for (const r of s.rows) { prepareRow(s, r); allRows.push(r); }
+/* ---- the coastline series (cyclades, crete) and the site-hull series (yangshao, longshan): the presence layer's cultures (2c) ----
+   COASTLINE (docs/atlas-borders-audit.md C3, C4, C25): "a multipolygon of the islands instead of a blob — no tracing". Each spec point
+   (`coast.points`) names an island: the closed OSM coast ring that CONTAINS the point (land on its left, counter-clockwise), else the
+   ring with a coast vertex nearest it within 0.25° — v1's rule, on the committed OSM partition instead of Natural Earth. The row is that
+   ring's own vertices, so every vertex snaps to the coast at 0 m and the face is the coast arcs and nothing else. Its one step spans the
+   years its linked cards are shown in (v1's rule: the cards' date lines, through card-links.js — `loadCardYears` — the same spans
+   polities.js shipped), so no date is invented here.
+   SITE HULLS (C17, C18): .claude/site-hulls.json, built by build-site-hulls.js from the pinned Hosner et al. (2016) file (CC BY 3.0);
+   the file records the sha256 of the bytes it was built from and this build refuses it when that is not sources.json's pin. */
+/* a culture's years are NOT bounded below by Cliopatria's 3400 BCE (the states' floor, YEAR_MIN): the Yangshao outlines begin in 5000 BCE and the
+   rail runs to 10,000 BCE. The floor of a culture is the rail's own, or the band a --years run asks for. */
+const CULT_Y0 = BAND ? BAND[0] : -10000;
+{
+  const cardYears = require("../card-links.js").loadCardYears(fs.readFileSync(path.join(ROOT, "app.js"), "utf8"));
+  const cardsById = new Map(require("../card-io.js").loadCards().cards.map((c) => [c.id, c]));
+  const spanOf = (key) => {   // v1's `need` rule: an extent's years from the cards that link it
+    const spans = [];
+    for (const [card, l] of Object.entries(spec.links || {})) { if (!(l.area || []).includes(key)) continue; const c = cardsById.get(card); if (!c) throw new Error(`polity-spec links ${card}, which is not a card`); const ys = cardYears(c); if (!ys || !ys.length) throw new Error(`${card} has no years`); spans.push([Math.min(...ys), ys.length < 2 ? Infinity : Math.max(...ys)]); }
+    if (!spans.length) return null;
+    return [Math.min(...spans.map((x) => x[0])), Math.max(...spans.map((x) => (isFinite(x[1]) ? x[1] : x[0])))];
+  };
+  const ringPoly = (ri) => {   // a coast ring's vertices in the land-left direction, closed ring without the repeated first point
+    const out = [];
+    for (const a of regionRings[ri].arcs) { const s0 = core.arcOffset[a], e0 = core.arcOffset[a + 1]; const idx = []; for (let i = s0; i < e0; i++) idx.push(i); if (coastDir[a] < 0) idx.reverse(); for (let k = out.length ? 1 : 0; k < idx.length; k++) out.push([core.lon[idx[k]], core.lat[idx[k]]]); }
+    if (out.length > 1 && out[0][0] === out[out.length - 1][0] && out[0][1] === out[out.length - 1][1]) out.pop();
+    return out;
+  };
+  const areaOf = (poly) => { let a = 0; for (let i = 0; i < poly.length; i++) { const p = poly[i], q = poly[(i + 1) % poly.length]; a += p[0] * q[1] - q[0] * p[1]; } return a / 2; };
+  const pip = (poly, x, y) => { let k = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) k = !k; } return k; };
+  for (const key of CULTURES) {
+    const p = spec.polities[key]; if (!p) throw new Error("polity-spec.json lacks " + key);
+    const cards = (cardsOf.get(key) || []).slice().sort();
+    if (p.coast) {
+      const span = spanOf(key);
+      if (!span) { deferred.push({ key, why: "no card links it" }); continue; }
+      let from = Math.max(span[0], CULT_Y0), to = Math.min(span[1], Y1); if (from > to) { if (!BAND) deferred.push({ key, why: "outside the build's years" }); continue; }
+      const picked = new Map(), notes = [];
+      for (const [lon, lat] of p.coast.points) {
+        const x = R.U(lon), y = R.U(lat); let ri = -1, how = "";
+        let best = Infinity;
+        for (const r of regionRings) { const b = r.bbox; if (x < b[0] || x > b[2] || y < b[1] || y > b[3]) continue; if (r.poly === undefined) { const poly = ringPoly(r.index); r.poly = areaOf(poly) > 0 ? poly : null; } if (r.poly && pip(r.poly, x, y)) { const ar = (b[2] - b[0]) * (b[3] - b[1]); if (ar < best) { best = ar; ri = r.index; how = "contains the point"; } } }
+        if (ri < 0) { const n = nearest(x, y, 28000, coastIdx, coastSeg); if (n) { ri = ringOfArc[segA[n.k]]; how = "nearest coast " + Math.round(n.metres) + " m from the point"; } }
+        if (ri < 0) throw new Error(`${key}: no coast ring at or near ${lon}, ${lat}`);
+        if (!picked.has(ri)) picked.set(ri, how); notes.push(`${lon},${lat} → ring ${ri} (${how})`);
+      }
+      const rings = [...picked.keys()].sort((a, b) => a - b).map((ri) => ringPoly(ri));
+      if (rings.some((q) => areaOf(q) <= 0)) throw new Error(`${key}: a picked ring is not counter-clockwise (land on its left)`);
+      const row = { f: null, from, to, name: p.label, rings };
+      presenceSeries.push({ key, label: p.label, rows: [row], cards, kind: "culture", presence: true, src: SRC_IDX.coast, srcId: SRC.coast, islands: rings.length, pickNotes: notes });
+      say(`culture ${key}: ${rings.length} island ring(s) of ${p.coast.points.length} point(s), ${rings.reduce((n, q) => n + q.length, 0)} vertices, ${from}..${to}`);
+    } else if (p.sites) {
+      const SH = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "site-hulls.json"), "utf8"));
+      const pin = headerSources([SRC.hosner])[0];
+      if (!SH.source || SH.source.id !== SRC.hosner || SH.source.sha256 !== pin.sha256) throw new Error(`site-hulls.json was not built from the pinned ${SRC.hosner} file (${SH.source ? SH.source.sha256 : "no source recorded"} against ${pin.sha256}): run build-site-hulls.js --hosner=<src/${SRC.hosner}/PANGAEA.860072>`);
+      const H = SH.hulls[p.sites]; if (!H || !H.s.length) throw new Error(`site-hulls.json has no outline "${p.sites}"`);
+      const rows = [];
+      for (const st of H.s) {
+        const from = Math.max(st[0], CULT_Y0), to = Math.min(st[1], Y1); if (from > to) continue;
+        const rings = st[2].map((ring) => { let pts = ring.map((q) => R.qpt(q)); pts = R.dedupeRing(pts); R.cutSpikes(pts, R.eqPt); return pts.length >= 3 ? densify(pts) : null; }).filter(Boolean);
+        if (rings.length) rows.push({ f: null, from, to, name: p.label, rings });
+      }
+      if (!rows.length) { if (!BAND) deferred.push({ key, why: "no outline in the build's years" }); continue; }
+      presenceSeries.push({ key, label: p.label, rows, cards, kind: "culture", presence: true, src: SRC_IDX.hosner, srcId: SRC.hosner });
+      say(`culture ${key}: ${rows.length} phase outline(s) from ${pin.id} ${pin.sha256.slice(0, 12)}…, ${rows.reduce((n, r) => n + r.rings.length, 0)} ring(s)`);
+    }
+  }
+}
+for (const s of presenceSeries) s.rows.sort((a, b) => a.from - b.from);
+presenceSeries.sort((a, b) => a.key.localeCompare(b.key));
+const presenceRows = [];
+for (const s of presenceSeries) for (const r of s.rows) { prepareRow(s, r); presenceRows.push(r); }
 allRows.sort((a, b) => a.series.key.localeCompare(b.series.key) || a.from - b.from);
 allRows.forEach((r, i) => { r.id = i; });
+presenceRows.forEach((r, i) => { r.id = allRows.length + i; });
 say(`rows: ${allRows.length}, vertices ${allRows.reduce((s, r) => s + r.nv, 0)} (${densifiedN} added along great circles on edges over ${MAX_CHORD_M / 1000} km)`);
 
 /* ================= 2. --measure: the distributions behind D1, D2, D3 ================= */
@@ -338,7 +470,7 @@ const faceByKey = new Map();
 const ENT = [];                // entity table rows
 const entIndex = new Map();
 const STEPS = [];              // [entityIndex, from, to, faceIndex]
-const entityOf = (s) => { let i = entIndex.get(s.key); if (i == null) { i = ENT.length; entIndex.set(s.key, i); ENT.push({ id: "pol:" + s.key, name: s.label, kind: "polity", key: s.key }); } return i; };
+const entityOf = (s) => { let i = entIndex.get(s.key); if (i == null) { i = ENT.length; entIndex.set(s.key, i); ENT.push({ id: "pol:" + s.key, name: s.label, kind: s.kind || "polity", key: s.key }); } return i; };
 const contestedOf = (keys) => { const id = "contested:" + keys.join("+"); let i = entIndex.get(id); if (i == null) { i = ENT.length; entIndex.set(id, i); ENT.push({ id, name: keys.map((k) => spec.polities[k].label).join(" and "), kind: "contested", partners: keys.map((k) => "pol:" + k) }); } return i; };
 // a member inside its overlord (2b, the owner's default to confirm): partners [member, overlord]; drawn as the member's face, the overlord named
 const nestedOf = (member, overlord) => { const id = "nested:" + member + "+" + overlord; let i = entIndex.get(id); if (i == null) { i = ENT.length; entIndex.set(id, i); ENT.push({ id, name: spec.polities[member].label, kind: "nested", partners: ["pol:" + member, "pol:" + overlord] }); } return i; };   // named as the member: the label is the member's, the card says "within"
@@ -350,6 +482,7 @@ const followsRingPos = (pa, pb) => { const L = pa.ring.lenM; const dF = ((pb.pos
 function conflate(alive, label) {
   /* ---- the rings this epoch can touch: a ring whose box meets an alive row's box grown by D1 (an island inside a polity, a coast a
      border reaches); every other ring is land no alive polity reaches and draws plain — it costs the epoch nothing (2b) ---- */
+  const PRES = alive.length > 0 && alive.every((r) => r.series.presence);   // 2c: a presence is conflated alone, onto the coast only
   const GROW = Math.round(D1_M / 111000 / Q) + 2 * CELL;
   const boxes = alive.map((r) => [r.bbox[0] - GROW, r.bbox[1] - GROW, r.bbox[2] + GROW, r.bbox[3] + GROW]);
   const epochRings = regionRings.filter((r) => { const b = r.bbox; for (const q of boxes) if (b[2] >= q[0] && b[0] <= q[2] && b[3] >= q[1] && b[1] <= q[3]) return true; return false; });
@@ -400,7 +533,7 @@ function conflate(alive, label) {
   for (const L of lines) L.v = L.v.map((v) => moved.get(v) ?? v);
   /* ---- d3: present-day border junctions (a vertex not on the coast) ---- */
   const near3 = new Map();
-  for (const L of lines) for (const v of L.v) if (!near3.has(v) && !VON[v]) { const n = nearest(VX[v], VY[v], D3_M, bordIdx, bordSeg); if (n) near3.set(v, n); }
+  for (const L of lines) for (const v of L.v) if (!PRES && !near3.has(v) && !VON[v]) { const n = nearest(VX[v], VY[v], D3_M, bordIdx, bordSeg); if (n) near3.set(v, n); }
   const bordPos = (n) => { const arc = bordA[n.k], c = cumOf(arc), s = core.arcOffset[arc], i = bordV[n.k]; return c[i - 1 - s] + (c[i - s] - c[i - 1 - s]) * n.t; };
   const snap3 = new Set();
   for (const L of lines) for (let i = 0; i < L.v.length; i++) {
@@ -703,9 +836,10 @@ function conflate(alive, label) {
     for (const p of pieces) {
       if (p.own) {
         const vs = p.own; const pts = vs.map((v) => [VX[v], VY[v]]);
-        const fk = pts.map((q) => q.join(",")).join(";"), bk = pts.slice().reverse().map((q) => q.join(",")).join(";");
+        const pre = PRES ? "s:" : "", fk = pre + pts.map((q) => q.join(",")).join(";"), bk = pre + pts.slice().reverse().map((q) => q.join(",")).join(";");
         if (arcByKey.has(bk) && !arcByKey.has(fk)) { addArc(ARCS[arcByKey.get(bk)], vs[vs.length - 1], vs[0]); continue; }
-        addArc({ key: fk, kind: KIND.BORDER, source: 0, flags: 0, own: pts, core: null, cls: CLS.APPROX }, vs[0], vs[vs.length - 1]);
+        // a presence's own arc is its SOFT edge (KIND.SOFT, class SOFT, the series' source): the renderer strokes none
+        addArc({ key: fk, kind: PRES ? KIND.SOFT : KIND.BORDER, source: PRES ? alive[0].series.src : 0, flags: 0, own: pts, core: null, cls: PRES ? CLS.SOFT : CLS.APPROX }, vs[0], vs[vs.length - 1]);
       } else {
         const o = p.ref, e = o.e, r = e.ref; const forward = o.dir > 0;
         const va = forward ? e.a : e.b, vb = forward ? e.b : e.a;
@@ -956,11 +1090,11 @@ function conflate(alive, label) {
     const canon = rings.map((ring) => { let m = 0; for (let i = 1; i < ring.length; i++) if (Math.abs(ring[i]) < Math.abs(ring[m])) m = i; return ring.slice(m).concat(ring.slice(0, m)); }).sort((p, q) => Math.abs(p[0]) - Math.abs(q[0]));
     const owners = pieces[ids[0]].owners; const nest = nestOf(owners);
     const entity = owners.length === 1 ? entityOf(owners[0].series) : nest ? nestedOf(nest[0].series.key, nest[1].series.key) : contestedOf(owners.map((r) => r.series.key).sort());
-    const cls = owners.length === 1 ? CLS.APPROX : nest ? CLS.NESTED : CLS.CONTESTED;
+    const cls = owners.length === 1 ? (PRES ? CLS.SOFT : CLS.APPROX) : nest ? CLS.NESTED : CLS.CONTESTED;
     if (nest) nested++;
     const fkey = entity + "|" + canon.map((r) => r.join(",")).join("|");
     let fi = faceByKey.get(fkey);
-    if (fi == null) { fi = FACES.length; faceByKey.set(fkey, fi); const big = ids.slice().sort((p, q) => pieces[q].km2 - pieces[p].km2)[0]; FACES.push({ key: fkey, entity, cls, rings: canon, km2: ids.reduce((s, i) => s + pieces[i].km2, 0), anchor: pieces[big].anchor || pieces[big].sample || null }); if (owners.length > 1 && !nest) stat.contestedFaces++; if (nest) stat.nestedFaces = (stat.nestedFaces || 0) + 1; }
+    if (fi == null) { fi = FACES.length; faceByKey.set(fkey, fi); const big = ids.slice().sort((p, q) => pieces[q].km2 - pieces[p].km2)[0]; FACES.push({ key: fkey, entity, cls, src: PRES ? owners[0].series.src : 0, rings: canon, km2: ids.reduce((s, i) => s + pieces[i].km2, 0), anchor: pieces[big].anchor || pieces[big].sample || null }); if (owners.length > 1 && !nest) stat.contestedFaces++; if (nest) stat.nestedFaces = (stat.nestedFaces || 0) + 1; }
     result.push({ entity, faceIndex: fi, ownerKeys: owners.map((r) => r.series.key) });
     void k;
   }
@@ -978,17 +1112,17 @@ const CACHE_DIR = (() => {
   return path.join(OUT, "history-cache", h.digest("hex").slice(0, 16));
 })();
 if (USE_CACHE) { fs.mkdirSync(CACHE_DIR, { recursive: true }); say(`epoch cache: ${path.relative(HERE, CACHE_DIR)} (${fs.readdirSync(CACHE_DIR).length} epochs cached)`); }
-const epochFile = (e) => path.join(CACHE_DIR, crypto.createHash("sha256").update(e.alive.map((r) => [r.series.key, r.name, r.from, r.to, r.nv].join("|")).join("\n")).digest("hex").slice(0, 24) + ".json");
+const epochFile = (e, dir) => path.join(dir || CACHE_DIR, crypto.createHash("sha256").update(e.alive.map((r) => [r.series.key, r.name, r.from, r.to, r.nv].join("|")).join("\n")).digest("hex").slice(0, 24) + ".json");
 const statSnap = () => Object.fromEntries(Object.keys(stat).filter((k) => typeof stat[k] === "number").map((k) => [k, stat[k]]));
 const logSnap = () => JSON.parse(JSON.stringify(log.counts));
 /* conflate one alive set, recording its contribution; or replay it from the cache */
-function conflateCached(e) {
-  const file = USE_CACHE ? epochFile(e) : null;
+function conflateCached(e, dir) {
+  const file = USE_CACHE ? epochFile(e, dir) : null;
   if (file && fs.existsSync(file)) {
     const c = JSON.parse(fs.readFileSync(file, "utf8"));
     if (c.arcsBefore !== ARCS.length || c.facesBefore !== FACES.length || c.entsBefore !== ENT.length) throw new Error(`epoch cache out of order at ${e.from}..${e.to}: delete ${path.relative(HERE, CACHE_DIR)} and rebuild`);
     for (const a of c.newArcs) { arcByKey.set(a.key, ARCS.length); ARCS.push(a); }
-    for (const en of c.newEnts) { entIndex.set(en.kind === "polity" ? en.key : en.id, ENT.length); ENT.push(en); }
+    for (const en of c.newEnts) { entIndex.set(isSeriesKind(en.kind) ? en.key : en.id, ENT.length); ENT.push(en); }
     for (const f of c.newFaces) { faceByKey.set(f.key, FACES.length); FACES.push(f); }
     for (const [k, v] of Object.entries(c.stat)) stat[k] = (stat[k] || 0) + v;
     for (const k of c.touches) stat.touches.set(k, 1);
@@ -1021,6 +1155,27 @@ for (const e of epochs) {
   }
   if (++done % 25 === 0 || done === epochs.length) say(`epoch ${done}/${epochs.length} (${e.from}..${e.to}): ${r.arcs} arcs, ${r.pieces} pieces, ${r.contested} contested, ${r.nested || 0} nested, ${r.unmapped} unmapped; arcs so far ${ARCS.length}, faces ${FACES.length}${replayed ? "; replayed from the cache " + replayed : ""}`);
 }
+/* ---- the presence layer (2c): every row of every people and culture, conflated ALONE after the states, in series-key order ----
+   The state layer's registries are final here, so the states' epoch cache replays exactly as before; the presence rows have a cache of
+   their own whose hash covers the state layer's size (a changed state layer invalidates it) and the rows themselves. */
+const statesDone = { arcs: ARCS.length, faces: FACES.length, ents: ENT.length, steps: STEPS.length };
+const statStates = statSnap();
+const CACHE_DIR_P = path.join(OUT, "history-cache", "presence-" + crypto.createHash("sha256").update(JSON.stringify({ CACHE: path.basename(CACHE_DIR), statesDone, rows: presenceRows.map((r) => [r.series.key, r.name, r.from, r.to, r.nv, r.series.src]), D1_M, D1_SURE_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, SEA_M, MAX_CHORD_M, v: 1 })).digest("hex").slice(0, 16));
+if (USE_CACHE) fs.mkdirSync(CACHE_DIR_P, { recursive: true });
+{
+  let n = 0, replayedP = 0;
+  for (const r of presenceRows) {
+    const e = { from: r.from, to: r.to, alive: [r], key: "presence:" + r.id };
+    const x = conflateCached(e, CACHE_DIR_P); if (x.cached) replayedP++;
+    for (const y of x.result) {
+      const prev = STEPS.find((st) => st[0] === y.entity && st[3] === y.faceIndex && st[2] + 1 === e.from);
+      if (prev) prev[2] = e.to; else STEPS.push([y.entity, e.from, e.to, y.faceIndex]);
+    }
+    n++;
+  }
+  say(`presence layer: ${n} row(s) of ${presenceSeries.length} series conflated alone${replayedP ? " (" + replayedP + " replayed from the cache)" : ""}; arcs ${ARCS.length - statesDone.arcs} new, faces ${FACES.length - statesDone.faces}, entities ${ENT.length - statesDone.ents}`);
+}
+report.presence = { series: presenceSeries.map((s) => ({ key: s.key, kind: s.kind, rows: s.rows.length, src: s.srcId, islands: s.islands || undefined, picks: s.pickNotes || undefined })), rows: presenceRows.length, newArcs: ARCS.length - statesDone.arcs, newFaces: FACES.length - statesDone.faces, statesEntities: statesDone.ents };
 log.check();
 report.epochsReplayed = replayed;
 const keptSeries = series, droppedSeries = [];
@@ -1032,8 +1187,9 @@ const arcUsed = new Set(); for (const f of facesOut) for (const r of f.rings) fo
 const arcMap = new Map(); const arcsOut = []; ARCS.forEach((a, i) => { if (arcUsed.has(i)) { arcMap.set(i, arcsOut.length); arcsOut.push(a); } });
 for (const f of facesOut) f.rings = f.rings.map((r) => r.map((ref) => { const i = arcMap.get(Math.abs(ref) - 1); return ref > 0 ? i + 1 : -(i + 1); }));
 // a border between a kept polity and a dropped one is one-sided now: OPEN (every alive set, every non-coast arc used once)
-{ const byYear = new Set(); for (const st of stepsKept) { byYear.add(st[1]); byYear.add(st[2] + 1); } const seen = new Set(); let opened = 0;
-  for (const y of [...byYear].sort((a, b) => a - b)) { const faces = stepsKept.filter((st) => st[1] <= y && st[2] >= y).map((st) => faceMap.get(st[3])); if (!faces.length) continue; const key = faces.join(","); if (seen.has(key)) continue; seen.add(key); const uses = new Map(); for (const fi of faces) for (const r of facesOut[fi].rings) for (const ref of r) { const a = Math.abs(ref) - 1; uses.set(a, (uses.get(a) || 0) + 1); } for (const [a, n] of uses) if (n === 1 && arcsOut[a].kind !== KIND.COAST && !(arcsOut[a].flags & FLAG.OPEN)) { arcsOut[a].flags |= FLAG.OPEN; opened++; } }
+{ const stateSteps = stepsKept.filter((st) => !isPresenceKind(ENT[st[0]].kind));   // a presence has no neighbour and no border: its soft edge is not "open"
+  const byYear = new Set(); for (const st of stateSteps) { byYear.add(st[1]); byYear.add(st[2] + 1); } const seen = new Set(); let opened = 0;
+  for (const y of [...byYear].sort((a, b) => a - b)) { const faces = stateSteps.filter((st) => st[1] <= y && st[2] >= y).map((st) => faceMap.get(st[3])); if (!faces.length) continue; const key = faces.join(","); if (seen.has(key)) continue; seen.add(key); const uses = new Map(); for (const fi of faces) for (const r of facesOut[fi].rings) for (const ref of r) { const a = Math.abs(ref) - 1; uses.set(a, (uses.get(a) || 0) + 1); } for (const [a, n] of uses) if (n === 1 && arcsOut[a].kind !== KIND.COAST && !(arcsOut[a].flags & FLAG.OPEN)) { arcsOut[a].flags |= FLAG.OPEN; opened++; } }
   stat.openedAfterDrop = opened; }
 const entMap = new Map(); const entsOut = []; ENT.forEach((e, i) => { if (entKeep[i]) { entMap.set(i, entsOut.length); entsOut.push(e); } });
 const stepsOut = stepsKept.map((s) => [entMap.get(s[0]), s[1], s[2], faceMap.get(s[3])]).sort((a, b) => a[0] - b[0] || a[1] - b[1]);
@@ -1042,14 +1198,15 @@ for (const f of facesOut) f.entity = entMap.get(f.entity);
 for (const e of entsOut) {
   const st = stepsOut.filter((s) => s[0] === entMap.get(ENT.indexOf(e)));
   e.span = st.length ? [Math.min(...st.map((s) => s[1])), Math.max(...st.map((s) => s[2]))] : null;
-  if (e.kind === "polity") {
-    const s = series.find((x) => x.key === e.key); const rows = s.rows;
+  if (isSeriesKind(e.kind)) {
+    const s = series.concat(presenceSeries).find((x) => x.key === e.key); const rows = s.rows;
     // the Wikidata id and Wikipedia title of the row covering the most years (the rows of one series may differ: recorded)
     const byQ = new Map(); for (const r of rows) { const k = (r.wd || "") + "|" + (r.wiki || ""); byQ.set(k, (byQ.get(k) || 0) + (r.to - r.from + 1)); }
     const best = [...byQ.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0][0].split("|");
     e.qid = best[0] || null; e.wiki = best[1] || null;
     if (byQ.size > 1) e.alsoWiki = [...byQ.keys()].filter((k) => k !== best.join("|")).map((k) => k.split("|")).map(([q, w]) => ({ qid: q || null, wiki: w || null }));
     e.sourceNames = [...new Set(rows.map((r) => r.name))];
+    if (isPresenceKind(e.kind)) { e.src = s.srcId; if (PRESENCE_NOTES[s.key]) e.note = PRESENCE_NOTES[s.key]; }
     e.cards = s.cards;   // the cards that link this polity (polity-spec.json links): Phase 3's `places` field, nothing drawn from them yet
     delete e.key;
   }
@@ -1134,7 +1291,11 @@ let JPOS_OUT = null;
   const repairs = [];
   // the arcs of every distinct alive set (faces → arcs), so arcs of different epochs are never tested against each other
   const faceArcsOut = facesOut.map((f) => { const set = new Set(); for (const r of f.rings) for (const ref of r) set.add(Math.abs(ref) - 1); return [...set]; });
-  const setArcs = []; { const seen = new Set(); const byYear = new Map(); for (const st of stepsOut) { for (const y of [st[1], st[2] + 1]) { if (!byYear.has(y)) byYear.set(y, []); } } const ys = [...byYear.keys()].sort((a, b) => a - b); for (const y of ys) { const faces = stepsOut.filter((st) => st[1] <= y && st[2] >= y).map((st) => st[3]); if (!faces.length) continue; const key = faces.join(","); if (seen.has(key)) continue; seen.add(key); const arcs = new Set(); for (const fi of faces) for (const a of faceArcsOut[fi]) arcs.add(a); setArcs.push([...arcs]); } }
+  /* the LAYERS: the states are one planar set per distinct alive set; every presence face is a set of its own (a presence overlaps the
+     states and other presences by design, so only its own rings are tested against each other and the coast) */
+  const presenceEnt = entsOut.map((e) => isPresenceKind(e.kind));
+  const setArcs = []; { const seen = new Set(); const stateSteps = stepsOut.filter((st) => !presenceEnt[st[0]]); const byYear = new Map(); for (const st of stateSteps) { for (const y of [st[1], st[2] + 1]) { if (!byYear.has(y)) byYear.set(y, []); } } const ys = [...byYear.keys()].sort((a, b) => a - b); for (const y of ys) { const faces = stateSteps.filter((st) => st[1] <= y && st[2] >= y).map((st) => st[3]); if (!faces.length) continue; const key = faces.join(","); if (seen.has(key)) continue; seen.add(key); const arcs = new Set(); for (const fi of faces) for (const a of faceArcsOut[fi]) arcs.add(a); setArcs.push([...arcs]); }
+    const pf = new Set(); for (const st of stepsOut) if (presenceEnt[st[0]]) pf.add(st[3]); for (const fi of [...pf].sort((a, b) => a - b)) setArcs.push(faceArcsOut[fi].slice()); }
   for (let L = 0; L < LOD_M.length; L++) {
     let passes = 0, readded = 0, residual = 0, hidden = 0;
     for (let pass = 0; pass < 12; pass++) {
@@ -1212,14 +1373,16 @@ const sources = [clioSrc, coastSrc, adm0Src].map((s) => ({ id: s.id, name: s.nam
 // a file's mtime would be the clone time). No git answer → fail rather than invent a date.
 const scRetrieved = (() => { try { const d = require("child_process").execFileSync("git", ["log", "-1", "--format=%cs", "--", "state-capitals.js"], { cwd: ROOT, encoding: "utf8" }).trim(); if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) throw new Error("no commit date"); return d; } catch (e) { throw new Error("state-capitals.js retrieval date: " + e.message); } })();
 sources.push({ id: SRC.wd, name: "Wikidata — the period capitals of the pilot polities (each state's P36 statements with their qualifiers, via state-capitals.js)", version: "state-capitals.js as committed", url: "https://www.wikidata.org/", licence: "CC0", licenceUrl: "https://creativecommons.org/publicdomain/zero/1.0/", attribution: "Wikidata, CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/).", retrieved: scRetrieved });
+sources.push(headerSources([SRC.hosner])[0]);   // index 4 (SRC_IDX): the Yangshao and Longshan outlines
+if (sources.length !== 5 || sources[SRC_IDX.hosner].id !== SRC.hosner || sources[SRC_IDX.wd].id !== SRC.wd || sources[SRC_IDX.coast].id !== SRC.coast) throw new Error("the header source order no longer matches SRC_IDX");
 const topology = {
   quantum: Q, lod: { intervals_m: LOD_M, note: "the core's three resident levels; a core-referencing arc takes the core's ranks" },
   generated: null, generator: "folio atlas-build: build-history.js (" + require("./package.json").version + ")", sources,
   entities: entsOut, steps: stepsOut, faceDelta: true,   // the face table delta-coded (atlas-format.js): a ring's consecutive coast pieces cost a byte each
-  vertices: { lon, lat }, rank, arcs: arcRecs, faces: facesOut.map((f) => ({ entity: f.entity, source: 0, rings: f.rings })), coreRef, jpos,
+  vertices: { lon, lat }, rank, arcs: arcRecs, faces: facesOut.map((f) => ({ entity: f.entity, source: f.src || 0, rings: f.rings })), coreRef, jpos,
   extra: {
     kindOf: "history", core: { file: "atlas/data/topology.bin", buildId, arcs: nCA },
-    history: { scope: "The states Folio's cards teach — every card-linked polity series of polity-spec.json with Cliopatria rows, less the series the audit keeps as peoples — not every state of the period.", years: [Y0, Y1], band: BAND, series: keptSeries.map((s) => s.key), deferred, peoples: PEOPLES, nest: { share: NEST_SHARE, ratio: NEST_RATIO }, epochs: epochs.length, tolerances_m: TOLERANCE_M, d1_m: D1_M, d2_m: D2_M, d3_m: D3_M, run_factor: RUN_FACTOR, sliver_km2: SLIVER_KM2, sliver_width_m: SLIVER_WIDTH_M, classes: CLS, licence: "ODbL-1.0 as a whole: the file embeds junctions snapped onto OpenStreetMap geometry and references the OSM coast by arc id; Cliopatria's rows (CC BY 4.0) are the borders, with the attribution above kept; flagged for counsel (Phase 2a)." },
+    history: { scope: "The states Folio's cards teach — every card-linked polity series of polity-spec.json with Cliopatria rows, less the series the audit keeps as peoples — not every state of the period; and, as a PRESENCE layer drawn over them (no border, a soft edge), the peoples and cultures the cards teach: eight Cliopatria peoples, the Cyclades and Crete as their islands, the Yangshao and Longshan as outlines of dated sites.", presence: presenceSeries.map((x) => ({ key: x.key, kind: x.kind, source: x.srcId })), years: [Y0, Y1], band: BAND, series: keptSeries.map((s) => s.key), deferred, peoples: PEOPLES, nest: { share: NEST_SHARE, ratio: NEST_RATIO }, epochs: epochs.length, tolerances_m: TOLERANCE_M, d1_m: D1_M, d2_m: D2_M, d3_m: D3_M, run_factor: RUN_FACTOR, sliver_km2: SLIVER_KM2, sliver_width_m: SLIVER_WIDTH_M, classes: CLS, licence: "ODbL-1.0 as a whole: the file embeds junctions snapped onto OpenStreetMap geometry and references the OSM coast by arc id; Cliopatria's rows (CC BY 4.0) are the borders, with the attribution above kept; flagged for counsel (Phase 2a)." },
     faceClass: facesOut.map((f) => f.cls), arcClass: arcsOut.map((a) => a.cls), arcEmpty, cities,
     faceKm2: facesOut.map((f) => Math.round(f.km2)),
     faceAnchor: facesOut.map((f) => (f.anchor ? deg(f.anchor[0], f.anchor[1]) : null)),   // a point inside the face (the piece's first interior sample), for cards, tests and the fly-to
@@ -1229,9 +1392,9 @@ const bytes = F.write(topology);
 const sha = crypto.createHash("sha256").update(bytes).digest("hex");
 say(`history.bin: ${bytes.length} bytes (${(bytes.length / 1e6).toFixed(3)} MB decimal), sha256 ${sha}`);
 { const h = F.read(bytes, { headerOnly: true }).header; console.log(`  header ${(JSON.stringify(h).length / 1024).toFixed(1)} KB; ` + Object.entries(h.sections).map(([k, v]) => `${k} ${(v.length / 1024).toFixed(1)} KB`).join(", ")); }
-// the forecast: bytes per step × the steps of every series this build takes (Cliopatria rows in the spec's own years, YEAR_MIN..YEAR_MAX, the peoples left out)
+// the forecast: bytes per step × the steps of every Cliopatria series this build takes (rows in the spec's own years, YEAR_MIN..YEAR_MAX, the peoples now in)
 let allSteps = 0, allNames = 0;
-for (const [key, p] of Object.entries(spec.polities)) { if (!p.cliopatria || PEOPLES.includes(key)) continue; for (const n of p.cliopatria) { const rows = byName.get(n) || []; allNames += rows.length ? 1 : 0; for (const f of rows) { let from = f.properties.FromYear, to = f.properties.ToYear; if (p.years) { from = Math.max(from, p.years[0]); to = Math.min(to, p.years[1]); } from = Math.max(from, YEAR_MIN); to = Math.min(to, YEAR_MAX); if (from <= to) allSteps++; } } }
+for (const [key, p] of Object.entries(spec.polities)) { if (!p.cliopatria) continue; for (const n of p.cliopatria) { const rows = byName.get(n) || []; allNames += rows.length ? 1 : 0; for (const f of rows) { let from = f.properties.FromYear, to = f.properties.ToYear; if (p.years) { from = Math.max(from, p.years[0]); to = Math.min(to, p.years[1]); } from = Math.max(from, YEAR_MIN); to = Math.min(to, YEAR_MAX); if (from <= to) allSteps++; } } }
 const perStep = bytes.length / Math.max(1, stepsOut.length), forecast = perStep * allSteps;
 const sourceSteps = allRows.length;
 report.result = { entities: entsOut.length, steps: stepsOut.length, sourceRows: sourceSteps, faces: facesOut.length, contestedFaces: facesOut.filter((f) => f.cls === CLS.CONTESTED).length, nestedFaces: facesOut.filter((f) => f.cls === CLS.NESTED).length, arcs: arcsOut.length, arcsCoastRef: arcsOut.filter((a) => a.core && a.kind === KIND.COAST).length, arcsBorderRef: arcsOut.filter((a) => a.core && a.kind === KIND.BORDER).length, arcsOwn: arcsOut.filter((a) => !a.core).length, ownVertices: arcsOut.filter((a) => !a.core).reduce((s, a) => s + a.own.length, 0), bytes: bytes.length, sha256: sha, snaps: log.summary(), d1: stat.d1, d2: stat.d2, d3: stat.d3, runsDropped: stat.runsDropped, runsBorder: stat.runsBorder, crossings: stat.crossings, slivers: stat.slivers, sliverKm2: Math.round(stat.sliverKm2), unmappedGapPiecesOverEpochs: stat.unmappedPieces, unmappedGapKm2OverEpochs: Math.round(stat.unmappedKm2), continentRemainderPiecesOverEpochs: stat.remainderPieces || 0, refCut: stat.refCut || 0, series: keptSeries.map((s) => s.key), droppedSeries: droppedSeries.map((s) => s.key) };
@@ -1269,7 +1432,7 @@ if (!DRY) {
 // header keeps everything but says what it is
 function sliceOf(T) {
   const ents = new Set(SLICE.series.map((k) => "pol:" + k));
-  const entOK = (e) => e.kind === "polity" ? ents.has(e.id) : e.partners.every((p) => ents.has(p));
+  const entOK = (e) => isSeriesKind(e.kind) ? ents.has(e.id) : e.partners.every((p) => ents.has(p));
   const steps = T.steps.filter((st) => entOK(T.entities[st[0]]) && st[2] >= SLICE.years[0] && st[1] <= SLICE.years[1]).map((st) => [st[0], Math.max(st[1], SLICE.years[0]), Math.min(st[2], SLICE.years[1]), st[3]]);
   const faceKeep = new Set(steps.map((st) => st[3])), faceMap = new Map(); const faces = []; T.faces.forEach((f, i) => { if (faceKeep.has(i)) { faceMap.set(i, faces.length); faces.push(f); } });
   const arcKeep = new Set(); for (const f of faces) for (const r of f.rings) for (const ref of r) arcKeep.add(Math.abs(ref) - 1);
@@ -1291,10 +1454,12 @@ function writeCoverage(T, file) {
   const ents = T.entities, km2 = T.extra.faceKm2;
   for (let c = Math.floor(Y0 / 100) * 100; c <= Y1; c += 100) {
     const y = c === 0 ? 1 : c;   // the year read: the century's first year (1 CE for the first century)
-    const alive = T.steps.filter((st) => st[1] <= y && st[2] >= y);
+    const aliveAll = T.steps.filter((st) => st[1] <= y && st[2] >= y);
+    const alive = aliveAll.filter((st) => !isPresenceKind(ents[st[0]].kind));   // a presence overlaps the states: it is not part of the land share
+    const presentNames = [...new Set(aliveAll.filter((st) => isPresenceKind(ents[st[0]].kind)).map((st) => ents[st[0]].name))].sort();
     let covered = 0, contested = 0, nested = 0; const names = new Set();
     for (const st of alive) { const e = ents[st[0]], a = km2[st[3]] || 0; covered += a; if (e.kind === "contested") { contested += a; for (const p of e.partners) names.add(p); } else if (e.kind === "nested") { nested += a; names.add(e.partners[0]); names.add(e.partners[1]); } else names.add(e.id); }
-    rows.push({ year: y, polities: [...names].map((id) => { const e = ents.find((x) => x.id === id); return e ? e.name : id; }).sort(), covered, contested, nested });
+    rows.push({ year: y, polities: [...names].map((id) => { const e = ents.find((x) => x.id === id); return e ? e.name : id; }).sort(), presences: presentNames, covered, contested, nested });
   }
   const fmtY = (y) => (y < 0 ? (-y) + " BCE" : y + " CE");
   const pct = (v) => (100 * v / landKm2).toFixed(1) + " %";
@@ -1304,26 +1469,29 @@ function writeCoverage(T, file) {
   const lines = [
     "# Atlas v2 — what the historical layer covers, century by century",
     "",
-    "GENERATED by `.claude/atlas-build/build-history.js --install` (Phase 2b) from `atlas/data/history.bin` — never edit by hand; rebuild instead.",
+    "GENERATED by `.claude/atlas-build/build-history.js --install` (Phase 2b; the presence layer, Phase 2c) from `atlas/data/history.bin` — never edit by hand; rebuild instead.",
     "",
-    "The historical layer draws **the states Folio's cards teach** — the card-linked polity series of `.claude/polity-spec.json` that Cliopatria v0.2.0 carries, " + T.entities.filter((e) => e.kind === "polity").length + " of them — not every state of the period. The table reads each century at its first year (1 CE for the first century CE) and measures the land the alive faces cover against the land outside Antarctica in the core partition (" + Math.round(landKm2 / 1e6 * 10) / 10 + " million km²; Antarctica's " + Math.round(antKm2 / 1e6 * 10) / 10 + " million km² left out). \"Contested\" is land two polities claim in that year; \"nested\" is a member drawn inside its overlord.",
+    "The historical layer draws **the states Folio's cards teach** — the card-linked polity series of `.claude/polity-spec.json` that Cliopatria v0.2.0 carries, " + T.entities.filter((e) => e.kind === "polity").length + " of them — not every state of the period. **Peoples and cultures (Phase 2c)** — " + T.entities.filter((e) => isPresenceKind(e.kind)).length + " series: eight Cliopatria peoples, the Cyclades and Crete as their islands, the Yangshao and Longshan as outlines of dated sites — are a presence drawn over the states (no border, a soft edge), so they are named in the last column and are NOT counted in the land share. The table reads each century at its first year (1 CE for the first century CE) and measures the land the alive faces cover against the land outside Antarctica in the core partition (" + Math.round(landKm2 / 1e6 * 10) / 10 + " million km²; Antarctica's " + Math.round(antKm2 / 1e6 * 10) / 10 + " million km² left out). \"Contested\" is land two polities claim in that year; \"nested\" is a member drawn inside its overlord.",
     "",
     "**Where the layer is thin.** " + (runs.length ? "Under 2 % of the land is mapped in " + runs.map(([a, b]) => (a === b ? fmtY(a) : fmtY(a) + " – " + fmtY(b))).join(", ") + ": the cards' states are few and small there, or Cliopatria has no row for them." : "No century falls under 2 % of the land.") + " The fullest century is " + fmtY(peak.year) + " (" + pct(peak.covered) + " of the land, " + peak.polities.length + " polities). Everywhere else the plain land is not \"no state\": it is a state no card teaches yet, or one Cliopatria does not draw.",
     "",
-    "| century begins | polities alive | land covered | contested | nested | who |",
-    "|---|---|---|---|---|---|",
+    "| century begins | polities alive | land covered | contested | nested | who | peoples and cultures (a presence over the states) |",
+    "|---|---|---|---|---|---|---|",
   ];
-  for (const r of rows) lines.push(`| ${fmtY(r.year)} | ${r.polities.length} | ${pct(r.covered)} | ${pct(r.contested)} | ${pct(r.nested)} | ${r.polities.join(", ") || "—"} |`);
+  for (const r of rows) lines.push(`| ${fmtY(r.year)} | ${r.polities.length} | ${pct(r.covered)} | ${pct(r.contested)} | ${pct(r.nested)} | ${r.polities.join(", ") || "—"} | ${r.presences.join(", ") || "—"} |`);
   lines.push("", "Deferred to later phases (not in this file): " + deferred.map((d) => "`" + d.key + "` (" + d.why + ")").join(", ") + ".", "");
   // the inventory (Phase 2b, deliverable 1): every series of polity-spec.json — its kind, its years in the file, its cards, built or deferred
   lines.push("## The inventory: every series of `polity-spec.json`", "", "| series | kind | Cliopatria names | years in the file | steps | cards | state |", "|---|---|---|---|---|---|---|");
-  const entByKey = new Map(T.entities.filter((e) => e.kind === "polity").map((e) => [e.id.slice(4), e]));
+  const entByKey = new Map(T.entities.filter((e) => isSeriesKind(e.kind)).map((e) => [e.id.slice(4), e]));
   for (const [key, p] of Object.entries(spec.polities)) {
     const d = deferred.find((x) => x.key === key); const e = entByKey.get(key);
     const kind = p.cliopatria ? (p.cliopatria.length > 1 ? "assembled from " + p.cliopatria.length + " Cliopatria series" : "Cliopatria state") : p.coast ? "coastline" : p.sites ? "site hull" : "—";
     const steps = e ? T.steps.filter((st) => T.entities[st[0]] === e).length : 0;
-    lines.push(`| \`${key}\` | ${kind}${PEOPLES.includes(key) ? " (a people)" : ""} | ${(p.cliopatria || []).join(", ") || "—"} | ${e && e.span ? fmtY(e.span[0]) + " – " + fmtY(e.span[1]) : "—"} | ${steps || "—"} | ${(cardsOf.get(key) || []).join(", ") || "—"} | ${d ? "deferred: " + d.why : "built"} |`);
+    lines.push(`| \`${key}\` | ${kind}${PEOPLES.includes(key) ? " (a people: drawn as a presence)" : CULTURES.includes(key) ? " (a culture: drawn as a presence)" : ""} | ${(p.cliopatria || []).join(", ") || "—"} | ${e && e.span ? fmtY(e.span[0]) + " – " + fmtY(e.span[1]) : "—"} | ${steps || "—"} | ${(cardsOf.get(key) || []).join(", ") || "—"} | ${d ? "deferred: " + d.why : "built"} |`);
   }
+  lines.push("");
+  lines.push("## The 24 war sides that resolve to no entity (Phase 2c's inventory; no entity is created for a war side in this phase)", "", "The places registry's migration (`docs/atlas-places-report.md`, \"War sides that resolve to nothing\") lists 24 war sides — an authored extent or a named side of a war card — that name no entity of this file. **None of the twelve presence series built in 2c resolves any of them**: the cards that link the twelve (`gr-788`, `ru-005`, `ru-011`, `ru-012`, `ru-013`, `ru-014`, `ru-016`, `ru-019`, `gr-002`, `gr-006`, `gr-047`, `wh-262`, `cnh-045`, `cnh-050`, `wh-147`, `wh-148`) are not among the cards below, and no side names a Scythian, Gothic, Hunnic, Avar, Bulgar, Khazar, Magyar, Cycladic, Minoan, Yangshao or Longshan party. Caesar's Gallic tribes are not the Galatians of Anatolia. The rest are listed for Phase 2d, each with what it waits for and the audit batch (`docs/atlas-borders-audit.md` §6) that names the work; where a batch is \"none\" the audit records why the open sources cannot draw it.", "", "| war side | cards | resolved by a 2c series? | waits for | audit batch |", "|---|---|---|---|---|");
+  for (const [side, cards, why, batch] of WAR_SIDES_2C) lines.push(`| ${side} | ${cards} | no | ${why} | ${batch} |`);
   lines.push("");
   fs.writeFileSync(file, lines.join("\n"));
 }

@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":78,"town":97,"sea":1,"strait":2,"gulf":2,"lake":6,"river":6,"island":25,"island-group":3,"range":6,"region":93,"site":399,"mountain":12,"cape":4,"hill":9},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":78,"town":97,"sea":1,"strait":2,"gulf":2,"lake":6,"river":6,"island":25,"island-group":3,"range":6,"region":92,"site":399,"mountain":12,"cape":4,"hill":9},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -331,7 +331,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio at
 ["pl:q170526","Fertile Crescent","region",0,170526,0,[40,36],0,1],
 ["pl:q109412796","Gaixia Site","region",0,109412796,0,[117.551,33.3264],
 ["Gaixia"]],
-["pl:q26847","Galatia","region",0,26847,0,[32.9833,39.2667],0,1],
 ["pl:q192860","Gallipoli","region",0,192860,0,[26.45,40.35],0,1],
 ["pl:q213651","Gandhara","region",0,213651,0,[72.8291,33.756],0,1],
 ["pl:q1363661","Gaoping","region",0,1363661,0,[112.9259,35.7911],0,1],

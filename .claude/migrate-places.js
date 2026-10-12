@@ -243,7 +243,7 @@ function kindOf(cache, classes) {
      destination" is a mountain. Only the clean natural rows are read this way. */
   for (const [kind, sub, tops] of TOPS) if (DIRECT_NATURAL.includes(kind) && classes.some((c) => tops.includes(c))) return { kind, sub };
   const others = classes.filter((c) => c !== Q_POLIS);
-  if (others.length !== classes.length) { const k = first(reachedOf(others)); if (k && k.kind !== "polity" && k.kind !== "people") return k; return { kind: "site", sub: "site" }; }
+  if (others.length !== classes.length) { const k = first(reachedOf(others)); if (k && k.kind !== "polity" && k.kind !== "people" && k.kind !== "culture") return k; return { kind: "site", sub: "site" }; }
   return first(reachedOf(classes));
 }
 /* a candidate that is not a place at all (3a's own rule, stated once): every class it has is one of these — a mint, a diocese, a
@@ -338,7 +338,7 @@ function makeResolver(reg, cache, mergedQ) {
     const r = radiusOf(t.kind);
     // 1. the gazetteer (and the places already in the registry) by name, kind-compatible, within the radius
     const near = [];
-    for (const n of nameParts(t)) for (const row of (reg.byName.get(fold(n)) || [])) { if (row.kind === "polity" || row.kind === "people") continue; if (!kindOk(t.kind, row.kind)) continue; if (!t.at) { near.push({ row, d: null }); continue; } if (!row.at) continue; const d = km(row.at, t.at); if (d <= r && !near.some((x) => x.row === row)) near.push({ row, d }); }
+    for (const n of nameParts(t)) for (const row of (reg.byName.get(fold(n)) || [])) { if (row.kind === "polity" || row.kind === "people" || row.kind === "culture") continue; if (!kindOk(t.kind, row.kind)) continue; if (!t.at) { near.push({ row, d: null }); continue; } if (!row.at) continue; const d = km(row.at, t.at); if (d <= r && !near.some((x) => x.row === row)) near.push({ row, d }); }
     if (near.length === 1) return { id: near[0].row.id, via: reg.source(near[0].row.id), d: near[0].d };
     if (near.length > 1) {
       const rankOf = (id) => { const sName = reg.source(id); return sName === "gazetteer" ? 0 : sName === "places" ? 1 : 2; };
@@ -614,9 +614,9 @@ function run() {
   for (const [id, row] of Object.entries(newRows)) { const ts = topoById.get(id) || []; for (const t of ts) { const w = mapId(withinOf(t)); if (w && w !== id) { row.within = w; break; } } }
   const withinOnly = [];   // a locator whose place is unresolved but whose `within` city resolves: the card gets the city, and the report says so
   /* the cards' places */
-  const entByKey = new Map(); for (const e of reg.entities) if (e.kind === "polity") entByKey.set(e.key, e);
-  const entByName = new Map(); for (const e of reg.entities) if (e.kind === "polity") entByName.set(fold(e.name), e);
-  const linkedCards = new Map(); for (const e of reg.entities) if (e.kind === "polity") for (const c of e.cards || []) { let l = linkedCards.get(c); if (!l) linkedCards.set(c, l = new Set()); l.add(e.id); }
+  const entByKey = new Map(); for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) entByKey.set(e.key, e);
+  const entByName = new Map(); for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) entByName.set(fold(e.name), e);
+  const linkedCards = new Map(); for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) for (const c of e.cards || []) { let l = linkedCards.get(c); if (!l) linkedCards.set(c, l = new Set()); l.add(e.id); }
   const per = {};   // per collection prefix
   const bump = (p, k) => { const o = per[p] || (per[p] = { cards: 0, old: 0, placed: 0, none: 0, byLocator: 0, byMap: 0, byWar: 0, byLink: 0, noneOld: [] }); o[k]++; return o; };
   const unresolvedWar = new Map(), unresolvedMap = new Map(), unresolvedLinks = new Set(), noPlaceOld = [];
@@ -645,7 +645,7 @@ function run() {
     const allIds = new Set(reg.rows.keys());
     for (const c of cards) { const have = new Set(Array.isArray(c.places) ? c.places : []); for (const id of have) { if (!R.validId(id)) bad(c.id + ": places carries \"" + id + "\", not a place id"); else if (!allIds.has(id)) bad(c.id + ": places carries " + id + ", which the registry does not resolve"); } const d = derived.get(c.id); if (d) for (const id of d) if (!have.has(id)) bad(c.id + ": the migration derives " + id + " but the card does not carry it (run node .claude/migrate-places.js)"); if (Array.isArray(c.places) && c.places.slice().sort().join() !== c.places.join()) bad(c.id + ": places is not sorted"); if (Array.isArray(c.places) && new Set(c.places).size !== c.places.length) bad(c.id + ": places has a duplicate"); }
     const byId = new Map(cards.map((c) => [c.id, c]));
-    for (const e of reg.entities) if (e.kind === "polity") for (const cid of e.cards || []) { const c = byId.get(cid); if (!c) bad(e.id + " links " + cid + ", which is not a card"); else if (!(c.places || []).includes(e.id)) bad(e.id + " links " + cid + " but the card's places lack it"); }
+    for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) for (const cid of e.cards || []) { const c = byId.get(cid); if (!c) bad(e.id + " links " + cid + ", which is not a card"); else if (!(c.places || []).includes(e.id)) bad(e.id + " links " + cid + " but the card's places lack it"); }
     for (const c of cards) for (const id of c.places || []) if (id.startsWith("pol:") && !(reg.cardsOf(id) || []).includes(c.id)) { /* a card may point at a polity the spec does not link (an author's addition): allowed, reported */ }
     { const rest = crossMerge([...new Set(cards.flatMap((c) => c.places || []))].filter((id) => !id.startsWith("pol:")).map((id) => ({ id })), reg, spec.rows || {}, spec.merges || {}, cache.links); for (const m of rest.list) bad("two places of one site: " + m.id + " " + m.name + " lies " + m.km + " km from " + m.into + " " + m.intoName + " (run node .claude/migrate-places.js, which folds it in)"); }
     const B = require("./atlas-build/build-places.js"); const r = B.build({ check: true, log: () => {} }); if (!r.ok) bad("places-spec.json and atlas/data/places.js are not in step: " + r.why + " (run node .claude/atlas-build/build-places.js --install)");
@@ -671,7 +671,7 @@ function run() {
     for (const [id, row] of Object.entries(rows)) {
       if (row.manual || row.forced || !row.evidence || !row.evidence.classes || !row.evidence.classes.length) continue;
       const k = kindOf(cache, row.evidence.classes);
-      if (!k || k.kind === "polity" || k.kind === "people" || !R.PLACE_KINDS.includes(k.kind)) continue;
+      if (!k || k.kind === "polity" || k.kind === "people" || k.kind === "culture" || !R.PLACE_KINDS.includes(k.kind)) continue;
       if (k.kind === "region" && /^(town|city|site)$/.test(row.kind)) continue;   // never degrade a settlement to a generic region
       if (k.kind !== row.kind || (k.sub || "") !== (row.sub || "")) { if (k.kind === "hill" && row.kind === "mountain") { if (!row.kindWas3c) row.kindWas3c = "mountain"; } else if (!row.kindWas) row.kindWas = row.kind + (row.sub ? "/" + row.sub : ""); row.kind = k.kind; row.sub = k.sub || ""; }
     }

@@ -353,7 +353,7 @@ function run() {
     badPartner ? bad("every contested entity names two existing partners", `${badPartner}`) : ok("every contested entity names two existing partners", `${H.entities.filter((e) => e.kind === "contested").length} contested entities`);
     let noWiki = H.entities.filter((e) => e.kind === "polity" && !e.wiki).map((e) => e.id);
     note(`polities without a Wikipedia title from the source: ${noWiki.length ? noWiki.join(", ") : "none"}`);
-    const cls = H.faceClass || []; if (cls.length !== T.faces.length) bad("every face has an uncertainty class"); else ok("every face has an uncertainty class", `approximate ${cls.filter((c) => c === 1).length}, nested ${cls.filter((c) => c === 5).length}, contested ${cls.filter((c) => c === 4).length}`);
+    const cls = H.faceClass || []; if (cls.length !== T.faces.length) bad("every face has an uncertainty class"); else ok("every face has an uncertainty class", `approximate ${cls.filter((c) => c === 1).length}, soft ${cls.filter((c) => c === 2).length}, nested ${cls.filter((c) => c === 5).length}, contested ${cls.filter((c) => c === 4).length}`);
     const acls = H.arcClass || []; if (acls.length !== nA) bad("every arc has an uncertainty class"); else ok("every arc has an uncertainty class", `firm ${acls.filter((c) => c === 0).length}, approximate ${acls.filter((c) => c === 1).length}`);
   }
   /* rings close */
@@ -379,7 +379,10 @@ function run() {
   }
   /* per epoch */
   const years = [...new Set(H.steps.flatMap((s) => [s[1], s[2] + 1]))].sort((a, b) => a - b);
-  const aliveAt = (y) => H.steps.filter((s) => s[1] <= y && s[2] >= y).map((s) => s[3]);
+  // Phase 2c: the STATE layer is the planar partition checked per epoch; a people or a culture is a presence over it (no border, no neighbour),
+  // checked on its own below
+  const isPres = (ei) => { const k = H.entities[ei] && H.entities[ei].kind; return k === "people" || k === "culture"; };
+  const aliveAt = (y) => H.steps.filter((s) => s[1] <= y && s[2] >= y && !isPres(s[0])).map((s) => s[3]);
   const arcVec = (p) => G.vec(p[0], p[1], Q);
   {
     let epochs = 0, borderBad = 0, borderOpenBad = 0, coastBad = 0, crossBad = 0, contestedBad = 0, sameSide = 0;
@@ -424,6 +427,51 @@ function run() {
     const COARSE_MEASURED = 1148, COARSE_BUDGET = Math.ceil(COARSE_MEASURED * 1.25); const fine = crossByLod[LODS - 1], coarse = crossBad - fine;
     (fine || coarse > COARSE_BUDGET) ? bad("per epoch: no two drawn segments of the alive faces cross at the finest level, and under " + COARSE_BUDGET + " at the coarser levels", `${crossBad} (${crossSites.size} distinct arc pairs × LOD; per LOD ${crossByLod.join("/")}); ${(verbose ? samples : samples.slice(0, 6)).filter((s) => s.startsWith("crossing")).join("; ")}`) : ok("per epoch: no two drawn segments of the alive faces cross at the finest level; coarser levels within budget", `${coarse} coarse-level crossings over all alive sets (budget ${COARSE_BUDGET}; per LOD ${crossByLod.join("/")}, ${crossSites.size} distinct arc pairs × LOD)`);
     contestedBad ? bad("per epoch: a contested face's partners are alive", `${contestedBad}`) : ok("per epoch: a contested face's partners are alive");
+  }
+  /* the PRESENCE layer (Phase 2c): peoples and cultures are drawn over the states with no border, so they are checked ALONE — the
+     state partition above ignores them. Every presence face is class SOFT; its ring is the coast (a core reference walked forward,
+     land on its left) and its own SOFT arcs, never a present-day border and never an own BORDER arc; each face is planar by itself at
+     every level (a soft edge crossing itself would fill twice); the entity carries its source, its cards and the audit's note. */
+  {
+    const presIdx = H.entities.map((e, i) => (e.kind === "people" || e.kind === "culture" ? i : -1)).filter((i) => i >= 0);
+    const faceSet = new Set(); for (const st of H.steps) if (isPres(st[0])) faceSet.add(st[3]);
+    const faces = [...faceSet].sort((a, b) => a - b);
+    let clsBad = 0, kindBad = 0, coastBack = 0, coastTwice = 0, srcBad = 0, entBad = 0, crossFine = 0, crossCoarse = 0; const samples = [];
+    const cls = H.faceClass || [], sources = H.sources || [];
+    for (const fi of faces) {
+      const f = T.faces[fi]; if (cls[fi] !== 2) clsBad++;
+      if (!sources[f.source]) srcBad++;
+      const seen = new Set();
+      for (const r of f.rings) for (const ref of r) {
+        const a = Math.abs(ref) - 1, k = T.arcKind[a];
+        if (k !== KIND.COAST && k !== KIND.SOFT) { kindBad++; if (samples.length < 4) samples.push(`face ${fi} (${H.entities[f.entity].id}) uses a kind-${k} arc ${a}`); }
+        if (k === KIND.COAST && ref < 0) coastBack++;
+        if (seen.has(a)) coastTwice++; seen.add(a);
+      }
+      const segs = [];
+      for (let L = 0; L < LODS; L++) {
+        const sg = [];
+        for (const a of seen) { const g = geom(a, L); for (let i = 1; i < g.length; i++) sg.push([a, g[i - 1], g[i]]); }
+        const idx = SegIndex.build(sg.length, Math.max(80, Math.round(0.2 / Q)), (k) => [sg[k][1][0], sg[k][1][1], sg[k][2][0], sg[k][2][1]]);
+        let n = 0; idx.pairs((p, q) => { const s1 = sg[p], t1 = sg[q]; const same = (u, v) => u[0] === v[0] && u[1] === v[1]; if (same(s1[1], t1[1]) || same(s1[1], t1[2]) || same(s1[2], t1[1]) || same(s1[2], t1[2])) return; if (G.segmentsCross(arcVec(s1[1]), arcVec(s1[2]), arcVec(t1[1]), arcVec(t1[2]))) n++; });
+        if (L === LODS - 1) crossFine += n; else crossCoarse += n;
+      }
+      void segs;
+    }
+    for (const i of presIdx) { const e = H.entities[i]; if (!e.span || !Array.isArray(e.cards) || !e.src || !sources.some((x) => x.id === e.src) || !e.note) entBad++; }
+    clsBad ? bad("presence: every face is class SOFT", `${clsBad}`) : ok("presence: every face is class SOFT", `${faces.length} faces of ${presIdx.length} presences`);
+    kindBad ? bad("presence: a face's arcs are the coast and its own soft edge, never a border", `${kindBad}; ${samples.join("; ")}`) : ok("presence: a face's arcs are the coast and its own soft edge, never a border");
+    coastBack ? bad("presence: every coast reference walks forward (land on its left)", `${coastBack}`) : ok("presence: every coast reference walks forward");
+    coastTwice ? bad("presence: no arc is used twice by one face", `${coastTwice}`) : ok("presence: no arc is used twice by one face");
+    srcBad ? bad("presence: every face names a header source", `${srcBad}`) : ok("presence: every face names a header source");
+    const PRES_COARSE_BUDGET = 40;
+    (crossFine || crossCoarse > PRES_COARSE_BUDGET) ? bad("presence: each face is planar by itself at the finest level, and under " + PRES_COARSE_BUDGET + " crossings at the coarser", `fine ${crossFine}, coarse ${crossCoarse}`) : ok("presence: each face is planar by itself at the finest level", `coarse residue ${crossCoarse} (budget ${PRES_COARSE_BUDGET})`);
+    entBad ? bad("presence: every entity has a span, its cards, a source of the header and the audit's note", `${entBad}`) : ok("presence: every entity has a span, its cards, a source of the header and the audit's note", presIdx.map((i) => H.entities[i].id.slice(4)).join(", "));
+    // the Yangshao and Longshan outlines are built from the pinned Hosner file: site-hulls.json records the hash it was built from
+    try {
+      const SH = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "site-hulls.json"), "utf8")), hs = sources.find((x) => x.id === "hosner-2016");
+      (hs && SH.source && SH.source.sha256 === hs.sha256 && SH.source.id === "hosner-2016") ? ok("presence: site-hulls.json was built from the pinned Hosner et al. (2016) file", hs.sha256.slice(0, 12) + "…") : bad("presence: site-hulls.json was built from the pinned Hosner et al. (2016) file", `${SH.source && SH.source.sha256} vs ${hs && hs.sha256}`);
+    } catch (e) { bad("presence: site-hulls.json reads", e.message); }
   }
   /* points */
   const unwrap = (pts) => { const n = pts.length, X = new Float64Array(n), Y = new Float64Array(n); let cum = pts[0][0]; X[0] = cum; Y[0] = pts[0][1]; for (let i = 1; i < n; i++) { let dx = pts[i][0] - pts[i - 1][0]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; cum += dx; X[i] = cum; Y[i] = pts[i][1]; } return { X, Y, n }; };

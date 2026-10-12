@@ -49,7 +49,7 @@ check("Athens resolves by folded name to the gazetteer's capital", (reg.byName.g
 check("Rome the polity is a row of kind polity with a span and cards", reg.rows.get("pol:rome") && reg.rows.get("pol:rome").kind === "polity" && Array.isArray(reg.rows.get("pol:rome").span) && reg.cardsOf("pol:rome").length > 0, reg.cardsOf("pol:rome").length + " cards");
 const { cards, tree } = loadCards();
 const cardIds = new Set(cards.map((c) => c.id));
-const linked = reg.entities.filter((e) => e.kind === "polity").flatMap((e) => e.cards || []);
+const linked = reg.entities.filter((e) => e.kind === "polity" || e.kind === "people" || e.kind === "culture").flatMap((e) => e.cards || []);
 check("every card a polity links is a real card", linked.every((id) => cardIds.has(id)), linked.length + " links");
 check("the places file, when present, is read as part of the registry", !fs.existsSync(R.PLACES) || [...reg.rows.keys()].some((id) => id.startsWith("pl:q")), fs.existsSync(R.PLACES) ? "present" : "absent");
 
@@ -263,7 +263,7 @@ console.log("\n3) the migration is additive\n");
   check("`places` never appears in data.js (it is a heavy field)", !/"places":/.test(light));
   const withPlaces = cards.filter((c) => Array.isArray(c.places));
   check("every places list on a card is sorted, distinct and resolves", withPlaces.every((c) => c.places.length && c.places.slice().sort().join() === c.places.join() && new Set(c.places).size === c.places.length && c.places.every((id) => reg.rows.has(id))), withPlaces.length + " cards carry places");
-  check("every card a polity links carries the polity", !withPlaces.length || reg.entities.filter((e) => e.kind === "polity").every((e) => (e.cards || []).every((id) => { const c = cards.find((x) => x.id === id); return !c || (c.places || []).includes(e.id); })), withPlaces.length ? "" : "no card carries places yet — the migration has not run");
+  check("every card a polity links carries the polity", !withPlaces.length || reg.entities.filter((e) => e.kind === "polity" || e.kind === "people" || e.kind === "culture").every((e) => (e.cards || []).every((id) => { const c = cards.find((x) => x.id === id); return !c || (c.places || []).includes(e.id); })), withPlaces.length ? "" : "no card carries places yet — the migration has not run");
 }
 
 console.log("\n4) the tooling refuses what it should\n");

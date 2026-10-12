@@ -8976,28 +8976,6 @@
    },
    "cards": 1
   },
-  "pl:q26847": {
-   "name": "Galatia",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q26847",
-   "at": [
-    32.9833,
-    39.2667
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Galatia",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q1620908"
-    ],
-    "via": "title",
-    "km": 74.5
-   },
-   "cards": 1
-  },
   "pl:q26857": {
    "name": "Aetolia",
    "kind": "region",

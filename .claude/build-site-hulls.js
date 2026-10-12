@@ -2,7 +2,7 @@
 /* build-site-hulls.js — outline an archaeological CULTURE from its dated sites, per phase, and write
    `.claude/site-hulls.json` for build-polities.js to ship.
 
-     node .claude/build-site-hulls.js --hosner=<hosner_2016.tab> [--dry]
+     node .claude/build-site-hulls.js --hosner=<hosner_2016.tab> [--dry] [--check]
 
    WHY (Oct 2026; docs/atlas-borders-audit.md, batch 4). A culture is not a polity, so Cliopatria has none
    of them, and a hand-drawn blob of nine points was all the atlas had. What open data DOES have is sites:
@@ -33,7 +33,7 @@
 const fs = require("fs"), path = require("path");
 const OUT = path.join(__dirname, "site-hulls.json");
 const args = process.argv.slice(2);
-const DRY = args.includes("--dry");
+const DRY = args.includes("--dry"), CHECK = args.includes("--check");
 const arg = (k) => { const a = args.find((x) => x.startsWith("--" + k + "=")); return a ? a.slice(k.length + 3) : null; };
 const die = (m) => { console.error("ERROR: " + m); process.exit(1); };
 
@@ -161,6 +161,15 @@ for (const k of Object.keys(SPEC)) {
     if (rings.length) steps.push([st.from, st.to, rings]);
   }
   out.hulls[k] = { n: SPEC[k].label, s: steps };
+}
+/* Phase 2c: the file records WHICH bytes it was built from (the pin in atlas-build/sources.json, "hosner-2016"), so the history
+   builder can check the outlines against the pin without the 5.9 MB source. --check rebuilds in memory and compares. */
+out.source = { id: "hosner-2016", sha256: require("crypto").createHash("sha256").update(fs.readFileSync(src)).digest("hex") };
+if (CHECK) {
+  const have = fs.existsSync(OUT) ? fs.readFileSync(OUT, "utf8") : "";
+  const ok = have === JSON.stringify(out) + "\n";
+  console.log(ok ? "site-hulls.json is what build-site-hulls.js makes from " + out.source.sha256.slice(0, 12) + "…" : "STALE: site-hulls.json differs from what the pinned source builds");
+  process.exit(ok ? 0 : 1);
 }
 if (DRY) { console.log("dry run"); process.exit(0); }
 fs.writeFileSync(OUT, JSON.stringify(out) + "\n");
