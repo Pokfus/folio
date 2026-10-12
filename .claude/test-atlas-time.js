@@ -53,7 +53,7 @@ const C = (page, fn, arg) => page.evaluate(fn, arg);
 const HB = F.read(fs.readFileSync(path.join(ROOT, "atlas/data/history.bin")));
 const H = HB.header;
 const stepsOf = new Map(); for (const st of H.steps) { let l = stepsOf.get(st[0]); if (!l) stepsOf.set(st[0], l = []); l.push(st); }
-const isPresence = (ei) => H.entities[ei].kind === "people" || H.entities[ei].kind === "culture";   // 2c: the states' alive set (controller `alive()`); the presences are `presence()`
+const isPresence = (ei) => H.entities[ei].kind === "people" || H.entities[ei].kind === "culture" || H.entities[ei].kind === "extent" || H.entities[ei].kind === "front";   // 2c: the states' alive set (controller `alive()`); the presences are `presence()`
 const aliveFacesAt = (y) => H.steps.filter((s) => s[1] <= y && s[2] >= y && !isPresence(s[0])).map((s) => s[3]).sort((a, b) => a - b);
 const entIndex = (id) => H.entities.findIndex((e) => e.id === id);
 const fmt = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");   // atlas.js fmtYear (every year with its era since 2b)
@@ -197,7 +197,7 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
     check("] and [ step between the change years of what is on screen", y1 === next && y2a === prev1 && y2 === prev2, `ticks ${ys.length}; ] → ${y1} (next ${next}), [ → ${y2a} (prev ${prev1}), [ → ${y2} (prev ${prev2})`);
     await page.focus(".atlas2-canvas"); await page.keyboard.press("]"); const y3 = await C(page, () => document.querySelector(".atlas2").__atlas2.year());
     check("] on the globe too", y3 === ys.find((y) => y > y2), String(y3));
-    check("the ticks are the change years on screen, every one a year of a step on screen", ys.length > 5 && ys.every((y) => H.steps.some((s) => s[1] === y || s[2] + 1 === y) || y === 2022), `${ys.length} ticks`);
+    check("the ticks are the change years on screen, every one a year of a step on screen", ys.length > 5 && ys.every((y) => H.steps.some((s) => s[1] === y || s[2] + 1 === y) || y === 2022), `${ys.length} ticks` + (ys.filter((y) => !(H.steps.some((s) => s[1] === y || s[2] + 1 === y) || y === 2022)).length ? "; not a step year: " + ys.filter((y) => !(H.steps.some((s) => s[1] === y || s[2] + 1 === y) || y === 2022)).slice(0, 12).join(",") : ""));
     // the year entry
     for (const [text, want] of [["500 BCE", -500], ["1066", 1066], ["-44", -44], ["AD 70", 70], ["44 CE", 44], ["300 BC", -300]]) {
       await page.fill(".atlas2-rail-year", text); await page.keyboard.press("Enter"); await sleep(60);
