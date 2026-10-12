@@ -14,8 +14,8 @@
 
    A polity's RANGES are its steps (history.bin `steps`) with consecutive and overlapping ones joined — a gap between two ranges is a
    real gap in the map (Cliopatria has none for that polity in those years), so the search may offer the next range's first year and
-   never a year between. Nothing is typed: a pure function of history.bin's header, byte-identical on every run. Only kind `polity`
-   (152 of the 194 entities; the contested and nested ones are not places a reader looks for by name).
+   never a year between. Nothing is typed: a pure function of history.bin's header, byte-identical on every run. Kinds `polity`, `people` and `culture`
+   (the contested and nested entities are not places a reader looks for by name; a people's or a culture's row carries its kind as an eighth element).
 
    SOURCES. The first line is the `sources` header every generated file under atlas/data/ carries: Cliopatria (the names and years) and
    Wikidata (the capitals), copied from history.bin's own header.
@@ -39,9 +39,11 @@ function indexOf(H) {
   };
   const polities = [];
   (H.entities || []).forEach((e, i) => {
-    if (e.kind !== "polity") return;
+    if (e.kind !== "polity" && e.kind !== "people" && e.kind !== "culture") return;   // 2c: a people or a culture is found by name too (element 7 says which)
     const ranges = rangesOf(i);
-    polities.push([e.id, e.name, (e.sourceNames || []).filter((n) => n !== e.name), e.span ? e.span[0] : ranges.length ? ranges[0][0] : 0, e.span ? e.span[1] : ranges.length ? ranges[ranges.length - 1][1] : 0, ranges, e.qid || ""]);
+    const row = [e.id, e.name, (e.sourceNames || []).filter((n) => n !== e.name), e.span ? e.span[0] : ranges.length ? ranges[0][0] : 0, e.span ? e.span[1] : ranges.length ? ranges[ranges.length - 1][1] : 0, ranges, e.qid || ""];
+    if (e.kind !== "polity") row.push(e.kind);
+    polities.push(row);
   });
   polities.sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
   const have = new Set(polities.map((p) => p[0]));

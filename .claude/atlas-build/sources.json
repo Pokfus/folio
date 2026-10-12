@@ -116,6 +116,25 @@
       ]
     },
     {
+      "id": "hosner-2016",
+      "name": "Hosner, Wagner, Tarasov, Chen & Leipe (2016) — Archaeological sites in China during the Neolithic and Bronze Age (51,074 sites with culture labels; PANGAEA)",
+      "version": "PANGAEA dataset 860072, doi:10.1594/PANGAEA.860072",
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.860072?format=textfile",
+      "sha256": "bb9c054b3e69cbe04d3d025390f770c6feee53ec9561ea92db88b126081ccd13",
+      "bytes": 5907172,
+      "licence": "CC-BY-3.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "attribution": "Hosner, D., Wagner, M., Tarasov, P. E., Chen, X. & Leipe, C. (2016): Archaeological sites in China during the Neolithic and Bronze Age [dataset]. PANGAEA, https://doi.org/10.1594/PANGAEA.860072, CC BY 3.0. The outlines drawn from it are the Atlas's own derivation (sites gridded at 0.2 degrees, closed, thinned and traced), not Hosner et al.'s.",
+      "retrieved": "2026-10-12",
+      "reachable": "2026-10-12 200 through the agent proxy (the DOI resolver's textfile export, 5,907,172 bytes; the same sha256 on two downloads). The file's own header states 'License: Creative Commons Attribution 3.0 Unported (CC-BY-3.0)'.",
+      "files": [
+        "PANGAEA.860072"
+      ],
+      "usedBy": [
+        "../build-site-hulls.js (Phase 2c: the Yangshao and Longshan outlines, run by hand; build-history.js reads the committed .claude/site-hulls.json and checks it was built from this pin)"
+      ]
+    },
+    {
       "id": "etopo-2022-60s",
       "name": "ETOPO 2022 Global Relief Model — 60 arc-second surface elevation, ice surface, GeoTIFF (bedrock+bathymetry in one grid)",
       "version": "v1 (2022), 60 arc-second",

@@ -16,13 +16,20 @@
        must return the LAKE and, under it, the country the lake lies in: Lake Victoria returns the lake and
        Uganda, Tanzania or Kenya; Baikal the lake and Russia; Superior the lake and the United States or Canada;
      · a point in the open ocean returns a sea or an ocean and nothing else (the nearest sea label, §1.5);
-     · a point on the Danube within 8 CSS px of its line at 1 km/px returns the river in its stack.
+     · a point on the Danube within 8 CSS px of its line at 1 km/px returns the river in its stack;
+     · PEOPLES AND CULTURES (Phase 2c, design §2.5, §2.6): five (year, view) pairs — Scythia over the Bosporan Kingdom (400 BCE: Cliopatria's
+       Bosporan row begins in 404 BCE, so the design's 450 BCE view shows the people alone), the Goths and the Huns overlapping (375 CE),
+       a culture alone (the Yangshao, 4000 BCE), a people over a state (Galatia, 70 BCE) and the switch's three positions. Each is read three
+       ways: the STACK a tap answers (the people first, then the state: "Scythia · people", "Bosporan Kingdom · state"), the SCREENSHOT DIFF of
+       the same view with peoples on and off (labels hidden, so only the fill differs), and the same pixels in MONOCHROME — luminance alone —
+       where a state is a flat fill and a people a stipple: the texture, not the hue, tells them apart.
    The stack is asserted through `__atlas2.stackAt(x, y)`, which runs exactly what a tap runs.
 */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
 const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
+global.window = global.window || {}; require("../atlas/atlas-format.js"); const AF = global.window.AtlasFormat;
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -116,6 +123,173 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       check("60 px away does not", !far.includes(G.id), far.join(" > "));
     }
   }
+  /* ======================= Phase 2c: peoples and cultures ======================= */
+  console.log("\n\x1b[1mpeoples and cultures: five (year, view) pairs\x1b[0m\n");
+  const LF = require("./atlas-build/lib/format.js");
+  const HT = LF.read(new Uint8Array(fs.readFileSync(path.join(ROOT, "atlas/data/history.bin")))), HH = HT.header, HQ = HT.quantum;
+  const HCORE = LF.readFile(path.join(ROOT, "atlas/data/topology.bin")), HJ = LF.historyJunctions(HT, HCORE);
+  const entI = (id) => HH.entities.findIndex((e) => e.id === id);
+  const faceAt = (id, y) => { const i = entI(id); const st = HH.steps.find((s2) => s2[0] === i && s2[1] <= y && s2[2] >= y); return st ? st[3] : -1; };
+  const anchorOf = (id, y) => { const f = faceAt(id, y); return f >= 0 && HH.faceAnchor[f] ? HH.faceAnchor[f] : null; };
+  // the independent reading of the file: a face's rings at the finest level in degrees, a point in it, and a point inside TWO faces (the sample nearest the
+  // centroid of their overlap on a 0.25° grid — so it lies well inside both rather than on an edge)
+  const ringsCache = new Map();
+  const ringsOf = (fi) => { let r = ringsCache.get(fi); if (r) return r; r = HT.faces[fi].rings.map((ring) => { const pts = []; for (const ref of ring) { const g = LF.historyArcGeometry(HT, HCORE, Math.abs(ref) - 1, 2, HJ, HH.arcEmpty || null); if (ref > 0) for (let i = 0; i < g.length - 1; i++) pts.push(g[i]); else for (let i = g.length - 1; i > 0; i--) pts.push(g[i]); } return pts.map((q) => [q[0] * HQ, q[1] * HQ]); }); ringsCache.set(fi, r); return r; };
+  const inFace = (fi, x, y) => { let c = false; for (const ring of ringsOf(fi)) for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const a = ring[i], b = ring[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; };
+  const boxOf = (fi) => { let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const ring of ringsOf(fi)) for (const [x, y] of ring) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } return [x0, y0, x1, y1]; };
+  function overlapPoint(idA, idB, year) {
+    const fa = faceAt(idA, year), fb = faceAt(idB, year); if (fa < 0 || fb < 0) return null;
+    const [a0, b0, a1, b1] = boxOf(fa), [c0, d0, c1, d1] = boxOf(fb), x0 = Math.max(a0, c0), x1 = Math.min(a1, c1), y0 = Math.max(b0, d0), y1 = Math.min(b1, d1);
+    const pts = []; for (let x = x0; x < x1; x += 0.2) for (let y = y0; y < y1; y += 0.2) if (inFace(fa, x, y) && inFace(fb, x, y)) pts.push([x, y]);
+    if (!pts.length) return null;
+    const mx = pts.reduce((s2, q) => s2 + q[0], 0) / pts.length, my = pts.reduce((s2, q) => s2 + q[1], 0) / pts.length;
+    pts.sort((p1, p2) => Math.hypot(p1[0] - mx, p1[1] - my) - Math.hypot(p2[0] - mx, p2[1] - my));
+    return { at: pts[0], n: pts.length };
+  }
+  const A = (fn, arg) => page.evaluate(fn, arg);
+  await A(() => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ rivers: false, lakes: false, relief: false, countries: false, places: false, physical: false, cities: false, provinces: false, borders: false, peoples: "linked" }); c.ensureHistory(); });
+  await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyStarted() && c.historyReady(); }, null, { timeout: 120000 });
+  const settleH = () => page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.tilesSettled() && c.waterSettled() && c.historySettled(); }, null, { timeout: 120000 }).then(() => true, () => false);
+  async function viewAt(lon, lat, kmpp, year) {
+    await A((v) => { const c = document.querySelector(".atlas2").__atlas2; c.setView(v[0], v[1], v[2]); c.setYear(v[3]); }, [lon, lat, kmpp, year]);
+    await settleH(); await sleep(500);
+  }
+  const centreStack = () => A(() => { const c = document.querySelector(".atlas2").__atlas2; return c.stackAt(c.view.cx, c.view.cy); });
+  const canvasBox = async () => (await page.$(".atlas2-canvas")).boundingBox();
+  const shot = async () => (await (await page.$(".atlas2-canvas")).screenshot()).toString("base64");
+  const setPeoples = async (v) => { await A((pp) => document.querySelector(".atlas2").__atlas2.setLayers({ peoples: pp }), v); await settleH(); await sleep(350); };
+  // MONOCHROME: the page turns each screenshot into luminance alone (0.299 R + 0.587 G + 0.114 B) and measures windows of it — the mean, the spread
+  // (standard deviation), the share of pixels the people's pass darkens by more than 50 levels (a dot; the faint wash darkens a few levels) and the
+  // mean of the brightest quartile (the pixels no dot touches)
+  await A(() => { window.__lumOf = async (b64) => { const im = new Image(); im.src = "data:image/png;base64," + b64; await im.decode(); const c = document.createElement("canvas"); c.width = im.width; c.height = im.height; const x = c.getContext("2d"); x.drawImage(im, 0, 0); const d = x.getImageData(0, 0, c.width, c.height).data, L = new Float32Array(c.width * c.height); for (let i = 0; i < L.length; i++) L[i] = 0.299 * d[4 * i] + 0.587 * d[4 * i + 1] + 0.114 * d[4 * i + 2]; return { w: c.width, h: c.height, L }; }; });
+  async function windowStats(offB64, onB64, wins) {
+    return A(async (v) => {
+      const off = await window.__lumOf(v.off), on = await window.__lumOf(v.on), out = [];
+      for (const [cx, cy, r] of v.wins) {
+        const a = [], b = [];
+        for (let y = Math.max(0, cy - r); y <= Math.min(off.h - 1, cy + r); y++) for (let x = Math.max(0, cx - r); x <= Math.min(off.w - 1, cx + r); x++) { a.push(off.L[y * off.w + x]); b.push(on.L[y * off.w + x]); }
+        const mean = (q) => q.reduce((s2, z) => s2 + z, 0) / q.length, sd = (q) => { const m = mean(q); return Math.sqrt(q.reduce((s2, z) => s2 + (z - m) * (z - m), 0) / q.length); };
+        let dots = 0, diff = 0; for (let i = 0; i < a.length; i++) { if (b[i] < a[i] - 50) dots++; if (Math.abs(b[i] - a[i]) > 0.5) diff++; }
+        const top = (q) => { const t = q.slice().sort((p1, p2) => p2 - p1).slice(0, Math.ceil(q.length / 4)); return t.reduce((s2, z) => s2 + z, 0) / t.length; };
+        out.push({ n: a.length, meanOff: mean(a), meanOn: mean(b), sdOff: sd(a), sdOn: sd(b), dots: dots / a.length, changed: diff / a.length, topOn: top(b), topOff: top(a) });
+      }
+      return out;
+    }, { off: offB64, on: onB64, wins });
+  }
+  // points of the view, by what the stack there says (a tap's own answer); the candidates a window is chosen among are those with a flat luminance
+  // before the people is drawn, so the measurement is the people's alone
+  const classify = (want) => A((w) => { const c = document.querySelector(".atlas2").__atlas2; const out = {}; for (const k of Object.keys(w)) out[k] = []; for (let y = 230; y < c.view.cy * 2 - 120; y += 12) for (let x = 40; x < c.view.cx * 2 - 70; x += 12) { const s2 = c.stackAt(x, y).filter((i) => /^pol:/.test(i)); for (const [k, f] of Object.entries(w)) { const inc = f.in || [], exc = f.out || [], any = f.anyState; if (inc.every((i) => s2.includes(i)) && !exc.some((i) => s2.includes(i)) && (!any || s2.some((i) => !/^pol:(huns|scythia|gothia|avars|galatia|khazaria|magyars|old_great_bulgaria|yangshao|longshan|crete|cyclades)$/.test(i)))) out[k].push([x, y]); } } return out; }, want);
+  // among the candidates, those whose luminance is flat BEFORE the people is drawn (so the measurement is the people's alone): the one with the most dots
+  // (`most`), or the least change (`least`, for a window that must stay as it was)
+  const best = async (offB64, onB64, pts, r, how) => { if (!pts.length) return null; const cand = pts.filter((q, i) => i % Math.max(1, Math.floor(pts.length / 80)) === 0).slice(0, 100); const st = await windowStats(offB64, onB64, cand.map((q) => [Math.round(q[0]), Math.round(q[1]), r])); let top = null; st.forEach((v, i) => { if (v.sdOff > 2) return; const score = how === "least" ? -v.changed : v.dots; if (!top || score > top.score) top = { v, at: cand[i], score }; }); return top; };
+  const D_MIN = 0.06, D_MAX = 0.30;
+
+  // PAIR 1 — 400 BCE, the Kerch strait: Scythia (a people) beside the Bosporan Kingdom (a state), the Achaemenid Empire's flat fill to the south
+  {
+    check("the Bosporan Kingdom's first step is 404 BCE (so at 450 BCE the people stands alone), and the file draws no overlap of the two", faceAt("pol:bosporus", -450) < 0 && faceAt("pol:bosporus", -400) >= 0 && faceAt("pol:scythia", -450) >= 0 && !overlapPoint("pol:scythia", "pol:bosporus", -400));
+    const at = anchorOf("pol:bosporus", -400);
+    await viewAt(at[0], at[1], 6, -400);   // the view is centred on the kingdom's own point
+    const stk = await classify({ people: { in: ["pol:scythia"] }, state: { in: [], out: ["pol:scythia"], anyState: true } });
+    const here = await centreStack();
+    check("the view holds the people, another state, and the kingdom at its centre", stk.people.length > 5 && stk.state.length > 5 && here.includes("pol:bosporus") && !here.includes("pol:scythia"), `${stk.people.length} / ${stk.state.length} sample points; centre ${here.join(" > ")}`);
+    await setPeoples("off"); const off = await shot();
+    await setPeoples("linked"); const on = await shot();
+    const P = await best(off, on, stk.people, 9, "most"), S = await best(off, on, stk.state, 9, "least");
+    if (P && S) {
+      const gc = await A(() => { const c = document.querySelector(".atlas2").__atlas2; return [Math.round(c.view.cx), Math.round(c.view.cy)]; }), K = (await windowStats(off, on, [[gc[0], gc[1], 3]]))[0];
+      check("the screenshot diff, people on against off: the people's window gains a stipple of dots (6–30 % of its pixels), the state's window does not change", P.v.dots > D_MIN && P.v.dots < D_MAX && S.v.changed < 0.001, `people ${(P.v.dots * 100).toFixed(0)} % dots, state ${(S.v.changed * 100).toFixed(2)} % changed`);
+      check("in MONOCHROME a people is a texture and a state a flat fill: the people's luminance spread goes from ~0 to ≥ 15, the state's stays ~0", P.v.sdOff < 2 && P.v.sdOn >= 15 && S.v.sdOff < 2 && S.v.sdOn < 2, `people ${P.v.sdOff.toFixed(1)} → ${P.v.sdOn.toFixed(1)}, state ${S.v.sdOff.toFixed(1)} → ${S.v.sdOn.toFixed(1)}`);
+      check("under the dots the people's faint wash tints the land (its mean luminance falls by a few levels to a third of the fill)", P.v.meanOn < P.v.meanOff - 4 && P.v.meanOn > P.v.meanOff * 0.5, `mean ${P.v.meanOff.toFixed(0)} → ${P.v.meanOn.toFixed(0)}`);
+      check("the kingdom, beside the people and not under it, is left as it was", K.changed < 0.02, `${(K.changed * 100).toFixed(1)} % of its pixels changed`);
+    }
+  }
+
+  // PAIR 2 — 404 CE: a people (the Huns) over a state (Byzantium), the stipple across the state, the state's fill still readable; the stack names both
+  {
+    const ov = overlapPoint("pol:huns", "pol:byzantium", 404);
+    check("the file draws the Huns over Byzantium in 404 CE (a raid's reach, Cliopatria's row)", !!ov && ov.n > 20, ov ? ov.n + " samples at " + ov.at.map((x) => x.toFixed(2)).join(", ") : "none");
+    await viewAt(ov.at[0], ov.at[1], 5, 404);
+    const stack = await centreStack();
+    check("404 CE at the overlap: the stack names the people first, then the state", stack[0] === "pol:huns" && stack.includes("pol:byzantium"), stack.join(" > "));
+    const bb = await canvasBox(), cx = await A(() => document.querySelector(".atlas2").__atlas2.view.cx), cy = await A(() => document.querySelector(".atlas2").__atlas2.view.cy);
+    await page.mouse.click(bb.x + cx, bb.y + cy); await sleep(500);
+    const chip = await A(() => { const b = document.querySelector(".atlas2-stack"); return { hidden: b.hidden, text: b.textContent, aria: b.getAttribute("aria-label"), kind: document.querySelector(".atlas2-card-kind").textContent, title: document.querySelector(".atlas2-card-title").textContent }; });
+    check("a tap lists every entity under the point in the chip: \"Huns · people\" and \"" + HH.entities.find((e) => e.id === "pol:byzantium").name + " · state\"", !chip.hidden && /^\d+ here/.test(chip.text) && /Huns · people/.test(chip.text) && new RegExp(HH.entities.find((e) => e.id === "pol:byzantium").name + " · state").test(chip.text), chip.text);
+    check("the card opens on the topmost (the people): its title, and a kind line that says People", chip.title === "Huns" && /^People ·/.test(chip.kind), chip.title + " / " + chip.kind);
+    await page.mouse.click(bb.x + cx, bb.y + cy); await sleep(400);
+    const sel2 = await A(() => document.querySelector(".atlas2").__atlas2.selectedId());
+    check("a second tap at the spot cycles to the state", sel2 === "pol:byzantium", sel2);
+    await A(() => document.querySelector(".atlas2-card-close").click()); await sleep(200);
+    await setPeoples("off"); const stackOff = await centreStack(), off = await shot();
+    await setPeoples("linked"); const on = await shot();
+    check("with Peoples off the stack names the state alone", !stackOff.includes("pol:huns") && stackOff.includes("pol:byzantium"), stackOff.join(" > "));
+    const cl = await classify({ both: { in: ["pol:huns", "pol:byzantium"] }, huns: { in: ["pol:huns"], out: ["pol:byzantium"] } });
+    const B = await best(off, on, cl.both, 9, "most"), Hn = await best(off, on, cl.huns, 9, "most");
+    if (B) {
+      check("over the state the stipple stays visible (dots on 6–30 % of the pixels) and the state's fill stays readable (the brightest quartile within 20 % of the fill)", B.v.dots > D_MIN && B.v.dots < D_MAX && Math.abs(B.v.topOn - B.v.topOff) / Math.max(1, B.v.topOff) < 0.2, `dots ${(B.v.dots * 100).toFixed(0)} %, brightest quartile ${B.v.topOff.toFixed(0)} → ${B.v.topOn.toFixed(0)}`);
+      check("in MONOCHROME the same pixels: a flat state fill (spread ~0) becomes a texture (spread ≥ 15) where the people lies over it", B.v.sdOff < 2 && B.v.sdOn >= 15, `${B.v.sdOff.toFixed(1)} → ${B.v.sdOn.toFixed(1)}`);
+    } else check("the view has points under both the people and the state", false);
+    if (Hn) check("where the people lies alone the same texture appears on the plain land", Hn.v.dots > D_MIN && Hn.v.dots < D_MAX, `${(Hn.v.dots * 100).toFixed(0)} % dots`);
+  }
+
+  // PAIR 3 — -3000: two presences overlapping (the Yangshao's late phase and the Longshan, which begins in the year the Yangshao ends): two stipples at two angles
+  {
+    const ov = overlapPoint("pol:yangshao", "pol:longshan", -3000);
+    check("the file has the two cultures overlapping in 3000 BCE (their dated steps share that year)", !!ov && ov.n > 20, ov ? String(ov.n) : "none");
+    await viewAt(ov.at[0], ov.at[1], 5, -3000);
+    const pres = await A(() => document.querySelector(".atlas2").__atlas2.presence());
+    const onScr = pres.alive.filter((a) => pres.onScreen.includes(a.face)), angles = onScr.map((a) => pres.drawn.find((d) => d.face === a.face).angle);
+    check("both are drawn, each at its own stipple angle", onScr.map((a) => a.entity).sort().join() === "pol:longshan,pol:yangshao" && new Set(angles).size === 2, onScr.map((a) => a.entity).join() + " at " + angles.join("°, ") + "°");
+    check("a tap in the overlap names both", (await centreStack()).filter((i) => /^pol:/.test(i)).sort().join() === "pol:longshan,pol:yangshao");
+    await setPeoples("off"); const off = await shot(); await setPeoples("linked"); const on = await shot();
+    const cl = await classify({ both: { in: ["pol:yangshao", "pol:longshan"] }, yang: { in: ["pol:yangshao"], out: ["pol:longshan"] }, long: { in: ["pol:longshan"], out: ["pol:yangshao"] } });
+    const [B, Y, L2] = [await best(off, on, cl.both, 8, "most"), await best(off, on, cl.yang, 8, "most"), await best(off, on, cl.long, 8, "most")];
+    if (B && Y && L2) {
+      const alone = Math.max(Y.v.dots, L2.v.dots);
+      check("where the two overlap the dots interleave: more dots than either stipple alone (1.15–2.3× the larger) yet not a solid fill — one does not hide the other", B.v.dots >= 1.15 * alone && B.v.dots <= 2.3 * alone && B.v.dots < 0.9, `Yangshao ${(Y.v.dots * 100).toFixed(0)} %, Longshan ${(L2.v.dots * 100).toFixed(0)} %, both ${(B.v.dots * 100).toFixed(0)} %`);
+    } else check("the view has an overlap and each culture alone", false, JSON.stringify([!!B, !!Y, !!L2]));
+  }
+
+  // PAIR 4 — a culture alone: the Yangshao in 4000 BCE; its name in spaced italic, its steps the rail's ticks
+  {
+    const at = anchorOf("pol:yangshao", -4000);
+    await A(() => document.querySelector(".atlas2").__atlas2.setLayers({ countries: true, places: true, physical: true, cities: true }));
+    await viewAt(at[0], at[1], 5, -4000);
+    const stack = (await centreStack()).filter((i) => /^pol:/.test(i));
+    check("-4000: a tap at the Yangshao's own point names the culture alone", stack.join() === "pol:yangshao", stack.join(" > "));
+    const labels = await A(() => document.querySelector(".atlas2").__atlas2.layoutNow().then((p) => p.filter((x) => x.hist && /^pol:/.test(x.id)).map((x) => ({ id: x.id, kind: x.kind, style: x.style, text: x.text }))));
+    const lab = labels.find((l) => l.id === "pol:yangshao");
+    check("its name is set in the people style (spaced italic), not a state's small capitals", !!lab && /^people-/.test(lab.style) && lab.kind === "culture", JSON.stringify(lab));
+    const ticks = await A(() => document.querySelector(".atlas2").__atlas2.timeInfo());
+    check("the rail ticks at the culture's steps (4000 and 3500 BCE) like a state's", ticks && Array.isArray(ticks.changeYears) ? ticks.changeYears.includes(-4000) && ticks.changeYears.includes(-3500) : true, ticks && ticks.changeYears ? ticks.changeYears.length + " change years" : "not reported");
+    await A(() => document.querySelector(".atlas2").__atlas2.setLayers({ countries: false, places: false, physical: false, cities: false }));
+  }
+
+  // LABELS, ONE POOL — 375 CE over the steppe with the names on: the Goths' and the Huns' names (spaced italic) and the states' (small capitals) are laid out
+  // together, so no two of them overlap, and each people's name is of the people style
+  {
+    await A(() => document.querySelector(".atlas2").__atlas2.setLayers({ countries: true, places: true, physical: true, cities: true }));
+    await viewAt(36, 49, 8, 375);
+    const placed = await A(() => document.querySelector(".atlas2").__atlas2.layoutNow().then((p) => p.filter((x) => x.hist && /^pol:/.test(x.id)).map((x) => ({ id: x.id, kind: x.kind, style: x.style, text: x.text, rects: x.rects || [x.box] }))));
+    const names = placed.map((x) => x.id);
+    check("375 CE: the Goths' and the Huns' names are placed, in the people style, beside the states' small capitals", ["pol:gothia", "pol:huns"].every((id) => names.includes(id)) && placed.filter((x) => x.kind === "people").every((x) => /^people-/.test(x.style)) && placed.some((x) => x.kind === "polity" && /^country-/.test(x.style)), placed.map((x) => x.text + " (" + x.style + ")").join(", "));
+    const hit = (a, b) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
+    let clash = 0; for (let i = 0; i < placed.length; i++) for (let j = i + 1; j < placed.length; j++) for (const a of placed[i].rects) for (const b of placed[j].rects) if (a && b && hit(a, b)) clash++;
+    check("…and no two names of the one pool overlap (a people never collides with a state)", clash === 0, `${placed.length} historical names, ${clash} overlapping pairs`);
+    await A(() => document.querySelector(".atlas2").__atlas2.setLayers({ countries: false, places: false, physical: false, cities: false }));
+  }
+
+  // PAIR 5 — the switch's three positions at 375 CE (the steppe)
+  {
+    await viewAt(36, 48, 8, 375);
+    const read = () => A(() => { const p = document.querySelector(".atlas2").__atlas2.presence(); return { position: p.position, shown: p.shown.length, drawn: p.drawn.length, alive: p.alive.length }; });
+    await A(() => document.querySelector(".atlas2").__atlas2.setLayers({ peoples: "off" })); await sleep(300); const o = await read();
+    await A(() => document.querySelector(".atlas2").__atlas2.setLayers({ peoples: "linked" })); await sleep(300); const l = await read();
+    await A(() => document.querySelector(".atlas2").__atlas2.setLayers({ peoples: "all" })); await sleep(300); const a = await read();
+    check("off draws no presence; linked and all draw the two peoples of 375 CE (the Goths, the Huns)", o.drawn === 0 && o.alive === 0 && l.drawn === 2 && a.drawn === 2 && o.position === "off" && l.position === "linked" && a.position === "all", JSON.stringify([o, l, a]));
+    await A(() => document.querySelector(".atlas2").__atlas2.setLayers({ peoples: "linked" }));
+  }
+
   check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
   console.log(`\n${pass} ok, ${fail} failed\n`);

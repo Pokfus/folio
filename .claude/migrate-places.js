@@ -99,7 +99,7 @@ const DISAMBIG = "Q4167410";
    only a settlement row IT OWNS into another settlement row within CROSS_SITE_KM (2 km), never touching the gazetteer; period
    names 2–25 km from a modern settlement stay two places UNLESS Wikidata itself links the two items (Phase 3c, decision 2: P1366
    replaced by, P1365 replaces, P460 said to be the same as, or one shared English Wikipedia article — `crossMerge`'s `links`, read
-   from the cache), and are otherwise listed in the report with the evidence checked (`merges` in places-spec.json takes the
+   from the cache; Phase 2c, Task 0a: P460 counts only when the two items are under 25 km apart and in the same kind family), and are otherwise listed in the report with the evidence checked (`merges` in places-spec.json takes the
    owner's decision). Also Phase 3c: an island and the polis of the same name are one site (`islandPolis`), and Wikidata's hill
    (Q54050) is the kind `hill`, read after `mountain` (TOPS). */
 const SAME_SITE_KM = 25, CROSS_SITE_KM = 2;
@@ -243,7 +243,7 @@ function kindOf(cache, classes) {
      destination" is a mountain. Only the clean natural rows are read this way. */
   for (const [kind, sub, tops] of TOPS) if (DIRECT_NATURAL.includes(kind) && classes.some((c) => tops.includes(c))) return { kind, sub };
   const others = classes.filter((c) => c !== Q_POLIS);
-  if (others.length !== classes.length) { const k = first(reachedOf(others)); if (k && k.kind !== "polity" && k.kind !== "people") return k; return { kind: "site", sub: "site" }; }
+  if (others.length !== classes.length) { const k = first(reachedOf(others)); if (k && k.kind !== "polity" && k.kind !== "people" && k.kind !== "culture") return k; return { kind: "site", sub: "site" }; }
   return first(reachedOf(classes));
 }
 /* a candidate that is not a place at all (3a's own rule, stated once): every class it has is one of these — a mint, a diocese, a
@@ -338,7 +338,7 @@ function makeResolver(reg, cache, mergedQ) {
     const r = radiusOf(t.kind);
     // 1. the gazetteer (and the places already in the registry) by name, kind-compatible, within the radius
     const near = [];
-    for (const n of nameParts(t)) for (const row of (reg.byName.get(fold(n)) || [])) { if (row.kind === "polity" || row.kind === "people") continue; if (!kindOk(t.kind, row.kind)) continue; if (!t.at) { near.push({ row, d: null }); continue; } if (!row.at) continue; const d = km(row.at, t.at); if (d <= r && !near.some((x) => x.row === row)) near.push({ row, d }); }
+    for (const n of nameParts(t)) for (const row of (reg.byName.get(fold(n)) || [])) { if (row.kind === "polity" || row.kind === "people" || row.kind === "culture") continue; if (!kindOk(t.kind, row.kind)) continue; if (!t.at) { near.push({ row, d: null }); continue; } if (!row.at) continue; const d = km(row.at, t.at); if (d <= r && !near.some((x) => x.row === row)) near.push({ row, d }); }
     if (near.length === 1) return { id: near[0].row.id, via: reg.source(near[0].row.id), d: near[0].d };
     if (near.length > 1) {
       const rankOf = (id) => { const sName = reg.source(id); return sName === "gazetteer" ? 0 : sName === "places" ? 1 : 2; };
@@ -394,7 +394,48 @@ function makeResolver(reg, cache, mergedQ) {
     if (k.kind === "people") return { unresolved: "the item " + qid + " (" + (item.label || name) + ") is a people or a culture (Phase 2c), not a place row (" + classNames(cache, item.classes) + ")", qid };
     return { id: "pl:q" + qid.slice(1), via, d, item: { qid, kind: k.kind, sub: k.sub, forced: !!forceKind, coord: item.coord, label: item.label || "", title: item.title || (cache.titles[name] && cache.titles[name].qid === qid ? name : ""), classes: item.classes || [] } };
   }
-  return { resolve, byQid };
+  /* PHASE 2c, TASK 0b (owner's decision, 2026-10-12, not to be reopened): a glossary POINT term that the 25 km rule could not place
+     (the term names an area — Alaska, Great Britain, Lake Turkana, the Sahara, Siberia — and Wikipedia's primary coordinate is a
+     centre that can lie 100 km from the item's own) is matched to a Wikidata item by EXACT English label or alias (the cache's
+     `labels`, which the service answers for rdfs:label and skos:altLabel alike, and the enwiki article of that exact title), AT ANY
+     DISTANCE, provided the item's kind fits an area of that name: a country subdivision (admin1), an island, a lake, a region (a
+     desert, a plateau …). Exactly one fitting item resolves; several, or none, do not (never a guess). The distance from the
+     glossary's point is returned so the report can print it for a human to check. */
+  /* a kind FITS an area when the item's OWN classes (not those reached by subclass-of, which let a constituency, a street or a townland
+     through as "a region") name one: a country subdivision, an island, a lake, a desert or a geographic / historical / natural region */
+  const FIT_ADMIN1 = new Set(["Q35657", "Q10864048", "Q107390", "Q1221156", "Q36784", "Q1352230", "Q15304003"]);   // US state, first-level division, federated state, state of Germany, region of France, US territory, state of Australia
+  const FIT_ISLAND = new Set(["Q23442", "Q207524"]);                                                              // island, atoll
+  const FIT_REGION = new Set(["Q82794", "Q8514", "Q1620908", "Q1970725"]);                                         // geographic region, desert, historical region, natural region
+  const fitKind = (classes) => {
+    const k = kindOf(cache, classes); if (!k) return null;
+    if (k.kind === "lake") return k;
+    if (classes.some((c) => FIT_ISLAND.has(c)) && k.kind === "island") return k;
+    if (classes.some((c) => FIT_ADMIN1.has(c))) return { kind: "admin1", sub: "" };
+    if (classes.some((c) => FIT_REGION.has(c)) && k.kind === "region") return k;
+    return null;
+  };
+  function resolveAnywhere(t) {
+    const cands = [];
+    const add = (it, how) => { if (it && it.qid) { const have = cands.find((c) => c.it.qid === it.qid); if (have) have.hows.add(how); else cands.push({ it, hows: new Set([how]) }); } };
+    const hit = cache.titles[t.name]; if (hit && !hit.classes.includes(DISAMBIG)) add(hit, "article");
+    for (const it of (cache.labels || {})[t.name] || []) if (!it.classes.includes(DISAMBIG) && it.coord) add(it, "label or alias");
+    const fit = [];
+    for (const c of cands) {
+      if (!c.it.coord || notAPlace(c.it.classes)) continue;
+      const k = fitKind(c.it.classes || []); if (!k) continue;
+      fit.push({ qid: c.it.qid, k, it: c.it, d: t.at ? km(c.it.coord, t.at) : null, how: [...c.hows].sort().join(" + ") });
+    }
+    if (!fit.length) return { unresolved: "no Wikidata item bears the exact label or alias " + JSON.stringify(t.name) + " with a kind that fits an area (a country subdivision, an island, a lake, a desert or a region)" + (cands.length ? "; " + cands.length + " item(s) carry the name, none of a fitting kind" : "") };
+    /* several fitting items: the glossary slug IS a Wikipedia title (the points were fetched from that article), so the item whose
+       English Wikipedia article bears exactly that title is the term's own; printed, so a human can overrule it */
+    let pick = fit.length === 1 ? fit[0] : null, tie = "";
+    if (!pick) { const art = fit.filter((f) => f.how.includes("article")); if (art.length === 1) { pick = art[0]; tie = "; the other fitting item(s) of that name (" + fit.filter((f) => f !== pick).map((f) => f.qid + " " + (f.it.label || f.it.title)).join(", ") + ") lose to the item whose English Wikipedia article is exactly \"" + t.name + "\""; } }
+    if (!pick) return { ambiguous: fit.map((f) => f.qid + " " + (f.it.label || f.it.title) + " (" + f.k.kind + ", " + Math.round(f.d) + " km)"), why: "several items of a fitting kind bear the name" };
+    const out = accept(pick.qid, pick.it, t.name, pick.d, "label or alias, at any distance (Phase 2c, Task 0b)", pick.k);
+    if (out.id) out.anywhere = { qid: pick.qid, label: pick.it.label || pick.it.title || t.name, kind: pick.k.kind, km: Math.round(pick.d * 10) / 10, how: pick.how + tie };
+    return out;
+  }
+  return { resolve, resolveAnywhere, byQid };
 }
 const AROUND_MAX_KM = 50;   // a search around a coordinate is capped here: a 300 km circle over central Europe holds tens of thousands of items and the service answers 504 (measured 2026-10-10); a region whose item lies further than 50 km from the card's own anchor is reported, not guessed
 const aroundKey = (t) => t.at[0].toFixed(3) + "," + t.at[1].toFixed(3) + "," + Math.min(radiusOf(t.kind), AROUND_MAX_KM);
@@ -430,7 +471,12 @@ function crossMerge(results, reg, oldRows, manual, links) {
      P1366 "replaced by" or P1365 "replaces" in either direction, P460 "said to be the same as" (the owner wrote P1705, which is
      "native label" and links nothing), or both items sharing one English Wikipedia article. Never on distance alone. The facts are
      the cache's `links` (fetched by --fetch from Special:EntityData); a pair whose items are not in it is "not checked", never a guess. */
+  /* PHASE 2c, TASK 0a (owner's decision, 2026-10-12, not to be reopened): P460 "said to be the same as" counts as fold evidence,
+     together with replaces / replaced by and a shared Wikipedia article, ONLY when the two items are UNDER 25 km apart (SAME_SITE_KM,
+     strictly) AND in the same kind family (familyOf: both settlements) — the test is written out here, not left to the pool's
+     construction. Nothing else about the folds changes: the 36 settlements without a Wikidata link stay two places each. */
   const linkEvidence = (a, b) => {
+    if (!(km(a.at, b.at) < SAME_SITE_KM) || familyOf(a.kind, a.sub) !== familyOf(b.kind, b.sub)) return { state: "none" };
     const la = links && a.qid && links[a.qid], lb = links && b.qid && links[b.qid];
     if (!la || !lb) return { state: "unchecked" };
     for (const [p, what] of [["P1366", "replaced by"], ["P1365", "replaces"], ["P460", "said to be the same as"]]) {
@@ -458,7 +504,7 @@ function crossMerge(results, reg, oldRows, manual, links) {
       // is folded into the better of the two within 1 km — never into a village, a frazione, a necropolis or a neighbourhood
       const fits = (b.modern && d <= CROSS_SITE_KM) || (b.period && better(b, a) && d <= 1);
       if (fits) { if (!best || d < best.d - 1e-9 || (Math.abs(d - best.d) <= 1e-9 && better(b, best.b))) best = { b, d }; }
-      else if (b.modern && d > CROSS_SITE_KM && d <= SAME_SITE_KM) {
+      else if (b.modern && d > CROSS_SITE_KM && d < SAME_SITE_KM) {
         if (!nearest || d < nearest.d) nearest = { b, d };
         wanted.add(a.qid); wanted.add(b.qid);
         const ev = linkEvidence(a, b);
@@ -521,7 +567,12 @@ function run() {
   }
   /* resolve every toponym */
   const res = new Map(); for (const [k, t] of topo) res.set(k, resolver.resolve(t));
-  const glossRes = gloss.map((g) => ({ g, r: resolver.resolve({ name: g.name, label: "", kind: "point", at: g.at, cards: [] }) }));
+  const glossRes = gloss.map((g) => {
+    const t = { name: g.name, label: "", kind: "point", at: g.at, cards: [] };
+    let r = resolver.resolve(t);
+    if (!r.id && !(r.ambiguous && r.ambiguous.length)) { const w = resolver.resolveAnywhere(t); r = w.id || w.ambiguous ? w : Object.assign(r, { unresolvedAnywhere: w.unresolved }); }   // 2c, task 0b
+    return { g, r };
+  });
   /* 3b, decision 1: the same site under two names (Byzantium and Constantinople) is one place */
   if (FETCH) {   // 3c, decision 2: ask Wikidata whether it links each period settlement to the modern city 2-25 km away
     const probe = crossMerge([...res.values(), ...glossRes.map((g) => g.r)].map((r) => Object.assign({}, r)), reg, spec.rows || {}, spec.merges || {}, cache.links);
@@ -563,9 +614,9 @@ function run() {
   for (const [id, row] of Object.entries(newRows)) { const ts = topoById.get(id) || []; for (const t of ts) { const w = mapId(withinOf(t)); if (w && w !== id) { row.within = w; break; } } }
   const withinOnly = [];   // a locator whose place is unresolved but whose `within` city resolves: the card gets the city, and the report says so
   /* the cards' places */
-  const entByKey = new Map(); for (const e of reg.entities) if (e.kind === "polity") entByKey.set(e.key, e);
-  const entByName = new Map(); for (const e of reg.entities) if (e.kind === "polity") entByName.set(fold(e.name), e);
-  const linkedCards = new Map(); for (const e of reg.entities) if (e.kind === "polity") for (const c of e.cards || []) { let l = linkedCards.get(c); if (!l) linkedCards.set(c, l = new Set()); l.add(e.id); }
+  const entByKey = new Map(); for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) entByKey.set(e.key, e);
+  const entByName = new Map(); for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) entByName.set(fold(e.name), e);
+  const linkedCards = new Map(); for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) for (const c of e.cards || []) { let l = linkedCards.get(c); if (!l) linkedCards.set(c, l = new Set()); l.add(e.id); }
   const per = {};   // per collection prefix
   const bump = (p, k) => { const o = per[p] || (per[p] = { cards: 0, old: 0, placed: 0, none: 0, byLocator: 0, byMap: 0, byWar: 0, byLink: 0, noneOld: [] }); o[k]++; return o; };
   const unresolvedWar = new Map(), unresolvedMap = new Map(), unresolvedLinks = new Set(), noPlaceOld = [];
@@ -594,7 +645,7 @@ function run() {
     const allIds = new Set(reg.rows.keys());
     for (const c of cards) { const have = new Set(Array.isArray(c.places) ? c.places : []); for (const id of have) { if (!R.validId(id)) bad(c.id + ": places carries \"" + id + "\", not a place id"); else if (!allIds.has(id)) bad(c.id + ": places carries " + id + ", which the registry does not resolve"); } const d = derived.get(c.id); if (d) for (const id of d) if (!have.has(id)) bad(c.id + ": the migration derives " + id + " but the card does not carry it (run node .claude/migrate-places.js)"); if (Array.isArray(c.places) && c.places.slice().sort().join() !== c.places.join()) bad(c.id + ": places is not sorted"); if (Array.isArray(c.places) && new Set(c.places).size !== c.places.length) bad(c.id + ": places has a duplicate"); }
     const byId = new Map(cards.map((c) => [c.id, c]));
-    for (const e of reg.entities) if (e.kind === "polity") for (const cid of e.cards || []) { const c = byId.get(cid); if (!c) bad(e.id + " links " + cid + ", which is not a card"); else if (!(c.places || []).includes(e.id)) bad(e.id + " links " + cid + " but the card's places lack it"); }
+    for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) for (const cid of e.cards || []) { const c = byId.get(cid); if (!c) bad(e.id + " links " + cid + ", which is not a card"); else if (!(c.places || []).includes(e.id)) bad(e.id + " links " + cid + " but the card's places lack it"); }
     for (const c of cards) for (const id of c.places || []) if (id.startsWith("pol:") && !(reg.cardsOf(id) || []).includes(c.id)) { /* a card may point at a polity the spec does not link (an author's addition): allowed, reported */ }
     { const rest = crossMerge([...new Set(cards.flatMap((c) => c.places || []))].filter((id) => !id.startsWith("pol:")).map((id) => ({ id })), reg, spec.rows || {}, spec.merges || {}, cache.links); for (const m of rest.list) bad("two places of one site: " + m.id + " " + m.name + " lies " + m.km + " km from " + m.into + " " + m.intoName + " (run node .claude/migrate-places.js, which folds it in)"); }
     const B = require("./atlas-build/build-places.js"); const r = B.build({ check: true, log: () => {} }); if (!r.ok) bad("places-spec.json and atlas/data/places.js are not in step: " + r.why + " (run node .claude/atlas-build/build-places.js --install)");
@@ -620,7 +671,7 @@ function run() {
     for (const [id, row] of Object.entries(rows)) {
       if (row.manual || row.forced || !row.evidence || !row.evidence.classes || !row.evidence.classes.length) continue;
       const k = kindOf(cache, row.evidence.classes);
-      if (!k || k.kind === "polity" || k.kind === "people" || !R.PLACE_KINDS.includes(k.kind)) continue;
+      if (!k || k.kind === "polity" || k.kind === "people" || k.kind === "culture" || !R.PLACE_KINDS.includes(k.kind)) continue;
       if (k.kind === "region" && /^(town|city|site)$/.test(row.kind)) continue;   // never degrade a settlement to a generic region
       if (k.kind !== row.kind || (k.sub || "") !== (row.sub || "")) { if (k.kind === "hill" && row.kind === "mountain") { if (!row.kindWas3c) row.kindWas3c = "mountain"; } else if (!row.kindWas) row.kindWas = row.kind + (row.sub ? "/" + row.sub : ""); row.kind = k.kind; row.sub = k.sub || ""; }
     }
@@ -684,7 +735,7 @@ function run() {
   for (const [id, row] of Object.entries(specNow.rows || {})) for (const m of row.merged || []) if (m.how === "wikidata") wdFolded.push({ into: id, intoName: row.name, m });
   for (const [id, o] of Object.entries(specNow.overlay || {})) for (const m of o.merged || []) if (m.how === "wikidata") wdFolded.push({ into: id, intoName: (reg.rows.get(id) || {}).name || id, m });
   if (DRY) for (const m of X.list) if (m.evidence && !wdFolded.some((w) => w.m.qid === "Q" + m.id.slice(4))) wdFolded.push({ into: m.into, intoName: m.intoName, m: { qid: "Q" + m.id.slice(4), name: m.name, km: m.km, evidence: m.evidence } });
-  lines.push("", "## Period settlements folded into a modern city because Wikidata links them (3c, decision 2)", "", wdFolded.length ? "A period settlement 2–" + SAME_SITE_KM + " km from a modern city folds only where Wikidata itself links the two items — P1366 replaced by, P1365 replaces, P460 said to be the same as, or one shared English Wikipedia article (the cache's `links`, fetched from Special:EntityData). Never on distance alone. The period name becomes the city's alias." : "None: no Wikidata link was found for any pair (or the links are not in the cache — see the next section).", ...(wdFolded.length ? ["", "| the period settlement | folded into | km | the evidence |", "|---|---|---|---|"] : []));
+  lines.push("", "## Period settlements folded into a modern city because Wikidata links them (3c, decision 2)", "", wdFolded.length ? "A period settlement 2–" + SAME_SITE_KM + " km from a modern city folds only where Wikidata itself links the two items — P1366 replaced by, P1365 replaces, P460 said to be the same as, or one shared English Wikipedia article (the cache's `links`, fetched from Special:EntityData). **P460 counts only when the two items are under " + SAME_SITE_KM + " km apart and in the same kind family (both settlements)** — the owner's decision of 2026-10-12 (Phase 2c, Task 0a); the evidence is the same for P1366, P1365 and a shared article. Never on distance alone. The period name becomes the city's alias." : "None: no Wikidata link was found for any pair (or the links are not in the cache — see the next section).", ...(wdFolded.length ? ["", "| the period settlement | folded into | km | the evidence |", "|---|---|---|---|"] : []));
   for (const w of wdFolded.sort((x, y) => (x.m.qid < y.m.qid ? -1 : 1))) lines.push(`| ${w.m.qid} ${w.m.name} | ${w.into} ${w.intoName} | ${w.m.km != null ? w.m.km : "—"} | ${w.m.evidence || ""} |`);
   lines.push("", "## Period settlements 2–25 km from another settlement, NOT merged (for the owner)", "", X.near.length ? "Too far apart to be the same site on coordinates alone, and Wikidata does not link them (the evidence column says what was checked). Each pair is the owner's to decide — add `\"<id>\": { \"into\": \"<id>\", \"reason\": \"…\" }` under `merges` in places-spec.json and re-run. (Knossos and Heraklion are 4 km apart and are different places.)" : "None.", ...(X.near.length ? ["", "| the period settlement | the nearest settlement | km | Wikidata evidence |", "|---|---|---|---|"] : []));
   for (const m of X.near.sort((a, b) => a.km - b.km || (a.id < b.id ? -1 : 1))) lines.push(`| ${m.id} ${m.name} | ${m.into} ${m.intoName} | ${m.km} | ${m.evidence} |`);
@@ -702,7 +753,12 @@ function run() {
   const odd = [...topo.values()].filter((t) => t.oddLabel);
   lines.push("", "## Locators whose `label` is not a string (a data fault; the label was ignored)", "", odd.length ? odd.map((t) => "- " + t.name + " — " + t.cards.join(", ")).join("\n") : "None.");
   lines.push("", "## Glossary places (GLOSSARY_PLACES, 31 coordinates) — resolved for Phase 3b's \"show on the Atlas\" button; terms do not contribute (Q-P3 c) and nothing is written", "", "| term | resolves to | via |", "|---|---|---|");
-  for (const { g, r } of glossRes) lines.push(`| ${g.slug} | ${r.id ? r.id + " " + ((reg.rows.get(r.id) || newRows[r.id] || {}).name || "") : r.ambiguous ? "ambiguous: " + r.ambiguous.join("; ") : "— " + r.unresolved} | ${r.id ? r.via : ""} |`);
+  for (const { g, r } of glossRes) lines.push(`| ${g.slug} | ${r.id ? r.id + " " + ((reg.rows.get(r.id) || newRows[r.id] || {}).name || "") : r.ambiguous ? "ambiguous: " + r.ambiguous.join("; ") : "— " + r.unresolved + (r.unresolvedAnywhere ? "; at any distance: " + r.unresolvedAnywhere : "")} | ${r.id ? r.via : ""} |`);
+  /* 2c, task 0b: the terms matched at any distance, each with the item, its kind and its distance from the glossary's point, for a human to check */
+  const anyW = glossRes.filter(({ r }) => r.anywhere);
+  lines.push("", "## Glossary point terms matched by exact label or alias at any distance (Phase 2c, Task 0b — for a human to check)", "", "A glossary point term the 25 km rule could not place is matched to a Wikidata item by EXACT English label or alias, at any distance, when the item's kind fits an area of that name (a country subdivision, an island, a lake, a desert or a region). Several fitting items, or none, leave the term unresolved. The distance is from the glossary's own hand-given point to the item's coordinate.", "", "| term | item | kind | distance from the glossary point | matched by |", "|---|---|---|---|---|");
+  for (const { g, r } of anyW) lines.push(`| ${g.slug} | ${r.anywhere.qid} ${r.anywhere.label} | ${r.anywhere.kind} | ${r.anywhere.km} km (point ${g.at[0]}, ${g.at[1]}) | ${r.anywhere.how} |`);
+  for (const { g, r } of glossRes) if (!r.id && g.slug in { Alaska: 1, Great_Britain: 1, Lake_Turkana: 1, Sahara: 1, Siberia: 1, Lomekwi_3: 1 }) lines.push(`| ${g.slug} | — unresolved | | | ${r.ambiguous ? "ambiguous: " + r.ambiguous.join("; ") : (r.unresolvedAnywhere || r.unresolved)} |`);
   const text = lines.join("\n") + "\n";
   if (DRY || VERBOSE) log(text);
   if (!DRY) { fs.writeFileSync(REPORT_FILE, text); log("wrote " + path.relative(ROOT, REPORT_FILE)); }

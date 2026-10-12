@@ -73,7 +73,7 @@ function build(opts) {
     "   §7 \"Phase 3a — as built\"). Do not edit. The places the cards need that gazetteer.js does not carry — one row per Wikidata\n" +
     "   item, id pl:q<number>, read with the gazetteer as one registry (.claude/places-registry.js; the worker in Phase 3b). Rows\n" +
     "   under `cols` (trailing zeros trimmed; 0 = none): `qid` the item's number, `within` the containing row's id, `at` the item's\n" +
-    "   coordinate (lon, lat), `sub` the finer kind (battle, cave, building), `wiki` the enwiki title (1 = the name itself). `alias` (when\n   present) is { gazetteer row id: [names] }: the period names the migration folded into a row this file does not own. */\n" +
+    "   coordinate (lon, lat), `sub` the finer kind (battle, cave, building), `wiki` the enwiki title (1 = the name itself). `alias` (when\n   present) is { gazetteer row id: [names] }: the period names the migration folded into a row this file does not own.\n   FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on\n   P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 \"said to be the same as\" — and P460 counts only when the\n   two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */\n" +
     "window.ATLAS_PLACES = " + JSON.stringify(table).replace(/\],\[/g, "],\n[") + ";\n";
   const bytes = Buffer.byteLength(body, "utf8");
   log(`places: ${rows.length} rows (${Object.entries(counts).map(([k, n]) => k + " " + n).join(", ")}), ${bytes} bytes (${(bytes / 1e6).toFixed(3)} MB decimal); Wikidata retrieved ${retrieved}`);

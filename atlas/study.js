@@ -198,7 +198,52 @@
     return !(typeof seen === "function" ? seen(name) : false);
   }
 
-  const api = { LIST_CAP, parse, studied, collections, flags, summary, cardsFor, cluster, yearsNote, framing, isNewDiscovery };
+  /* PEOPLES AND CULTURES (Phase 2c; design §2.5, §2.6, Q-C1 a, Q-C2 b). The history file's entity table says what an entity IS: a state
+     ("polity", and the "contested" and "nested" faces made of states) is a TERRITORY — a border, a 30 % fill, a name in small capitals;
+     a "people" or a "culture" is a PRESENCE — no border line, a soft stippled face, a name in spaced italic. The one place that
+     decision is made is `layerOf`, so the renderer, the labels, the rail, the card and the tests cannot disagree. */
+  const isPresence = (kind) => kind === "people" || kind === "culture";
+  const layerOf = (kind) => (isPresence(kind) ? "presence" : kind === "polity" || kind === "contested" || kind === "nested" ? "territory" : "other");
+  const KIND_WORD = { polity: "state", contested: "contested land", nested: "state", people: "people", culture: "culture" };   // the word the stack chip and the card put after a name
+  const kindWord = (kind) => KIND_WORD[kind] || kind;
+
+  /* THE PEOPLES SWITCH (the legend's three positions; Q-C2 b). "off" hides every presence; "linked" (the default in the Full Atlas) shows
+     the peoples and cultures a card links; "all" adds every one with a dated source, for discovery. The Personal Atlas shows a presence
+     only when one of the reader's own cards links it, whatever the position (but "off"). Three readings of "a card links it":
+       personal — the reader's studied cards (flag 2 of `flags`), full — any card of a collection that is on (flag 1 or 2),
+       map (no study layer) — any card at all (`linked`, the polities the card index names).
+     `id` is the entity's registry id ("pol:scythia"); `flagMap` is `flags()`'s result; `linked` a Set of the ids the index links. */
+  const PEOPLES_POSITIONS = ["off", "linked", "all"];
+  const PEOPLES_DEFAULT = "linked";
+  const normalizePeoples = (v) => (PEOPLES_POSITIONS.includes(v) ? v : PEOPLES_DEFAULT);
+  function peoplesShown(pos, mode, id, flagMap, linked) {
+    pos = normalizePeoples(pos);
+    if (pos === "off") return false;
+    const f = flagMap && typeof flagMap.get === "function" ? flagMap.get(id) || 0 : 0;
+    if (mode === "personal") return f === 2;
+    if (mode === "full") return pos === "all" ? true : f > 0;
+    return pos === "all" ? true : !!(linked && linked.has(id));   // the plain map: no reader, no collections
+  }
+  /* the polities (states, peoples, cultures) any card at all names: the `pol:` ids of the index */
+  function linkedPolities(idx) { const out = new Set(); if (idx) for (const id of idx.cardsOfPlace.keys()) if (POLITY.test(id)) out.add(id); return out; }
+  /* the legend's words for each position, and the one-line note under the switch (what the position shows right now) */
+  const PEOPLES_LABEL = { off: "Off", linked: "Peoples a card links", all: "All with a dated source" };
+  function peoplesNote(pos, mode, n) {
+    pos = normalizePeoples(pos);
+    if (pos === "off") return "Peoples and cultures are hidden.";
+    const count = n == null ? "" : " " + n.toLocaleString("en-GB") + (n === 1 ? " is" : " are") + " on the map in this year.";
+    if (mode === "personal") return "The Personal Atlas shows a people only when one of your cards links it." + count;
+    return (pos === "all" ? "Every people and culture with a dated source." : "The peoples and cultures a card links.") + count;
+  }
+  /* the layer tests: which of a year's alive faces are drawn as presences, in what order. `alive` [{ face, ent, … }], `kindOfEnt(ent)` →
+     the entity's kind, `visible(ent)` → the switch's answer. Returns { territory: […], presence: […] }, each in the input order */
+  function splitAlive(alive, kindOfEnt, visible) {
+    const territory = [], presence = [];
+    for (const a of alive || []) { const k = kindOfEnt(a.ent); if (isPresence(k)) { if (visible(a.ent)) presence.push(a); } else territory.push(a); }
+    return { territory, presence };
+  }
+
+  const api = { LIST_CAP, parse, studied, collections, flags, summary, cardsFor, cluster, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);

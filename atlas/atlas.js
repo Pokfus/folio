@@ -116,7 +116,7 @@
   const LABEL_DRAW_BUDGET_MS = 3;            // the label canvas redraw at p95 (reported; test-atlas-labels.js asserts it)
   const LABEL_LAYOUT_BUDGET_MS = 50;         // the worker's layout at p95
   const KEY_LIST_MAX = 60;                   // the hidden button list mirrors at most this many labels
-  const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", hill: "Hill", cape: "Cape", polity: "Polity" };
+  const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", hill: "Hill", cape: "Cape", polity: "Polity", people: "People", culture: "Culture" };
   /* THE LABEL STYLES (Q-L2 a): small capitals for territories and regions, italic for water, upright for
      cities, in the site's own font tokens — the display face for names of places, the serif for water.
      `size` is CSS px; `track` the letter spacing in px (ours, drawn glyph by glyph — never the canvas's
@@ -137,6 +137,11 @@
     { id: "region", face: "display", size: 10.5, weight: 600, caps: true, track: 1.8 },
     { id: "range", face: "display", size: 10.5, weight: 600, caps: true, track: 1.6 },
     { id: "island", face: "sans", size: 10, weight: 500, caps: false, track: 0.8 },
+    // a people's or a culture's name (2c, design §2.5): SPACED ITALIC, mixed case — the territory's small capitals' opposite; the same face as water's italic
+    // but tracked wide and in ink, so an italic name is told from a sea's by its spacing and its colour as well as by where it lies
+    { id: "people-l", face: "serif", size: 16, weight: 400, italic: true, caps: false, track: 4.2 },
+    { id: "people-m", face: "serif", size: 13.5, weight: 400, italic: true, caps: false, track: 3.2 },
+    { id: "people-s", face: "serif", size: 11.5, weight: 400, italic: true, caps: false, track: 2.4 },
   ];
   const SMALL_SCALE = 0.78;
   // the characters measured per style: the Latin alphabet with its diacritics, digits and the punctuation the
@@ -200,9 +205,9 @@
   }
   // the legend (Phase 1c): borders, provinces, the three name groups, cities, rivers, lakes, relief with its
   // strength, graticule, label density — remembered per reader, behind try/catch like every localStorage read
-  const DEFAULT_LAYERS = { borders: true, provinces: true, countries: true, places: true, physical: true, cities: true, rivers: true, lakes: true, relief: false, strength: 0.7, graticule: false, density: "normal" };
+  const DEFAULT_LAYERS = { borders: true, provinces: true, countries: true, places: true, physical: true, cities: true, rivers: true, lakes: true, relief: false, strength: 0.7, graticule: false, density: "normal", peoples: "linked" };
   function loadLayers() {
-    try { const v = JSON.parse(localStorage.getItem(LAYERS_KEY) || "null"); if (v && typeof v === "object") { const o = Object.assign({}, DEFAULT_LAYERS, v); if (!/^(sparse|normal|dense)$/.test(o.density)) o.density = "normal"; return o; } } catch (e) {}
+    try { const v = JSON.parse(localStorage.getItem(LAYERS_KEY) || "null"); if (v && typeof v === "object") { const o = Object.assign({}, DEFAULT_LAYERS, v); if (!/^(sparse|normal|dense)$/.test(o.density)) o.density = "normal"; if (!/^(off|linked|all)$/.test(o.peoples)) o.peoples = "linked"; return o; } } catch (e) {}
     return Object.assign({}, DEFAULT_LAYERS);
   }
   function saveLayers(l) { try { localStorage.setItem(LAYERS_KEY, JSON.stringify(l)); } catch (e) {} }
@@ -303,6 +308,12 @@
               <label><input type="radio" name="atlas2-density" data-layer="density" value="sparse"> Sparse</label>
               <label><input type="radio" name="atlas2-density" data-layer="density" value="normal"> Normal</label>
               <label><input type="radio" name="atlas2-density" data-layer="density" value="dense"> Dense</label>
+            </fieldset>
+            <fieldset class="atlas2-group atlas2-peoples"><legend>Peoples</legend>
+              <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="off"> Off</label>
+              <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="linked"> Peoples a card links</label>
+              <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="all"> All with a dated source</label>
+              <p class="atlas2-peoples-note" aria-live="polite"></p>
             </fieldset>
             <p class="atlas2-layers-note" hidden></p>
           </div>
@@ -669,18 +680,22 @@
       if (k === onScreenKey) return; onScreenKey = k;
       const ys = changeYearsOnScreen(); const same = ys.length === time.changeYears.length && ys.every((y, i) => y === time.changeYears[i]); time.changeYears = ys; if (!same) drawTicks();
       // the alive faces now on screen (a pan since the last year change): their meshes, their arcs, the draw list
-      if (time.alive.length && time.onScreenKey !== (time.aliveKey || "") + "@" + k) {
-        const va = viewAngleNow(); const now = time.alive.filter((a) => faceOnScreen(a.face, va)); const nowKey = now.map((a) => a.face).join(",");
-        if (nowKey !== (time.onScreenAlive || []).map((a) => a.face).join(",")) {
-          time.onScreenAlive = now;
+      if ((time.alive.length || time.palive.length) && time.onScreenKey !== (time.aliveKey || "") + "@" + k) {
+        const va = viewAngleNow(); const now = time.alive.filter((a) => faceOnScreen(a.face, va)); const nowP = time.palive.filter((a) => faceOnScreen(a.face, va)); const nowKey = now.map((a) => a.face).join(",") + "|" + nowP.map((a) => a.face).join(",");
+        if (nowKey !== (time.onScreenAlive || []).map((a) => a.face).join(",") + "|" + (time.pOnScreen || []).map((a) => a.face).join(",")) {
+          time.onScreenAlive = now; time.pOnScreen = nowP;
           time.aliveArcs = arcFlags(now);
           time.prevArcs = time.aliveArcs;
-          wantMeshes(now.map((a) => a.face), true);
-          if (time.view) time.view.faces = now.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })).concat(time.fade ? time.view.faces.filter((f) => !time.aliveSet.has(f.face)) : []);
+          wantMeshes(now.map((a) => a.face).concat(nowP.map((a) => a.face)), true);
+          if (time.view) { time.view.faces = now.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })).concat(time.fade ? time.view.faces.filter((f) => !time.aliveSet.has(f.face)) : []); time.view.pfaces = presenceDraw(time.fade ? time.fade.fromP : null, time.fade ? Math.min(1, (performance.now() - time.fade.t0) / FADE_MS) : 1); }
           uploadStyle(); invalidate();
         }
         time.onScreenKey = (time.aliveKey || "") + "@" + k;
       }
+      /* the view's level changed with the same faces on screen (a zoom between two resident levels, or a year set at one zoom and a view set at another):
+         the meshes of the new level were never asked for and `historySettled` waited for them for ever — found by the 2c perf views, where the year
+         is set first and the view second. Asked for here, at the resting level only (never mid-gesture: a gesture draws one level coarser by design) */
+      { const lv = Math.min(2, view.level); if (lv !== time.reqLevel && !gestureLive()) { time.reqLevel = lv; wantMeshes((time.onScreenAlive || []).map((a) => a.face).concat((time.pOnScreen || []).map((a) => a.face)), true); } }
       railNote.hidden = time.present || time.onScreen.length > 0;
       if (!railNote.hidden) railNote.textContent = (time.hist.header.history && time.hist.header.history.slice ? "This copy carries the pilot slice of the past only (the Mediterranean and Near East, 550 BCE to 650 CE); open the Atlas over http for every state. " : "") + "No state taught by Folio’s cards is mapped for this year yet.";   // the layer shows the states the cards teach, not every state of the period (2b)
     }
@@ -757,22 +772,26 @@
     function setPerf(on, remember) { perfOn = on; perfEl.hidden = !on; if (perfSwitch) perfSwitch.checked = !!on; if (remember) { try { localStorage.setItem(PERF_KEY, on ? "1" : "0"); } catch (e) {} } if (on) perfText(); }
     if (perfSwitch) perfSwitch.addEventListener("change", () => setPerf(perfSwitch.checked, true));
 
+    var timeReady = false;   // 2c: set when the time block exists (the legend is reflected before it)
     /* ---------- the legend (Phase 1c; the layers control until then) ---------- */
-    const inputs = {}; sheet.querySelectorAll("[data-layer]").forEach((i) => { const k = i.getAttribute("data-layer"); if (k === "density") (inputs.density = inputs.density || []).push(i); else inputs[k] = i; });
+    const inputs = {}; sheet.querySelectorAll("[data-layer]").forEach((i) => { const k = i.getAttribute("data-layer"); if (k === "density" || k === "peoples") (inputs[k] = inputs[k] || []).push(i); else inputs[k] = i; });
     function reflectLayers() {
       for (const k of ["borders", "provinces", "countries", "places", "physical", "cities", "rivers", "lakes", "relief", "graticule"]) inputs[k].checked = !!layers[k];
       inputs.strength.value = String(layers.strength); inputs.strength.disabled = !layers.relief || STATIC2D || FILE;
       inputs.relief.disabled = STATIC2D || FILE;   // the still view and a file:// page have no relief (the note in the sheet says why)
       for (const r of inputs.density) r.checked = r.value === layers.density;
+      for (const r of inputs.peoples) r.checked = r.value === layers.peoples;
+      reflectPeoplesNote();
     }
     function setLayers(patch) {
       const before = JSON.stringify(layers);
       Object.assign(layers, patch);
       layers.strength = Math.max(0.2, Math.min(1, Number(layers.strength) || DEFAULT_LAYERS.strength));
       if (!/^(sparse|normal|dense)$/.test(layers.density)) layers.density = "normal";
+      if (!/^(off|linked|all)$/.test(layers.peoples)) layers.peoples = "linked";
       view.graticule = layers.graticule;
       saveLayers(layers); reflectLayers(); invalidate();
-      if (JSON.stringify(layers) !== before) requestLayout("legend", true);
+      if (JSON.stringify(layers) !== before) { if (before.indexOf('"peoples":"' + layers.peoples + '"') < 0) refreshPresence(true); requestLayout("legend", true); }
     }
     reflectLayers();
     const sheetOpenClass = () => el.classList.toggle("atlas2-sheet-open", !sheet.hidden || !el.querySelector(".atlas2-about").hidden);
@@ -1096,7 +1115,12 @@
     /* ================= Phase 2a: time — the step topology, the year, the rail, playback =================
        (docs/atlas-v2-design.md §1.4, §2.4, §2.9 and §7 "Phase 2a — as built"; the worker's half is in atlas-worker.js) */
     const time = { year: TODAY, present: true, hist: null, faceEntity: null, faceCap: null, faceArcOff: null, faceArcs: null, stepsOf: new Map(), ents: [], alive: [], aliveSet: new Set(), aliveArcs: new Set(), view: null, fade: null, prev: null,
-      resident: new Set(), lru: [], meshBytes: new Map(), meshTotal: 0, wanted: new Set(), pending: 0, selected: -1, playing: false, speed: 25, playY: 0, playT: 0, dir: 1, lastYear: TODAY, dragging: false, seq: 0, changeYears: [], onScreen: [], capitals: [], style: null, arcTab: null, yearChange: [], yearQuery: [], loadMs: 0, histStarted: false, failed: false };
+      resident: new Set(), lru: [], meshBytes: new Map(), meshTotal: 0, wanted: new Set(), pending: 0, selected: -1, playing: false, speed: 25, playY: 0, playT: 0, dir: 1, lastYear: TODAY, dragging: false, seq: 0, changeYears: [], onScreen: [], capitals: [], style: null, arcTab: null, yearChange: [], yearQuery: [], loadMs: 0, histStarted: false, failed: false,
+      /* Phase 2c: the PRESENCE layer — the peoples and cultures alive in the year that the Peoples switch lets through (`palive`), the ones on
+         screen (`pOnScreen`), the entity indexes of every presence (`presEnts`, `isPres`), the entities a card links (`linkedIds`) */
+      presEnts: [], isPres: [], linkedIds: new Set(), palive: [], pSet: new Set(), pOnScreen: [], pKey: "" };
+    timeReady = true;
+    const PI = { mode: "map", flags: new Map() };   // the study layer's answer to "does a card of the reader's link it?" (applyStudy keeps it); "map" until the cards are read
     let histStarted = false, histWanted = false, coreIn = false;
     // the first touch of the rail, a year before today, a deep link's year or a suite: fetch the history file now (once)
     function ensureHistory() { histWanted = true; if (!histStarted && coreIn) startHistory(); }
@@ -1135,6 +1159,8 @@
       time.stepsOf = new Map();
       for (const st of H.steps) { let l = time.stepsOf.get(st[0]); if (!l) time.stepsOf.set(st[0], l = []); l.push([st[1], st[2], st[3]]); }
       for (const [, l] of time.stepsOf) l.sort((a, b) => a[0] - b[0]);
+      time.isPres = H.entities.map((e) => e.kind === "people" || e.kind === "culture"); time.presEnts = []; time.isPres.forEach((b, i) => { if (b) time.presEnts.push(i); });
+      time.linkedIds = new Set(H.entities.filter((e) => (e.kind === "people" || e.kind === "culture") && (e.cards || []).length).map((e) => e.id));
       // synthetic rows so the labels, the stack and the card know these places
       H.entities.forEach((e, i) => {
         const steps = time.stepsOf.get(i) || [];
@@ -1195,7 +1221,7 @@
       // lightness steps so sixteen stay apart; blended with the theme's tokens so every theme keeps its own ink and land
       histRGB = []; for (let k = 0; k < SLOTS; k++) { const h = (k * 137.508) % 360, even = k % 2 === 0; histRGB.push(dark ? mix(hsl(h, 0.55, even ? 0.62 : 0.52), paper, 0.1) : mix(hsl(h, 0.6, even ? 0.48 : 0.58), ink, 0.08)); }
       const hb = dark ? mix(paper, ink, 0.35) : mix(paper, ink, 0.58);
-      histBorderCss = hb; R.setHistoryBorderColor(hb);
+      histBorderCss = hb; R.setHistoryBorderColor(hb); presRGB = null; R.setPresenceTheme(dark);   // 2c: the presences' hues follow the theme too (screen on a dark one, multiply on a light one)
       void paper;
     }
     // the colour of an entity in a year: a polity's slot; a contested face its first partner's; a nested face its member's
@@ -1208,8 +1234,44 @@
     /* the alive set of a year: a binary search over each entity's steps */
     function aliveAt(y) {
       const out = [];
-      for (const [ent, l] of time.stepsOf) { let lo = 0, hi = l.length - 1; while (lo <= hi) { const m = (lo + hi) >> 1; if (l[m][1] < y) lo = m + 1; else if (l[m][0] > y) hi = m - 1; else { out.push({ face: l[m][2], ent, from: l[m][0], to: l[m][1] }); break; } } }
+      for (const [ent, l] of time.stepsOf) { if (time.isPres[ent]) continue; let lo = 0, hi = l.length - 1; while (lo <= hi) { const m = (lo + hi) >> 1; if (l[m][1] < y) lo = m + 1; else if (l[m][0] > y) hi = m - 1; else { out.push({ face: l[m][2], ent, from: l[m][0], to: l[m][1] }); break; } } }
       return out;
+    }
+    /* ---- Phase 2c: the PEOPLES AND CULTURES (design §2.5; study.js decides what a presence IS and what the switch lets through) ---- */
+    function AS2() { return root.AtlasStudy || null; }
+    const presShown = (ent) => { const a = AS2(); const id = time.ents[ent].id; return a ? a.peoplesShown(layers.peoples, PI.mode, id, PI.flags, time.linkedIds) : layers.peoples === "all" || (layers.peoples === "linked" && time.linkedIds.has(id)); };
+    /* the presences alive in a year, in entity order (so the stipple angles never swap as a year changes) */
+    function presAliveAt(y) {
+      const out = [];
+      for (const ent of time.presEnts) { const l = time.stepsOf.get(ent); if (!l) continue; let lo = 0, hi = l.length - 1; while (lo <= hi) { const m = (lo + hi) >> 1; if (l[m][1] < y) lo = m + 1; else if (l[m][0] > y) hi = m - 1; else { out.push({ face: l[m][2], ent, from: l[m][0], to: l[m][1] }); break; } } }
+      return out;
+    }
+    const presAliveShown = (y) => presAliveAt(y).filter((a) => presShown(a.ent));
+    /* a presence's hue: its own wheel (golden angle, offset from the states' slots), a darker one on a light theme (the pass multiplies) and a lighter
+       one on a dark theme (it screens). Its stipple angle and pitch are its own, so two overlapping peoples interleave their dots */
+    const PRES_ANGLES = [45, 15, 75, 30, 60, 0, 22.5, 67.5];
+    let presRGB = null;   // the hues of every presence in the current theme (reset by histColours on a theme change): the draw list is rebuilt every frame of a crossfade
+    function presHue(ent) {
+      if (!presRGB) { presRGB = new Map(); for (const i2 of time.presEnts) presRGB.set(i2, presHueOf(i2)); }
+      return presRGB.get(ent) || presHueOf(ent);
+    }
+    function presHueOf(ent) { const { ink, paper, dark } = themeTokens(); const k = time.presEnts.indexOf(ent); const hsl = (h, sat, lum) => { const c = (1 - Math.abs(2 * lum - 1)) * sat, x = c * (1 - Math.abs((h / 60) % 2 - 1)), mm = lum - c / 2; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [r + mm, g + mm, b + mm]; }; const h = (40 + k * 137.508) % 360; return dark ? mix(hsl(h, 0.7, 0.62), paper, 0.05) : mix(hsl(h, 0.7, 0.34), ink, 0.1); }
+    function presenceDraw(fadeFrom, tNow) {
+      const out = [];
+      const one = (a, fade) => { const k = time.presEnts.indexOf(a.ent); out.push({ face: a.face, rgb: presHue(a.ent), angle: PRES_ANGLES[k % PRES_ANGLES.length], pitch: 1 + 0.07 * (k % 3), phase: [k * 2.7, k * 1.9], dotA: time.selected === a.ent ? 0.9 : null, fade }); };
+      const fromSet = fadeFrom ? new Set(fadeFrom.map((a) => a.face)) : null;
+      for (const a of time.pOnScreen || []) one(a, fromSet && !fromSet.has(a.face) ? tNow : 1);
+      if (fromSet) for (const a of fadeFrom) if (!time.pSet.has(a.face)) one(a, 1 - tNow);
+      return out;
+    }
+    /* the Peoples switch or the study mode moved: the alive presences of the year change, so the year is applied again (meshes, labels, ticks) */
+    function refreshPresence() { if (!time.hist || !time.hist.ready) return; applyYear(time.year, { force: true, why: "peoples" }); }
+    var peoplesNoteText = null;
+    function reflectPeoplesNote() {
+      if (!timeReady) return;   // the legend is reflected once at mount, before the time block below exists
+      const el2 = sheet.querySelector(".atlas2-peoples-note"); if (!el2) return;
+      const a = AS2(); const t = a ? a.peoplesNote(layers.peoples, PI.mode, time.hist && time.hist.ready ? (time.palive || []).length : null) : "";
+      if (t !== peoplesNoteText) { peoplesNoteText = t; el2.textContent = t; }
     }
     /* a face is ON SCREEN when its bounding cap meets the view's disc (a superset of the faces with a vertex in view) — the set the
        renderer draws, the meshes it asks for and the arc table it fills since 2b: at full scale a year has tens of faces alive the
@@ -1221,7 +1283,7 @@
       if (!time.faceCap) return [];
       const rot = view.rot, viewAngle = Math.min(Math.PI / 2, (Math.hypot(cssW, cssH) / 2 + 80) / view.radius) + 0.02;
       const visEnt = new Set(), onScreen = [];
-      for (const [ent, l] of time.stepsOf) for (const st of l) { const fi = st[2]; const d = Math.max(-1, Math.min(1, time.faceCap[4 * fi] * rot[6] + time.faceCap[4 * fi + 1] * rot[7] + time.faceCap[4 * fi + 2] * rot[8])); if (Math.acos(d) - time.faceCap[4 * fi + 3] <= viewAngle) { visEnt.add(ent); if (st[0] <= time.year && st[1] >= time.year) onScreen.push(fi); } }
+      for (const [ent, l] of time.stepsOf) { const pres = time.isPres[ent]; if (pres && !presShown(ent)) continue; for (const st of l) { const fi = st[2]; const d = Math.max(-1, Math.min(1, time.faceCap[4 * fi] * rot[6] + time.faceCap[4 * fi + 1] * rot[7] + time.faceCap[4 * fi + 2] * rot[8])); if (Math.acos(d) - time.faceCap[4 * fi + 3] <= viewAngle) { visEnt.add(ent); if (!pres && st[0] <= time.year && st[1] >= time.year) onScreen.push(fi); } } }   // a people's steps tick like a state's (2c) once the switch lets it through; only a state counts for the "no state is mapped" note
       const ys = new Set();
       for (const ent of visEnt) for (const st of time.stepsOf.get(ent)) { ys.add(st[0]); if (st[1] + 1 <= TODAY) ys.add(st[1] + 1); }
       ys.add(PRESENT_YEAR);
@@ -1242,30 +1304,33 @@
       railPin.style.left = (railX(y) * 100) + "%";
       if (document.activeElement !== railYear) railYear.value = fmtYear(y);
       if (time.hist) {
-        const tq = performance.now(); const alive = aliveAt(y); time.yearQuery.push(performance.now() - tq); if (time.yearQuery.length > 600) time.yearQuery.shift();   // the query alone (2b): what the 5 ms rule names
-        const key = alive.map((a) => a.face).join(",");
+        const tq = performance.now(); const alive = aliveAt(y); const pVis = time.presEnts.length ? presAliveShown(y) : []; time.yearQuery.push(performance.now() - tq); if (time.yearQuery.length > 600) time.yearQuery.shift();   // the query alone (2b): what the 5 ms rule names — the presences' too (2c)
+        const key = alive.map((a) => a.face).join(",") + (pVis.length ? "|" + pVis.map((a) => a.face).join(",") : "");
         const changed = key !== time.aliveKey;
         if (changed) {
-          const prevFaces = time.onScreenAlive || [];
-          time.aliveKey = key; time.alive = alive; time.aliveSet = new Set(alive.map((a) => a.face)); time.aliveEnt = new Set(alive.map((a) => time.ents[a.ent].id));
+          const prevFaces = time.onScreenAlive || [], prevP = time.pOnScreen || [];
+          time.palive = pVis; time.pSet = new Set(pVis.map((a) => a.face)); time.pKey = pVis.map((a) => a.face).join(",");
+          time.aliveKey = key; time.alive = alive; time.aliveSet = new Set(alive.map((a) => a.face)); time.aliveEnt = new Set(alive.concat(pVis).map((a) => time.ents[a.ent].id));
           const va = viewAngleNow(); time.onScreenAlive = alive.filter((a) => faceOnScreen(a.face, va)); time.onScreenKey = key + "@" + onScreenKey;
           time.aliveArcs = arcFlags(time.onScreenAlive);
+          time.pOnScreen = pVis.filter((a) => faceOnScreen(a.face, va));
           // the crossfade: when stepping or playing, never while the pin is dragged, never under reduced motion
-          if (!o.drag && !reducedNow() && prevFaces.length + alive.length && o.why !== "meta" && o.why !== "ready") { time.fade = { from: prevFaces, fromArcs: time.prevArcs || null, t0: performance.now() }; } else time.fade = null;
+          if (!o.drag && !reducedNow() && prevFaces.length + alive.length + prevP.length + time.pOnScreen.length && o.why !== "meta" && o.why !== "ready" && o.why !== "peoples") { time.fade = { from: prevFaces, fromP: prevP, fromArcs: time.prevArcs || null, t0: performance.now() }; } else time.fade = null;
           time.prevArcs = time.aliveArcs;
-          wantMeshes(time.onScreenAlive.map((a) => a.face), true);
+          wantMeshes(time.onScreenAlive.map((a) => a.face).concat(time.pOnScreen.map((a) => a.face)), true);
           if (!o.drag) lookAhead();
         }
         if (changed || time.fade || wasPresent !== time.present || o.force) uploadStyle(changed ? 1 : 1);
-        time.view = { faces: time.onScreenAlive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })), present: time.present, strokePx: 0 };
+        time.view = { faces: time.onScreenAlive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })), pfaces: presenceDraw(time.fade ? time.fade.fromP : null, 0), present: time.present, strokePx: 0 };
         time.capitals = (time.hist.header.cities || []).filter((c) => c.from <= y && c.to >= y && alive.some((a) => time.ents[a.ent].id === c.entity)).map((c) => ({ entity: c.entity, name: c.name, lon: c.lon, lat: c.lat }));
         refreshOnScreen();   // the ticks and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
-      } else { time.view = { faces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
+        if (changed) reflectPeoplesNote();
+      } else { time.view = { faces: [], pfaces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
       if (wasPresent !== time.present) { if (sel.id && !G.byId.get(sel.id)?.hist && !time.present) clearSelection(); }
       if (!o.drag) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
       plan(); invalidate();
       if (o.why === "play") { const now = performance.now(); if (now - (time.lastPlayLayout || 0) > 500) { time.lastPlayLayout = now; requestLayout("year", true); } else requestLayout("year"); writeHash(false); }   // playing: a layout twice a second at most (one per frame starved the frame on a software rasteriser)
-      else if (!o.drag) { requestLayout("year", true); writeHash(false); announce(fmtYear(y)); }
+      else if (!o.drag) { requestLayout("year", true); writeHash(false); if (o.why !== "peoples") announce(fmtYear(y)); }   // the Peoples switch re-applies the year: it is not a year change to a screen reader
       else requestLayout("year");
       const ms = performance.now() - t0; time.yearChange.push(ms); if (time.yearChange.length > 600) time.yearChange.shift();
     }
@@ -1290,9 +1355,9 @@
       const u = (t - time.fade.t0) / FADE_MS;
       // the fading faces stay in the draw list until the fade ends
       const fromFaces = time.fade.from.filter((a) => !time.aliveSet.has(a.face)).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: null }));
-      if (time.view) time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })).concat(fromFaces);
+      if (time.view) { time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })).concat(fromFaces); time.view.pfaces = presenceDraw(time.fade.fromP, Math.min(1, u)); }
       uploadStyle();
-      if (u >= 1) { time.fade = null; if (time.view) time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })); uploadStyle(); }
+      if (u >= 1) { time.fade = null; if (time.view) { time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent) })); time.view.pfaces = presenceDraw(null, 1); } uploadStyle(); }
     }
     /* the meshes: ask the worker for what the year needs at the view's level, keep an LRU on the GPU */
     // the history level: the resident level, one coarser while a gesture (a pan, a scrub) runs at stage ≥ 1 — the fills are masked by the
@@ -1312,7 +1377,7 @@
       const ys = time.changeYears.length ? time.changeYears : changeYearsOnScreen();
       const next = time.dir > 0 ? ys.find((y) => y > time.year) : ys.slice().reverse().find((y) => y < time.year);
       if (next == null) return;
-      const va = viewAngleNow(); wantMeshes(aliveAt(next).filter((a) => faceOnScreen(a.face, va)).map((a) => a.face), false);
+      const va = viewAngleNow(); wantMeshes(aliveAt(next).concat(time.presEnts.length ? presAliveShown(next) : []).filter((a) => faceOnScreen(a.face, va)).map((a) => a.face), false);
     }
     function onHistoryFaces(m) {
       time.pending = Math.max(0, time.pending - 1);
@@ -1320,11 +1385,11 @@
       for (const fi of m.faces || []) time.wanted.delete(fi + ":" + m.level);
       // the LRU, by bytes: drop the oldest meshes the year does not draw until the resident set fits MESH_BYTES
       const evicted = []; let spins = 0;
-      while (time.meshTotal > MESH_BYTES && time.lru.length && spins++ < time.lru.length * 2) { const key = time.lru.shift(); const fi = Number(key.split(":")[0]); if (time.aliveSet.has(fi)) { time.lru.push(key); continue; } R.dropHistoryMesh(key); time.resident.delete(key); time.meshTotal -= time.meshBytes.get(key) || 0; time.meshBytes.delete(key); evicted.push(key); }
+      while (time.meshTotal > MESH_BYTES && time.lru.length && spins++ < time.lru.length * 2) { const key = time.lru.shift(); const fi = Number(key.split(":")[0]); if (time.aliveSet.has(fi) || time.pSet.has(fi)) { time.lru.push(key); continue; } R.dropHistoryMesh(key); time.resident.delete(key); time.meshTotal -= time.meshBytes.get(key) || 0; time.meshBytes.delete(key); evicted.push(key); }
       if (evicted.length) postToWorker({ type: "history-evict", keys: evicted });
       invalidate();
     }
-    const historySettled = () => !histStarted || time.failed || (!!time.hist && time.hist.ready && (time.onScreenAlive || []).every((a) => time.resident.has(a.face + ":" + Math.min(2, view.level))));
+    const historySettled = () => !histStarted || time.failed || (!!time.hist && time.hist.ready && (time.onScreenAlive || []).concat(time.pOnScreen || []).every((a) => time.resident.has(a.face + ":" + Math.min(2, view.level))));
     /* ---- the rail ---- */
     function drawTicks() {
       const r = railTrack.getBoundingClientRect(); const w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
@@ -1519,7 +1584,7 @@
       plan();
       const seq = ++layoutSeq;
       L.sentAt = performance.now();
-      postToWorker({ type: "layout", seq, reason, chrome: chromeRects(), year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
+      postToWorker({ type: "layout", seq, reason, chrome: chromeRects(), year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
       if (reason === "settle" || reason === "level") writeHash(false);
     }
     function applyLayout(m) {
@@ -1649,7 +1714,15 @@
         const w = R.pick(view, x, y, "water");
         if (w && w.waterArc != null && arcRiver) { const ri = arcRiver[w.waterArc]; if (ri >= 0) add(G.byRiver.get(ri)); }
         if (w && w.lakeFace != null && waterFaceEntity && waterHeader) { const e = waterHeader.entities[waterFaceEntity[w.lakeFace]]; if (e) add(G.byId.get(e.id)); }
-        const f = R.pick(view, x, y, "land");
+        /* Phase 2c — the PRESENCES under the point, topmost first (the ID pass returns the topmost face; the presence pass is asked again with the
+           faces already found skipped, so two peoples that overlap are both named), and then the states: the stack the card's chip lists is
+           every entity under the point in the year — "Scythians · people", "Bosporan Kingdom · state" */
+        const hasP = !!(time.hist && time.pOnScreen && time.pOnScreen.length);
+        if (hasP) {
+          const skip = new Set();
+          for (let n = 0; n < 6; n++) { const p = R.pick(view, x, y, "land", { layer: "presence", skip }); if (!p || p.histFace == null) break; skip.add(p.histFace); const pe = time.ents[time.faceEntity[p.histFace]]; if (pe) add(G.byId.get(pe.id)); }
+        }
+        const f = R.pick(view, x, y, "land", hasP ? { layer: "states" } : undefined);
         // Phase 2a: a historical face answers first — the polity, or a contested face's two claimants; the present-day country
         // only in a present year (before it, it is not an entity)
         if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(G.byId.get(p)); add(G.byId.get(e.id)); } else add(G.byId.get(e.id)); } }
@@ -1680,8 +1753,12 @@
       const n = sel.stack.length;
       if (n < 2 || !sel.at) { stackBtn.hidden = true; return; }
       stackBtn.hidden = false;
-      stackBtn.textContent = `${n} here · ${sel.index + 1}/${n} ${sel.stack[sel.index].name}`;
-      stackBtn.setAttribute("aria-label", `${n} places here; showing ${sel.stack[sel.index].name}; activate to see the next`);
+      const word = (row) => { const a = AS2(); const k = row.kind; const w = a ? a.kindWord(k) : k === "polity" ? "state" : k; return (KIND_LABEL[k] ? (a ? w : w) : w).toLowerCase(); };
+      const cur = sel.stack[sel.index], anyPres = sel.stack.some((r) => r.kind === "people" || r.kind === "culture");
+      // "Scythians · people": a name and what it is; with a people in the stack the chip lists every entity under the point (2c)
+      stackBtn.textContent = `${n} here · ${sel.index + 1}/${n} ${cur.name}` + (anyPres ? " · " + word(cur) : "");
+      if (anyPres) { const all = document.createElement("span"); all.className = "atlas2-stack-all"; all.textContent = " " + sel.stack.map((r) => r.name + " · " + word(r)).join(" / "); stackBtn.appendChild(all); }
+      stackBtn.setAttribute("aria-label", `${n} places here: ${sel.stack.map((r) => r.name + ", " + word(r)).join("; ")}. Showing ${cur.name}; activate to see the next`);
       stackBtn.style.left = Math.max(8, Math.min(cssW - 180, sel.at[0] + 14)) + "px"; stackBtn.style.top = Math.max(8, Math.min(cssH - 40, sel.at[1] + 14)) + "px";
     }
     stackBtn.addEventListener("click", () => { if (sel.stack.length < 2) return; sel.index = (sel.index + 1) % sel.stack.length; sel.t = performance.now(); showStack(); selectRow(sel.stack[sel.index], { open: true, push: true }); });
@@ -1695,7 +1772,7 @@
       sel.id = row.id;
       const face = (row.kind === "country" || row.kind === "admin1") && time.present ? faceOfId(row.id) : null;
       R.select(face);
-      time.selected = row.hist && row.ent != null ? row.ent : -1; if (time.hist) uploadStyle();
+      time.selected = row.hist && row.ent != null ? row.ent : -1; if (time.hist) { uploadStyle(); if (time.view) time.view.pfaces = presenceDraw(time.fade ? time.fade.fromP : null, time.fade ? Math.min(1, (performance.now() - time.fade.t0) / FADE_MS) : 1); }
       caption.textContent = "";
       announce(row.name + ", " + (KIND_LABEL[row.kind] || row.kind).toLowerCase() + (sel.stack.length > 1 ? "; " + sel.stack.length + " places here" : ""));
       if (o.open) openCard(row);
@@ -1719,7 +1796,7 @@
       const had = sel.id;
       sel.id = null; sel.stack = []; sel.index = 0; sel.at = null;
       R.select(null); caption.textContent = ""; stackBtn.hidden = true;
-      if (time.selected >= 0) { time.selected = -1; if (time.hist) uploadStyle(); }
+      if (time.selected >= 0) { time.selected = -1; if (time.hist) { uploadStyle(); if (time.view) time.view.pfaces = presenceDraw(time.fade ? time.fade.fromP : null, time.fade ? Math.min(1, (performance.now() - time.fade.t0) / FADE_MS) : 1); } }
       if (had) announce("Nothing selected");
       closeCard();
       if (had) { for (const p of L.placed) if (p.id === had) p.sprite = renderSprite(p); writeHash(false); requestLayout("select", true); }
@@ -1800,10 +1877,12 @@
     function renderHistoryCard(row) {
       if (row.kind === "capital" && row.city) { const e = time.ents.find((x) => x.id === row.city.entity); cardKind.textContent = "Capital of " + (e ? e.name : row.city.entity) + " · " + fmtYear(row.city.from) + " – " + fmtYear(row.city.to); cardBody.innerHTML = `<p class="atlas2-card-span">A period capital from Wikidata (the state's own capital statements, with their dates; CC0), through the card ${escText(row.city.card || "")}.</p>` + (e ? `<p class="atlas2-card-within">In <button type="button" class="atlas2-link" data-select="${escText(e.id)}">${escText(e.name)}</button></p>` : ""); return; }
       const e = time.ents[row.ent]; const steps = time.stepsOf.get(row.ent) || [];
-      const src = (time.hist.header.sources || []).find((s) => s.id === "cliopatria");
-      const srcName = src ? "Cliopatria " + src.version : "Cliopatria";
+      const pres = e.kind === "people" || e.kind === "culture";   // 2c: a presence, not a territory
+      const src = (time.hist.header.sources || []).find((s) => s.id === (pres && e.src ? e.src : "cliopatria"));
+      const srcName = !src ? "Cliopatria" : src.id === "cliopatria" ? "Cliopatria " + src.version : src.id === "hosner-2016" ? "Hosner et al. (2016)" : src.id === "osm-land-polygons" ? "the OpenStreetMap land polygons" : src.name;
+      const licName = !src ? "CC BY 4.0" : src.licence === "CC-BY-4.0" ? "CC BY 4.0" : src.licence === "CC-BY-3.0" ? "CC BY 3.0" : src.licence === "ODbL-1.0" ? "ODbL" : src.licence;
       const nameOf = (p) => { const r = G.byId.get(p); return r ? r.name : p; };
-      cardKind.textContent = (e.kind === "contested" ? "Contested between " + e.partners.map(nameOf).join(" and ") : e.kind === "nested" ? "Within " + nameOf(e.partners[1]) : "Polity") + (e.span ? " · " + fmtYear(e.span[0]) + " – " + fmtYear(e.span[1]) : "");
+      cardKind.textContent = (e.kind === "contested" ? "Contested between " + e.partners.map(nameOf).join(" and ") : e.kind === "nested" ? "Within " + nameOf(e.partners[1]) : e.kind === "people" ? "People" : e.kind === "culture" ? "Culture" : "Polity") + (e.span ? " · " + fmtYear(e.span[0]) + " – " + fmtYear(e.span[1]) : "");
       let html = "";
       if (e.span) html += `<p class="atlas2-card-span">Mapped from ${escText(fmtYear(e.span[0]))} to ${escText(fmtYear(e.span[1]))}, in ${steps.length} step${steps.length === 1 ? "" : "s"}.</p>`;
       // the steps as RANGES (2b): consecutive steps with no gap between them read as one range; the list of every step opens on request
@@ -1822,7 +1901,12 @@
         html += "</div>";
         html += `<p class="atlas2-card-steps-note">Each step is a shape the source gives for those years — ${escText(srcName)} — and the map changes only at a step.</p>`;
       }
-      html += `<p class="atlas2-card-uncert">Approximate: ${escText(srcName)}, CC BY 4.0. A border here is one reading of incomplete evidence, drawn at the source's own precision.</p>`;
+      html += `<p class="atlas2-card-uncert">Approximate: ${escText(srcName)}, ${escText(licName)}. A border here is one reading of incomplete evidence, drawn at the source's own precision.</p>`;
+      if (pres) {
+        // a presence is not a border: said plainly, with the audit's note on where this one is uncertain
+        html += `<p class="atlas2-card-presence">${e.kind === "people" ? "A people" : "A culture"} is a presence, not a border: the soft, dotted shape is where the source places ${e.kind === "people" ? "them" : "it"} in these years, with no line round it, drawn over any state that held the land.</p>`;
+        if (e.note) html += `<p class="atlas2-card-extent">${escText(e.note)}</p>`;
+      }
       // the gaps in the span
       const gaps = []; for (let i = 1; i < steps.length; i++) if (steps[i][0] > steps[i - 1][1] + 1) gaps.push([steps[i - 1][1] + 1, steps[i][0] - 1]);
       html += gaps.length ? `<p class="atlas2-card-gaps">No source for ${gaps.map((g) => escText(fmtYear(g[0]) + (g[1] > g[0] ? "–" + fmtYear(g[1]) : ""))).join(", ")}: nothing is drawn in those years.</p>` : (steps.length > 1 ? '<p class="atlas2-card-gaps">No gaps in the span.</p>' : "");
@@ -1835,7 +1919,7 @@
         if (members.length) html += `<p class="atlas2-card-within">Members drawn inside it: ${members.join(", ")}.</p>`;
         if (overlords.length) html += `<p class="atlas2-card-within">Drawn within: ${overlords.join(", ")}.</p>`;
       }
-      html += `<p class="atlas2-card-scope">The past here shows the states Folio’s cards teach, not every state of the period.</p>`;
+      html += pres ? `<p class="atlas2-card-scope">The past here shows the peoples and cultures Folio’s cards teach, not every people of the period.</p>` : `<p class="atlas2-card-scope">The past here shows the states Folio’s cards teach, not every state of the period.</p>`;
       if (e.wiki) html += `<p class="atlas2-card-link"><a href="${wikiUrl(e.wiki)}" target="_blank" rel="noopener">Wikipedia: ${escText(e.wiki)}</a></p>`;
       if (e.alsoWiki && e.alsoWiki.length) html += `<p class="atlas2-card-link atlas2-card-also">Also in the source: ${e.alsoWiki.filter((w) => w.wiki).map((w) => `<a href="${wikiUrl(w.wiki)}" target="_blank" rel="noopener">${escText(w.wiki)}</a>`).join(", ")}</p>`;
       cardBody.innerHTML = html;
@@ -1881,7 +1965,7 @@
        about first). A polity that is not on the map in the rail's year says so and offers the nearest year it is — from its own
        step data, never a guess (`yearsNote`). */
     let results = [], active = -1;
-    const KIND_ORDER = { country: 0, capital: 1, polity: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5, site: 5, mountain: 5, hill: 6, cape: 6 };
+    const KIND_ORDER = { country: 0, capital: 1, polity: 1, people: 1, culture: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5, site: 5, mountain: 5, hill: 6, cape: 6 };
     const PX = { state: 0, rows: [], caps: [], ranges: new Map() };   // state 0 not asked, 1 loading, 2 in, 3 failed
     function loadPolityIndex() {
       if (PX.state) return; PX.state = 1;
@@ -1889,7 +1973,7 @@
         if (disposed) return;
         const X = root.ATLAS_POLITY_INDEX; if (!X || !Array.isArray(X.polities)) { PX.state = 3; return; }
         const taken = new Set(G.rows.map((r) => r.key));
-        PX.rows = X.polities.map((r) => { PX.ranges.set(r[0], r[5]); return { id: r[0], name: r[1], kind: "polity", hist: true, indexed: true, span: [r[3], r[4]], ranges: r[5], qid: r[6] || null, key: fold(r[1]), akeys: (r[2] || []).map(fold), rank: 0, len: 0, aliases: r[2] || [], at: null }; });
+        PX.rows = X.polities.map((r) => { PX.ranges.set(r[0], r[5]); return { id: r[0], name: r[1], kind: r[7] || "polity", hist: true, indexed: true, span: [r[3], r[4]], ranges: r[5], qid: r[6] || null, key: fold(r[1]), akeys: (r[2] || []).map(fold), rank: 0, len: 0, aliases: r[2] || [], at: null }; });
         const byEnt = new Map(PX.rows.map((r) => [r.id, r]));
         for (const c of X.capitals || []) {
           const owner = byEnt.get(c[0]); if (!owner) continue;
@@ -2166,6 +2250,7 @@
     }
     function applyStudy() {
       ST.flags = ST.ready ? AS.flags(ST.idx, ST.st, ST.mode, ST.hidden, info) : new Map();
+      PI.mode = ST.ready ? ST.mode : "map"; PI.flags = ST.flags; refreshPresence();   // 2c: the Personal and Full Atlas decide which peoples a reader sees
       ST.rev++;
       postToWorker({ type: "study-flags", mode: ST.mode === "map" ? "" : ST.mode, entries: [...ST.flags], rev: ST.rev });
       renderStudyPanel();
@@ -2324,8 +2409,10 @@
       chromeRects, showPlace, framing: () => lastFrame, discovery: () => ({ id: discId, fresh: discFresh }), hash: hashNow, readHash, metricsCount: () => metricsSent,
       /* Phase 2a: time */
       setYear: (y, o) => setYear(y, o), year: () => time.year, railTicks: () => time.tickStats || null, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
-      alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
-      timeInfo: () => ({ year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeMedian: pct50(time.yearChange), yearQueryP95: pct95(time.yearQuery), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
+      alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })),
+      // Phase 2c, for the suites: the presences the Peoples switch lets through in the year, the ones on screen, what is handed to the renderer, the switch
+      presence: () => ({ alive: time.palive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreen: (time.pOnScreen || []).map((a) => a.face), drawn: ((time.view && time.view.pfaces) || []).map((f) => ({ face: f.face, angle: f.angle, fade: f.fade })), position: layers.peoples, mode: PI.mode, all: time.presEnts.map((i) => time.ents[i].id), shown: time.presEnts.filter(presShown).map((i) => time.ents[i].id) }), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
+      timeInfo: () => ({ changeYears: time.changeYears.slice(), year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeMedian: pct50(time.yearChange), yearQueryP95: pct95(time.yearQuery), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
       // one device pixel of the GL canvas, read right after a render in the same task (the drawing buffer is not preserved between tasks)
       // one CSS row of the GL canvas as [r,g,b,a,…] per CSS pixel (one render, one readback — a scan by pixelAt would render once per pixel)
       pixelRow: (y) => { const g = R.gl; if (!g) return null; R.render(view); const d = Math.min(2, (window.devicePixelRatio || 1) * resScale); const w = g.drawingBufferWidth; const row = new Uint8Array(w * 4); g.readPixels(0, g.drawingBufferHeight - 1 - Math.round(y * d), w, 1, g.RGBA, g.UNSIGNED_BYTE, row); const n = Math.floor(w / d); const out = new Array(n * 4); for (let i = 0; i < n; i++) { const j = Math.round(i * d) * 4; out[i * 4] = row[j]; out[i * 4 + 1] = row[j + 1]; out[i * 4 + 2] = row[j + 2]; out[i * 4 + 3] = row[j + 3]; } return out; },

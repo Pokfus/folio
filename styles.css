@@ -10618,11 +10618,17 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-caption{top:auto; bottom:12px; left:12px;}
 .atlas2-stack{position:absolute; z-index:4; padding:5px 10px; border-radius:999px; border:1px solid var(--indigo); background:var(--card); color:var(--ink); font:600 calc(13px * var(--fs, 1))/1.3 var(--sans); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.12);}
 .atlas2-stack[hidden]{display:none;}
+/* Phase 2c: with a people in the stack the chip lists every entity under the point on a second line */
+.atlas2-stack .atlas2-stack-all{display:block; margin-top:2px; font-weight:400; font-size:calc(11.5px * var(--fs, 1)); color:var(--ink-soft); white-space:normal; max-width:260px;}
 .atlas2-sheet-head{display:flex; align-items:center; justify-content:space-between; gap:8px; font-family:var(--display);}
 .atlas2-sheet-close, .atlas2-card-close{appearance:none; border:0; background:none; color:var(--ink-soft); font:calc(20px * var(--fs, 1))/1 var(--sans); cursor:pointer; padding:0 4px;}
 .atlas2-group{margin:0; padding:4px 0 2px 8px; border:0; border-left:2px solid var(--rule); display:flex; flex-direction:column; gap:6px;}
 .atlas2-group legend{padding:0; margin-bottom:2px; color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
 .atlas2-density{flex-direction:row; flex-wrap:wrap; gap:4px 12px;}
+/* Phase 2c: the Peoples switch (three radios, stacked: the labels are long) and its one-line note */
+.atlas2-peoples{flex-direction:column; gap:4px;}
+.atlas2-peoples-note{margin:2px 0 0; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.4 var(--sans);}
+.atlas2-peoples-note:empty{display:none;}
 /* the place card: a side column on a desktop… */
 .atlas2-card{position:absolute; right:12px; top:12px; bottom:12px; width:min(380px, calc(100% - 24px)); z-index:5; display:flex; flex-direction:column; border-radius:14px; border:1px solid var(--rule); background:var(--card); color:var(--ink); box-shadow:0 10px 30px rgba(0,0,0,.16); overflow:hidden;}
 .atlas2-card[hidden]{display:none;}
@@ -10825,6 +10831,10 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-card-steplist li{break-inside:avoid;}
 .atlas2-card-scope{font-style:italic;}
 .atlas2-card-uncert{color:var(--ink);}
+/* Phase 2c: where a people or a culture is a presence and not a border, and the audit's note on how sure its extent is */
+.atlas2-card-presence, .atlas2-card-extent{margin:0 0 8px; color:var(--ink); font:calc(13px * var(--fs, 1))/1.45 var(--sans);}
+.atlas2-card-presence{font-style:italic;}
+.atlas2-card-extent{color:var(--ink-soft);}
 .atlas2-card-also{color:var(--ink-quiet);}
 
 /* ---------- Atlas v2, Phase 1d: reduced motion and forced colours ---------- */

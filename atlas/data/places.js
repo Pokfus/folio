@@ -4,8 +4,11 @@
    item, id pl:q<number>, read with the gazetteer as one registry (.claude/places-registry.js; the worker in Phase 3b). Rows
    under `cols` (trailing zeros trimmed; 0 = none): `qid` the item's number, `within` the containing row's id, `at` the item's
    coordinate (lon, lat), `sub` the finer kind (battle, cave, building), `wiki` the enwiki title (1 = the name itself). `alias` (when
-   present) is { gazetteer row id: [names] }: the period names the migration folded into a row this file does not own. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":81,"town":106,"sea":1,"strait":2,"gulf":2,"lake":5,"river":6,"island":25,"island-group":3,"range":6,"region":100,"site":407,"mountain":12,"cape":4,"hill":9},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+   present) is { gazetteer row id: [names] }: the period names the migration folded into a row this file does not own.
+   FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
+   P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
+   two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
+window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":81,"town":106,"sea":1,"strait":2,"gulf":2,"lake":6,"river":6,"island":25,"island-group":3,"range":6,"region":99,"site":407,"mountain":12,"cape":4,"hill":9},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -250,6 +253,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio at
 ["pl:q1234240","Lake Copais","lake",0,1234240,0,[23.05,38.45],0,1],
 ["pl:q17051922","Lake Regillus","lake",0,17051922,0,[12.6931,41.8797],0,1],
 ["pl:q183360","Lake Toba","lake",0,183360,0,[98.8875,2.67],0,1],
+["pl:q182719","Lake Turkana","lake",0,182719,0,[36.0167,4.05],0,1],
 ["pl:q502371","West Lake","lake",0,502371,0,[120.1408,30.2375],0,1],
 ["pl:q7361660","Xuanwu Lake","lake",0,7361660,0,[118.798,32.0731],0,1],
 ["pl:q369581","Allia","river",0,369581,"city:1159151593",[12.52,42.0175],0,1],
@@ -345,7 +349,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio at
 ["pl:q170526","Fertile Crescent","region",0,170526,0,[40,36],0,1],
 ["pl:q109412796","Gaixia Site","region",0,109412796,0,[117.551,33.3264],
 ["Gaixia"]],
-["pl:q26847","Galatia","region",0,26847,0,[32.9833,39.2667],0,1],
 ["pl:q192860","Gallipoli","region",0,192860,0,[26.45,40.35],0,1],
 ["pl:q213651","Gandhara","region",0,213651,0,[72.8291,33.756],0,1],
 ["pl:q1363661","Gaoping","region",0,1363661,0,[112.9259,35.7911],0,1],

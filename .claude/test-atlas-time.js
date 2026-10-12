@@ -53,7 +53,8 @@ const C = (page, fn, arg) => page.evaluate(fn, arg);
 const HB = F.read(fs.readFileSync(path.join(ROOT, "atlas/data/history.bin")));
 const H = HB.header;
 const stepsOf = new Map(); for (const st of H.steps) { let l = stepsOf.get(st[0]); if (!l) stepsOf.set(st[0], l = []); l.push(st); }
-const aliveFacesAt = (y) => H.steps.filter((s) => s[1] <= y && s[2] >= y).map((s) => s[3]).sort((a, b) => a - b);
+const isPresence = (ei) => H.entities[ei].kind === "people" || H.entities[ei].kind === "culture";   // 2c: the states' alive set (controller `alive()`); the presences are `presence()`
+const aliveFacesAt = (y) => H.steps.filter((s) => s[1] <= y && s[2] >= y && !isPresence(s[0])).map((s) => s[3]).sort((a, b) => a - b);
 const entIndex = (id) => H.entities.findIndex((e) => e.id === id);
 const fmt = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");   // atlas.js fmtYear (every year with its era since 2b)
 const TODAY = new Date().getUTCFullYear();
