@@ -4,7 +4,10 @@
    item, id pl:q<number>, read with the gazetteer as one registry (.claude/places-registry.js; the worker in Phase 3b). Rows
    under `cols` (trailing zeros trimmed; 0 = none): `qid` the item's number, `within` the containing row's id, `at` the item's
    coordinate (lon, lat), `sub` the finer kind (battle, cave, building), `wiki` the enwiki title (1 = the name itself). `alias` (when
-   present) is { gazetteer row id: [names] }: the period names the migration folded into a row this file does not own. */
+   present) is { gazetteer row id: [names] }: the period names the migration folded into a row this file does not own.
+   FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
+   P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
+   two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
 window.ATLAS_PLACES = {"format":1,"generated":"2026-10-11","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":78,"town":97,"sea":1,"strait":2,"gulf":2,"lake":5,"river":6,"island":25,"island-group":3,"range":6,"region":93,"site":399,"mountain":12,"cape":4,"hill":9},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],

@@ -99,7 +99,7 @@ const DISAMBIG = "Q4167410";
    only a settlement row IT OWNS into another settlement row within CROSS_SITE_KM (2 km), never touching the gazetteer; period
    names 2–25 km from a modern settlement stay two places UNLESS Wikidata itself links the two items (Phase 3c, decision 2: P1366
    replaced by, P1365 replaces, P460 said to be the same as, or one shared English Wikipedia article — `crossMerge`'s `links`, read
-   from the cache), and are otherwise listed in the report with the evidence checked (`merges` in places-spec.json takes the
+   from the cache; Phase 2c, Task 0a: P460 counts only when the two items are under 25 km apart and in the same kind family), and are otherwise listed in the report with the evidence checked (`merges` in places-spec.json takes the
    owner's decision). Also Phase 3c: an island and the polis of the same name are one site (`islandPolis`), and Wikidata's hill
    (Q54050) is the kind `hill`, read after `mountain` (TOPS). */
 const SAME_SITE_KM = 25, CROSS_SITE_KM = 2;
@@ -430,7 +430,12 @@ function crossMerge(results, reg, oldRows, manual, links) {
      P1366 "replaced by" or P1365 "replaces" in either direction, P460 "said to be the same as" (the owner wrote P1705, which is
      "native label" and links nothing), or both items sharing one English Wikipedia article. Never on distance alone. The facts are
      the cache's `links` (fetched by --fetch from Special:EntityData); a pair whose items are not in it is "not checked", never a guess. */
+  /* PHASE 2c, TASK 0a (owner's decision, 2026-10-12, not to be reopened): P460 "said to be the same as" counts as fold evidence,
+     together with replaces / replaced by and a shared Wikipedia article, ONLY when the two items are UNDER 25 km apart (SAME_SITE_KM,
+     strictly) AND in the same kind family (familyOf: both settlements) — the test is written out here, not left to the pool's
+     construction. Nothing else about the folds changes: the 36 settlements without a Wikidata link stay two places each. */
   const linkEvidence = (a, b) => {
+    if (!(km(a.at, b.at) < SAME_SITE_KM) || familyOf(a.kind, a.sub) !== familyOf(b.kind, b.sub)) return { state: "none" };
     const la = links && a.qid && links[a.qid], lb = links && b.qid && links[b.qid];
     if (!la || !lb) return { state: "unchecked" };
     for (const [p, what] of [["P1366", "replaced by"], ["P1365", "replaces"], ["P460", "said to be the same as"]]) {
@@ -458,7 +463,7 @@ function crossMerge(results, reg, oldRows, manual, links) {
       // is folded into the better of the two within 1 km — never into a village, a frazione, a necropolis or a neighbourhood
       const fits = (b.modern && d <= CROSS_SITE_KM) || (b.period && better(b, a) && d <= 1);
       if (fits) { if (!best || d < best.d - 1e-9 || (Math.abs(d - best.d) <= 1e-9 && better(b, best.b))) best = { b, d }; }
-      else if (b.modern && d > CROSS_SITE_KM && d <= SAME_SITE_KM) {
+      else if (b.modern && d > CROSS_SITE_KM && d < SAME_SITE_KM) {
         if (!nearest || d < nearest.d) nearest = { b, d };
         wanted.add(a.qid); wanted.add(b.qid);
         const ev = linkEvidence(a, b);
@@ -684,7 +689,7 @@ function run() {
   for (const [id, row] of Object.entries(specNow.rows || {})) for (const m of row.merged || []) if (m.how === "wikidata") wdFolded.push({ into: id, intoName: row.name, m });
   for (const [id, o] of Object.entries(specNow.overlay || {})) for (const m of o.merged || []) if (m.how === "wikidata") wdFolded.push({ into: id, intoName: (reg.rows.get(id) || {}).name || id, m });
   if (DRY) for (const m of X.list) if (m.evidence && !wdFolded.some((w) => w.m.qid === "Q" + m.id.slice(4))) wdFolded.push({ into: m.into, intoName: m.intoName, m: { qid: "Q" + m.id.slice(4), name: m.name, km: m.km, evidence: m.evidence } });
-  lines.push("", "## Period settlements folded into a modern city because Wikidata links them (3c, decision 2)", "", wdFolded.length ? "A period settlement 2–" + SAME_SITE_KM + " km from a modern city folds only where Wikidata itself links the two items — P1366 replaced by, P1365 replaces, P460 said to be the same as, or one shared English Wikipedia article (the cache's `links`, fetched from Special:EntityData). Never on distance alone. The period name becomes the city's alias." : "None: no Wikidata link was found for any pair (or the links are not in the cache — see the next section).", ...(wdFolded.length ? ["", "| the period settlement | folded into | km | the evidence |", "|---|---|---|---|"] : []));
+  lines.push("", "## Period settlements folded into a modern city because Wikidata links them (3c, decision 2)", "", wdFolded.length ? "A period settlement 2–" + SAME_SITE_KM + " km from a modern city folds only where Wikidata itself links the two items — P1366 replaced by, P1365 replaces, P460 said to be the same as, or one shared English Wikipedia article (the cache's `links`, fetched from Special:EntityData). **P460 counts only when the two items are under " + SAME_SITE_KM + " km apart and in the same kind family (both settlements)** — the owner's decision of 2026-10-12 (Phase 2c, Task 0a); the evidence is the same for P1366, P1365 and a shared article. Never on distance alone. The period name becomes the city's alias." : "None: no Wikidata link was found for any pair (or the links are not in the cache — see the next section).", ...(wdFolded.length ? ["", "| the period settlement | folded into | km | the evidence |", "|---|---|---|---|"] : []));
   for (const w of wdFolded.sort((x, y) => (x.m.qid < y.m.qid ? -1 : 1))) lines.push(`| ${w.m.qid} ${w.m.name} | ${w.into} ${w.intoName} | ${w.m.km != null ? w.m.km : "—"} | ${w.m.evidence || ""} |`);
   lines.push("", "## Period settlements 2–25 km from another settlement, NOT merged (for the owner)", "", X.near.length ? "Too far apart to be the same site on coordinates alone, and Wikidata does not link them (the evidence column says what was checked). Each pair is the owner's to decide — add `\"<id>\": { \"into\": \"<id>\", \"reason\": \"…\" }` under `merges` in places-spec.json and re-run. (Knossos and Heraklion are 4 km apart and are different places.)" : "None.", ...(X.near.length ? ["", "| the period settlement | the nearest settlement | km | Wikidata evidence |", "|---|---|---|---|"] : []));
   for (const m of X.near.sort((a, b) => a.km - b.km || (a.id < b.id ? -1 : 1))) lines.push(`| ${m.id} ${m.name} | ${m.into} ${m.intoName} | ${m.km} | ${m.evidence} |`);
