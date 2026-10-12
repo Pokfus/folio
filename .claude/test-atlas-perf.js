@@ -116,6 +116,11 @@ const VIEWS = [
   { name: "Steppe, 450 CE", lon: 45, lat: 48, kmpp: 6.0, year: 450, tri: 80000, seg: 35000, river: 9400, lakeSeg: 14600, lakeTri: 13500, histTri: 14000, histSeg: 1200, presTri: 2100, presFaces: 1 },
   { name: "Black Sea, 450 BCE", lon: 34, lat: 45, kmpp: 4.0, year: -450, tri: 209000, seg: 111000, river: 44900, lakeSeg: 98500, lakeTri: 92100, histTri: 33700, histSeg: 800, presTri: 2700, presFaces: 1 },
   { name: "Steppe, 660 CE", lon: 45, lat: 50, kmpp: 6.0, year: 660, tri: 80000, seg: 35000, river: 9300, lakeSeg: 14800, lakeTri: 13700, histTri: 16000, histSeg: 1500, presTri: 2100, presFaces: 3 },
+  /* Phase 2d: the WAR-HEAVY views. Budgets are PLACEHOLDERS until the first run on the 2d file (then: measurement × 1.25, rounded up, said here). The Western Front on 15 June 1944 at 3 km/px
+     (both theatres' plates standing, four sets of ground drawn as event faces by the presence pass) and the Mediterranean in 216 BCE at 6 km/px with the Second Punic War chosen from its card
+     (Rome and Carthage tinted, the states' own faces unchanged — the tint is a colour, not geometry). */
+  { name: "Western Front, June 1944", lon: 10, lat: 50, kmpp: 3.0, year: 1944, frontDate: 19440615, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: 40000, histSeg: 4000, presTri: 120000, presFaces: 4 },
+  { name: "Mediterranean, 216 BCE (Second Punic War)", lon: 15, lat: 38, kmpp: 6.0, year: -216, focusWar: "rm-209", tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 20000, histSeg: 2000, presTri: 10000, presFaces: 2 },
 ];
 const PORT = 5612;
 
@@ -286,7 +291,7 @@ const settle = (page) => page.waitForFunction(() => { const c = document.querySe
 async function fixedViews(page, cx, cy) {
   const views = [];
   for (const V of VIEWS) {
-    await page.evaluate((v) => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(v.year != null ? v.year : new Date().getUTCFullYear()); c.setView(v.lon, v.lat, v.kmpp); }, V);
+    await page.evaluate((v) => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(v.year != null ? v.year : new Date().getUTCFullYear()); c.setView(v.lon, v.lat, v.kmpp); c.setLayers({ wars: v.frontDate || v.focusWar ? "on" : "off", fronts: !!v.frontDate }); if (v.frontDate) c.setFrontDate(v.frontDate); if (v.focusWar) c.focusWar(v.focusWar); }, V);
     const settled = await settle(page);
     await page.waitForTimeout(400);
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate());
@@ -295,6 +300,7 @@ async function fixedViews(page, cx, cy) {
     const frames = await measure(page, async () => { await page.mouse.move(cx, cy); await page.mouse.down(); for (let i = 1; i <= 40; i++) { await page.mouse.move(cx + i * 2, cy + Math.sin(i / 4) * 20); await sleep(16); } await page.mouse.up(); await sleep(300); });
     const overlay = await page.evaluate(() => document.querySelector(".atlas2-perf").textContent);
     views.push({ V, settled, still, frames, overlay });
+    if (V.frontDate || V.focusWar) await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.focusWar(null); c.setLayers({ wars: "off", fronts: false }); });
   }
   await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(new Date().getUTCFullYear()); c.setView(10, 20, 24); });
   await settle(page);
