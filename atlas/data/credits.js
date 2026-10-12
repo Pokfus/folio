@@ -6,7 +6,7 @@
    are files of their own under that licence. */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-10-12T10:39:23.531Z",
+ "generated": "2026-10-12T15:30:26.118Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
  "filesRead": 654,
  "sources": [
