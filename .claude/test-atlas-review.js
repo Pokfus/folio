@@ -68,7 +68,7 @@ async function strokePixelsFarFromWater(page) {
     const d = g.getImageData(0, 0, cv.width, cv.height).data, W = cv.width, H = cv.height;
     const dpr = cv.width / c.view.cx / 2;   // device pixels per CSS pixel in the shot (the view's centre is half the width)
     // the polities' full colours (the stroke's colour), contested faces left out (their hatch is the partner's colour)
-    const faces = c.alive(), seen = new Set(), cols = [];
+    const onS = new Set(c.onScreenAlive()), faces = c.alive().filter((a) => onS.has(a.face)), seen = new Set(), cols = [];   // 2d: only the faces ON SCREEN can stroke a pixel of this shot (a state far away whose hue lies on the land-to-fill line would otherwise be read as a stroke)
     for (const a of faces) { if (seen.has(a.entity) || a.entity.startsWith("contested:")) continue; seen.add(a.entity); const rgb = c.histColour(a.entity); if (rgb) cols.push(rgb.map((v) => Math.round(v * 255))); }
     // water and plain land by the palette, as the renderer draws them (relief off). A fill is the polity's colour at its alpha over
     // the land; the stroke is the colour at full strength; an antialiased thin stroke lands between. A pixel counts as STROKE-TINTED
