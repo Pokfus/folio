@@ -278,6 +278,48 @@
     out vec4 o;
     void main() { if (vZ < 0.0) discard; o = vec4(0.0); }`;
 
+  /* PHASE 2c — THE PRESENCE PASS (design §2.5): a people's or a culture's soft face. The mesh carries an EDGE ALPHA where a state's carries
+     a face id (the worker's presenceMesh: 0 on the face's soft edge, 1 inside), so the fill fades towards the edge with no border line;
+     the texture is a DIAGONAL DOT STIPPLE — a lattice of round dots rotated by the people's own angle and set in screen space (dots, never
+     hatching: a contested face's war hatching stays distinct) — over a faint wash, in the people's hue. Two peoples overlap with
+     different angles, so their dots interleave. The pass blends by MULTIPLY on a light theme and by SCREEN on a dark one (the same
+     idea: the people's hue modulates what the states drew beneath it, so a kingdom inside a people's range stays readable and the
+     stipple stays visible across it). In an ID pass it writes the face's id wherever the edge alpha is solid enough to be a tap. */
+  const VS_PRES = `#version 300 es
+    precision highp float;
+    in vec3 aPos; in float aFace;
+    uniform mat3 uRot; uniform vec2 uCenter, uSize; uniform float uRadius;
+    out float vZ; out float vA;
+    void main() {
+      vec3 p = uRot * aPos;
+      vec2 px = uCenter + vec2(p.x, -p.y) * uRadius;
+      gl_Position = vec4(px.x / uSize.x * 2.0 - 1.0, 1.0 - px.y / uSize.y * 2.0, 0.0, 1.0);
+      vZ = p.z; vA = aFace;
+    }`;
+  const FS_PRES = `#version 300 es
+    precision highp float;
+    in float vZ; in float vA;
+    uniform float uIdPass; uniform float uIdValue;
+    uniform vec3 uColor; uniform float uWash; uniform float uDotA; uniform float uPitch; uniform float uDotR;
+    uniform vec2 uAng; uniform vec2 uPhase;
+    out vec4 o;
+    void main() {
+      if (vZ < 0.0) discard;
+      if (uIdPass > 0.5) {
+        if (vA < 0.4) discard;
+        int v = int(uIdValue + 0.5);
+        o = vec4(float(v & 255) / 255.0, float((v >> 8) & 255) / 255.0, float((v >> 16) & 255) / 255.0, 1.0);
+        return;
+      }
+      vec2 p = gl_FragCoord.xy + uPhase;
+      vec2 q = vec2(uAng.x * p.x + uAng.y * p.y, -uAng.y * p.x + uAng.x * p.y) / uPitch;
+      float d = length(fract(q) - 0.5) * uPitch;
+      float dotm = 1.0 - smoothstep(uDotR - 0.7, uDotR + 0.7, d);
+      float a = vA * clamp(uWash + uDotA * dotm, 0.0, 1.0);
+      if (a < 0.003) discard;
+      o = vec4(uColor * a, a);
+    }`;
+
   /* the cached line layer (Phase 2a): the water and the land's lines are drawn into a texture while the view is still and
      composited with one triangle over the screen each frame — on a software rasteriser a segment costs about 2 µs, and the
      42,000 of the Mediterranean view were three quarters of a frame while a scrub changed only the year */
@@ -445,6 +487,8 @@
     }
     let faceCount = 0, selected = -1;
     let histBorderColor = [0.4, 0.4, 0.45];
+    let presenceDark = false;                 // 2c: screen instead of multiply on a dark theme
+    let pickOpts = null;                      // 2c: an ID pass may draw one layer only ("states" | "presence") and skip faces already found
     let dpr = 1, W = 0, H = 0;
     const stats = { frames: 0, lastMs: 0, draws: 0, historyTriangles: 0, historySegments: 0, historyFaces: 0, trianglesDrawn: 0, segmentsDrawn: 0, riverSegments: 0, lakeSegments: 0, lakeTriangles: 0, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, visibleAngle: 0, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, level: 0, coreLevel: -1, waterLevel: -1, restores: 0, reliefL0: -1, gpuBytes: 0, gpuTextureBytes: 0 };   // gpuBytes: every buffer and texture uploaded and not yet deleted (Phase 1d's memory session reads it)
     const onRestore = typeof opts.onRestore === "function" ? opts.onRestore : null;
@@ -453,7 +497,7 @@
     function setup() {
       lines.fbo = null; lines.tex = null; lines.rb = null; lines.key = "";   // a restored context rebuilds the line layer
       still.fbo = null; still.tex = null; still.rb = null; still.scratch = null; still.scratchTex = null; still.scratchRb = null; still.key = ""; still.lastKey = "";
-      prog = { blit: compile(gl, VS_BLIT, FS_BLIT, "blit"), sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), extent: compile(gl, VS_FACE, FS_EXTENT, "extent"), arc: compile(gl, VS_ARC, FS_ARC, "arc"), reliefL0: compile(gl, VS_SPHERE, FS_RELIEF, "relief"), reliefPatch: compile(gl, VS_PATCH, FS_RELIEF, "relief patch") };
+      prog = { blit: compile(gl, VS_BLIT, FS_BLIT, "blit"), sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), presence: compile(gl, VS_PRES, FS_PRES, "presence"), extent: compile(gl, VS_FACE, FS_EXTENT, "extent"), arc: compile(gl, VS_ARC, FS_ARC, "arc"), reliefL0: compile(gl, VS_SPHERE, FS_RELIEF, "relief"), reliefPatch: compile(gl, VS_PATCH, FS_RELIEF, "relief patch") };
       emptyVao = gl.createVertexArray();
       styleTex = gl.createTexture();
       rampTex = gl.createTexture();
@@ -744,6 +788,7 @@
     }
     function drawHistoryFills(view, idPass, R, useStencil) {
       const hv = view.history; if (!hv || !hv.faces || !hv.faces.length || !hist.styleTex) { stats.historyTriangles = 0; stats.historyFaces = 0; return; }
+      if (idPass && pickOpts && pickOpts.layer === "presence") return;   // 2c: a presence-only ID pass
       const P = prog.face; common(P, view, R);
       gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0); gl.uniform1f(P.u.uIdOffset, idPass ? HIST_FACE_BASE : 0); gl.uniform1f(P.u.uUseFlat, 0);
       gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, hist.styleTex); gl.uniform1i(P.u.uStyle, 0);
@@ -772,6 +817,39 @@
       }
       if (useStencil) { gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilMask(0xff); }
       stats.historyTriangles = tris; stats.historyFaces = drawn;
+    }
+    /* the presence pass (2c): the soft faces of the peoples and cultures on screen, over the states' fills. `hv.pfaces`: [{ face, rgb, angle, phase }]
+       in drawing order (the entity order, so the stipple never flickers as a year changes). A stencil, as for the fills, keeps them on land. */
+    function drawHistoryPresence(view, idPass, R, useStencil) {
+      const hv = view.history; stats.presenceTriangles = 0; stats.presenceFaces = 0;
+      if (!hv || !hv.pfaces || !hv.pfaces.length) return;
+      if (idPass && pickOpts && pickOpts.layer === "states") return;
+      const P = prog.presence; common(P, view, R);
+      gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0);
+      if (!idPass) {
+        if (presenceDark) gl.blendFuncSeparate(gl.ONE, gl.ONE_MINUS_SRC_COLOR, gl.ZERO, gl.ONE);   // screen: dst + src − dst·src (premultiplied src)
+        else gl.blendFuncSeparate(gl.DST_COLOR, gl.ONE_MINUS_SRC_ALPHA, gl.ZERO, gl.ONE);          // multiply: dst · (src + 1 − srcA)
+      }
+      if (useStencil) { gl.stencilFunc(gl.EQUAL, ST_LAND, ST_LAND); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0); }
+      const pitch = (hv.presencePitch || 7) * dpr, dotR = (hv.presenceDot || 1.35) * dpr;
+      let tris = 0, drawn = 0;
+      for (const f of hv.pfaces) {
+        if (idPass && pickOpts && pickOpts.skip && pickOpts.skip.has(f.face)) continue;
+        const m = histMeshFor(f.face, view.historyLevel != null ? view.historyLevel : view.level); if (!m) continue;
+        const c = f.rgb || histBorderColor;
+        gl.uniform1f(P.u.uIdValue, HIST_FACE_BASE + f.face + 1);
+        gl.uniform3f(P.u.uColor, c[0], c[1], c[2]);
+        gl.uniform1f(P.u.uWash, hv.presenceWash != null ? hv.presenceWash : 0.14); gl.uniform1f(P.u.uDotA, (f.dotA != null ? f.dotA : hv.presenceDotA != null ? hv.presenceDotA : 0.62) * (f.fade != null ? f.fade : 1));
+        gl.uniform1f(P.u.uPitch, pitch * (f.pitch || 1)); gl.uniform1f(P.u.uDotR, dotR * (f.pitch || 1));
+        const a = (f.angle || 0) * D2R; gl.uniform2f(P.u.uAng, Math.cos(a), Math.sin(a));
+        gl.uniform2f(P.u.uPhase, f.phase ? f.phase[0] : 0, f.phase ? f.phase[1] : 0);
+        gl.bindVertexArray(m.gpu.vao); gl.drawElements(gl.TRIANGLES, m.gpu.count, m.gpu.u16 ? gl.UNSIGNED_SHORT : gl.UNSIGNED_INT, 0); stats.draws++;
+        tris += m.gpu.count / 3; drawn++;
+      }
+      gl.bindVertexArray(null);
+      if (!idPass) gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+      if (useStencil) { gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilMask(0xff); }
+      stats.presenceTriangles = tris; stats.presenceFaces = drawn;
     }
     // the borders of the faces on screen (2b): each face's mesh carries its border segments at its level, tagged with the arc index
     // so the arc table still fades them; a border shared by two faces on screen is drawn twice, in one place
@@ -962,7 +1040,7 @@
         gl.blitFramebuffer(0, 0, W, H, 0, 0, W, H, gl.COLOR_BUFFER_BIT | gl.STENCIL_BUFFER_BIT, gl.NEAREST);
         gl.bindFramebuffer(gl.FRAMEBUFFER, still.scratch); gl.viewport(0, 0, W, H);
         gl.enable(gl.STENCIL_TEST); gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff);
-        if (debug.faces) drawHistoryFills(view, idPass, R, useStencil);
+        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); drawHistoryPresence(view, idPass, R, useStencil); }
         drawLinesLayer(still.scratch);
         if (debug.arcs) drawHistoryBorders(view, R);
         gl.disable(gl.STENCIL_TEST);
@@ -972,7 +1050,7 @@
         gl.drawArrays(gl.TRIANGLES, 0, 3); stats.draws++;
       } else {
         drawBase();
-        if (debug.faces) drawHistoryFills(view, idPass, R, useStencil);
+        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); drawHistoryPresence(view, idPass, R, useStencil); }
         drawLinesLayer(null);
         if (debug.arcs && !idPass) drawHistoryBorders(view, R);
         if (useStencil) gl.disable(gl.STENCIL_TEST);
@@ -1060,6 +1138,7 @@
       // the face style table: RGBA bytes per history face (alpha 0 = not alive); the arc table: alpha per history arc
       setHistoryStyle(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.sIdx = (hist.sIdx | 0) ^ 1; hist.sTex = hist.sTex || [null, null]; hist.sTex[hist.sIdx] = uploadTable(hist.sTex[hist.sIdx], 256, h, px); hist.styleTex = hist.sTex[hist.sIdx]; hist.styleN = n; },   // two textures in turn: an upload never touches the one the last frame still reads (a scrub re-uploads every frame)
       setHistoryArcTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h ? bytes : (() => { const b = new Uint8Array(256 * h); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.aIdx = (hist.aIdx | 0) ^ 1; hist.aTex = hist.aTex || [null, null]; hist.aTex[hist.aIdx] = uploadTable(hist.aTex[hist.aIdx], 256, h, px, true); hist.arcTex = hist.aTex[hist.aIdx]; hist.arcN = n; },
+      setPresenceTheme(dark) { presenceDark = !!dark; },
       setHistoryBorderColor(c) { histBorderColor = typeof c === "string" ? hex2rgb(c) : c; },
       clearHistory() { for (const k of [...hist.meshes.keys()]) this.dropHistoryMesh(k); },
       setFaceCount(n) { faceCount = n; if (!lost) buildStyle(); },
@@ -1098,8 +1177,9 @@
       /* the ID pass at one pixel. mode "land" (the default): faces and the land's lines, as since Phase 0;
          mode "water" (Phase 1c): lake fills and the rivers alone, a river reaching 8 CSS px either side of its
          line. atlas.js reads both for a tap and stacks what they name. */
-      pick(view, x, y, mode) {
+      pick(view, x, y, mode, opts) {
         if (lost) return null;
+        pickOpts = opts || null;
         const px = Math.round(x * dpr), py = Math.round(y * dpr);
         if (px < 0 || py < 0 || px >= W || py >= H) return null;
         gl.bindFramebuffer(gl.FRAMEBUFFER, idFbo);
@@ -1116,7 +1196,7 @@
         gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, out);
         gl.enable(gl.BLEND);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-        pickOff[0] = 0; pickOff[1] = 0;
+        pickOff[0] = 0; pickOff[1] = 0; pickOpts = null;
         const id = out[0] + (out[1] << 8) + (out[2] << 16);
         if (!id) return null;
         // an arc's id is its index plus the base (the arc shader adds nothing else); a face's is its index plus one
@@ -1128,7 +1208,7 @@
       },
       linesCache(on) { lines.on = on !== false; lines.key = ""; },
       stillCache(on) { still.on = on !== false; still.key = ""; still.lastKey = ""; },
-      stats() { return { linesReused: lines.reused, linesRendered: lines.rendered, linesOn: lines.on, baseReused: still.reused, baseRendered: still.rendered, baseOn: still.on, triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, historyTriangles: stats.historyTriangles, historySegments: stats.historySegments, historyFaces: stats.historyFaces, historyMeshes: hist.meshes.size, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores, gpuBytes: stats.gpuBytes, gpuTextureBytes: stats.gpuTextureBytes }; },
+      stats() { return { linesReused: lines.reused, linesRendered: lines.rendered, linesOn: lines.on, baseReused: still.reused, baseRendered: still.rendered, baseOn: still.on, triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, historyTriangles: stats.historyTriangles, presenceTriangles: stats.presenceTriangles || 0, presenceFaces: stats.presenceFaces || 0, historySegments: stats.historySegments, historyFaces: stats.historyFaces, historyMeshes: hist.meshes.size, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores, gpuBytes: stats.gpuBytes, gpuTextureBytes: stats.gpuTextureBytes }; },
       rawStats: stats,
       dispose() {
         try { const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); } catch (e) {}

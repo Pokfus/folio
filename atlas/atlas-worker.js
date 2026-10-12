@@ -135,6 +135,34 @@
     return out;
   }
 
+  /* A FRAME AND A PROJECTION about the centre of a set of rings (vertex indices into `pos`): gnomonic wherever the polygon stays within 85° of
+     the centre, else azimuthal equidistant; `fwd(i)` → [x, y] for vertex i, `inv(x, y)` → a unit vector (gnomonic only). Lifted out of
+     triangulateFace unchanged (Phase 2c) so the presence mesh builds in the very same frame. */
+  function makeFrame(pos, vs) {
+      let cx = 0, cy = 0, cz = 0;
+      for (const ring of vs) for (const i of ring) { cx += pos[3 * i]; cy += pos[3 * i + 1]; cz += pos[3 * i + 2]; }
+      let cl = Math.hypot(cx, cy, cz); if (cl < 1e-9) { cx = 0; cy = 0; cz = -1; cl = 1; }   // only a ring girdling the sphere: Antarctica-like → the south pole
+      cx /= cl; cy /= cl; cz /= cl;
+      let ux = 0, uy = 0, uz = 1; if (Math.abs(cz) > 0.9) { ux = 1; uy = 0; uz = 0; }
+      let e1x = uy * cz - uz * cy, e1y = uz * cx - ux * cz, e1z = ux * cy - uy * cx; const l1 = Math.hypot(e1x, e1y, e1z); e1x /= l1; e1y /= l1; e1z /= l1;
+      const e2x = cy * e1z - cz * e1y, e2y = cz * e1x - cx * e1z, e2z = cx * e1y - cy * e1x;
+      let dmin = 1;
+      for (const ring of vs) for (const i of ring) { const d = pos[3 * i] * cx + pos[3 * i + 1] * cy + pos[3 * i + 2] * cz; if (d < dmin) dmin = d; }
+      const gnomonic = dmin > 0.0872;   // cos 85°
+      const fwd = gnomonic ? (i) => {
+        const x = pos[3 * i], y = pos[3 * i + 1], z = pos[3 * i + 2], d = x * cx + y * cy + z * cz;
+        return [(x * e1x + y * e1y + z * e1z) / d, (x * e2x + y * e2y + z * e2z) / d];
+      } : (i) => {
+        const x = pos[3 * i], y = pos[3 * i + 1], z = pos[3 * i + 2];
+        const d = Math.max(-1, Math.min(1, x * cx + y * cy + z * cz)), th = Math.acos(d);
+        let tx = x - d * cx, ty = y - d * cy, tz = z - d * cz; const tl = Math.hypot(tx, ty, tz) || 1;
+        return [th * (tx * e1x + ty * e1y + tz * e1z) / tl, th * (tx * e2x + ty * e2y + tz * e2z) / tl];
+      };
+      /* the inverse of the gnomonic projection (a planar point back to a unit vector on the sphere); null for the azimuthal fallback */
+      const inv = gnomonic ? (x, y) => { const px = cx + x * e1x + y * e2x, py = cy + x * e1y + y * e2y, pz = cz + x * e1z + y * e2z, l = Math.hypot(px, py, pz) || 1; return [px / l, py / l, pz / l]; } : null;
+      return { fwd, inv, gnomonic };
+  }
+
   async function triangulateFace(T, pos, face, faceId, level, sink) {
     const rings = faceRings(T, face, level);
     if (!rings.length) return 0;
@@ -148,27 +176,7 @@
        from the Volga to Lake Baikal through the Mongol Empire of 1245 — the bridge from the Baikal hole). It remains the
        projection for classifying the rings (it exists everywhere, and orientation is what matters there) and for a polygon
        reaching beyond 85° of its centre (a ring girdling the sphere; no outer ring of the core or the history file does). */
-    const frameAbout = (vs) => {
-      let cx = 0, cy = 0, cz = 0;
-      for (const ring of vs) for (const i of ring) { cx += pos[3 * i]; cy += pos[3 * i + 1]; cz += pos[3 * i + 2]; }
-      let cl = Math.hypot(cx, cy, cz); if (cl < 1e-9) { cx = 0; cy = 0; cz = -1; cl = 1; }   // only a ring girdling the sphere: Antarctica-like → the south pole
-      cx /= cl; cy /= cl; cz /= cl;
-      let ux = 0, uy = 0, uz = 1; if (Math.abs(cz) > 0.9) { ux = 1; uy = 0; uz = 0; }
-      let e1x = uy * cz - uz * cy, e1y = uz * cx - ux * cz, e1z = ux * cy - uy * cx; const l1 = Math.hypot(e1x, e1y, e1z); e1x /= l1; e1y /= l1; e1z /= l1;
-      const e2x = cy * e1z - cz * e1y, e2y = cz * e1x - cx * e1z, e2z = cx * e1y - cy * e1x;
-      let dmin = 1;
-      for (const ring of vs) for (const i of ring) { const d = pos[3 * i] * cx + pos[3 * i + 1] * cy + pos[3 * i + 2] * cz; if (d < dmin) dmin = d; }
-      const gnomonic = dmin > 0.0872;   // cos 85°
-      return gnomonic ? (i) => {
-        const x = pos[3 * i], y = pos[3 * i + 1], z = pos[3 * i + 2], d = x * cx + y * cy + z * cz;
-        return [(x * e1x + y * e1y + z * e1z) / d, (x * e2x + y * e2y + z * e2z) / d];
-      } : (i) => {
-        const x = pos[3 * i], y = pos[3 * i + 1], z = pos[3 * i + 2];
-        const d = Math.max(-1, Math.min(1, x * cx + y * cy + z * cz)), th = Math.acos(d);
-        let tx = x - d * cx, ty = y - d * cy, tz = z - d * cz; const tl = Math.hypot(tx, ty, tz) || 1;
-        return [th * (tx * e1x + ty * e1y + tz * e1z) / tl, th * (tx * e2x + ty * e2y + tz * e2z) / tl];
-      };
-    };
+    const frameAbout = (vs) => makeFrame(pos, vs).fwd;
     const proj = frameAbout(rings);
     // project, classify by signed area, group holes under the smallest containing outer
     const polys = rings.map((ring) => { const p = ring.map(proj); let A = 0; for (let i = 0, j = p.length - 1; i < p.length; j = i++) A += (p[j][0] * p[i][1] - p[i][0] * p[j][1]); return { ring, p, area: A / 2, holes: [] }; });
@@ -237,12 +245,179 @@
     return triangles;
   }
 
+  /* ================= Phase 2c: the PRESENCE mesh (a people's or a culture's soft face; design §2.5) =================
+     A state's face is one fill with a border line. A presence has no border line and its fill FADES at its edge, so its mesh is
+     drawn with a per-vertex alpha (the sink's fourth float, which a state's mesh uses for the face id): the face's ring at
+     alpha 0, the same ring moved INWARD by a fade width at alpha 1, a strip between them, and the interior (the inset ring) at
+     alpha 1. Where the edge is the COAST (a core reference) nothing fades — the coast is a real edge, and the renderer masks the
+     fill by the land anyway — so a vertex moves inward by the fraction of its two edges that are SOFT arcs. The width is a share
+     of the face's own size (6 %, between 12 and 300 km): a small people is a small smudge and the Huns a wide one. The inset ring
+     is verified (no edge of it crosses another or the boundary; the width is halved up to twice and then dropped), so the fill
+     never folds. Unlike a state's mesh it asks nothing of the stencil but the land. */
+  const SOFT_KIND = 4, FADE_FRAC = 0.06, FADE_MIN_KM = 12, FADE_MAX_KM = 300, EARTH_KM = 6371;
+  function presenceRings(T, face, level) {
+    const out = [];
+    for (const refs of face.rings) {
+      const ring = [], soft = [];   // soft[i]: the edge that ENTERS vertex i lies on a SOFT arc
+      let skip = false;
+      for (let r = 0; r < refs.length; r++) {
+        const ref = refs[r], a = Math.abs(ref) - 1;
+        if (T.arcMinLod[a] > level) { skip = true; break; }
+        const isSoft = T.arcKind[a] === SOFT_KIND ? 1 : 0, s0 = T.arcOffset[a], e0 = T.arcOffset[a + 1];
+        if (ref > 0) { for (let i = s0; i < e0; i++) if (T.rank[i] <= level) { if (ring.length && i === s0) continue; ring.push(i); soft.push(isSoft); } }
+        else { for (let i = e0 - 1; i >= s0; i--) if (T.rank[i] <= level) { if (ring.length && i === e0 - 1) continue; ring.push(i); soft.push(isSoft); } }
+      }
+      if (skip) continue;
+      if (ring.length > 1) { const f = ring[0], l = ring[ring.length - 1]; if (f === l || (T.lon[f] === T.lon[l] && T.lat[f] === T.lat[l])) { ring.pop(); soft[0] = soft.pop(); } }   // the closing edge enters vertex 0 on the LAST arc
+      if (ring.length >= 3) out.push({ ring, soft });
+    }
+    return out;
+  }
+  /* a uniform grid of segments, for the clearance and the verification of the inset rings (near-linear instead of N²) */
+  function segGrid(cell) {
+    const g = new Map(); const segs = [];
+    const key = (x, y) => x + "," + y;
+    return {
+      segs,
+      add(ax, ay, bx, by, tag) {
+        const id = segs.length; segs.push([ax, ay, bx, by, tag]);
+        const x0 = Math.floor(Math.min(ax, bx) / cell), x1 = Math.floor(Math.max(ax, bx) / cell), y0 = Math.floor(Math.min(ay, by) / cell), y1 = Math.floor(Math.max(ay, by) / cell);
+        for (let x = x0; x <= x1; x++) for (let y = y0; y <= y1; y++) { const k = key(x, y); let l = g.get(k); if (!l) g.set(k, l = []); l.push(id); }
+        return id;
+      },
+      near(px, py, r, fn) { const x0 = Math.floor((px - r) / cell), x1 = Math.floor((px + r) / cell), y0 = Math.floor((py - r) / cell), y1 = Math.floor((py + r) / cell); const seen = new Set(); for (let x = x0; x <= x1; x++) for (let y = y0; y <= y1; y++) { const l = g.get(key(x, y)); if (!l) continue; for (const id of l) { if (seen.has(id)) continue; seen.add(id); fn(id, segs[id]); } } },
+      cellOf(id) { return segs[id]; },
+    };
+  }
+  const distPtSeg = (px, py, ax, ay, bx, by) => { const dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy; let t = l2 > 0 ? ((px - ax) * dx + (py - ay) * dy) / l2 : 0; t = t < 0 ? 0 : t > 1 ? 1 : t; const qx = ax + dx * t - px, qy = ay + dy * t - py; return Math.sqrt(qx * qx + qy * qy); };
+  const segCross = (a, b, c, d) => { const o = (p, q, r) => (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]); const d1 = o(a, b, c), d2 = o(a, b, d), d3 = o(c, d, a), d4 = o(c, d, b); return ((d1 > 0) !== (d2 > 0)) && ((d3 > 0) !== (d4 > 0)) && d1 !== 0 && d2 !== 0 && d3 !== 0 && d4 !== 0; };
+
+  /* the inset of one polygon (outer ring + holes) in its planar frame: { inner: [[x, y]…] per ring, d: [Float64Array] per ring }, or null when
+     no width keeps the inset simple. Pure: the Node test (.claude/test-peoples.js) runs it on the committed history file. */
+  function presenceInset(rings, D0) {
+    const n = rings.map((r) => r.p.length);
+    const weight = rings.map((r) => { const m = r.p.length, w = new Float64Array(m); for (let i = 0; i < m; i++) w[i] = (r.soft[i] + r.soft[(i + 1) % m]) / 2; return w; });
+    if (!weight.some((w) => w.some((x) => x > 0))) return null;   // all coast: nothing fades
+    const cell = Math.max(D0 * 3, 1e-9);
+    // the clearance of every vertex: the distance to the nearest edge not touching it, limited to the width asked for
+    const grid = segGrid(cell);
+    rings.forEach((r, ri) => { const m = r.p.length; for (let i = 0; i < m; i++) { const a = r.p[i], b = r.p[(i + 1) % m]; grid.add(a[0], a[1], b[0], b[1], ri * 1e7 + i); } });
+    const clear = rings.map((r, ri) => { const m = r.p.length, c = new Float64Array(m).fill(Infinity); for (let i = 0; i < m; i++) { if (!weight[ri][i]) continue; const P = r.p[i]; grid.near(P[0], P[1], D0 * 3, (id, sg) => { const tr = Math.floor(sg[4] / 1e7), te = sg[4] % 1e7; if (tr === ri && (te === i || te === (i - 1 + m) % m)) return; const d = distPtSeg(P[0], P[1], sg[0], sg[1], sg[2], sg[3]); if (d < c[i]) c[i] = d; }); } return c; });
+    for (const scale of [1, 0.5, 0.25]) {
+      const d = rings.map((r, ri) => { const m = r.p.length, o = new Float64Array(m); for (let i = 0; i < m; i++) o[i] = Math.min(D0 * scale * weight[ri][i], 0.4 * clear[ri][i]); return o; });
+      const inner = rings.map((r, ri) => {
+        const m = r.p.length, out = new Array(m);
+        for (let i = 0; i < m; i++) {
+          const p0 = r.p[(i - 1 + m) % m], p1 = r.p[i], p2 = r.p[(i + 1) % m];
+          let e1x = p1[0] - p0[0], e1y = p1[1] - p0[1], e2x = p2[0] - p1[0], e2y = p2[1] - p1[1];
+          const l1 = Math.hypot(e1x, e1y) || 1, l2 = Math.hypot(e2x, e2y) || 1; e1x /= l1; e1y /= l1; e2x /= l2; e2y /= l2;
+          const n1x = -e1y, n1y = e1x, n2x = -e2y, n2y = e2x, dot = n1x * n2x + n1y * n2y;
+          let vx = n1x + n2x, vy = n1y + n2y, k = 1 / Math.max(1e-6, 1 + dot);
+          if (Math.hypot(vx, vy) * k > 3) { const l = Math.hypot(vx, vy) || 1; vx = vx / l; vy = vy / l; k = 1; } else { vx *= k; vy *= k; }
+          out[i] = [p1[0] + vx * d[ri][i], p1[1] + vy * d[ri][i]];
+        }
+        return out;
+      });
+      // simple? no inset edge crosses another inset edge or a boundary edge (adjacent edges excepted)
+      const chk = segGrid(cell); const bound = [];
+      rings.forEach((r, ri) => { const m = r.p.length; for (let i = 0; i < m; i++) { const a = r.p[i], b = r.p[(i + 1) % m]; chk.add(a[0], a[1], b[0], b[1], "b" + ri + ":" + i); } });
+      inner.forEach((q, ri) => { const m = q.length; for (let i = 0; i < m; i++) { const a = q[i], b = q[(i + 1) % m]; chk.add(a[0], a[1], b[0], b[1], "i" + ri + ":" + i); } });
+      void bound;
+      let bad = false;
+      for (let id = 0; id < chk.segs.length && !bad; id++) {
+        const sg = chk.segs[id]; if (sg[4][0] !== "i") continue;
+        const [ri, ei] = sg[4].slice(1).split(":").map(Number), m = inner[ri].length;
+        chk.near((sg[0] + sg[2]) / 2, (sg[1] + sg[3]) / 2, Math.hypot(sg[2] - sg[0], sg[3] - sg[1]) / 2 + 1e-12, (oid, o) => {
+          if (bad || oid === id) return;
+          const t = o[4], tr = Number(t.slice(1).split(":")[0]), te = Number(t.slice(1).split(":")[1]);
+          if (t[0] === "i" && tr === ri && (te === (ei + 1) % m || te === (ei - 1 + m) % m)) return;
+          if (t[0] === "b" && tr === ri && (te === ei || te === (ei - 1 + m) % m)) return;   // its own boundary edges
+          if (segCross([sg[0], sg[1]], [sg[2], sg[3]], [o[0], o[1]], [o[2], o[3]])) bad = true;
+        });
+      }
+      if (!bad) return { inner, d, scale };
+    }
+    return null;
+  }
+  async function presenceMesh(T, pos, face, level, sink) {
+    const rs = presenceRings(T, face, level);
+    if (!rs.length) return 0;
+    const proj = makeFrame(pos, rs.map((r) => r.ring)).fwd;
+    const polys = rs.map((r) => { const p = r.ring.map(proj); let A = 0; for (let i = 0, j = p.length - 1; i < p.length; j = i++) A += (p[j][0] * p[i][1] - p[i][0] * p[j][1]); return { ring: r.ring, soft: r.soft, p, area: A / 2, holes: [] }; });
+    const outers = polys.filter((q) => q.area > 0).sort((a, b) => a.area - b.area);
+    const inside = (pt, poly) => { let c = false; const p = poly.p; for (let i = 0, j = p.length - 1; i < p.length; j = i++) if ((p[i][1] > pt[1]) !== (p[j][1] > pt[1]) && pt[0] < (p[j][0] - p[i][0]) * (pt[1] - p[i][1]) / (p[j][1] - p[i][1]) + p[i][0]) c = !c; return c; };
+    for (const h of polys) { if (h.area > 0) continue; const o = outers.find((o) => inside(h.p[0], o)); if (o) o.holes.push(h); }
+    const chord = 2 * Math.sin(CHORD_DEG[Math.min(level, CHORD_DEG.length - 1)] * D2R / 2), chord2 = chord * chord;
+    let triangles = 0, no = 0;
+    for (const o of outers) {
+      if ((++no & 7) === 0) await tick();
+      const group = [o].concat(o.holes);
+      const F = makeFrame(pos, group.map((g) => g.ring));
+      const rings = group.map((g) => ({ g, p: g.ring.map(F.fwd), soft: g.soft }));
+      let A = 0; { const p = rings[0].p; for (let i = 0, j = p.length - 1; i < p.length; j = i++) A += (p[j][0] * p[i][1] - p[i][0] * p[j][1]); A = Math.abs(A / 2); }
+      const D0 = F.gnomonic ? Math.min(FADE_MAX_KM, Math.max(FADE_MIN_KM, FADE_FRAC * Math.sqrt(A) * EARTH_KM)) / EARTH_KM : 0;
+      const ins = D0 > 0 ? presenceInset(rings, D0) : null;
+      // vertices: the boundary (alpha 0 where it fades, else 1) and the inset ring (alpha 1)
+      const outerId = [], innerId = [];
+      rings.forEach((r, ri) => {
+        outerId[ri] = []; innerId[ri] = [];
+        r.g.ring.forEach((gi, i) => {
+          const faded = ins && ins.d[ri][i] > 0;
+          const oid = sink.vertex(pos[3 * gi], pos[3 * gi + 1], pos[3 * gi + 2], faded ? 0 : 1);
+          outerId[ri][i] = oid;
+          if (faded) { const q = ins.inner[ri][i], u = F.inv(q[0], q[1]); innerId[ri][i] = sink.vertex(u[0], u[1], u[2], 1); } else innerId[ri][i] = oid;
+        });
+      });
+      // the subdivision of a triangle into pieces under the level's chord, the alpha interpolated along each great circle (no cracks: every
+      // piece of an edge depends on that edge alone, as in triangulateFace)
+      const edgePts = new Map();
+      const d2 = (la, lb) => { const A1 = sink.get(la), B1 = sink.get(lb); const dx = A1[0] - B1[0], dy = A1[1] - B1[1], dz = A1[2] - B1[2]; return dx * dx + dy * dy + dz * dz; };
+      const along = (la, lb, n) => {
+        if (n <= 1) return [];
+        const lo = Math.min(la, lb), hi = Math.max(la, lb), key = lo + ":" + hi + ":" + n;
+        let arr = edgePts.get(key);
+        if (!arr) { arr = []; const P = sink.get(lo), Q2 = sink.get(hi); for (let k = 1; k < n; k++) { const t = k / n; const x = P[0] * (1 - t) + Q2[0] * t, y = P[1] * (1 - t) + Q2[1] * t, z = P[2] * (1 - t) + Q2[2] * t; const l = Math.hypot(x, y, z) || 1; arr.push(sink.vertex(x / l, y / l, z / l, P[3] * (1 - t) + Q2[3] * t)); } edgePts.set(key, arr); }
+        return la === lo ? arr : arr.slice().reverse();
+      };
+      const pieces = (la, lb) => Math.max(1, Math.ceil(Math.sqrt(d2(la, lb)) / chord));
+      const put = (x, y, z) => { if (x === y || y === z || z === x) return; sink.tri(x, y, z); triangles++; };
+      const emit = (a, b, c) => {
+        const na = pieces(a, b), nb = pieces(b, c), nc = pieces(c, a);
+        if (na <= 1 && nb <= 1 && nc <= 1) { put(a, b, c); return; }
+        const far = [b].concat(along(b, c, nb), [c]);
+        let prev = null;
+        for (let k = 0; k < far.length; k++) {
+          const spoke = [a].concat(along(a, far[k], pieces(a, far[k])), [far[k]]);
+          if (prev) {
+            const P = prev, Q2 = spoke; let i = 1, j = 1;
+            put(P[0], P[1], Q2[1]);
+            while (i < P.length - 1 || j < Q2.length - 1) {
+              const tP = (i + 1) / (P.length - 1), tQ = (j + 1) / (Q2.length - 1);
+              if (j >= Q2.length - 1 || (i < P.length - 1 && tP <= tQ)) { put(P[i], P[i + 1], Q2[j]); i++; }
+              else { put(P[i], Q2[j + 1], Q2[j]); j++; }
+            }
+          }
+          prev = spoke;
+        }
+      };
+      // the interior: earcut on the inset rings (or on the boundary itself when nothing fades)
+      const flat = [], holeIdx = [], gid = [];
+      rings.forEach((r, ri) => { if (ri > 0) holeIdx.push(gid.length); const pts = ins ? ins.inner[ri] : r.p; pts.forEach((q, i) => { flat.push(q[0], q[1]); gid.push(innerId[ri][i]); }); });
+      const tri = root.earcut(flat, holeIdx.length ? holeIdx : null, 2);
+      for (let t = 0; t < tri.length; t += 3) emit(gid[tri[t]], gid[tri[t + 1]], gid[tri[t + 2]]);
+      // the fade strip: one quad per boundary edge that has a faded end
+      if (ins) rings.forEach((r, ri) => { const m = r.p.length; for (let i = 0; i < m; i++) { const j = (i + 1) % m; if (innerId[ri][i] === outerId[ri][i] && innerId[ri][j] === outerId[ri][j]) continue; emit(outerId[ri][i], outerId[ri][j], innerId[ri][j]); emit(outerId[ri][i], innerId[ri][j], innerId[ri][i]); } });
+    }
+    return triangles;
+  }
+  presenceMesh.inset = presenceInset;
+
   // a growable vertex + index sink for one level
   function Sink() {
     let pos = new Float32Array(1 << 18), n = 0, idx = new Uint32Array(1 << 18), m = 0;
     return {
       vertex(x, y, z, f) { if ((n + 1) * 4 > pos.length) { const p = new Float32Array(pos.length * 2); p.set(pos); pos = p; } pos[4 * n] = x; pos[4 * n + 1] = y; pos[4 * n + 2] = z; pos[4 * n + 3] = f; return n++; },
-      get(i) { return [pos[4 * i], pos[4 * i + 1], pos[4 * i + 2]]; },
+      get(i) { return [pos[4 * i], pos[4 * i + 1], pos[4 * i + 2], pos[4 * i + 3]]; },
       tri(a, b, c) { if (m + 3 > idx.length) { const q = new Uint32Array(idx.length * 2); q.set(idx); idx = q; } idx[m++] = a; idx[m++] = b; idx[m++] = c; },
       result() { return { pos: pos.slice(0, n * 4), idx: idx.slice(0, m), vertices: n, triangles: m / 3 }; },
     };
@@ -426,7 +601,7 @@
   let CORE = null, HIST = null, HIST_PENDING = null;
   let GZ = null, RIVER_LINES = null, RIVER_CAPS = null, METRICS = null;
   const D2R_ = Math.PI / 180;
-  const KW = { capital: 0, country: 1, ocean: 2, sea: 3, admin1: 4, region: 5, range: 5, "island-group": 6, island: 6, gulf: 6, strait: 6, city: 7, lake: 8, town: 9, river: 10 };
+  const KW = { capital: 0, country: 1, people: 4.5, ocean: 2, sea: 3, admin1: 4, region: 5, range: 5, "island-group": 6, island: 6, gulf: 6, strait: 6, city: 7, lake: 8, town: 9, river: 10 };
   const PHYSICAL = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1, island: 1, "island-group": 1, range: 1, region: 1 };
   const MIN_CHORD_PX = 40;            // an area is labelled once it is this wide on screen (§2.6)
   const LIMB_Z = 0.1;                 // a name whose anchor is nearer the limb than this (view-space z; the fade reaches 1 at 0.2) is not a candidate
@@ -470,6 +645,7 @@
   function styleFor(row, chordPx) {
     switch (row.kind) {
       case "polity": case "country": return chordPx >= 700 ? "country-l" : chordPx >= 260 ? "country-m" : "country-s";
+      case "people": case "culture": return chordPx >= 600 ? "people-l" : chordPx >= 240 ? "people-m" : "people-s";   // 2c: spaced italic, the territory's small capitals' opposite
       case "admin1": return "admin1";
       case "capital": return "capital"; case "city": return "city"; case "town": return "town";
       case "ocean": return "water-l"; case "sea": return chordPx >= 500 ? "water-l" : "water-m";
@@ -533,17 +709,17 @@
       for (const fi of q.aliveFaces) {
         let e = HIST.H.entities[HIST.T.faces[fi].entity]; if (!e) continue;
         if (e.kind === "nested") { e = HIST.H.entities.find((x) => x.id === e.partners[0]); if (!e) continue; }   // a member inside its overlord is named as itself (2b)
-        else if (e.kind !== "polity") continue;
+        else if (e.kind !== "polity" && e.kind !== "people" && e.kind !== "culture") continue;
         const path = histLabelPath(fi, proj, W, H, q); if (!path) continue;
         const km2 = HIST.H.faceKm2 ? HIST.H.faceKm2[fi] : 0;
         // the rank by the area ON SCREEN (2b): the face's area times the share of its vertices on screen, in screen pixels — a view
         // with many alive faces names the ones a reader sees most of first, and the order holds as the view moves
         const px2 = km2 * (path.visFrac || 0) / Math.max(1e-6, kmpp * kmpp);
-        histRows.push({ id: e.id, name: e.name, kind: "polity", rank: px2 >= 4e5 ? 0 : px2 >= 1e5 ? 1 : px2 >= 2e4 ? 2 : px2 >= 4e3 ? 3 : 4, path, len: path.len * kmpp, face: fi, px2 });
+        histRows.push({ id: e.id, name: e.name, kind: e.kind === "people" || e.kind === "culture" ? e.kind : "polity", rank: px2 >= 4e5 ? 0 : px2 >= 1e5 ? 1 : px2 >= 2e4 ? 2 : px2 >= 4e3 ? 3 : 4, path, len: path.len * kmpp, face: fi, px2 });
       }
       histRows.sort((p, q) => q.px2 - p.px2);
     }
-    for (const row of histRows) { const chordPx = row.path.len; const hl = study ? (study.flags.get(row.id) || 0) : 0; if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + (hl ? -400 - (hl === 2 ? 40 : 0) : 0) + row.rank * 10 + KW.country, hist: true, hl }); }
+    for (const row of histRows) { const chordPx = row.path.len; const hl = study ? (study.flags.get(row.id) || 0) : 0; if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + (hl ? -400 - (hl === 2 ? 40 : 0) : 0) + row.rank * 10 + (row.kind === "polity" ? KW.country : KW.people), hist: true, hl }); }   // one pool (2c): a people's name is ranked with the states' — after a polity of its rank, before a region of it — and placed by the same grid, so it never collides with one
     /* A LARGE POLITY'S NAME OUTRANKS THE CAPITAL MARKERS INSIDE IT (Phase 3a, task 0a; the 2b review's Ottoman Empire of 1500
        and Mongol Empire of 1245 drew a fill and their capitals but no name). The period capitals scored 0 — before every
        polity, whose best score is KW.country — so Constantinople's marker and name took the cells at the Ottoman label's one
@@ -765,7 +941,7 @@
       const text = row.name;
       const sh = shape(text, st, missing); sh.style = styleId;
       const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
-      if (k === "polity") {
+      if (k === "polity" || k === "people" || k === "culture") {
         // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
         const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
         const cum = polyline(S2), Ls = cum[cum.length - 1];
@@ -956,14 +1132,15 @@
       let m = HIST.meshes.get(key);
       if (!m) {
         const sink = Sink();
-        await triangulateFace(L.T, L.pos, HIST.T.faces[fi], fi, level, sink);
+        const ent = HIST.H.entities[HIST.T.faces[fi].entity], presence = !!ent && (ent.kind === "people" || ent.kind === "culture");
+        if (presence) await presenceMesh(L.T, L.pos, HIST.T.faces[fi], level, sink); else await triangulateFace(L.T, L.pos, HIST.T.faces[fi], fi, level, sink);   // 2c: a presence's mesh carries an edge alpha, not a face id
         const F = sink.result();
         // the face's coast edges at this level, for the fill-against-stroke stroke at the tile zooms (§2.3, Phase 2a), and — since 2b —
         // its BORDER edges (every non-coast arc, tagged with the arc index so the main thread's arc table still fades them), so the
         // renderer draws the borders of the faces on screen and no others: one list per level held every border of the file (51,025
         // arcs at full scale, 70,000 segments in a Mediterranean view with most at alpha 0), and a software rasteriser pays per segment
         const coast = [], border = [];
-        for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; const list = HIST.T.arcKind[a] === 0 ? coast : border, tag = HIST.T.arcKind[a] === 0 ? fi * 64 + HIST_KIND : a * 64 + (HIST.T.arcFlags[a] & 7) * 8 + HIST_KIND; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) list.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], tag, L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], 0); }   // EIGHT floats a segment — (a.xyz, tag) (b.xyz, 0), the two texels uploadSegs reads — never the seven-float form bucketSegments takes: seven floats read as eight drew every segment after the first between unrelated points (the 2a review's chord across Latium and the fan over Sicily, fixed in 2b)
+        if (!presence) for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; const list = HIST.T.arcKind[a] === 0 ? coast : border, tag = HIST.T.arcKind[a] === 0 ? fi * 64 + HIST_KIND : a * 64 + (HIST.T.arcFlags[a] & 7) * 8 + HIST_KIND; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) list.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], tag, L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], 0); }   // EIGHT floats a segment — (a.xyz, tag) (b.xyz, 0), the two texels uploadSegs reads — never the seven-float form bucketSegments takes: seven floats read as eight drew every segment after the first between unrelated points (the 2a review's chord across Latium and the fan over Sicily, fixed in 2b)
         m = { face: fi, level, pos: F.pos, idx: F.triangles * 3 <= 65535 && F.vertices <= 65535 ? Uint16Array.from(F.idx) : F.idx, coast: Float32Array.from(coast), border: Float32Array.from(border), triangles: F.triangles };
         m.bytes = m.pos.byteLength + m.idx.byteLength + m.coast.byteLength + m.border.byteLength;
         HIST.meshes.set(key, m); HIST.order.push(key); HIST.bytes = (HIST.bytes || 0) + m.bytes;
@@ -1198,7 +1375,7 @@
     root.AtlasWorkerMain = {
       handle: (msg, post, progress) => { Y.shim = true; if (progress) Y.progress = progress; try { const p = handle(msg, (m) => post(m)); return p && typeof p.then === "function" ? p.catch((err) => post({ type: "error", message: String(err && err.stack || err) })) : Promise.resolve(); } catch (err) { post({ type: "error", message: String(err && err.stack || err) }); return Promise.resolve(); } },
       yieldEvery: (ms) => { Y.every = ms; },
-      _debug: { buildSegments, unitVectors, triangulateFace, Sink },   // for the chunk measurement in .claude/ (not used by the page)
+      _debug: { buildSegments, unitVectors, triangulateFace, Sink, presenceMesh, presenceInset, presenceRings, makeFrame },   // for the chunk measurement in .claude/ (not used by the page)
     };
   }
 })(typeof self !== "undefined" ? self : globalThis);

@@ -389,7 +389,7 @@ Cliopatria's whole span, 3400 BCE to 2021 CE (the present-day faces hold 2022 on
 the rail's caption, the About sheet, the credits page and the place card each say once. Deferred to 2c: the eight series the
 audit keeps as *peoples* (`scythia`, `galatia`, `gothia`, `huns`, `avars`, `old_great_bulgaria`, `khazaria`, `magyars` — the
 2a pilot drew the Avars as a state; it no longer does), the coastline series (`cyclades`, `crete`) and the site-hull cultures
-(`yangshao`, `longshan`); to 2d the WW2 fronts and the war sides. The builder is the 2a pipeline with four changes: an epoch
+(`yangshao`, `longshan`); (all twelve built in Phase 2c, §7 "Phase 2c — as built"); to 2d the WW2 fronts and the war sides. The builder is the 2a pipeline with four changes: an epoch
 conflates only the coast rings its alive rows can touch (a ring's box against the rows' boxes grown by D1), so the Pacific costs
 a Mediterranean epoch nothing; the land/sea parity test casts its ray **north to the pole** (sea in the OSM partition) instead of
 east — at global scale the eastward ray, unwrapped about the point, ran half round the globe and ended on land for most of
@@ -632,6 +632,8 @@ timeline, a people's steps (Cliopatria's rows, or dated site phases) are ticks l
 Khaganates and confederations (Avars, Khazars, Huns…) keep the *people* rendering while their
 dated series supplies the where — the audit's rule "the series decides where, the tag decides how"
 holds.
+
+*As built (Phase 2c, 2026-10-12):* a presence is a different kind of entity in the step file (`people`, `culture`; its own edge a soft arc, conflated alone, class soft), its soft face a mesh with an edge alpha, its stipple a lattice of round dots in screen space at the presence's own angle, blended by multiply on a light theme and by screen on a dark one, its name `people-*` spaced italic in the one label pool, the stack chip lists every entity under a tap and the legend's Peoples switch has its three positions — §7 "Phase 2c — as built".
 
 ### 2.6 Labels and markers: the place taxonomy
 

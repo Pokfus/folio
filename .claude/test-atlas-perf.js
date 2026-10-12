@@ -108,6 +108,14 @@ const VIEWS = [
   // Phase 2b: Europe in 1500 and in 1900 at 3 km/px (the land budgets are Europe's above; the history budgets measured on the 2b file, × 1.25)
   { name: "Europe, 1500", lon: 10, lat: 50, kmpp: 3.0, year: 1500, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: HIST_BUDGET_1500[0], histSeg: HIST_BUDGET_1500[1] },
   { name: "Europe, 1900", lon: 10, lat: 50, kmpp: 3.0, year: 1900, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: HIST_BUDGET_1900[0], histSeg: HIST_BUDGET_1900[1] },
+  /* Phase 2c: the PEOPLES-HEAVY views, each the measurement × 1.25 (rounded up), 2026-10-12 on the 2c file at 1280×800: the steppe in 450 CE at 6 km/px (the Huns: 64,219 land
+     triangles, 28,034 segments, 11,195 state fill triangles in 9 faces and 937 border segments, 1,607 presence triangles in 1 face); the Black Sea in 450 BCE at 4 km/px
+     (Scythia: 167,260 / 89,000, 26,935 in 16 faces and 641, 2,091 presence triangles in 1 face); the steppe in 660 CE at 6 km/px (the Avars, Old Great Bulgaria and Khazaria:
+     63,474 / 27,742, 12,767 in 7 faces and 1,188, 1,627 presence triangles in 3 faces). The presence pass has its own counter (`presenceTriangles`): a people's soft face is a
+     fill, one draw a face, no segments — the border budget above is the states'. */
+  { name: "Steppe, 450 CE", lon: 45, lat: 48, kmpp: 6.0, year: 450, tri: 80000, seg: 35000, river: 9400, lakeSeg: 14600, lakeTri: 13500, histTri: 14000, histSeg: 1200, presTri: 2100, presFaces: 1 },
+  { name: "Black Sea, 450 BCE", lon: 34, lat: 45, kmpp: 4.0, year: -450, tri: 209000, seg: 111000, river: 44900, lakeSeg: 98500, lakeTri: 92100, histTri: 33700, histSeg: 800, presTri: 2700, presFaces: 1 },
+  { name: "Steppe, 660 CE", lon: 45, lat: 50, kmpp: 6.0, year: 660, tri: 80000, seg: 35000, river: 9300, lakeSeg: 14800, lakeTri: 13700, histTri: 16000, histSeg: 1500, presTri: 2100, presFaces: 3 },
 ];
 const PORT = 5612;
 
@@ -441,6 +449,7 @@ async function fixedViews(page, cx, cy) {
     check(`${V.name}: river segments ≤ ${V.river}`, still.riverSegments <= V.river, `${still.riverSegments}`);
     check(`${V.name}: lake-shore segments ≤ ${V.lakeSeg}`, still.lakeSegments <= V.lakeSeg, `${still.lakeSegments}`);
     check(`${V.name}: lake-fill triangles ≤ ${V.lakeTri}`, still.lakeTriangles <= V.lakeTri, `${still.lakeTriangles}`);
+    if (V.presTri != null) { check(`${V.name}: presence (peoples and cultures) fill triangles ≤ ${V.presTri}`, (still.presenceTriangles || 0) <= V.presTri && (still.presenceTriangles || 0) > 0, `${still.presenceTriangles} in ${still.presenceFaces} faces`); check(`${V.name}: ${V.presFaces} presence face(s) drawn`, (still.presenceFaces || 0) === V.presFaces, `${still.presenceFaces}`); }
     if (V.histTri != null) { check(`${V.name}: historical fill triangles ≤ ${V.histTri}`, still.historyTriangles <= V.histTri, `${still.historyTriangles} in ${still.historyFaces} faces`); check(`${V.name}: historical border segments ≤ ${V.histSeg}`, still.historySegments <= V.histSeg, `${still.historySegments}`); }
   }
   for (const g of ["drag", "wheel", "pinch"]) {

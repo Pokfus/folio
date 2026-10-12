@@ -405,7 +405,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const reg = require("./places-registry.js").loadRegistry({ entities: false });
     const W = {}; new Function("window", fs.readFileSync(path.join(ROOT, "glossary.js"), "utf8"))(W);
     check("every id in the glossary table resolves in the registry", Object.values(table).every((id) => reg.rows.has(id)), Object.keys(table).length + " terms");
-    check("181 country terms and 25 of the 31 point terms have a place; the other six are left out, not guessed", Object.keys(W.GLOSSARY_MAP_COUNTRY).every((k) => /^adm0:/.test(table[k] || "")) && Object.keys(W.GLOSSARY_PLACES).filter((k) => table[k]).length === 25, Object.keys(W.GLOSSARY_PLACES).filter((k) => !table[k]).join(", "));
+    check("181 country terms and 30 of the 31 point terms have a place (Phase 2c, Task 0b: Alaska, Great Britain, Lake Turkana, the Sahara and Siberia matched by exact label or alias at any distance); the one left out, Lomekwi 3, has no Wikidata item and is not guessed", Object.keys(W.GLOSSARY_MAP_COUNTRY).every((k) => /^adm0:/.test(table[k] || "")) && Object.keys(W.GLOSSARY_PLACES).filter((k) => table[k]).length === 30 && Object.keys(W.GLOSSARY_PLACES).filter((k) => !table[k]).join() === "Lomekwi_3", Object.keys(W.GLOSSARY_PLACES).filter((k) => !table[k]).join(", "));
   }
 
   /* ------------------------------------------------------------------ 7d  search across years (Phase 3c, task 3) */
@@ -552,6 +552,44 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     await A(page, (c) => c.select("pl:q202487", { open: true, fly: false, push: false })); await sleep(400);
     const kind = await page.evaluate(() => document.querySelector(".atlas2-card-kind").textContent);
     check('the place card\'s kind line says "Hill"', /^Hill\b/.test(kind), kind);
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 7h  the Peoples switch (Phase 2c, Q-C2 b) */
+  console.log("\n\x1b[1m7h) the Peoples switch: the Personal Atlas shows a people only when one of the reader's cards links it\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, ["ru-005", "gr-788"]);   // the Scythians' card and Galatia's: two peoples
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.ensureHistory());
+    await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyStarted() && c.historyReady(); }, null, { timeout: 120000 });
+    const P = () => A(page, (c) => { const p = c.presence(); return { shown: p.shown.slice().sort(), mode: p.mode, position: p.position, drawn: p.drawn.length, note: document.querySelector(".atlas2-peoples-note").textContent }; });
+    const setYear = async (y) => { await page.evaluate((yy) => document.querySelector(".atlas2").__atlas2.setYear(yy), y); await sleep(300); };
+    await setYear(-400);
+    check("the legend carries three radios — Off, Peoples a card links, All with a dated source — and the default is the card-linked one", JSON.stringify(await page.$$eval('.atlas2-sheet input[data-layer="peoples"]', (r) => r.map((x) => x.value + ":" + x.parentElement.textContent.trim() + ":" + x.checked))) === '["off:Off:false","linked:Peoples a card links:true","all:All with a dated source:false"]');
+    let p = await P();
+    const shownNow = (await P()).shown;
+    check("a reader who studied the Scythians' and Galatia's cards sees exactly those two peoples on their Personal Atlas, not the other ten", (await P()).mode === "personal" && shownNow.join() === "pol:galatia,pol:scythia", shownNow.join() + " in " + (await P()).mode);
+    check("the year -400 draws only Scythia of them (Galatia is mapped 279–26 BCE)", (await P()).drawn === 1, String((await P()).drawn));
+    await page.click('.atlas2-study [data-mode="full"]'); await sleep(300);
+    p = await P();
+    check("the Full Atlas shows every people a card links (all twelve, each on its dates)", p.mode === "full" && p.shown.length === 12, p.shown.length + " shown");
+    // collections off: the cards of a collection leave 'linked' but not 'all'
+    const ru = await A(page, (c) => c.study.info("ru-005").collId);   // the collection of the Scythians' card: it alone links seven of the twelve
+    await A(page, (c, id) => c.study.toggleColl(id, false), ru); await sleep(300);
+    const linkedOff = await P();
+    await page.evaluate(() => document.querySelector('.atlas2-sheet input[data-layer="peoples"][value="all"]').click()); await sleep(300);
+    const allOff = await P();
+    check("with that collection off, 'linked' loses the seven peoples only its cards link (Scythia, Gothia, the Huns, the Avars, Old Great Bulgaria, Khazaria, the Magyars) and keeps the five other collections' — and 'all' keeps every one", linkedOff.shown.length === 5 && !linkedOff.shown.includes("pol:scythia") && linkedOff.shown.includes("pol:galatia") && allOff.shown.length === 12 && allOff.position === "all", `${linkedOff.shown.length} then ${allOff.shown.length}`);
+    await page.evaluate(() => document.querySelector('.atlas2-sheet input[data-layer="peoples"][value="off"]').click()); await sleep(300);
+    p = await P();
+    check("Off hides every people, in the Full Atlas too, and the note says so", p.shown.length === 0 && p.drawn === 0 && /hidden/i.test(p.note), p.note);
+    check("the choice is a per-viewer convenience in localStorage", JSON.parse(await page.evaluate(() => localStorage.getItem("folio_atlas2_layers_v2"))).peoples === "off");
+    await page.reload({ waitUntil: "load" }); await ready(page);
+    check("…and a reload keeps it", (await A(page, (c) => c.presence().position)) === "off");
+    await page.evaluate(() => localStorage.setItem("folio_atlas2_layers_v2", JSON.stringify({ peoples: "sometimes" }))); await page.reload({ waitUntil: "load" }); await ready(page);
+    check("a stored value it does not know reads as the default", (await A(page, (c) => c.presence().position)) === "linked");
+    await page.evaluate(() => { const o = Object.getOwnPropertyDescriptor(Storage.prototype, "setItem"); Storage.prototype.setItem = function () { throw new Error("blocked"); }; return o && 1; });
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ peoples: "all" })); await sleep(200);
+    check("with localStorage refusing writes the switch still works (try/catch)", (await A(page, (c) => c.presence().position)) === "all");
     allErrors.push(...errors); await ctx.close();
   }
 
