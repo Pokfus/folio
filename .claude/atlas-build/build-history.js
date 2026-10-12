@@ -139,6 +139,9 @@ const USE_CACHE = !argv.includes("--no-cache");
 /* ---------- the tolerances, chosen from --measure (§7 "Phase 2a — as built") ---------- */
 const SRC = { clio: "cliopatria", coast: "osm-land-polygons", adm0: "ne-10m-admin0", wd: "wikidata-capitals", hosner: "hosner-2016", authored: "folio-authored-extents", ohm: "ohm-lacedaemon", usfs: "usfs-royce-cessions", sched: "usfs-royce-schedule", control: "ww2-atlas-control", atlas: "us-army-battlefront-atlas" };
 const TOLERANCE_M = { [SRC.clio]: 15000 };    // Cliopatria's stated precision class (§2.3 step 4): no snap may exceed it
+/* Phase 2d: a front is not Cliopatria's. Its rings reach the coast by the same snap rule (D1_M), so the reach is the tolerance — D1 plus one quantum of rounding (the 15,001 m of a Pacific plate's China coast) —
+   while the plate's OWN registration error (6–39 km, per plate) is carried on the plate (`unc`), not hidden in a snap. It is kept out of TOLERANCE_M so the epoch caches' key is unchanged. */
+const FRONT_SNAP = "ww2-fronts", TOLERANCE_SNAP = Object.assign({ [FRONT_SNAP]: 16000 }, TOLERANCE_M);
 /* MEASURED 2026-10-09 (out/history-measure.json, 267,932 pilot vertices): vertex → OSM coast has NO knee — 4,856 within 250 m,
    then a hump from 2 to 10 km (the coast-following vertices of a 10 km source sit 5 km off the shore) thinning past 15 km
    (2,945 in 15–20 km, 93,540 beyond 60 km: the inland ones); vertex → a neighbour's line in the same epoch is bimodal —
@@ -556,7 +559,7 @@ if (MEASURE) {
 }
 
 /* ================= 3. the global registries: arcs, vertices, faces across epochs ================= */
-const log = new SnapLog("build-history", TOLERANCE_M);
+const log = new SnapLog("build-history", TOLERANCE_SNAP);
 const ARCS = [];               // { key, kind, source, flags, own: [[x,y]…] | null, core: { arc, from, to }, va: [x,y], vb: [x,y] }
 const arcByKey = new Map();
 const FACES = [];              // { key, entity, cls, rings: [[signed global ref]…] }
@@ -589,7 +592,8 @@ function conflate(alive, label) {
   for (const L of lines) { const out = []; for (const v of L.v) if (!out.length || out[out.length - 1] !== v) out.push(v); if (out.length > 1 && out[0] === out[out.length - 1]) out.pop(); L.v = out; }
   const rowOfLine = new Map(); lines.forEach((L, i) => rowOfLine.set(i, L.row));
   /* ---- d1: coast junctions ---- */
-  const snapTo = (v, px, py, kind, src) => {
+  const snapTo = (v, px, py, kind, src0) => {
+    const src = alive.length && alive.every((r) => r.series.kind === "front") ? FRONT_SNAP : src0;
     const from = deg(VX[v], VY[v]), to = deg(px, py);
     log.snap({ source: src, kind, from, to, metres: metresU(VX[v], VY[v], px, py) });
     const k2 = pkey(px, py); const w = vkey.get(k2);
@@ -1254,7 +1258,7 @@ for (const e of epochs) {
    their own whose hash covers the state layer's size (a changed state layer invalidates it) and the rows themselves. */
 const statesDone = { arcs: ARCS.length, faces: FACES.length, ents: ENT.length, steps: STEPS.length };
 const statStates = statSnap();
-const CACHE_DIR_P = path.join(OUT, "history-cache", "presence-" + crypto.createHash("sha256").update(JSON.stringify({ CACHE: path.basename(CACHE_DIR), statesDone, rows: presenceRows.map((r) => [r.series.key, r.name, r.from, r.to, r.nv, r.series.src]), D1_M, D1_SURE_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, SEA_M, MAX_CHORD_M, v: 1 })).digest("hex").slice(0, 16));
+const CACHE_DIR_P = path.join(OUT, "history-cache", "presence-" + crypto.createHash("sha256").update(JSON.stringify({ CACHE: path.basename(CACHE_DIR), statesDone, rows: presenceRows.map((r) => [r.series.key, r.name, r.from, r.to, r.nv, r.series.src]), D1_M, D1_SURE_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, SEA_M, MAX_CHORD_M, v: 2 })).digest("hex").slice(0, 16));
 if (USE_CACHE) fs.mkdirSync(CACHE_DIR_P, { recursive: true });
 {
   let n = 0, replayedP = 0;
