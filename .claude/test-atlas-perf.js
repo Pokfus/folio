@@ -116,11 +116,12 @@ const VIEWS = [
   { name: "Steppe, 450 CE", lon: 45, lat: 48, kmpp: 6.0, year: 450, tri: 80000, seg: 35000, river: 9400, lakeSeg: 14600, lakeTri: 13500, histTri: 14000, histSeg: 1200, presTri: 2100, presFaces: 1 },
   { name: "Black Sea, 450 BCE", lon: 34, lat: 45, kmpp: 4.0, year: -450, tri: 209000, seg: 111000, river: 44900, lakeSeg: 98500, lakeTri: 92100, histTri: 33700, histSeg: 800, presTri: 2700, presFaces: 1 },
   { name: "Steppe, 660 CE", lon: 45, lat: 50, kmpp: 6.0, year: 660, tri: 80000, seg: 35000, river: 9300, lakeSeg: 14800, lakeTri: 13700, histTri: 16000, histSeg: 1500, presTri: 2100, presFaces: 3 },
-  /* Phase 2d: the WAR-HEAVY views. Budgets are PLACEHOLDERS until the first run on the 2d file (then: measurement × 1.25, rounded up, said here). The Western Front on 15 June 1944 at 3 km/px
-     (both theatres' plates standing, four sets of ground drawn as event faces by the presence pass) and the Mediterranean in 216 BCE at 6 km/px with the Second Punic War chosen from its card
-     (Rome and Carthage tinted, the states' own faces unchanged — the tint is a colour, not geometry). */
-  { name: "Western Front, June 1944", lon: 10, lat: 50, kmpp: 3.0, year: 1944, frontDate: 19440615, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: 40000, histSeg: 4000, presTri: 120000, presFaces: 4 },
-  { name: "Mediterranean, 216 BCE (Second Punic War)", lon: 15, lat: 38, kmpp: 6.0, year: -216, focusWar: "rm-209", tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 20000, histSeg: 2000, presTri: 10000, presFaces: 2 },
+  /* Phase 2d: the WAR-HEAVY views, each the measurement × 1.25 (rounded up), 2026-10-12 on the 2d file at 1280×800. The Western Front on 15 June 1944 at 3 km/px (both theatres' plates
+     standing: four front faces drawn as event faces — they count in the HISTORICAL counters, not the presence counter, which is the peoples' and extents' — 88,752 fill triangles in
+     10 faces (6 states and 4 fronts; Europe in 1900 is 25,449 in 9) and 1,525 border segments); the Mediterranean in 216 BCE at 6 km/px with the Second Punic War chosen from its card
+     (6,268 fill triangles in 14 faces, 1,020 segments, and 76 presence triangles in the 1 authored extent drawn: the tint is a colour, not geometry). */
+  { name: "Western Front, June 1944", lon: 10, lat: 50, kmpp: 3.0, year: 1944, frontDate: 19440615, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: 111000, histSeg: 1950 },
+  { name: "Mediterranean, 216 BCE (Second Punic War)", lon: 15, lat: 38, kmpp: 6.0, year: -216, focusWar: "rm-209", tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 7900, histSeg: 1300, presTri: 100, presFaces: 1 },
 ];
 const PORT = 5612;
 
