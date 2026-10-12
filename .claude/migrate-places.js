@@ -394,7 +394,48 @@ function makeResolver(reg, cache, mergedQ) {
     if (k.kind === "people") return { unresolved: "the item " + qid + " (" + (item.label || name) + ") is a people or a culture (Phase 2c), not a place row (" + classNames(cache, item.classes) + ")", qid };
     return { id: "pl:q" + qid.slice(1), via, d, item: { qid, kind: k.kind, sub: k.sub, forced: !!forceKind, coord: item.coord, label: item.label || "", title: item.title || (cache.titles[name] && cache.titles[name].qid === qid ? name : ""), classes: item.classes || [] } };
   }
-  return { resolve, byQid };
+  /* PHASE 2c, TASK 0b (owner's decision, 2026-10-12, not to be reopened): a glossary POINT term that the 25 km rule could not place
+     (the term names an area — Alaska, Great Britain, Lake Turkana, the Sahara, Siberia — and Wikipedia's primary coordinate is a
+     centre that can lie 100 km from the item's own) is matched to a Wikidata item by EXACT English label or alias (the cache's
+     `labels`, which the service answers for rdfs:label and skos:altLabel alike, and the enwiki article of that exact title), AT ANY
+     DISTANCE, provided the item's kind fits an area of that name: a country subdivision (admin1), an island, a lake, a region (a
+     desert, a plateau …). Exactly one fitting item resolves; several, or none, do not (never a guess). The distance from the
+     glossary's point is returned so the report can print it for a human to check. */
+  /* a kind FITS an area when the item's OWN classes (not those reached by subclass-of, which let a constituency, a street or a townland
+     through as "a region") name one: a country subdivision, an island, a lake, a desert or a geographic / historical / natural region */
+  const FIT_ADMIN1 = new Set(["Q35657", "Q10864048", "Q107390", "Q1221156", "Q36784", "Q1352230", "Q15304003"]);   // US state, first-level division, federated state, state of Germany, region of France, US territory, state of Australia
+  const FIT_ISLAND = new Set(["Q23442", "Q207524"]);                                                              // island, atoll
+  const FIT_REGION = new Set(["Q82794", "Q8514", "Q1620908", "Q1970725"]);                                         // geographic region, desert, historical region, natural region
+  const fitKind = (classes) => {
+    const k = kindOf(cache, classes); if (!k) return null;
+    if (k.kind === "lake") return k;
+    if (classes.some((c) => FIT_ISLAND.has(c)) && k.kind === "island") return k;
+    if (classes.some((c) => FIT_ADMIN1.has(c))) return { kind: "admin1", sub: "" };
+    if (classes.some((c) => FIT_REGION.has(c)) && k.kind === "region") return k;
+    return null;
+  };
+  function resolveAnywhere(t) {
+    const cands = [];
+    const add = (it, how) => { if (it && it.qid) { const have = cands.find((c) => c.it.qid === it.qid); if (have) have.hows.add(how); else cands.push({ it, hows: new Set([how]) }); } };
+    const hit = cache.titles[t.name]; if (hit && !hit.classes.includes(DISAMBIG)) add(hit, "article");
+    for (const it of (cache.labels || {})[t.name] || []) if (!it.classes.includes(DISAMBIG) && it.coord) add(it, "label or alias");
+    const fit = [];
+    for (const c of cands) {
+      if (!c.it.coord || notAPlace(c.it.classes)) continue;
+      const k = fitKind(c.it.classes || []); if (!k) continue;
+      fit.push({ qid: c.it.qid, k, it: c.it, d: t.at ? km(c.it.coord, t.at) : null, how: [...c.hows].sort().join(" + ") });
+    }
+    if (!fit.length) return { unresolved: "no Wikidata item bears the exact label or alias " + JSON.stringify(t.name) + " with a kind that fits an area (a country subdivision, an island, a lake, a desert or a region)" + (cands.length ? "; " + cands.length + " item(s) carry the name, none of a fitting kind" : "") };
+    /* several fitting items: the glossary slug IS a Wikipedia title (the points were fetched from that article), so the item whose
+       English Wikipedia article bears exactly that title is the term's own; printed, so a human can overrule it */
+    let pick = fit.length === 1 ? fit[0] : null, tie = "";
+    if (!pick) { const art = fit.filter((f) => f.how.includes("article")); if (art.length === 1) { pick = art[0]; tie = "; the other fitting item(s) of that name (" + fit.filter((f) => f !== pick).map((f) => f.qid + " " + (f.it.label || f.it.title)).join(", ") + ") lose to the item whose English Wikipedia article is exactly \"" + t.name + "\""; } }
+    if (!pick) return { ambiguous: fit.map((f) => f.qid + " " + (f.it.label || f.it.title) + " (" + f.k.kind + ", " + Math.round(f.d) + " km)"), why: "several items of a fitting kind bear the name" };
+    const out = accept(pick.qid, pick.it, t.name, pick.d, "label or alias, at any distance (Phase 2c, Task 0b)", pick.k);
+    if (out.id) out.anywhere = { qid: pick.qid, label: pick.it.label || pick.it.title || t.name, kind: pick.k.kind, km: Math.round(pick.d * 10) / 10, how: pick.how + tie };
+    return out;
+  }
+  return { resolve, resolveAnywhere, byQid };
 }
 const AROUND_MAX_KM = 50;   // a search around a coordinate is capped here: a 300 km circle over central Europe holds tens of thousands of items and the service answers 504 (measured 2026-10-10); a region whose item lies further than 50 km from the card's own anchor is reported, not guessed
 const aroundKey = (t) => t.at[0].toFixed(3) + "," + t.at[1].toFixed(3) + "," + Math.min(radiusOf(t.kind), AROUND_MAX_KM);
@@ -526,7 +567,12 @@ function run() {
   }
   /* resolve every toponym */
   const res = new Map(); for (const [k, t] of topo) res.set(k, resolver.resolve(t));
-  const glossRes = gloss.map((g) => ({ g, r: resolver.resolve({ name: g.name, label: "", kind: "point", at: g.at, cards: [] }) }));
+  const glossRes = gloss.map((g) => {
+    const t = { name: g.name, label: "", kind: "point", at: g.at, cards: [] };
+    let r = resolver.resolve(t);
+    if (!r.id && !(r.ambiguous && r.ambiguous.length)) { const w = resolver.resolveAnywhere(t); r = w.id || w.ambiguous ? w : Object.assign(r, { unresolvedAnywhere: w.unresolved }); }   // 2c, task 0b
+    return { g, r };
+  });
   /* 3b, decision 1: the same site under two names (Byzantium and Constantinople) is one place */
   if (FETCH) {   // 3c, decision 2: ask Wikidata whether it links each period settlement to the modern city 2-25 km away
     const probe = crossMerge([...res.values(), ...glossRes.map((g) => g.r)].map((r) => Object.assign({}, r)), reg, spec.rows || {}, spec.merges || {}, cache.links);
@@ -707,7 +753,12 @@ function run() {
   const odd = [...topo.values()].filter((t) => t.oddLabel);
   lines.push("", "## Locators whose `label` is not a string (a data fault; the label was ignored)", "", odd.length ? odd.map((t) => "- " + t.name + " — " + t.cards.join(", ")).join("\n") : "None.");
   lines.push("", "## Glossary places (GLOSSARY_PLACES, 31 coordinates) — resolved for Phase 3b's \"show on the Atlas\" button; terms do not contribute (Q-P3 c) and nothing is written", "", "| term | resolves to | via |", "|---|---|---|");
-  for (const { g, r } of glossRes) lines.push(`| ${g.slug} | ${r.id ? r.id + " " + ((reg.rows.get(r.id) || newRows[r.id] || {}).name || "") : r.ambiguous ? "ambiguous: " + r.ambiguous.join("; ") : "— " + r.unresolved} | ${r.id ? r.via : ""} |`);
+  for (const { g, r } of glossRes) lines.push(`| ${g.slug} | ${r.id ? r.id + " " + ((reg.rows.get(r.id) || newRows[r.id] || {}).name || "") : r.ambiguous ? "ambiguous: " + r.ambiguous.join("; ") : "— " + r.unresolved + (r.unresolvedAnywhere ? "; at any distance: " + r.unresolvedAnywhere : "")} | ${r.id ? r.via : ""} |`);
+  /* 2c, task 0b: the terms matched at any distance, each with the item, its kind and its distance from the glossary's point, for a human to check */
+  const anyW = glossRes.filter(({ r }) => r.anywhere);
+  lines.push("", "## Glossary point terms matched by exact label or alias at any distance (Phase 2c, Task 0b — for a human to check)", "", "A glossary point term the 25 km rule could not place is matched to a Wikidata item by EXACT English label or alias, at any distance, when the item's kind fits an area of that name (a country subdivision, an island, a lake, a desert or a region). Several fitting items, or none, leave the term unresolved. The distance is from the glossary's own hand-given point to the item's coordinate.", "", "| term | item | kind | distance from the glossary point | matched by |", "|---|---|---|---|---|");
+  for (const { g, r } of anyW) lines.push(`| ${g.slug} | ${r.anywhere.qid} ${r.anywhere.label} | ${r.anywhere.kind} | ${r.anywhere.km} km (point ${g.at[0]}, ${g.at[1]}) | ${r.anywhere.how} |`);
+  for (const { g, r } of glossRes) if (!r.id && g.slug in { Alaska: 1, Great_Britain: 1, Lake_Turkana: 1, Sahara: 1, Siberia: 1, Lomekwi_3: 1 }) lines.push(`| ${g.slug} | — unresolved | | | ${r.ambiguous ? "ambiguous: " + r.ambiguous.join("; ") : (r.unresolvedAnywhere || r.unresolved)} |`);
   const text = lines.join("\n") + "\n";
   if (DRY || VERBOSE) log(text);
   if (!DRY) { fs.writeFileSync(REPORT_FILE, text); log("wrote " + path.relative(ROOT, REPORT_FILE)); }

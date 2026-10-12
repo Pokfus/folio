@@ -5737,6 +5737,29 @@
    },
    "cards": 1
   },
+  "pl:q182719": {
+   "name": "Lake Turkana",
+   "kind": "lake",
+   "sub": "",
+   "qid": "Q182719",
+   "at": [
+    36.0167,
+    4.05
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Lake Turkana",
+   "by": "migration (glossary place)",
+   "evidence": {
+    "classes": [
+     "Q9019918",
+     "Q188025"
+    ],
+    "via": "label or alias, at any distance (Phase 2c, Task 0b)",
+    "km": 53.1
+   },
+   "cards": 0
+  },
   "pl:q183360": {
    "name": "Lake Toba",
    "kind": "lake",
@@ -18051,6 +18074,7 @@
  "merges": {},
  "glossary": {
   "Afar_Region": "pl:q193494",
+  "Alaska": "reg:1159104349",
   "Awash_River": "pl:q782845",
   "Blombos_Cave": "pl:q884971",
   "Cave_of_Altamira": "pl:q133575",
@@ -18060,15 +18084,19 @@
   "Fennoscandia": "pl:q604496",
   "Fertile_Crescent": "pl:q170526",
   "Gona,_Ethiopia": "pl:q12314119",
+  "Great_Britain": "reg:1159104133",
   "Hadar,_Ethiopia": "pl:q1567353",
   "Johannesburg": "city:1159151515",
+  "Lake_Turkana": "pl:q182719",
   "Lascaux": "pl:q172125",
   "Le_Moustier": "pl:q602572",
   "Lomekwi": "pl:q19833854",
   "Near_East": "pl:q48214",
   "Olduvai_Gorge": "pl:q217043",
   "Qafzeh_Cave": "pl:q2121357",
+  "Sahara": "reg:1159104337",
   "Saint-Acheul": "pl:q670003",
+  "Siberia": "reg:1159104351",
   "Sicily": "pl:q1460",
   "Skhul_Cave": "pl:q287341",
   "Sulawesi": "reg:1159103785",
