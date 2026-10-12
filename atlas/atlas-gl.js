@@ -839,7 +839,7 @@
         const c = f.rgb || histBorderColor;
         gl.uniform1f(P.u.uIdValue, HIST_FACE_BASE + f.face + 1);
         gl.uniform3f(P.u.uColor, c[0], c[1], c[2]);
-        gl.uniform1f(P.u.uWash, f.wash != null ? f.wash : hv.presenceWash != null ? hv.presenceWash : 0.14);   // 2d: an authored extent is a flat wash (no dots) in its side's tint gl.uniform1f(P.u.uDotA, (f.dotA != null ? f.dotA : hv.presenceDotA != null ? hv.presenceDotA : 0.62) * (f.fade != null ? f.fade : 1));
+        gl.uniform1f(P.u.uWash, f.wash != null ? f.wash : hv.presenceWash != null ? hv.presenceWash : 0.14); gl.uniform1f(P.u.uDotA, (f.dotA != null ? f.dotA : hv.presenceDotA != null ? hv.presenceDotA : 0.62) * (f.fade != null ? f.fade : 1));   // 2d: an extent or a front hands its own `wash` (and dotA 0): a flat wash in its side's tint, no dots
         gl.uniform1f(P.u.uPitch, pitch * (f.pitch || 1)); gl.uniform1f(P.u.uDotR, dotR * (f.pitch || 1));
         const a = (f.angle || 0) * D2R; gl.uniform2f(P.u.uAng, Math.cos(a), Math.sin(a));
         gl.uniform2f(P.u.uPhase, f.phase ? f.phase[0] : 0, f.phase ? f.phase[1] : 0);

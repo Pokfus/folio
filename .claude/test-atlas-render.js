@@ -348,12 +348,12 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     {
       await viewAt(-84.2, 40.5, 12, 1790); await setW("on");
       let wr = await wars();
-      const cinc = [-84.5, 39.1];
+      const cinc = [-84.19, 39.76];   // Dayton: inside the Ohio country until the Greenville cession of 1795
       const inWC = async () => { const s2 = await A((c) => { const e = document.querySelector(".atlas2").__atlas2; return e.stackAt(...c); }, await toXY(cinc[0], cinc[1])); return s2.includes("pol:ext_western_confederacy"); };
-      check("1790: the Confederacy's extent covers southern Ohio (Cincinnati) and is drawn in the loser's tint", (await inWC()) && wr.roles.some((r) => r[0] === "pol:ext_western_confederacy" && r[1] === 2), JSON.stringify(wr.roles.map((r) => r[0])));
+      check("1790: the Confederacy's extent covers western Ohio (Dayton) and is drawn in the loser's tint", (await inWC()) && wr.roles.some((r) => r[0] === "pol:ext_western_confederacy" && r[1] === 2), JSON.stringify(wr.roles.map((r) => r[0])));
       await viewAt(-84.2, 40.5, 12, 1795); wr = await wars();
-      check("1795: the Treaty of Greenville cut southern Ohio out of it (the USFS cession polygons dated 3 August 1795): Cincinnati is outside, the extent remains", !(await inWC()) && wr.roles.some((r) => r[0] === "pol:ext_western_confederacy"), JSON.stringify(wr.roles.map((r) => r[0])));
-      const card = await A(() => { const c = document.querySelector(".atlas2").__atlas2; c.select("pol:ext_western_confederacy"); return null; });
+      check("1795: the Treaty of Greenville cut most of Ohio out of it (the USFS cession polygons dated 3 August 1795): Dayton is outside, the extent remains", !(await inWC()) && wr.roles.some((r) => r[0] === "pol:ext_western_confederacy"), JSON.stringify(wr.roles.map((r) => r[0])));
+      const card = await A(() => { const c = document.querySelector(".atlas2").__atlas2; c.select("pol:ext_western_confederacy", { open: true }); return null; });
       await sleep(400);
       const kind = await A(() => document.querySelector(".atlas2-card-kind").textContent + " | " + document.querySelector(".atlas2-card-body").textContent);
       check("its card says it is an authored extent, Folio's own approximation, made from the card's limit and Royce's cuts", /Authored extent/.test(kind) && /Royce/.test(kind), kind.slice(0, 200));
