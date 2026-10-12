@@ -303,7 +303,7 @@ function run() {
      length under twice the tolerance) is exempt from the ratio: nothing is drawn, so nothing is wrong. CHORD_MAX_M bounds the longest
      chord the checker tolerates (the empty range: two junctions on one core segment, where the chord IS the segment). */
   {
-    const CHORD_FACTOR = 6, CHORD_OFF_M = [30000, 7500, 1500], CHORD_MAX_M = 20000;   // 3 × the level's tolerance; an empty range's chord stays on its own segment. The factor: a fractal coast loses most of its length at a coarser level honestly (measured on the 2b file: Clew Bay's 79 km of shore drawn as 19 km at 2.5 km, the Georgia sea islands' 317 km as 71 km at 10 km — ratios to 4.5), while a collapsed range reads as a chord at ratios past 10 and fails the distance rule too
+    const CHORD_FACTOR = 7, CHORD_OFF_M = [30000, 7500, 1500], CHORD_MAX_M = 20000;   // 3 × the level's tolerance; an empty range's chord stays on its own segment. The factor: a fractal coast loses most of its length at a coarser level honestly (measured on the 2b file: Clew Bay's 79 km of shore drawn as 19 km at 2.5 km, the Georgia sea islands' 317 km as 71 km at 10 km — ratios to 4.5; and, since 2d, Norway's fjords under the Second World War fronts: Sognefjord and Hardangerfjord shore 583–1,497 km drawn as 95–248 km at 30 km, ratios to 6.5 — the factor is 7), while a collapsed range reads as a chord at ratios past 10 and fails the distance rule too
     const vec = (p) => G.vec(p[0], p[1], Q);
     const lenOf = (pts) => { let m = 0; for (let i = 1; i < pts.length; i++) m += G.chordMetres(vec(pts[i - 1]), vec(pts[i])); return m; };
     // every core segment of the kinds referenced, in one index

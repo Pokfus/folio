@@ -43,7 +43,7 @@ function open(opts) {
   const holds = (entId, found) => found.some((e) => e.id === entId || ((e.kind === "contested" || e.kind === "nested") && e.partners.includes(entId)));
   const stepsOf = (id) => { const i = entIndex.get(id); return i == null ? [] : (stepsByEntity.get(i) || []).map((s) => [s[1], s[2], s[3]]); };
   const aliveAt = (id, y) => stepsOf(id).some((s) => s[0] <= y && y <= s[1]);
-  return { header: H, T, C, Q, ringsAtLevel, lodCount: LODS, entityAt, holds, stepsOf, aliveAt, entIndex, isPres, bytes: fs.statSync(file).size };
+  return { header: H, T, C, Q, ringsAtLevel, geom, lodCount: LODS, entityAt, holds, stepsOf, aliveAt, entIndex, isPres, bytes: fs.statSync(file).size };
 }
 
 module.exports = { open };
