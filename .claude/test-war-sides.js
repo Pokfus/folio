@@ -51,6 +51,7 @@ const SIDES_24 = {
   "Syracuse": "authored", "Umbria and Picenum": "authored", "Union of South Africa": "built", "Western Confederacy": "derived", "Yugoslavia": "built",
   "the Celtiberians and Lusitanians": "authored", "the Yue peoples": "authored", "the allies": "authored",
 };
+const MEMBER_SIDE = { british_raj: "British Raj", south_africa: "Union of South Africa", yugoslavia: "Yugoslavia" };
 const DERIVED = new Set(["ext_sparta", "ext_messenia", "ext_western_confederacy"]);
 {
   const got = {};
@@ -59,6 +60,7 @@ const DERIVED = new Set(["ext_sparta", "ext_messenia", "ext_western_confederacy"
     const S = w.sides[side];
     if (S.extent) note(S.name, DERIVED.has(S.extent) ? "derived" : "authored");
     if (S.members.length) note(S.name, "built");
+    for (const m of S.members) if (MEMBER_SIDE[m.key]) note(MEMBER_SIDE[m.key], "built");   // a grouping war names these by its keys, not by the side's name
     for (const u of S.unresolved) note(u, "unresolved");
   }
   // "Ethiopia (Italy)" and the ww2-001 members are named by keys: map them as the table's rows
@@ -148,11 +150,12 @@ console.log("\n4) the in/out assertions of card-war.js on the built topology\n")
         if (want === "in" ? inside : !inside) { okN++; continue; }
         const key = `${card} ${side} ${name} ${want}`;
         if (KNOWN[key]) { known++; knownUsed.push(key); byCause[KNOWN[key].cause] = (byCause[KNOWN[key].cause] || 0) + 1; }
-        else failed.push(`${key} (at ${y}: ${found.map((e) => e.id).join(", ") || "nobody"})`);
+        else failed.push(`${key} (at ${y}: ${found.map((e) => e.id).join(", ") || "nobody"})` + (process.env.WAR_DETAIL ? ` members ${ents.map((e) => e + (H.aliveAt(e, y) ? "" : "[not alive]")).join(" ")} at ${lon},${lat}` : ""));
       }
     }
   }
-  const unusedKnown = Object.keys(KNOWN).filter((k) => !knownUsed.includes(k));
+  if (process.env.WAR_DETAIL) for (const f of failed) console.log("   FAILED " + f);
+  const unusedKnown = Object.keys(KNOWN).filter((k) => k !== "CAUSES" && !knownUsed.includes(k));
   check(`the pinned in/out assertions (${n}, over ${Object.keys(EXT).length} cards) hold on the built topology, or are listed with their cause`, failed.length === 0, `${okN} hold, ${known} listed${failed.length ? "; " + failed.length + " FAIL: " + failed.slice(0, 6).join("; ") : ""}`);
   check("every listed known fault is still a fault (a fixed one is removed from the list)", unusedKnown.length === 0, unusedKnown.slice(0, 4).join("; "));
   console.log(`        ${okN} of ${n} pass; ${known} are listed known differences (${Object.entries(byCause).map(([c, v]) => c + " " + v).join(", ")}); ${offside} sides had no member alive at the war's first year`);
