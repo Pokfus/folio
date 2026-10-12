@@ -35,13 +35,15 @@ function open(opts) {
     r = T.faces[fi].rings.map((ring) => { const pts = []; for (const ref of ring) { const g = geom(Math.abs(ref) - 1, LODS - 1); if (ref > 0) for (let i = 0; i < g.length - 1; i++) pts.push(g[i]); else for (let i = g.length - 1; i > 0; i--) pts.push(g[i]); } return unwrap(pts); });
     faceRings.set(fi, r); return r;
   };
+  /* the face's rings as [lon, lat] degree lists at level L (coast references walked, unwrapped), for the diagnostics */
+  const ringsAtLevel = (fi, L) => T.faces[fi].rings.map((ring) => { const pts = []; for (const ref of ring) { const g = geom(Math.abs(ref) - 1, L); if (ref > 0) for (let i = 0; i < g.length - 1; i++) pts.push(g[i]); else for (let i = g.length - 1; i > 0; i--) pts.push(g[i]); } const u = unwrap(pts); const out = []; for (let i = 0; i < u.n; i++) out.push([u.X[i] * Q, u.Y[i] * Q]); return out; });
   const inFace = (fi, px, py) => { let inside = false; for (const { X, Y, n } of ringsOf(fi)) { for (const qx of [px, px + 2 * X180, px - 2 * X180]) { let c = false; for (let i = 0, j = n - 1; i < n; j = i++) if ((Y[i] > py) !== (Y[j] > py) && qx < (X[j] - X[i]) * (py - Y[i]) / (Y[j] - Y[i]) + X[i]) c = !c; if (c) { inside = !inside; break; } } } return inside; };
   const aliveFaces = (y, layer) => H.steps.filter((s) => s[1] <= y && s[2] >= y && (layer === "all" || (layer === "presence") === isPres(s[0]))).map((s) => s[3]);
   const entityAt = (lon, lat, y, o) => { const layer = (o && o.layer) || "states"; const px = Math.round(lon / Q), py = Math.round(lat / Q); const out = []; for (const fi of aliveFaces(y, layer)) if (inFace(fi, px, py)) out.push(H.entities[T.faces[fi].entity]); return out; };
   const holds = (entId, found) => found.some((e) => e.id === entId || ((e.kind === "contested" || e.kind === "nested") && e.partners.includes(entId)));
   const stepsOf = (id) => { const i = entIndex.get(id); return i == null ? [] : (stepsByEntity.get(i) || []).map((s) => [s[1], s[2], s[3]]); };
   const aliveAt = (id, y) => stepsOf(id).some((s) => s[0] <= y && y <= s[1]);
-  return { header: H, T, C, Q, entityAt, holds, stepsOf, aliveAt, entIndex, isPres, bytes: fs.statSync(file).size };
+  return { header: H, T, C, Q, ringsAtLevel, lodCount: LODS, entityAt, holds, stepsOf, aliveAt, entIndex, isPres, bytes: fs.statSync(file).size };
 }
 
 module.exports = { open };
