@@ -39,7 +39,7 @@ function indexOf(H) {
   };
   const polities = [];
   (H.entities || []).forEach((e, i) => {
-    if (e.kind !== "polity" && e.kind !== "people" && e.kind !== "culture") return;   // 2c: a people or a culture is found by name too (element 7 says which)
+    if (e.kind !== "polity" && e.kind !== "people" && e.kind !== "culture" && e.kind !== "extent") return;   // 2c: a people or a culture is found by name too (element 7 says which)
     const ranges = rangesOf(i);
     const row = [e.id, e.name, (e.sourceNames || []).filter((n) => n !== e.name), e.span ? e.span[0] : ranges.length ? ranges[0][0] : 0, e.span ? e.span[1] : ranges.length ? ranges[ranges.length - 1][1] : 0, ranges, e.qid || ""];
     if (e.kind !== "polity") row.push(e.kind);

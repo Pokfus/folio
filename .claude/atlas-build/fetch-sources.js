@@ -88,10 +88,27 @@ function unpack(s, file) {
 
 /* Make sure src/<id>/ holds the pinned bytes; returns { entry, archive, dir }. `verifyOnly` never
    downloads. A wrong hash is fatal and the offending file is removed. */
+/* A FILESET entry (Phase 2d): a source that is a folder of small files at a commit-addressed URL (the ww2-atlas control maps) is pinned file by file:
+   `fileset: [{ name, sha256 }]` under the entry's `url` (a base ending in "/"), and the entry's own `sha256` is the hash of the sorted "name sha256" lines
+   — so a header's pin still names ONE set of bytes. Each file is fetched, verified and cached under src/<id>/; any mismatch deletes it and stops. */
+function aggregateOf(fileset) { return crypto.createHash("sha256").update(fileset.slice().sort((a, b) => (a.name < b.name ? -1 : 1)).map((f) => f.name + " " + f.sha256 + "\n").join("")).digest("hex"); }
+function ensureFileset(s, opts) {
+  if (aggregateOf(s.fileset) !== s.sha256) throw new Error(`${s.id}: the entry's sha256 is not the hash of its fileset (${aggregateOf(s.fileset)})`);
+  const dir = path.join(SRC, s.id); let fetched = 0;
+  for (const f of s.fileset) {
+    const file = path.join(dir, f.name);
+    if (!fs.existsSync(file)) { if (opts && opts.verifyOnly) throw new Error(`${s.id}: ${f.name} not cached (run fetch-sources.js ${s.id})`); download(s.url + f.name, file); fetched++; }
+    const got = sha256File(file);
+    if (got !== f.sha256) { fs.unlinkSync(file); throw new Error(`${s.id}/${f.name}: sha256 mismatch\n    pinned ${f.sha256}\n    got    ${got}\n  The download was deleted. If the publisher re-issued the file, re-pin it deliberately in a commit that says so.`); }
+  }
+  if (fetched) process.stdout.write(`  ${s.id}: fetched ${fetched} of ${s.fileset.length} file(s)\n`);
+  return { entry: s, archive: path.join(dir, s.fileset[0].name), dir, sha256: s.sha256 };
+}
 function ensureSource(id, opts) {
   const sources = loadManifest();
   const s = sources.find((x) => x.id === id);
   if (!s) throw new Error(`no source "${id}" in sources.json`);
+  if (s.fileset) return ensureFileset(s, opts);
   const file = archivePath(s), dir = path.dirname(file);
   let have = fs.existsSync(file);
   if (!have) {

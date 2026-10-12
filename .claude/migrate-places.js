@@ -243,7 +243,7 @@ function kindOf(cache, classes) {
      destination" is a mountain. Only the clean natural rows are read this way. */
   for (const [kind, sub, tops] of TOPS) if (DIRECT_NATURAL.includes(kind) && classes.some((c) => tops.includes(c))) return { kind, sub };
   const others = classes.filter((c) => c !== Q_POLIS);
-  if (others.length !== classes.length) { const k = first(reachedOf(others)); if (k && k.kind !== "polity" && k.kind !== "people" && k.kind !== "culture") return k; return { kind: "site", sub: "site" }; }
+  if (others.length !== classes.length) { const k = first(reachedOf(others)); if (k && !R.ENTITY_KINDS.includes(k.kind)) return k; return { kind: "site", sub: "site" }; }
   return first(reachedOf(classes));
 }
 /* a candidate that is not a place at all (3a's own rule, stated once): every class it has is one of these — a mint, a diocese, a
@@ -338,7 +338,7 @@ function makeResolver(reg, cache, mergedQ) {
     const r = radiusOf(t.kind);
     // 1. the gazetteer (and the places already in the registry) by name, kind-compatible, within the radius
     const near = [];
-    for (const n of nameParts(t)) for (const row of (reg.byName.get(fold(n)) || [])) { if (row.kind === "polity" || row.kind === "people" || row.kind === "culture") continue; if (!kindOk(t.kind, row.kind)) continue; if (!t.at) { near.push({ row, d: null }); continue; } if (!row.at) continue; const d = km(row.at, t.at); if (d <= r && !near.some((x) => x.row === row)) near.push({ row, d }); }
+    for (const n of nameParts(t)) for (const row of (reg.byName.get(fold(n)) || [])) { if (R.ENTITY_KINDS.includes(row.kind)) continue; if (!kindOk(t.kind, row.kind)) continue; if (!t.at) { near.push({ row, d: null }); continue; } if (!row.at) continue; const d = km(row.at, t.at); if (d <= r && !near.some((x) => x.row === row)) near.push({ row, d }); }
     if (near.length === 1) return { id: near[0].row.id, via: reg.source(near[0].row.id), d: near[0].d };
     if (near.length > 1) {
       const rankOf = (id) => { const sName = reg.source(id); return sName === "gazetteer" ? 0 : sName === "places" ? 1 : 2; };
@@ -543,6 +543,11 @@ function run() {
   const gloss = glossaryPlaces();
   const spec = fs.existsSync(SPEC_FILE) ? JSON.parse(fs.readFileSync(SPEC_FILE, "utf8")) : { _about: "", rows: {} };
   const polSpec = JSON.parse(fs.readFileSync(POLITY_SPEC, "utf8"));
+  /* Phase 2d: the war series (war-series.json) add their own links beside polity-spec.json's, and every war card's two sides are resolved by
+     lib/war-resolve.js — the one resolver the history builder, the wars table and the tests share. v1's polity-spec.json is not edited. */
+  const WR = require("./atlas-build/lib/war-resolve.js");
+  { const extra = JSON.parse(fs.readFileSync(path.join(BUILD, "war-series.json"), "utf8")); for (const [card, l] of Object.entries(extra.links || {})) { const o = polSpec.links[card] || (polSpec.links[card] = {}); for (const k of ["v", "l", "area"]) if (l[k]) o[k] = [...new Set((o[k] || []).concat(l[k]))]; } }
+  const warOf = new Map(WR.resolveWars({ cards, cardYears: require("./card-links.js").loadCardYears(fs.readFileSync(path.join(ROOT, "app.js"), "utf8")) }).wars.map((w) => [w.id, w]));
   log(`${cards.length} cards; ${topo.size} distinct locator toponyms over ${[...topo.values()].reduce((s, t) => s + t.cards.length, 0)} locators; ${gloss.length} glossary places; registry ${reg.rows.size} rows`);
   const mergedQ = new Map();   // an item folded into another place by an earlier run → that place (3b)
   for (const [id, row] of Object.entries(spec.rows || {})) for (const m of row.merged || []) mergedQ.set(m.qid, id);
@@ -614,9 +619,9 @@ function run() {
   for (const [id, row] of Object.entries(newRows)) { const ts = topoById.get(id) || []; for (const t of ts) { const w = mapId(withinOf(t)); if (w && w !== id) { row.within = w; break; } } }
   const withinOnly = [];   // a locator whose place is unresolved but whose `within` city resolves: the card gets the city, and the report says so
   /* the cards' places */
-  const entByKey = new Map(); for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) entByKey.set(e.key, e);
-  const entByName = new Map(); for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) entByName.set(fold(e.name), e);
-  const linkedCards = new Map(); for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) for (const c of e.cards || []) { let l = linkedCards.get(c); if (!l) linkedCards.set(c, l = new Set()); l.add(e.id); }
+  const entByKey = new Map(); for (const e of reg.entities) if (R.ENTITY_KINDS.includes(e.kind)) entByKey.set(e.key, e);
+  const entByName = new Map(); for (const e of reg.entities) if (R.ENTITY_KINDS.includes(e.kind)) entByName.set(fold(e.name), e);
+  const linkedCards = new Map(); for (const e of reg.entities) if (R.ENTITY_KINDS.includes(e.kind)) for (const c of e.cards || []) { let l = linkedCards.get(c); if (!l) linkedCards.set(c, l = new Set()); l.add(e.id); }
   const per = {};   // per collection prefix
   const bump = (p, k) => { const o = per[p] || (per[p] = { cards: 0, old: 0, placed: 0, none: 0, byLocator: 0, byMap: 0, byWar: 0, byLink: 0, noneOld: [] }); o[k]++; return o; };
   const unresolvedWar = new Map(), unresolvedMap = new Map(), unresolvedLinks = new Set(), noPlaceOld = [];
@@ -634,7 +639,24 @@ function run() {
       else { const t = topo.get(k); const w = t ? mapId(withinOf(t)) : ""; if (w) { ids.add(w); withinOnly.push(c.id + " " + L.name + " → within " + t.within + " (" + w + ")"); bump(p, "byLocator"); } }
     }
     if (c.map) { const keys = Array.isArray(c.map.key) ? c.map.key : [c.map.key]; let any = false; for (const key of keys) { let row = c.map.layer === "world" ? countryOf(key) : admin1Of(c.map.layer, key); if (row && row.ambiguous) { unresolvedMap.set(c.map.layer + ":" + key, "ambiguous: " + row.ambiguous.map((r) => r.id).join(", ")); row = null; } if (row) { ids.add(row.id); any = true; } else if (!unresolvedMap.has(c.map.layer + ":" + key)) unresolvedMap.set(c.map.layer + ":" + key, "no " + (c.map.layer === "world" ? "country" : "admin-1 row of the layer's country") + " of that name in the gazetteer"); } if (any) bump(p, "byMap"); }
-    if (c.war) { let any = false; const link = polSpec.links[c.id] || {}; for (const side of ["victors", "losers"]) { const d = c.war[side]; if (!d) continue; const slugs = (side === "victors" ? link.v : link.l) || []; for (const s of slugs) { const e = entByKey.get(s); if (e) { ids.add(e.id); any = true; } else unresolvedLinks.add(s); } if (d.keys) for (const key of d.keys) { const row = countryOf(key) || entByName.get(fold(key)) || entByKey.get(fold(key).replace(/\s+/g, "_")); if (row) { ids.add(row.id); any = true; } else { let l = unresolvedWar.get(key); if (!l) unresolvedWar.set(key, l = []); l.push(c.id); } } else if (!slugs.length) { const e = entByName.get(fold(d.name)); if (e) { ids.add(e.id); any = true; } else { const key = d.name + " (authored extent)"; let l = unresolvedWar.get(key); if (!l) unresolvedWar.set(key, l = []); l.push(c.id); } } } if (any) bump(p, "byWar"); }
+    if (c.war) {
+      let any = false; const link = polSpec.links[c.id] || {};
+      for (const side of ["victors", "losers"]) {
+        const d = c.war[side]; if (!d) continue;
+        const slugs = (side === "victors" ? link.v : link.l) || [];
+        for (const sl of slugs) { const e = entByKey.get(sl); if (e) { ids.add(e.id); any = true; } else unresolvedLinks.add(sl); }
+        if (d.keys) for (const key of d.keys) { const row = countryOf(key) || entByName.get(fold(key)) || entByKey.get(fold(key).replace(/\s+/g, "_")); if (row) { ids.add(row.id); any = true; } }
+        else if (!slugs.length) { const e = entByName.get(fold(d.name)); if (e) { ids.add(e.id); any = true; } }
+        // 2d: what the resolver says the side IS — its series, or its authored extent as an entity of kind `extent` — and what it leaves unresolved
+        const rs = (warOf.get(c.id) || { sides: {} }).sides[side];
+        if (rs) {
+          for (const m of rs.members) { const e = entByKey.get(m.key); if (e) { ids.add(e.id); any = true; } else unresolvedLinks.add(m.key); }
+          if (rs.extent) { const e = entByKey.get(rs.extent); if (e) { ids.add(e.id); any = true; } else unresolvedLinks.add(rs.extent); }
+          for (const key of rs.unresolved) { let l = unresolvedWar.get(key); if (!l) unresolvedWar.set(key, l = []); if (!l.includes(c.id)) l.push(c.id); }
+        }
+      }
+      if (any) bump(p, "byWar");
+    }
     if (linkedCards.has(c.id)) { for (const id of linkedCards.get(c.id)) ids.add(id); bump(p, "byLink"); }
     const link = polSpec.links[c.id]; if (link && link.area) for (const s of link.area) { const e = entByKey.get(s); if (e) ids.add(e.id); else unresolvedLinks.add(s); }
     if (ids.size) { bump(p, "placed"); derived.set(c.id, ids); } else { bump(p, "none"); if (had) { noPlaceOld.push(c.id); per[p].noneOld.push(c.id); } }
@@ -645,12 +667,13 @@ function run() {
     const allIds = new Set(reg.rows.keys());
     for (const c of cards) { const have = new Set(Array.isArray(c.places) ? c.places : []); for (const id of have) { if (!R.validId(id)) bad(c.id + ": places carries \"" + id + "\", not a place id"); else if (!allIds.has(id)) bad(c.id + ": places carries " + id + ", which the registry does not resolve"); } const d = derived.get(c.id); if (d) for (const id of d) if (!have.has(id)) bad(c.id + ": the migration derives " + id + " but the card does not carry it (run node .claude/migrate-places.js)"); if (Array.isArray(c.places) && c.places.slice().sort().join() !== c.places.join()) bad(c.id + ": places is not sorted"); if (Array.isArray(c.places) && new Set(c.places).size !== c.places.length) bad(c.id + ": places has a duplicate"); }
     const byId = new Map(cards.map((c) => [c.id, c]));
-    for (const e of reg.entities) if ((e.kind === "polity" || e.kind === "people" || e.kind === "culture")) for (const cid of e.cards || []) { const c = byId.get(cid); if (!c) bad(e.id + " links " + cid + ", which is not a card"); else if (!(c.places || []).includes(e.id)) bad(e.id + " links " + cid + " but the card's places lack it"); }
+    for (const e of reg.entities) if (R.ENTITY_KINDS.includes(e.kind)) for (const cid of e.cards || []) { const c = byId.get(cid); if (!c) bad(e.id + " links " + cid + ", which is not a card"); else if (!(c.places || []).includes(e.id)) bad(e.id + " links " + cid + " but the card's places lack it"); }
     for (const c of cards) for (const id of c.places || []) if (id.startsWith("pol:") && !(reg.cardsOf(id) || []).includes(c.id)) { /* a card may point at a polity the spec does not link (an author's addition): allowed, reported */ }
     { const rest = crossMerge([...new Set(cards.flatMap((c) => c.places || []))].filter((id) => !id.startsWith("pol:")).map((id) => ({ id })), reg, spec.rows || {}, spec.merges || {}, cache.links); for (const m of rest.list) bad("two places of one site: " + m.id + " " + m.name + " lies " + m.km + " km from " + m.into + " " + m.intoName + " (run node .claude/migrate-places.js, which folds it in)"); }
     const B = require("./atlas-build/build-places.js"); const r = B.build({ check: true, log: () => {} }); if (!r.ok) bad("places-spec.json and atlas/data/places.js are not in step: " + r.why + " (run node .claude/atlas-build/build-places.js --install)");
     { const G = require("./atlas-build/build-glossary-places.js").build({ check: true, log: () => {} }); if (!G.ok) bad("atlas/data/glossary-places.js is not in step: " + G.why + " (run node .claude/atlas-build/build-glossary-places.js --install)"); }
     { const C = require("./atlas-build/build-card-places.js").build({ cards, check: true, log: () => {} }); if (!C.ok) bad("atlas/data/card-places.js is not in step with the cards: " + C.why + " (run node .claude/atlas-build/build-card-places.js --install)"); }
+    { const W = require("./atlas-build/build-wars.js").build({ cards, check: true, log: () => {} }); if (!W.ok) bad("atlas/data/wars.js is not in step with the cards and the history file: " + W.why + " (run node .claude/atlas-build/build-wars.js --install)"); }
     log(fails ? `\n${fails} failed\n` : "\nmigrate-places --check: every place id resolves, every derived id is on its card, every polity's cards carry it, the spec is in step\n");
     process.exit(fails ? 1 : 0);
   }
@@ -671,7 +694,7 @@ function run() {
     for (const [id, row] of Object.entries(rows)) {
       if (row.manual || row.forced || !row.evidence || !row.evidence.classes || !row.evidence.classes.length) continue;
       const k = kindOf(cache, row.evidence.classes);
-      if (!k || k.kind === "polity" || k.kind === "people" || k.kind === "culture" || !R.PLACE_KINDS.includes(k.kind)) continue;
+      if (!k || R.ENTITY_KINDS.includes(k.kind) || !R.PLACE_KINDS.includes(k.kind)) continue;
       if (k.kind === "region" && /^(town|city|site)$/.test(row.kind)) continue;   // never degrade a settlement to a generic region
       if (k.kind !== row.kind || (k.sub || "") !== (row.sub || "")) { if (k.kind === "hill" && row.kind === "mountain") { if (!row.kindWas3c) row.kindWas3c = "mountain"; } else if (!row.kindWas) row.kindWas = row.kind + (row.sub ? "/" + row.sub : ""); row.kind = k.kind; row.sub = k.sub || ""; }
     }
@@ -696,6 +719,7 @@ function run() {
     for (const c of cards) { const d = derived.get(c.id); const have = Array.isArray(c.places) ? c.places.map(mapId).filter((id) => reg2.rows.has(id)) : []; const next = [...new Set(have.concat(d ? [...d].filter((id) => reg2.rows.has(id)) : []))].sort(); if (!next.length) { if (c.places !== undefined) { delete c.places; changed++; } continue; } if (JSON.stringify(next) !== JSON.stringify(c.places)) { c.places = next; changed++; } }
     writeCards(cards, tree);
     require("./atlas-build/build-card-places.js").build({ cards, install: true, log: VERBOSE ? log : () => {} });   // the light index follows the cards (3b, decision 4)
+    require("./atlas-build/build-wars.js").build({ cards, install: true, log: VERBOSE ? log : () => {} });   // 2d: the wars table follows the cards, the specs and the history file
     log(`wrote places on ${changed} cards (${derived.size} carry a derived place); spec ${Object.keys(out.rows).length} rows (${Object.keys(newRows).length} from this migration)`);
   }
   /* the report */
