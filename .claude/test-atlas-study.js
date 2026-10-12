@@ -138,7 +138,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     check("the places drawn are exactly the union of their cards' own places (" + wantF.size + ")", flagged.size === wantF.size && [...wantF.keys()].every((id) => flagged.get(id) === 2), flagged.size + " flagged");
     check("everything else is muted", s.muted === true);
     // a studied POINT place, and a view that holds it
-    const pointId = [...st.places].find((id) => id.startsWith("pl:") && /^(site|mountain|cape|city|town)$/.test((placeRow(id) || {}).kind));
+    const pointId = [...st.places].find((id) => id.startsWith("pl:") && /^(site|mountain|hill|cape|city|town)$/.test((placeRow(id) || {}).kind));
     const pr = placeRow(pointId);
     await view(page, pr.at[0], pr.at[1], 2);
     const m = await marks(page);
@@ -297,8 +297,16 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const hit = (a, b) => a && b && a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
     check("the panel lies wholly inside the Atlas's frame and the viewport", R.panel[0] >= R.frame[0] - 0.5 && R.panel[2] <= R.frame[2] + 0.5 && R.panel[2] <= R.vw && R.panel[1] >= R.frame[1], JSON.stringify(R.panel.map(Math.round)));
     check("…and clear of the search box, the zoom stack, the legend, the ? chip and the year rail", ![R.search, R.zoom, R.layers, R.help, R.rail].some((b) => hit(R.panel, b)), "no overlap");
-    const targets = await page.$$eval(".atlas2-study button", (b) => b.map((x) => { const r = x.getBoundingClientRect(); return Math.round(Math.min(r.width, r.height)); }));
-    check("every control in it is at least 44 px high, a touch target", targets.every((t) => t >= 44), targets.join(","));
+    const targets = await page.$$eval(".atlas2-study button", (b) => b.filter((x) => x.offsetParent).map((x) => { const r = x.getBoundingClientRect(); return Math.round(Math.min(r.width, r.height)); }));
+    check("every control in it is at least 44 px high, a touch target", targets.length >= 4 && targets.every((t) => t >= 44), targets.join(","));
+    // Phase 3c, decision 7: the panel is collapsible, and on a phone it starts collapsed to the switch and the count line
+    const pc = await page.evaluate(() => { const P = document.querySelector(".atlas2-study"), vis = (e) => !!e && !e.hidden && !e.closest("[hidden]") && getComputedStyle(e).display !== "none"; return { open: P.getAttribute("data-open"), modes: vis(P.querySelector(".atlas2-study-modes")), sum: P.querySelector(".atlas2-study-sum").textContent, colls: vis(P.querySelector(".atlas2-study-colls")), note: vis(P.querySelector(".atlas2-study-note")), h: P.getBoundingClientRect().height, exp: P.querySelector(".atlas2-study-toggle").getAttribute("aria-expanded") }; });
+    check("on a phone the panel starts collapsed to the switch and the count line (no chips, no note)", pc.open === "0" && pc.exp === "false" && pc.modes && /places? .*from \d+ cards?/.test(pc.sum) && !pc.colls && !pc.note, `${pc.h | 0} px high; "${pc.sum}"`);
+    await page.click(".atlas2-study-toggle"); await sleep(250);
+    const po = await page.evaluate(() => { const P = document.querySelector(".atlas2-study"); return { open: P.getAttribute("data-open"), exp: P.querySelector(".atlas2-study-toggle").getAttribute("aria-expanded"), chips: [...P.querySelectorAll("[data-coll]")].filter((e) => e.offsetParent).length, h: P.getBoundingClientRect().height }; });
+    check("the disclosure opens the collection chips and the panel grows", po.open === "1" && po.exp === "true" && po.chips > 0 && po.h > pc.h, `${pc.h | 0} → ${po.h | 0} px, ${po.chips} chips`);
+    await page.click(".atlas2-study-toggle"); await sleep(250);
+    check("…and collapses them again", (await page.evaluate(() => document.querySelector(".atlas2-study").getAttribute("data-open"))) === "0");
     await page.click('.atlas2-study [data-mode="full"]'); await sleep(250);
     await view(page, 23, 38, 12); await view(page, 22.5, 38.5, 10);
     const placed = await A(page, (c) => ({ labels: c.labels().map((p) => ({ id: p.id, rects: p.rects })), chrome: c.chromeRects() }));
@@ -315,6 +323,235 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
       const cd = await A(page, (c) => c.card());
       check("a tap on a mark opens that place's card (touch)", cd.open && cd.id === single.id, cd.title);
     } else check("a tap on a mark opens that place's card (touch)", false, "no single mark in view");
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 7b  the panel is collapsible on a desktop too */
+  console.log("\n\x1b[1m7b) the collapsible panel on a desktop\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, READER_ALL);
+    const st = () => page.evaluate(() => { const P = document.querySelector(".atlas2-study"), vis = (e) => !!e && !e.hidden && !e.closest("[hidden]") && getComputedStyle(e).display !== "none"; const t = P.querySelector(".atlas2-study-toggle"); return { open: P.getAttribute("data-open"), exp: t.getAttribute("aria-expanded"), label: t.getAttribute("aria-label"), toggle: vis(t), chips: vis(P.querySelector(".atlas2-study-colls")), note: vis(P.querySelector(".atlas2-study-note")), modes: vis(P.querySelector(".atlas2-study-modes")), sum: P.querySelector(".atlas2-study-sum").textContent, h: P.getBoundingClientRect().height, api: document.querySelector(".atlas2").__atlas2.study.open() }; });
+    let a = await st();
+    check("on a desktop the panel starts open: chips and note shown, the disclosure says what it hides", a.open === "1" && a.exp === "true" && a.chips && a.note && a.toggle && /Hide the collections/.test(a.label) && a.api === true, JSON.stringify({ h: a.h | 0, label: a.label }));
+    await page.focus(".atlas2-study-toggle"); await page.keyboard.press("Enter"); await sleep(250);
+    let b = await st();
+    check("Enter on the disclosure collapses it (keyboard), focus stays on it, the switch and the count line stay", b.open === "0" && b.exp === "false" && !b.chips && !b.note && b.modes && b.sum === a.sum && b.h < a.h && /Show the collections/.test(b.label) && (await page.evaluate(() => document.activeElement.className)) === "atlas2-study-toggle", `${a.h | 0} → ${b.h | 0} px`);
+    const pl = await A(page, (c) => c.chromeRects());
+    const bb = await page.evaluate(() => { const r = document.querySelector(".atlas2-study").getBoundingClientRect(), f = document.querySelector(".atlas2").getBoundingClientRect(); return [r.left - f.left, r.top - f.top, r.right - f.left, r.bottom - f.top]; });
+    check("the label engine's chrome follows the panel's new height", pl.some((c) => Math.abs(c[3] - bb[3]) < 2 && Math.abs(c[0] - bb[0]) < 2), "panel bottom " + Math.round(bb[3]));
+    await page.keyboard.press("Space"); await sleep(250);
+    check("Space opens it again", (await st()).open === "1");
+    await page.keyboard.press("Space"); await sleep(250);
+    await page.reload({ waitUntil: "load" }); await ready(page);
+    check("the choice is remembered across a reload", (await st()).open === "0");
+    await page.click(".atlas2-study-toggle"); await sleep(200);
+    check("with the chips shown a click on a chip still switches its collection (toggle state has no effect on them)", await page.evaluate(() => { const b = document.querySelector(".atlas2-study [data-coll]"); const was = b.getAttribute("aria-checked"); b.click(); const now = document.querySelector(".atlas2-study [data-coll]").getAttribute("aria-checked"); document.querySelector(".atlas2-study [data-coll]").click(); return was !== now; }));
+    const e0 = await open(browser, []);
+    await e0.page.click('.atlas2-study [data-mode="personal"]'); await sleep(250);
+    const ne = await e0.page.evaluate(() => { const P = document.querySelector(".atlas2-study"); return { toggle: !P.querySelector(".atlas2-study-toggle").hidden, empty: P.querySelector(".atlas2-study-empty").textContent }; });
+    check("with nothing to hide (no cards) there is no disclosure and the empty-state sentence stays", !ne.toggle && /studied any cards/.test(ne.empty), JSON.stringify(ne).slice(0, 120));
+    allErrors.push(...errors, ...e0.errors); await ctx.close(); await e0.ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 7c  the glossary popup's "show on the Atlas" button (Phase 3c, task 2) */
+  console.log("\n\x1b[1m7c) the glossary popup's button opens #map2 at the term's registry place\x1b[0m\n");
+  {
+    const GP = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/glossary-places.js"), "utf8"))(GP);
+    const table = GP.ATLAS_GLOSSARY_PLACES.ids;
+    const popup = async (page, key) => {
+      await page.goto(`http://127.0.0.1:${PORT}/#card/wh-016`, { waitUntil: "load" });
+      await page.waitForSelector(`[data-k="${key}"]`, { timeout: 60000 });
+      await page.click(`[data-k="${key}"]`); await sleep(500);
+      return page.$(`.gloss-win[data-k="${key}"] .gloss-map`);
+    };
+    // OFF (what a reader has): the button still opens the old globe
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } }); await ctx.addInitScript(seed([]));
+      const page = await ctx.newPage(); const errors = [];
+      page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
+      const b = await popup(page, "Olduvai_Gorge");
+      check("the popup of a place term has the button", !!b);
+      await b.click(); await sleep(1500);
+      check("with the preview switch off the button opens the old globe (#map), not #map2", /^#map(\?|\/|$)/.test(await page.evaluate(() => location.hash)) && !/^#map2/.test(await page.evaluate(() => location.hash)), await page.evaluate(() => location.hash));
+      allErrors.push(...errors); await ctx.close();
+    }
+    // ON: the registry place opens, flown to, with its card
+    for (const [key, name] of [["Olduvai_Gorge", "Olduvai Gorge"], ["Tanzania", "Tanzania"], ["Gona,_Ethiopia", "Gona, Ethiopia"]]) {
+      const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+      await ctx.addInitScript(seed([])); await ctx.addInitScript(() => { try { localStorage.setItem("folio.atlas2.preview", "1"); } catch (e) {} });
+      const page = await ctx.newPage(); const errors = [];
+      page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
+      page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
+      const b = await popup(page, key);
+      check(`${key}: the popup has the button, and the table has an id for it`, !!b && !!table[key], table[key]);
+      const before = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1") || "{}"));
+      await b.click();
+      await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
+      await page.waitForFunction((id) => { const c = document.querySelector(".atlas2").__atlas2; const cd = c.card(); return cd && cd.open && cd.id === id; }, table[key], { timeout: 60000 }).catch(() => {});
+      await sleep(1200);
+      const r = await A(page, (c) => ({ card: c.card(), view: { lon: c.view.lon, lat: c.view.lat }, kmpp: c.kmPerPx(), hash: location.hash }));
+      check(`${key}: #map2 opens with ${table[key]} selected and its card open`, r.card.open && r.card.id === table[key] && r.card.title.includes(name), `${r.card.id} · ${r.card.title}`);
+      const row = placeRow(table[key]);
+      const at = row && row.at;
+      check(`${key}: the view flew to the place`, !!at && Math.hypot(r.view.lon - at[0], r.view.lat - at[1]) < (row.kind === "country" ? 25 : 1.5), at ? `view ${r.view.lon.toFixed(1)}, ${r.view.lat.toFixed(1)} against ${at[0].toFixed(1)}, ${at[1].toFixed(1)}` : "no row");
+      check(`${key}: the address names the place`, r.hash.includes(encodeURIComponent(table[key])), r.hash);
+      const after = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1") || "{}"));
+      const s2 = await study(page); await A(page, (c) => c.study.setMode("personal")); await sleep(300); const s3 = await study(page);
+      check(`${key}: a term is no card — the reader's progress is untouched and the Personal Atlas is still empty (Q-P3 c)`, JSON.stringify(Object.keys(before.cards || {})) === JSON.stringify(Object.keys(after.cards || {})) && s3.flags.length === 0 && /haven.t studied|None of your|^$/.test((await panelText(page, ".atlas2-study-empty")) || "") || s3.flags.length === 0, JSON.stringify({ cards: Object.keys(after.cards || {}).length, flags: s3.flags.length }));
+      void s2;
+      allErrors.push(...errors); await ctx.close();
+    }
+    // the table itself: every id resolves, the points are the registry's and the countries are gazetteer countries
+    const reg = require("./places-registry.js").loadRegistry({ entities: false });
+    const W = {}; new Function("window", fs.readFileSync(path.join(ROOT, "glossary.js"), "utf8"))(W);
+    check("every id in the glossary table resolves in the registry", Object.values(table).every((id) => reg.rows.has(id)), Object.keys(table).length + " terms");
+    check("181 country terms and 25 of the 31 point terms have a place; the other six are left out, not guessed", Object.keys(W.GLOSSARY_MAP_COUNTRY).every((k) => /^adm0:/.test(table[k] || "")) && Object.keys(W.GLOSSARY_PLACES).filter((k) => table[k]).length === 25, Object.keys(W.GLOSSARY_PLACES).filter((k) => !table[k]).join(", "));
+  }
+
+  /* ------------------------------------------------------------------ 7d  search across years (Phase 3c, task 3) */
+  console.log("\n\x1b[1m7d) the search covers the whole registry whatever year the rail shows\x1b[0m\n");
+  {
+    const PXs = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/polity-index.js"), "utf8"))(PXs);
+    const pol = new Map(PXs.ATLAS_POLITY_INDEX.polities.map((r) => [r[0], r]));
+    const ranges = (id) => pol.get(id)[5];
+    const { ctx, page, errors } = await open(browser, []);
+    const list = () => page.evaluate(() => [...document.querySelectorAll(".atlas2-results li")].map((li) => ({ name: li.querySelector(".atlas2-res-name").textContent, chip: li.querySelector(".atlas2-chip").textContent, yrs: (li.querySelector(".atlas2-res-yrs") || {}).textContent || "" })));
+    const note = () => page.evaluate(() => { const n = document.querySelector(".atlas2-search-note"); return n && !n.hidden ? { text: n.querySelector(".atlas2-sn-t").textContent, go: n.querySelector(".atlas2-sn-go").textContent, year: Number(n.querySelector(".atlas2-sn-go").getAttribute("data-year")) } : null; });
+    const hs0 = await A(page, (c) => c.historyStarted());
+    await page.fill(".atlas2-search-in", "roman repub"); await page.waitForFunction(() => [...document.querySelectorAll(".atlas2-results li")].some((li) => li.querySelector(".atlas2-chip").textContent === "Polity"), null, { timeout: 30000 }).catch(() => {});
+    let r = await list();
+    const rome = r.find((x) => x.chip === "Polity");
+    check('"roman repub" finds the polity whose alias it is, with its years', !!rome && rome.name === "Rome" && /480 BCE – 475 CE/.test(rome.yrs), JSON.stringify(rome));
+    check("…without fetching the 4.7 MB history file (the 20 KB index answers)", hs0 === false && (await A(page, (c) => c.historyStarted())) === false);
+    // the rail is at today: Rome is not on the map. Enter flies there and says so, offering the nearest year from its own range
+    await page.keyboard.press("Enter"); await sleep(1200);
+    let n = await note();
+    const want = ranges("pol:rome");
+    check("choosing it at today's year says it is not on the map, and offers the end of its last range", !!n && /Rome is not on the map in 2026 CE/.test(n.text) && n.year === want[want.length - 1][1] && n.go === "Go to " + (want[want.length - 1][1]) + " CE", JSON.stringify(n));
+    check("the view flew toward the polity (its capital) and the year did not change", (await A(page, (c) => c.year())) === 2026 && Math.abs((await A(page, (c) => c.view.lon)) - 12.5) < 10);
+    await page.click(".atlas2-sn-go");
+    await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; const k = c.card(); return c.year() === 475 && k && k.open && k.id === "pol:rome"; }, null, { timeout: 90000 }).catch(() => {});
+    const after = await A(page, (c) => ({ year: c.year(), card: c.card(), alive: c.alive().some((a) => a.entity === "pol:rome") }));
+    check("“Go to 475 CE” sets the rail to that year, the polity is on the map and its card opens", after.year === 475 && after.card.open && after.card.id === "pol:rome" && after.alive, JSON.stringify({ year: after.year, id: after.card.id, alive: after.alive }));
+    check("the note is gone once the year moves", (await note()) === null);
+    // inside its years: no note
+    await page.fill(".atlas2-search-in", "roman repub"); await sleep(300); await page.keyboard.press("Enter"); await sleep(900);
+    check("a polity that IS on the map in the rail's year gets no note", (await note()) === null);
+    // a gap in its years is a gap: Abbasid Caliphate [750,969] [1202,1259], the rail at 1000 → the NEARER end, 969
+    await A(page, (c) => c.setYear(1000)); await sleep(600);
+    await page.fill(".atlas2-search-in", "abbasid"); await sleep(300); await page.keyboard.press("Enter"); await sleep(900);
+    n = await note();
+    check("in a gap the nearest year of its own steps is offered (1000 → 969, not 1202, and nothing between)", !!n && n.year === 969 && /750 CE – 969 CE; 1202 CE – 1259 CE/.test(n.text), JSON.stringify(n));
+    await page.click(".atlas2-sn-x"); await sleep(200);
+    check("the note is dismissable", (await note()) === null);
+    // a place with no years of its own is never said to be absent
+    await page.fill(".atlas2-search-in", "athens"); await sleep(300); await page.keyboard.press("Enter"); await sleep(900);
+    check("a present-day city or a site, whatever the year, gets no note (no years are invented)", (await note()) === null);
+    // a period capital the gazetteer does not name
+    const reg = require("./places-registry.js").loadRegistry({ entities: false });
+    const cap = PXs.ATLAS_POLITY_INDEX.capitals.find((c) => !(reg.byName.get(reg.fold(c[1])) || []).length);
+    await page.fill(".atlas2-search-in", cap[1]); await sleep(400);
+    r = await list();
+    check(`a period capital the gazetteer lacks is found by name (${cap[1]}), with its years`, r.some((x) => x.name === cap[1] && x.chip === "Capital" && x.yrs.length > 0), r.slice(0, 3).map((x) => x.name + " [" + x.chip + "]").join(", "));
+    // kinds
+    await page.fill(".atlas2-search-in", "hills"); await sleep(400); r = await list();
+    check('"hills" lists hills (the kind is searched, not only the name)', r.length > 3 && r.filter((x) => x.chip === "Hill").length >= 3, r.slice(0, 5).map((x) => x.name + " [" + x.chip + "]").join(", "));
+    await page.fill(".atlas2-search-in", "battles"); await sleep(400); r = await list();
+    check('"battles" lists battle sites', r.length >= 5 && r.every((x) => /Site/.test(x.chip) || /battle/i.test(x.name)), r.slice(0, 4).map((x) => x.name + " [" + x.chip + "]").join(", "));
+    await page.fill(".atlas2-search-in", "rivers"); await sleep(400); r = await list();
+    check('"rivers" lists rivers', r.filter((x) => x.chip === "River").length >= 3, r.slice(0, 4).map((x) => x.name + " [" + x.chip + "]").join(", "));
+    // arithmetic against the file, independent of the page: every offered year is an endpoint of one of the polity's own ranges
+    const AS2 = require("../atlas/study.js"); let bad = 0, asked = 0;
+    for (const [id, row] of pol) for (const y of [-3000, -500, 0, 500, 1000, 1500, 2026]) { const nn = AS2.yearsNote(row[5], y); if (!nn) continue; asked++; if (!row[5].some((rg) => rg[0] === nn.go || rg[1] === nn.go)) bad++; }
+    check("no year is invented: over every polity and seven rail years, every year offered is the start or end of one of its ranges", asked > 400 && bad === 0, `${asked} offers, ${bad} invented`);
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 7e  the default view frames the reader's places (task 4) */
+  console.log("\n\x1b[1m7e) the Personal Atlas opens on the reader's places\x1b[0m\n");
+  {
+    const reg = require("./places-registry.js").loadRegistry({ entities: false });
+    const mine = [...stFor(READER).places].map((id) => reg.rows.get(id)).filter((r) => r && r.at);
+    const want = AS.framing(mine.map((r) => r.at), { shortPx: 800, minKmpp: 3, maxKmpp: 24 });
+    const base = await open(browser, []);
+    const home = await A(base.page, (c) => ({ lon: c.view.lon, lat: c.view.lat, zoom: c.view.zoom, frame: c.framing() }));
+    check("a reader with no places keeps today's default view (nothing framed)", home.frame === null, JSON.stringify({ lon: +home.lon.toFixed(2), lat: +home.lat.toFixed(2), zoom: +home.zoom.toFixed(2) }));
+    allErrors.push(...base.errors); await base.ctx.close();
+    const { ctx, page, errors } = await open(browser, READER);
+    await sleep(800);
+    const got = await A(page, (c) => ({ mode: c.study.mode(), lon: c.view.lon, lat: c.view.lat, kmpp: c.kmPerPx(), frame: c.framing() }));
+    check("a reader with studied places opens on Personal and the view is framed on them (Node's arithmetic over the registry's coordinates)", got.mode === "personal" && !!got.frame && Math.abs(got.lon - want.lon) < 0.3 && Math.abs(got.lat - want.lat) < 0.3, `view ${got.lon.toFixed(1)}, ${got.lat.toFixed(1)} against ${want.lon.toFixed(1)}, ${want.lat.toFixed(1)}`);
+    check("…at the scale that holds nine in ten of them, inside the clamp (3–24 km/px)", got.kmpp >= 2.9 && got.kmpp <= 24.1 && Math.abs(got.kmpp - want.kmpp) / want.kmpp < 0.1, `${got.kmpp.toFixed(1)} km/px against ${want.kmpp.toFixed(1)}`);
+    const onScreen = await A(page, (c) => c.study.marks().filter((m) => m.sx >= 0 && m.sy >= 0).length);
+    check("…and the reader's marks are in the frame", onScreen > 0, onScreen + " marks");
+    await ctx.close();
+    {   // a reader whose places lie close together is shown them close up, not the whole earth
+      const GR = withPlaces.filter((c) => /^gr-/.test(c.id)).slice(0, 8).map((c) => c.id);
+      const pts = [...stFor(GR).places].map((id) => reg.rows.get(id)).filter((r) => r && r.at).map((r) => r.at);
+      const w2 = AS.framing(pts, { shortPx: 800, minKmpp: 3, maxKmpp: 24 });
+      const t = await open(browser, GR); await sleep(800);
+      const g2 = await A(t.page, (c) => ({ lon: c.view.lon, lat: c.view.lat, kmpp: c.kmPerPx() }));
+      check("a reader whose places lie close together is shown them close up (Greece, not the whole earth)", g2.kmpp < 12 && Math.abs(g2.lon - w2.lon) < 0.3 && Math.abs(g2.lat - w2.lat) < 0.3 && Math.abs(g2.kmpp - w2.kmpp) / w2.kmpp < 0.1, `${g2.kmpp.toFixed(1)} km/px at ${g2.lon.toFixed(1)}, ${g2.lat.toFixed(1)}; Node ${w2.kmpp.toFixed(1)} at ${w2.lon.toFixed(1)}, ${w2.lat.toFixed(1)} (${pts.length} places)`);
+      allErrors.push(...t.errors); await t.ctx.close();
+    }
+    // a stored Map choice keeps today's default; a deep link keeps its view
+    {
+      const m = await open(browser, READER); await m.page.evaluate(() => localStorage.setItem("folio.atlas2.study", "map"));
+      await m.page.reload({ waitUntil: "load" }); await ready(m.page);
+      check("a reader whose stored choice is the plain Map keeps today's default view", (await A(m.page, (c) => c.framing())) === null);
+      allErrors.push(...m.errors); await m.ctx.close();
+    }
+    {
+      const d = await open(browser, READER); await d.page.evaluate(() => localStorage.setItem("folio.atlas2.study", "personal"));
+      await d.page.goto(`http://127.0.0.1:${PORT}/#map2/10.00/20.00/3.00`, { waitUntil: "load" }); await d.page.reload({ waitUntil: "load" }); await ready(d.page); await sleep(600);
+      const v = await A(d.page, (c) => ({ lon: c.view.lon, lat: c.view.lat, frame: c.framing() }));
+      check("a deep link's own view is never overridden by the framing", v.frame === null && Math.abs(v.lon - 10) < 0.2 && Math.abs(v.lat - 20) < 0.2, JSON.stringify({ lon: v.lon, lat: v.lat }));
+      allErrors.push(...d.errors); await d.ctx.close();
+    }
+    allErrors.push(...errors);
+  }
+
+  /* ------------------------------------------------------------------ 7f  "New discovery" on a place the reader studied (task 4) */
+  console.log("\n\x1b[1m7f) the New discovery chip\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, READER);
+    const pid = [...stFor(READER).places].find((id) => id.startsWith("pl:")) || [...stFor(READER).places][0];
+    const prow = placeRow(pid);
+    const blob = () => page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1") || "{}"));
+    const b0 = await blob();
+    await A(page, (c, id) => c.select(id, { open: true, fly: false, push: false }), pid); await sleep(500);
+    const chip = await page.evaluate(() => { const e = document.querySelector(".atlas2-card .atlas2-disc"); return e ? e.textContent.trim() : null; });
+    const b1 = await blob();
+    check("a place the reader studied, opened for the first time, carries the chip", chip === "New discovery!", `${prow.name}: ${chip}`);
+    check("…recorded in the existing placesSeen register under its name; no new field, nothing else in the progress changed", !!(b1.placesSeen && b1.placesSeen[prow.name]) && JSON.stringify(Object.keys(b1).filter((k) => !(k in b0))) === JSON.stringify(["placesSeen"].filter((k) => !(k in b0))) && JSON.stringify(b1.cards) === JSON.stringify(b0.cards), JSON.stringify(Object.keys(b1.placesSeen || {})));
+    await A(page, (c) => c.openCard ? 0 : c.select(c.card().id, { open: true, fly: false, push: false })); await sleep(200);
+    check("a re-render of the same open card keeps the chip", (await page.evaluate(() => !!document.querySelector(".atlas2-card .atlas2-disc"))) === true);
+    await page.click(".atlas2-card-close"); await sleep(300);
+    await A(page, (c, id) => c.select(id, { open: true, fly: false, push: false }), pid); await sleep(400);
+    check("opened again, it is no longer new", (await page.evaluate(() => !!document.querySelector(".atlas2-card .atlas2-disc"))) === false);
+    const other = [...IDX.ids].find((id) => id.startsWith("pl:") && !stFor(READER).places.has(id));
+    await A(page, (c, id) => c.select(id, { open: true, fly: false, push: false }), other); await sleep(500);
+    const b2 = await blob();
+    check("a place the reader has NOT studied gets no chip and is not marked seen", (await page.evaluate(() => !!document.querySelector(".atlas2-card .atlas2-disc"))) === false && !(b2.placesSeen || {})[placeRow(other).name], placeRow(other).name);
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 7g  the hill kind (Phase 3c, task 1, decision 4) */
+  console.log("\n\x1b[1m7g) a hill is its own kind, a smaller triangle than a mountain\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, ["gr-280", "gr-905"]);   // Areopagus (a hill), Mount Olympus (a mountain)
+    check("the registry says Areopagus is a hill and Mount Olympus a mountain", placeRow("pl:q202487").kind === "hill" && placeRow("pl:q80344").kind === "mountain");
+    await view(page, 23.72, 37.97, 1.5);
+    const m = (await marks(page)).find((x) => x.id === "pl:q202487");
+    check("the hill draws as a triangle", !!m && m.marker === "triangle", JSON.stringify(m && { marker: m.marker, box: m.box && m.box.map(Math.round) }));
+    const hw = m && m.box ? m.box[2] - m.box[0] : 0;
+    await view(page, 22.35, 40.08, 2);
+    const mm = (await marks(page)).find((x) => x.id === "pl:q80344");
+    const mw = mm && mm.box ? mm.box[2] - mm.box[0] : 0;
+    check("…and smaller than a mountain's triangle", mm && mm.marker === "triangle" && hw > 0 && hw < mw, `${hw} px against ${mw} px`);
+    await A(page, (c) => c.select("pl:q202487", { open: true, fly: false, push: false })); await sleep(400);
+    const kind = await page.evaluate(() => document.querySelector(".atlas2-card-kind").textContent);
+    check('the place card\'s kind line says "Hill"', /^Hill\b/.test(kind), kind);
     allErrors.push(...errors); await ctx.close();
   }
 

@@ -1378,6 +1378,12 @@
     if (c) return { kind: "country", name: c, label: glossTitle(key) };
     return null;
   }
+  /* The same button for the Atlas v2 preview (Oct 2026, Phase 3c): `atlas/data/glossary-places.js` says which terms have a registry
+     place (the 25 of the 31 points the registry resolves, and the 181 countries). Behind a per-viewer switch that is OFF — `#map2`
+     is unlinked until Phase 5, so a reader's button keeps opening the old globe; Phase 5 deletes the switch with v1. Terms do not
+     contribute to the Personal Atlas (Q-P3 c): the button only opens a place. */
+  function atlas2Preview() { try { return localStorage.getItem("folio.atlas2.preview") === "1"; } catch (e) { return false; } }
+  function glossPlaceId(key) { const t = window.ATLAS_GLOSSARY_PLACES; return key && !isDeckGlossKey(key) && t && t.ids && t.ids[key] || null; }
   /* Does this term name a book the LIBRARY actually holds? (Aug 2026, on request: "for gloss that are
      about books or documents we hold in the library … a small version of the book banner of the library
      page, i.e. a link to take the user to read the book.")
@@ -4185,7 +4191,7 @@
   function makeGlossDraggable(win, handle) {
     let sx, sy, ox, oy, dragging = false;
     handle.addEventListener("pointerdown", (e) => {
-      if (e.target.closest(".gloss-close")) return;
+      if (e.target.closest("button")) return;   // every button in the bar (close, the map pin, edit): a captured pointer sent its click to the bar, so the pin never fired with a mouse (found in Phase 3c)
       dragging = true; focusGlossWin(win);
       const r = win.getBoundingClientRect();
       ox = r.left; oy = r.top; sx = e.clientX; sy = e.clientY;
@@ -4448,6 +4454,7 @@
         e.stopPropagation();
         const place = glossPlace(key);
         closeAllGloss();
+        if (place && atlas2Preview()) { ensureData("atlas2gloss").then(() => { const id = glossPlaceId(key); if (id) route("map2", { place: id }); else route("map", { focus: place }); }); return; }
         if (place) route("map", { focus: place });
       });
     }
@@ -10941,6 +10948,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Phase 0). Three plain scripts, each assigning one global (AtlasFormat, AtlasGL, AtlasV2); the worker
        and earcut are fetched by atlas.js itself, and the topology (atlas/data/topology.bin) by fetch(), so
        nothing here touches the eager path. v1's `atlas` bundle below is untouched until Phase 5. */
+    atlas2gloss: { files: ["atlas/data/glossary-places.js"] },   // the glossary popup's "show on the Atlas" table for the v2 preview (Phase 3c), read at the click
     atlas2: { files: ["atlas/atlas-format.js", "atlas/study.js", "atlas/atlas-gl.js", "atlas/atlas-canvas.js", "atlas/atlas.js"] },   // atlas-canvas.js: the still 2D view for a browser without WebGL2 (Phase 1d)
     /* …and the PROSE its place card shows for a present-day country (Phase 1c): the same four files v1's
        `atlas` bundle carries for its popup — descriptions, figures, spans, citations — WITHOUT timeline.js
@@ -46613,8 +46621,13 @@ let prev = null;
         return { title: plain(c.answerText) || plain(c.answer) || plain(c.question) || id, collId: root0 ? root0.id : "", coll: root0 ? nodeTitle(root0) : "" };
       },
       cardHref: (id) => "#card/" + id,
+      // "New discovery" on a place card (Phase 3c): the existing `placesSeen` register v1's Atlas panels write — read, and written on first sight
+      // exactly as `showCountryPopupName` does (markSeen), without v1's sound or achievements check. No new field; the blob's shape is unchanged.
+      seenPlace: (name) => !!(S.placesSeen && S.placesSeen[name]),
+      discover: (name) => markSeen("placesSeen", name),
     };
-    window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion, study: studyHost } });
+    const atlas = window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion, study: studyHost } });
+    if (current.params && current.params.place && atlas && atlas.showPlace) atlas.showPlace(current.params.place);   // the glossary popup's button (Phase 3c)
   };
   /* SOURCES AND CREDITS (Oct 2026, Atlas v2 Phase 1d — the phase's one reader-visible change; docs/atlas-v2-design.md §2.10a).
      Every string about a source — its name, version, licence, licence link, attribution and retrieval date — is what

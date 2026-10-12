@@ -77,6 +77,33 @@ for (const r of rows) { const it = items[r.qid]; if (!it) { unchecked.push(r.id)
 unchecked.length ? bad("every row's item is in the Wikidata cache", unchecked.length + ": " + unchecked.slice(0, 5).join(", ")) : ok("every row's item is in the Wikidata cache", rows.length + " items, retrieved " + (cache.retrieved || "never"));
 far.length ? bad("every row's `at` is the item's coordinate (within 1 km)", far.slice(0, 5).join("; ")) : ok("every row's `at` is the item's coordinate (within 1 km)");
 noClass.length ? bad("every row's item carries classes", noClass.slice(0, 5).join(", ")) : ok("every row's item carries classes");
+/* the glossary's "show on the Atlas" table (Phase 3c, task 2): atlas/data/glossary-places.js is a pure function of glossary.js, the spec and the registry */
+{
+  const GP = require("./build-glossary-places.js");
+  console.log("\n\x1b[1mglossary-places\x1b[0m " + path.relative(ROOT, GP.TARGET) + "\n");
+  if (!fs.existsSync(GP.TARGET)) bad("atlas/data/glossary-places.js exists", "run: node .claude/atlas-build/build-glossary-places.js --install");
+  else {
+    const t3 = fs.readFileSync(GP.TARGET, "utf8");
+    /^\/\* sources: \[\] \*\/$/.test(t3.split("\n")[0]) ? ok("first line carries `sources` (empty: ids only)") : bad("first line carries `sources`");
+    const st = GP.build({ check: true, log: () => {} });
+    st.ok ? ok("in step with glossary.js, the spec and the registry", Object.keys(st.table.ids).length + " terms, " + st.table.left.length + " left out") : bad("in step with glossary.js, the spec and the registry", st.why);
+    const w3 = {}; new Function("window", t3)(w3); const ids3 = (w3.ATLAS_GLOSSARY_PLACES || {}).ids || {};
+    const dead = Object.entries(ids3).filter(([, id]) => !reg.rows.has(id));
+    dead.length ? bad("every id in the table resolves in the registry", dead.slice(0, 5).map((e) => e.join("→")).join(", ")) : ok("every id in the table resolves in the registry");
+  }
+}
+/* the polity index (Phase 3c, task 3): atlas/data/polity-index.js is a pure function of history.bin's header */
+{
+  const PI = require("./build-polity-index.js");
+  console.log("\n\x1b[1mpolity-index\x1b[0m " + path.relative(ROOT, PI.TARGET) + "\n");
+  if (!fs.existsSync(PI.TARGET)) bad("atlas/data/polity-index.js exists", "run: node .claude/atlas-build/build-polity-index.js --install");
+  else {
+    const st4 = PI.build({ check: true, log: () => {} });
+    st4.ok ? ok("in step with history.bin's header", st4.index.counts.polities + " polities, " + st4.index.counts.ranges + " ranges, " + st4.index.counts.capitals + " capitals") : bad("in step with history.bin's header", st4.why);
+    const first = fs.readFileSync(PI.TARGET, "utf8").split("\n")[0];
+    /^\/\* sources: \[.*cliopatria.*\] \*\/$/.test(first) ? ok("first line carries `sources` (Cliopatria and Wikidata, copied from history.bin)") : bad("first line carries `sources`");
+  }
+}
 /* the light card-to-places index (Phase 3b, decision 4): atlas/data/card-places.js is a pure function of the cards' `places` */
 {
   const C = require("./build-card-places.js");

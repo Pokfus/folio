@@ -6,9 +6,9 @@
    are files of their own under that licence. */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-10-11T10:44:14.069Z",
+ "generated": "2026-10-11T22:18:13.631Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
- "filesRead": 652,
+ "filesRead": 654,
  "sources": [
   {
    "id": "cliopatria",
@@ -30,6 +30,10 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/history.bin.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/polity-index.js",
        "count": 1
       }
      ]
@@ -364,6 +368,10 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/history.bin.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/polity-index.js",
        "count": 1
       }
      ]

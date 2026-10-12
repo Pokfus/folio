@@ -498,7 +498,7 @@
   },
   "pl:q1053000": {
    "name": "Vatican Hill",
-   "kind": "mountain",
+   "kind": "hill",
    "sub": "",
    "qid": "Q1053000",
    "at": [
@@ -516,7 +516,8 @@
     "via": "title",
     "km": 0.3
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas3c": "mountain"
   },
   "pl:q10566197": {
    "name": "Ying Prefecture (Anhui)",
@@ -2638,7 +2639,10 @@
     36.415
    ],
    "within": "",
-   "aliases": [],
+   "aliases": [
+    "Ancient Thera",
+    "Thera"
+   ],
    "wiki": "Santorini",
    "by": "migration",
    "evidence": {
@@ -2650,7 +2654,14 @@
     "km": 3.2
    },
    "cards": 2,
-   "kindWas": "site/site"
+   "kindWas": "site/site",
+   "merged": [
+    {
+     "qid": "Q433004",
+     "name": "Ancient Thera",
+     "how": "island-polis"
+    }
+   ]
   },
   "pl:q1303524": {
    "name": "Sphacteria",
@@ -4550,7 +4561,7 @@
   },
   "pl:q1611219": {
    "name": "Munichia",
-   "kind": "mountain",
+   "kind": "hill",
    "sub": "",
    "qid": "Q1611219",
    "at": [
@@ -4570,7 +4581,8 @@
     "via": "label",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas3c": "mountain"
   },
   "pl:q1615560": {
    "name": "Caesarea (modern town)",
@@ -5795,6 +5807,37 @@
    },
    "cards": 1
   },
+  "pl:q187471": {
+   "name": "Ithaca (island)",
+   "kind": "island",
+   "sub": "",
+   "qid": "Q187471",
+   "at": [
+    20.6667,
+    38.4167
+   ],
+   "within": "",
+   "aliases": [
+    "Ithaca"
+   ],
+   "wiki": "Ithaca (island)",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q23442",
+     "Q148837"
+    ],
+    "via": "label",
+    "km": 7.1
+   },
+   "cards": 3,
+   "setAside": [
+    {
+     "qid": "Q3555023",
+     "name": "Vathy, Ithaca"
+    }
+   ]
+  },
   "pl:q188527": {
    "name": "Naxos",
    "kind": "island",
@@ -6373,7 +6416,7 @@
   },
   "pl:q193163": {
    "name": "Temple Mount",
-   "kind": "mountain",
+   "kind": "hill",
    "sub": "",
    "qid": "Q193163",
    "at": [
@@ -6396,7 +6439,8 @@
     "km": 0
    },
    "cards": 2,
-   "kindWas": "site/building"
+   "kindWas": "site/building",
+   "kindWas3c": "mountain"
   },
   "pl:q193342": {
    "name": "Rostov Veliky",
@@ -6470,7 +6514,7 @@
   },
   "pl:q194103": {
    "name": "Aventine Hill",
-   "kind": "mountain",
+   "kind": "hill",
    "sub": "",
    "qid": "Q194103",
    "at": [
@@ -6488,7 +6532,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas3c": "mountain"
   },
   "pl:q194450": {
    "name": "Thermopylae",
@@ -6680,7 +6725,7 @@
   },
   "pl:q200642": {
    "name": "Palatine Hill",
-   "kind": "mountain",
+   "kind": "hill",
    "sub": "",
    "qid": "Q200642",
    "at": [
@@ -6703,7 +6748,8 @@
     "km": 0
    },
    "cards": 3,
-   "kindWas": "site/site"
+   "kindWas": "site/site",
+   "kindWas3c": "mountain"
   },
   "pl:q2008735": {
    "name": "Siwa Oasis",
@@ -6788,9 +6834,41 @@
    },
    "cards": 1
   },
+  "pl:q202422": {
+   "name": "Salamis Island",
+   "kind": "island",
+   "sub": "",
+   "qid": "Q202422",
+   "at": [
+    23.4853,
+    37.9381
+   ],
+   "within": "",
+   "aliases": [
+    "Salamis"
+   ],
+   "wiki": "Salamis Island",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q23442",
+     "Q148837"
+    ],
+    "via": "label",
+    "km": 1.4
+   },
+   "cards": 2,
+   "merged": [
+    {
+     "qid": "Q28721684",
+     "name": "Salamis",
+     "how": "island-polis"
+    }
+   ]
+  },
   "pl:q202487": {
    "name": "Areopagus",
-   "kind": "mountain",
+   "kind": "hill",
    "sub": "",
    "qid": "Q202487",
    "at": [
@@ -6809,7 +6887,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 2
+   "cards": 2,
+   "kindWas3c": "mountain"
   },
   "pl:q2026618": {
    "name": "Norba",
@@ -7637,6 +7716,37 @@
    },
    "cards": 1
   },
+  "pl:q217214": {
+   "name": "Serifos",
+   "kind": "island",
+   "sub": "",
+   "qid": "Q217214",
+   "at": [
+    24.5,
+    37.15
+   ],
+   "within": "",
+   "aliases": [
+    "Seriphos"
+   ],
+   "wiki": "Serifos",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q23442"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 1,
+   "merged": [
+    {
+     "qid": "Q65244370",
+     "name": "Serifos",
+     "how": "island-polis"
+    }
+   ]
+  },
   "pl:q217379": {
    "name": "Tiryns",
    "kind": "site",
@@ -8373,30 +8483,6 @@
     "km": 0
    },
    "cards": 4
-  },
-  "pl:q2441154": {
-   "name": "Tomis",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q2441154",
-   "at": [
-    28.6383,
-    44.1732
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q148837",
-     "Q15661340",
-     "Q69391739"
-    ],
-    "via": "label",
-    "km": 0.8
-   },
-   "cards": 1
   },
   "pl:q244712": {
    "name": "La Brède",
@@ -10432,7 +10518,7 @@
   },
   "pl:q34925": {
    "name": "Capitoline Hill",
-   "kind": "mountain",
+   "kind": "hill",
    "sub": "",
    "qid": "Q34925",
    "at": [
@@ -10450,7 +10536,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 4
+   "cards": 4,
+   "kindWas3c": "mountain"
   },
   "pl:q3515347": {
    "name": "Chrysopolis (Bithynia)",
@@ -12272,7 +12359,7 @@
   },
   "pl:q49693597": {
    "name": "Mesa Verde",
-   "kind": "mountain",
+   "kind": "hill",
    "sub": "",
    "qid": "Q49693597",
    "at": [
@@ -12290,7 +12377,8 @@
     "via": "label",
     "km": 4.5
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas3c": "mountain"
   },
   "pl:q497115": {
    "name": "Frombork",
@@ -12959,7 +13047,7 @@
   },
   "pl:q550215": {
    "name": "Pincian Hill",
-   "kind": "mountain",
+   "kind": "hill",
    "sub": "",
    "qid": "Q550215",
    "at": [
@@ -12978,7 +13066,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas3c": "mountain"
   },
   "pl:q55601": {
    "name": "Presidential Office Building, Taipei",
@@ -16989,28 +17078,6 @@
    },
    "cards": 1
   },
-  "pl:q920866": {
-   "name": "Magnesia ad Sipylum",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q920866",
-   "at": [
-    27.4258,
-    38.6131
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Magnesia ad Sipylum",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q15661340"
-    ],
-    "via": "title",
-    "km": 0.8
-   },
-   "cards": 1
-  },
   "pl:q922009": {
    "name": "Hatnub",
    "kind": "site",
@@ -17798,6 +17865,20 @@
     }
    ]
   },
+  "city:1159135165": {
+   "aliases": [
+    "Magnesia ad Sipylum"
+   ],
+   "merged": [
+    {
+     "qid": "Q920866",
+     "name": "Magnesia ad Sipylum",
+     "how": "wikidata",
+     "km": 2.2,
+     "evidence": "P1366 replaced by: Q920866 Magnesia ad Sipylum → Q147089 Manisa"
+    }
+   ]
+  },
   "city:1159139597": {
    "aliases": [],
    "merged": [
@@ -17860,6 +17941,20 @@
      "name": "Prusa (Bithynia)",
      "how": "site",
      "km": 2
+    }
+   ]
+  },
+  "city:1159149397": {
+   "aliases": [
+    "Tomis"
+   ],
+   "merged": [
+    {
+     "qid": "Q2441154",
+     "name": "Tomis",
+     "how": "wikidata",
+     "km": 4,
+     "evidence": "P460 said to be the same as: Q2441154 Tomis → Q79808 Constanța"
     }
    ]
   },
@@ -17953,5 +18048,32 @@
    ]
   }
  },
- "merges": {}
+ "merges": {},
+ "glossary": {
+  "Afar_Region": "pl:q193494",
+  "Awash_River": "pl:q782845",
+  "Blombos_Cave": "pl:q884971",
+  "Cave_of_Altamira": "pl:q133575",
+  "Chauvet_Cave": "pl:q374096",
+  "Dmanisi": "pl:q261243",
+  "Doggerland": "pl:q1138308",
+  "Fennoscandia": "pl:q604496",
+  "Fertile_Crescent": "pl:q170526",
+  "Gona,_Ethiopia": "pl:q12314119",
+  "Hadar,_Ethiopia": "pl:q1567353",
+  "Johannesburg": "city:1159151515",
+  "Lascaux": "pl:q172125",
+  "Le_Moustier": "pl:q602572",
+  "Lomekwi": "pl:q19833854",
+  "Near_East": "pl:q48214",
+  "Olduvai_Gorge": "pl:q217043",
+  "Qafzeh_Cave": "pl:q2121357",
+  "Saint-Acheul": "pl:q670003",
+  "Sicily": "pl:q1460",
+  "Skhul_Cave": "pl:q287341",
+  "Sulawesi": "reg:1159103785",
+  "Sungir": "pl:q1779534",
+  "Swabian_Jura": "pl:q159589",
+  "Taung": "pl:q2096879"
+ }
 }

@@ -29,7 +29,7 @@ const OUT = process.argv[2] || path.join(process.env.SCRATCH || "/tmp", "atlas-p
 const ALL_VIEWPORTS = [{ name: "360x640", width: 360, height: 640 }, { name: "390x844", width: 390, height: 844 }, { name: "430x932", width: 430, height: 932 }, { name: "768x1024", width: 768, height: 1024, tablet: true }, { name: "844x390", width: 844, height: 390 }];
 const VIEWPORTS = process.env.FOLIO_VIEWPORTS ? ALL_VIEWPORTS.filter((v) => process.env.FOLIO_VIEWPORTS.split(",").includes(v.name)) : ALL_VIEWPORTS;   // FOLIO_VIEWPORTS=360x640,844x390 for a quick look
 const THEMES = [{ name: "folio", theme: "folio", night: false }, { name: "folio-night", theme: "folio", night: true }, { name: "synth", theme: "synth", night: false }];
-const CONTROLS = [".atlas2-search", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-about-btn", ".atlas2-caption", ".atlas2-stack", ".atlas2-card", ".atlas2-sheet", ".atlas2-about", ".atlas2-status", ".atlas2-mode"];
+const CONTROLS = [".atlas2-search", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-about-btn", ".atlas2-caption", ".atlas2-stack", ".atlas2-card", ".atlas2-sheet", ".atlas2-about", ".atlas2-status", ".atlas2-mode"];
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]); if (p === "/") p = "/index.html";
   const file = path.join(ROOT, p);
@@ -148,6 +148,67 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
     check("a double tap zooms in about the tap", z1 > z0 * 1.8 && z1 < z0 * 2.2, `zoom ${z0.toFixed(2)} → ${z1.toFixed(2)}`);
     check("no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
     await context.close();
+  }
+
+  /* ---------- the study panel on every viewport (Phase 3c): collapsed on a phone, the count line never cut mid-word, clear of the controls ---------- */
+  console.log("\n\x1b[1mthe study panel — collapsed on a phone, expandable to the collection chips\x1b[0m\n");
+  {
+    const w = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/card-places.js"), "utf8"))(w);
+    const ids = Object.keys(w.ATLAS_CARD_PLACES.cards);
+    const READER = [...ids.filter((i) => /^gr-/.test(i)).slice(0, 6), ...ids.filter((i) => /^gw-/.test(i)).slice(0, 3), ...ids.filter((i) => /^rm-/.test(i)).slice(0, 3)];
+    const seed = `try { if (!localStorage.getItem("folio_v1_seeded")) { localStorage.setItem("folio_v1", JSON.stringify({ cards: Object.fromEntries(${JSON.stringify(READER)}.map((id) => [id, { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" }])), settings: { newPerDay: 5 } })); localStorage.setItem("folio_v1_seeded", "1"); } } catch (e) {}`;
+    const OTHERS = [".atlas2-search", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-about-btn", ".atlas2-status", ".atlas2-mode", ".atlas2-rail", ".atlas2-caption"];
+    const probe = (page) => page.evaluate((others) => {
+      const rect = (e) => { const b = e.getBoundingClientRect(); return { x: b.left, y: b.top, r: b.right, b: b.bottom }; };
+      const P = document.querySelector(".atlas2-study"), F = document.querySelector(".atlas2").getBoundingClientRect(), sum = P.querySelector(".atlas2-study-sum"), tg = P.querySelector(".atlas2-study-toggle");
+      const shown = (e) => !!e && !e.hidden && !e.closest("[hidden]") && getComputedStyle(e).display !== "none";
+      // the distance from the panel to the nearest edge of every other visible control (0 where they touch or overlap)
+      const pr = rect(P), gaps = {};
+      for (const s of others) for (const e of document.querySelectorAll(s)) { if (!shown(e)) continue; const o = rect(e); const dx = Math.max(0, o.x - pr.r, pr.x - o.r), dy = Math.max(0, o.y - pr.b, pr.y - o.b); const d = Math.hypot(dx, dy); if (gaps[s] === undefined || d < gaps[s]) gaps[s] = d; }
+      // every word of the count line on ONE line box: a word cut across two lines would have two client rects
+      const words = []; const tn = sum.firstChild; let cut = [];
+      if (tn && tn.nodeType === 3) { const t = tn.data; const re = /\S+/g; let m; while ((m = re.exec(t))) { const r = document.createRange(); r.setStart(tn, m.index); r.setEnd(tn, m.index + m[0].length); words.push(m[0]); if (r.getClientRects().length > 1) cut.push(m[0]); } }
+      const cs = getComputedStyle(sum);
+      return { open: P.getAttribute("data-open"), mode: P.getAttribute("data-mode"), ready: P.getAttribute("data-ready"), panel: pr, frame: { x: F.left, y: F.top, r: F.right, b: F.bottom }, gaps,
+        modes: shown(P.querySelector(".atlas2-study-modes")), sum: shown(sum), sumText: sum.textContent, sumClipped: sum.scrollWidth > sum.clientWidth + 1, ellipsis: cs.textOverflow === "ellipsis", nowrap: cs.whiteSpace === "nowrap", wordsCut: cut, words: words.length,
+        toggle: shown(tg), toggleExpanded: tg && tg.getAttribute("aria-expanded"), toggleSize: tg && shown(tg) ? [Math.round(tg.getBoundingClientRect().width), Math.round(tg.getBoundingClientRect().height)] : null,
+        colls: shown(P.querySelector(".atlas2-study-colls")), chips: P.querySelectorAll("[data-coll]").length, h: Math.round(pr.b - pr.y) };
+    }, OTHERS);
+    for (const V of VIEWPORTS) {
+      const mobile = !V.tablet;
+      const context = await browser.newContext({ viewport: { width: V.width, height: V.height }, isMobile: mobile, hasTouch: true, deviceScaleFactor: 2 });
+      await context.addInitScript(seed);
+      const page = await context.newPage();
+      const errors = [];
+      page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
+      page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
+      await page.goto(base + "#map2", { waitUntil: "load" });
+      await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 180000 });
+      await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.study.ready(), null, { timeout: 120000 });
+      await sleep(300);
+      const phone = await page.evaluate(() => document.querySelector(".atlas2").classList.contains("atlas2-phone"));
+      console.log(`\n\x1b[1m${V.name} (${phone ? "phone" : "desktop"} layout)\x1b[0m\n`);
+      let a = await probe(page);
+      check("the panel is " + (phone ? "collapsed" : "open") + " by default", phone ? (a.open === "0" && a.toggleExpanded === "false" && !a.colls) : (a.open === "1" && a.toggleExpanded === "true" && a.colls), `data-open ${a.open}, ${a.chips} chips, ${a.h} px high`);
+      check("the Map / Personal / Full switch and the count line are always there", a.modes && a.sum && /places?/.test(a.sumText), JSON.stringify(a.sumText));
+      check("the count line wraps at spaces: no ellipsis, no clipping, no word cut across two lines", !a.ellipsis && !a.nowrap && !a.sumClipped && a.wordsCut.length === 0 && a.words > 2, a.words + " words, cut: " + (a.wordsCut.join(",") || "none"));
+      check("the disclosure is there" + (phone ? ", a 44 px target" : ""), a.toggle && (!phone || (a.toggleSize[0] >= 44 && a.toggleSize[1] >= 44)), JSON.stringify(a.toggleSize));
+      const inside = (q) => q.panel.x >= q.frame.x - 0.5 && q.panel.r <= q.frame.r + 0.5 && q.panel.y >= q.frame.y - 0.5 && q.panel.b <= q.frame.b + 0.5;
+      const minGap = (q) => Math.min(...Object.values(q.gaps));
+      check("collapsed or open, the panel is inside the frame and keeps at least 6 px from every other control (the Legend pill included)", inside(a) && minGap(a) >= 6, `nearest control ${minGap(a).toFixed(1)} px; ` + Object.entries(a.gaps).map(([k, v]) => k.replace(".atlas2-", "") + " " + Math.round(v)).join(", "));
+      const h0 = a.h;
+      await page.click(".atlas2-study-toggle"); await sleep(300);
+      a = await probe(page);
+      const wasOpen = !phone;
+      check(wasOpen ? "the disclosure collapses the chips" : "the disclosure opens the collection chips", wasOpen ? (a.open === "0" && !a.colls && a.h < h0) : (a.open === "1" && a.colls && a.chips > 0 && a.h > h0), `${h0} → ${a.h} px, ${a.chips} chips`);
+      check("…the panel still keeps 6 px from every control and the sum is not cut", inside(a) && minGap(a) >= 6 && !a.sumClipped && a.wordsCut.length === 0, `nearest ${minGap(a).toFixed(1)} px`);
+      await page.reload({ waitUntil: "load" }); await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 180000 }); await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.study.ready(), null, { timeout: 120000 }); await sleep(300);
+      const b = await probe(page);
+      check("the reader's choice is remembered across a reload (a stored choice wins over the phone default)", b.open === a.open, `data-open ${a.open} → ${b.open}`);
+      await page.screenshot({ path: path.join(OUT, `${V.name}-study-${b.open === "1" ? "open" : "collapsed"}.png`) });
+      check("no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
+      await context.close();
+    }
   }
   await browser.close(); server.close();
   console.log(`\nscreenshots in ${OUT}\n${pass} ok, ${fail} failed\n`);

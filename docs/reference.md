@@ -7450,6 +7450,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A GLOSSARY TERM CAN PUT ITSELF ON THE MAP** (`glossPlace` / `focusPlace`), joined at BUILD time by
     `.claude/fetch-place-coords.js` — a country is lit in the map's own gold with no info panel, a point
     gets a dot and its name and is drawn only while focused.
+    **THE PIN MUST BE A BUTTON THE BAR'S DRAG IGNORES** (Oct 2026, found by Atlas v2 Phase 3c): `makeGlossDraggable`
+    captures the pointer on any press in `.gloss-bar`, which retargets the `click` to the bar — so for months a REAL
+    mouse click on `.gloss-map` did nothing (only a programmatic `.click()` worked, which is why nothing caught it). It now
+    skips every `button`. `test-atlas-study.js` §7c clicks with a real mouse. The same button opens `#map2` at the term's
+    registry id (`atlas/data/glossary-places.js`) only behind `localStorage["folio.atlas2.preview"] = "1"`.
   · **Guarded by `test-atlas-places.js` and `test-layout.js`**; eras are built by
     `node .claude/build-era.js <year> [label]` and edited in **Admin → Timeline → Open globe editor**.
   · **YOUR OWN ATLAS — A SECOND TAB, AND THE ONE THE PAGE OPENS ON** (`atlasTab` / `MINE` /

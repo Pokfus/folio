@@ -116,7 +116,7 @@
   const LABEL_DRAW_BUDGET_MS = 3;            // the label canvas redraw at p95 (reported; test-atlas-labels.js asserts it)
   const LABEL_LAYOUT_BUDGET_MS = 50;         // the worker's layout at p95
   const KEY_LIST_MAX = 60;                   // the hidden button list mirrors at most this many labels
-  const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", cape: "Cape" };
+  const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", hill: "Hill", cape: "Cape", polity: "Polity" };
   /* THE LABEL STYLES (Q-L2 a): small capitals for territories and regions, italic for water, upright for
      cities, in the site's own font tokens — the display face for names of places, the serif for water.
      `size` is CSS px; `track` the letter spacing in px (ours, drawn glyph by glyph — never the canvas's
@@ -253,15 +253,20 @@
     const H = opts.host || {};
     const studyPanel = H.study && root.AtlasStudy ? `
         <div class="atlas2-study" role="group" aria-label="What the map shows from your cards" data-mode="map" data-ready="0">
-          <div class="atlas2-study-modes" role="radiogroup" aria-label="Atlas view">
-            <button type="button" role="radio" aria-checked="true" data-mode="map" title="The plain map" disabled>Map</button>
-            <button type="button" role="radio" aria-checked="false" data-mode="personal" title="Your Atlas: the places in the cards you have studied" disabled>Personal</button>
-            <button type="button" role="radio" aria-checked="false" data-mode="full" title="The Full Atlas: every place any card is about" disabled>Full</button>
+          <div class="atlas2-study-top">
+            <div class="atlas2-study-modes" role="radiogroup" aria-label="Atlas view">
+              <button type="button" role="radio" aria-checked="true" data-mode="map" title="The plain map" disabled>Map</button>
+              <button type="button" role="radio" aria-checked="false" data-mode="personal" title="Your Atlas: the places in the cards you have studied" disabled>Personal</button>
+              <button type="button" role="radio" aria-checked="false" data-mode="full" title="The Full Atlas: every place any card is about" disabled>Full</button>
+            </div>
+            <button type="button" class="atlas2-study-toggle" aria-expanded="false" aria-controls="atlas2-study-details" aria-label="Show the collections" title="Show the collections" hidden><i aria-hidden="true"></i></button>
           </div>
           <p class="atlas2-study-sum" aria-live="polite"></p>
-          <p class="atlas2-study-note" hidden></p>
           <p class="atlas2-study-empty" role="status" hidden></p>
-          <div class="atlas2-study-colls" role="group" aria-label="Collections" hidden></div>
+          <div class="atlas2-study-details" id="atlas2-study-details" hidden>
+            <p class="atlas2-study-note" hidden></p>
+            <div class="atlas2-study-colls" role="group" aria-label="Collections" hidden></div>
+          </div>
         </div>` : "";
     host.innerHTML = `
       <div class="atlas2${PHONE ? " atlas2-phone" : ""}" role="region" aria-label="Atlas (preview)">
@@ -270,6 +275,7 @@
         <div class="atlas2-search">
           <input type="search" class="atlas2-search-in" placeholder="Find a place" aria-label="Find a place" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="atlas2-results" aria-autocomplete="list">
           <ul class="atlas2-results" id="atlas2-results" role="listbox" aria-label="Places found" hidden></ul>
+          <div class="atlas2-search-note" role="status" hidden><span class="atlas2-sn-t"></span><span class="atlas2-sn-b"><button type="button" class="atlas2-link atlas2-sn-go"></button><button type="button" class="atlas2-sn-x" aria-label="Dismiss" title="Dismiss">×</button></span></div>
         </div>${studyPanel}
         <div class="atlas2-zoom" role="group" aria-label="Zoom">
           <button type="button" class="atlas2-btn" data-zoom="in" title="Zoom in" aria-label="Zoom in">+</button>
@@ -486,7 +492,7 @@
       labelCanvas.width = Math.round(cssW * dprNow); labelCanvas.height = Math.round(cssH * dprNow);
       base = Math.min(cssW, cssH) * 0.46;
       view.cx = cssW / 2; view.cy = cssH / 2;
-      needs = true;
+      needs = true; needsGlobe = true;
       requestLayout("resize");
     }
     const zmax = () => Math.max(1, R_KM / (kmFloor() * base));
@@ -616,7 +622,7 @@
     /* ---------- frame loop ---------- */
     const stats = { frames: [], draw: [], uploads: {}, worker: null, escalations: 0, recoveries: 0, stallsIgnored: 0, longTasks: 0, stage: 0, learnt: 0, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, reliefCost: [], labelLayout: [], labelSprite: [], labelDraw: [], gazetteer: null };
     const perfInHash = /[?&#/]perf\b/.test(location.hash || "");
-    let needs = true, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
+    let needs = true, needsGlobe = true, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
     const t0 = performance.now();
     let lastPerfText = 0, lastTraceT = 0;
     function frame(t) {
@@ -633,12 +639,15 @@
       if (needs) {
         needs = false;
         timed(plan, "plan");
-        if (STATIC2D && ((dragging && moved) || coasting) && stillAt) {
+        const globe = needsGlobe; needsGlobe = false;
+        if (STATIC2D && !globe && stillAt) {
+          // names only: the globe on screen is already the true one
+        } else if (STATIC2D && ((dragging && moved) || coasting) && stillAt) {
           // the still view during a drag: the last frame blitted by the pointer's travel; the true frame comes on release
           const k = R2D / view.radius; let dl = view.lon - stillAt.lon; if (dl > 180) dl -= 360; else if (dl < -180) dl += 360;
           R.shift(-dl / k, (view.lat - stillAt.lat) / k);
         } else { timed(() => R.render(view), "render"); if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
-        stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift();
+        if (globe) { stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift(); }
         timed(drawLabels, "labelsDraw");
         if (!stats.firstPaintMs && R.levelLoaded(0)) stats.firstPaintMs = Math.round(performance.now() - t0);
         if (perfOn && t - lastPerfText > 200) { lastPerfText = t; timed(perfText, "perfText"); }   // five times a second: the overlay is a DOM text block, and its relayout every frame cost more than the frame on a software rasteriser
@@ -717,7 +726,11 @@
       stats.level = view.level;
       refreshOnScreen();   // with the rotation and the level of THIS view (the ticks, [ ] and the "no states" note follow the view)
     }
-    function invalidate() { needs = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
+    function invalidate() { needs = true; needsGlobe = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
+    /* a redraw of the NAMES alone (a layout arrived, the study layer changed what is marked): the labels have their own canvas, so the
+       still view (Canvas 2D, a full frame of seconds on a software renderer) keeps the globe it has and repaints only them — Phase 3c: the
+       study layer's last slice landed during the frame gate's drag and its layout cost the drag a full frame */
+    function invalidateLabels() { needs = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
     function perfText() {
       const f = stats.frames.slice(-120).sort((a, b) => a - b), n = f.length;
       const mean = n ? f.reduce((a, b) => a + b, 0) / n : 0, p95 = n ? f[Math.min(n - 1, Math.floor(0.95 * n))] : 0, max = n ? f[n - 1] : 0;
@@ -852,7 +865,7 @@
     function coast() {
       view.lon += velLon * 16; view.lat += velLat * 16; velLon *= 0.92; velLat *= 0.92;
       if (Math.hypot(velLon, velLat) < 0.002) { coasting = false; touched(); gestureEnded(); }
-      needs = true;
+      needs = true; needsGlobe = true;   // the globe moves with it: the still view blits it, and the frame after the last step draws the true one
     }
     canvas.addEventListener("wheel", (e) => {
       e.preventDefault();
@@ -964,7 +977,7 @@
       if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
       if (m.type === "history-faces") { onHistoryFaces(m); return; }
       if (m.type === "history-done") { if (time.hist) { time.hist.ready = true; time.hist.stats = { ms: m.ms, arcs: m.arcs, faces: m.faces }; } applyYear(time.year, { why: "ready" }); return; }
-      if (m.type === "done") { loadBuffer = null; stats.worker = m.stats; stats.ready = true; status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace && G.ready && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null; invalidate(); requestLayout("ready", true); }
+      if (m.type === "done") { loadBuffer = null; stats.worker = m.stats; stats.ready = true; maybeFrame(); status.hidden = true; el.setAttribute("data-ready", "1"); if (pendingPlace && G.ready && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null; invalidate(); requestLayout("ready", true); }
     }
     /* a restored GL context (Phase 1c): the renderer dropped everything; the worker sends the resident levels
        again from the files it kept, the loaders fetch their tiles again, relief is asked for again */
@@ -1131,7 +1144,7 @@
         G.byId.set(e.id, row);
       });
       for (const c of H.cities || []) { const id = "cap:" + c.entity + ":" + c.name; if (!G.byId.has(id)) G.byId.set(id, { id, name: c.name, kind: "capital", hist: true, city: c, at: [c.lon, c.lat], within: c.entity, key: fold(c.name), akeys: [], rank: 0, len: 0, aliases: [] }); }
-      if (pendingPlace && G.ready && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;   // the deep link's history place, now that its row exists
+      if (pendingPlace && G.ready && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null;   // the deep link's history place, now that its row exists
       // the colour of each entity (2b): a slot of a fixed palette, chosen once over every epoch so that two polities sharing a
       // border in a year never share a slot, and an entity keeps its slot across the years wherever that allows
       assignSlots();
@@ -1217,6 +1230,7 @@
     }
     /* THE YEAR: the alive set, the style tables, the meshes wanted (and the look-ahead), the layout */
     function applyYear(y, o) {
+      hideSearchNote();   // a note that says a polity is not on the map in the OLD year is stale
       o = o || {};
       const t0 = performance.now();
       y = clampYear(y);
@@ -1418,7 +1432,7 @@
     const G = { rows: [], byId: new Map(), byRiver: new Map(), ready: false };
     const L = { placed: [], live: [], candidates: 0, cap: 0, seq: 0, lastLayoutMs: 0, lastDrawMs: 0, keyIds: "" };
     const STYLE_BY_ID = Object.fromEntries(STYLES.map((s) => [s.id, s]));
-    let gazStarted = false, gazInWorker = false, faceOfEntity = null, entityIndexById = null, pendingPlace = null, pendingZoom = 0, focusId = null, flying = null, lastWrittenHash = null;
+    let gazStarted = false, gazInWorker = false, faceOfEntity = null, entityIndexById = null, pendingPlace = null, pendingFly = false, pendingZoom = 0, focusId = null, flying = null, lastWrittenHash = null;
     const sel = { id: null, stack: [], index: 0, at: null, t: 0 };
     const layoutWaiters = [];
     const reduced = () => { try { return H.reducedMotion ? !!H.reducedMotion() : matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } };
@@ -1433,9 +1447,9 @@
         G.rows = T.rows.map((r, i) => { const o = { i }; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; }); o.key = fold(o.name); o.akeys = (o.aliases || []).map(fold); if (o.qid) o.qid = "Q" + o.qid; return o; });
         for (const o of G.rows) if (typeof o.within === "number") o.within = o.within > 0 && G.rows[o.within - 1] ? G.rows[o.within - 1].id : 0;   // the table stores the container's row index + 1
         for (const r of G.rows) { G.byId.set(r.id, r); if (typeof r.geom === "string" && r.geom[0] === "r") { G.byRiver.set(Number(r.geom.slice(1)), r); for (const ei of (Array.isArray(r.alt) ? r.alt : [])) G.byRiver.set(ei, r); } }   // a merged river answers for every stretch (Phase 1d)
-        G.ready = true;
+        G.ready = true; maybeFrame();
         stats.gazetteer = { rows: G.rows.length, ms: Math.round(performance.now() - t) };
-        if (pendingPlace && stats.ready && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;
+        if (pendingPlace && stats.ready && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null;
         postToWorker({ type: "gazetteer", table: T });
         loadStudy();   // the study layer's two lazy files, once the gazetteer's rows are in G (Phase 3b)
         measureMetrics();
@@ -1488,7 +1502,7 @@
        layout as occupied ground — the search box and its list, the zoom stack, the Legend and ? chips, an open sheet, the
        card (or its phone strip), the stack chip, the status line, the mode note, the year rail. A sheet opening or closing
        asks for a layout, so the names step out from under it. */
-    const CHROME = [".atlas2-search-in", ".atlas2-results", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
+    const CHROME = [".atlas2-search-in", ".atlas2-results", ".atlas2-search-note", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
     function chromeRects() {
       const base = el.getBoundingClientRect(), out = [], seen = new Set();
       for (const sel of CHROME) for (const node of el.querySelectorAll(sel)) {
@@ -1521,7 +1535,7 @@
       L.placed = m.placed;
       if (m.missing && m.missing.length) { let grew = false; for (const [, ch] of m.missing) if (!extraChars.has(ch)) { extraChars.add(ch); grew = true; } if (grew && extraChars.size < 400) measureMetrics(); }
       updateKeys();
-      invalidate();
+      invalidateLabels();
       while (layoutWaiters.length) layoutWaiters.shift()(L.placed);
     }
 
@@ -1566,7 +1580,7 @@
       return { c, x0, y0, w, h };
     }
     /* the study layer's marks (Phase 3b), distinct from every label and from the city dots and capital squares: a DIAMOND for a
-       settlement or a site, a TRIANGLE for a mountain or a cape, a ringed disc with its COUNT for a stack. The reader's own are filled
+       settlement or a site, a TRIANGLE for a mountain or a cape (a smaller one for a hill), a ringed disc with its COUNT for a stack. The reader's own are filled
        with the accent, the rest of the Full Atlas hollow. */
     function drawStudyMarker(ctx, x, y, r, kind, hot, p) {
       const mine = !!p && p.st === 2;
@@ -1693,6 +1707,14 @@
     // a selection made by a reader (a tap, a search result, the console) pushes a history entry so Back undoes it; one made
     // by Back or by a deep link at load (push: false) does not
     function selectById(id, o) { const row = G.byId.get(id); if (!row) return false; o = Object.assign({ push: true }, o || {}); if (o.fly) flyToRow(row, o.open); else selectRow(row, o); return true; }
+    /* the glossary popup's "show on the Atlas" (Phase 3c): open a place by its registry id and fly there. The row may not be in
+       `G` yet (a places.js row joins it when the study layer has loaded), so it waits like a deep link's place does — but flies */
+    function showPlace(id) {
+      if (!id || typeof id !== "string") return false;
+      pendingFly = true;
+      if (G.ready && stats.ready && G.byId.has(id) && selectById(id, { open: true, fly: true, push: true })) { pendingPlace = null; return true; }
+      pendingPlace = id; return false;
+    }
     function clearSelection() {
       const had = sel.id;
       sel.id = null; sel.stack = []; sel.index = 0; sel.at = null;
@@ -1729,13 +1751,30 @@
       cardBody.scrollTop = 0;
       if (row.kind === "country") renderCountryCard(row); else renderPlaceCard(row);
       appendStudyCards(row);   // the cards about this place (Phase 3b); the country's prose arrives later and appends again
+      discoveryChip(row);
       el.classList.add("atlas2-has-card");
       // focus moves to the heading when the card OPENS (not when a second place replaces the first); the opener is
       // remembered unless focus was already inside the card
       if (!wasOpen) { const a = document.activeElement; cardOpener = a && el.contains(a) && !cardEl.contains(a) ? a : canvas; cardTitle.focus({ preventScroll: true }); }
     }
+    /* "NEW DISCOVERY" (Phase 3c): a place the reader has studied and has not opened on the Atlas before. Read from the existing registers —
+       the studied set (a card with a record) and `placesSeen`, the register v1's panels already write — and written the way v1 writes it
+       (`discover` is the host's markSeen): no new field, the blob's shape and the sync untouched. Only a place the reader studied is marked;
+       a re-render of the same card keeps the chip, closing and opening it again does not. */
+    let discId = null, discFresh = false;
+    function discoveryChip(row) {
+      for (const old of cardEl.querySelectorAll(".atlas2-disc")) old.remove();
+      if (row.id !== discId) {
+        discId = row.id; discFresh = false;
+        try { if (AS && SU && SU.seenPlace && SU.discover && ST.st && AS.isNewDiscovery(ST.st, row.id, row.name, SU.seenPlace)) { discFresh = true; SU.discover(row.name); } } catch (e) { discFresh = false; }
+      }
+      if (!discFresh) return;
+      const chip = document.createElement("span"); chip.className = "disc-chip atlas2-disc"; chip.title = "A place from your cards, opened on the Atlas for the first time"; chip.innerHTML = "<b>New discovery!</b>";
+      cardKind.insertAdjacentElement("afterend", chip);
+    }
     function closeCard(returnFocus) {
       const had = cardOpen;
+      discId = null; discFresh = false;
       cardOpen = false; cardRow = null; cardEl.hidden = true; el.classList.remove("atlas2-has-card"); el.classList.remove("atlas2-card-up");
       if (had && returnFocus !== false) {
         const inside = document.activeElement && (cardEl.contains(document.activeElement) || document.activeElement === document.body);
@@ -1836,13 +1875,44 @@
     cardBody.addEventListener("click", (e) => { const st = e.target.closest("button[data-year]"); if (st) { setYear(Number(st.getAttribute("data-year"))); if (cardRow) openCard(cardRow); return; } const b = e.target.closest("button[data-select]"); if (!b) return; const row = G.byId.get(b.getAttribute("data-select")); if (row) { if (row.hist) selectRow(row, { open: true, push: true }); else flyToRow(row, true); } });
 
     /* ---- search: one input, diacritic-folded prefix then substring over names and aliases ---- */
+    /* Phase 3c — the search covers the WHOLE registry whatever year the rail shows: the gazetteer and places.js rows (G), the
+       polities of every age and their period capitals (atlas/data/polity-index.js, 20 KB, fetched at the first keystroke — the 4.7 MB
+       history file is not), and it matches the KIND too ("rivers", "hill", "battle": the places of that kind the reader's cards are
+       about first). A polity that is not on the map in the rail's year says so and offers the nearest year it is — from its own
+       step data, never a guess (`yearsNote`). */
     let results = [], active = -1;
-    const KIND_ORDER = { country: 0, capital: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5, site: 5, mountain: 5, cape: 6 };
+    const KIND_ORDER = { country: 0, capital: 1, polity: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5, site: 5, mountain: 5, hill: 6, cape: 6 };
+    const PX = { state: 0, rows: [], caps: [], ranges: new Map() };   // state 0 not asked, 1 loading, 2 in, 3 failed
+    function loadPolityIndex() {
+      if (PX.state) return; PX.state = 1;
+      loadScript(opts.polityIndexUrl || "atlas/data/polity-index.js").then(() => {
+        if (disposed) return;
+        const X = root.ATLAS_POLITY_INDEX; if (!X || !Array.isArray(X.polities)) { PX.state = 3; return; }
+        const taken = new Set(G.rows.map((r) => r.key));
+        PX.rows = X.polities.map((r) => { PX.ranges.set(r[0], r[5]); return { id: r[0], name: r[1], kind: "polity", hist: true, indexed: true, span: [r[3], r[4]], ranges: r[5], qid: r[6] || null, key: fold(r[1]), akeys: (r[2] || []).map(fold), rank: 0, len: 0, aliases: r[2] || [], at: null }; });
+        const byEnt = new Map(PX.rows.map((r) => [r.id, r]));
+        for (const c of X.capitals || []) {
+          const owner = byEnt.get(c[0]); if (!owner) continue;
+          if (!owner.at) owner.at = [c[2], c[3]];   // before the borders arrive a polity is found at its first capital
+          const key = fold(c[1]); if (taken.has(key)) continue;   // a name the gazetteer already carries (Athens, Rome) is that place, not a second one
+          PX.caps.push({ id: "cap:" + c[0] + ":" + c[1], name: c[1], kind: "capital", hist: true, indexed: true, span: [c[4], c[5]], ranges: [[c[4], c[5]]], key, akeys: [], rank: 0, len: 0, aliases: [], at: [c[2], c[3]], within: c[0] });
+          taken.add(key);
+        }
+        PX.state = 2;
+        if (searchIn.value.trim().length >= 2 && document.activeElement === searchIn) runSearch(searchIn.value);
+      }).catch(() => { PX.state = 3; });
+    }
+    // the kinds a query may name: the label and its plural, the registry word and its plural, and a finer kind (battle, cave, building)
+    const KIND_WORDS = (() => { const m = new Map(); const add = (w, k) => { w = fold(w); if (w && !m.has(w)) m.set(w, k); }; for (const [k, label] of Object.entries(KIND_LABEL)) { const l = label.toLowerCase(); add(l, { kind: k }); add(l + "s", { kind: k }); add(l.replace(/y$/, "ies"), { kind: k }); add(k.replace(/-/g, " "), { kind: k }); add(k.replace(/-/g, " ") + "s", { kind: k }); } for (const sub of ["battle", "cave", "building"]) { add(sub, { sub }); add(sub + "s", { sub }); } add("mountains", { kind: "mountain" }); add("hills", { kind: "hill" }); add("states", { kind: "polity" }); add("empires", { kind: "polity" }); return m; })();
+    const kindHit = (r, w) => (w.kind ? r.kind === w.kind : r.sub === w.sub);
+    const searchRows = () => (PX.state === 2 ? G.rows.concat(PX.rows, PX.caps) : G.rows);
     function runSearch(q) {
       const k = fold(String(q || "").trim());
       if (k.length < 2 || !G.ready) { closeResults(); return []; }
-      const pre = [], sub = [];
-      for (const r of G.rows) {
+      loadPolityIndex();
+      hideSearchNote();
+      const pre = [], sub = [], rows = searchRows();
+      for (const r of rows) {
         if (r.key.startsWith(k) || r.akeys.some((a) => a.startsWith(k))) pre.push(r);
         else if (r.key.indexOf(k) >= 0 || r.akeys.some((a) => a.indexOf(k) >= 0)) sub.push(r);
       }
@@ -1850,19 +1920,53 @@
       const score = (r) => (r.key === k ? 0 : 100) + (KIND_ORDER[r.kind] == null ? 5 : KIND_ORDER[r.kind]) * 10 + Math.min(9, r.rank);
       const by = (a, b) => score(a) - score(b) || (a.name < b.name ? -1 : 1);
       results = pre.sort(by).concat(sub.sort(by)).slice(0, 10);
+      // a query that names a KIND adds the places of that kind after the name matches — the ones the cards are about first
+      const w = KIND_WORDS.get(k);
+      if (w && results.length < 10) {
+        const seen = new Set(results.map((r) => r.id)), nCards = (r) => (ST.idx && ST.idx.cardsOfPlace && (ST.idx.cardsOfPlace.get(r.id) || []).length) || 0;
+        const more = rows.filter((r) => !seen.has(r.id) && kindHit(r, w)).sort((a, b) => nCards(b) - nCards(a) || (a.name < b.name ? -1 : 1));
+        results = results.concat(more.slice(0, 10 - results.length));
+      }
       active = results.length ? 0 : -1;
-      resultsUl.innerHTML = results.map((r, i) => { const w = r.within ? G.byId.get(r.within) : null; return `<li role="option" id="atlas2-opt-${i}" data-i="${i}"${i === active ? ' aria-selected="true" class="active"' : ""}><span class="atlas2-res-name">${escText(r.name)}</span><span class="atlas2-chip">${escText(KIND_LABEL[r.kind] || r.kind)}</span>${w ? `<span class="atlas2-res-in">${escText(w.name)}</span>` : ""}</li>`; }).join("");
+      resultsUl.innerHTML = results.map((r, i) => { const w2 = r.within ? G.byId.get(r.within) : null; const span = r.indexed && r.span ? fmtYear(r.span[0]) + " – " + fmtYear(r.span[1]) : ""; return `<li role="option" id="atlas2-opt-${i}" data-i="${i}"${i === active ? ' aria-selected="true" class="active"' : ""}><span class="atlas2-res-name">${escText(r.name)}</span><span class="atlas2-chip">${escText(KIND_LABEL[r.kind] || r.kind)}</span>${w2 ? `<span class="atlas2-res-in">${escText(w2.name)}</span>` : r.indexed && r.within ? `<span class="atlas2-res-in">${escText((PX.rows.find((x) => x.id === r.within) || {}).name || "")}</span>` : ""}${span ? `<span class="atlas2-res-yrs">${escText(span)}</span>` : ""}</li>`; }).join("");
       resultsUl.hidden = !results.length;
       if (results.length) onVisual();   // the list's room under the visual viewport (a soft keyboard may be up)
       searchIn.setAttribute("aria-expanded", String(!!results.length));
       if (active >= 0) searchIn.setAttribute("aria-activedescendant", "atlas2-opt-" + active); else searchIn.removeAttribute("aria-activedescendant");
       return results;
     }
+    // a polity or period capital that is not on the map in the rail's year: { ranges, go } (study.js, tested in Node), else null
+    const yearsNote = (row, y) => (AS && row && row.indexed ? AS.yearsNote(row.ranges, y) : null);
+    const noteEl = el.querySelector(".atlas2-search-note");
+    function hideSearchNote() { if (noteEl && !noteEl.hidden) { noteEl.hidden = true; requestLayout("chrome"); } }
+    function showSearchNote(row, n) {
+      const list = n.ranges.slice(0, 3).map((r) => fmtYear(r[0]) + (r[1] !== r[0] ? " – " + fmtYear(r[1]) : "")).join("; ") + (n.ranges.length > 3 ? "; …" : "");
+      noteEl.querySelector(".atlas2-sn-t").textContent = row.name + " is not on the map in " + fmtYear(time.year) + ". It is mapped " + list + ".";
+      const b = noteEl.querySelector(".atlas2-sn-go"); b.textContent = "Go to " + fmtYear(n.go); b.setAttribute("data-year", String(n.go)); b.setAttribute("data-id", row.id);
+      noteEl.hidden = false; requestLayout("chrome");
+    }
     function closeResults() { resultsUl.hidden = true; resultsUl.innerHTML = ""; results = []; active = -1; searchIn.setAttribute("aria-expanded", "false"); searchIn.removeAttribute("aria-activedescendant"); }
     function setActive(i) { active = i; resultsUl.querySelectorAll("li").forEach((li, j) => { li.classList.toggle("active", j === i); if (j === i) li.setAttribute("aria-selected", "true"); else li.removeAttribute("aria-selected"); }); if (i >= 0) searchIn.setAttribute("aria-activedescendant", "atlas2-opt-" + i); }
-    function chooseResult(i) { const row = results[i]; if (!row) return; closeResults(); searchIn.value = row.name; flyToRow(row, true); canvas.focus({ preventScroll: true }); }
+    function chooseResult(i) {
+      let row = results[i]; if (!row) return; closeResults(); searchIn.value = row.name;
+      const n = yearsNote(row, time.year), full = G.byId.get(row.id);
+      if (row.indexed && full && !full.indexed) row = full;   // the borders have loaded: the real row (its anchor is on its own land)
+      if (row.indexed) {   // a polity or period capital known only by the index: fly to its capital; its card opens when the borders do
+        if (row.at) flyTo(row.at[0], row.at[1], row.kind === "capital" ? 1.5 : 12, null);
+        if (!n) { pendingPlace = row.id; pendingFly = false; ensureHistory(); }
+      } else flyToRow(row, true);
+      if (n) showSearchNote(row, n);
+      canvas.focus({ preventScroll: true });
+    }
+    noteEl.addEventListener("click", (e) => {
+      if (e.target.closest(".atlas2-sn-x")) { hideSearchNote(); return; }
+      const g = e.target.closest(".atlas2-sn-go"); if (!g) return;
+      const y = Number(g.getAttribute("data-year")), id = g.getAttribute("data-id");
+      hideSearchNote(); setYear(y); pendingPlace = id; pendingFly = true; ensureHistory();   // the place opens, flown to, when its row exists (the borders of that year are loading)
+      const full = G.byId.get(id); if (full && !full.indexed && G.ready && stats.ready && selectById(id, { open: true, fly: true, push: true })) pendingPlace = null;
+    });
     searchIn.addEventListener("input", () => runSearch(searchIn.value));
-    searchIn.addEventListener("focus", () => { if (searchIn.value.trim().length >= 2) runSearch(searchIn.value); });
+    searchIn.addEventListener("focus", () => { loadPolityIndex(); if (searchIn.value.trim().length >= 2) runSearch(searchIn.value); });
     searchIn.addEventListener("keydown", (e) => {
       if (e.key === "ArrowDown") { if (!results.length) runSearch(searchIn.value); if (results.length) { e.preventDefault(); setActive((active + 1) % results.length); } }
       else if (e.key === "ArrowUp") { if (results.length) { e.preventDefault(); setActive((active - 1 + results.length) % results.length); } }
@@ -1872,7 +1976,7 @@
     document.addEventListener("pointerdown", (e) => { if (!resultsUl.hidden && !e.target.closest(".atlas2-search")) closeResults(); }, true);
 
     /* ---- flying to a place: an eased move, instant under reduced motion ---- */
-    const PLACES_KMPP = { region: 8, range: 6, island: 3, "island-group": 8, sea: 10, gulf: 4, strait: 3, lake: 3, river: 6, ocean: 24, city: 1.5, town: 0.8, site: 0.8, mountain: 3, cape: 2 };   // a places.js row has a point and no extent: its zoom is by kind (Phase 3b)
+    const PLACES_KMPP = { region: 8, range: 6, island: 3, "island-group": 8, sea: 10, gulf: 4, strait: 3, lake: 3, river: 6, ocean: 24, city: 1.5, town: 0.8, site: 0.8, mountain: 3, hill: 1.5, cape: 2 };   // a places.js row has a point and no extent: its zoom is by kind (Phase 3b)
     const kmppFor = (row) => {
       if (row.src === "places") return PLACES_KMPP[row.kind] || 2;
       const short = Math.min(cssW, cssH) * (PHONE ? 0.9 : 0.5);
@@ -1900,7 +2004,7 @@
       if (!f.t0) f.t0 = t;
       const u = Math.min(1, (t - f.t0) / f.dur), e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
       view.lon = f.from.lon + (f.to.lon - f.from.lon) * e; view.lat = f.from.lat + (f.to.lat - f.from.lat) * e; view.zoom = Math.exp(f.from.lz + (f.to.lz - f.from.lz) * e);
-      clampView(); needs = true;
+      clampView(); needs = true; needsGlobe = true;
       if (u >= 1) { flying = null; touched(); gestureEnded(); if (f.done) f.done(); }
     }
 
@@ -1922,7 +2026,7 @@
       view.lon = d.lon; view.lat = d.lat; view.zoom = z; clampView(); flying = null; coasting = false;
       if (d.year != null && d.year !== time.year) applyYear(d.year, { why: "hash" });
       if (!tileIndex) pendingZoom = z;   // the cap is not known until the header arrives: the asked-for zoom is clamped again then
-      if (d.place) { const histId = /^(pol|cap|contested):/.test(d.place); if (G.ready && stats.ready && (!histId || time.ents) && selectById(d.place, { open: true, push: false })) pendingPlace = null; else pendingPlace = d.place; } else if (sel.id) clearSelection();   // a history place (pol:, cap:) waits for the history header
+      if (d.place) { const histId = /^(pol|cap|contested):/.test(d.place); if (G.ready && stats.ready && (!histId || time.ents) && selectById(d.place, { open: true, push: false })) pendingPlace = null; else { pendingPlace = d.place; pendingFly = false; } } else if (sel.id) clearSelection();   // a history place (pol:, cap:) waits for the history header
       plan(); invalidate(); requestLayout("hash", true);
     }
     // pushState and replaceState fire no event, so every hashchange or popstate is the reader's: Back, Forward, a typed link.
@@ -1984,9 +2088,10 @@
        ============================================================================================================ */
     const AS = root.AtlasStudy;
     const SU = H.study || null;
-    const MODE_KEY = "folio.atlas2.study", COLL_KEY = "folio.atlas2.studyOff";
-    const ST = { ready: false, loading: false, failed: false, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), colls: [], rev: 0, limit: new Map() };
+    const MODE_KEY = "folio.atlas2.study", COLL_KEY = "folio.atlas2.studyOff", OPEN_KEY = "folio.atlas2.studyOpen";
+    const ST = { ready: false, loading: false, failed: false, open: !PHONE, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), colls: [], rev: 0, limit: new Map() };
     const stRead = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    { const v = stRead(OPEN_KEY); if (v === "1" || v === "0") ST.open = v === "1"; }   // a stored choice wins over the phone default (collapsed)
     const stWrite = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
     const studyEl = el.querySelector(".atlas2-study");
     const infoCache = new Map();
@@ -2007,7 +2112,7 @@
       for (const o of G.rows) { o.key = fold(o.name); o.akeys = (o.aliases || []).map(fold); }
       return n;
     }
-    const POINT_KIND = /^(capital|city|town|site|mountain|cape)$/;
+    const POINT_KIND = /^(capital|city|town|site|mountain|hill|cape)$/;
     // what the worker needs of a place it has no geometry for: a mark (a point kind, from either file) or a name at a point (an area of places.js)
     function sendStudyRows() {
       const rows = [];
@@ -2038,9 +2143,9 @@
           const t3 = performance.now();
           ST.ready = true; ST.loading = false;
           sendStudyRows(); const t4 = performance.now();
-          refreshStudy(true); const t5 = performance.now();
+          refreshStudy(true); const t5 = performance.now(); maybeFrame();
           stats.study = { register: Math.round(t1 - t0), parse: Math.round(t2 - t1), warm: Math.round(t3 - t2), rows: Math.round(t4 - t3), refresh: Math.round(t5 - t4) };   // main-thread ms of each step (the warm-up is many tasks of 8 ms), for the suites
-          if (pendingPlace && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: false, push: false })) pendingPlace = null;
+          if (pendingPlace && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null;
         };
         setTimeout(slice, 0);
       }).catch((e) => { ST.failed = true; ST.loading = false; renderStudyPanel(); if (typeof console !== "undefined") console.warn("atlas2 study data failed: " + (e && e.message || e)); });
@@ -2065,11 +2170,30 @@
       postToWorker({ type: "study-flags", mode: ST.mode === "map" ? "" : ST.mode, entries: [...ST.flags], rev: ST.rev });
       renderStudyPanel();
       if (cardOpen && cardRow) appendStudyCards(cardRow);
-      invalidate(); requestLayout("study", true);
+      invalidateLabels(); requestLayout("study", true);
     }
     function setStudyMode(m) {
       if (!ST.ready || !/^(map|personal|full)$/.test(m) || m === ST.mode) return;
       ST.mode = m; stWrite(MODE_KEY, m); applyStudy();
+    }
+    /* THE DEFAULT VIEW (Phase 3c): a reader who opens on the Personal Atlas with studied places is shown THEM — centred on where they lie,
+       zoomed to hold nine in ten of them (study.js `framing`, clamped to 3–24 km/px and never wider than the whole earth) — rather than
+       the whole globe. Once per mount, and only while the reader has not touched the view, the address names no view, and the mode is
+       Personal (a stored Map or Full keeps today's default); with no places, or places spread right round the globe, nothing changes. */
+    let framed = false, userMoved = false, deepView = false, lastFrame = null;
+    function maybeFrame() {
+      if (framed || userMoved || deepView || !AS || !ST.ready || !G.ready || !stats.ready || !ST.st || ST.mode !== "personal") return;
+      framed = true;
+      const pts = []; for (const [id, f] of ST.flags) { if (f !== 2) continue; const r = G.byId.get(id); if (r && r.at && !r.hist) pts.push(r.at); }
+      const fr = AS.framing(pts, { shortPx: Math.min(cssW, cssH), minKmpp: Math.max(3, kmFloor()), maxKmpp: R_KM / base });
+      if (!fr) return;
+      lastFrame = fr; setView(fr.lon, fr.lat, fr.kmpp);
+    }
+    for (const t of ["pointerdown", "wheel", "keydown", "touchstart"]) el.addEventListener(t, () => { userMoved = true; }, { capture: true, passive: true });
+    function setStudyOpen(on) {
+      on = !!on; if (on === ST.open) return;
+      ST.open = on; stWrite(OPEN_KEY, on ? "1" : "0"); renderStudyPanel();
+      const t = studyEl && studyEl.querySelector(".atlas2-study-toggle"); if (t && !t.hidden && studyEl.contains(document.activeElement)) t.focus({ preventScroll: true });
     }
     function toggleColl(id, on) {
       const was = !ST.hidden.has(id), want = on == null ? !was : !!on;
@@ -2082,10 +2206,11 @@
       const live = SU && AS && !ST.failed;
       studyEl.hidden = !live;
       if (!live) return;
+      const moreEl = studyEl.querySelector(".atlas2-study-details"), toggleEl = studyEl.querySelector(".atlas2-study-toggle");
       const sumEl = studyEl.querySelector(".atlas2-study-sum"), noteEl = studyEl.querySelector(".atlas2-study-note"), emptyEl = studyEl.querySelector(".atlas2-study-empty"), collsEl = studyEl.querySelector(".atlas2-study-colls");
       studyEl.setAttribute("data-mode", ST.mode); studyEl.setAttribute("data-ready", ST.ready ? "1" : "0");
       for (const b of studyEl.querySelectorAll("button[data-mode]")) { const on = b.getAttribute("data-mode") === ST.mode; b.setAttribute("aria-checked", String(on)); b.classList.toggle("on", on); b.disabled = !ST.ready; }
-      if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; return; }
+      if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; moreEl.hidden = true; toggleEl.hidden = true; return; }
       const sm = AS.summary(ST.st, ST.mode, ST.flags);
       sumEl.textContent = sm.text; sumEl.hidden = !sm.text;
       noteEl.textContent = sm.note; noteEl.hidden = !sm.note;
@@ -2094,11 +2219,18 @@
       const list = ST.mode === "map" ? [] : ST.colls.filter((c) => (ST.mode === "personal" ? c.mine : c.places) > 0);
       collsEl.hidden = !list.length;
       collsEl.innerHTML = list.map((c) => `<button type="button" role="checkbox" class="atlas2-study-coll${ST.hidden.has(c.id) ? "" : " on"}" aria-checked="${ST.hidden.has(c.id) ? "false" : "true"}" data-coll="${escText(c.id)}" title="${escText(c.name)}: ${ST.mode === "personal" ? c.mine + " of " + c.places + " places yours" : c.places + " places"}"><span class="atlas2-study-coll-n">${escText(c.name)}</span><i>${ST.mode === "personal" ? c.mine : c.places}</i></button>`).join("");
+      // the collection chips and the note sit under a disclosure (collapsed by default on a phone, where the panel is 120 px of a 700 px frame):
+      // the switch and the count line stay, the empty-state sentence is a count line too
+      const hasMore = !!list.length || !noteEl.hidden;
+      toggleEl.hidden = !hasMore; moreEl.hidden = !(hasMore && ST.open);
+      toggleEl.setAttribute("aria-expanded", String(hasMore && ST.open)); { const t = (hasMore && ST.open ? "Hide" : "Show") + (list.length ? " the collections" : " the details"); toggleEl.setAttribute("aria-label", t); toggleEl.title = t; }
+      studyEl.setAttribute("data-open", hasMore && ST.open ? "1" : "0");
       requestLayout("chrome");   // the panel's height moved: the names step out from under it
     }
     if (studyEl) {
       studyEl.addEventListener("click", (e) => {
         const m = e.target.closest("button[data-mode]"); if (m) { setStudyMode(m.getAttribute("data-mode")); return; }
+        if (e.target.closest(".atlas2-study-toggle")) { setStudyOpen(!ST.open); return; }
         const c = e.target.closest("button[data-coll]"); if (c) { toggleColl(c.getAttribute("data-coll")); const again = studyEl.querySelector(`[data-coll="${c.getAttribute("data-coll").replace(/"/g, '\\"')}"]`); if (again) again.focus({ preventScroll: true }); }
       });
       // radio-group arrow keys, the way the legend's density stops behave
@@ -2163,7 +2295,7 @@
     setPerf(perfOn);   // after the label state exists: the overlay reads it (Phase 1c)
     layout();
     // a deep link (#map2/<lon>/<lat>/<zoom>/<place>) sets the first view; the place opens once the data is in
-    { const d = readHash(); if (d) { lastWrittenHash = location.hash; applyHash(d); } }
+    { const d = readHash(); if (d) { deepView = true; lastWrittenHash = location.hash; applyHash(d); } }
     drawTicks();
     invalidate();
     // the view set from outside (the perf suite's fixed views): centre, zoom, then wait for `tilesSettled()`
@@ -2181,7 +2313,7 @@
       statsNow: () => Object.assign(R.stats(), { frameTrace: stats.frameTrace ? stats.frameTrace.slice() : null, taskMs: stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v)])) : null, frameMsP95: pct95(stats.frames), frameMsMean: stats.frames.length ? Math.round(stats.frames.reduce((p, q) => p + q, 0) / stats.frames.length) : 0, kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
         year: time.year, historyFaces: time.alive.length, labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
       // Phase 1c, for the suites and the console
-      study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
+      study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, open: () => ST.open, setOpen: setStudyOpen, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
         flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl, expandStack: (id) => { const p = L.placed.find((x) => x.id === id); if (p) expandStack(p); return !!p; },
         marks: () => L.placed.filter((p) => p.st).map((p) => ({ id: p.id, kind: p.kind, st: p.st, text: p.text, n: p.n || 0, members: p.members || null, marker: p.marker ? p.marker[3] : null, box: p.box, sx: p.sx, sy: p.sy })), index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0 },
       labels: () => L.placed, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
@@ -2189,7 +2321,7 @@
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, shut: cardEl.classList.contains("atlas2-card-shut") }),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,
-      chromeRects, hash: hashNow, readHash, metricsCount: () => metricsSent,
+      chromeRects, showPlace, framing: () => lastFrame, discovery: () => ({ id: discId, fresh: discFresh }), hash: hashNow, readHash, metricsCount: () => metricsSent,
       /* Phase 2a: time */
       setYear: (y, o) => setYear(y, o), year: () => time.year, railTicks: () => time.tickStats || null, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
       alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,

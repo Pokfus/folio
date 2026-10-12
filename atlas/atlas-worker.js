@@ -439,13 +439,13 @@
   const POLITY_NUDGE = [0, -1.2, 1.2, -2.4, 2.4, -3.6, 3.6];                    // the lines a straight polity name moves up or down from its anchor when the anchor is taken
   function unitOf(lon, lat) { const la = lat * D2R_, lo = lon * D2R_, c = Math.cos(la); return [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; }
   /* PHASE 3b — THE STUDY LAYER'S STATE. `rows`: the places the worker does not already have geometry for — every study place that is
-     drawn as a MARK (a capital, city, town, site, mountain, cape: a point) and every place of places.js that is an area or a water
+     drawn as a MARK (a capital, city, town, site, mountain, hill, cape: a point) and every place of places.js that is an area or a water
      (a region, an island, a range …: a name at a point, no dot) — id → { id, name, kind, sub, a (unit vector), n (cards), pd
      (a present-day settlement: not alive in a past year) }. `flags`: id → 1 (a place of the Full Atlas) | 2 (the reader's own);
      absent = not drawn. A gazetteer AREA (a country, a province, a sea, a river …) and a polity are flagged only: the ordinary pass
      draws them in their own shape and the flag lifts them past the density rules, raises their score and tints them. */
   let STUDY = null;
-  const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, cape: 1 };
+  const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, hill: 1, cape: 1 };
   function setStudyRows(rows) {
     const m = new Map(), points = new Set();
     for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd }); if (STUDY_POINT[r.kind]) points.add(r.id); }
@@ -593,17 +593,14 @@
        and its list, the zoom stack, the Legend and ? chips, an open sheet, the card or its phone strip, the stack chip, the
        year rail — at every layout and resize and sends them as `chrome`; they are taken before any label is placed, so no
        label can be placed under a control (the owner's phone had "Berlin" cut by the zoom buttons and "NORTH EUROPE" under
-       the search box). A POINT label (a city and its marker) must be wholly on screen; an AREA or PATH label may be clipped
-       by the viewport edge by at most a quarter of its length and never by a control. */
+       the search box). A POINT label (a city and its marker) must be wholly on screen; so must an AREA or PATH label (a sea, a river,
+       a region, a polity: Phase 3c — it used to be allowed to hang a quarter over the edge), and none sits under a control. */
     const chrome = Array.isArray(q.chrome) ? q.chrome : [];
     const fullyOn = (r) => r[0] >= 0 && r[1] >= 0 && r[2] <= W && r[3] <= H;
     const hitsChrome = (r) => chrome.some((c) => r[0] < c[2] && r[2] > c[0] && r[1] < c[3] && r[3] > c[1]);
-    // the fraction of a chain of glyph boxes (or one box) lying beyond the viewport, by box area
-    const clippedFrac = (rs) => { let a = 0, v = 0; for (const r of rs) { const w = r[2] - r[0], h = r[3] - r[1]; if (w <= 0 || h <= 0) continue; a += w * h; v += Math.max(0, Math.min(r[2], W) - Math.max(r[0], 0)) * Math.max(0, Math.min(r[3], H) - Math.max(r[1], 0)); } return a > 0 ? 1 - v / a : 1; };
-    const MAX_CLIP = 0.25;
     /* A POLITY'S NAME STAYS INSIDE THE FRAME (Phase 3b, task 0c; the owner's phone had "Mali Empire" cut by the frame's edge and the
-       Ottoman Empire of 1500 unnamed). The quarter an area label may hang over the edge (MAX_CLIP) is kept for seas, rivers and
-       regions; a polity's name is a title a reader needs whole, so it is slid back inside the frame by at most a third of its
+       Ottoman Empire of 1500 unnamed). Phase 3c (the owner's decision 3) gives every AREA and PATH name the same rule — a sea's, a
+       river's, a region's: no quarter hangs over the edge any more. A name is a title a reader needs whole, so it is slid back inside the frame by at most a third of its
        own width (and two lines' height) or it is not placed, and a name wider than its polity may break at a space onto two
        lines, which keeps it over the polity at a zoom where one line would hang far past the border. */
     const FRAME_PAD = 2;
@@ -701,9 +698,9 @@
     const polyline = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return cum; };
     const reads = (S) => { const dx = S[S.length - 1][0] - S[0][0], dy = S[S.length - 1][1] - S[0][1]; return Math.abs(dx) >= Math.abs(dy) * 0.35 ? dx >= 0 : dy <= 0; };   // left to right, else upward
     /* ---- PHASE 3b: THE STUDY PASS — before the ordinary labels, so the places a reader studies take their ground first ----
-       Marks (a capital, city, town, site, mountain, cape): the places within STACK_PX of one another on screen become ONE marker
+       Marks (a capital, city, town, site, mountain, hill, cape): the places within STACK_PX of one another on screen become ONE marker
        with a count (they separate as the reader zooms, and a tap zooms to them); a place alone is a mark of its own shape — a diamond,
-       a triangle for a mountain or a cape — never the dot of a city — with its name beside it where a side is free. Areas and waters of
+       a triangle for a mountain or a cape, a smaller one for a hill — never the dot of a city — with its name beside it where a side is free. Areas and waters of
        places.js (a region, an island, a range …) are a name at a point, no mark. A mark never lies under a control (the chrome is
        already taken) or off the frame; a place is dropped only for that, and the drop reason says so. */
     const STACK_PX = q.phone ? 34 : 30;   // > the radii of two marks and the gap between them: see AtlasStudy.cluster
@@ -730,7 +727,7 @@
           placed.push({ id: "stack:" + top.id, kind: "stack", style: "", text: "", score: -300 - f * 10, selected: false, hist: false, st: f, n: g.n, members: g.ids.slice(0, 60), a: unitAt(x, y), sx: x, sy: y, alpha: Math.min(1, top.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, "stack"], hit: mrect });
           continue;
         }
-        const row = top.row, markShape = row.kind === "mountain" || row.kind === "cape" ? "triangle" : "diamond", r = 6, x = top.x, y = top.y;
+        const row = top.row, markShape = row.kind === "mountain" || row.kind === "hill" || row.kind === "cape" ? "triangle" : "diamond", r = row.kind === "hill" ? 4 : 6,   /* a hill is the smaller triangle (Phase 3c) */ x = top.x, y = top.y;
         const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
         dropping = row;
         if (!fullyOn(mrect) || !free(mrect)) { drop("study mark has no free ground (a control, a capital's mark or the frame's edge)"); continue; }
@@ -836,7 +833,7 @@
               tried++;
               const t = alongEither(sh, runS, cumS, s1, st); if (!t) { bent++; continue; }
               if (!t.rects.every(free)) { collided++; continue; }
-              if (clippedFrac(t.rects) > MAX_CLIP) continue;   // a run reaches 60 px past the canvas; the text may hang over the edge by a quarter at most
+              if (!inFrame(t.rects)) continue;   // a run reaches 60 px past the canvas; the text stays inside the frame like a polity's name (Phase 3c), another stretch or offset is tried
               g = t; break;
             }
             if (!g) continue;
@@ -867,14 +864,15 @@
           const S2 = S.map((p) => [p[0], p[1]]);
           if (!reads(S2)) S2.reverse();
           const cum = polyline(S2), Ls = cum[cum.length - 1];
-          if (Ls >= sh.w * 1.02) { const g = alongEither(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && clippedFrac(g.rects) <= MAX_CLIP) { got = g; curved = true; } }   // a run clipped by the edge by more than a quarter falls back to the straight name at the anchor
+          if (Ls >= sh.w * 1.02) { const g = alongEither(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && inFrame(g.rects)) { got = g; curved = true; } }   // a run that leaves the frame at all falls back to the straight name at the anchor, which is slid back inside it (Phase 3c)
         }
       }
       if (!got) {
         if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") { drop(k + " name wider than its shape"); continue; }   // the name would overhang the shape by most of its length
-        const g = straight(sh, c.a[0], c.a[1], 0);
+        const g0 = straight(sh, c.a[0], c.a[1], 0);
         if (!onScreen(c.a[0], c.a[1], 0)) { drop(k + " anchor off screen"); continue; }
-        if (clippedFrac(g.rects) > MAX_CLIP) { drop(k + " label clipped by the edge by more than a quarter"); continue; }
+        const g = intoFrame(g0, sh.h);   // Phase 3c, decision 3: a sea's, a region's name stays inside the frame like a polity's — slid back by at most a third of its width, or not placed
+        if (!g) { drop(k + " label would hang out of the frame"); continue; }
         if (!free(g.rects[0])) { drop(k + " collides"); continue; }
         got = g;
       }

@@ -24,7 +24,7 @@
      · NO LABEL UNDER THE CHROME AND NONE UPSIDE DOWN (Phase 2a, task 0d; the owner's phone screenshots of 2026-10-09): at
        1280×800 and at 390×844 — with the legend shut and open, the About sheet open, a card open — no placed label's rectangle
        intersects a control's rectangle (search, zoom stack, chips, sheets, card, stack chip); every point label (a city and
-       its marker) is wholly on screen; an area or path label hangs past the viewport edge by at most a quarter of its boxes;
+       its marker) is wholly on screen; an area or path label lies wholly inside the viewport (Phase 3c; it was a quarter hanging over);
        every curved label's mean glyph rotation lies within ±90° of upright and no glyph of it is rotated beyond 90°;
      · A LARGE POLITY'S NAME OUTRANKS THE CAPITAL MARKERS INSIDE IT (Phase 3a, task 0a; the 2b review): with the history
        loaded, at Europe in 1500 at 7 km/px the Ottoman Empire is named and Constantinople's marker is still drawn; at the
@@ -203,6 +203,21 @@ async function inkInBoxes(page, placed) {
   /* ---- Phase 2a, task 0d: the chrome and the orientation, on the desktop and on a phone ---- */
   const POINT_KINDS = /^(capital|city|town)$/;
   const norm = (a) => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; };
+  /* ---- Phase 3c, decision 3: seas, rivers and regions follow the polities' rule — inside the frame ---- */
+  const SWEEP = [{ lon: 25, lat: 36, k: 12 }, { lon: 12, lat: 55, k: 9 }, { lon: -40, lat: 30, k: 30 }, { lon: 60, lat: 25, k: 12 }, { lon: 100, lat: 10, k: 10 }, { lon: -75, lat: 8, k: 8 }, { lon: 2, lat: 41, k: 4 }, { lon: 15, lat: 45, k: 20 }, { lon: 33, lat: 30, k: 6 }];
+  async function areaSweep(pg, name) {
+    let n = 0, nSea = 0, nRiver = 0; const out = [];
+    const size = await pg.evaluate(() => { const r = document.querySelector(".atlas2").getBoundingClientRect(); return [r.width, r.height]; });
+    for (const V of SWEEP) {
+      const { placed } = await layoutAt(pg, V, "dense");
+      for (const p of placed) {
+        if (POINT_KINDS.test(p.kind) || !p.rects || !p.rects.length) continue;
+        n++; if (/^(sea|ocean|gulf|strait)$/.test(p.kind)) nSea++; if (p.kind === "river") nRiver++;
+        if (p.rects.some((r) => r[0] < -0.5 || r[1] < -0.5 || r[2] > size[0] + 0.5 || r[3] > size[1] + 0.5)) out.push(`${p.text || p.id} (${p.kind}) at ${V.lon},${V.lat} ${V.k}`);
+      }
+    }
+    check(`${name}: ${n} area and path names over ${SWEEP.length} views (${nSea} water bodies, ${nRiver} rivers), none outside the frame`, n > 20 && nSea > 0 && out.length === 0, out.slice(0, 4).join("; "));
+  }
   async function chromeChecks(pg, label, V, density) {
     const { placed } = await layoutAt(pg, V, density);
     const chrome = await pg.evaluate(() => document.querySelector(".atlas2").__atlas2.chromeRects());
@@ -212,8 +227,9 @@ async function inkInBoxes(page, placed) {
     check(`${label}: none of ${placed.length} labels lies under a control (${chrome.length} chrome rectangles)`, placed.length > 0 && under.length === 0, under.slice(0, 4).join(", "));
     const offPoint = placed.filter((p) => POINT_KINDS.test(p.kind) && p.rects.some((r) => r[0] < 0 || r[1] < 0 || r[2] > size[0] || r[3] > size[1])).map((p) => p.text || p.id);
     check(`${label}: every point label and marker is wholly on screen`, offPoint.length === 0, offPoint.slice(0, 4).join(", "));
-    const clipped = placed.filter((p) => !POINT_KINDS.test(p.kind)).map((p) => { let a = 0, v = 0; for (const r of p.rects) { const w = r[2] - r[0], h = r[3] - r[1]; a += w * h; v += Math.max(0, Math.min(r[2], size[0]) - Math.max(r[0], 0)) * Math.max(0, Math.min(r[3], size[1]) - Math.max(r[1], 0)); } return [p.text || p.id, a > 0 ? 1 - v / a : 0]; }).filter(([, f]) => f > 0.26);
-    check(`${label}: no area or path label hangs past the edge by more than a quarter`, clipped.length === 0, clipped.slice(0, 4).map(([t, f]) => `${t} ${(f * 100).toFixed(0)} %`).join(", "));
+    // Phase 3c, decision 3: an area or path name (a sea, a river, a region, a polity) lies wholly inside the frame, as a polity's has since 3b
+    const clipped = placed.filter((p) => !POINT_KINDS.test(p.kind) && p.rects.some((r) => r[0] < -0.5 || r[1] < -0.5 || r[2] > size[0] + 0.5 || r[3] > size[1] + 0.5)).map((p) => [p.text || p.id, p.kind]);
+    check(`${label}: no area or path label leaves the frame at all`, clipped.length === 0, clipped.slice(0, 4).map(([t, k]) => `${t} (${k})`).join(", "));
     const upside = placed.filter((p) => p.curved && (Math.abs(norm(p.meanAngle)) > Math.PI / 2 || p.glyphs.some((g) => Math.abs(norm(g)) > Math.PI / 2 + 1e-6))).map((p) => p.text + " " + (p.meanAngle * 180 / Math.PI).toFixed(0) + "°");
     check(`${label}: every curved label reads upright (mean rotation within ±90°, no glyph beyond)`, upside.length === 0, upside.slice(0, 4).join(", ") || `${placed.filter((p) => p.curved).length} curved`);
     return placed;
@@ -289,6 +305,8 @@ async function inkInBoxes(page, placed) {
   await polityView(D.page, "desktop, the globe in 1245", { lon: 80, lat: 45, k: 24 }, 1245, { id: "pol:mongol", name: "the Mongol Empire" }, "Karakorum");
   await polityView(D.page, "desktop, Europe in 1500 at 12 km/px", { lon: 20, lat: 45, k: 12 }, 1500, { id: "pol:ottoman", name: "the Ottoman Empire" }, "Constantinople");
   check("no page errors on #map2 (desktop, the history loaded)", D.errors.length === 0, D.errors.slice(0, 3).join(" | "));
+  console.log("\n\x1b[1m10) area and path names stay inside the frame (a sweep of views)\x1b[0m\n");
+  await areaSweep(D.page, "desktop 1280×800");
   await D.page.close();
   const PH = await open(phone);
   await PH.page.setViewportSize({ width: 390, height: 844 }); await sleep(300);
@@ -304,6 +322,7 @@ async function inkInBoxes(page, placed) {
   }
   // a sweep of phone views over the 1500 map: no polity name, in any of them, cut by an edge
   for (const V of [{ lon: -5, lat: 15, k: 12 }, { lon: 30, lat: 40, k: 16 }, { lon: 30, lat: 38, k: 12 }, { lon: 10, lat: 50, k: 12 }, { lon: 35, lat: 40, k: 24 }]) await polityView(PH.page, `phone 390×844, 1500 at ${V.lon}°, ${V.lat}°, ${V.k} km/px`, V, 1500, null, null);
+  await areaSweep(PH.page, "phone 390×844");
   check("no page errors on #map2 (phone, the history loaded)", PH.errors.length === 0, PH.errors.slice(0, 3).join(" | "));
   await PH.page.close();
   check("no page errors on #map2 (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));

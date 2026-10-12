@@ -22,7 +22,8 @@
      · THE STACKS: no two marks drawn have centres within the stack radius, every point is in exactly one stack, the result does not
        depend on anything but the points, and a lone point is a mark of its own.
 
-   Zero dependencies. Not part of the site. Re-run after touching atlas/study.js, atlas/data/card-places.js, the study block of
+   Phase 3c adds: the years a place has (search across years — never an invented year), the default view's framing, the New-discovery
+   rule, the polity index and the glossary table's builders. Zero dependencies. Not part of the site. Re-run after touching atlas/study.js, atlas/data/card-places.js, the study block of
    atlas/atlas.js, the study pass of atlas/atlas-worker.js, or `studyHost` in app.js. */
 "use strict";
 const fs = require("fs"), path = require("path");
@@ -129,5 +130,71 @@ check("the same points give the same stacks (nothing but the points decides)", J
 check("a lone point is a mark of its own, at its own place", (() => { const g = AS.cluster([{ id: "a", x: 10, y: 20 }], 30); return g.length === 1 && g[0].n === 1 && g[0].x === 10 && g[0].y === 20; })());
 check("two points 10 px apart are one stack of two at their middle", (() => { const g = AS.cluster([{ id: "a", x: 0, y: 0 }, { id: "b", x: 10, y: 0 }], 30); return g.length === 1 && g[0].n === 2 && g[0].x === 5; })());
 check("the top of a stack is the first (most important) point given", AS.cluster([{ id: "top", x: 0, y: 0 }, { id: "low", x: 5, y: 5 }], 30)[0].ids[0] === "top");
+
+/* ---------------------------------------------------------------- Phase 3c */
+console.log("\n6) search across years: only years the data holds\n");
+{
+  const R = [[750, 969], [1202, 1259]];
+  check("inside a range: no note", AS.yearsNote(R, 800) === null && AS.yearsNote(R, 750) === null && AS.yearsNote(R, 1259) === null);
+  check("no ranges on record: never said to be absent", AS.yearsNote([], 1000) === null && AS.yearsNote(null, 1000) === null);
+  check("before the first range: its first year", AS.yearsNote(R, -300).go === 750);
+  check("after the last range: its last year", AS.yearsNote(R, 2026).go === 1259);
+  check("in a gap: the nearer end (1000 is 31 after 969 and 202 before 1202)", AS.yearsNote(R, 1000).go === 969 && AS.yearsNote(R, 1150).go === 1202);
+  check("on a tie the later year", AS.yearsNote([[0, 10], [20, 30]], 15).go === 20);
+  const PX = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas", "data", "polity-index.js"), "utf8"))(PX);
+  let asked = 0, bad = 0;
+  for (const row of PX.ATLAS_POLITY_INDEX.polities) for (let y = -3500; y <= 2026; y += 37) { const n = AS.yearsNote(row[5], y); if (!n) continue; asked++; if (!row[5].some((r) => r[0] === n.go || r[1] === n.go) || row[5].some((r) => r[0] <= n.go && n.go <= r[1]) === false) bad++; }
+  check("over every polity of the index and 150 years each, every year offered is an endpoint of one of its own ranges, and the polity is on the map in it", asked > 5000 && bad === 0, asked + " offers, " + bad + " bad");
+  const Bp = require("./atlas-build/build-polity-index.js");
+  const ix = Bp.indexOf({ entities: [{ id: "pol:a", name: "A", kind: "polity", span: [0, 30], sourceNames: ["A", "Ancient A"] }, { id: "pol:b", name: "B", kind: "contested", span: [0, 5] }], steps: [[0, 0, 9, 1], [0, 10, 19, 2], [0, 25, 30, 3], [0, 12, 14, 4]], cities: [{ entity: "pol:a", name: "Aville", lon: 1, lat: 2, from: 0, to: 30 }, { entity: "pol:b", name: "Bville", lon: 1, lat: 2, from: 0, to: 5 }] });
+  check("the index joins consecutive and overlapping steps, keeps a real gap, and lists only polities (and their capitals)", JSON.stringify(ix.polities) === JSON.stringify([["pol:a", "A", ["Ancient A"], 0, 30, [[0, 19], [25, 30]], ""]]) && ix.capitals.length === 1, JSON.stringify(ix.polities));
+  check("atlas/data/polity-index.js is exactly what history.bin's header builds", Bp.build({ check: true, log: () => {} }).ok);
+  check("…and is small (the 4.7 MB history file is not fetched by a keystroke)", fs.statSync(Bp.TARGET).size < 40000, fs.statSync(Bp.TARGET).size + " bytes");
+}
+
+console.log("\n7) the default view\n");
+{
+  const near = [[23.7, 37.9], [22.9, 40.6], [21.7, 38.2], [26.1, 38.3], [25.1, 35.3]];
+  const f = AS.framing(near, { shortPx: 700 });
+  check("a handful of Greek places: centred among them, a few km/px", !!f && Math.abs(f.lon - 23.9) < 1 && Math.abs(f.lat - 38.1) < 1 && f.kmpp >= 3 && f.kmpp < 8, f && JSON.stringify({ lon: +f.lon.toFixed(1), lat: +f.lat.toFixed(1), kmpp: +f.kmpp.toFixed(1) }));
+  check("no places: null (the caller keeps today's default)", AS.framing([], {}) === null && AS.framing(null, {}) === null);
+  check("places spread right round the globe: null", AS.framing([[0, 0], [180, 0], [90, 0], [-90, 0]], {}) === null);
+  check("one place alone is held at the floor (3 km/px), not zoomed into the street", AS.framing([[12.5, 41.9]], { shortPx: 700 }).kmpp === 3);
+  check("the scale never passes the ceiling", AS.framing([[0, 0], [60, 0], [-60, 0]], { shortPx: 400, maxKmpp: 24 }).kmpp <= 24);
+  const withOutlier = near.concat([[151.2, -33.9]]), plain = AS.framing(near, { shortPx: 700 }), out = AS.framing(withOutlier, { shortPx: 700, keep: 0.9 });
+  const many = []; for (let i = 0; i < 20; i++) many.push([23 + (i % 5) * 0.5, 38 + Math.floor(i / 5) * 0.4]); many.push([151.2, -33.9]);
+  const m1 = AS.framing(many.slice(0, 20), { shortPx: 700 }), m2 = AS.framing(many, { shortPx: 700 });
+  check("with twenty close places, an outlier on the far side of the globe moves the centre and the scale by little", Math.abs(m1.lon - m2.lon) < 25 && m2.kmpp < 24 && m2.radiusKm < m1.radiusKm * 4, `radius ${m1.radiusKm.toFixed(0)} → ${m2.radiusKm.toFixed(0)} km`);
+  check("across the antimeridian the centre is on the right side (Fiji and Samoa)", (() => { const g = AS.framing([[178.0, -17.7], [-172.0, -13.8], [-175.2, -21.1]], { shortPx: 700 }); return Math.abs(Math.abs(g.lon) - 180) < 6; })());
+  check("deterministic", JSON.stringify(AS.framing(near, { shortPx: 700 })) === JSON.stringify(AS.framing(near.slice(), { shortPx: 700 })));
+  void plain;
+}
+
+console.log("\n8) New discovery\n");
+{
+  const st = AS.studied(AS.parse(RAW), cards.filter((c) => c.places && c.places.length).slice(0, 6).map((c) => c.id));
+  const id = [...st.places][0], seenNone = () => false;
+  check("a studied place not yet seen is new", AS.isNewDiscovery(st, id, "Somewhere", seenNone) === true);
+  check("…and is not once its name is in the seen register", AS.isNewDiscovery(st, id, "Somewhere", (n) => n === "Somewhere") === false);
+  check("a place the reader has not studied is never new", AS.isNewDiscovery(st, "pl:q1", "Elsewhere", seenNone) === false);
+  check("a polity is never a discovery (it is drawn by year)", AS.isNewDiscovery({ places: new Set(["pol:rome"]) }, "pol:rome", "Rome", seenNone) === false);
+  check("nothing without a name or a studied set", AS.isNewDiscovery(null, id, "x", seenNone) === false && AS.isNewDiscovery(st, id, "", seenNone) === false);
+  check("app.js's host reads and writes the EXISTING placesSeen register, and no new progress field", (() => { const a = fs.readFileSync(path.join(ROOT, "app.js"), "latin1"); return /seenPlace: \(name\) => !!\(S\.placesSeen/.test(a) && /discover: \(name\) => markSeen\("placesSeen", name\)/.test(a); })());
+}
+
+console.log("\n9) the glossary's \"show on the Atlas\" table\n");
+{
+  const G = require("./atlas-build/build-glossary-places.js");
+  const rows = new Map([["adm0:fra", { id: "adm0:fra", kind: "country" }], ["pl:q1", { id: "pl:q1", kind: "site" }]]);
+  const reg = { rows, byName: new Map([["france", [rows.get("adm0:fra")]], ["twin", [{ id: "adm0:a", kind: "country" }, { id: "adm0:b", kind: "country" }]]]) };
+  const fold = (x) => String(x).toLowerCase();
+  const T = G.tableOf({ points: { Lascaux: [1, 2], Alaska: [3, 4], Gone: [5, 6] }, countries: { France: "France", Twin: "Twin", Nowhere: "Nowhere" }, resolved: { Lascaux: "pl:q1", Gone: "pl:q999" }, reg, fold });
+  check("a point resolves through the spec, a country through its one gazetteer row", T.ids.Lascaux === "pl:q1" && T.ids.France === "adm0:fra");
+  check("an unresolved point, a stale id, a two-row name and an unknown country are left out and say why — nothing guessed", !T.ids.Alaska && !T.ids.Gone && !T.ids.Twin && !T.ids.Nowhere && T.left.length === 4 && T.left.every((l) => l.why), T.left.map((l) => l.slug).join(","));
+  check("atlas/data/glossary-places.js is exactly what glossary.js, the spec and the registry build", G.build({ check: true, log: () => {} }).ok);
+  const wg = {}; new Function("window", fs.readFileSync(G.TARGET, "utf8"))(wg); const gp = wg.ATLAS_GLOSSARY_PLACES;
+  check("every country term has a country row and no term in the table is a community deck's", Object.keys(gp.ids).filter((k) => /^adm0:/.test(gp.ids[k])).length === 181 && Object.keys(gp.ids).every((k) => !/^deck:/.test(k)), JSON.stringify(gp.counts));
+}
+
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);

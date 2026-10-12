@@ -154,7 +154,51 @@
     return out.map((c) => ({ x: cx(c), y: cy(c), ids: c.ids, n: c.ids.length }));
   }
 
-  const api = { LIST_CAP, parse, studied, collections, flags, summary, cardsFor, cluster };
+  /* THE YEARS A PLACE HAS (Phase 3c, search across years). `ranges` are the [from, to] year ranges a polity is on the map (its steps, joined
+     — a gap between two is a real gap). Returns null when `y` lies in one, or when there are none (a place with no years on record is never
+     said to be absent); else { ranges, go }, `go` the nearest year it IS on the map: the end of the range before `y` or the start of the
+     range after it, whichever is nearer — the later on a tie. Only years the data holds are ever returned. */
+  function yearsNote(ranges, y) {
+    if (!Array.isArray(ranges) || !ranges.length) return null;
+    if (ranges.some((r) => r[0] <= y && y <= r[1])) return null;
+    let before = null, after = null;
+    for (const r of ranges) { if (r[1] < y) before = r[1]; else if (r[0] > y && after == null) after = r[0]; }
+    const go = before == null ? after : after == null ? before : (y - before < after - y ? before : after);
+    return { ranges, go };
+  }
+
+  /* THE DEFAULT VIEW OF A READER WITH PLACES (Phase 3c). `points` [[lon, lat], …] are the places the reader has studied. The centre is the
+     direction of the mean of their unit vectors; the radius the great-circle distance that holds `keep` (90 %) of them, so one far-off
+     place does not stretch the frame over the globe; the scale is the km a pixel must span for that circle, with a margin, to fit half of
+     `shortPx` (the frame's shorter side), clamped to [minKmpp, maxKmpp]. null when there are none, or when they spread right round the
+     globe (the mean vector shorter than 0.25: no one direction frames them) — the caller then keeps its default. */
+  const D2R = Math.PI / 180, R_EARTH = 6371;
+  function framing(points, o) {
+    o = o || {};
+    const pts = (points || []).filter((p) => p && isFinite(p[0]) && isFinite(p[1]));
+    if (!pts.length) return null;
+    const keep = o.keep == null ? 0.9 : o.keep, margin = o.margin == null ? 1.35 : o.margin, minK = o.minKmpp == null ? 3 : o.minKmpp, maxK = o.maxKmpp == null ? 24 : o.maxKmpp;
+    const vec = pts.map((p) => { const lo = p[0] * D2R, la = p[1] * D2R; return [Math.cos(la) * Math.cos(lo), Math.cos(la) * Math.sin(lo), Math.sin(la)]; });
+    let mx = 0, my = 0, mz = 0; for (const v of vec) { mx += v[0]; my += v[1]; mz += v[2]; } mx /= vec.length; my /= vec.length; mz /= vec.length;
+    const len = Math.hypot(mx, my, mz); if (len < 0.25) return null;
+    const c = [mx / len, my / len, mz / len];
+    const d = vec.map((v) => Math.acos(Math.max(-1, Math.min(1, v[0] * c[0] + v[1] * c[1] + v[2] * c[2]))) * R_EARTH).sort((a, b) => a - b);
+    const radiusKm = d[Math.min(d.length - 1, Math.max(0, Math.ceil(keep * d.length) - 1))];
+    const half = Math.max(1, (o.shortPx || 600) / 2);
+    const kmpp = Math.max(minK, Math.min(maxK, radiusKm * margin / half));
+    return { lon: Math.atan2(c[1], c[0]) / D2R, lat: Math.asin(Math.max(-1, Math.min(1, c[2]))) / D2R, kmpp, radiusKm, n: pts.length };
+  }
+
+  /* A NEW DISCOVERY (Phase 3c): a place the reader has studied (some card of theirs with a record is about it) and has not yet opened on the
+     Atlas — the existing `placesSeen` register, read through `seen(name)`; nothing new is stored. `st` is `studied()`'s result. Polities are
+     not places to discover (they are drawn by year). */
+  function isNewDiscovery(st, id, name, seen) {
+    if (!st || !st.places || !id || POLITY.test(id) || !name) return false;
+    if (!st.places.has(id)) return false;
+    return !(typeof seen === "function" ? seen(name) : false);
+  }
+
+  const api = { LIST_CAP, parse, studied, collections, flags, summary, cardsFor, cluster, yearsNote, framing, isNewDiscovery };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);
