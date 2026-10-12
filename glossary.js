@@ -13208,6 +13208,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"SWIFT": true,
+"Anarchy_(international_relations)": true,
+"Polarity_(international_relations)": true,
 "Academy": true,
 "University_of_the_Witwatersrand": true,
 "Providence": true,
