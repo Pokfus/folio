@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-11",
+ "retrieved": "2026-10-12",
  "titles": {
   "Lomekwi 3": null,
   "Olduvai Gorge": {
@@ -10233,6 +10233,443 @@
     "Q3957"
    ],
    "label": "Taung"
+  },
+  "Great Hall of the People": {
+   "qid": "Q72891",
+   "coord": [
+    116.3875,
+    39.9033
+   ],
+   "classes": [
+    "Q1220959"
+   ],
+   "label": "Great Hall of the People"
+  },
+  "National Diet Building": {
+   "qid": "Q1338856",
+   "coord": [
+    139.7448,
+    35.6757
+   ],
+   "classes": [
+    "Q7138926"
+   ],
+   "label": "National Diet Building"
+  },
+  "Gwanghwamun Square": {
+   "qid": "Q5623300",
+   "coord": [
+    126.9767,
+    37.5728
+   ],
+   "classes": [
+    "Q174782"
+   ],
+   "label": "Gwanghwamun Plaza"
+  },
+  "National Assembly Building": {
+   "qid": "Q27790752",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "National Assembly Building"
+  },
+  "Off Jindo": null,
+  "Liberty Square": {
+   "qid": "Q6541953",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Liberty Square"
+  },
+  "Taiwan Strait": {
+   "qid": "Q127031",
+   "coord": [
+    119.9283,
+    24.8111
+   ],
+   "classes": [
+    "Q12413618",
+    "Q3089219",
+    "Q133346",
+    "Q37901"
+   ],
+   "label": "Taiwan Strait"
+  },
+  "Diaoyutai State Guesthouse": {
+   "qid": "Q183033",
+   "coord": [
+    116.3279,
+    39.9169
+   ],
+   "classes": [
+    "Q9679135"
+   ],
+   "label": "Diaoyutai State Guesthouse"
+  },
+  "228 Peace Memorial Park": {
+   "qid": "Q697177",
+   "coord": [
+    121.515,
+    25.0422
+   ],
+   "classes": [
+    "Q4989906",
+    "Q22698"
+   ],
+   "label": "228 Peace Memorial Park"
+  },
+  "Legislative Yuan": {
+   "qid": "Q715869",
+   "coord": [
+    121.5197,
+    25.0442
+   ],
+   "classes": [
+    "Q37002670",
+    "Q10553309",
+    "Q7138926"
+   ],
+   "label": "Legislative Yuan"
+  },
+  "Legislative Council Complex": {
+   "qid": "Q13643095",
+   "coord": [
+    114.1656,
+    22.2808
+   ],
+   "classes": [
+    "Q30124446"
+   ],
+   "label": "Legislative Council Complex"
+  },
+  "Central": {
+   "qid": "Q162100",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Central"
+  },
+  "Admiralty": {
+   "qid": "Q353135",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Admiralty"
+  },
+  "Yuen Long station": {
+   "qid": "Q842071",
+   "coord": [
+    114.0355,
+    22.4462
+   ],
+   "classes": [
+    "Q11670533",
+    "Q928830"
+   ],
+   "label": "Yuen Long station"
+  },
+  "Prince Edward station": {
+   "qid": "Q1669492",
+   "coord": [
+    114.1683,
+    22.3245
+   ],
+   "classes": [
+    "Q22808403",
+    "Q928830"
+   ],
+   "label": "Prince Edward station"
+  },
+  "Mansudae Assembly Hall": null,
+  "Venezuela": {
+   "qid": "Q717",
+   "coord": [
+    -67,
+    8
+   ],
+   "classes": [
+    "Q3624078",
+    "Q6256"
+   ],
+   "label": "Venezuela"
+  },
+  "Causeway Bay": {
+   "qid": "Q564732",
+   "coord": [
+    114.181,
+    22.2807
+   ],
+   "classes": [
+    "Q123705"
+   ],
+   "label": "Causeway Bay"
+  },
+  "Iceland": {
+   "qid": "Q189",
+   "coord": [
+    -19,
+    65
+   ],
+   "classes": [
+    "Q140892892",
+    "Q3624078",
+    "Q112099",
+    "Q6256"
+   ],
+   "label": "Iceland"
+  },
+  "Saint-Malo": {
+   "qid": "Q163108",
+   "coord": [
+    -2.0261,
+    48.6494
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "Saint-Malo"
+  },
+  "Nice": {
+   "qid": "Q33959",
+   "coord": [
+    7.2683,
+    43.7019
+   ],
+   "classes": [
+    "Q1549591",
+    "Q484170"
+   ],
+   "label": "Nice"
+  },
+  "Bunia": {
+   "qid": "Q648298",
+   "coord": [
+    30.25,
+    1.5667
+   ],
+   "classes": [
+    "Q117214267"
+   ],
+   "label": "Bunia"
+  },
+  "Kirchberg": {
+   "qid": "Q228013",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Kirchberg"
+  },
+  "Ukraine": {
+   "qid": "Q212",
+   "coord": [
+    32,
+    49
+   ],
+   "classes": [
+    "Q4835091",
+    "Q4209223",
+    "Q3624078",
+    "Q619610",
+    "Q179164",
+    "Q7270",
+    "Q6256"
+   ],
+   "label": "Ukraine"
+  },
+  "North Macedonia": {
+   "qid": "Q221",
+   "coord": [
+    21.7167,
+    41.65
+   ],
+   "classes": [
+    "Q3624078",
+    "Q123480",
+    "Q6256"
+   ],
+   "label": "North Macedonia"
+  },
+  "Maidan Nezalezhnosti": {
+   "qid": "Q863759",
+   "coord": [
+    30.5239,
+    50.4502
+   ],
+   "classes": [
+    "Q111027585"
+   ],
+   "label": "Maidan Nezalezhnosti"
+  },
+  "Netherlands": {
+   "qid": "Q55",
+   "coord": [
+    5.55,
+    52.3167
+   ],
+   "classes": [
+    "Q15304003",
+    "Q6256"
+   ],
+   "label": "Netherlands"
+  },
+  "Granada": {
+   "qid": "Q8810",
+   "coord": [
+    -3.6,
+    37.175
+   ],
+   "classes": [
+    "Q2074737"
+   ],
+   "label": "Granada"
+  },
+  "Denmark": {
+   "qid": "Q35",
+   "coord": [
+    10,
+    56
+   ],
+   "classes": [
+    "Q66724388",
+    "Q63791824",
+    "Q20181813",
+    "Q7275",
+    "Q6256"
+   ],
+   "label": "Denmark"
+  },
+  "Hamid Karzai International Airport": null,
+  "Belarus": {
+   "qid": "Q184",
+   "coord": [
+    28.0467,
+    53.5283
+   ],
+   "classes": [
+    "Q3624078",
+    "Q619610",
+    "Q179164",
+    "Q123480",
+    "Q6256"
+   ],
+   "label": "Belarus"
+  },
+  "Mali": {
+   "qid": "Q912",
+   "coord": [
+    -4,
+    17
+   ],
+   "classes": [
+    "Q3624078",
+    "Q123480",
+    "Q6256"
+   ],
+   "label": "Mali"
+  },
+  "La Hulpe": {
+   "qid": "Q670407",
+   "coord": [
+    4.4833,
+    50.7333
+   ],
+   "classes": [
+    "Q493522"
+   ],
+   "label": "La Hulpe"
+  },
+  "Veldhoven": {
+   "qid": "Q9875",
+   "coord": [
+    5.405,
+    51.42
+   ],
+   "classes": [
+    "Q2039348",
+    "Q1852859",
+    "Q486972",
+    "Q3957"
+   ],
+   "label": "Veldhoven"
+  },
+  "Srebrenica": {
+   "qid": "Q156053",
+   "coord": [
+    19.3,
+    44.1
+   ],
+   "classes": [
+    "Q16085106",
+    "Q3957"
+   ],
+   "label": "Srebrenica"
+  },
+  "Den Haag": null,
+  "Colombia": {
+   "qid": "Q739",
+   "coord": [
+    -73.25,
+    4
+   ],
+   "classes": [
+    "Q140892892",
+    "Q3624078",
+    "Q859563",
+    "Q7270",
+    "Q6256"
+   ],
+   "label": "Colombia"
+  },
+  "Santa Clara": {
+   "qid": "Q1713911",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Santa Clara"
+  },
+  "Dubai": {
+   "qid": "Q612",
+   "coord": [
+    55.3094,
+    25.2697
+   ],
+   "classes": [
+    "Q51929311",
+    "Q1549591",
+    "Q208511",
+    "Q200250",
+    "Q56061",
+    "Q515"
+   ],
+   "label": "Dubai"
+  },
+  "Sierra Leone": {
+   "qid": "Q1044",
+   "coord": [
+    -12.1,
+    8.5
+   ],
+   "classes": [
+    "Q3624078",
+    "Q7270",
+    "Q6256"
+   ],
+   "label": "Sierra Leone"
+  },
+  "Bretton Woods": {
+   "qid": "Q361921",
+   "coord": null,
+   "classes": [
+    "Q4167410"
+   ],
+   "label": "Bretton Woods"
   }
  },
  "around": {
@@ -22276,6 +22713,78 @@
   },
   "-152.000,64.000,25": {
    "n": 4,
+   "items": []
+  },
+  "125.950,34.218,25": {
+   "n": 9,
+   "items": []
+  },
+  "-65.000,7.000,25": {
+   "n": 0,
+   "items": []
+  },
+  "30.517,50.450,25": {
+   "n": 394,
+   "items": [
+    {
+     "qid": "Q1899",
+     "coord": [
+      30.5236,
+      50.45
+     ],
+     "label": "Kyiv",
+     "title": "Kyiv",
+     "classes": [
+      "Q1200957",
+      "Q7930989",
+      "Q12131624",
+      "Q51929311"
+     ]
+    },
+    {
+     "qid": "Q863759",
+     "coord": [
+      30.5239,
+      50.4502
+     ],
+     "label": "Maidan Nezalezhnosti",
+     "title": "Maidan Nezalezhnosti",
+     "classes": [
+      "Q111027585"
+     ]
+    },
+    {
+     "qid": "Q1108445",
+     "coord": [
+      30.525,
+      50.45
+     ],
+     "label": "Kievan Rus'",
+     "title": "Kievan Rus'",
+     "classes": [
+      "Q3024240"
+     ]
+    }
+   ]
+  },
+  "22.000,42.000,25": {
+   "n": 113,
+   "items": []
+  },
+  "6.000,52.000,25": {
+   "n": 381,
+   "items": []
+  },
+  "27.000,53.000,25": {
+   "n": 13,
+   "items": []
+  },
+  "-72.000,4.000,25": {
+   "n": 2,
+   "items": []
+  },
+  "55.071,24.895,25": {
+   "n": 153,
    "items": []
   }
  },
@@ -49961,6 +50470,612 @@
    "tops": [
     "Q41176"
    ]
+  },
+  "Q10553309": {
+   "label": "legislative house",
+   "tops": []
+  },
+  "Q30124446": {
+   "label": "legislative building",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q140892892": {
+   "label": "country sometimes considered transcontinental",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q1048835",
+    "Q82794",
+    "Q6256"
+   ]
+  },
+  "Q4209223": {
+   "label": "Rechtsstaat",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q7275"
+   ]
+  },
+  "Q15304003": {
+   "label": "country of the Kingdom of the Netherlands",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q1763527",
+    "Q1048835",
+    "Q82794",
+    "Q6256"
+   ]
+  },
+  "Q66724388": {
+   "label": "autonomous country within the Kingdom of Denmark",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q1763527",
+    "Q1048835",
+    "Q82794",
+    "Q6256"
+   ]
+  },
+  "Q63791824": {
+   "label": "country bordering the Baltic Sea",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q3624078",
+    "Q1048835",
+    "Q82794",
+    "Q7275",
+    "Q6256"
+   ]
+  },
+  "Q7275": {
+   "label": "state",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q7275"
+   ]
+  },
+  "Q16085106": {
+   "label": "local administrative entity",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q30224326": {
+   "label": "themed area",
+   "tops": []
+  },
+  "Q5916199": {
+   "label": "housing development",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q123705"
+   ]
+  },
+  "Q815068": {
+   "label": "department of Paraguay",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q1052743": {
+   "label": "region of Ghana",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q52048109": {
+   "label": "Legislative Council district of South Australia",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q11396180": {
+   "label": "library branch",
+   "tops": []
+  },
+  "Q1761572": {
+   "label": "barrio",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q486972",
+    "Q123705"
+   ]
+  },
+  "Q57368": {
+   "label": "district of Botswana",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q19832914": {
+   "label": "defined community of Minneapolis",
+   "tops": [
+    "Q1048835",
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q123705",
+    "Q82794"
+   ]
+  },
+  "Q19658107": {
+   "label": "neighborhood of Brazil",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q123705"
+   ]
+  },
+  "Q96083918": {
+   "label": "former cinema",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q138698843": {
+   "label": "ward of the Parliament of Singapore",
+   "tops": []
+  },
+  "Q6063801": {
+   "label": "parish of Venezuela",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q1493533": {
+   "label": "parish village",
+   "tops": [
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q532"
+   ]
+  },
+  "Q378636": {
+   "label": "village with a church",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794",
+    "Q532"
+   ]
+  },
+  "Q2168991": {
+   "label": "Rotte",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q1669338": {
+   "label": "Ortslage",
+   "tops": [
+    "Q2221906",
+    "Q486972"
+   ]
+  },
+  "Q121589701": {
+   "label": "isolated settlement with a church",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q70208": {
+   "label": "municipality of Switzerland",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q82794"
+   ]
+  },
+  "Q3394564": {
+   "label": "quarter of Luxembourg City",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q486972",
+    "Q123705"
+   ]
+  },
+  "Q125778656": {
+   "label": "comunidad in Puerto Rico",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q532"
+   ]
+  },
+  "Q3243765": {
+   "label": "municipality of Argentina",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835",
+    "Q15284"
+   ]
+  },
+  "Q5770918": {
+   "label": "city of Argentina",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q515"
+   ]
+  },
+  "Q25412766": {
+   "label": "town of Chile",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q486972",
+    "Q3957"
+   ]
+  },
+  "Q2042028": {
+   "label": "ravine",
+   "tops": [
+    "Q2221906",
+    "Q190429",
+    "Q82794",
+    "Q39816"
+   ]
+  },
+  "Q44696264": {
+   "label": "aerial tramway station",
+   "tops": []
+  },
+  "Q19833031": {
+   "label": "emirate of the United Arab Emirates",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q1048835"
+   ]
+  },
+  "Q30880545": {
+   "label": "sinking",
+   "tops": []
+  },
+  "Q7619084": {
+   "label": "stone structure",
+   "tops": []
+  },
+  "Q12808582": {
+   "label": "military high school",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q4835091"
+   ]
+  },
+  "Q182103": {
+   "label": "pension fund",
+   "tops": []
+  },
+  "Q97379772": {
+   "label": "statistical service of Ukraine",
+   "tops": []
+  },
+  "Q7878545": {
+   "label": "Ukrainian ministry",
+   "tops": []
+  },
+  "Q60995": {
+   "label": "Russian Orthodox Church",
+   "tops": []
+  },
+  "Q1698619": {
+   "label": "playhouse",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q255595": {
+   "label": "ossuary",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q1368970": {
+   "label": "volcanic cone",
+   "tops": [
+    "Q2221906",
+    "Q8502",
+    "Q8072"
+   ]
+  },
+  "Q941150": {
+   "label": "Plusregio",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q702492",
+    "Q486972"
+   ]
+  },
+  "Q3851468": {
+   "label": "stellingmill",
+   "tops": [
+    "Q41176",
+    "Q2221906"
+   ]
+  },
+  "Q2795827": {
+   "label": "quadriennale",
+   "tops": []
+  },
+  "Q1785733": {
+   "label": "environmental organization",
+   "tops": []
+  },
+  "Q2056881": {
+   "label": "rijksweg",
+   "tops": [
+    "Q2221906"
+   ]
+  },
+  "Q10594991": {
+   "label": "nature area",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q819774": {
+   "label": "smock mill on a small hill",
+   "tops": [
+    "Q41176",
+    "Q2221906"
+   ]
+  },
+  "Q65718039": {
+   "label": "korfball club",
+   "tops": []
+  },
+  "Q647704": {
+   "label": "tower mill",
+   "tops": [
+    "Q41176",
+    "Q2221906"
+   ]
+  },
+  "Q1899015": {
+   "label": "conservation organization",
+   "tops": []
+  },
+  "Q1662011": {
+   "label": "industrial building",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q2097101": {
+   "label": "States-Provincial",
+   "tops": []
+  },
+  "Q51481377": {
+   "label": "women's association football club",
+   "tops": []
+  },
+  "Q20180855": {
+   "label": "train ferry route",
+   "tops": []
+  },
+  "Q3220096": {
+   "label": "national park",
+   "tops": [
+    "Q82794",
+    "Q2221906",
+    "Q4835091",
+    "Q107425"
+   ]
+  },
+  "Q606332": {
+   "label": "evacuation",
+   "tops": []
+  },
+  "Q13006147": {
+   "label": "secondary education",
+   "tops": []
+  },
+  "Q1416745": {
+   "label": "paltrock windmill",
+   "tops": [
+    "Q41176",
+    "Q2221906"
+   ]
+  },
+  "Q2041740": {
+   "label": "",
+   "tops": [
+    "Q41176",
+    "Q2221906"
+   ]
+  },
+  "Q5110343": {
+   "label": "Christian music festival",
+   "tops": []
+  },
+  "Q615810": {
+   "label": "water castle",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q82794",
+    "Q57821",
+    "Q23413"
+   ]
+  },
+  "Q505681": {
+   "label": "linear settlement",
+   "tops": [
+    "Q2221906",
+    "Q486972",
+    "Q82794",
+    "Q532"
+   ]
+  },
+  "Q1827070": {
+   "label": "spider's head mill",
+   "tops": [
+    "Q41176",
+    "Q2221906"
+   ]
+  },
+  "Q301449": {
+   "label": "grondzeiler",
+   "tops": [
+    "Q41176",
+    "Q2221906"
+   ]
+  },
+  "Q27951514": {
+   "label": "indoor arena",
+   "tops": []
+  },
+  "Q79324274": {
+   "label": "city of raion subordinance",
+   "tops": [
+    "Q4835091",
+    "Q82794",
+    "Q2221906",
+    "Q1048835",
+    "Q486972"
+   ]
+  },
+  "Q65665664": {
+   "label": "pasiolak",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q1048835",
+    "Q486972",
+    "Q82794"
+   ]
+  },
+  "Q1449240": {
+   "label": "deep water port",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794",
+    "Q15324",
+    "Q39594"
+   ]
+  },
+  "Q92480215": {
+   "label": "greenfield international airport",
+   "tops": []
+  },
+  "Q64447720": {
+   "label": "integrated water and power plant",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q104802924": {
+   "label": "Seawater Reverse Osmosis desalination plant",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q19354904": {
+   "label": "airliner bombing",
+   "tops": []
+  },
+  "Q1130322": {
+   "label": "land reclamation",
+   "tops": []
+  },
+  "Q214261": {
+   "label": "oil refining",
+   "tops": []
+  },
+  "Q12771350": {
+   "label": "",
+   "tops": [
+    "Q41176"
+   ]
+  },
+  "Q7888355": {
+   "label": "United Nations Climate Change Conference",
+   "tops": []
+  },
+  "Q3929782": {
+   "label": "free trade zone",
+   "tops": [
+    "Q2221906",
+    "Q4835091",
+    "Q82794"
+   ]
+  },
+  "Q17487600": {
+   "label": "real estate developer",
+   "tops": []
+  },
+  "Q1610024": {
+   "label": "Heriot-Watt University",
+   "tops": []
+  },
+  "Q66661745": {
+   "label": "group of artificial physical objects",
+   "tops": []
   }
  },
  "labels": {
@@ -76843,6 +77958,4092 @@
      "Q82794"
     ]
    }
+  ],
+  "National Assembly Building": [
+   {
+    "qid": "Q488748",
+    "coord": [
+     126.9141,
+     37.532
+    ],
+    "label": "National Assembly Building",
+    "title": "National Assembly Building (South Korea)",
+    "classes": [
+     "Q7138926"
+    ]
+   },
+   {
+    "qid": "Q4837050",
+    "coord": [
+     105.8374,
+     21.037
+    ],
+    "label": "Ba Dinh Hall",
+    "title": "Ba Đình Hall",
+    "classes": [
+     "Q19860854"
+    ]
+   },
+   {
+    "qid": "Q6970519",
+    "coord": [
+     14.5012,
+     46.0515
+    ],
+    "label": "National Assembly Building",
+    "title": "National Assembly Building of Slovenia",
+    "classes": [
+     "Q16560"
+    ]
+   },
+   {
+    "qid": "Q10902072",
+    "coord": [
+     116.3656,
+     39.8989
+    ],
+    "label": "National Assembly Building",
+    "title": "National Assembly Building (Beijing)",
+    "classes": [
+     "Q41176",
+     "Q10300916"
+    ]
+   }
+  ],
+  "Off Jindo": [],
+  "Liberty Square": [
+   {
+    "qid": "Q2028202",
+    "coord": [
+     44.7997,
+     41.6947
+    ],
+    "label": "Liberty Square",
+    "title": "Liberty Square (Tbilisi Metro)",
+    "classes": [
+     "Q928830",
+     "Q22808403"
+    ]
+   },
+   {
+    "qid": "Q2778074",
+    "coord": [
+     -81.5825,
+     28.4194
+    ],
+    "label": "Liberty Square",
+    "title": "Liberty Square (Magic Kingdom)",
+    "classes": [
+     "Q30224326"
+    ]
+   },
+   {
+    "qid": "Q5500627",
+    "coord": [
+     44.5152,
+     40.1854
+    ],
+    "label": "Freedom Square",
+    "title": "Freedom Square, Yerevan",
+    "classes": [
+     "Q174782"
+    ]
+   },
+   {
+    "qid": "Q6541958",
+    "coord": [
+     121.5218,
+     25.0346
+    ],
+    "label": "Liberty Square",
+    "title": "Liberty Square (Taipei)",
+    "classes": [
+     "Q174782"
+    ]
+   },
+   {
+    "qid": "Q6541957",
+    "coord": [
+     -80.22,
+     25.8361
+    ],
+    "label": "Liberty Square",
+    "title": "Liberty Square (Miami)",
+    "classes": [
+     "Q5916199"
+    ]
+   },
+   {
+    "qid": "Q18346359",
+    "coord": [
+     -76.6575,
+     39.3217
+    ],
+    "label": "Liberty Square",
+    "title": "Liberty Square, Baltimore",
+    "classes": [
+     "Q123705"
+    ]
+   },
+   {
+    "qid": "Q18408045",
+    "coord": [
+     49.4094,
+     53.5135
+    ],
+    "label": "Liberty Square",
+    "title": "Liberty Square (Tolyatti)",
+    "classes": [
+     "Q174782"
+    ]
+   },
+   {
+    "qid": "Q31817481",
+    "coord": [
+     -72.015,
+     41.4397
+    ],
+    "label": "Liberty Square",
+    "title": "",
+    "classes": [
+     "Q22698"
+    ]
+   },
+   {
+    "qid": "Q34842226",
+    "coord": [
+     -74.3931,
+     41.7172
+    ],
+    "label": "Liberty Square",
+    "title": "",
+    "classes": [
+     "Q22698"
+    ]
+   },
+   {
+    "qid": "Q34842242",
+    "coord": [
+     -73.6639,
+     41.0006
+    ],
+    "label": "Liberty Square",
+    "title": "",
+    "classes": [
+     "Q22698"
+    ]
+   },
+   {
+    "qid": "Q37882811",
+    "coord": [
+     -79.9265,
+     32.7906
+    ],
+    "label": "Liberty Square",
+    "title": "",
+    "classes": [
+     "Q174782"
+    ]
+   },
+   {
+    "qid": "Q49516522",
+    "coord": [
+     -81.0964,
+     32.0789
+    ],
+    "label": "Liberty Square",
+    "title": "",
+    "classes": [
+     "Q22698"
+    ]
+   },
+   {
+    "qid": "Q49516520",
+    "coord": [
+     -121.2786,
+     37.9436
+    ],
+    "label": "Liberty Square",
+    "title": "",
+    "classes": [
+     "Q22698"
+    ]
+   },
+   {
+    "qid": "Q49516524",
+    "coord": [
+     -71.0547,
+     42.3578
+    ],
+    "label": "Liberty Square",
+    "title": "",
+    "classes": [
+     "Q22698"
+    ]
+   },
+   {
+    "qid": "Q87055005",
+    "coord": [
+     32.5545,
+     15.5632
+    ],
+    "label": "Freedom Yard",
+    "title": "",
+    "classes": [
+     "Q22698"
+    ]
+   },
+   {
+    "qid": "Q99454613",
+    "coord": [
+     -43.9534,
+     -19.9243
+    ],
+    "label": "Liberty Square",
+    "title": "",
+    "classes": [
+     "Q11755880"
+    ]
+   },
+   {
+    "qid": "Q106615021",
+    "coord": [
+     2.7481,
+     42.4836
+    ],
+    "label": "Place de la Liberté",
+    "title": "",
+    "classes": [
+     "Q174782"
+    ]
+   },
+   {
+    "qid": "Q126282861",
+    "coord": [
+     -56.1473,
+     -34.8461
+    ],
+    "label": "Liberty Square",
+    "title": "",
+    "classes": [
+     "Q174782"
+    ]
+   }
+  ],
+  "Central": [
+   {
+    "qid": "Q372461",
+    "coord": [
+     -57.4167,
+     -25.3
+    ],
+    "label": "Central Department",
+    "title": "Central Department",
+    "classes": [
+     "Q815068"
+    ]
+   },
+   {
+    "qid": "Q846323",
+    "coord": [
+     -1,
+     5.5
+    ],
+    "label": "Central Region",
+    "title": "Central Region (Ghana)",
+    "classes": [
+     "Q1052743"
+    ]
+   },
+   {
+    "qid": "Q5061183",
+    "coord": [
+     -97.0339,
+     47.925
+    ],
+    "label": "Central High School",
+    "title": "Grand Forks Central High School",
+    "classes": [
+     "Q9826"
+    ]
+   },
+   {
+    "qid": "Q5061381",
+    "coord": [
+     151.2064,
+     -33.8822
+    ],
+    "label": "Central Grand Concourse",
+    "title": "Central MLR station",
+    "classes": [
+     "Q2175765",
+     "Q20202072"
+    ]
+   },
+   {
+    "qid": "Q7587670",
+    "coord": [
+     -64.7826,
+     17.7253
+    ],
+    "label": "St. Croix Central High School",
+    "title": "St. Croix Central High School (Virgin Islands)",
+    "classes": [
+     "Q9826"
+    ]
+   },
+   {
+    "qid": "Q10275642",
+    "coord": [
+     -43.9337,
+     -19.9179
+    ],
+    "label": "Central Station",
+    "title": "Central station (Belo Horizonte Metro)",
+    "classes": [
+     "Q928830",
+     "Q22808404"
+    ]
+   },
+   {
+    "qid": "Q24262318",
+    "coord": [
+     -114.0549,
+     51.0453
+    ],
+    "label": "Central Library",
+    "title": "Calgary Central Library",
+    "classes": [
+     "Q28564",
+     "Q856584"
+    ]
+   },
+   {
+    "qid": "Q28163247",
+    "coord": [
+     -80.4994,
+     43.4533
+    ],
+    "label": "Kitchener Central",
+    "title": "Kitchener Central Station",
+    "classes": [
+     "Q55488",
+     "Q2175765",
+     "Q2298537"
+    ]
+   },
+   {
+    "qid": "Q51028908",
+    "coord": [
+     138.6014,
+     -34.9078
+    ],
+    "label": "Central No. 1",
+    "title": "Central District No. 1 (South Australian Legislative Council)",
+    "classes": [
+     "Q52048109"
+    ]
+   },
+   {
+    "qid": "Q115183514",
+    "coord": [
+     12.5938,
+     59.6541
+    ],
+    "label": "Rio",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q120500986",
+    "coord": [
+     11.1683,
+     10.287
+    ],
+    "label": "Hassan Central primary school Gombe",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q124667419",
+    "coord": [
+     -73.7953,
+     40.7079
+    ],
+    "label": "Central Library",
+    "title": "",
+    "classes": [
+     "Q28564",
+     "Q11396180"
+    ]
+   },
+   {
+    "qid": "Q130302408",
+    "coord": [
+     -2.7116,
+     52.0528
+    ],
+    "label": "Central",
+    "title": "Central, Hereford",
+    "classes": [
+     "Q589282"
+    ]
+   },
+   {
+    "qid": "Q131675834",
+    "coord": [
+     -74.074,
+     4.6132
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q928830",
+     "Q11670533"
+    ]
+   },
+   {
+    "qid": "Q138308563",
+    "coord": [
+     123.3412,
+     8.587
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q61878"
+    ]
+   },
+   {
+    "qid": "Q141322994",
+    "coord": [
+     91.4164,
+     52.85
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q2175765"
+    ]
+   },
+   {
+    "qid": "Q141322995",
+    "coord": [
+     52.3159,
+     55.6986
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q2175765"
+    ]
+   },
+   {
+    "qid": "Q141353555",
+    "coord": [
+     -86.5392,
+     12.8857
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q1761572"
+    ]
+   },
+   {
+    "qid": "Q141447696",
+    "coord": [
+     175.969,
+     -41.085
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q141451963",
+    "coord": [
+     -87.173,
+     12.4811
+    ],
+    "label": "El Centro",
+    "title": "",
+    "classes": [
+     "Q1761572"
+    ]
+   },
+   {
+    "qid": "Q141693530",
+    "coord": [
+     -85.3652,
+     12.1067
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q1761572"
+    ]
+   },
+   {
+    "qid": "Q57525",
+    "coord": [
+     26,
+     -22
+    ],
+    "label": "Central District",
+    "title": "Central District (Botswana)",
+    "classes": [
+     "Q57368"
+    ]
+   },
+   {
+    "qid": "Q1053678",
+    "coord": [
+     8.5437,
+     47.3768
+    ],
+    "label": "Central",
+    "title": "Central, Zurich",
+    "classes": [
+     "Q174782",
+     "Q2221906"
+    ]
+   },
+   {
+    "qid": "Q1993491",
+    "coord": [
+     -82.2997,
+     36.3231
+    ],
+    "label": "Central",
+    "title": "Central, Tennessee",
+    "classes": [
+     "Q498162"
+    ]
+   },
+   {
+    "qid": "Q2021433",
+    "coord": [
+     -42.0814,
+     -11.1542
+    ],
+    "label": "Central",
+    "title": "Central, Bahia",
+    "classes": [
+     "Q3184121"
+    ]
+   },
+   {
+    "qid": "Q2190705",
+    "coord": [
+     -82.7797,
+     34.7239
+    ],
+    "label": "Central",
+    "title": "Central, South Carolina",
+    "classes": [
+     "Q15127012"
+    ]
+   },
+   {
+    "qid": "Q2718229",
+    "coord": [
+     -144.696,
+     65.5333
+    ],
+    "label": "Central",
+    "title": "Central, Alaska",
+    "classes": [
+     "Q498162"
+    ]
+   },
+   {
+    "qid": "Q2944388",
+    "coord": [
+     -87.7656,
+     41.8874
+    ],
+    "label": "Central",
+    "title": "Central station (CTA Green Line)",
+    "classes": [
+     "Q928830",
+     "Q11670533"
+    ]
+   },
+   {
+    "qid": "Q2944389",
+    "coord": [
+     -87.6857,
+     42.064
+    ],
+    "label": "Central",
+    "title": "Central station (CTA Purple Line)",
+    "classes": [
+     "Q928830",
+     "Q11670533"
+    ]
+   },
+   {
+    "qid": "Q3887802",
+    "coord": [
+     -91.0367,
+     30.5544
+    ],
+    "label": "Central",
+    "title": "Central, Louisiana",
+    "classes": [
+     "Q1093829",
+     "Q115140070"
+    ]
+   },
+   {
+    "qid": "Q5060190",
+    "coord": [
+     -93.2739,
+     44.9763
+    ],
+    "label": "Central",
+    "title": "Downtown Minneapolis",
+    "classes": [
+     "Q123705",
+     "Q19832914"
+    ]
+   },
+   {
+    "qid": "Q5060191",
+    "coord": [
+     -81.5228,
+     39.3456
+    ],
+    "label": "Central",
+    "title": "Central, West Virginia",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5060189",
+    "coord": [
+     -86.1586,
+     38.0997
+    ],
+    "label": "Central",
+    "title": "Central, Indiana",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5060194",
+    "coord": [
+     -113.624,
+     37.415
+    ],
+    "label": "Central",
+    "title": "Central, Utah",
+    "classes": [
+     "Q498162"
+    ]
+   },
+   {
+    "qid": "Q5060195",
+    "coord": [
+     -121.5731,
+     38.3928
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q5060193",
+    "coord": [
+     -109.793,
+     32.8675
+    ],
+    "label": "Central",
+    "title": "Central, Arizona",
+    "classes": [
+     "Q498162"
+    ]
+   },
+   {
+    "qid": "Q5060227",
+    "coord": [
+     -87.7648,
+     41.8701
+    ],
+    "label": "Central",
+    "title": "Central station (CTA Congress Line)",
+    "classes": [
+     "Q928830",
+     "Q11670533"
+    ]
+   },
+   {
+    "qid": "Q5060229",
+    "coord": [
+     -81.6667,
+     41.5
+    ],
+    "label": "Central",
+    "title": "Central, Cleveland",
+    "classes": [
+     "Q123705",
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q5060235",
+    "coord": [
+     -81.6623,
+     30.3271
+    ],
+    "label": "Central",
+    "title": "Central station (Jacksonville)",
+    "classes": [
+     "Q55488",
+     "Q11670533"
+    ]
+   },
+   {
+    "qid": "Q5060238",
+    "coord": [
+     -93.0922,
+     44.9461
+    ],
+    "label": "Central",
+    "title": "Central station (Metro Transit)",
+    "classes": [
+     "Q2175765"
+    ]
+   },
+   {
+    "qid": "Q5060237",
+    "coord": [
+     -2.98,
+     53.41
+    ],
+    "label": "Central",
+    "title": "Central (Liverpool ward)",
+    "classes": [
+     "Q589282"
+    ]
+   },
+   {
+    "qid": "Q5060242",
+    "coord": [
+     -100.3244,
+     25.6869
+    ],
+    "label": "Central",
+    "title": "Central metro station (Monterrey)",
+    "classes": [
+     "Q2175765",
+     "Q11670533"
+    ]
+   },
+   {
+    "qid": "Q5060243",
+    "coord": [
+     -93.2709,
+     44.9415
+    ],
+    "label": "Central",
+    "title": "Central (neighborhood), Minneapolis",
+    "classes": [
+     "Q123705"
+    ]
+   },
+   {
+    "qid": "Q5060440",
+    "coord": [
+     -3.22,
+     54.11
+    ],
+    "label": "Central",
+    "title": "Central Barrow",
+    "classes": [
+     "Q1195098"
+    ]
+   },
+   {
+    "qid": "Q7492603",
+    "coord": [
+     -1.481,
+     53.376
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q589282",
+     "Q19953632"
+    ]
+   },
+   {
+    "qid": "Q9185936",
+    "coord": [
+     -43.1914,
+     -22.904
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q928830",
+     "Q22808403"
+    ]
+   },
+   {
+    "qid": "Q10275643",
+    "coord": [
+     -47.8842,
+     -15.7933
+    ],
+    "label": "Central",
+    "title": "Central station (Federal District Metro)",
+    "classes": [
+     "Q928830",
+     "Q22808403"
+    ]
+   },
+   {
+    "qid": "Q13631699",
+    "coord": [
+     151.204,
+     -33.8833
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q3257686"
+    ]
+   },
+   {
+    "qid": "Q14202391",
+    "coord": [
+     -66.81,
+     10.61
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q183366"
+    ]
+   },
+   {
+    "qid": "Q14210316",
+    "coord": [
+     -92.4592,
+     31.2928
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q183366"
+    ]
+   },
+   {
+    "qid": "Q14692554",
+    "coord": [
+     -94.3431,
+     48.6994
+    ],
+    "label": "Central",
+    "title": "Central, Minnesota",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q18483221",
+    "coord": [
+     -51.0551,
+     0.0365
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q19658107"
+    ]
+   },
+   {
+    "qid": "Q31891185",
+    "coord": [
+     -64.7389,
+     18.3415
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": []
+   },
+   {
+    "qid": "Q34790868",
+    "coord": [
+     -89.5372,
+     35.8036
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q42295170",
+    "coord": [
+     2.4099,
+     48.8921
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q47116908",
+    "coord": [
+     13.5608,
+     52.4869
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q96083918"
+    ]
+   },
+   {
+    "qid": "Q48872221",
+    "coord": [
+     -43.1927,
+     -22.9027
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q2175765",
+     "Q11606300"
+    ]
+   },
+   {
+    "qid": "Q50842343",
+    "coord": [
+     8.4145,
+     48.4651
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q50877297",
+    "coord": [
+     11.853,
+     49.4443
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q52343422",
+    "coord": [
+     -75.6947,
+     4.8155
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q953806"
+    ]
+   },
+   {
+    "qid": "Q56572497",
+    "coord": [
+     -2.5913,
+     51.4536
+    ],
+    "label": "Central",
+    "title": "Central (Bristol ward)",
+    "classes": [
+     "Q589282"
+    ]
+   },
+   {
+    "qid": "Q56612248",
+    "coord": [
+     -0.348,
+     53.752
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q589282"
+    ]
+   },
+   {
+    "qid": "Q62012939",
+    "coord": [
+     -56.3947,
+     -15.8156
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q12323",
+     "Q62009185",
+     "Q62011240"
+    ]
+   },
+   {
+    "qid": "Q62012944",
+    "coord": [
+     -56.7144,
+     -16.2878
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q12323",
+     "Q62009185",
+     "Q62011240"
+    ]
+   },
+   {
+    "qid": "Q79838074",
+    "coord": [
+     -4.1521,
+     50.3696
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q212198"
+    ]
+   },
+   {
+    "qid": "Q93776351",
+    "coord": [
+     13.3967,
+     56.1373
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q101188975",
+    "coord": [
+     76.5341,
+     9.6714
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q1195098"
+    ]
+   },
+   {
+    "qid": "Q105959442",
+    "coord": [
+     -79.8722,
+     43.2619
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q123705"
+    ]
+   },
+   {
+    "qid": "Q110443099",
+    "coord": [
+     -94.8085,
+     31.4274
+    ],
+    "label": "Central",
+    "title": "Central, Angelina County, Texas",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q111912852",
+    "coord": [
+     -86.0975,
+     32.6822
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q113368623",
+    "coord": [
+     -79.9982,
+     40.3903
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q953806"
+    ]
+   },
+   {
+    "qid": "Q114289364",
+    "coord": [
+     17.1297,
+     48.1572
+    ],
+    "label": "Central",
+    "title": "Central (shopping mall)",
+    "classes": [
+     "Q11315"
+    ]
+   },
+   {
+    "qid": "Q117196746",
+    "coord": [
+     16.1685,
+     60.1459
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q41253"
+    ]
+   },
+   {
+    "qid": "Q125281297",
+    "coord": [
+     4.3443,
+     50.8657
+    ],
+    "label": "Central",
+    "title": "",
+    "classes": [
+     "Q13402009"
+    ]
+   },
+   {
+    "qid": "Q14767",
+    "coord": [
+     114.1581,
+     22.2819
+    ],
+    "label": "Central",
+    "title": "Central, Hong Kong",
+    "classes": [
+     "Q738570"
+    ]
+   }
+  ],
+  "Admiralty": [
+   {
+    "qid": "Q3270129",
+    "coord": [
+     114.1655,
+     22.2796
+    ],
+    "label": "Admiralty",
+    "title": "Admiralty, Hong Kong",
+    "classes": [
+     "Q2221906"
+    ]
+   },
+   {
+    "qid": "Q4057901",
+    "coord": [
+     32.0048,
+     46.9726
+    ],
+    "label": "Admiralty",
+    "title": "",
+    "classes": [
+     "Q1021645"
+    ]
+   },
+   {
+    "qid": "Q138711600",
+    "coord": [
+     103.7961,
+     1.4291
+    ],
+    "label": "Admiralty",
+    "title": "",
+    "classes": [
+     "Q138698843"
+    ]
+   },
+   {
+    "qid": "Q51244",
+    "coord": [
+     30.1164,
+     59.5644
+    ],
+    "label": "Admiralty",
+    "title": "",
+    "classes": [
+     "Q41176",
+     "Q2319498"
+    ]
+   }
+  ],
+  "Mansudae Assembly Hall": [
+   {
+    "qid": "Q337875",
+    "coord": [
+     125.7494,
+     39.0285
+    ],
+    "label": "Mansudae Assembly Hall",
+    "title": "Pyongyang Assembly Hall",
+    "classes": [
+     "Q7138926"
+    ]
+   }
+  ],
+  "Venezuela": [
+   {
+    "qid": "Q3471598",
+    "coord": [
+     -72.2709,
+     7.9934
+    ],
+    "label": "San Pedro del Río",
+    "title": "",
+    "classes": [
+     "Q6063801"
+    ]
+   },
+   {
+    "qid": "Q5848651",
+    "coord": [
+     -67,
+     8
+    ],
+    "label": "United States of Venezuela",
+    "title": "United States of Venezuela",
+    "classes": [
+     "Q3024240"
+    ]
+   },
+   {
+    "qid": "Q99659372",
+    "coord": [
+     -77.0975,
+     -12.0625
+    ],
+    "label": "Venezuela Station",
+    "title": "",
+    "classes": [
+     "Q928830"
+    ]
+   },
+   {
+    "qid": "Q7919777",
+    "coord": [
+     -66.0527,
+     18.3939
+    ],
+    "label": "Venezuela",
+    "title": "Venezuela (Pueblo)",
+    "classes": [
+     "Q18654693"
+    ]
+   },
+   {
+    "qid": "Q8875751",
+    "coord": [
+     -58.4047,
+     -34.6152
+    ],
+    "label": "Venezuela",
+    "title": "Venezuela (Buenos Aires Underground)",
+    "classes": [
+     "Q928830",
+     "Q22808403"
+    ]
+   },
+   {
+    "qid": "Q141221585",
+    "coord": [
+     -66.0532,
+     18.3944
+    ],
+    "label": "Venezuela",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q717",
+    "coord": [
+     -67,
+     8
+    ],
+    "label": "Venezuela",
+    "title": "Venezuela",
+    "classes": [
+     "Q6256",
+     "Q3624078"
+    ]
+   }
+  ],
+  "Iceland": [
+   {
+    "qid": "Q3740828",
+    "coord": [
+     -18.2367,
+     65.0291
+    ],
+    "label": "Iceland",
+    "title": "Iceland (island)",
+    "classes": [
+     "Q23442"
+    ]
+   },
+   {
+    "qid": "Q5985649",
+    "coord": [
+     -120.025,
+     39.3756
+    ],
+    "label": "Iceland",
+    "title": "Iceland, California",
+    "classes": [
+     "Q486972",
+     "Q22674925"
+    ]
+   },
+   {
+    "qid": "Q189",
+    "coord": [
+     -19,
+     65
+    ],
+    "label": "Iceland",
+    "title": "Iceland",
+    "classes": [
+     "Q6256",
+     "Q112099",
+     "Q3624078",
+     "Q140892892"
+    ]
+   }
+  ],
+  "Kirchberg": [
+   {
+    "qid": "Q31352762",
+    "coord": [
+     7.75,
+     47.9167
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352776",
+    "coord": [
+     8.4333,
+     47.6167
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31394711",
+    "coord": [
+     7.4477,
+     48.9286
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q740445"
+    ]
+   },
+   {
+    "qid": "Q31535131",
+    "coord": [
+     10.6415,
+     50.5728
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q31535147",
+    "coord": [
+     8.8744,
+     49.631
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q31563788",
+    "coord": [
+     7.8794,
+     49.6093
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q31674839",
+    "coord": [
+     7.5071,
+     48.9748
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q31783984",
+    "coord": [
+     15.7558,
+     -26.2333
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q32065155",
+    "coord": [
+     13.1819,
+     48.9
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q253019",
+     "Q1493533"
+    ]
+   },
+   {
+    "qid": "Q32065152",
+    "coord": [
+     12.05,
+     48.4
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q253019",
+     "Q378636",
+     "Q15303838"
+    ]
+   },
+   {
+    "qid": "Q32065156",
+    "coord": [
+     7.4069,
+     49.9439
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q32065157",
+    "coord": [
+     12.5244,
+     50.6219
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q60303270",
+    "coord": [
+     12.3643,
+     48.5538
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q16970"
+    ]
+   },
+   {
+    "qid": "Q65952884",
+    "coord": [
+     8.1648,
+     49.4153
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q67528010",
+    "coord": [
+     14.1366,
+     48.0615
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q17376095"
+    ]
+   },
+   {
+    "qid": "Q77322347",
+    "coord": [
+     13.172,
+     47.879
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q17376095"
+    ]
+   },
+   {
+    "qid": "Q77448516",
+    "coord": [
+     13.432,
+     48.228
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q17376095"
+    ]
+   },
+   {
+    "qid": "Q91906340",
+    "coord": [
+     14.2969,
+     47.2145
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q96323783",
+    "coord": [
+     14.4701,
+     48.2696
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q97619661",
+    "coord": [
+     14.4214,
+     48.4942
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q11183787"
+    ]
+   },
+   {
+    "qid": "Q97940597",
+    "coord": [
+     15.3618,
+     47.0763
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q2168991"
+    ]
+   },
+   {
+    "qid": "Q99396226",
+    "coord": [
+     13.9407,
+     51.0358
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q99730648",
+    "coord": [
+     12.9132,
+     50.8676
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q100676499",
+    "coord": [
+     12.4358,
+     50.9873
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q101002654",
+    "coord": [
+     10.6647,
+     51.7634
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q101088333",
+    "coord": [
+     12.7639,
+     51.2392
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q101088720",
+    "coord": [
+     12.93,
+     51.4538
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q101188915",
+    "coord": [
+     14.6787,
+     50.9377
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q101209029",
+    "coord": [
+     12.9811,
+     50.9839
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q103903540",
+    "coord": [
+     12.8334,
+     50.8623
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q104145784",
+    "coord": [
+     10.3499,
+     50.7254
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q104159176",
+    "coord": [
+     10.5123,
+     51.0227
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q105061703",
+    "coord": [
+     12.6732,
+     48.1261
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q123705",
+     "Q253019",
+     "Q1138414"
+    ]
+   },
+   {
+    "qid": "Q105442140",
+    "coord": [
+     14.5697,
+     46.8917
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q17376095"
+    ]
+   },
+   {
+    "qid": "Q106662278",
+    "coord": [
+     16.6403,
+     47.9025
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q107208667",
+    "coord": [
+     16.7664,
+     47.9531
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q110825841",
+    "coord": [
+     13.0385,
+     52.4489
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q110836724",
+    "coord": [
+     12.5647,
+     51.3241
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q110859975",
+    "coord": [
+     12.0111,
+     50.3238
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q34442"
+    ]
+   },
+   {
+    "qid": "Q113052176",
+    "coord": [
+     11.9327,
+     50.2236
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q34442"
+    ]
+   },
+   {
+    "qid": "Q113958271",
+    "coord": [
+     11.8461,
+     50.2697
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q34442"
+    ]
+   },
+   {
+    "qid": "Q116898724",
+    "coord": [
+     11.7074,
+     50.3298
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q118460708",
+    "coord": [
+     15.9786,
+     47.3519
+    ],
+    "label": "Kirchberg am Walde",
+    "title": "",
+    "classes": [
+     "Q1669338"
+    ]
+   },
+   {
+    "qid": "Q120160220",
+    "coord": [
+     11.9198,
+     50.3218
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q123996441",
+    "coord": [
+     14.3305,
+     50.9425
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q125821981",
+    "coord": [
+     12.31,
+     47.39
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q17376095"
+    ]
+   },
+   {
+    "qid": "Q133271565",
+    "coord": [
+     12.633,
+     47.965
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q253019",
+     "Q121589701"
+    ]
+   },
+   {
+    "qid": "Q134605349",
+    "coord": [
+     13.8038,
+     48.1826
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q11183787"
+    ]
+   },
+   {
+    "qid": "Q134605423",
+    "coord": [
+     13.7553,
+     48.4028
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q11183787"
+    ]
+   },
+   {
+    "qid": "Q134609292",
+    "coord": [
+     13.7565,
+     48.4027
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q11183787"
+    ]
+   },
+   {
+    "qid": "Q134692642",
+    "coord": [
+     13.4359,
+     48.225
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q11183787"
+    ]
+   },
+   {
+    "qid": "Q137512929",
+    "coord": [
+     10.5864,
+     51.6911
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q138520748",
+    "coord": [
+     10.8112,
+     51.542
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q139254920",
+    "coord": [
+     8.716,
+     50.6614
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q79007"
+    ]
+   },
+   {
+    "qid": "Q66463",
+    "coord": [
+     7.5861,
+     47.0858
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg, Bern",
+    "classes": [
+     "Q70208"
+    ]
+   },
+   {
+    "qid": "Q120101",
+    "coord": [
+     8.9556,
+     47.5494
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q123039",
+    "coord": [
+     6.9519,
+     47.7967
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg, Haut-Rhin",
+    "classes": [
+     "Q484170"
+    ]
+   },
+   {
+    "qid": "Q239009",
+    "coord": [
+     12.8673,
+     47.719
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q532",
+     "Q253019"
+    ]
+   },
+   {
+    "qid": "Q526537",
+    "coord": [
+     12.05,
+     48.4
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg, Upper Bavaria",
+    "classes": [
+     "Q116457956"
+    ]
+   },
+   {
+    "qid": "Q559333",
+    "coord": [
+     7.4072,
+     49.945
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg (Verbandsgemeinde)",
+    "classes": [
+     "Q2513995"
+    ]
+   },
+   {
+    "qid": "Q583718",
+    "coord": [
+     6.1456,
+     49.6275
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg, Luxembourg",
+    "classes": [
+     "Q3394564"
+    ]
+   },
+   {
+    "qid": "Q632275",
+    "coord": [
+     7.4072,
+     49.945
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg, Rhein-Hunsrück",
+    "classes": [
+     "Q42744322"
+    ]
+   },
+   {
+    "qid": "Q1292418",
+    "coord": [
+     8.7114,
+     50.6628
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q253019"
+    ]
+   },
+   {
+    "qid": "Q1494061",
+    "coord": [
+     14.5692,
+     46.8967
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q11183787"
+    ]
+   },
+   {
+    "qid": "Q1524670",
+    "coord": [
+     9.2967,
+     51.1953
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q253019"
+    ]
+   },
+   {
+    "qid": "Q1742451",
+    "coord": [
+     8.6267,
+     49.6878
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg (Bensheim)",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q1742459",
+    "coord": [
+     10.1558,
+     51.8543
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q253019"
+    ]
+   },
+   {
+    "qid": "Q1742460",
+    "coord": [
+     13.3292,
+     48.8247
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q253019",
+     "Q378636"
+    ]
+   },
+   {
+    "qid": "Q1742461",
+    "coord": [
+     12.8698,
+     48.0082
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q486972",
+     "Q11183787"
+    ]
+   },
+   {
+    "qid": "Q17576845",
+    "coord": [
+     15.0347,
+     47.0847
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q11183787"
+    ]
+   },
+   {
+    "qid": "Q21861897",
+    "coord": [
+     15.7044,
+     48.7983
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q21868398",
+    "coord": [
+     14.7314,
+     47.6442
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q21868399",
+    "coord": [
+     16.3608,
+     48.4635
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q21868397",
+    "coord": [
+     12.5356,
+     47.5378
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q21875262",
+    "coord": [
+     16.6244,
+     48.7047
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q21875664",
+    "coord": [
+     16.3142,
+     48.5292
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q21875718",
+    "coord": [
+     16.0556,
+     48.7178
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q21879098",
+    "coord": [
+     16.8467,
+     47.9528
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q21928915",
+    "coord": [
+     16.7651,
+     48.6086
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q22429249",
+    "coord": [
+     7.5829,
+     47.0854
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q22429263",
+    "coord": [
+     9.0402,
+     47.4116
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q25203993",
+    "coord": [
+     -75.3155,
+     40.5895
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg (Pennsylvania)",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q25392344",
+    "coord": [
+     11.1502,
+     50.5766
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q28047902",
+    "coord": [
+     12.1239,
+     48.6868
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q532",
+     "Q253019"
+    ]
+   },
+   {
+    "qid": "Q31351717",
+    "coord": [
+     7.8005,
+     49.2973
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q31351746",
+    "coord": [
+     9.176,
+     48.3931
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q31351773",
+    "coord": [
+     13.0384,
+     52.4483
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31351869",
+    "coord": [
+     10.4692,
+     51.5639
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352048",
+    "coord": [
+     9.9554,
+     51.0231
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352411",
+    "coord": [
+     10.5,
+     49.9667
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352436",
+    "coord": [
+     9.79,
+     49.8933
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352463",
+    "coord": [
+     8.6852,
+     49.8359
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352528",
+    "coord": [
+     10.8329,
+     49.7177
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352558",
+    "coord": [
+     7.4033,
+     49.4742
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352595",
+    "coord": [
+     7.5591,
+     49.4126
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352609",
+    "coord": [
+     10.8783,
+     49.3687
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352636",
+    "coord": [
+     8.9101,
+     49.212
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352651",
+    "coord": [
+     8.629,
+     48.9682
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352666",
+    "coord": [
+     8.6483,
+     48.915
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352680",
+    "coord": [
+     8.6778,
+     48.5514
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352695",
+    "coord": [
+     9.3833,
+     48.4333
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352709",
+    "coord": [
+     12.0647,
+     48.2731
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31352721",
+    "coord": [
+     10.3989,
+     48.2297
+    ],
+    "label": "Kirchberg",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q20079",
+    "coord": [
+     12.5256,
+     50.6222
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg, Saxony",
+    "classes": [
+     "Q42744322"
+    ]
+   },
+   {
+    "qid": "Q64860",
+    "coord": [
+     9.0333,
+     47.4
+    ],
+    "label": "Kirchberg",
+    "title": "Kirchberg, St. Gallen",
+    "classes": [
+     "Q70208"
+    ]
+   }
+  ],
+  "Ukraine": [
+   {
+    "qid": "Q2296961",
+    "coord": [
+     24.0482,
+     49.8192
+    ],
+    "label": "Ukraina Stadium",
+    "title": "Ukraina Stadium",
+    "classes": [
+     "Q1154710"
+    ]
+   },
+   {
+    "qid": "Q12163645",
+    "coord": [
+     31.295,
+     51.4944
+    ],
+    "label": "Hotel Ukraina",
+    "title": "Hotel Ukraine, Chernihiv",
+    "classes": [
+     "Q27686"
+    ]
+   },
+   {
+    "qid": "Q212",
+    "coord": [
+     32,
+     49
+    ],
+    "label": "Ukraine",
+    "title": "Ukraine",
+    "classes": [
+     "Q6256",
+     "Q7270",
+     "Q179164",
+     "Q619610",
+     "Q3624078",
+     "Q4209223",
+     "Q4835091"
+    ]
+   }
+  ],
+  "North Macedonia": [
+   {
+    "qid": "Q939101",
+    "coord": [
+     21.4167,
+     42
+    ],
+    "label": "Vardar Banovina",
+    "title": "Vardar Banovina",
+    "classes": [
+     "Q56061"
+    ]
+   },
+   {
+    "qid": "Q221",
+    "coord": [
+     21.7167,
+     41.65
+    ],
+    "label": "North Macedonia",
+    "title": "North Macedonia",
+    "classes": [
+     "Q6256",
+     "Q123480",
+     "Q3624078"
+    ]
+   }
+  ],
+  "Netherlands": [
+   {
+    "qid": "Q476033",
+    "coord": [
+     5,
+     52
+    ],
+    "label": "Low Countries",
+    "title": "Low Countries",
+    "classes": [
+     "Q1620908"
+    ]
+   },
+   {
+    "qid": "Q774783",
+    "coord": [
+     5.55,
+     52.3167
+    ],
+    "label": "Sovereign Principality of the United Netherlands",
+    "title": "Sovereign Principality of the United Netherlands",
+    "classes": [
+     "Q3024240"
+    ]
+   },
+   {
+    "qid": "Q29999",
+    "coord": [
+     4.8833,
+     52.3667
+    ],
+    "label": "Kingdom of the Netherlands",
+    "title": "Kingdom of the Netherlands",
+    "classes": [
+     "Q6256",
+     "Q417175",
+     "Q1250464",
+     "Q3624078",
+     "Q20181813"
+    ]
+   },
+   {
+    "qid": "Q26572789",
+    "coord": [
+     -1.4853,
+     51.8732
+    ],
+    "label": "Netherlands",
+    "title": "",
+    "classes": [
+     "Q41176"
+    ]
+   },
+   {
+    "qid": "Q27986256",
+    "coord": [
+     -89.7511,
+     36.2992
+    ],
+    "label": "Netherlands",
+    "title": "Netherlands, Missouri",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q55",
+    "coord": [
+     5.55,
+     52.3167
+    ],
+    "label": "Netherlands",
+    "title": "Netherlands",
+    "classes": [
+     "Q6256",
+     "Q15304003"
+    ]
+   }
+  ],
+  "Hamid Karzai International Airport": [
+   {
+    "qid": "Q744802",
+    "coord": [
+     69.2123,
+     34.5659
+    ],
+    "label": "Kabul International Airport",
+    "title": "Kabul International Airport",
+    "classes": [
+     "Q644371",
+     "Q695850",
+     "Q94993988"
+    ]
+   }
+  ],
+  "Belarus": [
+   {
+    "qid": "Q184",
+    "coord": [
+     28.0467,
+     53.5283
+    ],
+    "label": "Belarus",
+    "title": "Belarus",
+    "classes": [
+     "Q6256",
+     "Q123480",
+     "Q179164",
+     "Q619610",
+     "Q3624078"
+    ]
+   }
+  ],
+  "Den Haag": [
+   {
+    "qid": "Q36600",
+    "coord": [
+     4.31,
+     52.08
+    ],
+    "label": "The Hague",
+    "title": "The Hague",
+    "classes": [
+     "Q515",
+     "Q1852859",
+     "Q2039348",
+     "Q13539802"
+    ]
+   }
+  ],
+  "Colombia": [
+   {
+    "qid": "Q1093490",
+    "coord": [
+     -76.2347,
+     3.3217
+    ],
+    "label": "Florida",
+    "title": "Florida, Valle del Cauca",
+    "classes": [
+     "Q2555896"
+    ]
+   },
+   {
+    "qid": "Q1760531",
+    "coord": [
+     -48.6889,
+     -20.1758
+    ],
+    "label": "Colômbia",
+    "title": "Colômbia",
+    "classes": [
+     "Q3184121"
+    ]
+   },
+   {
+    "qid": "Q50007013",
+    "coord": [
+     -98.7589,
+     17.0889
+    ],
+    "label": "Colombia de Guadalupe",
+    "title": "",
+    "classes": [
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q765457",
+    "coord": [
+     -99.7594,
+     27.7033
+    ],
+    "label": "Colombia",
+    "title": "Colombia, Nuevo León",
+    "classes": [
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q1576192",
+    "coord": [
+     -74.8019,
+     3.375
+    ],
+    "label": "Colombia",
+    "title": "Colombia, Huila",
+    "classes": [
+     "Q2555896"
+    ]
+   },
+   {
+    "qid": "Q2462831",
+    "coord": [
+     -3.6769,
+     40.4563
+    ],
+    "label": "Colombia",
+    "title": "Colombia (Madrid Metro)",
+    "classes": [
+     "Q928830",
+     "Q22808403"
+    ]
+   },
+   {
+    "qid": "Q2733738",
+    "coord": [
+     -77.4158,
+     20.9906
+    ],
+    "label": "Colombia",
+    "title": "Colombia, Cuba",
+    "classes": [
+     "Q515",
+     "Q558330"
+    ]
+   },
+   {
+    "qid": "Q20221864",
+    "coord": [
+     -94.8233,
+     17.9356
+    ],
+    "label": "Colombia",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q23694893",
+    "coord": [
+     -74.8015,
+     3.3761
+    ],
+    "label": "Colombia",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q739",
+    "coord": [
+     -73.25,
+     4
+    ],
+    "label": "Colombia",
+    "title": "Colombia",
+    "classes": [
+     "Q6256",
+     "Q7270",
+     "Q859563",
+     "Q3624078",
+     "Q140892892"
+    ]
+   }
+  ],
+  "Santa Clara": [
+   {
+    "qid": "Q159260",
+    "coord": [
+     -121.9667,
+     37.35
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, California",
+    "classes": [
+     "Q1093829",
+     "Q1549591",
+     "Q13218391"
+    ]
+   },
+   {
+    "qid": "Q168198",
+    "coord": [
+     -74.4575,
+     44.6336
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, New York",
+    "classes": [
+     "Q15127012",
+     "Q106071004"
+    ]
+   },
+   {
+    "qid": "Q211590",
+    "coord": [
+     -79.9531,
+     22.4067
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Cuba",
+    "classes": [
+     "Q515",
+     "Q558330",
+     "Q1549591"
+    ]
+   },
+   {
+    "qid": "Q251199",
+    "coord": [
+     120.9563,
+     14.8183
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Santa Maria",
+    "classes": [
+     "Q61878"
+    ]
+   },
+   {
+    "qid": "Q483249",
+    "coord": [
+     -113.6492,
+     37.1369
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Utah",
+    "classes": [
+     "Q1093829"
+    ]
+   },
+   {
+    "qid": "Q973850",
+    "coord": [
+     -98.1667,
+     29.5842
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Texas",
+    "classes": [
+     "Q1093829"
+    ]
+   },
+   {
+    "qid": "Q997003",
+    "coord": [
+     -25.6833,
+     37.7344
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara (Ponta Delgada)",
+    "classes": [
+     "Q1131296"
+    ]
+   },
+   {
+    "qid": "Q1154786",
+    "coord": [
+     -88.728,
+     13.7027
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, El Salvador",
+    "classes": [
+     "Q127499753"
+    ]
+   },
+   {
+    "qid": "Q2001529",
+    "coord": [
+     -66.132,
+     18.2109
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q125778656"
+    ]
+   },
+   {
+    "qid": "Q2001906",
+    "coord": [
+     -64.6833,
+     -24.2833
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Jujuy",
+    "classes": [
+     "Q15284",
+     "Q3243765",
+     "Q5770918"
+    ]
+   },
+   {
+    "qid": "Q2222824",
+    "coord": [
+     15.8833,
+     -17.3667
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q2991575",
+    "coord": [
+     -101.6383,
+     19.4053
+    ],
+    "label": "Santa Clara del Cobre",
+    "title": "Santa Clara del Cobre",
+    "classes": [
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q3322256",
+    "coord": [
+     -108.1536,
+     32.7756
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, New Mexico",
+    "classes": [
+     "Q751708"
+    ]
+   },
+   {
+    "qid": "Q4969019",
+    "coord": [
+     -103.3572,
+     24.4753
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Durango",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q6021405",
+    "coord": [
+     -4.5308,
+     42.0094
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q44613"
+    ]
+   },
+   {
+    "qid": "Q6120306",
+    "coord": [
+     -16.2872,
+     28.4553
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q1761572"
+    ]
+   },
+   {
+    "qid": "Q6120305",
+    "coord": [
+     -89.0153,
+     21.3733
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q6120308",
+    "coord": [
+     -5.9519,
+     37.3945
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q123705"
+    ]
+   },
+   {
+    "qid": "Q7419302",
+    "coord": [
+     -123.12,
+     44.1
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Eugene, Oregon",
+    "classes": [
+     "Q123705",
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q7419301",
+    "coord": [
+     -80.1066,
+     8.3815
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Coclé",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q7419306",
+    "coord": [
+     -68.5167,
+     -29.55
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, La Rioja",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q7419305",
+    "coord": [
+     -80.2153,
+     25.7958
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara station (Metrorail)",
+    "classes": [
+     "Q928830",
+     "Q11670533"
+    ]
+   },
+   {
+    "qid": "Q7419328",
+    "coord": [
+     -103.407,
+     24.4985
+    ],
+    "label": "Santa Clara Municipality",
+    "title": "Santa Clara Municipality, Durango",
+    "classes": [
+     "Q1952852"
+    ]
+   },
+   {
+    "qid": "Q10367770",
+    "coord": [
+     -9.1524,
+     38.7876
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Lisbon",
+    "classes": [
+     "Q1131296"
+    ]
+   },
+   {
+    "qid": "Q10367773",
+    "coord": [
+     6.6662,
+     0.2798
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q16799439",
+    "coord": [
+     120.8011,
+     15.5761
+    ],
+    "label": "Santa Clara",
+    "title": "Santa Clara, Quezon",
+    "classes": [
+     "Q61878"
+    ]
+   },
+   {
+    "qid": "Q17629462",
+    "coord": [
+     -76.8844,
+     -12.0197
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q3257686"
+    ]
+   },
+   {
+    "qid": "Q17629460",
+    "coord": [
+     -72.3336,
+     -36.8288
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q25412766"
+    ]
+   },
+   {
+    "qid": "Q20217034",
+    "coord": [
+     -107.0156,
+     29.29
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972",
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q20222443",
+    "coord": [
+     -102.95,
+     21.7033
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972",
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q20226665",
+    "coord": [
+     -99.054,
+     23.7021
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972",
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q20229925",
+    "coord": [
+     -111.0158,
+     31.2142
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q20235287",
+    "coord": [
+     -100.2522,
+     26.3092
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972",
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q20250114",
+    "coord": [
+     -105.6768,
+     26.524
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972",
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q20272717",
+    "coord": [
+     -96.8794,
+     20.0622
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972",
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q20272723",
+    "coord": [
+     -97.6833,
+     21.5322
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972",
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q20272720",
+    "coord": [
+     -97.3123,
+     20.32
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972",
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q21095708",
+    "coord": [
+     -1.2887,
+     50.8924
+    ],
+    "label": "Holigost",
+    "title": "English carrack Holigost",
+    "classes": [
+     "Q11446",
+     "Q852190"
+    ]
+   },
+   {
+    "qid": "Q22421764",
+    "coord": [
+     -70.3044,
+     -26.5183
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q820477"
+    ]
+   },
+   {
+    "qid": "Q22421789",
+    "coord": [
+     -71.1667,
+     -29.3333
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q820477"
+    ]
+   },
+   {
+    "qid": "Q23789173",
+    "coord": [
+     -79.9667,
+     22.4
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q31251849",
+    "coord": [
+     -113.7425,
+     26.9919
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q54050"
+    ]
+   },
+   {
+    "qid": "Q31749586",
+    "coord": [
+     -112.0228,
+     26.8517
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q8502"
+    ]
+   },
+   {
+    "qid": "Q33481150",
+    "coord": [
+     -79.7522,
+     9.0353
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q34923603",
+    "coord": [
+     -113.6742,
+     27.1561
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q2042028"
+    ]
+   },
+   {
+    "qid": "Q35290742",
+    "coord": [
+     -116.2006,
+     31.6967
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q35290752",
+    "coord": [
+     -116.3072,
+     31.7986
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q35290763",
+    "coord": [
+     -106.5027,
+     30.5989
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q35290772",
+    "coord": [
+     -104.1989,
+     25.19
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q35290782",
+    "coord": [
+     -104.0725,
+     20.7456
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q35290793",
+    "coord": [
+     -103.8047,
+     21.4817
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q35290803",
+    "coord": [
+     -100.0364,
+     24.6953
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q35290815",
+    "coord": [
+     -109.6306,
+     28.5889
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q35290825",
+    "coord": [
+     -108.9578,
+     29.9556
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q47521"
+    ]
+   },
+   {
+    "qid": "Q61244759",
+    "coord": [
+     -99.6081,
+     19.7208
+    ],
+    "label": "Santa Clara de Juárez",
+    "title": "",
+    "classes": [
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q61261914",
+    "coord": [
+     -101.4347,
+     20.1792
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q61309233",
+    "coord": [
+     -110.9242,
+     28.0097
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q20202352"
+    ]
+   },
+   {
+    "qid": "Q65330184",
+    "coord": [
+     -88.5097,
+     18.2911
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q97631872",
+    "coord": null,
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q532",
+     "Q839954"
+    ]
+   },
+   {
+    "qid": "Q97635805",
+    "coord": null,
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q839954"
+    ]
+   },
+   {
+    "qid": "Q98961474",
+    "coord": [
+     2.2466,
+     41.4618
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q16970"
+    ]
+   },
+   {
+    "qid": "Q100777247",
+    "coord": [
+     9.1642,
+     45.1819
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q96371632"
+    ]
+   },
+   {
+    "qid": "Q107191897",
+    "coord": [
+     3.1956,
+     42.056
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q16970",
+     "Q108325"
+    ]
+   },
+   {
+    "qid": "Q110126876",
+    "coord": [
+     -92.1619,
+     14.8271
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q110280078",
+    "coord": [
+     -6.3718,
+     39.4712
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q123705"
+    ]
+   },
+   {
+    "qid": "Q110980359",
+    "coord": [
+     -38.5089,
+     -12.9745
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q179700"
+    ]
+   },
+   {
+    "qid": "Q111387472",
+    "coord": [
+     122.6833,
+     7.7833
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q44782"
+    ]
+   },
+   {
+    "qid": "Q111387627",
+    "coord": [
+     -51.3667,
+     -20.8833
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q44782"
+    ]
+   },
+   {
+    "qid": "Q115213768",
+    "coord": [
+     -74.6486,
+     -8.2705
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q131274334",
+    "coord": [
+     -99.059,
+     19.5392
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q953806"
+    ]
+   },
+   {
+    "qid": "Q131441554",
+    "coord": [
+     -99.06,
+     19.54
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q44696264"
+    ]
+   },
+   {
+    "qid": "Q134185118",
+    "coord": [
+     -56.5537,
+     -23.5276
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q137424212",
+    "coord": [
+     -86.7921,
+     12.6382
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q137431730",
+    "coord": [
+     -85.7665,
+     11.3029
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q137431749",
+    "coord": [
+     -86.258,
+     13.7066
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q137431857",
+    "coord": [
+     -85.9916,
+     12.0133
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q137432116",
+    "coord": [
+     -86.3544,
+     12.8819
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q486972"
+    ]
+   },
+   {
+    "qid": "Q138756310",
+    "coord": [
+     -86.5497,
+     12.5254
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q72030539"
+    ]
+   },
+   {
+    "qid": "Q138756513",
+    "coord": [
+     -86.8456,
+     12.4006
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q72030539"
+    ]
+   },
+   {
+    "qid": "Q139758992",
+    "coord": [
+     -84.1537,
+     14.4685
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q139759107",
+    "coord": [
+     -85.9706,
+     13.129
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q139762157",
+    "coord": [
+     -86.2489,
+     11.8959
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q532"
+    ]
+   },
+   {
+    "qid": "Q141693495",
+    "coord": [
+     -85.3764,
+     12.1145
+    ],
+    "label": "Santa Clara",
+    "title": "",
+    "classes": [
+     "Q1761572"
+    ]
+   }
+  ],
+  "Dubai": [
+   {
+    "qid": "Q60653341",
+    "coord": [
+     87.6885,
+     22.0436
+    ],
+    "label": "Dubai",
+    "title": "",
+    "classes": [
+     "Q56436498"
+    ]
+   },
+   {
+    "qid": "Q101194360",
+    "coord": [
+     76.0723,
+     10.467
+    ],
+    "label": "Dubai",
+    "title": "",
+    "classes": [
+     "Q1195098"
+    ]
+   },
+   {
+    "qid": "Q612",
+    "coord": [
+     55.3094,
+     25.2697
+    ],
+    "label": "Dubai",
+    "title": "Dubai",
+    "classes": [
+     "Q515",
+     "Q56061",
+     "Q200250",
+     "Q208511",
+     "Q1549591",
+     "Q51929311"
+    ]
+   },
+   {
+    "qid": "Q613",
+    "coord": [
+     55.3117,
+     25.2644
+    ],
+    "label": "Emirate of Dubai",
+    "title": "Emirate of Dubai",
+    "classes": [
+     "Q19833031"
+    ]
+   }
+  ],
+  "Bretton Woods": [
+   {
+    "qid": "Q911049",
+    "coord": [
+     -71.4411,
+     44.2581
+    ],
+    "label": "Bretton Woods",
+    "title": "Bretton Woods, New Hampshire",
+    "classes": [
+     "Q17343829"
+    ]
+   },
+   {
+    "qid": "Q34905572",
+    "coord": [
+     -77.3333,
+     39.0739
+    ],
+    "label": "Bretton Woods Recreation Center",
+    "title": "",
+    "classes": [
+     "Q1137210",
+     "Q30313989"
+    ]
+   }
   ]
  },
  "aroundErrors": {},
@@ -86017,6 +91218,317 @@
    ],
    "label": "",
    "title": "Serifos"
+  },
+  "Q72891": {
+   "coord": [
+    116.3875,
+    39.9033
+   ],
+   "classes": [
+    "Q1220959"
+   ],
+   "label": "",
+   "title": "Great Hall of the People"
+  },
+  "Q1338856": {
+   "coord": [
+    139.7448,
+    35.6757
+   ],
+   "classes": [
+    "Q7138926"
+   ],
+   "label": "",
+   "title": "National Diet Building"
+  },
+  "Q5623300": {
+   "coord": [
+    126.9767,
+    37.5728
+   ],
+   "classes": [
+    "Q174782"
+   ],
+   "label": "",
+   "title": "Gwanghwamun Square"
+  },
+  "Q488748": {
+   "coord": [
+    126.9141,
+    37.532
+   ],
+   "classes": [
+    "Q7138926"
+   ],
+   "label": "",
+   "title": "National Assembly Building (South Korea)"
+  },
+  "Q6541958": {
+   "coord": [
+    121.5218,
+    25.0346
+   ],
+   "classes": [
+    "Q174782"
+   ],
+   "label": "",
+   "title": "Liberty Square (Taipei)"
+  },
+  "Q183033": {
+   "coord": [
+    116.3279,
+    39.9169
+   ],
+   "classes": [
+    "Q9679135"
+   ],
+   "label": "",
+   "title": "Diaoyutai State Guesthouse"
+  },
+  "Q697177": {
+   "coord": [
+    121.515,
+    25.0422
+   ],
+   "classes": [
+    "Q4989906",
+    "Q22698"
+   ],
+   "label": "",
+   "title": "228 Peace Memorial Park"
+  },
+  "Q715869": {
+   "coord": [
+    121.5197,
+    25.0442
+   ],
+   "classes": [
+    "Q37002670",
+    "Q10553309",
+    "Q7138926"
+   ],
+   "label": "",
+   "title": "Legislative Yuan"
+  },
+  "Q13643095": {
+   "coord": [
+    114.1656,
+    22.2808
+   ],
+   "classes": [
+    "Q30124446"
+   ],
+   "label": "",
+   "title": "Legislative Council Complex"
+  },
+  "Q14767": {
+   "coord": [
+    114.1581,
+    22.2819
+   ],
+   "classes": [
+    "Q738570"
+   ],
+   "label": "",
+   "title": "Central, Hong Kong"
+  },
+  "Q3270129": {
+   "coord": [
+    114.1655,
+    22.2796
+   ],
+   "classes": [
+    "Q2221906"
+   ],
+   "label": "",
+   "title": "Admiralty, Hong Kong"
+  },
+  "Q842071": {
+   "coord": [
+    114.0355,
+    22.4462
+   ],
+   "classes": [
+    "Q11670533",
+    "Q928830"
+   ],
+   "label": "",
+   "title": "Yuen Long station"
+  },
+  "Q1669492": {
+   "coord": [
+    114.1683,
+    22.3245
+   ],
+   "classes": [
+    "Q22808403",
+    "Q928830"
+   ],
+   "label": "",
+   "title": "Prince Edward station"
+  },
+  "Q337875": {
+   "coord": [
+    125.7494,
+    39.0285
+   ],
+   "classes": [
+    "Q7138926"
+   ],
+   "label": "",
+   "title": "Pyongyang Assembly Hall"
+  },
+  "Q564732": {
+   "coord": [
+    114.181,
+    22.2807
+   ],
+   "classes": [
+    "Q123705"
+   ],
+   "label": "",
+   "title": "Causeway Bay"
+  },
+  "Q163108": {
+   "coord": [
+    -2.0261,
+    48.6494
+   ],
+   "classes": [
+    "Q484170"
+   ],
+   "label": "",
+   "title": "Saint-Malo"
+  },
+  "Q33959": {
+   "coord": [
+    7.2683,
+    43.7019
+   ],
+   "classes": [
+    "Q1549591",
+    "Q484170"
+   ],
+   "label": "",
+   "title": "Nice"
+  },
+  "Q648298": {
+   "coord": [
+    30.25,
+    1.5667
+   ],
+   "classes": [
+    "Q117214267"
+   ],
+   "label": "",
+   "title": "Bunia"
+  },
+  "Q583718": {
+   "coord": [
+    6.1456,
+    49.6275
+   ],
+   "classes": [
+    "Q3394564"
+   ],
+   "label": "",
+   "title": "Kirchberg, Luxembourg"
+  },
+  "Q863759": {
+   "coord": [
+    30.5239,
+    50.4502
+   ],
+   "classes": [
+    "Q111027585"
+   ],
+   "label": "",
+   "title": "Maidan Nezalezhnosti"
+  },
+  "Q8810": {
+   "coord": [
+    -3.6,
+    37.175
+   ],
+   "classes": [
+    "Q2074737"
+   ],
+   "label": "",
+   "title": "Granada"
+  },
+  "Q744802": {
+   "coord": [
+    69.2123,
+    34.5659
+   ],
+   "classes": [
+    "Q644371",
+    "Q695850",
+    "Q94993988"
+   ],
+   "label": "",
+   "title": "Kabul International Airport"
+  },
+  "Q670407": {
+   "coord": [
+    4.4833,
+    50.7333
+   ],
+   "classes": [
+    "Q493522"
+   ],
+   "label": "",
+   "title": "La Hulpe"
+  },
+  "Q9875": {
+   "coord": [
+    5.405,
+    51.42
+   ],
+   "classes": [
+    "Q2039348",
+    "Q1852859",
+    "Q486972",
+    "Q3957"
+   ],
+   "label": "",
+   "title": "Veldhoven"
+  },
+  "Q156053": {
+   "coord": [
+    19.3,
+    44.1
+   ],
+   "classes": [
+    "Q16085106",
+    "Q3957"
+   ],
+   "label": "",
+   "title": "Srebrenica"
+  },
+  "Q159260": {
+   "coord": [
+    -121.9667,
+    37.35
+   ],
+   "classes": [
+    "Q1093829",
+    "Q1549591",
+    "Q13218391"
+   ],
+   "label": "",
+   "title": "Santa Clara, California"
+  },
+  "Q911049": {
+   "coord": [
+    -71.4411,
+    44.2581
+   ],
+   "classes": [
+    "Q17343829"
+   ],
+   "label": "",
+   "title": "Bretton Woods, New Hampshire"
   }
  },
  "links": {
