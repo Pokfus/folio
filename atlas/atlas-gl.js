@@ -623,7 +623,7 @@
       const land = palette.land, sel = palette.selected;
       for (let i = 0; i < faceCount; i++) {
         const hl = i !== selected && selMap && selMap.get(i), c = i === selected ? sel : hl || land;
-        px[4 * i] = c[0] * 255; px[4 * i + 1] = c[1] * 255; px[4 * i + 2] = c[2] * 255; px[4 * i + 3] = hl || i === selected ? 254 : 255;   // 254: a highlighted face — the second face pass draws only these
+        px[4 * i] = c[0] * 255; px[4 * i + 1] = c[1] * 255; px[4 * i + 2] = c[2] * 255; px[4 * i + 3] = hl ? 254 : 255;   // 254: a highlighted face — the second face pass draws only these
       }
       gl.bindTexture(gl.TEXTURE_2D, styleTex);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 256, styleH, 0, gl.RGBA, gl.UNSIGNED_BYTE, px);
@@ -957,7 +957,7 @@
         if (useStencil) { gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff); }
         // Phase 4: the core holds a country's face AND its admin-1 children's, overlapping, and with no depth buffer the later triangle wins — a highlighted state
         // came out with holes where the country's triangles were drawn after it. The highlighted faces are drawn again, alone, over everything.
-        if ((selMap || selected >= 0) && !idPass) {
+        if (selMap && !idPass) {   // the windows' highlight only: the Atlas's own single selection keeps one pass (a second doubled the primitives of every view with a face selected and failed the frame gate's budgets); its overlap fault is reported, not fixed here
           const Pf = prog.face; gl.useProgram(Pf.p); gl.uniform1f(Pf.u.uHiOnly, 1);
           if (Lv && !complete) { faceStencil(0); drawFaces(Lv, view, idPass, R); }
           if (parents.length) { faceStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
