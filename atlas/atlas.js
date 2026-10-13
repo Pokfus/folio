@@ -248,6 +248,17 @@
   }
   function escText(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m])); }
 
+  /* PHASE 4b — THE FIRST FRAME OF A CARD WINDOW, FROM A CACHE. A hub (opts.embed) parses topology.bin and builds the three resident levels in its worker before the first window can draw;
+     the coarsest level (LOD 0: 10 km tolerance, 55k triangles) and the file's header are the whole of a first frame, and they are the same bytes every visit. They are kept, after the worker
+     has made them once, in IndexedDB — the worker's own output (typed arrays, structured-cloned), keyed by CORE_CACHE_REV — and the next hub reads them back while the file is still on its way to the
+     worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
+     `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
+     if its build id differs. The Atlas page itself does not use it (it needs every level before it is `ready`, and its first paint is not a card window's). */
+  const CORE_CACHE_REV = "87790978f8:9bde0dc16ffce93f";
+  const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
+  const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
+  const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
+
   function mount(host, opts) {
     opts = opts || {};
     const dataUrl = opts.dataUrl || "atlas/data/topology.bin";
@@ -275,14 +286,14 @@
           </div>
         </div>` : "";
     host.innerHTML = `
-      <div class="atlas2${PHONE ? " atlas2-phone" : ""}" role="region" aria-label="Atlas (preview)">
+      <div class="atlas2${PHONE ? " atlas2-phone" : ""}${H.back && !opts.embed ? " atlas2-has-back" : ""}" role="region" aria-label="Atlas (preview)">
         <canvas class="atlas2-canvas" tabindex="0" role="application" aria-label="Interactive globe — drag to turn, scroll or pinch to zoom, arrow keys turn, plus and minus zoom, Home resets; Tab walks the names on the map"></canvas>
         <canvas class="atlas2-labels" aria-hidden="true"></canvas>
         <div class="atlas2-search">
           <input type="search" class="atlas2-search-in" placeholder="Find a place" aria-label="Find a place" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="atlas2-results" aria-autocomplete="list">
           <ul class="atlas2-results" id="atlas2-results" role="listbox" aria-label="Places found" hidden></ul>
           <div class="atlas2-search-note" role="status" hidden><span class="atlas2-sn-t"></span><span class="atlas2-sn-b"><button type="button" class="atlas2-link atlas2-sn-go"></button><button type="button" class="atlas2-sn-x" aria-label="Dismiss" title="Dismiss">×</button></span></div>
-        </div>${studyPanel}
+        </div>${H.back && !opts.embed ? '<button type="button" class="atlas2-back" aria-label="Back to studying" title="Back to studying">&#8617; Back</button>' : ""}${studyPanel}
         <div class="atlas2-zoom" role="group" aria-label="Zoom">
           <button type="button" class="atlas2-btn" data-zoom="in" title="Zoom in" aria-label="Zoom in">+</button>
           <button type="button" class="atlas2-btn" data-zoom="out" title="Zoom out" aria-label="Zoom out">−</button>
@@ -389,6 +400,7 @@
     const sheet = el.querySelector(".atlas2-sheet"), layersBtn = el.querySelector(".atlas2-layers-btn"), layersNote = el.querySelector(".atlas2-layers-note");
     const labelCanvas = el.querySelector(".atlas2-labels"), lctx = labelCanvas.getContext("2d");
     const stackBtn = el.querySelector(".atlas2-stack"), cardEl = el.querySelector(".atlas2-card"), cardTitle = el.querySelector(".atlas2-card-title"), cardKind = el.querySelector(".atlas2-card-kind"), cardBody = el.querySelector(".atlas2-card-body"), keysUl = el.querySelector(".atlas2-keys ul");
+    { const bk = el.querySelector(".atlas2-back"); if (bk && H.back) bk.addEventListener("click", () => H.back()); }   // Phase 4b: the way back to the card a window's tap or go button left
     const searchIn = el.querySelector(".atlas2-search-in"), resultsUl = el.querySelector(".atlas2-results");
     const railEl = el.querySelector(".atlas2-rail"), railTrack = el.querySelector(".atlas2-rail-track"), railPin = el.querySelector(".atlas2-rail-pin"), railTicks = el.querySelector(".atlas2-rail-ticks"), railMag = el.querySelector(".atlas2-rail-mag"), railYear = el.querySelector(".atlas2-rail-year"), railPlay = el.querySelector(".atlas2-rail-play"), railSpeed = el.querySelector(".atlas2-rail-speed"), railNote = el.querySelector(".atlas2-rail-note");
     const say = (t, frac) => { note.textContent = t; if (frac != null) { bar.style.width = Math.round(frac * 100) + "%"; bar.parentNode.hidden = false; } };
@@ -977,6 +989,9 @@
         fail("The Atlas data could not be read: " + m.message); return;
       }
       if (m.type === "meta") {
+        if (coreCached && !m.fromCache && header && header.buildId === m.header.buildId) { coreStore = null; return; }   // the cached header already applied is this build's: nothing to redo
+        if (coreCached && header && header.buildId !== m.header.buildId) { coreCached = null; header = null; }   // a stale cache: the worker's own header (and level 0) replace it
+        if (EMBED && !coreCached && typeof indexedDB !== "undefined") coreStore = { rev: CORE_CACHE_REV, meta: { header: m.header, faceEntity: m.faceEntity }, lod0: null };
         header = m.header; faceEntity = m.faceEntity; R.setFaceCount(faceEntity.length);
         if (header.tiles && !FILE && !STATIC2D) { tileIndex = {}; for (const z of Object.keys(header.tiles)) { const t = header.tiles[z]; tileIndex[z] = { cols: t.cols, rows: t.rows, present: new Set(t.present) }; } }   // no tile is fetched from a file or drawn by the still view
         faceOfEntity = new Map(); for (let i = 0; i < faceEntity.length; i++) if (!faceOfEntity.has(faceEntity[i])) faceOfEntity.set(faceEntity[i], i);
@@ -990,14 +1005,21 @@
       if (m.type === "progress") { if (!stats.ready) say(m.text, m.frac); return; }
       if (m.type === "layout") { applyLayout(m); return; }
       if (m.type === "lod") {
+        if (m.level === 0 && coreCached && !m.fromCache && stats.fromCache && R.levelLoaded(0)) return;   // level 0 is already on the GPU from the cache (the same build, the same worker output)
         const tu = performance.now();
-        bracket(() => R.setLevel(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }));
+        bracket(() => R.setLevel(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap, faceRangeA1: m.faceRangeA1, faceCapA1: m.faceCapA1 }));
         stats.uploads[m.level] = Math.round(performance.now() - tu);
         say(m.level === 0 ? "Drawing…" : "Adding detail…", 0.5 + 0.17 * (m.level + 1));
+        if (m.level === 0 && coreStore && !coreStore.lod0) {   // a hub's first level, kept for the next visit (at idle: a structured clone of 2.6 MB is not the frame's business)
+          const st = coreStore; coreStore = null;
+          st.lod0 = { level: 0, segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap, faceRangeA1: m.faceRangeA1 || null, faceCapA1: m.faceCapA1 || null };
+          const keep = () => { if (!disposed) idbPut("core0", st).catch(() => {}); };
+          if (typeof requestIdleCallback === "function") requestIdleCallback(keep, { timeout: 4000 }); else setTimeout(keep, 1500);
+        }
         invalidate();
         return;
       }
-      if (m.type === "tile") { landTiles.arrived(m.key, { tile: m.tile, stats: m.stats }); bracket(() => R.setTile(m.key, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap }, m.tile)); stats.tiles.push(m.stats); if (stats.tiles.length > 200) stats.tiles.shift(); invalidate(); return; }
+      if (m.type === "tile") { landTiles.arrived(m.key, { tile: m.tile, stats: m.stats }); bracket(() => R.setTile(m.key, { segs: m.segs, segRange: m.segRange, segCap: m.segCap, segRangeA1: m.segRangeA1, segCapA1: m.segCapA1, facePos: m.facePos, faceIdx: m.faceIdx, faceRange: m.faceRange, faceCap: m.faceCap, faceRangeA1: m.faceRangeA1, faceCapA1: m.faceCapA1 }, m.tile)); stats.tiles.push(m.stats); if (stats.tiles.length > 200) stats.tiles.shift(); invalidate(); return; }
       if (m.type === "water-meta") {
         waterKeep = null;
         waterHeader = m.header; waterFaceEntity = m.faceEntity || null; arcRiver = m.arcRiver || null;
@@ -1089,6 +1111,16 @@
       try { if (crypto && crypto.subtle) { const d = await crypto.subtle.digest("SHA-256", buffer); const hex = [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join(""); if (hex !== tw.sha256) throw new Error(label + " twin's bytes do not match its sha256"); stats.twinVerified = (stats.twinVerified || 0) + 1; } } catch (e) { if (/sha256/.test(String(e))) throw e; }
       tw.b64 = null;   // 4–6 MB of text the page no longer needs
       return buffer;
+    }
+    /* the cached first frame (a hub only): read it while the file travels; applied unless the worker has already delivered */
+    let coreCached = null, coreStore = null;
+    if (EMBED && !FILE && typeof indexedDB !== "undefined") {
+      idbGet("core0").then((hit) => {
+        if (disposed || !hit || hit.rev !== CORE_CACHE_REV || header || !hit.meta || !hit.lod0) return;
+        coreCached = hit; stats.fromCache = true;
+        onMessage(Object.assign({ type: "meta" }, hit.meta));
+        onMessage(Object.assign({ type: "lod" }, hit.lod0));
+      }).catch(() => {});
     }
     (async () => {
       const t = performance.now();
@@ -2158,6 +2190,21 @@
       const km = Math.max(3, Math.min(R_KM / base, ang * R_KM * 1.35 / (Math.max(120, short || Math.min(cssW, cssH)) / 2)));
       return { lon: Math.atan2(c[1], c[0]) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, c[2]))) * R2D, kmpp: km };
     }
+    /* Phase 4b: the two principal sides of a war for a card window's own labels and legend — { v, l }, each { n (the card's name for the side), lon, lat (the mean direction of its faces in the war's years, weighted by their size), members (the states tinted), extent (no state, only an authored extent: drawn as a wash, not as a border) } or null when the side has no face in those years */
+    function warSidesOf(id) {
+      const w = time.wars && time.wars[id]; if (!w || !time.faceCap) return null;
+      const out = {};
+      for (const k of ["v", "l"]) {
+        const sd = w[k]; let mx = 0, my = 0, mz = 0, wt = 0, members = 0;
+        const add = (eid) => { const ei = entityIndexOfId(eid); if (ei < 0) return false; const l = time.stepsOf.get(ei) || []; const st = l.find((q) => q[1] >= w.y[0] && q[0] <= w.y[1]); if (!st) return false; const fi = st[2], r = time.faceCap[4 * fi + 3], a = r * r + 1e-6; mx += time.faceCap[4 * fi] * a; my += time.faceCap[4 * fi + 1] * a; mz += time.faceCap[4 * fi + 2] * a; wt += a; return true; };
+        for (const m of sd.m) if (add(m[0])) members++;
+        const extent = !members && !!sd.x && add(sd.x);
+        if (!wt) { out[k] = null; continue; }
+        const len = Math.hypot(mx, my, mz) || 1;
+        out[k] = { n: sd.n, lon: Math.atan2(my, mx) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, mz / len))) * R2D, members, extent, hasExtent: !!sd.x };
+      }
+      return out;
+    }
     let pendingWar = null;
     function tryPendingWar() { if (pendingWar && time.wars && time.wars[pendingWar]) { const id = pendingWar; pendingWar = null; time.warFocus = id; computeWarShown(); refreshWars(); } }   // a deep link's war: focused where it is, without the jump to the war's first year that the card's button makes
     function frameWar(id) { const f = warFrame(id); if (f) setView(f.lon, f.lat, f.kmpp); }
@@ -2639,7 +2686,7 @@
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: () => ensureHistory(), warFrame: (id, short, share) => warFrame(id, short, share), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: () => ensureHistory(), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id) => warSidesOf(id), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {
@@ -2651,7 +2698,7 @@
           if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(p); add(e.id); } else add(e.id); } }
           else if (f && f.face != null && header && faceEntity && time.present) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(ent.id); if (ent.parent) add(ent.parent); } }
           return out;
-        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0, levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
+        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0 && (view.level >= 3 || R.levelLoaded(view.level)), levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
       stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
       forceStage, feedGesture, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
       perfOn: () => perfOn,

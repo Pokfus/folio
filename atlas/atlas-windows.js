@@ -13,19 +13,27 @@
      siblings and the collection's home square with their names, and the place's name after the reveal. Nothing about the card's content moved. */
 (function (W) {
   "use strict";
+  const mark = (n) => { try { performance.mark(n); } catch (e) {} };   // Phase 4b: named marks (a2:*) so a trace shows where a first window's time went
   function startCardWindow(host, X) {
+    mark("a2:window-start");
+    if (W.AtlasWindows) W.AtlasWindows.lastCtx = X;
+    let unhold = () => {};   // the hub is held while this window is pending (see AtlasEmbed.hold); let go at the first of: the window is mounted, it fell back to V1, it failed, it was stopped
+    if (W.AtlasEmbed && W.AtlasEmbed.hold) { const let0 = W.AtlasEmbed.hold(); unhold = () => { unhold = () => {}; let0(); }; }   // the context app.js handed over, kept so a suite can mount synthetic windows (the fit sweep of test-atlas-windows.js) through the same code
     const { CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon, startCardGlobeV1, openFromWindow } = X, S = X.S;
     const cv = host.querySelector(".mc-canvas");
     const layerName = host.getAttribute("data-map-layer"), key = host.getAttribute("data-map-key");
     const def = CARD_MAP_LAYERS[layerName];
-    const v1 = () => { stopped = true; host.classList.remove("mc-loading"); host._folioMap = null; host.setAttribute("data-map-engine", "v1"); startCardGlobeV1(host); };
+    const v1 = () => { stopped = true; unhold(); host.classList.remove("mc-loading"); host._folioMap = null; host.setAttribute("data-map-engine", "v1"); startCardGlobeV1(host); };
     let stopped = false, revealed = host.hasAttribute("data-map-named"), win = null, isReady = false;
     if (!def) { v1(); return; }
     stopped = false;
     host._folioMap = {
-      stop() { stopped = true; if (win) win.stop(); host._folioMap = null; },
+      stop() { stopped = true; unhold(); if (win) win.stop(); host._folioMap = null; },
       reveal() { revealed = true; if (win) win.schedule(); },
       ready() { return isReady; },
+      settled() { return !!(win && win.isSettled()); },
+      legend() { return lastLegend.slice(); },
+      names() { return lastNames.slice(); },   // Phase 4b: the war window's two sides as drawn on it ("Rome — victors"), for the suites and a screen-reader alternative   // Phase 4b: the engine's levels, tiles and water for THIS view are all in (ready() is the window being mounted)
       view() { return win ? { lon: win.st.lon, lat: win.st.lat, zoom: win.st.zoom, home: [win.st.home.lon, win.st.home.lat, win.st.home.zoom] } : { lon: 0, lat: 0, zoom: 1, home: [0, 0, 1] }; },
       pan(dx, dy) { if (win) win.panBy(dx, dy); },
     };
@@ -130,6 +138,54 @@
       if (mask) { a.setTransform(1, 0, 0, 1, 0, 0); a.globalCompositeOperation = "destination-in"; a.drawImage(mask, 0, 0, mask.width, mask.height, 0, 0, areaCv.width, areaCv.height); a.globalCompositeOperation = "source-over"; }
       ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(areaCv, 0, 0); ctx.restore();
     }
+    /* PHASE 4b, WAR WINDOWS: THE TWO PRINCIPAL SIDES ARE NAMED ON THE WINDOW and a one-line legend is drawn from the card's own sides (`ATLAS_WARS` carries the card's name for each: "Rome", "Carthage",
+       "Han, Zhao, Wei, Chu, Yan and Qi"). The names stand where each side stands in the war's years (the engine's `warSides`: the mean direction of the side's faces); the legend is a pill at the foot of the window:
+       a swatch in the engine's own victor / loser colour, the side's name, and — only where the card gives ONE name and the table tints several states for the side (China is the Republic of China and the Communist-led state in 1937–45) — "(2 states)": the card's own words, plus a count the table can vouch for; "and allies" was the owner's example wording and is NOT used, because nothing in the data says the extra states were allies. A side that is only an authored
+       extent (no state of the table in those years) has a hatched swatch and says "approximate extent": the wash the engine draws for it is the card's own claim, never a border. */
+    let warSides = null, warCols = null, lastLegend = [], lastNames = [];
+    const sideText = (sd) => { const n = String(sd.n || "").trim(); return sd.members > 1 && !/,| and /.test(n) ? n + " (" + sd.members + " states)" : n; };
+    function warMarks(ctx, api) {
+      if (!warSides || !warCols) return;
+      const W = api.cw, H = api.ch, css = (c, a) => "rgba(" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255)).join(",") + "," + a + ")";
+      const sides = [["v", warCols.victor, "victors"], ["l", warCols.loser, "defeated"]].filter((q) => warSides[q[0]]);
+      // the names, at the sides' centres, kept apart from each other and inside the window
+      ctx.save(); ctx.font = "600 12.5px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      const placed2 = [], named = [];
+      for (const [k] of sides) {
+        const sd = warSides[k], p = api.project(sd.lon, sd.lat); if (p[2] < 0) continue;
+        const text = String(sd.n || "").trim(); if (!text) continue;
+        const w = ctx.measureText(text).width; let x = Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, p[0])), y = Math.max(14, Math.min(H - 34, p[1]));
+        for (let tries = 0; tries < 4 && placed2.some((b) => x - w / 2 < b[2] && x + w / 2 > b[0] && y - 8 < b[3] && y + 8 > b[1]); tries++) y += 17;
+        placed2.push([x - w / 2, y - 8, x + w / 2, y + 8]);
+        ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.strokeStyle = halo; ctx.strokeText(text, x, y); ctx.fillStyle = ink; ctx.fillText(text, x, y); named.push(text);
+      }
+      lastNames = named;
+      ctx.restore();
+      // the legend: one line, at the foot, from the card's own sides
+      ctx.save(); ctx.textAlign = "left"; ctx.textBaseline = "middle";
+      let px = 11.5; ctx.font = "600 " + px + "px " + font;
+      /* four wordings, longest first; the first that fits on one line at 10 px or more is used: the full line, then without "victors / defeated" (the swatch colour and the legend under the window say it), then "approx." for
+         "approximate extent", then the names cut short — an extent's own word is the last thing to go */
+      const word = (k) => (k === "v" ? "victors" : "defeated");
+      const wording = (lvl) => sides.map(([k, c]) => { const sd = warSides[k], nm = sideText(sd); return { c, ext: sd.extent, text: nm + (sd.extent ? (lvl >= 2 ? " (approx.)" : " (approximate extent)") : "") + (lvl >= 1 ? "" : " — " + word(k)) }; });
+      const sw = 11, gap = 6, between = 14, pad = 9;
+      let parts = wording(0);
+      const total = () => parts.reduce((a, q) => a + sw + gap + ctx.measureText(q.text).width, 0) + between * Math.max(0, parts.length - 1) + pad * 2;
+      for (let lvl = 0; lvl <= 2; lvl++) { parts = wording(lvl); px = 11.5; ctx.font = "600 " + px + "px " + font; while (total() > W - 18 && px > 10) { px -= 0.5; ctx.font = "600 " + px + "px " + font; } if (total() <= W - 18) break; }
+      if (total() > W - 18) for (const q of parts) { const ext = / \(approx\.\)$/.test(q.text) ? " (approx.)" : ""; let base = q.text.replace(/ \(approx\.\)$/, ""); while (base.length > 6 && total() > W - 18) { base = base.slice(0, -2).replace(/\s+$/, ""); q.text = base + "…" + ext; } }
+      lastLegend = parts.map((q) => q.text);
+      const tw = total(), bx = 9, by = H - 9 - 22;
+      ctx.fillStyle = halo; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(bx, by, tw, 22, 11); else ctx.rect(bx, by, tw, 22); ctx.fill();
+      let x = bx + pad;
+      for (const q of parts) {
+        const y = by + 11;
+        if (q.ext) { ctx.save(); ctx.fillStyle = css(q.c, 0.18); ctx.fillRect(x, y - sw / 2, sw, sw); ctx.strokeStyle = css(q.c, 0.95); ctx.lineWidth = 1.2; ctx.setLineDash([2.5, 2]); ctx.strokeRect(x + 0.6, y - sw / 2 + 0.6, sw - 1.2, sw - 1.2); ctx.restore(); }
+        else { ctx.fillStyle = css(q.c, 0.85); ctx.fillRect(x, y - sw / 2, sw, sw); ctx.strokeStyle = "rgba(0,0,0,.35)"; ctx.lineWidth = 0.8; ctx.strokeRect(x + 0.4, y - sw / 2 + 0.4, sw - 0.8, sw - 0.8); }
+        ctx.fillStyle = ink; ctx.fillText(q.text, x + sw + gap, y + 0.5);
+        x += sw + gap + ctx.measureText(q.text).width + between;
+      }
+      ctx.restore();
+    }
     function marks(st, api, ctx) {
       cols();
       ctx.save(); ctx.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
@@ -203,6 +259,7 @@
         }
       }
       ctx.beginPath(); ctx.arc(api.cx, api.cy, api.radius, 0, Math.PI * 2); ctx.strokeStyle = "rgba(0,0,0,0.28)"; ctx.lineWidth = 1; ctx.stroke();
+      if (isWar) warMarks(ctx, api);
       if (revealed) {
         const at = locLabelPt && locLabelPt.length ? locLabelPt[0] : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })() : dot ? dot.c : targets.length ? targets[0].c : null;
         if (at && nm0 && !(locKind === "river" && ownRiver)) {
@@ -212,11 +269,16 @@
       }
       ctx.restore();
     }
+    /* the hub is created as soon as the engine's two bundles are in — in parallel with the card-faces join and the rest, not after them (Phase 4b: it was 45 ms of a warm first window) */
+    const hubP = Promise.all([need[0], need[1]]).then((ok) => (ok.every(Boolean) && window.AtlasEmbed ? window.AtlasEmbed.ensure(hubOptions) : null));
+    hubP.then((hub) => { if (hub && stopped && window.AtlasEmbed) window.AtlasEmbed.release(); }).catch(() => {});   // the card was left before its window mounted: the hub it asked for must not outlive the idle time
     Promise.all(need).then((ok) => {
+      mark("a2:window-data");
       if (stopped) return;
       if (!ok.every(Boolean) || !window.AtlasEmbed) { v1(); return; }
-      if (!model()) { host.classList.remove("mc-loading"); host.classList.add("mc-failed"); return; }
-      return window.AtlasEmbed.ensure(hubOptions).then((hub) => {
+      if (!model()) { unhold(); host.classList.remove("mc-loading"); host.classList.add("mc-failed"); return; }
+      return hubP.then((hub) => {
+        mark("a2:window-hub");
         if (stopped) return;
         if (!hub) { v1(); return; }
         let warYear = null;
@@ -227,15 +289,16 @@
           hub.startHistory();
           return new Promise((res) => {
             let done = false; const fin = (ok) => { if (done) return; done = true; off(); clearTimeout(tm); res(ok); };
-            const off = hub.onChange(() => { if (hub.historyOK()) fin(true); }), tm = setTimeout(() => fin(false), 90000);
+            const off = hub.onChange(() => { if (hub.historyOK()) fin(true); }), tm = setTimeout(() => fin(false), 150000);
             if (hub.historyOK()) fin(true);
-          }).then((ok) => { if (stopped) return; if (!ok) { v1(); return; } mountWindow(hub, warYear); });
+          }).then((ok) => { if (stopped) return; if (!ok) { v1(); return; } { const sd = hub.warSides(sibCard); if (!sd || (!sd.v && !sd.l)) { v1(); return; } } mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
         }
         mountWindow(hub, null);
       });
-    }).catch(() => { if (!stopped) v1(); });
+    }).catch(() => { unhold(); if (!stopped) v1(); });
     function mountWindow(hub, warYear) {
         host.classList.remove("mc-loading"); host.setAttribute("data-map-engine", "v2");
+        if (isWar) { try { warSides = hub.warSides(sibCard); warCols = hub.warColours(); } catch (e) { warSides = null; } }
         fit();
         if (isWar) {
           const cr = cv.getBoundingClientRect(), short = Math.max(1, Math.min(cr.width, cr.height)), f = hub.warView(sibCard, short, 0.45);   // 0.45: half of a face's bounding cap counts, so a polity with far islands does not frame the planet
@@ -251,7 +314,9 @@
           draw: (st, api, ctx) => marks(st, api, ctx),
           onTap: () => { if (key && !revealed) return; openFromWindow(host, sibCard); },
         });
+        mark("a2:window-mounted");
         win.setHome(home.lon, home.lat, home.zoom); win.setView(home.lon, home.lat, home.zoom);
+        unhold();   // the window is in AtlasEmbed's `windows` now: it holds the hub itself
         host.querySelectorAll(".mc-btn").forEach((b) => b.addEventListener("click", (e) => {
           e.stopPropagation(); const w = b.getAttribute("data-mc");
           if (w === "home") win.goHome(); else if (w === "in") win.zoomBy(1.45); else if (w === "out") win.zoomBy(1 / 1.45);

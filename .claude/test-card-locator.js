@@ -56,9 +56,12 @@ const base = require("url").pathToFileURL(require("path").join(__dirname, "..", 
    to the ocean-colour test above. `addInitScript` survives the reloads these sections do. */
 const IS_WATER = "window.isWater = (d, i) => d[i + 2] - d[i] > 25 && d[i + 2] > 120;";
 let pass = 0, fail = 0;
-const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? "  " + x : "")); } else { fail++; console.log("FAIL  " + n + "  " + (x || "")); } };
+/* FOLIO_ENGINE=v2 (test-engine-switch.js) runs this suite on the Atlas v2 engine's windows. These rows assert V1's own MECHANISM — its idle-fetched `CITIES` / `RIVERS` bundles, the `HIRES_RIVER` and `HIRES_COAST` frames' globals, the pixel
+   delta of emptying them — which the engine does not have; each has an engine twin in test-atlas-windows.js (docs/atlas-v2-card-windows.md, "Every V1 window assertion and where it went"). They are skipped, by name, on the engine only. */
+const V1_MECHANISM = [/^the cities and rivers arrive at idle/, /^\.\.\.fetched, not bundled into the eager path/, /^the collection's map draws the Atlas's rivers/, /^the Italian frame carries its own rivers/, /^\.\.\.at a resolution rivers\.js has not got/, /^\.\.\.every one it supersedes is really in rivers\.js/, /^\.\.\.and no river is drawn over itself/, /^\.\.\.and the map really draws it/, /^a Russia locator warms its own hi-res coast/, /^\.\.\.fetched at idle rather than bundled/, /^\.\.\.and it draws the Atlas's rivers, which needed no file of its own/];
+const check = (n, ok, x) => { if (require("./test-engine-switch.js").v2() && V1_MECHANISM.some((rx) => rx.test(n))) { console.log("skip  " + n + "  (V1's mechanism; the engine's twin is in test-atlas-windows.js)"); return; } if (ok) { pass++; console.log("ok    " + n + (x ? "  " + x : "")); } else { fail++; console.log("FAIL  " + n + "  " + (x || "")); } };
 (async () => {
-  const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
+  const browser = await require("./test-engine-switch.js").launch(chromium, { executablePath: process.env.FOLIO_CHROMIUM });
   const errs = [], asked = [];
   const page = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
   await page.addInitScript(IS_WATER);

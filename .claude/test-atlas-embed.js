@@ -215,6 +215,8 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     check("Clear withdraws the pick (Guess and Clear are hidden again)", (await page.isHidden("#mgConfirm")) && (await page.isHidden("#mgClear")));
     await tapCentre(); await page.click("#mgConfirm"); await sleep(500);
     check("the country under the tap is scored by the ID pass: found on the first try", /Found it — first try!/.test(await page.textContent("#mgFeedback")) && (await page.textContent("#mgScore")) === "1 found", await page.textContent("#mgFeedback"));
+    /* Phase 4b (the v1 Find-it rows with no engine twin): a round ends on something learned — a country on its own panel (a link to its card on the Atlas), and the Next button is the way on */
+    check("a country round ends on the country's own panel, with a way to its place on the Atlas", (await page.isVisible(".fi2-reveal-head")) && (await page.$$(".fi2-reveal-go")).length >= 1 && (await page.isVisible("#mgNext")), await page.evaluate(() => (document.querySelector("#fiReveal") || {}).textContent));
     await page.click("#mgNext"); await sleep(600);
     // round 2: an area round — the board is the year's states; a tap at the area's own centre in that year
     const r2 = (await page.evaluate(() => { const h = [...document.querySelectorAll("*")].find((e) => e._finditApi); const r = h._finditApi.rounds()[1]; return { lon: r.lon, lat: r.lat, slugs: r.slugs, shown: r.shown, n: r.n }; }));
@@ -223,6 +225,8 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     const fb2 = await page.textContent("#mgFeedback");
     check("a state of the year is judged (found, or \"N km away\" with one more try)", /Found it|km away|Not there/.test(fb2), fb2);
     if (/km away|Not there/.test(fb2)) { await tapCentre(); await page.click("#mgConfirm"); await sleep(600); }
+    check("a state or people ends on its study card(s): the panel lists cards, each a link to the card's own address", (await page.$$(".fi2-reveal-cards a.cp-cardlink")).length >= 1 || (await page.$$(".fi2-reveal-go")).length >= 1, await page.evaluate(() => (document.querySelector("#fiReveal") || {}).textContent));
+    check("...and after two tries there is no third: Next is showing and Guess is gone", (await page.isVisible("#mgNext")) && (await page.isHidden("#mgConfirm")));
     await page.click("#mgNext"); await sleep(600);
     // round 3: a country — a wrong tap (Egypt, for Libya) says how far, a right one second time counts
     const r3 = v2r[2], c3 = faces[r3.n];
@@ -244,6 +248,7 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     check("round 5 is the place", r5.r && r5.r.kind === "point", JSON.stringify(r5.r && r5.r.n));
     await viewTo(r5.r.lon, r5.r.lat, 6); await tapCentre(); await page.click("#mgConfirm"); await sleep(500);
     check("a place is scored by distance: a tap on it is found", /Found it/.test(await page.textContent("#mgFeedback")), await page.textContent("#mgFeedback"));
+    check("a place ends on its cards too (each a link to the card's own address)", (await page.$$(".fi2-reveal-cards a.cp-cardlink")).length >= 1, await page.evaluate(() => (document.querySelector("#fiReveal") || {}).textContent));
     await page.click("#mgNext"); await sleep(600);
     const q = await page.textContent("#mgQ");
     check("the day ends on a score line, and Find it is then locked until tomorrow", /\d \/ 5\s*found/.test(q.replace(/\s+/g, " ")) || /found/.test(q), q);
