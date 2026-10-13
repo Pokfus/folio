@@ -146,6 +146,26 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
     for (let k = 0; k < 2; k++) { await send("touchStart", [{ x: tx, y: ty, id: 1 }]); await sleep(40); await send("touchEnd", []); await sleep(k ? 400 : 120); }
     const z1 = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.view.zoom);
     check("a double tap zooms in about the tap", z1 > z0 * 1.8 && z1 < z0 * 2.2, `zoom ${z0.toFixed(2)} → ${z1.toFixed(2)}`);
+    // Phase 4c, task 0a: a label is whole and clear of every control WHILE the map moves (the owner's phone: "ille" for Lille, "Essen" under the ? button),
+    // in the light and the dark theme: six drags, every live label read mid-gesture and at release, before the layout the release asks for
+    for (const night of [false, true]) {
+      await page.evaluate((n) => { document.body.dataset.theme = "folio"; document.body.classList.toggle("night", n); }, night); await sleep(200);
+      const drawn = () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, b = document.querySelector(".atlas2-canvas").getBoundingClientRect(), ch = c.chromeRects(), bad = []; let n = 0;
+        for (const e of c.labelsLive()) { n++; for (const q of e.p.rects) { const r = [q[0] + e.dx, q[1] + e.dy, q[2] + e.dx, q[3] + e.dy];
+          if (r[0] < 0 || r[1] < 0 || r[2] > b.width || r[3] > b.height) bad.push((e.p.text || e.p.id) + " leaves the frame"); else if (ch.some((k) => r[0] < k[2] && r[2] > k[0] && r[1] < k[3] && r[3] > k[1])) bad.push((e.p.text || e.p.id) + " under a control"); } }
+        return { n, bad, lon: c.view.lon }; });
+      const gx = box.x + box.width / 2, gy = box.y + box.height / 2; let total = 0, moved = false; const bad = [];
+      for (const [mx, my] of [[-90, 0], [90, 0], [0, -120], [0, 120], [-60, 80], [70, -90]]) {
+        await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(5.67, 51.2, 1.2)); await sleep(300);
+        await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(100);
+        const lon0 = (await drawn()).lon;
+        await send("touchStart", [{ x: gx, y: gy, id: 1 }]);
+        for (let i = 1; i <= 8; i++) { await send("touchMove", [{ x: gx + mx * i / 8, y: gy + my * i / 8, id: 1 }]); await sleep(16); }
+        const mid = await drawn(); await send("touchEnd", []); const end = await drawn();
+        if (Math.abs(mid.lon - lon0) > 1e-6) moved = true; total += mid.n + end.n; bad.push(...mid.bad, ...end.bad); await sleep(300);
+      }
+      check(`${V.name}, ${night ? "dark" : "light"}: six drags over the Benelux — ${total} live labels, none leaves the frame or lies under a control`, moved && total > 40 && bad.length === 0, bad.slice(0, 4).join("; ") || `${total} read`);
+    }
     check("no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
     await context.close();
   }

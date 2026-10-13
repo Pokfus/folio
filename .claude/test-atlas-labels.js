@@ -273,6 +273,37 @@ async function inkInBoxes(page, placed) {
   await P.page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:deu", { open: true, push: false })); await sleep(300);
   await chromeChecks(P.page, "phone, central Europe with Germany's card strip open", { lon: 13.4, lat: 51.5, k: 3 }, "dense");
   await P.page.keyboard.press("Escape"); await sleep(150);
+  /* ---- Phase 4c, task 0a: a label is whole and clear of the controls WHILE the map moves, not only when it settles ---- */
+  console.log("\n\x1b[1m11) labels stay whole and clear of the controls during a drag (the owner's phone: \"ille\" for Lille, \"Essen\" under the ? button)\x1b[0m\n");
+  for (const [width, night] of [[390, true], [390, false], [360, true], [360, false]]) {
+    const pg = P.page; await pg.setViewportSize({ width, height: 844 }); await sleep(300);
+    await pg.evaluate((n) => document.body.classList.toggle("night", n), night); await sleep(200);
+    const cdp = await pg.context().newCDPSession(pg);
+    const send = (type, touchPoints) => cdp.send("Input.dispatchTouchEvent", { type, touchPoints });
+    // what is DRAWN and tappable right now: every live label's rectangles at their present place, against the frame and the controls
+    const drawn = () => pg.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, b = document.querySelector(".atlas2-canvas").getBoundingClientRect(), ch = c.chromeRects(), bad = []; let n = 0;
+      for (const e of c.labelsLive()) { n++; for (const q of e.p.rects) { const r = [q[0] + e.dx, q[1] + e.dy, q[2] + e.dx, q[3] + e.dy];
+        if (r[0] < 0 || r[1] < 0 || r[2] > b.width || r[3] > b.height) bad.push((e.p.text || e.p.id) + " leaves the frame"); else if (ch.some((k) => r[0] < k[2] && r[2] > k[0] && r[1] < k[3] && r[3] > k[1])) bad.push((e.p.text || e.p.id) + " under a control"); } }
+      return { n, bad, lon: c.view.lon }; });
+    const label = `phone ${width}×844 ${night ? "dark" : "light"}`;
+    for (const V of [{ lon: 5.67, lat: 51.2, k: 1.2 }, { lon: 13.4, lat: 51.5, k: 3 }]) {
+      await layoutAt(pg, V, "dense");
+      const box = await (await pg.$(".atlas2-canvas")).boundingBox(); const sx = box.x + box.width / 2, sy = box.y + box.height / 2;
+      let worst = 0, total = 0, moved = false; const bad = [];
+      for (const [mx, my] of [[-90, 0], [90, 0], [0, -120], [0, 120], [-60, 80], [70, -90]]) {
+        await layoutAt(pg, V, "dense");
+        const lon0 = (await drawn()).lon;
+        await send("touchStart", [{ x: sx, y: sy, id: 1 }]);
+        for (let i = 1; i <= 8; i++) { await send("touchMove", [{ x: sx + mx * i / 8, y: sy + my * i / 8, id: 1 }]); await sleep(16); }
+        const mid = await drawn(); await send("touchEnd", []); const end = await drawn();   // the second read is before the layout the release asks for
+        if (Math.abs(mid.lon - lon0) > 1e-6) moved = true;
+        total += mid.n + end.n; worst = Math.max(worst, mid.bad.length, end.bad.length); bad.push(...mid.bad, ...end.bad);
+        await sleep(400);
+      }
+      check(`${label}, ${V.lon}°, ${V.lat}° at ${V.k} km/px: six drags — ${total} live labels read mid-gesture and at release, none leaves the frame or lies under a control`, moved && total > 40 && bad.length === 0, bad.slice(0, 4).join("; ") || `${total} read`);
+    }
+    await cdp.detach();
+  }
   /* ---- Phase 3a, task 0a: a large polity's name outranks the capital markers inside it ---- */
   console.log("\n\x1b[1m9) a large polity's name outranks the capital markers inside it (the history loaded)\x1b[0m\n");
   async function withHistory(pg) {

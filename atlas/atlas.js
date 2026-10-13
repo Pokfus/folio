@@ -1809,7 +1809,8 @@
       plan();
       const seq = ++layoutSeq;
       L.sentAt = performance.now();
-      postToWorker({ type: "layout", seq, reason, chrome: chromeRects(), year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
+      L.chrome = chromeRects();   // kept for the painter: between layouts a label that slid under a control or past the frame is not drawn (Phase 4c)
+      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
       if (reason === "settle" || reason === "level") writeHash(false);
     }
     function applyLayout(m) {
@@ -1895,6 +1896,22 @@
     }
     /* every frame: each placed label at its anchor's CURRENT position (a translation — the layout is only
        recomputed on settle), skipped behind the horizon, faded near the limb; the live hit rects are kept */
+    /* A LABEL IS ALWAYS WHOLE AND CLEAR OF THE CONTROLS (Phase 4c; the owner's phone showed "ille" for Lille, "Strasbour", and Essen under the "?"
+       button). The layout puts every label inside the frame and off every control — but only when the view settles; during a drag, a
+       wheel or a pinch each label is drawn at its layout position plus the pan since, so it slid out under the frame's edge and under
+       the chrome until the next layout landed. The rule the layout applies is applied again here, to the label's rectangles at their
+       CURRENT place: one that no longer fits wholly inside the frame, or touches a control (the rectangles of the last layout), is not
+       drawn this frame and cannot be tapped — dropped, never clipped or covered; the next layout brings the right ones back. */
+    function labelFits(p, dx, dy) {
+      const rs = p.rects; if (!rs) return true;
+      const ch = L.chrome || [];
+      for (let i = 0; i < rs.length; i++) {
+        const q = rs[i], x0 = q[0] + dx, y0 = q[1] + dy, x1 = q[2] + dx, y1 = q[3] + dy;
+        if (x0 < 0 || y0 < 0 || x1 > cssW || y1 > cssH) return false;
+        for (let j = 0; j < ch.length; j++) { const c = ch[j]; if (x0 < c[2] && x1 > c[0] && y0 < c[3] && y1 > c[1]) return false; }
+      }
+      return true;
+    }
     function drawLabels() {
       const t = performance.now();
       const ctx = lctx;
@@ -1910,6 +1927,7 @@
         if (z < 0.005) continue;
         const sx = cx + (rot[0] * a[0] + rot[1] * a[1] + rot[2] * a[2]) * r, sy = cy - (rot[3] * a[0] + rot[4] * a[1] + rot[5] * a[2]) * r;
         const dx = sx - p.sx, dy = sy - p.sy;
+        if ((dx || dy) && !labelFits(p, dx, dy)) continue;
         ctx.globalAlpha = Math.min(1, z / 0.2) * (muteOthers && !p.st ? 0.4 : 1);   // the Personal Atlas mutes everything that is not the reader's (Phase 3b)
         if (p.marker) drawMarker(ctx, p.marker[0] + dx, p.marker[1] + dy, p.marker[2], p.marker[3], p.id === sel.id, p);
         if (p.sprite) ctx.drawImage(p.sprite.c, p.sprite.x0 + dx, p.sprite.y0 + dy, p.sprite.w, p.sprite.h);
