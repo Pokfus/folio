@@ -15269,7 +15269,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the hold belongs to the trip between the study page and the editor; going anywhere else ends it
     if (name !== "admin" && name !== "study") studyHold = null;
     // …and the atlas hold to the trip between the study page and the Atlas
-    if (name !== "map" && name !== "study") { atlasHold = null; atlasFocus = null; }
+    if (name !== "map" && name !== "map2" && name !== "study") { atlasHold = null; atlasFocus = null; }   // map2 (Phase 4b): a card window's tap or go button leaves the study page for the engine's Atlas and Back returns to the card
     // the Atlas opens on the reader's own atlas every time — see the note beside `atlasTab`
     if (name === "map") atlasTab = "mine";
     /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
@@ -35803,6 +35803,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const v = host._folioMap.view(), cv0 = host.querySelector(".mc-canvas"), base0 = 0.46 * Math.min(cv0.clientWidth || 300, cv0.clientHeight || 220);
     const kmpp = 6371.0088 / (Math.max(1, base0) * v.zoom), zl = Math.max(0, Math.min(18, Math.log2(156.543 / kmpp)));
     const yr = host.getAttribute("data-map-year");
+    atlasHold = readStudySession(); atlasFocus = null;   // the study session (card, queue, whether the answer was showing) is captured BEFORE routing, which clears it — exactly as the v1 go button does
     route("map2", { hash: "map2/" + v.lon.toFixed(2) + "/" + v.lat.toFixed(2) + "/" + zl.toFixed(2) + (yr ? "?y=" + encodeURIComponent(yr) + (id && host.classList.contains("map-war") ? "&war=" + encodeURIComponent(id) : "") : "") });
     return true;
   }
@@ -35814,7 +35815,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!atlas2Preview() || !host.querySelector(".mc-canvas")) { host.setAttribute("data-map-engine", "v1"); return startCardGlobeV1(host); }
     let stopped = false, revealed = host.hasAttribute("data-map-named");
     host.classList.add("mc-loading");
-    host._folioMap = { stop() { stopped = true; host._folioMap = null; }, reveal() { revealed = true; }, ready() { return false; }, view() { return { lon: 0, lat: 0, zoom: 1, home: [0, 0, 1] }; }, pan() {} };   // until the engine's bundle lands
+    host._folioMap = { stop() { stopped = true; host._folioMap = null; }, reveal() { revealed = true; }, ready() { return false; }, settled() { return false; }, view() { return { lon: 0, lat: 0, zoom: 1, home: [0, 0, 1] }; }, pan() {} };   // until the engine's bundle lands
     ensureData("atlas2embed").then((ok) => {
       if (stopped) return;
       host._folioMap = null; host.classList.remove("mc-loading");
@@ -46681,7 +46682,9 @@ let prev = null;
       seenPlace: (name) => !!(S.placesSeen && S.placesSeen[name]),
       discover: (name) => markSeen("placesSeen", name),
     };
-    const atlas = window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion, study: studyHost } });
+    /* "Back to studying" (Phase 4b): present only when a card window's tap or go button brought the reader here from a study session (`atlasHold`) — it is `#atlasBack`'s handler exactly */
+    const backHost = atlasHold ? () => { const rec = atlasHold; atlasHold = null; atlasFocus = null; if (!rec) { route("home"); return; } writeStudySession(rec); route("study", { scope: rec.scope, resume: rec }); } : null;
+    const atlas = window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion, study: studyHost, back: backHost } });
     if (current.params && current.params.place && atlas && atlas.showPlace) atlas.showPlace(current.params.place);   // the glossary popup's button (Phase 3c)
   };
   /* SOURCES AND CREDITS (Oct 2026, Atlas v2 Phase 1d — the phase's one reader-visible change; docs/atlas-v2-design.md §2.10a).
@@ -53605,7 +53608,13 @@ let prev = null;
   /* Phase 4, Stage A: behind the preview switch the card windows and Find-it run on the engine, so the engine is warmed at idle — its code bundle, the card-faces join, and topology.bin (3 MB, into the HTTP
      cache, so the first window does not wait on the network) — and never awaited. Light mode (the reader's "use less data" or the browser's save-data hint) skips the warm, exactly as it skips the other
      warms: the first window then pays for the engine when it is shown. */
-  whenIdle(() => { if (atlas2Preview() && !lightMode()) { ensureData("atlas2"); ensureData("atlas2embed"); ensureData("atlas2cards"); try { fetch("atlas/data/topology.bin", { priority: "low" }).catch(() => {}); } catch (e) {} } });
+  whenIdle(() => {
+    /* Phase 4b: the preview's engine is warmed at idle — the bytes (as before) AND the hub itself (the worker parses topology.bin and builds the coarse levels while the reader reads), so the first
+       window the reader meets is a draw and not a parse. Not under lightMode() (the reader asked for less data); the hub is disposed again after a minute with no window. */
+    if (!atlas2Preview() || lightMode()) return;
+    Promise.all([ensureData("atlas2"), ensureData("atlas2embed")]).then((ok) => { if (ok.every(Boolean) && window.AtlasEmbed && window.AtlasEmbed.warm && !lightMode()) window.AtlasEmbed.warm({ host: {} }, 60000); });
+    ensureData("atlas2cards");
+  });
   whenIdle(() => { storagePersistAsk(false); });   // see KEEPING THE READER'S DATA
   /* …and the heavy half of the cards in the collections this reader actually studies. Per
      collection, so a reader with two decks warms two files and a reader with none warms nothing
@@ -53856,8 +53865,9 @@ let prev = null;
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
-      const rec = readStudySession();
-      if (rec) route("study", { scope: rec.scope, resume: rec }); else route("home");
+      const rec = readStudySession() || atlasHold;   // …or the session a card window's tap left behind (Phase 4b)
+      atlasHold = null;
+      if (rec) { writeStudySession(rec); route("study", { scope: rec.scope, resume: rec }); } else route("home");
       return;
     }
     // `#community` is a retired address kept alive: its list is a section of the Collections page now, and

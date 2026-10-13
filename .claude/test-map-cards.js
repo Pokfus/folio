@@ -312,6 +312,7 @@ async function browserChecks(page) {
      inside startCardGlobe's closure with no way in from outside. A copy is exactly the thing this file's
      own header warns about, so the copy is PINNED: the three expressions it depends on are grepped out of
      app.js first, and a change to any of them fails here instead of leaving a stale formula passing. */
+  if (!require("./test-engine-switch.js").v2()) {   // FOLIO_ENGINE=v2: see the else below
   const appSrc = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
   const pin = (re, what) => { ok(re.test(appSrc), "the fit sweep is still pinned to app.js: " + what); };
   pin(/const span = Math\.max\(y1 - y0, \(x1 - x0\) \* Math\.cos\(homeLat \* CMAP_DEG\), 0\.2\);/, "the span");
@@ -355,6 +356,7 @@ async function browserChecks(page) {
   const capped = calc.filter((c) => c.zoom >= ZMAX - 1e-9).map((c) => c.n);
   console.log("  (at the zoom ceiling: " + (capped.join(", ") || "none") + ")");
   ok(capped.length <= 1, "at most one entry needs more zoom than the polygons support", capped.join(", "));
+  } else console.log("  (the V1 fit sweep copies a formula over window.US_STATES, which the engine path never loads: the engine's fit is swept through the real windows by test-atlas-windows.js section 6)");
 
   sect("4. the map is a map: it turns, it zooms, and it selects nothing");
   await study("geo-004");   // Rhode Island — the deepest ordinary zoom in the deck
@@ -618,7 +620,7 @@ async function browserChecks(page) {
 (async () => {
   staticChecks();
   const server = await serve();
-  const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
+  const browser = await require("./test-engine-switch.js").launch(chromium, { executablePath: process.env.FOLIO_CHROMIUM || undefined });
   const page = await browser.newPage({ viewport: { width: 420, height: 900 } });
   try { await browserChecks(page); } finally {
     await browser.close();

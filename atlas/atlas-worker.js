@@ -70,6 +70,11 @@
      whenever more than Y.every ms have passed since the last one, which hands the event loop a frame and lets the
      progress bar move. The functions are async either way: one code path, one set of bugs. */
   const Y = { shim: false, last: 0, every: 40, progress: null };
+  /* PHASE 4b — WHAT A CARD WINDOW WAITS FOR. The levels (LOD 2 is ~3 s of triangulation) are built in one go, and a message that arrived meanwhile — the history file a war window needs, 9 MB — waited behind them. In a
+     Worker the load now yields every few faces and between levels (a macrotask, so the queue is read): `history*` messages run AT ONCE, at the next yield; every other message (the water, the tiles, the layout) is
+     held until the levels are in, exactly the order it always had. `LOADING` / `HELD` are that rule; the shim (file://) keeps `tick`. */
+  let LOADING = false; const HELD = [];
+  const yieldNow = () => (Y.shim ? null : new Promise((r) => setTimeout(r, 0)));
   function tick(text, frac) { if (!Y.shim) return null; const t = now(); if (t - Y.last < Y.every) return null; Y.last = t; if (Y.progress && text) Y.progress(text, frac); return new Promise((r) => setTimeout(r, 0)); }
   const D2R = Math.PI / 180;
   const KIND_RIVER = 2, KIND_LAKE = 3;
@@ -526,6 +531,33 @@
     return { faceIdx: out, faceRange: range, faceCap: cap };
   }
 
+  /* THE DRAW ORDER OF OVERLAPPING FACES (Phase 4b, the selected-state holes). The core holds a country's face AND its admin-1 children's (the United States, China and Russia: 173 of the 430 faces), overlapping, and the
+     renderer has no depth buffer: the later triangle wins. A selected state's colour is on ITS face, so wherever a bucket holding a country triangle was drawn after the state's own, the country's land colour
+     covered it — holes in Colorado, Texas. The buckets are spatial and a coarse triangle is filed under its centroid, so no order WITHIN a bucket can fix that; the fix is a list order: the children's
+     triangles are a second bucketed list after the parents', drawn after every parent triangle (the segments' own two-list layout for admin-1 arcs). The triangles are the same ones, so the primitive budgets do
+     not move; the renderer draws `faceRange` then `faceRangeA1`, and the 2D canvas fallback, which paints the index list in order, gets the same order for free. `CHILD_FACE[core face id]` is 1 for an admin-1 face. */
+  let CHILD_FACE = null;
+  function childFaces() {
+    if (CHILD_FACE || !CORE) return CHILD_FACE;
+    const T = CORE.T, ents = T.header.entities, c = new Uint8Array(T.faces.length); let any = 0;
+    for (let f = 0; f < T.faces.length; f++) if (ents[T.faces[f].entity] && ents[T.faces[f].entity].kind === "admin1") { c[f] = 1; any++; }
+    return (CHILD_FACE = any ? c : null);
+  }
+  async function bucketFaces(pos, idx, bucketer) {
+    const child = childFaces();
+    if (!child) return bucketTriangles(pos, idx, bucketer);
+    const n = idx.length / 3; let nc = 0;
+    for (let t = 0; t < n; t++) { if (child[pos[4 * idx[3 * t] + 3]]) nc++; if ((t & 0x3ffff) === 0x3ffff) await tick(); }
+    if (!nc) return bucketTriangles(pos, idx, bucketer);
+    const main = new Uint32Array((n - nc) * 3), kid = new Uint32Array(nc * 3); let m = 0, k = 0;
+    for (let t = 0; t < n; t++) { const a = idx[3 * t], b = idx[3 * t + 1], c = idx[3 * t + 2]; if (child[pos[4 * a + 3]]) { kid[k++] = a; kid[k++] = b; kid[k++] = c; } else { main[m++] = a; main[m++] = b; main[m++] = c; } if ((t & 0x3ffff) === 0x3ffff) await tick(); }
+    const M = n === nc ? null : await bucketTriangles(pos, main, bucketer), K = await bucketTriangles(pos, kid, bucketer);
+    if (!M) return K;
+    const faceIdx = new Uint32Array(idx.length); faceIdx.set(M.faceIdx); faceIdx.set(K.faceIdx, M.faceIdx.length);
+    const off = M.faceIdx.length; for (let b = 0; b < K.faceRange.length; b += 2) K.faceRange[b] += off;
+    return { faceIdx, faceRange: M.faceRange, faceCap: M.faceCap, faceRangeA1: K.faceRange, faceCapA1: K.faceCap };
+  }
+
   // one message in; the heavy handlers are async (see `tick`) and a thrown error becomes an error message
   function handle(msg, post) {
     const guard = (p, what) => { if (p && typeof p.catch === "function") p.catch((err) => post({ type: "error", message: what + String(err && err.message || err) })); return p; };
@@ -549,6 +581,11 @@
     return null;
   }
   async function handleLoad(msg, post) {
+    LOADING = true;
+    try { await loadLevels(msg, post); }
+    finally { LOADING = false; while (HELD.length) { const m = HELD.shift(); try { handle(m, post); } catch (err) { post({ type: "error", message: String(err && err.stack || err) }); } } }
+  }
+  async function loadLevels(msg, post) {
     const t0 = now();
     let T;
     try { T = await readTopology(msg.buffer); }
@@ -569,13 +606,14 @@
       await tick("Shaping the land…", 0.35 + 0.5 * level / T.lodCount);
       const sink = Sink();
       let tris = 0;
-      for (let i = 0; i < nF; i++) { tris += await triangulateFace(T, pos, T.faces[i], i, level, sink); if ((i & 7) === 7) await tick(level === 0 ? "Shaping the land…" : "Adding detail…", 0.35 + 0.5 * (level + 0.6 * i / nF) / T.lodCount); }
+      for (let i = 0; i < nF; i++) { tris += await triangulateFace(T, pos, T.faces[i], i, level, sink); if ((i & 7) === 7) await (tick(level === 0 ? "Shaping the land…" : "Adding detail…", 0.35 + 0.5 * (level + 0.6 * i / nF) / T.lodCount) || (level > 0 && (i & 15) === 15 ? yieldNow() : null)); }
       const F = sink.result();
-      const S = await bucketSegments(raw), B = await bucketTriangles(F.pos, F.idx);
+      const S = await bucketSegments(raw), B = await bucketFaces(F.pos, F.idx);
       const s = { level, segments: raw.length / 7, faceVertices: F.vertices, triangles: F.triangles, ms: Math.round(now() - t1) };
       stats.levels.push(s);
-      post({ type: "lod", level, segs: S.segs, segRange: S.segRange, segCap: S.segCap, segRangeA1: S.segRangeA1, segCapA1: S.segCapA1, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, buckets: BUCKETS, stats: s },
-        [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, S.segRangeA1.buffer, S.segCapA1.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer]);
+      post({ type: "lod", level, segs: S.segs, segRange: S.segRange, segCap: S.segCap, segRangeA1: S.segRangeA1, segCapA1: S.segCapA1, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, faceRangeA1: B.faceRangeA1 || null, faceCapA1: B.faceCapA1 || null, buckets: BUCKETS, stats: s },
+        [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, S.segRangeA1.buffer, S.segCapA1.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer].concat(B.faceRangeA1 ? [B.faceRangeA1.buffer, B.faceCapA1.buffer] : []));
+      await yieldNow();   // a history message that came in during this level runs before the next
     }
     stats.totalMs = Math.round(now() - t0);
     post({ type: "done", stats, rebuild: !!msg.rebuild });
@@ -1364,15 +1402,15 @@
     for (let i = 0; i < T.faces.length; i++) { const coreFace = T.faceRef ? T.faceRef[i] : i; tris += await triangulateFace(T, pos, T.faces[i], coreFace, chordLevel, sink); }
     const F = sink.result();
     const bucketer = tileBucketer(tile);
-    const S = await bucketSegments(raw, bucketer), B = await bucketTriangles(F.pos, F.idx, bucketer);
+    const S = await bucketSegments(raw, bucketer), B = await bucketFaces(F.pos, F.idx, bucketer);
     const stats = { key: msg.key, z: level, segments: raw.length / 7, faceVertices: F.vertices, triangles: F.triangles, ms: Math.round(now() - t0), bytes: msg.buffer.byteLength };
-    post({ type: "tile", key: msg.key, tile, segs: S.segs, segRange: S.segRange, segCap: S.segCap, segRangeA1: S.segRangeA1, segCapA1: S.segCapA1, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, buckets: bucketer.count, stats },
-      [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, S.segRangeA1.buffer, S.segCapA1.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer]);
+    post({ type: "tile", key: msg.key, tile, segs: S.segs, segRange: S.segRange, segCap: S.segCap, segRangeA1: S.segRangeA1, segCapA1: S.segCapA1, facePos: F.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, faceRangeA1: B.faceRangeA1 || null, faceCapA1: B.faceCapA1 || null, buckets: bucketer.count, stats },
+      [S.segs.buffer, S.segRange.buffer, S.segCap.buffer, S.segRangeA1.buffer, S.segCapA1.buffer, F.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer].concat(B.faceRangeA1 ? [B.faceRangeA1.buffer, B.faceCapA1.buffer] : []));
   }
   function now() { return (typeof performance !== "undefined" ? performance.now() : Date.now()); }
 
   if (IN_WORKER) {
-    root.onmessage = (e) => { try { handle(e.data, (m, tr) => root.postMessage(m, tr || [])); } catch (err) { root.postMessage({ type: "error", message: String(err && err.stack || err) }); } };
+    root.onmessage = (e) => { const m = e.data; if (LOADING && m && !/^history/.test(m.type)) { HELD.push(m); return; } try { handle(m, (a, tr) => root.postMessage(a, tr || [])); } catch (err) { root.postMessage({ type: "error", message: String(err && err.stack || err) }); } };
   } else {
     // main-thread shim (file://, or a worker that failed to start): the same handler, called directly, yielding every
     // Y.every ms (see `tick`); the caller supplies `post` and may supply `progress(text, frac)` for its status line

@@ -162,6 +162,10 @@ jobs:
       # engine's entity table and the cards build, and that every map card's layer, keys and dot resolve to an engine entity. Offline.
       - name: build-card-faces --check (Atlas v2, the map cards' faces)
         run: node .claude/atlas-build/build-card-faces.js --check
+      # THE CARD WINDOWS' FIRST-FRAME CACHE (Oct 2026, Atlas v2 Phase 4b): check-core-cache.js proves CORE_CACHE_REV in atlas/atlas.js is what the worker, the format reader,
+      # earcut and topology.bin's build id make, so a hub never draws a cached first level that an edit to any of them has made stale. Offline.
+      - name: check-core-cache (Atlas v2, the card windows' first-frame cache key)
+        run: node .claude/atlas-build/check-core-cache.js
       - name: check-places (Atlas v2, the Phase 3 places file)
         run: node .claude/atlas-build/check-places.js
       - name: migrate-places --check (every card's places resolve, nothing derived lost)
@@ -376,6 +380,14 @@ jobs:
             echo "::group::$(basename "$f")"
             if node "$f"; then echo "PASS $(basename "$f")"
             else echo "FAIL $(basename "$f")"; fails=$((fails+1)); fi
+            echo "::endgroup::"
+          done
+          # Phase 4b (Atlas v2): the three card-window suites written against V1's windows, run again on the ENGINE's windows (FOLIO_ENGINE=v2, .claude/test-engine-switch.js) —
+          # the proof that the assertions V1's windows were held to hold for the engine's, row for row (docs/atlas-v2-card-windows.md, "Every V1 window assertion")
+          for f in test-map-cards test-card-locator test-war-cards; do
+            echo "::group::$f on the engine (FOLIO_ENGINE=v2)"
+            if FOLIO_ENGINE=v2 node ".claude/$f.js"; then echo "PASS $f (engine)"
+            else echo "FAIL $f (engine)"; fails=$((fails+1)); fi
             echo "::endgroup::"
           done
           echo "----"

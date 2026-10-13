@@ -1,8 +1,10 @@
 /* measure-atlas-embed.js — what the FIRST card window costs on the engine (Atlas v2 Phase 4, Task 2). A tool, not a gate: it prints bytes and times for the owner's report and for docs/atlas-v2-design.md §7.
 
-     NODE_PATH="$SCRATCH/pw/node_modules" node .claude/measure-atlas-embed.js [cardId] [--engine=v1|v2] [--profile=desktop|phone] [--json]
+     NODE_PATH="$SCRATCH/pw/node_modules" node .claude/measure-atlas-embed.js [cardId] [--engine=v1|v2] [--profile=desktop|phone] [--after=ms] [--json]
         (default geo-002, a map card; rm-003 is a locator with water, rm-209 a war; --engine=v1 leaves the preview switch OFF and times V1's window)
      FOLIO_CHROMIUM=/path/to/chrome
+
+   `--after=4000` is the realistic reader: the page opens on #home, sits there for that long (the idle warm-up runs), THEN the card is opened — the time is from the window's mount as before.
 
    Phase 4b: the bytes now include the WORKER's own requests (atlas-worker.js, earcut, and anything the worker fetches) — Phase 4's tool listened on the page and so missed them — and count everything requested after the page's own shell (the shell, the pictures and the two idle-warmed -extra files are not the window's cost), the lazy data V1 loads (world.js, the layer bundles) included. Time is from the window's mount; `firstSinceNavMs` is from the navigation. `--engine=v1` times V1's window the same way.
 
@@ -18,7 +20,7 @@ const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream", ".woff2": "font/woff2" };
 const ARGS = process.argv.slice(2), FLAG = (n, d) => { const a = ARGS.find((x) => x.startsWith("--" + n + "=")); return a ? a.split("=")[1] : d; };
-const PORT = 5622 + Math.floor(Math.random() * 300), CARD = ARGS.find((x) => !x.startsWith("--")) || "geo-002", ENGINE = FLAG("engine", "v2"), ONLY = FLAG("profile", ""), JSONOUT = ARGS.includes("--json");
+const PORT = 5622 + Math.floor(Math.random() * 300), CARD = ARGS.find((x) => !x.startsWith("--")) || "geo-002", ENGINE = FLAG("engine", "v2"), AFTER = Number(FLAG("after", "0")), ONLY = FLAG("profile", ""), JSONOUT = ARGS.includes("--json");
 const server = http.createServer((req, res) => {
   const p = decodeURIComponent(req.url.split("?")[0]) === "/" ? "/index.html" : decodeURIComponent(req.url.split("?")[0]);
   const file = path.join(ROOT, p);
@@ -40,11 +42,11 @@ async function run(browser, profile, throttle) {
       const h = document.querySelector(".map-card"); if (!h) return;
       const c = h.querySelector(".mc-canvas");
       const eng = h.getAttribute("data-map-engine");
-      if (window.__t.first == null && c && c.width > 1 && (engine === "v2" ? eng === "v2" : (eng !== "v2" && h._folioMap && h._folioMap.ready()))) {   // V1: the map is drawn once its data has landed and the window is fitted (before that its canvas holds an empty globe)
+      if (window.__t.first == null && c && c.width > 1 && (engine === "v2" ? eng === "v2" : (eng !== "v2" && h._folioMap && h._folioMap.ready() && Array.isArray(window.WORLD_GEO)))) {   // V1: the map is drawn once world.js has landed and the window is fitted (before that its canvas holds an empty globe; a war window reports ready() at once, with no data at all)
          try { const d = c.getContext("2d").getImageData(c.width >> 1, c.height >> 1, 1, 1).data; if (d[3] > 0) window.__t.first = performance.now(); } catch (e) {} }
       if (window.__t.first != null && window.__t.settled == null) {
         try {
-          if (engine === "v2") { if (window.AtlasEmbed && AtlasEmbed.hub()) { const x = AtlasEmbed.hub(); if (x.ctl.tilesSettled() && x.ctl.waterSettled() && h._folioMap && h._folioMap.ready()) window.__t.settled = performance.now(); } }
+          if (engine === "v2") { if (h._folioMap && h._folioMap.settled && h._folioMap.settled()) window.__t.settled = performance.now(); else if (!(h._folioMap && h._folioMap.settled) && window.AtlasEmbed && AtlasEmbed.hub()) { const x = AtlasEmbed.hub(); if (x.ctl.tilesSettled() && x.ctl.waterSettled() && h._folioMap && h._folioMap.ready()) window.__t.settled = performance.now(); } }
           else if (h._folioMap && h._folioMap.ready()) window.__t.settled = performance.now();
         } catch (e) {}
       }
@@ -61,8 +63,10 @@ async function run(browser, profile, throttle) {
     ctx.on("request", onReq);
     ctx.on("requestfinished", async (rq) => { try { const sz = await rq.sizes(); sizes.set(new URL(rq.url()).pathname, sz.responseBodySize + sz.responseHeadersSize); } catch (e) {} });
     // the first navigation of a fresh context IS the cold load: no reload, so nothing is in the cache
-    await page.goto(`http://127.0.0.1:${PORT}/#card/${CARD}`, { waitUntil: "load", timeout: 900000 });
-    await page.waitForFunction(() => window.__t && window.__t.settled != null, null, { timeout: 900000 });
+    await page.goto(`http://127.0.0.1:${PORT}/${AFTER ? "#home" : "#card/" + CARD}`, { waitUntil: "load", timeout: 900000 });
+    if (AFTER) { await new Promise((r) => setTimeout(r, AFTER)); await page.evaluate((c) => { location.hash = "#card/" + c; }, CARD); }
+    try { await page.waitForFunction(() => window.__t && window.__t.settled != null, null, { timeout: 600000 }); }
+    catch (e) { const d = await page.evaluate(() => { const h = document.querySelector(".map-card"), hub = window.AtlasEmbed && AtlasEmbed.hub(); return JSON.stringify({ t: window.__t, engine: h && h.getAttribute("data-map-engine"), ready: h && h._folioMap && h._folioMap.ready(), settled: h && h._folioMap && h._folioMap.settled && h._folioMap.settled(), hub: !!hub, hist: hub && hub.historyOK(), land: hub && hub.E.landSettled(), tiles: hub && hub.ctl.tilesSettled(), water: hub && hub.ctl.waterSettled() }); }).catch(() => "no page state"); throw new Error("the window never settled (" + pass + "): " + d); }
     await new Promise((r) => setTimeout(r, 600));
     const t = await page.evaluate(() => window.__t);
     ctx.off("request", onReq);

@@ -259,7 +259,7 @@ if (process.argv.includes("--data-only")) { console.log("\n" + pass + " passed, 
 /* ---------- the browser half ---------- */
 const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
-const url = require("url").pathToFileURL(path.join(ROOT, "index.html")).href;
+let url = require("url").pathToFileURL(path.join(ROOT, "index.html")).href;   // FOLIO_ENGINE=v2 serves the site over http instead (see test-engine-switch.js)
 
 /* GREEN AND RED, counted as HUE DOMINANCE rather than as a particular value. The tints are translucent,
    so what lands on the canvas is the tint composited over whatever land, sea or coast is underneath, and
@@ -285,6 +285,8 @@ const COUNT = (sel) => `(() => {
    session seeded with its own card in `cards` opens on "All caught up" and every assertion below reports
    a missing window. The card-window sections put the card in `cotd` and give it NO record; the personal
    atlas needs the opposite, since its whole register is derived from `S.cards`. */
+/* On the ENGINE (FOLIO_ENGINE=v2) a window is settled when its levels, tiles and history are in — the war window waits for the 9 MB history file — so wait for that, then the same pause V1 needed. V1's window has no `settled`, and the wait is a no-op. */
+const engineSettle = async (pg, ms) => { await pg.waitForFunction(() => { const h = document.querySelector(".map-card.map-loc"); return !h || !h._folioMap || !h._folioMap.settled || h._folioMap.settled(); }, null, { timeout: 150000 }).catch(() => {}); await pg.waitForTimeout(ms); };
 const seed = (cotd, studied) => `localStorage.setItem("folio_v1", JSON.stringify({
   active: ["cotd:added"], cotd: ${JSON.stringify(cotd || [])},
   cards: Object.fromEntries(${JSON.stringify(studied || [])}.map((id) => [id, { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" }])),
@@ -295,7 +297,8 @@ localStorage.setItem("folio_atlas_tour_v1", "1");
 localStorage.setItem("folio_tour_v1", "1");`;
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
+  const browser = await require("./test-engine-switch.js").launch(chromium, { executablePath: process.env.FOLIO_CHROMIUM });
+  if (require("./test-engine-switch.js").v2()) url = (await require("./test-engine-switch.js").serve(ROOT)).base;
   const errs = [];
   const newPage = async (cotd, studied) => {
     const p = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
@@ -344,7 +347,7 @@ localStorage.setItem("folio_tour_v1", "1");`;
   const alt = await page.$eval(".map-loc .mc-canvas", (e) => e.getAttribute("aria-label"));
   check("...and the canvas says it in words for a reader who cannot see it", /Rome.*victors.*green[\s\S]*Carthage.*red/.test(alt), (alt || "").slice(0, 110));
 
-  await page.waitForTimeout(4200);
+  await engineSettle(page, 4200);
   const px = await page.evaluate(COUNT(".map-loc .mc-canvas"));
   check("the window draws", !!px && px.ink > 2000, JSON.stringify(px));
   check("...the victors in green", !!px && px.green > 300, px && "green " + px.green);
@@ -359,12 +362,12 @@ localStorage.setItem("folio_tour_v1", "1");`;
   await page.close();
   page = await newPage(["ww2-096"], []);
   await openCard(page);
-  await page.waitForTimeout(4500);
+  await engineSettle(page, 4500);
   const px2 = await page.evaluate(COUNT(".map-loc .mc-canvas"));
   check("the Second Sino-Japanese War shades China green and Japan red", !!px2 && px2.green > 500 && px2.red > 80, JSON.stringify(px2));
   /* THE FRAME IS READ OFF THE TWO SIDES. A window that fell back to the whole globe would still draw
      both of them — in a corner — so what is asserted is that the view is ZOOMED IN on them. */
-  const view = await page.evaluate(() => { const h = document.querySelector(".map-card.map-loc"); return h && h._folioMap ? h._folioMap.view() : null; });
+  const view = await page.evaluate(() => { const h = document.querySelector(".map-card.map-loc"); return h && h._folioMap ? Object.assign({ engine: h.getAttribute("data-map-engine"), settled: h._folioMap.settled ? h._folioMap.settled() : null }, h._folioMap.view()) : null; });
   check("...and the window frames the war rather than the planet", !!view && view.zoom > 1.3 && view.lon > 90 && view.lon < 145, JSON.stringify(view));
   check("...with the window reporting itself ready", await page.evaluate(() => { const h = document.querySelector(".map-card.map-loc"); return !!(h && h._folioMap && h._folioMap.ready()); }));
 

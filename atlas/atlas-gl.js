@@ -255,7 +255,6 @@
     uniform sampler2D uStyle; uniform float uIdPass; uniform vec4 uFlat; uniform float uUseFlat;
     uniform float uIdOffset;         // the history faces live above 2^18 in the id space (Phase 2a)
     uniform float uHatch; uniform vec3 uHatchB;   // a contested face: stripes of its two claimants' colours, in screen space
-    uniform float uHiOnly;           // Phase 4: 1 in the second face pass of a frame with a highlight — only the highlighted faces (style alpha below 1) are drawn, on top of the parents that overlap them
     out vec4 o;
     void main() {
       if (vZ < 0.0) discard;
@@ -268,7 +267,6 @@
       if (uUseFlat > 0.5) { o = vec4(uFlat.rgb * uFlat.a, uFlat.a); return; }   // lakes: one colour, no style texel
       vec4 s = texelFetch(uStyle, ivec2(id & 255, id >> 8), 0);
       if (s.a < 0.002) discard;
-      if (uHiOnly > 0.5 && s.a > 0.999) discard;
       vec3 c = s.rgb;
       if (uHatch > 0.5) { float d = mod(gl_FragCoord.x + gl_FragCoord.y, 12.0); c = d < 6.0 ? s.rgb : uHatchB; }
       o = vec4(c * s.a, s.a);
@@ -698,7 +696,12 @@
       for (const [start, count] of visibleRuns(range, cap, rot, radius, cx, cy, margin)) { gl.drawElements(gl.TRIANGLES, count, u16 ? gl.UNSIGNED_SHORT : gl.UNSIGNED_INT, start * (u16 ? 2 : 4)); stats.draws++; stats[counter] += count / 3; }
       gl.bindVertexArray(null);
     }
-    function drawFaces(Lv, view, idPass, R) { drawFill(Lv.gpu.vaoFace, false, Lv.data.faceRange, Lv.data.faceCap, view, idPass, R, Lv.tile ? 0.002 : 0.01, null, "trianglesDrawn"); }
+    /* a country's face, then the admin-1 faces that overlap it (Phase 4b: a second bucketed list in the same index buffer, drawn after every parent triangle — the order that keeps a selected state whole) */
+    function drawFaces(Lv, view, idPass, R) {
+      const m = Lv.tile ? 0.002 : 0.01;
+      drawFill(Lv.gpu.vaoFace, false, Lv.data.faceRange, Lv.data.faceCap, view, idPass, R, m, null, "trianglesDrawn");
+      if (Lv.data.faceRangeA1) drawFill(Lv.gpu.vaoFace, false, Lv.data.faceRangeA1, Lv.data.faceCapA1, view, idPass, R, m, null, "trianglesDrawn");
+    }
     const widths = new Float32Array(8), colors = new Float32Array(24);
     const pickOff = [0, 0];
     function arcUniforms(P, view, R, idPass, idBase, idPad) {
@@ -955,16 +958,7 @@
         if (parents.length) { faceStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
         if (own.length) { faceStencil(2); for (const t of own) drawFaces(t, view, idPass, R); }
         if (useStencil) { gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff); }
-        // Phase 4: the core holds a country's face AND its admin-1 children's, overlapping, and with no depth buffer the later triangle wins — a highlighted state
-        // came out with holes where the country's triangles were drawn after it. The highlighted faces are drawn again, alone, over everything.
-        if (selMap && !idPass) {   // the windows' highlight only: the Atlas's own single selection keeps one pass (a second doubled the primitives of every view with a face selected and failed the frame gate's budgets); its overlap fault is reported, not fixed here
-          const Pf = prog.face; gl.useProgram(Pf.p); gl.uniform1f(Pf.u.uHiOnly, 1);
-          if (Lv && !complete) { faceStencil(0); drawFaces(Lv, view, idPass, R); }
-          if (parents.length) { faceStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
-          if (own.length) { faceStencil(2); for (const t of own) drawFaces(t, view, idPass, R); }
-          if (useStencil) { gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff); }
-          gl.useProgram(Pf.p); gl.uniform1f(Pf.u.uHiOnly, 0);
-        }
+        // Phase 4b: the overlapping parent and child faces are two draw lists (drawFaces), children last, so a selected or highlighted state is whole in one pass — the second pass Phase 4 added is gone
       }
       /* RELIEF, EVERY PIXEL SHADED ONCE (Phase 1c). Until 1c the sphere pass sampled the L0 sheet for every
          pixel of the disc, each L1 patch then painted its whole rectangle as sea and again as land, and the

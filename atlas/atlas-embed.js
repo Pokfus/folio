@@ -47,12 +47,14 @@
       try { root.AtlasV2.mount(holder, Object.assign({}, opts, { host: Object.assign({ reducedMotion: () => true }, opts.host || {}), embed: true })); /* no crossfade: a hub has no frames to fade over */ ctl = holder.querySelector(".atlas2") && holder.querySelector(".atlas2").__atlas2; } catch (e) { ctl = null; }
       if (!ctl || !ctl.embed || !ctl.embed.webgl) { try { if (ctl && ctl.dispose) ctl.dispose(); } catch (e) {} holder.remove(); starting = null; failed = true; resolve(null); return; }
       counters.created++;
+      try { performance.mark("a2:hub-created"); } catch (e) {}
       try { ctl.renderer.stillCache(false); ctl.renderer.linesCache(false); } catch (e) { /* the caches serve one view held still; a hub is asked a different view every frame */ }
       const E = ctl.embed, glCanvas = E.el.querySelector(".atlas2-canvas"), listeners = new Set();
       const h = hub = {
         ok: true, ctl, holder, E, glCanvas, listeners, w: 0, h: 0, faces: new Map(), last: null, disposed: false,
         onChange(fn) { listeners.add(fn); return () => listeners.delete(fn); },
-        ready: () => E.ready() && E.levelReady(),
+        ready: () => E.levelReady(),   // Phase 4b: the coarsest level on the GPU is enough to draw a first frame; the finer levels arrive after it and the windows redraw (a draw's `settled` says whether the level its zoom wants is in)
+        done: () => E.ready(),
         landRGB: () => ctl.palette().land.slice(),
         draw: (spec, ctx, o) => draw(h, spec, ctx, o || {}),
         pick: (spec, x, y) => pickAt(h, spec, x, y),
@@ -61,6 +63,8 @@
         startHistory: () => E.startHistory(),
         historyOK: () => E.historyOK(),
         warView: (id, short, share) => E.warFrame(id, short, share),
+        warSides: (id) => E.warSides(id),
+        warColours: () => E.warColours(),
         facesOf: (id) => { let f = h.faces.get(id); if (!f) h.faces.set(id, f = E.facesOfId(id)); return f; },
         dispose: () => dispose(h),
       };
@@ -68,7 +72,7 @@
       E.setHook(() => { if (pending) return; pending = true; requestAnimationFrame(() => { pending = false; if (h.disposed) return; for (const fn of [...listeners]) { try { fn(); } catch (e) { /* a window's redraw must not stop the others */ } } }); });
       // the hub is usable when its first level is on the GPU; until then ensure() waits, and the windows are told by onChange
       const t0 = performance.now();
-      const tick = () => { if (h.disposed) { resolve(null); return; } if (h.ready()) { h.readyMs = Math.round(performance.now() - t0); starting = null; resolve(h); } else setTimeout(tick, 30); };
+      const tick = () => { if (h.disposed) { resolve(null); return; } if (h.ready()) { try { performance.mark("a2:hub-ready"); } catch (e) {} h.readyMs = Math.round(performance.now() - t0); starting = null; resolve(h); } else setTimeout(tick, 30); };
       // the controller reports failure by showing a message and never becoming ready: give up after a minute
       const giveUp = setTimeout(() => { if (!h.ready() && !h.disposed) { h.ok = false; starting = null; failed = true; dispose(h); resolve(null); } }, 60000);
       const done = resolve; void done; void giveUp;
@@ -83,10 +87,14 @@
     try { h.holder.remove(); } catch (e) {}
     if (hub === h) hub = null;
   }
-  function release() {
+  function release(ms) {
     if (windows.size || !hub) return;
     if (idleTimer) clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => { idleTimer = 0; if (!windows.size && hub) dispose(hub); }, idleMs);
+    idleTimer = setTimeout(() => { idleTimer = 0; if (!windows.size && hub) dispose(hub); }, ms || idleMs);
+  }
+  /* the page's idle warm-up (app.js): create the hub now, with no window, and let it go after `ms` if none comes — the first window then draws at once instead of waiting for the worker */
+  function warm(opts, ms) {
+    return ensure(opts).then((h) => { if (h) release(ms); return !!h; });
   }
 
   /* size the hub's element to the spec and make the controller see it (layout() reads the element's box) */
@@ -104,7 +112,8 @@
     fit(h, spec);
     const lay = spec.layers || {};
     L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.admin1Max = lay.admin1Max || 0; L.neutral = !!lay.neutral;
-    { const pw = lay.peoples || "off"; if (L.peoples !== pw) { L.peoples = pw; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;
+    { const pw = lay.peoples || "off"; if (L.peoples !== pw) { L.peoples = pw; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too
+    L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;   // (Phase 4b: these four sat at the end of the comment line above in Phase 4, so no window ever drew a river or a lake)
     v.graticule = false; v.rivers = L.rivers; v.lakes = L.lakes;
     v.lon = spec.lon; v.lat = spec.lat; v.zoom = spec.zoom;
     yearAndWar(h, spec);
@@ -239,7 +248,7 @@
   function view(cv, opts) {
     const st = { lon: 0, lat: 0, zoom: 1, home: { lon: 0, lat: 0, zoom: 1 } };
     const ctx = cv.getContext("2d");
-    let raf = 0, stopped = false, dirty = true, fastUntil = 0, settled = false, off = null;
+    let raf = 0, stopped = false, dirty = true, fastUntil = performance.now() + 80, settled = false, off = null;   // Phase 4b: the FIRST frame is a fast one (no outline or glow pass: ~80 ms on software GL) and the full frame follows within 140 ms — the block is on screen sooner
     const ptrs = new Map(); let last = null, pinch = 0;
     const clamp = (z) => Math.max(opts.zmin || 0.85, Math.min(opts.zmax || 400, z));
     const w = { st, cv, windowId: windows.size + 1 };
@@ -263,10 +272,11 @@
         settled = res.settled && !fast;
         w.api = { project: res.project, landMask: res.landMask, cw, ch, dpr, radius: res.radius, cx: res.cx, cy: res.cy, kmpp: res.kmpp, settled, fast, spec };
         if (opts.draw) opts.draw(st, w.api, ctx);
+        if (!w.firstMarked) { w.firstMarked = true; try { performance.mark("a2:first-draw"); } catch (e) {} }
         if (fast) { if (!w.fastTimer) w.fastTimer = setTimeout(() => { w.fastTimer = 0; dirty = true; schedule(); }, 140); }
         if (opts.onPaint) opts.onPaint(st, w.api);
         dirty = false;
-        if (!settled && !fast) w.retry = setTimeout(() => { w.retry = 0; if (!stopped && !settled) schedule(); }, 400);
+        if (!settled && !fast) w.retry = setTimeout(() => { w.retry = 0; if (!stopped && !settled) schedule(); }, 2500);   // Phase 4b: a safety net, not the mechanism — the hub's onChange redraws on every arrival (a level, a tile, the water, the history); at 400 ms a CPU-throttled phone redrew back to back for the whole of the settle (a 600 ms full draw every 600 ms) and starved the worker's own messages
       });
     }
     function schedule() { if (stopped || raf) return; dirty = true; raf = requestAnimationFrame(paint); }
@@ -311,5 +321,5 @@
   }
   function release0() { release(); }
 
-  root.AtlasEmbed = { ensure, view, release, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
+  root.AtlasEmbed = { ensure, warm, view, release, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
 })(typeof window !== "undefined" ? window : globalThis);
