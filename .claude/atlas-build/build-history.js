@@ -81,7 +81,7 @@ const PEOPLES = ["scythia", "galatia", "gothia", "huns", "avars", "old_great_bul
 // point, not a contest), onto the coast (d1) and nothing else (no d2, no d3), its own arcs are the soft edge (KIND.SOFT) and its faces
 // are class SOFT.
 const CULTURES = ["cyclades", "crete", "yangshao", "longshan"];
-const isPresenceKind = (k) => k === "people" || k === "culture";
+const isPresenceKind = (k) => k === "people" || k === "culture" || k === "extent" || k === "front";   // 2d: an authored war extent is a soft face alone too (it overlays the states)
 const isSeriesKind = (k) => k === "polity" || isPresenceKind(k);
 /* what a reader is told about WHERE each presence lay, in the audit's own words (docs/atlas-borders-audit.md §4.C, the rows C3, C4,
    C17, C18, C25, C29, C32–C38) — never more than the audit says; the place card prints it under the uncertainty sentence */
@@ -99,46 +99,49 @@ const PRESENCE_NOTES = {
   yangshao: "An outline of where recorded Yangshao sites lie, phase by phase (Hosner et al. 2016): a distribution of sites, not a border.",
   longshan: "An outline of where recorded Longshan sites lie (Hosner et al. 2016), one phase: the source gives no earlier and later Longshan split.",
 };
-/* THE 24 WAR SIDES THAT RESOLVED TO NO ENTITY (docs/atlas-places-report.md "War sides that resolve to nothing"; the 3a and 2b notes, item 7).
-   Phase 2c's inventory: for each, whether one of the twelve presence series now resolves it (none does: the cards that link the twelve
-   are not the cards these sides stand in, and no side names one of them), and what the rest wait for. No entity is created for a war
-   side in this phase; Phase 2d resolves them from the audit's own batches (docs/atlas-borders-audit.md §6, batches 5 and 6) or leaves
-   them silent. Each row: side, cards, the reason it is still open, the audit batch that names the work. */
-const WAR_SIDES_2C = [
-  ["Athens and its empire", "wh-330, gr-521, gr-552, gr-561", "a league: no open polygon; traced from Shepherd's plate of c. 450 BCE (public domain)", "batch 6"],
-  ["British Raj", "ww2-001", "a state in the Allied side of a grouping war: membership by date over a Cliopatria row, not a people", "batch 3"],
-  ["Celtiberians", "rm-262, rm-265", "an Iberian people: no open dataset; a soft outline from cited maps", "batch 6"],
-  ["Chinese warlords", "ww2-001, ww2-096, cnh-631", "not a polity: no open source draws the warlords' territories", "none"],
-  ["Cisalpine Gauls", "rm-162", "a Gallic people: Cliopatria has none; a soft outline from cited maps", "batch 6"],
-  ["Ethiopia (Italy)", "ww2-042", "the occupied state: Italy and Italian Africa were built (batch 3), the Ethiopian side was not", "batch 3"],
-  ["Gallic tribes", "wh-354, rm-350", "Caesar's Gaul: Galatia (Anatolia) is a different people, so the new series do not resolve it", "batch 6"],
-  ["Greek allies", "wh-319, gr-755", "a coalition (the Hellenic League of 481 and the Lamian coalition): member list from Pleiades, shapes traced", "batch 6"],
-  ["Lusitanians", "rm-263", "an Iberian people: no open dataset", "batch 6"],
-  ["Macedon and the Greek leagues", "wh-349", "a composite of entities already built (macedon, the Achaean and Aetolian Leagues): an assembly, not a new shape", "batch 5"],
-  ["Messenia", "gr-235, gr-236, gr-237, gr-461", "needs the Laconia–Messenia split at Taygetos (OHM, CC0)", "batch 5"],
-  ["Samnium", "rm-151, rm-152, rm-153, rm-156", "an Italic people: one block from Barrington label positions, cut by Rome's series at 343, 304 and 290 BCE", "batch 6"],
-  ["Seneca and Cayuga", "us-071", "Cliopatria's Haudenosaunee is the whole confederacy, an over-claim for two nations", "none"],
-  ["Sicilian Greeks", "gr-448", "Cliopatria draws one 'Greek City-States' blob", "batch 6"],
-  ["Sparta", "gr-235, gr-236, gr-237, gr-461", "the Laconia–Messenia split (OHM, CC0)", "batch 5"],
-  ["Sparta and its allies", "wh-330, gr-521", "the Peloponnesian League is built (gr-561): an assembly of built entities, not a new shape", "batch 5"],
-  ["Syracuse", "gr-552", "Cliopatria draws one 'Greek City-States' blob", "batch 6"],
-  ["Umbria and Picenum", "rm-159", "Italic peoples whose earlier, larger range is text-only: a soft zone with the uncertainty said", "batch 8"],
-  ["Union of South Africa", "ww2-001", "a state in the Allied side of a grouping war: membership by date", "batch 3"],
-  ["Western Confederacy", "us-072", "the Native-held interior: the USFS Indian Land Cessions (public domain)", "batch 6"],
-  ["Yugoslavia", "ww2-001", "a state in the Allied side of a grouping war: membership by date", "batch 3"],
-  ["the Celtiberians and Lusitanians", "rm-261", "two Iberian peoples: no open dataset", "batch 6"],
-  ["the Yue peoples", "cnh-205", "Cliopatria's Minyue lies in Fujian; the conquest of 214 BCE was in Lingnan", "none"],
-  ["the allies", "gr-676", "the Second Athenian League: members from Pleiades, shapes traced", "batch 6"],
+/* THE 24 WAR SIDES THAT RESOLVED TO NO ENTITY (docs/atlas-places-report.md "War sides that resolve to nothing"; the 3a and 2b notes, item 7; the 2c inventory).
+   Phase 2d's answer, side by side: BUILT (a polity series answers it — Cliopatria's rows, or an assembly of series — membership by date over entities, never a new
+   shape), DERIVED (an extent made from a pinned open source), AUTHORED (kept as the card's own authored extent, drawn soft and said to be Folio's own approximation,
+   because no open dataset draws it — DEFERRED, with the reason), UNRESOLVED (named by the card's keys and drawn by nothing). test-war-sides.js holds the same table, so
+   the document and the data cannot disagree. Each row: side, cards, status, what draws it, the reason or the audit batch that names the work. */
+const WAR_SIDES_2D = [
+  ["Athens and its empire", "wh-330, gr-521, gr-552, gr-561", "authored (deferred)", "the card's own extent: Attica, Euboea and the Aegean", "batch 6: Shepherd's plate of c. 450 BCE is public domain but a raster page — an outline of a scatter of tribute-paying coasts and islands whose membership changed year by year (431, 421, 413–404) can be checked only against hand-picked places, and the Athenian Tribute Lists that would fix the members are fragmentary: left as the card's own extent, said so"],
+  ["British Raj", "ww2-001", "built", "Cliopatria's \"British Raj\", 1939–45 (the Viceroy declared war on 3 September 1939)", "batch 3"],
+  ["Celtiberians", "rm-262, rm-265", "authored (deferred)", "the card's own extent", "batch 6: an Iberian people with no open dataset (OHM's Lusitania is the Augustan province of 27 BCE; historical-basemaps is GPL and static)"],
+  ["Chinese warlords", "ww2-001, ww2-096, cnh-631", "unresolved (deferred)", "nothing: the side's other names (the Republic of China and the Communist base areas) are drawn", "none: no open source draws the warlords' territories — said on the place card, never guessed"],
+  ["Cisalpine Gauls", "rm-162", "authored (deferred)", "the card's own extent", "batch 6: Cliopatria has no Gallic people and historical-basemaps has the Boii only"],
+  ["Ethiopia (Italy)", "ww2-042", "built (already in the file)", "the Ethiopian Empire (Cliopatria, to 1935); 1936 is a gap — Cliopatria draws no Ethiopia between 1936 and 1941, and a gap draws nothing", "batch 3"],
+  ["Gallic tribes", "wh-354, rm-350", "authored (deferred)", "the card's own extent", "batch 6: no open polygons for the Gallic civitates; the war moved campaign by campaign (58–51 BCE), recorded only in Caesar's text"],
+  ["Greek allies", "wh-319, gr-755", "built (gr-755) / authored (wh-319)", "gr-755: Cliopatria's \"Athenian Coalition\" (323–319 BCE, the Lamian War's alliance); wh-319: the card's own extent", "batch 6: the Hellenic League of 481 BCE is a coalition of 31 poleis (the Serpent Column's list) with no polygon; Cliopatria's \"Greek City-States\" blob over-claims it (Thebes and Thessaly stood with Persia)"],
+  ["Lusitanians", "rm-263", "authored (deferred)", "the card's own extent", "batch 6: an Iberian people with no open dataset"],
+  ["Macedon and the Greek leagues", "wh-349", "built", "an assembly of Macedon, the Achaean League and the Aetolian League (Cliopatria), by date", "batch 5"],
+  ["Messenia", "gr-235, gr-236, gr-237, gr-461", "derived", "OpenHistoricalMap's Lacedaemon (CC0) inside the Taygetos line the card drew", "batch 5; the outer limit is OHM's (whose own tags say \"needs source for boundary lines\"), the line between Laconia and Messenia is Folio's"],
+  ["Samnium", "rm-151, rm-152, rm-153, rm-156", "authored (deferred)", "the card's own extent", "batch 6: not in Cliopatria; historical-basemaps' Samnites are GPL and static; Pleiades/AWMC give label lines, not borders"],
+  ["Seneca and Cayuga", "us-071", "authored (deferred)", "the card's own extent", "none: Cliopatria's Haudenosaunee is the whole confederacy (an over-claim for two nations) and the Royce cessions begin in 1784, after the 1779 expedition"],
+  ["Sicilian Greeks", "gr-448", "authored (deferred)", "the card's own extent", "batch 6: Cliopatria draws one \"Greek City-States\" blob; OHM has Carthaginian Sicily but not Akragas or Gela"],
+  ["Sparta", "gr-235, gr-236, gr-237, gr-461", "derived", "OpenHistoricalMap's Lacedaemon (CC0) outside the Taygetos line the card drew", "batch 5; as Messenia"],
+  ["Sparta and its allies", "wh-330, gr-521", "built", "Cliopatria's Peloponnesian League (gr-561's series), by date", "batch 5"],
+  ["Syracuse", "gr-552", "authored (deferred)", "the card's own extent", "batch 6: Cliopatria draws one \"Greek City-States\" blob; OHM has no Syracuse of 415 BCE"],
+  ["Umbria and Picenum", "rm-159", "authored (deferred)", "the card's own extent", "batch 8: the earlier, larger range is text-only; OHM has only the Augustan regiones of 7 CE"],
+  ["Union of South Africa", "ww2-001", "built", "Cliopatria's \"South Africa\", 1939–45 (declared war on Germany on 6 September 1939)", "batch 3"],
+  ["Western Confederacy", "us-072", "derived", "the card's own limit of the Ohio country less the cessions the Royce Schedule dates by each year (USFS, public domain)", "batch 6: the outer limit is Folio's editorial line (the audit says no source draws it), the cuts are Royce's"],
+  ["Yugoslavia", "ww2-001", "built", "Cliopatria's \"Yugoslavia\" (1937–40, 1945; the state's own rows, with a gap while it was occupied), on the Allied side from 1941", "batch 3"],
+  ["the Celtiberians and Lusitanians", "rm-261", "authored (deferred)", "the card's own extent", "batch 6: two Iberian peoples with no open dataset"],
+  ["the Yue peoples", "cnh-205", "authored (deferred)", "the card's own extent", "none: Cliopatria's Minyue lies in Fujian; the conquest of 214 BCE was in Lingnan"],
+  ["the allies", "gr-676", "authored (deferred)", "the card's own extent: three islands and Byzantium", "batch 6: the islands could be OSM coast rings (as the Cyclades are) but Byzantium is a city on a strait with no ring; left as one authored side rather than half-built"],
 ];
-const SRC_IDX = { clio: 0, coast: 1, adm0: 2, wd: 3, hosner: 4 };   // the index of each source in the header's list (arcs and faces name theirs by it)
+const SRC_IDX = { clio: 0, coast: 1, adm0: 2, wd: 3, hosner: 4, authored: 5, ohm: 6, usfs: 7, sched: 8, control: 9, atlas: 10 };   // the index of each source in the header's list (arcs and faces name theirs by it)
 const NEST_SHARE = 0.8, NEST_RATIO = 2;   // nested, not contested: the overlap holds ≥ 80 % of the smaller claimant and the larger is ≥ 2× it
 // the pilot slice (2a; the file:// twin carries this much, with a sentence): the Mediterranean and Near East, 550 BCE – 650 CE
 const SLICE = { years: [-550, 650], region: { lon0: -25, lat0: 5, lon1: 95, lat1: 62 }, series: ["rome", "carthage", "achaemenid", "macedon", "ptolemaic", "seleucid", "byzantium", "sasanian"] };
 const BAND = (() => { const i = argv.indexOf("--years"); if (i < 0) return null; const [a, b] = argv[i + 1].split(",").map(Number); if (!(a < b)) throw new Error("--years A,B"); return [a, b]; })();
 const USE_CACHE = !argv.includes("--no-cache");
 /* ---------- the tolerances, chosen from --measure (§7 "Phase 2a — as built") ---------- */
-const SRC = { clio: "cliopatria", coast: "osm-land-polygons", adm0: "ne-10m-admin0", wd: "wikidata-capitals", hosner: "hosner-2016" };
+const SRC = { clio: "cliopatria", coast: "osm-land-polygons", adm0: "ne-10m-admin0", wd: "wikidata-capitals", hosner: "hosner-2016", authored: "folio-authored-extents", ohm: "ohm-lacedaemon", usfs: "usfs-royce-cessions", sched: "usfs-royce-schedule", control: "ww2-atlas-control", atlas: "us-army-battlefront-atlas" };
 const TOLERANCE_M = { [SRC.clio]: 15000 };    // Cliopatria's stated precision class (§2.3 step 4): no snap may exceed it
+/* Phase 2d: a front is not Cliopatria's. Its rings reach the coast by the same snap rule (D1_M), so the reach is the tolerance — D1 plus one quantum of rounding (the 15,001 m of a Pacific plate's China coast) —
+   while the plate's OWN registration error (6–39 km, per plate) is carried on the plate (`unc`), not hidden in a snap. It is kept out of TOLERANCE_M so the epoch caches' key is unchanged. */
+const FRONT_SNAP = "ww2-fronts", TOLERANCE_SNAP = Object.assign({ [FRONT_SNAP]: 16000 }, TOLERANCE_M);
 /* MEASURED 2026-10-09 (out/history-measure.json, 267,932 pilot vertices): vertex → OSM coast has NO knee — 4,856 within 250 m,
    then a hump from 2 to 10 km (the coast-following vertices of a 10 km source sit 5 km off the shore) thinning past 15 km
    (2,945 in 15–20 km, 93,540 beyond 60 km: the inland ones); vertex → a neighbour's line in the same epoch is bimodal —
@@ -269,6 +272,10 @@ function ringPos(k, t) {
 
 /* ================= 1. the sources: Cliopatria's rows for every card-linked series, the capitals ================= */
 const spec = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"), "utf8"));
+/* Phase 2d: the series the war sides add live in war-series.json (same shape), so v1's polity builder and its tests, which read polity-spec.json, are untouched */
+const WAR_SPEC = JSON.parse(fs.readFileSync(path.join(HERE, "war-series.json"), "utf8"));
+for (const [k, p] of Object.entries(WAR_SPEC.polities)) { if (spec.polities[k]) throw new Error(`war-series.json redefines ${k}, which polity-spec.json holds`); spec.polities[k] = p; }
+for (const [card, l] of Object.entries(WAR_SPEC.links || {})) { const o = spec.links[card] || (spec.links[card] = {}); for (const k of ["v", "l", "area"]) if (l[k]) o[k] = [...new Set((o[k] || []).concat(l[k]))]; }
 ensureSource(SRC.clio, { verifyOnly: true });
 const clioSrc = headerSources([SRC.clio])[0];
 // the coast and the present-day borders are referenced, not re-read: their source records are the core's own header entries
@@ -411,6 +418,96 @@ const CULT_Y0 = BAND ? BAND[0] : -10000;
     }
   }
 }
+/* ---- the war extents (2d): a war side no entity answers keeps the card's own authored area ----
+   WHY. The war cards carry hand-drawn extents (docs/war-cards.md) for sides no open dataset draws: the Samnites, the Gallic tribes, Messenia ...
+   v1 shows them dashed. Phase 2d keeps them, as what they are: ENTITIES OF KIND `extent`, one per (name, shape), each a soft face conflated alone onto
+   the coast like a people (an approximation has no border line), with Folio's own authoring as its "source" (header source `folio-authored-extents`,
+   flagged `authored`, not a third-party dataset) and a note saying so. Their years are the years the cards that use them are at war (lib/war-resolve.js);
+   a side that a series answers (the card's link, its name, its keys) is NOT an extent. Nothing is invented here: the rings are the cards' own. */
+{
+  const WR = require("./lib/war-resolve.js").resolveWars({ cards: require("../card-io.js").loadCards().cards, cardYears: require("../card-links.js").loadCardYears(fs.readFileSync(path.join(ROOT, "app.js"), "utf8")) });
+  /* the extents DERIVED from an open source (build-war-extents.js → war-extents.json, built from pins this build re-checks): the Western Confederacy from the USFS
+     Royce cessions and Sparta and Messenia from OpenHistoricalMap's Lacedaemon. They replace the card's authored ring for their key; the entity says what it is made of */
+  const WE = JSON.parse(fs.readFileSync(path.join(HERE, "war-extents.json"), "utf8"));
+  for (const [id, sha] of Object.entries(WE.sources)) { const pin = headerSources([id])[0]; if (pin.sha256 !== sha) throw new Error(`war-extents.json was built from ${id} ${sha}, not the pinned ${pin.sha256}: run build-war-extents.js`); }
+  const SRC_OF = { [SRC.ohm]: SRC_IDX.ohm, [SRC.usfs]: SRC_IDX.usfs };
+  for (const x of WR.extents) {
+    const rows = [];
+    const D = WE.extents[x.key];
+    const prep = (ringsIn) => ringsIn.map((ring) => { let pts = ring.map((q) => R.qpt(q)); pts = R.dedupeRing(pts); R.cutSpikes(pts, R.eqPt); return pts.length >= 3 ? densify(pts) : null; }).filter(Boolean);
+    if (D) {
+      for (const [a, b] of x.rows) for (const dr of D.rows) {
+        const from = Math.max(a, dr.from, BAND ? BAND[0] : -10000), to = Math.min(b, dr.to, Y1); if (from > to) continue;
+        const rings = prep(dr.rings); if (rings.length) rows.push({ f: null, from, to, name: x.name, rings });
+      }
+      if (rows.length) presenceSeries.push({ key: x.key, label: x.name, rows, cards: [...new Set(x.cards.map((c) => c.id))].sort(), kind: "extent", presence: true, src: SRC_OF[D.src[0]], srcId: D.src[0], derived: D });
+      continue;
+    }
+    for (const [a, b] of x.rows) {
+      const from = Math.max(a, BAND ? BAND[0] : -10000), to = Math.min(b, Y1); if (from > to) continue;
+      const rings = x.rings.map((ring) => { let pts = ring.map((q) => R.qpt(q)); pts = R.dedupeRing(pts); R.cutSpikes(pts, R.eqPt); return pts.length >= 3 ? densify(pts) : null; }).filter(Boolean);
+      if (rings.length) rows.push({ f: null, from, to, name: x.name, rings });
+    }
+    if (!rows.length) continue;
+    presenceSeries.push({ key: x.key, label: x.name, rows, cards: [...new Set(x.cards.map((c) => c.id))].sort(), kind: "extent", presence: true, src: SRC_IDX.authored, srcId: SRC.authored, authored: true });
+  }
+  say(`war extents: ${WR.extents.length} authored extent(s) for the sides no series answers`);
+}
+/* ---- the Second World War's fronts (2d, task 3): dated EVENT FACES ----
+   Four entities of kind `front` — Axis-held, Axis-occupied, Allied-held and Allied-occupied ground — each a series of steps, one per plate-standing interval of
+   the front line. The time unit of a front's steps is the DATE (an integer YYYYMMDD, `unit: "date"` on the entity and in `H.fronts`): the monthly maps of 1939–42 and
+   the fortnightly plates of 1943–45 are dated, and a step is never interpolated — a plate stands from its date until the next plate of its theatre replaces it, for
+   at most `stand` days (monthly 31, fortnightly 16), and what no plate stands for is a GAP that draws nothing (January–June 1943 has no plate in either source).
+   Each plate's sets come from .claude/atlas-build/fronts-plates.json (build-fronts-plates.js and ww2-plates/fortnight.py, each plate with the uncertainty it
+   carries); a Europe plate and a Pacific plate standing at once are UNIONED per set (polygon-clipping: even-odd rings first, then the union), so a face is one
+   planar region; every face is conflated alone onto the coast like a people (the plate's frame, and the coast, are its only edges; its own edge is a soft arc
+   whose face class is APPROXIMATE, never FIRM — a front is a redrawn map, not a surveyed line). */
+const FRONTS = { sets: [], plates: [], skipped: [], steps: 0 };
+{
+  const FP = JSON.parse(fs.readFileSync(path.join(HERE, "fronts-plates.json"), "utf8"));
+  for (const [id, sha] of Object.entries(FP.sources)) { const pin = headerSources([id])[0]; if (pin.sha256 !== sha) throw new Error(`fronts-plates.json was built from ${id} ${sha}, not the pinned ${pin.sha256}: run build-fronts-plates.js`); }
+  const PC = require("polygon-clipping");
+  const addDays = (d, n) => { const t = new Date(d + "T00:00:00Z"); t.setUTCDate(t.getUTCDate() + n); return t.toISOString().slice(0, 10); };
+  const di = (d) => Number(d.replace(/-/g, ""));
+  const plates = FP.plates.slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : a.theatre < b.theatre ? -1 : 1));
+  for (const th of ["eur", "pac"]) {
+    const l = plates.filter((p) => p.theatre === th);
+    l.forEach((p, i) => { let end = addDays(p.date, FP.stand[p.kind] - 1); const nx = l[i + 1]; if (nx && nx.date <= end) end = addDays(nx.date, -1); p.end = end; });
+  }
+  const bps = [...new Set(plates.flatMap((p) => [p.date, addDays(p.end, 1)]))].sort();
+  const ivs = [];
+  for (let i = 0; i + 1 < bps.length; i++) {
+    const a = bps[i], b = addDays(bps[i + 1], -1);
+    const act = plates.filter((p) => p.date <= a && a <= p.end); if (!act.length) continue;
+    const sig = act.map((p) => p.theatre + p.date).join(",");
+    const prev = ivs[ivs.length - 1];
+    if (prev && prev.sig === sig && addDays(prev.b, 1) === a) prev.b = b; else ivs.push({ a, b, sig, act });
+  }
+  const NAMES = ["Axis-held ground", "Axis-occupied ground", "Allied-held ground", "Allied-occupied ground"];
+  const closeR = (r) => { const f = r[0], l = r[r.length - 1]; return f[0] === l[0] && f[1] === l[1] ? r : r.concat([f]); };
+  const regionOf = (rings) => { let acc = null; for (const r of rings) { const poly = [[closeR(r)]]; acc = acc ? PC.xor(acc, poly) : poly; } return acc || []; };   // even-odd: a ring inside a ring is a hole
+  const flatPC = (mp) => mp.flatMap((poly) => poly.map((ring) => ring.slice(0, -1)));
+  const regionCache = new Map();
+  const plateRegion = (p, k) => { const key = p.theatre + p.date + ":" + k; let r = regionCache.get(key); if (!r) regionCache.set(key, r = regionOf(p.sets[k])); return r; };
+  const t0f = Date.now();
+  for (let k = 0; k < 4; k++) {
+    const rows = [];
+    for (const iv of ivs) {
+      let reg = null; for (const p of iv.act) { const r = plateRegion(p, k); if (!r.length) continue; reg = reg ? PC.union(reg, r) : r; }
+      if (!reg || !reg.length) continue;
+      const rings = flatPC(reg).map((ring) => { let pts = ring.map((q) => R.qpt(q)); pts = R.dedupeRing(pts); R.cutSpikes(pts, R.eqPt); return pts.length >= 3 ? densify(pts) : null; }).filter(Boolean);
+      if (!rings.length) continue;
+      const src = iv.act.every((p) => p.src === SRC.atlas) ? SRC_IDX.atlas : SRC_IDX.control;
+      rows.push({ f: null, from: di(iv.a), to: di(iv.b), name: NAMES[k], rings, src, plates: iv.act.map((p) => p.theatre + ":" + p.date) });
+    }
+    if (!rows.length) continue;
+    FRONTS.steps += rows.length;
+    presenceSeries.push({ key: "front_" + FP.order[k], label: NAMES[k], rows, cards: ["ww2-001"], kind: "front", presence: true, src: SRC_IDX.control, srcId: SRC.control, fronts: { set: FP.order[k] } });
+  }
+  FRONTS.plates = plates.map((p) => ({ date: p.date, theatre: p.theatre, end: p.end, src: p.src, rms_km: p.unc.rms_km, cities: p.unc.cities || null, note: p.unc.note, page: p.page || null }));
+  FRONTS.skipped = FP.skipped || []; FRONTS.stand = FP.stand; FRONTS.intervals = ivs.length;
+  say(`fronts: ${plates.length} plates (${plates.filter((p) => p.kind === "monthly").length} monthly, ${plates.filter((p) => p.kind === "fortnight").length} fortnightly) → ${ivs.length} standing intervals, ${FRONTS.steps} steps over 4 sets (${((Date.now() - t0f) / 1000).toFixed(1)} s)`);
+}
 for (const s of presenceSeries) s.rows.sort((a, b) => a.from - b.from);
 presenceSeries.sort((a, b) => a.key.localeCompare(b.key));
 const presenceRows = [];
@@ -462,7 +559,7 @@ if (MEASURE) {
 }
 
 /* ================= 3. the global registries: arcs, vertices, faces across epochs ================= */
-const log = new SnapLog("build-history", TOLERANCE_M);
+const log = new SnapLog("build-history", TOLERANCE_SNAP);
 const ARCS = [];               // { key, kind, source, flags, own: [[x,y]…] | null, core: { arc, from, to }, va: [x,y], vb: [x,y] }
 const arcByKey = new Map();
 const FACES = [];              // { key, entity, cls, rings: [[signed global ref]…] }
@@ -495,7 +592,8 @@ function conflate(alive, label) {
   for (const L of lines) { const out = []; for (const v of L.v) if (!out.length || out[out.length - 1] !== v) out.push(v); if (out.length > 1 && out[0] === out[out.length - 1]) out.pop(); L.v = out; }
   const rowOfLine = new Map(); lines.forEach((L, i) => rowOfLine.set(i, L.row));
   /* ---- d1: coast junctions ---- */
-  const snapTo = (v, px, py, kind, src) => {
+  const snapTo = (v, px, py, kind, src0) => {
+    const src = alive.length && alive.every((r) => r.series.kind === "front") ? FRONT_SNAP : src0;
     const from = deg(VX[v], VY[v]), to = deg(px, py);
     log.snap({ source: src, kind, from, to, metres: metresU(VX[v], VY[v], px, py) });
     const k2 = pkey(px, py); const w = vkey.get(k2);
@@ -839,7 +937,7 @@ function conflate(alive, label) {
         const pre = PRES ? "s:" : "", fk = pre + pts.map((q) => q.join(",")).join(";"), bk = pre + pts.slice().reverse().map((q) => q.join(",")).join(";");
         if (arcByKey.has(bk) && !arcByKey.has(fk)) { addArc(ARCS[arcByKey.get(bk)], vs[vs.length - 1], vs[0]); continue; }
         // a presence's own arc is its SOFT edge (KIND.SOFT, class SOFT, the series' source): the renderer strokes none
-        addArc({ key: fk, kind: PRES ? KIND.SOFT : KIND.BORDER, source: PRES ? alive[0].series.src : 0, flags: 0, own: pts, core: null, cls: PRES ? CLS.SOFT : CLS.APPROX }, vs[0], vs[vs.length - 1]);
+        addArc({ key: fk, kind: PRES ? KIND.SOFT : KIND.BORDER, source: PRES ? (alive[0].src != null ? alive[0].src : alive[0].series.src) : 0, flags: 0, own: pts, core: null, cls: PRES ? CLS.SOFT : CLS.APPROX }, vs[0], vs[vs.length - 1]);
       } else {
         const o = p.ref, e = o.e, r = e.ref; const forward = o.dir > 0;
         const va = forward ? e.a : e.b, vb = forward ? e.b : e.a;
@@ -1090,11 +1188,11 @@ function conflate(alive, label) {
     const canon = rings.map((ring) => { let m = 0; for (let i = 1; i < ring.length; i++) if (Math.abs(ring[i]) < Math.abs(ring[m])) m = i; return ring.slice(m).concat(ring.slice(0, m)); }).sort((p, q) => Math.abs(p[0]) - Math.abs(q[0]));
     const owners = pieces[ids[0]].owners; const nest = nestOf(owners);
     const entity = owners.length === 1 ? entityOf(owners[0].series) : nest ? nestedOf(nest[0].series.key, nest[1].series.key) : contestedOf(owners.map((r) => r.series.key).sort());
-    const cls = owners.length === 1 ? (PRES ? CLS.SOFT : CLS.APPROX) : nest ? CLS.NESTED : CLS.CONTESTED;
+    const cls = owners.length === 1 ? (PRES ? (owners[0].series.kind === "front" ? CLS.APPROX : CLS.SOFT) : CLS.APPROX) : nest ? CLS.NESTED : CLS.CONTESTED;
     if (nest) nested++;
     const fkey = entity + "|" + canon.map((r) => r.join(",")).join("|");
     let fi = faceByKey.get(fkey);
-    if (fi == null) { fi = FACES.length; faceByKey.set(fkey, fi); const big = ids.slice().sort((p, q) => pieces[q].km2 - pieces[p].km2)[0]; FACES.push({ key: fkey, entity, cls, src: PRES ? owners[0].series.src : 0, rings: canon, km2: ids.reduce((s, i) => s + pieces[i].km2, 0), anchor: pieces[big].anchor || pieces[big].sample || null }); if (owners.length > 1 && !nest) stat.contestedFaces++; if (nest) stat.nestedFaces = (stat.nestedFaces || 0) + 1; }
+    if (fi == null) { fi = FACES.length; faceByKey.set(fkey, fi); const big = ids.slice().sort((p, q) => pieces[q].km2 - pieces[p].km2)[0]; FACES.push({ key: fkey, entity, cls, src: PRES ? (owners[0].src != null ? owners[0].src : owners[0].series.src) : 0, rings: canon, km2: ids.reduce((s, i) => s + pieces[i].km2, 0), anchor: pieces[big].anchor || pieces[big].sample || null }); if (owners.length > 1 && !nest) stat.contestedFaces++; if (nest) stat.nestedFaces = (stat.nestedFaces || 0) + 1; }
     result.push({ entity, faceIndex: fi, ownerKeys: owners.map((r) => r.series.key) });
     void k;
   }
@@ -1108,7 +1206,7 @@ function conflate(alive, label) {
    the same functions in the same order) */
 const CACHE_DIR = (() => {
   const h = crypto.createHash("sha256");
-  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, MAX_CHORD_M, v: 7 }));
+  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).update(fs.readFileSync(path.join(HERE, "war-series.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, MAX_CHORD_M, v: 7 }));
   return path.join(OUT, "history-cache", h.digest("hex").slice(0, 16));
 })();
 if (USE_CACHE) { fs.mkdirSync(CACHE_DIR, { recursive: true }); say(`epoch cache: ${path.relative(HERE, CACHE_DIR)} (${fs.readdirSync(CACHE_DIR).length} epochs cached)`); }
@@ -1160,7 +1258,7 @@ for (const e of epochs) {
    their own whose hash covers the state layer's size (a changed state layer invalidates it) and the rows themselves. */
 const statesDone = { arcs: ARCS.length, faces: FACES.length, ents: ENT.length, steps: STEPS.length };
 const statStates = statSnap();
-const CACHE_DIR_P = path.join(OUT, "history-cache", "presence-" + crypto.createHash("sha256").update(JSON.stringify({ CACHE: path.basename(CACHE_DIR), statesDone, rows: presenceRows.map((r) => [r.series.key, r.name, r.from, r.to, r.nv, r.series.src]), D1_M, D1_SURE_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, SEA_M, MAX_CHORD_M, v: 1 })).digest("hex").slice(0, 16));
+const CACHE_DIR_P = path.join(OUT, "history-cache", "presence-" + crypto.createHash("sha256").update(JSON.stringify({ CACHE: path.basename(CACHE_DIR), statesDone, rows: presenceRows.map((r) => [r.series.key, r.name, r.from, r.to, r.nv, r.series.src]), D1_M, D1_SURE_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, SEA_M, MAX_CHORD_M, v: 2 })).digest("hex").slice(0, 16));
 if (USE_CACHE) fs.mkdirSync(CACHE_DIR_P, { recursive: true });
 {
   let n = 0, replayedP = 0;
@@ -1206,7 +1304,7 @@ for (const e of entsOut) {
     e.qid = best[0] || null; e.wiki = best[1] || null;
     if (byQ.size > 1) e.alsoWiki = [...byQ.keys()].filter((k) => k !== best.join("|")).map((k) => k.split("|")).map(([q, w]) => ({ qid: q || null, wiki: w || null }));
     e.sourceNames = [...new Set(rows.map((r) => r.name))];
-    if (isPresenceKind(e.kind)) { e.src = s.srcId; if (PRESENCE_NOTES[s.key]) e.note = PRESENCE_NOTES[s.key]; }
+    if (isPresenceKind(e.kind)) { e.src = s.srcId; if (PRESENCE_NOTES[s.key]) e.note = PRESENCE_NOTES[s.key]; if (e.kind === "front") { e.unit = "date"; e.front = s.fronts; e.srcs = [SRC.control, SRC.atlas]; e.note = "A front is the line of a redrawn map: the Atlas shows each plate of the Second World War as its source drew it, standing from its date until the next plate replaces it — monthly to 1942, fortnightly from July 1943, nothing for January–June 1943 (no source). Every plate carries its own uncertainty on the place card."; delete e.sourceNames; delete e.qid; delete e.wiki; } else if (e.kind === "extent" && s.derived) { e.authored = false; e.derived = true; e.srcs = s.derived.src.slice(); e.note = s.derived.note; delete e.qid; delete e.wiki; delete e.sourceNames; } else if (e.kind === "extent") { e.authored = true; e.note = "An authored extent: Folio’s own approximation of where this side’s ground lay in the war’s years, drawn from no dataset and without a border line. No open source draws it (docs/atlas-v2-coverage.md)."; delete e.qid; delete e.wiki; delete e.sourceNames; } }
     e.cards = s.cards;   // the cards that link this polity (polity-spec.json links): Phase 3's `places` field, nothing drawn from them yet
     delete e.key;
   }
@@ -1371,10 +1469,30 @@ const jpos = arcsOut.map((a) => (a.core ? { a: JPOS_OUT.get(a.va.join(",")) || s
 const sources = [clioSrc, coastSrc, adm0Src].map((s) => ({ id: s.id, name: s.name, version: s.version, url: s.url, licence: s.licence, licenceUrl: s.licenceUrl, attribution: s.attribution, retrieved: s.retrieved, sha256: s.sha256 }));
 // the retrieval date of the capitals: the day the generated state-capitals.js was last committed (its header carries no date;
 // a file's mtime would be the clone time). No git answer → fail rather than invent a date.
-const scRetrieved = (() => { try { const d = require("child_process").execFileSync("git", ["log", "-1", "--format=%cs", "--", "state-capitals.js"], { cwd: ROOT, encoding: "utf8" }).trim(); if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) throw new Error("no commit date"); return d; } catch (e) { throw new Error("state-capitals.js retrieval date: " + e.message); } })();
+const scRetrieved = (() => {
+  const git = (a) => require("child_process").execFileSync("git", a, { cwd: ROOT, encoding: "utf8" }).trim();
+  try {
+    // a SHALLOW clone (every cloud session) reports the grafted boundary commit as the last to touch the file, a day off the truth: there the committed
+    // history.bin's own record of the date stands (the file this build replaces — the date only ever moves with a new state-capitals.js commit)
+    if (git(["rev-parse", "--is-shallow-repository"]) === "true") {
+      const prev = path.join(DATA, "history.bin"); if (!fs.existsSync(prev)) throw new Error("a shallow clone and no committed history.bin to read the date from");
+      const ph = F.read(new Uint8Array(fs.readFileSync(prev)), { headerOnly: true }).header; const w = (ph.sources || []).find((x) => x.id === SRC.wd);
+      if (!w || !/^\d{4}-\d{2}-\d{2}$/.test(w.retrieved || "")) throw new Error("the committed history.bin has no Wikidata retrieval date");
+      return w.retrieved;
+    }
+    const d = git(["log", "-1", "--format=%cs", "--", "state-capitals.js"]); if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) throw new Error("no commit date"); return d;
+  } catch (e) { throw new Error("state-capitals.js retrieval date: " + e.message); }
+})();
 sources.push({ id: SRC.wd, name: "Wikidata — the period capitals of the pilot polities (each state's P36 statements with their qualifiers, via state-capitals.js)", version: "state-capitals.js as committed", url: "https://www.wikidata.org/", licence: "CC0", licenceUrl: "https://creativecommons.org/publicdomain/zero/1.0/", attribution: "Wikidata, CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/).", retrieved: scRetrieved });
 sources.push(headerSources([SRC.hosner])[0]);   // index 4 (SRC_IDX): the Yangshao and Longshan outlines
-if (sources.length !== 5 || sources[SRC_IDX.hosner].id !== SRC.hosner || sources[SRC_IDX.wd].id !== SRC.wd || sources[SRC_IDX.coast].id !== SRC.coast) throw new Error("the header source order no longer matches SRC_IDX");
+// index 5: Folio's own authored war extents. Not a third-party dataset: no url, no hash, no licence to honour beyond Folio's own; `authored` tells the credits page and the checker so
+sources.push({ id: SRC.authored, name: "Folio’s own authored war extents (the `war.area` of the war cards — a dozen hand-placed points each, approximate by construction)", version: "as committed on the cards", url: "", licence: "Folio’s own content", licenceUrl: "", attribution: "Folio", retrieved: "", sha256: "", authored: true });
+sources.push(headerSources([SRC.ohm])[0]);     // index 6: Lacedaemon (Sparta and Messenia)
+sources.push(headerSources([SRC.usfs])[0]);    // index 7: the Royce cession polygons (the Western Confederacy)
+sources.push(headerSources([SRC.sched])[0]);   // index 8: the Royce Schedule's treaty dates
+sources.push(headerSources([SRC.control])[0]);   // index 9: the monthly maps of 1939–42 (the front line)
+sources.push(headerSources([SRC.atlas])[0]);     // index 10: the fortnightly plates of 1943–45 (the front line)
+if (sources.length !== 11 || sources[SRC_IDX.hosner].id !== SRC.hosner || sources[SRC_IDX.wd].id !== SRC.wd || sources[SRC_IDX.coast].id !== SRC.coast) throw new Error("the header source order no longer matches SRC_IDX");
 const topology = {
   quantum: Q, lod: { intervals_m: LOD_M, note: "the core's three resident levels; a core-referencing arc takes the core's ranks" },
   generated: null, generator: "folio atlas-build: build-history.js (" + require("./package.json").version + ")", sources,
@@ -1382,6 +1500,7 @@ const topology = {
   vertices: { lon, lat }, rank, arcs: arcRecs, faces: facesOut.map((f) => ({ entity: f.entity, source: f.src || 0, rings: f.rings })), coreRef, jpos,
   extra: {
     kindOf: "history", core: { file: "atlas/data/topology.bin", buildId, arcs: nCA },
+    fronts: { unit: "date", note: "Dates are integers YYYYMMDD. A plate stands from its date until the next plate of its theatre, at most `stand` days; no source covers January–June 1943.", stand: FRONTS.stand, plates: FRONTS.plates, skipped: FRONTS.skipped, intervals: FRONTS.intervals, steps: FRONTS.steps },
     history: { scope: "The states Folio's cards teach — every card-linked polity series of polity-spec.json with Cliopatria rows, less the series the audit keeps as peoples — not every state of the period; and, as a PRESENCE layer drawn over them (no border, a soft edge), the peoples and cultures the cards teach: eight Cliopatria peoples, the Cyclades and Crete as their islands, the Yangshao and Longshan as outlines of dated sites.", presence: presenceSeries.map((x) => ({ key: x.key, kind: x.kind, source: x.srcId })), years: [Y0, Y1], band: BAND, series: keptSeries.map((s) => s.key), deferred, peoples: PEOPLES, nest: { share: NEST_SHARE, ratio: NEST_RATIO }, epochs: epochs.length, tolerances_m: TOLERANCE_M, d1_m: D1_M, d2_m: D2_M, d3_m: D3_M, run_factor: RUN_FACTOR, sliver_km2: SLIVER_KM2, sliver_width_m: SLIVER_WIDTH_M, classes: CLS, licence: "ODbL-1.0 as a whole: the file embeds junctions snapped onto OpenStreetMap geometry and references the OSM coast by arc id; Cliopatria's rows (CC BY 4.0) are the borders, with the attribution above kept; flagged for counsel (Phase 2a)." },
     faceClass: facesOut.map((f) => f.cls), arcClass: arcsOut.map((a) => a.cls), arcEmpty, cities,
     faceKm2: facesOut.map((f) => Math.round(f.km2)),
@@ -1409,7 +1528,7 @@ if (!DRY) {
   fs.writeFileSync(path.join(OUT, "history.bin"), bytes);
   say("wrote out/history.bin");
   if (INSTALL) {
-    if (forecast > 12e6 && !argv.includes("--force")) { say("the forecast exceeds 12 MB: not installed (the stop rule; --force overrides)"); process.exit(2); }
+    if ((forecast > 12e6 || bytes.length > 12e6) && !argv.includes("--force")) { say(`the ${bytes.length > 12e6 ? "FILE is " + (bytes.length / 1e6).toFixed(2) + " MB" : "forecast exceeds 12 MB"}: not installed (the stop rule: propose windows before building further; --force overrides)`); process.exit(2); }   // 2d: the file itself, not only the forecast, is held to the owner's 12 MB
     fs.writeFileSync(path.join(DATA, "history.bin"), bytes);
     say("installed atlas/data/history.bin");
     // the file:// twin (lib/twin.js) carries the PILOT SLICE only (2b): the full file's twin would pass the owner's 12 MB for the three
@@ -1456,7 +1575,7 @@ function writeCoverage(T, file) {
     const y = c === 0 ? 1 : c;   // the year read: the century's first year (1 CE for the first century)
     const aliveAll = T.steps.filter((st) => st[1] <= y && st[2] >= y);
     const alive = aliveAll.filter((st) => !isPresenceKind(ents[st[0]].kind));   // a presence overlaps the states: it is not part of the land share
-    const presentNames = [...new Set(aliveAll.filter((st) => isPresenceKind(ents[st[0]].kind)).map((st) => ents[st[0]].name))].sort();
+    const presentNames = [...new Set(aliveAll.filter((st) => ents[st[0]].kind === "people" || ents[st[0]].kind === "culture").map((st) => ents[st[0]].name))].sort();   // peoples and cultures only: an authored extent or a front is neither
     let covered = 0, contested = 0, nested = 0; const names = new Set();
     for (const st of alive) { const e = ents[st[0]], a = km2[st[3]] || 0; covered += a; if (e.kind === "contested") { contested += a; for (const p of e.partners) names.add(p); } else if (e.kind === "nested") { nested += a; names.add(e.partners[0]); names.add(e.partners[1]); } else names.add(e.id); }
     rows.push({ year: y, polities: [...names].map((id) => { const e = ents.find((x) => x.id === id); return e ? e.name : id; }).sort(), presences: presentNames, covered, contested, nested });
@@ -1490,8 +1609,7 @@ function writeCoverage(T, file) {
     lines.push(`| \`${key}\` | ${kind}${PEOPLES.includes(key) ? " (a people: drawn as a presence)" : CULTURES.includes(key) ? " (a culture: drawn as a presence)" : ""} | ${(p.cliopatria || []).join(", ") || "—"} | ${e && e.span ? fmtY(e.span[0]) + " – " + fmtY(e.span[1]) : "—"} | ${steps || "—"} | ${(cardsOf.get(key) || []).join(", ") || "—"} | ${d ? "deferred: " + d.why : "built"} |`);
   }
   lines.push("");
-  lines.push("## The 24 war sides that resolve to no entity (Phase 2c's inventory; no entity is created for a war side in this phase)", "", "The places registry's migration (`docs/atlas-places-report.md`, \"War sides that resolve to nothing\") lists 24 war sides — an authored extent or a named side of a war card — that name no entity of this file. **None of the twelve presence series built in 2c resolves any of them**: the cards that link the twelve (`gr-788`, `ru-005`, `ru-011`, `ru-012`, `ru-013`, `ru-014`, `ru-016`, `ru-019`, `gr-002`, `gr-006`, `gr-047`, `wh-262`, `cnh-045`, `cnh-050`, `wh-147`, `wh-148`) are not among the cards below, and no side names a Scythian, Gothic, Hunnic, Avar, Bulgar, Khazar, Magyar, Cycladic, Minoan, Yangshao or Longshan party. Caesar's Gallic tribes are not the Galatians of Anatolia. The rest are listed for Phase 2d, each with what it waits for and the audit batch (`docs/atlas-borders-audit.md` §6) that names the work; where a batch is \"none\" the audit records why the open sources cannot draw it.", "", "| war side | cards | resolved by a 2c series? | waits for | audit batch |", "|---|---|---|---|---|");
-  for (const [side, cards, why, batch] of WAR_SIDES_2C) lines.push(`| ${side} | ${cards} | no | ${why} | ${batch} |`);
-  lines.push("");
+  lines.push("## The 24 war sides that resolved to no entity (Phase 2c's inventory) and what Phase 2d did with each", "", "The places registry's migration (`docs/atlas-places-report.md`) listed 24 war sides — an authored extent or a named side of a war card — that named no entity of this file. Phase 2d resolved each as far as an open source allows and **built nothing from a source that is not clearly open**: a side is **built** (a polity series answers it: Cliopatria's rows, or an assembly of series — membership by date over entities, never a new shape), **derived** (an extent made from a pinned open source: `.claude/atlas-build/war-extents.json`, hashes held against `sources.json`), **authored** (kept as the war card's own hand-drawn extent — an entity of kind `extent`, drawn as a soft, borderless wash in the side's tint and said on its card to be Folio's own approximation — and **deferred**, with the reason) or **unresolved** (named by the card's keys and drawn by nothing, said on the place card). The same table is held by `.claude/test-war-sides.js`.", "", "| war side | cards | status | what draws it | reason / audit batch |", "|---|---|---|---|---|");
+  for (const [side, cards, status, how, why] of WAR_SIDES_2D) lines.push(`| ${side} | ${cards} | ${status} | ${how} | ${why} |`);lines.push("");
   fs.writeFileSync(file, lines.join("\n"));
 }

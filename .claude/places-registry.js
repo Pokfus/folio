@@ -37,7 +37,7 @@ const HISTORY = path.join(DATA, "history.bin");
 /* the kinds a registry row may carry: the gazetteer's fifteen (§2.6 v0), the Phase 3 additions, and the entity kinds */
 const GAZETTEER_KINDS = ["country", "admin1", "capital", "city", "town", "sea", "ocean", "strait", "gulf", "lake", "river", "island", "island-group", "range", "region"];
 const PLACE_KINDS = GAZETTEER_KINDS.concat(["site", "mountain", "cape", "hill"]);   // places.js may add a site (a cave, a temple, a battlefield, an ancient city), a mountain, a cape (registry kinds since 3b, decision 2) and a hill (3c, decision 3: Wikidata's Q54050 and its subclasses, which 3a and 3b read as `mountain`)
-const ENTITY_KINDS = ["polity", "people", "culture"];
+const ENTITY_KINDS = ["polity", "people", "culture", "extent", "front"];   // 2d: an `extent` is a war side no dataset draws; a `front` is one of the four sets of the Second World War front line
 const KINDS = PLACE_KINDS.concat(ENTITY_KINDS);
 const ID_RE = /^(adm0|adm1|city|sea|reg|pt|lake|river|pl|pol):[A-Za-z0-9_.:-]+$/;
 
@@ -80,7 +80,7 @@ function loadRegistry(opts) {
     for (const [id, names] of Object.entries(alias)) { const row = rows.get(id); if (!row) throw new Error("places.js: alias overlay for " + id + ", which is not a registry row"); for (const n of names) { if (!row.aliases.includes(n)) row.aliases.push(n); const k = fold(n); let l = byName.get(k); if (!l) byName.set(k, l = []); if (!l.includes(row)) l.push(row); } }
   }
   const entities = opts.entities === false ? [] : readEntities();
-  for (const e of entities) if (e.kind === "polity" || e.kind === "people" || e.kind === "culture") add(e, "history");
+  for (const e of entities) if (ENTITY_KINDS.includes(e.kind)) add(e, "history");
   const cardsOf = (id) => { const e = rows.get(id); return e && e.cards ? e.cards.slice() : []; };
   const source = (id) => from.get(id) || null;
   return { rows, byName, entities, cardsOf, source, gazetteer: gz.table, places: places.table, fold, km };

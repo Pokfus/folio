@@ -280,6 +280,256 @@
       "usedBy": [
         "build-gazetteer.js"
       ]
+    },
+    {
+      "id": "ohm-lacedaemon",
+      "name": "OpenHistoricalMap — relation 2849727, Λακεδαίμων (Lacedaemon / Sparta), -900 to -371, with its geometry (Overpass `out meta geom`)",
+      "version": "relation 2849727 version 6, 2026-05-27 (changeset 241797)",
+      "url": "https://overpass-api.openhistoricalmap.org/api/interpreter?data=%5Bout%3Ajson%5D%3Brel(2849727)%3Bout%20meta%20geom%3B",
+      "sha256": "5829b8a896b5a1714e15764197652102ef2c346f4ee105e0c745bf389a3fffab",
+      "bytes": 54617,
+      "licence": "CC0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution": "Map data courtesy of the OpenHistoricalMap project, in the public domain (CC0 1.0) unless otherwise noted. The Lacedaemon polygon carries its own tag \"fixme:s = needs source for boundary lines\"; the split into Laconia and Messenia drawn from it is the Atlas's own, along the Taygetos line of the war cards.",
+      "retrieved": "2026-10-12",
+      "reachable": "2026-10-12 200 through the agent proxy (overpass-api.openhistoricalmap.org; the same sha256 on two downloads). The response's own osm3s block states \"The data is made available under CC0.\"",
+      "usedBy": [
+        "../build-war-extents.js (Phase 2d: the Sparta and Messenia extents, run by hand; build-history.js reads the committed .claude/atlas-build/war-extents.json and checks it against this pin)"
+      ]
+    },
+    {
+      "id": "usfs-royce-cessions",
+      "name": "USDA Forest Service — Indian Land Cessions in the United States (Royce 1899, digitised), the cession polygons meeting the envelope 92°W–78°W, 35°N–46°N (ArcGIS REST layer 1, GeoJSON, ordered by objectid)",
+      "version": "EDW_TribalCessionLands_01, layer 1 (the 2018 revision), as served 2026-10-12",
+      "url": "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_TribalCessionLands_01/MapServer/1/query?where=1%3D1&geometry=-92%2C35%2C-78%2C46&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=cessnum%2Cobjectid&orderByFields=objectid&outSR=4326&f=geojson",
+      "sha256": "dd480dd6254d3df3bfae81f23f30f31fc8cd31179d25d1dfcebe168b1c8b8b61",
+      "bytes": 1341694,
+      "licence": "PD",
+      "licenceUrl": "https://www.usa.gov/government-works",
+      "attribution": "Royce, C. C. (1899), Indian Land Cessions in the United States (18th Annual Report of the Bureau of American Ethnology, part 2), digitised and georeferenced by the U.S. Forest Service, Office of Tribal Relations (a work of the United States government: public domain). Only the polygons and the Schedule's treaty dates are used; the cuts drawn from them are the Atlas's own derivation.",
+      "retrieved": "2026-10-12",
+      "reachable": "2026-10-12 200 through the agent proxy (apps.fs.usda.gov; data.fs.usda.gov, which holds the shapefile and the metadata, is denied by the proxy; the same sha256 on two downloads). 7 of Royce's cession numbers have no polygon in the layer (the layer's own description says so).",
+      "usedBy": [
+        "../build-war-extents.js (Phase 2d: the Western Confederacy's extent)"
+      ]
+    },
+    {
+      "id": "usfs-royce-schedule",
+      "name": "USDA Forest Service — Indian Land Cessions Table (the Royce Schedule's dates, tribes and states per cession; ArcGIS REST table 2, ordered by objectid)",
+      "version": "EDW_TribalCessionLands_01, table 2 (the 2018 revision), as served 2026-10-12",
+      "url": "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_TribalCessionLands_01/MapServer/2/query?where=1%3D1&outFields=objectid%2Ccessnum%2Ccessdate1%2Ccessdate2%2Ccessdate3%2Ccessdate4%2Ccessdate5%2Cschdtrb%2Cstate&orderByFields=objectid&resultRecordCount=2000&f=json",
+      "sha256": "e7f20dc5221a184222752bfc49ae55b70cf3948e03351da37497e07d08f4f4a8",
+      "bytes": 148421,
+      "licence": "PD",
+      "licenceUrl": "https://www.usa.gov/government-works",
+      "attribution": "Royce, C. C. (1899), Schedule of Indian Land Cessions, digitised by the U.S. Forest Service, Office of Tribal Relations (a work of the United States government: public domain). Only each cession's treaty dates are used.",
+      "retrieved": "2026-10-12",
+      "reachable": "2026-10-12 200 through the agent proxy (apps.fs.usda.gov; the same sha256 on two downloads).",
+      "usedBy": [
+        "../build-war-extents.js (Phase 2d: the Western Confederacy's extent)"
+      ]
+    },
+    {
+      "id": "ww2-atlas-control",
+      "name": "ww2-atlas (T. Tanimu) — data/territory/control: the Second World War in Europe, one map a month, August 1939 to December 1942 (the Wikimedia Commons series \"Second World War Europe MM YYYY de.svg\" by San Jose, vectorised); 41 monthly GeoJSON files and their index",
+      "version": "repository tanimutomo/ww2-atlas at commit 73bbaf655f734707a4e389f197ca96b06338fec8 (the set of 42 files, hashed as sorted name+sha256 lines)",
+      "url": "https://raw.githubusercontent.com/tanimutomo/ww2-atlas/73bbaf655f734707a4e389f197ca96b06338fec8/data/territory/control/",
+      "fileset": [
+        {
+          "name": "index.json",
+          "sha256": "daec976e0760a2303678a00b522a0ab22c7b9ff58b4007f27df23262ac3ff9a2"
+        },
+        {
+          "name": "1939-08.json",
+          "sha256": "c3afd6b04363442db3b0137ae2c2012f15c6de6515623c4a55c48a295717a04f"
+        },
+        {
+          "name": "1939-09.json",
+          "sha256": "1c63c80fbf279034c3dbfdb7db94da593db696ded2191f2c466b9233d03e6e3d"
+        },
+        {
+          "name": "1939-10.json",
+          "sha256": "72ea020388521ba7c7252669c020c85187b06a4bd24c72f82bffc654c635ef09"
+        },
+        {
+          "name": "1939-11.json",
+          "sha256": "e7a2f5f2923c291237282016bb4364d30ed5ee0636763808be1d1b557229cd08"
+        },
+        {
+          "name": "1939-12.json",
+          "sha256": "e7a2f5f2923c291237282016bb4364d30ed5ee0636763808be1d1b557229cd08"
+        },
+        {
+          "name": "1940-01.json",
+          "sha256": "eaf9d1f2999f47bace8c1ad22333680b5c8ed05561370527d8aef8989b2f2bc6"
+        },
+        {
+          "name": "1940-02.json",
+          "sha256": "eaf9d1f2999f47bace8c1ad22333680b5c8ed05561370527d8aef8989b2f2bc6"
+        },
+        {
+          "name": "1940-03.json",
+          "sha256": "eaf9d1f2999f47bace8c1ad22333680b5c8ed05561370527d8aef8989b2f2bc6"
+        },
+        {
+          "name": "1940-04.json",
+          "sha256": "234b923a79878119e65a0cd1d87ed53d695674836013113ea810b915829eabf4"
+        },
+        {
+          "name": "1940-05.json",
+          "sha256": "d8da78f0618c24b0cec7d45aae98b93f68f36dd897a456ebd7148fd6dc176bd0"
+        },
+        {
+          "name": "1940-06.json",
+          "sha256": "43fdebfc2f1d3ff5dac2e7d74c969a891bd937d28af9c8f3c350f6847c94dcfb"
+        },
+        {
+          "name": "1940-07.json",
+          "sha256": "43fdebfc2f1d3ff5dac2e7d74c969a891bd937d28af9c8f3c350f6847c94dcfb"
+        },
+        {
+          "name": "1940-08.json",
+          "sha256": "d8089a0fd6bb554c9093c3849a0f1e41f7b93c40b094bff79790af6b3c49d9f7"
+        },
+        {
+          "name": "1940-09.json",
+          "sha256": "d8089a0fd6bb554c9093c3849a0f1e41f7b93c40b094bff79790af6b3c49d9f7"
+        },
+        {
+          "name": "1940-10.json",
+          "sha256": "928ee7e07acf64bf7fbc3751cc409b82d18a1acf2886035b0fe5e5f1f6dca539"
+        },
+        {
+          "name": "1940-11.json",
+          "sha256": "166ee43555fc733fe40bea8534e3cb264c10f76dfd0710b77b9fb2a02652427d"
+        },
+        {
+          "name": "1940-12.json",
+          "sha256": "0827beddfaddf566fc599fc939157ed9eb67f95a141ad57d67d04c7827cbf974"
+        },
+        {
+          "name": "1941-01.json",
+          "sha256": "73bfb2697db3c676d977cac9808afc18ddb3bca0ea973e5fe32df14bb2ec016d"
+        },
+        {
+          "name": "1941-02.json",
+          "sha256": "73bfb2697db3c676d977cac9808afc18ddb3bca0ea973e5fe32df14bb2ec016d"
+        },
+        {
+          "name": "1941-03.json",
+          "sha256": "0e43917b0bbb06aba09f526b07fcd3f0d820b0e6ca7ce8e2f463d735f18c50a4"
+        },
+        {
+          "name": "1941-04.json",
+          "sha256": "bc8727d7c415797f8ac0ffabfb8dfd082ba0b967bf736072d8ad287ddad86c6a"
+        },
+        {
+          "name": "1941-05.json",
+          "sha256": "ba04e0b3f17d1b8e80619468a5057d52a7d3cf9d61414ffdda6be16db5444ed7"
+        },
+        {
+          "name": "1941-06.json",
+          "sha256": "c8684562cce0ba3cfa7a869e6e0153924e0448a74fb872b26e51c30f39bfe19e"
+        },
+        {
+          "name": "1941-07.json",
+          "sha256": "1a01b865a4dc81d3416871a0a768582e997466301e1adae9dadb1cbdb3feceea"
+        },
+        {
+          "name": "1941-08.json",
+          "sha256": "f32e30bc30ea004358e31375fd1f0f80dae724474b0f9b46aabe64b27b987f39"
+        },
+        {
+          "name": "1941-09.json",
+          "sha256": "0bd66edc71b40e647758bde306e1ce1ef92c85ae95a73ac412d4b8e2caa3865f"
+        },
+        {
+          "name": "1941-10.json",
+          "sha256": "3f3d64ef894661a0a881006766f1ea5cb8b6ebb7c272c856f70d9beff61cbee2"
+        },
+        {
+          "name": "1941-11.json",
+          "sha256": "4cde96b55f69338752d638bd20d303769dff64247c9607af8505f6082f528a32"
+        },
+        {
+          "name": "1941-12.json",
+          "sha256": "06a15c64194b8a2e25193be928f1cda4e2c1c2444c805b81e3cb470aed4027d4"
+        },
+        {
+          "name": "1942-01.json",
+          "sha256": "3669bbe11f276743c2aebdc1578876c8a0264b9c62c728b50b892e77f730a6a9"
+        },
+        {
+          "name": "1942-02.json",
+          "sha256": "92faf8ede19e3a7da584dfde5010595b757e3c0d5e32f2a9d8c4b6089190fa9a"
+        },
+        {
+          "name": "1942-03.json",
+          "sha256": "c2f2b7cb9f0cbfe049be1baa9062f6f6810c3326a30a65c4912eccf54bb23f44"
+        },
+        {
+          "name": "1942-04.json",
+          "sha256": "d80269a8578a631e3ee716a5f5d97df88dc727e7974475c399afd03aa7cc843a"
+        },
+        {
+          "name": "1942-05.json",
+          "sha256": "3c191c766de2a57cd63acfa5ab4e4faf1c15fec58050a1d57ff09018785d5de5"
+        },
+        {
+          "name": "1942-06.json",
+          "sha256": "5141e168e908e5207a8fa75a6797b6176e743f3ebd49e05f818e7b023ed6dcde"
+        },
+        {
+          "name": "1942-07.json",
+          "sha256": "be81060ee386426cf7c016477984a3e39ac08bea707c4a4461fc1e9313a9dbe7"
+        },
+        {
+          "name": "1942-08.json",
+          "sha256": "2f2506b2880d1c1caf9de5935dc727d600893b36fc7a67838bc56080b884492d"
+        },
+        {
+          "name": "1942-09.json",
+          "sha256": "c179f59fb034b3755c45bfebf5fb5eba578a7146f05adcc432789a973f88c6d9"
+        },
+        {
+          "name": "1942-10.json",
+          "sha256": "772b9feb1b75087cd695a2f9e4efe7438d37d523adf56a5d8c19c1c821e53e8f"
+        },
+        {
+          "name": "1942-11.json",
+          "sha256": "3dcd7f335730e3d10ebe916293396a589aa3d72e62f53c6ebbc304f3ceb2d4c7"
+        },
+        {
+          "name": "1942-12.json",
+          "sha256": "bdc38242e248fd5464cf12ddb60bb076e7068dd8f8948efaba09752daeed36de"
+        }
+      ],
+      "sha256": "4c0948d9661149a84d64030ee20cf60f9adbbdf9c394079b0f1f1f7a2fe7e0f7",
+      "bytes": 1018689,
+      "licence": "PD",
+      "licenceUrl": "https://github.com/tanimutomo/ww2-atlas/blob/73bbaf655f734707a4e389f197ca96b06338fec8/data/LICENSE",
+      "attribution": "Wikimedia Commons, \"Second World War Europe MM YYYY de.svg\" by San Jose (public domain, PD-self), vectorised by ww2-atlas (https://github.com/tanimutomo/ww2-atlas; its data/LICENSE lists data/territory/control as public domain). Each map is the approximate control at the END of its month, Europe only (a secondary, edited map — not a daily front). The rings drawn from it are simplified (Douglas–Peucker) and conflated onto the coast: the Atlas's own derivation.",
+      "retrieved": "2026-10-12",
+      "reachable": "2026-10-12 200 through the agent proxy (raw.githubusercontent.com at the commit; git ls-remote answers, api.github.com does not).",
+      "usedBy": [
+        "../build-fronts-plates.js (Phase 2d: the monthly fronts of 1939–42, run by hand; build-history.js reads the committed .claude/atlas-build/fronts-plates.json and checks it against this pin)"
+      ]
+    },
+    {
+      "id": "us-army-battlefront-atlas",
+      "name": "Atlas of the World Battle Fronts in Semimonthly Phases to August 15, 1945 (a supplement to the Biennial Report of the Chief of Staff of the United States Army, 1 July 1943 – 30 June 1945), the Combined Arms Research Library's scan, 111 pages",
+      "version": "CARL digital collection p4013coll8, item 3173 (call number OVERSIZE 940.542 U5S6a), as served 2026-10-12",
+      "url": "https://cgsc.contentdm.oclc.org/digital/api/collection/p4013coll8/id/3173/download",
+      "sha256": "91882fdd6c8f881eae77872ac1c15b678418091fa35ecb8926cf82ef800510b4",
+      "bytes": 14389418,
+      "licence": "PD",
+      "licenceUrl": "https://commons.wikimedia.org/wiki/Category:WW2_Battlefront_Atlas",
+      "attribution": "United States War Department, General Staff, Atlas of the World Battle Fronts in Semimonthly Phases to August 15, 1945 (a work of the United States government, PD-USGov-Military-Army; Wikimedia Commons, Category:WW2 Battlefront Atlas). Scanned by the Combined Arms Research Library, Fort Leavenworth. The rings drawn from its plates (georeferenced to the projection each page states, its fills classified, water given the class of the nearest ground, traced and simplified) are the Atlas's own derivation and are approximate: the plates show the situation on their dates, not a daily front.",
+      "retrieved": "2026-10-12",
+      "reachable": "2026-10-12 200 through the agent proxy (cgsc.contentdm.oclc.org; the same sha256 on two downloads).",
+      "usedBy": [
+        "../../.claude/ww2-plates/ (Phase 2d: the fortnightly fronts of July 1943 – August 1945, run by hand; build-history.js reads the committed .claude/atlas-build/fronts-plates.json and checks it against this pin)"
+      ]
     }
   ],
   "blocked": [

@@ -58,8 +58,9 @@ function collect() {
   const byId = new Map(); let read = 0; const fileSources = [];
   for (const f of files) {
     const h = headerOf(f); if (!h) continue; read++;
-    fileSources.push({ rel: h.rel, ids: h.sources.map((s) => s.id) });
+    fileSources.push({ rel: h.rel, ids: h.sources.filter((s) => !s.authored).map((s) => s.id) });
     for (const s of h.sources) {
+      if (s.authored) continue;   // 2d: Folio's own authored content (the war extents) is not a third-party source: the credits page lists what others made
       if (!s.id) throw new Error(h.rel + ": a source without an id");
       if (!byId.has(s.id)) byId.set(s.id, { id: s.id, variants: [] });
       const e = byId.get(s.id);

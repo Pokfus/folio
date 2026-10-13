@@ -1,0 +1,17 @@
+{
+  "_about": "The polity series Atlas v2 Phase 2d adds for the war sides (docs/atlas-v2-design.md §7 'Phase 2d — as built'). Same shape as .claude/polity-spec.json's `polities` and `links`, kept in a file of its own so v1's polity builder and its tests (build-polities.js, test-polities.js, which read polity-spec.json) are untouched. build-history.js reads both; `cliopatria` names Cliopatria v0.2.0 (CC BY 4.0) rows; `years` clips the series to the span the linked cards need. `links`: a card id -> { v: [series keys], l: [series keys] } for a war's two sides, as polity-spec.json does.",
+  "polities": {
+    "british_raj": { "label": "British Raj", "cliopatria": ["British Raj"], "years": [1937, 1945] },
+    "south_africa": { "label": "Union of South Africa", "cliopatria": ["South Africa"], "years": [1937, 1945] },
+    "yugoslavia": { "label": "Kingdom of Yugoslavia", "cliopatria": ["Yugoslavia"], "years": [1937, 1945] },
+    "aetolian_league": { "label": "Aetolian League", "cliopatria": ["Aetolian League"], "years": [-284, -189] },
+    "athenian_coalition": { "label": "Athenian Coalition", "cliopatria": ["Athenian Coalition"], "years": [-323, -319] }
+  },
+  "links": {
+    "ww2-001": { "v": ["roc", "ccp", "ussr", "mongolia_pr", "british_raj", "south_africa", "yugoslavia"], "l": ["japan", "italy", "hungary_1918"] },
+    "wh-349": { "v": ["rome"], "l": ["macedon", "achaean_league", "aetolian_league"] },
+    "wh-330": { "v": ["peloponnesian_league"] },
+    "gr-521": { "v": ["peloponnesian_league"] },
+    "gr-755": { "l": ["athenian_coalition"] }
+  }
+}

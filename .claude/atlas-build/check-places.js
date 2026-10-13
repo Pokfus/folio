@@ -125,5 +125,24 @@ noClass.length ? bad("every row's item carries classes", noClass.slice(0, 5).joi
     }
   }
 }
+/* the wars table (Phase 2d): atlas/data/wars.js is a pure function of the war cards, the specs and history.bin's entity table */
+{
+  const Wb = require("./build-wars.js");
+  console.log("\n\x1b[1mwars\x1b[0m " + path.relative(ROOT, Wb.TARGET) + "\n");
+  if (!fs.existsSync(Wb.TARGET)) bad("atlas/data/wars.js exists", "run: node .claude/atlas-build/build-wars.js --install");
+  else {
+    const t3 = fs.readFileSync(Wb.TARGET, "utf8");
+    /^\/\* sources: \[\] \*\/$/.test(t3.split("\n")[0]) ? ok("first line carries `sources` (empty: Folio's own words and registry ids)") : bad("first line carries `sources`");
+    let st; try { st = Wb.build({ check: true, log: () => {} }); } catch (e) { bad("the table builds within its budget", e.message); st = null; }
+    if (st) {
+      st.ok ? ok("in step with the cards, the specs and history.bin", st.count.wars + " wars, " + st.count.members + " members, " + st.count.extentSides + " authored-extent sides") : bad("in step with the cards, the specs and history.bin", st.why + (st.problems && st.problems.length ? ": " + st.problems.slice(0, 4).join("; ") : ""));
+      const w3 = {}; new Function("window", t3)(w3); const X = w3.ATLAS_WARS;
+      const missing = []; for (const [id, w] of Object.entries(X.wars)) for (const k of ["v", "l"]) { for (const m of w[k].m) if (!reg.rows.has(m[0])) missing.push(id + " " + m[0]); if (w[k].x && !reg.rows.has(w[k].x)) missing.push(id + " " + w[k].x); }
+      missing.length ? bad("every member and every extent of the table resolves in the registry", missing.slice(0, 5).join(", ")) : ok("every member and every extent of the table resolves in the registry");
+      const bytes3 = Buffer.byteLength(t3, "utf8");
+      bytes3 <= Wb.BUDGET ? ok("size " + bytes3 + " bytes ≤ " + Wb.BUDGET) : bad("size over the " + Wb.BUDGET + "-byte budget", bytes3 + " bytes");
+    }
+  }
+}
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);

@@ -196,5 +196,36 @@ console.log("\n9) the glossary's \"show on the Atlas\" table\n");
   check("every country term has a country row and no term in the table is a community deck's", Object.keys(gp.ids).filter((k) => /^adm0:/.test(gp.ids[k])).length === 181 && Object.keys(gp.ids).every((k) => !/^deck:/.test(k)), JSON.stringify(gp.counts));
 }
 
+console.log("\n10) the wars (Phase 2d): which wars are drawn, which entities are tinted in which role\n");
+{
+  const T = {
+    "rm-209": { t: "Second Punic War", y: [-218, -201], g: 0, v: { n: "Rome", m: [["pol:rome", -218, -201]], x: "", u: [] }, l: { n: "Carthage", m: [["pol:carthage", -218, -201]], x: "", u: [] } },
+    "rm-152": { t: "First Samnite War", y: [-343, -341], g: 0, v: { n: "Rome", m: [["pol:rome", -343, -341]], x: "", u: [] }, l: { n: "Samnium", m: [], x: "pol:ext_samnium", u: [] } },
+    "wh-345": { t: "Punic Wars", y: [-264, -146], g: 1, v: { n: "Rome", m: [["pol:rome", -264, -146]], x: "", u: [] }, l: { n: "Carthage", m: [["pol:carthage", -264, -146]], x: "", u: [] } },
+    "ww2-001": { t: "Second World War", y: [1937, 1945], g: 1, v: { n: "Allied powers", m: [["pol:ussr", 1941, 1945], ["pol:roc", 1937, 1945]], x: "", u: ["Poland"] }, l: { n: "Axis powers", m: [["pol:italy", 1937, 1943]], x: "", u: ["Germany"] } },
+  };
+  const info = (id) => ({ collId: id.startsWith("rm") ? "col-40" : "col-8" });
+  const ids = (set) => [...set].sort().join(",");
+  check("the plain Map draws every war a card teaches except those that group others", ids(AS.warsShown(T, { pos: "on", mode: "map" })) === "rm-152,rm-209");
+  check("the switch off draws none — except a war chosen from a card, which is drawn whatever the switch says", AS.warsShown(T, { pos: "off", mode: "map" }).size === 0 && ids(AS.warsShown(T, { pos: "off", mode: "map", focus: "ww2-001" })) === "ww2-001");
+  check("a war that groups others (war.group) is drawn only when chosen, in every mode", !AS.warsShown(T, { pos: "on", mode: "full" }).has("wh-345") && AS.warsShown(T, { pos: "on", mode: "personal", cardSet: new Set(["wh-345"]), focus: "wh-345" }).has("wh-345"));
+  check("the Personal Atlas draws the wars of the reader's own studied cards and no others", ids(AS.warsShown(T, { pos: "on", mode: "personal", cardSet: new Set(["rm-209"]) })) === "rm-209");
+  check("the Full Atlas drops a switched-off collection's wars", ids(AS.warsShown(T, { pos: "on", mode: "full", hidden: new Set(["col-40"]), info })) === "" && ids(AS.warsShown(T, { pos: "on", mode: "full", hidden: new Set(["col-8"]), info })) === "rm-152,rm-209");
+  const shown = new Set(["rm-209", "rm-152", "ww2-001"]);
+  const r1 = AS.warRoles(T, shown, -210);
+  check("in 210 BCE Rome is a victor and Carthage a loser, and nothing else is tinted", r1.size === 2 && r1.get("pol:rome").role === 1 && r1.get("pol:carthage").role === 2 && AS.roleWord(r1.get("pol:rome").role) === "victor");
+  check("outside every war's years nothing is tinted (one year before and one after)", AS.warRoles(T, shown, -220).size === 0 && AS.warRoles(T, shown, -200).size === 0);
+  check("an authored extent is tinted in the war's own years and a member only inside its window", AS.warRoles(T, shown, -342).get("pol:ext_samnium").role === 2 && !AS.warRoles(T, shown, 1940).has("pol:ussr") && AS.warRoles(T, shown, 1941).get("pol:ussr").role === 1 && AS.warRoles(T, shown, 1944).has("pol:italy") === false);
+  const both = AS.warRoles({ a: { t: "A", y: [1, 5], g: 0, v: { n: "X", m: [["pol:x", 1, 5]], x: "", u: [] }, l: { n: "Y", m: [], x: "", u: [] } }, b: { t: "B", y: [1, 5], g: 0, v: { n: "Z", m: [], x: "", u: [] }, l: { n: "X", m: [["pol:x", 1, 5]], x: "", u: [] } } }, new Set(["a", "b"]), 3);
+  check("an entity on both sides in a year is reported as both (the builder refuses to ship one)", both.get("pol:x").role === 3 && AS.roleWord(3) === "both sides");
+  const ofRome = AS.warsOfEntity(T, "pol:rome");
+  check("an entity's wars, for its place card: the war, its years, its role and the other side", ofRome.length === 3 && ofRome.every((w) => w.role === "victor") && ofRome.find((w) => w.id === "rm-209").against === "Carthage" && AS.warsOfEntity(T, "pol:ext_samnium")[0].authored === true);
+  const sent = AS.warSentence(T["rm-152"]);
+  check("the sentence names the sides, the years and says the extent is Folio's own approximation", /First Samnite War/.test(sent) && /343 BCE – 341 BCE/.test(sent) && /Rome \(victors\)/.test(sent) && /authored extent/.test(sent) && /not a surveyed border/.test(sent), sent.slice(0, 120));
+  const sw = AS.warSentence(T["ww2-001"]);
+  check("a side's unresolved names are said, not drawn, and a member's narrower window is said", /no entity for: Poland/.test(sw) && /ussr 1941 CE – 1945 CE|ussr 1941 – 1945 CE/.test(sw) || /ussr/.test(sw), sw.slice(0, 200));
+  check("the extent kind is its own layer and word (not a people, not a state)", AS.layerOf("extent") === "war-extent" && AS.kindWord("extent") === "authored extent" && AS.isPresence("extent") === false && AS.normalizeWars("bogus") === "on" && AS.normalizeWars("off") === "off");
+}
+
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);

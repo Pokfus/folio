@@ -31,7 +31,7 @@ const check = (name, ok, detail) => { if (ok) { pass++; console.log("  ok    " +
 
 console.log("\n1) the classification\n");
 {
-  const cases = [["polity", "territory", "state"], ["contested", "territory", "contested land"], ["nested", "territory", "state"], ["people", "presence", "people"], ["culture", "presence", "culture"], ["country", "other", "country"], ["region", "other", "region"]];
+  const cases = [["polity", "territory", "state"], ["contested", "territory", "contested land"], ["nested", "territory", "state"], ["people", "presence", "people"], ["culture", "presence", "culture"], ["extent", "war-extent", "authored extent"], ["front", "front", "front"], ["country", "other", "country"], ["region", "other", "region"]];
   for (const [kind, layer, word] of cases) check(`${kind} is a ${layer}, said "${word}"`, AS.layerOf(kind) === layer && AS.kindWord(kind) === word && AS.isPresence(kind) === (layer === "presence"));
   const F = (global.window = {}, require(path.join(ROOT, "atlas", "atlas-format.js")), global.window.AtlasFormat);
   const T = F.read(new Uint8Array(fs.readFileSync(path.join(ROOT, "atlas", "data", "history.bin"))), { headerOnly: true }), H = T.header;
@@ -39,7 +39,7 @@ console.log("\n1) the classification\n");
   const WANT = ["avars", "crete", "cyclades", "galatia", "gothia", "huns", "khazaria", "longshan", "magyars", "old_great_bulgaria", "scythia", "yangshao"].map((k) => "pol:" + k);
   check("the file holds exactly the twelve presence entities the audit names", JSON.stringify(pres.map((e) => e.id).sort()) === JSON.stringify(WANT), pres.map((e) => e.id.slice(4)).join(", "));
   check("the eight Cliopatria series are peoples, the coastline and site-hull series cultures", pres.filter((e) => e.kind === "people").length === 8 && pres.filter((e) => e.kind === "culture").length === 4 && ["cyclades", "crete", "yangshao", "longshan"].every((k) => H.entities.find((e) => e.id === "pol:" + k).kind === "culture"));
-  check("every other entity is a state (polity, contested or nested)", H.entities.every((e) => AS.isPresence(e.kind) || AS.layerOf(e.kind) === "territory"), `${H.entities.length - pres.length} states`);
+  check("every other entity is a state (polity, contested or nested) — but the war extents (2d: authored soft faces, kind `extent`) and the four front sets (kind `front`), each in its own layer, never a people", H.entities.every((e) => AS.isPresence(e.kind) || AS.layerOf(e.kind) === "territory" || AS.layerOf(e.kind) === "war-extent" || AS.layerOf(e.kind) === "front"), `${H.entities.filter((e) => AS.layerOf(e.kind) === "territory").length} states, ${H.entities.filter((e) => e.kind === "extent").length} extents, ${H.entities.filter((e) => e.kind === "front").length} front sets`);
   check("a presence is never a member of a contested or nested face", H.entities.filter((e) => e.partners).every((e) => e.partners.every((p) => !pres.some((x) => x.id === p))));
   global.__H = H; global.__F = F; global.__T = T;
 }

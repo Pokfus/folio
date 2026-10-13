@@ -171,6 +171,16 @@ jobs:
       # test-atlas-study.js (7h, the switch for a seeded reader) and test-atlas-perf.js (two peoples-heavy views).
       - name: test-peoples (Atlas v2, peoples and cultures, no browser)
         run: node .claude/test-peoples.js
+      # WARS AND THE FRONT LINE (Oct 2026, Atlas v2 Phase 2d; docs/atlas-v2-design.md §7 "Phase 2d — as built", docs/atlas-v2-coverage.md).
+      # build-wars.js --check proves atlas/data/wars.js (every war card's sides as entities of history.bin) is exactly what the cards,
+      # the specs and the history file build; test-war-sides.js is the Node-only suite over the resolution (the 24 sides' statuses,
+      # the old `war` field byte-identical, nothing drawn outside a war's years) and over the pinned in/out assertions of
+      # test-war-cards.js on the built topology (each failure listed with its cause in test-war-sides-known.js). The browser side is
+      # test-atlas-render.js (the wars and front pairs) and test-atlas-perf.js (two war-heavy views).
+      - name: build-wars --check (atlas/data/wars.js is what the cards and history.bin build)
+        run: node .claude/atlas-build/build-wars.js --check
+      - name: test-war-sides (Atlas v2, the war sides on the built topology)
+        run: node --max-old-space-size=4000 .claude/test-war-sides.js
       # THE STEP TOPOLOGY IS A GENERATED FILE WITH THE SAME SILENT FAILURES (Oct 2026, Phase 2a; docs/atlas-v2-design.md §2.3 "The step
       # topology file", §2.4, §7 "Phase 2a — as built"). check-history.js reads atlas/data/history.bin and the core beside it and proves:
       # the buildId is the committed core's, every core reference exists with the core arc's kind, every step lies inside its entity's

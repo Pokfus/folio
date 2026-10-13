@@ -339,7 +339,7 @@
     }
     return null;
   }
-  async function presenceMesh(T, pos, face, level, sink) {
+  async function presenceMesh(T, pos, face, level, sink, hard) {   // `hard` (2d, a front): no fade — a front is a line the plate drew, not an uncertain edge
     const rs = presenceRings(T, face, level);
     if (!rs.length) return 0;
     const proj = makeFrame(pos, rs.map((r) => r.ring)).fwd;
@@ -355,7 +355,7 @@
       const F = makeFrame(pos, group.map((g) => g.ring));
       const rings = group.map((g) => ({ g, p: g.ring.map(F.fwd), soft: g.soft }));
       let A = 0; { const p = rings[0].p; for (let i = 0, j = p.length - 1; i < p.length; j = i++) A += (p[j][0] * p[i][1] - p[i][0] * p[j][1]); A = Math.abs(A / 2); }
-      const D0 = F.gnomonic ? Math.min(FADE_MAX_KM, Math.max(FADE_MIN_KM, FADE_FRAC * Math.sqrt(A) * EARTH_KM)) / EARTH_KM : 0;
+      const D0 = F.gnomonic && !hard ? Math.min(FADE_MAX_KM, Math.max(FADE_MIN_KM, FADE_FRAC * Math.sqrt(A) * EARTH_KM)) / EARTH_KM : 0;
       const ins = D0 > 0 ? presenceInset(rings, D0) : null;
       // vertices: the boundary (alpha 0 where it fades, else 1) and the inset ring (alpha 1)
       const outerId = [], innerId = [];
@@ -645,7 +645,7 @@
   function styleFor(row, chordPx) {
     switch (row.kind) {
       case "polity": case "country": return chordPx >= 700 ? "country-l" : chordPx >= 260 ? "country-m" : "country-s";
-      case "people": case "culture": return chordPx >= 600 ? "people-l" : chordPx >= 240 ? "people-m" : "people-s";   // 2c: spaced italic, the territory's small capitals' opposite
+      case "people": case "culture": case "extent": return chordPx >= 600 ? "people-l" : chordPx >= 240 ? "people-m" : "people-s";   // 2c: spaced italic, the territory's small capitals' opposite
       case "admin1": return "admin1";
       case "capital": return "capital"; case "city": return "city"; case "town": return "town";
       case "ocean": return "water-l"; case "sea": return chordPx >= 500 ? "water-l" : "water-m";
@@ -709,13 +709,13 @@
       for (const fi of q.aliveFaces) {
         let e = HIST.H.entities[HIST.T.faces[fi].entity]; if (!e) continue;
         if (e.kind === "nested") { e = HIST.H.entities.find((x) => x.id === e.partners[0]); if (!e) continue; }   // a member inside its overlord is named as itself (2b)
-        else if (e.kind !== "polity" && e.kind !== "people" && e.kind !== "culture") continue;
+        else if (e.kind !== "polity" && e.kind !== "people" && e.kind !== "culture" && e.kind !== "extent") continue;
         const path = histLabelPath(fi, proj, W, H, q); if (!path) continue;
         const km2 = HIST.H.faceKm2 ? HIST.H.faceKm2[fi] : 0;
         // the rank by the area ON SCREEN (2b): the face's area times the share of its vertices on screen, in screen pixels — a view
         // with many alive faces names the ones a reader sees most of first, and the order holds as the view moves
         const px2 = km2 * (path.visFrac || 0) / Math.max(1e-6, kmpp * kmpp);
-        histRows.push({ id: e.id, name: e.name, kind: e.kind === "people" || e.kind === "culture" ? e.kind : "polity", rank: px2 >= 4e5 ? 0 : px2 >= 1e5 ? 1 : px2 >= 2e4 ? 2 : px2 >= 4e3 ? 3 : 4, path, len: path.len * kmpp, face: fi, px2 });
+        histRows.push({ id: e.id, name: e.name, kind: e.kind === "people" || e.kind === "culture" || e.kind === "extent" ? e.kind : "polity", rank: px2 >= 4e5 ? 0 : px2 >= 1e5 ? 1 : px2 >= 2e4 ? 2 : px2 >= 4e3 ? 3 : 4, path, len: path.len * kmpp, face: fi, px2 });
       }
       histRows.sort((p, q) => q.px2 - p.px2);
     }
@@ -941,7 +941,7 @@
       const text = row.name;
       const sh = shape(text, st, missing); sh.style = styleId;
       const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
-      if (k === "polity" || k === "people" || k === "culture") {
+      if (k === "polity" || k === "people" || k === "culture" || k === "extent") {
         // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
         const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
         const cum = polyline(S2), Ls = cum[cum.length - 1];
@@ -1132,8 +1132,8 @@
       let m = HIST.meshes.get(key);
       if (!m) {
         const sink = Sink();
-        const ent = HIST.H.entities[HIST.T.faces[fi].entity], presence = !!ent && (ent.kind === "people" || ent.kind === "culture");
-        if (presence) await presenceMesh(L.T, L.pos, HIST.T.faces[fi], level, sink); else await triangulateFace(L.T, L.pos, HIST.T.faces[fi], fi, level, sink);   // 2c: a presence's mesh carries an edge alpha, not a face id
+        const ent = HIST.H.entities[HIST.T.faces[fi].entity], presence = !!ent && (ent.kind === "people" || ent.kind === "culture" || ent.kind === "extent" || ent.kind === "front");
+        if (presence) await presenceMesh(L.T, L.pos, HIST.T.faces[fi], level, sink, ent.kind === "front"); else await triangulateFace(L.T, L.pos, HIST.T.faces[fi], fi, level, sink);   // 2c: a presence's mesh carries an edge alpha, not a face id
         const F = sink.result();
         // the face's coast edges at this level, for the fill-against-stroke stroke at the tile zooms (§2.3, Phase 2a), and — since 2b —
         // its BORDER edges (every non-coast arc, tagged with the arc index so the main thread's arc table still fades them), so the

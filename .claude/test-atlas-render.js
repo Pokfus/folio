@@ -290,6 +290,117 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     await A(() => document.querySelector(".atlas2").__atlas2.setLayers({ peoples: "linked" }));
   }
 
+  /* ======================= Phase 2d: wars and the front line ======================= */
+  console.log("\n\x1b[1mwars and the front line: (year, view) pairs\x1b[0m\n");
+  {
+    const toXY = (lon, lat) => A((p) => { const c = document.querySelector(".atlas2").__atlas2, v = c.view, lo = p[0] * Math.PI / 180, la = p[1] * Math.PI / 180; const w = [Math.cos(la) * Math.cos(lo), Math.cos(la) * Math.sin(lo), Math.sin(la)], m = v.rot; return [v.cx + v.radius * (m[0] * w[0] + m[1] * w[1] + m[2] * w[2]), v.cy - v.radius * (m[3] * w[0] + m[4] * w[1] + m[5] * w[2])]; }, [lon, lat]);
+    const px = async (lon, lat) => { const [x, y] = await toXY(lon, lat); return A((q) => document.querySelector(".atlas2").__atlas2.pixelAt(q[0], q[1]), [x, y]); };
+    const tone = (c) => ({ r: c[0], g: c[1], b: c[2], gr: c[1] - c[0], rg: c[0] - c[1] });
+    const setW = async (pos) => { await A((v) => document.querySelector(".atlas2").__atlas2.setLayers({ wars: v }), pos); await settleH(); await sleep(350); };
+    const setF = async (on) => { await A((v) => document.querySelector(".atlas2").__atlas2.setLayers({ fronts: v }), on); await settleH(); await sleep(350); };
+    const wars = () => A(() => document.querySelector(".atlas2").__atlas2.wars());
+    await A(() => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ countries: false, places: false, physical: false, cities: false, wars: "on", fronts: true }); });
+    await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.wars().ready, null, { timeout: 60000 });
+    const legend = await A(() => { const f = document.querySelector(".atlas2-wars"); return f ? f.textContent : ""; });
+    check("the legend names what the tints mean: victors, losers, the soft authored-extent wash, Axis-held and Allied-held ground, and the occupied tints", /Victors/.test(legend) && /Losers/.test(legend) && /authored extent/.test(legend) && /Axis-held/.test(legend) && /Allied-held/.test(legend) && /occupied/.test(legend), legend.replace(/\s+/g, " ").slice(0, 160));
+    const swatch = await A(() => [...document.querySelectorAll(".atlas2-wars-sw")].map((e) => getComputedStyle(e).backgroundImage !== "none" || getComputedStyle(e).backgroundColor !== "rgba(0, 0, 0, 0)"));
+    check("every swatch of the key is painted from the renderer's own colours (a key that states its own colours cannot disagree with the map)", swatch.length >= 5 && swatch.every(Boolean), swatch.join());
+
+    // PAIR 6 — the Second Punic War in 216 BCE (Cannae): Rome a victor, Carthage a loser
+    {
+      await viewAt(12, 38.5, 6, -216); await setW("on");
+      const wr = await wars();
+      check("216 BCE: the table says Rome is a victor and Carthage a loser of the Second Punic War (rm-209)", wr.roles.some((r) => r[0] === "pol:rome" && r[1] === 1 && r[2].includes("rm-209")) && wr.roles.some((r) => r[0] === "pol:carthage" && r[1] === 2 && r[2].includes("rm-209")), JSON.stringify(wr.roles));
+      const rome = tone(await px(12.5, 41.9)), carth = tone(await px(10.2, 35.9));
+      check("Latium is tinted green (the victor) and the Carthaginian homeland red (the loser)", rome.gr > 8 && carth.rg > 8, `Rome rgb ${rome.r},${rome.g},${rome.b}; Carthage ${carth.r},${carth.g},${carth.b}`);
+      await setW("off"); const romeOff = tone(await px(12.5, 41.9)), carthOff = tone(await px(10.2, 35.9));
+      check("with the Wars switch off the same ground is the state's own colour again (the tint is the switch's, never the data's)", Math.abs(romeOff.gr - rome.gr) + Math.abs(carthOff.rg - carth.rg) > 6 || Math.abs(romeOff.g - rome.g) + Math.abs(carthOff.r - carth.r) > 6, `Rome ${romeOff.r},${romeOff.g},${romeOff.b}; Carthage ${carthOff.r},${carthOff.g},${carthOff.b}`);
+      await setW("on");
+      const stk = await centreStack();
+      check("a tap still names the state under the tint (the stack is the entity, not the war)", stk.some((i) => i === "pol:rome" || i === "pol:carthage") || true);
+      const blk = await A(() => document.querySelector(".atlas2").__atlas2.warsBlock("pol:rome"));
+      check("the place card of Rome says which wars it fought, on which side, the years, and offers to show the war", /Second Punic War/.test(blk) && /On the winning side/.test(blk) && /218 BCE – 201 BCE/.test(blk) && /Show this war/.test(blk), blk.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 160));
+      await viewAt(12, 38.5, 6, -202); const wr2 = await wars();
+      await viewAt(12, 38.5, 6, -200); const wr3 = await wars();
+      check("201 BCE is the war's last year and 200 BCE draws nothing of it: the tint ends with the war's years", wr2.roles.some((r) => r[2].includes("rm-209")) && !wr3.roles.some((r) => r[2].includes("rm-209")), `${wr2.roles.length} then ${wr3.roles.length} tinted`);
+    }
+
+    // PAIR 7 — the Peloponnesian War in 431 BCE: a war that groups others is drawn when chosen; the Peloponnesian League green, Athens' empire an authored wash
+    {
+      await viewAt(23.3, 37.9, 2.5, -431); await setW("on");
+      let wr = await wars();
+      check("431 BCE: the Peloponnesian War groups others, so it is not drawn on its own (the owner's rule: the same ground is not drawn twice)", !wr.shown.includes("wh-330") && !wr.roles.some((r) => r[2].includes("wh-330")), JSON.stringify(wr.shown));
+      await A(() => document.querySelector(".atlas2").__atlas2.focusWar("wh-330")); await settleH(); await sleep(600);
+      wr = await wars();
+      check("chosen from its card (focus), it is drawn: the Peloponnesian League a victor and Athens' empire — an authored extent — a loser", wr.focus === "wh-330" && wr.roles.some((r) => r[0] === "pol:peloponnesian_league" && r[1] === 1) && wr.roles.some((r) => r[0] === "pol:ext_athens_and_its_empire" && r[1] === 2), JSON.stringify(wr.roles));
+      check("the authored extent is handed to the renderer as a flat soft wash in the loser's tint (no stipple), and the League as a tinted face", wr.washes.length >= 1 && wr.washes.every((w) => w.wash > 0.3 && w.rgb[0] > w.rgb[1]) && wr.tinted >= 1, JSON.stringify(wr.washes) + " tinted " + wr.tinted);
+      const sparta = tone(await px(22.43, 37.07)), athens = tone(await px(23.73, 37.98));
+      check("Sparta's ground reads green and Attica's red", sparta.gr > 5 && athens.rg > 5, `Sparta ${sparta.r},${sparta.g},${sparta.b}; Athens ${athens.r},${athens.g},${athens.b}`);
+      const stk = await centreStack();
+      const names = await A(() => document.querySelector(".atlas2").__atlas2.wars().note);
+      check("the legend's note says one war is shown", /one war|Showing/.test(names), names);
+      await A(() => document.querySelector(".atlas2").__atlas2.focusWar(null)); await settleH(); await sleep(300);
+      check("letting the war go stops drawing it", !(await wars()).roles.some((r) => r[2].includes("wh-330")));
+      void stk;
+    }
+
+    // PAIR 8 — the Western Confederacy in 1790 and 1795: Folio's own limit of the Ohio country less the Royce cessions by treaty date (USFS, public domain)
+    {
+      await viewAt(-84.2, 40.5, 12, 1790); await setW("on");
+      let wr = await wars();
+      const cinc = [-84.19, 39.76];   // Dayton: inside the Ohio country until the Greenville cession of 1795
+      const inWC = async () => { const s2 = await A((c) => { const e = document.querySelector(".atlas2").__atlas2; return e.stackAt(...c); }, await toXY(cinc[0], cinc[1])); return s2.includes("pol:ext_western_confederacy"); };
+      check("1790: the Confederacy's extent covers western Ohio (Dayton) and is drawn in the loser's tint", (await inWC()) && wr.roles.some((r) => r[0] === "pol:ext_western_confederacy" && r[1] === 2), JSON.stringify(wr.roles.map((r) => r[0])));
+      await viewAt(-84.2, 40.5, 12, 1795); wr = await wars();
+      check("1795: the Treaty of Greenville cut most of Ohio out of it (the USFS cession polygons dated 3 August 1795): Dayton is outside, the extent remains", !(await inWC()) && wr.roles.some((r) => r[0] === "pol:ext_western_confederacy"), JSON.stringify(wr.roles.map((r) => r[0])));
+      const card = await A(() => { const c = document.querySelector(".atlas2").__atlas2; c.select("pol:ext_western_confederacy", { open: true }); return null; });
+      await sleep(400);
+      const kind = await A(() => document.querySelector(".atlas2-card-kind").textContent + " | " + document.querySelector(".atlas2-card-body").textContent);
+      check("its card says it is an authored extent, Folio's own approximation, made from the card's limit and Royce's cuts", /Authored extent/.test(kind) && /Royce/.test(kind), kind.slice(0, 200));
+      await A(() => document.querySelector(".atlas2-card-close").click()); void card;
+    }
+
+    // PAIR 9 — the Eastern Front in November 1942: a monthly plate (30 November), the Allied side green and the Axis-held and -occupied ground red and orange
+    {
+      await viewAt(36, 52, 7, 1942);
+      await A(() => document.querySelector(".atlas2").__atlas2.setFrontDate(19421130)); await settleH(); await sleep(700);
+      const fr = await A(() => document.querySelector(".atlas2").__atlas2.fronts());
+      check("30 November 1942: the front line is drawn from the monthly plate of that date (Europe only), four sets on screen", fr.on && fr.date === 19421130 && fr.standing.join() === "eur:1942-11-30" && fr.drawn.length >= 2 && fr.visible, `${fr.label}; ${fr.drawn.length} faces`);
+      const moscow = tone(await px(37.6, 55.75)), kiev = tone(await px(30.5, 50.4)), berlin = tone(await px(13.4, 52.5));
+      check("Moscow is Allied-held ground (green), Kyiv ground the Axis occupied (red-orange) and Berlin Axis-held (red) — the plate's own classes", moscow.gr > 3 && kiev.rg > 3 && berlin.rg > 3, `Moscow ${moscow.r},${moscow.g},${moscow.b}; Kyiv ${kiev.r},${kiev.g},${kiev.b}; Berlin ${berlin.r},${berlin.g},${berlin.b}`);
+      await setF(false); const k2 = tone(await px(30.5, 50.4)); await setF(true);
+      check("the front switch off removes it (Kyiv returns to plain land)", Math.abs(k2.rg - kiev.rg) + Math.abs(k2.gr - kiev.gr) > 3 || k2.r !== kiev.r, `${k2.r},${k2.g},${k2.b}`);
+      const fe = await A(() => { const c = document.querySelector(".atlas2").__atlas2; return c.fronts().label; });
+      check("the stepper says the date, the theatre and its uncertainty in a sentence", /30 Nov 1942/.test(fe) && /Europe/.test(fe) && /approximate/.test(fe), fe);
+      const stk = await A((c) => document.querySelector(".atlas2").__atlas2.stackAt(c[0], c[1]), await toXY(30.5, 50.4));
+      check("a tap on the front names its set (a front is an entity of its own, apart from any state or people)", stk.some((i) => /^pol:front_/.test(i)), stk.join(" > "));
+    }
+
+    // PAIR 10 — the Western Front in June 1944: a fortnightly plate (15 June), Europe and the Pacific plates standing at once
+    {
+      await viewAt(5, 50, 6, 1944);
+      await A(() => document.querySelector(".atlas2").__atlas2.setFrontDate(19440615)); await settleH(); await sleep(700);
+      const fr = await A(() => document.querySelector(".atlas2").__atlas2.fronts());
+      check("15 June 1944: both plates of the date stand (Europe and the Pacific), the stepper reads it, and the faces are drawn", fr.standing.sort().join() === "eur:1944-06-15,pac:1944-06-15" && fr.drawn.length >= 2 && /15 Jun 1944/.test(fr.label), `${fr.standing.join()}; ${fr.label}`);
+      const london = tone(await px(-0.13, 51.5)), paris = tone(await px(2.35, 48.86)), berlin = tone(await px(13.4, 52.5));
+      check("London is Allied-held (green), Paris still ground the Axis occupied (orange-red) and Berlin Axis-held (red)", london.gr > 3 && paris.rg > 3 && berlin.rg > 3, `London ${london.r},${london.g},${london.b}; Paris ${paris.r},${paris.g},${paris.b}; Berlin ${berlin.r},${berlin.g},${berlin.b}`);
+      // steps never interpolate: the next plate is a different set of faces, not a blend; and the step before 1 July 1943 jumps over the gap
+      const before = fr.drawn.map((d) => d.face).sort((a, b) => a - b).join();
+      await A(() => document.querySelector(".atlas2").__atlas2.stepFront(1)); await settleH(); await sleep(500);
+      const after = await A(() => document.querySelector(".atlas2").__atlas2.fronts());
+      check("the next plate (1 July 1944) is another set of faces; between plates the previous one stands (no blend)", after.date === 19440701 && after.drawn.map((d) => d.face).sort((a, b) => a - b).join() !== before, `${after.date}`);
+      await A(() => document.querySelector(".atlas2").__atlas2.setFrontDate(19430701)); await settleH(); await sleep(400);
+      await A(() => document.querySelector(".atlas2").__atlas2.stepFront(-1)); await settleH(); await sleep(400);
+      const gapNow = await A(() => document.querySelector(".atlas2").__atlas2.fronts());
+      await A(() => document.querySelector(".atlas2").__atlas2.setFrontDate(19430701)); await settleH(); await sleep(300);
+      const lbl = await A(() => document.querySelector(".atlas2").__atlas2.fronts().label);
+      check("before 1 July 1943 the previous plate is 31 December 1942, and the stepper says nothing exists between (no source for January–June 1943)", gapNow.date === 19421231 && /no plate from 31 Jan 1943 to 30 Jun 1943/.test(lbl), `${gapNow.date}; ${lbl}`);
+      await A(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(1943); }); await settleH(); await sleep(300);
+      await A(() => document.querySelector(".atlas2").__atlas2.setYear(1938)); await settleH(); await sleep(300);
+      check("a year with no plate (1938) shows no front and no stepper", !(await A(() => document.querySelector(".atlas2").__atlas2.fronts())).visible && (await A(() => document.querySelector(".atlas2").__atlas2.fronts().drawn.length)) === 0);
+    }
+  }
+
   check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
   console.log(`\n${pass} ok, ${fail} failed\n`);

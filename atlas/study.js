@@ -203,8 +203,10 @@
      a "people" or a "culture" is a PRESENCE — no border line, a soft stippled face, a name in spaced italic. The one place that
      decision is made is `layerOf`, so the renderer, the labels, the rail, the card and the tests cannot disagree. */
   const isPresence = (kind) => kind === "people" || kind === "culture";
-  const layerOf = (kind) => (isPresence(kind) ? "presence" : kind === "polity" || kind === "contested" || kind === "nested" ? "territory" : "other");
-  const KIND_WORD = { polity: "state", contested: "contested land", nested: "state", people: "people", culture: "culture" };   // the word the stack chip and the card put after a name
+  const isFront = (kind) => kind === "front";   // 2d: an event face — the Second World War front line, dated to the day
+  const isExtent = (kind) => kind === "extent";   // 2d: a war side no series answers, kept as the card's own authored area — a soft wash in the side's tint, never a stipple
+  const layerOf = (kind) => (isPresence(kind) ? "presence" : isExtent(kind) ? "war-extent" : isFront(kind) ? "front" : kind === "polity" || kind === "contested" || kind === "nested" ? "territory" : "other");
+  const KIND_WORD = { polity: "state", contested: "contested land", nested: "state", people: "people", culture: "culture", extent: "authored extent", front: "front" };   // the word the stack chip and the card put after a name
   const kindWord = (kind) => KIND_WORD[kind] || kind;
 
   /* THE PEOPLES SWITCH (the legend's three positions; Q-C2 b). "off" hides every presence; "linked" (the default in the Full Atlas) shows
@@ -243,7 +245,115 @@
     return { territory, presence };
   }
 
-  const api = { LIST_CAP, parse, studied, collections, flags, summary, cardsFor, cluster, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive };
+
+
+  /* THE FRONT LINE (Phase 2d; design §2.4 and §7): four entities of kind `front` (Axis-held, Axis-occupied, Allied-held, Allied-occupied ground), dated steps
+     (YYYYMMDD, never interpolated). Whether they are drawn follows the cards that teach them: the Personal Atlas draws them only when the reader has studied
+     the Second World War's card (flag 2 on a front entity), the Full Atlas when a collection that owns it is on (flag > 0), the plain Map always; and only
+     while the legend's switch is on. */
+  function frontsShown(on, mode, id, flagMap) {
+    if (!on) return false;
+    const f = flagMap && typeof flagMap.get === "function" ? flagMap.get(id) || 0 : 0;
+    if (mode === "personal") return f === 2;
+    if (mode === "full") return f > 0;
+    return true;
+  }
+  const dateOf = (n) => { const s = String(n); return { y: Number(s.slice(0, -4)), m: Number(s.slice(-4, -2)), d: Number(s.slice(-2)) }; };
+  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const fmtDate = (n) => { const q = dateOf(n); return q.d + " " + MONTHS[q.m - 1] + " " + q.y; };
+  const dateInt = (iso) => Number(String(iso).replace(/-/g, ""));
+  /* the date the front shows when the reader has only chosen a YEAR: the last day of it any plate stands for (31 December where one does; the end of the last plate's window
+     in 1945), or null when no plate stands in the year. `plates`: [{ date: "YYYY-MM-DD", end: "YYYY-MM-DD" }] */
+  function autoFrontDate(plates, year) {
+    let best = null; const lo = year * 10000 + 101, hi = year * 10000 + 1231;
+    for (const p of plates || []) { const a = dateInt(p.date), b = dateInt(p.end); if (b < lo || a > hi) continue; const d = Math.min(b, hi); if (best == null || d > best) best = d; }
+    return best;
+  }
+  /* the plates standing on a date (one per theatre at most) and the dates a reader can step between: the distinct plate dates, in order */
+  const platesAt = (plates, d) => (plates || []).filter((p) => dateInt(p.date) <= d && d <= dateInt(p.end));
+  const plateDates = (plates) => [...new Set((plates || []).map((p) => dateInt(p.date)))].sort((a, b) => a - b);
+  function stepPlate(plates, d, dir) {
+    const l = plateDates(plates); if (!l.length) return null;
+    if (dir > 0) { const n = l.find((x) => x > d); return n == null ? null : n; }
+    const prev = l.filter((x) => x < d); if (!prev.length) return null;
+    // from the middle of a plate's standing window, "previous" is that plate's own date first
+    const cur = l.filter((x) => x <= d); const own = cur.length ? cur[cur.length - 1] : null;
+    return own != null && own < d ? own : prev[prev.length - 1];
+  }
+
+  /* ================= WARS (Phase 2d; docs/atlas-v2-design.md §7 "Phase 2d — as built") =================
+     atlas/data/wars.js (window.ATLAS_WARS.wars) says, for each war card, its two sides as the entities of the history file they name, with the years each
+     is on its side: { t: term, y: [from, to], g: 1 if the card GROUPS other wars, v|l: { n: name, m: [[entityId, from, to]…], x: authored-extent entity id | "", u: [unresolved names] } }.
+     Everything here is pure arithmetic over that table: which wars are drawn (the switch, the study mode, the card), which entities are tinted in a year
+     and in which role, and the sentences the place card says. A year with no member alive draws nothing (a gap is a gap). */
+  const WARS_POSITIONS = ["off", "on"], WARS_DEFAULT = "on";
+  const normalizeWars = (v) => (WARS_POSITIONS.includes(v) ? v : WARS_DEFAULT);
+  const WARS_LABEL = { off: "Off", on: "Wars a card teaches" };
+  const ROLE = { victor: 1, loser: 2 };
+  const fmtY = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");
+  const fmtSpan = (a, b) => (a === b ? fmtY(a) : fmtY(a) + " – " + fmtY(b));
+  /* the wars drawn, as a Set of card ids. o: { pos (the switch), mode (map|personal|full), cardSet (the studied cards that carry a place), hidden (collections switched off),
+     info(cardId) → { collId }, focus (a war chosen from a place card or a deep link: drawn whatever the switch, the mode and the card's grouping say) }.
+     A war that GROUPS others (war.group) is drawn only when chosen: the Personal and Full Atlas skip it so the same ground is not drawn twice in the same years. */
+  function warsShown(wars, o) {
+    o = o || {}; const out = new Set(); wars = wars || {};
+    if (o.focus && wars[o.focus]) out.add(o.focus);
+    if (normalizeWars(o.pos) === "off") return out;
+    const off = o.hidden instanceof Set ? o.hidden : new Set(o.hidden || []);
+    for (const id of Object.keys(wars)) {
+      if (wars[id].g) continue;
+      if (o.mode === "personal") { if (!o.cardSet || !o.cardSet.has(id)) continue; }
+      else if (o.mode === "full") { const i = o.info ? o.info(id) : null; if (i && i.collId && off.has(i.collId)) continue; }
+      out.add(id);
+    }
+    return out;
+  }
+  /* the entities tinted in a year: Map entityId → { role: 1 victor | 2 loser | 3 both, wars: [card ids] }. A member counts in the years of its window; an extent
+     (`x`) in the war's own years. A year outside every shown war's years returns an empty map. */
+  function warRoles(wars, shown, y) {
+    const out = new Map();
+    for (const id of shown || []) {
+      const w = wars && wars[id]; if (!w || y < w.y[0] || y > w.y[1]) continue;
+      for (const [k, flag] of [["v", 1], ["l", 2]]) {
+        const side = w[k]; if (!side) continue;
+        const ids = side.m.filter((m) => m[1] <= y && y <= m[2]).map((m) => m[0]); if (side.x) ids.push(side.x);
+        for (const e of ids) { const cur = out.get(e); if (cur) { cur.role |= flag; if (!cur.wars.includes(id)) cur.wars.push(id); } else out.set(e, { role: flag, wars: [id] }); }
+      }
+    }
+    return out;
+  }
+  const roleWord = (role) => (role === 3 ? "both sides" : role === 2 ? "loser" : role === 1 ? "victor" : "");
+  /* the wars an entity fought in, for its place card: [{ id, term, y, role: "victor"|"loser", own, against: [names], mates: [names], authored }]. `authored`: the entity IS an
+     authored extent (Folio's own approximation); `side.authored` below tells the card which of a war's two sides is one. */
+  function warsOfEntity(wars, entityId) {
+    const out = [];
+    for (const id of Object.keys(wars || {}).sort()) {
+      const w = wars[id];
+      for (const [k, other, role] of [["v", "l", "victor"], ["l", "v", "loser"]]) {
+        const side = w[k]; if (!side) continue;
+        const win = side.m.filter((m) => m[0] === entityId).map((m) => [m[1], m[2]]);
+        if (side.x === entityId) win.push(w.y.slice());
+        if (!win.length) continue;
+        out.push({ id, term: w.t, y: w.y.slice(), group: !!w.g, role, own: side.n, against: w[other].n, window: win, authored: side.x === entityId });
+      }
+    }
+    return out;
+  }
+  /* the sentence a war says about itself, for a place card or a screen reader: who fought on which side, the years, which sides are authored extents.
+     `nameOf(entityId)` is optional (the entity's own name); the side's `n` is the card's own name for it. */
+  function warSentence(w) {
+    if (!w) return "";
+    const side = (s, word) => {
+      const bits = [s.n + " (" + word + ")"];
+      const ext = s.x ? " — drawn as an authored extent: Folio’s own approximation, not a surveyed border" : "";
+      const part = s.m.length && s.m.some((m) => m[1] > w.y[0] || m[2] < w.y[1]) ? " (" + s.m.filter((m) => m[1] > w.y[0] || m[2] < w.y[1]).map((m) => m[0].replace(/^pol:/, "") + " " + fmtSpan(m[1], m[2])).join(", ") + ")" : "";
+      const un = s.u && s.u.length ? "; not on the map, no entity for: " + s.u.join(", ") : "";
+      return bits[0] + part + ext + un;
+    };
+    return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
+  }
+
+  const api = { LIST_CAP, parse, studied, collections, flags, summary, cardsFor, cluster, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);
