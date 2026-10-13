@@ -255,6 +255,7 @@
     uniform sampler2D uStyle; uniform float uIdPass; uniform vec4 uFlat; uniform float uUseFlat;
     uniform float uIdOffset;         // the history faces live above 2^18 in the id space (Phase 2a)
     uniform float uHatch; uniform vec3 uHatchB;   // a contested face: stripes of its two claimants' colours, in screen space
+    uniform float uHiOnly;           // Phase 4: 1 in the second face pass of a frame with a highlight — only the highlighted faces (style alpha below 1) are drawn, on top of the parents that overlap them
     out vec4 o;
     void main() {
       if (vZ < 0.0) discard;
@@ -267,6 +268,7 @@
       if (uUseFlat > 0.5) { o = vec4(uFlat.rgb * uFlat.a, uFlat.a); return; }   // lakes: one colour, no style texel
       vec4 s = texelFetch(uStyle, ivec2(id & 255, id >> 8), 0);
       if (s.a < 0.002) discard;
+      if (uHiOnly > 0.5 && s.a > 0.999) discard;
       vec3 c = s.rgb;
       if (uHatch > 0.5) { float d = mod(gl_FragCoord.x + gl_FragCoord.y, 12.0); c = d < 6.0 ? s.rgb : uHatchB; }
       o = vec4(c * s.a, s.a);
@@ -505,7 +507,7 @@
         gl.deleteQuery(h.q);
       }
     }
-    let faceCount = 0, selected = -1;
+    let faceCount = 0, selected = -1, selMap = null;   // selMap (Phase 4): face index → [r,g,b] for a HIGHLIGHT of many faces in their own colours (a card window's state, a war's two sides)
     let histBorderColor = [0.4, 0.4, 0.45];
     let presenceDark = false;                 // 2c: screen instead of multiply on a dark theme
     let pickOpts = null;                      // 2c: an ID pass may draw one layer only ("states" | "presence") and skip faces already found
@@ -620,8 +622,8 @@
       const px = new Uint8Array(256 * styleH * 4);
       const land = palette.land, sel = palette.selected;
       for (let i = 0; i < faceCount; i++) {
-        const c = i === selected ? sel : land;
-        px[4 * i] = c[0] * 255; px[4 * i + 1] = c[1] * 255; px[4 * i + 2] = c[2] * 255; px[4 * i + 3] = 255;
+        const hl = i !== selected && selMap && selMap.get(i), c = i === selected ? sel : hl || land;
+        px[4 * i] = c[0] * 255; px[4 * i + 1] = c[1] * 255; px[4 * i + 2] = c[2] * 255; px[4 * i + 3] = hl || i === selected ? 254 : 255;   // 254: a highlighted face — the second face pass draws only these
       }
       gl.bindTexture(gl.TEXTURE_2D, styleTex);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 256, styleH, 0, gl.RGBA, gl.UNSIGNED_BYTE, px);
@@ -953,6 +955,16 @@
         if (parents.length) { faceStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
         if (own.length) { faceStencil(2); for (const t of own) drawFaces(t, view, idPass, R); }
         if (useStencil) { gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff); }
+        // Phase 4: the core holds a country's face AND its admin-1 children's, overlapping, and with no depth buffer the later triangle wins — a highlighted state
+        // came out with holes where the country's triangles were drawn after it. The highlighted faces are drawn again, alone, over everything.
+        if ((selMap || selected >= 0) && !idPass) {
+          const Pf = prog.face; gl.useProgram(Pf.p); gl.uniform1f(Pf.u.uHiOnly, 1);
+          if (Lv && !complete) { faceStencil(0); drawFaces(Lv, view, idPass, R); }
+          if (parents.length) { faceStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
+          if (own.length) { faceStencil(2); for (const t of own) drawFaces(t, view, idPass, R); }
+          if (useStencil) { gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff); }
+          gl.useProgram(Pf.p); gl.uniform1f(Pf.u.uHiOnly, 0);
+        }
       }
       /* RELIEF, EVERY PIXEL SHADED ONCE (Phase 1c). Until 1c the sphere pass sampled the L0 sheet for every
          pixel of the disc, each L1 patch then painted its whole rectangle as sea and again as land, and the
@@ -1168,6 +1180,8 @@
         if (faceCount && !lost) buildStyle();
       },
       select(face) { selected = face == null ? -1 : face; if (faceCount && !lost) buildStyle(); },
+      /* Phase 4: highlight many faces at once, each in its own colour — a Map of face index → [r,g,b] (0–1), or null to clear. The face fill is the only thing it changes; the outline is the window's. */
+      highlight(map) { selMap = map && map.size ? map : null; if (faceCount && !lost) buildStyle(); },
       resize(cssW, cssH, ratio) {
         dpr = Math.min(2, ratio || 1);
         W = Math.max(1, Math.round(cssW * dpr)); H = Math.max(1, Math.round(cssH * dpr));

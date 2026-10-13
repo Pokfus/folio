@@ -418,7 +418,13 @@
     R.setRamp(buildRamp());
 
     /* ---------- view and layers ---------- */
-    const layers = loadLayers();
+    /* PHASE 4 — THE EMBEDDED MODE (docs/atlas-v2-design.md §7 "Phase 4 — as built"; atlas/atlas-embed.js drives it). `opts.embed` mounts the very same controller as a HEADLESS HUB for the card windows
+       and Find-it: it keeps the renderer, the worker, the tiles, the water and the history, and drops every thing a page owns — the reader's saved layers and year, the address bar, the gazetteer and
+       the names, the label layout, the animation loop. The hub is never drawn to the screen; atlas-embed.js sets its size and view per window, asks for one frame (`plan` then the renderer) and copies
+       the canvas into the window's own 2D canvas, so any number of windows share one WebGL context. */
+    const EMBED = !!opts.embed;
+    let embedHook = null;   // atlas-embed.js: told when a tile, a water level or the history has arrived (the hub has no frame loop of its own)
+    const layers = EMBED ? Object.assign({}, DEFAULT_LAYERS, { countries: false, places: false, physical: false, cities: false, relief: false, graticule: false, rivers: false, lakes: false, wars: "off", fronts: false }, opts.layers || {}) : loadLayers();
     const view = { history: null, lon: 10, lat: 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
     let cssW = 0, cssH = 0, base = 100, dprNow = 1;
     /* ADAPTIVE DEGRADATION DURING A GESTURE (Phase 1d). The owner's gate holds every frame of a gesture to 100 ms, and on
@@ -662,6 +668,7 @@
     function frame(t) {
       raf = 0;
       if (disposed) return;
+      if (EMBED) { if (embedHook) embedHook(); return; }   // the hub draws on request (atlas-embed.js), never on its own
       if (!el.isConnected) { dispose(); return; }
       if (lastT) { const dt = t - lastT; stats.frames.push(dt); if (stats.frames.length > 600) stats.frames.shift(); }
       if (perfOn && lastTraceT && t - lastTraceT < 1000) { (stats.frameTrace || (stats.frameTrace = [])).push([Math.round(t - lastTraceT), Object.assign({ histTri: R.rawStats.historyTriangles, meshes: R.rawStats.historyMeshes, resident: time.resident ? time.resident.size : 0 }, stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v * 10) / 10])) : {})]); if (stats.frameTrace.length > 400) stats.frameTrace.shift(); }   // the suites and the console: what each frame spent its time on
@@ -816,7 +823,7 @@
       if (!/^(auto|off|on)$/.test(layers.wars)) layers.wars = "auto";
       layers.fronts = layers.fronts !== false;
       view.graticule = layers.graticule;
-      saveLayers(layers); reflectLayers(); invalidate();
+      if (!EMBED) saveLayers(layers); reflectLayers(); invalidate();
       if (JSON.stringify(layers) !== before) { if (before.indexOf('"peoples":"' + layers.peoples + '"') < 0) refreshPresence(true); if (before.indexOf('"wars":"' + layers.wars + '"') < 0) refreshWars(); if (before.indexOf('"fronts":' + layers.fronts) < 0) refreshFronts(); requestLayout("legend", true); }
     }
     reflectLayers();
@@ -975,7 +982,7 @@
         faceOfEntity = new Map(); for (let i = 0; i < faceEntity.length; i++) if (!faceOfEntity.has(faceEntity[i])) faceOfEntity.set(faceEntity[i], i);
         entityIndexById = new Map(header.entities.map((e, i) => [e.id, i]));
         if (pendingZoom) { view.zoom = pendingZoom; pendingZoom = 0; clampView(); plan(); invalidate(); }   // a deep link's zoom past the old floor, now that the tile index says the cap is 150 m/px
-        if (!gazStarted) startGazetteer();
+        if (!gazStarted && !EMBED) startGazetteer();
         coreIn = true; if (!histStarted && (histWanted || time.year < PRESENT_YEAR)) startHistory();   // 2b: the borders of the past load the first time the rail leaves today, not at boot
         say("Shaping the land…", 0.35); return;
       }
@@ -1509,7 +1516,7 @@
         reflectFront(); reflectWarsNote();
       } else { time.view = { faces: [], pfaces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
       if (wasPresent !== time.present) { if (sel.id && !G.byId.get(sel.id)?.hist && !time.present) clearSelection(); }
-      if (!o.drag) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
+      if (!o.drag && !EMBED) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
       plan(); invalidate();
       if (o.why === "play") { const now = performance.now(); if (now - (time.lastPlayLayout || 0) > 500) { time.lastPlayLayout = now; requestLayout("year", true); } else requestLayout("year"); writeHash(false); }   // playing: a layout twice a second at most (one per frame starved the frame on a software rasteriser)
       else if (!o.drag) { requestLayout("year", true); writeHash(false); if (o.why !== "peoples") announce(fmtYear(y)); }   // the Peoples switch re-applies the year: it is not a year change to a screen reader
@@ -1672,7 +1679,7 @@
     const railResize = () => { drawTicks(); };
     window.addEventListener("resize", railResize);
     // the initial year: the deep link's, else the last used, else today
-    { let y = null; try { const v = localStorage.getItem(YEAR_KEY); if (v != null && v !== "" && isFinite(Number(v))) y = clampYear(Number(v)); } catch (e) {} time.year = y == null ? TODAY : y; time.lastYear = time.year; time.present = time.year >= PRESENT_YEAR; railPin.style.left = (railX(time.year) * 100) + "%"; railYear.value = fmtYear(time.year); railPin.setAttribute("aria-valuenow", String(time.year)); railPin.setAttribute("aria-valuetext", fmtYear(time.year)); }
+    { let y = null; if (!EMBED) try { const v = localStorage.getItem(YEAR_KEY); if (v != null && v !== "" && isFinite(Number(v))) y = clampYear(Number(v)); } catch (e) {} time.year = y == null ? TODAY : y; time.lastYear = time.year; time.present = time.year >= PRESENT_YEAR; railPin.style.left = (railX(time.year) * 100) + "%"; railYear.value = fmtYear(time.year); railPin.setAttribute("aria-valuenow", String(time.year)); railPin.setAttribute("aria-valuetext", fmtYear(time.year)); }
 
     /* ================= Phase 1c: names, picking, the place card, search, deep links, the keyboard =================
        (docs/atlas-v2-design.md §2.6, §2.8, §2.9 and §7 "Phase 1c — as built"; the worker's half is in atlas-worker.js) */
@@ -1737,7 +1744,7 @@
     // and a settle timer would lay out between them (measured: one layout per move on the CI-class runner)
     const moving = () => dragging || ptrs.size > 0 || coasting || !!flying || !!time.dragging;   // a rail scrub holds the layout too: the names move when the pin drops
     function requestLayout(reason, now) {
-      if (disposed) return;
+      if (disposed || EMBED) return;
       if (reason === "level") { const t = performance.now(); if (t - lastLevelLayout < 100) return; lastLevelLayout = t; now = true; }
       if (moving() && reason !== "level") { layoutHeld = reason; return; }
       if (layoutTimer) { clearTimeout(layoutTimer); layoutTimer = 0; }
@@ -2333,6 +2340,7 @@
     // the query: ?y=<year> (Phase 2a) and perf; the existing form #map2/<lon>/<lat>/<zoom>/<place> is unchanged
     function hashNow() { const q = []; if (time.hist || time.year !== TODAY) q.push("y=" + time.year); if (perfInHash) q.push("perf"); return "#map2/" + view.lon.toFixed(2) + "/" + view.lat.toFixed(2) + "/" + zoomLevel().toFixed(2) + (sel.id ? "/" + encodeURIComponent(sel.id) : "") + (q.length ? "?" + q.join("&") : ""); }
     function writeHash(push) {
+      if (EMBED) return;
       if (!/^#map2(\/|\?|$)/.test(location.hash || "")) return;   // the reader has left the Atlas
       const h = hashNow(); if (h === location.hash) return;
       lastWrittenHash = h;
@@ -2350,8 +2358,7 @@
     // pushState and replaceState fire no event, so every hashchange or popstate is the reader's: Back, Forward, a typed link.
     // One that already describes the view and the selection (a settle's own rewrite read back) changes nothing.
     const onHash = () => { if (disposed) return; const h = location.hash || ""; if (!/^#map2(\/|\?|$)/.test(h)) return; if (h === hashNow()) return; const d = readHash(); if (d) applyHash(d); else if (sel.id) clearSelection(); };
-    window.addEventListener("hashchange", onHash);
-    window.addEventListener("popstate", onHash);
+    if (!EMBED) { window.addEventListener("hashchange", onHash); window.addEventListener("popstate", onHash); }
 
     /* ---- the keyboard: a hidden list of buttons mirroring the visible labels in rank order ---- */
     function updateKeys() {
@@ -2615,7 +2622,7 @@
     try { paintWarsKey(); } catch (e) { /* before the time block */ }
     layout();
     // a deep link (#map2/<lon>/<lat>/<zoom>/<place>) sets the first view; the place opens once the data is in
-    { const d = readHash(); if (d) { deepView = true; lastWrittenHash = location.hash; applyHash(d); } }
+    if (!EMBED) { const d = readHash(); if (d) { deepView = true; lastWrittenHash = location.hash; applyHash(d); } }
     drawTicks();
     invalidate();
     // the view set from outside (the perf suite's fixed views): centre, zoom, then wait for `tilesSettled()`
@@ -2624,7 +2631,7 @@
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
-    const controller = { dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: () => ensureHistory(), landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0, levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
       stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
       forceStage, feedGesture, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
       perfOn: () => perfOn,
