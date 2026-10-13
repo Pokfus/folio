@@ -1,7 +1,7 @@
 /* atlas-windows.js — the card windows and Find-it on the Atlas v2 engine (Atlas v2 Phase 4; docs/atlas-v2-card-windows.md). A LAZY file, loaded with atlas-embed.js (the `atlas2embed` bundle) the first time a window or the
    Find-it board is wanted behind the preview switch, so none of it is on the eager path. It reaches app.js's own helpers only through `X`, the context object app.js hands over (`atlas2Ctx`): the card data, the
    locator and war attributes' readers, the sibling dots, the colours, the round pools of Find it — nothing here is a second copy of a rule, except `finditPools` / `buildGameRounds`, which are copied (they live inside
-   v1's page closure) and compared with v1's by test-atlas-embed.js.
+   v1's page closure) and compared with v1's by test-atlas-embed.js. */
   /* ---------- (1) CARD WINDOWS ON THE ATLAS v2 ENGINE (Oct 2026, Atlas v2 Phase 4; docs/atlas-v2-card-windows.md) ----------
      The same windows — a map card, a locator, a war — drawn by `atlas/atlas-embed.js` (ONE headless engine and one WebGL context for every window on the page) instead of by
      `startCardGlobeV1`'s own 2D canvas. STAGE A: behind the per-viewer preview switch (`atlas2Preview()`, localStorage `folio.atlas2.preview`), OFF by default, so v1's window stays what a
@@ -11,17 +11,6 @@
      FACE, from the entity table of topology.bin (`atlas/data/card-faces.js` is the join from a layer's key to an entity id), with the Atlas's selection gold as a translucent tint and a gold
      outline and glow from the engine's own mask pass. WHAT THE WINDOW DRAWS ON TOP, as it always did: the gold mark (square, circle, swords), the card's authored area and range spine, the
      siblings and the collection's home square with their names, and the place's name after the reveal. Nothing about the card's content moved. */
-  /* Phase 4: a window drawn by the engine opens the engine's own Atlas (#map2) at the window's view and year — "Open in the Atlas at <year>" — as a deep link the page already reads
-     (#map2/<lon>/<lat>/<zoom level>?y=<year>). A war window carries the war's year and the card (`&war=<id>`), so the Atlas opens on that war in its years. Used by the go button and by a
-     tap on the window (a map card's tap only once it is revealed: until then nothing on it may be answerable). */
-  function atlas2OpenFromWindow(host, id) {
-    if (!host || !host._folioMap || host.getAttribute("data-map-engine") !== "v2" || !atlas2Preview()) return false;
-    const v = host._folioMap.view(), cv0 = host.querySelector(".mc-canvas"), base0 = 0.46 * Math.min(cv0.clientWidth || 300, cv0.clientHeight || 220);
-    const kmpp = 6371.0088 / (Math.max(1, base0) * v.zoom), zl = Math.max(0, Math.min(18, Math.log2(156.543 / kmpp)));
-    const yr = host.getAttribute("data-map-year");
-    route("map2", { hash: "map2/" + v.lon.toFixed(2) + "/" + v.lat.toFixed(2) + "/" + zl.toFixed(2) + (yr ? "?y=" + encodeURIComponent(yr) + (id && host.classList.contains("map-war") ? "&war=" + encodeURIComponent(id) : "") : "") });
-    return true;
-  }
 (function (W) {
   "use strict";
   function startCardWindow(host, X) {
