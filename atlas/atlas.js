@@ -1247,9 +1247,9 @@
       time.slots = hist;
     }
     const slotAt = (ent, y) => { const h = time.slots && time.slots.get(ent); if (!h || !h.length) return ent % SLOTS; let s = h[0][1]; for (const [from, sl] of h) { if (from > y) break; s = sl; } return s; };
-    let histRGB = [], histBorderCss = "";
+    let histRGB = [], histBorderCss = "", histDark = false;   // histDark: the theme's darkness, read by histColours() when the theme changes (a year change reads it, never the computed style: 0d)
     function histColours() {
-      const { ink, paper, dark } = themeTokens();
+      const { ink, paper, dark } = themeTokens(); histDark = dark;
       const hsl = (h, sat, lum) => { const c = (1 - Math.abs(2 * lum - 1)) * sat, x = c * (1 - Math.abs((h / 60) % 2 - 1)), mm = lum - c / 2; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [r + mm, g + mm, b + mm]; };
       // the slots: hues spread round the wheel in a golden-angle order (neighbouring slot numbers are far apart in hue), two
       // lightness steps so sixteen stay apart; blended with the theme's tokens so every theme keeps its own ink and land
@@ -1316,7 +1316,8 @@
     /* ---- Phase 2d: the FRONT LINE (event faces dated to the day; study.js does the arithmetic) ---- */
     const frontEl = el.querySelector(".atlas2-front"), frontLabel = el.querySelector(".atlas2-front-label");
     const frontShown = (ent) => { const A = AS2(); return !!A && A.frontsShown(layers.fronts, PI.mode, time.ents[ent].id, PI.flags); };
-    const curFrontDate = () => { const A = AS2(); if (!A || !time.frontPlates.length) return null; if (time.frontDate != null && Math.floor(time.frontDate / 10000) === time.year) return time.frontDate; return A.autoFrontDate(time.frontPlates, time.year); };
+    let autoFrontYear = null, autoFrontVal = null;   // 0d: autoFrontDate walks every plate; the answer for a year never changes while the plates do not
+    const curFrontDate = () => { const A = AS2(); if (!A || !time.frontPlates.length) return null; if (time.frontDate != null && Math.floor(time.frontDate / 10000) === time.year) return time.frontDate; if (autoFrontYear !== time.year) { autoFrontVal = A.autoFrontDate(time.frontPlates, time.year); autoFrontYear = time.year; } return autoFrontVal; };
     function frontAliveAt(d) {
       const out = []; if (d == null) return out;
       for (const ent of time.frontEnts) {
@@ -1436,7 +1437,7 @@
       if (effW === "off" && !time.warFocus) t = layers.wars === "auto" ? "Wars are not tinted on the plain Map. Choose On to tint them, or open a war from its card." : "Wars are not tinted.";
       else if (!time.wars) t = time.warFailed ? "The wars table didn’t arrive." : "Reading the wars…";
       else if (time.warFocus && time.wars[time.warFocus]) t = "Showing one war: " + (time.wars[time.warFocus].t || time.warFocus) + ".";
-      else { const n = [...time.warRoles.keys()].length; t = (PI.mode === "personal" ? "Wars from the cards you have studied. " : "Every war a card teaches. ") + (n ? n.toLocaleString("en-GB") + (n === 1 ? " side is" : " sides are") + " tinted in this year." : "None is tinted in this year."); }
+      else { const n = [...time.warRoles.keys()].length; t = (PI.mode === "personal" ? "Wars from the cards you have studied. " : "Every war a card teaches. ") + (n ? (AS2() ? AS2().fmtN(n) : String(n)) + (n === 1 ? " side is" : " sides are") + " tinted in this year." : "None is tinted in this year."); }
       if (t !== warsNoteText) { warsNoteText = t; el2.textContent = t; }
     }
     var peoplesNoteText = null;
@@ -1522,7 +1523,7 @@
       if (!time.style || time.style.length < Math.ceil(nF / 256) * 256 * 4) time.style = new Uint8Array(Math.max(1, Math.ceil(nF / 256)) * 256 * 4);
       if (!time.arcTab || time.arcTab.length < Math.ceil(nA / 256) * 256) time.arcTab = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256);   // one byte an arc (R8; 2b): a quarter of the upload a year change used to make
       time.style.fill(0); time.arcTab.fill(0);
-      const { dark } = themeTokens(); const base = dark ? HIST_FILL_ALPHA_DARK : HIST_FILL_ALPHA;
+      const dark = histDark; const base = dark ? HIST_FILL_ALPHA_DARK : HIST_FILL_ALPHA;
       let tNow = 1; if (time.fade) tNow = Math.min(1, (performance.now() - time.fade.t0) / FADE_MS);
       const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const a = (time.selected === ent ? HIST_SEL_ALPHA : base) * alphaScale * (warRoleOf(ent) === 1 || warRoleOf(ent) === 2 ? WAR_FILL_BOOST : 1); const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
       if (time.fade) for (const a of time.fade.from) if (!time.aliveSet.has(a.face)) put(a.face, 1 - tNow);

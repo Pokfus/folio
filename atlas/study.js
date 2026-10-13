@@ -233,7 +233,7 @@
   function peoplesNote(pos, mode, n) {
     pos = normalizePeoples(pos);
     if (pos === "off") return "Peoples and cultures are hidden.";
-    const count = n == null ? "" : " " + n.toLocaleString("en-GB") + (n === 1 ? " is" : " are") + " on the map in this year.";
+    const count = n == null ? "" : " " + fmtN(n) + (n === 1 ? " is" : " are") + " on the map in this year.";
     if (mode === "personal") return "The Personal Atlas shows a people only when one of your cards links it." + count;
     return (pos === "all" ? "Every people and culture with a dated source." : "The peoples and cultures a card links.") + count;
   }
@@ -261,7 +261,11 @@
   const dateOf = (n) => { const s = String(n); return { y: Number(s.slice(0, -4)), m: Number(s.slice(-4, -2)), d: Number(s.slice(-2)) }; };
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const fmtDate = (n) => { const q = dateOf(n); return q.d + " " + MONTHS[q.m - 1] + " " + q.y; };
-  const dateInt = (iso) => Number(String(iso).replace(/-/g, ""));
+  /* Phase 4 / 0d: memoised — a year change asks for the same 138 plate dates again and again (autoFrontDate, platesAt), and the string work was the front's share of a year change's cost */
+  const _dateInts = new Map();
+  const dateInt = (iso) => { let v = _dateInts.get(iso); if (v === undefined) { v = Number(String(iso).replace(/-/g, "")); if (_dateInts.size < 4096) _dateInts.set(iso, v); } return v; };
+  const _nf = typeof Intl !== "undefined" ? new Intl.NumberFormat("en-GB") : null;   // toLocaleString builds a formatter every call; a year change formats two counts
+  const fmtN = (n) => (_nf ? _nf.format(n) : String(n));
   /* the date the front shows when the reader has only chosen a YEAR: the last day of it any plate stands for (31 December where one does; the end of the last plate's window
      in 1945), or null when no plate stands in the year. `plates`: [{ date: "YYYY-MM-DD", end: "YYYY-MM-DD" }] */
   function autoFrontDate(plates, year) {
@@ -357,7 +361,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { LIST_CAP, parse, studied, collections, flags, summary, cardsFor, cluster, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, summary, cardsFor, cluster, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);
