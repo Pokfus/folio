@@ -50,7 +50,12 @@
     const zoomAttr = Number(host.getAttribute("data-map-zoom")) || 0;
     const root0 = sibCard ? cardCollectionRoot(sibCard) : null;
     const hiRegion = sibCard ? (CMAP_HIRES[(root0 || {}).id] || "") : (CMAP_LAYER_HIRES[layerName] || "");
-    const wantWater = !!sibCard || !!hiRegion;
+    /* PHASE 4c, THE OWNER'S DECISION 2 — RIVERS IN WINDOWS. A window draws its rivers at the Atlas's own density for its zoom (about half of V1's length; Phase 4b had asked for one resident level finer everywhere, 107 % of V1's). A
+       card whose SUBJECT is water — a river locator, a sea, a lake — gets the finer level, so the river it is about is drawn in full. Under the reader's data saver or light mode the window asks for no water at all (the
+       finer level is in the same 4.3 MB file as the coarse one, so "never fetched" can only mean the file is not fetched): the card's own river from `rivers.js` is still drawn in gold. */
+    const lightReader = !!(S.settings && S.settings.saveData) || !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.saveData === true);
+    const waterSubject = !!sibCard && (locKind === "river" || locKind === "sea" || (locKind === "point" && /\b(lake|lagoon|loch|lough|bay|gulf|strait|channel|sea|river)\b/i.test(host.getAttribute("data-map-atname") || "")));
+    const wantWater = (!!sibCard || !!hiRegion) && !lightReader;
     const subdiv = sibCard ? (CMAP_SUBDIV[(root0 || {}).id] || null) : null;
     const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], termName: new Map(), own: new Set() };
     const anchor = (() => {
@@ -140,10 +145,10 @@
     }
     /* PHASE 4b, WAR WINDOWS: THE TWO PRINCIPAL SIDES ARE NAMED ON THE WINDOW and a one-line legend is drawn from the card's own sides (`ATLAS_WARS` carries the card's name for each: "Rome", "Carthage",
        "Han, Zhao, Wei, Chu, Yan and Qi"). The names stand where each side stands in the war's years (the engine's `warSides`: the mean direction of the side's faces); the legend is a pill at the foot of the window:
-       a swatch in the engine's own victor / loser colour, the side's name, and — only where the card gives ONE name and the table tints several states for the side (China is the Republic of China and the Communist-led state in 1937–45) — "(2 states)": the card's own words, plus a count the table can vouch for; "and allies" was the owner's example wording and is NOT used, because nothing in the data says the extra states were allies. A side that is only an authored
+       a swatch in the engine's own victor / loser colour, the side's name, and, wherever the table tints more than one state for the side, a count after it — "China · 2 states" (Phase 4c, the owner's decision 1: the card's OWN name verbatim, then the number of states the table draws for it; the legend never says or implies "allies", because nothing in the data says the extra states were allies). A side that is only an authored
        extent (no state of the table in those years) has a hatched swatch and says "approximate extent": the wash the engine draws for it is the card's own claim, never a border. */
     let warSides = null, warCols = null, lastLegend = [], lastNames = [];
-    const sideText = (sd) => { const n = String(sd.n || "").trim(); return sd.members > 1 && !/,| and /.test(n) ? n + " (" + sd.members + " states)" : n; };
+    const sideText = (sd) => { const n = String(sd.n || "").trim(); return sd.members > 1 ? n + " · " + sd.members + " states" : n; };   // Phase 4c, owner's decision 1: the card's own name verbatim, then the count the table can vouch for ("China · 2 states"); never "allies"
     function warMarks(ctx, api) {
       if (!warSides || !warCols) return;
       const W = api.cw, H = api.ch, css = (c, a) => "rgba(" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255)).join(",") + "," + a + ")";
@@ -307,7 +312,7 @@
         win = window.AtlasEmbed.view(cv, {
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
-            layers: { borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar },
+            layers: { borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: waterSubject },
             year: warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined,
             highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9 }] : [],
           }),

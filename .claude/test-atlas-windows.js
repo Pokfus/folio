@@ -192,7 +192,7 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
   /* ---------------- 4) war windows name their sides ---------------- */
   if (want(4)) {
     sect("4) war windows name their sides");
-    for (const [id, vw, label] of [["rm-209", { width: 1100, height: 900 }, "desktop"], ["rm-209", { width: 390, height: 844 }, "phone"], ["rm-153", { width: 1100, height: 900 }, "desktop"], ["gr-552", { width: 390, height: 844 }, "phone"]]) {
+    for (const [id, vw, label] of [["rm-209", { width: 1100, height: 900 }, "desktop"], ["rm-209", { width: 390, height: 844 }, "phone"], ["rm-153", { width: 1100, height: 900 }, "desktop"], ["gr-552", { width: 390, height: 844 }, "phone"], ["ww2-096", { width: 1100, height: 900 }, "desktop"], ["ww2-096", { width: 390, height: 844 }, "phone"]]) {
       const { ctx, page } = await newPage(browser, { viewport: vw, dpr: label === "phone" ? 2 : 1, mobile: label === "phone" });
       await page.goto(url("#card/" + id), { waitUntil: "load" });
       await page.reload({ waitUntil: "load" });
@@ -204,7 +204,9 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       /* the legend keeps "— victors / — defeated" while it fits; on a narrow window with long names it drops those words (the swatch colour and the legend under the window say it) and then shortens "approximate extent", never the order or the names */
       const wordsKept = info.legend.length === 2 && /— victors$/.test(info.legend[0]) && /— defeated$/.test(info.legend[1]);
       check(tag + ": a one-line legend is drawn from the card's own sides, victors then defeated" + (id === "rm-209" ? ", with the words" : ""), info.legend.length === 2 && info.legend[0].indexOf(info.sides[0]) === 0 && info.legend[1].indexOf(info.sides[1]) === 0 && (id !== "rm-209" || wordsKept), JSON.stringify(info.legend));
-      check(tag + ": no side is named that the card does not name (a count of states only where the table tints several for a side the card names once)", info.legend.every((t, i) => { const base = t.replace(/ \((approximate extent|approx\.)\)/, "").replace(/ — (victors|defeated)$/, ""); return base === info.sides[i] || new RegExp("^" + info.sides[i].replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + " \\(\\d+ states\\)$").test(base); }), JSON.stringify(info.legend));
+      check(tag + ": no side is named that the card does not name (its own name, then a count of states wherever the table tints several for a side)", info.legend.every((t, i) => { const base = t.replace(/ \((approximate extent|approx\.)\)/, "").replace(/ — (victors|defeated)$/, ""); return base === info.sides[i] || new RegExp("^" + info.sides[i].replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + " · \\d+ states$").test(base); }), JSON.stringify(info.legend));
+      check(tag + ": the legend never says or implies allies", info.legend.every((t) => !/allies|allied/i.test(t)), JSON.stringify(info.legend));
+      if (id === "ww2-096") check(tag + ": the Second Sino-Japanese War's China reads \"China · 2 states\" in the card's own name and the table's count", /^China · 2 states/.test(info.legend[0]), JSON.stringify(info.legend));
       const green = await count(page, ".map-card .mc-canvas", "g > r + 40 && g > b + 25", [0, 0.82, 0.7, 1]), red = await count(page, ".map-card .mc-canvas", "r > g + 60 && r > b + 50", [0, 0.82, 0.7, 1]);
       check(tag + ": the legend's swatches are the engine's own victor green and loser red, in the pill at the foot", green > 20 && red > 20, JSON.stringify({ green, red }));
       if (info.extent.some(Boolean)) check(tag + ": a side that is only an authored extent says so, with a hatched swatch, and is not drawn as a state", info.legend.some((t, i) => info.extent[i] && /\((approximate extent|approx\.)\)/.test(t)) && info.legend.every((t, i) => !!info.extent[i] === /\((approximate extent|approx\.)\)/.test(t)), JSON.stringify(info.legend));
@@ -231,16 +233,26 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
   /* ---------------- 5) rivers ---------------- */
   if (want(5)) {
     sect("5) rivers: the engine's own, at the Atlas's density for the window's zoom");
-    for (const [id, what] of [["geo-002", "the Texas map card (which drew none in Phase 4)"], ["rm-003", "the Tiber's locator"]]) {
+    for (const [id, what, bias] of [["geo-002", "the Texas map card (which drew none in Phase 4)", 0], ["rm-003", "the Tiber's locator (a river card: one level finer where one exists)", 1], ["wh-064", "Lake Toba's locator (a water card)", 1]]) {
       const reqs0 = requests.length;
       const { ctx, page } = await newPage(browser, id === "geo-002" ? { session: sessionFor("geo-002") } : {});
       await page.goto(url(id === "geo-002" ? "#study" : "#card/" + id), { waitUntil: "load" });
       await windowReady(page); await windowSettled(page).catch(() => {});
       await page.waitForTimeout(500);
-      const info = await page.evaluate(() => { const hub = AtlasEmbed.hub(); const rv = hub.ctl.palette().river, l = hub.last; return { river: rv.map((v) => Math.round(v * 255)), level: l && l.level, kmpp: l && l.kmpp, stats: hub.ctl.renderer.stats ? hub.ctl.renderer.stats().riverSegments : null }; });
+      const info = await page.evaluate(() => { const hub = AtlasEmbed.hub(); const rv = hub.ctl.palette().river, l = hub.last; return { bias: hub.ctl.view.riverLevelBias, river: rv.map((v) => Math.round(v * 255)), level: l && l.level, kmpp: l && l.kmpp, stats: hub.ctl.renderer.stats ? hub.ctl.renderer.stats().riverSegments : null }; });
       const n = await count(page, ".map-card .mc-canvas", `Math.abs(r - ${info.river[0]}) < 26 && Math.abs(g - ${info.river[1]}) < 26 && Math.abs(b - ${info.river[2]}) < 26 && a > 200`);
-      check(what + " draws rivers (pixels in the engine's river colour; Texas at one water level finer than the Atlas draws at that zoom — 3,077 px, 719 at the Atlas's own density)", n > (id === "geo-002" ? 1500 : 150), JSON.stringify({ px: n, level: info.level, kmpp: info.kmpp && +info.kmpp.toFixed(2), riverSegmentsDrawn: info.stats }));
+      check(what + " draws rivers (pixels in the engine's river colour; Texas at the Atlas's own density for its zoom: 719 px, against 3,077 one level finer)", n > (id === "geo-002" ? 400 : 150), JSON.stringify({ px: n, level: info.level, kmpp: info.kmpp && +info.kmpp.toFixed(2), riverSegmentsDrawn: info.stats }));
       check("...from the engine's water file, fetched after the land (water.bin was requested)", requests.slice(reqs0).some((u) => /water\.bin/.test(u)));
+      check("...at " + (bias ? "one resident level finer (the card's subject is water)" : "the Atlas's own density (the card's subject is not water)"), info.bias === bias, "riverLevelBias " + info.bias);
+      await ctx.close();
+    }
+    {   // the reader's data saver: no water file at all (the finer level is in the same file as the coarse one), and the card's own gold river still draws
+      const reqs0 = requests.length;
+      const { ctx, page } = await newPage(browser, {});
+      await ctx.addInitScript(() => { try { Object.defineProperty(navigator, "connection", { value: { saveData: true }, configurable: true }); } catch (e) {} });
+      await page.goto(url("#card/rm-003"), { waitUntil: "load" });
+      await windowReady(page); await windowSettled(page).catch(() => {}); await page.waitForTimeout(800);
+      check("under the data saver a river locator fetches no water file and draws on the engine all the same", !requests.slice(reqs0).some((u) => /water\.bin|atlas\/data\/water\//.test(u)) && await page.evaluate(() => document.querySelector(".map-card").getAttribute("data-map-engine") === "v2"), requests.slice(reqs0).filter((u) => /water/.test(u)).join(" "));
       await ctx.close();
     }
   }

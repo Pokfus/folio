@@ -119,7 +119,7 @@
     { const pw = lay.peoples || "off"; if (L.peoples !== pw) { L.peoples = pw; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too
     L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;   // (Phase 4b: these four sat at the end of the comment line above in Phase 4, so no window ever drew a river or a lake)
     v.graticule = false; v.rivers = L.rivers; v.lakes = L.lakes;
-    v.riverLevelBias = 1;
+    v.riverLevelBias = lay.riverFine ? 1 : 0;   // Phase 4c: the Atlas's own density by default; one resident level finer only for a card whose subject is water (atlas-windows.js)
     v.lon = spec.lon; v.lat = spec.lat; v.zoom = spec.zoom;
     yearAndWar(h, spec);
     h.E.plan();
