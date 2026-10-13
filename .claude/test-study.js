@@ -208,6 +208,8 @@ console.log("\n10) the wars (Phase 2d): which wars are drawn, which entities are
   const ids = (set) => [...set].sort().join(",");
   check("the plain Map draws every war a card teaches except those that group others", ids(AS.warsShown(T, { pos: "on", mode: "map" })) === "rm-152,rm-209");
   check("the switch off draws none — except a war chosen from a card, which is drawn whatever the switch says", AS.warsShown(T, { pos: "off", mode: "map" }).size === 0 && ids(AS.warsShown(T, { pos: "off", mode: "map", focus: "ww2-001" })) === "ww2-001");
+  check("Phase 4 / 0a: the default is Automatic — off on the plain Map, on in the Personal Atlas, off in the Full Atlas, and a war chosen from a card is drawn in all three", AS.WARS_DEFAULT === "auto" && AS.normalizeWars(undefined) === "auto" && AS.normalizeWars("x") === "auto" && ids(AS.warsShown(T, { pos: "auto", mode: "map" })) === "" && ids(AS.warsShown(T, { pos: "auto", mode: "full" })) === "" && ids(AS.warsShown(T, { pos: "auto", mode: "personal", cardSet: new Set(["rm-209"]) })) === "rm-209" && ids(AS.warsShown(T, { pos: "auto", mode: "map", focus: "rm-209" })) === "rm-209");
+  check("...and a reader's own On or Off holds in every mode (On tints the plain Map; Off keeps the Personal Atlas plain)", ids(AS.warsShown(T, { pos: "on", mode: "map" })) === "rm-152,rm-209" && ids(AS.warsShown(T, { pos: "off", mode: "personal", cardSet: new Set(["rm-209"]) })) === "");
   check("a war that groups others (war.group) is drawn only when chosen, in every mode", !AS.warsShown(T, { pos: "on", mode: "full" }).has("wh-345") && AS.warsShown(T, { pos: "on", mode: "personal", cardSet: new Set(["wh-345"]), focus: "wh-345" }).has("wh-345"));
   check("the Personal Atlas draws the wars of the reader's own studied cards and no others", ids(AS.warsShown(T, { pos: "on", mode: "personal", cardSet: new Set(["rm-209"]) })) === "rm-209");
   check("the Full Atlas drops a switched-off collection's wars", ids(AS.warsShown(T, { pos: "on", mode: "full", hidden: new Set(["col-40"]), info })) === "" && ids(AS.warsShown(T, { pos: "on", mode: "full", hidden: new Set(["col-8"]), info })) === "rm-152,rm-209");
@@ -224,7 +226,7 @@ console.log("\n10) the wars (Phase 2d): which wars are drawn, which entities are
   check("the sentence names the sides, the years and says the extent is Folio's own approximation", /First Samnite War/.test(sent) && /343 BCE – 341 BCE/.test(sent) && /Rome \(victors\)/.test(sent) && /authored extent/.test(sent) && /not a surveyed border/.test(sent), sent.slice(0, 120));
   const sw = AS.warSentence(T["ww2-001"]);
   check("a side's unresolved names are said, not drawn, and a member's narrower window is said", /no entity for: Poland/.test(sw) && /ussr 1941 CE – 1945 CE|ussr 1941 – 1945 CE/.test(sw) || /ussr/.test(sw), sw.slice(0, 200));
-  check("the extent kind is its own layer and word (not a people, not a state)", AS.layerOf("extent") === "war-extent" && AS.kindWord("extent") === "authored extent" && AS.isPresence("extent") === false && AS.normalizeWars("bogus") === "on" && AS.normalizeWars("off") === "off");
+  check("the extent kind is its own layer and word (not a people, not a state)", AS.layerOf("extent") === "war-extent" && AS.kindWord("extent") === "authored extent" && AS.isPresence("extent") === false && AS.normalizeWars("bogus") === "auto" && AS.normalizeWars("off") === "off");
 }
 
 console.log(`\n${pass} ok, ${fail} failed\n`);

@@ -644,3 +644,9 @@ The rest of the corpus's wars are open ground. Adding one is a batch through
 `node .claude/add-card-wars.js <batch.json>`; `--names=<year>` prints every territory name that era's map
 carries, which is the commonest thing to get wrong — the 1938 map has no "Nazi Germany" and no "Soviet
 Union", it has **Germany** and **USSR**.
+
+## Phase 4, Stage A: the war window on the engine's history (Oct 2026, behind the preview switch)
+
+With the preview switch on, a war card's window is drawn at the MIDDLE YEAR of the war (`data-map-year`, from `atlas/data/wars.js`) on the engine's history: the two sides' entities tinted green and red by `warRoles` in the
+war's years, every other state plain land (`layers.neutral`), the frame fitted to both sides (`warFrame`). A year outside the war's years tints nothing. A war the table does not carry keeps V1's window (present-day countries
+shaded by name); `TINT_WIN` / `TINT_LOSE` and `cardWarKeyHTML` are unchanged. The go button and a tap open `#map2/<lon>/<lat>/<zoom>?y=<year>&war=<card>`.

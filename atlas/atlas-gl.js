@@ -255,6 +255,7 @@
     uniform sampler2D uStyle; uniform float uIdPass; uniform vec4 uFlat; uniform float uUseFlat;
     uniform float uIdOffset;         // the history faces live above 2^18 in the id space (Phase 2a)
     uniform float uHatch; uniform vec3 uHatchB;   // a contested face: stripes of its two claimants' colours, in screen space
+    uniform float uHiOnly;           // Phase 4: 1 in the second face pass of a frame with a highlight — only the highlighted faces (style alpha below 1) are drawn, on top of the parents that overlap them
     out vec4 o;
     void main() {
       if (vZ < 0.0) discard;
@@ -267,6 +268,7 @@
       if (uUseFlat > 0.5) { o = vec4(uFlat.rgb * uFlat.a, uFlat.a); return; }   // lakes: one colour, no style texel
       vec4 s = texelFetch(uStyle, ivec2(id & 255, id >> 8), 0);
       if (s.a < 0.002) discard;
+      if (uHiOnly > 0.5 && s.a > 0.999) discard;
       vec3 c = s.rgb;
       if (uHatch > 0.5) { float d = mod(gl_FragCoord.x + gl_FragCoord.y, 12.0); c = d < 6.0 ? s.rgb : uHatchB; }
       o = vec4(c * s.a, s.a);
@@ -285,12 +287,23 @@
      different angles, so their dots interleave. The pass blends by MULTIPLY on a light theme and by SCREEN on a dark one (the same
      idea: the people's hue modulates what the states drew beneath it, so a kingdom inside a people's range stays readable and the
      stipple stays visible across it). In an ID pass it writes the face's id wherever the edge alpha is solid enough to be a tap. */
+  /* PHASE 4, 0b (the owner's decision from 2d) — WHERE THE SOURCE MAP ENDS. The 41 monthly plates of the front (1939–42) are one series, and its map has a frame: the Wikimedia
+     Commons maps are drawn in a Lambert conformal conic (GMT -JL15/0/45/60, from the metadata the ww2-atlas vectoriser quotes), a rectangle in that projection. Where a plate's
+     ground meets the frame it is CUT by the map, not by the war — the straight line through European Russia, the edge at 31°N across the Sahara. A front face of the monthly era
+     therefore fades to nothing over FRAME_FADE_KM towards the rectangle's four sides (a soft edge, no line), and the legend and the place card say so in one sentence. The four
+     sides are measured from the plates themselves (the edges every plate shares: x = −2271 and 2582 km, y = 4556 and 8841 km; .claude/test-atlas-render.js checks the cuts lie on them);
+     the fortnightly plates of 1943–45 are page maps of another atlas and carry no rectangle here. */
+  const FRAME = (() => {
+    const d = Math.PI / 180, a = 45 * d, b = 60 * d, n = Math.log(Math.cos(a) / Math.cos(b)) / Math.log(Math.tan(Math.PI / 4 + b / 2) / Math.tan(Math.PI / 4 + a / 2));
+    return { n, F: Math.cos(a) * Math.pow(Math.tan(Math.PI / 4 + a / 2), n) / n, lon0: 15 * d, XL: -2271, XR: 2582, YB: 4556, YT: 8841, fadeKm: 120 };
+  })();
   const VS_PRES = `#version 300 es
     precision highp float;
     in vec3 aPos; in float aFace;
     uniform mat3 uRot; uniform vec2 uCenter, uSize; uniform float uRadius;
-    out float vZ; out float vA;
+    out float vZ; out float vA; out vec3 vP;
     void main() {
+      vP = aPos;
       vec3 p = uRot * aPos;
       vec2 px = uCenter + vec2(p.x, -p.y) * uRadius;
       gl_Position = vec4(px.x / uSize.x * 2.0 - 1.0, 1.0 - px.y / uSize.y * 2.0, 0.0, 1.0);
@@ -298,11 +311,19 @@
     }`;
   const FS_PRES = `#version 300 es
     precision highp float;
-    in float vZ; in float vA;
+    in float vZ; in float vA; in vec3 vP;
     uniform float uIdPass; uniform float uIdValue;
     uniform vec3 uColor; uniform float uWash; uniform float uDotA; uniform float uPitch; uniform float uDotR;
-    uniform vec2 uAng; uniform vec2 uPhase;
+    uniform vec2 uAng; uniform vec2 uPhase; uniform float uFrame;
     out vec4 o;
+    float frameFade(vec3 p) {
+      float lon = atan(p.y, p.x), lat = max(asin(clamp(p.z, -1.0, 1.0)), -1.4);
+      float t = ${FRAME.n.toFixed(9)} * (mod(lon - ${FRAME.lon0.toFixed(9)} + 3.14159265, 6.2831853) - 3.14159265);
+      float r = ${FRAME.F.toFixed(9)} / pow(tan(0.78539816 + lat * 0.5), ${FRAME.n.toFixed(9)});
+      vec2 xy = 6371.0 * vec2(r * sin(t), ${FRAME.F.toFixed(9)} - r * cos(t));
+      float d = min(min(xy.x - (${FRAME.XL.toFixed(1)}), ${FRAME.XR.toFixed(1)} - xy.x), min(xy.y - ${FRAME.YB.toFixed(1)}, ${FRAME.YT.toFixed(1)} - xy.y));
+      return smoothstep(0.0, ${FRAME.fadeKm.toFixed(1)}, d);
+    }
     void main() {
       if (vZ < 0.0) discard;
       if (uIdPass > 0.5) {
@@ -316,6 +337,7 @@
       float d = length(fract(q) - 0.5) * uPitch;
       float dotm = 1.0 - smoothstep(uDotR - 0.7, uDotR + 0.7, d);
       float a = vA * clamp(uWash + uDotA * dotm, 0.0, 1.0);
+      if (uFrame > 0.5) a *= frameFade(vP);
       if (a < 0.003) discard;
       o = vec4(uColor * a, a);
     }`;
@@ -485,7 +507,7 @@
         gl.deleteQuery(h.q);
       }
     }
-    let faceCount = 0, selected = -1;
+    let faceCount = 0, selected = -1, selMap = null;   // selMap (Phase 4): face index → [r,g,b] for a HIGHLIGHT of many faces in their own colours (a card window's state, a war's two sides)
     let histBorderColor = [0.4, 0.4, 0.45];
     let presenceDark = false;                 // 2c: screen instead of multiply on a dark theme
     let pickOpts = null;                      // 2c: an ID pass may draw one layer only ("states" | "presence") and skip faces already found
@@ -600,8 +622,8 @@
       const px = new Uint8Array(256 * styleH * 4);
       const land = palette.land, sel = palette.selected;
       for (let i = 0; i < faceCount; i++) {
-        const c = i === selected ? sel : land;
-        px[4 * i] = c[0] * 255; px[4 * i + 1] = c[1] * 255; px[4 * i + 2] = c[2] * 255; px[4 * i + 3] = 255;
+        const hl = i !== selected && selMap && selMap.get(i), c = i === selected ? sel : hl || land;
+        px[4 * i] = c[0] * 255; px[4 * i + 1] = c[1] * 255; px[4 * i + 2] = c[2] * 255; px[4 * i + 3] = hl ? 254 : 255;   // 254: a highlighted face — the second face pass draws only these
       }
       gl.bindTexture(gl.TEXTURE_2D, styleTex);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 256, styleH, 0, gl.RGBA, gl.UNSIGNED_BYTE, px);
@@ -838,6 +860,7 @@
         const m = histMeshFor(f.face, view.historyLevel != null ? view.historyLevel : view.level); if (!m) continue;
         const c = f.rgb || histBorderColor;
         gl.uniform1f(P.u.uIdValue, HIST_FACE_BASE + f.face + 1);
+        gl.uniform1f(P.u.uFrame, f.frame ? 1 : 0);   // Phase 4 / 0b: a monthly plate's ground fades at the edge of its source map
         gl.uniform3f(P.u.uColor, c[0], c[1], c[2]);
         gl.uniform1f(P.u.uWash, f.wash != null ? f.wash : hv.presenceWash != null ? hv.presenceWash : 0.14); gl.uniform1f(P.u.uDotA, (f.dotA != null ? f.dotA : hv.presenceDotA != null ? hv.presenceDotA : 0.62) * (f.fade != null ? f.fade : 1));   // 2d: an extent or a front hands its own `wash` (and dotA 0): a flat wash in its side's tint, no dots
         gl.uniform1f(P.u.uPitch, pitch * (f.pitch || 1)); gl.uniform1f(P.u.uDotR, dotR * (f.pitch || 1));
@@ -932,6 +955,16 @@
         if (parents.length) { faceStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
         if (own.length) { faceStencil(2); for (const t of own) drawFaces(t, view, idPass, R); }
         if (useStencil) { gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff); }
+        // Phase 4: the core holds a country's face AND its admin-1 children's, overlapping, and with no depth buffer the later triangle wins — a highlighted state
+        // came out with holes where the country's triangles were drawn after it. The highlighted faces are drawn again, alone, over everything.
+        if (selMap && !idPass) {   // the windows' highlight only: the Atlas's own single selection keeps one pass (a second doubled the primitives of every view with a face selected and failed the frame gate's budgets); its overlap fault is reported, not fixed here
+          const Pf = prog.face; gl.useProgram(Pf.p); gl.uniform1f(Pf.u.uHiOnly, 1);
+          if (Lv && !complete) { faceStencil(0); drawFaces(Lv, view, idPass, R); }
+          if (parents.length) { faceStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
+          if (own.length) { faceStencil(2); for (const t of own) drawFaces(t, view, idPass, R); }
+          if (useStencil) { gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff); }
+          gl.useProgram(Pf.p); gl.uniform1f(Pf.u.uHiOnly, 0);
+        }
       }
       /* RELIEF, EVERY PIXEL SHADED ONCE (Phase 1c). Until 1c the sphere pass sampled the L0 sheet for every
          pixel of the disc, each L1 patch then painted its whole rectangle as sea and again as land, and the
@@ -1147,6 +1180,8 @@
         if (faceCount && !lost) buildStyle();
       },
       select(face) { selected = face == null ? -1 : face; if (faceCount && !lost) buildStyle(); },
+      /* Phase 4: highlight many faces at once, each in its own colour — a Map of face index → [r,g,b] (0–1), or null to clear. The face fill is the only thing it changes; the outline is the window's. */
+      highlight(map) { selMap = map && map.size ? map : null; if (faceCount && !lost) buildStyle(); },
       resize(cssW, cssH, ratio) {
         dpr = Math.min(2, ratio || 1);
         W = Math.max(1, Math.round(cssW * dpr)); H = Math.max(1, Math.round(cssH * dpr));
@@ -1216,5 +1251,5 @@
     };
   }
 
-  root.AtlasGL = { create, hex2rgb };
+  root.AtlasGL = { create, hex2rgb, FRAME };
 })(typeof window !== "undefined" ? window : globalThis);

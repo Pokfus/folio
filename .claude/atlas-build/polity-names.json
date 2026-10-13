@@ -1,0 +1,7 @@
+{
+  "_about": "Display-name overrides for polities of history.bin (Atlas v2 Phase 4, task 0c; docs/atlas-v2-design.md §7 \"Phase 4 — as built\"). Cliopatria names a row once for its whole span; where Wikidata carries a DATED name for the same ground, the Atlas shows that name in those years (the label of a Wikidata item whose inception and dissolution dates cover the years). Nothing here is written from memory: `evidence` names the item and its two dates, and audit-polity-names.js refuses an entry whose item is not in the committed Wikidata cache with dates that cover [from, to]. The table is applied at display time (labels, the place card, the stack) and never changes history.bin, a face or a step. Edit this file, then run build-polity-names.js --install.",
+  "overrides": [
+    { "id": "pol:hungary_1918", "from": 1920, "to": 1943, "name": "Kingdom of Hungary", "qid": "Q600018", "item": "Kingdom of Hungary", "evidence": "Wikidata Q600018, label \"Kingdom of Hungary\": inception 1920-02-29, dissolution 1946-02-01" },
+    { "id": "pol:austria_1918", "from": 1934, "to": 1937, "name": "Federal State of Austria", "qid": "Q176495", "item": "Federal State of Austria", "evidence": "Wikidata Q176495, label \"Federal State of Austria\": inception 1934-05-01, dissolution 1938-03-13" }
+  ]
+}

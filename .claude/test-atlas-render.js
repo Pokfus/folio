@@ -308,7 +308,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
     // PAIR 6 — the Second Punic War in 216 BCE (Cannae): Rome a victor, Carthage a loser
     {
-      await viewAt(12, 38.5, 6, -216); await setW("on");
+      await viewAt(12, 38.5, 6, -216); await setW("auto");
+      const wAuto = await wars();
+      check("Phase 4 / 0a: Automatic (the default) tints nothing on the plain Map, and the legend says why", wAuto.position === "auto" && wAuto.roles.length === 0 && /not tinted on the plain Map/.test(wAuto.note), JSON.stringify([wAuto.position, wAuto.roles.length, wAuto.note]));
+      await setW("on");
       const wr = await wars();
       check("216 BCE: the table says Rome is a victor and Carthage a loser of the Second Punic War (rm-209)", wr.roles.some((r) => r[0] === "pol:rome" && r[1] === 1 && r[2].includes("rm-209")) && wr.roles.some((r) => r[0] === "pol:carthage" && r[1] === 2 && r[2].includes("rm-209")), JSON.stringify(wr.roles));
       const rome = tone(await px(12.5, 41.9)), carth = tone(await px(10.2, 35.9));
@@ -374,6 +377,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       check("the stepper says the date, the theatre and its uncertainty in a sentence", /30 Nov 1942/.test(fe) && /Europe/.test(fe) && /approximate/.test(fe), fe);
       const stk = await A((c) => document.querySelector(".atlas2").__atlas2.stackAt(c[0], c[1]), await toXY(30.5, 50.4));
       check("a tap on the front names its set (a front is an entity of its own, apart from any state or people)", stk.some((i) => /^pol:front_/.test(i)), stk.join(" > "));
+      // Phase 4 / 0b — where the source map ends: the monthly maps' frame (a Lambert conformal conic rectangle, x −2271…2582 km, y 4556…8841 km) fades the tint to nothing at its sides
+      {
+        const d = Math.PI / 180, a1 = 45 * d, b1 = 60 * d, n = Math.log(Math.cos(a1) / Math.cos(b1)) / Math.log(Math.tan(Math.PI / 4 + b1 / 2) / Math.tan(Math.PI / 4 + a1 / 2)), F = Math.cos(a1) * Math.pow(Math.tan(Math.PI / 4 + a1 / 2), n) / n;
+        const inv = (x, y) => { const X = x / 6371, Y = F - y / 6371, rho = Math.hypot(X, Y), th = Math.atan2(X, Y); return [15 + th / n / d, (2 * Math.atan(Math.pow(F / rho, 1 / n)) - Math.PI / 2) / d]; };
+        const near = inv(2562, 7600), far = inv(2182, 7600);   // 20 km and 400 km inside the right-hand side of the frame, in the Urals (Allied-held ground on the 31 December 1942 plate)
+        await viewAt(55, 56, 12, 1942); await A(() => document.querySelector(".atlas2").__atlas2.setFrontDate(19421231)); await settleH(); await sleep(700);
+        const dd = (p, q) => Math.abs(p.r - q.r) + Math.abs(p.g - q.g) + Math.abs(p.b - q.b);
+        const eN = tone(await px(near[0], near[1])), eF = tone(await px(far[0], far[1]));
+        await setF(false); const oN = tone(await px(near[0], near[1])), oF = tone(await px(far[0], far[1])); await setF(true);
+        check("Phase 4 / 0b: on the 31 December 1942 plate the tint 20 km inside the source map's edge is under a third of the tint 400 km inside it (a soft edge, no line)", dd(eF, oF) > 9 && dd(eN, oN) < dd(eF, oF) / 3, `near ${dd(eN, oN)}, far ${dd(eF, oF)}`);
+        const sentence = await A(() => ({ legend: (document.querySelector(".atlas2-fronts-edge") || {}).textContent || "", card: document.querySelector(".atlas2").__atlas2.frontCardHtml ? document.querySelector(".atlas2").__atlas2.frontCardHtml({ id: "pol:front_axis", name: "Axis-held", front: { set: "axis" } }) : "" }));
+        check("...and the legend and the front's place card each say in one sentence that the source map ends there", /source map ends there; the war did not\./.test(sentence.legend) && /source map ends there; the war did not\./.test(sentence.card), sentence.legend + " | " + sentence.card.replace(/<[^>]+>/g, " ").slice(0, 80));
+      }
     }
 
     // PAIR 10 — the Western Front in June 1944: a fortnightly plate (15 June), Europe and the Pacific plates standing at once
