@@ -34,11 +34,10 @@ const SRC_TARGET_BY_PREFIX = new Function("return " + m3[1])();
    rather than the tiered 5-9. The first 53 cards (written before the request) keep the full bar they were
    written to; this only lowers what a NEW or REPLACED `eep-` card must carry. See
    docs/eu-external-power-card-plan.md, "Course-only sourcing". */
-const COURSE_ONLY = /^eep-/;
-const COURSE_ONLY_MIN = 1;
+/* LIFTED (Oct 2026, on request): the user asked for every thin `eep-` card to be researched out to the full house
+   shape, so `eep-` cards are on the tiered bar again; a `[Course material]` citation still counts as one source. */
 
 function srcTargetFor(card) {
-  if (card && COURSE_ONLY.test(String(card.id || ""))) return COURSE_ONLY_MIN;
   const id = card && typeof card.id === "string" ? card.id : "";
   for (const p of Object.keys(SRC_TARGET_BY_PREFIX)) if (id.indexOf(p) === 0) return SRC_TARGET_BY_PREFIX[p];
   const n = card && typeof card.difficulty === "number" ? card.difficulty : 0;
