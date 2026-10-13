@@ -145,6 +145,7 @@
     if (h.disposed) return { settled: false, project: null };
     const ctl = h.ctl, R = ctl.renderer, v = ctl.view, E = h.E;
     setup(h, spec);
+    const low = !!o.lowRes; if (low) E.setRes(0.5);   // Phase 4b: a window's FIRST frame is drawn at half resolution (a quarter of the pixels: ~190 ms → ~70 ms of software GL) and the full one follows within 140 ms
     counters.draws++;
     // the fills of the highlights: one Map of face index → colour, blended over the palette's land at the highlight's alpha
     const land = h.landRGB(), fills = new Map(), groups = [], histYear = spec.year != null;
@@ -165,6 +166,7 @@
     const dpr = o.dpr || Math.min(2, window.devicePixelRatio || 1), W = ctx.canvas.width, H = ctx.canvas.height;
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, W, H);
     ctx.drawImage(h.glCanvas, 0, 0, h.glCanvas.width, h.glCanvas.height, 0, 0, W, H);
+    if (low) E.setRes(1);
     // the outline and the glow of each group, from a mask pass (only on request: a gesture frame skips them)
     if (!o.fast) for (const g of groups) if (g.hl.line || g.hl.glow) outline(h, g, ctx, spec, dpr);
     const rot = Array.from(E.rotation()), pr = project(rot, v.radius, v.cx, v.cy);
@@ -268,7 +270,7 @@
         const spec = Object.assign({ w: cw, h: ch, lon: st.lon, lat: st.lat, zoom: st.zoom }, opts.spec ? opts.spec(st, { cw, ch }) : {});
         spec.lon = st.lon; spec.lat = st.lat; spec.zoom = st.zoom; spec.w = cw; spec.h = ch;
         const fast = performance.now() < fastUntil;
-        const res = hb.draw(spec, ctx, { dpr, fast });
+        const res = hb.draw(spec, ctx, { dpr, fast, lowRes: fast && !w.painted }); w.painted = true;
         settled = res.settled && !fast;
         w.api = { project: res.project, landMask: res.landMask, cw, ch, dpr, radius: res.radius, cx: res.cx, cy: res.cy, kmpp: res.kmpp, settled, fast, spec };
         if (opts.draw) opts.draw(st, w.api, ctx);
