@@ -154,9 +154,14 @@ jobs:
       # DISPLAY-NAME OVERRIDES (Oct 2026, Atlas v2 Phase 4, task 0c): audit-polity-names.js --check proves every override of polity-names.json
       # rests on a dated Wikidata item in the committed cache that covers its years; build-polity-names.js --check proves
       # atlas/data/polity-names.js is exactly what the spec builds. Both offline.
-      - name: audit-polity-names and build-polity-names --check (Atlas v2, dated display names)
+      # THE POLITIES' WIKIDATA ITEMS (Oct 2026, the QID audit): the same --check fails when a polity of history.bin carries a Wikidata item whose
+      # dates do not reach any year of its span, or whose class is not a polity (a war, a person, a party, a disambiguation page …), unless
+      # polity-qids.json allows it with a reason; it also proves history.bin carries every fix of polity-qids.json. --qid-table --check proves
+      # docs/atlas-v2-polity-qids.md is what the spec and the cache build. Offline.
+      - name: audit-polity-names and build-polity-names --check (Atlas v2, dated display names, the polities' Wikidata items)
         run: |
           node .claude/atlas-build/audit-polity-names.js --check
+          node .claude/atlas-build/audit-polity-names.js --qid-table --check
           node .claude/atlas-build/build-polity-names.js --check
       # THE CARD WINDOWS' JOIN (Oct 2026, Atlas v2 Phase 4): build-card-faces.js --check proves atlas/data/card-faces.js is what the shape files, the
       # engine's entity table and the cards build, and that every map card's layer, keys and dot resolve to an engine entity. Offline.

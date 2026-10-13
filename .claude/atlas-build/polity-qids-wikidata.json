@@ -1,0 +1,3414 @@
+{
+ "retrieved": "2026-10-13",
+ "source": "query.wikidata.org (Wikidata, CC0): for every item a polity of history.bin points at (or pointed at, or could point at): English label and description, direct classes (P31), inception/start and dissolution/end dates, the English Wikipedia sitelink, and whether a class of P31/P279* is one of the polity classes (state) or the people classes (people) named in audit-polity-names.js",
+ "state_classes": [
+  "Q3024240",
+  "Q6256",
+  "Q7275",
+  "Q1048835",
+  "Q1063239",
+  "Q417175",
+  "Q48349",
+  "Q133442"
+ ],
+ "people_classes": [
+  "Q41710",
+  "Q2472587",
+  "Q1620908"
+ ],
+ "items": {
+  "Q28": {
+   "label": "Hungary",
+   "desc": "country in Central Europe",
+   "enwiki": "Hungary",
+   "classes": [
+    "country",
+    "landlocked country",
+    "sovereign state",
+    "successor state"
+   ],
+   "start": [
+    "1000-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q30": {
+   "label": "United States",
+   "desc": "country located primarily in North America",
+   "enwiki": "United States",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1784-05-12"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q33": {
+   "label": "Finland",
+   "desc": "country in Northern Europe",
+   "enwiki": "Finland",
+   "classes": [
+    "country",
+    "country bordering the Baltic Sea",
+    "sovereign state",
+    "unitary state"
+   ],
+   "start": [
+    "1917-12-06"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q40": {
+   "label": "Austria",
+   "desc": "country in Central Europe",
+   "enwiki": "Austria",
+   "classes": [
+    "Rechtsstaat",
+    "country",
+    "landlocked country",
+    "sovereign state",
+    "successor state"
+   ],
+   "start": [
+    "1918-11-12"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q148": {
+   "label": "People's Republic of China",
+   "desc": "country in East Asia",
+   "enwiki": "China",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1949-10-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q191": {
+   "label": "Estonia",
+   "desc": "country in Northern Europe",
+   "enwiki": "Estonia",
+   "classes": [
+    "country",
+    "country bordering the Baltic Sea",
+    "republic",
+    "sovereign state",
+    "unitary state"
+   ],
+   "start": [
+    "1918-02-24"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q211": {
+   "label": "Latvia",
+   "desc": "sovereign state in northeastern Europe",
+   "enwiki": "Latvia",
+   "classes": [
+    "country",
+    "country bordering the Baltic Sea",
+    "sovereign state"
+   ],
+   "start": [
+    "1918-11-18"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q258": {
+   "label": "South Africa",
+   "desc": "country in southern Africa",
+   "enwiki": "South Africa",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1910-05-31"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q2277": {
+   "label": "Roman Empire",
+   "desc": "period of Ancient Rome following the Republic",
+   "enwiki": "Roman Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0026-01-01"
+   ],
+   "end": [
+    "0395-01-01",
+    "0395-01-18"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q4948": {
+   "label": "Republic of Venice",
+   "desc": "former state (697–1797) controlling, at various times, parts of northeastern Italy, the Balkans, and Mediterranean islands",
+   "enwiki": "Republic of Venice",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0697-01-01"
+   ],
+   "end": [
+    "1797-05-12"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q7183": {
+   "label": "Qin dynasty",
+   "desc": "dynasty that ruled in China from 221 to 206 BC",
+   "enwiki": "Qin dynasty",
+   "classes": [
+    "historical Chinese state",
+    "historical period"
+   ],
+   "start": [
+    "-0220-01-01"
+   ],
+   "end": [
+    "-0205-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q7209": {
+   "label": "Han dynasty",
+   "desc": "imperial dynasty in China from 202 BC to 220 AD",
+   "enwiki": "Han dynasty",
+   "classes": [
+    "Chinese dynasty",
+    "historical Chinese state",
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "-0205-01-01"
+   ],
+   "end": [
+    "0220-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q7313": {
+   "label": "Yuan dynasty",
+   "desc": "Mongol-led imperial dynasty of China (1271–1368)",
+   "enwiki": "Yuan dynasty",
+   "classes": [
+    "conquest dynasty",
+    "historical Chinese state",
+    "historical period"
+   ],
+   "start": [
+    "1271-01-01"
+   ],
+   "end": [
+    "1368-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q7352": {
+   "label": "Jin dynasty",
+   "desc": "Chinese dynasty (266–420)",
+   "enwiki": "Jin dynasty (266–420)",
+   "classes": [
+    "Chinese dynasty",
+    "era",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0266-01-01"
+   ],
+   "end": [
+    "0420-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q7405": {
+   "label": "Sui dynasty",
+   "desc": "dynasty that ruled over China from 581 to 618",
+   "enwiki": "Sui dynasty",
+   "classes": [
+    "historical Chinese state"
+   ],
+   "start": [
+    "0581-01-01"
+   ],
+   "end": [
+    "0618-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q7462": {
+   "label": "Song dynasty",
+   "desc": "former imperial dynasty of China (960–1279)",
+   "enwiki": "Song dynasty",
+   "classes": [
+    "Chinese dynasty",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0960-01-01"
+   ],
+   "end": [
+    "1279-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q8733": {
+   "label": "Qing dynasty",
+   "desc": "Manchu-led dynasty of China (1644–1912)",
+   "enwiki": "Qing dynasty",
+   "classes": [
+    "historical Chinese state",
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "1636-01-01"
+   ],
+   "end": [
+    "1912-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q9683": {
+   "label": "Tang dynasty",
+   "desc": "empire in the China proper between 618 and 907 AD",
+   "enwiki": "Tang dynasty",
+   "classes": [
+    "Chinese dynasty",
+    "culture",
+    "historical Chinese state",
+    "historical period",
+    "style"
+   ],
+   "start": [
+    "0618-01-01"
+   ],
+   "end": [
+    "0907-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q9903": {
+   "label": "Ming dynasty",
+   "desc": "imperial dynasty of China from 1368 to 1644",
+   "enwiki": "Ming dynasty",
+   "classes": [
+    "historical Chinese state",
+    "historical period"
+   ],
+   "start": [
+    "1368-01-01"
+   ],
+   "end": [
+    "1644-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q11774": {
+   "label": "Gupta Empire",
+   "desc": "ancient Indian empire (c. 3rd century CE–575 CE)",
+   "enwiki": "Gupta Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0320-01-01"
+   ],
+   "end": [
+    "0550-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q12536": {
+   "label": "Abbasid Caliphate",
+   "desc": "third Islamic caliphate (750–1258)",
+   "enwiki": "Abbasid Caliphate",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0750-01-01"
+   ],
+   "end": [
+    "1258-02-17"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q12544": {
+   "label": "Byzantine Empire",
+   "desc": "Roman Empire during Late Antiquity and the Middle Ages",
+   "enwiki": "Byzantine Empire",
+   "classes": [
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "0395-01-18"
+   ],
+   "end": [
+    "1453-06-07"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q12557": {
+   "label": "Mongol Empire",
+   "desc": "13th- and 14th-century empire originating in Mongolia",
+   "enwiki": "Mongol Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1206-01-01"
+   ],
+   "end": [
+    "1368-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q12560": {
+   "label": "Ottoman Empire",
+   "desc": "empire with the monarchs from the Ottoman dynasty (1299–1922)",
+   "enwiki": "Ottoman Empire",
+   "classes": [
+    "empire",
+    "historical country",
+    "sultanate"
+   ],
+   "start": [
+    "1299-08-05"
+   ],
+   "end": [
+    "1922-11-17"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q15180": {
+   "label": "Soviet Union",
+   "desc": "former country in Eurasia (1922–1991)",
+   "enwiki": "Soviet Union",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1922-12-30"
+   ],
+   "end": [
+    "1991-12-26"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q17161": {
+   "label": "Etruscans",
+   "desc": "ancient civilization on the Appenine Peninsula",
+   "enwiki": "Etruscan civilization",
+   "classes": [
+    "civilization",
+    "historical ethnic group"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": true
+  },
+  "Q17167": {
+   "label": "Roman Republic",
+   "desc": "period of ancient Roman civilization (509 BC–27 BC)",
+   "enwiki": "Roman Republic",
+   "classes": [
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "-0508-01-01"
+   ],
+   "end": [
+    "-0026-01-01",
+    "-0026-01-14"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q17427": {
+   "label": "Chinese Communist Party",
+   "desc": "founding and ruling party of the People's Republic of China",
+   "enwiki": "Chinese Communist Party",
+   "classes": [
+    "communist party",
+    "political party",
+    "ruling party"
+   ],
+   "start": [
+    "1921-07-23"
+   ],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q25979": {
+   "label": "Kushan Empire",
+   "desc": "empire in Central and South Asia (30–375 AD)",
+   "enwiki": "Kushan Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0030-01-01"
+   ],
+   "end": [
+    "0375-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q26847": {
+   "label": "Galatia",
+   "desc": "area in the highlands of central Asia Minor",
+   "enwiki": "Galatia",
+   "classes": [
+    "historical region"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": true
+  },
+  "Q28208": {
+   "label": "Goryeo",
+   "desc": "ancient kingdom in the Korean peninsula (918–1392)",
+   "enwiki": "Goryeo",
+   "classes": [
+    "dynasty",
+    "historical country"
+   ],
+   "start": [
+    "0918-01-01"
+   ],
+   "end": [
+    "1392-01-01",
+    "1392-08-13"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q28365": {
+   "label": "Lamian War",
+   "desc": "fought by a coalition of Greek cities against Macedon and its ally Boeotia",
+   "enwiki": "Lamian War",
+   "classes": [
+    "war"
+   ],
+   "start": [
+    "-0322-01-01"
+   ],
+   "end": [
+    "-0321-01-01"
+   ],
+   "state": false,
+   "people": false
+  },
+  "Q28405": {
+   "label": "Gojoseon",
+   "desc": "ancient state, based in northern Korean peninsula and Manchuria",
+   "enwiki": "Old Chosŏn",
+   "classes": [
+    "ancient civilization",
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "-2332-01-01"
+   ],
+   "end": [
+    "-0107-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q28428": {
+   "label": "Baekje",
+   "desc": "ancient kingdom in southwestern Korea (18 BCE – 660 CE)",
+   "enwiki": "Paekche",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0017-01-01"
+   ],
+   "end": [
+    "0660-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q28513": {
+   "label": "Austria–Hungary",
+   "desc": "1867–1918 empire in Central Europe",
+   "enwiki": "Austria-Hungary",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1867-03-01"
+   ],
+   "end": [
+    "1918-11-11"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q28573": {
+   "label": "Inca Empire",
+   "desc": "1438–1533 empire in South America",
+   "enwiki": "Inca Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1438-01-01"
+   ],
+   "end": [
+    "1533-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q33296": {
+   "label": "Mughal Empire",
+   "desc": "great Turkic descent empire ruling India (1526–1857)",
+   "enwiki": "Mughal Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1526-01-01"
+   ],
+   "end": [
+    "1857-09-21"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q33745": {
+   "label": "Peloponnesian War",
+   "desc": "war fought between Athens and Sparta (431–404 BCE)",
+   "enwiki": "Peloponnesian War",
+   "classes": [
+    "war"
+   ],
+   "start": [
+    "-0430-01-01"
+   ],
+   "end": [
+    "-0403-04-20"
+   ],
+   "state": false,
+   "people": false
+  },
+  "Q33946": {
+   "label": "Czechoslovakia",
+   "desc": "country in Central Europe (1918–1992)",
+   "enwiki": "Czechoslovakia",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1918-10-28"
+   ],
+   "end": [
+    "1992-12-31"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q34756": {
+   "label": "Qin",
+   "desc": "Chinese state from the 9th century BC to 207 BC",
+   "enwiki": "Qin (state)",
+   "classes": [
+    "Twelve Vassals",
+    "ancient Chinese state"
+   ],
+   "start": [
+    "-0904-01-01"
+   ],
+   "end": [
+    "-0220-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q35216": {
+   "label": "Zhou dynasty",
+   "desc": "dynasty of Ancient Chinese kings (王) lasting from c. 1046 to 256 BC",
+   "enwiki": "Zhou dynasty",
+   "classes": [
+    "Chinese dynasty",
+    "ancient Chinese state",
+    "historical period"
+   ],
+   "start": [
+    "-1045-01-01"
+   ],
+   "end": [
+    "-0255-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q35355": {
+   "label": "Sumer",
+   "desc": "ancient Mesopotamian civilization from 5500 to 1800 BC",
+   "enwiki": "Sumer",
+   "classes": [
+    "ancient civilization",
+    "archaeological culture",
+    "cultural region",
+    "culture",
+    "former or current state",
+    "historical region",
+    "style"
+   ],
+   "start": [
+    "-5500-01-01"
+   ],
+   "end": [
+    "-1900-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q41304": {
+   "label": "Weimar Republic",
+   "desc": "Germany in the years 1918/1919–1933",
+   "enwiki": "Weimar Republic",
+   "classes": [
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "1918-11-09"
+   ],
+   "end": [
+    "1933-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q42193": {
+   "label": "Goths",
+   "desc": "East Germanic ethnolinguistic group",
+   "enwiki": "Goths",
+   "classes": [
+    "historical ethnic group"
+   ],
+   "start": [
+    "0100-01-01"
+   ],
+   "end": [
+    "1475-01-01"
+   ],
+   "state": false,
+   "people": true
+  },
+  "Q42834": {
+   "label": "Western Roman Empire",
+   "desc": "independently administered western provinces of the Roman Empire",
+   "enwiki": "Western Roman Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0395-01-18"
+   ],
+   "end": [
+    "0476-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q45813": {
+   "label": "Huns",
+   "desc": "extinct nomadic people in Eurasia (14th BC–16th centuries)",
+   "enwiki": "Huns",
+   "classes": [
+    "historical ethnic group"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": true
+  },
+  "Q46652": {
+   "label": "Malacca sultanate",
+   "desc": "1400–1511 state on the Malay Peninsula",
+   "enwiki": "Malacca Sultanate",
+   "classes": [
+    "historical country",
+    "sultanate"
+   ],
+   "start": [
+    "1400-01-01"
+   ],
+   "end": [
+    "1511-08-25"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q48685": {
+   "label": "Kingdom of Judah",
+   "desc": "Israelite Kingdom, whose capital was Jerusalem and Hebron, c. 930–586 BCE",
+   "enwiki": "Kingdom of Judah",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "-0929-01-01"
+   ],
+   "end": [
+    "-0585-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q49326": {
+   "label": "Majapahit",
+   "desc": "Empire of Javanese, based in Majakarta (Mojokerto)",
+   "enwiki": "Majapahit",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1293-01-01"
+   ],
+   "end": [
+    "1527-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q49697": {
+   "label": "Liu Song dynasty",
+   "desc": "Chinese ruling dynasty from 420 to 479",
+   "enwiki": "Liu Song dynasty",
+   "classes": [
+    "Chinese dynasty",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0420-01-01"
+   ],
+   "end": [
+    "0479-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q62454": {
+   "label": "Chen dynasty",
+   "desc": "last of the Southern Dynasties in China (557–589)",
+   "enwiki": "Chen dynasty",
+   "classes": [
+    "Chinese dynasty",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0557-01-01"
+   ],
+   "end": [
+    "0589-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q62456": {
+   "label": "Southern Qi",
+   "desc": "Chinese dynasty (479–502)",
+   "enwiki": "Southern Qi",
+   "classes": [
+    "Chinese dynasty",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0479-01-01"
+   ],
+   "end": [
+    "0502-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q62943": {
+   "label": "Maurya empire",
+   "desc": "ancient Indian empire (322–184 BCE)",
+   "enwiki": "Maurya Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0321-01-01"
+   ],
+   "end": [
+    "-0184-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q68962": {
+   "label": "Pannonian Avars",
+   "desc": "alliance of various Eurasian nomads – 6th to 9th centuries",
+   "enwiki": "Pannonian Avars",
+   "classes": [
+    "historical ethnic group"
+   ],
+   "start": [
+    "0600-01-01"
+   ],
+   "end": [
+    "0900-01-01"
+   ],
+   "state": false,
+   "people": true
+  },
+  "Q70972": {
+   "label": "Kingdom of France",
+   "desc": "monarchical state that ruled France from 987 to 1792, and again from 1814 to 1848 (except during the Hundred Days in 1815)",
+   "enwiki": "Kingdom of France",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0987-01-01"
+   ],
+   "end": [
+    "1791-09-04"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q79965": {
+   "label": "Golden Horde",
+   "desc": "medieval state in Eurasia",
+   "enwiki": "Golden Horde",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1243-01-01"
+   ],
+   "end": [
+    "1502-07-08"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q80702": {
+   "label": "Spanish Empire",
+   "desc": "colonial empire governed by Spain between 1492 and 1976",
+   "enwiki": "Spanish Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1402-01-01"
+   ],
+   "end": [
+    "1976-02-26"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q83286": {
+   "label": "Socialist Federal Republic of Yugoslavia",
+   "desc": "Central and Southeast European socialist state (1945–1992)",
+   "enwiki": "Socialist Federal Republic of Yugoslavia",
+   "classes": [
+    "historical country"
+   ],
+   "start": [],
+   "end": [
+    "1992-04-26"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q83546": {
+   "label": "Grand Principality of Vladimir",
+   "desc": "Russian duchy in 12th-14th century",
+   "enwiki": "Vladimir-Suzdal",
+   "classes": [
+    "historical country",
+    "vassal state"
+   ],
+   "start": [
+    "1125-01-01"
+   ],
+   "end": [
+    "1389-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q83618": {
+   "label": "Maratha Empire",
+   "desc": "1674–1818 empire in the Indian subcontinent",
+   "enwiki": "Maratha Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1674-01-01"
+   ],
+   "end": [
+    "1818-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q83891": {
+   "label": "Sasanian Empire",
+   "desc": "last pre-Islamic Iranian empire (224–651 AD)",
+   "enwiki": "Sasanian Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0224-01-01"
+   ],
+   "end": [
+    "0651-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q83958": {
+   "label": "Macedonia",
+   "desc": "ancient Hellenic kingdom",
+   "enwiki": "Macedonia (ancient kingdom)",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0807-01-01"
+   ],
+   "end": [
+    "-0166-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q93180": {
+   "label": "Seleucid Empire",
+   "desc": "Hellenistic-era Greek state in Western Asia (312–63 BC)",
+   "enwiki": "Seleucid Empire",
+   "classes": [
+    "Hellenistic kingdom",
+    "empire",
+    "historical country",
+    "rump state"
+   ],
+   "start": [
+    "-0311-01-01"
+   ],
+   "end": [
+    "-0062-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q102679": {
+   "label": "Kingdom of Numidia",
+   "desc": "Amazigh (Berber) kingdom in North Africa (202 BC - 40 AD)",
+   "enwiki": "Numidia",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0201-01-01"
+   ],
+   "end": [
+    "-0045-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q128904": {
+   "label": "Elam",
+   "desc": "ancient civilization of the Near East, centered in the Susiana plain and the Elamite highlands",
+   "enwiki": "Elam",
+   "classes": [
+    "ancient civilization",
+    "historical country"
+   ],
+   "start": [
+    "-2699-01-01"
+   ],
+   "end": [
+    "-0538-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q128938": {
+   "label": "Shang dynasty",
+   "desc": "the first ancient Chinese dynasty to leave historical records (1600-1046 BC); the empire ruled by this dynasty",
+   "enwiki": "Shang dynasty",
+   "classes": [
+    "Chinese dynasty",
+    "ancient Chinese state",
+    "culture",
+    "historical period",
+    "style"
+   ],
+   "start": [
+    "-1599-01-01"
+   ],
+   "end": [
+    "-1045-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q129286": {
+   "label": "British Raj",
+   "desc": "British colonial rule on the Indian subcontinent (1858–1947)",
+   "enwiki": "British Raj",
+   "classes": [
+    "colony",
+    "crown colony",
+    "historical country"
+   ],
+   "start": [
+    "1858-01-01"
+   ],
+   "end": [
+    "1947-08-15"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q131802": {
+   "label": "Scythians",
+   "desc": "ancient Iranian nomadic people",
+   "enwiki": "Scythians",
+   "classes": [
+    "historical ethnic group"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": true
+  },
+  "Q133032": {
+   "label": "Hungarians",
+   "desc": "ethnic group native to Central Europe",
+   "enwiki": "Hungarians",
+   "classes": [
+    "ethnic group",
+    "human population"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": true
+  },
+  "Q139377": {
+   "label": "Kingdom of Aksum",
+   "desc": "trading nation in the area of Eritrea and Northern Ethiopia",
+   "enwiki": "Kingdom of Aksum",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0400-01-01"
+   ],
+   "end": [
+    "0960-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q140446": {
+   "label": "Zagwe dynasty",
+   "desc": "dynasty centered around Lalibela, ruling large parts of the territory from about 900 to 1270",
+   "enwiki": "Zagwe dynasty",
+   "classes": [
+    "dynasty",
+    "historical country"
+   ],
+   "start": [
+    "0900-01-01"
+   ],
+   "end": [
+    "1270-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q148540": {
+   "label": "Republic of Florence",
+   "desc": "city-state on the Appenine Peninsula between 1115–1532/69",
+   "enwiki": "Republic of Florence",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1115-01-01"
+   ],
+   "end": [
+    "1532-01-01",
+    "1569-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q151536": {
+   "label": "Novgorod Republic",
+   "desc": "Russian city-state (1136–1478)",
+   "enwiki": "Novgorod Republic",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1136-01-01"
+   ],
+   "end": [
+    "1478-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q153529": {
+   "label": "Duchy of Milan",
+   "desc": "former duchy in Italy (1395–1447; 1450–1796)",
+   "enwiki": "Duchy of Milan",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1395-05-19"
+   ],
+   "end": [
+    "1797-10-17"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q154667": {
+   "label": "Kingdom of Georgia",
+   "desc": "medieval state in Eastern Europe",
+   "enwiki": "Kingdom of Georgia",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "1008-01-01"
+   ],
+   "end": [
+    "1466-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q156173": {
+   "label": "Jugurtha",
+   "desc": "King of Numidia",
+   "enwiki": "Jugurtha",
+   "classes": [
+    "human"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q160307": {
+   "label": "Fatimid Caliphate",
+   "desc": "Egyptian Shia Islamic caliphate (909–1171)",
+   "enwiki": "Fatimid Caliphate",
+   "classes": [
+    "Islamic state",
+    "caliphate",
+    "historical country",
+    "transcontinental country"
+   ],
+   "start": [
+    "0909-01-01"
+   ],
+   "end": [
+    "1171-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q160440": {
+   "label": "Crimean Khanate",
+   "desc": "former state at the Crimean Peninsula until April 1783",
+   "enwiki": "Crimean Khanate",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1441-01-01"
+   ],
+   "end": [
+    "1783-04-19"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q161205": {
+   "label": "Safavid dynasty",
+   "desc": "dynasty from Safi-ad-din Ardabili generation and ruler of Safavid Iran (1501–1736)",
+   "enwiki": "Safavid dynasty",
+   "classes": [
+    "dynasty",
+    "tribe"
+   ],
+   "start": [
+    "1501-01-01"
+   ],
+   "end": [
+    "1736-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q167639": {
+   "label": "Vijayanagara Empire",
+   "desc": "Hindu kingdom in Southern India (14th-17th century)",
+   "enwiki": "Vijayanagara Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1336-01-01"
+   ],
+   "end": [
+    "1646-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q170174": {
+   "label": "Papal States",
+   "desc": "territories mostly in the Appenine Peninsula under the sovereign direct rule of the pope between 756–1870",
+   "enwiki": "Papal States",
+   "classes": [
+    "historic state of Italy",
+    "historical country"
+   ],
+   "start": [
+    "0754-01-01"
+   ],
+   "end": [
+    "1870-09-20"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q172579": {
+   "label": "Kingdom of Italy",
+   "desc": "kingdom in Southern Europe from 1861 to 1946",
+   "enwiki": "Kingdom of Italy",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1861-03-17"
+   ],
+   "end": [
+    "1946-06-18"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q173282": {
+   "label": "Khazars",
+   "desc": "historical semi-nomadic Turkic ethnic group",
+   "enwiki": "Khazars",
+   "classes": [
+    "historical ethnic group"
+   ],
+   "start": [
+    "0618-01-01"
+   ],
+   "end": [
+    "1048-01-01"
+   ],
+   "state": false,
+   "people": true
+  },
+  "Q174306": {
+   "label": "Republic of Genoa",
+   "desc": "medieval and early modern maritime republic from (1005-1797)",
+   "enwiki": "Republic of Genoa",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1005-01-01"
+   ],
+   "end": [
+    "1797-06-14"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q175881": {
+   "label": "Roman Republic",
+   "desc": "republic at Italy between 1798–1799",
+   "enwiki": "Roman Republic (1798–1799)",
+   "classes": [
+    "historical country",
+    "sister republic"
+   ],
+   "start": [
+    "1798-02-15"
+   ],
+   "end": [
+    "1799-09-30"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q176495": {
+   "label": "Federal State of Austria",
+   "desc": "sovereign state in Central Europe (1934–1938)",
+   "enwiki": "Federal State of Austria",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1934-05-01"
+   ],
+   "end": [
+    "1938-03-13"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q178665": {
+   "label": "Mitanni",
+   "desc": "state in northern Syria and south-east Anatolia from ca. 1500 BC–1300 BC",
+   "enwiki": "Mitanni",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "-1649-01-01"
+   ],
+   "end": [
+    "-1259-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q179876": {
+   "label": "Kingdom of England",
+   "desc": "historic kingdom on the British Isles (927–1649; 1660–1707)",
+   "enwiki": "Kingdom of England",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0927-01-01"
+   ],
+   "end": [
+    "1707-05-11"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q181264": {
+   "label": "Mycenaean Greece",
+   "desc": "late Bronze Age Greek civilization",
+   "enwiki": "Mycenaean Greece",
+   "classes": [
+    "archaeological culture",
+    "civilization",
+    "culture",
+    "style"
+   ],
+   "start": [
+    "-1599-01-01"
+   ],
+   "end": [
+    "-1099-01-01"
+   ],
+   "state": false,
+   "people": false
+  },
+  "Q184536": {
+   "label": "Mali Empire",
+   "desc": "empire in West Africa from c.1230 to 1670",
+   "enwiki": "Mali Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1235-01-01"
+   ],
+   "end": [
+    "1670-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q185068": {
+   "label": "Urartu",
+   "desc": "Iron Age kingdom located in a large region around Lake Van",
+   "enwiki": "Urartu",
+   "classes": [
+    "ancient civilization",
+    "historical country"
+   ],
+   "start": [
+    "-0860-01-01"
+   ],
+   "end": [
+    "-0589-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q185488": {
+   "label": "Volga Bulgaria",
+   "desc": "600s–1200s Bulgar state on the Volga River",
+   "enwiki": "Volga Bulgaria",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0601-01-01"
+   ],
+   "end": [
+    "1240-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q188712": {
+   "label": "Empire of Japan",
+   "desc": "empire in the Asia-Pacific region from 1868 to 1947",
+   "enwiki": "Empire of Japan",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1868-01-03"
+   ],
+   "end": [
+    "1947-05-03"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q188836": {
+   "label": "Xiongnu",
+   "desc": "Ancient Chinese empire in Northern Asia",
+   "enwiki": "Xiongnu",
+   "classes": [
+    "historical country",
+    "historical ethnic group"
+   ],
+   "start": [
+    "-0300-01-01"
+   ],
+   "end": [
+    "0500-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q191077": {
+   "label": "Kingdom of Yugoslavia",
+   "desc": "the official name of Yugoslavia during the period of 1929–1941 (de facto)/1945 (de jure)",
+   "enwiki": "Kingdom of Yugoslavia",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1929-10-03"
+   ],
+   "end": [
+    "1945-11-29"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q191484": {
+   "label": "Old Great Bulgaria",
+   "desc": "632–668 nomadic empire in Eastern Europe",
+   "enwiki": "Old Great Bulgaria",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0632-01-01"
+   ],
+   "end": [
+    "0668-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q193619": {
+   "label": "Union of South Africa",
+   "desc": "state in southern Africa from 1910 to 1961, predecessor to the Republic of South Africa",
+   "enwiki": "Union of South Africa",
+   "classes": [
+    "dominion of the British Empire",
+    "historical country"
+   ],
+   "start": [
+    "1910-05-31"
+   ],
+   "end": [
+    "1961-05-31"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q197430": {
+   "label": "Zhao",
+   "desc": "one of the states in ancient China's Warring States period",
+   "enwiki": "Zhao (state)",
+   "classes": [
+    "ancient Chinese state"
+   ],
+   "start": [
+    "-0402-01-01"
+   ],
+   "end": [
+    "-0221-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q200464": {
+   "label": "Portuguese Empire",
+   "desc": "global empire centered in Portugal (1415–1999)",
+   "enwiki": "Portuguese Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1415-08-30"
+   ],
+   "end": [
+    "1999-12-20"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q200797": {
+   "label": "Polatsak",
+   "desc": "city in Belarus",
+   "enwiki": "Polotsk",
+   "classes": [
+    "city of raion subordinance"
+   ],
+   "start": [
+    "0780-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q201038": {
+   "label": "Roman Kingdom",
+   "desc": "period of Roman history when the city and its territory were ruled by kings (c.753–c.509 BC)",
+   "enwiki": "Roman Kingdom",
+   "classes": [
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "-0752-04-13"
+   ],
+   "end": [
+    "-0508-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q201705": {
+   "label": "Khmer Empire",
+   "desc": "802–1431 empire in Southeast Asia",
+   "enwiki": "Khmer Empire",
+   "classes": [
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "0802-01-01"
+   ],
+   "end": [
+    "1431-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q202687": {
+   "label": "Songhai Empire",
+   "desc": "former state located in western Africa",
+   "enwiki": "Songhai Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1464-01-01"
+   ],
+   "end": [
+    "1591-03-12"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q203817": {
+   "label": "First Bulgarian Empire",
+   "desc": "medieval Bulgar-Slavic and later Bulgarian state that existed in Southeastern Europe between the 7th and 11th centuries AD.",
+   "enwiki": "First Bulgarian Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0681-01-01"
+   ],
+   "end": [
+    "1018-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q205662": {
+   "label": "Tokugawa shogunate",
+   "desc": "1603–1868 Japanese military government",
+   "enwiki": "Tokugawa shogunate",
+   "classes": [
+    "government agency",
+    "historical country",
+    "shogunate"
+   ],
+   "start": [
+    "1603-03-24"
+   ],
+   "end": [
+    "1867-11-09"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q206789": {
+   "label": "Ghana Empire",
+   "desc": "West African empire based in modern-day Mauritania and Mali (c. 200–c. 1200s)",
+   "enwiki": "Ghana Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0100-01-01"
+   ],
+   "end": [
+    "1200-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q207162": {
+   "label": "Bourbon Restoration in France",
+   "desc": "period of French history, 1814–1830",
+   "enwiki": "Bourbon Restoration in France",
+   "classes": [
+    "historical country",
+    "regime"
+   ],
+   "start": [
+    "1815-01-01"
+   ],
+   "end": [
+    "1830-08-09"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q207272": {
+   "label": "Second Polish Republic",
+   "desc": "country in Central and Eastern Europe (1918–1945)",
+   "enwiki": "Second Polish Republic",
+   "classes": [
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "1918-11-16"
+   ],
+   "end": [
+    "1945-07-05"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q207521": {
+   "label": "Ethiopian Empire",
+   "desc": "1270–1974 state in the Horn of Africa",
+   "enwiki": "Ethiopian Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1270-01-01"
+   ],
+   "end": [
+    "1975-03-12"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q208742": {
+   "label": "Peloponnesian League",
+   "desc": "military alliance in Ancient Greece",
+   "enwiki": "Peloponnesian League",
+   "classes": [
+    "koinon"
+   ],
+   "start": [
+    "-0549-01-01"
+   ],
+   "end": [
+    "-0365-01-01"
+   ],
+   "state": true,
+   "people": false
+  },
+  "Q212056": {
+   "label": "Mongolian People's Republic",
+   "desc": "1924–1992 communist republic in East Asia",
+   "enwiki": "Mongolian People's Republic",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1924-11-26"
+   ],
+   "end": [
+    "1992-02-12"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q215643": {
+   "label": "Indo-Greek Kingdoms",
+   "desc": "Hellenistic-era Greek kingdom in northwestern South Asia (200 BCE–10 CE)",
+   "enwiki": "Indo-Greek Kingdom",
+   "classes": [
+    "Hellenistic kingdom"
+   ],
+   "start": [
+    "-0179-01-01"
+   ],
+   "end": [
+    "0010-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q229411": {
+   "label": "Delhi Sultanate",
+   "desc": "1206–1526 empire in the Indian subcontinent",
+   "enwiki": "Delhi Sultanate",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1206-01-01"
+   ],
+   "end": [
+    "1526-04-21"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q230407": {
+   "label": "Kingdom of Israel",
+   "desc": "Northern Israelite kingdom, c. 930–720 BCE",
+   "enwiki": "Kingdom of Israel (Samaria)",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "-0929-01-01"
+   ],
+   "end": [
+    "-0719-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q234197": {
+   "label": "Srivijaya",
+   "desc": "Empire based on the island of Sumatra from 650 to around 1025",
+   "enwiki": "Srivijaya",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0650-01-01"
+   ],
+   "end": [
+    "1377-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q237325": {
+   "label": "Antigonid dynasty",
+   "desc": "dynasty of Hellenistic kings",
+   "enwiki": "Antigonid dynasty",
+   "classes": [
+    "dynasty"
+   ],
+   "start": [
+    "-0305-01-01"
+   ],
+   "end": [
+    "-0167-01-01"
+   ],
+   "state": false,
+   "people": false
+  },
+  "Q239502": {
+   "label": "Kingdom of Galicia–Volhynia",
+   "desc": "kingdom in Central Europe",
+   "enwiki": "Kingdom of Galicia–Volhynia",
+   "classes": [
+    "kingdom",
+    "principality"
+   ],
+   "start": [
+    "1199-01-01"
+   ],
+   "end": [
+    "1349-01-01"
+   ],
+   "state": true,
+   "people": false
+  },
+  "Q241790": {
+   "label": "Kingdom of Kush",
+   "desc": "c. 1070 BCE – c. CE 350 / kingdom in Nubia (modern-day Sudan), northeast Africa",
+   "enwiki": "Kingdom of Kush",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "-2179-01-01"
+   ],
+   "end": [
+    "0350-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q244796": {
+   "label": "Achaean League",
+   "desc": "Hellenistic-era confederation of Greek city states",
+   "enwiki": "Achaean League",
+   "classes": [
+    "koinon"
+   ],
+   "start": [
+    "-0279-01-01"
+   ],
+   "end": [
+    "-0145-01-01"
+   ],
+   "state": true,
+   "people": false
+  },
+  "Q245273": {
+   "label": "Aetolian League",
+   "desc": "confederation of tribal communities and cities in ancient Greece",
+   "enwiki": "Aetolian League",
+   "classes": [
+    "koinon"
+   ],
+   "start": [
+    "-0399-01-01",
+    "-0400-01-01"
+   ],
+   "end": [
+    "-0187-01-01"
+   ],
+   "state": true,
+   "people": false
+  },
+  "Q273025": {
+   "label": "Gallic Empire",
+   "desc": "mid-3rd century breakaway state from the Roman Empire",
+   "enwiki": "Gallic Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0260-01-01"
+   ],
+   "end": [
+    "0274-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q274488": {
+   "label": "Eastern Wu",
+   "desc": "one of the Three Kingdoms of China (222-280)",
+   "enwiki": "Eastern Wu",
+   "classes": [
+    "historical Chinese state"
+   ],
+   "start": [
+    "0198-01-01",
+    "0221-01-01",
+    "0229-01-01"
+   ],
+   "end": [
+    "0280-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q282428": {
+   "label": "Mamluk Sultanate of Egypt",
+   "desc": "Egyptian state spanning in Hejaz and the Levant (1250–1517)",
+   "enwiki": "Mamluk Sultanate",
+   "classes": [
+    "historical country",
+    "historical region",
+    "sultanate"
+   ],
+   "start": [
+    "1250-01-01"
+   ],
+   "end": [
+    "1517-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q307069": {
+   "label": "Eastern Wei",
+   "desc": "former country (534–550)",
+   "enwiki": "Eastern Wei",
+   "classes": [
+    "historical Chinese state"
+   ],
+   "start": [
+    "0534-01-01"
+   ],
+   "end": [
+    "0550-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q320925": {
+   "label": "Shu Han",
+   "desc": "former Chinese state during the Three Kingdoms era",
+   "enwiki": "Shu Han",
+   "classes": [
+    "historical Chinese state"
+   ],
+   "start": [
+    "0221-01-01"
+   ],
+   "end": [
+    "0263-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q320930": {
+   "label": "Cao Wei",
+   "desc": "ancient Chinese state (220–265); one of the three major states in the Three Kingdoms period, with capital at Luoyang",
+   "enwiki": "Cao Wei",
+   "classes": [
+    "historical Chinese state",
+    "historical country",
+    "style"
+   ],
+   "start": [
+    "0220-01-01"
+   ],
+   "end": [
+    "0265-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q321371": {
+   "label": "Bosporan Kingdom",
+   "desc": "Greco-Scythian state near Sea of Azov (c.438 BC–c.527 AD)",
+   "enwiki": "Bosporan Kingdom",
+   "classes": [
+    "Hellenistic kingdom",
+    "ancient Roman client kingdom"
+   ],
+   "start": [
+    "-0436-01-01"
+   ],
+   "end": [
+    "0370-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q328478": {
+   "label": "Italian East Africa",
+   "desc": "Italian possession in East Africa between 1936 and 1941",
+   "enwiki": "Italian East Africa",
+   "classes": [
+    "colony"
+   ],
+   "start": [
+    "1936-01-01"
+   ],
+   "end": [
+    "1941-01-01"
+   ],
+   "state": true,
+   "people": false
+  },
+  "Q389688": {
+   "label": "Achaemenid Empire",
+   "desc": "Iranian (Persian) empire (550–330 BC)",
+   "enwiki": "Achaemenid Empire",
+   "classes": [
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "-0549-01-01"
+   ],
+   "end": [
+    "-0329-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q422253": {
+   "label": "Gothia",
+   "desc": "Wikimedia disambiguation page",
+   "enwiki": "Gothia",
+   "classes": [
+    "Wikimedia disambiguation page"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q426025": {
+   "label": "Duchy of Savoy",
+   "desc": "state in Western Europe that existed from 1416 to 1848",
+   "enwiki": "Duchy of Savoy",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1416-01-01"
+   ],
+   "end": [
+    "1860-04-23"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q430309": {
+   "label": "Dai Viet",
+   "desc": "Name of Vietnamese monarchy (1054 - 1400; 1428 - 1804)",
+   "enwiki": "Đại Việt",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "1054-01-01",
+    "1428-01-01"
+   ],
+   "end": [
+    "1400-01-01",
+    "1805-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q488880": {
+   "label": "Greco-Bactrian Kingdom",
+   "desc": "Hellenistic-era Greek kingdom (256–120 BCE)",
+   "enwiki": "Greco-Bactrian Kingdom",
+   "classes": [
+    "Hellenistic kingdom"
+   ],
+   "start": [
+    "-0249-01-01"
+   ],
+   "end": [
+    "-0124-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q504759": {
+   "label": "Chu",
+   "desc": "Southern Chinese state (c. 1030–223 BCE) during the Zhou dynasty and Warring States Period",
+   "enwiki": "Chu (state)",
+   "classes": [
+    "ancient Chinese state",
+    "historical country"
+   ],
+   "start": [
+    "-0721-01-01"
+   ],
+   "end": [
+    "-0222-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q504769": {
+   "label": "Xin dynasty",
+   "desc": "The dynasty declared by Wang Mang during his rule over imperial China during AD 9-23",
+   "enwiki": "Xin dynasty",
+   "classes": [
+    "Chinese dynasty",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0009-01-01"
+   ],
+   "end": [
+    "0023-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q517333": {
+   "label": "Principality of Polotsk",
+   "desc": "principality",
+   "enwiki": "Principality of Polotsk",
+   "classes": [
+    "historical country",
+    "principality",
+    "vassal state"
+   ],
+   "start": [
+    "0900-01-01"
+   ],
+   "end": [
+    "1397-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q518101": {
+   "label": "First Republic of Austria",
+   "desc": "sovereign state in Europe (1919–1934)",
+   "enwiki": "First Austrian Republic",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1919-10-21"
+   ],
+   "end": [
+    "1934-05-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q551067": {
+   "label": "Northern Zhou",
+   "desc": "Xianbei-led dynasty of China",
+   "enwiki": "Northern Zhou",
+   "classes": [
+    "historical Chinese state"
+   ],
+   "start": [
+    "0557-01-01"
+   ],
+   "end": [
+    "0581-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q555994": {
+   "label": "Aq Qoyunlu",
+   "desc": "Historical state that ruled Eastern Anatolia, Azerbaijan, and Iran (1378–1503)",
+   "enwiki": "Aq Qoyunlu",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1378-01-01"
+   ],
+   "end": [
+    "1508-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q600018": {
+   "label": "Kingdom of Hungary",
+   "desc": "Central European state between 1920 and 1946",
+   "enwiki": "Kingdom of Hungary (1920–1946)",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1920-02-29"
+   ],
+   "end": [
+    "1946-02-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q620765": {
+   "label": "Lydia",
+   "desc": "Iron Age kingdom and then province in Asia Minor (1200–546 BC)",
+   "enwiki": "Lydia",
+   "classes": [
+    "cultural region",
+    "historical country",
+    "historical region",
+    "realm"
+   ],
+   "start": [
+    "-1199-01-01"
+   ],
+   "end": [
+    "-0545-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q624887": {
+   "label": "Neo-Babylonian Empire",
+   "desc": "former empire",
+   "enwiki": "Neo-Babylonian Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0625-01-01"
+   ],
+   "end": [
+    "-0538-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q703340": {
+   "label": "Wiman Chosŏn",
+   "desc": "ancient kingdom in the Korean peninsula and Manchuria (194–108 BCE)",
+   "enwiki": "Wiman Chosŏn",
+   "classes": [
+    "historical country",
+    "monarchy"
+   ],
+   "start": [
+    "-0193-01-01"
+   ],
+   "end": [
+    "-0107-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q703919": {
+   "label": "Ngô dynasty",
+   "desc": "first Vietnamese dynasty after the Third Chinese domination of Vietnam (939–965)",
+   "enwiki": "Ngô dynasty",
+   "classes": [
+    "dynasty",
+    "historical period",
+    "kingdom"
+   ],
+   "start": [
+    "0939-01-01"
+   ],
+   "end": [
+    "0965-01-01"
+   ],
+   "state": true,
+   "people": false
+  },
+  "Q705904": {
+   "label": "Seleucid dynasty",
+   "desc": "ruling dynasty in Hellenistic Syria, Mesopotamia, Iran",
+   "enwiki": "Seleucid dynasty",
+   "classes": [
+    "dynasty"
+   ],
+   "start": [
+    "-0304-01-01"
+   ],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q722071": {
+   "label": "Ashanti Empire",
+   "desc": "former Akan empire centered around modern day Ghana",
+   "enwiki": "Asante Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1670-01-01"
+   ],
+   "end": [
+    "1902-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q736839": {
+   "label": "Kamakura shogunate",
+   "desc": "feudal military government of Japan",
+   "enwiki": "Kamakura shogunate",
+   "classes": [
+    "feudal monarchy",
+    "historical country",
+    "shogunate"
+   ],
+   "start": [
+    "1200-01-01"
+   ],
+   "end": [
+    "1333-07-12"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q736936": {
+   "label": "Lu",
+   "desc": "vassal state during the Zhou Dynasty of ancient China",
+   "enwiki": "Lu (state)",
+   "classes": [
+    "Twelve Vassals",
+    "ancient Chinese state"
+   ],
+   "start": [
+    "-1100-01-01"
+   ],
+   "end": [
+    "-0248-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q783489": {
+   "label": "Later Liang dynasty",
+   "desc": "one of the Five Dynasties of China",
+   "enwiki": "Later Liang (Five Dynasties)",
+   "classes": [
+    "Chinese dynasty",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0907-01-01"
+   ],
+   "end": [
+    "0923-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q796583": {
+   "label": "Kingdom of Kongo",
+   "desc": "former African kingdom located in west central Africa",
+   "enwiki": "Kingdom of Kongo",
+   "classes": [
+    "culture",
+    "historical country",
+    "realm",
+    "style"
+   ],
+   "start": [
+    "1395-01-01"
+   ],
+   "end": [
+    "1888-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q827040": {
+   "label": "Nanyue",
+   "desc": "ancient kingdom in East Asia",
+   "enwiki": "Nanyue",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0203-01-01",
+    "-0206-01-01"
+   ],
+   "end": [
+    "-0110-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q829356": {
+   "label": "Kingdom of Makuria",
+   "desc": "Nubian kingdom in present-day Northern Sudan and Southern Egypt",
+   "enwiki": "Makuria",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "0500-01-01"
+   ],
+   "end": [
+    "1518-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q837855": {
+   "label": "Qi",
+   "desc": "Zhou dynasty Chinese state (1046–221 BCE)",
+   "enwiki": "Qi (state)",
+   "classes": [
+    "Twelve Vassals",
+    "ancient Chinese state",
+    "historical country",
+    "realm"
+   ],
+   "start": [
+    "-1044-01-01"
+   ],
+   "end": [
+    "-0220-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q842091": {
+   "label": "Duchy of Normandy",
+   "desc": "former European sovereign state, then dukedom of France",
+   "enwiki": "Duchy of Normandy",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0911-01-01"
+   ],
+   "end": [
+    "1259-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q875305": {
+   "label": "Northern Wei",
+   "desc": "first dynasty of Northern dynasties during the Northern and Southern Dynasties period (386–535)",
+   "enwiki": "Northern Wei",
+   "classes": [
+    "historical Chinese state"
+   ],
+   "start": [
+    "0386-01-01"
+   ],
+   "end": [
+    "0535-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q877875": {
+   "label": "Palmyrene Empire",
+   "desc": "breakaway state from the Roman Empire (270–273)",
+   "enwiki": "Palmyrene Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0270-01-01"
+   ],
+   "end": [
+    "0273-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q888574": {
+   "label": "Pagan kingdom",
+   "desc": "former country",
+   "enwiki": "Pagan Kingdom",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0849-12-27"
+   ],
+   "end": [
+    "1297-12-24"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q912043": {
+   "label": "Jin",
+   "desc": "ancient Chinese state based in present-day Shanxi Province (11th-century BC to 376 BC)",
+   "enwiki": "Jin (Chinese state)",
+   "classes": [
+    "ancient Chinese state"
+   ],
+   "start": [
+    "-1100-01-01"
+   ],
+   "end": [
+    "-0375-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q912052": {
+   "label": "Wei",
+   "desc": "ancient Chinese state during the Warring States period",
+   "enwiki": "Wei (state)",
+   "classes": [
+    "ancient Chinese state"
+   ],
+   "start": [
+    "-0402-01-01"
+   ],
+   "end": [
+    "-0224-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q926295": {
+   "label": "Italian Empire",
+   "desc": "colonial policies undertaken by the Kingdom of Italy (1882-1946)",
+   "enwiki": "Italian Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1882-01-01"
+   ],
+   "end": [
+    "1960-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1055713": {
+   "label": "Yan",
+   "desc": "ancient state in northern China during the Shang, Zhou, and Warring States periods (11th century BC – 222 BC)",
+   "enwiki": "Yan (state)",
+   "classes": [
+    "ancient Chinese state"
+   ],
+   "start": [],
+   "end": [
+    "-0221-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1062546": {
+   "label": "Later Jin (1616-1636)",
+   "desc": "Jurchen-led dynasty in Manchuria",
+   "enwiki": "Later Jin (1616–1636)",
+   "classes": [
+    "historical country",
+    "khanate"
+   ],
+   "start": [
+    "1616-01-01"
+   ],
+   "end": [
+    "1636-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1065073": {
+   "label": "Song",
+   "desc": "one of the twelve feudal states of Western Zhou dynasty",
+   "enwiki": "Song (state)",
+   "classes": [
+    "ancient Chinese state",
+    "historical country"
+   ],
+   "start": [
+    "-1100-01-01"
+   ],
+   "end": [
+    "-0285-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1068371": {
+   "label": "Chauhan",
+   "desc": "clan that ruled parts of northern India in the medieval period",
+   "enwiki": "Chauhan dynasty",
+   "classes": [
+    "dynasty"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q1069868": {
+   "label": "Liang dynasty",
+   "desc": "China's Southern Dynasties (502–557)",
+   "enwiki": "Liang dynasty",
+   "classes": [
+    "Chinese dynasty",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0502-01-01"
+   ],
+   "end": [
+    "0587-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1108445": {
+   "label": "Kievan Rus'",
+   "desc": "former federation of East Slavic tribes",
+   "enwiki": "Kievan Rus'",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0882-01-01"
+   ],
+   "end": [
+    "1240-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1135255": {
+   "label": "Chinese Soviet Republic",
+   "desc": "East Asian unrecognized protostate (1931–1937) in modern-day Jiangxi province",
+   "enwiki": "Chinese Soviet Republic",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1931-11-07"
+   ],
+   "end": [
+    "1937-09-22"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1137403": {
+   "label": "Yue",
+   "desc": "1st-millennium BC state in eastern China",
+   "enwiki": "Yue (state)",
+   "classes": [
+    "ancient Chinese state",
+    "historical country"
+   ],
+   "start": [
+    "-1100-01-01"
+   ],
+   "end": [
+    "-0221-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1139762": {
+   "label": "Kanem-Bornu Empire",
+   "desc": "former country in Africa",
+   "enwiki": "Kanem–Bornu Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1100-01-01"
+   ],
+   "end": [
+    "1900-04-22"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1143524": {
+   "label": "Northern Qi",
+   "desc": "historical Chinese country (550–577) during the Northern and Southern dynasties period",
+   "enwiki": "Northern Qi",
+   "classes": [
+    "historical Chinese state"
+   ],
+   "start": [
+    "0550-01-01"
+   ],
+   "end": [
+    "0577-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1154556": {
+   "label": "Later Zhou dynasty",
+   "desc": "Chinese dynasty (951–960); fifth of the Five Dynasties",
+   "enwiki": "Later Zhou",
+   "classes": [
+    "Chinese dynasty",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0951-01-01"
+   ],
+   "end": [
+    "0960-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1232887": {
+   "label": "County of Savoy",
+   "desc": "countship",
+   "enwiki": "County of Savoy",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1003-01-01"
+   ],
+   "end": [
+    "1416-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1322662": {
+   "label": "Principality of Chernigov",
+   "desc": "former country",
+   "enwiki": "Principality of Chernigov",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0988-01-01"
+   ],
+   "end": [
+    "1402-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1342521": {
+   "label": "Gothia",
+   "desc": "Region or duchy in the Kingdom of the Franks",
+   "enwiki": null,
+   "classes": [
+    "duchy",
+    "marquisate"
+   ],
+   "start": [
+    "0790-01-01"
+   ],
+   "end": [
+    "1065-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1365493": {
+   "label": "Republic of Pisa",
+   "desc": "de facto independent state centered on the Tuscan city of Pisa from the late 10th to 15th centuries",
+   "enwiki": "Republic of Pisa",
+   "classes": [
+    "client state",
+    "historical country",
+    "maritime republics"
+   ],
+   "start": [
+    "1000-01-01"
+   ],
+   "end": [
+    "1406-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1432491": {
+   "label": "Oium",
+   "desc": "Gothic area of Scythia in modern Ukraine",
+   "enwiki": "Oium",
+   "classes": [],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q1471995": {
+   "label": "Former Qin",
+   "desc": "4th century state in northern China (350–394)",
+   "enwiki": "Former Qin",
+   "classes": [
+    "dynasty",
+    "historical Chinese state"
+   ],
+   "start": [
+    "0350-01-01"
+   ],
+   "end": [
+    "0394-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1472004": {
+   "label": "Former Yan",
+   "desc": "Chinese Sixteen Kingdoms dynastic state (337–370)",
+   "enwiki": "Former Yan",
+   "classes": [
+    "historical Chinese state"
+   ],
+   "start": [
+    "0337-01-01"
+   ],
+   "end": [
+    "0370-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1574107": {
+   "label": "Han Zhao",
+   "desc": "Southern Xiongnu state (304–329)",
+   "enwiki": "Han-Zhao",
+   "classes": [
+    "historical Chinese state"
+   ],
+   "start": [
+    "0304-01-01"
+   ],
+   "end": [
+    "0329-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1574130": {
+   "label": "Han",
+   "desc": "central Chinese state from 403-230 BCE",
+   "enwiki": "Han (Warring States)",
+   "classes": [
+    "ancient Chinese state"
+   ],
+   "start": [
+    "-0402-01-01"
+   ],
+   "end": [
+    "-0229-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1656775": {
+   "label": "Kingdom of Lithuania",
+   "desc": "Short lived Baltic kingdom in the middle ages",
+   "enwiki": "Kingdom of Lithuania",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1251-01-01"
+   ],
+   "end": [
+    "1263-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1661685": {
+   "label": "Indo-Sassanids",
+   "desc": "Branch of Sasanian Persians ruling Bactria (c.230–c.365)",
+   "enwiki": "Kushano-Sasanian Kingdom",
+   "classes": [
+    "civilization",
+    "historical country"
+   ],
+   "start": [],
+   "end": [],
+   "state": true,
+   "people": true
+  },
+  "Q1936158": {
+   "label": "Minyue",
+   "desc": "Ancient kingdom in current southern China",
+   "enwiki": "Minyue",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0333-01-01"
+   ],
+   "end": [
+    "-0109-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1968654": {
+   "label": "Beylik of Saruhan",
+   "desc": "Anatolian beylik",
+   "enwiki": "Sarukhanids",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1313-01-01"
+   ],
+   "end": [
+    "1412-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q2022162": {
+   "label": "Kingdom of Pergamon",
+   "desc": "Greek state during the Hellenistic period",
+   "enwiki": "Kingdom of Pergamon",
+   "classes": [
+    "Hellenistic kingdom"
+   ],
+   "start": [
+    "-0281-01-01"
+   ],
+   "end": [
+    "-0132-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q2320005": {
+   "label": "Ptolemaic Kingdom",
+   "desc": "period from 305 to 30 BC in ancient Egypt",
+   "enwiki": "Ptolemaic Kingdom",
+   "classes": [
+    "Hellenistic kingdom"
+   ],
+   "start": [
+    "-0304-01-01"
+   ],
+   "end": [
+    "-0029-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q2338980": {
+   "label": "Second Athenian League",
+   "desc": "4th-century BC maritime confederation of Aegean city-states",
+   "enwiki": "Second Athenian League",
+   "classes": [
+    "koinon"
+   ],
+   "start": [
+    "-0376-01-01"
+   ],
+   "end": [
+    "-0354-01-01"
+   ],
+   "state": true,
+   "people": false
+  },
+  "Q2345840": {
+   "label": "history of Sumer",
+   "desc": "aspect of history",
+   "enwiki": "History of Sumer",
+   "classes": [
+    "history of a geographic region"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q2429397": {
+   "label": "Ancient Carthage",
+   "desc": "Phoenician city-state and empire",
+   "enwiki": "Ancient Carthage",
+   "classes": [
+    "ancient civilization",
+    "city-state",
+    "empire",
+    "historical country"
+   ],
+   "start": [
+    "-0813-01-01"
+   ],
+   "end": [
+    "-0145-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q2608489": {
+   "label": "Aztec Empire",
+   "desc": "former Mesoamerican empire",
+   "enwiki": "Aztec Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1325-01-01",
+    "1367-01-01"
+   ],
+   "end": [
+    "1521-08-23"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q3185305": {
+   "label": "United Kingdom of Israel",
+   "desc": "a legend Israelite kingdom of Israel and Judah (c. 1047–930 BCE)",
+   "enwiki": "Kingdom of Israel (united monarchy)",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "-1049-01-01"
+   ],
+   "end": [
+    "-0929-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q3708094": {
+   "label": "Seljuk Empire",
+   "desc": "Turco-Persian Sunni Muslim empire (1037–1194)",
+   "enwiki": "Seljuk Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1037-01-01"
+   ],
+   "end": [
+    "1194-03-26"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q4461035": {
+   "label": "Akkadian Empire",
+   "desc": "ancient empire in the Mesopotamia (2334–2154 BC)",
+   "enwiki": "Akkadian Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-2269-01-01",
+    "-2333-01-01"
+   ],
+   "end": [
+    "-2082-01-01",
+    "-2153-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q5349053": {
+   "label": "Eighteen Kingdoms",
+   "desc": "18 states created by Xiang Yu in China in 206 BCE",
+   "enwiki": "Eighteen Kingdoms",
+   "classes": [
+    "group",
+    "octadecad"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q5970542": {
+   "label": "Yan'an Soviet",
+   "desc": "Communist-governed Chinese base area (1937–1950)",
+   "enwiki": "Yan'an Soviet",
+   "classes": [
+    "Chinese Soviet",
+    "administrative territorial entity",
+    "border area",
+    "historical region",
+    "revolutionary base area"
+   ],
+   "start": [
+    "1937-01-01"
+   ],
+   "end": [
+    "1950-01-01"
+   ],
+   "state": false,
+   "people": true
+  },
+  "Q6201794": {
+   "label": "Jin",
+   "desc": "state of the Chinese Five Dynasties and Ten Kingdoms period",
+   "enwiki": "Jin (Later Tang precursor)",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0896-01-01"
+   ],
+   "end": [
+    "0923-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q6806806": {
+   "label": "Chola Empire",
+   "desc": "South Indian kingdom (848 CE–1070 CE)",
+   "enwiki": "Chola Empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0848-01-01"
+   ],
+   "end": [
+    "1279-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q7380487": {
+   "label": "Kingdom of Pontus",
+   "desc": "Hellenistic-era kingdom centred in northern Anatolia (281 BC-62 AD)",
+   "enwiki": "Kingdom of Pontus",
+   "classes": [
+    "Hellenistic kingdom",
+    "ancient Roman client kingdom",
+    "empire"
+   ],
+   "start": [
+    "-0280-01-01"
+   ],
+   "end": [
+    "0062-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q8272919": {
+   "label": "Republic of Lithuania",
+   "desc": "period in history of Lithuania between the World Wars",
+   "enwiki": "Republic of Lithuania (1918–1940)",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1918-02-16"
+   ],
+   "end": [
+    "1940-07-21"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q8575586": {
+   "label": "Umayyad Caliphate",
+   "desc": "second Islamic caliphate (661–750 CE)",
+   "enwiki": "Umayyad Caliphate",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0661-01-01"
+   ],
+   "end": [
+    "0750-07-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q10914393": {
+   "label": "Neo-Assyrian Empire",
+   "desc": "historical state in Mesopotamia",
+   "enwiki": "Neo-Assyrian Empire",
+   "classes": [
+    "empire",
+    "historical country",
+    "historical period",
+    "style"
+   ],
+   "start": [
+    "-0910-01-01"
+   ],
+   "end": [
+    "-0608-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q12490507": {
+   "label": "Rashidun Caliphate",
+   "desc": "first caliphate established after the death of the Islamic prophet Muhammad (632–661)",
+   "enwiki": "Rashidun Caliphate",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "0632-06-01"
+   ],
+   "end": [
+    "0661-07-31"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q13426199": {
+   "label": "Republic of China",
+   "desc": "1912–1949 country in Asia",
+   "enwiki": "Republic of China (1912–1949)",
+   "classes": [
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "1912-01-01"
+   ],
+   "end": [
+    "1949-12-07",
+    "1971-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q16084290": {
+   "label": "Illyrian kingdom",
+   "desc": "ancient illyrian kingdom",
+   "enwiki": "Illyrian kingdom",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "-0700-01-01"
+   ],
+   "end": [
+    "-0134-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q18234383": {
+   "label": "Safavid Iran",
+   "desc": "historical empire that existed between 1501 and 1736",
+   "enwiki": "Safavid Iran",
+   "classes": [
+    "former administrative territorial entity",
+    "historical country"
+   ],
+   "start": [
+    "1501-01-01"
+   ],
+   "end": [
+    "1736-03-08"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q112039853": {
+   "label": "Foreign relations of the Byzantine Empire",
+   "desc": "military and diplomacy subjects of the Byzantine empire",
+   "enwiki": "Foreign relations of the Byzantine Empire",
+   "classes": [
+    "foreign relations"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q137507319": {
+   "label": "Crimean Gothia",
+   "desc": "historical area in south-west of Crimean peninsula",
+   "enwiki": null,
+   "classes": [
+    "historical region",
+    "toponym"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": true
+  }
+ }
+}
