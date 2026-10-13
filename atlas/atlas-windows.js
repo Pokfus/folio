@@ -291,7 +291,7 @@
           const WT = window.ATLAS_WARS && window.ATLAS_WARS.wars && window.ATLAS_WARS.wars[sibCard];
           if (!WT) { v1(); return; }   // a war the table does not carry keeps V1's window
           warYear = Math.round((WT.y[0] + WT.y[1]) / 2); host.setAttribute("data-map-year", String(warYear));
-          hub.startHistory();
+          hub.startHistory("wars");   // Phase 4c: the war-window slice (1.8 MB), not the whole history (9.1 MB)
           return new Promise((res) => {
             let done = false; const fin = (ok) => { if (done) return; done = true; off(); clearTimeout(tm); res(ok); };
             const off = hub.onChange(() => { if (hub.historyOK()) fin(true); }), tm = setTimeout(() => fin(false), 150000);
@@ -440,7 +440,7 @@
     Promise.all(need).then((ok) => {
       if (!root.isConnected) return;
       if (!ok.every(Boolean) || !window.AtlasEmbed) { fail(); return; }
-      return window.AtlasEmbed.ensure({ host: {} }).then((hub) => {
+      return window.AtlasEmbed.ensure({ host: {}, needHistory: "full" }).then((hub) => {
         if (!root.isConnected) return; if (!hub) { fail(); return; }
         hubRef = hub; rounds = fi2Rounds(); root._finditRounds = () => rounds.map((r) => ({ kind: r.kind, n: r.n, year: r.year })); root._finditApi = { win: () => win, rounds: () => rounds, round: () => ri };   // read by test-atlas-embed.js
         if (!rounds.length) { route("map"); return; }

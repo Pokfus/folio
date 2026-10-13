@@ -1194,7 +1194,11 @@
     const PI = { mode: "map", flags: new Map() };   // the study layer's answer to "does a card of the reader's link it?" (applyStudy keeps it); "map" until the cards are read
     let histStarted = false, histWanted = false, coreIn = false;
     // the first touch of the rail, a year before today, a deep link's year or a suite: fetch the history file now (once)
-    function ensureHistory() { histWanted = true; if (!histStarted && coreIn) startHistory(); }
+    /* Phase 4c: a card window's war needs only the war-window slice (atlas/data/history-wars.bin, build-war-slice.js: the states of each war's display year and the war's own sides, 1.8 MB of the 9.1);
+       `kind` is "wars" for that and "full" (the default) for everything else — the Atlas page, Find it's area round. The kind of the FIRST request is the file's; a hub that began on the slice is
+       recreated by atlas-embed.js when something needs the whole history. */
+    let histKind = "full";
+    function ensureHistory(kind) { if (!histWanted && !histStarted) histKind = kind === "wars" ? "wars" : "full"; histWanted = true; if (!histStarted && coreIn) startHistory(); }
     const reducedNow = () => reduced();
     const fmtYear = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");   // every year with its era ("1 CE", "300 BCE", "2026 CE"): a bare "1" in the year box read as nothing (the 2a phone review)
     // "500 BCE", "500 BC", "-44", "44", "44 CE", "AD 70", "1066": null when it is none of these
@@ -1214,8 +1218,8 @@
       histStarted = true; time.histStarted = true;
       railNote.hidden = false; railNote.textContent = "Loading the years…";   // the quiet loading state: never a blank rail while the file is on its way
       const t = performance.now();
-      const url = opts.historyUrl || "atlas/data/history.bin";
-      (FILE ? loadTwin("history.bin", "the borders of the past") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
+      const SLICE = histKind === "wars", url = opts.historyUrl || (SLICE ? "atlas/data/history-wars.bin" : "atlas/data/history.bin");
+      (FILE ? loadTwin(SLICE ? "history-wars.bin" : "history.bin", SLICE ? "the states of the wars" : "the borders of the past") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
         if (disposed) return;
         time.loadMs = Math.round(performance.now() - t); time.bytes = buffer.byteLength;
         postToWorker({ type: "history", buffer });
@@ -2716,7 +2720,7 @@
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: () => ensureHistory(), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id) => warSidesOf(id), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id) => warSidesOf(id), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {

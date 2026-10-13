@@ -31,10 +31,15 @@
   const counters = { created: 0, disposed: 0, draws: 0, masks: 0 };
   const windows = new Set();
 
+  /* a window whose canvas has left the document (the page it was on was replaced; nothing calls stop() on a card page's windows) no longer counts: the hub's idle timer and the history rule below read the live ones */
+  function prune() { for (const w of [...windows]) if (w.cv && !w.cv.isConnected && w.stop) { try { w.stop(); } catch (e) { windows.delete(w); } } }
   function ensure(opts) {
     opts = opts || {};
+    prune();
     if (idleTimer) { clearTimeout(idleTimer); idleTimer = 0; }
     if (failed) return Promise.resolve(null);
+    /* Phase 4c: a hub that began on the war-window slice cannot answer an area round (any year): with no window on it, it is disposed and the next hub reads the whole history. */
+    if (opts.needHistory === "full" && hub && !starting && hub.E.historyKind() === "wars" && !windows.size && !holds.size) dispose(hub);
     if (starting) return starting;   // the hub exists but its first level is not on the GPU yet: everyone waits for the same promise
     if (hub) return Promise.resolve(hub.ok ? hub : null);
     if (!root.AtlasV2 || typeof root.AtlasV2.mount !== "function") return Promise.resolve(null);
@@ -60,7 +65,8 @@
         pick: (spec, x, y) => pickAt(h, spec, x, y),
         idsAt: (spec, x, y) => { setup(h, spec); return E.idsAt(x, y); },
         lonLatAt: (spec, x, y) => { setup(h, spec); return E.lonLatAt(x, y); },
-        startHistory: () => E.startHistory(),
+        startHistory: (kind) => E.startHistory(kind),
+        historyKind: () => E.historyKind(),   // null (not started), "wars" (the war-window slice) or "full"
         historyOK: () => E.historyOK(),
         warView: (id, short, share) => E.warFrame(id, short, share),
         warSides: (id) => E.warSides(id),
@@ -92,6 +98,7 @@
   const holds = new Set();
   function hold() { const t = {}; holds.add(t); if (idleTimer) { clearTimeout(idleTimer); idleTimer = 0; } return () => { if (!holds.delete(t)) return; release(); }; }
   function release(ms) {
+    prune();
     if (windows.size || holds.size || !hub) return;
     if (idleTimer) clearTimeout(idleTimer);
     idleTimer = setTimeout(() => { idleTimer = 0; if (!windows.size && !holds.size && hub) dispose(hub); }, ms || idleMs);
@@ -131,7 +138,8 @@
   function yearAndWar(h, spec) {
     const E = h.E, ctl = h.ctl, want = spec.year == null ? null : spec.year, war = spec.war || null;
     if (want == null) { if (h.year != null || h.war) { if (h.war) { E.focusWarNow(null); h.war = null; } E.setYearNow(E.TODAY); h.year = null; } return; }
-    E.startHistory();
+    if (!war && E.historyKind() === "wars") return;   // the slice holds the states of the wars' years only: a window of any other year draws today's map until it is given the whole history
+    E.startHistory(war ? "wars" : "full");
     if (!E.historyOK()) return;   // not yet: the window draws today's map and is told (onChange) when the history lands
     if (war !== h.war) { E.focusWarNow(war); h.war = war; h.year = null; }
     if (h.year !== want) { E.setYearNow(want); h.year = want; }

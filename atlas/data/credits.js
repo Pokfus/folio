@@ -6,9 +6,9 @@
    are files of their own under that licence. */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-10-13T02:56:44.209Z",
+ "generated": "2026-10-13T21:40:24.722Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
- "filesRead": 657,
+ "filesRead": 659,
  "sources": [
   {
    "id": "cliopatria",
@@ -24,6 +24,14 @@ window.ATLAS_CREDITS = {
      "sha256": "d01ae3a20d358cc5d54f69d9d725d390767d9c8759ac89ad6f90c58d106f3370",
      "shareAlike": false,
      "files": [
+      {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/history.bin",
        "count": 1
@@ -76,6 +84,14 @@ window.ATLAS_CREDITS = {
      "sha256": "bb9c054b3e69cbe04d3d025390f770c6feee53ec9561ea92db88b126081ccd13",
      "shareAlike": false,
      "files": [
+      {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/history.bin",
        "count": 1
@@ -142,6 +158,14 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/gazetteer.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
        "count": 1
       },
       {
@@ -355,6 +379,14 @@ window.ATLAS_CREDITS = {
      "shareAlike": false,
      "files": [
       {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
        "path": "atlas/data/history.bin",
        "count": 1
       },
@@ -382,6 +414,14 @@ window.ATLAS_CREDITS = {
      "files": [
       {
        "path": "atlas/data/gazetteer.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
        "count": 1
       },
       {
@@ -427,6 +467,14 @@ window.ATLAS_CREDITS = {
      "shareAlike": false,
      "files": [
       {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
        "path": "atlas/data/history.bin",
        "count": 1
       },
@@ -452,6 +500,14 @@ window.ATLAS_CREDITS = {
      "sha256": "dd480dd6254d3df3bfae81f23f30f31fc8cd31179d25d1dfcebe168b1c8b8b61",
      "shareAlike": false,
      "files": [
+      {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/history.bin",
        "count": 1
@@ -479,6 +535,14 @@ window.ATLAS_CREDITS = {
      "shareAlike": false,
      "files": [
       {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
        "path": "atlas/data/history.bin",
        "count": 1
       },
@@ -504,6 +568,14 @@ window.ATLAS_CREDITS = {
      "sha256": null,
      "shareAlike": false,
      "files": [
+      {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/history.bin",
        "count": 1
@@ -578,6 +650,14 @@ window.ATLAS_CREDITS = {
      "sha256": "4c0948d9661149a84d64030ee20cf60f9adbbdf9c394079b0f1f1f7a2fe7e0f7",
      "shareAlike": false,
      "files": [
+      {
+       "path": "atlas/data/history-wars.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/history.bin",
        "count": 1

@@ -366,7 +366,50 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     }
   }
 
-  sect("9) errors");
+  /* ---------------- 9) the war-window slice (Phase 4c, decision 3) ---------------- */
+  if (want(9)) {
+    sect("9) a war window reads the war-window slice, not the whole history; Find it still reads the whole; file:// works");
+    {
+      const reqs0 = requests.length;
+      const { ctx, page } = await newPage(browser, {});
+      await page.goto(url("#card/rm-209"), { waitUntil: "load" });
+      await windowReady(page); await windowSettled(page).catch(() => {}); await page.waitForTimeout(600);
+      const got = requests.slice(reqs0);
+      const sliceBytes = fs.statSync(path.join(ROOT, "atlas/data/history-wars.bin")).size, fullBytes = fs.statSync(path.join(ROOT, "atlas/data/history.bin")).size;
+      check("a war window requests atlas/data/history-wars.bin and never atlas/data/history.bin", got.some((u) => /atlas\/data\/history-wars\.bin$/.test(u)) && !got.some((u) => /atlas\/data\/history\.bin/.test(u)), `${(sliceBytes / 1e6).toFixed(2)} MB instead of ${(fullBytes / 1e6).toFixed(2)} MB`);
+      const info = await page.evaluate(() => { const h = document.querySelector(".map-card"); return { engine: h.getAttribute("data-map-engine"), kind: AtlasEmbed.hub().E.historyKind(), legend: h._folioMap.legend(), names: h._folioMap.names() }; });
+      check("...and it is the engine's window, named and legended as before (Rome — victors, Carthage — defeated)", info.engine === "v2" && info.kind === "wars" && info.names.join() === "Rome,Carthage" && /^Rome/.test(info.legend[0]) && /^Carthage/.test(info.legend[1]), JSON.stringify(info));
+      const green = await count(page, ".map-card .mc-canvas", "g > r + 40 && g > b + 25", [0, 0, 1, 0.8]), red = await count(page, ".map-card .mc-canvas", "r > g + 60 && r > b + 50", [0, 0, 1, 0.8]);
+      check("...with the victors in green and the defeated in red on the map", green > 300 && red > 300, JSON.stringify({ green, red }));
+      // leave for Find it: the hub that began on the slice is disposed and the next one reads the whole history
+      await page.evaluate(() => { location.hash = "#findit"; });
+      await page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#findit2"); }, null, { timeout: 180000 });
+      await page.waitForTimeout(1500);
+      const fi = await page.evaluate(() => ({ stats: AtlasEmbed.stats(), kind: AtlasEmbed.hub() && AtlasEmbed.hub().E.historyKind() }));
+      check("Find it, opened after a war window, gets a hub that has not read the slice (the first was disposed, a second created)", fi.kind !== "wars" && fi.stats.created >= 2 && fi.stats.disposed >= 1, JSON.stringify(fi));
+      await page.evaluate(() => AtlasEmbed.hub().startHistory("full"));   // the area round's year
+      await page.evaluate(() => AtlasEmbed.hub().startHistory("wars"));   // a late war request cannot swap the file under the board
+      await page.waitForFunction(() => AtlasEmbed.hub().E.historyKind() === "full" && AtlasEmbed.hub().historyOK(), null, { timeout: 120000 });
+      check("...which reads the whole history when the area round asks for a year", await page.evaluate(() => AtlasEmbed.hub().E.historyKind() === "full"));
+      await ctx.close();
+    }
+    {   // file://: the slice's own small twin; the war's sides have faces there (the pilot slice had 11 entities and no war window)
+      const ctx = await browser.newContext({ viewport: { width: 1100, height: 900 } });
+      await ctx.addInitScript(() => { try { localStorage.setItem("folio.atlas2.preview", "1"); localStorage.setItem("folio_tour_v1", "1"); localStorage.setItem("folio_atlas_tour_v1", "1"); } catch (e) {} });
+      const page = await ctx.newPage(), seen = [];
+      page.on("request", (r) => seen.push(r.url()));
+      page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
+      await page.goto("file://" + path.join(ROOT, "index.html") + "#card/rm-209", { waitUntil: "load" });
+      await windowReady(page); await windowSettled(page).catch(() => {}); await page.waitForTimeout(800);
+      const info = await page.evaluate(() => { const h = document.querySelector(".map-card"); return { engine: h.getAttribute("data-map-engine"), kind: AtlasEmbed.hub().E.historyKind(), legend: h._folioMap.legend(), names: h._folioMap.names() }; });
+      check("on file:// a war card's window is the engine's, drawn from history-wars.bin.js (and not the 11-entity pilot twin)", info.engine === "v2" && info.kind === "wars" && info.names.join() === "Rome,Carthage" && seen.some((u) => /history-wars\.bin\.js$/.test(u)) && !seen.some((u) => /\/history\.bin\.js$/.test(u)), JSON.stringify(info));
+      const g2 = await count(page, ".map-card .mc-canvas", "g > r + 40 && g > b + 25", [0, 0, 1, 0.8]), r2 = await count(page, ".map-card .mc-canvas", "r > g + 60 && r > b + 50", [0, 0, 1, 0.8]);
+      check("...with both sides tinted", g2 > 300 && r2 > 300, JSON.stringify({ green: g2, red: r2 }));
+      await ctx.close();
+    }
+  }
+
+  sect("errors");
   check("no console or page errors anywhere in this suite", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
   console.log("\n" + pass + " passed, " + fail + " failed");
