@@ -35825,9 +35825,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (host._folioMap && host.hasAttribute("data-map-named-early")) { host.removeAttribute("data-map-named-early"); host._folioMap.reveal(); }
     });
   }
+  /* the study layer's host (see the comment where the Atlas page builds it): what a place card — and, since Phase 4c, Find it's learn panel on the engine's board — needs of the reader's cards */
+  function atlas2StudyHost() {
+    return {
+      studiedCards: () => Object.keys(S.cards || {}).filter((id) => CARD_BY_ID[id]),
+      cardInfo: (id) => {
+        const c = CARD_BY_ID[id]; if (!c) return null;
+        const plain = (x) => String(x == null ? "" : x).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+        const root0 = cardCollectionRoot(id);
+        return { title: plain(c.answerText) || plain(c.answer) || plain(c.question) || id, collId: root0 ? root0.id : "", coll: root0 ? nodeTitle(root0) : "" };
+      },
+      cardHref: (id) => "#card/" + id,
+      // "New discovery" on a place card (Phase 3c): the existing `placesSeen` register v1's Atlas panels write — read, and written on first sight
+      // exactly as `showCountryPopupName` does (markSeen), without v1's sound or achievements check. No new field; the blob's shape is unchanged.
+      seenPlace: (name) => !!(S.placesSeen && S.placesSeen[name]),
+      discover: (name) => markSeen("placesSeen", name),
+    };
+  }
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
-    return { get S() { return S; }, PAGES, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, GAME_MAX_DIFFICULTY,
+    return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, GAME_MAX_DIFFICULTY,
       cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon, startCardGlobeV1, openFromWindow: atlas2OpenFromWindow,
       atlasRegisterAll, atlasStackKey, atlasStackOrder, availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, layerPoint, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr };
   }
@@ -46668,20 +46685,7 @@ let prev = null;
        same keys) — filtered to cards this build ships, since a community-deck card names no place. `cardInfo` is what a place card
        lists a card as: its answer (what the card is about, as v1's `atlasRegister` titles it) and the collection that owns it. Nothing
        here writes to `S`: the Personal Atlas is computed, never stored, and so is not in the progress blob. */
-    const studyHost = {
-      studiedCards: () => Object.keys(S.cards || {}).filter((id) => CARD_BY_ID[id]),
-      cardInfo: (id) => {
-        const c = CARD_BY_ID[id]; if (!c) return null;
-        const plain = (x) => String(x == null ? "" : x).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
-        const root0 = cardCollectionRoot(id);
-        return { title: plain(c.answerText) || plain(c.answer) || plain(c.question) || id, collId: root0 ? root0.id : "", coll: root0 ? nodeTitle(root0) : "" };
-      },
-      cardHref: (id) => "#card/" + id,
-      // "New discovery" on a place card (Phase 3c): the existing `placesSeen` register v1's Atlas panels write — read, and written on first sight
-      // exactly as `showCountryPopupName` does (markSeen), without v1's sound or achievements check. No new field; the blob's shape is unchanged.
-      seenPlace: (name) => !!(S.placesSeen && S.placesSeen[name]),
-      discover: (name) => markSeen("placesSeen", name),
-    };
+    const studyHost = atlas2StudyHost();
     /* "Back to studying" (Phase 4b): present only when a card window's tap or go button brought the reader here from a study session (`atlasHold`) — it is `#atlasBack`'s handler exactly */
     const backHost = atlasHold ? () => { const rec = atlasHold; atlasHold = null; atlasFocus = null; if (!rec) { route("home"); return; } writeStudySession(rec); route("study", { scope: rec.scope, resume: rec }); } : null;
     const atlas = window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion, study: studyHost, back: backHost } });
