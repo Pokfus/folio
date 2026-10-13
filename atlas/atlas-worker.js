@@ -539,6 +539,7 @@
     if (msg.type === "gazetteer") { loadGazetteer(msg.table); post({ type: "gazetteer", rows: GZ.rows.length }); return null; }
     if (msg.type === "study-rows") { setStudyRows(msg.rows); post({ type: "study-rows", n: STUDY ? STUDY.rows.size : 0 }); return null; }
     if (msg.type === "study-flags") { setStudyFlags(msg); return null; }
+    if (msg.type === "polity-names") { POLITY_NAMES = msg.names || null; return null; }   // Phase 4 / 0c: dated display names
     if (msg.type === "metrics") { METRICS = msg.styles; return null; }
     if (msg.type === "layout") { handleLayout(msg, post); return null; }
     /* a lost GL context (Phase 1c): the main thread keeps nothing after upload, so the resident levels are
@@ -600,6 +601,9 @@
   const RAW = { topology: null, water: null, history: null };
   let CORE = null, HIST = null, HIST_PENDING = null;
   let GZ = null, RIVER_LINES = null, RIVER_CAPS = null, METRICS = null;
+  /* Phase 4 / 0c: display names that change with the year (atlas/data/polity-names.js, sent by the page): entity id → [[from, to, name, qid]…] */
+  let POLITY_NAMES = null;
+  const nameIn = (id, y, base) => { const l = POLITY_NAMES && POLITY_NAMES[id]; if (l && y != null) for (const o of l) if (y >= o[0] && y <= o[1]) return o[2]; return base; };
   const D2R_ = Math.PI / 180;
   const KW = { capital: 0, country: 1, people: 4.5, ocean: 2, sea: 3, admin1: 4, region: 5, range: 5, "island-group": 6, island: 6, gulf: 6, strait: 6, city: 7, lake: 8, town: 9, river: 10 };
   const PHYSICAL = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1, island: 1, "island-group": 1, range: 1, region: 1 };
@@ -715,7 +719,7 @@
         // the rank by the area ON SCREEN (2b): the face's area times the share of its vertices on screen, in screen pixels — a view
         // with many alive faces names the ones a reader sees most of first, and the order holds as the view moves
         const px2 = km2 * (path.visFrac || 0) / Math.max(1e-6, kmpp * kmpp);
-        histRows.push({ id: e.id, name: e.name, kind: e.kind === "people" || e.kind === "culture" || e.kind === "extent" ? e.kind : "polity", rank: px2 >= 4e5 ? 0 : px2 >= 1e5 ? 1 : px2 >= 2e4 ? 2 : px2 >= 4e3 ? 3 : 4, path, len: path.len * kmpp, face: fi, px2 });
+        histRows.push({ id: e.id, name: nameIn(e.id, q.year, e.name), kind: e.kind === "people" || e.kind === "culture" || e.kind === "extent" ? e.kind : "polity", rank: px2 >= 4e5 ? 0 : px2 >= 1e5 ? 1 : px2 >= 2e4 ? 2 : px2 >= 4e3 ? 3 : 4, path, len: path.len * kmpp, face: fi, px2 });
       }
       histRows.sort((p, q) => q.px2 - p.px2);
     }

@@ -1,0 +1,1963 @@
+{
+ "retrieved": "2026-10-13",
+ "source": "query.wikidata.org (Wikidata, CC0): English labels, official-name / name / short-name statements with their date qualifiers, and items whose label is a Cliopatria name or an override's, inception before 1950",
+ "labels": {
+  "Q7462": "Song dynasty",
+  "Q33745": "Peloponnesian War",
+  "Q17161": "Etruscans",
+  "Q48685": "Kingdom of Judah",
+  "Q62943": "Maurya empire",
+  "Q83958": "Macedonia",
+  "Q201038": "Roman Kingdom",
+  "Q555994": "Aq Qoyunlu",
+  "Q620765": "Lydia",
+  "Q128904": "Elam",
+  "Q208742": "Peloponnesian League",
+  "Q624887": "Neo-Babylonian Empire",
+  "Q705904": "Seleucid dynasty",
+  "Q241790": "Kingdom of Kush",
+  "Q245273": "Aetolian League",
+  "Q1143524": "Northern Qi",
+  "Q1154556": "Later Zhou dynasty",
+  "Q1471995": "Former Qin",
+  "Q128938": "Shang dynasty",
+  "Q321371": "Bosporan Kingdom",
+  "Q389688": "Achaemenid Empire",
+  "Q175881": "Roman Republic",
+  "Q178665": "Mitanni",
+  "Q320930": "Cao Wei",
+  "Q1472004": "Former Yan",
+  "Q1574107": "Han Zhao",
+  "Q1936158": "Minyue",
+  "Q181264": "Mycenaean Greece",
+  "Q1968654": "Beylik of Saruhan",
+  "Q2320005": "Ptolemaic Kingdom",
+  "Q504759": "Chu",
+  "Q2338980": "Second Athenian League",
+  "Q2345840": "history of Sumer",
+  "Q2429397": "Ancient Carthage",
+  "Q185068": "Urartu",
+  "Q3185305": "United Kingdom of Israel",
+  "Q4461035": "Akkadian Empire",
+  "Q6201794": "Jin",
+  "Q7380487": "Kingdom of Pontus",
+  "Q10914393": "Neo-Assyrian Empire",
+  "Q11774": "Gupta Empire",
+  "Q7352": "Jin dynasty",
+  "Q7405": "Sui dynasty",
+  "Q9683": "Tang dynasty",
+  "Q4948": "Republic of Venice",
+  "Q12536": "Abbasid Caliphate",
+  "Q170174": "Papal States",
+  "Q62456": "Southern Qi",
+  "Q139377": "Kingdom of Aksum",
+  "Q49697": "Liu Song dynasty",
+  "Q62454": "Chen dynasty",
+  "Q185488": "Volga Bulgaria",
+  "Q188836": "Xiongnu",
+  "Q203817": "First Bulgarian Empire",
+  "Q156173": "Jugurtha",
+  "Q25979": "Kushan Empire",
+  "Q307069": "Eastern Wei",
+  "Q320925": "Shu Han",
+  "Q274488": "Eastern Wu",
+  "Q488880": "Greco-Bactrian Kingdom",
+  "Q504769": "Xin dynasty",
+  "Q16084290": "Illyrian kingdom",
+  "Q112039853": "Foreign relations of the Byzantine Empire",
+  "Q28405": "Gojoseon",
+  "Q28428": "Baekje",
+  "Q215643": "Indo-Greek Kingdoms",
+  "Q234197": "Srivijaya",
+  "Q827040": "Nanyue",
+  "Q829356": "Kingdom of Makuria",
+  "Q551067": "Northern Zhou",
+  "Q783489": "Later Liang dynasty",
+  "Q244796": "Achaean League",
+  "Q273025": "Gallic Empire",
+  "Q875305": "Northern Wei",
+  "Q877875": "Palmyrene Empire",
+  "Q1068371": "Chauhan",
+  "Q1661685": "Indo-Sassanids",
+  "Q2022162": "Kingdom of Pergamon",
+  "Q8575586": "Umayyad Caliphate",
+  "Q12490507": "Rashidun Caliphate",
+  "Q12560": "Ottoman Empire",
+  "Q7313": "Yuan dynasty",
+  "Q28208": "Goryeo",
+  "Q12557": "Mongol Empire",
+  "Q79965": "Golden Horde",
+  "Q153529": "Duchy of Milan",
+  "Q154667": "Kingdom of Georgia",
+  "Q28573": "Inca Empire",
+  "Q9903": "Ming dynasty",
+  "Q174306": "Republic of Genoa",
+  "Q83546": "Grand Principality of Vladimir",
+  "Q160307": "Fatimid Caliphate",
+  "Q49326": "Majapahit",
+  "Q179876": "Kingdom of England",
+  "Q160440": "Crimean Khanate",
+  "Q796583": "Kingdom of Kongo",
+  "Q842091": "Duchy of Normandy",
+  "Q140446": "Zagwe dynasty",
+  "Q148540": "Republic of Florence",
+  "Q184536": "Mali Empire",
+  "Q167639": "Vijayanagara Empire",
+  "Q200797": "Polatsak",
+  "Q201705": "Khmer Empire",
+  "Q888574": "Pagan kingdom",
+  "Q151536": "Novgorod Republic",
+  "Q206789": "Ghana Empire",
+  "Q1365493": "Republic of Pisa",
+  "Q2608489": "Aztec Empire",
+  "Q1108445": "Kievan Rus'",
+  "Q207162": "Bourbon Restoration in France",
+  "Q3708094": "Seljuk Empire",
+  "Q229411": "Delhi Sultanate",
+  "Q1139762": "Kanem-Bornu Empire",
+  "Q1232887": "County of Savoy",
+  "Q1322662": "Principality of Chernigov",
+  "Q6806806": "Chola Empire",
+  "Q239502": "Kingdom of Galicia–Volhynia",
+  "Q282428": "Mamluk Sultanate of Egypt",
+  "Q703919": "Ngô dynasty",
+  "Q736839": "Kamakura shogunate",
+  "Q28": "Hungary",
+  "Q30": "United States",
+  "Q40": "Austria",
+  "Q191": "Estonia",
+  "Q33": "Finland",
+  "Q148": "People's Republic of China",
+  "Q258": "South Africa",
+  "Q8733": "Qing dynasty",
+  "Q15180": "Soviet Union",
+  "Q211": "Latvia",
+  "Q26847": "Galatia",
+  "Q17427": "Chinese Communist Party",
+  "Q33946": "Czechoslovakia",
+  "Q28513": "Austria–Hungary",
+  "Q33296": "Mughal Empire",
+  "Q83286": "Socialist Federal Republic of Yugoslavia",
+  "Q129286": "British Raj",
+  "Q131802": "Scythians",
+  "Q133032": "Hungarians",
+  "Q191484": "Old Great Bulgaria",
+  "Q41304": "Weimar Republic",
+  "Q200464": "Portuguese Empire",
+  "Q205662": "Tokugawa shogunate",
+  "Q202687": "Songhai Empire",
+  "Q926295": "Italian Empire",
+  "Q1656775": "Kingdom of Lithuania",
+  "Q161205": "Safavid dynasty",
+  "Q172579": "Kingdom of Italy",
+  "Q45813": "Huns",
+  "Q212056": "Mongolian People's Republic",
+  "Q422253": "Gothia",
+  "Q722071": "Ashanti Empire",
+  "Q207272": "Second Polish Republic",
+  "Q207521": "Ethiopian Empire",
+  "Q46652": "Malacca sultanate",
+  "Q68962": "Pannonian Avars",
+  "Q80702": "Spanish Empire",
+  "Q83618": "Maratha Empire",
+  "Q173282": "Khazars",
+  "Q188712": "Empire of Japan"
+ },
+ "statements": {
+  "Q17427": [
+   {
+    "prop": "P2561",
+    "val": "Chinese Communist Party",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1813",
+    "val": "CPC",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1813",
+    "val": "CCP",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1448",
+    "val": "Communist Party of China",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ],
+  "Q172579": [
+   {
+    "prop": "P1813",
+    "val": "Italy",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1448",
+    "val": "Kingdom of Italy",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ],
+  "Q212056": [
+   {
+    "prop": "P1813",
+    "val": "MPR",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ],
+  "Q83618": [
+   {
+    "prop": "P1813",
+    "val": "Marathas",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ],
+  "Q15180": [
+   {
+    "prop": "P1813",
+    "val": "USSR",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ],
+  "Q258": [
+   {
+    "prop": "P1813",
+    "val": "RSA",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1448",
+    "val": "Republic of South Africa",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ],
+  "Q148": [
+   {
+    "prop": "P1813",
+    "val": "China",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1813",
+    "val": "PRC",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1448",
+    "val": "People's Republic of China",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1448",
+    "val": "Peoples Republic of China",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ],
+  "Q191": [
+   {
+    "prop": "P1813",
+    "val": "Estonia",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ],
+  "Q30": [
+   {
+    "prop": "P1813",
+    "val": "America",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1813",
+    "val": "United States",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1813",
+    "val": "USA",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1813",
+    "val": "U.S.",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1448",
+    "val": "the United States of America",
+    "start": null,
+    "end": null,
+    "pit": null
+   },
+   {
+    "prop": "P1448",
+    "val": "United States",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ],
+  "Q40": [
+   {
+    "prop": "P1448",
+    "val": "Republic of Austria",
+    "start": null,
+    "end": null,
+    "pit": null
+   }
+  ]
+ },
+ "datedItems": {
+  "Carthage": [
+   {
+    "item": "Q1045755",
+    "inc": "0050-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q1193949",
+    "inc": "1789-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q1993002",
+    "inc": "1776-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q60502366",
+    "inc": "1830-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119269608",
+    "inc": "1943-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q6343",
+    "inc": "-0801-01-0",
+    "dis": "-0145-01-0"
+   },
+   {
+    "item": "Q579711",
+    "inc": "1838-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q729304",
+    "inc": "1842-01-01",
+    "dis": null
+   }
+  ],
+  "Song": [
+   {
+    "item": "Q1065073",
+    "inc": "-1100-01-0",
+    "dis": "-0285-01-0"
+   },
+   {
+    "item": "Q6821029",
+    "inc": "1355-01-01",
+    "dis": "1366-01-01"
+   },
+   {
+    "item": "Q31884161",
+    "inc": "1821-01-01",
+    "dis": null
+   }
+  ],
+  "Rome": [
+   {
+    "item": "Q220",
+    "inc": "-0752-04-1",
+    "dis": null
+   },
+   {
+    "item": "Q6580",
+    "inc": "1834-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q6586",
+    "inc": "1870-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q1180902",
+    "inc": "1796-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q1558632",
+    "inc": "1810-02-17",
+    "dis": "1814-05-30"
+   },
+   {
+    "item": "Q2673079",
+    "inc": "1835-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q3448522",
+    "inc": "1804-03-07",
+    "dis": null
+   },
+   {
+    "item": "Q20891712",
+    "inc": "1928-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q29862764",
+    "inc": "1841-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64558386",
+    "inc": "1857-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q65072306",
+    "inc": "1665-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q77883374",
+    "inc": "1905-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q103838573",
+    "inc": "1895-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q124023140",
+    "inc": "1905-01-01",
+    "dis": null
+   }
+  ],
+  "Sumer": [
+   {
+    "item": "Q35355",
+    "inc": "-5500-01-0",
+    "dis": "-1900-01-0"
+   }
+  ],
+  "Macedon": [
+   {
+    "item": "Q6723044",
+    "inc": "1789-01-01",
+    "dis": null
+   }
+  ],
+  "Roman Republic": [
+   {
+    "item": "Q17167",
+    "inc": "-0508-01-0",
+    "dis": "-0026-01-1"
+   },
+   {
+    "item": "Q175881",
+    "inc": "1798-02-15",
+    "dis": "1799-09-30"
+   },
+   {
+    "item": "Q1072140",
+    "inc": "1849-02-09",
+    "dis": "1849-07-04"
+   }
+  ],
+  "Kingdom of Israel": [
+   {
+    "item": "Q230407",
+    "inc": "-0929-01-0",
+    "dis": "-0719-01-0"
+   }
+  ],
+  "Qi": [
+   {
+    "item": "Q837855",
+    "inc": "-1044-01-0",
+    "dis": "-0220-01-0"
+   },
+   {
+    "item": "Q1207032",
+    "inc": "-1600-01-0",
+    "dis": "-0444-01-0"
+   },
+   {
+    "item": "Q1319681",
+    "inc": "0907-01-01",
+    "dis": "0924-01-01"
+   }
+  ],
+  "Yue": [
+   {
+    "item": "Q1137403",
+    "inc": "-1100-01-0",
+    "dis": "-0221-01-0"
+   },
+   {
+    "item": "Q48519333",
+    "inc": "1940-03-24",
+    "dis": "1956-09-20"
+   },
+   {
+    "item": "Q48519342",
+    "inc": "1889-04-01",
+    "dis": "1955-04-01"
+   }
+  ],
+  "Macedonian Empire": [
+   {
+    "item": "Q13405524",
+    "inc": "-0335-01-0",
+    "dis": "-0300-01-0"
+   }
+  ],
+  "Qin": [
+   {
+    "item": "Q29385631",
+    "inc": "1634-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q34756",
+    "inc": "-0904-01-0",
+    "dis": "-0220-01-0"
+   }
+  ],
+  "Etruria": [
+   {
+    "item": "Q119153437",
+    "inc": "1903-01-01",
+    "dis": null
+   }
+  ],
+  "Lu": [
+   {
+    "item": "Q736936",
+    "inc": "-1100-01-0",
+    "dis": "-0248-01-0"
+   }
+  ],
+  "Yan": [
+   {
+    "item": "Q1188046",
+    "inc": "0756-01-01",
+    "dis": "0763-01-01"
+   },
+   {
+    "item": "Q1291919",
+    "inc": "0911-01-01",
+    "dis": "0914-01-01"
+   },
+   {
+    "item": "Q15940658",
+    "inc": "0237-01-01",
+    "dis": "0238-01-01"
+   }
+  ],
+  "Han dynasty": [
+   {
+    "item": "Q7209",
+    "inc": "-0205-01-0",
+    "dis": "0220-01-01"
+   }
+  ],
+  "Gojoseon": [
+   {
+    "item": "Q28405",
+    "inc": "-2332-01-0",
+    "dis": "-0107-01-0"
+   }
+  ],
+  "Western Roman Empire": [
+   {
+    "item": "Q42834",
+    "inc": "0395-01-18",
+    "dis": "0476-01-01"
+   }
+  ],
+  "Sasanian Empire": [
+   {
+    "item": "Q83891",
+    "inc": "0224-01-01",
+    "dis": "0651-01-01"
+   }
+  ],
+  "Seleucid Empire": [
+   {
+    "item": "Q93180",
+    "inc": "-0311-01-0",
+    "dis": "-0062-01-0"
+   }
+  ],
+  "Attalid dynasty": [
+   {
+    "item": "Q321029",
+    "inc": "-0281-01-0",
+    "dis": "-0132-01-0"
+   }
+  ],
+  "Greco-Bactrian Kingdom": [
+   {
+    "item": "Q488880",
+    "inc": "-0249-01-0",
+    "dis": "-0124-01-0"
+   }
+  ],
+  "Kingdom of Pergamon": [
+   {
+    "item": "Q2022162",
+    "inc": "-0281-01-0",
+    "dis": "-0132-01-0"
+   }
+  ],
+  "Ptolemaic Kingdom": [
+   {
+    "item": "Q2320005",
+    "inc": "-0304-01-0",
+    "dis": "-0029-01-0"
+   }
+  ],
+  "Kingdom of Pontus": [
+   {
+    "item": "Q7380487",
+    "inc": "-0280-01-0",
+    "dis": "0062-01-01"
+   }
+  ],
+  "Pontus": [
+   {
+    "item": "Q18574419",
+    "inc": "1890-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q113644367",
+    "inc": "1936-01-01",
+    "dis": null
+   }
+  ],
+  "Kingdom of Numidia": [
+   {
+    "item": "Q102679",
+    "inc": "-0201-01-0",
+    "dis": "-0045-01-0"
+   }
+  ],
+  "Zhao": [
+   {
+    "item": "Q197430",
+    "inc": "-0402-01-0",
+    "dis": "-0221-01-0"
+   },
+   {
+    "item": "Q804886",
+    "inc": "-0770-01-0",
+    "dis": null
+   },
+   {
+    "item": "Q8004603",
+    "inc": "0910-01-01",
+    "dis": null
+   }
+  ],
+  "Wei": [
+   {
+    "item": "Q912052",
+    "inc": "-0402-01-0",
+    "dis": "-0224-01-0"
+   },
+   {
+    "item": "Q1327602",
+    "inc": "0388-01-01",
+    "dis": "0392-01-01"
+   },
+   {
+    "item": "Q124304839",
+    "inc": "0220-01-01",
+    "dis": "0266-01-01"
+   }
+  ],
+  "Han": [
+   {
+    "item": "Q1574130",
+    "inc": "-0402-01-0",
+    "dis": "-0229-01-0"
+   },
+   {
+    "item": "Q4384185",
+    "inc": "-1100-01-0",
+    "dis": "-0800-01-0"
+   }
+  ],
+  "Principality of Polotsk": [
+   {
+    "item": "Q517333",
+    "inc": "0900-01-01",
+    "dis": "1397-01-01"
+   }
+  ],
+  "Duchy of Normandy": [
+   {
+    "item": "Q842091",
+    "inc": "0911-01-01",
+    "dis": "1259-01-01"
+   }
+  ],
+  "Chola Empire": [
+   {
+    "item": "Q6806806",
+    "inc": "0848-01-01",
+    "dis": "1279-01-01"
+   }
+  ],
+  "Republic of Venice": [
+   {
+    "item": "Q4948",
+    "inc": "0697-01-01",
+    "dis": "1797-05-12"
+   }
+  ],
+  "Byzantine Empire": [
+   {
+    "item": "Q12544",
+    "inc": "0395-01-18",
+    "dis": "1453-06-07"
+   }
+  ],
+  "Kingdom of France": [
+   {
+    "item": "Q70972",
+    "inc": "0987-01-01",
+    "dis": "1791-09-04"
+   }
+  ],
+  "Chola dynasty": [
+   {
+    "item": "Q151148",
+    "inc": "-0299-01-0",
+    "dis": "1279-01-01"
+   }
+  ],
+  "Republic of Genoa": [
+   {
+    "item": "Q174306",
+    "inc": "1005-01-01",
+    "dis": "1797-06-14"
+   }
+  ],
+  "Kingdom of England": [
+   {
+    "item": "Q179876",
+    "inc": "0927-01-01",
+    "dis": "1707-05-11"
+   }
+  ],
+  "Dai Viet": [
+   {
+    "item": "Q430309",
+    "inc": "1054-01-01",
+    "dis": "1400-01-01"
+   },
+   {
+    "item": "Q430309",
+    "inc": "1428-01-01",
+    "dis": "1400-01-01"
+   },
+   {
+    "item": "Q430309",
+    "inc": "1054-01-01",
+    "dis": "1805-01-01"
+   },
+   {
+    "item": "Q430309",
+    "inc": "1428-01-01",
+    "dis": "1805-01-01"
+   }
+  ],
+  "Normandy": [
+   {
+    "item": "Q961197",
+    "inc": "1812-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q1977973",
+    "inc": "1852-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q76439253",
+    "inc": "1944-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q76558841",
+    "inc": "1944-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q80056451",
+    "inc": "1893-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q80082607",
+    "inc": "1944-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q130335197",
+    "inc": "1896-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q141648101",
+    "inc": "1939-01-01",
+    "dis": null
+   }
+  ],
+  "Liang dynasty": [
+   {
+    "item": "Q1069868",
+    "inc": "0502-01-01",
+    "dis": "0587-01-01"
+   }
+  ],
+  "Republic of Pisa": [
+   {
+    "item": "Q1365493",
+    "inc": "1000-01-01",
+    "dis": "1406-01-01"
+   }
+  ],
+  "Venice": [
+   {
+    "item": "Q124499458",
+    "inc": "1896-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q124663860",
+    "inc": "1850-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q125253037",
+    "inc": "1892-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q126119343",
+    "inc": "1872-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q130259345",
+    "inc": "1915-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q132732423",
+    "inc": "1920-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q136349791",
+    "inc": "1892-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q137515560",
+    "inc": "1750-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q138866953",
+    "inc": "1920-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q641",
+    "inc": "0421-03-26",
+    "dis": null
+   },
+   {
+    "item": "Q773853",
+    "inc": "1905-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q7919964",
+    "inc": "1875-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q17496068",
+    "inc": "1908-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q18607763",
+    "inc": "1875-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q18749256",
+    "inc": "1875-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q19392266",
+    "inc": "1850-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q19392312",
+    "inc": "1885-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q19924599",
+    "inc": "1903-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20177778",
+    "inc": "1880-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20202731",
+    "inc": "1894-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20485539",
+    "inc": "1900-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20485598",
+    "inc": "1900-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20485648",
+    "inc": "1900-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20485694",
+    "inc": "1900-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20485730",
+    "inc": "1900-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20488782",
+    "inc": "1845-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20488845",
+    "inc": "1933-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20504768",
+    "inc": "1876-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20524703",
+    "inc": "1904-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20530866",
+    "inc": "1843-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20862372",
+    "inc": "1887-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20862511",
+    "inc": "1877-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q21741490",
+    "inc": "1895-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q22912615",
+    "inc": "1898-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q22912652",
+    "inc": "1903-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q24046525",
+    "inc": "1937-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q27883280",
+    "inc": "1909-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q27968137",
+    "inc": "1895-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q27974701",
+    "inc": "1905-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q50331747",
+    "inc": "1933-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q50654218",
+    "inc": "1907-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q59511348",
+    "inc": "1901-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q59529986",
+    "inc": "1905-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q60514244",
+    "inc": "1904-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64034705",
+    "inc": "1894-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64034707",
+    "inc": "1894-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64037607",
+    "inc": "1894-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64037673",
+    "inc": "1894-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64037691",
+    "inc": "1894-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64037769",
+    "inc": "1894-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64156160",
+    "inc": "1909-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64513521",
+    "inc": "1949-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64562096",
+    "inc": "1801-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64573660",
+    "inc": "1903-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64580597",
+    "inc": "1925-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64580598",
+    "inc": "1925-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q74046031",
+    "inc": "1879-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q77011640",
+    "inc": "1880-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q77550292",
+    "inc": "1910-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q79134345",
+    "inc": "1908-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q79505447",
+    "inc": "1880-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q79902367",
+    "inc": "1880-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q80073273",
+    "inc": "1892-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q80082432",
+    "inc": "1909-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q87075018",
+    "inc": "1879-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q102037494",
+    "inc": "1905-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q102128540",
+    "inc": "1851-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q103831539",
+    "inc": "1886-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q104587125",
+    "inc": "1870-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q104633911",
+    "inc": "1937-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q104635738",
+    "inc": "1938-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q104764418",
+    "inc": "1897-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q104872299",
+    "inc": "1890-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q105296437",
+    "inc": "1844-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q105417909",
+    "inc": "1896-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q106849390",
+    "inc": "1896-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q106864432",
+    "inc": "1898-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110098175",
+    "inc": "1830-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110126102",
+    "inc": "1830-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110149786",
+    "inc": "1883-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q111635373",
+    "inc": "1866-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q112643635",
+    "inc": "1875-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q112643639",
+    "inc": "1905-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q114708131",
+    "inc": "1873-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q118129496",
+    "inc": "1877-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q118989400",
+    "inc": "1712-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119033585",
+    "inc": "1818-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119051087",
+    "inc": "1840-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119056883",
+    "inc": "1839-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119060281",
+    "inc": "1840-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119078460",
+    "inc": "1851-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119078816",
+    "inc": "1851-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119082508",
+    "inc": "1857-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119083998",
+    "inc": "1860-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119133831",
+    "inc": "1881-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119139751",
+    "inc": "1884-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119142167",
+    "inc": "1887-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119143567",
+    "inc": "1890-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119145489",
+    "inc": "1890-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119147978",
+    "inc": "1897-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119150723",
+    "inc": "1902-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119186930",
+    "inc": "1920-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119202810",
+    "inc": "1924-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119929997",
+    "inc": "1850-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119943199",
+    "inc": "1850-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119950757",
+    "inc": "1851-01-01",
+    "dis": null
+   }
+  ],
+  "England": [
+   {
+    "item": "Q21",
+    "inc": "0886-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q21",
+    "inc": "0927-07-17",
+    "dis": null
+   },
+   {
+    "item": "Q20398466",
+    "inc": "1850-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q27881912",
+    "inc": "1847-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64158621",
+    "inc": "1911-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q65026860",
+    "inc": "1756-01-01",
+    "dis": null
+   }
+  ],
+  "France": [
+   {
+    "item": "Q142",
+    "inc": "0481-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q142",
+    "inc": "0843-08-01",
+    "dis": null
+   },
+   {
+    "item": "Q142",
+    "inc": "1804-05-18",
+    "dis": null
+   },
+   {
+    "item": "Q3323240",
+    "inc": "1922-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q23072350",
+    "inc": "1932-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q23072386",
+    "inc": "1925-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q23072389",
+    "inc": "1935-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q64582899",
+    "inc": "1909-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q65026858",
+    "inc": "1756-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110116851",
+    "inc": "1807-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119175714",
+    "inc": "1917-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119181612",
+    "inc": "1918-01-01",
+    "dis": null
+   }
+  ],
+  "Genoa": [
+   {
+    "item": "Q575588",
+    "inc": "1876-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q958138",
+    "inc": "1857-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q2666644",
+    "inc": "1857-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q106832931",
+    "inc": "1833-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110093504",
+    "inc": "1833-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119132116",
+    "inc": "1880-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119174839",
+    "inc": "1915-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q132620576",
+    "inc": "1932-01-01",
+    "dis": null
+   }
+  ],
+  "Italy": [
+   {
+    "item": "Q38",
+    "inc": "0476-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q38",
+    "inc": "1861-03-17",
+    "dis": null
+   },
+   {
+    "item": "Q38",
+    "inc": "1946-06-18",
+    "dis": null
+   },
+   {
+    "item": "Q977238",
+    "inc": "1879-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q20489824",
+    "inc": "1843-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q77460311",
+    "inc": "1918-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110553666",
+    "inc": "1859-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q117247401",
+    "inc": "1889-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q139592192",
+    "inc": "1911-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q139597828",
+    "inc": "1931-01-01",
+    "dis": null
+   }
+  ],
+  "Milan": [
+   {
+    "item": "Q490",
+    "inc": "-0599-01-0",
+    "dis": null
+   },
+   {
+    "item": "Q1022976",
+    "inc": "1837-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q1645063",
+    "inc": "1817-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q1856043",
+    "inc": "1858-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q1924803",
+    "inc": "1879-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q2418146",
+    "inc": "1824-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q3313978",
+    "inc": "1948-06-01",
+    "dis": null
+   },
+   {
+    "item": "Q106833370",
+    "inc": "1835-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110094127",
+    "inc": "1835-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110126366",
+    "inc": "1834-01-01",
+    "dis": null
+   }
+  ],
+  "Florence": [
+   {
+    "item": "Q79743",
+    "inc": "1826-01-07",
+    "dis": null
+   },
+   {
+    "item": "Q862740",
+    "inc": "1893-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q985560",
+    "inc": "1830-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q1072662",
+    "inc": "1872-03-07",
+    "dis": null
+   },
+   {
+    "item": "Q2072754",
+    "inc": "1872-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q23758975",
+    "inc": "1880-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q23939771",
+    "inc": "1907-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q42878269",
+    "inc": "1875-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q65019822",
+    "inc": "1907-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q97985135",
+    "inc": "1831-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q106832683",
+    "inc": "1827-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110093024",
+    "inc": "1827-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110093027",
+    "inc": "1827-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110098176",
+    "inc": "1830-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q110126105",
+    "inc": "1830-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q114707802",
+    "inc": "1925-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119124231",
+    "inc": "1878-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119191924",
+    "inc": "1921-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q119202751",
+    "inc": "1924-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q124643126",
+    "inc": "1914-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q130570825",
+    "inc": "1914-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q136121542",
+    "inc": "1947-01-01",
+    "dis": null
+   }
+  ],
+  "Republic of Florence": [
+   {
+    "item": "Q148540",
+    "inc": "1115-01-01",
+    "dis": "1532-01-01"
+   },
+   {
+    "item": "Q148540",
+    "inc": "1115-01-01",
+    "dis": "1569-01-01"
+   }
+  ],
+  "Duchy of Milan": [
+   {
+    "item": "Q153529",
+    "inc": "1395-05-19",
+    "dis": "1797-10-17"
+   }
+  ],
+  "Kingdom of Italy": [
+   {
+    "item": "Q172579",
+    "inc": "1861-03-17",
+    "dis": "1946-06-18"
+   },
+   {
+    "item": "Q223936",
+    "inc": "1805-03-17",
+    "dis": "1814-05-25"
+   },
+   {
+    "item": "Q838931",
+    "inc": "0961-01-01",
+    "dis": "1014-01-01"
+   },
+   {
+    "item": "Q838931",
+    "inc": "0961-01-01",
+    "dis": "1806-08-06"
+   },
+   {
+    "item": "Q3755547",
+    "inc": "0476-09-05",
+    "dis": "0493-02-03"
+   },
+   {
+    "item": "Q5343710",
+    "inc": "0774-06-09",
+    "dis": "0961-12-30"
+   }
+  ],
+  "Mamluk Sultanate": [
+   {
+    "item": "Q847420",
+    "inc": "1206-01-01",
+    "dis": "1290-01-01"
+   }
+  ],
+  "Bornu Empire": [
+   {
+    "item": "Q894030",
+    "inc": "1387-01-01",
+    "dis": "1893-01-01"
+   }
+  ],
+  "County of Savoy": [
+   {
+    "item": "Q1232887",
+    "inc": "1003-01-01",
+    "dis": "1416-01-01"
+   }
+  ],
+  "Republic of China": [
+   {
+    "item": "Q13426199",
+    "inc": "1912-01-01",
+    "dis": "1949-12-07"
+   },
+   {
+    "item": "Q13426199",
+    "inc": "1912-01-01",
+    "dis": "1971-01-01"
+   }
+  ],
+  "Savoy": [
+   {
+    "item": "Q29982245",
+    "inc": "1937-01-01",
+    "dis": null
+   },
+   {
+    "item": "Q109329621",
+    "inc": "1929-08-31",
+    "dis": null
+   }
+  ],
+  "South Africa": [
+   {
+    "item": "Q258",
+    "inc": "1910-05-31",
+    "dis": null
+   }
+  ],
+  "Avar Khaganate": [
+   {
+    "item": "Q28411",
+    "inc": "0562-01-01",
+    "dis": "0822-01-01"
+   },
+   {
+    "item": "Q28411",
+    "inc": "0562-01-01",
+    "dis": "0823-01-01"
+   }
+  ],
+  "Yugoslavia": [
+   {
+    "item": "Q36704",
+    "inc": "1918-12-01",
+    "dis": "1992-04-27"
+   },
+   {
+    "item": "Q99283239",
+    "inc": "1918-01-01",
+    "dis": null
+   }
+  ],
+  "Kingdom of Hungary": [
+   {
+    "item": "Q171150",
+    "inc": "1000-01-01",
+    "dis": "1946-02-01"
+   },
+   {
+    "item": "Q253094",
+    "inc": "1526-11-21",
+    "dis": "1867-01-01"
+   },
+   {
+    "item": "Q600018",
+    "inc": "1920-02-29",
+    "dis": "1946-02-01"
+   },
+   {
+    "item": "Q16056854",
+    "inc": "1301-01-22",
+    "dis": "1526-11-21"
+   },
+   {
+    "item": "Q25395037",
+    "inc": "1867-07-28",
+    "dis": "1918-11-16"
+   }
+  ],
+  "Federal State of Austria": [
+   {
+    "item": "Q176495",
+    "inc": "1934-05-01",
+    "dis": "1938-03-13"
+   }
+  ],
+  "Kingdom of Yugoslavia": [
+   {
+    "item": "Q191077",
+    "inc": "1929-10-03",
+    "dis": "1945-11-29"
+   }
+  ],
+  "Union of South Africa": [
+   {
+    "item": "Q193619",
+    "inc": "1910-05-31",
+    "dis": "1961-05-31"
+   }
+  ],
+  "Kingdom of Lithuania": [
+   {
+    "item": "Q612359",
+    "inc": "1918-02-16",
+    "dis": "1918-11-02"
+   },
+   {
+    "item": "Q612359",
+    "inc": "1918-07-11",
+    "dis": "1918-11-02"
+   },
+   {
+    "item": "Q1656775",
+    "inc": "1251-01-01",
+    "dis": "1263-01-01"
+   }
+  ],
+  "Scythia": [
+   {
+    "item": "Q845909",
+    "inc": "-0800-01-0",
+    "dis": null
+   }
+  ]
+ }
+}

@@ -1208,6 +1208,7 @@
       assignSlots();
       histColours();
       loadWars();
+      loadPolityNames();
       applyYear(time.year, { why: "meta" });
     }
     const SLOTS = 16;   // the palette: SLOTS hues round the wheel, each blended with the theme's ink or paper (histColours)
@@ -1372,6 +1373,29 @@
       html += `<p class="atlas2-card-scope">The front line is drawn for the Second World War only (1939–45), and only on the maps of its two sources: Europe to December 1942, then Europe and the Pacific from July 1943.</p>`;
       return html;
     }
+    /* ---- Phase 4, 0c: DISPLAY-NAME OVERRIDES (atlas/data/polity-names.js, from polity-names.json) ----
+       Cliopatria names a row once for its whole span; where Wikidata dates a different name for the same ground (the Kingdom of Hungary from 1920, the Federal State of Austria from 1934),
+       the row shows that name in those years. Only the display string moves — the id, the faces and the steps are untouched — so `row.name` and `row.key` are set as the year is applied,
+       and the worker is given the same table for the labels. The Cliopatria name stays an alias of the row, and so does every override name (a search finds the row by either). */
+    time.polityNames = null;
+    function nameIn(id, y, base) { const l = time.polityNames && time.polityNames[id]; if (l) for (const o of l) if (y >= o[0] && y <= o[1]) return o[2]; return base; }
+    function loadPolityNames() {
+      if (time.polityNames || time.namesLoading) return; time.namesLoading = true;
+      loadScript(opts.namesUrl || "atlas/data/polity-names.js").then(() => {
+        const T = root.ATLAS_POLITY_NAMES; time.namesLoading = false; if (!T || !T.names) return;
+        time.polityNames = T.names; time.nameEvidence = T.evidence || {};
+        for (const [id, l] of Object.entries(T.names)) { const row = G.byId.get(id); if (row) for (const o of l) { const k = fold(o[2]); if (row.akeys.indexOf(k) < 0) row.akeys.push(k); } }
+        postToWorker({ type: "polity-names", names: T.names });
+        applyNames(time.year); requestLayout("names", true);
+      }).catch((e) => { time.namesLoading = false; if (typeof console !== "undefined") console.warn("atlas2 polity names failed: " + (e && e.message || e)); });
+    }
+    function applyNames(y) {
+      if (!time.polityNames) return;
+      for (const id of Object.keys(time.polityNames)) {
+        const row = G.byId.get(id); if (!row) continue; const e = time.ents[row.ent]; const nm = nameIn(id, y, e.name);
+        if (row.name !== nm) { row.name = nm; row.key = fold(nm); if (typeof cardRow !== "undefined" && cardRow === row && cardOpen) cardTitle.textContent = nm; }
+      }
+    }
     /* ---- Phase 2d: the WARS (atlas/data/wars.js; study.js does the arithmetic) ---- */
     const extInAnyShownWar = (ent) => { const ws = time.extWars.get(time.ents[ent].id); return !!ws && ws.some((w) => time.warShown.has(w)); };
     function loadWars() {
@@ -1454,6 +1478,7 @@
       const wasPresent = time.present;
       time.dir = y >= time.lastYear ? 1 : -1; time.lastYear = time.year; time.year = y;
       time.present = y >= PRESENT_YEAR;
+      applyNames(y);
       if (!time.present && !histStarted) ensureHistory();
       railPin.setAttribute("aria-valuenow", String(y)); railPin.setAttribute("aria-valuetext", fmtYear(y));
       railPin.style.left = (railX(y) * 100) + "%";
@@ -2623,7 +2648,7 @@
       presence: () => ({ alive: time.palive.filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreen: (time.pOnScreen || []).filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => a.face), drawn: ((time.view && time.view.pfaces) || []).filter((f) => !f.ext && !f.front).map((f) => ({ face: f.face, angle: f.angle, fade: f.fade })), position: layers.peoples, mode: PI.mode, all: time.presEnts.filter((i) => !time.isExt[i]).map((i) => time.ents[i].id), shown: time.presEnts.filter((i) => !time.isExt[i] && presShown(i)).map((i) => time.ents[i].id) }),
       // Phase 2d, for the suites: the wars table, the wars drawn, the entities tinted in the year with their roles, the washes handed to the renderer, the key's colours
       wars: () => ({ ready: !!time.wars, count: time.wars ? Object.keys(time.wars).length : 0, position: layers.wars, focus: time.warFocus, shown: [...time.warShown].sort(), roles: [...time.warRoles].map(([id, r]) => [id, r.role, r.wars.slice()]).sort((a, b) => (a[0] < b[0] ? -1 : 1)), washes: ((time.view && time.view.pfaces) || []).filter((f) => f.ext).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), colours: { victor: warRGB.victor.map((v) => Math.round(v * 255)), loser: warRGB.loser.map((v) => Math.round(v * 255)) }, tinted: (time.view && time.view.faces || []).filter((f) => time.warRoles.size && f.tint).length, note: (sheet.querySelector('.atlas2-wars-note') || {}).textContent || '' }),
-      focusWar: (id) => focusWar(id), warsBlock: (id) => warsBlock(id), frontCardHtml: (e) => frontCardHtml(e),
+      rowName: (id) => { const r = G.byId.get(id); return r ? r.name : null; }, focusWar: (id) => focusWar(id), warsBlock: (id) => warsBlock(id), frontCardHtml: (e) => frontCardHtml(e),
       // Phase 2d, for the suites: the front line — the chosen date, the plates standing on it, the faces drawn and their tints, the stepper's text
       fronts: () => ({ on: !!layers.fronts, ents: time.frontEnts.map((i) => time.ents[i].id), plates: time.frontPlates.length, date: curFrontDate(), stepped: time.frontDate, standing: (AS2() && curFrontDate() != null ? AS2().platesAt(time.frontPlates, curFrontDate()).map((p) => p.theatre + ":" + p.date) : []), drawn: ((time.view && time.view.pfaces) || []).filter((f) => f.front).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), shown: time.frontEnts.filter(frontShown).map((i) => time.ents[i].id), label: frontEl ? frontLabel.textContent : '', visible: !!frontEl && !frontEl.hidden }), stepFront: (d) => stepFront(d), setFrontDate: (n) => { time.frontDate = n; const y = Math.floor(n / 10000); if (y !== time.year) setYear(y, { keepFront: true }); else applyYear(y, { force: true, why: 'fronts' }); }, onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
       timeInfo: () => ({ changeYears: time.changeYears.slice(), year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeMedian: pct50(time.yearChange), yearQueryP95: pct95(time.yearQuery), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),

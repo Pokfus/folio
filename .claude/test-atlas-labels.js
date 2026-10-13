@@ -342,6 +342,14 @@ async function inkInBoxes(page, placed) {
   check("no page errors on #map2 (desktop, the history loaded)", D.errors.length === 0, D.errors.slice(0, 3).join(" | "));
   console.log("\n\x1b[1m10) area and path names stay inside the frame (a sweep of views)\x1b[0m\n");
   await areaSweep(D.page, "desktop 1280×800");
+  // Phase 4 / 0c: a dated Wikidata name changes the display name in its years (Kingdom of Hungary 1920–43, Federal State of Austria 1934–37) and the Cliopatria name stands in the others
+  for (const [yr, id, want, V] of [[1942, "pol:hungary_1918", "Kingdom of Hungary", { lon: 19.5, lat: 47, k: 2 }], [1919, "pol:hungary_1918", "Hungarian Republic", { lon: 19.5, lat: 47, k: 2 }], [1936, "pol:austria_1918", "Federal State of Austria", { lon: 14, lat: 47.5, k: 2 }], [1925, "pol:austria_1918", "Republic of Austria", { lon: 14, lat: 47.5, k: 2 }]]) {
+    await D.page.evaluate((y) => document.querySelector(".atlas2").__atlas2.setYear(y), yr);
+    await D.page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historySettled(), null, { timeout: 120000 }).catch(() => {});
+    await layoutAt(D.page, V, "normal"); await D.page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historySettled(), null, { timeout: 120000 }).catch(() => {});
+    const placed = (await layoutAt(D.page, V, "normal")).placed, row = await D.page.evaluate((i) => document.querySelector(".atlas2").__atlas2.rowName(i), id), lab = placed.find((p) => p.id === id);
+    check(`${yr}: ${id.replace("pol:", "")} is "${want}" (the place card and stack read "${row}"; the label reads "${lab ? lab.text : "not named"}")`, row === want && (!lab || lab.text.replace(/\s+/g, " ").toLowerCase() === want.toLowerCase()), `${row} / ${lab ? lab.text : "-"}`);
+  }
   await D.page.close();
   const PH = await open(phone);
   await PH.page.setViewportSize({ width: 390, height: 844 }); await sleep(300);
