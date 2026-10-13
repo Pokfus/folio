@@ -158,6 +158,10 @@ jobs:
         run: |
           node .claude/atlas-build/audit-polity-names.js --check
           node .claude/atlas-build/build-polity-names.js --check
+      # THE CARD WINDOWS' JOIN (Oct 2026, Atlas v2 Phase 4): build-card-faces.js --check proves atlas/data/card-faces.js is what the shape files, the
+      # engine's entity table and the cards build, and that every map card's layer, keys and dot resolve to an engine entity. Offline.
+      - name: build-card-faces --check (Atlas v2, the map cards' faces)
+        run: node .claude/atlas-build/build-card-faces.js --check
       - name: check-places (Atlas v2, the Phase 3 places file)
         run: node .claude/atlas-build/check-places.js
       - name: migrate-places --check (every card's places resolve, nothing derived lost)

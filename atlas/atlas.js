@@ -424,7 +424,7 @@
        the canvas into the window's own 2D canvas, so any number of windows share one WebGL context. */
     const EMBED = !!opts.embed;
     let embedHook = null;   // atlas-embed.js: told when a tile, a water level or the history has arrived (the hub has no frame loop of its own)
-    const layers = EMBED ? Object.assign({}, DEFAULT_LAYERS, { countries: false, places: false, physical: false, cities: false, relief: false, graticule: false, rivers: false, lakes: false, wars: "off", fronts: false }, opts.layers || {}) : loadLayers();
+    const layers = EMBED ? Object.assign({}, DEFAULT_LAYERS, { countries: false, places: false, physical: false, cities: false, relief: false, graticule: false, rivers: false, lakes: false, wars: "off", fronts: false, peoples: "off" }, opts.layers || {}) : loadLayers();
     const view = { history: null, lon: 10, lat: 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
     let cssW = 0, cssH = 0, base = 100, dprNow = 1;
     /* ADAPTIVE DEGRADATION DURING A GESTURE (Phase 1d). The owner's gate holds every frame of a gesture to 100 ms, and on
@@ -742,7 +742,7 @@
       // a level the bias chose is the gesture's, not the labels': nothing is added or dropped while the globe moves (§2.9),
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
-      view.admin1 = layers.provinces && k < ADMIN1_KM_PER_PX && time.present;
+      view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
       view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0;   // the coast stroke at the tile zooms: the resident level's tolerance, both sides
       view.borders = layers.borders;
       const box = view.level >= 3 || (view.relief.on && k < RELIEF_L1_KM_PER_PX) ? viewBox() : null;
@@ -1276,7 +1276,7 @@
     let warRGB = { victor: [0.2, 0.62, 0.3], loser: [0.78, 0.2, 0.18] };
     const warRoleOf = (i) => { if (!time.warRoles.size) return 0; const e = time.ents[i]; if (!e) return 0; const id = e.kind === "polity" || e.kind === "extent" ? e.id : e.partners && e.partners[0]; const r = id ? time.warRoles.get(id) : null; return r ? r.role : 0; };
     const warColourOf = (i) => { const r = warRoleOf(i); return r === 1 ? warRGB.victor : r === 2 ? warRGB.loser : null; };
-    const entColour = (i) => warColourOf(i) || entColourAt(i, time.year);
+    const entColour = (i) => warColourOf(i) || (EMBED && layers.neutral ? palette.land : entColourAt(i, time.year));   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
     const hatchOf = (i) => (time.ents[i].kind === "contested" ? entColour(entityIndexOfId(time.ents[i].partners[1])) : null);
     const entityIndexOfId = (id) => { if (!time.entIndex) { time.entIndex = new Map(time.ents.map((e, i) => [e.id, i])); } const i = time.entIndex.get(id); return i == null ? -1 : i; };
     // the arcs of a set of faces as flags, one byte an arc (2b: a Set of tens of thousands of entries was a millisecond a year change)
@@ -2144,16 +2144,17 @@
       if (cardRow && cardOpen && cardRow.hist) openCard(cardRow);
       return true;
     }
-    function frameWar(id) {
-      const w = time.wars && time.wars[id]; if (!w || !time.faceCap) return;
+    function warFrame(id, short, share) {   // the view that fits both sides of a war: { lon, lat, kmpp }; `short` is the short side of the box it is for (Phase 4: a card window asks for its own)
+      const w = time.wars && time.wars[id]; if (!w || !time.faceCap) return null;
       const vecs = [];
       for (const k of ["v", "l"]) { const ids = w[k].m.map((m) => m[0]).concat(w[k].x ? [w[k].x] : []); for (const eid of ids) { const ei = entityIndexOfId(eid); if (ei < 0) continue; const l = time.stepsOf.get(ei) || []; const st = l.find((s) => s[1] >= w.y[0] && s[0] <= w.y[1]); if (!st) continue; const fi = st[2]; vecs.push([time.faceCap[4 * fi], time.faceCap[4 * fi + 1], time.faceCap[4 * fi + 2], time.faceCap[4 * fi + 3]]); } }
-      if (!vecs.length) return;
+      if (!vecs.length) return null;
       let mx = 0, my = 0, mz = 0; for (const v of vecs) { mx += v[0]; my += v[1]; mz += v[2]; } const len = Math.hypot(mx, my, mz) || 1; const c = [mx / len, my / len, mz / len];
-      let ang = 0; for (const v of vecs) ang = Math.max(ang, Math.acos(Math.max(-1, Math.min(1, v[0] * c[0] + v[1] * c[1] + v[2] * c[2]))) + v[3]);
-      const km = Math.max(3, Math.min(R_KM / base, ang * R_KM * 1.35 / (Math.max(120, Math.min(cssW, cssH)) / 2)));
-      setView(Math.atan2(c[1], c[0]) * R2D, Math.asin(Math.max(-1, Math.min(1, c[2]))) * R2D, km);
+      let ang = 0; for (const v of vecs) ang = Math.max(ang, Math.acos(Math.max(-1, Math.min(1, v[0] * c[0] + v[1] * c[1] + v[2] * c[2]))) + v[3] * (share == null ? 1 : share));
+      const km = Math.max(3, Math.min(R_KM / base, ang * R_KM * 1.35 / (Math.max(120, short || Math.min(cssW, cssH)) / 2)));
+      return { lon: Math.atan2(c[1], c[0]) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, c[2]))) * R2D, kmpp: km };
     }
+    function frameWar(id) { const f = warFrame(id); if (f) setView(f.lon, f.lat, f.kmpp); }
     function paintWarsKey() {
       const k = sheet.querySelector(".atlas2-wars-key"); if (!k) return;
       const css = (c, a) => "rgba(" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255)).join(",") + "," + a + ")";
@@ -2631,7 +2632,7 @@
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: () => ensureHistory(), landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0, levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: () => ensureHistory(), warFrame: (id, short, share) => warFrame(id, short, share), historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0, levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
       stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
       forceStage, feedGesture, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
       perfOn: () => perfOn,

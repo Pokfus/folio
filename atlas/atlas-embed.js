@@ -44,7 +44,7 @@
       holder.style.cssText = "position:fixed;left:-99999px;top:0;width:340px;height:260px;visibility:hidden;pointer-events:none;overflow:hidden;";
       document.body.appendChild(holder);
       let ctl = null;
-      try { root.AtlasV2.mount(holder, Object.assign({ host: {} }, opts, { embed: true })); ctl = holder.querySelector(".atlas2") && holder.querySelector(".atlas2").__atlas2; } catch (e) { ctl = null; }
+      try { root.AtlasV2.mount(holder, Object.assign({}, opts, { host: Object.assign({ reducedMotion: () => true }, opts.host || {}), embed: true })); /* no crossfade: a hub has no frames to fade over */ ctl = holder.querySelector(".atlas2") && holder.querySelector(".atlas2").__atlas2; } catch (e) { ctl = null; }
       if (!ctl || !ctl.embed || !ctl.embed.webgl) { try { if (ctl && ctl.dispose) ctl.dispose(); } catch (e) {} holder.remove(); starting = null; failed = true; resolve(null); return; }
       counters.created++;
       try { ctl.renderer.stillCache(false); ctl.renderer.linesCache(false); } catch (e) { /* the caches serve one view held still; a hub is asked a different view every frame */ }
@@ -57,6 +57,8 @@
         draw: (spec, ctx, o) => draw(h, spec, ctx, o || {}),
         pick: (spec, x, y) => pickAt(h, spec, x, y),
         startHistory: () => E.startHistory(),
+        historyOK: () => E.historyOK(),
+        warView: (id, short, share) => E.warFrame(id, short, share),
         facesOf: (id) => { let f = h.faces.get(id); if (!f) h.faces.set(id, f = E.facesOfId(id)); return f; },
         dispose: () => dispose(h),
       };
@@ -99,12 +101,24 @@
     const ctl = h.ctl, v = ctl.view, L = ctl.layers;
     fit(h, spec);
     const lay = spec.layers || {};
-    L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;
+    L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.admin1Max = lay.admin1Max || 0; L.neutral = !!lay.neutral; L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;
     v.graticule = false; v.rivers = L.rivers; v.lakes = L.lakes;
     v.lon = spec.lon; v.lat = spec.lat; v.zoom = spec.zoom;
+    yearAndWar(h, spec);
     h.E.plan();
     // the water is asked for by the first plan that sees rivers or lakes on; a second plan lets this one's view use what that request set up
     if ((L.rivers || L.lakes) && (v.rivers !== L.rivers || v.lakes !== L.lakes)) h.E.plan();
+  }
+  /* the year and the war of a spec. A window without a year is today's map (the present, with its borders); a window with one needs the history file, asked for here the first time. The war is drawn in
+     its own years only: `focusWar` jumps the Atlas to the war's first year, so the spec's year is set again after it, and a year outside the war's years tints nothing (the roles are computed for that year). */
+  function yearAndWar(h, spec) {
+    const E = h.E, ctl = h.ctl, want = spec.year == null ? null : spec.year, war = spec.war || null;
+    if (want == null) { if (h.year != null || h.war) { if (h.war) { E.focusWarNow(null); h.war = null; } E.setYearNow(E.TODAY); h.year = null; } return; }
+    E.startHistory();
+    if (!E.historyOK()) return;   // not yet: the window draws today's map and is told (onChange) when the history lands
+    if (war !== h.war) { E.focusWarNow(war); h.war = war; h.year = null; }
+    if (h.year !== want) { E.setYearNow(want); h.year = want; }
+    void ctl;
   }
   const rgb01 = (c) => [c[0] / 255, c[1] / 255, c[2] / 255];
 
@@ -139,8 +153,8 @@
     if (!o.fast) for (const g of groups) if (g.hl.line || g.hl.glow) outline(h, g, ctx, spec, dpr);
     const rot = Array.from(E.rotation()), pr = project(rot, v.radius, v.cx, v.cy);
     h.last = { rot, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
-    const settled = E.landSettled() && ctl.tilesSettled() && ctl.waterSettled();
-    return { settled, project: pr, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
+    const settled = E.landSettled() && ctl.tilesSettled() && ctl.waterSettled() && (spec.year == null || (E.historyOK() && h.year === spec.year));
+    return { settled, landMask: (water) => landMask(h, spec, water), project: pr, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
   }
 
   /* the mask pass: the same view with only the group's faces white on black, read back, and turned into a ±width/2 band round the edge plus a soft glow */
@@ -178,6 +192,25 @@
     if (g.hl.glow) { ctx.shadowColor = g.hl.glow; ctx.shadowBlur = (g.hl.glowBlur || 9) * dpr; ctx.drawImage(band, 0, 0, w, hh, 0, 0, ctx.canvas.width, ctx.canvas.height); ctx.shadowBlur = 0; ctx.shadowColor = "transparent"; }
     ctx.drawImage(band, 0, 0, w, hh, 0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.restore();
+  }
+  /* the land (or the water) of the current view as an alpha mask the size of the window's canvas, for painting an authored area only where it is land (or sea): the same view
+     rendered black and white, read back. `spec` is the spec of the frame just drawn. */
+  function landMask(h, spec, water) {
+    const ctl = h.ctl, R = ctl.renderer, v = ctl.view, gl = R.gl; if (!gl) return null;
+    setup(h, spec);
+    const keep = { borders: v.borders, admin1: v.admin1, rivers: v.rivers, lakes: v.lakes, graticule: v.graticule };
+    const pal = ctl.palette(), black = [0, 0, 0], white = [1, 1, 1];
+    R.setPalette(Object.assign({}, pal, { ocean: black, land: white, coast: white, border: white, admin1: white, river: black, lake: black, lakeShore: black, rim: black, halo: black, grat: black, selected: white }));
+    v.borders = false; v.admin1 = false; v.rivers = false; v.lakes = false; v.graticule = false;
+    R.highlight(null); R.render(v);
+    const w = gl.drawingBufferWidth, hh = gl.drawingBufferHeight, px = new Uint8Array(w * hh * 4);
+    gl.readPixels(0, 0, w, hh, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    R.setPalette(pal); Object.assign(v, keep);
+    const cv = document.createElement("canvas"); cv.width = w; cv.height = hh;
+    const c = cv.getContext("2d"), img = c.createImageData(w, hh);
+    for (let y = 0; y < hh; y++) { const src = (hh - 1 - y) * w * 4, dst = y * w * 4; for (let x = 0; x < w; x++) { const land = px[src + 4 * x] > 127 && px[src + 4 * x + 3] > 127; const on = water ? !land : land; img.data[dst + 4 * x + 3] = on ? 255 : 0; } }
+    c.putImageData(img, 0, 0);
+    return cv;
   }
   const _cc = typeof document !== "undefined" ? document.createElement("canvas").getContext("2d") : null;
   function cssRGBA(css) {
@@ -221,7 +254,7 @@
         const fast = performance.now() < fastUntil;
         const res = hb.draw(spec, ctx, { dpr, fast });
         settled = res.settled && !fast;
-        w.api = { project: res.project, cw, ch, dpr, radius: res.radius, cx: res.cx, cy: res.cy, kmpp: res.kmpp, settled, fast, spec };
+        w.api = { project: res.project, landMask: res.landMask, cw, ch, dpr, radius: res.radius, cx: res.cx, cy: res.cy, kmpp: res.kmpp, settled, fast, spec };
         if (opts.draw) opts.draw(st, w.api, ctx);
         if (fast) { if (!w.fastTimer) w.fastTimer = setTimeout(() => { w.fastTimer = 0; dirty = true; schedule(); }, 140); }
         if (opts.onPaint) opts.onPaint(st, w.api);

@@ -6,9 +6,9 @@
    are files of their own under that licence. */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-10-13T02:28:50.688Z",
+ "generated": "2026-10-13T02:56:44.209Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
- "filesRead": 656,
+ "filesRead": 657,
  "sources": [
   {
    "id": "cliopatria",
@@ -137,6 +137,10 @@ window.ATLAS_CREDITS = {
      "shareAlike": false,
      "files": [
       {
+       "path": "atlas/data/card-faces.js",
+       "count": 1
+      },
+      {
        "path": "atlas/data/gazetteer.js",
        "count": 1
       },
@@ -182,6 +186,10 @@ window.ATLAS_CREDITS = {
      "sha256": "efc59726337323058f9446210adc96673179cd344e053666ee3d28cb58ba2b05",
      "shareAlike": false,
      "files": [
+      {
+       "path": "atlas/data/card-faces.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/gazetteer.js",
        "count": 1
@@ -242,6 +250,10 @@ window.ATLAS_CREDITS = {
      "sha256": "cd149186f03d2603e0410da399b980a4357d0ac32d3a2305a49ed3dffcc41d7b",
      "shareAlike": false,
      "files": [
+      {
+       "path": "atlas/data/card-faces.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/gazetteer.js",
        "count": 1
