@@ -305,5 +305,5 @@ War window, the second Punic War (rm-209), same runner, 4b → 4c: desktop cold 
 |---|---|---|
 | `startCardGlobeV1` (`app.js` 34634–35813) | 86,543 B | Phase 5 |
 | Find it's game mode in `PAGES.map` (`finditPools` … `gameEnd`, 46185–46530) and `drawGameMarks` | ≈ 24.6 KB + 4.9 KB | Phase 5 |
-| `hiresCoastIngest`, `hiresRiverIngest`, the `CMAP_*` tables | ≈ 2.5 KB + tables | Phase 5 |
+| `hiresCoastIngest` and `hiresRiverIngest` (34454–34487) | 2,122 B (and the `CMAP_*` tables beside them) | Phase 5 |
 | the five `coast/*.js` bundles and `rivers/greece.js`, `rivers/italy.js` (lazy, never on the eager path) | 1,367,513 B + 138,966 B | Phase 5 |
