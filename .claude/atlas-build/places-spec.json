@@ -2258,31 +2258,6 @@
    },
    "cards": 1
   },
-  "pl:q12544": {
-   "name": "Byzantine Empire",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q12544",
-   "at": [
-    28.98,
-    41.0125
-   ],
-   "within": "",
-   "aliases": [
-    "Eastern Roman Empire"
-   ],
-   "wiki": "Byzantine Empire",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q11514315",
-     "Q3024240"
-    ],
-    "via": "title",
-    "km": 0.3
-   },
-   "cards": 2
-  },
   "pl:q1254826": {
    "name": "Cape Coast Castle",
    "kind": "site",
@@ -5153,29 +5128,6 @@
     "km": 0
    },
    "cards": 1
-  },
-  "pl:q17167": {
-   "name": "Roman Republic",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q17167",
-   "at": [
-    12.5,
-    41.9
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Roman Republic",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q11514315",
-     "Q3024240"
-    ],
-    "via": "title",
-    "km": 1.6
-   },
-   "cards": 2
   },
   "pl:q17173672": {
    "name": "Asuka",
@@ -10747,31 +10699,6 @@
    },
    "cards": 1
   },
-  "pl:q34756": {
-   "name": "Qin (state)",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q34756",
-   "at": [
-    106.9936,
-    33.0491
-   ],
-   "within": "",
-   "aliases": [
-    "Qin"
-   ],
-   "wiki": "Qin (state)",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q836688",
-     "Q10904438"
-    ],
-    "via": "label",
-    "km": 229.7
-   },
-   "cards": 1
-  },
   "pl:q34925": {
    "name": "Capitoline Hill",
    "kind": "hill",
@@ -10850,34 +10777,6 @@
      "how": "toponym"
     }
    ]
-  },
-  "pl:q35355": {
-   "name": "Sumer",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q35355",
-   "at": [
-    45.5,
-    32
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Sumer",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q96196009",
-     "Q28171280",
-     "Q3502482",
-     "Q1620908",
-     "Q1292119",
-     "Q465299",
-     "Q11042"
-    ],
-    "via": "title",
-    "km": 47.1
-   },
-   "cards": 1
   },
   "pl:q35464055": {
    "name": "Mal'ta",
@@ -12914,30 +12813,6 @@
     ],
     "via": "title",
     "km": 0
-   },
-   "cards": 1
-  },
-  "pl:q517333": {
-   "name": "Principality of Polotsk",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q517333",
-   "at": [
-    28.8333,
-    55.5
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Principality of Polotsk",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q3024240",
-     "Q1371288",
-     "Q208500"
-    ],
-    "via": "title",
-    "km": 2.8
    },
    "cards": 1
   },
@@ -15814,31 +15689,6 @@
     ],
     "via": "title",
     "km": 0.1
-   },
-   "cards": 1
-  },
-  "pl:q7209": {
-   "name": "Han dynasty",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q7209",
-   "at": [
-    108.8572,
-    34.3044
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Han dynasty",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q50068795",
-     "Q12857432",
-     "Q11514315",
-     "Q3024240"
-    ],
-    "via": "title",
-    "km": 0.4
    },
    "cards": 1
   },

@@ -434,6 +434,10 @@ const CROSSREF_YEAR_WRONG = [
   // Same again: Running Rome and Its Empire (ed. Lopez Garcia) says "First published
   // 2024" and carries a 2024 copyright line; Crossref dates its chapters 30 Oct 2023.
   ["10.4324/b23090-16", 2024, 2023],
+  // Golden Growth (Gill and Raiser, World Bank): Crossref carries a published-print date of 18 April
+  // 2011 on a record it created in April 2012. The book was launched in 2012 (Bruegel's report page
+  // for the launch event is dated 19 July 2012) and the World Bank prints 2012. Read Oct 2026.
+  ["10.1596/978-0-8213-8965-2", 2012, 2011],
 ];
 const yearAllowed = (doi, plain, years) => CROSSREF_YEAR_WRONG.some(
   (r) => r[0].toLowerCase() === String(doi).toLowerCase() && plain.includes(String(r[1])) && years.includes(r[2]));
