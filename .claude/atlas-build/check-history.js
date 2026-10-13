@@ -234,7 +234,7 @@ function run() {
   } catch (e) { bad("the committed core reads", e.message); return; }
   {
     const REQ = ["id", "name", "version", "url", "licence", "licenceUrl", "attribution", "retrieved"];
-    const missing = []; (H.sources || []).forEach((s) => REQ.forEach((k) => { if (!s[k]) missing.push(`${s.id || "?"}.${k}`); }));
+    const missing = []; (H.sources || []).forEach((s) => { if (s.authored) return; REQ.forEach((k) => { if (!s[k]) missing.push(`${s.id || "?"}.${k}`); }); });   // 2d: Folio's own authored extents are not a third-party source (no url, no hash)
     if (!H.sources || !H.sources.length) bad("header carries a sources block"); else if (missing.length) bad("every header source is complete", missing.join(", ")); else ok("header sources complete", H.sources.map((s) => `${s.id} (${s.licence})`).join(", "));
     const odbl = (H.sources || []).some((s) => /ODbL/i.test(s.licence)), clio = (H.sources || []).some((s) => s.id === "cliopatria");
     if (!odbl) bad("the OSM source (ODbL) is credited in the header"); else ok("the OSM source (ODbL) is credited in the header");
@@ -303,7 +303,7 @@ function run() {
      length under twice the tolerance) is exempt from the ratio: nothing is drawn, so nothing is wrong. CHORD_MAX_M bounds the longest
      chord the checker tolerates (the empty range: two junctions on one core segment, where the chord IS the segment). */
   {
-    const CHORD_FACTOR = 6, CHORD_OFF_M = [30000, 7500, 1500], CHORD_MAX_M = 20000;   // 3 × the level's tolerance; an empty range's chord stays on its own segment. The factor: a fractal coast loses most of its length at a coarser level honestly (measured on the 2b file: Clew Bay's 79 km of shore drawn as 19 km at 2.5 km, the Georgia sea islands' 317 km as 71 km at 10 km — ratios to 4.5), while a collapsed range reads as a chord at ratios past 10 and fails the distance rule too
+    const CHORD_FACTOR = 7, CHORD_OFF_M = [30000, 7500, 1500], CHORD_MAX_M = 20000;   // 3 × the level's tolerance; an empty range's chord stays on its own segment. The factor: a fractal coast loses most of its length at a coarser level honestly (measured on the 2b file: Clew Bay's 79 km of shore drawn as 19 km at 2.5 km, the Georgia sea islands' 317 km as 71 km at 10 km — ratios to 4.5; and, since 2d, Norway's fjords under the Second World War fronts: Sognefjord and Hardangerfjord shore 583–1,497 km drawn as 95–248 km at 30 km, ratios to 6.5 — the factor is 7), while a collapsed range reads as a chord at ratios past 10 and fails the distance rule too
     const vec = (p) => G.vec(p[0], p[1], Q);
     const lenOf = (pts) => { let m = 0; for (let i = 1; i < pts.length; i++) m += G.chordMetres(vec(pts[i - 1]), vec(pts[i])); return m; };
     // every core segment of the kinds referenced, in one index
@@ -378,10 +378,11 @@ function run() {
     faceEnt ? bad("a step's face belongs to the step's entity", `${faceEnt}`) : ok("a step's face belongs to the step's entity");
   }
   /* per epoch */
-  const years = [...new Set(H.steps.flatMap((s) => [s[1], s[2] + 1]))].sort((a, b) => a - b);
+  const isDate = (ei) => !!(H.entities[ei] && H.entities[ei].unit === "date");   // 2d: a front's steps are dated YYYYMMDD, not years
+  const years = [...new Set(H.steps.filter((s) => !isDate(s[0])).flatMap((s) => [s[1], s[2] + 1]))].sort((a, b) => a - b);
   // Phase 2c: the STATE layer is the planar partition checked per epoch; a people or a culture is a presence over it (no border, no neighbour),
   // checked on its own below
-  const isPres = (ei) => { const k = H.entities[ei] && H.entities[ei].kind; return k === "people" || k === "culture"; };
+  const isPres = (ei) => { const k = H.entities[ei] && H.entities[ei].kind; return k === "people" || k === "culture" || k === "extent" || k === "front"; };
   const aliveAt = (y) => H.steps.filter((s) => s[1] <= y && s[2] >= y && !isPres(s[0])).map((s) => s[3]);
   const arcVec = (p) => G.vec(p[0], p[1], Q);
   {
@@ -433,13 +434,13 @@ function run() {
      land on its left) and its own SOFT arcs, never a present-day border and never an own BORDER arc; each face is planar by itself at
      every level (a soft edge crossing itself would fill twice); the entity carries its source, its cards and the audit's note. */
   {
-    const presIdx = H.entities.map((e, i) => (e.kind === "people" || e.kind === "culture" ? i : -1)).filter((i) => i >= 0);
+    const presIdx = H.entities.map((e, i) => (e.kind === "people" || e.kind === "culture" || e.kind === "extent" || e.kind === "front" ? i : -1)).filter((i) => i >= 0);
     const faceSet = new Set(); for (const st of H.steps) if (isPres(st[0])) faceSet.add(st[3]);
     const faces = [...faceSet].sort((a, b) => a - b);
-    let clsBad = 0, kindBad = 0, coastBack = 0, coastTwice = 0, srcBad = 0, entBad = 0, crossFine = 0, crossCoarse = 0; const samples = [];
+    let clsBad = 0, kindBad = 0, coastBack = 0, coastTwice = 0, srcBad = 0, entBad = 0, crossFine = 0, crossCoarse = 0, frontFine = 0, frontCoarse = 0; const samples = [];
     const cls = H.faceClass || [], sources = H.sources || [];
     for (const fi of faces) {
-      const f = T.faces[fi]; if (cls[fi] !== 2) clsBad++;
+      const f = T.faces[fi]; const isFrontFace = H.entities[f.entity].kind === "front"; if (cls[fi] !== (isFrontFace ? 1 : 2)) clsBad++;   // a front is APPROXIMATE (a redrawn map), every other presence SOFT
       if (!sources[f.source]) srcBad++;
       const seen = new Set();
       for (const r of f.rings) for (const ref of r) {
@@ -454,17 +455,23 @@ function run() {
         for (const a of seen) { const g = geom(a, L); for (let i = 1; i < g.length; i++) sg.push([a, g[i - 1], g[i]]); }
         const idx = SegIndex.build(sg.length, Math.max(80, Math.round(0.2 / Q)), (k) => [sg[k][1][0], sg[k][1][1], sg[k][2][0], sg[k][2][1]]);
         let n = 0; idx.pairs((p, q) => { const s1 = sg[p], t1 = sg[q]; const same = (u, v) => u[0] === v[0] && u[1] === v[1]; if (same(s1[1], t1[1]) || same(s1[1], t1[2]) || same(s1[2], t1[1]) || same(s1[2], t1[2])) return; if (G.segmentsCross(arcVec(s1[1]), arcVec(s1[2]), arcVec(t1[1]), arcVec(t1[2]))) n++; });
-        if (L === LODS - 1) crossFine += n; else crossCoarse += n;
+        if (isFrontFace) { if (L === LODS - 1) frontFine += n; else frontCoarse += n; } else if (L === LODS - 1) crossFine += n; else crossCoarse += n;
       }
       void segs;
     }
     for (const i of presIdx) { const e = H.entities[i]; if (!e.span || !Array.isArray(e.cards) || !e.src || !sources.some((x) => x.id === e.src) || !e.note) entBad++; }
-    clsBad ? bad("presence: every face is class SOFT", `${clsBad}`) : ok("presence: every face is class SOFT", `${faces.length} faces of ${presIdx.length} presences`);
+    clsBad ? bad("presence: every face is class SOFT (a front: APPROXIMATE)", `${clsBad}`) : ok("presence: every face is class SOFT (a front: APPROXIMATE)", `${faces.length} faces of ${presIdx.length} presences`);
     kindBad ? bad("presence: a face's arcs are the coast and its own soft edge, never a border", `${kindBad}; ${samples.join("; ")}`) : ok("presence: a face's arcs are the coast and its own soft edge, never a border");
     coastBack ? bad("presence: every coast reference walks forward (land on its left)", `${coastBack}`) : ok("presence: every coast reference walks forward");
     coastTwice ? bad("presence: no arc is used twice by one face", `${coastTwice}`) : ok("presence: no arc is used twice by one face");
     srcBad ? bad("presence: every face names a header source", `${srcBad}`) : ok("presence: every face names a header source");
     const PRES_COARSE_BUDGET = 40;
+    /* THE FRONTS' RESIDUE (2d): a front face is a union of plate rings snapped to the coast (up to 15 km), and where a plate edge runs along a fjord coast the snapped edge and the coast cross — Norway's
+       (Boknafjord, the Sognefjord, the Ofotfjord) and some Danish and Baltic shores. Measured on the 2d file over 216 front faces: 29 crossings at the finest level and 1,194 at the coarser (the same bends the
+       states' budget above calls the Bay of Cádiz class), each of fjord scale, a sliver of a few hundred metres to a plate drawn at 3 km/px. The budgets are the measurement plus a quarter; a
+       regression shows. Peoples, cultures and extents keep the exact finest level and the 40. */
+    const FRONT_FINE_BUDGET = Math.ceil(29 * 1.25), FRONT_COARSE_BUDGET = Math.ceil(1194 * 1.25);
+    (frontFine > FRONT_FINE_BUDGET || frontCoarse > FRONT_COARSE_BUDGET) ? bad("fronts: each front face crosses itself under " + FRONT_FINE_BUDGET + " times at the finest level and " + FRONT_COARSE_BUDGET + " at the coarser", `fine ${frontFine}, coarse ${frontCoarse}`) : ok("fronts: the fjord residue stays inside its budget", `fine ${frontFine} of ${FRONT_FINE_BUDGET}, coarse ${frontCoarse} of ${FRONT_COARSE_BUDGET}`);
     (crossFine || crossCoarse > PRES_COARSE_BUDGET) ? bad("presence: each face is planar by itself at the finest level, and under " + PRES_COARSE_BUDGET + " crossings at the coarser", `fine ${crossFine}, coarse ${crossCoarse}`) : ok("presence: each face is planar by itself at the finest level", `coarse residue ${crossCoarse} (budget ${PRES_COARSE_BUDGET})`);
     entBad ? bad("presence: every entity has a span, its cards, a source of the header and the audit's note", `${entBad}`) : ok("presence: every entity has a span, its cards, a source of the header and the audit's note", presIdx.map((i) => H.entities[i].id.slice(4)).join(", "));
     // the Yangshao and Longshan outlines are built from the pinned Hosner file: site-hulls.json records the hash it was built from
@@ -472,6 +479,45 @@ function run() {
       const SH = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "site-hulls.json"), "utf8")), hs = sources.find((x) => x.id === "hosner-2016");
       (hs && SH.source && SH.source.sha256 === hs.sha256 && SH.source.id === "hosner-2016") ? ok("presence: site-hulls.json was built from the pinned Hosner et al. (2016) file", hs.sha256.slice(0, 12) + "…") : bad("presence: site-hulls.json was built from the pinned Hosner et al. (2016) file", `${SH.source && SH.source.sha256} vs ${hs && hs.sha256}`);
     } catch (e) { bad("presence: site-hulls.json reads", e.message); }
+  }
+  /* THE FRONTS (Phase 2d, task 3): dated event faces. Four entities of kind `front`, each a series of dated steps (YYYYMMDD) that never overlap, every step inside
+     a window a plate STANDS for (its date to the next plate of its theatre, at most `stand` days), every plate's source in the header, no step in January–June 1943
+     except what a December 1942 plate still stands for (no source covers the months between), and the plates' pinned hashes the ones sources.json holds. */
+  {
+    const fi = H.entities.map((e, i) => (e.kind === "front" ? i : -1)).filter((i) => i >= 0);
+    const FR = H.fronts;
+    if (!fi.length) { bad("fronts: the file carries the four front entities", "none"); }
+    else {
+      const toDate = (n) => { const s = String(n); return s.slice(0, 4) + "-" + s.slice(4, 6) + "-" + s.slice(6, 8); };
+      const validDate = (n) => Number.isInteger(n) && n > 19000101 && n < 20000101 && !isNaN(Date.parse(toDate(n) + "T00:00:00Z")) && toDate(n) === new Date(Date.parse(toDate(n) + "T00:00:00Z")).toISOString().slice(0, 10);
+      let badUnit = 0, badOrder = 0, badDate = 0, outside = 0, jan = 0, badEnt = 0;
+      const wins = (FR && FR.plates || []).map((p) => [p.date, p.end, p.theatre]);
+      const stands = (d) => wins.some((w) => w[0] <= d && d <= w[1]);
+      for (const i of fi) {
+        const e = H.entities[i]; if (e.unit !== "date" || !e.front || !e.cards || !e.note || !(H.sources || []).some((x) => x.id === e.src)) badEnt++;
+        const st = H.steps.filter((s) => s[0] === i).sort((a, b) => a[1] - b[1]);
+        for (let k = 0; k < st.length; k++) {
+          if (!validDate(st[k][1]) || !validDate(st[k][2]) || st[k][1] > st[k][2]) badDate++;
+          if (k && st[k][1] <= st[k - 1][2]) badOrder++;
+          if (!stands(toDate(st[k][1])) || !stands(toDate(st[k][2]))) outside++;
+          if (st[k][1] >= 19430131 && st[k][1] <= 19430630) jan++;
+        }
+      }
+      badEnt ? bad("fronts: every front entity is dated (unit date), says which set it is, its cards, its source and its note", `${badEnt}`) : ok("fronts: every front entity is dated, says which set it is, its cards, its source and its note", fi.map((i) => H.entities[i].id.slice(4)).join(", "));
+      badDate ? bad("fronts: every step has two valid dates, in order", `${badDate}`) : ok("fronts: every step has two valid dates, in order");
+      badOrder ? bad("fronts: an entity's steps never overlap", `${badOrder}`) : ok("fronts: an entity's steps never overlap");
+      outside ? bad("fronts: every step lies inside a window a plate stands for", `${outside}`) : ok("fronts: every step lies inside a window a plate stands for", `${wins.length} plates`);
+      jan ? bad("fronts: January–June 1943 has no source, so no step starts in it (a December 1942 plate stands only for its own 31 days)", `${jan}`) : ok("fronts: no step starts between 31 January and 30 June 1943 (no source: a gap that draws nothing)");
+      const spans = (FR && FR.plates || []).filter((p) => !(H.sources || []).some((x) => x.id === p.src)).length;
+      spans ? bad("fronts: every plate names a source of the header", `${spans}`) : ok("fronts: every plate names a source of the header");
+      const mon = (FR.plates || []).filter((p) => p.src === "ww2-atlas-control").length, fort = (FR.plates || []).filter((p) => p.src === "us-army-battlefront-atlas").length;
+      ok(`fronts: ${mon} monthly plates (1939–42) and ${fort} fortnightly plates (1943–45) stand as ${H.steps.filter((s) => isDate(s[0])).length} dated steps over four sets`, `${(FR.skipped || []).length} plate(s) skipped as unreliable: ${(FR.skipped || []).map((x) => "p" + x.page + " " + x.date + " (" + x.why + ")").join("; ") || "none"}`);
+      try {
+        const FP = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "fronts-plates.json"), "utf8")), pins = require("./fetch-sources.js").loadManifest();
+        const wrong = Object.entries(FP.sources).filter(([id, sha]) => !(pins.find((x) => x.id === id) || {}).sha256 || pins.find((x) => x.id === id).sha256 !== sha);
+        wrong.length ? bad("fronts: fronts-plates.json was built from the pinned sources", wrong.map((w) => w[0]).join(", ")) : ok("fronts: fronts-plates.json was built from the pinned sources", Object.entries(FP.sources).map(([id, sha]) => id + " " + sha.slice(0, 12) + "…").join(", "));
+      } catch (e) { bad("fronts: fronts-plates.json reads", e.message); }
+    }
   }
   /* points */
   const unwrap = (pts) => { const n = pts.length, X = new Float64Array(n), Y = new Float64Array(n); let cum = pts[0][0]; X[0] = cum; Y[0] = pts[0][1]; for (let i = 1; i < n; i++) { let dx = pts[i][0] - pts[i - 1][0]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; cum += dx; X[i] = cum; Y[i] = pts[i][1]; } return { X, Y, n }; };
@@ -552,7 +598,7 @@ function run() {
   note(`bytes ${bytes.length} (${(bytes.length / 1e6).toFixed(3)} MB decimal), sha256 ${crypto.createHash("sha256").update(bytes).digest("hex")}`);
 }
 run();
-// the time budget (Phase 2b): CI runs this once per push on the whole file; the 2b file took about 150 s on a four-core runner
-{ const sec = (Date.now() - T_START) / 1000, CHECK_BUDGET_S = 600; sec <= CHECK_BUDGET_S ? ok(`the check ran within its budget`, `${sec.toFixed(0)} s of ${CHECK_BUDGET_S}`) : bad(`the check ran within its budget`, `${sec.toFixed(0)} s of ${CHECK_BUDGET_S}`); }
+// the time budget (Phase 2b): CI runs this once per push on the whole file; the 2b file took about 150 s on a four-core runner. 2d: the 216 front faces (2,000–3,600 rings each, three levels) add about 210 s to the presence layer's planarity pass, so the file takes 630 s on the slower cloud session machine and the budget is 900
+{ const sec = (Date.now() - T_START) / 1000, CHECK_BUDGET_S = 900; sec <= CHECK_BUDGET_S ? ok(`the check ran within its budget`, `${sec.toFixed(0)} s of ${CHECK_BUDGET_S}`) : bad(`the check ran within its budget`, `${sec.toFixed(0)} s of ${CHECK_BUDGET_S}`); }
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);

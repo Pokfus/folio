@@ -1,0 +1,223 @@
+{
+  "_about": "How the war cards' sides become entities of history.bin (Atlas v2 Phase 2d; docs/atlas-v2-design.md §7 'Phase 2d — as built'). READ by lib/war-resolve.js, which build-history.js (the extents), build-wars.js (atlas/data/wars.js) and the tests share. A side resolves in this order: (1) an entry under `sides` below; (2) the card's link in polity-spec.json / war-series.json (`links`: v for the victors, l for the losers); (3) the side's NAME is the label or key of one polity series; (4) its `keys` through `keyMap`; (5) its authored `area` stays an authored EXTENT (an entity of kind `extent`, drawn soft and said to be Folio's own approximation). Names of the card's keys that nothing resolves are listed as unresolved on wars.js, never drawn. `members`: a polity series key, with an optional [from, to] membership window (default: the war's own years, from the card) and the reason for the window. A window is a claim about when a state was in the war: each one below is a declaration, an invasion or an armistice, with the date in `why`; the entity is drawn only where its own steps (Cliopatria's rows) also lie. `keepExtent: true` keeps the card's authored area as well as the members. `ignoreKeys`: present-day names in a card's keys that name the same ground as a period key already resolved (Russia beside the Soviet Union, India beside the British Raj, Serbia and Croatia beside Yugoslavia, the Soviet republics): they are neither drawn nor listed as unresolved. `extentOnly`: skip the specs and keep the card's authored area (Cliopatria's Zhou begins in 1000 BCE, after the conquest of 1046 BCE).",
+  "keyMap": {
+    "Soviet Union": [
+      "ussr"
+    ],
+    "Soviet Union and Mongolia": [
+      "ussr",
+      "mongolia_pr"
+    ],
+    "China": [
+      "roc",
+      "ccp"
+    ],
+    "Japan": [
+      "japan"
+    ],
+    "Empire of Japan": [
+      "japan"
+    ],
+    "Italy": [
+      "italy",
+      "italian_africa"
+    ],
+    "Ethiopia": [
+      "ethiopia"
+    ],
+    "Ethiopia (Italy)": [
+      "ethiopia"
+    ],
+    "Finland": [
+      "finland"
+    ],
+    "Hungary": [
+      "hungary_1918"
+    ],
+    "Mongolia": [
+      "mongolia_pr"
+    ],
+    "Union of South Africa": [
+      "south_africa"
+    ],
+    "British Raj": [
+      "british_raj"
+    ],
+    "Yugoslavia": [
+      "yugoslavia"
+    ]
+  },
+  "sides": {
+    "ww2-001": {
+      "victors": {
+        "members": [
+          {
+            "e": "roc",
+            "from": 1937,
+            "to": 1945,
+            "why": "at war with Japan from 1937 (the card's own first year)"
+          },
+          {
+            "e": "ccp",
+            "from": 1937,
+            "to": 1945,
+            "why": "at war with Japan from 1937"
+          },
+          {
+            "e": "ussr",
+            "from": 1941,
+            "to": 1945,
+            "why": "Germany invaded on 22 June 1941"
+          },
+          {
+            "e": "mongolia_pr",
+            "from": 1945,
+            "to": 1945,
+            "why": "declared war on Japan on 10 August 1945"
+          },
+          {
+            "e": "british_raj",
+            "from": 1939,
+            "to": 1945,
+            "why": "the Viceroy declared war on 3 September 1939"
+          },
+          {
+            "e": "south_africa",
+            "from": 1939,
+            "to": 1945,
+            "why": "declared war on Germany on 6 September 1939"
+          },
+          {
+            "e": "yugoslavia",
+            "from": 1941,
+            "to": 1945,
+            "why": "invaded by the Axis on 6 April 1941"
+          }
+        ],
+        "ignoreKeys": [
+          "Russia",
+          "Ukraine",
+          "Belarus",
+          "Moldova",
+          "Estonia",
+          "Latvia",
+          "Lithuania",
+          "Georgia",
+          "Armenia",
+          "Azerbaijan",
+          "Kazakhstan",
+          "Uzbekistan",
+          "Turkmenistan",
+          "Kyrgyzstan",
+          "Tajikistan",
+          "India",
+          "Serbia",
+          "Croatia",
+          "Bosnia and Herz.",
+          "Montenegro",
+          "North Macedonia",
+          "Slovenia",
+          "Luxembourg",
+          "United States of America"
+        ]
+      },
+      "losers": {
+        "members": [
+          {
+            "e": "japan",
+            "from": 1937,
+            "to": 1945,
+            "why": "at war with China from 1937"
+          },
+          {
+            "e": "italy",
+            "from": 1937,
+            "to": 1943,
+            "why": "an Axis power until the armistice of 8 September 1943; the card files it on the Axis side"
+          },
+          {
+            "e": "hungary_1918",
+            "from": 1940,
+            "to": 1943,
+            "why": "joined the Tripartite Pact on 20 November 1940; Cliopatria's rows end in 1943"
+          }
+        ]
+      }
+    },
+    "wh-349": {
+      "victors": {
+        "members": [
+          {
+            "e": "rome"
+          }
+        ]
+      },
+      "losers": {
+        "members": [
+          {
+            "e": "macedon"
+          },
+          {
+            "e": "achaean_league"
+          },
+          {
+            "e": "aetolian_league"
+          }
+        ]
+      }
+    },
+    "wh-330": {
+      "victors": {
+        "members": [
+          {
+            "e": "peloponnesian_league"
+          }
+        ]
+      }
+    },
+    "gr-521": {
+      "victors": {
+        "members": [
+          {
+            "e": "peloponnesian_league"
+          }
+        ]
+      }
+    },
+    "gr-755": {
+      "losers": {
+        "members": [
+          {
+            "e": "athenian_coalition"
+          }
+        ]
+      }
+    },
+    "cnh-103": {
+      "victors": {
+        "extentOnly": true
+      }
+    },
+    "ww2-100": {
+      "victors": {
+        "ignoreKeys": [
+          "Russia"
+        ]
+      }
+    },
+    "ww2-159": {
+      "victors": {
+        "ignoreKeys": [
+          "Russia"
+        ]
+      }
+    },
+    "ww2-042": {
+      "losers": {
+        "ignoreKeys": [
+          "Ethiopia (Italy)"
+        ]
+      }
+    }
+  }
+}

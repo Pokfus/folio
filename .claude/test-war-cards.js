@@ -406,7 +406,8 @@ localStorage.setItem("folio_tour_v1", "1");`;
   check("clicking a side opens the war's own card", /Second Punic War/i.test(title), title || "nothing opened");
   check("...and the popup keeps the legend that explains the colours",
     await page.evaluate(() => !!document.querySelector("#cpDesc .war-key")) &&
-    await page.evaluate(() => !document.querySelector("#cpDesc .card-loc")));
+    await page.evaluate(() => !document.querySelector("#cpDesc .card-loc")),
+    await page.evaluate(() => { const d = document.getElementById("cpDesc"); return d ? "war-key " + !!d.querySelector(".war-key") + ", card-loc " + !!d.querySelector(".card-loc") + ", html " + d.innerHTML.slice(0, 160).replace(/\s+/g, " ") : "no #cpDesc"; }));
 
   check("no console errors anywhere", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();

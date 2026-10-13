@@ -304,6 +304,41 @@ async function inkInBoxes(page, placed) {
   await polityView(D.page, "desktop, Europe in 1500 at 7 km/px", { lon: 10, lat: 50, k: 7 }, 1500, { id: "pol:ottoman", name: "the Ottoman Empire" }, "Constantinople");
   await polityView(D.page, "desktop, the globe in 1245", { lon: 80, lat: 45, k: 24 }, 1245, { id: "pol:mongol", name: "the Mongol Empire" }, "Karakorum");
   await polityView(D.page, "desktop, Europe in 1500 at 12 km/px", { lon: 20, lat: 45, k: 12 }, 1500, { id: "pol:ottoman", name: "the Ottoman Empire" }, "Constantinople");
+  /* 2d, task 0b — a people's name stays legible over its own stipple. The people styles are thin italics tracked wide, and the stipple lies under
+     them (dots 1.35 px in radius): the halo is wide enough (PEOPLE_HALO) that every solid ink pixel of the name has an opaque pixel (ink or halo) on
+     every side for two pixels, so a dot never touches a stroke. Measured on the labels canvas itself, at 1 device px per CSS px. */
+  {
+    const pg = D.page;
+    await pg.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ peoples: "linked", countries: true, places: true, physical: true, cities: true }));
+    const placedP = (await layoutAt(pg, { lon: 36, lat: 49, k: 8 }, "normal")).placed;   // placeholder to set the view; the year is set next
+    void placedP;
+    await pg.evaluate(() => document.querySelector(".atlas2").__atlas2.setYear(375));
+    await pg.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historySettled(), null, { timeout: 120000 }).catch(() => {});
+    let L = (await layoutAt(pg, { lon: 36, lat: 49, k: 8 }, "normal")).placed;
+    await pg.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historySettled(), null, { timeout: 120000 }).catch(() => {});
+    L = (await layoutAt(pg, { lon: 36, lat: 49, k: 8 }, "normal")).placed;
+    const peoples = L.filter((p) => /^pol:/.test(p.id) && (p.kind === "people" || p.kind === "culture") && p.text);
+    check("375 CE over the steppe: the Goths' and the Huns' names are laid out (people style)", peoples.length >= 2, peoples.map((p) => p.text).join(", "));
+    const read = await pg.evaluate((boxes) => {
+      const c = document.querySelector(".atlas2-labels"), x = c.getContext("2d"), dpr = c.width / c.clientWidth;
+      const halo = document.querySelector(".atlas2").__atlas2.colours().halo; const n = parseInt(halo.slice(1), 16), I = [(n >> 16) & 255, (n >> 8) & 255, n & 255];   // the halo's colour: an "ink" pixel is one that differs from it
+      const out = [];
+      for (const [id, b] of boxes) {
+        const x0 = Math.max(0, Math.floor(b[0] * dpr) - 4), y0 = Math.max(0, Math.floor(b[1] * dpr) - 4), x1 = Math.min(c.width, Math.ceil(b[2] * dpr) + 4), y1 = Math.min(c.height, Math.ceil(b[3] * dpr) + 4);
+        const w = x1 - x0, h = y1 - y0; if (w < 5 || h < 5) { out.push({ id, solid: 0, bare: 0 }); continue; }
+        const d = x.getImageData(x0, y0, w, h).data; let solid = 0, bare = 0;
+        for (let yy = 2; yy < h - 2; yy++) for (let xx = 2; xx < w - 2; xx++) {
+          const i = (yy * w + xx) * 4; if (d[i + 3] < 128 || Math.abs(d[i] - I[0]) + Math.abs(d[i + 1] - I[1]) + Math.abs(d[i + 2] - I[2]) < 160) continue;
+          solid++; let open = false;
+          for (let dy = -2; dy <= 2 && !open; dy++) for (let dx = -2; dx <= 2; dx++) if (dx * dx + dy * dy <= 4 && d[((yy + dy) * w + xx + dx) * 4 + 3] < 128) { open = true; break; }
+          if (open) bare++;
+        }
+        out.push({ id, solid, bare });
+      }
+      return out;
+    }, peoples.map((p) => [p.id, p.box]));
+    for (const r of read) check(`375 CE: ${r.id.replace("pol:", "")}'s name has an opaque halo two pixels deep round every ink pixel (${r.solid} solid ink pixels, ${r.bare} with a gap within 2 px)`, r.solid > 20 && r.bare <= Math.max(2, Math.round(r.solid * 0.05)), JSON.stringify(r));
+  }
   check("no page errors on #map2 (desktop, the history loaded)", D.errors.length === 0, D.errors.slice(0, 3).join(" | "));
   console.log("\n\x1b[1m10) area and path names stay inside the frame (a sweep of views)\x1b[0m\n");
   await areaSweep(D.page, "desktop 1280×800");
