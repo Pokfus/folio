@@ -53865,7 +53865,7 @@ let prev = null;
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
-      const rec = readStudySession() || atlasHold;   // …or the session a card window's tap left behind (Phase 4b)
+      const rec = readStudySession() || (atlas2Preview() ? atlasHold : null);   // …or, with the preview switch on, the session a card window's tap left behind (Phase 4b; with the switch off the live site is exactly what it was)
       atlasHold = null;
       if (rec) { writeStudySession(rec); route("study", { scope: rec.scope, resume: rec }); } else route("home");
       return;
