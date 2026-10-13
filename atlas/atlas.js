@@ -1513,6 +1513,18 @@
       time.onScreen = onScreen;
       return [...ys].filter((y) => y >= RAIL_FROM && y <= TODAY).sort((a, b) => a - b);
     }
+    /* A STEPPED YEAR'S LAYOUT AND ADDRESS WAIT FOR THE FRAME (Phase 4c, task 0d). A year change that is not a drag — a step, a jump, the pin's release — asked for its
+       layout at once, which measures the controls (`chromeRects`) and writes the address. Those reads come straight after `applyYear` has written the rail's pin
+       and year, so the browser had to lay the page out again inside the call: 1.4–2.2 ms against 0.2 ms on a clean page, and 0.8 ms for `replaceState`, the whole
+       of the 3.1–4.3 ms p95 the gate read (13 of 172 changes in a scrub, every one of them the tail). The same two steps now run once at the start of the next
+       frame — where the frame's own layout was due anyway, and several changes in one frame make one request — with a timer behind it for a hidden tab. */
+    let yearFlush = 0, yearFlushTimer = 0;
+    function yearFlushLater() {
+      if (EMBED || yearFlush) return;
+      const run = () => { if (!yearFlush) return; yearFlush = 0; clearTimeout(yearFlushTimer); if (disposed) return; requestLayout("year", true); writeHash(false); };
+      yearFlush = requestAnimationFrame(run);
+      yearFlushTimer = setTimeout(() => { cancelAnimationFrame(yearFlush); run(); }, 120);
+    }
     /* THE YEAR: the alive set, the style tables, the meshes wanted (and the look-ahead), the layout */
     function applyYear(y, o) {
       hideSearchNote();   // a note that says a polity is not on the map in the OLD year is stale
@@ -1555,7 +1567,7 @@
       if (!o.drag && !EMBED) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
       plan(); invalidate();
       if (o.why === "play") { const now = performance.now(); if (now - (time.lastPlayLayout || 0) > 500) { time.lastPlayLayout = now; requestLayout("year", true); } else requestLayout("year"); writeHash(false); }   // playing: a layout twice a second at most (one per frame starved the frame on a software rasteriser)
-      else if (!o.drag) { requestLayout("year", true); writeHash(false); if (o.why !== "peoples") announce(fmtYear(y)); }   // the Peoples switch re-applies the year: it is not a year change to a screen reader
+      else if (!o.drag) { yearFlushLater(); if (o.why !== "peoples") announce(fmtYear(y)); }   // the Peoples switch re-applies the year: it is not a year change to a screen reader
       else requestLayout("year");
       const ms = performance.now() - t0; time.yearChange.push(ms); if (time.yearChange.length > 600) time.yearChange.shift();
     }
