@@ -332,6 +332,10 @@ function densify(pts) {
 }
 const allRows = [];
 /* a row's rings, box and vertex count; `r.rings` already set (the island and site-hull rows) is kept as given */
+/* Cliopatria's `Wikidata` / `Wikipedia` pair is wrong on some rows (Han dynasty -> Chauhan, Numidia -> the man Jugurtha). polity-qids.json `fixes` replaces one (series, wd, wiki) pair with another HERE, where the row is read, so
+   the pair the entity takes below (the rows covering the most years) and the secondary pairs are the corrected ones. A fix that matches no row stops the build: a stale fix is a silent fault. Geometry is untouched. */
+const QID_FIXES = new Map();
+for (const f of JSON.parse(fs.readFileSync(path.join(HERE, "polity-qids.json"), "utf8")).fixes) { const k = f.series + "|" + f.from.qid + "|" + f.from.wiki; if (QID_FIXES.has(k)) throw new Error("polity-qids.json: two fixes for " + k); QID_FIXES.set(k, { to: f.to, used: 0 }); }
 function prepareRow(s, r) {
   let rs = r.rings;
   if (!rs) {
@@ -349,6 +353,7 @@ function prepareRow(s, r) {
   for (const ring of rs) for (const [x, y] of ring) { nv++; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
   r.bbox = [x0, y0, x1, y1]; r.nv = nv;
   r.wd = (r.f && r.f.properties.Wikidata) || null; r.wiki = (r.f && r.f.properties.Wikipedia) || null;
+  const qfix = QID_FIXES.get(s.key + "|" + r.wd + "|" + r.wiki); if (qfix) { r.wd = qfix.to.qid; r.wiki = qfix.to.wiki; qfix.used++; }
 }
 for (const s of series) for (const r of s.rows) { prepareRow(s, r); allRows.push(r); }
 /* ---- the coastline series (cyclades, crete) and the site-hull series (yangshao, longshan): the presence layer's cultures (2c) ----
@@ -512,6 +517,7 @@ for (const s of presenceSeries) s.rows.sort((a, b) => a.from - b.from);
 presenceSeries.sort((a, b) => a.key.localeCompare(b.key));
 const presenceRows = [];
 for (const s of presenceSeries) for (const r of s.rows) { prepareRow(s, r); presenceRows.push(r); }
+for (const [k, v] of QID_FIXES) if (!v.used) throw new Error("polity-qids.json: the fix for " + k + " matches no row of Cliopatria (stale, or the key is wrong)");
 allRows.sort((a, b) => a.series.key.localeCompare(b.series.key) || a.from - b.from);
 allRows.forEach((r, i) => { r.id = i; });
 presenceRows.forEach((r, i) => { r.id = allRows.length + i; });
