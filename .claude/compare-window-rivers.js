@@ -99,8 +99,8 @@ async function engineSegs(v, level) {
     const v = { lon: info.lon, lat: info.lat, zoom: info.zoom, w: info.w, h: info.h };
     // V1's frame: italy / greece hi-res rivers for those collections (CMAP_HIRES), none for the layers whose hi-res row has no river file here
     const region = /^rm-/.test(id) ? "italy" : /^gr-/.test(id) ? "greece" : "";
-    const a = v1Rivers(v, region), lvl = Math.min(info.level, 2), b = await engineSegs(v, lvl);
-    out.push({ id, view: { lon: +v.lon.toFixed(2), lat: +v.lat.toFixed(2), zoom: +v.zoom.toFixed(2), size: v.w + "×" + v.h, kmPerPx: +info.kmpp.toFixed(2), engineLevel: info.level }, v1: a, engine: b, kmRatio: a.km ? +(b.km / a.km).toFixed(2) : null, segRatio: a.segs ? +(b.segs / a.segs).toFixed(2) : null });
+    const a = v1Rivers(v, region), lvl = Math.min(info.level, 2), b = await engineSegs(v, lvl), b2 = lvl < 2 ? await engineSegs(v, lvl + 1) : null;   // b2: the next finer resident water level, for the owner's question "how much more would one level finer draw"
+    out.push({ id, finer: b2 && { level: lvl + 1, segs: b2.segs, km: b2.km, kmRatio: a.km ? +(b2.km / a.km).toFixed(2) : null }, view: { lon: +v.lon.toFixed(2), lat: +v.lat.toFixed(2), zoom: +v.zoom.toFixed(2), size: v.w + "×" + v.h, kmPerPx: +info.kmpp.toFixed(2), engineLevel: info.level }, v1: a, engine: b, kmRatio: a.km ? +(b.km / a.km).toFixed(2) : null, segRatio: a.segs ? +(b.segs / a.segs).toFixed(2) : null });
   }
   await browser.close(); server.close();
   for (const o of out) {
@@ -108,6 +108,7 @@ async function engineSegs(v, level) {
     console.log(`  V1      ${String(o.v1.segs).padStart(6)} segments  ${String(o.v1.km).padStart(7)} km  ${o.v1.rivers} rivers (${o.v1.named} named)   ${o.v1.source}`);
     console.log(`  ENGINE  ${String(o.engine.segs).padStart(6)} segments  ${String(o.engine.km).padStart(7)} km  ${o.engine.arcs} arcs               ${o.engine.source}`);
     console.log(`  engine / V1: ${o.kmRatio} of the kilometres, ${o.segRatio} of the segments`);
+    if (o.finer) console.log(`  one level finer (water level ${o.finer.level}): ${o.finer.segs} segments, ${o.finer.km} km = ${o.finer.kmRatio} of V1's kilometres`);
   }
   if (process.argv.includes("--json")) console.log(JSON.stringify(out));
 })().catch((e) => { console.error(e); process.exit(1); });

@@ -1000,8 +1000,11 @@
           if (view.lakes && view.level >= 3) for (const k of view.waterTiles || []) { const t = waterTiles.get(k); if (t && t.gpu) wOwn.push(t); }
           stats.waterTilesDrawn = wOwn.length;
           if (useStencil && wOwn.length) drawExtents(wOwn.map((t) => t.gpu.ext), view, R, ST_WATER, ST_WATER);
-          if (view.rivers && Wl) {
-            const g = Wl.gpu, D = Wl.data;
+          /* Phase 4b: a card window asks for its rivers ONE resident water level finer than the Atlas draws at that zoom (`view.riverLevelBias`, set by atlas-embed.js): the Atlas thins its rivers by scale rank to keep its frames inside
+             the gate, a window draws a few thousand segments, and at the Atlas's own density a window shows 49–65 % of the river length V1's showed (`compare-window-rivers.js`), at one level finer 107–108 % */
+          const Wr = view.riverLevelBias ? pickLevel(water, Math.min(view.level + view.riverLevelBias, 2), 2) : Wl;
+          if (view.rivers && Wr) {
+            const g = Wr.gpu, D = Wr.data;
             arcUniforms(prog.arc, view, R, false, ID_WATER_ARC);
             if (view.smoothRivers && g.smooth) drawSegs(g.smooth.tex, D.smoothRange, D.smoothCap, view, 0.01, "riverSegments");
             else if (g.river) drawSegs(g.river.tex, D.riverRange, D.riverCap, view, 0.01, "riverSegments");

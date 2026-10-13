@@ -72,3 +72,76 @@ improvement and the owner is asked to confirm (`docs/atlas-v2-design.md` §7 Pha
 `test-map-cards.js`, `test-card-locator.js`, `test-war-cards.js` (+ `test-war-sides.js`, `test-war-sides-known.js`), `test-minigames.js`
 (the Find-it block), `test-atlas-places.js` and `test-atlas-study.js` (the glossary pin), `test-deck-lazy.js` (the eager path), and, from
 Phase 4, `test-atlas-embed.js` (the embedded windows on the engine).
+
+---
+
+# Phase 4b — fast, legible and at parity, so that Stage B can be decided
+
+Phase 4b changes nothing a reader of the live site sees: the preview switch is still OFF by default and V1's windows are still the default. What it adds is measurement, speed on the engine's side of the switch, and the tests that were missing. The as-built note is `docs/atlas-v2-design.md` §7 "Phase 4b"; this file keeps the two tables that belong with the inventory above.
+
+@@NUMBERS@@
+
+## Every V1 window assertion, and where it went (Phase 4b, Task 7)
+
+**How the three V1 window suites now run on the engine.** `test-map-cards.js`, `test-card-locator.js` and `test-war-cards.js` take `FOLIO_ENGINE=v2` (`.claude/test-engine-switch.js`): every page the suite opens gets the preview switch turned on after the suite's own storage seeds, a suite that opened `index.html` as a file is served over http instead (the engine needs `fetch` and a Worker), and the window assertions then run **unchanged against the engine's window**. CI runs each suite twice (V1, then `FOLIO_ENGINE=v2`). Only rows that assert **V1's own mechanism** are skipped on the engine, by name, with a message; each has a twin in the new `test-atlas-windows.js` (Phase 4b) or in `test-atlas-embed.js`. Result on the engine: `test-map-cards.js` 11,296 ok (V1: 11,307; the 11 missing are the fit sweep's formula copy, replaced below), `test-card-locator.js` 14 ok and 12 skipped by name (V1: 26 ok), `test-war-cards.js` 57 ok (V1: 57).
+
+Classes (the inventory behind this table was made by reading every assertion): **D** data only (no window; runs identically on both engines and is not repeated), **S** a regex over `app.js` text, **W** a mounted window in a browser. A row says **"same"** when the assertion passes unchanged on the engine's window (the suite run with `FOLIO_ENGINE=v2` is the proof); **"twin"** when V1's mechanism has an engine counterpart written for it; **"V1-only"** when it pins code Stage B deletes.
+
+### `test-map-cards.js` (111 rows: 46 D, 13 D-in-a-page, 15 S, 37 W)
+
+| V1 row(s) | what it asserts | class | on the engine |
+|---|---|---|---|
+| 53–151, 164–206, 244–250 (46 rows; ~11,240 assertions over 821 map cards, 424 capital cards, 1,309 facts boxes, 2,015 locators) | the layers' data, every card's `map` / `locator` / `facts` | D | same (data; engine-neutral) |
+| 472–480, 502–504, 549, 593, 615 (13 rows) | the card's back in a page: answer, facts tiles, five sources, footnote markers, the collection's row, no console errors | D (page) | same |
+| 215–219, 225, 227, 229, 235, 252, 253 | `serializeCardData` / `revertCard` carry `map`, `facts`, `locator`; `gameCardIdSet` excludes map cards; `us-states.js` is lazy and not in `index.html` | S | same (engine-neutral source pins) |
+| 316, 323, 558 | the fit sweep is pinned to `app.js`'s formula; the zoom limits are read out of `app.js`; the reveal label's expression | S | **V1-only** (they pin `startCardGlobeV1`'s arithmetic; Stage B deletes them with it; the engine's fit is swept through the real windows below) |
+| 409, 411 | `TINT_SEL` is defined once, as a triple, a fill alpha and a line colour | S | same (the engine's windows read the same constant) |
+| 341, 343, 345, 347, 357 | the fit of all 51 states: computed, finite and positive, not a speck (fill ≥ 0.45), not cut off (≤ 1.02), at most one needs more zoom than the ceiling | W\* (a copy of the formula over `window.US_STATES`) | **twin: `test-atlas-windows.js` §6** — the same five assertions through the engine's real windows (one mounted per state through `startCardWindow`), with the engine's actual zoom and the card-faces box, plus the drawn outline measured (visible, never cut) |
+| 351 | Alaska's fit ignores the rings across the antimeridian | W\* | **twin: §6** (frame under 40°, drawn at a visible size) |
+| 362, 363 | Rhode Island opens zoomed in (> 20) and centred | W | same (runs on the engine in `test-map-cards.js`) and in §6 (zoom 79) |
+| 372, 373, 378, 383, 387 | a drag turns the globe and does not zoom it; the + and − buttons; recentre is exact | W | same |
+| 393, 394, 397 | a click on the map opens no panel and no popup; the canvas claims its touches (`touch-action: none`) | W | same (and `test-atlas-windows.js` §2: a tap *before* the reveal does nothing, *after* it opens the Atlas) |
+| 435, 436 | the shaded place is outlined in `TINT_SEL.line` exactly, over a real edge | W | same |
+| 450, 453, 456 | the shaded place is a translucent tint of `TINT_SEL.rgb` over the map's own land, over a real area | W | same |
+| 473, 474, 557 | the map stays on the back and repaints on the reveal | W | same |
+| 519, 520, 521, 539, 540 | a capital card resolves, carries its city, asks without naming it, paints a dot (not a region) | W | same |
+| 594, 596, 599, 600, 605, 608, 611, 612 | a locator's window mounts, is not failed, reports ready, paints a globe; its controls are exactly go / home / in / out; its aria text names the place; it sits after the background fold and before the citations | W (markup-owned) | same |
+
+### `test-card-locator.js` (26 rows: 4 D, 22 W)
+
+| V1 row(s) | what it asserts | class | on the engine |
+|---|---|---|---|
+| 96, 113 | the card carries a locator globe; it paints without waiting for the atlas | W | same |
+| 122, 123 | the cities and rivers arrive at idle; fetched, not bundled into the eager path | W (V1's `CITIES` / `RIVERS` bundles) | **skipped on the engine; twin: `test-atlas-embed.js` §3** (the engine and `topology.bin` arrive only on a card with a window, never on the eager path) **and `test-deck-lazy.js`**, and §5 of the new suite (the water file is fetched after the land) |
+| 139, 154, 169 | the collection's other studied places are on the map in red; the card's own place is still in the answer's gold; the siblings are named | W | same, and `test-atlas-windows.js` §8 (the Cyclades with fourteen studied Greek cards: red 295 px, gold 2,128, ink 315) |
+| 171, 437 | no console or page errors | W | same |
+| 226 | a river card draws its river, not a dot | W | same |
+| 236, 238 | a range card draws mountains along its spine, and no gold dot | W | same |
+| 256, 258 | a reader who has studied nothing sees none of the earned places; the home city is always there as a square | W | same, and §8 |
+| 326 | the collection's map draws the Atlas's rivers (measured by emptying `window.RIVERS`) | W (V1's mechanism) | **skipped; twin: §5 and §7** — the engine's own rivers are drawn at the Atlas's density for the zoom (the Texas card, the Tiber, the Apennines, Russia: river-colour pixels in the window) |
+| 334 | …and not one of them is named | W | same, and **§7: no label layer in a window (`labelsPlaced` 0)** |
+| 353, 355, 356, 357 | the Italian frame's hi-res river file: ≥ 40 rivers, > 40 points a river, every superseded name is in `rivers.js`, no river is drawn over itself | D (read from `window.HIRES_RIVER`) | **twin: §7a**, the same four properties read from `rivers/italy.js` in Node (the file is still what the card's own river reads) |
+| 358 | …and the map really draws it | W (V1's mechanism) | **skipped; twin: §7b** (the Italian frame draws the engine's rivers) |
+| 374 | a modern city puts nothing on the map | W (plants a row in `CITIES`) | same (vacuous on the engine, which has no city layer) and **§7b: no labels in a window** |
+| 414, 416, 418, 433 | a Russia locator warms its own hi-res coast, fetched at idle; it draws the Atlas's rivers; the map really draws the hi-res coast on the opening view | W (V1's `HIRES_COAST`) | **skipped; twin: §7b** — the Russian frame opens on a level whose tolerance is within half a pixel, settles, draws rivers, and fetches no `coast/*.js` |
+
+### `test-war-cards.js` (57 rows: 24 D, 12 S, 21 W)
+
+| V1 row(s) | what it asserts | class | on the engine |
+|---|---|---|---|
+| 49–223 (24 rows; one of them 490 assertions) | the war blocks: every named side on a map, every extent plausible and in place, no clashes, the checker's own rules | D | same |
+| 239–255 (12 rows) | `cardWar` run in Node; `serializeCardData` / `revertCard` carry `war`; `TINT_WIN` / `TINT_LOSE`; the stylesheet states no colour for `.war-key`; the Personal Atlas explains green and red | S | same (all shared with the engine's windows or the v1 Personal Atlas, which stays until Phase 5) |
+| 335–338 | the war card has an atlas window, marked as a war with both sides, labelled "Who fought", needing no coordinate | W (markup) | same |
+| 340–342, 345 | a legend names both sides, says which won, sits outside the locator block; the canvas says it in words | W (markup) | same, and **§4: the window itself now names the two sides and draws a one-line legend** |
+| 349, 350, 351, 354 | the window draws; the victors in green, the defeated in red, in comparable measure | W | same |
+| 364, 368, 369 | Second Sino-Japanese War: China green, Japan red; the window frames the war; ready | W | same (over http; on `file://` the window falls back to V1, see below) |
+| 386, 389, 392, 406, 411 | the v1 Personal Atlas page (`#map`): both sides in the war's years and none outside; a click opens the war's card; the popup keeps the legend | W (the v1 *page*, not a card window) | unchanged until Phase 5; the v2 Atlas's counterpart is `test-atlas-render.js` (Rome victor, Carthage loser in 216 BCE; the tint ends with the years) |
+| 414 | no console errors | W | same |
+
+### Find it (`test-minigames.js`, 19 W rows in the `[fi]` and `[fi-atlas]` blocks) → `test-atlas-embed.js` §6
+
+1163, 1313, 1314 (five rounds, in order) → "deals the same five as v1's board"; 1209, 1216, 1219, 1226 (a tap picks, "Guess", Clear) → the pick / Clear rows; 1248, 1257 (a wrong guess spends a try and says how far) → "N km away — one more try!"; 1262 (a correct second guess counts) → "a second try that is right counts as FOUND"; 1320, 1322 (a state is on the Full Atlas in its year; a country on today's map) → the cartouche rows; 1323, 1329 (every round played; the game ends with a score) → the score-line row; **1264, 1324, 1326, 1327 — v1 had no twin in Stage A; Phase 4b adds them**: after two tries there is no third (Next showing, Guess gone); a country round ends on its own panel with a way to its place on the Atlas; a state, a people or a place ends on a list of its cards, each a link to the card's own address. *This is a different ending from v1's* (v1 opened its country panel and card stack in the page); the v1 learn panels (`showCountryPopup`, `showMinePopup`) are not built on the engine's board — **a Stage B decision for the owner**.
+
+### What is left without a counterpart (Stage B blockers)
+
+None among V1's window assertions. Two **behaviours** are not tests but gaps, and are listed with the readiness table in `docs/atlas-v2-design.md` §7 "Phase 4b": (1) **`file://`** — a war window falls back to V1 (the history file's `file://` twin is still the 2a pilot slice, 11 entities; `startCardWindow` now checks that the loaded history carries the war's sides and otherwise keeps V1's window), so deleting V1's window path would leave a war card on a `file://` page with no map; (2) **Find it's v1 learn panels**, above.

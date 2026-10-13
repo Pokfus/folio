@@ -87,10 +87,14 @@
     try { h.holder.remove(); } catch (e) {}
     if (hub === h) hub = null;
   }
+  /* A WINDOW THAT IS STILL WAITING (for the history file a war window needs: 9 MB, a minute on a slow connection) is not yet in `windows` — it registers when its view is made — and the idle warm-up arms a dispose timer of its own (60 s)
+     that nothing cancels: the hub was disposed under a war window that had been waiting 60 s, and the window then never settled (found by the phone profile of Phase 4b). A pending window therefore HOLDS the hub: `hold()` → a function that lets go. */
+  const holds = new Set();
+  function hold() { const t = {}; holds.add(t); if (idleTimer) { clearTimeout(idleTimer); idleTimer = 0; } return () => { if (!holds.delete(t)) return; release(); }; }
   function release(ms) {
-    if (windows.size || !hub) return;
+    if (windows.size || holds.size || !hub) return;
     if (idleTimer) clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => { idleTimer = 0; if (!windows.size && hub) dispose(hub); }, ms || idleMs);
+    idleTimer = setTimeout(() => { idleTimer = 0; if (!windows.size && !holds.size && hub) dispose(hub); }, ms || idleMs);
   }
   /* the page's idle warm-up (app.js): create the hub now, with no window, and let it go after `ms` if none comes — the first window then draws at once instead of waiting for the worker */
   function warm(opts, ms) {
@@ -115,6 +119,7 @@
     { const pw = lay.peoples || "off"; if (L.peoples !== pw) { L.peoples = pw; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too
     L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;   // (Phase 4b: these four sat at the end of the comment line above in Phase 4, so no window ever drew a river or a lake)
     v.graticule = false; v.rivers = L.rivers; v.lakes = L.lakes;
+    v.riverLevelBias = 1;
     v.lon = spec.lon; v.lat = spec.lat; v.zoom = spec.zoom;
     yearAndWar(h, spec);
     h.E.plan();
@@ -323,5 +328,5 @@
   }
   function release0() { release(); }
 
-  root.AtlasEmbed = { ensure, warm, view, release, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
+  root.AtlasEmbed = { ensure, warm, hold, view, release, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
 })(typeof window !== "undefined" ? window : globalThis);

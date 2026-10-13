@@ -16,17 +16,19 @@
   const mark = (n) => { try { performance.mark(n); } catch (e) {} };   // Phase 4b: named marks (a2:*) so a trace shows where a first window's time went
   function startCardWindow(host, X) {
     mark("a2:window-start");
-    if (W.AtlasWindows) W.AtlasWindows.lastCtx = X;   // the context app.js handed over, kept so a suite can mount synthetic windows (the fit sweep of test-atlas-windows.js) through the same code
+    if (W.AtlasWindows) W.AtlasWindows.lastCtx = X;
+    let unhold = () => {};   // the hub is held while this window is pending (see AtlasEmbed.hold); let go at the first of: the window is mounted, it fell back to V1, it failed, it was stopped
+    if (W.AtlasEmbed && W.AtlasEmbed.hold) { const let0 = W.AtlasEmbed.hold(); unhold = () => { unhold = () => {}; let0(); }; }   // the context app.js handed over, kept so a suite can mount synthetic windows (the fit sweep of test-atlas-windows.js) through the same code
     const { CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon, startCardGlobeV1, openFromWindow } = X, S = X.S;
     const cv = host.querySelector(".mc-canvas");
     const layerName = host.getAttribute("data-map-layer"), key = host.getAttribute("data-map-key");
     const def = CARD_MAP_LAYERS[layerName];
-    const v1 = () => { stopped = true; host.classList.remove("mc-loading"); host._folioMap = null; host.setAttribute("data-map-engine", "v1"); startCardGlobeV1(host); };
+    const v1 = () => { stopped = true; unhold(); host.classList.remove("mc-loading"); host._folioMap = null; host.setAttribute("data-map-engine", "v1"); startCardGlobeV1(host); };
     let stopped = false, revealed = host.hasAttribute("data-map-named"), win = null, isReady = false;
     if (!def) { v1(); return; }
     stopped = false;
     host._folioMap = {
-      stop() { stopped = true; if (win) win.stop(); host._folioMap = null; },
+      stop() { stopped = true; unhold(); if (win) win.stop(); host._folioMap = null; },
       reveal() { revealed = true; if (win) win.schedule(); },
       ready() { return isReady; },
       settled() { return !!(win && win.isSettled()); },
@@ -274,7 +276,7 @@
       mark("a2:window-data");
       if (stopped) return;
       if (!ok.every(Boolean) || !window.AtlasEmbed) { v1(); return; }
-      if (!model()) { host.classList.remove("mc-loading"); host.classList.add("mc-failed"); return; }
+      if (!model()) { unhold(); host.classList.remove("mc-loading"); host.classList.add("mc-failed"); return; }
       return hubP.then((hub) => {
         mark("a2:window-hub");
         if (stopped) return;
@@ -293,7 +295,7 @@
         }
         mountWindow(hub, null);
       });
-    }).catch(() => { if (!stopped) v1(); });
+    }).catch(() => { unhold(); if (!stopped) v1(); });
     function mountWindow(hub, warYear) {
         host.classList.remove("mc-loading"); host.setAttribute("data-map-engine", "v2");
         if (isWar) { try { warSides = hub.warSides(sibCard); warCols = hub.warColours(); } catch (e) { warSides = null; } }
@@ -314,6 +316,7 @@
         });
         mark("a2:window-mounted");
         win.setHome(home.lon, home.lat, home.zoom); win.setView(home.lon, home.lat, home.zoom);
+        unhold();   // the window is in AtlasEmbed's `windows` now: it holds the hub itself
         host.querySelectorAll(".mc-btn").forEach((b) => b.addEventListener("click", (e) => {
           e.stopPropagation(); const w = b.getAttribute("data-mc");
           if (w === "home") win.goHome(); else if (w === "in") win.zoomBy(1.45); else if (w === "out") win.zoomBy(1 / 1.45);

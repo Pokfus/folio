@@ -66,7 +66,7 @@ async function run(browser, profile, throttle) {
     await page.goto(`http://127.0.0.1:${PORT}/${AFTER ? "#home" : "#card/" + CARD}`, { waitUntil: "load", timeout: 900000 });
     if (AFTER) { await new Promise((r) => setTimeout(r, AFTER)); await page.evaluate((c) => { location.hash = "#card/" + c; }, CARD); }
     try { await page.waitForFunction(() => window.__t && window.__t.settled != null, null, { timeout: 600000 }); }
-    catch (e) { const d = await page.evaluate(() => { const h = document.querySelector(".map-card"), hub = window.AtlasEmbed && AtlasEmbed.hub(); return JSON.stringify({ t: window.__t, engine: h && h.getAttribute("data-map-engine"), ready: h && h._folioMap && h._folioMap.ready(), settled: h && h._folioMap && h._folioMap.settled && h._folioMap.settled(), hub: !!hub, hist: hub && hub.historyOK(), land: hub && hub.E.landSettled(), tiles: hub && hub.ctl.tilesSettled(), water: hub && hub.ctl.waterSettled() }); }).catch(() => "no page state"); throw new Error("the window never settled (" + pass + "): " + d); }
+    catch (e) { const d = await page.evaluate(() => { const h = document.querySelector(".map-card"), hub = window.AtlasEmbed && AtlasEmbed.hub(); return JSON.stringify({ t: window.__t, engine: h && h.getAttribute("data-map-engine"), ready: h && h._folioMap && h._folioMap.ready(), settled: h && h._folioMap && h._folioMap.settled && h._folioMap.settled(), hub: !!hub, hist: hub && hub.historyOK(), land: hub && hub.E.landSettled(), tiles: hub && hub.ctl.tilesSettled(), water: hub && hub.ctl.waterSettled() }); }).catch(() => "no page state"); out[pass] = { failed: "the window never settled: " + d, firstPaintMs: null, settledMs: null, files: 0, raw: 0, gz: 0, wire: 0, by: {}, list: [] }; await page.close(); continue; }   // a war window that fell back to V1 after the engine's history did not arrive in 150 s (V1's window then drew): reported, not fatal
     await new Promise((r) => setTimeout(r, 600));
     const t = await page.evaluate(() => window.__t);
     ctx.off("request", onReq);
@@ -89,6 +89,7 @@ async function run(browser, profile, throttle) {
     if (JSONOUT) continue;
     const kb = (n) => (n / 1024).toFixed(0) + " KB";
     console.log(`\n${name} — card ${CARD}, engine ${ENGINE}`);
+    if (r.cold.failed || r.warm.failed) console.log(`  FAILED: ${r.cold.failed || ""} ${r.warm.failed || ""}`);
     console.log(`  cold cache : first paint ${r.cold.firstPaintMs} ms after the window mounted (${r.cold.firstSinceNavMs} ms after navigation), settled ${r.cold.settledMs} ms; ${r.cold.files} files, ${kb(r.cold.raw)} as served, ${kb(r.cold.gz)} gzip -9 — ` + Object.entries(r.cold.by).map(([k, v]) => k + " " + kb(v)).join(", "));
     console.log(`  warm cache : first paint ${r.warm.firstPaintMs} ms, settled ${r.warm.settledMs} ms; ${r.warm.files} files requested, ${kb(r.warm.wire)} on the wire`);
   }

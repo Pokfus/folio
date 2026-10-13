@@ -213,6 +213,21 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     }
   }
 
+  /* ---------------- 4b) a window that is still waiting holds the hub ---------------- */
+  if (want(4)) {
+    sect("4b) a war window waiting for its history file keeps the hub alive (the idle timer must not dispose it)");
+    const { ctx, page } = await newPage(browser, { viewport: { width: 1100, height: 900 } });
+    // the history file arrives after 5 s; meanwhile the idle warm-up's release (here forced to 300 ms) keeps arming its dispose timer
+    await page.route("**/atlas/data/history.bin", async (route) => { await new Promise((r) => setTimeout(r, 5000)); route.continue(); });
+    await page.goto(url("#card/rm-209"), { waitUntil: "load" });
+    await page.waitForFunction(() => window.AtlasEmbed && AtlasEmbed.hub(), null, { timeout: 120000 });
+    for (let i = 0; i < 10; i++) { await page.evaluate(() => AtlasEmbed.release(300)); await new Promise((r) => setTimeout(r, 500)); }
+    await windowReady(page); await windowSettled(page);
+    const st = await page.evaluate(() => ({ stats: AtlasEmbed.stats(), engine: document.querySelector(".map-card").getAttribute("data-map-engine") }));
+    check("the window is the engine's, and settled, though the hub's dispose timer was re-armed all the while it waited", st.engine === "v2" && st.stats.created === 1 && st.stats.disposed === 0, JSON.stringify(st));
+    await ctx.close();
+  }
+
   /* ---------------- 5) rivers ---------------- */
   if (want(5)) {
     sect("5) rivers: the engine's own, at the Atlas's density for the window's zoom");
@@ -224,7 +239,7 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       await page.waitForTimeout(500);
       const info = await page.evaluate(() => { const hub = AtlasEmbed.hub(); const rv = hub.ctl.palette().river, l = hub.last; return { river: rv.map((v) => Math.round(v * 255)), level: l && l.level, kmpp: l && l.kmpp, stats: hub.ctl.renderer.stats ? hub.ctl.renderer.stats().riverSegments : null }; });
       const n = await count(page, ".map-card .mc-canvas", `Math.abs(r - ${info.river[0]}) < 26 && Math.abs(g - ${info.river[1]}) < 26 && Math.abs(b - ${info.river[2]}) < 26 && a > 200`);
-      check(what + " draws rivers (pixels in the engine's river colour)", n > 150, JSON.stringify({ px: n, level: info.level, kmpp: info.kmpp && +info.kmpp.toFixed(2), riverSegmentsDrawn: info.stats }));
+      check(what + " draws rivers (pixels in the engine's river colour; Texas at one water level finer than the Atlas draws at that zoom — 3,077 px, 719 at the Atlas's own density)", n > (id === "geo-002" ? 1500 : 150), JSON.stringify({ px: n, level: info.level, kmpp: info.kmpp && +info.kmpp.toFixed(2), riverSegmentsDrawn: info.stats }));
       check("...from the engine's water file, fetched after the land (water.bin was requested)", requests.slice(reqs0).some((u) => /water\.bin/.test(u)));
       await ctx.close();
     }
