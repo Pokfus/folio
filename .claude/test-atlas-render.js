@@ -308,7 +308,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
     // PAIR 6 — the Second Punic War in 216 BCE (Cannae): Rome a victor, Carthage a loser
     {
-      await viewAt(12, 38.5, 6, -216); await setW("on");
+      await viewAt(12, 38.5, 6, -216); await setW("auto");
+      const wAuto = await wars();
+      check("Phase 4 / 0a: Automatic (the default) tints nothing on the plain Map, and the legend says why", wAuto.position === "auto" && wAuto.roles.length === 0 && /not tinted on the plain Map/.test(wAuto.note), JSON.stringify([wAuto.position, wAuto.roles.length, wAuto.note]));
+      await setW("on");
       const wr = await wars();
       check("216 BCE: the table says Rome is a victor and Carthage a loser of the Second Punic War (rm-209)", wr.roles.some((r) => r[0] === "pol:rome" && r[1] === 1 && r[2].includes("rm-209")) && wr.roles.some((r) => r[0] === "pol:carthage" && r[1] === 2 && r[2].includes("rm-209")), JSON.stringify(wr.roles));
       const rome = tone(await px(12.5, 41.9)), carth = tone(await px(10.2, 35.9));

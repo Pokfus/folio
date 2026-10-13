@@ -206,9 +206,9 @@
   }
   // the legend (Phase 1c): borders, provinces, the three name groups, cities, rivers, lakes, relief with its
   // strength, graticule, label density — remembered per reader, behind try/catch like every localStorage read
-  const DEFAULT_LAYERS = { borders: true, provinces: true, countries: true, places: true, physical: true, cities: true, rivers: true, lakes: true, relief: false, strength: 0.7, graticule: false, density: "normal", peoples: "linked", wars: "on", fronts: true };
+  const DEFAULT_LAYERS = { borders: true, provinces: true, countries: true, places: true, physical: true, cities: true, rivers: true, lakes: true, relief: false, strength: 0.7, graticule: false, density: "normal", peoples: "linked", wars: "auto", fronts: true };
   function loadLayers() {
-    try { const v = JSON.parse(localStorage.getItem(LAYERS_KEY) || "null"); if (v && typeof v === "object") { const o = Object.assign({}, DEFAULT_LAYERS, v); if (!/^(sparse|normal|dense)$/.test(o.density)) o.density = "normal"; if (!/^(off|linked|all)$/.test(o.peoples)) o.peoples = "linked"; if (!/^(off|on)$/.test(o.wars)) o.wars = "on"; o.fronts = o.fronts !== false; return o; } } catch (e) {}
+    try { const v = JSON.parse(localStorage.getItem(LAYERS_KEY) || "null"); if (v && typeof v === "object") { const o = Object.assign({}, DEFAULT_LAYERS, v); if (!/^(sparse|normal|dense)$/.test(o.density)) o.density = "normal"; if (!/^(off|linked|all)$/.test(o.peoples)) o.peoples = "linked"; if (!/^(auto|off|on)$/.test(o.wars)) o.wars = "auto"; o.fronts = o.fronts !== false; return o; } } catch (e) {}
     return Object.assign({}, DEFAULT_LAYERS);
   }
   function saveLayers(l) { try { localStorage.setItem(LAYERS_KEY, JSON.stringify(l)); } catch (e) {} }
@@ -317,8 +317,9 @@
               <p class="atlas2-peoples-note" aria-live="polite"></p>
             </fieldset>
             <fieldset class="atlas2-group atlas2-wars"><legend>Wars</legend>
+              <label><input type="radio" name="atlas2-wars" data-layer="wars" value="auto"> Automatic <span class="atlas2-peoples-hint">Tints wars in your Personal Atlas, and the one war you open from a card. The plain Map keeps its states’ own colours so they stay steady as you scrub.</span></label>
               <label><input type="radio" name="atlas2-wars" data-layer="wars" value="off"> Off</label>
-              <label><input type="radio" name="atlas2-wars" data-layer="wars" value="on"> Wars a card teaches</label>
+              <label><input type="radio" name="atlas2-wars" data-layer="wars" value="on"> On everywhere <span class="atlas2-peoples-hint">Every war a card teaches, in its years, in every view.</span></label>
               <dl class="atlas2-wars-key" aria-label="What the war tints mean">
                 <div><dt class="atlas2-wars-sw atlas2-wars-sw-victor"></dt><dd>Victors: the ground a war’s winning side held in its years</dd></div>
                 <div><dt class="atlas2-wars-sw atlas2-wars-sw-loser"></dt><dd>Losers: the ground the defeated side held</dd></div>
@@ -811,7 +812,7 @@
       layers.strength = Math.max(0.2, Math.min(1, Number(layers.strength) || DEFAULT_LAYERS.strength));
       if (!/^(sparse|normal|dense)$/.test(layers.density)) layers.density = "normal";
       if (!/^(off|linked|all)$/.test(layers.peoples)) layers.peoples = "linked";
-      if (!/^(off|on)$/.test(layers.wars)) layers.wars = "on";
+      if (!/^(auto|off|on)$/.test(layers.wars)) layers.wars = "auto";
       layers.fronts = layers.fronts !== false;
       view.graticule = layers.graticule;
       saveLayers(layers); reflectLayers(); invalidate();
@@ -1402,7 +1403,8 @@
       if (!timeReady) return;
       const el2 = sheet.querySelector(".atlas2-wars-note"); if (!el2) return;
       let t = "";
-      if (layers.wars === "off" && !time.warFocus) t = "Wars are not tinted.";
+      const effW = AS2() ? AS2().warsEffective(layers.wars, PI.mode) : layers.wars;
+      if (effW === "off" && !time.warFocus) t = layers.wars === "auto" ? "Wars are not tinted on the plain Map. Choose On to tint them, or open a war from its card." : "Wars are not tinted.";
       else if (!time.wars) t = time.warFailed ? "The wars table didn’t arrive." : "Reading the wars…";
       else if (time.warFocus && time.wars[time.warFocus]) t = "Showing one war: " + (time.wars[time.warFocus].t || time.warFocus) + ".";
       else { const n = [...time.warRoles.keys()].length; t = (PI.mode === "personal" ? "Wars from the cards you have studied. " : "Every war a card teaches. ") + (n ? n.toLocaleString("en-GB") + (n === 1 ? " side is" : " sides are") + " tinted in this year." : "None is tinted in this year."); }
@@ -2451,7 +2453,7 @@
     }
     function applyStudy() {
       ST.flags = ST.ready ? AS.flags(ST.idx, ST.st, ST.mode, ST.hidden, info) : new Map();
-      PI.mode = ST.ready ? ST.mode : "map"; PI.flags = ST.flags; computeWarShown(); refreshPresence();   // 2c: the Personal and Full Atlas decide which peoples a reader sees
+      PI.mode = ST.ready ? ST.mode : "map"; PI.flags = ST.flags; refreshWars(); refreshPresence();   // 4/0a: the Automatic wars position follows the mode   // 2c: the Personal and Full Atlas decide which peoples a reader sees
       ST.rev++;
       postToWorker({ type: "study-flags", mode: ST.mode === "map" ? "" : ST.mode, entries: [...ST.flags], rev: ST.rev });
       renderStudyPanel();

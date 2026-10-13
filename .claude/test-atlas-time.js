@@ -53,7 +53,7 @@ const C = (page, fn, arg) => page.evaluate(fn, arg);
 const HB = F.read(fs.readFileSync(path.join(ROOT, "atlas/data/history.bin")));
 const H = HB.header;
 const stepsOf = new Map(); for (const st of H.steps) { let l = stepsOf.get(st[0]); if (!l) stepsOf.set(st[0], l = []); l.push(st); }
-/* 2d: the Wars switch is on by default, so a war starting or ending (and a member's window opening or closing) is a change on screen too: those years are ticks */
+/* 2d: the Wars switch (on in the years of a war since 2d; Automatic since Phase 4: off on the plain Map, on in the Personal Atlas and for a chosen war) — a war starting or ending (and a member's window opening or closing) is a change on screen too: those years are ticks */
 const WARYEARS = new Set(); { const W = (global.window = {}, require(path.join(ROOT, "atlas/data/wars.js")), global.window.ATLAS_WARS); for (const w of Object.values(W.wars || W)) { if (!w.y) continue; WARYEARS.add(w.y[0]); WARYEARS.add(w.y[1] + 1); for (const k of ["v", "l"]) for (const m of w[k].m) { WARYEARS.add(m[1]); WARYEARS.add(m[2] + 1); } } delete global.window; }
 const isPresence = (ei) => H.entities[ei].kind === "people" || H.entities[ei].kind === "culture" || H.entities[ei].kind === "extent" || H.entities[ei].kind === "front";   // 2c: the states' alive set (controller `alive()`); the presences are `presence()`
 const aliveFacesAt = (y) => H.steps.filter((s) => s[1] <= y && s[2] >= y && !isPresence(s[0])).map((s) => s[3]).sort((a, b) => a - b);
