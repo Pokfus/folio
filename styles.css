@@ -10632,6 +10632,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-wars{flex-direction:column; gap:4px;}
 .atlas2-wars-note{margin:2px 0 0; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.4 var(--sans);}
 .atlas2-wars-note:empty{display:none;}
+.atlas2-fronts-edge{margin:2px 0 4px 22px; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.4 var(--sans);}
 .atlas2-wars-key{margin:4px 0 0; display:flex; flex-direction:column; gap:3px;}
 .atlas2-wars-key>div{display:flex; gap:8px; align-items:flex-start;}
 .atlas2-wars-key dd{margin:0; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.35 var(--sans);}
