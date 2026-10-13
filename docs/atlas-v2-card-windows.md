@@ -225,3 +225,85 @@ None among V1's window assertions. Two **behaviours** are not tests but gaps, an
 | Siberia, 12 km/px | Sakha (Yakutia) | 207,214 → 207,214 | 114,291 → 114,291 | 79 → 80 | 94.7 → 100.0 % |
 
 No view grows in triangles or segments (limit +5 %); the second bucketed list costs up to eleven more draw calls. The window-only fix is not needed.
+
+
+---
+
+# Phase 4c — what Stage B still needed (labels, rivers, the war slice, Find it's learn panel)
+
+The as-built note is `docs/atlas-v2-design.md` §7 "Phase 4c". The preview switch is still OFF by default and V1's windows are still the default. These are the tables that belong with the inventory above. **Every timing is headless Chromium on SwiftShader (the CPU rasterises) and, for the phone profile, CDP throttling that does not slow the worker; every phone figure is ONE run on this runner** (the desktop figures of 4b were medians of three; these are single runs, so read differences under ~15 % as noise). No real GPU, no real phone.
+
+## The first window again (`.claude/measure-atlas-embed.js`, this runner, V1 re-measured beside the engine)
+
+First paint after the window mounted, **cold / warm cache, in ms**. "4b" is the 4b table above; "4c, at once" is the card opened the moment the page loads; "4c, after idle" is a reader who has sat on `#home` 4 s (desktop) / 8 s (phone) first, so the idle warm-up has made the hub.
+
+| card | profile | V1 | engine 4b (at once) | engine 4c, at once | engine 4c, after idle |
+|---|---|---|---|---|---|
+| geo-002, map card | desktop | 128 / 128 | 1,391 / 677 | 1,040 / 542 | **131 / 144** |
+| geo-002 | phone | 30,162 / 443 | 28,332 / 2,392 | 28,833 / 1,657 | **285 / 288** |
+| rm-003, locator | desktop | 81 / 106 | 1,351 / 520 | 1,105 / 549 | 256 / 265 |
+| rm-003 | phone | 37,385 / 336 | 4,676 / 1,890 | 4,522 / 1,603 | 3,049 / 498 |
+| rm-209, war | desktop | 239 / 205 | 2,838 / 2,653 (same runner today: 2,387 / 2,112) | **1,403 / 1,261** | 613 / 481 |
+| rm-209 | phone | 37,984 / 516 | 67,754 / 92,098 (same runner today: 69,211 / 90,485) | **19,614 / 2,432** | 11,403 / 1,205 |
+
+Bytes the first window costs, cold, as served / gzip -9 (KB as the tool prints them): geo-002 V1 3,939 / 1,150, engine 8,341 / 5,616 (4b: 8.1 / 5.5 MB); rm-003 V1 8,138 / 2,488, engine 8,768 / 5,766; **rm-209 V1 8,138 / 2,488, engine 4b 12,972 / 5,053, engine 4c 5,815 / 3,314**. For a map card or a locator the largest single piece is `water.bin` (4,355,748 B, 3,007,783 gzipped), fetched for the rivers after the land is on the screen; it is the same file at either river density.
+
+**The Task 8 targets, re-read** (ratios of the engine to V1, same runner; ✓ = at or under the target):
+
+| target | map card (geo-002) | locator (rm-003) | war (rm-209) |
+|---|---|---|---|
+| warm first paint ≥ 3× faster than `173302b` — desktop | 8.6× ✓ | 7.9× ✓ | **5.5× ✓** (was 2.6× ✗) |
+| — phone | **4.0× ✓** (was 2.76× ✗) | 3.7× ✓ | **39.8× ✓** (was 1.05× ✗) |
+| cold ≤ 1.5× V1 — desktop, at once | 8.1× ✗ | 13.6× ✗ | 5.9× ✗ (was 10.6×) |
+| — desktop, after idle | **1.02× ✓** | 3.2× ✗ | 2.6× ✗ (was 8.5×) |
+| — phone, at once | 0.96× ✓ | 0.12× ✓ | **0.52× ✓** (was 1.76× ✗) |
+| warm ≤ 1.5× V1 — desktop, at once | 4.2× ✗ | 5.2× ✗ | 6.2× ✗ |
+| — desktop, after idle | **1.1× ✓** | 2.5× ✗ | 2.3× ✗ (was 4.1×) |
+| — phone, at once | 3.7× ✗ | 4.8× ✗ | 4.7× ✗ (was 116×) |
+| — phone, after idle | 0.65× ✓ | 1.5× ✓ | 2.3× ✗ |
+
+What is left is the same floor 4b named for the desktop (a WebGL2 context, the shaders and a software rasteriser against V1's 2D canvas) plus, for a locator, the water file and the finest level, and, for a war, the slice's parse. **The lite first-level topology was not built (the owner's decision 4); the war slice was** (below).
+
+## Rivers in windows (decision 2) — before and after (`.claude/compare-window-rivers.js`)
+
+The default is the Atlas's own density for the window's zoom; a card whose subject is water (a locator of kind river or sea, or a point locator whose name has lake / bay / gulf / strait / channel / sea / river in it) gets one resident level finer where one exists; under the data saver (`S.settings.saveData` or `navigator.connection.saveData`) a window draws no rivers or lakes and does not fetch the water file.
+
+| window | view | V1 (km) | 4b: one level finer everywhere (km, × V1) | 4c (km, × V1) |
+|---|---|---|---|---|
+| geo-002, Texas (a map card) | 6.7 km/px, level 1 | 35,542 | 38,305 (1.08×) | **17,371 (0.49×)** — the Atlas's density |
+| rm-003, the Tiber (a river locator) | 2.4 km/px, level 2 | 3,996 | 2,595 (0.65×) | 2,595 (0.65×) — already the finest resident level |
+| wh-064, Lake Toba (a lake locator) | 13.3 km/px, level 1 | 19,585 | 23,476 (1.20×) | 23,476 (1.20×) — water card, finer |
+| gr-001, the Aegean Sea (a sea locator) | 2.6 km/px, level 2 | 4,548 | 2,079 (0.46×) | 2,079 (0.46×) |
+
+Bytes: unchanged by the decision — the coarse and the fine level are one file (`water.bin`, 4,355,748 B as served, 3,007,783 gzipped, fetched after the land). That is why "never fetched under the data saver" means *the file is not fetched* there. `test-atlas-windows.js` §5.
+
+## The war-window slice (decision 3) — `atlas/data/history-wars.bin` and `build-war-slice.js`
+
+| | `history.bin` | `history-wars.bin` |
+|---|---|---|
+| bytes / gzip -9 | 9,096,400 / 2,431,916 | **1,755,600 (19.3 %) / 646,819** |
+| entities / steps / faces / arcs / vertices | 233 / 3,159 / 3,043 / 102,443 / 473,340 | 148 / 587 / 572 / 34,091 (286 kept for a junction only) / 104,303 |
+| `file://` twin | `history.bin.js` 1.06 MB — the 2a pilot slice (11 entities), no war has faces in it | **`history-wars.bin.js` 2.35 MB** — every war works |
+
+It keeps every state alive in each war's display year (the middle of its years, the one `atlas-windows.js` computes), less the presence layer and the front, and every step over the war's years of each side's entities; the checker (`build-war-slice.js --check`, CI's fast job) compares 856 state faces and 432 side steps with the full file at all three levels, including the moved junctions of own arcs — **a cut without the 286 junction arcs fails it** (Pontus's face at the coarse levels), which is how the rule was found. The four `file://` twins together are 13.25 MB against the owner's 12 MB rule of Phase 1d (three twins then): a decision for him, held at 13.5 MB in the checker.
+
+War window, the second Punic War (rm-209), same runner, 4b → 4c: desktop cold 2,387 → 1,640 ms, warm 2,112 → 1,299 ms; phone cold 69.2 → 19.4 s, warm 90.5 → 2.6 s (a 1.7 MB file is cached by a headless context; the 9.1 MB one was not); bytes served cold 12,972 → 5,809 KB (gzip 5,053 → 3,312).
+
+## Find it's learn panel — v1's popups and their engine counterparts (Task 3; `test-findit-learn.js`)
+
+| what v1 held after an answer | where | on the engine's board |
+|---|---|---|
+| a country: its name (the full official name), "New discovery!" on first sight, the general prose (no figures, no "(Language: name)"), per-year prose (switched off), the figures grid, sources | `showCountryPopup` | the name (the short one: "Russia" for v1's "Russian Federation"), "New discovery!" from the same `placesSeen` register exactly when v1's chip showed, the prose through `sanitizeHTML` (1,885 characters against v1's 1,893 for Russia, 554 / 554 for Libya); **not rebuilt: the figures grid, the sources fold, the full official name** |
+| a state, a people or a place: the card(s) about it, "1 of N cards", swipe or arrows through the answers | `showMinePopup` | the place card's list of cards (`AtlasStudy.cardsFor`: the reader's own first, the cap of 8 and "and N more", the collection chip, "studied"), N equal to v1's N, each a link to `#card/<id>`; **not rebuilt: swiping through the cards' answers inside the panel** (a card is one tap away) |
+| the Next button under the question; Escape and the × closed the popup | | a Next button in the panel (and the one under the question), a close button, Escape |
+
+## What a Stage B would delete from `app.js`, measured
+
+`wc -c app.js` is 3,930,319 (4b's head: 3,930,014; +305 B for `atlas2StudyHost()`, the context's two fields and the slice's names). The fallback — no WebGL2, a refused bundle, `#map2?preview=0` — has to keep v1's window and v1's Find it until Phase 5 replaces them with the engine's Canvas 2D path, so **Part 2 deletes next to nothing from `app.js`** (the switch's gate, ~0.3 KB, replaced by the inverse switch). What the fallback keeps, and what Phase 5 then deletes:
+
+| what | size | stays until |
+|---|---|---|
+| `startCardGlobeV1` (`app.js` 34634–35813) | 86,543 B | Phase 5 |
+| Find it's game mode in `PAGES.map` (`finditPools` … `gameEnd`, 46185–46530) and `drawGameMarks` | ≈ 24.6 KB + 4.9 KB | Phase 5 |
+| `hiresCoastIngest`, `hiresRiverIngest`, the `CMAP_*` tables | ≈ 2.5 KB + tables | Phase 5 |
+| the five `coast/*.js` bundles and `rivers/greece.js`, `rivers/italy.js` (lazy, never on the eager path) | 1,367,513 B + 138,966 B | Phase 5 |
