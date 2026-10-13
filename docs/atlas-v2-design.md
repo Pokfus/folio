@@ -3096,7 +3096,7 @@ Each entity carries `cards` (the cards that link it, carried so Phase 3's place 
 | **new:** `file://` | **✓** a war window and the engine's windows on a `file://` page | §9 |
 | year change ≤ 5 ms at p95 | **✓** 2.0–2.1 ms (was 3.0–3.8 in the same harness) | 0d |
 | every Atlas suite green | **✓ here** — `test-map-cards` 11,307 / 11,296 (V1 / engine), `test-card-locator` 26 / 14, `test-war-cards` 57 / 57, `test-minigames` 126, `test-deck-lazy` 27, `test-csp` 0 violations, `test-war-sides` 15, `-render` 72, `-study` 125, `-places` 19, `-labels` 197, `-windows` 98, `-embed` 46, `-findit-learn` 46, `-phone` 82 (360×640, 390×844), `-time` 81, `-session` 8, `-search` 18; `check-core-cache`, `check-credits`, `build-war-slice --check`, `check-docs` pass | the report has CI's reading of the head |
-| frame gate (`test-atlas-perf.js`) | see the report (local and CI readings of the final head) | |
+| frame gate (`test-atlas-perf.js`) | **✓ locally, 0 failures in 126 checks**: a year change 2.30 ms (175 changes) and 1.80 ms (the whole rail, 427 changes) at p95 against the 5 ms rule; the drag's frames over 100 ms 0 of 1,273 (0.00 %); the primitive budgets pass. CI's reading of the final head is in the report | local run of 2026-10-13 |
 | `check-sizes.js` / `test-deck-lazy.js` / eager path | **✓** (no `atlas/` file on the eager path) | |
 | `app.js` | 3,930,319 B (+305 over 4b): **Part 2 deletes next to nothing from it** — the fallback (no WebGL2, a refused bundle, `#map2?preview=0`) must keep v1's window and Find it until Phase 5 | the next section |
 | the owner has tried the preview on a phone | **not yet** | 4b's steps still apply (`geo-002`, `rm-003`, `rm-209`, and now Find it with the switch on) |
