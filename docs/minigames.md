@@ -902,3 +902,11 @@ form.
   provably disjoint. Each generator retries rather than giving up, and a starved pool is the failure mode
   to watch: **a generator that works on a large pool can fail on a third of days when the pool is narrowed,
   with nothing on the page to say so.**
+
+## Phase 4, Stage A: Find it on the engine (Oct 2026, behind the preview switch)
+
+With `localStorage["folio.atlas2.preview"]="1"`, `PAGES.findit` plays on `atlas/atlas-windows.js` `findIt` instead of the v1 Atlas page in game mode. **The game does not change**: the same five rounds (a copy of `finditPools` /
+`buildGameRounds`, asserted equal to v1's by `test-atlas-embed.js`), the same wording, two tries, "found" as the score, one play a day (`gameLockedToday`). What moved is the board and the judging: the board is the engine at
+the round's year (the Full Atlas's states and peoples for an area round); the pick, miss, find and answer are highlights; a country or a state is scored by the ID pass (the entity ids under the tap) against the entity
+the round names (`atlas/data/card-faces.js` for a country, `pol:<slug>` from the card's polity link for a state); a place is still scored by distance and an extent with no polity behind it by its own ring.
+The reveal opens a plain panel of the place's cards (a link each) where v1 opened its country panel and card stack. Re-run: `test-minigames.js` (v1) and `test-atlas-embed.js` section 6.

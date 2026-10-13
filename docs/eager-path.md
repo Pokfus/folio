@@ -259,3 +259,8 @@ in; `atlas/data/credits.js` is the `credits` bundle, loaded by `#credits` alone;
 are loaded only on `file://`. The one v1 file the place card borrows, the prose of `countries.js` and its siblings, is
 the `atlas2prose` bundle, loaded on the first country card. `node .claude/check-sizes.js` should therefore show no
 `atlas/` file in the eager total — if one appears there, a `<script>` for it has been added to `index.html` by mistake.
+
+## Phase 4 (Atlas v2): the card windows and Find it are off the eager path
+
+`atlas/atlas-embed.js`, `atlas/atlas-windows.js` (bundle `atlas2embed`), `atlas/data/card-faces.js` (`atlas2cards`), `atlas/data/wars.js` (`atlas2wars`) and the engine (`atlas2`) are lazy, loaded when the first window or Find it is
+shown behind the preview switch and warmed at idle (skipped in light mode). `app.js` carries only the dispatcher, `atlas2Ctx()` and the link out (about +7 KB against the Phase 3 head; `check-sizes.js`); Stage B removes V1's window path.

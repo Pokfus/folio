@@ -25,9 +25,9 @@
    No names are drawn by the hub (the gazetteer is not loaded, `countries/places/physical/cities` are off): a window names what it marks itself. */
 (function (root) {
   "use strict";
-  const IDLE_MS = 20000;        // a hub with no window left is disposed after this long (its GPU memory is the page's to have back)
+  // a hub with no window left is disposed after IDLE_MS (its GPU memory is the page's to have back); a suite shortens it with setIdleMs
   const D2R = Math.PI / 180;
-  let hub = null, starting = null, idleTimer = 0, failed = false;   // failed: this page cannot run the engine (no WebGL2, a refused worker): ask once, answer null thereafter
+  let hub = null, starting = null, idleTimer = 0, failed = false, idleMs = 20000;   // failed: this page cannot run the engine (no WebGL2, a refused worker): ask once, answer null thereafter
   const counters = { created: 0, disposed: 0, draws: 0, masks: 0 };
   const windows = new Set();
 
@@ -56,6 +56,8 @@
         landRGB: () => ctl.palette().land.slice(),
         draw: (spec, ctx, o) => draw(h, spec, ctx, o || {}),
         pick: (spec, x, y) => pickAt(h, spec, x, y),
+        idsAt: (spec, x, y) => { setup(h, spec); return E.idsAt(x, y); },
+        lonLatAt: (spec, x, y) => { setup(h, spec); return E.lonLatAt(x, y); },
         startHistory: () => E.startHistory(),
         historyOK: () => E.historyOK(),
         warView: (id, short, share) => E.warFrame(id, short, share),
@@ -84,7 +86,7 @@
   function release() {
     if (windows.size || !hub) return;
     if (idleTimer) clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => { idleTimer = 0; if (!windows.size && hub) dispose(hub); }, IDLE_MS);
+    idleTimer = setTimeout(() => { idleTimer = 0; if (!windows.size && hub) dispose(hub); }, idleMs);
   }
 
   /* size the hub's element to the spec and make the controller see it (layout() reads the element's box) */
@@ -101,7 +103,8 @@
     const ctl = h.ctl, v = ctl.view, L = ctl.layers;
     fit(h, spec);
     const lay = spec.layers || {};
-    L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.admin1Max = lay.admin1Max || 0; L.neutral = !!lay.neutral; L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;
+    L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.admin1Max = lay.admin1Max || 0; L.neutral = !!lay.neutral;
+    { const pw = lay.peoples || "off"; if (L.peoples !== pw) { L.peoples = pw; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;
     v.graticule = false; v.rivers = L.rivers; v.lakes = L.lakes;
     v.lon = spec.lon; v.lat = spec.lat; v.zoom = spec.zoom;
     yearAndWar(h, spec);
@@ -135,8 +138,12 @@
     setup(h, spec);
     counters.draws++;
     // the fills of the highlights: one Map of face index → colour, blended over the palette's land at the highlight's alpha
-    const land = h.landRGB(), fills = new Map(), groups = [];
-    for (const hl of spec.highlights || []) {
+    const land = h.landRGB(), fills = new Map(), groups = [], histYear = spec.year != null;
+    if (histYear) {   // a past year: the highlighted entities are states of that year, tinted in the history's own style (their fill only; the faces have no mask pass)
+      const tm = new Map(); for (const hl of spec.highlights || []) { const c = rgb01(hl.rgb || [255, 200, 40]); for (const id of hl.ids || []) tm.set(id, c); }
+      E.setTints(tm);
+    } else E.setTints(null);
+    for (const hl of histYear ? [] : spec.highlights || []) {
       const faces = []; for (const id of hl.ids || []) for (const f of h.facesOf(id)) faces.push(f);
       if (!faces.length) continue;
       const a = hl.a == null ? 0.24 : hl.a, c = rgb01(hl.rgb || [255, 200, 40]);
@@ -264,7 +271,7 @@
     }
     function schedule() { if (stopped || raf) return; dirty = true; raf = requestAnimationFrame(paint); }
     w.schedule = schedule; w.paint = paint;
-    w.setView = (lon, lat, zoom, o) => { st.lon = ((lon + 180) % 360 + 360) % 360 - 180; st.lat = Math.max(-85, Math.min(85, lat)); st.zoom = clamp(zoom); if (!o || !o.silent) { if (opts.onView) opts.onView(st); schedule(); } };
+    w.setView = (lon, lat, zoom, o) => { if (o && o.fast) fastUntil = performance.now() + 140; st.lon = ((lon + 180) % 360 + 360) % 360 - 180; st.lat = Math.max(-85, Math.min(85, lat)); st.zoom = clamp(zoom); if (!o || !o.silent) { if (opts.onView) opts.onView(st); schedule(); } };
     w.setHome = (lon, lat, zoom) => { st.home = { lon, lat, zoom: clamp(zoom) }; };
     w.goHome = () => w.setView(st.home.lon, st.home.lat, st.home.zoom);
     w.zoomBy = (f) => w.setView(st.lon, st.lat, st.zoom * f);
@@ -304,5 +311,5 @@
   }
   function release0() { release(); }
 
-  root.AtlasEmbed = { ensure, view, release, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, IDLE_MS };
+  root.AtlasEmbed = { ensure, view, release, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
 })(typeof window !== "undefined" ? window : globalThis);

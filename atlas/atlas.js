@@ -1276,7 +1276,11 @@
     let warRGB = { victor: [0.2, 0.62, 0.3], loser: [0.78, 0.2, 0.18] };
     const warRoleOf = (i) => { if (!time.warRoles.size) return 0; const e = time.ents[i]; if (!e) return 0; const id = e.kind === "polity" || e.kind === "extent" ? e.id : e.partners && e.partners[0]; const r = id ? time.warRoles.get(id) : null; return r ? r.role : 0; };
     const warColourOf = (i) => { const r = warRoleOf(i); return r === 1 ? warRGB.victor : r === 2 ? warRGB.loser : null; };
-    const entColour = (i) => warColourOf(i) || (EMBED && layers.neutral ? palette.land : entColourAt(i, time.year));   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
+    /* Phase 4 (Find-it): a guess, a miss, a find and the answer are tinted entities of the year — `time.gameTints`: entity id → [r, g, b] (0–1), set by atlas-embed.js; stronger than a state's own hue and a war's tint */
+    time.gameTints = null;
+    const gameIdOf = (i) => { const e = time.ents[i]; if (!e) return null; return e.kind === "polity" || e.kind === "extent" ? e.id : e.partners && e.partners[0]; };
+    const gameColourOf = (i) => { if (!time.gameTints) return null; const id = gameIdOf(i); return id ? time.gameTints.get(id) || null : null; };
+    const entColour = (i) => gameColourOf(i) || warColourOf(i) || (EMBED && layers.neutral ? palette.land : entColourAt(i, time.year));   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
     const hatchOf = (i) => (time.ents[i].kind === "contested" ? entColour(entityIndexOfId(time.ents[i].partners[1])) : null);
     const entityIndexOfId = (id) => { if (!time.entIndex) { time.entIndex = new Map(time.ents.map((e, i) => [e.id, i])); } const i = time.entIndex.get(id); return i == null ? -1 : i; };
     // the arcs of a set of faces as flags, one byte an arc (2b: a Set of tens of thousands of entries was a millisecond a year change)
@@ -1413,7 +1417,7 @@
         if (disposed) return;
         const W = root.ATLAS_WARS; time.warLoading = false;
         if (!W || !W.wars) { time.warFailed = true; return; }
-        time.wars = W.wars; time.extWars = new Map();
+        time.wars = W.wars; time.extWars = new Map(); try { tryPendingWar(); } catch (e) { /* the deep link's war is not worth a failed table */ }
         for (const [id, w] of Object.entries(W.wars)) for (const k of ["v", "l"]) { const x = w[k] && w[k].x; if (x) { let l = time.extWars.get(x); if (!l) time.extWars.set(x, l = []); l.push(id); } }
         refreshWars();
       }).catch((e) => { time.warLoading = false; time.warFailed = true; if (typeof console !== "undefined") console.warn("atlas2 wars table failed: " + (e && e.message || e)); });
@@ -1532,7 +1536,7 @@
       time.style.fill(0); time.arcTab.fill(0);
       const dark = histDark; const base = dark ? HIST_FILL_ALPHA_DARK : HIST_FILL_ALPHA;
       let tNow = 1; if (time.fade) tNow = Math.min(1, (performance.now() - time.fade.t0) / FADE_MS);
-      const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const a = (time.selected === ent ? HIST_SEL_ALPHA : base) * alphaScale * (warRoleOf(ent) === 1 || warRoleOf(ent) === 2 ? WAR_FILL_BOOST : 1); const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
+      const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const a = (time.selected === ent ? HIST_SEL_ALPHA : base) * alphaScale * (warRoleOf(ent) === 1 || warRoleOf(ent) === 2 ? WAR_FILL_BOOST : 1) * (gameColourOf(ent) ? 1.7 : 1); const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
       if (time.fade) for (const a of time.fade.from) if (!time.aliveSet.has(a.face)) put(a.face, 1 - tNow);
       for (const a of (time.onScreenAlive || time.alive)) put(a.face, time.fade ? tNow : 1);
       const alive = time.aliveArcs, from = time.fade ? time.fade.fromArcs : null, aOn = Math.round((time.fade ? tNow : 1) * 255), aOff = Math.round((1 - tNow) * 255);
@@ -2154,6 +2158,8 @@
       const km = Math.max(3, Math.min(R_KM / base, ang * R_KM * 1.35 / (Math.max(120, short || Math.min(cssW, cssH)) / 2)));
       return { lon: Math.atan2(c[1], c[0]) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, c[2]))) * R2D, kmpp: km };
     }
+    let pendingWar = null;
+    function tryPendingWar() { if (pendingWar && time.wars && time.wars[pendingWar]) { const id = pendingWar; pendingWar = null; time.warFocus = id; computeWarShown(); refreshWars(); } }   // a deep link's war: focused where it is, without the jump to the war's first year that the card's button makes
     function frameWar(id) { const f = warFrame(id); if (f) setView(f.lon, f.lat, f.kmpp); }
     function paintWarsKey() {
       const k = sheet.querySelector(".atlas2-wars-key"); if (!k) return;
@@ -2337,7 +2343,7 @@
     /* ---- deep links: #map2/<lon>/<lat>/<zoom>/<place>, written on settle, pushed on a selection ---- */
     const HASH_RE = /^#map2\/(-?[\d.]+)\/(-?[\d.]+)\/(-?[\d.]+)(?:\/([^?]*))?(\?.*)?$/;
     const zoomLevel = () => Math.log2(156.543 / kmPerPx());
-    function readHash() { const m = HASH_RE.exec(location.hash || ""); if (!m) return null; let place = m[4] || null; if (place) { try { place = decodeURIComponent(place); } catch (e) {} } let year = null; const q = /[?&]y=(-?\d{1,5})\b/.exec(m[5] || ""); if (q) year = clampYear(Number(q[1])); return { lon: Number(m[1]), lat: Number(m[2]), z: Number(m[3]), place, year }; }
+    function readHash() { const m = HASH_RE.exec(location.hash || ""); if (!m) return null; let place = m[4] || null; if (place) { try { place = decodeURIComponent(place); } catch (e) {} } let year = null; const q = /[?&]y=(-?\d{1,5})\b/.exec(m[5] || ""); if (q) year = clampYear(Number(q[1])); const qw = /[?&]war=([A-Za-z0-9_-]+)/.exec(m[5] || ""); return { lon: Number(m[1]), lat: Number(m[2]), z: Number(m[3]), place, year, war: qw ? qw[1] : null }; }   // &war=<card id>: a war card's window opens the Atlas on that war (Phase 4)
     // the query: ?y=<year> (Phase 2a) and perf; the existing form #map2/<lon>/<lat>/<zoom>/<place> is unchanged
     function hashNow() { const q = []; if (time.hist || time.year !== TODAY) q.push("y=" + time.year); if (perfInHash) q.push("perf"); return "#map2/" + view.lon.toFixed(2) + "/" + view.lat.toFixed(2) + "/" + zoomLevel().toFixed(2) + (sel.id ? "/" + encodeURIComponent(sel.id) : "") + (q.length ? "?" + q.join("&") : ""); }
     function writeHash(push) {
@@ -2352,6 +2358,7 @@
       const z = R_KM / ((156.543 / Math.pow(2, d.z)) * base);
       view.lon = d.lon; view.lat = d.lat; view.zoom = z; clampView(); flying = null; coasting = false;
       if (d.year != null && d.year !== time.year) applyYear(d.year, { why: "hash" });
+      if (d.war) { pendingWar = d.war; tryPendingWar(); }
       if (!tileIndex) pendingZoom = z;   // the cap is not known until the header arrives: the asked-for zoom is clamped again then
       if (d.place) { const histId = /^(pol|cap|contested):/.test(d.place); if (G.ready && stats.ready && (!histId || time.ents) && selectById(d.place, { open: true, push: false })) pendingPlace = null; else { pendingPlace = d.place; pendingFly = false; } } else if (sel.id) clearSelection();   // a history place (pol:, cap:) waits for the history header
       plan(); invalidate(); requestLayout("hash", true);
@@ -2632,7 +2639,19 @@
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: () => ensureHistory(), warFrame: (id, short, share) => warFrame(id, short, share), historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0, levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: () => ensureHistory(), warFrame: (id, short, share) => warFrame(id, short, share), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
+        lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
+        /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
+        idsAt: (x, y) => {
+          const out = [], add = (id) => { if (id && out.indexOf(id) < 0) out.push(id); };
+          if (!R.levelLoaded(0)) return out;
+          const hasP = !!(time.hist && time.pOnScreen && time.pOnScreen.length);
+          if (hasP) { const skip = new Set(); for (let n = 0; n < 6; n++) { const p = R.pick(view, x, y, "land", { layer: "presence", skip }); if (!p || p.histFace == null) break; skip.add(p.histFace); const pe = time.ents[time.faceEntity[p.histFace]]; if (pe) add(pe.id); } }
+          const f = R.pick(view, x, y, "land", hasP ? { layer: "states" } : undefined);
+          if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(p); add(e.id); } else add(e.id); } }
+          else if (f && f.face != null && header && faceEntity && time.present) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(ent.id); if (ent.parent) add(ent.parent); } }
+          return out;
+        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0, levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
       stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
       forceStage, feedGesture, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
       perfOn: () => perfOn,
