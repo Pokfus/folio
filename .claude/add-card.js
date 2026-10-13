@@ -667,7 +667,11 @@ if ("undatable" in card && typeof card.undatable !== "boolean") {
 }
 if (card.undatable === false) delete card.undatable;   // the absent state, written out rather than shipped as a field that says nothing
 
-const IS_COURSE = COURSE_ONLY.test(String(card.id || ""));
+/* Oct 2026, on request: the course-only relaxation (3-10 sentences, 40 words, ONE source) is LIFTED for `eep-`. The user
+   asked for every thin card to be researched out to the full house shape (ten sentences in two blocks of five, 270-330
+   words, the tiered source bar) with the slides still the card's main focus. An `eep-` card still MAY cite a lecture's
+   slides as `[Course material]` with no URL (COURSE_CITES below), and that is the only exemption left. */
+const IS_COURSE = false;
 const aWords = qWords(card.abstract);
 if (aWords < (IS_COURSE ? COURSE_A_MIN : A_MIN) || aWords > A_MAX) {
   console.error("ERROR: the background is " + aWords + " words — it must be " + (IS_COURSE ? COURSE_A_MIN : A_MIN) + "–" + A_MAX +
@@ -734,7 +738,7 @@ if (!card.skipSources) {
   // that position — if five qualifying sources cannot be found for it, its ten sentences are not ready.
   // course-only cards: main's `eep-` (COURSE_ONLY) and any prefix with its own bar in app.js (`gga-`) may cite a lecture's
   // slides or a set reading as `[Course material]`, which counts as open for the majority warning below
-  const COURSE_CITES = IS_COURSE || Object.keys(SRC_TARGET_BY_PREFIX).some(p => String(card.id || "").indexOf(p) === 0);
+  const COURSE_CITES = COURSE_ONLY.test(String(card.id || "")) || Object.keys(SRC_TARGET_BY_PREFIX).some(p => String(card.id || "").indexOf(p) === 0);
   if (src.length < srcTargetFor(card)) { console.error("ERROR: card has " + src.length + " source(s) — a new card at difficulty " + card.difficulty + " carries at least " + srcTargetFor(card) + " (the bar is tiered: 1 → 9, 2 → 8, 3 → 7, 4 → 6, 5 → 5, or a course collection's own, SRC_TARGET_BY_PREFIX; SRC_TARGET_BY_DIFFICULTY in app.js). Ten sentences making ten claims are not honestly covered by fewer."); process.exit(1); }
   const openN = src.filter(s => /\[Open access\]/.test(s) || (COURSE_CITES && /\[Course material\]\s*$/.test(s))).length;
   if (openN <= src.length / 2) console.warn("WARNING: only " + openN + " of this card's " + src.length + " sources are labelled [Open access]. The majority of any card's list must be open — a paywalled work earns its place only as the landmark a claim is actually built on.");
