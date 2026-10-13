@@ -404,10 +404,12 @@ localStorage.setItem("folio_tour_v1", "1");`;
     }
   }
   check("clicking a side opens the war's own card", /Second Punic War/i.test(title), title || "nothing opened");
-  check("...and the popup keeps the legend that explains the colours",
-    await page.evaluate(() => !!document.querySelector("#cpDesc .war-key")) &&
-    await page.evaluate(() => !document.querySelector("#cpDesc .card-loc")),
-    await page.evaluate(() => { const d = document.getElementById("cpDesc"); return d ? "war-key " + !!d.querySelector(".war-key") + ", card-loc " + !!d.querySelector(".card-loc") + ", html " + d.innerHTML.slice(0, 160).replace(/\s+/g, " ") : "no #cpDesc"; }));
+  /* The popup body fills a moment after the title (the card's tiles are built once the lazy bundles land), so wait for the
+     legend before reading and read BOTH conditions in ONE evaluate: two separate reads raced the fill in CI. */
+  const popReady = await page.waitForFunction(() => { const d = document.getElementById("cpDesc"); return !!(d && d.querySelector(".war-key")); }, null, { timeout: 15000 }).then(() => true, () => false);
+  const pop = await page.evaluate(() => { const d = document.getElementById("cpDesc"); return d ? { key: !!d.querySelector(".war-key"), loc: !!d.querySelector(".card-loc"), html: d.innerHTML.slice(0, 160).replace(/\s+/g, " ") } : null; });
+  check("...and the popup keeps the legend that explains the colours", !!pop && pop.key && !pop.loc,
+    pop ? "war-key " + pop.key + ", card-loc " + pop.loc + ", waited " + popReady + ", html " + pop.html : "no #cpDesc");
 
   check("no console errors anywhere", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();
