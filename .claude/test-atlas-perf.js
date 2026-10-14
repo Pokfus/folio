@@ -101,6 +101,9 @@ const HEAP_RATIO = 0.5;         // v2's JS heap after its gestures and a forced 
 const RELEASE_MS = 300;         // the first full-screen frame after a pinch's fingers lift (Phase 1d), reported with its primitive count
 const RELEASE_WINDOW_MS = 450;  // a frame ending within this of a touchEnd mark is a release frame, not a gesture frame
 const RELEASE_SETTLE_MS = 500;  // how long the pinch waits after each release before the next touch (longer than the window)
+/* STACKS REMOVED (2026-10-14): `marks` on each view is its budget of study marks — the marks drawn in a still frame of the FULL Atlas at 1280×800, measured
+   2026-10-14 (globe 1,028; Europe 171; the Aegean 60; the Aegean at the cap 1; the Mediterranean in 1 CE 466; Europe in 1500 and 1900 116 and 112; the steppe in 450 CE 236;
+   the Black Sea in 450 BCE 204; the steppe in 660 CE 239; the Western Front 109; the Mediterranean in 216 BCE 474), each rounded up by a quarter.
 /* The four fixed views and their primitive budgets (drawn in one frame at 1280×800): land triangles and
    segments measured 2026-10-08 on the Phase 1a build (globe 42,529 / 19,917; Europe 133,348 / 101,049;
    the Aegean 25,892 / 22,750; the Aegean at the cap 20,366 / 18,297); river segments, lake-shore segments
@@ -109,28 +112,28 @@ const RELEASE_SETTLE_MS = 500;  // how long the pinch waits after each release b
    drawn at the cap), each rounded up by a quarter. A view is (lon, lat, km per pixel). */
 const HIST_BUDGET_1500 = [36000, 1400], HIST_BUDGET_1900 = [32000, 1500];   // measured 2026-10-10 on the 2b file at 1280×800, 3 km/px, with the on-screen faces' meshes and borders: 28,783 fill triangles and 1,078 border segments in 1500 (14 of 27 alive faces on screen), 25,547 and 1,131 in 1900, each rounded up by a quarter
 const VIEWS = [
-  { name: "globe", lon: 10, lat: 20, kmpp: 24.0, tri: 54000, seg: 25000, river: 3400, lakeSeg: 3800, lakeTri: 3300 },
-  { name: "Europe", lon: 10, lat: 50, kmpp: 3.0, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600 },
-  { name: "Aegean", lon: 25, lat: 38, kmpp: 0.5, tri: 33000, seg: 29000, river: 5500, lakeSeg: 3000, lakeTri: 2700 },
-  { name: "Aegean at the cap", lon: 25, lat: 38, kmpp: 0.15, tri: 26000, seg: 23000, river: 0, lakeSeg: 2200, lakeTri: 2000 },
-  { name: "Mediterranean, 1 CE", lon: 15, lat: 38, kmpp: 6.0, year: 1, tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 8800, histSeg: 700 },   // 2b: 6,974 fill triangles in 8 faces, 542 border segments (the borders of the faces on screen only; 2a drew every border of the level's buckets: 20,988)
+  { name: "globe", marks: 1300, lon: 10, lat: 20, kmpp: 24.0, tri: 54000, seg: 25000, river: 3400, lakeSeg: 3800, lakeTri: 3300 },
+  { name: "Europe", marks: 220, lon: 10, lat: 50, kmpp: 3.0, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600 },
+  { name: "Aegean", marks: 80, lon: 25, lat: 38, kmpp: 0.5, tri: 33000, seg: 29000, river: 5500, lakeSeg: 3000, lakeTri: 2700 },
+  { name: "Aegean at the cap", marks: 3, lon: 25, lat: 38, kmpp: 0.15, tri: 26000, seg: 23000, river: 0, lakeSeg: 2200, lakeTri: 2000 },
+  { name: "Mediterranean, 1 CE", marks: 600, lon: 15, lat: 38, kmpp: 6.0, year: 1, tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 8800, histSeg: 700 },   // 2b: 6,974 fill triangles in 8 faces, 542 border segments (the borders of the faces on screen only; 2a drew every border of the level's buckets: 20,988)
   // Phase 2b: Europe in 1500 and in 1900 at 3 km/px (the land budgets are Europe's above; the history budgets measured on the 2b file, × 1.25)
-  { name: "Europe, 1500", lon: 10, lat: 50, kmpp: 3.0, year: 1500, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: HIST_BUDGET_1500[0], histSeg: HIST_BUDGET_1500[1] },
-  { name: "Europe, 1900", lon: 10, lat: 50, kmpp: 3.0, year: 1900, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: HIST_BUDGET_1900[0], histSeg: HIST_BUDGET_1900[1] },
+  { name: "Europe, 1500", marks: 150, lon: 10, lat: 50, kmpp: 3.0, year: 1500, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: HIST_BUDGET_1500[0], histSeg: HIST_BUDGET_1500[1] },
+  { name: "Europe, 1900", marks: 150, lon: 10, lat: 50, kmpp: 3.0, year: 1900, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: HIST_BUDGET_1900[0], histSeg: HIST_BUDGET_1900[1] },
   /* Phase 2c: the PEOPLES-HEAVY views, each the measurement × 1.25 (rounded up), 2026-10-12 on the 2c file at 1280×800: the steppe in 450 CE at 6 km/px (the Huns: 64,219 land
      triangles, 28,034 segments, 11,195 state fill triangles in 9 faces and 937 border segments, 1,607 presence triangles in 1 face); the Black Sea in 450 BCE at 4 km/px
      (Scythia: 167,260 / 89,000, 26,935 in 16 faces and 641, 2,091 presence triangles in 1 face); the steppe in 660 CE at 6 km/px (the Avars, Old Great Bulgaria and Khazaria:
      63,474 / 27,742, 12,767 in 7 faces and 1,188, 1,627 presence triangles in 3 faces). The presence pass has its own counter (`presenceTriangles`): a people's soft face is a
      fill, one draw a face, no segments — the border budget above is the states'. */
-  { name: "Steppe, 450 CE", lon: 45, lat: 48, kmpp: 6.0, year: 450, tri: 80000, seg: 35000, river: 9400, lakeSeg: 14600, lakeTri: 13500, histTri: 14000, histSeg: 1200, presTri: 2100, presFaces: 1 },
-  { name: "Black Sea, 450 BCE", lon: 34, lat: 45, kmpp: 4.0, year: -450, tri: 209000, seg: 111000, river: 44900, lakeSeg: 98500, lakeTri: 92100, histTri: 33700, histSeg: 800, presTri: 2700, presFaces: 1 },
-  { name: "Steppe, 660 CE", lon: 45, lat: 50, kmpp: 6.0, year: 660, tri: 80000, seg: 35000, river: 9300, lakeSeg: 14800, lakeTri: 13700, histTri: 16000, histSeg: 1500, presTri: 2100, presFaces: 3 },
+  { name: "Steppe, 450 CE", marks: 300, lon: 45, lat: 48, kmpp: 6.0, year: 450, tri: 80000, seg: 35000, river: 9400, lakeSeg: 14600, lakeTri: 13500, histTri: 14000, histSeg: 1200, presTri: 2100, presFaces: 1 },
+  { name: "Black Sea, 450 BCE", marks: 260, lon: 34, lat: 45, kmpp: 4.0, year: -450, tri: 209000, seg: 111000, river: 44900, lakeSeg: 98500, lakeTri: 92100, histTri: 33700, histSeg: 800, presTri: 2700, presFaces: 1 },
+  { name: "Steppe, 660 CE", marks: 300, lon: 45, lat: 50, kmpp: 6.0, year: 660, tri: 80000, seg: 35000, river: 9300, lakeSeg: 14800, lakeTri: 13700, histTri: 16000, histSeg: 1500, presTri: 2100, presFaces: 3 },
   /* Phase 2d: the WAR-HEAVY views, each the measurement × 1.25 (rounded up), 2026-10-12 on the 2d file at 1280×800. The Western Front on 15 June 1944 at 3 km/px (both theatres' plates
      standing: four front faces drawn as event faces — they count in the HISTORICAL counters, not the presence counter, which is the peoples' and extents' — 88,752 fill triangles in
      10 faces (6 states and 4 fronts; Europe in 1900 is 25,449 in 9) and 1,525 border segments); the Mediterranean in 216 BCE at 6 km/px with the Second Punic War chosen from its card
      (6,268 fill triangles in 14 faces, 1,020 segments, and 76 presence triangles in the 1 authored extent drawn: the tint is a colour, not geometry). */
-  { name: "Western Front, June 1944", lon: 10, lat: 50, kmpp: 3.0, year: 1944, frontDate: 19440615, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: 111000, histSeg: 1950 },
-  { name: "Mediterranean, 216 BCE (Second Punic War)", lon: 15, lat: 38, kmpp: 6.0, year: -216, focusWar: "rm-209", tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 7900, histSeg: 1300, presTri: 100, presFaces: 1 },
+  { name: "Western Front, June 1944", marks: 140, lon: 10, lat: 50, kmpp: 3.0, year: 1944, frontDate: 19440615, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: 111000, histSeg: 1950 },
+  { name: "Mediterranean, 216 BCE (Second Punic War)", marks: 600, lon: 15, lat: 38, kmpp: 6.0, year: -216, focusWar: "rm-209", tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 7900, histSeg: 1300, presTri: 100, presFaces: 1 },
 ];
 const PORT = 5612;
 
@@ -322,10 +325,13 @@ async function fixedViews(page, cx, cy) {
    worst-frame rule is asserted on it. */
 async function fullGestures(page, cdp, cx, cy) {
   await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.study.ready(), null, { timeout: 90000 });
-  await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(new Date().getUTCFullYear()); c.setView(10, 20, 24); c.study.setMode("full"); });
+  await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(new Date().getUTCFullYear()); c.setView(15, 35, 24); c.study.setMode("full"); });   // the widest view over the Mediterranean, where the registry is densest
   await settle(page); await sleep(800);
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(300);
   const r = {};
+  // the layout that carries the marks lands a couple of seconds after the switch on a slow runner: wait for it and for a frame that draws them
+  await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2, s = c.statsNow(); return s.marksLaid > 500 && s.marksDrawn > 500; }, null, { timeout: 30000 }).catch(() => {});
+  await page.evaluate(() => new Promise((res) => { document.querySelector(".atlas2").__atlas2.invalidate(); requestAnimationFrame(() => requestAnimationFrame(res)); }));   // two frames: the count is the last frame's
   r.marks = await page.evaluate(() => { const s = document.querySelector(".atlas2").__atlas2.statsNow(); return { drawn: s.marksDrawn, laid: s.marksLaid, mode: document.querySelector(".atlas2").__atlas2.study.mode() }; });
   r.drag = await repeated(page, () => drag(page, cx, cy), () => warmV2(page, () => drag(page, cx, cy)));
   r.wheel = await repeated(page, () => wheel(page, cx, cy), () => warmWheelV2(page, cx, cy));
@@ -512,7 +518,7 @@ async function fixedMarks(page) {
   }
   // STACKS REMOVED: the owner's worst-frame rule with the Full Atlas on, at the widest view
   { const f = results.v2full, d = f.drag, p = f.pinch;
-    check(`Full Atlas (${f.marks.drawn} marks at the widest view): drag — across ${REPEATS} repeats (${d.n} frames) at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms`, f.marks.mode === "full" && f.marks.drawn > 300 && overShare(d.raw) <= WORST_SHARE && d.max <= WORST_CAP_MS + 1, `${overCount(d.raw)} over ${WORST_MS} (${pctS(overShare(d.raw))}), worst ${d.max.toFixed(1)} ms`);
+    check(`Full Atlas (${f.marks.drawn} marks at the widest view): drag — across ${REPEATS} repeats (${d.n} frames) at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms`, f.marks.mode === "full" && f.marks.drawn > 500 && overShare(d.raw) <= WORST_SHARE && d.max <= WORST_CAP_MS + 1, `${overCount(d.raw)} over ${WORST_MS} (${pctS(overShare(d.raw))}), worst ${d.max.toFixed(1)} ms`);
     check(`Full Atlas: pinch, DURING the gesture — at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms`, !!p.during && overShare(p.during.raw) <= WORST_SHARE && p.during.max <= WORST_CAP_MS + 1, p.during ? `${overCount(p.during.raw)} over ${WORST_MS} of ${p.during.raw.length} (${pctS(overShare(p.during.raw))}), worst ${p.during.max.toFixed(1)} ms` : "no during frames");
     check("Full Atlas: the marks' own pass costs under 4 ms at p95 on this runner (software canvas; reported per view above)", f.cost.n > 50 && f.cost.marksP95 < 4, `p95 ${f.cost.marksP95.toFixed(2)} ms, mean ${f.cost.marksMean.toFixed(2)} ms`); }
   for (const { V, s } of viewMarks) if (V.marks != null) check(`${V.name}: marks drawn in the Full Atlas ≤ ${V.marks}`, s.drawn <= V.marks, `${s.drawn} drawn of ${s.laid} laid out`);
