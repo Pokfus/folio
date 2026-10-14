@@ -1,3 +1,12 @@
+# The v1 Atlas — ARCHIVE (deleted in Phase 5, Oct 2026)
+
+> **This file describes a page that no longer exists.** Atlas v2 Phase 5 (`docs/atlas-v2-phase5-plan.md`) made `#map` the v2 Atlas and deleted v1's page, its data files (`world.js`,
+> `timeline.js`, `polities.js`, the heightmaps, …), its builders and its tests. The living description of the Atlas is **`docs/atlas.md`**. This text is kept, unedited below the line, because
+> `docs/reference.md`, `docs/atlas-borders-audit.md` and the changelog explain *why* rules were written by pointing at it, and because it records what v1 did for the day someone
+> wants to know why v2 does not. Nothing here is a rule for the code that ships. The deleted files are in git history (`git show f7aca62:world.js`, the last commit that held them).
+
+---
+
 # The Atlas — the globe, the timeline, the eras and the map game
 
 **Read this before touching `PAGES.map`, `build-era.js`, `timeline.js`, or anything in the render path.**

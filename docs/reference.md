@@ -10,6 +10,18 @@ CLAUDE.md" mean this file. Where `CLAUDE.md` and this file disagree, `CLAUDE.md`
 
 ---
 
+## Phase 5 (Oct 2026) — READ BEFORE TRUSTING ANY ENTRY BELOW THAT NAMES THE v1 ATLAS
+
+Atlas v2 Phase 5 made `#map` the v2 Atlas and deleted v1 (`docs/atlas-v2-phase5-plan.md`; `docs/atlas.md` is the living description; `docs/atlas-v1-archive.md` is v1's own doc). The entries below are the
+archive of why, and **none of the following exists any more**: `PAGES.map`'s v1 closure, `startCardGlobeV1`, `atlasRegister` / `atlasRegisterAll` / `atlasUnlocks` / `atlasCollections` / `atlasNameFits`
+(Find it's pool builder `finditRegister` in `atlas/atlas-windows.js` is the one survivor, moved), the map editor and `ADMIN_EDITS.timeline`, `world.js`, `timeline.js`, `polities.js`, `country-series.js`,
+`fronts.js`, `country-years.js`, `admin1.js`, `ranges.js`, `forests.js`, `uk.js`, `water.js`, `cities.js`, `lakes.js`, `heightmap*.js`, `us-states.js`, `china-provinces.js`, `russia-subjects.js`,
+`world-capitals.js`, `us-cities.js`, `state-capitals.js`, `coast/`, their `build-*.js`, and the suites `test-personal-atlas.js`, `test-atlas-places.js`, `test-polities.js`, `test-engine-switch.js` (each assertion's
+successor: `docs/atlas-v2-phase5-plan.md` §8). Where an entry says "re-run `test-personal-atlas.js`" read `test-atlas-study.js` + `test-study.js`; "re-run `test-polities.js`" read `test-peoples.js` + `test-war-sides.js` +
+`check-history.js`; "re-run the three window suites with `FOLIO_ENGINE=v1`" read `test-window-fallbacks.js`. The git history keeps every deleted file (`git show f7aca62:<path>`).
+
+---
+
 ## (Original title: Folio — project guide for Claude Code)
 
 Folio is a study companion for Chinese history: an Anki-style flashcard site with spaced
