@@ -225,9 +225,8 @@
        gzipped total into every run's job summary and fails past a ceiling, which is the
        only arrangement that has ever kept it honest.
 
-         bundle "world"      world.js                     — Atlas, home-page mini globe, Settings home picker
-         bundle "atlas"      uk / lakes / rivers / water / cities / timeline /
-                             countries / country-stats / country-spans / country-years
+         bundle "atlas2*"    atlas/atlas*.js, atlas/study.js and atlas/data/*  — the Atlas (#map), the card windows and Find it (Phase 5 deleted v1's
+                             world.js, timeline.js, polities.js and the rest; docs/atlas-v2-phase5-plan.md)
        THERE ARE NO LANGUAGE BUNDLES ANY MORE. The card `i18n` blocks and i18n/gloss-<lang>.js
        went on 2026-08-08, and i18n/ui-, games- and places-<lang>.js went in Sep 2026, all on
        request: the site ships in English (MULTILANG = false in app.js), so the first removal
@@ -242,8 +241,6 @@
        are already present still works (the browser serves them from cache), but the eager
        download is exactly the cost this split exists to avoid.
 
-       ranges.js + admin1.js (the removed Mountains / Divisions layers) are not loaded at
-       all — app.js falls back to empty data.
        ============================================================ -->
   <script src="data.js"></script>
   <script src="truefalse.js"></script>

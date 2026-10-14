@@ -11,9 +11,8 @@
    ID passes and stacks what is under the finger: lake, river, province, country, or the nearest sea on open
    water; a second tap cycles), the PLACE CARD (a side column, a bottom sheet on a phone; a country's prose,
    figures and footnotes through the host's own helpers), the LEGEND, SEARCH, DEEP LINKS
-   (#map2/<lon>/<lat>/<zoom>/<place>) and a hidden list of buttons that mirrors the visible labels for the
-   keyboard. No timeline and no study material — those are Phases 2–3. The page is reached at #map2; v1 at
-   #map is untouched.
+   (#map/<lon>/<lat>/<zoom>/<place>) and a hidden list of buttons that mirrors the visible labels for the
+   keyboard. The page is reached at #map (Phase 5 swapped it in for the v1 page; #map2 redirects).
 
      window.AtlasV2.mount(root, { dataUrl, tileUrl, waterUrl, waterTileUrl, reliefUrl, gazetteerUrl, host })  → controller
 
@@ -34,7 +33,7 @@
 
    WHAT HAPPENS ON MOUNT
      1. the DOM: a canvas, a zoom stack, the layers button and its sheet, a status line (the fetch's
-        determinate progress, then the worker's), a caption for the picked name, and — on `#map2?perf`
+        determinate progress, then the worker's), a caption for the picked name, and — on `#map?perf`
         or after pressing P — the perf overlay — all inside `root`, which app.js's router replaces
         wholesale on navigation; a MutationObserver on the view notices that and disposes everything
         (the worker, the GL context, the window listeners), since PAGES functions have no unmount.
@@ -351,6 +350,7 @@
           <button type="button" class="atlas2-btn atlas2-about-btn" aria-expanded="false" aria-controls="atlas2-about" aria-label="About this map" title="About this map">?</button>
           <div class="atlas2-sheet atlas2-about" id="atlas2-about" role="dialog" aria-labelledby="atlas2-about-title" hidden>
             <div class="atlas2-sheet-head"><strong id="atlas2-about-title">About this map</strong><button type="button" class="atlas2-sheet-close atlas2-about-close" aria-label="Close">×</button></div>
+            <p class="atlas2-about-p atlas2-about-use"><b>Folio’s Atlas.</b> Drag the globe, scroll or pinch to zoom, and tap any place for its card — a country’s story, a battle, a city, a people. The <b>year rail</b> along the bottom takes you back through the states the cards teach, as they stood. The panel at the top left switches between the plain <b>Map</b>, <b>your atlas</b> (the places on the cards you have studied) and the <b>full atlas</b> (every place any card is about); a place card lists its cards. Search finds places, rivers, battles and states of any age. The same globe draws the maps on the cards and plays Find it.</p>
             <p class="atlas2-about-p">The present-day earth from open data: coastlines from OpenStreetMap, borders and places from Natural Earth, lakes from HydroLAKES, relief from ETOPO 2022, names checked against Wikidata. <a class="atlas2-about-credits" href="#credits">Sources and credits</a> lists every source with its licence.</p>
             <p class="atlas2-about-p atlas2-about-history">The years before today draw <b>the states Folio’s cards teach</b> — their borders from Cliopatria (Seshat), conflated onto today’s coast — not every state of the period: plain land in a past year is a state no card covers yet, or one the source does not draw.</p>
             <p class="atlas2-about-p atlas2-about-caution">Every border and coastline here is a reconstruction from those sources, drawn at the resolution each allows and as it stood on the day it was retrieved; a border is a guide to where a boundary runs, not a judgement on where it lies.</p>
@@ -437,7 +437,7 @@
     const EMBED = !!opts.embed;
     let embedHook = null;   // atlas-embed.js: told when a tile, a water level or the history has arrived (the hub has no frame loop of its own)
     const layers = EMBED ? Object.assign({}, DEFAULT_LAYERS, { countries: false, places: false, physical: false, cities: false, relief: false, graticule: false, rivers: false, lakes: false, wars: "off", fronts: false, peoples: "off" }, opts.layers || {}) : loadLayers();
-    const view = { history: null, lon: 10, lat: 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
+    const view = { history: null, lon: H.home && isFinite(H.home.lon) ? H.home.lon : 10, lat: H.home && isFinite(H.home.lat) ? H.home.lat : 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
     let cssW = 0, cssH = 0, base = 100, dprNow = 1;
     /* ADAPTIVE DEGRADATION DURING A GESTURE (Phase 1d). The owner's gate holds every frame of a gesture to 100 ms, and on
        a slow GPU a full-screen frame does not fit it: on software GL the globe costs 100–130 ms at full resolution (fill
@@ -807,7 +807,7 @@
     const pct95 = (arr) => { if (!arr.length) return 0; const a = arr.slice().sort((x, y) => x - y); return a[Math.min(a.length - 1, Math.floor(0.95 * a.length))]; };
     const pct50 = (arr) => { if (!arr.length) return 0; const a = arr.slice().sort((x, y) => x - y); return a[Math.floor(0.5 * a.length)]; };
     const heapMB = () => (performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : null);
-    /* the overlay: on from `#map2?perf`, from the P key, or from the About sheet's "Show frame statistics" switch, which is
+    /* the overlay: on from `#map?perf`, from the P key, or from the About sheet's "Show frame statistics" switch, which is
        remembered per reader (PERF_KEY, localStorage behind try/catch) so the owner can turn it on from a phone with no special
        address; the address keeps its ?perf whatever the switch says */
     const perfSwitch = el.querySelector(".atlas2-perf-switch");
@@ -2588,15 +2588,15 @@
       if (u >= 1) { flying = null; touched(); gestureEnded(); if (f.done) f.done(); }
     }
 
-    /* ---- deep links: #map2/<lon>/<lat>/<zoom>/<place>, written on settle, pushed on a selection ---- */
-    const HASH_RE = /^#map2\/(-?[\d.]+)\/(-?[\d.]+)\/(-?[\d.]+)(?:\/([^?]*))?(\?.*)?$/;
+    /* ---- deep links: #map/<lon>/<lat>/<zoom>/<place>, written on settle, pushed on a selection ---- */
+    const HASH_RE = /^#map\/(-?[\d.]+)\/(-?[\d.]+)\/(-?[\d.]+)(?:\/([^?]*))?(\?.*)?$/;
     const zoomLevel = () => Math.log2(156.543 / kmPerPx());
     function readHash() { const m = HASH_RE.exec(location.hash || ""); if (!m) return null; let place = m[4] || null; if (place) { try { place = decodeURIComponent(place); } catch (e) {} } let year = null; const q = /[?&]y=(-?\d{1,5})\b/.exec(m[5] || ""); if (q) year = clampYear(Number(q[1])); const qw = /[?&]war=([A-Za-z0-9_-]+)/.exec(m[5] || ""); return { lon: Number(m[1]), lat: Number(m[2]), z: Number(m[3]), place, year, war: qw ? qw[1] : null }; }   // &war=<card id>: a war card's window opens the Atlas on that war (Phase 4)
-    // the query: ?y=<year> (Phase 2a) and perf; the existing form #map2/<lon>/<lat>/<zoom>/<place> is unchanged
-    function hashNow() { const q = []; if (time.hist || time.year !== TODAY) q.push("y=" + time.year); if (perfInHash) q.push("perf"); return "#map2/" + view.lon.toFixed(2) + "/" + view.lat.toFixed(2) + "/" + zoomLevel().toFixed(2) + (sel.id ? "/" + encodeURIComponent(sel.id) : "") + (q.length ? "?" + q.join("&") : ""); }
+    // the query: ?y=<year> (Phase 2a) and perf; the existing form #map/<lon>/<lat>/<zoom>/<place> is unchanged
+    function hashNow() { const q = []; if (time.hist || time.year !== TODAY) q.push("y=" + time.year); if (perfInHash) q.push("perf"); return "#map/" + view.lon.toFixed(2) + "/" + view.lat.toFixed(2) + "/" + zoomLevel().toFixed(2) + (sel.id ? "/" + encodeURIComponent(sel.id) : "") + (q.length ? "?" + q.join("&") : ""); }
     function writeHash(push) {
       if (EMBED) return;
-      if (!/^#map2(\/|\?|$)/.test(location.hash || "")) return;   // the reader has left the Atlas
+      if (!/^#map(\/|\?|$)/.test(location.hash || "")) return;   // the reader has left the Atlas
       const h = hashNow(); if (h === location.hash) return;
       lastWrittenHash = h;
       try { if (push) history.pushState(null, "", location.pathname + location.search + h); else history.replaceState(null, "", location.pathname + location.search + h); } catch (e) {}
@@ -2613,7 +2613,7 @@
     }
     // pushState and replaceState fire no event, so every hashchange or popstate is the reader's: Back, Forward, a typed link.
     // One that already describes the view and the selection (a settle's own rewrite read back) changes nothing.
-    const onHash = () => { if (disposed) return; const h = location.hash || ""; if (!/^#map2(\/|\?|$)/.test(h)) return; if (h === hashNow()) return; const d = readHash(); if (d) applyHash(d); else if (sel.id) clearSelection(); };
+    const onHash = () => { if (disposed) return; const h = location.hash || ""; if (!/^#map(\/|\?|$)/.test(h)) return; if (h === hashNow()) return; const d = readHash(); if (d) applyHash(d); else if (sel.id) clearSelection(); };
     if (!EMBED) { window.addEventListener("hashchange", onHash); window.addEventListener("popstate", onHash); }
 
     /* ---- the keyboard: a hidden list of buttons mirroring the visible labels in rank order ---- */
@@ -2872,8 +2872,27 @@
     setPerf(perfOn);   // after the label state exists: the overlay reads it (Phase 1c)
     try { paintWarsKey(); } catch (e) { /* before the time block */ }
     layout();
-    // a deep link (#map2/<lon>/<lat>/<zoom>/<place>) sets the first view; the place opens once the data is in
+    // a deep link (#map/<lon>/<lat>/<zoom>/<place>) sets the first view; the place opens once the data is in
     if (!EMBED) { const d = readHash(); if (d) { deepView = true; lastWrittenHash = location.hash; applyHash(d); } }
+    /* AN OLD LINK (Phase 5): v1's address was #map/<year> or #map/<year>/<name-slug> ("#map/1938/france"). The host passes what app.js decoded of it (`legacy: { year, name }`): the year is set at once, and the name is looked up in the whole
+       registry — the gazetteer's rows, then the polities of every age once their index lands — by the same folded spelling the search uses, and opened (flown to) the way a search result is. The address then becomes the new
+       canonical form by the ordinary settle. A name that matches nothing leaves the year and the default view: the link still lands on the Atlas. */
+    function openLegacy(l) {
+      if (l.year != null && isFinite(l.year)) applyYear(clampYear(l.year), { why: "hash" });
+      const norm = (s) => fold(s).replace(/[^a-z0-9]+/g, " ").trim(), want = norm(String(l.name || "").replace(/-/g, " "));
+      if (!want) return;
+      let tries = 0;
+      const attempt = () => {
+        if (disposed) return;
+        if (!(G.ready && stats.ready) || (PX.state === 1) || (PX.state === 0 && (loadPolityIndex(), true))) { if (++tries < 200) setTimeout(attempt, 100); return; }
+        const rows = searchRows();
+        const hit = rows.find((r) => norm(r.name) === want) || rows.find((r) => (r.akeys || []).some((a) => norm(a) === want));
+        if (!hit) return;
+        results = [hit]; chooseResult(0);
+      };
+      attempt();
+    }
+    if (!EMBED && H.legacy) { deepView = true; openLegacy(H.legacy); }
     drawTicks();
     invalidate();
     // the view set from outside (the perf suite's fixed views): centre, zoom, then wait for `tilesSettled()`

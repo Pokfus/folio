@@ -26,8 +26,8 @@
 (function (root) {
   "use strict";
   // a hub with no window left is disposed after IDLE_MS (its GPU memory is the page's to have back); a suite shortens it with setIdleMs
-  const D2R = Math.PI / 180;
-  let hub = null, starting = null, idleTimer = 0, failed = false, idleMs = 20000;   // failed: this page cannot run the engine (no WebGL2, a refused worker): ask once, answer null thereafter
+  const D2R = Math.PI / 180, ZMAX_2D = 8;
+  let hub = null, starting = null, idleTimer = 0, failed = false, idleMs = 20000, canvas2d = false;   // canvas2d (Phase 5): the hub runs on atlas-canvas.js because this browser has no WebGL2   // failed: this page cannot run the engine (no WebGL2, a refused worker): ask once, answer null thereafter
   const counters = { created: 0, disposed: 0, draws: 0, masks: 0 };
   const windows = new Set();
 
@@ -50,13 +50,14 @@
       document.body.appendChild(holder);
       let ctl = null;
       try { root.AtlasV2.mount(holder, Object.assign({}, opts, { host: Object.assign({ reducedMotion: () => true }, opts.host || {}), embed: true })); /* no crossfade: a hub has no frames to fade over */ ctl = holder.querySelector(".atlas2") && holder.querySelector(".atlas2").__atlas2; } catch (e) { ctl = null; }
-      if (!ctl || !ctl.embed || !ctl.embed.webgl) { try { if (ctl && ctl.dispose) ctl.dispose(); } catch (e) {} holder.remove(); starting = null; failed = true; resolve(null); return; }
+      if (!ctl || !ctl.embed || (!ctl.embed.webgl && !(ctl.renderer && ctl.renderer.static2d))) { try { if (ctl && ctl.dispose) ctl.dispose(); } catch (e) {} holder.remove(); starting = null; failed = true; resolve(null); return; }
+      canvas2d = !ctl.embed.webgl;   // Phase 5: no WebGL2 — the still Canvas 2D renderer draws the hub: land, borders, the tints; no outline pass, no history, no tiles, the zoom held at 5 km/px
       counters.created++;
       try { performance.mark("a2:hub-created"); } catch (e) {}
       try { ctl.renderer.stillCache(false); ctl.renderer.linesCache(false); } catch (e) { /* the caches serve one view held still; a hub is asked a different view every frame */ }
       const E = ctl.embed, glCanvas = E.el.querySelector(".atlas2-canvas"), listeners = new Set();
       const h = hub = {
-        ok: true, ctl, holder, E, glCanvas, listeners, w: 0, h: 0, faces: new Map(), last: null, disposed: false,
+        ok: true, canvas2d, ctl, holder, E, glCanvas, listeners, w: 0, h: 0, faces: new Map(), last: null, disposed: false,
         onChange(fn) { listeners.add(fn); return () => listeners.delete(fn); },
         ready: () => E.levelReady(),   // Phase 4b: the coarsest level on the GPU is enough to draw a first frame; the finer levels arrive after it and the windows redraw (a draw's `settled` says whether the level its zoom wants is in)
         done: () => E.ready(),
@@ -140,6 +141,7 @@
      its own years only: `focusWar` jumps the Atlas to the war's first year, so the spec's year is set again after it, and a year outside the war's years tints nothing (the roles are computed for that year). */
   function yearAndWar(h, spec) {
     const E = h.E, ctl = h.ctl, want = spec.year == null ? null : spec.year, war = spec.war || null;
+    if (h.canvas2d) return;   // the still renderer draws no history: every window is today's map
     if (want == null) { if (h.year != null || h.war) { if (h.war) { E.focusWarNow(null); h.war = null; } E.setYearNow(E.TODAY); h.year = null; } return; }
     if (!war && E.historyKind() === "wars") return;   // the slice holds the states of the wars' years only: a window of any other year draws today's map until it is given the whole history
     E.startHistory(war ? "wars" : "full");
@@ -170,11 +172,11 @@
     const low = !!o.lowRes; if (low) E.setRes(0.5);   // Phase 4b: a window's FIRST frame is drawn at half resolution (a quarter of the pixels: ~190 ms → ~70 ms of software GL) and the full one follows within 140 ms
     counters.draws++;
     // the fills of the highlights: one Map of face index → colour, blended over the palette's land at the highlight's alpha
-    const land = h.landRGB(), fills = new Map(), groups = [], histYear = spec.year != null;
+    const land = h.landRGB(), fills = new Map(), groups = [], histYear = spec.year != null && !h.canvas2d;
     if (histYear) {   // a past year: the highlighted entities are states of that year, tinted in the history's own style (their fill only; the faces have no mask pass)
       const tm = new Map(); for (const hl of spec.highlights || []) { const c = rgb01(hl.rgb || [255, 200, 40]); for (const id of hl.ids || []) tm.set(id, c); }
       E.setTints(tm);
-    } else E.setTints(null);
+    } else if (!h.canvas2d) E.setTints(null);
     for (const hl of histYear ? [] : spec.highlights || []) {
       const faces = []; for (const id of hl.ids || []) for (const f of h.facesOf(id)) faces.push(f);
       if (!faces.length) continue;
@@ -310,7 +312,7 @@
     const ctx = cv.getContext("2d");
     let raf = 0, stopped = false, dirty = true, fastUntil = performance.now() + 80, settled = false, off = null;   // Phase 4b: the FIRST frame is a fast one (no outline or glow pass: ~80 ms on software GL) and the full frame follows within 140 ms — the block is on screen sooner
     const ptrs = new Map(); let last = null, pinch = 0;
-    const clamp = (z) => Math.max(opts.zmin || 0.85, Math.min(opts.zmax || 400, z));
+    const clamp = (z) => Math.max(opts.zmin || 0.85, Math.min(canvas2d ? Math.min(opts.zmax || 400, ZMAX_2D) : (opts.zmax || 400), z));   // the still renderer stays at LOD 0 (about 5 km/px)
     const w = { st, cv, windowId: windows.size + 1, rims: new Map() };
     windows.add(w);
     function size() {
@@ -328,6 +330,7 @@
         const spec = Object.assign({ w: cw, h: ch, lon: st.lon, lat: st.lat, zoom: st.zoom }, opts.spec ? opts.spec(st, { cw, ch }) : {});
         spec.lon = st.lon; spec.lat = st.lat; spec.zoom = st.zoom; spec.w = cw; spec.h = ch;
         const fast = performance.now() < fastUntil;
+        if (hb.canvas2d && fast && w.painted) { if (!w.fastTimer) w.fastTimer = setTimeout(() => { w.fastTimer = 0; dirty = true; schedule(); }, 140); return; }   // the still renderer redraws when the gesture pauses (a frame is tens to hundreds of ms in software)
         const res = hb.draw(spec, ctx, { dpr, fast, lowRes: fast && !w.painted, rims: w.rims }); w.painted = true;
         settled = res.settled && !fast && (!opts.extraSettled || !!opts.extraSettled(st, { cw, ch, level: res.level }));   // the window's own conditions (a war window's names wait for the worker's anchors)
         w.api = { project: res.project, projectV: res.projectV, level: res.level, landMask: res.landMask, cw, ch, dpr, radius: res.radius, cx: res.cx, cy: res.cy, kmpp: res.kmpp, settled, fast, spec };
@@ -381,5 +384,5 @@
   }
   function release0() { release(); }
 
-  root.AtlasEmbed = { ensure, warm, hold, view, release, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
+  root.AtlasEmbed = { ensure, warm, hold, view, release, isCanvas2D: () => canvas2d, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
 })(typeof window !== "undefined" ? window : globalThis);

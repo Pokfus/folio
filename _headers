@@ -15,7 +15,7 @@
 #   style-src           app.js sets inline style attributes throughout (the globe's limb layers, drag
 #                       positions, colour tags), which needs 'unsafe-inline'; styles.css @imports the
 #                       font stylesheet from fonts.googleapis.com.
-#   img-src             data: for the heightmap PNG data-URIs and profile avatars, blob: for the avatar
+#   img-src             data: for profile avatars (the retired v1 heightmap PNG data-URIs used it too), blob: for the avatar
 #                       upload preview, https: for card, glossary and artefact images hosted off-site.
 #   media-src           https: for card and glossary videos linked from off-site (a <video src>). Videos are
 #                       link-only — nothing is uploaded — so no data: or blob: is needed here.
