@@ -391,12 +391,13 @@ jobs:
             else echo "FAIL $(basename "$f")"; fails=$((fails+1)); fi
             echo "::endgroup::"
           done
-          # Phase 4b (Atlas v2): the three card-window suites written against V1's windows, run again on the ENGINE's windows (FOLIO_ENGINE=v2, .claude/test-engine-switch.js) —
-          # the proof that the assertions V1's windows were held to hold for the engine's, row for row (docs/atlas-v2-card-windows.md, "Every V1 window assertion")
+          # Stage B (Atlas v2): the engine's windows are the DEFAULT, so the loop above ran the three card-window suites written against V1's windows (test-map-cards, test-card-locator,
+          # test-war-cards) on the engine; they run again on V1's windows (FOLIO_ENGINE=v1, .claude/test-engine-switch.js: the switch "0", the fallback that stays until Phase 5) —
+          # docs/atlas-v2-card-windows.md, "Every V1 window assertion"
           for f in test-map-cards test-card-locator test-war-cards; do
-            echo "::group::$f on the engine (FOLIO_ENGINE=v2)"
-            if FOLIO_ENGINE=v2 node ".claude/$f.js"; then echo "PASS $f (engine)"
-            else echo "FAIL $f (engine)"; fails=$((fails+1)); fi
+            echo "::group::$f on v1's windows (FOLIO_ENGINE=v1)"
+            if FOLIO_ENGINE=v1 node ".claude/$f.js"; then echo "PASS $f (v1)"
+            else echo "FAIL $f (v1)"; fails=$((fails+1)); fi
             echo "::endgroup::"
           done
           echo "----"

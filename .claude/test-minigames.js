@@ -202,6 +202,9 @@ function crosswordForPage(cells) {
 (async () => {
   const [srv, base] = await serve();
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
+  /* Stage B: Find it's DEFAULT board is the engine's (atlas/atlas-windows.js; test-atlas-embed.js §6 and test-findit-learn.js guard it). THIS suite guards v1's game logic and v1's board — the fallback that stays until
+     Phase 5 — so every context it opens takes the way back to v1 (localStorage `folio.atlas2.preview` = "0"). */
+  { const nc = browser.newContext.bind(browser); browser.newContext = async (o) => { const c = await nc(o); await c.addInitScript(() => { try { localStorage.setItem("folio.atlas2.preview", "0"); } catch (e) {} }); return c; }; }
   const errs = [];
   const watch = (p, tag) => {
     p.on("pageerror", (e) => errs.push(tag + " pageerror: " + e.message));

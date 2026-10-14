@@ -4,8 +4,8 @@
    v1's page closure) and compared with v1's by test-atlas-embed.js. */
   /* ---------- (1) CARD WINDOWS ON THE ATLAS v2 ENGINE (Oct 2026, Atlas v2 Phase 4; docs/atlas-v2-card-windows.md) ----------
      The same windows — a map card, a locator, a war — drawn by `atlas/atlas-embed.js` (ONE headless engine and one WebGL context for every window on the page) instead of by
-     `startCardGlobeV1`'s own 2D canvas. STAGE A: behind the per-viewer preview switch (`atlas2Preview()`, localStorage `folio.atlas2.preview`), OFF by default, so v1's window stays what a
-     reader gets until the owner has looked at this one on a phone. The host contract is the V1 window's, attribute for attribute and method for method (`_folioMap`), so the nine surfaces that
+     `startCardGlobeV1`'s own 2D canvas. STAGE B (Oct 2026): this is the DEFAULT (`atlas2Engine()` in app.js: localStorage `folio.atlas2.preview` is "0" only for a reader who went back with `#map2?preview=0`, kept for one release);
+     v1's window is what a reader gets when the engine cannot start (no WebGL2, a refused bundle) or that way back is taken, until Phase 5. The host contract is the V1 window's, attribute for attribute and method for method (`_folioMap`), so the nine surfaces that
      mount a window and the suites that read one do not know which engine drew it; `data-map-engine` on the host says ("v2", or "v1" when the engine could not start and V1 took over).
      WHAT THE ENGINE DRAWS: the coast, the borders, the admin-1 lines of the three layers, the rivers and lakes (a locator, and the two layers with a hi-res row in v1), and the shaded place — its
      FACE, from the entity table of topology.bin (`atlas/data/card-faces.js` is the join from a layer's key to an entity id), with the Atlas's selection gold as a translucent tint and a gold

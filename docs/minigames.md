@@ -903,9 +903,11 @@ form.
   to watch: **a generator that works on a large pool can fail on a third of days when the pool is narrowed,
   with nothing on the page to say so.**
 
-## Phase 4, Stage A: Find it on the engine (Oct 2026, behind the preview switch)
+## Phase 4, Stage A and B: Find it on the engine (Oct 2026; the default since Stage B)
 
-With `localStorage["folio.atlas2.preview"]="1"`, `PAGES.findit` plays on `atlas/atlas-windows.js` `findIt` instead of the v1 Atlas page in game mode. **The game does not change**: the same five rounds (a copy of `finditPools` /
+**Stage B (Oct 2026): this is the DEFAULT board** — `PAGES.findit` plays on the engine unless `localStorage["folio.atlas2.preview"]` is `"0"` (the way back, `#map2?preview=0`, kept for one release) or the engine cannot start (no WebGL2, a refused bundle), when v1's board (the Atlas page in game mode, below in this file) plays the same day. **`test-minigames.js` guards v1's board and game logic, so it sets the switch to `"0"` for every context it opens**; the engine's board is guarded by `test-atlas-embed.js` §1 and §6 and `test-findit-learn.js`.
+
+Played on the engine, `PAGES.findit` plays on `atlas/atlas-windows.js` `findIt` instead of the v1 Atlas page in game mode. **The game does not change**: the same five rounds (a copy of `finditPools` /
 `buildGameRounds`, asserted equal to v1's by `test-atlas-embed.js`), the same wording, two tries, "found" as the score, one play a day (`gameLockedToday`). What moved is the board and the judging: the board is the engine at
 the round's year (the Full Atlas's states and peoples for an area round); the pick, miss, find and answer are highlights; a country or a state is scored by the ID pass (the entity ids under the tap) against the entity
 the round names (`atlas/data/card-faces.js` for a country, `pol:<slug>` from the card's polity link for a state); a place is still scored by distance and an extent with no polity behind it by its own ring.

@@ -32,7 +32,7 @@ const gz = (u) => { try { return zlib.gzipSync(fs.readFileSync(path.join(ROOT, u
 async function run(browser, profile, throttle) {
   const ctx = await browser.newContext(profile);
   await ctx.addInitScript((engine) => {
-    try { if (engine === "v2") localStorage.setItem("folio.atlas2.preview", "1"); else localStorage.removeItem("folio.atlas2.preview"); } catch (e) {}
+    try { if (engine === "v2") localStorage.setItem("folio.atlas2.preview", "1"); else localStorage.setItem("folio.atlas2.preview", "0");   // Stage B: "0" is the way back to v1 } catch (e) {}
     window.__t = {};
     /* the mount is stamped by a MutationObserver (a microtask after the card is inserted), not by the 20 ms poll: V1's window parses its data on the main thread and a poll only runs after that, which read as a first paint at 0 ms */
     const stamp = () => { if (window.__t.mount == null && document.querySelector(".map-card")) { window.__t.mount = performance.now(); window.__t.mountEpoch = Date.now(); } };
