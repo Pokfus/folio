@@ -8,7 +8,7 @@
    Two profiles, as .claude/measure-atlas-embed.js has them: a desktop (1280×800) and a phone (390×844 at 3×, touch, the CPU slowed 4× and the network held to "slow 4G": 1.6 Mbit/s, 150 ms). Each opens the
    route in a fresh context (nothing cached: the first navigation IS the cold load) and records every response the CONTEXT sees (a dedicated worker's own requests included), as the local server sent it
    (raw) and gzip -9 of the same file (what a compressing host sends). "A drawn globe" is v1: #globe holds a painted pixel at its centre with the data landed; v2: `.atlas2[data-ready="1"]` and a painted
-   frame (the controller's first-paint stat). The software GL of a headless runner (SwiftShader) draws; the numbers are that machine's, not a phone's GPU. */
+   frame (the controller's frame count above zero). The software GL of a headless runner (SwiftShader) draws; the numbers are that machine's, not a phone's GPU. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path"), zlib = require("zlib");
 const { chromium } = require("playwright");
@@ -24,7 +24,7 @@ const server = http.createServer((req, res) => {
   fs.readFile(file, (err, data) => { if (err) { res.writeHead(404); res.end(); return; } res.writeHead(200, { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream", "Content-Length": data.length }); res.end(data); });
 });
 const gzSize = (u) => { try { return zlib.gzipSync(fs.readFileSync(path.join(ROOT, u)), { level: 9 }).length; } catch (e) { return 0; } };
-const kind = (u) => /^\/(index\.html|)$/.test(u) ? "page" : /atlas-worker|earcut/.test(u) ? "worker" : /^\/atlas\/.*\.(bin|bin\.js)$|^\/atlas\/data\/(tiles|water|relief)\//.test(u) ? "atlas data" : /^\/atlas\//.test(u) ? "atlas code and tables" : /^\/(data|glossary|truefalse|quotes|whatyear|crossword|changelog|mission|artefacts|lang-decks)\.js$|^\/data-extra\//.test(u) ? "eager data" : u === "/app.js" ? "app.js" : /\.(css|woff2?)$/.test(u) ? "css and fonts" : /\.(png|svg|ico|json)$/.test(u) ? "images and manifest" : "v1 and other lazy data";
+const kind = (u) => /^\/(index\.html|)$/.test(u) ? "page" : /^\/(glossary-extra|artefacts-extra)\.js$|^\/data-extra\//.test(u) ? "idle-warmed prose (glossary, artefacts, card extras)" : /atlas-worker|earcut/.test(u) ? "worker" : /^\/atlas\/.*\.(bin|bin\.js)$|^\/atlas\/data\/(tiles|water|relief)\//.test(u) ? "atlas data" : /^\/atlas\//.test(u) ? "atlas code and tables" : /^\/(data|glossary|truefalse|quotes|whatyear|crossword|changelog|mission|artefacts|lang-decks)\.js$|^\/data-extra\//.test(u) ? "eager data" : u === "/app.js" ? "app.js" : /\.(css|woff2?)$/.test(u) ? "css and fonts" : /\.(png|svg|ico|json)$/.test(u) ? "images and manifest" : "v1 and other lazy data";
 
 async function run(browser, profile, throttle) {
   const ctx = await browser.newContext(profile);
@@ -40,7 +40,7 @@ async function run(browser, profile, throttle) {
           return;
         }
         const a = document.querySelector(".atlas2");
-        if (a && a.getAttribute("data-ready") === "1" && a.__atlas2 && a.__atlas2.stats && a.__atlas2.stats.frames && a.__atlas2.stats.frames.length > 0) window.__t.drawn = performance.now();
+        if (a && a.getAttribute("data-ready") === "1" && a.__atlas2 && a.__atlas2.statsNow && a.__atlas2.statsNow().frames > 0) window.__t.drawn = performance.now();
       } catch (e) {}
     };
     setInterval(check, 20);
