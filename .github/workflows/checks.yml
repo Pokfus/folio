@@ -394,7 +394,7 @@ jobs:
           # Stage B (Atlas v2): the engine's windows are the DEFAULT, so the loop above ran the three card-window suites written against V1's windows (test-map-cards, test-card-locator,
           # test-war-cards) on the engine; they run again on V1's windows (FOLIO_ENGINE=v1, .claude/test-engine-switch.js: the switch "0", the fallback that stays until Phase 5) —
           # docs/atlas-v2-card-windows.md, "Every V1 window assertion"
-          for f in test-map-cards test-card-locator test-war-cards; do
+          for f in test-map-cards test-card-locator test-war-cards test-card-windows-fixes; do
             echo "::group::$f on v1's windows (FOLIO_ENGINE=v1)"
             if FOLIO_ENGINE=v1 node ".claude/$f.js"; then echo "PASS $f (v1)"
             else echo "FAIL $f (v1)"; fails=$((fails+1)); fi
