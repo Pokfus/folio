@@ -709,6 +709,9 @@ const SETTINGS = {
      outside, a second phrasing being a perfectly good sentence. */
   {
     const page = await newPage({ active: [deckA, deckB], settings: SETTINGS, cards: {} });
+    /* A FIXED DAY. The five rounds are seeded on the day (`dayPick`), so which cards this section met changed with the date: the "genuinely carry other phrasings" check below failed on the days the five
+       drawn carried none that had been read yet. The clock stands still at a chosen noon (Date only; timers run) so the draw is the same on every run. */
+    await page.clock.setFixedTime(new Date("2026-10-14T12:00:00"));
     await page.goto(base + "#challenge", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
@@ -731,7 +734,7 @@ const SETTINGS = {
         const card = all.find((c) => has(c, txt)) || all.find((c) => hasN(c, txt));
         out.push({
           first: !!(card && (card.question === txt || norm(card.question) === norm(txt))),
-          extras: card ? (card.questions || []).length : -1,
+          id: card ? card.id : null,
         });
         const b = document.querySelector(".opts .opt"); if (!b) break;
         b.click();
@@ -743,7 +746,12 @@ const SETTINGS = {
     check("every Multiple Choice round asks its card's first phrasing",
       q.length > 1 && q.every((r) => r.first), JSON.stringify(q));
     // …and the cards it drew really do have extras, or the assertion above passes on cards with one
-    check("...on cards that genuinely carry other phrasings", q.some((r) => r.extras > 0), JSON.stringify(q));
+    /* THE PHRASINGS ARE READ FROM THE SHIPPED DATA, by the id of each card drawn, not from the page: `questions` is a heavy field that arrives with its collection's data-extra file, and the page had read
+       it before the file landed on four of five rounds (extras 0, 0, 0, 0, 2 on a passing run) — a race, not a property of the card. */
+    global.window = global.window || {};
+    const shipped = new Map(require("./card-io.js").loadCards().cards.map((c) => [c.id, c]));
+    const withExtras = q.map((r) => ({ id: r.id, extras: r.id && shipped.get(r.id) ? (shipped.get(r.id).questions || []).length : -1 }));
+    check("...on cards that genuinely carry other phrasings", withExtras.some((r) => r.extras > 0), JSON.stringify(withExtras));
     await page.close();
   }
 
