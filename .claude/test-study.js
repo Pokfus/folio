@@ -57,8 +57,8 @@ console.log("\n2) studied is v1's definition, and one\n");
 const app = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
 const host = /studiedCards: \(\) => (Object\.keys\(S\.cards \|\| \{\}\)\.filter\(\(id\) => CARD_BY_ID\[id\]\)),/.exec(app);
 check("the host's studiedCards is Object.keys(S.cards) filtered to shipped cards — a record, never a view or an opening", !!host, host ? host[1] : "not found");
-const v1 = /\(full \? CARDS\.map\(\(c\) => c\.id\) : (Object\.keys\(S\.cards \|\| \{\}\))\)\.forEach/.exec(app);
-check("v1's atlasRegisterAll asks the same keys of the same object", !!v1 && host && host[1].startsWith(v1[1]), v1 ? v1[1] : "not found");
+const v1 = /function cardAtlasDiscover[\s\S]{0,2200}?const studied = (Object\.keys\(S\.cards \|\| \{\}\));/.exec(app);   // Phase 5: v1's register is gone; the "Discovered!" chip asks the same keys of the same object
+check("the card window's discovery chip asks the same keys of the same object as the host (a card with a record)", !!v1 && host && host[1].startsWith(v1[1]), v1 ? v1[1] : "not found");
 check("nothing in the study layer writes to the progress blob: no S.* assignment in studyHost, no progress field added", !/studyHost[\s\S]{0,900}S\.[A-Za-z]+\s*=[^=]/.test(app.slice(app.indexOf("const studyHost"), app.indexOf("const studyHost") + 900)) && !/PROGRESS_FIELDS = \[[^\]]*"(atlas2[A-Za-z]*|atlasStudy|studyMode|studyOff|personalAtlas|studiedPlaces)"/.test(app));
 const withPlaces = cards.filter((c) => c.places && c.places.length);
 const noPlace = cards.filter((c) => !(c.places && c.places.length) && /^ps-/.test(c.id)).slice(0, 4);
@@ -225,7 +225,7 @@ console.log("\n8) New discovery\n");
   check("a place the reader has not studied is never new", AS.isNewDiscovery(st, "pl:q1", "Elsewhere", seenNone) === false);
   check("a polity is never a discovery (it is drawn by year)", AS.isNewDiscovery({ places: new Set(["pol:rome"]) }, "pol:rome", "Rome", seenNone) === false);
   check("nothing without a name or a studied set", AS.isNewDiscovery(null, id, "x", seenNone) === false && AS.isNewDiscovery(st, id, "", seenNone) === false);
-  check("app.js's host reads and writes the EXISTING placesSeen register, and no new progress field", (() => { const a = fs.readFileSync(path.join(ROOT, "app.js"), "latin1"); return /seenPlace: \(name\) => !!\(S\.placesSeen/.test(a) && /discover: \(name\) => markSeen\("placesSeen", name\)/.test(a); })());
+  check("app.js's host reads and writes the EXISTING placesSeen register, and no new progress field", (() => { const a = fs.readFileSync(path.join(ROOT, "app.js"), "latin1"); return /seenPlace: \(name\) => !!\(S\.placesSeen/.test(a) && /discover: \(name\) => markSeen\("placesSeen", atlasCountryV2\(name\)\)/.test(a) && /see: \(name\) => \{ if \(name\) markSeen\("placesSeen", atlasCountryV2\(name\)\); \}/.test(a); })());
 }
 
 console.log("\n9) the glossary's \"show on the Atlas\" table\n");

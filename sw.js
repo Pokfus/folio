@@ -21,12 +21,12 @@
    To force every client onto fresh copies immediately, bump VERSION. The old cache is deleted on
    activate, so the next load of each asset goes to the network.
 
-   The multi-megabyte lazy bundles (world.js, timeline.js, the heightmaps…) are deliberately NOT
+   The multi-megabyte lazy bundles (the Atlas's topology and water files, glossary-extra.js…) are deliberately NOT
    precached — that would undo the lazy split. They enter the cache when a page actually requests
    them, so visiting the Atlas once makes it available offline afterwards.
    ============================================================ */
 
-const VERSION = "v6";              // bump to invalidate every cached file on the next load
+const VERSION = "v7";              // bump to invalidate every cached file on the next load (v7: Atlas v2 Phase 5 — v1's world.js, timeline.js, polities.js, the heightmaps and the rest leave readers' caches)
 const CACHE = "folio-" + VERSION;
 
 // the app shell: everything index.html loads eagerly, ~1.4 MB

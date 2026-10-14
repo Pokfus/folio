@@ -1,20 +1,21 @@
-/* test-findit-learn.js — Find it's LEARN PANEL on the engine's board holds what v1's popups held (Atlas v2 Phase 4c, the owner's decision 5).
+/* test-findit-learn.js — Find it's LEARN PANEL on the engine's board (Atlas v2 Phase 4c, the owner's decision 5; Phase 5: the engine's board is the only board).
 
      NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-findit-learn.js [shotsDir]
      FOLIO_CHROMIUM=/path/to/chrome
 
-   v1's Find it ended a round on `showCountryPopup` (a country: its full name, "New discovery!", the prose) or `showMinePopup` (a state, a people, a place: the study cards about it, "1 of N cards"), and the Next
-   button was the way on. The engine's board ends it on a panel of its own (atlas/atlas-windows.js `revealPanel`): the place's name, "New discovery!" for a first-seen country, the country's prose, the PLACE CARD'S LIST of
-   cards (`AtlasStudy.cardsFor`), a way on (Next, in the panel) and a way to put it away (close, Escape).
+   The earlier Find it ended a round on a popup (a country: its full name, "New discovery!", the prose; a state, a people or a place: the study cards about it). The engine's board ends it on a panel of its own
+   (atlas/atlas-windows.js `revealPanel`): the place's name, "New discovery!" for a first-seen country, the country's prose, the PLACE CARD'S LIST of cards (`AtlasStudy.cardsFor`), a way on (Next, in the panel) and a way
+   to put it away (close, Escape).
 
-   A SEEDED DAY IS PLAYED ON BOTH BOARDS through the controls a reader has — the same driver on each, a grid of taps until one lands, Guess, a second try, the round ends right or wrong — and at the end of EACH of the five rounds
-   the panel is read: v1's (#cpName, #cpNew, #cpStackN) and the engine's (.fi2-reveal-head, .fi2-learn-new, the list). What is asserted is that the engine's panel holds what v1's did: the name, the discovery chip on the
-   countries, the prose on a country, the cards of a state, a people or a place (as many as v1's "1 of N cards" counted) each a link to the card's own address, and a way to continue that really continues. A phone-sized
-   run checks the panel sits inside the screen with its two buttons a thumb's size. */
+   A DAY IS PLAYED through the controls a reader has — a grid of taps until one lands, Guess, a second try, the round ends right or wrong — and at the end of EACH of the five rounds the panel is read (.fi2-reveal-head,
+   .fi2-learn-new, the list): the name, the discovery chip on a first-seen country, the prose on a country, the cards of a state, a people or a place (exactly the round's own cards, each a link to the card's own address),
+   and a way to continue that really continues. PHASE 5: the same day used to be played on the earlier board first and the two panels compared; with that board gone, each assertion is absolute (the question names the
+   round's place, the chip is on for a fresh profile, the list holds as many cards as the round carries). A phone-sized run checks the panel sits inside the screen with its two buttons a thumb's size. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
 const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
+const WE = require("./test-window-env.js");
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream", ".woff2": "font/woff2" };
@@ -31,15 +32,14 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const errors = [];
 const TOURS = `localStorage.setItem("folio_tour_v1","1");localStorage.setItem("folio_atlas_tour_v1","1");localStorage.setItem("folio_library_tour_v1","1");localStorage.setItem("folio_mine_tour_v1","1");`;
 
-async function open(browser, engine, vp) {
+async function open(browser, vp) {
   const ctx = await browser.newContext({ viewport: vp || { width: 1280, height: 900 }, isMobile: !!(vp && vp.mobile), hasTouch: !!(vp && vp.mobile), deviceScaleFactor: vp && vp.mobile ? 2 : 1 });
-  await ctx.addInitScript(`${TOURS} try { ${engine === "v2" ? 'localStorage.removeItem("folio.atlas2.preview");' : 'localStorage.setItem("folio.atlas2.preview","0");'} } catch (e) {}`);
+  await ctx.addInitScript(TOURS);
   const page = await ctx.newPage();
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text()) && !/GL_INVALID|WebGL/.test(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
   await page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
-  if (engine === "v2") await page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#findit2") && document.querySelector("#mgQ").textContent.length > 3; }, null, { timeout: 180000 });
-  else { await page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#mgQ").textContent.length > 3; }, null, { timeout: 180000 }); await sleep(2500); }
+  await page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#findit2") && document.querySelector("#mgQ").textContent.length > 3; }, null, { timeout: 180000 });
   return { ctx, page };
 }
 const stateOf = (page) => page.evaluate(() => {
@@ -64,37 +64,17 @@ const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
 
 (async () => {
   await new Promise((r) => server.listen(PORT, r));
-  const browser = await chromium.launch(LAUNCH);
+  const browser = await WE.launch(chromium, LAUNCH);
 
-  console.log("\n\x1b[1m1) v1: a seeded day, each round's popup read\x1b[0m\n");
-  const v1 = [];
+  console.log("\n\x1b[1m1) the engine's board: a day, each round's panel read\x1b[0m\n");
   {
-    const { ctx, page } = await open(browser, "v1");
-    for (let i = 0; i < 5; i++) {
-      const q = (await stateOf(page)).q;
-      await playRound(page, "canvas");
-      const pop = await page.evaluate(() => {
-        const pop = document.getElementById("countryPop"), t = (s) => { const e = pop && pop.querySelector(s); return e ? (e.textContent || "").trim() : ""; };
-        const vis = (s) => { const e = pop && pop.querySelector(s); return !!(e && !e.hidden && e.offsetParent !== null); };
-        const n = /(\d+) of (\d+) cards/.exec(t("#cpStackN"));
-        return { open: !!(pop && !pop.hidden), name: t("#cpName"), isNew: vis("#cpNew"), desc: t("#cpDesc").length, mine: pop ? pop.classList.contains("cp-mine") : false, cards: n ? Number(n[2]) : (pop && pop.classList.contains("cp-mine") ? 1 : 0) };
-      });
-      v1.push(Object.assign({ q }, pop));
-      const s = await stateOf(page); if (!s.nextHidden) { await page.evaluate(() => document.getElementById("mgNext").click()); await sleep(900); }
-    }
-    await ctx.close();
-    check("v1 ended every round on a popup with a name", v1.every((r) => r.open && r.name), JSON.stringify(v1.map((r) => r.name)));
-  }
-
-  console.log("\n\x1b[1m2) the engine's board, the same day\x1b[0m\n");
-  {
-    const { ctx, page } = await open(browser, "v2");
+    const { ctx, page } = await open(browser);
     const rounds = await page.evaluate(() => { const h = [...document.querySelectorAll("*")].find((e) => e._finditApi); return h._finditApi.rounds().map((r) => ({ kind: r.kind, n: r.n, ids: r.ids || [], year: r.year })); });
-    check("the engine deals the same five rounds as the v1 day just read (the same questions)", rounds.length === 5 && v1.length === 5, rounds.map((r) => r.n).join(", "));
+    check("the engine deals the day: five rounds, a country, an area, a country, an area, a place", rounds.length === 5 && rounds.map((r) => r.kind).join(",") === "entity,area,entity,area,point", rounds.map((r) => r.n).join(", "));
     const panels = [];
     for (let i = 0; i < 5; i++) {
       const s0 = await stateOf(page);
-      check(`round ${i + 1}: the question is v1's ("${s0.q.slice(0, 40)}")`, s0.q === v1[i].q, s0.q + " | " + v1[i].q);
+      check(`round ${i + 1}: the question names the round's own place ("${s0.q.slice(0, 40)}")`, norm(s0.q).includes(norm(rounds[i].n)), s0.q + " | " + rounds[i].n);
       await playRound(page, "#fi2Board");
       const P = await page.evaluate(() => {
         const rv = document.getElementById("fiReveal"), t = (s) => { const e = rv.querySelector(s); return e ? (e.textContent || "").trim() : ""; };
@@ -107,12 +87,12 @@ const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
       check(`round ${i + 1} (${rounds[i].kind}): the round ends on the learn panel, a dialog named for the place`, P.shown && P.role === "dialog" && /^What you found: /.test(P.label || ""), P.label);
       // the name
       const want = rounds[i].n, got = P.name;
-      check(`round ${i + 1}: it names the place — as v1's popup did ("${got}" for v1's "${v1[i].name}")`, norm(got) && (rounds[i].kind === "entity" ? (norm(v1[i].name).includes(norm(got)) || norm(got).includes(norm(want)) || norm(v1[i].name).includes(norm(want))) : norm(got) === norm(v1[i].name) && norm(got) === norm(want)), got);
+      check(`round ${i + 1}: it names the place ("${got}" for "${want}")`, norm(got) && (rounds[i].kind === "entity" ? (norm(got).includes(norm(want)) || norm(want).includes(norm(got))) : norm(got) === norm(want)), got);
       if (rounds[i].kind === "entity") {
-        check(`round ${i + 1}: a country's panel carries v1's prose (no markup printed as text) and the discovery chip exactly when v1's did`, P.desc > 40 && !P.rawTags && P.isNew === v1[i].isNew, `prose ${P.desc} chars (v1 ${v1[i].desc}), chip ${P.isNew} (v1 ${v1[i].isNew})`);
+        check(`round ${i + 1}: a country's panel carries its prose (no markup printed as text) and, on a profile that has seen no country, the "New discovery!" chip`, P.desc > 40 && !P.rawTags && P.isNew === true, `prose ${P.desc} chars, chip ${P.isNew}`);
       } else {
         const n = P.links.length + P.more;
-        check(`round ${i + 1}: the place card's list holds the cards v1's stack counted (${v1[i].cards})`, n === v1[i].cards && P.links.length >= 1, `${P.links.length} listed + ${P.more} more`);
+        check(`round ${i + 1}: the place card's list holds exactly the cards the round carries (${rounds[i].ids.length})`, n === rounds[i].ids.length && P.links.length >= 1, `${P.links.length} listed + ${P.more} more`);
         check(`round ${i + 1}: each card is a link to the card's own address`, P.links.every((l) => l.href === "#card/" + l.card && l.title.length > 0), JSON.stringify(P.links.slice(0, 3)));
         check(`round ${i + 1}: the round's own cards are the ones listed (${rounds[i].ids.slice(0, 3).join(", ")}…)`, P.links.every((l) => rounds[i].ids.includes(l.card)));
       }
@@ -143,7 +123,7 @@ const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
 
   console.log("\n\x1b[1m2b) a place with many cards: the place card's list caps at its cap and grows\x1b[0m\n");
   {
-    const { ctx, page } = await open(browser, "v2");
+    const { ctx, page } = await open(browser);
     // twelve real cards of one collection stand in for a busy place (the day's own places each carry one)
     const res = await page.evaluate(() => {
       const h = [...document.querySelectorAll("*")].find((e) => e._finditApi), api = h._finditApi;
@@ -161,7 +141,7 @@ const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
 
   console.log("\n\x1b[1m3) a phone: the panel sits inside the screen and its buttons are a thumb's size\x1b[0m\n");
   {
-    const { ctx, page } = await open(browser, "v2", { width: 390, height: 844, mobile: true });
+    const { ctx, page } = await open(browser, { width: 390, height: 844, mobile: true });
     for (let i = 0; i < 2; i++) {
       await playRound(page, "#fi2Board");
       const P = await page.evaluate(() => { const rv = document.getElementById("fiReveal"), b = rv.getBoundingClientRect(), bx = (e) => { if (!e) return null; const r = e.getBoundingClientRect(); return { w: r.width, h: r.height, in: r.left >= 0 && r.right <= innerWidth && r.top >= 0 && r.bottom <= innerHeight }; }; return { shown: !rv.hidden, in: b.left >= 0 && b.right <= innerWidth && b.top >= 0 && b.bottom <= innerHeight, next: bx(rv.querySelector(".fi2-reveal-next")), close: bx(rv.querySelector(".fi2-reveal-close")), h: b.height, vh: innerHeight }; });

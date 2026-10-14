@@ -159,19 +159,19 @@ const MAP_LAYERS = {
   /* …and a second point table, `us-cities.js`, for the Largest cities deck (Sep 2026): a dot is looked
      up in the capitals and then in each state's largest non-capital city. app.js does the same through
      `layerPoint`. */
-  "us-states": { file: "us-states.js", global: "US_STATES", what: "state", points: "US_CAPITALS", pointsAlt: "US_CITIES", pointsAltFile: "us-cities.js", dotWhat: "state capital or largest city" },
+  "us-states": { what: "state", points: "US_CAPITALS", pointsAlt: "US_CITIES", dotWhat: "state capital or largest city" },
   /* The world's own borders, with the capitals in a file of their OWN — `pointsFile` rather than a second
      global inside `file`, because app.js fetches the two as separate bundles for the same reason: a
      locator card reads the shapes and never the table. Keep this table in step with CARD_MAP_LAYERS in
      app.js; the two are checked against each other by nothing but this comment. */
-  world: { file: "world.js", global: "WORLD_GEO", what: "country", points: "WORLD_CAPITALS", pointsFile: "world-capitals.js", dotWhat: "capital city" },
+  world: { what: "country", points: "WORLD_CAPITALS", dotWhat: "capital city" },
   /* China's provincial-level divisions. Its capitals live in the SAME file as its shapes — no
      `pointsFile` — which is the one structural difference from `world` above and is app.js's own
      `chinaprov` bundle written out here: nothing but a China map card ever loads this layer, so there is
      nobody to spare the 13 KB from. Four provinces are DELIBERATELY absent from the point table: Beijing,
      Shanghai, Tianjin and Chongqing are cities that are themselves divisions, so a dot card there would
      shade the answer. The refusal a missing point produces is the intended one. */
-  "china-provinces": { file: "china-provinces.js", global: "CHINA_PROVINCES", what: "province", points: "CHINA_CAPITALS", dotWhat: "provincial capital" },
+  "china-provinces": { what: "province", points: "CHINA_CAPITALS", dotWhat: "provincial capital" },
   /* Russia's federal subjects, shaped like China's above — the centres in the SAME file as the shapes,
      for app.js's own `russubj` bundle reason. `what` is "federal subject" rather than a kind because the
      83 are six different kinds of thing (46 oblasts, 21 republics, 9 krais, 4 autonomous okrugs, 2 cities
@@ -182,7 +182,7 @@ const MAP_LAYERS = {
      refusal, this layer drawing Abakan outside the republic (see docs/russia-geography-card-plan.md and
      the builder's DEFERRED table). The refusal a missing point produces is the intended one in all
      three. */
-  "russia-subjects": { file: "russia-subjects.js", global: "RUSSIA_SUBJECTS", what: "federal subject", points: "RUSSIA_CENTRES", dotWhat: "administrative centre" },
+  "russia-subjects": { what: "federal subject", points: "RUSSIA_CENTRES", dotWhat: "administrative centre" },
 };
 const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
@@ -237,13 +237,15 @@ if (isMap) {
   if (!mapKeys.length || mapKeys.some((k) => typeof k !== "string" || !k.trim())) { console.error("ERROR: card.map.key is empty — it names the place, or the places, to shade."); process.exit(1); }
   if (mapKeys.some((k) => k.indexOf("|") >= 0)) { console.error("ERROR: card.map.key may not contain a pipe — the renderer joins a list of keys with one."); process.exit(1); }
   if ("zoom" in m && !(Number.isFinite(m.zoom) && m.zoom > 0)) { console.error("ERROR: card.map.zoom must be a positive number, or absent (the window fits the place automatically)."); process.exit(1); }
-  const lp = path.join(__dirname, "..", layer.file);
-  if (!fs.existsSync(lp)) { console.error("ERROR: the " + m.layer + " layer's data file is missing: " + layer.file + " — build it first (see .claude/build-us-states.js)."); process.exit(1); }
-  const shapes = loadWindow(lp)[layer.global] || [];
+  /* Phase 5: the layers' shapes (us-states.js, china-provinces.js, russia-subjects.js, world.js) are gone; their names, short codes and dot tables were frozen into .claude/atlas-build/frozen/layers.json (freeze-v1.js).
+     A NEW shape for a layer is a new entity in the Atlas's own data first (topology.bin), and then a row in that file by hand. */
+  const frozen = ((JSON.parse(fs.readFileSync(path.join(__dirname, "atlas-build", "frozen", "layers.json"), "utf8")).layers) || {})[m.layer];
+  if (!frozen) { console.error("ERROR: .claude/atlas-build/frozen/layers.json has no layer " + m.layer + "."); process.exit(1); }
+  const shapes = frozen.keys;
   for (const k of mapKeys) {
     if (shapes.some((s) => s.n === k || s.a === k)) continue;
     const near = shapes.map((s) => s.n).filter((n) => n.toLowerCase().startsWith(String(k).slice(0, 3).toLowerCase()));
-    console.error("ERROR: " + JSON.stringify(k) + " is not a " + layer.what + " in " + layer.file + "." +
+    console.error("ERROR: " + JSON.stringify(k) + " is not a " + layer.what + " in the " + m.layer + " layer (.claude/atlas-build/frozen/layers.json)." +
       (near.length ? " Did you mean: " + near.join(", ") + "?" : "") +
       "\n       A key the layer does not carry ships a card whose window says it could not be loaded — which is\n" +
       "       a reader meeting a broken card, not an error anybody would see first.");
@@ -258,18 +260,11 @@ if (isMap) {
     const d = card.map.dot;
     if (!layer.points) { console.error("ERROR: the " + m.layer + " layer carries no point table, so a card on it cannot ask for a dot."); process.exit(1); }
     if (typeof d !== "string" || !d.trim()) { console.error("ERROR: card.map.dot is empty — it names the " + layer.dotWhat + " to mark."); process.exit(1); }
-    const pp = path.join(__dirname, "..", layer.pointsFile || layer.file);
-    if (!fs.existsSync(pp)) { console.error("ERROR: the " + m.layer + " layer's point table is missing: " + (layer.pointsFile || layer.file) + " — build it first (see .claude/build-world-capitals.js)."); process.exit(1); }
-    const pts = Object.assign({}, loadWindow(pp)[layer.points] || {});
-    if (layer.pointsAlt) {
-      const ap = path.join(__dirname, "..", layer.pointsAltFile);
-      if (!fs.existsSync(ap)) { console.error("ERROR: " + layer.pointsAltFile + " is missing — build it first (node .claude/build-us-cities.js)."); process.exit(1); }
-      Object.assign(pts, loadWindow(ap)[layer.pointsAlt] || {});
-    }
+    const pts = {}; for (const [name, v] of Object.entries(frozen.dots || {})) pts[name] = { c: [v[0], v[1]], s: v[2], n: v[3] };   // the capitals, and for the states each one's largest other city, as the old two tables held them
     const hit = pts[d];
     if (!hit) {
       const near = Object.keys(pts).filter((n) => n.toLowerCase().startsWith(String(d).slice(0, 3).toLowerCase()));
-      console.error("ERROR: " + JSON.stringify(d) + " is not a " + layer.dotWhat + " in " + (layer.pointsFile || layer.file) + "." + (near.length ? " Did you mean: " + near.join(", ") + "?" : ""));
+      console.error("ERROR: " + JSON.stringify(d) + " is not a " + layer.dotWhat + " in the " + m.layer + " layer's dots (.claude/atlas-build/frozen/layers.json)." + (near.length ? " Did you mean: " + near.join(", ") + "?" : ""));
       process.exit(1);
     }
     if (mapKeys.indexOf(hit.s) < 0) {

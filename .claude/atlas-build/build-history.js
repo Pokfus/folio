@@ -1429,12 +1429,12 @@ let JPOS_OUT = null;
 }
 function vecQ(p) { return G.vec(p[0], p[1], Q); }
 
-/* ================= 7. the period capitals (state-capitals.js, by card → polity) ================= */
+/* ================= 7. the period capitals (frozen/state-capitals.json — the retired state-capitals.js — by card → polity) ================= */
+const FROZEN_CAPS = JSON.parse(fs.readFileSync(path.join(HERE, "frozen", "state-capitals.json"), "utf8"));
 const cities = [];
 {
   const capSpec = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "state-capitals-spec.json"), "utf8"));
-  const win = {}; new Function("window", fs.readFileSync(path.join(ROOT, "state-capitals.js"), "utf8"))(win);   // eslint-disable-line no-new-func
-  const SC = win.STATE_CAPITALS || {};
+  const SC = FROZEN_CAPS.table || {};
   const ALIAS = { "ancient carthage": "carthage", "antigonid dynasty": "macedon" };
   const byTitle = new Map();
   for (const s of keptSeries) { byTitle.set(s.label.toLowerCase(), s.key); for (const n of s.rows.map((r) => r.name)) byTitle.set(n.toLowerCase(), s.key); }
@@ -1473,22 +1473,8 @@ const arcEmpty = coreRef.map((r) => (r.empty ? 1 : 0));
 const same = (p, seg) => { const l = []; for (let L = 0; L + 1 < LOD_M.length; L++) l.push([p[0], p[1], seg || 0]); return l; };   // a junction at a core arc's own endpoint never moves
 const jpos = arcsOut.map((a) => (a.core ? { a: JPOS_OUT.get(a.va.join(",")) || same(a.va, a.core.segA), b: JPOS_OUT.get(a.vb.join(",")) || same(a.vb, a.core.segB) } : null));
 const sources = [clioSrc, coastSrc, adm0Src].map((s) => ({ id: s.id, name: s.name, version: s.version, url: s.url, licence: s.licence, licenceUrl: s.licenceUrl, attribution: s.attribution, retrieved: s.retrieved, sha256: s.sha256 }));
-// the retrieval date of the capitals: the day the generated state-capitals.js was last committed (its header carries no date;
-// a file's mtime would be the clone time). No git answer → fail rather than invent a date.
-const scRetrieved = (() => {
-  const git = (a) => require("child_process").execFileSync("git", a, { cwd: ROOT, encoding: "utf8" }).trim();
-  try {
-    // a SHALLOW clone (every cloud session) reports the grafted boundary commit as the last to touch the file, a day off the truth: there the committed
-    // history.bin's own record of the date stands (the file this build replaces — the date only ever moves with a new state-capitals.js commit)
-    if (git(["rev-parse", "--is-shallow-repository"]) === "true") {
-      const prev = path.join(DATA, "history.bin"); if (!fs.existsSync(prev)) throw new Error("a shallow clone and no committed history.bin to read the date from");
-      const ph = F.read(new Uint8Array(fs.readFileSync(prev)), { headerOnly: true }).header; const w = (ph.sources || []).find((x) => x.id === SRC.wd);
-      if (!w || !/^\d{4}-\d{2}-\d{2}$/.test(w.retrieved || "")) throw new Error("the committed history.bin has no Wikidata retrieval date");
-      return w.retrieved;
-    }
-    const d = git(["log", "-1", "--format=%cs", "--", "state-capitals.js"]); if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) throw new Error("no commit date"); return d;
-  } catch (e) { throw new Error("state-capitals.js retrieval date: " + e.message); }
-})();
+// the retrieval date of the capitals: the day the generated state-capitals.js was last committed, frozen with the table (Phase 5 deleted the file; docs/atlas-v2-phase5-plan.md §4.6)
+const scRetrieved = FROZEN_CAPS.retrieved; if (!/^\d{4}-\d{2}-\d{2}$/.test(scRetrieved || "")) throw new Error("frozen/state-capitals.json has no retrieval date");
 sources.push({ id: SRC.wd, name: "Wikidata — the period capitals of the pilot polities (each state's P36 statements with their qualifiers, via state-capitals.js)", version: "state-capitals.js as committed", url: "https://www.wikidata.org/", licence: "CC0", licenceUrl: "https://creativecommons.org/publicdomain/zero/1.0/", attribution: "Wikidata, CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/).", retrieved: scRetrieved });
 sources.push(headerSources([SRC.hosner])[0]);   // index 4 (SRC_IDX): the Yangshao and Longshan outlines
 // index 5: Folio's own authored war extents. Not a third-party dataset: no url, no hash, no licence to honour beyond Folio's own; `authored` tells the credits page and the checker so
@@ -1537,16 +1523,7 @@ if (!DRY) {
     if ((forecast > 12e6 || bytes.length > 12e6) && !argv.includes("--force")) { say(`the ${bytes.length > 12e6 ? "FILE is " + (bytes.length / 1e6).toFixed(2) + " MB" : "forecast exceeds 12 MB"}: not installed (the stop rule: propose windows before building further; --force overrides)`); process.exit(2); }   // 2d: the file itself, not only the forecast, is held to the owner's 12 MB
     fs.writeFileSync(path.join(DATA, "history.bin"), bytes);
     say("installed atlas/data/history.bin");
-    // the file:// twin (lib/twin.js) carries the PILOT SLICE only (2b): the full file's twin would pass the owner's 12 MB for the three
-    // twins together; the slice's header says so in a sentence the mode note shows
-    try {
-      const Tw = require("./lib/twin.js");
-      const sliceBytes = F.write(sliceOf(topology));
-      const sliceFile = path.join(OUT, "history-slice.bin"); fs.writeFileSync(sliceFile, sliceBytes);
-      const others = ["topology.bin.js", "water.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((p, q) => p + q, 0);
-      const tw = Tw.writeTwin(sliceFile, { as: path.join(DATA, "history.bin.js"), name: "history.bin" });
-      if (others + tw.twinBytes > 12e6) { fs.unlinkSync(tw.file); say(`the twins would pass 12 MB together (${((others + tw.twinBytes) / 1e6).toFixed(2)} MB): history.bin.js not written`); } else say(`wrote atlas/data/history.bin.js from the pilot slice (${sliceBytes.length} bytes → ${tw.twinBytes}; the three twins ${((others + tw.twinBytes) / 1e6).toFixed(2)} MB)`);
-    } catch (e) { say("twin: " + e.message); }
+    // (Phase 5: the file:// twin of the 2b PILOT SLICE, atlas/data/history.bin.js, is gone; the war slice's twin is build-war-slice.js's)
     try { writeCoverage(topology, path.join(ROOT, "docs", "atlas-v2-coverage.md")); say("wrote docs/atlas-v2-coverage.md"); } catch (e) { say("coverage: " + e.message); }
     try { require("./build-credits.js").build({ install: true }); } catch (e) { say("credits: " + e.message); }
   }

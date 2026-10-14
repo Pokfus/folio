@@ -3,7 +3,7 @@
      NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-atlas-windows.js
      FOLIO_CHROMIUM=/path/to/chrome
 
-   Every section runs with the per-viewer preview switch ON (localStorage `folio.atlas2.preview`); the switch is OFF by default and nothing here changes what a reader of the live site sees.
+   Since Phase 5 the engine is the only drawer of a window: there is no switch to turn on, and the Atlas is `#map`.
      1  A WINDOW IS A BLOCK OF ITS FINAL SIZE AT ONCE (Task 2): within 300 ms of the card's mount the window's host is its final height with the "Loading the map…" placeholder, and the card's own text is
         already on the page — it never waits for the engine; when the engine paints, the block does not move (no layout shift).
      2  TAPS AND BACK (owner's decision 1, Oct 2026): a tap on a map card does nothing, before the reveal or after it, and nothing on it answers; the locator's globe button opens the Atlas; Back (the browser's
@@ -38,12 +38,11 @@ const sect = (t) => console.log("\n\x1b[1m" + t + "\x1b[0m\n");
 const errors = [];
 const TOURS = `localStorage.setItem("folio_tour_v1","1");localStorage.setItem("folio_atlas_tour_v1","1");localStorage.setItem("folio_library_tour_v1","1");localStorage.setItem("folio_mine_tour_v1","1");`;
 
-/* a page with the switch ON, the tours dismissed, and (optionally) a study session on one card and/or a profile that has studied some cards */
+/* a page with the tours dismissed, and (optionally) a study session on one card and/or a profile that has studied some cards */
 async function newPage(browser, o) {
   o = o || {};
   const ctx = await browser.newContext({ viewport: o.viewport || { width: 1100, height: 900 }, deviceScaleFactor: o.dpr || 1, isMobile: !!o.mobile, hasTouch: !!o.mobile });
   await ctx.addInitScript(({ studied, session, tours }) => {
-    try { localStorage.setItem("folio.atlas2.preview", "1"); } catch (e) {}
     try { if (tours) { localStorage.setItem("folio_tour_v1", "1"); localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); } } catch (e) {}
     try { if (studied) { const cards = {}; for (const id of studied) cards[id] = { due: Date.now() + 864e5 * 5, ivl: 5, ease: 2.5, reps: 3, lapses: 0, state: "review", lastReview: Date.now() - 864e5 }; localStorage.setItem("folio_v1", JSON.stringify({ active: [], cards, settings: { marker: false } })); } } catch (e) {}
     try { if (session && !sessionStorage.getItem("folio_study_v1")) sessionStorage.setItem("folio_study_v1", JSON.stringify(session)); } catch (e) {}
@@ -118,8 +117,8 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       await windowReady(L.page, ".card-loc .map-card"); await windowSettled(L.page, ".card-loc .map-card").catch(() => {});
       check("a locator window has the go button, and the card's answer is showing", (await L.page.$('.card-loc .map-card [data-mc="go"]')) !== null && (await L.page.$("#reveal-btn")) === null);
       await L.page.click('.card-loc .map-card [data-mc="go"]');
-      await L.page.waitForFunction(() => /^#map2\//.test(location.hash), null, { timeout: 15000 }).catch(() => {});
-      check("the go button opens the Atlas at the window's view", /^#map2\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(await L.page.evaluate(() => location.hash)), await L.page.evaluate(() => location.hash));
+      await L.page.waitForFunction(() => /^#map\//.test(location.hash), null, { timeout: 15000 }).catch(() => {});
+      check("the go button opens the Atlas at the window's view", /^#map\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(await L.page.evaluate(() => location.hash)), await L.page.evaluate(() => location.hash));
       await L.page.waitForSelector(".atlas2", { timeout: 60000 });
       await L.page.goBack();
       await L.page.waitForSelector(".card-loc .map-card", { timeout: 30000 });
@@ -134,14 +133,13 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
   if (want(3)) {
     sect("3) a selected state is whole (no holes where the country's triangles overdraw it)");
     const { ctx, page } = await newPage(browser, { viewport: { width: 900, height: 700 } });
-    await page.route("**/__harness", (r) => r.fulfill({ contentType: "text/html", body: `<!doctype html><meta charset=utf-8><link rel=stylesheet href=/styles.css><body style="margin:10px"><div id=host></div>${["atlas/atlas-format.js", "atlas/study.js", "atlas/atlas-gl.js", "atlas/atlas-canvas.js", "atlas/atlas.js", "atlas/atlas-embed.js", "atlas/data/card-faces.js", "us-states.js"].map((f) => `<script src=/${f}></script>`).join("")}` }));
+    await page.route("**/__harness", (r) => r.fulfill({ contentType: "text/html", body: `<!doctype html><meta charset=utf-8><link rel=stylesheet href=/styles.css><body style="margin:10px"><div id=host></div>${["atlas/atlas-format.js", "atlas/study.js", "atlas/atlas-gl.js", "atlas/atlas-canvas.js", "atlas/atlas.js", "atlas/atlas-embed.js", "atlas/data/card-faces.js" ].map((f) => `<script src=/${f}></script>`).join("")}` }));
     await page.goto(url("__harness"), { waitUntil: "load" });
     // render one state, tinted by a window's highlight or selected the way the Atlas selects a face, and measure how much of its interior is the tint
     const coverage = (state, how) => page.evaluate(async ([st, mode]) => {
       const hub = await AtlasEmbed.ensure({ host: {} });
       await new Promise((res) => { const t = setInterval(() => { if ((hub.done || hub.ready)()) { clearInterval(t); res(); } }, 100); });
       const T = ATLAS_CARD_FACES.layers["us-states"][st], id = T[0], b = T[3] != null ? [T[3], T[4], T[5], T[6]] : null;
-      const rings = (window.US_STATES.find((s) => s.n === st) || {}).p || [];
       const cw = 560, ch = 440, cv = document.createElement("canvas"); cv.width = cw; cv.height = ch; const c2 = cv.getContext("2d");
       const lon = (b[0] + b[2]) / 2, lat = (b[1] + b[3]) / 2, span = Math.max(b[3] - b[1], (b[2] - b[0]) * Math.cos(lat * Math.PI / 180));
       const zoom = 0.62 / (0.46 * Math.PI / 180 * span);
@@ -151,16 +149,14 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       if (mode === "select") R.select(faces[0]); else R.select(null);
       const r = hub.draw(spec, c2, { dpr: 1, fast: true }); void r;
       for (let i = 0; i < 3; i++) hub.draw(spec, c2, { dpr: 1, fast: true });
-      const L = hub.last, D = Math.PI / 180, rot = L.rot;
-      const proj = (lo, la) => { const x = Math.cos(la * D) * Math.cos(lo * D), y = Math.cos(la * D) * Math.sin(lo * D), z = Math.sin(la * D); return [L.cx + L.radius * (rot[0] * x + rot[1] * y + rot[2] * z), L.cy - L.radius * (rot[3] * x + rot[4] * y + rot[5] * z)]; };
-      const inside = (lo, la) => { let in_ = false; for (const ring of rings) for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const yi = ring[i][1], yj = ring[j][1]; if ((yi > la) !== (yj > la) && lo < (ring[j][0] - ring[i][0]) * (la - yi) / (yj - yi) + ring[i][0]) in_ = !in_; } return in_; };
-      const edgeD = (lo, la) => { let m = 1e9; for (const ring of rings) for (let i = 1; i < ring.length; i++) { const x0 = ring[i - 1][0], y0 = ring[i - 1][1], x1 = ring[i][0], y1 = ring[i][1]; const dx = x1 - x0, dy = y1 - y0, t = Math.max(0, Math.min(1, ((lo - x0) * dx + (la - y0) * dy) / (dx * dx + dy * dy || 1))); m = Math.min(m, Math.hypot(lo - (x0 + t * dx), la - (y0 + t * dy))); } return m; };
+      const L = hub.last;
+      /* PHASE 5: the sample points used to be taken inside the state's RINGS (window.US_STATES, deleted). They are now the pixels the engine's own pick says belong to the state — `hub.idsAt` — and that are at least 4 px
+         from any pixel that does not (so the antialiased edge is out of it): a hole where another face overdraws the tint is a pixel the pick calls the state and the colour calls something else. */
       const want = mode === "select" ? pal.selected : tint, d = c2.getImageData(0, 0, cw, ch).data;
+      const mine = (x, y) => { const ids = hub.idsAt(spec, x, y); return !!ids && ids.indexOf(id) >= 0; };
       let n = 0, hit = 0;
-      for (let k = 0; k < 4000; k++) {
-        const lo = b[0] + (b[2] - b[0]) * ((k * 0.6180339887) % 1), la = b[1] + (b[3] - b[1]) * ((k * 0.7548776662) % 1);
-        if (!inside(lo, la) || edgeD(lo, la) < 0.3) continue;
-        const p = proj(lo, la), x = Math.round(p[0]), y = Math.round(p[1]); if (x < 1 || y < 1 || x >= cw - 1 || y >= ch - 1) continue;
+      for (let y = 6; y < ch - 6; y += 9) for (let x = 6; x < cw - 6; x += 9) {
+        if (!mine(x, y) || !mine(x - 4, y) || !mine(x + 4, y) || !mine(x, y - 4) || !mine(x, y + 4)) continue;
         n++; const o = 4 * (y * cw + x), dd = Math.max(Math.abs(d[o] / 255 - want[0]), Math.abs(d[o + 1] / 255 - want[1]), Math.abs(d[o + 2] / 255 - want[2]));
         if (dd < 0.06) hit++;
       }
@@ -399,7 +395,7 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     }
     {   // file://: the slice's own small twin; the war's sides have faces there (the pilot slice had 11 entities and no war window)
       const ctx = await browser.newContext({ viewport: { width: 1100, height: 900 } });
-      await ctx.addInitScript(() => { try { localStorage.setItem("folio.atlas2.preview", "1"); localStorage.setItem("folio_tour_v1", "1"); localStorage.setItem("folio_atlas_tour_v1", "1"); } catch (e) {} });
+      await ctx.addInitScript(() => { try { localStorage.setItem("folio_tour_v1", "1"); localStorage.setItem("folio_atlas_tour_v1", "1"); } catch (e) {} });
       const page = await ctx.newPage(), seen = [];
       page.on("request", (r) => seen.push(r.url()));
       page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));

@@ -1371,27 +1371,6 @@ body.night .game-tile{ --gt-gold:#D8B355; }
 .page-help-quiet .phq-more:focus-visible,
 .page-help-quiet .phq-close:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 
-/* …and the Atlas's own card in that same form. It is a static element inside the globe stage, so the
-   compact state is a class rather than a second element: the full-bleed dimmer becomes a strip pinned
-   to the top of the stage, and the globe stays visible and draggable underneath it. */
-.atlas-help.ah-compact{
-  inset:auto 0 auto 0; display:block; background:none; backdrop-filter:none; -webkit-backdrop-filter:none;
-  /* the top padding clears .atlas-tabs, which is fixed at bar-h + 12px and is the same 34px-tall,
-     centred row this strip would otherwise be drawn straight on top of */
-  padding:58px 12px 10px; pointer-events:none;
-}
-.atlas-help.ah-compact .ah-card{
-  pointer-events:auto; max-width:min(560px, calc(100% - 24px)); margin:0 auto;
-  max-height:none; padding:13px 40px 13px 16px; text-align:left;
-}
-.atlas-help.ah-compact .ah-card h3{font-size:calc(14px * var(--fs)); margin:0 0 6px;}
-/* everything past the first tip, and the go button, fold away — the "?" reopens the full card.
-   The button is `#ahGo` and carries only `.btn`, so it is named by id: a `.ah-go` selector (the class
-   the pageHelp modal uses) matches nothing here and left the Explore button sitting under one tip. */
-.atlas-help.ah-compact .ah-tip:not(:first-of-type){display:none;}
-.atlas-help.ah-compact #ahGo{display:none;}
-.atlas-help.ah-compact .ah-tip{font-size:calc(13px * var(--fs));}
-
 /* ---------- a page's own first-visit coach marks (the Library; the Atlas has .atlas-help) ---------- */
 /* The same card as the Atlas's, in a wrapper fixed to the VIEWPORT rather than absolute inside a
    full-bleed stage — an ordinary page has no such stage to sit inside. */
@@ -3142,6 +3121,9 @@ body.grading .stage{padding-bottom:150px;}
 .mc-alt{margin:0; padding:9px 13px 11px; border-top:1px solid var(--rule); background:var(--paper-2);
   font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 .mc-alt[hidden]{display:none;}
+/* a window the engine could not draw (Atlas v2 Phase 5, atlas-windows.js `plain`): a sentence where the map would be, in the window's own frame */
+.map-card.mc-plain .mc-plain-note{margin:0; padding:16px 14px; background:var(--paper-2); border-radius:inherit;
+  font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 
 /* YOU AND THEM (see versusHTML). A three-column grid rather than a table: the label takes what is left
    and the two figures sit in fixed columns, so four rows line up down the page whatever the numbers are.
@@ -3666,34 +3648,16 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 .thr-kind{font-family:var(--sans); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
 .thr-tag{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); margin:2px 0 6px;}
 .thr-n{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-soft); white-space:nowrap;}
-.tl-edit{padding:22px 26px; max-width:900px;}
 .tl-intro{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink-soft); margin-bottom:20px;}
-.tl-add{border:1px solid var(--rule); border-radius:12px; background:var(--paper-2); padding:18px; margin-bottom:24px;}
-.tl-add-row{display:flex; gap:14px; align-items:flex-end; flex-wrap:wrap; margin-bottom:14px;}
-.tl-add-row:last-of-type{margin-bottom:0;}
 .tl-file{display:inline-flex; align-items:center; gap:12px; cursor:pointer;}
 .tl-file-btn{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink); background:var(--card); border:1px solid var(--rule); border-radius:8px; padding:9px 14px; transition:border-color .15s var(--ease);}
 .tl-file:hover .tl-file-btn{border-color:var(--indigo);}
 .tl-file-name{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
-.tl-field{display:flex; flex-direction:column; gap:5px;}
-.tl-field>span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
-.tl-field>span small{text-transform:none; letter-spacing:0;}
-.tl-field input,.tl-field select{font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink); background:var(--card); border:1px solid var(--rule); border-radius:8px; padding:8px 10px; min-width:150px;}
-.tl-field-grow{flex:1;}.tl-field-grow input{width:100%; min-width:120px;}
-.tl-field-sm input,.tl-field-sm select{min-width:104px;}
 .tl-status{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
 .tl-hint{font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint); flex:1; min-width:180px; line-height:1.45;}
 .tl-prev{margin-top:14px; border:1px solid var(--rule); border-radius:8px; background:var(--card); max-width:100%; display:block;}
 .tl-prev[hidden]{display:none;}
-.tl-eras{display:flex; flex-direction:column; border:1px solid var(--rule); border-radius:12px; overflow:hidden;}
 .tl-empty{padding:26px; text-align:center; font-family:var(--serif); font-size:calc(14px * var(--fs)); color:var(--ink-faint);}
-.tl-era{display:flex; align-items:center; gap:16px; padding:14px 18px; border-bottom:1px solid var(--rule);}
-.tl-era:last-child{border-bottom:0;}
-.tl-era-year{font-family:var(--mono); font-size:calc(13px * var(--fs)); font-weight:600; color:var(--indigo); min-width:84px;}
-.tl-era-meta{flex:1; min-width:0; font-family:var(--serif); font-size:calc(14px * var(--fs));}
-.tl-era-name{font-weight:600;}
-.tl-era-meta small{display:block; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint); margin-top:3px;}
-.tl-era-acts{display:flex; gap:7px; flex-shrink:0;}
 /* ---- Edit → Feedback: the readers' message queue ----
    Every row wears its triage colour on the left edge (--fb-col, set inline from FEEDBACK_STATUS in app.js),
    so scanning the list for what still needs a decision is a glance rather than a read. */
@@ -4753,100 +4717,7 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 /* ===== Atlas: globe + timeline ===== */
 .atlas-head{margin-bottom:14px;}
 .page:has(.atlas){animation:none;}
-.atlas{display:contents;}
-/* ---------- the two atlases (Sep 2026, on request) ----------
-   `.atlas` is `display:contents`, so this bar has no box of its own to sit in — it is fixed to the
-   viewport over the stage, like every other control on this page. Centred at the top rather than in a
-   corner: it names which of two maps is on screen, which is a fact about the whole page, where the
-   corners belong to the search and the legend. It is a pair of buttons rather than a switch because a
-   switch says "on/off" about one thing and these are two things. */
-.atlas-tabs{
-  /* …and the tab pill, for `.globe-stage`'s reason: it sits ABOVE the stage rather than inside it, so it
-     does not inherit the narrowing and is a two-finger target of its own. */
-  touch-action:pan-y;
-  position:fixed; z-index:6; top:calc(var(--bar-h) + 12px); left:50%; transform:translateX(-50%);
-  display:inline-flex; gap:2px; padding:3px; border-radius:99px;
-  background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule);
-  box-shadow:var(--shadow-sm); backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px);
-}
-.at-tab{
-  border:0; background:none; cursor:pointer; border-radius:99px; padding:5px 13px;
-  font-family:var(--sans); font-size:calc(12px * var(--fs)); font-weight:600; color:var(--ink-soft);
-  transition:background .18s var(--ease), color .18s var(--ease);
-}
-.at-tab:hover{color:var(--ink);}
-.at-tab.on{background:var(--indigo); color:#fff;}
-.at-tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
-/* The way back to the card the reader came from (Sep 2026). It is a tab in shape so it belongs to the
-   row, and OUTLINED rather than filled: `.on` means "the atlas you are looking at", and a solid third
-   button would read as a third atlas. */
-.at-back{
-  border:1px solid var(--rule); background:color-mix(in srgb, var(--card) 88%, transparent);
-  color:var(--ink-soft); margin-inline-start:6px;
-}
-.at-back:hover{background:var(--card); color:var(--ink);}
-@media (max-width:640px){
-  .atlas-tabs{top:10px; left:12px; transform:none;}   /* the search chip owns the right corner at this width */
-  .at-tab{padding:5px 10px; font-size:calc(11px * var(--fs));}
-}
-/* THE PERSONAL ATLAS'S POPUP IS A CARD, and a card brings its own margins — see showMinePopup. The panel
-   is a narrow column, so the card inside it drops the study page's own width cap and takes what there is. */
-.cp-cardback{margin:0; max-width:none; box-shadow:none; border:0; background:none; padding:0;}
-.cp-cardback .reveal{margin:0;}
-/* The panel is a ~340px column, which is the width the study card's ≤640px rules were written for — so
-   the answer box stacks here for the same reason it stacks on a phone: side by side, the term and a
-   four-tile grid of figures each get half of 340px and both break mid-word. */
-.cp-cardback .answer{flex-direction:column; align-items:stretch; padding:12px 14px;}
-.cp-cardback .card-facts{max-width:none; width:100%; margin-top:10px;}
-.cp-cardback .card-img{margin-bottom:12px;}
-/* WHAT THE PERSONAL ATLAS'S PANEL DOES NOT REPEAT (Sep 2026, on request). Four things on it said
-   something the card back beside them already says: the "Answer" label above a term that is the card's
-   own heading; a "From your card" section head over the only section there is; the title bar, which
-   prints that same term a second time; and the dating, which the card's date line carries. Each is taken
-   off by a rule rather than by a write in `showMinePopup`, because the title bar has to come BACK when
-   the sheet is collapsed — a collapsed sheet is nothing but its title bar — and because the "Answer"
-   label is inside markup that function does not build. Above the sheet's breakpoint `.cp-shut` is never
-   applied, so on the desktop the name is simply always off; the × and the chevron keep their row. */
-.cp-mine .cp-span{display:none;}
-.cp-mine #cpDescSec > .cp-sec-head{display:none;}
-.cp-mine .cp-cardback .answer .label{display:none;}
-.country-pop.cp-mine:not(.cp-shut) .cp-titlemain{display:none;}
-/* `[hidden]` loses to an author `display:flex` — the trap this file already carries for `.ces-imgpanel`
-   and `.af-src`. `showMinePopup` hides this row, and without the rule the Atlas's own "Through the ages"
-   button stayed on a panel that is showing a card rather than a country. */
-.cp-tools[hidden]{display:none;}
-/* SEVERAL CARDS, ONE PLACE (Oct 2026, on request): the personal atlas's popup browses every card about a
-   place — "2 of 9", an arrow either side, and a swipe on the body. `pan-y` lets a phone scroll the card
-   and still hand a SIDEWAYS drag to the page, which is what the swipe is read from (see `mineStep`). */
-.cp-stack{display:flex; align-items:center; justify-content:center; gap:10px; margin:0 0 8px; padding:4px 0; border-bottom:1px solid var(--rule);}
-.cp-stack[hidden]{display:none;}
-.cp-stk-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); min-width:9em; text-align:center;}
-.cp-stk-btn{display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; appearance:none; border:1px solid var(--rule); background:none; border-radius:99px; cursor:pointer; color:var(--ink-soft); padding:0;}
-.cp-stk-btn svg{width:14px; height:14px;}
-.cp-stk-btn:hover, .cp-stk-btn:focus-visible{border-color:var(--indigo); color:var(--indigo);}
-.cp-mine .cp-cols{touch-action:pan-y;}
-/* The era cartouche is centred at the top of the stage and so is the tab bar — on the personal atlas the
-   two were printed over each other. The bar is a control and the cartouche a caption, so the caption is
-   the one that moves down. */
-.atlas-mine .map-cartouche{top:52px;}
-@media (max-width:640px){ .atlas-mine .map-cartouche{top:14px;} }   /* there the bar is top-LEFT, so nothing is in its way */
-/* A PINCH OVER THE ATLAS MUST NOT ZOOM THE PAGE (Sep 2026, on a bug report: "on tablet, sometimes when
-   trying to zoom in on the atlas it zooms in on the webpage itself instead, and then it becomes nearly
-   impossible to zoom out of it again"). The CANVAS has always declared `touch-action:none`, so a pinch
-   that begins on the globe zooms the globe; what the report is about is a pinch that begins anywhere
-   ELSE — the strip beside the canvas, the legend, the timeline, the tab bar — where `body`'s own
-   `pan-y pinch-zoom` still applied and the browser zoomed the document instead.
-   AND THE SECOND HALF OF THE REPORT IS WHY IT STICKS: once the page is zoomed, nearly the whole screen is
-   the canvas, which refuses the pinch that would undo it, so the reader has almost nowhere to put two
-   fingers. Prevention is therefore the fix rather than a recovery.
-   `pan-y` RATHER THAN `none`, and that is load-bearing: `.country-pop` is a descendant of `.globe-stage`
-   and is a scrolling sheet on a phone, and `none` on an ancestor takes a descendant's scrolling with it.
-   `pan-y` forbids exactly the page zoom and leaves the sheet scrolling.
-   THE TOP BAR IS DELIBERATELY LEFT PINCHABLE. Narrowing it would be a site-wide change to a browser
-   accessibility feature for the sake of one route — and it is also the strip a reader who has somehow
-   zoomed the page can still pinch back out on, which is the stuck half of the report answered directly. */
-.globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden; touch-action:pan-y;}
-.globe-stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none;}
+.atlas{display:contents;}   /* there the bar is top-LEFT, so nothing is in its way */
 /* NO TAP HIGHLIGHT ON A MAP (Sep 2026, on a bug report: "in the Find It minigame, when i select a country,
    for a split second the whole screen lights up as if everything were selected"). The globe's canvas is
    one element the size of the stage and it carries click listeners, so a mobile browser paints its own
@@ -4854,29 +4725,12 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    reads exactly as every country being selected at once. The press already has its own answer on the
    map (the tinted pick), so the browser's is taken away here, and on every other canvas the site draws. */
 canvas{-webkit-tap-highlight-color:transparent;}
-.globe-stage canvas:active{cursor:grabbing;}
-.globe-hint{position:absolute; left:clamp(16px,4vw,40px); bottom:16px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); opacity:.6; pointer-events:none; user-select:none;}
-/* "drag to rotate · scroll or +/− to zoom" is written for a mouse — on touch it is three lines of wrong */
-@media (hover:none){.globe-hint{display:none;}}
-/* on-screen zoom controls (right-centre) — a wheel-free way to zoom that works in any host/preview */
-.globe-zoom{position:absolute; right:clamp(16px,4vw,40px); bottom:14px; z-index:5; display:flex; flex-direction:column; gap:6px;}   /* bottom-right — the legend owns the top-right (they collided at top:50% on short viewports) */
-.gz-help{font-size:calc(15px * var(--fs)); font-weight:600;}
-.globe-stage canvas:focus-visible{outline:2px solid var(--indigo); outline-offset:-3px;}
-/* limb shading + atmosphere halo as DOM layers (glow under the canvas, shade over it) — always visible, even while
-   moving/zooming, and immune to the canvas-compositor ghosting that forced the old canvas gradients to settle-only */
-.globe-limb-glow, .globe-limb-shade{position:absolute; border-radius:50%; pointer-events:none;}
-.globe-limb-shade{z-index:1;}
-/* "Find it" game mode: the globe is the board — everything that would reveal answers hides, the timebar locks.
-   The country info panel STAYS available: it opens on every guess (right or wrong) so the game still teaches. */
-.atlas-game .globe-search, .atlas-game .globe-legend, .atlas-game .globe-hovername, .atlas-game .globe-hint{display:none !important;}
 /* The timebar goes ENTIRELY (Aug 2026, on request). It was left on screen, inert and slightly dimmed, so the
    board would look like the Atlas the reader knows — but the round names its own year in the question, the
    rail cannot be touched and stepping years is exactly what the game must not allow, so it was a fifth of a
    phone screen spent on a control with nothing to say. Setting --timebar-h to 0 HERE rather than on :root is
    what gives that height back: .globe-stage is a descendant, so it inherits the zero and grows into the
    space, and every other rule written against the variable is left describing the ordinary Atlas. */
-.atlas-game{--timebar-h:0px;}
-.atlas-game .atlas-timebar{display:none;}
 .map-game{position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:8; width:min(430px, calc(100% - 28px));}
 .map-game[hidden]{display:none;}
 .mg-card{background:var(--card); border:1px solid var(--rule); border-radius:13px; padding:13px 18px 14px; box-shadow:0 12px 32px -14px rgba(0,0,0,.5); display:flex; flex-direction:column; gap:7px;}
@@ -4896,15 +4750,12 @@ canvas{-webkit-tap-highlight-color:transparent;}
 .mg-confirm[hidden], .mg-clear[hidden], .mg-next[hidden]{display:none;}
 .mg-clear{padding-inline:12px;}
 /* first-visit coach marks */
-.atlas-help{position:absolute; inset:0; z-index:9; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--paper) 42%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);}
-.atlas-help[hidden]{display:none;}
 .ah-card{position:relative; width:min(430px, calc(100% - 36px)); background:var(--card); border:1px solid var(--rule); border-radius:15px; padding:20px 24px; box-shadow:0 18px 44px -18px rgba(0,0,0,.55); display:flex; flex-direction:column; gap:11px;}
 .ah-card h3{font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); letter-spacing:-.01em; margin:0 18px 0 0;}
 .ah-tip{font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 .ah-tip b{color:var(--ink);}
 .ah-close{position:absolute; top:10px; right:11px; appearance:none; border:0; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); width:24px; height:24px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
 .ah-close:hover{background:var(--rule); color:var(--ink);}
-#ahGo{align-self:flex-start; margin-top:3px;}
 .gz-btn{width:34px; height:34px; border-radius:9px; border:1px solid var(--rule); background:color-mix(in srgb, var(--card) 92%, transparent); color:var(--ink-soft); font-size:calc(20px * var(--fs)); line-height:1; font-weight:400; cursor:pointer; display:grid; place-items:center; box-shadow:var(--shadow-sm); backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px); transition:background .15s, color .15s, border-color .15s; user-select:none; touch-action:manipulation;}
 .gz-btn:hover{background:var(--card); color:var(--ink); border-color:var(--indigo);}
 .gz-btn:active{transform:translateY(1px);}
@@ -4915,132 +4766,12 @@ canvas{-webkit-tap-highlight-color:transparent;}
 /* desktop: a vertical panel on the LEFT of the stage (the legend lives top-right, under the search). ≤720px reverts to a
    bottom sheet (see the media block). Still a flex column whose .cp-cols scrolls internally — never put overflow on
    .country-pop itself or the × scrolls away. */
-/* `--cp-sheet` IS THE BREAKPOINT, DECLARED ONCE. Which of the two the reader gets is a stylesheet
-   decision, and app.js has to know it too — the pager, the dots, the fold and the fitted height are all
-   JS. It was a `matchMedia("(max-width:720px)")` in app.js beside a `@media (max-width:720px)` here, i.e.
-   the same figure written twice in two files, which is exactly how the tablet came to get half of each
-   system. app.js asks the element (`cpSheetMode`), the way tourPlace asks its overlay for its computed
-   `align-items`, so there is one number and it is this one. */
-.country-pop{--cp-sheet:0; position:absolute; left:clamp(16px,4vw,40px); top:16px; bottom:16px; width:min(360px, calc(100% - 32px)); max-height:none; display:flex; flex-direction:column; background:var(--card); border:1px solid var(--rule); border-radius:13px; padding:15px 20px; box-shadow:0 16px 40px -16px rgba(0,0,0,.5); z-index:7;}
-.country-pop[hidden]{display:none;}
 /* It arrives rather than appearing (Aug 2026). An animation on the frame it stops being `hidden`, not a
    transition: the element is reused for every place, so there is no insertion for a transition to catch.
    The HEIGHT is deliberately left out of it — the phone sheet's height is fitted to the page on screen
    (cpApplyH) and measured while it settles, and an animating height would be measured mid-flight. */
-.country-pop:not([hidden]){animation:cpIn .2s var(--ease) both;}
 @keyframes cpIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
-.cp-close{position:absolute; top:9px; right:10px; appearance:none; cursor:pointer; width:24px; height:24px; border-radius:7px; border:none; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); line-height:1; display:flex; align-items:center; justify-content:center; z-index:1;}
-.cp-close:hover{background:var(--rule); color:var(--ink);}
-/* the title block sits ABOVE the scroller and never moves: on the phone the sections below it are pages you
-   swipe between, and a name that slid away with the first swipe would leave the figures unlabelled */
-.cp-head{flex:none;}
-/* THE PANEL NEVER SCROLLS SIDEWAYS AND ITS SCROLLBAR IS NOT DRAWN (Aug 2026, on a bug report about the
-   desktop panel). Three separate causes, all of which look like one bug:
-   · a GRID ITEM's `min-width` is `auto`, so any child wider than the track widens the track rather than
-     being contained by it — and this panel's children include citation links, whose visible text IS a URL
-     (see linkifySrcItem) and which contain no break opportunity at all. `min-width:0` on the items plus
-     `overflow-wrap:anywhere` on the panel is what actually contains them; `overflow-x:clip` alone would
-     hide the overflow while leaving the text unreadable.
-   · `overflow-x:clip` rather than `hidden`, and never the `overflow` shorthand: `clip` beside an untouched
-     `overflow-y:auto` is the one pairing that stops sideways scrolling without making a second scroll
-     container — which is the same rule `clipStageFor` follows for the page swipe.
-   · the bar itself. The panel is a narrow column against the globe and a scrollbar down its inside edge
-     reads as a seam in the map; the phone's pages already hide theirs for the same reason. */
-.cp-cols{display:grid; grid-template-columns:1fr; gap:14px; align-content:start; overflow-y:auto; overflow-x:clip; min-height:0; padding-right:2px;
-  scrollbar-width:none; -ms-overflow-style:none; overflow-wrap:anywhere;}
-.cp-cols::-webkit-scrollbar{display:none;}
-.cp-cols > *{min-width:0;}
-.cp-crumb{display:flex; align-items:center; gap:6px; margin:0 20px 4px 0; min-width:0;}
-.cp-crumb[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention) */
-.cp-crumb-link{appearance:none; border:0; background:none; padding:0; cursor:pointer; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--indigo); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.cp-crumb-link:hover{text-decoration:underline;}
-.cp-crumb-sep{color:var(--ink-faint); font-size:calc(11px * var(--fs));}
-.cp-crumb-cur{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.cp-tools{display:flex; gap:6px; margin:2px 0 6px; flex-wrap:wrap;}
-.cp-tool{display:inline-flex; align-items:center; gap:5px; appearance:none; border:1px solid var(--rule); background:none; border-radius:99px; padding:3px 10px; cursor:pointer; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft);}
-.cp-tool svg{width:11px; height:11px;}
-.cp-tool:hover{border-color:var(--indigo); color:var(--indigo);}
-.cp-hist{display:flex; flex-direction:column; margin:0 0 8px; border:1px solid var(--rule); border-radius:9px; overflow:hidden;}
-.cp-hist[hidden]{display:none;}
-.cph-row{display:flex; align-items:baseline; gap:9px; appearance:none; border:0; background:none; padding:6px 10px; cursor:pointer; text-align:left; font:inherit; color:var(--ink);}
-.cph-row + .cph-row{border-top:1px solid color-mix(in srgb, var(--rule) 55%, transparent);}
-.cph-row:hover{background:color-mix(in srgb, var(--indigo) 8%, transparent);}
-.cph-row.cur{background:color-mix(in srgb, var(--indigo) 12%, transparent);}
-.cph-years{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint); flex:none; min-width:74px;}
-.cph-name{font-size:calc(12px * var(--fs)); font-weight:600; line-height:1.3; min-width:0;}
-/* the title and its discovery chip share one row — the chip names the place beside it, and a line of its
-   own cost the short phone sheet a whole line before the description started. The 20px right margin that
-   used to sit on .cp-name moves up here: it is what clears the × button.
-   THE ROW ITSELF NO LONGER WRAPS (Sep 2026, on a bug report: a long name, with the chip beside it, pushed
-   the × onto a second line and it appeared at the sheet's bottom LEFT). Four things on one wrapping line
-   means the last two — the chevron and the × — are the ones pushed over, so the name and its chip are
-   wrapped in `.cp-titlemain`, which is the only item allowed to shrink and the only one that wraps.
-   The controls are `align-self:flex-start`, so a name running to two lines keeps them at the TOP right
-   rather than centring them against it; on a one-line name the row is the buttons' own height and the two
-   rules agree. */
-.cp-titlerow{display:flex; align-items:center; gap:8px; flex-wrap:nowrap; margin:0 20px 2px 0;}
-.cp-titlemain{display:flex; align-items:center; gap:8px; flex-wrap:wrap; flex:1 1 auto; min-width:0;}
-.cp-titlerow > .cp-more,.cp-titlerow > .cp-close{align-self:flex-start;}
-/* The × lives INSIDE the title row (see the markup note in app.js) and is still absolutely positioned
-   here, so on the desktop it keeps the panel's top-right corner and the row's 20px right margin is still
-   what clears it. `margin-left:auto` is what puts it last once the sheet sets it back in flow. */
-.cp-titlerow .cp-close{margin-left:auto;}
-/* The phone sheet's reveal chevron is drawn ONLY on the phone (see the ≤720px block): the desktop panel
-   already runs the height of the stage, so there is nothing to reveal and a control that does nothing is
-   worse than none. It must be declared HERE, above that block — a media query adds no specificity, so a
-   base rule sitting after it would silently win and the button would never appear at any width.
-   `hidden` is set in JS as well (cpSyncMore), which takes it out of the tab order too. */
-.cp-more{display:none;}
-.cp-name{font-family:var(--display); font-weight:600; font-size:calc(17px * var(--fs)); letter-spacing:-.01em; line-height:1.22; color:var(--ink); margin:0; min-width:0;}
-.cp-span{font-family:var(--mono); font-weight:400; font-size:calc(10.5px * var(--fs)); letter-spacing:.03em; color:var(--ink-faint); margin:0 0 7px;}
-.cp-span:empty{display:none;}
-.cp-desc{font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
-/* the popup's three sections (description / year / figures) fold away individually. The head is the whole row,
-   so the year number doubles as its own section's header and stays readable while the paragraph is shut. */
-.cp-sec-head{display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; appearance:none; border:0; background:none; padding:0 0 6px; cursor:pointer; text-align:left; color:var(--ink);}
-.cp-sec-t{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
-.cp-sec-head:hover .cp-sec-t{color:var(--ink-soft);}
-.cp-sec-chev{width:13px; height:13px; flex:none; color:var(--ink-faint); transition:transform .18s var(--ease);}
-.cp-sec.collapsed .cp-sec-chev{transform:rotate(-90deg);}
-.cp-sec.collapsed .cp-sec-body{display:none;}
-.cp-sec.collapsed .cp-sec-head{padding-bottom:0;}
-.cp-year{border-top:1px solid var(--rule); padding-top:10px;}
-.cp-year-num{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); letter-spacing:-.01em; color:var(--ink);}
-.cp-year-desc{font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
-.cp-statsec{border-top:1px solid var(--rule); padding-top:10px;}
-/* `min-width:0` ON THE TILES, and it is load-bearing (Sep 2026, measured).
-   A grid track sized `1fr` will not shrink below its content's minimum, so a tile holding one long
-   unbroken figure or place name pushes its column past half the panel and the whole grid past
-   `.cp-cols`. Measured on a 390px sheet: 3px of horizontal overflow, which `overflow-x:clip` hides
-   from the reader as a clipped final character rather than as a scrollbar — so nothing looked wrong
-   and nothing was reported. It only showed up once the webfonts were SELF-HOSTED: until then a
-   sandbox run had no webfonts at all and the fallback stack is narrower, so every measurement of this
-   panel had been taken in the wrong type. `.cp-cols > *` has carried this rule all along; the tiles
-   are one level further in, inside `.cp-stats`, and were missed. */
-.cp-stats{display:grid; grid-template-columns:1fr 1fr; gap:7px; align-content:start; min-width:0;}
-.cp-stats > *{min-width:0;}
-.cp-tile{position:relative; border:1px solid var(--rule); border-radius:8px; padding:7px 9px; display:flex; flex-direction:column; gap:3px; min-width:0;}
-.cp-tile .cp-k,.cp-tile .cp-v{min-width:0; overflow-wrap:anywhere;}
-.cp-k{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
-.cp-v{font-family:var(--display); font-size:calc(13.5px * var(--fs)); font-weight:600; color:var(--ink); line-height:1.1; cursor:help; align-self:flex-start; outline:none;}
 /* hovering (or focusing) a number shows a small speech bubble naming its source */
-/* THE BUBBLE IS ANCHORED ON BOTH EDGES, and that is what stops the sheet reporting a sideways scroll
-   (Sep 2026, bisected in the page). It is absolutely positioned inside `.cp-tile`, and an absolutely
-   positioned descendant counts towards an ancestor's scrollWidth — so `width:max-content` made the
-   tile 163 wide against a 158 client box, `.cp-stats` 331 against 326, and `.cp-cols` 331 against 328.
-   `overflow-x:clip` on `.cp-cols` hid it from the reader as a clipped bubble rather than as a
-   scrollbar, so nothing looked wrong and nothing was reported; and it was invisible to every sandbox
-   run until the webfonts were self-hosted, because until then there were no webfonts at all and the
-   fallback stack is narrower. It had therefore been happening on the live site the whole time.
-   `max-width` alone did NOT fix it — measured, the clamped bubble was 140.5px inside a 158px tile and
-   the overflow stayed at 5px, so the excess is in how `max-content` is resolved rather than in the
-   painted box. `left` AND `right` removes `max-content` from the question outright: the bubble is
-   exactly the tile's width less its insets, and wraps, which `white-space:pre-line` already allows
-   and which is what a source name in a small box wants anyway. */
-.cp-v[data-tip]::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 6px); left:7px; right:7px; white-space:pre-line; width:auto; max-width:none; background:var(--ink); color:var(--card); font-family:var(--sans); font-size:calc(10px * var(--fs)); font-weight:500; letter-spacing:0; text-transform:none; padding:4px 8px; border-radius:6px; box-shadow:var(--shadow-md); opacity:0; transform:translateY(3px); pointer-events:none; transition:opacity .12s ease, transform .12s ease; z-index:9;}
-.cp-v[data-tip]::before{content:""; position:absolute; bottom:calc(100% + 1px); left:15px; border:5px solid transparent; border-top-color:var(--ink); opacity:0; transition:opacity .12s ease; z-index:9;}
-.cp-v[data-tip]:hover::after, .cp-v[data-tip]:focus::after{opacity:1; transform:translateY(0);}
-.cp-v[data-tip]:hover::before, .cp-v[data-tip]:focus::before{opacity:1;}
 /* TABLETS TAKE THE SHEET TOO (Aug 2026, on request: "on tablet format, the Atlas should use the same
    popup system as mobile, not the desktop one"). The left-hand panel is written for a wide window — it
    runs the full height of the stage down one edge, which on a 900px tablet held in the hand covers a
@@ -5049,204 +4780,17 @@ canvas{-webkit-tap-highlight-color:transparent;}
    the map stays the thing on screen. 1024px is the iPad's landscape width, so both orientations of the
    commonest tablet land here. */
 @media (max-width:1024px){
-  .country-pop{--cp-sheet:1;}
-  /* phones and tablets: back to a BOTTOM sheet, so the globe + the × stay visible. The sheet is short, and
-     four sections stacked in it buried the figures three scrolls down — which is why they lay SIDE BY SIDE
-     and were swiped between until Sep 2026, when the figures were moved to the TOP of the stack instead
-     (on request: "users currently need to swipe right to see the country data boxes — instead, move them
-     to above the country background paragraphs so it is all in one page"). Reading them first is the same
-     fix without the gesture, and a gesture is the worse half: a page reached only by swiping is a page a
-     reader who does not swipe never learns is there. So the sections stack and scroll, as they do on the
-     desktop, and `order` — rather than a moved node — puts the figures above the paragraphs HERE only,
-     leaving the desktop column, which has room for both and is read top to bottom, as it was.
-     An empty section is still dropped outright rather than shown collapsed: on a box this size a header
-     with nothing under it spends a line on an absence. */
-  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:15px 16px 8px;}
   /* the sheet is centred by a transform, so its entrance has to carry that translate rather than replace it */
-  .country-pop:not([hidden]){animation-name:cpInSheet;}
-  @keyframes cpInSheet{from{opacity:0; transform:translateX(-50%) translateY(10px);} to{opacity:1; transform:translateX(-50%);}}
-  /* THE FOLD (Aug 2026, on request — it was a jumpcut). The height is an explicit px value in both states
-     (cpApplyH: the measured name, or the page's own need), so it is the one thing here CSS can ease; the
-     52% cap gives way to it entirely, and the head gives up its share of the box first so the title
-     survives all the way down to the floor. What CSS cannot ease is the `display:none` below, which is why
-     JS applies .cp-shut at the two ENDS of the movement rather than at the start of it — keep this duration
-     in step with CP_FOLD_MS in app.js. */
-  .country-pop.cp-sized{max-height:none; overflow:hidden; transition:height .26s var(--ease);}
-  .cp-sized .cp-head{max-height:none; flex:0 1 auto; min-height:0;}
-  .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the sections off the sheet */
-  .cp-cols{flex:1; gap:12px;}
-  .cp-cols > .cp-sec.cp-blank{display:none;}   /* a header with nothing under it spends a line of a small box on an absence */
-  /* THE FIGURES COME FIRST HERE. `order` rather than a moved node, so the desktop panel keeps its own
-     order (see the block comment above) — the cost is that the sheet's visual order and its DOM order
-     differ by one section, which for a four-part information panel read straight through is a fair trade
-     against a layout written twice. The rules the grid gave the figures as a MIDDLE section come off with
-     it: a separator above the first thing in a box is a line under nothing, and it moves to the
-     description, which is now what follows them. */
-  .cp-cols > .cp-statsec{order:-1; border-top:0; padding-top:0;}
-  .cp-cols > .cp-descsec{border-top:1px solid var(--rule); padding-top:10px;}
+  @keyframes cpInSheet{from{opacity:0; transform:translateX(-50%) translateY(10px);} to{opacity:1; transform:translateX(-50%);}}   /* a header with nothing under it spends a line of a small box on an absence */
   /* ---- SHUT BY DEFAULT (Aug 2026, on request) ----
      A tap on a country asks what it is, and the name is the answer; everything else waits for the chevron.
      The height is set in JS (see cpApplyH — the floor is measured, since a long name wraps and a drilled
      place carries a breadcrumb), so all this does is take the parts below the title out of the box and
      turn the chevron over. `overflow:hidden` on the sheet is already set by .cp-sized. */
-  /* No border and no fill (Aug 2026, on request): the chevron sits on the title's own line, and a boxed
-     tile there reads as a second thing to press rather than as the name's own control. The hit area stays
-     30px — the box was never what made it tappable. */
-  .cp-more{display:inline-flex; align-items:center; justify-content:center; margin-left:auto; flex:none;
-    width:30px; height:30px; padding:0; border:none; border-radius:9px;
-    background:transparent; color:var(--ink-soft); cursor:pointer; transition:transform .22s var(--ease);}
-  .cp-more svg{width:17px; height:17px;}
-  .cp-more[aria-expanded="true"]{transform:rotate(180deg);}
-  /* ---- THE × JOINS THE TITLE'S LINE (Aug 2026, on a bug report) ----
-     On the sheet it stops being absolutely positioned and becomes the last item of `.cp-titlerow`, so the
-     name, the reveal chevron and the close sit on one baseline and the row's own `align-items:center`
-     keeps them there however the name wraps. The row's 20px right margin went with the absolute
-     positioning — it existed only to clear the corner button — and `margin-left:auto` moves to the
-     CHEVRON, which is now the first of the two controls to be pushed right.
-     It matches the chevron's 30px box rather than keeping its own 24px one: two controls of different
-     sizes side by side on the same line read as two different kinds of thing. */
-  .cp-titlerow{margin-right:0;}
-  .cp-titlerow .cp-close{position:static; margin-left:0; width:30px; height:30px; border-radius:9px; font-size:calc(19px * var(--fs)); color:var(--ink-soft); flex:none;}
-  .cp-shut .cp-cols,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
-  .cp-shut .cp-head{overflow:visible;}
-  /* ---- A SHUT SHEET PUTS THE CHEVRON BEHIND THE NAME (Sep 2026, on request: "on mobile when only the
-     name is shown in the popup with the rest collapsed, put the chevron just behind the name instead of
-     in the top right next to the X close button") ----
-     Open, the chevron is the far end of a full row and belongs with the ×. SHUT, that row IS the whole
-     sheet — a name at the left and two buttons at the right, with the control that opens the thing sitting
-     against the one that closes it, which is a pair of similar marks a thumb has to tell apart. Letting
-     `.cp-titlemain` shrink to its content walks the chevron back to the name it opens; `margin-left:auto`
-     moves from the chevron to the ×, so the close stays in the corner where every close is. */
-  .cp-shut .cp-titlemain{flex:0 1 auto;}
-  .cp-shut .cp-more{margin-left:0;}
-  .cp-shut .cp-titlerow .cp-close{margin-left:auto;}
-}
-/* map editor toolbar (Edit → Timeline → "Edit on globe") */
-.map-edit-bar{position:absolute; top:14px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:13px; flex-wrap:wrap; max-width:calc(100% - 28px); background:var(--card); border:1px solid var(--rule); border-radius:11px; padding:8px 12px; box-shadow:0 10px 28px -14px rgba(0,0,0,.5); z-index:8;}
-.map-edit-bar[hidden]{display:none;}
-.meb-title{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
-.meb-title b{color:var(--ink); font-weight:700;}
-.meb-tools{display:flex; gap:5px;}
-.meb-tool,.meb-act,.meb-done{appearance:none; cursor:pointer; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.04em; text-transform:uppercase; font-weight:600; padding:5px 10px; border-radius:7px; border:1px solid var(--rule); background:transparent; color:var(--ink-soft);}
-.meb-tool:hover,.meb-act:hover:not(:disabled){color:var(--ink);}
-.meb-tool.sel{background:var(--indigo); border-color:var(--indigo); color:#fff;}
-.meb-tip{font-size:calc(11px * var(--fs)); color:var(--ink-faint); flex:1; min-width:130px;}
-.meb-acts{display:flex; gap:6px; align-items:center;}
-.meb-act:disabled{opacity:.4; cursor:default;}
-.meb-act.danger{color:#c2516b; border-color:rgba(194,81,107,.4);}
-.meb-act.danger:hover:not(:disabled){background:#c2516b; color:#fff; border-color:#c2516b;}
-.meb-done{font-weight:700; border-color:var(--indigo); background:var(--indigo); color:#fff;}
-.globe-legend{position:absolute; right:clamp(16px,4vw,40px); top:60px; z-index:5; background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule); border-radius:11px; padding:9px 13px; box-shadow:var(--shadow-sm); user-select:none; backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px);}   /* top-right under the search box — the left edge belongs to the country info panel */
-.globe-legend .legend-head{display:flex; align-items:center; justify-content:space-between; gap:16px; cursor:move; margin-bottom:8px; touch-action:none;}
-.globe-legend.collapsed .legend-head{margin-bottom:0;}
-.globe-legend .legend-title{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
-.globe-legend .legend-collapse{border:none; background:transparent; color:var(--ink-faint); font-size:calc(15px * var(--fs)); line-height:1; width:18px; height:18px; padding:0; margin:-2px -4px -2px 0; cursor:pointer; border-radius:5px; display:flex; align-items:center; justify-content:center;}
-.globe-legend .legend-collapse:hover{background:color-mix(in srgb, var(--ink) 9%, transparent); color:var(--ink);}
-.lc-layers{display:none; width:16px; height:16px;}   /* shown only on the phone's collapsed chip, where a bare dash reads as nothing */
-/* The personal atlas's collection switches (Sep 2026). They take the legend's own corner and shape —
-   the world atlas's legend is hidden on that tab, so the two are never on screen together and a reader
-   who knows where the layer switches live finds these in the same place. The count beside each name is
-   how many places that collection has put on the globe, quiet and monospaced like every other figure. */
-.atlas-colls{max-width:min(280px, 60vw);}
-.atlas-colls .legend-row{justify-content:flex-start; gap:8px;}
-.atlas-colls .legend-row span:not(.lr-n){overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+}   /* shown only on the phone's collapsed chip, where a bare dash reads as nothing */
 /* THE WARS OF THE YEAR (Oct 2026), above the collections in the same panel — a button per war, its two
    colours as a swatch (hatched where the map hatches it: a narrower war overlaps it), its name and years.
    The swatch colours are the war layer's own TINT_WIN / TINT_LOSE. */
-/* the panel's body scrolls rather than growing over the zoom buttons below it — the wars list made it the
-   one legend whose length changes with the year */
-.atlas-colls .legend-body{max-height:max(150px, calc(100vh - 400px)); overflow-y:auto; overscroll-behavior:contain;}
-.atlas-wars{margin-bottom:10px; padding-bottom:9px; border-bottom:1px solid var(--rule);}
-.atlas-colls[data-colls="0"] .atlas-wars{margin-bottom:0; padding-bottom:0; border-bottom:none;}
-.atlas-wars .aw-title{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
-.atlas-wars .aw-list{display:flex; flex-direction:column; gap:2px;}
-.atlas-wars .aw-row{display:flex; align-items:center; gap:8px; width:100%; border:none; background:transparent; color:var(--ink); font:inherit; font-size:calc(12.5px * var(--fs)); line-height:1.2; text-align:left; padding:5px 4px; margin:0 -4px; border-radius:6px; cursor:pointer; min-height:28px;}
-.atlas-wars .aw-row:hover, .atlas-wars .aw-row:focus-visible{background:color-mix(in srgb, var(--ink) 8%, transparent);}
-.atlas-wars .aw-name{flex:1 1 auto; min-width:0; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;}
-.atlas-wars .aw-yr{flex:none; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint);}
-.atlas-wars .aw-sw{flex:none; display:inline-flex; width:16px; height:12px; border-radius:3px; overflow:hidden;}
-.atlas-wars .aw-sw i{flex:1;}
-.atlas-wars .aw-sw .v{background:#249454;}
-.atlas-wars .aw-sw .l{background:#c63630;}
-.atlas-wars .aw-row.hatched .aw-sw .v{background:repeating-linear-gradient(135deg, #249454 0 2px, transparent 2px 4px);}
-.atlas-wars .aw-row.hatched .aw-sw .l{background:repeating-linear-gradient(135deg, #c63630 0 2px, transparent 2px 4px);}
-.atlas-wars .aw-row.hatched .aw-sw{box-shadow:inset 0 0 0 1px var(--rule);}
-.lr-n{margin-inline-start:auto; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint);}
-/* your own atlas: found / of the collection's total (Oct 2026) — the total quieter than the found */
-.lr-n .lr-of{opacity:.6;}
-.atlas-colls .legend-row.lr-solo{cursor:default;}
-.globe-legend.collapsed .legend-body{display:none;}
-.globe-legend .legend-row{display:flex; align-items:center; gap:8px; font-size:calc(12.5px * var(--fs)); color:var(--ink); cursor:pointer; line-height:1;}
-.globe-legend .legend-row + .legend-row{margin-top:6px;}
-/* the Heightmap layer's strength — the one legend control that is not a toggle. It sits under the row it
-   belongs to, indented to the checkbox's text so it reads as that row's setting, and is hidden outright
-   while the layer is off (author display:flex beats the UA [hidden] rule — codebase convention). */
-.globe-legend .legend-slider{display:flex; align-items:center; gap:7px; margin:5px 0 2px 22px;}
-.globe-legend .legend-slider[hidden]{display:none;}
-.globe-legend .legend-slider input[type="range"]{
-  flex:1; min-width:0; width:74px; height:3px; appearance:none; -webkit-appearance:none;
-  background:var(--rule); border-radius:99px; cursor:pointer; margin:0;
-}
-.globe-legend .legend-slider input[type="range"]::-webkit-slider-thumb{
-  appearance:none; -webkit-appearance:none; width:12px; height:12px; border-radius:50%;
-  background:var(--indigo); border:2px solid var(--card); box-shadow:0 1px 3px rgba(0,0,0,.3); cursor:pointer;
-}
-.globe-legend .legend-slider input[type="range"]::-moz-range-thumb{
-  width:12px; height:12px; border-radius:50%; background:var(--indigo); border:2px solid var(--card); cursor:pointer;
-}
-.globe-legend .legend-slider input[type="range"]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
-.globe-legend .ls-val{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint); min-width:30px; text-align:right; font-variant-numeric:tabular-nums;}
-.globe-legend .legend-row input{cursor:pointer; accent-color:var(--indigo); width:14px; height:14px; margin:0;}
-/* work-in-progress notice for years that have no map yet (dismissed only by returning to a mapped year) */
-.atlas-wip{position:absolute; top:clamp(14px,3vw,28px); left:clamp(14px,4vw,40px); z-index:6; max-width:310px; display:flex; flex-direction:column; gap:6px; padding:14px 16px; background:color-mix(in srgb, var(--card) 90%, transparent); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-md); backdrop-filter:saturate(140%) blur(8px); -webkit-backdrop-filter:saturate(140%) blur(8px); opacity:0; transform:translateY(-7px); visibility:hidden; transition:opacity .26s var(--ease), transform .26s var(--ease), visibility .26s; pointer-events:none;}
-.atlas-wip.show{opacity:1; transform:none; visibility:visible;}
-.atlas-wip strong{font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:700; color:var(--ink); letter-spacing:.01em;}
-.atlas-wip span{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
-/* The personal atlas's empty state wears the same card as the "no map yet" note above it — the same
-   thing said in the same place, so a reader meets one box on this page rather than two designs of it.
-   It is SHOWN by default and hidden by the `hidden` attribute, where the note above is the other way
-   round: this one is drawn once when the page mounts and never toggled, so it needs no transition and
-   the attribute is the whole of its state. It takes pointer events, because it carries a button. */
-.atlas-empty{position:absolute; top:clamp(56px,8vw,74px); left:clamp(14px,4vw,40px); z-index:6; max-width:310px; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:14px 16px; background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-md); backdrop-filter:saturate(140%) blur(8px); -webkit-backdrop-filter:saturate(140%) blur(8px);}
-.atlas-empty[hidden]{display:none;}
-.atlas-empty strong{font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:700; color:var(--ink);}
-.atlas-empty span{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
-.atlas-empty .btn{padding:6px 13px; font-size:calc(12px * var(--fs));}
-
-/* …and the timeline, which is a full-width strip at the bottom of the screen and so the likeliest
-   place on the Atlas for a thumb to land — see `.globe-stage` above. */
-.atlas-timebar{touch-action:pan-y; position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
-.tl-play{flex:none; width:34px; height:34px; border-radius:50%; appearance:none; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; margin-right:-8px;}
-.tl-play svg{width:16px; height:16px;}
-.tl-play:hover{border-color:var(--indigo); color:var(--indigo);}
-.tl-play.on{background:var(--indigo); border-color:var(--indigo); color:#fff;}
-/* HOW FAR BACK THE PERSONAL RAIL REACHES (Sep 2026, on request) — two chevrons with the start year
-   between them, to the left of the rail. It is sized off `.tl-play` beside it rather than given numbers
-   of its own, so the three controls on that edge read as one row; the label is `--mono` at the ticks' own
-   size, because it names the same kind of thing the ticks under the rail do. A disabled end is dimmed
-   rather than removed: a control that vanishes at the end of its range is one a reader has to re-find. */
-.tl-range{flex:none; display:flex; align-items:center; gap:2px;}
-.tl-rbtn{appearance:none; width:26px; height:26px; border-radius:7px; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); display:grid; place-items:center; cursor:pointer; padding:0; transition:background .15s, color .15s, border-color .15s;}
-.tl-rbtn svg{width:14px; height:14px;}
-.tl-rbtn:hover:not(:disabled){background:var(--indigo-wash); color:var(--indigo); border-color:color-mix(in srgb,var(--indigo) 30%,var(--rule));}
-.tl-rbtn:disabled{opacity:.34; cursor:default;}
-.tl-rlabel{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); min-width:56px; text-align:center; white-space:nowrap;}
-.atlas-timeline{flex:1; min-width:0;}
-.tl-track{position:relative; height:32px; display:flex; align-items:center; cursor:pointer;}
-.tl-rail{position:absolute; left:0; right:0; height:4px; border-radius:99px; background:var(--rule);}
-.tl-fill{position:absolute; left:0; height:4px; border-radius:99px; background:color-mix(in srgb,var(--indigo) 52%, var(--rule));}
-.tl-mark{position:absolute; top:50%; transform:translate(-50%,-50%); width:3px; height:12px; border-radius:2px; background:color-mix(in srgb,var(--indigo) 70%, var(--rule)); opacity:.72; appearance:none; -webkit-appearance:none; border:0; padding:0; cursor:pointer;}
-.tl-mark:hover{opacity:1; height:15px;}
-.tl-mark:focus-visible{opacity:1; outline:2px solid var(--indigo); outline-offset:3px;}
-.tl-pin{position:absolute; top:50%; left:100%; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%; background:var(--indigo); border:2.5px solid var(--card); box-shadow:var(--shadow-sm); cursor:grab; padding:0; appearance:none; transition:background .15s;}
-.tl-pin:hover, .tl-pin.dragging{background:var(--indigo-bright);}
-.tl-pin:active, .tl-pin.dragging{cursor:grabbing;}
-.tl-pin:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
-.tl-tip{position:absolute; bottom:calc(100% + 9px); top:auto; left:50%; transform:translateX(-50%); white-space:nowrap; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.03em; color:var(--ink-soft); background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:2px 8px; box-shadow:var(--shadow-sm); opacity:0; transition:opacity .15s; pointer-events:none;}
-.tl-pin:hover .tl-tip, .tl-pin.dragging .tl-tip, .tl-pin:focus-visible .tl-tip{opacity:1;}
-/* present-day-only legend layers on a historical era: dimmed + disabled, not hidden (the layer model stays visible) */
-.globe-legend .legend-row.legend-na{opacity:.42; cursor:not-allowed;}
-.globe-legend .legend-row.legend-na input{cursor:not-allowed;}
 /* plate-title cartouche — "THE WORLD · 1938" in the theme display face, top-centre of the globe stage */
 .map-cartouche{position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:4; pointer-events:none; user-select:none;
   font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs)); letter-spacing:.22em; color:var(--ink); white-space:nowrap;
@@ -5256,76 +4800,15 @@ canvas{-webkit-tap-highlight-color:transparent;}
 /* …AND ON A TABLET AND A DESKTOP TOO (Oct 2026, on request: "at the top of the Atlas page, there is a square box which
    says today or the year of the Atlas. Remove that box"). The year box beside the timeline says the year; the plate
    title is drawn by paintYear still, into an element nothing shows. */
-@media (min-width:641px){.map-cartouche{display:none;}}
-/* hover name tag — a DOM chip following the cursor (naming the entity under it); never triggers a canvas redraw */
-.globe-hovername{position:absolute; z-index:4; pointer-events:none; user-select:none; display:flex; flex-direction:column; gap:0;
-  max-width:280px; padding:4px 10px 5px; background:color-mix(in srgb, var(--card) 90%, transparent); border:1px solid var(--rule);
-  border-radius:8px; box-shadow:var(--shadow-sm); backdrop-filter:saturate(150%) blur(6px); -webkit-backdrop-filter:saturate(150%) blur(6px);}
-.globe-hovername[hidden]{display:none;}
-.ghn-top{font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); line-height:1.5;}
-.ghn-main{font-size:calc(13px * var(--fs)); font-weight:600; color:var(--ink); line-height:1.25;}
-@media (hover:none){.globe-hovername{display:none;}}
-/* atlas search — top-right of the stage; typeahead over countries, era territories and capitals */
-.globe-search{position:absolute; right:clamp(16px,4vw,40px); top:16px; z-index:6; width:min(240px, 38vw);}
-.globe-search input{width:100%; padding:7px 12px; font:inherit; font-size:calc(13px * var(--fs)); color:var(--ink);
-  background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule); border-radius:9px; box-shadow:var(--shadow-sm);
-  backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px);}
-.globe-search input:focus{outline:2px solid color-mix(in srgb, var(--indigo) 55%, transparent); outline-offset:1px;}
-.gs-toggle{display:none;}   /* the phone's collapsed chip — on desktop the field itself is small enough to just sit there */
+@media (min-width:641px){.map-cartouche{display:none;}}   /* the phone's collapsed chip — on desktop the field itself is small enough to just sit there */
 /* ---- the Atlas chrome on a phone ----
    Open, the search box and the legend covered the whole top-right of a 390px screen — the map — before the
    reader had asked for either. Both collapse to a 34px chip in the corner and open on a tap: the legend
    through the toggle it already had, the search across the full width of the stage, because a 38vw field
    fits about four characters. */
-@media (max-width:640px){
-  /* the top bar is hidden on a phone, so the globe stage now starts at the very top of the screen —
-     which on a notched device is under the status bar. These are the only pieces of chrome pinned to
-     that edge, so they carry the inset themselves rather than shrinking the map for everyone. */
-  .globe-search{top:calc(12px + env(safe-area-inset-top)); right:12px; width:auto;}
-  .globe-search input{display:none;}
-  .gs-toggle{display:grid; place-items:center; width:34px; height:34px; border-radius:50%; appearance:none; cursor:pointer;
-    border:1px solid var(--rule); background:color-mix(in srgb, var(--card) 92%, transparent); color:var(--ink-soft);
-    box-shadow:var(--shadow-sm); backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px);}
-  .gs-toggle svg{width:16px; height:16px;}
-  .globe-search.open{left:12px; right:12px; width:auto;}
-  .globe-search.open .gs-toggle{display:none;}
-  .globe-search.open input{display:block;}
-  .globe-legend{top:calc(12px + env(safe-area-inset-top)); right:56px;}
-  /* …and INTO the corner when there is no search chip to sit beside: Your atlas hides the search, and the
-     chip was left 44px short of the edge with nothing in the gap (Oct 2026, on a report) */
-  .globe-search[hidden] ~ .globe-legend{right:12px;}
-  .globe-legend.collapsed{width:34px; height:34px; padding:0; border-radius:50%; overflow:hidden;}
-  .globe-legend.collapsed .legend-head{margin:0; height:100%; justify-content:center; gap:0; cursor:pointer;}
-  .globe-legend.collapsed .legend-title{display:none;}
-  .globe-legend.collapsed .legend-collapse{width:100%; height:100%; margin:0; border-radius:50%;}
-  .globe-legend.collapsed .lc-sign{display:none;}
-  .globe-legend.collapsed .lc-layers{display:block;}
-  .globe-search.open ~ .globe-legend{display:none;}   /* the open field owns the top edge; the chip beside it would be under it */
-}
-.globe-search input::placeholder{color:var(--ink-faint);}
-.gs-results{position:absolute; top:calc(100% + 6px); left:0; right:0; display:flex; flex-direction:column; overflow:hidden;
-  background:var(--card); border:1px solid var(--rule); border-radius:11px; box-shadow:var(--shadow-md, var(--shadow-sm));}
-.gs-results[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention, cf. .country-pop[hidden]) */
-.gs-results:not([hidden]){animation:gsIn .15s var(--ease) both;}
+@media (max-width:640px){   /* the open field owns the top edge; the chip beside it would be under it */
+}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention, cf. .country-pop[hidden]) */
 @keyframes gsIn{from{opacity:0; transform:translateY(-5px);} to{opacity:1; transform:none;}}
-.gs-row{display:flex; flex-direction:column; align-items:flex-start; gap:1px; padding:7px 12px; border:0; background:none; cursor:pointer; text-align:left; font:inherit; color:var(--ink);}
-.gs-row + .gs-row{border-top:1px solid color-mix(in srgb, var(--rule) 55%, transparent);}
-.gs-row:hover, .gs-row.active{background:color-mix(in srgb, var(--indigo) 10%, transparent);}
-.gs-name{font-size:calc(13px * var(--fs)); font-weight:600; line-height:1.2;}
-.gs-kind{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
-.tl-ticks{position:relative; height:13px; margin-top:8px;}
-.tl-tick{position:absolute; transform:translateX(-50%); font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;}
-.tl-tick:first-child{transform:none;}
-.tl-tick:last-child{transform:translateX(-100%);}
-
-.atlas-yearbox{display:flex; align-items:center; gap:10px; flex:none;}
-.ay-chev{appearance:none; width:34px; height:34px; border-radius:9px; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); display:grid; place-items:center; cursor:pointer; transition:background .15s, color .15s, border-color .15s; touch-action:none;}
-.ay-chev:hover{background:var(--indigo-wash); color:var(--indigo); border-color:color-mix(in srgb,var(--indigo) 30%,var(--rule));}
-.ay-chev:active{transform:translateY(1px);}
-.ay-chev svg{width:18px; height:18px;}
-.ay-display{display:flex; align-items:baseline; gap:5px; min-width:120px; justify-content:center;}
-.ay-num{font-family:var(--display); font-weight:600; font-size:calc(34px * var(--fs)); line-height:1; letter-spacing:-.01em; color:var(--ink); font-variant-numeric:tabular-nums;}
-.ay-era{font-family:var(--mono); font-size:calc(12px * var(--fs)); letter-spacing:.07em; color:var(--ink-faint); font-weight:600;}
 @media (max-width:560px){
   /* One row could not hold a play button, a ~170px year box AND the rail: on a 390px screen the rail was
      squeezed to about 70px, which is why its five year labels piled into an 80px band as an unreadable
@@ -5333,26 +4816,6 @@ canvas{-webkit-tap-highlight-color:transparent;}
      width — the year and the play button above it, the rail beneath — and the stage's bottom inset follows.
      The right padding stays: it is what keeps the rail clear of the corner buttons stacked above it. */
   :root{--timebar-h:118px;}
-  /* THE RAIL RUNS THE WHOLE WIDTH AND THE YEAR IS CENTRED (Sep 2026, on request: "on the mobile Atlas
-     page, the timeline in the bottom should extend all the way to the right and the year should be
-     centered"). Two things had to change together. The bar carried a 74px right padding — written to keep
-     the rail clear of the zoom buttons — and it was never needed on this row: `.globe-zoom` is positioned
-     inside `.globe-stage`, whose bottom inset IS `--timebar-h`, so those buttons stop where this bar
-     begins and the rail had been giving up a fifth of a 390px screen to nothing. And the year could not
-     be centred while the grid was two columns, `justify-self:center` in a cell that starts after the play
-     button being centred in what is left rather than in the bar: three columns with `1fr` on each side
-     put the middle one over the bar's own centre, and the rail spans all three. */
-  .atlas-timebar{display:grid; grid-template-columns:1fr auto 1fr; grid-template-areas:"play year range" "rail rail rail";
-    align-content:center; gap:4px 8px; padding:6px clamp(12px,4vw,20px) 8px;}
-  .tl-play{grid-area:play; margin-right:0; justify-self:start;}
-  /* the range control takes the cell that was empty, opposite the play button — on a phone the timebar is
-     two rows and there is no "left of the rail" to put it in */
-  .tl-range{grid-area:range; justify-self:end;}
-  .tl-rlabel{min-width:48px;}
-  .atlas-yearbox{grid-area:year; justify-self:center;}
-  .atlas-timeline{grid-area:rail;}
-  .ay-num{font-size:calc(27px * var(--fs));} .ay-display{min-width:88px;} .ay-chev{width:30px; height:30px;}
-  .globe-hint{font-size:calc(9px * var(--fs));}
 }
 
 /* ============================================================
@@ -5896,7 +5359,6 @@ body.grading .wb-tools{bottom:108px;}
 .learn-more-logo{flex:none; width:44px; height:44px; border-radius:50%; background:var(--card); border:1px solid var(--rule); padding:3px; box-sizing:border-box; object-fit:contain;}
 @media (prefers-reduced-motion: reduce){ .learn-more{transition:none;} .learn-more:hover{transform:none;} }
 /* the Atlas panel's own copy sits inside a .cp-sec, which already draws the rule and the space above it */
-.cp-srcnote{margin:0; padding-top:0; border-top:0;}
 .src-head{
   display:inline-flex; align-items:center; gap:7px; width:auto; appearance:none; background:none;
   border:0; padding:0; cursor:pointer; font:inherit; color:var(--ink-faint); text-align:left;
@@ -5982,7 +5444,7 @@ sup.fn.src-flash{padding:0 3px;}
   background:color-mix(in srgb, var(--geo) 12%, transparent);
   border-color:color-mix(in srgb, var(--geo) 32%, transparent);
 }
-.src-compact .src-access, .cp-src .src-access{font-size:calc(8.5px * var(--fs)); padding:0 5px;}
+.src-compact .src-access {font-size:calc(8.5px * var(--fs)); padding:0 5px;}
 /* the in-prose marker: a real superscript, clickable, in the SAME VERMILION as the answer term
    (.answer .val). Deliberately not the ochre the blanks use: an unopened glossary link is gold
    (.ttip[data-new]), and a marker in that same gold read as one more undiscovered term. */
@@ -6011,8 +5473,6 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
 .src-compact .src-item{font-size:calc(11.5px * var(--fs)); line-height:1.45; margin-bottom:5px;}
 .src-compact .src-n{font-size:calc(10px * var(--fs));}
 /* the Atlas panel owns its own fold (.cp-sec), so only the list itself lands there */
-.cp-src .src-list{margin:0;}
-.cp-src .src-item{font-size:calc(11.5px * var(--fs)); line-height:1.5; color:var(--ink-faint);}
 .cp-sec[hidden]{display:none;}
 /* the editors' sources box — a plain textarea, one citation per line */
 .af-sources{min-height:64px; font-family:var(--mono); font-size:calc(12px * var(--fs)); line-height:1.55; white-space:pre-wrap; resize:vertical;}
@@ -6802,8 +6262,6 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
   from{ box-shadow:0 0 0 0 color-mix(in srgb,#E6C765 55%,transparent); }
   to  { box-shadow:0 0 0 15px color-mix(in srgb,#E6C765 0%,transparent); }
 }
-.cp-new{margin:0;}   /* it sits on the title's own row now (see .cp-titlerow) — the spacing is the row's */
-.cp-new[hidden]{display:none;}
 
 /* ---- glossary windows (desktop) ---- */
 .gloss-win{
@@ -7494,8 +6952,6 @@ body.grading .admin-edit-fab{bottom:108px;}
   .a-swatch{height:26px;}
   .a-name{flex:1 1 140px;}
   .a-meta{flex:1 1 100%; justify-content:flex-start; gap:5px;}
-  .tl-edit{padding:18px 14px;}
-  .tl-era{flex-wrap:wrap; row-gap:8px;}
   /* the pane stops scrolling inside itself here (the admin stacks into one column and the PAGE scrolls), and
      a scroll container that never scrolls is a scrollport its sticky ribbon can never leave — so hand the
      scrolling back to the page and pin the ribbon under the top bar instead */
@@ -10758,12 +10214,6 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .credits .cred-src p{margin:6px 0 0;}
 .cred-foot{margin:4px 0 0; color:var(--ink-quiet);}
 .cred-foot a, .credits .msn-card a{color:var(--indigo);}
-/* the current Atlas (#map) section, Phase 2a task 0a: hand-listed rows (not .cred-src — nothing here comes from a file header) */
-.cred-v1-intro{margin:0 0 10px;}
-.credits .cred-v1-src{padding:10px 0 12px; border-top:1px solid var(--rule); font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.5; color:var(--ink);}
-.credits .cred-v1-src:first-child{border-top:0; padding-top:0;}
-.credits .cred-v1-src p{margin:6px 0 0;}
-.credits .cred-v1-src .cr-lic{color:var(--ink-soft);}
 
 /* ---------- Atlas v2, Phase 1d: the About sheet, the announcer (Oct 2026) ---------- */
 .atlas2-help{position:absolute; right:12px; top:180px; display:flex; flex-direction:column; align-items:flex-end; gap:6px; z-index:4;}

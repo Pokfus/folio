@@ -30,6 +30,8 @@ const DATA = path.join(ROOT, "atlas", "data");
 const OUT = path.join(HERE, "out");
 const TARGET = path.join(DATA, "credits.js");
 const FIELDS = ["name", "version", "url", "licence", "licenceUrl", "attribution", "retrieved", "sha256"];
+/* data files OUTSIDE atlas/data that still ship and carry third-party data (Phase 5: the page lists only files that still ship, and the river locators' own river is drawn from these) — each opens with the same `sources` first line */
+const EXTRA = ["rivers.js", "rivers/greece.js", "rivers/italy.js"].map((f) => path.join(ROOT, f));
 
 function headerOf(file) {
   const rel = path.relative(ROOT, file).split(path.sep).join("/");
@@ -54,7 +56,7 @@ function walk(dir, out) {
 }
 /* every file → every source; one entry per source id, variants per distinct (version, retrieved, sha256) */
 function collect() {
-  const files = walk(DATA, []);
+  const files = walk(DATA, []).concat(EXTRA);
   const byId = new Map(); let read = 0; const fileSources = [];
   for (const f of files) {
     const h = headerOf(f); if (!h) continue; read++;
@@ -69,7 +71,7 @@ function collect() {
       if (!v) { v = { key, files: new Map() }; for (const k of FIELDS) v[k] = s[k] == null ? null : s[k]; e.variants.push(v); }
       else for (const k of ["name", "url", "licence", "licenceUrl", "attribution"]) if (v[k] !== (s[k] == null ? null : s[k])) throw new Error(`${h.rel}: source ${s.id} carries a different ${k} from another file of the same version`);
       // group by directory: the tiles are one line per level, the water tiles one, the relief planes one
-      const dir = path.posix.dirname(h.rel), single = /^atlas\/data\/[^/]+$/.test(h.rel) || h.rel.endsWith("relief.json");
+      const dir = path.posix.dirname(h.rel), single = /^atlas\/data\/[^/]+$/.test(h.rel) || h.rel.endsWith("relief.json") || !h.rel.startsWith("atlas/data/");
       const g = single ? h.rel : dir + "/";
       v.files.set(g, (v.files.get(g) || 0) + 1);
     }

@@ -1,5 +1,16 @@
 # Map cards — a shape on a globe as the question
 
+> **PHASE 5 (Oct 2026) — READ THIS FIRST; the body below is the history of v1's window.** The shape files this page names (`us-states.js`, `china-provinces.js`, `russia-subjects.js`, `world.js`, `world-capitals.js`,
+> `us-cities.js`) and their builders (`build-us-states.js` …) are **deleted**, and so is `startCardGlobeV1`. A map card is drawn by the Atlas engine through the headless hub (`atlas/atlas-windows.js`,
+> `docs/atlas-v2-card-windows.md`): `cardMapSpec` still reads the card's `map` field (`{ layer, key, dot }` — **unchanged, and it stays**: `migrate-places.js --finish` is not run), and
+> `atlas/data/card-faces.js` joins the key to an engine entity. What the remaining code needed from the deleted shapes — each shape's name, short code, label point, the box of its rings, the layer's dots and the
+> neighbours of every key a card uses — is frozen in `.claude/atlas-build/frozen/layers.json` (`.claude/atlas-build/frozen/README.md`). `build-card-faces.js` reads it and writes `card-faces.js` and `card-neighbours.js`
+> (`--check` in CI also fails when a card's layer, key or dot resolves to nothing), and `add-card.js` validates a new map card against it; **a card on a shape the table does not have needs the row added to `layers.json` first.**
+> `CARD_MAP_LAYERS` in `app.js` shrank to `{ what, plural, points, pointsAlt, dotWhat }` (the words the card and the "describe the map" sentence use). Without WebGL2 (or with the bundle refused) the window draws on the engine's Canvas 2D
+> path with the tint but without the outline glow, and when even that cannot start it prints one plain sentence (`.mc-plain-note`). The accessibility sentence under a map (Settings → Describe geography maps) comes from
+> `card-neighbours.js`, the same grid-proximity rule frozen at build time. Re-run `test-map-cards.js`, `test-atlas-windows.js` and `test-window-fallbacks.js` after touching any of it.
+
+
 **Read this before touching the `MAP CARDS` block in app.js, `startCardGlobe` / `cardMapSpec` /
 `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL`, `.claude/build-us-states.js`,
 or before adding a map card.**

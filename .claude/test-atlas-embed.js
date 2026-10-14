@@ -3,8 +3,10 @@
      NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-atlas-embed.js
      FOLIO_CHROMIUM=/path/to/chrome  … to pick the browser (otherwise playwright's own)
 
-   WHAT IT PROVES, section by section (every one with the preview switch ON unless it says OFF; the switch is localStorage `folio.atlas2.preview`):
-     1  OFF is the default and v1's window is untouched: a map card draws with `data-map-engine="v1"` and the page requests neither the embed host, the card-faces join nor topology.bin.
+   WHAT IT PROVES, section by section (Phase 5: the engine is the only engine; the earlier window and its preview switch are gone):
+     1  THE ENGINE AND ITS TWO FALLBACKS: with WebGL2 a map card is `data-map-engine="v2"`; with no WebGL2 it is drawn by the still Canvas 2D renderer (`"v2-2d"`), a war window is a plain sentence (`"none"`,
+        `mc-plain`, the key stays) and Find it is playable; with the engine's bundle refused a window is a sentence (`.mc-plain-note`) and Find it says it could not be set up, with a Reload button.
+        (test-window-fallbacks.js proves the same in depth: pixels, zoom, drag, a scored round.)
      2  ONE CONTEXT FOR THE PAGE: twenty windows on one page are one WebGL2 context (getContext is wrapped and counted), they all settle, and when the last goes away the hub is disposed
         after the idle time and the next window recreates it (created 2, disposed 1) — the "destroyed and recreated as cards change" of the design.
      3  A MAP CARD (Texas, a state; Rhode Island with its capital; the world layer with a country): the engine drew it, the shaded place is the selection gold as a TINT (the pixel at the centre is
@@ -12,8 +14,8 @@
      4  A LOCATOR WINDOW (a point, a river with its own river in gold, a region clipped to land): the gold mark is there, the siblings' red is absent on a fresh profile, and a tap on the window
         does NOT open the Atlas (only the globe button does).
      5  A WAR WINDOW, IN ITS YEARS AND NONE OUTSIDE: the Second Punic War's window is drawn at the middle of its years with green and red on screen, the same hub asked for a year after the war
-        draws neither, and the go button opens #map2 at that year with &war=<card> (and the Atlas, opened there, has that war in focus).
-     6  FIND IT: the engine board deals the SAME five rounds as the v1 board (the two pages are read side by side), a tap only picks ("Guess" appears, Clear withdraws it), a wrong guess says
+        draws neither, and the go button opens #map at that year with &war=<card> (and the Atlas, opened there, has that war in focus).
+     6  FIND IT: the day is five rounds, the same five whenever it is dealt on one date (the equality with the retired board's deal is `compare-findit-deal.js`), a tap only picks ("Guess" appears, Clear withdraws it), a wrong guess says
         "N km away", a second try that is right counts as found, a place is scored by distance, the score line and the played-today door follow; under reduced motion the fly is instant.
      7  No console or page errors anywhere. */
 "use strict";
@@ -45,8 +47,6 @@ const COUNT_CONTEXTS = () => { const orig = HTMLCanvasElement.prototype.getConte
 async function newPage(browser, o) {
   o = o || {};
   const ctx = await browser.newContext({ viewport: o.viewport || { width: 1100, height: 900 }, reducedMotion: o.reduced ? "reduce" : "no-preference" });
-  /* Stage B: the engine is the DEFAULT. `preview`: true → "1", false → "0" (the way back to v1's windows), "default" → the key is not set at all */
-  await ctx.addInitScript((pre) => { try { if (pre === "default") localStorage.removeItem("folio.atlas2.preview"); else localStorage.setItem("folio.atlas2.preview", pre ? "1" : "0"); } catch (e) {} }, o.preview === "default" ? "default" : o.preview !== false);
   if (o.noWebGL2) await ctx.addInitScript(() => { const orig = HTMLCanvasElement.prototype.getContext; HTMLCanvasElement.prototype.getContext = function (type, ...rest) { if (type === "webgl2") return null; return orig.call(this, type, ...rest); }; });
   await ctx.addInitScript(COUNT_CONTEXTS);
   const page = await ctx.newPage();
@@ -61,8 +61,6 @@ async function openCard(page, id) {
   await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h._folioMap && h._folioMap.ready() && !h.classList.contains("mc-loading"); }, null, { timeout: 120000 }).catch(() => {});
 }
 // a window is settled when the engine says its tiles are in
-// the value the page keeps under "folio.atlas2.preview" (the wait is generous; the assertion that follows it is exact and unchanged)
-const storedPreview = (page, v) => page.waitForFunction((x) => localStorage.getItem("folio.atlas2.preview") === x, v, { timeout: 60000 }).catch(() => {});
 const settled = (page) => page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h.getAttribute("data-map-engine") === "v2" && AtlasEmbed.hub() && AtlasEmbed.stats().draws > 0 && document.querySelector(".map-card .mc-canvas"); }, null, { timeout: 120000 }).then(() => sleep(5000));
 const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = document.querySelector(s); const x = c.getContext("2d"); const d = x.getImageData(Math.round(c.width * a), Math.round(c.height * b), 1, 1).data; return [d[0], d[1], d[2], d[3]]; }, [sel, fx, fy]);
 
@@ -70,46 +68,50 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
 
-  console.log("\n\x1b[1m1) Stage B: the engine is the default; \"0\" (#map2?preview=0) is the way back to v1's window with no engine on the wire; no WebGL2 falls back to v1\x1b[0m\n");
+  console.log("\n\x1b[1m1) the engine is the only engine: WebGL2 gives \"v2\"; no WebGL2 gives the still Canvas 2D renderer (\"v2-2d\") and a war window says so in a sentence; a refused bundle gives a sentence (\"none\")\x1b[0m\n");
   {
     // the default: nothing stored at all
-    const d = await newPage(browser, { preview: "default" });
-    await openCard(d.page, "geo-002"); await settled(d.page);
-    check("with nothing stored, a map card is drawn by the engine (data-map-engine=v2)", (await d.page.evaluate(() => document.querySelector(".map-card").getAttribute("data-map-engine"))) === "v2");
-    // the way back: #map2?preview=0 stores "0" on this device; the next card is v1's
-    await d.page.goto(`http://127.0.0.1:${PORT}/#map2?preview=0`, { waitUntil: "load" }); await d.page.reload({ waitUntil: "load" });
-    await storedPreview(d.page, "0");   // the page writes it once its script has run: wait for the value, however slow the runner, then assert it
-    check("#map2?preview=0 stores \"0\" for this device", (await d.page.evaluate(() => localStorage.getItem("folio.atlas2.preview"))) === "0");
-    await d.ctx.close();
-    const { ctx, page } = await newPage(browser, { preview: false });
+    const d = await newPage(browser);
     requests.length = 0;
-    await openCard(page, "geo-002"); await sleep(2500);
-    const eng = await page.evaluate(() => document.querySelector(".map-card").getAttribute("data-map-engine"));
-    check("with \"0\" a map card draws with v1's window (data-map-engine=v1)", eng === "v1", String(eng));
-    check("...and the page asked for neither the embed host, the card-faces join nor topology.bin, even at idle", !requests.some((u) => /atlas-embed\.js|atlas-windows\.js|card-faces\.js|topology\.bin/.test(u)), requests.filter((u) => /atlas\//.test(u)).join(","));
-    check("...and made no WebGL2 context at all", (await page.evaluate(() => window.__gl2)) === 0);
-    await page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" }); await sleep(3500);
-    check("...and Find it is v1's board (the Atlas page in game mode), not the engine's", await page.evaluate(() => !document.querySelector("#findit2") && !!document.querySelector("#mapGame")));
-    // typed into a tab that is already open: a hashchange, which route() rewrites to #map2 — the switch must be read before that
-    await page.goto(`http://127.0.0.1:${PORT}/#map2?preview=1`, { waitUntil: "load" });
-    await storedPreview(page, "1");
-    check("#map2?preview=1 typed into an open tab puts the engine back (\"1\")", (await page.evaluate(() => localStorage.getItem("folio.atlas2.preview"))) === "1");
-    await page.goto(`http://127.0.0.1:${PORT}/#home`, { waitUntil: "load" }); await sleep(600);
-    await page.goto(`http://127.0.0.1:${PORT}/#map2?preview=0`, { waitUntil: "load" });
-    await storedPreview(page, "0");
-    check("...and #map2?preview=0 typed into an open tab sets the way back (\"0\")", (await page.evaluate(() => localStorage.getItem("folio.atlas2.preview"))) === "0");
-    await ctx.close();
-    // a browser with no WebGL2: the engine cannot start and v1's window takes over — the window and Find it both still work
-    const nw = await newPage(browser, { preview: "default", noWebGL2: true });
+    await openCard(d.page, "geo-002"); await settled(d.page);
+    check("a map card is drawn by the engine with WebGL2 (data-map-engine=v2)", (await d.page.evaluate(() => document.querySelector(".map-card").getAttribute("data-map-engine"))) === "v2");
+    check("...and nothing of the retired v1 window is on the wire (no shape or coast bundle)", !requests.some((u) => /\/(us-states|world|china-provinces|russia-subjects|world-capitals|polities|timeline|lakes)\.js|\/coast\//.test(u)), requests.filter((u) => /us-states|world\.js|coast|polities|timeline/.test(u)).join(","));
+    await d.ctx.close();
+
+    // no WebGL2: the same window on the still renderer — drawn, ready, not failed, and the zoom buttons work
+    const nw = await newPage(browser, { noWebGL2: true });
     await nw.page.goto(`http://127.0.0.1:${PORT}/#card/geo-002`, { waitUntil: "load" }); await nw.page.reload({ waitUntil: "load" });
     await nw.page.waitForSelector(".map-card", { timeout: 60000 });
-    await nw.page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h.getAttribute("data-map-engine") === "v1" && h._folioMap && h._folioMap.ready() && !h.classList.contains("mc-loading"); }, null, { timeout: 120000 }).catch(() => {});
-    const fb = await nw.page.evaluate(() => { const h = document.querySelector(".map-card"); return { eng: h.getAttribute("data-map-engine"), ready: !!(h._folioMap && h._folioMap.ready()), failed: h.classList.contains("mc-failed") }; });
-    check("with no WebGL2 the default engine cannot start and v1's window takes over, ready and not failed", fb.eng === "v1" && fb.ready && !fb.failed, JSON.stringify(fb));
+    await nw.page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h.getAttribute("data-map-engine") === "v2-2d" && h._folioMap && h._folioMap.ready() && !h.classList.contains("mc-loading"); }, null, { timeout: 120000 }).catch(() => {});
+    await sleep(4000);
+    const fb = await nw.page.evaluate(() => { const h = document.querySelector(".map-card"), c = h.querySelector(".mc-canvas"), d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; let lit = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) lit++; return { eng: h.getAttribute("data-map-engine"), ready: !!(h._folioMap && h._folioMap.ready()), failed: h.classList.contains("mc-failed"), lit, total: d.length / 4, gl: window.__gl2 }; });
+    check("with no WebGL2 a map card is drawn by the engine's still renderer (data-map-engine=v2-2d), ready and not failed", fb.eng === "v2-2d" && fb.ready && !fb.failed, JSON.stringify(fb));
+    check("...and its canvas really carries a picture (most of its pixels are painted)", fb.lit > fb.total * 0.5, fb.lit + " of " + fb.total);
+    // a war card: no tint is possible, so the window is a sentence and the key stays
+    await openCard(nw.page, "rm-209");
+    await nw.page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h.getAttribute("data-map-engine") === "none"; }, null, { timeout: 120000 }).catch(() => {});
+    const wr = await nw.page.evaluate(() => { const h = document.querySelector(".map-card"), n = h.querySelector(".mc-plain-note"); return { eng: h.getAttribute("data-map-engine"), plain: h.classList.contains("mc-plain"), note: n ? n.textContent : "", key: !!document.querySelector(".war-key") }; });
+    check("with no WebGL2 a war window is a plain sentence about WebGL2 (data-map-engine=none, mc-plain) and the key is still on the card", wr.eng === "none" && wr.plain && /WebGL2/.test(wr.note) && wr.key, JSON.stringify(wr));
+    // Find it plays: the board is dealt five rounds
     await nw.page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await nw.page.reload({ waitUntil: "load" });
-    await nw.page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#mgQ") && document.querySelector("#mgQ").textContent.length > 3; }, null, { timeout: 180000 }).catch(() => {});
-    check("...and Find it falls back to v1's board, which deals the day", await nw.page.evaluate(() => !!document.querySelector("#mapGame") && !document.querySelector("#mapGame").hidden && !document.querySelector("#findit2 .fi2-board") && document.querySelector("#mgQ").textContent.length > 3), await nw.page.evaluate(() => (document.querySelector("#mgQ") || {}).textContent));
+    await nw.page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#findit2") && document.querySelector("#mgQ") && document.querySelector("#mgQ").textContent.length > 3; }, null, { timeout: 180000 }).catch(() => {});
+    const fi = await nw.page.evaluate(() => { const h = [...document.querySelectorAll("*")].find((e) => e._finditApi); return { rounds: h ? h._finditApi.rounds().length : 0, board: !!document.querySelector("#fi2Board"), q: (document.querySelector("#mgQ") || {}).textContent }; });
+    check("with no WebGL2 Find it is playable: the board is up and the day is five rounds", fi.board && fi.rounds === 5 && fi.q && fi.q.length > 3, JSON.stringify(fi));
     await nw.ctx.close();
+
+    // a refused bundle: the window is a sentence, the card is intact, Find it says it could not be set up
+    const rb = await newPage(browser);
+    await rb.ctx.route(/atlas\/atlas-(embed|windows)\.js/, (r) => r.abort());
+    await rb.page.goto(`http://127.0.0.1:${PORT}/#card/geo-002`, { waitUntil: "load" }); await rb.page.reload({ waitUntil: "load" });
+    await rb.page.waitForSelector(".map-card", { timeout: 60000 });
+    await rb.page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h.getAttribute("data-map-engine") === "none"; }, null, { timeout: 60000 }).catch(() => {});
+    const rf = await rb.page.evaluate(() => { const h = document.querySelector(".map-card"), n = h.querySelector(".mc-plain-note"); return { eng: h.getAttribute("data-map-engine"), note: n ? n.textContent : "" }; });
+    check("with the engine's bundle refused a map card shows its sentence (data-map-engine=none, .mc-plain-note)", rf.eng === "none" && /could not be drawn/.test(rf.note), JSON.stringify(rf));
+    await rb.page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await rb.page.reload({ waitUntil: "load" });
+    await rb.page.waitForSelector("#fiReload", { timeout: 60000 }).catch(() => {});
+    const rf2 = await rb.page.evaluate(() => ({ text: document.body.textContent.includes("Find it could not be set up"), reload: !!document.querySelector("#fiReload") }));
+    check("...and Find it shows \"Find it could not be set up\" with a Reload button", rf2.text && rf2.reload, JSON.stringify(rf2));
+    await rb.ctx.close();
   }
 
   console.log("\n\x1b[1m2) one context for twenty windows, destroyed and recreated\x1b[0m\n");
@@ -146,7 +148,7 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     check("Texas is drawn by the engine (data-map-engine=v2), ready, not failed", st.eng === "v2" && st.ready && !st.failed, JSON.stringify(st.view));
     check("one engine, one context, however many frames", st.s.live === 1 && st.gl === 1, JSON.stringify(st.s));
     check("the engine and topology.bin arrived only now (lazy)", requests.some((u) => /atlas-embed\.js/.test(u)) && requests.some((u) => /topology\.bin/.test(u)));
-    check("v1's shape bundles are not on this card's path", !requests.some((u) => /us-states\.js|\/world\.js|china-provinces\.js|russia-subjects\.js|world-capitals\.js/.test(u)), requests.filter((u) => /us-states|world|china-prov|russia-sub/.test(u)).join(","));
+    check("the retired shape bundles are not fetched on this card's path", !requests.some((u) => /us-states\.js|\/world\.js|china-provinces\.js|russia-subjects\.js|world-capitals\.js/.test(u)), requests.filter((u) => /us-states|world|china-prov|russia-sub/.test(u)).join(","));
     // the gold tint: the pixel at the centre of the window is inside the shape (fitTarget centres on the label point) and is TINT_SEL laid over land at fillA; solving the land back out must give a land colour that is a bulk colour of the canvas
     const tint = await page.evaluate(() => { const src = [...document.scripts].map((s) => s.src); return null; });
     void tint;
@@ -215,7 +217,7 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     check("asked for a year after the war (100 BCE), with the war still chosen, it tints nothing", out.after.g < 60 && out.after.r < 60, JSON.stringify(out.after));
     await page.click(".map-card [data-mc='go']"); await sleep(1500);
     const h = await page.evaluate(() => location.hash);
-    check("the go button opens #map2 at the war's year (the Atlas then writes its own hash; the war's card rides on the link as &war=)", /^#map2\/.+\?y=-209/.test(h), h);
+    check("the go button opens #map at the war's year (the Atlas then writes its own hash; the war's card rides on the link as &war=)", /^#map\/.+\?y=-209/.test(h), h);
     await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
     await page.waitForFunction(() => { const w = document.querySelector(".atlas2").__atlas2.wars(); return w.ready && w.focus === "rm-209"; }, null, { timeout: 120000 }).catch(() => {});
     const w = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { focus: c.wars().focus, year: c.year() }; });
@@ -225,18 +227,28 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
 
   console.log("\n\x1b[1m6) Find it on the engine\x1b[0m\n");
   {
-    const v1 = await newPage(browser, { preview: false });
-    await v1.page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await v1.page.reload({ waitUntil: "load" });
-    await v1.page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#mgQ").textContent.length > 3; }, null, { timeout: 180000 });
-    const v1r = await v1.page.evaluate(() => { const h = [...document.querySelectorAll("*")].find((e) => e._finditRounds); return h ? h._finditRounds() : null; });
-    await v1.ctx.close();
+    /* the day's deal, on a fixed date: five rounds, and the same five when the day is dealt again in a fresh profile (the deal is a function of the date, nothing else). The equality with the retired board's
+       deal for 60 dates is `compare-findit-deal.js`; this is the self-contained part that needs no old code. */
+    const dealOn = async (iso) => {
+      const c = await newPage(browser);
+      await c.page.clock.setFixedTime(new Date(iso));
+      await c.page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await c.page.reload({ waitUntil: "load" });
+      await c.page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#findit2") && document.querySelector("#mgQ").textContent.length > 3; }, null, { timeout: 180000 });
+      const r = await c.page.evaluate(() => { const h = [...document.querySelectorAll("*")].find((e) => e._finditApi); return h._finditApi.rounds().map((x) => ({ kind: x.kind, n: x.n, year: x.year })); });
+      await c.ctx.close(); return r;
+    };
+    const dayA = await dealOn("2026-03-05T12:00:00"), dayA2 = await dealOn("2026-03-05T12:00:00"), dayB = await dealOn("2026-07-19T12:00:00");
+    check("on a fixed date the day is five rounds, and dealt again in a fresh profile it is the same five (kinds, names, years)", dayA.length === 5 && JSON.stringify(dayA) === JSON.stringify(dayA2), JSON.stringify(dayA.map((r) => r.n)));
+    check("...and another date deals another day (the deal does depend on the date)", dayB.length === 5 && JSON.stringify(dayB) !== JSON.stringify(dayA), JSON.stringify(dayB.map((r) => r.n)));
+    check("...and a day has the shape the board promises: country, state of the year, country, state of the year, place", dayA.map((r) => r.kind).join(",") === "entity,area,entity,area,point", dayA.map((r) => r.kind).join(","));
     const { ctx, page } = await newPage(browser);
     await page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
     await page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#mgQ").textContent.length > 3 && document.querySelector("#findit2"); }, null, { timeout: 180000 });
     const rounds = () => page.evaluate(() => { const h = [...document.querySelectorAll("*")].find((e) => e._finditApi); return h._finditApi.rounds().map((r) => ({ kind: r.kind, n: r.n, year: r.year })); });
     const v2r = await rounds();
-    check("the engine board deals the day's five rounds, the same five as v1's board (same kinds, names, years)", v1r && v2r.length === 5 && JSON.stringify(v1r) === JSON.stringify(v2r), JSON.stringify(v2r.map((r) => r.n)));
+    check("the board deals the day's five rounds", v2r.length === 5 && v2r.every((r) => r.n), JSON.stringify(v2r.map((r) => r.n)));
     check("the cartouche reads TODAY on a country round", (await page.textContent("#mapCartouche")) === "TODAY");
+    check("a round opens with nothing picked: Guess and Clear are collapsed and the score is 0", (await page.isHidden("#mgConfirm")) && (await page.isHidden("#mgClear")) && (await page.textContent("#mgScore")) === "0 found");
     const settleBoard = async () => { await page.waitForFunction(() => { const h = [...document.querySelectorAll("*")].find((e) => e._finditApi); const w = h._finditApi.win(); return w && w.isSettled(); }, null, { timeout: 60000 }).catch(() => {}); await sleep(300); };
     const viewTo = async (lon, lat, zoom) => { await sleep(1000); await page.evaluate(([a, b, z]) => { const h = [...document.querySelectorAll("*")].find((e) => e._finditApi); h._finditApi.win().setView(a, b, z); }, [lon, lat, zoom]); await settleBoard(); };
     const tapCentre = async () => { const bx = await (await page.$("#fi2Board")).boundingBox(); await page.mouse.click(bx.x + bx.width / 2, bx.y + bx.height / 2); await sleep(400); };
@@ -287,7 +299,7 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     const q = await page.textContent("#mgQ");
     check("the day ends on a score line, and Find it is then locked until tomorrow", /\d \/ 5\s*found/.test(q.replace(/\s+/g, " ")) || /found/.test(q), q);
     await page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" }); await sleep(1500);
-    check("a day played is the door (\"Played today\"), as on v1", /Played today|already played|scored/.test(await page.textContent("body")));
+    check("a day played is the door (\"Played today\")", /Played today|already played|scored/.test(await page.textContent("body")));
     await ctx.close();
     // reduced motion: the reveal's fly is instant
     const rm = await newPage(browser, { reduced: true });

@@ -3,7 +3,7 @@
      NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-atlas-study.js
      FOLIO_CHROMIUM=/path/to/chrome  … to pick the browser (otherwise playwright's own)
 
-   The real app is served and #map2 opened with a SEEDED progress record (`folio_v1` in localStorage, the same seed the v1 Personal
+   The real app is served and #map opened with a SEEDED progress record (`folio_v1` in localStorage, the same seed the v1 Personal
    Atlas suite writes), so the host object the app hands the Atlas is the one a reader gets; what the page must show is computed HERE,
    in Node, from the cards' own `places` and the shipped files, never read back from the page's own helpers.
 
@@ -71,7 +71,7 @@ async function open(browser, ids, o) {
   return { ctx, page, errors };
 }
 async function goMap(page, hash) {
-  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map2"}`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map"}`, { waitUntil: "load" });
   await ready(page);
 }
 async function ready(page) {
@@ -462,7 +462,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
   }
 
   /* ------------------------------------------------------------------ 7c  the glossary popup's "show on the Atlas" button (Phase 3c, task 2) */
-  console.log("\n\x1b[1m7c) the glossary popup's button opens #map2 at the term's registry place\x1b[0m\n");
+  console.log("\n\x1b[1m7c) the glossary popup's button opens #map at the term's registry place\x1b[0m\n");
   {
     const GP = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/glossary-places.js"), "utf8"))(GP);
     const table = GP.ATLAS_GLOSSARY_PLACES.ids;
@@ -472,21 +472,10 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
       await page.click(`[data-k="${key}"]`); await sleep(500);
       return page.$(`.gloss-win[data-k="${key}"] .gloss-map`);
     };
-    // OFF (what a reader has): the button still opens the old globe
-    {
-      const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } }); await ctx.addInitScript(seed([]));
-      const page = await ctx.newPage(); const errors = [];
-      page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
-      const b = await popup(page, "Olduvai_Gorge");
-      check("the popup of a place term has the button", !!b);
-      await b.click(); await sleep(1500);
-      check("with the preview switch off the button opens the old globe (#map), not #map2", /^#map(\?|\/|$)/.test(await page.evaluate(() => location.hash)) && !/^#map2/.test(await page.evaluate(() => location.hash)), await page.evaluate(() => location.hash));
-      allErrors.push(...errors); await ctx.close();
-    }
-    // ON: the registry place opens, flown to, with its card
+    // the registry place opens, flown to, with its card (Phase 5: always — the preview switch is gone)
     for (const [key, name] of [["Olduvai_Gorge", "Olduvai Gorge"], ["Tanzania", "Tanzania"], ["Gona,_Ethiopia", "Gona, Ethiopia"]]) {
       const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-      await ctx.addInitScript(seed([])); await ctx.addInitScript(() => { try { localStorage.setItem("folio.atlas2.preview", "1"); } catch (e) {} });
+      await ctx.addInitScript(seed([]));
       const page = await ctx.newPage(); const errors = [];
       page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
       page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
@@ -498,7 +487,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
       await page.waitForFunction((id) => { const c = document.querySelector(".atlas2").__atlas2; const cd = c.card(); return cd && cd.open && cd.id === id; }, table[key], { timeout: 60000 }).catch(() => {});
       await sleep(1200);
       const r = await A(page, (c) => ({ card: c.card(), view: { lon: c.view.lon, lat: c.view.lat }, kmpp: c.kmPerPx(), hash: location.hash }));
-      check(`${key}: #map2 opens with ${table[key]} selected and its card open`, r.card.open && r.card.id === table[key] && r.card.title.includes(name), `${r.card.id} · ${r.card.title}`);
+      check(`${key}: #map opens with ${table[key]} selected and its card open`, r.card.open && r.card.id === table[key] && r.card.title.includes(name), `${r.card.id} · ${r.card.title}`);
       const row = placeRow(table[key]);
       const at = row && row.at;
       check(`${key}: the view flew to the place`, !!at && Math.hypot(r.view.lon - at[0], r.view.lat - at[1]) < (row.kind === "country" ? 25 : 1.5), at ? `view ${r.view.lon.toFixed(1)}, ${r.view.lat.toFixed(1)} against ${at[0].toFixed(1)}, ${at[1].toFixed(1)}` : "no row");
@@ -513,7 +502,9 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const reg = require("./places-registry.js").loadRegistry({ entities: false });
     const W = {}; new Function("window", fs.readFileSync(path.join(ROOT, "glossary.js"), "utf8"))(W);
     check("every id in the glossary table resolves in the registry", Object.values(table).every((id) => reg.rows.has(id)), Object.keys(table).length + " terms");
-    check("181 country terms and 30 of the 31 point terms have a place (Phase 2c, Task 0b: Alaska, Great Britain, Lake Turkana, the Sahara and Siberia matched by exact label or alias at any distance); the one left out, Lomekwi 3, has no Wikidata item and is not guessed", Object.keys(W.GLOSSARY_MAP_COUNTRY).every((k) => /^adm0:/.test(table[k] || "")) && Object.keys(W.GLOSSARY_PLACES).filter((k) => table[k]).length === 30 && Object.keys(W.GLOSSARY_PLACES).filter((k) => !table[k]).join() === "Lomekwi_3", Object.keys(W.GLOSSARY_PLACES).filter((k) => !table[k]).join(", "));
+    // Phase 5: glossary.js no longer carries v1's GLOSSARY_MAP_COUNTRY / GLOSSARY_PLACES (the old pin's sources); the generated table's own counts and keys are what is pinned now
+    const GC = GP.ATLAS_GLOSSARY_PLACES.counts, ids = Object.keys(table), adm = ids.filter((k) => /^adm0:/.test(table[k]));
+    check("181 country terms and 30 point terms have a place (Phase 2c, Task 0b; the count is the generated table's own and matches its ids); the one left out, Lomekwi 3, has no Wikidata item and is not guessed", GC.terms === 211 && GC.countries === 181 && GC.points === 30 && ids.length === 211 && adm.length === 181 && ids.every((k) => k in W.GLOSSARY) && !("Lomekwi_3" in table) && ("Lomekwi_3" in W.GLOSSARY), JSON.stringify(GC) + ", " + adm.length + " adm0 ids, Lomekwi_3 " + ("Lomekwi_3" in table ? "in" : "out") + " of the table");
   }
 
   /* ------------------------------------------------------------------ 7d  search across years (Phase 3c, task 3) */
@@ -611,7 +602,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     }
     {
       const d = await open(browser, READER); await d.page.evaluate(() => localStorage.setItem("folio.atlas2.study", "personal"));
-      await d.page.goto(`http://127.0.0.1:${PORT}/#map2/10.00/20.00/3.00`, { waitUntil: "load" }); await d.page.reload({ waitUntil: "load" }); await ready(d.page); await sleep(600);
+      await d.page.goto(`http://127.0.0.1:${PORT}/#map/10.00/20.00/3.00`, { waitUntil: "load" }); await d.page.reload({ waitUntil: "load" }); await ready(d.page); await sleep(600);
       const v = await A(d.page, (c) => ({ lon: c.view.lon, lat: c.view.lat, frame: c.framing() }));
       check("a deep link's own view is never overridden by the framing", v.frame === null && Math.abs(v.lon - 10) < 0.2 && Math.abs(v.lat - 20) < 0.2, JSON.stringify({ lon: v.lon, lat: v.lat }));
       allErrors.push(...d.errors); await d.ctx.close();

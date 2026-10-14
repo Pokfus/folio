@@ -202,9 +202,6 @@ function crosswordForPage(cells) {
 (async () => {
   const [srv, base] = await serve();
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
-  /* Stage B: Find it's DEFAULT board is the engine's (atlas/atlas-windows.js; test-atlas-embed.js §6 and test-findit-learn.js guard it). THIS suite guards v1's game logic and v1's board — the fallback that stays until
-     Phase 5 — so every context it opens takes the way back to v1 (localStorage `folio.atlas2.preview` = "0"). */
-  { const nc = browser.newContext.bind(browser); browser.newContext = async (o) => { const c = await nc(o); await c.addInitScript(() => { try { localStorage.setItem("folio.atlas2.preview", "0"); } catch (e) {} }); return c; }; }
   const errs = [];
   const watch = (p, tag) => {
     p.on("pageerror", (e) => errs.push(tag + " pageerror: " + e.message));
@@ -1126,212 +1123,17 @@ function crosswordForPage(cells) {
       [set(day, "truefalse"), set(day, "truefalse-o")].join(" / "));
   }
 
-  /* ---- FIND IT: A TAP SELECTS, A BUTTON COMMITS, AND A LATE ANSWER STILL COUNTS ----
-     Two reported faults, Aug 2026: "clicking a country shouldn't immediately guess, but only selected
-     before the user should click a confirmation button", and "at the end of that minigame it says x/5
-     questions correct, but it only counts answers that were correct first-try — second and third guesses
-     should still count if they were correct." Nothing in the suite covered this game at all, which is
-     how a score that disagreed with the reader's own arithmetic went unremarked.
-
-     THE TARGET IS CENTRED RATHER THAN HUNTED (Sep 2026). It used to be hunted: the board was swept a
-     tap at a time and the CONFIRM BUTTON read back, because it named the place under the last tap. That
-     readout is gone — it gave away whether the guess was right before it was committed, which is the
-     bug this section now guards against — so the oracle had to go with it, and a sweep with nothing to
-     read is 850 clicks that cannot tell one country from another.
-     WHAT REPLACES IT USES ONLY WHAT A READER HAS. The globe opens centred on `S.settings.home`, so the
-     page is loaded once to learn the day's target, that country's own label point is read out of
-     `world.js`, and the page is loaded AGAIN with home set to it — after which the target is under the
-     middle of the disk and a tap at the centre is a tap on it. Zooming in a few steps first is what
-     makes that true of a small country as well as of Greenland.
-     It FAILS if the target cannot be resolved rather than skipping the assertion — a hunt that quietly
-     gives up is a test that passes on the day the feature breaks. */
-  {
-    const [ctx, page] = await fresh({ width: 1280, height: 900 });
-    watch(page);
-    await page.goto(base + "#findit", { waitUntil: "load" });
-    await page.waitForTimeout(2200);
-    const read = () => page.evaluate(() => {
-      const t = (s) => { const e = document.querySelector(s); return e ? (e.textContent || "").trim() : ""; };
-      const h = (s) => { const e = document.querySelector(s); return !e || e.hidden; };
-      const acts = document.querySelector(".mg-acts");
-      return { q: t("#mgQ"), score: t("#mgScore"), fb: t("#mgFeedback"),
-               confirm: t("#mgConfirm"), confirmHidden: h("#mgConfirm"), clearHidden: h("#mgClear"),
-               nextHidden: h("#mgNext"), acts: acts ? getComputedStyle(acts).display : "" };
-    });
-    const box = await page.locator("canvas").first().boundingBox();
-    const tap = (fx, fy) => page.mouse.click(box.x + box.width * fx, box.y + box.height * fy);
-
-    const opened = await read();
-    const target = ((opened.q.match(/Find (?:the city of )?(.+?)(?: on today| — in |$)/) || [])[1] || "").trim();
-    check("[fi] the game opens on a round with a place to find", !!target && opened.acts === "none",
-      JSON.stringify(opened));
-
-    /* THE TARGET'S OWN LABEL POINT, out of `world.js` — the same `c` the Atlas writes a country's name
-       at, so it is a point inside the country by construction rather than a bbox centre that can fall
-       in the sea. A HISTORICAL round is an era territory and is not in `world.js`, but round 1 is
-       always a present-day country (see buildGameRounds' running order), which is the round this
-       section plays. */
-    const home = await page.evaluate((t) => {
-      const g = (window.WORLD_GEO || []).find((x) => String(x.n || "").toLowerCase() === String(t).toLowerCase());
-      return g && g.c ? { name: g.n, lon: g.c[0], lat: g.c[1] } : null;
-    }, target);
-    check("[fi] …and that place is one world.js can be centred on", !!home, target + " → " + JSON.stringify(home));
-    await ctx.close();
-    // no early return: this is a bare block inside the suite's own IIFE, so returning here would end the
-    // run before the page-error check at the foot of the file
-    if (home) {
-
-    /* Reloaded with the globe's home set to the target, so the middle of the disk IS the answer. The day
-       decides the round, so it is the same round as before; nothing about the game is told where to
-       look, and every assertion below is made through the same controls a reader has. */
-    const [ctx2, page2] = await fresh({ width: 1280, height: 900 });
-    watch(page2);
-    await page2.addInitScript((h) => {
-      localStorage.setItem("folio_v1", JSON.stringify({ settings: { home: h } }));
-    }, home);
-    await page2.goto(base + "#findit", { waitUntil: "load" });
-    await page2.waitForTimeout(2600);
-    const read2 = () => page2.evaluate(() => {
-      const t = (s) => { const e = document.querySelector(s); return e ? (e.textContent || "").trim() : ""; };
-      const h = (s) => { const e = document.querySelector(s); return !e || e.hidden; };
-      const acts = document.querySelector(".mg-acts");
-      return { q: t("#mgQ"), score: t("#mgScore"), fb: t("#mgFeedback"),
-               confirm: t("#mgConfirm"), confirmHidden: h("#mgConfirm"), clearHidden: h("#mgClear"),
-               nextHidden: h("#mgNext"), acts: acts ? getComputedStyle(acts).display : "" };
-    });
-    const box2 = await page2.locator("canvas").first().boundingBox();
-    const tap2 = (fx, fy) => page2.mouse.click(box2.x + box2.width * fx, box2.y + box2.height * fy);
-    // a few steps in, so the centre is well inside the target even when the target is a small country
-    for (let i = 0; i < 5; i++) { await page2.click("#gzIn").catch(() => {}); await page2.waitForTimeout(140); }
-    await page2.waitForTimeout(600);
-
-    /* 1. A TAP SELECTS AND DOES NOT ANSWER — the first reported fault: the score must not move and no
-       verdict may appear until the button is pressed. */
-    await tap2(0.5, 0.5);
-    const picked = await read2();
-    check("[fi] a tap selects rather than guessing",
-      !picked.confirmHidden && picked.fb === "" && picked.score === opened.score, JSON.stringify(picked));
-    /* …AND THE BUTTON DOES NOT NAME WHAT WAS TAPPED (Sep 2026, on a bug report: "it says on the button
-       'GUESS [selected place]', but that gives away whether the answer is right or not"). It read
-       "Guess Greenland" on a round asking for Greenland, so a reader could try a country, be told they
-       had it, and commit only when the button agreed — which is not a test of whether they know where
-       it is. The word alone, and NOTHING resembling the target's name anywhere in the label. */
-    check("[fi] …and the button names nothing, so a pick gives no verdict away",
-      picked.confirm === "Guess" && picked.confirm.toLowerCase().indexOf(target.toLowerCase()) < 0,
-      JSON.stringify({ confirm: picked.confirm, target: target }));
-    check("[fi] …and offers a way to withdraw it", !picked.clearHidden && picked.acts !== "none",
-      JSON.stringify(picked));
-
-    /* 2. CLEAR PUTS IT BACK. A pick that cannot be withdrawn is a click that has still been spent. */
-    await page2.click("#mgClear");
-    await page2.waitForTimeout(200);
-    const cleared = await read2();
-    check("[fi] Clear withdraws the pick, and the row collapses with it",
-      cleared.confirmHidden && cleared.clearHidden && cleared.acts === "none" && cleared.fb === "",
-      JSON.stringify(cleared));
-
-    /* 3. A WRONG GUESS SPENDS A TRY. ZOOMED BACK OUT FIRST, and that is not tidying: the view is centred
-       on the answer, so close in every point on the disk is still inside it — five steps into Greenland
-       and all four offsets below were Greenland, which is the round being ANSWERED rather than missed.
-       At world scale a fifth of the disk from centre is a different continent. The "km away" reading is
-       what says the guess really was wrong, rather than the tap's position being assumed to mean it. */
-    for (let i = 0; i < 7; i++) { await page2.click("#gzOut").catch(() => {}); await page2.waitForTimeout(120); }
-    await page2.waitForTimeout(500);
-    let missed = null, landed = false;
-    for (const [fx, fy] of [[0.24, 0.5], [0.5, 0.26], [0.76, 0.5], [0.5, 0.74], [0.32, 0.32], [0.68, 0.68], [0.32, 0.68], [0.68, 0.32]]) {
-      if (missed || landed) break;
-      await tap2(fx, fy);
-      if ((await read2()).confirmHidden) continue;          // the sky, or open sea on an entity round
-      await page2.click("#mgConfirm");
-      await page2.waitForTimeout(800);
-      const st = await read2();
-      if (/away/.test(st.fb)) missed = st;
-      else if (/Found it/.test(st.fb)) landed = true;        // hit it after all — section 4 has nothing left to try
-    }
-    check("[fi] a wrong guess spends a try and says how far off it was",
-      !!missed && /try/i.test(missed.fb) && missed.confirmHidden, JSON.stringify(missed));
-
-    /* 4. THE SECOND TRY, RIGHT. The reported scoring bug: this used to leave the score at 0. */
-    if (missed) {
-      for (let i = 0; i < 7; i++) { await page2.click("#gzIn").catch(() => {}); await page2.waitForTimeout(120); }
-      await page2.waitForTimeout(500);
-      await tap2(0.5, 0.5);
-      const aim = await read2();
-      check("[fi] the day's target can be aimed at once the globe is centred on it",
-        !aim.confirmHidden, JSON.stringify({ target: target, confirm: aim.confirm }));
-      await page2.click("#mgConfirm");
-      await page2.waitForTimeout(900);
-      const won = await read2();
-      check("[fi] a correct SECOND guess counts towards the score",
-        /^1 found/.test(won.score) && /Found it/.test(won.fb), JSON.stringify(won));
-      check("[fi] …and the round is over rather than offering a third try",
-        !won.nextHidden, JSON.stringify(won));
-    }
-    await ctx2.close();
-    }
-    await ctx.close();
-  }
-
-  /* ---------- Find it asks for the FULL ATLAS's places (Oct 2026) ----------
-     "Since we're no longer using the World Atlas, ensure that the Find It minigame now uses locations from
-     the Full Atlas instead." The pool is `atlasRegisterAll(true)` — countries, historical states and
-     peoples, and places — so a day is five rounds in a fixed order: a country, a state or people, a
-     country, a state or people, a place. THE ROUND KIND IS READ OFF THE QUESTION, which is all the page
-     says: a state is asked "as it stood in <year>", the others "on today's map". Each round is played to
-     its end through the controls a reader has (a grid of taps until one lands, Guess, a second try), and
-     what is asserted is what the reader sees: the shape of each question, and that a state or a place ends
-     on the CARD about it — the study card, not a country panel — with its swipe bar where more than one
-     card names it. A same-day replay is turned away, so this is the day's one play. */
-  {
-    const [ctx, page] = await fresh({ width: 1280, height: 900 });
-    watch(page);
-    await page.goto(base + "#findit", { waitUntil: "load" });
-    await page.waitForTimeout(3500);
-    const box = await page.locator("canvas").first().boundingBox();
-    const st = () => page.evaluate(() => {
-      const t = (s) => { const e = document.querySelector(s); return e ? (e.textContent || "").trim() : ""; };
-      const h = (s) => { const e = document.querySelector(s); return !e || e.hidden; };
-      const pop = document.getElementById("countryPop");
-      return { q: t("#mgQ"), round: t("#mgRound"), fb: t("#mgFeedback"), confirmHidden: h("#mgConfirm"), nextHidden: h("#mgNext"), cart: t("#mapCartouche"),
-               card: !!(pop && !pop.hidden && pop.querySelector(".cp-cardback")), cardPanel: !!(pop && !pop.hidden && pop.classList.contains("cp-mine")) };
-    });
-    // the right-hand half of the stage only: the card panel a reveal opens covers the left third, and a tap
-    // there opens one of ITS glossary terms (and that window sits over the Next button)
-    const grid = []; for (let a = 0; a < 10; a++) for (let b = 0; b < 10; b++) grid.push([0.46 + a * 0.05, 0.32 + b * 0.06]);
-    const asked = [], ended = [], boards = [];
-    for (let r = 0; r < 5; r++) {
-      const s0 = await st(); asked.push(s0.q); boards.push(s0.cart);
-      for (let go = 0; go < 2; go++) {
-        let picked = false;
-        for (const [fx, fy] of grid) { await page.mouse.click(box.x + box.width * fx, box.y + box.height * fy); if (!(await st()).confirmHidden) { picked = true; break; } }
-        if (!picked) break;
-        await page.click("#mgConfirm"); await page.waitForTimeout(1100);
-        if (!(await st()).nextHidden) break;
-      }
-      await page.waitForTimeout(600);
-      ended.push(await st());
-      if (!ended[r].nextHidden) { await page.evaluate(() => document.getElementById("mgNext").click()); await page.waitForTimeout(700); }
-    }
-    const isState = (q) => /^Find .+ — as it stood in (\d+|\d+ BCE)$/.test(q), isToday = (q) => /^Find (the city of )?.+ on today's map$/.test(q);
-    check("[fi-atlas] a day is five rounds", asked.length === 5 && asked.every(Boolean), JSON.stringify(asked));
-    check("[fi-atlas] …a country, a state or people, a country, a state or people, then a place",
-      isToday(asked[0]) && isState(asked[1]) && isToday(asked[2]) && isState(asked[3]) && isToday(asked[4]), JSON.stringify(asked));
-    /* A STATE IS FOUND ON THE FULL ATLAS IN ITS YEAR (Oct 2026, on a bug report: "it currently still shows
-       the modern map"): the plate cartouche names the board, and on a state's round it is the Full Atlas's
-       at the year the question asks for; a country's or a place's round is back on today's map. */
-    const yearOf = (q) => (q.match(/as it stood in (\d+(?: BCE)?)$/) || [])[1];
-    check("[fi-atlas] a state or people is found on the Full Atlas in the year it is asked for",
-      boards[1] === "FULL ATLAS · " + yearOf(asked[1]) && boards[3] === "FULL ATLAS · " + yearOf(asked[3]), JSON.stringify([asked[1], boards[1], asked[3], boards[3]]));
-    check("[fi-atlas] …and a country or a place on today's map", boards[0] === "TODAY" && boards[2] === "TODAY" && boards[4] === "TODAY", JSON.stringify(boards));
-    check("[fi-atlas] …every round was played to its end", ended.every((e) => /Found it|It was here/.test(e.fb)), JSON.stringify(ended.map((e) => e.fb)));
-    check("[fi-atlas] a state or people ends on the study card about it, not on a country's panel",
-      ended[1].card && ended[1].cardPanel && ended[3].card && ended[3].cardPanel, JSON.stringify([ended[1], ended[3]]));
-    check("[fi-atlas] …and so does a place", ended[4].card && ended[4].cardPanel, JSON.stringify(ended[4]));
-    check("[fi-atlas] …while a country still ends on its own panel", !ended[0].cardPanel && !ended[2].cardPanel, JSON.stringify([ended[0], ended[2]]));
-    const done = await page.evaluate(() => (document.getElementById("mgQ") || {}).textContent || "");
-    check("[fi-atlas] …and the game ends with a score", /\d \/ 5 found/.test(done), done);
-    await ctx.close();
-  }
+  /* ---- FIND IT (Phase 5: the blocks that stood here are DELETED) ----
+     They drove the earlier Find it board — the Atlas page in game mode: its `canvas`, `#gzIn` / `#gzOut`, a globe centred through `S.settings.home` on the label point read out of `WORLD_GEO`, and a country
+     panel (`#countryPop`, `.cp-cardback`) — none of which exists any more: Find it is the engine's board (`#findit2`, `#fi2Board`, atlas/atlas-windows.js). Each assertion has its counterpart there:
+       · "a tap selects rather than guessing", "the button names nothing", "a way to withdraw it", "Clear withdraws the pick" → test-atlas-embed.js section 6 (a tap only PICKS: Guess appears with its bare word and the
+         score has not moved; Clear hides both buttons);
+       · "a wrong guess spends a try and says how far off it was", "a correct SECOND guess counts towards the score", "the round is over rather than offering a third try" → section 6 ("N km away — one more try!",
+         "a second try that is right counts as FOUND", "after two tries there is no third: Next is showing and Guess is gone");
+       · the [fi-atlas] rows: a day is five rounds in the fixed order (country, state or people, country, state or people, place), a state is found on the Full Atlas in its year (the cartouche), every round
+         played to its end, the game ends on a score → section 6 (the kinds are asserted as entity,area,entity,area,point on two fixed dates; "FULL ATLAS · <year>"; the score line), and the cards a state, a people or
+         a place ends on → test-findit-learn.js (the learn panel lists exactly the round's cards, each a link to its card's own address).
+     The daily door (`g-findit`) is still read in this file's daily-games section; "Played today" is test-atlas-embed.js section 6. */
 
   check("[all] no page errors anywhere", errs.length === 0, errs.slice(0, 4).join(" | "));
 

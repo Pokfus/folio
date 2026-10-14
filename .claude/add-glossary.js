@@ -42,9 +42,6 @@ if (!e.slug) { console.error("ERROR: entry needs `slug`"); process.exit(1); }
 // alone yields EMPTY GLOSSARY_SOURCES/GLOSSARY_IMAGES, silently.
 const win = require("./gloss-io.js").loadGlossary();
 const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = win.GLOSSARY_ALIASES || {}, CASE = win.GLOSSARY_CASESENSITIVE || {}, TAGS = win.GLOSSARY_TAGS || {}, IMAGES = win.GLOSSARY_IMAGES || {}, VIDEOS = win.GLOSSARY_VIDEOS || {}, SOURCES = win.GLOSSARY_SOURCES || {};
-// The Atlas tables, written by .claude/fetch-place-coords.js. This script rebuilds glossary.js from a FIXED
-// list of tables, so any table it does not carry is silently dropped on the next write. Carry every one.
-const PLACES = win.GLOSSARY_PLACES || {}, MAPC = win.GLOSSARY_MAP_COUNTRY || {};
 const SRC_MAX = 24;   // mirrors SRC_MAX in app.js
 const SRC_URL = /https?:\/\/[^\s<>"']+/;   // every citation carries a link the reader can follow
 const { checkCitationLang } = require("./src-langs.js");
@@ -169,18 +166,6 @@ if (Object.keys(VIDEOS).length) {
   out +=
     "\n/* Optional video per term (slug -> { src, title, desc, credit }) — a YouTube/Vimeo or direct file link, shown in the term's popup. */\n" +
     "window.GLOSSARY_VIDEOS = Object.assign(window.GLOSSARY_VIDEOS || {}, " + obj(VIDEOS) + ");\n";
-}
-if (Object.keys(PLACES).length) {
-  out +=
-    "\n/* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's\n" +
-    "   own primary coordinates by .claude/fetch-place-coords.js. Never hand-written. */\n" +
-    "window.GLOSSARY_PLACES = Object.assign(window.GLOSSARY_PLACES || {}, " + obj(PLACES) + ");\n";
-}
-if (Object.keys(MAPC).length) {
-  out +=
-    "\n/* Glossary terms that name a country the Atlas draws: slug -> the name world.js uses. Joined at build\n" +
-    "   time by the same script, because world.js is lazy and the popup must decide without it. */\n" +
-    "window.GLOSSARY_MAP_COUNTRY = Object.assign(window.GLOSSARY_MAP_COUNTRY || {}, " + obj(MAPC) + ");\n";
 }
 /* GLOSSARY_IMAGES and GLOSSARY_SOURCES are deliberately NOT in `out`: they live in the lazy
    glossary-extra.js, because together they were 54% of a file on the EAGER load path and

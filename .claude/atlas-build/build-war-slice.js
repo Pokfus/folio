@@ -23,7 +23,7 @@
    WHAT --check PROVES (CI's fast job, offline): the installed slice is byte-identical to a fresh cut of the committed history.bin; its twin decodes to it; it was built on the same core
    (topology.bin's build id); for EVERY war in the table, the states alive in its display year are exactly the full file's (entity ids and the geometry of every face at all three
    levels, own arcs' moved junctions included), and each side's first step in the war's years is the full file's; the window's display-year formula is the one this file uses; and the slice
-   is inside its budget (BUDGET_BYTES; the four twins together stay under TWINS_MAX: 13.25 MB today against the owner's 12 MB rule for the first three — his decision). The credits page lists it (build-credits.js reads its header). */
+   is inside its budget (BUDGET_BYTES; the three twins together stay under TWINS_MAX = 12 MB, the owner's Phase 5 rule: the pilot history twin is gone and this slice's twin is gzip-compressed). The credits page lists it (build-credits.js reads its header). */
 "use strict";
 const fs = require("fs"), path = require("path"), crypto = require("crypto");
 const F = require("./lib/format.js");
@@ -33,8 +33,8 @@ const Tw = require("./lib/twin.js");
 const HERE = __dirname, ROOT = path.join(HERE, "..", ".."), DATA = path.join(ROOT, "atlas", "data"), OUT = path.join(HERE, "out");
 const argv = process.argv.slice(2), has = (f) => argv.includes(f);
 const FULL = path.join(DATA, "history.bin"), SLICE = path.join(DATA, "history-wars.bin"), CORE = path.join(DATA, "topology.bin");
-const BUDGET_BYTES = 2.5e6;   // the slice file; its twin is base64 of it
-const TWINS_MAX = 13.5e6;   // every twin together (topology, water, the pilot history, this slice); the owner's Phase 1d rule was 12 MB for the first three (10.9 MB now) — see the header's last paragraph
+const BUDGET_BYTES = 2.5e6;   // the slice file; its twin is the base64 of its gzip
+const TWINS_MAX = 12e6;   // every twin together (topology, water, this slice) — the owner's rule of Phase 5
 const sha = (b) => crypto.createHash("sha256").update(b).digest("hex");
 const say = (m) => console.log(m);
 const NOT_DRAWN = new Set(["people", "culture", "front", "extent"]);
@@ -152,7 +152,7 @@ function writeAll(bytes) {
   fs.mkdirSync(OUT, { recursive: true });
   fs.writeFileSync(path.join(OUT, "history-wars.bin"), bytes);
   fs.writeFileSync(SLICE, bytes);
-  const tw = Tw.writeTwin(SLICE, { name: "history-wars.bin" });
+  const tw = Tw.writeTwin(SLICE, { name: "history-wars.bin", gzip: true });
   return tw;
 }
 
@@ -176,9 +176,9 @@ function writeAll(bytes) {
     else if (sha(fs.readFileSync(SLICE)) !== sha(bytes)) problems.push("atlas/data/history-wars.bin lags history.bin or wars.js — run: node .claude/atlas-build/build-war-slice.js --install");
     const t = Tw.checkTwin(SLICE); if (!t.ok) problems.push("the twin of the slice: " + t.reason);
     else say(`  twin: ${t.twinBytes} bytes, identical to the slice`);
-    const full = ["topology.bin.js", "water.bin.js", "history.bin.js", "history-wars.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((a, b) => a + b, 0);
-    say(`  the file:// twins together: ${(full / 1e6).toFixed(2)} MB (the owner's rule of Phase 1d was 12 MB for the three twins that existed then; this fourth, the slice's, takes the total past it — reported for the owner's decision, held here at ${TWINS_MAX / 1e6} MB)`);
-    if (full > TWINS_MAX) problems.push(`the four twins together are ${(full / 1e6).toFixed(2)} MB, over ${TWINS_MAX / 1e6} MB`);
+    const full = ["topology.bin.js", "water.bin.js", "history-wars.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((a, b) => a + b, 0);
+    say(`  the file:// twins together: ${(full / 1e6).toFixed(2)} MB (the owner's rule: at most ${TWINS_MAX / 1e6} MB)`);
+    if (full > TWINS_MAX) problems.push(`the three twins together are ${(full / 1e6).toFixed(2)} MB, over ${TWINS_MAX / 1e6} MB`);
     if (problems.length) { for (const m of problems) console.error("FAIL " + m); process.exit(1); }
     say("ok"); return;
   }

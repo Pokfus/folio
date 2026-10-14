@@ -40,7 +40,7 @@ async function open(context, hash) {
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map2"}`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map"}`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ rivers: true, lakes: true, relief: false }));
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady(); }, null, { timeout: 120000 });
@@ -72,7 +72,7 @@ async function touchDrag(page, cdp, steps) {
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-  const { page, errors } = await open(context, "#map2?perf");
+  const { page, errors } = await open(context, "#map?perf");
   const gl = await page.evaluate(() => { const c = document.createElement("canvas"); const g = c.getContext("webgl2"); if (!g) return "none"; const d = g.getExtension("WEBGL_debug_renderer_info"); return d ? g.getParameter(d.UNMASKED_RENDERER_WEBGL) : g.getParameter(g.RENDERER); }).catch(() => "?");
   const software = /swiftshader|llvmpipe|software/i.test(gl);
   console.log("WebGL2 renderer: " + gl + (software ? " (software)" : ""));
@@ -140,7 +140,7 @@ async function touchDrag(page, cdp, steps) {
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(10, 20, 24));
   await drag(page, 30);
   const h1 = await page.evaluate(() => location.hash);
-  check("desktop: after a mouse pan the address carries the view and ?perf", /^#map2\/-?[\d.]+\/-?[\d.]+\/[\d.]+(\?y=-?\d+&perf|\?perf)$/.test(h1), h1);
+  check("desktop: after a mouse pan the address carries the view and ?perf", /^#map\/-?[\d.]+\/-?[\d.]+\/[\d.]+(\?y=-?\d+&perf|\?perf)$/.test(h1), h1);
   await page.reload({ waitUntil: "load" }); await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 }); await sleep(300);
   const h2 = await page.evaluate(() => ({ hash: location.hash, on: !document.querySelector(".atlas2-perf").hidden, first: document.querySelector(".atlas2-perf").textContent.split("\n")[0] }));
   check("desktop: after a reload the address still carries ?perf and the overlay is on", /(\?|&)perf$/.test(h2.hash) && h2.on, h2.hash);
@@ -149,11 +149,11 @@ async function touchDrag(page, cdp, steps) {
   await page.close();
   {
     const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
-    const P = await open(phone, "#map2?perf");
+    const P = await open(phone, "#map?perf");
     const cdp = await phone.newCDPSession(P.page);
     await touchDrag(P.page, cdp, 30);
     const ph1 = await P.page.evaluate(() => location.hash);
-    check("phone: after a touch pan the address carries the view and ?perf", /^#map2\/-?[\d.]+\/-?[\d.]+\/[\d.]+(\?y=-?\d+&perf|\?perf)$/.test(ph1), ph1);
+    check("phone: after a touch pan the address carries the view and ?perf", /^#map\/-?[\d.]+\/-?[\d.]+\/[\d.]+(\?y=-?\d+&perf|\?perf)$/.test(ph1), ph1);
     await P.page.reload({ waitUntil: "load" }); await P.page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 }); await sleep(300);
     const ph2 = await P.page.evaluate(() => ({ hash: location.hash, on: !document.querySelector(".atlas2-perf").hidden }));
     check("phone: after a reload ?perf is still in the address and the overlay is on", /(\?|&)perf$/.test(ph2.hash) && ph2.on, ph2.hash);
@@ -164,7 +164,7 @@ async function touchDrag(page, cdp, steps) {
   console.log("\n\x1b[1m5) the About sheet's switch\x1b[0m\n");
   {
     const ctx2 = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-    const S = await open(ctx2, "#map2");
+    const S = await open(ctx2, "#map");
     const off = await S.page.evaluate(() => ({ hidden: document.querySelector(".atlas2-perf").hidden, hash: location.hash }));
     check("without ?perf and no preference the overlay is off", off.hidden, off.hash);
     await S.page.click(".atlas2-about-btn"); await sleep(150);

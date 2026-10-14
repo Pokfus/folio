@@ -53,7 +53,7 @@ const SEARCHES = ["paris", "danube", "baikal", "andes", "tokyo", "sahara", "amaz
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-  await page.goto(`http://127.0.0.1:${PORT}/#map2`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/#map`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 180000 });
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady() && c.labels().length > 0; }, null, { timeout: 120000 });
   const settle = () => page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.tilesSettled(), null, { timeout: 60000 }).then(() => true, () => false);
