@@ -8,7 +8,7 @@
        const r = resolveWars({ cards, cardYears });   // cardYears: app.js's parser, for a war with no `years` of its own
        r.wars   → [{ id, term, y: [from, to], group, zoom, sides: { victors: SIDE, losers: SIDE } }]
        r.extents → [{ key, name, rings, cards: [{ id, side, y }], rows: [[from, to]…] }]   // authored extents (kind `extent`)
-       SIDE = { name, members: [{ key, from, to, by, why? }], extent: key | null, unresolved: [names] }
+       SIDE = { name, members: [{ key, from, to, by, why? }], extent: key | null, unresolved: [names], principal: key | null }   // principal: the one entity the side's name stands for (principalOf)
 
    A side resolves, the first rule that answers winning: an explicit entry in war-sides.json `sides`; the card's link in the specs (`links` v / l);
    the side's NAME being the label of one series; its `keys` through `keyMap`; its authored `area` kept as an authored extent. A side with
@@ -97,7 +97,25 @@ function resolveWars(o) {
   }
   const keyOf = new Map(extents.map((x) => [x.id, x.key]));
   for (const w of wars) for (const side of ["victors", "losers"]) if (w.sides[side].extent) w.sides[side].extent = keyOf.get(w.sides[side].extent);
+  const nameOf = new Map(extents.map((x) => [x.key, x.name]));
+  for (const w of wars) for (const side of ["victors", "losers"]) w.sides[side].principal = principalOf(w.sides[side], S, nameOf);
   return { wars, extents, specs: S };
+}
+
+/* THE SIDE'S PRINCIPAL ENTITY (Oct 2026): the one entity the side's NAME stands for, so a war window can put the name on that entity's own ground ("Rome" on Rome, not on an ally's strip). A side's name
+   is the card's own word for it ("Rome", "Han empire", "Macedon and the Greek leagues"); the entities are the series (or the authored extent) it resolved to. In order, the first rule that finds exactly ONE:
+   the side has only one entity; an entity whose label IS the name; an entity whose label contains every word of the name ("Jin" -> Western Jin; "China" -> Republic of China, not the Communist base areas);
+   an entity whose label begins with the name's first word ("Han empire" -> Han dynasty, "Macedon and the Greek leagues" -> Macedon). A side that no rule settles ("Allied powers", "Byzantium and Sasanian Persia")
+   has NO principal (null): its name is placed on the side's largest face, as before. Never guessed past those rules. */
+function principalOf(side, S, extentName) {
+  const cands = []; for (const m of side.members) if (!cands.includes(m.key)) cands.push(m.key); if (side.extent && !cands.includes(side.extent)) cands.push(side.extent);
+  if (!cands.length) return null;
+  if (cands.length === 1) return cands[0];
+  const words = (x) => fold(x).split(/[^a-z0-9]+/).filter((w) => w && w !== "the"), nw = words(side.name);
+  const label = (k) => (S.polities[k] ? S.polities[k].label : extentName.get(k)) || "";
+  const rules = [(k) => fold(label(k)) === fold(side.name), (k) => { const lw = words(label(k)); return nw.length > 0 && nw.every((w) => lw.includes(w)); }, (k) => { const lw = words(label(k)); return nw.length > 0 && lw.length > 0 && lw[0] === nw[0]; }];
+  for (const rule of rules) { const hit = cands.filter(rule); if (hit.length === 1) return hit[0]; }
+  return null;
 }
 
 module.exports = { resolveWars, specs, warYearsOf, fold, slug };

@@ -147,7 +147,7 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
       await page.goto(url("#card/rm-209"), { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
       await windowUp(page, ".map-card");
       const ids = await page.evaluate(() => Object.keys(window.ATLAS_WARS.wars));
-      const bad = [], rows = [], noGround = [];
+      const bad = [], rows = [], noGround = [], offPrincipal = []; let onPrincipal = 0, alivePrincipals = 0;
       for (const id of ids) {
         await page.evaluate((cid) => { location.hash = "#card/" + cid; }, id);
         try {
@@ -160,7 +160,7 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
           const out = { id: cid, year: Number(h.getAttribute("data-map-year")), labels: [], cw: P.cw, ch: P.ch, ctl };
           for (const l of F.labels()) {
             const side = W[l.k], ll = hub.lonLatAt(P.spec, l.x, l.y);
-            out.labels.push({ k: l.k, n: l.n, x: l.x, y: l.y, w: l.w, ground: l.ground, lonlat: ll, sideIds: side.m.map((m) => m[0]).concat(side.x ? [side.x] : []), box: [l.tx - l.w / 2, l.ty - 8, l.tx + l.w / 2, l.ty + 8], beside: l.beside });
+            out.labels.push({ k: l.k, n: l.n, x: l.x, y: l.y, w: l.w, ground: l.ground, lonlat: ll, sideIds: side.m.map((m) => m[0]).concat(side.x ? [side.x] : []), principal: side.p || "", box: [l.tx - l.w / 2, l.ty - 8, l.tx + l.w / 2, l.ty + 8], beside: l.beside, onPrincipalFace: !!l.principal });
           }
           return out;
         }, [id]);
@@ -174,12 +174,27 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
           /* a side none of whose entities has a face in the display year (a gap in the source: England and Normandy in 1076, Ethiopia in 1936) has no ground to stand on: its name is drawn at its centroid, `ground: false`, and the window tints nothing for it */
           const drawn = l.sideIds.some((e) => Hq().aliveAt(e, r.year));
           if (!drawn) { noGround.push(id + " " + l.n); if (l.ground) bad.push(id + ": \"" + l.n + "\" claims ground though no face of its side stands in " + r.year); continue; }
+          /* AND, when the side has a PRINCIPAL entity (the one its name stands for: wars.js `p`) that has a face in the display year and on the visible globe, the label's point is on THAT entity's face -- "Rome" on Rome, "Carthage" on
+             Carthage, not on an ally's strip that is bigger on screen. A side with no principal ("Allied powers"), or whose principal has no face in the year, keeps the first property only. */
+          if (l.principal && Hq().aliveAt(l.principal, r.year)) {
+            alivePrincipals++;
+            if (l.onPrincipalFace) { if (!Hq().holds(l.principal, found)) bad.push(id + ": \"" + l.n + "\" is placed on its principal entity " + l.principal + " but its point is not inside that entity's face (the faces there: " + found.map((e) => e.id).join("|") + ")"); onPrincipal++; }
+            else offPrincipal.push(id + " \"" + l.n + "\"");
+          }
           if (!l.sideIds.some((e) => Hq().holds(e, found))) bad.push(id + ": \"" + l.n + "\" (" + l.k + ") at " + Math.round(l.x) + "," + Math.round(l.y) + " (" + (l.lonlat ? l.lonlat.map((v) => v.toFixed(2)).join(",") : "off the globe") + ") is not inside a face of its own side (the faces there: " + found.map((e) => e.id).join("|") + ")");
           if (l.box[0] < 0 || l.box[2] > r.cw || l.box[1] < 0 || l.box[3] > r.ch) bad.push(id + ": \"" + l.n + "\" runs outside the frame");
           if (hitB(l.box, r.ctl)) bad.push(id + ": \"" + l.n + "\" is under the zoom controls");
         }
         if (r.labels.length === 2 && hitB(r.labels[0].box, r.labels[1].box)) bad.push(id + ": the two names overlap");
       }
+      /* THE PRINCIPAL PROPERTY: every principal that has a face in its window's display year is stood on (alivePrincipals counts them from the data, not from the picture; "no principal" and "no face that year" sides keep the first property only) */
+      check(label + ": every side whose principal entity has a face in the display year stands on that entity's face (" + onPrincipal + " of " + alivePrincipals + ")", alivePrincipals >= 100 && onPrincipal === alivePrincipals && offPrincipal.length === 0, onPrincipal + " of " + alivePrincipals + (offPrincipal.length ? "; not on the principal: " + offPrincipal.join(", ") : ""));
+      /* and the two the owner named: on the Second Punic War "Rome" stands in Italy and "Carthage" on Carthage's own ground in Africa, not on an ally's strip (Numidia, in Rome's face) or on the Iberian holdings; the Second Italo-Ethiopian
+         War's "Italy" stands in Italy, not on Italian Africa */
+      const at209 = rows.find((r) => r.id === "rm-209"), inBox = (l, b) => l && l.lonlat && l.lonlat[0] >= b[0] && l.lonlat[0] <= b[1] && l.lonlat[1] >= b[2] && l.lonlat[1] <= b[3];
+      const rome = at209 && at209.labels.find((l) => l.k === "v"), carth = at209 && at209.labels.find((l) => l.k === "l"), ital = (rows.find((r) => r.id === "ww2-042") || { labels: [] }).labels.find((l) => l.k === "v");
+      check(label + ": rm-209 \"Rome\" stands on the Italian peninsula, \"Carthage\" on the coast of Africa east of Algiers", inBox(rome, [7, 18.6, 38.9, 47.1]) && inBox(carth, [6.3, 12, 30, 37.5]), (rome && rome.lonlat ? rome.lonlat.map((v) => v.toFixed(1)) : "no Rome") + " / " + (carth && carth.lonlat ? carth.lonlat.map((v) => v.toFixed(1)) : "no Carthage"));
+      check(label + ": ww2-042 \"Italy\" stands in Italy, not on Italian Africa", inBox(ital, [6.6, 18.6, 36.6, 47.1]), ital && ital.lonlat ? ital.lonlat.map((v) => v.toFixed(1)).join(",") : "no label");
       check(label + ": " + rows.length + " war windows: every side's name is on ground of its own side, whole inside the frame, off the controls, apart from the other", rows.length >= 45 && bad.length === 0, rows.length + " windows" + (noGround.length ? "; no face in the display year, so no ground: " + noGround.join(", ") : "") + (bad.length ? "; " + bad.length + " faults: " + bad.slice(0, 12).join(" | ") : ""));
       await ctx.close();
     }

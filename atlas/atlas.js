@@ -254,7 +254,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. The Atlas page itself does not use it (it needs every level before it is `ready`, and its first paint is not a card window's). */
-  const CORE_CACHE_REV = "69b850092d:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "c1f0b606c1:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -2381,7 +2381,7 @@
       const km = Math.max(3, Math.min(R_KM / base, ang * R_KM * 1.35 / (Math.max(120, short || Math.min(cssW, cssH)) / 2)));
       return { lon: Math.atan2(c[1], c[0]) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, c[2]))) * R2D, kmpp: km };
     }
-    /* Phase 4b: the two principal sides of a war for a card window's own labels and legend — { v, l }, each { n (the card's name for the side), lon, lat (the mean direction of its faces in the war's years, weighted by their size), members (the states tinted), extent (no state, only an authored extent: drawn as a wash, not as a border) } or null when the side has no face in those years */
+    /* Phase 4b: the two principal sides of a war for a card window's own labels and legend — { v, l }, each { n (the card's name for the side), lon, lat (the mean direction of its faces in the war's years, weighted by their size), members (the states tinted), extent (no state, only an authored extent: drawn as a wash, not as a border), faces, pface (the face of the side's principal entity in `year`, -1 when none), pcap ([lon, lat] of that entity's capital in `year`, or null) } or null when the side has no face in those years */
     function warSidesOf(id, year) {
       const w = time.wars && time.wars[id]; if (!w || !time.faceCap) return null;
       const out = {};
@@ -2394,17 +2394,22 @@
         const extent = !members && !!sd.x && add(sd.x);
         if (!wt) { out[k] = null; continue; }
         const len = Math.hypot(mx, my, mz) || 1;
-        out[k] = { n: sd.n, lon: Math.atan2(my, mx) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, mz / len))) * R2D, members, extent, hasExtent: !!sd.x, faces };
+        /* `pface`: the face the side's PRINCIPAL entity (`sd.p`, the entity its name stands for: wars.js, build-wars.js) HAS IN `year`, or -1 when it has none there (or the side has no principal) — the face the window puts the side's name on */
+        let pface = -1;
+        if (sd.p) { const ei = entityIndexOfId(sd.p); if (ei >= 0) { const l = time.stepsOf.get(ei) || [], atYear = year != null && l.find((q) => q[0] <= year && q[1] >= year), st = atYear || l.find((q) => q[1] >= w.y[0] && q[0] <= w.y[1]); if (st && (atYear || year == null)) pface = st[2]; } }
+        /* `pcap`: the principal's own capital in that year (Wikidata's P36 as the history header carries it: `cities`) — where the principal's HOME is, the piece of its face the name stands on */
+        const cyr = year != null ? year : Math.round((w.y[0] + w.y[1]) / 2), cap = sd.p && time.hist && time.hist.header ? (time.hist.header.cities || []).find((c) => c.entity === sd.p && c.from <= cyr && c.to >= cyr) : null;
+        out[k] = { n: sd.n, lon: Math.atan2(my, mx) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, mz / len))) * R2D, members, extent, hasExtent: !!sd.x, faces, pface, pcap: cap ? [cap.lon, cap.lat] : null };
       }
       return out;
     }
     /* PHASE 4 PHONE FIXES: a point inside each of the given history faces, on the visible part of the CURRENT view, from the worker (`face-anchors`; the label path's own anchor). The reply is `cb(rows, view)` with the view the
        question was asked in (rot, radius, cx, cy, W, H), because the anchors are screen points of THAT view and the window turns them into points on the sphere to carry them through the next gesture. */
     let faceAnchorSeq = 0; const faceAnchorWait = new Map();
-    function faceAnchors(faces, cb) {
+    function faceAnchors(faces, cb, near) {   // `near`: [{ face, lon, lat }] — for a face, the point (its principal's capital) whose nearest piece the anchor is searched in
       if (!faces || !faces.length || disposed) { cb([], null); return; }
       rotation(); const q = { rot: Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, level: Math.min(2, view.level) }, seq = ++faceAnchorSeq;
-      faceAnchorWait.set(seq, { cb, q }); postToWorker(Object.assign({ type: "face-anchors", seq, faces }, q));
+      faceAnchorWait.set(seq, { cb, q }); postToWorker(Object.assign({ type: "face-anchors", seq, faces, near: near || [] }, q));
     }
     let pendingWar = null;
     function tryPendingWar() { if (pendingWar && time.wars && time.wars[pendingWar]) { const id = pendingWar; pendingWar = null; time.warFocus = id; computeWarShown(); refreshWars(); } }   // a deep link's war: focused where it is, without the jump to the war's first year that the card's button makes
@@ -2882,7 +2887,7 @@
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), faceAnchors: (faces, cb) => faceAnchors(faces, cb), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {

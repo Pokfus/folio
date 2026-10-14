@@ -1217,9 +1217,28 @@
      stand on (atlas-windows.js: each side is named on ground of its own tint, not at the centroid of the union of its faces, which fell on the other side's ground). The face's rings are the level the view draws (`msg.level`),
      projected with the message's view; the point is searched on a grid over the part of the face that is inside the frame (and the globe's disc) by an even-odd test, then refined three times round the best cell. Answers
      { seq, rows: [{ face, anchor: [x, y] | null, clear (px to the nearest edge), vis (the share of the face's vertices in the frame), km2 }] }; the view is the message's. */
-  function histPole(fi, proj, W, H, q, level) {
+  /* THE PIECE OF A FACE NEAREST A POINT (Oct 2026): a face is a set of rings — islands, with holes inside them — and a polity's face is rarely one piece (Rome in 209 BCE: Italy, Sicily, and a strip of North Africa an ally held). `near` is a screen point (the polity's capital
+     of the year): the piece that holds it, else the piece whose outline is nearest. Returns the indices of that piece's rings (its outer ring and the rings nested directly inside it), or null when no ring has three vertices on the near side. */
+  function pieceNear(rings, near) {
+    const poly = rings.map((r) => r.filter((p) => p[2] > 0.02));
+    const inRing = (pg, x, y) => { let c = false; for (let i = 0, j = pg.length - 1; i < pg.length; j = i++) { const a = pg[i], b = pg[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; };
+    const wrap = poly.map((pg, i) => pg.length < 3 ? [] : poly.map((q, j) => j !== i && q.length >= 3 && inRing(q, pg[0][0], pg[0][1]) ? j : -1).filter((j) => j >= 0));   // the rings each ring lies inside
+    const outer = [], holes = new Map();
+    poly.forEach((pg, i) => { if (pg.length < 3) return; if (wrap[i].length % 2 === 0) { outer.push(i); holes.set(i, []); } });
+    poly.forEach((pg, i) => { if (pg.length < 3 || wrap[i].length % 2 === 0) return; const par = wrap[i].find((j) => wrap[j].length === wrap[i].length - 1); if (par != null && holes.has(par)) holes.get(par).push(i); });
+    const dist = (pg) => { let m = Infinity; for (let i = 0, j = pg.length - 1; i < pg.length; j = i++) { const a = pg[i], b = pg[j], dx = b[0] - a[0], dy = b[1] - a[1], l2 = dx * dx + dy * dy; let t = l2 ? ((near[0] - a[0]) * dx + (near[1] - a[1]) * dy) / l2 : 0; t = t < 0 ? 0 : t > 1 ? 1 : t; const ex = a[0] + t * dx - near[0], ey = a[1] + t * dy - near[1], d = ex * ex + ey * ey; if (d < m) m = d; } return Math.sqrt(m); };
+    let best = null;
+    for (const i of outer) { const inside = inRing(poly[i], near[0], near[1]) && !holes.get(i).some((h) => inRing(poly[h], near[0], near[1])), d = inside ? 0 : dist(poly[i]); if (!best || d < best.d) best = { i, d }; }
+    return best ? [best.i].concat(holes.get(best.i)) : null;
+  }
+  function histPole(fi, proj, W, H, q, level, near) {   // `near`: a screen point [x, y] — the pole is searched in the piece of the face nearest it (the whole face when that piece has no visible point)
+    const r = histPole0(fi, proj, W, H, q, level, near || null);
+    return r || (near ? histPole0(fi, proj, W, H, q, level, null) : null);
+  }
+  function histPole0(fi, proj, W, H, q, level, near) {
     const L = histLevel(level), T = HIST.T;
-    const rings = faceRings(L.T, T.faces[fi], level).map((ring) => ring.map((i) => proj([L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2]])));
+    let rings = faceRings(L.T, T.faces[fi], level).map((ring) => ring.map((i) => proj([L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2]])));
+    if (near) { const g = pieceNear(rings, near); if (g) rings = g.map((i) => rings[i]); }
     const rr = q.radius ? (q.radius * 0.985) * (q.radius * 0.985) : Infinity, inDisc = (x, y) => (x - q.cx) * (x - q.cx) + (y - q.cy) * (y - q.cy) < rr, M = 4;
     const segs = []; let nAll = 0, nIn = 0, x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
     for (const r of rings) {
@@ -1244,16 +1263,17 @@
     const pts = [[best.x, best.y, best.c]], sp = Math.max(10, Math.max(x1 - x0, y1 - y0) / 8);
     cells.sort((a, b) => b.c - a.c);
     for (const c of cells) { if (pts.length >= 12 || c.c < Math.max(1.5, best.c / 3)) break; if (pts.every((p) => Math.hypot(p[0] - c.x, p[1] - c.y) >= sp)) pts.push([c.x, c.y, c.c]); }
-    return { anchor: [best.x, best.y], pts, clear: best.c, vis: nAll ? nIn / nAll : 0 };
+    return { anchor: [best.x, best.y], pts, clear: best.c, vis: nAll ? nIn / nAll : 0, piece: !!near };
   }
   function handleFaceAnchors(msg, post) {
     const rows = [];
     if (HIST) {
       const rot = msg.rot, radius = msg.radius, cx = msg.cx, cy = msg.cy, W = msg.W, H = msg.H, level = Math.max(0, Math.min(2, msg.level | 0));
       const proj = (v) => { const x = rot[0] * v[0] + rot[1] * v[1] + rot[2] * v[2], y = rot[3] * v[0] + rot[4] * v[1] + rot[5] * v[2], z = rot[6] * v[0] + rot[7] * v[1] + rot[8] * v[2]; return [cx + x * radius, cy - y * radius, z]; };
+      const nearOf = new Map(); for (const n of msg.near || []) { const p = proj(unitOf(n.lon, n.lat)); if (p[2] > 0.02) nearOf.set(n.face, [p[0], p[1]]); }   // a face's `near`: where its principal's capital is on screen (a capital behind the globe gives none)
       for (const fi of msg.faces || []) {
-        let r = null; try { r = HIST.T.faces[fi] ? histPole(fi, proj, W, H, { radius, cx, cy }, level) : null; } catch (e) { r = null; }
-        rows.push({ face: fi, anchor: r ? r.anchor : null, pts: r ? r.pts : [], clear: r ? r.clear : 0, vis: r ? r.vis : 0, km2: HIST.H.faceKm2 ? HIST.H.faceKm2[fi] : 0 });
+        let r = null; try { r = HIST.T.faces[fi] ? histPole(fi, proj, W, H, { radius, cx, cy }, level, nearOf.get(fi)) : null; } catch (e) { r = null; }
+        rows.push({ face: fi, anchor: r ? r.anchor : null, pts: r ? r.pts : [], clear: r ? r.clear : 0, vis: r ? r.vis : 0, km2: HIST.H.faceKm2 ? HIST.H.faceKm2[fi] : 0, piece: !!(r && r.piece) });
       }
     }
     post({ type: "face-anchors", seq: msg.seq, rows });
