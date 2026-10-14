@@ -8985,17 +8985,19 @@ division-capital city tier are inert dead code.
   `test-date-line`, `test-difficulty`, `test-discovery`, `test-scheduler`, `test-streak-chest`,
   `test-tense-notes`) and the
   three checkers (`check-docs`, `check-questions`, `check-style`). Seconds, no install, no network.
-  **`browser`** runs the Playwright suites and is a slow SECOND OPINION rather than a gate — it `needs:
-  fast`, because if the cheap job is red the answer is already known. `check-sizes` runs
+  **`browser`** runs the Playwright suites, since Oct 2026 as THREE SHARDS (a matrix; `.claude/ci-shards.js` plans them from each suite's measured
+  duration, so the 75-minute single job is three of about 28 with their install, and `ci-shards.js --check` in `fast` fails when a suite is in no shard). It
+  `needs: fast`, because if the cheap job is red the answer is already known. A red suite fails its shard AND the run (the job's `continue-on-error`
+  of Aug 2026 went, on request) and is named by `::error` annotations and the shard's summary table. `check-sizes` runs
   `continue-on-error`, deliberately: a size is not a failure, and the point of it there is that the eager
   path's real weight lands in every run's log — which is the one thing prose in this file could not
   manage to stay honest about.
   **Playwright is installed into `$RUNNER_TEMP` and reached through `NODE_PATH`**, never into the repo:
   the zero-dependency rule is about what the SITE ships, and this is the same way the Testing bullets
   below say to run them locally, so CI and a developer's machine run the suites identically.
-  **The browser job loops over `grep -l playwright .claude/test-*.js`** rather than a list, so a suite
-  added later is picked up with nobody remembering this, and it runs ALL of them before failing, so one
-  broken suite does not hide the state of the other thirty-four.
+  **The shards are built from `grep -l playwright .claude/test-*.js`** (`ci-shards.js` scans the directory) rather than a list, so a suite
+  added later is picked up with nobody remembering this (it weighs 120 s in the plan until its measured row is added), and each shard runs ALL of its suites before failing, so one
+  broken suite does not hide the state of the others.
 
 - Fastest check: open `index.html` in a browser and watch the console for errors. The app uses
   `localStorage`, which works from `file://` in Chrome.
