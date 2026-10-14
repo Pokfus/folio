@@ -98,6 +98,10 @@ async function shown(page, html) {
     const i4 = await shown(page, "Greenland is about 2.2 million km² (850,000 sq mi), reached by a 175-metre (574-foot) tunnel.");
     check("...at word scale, and hyphenated before a noun", /about 850,000 sq mi/.test(i4) && /a 574-foot tunnel/.test(i4), i4);
 
+    // "trillion" is a magnitude word like "billion" (Nord Stream 2's capacity: 55 to 110 billion cubic metres, 1.9 to 3.9 trillion cubic feet); it was missing from the engine's list, so that bracket was never recognised
+    const i5 = await shown(page, "It was designed to carry 55 to 110 billion cubic metres (1.9 to 3.9 trillion cubic feet) a year.");
+    check("...and a trillion-scale bracket converts as one", /carry 1\.9 to 3\.9 trillion cubic feet a year/.test(i5) && !/billion cubic metres/.test(i5), i5);
+
     // the guard: an ordinary bracket is not a measurement
     const keep = await shown(page, "In the 1920s (about 30 years later) he returned to Java (Indonesia), in Sector 4 (in 1892).");
     check("an ordinary parenthesis survives both modes",
