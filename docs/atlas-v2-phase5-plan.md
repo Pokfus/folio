@@ -258,6 +258,35 @@ once, on the engine, and `test-window-fallbacks.js` (new) runs the fallback v1's
 `test-csp.js` (routes `map` and `map2`), `test-discovery.js` (country names from `country-names.js`, places from `card-places.js`), `test-panels.js` §2 (the frozen neighbour table),
 `test-study.js` (two assertions), `test-date-line.js` (its last assertion compared the test's polity kinds with v1's `MINE_POLITY` in app.js; the set is deleted, so the assertion is too — **gone**, nothing replaces it), `test-atlas-perf.js` (v1 reference as constants). The subagent-migrated suites (`test-atlas-*.js`, the window suites, `test-minigames.js`) are listed in §9.
 
-## 9. As built
+## 9. As built (2026-10-14)
 
-*(filled in at the end of the phase)*
+**Totals** (`f7aca62` → this branch): 65 files deleted (35.5 MB, 7,894 lines: 22 root data and tool files, `coast/` ×5, `atlas/data/history.bin.js`, 36 scripts and suites in `.claude/`), `app.js` 3,932,874 → 3,337,406 B and 53,903 → 46,269 lines (−7,634), `styles.css` 926,577 → 873,494 B (−53 KB, 361 rule groups by a class/id reachability pass), `glossary.js` −5.7 KB, the whole diff 156 files, +5,199 / −19,742 lines (the long-lined data files count as few lines).
+The cold-load tables are below; the retired lazy data is **36.5 MB raw** none of which was eager.
+
+**Eager path** (`node .claude/check-sizes.js`, level-9 gzip): **2,720 KB → 2,528 KB gzipped (−192 KB, −7 %)**, 11.34 MB → 10.74 MB raw. Only `app.js` (−195 KB gz) and `glossary.js` (−2.5 KB gz) changed; nothing was added to the path. The CI ceiling (3,400 KB) is unchanged.
+
+**Cold load of `#map`** (`.claude/measure-atlas-cold.js`, a fresh browser context, nothing cached, on a quiet 4-core container with the software GL of a headless runner — the time is that machine's, not a phone's GPU):
+
+| | v1 `#map` (before) | v2 `#map2` (before) | `#map` now |
+|---|---:|---:|---:|
+| desktop 1280×800: a drawn globe | 2,923 ms | 5,135 ms | **4,201 ms** |
+| desktop: files / bytes as served / gzip -9 | 50 / 43.27 MB / 11.51 MB | 37 / 31.88 MB / 11.63 MB | **39 / 31.27 MB / 11.44 MB** |
+| phone 390×844 @3×, CPU ×4, slow 4G: a drawn globe | 146,498 ms | 118,347 ms | **114,745 ms** |
+
+So against what the route was before the swap, the page asks for **28 % fewer bytes as served (43.3 → 31.3 MB)** and a slow-4G phone draws the globe **22 % sooner**; a desktop with a fast link draws it **1.3 s later than v1 did (4.2 s against 2.9 s)**, because v1 drew a flat canvas from one file while the engine fetches the worker, the topology and the first tiles before its first frame. That is an honest cost of the swap and it is reported to the owner (§9 "Decisions"). Of the bytes, 11.6 MB are the idle-warmed prose (glossary, artefacts, card extras), unchanged by this phase, which compete with the globe on a slow link.
+
+**The `file://` twins**: topology 4,026,775 + water 5,809,419 + history-wars (gzip) 872,332 = **10,708,526 B** (was 13,251,592; the rule is ≤ 12 MB). `build-war-slice.js` fails above 12e6.
+
+**Find it's deal**: `compare-findit-deal.js` recorded 60 consecutive dates' five rounds on the untouched head and checked them on the head that reads the frozen tables: **all 60 days identical** (first attempt failed for every day — the freeze had dropped areas whose dated rings fell under the size filter; the freeze now records every lookup).
+
+**Reader data**: `test-progress-registers.js` (18 checks) — a seeded reader with all 55 old spellings, 40 other countries, two historical territories, glossary terms and other progress keeps every key and time; the 55 new names are added with the old times (an existing new-name key keeps its own); nothing else changes; a second boot changes nothing; a register at `SEEN_CAP` gains nothing, one below it gains exactly one; `PROGRESS_FIELDS` is the pinned list; the meter counts a reader who had every country under the old spellings as having every country.
+
+**Found by the tests, fixed**: leaving the Atlas made a ghost copy of its live canvases (the opt-out in `makePageGhost` was keyed on v1's `.atlas` class; `test-glossary-page.js` caught it).
+
+**Not done / not true of v2, stated plainly**
+* The reader's **Text size** reaches the Atlas's chrome but not its canvas labels (§8.2 rows 18–20). v1 scaled them. Not changed in this phase (it needs the label layer and bumps `CORE_CACHE_REV`).
+* v1's **year in the place panel's sources** (`COUNTRY_YEAR_SOURCES`) is not shown by the v2 card (general sources only; `country-years.js` was already gated off).
+* War windows without WebGL2 draw no tint (stated; tested).
+* The rails start at 3400 BCE (Cliopatria), not 4000 BCE.
+* Find it's area rounds linked to a Cliopatria series AFTER this phase have no frozen rings and play on the card's authored extent.
+* Not verified on a real GPU, a real phone, Safari or Firefox.
