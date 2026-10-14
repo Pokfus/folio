@@ -254,7 +254,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. The Atlas page itself does not use it (it needs every level before it is `ready`, and its first paint is not a card window's). */
-  const CORE_CACHE_REV = "4d0c36ad85:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "69b850092d:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -1048,6 +1048,7 @@
         stats.relief = stats.relief || { tiles: 0 }; stats.relief.tiles++;
         invalidate(); return;
       }
+      if (m.type === "face-anchors") { const r = faceAnchorWait.get(m.seq); faceAnchorWait.delete(m.seq); if (r) r.cb(m.rows, r.q); return; }
       if (m.type === "history-meta") { onHistoryMeta(m); return; }
       if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
       if (m.type === "history-faces") { onHistoryFaces(m); return; }
@@ -2381,19 +2382,29 @@
       return { lon: Math.atan2(c[1], c[0]) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, c[2]))) * R2D, kmpp: km };
     }
     /* Phase 4b: the two principal sides of a war for a card window's own labels and legend — { v, l }, each { n (the card's name for the side), lon, lat (the mean direction of its faces in the war's years, weighted by their size), members (the states tinted), extent (no state, only an authored extent: drawn as a wash, not as a border) } or null when the side has no face in those years */
-    function warSidesOf(id) {
+    function warSidesOf(id, year) {
       const w = time.wars && time.wars[id]; if (!w || !time.faceCap) return null;
       const out = {};
       for (const k of ["v", "l"]) {
-        const sd = w[k]; let mx = 0, my = 0, mz = 0, wt = 0, members = 0;
-        const add = (eid) => { const ei = entityIndexOfId(eid); if (ei < 0) return false; const l = time.stepsOf.get(ei) || []; const st = l.find((q) => q[1] >= w.y[0] && q[0] <= w.y[1]); if (!st) return false; const fi = st[2], r = time.faceCap[4 * fi + 3], a = r * r + 1e-6; mx += time.faceCap[4 * fi] * a; my += time.faceCap[4 * fi + 1] * a; mz += time.faceCap[4 * fi + 2] * a; wt += a; return true; };
+        const sd = w[k]; let mx = 0, my = 0, mz = 0, wt = 0, members = 0; const faces = [];
+        // `faces`: the face each of the side's entities HAS IN `year` (a window's display year; with no year, the first step in the war's years) — what the window's labels are placed on (faceAnchors); an entity with no step in that year (a gap in the source: England and Normandy in 1076) has none, drawn or named
+        // (the centroid below still counts the first step in the war's years, as the window's frame always has)
+        const add = (eid) => { const ei = entityIndexOfId(eid); if (ei < 0) return false; const l = time.stepsOf.get(ei) || []; const atYear = year != null && l.find((q) => q[0] <= year && q[1] >= year), st = atYear || l.find((q) => q[1] >= w.y[0] && q[0] <= w.y[1]); if (!st) return false; const fi = st[2], r = time.faceCap[4 * fi + 3], a = r * r + 1e-6; mx += time.faceCap[4 * fi] * a; my += time.faceCap[4 * fi + 1] * a; mz += time.faceCap[4 * fi + 2] * a; wt += a; if ((atYear || year == null) && faces.indexOf(fi) < 0) faces.push(fi); return true; };
         for (const m of sd.m) if (add(m[0])) members++;
         const extent = !members && !!sd.x && add(sd.x);
         if (!wt) { out[k] = null; continue; }
         const len = Math.hypot(mx, my, mz) || 1;
-        out[k] = { n: sd.n, lon: Math.atan2(my, mx) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, mz / len))) * R2D, members, extent, hasExtent: !!sd.x };
+        out[k] = { n: sd.n, lon: Math.atan2(my, mx) * R2D, lat: Math.asin(Math.max(-1, Math.min(1, mz / len))) * R2D, members, extent, hasExtent: !!sd.x, faces };
       }
       return out;
+    }
+    /* PHASE 4 PHONE FIXES: a point inside each of the given history faces, on the visible part of the CURRENT view, from the worker (`face-anchors`; the label path's own anchor). The reply is `cb(rows, view)` with the view the
+       question was asked in (rot, radius, cx, cy, W, H), because the anchors are screen points of THAT view and the window turns them into points on the sphere to carry them through the next gesture. */
+    let faceAnchorSeq = 0; const faceAnchorWait = new Map();
+    function faceAnchors(faces, cb) {
+      if (!faces || !faces.length || disposed) { cb([], null); return; }
+      rotation(); const q = { rot: Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, level: Math.min(2, view.level) }, seq = ++faceAnchorSeq;
+      faceAnchorWait.set(seq, { cb, q }); postToWorker(Object.assign({ type: "face-anchors", seq, faces }, q));
     }
     let pendingWar = null;
     function tryPendingWar() { if (pendingWar && time.wars && time.wars[pendingWar]) { const id = pendingWar; pendingWar = null; time.warFocus = id; computeWarShown(); refreshWars(); } }   // a deep link's war: focused where it is, without the jump to the war's first year that the card's button makes
@@ -2871,7 +2882,7 @@
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id) => warSidesOf(id), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), faceAnchors: (faces, cb) => faceAnchors(faces, cb), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {

@@ -6,11 +6,11 @@
    Every section runs with the per-viewer preview switch ON (localStorage `folio.atlas2.preview`); the switch is OFF by default and nothing here changes what a reader of the live site sees.
      1  A WINDOW IS A BLOCK OF ITS FINAL SIZE AT ONCE (Task 2): within 300 ms of the card's mount the window's host is its final height with the "Loading the map…" placeholder, and the card's own text is
         already on the page — it never waits for the engine; when the engine paints, the block does not move (no layout shift).
-     2  TAPS AND BACK (decision 3): before the reveal a tap on a map card does nothing, and nothing on it answers; the go button always opens the Atlas; after the reveal a tap does; Back (the browser's
-        and the Atlas's own "Back to studying" button) returns to the same card with its reveal state as it was.
+     2  TAPS AND BACK (owner's decision 1, Oct 2026): a tap on a map card does nothing, before the reveal or after it, and nothing on it answers; the locator's globe button opens the Atlas; Back (the browser's
+        and the Atlas's own "Back to studying" button) returns to the same card with its reveal state as it was. (test-card-windows-fixes.js §5 does every other way of touching a window.)
      3  THE SELECTED STATE IS WHOLE (Task 6): a state highlighted on a window, and a state selected on the Atlas page, are filled edge to edge — no holes where the country's own triangles overdraw it.
-     4  WAR WINDOWS NAME THEIR SIDES (decision 2): the Second Punic War's window names Rome and Carthage on the map and in a one-line legend drawn from the card's own sides; a side that is only an authored
-        extent says so ("approximate extent") and is drawn apart from a state; no side is named that the card does not name.
+     4  WAR WINDOWS NAME THEIR SIDES AND HAVE ONE LEGEND (owner's decision 2, Oct 2026): the Second Punic War's window names Rome and Carthage on the map; the only legend is the plain-text key UNDER the window (swatches,
+        "victors" / "defeated", the card's own names) — nothing is drawn over the bottom of the map; no side is named that the card does not name.
      5  RIVERS (decision 4): a window with rivers draws the engine's own at the Atlas's density for its zoom; Texas, which drew none, now has them.
      6  THE FIT SWEEP (Task 7): the fifty-one states each open framed on themselves (neither a speck nor cut off), Alaska ignores the rings across the antimeridian, Rhode Island opens zoomed in and centred.
      7  THE FINE FRAMES (Task 7): the Italian and the Russian locator frames open on a level finer than the resident coarsest, and settle (their tiles in) — the engine's counterpart of V1's hi-res coast bundles.
@@ -102,30 +102,15 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     let b = await box();
     await page.mouse.click(b.x + b.w / 2, b.y + b.h / 2); await page.waitForTimeout(700);
     check("...and a tap on it before the reveal does nothing (still the study page, the card unrevealed)", (await hash()) === "#study" && (await page.$("#reveal-btn")) !== null, await hash());
-    // reveal, then a tap opens the Atlas
+    // reveal: a tap on the window still does nothing (owner's decision 1, Oct 2026: nothing done to the map itself opens the Atlas; only the window's globe button does, and a map card has none)
     await page.click("#reveal-btn"); await page.waitForTimeout(900);
     check("revealed, the card shows its answer", (await page.evaluate(() => (document.body.textContent || "").includes("Texas") && !document.querySelector("#reveal-btn"))));
     await windowSettled(page).catch(() => {});
     b = await box();
-    await page.mouse.click(b.x + b.w / 2, b.y + b.h / 2);
-    await page.waitForFunction(() => /^#map2\//.test(location.hash), null, { timeout: 15000 }).catch(() => {});
-    check("after the reveal a tap on the window opens the Atlas at the window's view", /^#map2\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(await hash()), await hash());
-    await page.waitForSelector(".atlas2-back", { timeout: 60000 });
-    await page.click(".atlas2-back");
-    await page.waitForSelector(".map-card", { timeout: 20000 });
-    const st2 = await page.evaluate(() => ({ hash: location.hash, reveal: !!document.querySelector("#reveal-btn"), shown: (document.body.textContent || "").includes("Texas"), rec: JSON.parse(sessionStorage.getItem("folio_study_v1") || "null") }));
-    check("\"Back to studying\" returns to the same card with its answer still showing", st2.hash === "#study" && !st2.reveal && st2.shown && st2.rec && st2.rec.id === "geo-002" && st2.rec.rev === true, JSON.stringify({ h: st2.hash, reveal: st2.reveal, shown: st2.shown, rev: st2.rec && st2.rec.rev }));
-    await windowReady(page).catch(() => {}); await windowSettled(page).catch(() => {});
-    b = await box();
-    await page.mouse.click(b.x + b.w / 2, b.y + b.h / 2);
-    await page.waitForFunction(() => /^#map2\//.test(location.hash), null, { timeout: 15000 }).catch(() => {});
-    await page.waitForSelector(".atlas2", { timeout: 60000 });
-    await page.goBack();
-    await page.waitForSelector(".map-card", { timeout: 20000 });
-    const st3 = await page.evaluate(() => ({ hash: location.hash, reveal: !!document.querySelector("#reveal-btn"), shown: (document.body.textContent || "").includes("Texas"), rec: JSON.parse(sessionStorage.getItem("folio_study_v1") || "null") }));
-    check("the browser's Back from a revealed card's Atlas also lands on the same card, answer showing", st3.hash === "#study" && !st3.reveal && st3.shown && st3.rec && st3.rec.rev === true, JSON.stringify({ h: st3.hash, reveal: st3.reveal, shown: st3.shown }));
-    await ctx.close();
-    // a locator window carries the go button — the way through to the Atlas, always (a map card has none: its only way is the tap, and only after the reveal)
+    await page.mouse.click(b.x + b.w / 2, b.y + b.h / 2); await page.waitForTimeout(900);
+    check("after the reveal a tap on the window does nothing either (still the study page, the answer showing)", (await hash()) === "#study" && (await page.$("#reveal-btn")) === null && (await page.$(".atlas2-back")) === null, await hash());
+    check("...and a map card has no globe button (the Atlas would name its answer)", (await page.$('.map-card [data-mc="go"]')) === null);
+    // a locator window carries the go button — the way through to the Atlas, always (a map card has none)
     {
       const L = await newPage(browser, { session: sessionFor("rm-003", true) });
       await L.page.goto(url("#study"), { waitUntil: "load" });
@@ -191,26 +176,31 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
 
   /* ---------------- 4) war windows name their sides ---------------- */
   if (want(4)) {
-    sect("4) war windows name their sides");
+    sect("4) war windows name their sides and have one legend");
     for (const [id, vw, label] of [["rm-209", { width: 1100, height: 900 }, "desktop"], ["rm-209", { width: 390, height: 844 }, "phone"], ["rm-153", { width: 1100, height: 900 }, "desktop"], ["gr-552", { width: 390, height: 844 }, "phone"], ["ww2-096", { width: 1100, height: 900 }, "desktop"], ["ww2-096", { width: 390, height: 844 }, "phone"]]) {
       const { ctx, page } = await newPage(browser, { viewport: vw, dpr: label === "phone" ? 2 : 1, mobile: label === "phone" });
       await page.goto(url("#card/" + id), { waitUntil: "load" });
       await page.reload({ waitUntil: "load" });
       await windowReady(page); await windowSettled(page).catch(() => {});
       await page.waitForTimeout(600);
-      const info = await page.evaluate((cid) => { const h = document.querySelector(".map-card"), W = window.ATLAS_WARS.wars[cid]; return { legend: h._folioMap.legend(), names: h._folioMap.names(), sides: [W.v.n, W.l.n], extent: [!W.v.m.length && !!W.v.x, !W.l.m.length && !!W.l.x], year: h.getAttribute("data-map-year"), w: h.querySelector(".mc-canvas").clientWidth }; }, id);
+      const info = await page.evaluate((cid) => {
+        const h = document.querySelector(".map-card"), W = window.ATLAS_WARS.wars[cid], key = document.querySelector(".war-key"), cv = h.querySelector(".mc-canvas"), P = h._folioMap.probe();
+        // the strip along the foot of the map where the pill used to be: compared with the engine's own frame of the same view (the map and nothing else), outside the columns a name stands on
+        const hub = AtlasEmbed.hub(), c2 = document.createElement("canvas"); c2.width = cv.width; c2.height = cv.height; hub.draw(P.spec, c2.getContext("2d"), { dpr: P.dpr, fast: false });
+        const a = cv.getContext("2d").getImageData(0, Math.round(cv.height - 34 * P.dpr), cv.width, Math.round(34 * P.dpr)).data, b = c2.getContext("2d").getImageData(0, Math.round(cv.height - 34 * P.dpr), cv.width, Math.round(34 * P.dpr)).data;
+        const named = h._folioMap.labels().map((l) => [l.x - l.w / 2 - 6, l.x + l.w / 2 + 6]), sw = Math.round(cv.width), sh = Math.round(34 * P.dpr); let diff = 0, n = 0;
+        for (let y = 0; y < sh; y++) for (let x = 0; x < sw; x++) { const cx = x / P.dpr; if (named.some((r) => cx > r[0] && cx < r[1])) continue; n++; const o = 4 * (y * sw + x); if (Math.abs(a[o] - b[o]) + Math.abs(a[o + 1] - b[o + 1]) + Math.abs(a[o + 2] - b[o + 2]) > 24) diff++; }
+        return { names: h._folioMap.names(), hasLegendApi: typeof h._folioMap.legend, sides: [W.v.n, W.l.n], extent: [!W.v.m.length && !!W.v.x, !W.l.m.length && !!W.l.x], key: key ? [...key.querySelectorAll(".wk-side")].map((e) => e.textContent.replace(/\s+/g, " ").trim()) : [], keyOutside: !!key && !key.closest(".card-loc"), keyBelow: !!key && key.getBoundingClientRect().top >= cv.getBoundingClientRect().bottom - 1, strip: { diff, n } };
+      }, id);
       const tag = id + " " + label;
       check(tag + ": the window names the war's two principal sides on the map (the card's own names)", info.names.length === 2 && info.names[0] === info.sides[0] && info.names[1] === info.sides[1], JSON.stringify(info.names));
-      /* the legend keeps "— victors / — defeated" while it fits; on a narrow window with long names it drops those words (the swatch colour and the legend under the window say it) and then shortens "approximate extent", never the order or the names */
-      const wordsKept = info.legend.length === 2 && /— victors$/.test(info.legend[0]) && /— defeated$/.test(info.legend[1]);
-      check(tag + ": a one-line legend is drawn from the card's own sides, victors then defeated" + (id === "rm-209" ? ", with the words" : ""), info.legend.length === 2 && info.legend[0].indexOf(info.sides[0]) === 0 && info.legend[1].indexOf(info.sides[1]) === 0 && (id !== "rm-209" || wordsKept), JSON.stringify(info.legend));
-      check(tag + ": no side is named that the card does not name (its own name, then a count of states wherever the table tints several for a side)", info.legend.every((t, i) => { const base = t.replace(/ \((approximate extent|approx\.)\)/, "").replace(/ — (victors|defeated)$/, ""); return base === info.sides[i] || new RegExp("^" + info.sides[i].replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + " · \\d+ states$").test(base); }), JSON.stringify(info.legend));
-      check(tag + ": the legend never says or implies allies", info.legend.every((t) => !/allies|allied/i.test(t)), JSON.stringify(info.legend));
-      if (id === "ww2-096") check(tag + ": the Second Sino-Japanese War's China reads \"China · 2 states\" in the card's own name and the table's count", /^China · 2 states/.test(info.legend[0]), JSON.stringify(info.legend));
-      const green = await count(page, ".map-card .mc-canvas", "g > r + 40 && g > b + 25", [0, 0.82, 0.7, 1]), red = await count(page, ".map-card .mc-canvas", "r > g + 60 && r > b + 50", [0, 0.82, 0.7, 1]);
-      check(tag + ": the legend's swatches are the engine's own victor green and loser red, in the pill at the foot", green > 20 && red > 20, JSON.stringify({ green, red }));
-      if (info.extent.some(Boolean)) check(tag + ": a side that is only an authored extent says so, with a hatched swatch, and is not drawn as a state", info.legend.some((t, i) => info.extent[i] && /\((approximate extent|approx\.)\)/.test(t)) && info.legend.every((t, i) => !!info.extent[i] === /\((approximate extent|approx\.)\)/.test(t)), JSON.stringify(info.legend));
-      else check(tag + ": a side that is a state is not called an extent", info.legend.every((t) => !/approx/.test(t)), JSON.stringify(info.legend));
+      check(tag + ": the one legend is the plain-text key UNDER the window, victors then defeated, in the card's own words", info.keyOutside && info.keyBelow && info.key.length === 2 && info.key[0].indexOf(info.sides[0]) >= 0 && /victors$/.test(info.key[0]) && info.key[1].indexOf(info.sides[1]) >= 0 && /defeated$/.test(info.key[1]), JSON.stringify(info.key));
+      check(tag + ": no second legend is drawn over the map (the window has no legend of its own, and the strip along its foot is the map's own frame)", info.hasLegendApi === "undefined" && info.strip.n > 1000 && info.strip.diff < 0.03 * info.strip.n /* the globe's own limb line may cross the strip; a pill would be a tenth of it */, JSON.stringify(info.strip) + " " + info.hasLegendApi);
+      check(tag + ": the key never says or implies allies", info.key.every((t) => !/allies|allied/i.test(t)), JSON.stringify(info.key));
+      if (!info.extent.some(Boolean) && id !== "gr-552") {   // two states: the faces' tints are crisp; an authored extent is a soft wash with no crisp pixel to count
+        const green = await count(page, ".map-card .mc-canvas", "g > r + 40 && g > b + 25"), red = await count(page, ".map-card .mc-canvas", "r > g + 60 && r > b + 50");
+        check(tag + ": the victors are the engine's green and the defeated its red on the map", green > 400 && red > 400, JSON.stringify({ green, red }));
+      }
       await ctx.close();
     }
   }
@@ -391,8 +381,8 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       const got = requests.slice(reqs0);
       const sliceBytes = fs.statSync(path.join(ROOT, "atlas/data/history-wars.bin")).size, fullBytes = fs.statSync(path.join(ROOT, "atlas/data/history.bin")).size;
       check("a war window requests atlas/data/history-wars.bin and never atlas/data/history.bin", got.some((u) => /atlas\/data\/history-wars\.bin$/.test(u)) && !got.some((u) => /atlas\/data\/history\.bin/.test(u)), `${(sliceBytes / 1e6).toFixed(2)} MB instead of ${(fullBytes / 1e6).toFixed(2)} MB`);
-      const info = await page.evaluate(() => { const h = document.querySelector(".map-card"); return { engine: h.getAttribute("data-map-engine"), kind: AtlasEmbed.hub().E.historyKind(), legend: h._folioMap.legend(), names: h._folioMap.names() }; });
-      check("...and it is the engine's window, named and legended as before (Rome — victors, Carthage — defeated)", info.engine === "v2" && info.kind === "wars" && info.names.join() === "Rome,Carthage" && /^Rome/.test(info.legend[0]) && /^Carthage/.test(info.legend[1]), JSON.stringify(info));
+      const info = await page.evaluate(() => { const h = document.querySelector(".map-card"); return { engine: h.getAttribute("data-map-engine"), kind: AtlasEmbed.hub().E.historyKind(), names: h._folioMap.names() }; });
+      check("...and it is the engine's window, its two sides named (Rome, Carthage)", info.engine === "v2" && info.kind === "wars" && info.names.join() === "Rome,Carthage", JSON.stringify(info));
       const green = await count(page, ".map-card .mc-canvas", "g > r + 40 && g > b + 25", [0, 0, 1, 0.8]), red = await count(page, ".map-card .mc-canvas", "r > g + 60 && r > b + 50", [0, 0, 1, 0.8]);
       check("...with the victors in green and the defeated in red on the map", green > 300 && red > 300, JSON.stringify({ green, red }));
       // leave for Find it: the hub that began on the slice is disposed and the next one reads the whole history
@@ -415,7 +405,7 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
       await page.goto("file://" + path.join(ROOT, "index.html") + "#card/rm-209", { waitUntil: "load" });
       await windowReady(page); await windowSettled(page).catch(() => {}); await page.waitForTimeout(800);
-      const info = await page.evaluate(() => { const h = document.querySelector(".map-card"); return { engine: h.getAttribute("data-map-engine"), kind: AtlasEmbed.hub().E.historyKind(), legend: h._folioMap.legend(), names: h._folioMap.names() }; });
+      const info = await page.evaluate(() => { const h = document.querySelector(".map-card"); return { engine: h.getAttribute("data-map-engine"), kind: AtlasEmbed.hub().E.historyKind(), names: h._folioMap.names() }; });
       check("on file:// a war card's window is the engine's, drawn from history-wars.bin.js (and not the 11-entity pilot twin)", info.engine === "v2" && info.kind === "wars" && info.names.join() === "Rome,Carthage" && seen.some((u) => /history-wars\.bin\.js$/.test(u)) && !seen.some((u) => /\/history\.bin\.js$/.test(u)), JSON.stringify(info));
       const g2 = await count(page, ".map-card .mc-canvas", "g > r + 40 && g > b + 25", [0, 0, 1, 0.8]), r2 = await count(page, ".map-card .mc-canvas", "r > g + 60 && r > b + 50", [0, 0, 1, 0.8]);
       check("...with both sides tinted", g2 > 300 && r2 > 300, JSON.stringify({ green: g2, red: r2 }));
