@@ -325,7 +325,7 @@ async function fixedViews(page, cx, cy) {
    worst-frame rule is asserted on it. */
 async function fullGestures(page, cdp, cx, cy) {
   await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.study.ready(), null, { timeout: 90000 });
-  await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(new Date().getUTCFullYear()); c.setView(15, 35, 24); c.study.setMode("full"); });   // the widest view over the Mediterranean, where the registry is densest
+  await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.clearSelection(); c.setYear(new Date().getUTCFullYear()); c.setView(15, 35, 24); c.study.setMode("full"); });   // the card the earlier tap opened ("Niger") is a column of chrome: marks keep out of it, so it is closed   // the widest view over the Mediterranean, where the registry is densest
   await settle(page); await sleep(800);
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(300);
   const r = {};
