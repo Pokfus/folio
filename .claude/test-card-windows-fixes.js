@@ -186,7 +186,8 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
   }
 
   /* ---------------- 3) a locator window's names do not collide ---------------- */
-  if (want(3)) {
+  if (want(3) && !ENGINE) { sect("3) locator names — engine only"); console.log("  (skipped: the fix is in the engine's window; v1's window, the fallback, keeps its old layout)"); }
+  if (want(3) && ENGINE) {
     sect("3) a locator window with many siblings (rm-003, the Tiber, with the Roman cards studied): no two names or a name and a mark overlap");
     const ids = (() => { const w0 = global.window; global.window = {}; require("../data.js"); const out = window.CARD_DATA.map((c) => c.id).filter((i) => /^rm-/.test(i)); global.window = w0; return out; })();
     for (const [label, vp] of [["desktop 1100", { mobile: false }], ["phone 390", { mobile: true }]]) {
@@ -228,6 +229,68 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
         console.log("        engine: " + bx.names.length + " names placed, " + bx.dropped.length + " dropped for want of room (" + bx.dropped.join(", ") + ")");
         const clash = []; bx.names.forEach((n, i) => { for (let j = i + 1; j < bx.names.length; j++) if (hitB(n.box, bx.names[j].box)) clash.push(n.text + " × " + bx.names[j].text); for (const m of bx.marks) if (hitB(n.box, m.box)) clash.push(n.text + " × a " + m.kind); });
         check(label + ": the engine's own record agrees: its " + bx.names.length + " names and " + bx.marks.length + " marks have no overlap between a name and anything", clash.length === 0, clash.slice(0, 6).join(" | "));
+      }
+      await ctx.close();
+    }
+  }
+
+  /* ---------------- 5) taps never navigate ---------------- */
+  if (want(5)) {
+    sect("5) nothing a reader does to the map itself opens the Atlas; only the window's own globe button does");
+    const mapStill = (page) => page.evaluate(() => ({ hash: location.hash, atlas: !!document.querySelector(".atlas2-back"), win: !!document.querySelector(".map-card") }));   /* the Atlas PAGE has its Back button; the hub's hidden controls (the engine, held for the windows) are also `.atlas2` */
+    const cases = [["a map card, not revealed", "geo-002", ".map-card", { session: sessionFor("geo-002", false), start: "#study" }], ["a map card, revealed", "geo-002", ".map-card", { session: sessionFor("geo-002", true), start: "#study" }], ["a locator", "rm-003", ".card-loc .map-card", { start: "#card/rm-003" }], ["a war window", "rm-209", ".map-card.map-war", { start: "#card/rm-209" }]];
+    for (const [label, id, sel, o] of cases) {
+      for (const touch of [false, true]) {
+        const { ctx, page } = await newPage(browser, { mobile: touch, session: o.session || null });
+        const cdp = touch ? await ctx.newCDPSession(page) : null;
+        await page.goto(url(o.start), { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
+        await windowUp(page, sel);
+        const h0 = await page.evaluate(() => location.hash);
+        await page.locator(sel + " .mc-canvas").scrollIntoViewIfNeeded(); await sleep(300);
+        const b = await boxOf(page, sel + " .mc-canvas"), cx = b.x + b.w / 2, cy = Math.min(b.y + b.h / 2, 560);   // in the viewport: a click below the fold hits nothing
+        const did = [];
+        const settle = async (what) => { await sleep(900); const st = await mapStill(page); did.push(what + (st.hash === h0 && !st.atlas && st.win ? "" : " [OPENED " + st.hash + "]")); };
+        if (!touch) {
+          await page.mouse.click(cx, cy); await settle("click");
+          await page.mouse.dblclick(cx, cy); await settle("double click");
+          await page.mouse.move(cx, cy); await page.mouse.down(); await page.mouse.move(cx + 60, cy + 25, { steps: 6 }); await page.mouse.up(); await settle("drag, then release");
+          await page.mouse.move(cx, cy); await page.mouse.wheel(0, -240); await settle("wheel zoom in"); await page.mouse.wheel(0, 240); await settle("wheel zoom out");
+        } else {
+          await page.touchscreen.tap(cx, cy); await settle("tap");
+          await page.touchscreen.tap(cx, cy); await sleep(80); await page.touchscreen.tap(cx, cy); await settle("double tap");
+          await touchGesture(page, cdp, [{ x: cx, y: cy }], (i) => [{ x: cx + 6 * i, y: cy + 2 * i }], 10, 40, null); await touchEnd(cdp); await settle("touch drag, then release");
+          await touchGesture(page, cdp, [{ x: cx - 25, y: cy, id: 1 }, { x: cx + 25, y: cy, id: 2 }], (i) => [{ x: cx - 25 - 4 * i, y: cy, id: 1 }, { x: cx + 25 + 4 * i, y: cy, id: 2 }], 8, 40, null); await touchEnd(cdp); await settle("pinch, then release");
+        }
+        check(label + ", " + (touch ? "touch" : "mouse") + ": " + did.length + " ways of touching the map change nothing — the address stays " + h0 + ", no Atlas opens", did.every((d) => !/OPENED/.test(d)), did.join("; "));
+        // the globe button: the one way in (a locator and a war window carry it; a map card has none, its Atlas would name the answer)
+        const has = await page.$(sel + ' [data-mc="go"]') !== null;
+        if (/map card/.test(label)) check(label + ": has no globe button (the Atlas would name its answer)", !has);
+        else if (!touch) {
+          check(label + ": has the globe button", has);
+          await page.focus(sel + ' [data-mc="go"]'); await page.keyboard.press("Enter");   // the keyboard route to the button
+          await page.waitForFunction((was) => location.hash !== was, h0, { timeout: 20000 }).catch(() => {});
+          const hh = await page.evaluate(() => location.hash);
+          check(label + ": the globe button (Enter on it) opens the Atlas, with the window's view" + (/war/.test(label) ? " and the war's year" : ""), ENGINE ? (/^#map2\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(hh) && (!/war/.test(label) || /\?y=-209/.test(hh) /* the Atlas then writes its own hash; the war's card rides on the link as &war= (test-atlas-embed.js §5 follows it) */)) : /^#map/.test(hh), hh);
+          if (ENGINE) {
+            await page.waitForSelector(".atlas2", { timeout: 60000 }).catch(() => {});
+            await page.goBack(); await page.waitForSelector(".map-card", { timeout: 30000 });
+            const back = await page.evaluate(() => ({ hash: location.hash, id: (document.querySelector(".map-card") || {}).getAttribute && document.querySelector(".map-card").getAttribute("data-map-card") }));
+            check(label + ": Back returns to the same card", back.hash === h0, back.hash + " (was " + h0 + ")");
+          }
+        }
+        await ctx.close();
+      }
+    }
+    {   // Back keeps the reveal state: a revealed map card has no button to leave by, so the study session is left in a locator's study view instead (a locator revealed, then the button, then "Back to studying")
+      const { ctx, page } = await newPage(browser, { session: sessionFor("rm-003", true) });
+      await page.goto(url("#study"), { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
+      await windowUp(page, ".card-loc .map-card");
+      await page.click('.card-loc .map-card [data-mc="go"]');
+      if (ENGINE) {
+        await page.waitForSelector(".atlas2-back", { timeout: 60000 });
+        await page.click(".atlas2-back"); await page.waitForSelector(".card-loc .map-card", { timeout: 30000 });
+        const st = await page.evaluate(() => ({ hash: location.hash, rec: JSON.parse(sessionStorage.getItem("folio_study_v1") || "null"), reveal: !!document.querySelector("#reveal-btn") }));
+        check("\"Back to studying\" from the Atlas returns to the same card with its answer showing", st.hash === "#study" && st.rec && st.rec.id === "rm-003" && st.rec.rev === true && !st.reveal, JSON.stringify({ h: st.hash, id: st.rec && st.rec.id, rev: st.rec && st.rec.rev }));
       }
       await ctx.close();
     }

@@ -6,8 +6,8 @@
    Every section runs with the per-viewer preview switch ON (localStorage `folio.atlas2.preview`); the switch is OFF by default and nothing here changes what a reader of the live site sees.
      1  A WINDOW IS A BLOCK OF ITS FINAL SIZE AT ONCE (Task 2): within 300 ms of the card's mount the window's host is its final height with the "Loading the map…" placeholder, and the card's own text is
         already on the page — it never waits for the engine; when the engine paints, the block does not move (no layout shift).
-     2  TAPS AND BACK (decision 3): before the reveal a tap on a map card does nothing, and nothing on it answers; the go button always opens the Atlas; after the reveal a tap does; Back (the browser's
-        and the Atlas's own "Back to studying" button) returns to the same card with its reveal state as it was.
+     2  TAPS AND BACK (owner's decision 1, Oct 2026): a tap on a map card does nothing, before the reveal or after it, and nothing on it answers; the locator's globe button opens the Atlas; Back (the browser's
+        and the Atlas's own "Back to studying" button) returns to the same card with its reveal state as it was. (test-card-windows-fixes.js §5 does every other way of touching a window.)
      3  THE SELECTED STATE IS WHOLE (Task 6): a state highlighted on a window, and a state selected on the Atlas page, are filled edge to edge — no holes where the country's own triangles overdraw it.
      4  WAR WINDOWS NAME THEIR SIDES AND HAVE ONE LEGEND (owner's decision 2, Oct 2026): the Second Punic War's window names Rome and Carthage on the map; the only legend is the plain-text key UNDER the window (swatches,
         "victors" / "defeated", the card's own names) — nothing is drawn over the bottom of the map; no side is named that the card does not name.
@@ -102,30 +102,15 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     let b = await box();
     await page.mouse.click(b.x + b.w / 2, b.y + b.h / 2); await page.waitForTimeout(700);
     check("...and a tap on it before the reveal does nothing (still the study page, the card unrevealed)", (await hash()) === "#study" && (await page.$("#reveal-btn")) !== null, await hash());
-    // reveal, then a tap opens the Atlas
+    // reveal: a tap on the window still does nothing (owner's decision 1, Oct 2026: nothing done to the map itself opens the Atlas; only the window's globe button does, and a map card has none)
     await page.click("#reveal-btn"); await page.waitForTimeout(900);
     check("revealed, the card shows its answer", (await page.evaluate(() => (document.body.textContent || "").includes("Texas") && !document.querySelector("#reveal-btn"))));
     await windowSettled(page).catch(() => {});
     b = await box();
-    await page.mouse.click(b.x + b.w / 2, b.y + b.h / 2);
-    await page.waitForFunction(() => /^#map2\//.test(location.hash), null, { timeout: 15000 }).catch(() => {});
-    check("after the reveal a tap on the window opens the Atlas at the window's view", /^#map2\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(await hash()), await hash());
-    await page.waitForSelector(".atlas2-back", { timeout: 60000 });
-    await page.click(".atlas2-back");
-    await page.waitForSelector(".map-card", { timeout: 20000 });
-    const st2 = await page.evaluate(() => ({ hash: location.hash, reveal: !!document.querySelector("#reveal-btn"), shown: (document.body.textContent || "").includes("Texas"), rec: JSON.parse(sessionStorage.getItem("folio_study_v1") || "null") }));
-    check("\"Back to studying\" returns to the same card with its answer still showing", st2.hash === "#study" && !st2.reveal && st2.shown && st2.rec && st2.rec.id === "geo-002" && st2.rec.rev === true, JSON.stringify({ h: st2.hash, reveal: st2.reveal, shown: st2.shown, rev: st2.rec && st2.rec.rev }));
-    await windowReady(page).catch(() => {}); await windowSettled(page).catch(() => {});
-    b = await box();
-    await page.mouse.click(b.x + b.w / 2, b.y + b.h / 2);
-    await page.waitForFunction(() => /^#map2\//.test(location.hash), null, { timeout: 15000 }).catch(() => {});
-    await page.waitForSelector(".atlas2", { timeout: 60000 });
-    await page.goBack();
-    await page.waitForSelector(".map-card", { timeout: 20000 });
-    const st3 = await page.evaluate(() => ({ hash: location.hash, reveal: !!document.querySelector("#reveal-btn"), shown: (document.body.textContent || "").includes("Texas"), rec: JSON.parse(sessionStorage.getItem("folio_study_v1") || "null") }));
-    check("the browser's Back from a revealed card's Atlas also lands on the same card, answer showing", st3.hash === "#study" && !st3.reveal && st3.shown && st3.rec && st3.rec.rev === true, JSON.stringify({ h: st3.hash, reveal: st3.reveal, shown: st3.shown }));
-    await ctx.close();
-    // a locator window carries the go button — the way through to the Atlas, always (a map card has none: its only way is the tap, and only after the reveal)
+    await page.mouse.click(b.x + b.w / 2, b.y + b.h / 2); await page.waitForTimeout(900);
+    check("after the reveal a tap on the window does nothing either (still the study page, the answer showing)", (await hash()) === "#study" && (await page.$("#reveal-btn")) === null && (await page.$(".atlas2-back")) === null, await hash());
+    check("...and a map card has no globe button (the Atlas would name its answer)", (await page.$('.map-card [data-mc="go"]')) === null);
+    // a locator window carries the go button — the way through to the Atlas, always (a map card has none)
     {
       const L = await newPage(browser, { session: sessionFor("rm-003", true) });
       await L.page.goto(url("#study"), { waitUntil: "load" });

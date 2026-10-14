@@ -10,7 +10,7 @@
      3  A MAP CARD (Texas, a state; Rhode Island with its capital; the world layer with a country): the engine drew it, the shaded place is the selection gold as a TINT (the pixel at the centre is
         the land blended with TINT_SEL at its alpha — solved back out and required to be land, as test-map-cards.js does), the dot is the gold square, the zoom buttons and a drag change the view.
      4  A LOCATOR WINDOW (a point, a river with its own river in gold, a region clipped to land): the gold mark is there, the siblings' red is absent on a fresh profile, and a tap on the window
-        opens the Atlas at the window's view (#map2/<lon>/<lat>/<zoom>).
+        does NOT open the Atlas (only the globe button does).
      5  A WAR WINDOW, IN ITS YEARS AND NONE OUTSIDE: the Second Punic War's window is drawn at the middle of its years with green and red on screen, the same hub asked for a year after the war
         draws neither, and the go button opens #map2 at that year with &war=<card> (and the Atlas, opened there, has that war in focus).
      6  FIND IT: the engine board deals the SAME five rounds as the v1 board (the two pages are read side by side), a tap only picks ("Guess" appears, Clear withdraws it), a wrong guess says
@@ -181,7 +181,7 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     check("the Tiber's own river is traced in the selection gold", gold > 150, String(gold));
     await page.click(".map-card .mc-canvas", { position: { x: 200, y: 120 } }); await sleep(1200);
     const hash = await page.evaluate(() => location.hash);
-    check("a tap on a locator window opens the Atlas at the window's view (#map2/<lon>/<lat>/<zoom>)", /^#map2\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?$/.test(hash), hash);
+    check("a tap on a locator window does NOT open the Atlas (the owner's decision, Oct 2026: only the globe button does; test-card-windows-fixes.js §5 does the rest)", /^#card\/rm-003/.test(hash), hash);
     await openCard(page, "wh-059"); await settled(page);   // a region: dashed, clipped to land
     const reg = await page.evaluate(() => { const c = document.querySelector(".map-card .mc-canvas"), d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; let tint = 0, seaTint = 0; for (let i = 0; i < d.length; i += 4) { if (d[i + 3] === 0) continue; if (d[i] > 200 && d[i + 1] > 190 && d[i + 2] < 190 && d[i + 2] > 140 && d[i] - d[i + 2] > 30) tint++; if (d[i] > 185 && d[i] < 215 && d[i + 1] > 215 && d[i + 2] > 195 && d[i + 2] < 225 && d[i + 1] - d[i] > 20) seaTint++; } return { tint, seaTint }; });
     check("an authored region is tinted over land and NOT over the sea (the engine's land mask clips it)", reg.tint > 2000 && reg.seaTint < 60, JSON.stringify(reg));
