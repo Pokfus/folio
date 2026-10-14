@@ -68,7 +68,7 @@ async function open(context, hash) {
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map2"}`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map"}`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ rivers: true, lakes: true, relief: false, density: "normal", countries: true, places: true, physical: true, cities: true, provinces: true }));
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady(); }, null, { timeout: 120000 });
@@ -370,7 +370,7 @@ async function inkInBoxes(page, placed) {
     }, peoples.map((p) => [p.id, p.box]));
     for (const r of read) check(`375 CE: ${r.id.replace("pol:", "")}'s name has an opaque halo two pixels deep round every ink pixel (${r.solid} solid ink pixels, ${r.bare} with a gap within 2 px)`, r.solid > 20 && r.bare <= Math.max(2, Math.round(r.solid * 0.05)), JSON.stringify(r));
   }
-  check("no page errors on #map2 (desktop, the history loaded)", D.errors.length === 0, D.errors.slice(0, 3).join(" | "));
+  check("no page errors on #map (desktop, the history loaded)", D.errors.length === 0, D.errors.slice(0, 3).join(" | "));
   console.log("\n\x1b[1m10) area and path names stay inside the frame (a sweep of views)\x1b[0m\n");
   await areaSweep(D.page, "desktop 1280×800");
   // Phase 4 / 0c: a dated Wikidata name changes the display name in its years (Kingdom of Hungary 1920–43, Federal State of Austria 1934–37) and the Cliopatria name stands in the others
@@ -397,10 +397,10 @@ async function inkInBoxes(page, placed) {
   // a sweep of phone views over the 1500 map: no polity name, in any of them, cut by an edge
   for (const V of [{ lon: -5, lat: 15, k: 12 }, { lon: 30, lat: 40, k: 16 }, { lon: 30, lat: 38, k: 12 }, { lon: 10, lat: 50, k: 12 }, { lon: 35, lat: 40, k: 24 }]) await polityView(PH.page, `phone 390×844, 1500 at ${V.lon}°, ${V.lat}°, ${V.k} km/px`, V, 1500, null, null);
   await areaSweep(PH.page, "phone 390×844");
-  check("no page errors on #map2 (phone, the history loaded)", PH.errors.length === 0, PH.errors.slice(0, 3).join(" | "));
+  check("no page errors on #map (phone, the history loaded)", PH.errors.length === 0, PH.errors.slice(0, 3).join(" | "));
   await PH.page.close();
-  check("no page errors on #map2 (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));
-  check("no page errors on #map2 (phone)", P.errors.length === 0, P.errors.slice(0, 3).join(" | "));
+  check("no page errors on #map (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));
+  check("no page errors on #map (phone)", P.errors.length === 0, P.errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
   console.log(`\n${pass} ok, ${fail} failed\n`);
   process.exit(fail ? 1 : 0);

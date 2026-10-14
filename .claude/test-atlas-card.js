@@ -40,7 +40,7 @@ async function open(context) {
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-  await page.goto(`http://127.0.0.1:${PORT}/#map2`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/#map`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ rivers: true, lakes: true, relief: false }));
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady(); }, null, { timeout: 120000 });
@@ -73,7 +73,7 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   const sel = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.selectedId());
   check("the country is the selection", sel === "adm0:fra", sel);
   const hash = await page.evaluate(() => location.hash);
-  check("the deep link carries the place", /^#map2\/-?[\d.]+\/-?[\d.]+\/-?[\d.]+\/adm0(%3A|:)fra(\?y=-?\d+)?$/.test(hash), hash);
+  check("the deep link carries the place", /^#map\/-?[\d.]+\/-?[\d.]+\/-?[\d.]+\/adm0(%3A|:)fra(\?y=-?\d+)?$/.test(hash), hash);
 
   console.log("\n\x1b[1m2) a river card, and a country without prose\x1b[0m\n");
   const danube = await page.evaluate(() => { const g = document.querySelector(".atlas2").__atlas2.gazetteer(); const r = g.rows.find((x) => x.kind === "river" && x.name === "Danube"); return r ? r.id : null; });
@@ -128,8 +128,8 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   await P.page.click(".atlas2-layers-btn"); await sleep(100);
   const sheetOpen = await P.page.evaluate(() => { const s = document.querySelector(".atlas2-sheet"); const r = s.getBoundingClientRect(); return { hidden: s.hidden, fixed: getComputedStyle(s).position === "fixed", bottom: Math.abs(r.bottom - innerHeight) < 2, density: s.querySelectorAll('[data-layer="density"]').length }; });
   check("…which opens the legend as a sheet with the density stops", !sheetOpen.hidden && sheetOpen.fixed && sheetOpen.density === 3, JSON.stringify(sheetOpen));
-  check("no page errors on #map2 (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));
-  check("no page errors on #map2 (phone)", P.errors.length === 0, P.errors.slice(0, 3).join(" | "));
+  check("no page errors on #map (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));
+  check("no page errors on #map (phone)", P.errors.length === 0, P.errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
   console.log(`\n${pass} ok, ${fail} failed\n`);
   process.exit(fail ? 1 : 0);

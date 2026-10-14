@@ -51,7 +51,7 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
     const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
     const errors = errorsOf(page);
     const t0 = Date.now();
-    await page.goto("file://" + path.join(ROOT, "index.html") + "#map2", { waitUntil: "load" });
+    await page.goto("file://" + path.join(ROOT, "index.html") + "#map", { waitUntil: "load" });
     await page.waitForSelector(".atlas2", { timeout: 60000 });
     await watchTasks(page);
     const seen = [];
@@ -91,7 +91,7 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
     const errors = errorsOf(page);
     const gl = await page.evaluate(() => !!document.createElement("canvas").getContext("webgl2"));
     check("the browser really has no WebGL2 under the launch flags", !gl);
-    await page.goto(base + "#map2", { waitUntil: "load" });
+    await page.goto(base + "#map", { waitUntil: "load" });
     await ready(page);
     await labelsUp(page);
     const m = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.mode());
@@ -139,7 +139,7 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
   {
     const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
     const errors = errorsOf(page);
-    await page.goto(base + "#map2", { waitUntil: "load" });
+    await page.goto(base + "#map", { waitUntil: "load" });
     await ready(page);
     await labelsUp(page);
     await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ relief: true, graticule: true }); c.setView(2, 46, 3); c.select("adm0:fra", { open: true, fly: false }); });
@@ -171,7 +171,7 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
     let hits = 0;
     // the first fetch of the worker's script (the Worker's own) throws at once; the shim's <script> load of it afterwards passes
     await page.route("**/atlas/atlas-worker.js", (route) => { hits++; if (hits === 1) route.fulfill({ status: 200, contentType: "text/javascript", body: "throw new Error('the worker refused to start (test)');" }); else route.continue(); });
-    await page.goto(base + "#map2", { waitUntil: "load" });
+    await page.goto(base + "#map", { waitUntil: "load" });
     await ready(page);
     await labelsUp(page);
     const m = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.mode());

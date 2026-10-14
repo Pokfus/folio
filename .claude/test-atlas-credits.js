@@ -91,7 +91,7 @@ const check = (name, ok, extra) => { if (ok) { pass++; console.log("  \x1b[32mok
   await page.goto(base + "#mission", { waitUntil: "load" }); await page.waitForSelector(".credits-list", { timeout: 30000 });
   check("the About page's credits list links to it", await page.evaluate(() => !!document.querySelector('.credits-list a[href="#credits"]')));
   // the Atlas v2 About sheet
-  await page.goto(base + "#map2", { waitUntil: "load" });
+  await page.goto(base + "#map", { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
   const aboutLink = await page.evaluate(() => { const b = document.querySelector(".atlas2-about-btn"); if (!b) return null; b.click(); const s = document.querySelector(".atlas2-about"); return s && !s.hidden ? [...s.querySelectorAll("a")].map((a) => a.getAttribute("href")) : null; });
   check("the Atlas v2 About sheet opens and links to #credits", !!aboutLink && aboutLink.includes("#credits"), aboutLink ? aboutLink.join(", ") : "no sheet");

@@ -42,7 +42,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-  await page.goto(`http://127.0.0.1:${PORT}/#map2`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/#map`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady(); }, null, { timeout: 120000 });
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(10, 50, 3));
@@ -183,7 +183,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   check("at --fs 2 every control stays inside the Atlas (the legend scrolls inside it)", out.length === 0 && big.sheetInside, `${big.out.length} controls, button font ${big.fs}; outside: ${out.map((o) => o.what).join(", ") || "none"}`);
   await page.evaluate(() => { document.documentElement.style.removeProperty("--fs"); document.querySelector("#atlas2-sheet .atlas2-sheet-close").click(); });
 
-  check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
+  check("no page errors on #map", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
   console.log(`\n${pass} ok, ${fail} failed\n`);
   process.exit(fail ? 1 : 0);
