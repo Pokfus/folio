@@ -246,6 +246,19 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       check("...at " + (bias ? "one resident level finer (the card's subject is water)" : "the Atlas's own density (the card's subject is not water)"), info.bias === bias, "riverLevelBias " + info.bias);
       await ctx.close();
     }
+    {   // WHICH cards get the finer level: the registry's kind of the locator's place, not the card's name (Phase 4c)
+      const F = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/card-faces.js"), "utf8"))(F);
+      const W = F.ATLAS_CARD_FACES.water;
+      check("the water-subject list is built from the registry: 23 cards by their place's kind, 2 by a declared river/sea kind with no place, 5 by the name fallback", W.cards.length === 30 && W.declared.length === 2 && W.byName.length === 5, JSON.stringify({ cards: W.cards.length, declared: W.declared, byName: W.byName }));
+      check("...a site named for a river (wh-096) and a town named for a bay (pea-172) are NOT on it; a lake, a strait and a river are (wh-064, gga-161, eg-002)", !W.cards.includes("wh-096") && !W.cards.includes("pea-172") && ["wh-064", "gga-161", "eg-002"].every((id) => W.cards.includes(id)));
+      for (const [id, what, bias] of [["wh-096", "Mal'ta, Belaya River (a site: the name says river, the registry says site)", 0], ["rm-043", "the Gulf of Tarentum (no resolved place: the name fallback)", 1]]) {
+        const { ctx, page } = await newPage(browser, {});
+        await page.goto(url("#card/" + id), { waitUntil: "load" });
+        await windowReady(page); await windowSettled(page).catch(() => {}); await page.waitForTimeout(400);
+        check(what + ": riverLevelBias " + bias, (await page.evaluate(() => AtlasEmbed.hub().ctl.view.riverLevelBias)) === bias);
+        await ctx.close();
+      }
+    }
     {   // the reader's data saver: no water file at all (the finer level is in the same file as the coarse one), and the card's own gold river still draws
       const reqs0 = requests.length;
       const { ctx, page } = await newPage(browser, {});

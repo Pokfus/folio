@@ -266,7 +266,7 @@ What is left is the same floor 4b named for the desktop (a WebGL2 context, the s
 
 ## Rivers in windows (decision 2) — before and after (`.claude/compare-window-rivers.js`)
 
-The default is the Atlas's own density for the window's zoom; a card whose subject is water (a locator of kind river or sea, or a point locator whose name has lake / bay / gulf / strait / channel / sea / river in it) gets one resident level finer where one exists; under the data saver (`S.settings.saveData` or `navigator.connection.saveData`) a window draws no rivers or lakes and does not fetch the water file.
+The default is the Atlas's own density for the window's zoom; a card whose subject is water gets one resident level finer where one exists — **which cards is decided in `build-card-faces.js` (Stage B, item 1) from the places registry's kind for the locator's place (river, lake, sea, ocean, strait, gulf = a bay), written to `ATLAS_CARD_FACES.water`**: 30 locator cards, 23 by the registry kind, 2 by a declared river or sea kind where the card has no resolved place, **5 by the name fallback** (rm-043, rm-999, wh-092, wh-094, wh-744 — a point locator with no resolved place whose name has lake / bay / strait / sea / river in it); the old name test of this phase is gone from the window; under the data saver (`S.settings.saveData` or `navigator.connection.saveData`) a window draws no rivers or lakes and does not fetch the water file.
 
 | window | view | V1 (km) | 4b: one level finer everywhere (km, × V1) | 4c (km, × V1) |
 |---|---|---|---|---|
