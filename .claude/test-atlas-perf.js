@@ -64,6 +64,15 @@
      · unchanged: v2 pooled p90 ≤ RATIO of v1's for drag, wheel and pinch; the drag's worst frame ≤ WORST_MS
        with 1 ms of timestamp slack; the primitive budgets.
 
+   STACKS REMOVED (2026-10-14, docs/atlas-v2-design.md §7 "Stacks removed"): every place and polity the study layer flags is its own mark, so
+   the worst case a frame can draw is the whole Full Atlas (about 1,300 places and 190 polities). Two things in here guard that:
+     · the worst-frame rule (at most WORST_SHARE of frames over WORST_MS, none over WORST_CAP_MS) is asserted for the drag and the pinch
+       WITH THE FULL ATLAS ON at the widest view (`results.v2full`), the number of marks drawn and the cost of the marks' own pass
+       (`markDrawMs`) reported beside it;
+     · a MARK BUDGET per fixed view (`marks` on each of VIEWS: the marks drawn in a still frame of the Full Atlas, measured × 1.25 and
+       rounded up), the primitive count of the study layer the way the land's triangles are the renderer's — a change that draws twice
+       the marks fails here rather than on a phone.
+
    The suite also prints the #map2?perf overlay's numbers (mean, p95, max over the last 120 frames,
    primitives, LOD, tiles, water, relief) for each fixed view, which is what the owner reads on a real phone.
 
@@ -308,6 +317,40 @@ async function fixedViews(page, cx, cy) {
   return views;
 }
 
+/* THE FULL ATLAS ON (Atlas v2, stacks removed): the study layer in its Full mode, the widest view, the same drag, wheel and pinch as above.
+   Every flagged place and polity is drawn as a mark, none is a count, so this is the worst a frame can ask of the marks — the gate's
+   worst-frame rule is asserted on it. */
+async function fullGestures(page, cdp, cx, cy) {
+  await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.study.ready(), null, { timeout: 90000 });
+  await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(new Date().getUTCFullYear()); c.setView(10, 20, 24); c.study.setMode("full"); });
+  await settle(page); await sleep(800);
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(300);
+  const r = {};
+  r.marks = await page.evaluate(() => { const s = document.querySelector(".atlas2").__atlas2.statsNow(); return { drawn: s.marksDrawn, laid: s.marksLaid, mode: document.querySelector(".atlas2").__atlas2.study.mode() }; });
+  r.drag = await repeated(page, () => drag(page, cx, cy), () => warmV2(page, () => drag(page, cx, cy)));
+  r.wheel = await repeated(page, () => wheel(page, cx, cy), () => warmWheelV2(page, cx, cy));
+  r.pinch = await repeated(page, () => pinch(page, cdp, cx, cy, null), () => warmV2(page, () => pinch(page, cdp, cx, cy)));
+  r.cost = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, d = c.drawSamples(); const m = d.marks.slice().sort((a, b) => a - b), l = d.labels.slice().sort((a, b) => a - b); const q = (a, p) => (a.length ? a[Math.min(a.length - 1, Math.floor(p * a.length))] : 0); return { marksMean: m.length ? m.reduce((a, b) => a + b, 0) / m.length : 0, marksP95: q(m, 0.95), marksMax: m.length ? m[m.length - 1] : 0, labelsP95: q(l, 0.95), n: m.length }; });
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.study.setMode("map"));
+  await sleep(300);
+  return r;
+}
+// the marks drawn in a still frame of the Full Atlas on each fixed view (the budgets in VIEWS)
+async function fixedMarks(page) {
+  const out = [];
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.study.setMode("full"));
+  for (const V of VIEWS) {
+    await page.evaluate((v) => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(v.year != null ? v.year : new Date().getUTCFullYear()); c.setView(v.lon, v.lat, v.kmpp); }, V);
+    await settle(page); await sleep(400);
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(300);
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate()); await sleep(150);
+    out.push({ V, s: await page.evaluate(() => { const s = document.querySelector(".atlas2").__atlas2.statsNow(); return { drawn: s.marksDrawn, laid: s.marksLaid, ms: s.markDrawMs, p95: s.markDrawP95 }; }) });
+  }
+  await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.study.setMode("map"); c.setYear(new Date().getUTCFullYear()); c.setView(10, 20, 24); });
+  await settle(page);
+  return out;
+}
+
 (async () => {
   await new Promise((r) => server.listen(PORT, r));
   const base = "http://127.0.0.1:" + PORT + "/";
@@ -355,7 +398,7 @@ async function fixedViews(page, cx, cy) {
   page2.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page2.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
   const cdp2 = await context.newCDPSession(page2);
-  let views = [], viewsRelief = [];
+  let views = [], viewsRelief = [], viewMarks = [];
   {
     const page = page2, cdp = cdp2;
     const t0 = Date.now();
@@ -388,7 +431,9 @@ async function fixedViews(page, cx, cy) {
     // Phase 1c: a tap selects the face's place and opens its card (and clears the hover caption), so the card's title is the answer
     r.pick = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const card = c.card ? c.card() : null; return (card && card.title) || (c.selectedId ? c.selectedId() : "") || document.querySelector(".atlas2-caption").textContent; });
     results.v2 = r;
+    results.v2full = await fullGestures(page, cdp, cx, cy);   // the Full Atlas on, the widest view (stacks removed)
     views = await fixedViews(page, cx, cy);
+    viewMarks = await fixedMarks(page);
     /* relief on: L0 and the view's L1 patches, then the same gestures and views */
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ relief: true }));
     const reliefReady = await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.renderer.reliefLoaded("0") && c.tilesSettled(); }, null, { timeout: 90000 }).then(() => true, () => false);
@@ -425,6 +470,12 @@ async function fixedViews(page, cx, cy) {
     for (const { V, still, frames } of vs) console.log(`  ${V.name.padEnd(20)} ${String(V.kmpp).padStart(5)}   ${String(still.level).padStart(3)}  ${String(still.tilesDrawn).padStart(5)}   ${String(still.triangles).padStart(9)}  ${String(still.segments).padStart(8)}  ${String(still.riverSegments).padStart(7)}  ${String(still.lakeSegments).padStart(7)}  ${String(still.lakeTriangles).padStart(7)}  ${String(still.reliefOn ? still.reliefPatches + "p f" + still.reliefFade.toFixed(1) : "off").padStart(7)} ${String(still.draws).padStart(5)} ${fmt(frames.mean)} ${fmt(frames.p95)} ${fmt(frames.max)}   ${still.historyTriangles || 0}/${still.historySegments || 0}/${still.historyFaces || 0}`);
   };
   printViews("Fixed views (v2, relief off): primitives in a still frame, then frame intervals over a 40-step drag", views);
+  console.log("\nThe Full Atlas on at the widest view (stacks removed: every flagged place and polity is its own mark)\n");
+  console.log("  gesture   target        n    mean     p50     p90     p95     p99     max  >50ms");
+  for (const g of ["drag", "wheel", "pinch"]) { const s = results.v2full[g]; console.log(`  ${g.padEnd(9)} ${"v2 Full".padEnd(9)} ${String(s.n).padStart(4)} ${fmt(s.mean)} ${fmt(s.p50)} ${fmt(s.p90)} ${fmt(s.p95)} ${fmt(s.p99)} ${fmt(s.max)} ${String(s.over50).padStart(6)}`); }
+  console.log(`  marks at the start: ${results.v2full.marks.drawn} drawn of ${results.v2full.marks.laid} laid out (mode ${results.v2full.marks.mode}); the marks' own pass: mean ${results.v2full.cost.marksMean.toFixed(2)} ms, p95 ${results.v2full.cost.marksP95.toFixed(2)} ms, max ${results.v2full.cost.marksMax.toFixed(2)} ms over ${results.v2full.cost.n} frames (the labels' whole pass p95 ${results.v2full.cost.labelsP95.toFixed(2)} ms)`);
+  console.log("\nMarks drawn in a still frame of the Full Atlas, per fixed view (budget in brackets)\n");
+  for (const { V, s } of viewMarks) console.log(`  ${V.name.padEnd(44)} ${String(s.drawn).padStart(5)} drawn of ${String(s.laid).padStart(5)} laid out${V.marks != null ? "  (≤ " + V.marks + ")" : ""}   marks pass ${s.ms.toFixed(2)} ms (p95 ${s.p95.toFixed(2)})`);
   printViews("Fixed views (v2, relief on)", viewsRelief);
   console.log("\n  the #map2?perf overlay at the cap, relief on:\n" + viewsRelief[viewsRelief.length - 1].overlay.split("\n").map((l) => "    " + l).join("\n"));
 
@@ -459,6 +510,12 @@ async function fixedViews(page, cx, cy) {
     if (V.presTri != null) { check(`${V.name}: presence (peoples and cultures) fill triangles ≤ ${V.presTri}`, (still.presenceTriangles || 0) <= V.presTri && (still.presenceTriangles || 0) > 0, `${still.presenceTriangles} in ${still.presenceFaces} faces`); check(`${V.name}: ${V.presFaces} presence face(s) drawn`, (still.presenceFaces || 0) === V.presFaces, `${still.presenceFaces}`); }
     if (V.histTri != null) { check(`${V.name}: historical fill triangles ≤ ${V.histTri}`, still.historyTriangles <= V.histTri, `${still.historyTriangles} in ${still.historyFaces} faces`); check(`${V.name}: historical border segments ≤ ${V.histSeg}`, still.historySegments <= V.histSeg, `${still.historySegments}`); }
   }
+  // STACKS REMOVED: the owner's worst-frame rule with the Full Atlas on, at the widest view
+  { const f = results.v2full, d = f.drag, p = f.pinch;
+    check(`Full Atlas (${f.marks.drawn} marks at the widest view): drag — across ${REPEATS} repeats (${d.n} frames) at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms`, f.marks.mode === "full" && f.marks.drawn > 300 && overShare(d.raw) <= WORST_SHARE && d.max <= WORST_CAP_MS + 1, `${overCount(d.raw)} over ${WORST_MS} (${pctS(overShare(d.raw))}), worst ${d.max.toFixed(1)} ms`);
+    check(`Full Atlas: pinch, DURING the gesture — at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms`, !!p.during && overShare(p.during.raw) <= WORST_SHARE && p.during.max <= WORST_CAP_MS + 1, p.during ? `${overCount(p.during.raw)} over ${WORST_MS} of ${p.during.raw.length} (${pctS(overShare(p.during.raw))}), worst ${p.during.max.toFixed(1)} ms` : "no during frames");
+    check("Full Atlas: the marks' own pass costs under 4 ms at p95 on this runner (software canvas; reported per view above)", f.cost.n > 50 && f.cost.marksP95 < 4, `p95 ${f.cost.marksP95.toFixed(2)} ms, mean ${f.cost.marksMean.toFixed(2)} ms`); }
+  for (const { V, s } of viewMarks) if (V.marks != null) check(`${V.name}: marks drawn in the Full Atlas ≤ ${V.marks}`, s.drawn <= V.marks, `${s.drawn} drawn of ${s.laid} laid out`);
   for (const g of ["drag", "wheel", "pinch"]) {
     const a = results.v1hm && results.v1hm.on ? results.v1hm[g] : null, b = results.v2relief[g], off = results.v2[g];
     const vsV1 = a ? `v1 with its heightmap ${a.p90.toFixed(1)} ms (v2 is ${(100 * b.p90 / a.p90).toFixed(0)} % of it)` : "v1 heightmap not measured";
