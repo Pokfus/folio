@@ -254,7 +254,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. The Atlas page itself does not use it (it needs every level before it is `ready`, and its first paint is not a card window's). */
-  const CORE_CACHE_REV = "87790978f8:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "4d0c36ad85:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -672,7 +672,7 @@
     }
 
     /* ---------- frame loop ---------- */
-    const stats = { frames: [], draw: [], uploads: {}, worker: null, escalations: 0, recoveries: 0, stallsIgnored: 0, longTasks: 0, stage: 0, learnt: 0, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, reliefCost: [], labelLayout: [], labelSprite: [], labelDraw: [], gazetteer: null };
+    const stats = { frames: [], draw: [], uploads: {}, worker: null, escalations: 0, recoveries: 0, stallsIgnored: 0, longTasks: 0, stage: 0, learnt: 0, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, reliefCost: [], labelLayout: [], labelSprite: [], labelDraw: [], markDraw: [], gazetteer: null };
     const perfInHash = /[?&#/]perf\b/.test(location.hash || "");
     let needs = true, needsGlobe = true, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
     const t0 = performance.now();
@@ -911,13 +911,13 @@
       const wasDrag = dragging; dragging = false;
       if (wasDrag && !moved && e.type === "pointerup") {
         const rect = canvas.getBoundingClientRect(), x = e.clientX - rect.left, y = e.clientY - rect.top;
-        if (e.pointerType !== "touch") { pickAt(x, y); return; }
+        if (e.pointerType !== "touch") { pickAt(x, y, false); return; }
         // touch: a second tap within TAP_MS and 30 px of the first zooms in about the spot instead of picking; a single tap picks
         // after the window closes (a pick costs two ID passes, which on a slow GPU would push the second tap past the window)
         if (tapTimer && lastTap && Math.hypot(lastTap.x - x, lastTap.y - y) < 30) { clearTimeout(tapTimer); tapTimer = 0; lastTap = null; zoomAt(2, x, y); touched(); gestureEnded(); return; }
         if (tapTimer) { clearTimeout(tapTimer); tapTimer = 0; }
         lastTap = { x, y };
-        tapTimer = setTimeout(() => { tapTimer = 0; lastTap = null; if (!disposed) pickAt(x, y); }, TAP_MS);
+        tapTimer = setTimeout(() => { tapTimer = 0; lastTap = null; if (!disposed) pickAt(x, y, true); }, TAP_MS);
         return;
       }
       if (wasDrag && moved && (performance.now() - lastMoveT) < 60 && Math.hypot(velLon, velLat) > 0.02 && !reduced()) { coasting = true; invalidate(); }   // no fling under reduced motion (§2.9)
@@ -948,7 +948,7 @@
       else if (e.key === "ArrowUp") view.lat += step; else if (e.key === "ArrowDown") view.lat -= step;
       else if (e.key === "+" || e.key === "=") zoomAt(1.25); else if (e.key === "-" || e.key === "_") zoomAt(1 / 1.25);
       else if (e.key === "Home" || e.key === "0") { view.lon = 10; view.lat = 20; view.zoom = 1; }
-      else if (e.key === "Escape") { if (!aboutEl.hidden) openAbout(false); else if (!sheet.hidden) openSheet(false); else clearSelection(); }
+      else if (e.key === "Escape") { if (fan) closeFan(); else if (!aboutEl.hidden) openAbout(false); else if (!sheet.hidden) openSheet(false); else clearSelection(); }
       else if (e.key === "?") openAbout(aboutEl.hidden);
       else if (e.key === "/") { searchIn.focus(); searchIn.select(); }
       else if (e.key === "p" || e.key === "P") setPerf(!perfOn, true);
@@ -960,6 +960,7 @@
     // Escape anywhere in the Atlas (the card, the search box, the key list) clears the selection and shuts the card
     el.addEventListener("keydown", (e) => {
       if (e.key !== "Escape" || e.target === canvas) return;
+      if (fan) { closeFan(); return; }                                                    // the fan first (stacks removed): it is the newest thing on the map
       if (e.target === searchIn && !resultsUl.hidden) { closeResults(); return; }
       if (!aboutEl.hidden) { openAbout(false); return; }                                   // the About sheet first (Phase 1d)
       if (!sheet.hidden && sheet.contains(e.target)) { openSheet(false); layersBtn.focus({ preventScroll: true }); return; }   // then the legend, focus back on its button
@@ -1736,7 +1737,7 @@
     /* ================= Phase 1c: names, picking, the place card, search, deep links, the keyboard =================
        (docs/atlas-v2-design.md §2.6, §2.8, §2.9 and §7 "Phase 1c — as built"; the worker's half is in atlas-worker.js) */
     const G = { rows: [], byId: new Map(), byRiver: new Map(), ready: false };
-    const L = { placed: [], live: [], candidates: 0, cap: 0, seq: 0, lastLayoutMs: 0, lastDrawMs: 0, keyIds: "" };
+    const L = { placed: [], marks: [], live: [], ln: 0, markGroups: [], markIndex: new Map(), mA: null, lastMarkMs: 0, candidates: 0, cap: 0, seq: 0, lastLayoutMs: 0, lastDrawMs: 0, keyIds: "" };
     const STYLE_BY_ID = Object.fromEntries(STYLES.map((s) => [s.id, s]));
     let gazStarted = false, gazInWorker = false, faceOfEntity = null, entityIndexById = null, pendingPlace = null, pendingFly = false, pendingZoom = 0, focusId = null, flying = null, lastWrittenHash = null;
     const sel = { id: null, stack: [], index: 0, at: null, t: 0 };
@@ -1839,7 +1840,7 @@
       // labels that are new or moved along a path — a scrub's layouts cost 100 ms of canvas text a second before this (measured)
       bracket(() => { for (const p of m.placed) { p.chars = [...p.text]; p.sprite = spriteFor(p); } }, "sprites");
       L.lastSpriteMs = performance.now() - t0; stats.labelSprite.push(L.lastSpriteMs); if (stats.labelSprite.length > 600) stats.labelSprite.shift();
-      L.placed = m.placed;
+      L.placed = m.placed; L.marks = m.marks || []; indexMarks();
       if (m.missing && m.missing.length) { let grew = false; for (const [, ch] of m.missing) if (!extraChars.has(ch)) { extraChars.add(ch); grew = true; } if (grew && extraChars.size < 400) measureMetrics(); }
       updateKeys();
       invalidateLabels();
@@ -1887,29 +1888,176 @@
       }
       return { c, x0, y0, w, h };
     }
-    /* the study layer's marks (Phase 3b), distinct from every label and from the city dots and capital squares: a DIAMOND for a
-       settlement or a site, a TRIANGLE for a mountain or a cape (a smaller one for a hill), a ringed disc with its COUNT for a stack. The reader's own are filled
-       with the accent, the rest of the Full Atlas hollow. */
-    function drawStudyMarker(ctx, x, y, r, kind, hot, p) {
-      const mine = !!p && p.st === 2;
-      ctx.lineJoin = "round"; ctx.lineWidth = 2; ctx.strokeStyle = hot ? selCss : inkCss; ctx.fillStyle = mine ? accentCss : haloCss;
-      ctx.beginPath();
-      if (kind === "diamond") { ctx.moveTo(x, y - r - 1); ctx.lineTo(x + r + 1, y); ctx.lineTo(x, y + r + 1); ctx.lineTo(x - r - 1, y); ctx.closePath(); }
-      else if (kind === "triangle") { ctx.moveTo(x, y - r - 1); ctx.lineTo(x + r + 1, y + r); ctx.lineTo(x - r - 1, y + r); ctx.closePath(); }
-      else ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fill(); ctx.stroke();
-      if (kind === "stack" && p && p.n) {
-        ctx.fillStyle = inkCss; ctx.font = fontOf(STYLE_BY_ID.town || STYLE_BY_ID.city, p.n > 99 ? 9 : 11);
-        ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(String(p.n > 99 ? "99+" : p.n), x, y + 0.5); ctx.textAlign = "left";
-      }
-    }
     function drawMarker(ctx, x, y, r, kind, hot, p) {
-      if (kind === "diamond" || kind === "triangle" || kind === "stack") { drawStudyMarker(ctx, x, y, r, kind, hot, p); return; }
       ctx.fillStyle = hot ? selCss : inkCss; ctx.strokeStyle = haloCss; ctx.lineWidth = 1.5;
       ctx.beginPath();
       if (kind === "capital") ctx.rect(x - r, y - r, 2 * r, 2 * r); else ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.fill(); ctx.stroke();
     }
+    /* ---- THE STUDY LAYER'S MARKS (Phase 3b; stacks removed 2026-10-14) ----
+       Every place and every polity the layer flags is ONE mark at its own position, at any zoom: no cluster, no count (the owner's
+       decision, docs/atlas-v2-design.md §7 "Stacks removed"). The worker posts the list at each layout (`L.marks`, unit vectors); the
+       page projects every mark EVERY FRAME, so a mark is at its true place and sized for the zoom of the moment (AtlasStudy.markHalf: a
+       dot about 4 px across at the widest view, 16 px by city scale) whatever a gesture is doing. A mark that would lie past the
+       frame's edge or under a control (the chrome the last layout measured: the study panel, the rail, the card …) is not drawn in
+       that frame and cannot be tapped. THREE SHAPES AND THEIR COLOURS ARE THE OLD ONES: a diamond for a settlement, a site and any
+       other place, a triangle for a mountain, a hill (smaller) or a cape, a disc for a polity; the reader's own filled with the accent,
+       the others hollow, a thin ink outline on both so two marks that touch still read as two. DRAW ORDER, back to front: places not
+       studied, places studied, polities, and the selected mark last. The marks of one kind in one layer are one path (a fill and a
+       stroke for all of them), so a Full Atlas of 1,300 places and 190 polities is a handful of canvas calls a frame. */
+    function markInto(path, shape, x, y, h, lw) {
+      const q = h - lw / 2;   // the outline is drawn inside the half-extent, so a mark never exceeds its size
+      if (shape === "diamond") { path.moveTo(x, y - q); path.lineTo(x + q, y); path.lineTo(x, y + q); path.lineTo(x - q, y); path.lineTo(x, y - q); }
+      else if (shape === "triangle") { path.moveTo(x, y - q); path.lineTo(x + q, y + q * 0.85); path.lineTo(x - q, y + q * 0.85); path.lineTo(x, y - q); }
+      else { const rr = q * 0.92; path.moveTo(x + rr, y); path.arc(x, y, rr, 0, Math.PI * 2); }
+    }
+    /* NO closePath: in this Chromium a path built with moveTo / lineTo / closePath per mark cost 5.3 ms per thousand marks against 0.3 ms
+       for the same shapes ending in an explicit lineTo to their start (measured, headless, 2026-10-14) — a Full Atlas of a thousand marks
+       is the difference between a third of a frame and none of it. The round line cap closes the outline's corner. */
+    const markLine = (half) => (half < 3 ? 1 : half < 6 ? 1.5 : 2);
+    /* the marks of a layout, indexed for the frame loop: one flat array of unit vectors and the groups (layer, reader's own or not, shape,
+       hill or not) each drawn as ONE path — so a frame projects each mark once, allocates nothing, and is a fill and a stroke per group */
+    function indexMarks() {
+      const marks = L.marks, n = marks.length, groups = new Map(), ax = new Float32Array(3 * n);
+      L.markIndex = new Map();
+      for (let i = 0; i < n; i++) {
+        const m = marks[i]; ax[3 * i] = m.a[0]; ax[3 * i + 1] = m.a[1]; ax[3 * i + 2] = m.a[2]; L.markIndex.set(m.id, i);
+        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (m.shape === "diamond" ? 0 : m.shape === "triangle" ? 8 : 16) + (m.kind === "hill" ? 4 : 0);
+        let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, scale: m.kind === "hill" ? 0.75 : 1, layer: m.layer, idx: [] });
+        g.idx.push(i);
+      }
+      L.markGroups = [...groups.values()].sort((p, q) => p.key - q.key);
+      L.mA = ax;
+      if (!L.lx || L.lx.length < n) { L.lx = new Float32Array(n + 64); L.ly = new Float32Array(n + 64); L.lh = new Float32Array(n + 64); L.li = new Int32Array(n + 64); }
+      L.ln = 0;
+    }
+    function drawMarks(ctx) {
+      const t0 = performance.now(), marks = L.marks, A = root.AtlasStudy;
+      L.ln = 0;
+      if (!marks.length || !A || !L.mA) { L.lastMarkMs = 0; return; }
+      const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy, ch = L.chrome || [], nch = ch.length;
+      const r0 = rot[0], r1 = rot[1], r2 = rot[2], r3 = rot[3], r4 = rot[4], r5 = rot[5], r6 = rot[6], r7 = rot[7], r8 = rot[8];
+      const half = A.markHalf(view.kmpp), lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH;
+      const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : -1, aliveEnt = time.aliveEnt;
+      let ln = 0, selK = -1;
+      const faint = [];
+      ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = lw; ctx.strokeStyle = inkCss; ctx.globalAlpha = 1;
+      for (const g of L.markGroups) {
+        const h = half * g.scale, e = h + 1, q = h - lw / 2, idx = g.idx, shape = g.shape, polity = g.layer === 2;
+        ctx.beginPath();
+        for (let k = 0; k < idx.length; k++) {
+          const i = idx[k], j = 3 * i, a0 = ax[j], a1 = ax[j + 1], a2 = ax[j + 2];
+          const z = r6 * a0 + r7 * a1 + r8 * a2;
+          if (z < 0.005) continue;
+          const x = cx + (r0 * a0 + r1 * a1 + r2 * a2) * r, y = cy - (r3 * a0 + r4 * a1 + r5 * a2) * r;
+          if (x - e < 0 || y - e < 0 || x + e > W || y + e > H) continue;
+          let hidden = false;
+          for (let c = 0; c < nch; c++) { const cr = ch[c]; if (x - e < cr[2] && x + e > cr[0] && y - e < cr[3] && y + e > cr[1]) { hidden = true; break; } }
+          if (hidden) continue;
+          if (polity && aliveEnt && !aliveEnt.has(marks[i].id)) continue;   // a polity no longer alive (the layout is held while the pin is dragged)
+          lx[ln] = x; ly[ln] = y; lh[ln] = h; li[ln] = i; ln++;
+          if (i === selI) { selK = ln - 1; continue; }
+          if (z < 0.2) { faint.push(ln - 1); continue; }   // near the limb: faded, drawn singly below
+          if (shape === "diamond") { ctx.moveTo(x, y - q); ctx.lineTo(x + q, y); ctx.lineTo(x, y + q); ctx.lineTo(x - q, y); ctx.lineTo(x, y - q); }
+          else if (shape === "triangle") { ctx.moveTo(x, y - q); ctx.lineTo(x + q, y + q * 0.85); ctx.lineTo(x - q, y + q * 0.85); ctx.lineTo(x, y - q); }
+          else { const rr = q * 0.92; ctx.moveTo(x + rr, y); ctx.arc(x, y, rr, 0, 6.283185307179586); }
+        }
+        ctx.fillStyle = g.mine ? accentCss : haloCss; ctx.fill(); ctx.stroke();
+      }
+      L.ln = ln;
+      if (faint.length) {
+        for (const k of faint) {
+          const m = marks[li[k]], path = new Path2D();
+          markInto(path, m.shape, lx[k], ly[k], lh[k], lw);
+          const z = rot[6] * m.a[0] + rot[7] * m.a[1] + rot[8] * m.a[2];
+          ctx.globalAlpha = Math.max(0.05, Math.min(1, z / 0.2)); ctx.fillStyle = m.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
+        }
+        ctx.globalAlpha = 1;
+      }
+      if (selK >= 0) {
+        const m = marks[li[selK]], path = new Path2D();
+        markInto(path, m.shape, lx[selK], ly[selK], lh[selK] + 1, 2);
+        ctx.lineWidth = 2; ctx.strokeStyle = selCss; ctx.fillStyle = m.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
+      }
+      if (focusId && L.markIndex.has(focusId)) {
+        const fi = L.markIndex.get(focusId);
+        for (let k = 0; k < ln; k++) if (li[k] === fi) { ctx.strokeStyle = "#45549c"; ctx.lineWidth = 2; ctx.strokeRect(lx[k] - lh[k] - 3, ly[k] - lh[k] - 3, 2 * lh[k] + 6, 2 * lh[k] + 6); break; }
+      }
+      L.lastMarkMs = performance.now() - t0; stats.markDraw.push(L.lastMarkMs); if (stats.markDraw.length > 600) stats.markDraw.shift();
+    }
+    /* the live marks (the last frame's) as entries, for the tap and the tests: only those within `radius` of (x, y) when given */
+    function liveEntries(x, y, radius) {
+      const out = [], n = L.ln || 0, r2 = radius * radius, all = x == null;
+      for (let k = 0; k < n; k++) { if (!all) { const dx = L.lx[k] - x, dy = L.ly[k] - y; if (dx * dx + dy * dy > r2) continue; } out.push({ m: L.marks[L.li[k]], x: L.lx[k], y: L.ly[k], h: L.lh[k] }); }
+      return out;
+    }
+    /* ---- THE FAN (Phase 3b, stacks removed) ----
+       A tap picks the NEAREST mark within a finger (22 px on a phone, 12 with a mouse). Where more than one lies within it — or several
+       share one exact point — they fan out round the tap point: each at its true position joined to a copy of itself on a circle, with its
+       name, and the next tap picks one. A tap on empty ground, or Escape, closes the fan; so does any move of the view (the marks'
+       true positions would no longer be under the lines). No count and no cycling chip: the reader chooses from what is drawn. */
+    const FAN_MAX = 14;
+    let fan = null;
+    function markRadius(touch) { return touch || PHONE ? 22 : 12; }
+    function marksNear(x, y, radius) {
+      const A = root.AtlasStudy; if (!A || !L.ln) return [];
+      const near = liveEntries(x, y, radius);
+      return near.length < 2 ? near : A.nearMarks(near, x, y, radius).map((i) => near[i]);
+    }
+    function fanSig() { return view.lon.toFixed(5) + "," + view.lat.toFixed(5) + "," + view.zoom.toFixed(5) + "," + cssW + "x" + cssH; }
+    function closeFan(silent) { if (!fan) return false; fan = null; if (!silent) invalidateLabels(); return true; }
+    function openFan(x, y, near) {
+      const A = root.AtlasStudy, ctx = lctx, st = STYLE_BY_ID.town || STYLE_BY_ID.city;
+      ctx.font = fontOf(st, 12);
+      const mem = near.slice(0, FAN_MAX).map((e) => { const row = G.byId.get(e.m.id); const name = row ? row.name : e.m.id; return { e, name, x: e.x, y: e.y, w: ctx.measureText(name).width }; });
+      const f = A.fanOut(mem, { x, y }, { W: cssW, H: cssH, chrome: L.chrome || [], max: FAN_MAX, half: 9 });
+      fan = { x, y, sig: fanSig(), mem, slots: f.slots.map((sl) => Object.assign({}, sl, { mem: mem[sl.i] })), clear: f.clear };
+      sel.stack = []; sel.at = null; stackBtn.hidden = true;
+      announce("Choose one: " + mem.map((m) => m.name).join(", "));
+      invalidateLabels();
+    }
+    function drawFan(ctx) {
+      if (!fan) return;
+      if (fan.sig !== fanSig()) { fan = null; return; }
+      const st = STYLE_BY_ID.town || STYLE_BY_ID.city;
+      ctx.globalAlpha = 1; ctx.lineJoin = "round"; ctx.lineCap = "round";
+      ctx.beginPath(); ctx.arc(fan.x, fan.y, 3, 0, Math.PI * 2); ctx.fillStyle = inkCss; ctx.globalAlpha = 0.5; ctx.fill(); ctx.globalAlpha = 1;
+      for (const sl of fan.slots) {
+        const m = sl.mem;
+        ctx.strokeStyle = haloCss; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(m.x, m.y); ctx.lineTo(sl.x, sl.y); ctx.stroke();
+        ctx.strokeStyle = inkCss; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(m.x, m.y); ctx.lineTo(sl.x, sl.y); ctx.stroke();
+      }
+      for (const sl of fan.slots) {
+        const m = sl.mem, mk = m.e.m, path = new Path2D(), hot = mk.id === sel.id;
+        markInto(path, mk.shape, sl.x, sl.y, 8, 2);
+        ctx.lineWidth = 2; ctx.strokeStyle = hot ? selCss : inkCss; ctx.fillStyle = mk.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
+        ctx.font = fontOf(st, 12); ctx.textBaseline = "middle"; ctx.textAlign = sl.right ? "left" : "right";
+        const tx = sl.right ? sl.x + 13 : sl.x - 13;
+        ctx.lineWidth = 3; ctx.strokeStyle = haloCss; ctx.strokeText(m.name, tx, sl.y); ctx.fillStyle = inkCss; ctx.fillText(m.name, tx, sl.y);
+      }
+      ctx.textAlign = "left";
+    }
+    function pickMark(m) {
+      const row = G.byId.get(m.id);
+      closeFan(true);
+      sel.stack = []; sel.index = 0; sel.at = null; stackBtn.hidden = true;
+      if (row) selectRow(row, { open: true, push: true });
+    }
+    // a tap while the fan is open: one of its copies or names picks that mark; anywhere else closes the fan, and a tap that lands on
+    // empty ground does nothing more (a tap on another mark or a name goes on to be picked as usual). Returns true when the tap is spent.
+    function pickFan(x, y, touch) {
+      const f = fan; closeFan(true);
+      let best = null, bd = Infinity;
+      for (const sl of f.slots) {
+        const r = sl.rect, inRect = x >= r[0] - 3 && x <= r[2] + 3 && y >= r[1] - 3 && y <= r[3] + 3;
+        const d = Math.hypot(sl.x - x, sl.y - y);
+        if ((inRect || d <= (touch || PHONE ? 22 : 14)) && d < bd) { bd = d; best = sl; }
+      }
+      if (best) { pickMark(best.mem.e.m); return true; }
+      invalidateLabels();
+      return !marksNear(x, y, markRadius(touch)).length && !hitAt(x, y).length;
+    }
+
     /* every frame: each placed label at its anchor's CURRENT position (a translation — the layout is only
        recomputed on settle), skipped behind the horizon, faded near the limb; the live hit rects are kept */
     /* A LABEL IS ALWAYS WHOLE AND CLEAR OF THE CONTROLS (Phase 4c; the owner's phone showed "ille" for Lille, "Strasbour", and Essen under the "?"
@@ -1936,6 +2084,7 @@
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy;
       const live = [];
       const muteOthers = ST.mode === "personal" && ST.flags.size > 0;
+      drawMarks(ctx);   // the study layer's marks, under the names
       for (const p of L.placed) {
         const a = p.a; if (!a) continue;
         if (p.hist && time.aliveEnt && p.id.charCodeAt(0) === 112 && p.id.startsWith("pol:") && !time.aliveEnt.has(p.id)) continue;   // a polity no longer alive (the layout is held while the pin is dragged)
@@ -1952,6 +2101,7 @@
         live.push({ p, dx, dy, hit });
       }
       ctx.globalAlpha = 1;
+      drawFan(ctx);
       L.live = live;
       L.lastDrawMs = performance.now() - t; stats.labelDraw.push(L.lastDrawMs); if (stats.labelDraw.length > 600) stats.labelDraw.shift();
     }
@@ -1997,12 +2147,15 @@
       }
       return out;
     }
-    function pickAt(x, y) {
+    function pickAt(x, y, touch) {
       if (!stats.ready && !R.levelLoaded(0)) return;
+      if (fan && pickFan(x, y, touch)) return;
+      // the nearest mark within a finger; several within it fan out round the tap (no count, no chip), one picks at once
+      const near = marksNear(x, y, markRadius(touch));
+      if (near.length === 1) { pickMark(near[0].m); return; }
+      if (near.length > 1) { openFan(x, y, near); return; }
       const again = sel.at && Math.hypot(sel.at[0] - x, sel.at[1] - y) < 10 && performance.now() - sel.t < 5000 && sel.stack.length > 1;
       if (again) { sel.index = (sel.index + 1) % sel.stack.length; sel.t = performance.now(); showStack(); selectRow(sel.stack[sel.index], { open: true, push: true }); return; }
-      const sk = hitAt(x, y).find((h) => h.p.kind === "stack");
-      if (sk) { expandStack(sk.p); return; }
       const stack = stackAt(x, y);
       sel.at = [x, y]; sel.t = performance.now(); sel.stack = stack; sel.index = 0;
       if (!stack.length) { clearSelection(); return; }
@@ -2029,6 +2182,7 @@
     function announce(text) { if (announceTimer) clearTimeout(announceTimer); announceTimer = setTimeout(() => { announceTimer = 0; announceEl.textContent = ""; announceEl.textContent = text; }, 50); }
     function selectRow(row, o) {
       o = o || {};
+      closeFan(true);   // a selection from anywhere (a tap, the search, the keys, Back) ends the fan
       sel.id = row.id;
       const face = (row.kind === "country" || row.kind === "admin1") && time.present ? faceOfId(row.id) : null;
       R.select(face);
@@ -2067,6 +2221,8 @@
     function hoverAt(x, y) {
       const t = performance.now(); if (t - hoverT < 50) return; hoverT = t;
       if (hoverTimer) { clearTimeout(hoverTimer); hoverTimer = 0; }
+      const mk = marksNear(x, y, 8)[0];
+      if (mk) { const row = G.byId.get(mk.m.id); caption.textContent = row ? row.name : ""; canvas.style.cursor = "pointer"; return; }
       const h = hitAt(x, y)[0];
       if (h) { const row = G.byId.get(h.p.id); caption.textContent = row ? row.name : h.p.text; canvas.style.cursor = "pointer"; return; }
       canvas.style.cursor = "";
@@ -2451,15 +2607,20 @@
 
     /* ---- the keyboard: a hidden list of buttons mirroring the visible labels in rank order ---- */
     function updateKeys() {
-      const list = L.placed.filter((p) => p.text || p.kind === "stack").slice().sort((a, b) => a.score - b.score).slice(0, KEY_LIST_MAX);
+      /* one button per DRAWN mark and per placed name, best first, capped (stacks removed: the old zoom-in-on-a-stack
+         button is gone). A mark whose name is placed is one button, not two. */
+      const seen = new Set(), items = [];
+      for (const p of L.placed) if (p.text) { seen.add(p.id); items.push({ id: p.id, kind: p.kind, score: p.score, name: p.text }); }   // one per placed label, as it always was (a river's name may stand on several stretches)
+      for (const m of L.marks) if (m.clear && !seen.has(m.id)) { seen.add(m.id); items.push({ id: m.id, kind: m.kind, score: m.score, name: "" }); }
+      const list = items.sort((a, b) => a.score - b.score).slice(0, KEY_LIST_MAX);
       const ids = list.map((p) => p.id).join("\n");
       if (ids === L.keyIds) return;
       L.keyIds = ids;
       const had = document.activeElement && keysUl.contains(document.activeElement) ? document.activeElement.getAttribute("data-id") : null;
-      keysUl.innerHTML = list.map((p) => { if (p.kind === "stack") return `<li><button type="button" data-id="${escText(p.id)}">${p.n} places here, activate to zoom in</button></li>`; const row = G.byId.get(p.id); return `<li><button type="button" data-id="${escText(p.id)}">${escText(row ? row.name : p.text)}, ${escText(KIND_LABEL[p.kind] || p.kind)}</button></li>`; }).join("");
+      keysUl.innerHTML = list.map((p) => { const row = G.byId.get(p.id); return `<li><button type="button" data-id="${escText(p.id)}">${escText(row ? row.name : p.name)}, ${escText(KIND_LABEL[p.kind] || p.kind)}</button></li>`; }).join("");
       if (had) { const b = keysUl.querySelector(`button[data-id="${had.replace(/"/g, '\\"')}"]`); if (b) b.focus({ preventScroll: true }); }
     }
-    keysUl.addEventListener("click", (e) => { const b = e.target.closest("button[data-id]"); if (!b) return; const id = b.getAttribute("data-id"); if (id.startsWith("stack:")) { const sk = L.placed.find((p) => p.id === id); if (sk) expandStack(sk); return; } const row = G.byId.get(id); if (row) selectRow(row, { open: true, push: true }); });
+    keysUl.addEventListener("click", (e) => { const b = e.target.closest("button[data-id]"); if (!b) return; closeFan(); const row = G.byId.get(b.getAttribute("data-id")); if (row) selectRow(row, { open: true, push: true }); });
     keysUl.addEventListener("focusin", (e) => { const b = e.target.closest("button[data-id]"); focusId = b ? b.getAttribute("data-id") : null; if (focusId) { const row = G.byId.get(focusId); caption.textContent = row ? row.name : ""; } invalidate(); });
     keysUl.addEventListener("focusout", () => { focusId = null; invalidate(); });
 
@@ -2484,6 +2645,11 @@
     // column opens): both canvases and the label layout follow its box, not the window's
     const sizeObs = typeof ResizeObserver === "function" ? new ResizeObserver(() => { if (disposed) return; const r = el.getBoundingClientRect(); if (Math.round(r.width) !== cssW || Math.round(r.height) !== cssH) onResize(); }) : null;
     if (sizeObs) sizeObs.observe(el);
+    /* A CONTROL THAT CHANGES SIZE (the study panel growing its collection chips, a sheet or the card opening, the rail) moves the ground the
+       marks must keep clear of: the rectangles the painter checks (`L.chrome`, measured at each layout) are measured again, and the frame
+       redrawn, whenever one of them does — so a mark is never left under a control that has grown since the last layout */
+    const chromeObs = typeof ResizeObserver === "function" ? new ResizeObserver(() => { if (disposed) return; L.chrome = chromeRects(); invalidateLabels(); }) : null;
+    if (chromeObs) for (const q of CHROME) for (const n of el.querySelectorAll(q)) chromeObs.observe(n);
     const viewHost = document.getElementById("view") || document.body;
     const mo = new MutationObserver(() => { if (!el.isConnected) dispose(); });
     mo.observe(viewHost, { childList: true });
@@ -2655,21 +2821,6 @@
         e.preventDefault(); const n = bs[(i + (e.key === "ArrowRight" ? 1 : bs.length - 1)) % bs.length]; n.focus(); setStudyMode(n.getAttribute("data-mode"));
       });
     }
-    /* a stack of places (one mark with a count): a tap zooms to its members until they part; where they cannot part (the same point,
-       or the zoom is at its floor) the stack becomes the "N places here" chip, which cycles them like any other stack */
-    function expandStack(p) {
-      const rows = (p.members || []).map((id) => G.byId.get(id)).filter((r) => r && r.at);
-      if (!rows.length) return;
-      let sx = 0, sy = 0, sz = 0; for (const r of rows) { const la = r.at[1] * D2R, lo = r.at[0] * D2R; sx += Math.cos(la) * Math.cos(lo); sy += Math.cos(la) * Math.sin(lo); sz += Math.sin(la); }
-      const n = Math.hypot(sx, sy, sz) || 1, lat = Math.asin(sz / n) / D2R, lon = Math.atan2(sy, sx) / D2R;
-      let ext = 0; for (const r of rows) { const a = r.at, dl = (a[0] - lon) * D2R * Math.cos(lat * D2R), dp = (a[1] - lat) * D2R; ext = Math.max(ext, Math.hypot(dl, dp) * R_KM); }
-      const short = Math.min(cssW, cssH) * (PHONE ? 0.8 : 0.5);
-      const target = Math.min(view.kmpp / 2.4, Math.max(0.05, (ext * 2.6) / short));
-      if (ext < 0.2 || view.kmpp <= 0.06) {   // they share a point, or the floor is reached
-        sel.stack = rows; sel.at = [p.sx, p.sy]; sel.t = performance.now(); sel.index = 0; showStack(); selectRow(rows[0], { open: true, push: true }); return;
-      }
-      flyTo(lon, lat, target);
-    }
     // the cards about a place, appended to whatever the card's own renderer wrote: idempotent (one section), capped with "and N more"
     function appendStudyCards(row) {
       for (const old of cardBody.querySelectorAll(".atlas2-study-cards")) old.remove();
@@ -2739,11 +2890,20 @@
       mode: () => ({ file: FILE, static2d: STATIC2D, shim: !!shim, worker: !!worker, resScale, stage, lodBias: lodBias(), shimWhy: stats.shim || null, workerError: stats.workerError || null, twinVerified: stats.twinVerified || 0 }),
       input: () => ({ pointers: [...ptrs.entries()].map(([id, p]) => [id, Math.round(p.x), Math.round(p.y)]), dragging, moved, pinch: Math.round(pinch), coasting, flying: !!flying }),   // for the suites
       statsNow: () => Object.assign(R.stats(), { frameTrace: stats.frameTrace ? stats.frameTrace.slice() : null, taskMs: stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v)])) : null, frameMsP95: pct95(stats.frames), frameMsMean: stats.frames.length ? Math.round(stats.frames.reduce((p, q) => p + q, 0) / stats.frames.length) : 0, kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
-        year: time.year, historyFaces: time.alive.length, labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
+        year: time.year, historyFaces: time.alive.length, labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), markDrawMs: L.lastMarkMs, markDrawP95: pct95(stats.markDraw), marksDrawn: L.ln,  marksLaid: L.marks.length, labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
       // Phase 1c, for the suites and the console
       study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, open: () => ST.open, setOpen: setStudyOpen, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
-        flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl, expandStack: (id) => { const p = L.placed.find((x) => x.id === id); if (p) expandStack(p); return !!p; },
-        marks: () => L.placed.filter((p) => p.st).map((p) => ({ id: p.id, kind: p.kind, st: p.st, text: p.text, n: p.n || 0, members: p.members || null, marker: p.marker ? p.marker[3] : null, box: p.box, sx: p.sx, sy: p.sy })), index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0 },
+        flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl,
+        /* the layout's marks (every flagged place or polity within the view and its margin, with whether its ground was clear at layout), the marks drawn in the last frame, the fan, the hidden list */
+        marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "" })); },
+        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h })),
+        layoutChrome: () => (L.chrome || []).map((r) => r.slice()),
+        near: (x, y, touch) => marksNear(x, y, markRadius(touch)).map((e) => e.m.id),
+        fan: () => (fan ? { x: fan.x, y: fan.y, clear: fan.clear, items: fan.slots.map((sl) => ({ id: sl.mem.e.m.id, name: sl.mem.name, x: sl.mem.x, y: sl.mem.y, fx: sl.x, fy: sl.y, right: sl.right, rect: sl.rect })) } : null), closeFan: () => closeFan(),
+        keys: () => [...keysUl.querySelectorAll("button[data-id]")].map((b) => ({ id: b.getAttribute("data-id"), text: b.textContent })),
+        index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0 },
+      frame: () => [cssW, cssH],
+      drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
       gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,

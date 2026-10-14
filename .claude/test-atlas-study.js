@@ -13,8 +13,12 @@
      2  a seeded reader opens on their Personal Atlas: the count line and the note are the sentences the Node computation gives, every
         place drawn is theirs, everything else is muted, and Full adds the rest of the places with theirs apart
      3  a collection switch: removes exactly the places its cards bring, in both views, remembered across a reload, and restored on again
-     4  stacks: places that would overlap are one mark with a count; tapping it zooms in until they part (or, where they share a point,
-        becomes the "N places here" chip); the keyboard list carries it too
+     4  NO STACKS (2026-10-14, the owner's decision): every flagged place and polity is its own mark at its own position (a property test
+        over the Full Atlas's flags at nine views), no mark is a count, marks are a 4 px dot at the widest view and 16 px by city scale and are
+        drawn back to front (places, studied places, polities), nothing is drawn under a control; a tap picks the nearest mark within a
+        finger; where several are within it they FAN OUT (each at its true position, joined to its copy, with its name) and the next tap picks
+        one, a tap on empty ground or Escape closes the fan, places sharing one exact point fan out the same way; the hidden list matches the
+        marks drawn; no mark under a control on a 360 and a 390 px phone
      5  the place card lists the cards about a place (the reader's first, capped with "and N more", the Personal list not naming the
         rest), each a link to the app's own card page (#card/<id>) which Back returns from; a polity lists its linked cards
      6  the empty states: cards with no place; no cards; the note on cards that have none
@@ -57,7 +61,7 @@ const placeRow = (() => { const reg = require("./places-registry.js").loadRegist
 const seed = (ids) => `try { if (!localStorage.getItem("folio_v1_seeded")) { localStorage.setItem("folio_v1", JSON.stringify({ cards: Object.fromEntries(${JSON.stringify(ids)}.map((id) => [id, { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" }])), settings: { newPerDay: 5 } })); localStorage.setItem("folio_v1_seeded", "1"); } } catch (e) {}`;
 async function open(browser, ids, o) {
   o = o || {};
-  const ctx = await browser.newContext(o.phone ? { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 } : { viewport: { width: 1280, height: 800 } });
+  const ctx = await browser.newContext(o.phone ? { viewport: { width: o.w || 390, height: o.h || 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 } : { viewport: { width: 1280, height: 800 } });
   await ctx.addInitScript(seed(ids));
   const page = await ctx.newPage();
   const errors = [];
@@ -110,7 +114,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     check("…and says how many: " + places.toLocaleString("en-GB") + " places and " + pols + " polities", (await panelText(page, ".atlas2-study-sum")) === `${places.toLocaleString("en-GB")} places and ${pols} polities on the Full Atlas`, await panelText(page, ".atlas2-study-sum"));
     await view(page, 23, 38, 6);
     const m1 = await marks(page);
-    check("the Aegean in the Full Atlas carries marks of two kinds — a place alone and a stack with a count — all of them unstudied", m1.some((m) => m.marker === "diamond" || m.marker === "triangle") && m1.some((m) => m.marker === "stack" && m.n > 1) && m1.every((m) => m.st === 1), m1.length + " marks");
+    check("the Aegean in the Full Atlas carries marks of the settlement and the mountain shapes, none a count, all of them unstudied", m1.some((m) => m.marker === "diamond") && m1.every((m) => ["diamond", "triangle", "disc"].includes(m.marker) && m.st === 1), m1.length + " marks");
     check("the choice is remembered per viewer (localStorage)", (await page.evaluate(() => localStorage.getItem("folio.atlas2.study"))) === "full");
     await page.reload({ waitUntil: "load" }); await ready(page);
     check("…and a reload keeps it", (await study(page)).mode === "full");
@@ -142,8 +146,8 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const pr = placeRow(pointId);
     await view(page, pr.at[0], pr.at[1], 2);
     const m = await marks(page);
-    const inMarks = (id) => m.some((x) => x.id === id || (x.members && x.members.includes(id)));
-    check("a studied " + pr.kind + " (" + pr.name + ") is drawn at its own place — as a mark of its own shape, or inside a stack", inMarks(pointId), m.map((x) => x.id).slice(0, 6).join(", "));
+    const inMarks = (id) => m.some((x) => x.id === id);
+    check("a studied " + pr.kind + " (" + pr.name + ") is drawn at its own place, as a mark of its own", inMarks(pointId), m.map((x) => x.id).slice(0, 6).join(", "));
     check("…and every mark on the Personal globe is the reader's (flag 2): none of the unstudied places is drawn", m.length > 0 && m.every((x) => x.st === 2));
     await page.click('.atlas2-study [data-mode="full"]'); await sleep(250);
     const sf = await study(page);
@@ -176,95 +180,151 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     check("switched on again, they are back", s3d.hidden.length === 0 && s3d.flags.length === wantF.size && (await page.evaluate(() => localStorage.getItem("folio.atlas2.studyOff"))) === "[]");
     allErrors.push(...errors);
 
-    /* ------------------------------------------------------------------ 4  stacks */
-    console.log("\n\x1b[1m4) stacks that expand\x1b[0m\n");
+    /* ------------------------------------------------------------------ 4  no stacks */
+    console.log("\n\x1b[1m4) every place its own mark; a tap on marks that overlap fans them out\x1b[0m\n");
     await page.click('.atlas2-study [data-mode="full"]'); await sleep(250);
-    await view(page, 12.5, 41.9, 6);
     const box = await page.$eval(".atlas2-canvas", (e) => { const r = e.getBoundingClientRect(); return { x: r.left, y: r.top }; });
-    let ms = await marks(page); let stack = ms.filter((x) => x.marker === "stack").sort((a, b) => b.n - a.n)[0];
-    check("Rome at 6 km/px is a stack of several places, one mark with a count", !!stack && stack.n >= 4, stack ? "n = " + stack.n : "none");
-    const k0 = await A(page, (c) => c.kmPerPx());
-    const keysBtn = await page.$$eval(".atlas2-keys button", (b) => b.map((x) => x.textContent));
-    check("the keyboard list carries the stack too (\"N places here, activate to zoom in\")", keysBtn.some((t) => /^\d+ places here/.test(t)), keysBtn.filter((t) => /places here/.test(t))[0]);
-    await page.mouse.click(box.x + stack.sx, box.y + stack.sy);
-    await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return !c.input().flying; }, null, { timeout: 20000 });
-    await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.tilesSettled(), null, { timeout: 120000 }); await settle(page);
-    const k1 = await A(page, (c) => c.kmPerPx());
-    ms = await marks(page);
-    check("a tap on the stack zooms in on its members", k1 <= k0 / 2 + 1e-6, k0.toFixed(2) + " → " + k1.toFixed(2) + " km/px");
-    const inside = ms.filter((x) => x.members ? x.members.some((id) => stack.members.includes(id)) : stack.members.includes(x.id));
-    check("…and they part: the places that were one mark are now several, or smaller stacks", inside.length >= 2 || (inside.length === 1 && (inside[0].n || 1) < stack.n), inside.length + " marks, was 1 of " + stack.n);
-    // keep tapping the biggest stack until the places part into marks of their own, or a stack shares a point and becomes the chip
-    let rounds = 0, still = null;
-    for (; rounds < 8; rounds++) {
-      ms = await marks(page); still = ms.filter((x) => x.marker === "stack").sort((a, b) => b.n - a.n)[0];
-      if (!still) break;
-      const before = await A(page, (c) => c.kmPerPx());
-      await page.mouse.click(box.x + still.sx, box.y + still.sy); await sleep(200);
-      await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return !c.input().flying; }, null, { timeout: 20000 });
-      await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.tilesSettled(), null, { timeout: 120000 }); await settle(page);
-      const chip = await page.$eval(".atlas2-stack", (e) => !e.hidden);
-      if (chip) { check("places that share a point become the \"N places here\" chip, which names the first and cycles", /places here/.test(await page.$eval(".atlas2-stack", (e) => e.textContent)), await page.$eval(".atlas2-stack", (e) => e.textContent)); break; }
-      if (await A(page, (c) => c.kmPerPx()) >= before - 1e-6) break;
+    const live = () => A(page, (c) => c.study.liveMarks());
+    const chromeOf = () => A(page, (c) => c.chromeRects());
+    const hitsC = (x, y, e, ch) => ch.some((c) => x - e < c[2] && x + e > c[0] && y - e < c[3] && y + e > c[1]);
+    /* THE PROPERTY: at each view, every flagged place whose own position is on screen, clear of the frame's edge and of every control,
+       has a mark exactly there — one mark, at its own position, whatever lies beside it — and nothing is drawn that is not flagged. */
+    const flagsF = new Map((await study(page)).flags);
+    const placesWithAt = await A(page, (c) => { const out = []; for (const [id] of c.study.flags()) { const r = c.gazetteer().byId.get(id); if (r && r.at && !id.startsWith("pol:")) out.push([id, r.at[0], r.at[1], r.kind]); } return out; });
+    check("the Full Atlas has a position for " + placesWithAt.length + " of its " + flagsF.size + " ids (the rest are polities, drawn where they stand in a year)", placesWithAt.length === IDX.ids.filter((id) => !id.startsWith("pol:")).length, placesWithAt.length + " places");
+    let totalSeen = 0, totalMissing = [], extra = [], dup = [], offBy = 0, shapes = new Set(), maxLayerBack = false;
+    for (const [lon, lat, k] of [[10, 25, 90], [100, 20, 90], [-80, 10, 90], [12, 48, 6], [23, 38, 6], [12.5, 41.9, 6], [4.6, 51.2, 1.5], [120, 35, 6], [-100, 40, 12]]) {
+      await view(page, lon, lat, k);
+      const r = await A(page, (c, pl) => {
+        const rot = c.view.rot, A = window.AtlasStudy, half = A.markHalf(c.view.kmpp), ch = c.chromeRects(), [W, H] = c.frame();
+        const must = [], may = new Set();
+        for (const [id, lo, la, kind] of pl) {
+          const a = la * Math.PI / 180, o = lo * Math.PI / 180, ca = Math.cos(a), v = [ca * Math.cos(o), ca * Math.sin(o), Math.sin(a)];
+          const z = rot[6] * v[0] + rot[7] * v[1] + rot[8] * v[2]; if (z < 0.005) continue;
+          const x = c.view.cx + (rot[0] * v[0] + rot[1] * v[1] + rot[2] * v[2]) * c.view.radius, y = c.view.cy - (rot[3] * v[0] + rot[4] * v[1] + rot[5] * v[2]) * c.view.radius, e = half * A.markScale(kind) + 1;
+          const inside = (m) => { const q2 = e + m; return x - q2 >= 0 && y - q2 >= 0 && x + q2 <= W && y + q2 <= H && !ch.some((q) => x - q2 < q[2] && x + q2 > q[0] && y - q2 < q[3] && y + q2 > q[1]); };   // m: 1.5 px of tolerance either way
+          if (inside(-1.5)) may.add(id);
+          if (inside(1.5) && z >= 0.21) must.push([id, x, y]);
+        }
+        const lm = c.study.liveMarks();
+        return { must, may: [...may], live: lm, half };
+      }, placesWithAt);
+      const byId = new Map(); const dupHere = [];
+      for (const m of r.live) { if (byId.has(m.id)) dupHere.push(m.id); byId.set(m.id, m); shapes.add(m.shape); }
+      for (const [id, x, y] of r.must) { const m = byId.get(id); if (!m) totalMissing.push(`${id}@${lon},${lat},${k}`); else if (Math.hypot(m.x - x, m.y - y) > 0.75) offBy++; else totalSeen++; }
+      const may = new Set(r.may); for (const m of r.live) if (!may.has(m.id)) extra.push(`${m.id}@${lon},${lat},${k}`);
+      dup.push(...dupHere);
+      // back to front: places not studied, places studied, polities (the selected mark, none here, is last of all)
+      for (let i = 1; i < r.live.length; i++) if (r.live[i].layer < r.live[i - 1].layer) maxLayerBack = true;
     }
-    check("tapping on never runs away: the stacks resolve in " + rounds + " more taps", rounds < 8, "rounds " + rounds);
-    await page.keyboard.press("Escape"); await sleep(100);
+    check("PROPERTY: at nine views every flagged place on screen, clear of the edge and the controls, has a mark at its own position (" + totalSeen + " checked, 0.75 px)", totalMissing.length === 0 && offBy === 0 && totalSeen > 400, totalMissing.slice(0, 4).join(" | ") + (offBy ? " · " + offBy + " off their position" : ""));
+    check("…one mark each, and no mark for anything that is not a flagged place on screen", dup.length === 0 && extra.length === 0, dup.slice(0, 3).concat(extra.slice(0, 3)).join(" | "));
+    check("…every mark one of the three shapes, none a stack or a count (no layout entry carries a count or members)", [...shapes].every((x) => ["diamond", "triangle", "disc"].includes(x)) && (await A(page, (c) => c.study.marks().every((m) => m.marker !== "stack" && !("members" in m)))), [...shapes].join(", "));
+    check("…drawn back to front: places not studied, places studied, polities", !maxLayerBack);
+    check("the page has no \"N places here\" chip, no count on a mark, and no setting for it", (await page.$$eval(".atlas2 *", (n) => n.every((e) => !/\d+ places here|activate to zoom in/.test((e.getAttribute("aria-label") || "") + (e.children.length ? "" : e.textContent))))) && !(await page.evaluate(() => Object.keys(localStorage).some((k) => /stack|cluster/i.test(k)))));
+    // THE SIZE: a dot about 4 px across at the globe, the old size by city scale
+    await view(page, 10, 25, 90); const hGlobe = (await live())[0].h;
+    await view(page, 12, 48, 6); const hEurope = (await live())[0].h;
+    await view(page, 4.6, 51.2, 1.5); const hCity = (await live()).find((m) => m.shape === "diamond").h;
+    check("a mark is a dot 4 px across at the globe, grows with the zoom, and is the old 16 px by city scale", Math.abs(hGlobe - 2) < 0.01 && hGlobe < hEurope && hEurope < hCity && Math.abs(hCity - 8) < 0.01, `${2 * hGlobe} → ${(2 * hEurope).toFixed(1)} → ${2 * hCity} px`);
+    // A LONE MARK: a tap within a finger picks it, at once, with no chip and no fan
+    await view(page, 4.6, 51.2, 1.5);
+    let lm = await live();
+    const lone = lm.find((m) => lm.every((o) => o === m || Math.hypot(o.x - m.x, o.y - m.y) > 60) && m.y > 230 && m.x > 330 && m.x < 730 && m.y < 560);
+    await page.mouse.click(box.x + lone.x + 7, box.y + lone.y + 6); await sleep(500);
+    let cd = await A(page, (c) => ({ card: c.card(), sel: c.selectedId(), fan: c.study.fan(), chip: !document.querySelector(".atlas2-stack").hidden }));
+    check("a tap 9 px from a lone mark picks it (a mouse reaches 12 px) and opens its card, with no fan and no chip", cd.sel === lone.id && cd.card.open && !cd.fan && !cd.chip, `${lone.id} → ${cd.sel}`);
+    await page.keyboard.press("Escape"); await sleep(200);
+    await page.mouse.click(box.x + lone.x + 14, box.y + lone.y + 6); await sleep(500);
+    cd = await A(page, (c) => ({ sel: c.selectedId(), fan: c.study.fan() }));
+    check("…and a tap 15 px away, beyond a mouse's reach, does not pick it", cd.sel !== lone.id && !cd.fan, String(cd.sel));
+    await A(page, (c) => c.clearSelection());
+    // MARKS THAT OVERLAP: the tap fans them out
+    let pair = null;
+    for (const [lon, lat, k] of [[12.5, 41.9, 6], [23, 38, 6], [12, 48, 6], [100, 35, 6], [4.6, 51.2, 3]]) {
+      await view(page, lon, lat, k);
+      lm = await live();
+      for (const a of lm) for (const b of lm) {
+        if (pair || !(a.id < b.id)) continue;
+        const d = Math.hypot(a.x - b.x, a.y - b.y), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        if (d > 5 && d < 16 && mx > 330 && mx < 730 && my > 230 && my < 560 && lm.every((o) => o === a || o === b || Math.hypot(o.x - mx, o.y - my) > 30)) pair = [a, b];
+      }
+      if (pair) break;
+    }
+    check("a pair of marks 5–16 px apart with nothing else within 30 px exists in the Full Atlas at 6 km/px", !!pair, pair ? pair.map((m) => m.id).join(" + ") : "none");
+    const mid = { x: (pair[0].x + pair[1].x) / 2, y: (pair[0].y + pair[1].y) / 2 };
+    const clip = { x: box.x + mid.x - 130, y: box.y + mid.y - 130, width: 260, height: 260 };
+    const shotBefore = await page.screenshot({ clip });
+    await page.mouse.click(box.x + mid.x, box.y + mid.y); await sleep(400);
+    let fan = await A(page, (c) => c.study.fan());
+    const st1 = await A(page, (c) => ({ sel: c.selectedId(), card: c.card().open, chip: !document.querySelector(".atlas2-stack").hidden, keys: c.study.keys().length }));
+    check("a tap between two marks 4–18 px apart fans them out, and picks neither yet (no card, no chip, nothing selected)", !!fan && fan.items.length >= 2 && fan.items.some((i) => i.id === pair[0].id) && fan.items.some((i) => i.id === pair[1].id) && !st1.card && !st1.chip && st1.sel === null, fan ? fan.items.map((i) => i.id).join(",") : "no fan");
+    check("each member keeps its true position (the mark drawn) and has a copy elsewhere with its name, wholly in the frame and off every control", !!fan && fan.items.every((i) => lm.some((m) => m.id === i.id && Math.hypot(m.x - i.x, m.y - i.y) < 0.5) && Math.hypot(i.fx - i.x, i.fy - i.y) > 20 && i.name && i.rect[0] >= 0 && i.rect[2] <= 796 && i.rect[1] >= 0 && i.rect[3] <= 647), fan ? fan.items.length + " members" : "");
+    const shotAfter = await page.screenshot({ clip });
+    check("…and it is drawn (the pixels round the tap are not the pixels that were)", !shotBefore.equals(shotAfter));
+    const pick = fan.items.find((i) => i.id === pair[1].id);
+    await page.mouse.click(box.x + pick.fx, box.y + pick.fy); await sleep(500);
+    cd = await A(page, (c) => ({ sel: c.selectedId(), card: c.card(), fan: c.study.fan(), chip: !document.querySelector(".atlas2-stack").hidden }));
+    check("the next tap on a copy picks THAT mark: its card opens, the fan closes, no chip", cd.sel === pair[1].id && cd.card.open && cd.card.id === pair[1].id && !cd.fan && !cd.chip, `${cd.sel} ${cd.card.title}`);
+    // Escape closes the fan and leaves the selection alone
+    await page.mouse.click(box.x + mid.x, box.y + mid.y); await sleep(400);
+    check("a tap on the same overlap fans again", !!(await A(page, (c) => c.study.fan())));
+    await page.keyboard.press("Escape"); await sleep(250);
+    cd = await A(page, (c) => ({ sel: c.selectedId(), fan: c.study.fan() }));
+    check("Escape closes the fan (and only the fan: the picked place stays selected)", !cd.fan && cd.sel === pair[1].id, String(cd.sel));
+    // a tap on empty ground closes the fan, and does nothing else
+    await page.mouse.click(box.x + mid.x, box.y + mid.y); await sleep(400);
+    let empty = null;
+    lm = await live();
+    const labelsNow = await A(page, (c) => c.labelsLive().map((e) => e.hit));
+    const chNow = await chromeOf();
+    for (let x = 40; x < 740 && !empty; x += 10) for (let y = 60; y < 580 && !empty; y += 10) {
+      if (lm.some((m) => Math.hypot(m.x - x, m.y - y) < 26) || labelsNow.some((h) => x > h[0] - 12 && x < h[2] + 12 && y > h[1] - 12 && y < h[3] + 12) || hitsC(x, y, 10, chNow)) continue;
+      if (Math.hypot(x - mid.x, y - mid.y) < 130) continue;
+      empty = { x, y };
+    }
+    check("there is empty ground in the view to tap (no mark within 26 px, no name, no control)", !!empty, empty ? Math.round(empty.x) + "," + Math.round(empty.y) : "none");
+    const selBefore = await A(page, (c) => c.selectedId());
+    await page.mouse.click(box.x + empty.x, box.y + empty.y); await sleep(400);
+    cd = await A(page, (c) => ({ sel: c.selectedId(), fan: c.study.fan() }));
+    check("a tap on empty ground closes the fan and selects nothing new", !cd.fan && cd.sel === selBefore, `${selBefore} → ${cd.sel}`);
+    await A(page, (c) => c.clearSelection());
+    // PLACES ON ONE EXACT POINT fan out the same way
+    const shared = await A(page, (c) => { const by = new Map(); for (const [id] of c.study.flags()) { const r = c.gazetteer().byId.get(id); if (!r || !r.at) continue; const k = r.at[0].toFixed(4) + "," + r.at[1].toFixed(4); (by.get(k) || by.set(k, []).get(k)).push(id); } return [...by].filter(([, v]) => v.length > 1).map(([k, v]) => ({ k, ids: v, at: k.split(",").map(Number) })); });
+    check("the Full Atlas has at least one pair of places on one exact point (the case the stack chip existed for)", shared.length >= 1, shared.map((x) => x.ids.join("+")).join(" "));
+    await view(page, shared[0].at[0], shared[0].at[1], 1.5);
+    lm = await live();
+    const here = lm.filter((m) => shared[0].ids.includes(m.id));
+    check("both are drawn, at the same pixel", here.length === shared[0].ids.length && here.every((m) => Math.hypot(m.x - here[0].x, m.y - here[0].y) < 0.01), here.length + " marks");
+    await page.mouse.click(box.x + here[0].x, box.y + here[0].y); await sleep(400);
+    fan = await A(page, (c) => c.study.fan());
+    check("a tap on that point fans both out (and picks neither), where the stack chip used to cycle them", !!fan && shared[0].ids.every((id) => fan.items.some((i) => i.id === id)) && (await A(page, (c) => c.selectedId())) === null, fan ? fan.items.map((i) => i.id).join(",") : "no fan");
+    await page.keyboard.press("Escape"); await sleep(200);
+    // A CROWD: more than fourteen within a finger fan the nearest fourteen, never a ring of fifty
+    await view(page, 23.7, 38, 6);
+    lm = await live();
+    const dense = lm.map((m) => ({ m, n: lm.filter((o) => Math.hypot(o.x - m.x, o.y - m.y) <= 22).length })).sort((p, q) => q.n - p.n)[0];
+    await page.mouse.click(box.x + dense.m.x, box.y + dense.m.y); await sleep(400);
+    fan = await A(page, (c) => c.study.fan());
+    check("a crowd (" + dense.n + " marks within 22 px of one tap with a mouse's 12 px reach) fans at most 14, all in the frame", !!fan && fan.items.length <= 14 && fan.items.length >= 2, fan ? fan.items.length + " fanned" : "no fan");
+    await page.keyboard.press("Escape"); await sleep(200);
+    // THE HIDDEN LIST: one button per drawn mark and placed name, best first, capped as the labels' list is
+    await view(page, 23, 38, 6);
+    const keys = await A(page, (c) => ({ keys: c.study.keys(), marks: c.study.marks(), labels: c.labels().filter((p) => p.text).map((p) => ({ id: p.id, score: p.score })), live: c.study.liveMarks().map((m) => m.id) }));
+    const labelIds = new Set(keys.labels.map((l) => l.id));
+    const wantKeys = [...keys.labels.map((l) => ({ id: l.id, score: l.score })), ...keys.marks.filter((m) => m.clear && !labelIds.has(m.id)).map((m) => ({ id: m.id, score: m.score }))].sort((p, q) => p.score - q.score).slice(0, 60).map((x) => x.id);
+    check("the keyboard list is one button per drawn mark and placed name, in rank order, capped at 60 (" + keys.keys.length + " buttons)", keys.keys.length === Math.min(60, wantKeys.length) && keys.keys.map((k) => k.id).join() === wantKeys.join(), keys.keys.length + " of " + wantKeys.length);
+    check("…every button names a mark that is drawn or a name that is placed, and a mark whose name is placed has one button, not two", keys.keys.every((k) => keys.live.includes(k.id) || keys.labels.some((l) => l.id === k.id) || keys.marks.some((m) => m.id === k.id && m.clear)));
+    check("…and no button says \"N places here\" or offers to zoom in", keys.keys.every((k) => !/places here|zoom in/.test(k.text)), keys.keys.slice(0, 2).map((k) => k.text).join(" | "));
+    await page.focus(".atlas2-keys button"); await page.keyboard.press("Enter"); await sleep(500);
+    cd = await A(page, (c) => ({ sel: c.selectedId(), card: c.card().open }));
+    check("Enter on a button opens that place's card, as before", cd.sel === keys.keys[0].id && cd.card, String(cd.sel));
+    await page.keyboard.press("Escape"); await sleep(200);
+    check("…and Escape closes it", (await A(page, (c) => c.selectedId())) === null);
     allErrors.push(...[]);
     await ctx.close();
   }
 
-  /* ------------------------------------------------------------------ 5  the place card */
-  console.log("\n\x1b[1m5) the place card: the cards about a place, each opening the card\x1b[0m\n");
-  {
-    const { ctx, page, errors } = await open(browser, READER_ALL);
-    await page.click('.atlas2-study [data-mode="full"]'); await sleep(250);
-    // a studied place of the reader's with cards of the reader's and others'
-    const regRows = require("./places-registry.js").loadRegistry();
-    const cand = [...st.places].filter((id) => !id.startsWith("pol:")).map((id) => [id, (IDX.cardsOfPlace.get(id) || []).length]).filter(([id]) => regRows.rows.has(id)).sort((a, b) => b[1] - a[1]);
-    const [pid, total] = cand[0];
-    await A(page, (c, id) => c.select(id, { open: true, fly: false, push: false }), pid); await sleep(500);
-    const info = (cid) => infoMap[cid] || {};
-    const full = AS.cardsFor(IDX, pid, st, "full", new Set(), info);
-    const cardsHtml = await page.$$eval(".atlas2-card-body .atlas2-study-card", (a) => a.map((x) => ({ href: x.getAttribute("href"), title: x.querySelector(".atlas2-study-title").textContent, chip: (x.querySelector(".atlas2-study-chip") || {}).textContent || "", mine: !!x.querySelector(".atlas2-study-mine") })));
-    check("the card of " + placeRow(pid).name + " lists " + AS.LIST_CAP + " of its " + total + " cards, the reader's first (marked), each with its collection", cardsHtml.length === AS.LIST_CAP && cardsHtml.every((c) => c.chip) && cardsHtml.map((c) => c.href.replace("#card/", "")).join() === full.shown.map((c) => c.id).join() && cardsHtml.filter((c) => c.mine).length === full.shown.filter((c) => c.mine).length, cardsHtml.length + " listed");
-    check("each is a link to the app's own card page (#card/<id>) — the answer is the card's title", cardsHtml.every((c, i) => c.href === "#card/" + full.shown[i].id && c.title === (info(full.shown[i].id).title || "")), cardsHtml[0] && cardsHtml[0].href);
-    const more = await page.$eval(".atlas2-study-more", (b) => b.textContent).catch(() => null);
-    check("the rest are capped with \"and N more\" (N = " + (total - AS.LIST_CAP) + ")", more === "and " + (total - AS.LIST_CAP) + " more", more);
-    await page.click(".atlas2-study-more"); await sleep(150);
-    const after = await page.$$eval(".atlas2-card-body .atlas2-study-card", (a) => a.length);
-    check("…and the button shows twenty more", after === Math.min(total, AS.LIST_CAP + 20), after + " now");
-    // open a card: the app's own page, and Back returns to the Atlas with the place open
-    const first = cardsHtml[0], want = byId.get(first.href.replace("#card/", ""));
-    const hashBefore = await page.evaluate(() => location.hash);
-    await page.click(`.atlas2-card-body a[href="${first.href}"]`);
-    await page.waitForFunction((h) => location.hash === h, first.href, { timeout: 20000 });
-    await page.waitForFunction(() => { const h = document.querySelector(".page-head h1"); return h && h.textContent.trim() && h.textContent.trim() !== "Loading…"; }, null, { timeout: 30000 });
-    const h1 = await page.$eval(".page-head h1", (e) => e.textContent.trim());
-    check("the link opens the card on the app's own page (#card/" + first.href.replace("#card/", "") + "): its heading is the card's answer", h1 === (want.answerText || "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim(), h1);
-    check("studying nothing: opening a card writes no record (the reader's progress is untouched)", (await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem("folio_v1")).cards).length)) === READER_ALL.length);
-    await page.goBack(); await ready(page); await sleep(500);
-    const back = await A(page, (c) => c.card());
-    check("Back returns to the Atlas with the place's card open again (" + hashBefore.slice(0, 20) + "…)", back.open && back.id === pid && (await page.$$eval(".atlas2-card-body .atlas2-study-card", (a) => a.length)) > 0, JSON.stringify(back));
-    // Personal: only theirs, the rest counted
-    await page.click('.atlas2-study [data-mode="personal"]'); await sleep(300);
-    const pers = AS.cardsFor(IDX, pid, st, "personal", new Set(), info);
-    const persList = await page.$$eval(".atlas2-card-body .atlas2-study-card", (a) => a.length);
-    const others = await page.$eval(".atlas2-study-others", (e) => e.textContent).catch(() => "");
-    check("in the Personal Atlas the list is the reader's own cards (" + pers.shown.length + ") and counts the rest without naming them: \"" + others.slice(0, 40) + "…\"", persList === pers.shown.length && (!pers.others || new RegExp("^" + pers.others + " more cards? (is|are) about this place").test(others)) && (await page.$eval(".atlas2-study-h", (e) => e.textContent)) === "From your cards", persList + " listed");
-    // a polity lists its linked cards
-    await page.click('.atlas2-study [data-mode="full"]'); await sleep(250);
-    await A(page, (c) => c.ensureHistory()); await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyReady(); }, null, { timeout: 120000 }).catch(() => {});
-    await A(page, (c) => c.setYear(100)); await sleep(1500);
-    const sel = await A(page, (c) => c.select("pol:rome", { open: true, fly: false, push: false }));
-    await sleep(500);
-    const polWant = AS.cardsFor(IDX, "pol:rome", st, "full", new Set(), info);
-    const polList = await page.$$eval(".atlas2-card-body .atlas2-study-card", (a) => a.map((x) => x.getAttribute("href")));
-    check("a polity (the Roman Republic and Empire, in 100 CE) lists the cards linked to it, the same way", sel === true && polList.length === polWant.shown.length && polList.length > 0 && polList.every((h, i) => h === "#card/" + polWant.shown[i].id), polList.length + " listed of " + polWant.total);
-    allErrors.push(...errors); await ctx.close();
-  }
-
-  /* ------------------------------------------------------------------ 6  the empty states */
-  console.log("\n\x1b[1m6) the honest empty states\x1b[0m\n");
   {
     const { ctx, page, errors } = await open(browser, noPlaceCards.slice(0, 2));
     const s = await study(page);
@@ -313,16 +373,64 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const panelRect = await page.evaluate(() => { const e = document.querySelector(".atlas2-study").getBoundingClientRect(), f = document.querySelector(".atlas2").getBoundingClientRect(); return [e.left - f.left, e.top - f.top, e.right - f.left, e.bottom - f.top]; });
     check("the panel is among the chrome the label engine keeps names out of", placed.chrome.some((c) => c[0] <= panelRect[0] + 1 && c[1] <= panelRect[1] + 1 && c[2] >= panelRect[2] - 1 && c[3] >= panelRect[3] - 1), placed.chrome.length + " chrome rectangles");
     const under = placed.labels.filter((p) => p.rects.some((r) => hit([r[0], r[1], r[2], r[3]], panelRect)));
-    check("no name, no mark, no stack is placed under the panel (or under any other control)", under.length === 0 && placed.labels.every((p) => p.rects.every((r) => !placed.chrome.some((c) => hit([r[0], r[1], r[2], r[3]], c)))), under.map((p) => p.id).join(", ") || placed.labels.length + " placed");
+    check("no name is placed under the panel (or under any other control)", under.length === 0 && placed.labels.every((p) => p.rects.every((r) => !placed.chrome.some((c) => hit([r[0], r[1], r[2], r[3]], c)))), under.map((p) => p.id).join(", ") || placed.labels.length + " placed");
+    // NO MARK UNDER A CONTROL OR PAST THE FRAME, at 390 px here and 360 px below, at four views
+    const markGeometry = async (pg, W, Hh, tag) => {
+      let bad = [], n = 0;
+      for (const [lon, lat, k] of [[23, 38, 12], [12.5, 41.9, 6], [4.6, 51.2, 1.5], [10, 25, 90]]) {
+        await view(pg, lon, lat, k);
+        const g = await A(pg, (c) => ({ live: c.study.liveMarks(), chrome: c.chromeRects(), rails: [".atlas2-rail", ".atlas2-study", ".atlas2-card", ".atlas2-zoom", ".atlas2-search-in", ".atlas2-layers-btn", ".atlas2-about-btn"].map((s) => { const e = document.querySelector(s), f = document.querySelector(".atlas2").getBoundingClientRect(); if (!e || e.hidden) return null; const b = e.getBoundingClientRect(); return [b.left - f.left, b.top - f.top, b.right - f.left, b.bottom - f.top]; }).filter(Boolean) }));
+        for (const m of g.live) { n++; const e = m.h + 1; if (m.x - e < 0 || m.y - e < 0 || m.x + e > W || m.y + e > Hh || g.chrome.concat(g.rails).some((q) => m.x - e < q[2] && m.x + e > q[0] && m.y - e < q[3] && m.y + e > q[1])) bad.push(`${m.id}@${Math.round(m.x)},${Math.round(m.y)} in ${lon},${lat},${k}`); }
+      }
+      check(`${tag}: ${n} marks drawn at four views, none past the frame's edge or under the panel, the rail, the card, the zoom stack, the search box or a chip`, n > 100 && bad.length === 0, bad.slice(0, 3).join(" | "));
+    };
+    const fr = await A(page, (c) => c.frame());
+    await markGeometry(page, fr[0], fr[1], "390 px");
     const tm = await marks(page);
-    check("a mark of its own and a stack both draw on the phone", tm.length > 0, tm.length + " marks");
+    check("marks draw on the phone", tm.length > 0, tm.length + " marks");
     const bx = await page.$eval(".atlas2-canvas", (e) => { const r = e.getBoundingClientRect(); return { x: r.left, y: r.top }; });
-    const single = tm.find((m) => m.marker === "diamond" && m.box);
+    await view(page, 23, 38, 6);
+    const lm0 = await A(page, (c) => c.study.liveMarks());
+    const single = lm0.find((m) => lm0.every((o) => o === m || Math.hypot(o.x - m.x, o.y - m.y) > 60) && m.y > 150);
     if (single) {
-      await page.touchscreen.tap(bx.x + single.sx, bx.y + single.sy); await sleep(500);
+      await page.touchscreen.tap(bx.x + single.x + 14, bx.y + single.y + 10); await sleep(600);
       const cd = await A(page, (c) => c.card());
-      check("a tap on a mark opens that place's card (touch)", cd.open && cd.id === single.id, cd.title);
-    } else check("a tap on a mark opens that place's card (touch)", false, "no single mark in view");
+      check("a touch tap 17 px from a mark (a finger reaches 22) opens that place's card", cd.open && cd.id === single.id, cd.title);
+      await A(page, (c) => c.clearSelection());
+    } else check("a touch tap on a mark opens that place's card", false, "no lone mark in view");
+    let pair = null;
+    for (const [lon, lat, k] of [[23, 38, 6], [12.5, 41.9, 6], [12, 48, 6], [100, 35, 6]]) {
+      await view(page, lon, lat, k);
+      const lm1 = await A(page, (c) => c.study.liveMarks());
+      for (const a of lm1) for (const b of lm1) {
+        if (pair || !(a.id < b.id)) continue;
+        const d = Math.hypot(a.x - b.x, a.y - b.y), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        if (d > 6 && d < 24 && mx > 60 && mx < 300 && my > 220 && my < 520 && lm1.every((o) => o === a || o === b || Math.hypot(o.x - mx, o.y - my) > 40)) pair = [a, b];
+      }
+      if (pair) break;
+    }
+    if (pair) {
+      await page.touchscreen.tap(bx.x + (pair[0].x + pair[1].x) / 2, bx.y + (pair[0].y + pair[1].y) / 2); await sleep(600);
+      const fan = await A(page, (c) => c.study.fan());
+      check("a touch tap between two marks fans them out, wholly in the frame and off the controls, and picks neither", !!fan && fan.items.length >= 2 && fan.items.every((i) => i.rect[0] >= 0 && i.rect[2] <= fr[0] && i.rect[1] >= 0 && i.rect[3] <= fr[1]) && (await A(page, (c) => c.selectedId())) === null, fan ? fan.items.length + " members" : "no fan");
+      await A(page, (c) => c.study.closeFan());
+    } else check("a touch tap between two marks fans them out", false, "no pair in view");
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 7a  the narrowest phone, 360 px */
+  console.log("\n\x1b[1m7a) the phone, 360 px: no mark under a control\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, READER_ALL, { phone: true, w: 360, h: 640 });
+    await page.click('.atlas2-study [data-mode="full"]'); await sleep(250);
+    const fr = await A(page, (c) => c.frame());
+    let bad = [], n = 0;
+    for (const [lon, lat, k] of [[23, 38, 12], [12.5, 41.9, 6], [4.6, 51.2, 1.5], [10, 25, 90]]) {
+      await view(page, lon, lat, k);
+      const g = await A(page, (c) => ({ live: c.study.liveMarks(), chrome: c.chromeRects(), rails: [".atlas2-rail", ".atlas2-study", ".atlas2-card", ".atlas2-zoom", ".atlas2-search-in", ".atlas2-layers-btn", ".atlas2-about-btn"].map((s) => { const e = document.querySelector(s), f = document.querySelector(".atlas2").getBoundingClientRect(); if (!e || e.hidden) return null; const b = e.getBoundingClientRect(); return [b.left - f.left, b.top - f.top, b.right - f.left, b.bottom - f.top]; }).filter(Boolean) }));
+      for (const m of g.live) { n++; const e = m.h + 1; if (m.x - e < 0 || m.y - e < 0 || m.x + e > fr[0] || m.y + e > fr[1] || g.chrome.concat(g.rails).some((q) => m.x - e < q[2] && m.x + e > q[0] && m.y - e < q[3] && m.y + e > q[1])) bad.push(`${m.id}@${Math.round(m.x)},${Math.round(m.y)} in ${lon},${lat},${k}`); }
+    }
+    check("360 px: " + n + " marks drawn at four views, none past the frame's edge or under the panel, the rail, the card, the zoom stack, the search box or a chip", n > 80 && bad.length === 0, bad.slice(0, 3).join(" | "));
     allErrors.push(...errors); await ctx.close();
   }
 
@@ -543,11 +651,11 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     check("the registry says Areopagus is a hill and Mount Olympus a mountain", placeRow("pl:q202487").kind === "hill" && placeRow("pl:q80344").kind === "mountain");
     await view(page, 23.72, 37.97, 1.5);
     const m = (await marks(page)).find((x) => x.id === "pl:q202487");
-    check("the hill draws as a triangle", !!m && m.marker === "triangle", JSON.stringify(m && { marker: m.marker, box: m.box && m.box.map(Math.round) }));
-    const hw = m && m.box ? m.box[2] - m.box[0] : 0;
+    check("the hill draws as a triangle", !!m && m.marker === "triangle", JSON.stringify(m && { marker: m.marker, h: m.h }));
+    const hw = m ? 2 * m.h : 0;
     await view(page, 22.35, 40.08, 2);
     const mm = (await marks(page)).find((x) => x.id === "pl:q80344");
-    const mw = mm && mm.box ? mm.box[2] - mm.box[0] : 0;
+    const mw = mm ? 2 * mm.h : 0;
     check("…and smaller than a mountain's triangle", mm && mm.marker === "triangle" && hw > 0 && hw < mw, `${hw} px against ${mw} px`);
     await A(page, (c) => c.select("pl:q202487", { open: true, fly: false, push: false })); await sleep(400);
     const kind = await page.evaluate(() => document.querySelector(".atlas2-card-kind").textContent);

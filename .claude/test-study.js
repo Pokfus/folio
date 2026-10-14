@@ -19,8 +19,9 @@
        one who has switched every collection off, and the note "K of your cards have no place on the map yet";
      · THE PLACE CARD'S LIST: the reader's cards first, capped with "and N more", a Personal listing counting the rest without naming
        them, a switched-off collection's cards absent;
-     · THE STACKS: no two marks drawn have centres within the stack radius, every point is in exactly one stack, the result does not
-       depend on anything but the points, and a lone point is a mark of its own.
+     · THE MARKS (stacks removed 2026-10-14): there is no clustering anywhere; every kind a card is about has one of three shapes and a
+       layer (the draw order); a mark is a dot 4 px across at the widest view and 16 by city scale; a tap finds the nearest marks within a
+       finger by the same arithmetic as a brute force; a fan holds every member once, apart, inside the frame and off the controls.
 
    Phase 3c adds: the years a place has (search across years — never an invented year), the default view's framing, the New-discovery
    rule, the polity index and the glossary table's builders. Zero dependencies. Not part of the site. Re-run after touching atlas/study.js, atlas/data/card-places.js, the study block of
@@ -116,20 +117,65 @@ L = AS.cardsFor(idx, hot[0], hotMine, "full", new Set([owner]), info, 9999);
 check("a switched-off collection's cards are absent from the list", L.shown.every((c) => info(c.id).collId !== owner) && L.total < hot[1].length);
 check("a polity lists its linked cards the same way", (() => { const pol = [...idx.cardsOfPlace].find(([id]) => id === "pol:rome"); if (!pol) return true; const r = AS.cardsFor(idx, "pol:rome", AS.studied(idx, []), "full", none, info, 9999); return r.total === pol[1].length && r.total > 0; })());
 
-console.log("\n5) the stacks\n");
-let seed = 12345; const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
-const pts = Array.from({ length: 400 }, (_, i) => ({ id: "p" + i, x: rnd() * 800, y: rnd() * 600 }));
-for (const R of [22, 30, 34]) {
-  const g = AS.cluster(pts, R);
-  const ids = g.flatMap((c) => c.ids);
-  let minD = Infinity; for (let i = 0; i < g.length; i++) for (let j = i + 1; j < g.length; j++) minD = Math.min(minD, Math.hypot(g[i].x - g[j].x, g[i].y - g[j].y));
-  check(`radius ${R}: every point is in exactly one stack`, ids.length === pts.length && new Set(ids).size === pts.length && g.every((c) => c.n === c.ids.length));
-  check(`radius ${R}: no two marks have centres within ${R} px (nearest ${minD.toFixed(1)})`, minD > R);
+console.log("\n5) the marks: every flagged place is its own mark, and nothing stands in for a neighbour (stacks removed 2026-10-14)\n");
+{
+  const REG = require("./places-registry.js").loadRegistry();
+  const full = AS.flags(idx, AS.studied(idx, []), "full", none, info);
+  const kindOf = (id) => (REG.rows.get(id) || {}).kind;
+  // NO CLUSTERING ANYWHERE: the function is gone from the module, and no source names a stack marker, its radius or its count
+  check("AtlasStudy has no cluster (and nothing like it): a mark is never a count", AS.cluster === undefined && !Object.keys(AS).some((k) => /cluster|stack/i.test(k)));
+  const worker = fs.readFileSync(path.join(ROOT, "atlas", "atlas-worker.js"), "utf8"), atlasJs = fs.readFileSync(path.join(ROOT, "atlas", "atlas.js"), "utf8"), css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8");
+  check("the worker has no STACK_PX, no \"stack\" marker kind and no call to cluster", !/STACK_PX|kind: "stack"|AtlasStudy\.cluster|"stack:"/.test(worker));
+  check("the page has no stack mark, no expandStack and no \"N places here, activate to zoom in\" button", !/kind === "stack"|expandStack|places here, activate|"stack:"|startsWith\("stack:/.test(atlasJs));
+  check("…and no setting brings it back (nothing stored under a key that names clusters or stacks)", !/folio\.atlas2\.[a-zA-Z]*(stack|cluster)/i.test(atlasJs));
+  // THE SIZE: a dot about 4 px across at the widest view, today's 16 px by city scale, never shrinking as the reader zooms in
+  const hs = [40, 26.8, 16, 12, 8, 6, 4, 3, 2, 1.5, 1, 0.1].map((k) => AS.markHalf(k));
+  check("markHalf is 2 px (a dot 4 px across) at 16 km/px and wider, 8 px (16 across, as it was) at 1.5 km/px and nearer", hs[0] === 2 && hs[1] === 2 && hs[2] === 2 && Math.abs(AS.markHalf(1.5) - 8) < 1e-9 && hs[11] === 8, hs.map((h) => h.toFixed(2)).join(" "));
+  check("…and never shrinks as the zoom grows", hs.every((h, i) => i === 0 || h >= hs[i - 1] - 1e-12));
+  check("…and is smooth: no two zoom steps a quarter-octave apart differ by more than a pixel", (() => { let worst = 0; for (let k = 20; k > 1; k /= Math.pow(2, 0.25)) worst = Math.max(worst, Math.abs(AS.markHalf(k / Math.pow(2, 0.25)) - AS.markHalf(k))); return worst <= 1; })());
+  // THE SHAPE AND THE LAYER of every kind of place any card is about (the property over the Full Atlas's flags)
+  const kinds = new Set([...full.keys()].map(kindOf));
+  const shapeOK = [...kinds].every((k) => ["diamond", "triangle", "disc"].includes(AS.markShape(k)));
+  check("every kind the Full Atlas flags (" + kinds.size + ") has one of the three shapes", shapeOK, [...kinds].sort().join(", "));
+  check("a mountain, a hill and a cape are triangles; a polity, a people, a culture and an extent are discs; a city, a site, an island and a country are diamonds",
+    ["mountain", "hill", "cape"].every((k) => AS.markShape(k) === "triangle") && ["polity", "people", "culture", "extent"].every((k) => AS.markShape(k) === "disc") && ["city", "capital", "town", "site", "island", "country", "region", "river"].every((k) => AS.markShape(k) === "diamond"));
+  check("a hill is the smaller triangle, nothing else is scaled", AS.markScale("hill") === 0.75 && ["mountain", "city", "polity", "cape"].every((k) => AS.markScale(k) === 1));
+  const order = [AS.markLayer("city", 1), AS.markLayer("city", 2), AS.markLayer("polity", 1), AS.markLayer("polity", 2)];
+  check("the draw order is places not studied (0), places studied (1), polities (2), whether or not studied", order.join() === "0,1,2,2", order.join());
+  check("every flagged id gets exactly one layer in 0..2, and the Full flags hold " + [...full.keys()].filter((id) => AS.markLayer(kindOf(id), full.get(id)) === 2).length + " polities", [...full].every(([id, f]) => [0, 1, 2].includes(AS.markLayer(kindOf(id), f))));
+  // THE TAP: the nearest within a finger, found by the same arithmetic a brute force gives
+  let seed = 12345; const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+  const pts = Array.from({ length: 400 }, () => ({ x: rnd() * 800, y: rnd() * 600 }));
+  pts.push({ x: pts[7].x, y: pts[7].y }, { x: pts[7].x, y: pts[7].y });   // three marks on one exact point
+  let allSame = true;
+  for (const R of [12, 22]) for (let t = 0; t < 200; t++) {
+    const x = rnd() * 800, y = rnd() * 600, got = AS.nearMarks(pts, x, y, R);
+    const want = pts.map((p, i) => ({ i, d: Math.hypot(p.x - x, p.y - y) })).filter((o) => o.d <= R).sort((p, q) => p.d - q.d || p.i - q.i).map((o) => o.i);
+    if (got.join() !== want.join()) allSame = false;
+  }
+  check("nearMarks returns exactly the marks within the radius, nearest first, for 12 px and 22 px (400 taps against a brute force)", allSame);
+  check("marks on one exact point are all returned, in the order given", AS.nearMarks(pts, pts[7].x, pts[7].y, 12).slice(0, 3).join() === "7,400,401");
+  // THE FAN: every member once, at a distinct place, wholly inside the frame and clear of the controls where there is room
+  const W = 390, H = 700, chrome = [[0, 0, 390, 120], [330, 120, 390, 380], [0, 640, 390, 700]];   // a phone: the panel, the zoom stack, the rail
+  let fanOK = true, fanClear = true, apart = true, trueKept = true, n2 = 0, smallN = 0, smallClear = 0;
+  for (let t = 0; t < 300; t++) {
+    const n = 2 + Math.floor(rnd() * 12), tap = { x: 60 + rnd() * 270, y: 160 + rnd() * 440 };
+    const items = Array.from({ length: n }, (_, i) => ({ x: tap.x + (rnd() - 0.5) * (i % 3 === 0 ? 0 : 40), y: tap.y + (rnd() - 0.5) * (i % 3 === 0 ? 0 : 40), w: 30 + rnd() * 70 }));
+    const before = JSON.stringify(items), f = AS.fanOut(items, tap, { W, H, chrome });
+    if (JSON.stringify(items) !== before) trueKept = false;
+    if (f.slots.length !== n || new Set(f.slots.map((sl) => sl.i)).size !== n) fanOK = false;
+    for (let i = 0; i < f.slots.length; i++) for (let j = i + 1; j < f.slots.length; j++) if (Math.hypot(f.slots[i].x - f.slots[j].x, f.slots[i].y - f.slots[j].y) < 20) apart = false;
+    if (f.clear) for (const sl of f.slots) { const r = sl.rect; if (!(r[0] >= 0 && r[1] >= 0 && r[2] <= W && r[3] <= H && !chrome.some((c) => r[0] < c[2] && r[2] > c[0] && r[1] < c[3] && r[3] > c[1]))) fanClear = false; }
+    if (f.clear) n2++;
+    if (n <= 6) { smallN++; if (f.clear) smallClear++; }
+  }
+  check("a fan holds each member once, whatever the count (2–13) and whether they share a point or not", fanOK);
+  check("…at places at least 20 px apart (the copies never overlap)", apart);
+  check("…leaves the members' true positions as they were", trueKept);
+  check("…and when it says it is clear every copy and name lies wholly in the frame, off every control and clear of one another (" + n2 + " of 300 phone taps were)", fanClear && n2 > 100);
+  check("…and a fan of up to six almost always finds room on a phone but for a tap pinned against a control: " + smallClear + " of " + smallN + " are clear", smallN > 50 && smallClear / smallN >= 0.9, (100 * smallClear / smallN).toFixed(0) + " %");
+  check("more than 14 members fan only the nearest 14 (the others are for a closer zoom), never a ring of a hundred", AS.fanOut(Array.from({ length: 40 }, () => ({ x: 200, y: 300, w: 40 })), { x: 200, y: 300 }, { W, H, chrome }).slots.length === 14);
 }
-check("the same points give the same stacks (nothing but the points decides)", JSON.stringify(AS.cluster(pts, 30)) === JSON.stringify(AS.cluster(pts.slice(), 30)));
-check("a lone point is a mark of its own, at its own place", (() => { const g = AS.cluster([{ id: "a", x: 10, y: 20 }], 30); return g.length === 1 && g[0].n === 1 && g[0].x === 10 && g[0].y === 20; })());
-check("two points 10 px apart are one stack of two at their middle", (() => { const g = AS.cluster([{ id: "a", x: 0, y: 0 }, { id: "b", x: 10, y: 0 }], 30); return g.length === 1 && g[0].n === 2 && g[0].x === 5; })());
-check("the top of a stack is the first (most important) point given", AS.cluster([{ id: "top", x: 0, y: 0 }, { id: "low", x: 5, y: 5 }], 30)[0].ids[0] === "top");
 
 /* ---------------------------------------------------------------- Phase 3c */
 console.log("\n6) search across years: only years the data holds\n");

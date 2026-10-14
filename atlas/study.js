@@ -7,7 +7,7 @@
        the reader's STUDIED cards       (host.study.studiedCards(): the ids of cards that have a record, see below),
        a card → collection function     (host.study.cardInfo(id).collId)
    — into what the globe draws: the Personal Atlas (the places of the studied cards), the Full Atlas (every place any card is
-   about), the per-collection toggles, the stack counts, the place card's list of cards, and the honest sentences ("N places from
+   about), the per-collection toggles, the marks' sizes, shapes and fan, the place card's list of cards, and the honest sentences ("N places from
    M cards", "K of your cards have no place on the map yet", the empty state).
 
    WHAT "STUDIED" MEANS — the one definition, and it is v1's. The Personal Atlas of #map (`atlasRegisterAll`, app.js) asks of
@@ -128,30 +128,70 @@
     return { shown: list.slice(0, cap), more: Math.max(0, list.length - cap), others: mode === "personal" ? rest.length : 0, total: list.length };
   }
 
-  /* STACKS: greedy screen-space clustering, shared by the worker's study pass and the tests. `pts`: [{ id, x, y }] in order of
-     importance (the first of a cluster is its top); a point within `radius` px of an earlier cluster's seed joins it, and then
-     clusters whose CENTROIDS lie within `radius` of one another are merged, again and again, until none do. The last step is the
-     guarantee the marks depend on: any two marks drawn — a stack, or a place alone — have centres more than `radius` apart, so one
-     never lies under another and a mark is dropped only for a control or the frame's edge. Returns [{ x, y, ids, n }] with the
-     centroid; a cluster of one is a plain mark. */
-  function cluster(pts, radius) {
-    let out = [];
-    const r2 = radius * radius;
-    for (const p of pts) {
-      let hit = null;
-      for (const c of out) { const dx = c.sx - p.x, dy = c.sy - p.y; if (dx * dx + dy * dy <= r2) { hit = c; break; } }
-      if (hit) { hit.ids.push(p.id); hit.mx += p.x; hit.my += p.y; }
-      else out.push({ sx: p.x, sy: p.y, mx: p.x, my: p.y, ids: [p.id] });
-    }
-    const cx = (c) => c.mx / c.ids.length, cy = (c) => c.my / c.ids.length;
-    for (let again = true; again;) {
-      again = false;
-      for (let i = 0; i < out.length && !again; i++) for (let j = i + 1; j < out.length; j++) {
-        const dx = cx(out[i]) - cx(out[j]), dy = cy(out[i]) - cy(out[j]);
-        if (dx * dx + dy * dy <= r2) { out[i].ids = out[i].ids.concat(out[j].ids); out[i].mx += out[j].mx; out[i].my += out[j].my; out.splice(j, 1); again = true; break; }
+  /* MARKS — EVERY FLAGGED PLACE IS ITS OWN MARK (stacks removed, 2026-10-14; docs/atlas-v2-design.md §7 "Stacks removed").
+     The owner's decision: a number standing in for nearby places is gone for good — no clustering, no count, at any zoom, in the Personal
+     or the Full Atlas, with no setting to bring it back. What replaced `cluster` is the arithmetic of a mark that is always one place:
+       · its SIZE grows with the zoom — `markHalf` is the half-extent in CSS px (outline included): a dot about 4 px across at the widest
+         view, today's 16 px by city scale — so a wide view of 1,300 places is dots, not a wall of diamonds;
+       · its SHAPE is `markShape` (a diamond for a settlement or a site and any other place, a triangle for a mountain, a hill or a cape,
+         a disc for a polity, a people, a culture or an authored extent) and its LAYER `markLayer` is the draw order, back to front:
+         places not studied (0), places studied (1), polities (2); the selected mark is drawn last of all;
+       · a TAP picks the nearest mark within a finger (`nearMarks`), and where several lie within it they FAN OUT around the tap point
+         (`fanOut`), each at its true position joined to its fanned copy — so the reader chooses, and nothing is ever hidden behind a count.
+     All three are pure, shared by the worker (the sizes), the page (the drawing, the picking) and the Node tests. */
+  const MARK_WIDE_KMPP = 16, MARK_NEAR_KMPP = 1.5, MARK_WIDE_PX = 2, MARK_NEAR_PX = 8;
+  const POLITY_KIND = /^(polity|people|culture|extent|front|contested|nested)$/;
+  function markHalf(kmpp) {
+    const k = Math.max(0.001, kmpp || MARK_WIDE_KMPP);
+    const t = Math.max(0, Math.min(1, (Math.log(MARK_WIDE_KMPP) - Math.log(k)) / (Math.log(MARK_WIDE_KMPP) - Math.log(MARK_NEAR_KMPP))));
+    return MARK_WIDE_PX + (MARK_NEAR_PX - MARK_WIDE_PX) * t;
+  }
+  function markShape(kind) {
+    if (POLITY_KIND.test(kind || "")) return "disc";
+    return kind === "mountain" || kind === "hill" || kind === "cape" ? "triangle" : "diamond";
+  }
+  function markScale(kind) { return kind === "hill" ? 0.75 : 1; }   // a hill is the smaller triangle, as it was
+  function markLayer(kind, f) { return POLITY_KIND.test(kind || "") ? 2 : f === 2 ? 1 : 0; }
+  /* the marks within `radius` px of (x, y): `pts` [{ x, y }] → indices, nearest first (a tie keeps the order given) */
+  function nearMarks(pts, x, y, radius) {
+    const out = [], r2 = radius * radius;
+    for (let i = 0; i < pts.length; i++) { const dx = pts[i].x - x, dy = pts[i].y - y, d = dx * dx + dy * dy; if (d <= r2) out.push({ i, d }); }
+    out.sort((p, q) => p.d - q.d || p.i - q.i);
+    return out.map((o) => o.i);
+  }
+  /* THE FAN. `items` [{ x, y, w }] are the marks of one tap, at their TRUE positions with the width in px of the name each is drawn with;
+     `tap` the point tapped; `o` { W, H, chrome: [[x0, y0, x1, y1]], max, step, minR, half }. Each member gets a fanned copy on a circle
+     round the tap point, in the order of the members' own bearings from it (so the joining lines do not cross), with its name on the
+     outer side. A full circle is tried first, turned and widened until every copy and name lies wholly inside the frame, clear of every control and of one another; near an edge or under the study panel it narrows to three quarters, a half and a quarter of the circle, opening
+     towards the free ground. If nothing is wholly clear, the arrangement with the fewest that are not. Returns { R, slots: [{ i, x, y,
+     right, rect }], clear } — `slots[k].i` indexes `items`, `rect` the copy and its name together, `clear` whether all are clear. At
+     most `max` (14) members are fanned. */
+  function fanOut(items, tap, o) {
+    o = o || {};
+    const W = o.W || 1e9, H = o.H || 1e9, chrome = o.chrome || [], max = o.max || 14, step = o.step || 30, half = o.half || 9, gap = 4;
+    const n = Math.min(items.length, max);
+    const order = items.slice(0, n).map((m, i) => ({ i, a: Math.atan2(m.y - tap.y, m.x - tap.x) })).sort((p, q) => p.a - q.a || p.i - q.i);
+    let best = null;
+    for (const span of [2 * Math.PI, 1.5 * Math.PI, Math.PI, 0.5 * Math.PI]) {
+      for (const mul of [1, 1.3, 1.7, 2.2]) {
+        const R = Math.max(o.minR || 44, (span >= 2 * Math.PI - 1e-9 ? n : Math.max(1, n - 1)) * step / span) * mul;
+        for (let k = 0; k < 24; k++) {
+          const turn = (k % 2 ? 1 : -1) * Math.ceil(k / 2) * (Math.PI / 12);   // 0, +15°, −15°, +30° … from straight up
+          const slots = []; let bad = 0;
+          for (let j = 0; j < n; j++) {
+            const a = span >= 2 * Math.PI - 1e-9 ? -Math.PI / 2 + turn + (j * 2 * Math.PI) / n : -Math.PI / 2 + turn - span / 2 + (n > 1 ? (j * span) / (n - 1) : span / 2);
+            const x = tap.x + R * Math.cos(a), y = tap.y + R * Math.sin(a), right = Math.cos(a) >= 0, w = items[order[j].i].w || 0;
+            const rect = right ? [x - half, y - half - 3, x + half + gap + w, y + half + 3] : [x - half - gap - w, y - half - 3, x + half, y + half + 3];
+            if (!(rect[0] >= 0 && rect[1] >= 0 && rect[2] <= W && rect[3] <= H) || chrome.some((c) => rect[0] < c[2] && rect[2] > c[0] && rect[1] < c[3] && rect[3] > c[1])) bad++;
+            slots.push({ i: order[j].i, x, y, right, rect });
+          }
+          for (let a = 0; a < n && !bad; a++) for (let b = a + 1; b < n; b++) { const p = slots[a].rect, q = slots[b].rect; if (p[0] < q[2] + 2 && p[2] > q[0] - 2 && p[1] < q[3] + 2 && p[3] > q[1] - 2) { bad++; break; } }   // no copy or name over another
+          if (!bad) return { R, slots, clear: true };
+          if (!best || bad < best.bad) best = { R, slots, bad };
+        }
       }
     }
-    return out.map((c) => ({ x: cx(c), y: cy(c), ids: c.ids, n: c.ids.length }));
+    return { R: best.R, slots: best.slots, clear: false };
   }
 
   /* THE YEARS A PLACE HAS (Phase 3c, search across years). `ranges` are the [from, to] year ranges a polity is on the map (its steps, joined
@@ -361,7 +401,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, summary, cardsFor, cluster, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);

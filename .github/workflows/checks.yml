@@ -180,7 +180,7 @@ jobs:
       # THE STUDY INTEGRATION'S ARITHMETIC (Oct 2026, Atlas v2 Phase 3b; docs/atlas-v2-design.md §2.8, §7 "Phase 3b — as built").
       # check-places.js (above) also proves atlas/data/card-places.js — the light card-to-places index — is exactly what the cards'
       # `places` build, within its 200 KB budget; test-study.js is the Node-only suite over the studied set (v1's definition, one
-      # definition), the flags, the sentences, the place card's list and the stacks. test-atlas-study.js is a Playwright suite and
+      # definition), the flags, the sentences, the place card's list and the marks (sizes, shapes, the fan; no stacks since 2026-10-14). test-atlas-study.js is a Playwright suite and
       # is picked up by name in the browser job below.
       - name: test-study (Atlas v2, the study integration, no browser)
         run: node .claude/test-study.js
@@ -378,7 +378,7 @@ jobs:
       # test-atlas-labels.js, test-atlas-card.js, test-atlas-search.js, test-atlas-a11y.js) and Phase 1d's four
       # (test-atlas-credits.js, test-atlas-fallbacks.js — file://, no WebGL2, context loss, a failed worker —,
       # test-atlas-phone.js and the five-minute test-atlas-session.js) and Phase 3b's test-atlas-study.js (the Map / Personal / Full
-      # switch, collection switches, stacks, the cards on a place card, the empty states, the phone), which the loop picks up by name
+      # switch, collection switches, every place its own mark and the fan, the cards on a place card, the empty states, the phone), which the loop picks up by name
       # like any other.
       - name: Run the browser suites
         env:
