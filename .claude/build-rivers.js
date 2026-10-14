@@ -27,7 +27,7 @@ function dp(pts, tol) {                                   // Douglas-Peucker on 
   const rivers = [...byName.entries()].map(([n, e]) => ({ n, rank: e.rank, npts: e.npts, segs: e.segs }));
   rivers.sort((a, b) => a.rank - b.rank || b.npts - a.npts);   // most prominent first
   const top = rivers.map((rv) => ({ n: rv.n, p: rv.segs.map((s) => dp(s, 0.05)).filter((s) => s.length >= 2) })).filter((rv) => rv.p.length);
-  const js = "/* All named rivers (Natural Earth 10m centerlines). { n:name, p:[ [ [lon,lat],... ] ] }. */\nwindow.RIVERS = " + JSON.stringify(top) + ";\n";
+  const js = "/* sources: " + JSON.stringify(require("./atlas-build/lib/rivers-source.js").riversSources(new Date().toISOString().slice(0, 10))) + " */\n/* All named rivers (Natural Earth 10m centerlines). { n:name, p:[ [ [lon,lat],... ] ] }. */\nwindow.RIVERS = " + JSON.stringify(top) + ";\n";
   fs.writeFileSync(path.join(__dirname, "..", "rivers.js"), js);
   console.log("rivers", top.length, "bytes", Buffer.byteLength(js), "| top:", top.slice(0, 12).map((r) => r.n).join(", "));
 })().catch((e) => { console.log("ERR", e.stack || e.message); process.exit(1); });

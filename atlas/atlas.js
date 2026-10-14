@@ -1109,6 +1109,10 @@
       let buffer;
       try { buffer = await (await fetch("data:application/octet-stream;base64," + tw.b64)).arrayBuffer(); }
       catch (e) { const bin = atob(tw.b64), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); buffer = u8.buffer; }
+      if (tw.enc === "gzip") {   // Phase 5: a twin may hold the gzip of its bytes (the war slice's: 1.76 MB → 0.63 MB), `bytes` and `sha256` being the raw file's; every browser that runs the engine has DecompressionStream
+        if (typeof DecompressionStream !== "function") throw new Error(label + " twin is compressed and this browser cannot decompress it");
+        buffer = await new Response(new Blob([buffer]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer();
+      }
       if (buffer.byteLength !== tw.bytes) throw new Error(label + " twin decoded to " + buffer.byteLength + " bytes, not " + tw.bytes);
       try { if (crypto && crypto.subtle) { const d = await crypto.subtle.digest("SHA-256", buffer); const hex = [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join(""); if (hex !== tw.sha256) throw new Error(label + " twin's bytes do not match its sha256"); stats.twinVerified = (stats.twinVerified || 0) + 1; } } catch (e) { if (/sha256/.test(String(e))) throw e; }
       tw.b64 = null;   // 4–6 MB of text the page no longer needs
@@ -1225,7 +1229,7 @@
         if (disposed) return;
         time.loadMs = Math.round(performance.now() - t); time.bytes = buffer.byteLength;
         postToWorker({ type: "history", buffer });
-      }).catch((e) => { time.failed = true; time.failWhy = String(e && e.message || e); railNote.hidden = false; railNote.textContent = "The borders of the past didn’t arrive (" + time.failWhy + ")."; });
+      }).catch((e) => { time.failed = true; time.failWhy = String(e && e.message || e); railNote.hidden = false; railNote.textContent = FILE && !SLICE ? "The borders of the past are not in the file copy of the site; open Folio from its web address to see them." : "The borders of the past didn’t arrive (" + time.failWhy + ")."; });
     }
     function onHistoryMeta(m) {
       const H = m.header;

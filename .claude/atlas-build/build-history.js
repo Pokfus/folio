@@ -1523,16 +1523,7 @@ if (!DRY) {
     if ((forecast > 12e6 || bytes.length > 12e6) && !argv.includes("--force")) { say(`the ${bytes.length > 12e6 ? "FILE is " + (bytes.length / 1e6).toFixed(2) + " MB" : "forecast exceeds 12 MB"}: not installed (the stop rule: propose windows before building further; --force overrides)`); process.exit(2); }   // 2d: the file itself, not only the forecast, is held to the owner's 12 MB
     fs.writeFileSync(path.join(DATA, "history.bin"), bytes);
     say("installed atlas/data/history.bin");
-    // the file:// twin (lib/twin.js) carries the PILOT SLICE only (2b): the full file's twin would pass the owner's 12 MB for the three
-    // twins together; the slice's header says so in a sentence the mode note shows
-    try {
-      const Tw = require("./lib/twin.js");
-      const sliceBytes = F.write(sliceOf(topology));
-      const sliceFile = path.join(OUT, "history-slice.bin"); fs.writeFileSync(sliceFile, sliceBytes);
-      const others = ["topology.bin.js", "water.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((p, q) => p + q, 0);
-      const tw = Tw.writeTwin(sliceFile, { as: path.join(DATA, "history.bin.js"), name: "history.bin" });
-      if (others + tw.twinBytes > 12e6) { fs.unlinkSync(tw.file); say(`the twins would pass 12 MB together (${((others + tw.twinBytes) / 1e6).toFixed(2)} MB): history.bin.js not written`); } else say(`wrote atlas/data/history.bin.js from the pilot slice (${sliceBytes.length} bytes → ${tw.twinBytes}; the three twins ${((others + tw.twinBytes) / 1e6).toFixed(2)} MB)`);
-    } catch (e) { say("twin: " + e.message); }
+    // (Phase 5: the file:// twin of the 2b PILOT SLICE, atlas/data/history.bin.js, is gone; the war slice's twin is build-war-slice.js's)
     try { writeCoverage(topology, path.join(ROOT, "docs", "atlas-v2-coverage.md")); say("wrote docs/atlas-v2-coverage.md"); } catch (e) { say("coverage: " + e.message); }
     try { require("./build-credits.js").build({ install: true }); } catch (e) { say("credits: " + e.message); }
   }
