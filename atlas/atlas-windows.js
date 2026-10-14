@@ -19,7 +19,7 @@
     if (W.AtlasWindows) W.AtlasWindows.lastCtx = X;
     let unhold = () => {};   // the hub is held while this window is pending (see AtlasEmbed.hold); let go at the first of: the window is mounted, it fell back to V1, it failed, it was stopped
     if (W.AtlasEmbed && W.AtlasEmbed.hold) { const let0 = W.AtlasEmbed.hold(); unhold = () => { unhold = () => {}; let0(); }; }   // the context app.js handed over, kept so a suite can mount synthetic windows (the fit sweep of test-atlas-windows.js) through the same code
-    const { CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon, startCardGlobeV1, openFromWindow } = X, S = X.S;
+    const { CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon, startCardGlobeV1 } = X, S = X.S;
     const cv = host.querySelector(".mc-canvas");
     const layerName = host.getAttribute("data-map-layer"), key = host.getAttribute("data-map-key");
     const def = CARD_MAP_LAYERS[layerName];
@@ -32,8 +32,10 @@
       reveal() { revealed = true; if (win) win.schedule(); },
       ready() { return isReady; },
       settled() { return !!(win && win.isSettled()); },
-      legend() { return lastLegend.slice(); },
-      names() { return lastNames.slice(); },   // Phase 4b: the war window's two sides as drawn on it ("Rome — victors"), for the suites and a screen-reader alternative   // Phase 4b: the engine's levels, tiles and water for THIS view are all in (ready() is the window being mounted)
+      names() { return lastNames.slice(); },
+      boxes() { return JSON.parse(JSON.stringify(lastBoxes)); },   // every name drawn and every mark standing in the last frame, as boxes in the window's CSS px, the names dropped for want of room, the controls' box — for the suites
+      labels() { return lastLabels.map((l) => Object.assign({}, l)); },   // the war window's two names as drawn: { k: "v" | "l", n, x, y (the LABEL'S POINT, CSS px of the window: inside a face of the side when `ground`), tx, ty (the text's centre: the point itself, or beside it when `beside`), w (its width), ground, beside } — for the suites
+      probe() { return win && win.api ? { spec: win.api.spec, dpr: win.api.dpr, cw: win.api.cw, ch: win.api.ch } : null; },   // the frame the window last drew: its engine spec and size — for the suites   // Phase 4b: the war window's two sides as drawn on it ("Rome", "Carthage"), for the suites   // Phase 4b: the engine's levels, tiles and water for THIS view are all in (ready() is the window being mounted)
       view() { return win ? { lon: win.st.lon, lat: win.st.lat, zoom: win.st.zoom, home: [win.st.home.lon, win.st.home.lat, win.st.home.zoom] } : { lon: 0, lat: 0, zoom: 1, home: [0, 0, 1] }; },
       pan(dx, dy) { if (win) win.panBy(dx, dy); },
     };
@@ -143,52 +145,72 @@
       if (mask) { a.setTransform(1, 0, 0, 1, 0, 0); a.globalCompositeOperation = "destination-in"; a.drawImage(mask, 0, 0, mask.width, mask.height, 0, 0, areaCv.width, areaCv.height); a.globalCompositeOperation = "source-over"; }
       ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(areaCv, 0, 0); ctx.restore();
     }
-    /* PHASE 4b, WAR WINDOWS: THE TWO PRINCIPAL SIDES ARE NAMED ON THE WINDOW and a one-line legend is drawn from the card's own sides (`ATLAS_WARS` carries the card's name for each: "Rome", "Carthage",
-       "Han, Zhao, Wei, Chu, Yan and Qi"). The names stand where each side stands in the war's years (the engine's `warSides`: the mean direction of the side's faces); the legend is a pill at the foot of the window:
-       a swatch in the engine's own victor / loser colour, the side's name, and, wherever the table tints more than one state for the side, a count after it — "China · 2 states" (Phase 4c, the owner's decision 1: the card's OWN name verbatim, then the number of states the table draws for it; the legend never says or implies "allies", because nothing in the data says the extra states were allies). A side that is only an authored
-       extent (no state of the table in those years) has a hatched swatch and says "approximate extent": the wash the engine draws for it is the card's own claim, never a border. */
-    let warSides = null, warCols = null, lastLegend = [], lastNames = [];
-    const sideText = (sd) => { const n = String(sd.n || "").trim(); return sd.members > 1 ? n + " · " + sd.members + " states" : n; };   // Phase 4c, owner's decision 1: the card's own name verbatim, then the count the table can vouch for ("China · 2 states"); never "allies"
-    function warMarks(ctx, api) {
-      if (!warSides || !warCols) return;
-      const W = api.cw, H = api.ch, css = (c, a) => "rgba(" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255)).join(",") + "," + a + ")";
-      const sides = [["v", warCols.victor, "victors"], ["l", warCols.loser, "defeated"]].filter((q) => warSides[q[0]]);
-      // the names, at the sides' centres, kept apart from each other and inside the window
+    /* WAR WINDOWS: THE TWO PRINCIPAL SIDES ARE NAMED ON THE MAP and nothing else is written over it. `ATLAS_WARS` carries the card's name for each side ("Rome", "Carthage", "Han, Zhao, Wei, Chu, Yan and Qi"); the names stand where
+       each side stands in the war's years (the engine's `warSides`: the mean direction of the side's faces). THE ONE LEGEND is the plain-text one under the window (`cardWarKeyHTML`, app.js: the swatches, "victors" and "defeated", the card's own
+       words); Phase 4b drew a second one, a pill over the foot of the map, and the owner (a real phone, Oct 2026, decision 2) asked for it to go — it covered ground. */
+    /* WHERE EACH SIDE'S NAME STANDS (Oct 2026, the owner's phone: on the Second Punic War "Rome" sat over a red area of southern Italy and "Carthage" over a green strip, because each name was at the centroid of the UNION of its side's faces,
+       and a union of scattered states has a centroid on somebody else's ground). Now: a point INSIDE one of the side's own faces — the engine's label anchor, asked of the worker at rest (`faceAnchors`: the face's visible polygon's centre when
+       it is inside, else the nearest inside point along its axes) — on the side's biggest face on screen that has room: the name's box wholly inside the frame, clear of the zoom controls and of the other side's name; the next face when it has
+       not; and only when no face of the side has room the best face's point pushed in (and `ground: false` in `labels()`). The point is kept as a point on the sphere, so a pan or a pinch carries it with the map and the next rest asks again.
+       Until the first answer (a worker round trip after the first full frame) the window is not settled and draws no names; if the worker never answers the old centroid stands. `labels()` is what the suites read. */
+    let warSides = null, lastNames = [], lastLabels = [], warHub = null, lastBoxes = { names: [], marks: [], dropped: [], ctl: null };
+    const anch = { asked: "", key: "", rows: null, state: "none", timer: 0 };   // state: none | wait | have | failed
+    const viewKey = (st, cw, ch, level) => [st.lon.toFixed(4), st.lat.toFixed(4), st.zoom.toFixed(4), cw, ch, level].join();   // the level is in it: the faces are asked for at the level the view draws
+    const anchorsCurrent = (st, o) => !isWar || !warSides || !warHub || anch.state === "failed" || (anch.state === "have" && anch.key === viewKey(st, o.cw, o.ch, o.level));
+    function askAnchors(st, api) {
+      const key = viewKey(st, api.cw, api.ch, api.level); if (anch.asked === key) return; anch.asked = key;
+      const faces = [].concat(warSides.v ? warSides.v.faces || [] : [], warSides.l ? warSides.l.faces || [] : []);
+      if (!faces.length || !warHub || !warHub.faceAnchors) { anch.state = "failed"; return; }
+      if (anch.state !== "have") anch.state = "wait";
+      clearTimeout(anch.timer); anch.timer = setTimeout(() => { if (stopped || anch.asked !== key || anch.key === key) return; if (!anch.rows) anch.state = "failed"; anch.key = key; if (win) win.schedule(); }, 6000);   // a worker that never answers must not hold the window unsettled for ever
+      warHub.faceAnchors(faces).then((rows) => { if (stopped || anch.asked !== key) return; anch.rows = rows; anch.key = key; anch.state = "have"; if (win) win.schedule(); }, () => { if (anch.asked === key && !anch.rows) { anch.state = "failed"; anch.key = key; if (win) win.schedule(); } });
+    }
+    function warMarks(st, ctx, api) {
+      if (!warSides) return;
+      const W = api.cw, H = api.ch;
+      if (!api.fast) askAnchors(st, api);
+      if (anch.state === "wait" && !anch.rows) { lastNames = []; lastLabels = []; return; }   // not yet: a name at the centroid would flash on the wrong ground and jump
+      const sides = [["v", "victors"], ["l", "defeated"]].filter((q) => warSides[q[0]]);
+      // the zoom controls' box in the window's CSS px (refreshed at rest), kept clear
+      const cvR = cv.getBoundingClientRect(), zc = host.querySelector(".mc-zoom");
+      if (!api.fast || !warMarks.ctl) { const zr = zc ? zc.getBoundingClientRect() : null; warMarks.ctl = zr && zr.width ? [zr.left - cvR.left - 6, zr.top - cvR.top - 6, zr.right - cvR.left + 6, zr.bottom - cvR.top + 6] : null; }
+      const ctl = warMarks.ctl;
       ctx.save(); ctx.font = "600 12.5px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      const placed2 = [], named = [];
-      for (const [k] of sides) {
-        const sd = warSides[k], p = api.project(sd.lon, sd.lat); if (p[2] < 0) continue;
-        const text = String(sd.n || "").trim(); if (!text) continue;
-        const w = ctx.measureText(text).width; let x = Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, p[0])), y = Math.max(14, Math.min(H - 34, p[1]));
-        for (let tries = 0; tries < 4 && placed2.some((b) => x - w / 2 < b[2] && x + w / 2 > b[0] && y - 8 < b[3] && y + 8 > b[1]); tries++) y += 17;
-        placed2.push([x - w / 2, y - 8, x + w / 2, y + 8]);
-        ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.strokeStyle = halo; ctx.strokeText(text, x, y); ctx.fillStyle = ink; ctx.fillText(text, x, y); named.push(text);
+      const placed2 = [], named = [], labelsNow = [];
+      const hit = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1];
+      // per side: its name, the name's width, and the points inside its faces (the biggest face on screen first, each face's best point first) that are on the globe's near side
+      const info = sides.map(([k]) => {
+        const sd = warSides[k], text = String(sd.n || "").trim(); if (!text) return null;
+        const faceSet = new Set(sd.faces || []), w = ctx.measureText(text).width;
+        const cands = (anch.rows || []).filter((r) => r.v && faceSet.has(r.face)).sort((a, b2) => (b2.km2 || 1) * Math.max(0.02, b2.vis) - (a.km2 || 1) * Math.max(0.02, a.vis));
+        const pts = []; for (const r of cands) for (const q of r.pts && r.pts.length ? r.pts : [{ v: r.v }]) { const p = api.projectV(q.v[0], q.v[1], q.v[2]); if (p[2] > 0.02) pts.push(p); }
+        return { k, sd, text, w, bw: w / 2 + 3, bh: 9, pts };
+      }).filter(Boolean);
+      const boxAt = (o, x, y) => [x - o.bw, y - o.bh, x + o.bw, y + o.bh];
+      const roomy = (o, x, y) => { const b = boxAt(o, x, y); return b[0] >= 3 && b[2] <= W - 3 && b[1] >= 3 && b[3] <= H - 3 && !(ctl && hit(b, ctl)); };
+      /* where the name's text goes for a point inside a face: centred on it; and, when the faces are small and the names crowd, beside it with the point at the box's edge (right, left, above, below) — the point is still on the
+         side's ground, the text is next to it, as a name stands beside a dot. Ranked: every point with the name ON it first (best point first), and only then the names beside a point (a name over somebody else's ground is the thing to avoid). */
+      for (const o of info) { o.opts = []; o.pts.forEach((p, n) => { [[0, 0], [o.bw, 0], [-o.bw, 0], [0, -o.bh], [0, o.bh]].forEach((d, v) => { const tx = p[0] + d[0], ty = p[1] + d[1]; if (roomy(o, tx, ty)) o.opts.push({ p, t: [tx, ty], rank: (v ? 1000 : 0) + n, beside: v > 0 }); }); }); }
+      // two names: the pair of placements (best-ranked first) whose boxes do not meet
+      let chosen = null;
+      if (info.length === 2) {
+        const [a, b2] = info; let best = null;
+        for (const x of a.opts) for (const y of b2.opts) if ((!best || x.rank + y.rank < best[0]) && !hit(boxAt(a, x.t[0], x.t[1]), boxAt(b2, y.t[0], y.t[1]))) best = [x.rank + y.rank, x, y];
+        if (best) chosen = [best[1], best[2]];
       }
-      lastNames = named;
-      ctx.restore();
-      // the legend: one line, at the foot, from the card's own sides
-      ctx.save(); ctx.textAlign = "left"; ctx.textBaseline = "middle";
-      let px = 11.5; ctx.font = "600 " + px + "px " + font;
-      /* four wordings, longest first; the first that fits on one line at 10 px or more is used: the full line, then without "victors / defeated" (the swatch colour and the legend under the window say it), then "approx." for
-         "approximate extent", then the names cut short — an extent's own word is the last thing to go */
-      const word = (k) => (k === "v" ? "victors" : "defeated");
-      const wording = (lvl) => sides.map(([k, c]) => { const sd = warSides[k], nm = sideText(sd); return { c, ext: sd.extent, text: nm + (sd.extent ? (lvl >= 2 ? " (approx.)" : " (approximate extent)") : "") + (lvl >= 1 ? "" : " — " + word(k)) }; });
-      const sw = 11, gap = 6, between = 14, pad = 9;
-      let parts = wording(0);
-      const total = () => parts.reduce((a, q) => a + sw + gap + ctx.measureText(q.text).width, 0) + between * Math.max(0, parts.length - 1) + pad * 2;
-      for (let lvl = 0; lvl <= 2; lvl++) { parts = wording(lvl); px = 11.5; ctx.font = "600 " + px + "px " + font; while (total() > W - 18 && px > 10) { px -= 0.5; ctx.font = "600 " + px + "px " + font; } if (total() <= W - 18) break; }
-      if (total() > W - 18) for (const q of parts) { const ext = / \(approx\.\)$/.test(q.text) ? " (approx.)" : ""; let base = q.text.replace(/ \(approx\.\)$/, ""); while (base.length > 6 && total() > W - 18) { base = base.slice(0, -2).replace(/\s+$/, ""); q.text = base + "…" + ext; } }
-      lastLegend = parts.map((q) => q.text);
-      const tw = total(), bx = 9, by = H - 9 - 22;
-      ctx.fillStyle = halo; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(bx, by, tw, 22, 11); else ctx.rect(bx, by, tw, 22); ctx.fill();
-      let x = bx + pad;
-      for (const q of parts) {
-        const y = by + 11;
-        if (q.ext) { ctx.save(); ctx.fillStyle = css(q.c, 0.18); ctx.fillRect(x, y - sw / 2, sw, sw); ctx.strokeStyle = css(q.c, 0.95); ctx.lineWidth = 1.2; ctx.setLineDash([2.5, 2]); ctx.strokeRect(x + 0.6, y - sw / 2 + 0.6, sw - 1.2, sw - 1.2); ctx.restore(); }
-        else { ctx.fillStyle = css(q.c, 0.85); ctx.fillRect(x, y - sw / 2, sw, sw); ctx.strokeStyle = "rgba(0,0,0,.35)"; ctx.lineWidth = 0.8; ctx.strokeRect(x + 0.4, y - sw / 2 + 0.4, sw - 0.8, sw - 0.8); }
-        ctx.fillStyle = ink; ctx.fillText(q.text, x + sw + gap, y + 0.5);
-        x += sw + gap + ctx.measureText(q.text).width + between;
-      }
+      info.forEach((o, n) => {
+        let pick = chosen ? chosen[n] : o.opts.find((q) => !placed2.some((bx) => hit(boxAt(o, q.t[0], q.t[1]), bx))) || null, at = pick ? pick.t : null, ground = !!pick, beside = !!(pick && pick.beside), pt = pick ? pick.p : null;
+        if (!at) {   // no point inside the side's faces has room for its name: the centroid, or the biggest face's best point, pushed in (it may then stand off its own ground — `ground: false`)
+          const p = o.pts.length ? o.pts[0] : api.project(o.sd.lon, o.sd.lat); if (!o.pts.length && p[2] < 0) return;
+          let x = Math.max(o.bw + 3, Math.min(W - o.bw - 3, p[0])), y = Math.max(o.bh + 3, Math.min(H - o.bh - 3, p[1]));
+          const free = (xx, yy) => roomy(o, xx, yy) && !placed2.some((q) => hit(boxAt(o, xx, yy), q));
+          for (let tries = 0; tries < 8 && !free(x, y); tries++) { const bb = boxAt(o, x, y); if (ctl && hit(bb, ctl)) x = Math.max(o.bw + 3, ctl[0] - o.bw - 1); else y = y + 17 > H - o.bh - 3 ? Math.max(o.bh + 3, y - 34) : y + 17; }
+          at = [x, y]; pt = p; ground = false;
+        }
+        placed2.push(boxAt(o, at[0], at[1]));
+        ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.strokeStyle = halo; ctx.strokeText(o.text, at[0], at[1]); ctx.fillStyle = ink; ctx.fillText(o.text, at[0], at[1]); named.push(o.text); labelsNow.push({ k: o.k, n: o.text, x: pt[0], y: pt[1], tx: at[0], ty: at[1], w: o.w, ground, beside });
+      });
+      lastNames = named; lastLabels = labelsNow;
       ctx.restore();
     }
     function marks(st, api, ctx) {
@@ -204,31 +226,42 @@
         };
         if (shelf) paintArea(ctx); else paintMasked(ctx, api, paintArea, sea);
       }
-      const placed = [];
-      const nm0 = gameCapFirst(dot ? dot.n : targets.length ? targets[0].n : "");
-      if (sibCard) {
-        const lat = locLabelPt && locLabelPt.length ? locLabelPt[0] : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })() : (dot ? dot.c : null);
-        if (lat) { const p = api.project(lat[0], lat[1]); if (p[2] >= 0) { const beside = !!dot && !(locLabelPt || locArea) && locKind !== "range"; ctx.font = "600 13px " + font; const w0 = nm0 ? ctx.measureText(nm0).width : 0; placed.push(beside ? [p[0] - 9, p[1] - 11, p[0] + 12 + w0, p[1] + 11] : [p[0] - w0 / 2 - 4, p[1] - 11, p[0] + w0 / 2 + 4, p[1] + 11]); } }
-      }
-      const clashes = (bx) => placed.some((q) => bx[0] < q[2] && bx[2] > q[0] && bx[1] < q[3] && bx[3] > q[1]);
-      const placeLabel = (x, y, text, half) => {
-        const w = ctx.measureText(text).width, right = [x + 6, y - half, x + 10 + w, y + half], left = [x - 10 - w, y - half, x - 6, y + half];
-        const fits = (bx) => bx[0] >= 2 && bx[1] >= 2 && bx[2] <= W - 2 && bx[3] <= H - 2 && !clashes(bx);
-        if (fits(right)) { placed.push(right); return { x: x + 8, align: "left" }; }
-        if (fits(left)) { placed.push(left); return { x: x - 8, align: "right" }; }
-        return null;
+      /* THE WINDOW'S NAMES, LAID OUT BY THE LABEL ENGINE'S RULES (Oct 2026, the owner's phone: on the Tiber's window "Pyrgi", "Veii" and "Tiber" ran into one another and into the dots). Everything that is not a name is a MARK and
+         is ground no name may cover — every sibling's dot (whether or not its name is placed), the home square, the card's own dot, the range's peaks — and the zoom controls are ground too. The names are then placed one at a time
+         in PRIORITY order, each at the first of its candidate places that lies wholly inside the frame and meets no mark and no name already placed: the card's own river's name, the card's own place's name (these two are the
+         answer or the subject: never dropped, they take their preferred place if no other is clear), the home square's name, then the siblings, nearest to the window's centre first. A name no place of which is clear is DROPPED (the
+         label engine's rule: higher priority wins, a name that does not fit is not drawn); its dot stays. */
+      const markBoxes = [], nameBoxes = [], plan = [];
+      const hit = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1];
+      const cvR = cv.getBoundingClientRect(), zc = host.querySelector(".mc-zoom");
+      if (!api.fast || !marks.ctl) { const zr = zc ? zc.getBoundingClientRect() : null; marks.ctl = zr && zr.width ? [zr.left - cvR.left - 4, zr.top - cvR.top - 4, zr.right - cvR.left + 4, zr.bottom - cvR.top + 4] : null; }
+      const ctlR = marks.ctl;
+      const addMark = (kind, x, y, hw, hh) => markBoxes.push({ kind, box: [x - hw, y - hh, x + hw, y + hh] });
+      const widths = marks.widths || (marks.widths = new Map());
+      const wOf = (font2, text) => { const k = font2 + "|" + text; let w = widths.get(k); if (w == null) { ctx.font = font2; w = ctx.measureText(text).width; widths.set(k, w); } return w; };
+      const clear = (b) => b[0] >= 2 && b[1] >= 2 && b[2] <= W - 2 && b[3] <= H - 2 && !(ctlR && hit(b, ctlR)) && !markBoxes.some((m) => hit(b, m.box)) && !nameBoxes.some((q) => hit(b, q.box));
+      /* the places a name may take round a point mark of half-size r: right, left, above, below, then the four corners (the text's box is its width plus 2 px each side, `half` high) */
+      const around = (x, y, r, w, half) => [0, 9].reduce((all, ring) => all.concat(ring1(x, y, r + ring, w, half)), []);   // the near ring, then one 9 px further out (a name beside a crowd of dots rather than none)
+      const ring1 = (x, y, r, w, half) => {
+        const g = r + 3, hw = w + 4;
+        return [[x + g, y, "left"], [x - g, y, "right"], [x - hw / 2 + 2 + w / 2, y - g - half, "center"], [x, y + g + half, "center"], [x + g, y - g - half + 4, "left"], [x + g, y + g + half - 4, "left"], [x - g, y - g - half + 4, "right"], [x - g, y + g + half - 4, "right"]]
+          .map((c) => ({ x: c[0], y: c[1], align: c[2], box: c[2] === "left" ? [c[0] - 2, c[1] - half, c[0] + w + 2, c[1] + half] : c[2] === "right" ? [c[0] - w - 2, c[1] - half, c[0] + 2, c[1] + half] : [c[0] - w / 2 - 2, c[1] - half, c[0] + w / 2 + 2, c[1] + half] }));
       };
-      let ownRiver = false;
-      if (ownLines) {   // the card's own river, in the answer's gold, with its name once revealed
-        ownRiver = true;
-        ctx.save(); ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2.6; ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9; ctx.beginPath();
-        for (const ln of ownLines) addPath(ctx, api, ln, false);
-        ctx.stroke(); ctx.restore();
-        const line = revealed ? ownLines[0] : null;
-        if (line && line.length) { const mid = line[Math.floor(line.length / 2)], p = api.project(mid[0], mid[1]); if (p[2] >= 0) { const lbl = gameCapFirst(ownName); ctx.font = "600 13px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle"; const half = ctx.measureText(lbl).width / 2 + 2; placed.push([p[0] - half, p[1] - 8, p[0] + half, p[1] + 8]); ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(lbl, p[0], p[1]); ctx.fillStyle = ink; ctx.fillText(lbl, p[0], p[1]); } }
-      }
+      const centred = (x, y, w, half) => ({ x, y, align: "center", box: [x - w / 2 - 2, y - half, x + w / 2 + 2, y + half] });
+      // a name: its candidate places in preference order; `must` = never dropped (the first candidate stands when none is clear)
+      const placeName = (text, font2, cands, o) => {
+        const w = wOf(font2, text); const list = typeof cands === "function" ? cands(w) : cands; if (!list.length) return null;
+        const at = list.find((c) => clear(c.box)) || (o.must ? list[0] : null);
+        if (!at) { droppedNames.push(text); return null; }
+        nameBoxes.push({ text, box: at.box, own: !!o.own }); plan.push({ text, font: font2, x: at.x, y: at.y, align: at.align, color: o.color || ink, lw: o.lw || 3 });
+        return at;
+      };
+      const droppedNames = [];
+      const nm0 = gameCapFirst(dot ? dot.n : targets.length ? targets[0].n : "");
+      // ---- the marks ----
+      let sibAt = [], anchorAt = null;
       if (sibCard && !isWar) {
-        const sibAt = [], groups = new Map();
+        const groups = new Map();
         for (const d of sib.dots) {
           if (!S.cards || !S.cards[d.id]) continue;
           const k = String(d.within || d.n || "").trim().toLowerCase(); if (!k || (locWithin && k === locWithin)) continue; if (anchor && k === anchor.n.toLowerCase()) continue;
@@ -236,42 +269,61 @@
           if (!g) groups.set(k, g = { n: d.within || d.n, c: d.c, kind: d.kind, city: isCity }); else if (isCity && !g.city) { g.c = d.c; g.n = d.n; g.kind = d.kind; g.city = true; }
         }
         groups.forEach((g) => { const p = api.project(g.c[0], g.c[1]); if (inView(api, p)) sibAt.push([p[0], p[1], g.n, g.kind]); });
-        let anchorAt = null; if (anchor) { const p = api.project(anchor.c[0], anchor.c[1]); if (inView(api, p)) anchorAt = [p[0], p[1]]; }
-        for (const s of sibAt) {
-          if (s[3] === "battle") paintSwords(ctx, s[0], s[1], 6.5);
-          else { ctx.beginPath(); ctx.arc(s[0], s[1], 3.4, 0, Math.PI * 2); ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.stroke(); }
-        }
-        if (anchorAt) {
-          const q = 4.4; ctx.fillStyle = "rgba(200,69,60,.92)"; ctx.fillRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); ctx.lineWidth = 1.2; ctx.strokeStyle = "rgba(255,255,255,0.8)"; ctx.strokeRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2);
-          ctx.font = "600 11.5px " + font; ctx.textBaseline = "middle"; const at = placeLabel(anchorAt[0], anchorAt[1], anchor.n, 8);
-          if (at) { ctx.textAlign = at.align; ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(anchor.n, at.x, anchorAt[1]); ctx.fillStyle = ink; ctx.fillText(anchor.n, at.x, anchorAt[1]); }
-        }
-        ctx.font = "500 11px " + font; ctx.textBaseline = "middle";
-        for (const s of sibAt) { const nm = gameCapFirst(s[2]); if (!nm) continue; const at = placeLabel(s[0], s[1], nm, 7); if (!at) continue; ctx.textAlign = at.align; ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, at.x, s[1]); ctx.fillStyle = ink; ctx.fillText(nm, at.x, s[1]); }
+        if (anchor) { const p = api.project(anchor.c[0], anchor.c[1]); if (inView(api, p)) anchorAt = [p[0], p[1]]; }
+        for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : 4.6, sa[3] === "battle" ? 8 : 4.6);
+        if (anchorAt) addMark("home", anchorAt[0], anchorAt[1], 5.6, 5.6);
       }
+      if (locSpine) { const mh = Math.max(3, Math.min(9, 3.4 * Math.sqrt(st.zoom / CMAP_ZLOC))), mw = mh * 0.85; for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("peak", p[0], p[1] - mh * 0.1, mw + 1, mh * 0.65 + 1); } }
+      let ownDotAt = null;
+      if (dot && !(locKind === "river" && !!ownLines) && locKind !== "range" && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
+      // ---- the names, in priority order ----
+      if (ownLines && revealed) {   // the card's own river: its name on the line, at the first of several stretches that is clear
+        const lines = ownLines.filter((l) => l && l.length > 1).sort((p1, p2) => p2.length - p1.length);   // the river's stretches, the longest first
+        if (lines.length) {
+          const lbl = gameCapFirst(ownName), w = wOf("600 13px " + font, lbl), pts = [];
+          for (const dy of [0, -11, 11]) for (const line of lines) for (const f of [0.5, 0.45, 0.55, 0.4, 0.6, 0.35, 0.65, 0.3, 0.7, 0.25, 0.75, 0.2, 0.8, 0.15, 0.85, 0.1, 0.9, 0.05, 0.95]) { const q = line[Math.min(line.length - 1, Math.floor(line.length * f))], p = api.project(q[0], q[1]); if (p[2] >= 0 && p[0] > 0 && p[0] < W && p[1] > 0 && p[1] < H) pts.push(centred(p[0], p[1] + dy, w, 8)); }   // on the line at the middle first, then along it, then just above and below it
+          for (const line of lines) for (const f of [0.5, 0.4, 0.6, 0.3, 0.7, 0.2, 0.8, 0.1, 0.9]) { const q = line[Math.min(line.length - 1, Math.floor(line.length * f))], p = api.project(q[0], q[1]); if (p[2] >= 0 && p[0] > 0 && p[0] < W && p[1] > 0 && p[1] < H) for (const c of ring1(p[0], p[1], 2, w, 8).slice(0, 4)) pts.push(c); }   // then beside the line, to its right and left, above and below
+          placeName(lbl, "600 13px " + font, pts, { must: true, own: true });
+        }
+      }
+      const ownLabelAt = locLabelPt && locLabelPt.length ? locLabelPt[0] : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })() : dot ? dot.c : targets.length ? targets[0].c : null;
+      if (revealed && ownLabelAt && nm0 && !(locKind === "river" && !!ownLines)) {
+        const p = api.project(ownLabelAt[0], ownLabelAt[1]);
+        if (p[2] >= 0) {
+          const beside = !!dot && locKind !== "region" && locKind !== "range" && locKind !== "sea" && locKind !== "shelf";
+          // beside a dot: to its right as always (10 px from its centre), then the other places round it; on an area or a range: centred on its label point, then above and below it
+          placeName(nm0, "600 13px " + font, (w) => beside ? around(p[0], p[1], 7, w, 8).map((c, n) => (n === 0 ? Object.assign(c, { x: p[0] + 10, box: [p[0] + 8, c.y - 8, p[0] + 12 + w, c.y + 8] }) : c)) : [centred(p[0], p[1], w, 8), centred(p[0], p[1] - 18, w, 8), centred(p[0], p[1] + 18, w, 8), centred(p[0] - w / 2 - 14, p[1], w, 8), centred(p[0] + w / 2 + 14, p[1], w, 8)], { must: true, own: true, color: locKind === "sea" ? water : ink });
+        }
+      }
+      if (anchorAt) placeName(anchor.n, "600 11.5px " + font, (w) => around(anchorAt[0], anchorAt[1], 5.6, w, 8), {});
+      sibAt.sort((a, b) => Math.hypot(a[0] - api.cw / 2, a[1] - api.ch / 2) - Math.hypot(b[0] - api.cw / 2, b[1] - api.ch / 2));   // the nearest to the window's centre first: they are the places the card is about
+      for (const sa of sibAt) { const nm = gameCapFirst(sa[2]); if (nm) placeName(nm, "500 11px " + font, (w) => around(sa[0], sa[1], 4.6, w, 7), {}); }
+      lastBoxes = { names: nameBoxes.map((q) => ({ text: q.text, own: q.own, box: q.box.slice() })), marks: markBoxes.map((m) => ({ kind: m.kind, box: m.box.slice() })), dropped: droppedNames.slice(), ctl: ctlR ? ctlR.slice() : null };
+      // ---- drawing: the marks, then the names ----
+      if (sibCard && !isWar) {
+        for (const sa of sibAt) {
+          if (sa[3] === "battle") paintSwords(ctx, sa[0], sa[1], 6.5);
+          else { ctx.beginPath(); ctx.arc(sa[0], sa[1], 3.4, 0, Math.PI * 2); ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.stroke(); }
+        }
+        if (anchorAt) { const q = 4.4; ctx.fillStyle = "rgba(200,69,60,.92)"; ctx.fillRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); ctx.lineWidth = 1.2; ctx.strokeStyle = "rgba(255,255,255,0.8)"; ctx.strokeRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); }
+      }
+      if (ownLines) { ctx.save(); ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2.6; ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9; ctx.beginPath(); for (const ln of ownLines) addPath(ctx, api, ln, false); ctx.stroke(); ctx.restore(); }
       if (locSpine) {   // a range: a row of small peaks along its spine
         const mh = Math.max(3, Math.min(9, 3.4 * Math.sqrt(st.zoom / CMAP_ZLOC))), mw = mh * 0.85;
         ctx.save(); ctx.fillStyle = "rgba(0,0,0,0.62)"; ctx.strokeStyle = halo; ctx.lineWidth = 1;
         for (const q of locSpine) { const p = api.project(q[0], q[1]); if (!inView(api, p)) continue; ctx.beginPath(); ctx.moveTo(p[0] - mw, p[1] + mh * 0.55); ctx.lineTo(p[0], p[1] - mh * 0.75); ctx.lineTo(p[0] + mw, p[1] + mh * 0.55); ctx.closePath(); ctx.fill(); ctx.stroke(); }
         ctx.restore();
       }
-      if (dot && !(locKind === "river" && ownRiver) && locKind !== "range" && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") {
-        const p = api.project(dot.c[0], dot.c[1]);
-        if (p[2] >= 0) {
-          if (locKind === "battle") paintSwords(ctx, p[0], p[1], 7.5);
-          else if (!sibCard) { ctx.save(); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fillRect(p[0] - 5, p[1] - 5, 10, 10); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.strokeRect(p[0] - 5, p[1] - 5, 10, 10); ctx.restore(); }
-          else { ctx.save(); ctx.beginPath(); ctx.arc(p[0], p[1], 5.5, 0, Math.PI * 2); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke(); ctx.restore(); }
-        }
+      if (ownDotAt) {
+        const p = ownDotAt;
+        if (locKind === "battle") paintSwords(ctx, p[0], p[1], 7.5);
+        else if (!sibCard) { ctx.save(); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fillRect(p[0] - 5, p[1] - 5, 10, 10); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.strokeRect(p[0] - 5, p[1] - 5, 10, 10); ctx.restore(); }
+        else { ctx.save(); ctx.beginPath(); ctx.arc(p[0], p[1], 5.5, 0, Math.PI * 2); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke(); ctx.restore(); }
       }
       ctx.beginPath(); ctx.arc(api.cx, api.cy, api.radius, 0, Math.PI * 2); ctx.strokeStyle = "rgba(0,0,0,0.28)"; ctx.lineWidth = 1; ctx.stroke();
-      if (isWar) warMarks(ctx, api);
-      if (revealed) {
-        const at = locLabelPt && locLabelPt.length ? locLabelPt[0] : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })() : dot ? dot.c : targets.length ? targets[0].c : null;
-        if (at && nm0 && !(locKind === "river" && ownRiver)) {
-          const p = api.project(at[0], at[1]);
-          if (p[2] >= 0) { ctx.font = "600 13px " + font; const beside = !!dot && locKind !== "region" && locKind !== "range" && locKind !== "sea" && locKind !== "shelf"; ctx.textAlign = beside ? "left" : "center"; ctx.textBaseline = "middle"; const lx = beside ? p[0] + 10 : p[0]; ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm0, lx, p[1]); ctx.fillStyle = locKind === "sea" ? water : ink; ctx.fillText(nm0, lx, p[1]); }
-        }
-      }
+      if (isWar) warMarks(st, ctx, api);
+      ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+      for (const n of plan) { ctx.font = n.font; ctx.textAlign = n.align; ctx.lineWidth = n.lw; ctx.strokeStyle = halo; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y); }
       ctx.restore();
     }
     /* the hub is created as soon as the engine's two bundles are in — in parallel with the card-faces join and the rest, not after them (Phase 4b: it was 45 ms of a warm first window) */
@@ -303,7 +355,7 @@
     }).catch(() => { unhold(); if (!stopped) v1(); });
     function mountWindow(hub, warYear) {
         host.classList.remove("mc-loading"); host.setAttribute("data-map-engine", "v2");
-        if (isWar) { try { warSides = hub.warSides(sibCard); warCols = hub.warColours(); } catch (e) { warSides = null; } }
+        if (isWar) { try { warHub = hub; warSides = hub.warSides(sibCard, warYear); } catch (e) { warSides = null; } }
         fit();
         if (isWar) {
           const cr = cv.getBoundingClientRect(), short = Math.max(1, Math.min(cr.width, cr.height)), f = hub.warView(sibCard, short, 0.45);   // 0.45: half of a face's bounding cap counts, so a polity with far islands does not frame the planet
@@ -317,7 +369,7 @@
             highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9 }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
-          onTap: () => { if (key && !revealed) return; openFromWindow(host, sibCard); },
+          extraSettled: (st, o) => anchorsCurrent(st, o),
         });
         mark("a2:window-mounted");
         win.setHome(home.lon, home.lat, home.zoom); win.setView(home.lon, home.lat, home.zoom);

@@ -35807,8 +35807,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // and, on a map card, the globe window ABOVE the prompt, since the map is the clue and the words only
   // say what to do with it
   /* Phase 4: a window drawn by the engine opens the engine's own Atlas (#map2) at the window's view and year — "Open in the Atlas at <year>" — as a deep link the page already reads
-     (#map2/<lon>/<lat>/<zoom level>?y=<year>). A war window carries the war's year and the card (`&war=<id>`), so the Atlas opens on that war in its years. Used by the go button and by a
-     tap on the window (a map card's tap only once it is revealed: until then nothing on it may be answerable). */
+     (#map2/<lon>/<lat>/<zoom level>?y=<year>). A war window carries the war's year and the card (`&war=<id>`), so the Atlas opens on that war in its years. Used by the window's globe button ONLY
+     (the owner's decision, Oct 2026): nothing a reader does to the map itself — a tap, a double tap, a click, a drag, a pinch, the wheel — leaves the card. A map card has no globe button (the Atlas would name its answer). */
   function atlas2OpenFromWindow(host, id) {
     if (!host || !host._folioMap || host.getAttribute("data-map-engine") !== "v2" || !atlas2Engine()) return false;
     const v = host._folioMap.view(), cv0 = host.querySelector(".mc-canvas"), base0 = 0.46 * Math.min(cv0.clientWidth || 300, cv0.clientHeight || 220);
@@ -35856,7 +35856,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
     return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, GAME_MAX_DIFFICULTY,
-      cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon, startCardGlobeV1, openFromWindow: atlas2OpenFromWindow,
+      cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon, startCardGlobeV1,
       atlasRegisterAll, atlasStackKey, atlasStackOrder, availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, layerPoint, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr };
   }
   PAGES.findit2 = function (root) {

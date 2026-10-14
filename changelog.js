@@ -35,14 +35,15 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1003", released: "2026-10-14T06:30Z" };
+window.FOLIO_VERSION = { v: "1.1004", released: "2026-10-14T13:58Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-14",
     t: "Card maps and Find it move to the new globe",
     items: [
-      "<b>Maps on cards and Find it</b>: card maps, war maps and the daily game now use the new globe, with a panel of the place's cards after each answer."
+      "<b>Maps on cards and Find it</b>: card maps, war maps and the daily game now use the new globe, with a panel of the place's cards after each answer.",
+      "<b>Card map fixes</b>: the outline stays while you drag, war maps name each side on its own colour, names no longer cover dots, and only the globe button opens the Atlas."
     ],
   },
   {

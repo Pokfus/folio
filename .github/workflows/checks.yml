@@ -385,7 +385,7 @@ jobs:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
         run: |
           fails=0
-          for f in $(grep -l playwright .claude/test-*.js | grep -v test-atlas-perf.js | sort); do
+          for f in $(grep -l playwright .claude/test-*.js | grep -v test-atlas-perf.js | grep -v test-card-windows-fixes.js | sort); do
             echo "::group::$(basename "$f")"
             if node "$f"; then echo "PASS $(basename "$f")"
             else echo "FAIL $(basename "$f")"; fails=$((fails+1)); fi
@@ -438,3 +438,37 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
         run: node .claude/test-atlas-perf.js
+
+  # THE CARD-WINDOW PHONE FIXES, IN A JOB OF THEIR OWN (Oct 2026). `test-card-windows-fixes.js` (the outline through a gesture, the
+  # 56 war windows' names at two sizes, a locator's names, taps that never navigate) takes about ten minutes on the engine and
+  # two on v1's windows, and the browser job above was already at 85-90 of its 90 minutes on main: put in its loop it was cancelled
+  # by the job's timeout in the middle of the v1 pass (run 3552), so no suite after it ran. Here it speaks for itself.
+  card-window-fixes:
+    name: Card window phone fixes
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    needs: fast
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright (outside the repo)
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
+          npm init -y >/dev/null
+          npm i --no-audit --no-fund playwright@latest >/dev/null
+          npx playwright install --with-deps chromium
+
+      - name: test-card-windows-fixes (the engine's windows)
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node .claude/test-card-windows-fixes.js
+
+      - name: test-card-windows-fixes (v1's windows, FOLIO_ENGINE=v1)
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+          FOLIO_ENGINE: v1
+        run: node .claude/test-card-windows-fixes.js
