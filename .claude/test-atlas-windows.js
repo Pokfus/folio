@@ -239,7 +239,8 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     {   // WHICH cards get the finer level: the registry's kind of the locator's place, not the card's name (Phase 4c)
       const F = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/card-faces.js"), "utf8"))(F);
       const W = F.ATLAS_CARD_FACES.water;
-      check("the water-subject list is built from the registry: 23 cards by their place's kind, 2 by a declared river/sea kind with no place, 5 by the name fallback", W.cards.length === 30 && W.declared.length === 2 && W.byName.length === 5, JSON.stringify({ cards: W.cards.length, declared: W.declared, byName: W.byName }));
+      check("the water-subject list is built from the registry: 22 cards by their place's kind, 2 by a declared river/sea kind with no place, 5 by the name fallback", W.cards.length === 29 && W.declared.length === 2 && W.byName.length === 5, JSON.stringify({ cards: W.cards.length, declared: W.declared, byName: W.byName }));
+      check("...Runnymede (wh-513) is a water-meadow, not a sea: it is not on it (Wikidata reaches \"body of water\" from it by subclass-of; the registry no longer reads that as a sea)", !W.cards.includes("wh-513"));
       check("...a site named for a river (wh-096) and a town named for a bay (pea-172) are NOT on it; a lake, a strait and a river are (wh-064, gga-161, eg-002)", !W.cards.includes("wh-096") && !W.cards.includes("pea-172") && ["wh-064", "gga-161", "eg-002"].every((id) => W.cards.includes(id)));
       for (const [id, what, bias] of [["wh-096", "Mal'ta, Belaya River (a site: the name says river, the registry says site)", 0], ["rm-043", "the Gulf of Tarentum (no resolved place: the name fallback)", 1]]) {
         const { ctx, page } = await newPage(browser, {});

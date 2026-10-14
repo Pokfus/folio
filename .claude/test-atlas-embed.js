@@ -61,6 +61,8 @@ async function openCard(page, id) {
   await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h._folioMap && h._folioMap.ready() && !h.classList.contains("mc-loading"); }, null, { timeout: 120000 }).catch(() => {});
 }
 // a window is settled when the engine says its tiles are in
+// the value the page keeps under "folio.atlas2.preview" (the wait is generous; the assertion that follows it is exact and unchanged)
+const storedPreview = (page, v) => page.waitForFunction((x) => localStorage.getItem("folio.atlas2.preview") === x, v, { timeout: 60000 }).catch(() => {});
 const settled = (page) => page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h.getAttribute("data-map-engine") === "v2" && AtlasEmbed.hub() && AtlasEmbed.stats().draws > 0 && document.querySelector(".map-card .mc-canvas"); }, null, { timeout: 120000 }).then(() => sleep(5000));
 const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = document.querySelector(s); const x = c.getContext("2d"); const d = x.getImageData(Math.round(c.width * a), Math.round(c.height * b), 1, 1).data; return [d[0], d[1], d[2], d[3]]; }, [sel, fx, fy]);
 
@@ -75,7 +77,8 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     await openCard(d.page, "geo-002"); await settled(d.page);
     check("with nothing stored, a map card is drawn by the engine (data-map-engine=v2)", (await d.page.evaluate(() => document.querySelector(".map-card").getAttribute("data-map-engine"))) === "v2");
     // the way back: #map2?preview=0 stores "0" on this device; the next card is v1's
-    await d.page.goto(`http://127.0.0.1:${PORT}/#map2?preview=0`, { waitUntil: "load" }); await d.page.reload({ waitUntil: "load" }); await sleep(2500);
+    await d.page.goto(`http://127.0.0.1:${PORT}/#map2?preview=0`, { waitUntil: "load" }); await d.page.reload({ waitUntil: "load" });
+    await storedPreview(d.page, "0");   // the page writes it once its script has run: wait for the value, however slow the runner, then assert it
     check("#map2?preview=0 stores \"0\" for this device", (await d.page.evaluate(() => localStorage.getItem("folio.atlas2.preview"))) === "0");
     await d.ctx.close();
     const { ctx, page } = await newPage(browser, { preview: false });
@@ -88,10 +91,12 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     await page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" }); await sleep(3500);
     check("...and Find it is v1's board (the Atlas page in game mode), not the engine's", await page.evaluate(() => !document.querySelector("#findit2") && !!document.querySelector("#mapGame")));
     // typed into a tab that is already open: a hashchange, which route() rewrites to #map2 — the switch must be read before that
-    await page.goto(`http://127.0.0.1:${PORT}/#map2?preview=1`, { waitUntil: "load" }); await sleep(1500);
+    await page.goto(`http://127.0.0.1:${PORT}/#map2?preview=1`, { waitUntil: "load" });
+    await storedPreview(page, "1");
     check("#map2?preview=1 typed into an open tab puts the engine back (\"1\")", (await page.evaluate(() => localStorage.getItem("folio.atlas2.preview"))) === "1");
     await page.goto(`http://127.0.0.1:${PORT}/#home`, { waitUntil: "load" }); await sleep(600);
-    await page.goto(`http://127.0.0.1:${PORT}/#map2?preview=0`, { waitUntil: "load" }); await sleep(1500);
+    await page.goto(`http://127.0.0.1:${PORT}/#map2?preview=0`, { waitUntil: "load" });
+    await storedPreview(page, "0");
     check("...and #map2?preview=0 typed into an open tab sets the way back (\"0\")", (await page.evaluate(() => localStorage.getItem("folio.atlas2.preview"))) === "0");
     await ctx.close();
     // a browser with no WebGL2: the engine cannot start and v1's window takes over — the window and Find it both still work

@@ -301,15 +301,21 @@ async function gestures(page, cdp, cx, cy, withScrub, pinchProbe, v2) {
   return r;
 }
 const settle = (page) => page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.tilesSettled() && c.waterSettled(); }, null, { timeout: 90000 }).then(() => true, () => false);
+// every on-screen face has its mesh at the view's level (the controller's own `historyOK`); true at once where the rail is on today and no history is loaded
+const historySettle = (page) => page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historyOK(), null, { timeout: 90000 }).then(() => true, () => false);
 async function fixedViews(page, cx, cy) {
   const views = [];
   for (const V of VIEWS) {
     await page.evaluate((v) => { const c = document.querySelector(".atlas2").__atlas2; c.setYear(v.year != null ? v.year : new Date().getUTCFullYear()); c.setView(v.lon, v.lat, v.kmpp); c.setLayers({ wars: v.frontDate || v.focusWar ? "on" : "off", fronts: !!v.frontDate }); if (v.frontDate) c.setFrontDate(v.frontDate); if (v.focusWar) c.focusWar(v.focusWar); }, V);
     const settled = await settle(page);
+    // the history meshes load on their own, after the tiles and the water: until every face on screen has the mesh of the view's own level the renderer
+    // draws whichever level IS resident (histMeshFor falls back), so the triangle count of a still frame depends on what had arrived. Wait for it (2026-10-14).
+    const histSettled = V.year != null ? await historySettle(page) : true;
     await page.waitForTimeout(400);
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate());
     await page.waitForTimeout(100);
-    const still = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.statsNow());
+    const still = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, t = c.timeInfo(); return Object.assign(c.statsNow(), { histOK: c.historyOK(), histResident: t.resident, histWanted: t.wanted, histPending: t.pending, histOnScreen: t.onScreen }); });
+    still.histSettled = histSettled;
     const frames = await measure(page, async () => { await page.mouse.move(cx, cy); await page.mouse.down(); for (let i = 1; i <= 40; i++) { await page.mouse.move(cx + i * 2, cy + Math.sin(i / 4) * 20); await sleep(16); } await page.mouse.up(); await sleep(300); });
     const overlay = await page.evaluate(() => document.querySelector(".atlas2-perf").textContent);
     views.push({ V, settled, still, frames, overlay });
@@ -514,7 +520,7 @@ async function fixedMarks(page) {
     check(`${V.name}: lake-shore segments ≤ ${V.lakeSeg}`, still.lakeSegments <= V.lakeSeg, `${still.lakeSegments}`);
     check(`${V.name}: lake-fill triangles ≤ ${V.lakeTri}`, still.lakeTriangles <= V.lakeTri, `${still.lakeTriangles}`);
     if (V.presTri != null) { check(`${V.name}: presence (peoples and cultures) fill triangles ≤ ${V.presTri}`, (still.presenceTriangles || 0) <= V.presTri && (still.presenceTriangles || 0) > 0, `${still.presenceTriangles} in ${still.presenceFaces} faces`); check(`${V.name}: ${V.presFaces} presence face(s) drawn`, (still.presenceFaces || 0) === V.presFaces, `${still.presenceFaces}`); }
-    if (V.histTri != null) { check(`${V.name}: historical fill triangles ≤ ${V.histTri}`, still.historyTriangles <= V.histTri, `${still.historyTriangles} in ${still.historyFaces} faces`); check(`${V.name}: historical border segments ≤ ${V.histSeg}`, still.historySegments <= V.histSeg, `${still.historySegments}`); }
+    if (V.histTri != null) { check(`${V.name}: historical fill triangles ≤ ${V.histTri}`, still.historyTriangles <= V.histTri, `${still.historyTriangles} in ${still.historyFaces} faces; level ${still.level}, history settled ${still.histSettled}, ${still.histResident} meshes resident, ${still.histWanted} wanted, ${still.histPending} pending, ${still.histOnScreen} faces on screen`); check(`${V.name}: historical border segments ≤ ${V.histSeg}`, still.historySegments <= V.histSeg, `${still.historySegments}`); }
   }
   // STACKS REMOVED: the owner's worst-frame rule with the Full Atlas on, at the widest view
   { const f = results.v2full, d = f.drag, p = f.pinch;

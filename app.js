@@ -15851,7 +15851,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      measurement, none lost its classification, and the 12 fields that changed all changed correctly. */
   const UNIT_SYSTEMS = ["metric", "imperial"];
   const U_NW = "(?:\\d[\\d.,]*|a|an|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|half)";
-  const U_NUM = "(?:" + U_NW + "(?:\\s+(?:hundred|thousand|million|billion))?)";
+  const U_NUM = "(?:" + U_NW + "(?:\\s+(?:hundred|thousand|million|billion|trillion))?)";
   // `by` joins the two figures of a plan or a court ("54 by 27 metres"), so the run has to survive it or
   // U_CONV_RX starts at the SECOND number and imperial mode renders "54 by 177 by 89 feet"
   // …and `of` joins the two figures of a FRACTION ("92,963 of the 282,870 square kilometres"), where the
@@ -15880,7 +15880,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // any of the three dashes beside it — "(−129 °F)" was the fourth unseen shape
   // …and the denominators U_RATE now knows, or a bracket reading "(4,860 feet per second)" is not an
   // imperial parenthetical as far as `isImperialParen` is concerned and the whole match is left alone
-  const U_FILL = "(?:and|or|to|by|of|its|the|per|each|hours?|seconds?|minutes?|days?|weeks?|months?|years?|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
+  const U_FILL = "(?:and|or|to|by|of|its|the|per|each|hours?|seconds?|minutes?|days?|weeks?|months?|years?|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|trillion|–|—|−|-|,|/|\\s)";
   const U_IMP = "(?:miles?|sq\\s*mi|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)";
   const U_ONLY_RX = new RegExp("^(?:" + U_NW + "|" + U_IMP + "|" + U_FILL + ")+$", "i");
   const U_HAS_IMP_RX = new RegExp("(?:^|[^A-Za-z])" + U_IMP + "(?![A-Za-z])", "i");
@@ -18356,7 +18356,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          "Next streak chest" box, so this step is where a reader first meets the chest. */
       body: "A day with any study at all keeps your <b>streak</b>. Every seventh day in a row earns a " +
         "<b>chest</b>, and each week after that is worth one more; the ribbon under the banner shows the " +
-        "week filling up, and on the seventh day its chest unlocks \u2014 press it to open it.",
+        "week filling up, and on the seventh day its chest unlocks. Press it to open it.",
       target: [".streak-ribbon", "#b-review"],
     },
     {
