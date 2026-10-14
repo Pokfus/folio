@@ -243,26 +243,10 @@ function run() {
     let badArc = 0, badFace = 0; for (let i = 0; i < nA; i++) if (T.arcSource[i] >= H.sources.length) badArc++; for (const f of T.faces) if (f.source >= H.sources.length) badFace++;
     badArc || badFace ? bad("every arc and face traces to a header source", `${badArc} arcs, ${badFace} faces`) : ok("every arc and face traces to a header source");
   }
-  /* the file:// twin (Phase 2b): history.bin.js carries the PILOT SLICE of this file, not the whole — the three twins together
-     must stay under 12 MB decimal — so it is decoded and parsed as a history file of its own: the same core buildId, the same
-     sources, every entity and step of the slice among this file's, and the header's sentence saying what it is */
+  /* Phase 5: the file:// twin of the 2b pilot slice (history.bin.js) is gone with v1 (the owner's rule: the twins total at most 12 MB; the war slice's twin, which file:// windows use, is checked by build-war-slice.js --check) — a leftover must not come back */
   {
     const tf = path.join(ROOT, "atlas", "data", "history.bin.js");
-    if (!fs.existsSync(tf)) bad("the file:// twin exists (atlas/data/history.bin.js)");
-    else {
-      try {
-        const text = fs.readFileSync(tf, "utf8"); const m = /b64: "([A-Za-z0-9+/=]*)" \};\n$/.exec(text); if (!m) throw new Error("no base64 payload");
-        const TW = F.read(new Uint8Array(Buffer.from(m[1], "base64"))), WH = TW.header;
-        const same = WH.core && WH.core.buildId === H.core.buildId && JSON.stringify(WH.sources) === JSON.stringify(H.sources);
-        const ids = new Set(H.entities.map((e) => e.id)); const entOK = WH.entities.every((e) => ids.has(e.id));
-        const stepOK = WH.steps.every((st) => { const e = WH.entities[st[0]]; const i = H.entities.findIndex((x) => x.id === e.id); return i >= 0 && H.steps.some((s2) => s2[0] === i && s2[1] <= st[1] && s2[2] >= st[2]); });
-        const sliced = WH.history && WH.history.slice === "pilot" && /pilot slice/.test(WH.history.sliceNote || "");
-        const others = ["topology.bin.js", "water.bin.js"].map((f) => { try { return fs.statSync(path.join(ROOT, "atlas", "data", f)).size; } catch (e) { return 0; } }).reduce((p, q) => p + q, 0);
-        const twinBytes = Buffer.byteLength(text), total = others + twinBytes;
-        (same && entOK && stepOK && sliced) ? ok("the file:// twin is the pilot slice of this file on the same core, and says so", `${WH.entities.length} entities, ${WH.steps.length} steps, ${TW.faces.length} faces; ${(twinBytes / 1e6).toFixed(2)} MB`) : bad("the file:// twin is the pilot slice of this file on the same core, and says so", `core ${!!same}, entities ${entOK}, steps ${stepOK}, slice sentence ${!!sliced}`);
-        total <= 12e6 ? ok("the three file:// twins stay under 12 MB decimal together", `${(total / 1e6).toFixed(2)} MB`) : bad("the three file:// twins stay under 12 MB decimal together", `${(total / 1e6).toFixed(2)} MB`);
-      } catch (e) { bad("the file:// twin decodes and parses", e.message); }
-    }
+    if (fs.existsSync(tf)) bad("the pilot history twin (atlas/data/history.bin.js) is gone", "Phase 5 deleted it; the war slice's twin is history-wars.bin.js"); else ok("the pilot history twin (atlas/data/history.bin.js) is gone");
   }
   /* references */
   const hasRef = !!T.coreArc;

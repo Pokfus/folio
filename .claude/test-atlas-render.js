@@ -3,7 +3,7 @@
      NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-atlas-render.js
      FOLIO_CHROMIUM=/path/to/chrome  … to pick the browser (otherwise playwright's own)
 
-   WHAT IT PROVES. A tap on #map2 is answered by two reads of a 1×1 ID framebuffer (atlas-gl.js pick: the
+   WHAT IT PROVES. A tap on #map is answered by two reads of a 1×1 ID framebuffer (atlas-gl.js pick: the
    faces pass, then the water pass) and stacked by atlas.js; nothing here is point-in-polygon code, so the
    only way to know the answer is right is to ask at points whose answer is known from OUTSIDE the build:
 
@@ -64,7 +64,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-  await page.goto(`http://127.0.0.1:${PORT}/#map2`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/#map`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ rivers: true, lakes: true, relief: false }));
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.gazetteer().ready; }, null, { timeout: 120000 });
@@ -417,7 +417,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     }
   }
 
-  check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
+  check("no page errors on #map", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
   console.log(`\n${pass} ok, ${fail} failed\n`);
   process.exit(fail ? 1 : 0);

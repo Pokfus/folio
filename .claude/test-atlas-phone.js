@@ -68,7 +68,7 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
     page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
     page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
     const cdp = await context.newCDPSession(page);
-    await page.goto(base + "#map2", { waitUntil: "load" });
+    await page.goto(base + "#map", { waitUntil: "load" });
     await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 180000 });
     await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady() && c.labels().length > 0; }, null, { timeout: 120000 });
     const phoneClass = await page.evaluate(() => document.querySelector(".atlas2").classList.contains("atlas2-phone"));
@@ -202,7 +202,7 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
       const errors = [];
       page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
       page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-      await page.goto(base + "#map2", { waitUntil: "load" });
+      await page.goto(base + "#map", { waitUntil: "load" });
       await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 180000 });
       await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.study.ready(), null, { timeout: 120000 });
       await sleep(300);

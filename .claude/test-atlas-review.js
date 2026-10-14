@@ -49,7 +49,7 @@ async function open(context, hash, full) {
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map2"}`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map"}`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
   await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ rivers: true, lakes: true, relief: false, density: "normal", countries: true, places: true, physical: true, cities: true, provinces: true }); c.ensureHistory(); });
   await page.waitForFunction((f) => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady() && c.historyStarted() && c.historyReady() && (!f || (c.tilesSettled() && c.historySettled())); }, !!full, { timeout: 120000 });
@@ -121,7 +121,7 @@ async function strokePixelsFarFromWater(page) {
   console.log("\n\x1b[1m1) the coast stroke stays at the coast (the 2a review's two artefact views)\x1b[0m\n");
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-    for (const v of [{ name: "Tuscany and Latium at the cap, 1 CE", hash: "#map2/12.5/41.9/12?y=1" }, { name: "Sicily and Calabria at 0.6 km/px, 250 BCE", hash: "#map2/14/37.5/8?y=-250" }]) {
+    for (const v of [{ name: "Tuscany and Latium at the cap, 1 CE", hash: "#map/12.5/41.9/12?y=1" }, { name: "Sicily and Calabria at 0.6 km/px, 250 BCE", hash: "#map/14/37.5/8?y=-250" }]) {
       const { page, errors } = await open(context, v.hash, true);
       await C(page, () => document.querySelector(".atlas2").__atlas2.invalidate()); await sleep(300);
       const r = await strokePixelsFarFromWater(page);
@@ -135,7 +135,7 @@ async function strokePixelsFarFromWater(page) {
   console.log("\n\x1b[1m1b) a fill is drawn once: no pixel beyond the fill's tone where the coast stroke is off\x1b[0m\n");
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-    for (const v of [{ name: "the Mongol Empire about the Ob, 1245, 6 km/px", hash: "#map2/72/62/4.71?y=1245" }, { name: "the Russian Empire over Europe, 1900, 3 km/px", hash: "#map2/30/52/5.71?y=1900" }]) {
+    for (const v of [{ name: "the Mongol Empire about the Ob, 1245, 6 km/px", hash: "#map/72/62/4.71?y=1245" }, { name: "the Russian Empire over Europe, 1900, 3 km/px", hash: "#map/30/52/5.71?y=1900" }]) {
       const { page, errors } = await open(context, v.hash, true);
       // only the fills, the borders and the polity names: a river or a lake shore is a blue stroke, and a blue polity's axis passes through it
       await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ rivers: false, lakes: false, relief: false, density: "normal", countries: false, places: false, physical: false, cities: false, provinces: false }); c.invalidate(); });
@@ -152,7 +152,7 @@ async function strokePixelsFarFromWater(page) {
   console.log("\n\x1b[1m2) the rail on narrow screens: every control inside its row, with and without the phone flag, with and without a card\x1b[0m\n");
   for (const W of [360, 390, 430]) for (const mobile of [true, false]) {
     const context = await browser.newContext({ viewport: { width: W, height: 844 }, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: 2 });
-    const { page, errors } = await open(context, "#map2/12.5/41.9/5?y=1", false);
+    const { page, errors } = await open(context, "#map/12.5/41.9/5?y=1", false);
     const measure = () => C(page, () => {
       const el = document.querySelector(".atlas2"), row = el.querySelector(".atlas2-rail-row");
       const R = (e) => { const r = e.getBoundingClientRect(); return { x: r.left, y: r.top, r: r.right, b: r.bottom }; };
@@ -185,7 +185,7 @@ async function strokePixelsFarFromWater(page) {
   console.log("\n\x1b[1m3) every year carries its era\x1b[0m\n");
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-    const { page, errors } = await open(context, "#map2/12.5/41.9/5?y=1", false);
+    const { page, errors } = await open(context, "#map/12.5/41.9/5?y=1", false);
     const r = await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; return { f: [1, -300, 2026, 0, 1066].map((y) => c.fmtYear(y)), p: ["1 CE", "300 BCE", "2026 CE", "1066 CE", "AD 1066", "1066"].map((t) => c.parseYear(t)), box: document.querySelector(".atlas2-rail-year").value, pin: document.querySelector(".atlas2-rail-pin").getAttribute("aria-valuetext") }; });
     check("fmtYear: 1 → \"1 CE\", −300 → \"300 BCE\", 2026 → \"2026 CE\", 0 → \"1 BCE\", 1066 → \"1066 CE\"", r.f.join("|") === "1 CE|300 BCE|2026 CE|1 BCE|1066 CE", r.f.join("|"));
     check("parseYear reads them back (and a bare number, AD 1066)", r.p.join() === "1,-300,2026,1066,1066,1066", r.p.join());

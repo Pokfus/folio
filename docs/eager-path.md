@@ -1,5 +1,11 @@
 # The eager load path, and the splits taken off it
 
+> **PHASE 5 (Oct 2026).** Nothing on the eager path was added or split off; `app.js` alone shrank (3.93 MB → 3.34 MB raw, 1.27 → 1.08 MB gzip: v1's page, `startCardGlobeV1`, the personal-atlas register, the map editor and the dead helpers
+> they left) and `glossary.js` lost its two `GLOSSARY_PLACES` / `GLOSSARY_MAP_COUNTRY` blocks (now `.claude/atlas-build/glossary-places-input.json`, read by the generators). The new lazy bundles
+> `atlas2nbr`, `atlas2findit`, `atlas2countries` and `atlas2places` (`DATA_BUNDLES`) are off the path; `atlas2countries` has an `after` hook (`atlasPlacesSeenMigrate`) — the rule below about a lazy file whose global is read at boot
+> applies to it. The retired data files (36.5 MB raw, none of them eager) are listed in `docs/atlas-v2-phase5-plan.md` §2.2. `node .claude/check-sizes.js` has the numbers; never quote one.
+
+
 **Read this before splitting anything off the eager path.** `CLAUDE.md`'s File map carries the rules —
 what each split file holds, the queue-not-assignment rule, the single-IO-module rule and the `--check`
 guards. This file carries the accounts behind them, moved out of CLAUDE.md verbatim.

@@ -39,8 +39,9 @@ const server = http.createServer((req, res) => {
   });
 });
 
-// map2 is the Atlas v2 preview (Oct 2026): a Worker (worker-src), a fetch() of a .bin (connect-src) and a
-// WebGL2 canvas — three things the policy has an opinion about, so the route is walked and given time to load
+// map is the Atlas v2 (since Phase 5, Oct 2026): a Worker (worker-src), a fetch() of a .bin (connect-src) and a
+// WebGL2 canvas — three things the policy has an opinion about, so the route is walked and given time to load.
+// "map2" is kept in the walk: it is the old preview address, now a redirect to #map, and must be as clean as the page it lands on
 const ROUTES = ["", "decks", "map", "map2", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread",
   // the three games added Aug 2026. The crossword's board is a grid of <input>s written with an inline
   // `grid-template-columns`, and the picture round loads an image from whatever host credited it — inline

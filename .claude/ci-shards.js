@@ -8,10 +8,9 @@
    WHY (Oct 2026). The one shared Playwright job took 75-85 of its 90 minutes and the card-window phone-fix suite had to be split off just to stay under the cap. The job is now a matrix of three shards
    (.github/workflows/checks.yml, `browser`), each well under SHARD_CAP_MIN, so a new suite or a slower runner has room before the cap and a red shard is a smaller thing to read.
 
-   WHAT RUNS. Exactly what the single loop ran: every .claude/test-*.js that mentions playwright, except test-atlas-perf.js (the frame gate's job) and test-card-windows-fixes.js (its own job); and, because the engine's
-   windows are the default since Stage B, the three suites written against V1's windows (test-map-cards, test-card-locator, test-war-cards) a second time with FOLIO_ENGINE=v1 (.claude/test-engine-switch.js;
-   docs/atlas-v2-card-windows.md). Each is a UNIT; a suite is found by scanning the directory, so a NEW suite is in a shard the day it is written without anyone editing this file. The plan is deterministic
-   (longest first onto the lightest shard), so the three jobs agree on it without talking to one another.
+   WHAT RUNS. Exactly what the single loop ran: every .claude/test-*.js that mentions playwright, except test-atlas-perf.js (the frame gate's job) and test-card-windows-fixes.js (its own job). (Until Phase 5 the three
+   suites written against V1's windows also ran a second time with FOLIO_ENGINE=v1; v1's windows are deleted and so is that pass.) Each is a UNIT; a suite is found by scanning the directory, so a NEW suite
+   is in a shard the day it is written without anyone editing this file. The plan is deterministic (longest first onto the lightest shard), so the three jobs agree on it without talking to one another.
 
    WEIGHTS. MEASURED is the seconds each unit took in a real CI run (see MEASURED_FROM). A unit not in it (a new suite) weighs DEFAULT_SEC until someone adds its row; --check says so but does not fail, because the
    plan is still sound -- only less well balanced. Re-measure from the per-shard summary a run writes (the "Shard N" table in the run's job summary, and the PASS lines in each shard's log).
@@ -23,18 +22,17 @@ const fs = require("fs"), path = require("path"), cp = require("child_process");
 const DIR = __dirname;
 const SHARDS = 3, SHARD_CAP_MIN = 35, SETUP_MIN = 3, DEFAULT_SEC = 120;   // SETUP_MIN: checkout + the Playwright and Chromium install, measured 0.7-1.5 min; 3 is generous
 const EXCLUDE = new Set(["test-atlas-perf.js", "test-card-windows-fixes.js"]);   // each has a job of its own
-const V1 = ["test-map-cards", "test-card-locator", "test-war-cards"];            // run again on V1's windows (FOLIO_ENGINE=v1)
-const MEASURED_FROM = "run 3558 (checks.yml, 2026-10-14), the single 'Playwright suites' job, 75.3 min";
-const MEASURED = {   // seconds; "(v1)" is the second pass with FOLIO_ENGINE=v1
-  "test-a11y": 49, "test-account-page": 11, "test-account-switch": 89, "test-admin-editor": 19, "test-artefacts": 42, "test-artwork-cards": 12, "test-atlas-a11y": 9, "test-atlas-card": 10,
-  "test-atlas-credits": 6, "test-atlas-embed": 108, "test-atlas-fallbacks": 50, "test-atlas-labels": 113, "test-atlas-phone": 190, "test-atlas-places": 75, "test-atlas-relief": 11,
-  "test-atlas-render": 78, "test-atlas-review": 62, "test-atlas-search": 19, "test-atlas-session": 309, "test-atlas-stages": 45, "test-atlas-study": 159, "test-atlas-time": 35,
-  "test-atlas-windows": 177, "test-avatar": 5, "test-card-locator": 72, "test-card-quote": 11, "test-card-types": 73, "test-cards": 34, "test-char-network": 28, "test-community": 19, "test-csp": 31,
-  "test-deck-glossary": 43, "test-deck-lazy": 31, "test-deck-trust": 6, "test-deck-update": 51, "test-deck-ux": 23, "test-draw-cards": 15, "test-feedback": 9, "test-findit-learn": 66,
-  "test-flag-cards": 14, "test-gloss-image": 23, "test-glossary-page": 9, "test-i18n-lang": 10, "test-lang-decks": 43, "test-layout": 411, "test-learning": 201, "test-library": 129,
-  "test-map-cards": 9, "test-media-source": 32, "test-minigames": 93, "test-personal-atlas": 505, "test-publish": 180, "test-reset": 8, "test-review-decks": 165, "test-revlog": 26,
-  "test-sanitize": 0, "test-sources": 33, "test-speak": 39, "test-spelling": 22, "test-subdecks": 43, "test-tour": 64, "test-truefalse": 12, "test-units": 17, "test-video": 56, "test-war-cards": 46,
-  "test-whiteboard": 9, "test-why-markers": 0, "test-map-cards (v1)": 8, "test-card-locator (v1)": 67, "test-war-cards (v1)": 47,
+const MEASURED_FROM = "run 3560 (checks.yml, 2026-10-14), the first sharded run: the three shards' own PASS lines (seconds per suite on a GitHub runner)";
+const MEASURED = {   // seconds
+  "test-a11y": 50, "test-account-page": 12, "test-account-switch": 96, "test-admin-editor": 20, "test-artefacts": 48, "test-artwork-cards": 13, "test-atlas-a11y": 12, "test-atlas-card": 13,
+  "test-atlas-credits": 7, "test-atlas-embed": 128, "test-atlas-fallbacks": 54, "test-atlas-labels": 145, "test-atlas-phone": 244, "test-atlas-relief": 18, "test-atlas-render": 115,
+  "test-atlas-review": 77, "test-atlas-search": 30, "test-atlas-session": 315, "test-atlas-stages": 65, "test-atlas-study": 193, "test-atlas-time": 52, "test-atlas-windows": 239,
+  "test-avatar": 6, "test-card-locator": 78, "test-card-quote": 11, "test-card-types": 78, "test-cards": 35, "test-char-network": 29, "test-community": 20, "test-csp": 31,
+  "test-deck-glossary": 44, "test-deck-lazy": 34, "test-deck-trust": 7, "test-deck-update": 52, "test-deck-ux": 24, "test-draw-cards": 16, "test-feedback": 10, "test-findit-learn": 76,
+  "test-flag-cards": 17, "test-gloss-image": 26, "test-glossary-page": 10, "test-i18n-lang": 10, "test-lang-decks": 44, "test-layout": 438, "test-learning": 204, "test-library": 141,
+  "test-map-cards": 11, "test-media-source": 33, "test-minigames": 98, "test-publish": 186, "test-reset": 10, "test-review-decks": 182, "test-revlog": 28, "test-sanitize": 1,
+  "test-sources": 37, "test-speak": 40, "test-spelling": 23, "test-subdecks": 45, "test-tour": 69, "test-truefalse": 14, "test-units": 20, "test-video": 61, "test-war-cards": 49,
+  "test-whiteboard": 10, "test-why-markers": 0,
 };
 
 function units() {
@@ -44,7 +42,6 @@ function units() {
     const id = f.replace(/\.js$/, "");
     out.push({ id, file: f, env: {} });
   }
-  for (const id of V1) if (out.some((u) => u.id === id)) out.push({ id: id + " (v1)", file: id + ".js", env: { FOLIO_ENGINE: "v1" } });
   for (const u of out) { u.sec = MEASURED[u.id]; u.measured = u.sec != null; if (u.sec == null) u.sec = DEFAULT_SEC; }
   return out;
 }
@@ -80,7 +77,7 @@ if (mode === "--plan" || mode === "--check") {
   const us = process.env.FOLIO_SHARD_UNITS ? JSON.parse(process.env.FOLIO_SHARD_UNITS) : plan(units())[N - 1].units;   // FOLIO_SHARD_UNITS: a test hook ([{id,file,env}]; a file is relative to .claude/ or absolute)
   const rows = [], t0 = Date.now();
   for (const u of us) {
-    console.log(`::group::${u.id}${u.env.FOLIO_ENGINE ? " on v1's windows (FOLIO_ENGINE=" + u.env.FOLIO_ENGINE + ")" : ""}`);
+    console.log(`::group::${u.id}`);
     const t = Date.now(), r = cp.spawnSync(process.execPath, [path.resolve(DIR, u.file)], { stdio: "inherit", env: Object.assign({}, process.env, u.env) });
     const sec = Math.round((Date.now() - t) / 1000), ok = r.status === 0;
     console.log(`${ok ? "PASS" : "FAIL"} ${u.id} (${sec}s${r.status === null ? ", killed by " + (r.signal || "a signal") : ok ? "" : ", exit " + r.status})`);

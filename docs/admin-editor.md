@@ -1,5 +1,11 @@
 # The admin editor's tabs
 
+> **PHASE 5 (Oct 2026) — the map editor and `ADMIN_EDITS.timeline` are REMOVED (owner decision Q-A1 a).** The admin area has no Timeline tab, no era tracing and no `timeline.js` entry in "Save to project"; `normalizeAdminEdits`
+> rebuilds the overlay field by field, so a `timeline` key in a stored `ADMIN_EDITS` or in the published `content_overrides` row is **ignored on read and never written back** (an admin's next publish writes a blob without it). Nothing
+> else about `ADMIN_EDITS`' shape, the publish path or the dev-origin rule changed. **After deploying, reset the `content_overrides` row to `{}` if it carries a timeline delta** (it is dead weight, and a published blob
+> is fetched by every visitor). The Atlas's content comes from generated files (`docs/atlas.md` §3), not from the editor. Everything below that names the Timeline tab describes the removed v1 editor.
+
+
 **Read this before adding a tab to the admin area or a figure to the Dashboard.** `CLAUDE.md`'s "How the
 app is wired" carries the rules each tab is held to — the ≤860px panel-cap exception list, the pair of
 colour rules every `data-atab` needs, and what the database may and may not be asked. This file carries

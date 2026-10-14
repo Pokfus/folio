@@ -2,7 +2,7 @@
 /* THE ARITHMETIC BEHIND THE PANELS ADDED IN SEP 2026, AND THE MAP IN WORDS.
  *
  * No browser and no dependency: every function under test is sliced out of the real `app.js` by text, so
- * it cannot drift from what ships, and the map half is run against the real `us-states.js`.
+ * it cannot drift from what ships, and the map half is run against the frozen neighbours table (atlas/data/card-neighbours.js).
  *
  * Each of these fails SILENTLY on the page, which is why they are here rather than left to the eye:
  *   - a "right, but slowly" list built on a fixed threshold reports a whole collection on one reader and
@@ -80,26 +80,25 @@ head("1) the cards you get right and cannot get right quickly");
 }
 
 // ---------------------------------------------------------------- 2) the map, in words
-head("2) the map in words, against the real us-states.js");
+head("2) the map in words: the frozen neighbours table (atlas/data/card-neighbours.js; the shapes it was computed from are gone with v1)");
 {
-  const { mapNeighbours, andList } = build(["mapNeighbourCells", "mapNeighbours", "andList"], "let _nbrFor=null,_nbrCells=null;\nconst NBR_MIN_CELLS = 2;\n", ["mapNeighbours", "andList"]);
-  const w = {}; new Function("window", fs.readFileSync(path.join(ROOT, "us-states.js"), "utf8"))(w);
-  const US = w.US_STATES;
-  ok("the layer loaded", Array.isArray(US) && US.length === 51, US && US.length);
-  const nb = (n) => mapNeighbours(US, [n], 0.05);
-  // the standard count of adjacent US state pairs, derived here from the shapes themselves
+  /* Phase 5: us-states.js and the proximity-on-a-grid code left with v1; build-card-faces.js froze the answers (freeze-v1.js ran the same rule at 0.05° for the states, 0.06° for the world) into atlas/data/card-neighbours.js.
+     The standing facts about US states are asserted on that table; the sentence is built and checked in test-map-cards.js; the "same answer at every cell size from 0.03° to 0.08°" property was proven over the shapes while they existed. */
+  const w = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas", "data", "card-neighbours.js"), "utf8"))(w);
+  const T = (w.ATLAS_CARD_NEIGHBOURS || {}).layers || {}, US = T["us-states"];
+  ok("the layer's table loaded", !!US && Object.keys(US).length >= 51, US && Object.keys(US).length);
+  const nb = (n) => (US && US[n]) || [];
+  // the standard count of adjacent US state pairs, derived here from the table itself
   const pairs = new Set();
-  US.forEach((s) => nb(s.n).forEach((o) => pairs.add([s.n, o].sort().join("|"))));
+  Object.keys(US || {}).forEach((n) => nb(n).forEach((o) => pairs.add([n, o].sort().join("|"))));
   ok("107 pairs of neighbouring states", pairs.size === 107, String(pairs.size));
+  ok("the table is symmetric: if A borders B then B borders A", [...pairs].every((p) => { const [a, b] = p.split("|"); return nb(a).indexOf(b) >= 0 && nb(b).indexOf(a) >= 0; }));
   ok("Ohio borders Pennsylvania (the shared-EDGE test missed this)", nb("Ohio").indexOf("Pennsylvania") >= 0, nb("Ohio").join(", "));
   ok("…and California borders Oregon (so did this)", nb("California").indexOf("Oregon") >= 0, nb("California").join(", "));
   ok("Four Corners is a point, not a border", nb("Arizona").indexOf("Colorado") < 0 && nb("Utah").indexOf("New Mexico") < 0, nb("Arizona").join(", "));
   ok("an island state borders nothing", nb("Hawaii").length === 0);
   ok("…and so does one across a strait", nb("Alaska").length === 0);
-  ok("the answer is the geometry, not the cell size",
-    [0.03, 0.04, 0.06, 0.08].every((g) => mapNeighbours(US, ["Ohio"], g).join() === nb("Ohio").join()), "0.03–0.08 agree");
-  ok("a list of three reads as English", andList(["a", "b", "c"]) === "a, b and c", andList(["a", "b", "c"]));
-  ok("…and a list of one is just the one", andList(["a"]) === "a");
+  ok("a key-list a card uses (Cyprus's three polygons) has a list of its own, without its own shapes", (T.world || {})["Cyprus|N. Cyprus|Cyprus U.N. Buffer Zone"] && !(T.world["Cyprus|N. Cyprus|Cyprus U.N. Buffer Zone"]).some((n) => /Cyprus/.test(n)), JSON.stringify((T.world || {})["Cyprus|N. Cyprus|Cyprus U.N. Buffer Zone"]));
 }
 
 // ---------------------------------------------------------------- 3) you and them

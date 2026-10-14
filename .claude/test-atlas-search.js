@@ -8,9 +8,9 @@
        Zürich, "Zürich" finds it too, "parana" finds the Paraná, "ngland" finds England by substring;
      · results carry a KIND CHIP; ArrowDown moves the active option; Enter FLIES to the place (an eased move;
        instant under prefers-reduced-motion), selects it and opens its card;
-     · DEEP LINKS: #map2/<lon>/<lat>/<zoom>/<place> is parsed at load — the view lands there and the place
+     · DEEP LINKS: #map/<lon>/<lat>/<zoom>/<place> is parsed at load — the view lands there and the place
        opens; the hash is rewritten with replaceState on settle and pushed on a selection; Back restores the
-       previous place; #map2?perf keeps the overlay; v1's #map route is untouched.
+       previous place; #map?perf keeps the overlay; #map is the Atlas itself (Phase 5).
 */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -45,7 +45,7 @@ const results = (page) => page.evaluate(() => [...document.querySelectorAll(".at
 (async () => {
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
-  const { page, errors } = await open(await browser.newContext({ viewport: { width: 1280, height: 800 } }), "#map2");
+  const { page, errors } = await open(await browser.newContext({ viewport: { width: 1280, height: 800 } }), "#map");
 
   console.log("\n\x1b[1m1) matching\x1b[0m\n");
   await page.fill(".atlas2-search-in", "zur"); await sleep(80);
@@ -79,7 +79,7 @@ const results = (page) => page.evaluate(() => [...document.querySelectorAll(".at
   const after = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { lon: c.view.lon, lat: c.view.lat, k: c.kmPerPx(), sel: c.selectedId(), card: c.card() }; });
   check("it lands on France, selected, card open", Math.abs(after.lon - 2.2) < 4 && Math.abs(after.lat - 46.6) < 4 && after.sel === "adm0:fra" && after.card.open && after.card.id === "adm0:fra", `${after.lon.toFixed(1)}, ${after.lat.toFixed(1)} at ${after.k.toFixed(2)} km/px; ${after.card.title}`);
   const hash1 = await page.evaluate(() => location.hash);
-  check("the hash carries the view and the place", /^#map2\/-?[\d.]+\/-?[\d.]+\/[\d.]+\/adm0(%3A|:)fra(\?y=-?\d+)?$/.test(hash1), hash1);
+  check("the hash carries the view and the place", /^#map\/-?[\d.]+\/-?[\d.]+\/[\d.]+\/adm0(%3A|:)fra(\?y=-?\d+)?$/.test(hash1), hash1);
 
   console.log("\n\x1b[1m3) deep links\x1b[0m\n");
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:deu", { open: true })); await sleep(200);
@@ -91,31 +91,31 @@ const results = (page) => page.evaluate(() => [...document.querySelectorAll(".at
   await page.goForward(); await sleep(400);
   const fwd = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.selectedId());
   check("Forward restores the next", fwd === "adm0:deu", fwd);
-  const P2 = await open(browser.contexts()[0], "#map2/139.69/35.69/9/city:1159151479");
+  const P2 = await open(browser.contexts()[0], "#map/139.69/35.69/9/city:1159151479");
   await sleep(300);
   const link = await P2.page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { lon: c.view.lon, lat: c.view.lat, z: c.statsNow().zoomLevel }; });
   check("a deep link sets the view at load", Math.abs(link.lon - 139.69) < 0.05 && Math.abs(link.lat - 35.69) < 0.05 && Math.abs(link.z - 9) < 0.1, JSON.stringify(link));
   await P2.page.close();
-  const P3 = await open(browser.contexts()[0], "#map2/2.5/46.6/5/adm0:fra");
+  const P3 = await open(browser.contexts()[0], "#map/2.5/46.6/5/adm0:fra");
   await P3.page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.selectedId() === "adm0:fra", null, { timeout: 30000 }).catch(() => {});
   const p3 = await P3.page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { sel: c.selectedId(), card: c.card().open }; });
   check("…and opens the place it names", p3.sel === "adm0:fra" && p3.card, JSON.stringify(p3));
   await P3.page.close();
-  const P4 = await open(browser.contexts()[0], "#map2?perf");
+  const P4 = await open(browser.contexts()[0], "#map?perf");
   const perf = await P4.page.evaluate(() => !document.querySelector(".atlas2-perf").hidden);
   await P4.page.evaluate(() => document.querySelector(".atlas2").__atlas2.setView(10, 50, 3)); await sleep(500);
   const hash4 = await P4.page.evaluate(() => location.hash);
-  check("#map2?perf keeps the overlay, and the settle writes the view with ?perf kept", perf && /^#map2\/10\.00\/50\.00\/[\d.]+\?(y=-?\d+&)?perf$/.test(hash4), hash4);
+  check("#map?perf keeps the overlay, and the settle writes the view with ?perf kept", perf && /^#map\/10\.00\/50\.00\/[\d.]+\?(y=-?\d+&)?perf$/.test(hash4), hash4);
   await P4.page.close();
-  const v1 = await browser.contexts()[0].newPage();
-  await v1.goto(`http://127.0.0.1:${PORT}/#map`, { waitUntil: "load" });
-  const g = await v1.waitForSelector("#globe", { timeout: 90000 }).then(() => true, () => false);
-  check("v1's #map still renders its globe", g);
-  await v1.close();
+  const home = await browser.contexts()[0].newPage();
+  await home.goto(`http://127.0.0.1:${PORT}/#map`, { waitUntil: "load" });
+  const g = await home.waitForSelector(".atlas2", { timeout: 90000 }).then(() => true, () => false);
+  check("#map is the Atlas (Phase 5: v1's globe is gone)", g && !(await home.$("#globe")));
+  await home.close();
 
   console.log("\n\x1b[1m4) reduced motion: an instant move\x1b[0m\n");
   const rm = await browser.newContext({ viewport: { width: 1280, height: 800 }, reducedMotion: "reduce" });
-  const R = await open(rm, "#map2");
+  const R = await open(rm, "#map");
   await R.page.fill(".atlas2-search-in", "Japan"); await sleep(80); await R.page.keyboard.press("Enter"); await sleep(50);
   const inst = await R.page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { flying: c.flying(), lon: c.view.lon, sel: c.selectedId() }; });
   check("under prefers-reduced-motion the view jumps and the place is selected at once", !inst.flying && Math.abs(inst.lon - 138) < 6 && inst.sel === "adm0:jpn", JSON.stringify(inst));

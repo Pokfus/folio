@@ -21,7 +21,7 @@
        the period capitals marked, a tap on Rome / Persepolis / Constantinople naming the polity, a contested face naming both;
      · THE CARD of a polity: title, kind and span, one step button per step naming the source, the uncertainty sentence
        ("Approximate: Cliopatria v0.2.0, CC BY 4.0"), the gaps, the Wikipedia link from the source's own property;
-     · DEEP LINKS: #map2/<lon>/<lat>/<zoom>/<place>?y=<year> opens the year and the place; the old form without ?y still works;
+     · DEEP LINKS: #map/<lon>/<lat>/<zoom>/<place>?y=<year> opens the year and the place; the old form without ?y still works;
        ?perf rides beside it; the address after a settle carries y=;
      · THE FILL AGAINST THE FINER COAST at the cap: along the Latin coast at 200 CE and 0.15 km/px, between the sea and the fill
        no more than one pixel of plain land (the seam measurement §2.3 asks for — reported, and gated at 2 px);
@@ -66,7 +66,7 @@ async function open(context, hash) {
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map2"}`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map"}`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
   await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ rivers: true, lakes: true, relief: false, density: "normal", countries: true, places: true, physical: true, cities: true, provinces: true }); c.ensureHistory(); });   // 2b: the file loads on the first step into the past; the suite asks for it now
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady() && c.historyStarted() && c.historyReady(); }, null, { timeout: 120000 });
@@ -92,7 +92,7 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-  const { page, errors } = await open(context, "#map2");
+  const { page, errors } = await open(context, "#map");
   const info0 = await C(page, () => document.querySelector(".atlas2").__atlas2.timeInfo());
   console.log(`history.bin: ${H.entities.length} entities, ${H.steps.length} steps, ${HB.faces.length} faces; loaded in ${info0.loadMs} ms (${info0.bytes} bytes)`);
 
@@ -301,15 +301,15 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
 
   console.log("\n\x1b[1m9) deep links\x1b[0m\n");
   {
-    const { page: p2, errors: e2 } = await open(context, "#map2/12.50/41.90/5.00/pol:rome?y=-100");
+    const { page: p2, errors: e2 } = await open(context, "#map/12.50/41.90/5.00/pol:rome?y=-100");
     const d = await C(p2, () => { const c = document.querySelector(".atlas2").__atlas2; return { year: c.year(), sel: c.selectedId(), card: c.card(), hash: location.hash }; });
-    check("#map2/…/pol:rome?y=-100 opens 100 BCE with Rome selected and its card open", d.year === -100 && d.sel === "pol:rome" && d.card.open, JSON.stringify(d));
+    check("#map/…/pol:rome?y=-100 opens 100 BCE with Rome selected and its card open", d.year === -100 && d.sel === "pol:rome" && d.card.open, JSON.stringify(d));
     await at(p2, 14, 41, 5, -100);
     const h = await C(p2, () => location.hash);
-    check("the address after a settle carries y= and the place", /^#map2\/-?[\d.]+\/-?[\d.]+\/[\d.]+\/pol(:|%3A)rome\?y=-100$/.test(h), h);
+    check("the address after a settle carries y= and the place", /^#map\/-?[\d.]+\/-?[\d.]+\/[\d.]+\/pol(:|%3A)rome\?y=-100$/.test(h), h);
     check("no page errors (deep link)", e2.length === 0, e2.slice(0, 2).join(" | "));
     await p2.close();
-    const { page: p3 } = await open(context, "#map2/12.50/41.90/5.00/adm0:ita?perf");
+    const { page: p3 } = await open(context, "#map/12.50/41.90/5.00/adm0:ita?perf");
     const d3 = await C(p3, () => { const c = document.querySelector(".atlas2").__atlas2; return { year: c.year(), sel: c.selectedId(), perf: !document.querySelector(".atlas2-perf").hidden, hash: location.hash }; });
     await at(p3, 14, 41, 5, null);
     const h3 = await C(p3, () => location.hash);
@@ -393,7 +393,7 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
     const cardWords = await C(page, () => ({ scope: (document.querySelector(".atlas2-card-scope") || {}).textContent || "", ranges: (document.querySelector(".atlas2-card-ranges") || {}).textContent || "", list: document.querySelectorAll(".atlas2-card-steplist li").length }));
     check("Rome's card lists its steps as ranges with an expandable list, and says what the layer is", /states Folio’s cards teach/.test(cardWords.scope) && cardWords.ranges.length > 0 && cardWords.list > 1, `${cardWords.list} steps listed; ${cardWords.ranges.slice(0, 80)}`);
   }
-  check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
+  check("no page errors on #map", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
   console.log(`\n${pass} ok, ${fail} failed\n`);
   process.exit(fail ? 1 : 0);

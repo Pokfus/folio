@@ -25,7 +25,7 @@
 //     do not trim the data.
 //
 // No dependencies and no browser: the counters are sliced out of app.js by text (the same trick the
-// Playwright tests use) and run against the real world.js / timeline.js / glossary.js, so neither the
+// Playwright tests use) and run against the real country-names.js / card-places.js / glossary.js, so neither the
 // logic nor the sizing can drift from what ships.
 const fs = require("fs"), path = require("path");
 const ROOT = path.join(__dirname, "..");
@@ -41,8 +41,9 @@ function slice(startRe, endMark, what) {
 
 // the real shipped data (these files assign onto window)
 global.window = {};
-require(path.join(ROOT, "world.js"));
-require(path.join(ROOT, "timeline.js"));
+require(path.join(ROOT, "atlas", "data", "country-names.js"));   // Phase 5: the present-day countries (v1 read world.js)
+require(path.join(ROOT, "atlas", "data", "card-places.js"));
+require(path.join(ROOT, "atlas", "data", "polity-index.js"));
 require(path.join(ROOT, "glossary.js"));
 
 const code = [
@@ -50,7 +51,7 @@ const code = [
   slice(/^  function seenCount\(/m, "\n", "seenCount"),
   slice(/^  function glossSeenCount\(/m, "\n  }", "glossSeenCount"),
   slice(/^  function glossTotalCount\(/m, "\n", "glossTotalCount"),
-  slice(/^  function countryNameSet\(/m, "\n", "countryNameSet"),
+  slice(/^  let _countrySet = null/m, "\n  function countryTotalCount", "countryNameSet").replace(/\n  function countryTotalCount$/, ""),
   slice(/^  function countryTotalCount\(/m, "\n", "countryTotalCount"),
   slice(/^  function countrySeenCount\(/m, "\n  }", "countrySeenCount"),
   "  return { SEEN_CAP, seenCount, glossSeenCount, glossTotalCount, countryNameSet, countryTotalCount, countrySeenCount };",
@@ -64,20 +65,20 @@ const ok = (cond, name, extra) => {
 };
 
 // ---- the shipped universe both registers are measured against ----
-const GEO = global.window.WORLD_GEO || [];
-const TIMELINE = global.window.TIMELINE || [];
+const COUNTRIES = global.window.ATLAS_COUNTRIES || {};
 const GLOSS = global.window.GLOSSARY || {};
-const countryNames = [...new Set(GEO.map((c) => c.n).filter(Boolean))];
-const eraNames = new Set();
-TIMELINE.forEach((e) => {
-  (e.geo || []).forEach((t) => { if (t.n) eraNames.add(t.n); });
-  Object.values(e.groups || {}).forEach((n) => { if (n) eraNames.add(n); });
-});
+const countryNames = [...new Set((COUNTRIES.countries || []).map((c) => c[0]).filter(Boolean))];
+/* what the register can hold besides the countries (Phase 5): the v1 spellings of 55 of them (a reader's old keys stay), the names of the polities (opened on the Atlas, the register's "territories"), and every place a card is about
+   (a studied place is marked on first opening) — the universe the cap has to clear */
+const R = require(path.join(__dirname, "places-registry.js")).loadRegistry({ entities: false });
+const eraNames = new Set(Object.keys(COUNTRIES.v1 || {}));
+((global.window.ATLAS_POLITY_INDEX || {}).polities || []).forEach((r) => { if (r[1]) eraNames.add(r[1]); });
+((global.window.ATLAS_CARD_PLACES || {}).ids || []).forEach((id) => { const row = R.rows.get(id); if (row && row.name) eraNames.add(row.name); });
 const allPlaceNames = new Set([...countryNames, ...eraNames]);
 
 console.log("\n-- the shipped universe --");
-ok(countryNames.length > 0, "world.js loaded", countryNames.length + " present-day countries");
-ok(eraNames.size > 0, "timeline.js loaded", eraNames.size + " era territory / group names");
+ok(countryNames.length > 0, "country-names.js loaded", countryNames.length + " present-day countries");
+ok(eraNames.size > 0, "the other names a register can hold are known", eraNames.size + " (v1 spellings, polities, places the cards are about)");
 ok(Object.keys(GLOSS).length > 0, "glossary.js loaded", Object.keys(GLOSS).length + " terms");
 
 // ---- 1. the register holds far more than the meter's denominator ----
@@ -102,13 +103,13 @@ const histProg = { placesSeen: onlyHistorical };
 ok(A.countrySeenCount(histProg) === 0, "a reader who only toured the old maps has opened 0 countries");
 ok(A.seenCount(histProg, "placesSeen") > 0, "…while their exploring is still recorded", Object.keys(onlyHistorical).length + " territories");
 
-console.log("\n-- world.js not yet loaded (it is a lazy bundle) --");
-const realGeo = global.window.WORLD_GEO;
-global.window.WORLD_GEO = undefined;
+console.log("\n-- country-names.js not yet loaded (it is a lazy bundle) --");
+const realGeo = global.window.ATLAS_COUNTRIES;
+global.window.ATLAS_COUNTRIES = undefined;
 ok(A.countryNameSet() === null, "the country set is null rather than empty — an unknowable, not a zero");
 ok(A.countryTotalCount() === 0, "the total is 0, so the meter shows no bar at all");
 ok(A.countrySeenCount(prog) === 0, "and the count is 0 rather than a confident wrong answer");
-global.window.WORLD_GEO = realGeo;
+global.window.ATLAS_COUNTRIES = realGeo;
 
 // ---- 2. a term retired since it was read ----
 console.log("\n-- glossary terms that no longer exist --");
@@ -140,7 +141,7 @@ ok(A.SEEN_CAP >= Math.ceil(Object.keys(GLOSS).length * NEED),
   "cap " + A.SEEN_CAP + " vs " + Object.keys(GLOSS).length + " terms (needs " + Math.ceil(Object.keys(GLOSS).length * NEED) + ")");
 // headroom, so that adding one more geo era does not silently start pruning
 const headroom = A.SEEN_CAP - allPlaceNames.size;
-ok(headroom >= 1000, "with room for the eras still to be added", headroom + " names of headroom");
+ok(headroom >= 1000, "with room for the places still to be added", headroom + " names of headroom");
 
 // ---- the chip carries no counter (Sep 2026, on request) ----
 // "New term! 41 / 3,900" measured the reader against the whole glossary on every first opening; the chip

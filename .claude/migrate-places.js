@@ -278,8 +278,9 @@ function collect(cards) {
   return topo;
 }
 function glossaryPlaces() {
-  const w = {}; try { new Function("window", fs.readFileSync(path.join(ROOT, "glossary.js"), "utf8"))(w); } catch (e) { return []; }
-  return Object.entries(w.GLOSSARY_PLACES || {}).map(([slug, at]) => ({ slug, name: slug.replace(/_/g, " "), at: [Number(at[0]), Number(at[1])] }));
+  /* since Phase 5 the 31 point terms are an offline input (atlas-build/glossary-places-input.json), no longer shipped at the foot of glossary.js */
+  let I = {}; try { I = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "glossary-places-input.json"), "utf8")); } catch (e) { return []; }
+  return Object.entries(I.points || {}).map(([slug, at]) => ({ slug, name: slug.replace(/_/g, " "), at: [Number(at[0]), Number(at[1])] }));
 }
 
 /* ---------- resolution ---------- */

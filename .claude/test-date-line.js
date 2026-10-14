@@ -130,12 +130,8 @@ const oneYear = areaCards.filter((c) => {
 ok(!oneYear.length, "no polity's area is drawn in a single year only",
   oneYear.length ? oneYear.map((c) => c.id + " (" + Math.min(...cardSpanYears(c)) + ")").join(", ")
     : areaCards.length + " cards carry a polity area");
-// …and the set is read off app.js rather than restated, so a kind added there is covered here
-const declared = /const MINE_POLITY = new Set\(\[([^\]]*)\]\)/.exec(src);
-ok(!!declared && declared[1].split(",").map((t) => t.trim().replace(/^["']|["']$/g, "")).filter(Boolean)
-  .every((k) => POLITY.has(k)),
-  "…and this file knows every kind the personal atlas treats as a polity",
-  declared ? declared[1].replace(/\s+/g, " ").trim() : "MINE_POLITY not found");
+// (Phase 5: a last assertion here read v1's `MINE_POLITY` set out of app.js to prove this file knew every kind the personal atlas treated as a polity. v1's register is deleted and v2 keys on registry
+// places, not tag kinds, so there is nothing left to compare the set with; docs/atlas-v2-phase5-plan.md §8.6.)
 
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

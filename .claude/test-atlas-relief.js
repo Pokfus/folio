@@ -53,7 +53,7 @@ const server = http.createServer((req, res) => {
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
-  await page.goto(`http://127.0.0.1:${PORT}/#map2`, { waitUntil: "load" });
+  await page.goto(`http://127.0.0.1:${PORT}/#map`, { waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 90000 });
   const settle = () => page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.tilesSettled() && c.waterSettled(); }, null, { timeout: 90000 }).then(() => true, () => false);
   // the centre pixel and the face under it, read in the same task as a fresh draw
@@ -109,7 +109,7 @@ const server = http.createServer((req, res) => {
     }
     check(`${SEA_POS.length} sea points ETOPO puts above sea level read as sea with relief on`, seaBad.length === 0, seaBad.length ? seaBad.slice(0, 4).join("; ") : `no face under any; each at least as bright as the deep sea (${deep.px.slice(0, 3)})`);
   }
-  check("no page errors on #map2", errors.length === 0, errors.slice(0, 3).join(" | "));
+  check("no page errors on #map", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
   console.log("");
   process.exit(fails ? 1 : 0);

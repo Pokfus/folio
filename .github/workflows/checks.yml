@@ -79,8 +79,6 @@ jobs:
       # The suites that need no browser. Each exits non-zero on failure.
       - name: test-card-plans
         run: node .claude/test-card-plans.js
-      - name: test-polities
-        run: node .claude/test-polities.js
       - name: test-daily-quote
         run: node .claude/test-daily-quote.js
       - name: test-date-line
@@ -167,10 +165,13 @@ jobs:
           node .claude/atlas-build/audit-polity-names.js --check
           node .claude/atlas-build/audit-polity-names.js --qid-table --check
           node .claude/atlas-build/build-polity-names.js --check
-      # THE CARD WINDOWS' JOIN (Oct 2026, Atlas v2 Phase 4): build-card-faces.js --check proves atlas/data/card-faces.js is what the shape files, the
-      # engine's entity table and the cards build, and that every map card's layer, keys and dot resolve to an engine entity. Offline.
+      # THE CARD WINDOWS' JOIN (Oct 2026, Atlas v2 Phase 4; Phase 5 re-based it on the frozen tables): build-card-faces.js --check proves atlas/data/card-faces.js and card-neighbours.js are what
+      # .claude/atlas-build/frozen/layers.json, the engine's entity table and the cards build, and that every map card's layer, keys and dot resolve to an engine entity. Offline.
       - name: build-card-faces --check (Atlas v2, the map cards' faces)
         run: node .claude/atlas-build/build-card-faces.js --check
+      # THE COUNTRIES THE SITE COUNTS (Phase 5): atlas/data/country-names.js is the 257 present-day countries, their label points and the 55 v1 spellings the progress migration maps. Offline.
+      - name: build-country-names --check (Atlas v2, the countries and the v1 spellings)
+        run: node .claude/atlas-build/build-country-names.js --check
       # THE CARD WINDOWS' FIRST-FRAME CACHE (Oct 2026, Atlas v2 Phase 4b): check-core-cache.js proves CORE_CACHE_REV in atlas/atlas.js is what the worker, the format reader,
       # earcut and topology.bin's build id make, so a hub never draws a cached first level that an edit to any of them has made stale. Offline.
       - name: check-core-cache (Atlas v2, the card windows' first-frame cache key)
@@ -335,17 +336,16 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
         continue-on-error: true
 
-  # THE PLAYWRIGHT SUITES, IN THREE SHARDS (Oct 2026). One job ran all 67 suites and the engine pass of three of them back to back: 75 minutes in run 3558 (85-90 on
+  # THE PLAYWRIGHT SUITES, IN THREE SHARDS (Oct 2026). One job ran all 67 suites (and, until Phase 5, the v1 pass of three of them) back to back: 75 minutes in run 3558 (85-90 on
   # main's busier runs) against a 90-minute cap, so a new suite or a slow runner meant a cancelled job, and the card-window phone-fix suite had to be split off into a job of its
   # own just to fit. The suites are now a matrix of three jobs, each about 25 minutes of suites plus the install, balanced by the durations MEASURED in that run
   # (.claude/ci-shards.js holds them; it finds the suites by scanning .claude/, so a new suite is in a shard the day it is written, and `--check` in the `fast` job fails when one is in
-  # none or the heaviest shard is predicted past its cap). Every suite still runs, and the three that were written against V1's windows still run a second time on them
-  # (FOLIO_ENGINE=v1) -- as units of the same plan. test-atlas-perf (the frame gate) and test-card-windows-fixes keep their jobs of their own, below.
+  # none or the heaviest shard is predicted past its cap). Every suite still runs as a unit of the same plan. test-atlas-perf (the frame gate) and test-card-windows-fixes keep their jobs of their own, below.
   #
   # A RED SUITE FAILS ITS SHARD AND THE RUN, AND NAMES ITSELF. `ci-shards.js --run` does not stop at the first red suite: it prints `FAIL <suite>`, one `::error title=Playwright suite failed::<suite>`
   # annotation each (they appear on the run's front page), a table in the job summary and a closing line that lists every failed suite, and exits 1. `fail-fast: false` so one red shard does not
   # cancel the other two. This job no longer carries `continue-on-error` (it did from Aug 2026, "a slow second opinion, not the gate"): the owner asked that a failing suite in any shard fail the
-  # workflow. Until Phase 5 deletes test-personal-atlas, which is red for its own reasons, that means a red run; it is named, not hidden.
+  # workflow. A red suite therefore means a red run; it is named, not hidden.
   browser:
     name: Playwright suites (shard ${{ matrix.shard }} of 3)
     runs-on: ubuntu-latest
@@ -378,8 +378,6 @@ jobs:
       # test-atlas-perf.js and test-card-windows-fixes.js are NOT in the plan: each has a job of its own. Everything else that says "playwright" is — including Phase 1c's five Atlas v2 suites
       # (test-atlas-render.js, test-atlas-labels.js, test-atlas-card.js, test-atlas-search.js, test-atlas-a11y.js), Phase 1d's four (test-atlas-credits.js, test-atlas-fallbacks.js — file://, no
       # WebGL2, context loss, a failed worker —, test-atlas-phone.js and the five-minute test-atlas-session.js) and Phase 3b's test-atlas-study.js, which the scan picks up by name like any other.
-      # Stage B (Atlas v2): the engine's windows are the DEFAULT, so the plan runs test-map-cards, test-card-locator and test-war-cards on the engine and again on V1's windows (FOLIO_ENGINE=v1,
-      # .claude/test-engine-switch.js: the switch "0", the fallback that stays until Phase 5) — docs/atlas-v2-card-windows.md, "Every V1 window assertion".
       - name: Run shard ${{ matrix.shard }} of the browser suites
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
@@ -421,9 +419,9 @@ jobs:
         run: node .claude/test-atlas-perf.js
 
   # THE CARD-WINDOW PHONE FIXES, IN A JOB OF THEIR OWN (Oct 2026). `test-card-windows-fixes.js` (the outline through a gesture, the
-  # 56 war windows' names at two sizes, a locator's names, taps that never navigate) takes about ten minutes on the engine and
-  # two on v1's windows, and the browser job above was already at 85-90 of its 90 minutes on main: put in its loop it was cancelled
-  # by the job's timeout in the middle of the v1 pass (run 3552), so no suite after it ran. Here it speaks for itself.
+  # 56 war windows' names at two sizes, a locator's names, taps that never navigate) takes about ten minutes on the engine
+  # (Phase 5 deleted v1's windows, so the second pass on them is gone), and the browser job above was already at 85-90 of its 90 minutes on main: put in its loop it was cancelled
+  # by the job's timeout in the middle (run 3552), so no suite after it ran. Here it speaks for itself.
   card-window-fixes:
     name: Card window phone fixes
     runs-on: ubuntu-latest
@@ -443,13 +441,7 @@ jobs:
           npm i --no-audit --no-fund playwright@latest >/dev/null
           npx playwright install --with-deps chromium
 
-      - name: test-card-windows-fixes (the engine's windows)
+      - name: test-card-windows-fixes
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
-        run: node .claude/test-card-windows-fixes.js
-
-      - name: test-card-windows-fixes (v1's windows, FOLIO_ENGINE=v1)
-        env:
-          NODE_PATH: ${{ runner.temp }}/pw/node_modules
-          FOLIO_ENGINE: v1
         run: node .claude/test-card-windows-fixes.js

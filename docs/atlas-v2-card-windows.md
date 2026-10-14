@@ -1,5 +1,12 @@
 # Atlas v2, Phase 4 — every map drawn inside a card or a game, and what replaces it
 
+> **PHASE 5 (Oct 2026) — READ THIS FIRST.** v1's windows (`startCardGlobeV1`), v1's Find it, the per-viewer switch and `test-engine-switch.js` are **deleted**; everything below that says "V1 window", "the way back" or `FOLIO_ENGINE=v1` is history.
+> The engine's windows are the only windows, and the fallback is the engine's own Canvas 2D path: no WebGL2 → `data-map-engine="v2-2d"` (map cards and locators work, zoom capped at 8, no outline glow); a war card →
+> `"none"` with the sentence and the key; a refused bundle → `"none"` with `.mc-plain-note` (Find it: "Find it could not be set up" and a Reload button). `test-window-fallbacks.js` proves each in real WebGL-less and bundle-refused
+> browsers; `test-window-env.js` is the small helper the window suites share (`launch`, `serve`, `v2()`). The "Every V1 window assertion" table is kept as the record of where each V1 assertion went at Phase 4b;
+> the assertions that were about V1's mechanism (its `RIVERS`/`CITIES` globals, hi-res coast bundles, ring tables) were deleted in Phase 5 with a reason in the suite (`docs/atlas-v2-phase5-plan.md` §8). `mapAlt`
+> ("Describe geography maps") now prints the sentence from `atlas/data/card-neighbours.js` under the engine's window (`test-map-cards.js` §9).
+
 **Read this before touching `startCardGlobe`, `CARD_MAP_LAYERS`, a card window, Find-it, or `atlas/atlas-embed.js`.**
 It is the Task 1 inventory of Phase 4 (`docs/atlas-v2-design.md` §7 "Phase 4 — as built" has the build and the numbers). Line
 numbers are `app.js` as of the Phase 4 branch point; use `node .claude/app-map.js --find <name>` rather than trusting them.

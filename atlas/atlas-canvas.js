@@ -13,7 +13,8 @@
        labels, cheap, are redrawn in their true places), and one true frame follows when the pointer lifts;
      · picking is on the CPU: the face whose projected triangle holds the point (land), or the lake's (water); arcs
        are never picked here, so a tap on a river answers with the country;
-     · tiles and relief are declined (`tileLoaded` says yes so nothing waits; `reliefLoaded` says no).
+     · Phase 5: `highlight(Map face → colour)` fills the faces a card window tints (the embedded hub, atlas-embed.js, runs on this renderer when the browser has no WebGL2: no outline glow, no tiles, zoom held at 5 km/px);
+   · tiles and relief are declined (`tileLoaded` says yes so nothing waits; `reliefLoaded` says no).
 
    Why it exists: a reader without WebGL2 (a locked-down browser, a GPU process that crashed, a very old device) should
    still see the earth and the names rather than a sentence — and the sentence atlas.js shows beside it says what is
@@ -32,7 +33,7 @@
     if (!ctx) return null;
     const levels = {}, water = {};
     let palette = { ocean: [0.70, 0.92, 1.0], land: [0.9, 0.9, 0.92], coast: [0.55, 0.55, 0.6], border: [0.45, 0.45, 0.5], admin1: [0.6, 0.6, 0.66], river: [0.3, 0.55, 0.8], lake: [0.70, 0.92, 1.0], lakeShore: [0.55, 0.55, 0.6], rim: [0.5, 0.5, 0.55], halo: [0.6, 0.65, 0.9], grat: [0.2, 0.2, 0.3], selected: [0.95, 0.75, 0.3] };
-    let dpr = 1, W = 0, H = 0, selected = -1, faceCount = 0, snapshot = null;
+    let dpr = 1, W = 0, H = 0, selected = -1, faceCount = 0, snapshot = null, tints = null;   // tints: Phase 5, face index → [r, g, b] 0..1 — a card window's tint without WebGL2
     const stats = { frames: 0, lastMs: 0, draws: 0, trianglesDrawn: 0, segmentsDrawn: 0, riverSegments: 0, lakeSegments: 0, lakeTriangles: 0, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, visibleAngle: 0, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, level: 0, coreLevel: -1, waterLevel: -1, restores: 0, reliefL0: -1, static2d: true };
     const debug = { sphere: true, faces: true, arcs: true, water: true, relief: false, cull: true };
 
@@ -44,7 +45,7 @@
       ctx.beginPath();
       for (let t = 0; t < I.length; t += 3) {
         const a = I[t] * 4, b = I[t + 1] * 4, c = I[t + 2] * 4;
-        if (only != null && P[a + 3] !== only) continue;
+        if (only != null && (only instanceof Set ? !only.has(P[a + 3]) : P[a + 3] !== only)) continue;
         const za = m6 * P[a] + m7 * P[a + 1] + m8 * P[a + 2]; if (za < 0) continue;
         const zb = m6 * P[b] + m7 * P[b + 1] + m8 * P[b + 2]; if (zb < 0) continue;
         const zc = m6 * P[c] + m7 * P[c + 1] + m8 * P[c + 2]; if (zc < 0) continue;
@@ -101,6 +102,10 @@
         ctx.fillStyle = css(palette.land);
         stats.trianglesDrawn += fillTriangles(D.facePos, D.faceIdx, rot, cx, cy, r, null);
         if (selected >= 0) { ctx.fillStyle = css(palette.selected); fillTriangles(D.facePos, D.faceIdx, rot, cx, cy, r, selected); }
+        if (tints && tints.size) {   // the faces a window highlights: one path per colour (the colour is already blended over the land, as the WebGL2 path's texel is)
+          const by = new Map(); for (const [f, c] of tints) { const k = css(c); let g = by.get(k); if (!g) by.set(k, g = new Set()); g.add(f); }
+          for (const [k, set] of by) { ctx.fillStyle = k; fillTriangles(D.facePos, D.faceIdx, rot, cx, cy, r, set); }
+        }
       }
       const Wl = water[0] && (view.lakes || view.rivers) ? water[0].data : null;
       stats.waterLevel = Wl ? 0 : -1;
@@ -157,6 +162,7 @@
       setRamp() {}, setFaceCount(n) { faceCount = n; },
       setPalette(p) { for (const k of Object.keys(p)) palette[k] = typeof p[k] === "string" ? hex2rgb(p[k]) : p[k]; },
       select(face) { selected = face == null ? -1 : face; },
+      highlight(map) { tints = map && map.size ? map : null; },
       resize(cssW, cssH, ratio) { dpr = Math.min(2, ratio || 1); W = Math.max(1, Math.round(cssW * dpr)); H = Math.max(1, Math.round(cssH * dpr)); if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; snapshot = null; } },
       render,
       // the last frame moved by (dx, dy) CSS px: what a drag shows until the pointer lifts

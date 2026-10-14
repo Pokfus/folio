@@ -1,12 +1,12 @@
 /* atlas-windows.js — the card windows and Find-it on the Atlas v2 engine (Atlas v2 Phase 4; docs/atlas-v2-card-windows.md). A LAZY file, loaded with atlas-embed.js (the `atlas2embed` bundle) the first time a window or the
-   Find-it board is wanted behind the preview switch, so none of it is on the eager path. It reaches app.js's own helpers only through `X`, the context object app.js hands over (`atlas2Ctx`): the card data, the
-   locator and war attributes' readers, the sibling dots, the colours, the round pools of Find it — nothing here is a second copy of a rule, except `finditPools` / `buildGameRounds`, which are copied (they live inside
-   v1's page closure) and compared with v1's by test-atlas-embed.js. */
+   Find-it board is wanted, so none of it is on the eager path. It reaches app.js's own helpers only through `X`, the context object app.js hands over (`atlas2Ctx`): the card data, the
+   locator and war attributes' readers, the sibling dots, the colours — nothing here is a second copy of a rule, except Find it's pool and rounds (`finditRegister`, `fi2Pools`, `fi2Rounds`), which moved here from v1's
+   page closure when Phase 5 deleted it (docs/atlas-v2-phase5-plan.md §4.1: the day's five rounds are the same ones v1's data dealt, `.claude/compare-findit-deal.js`). */
   /* ---------- (1) CARD WINDOWS ON THE ATLAS v2 ENGINE (Oct 2026, Atlas v2 Phase 4; docs/atlas-v2-card-windows.md) ----------
      The same windows — a map card, a locator, a war — drawn by `atlas/atlas-embed.js` (ONE headless engine and one WebGL context for every window on the page) instead of by
-     `startCardGlobeV1`'s own 2D canvas. STAGE B (Oct 2026): this is the DEFAULT (`atlas2Engine()` in app.js: localStorage `folio.atlas2.preview` is "0" only for a reader who went back with `#map2?preview=0`, kept for one release);
-     v1's window is what a reader gets when the engine cannot start (no WebGL2, a refused bundle) or that way back is taken, until Phase 5. The host contract is the V1 window's, attribute for attribute and method for method (`_folioMap`), so the nine surfaces that
-     mount a window and the suites that read one do not know which engine drew it; `data-map-engine` on the host says ("v2", or "v1" when the engine could not start and V1 took over).
+     the earlier version's own 2D canvas (deleted in Phase 5). The host contract is that window's, attribute for attribute and method for method (`_folioMap`), so the nine surfaces that
+     mount a window and the suites that read one do not know how it was drawn; `data-map-engine` on the host says: "v2" (the engine, WebGL2), "v2-2d" (the same engine on the still Canvas 2D renderer — a browser without WebGL2: the tint
+     and the marks, no outline glow, no war tint, the zoom held at 5 km/px) or "none" (the engine could not start: a plain sentence and the card's own key).
      WHAT THE ENGINE DRAWS: the coast, the borders, the admin-1 lines of the three layers, the rivers and lakes (a locator, and the two layers with a hi-res row in v1), and the shaded place — its
      FACE, from the entity table of topology.bin (`atlas/data/card-faces.js` is the join from a layer's key to an entity id), with the Atlas's selection gold as a translucent tint and a gold
      outline and glow from the engine's own mask pass. WHAT THE WINDOW DRAWS ON TOP, as it always did: the gold mark (square, circle, swords), the card's authored area and range spine, the
@@ -19,13 +19,20 @@
     if (W.AtlasWindows) W.AtlasWindows.lastCtx = X;
     let unhold = () => {};   // the hub is held while this window is pending (see AtlasEmbed.hold); let go at the first of: the window is mounted, it fell back to V1, it failed, it was stopped
     if (W.AtlasEmbed && W.AtlasEmbed.hold) { const let0 = W.AtlasEmbed.hold(); unhold = () => { unhold = () => {}; let0(); }; }   // the context app.js handed over, kept so a suite can mount synthetic windows (the fit sweep of test-atlas-windows.js) through the same code
-    const { CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon, startCardGlobeV1 } = X, S = X.S;
+    const { CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon } = X, S = X.S;
     const cv = host.querySelector(".mc-canvas");
     const layerName = host.getAttribute("data-map-layer"), key = host.getAttribute("data-map-key");
     const def = CARD_MAP_LAYERS[layerName];
-    const v1 = () => { stopped = true; unhold(); host.classList.remove("mc-loading"); host._folioMap = null; host.setAttribute("data-map-engine", "v1"); startCardGlobeV1(host); };
+    /* THE WINDOW THE ENGINE COULD NOT DRAW (Phase 5, decision 3): a plain sentence in the window's place and the card's own text around it. Nothing else the card offers depends on the map. */
+    const plain = (why) => {
+      stopped = true; unhold(); host.classList.remove("mc-loading"); host.classList.add("mc-plain"); host.setAttribute("data-map-engine", "none");
+      host._folioMap = { stop() { host._folioMap = null; }, reveal() {}, ready() { return true; }, settled() { return true; }, names() { return []; }, boxes() { return { names: [], marks: [], dropped: [], controls: null }; }, labels() { return []; }, probe() { return null; }, view() { return { lon: 0, lat: 0, zoom: 1, home: [0, 0, 1] }; }, pan() {} };
+      if (cv) cv.hidden = true; host.querySelectorAll(".mc-zoom").forEach((z) => { z.hidden = true; });
+      if (!host.querySelector(".mc-plain-note")) { const n = document.createElement("p"); n.className = "mc-plain-note"; n.setAttribute("role", "note"); n.textContent = why; host.insertBefore(n, host.firstChild); }
+    };
+    const SORRY = "This map could not be drawn here. The rest of the card is all there; try again with the page reloaded.";
     let stopped = false, revealed = host.hasAttribute("data-map-named"), win = null, isReady = false;
-    if (!def) { v1(); return; }
+    if (!def) { plain(SORRY); return; }
     stopped = false;
     host._folioMap = {
       stop() { stopped = true; unhold(); if (win) win.stop(); host._folioMap = null; },
@@ -43,7 +50,6 @@
     const sibCard = host.getAttribute("data-map-card") || "";
     const warAttr = host.classList.contains("map-war");
     const locKind = host.getAttribute("data-map-kind") || "point";
-    if (S.settings && S.settings.mapAlt && !sibCard) { v1(); return; }   // the opt-in neighbours sentence is computed from the layer's own shapes, which only V1's window loads
     const isWar = warAttr;   // a war window is drawn at a year of the war on the engine's history: its sides tinted in the years they fought, nothing outside them
     const readPts = (a) => (a ? a.trim().split(/\s+/).map((q) => q.split(",").map(Number)).filter((q) => q.length === 2 && isFinite(q[0]) && isFinite(q[1])) : null);
     const readRings = (a) => { if (!a) return null; const out = String(a).split(";").map((r) => readPts(r)).filter((r) => r && r.length >= 3); return out.length ? out : null; };
@@ -68,7 +74,9 @@
       return me && String(me.name || "").trim().toLowerCase() === k ? null : a;
     })();
     const wantsOwnRiver = !isWar && locKind === "river" && sib.own && sib.own.size > 0;
+    const wantsAlt = !!(S.settings && S.settings.mapAlt) && !sibCard && !!key;   // "Describe geography maps": the sentence naming the shaded shape's neighbours (docs/atlas-v2-phase5-plan.md §4.3)
     const need = [ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2cards")];
+    if (wantsAlt) need.push(ensureData("atlas2nbr"));
     if (isWar) need.push(ensureData("atlas2wars"));
     if (wantsOwnRiver) { need.push(ensureData("rivers1")); if (hiRegion && DATA_BUNDLES["river_" + hiRegion]) need.push(ensureData("river_" + hiRegion)); }
     let FACES = null, targets = [], dot = null, ownLines = null, ownName = "";
@@ -338,29 +346,42 @@
     Promise.all(need).then((ok) => {
       mark("a2:window-data");
       if (stopped) return;
-      if (!ok.every(Boolean) || !window.AtlasEmbed) { v1(); return; }
+      if (!ok.every(Boolean) || !window.AtlasEmbed) { plain(SORRY); return; }
       if (!model()) { unhold(); host.classList.remove("mc-loading"); host.classList.add("mc-failed"); return; }
       return hubP.then((hub) => {
         mark("a2:window-hub");
         if (stopped) return;
-        if (!hub) { v1(); return; }
+        if (!hub) { plain(SORRY); return; }
         let warYear = null;
         if (isWar) {
+          if (hub.canvas2d) { plain("This browser cannot draw a war’s sides on the map (it needs WebGL2). The key below says who fought whom."); return; }   // the still renderer draws no history
           const WT = window.ATLAS_WARS && window.ATLAS_WARS.wars && window.ATLAS_WARS.wars[sibCard];
-          if (!WT) { v1(); return; }   // a war the table does not carry keeps V1's window
+          if (!WT) { plain(SORRY); return; }   // a war the table does not carry
           warYear = Math.round((WT.y[0] + WT.y[1]) / 2); host.setAttribute("data-map-year", String(warYear));
           hub.startHistory("wars");   // Phase 4c: the war-window slice (1.8 MB), not the whole history (9.1 MB)
           return new Promise((res) => {
             let done = false; const fin = (ok) => { if (done) return; done = true; off(); clearTimeout(tm); res(ok); };
             const off = hub.onChange(() => { if (hub.historyOK()) fin(true); }), tm = setTimeout(() => fin(false), 150000);
             if (hub.historyOK()) fin(true);
-          }).then((ok) => { if (stopped) return; if (!ok) { v1(); return; } { const sd = hub.warSides(sibCard); if (!sd || (!sd.v && !sd.l)) { v1(); return; } } mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
+          }).then((ok) => { if (stopped) return; if (!ok) { plain(SORRY); return; } { const sd = hub.warSides(sibCard); if (!sd || (!sd.v && !sd.l)) { plain(SORRY); return; } } mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
         }
         mountWindow(hub, null);
       });
-    }).catch(() => { unhold(); if (!stopped) v1(); });
+    }).catch(() => { unhold(); if (!stopped) plain(SORRY); });
+    /* THE MAP IN WORDS (Settings → Describe geography maps): the shaded shape's neighbours among that layer's own shapes, from atlas/data/card-neighbours.js (build-card-faces.js froze the proximity rule that v1 ran in the
+       browser). A key-list the table has no entry for (a card added after Phase 5 that shades several shapes at once) gets the union of the single shapes' lists without the shapes themselves. */
+    function describeMap() {
+      const slot = host.querySelector(".mc-alt"); const T = window.ATLAS_CARD_NEIGHBOURS && window.ATLAS_CARD_NEIGHBOURS.layers && window.ATLAS_CARD_NEIGHBOURS.layers[layerName]; if (!slot || !T) return;
+      let nb = T[key];
+      if (!nb) { const own = key.split("|"), set = new Set(); for (const k of own) (T[k] || []).forEach((n) => { if (own.indexOf(n) < 0) set.add(n); }); nb = [...set].sort((a, b) => a.localeCompare(b)); }
+      const one = def.what || "shape", many = def.plural || one + "s";
+      const andList = (a) => (a.length === 1 ? a[0] : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]);
+      slot.textContent = nb.length ? "The shaded " + one + " borders, among the " + many + " on this map: " + andList(nb) + "." : "The shaded " + one + " borders no other " + one + " on this map.";
+      slot.hidden = false;
+    }
     function mountWindow(hub, warYear) {
-        host.classList.remove("mc-loading"); host.setAttribute("data-map-engine", "v2");
+        host.classList.remove("mc-loading"); host.setAttribute("data-map-engine", hub.canvas2d ? "v2-2d" : "v2");
+        if (wantsAlt) describeMap();
         if (isWar) { try { warHub = hub; warSides = hub.warSides(sibCard, warYear); } catch (e) { warSides = null; } }
         fit();
         if (isWar) {
@@ -397,23 +418,60 @@
      PASS — the entity ids under the tap, asked of the engine, against the entity the round names — where v1 hit-tested a polygon list and `pointInRings`'d a dated outline. A place is still
      scored by distance, and an authored extent with no entity (no polity behind the card) by the card's own ring, as before. */
   function findIt(rootEl, X) {
-    const { CARD_BY_ID, GAME_MAX_DIFFICULTY, atlasRegisterAll, atlasStackKey, atlasStackOrder, availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, ensureData, esc, hashStr, layerPoint, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr } = X;
+    const { CARDS, CARD_BY_ID, GAME_MAX_DIFFICULTY, availableCardIdSet, cardDifficulty, cardDifficultyRank, cardMapSpec, cardSpanYears, cardWar, cardWarYears, checkAchievements, ensureData, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr } = X;
   const FI2_AREA_MAX_DIFFICULTY = 3;   // = FINDIT_AREA_MAX_DIFFICULTY inside PAGES.map: "known to the interested"
   const fi2Hav = (lon1, lat1, lon2, lat2) => { const DEG = Math.PI / 180, dLa = (lat2 - lat1) * DEG, dLo = (lon2 - lon1) * DEG; const a = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(lat1 * DEG) * Math.cos(lat2 * DEG) * Math.sin(dLo / 2) * Math.sin(dLo / 2); return 2 * 6371 * Math.asin(Math.sqrt(a)); };
-  function fi2PolityLink(m, k) { const L = window.POLITY_LINKS; if (!L || !m) return null; const ids = m.ids || [m.id]; for (let i = 0; i < ids.length; i++) { const l = L[ids[i]]; if (l && l[k]) return l[k]; } return null; }
-  function fi2PolityRings(slugs, y) {
-    if (!slugs) return null; const rings = [];
-    for (let i = 0; i < slugs.length; i++) {
-      const ser = window.POLITIES && window.POLITIES[slugs[i]]; if (!ser) continue; const st = ser.s; let lo = 0, hi = st.length - 1, hit = null;
-      while (lo <= hi) { const mid = (lo + hi) >> 1; if (y < st[mid][0]) hi = mid - 1; else if (y > st[mid][1]) lo = mid + 1; else { hit = st[mid]; break; } }
-      if (hit) for (let r = 0; r < hit[2].length; r++) rings.push(hit[2][r]);
+  /* ---------- FIND IT'S POOL: the register of every place any card names (moved here from app.js in Phase 5; it was v1's Personal-Atlas register, `atlasRegister`, and Find it's pools were its only reader once v1's page went) ----------
+     One pass over the shipped cards' old `map` / `war` / `locator` fields — which the cards still carry (docs/atlas-v2-phase5-plan.md decision 1) — into `names` (a country by its lower-cased name → the cards naming it)
+     and `marks` (a place's dot, a capital, a civilisation's extent, a war's side, a river or sea's name). Find it keeps only the dots and the extents. The rules are the ones the register always had, word for word where
+     they decide what is in: a locator's name must be the card's answer or stand inside it as whole words; a region or a range that is not a polity is out; a river or a sea is a name, not a dot. */
+  const MINE_POLITY = new Set(["culture", "people", "state", "dynasty", "empire", "civilisation"]);
+  const nameFold = (s) => String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim().replace(/^the /, "");
+  const nameFits = (name, answer) => { const n = nameFold(name), a = nameFold(answer); if (!n) return true; return n === a || (" " + a + " ").indexOf(" " + n + " ") >= 0; };
+  function registerCard(X, cid, c, out) {
+    const { cardMapSpec, cardWar, cardWarYears, cardLocator, cardSpanYears } = X;
+    const title = String(c.answerText || "").trim() || String(cid);
+    const spec = cardMapSpec(c);
+    if (spec) {
+      if (spec.layer === "world") spec.keys.forEach((k) => { const lk = k.toLowerCase(), e = out.names.get(lk); if (e) e.ids.push(cid); else out.names.set(lk, { id: cid, title: title, key: k, ids: [cid] }); });
+      if (spec.dot) out.marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, layer: spec.layer, modern: true, cap: spec.def.what === "country", subcap: spec.def.what !== "country", y0: null, y1: null });
+      return;
     }
-    return rings.length ? { rings } : null;
+    const war = cardWar(c), wy = war && !war.group ? cardWarYears(c) : null;
+    if (war && wy) [["v", war.victors], ["l", war.losers]].forEach((pair) => { out.marks.push({ id: cid, title: title, kind: "war", side: pair[0], sideName: pair[1].name, keys: pair[1].keys, area: pair[1].area, y0: wy.y0, y1: wy.y1 }); });
+    const loc = cardLocator(c);
+    if (!loc) return;
+    const ys = cardSpanYears(c), y0 = ys.length ? Math.min.apply(null, ys) : null;
+    if (loc.kind !== "region" && loc.kind !== "shelf" && loc.kind !== "range" && !nameFits(loc.name, title)) return;
+    if (loc.kind === "region" || loc.kind === "shelf") {
+      const pol = String((c.tags || [])[0] || "").toLowerCase();
+      if (!loc.area || !MINE_POLITY.has(pol)) return;
+      const y1 = ys.length ? Math.max.apply(null, ys) : null;
+      out.marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1, open: new Set(ys).size === 1 });
+      return;
+    }
+    if (loc.kind === "river" || loc.kind === "sea") { out.marks.push({ id: cid, title: loc.name || title, kind: "water", at: loc.at, area: loc.area || null, y0: y0 }); return; }
+    if (loc.kind === "range") return;
+    out.marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, battle: loc.kind === "battle", y0: y0 });
   }
+  let regCache = null;
+  function finditRegister(X) {
+    const key = X.CARDS.length; if (regCache && regCache.key === key) return regCache.v;
+    const out = { names: new Map(), marks: [] };
+    X.CARDS.forEach((c0) => { const c = X.CARD_BY_ID[c0.id]; if (c) registerCard(X, c0.id, c, out); });
+    regCache = { key, v: out }; return out;
+  }
+  const stackOrder = (X, ids) => { const yr = (id) => { const ys = X.cardSpanYears(X.CARD_BY_ID[id]); return ys.length ? Math.min.apply(null, ys) : Infinity; }; return ids.slice().sort((a, b) => X.cardDifficultyRank(a) - X.cardDifficultyRank(b) || yr(a) - yr(b) || (a < b ? -1 : a > b ? 1 : 0)); };
+  const stackKey = (m) => { const t = String(m.title || "").trim().toLowerCase(); if (m.kind === "dot") return m.modern ? "c|" + String(m.dot || "").toLowerCase() + "|" + (m.cap ? 1 : 0) : "d|" + t; if (m.kind === "war") return "x|" + t + "|" + m.side; return m.kind.charAt(0) + "|" + t; };
+  /* a capital's or a city's row in the card-faces dot tables (name → [lon, lat, state, printed name]); the first table of a layer wins, as the old two-table lookup did */
+  const dotRow = (layer, name) => { const D = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.dots[layer]; return D && D[name] ? D[name] : null; };
+  /* Find it's area rounds were scored on a polity's dated rings: the 90 of 104 area stacks that had a polity behind them are frozen in atlas/data/findit-areas.js (key: title | shown year → { slugs, rings }); an area with no entry is
+     its card's own authored extent, as the 14 undated ones always were */
+  const datedAreas = (title, yr) => { const T = window.ATLAS_FINDIT_AREAS && window.ATLAS_FINDIT_AREAS.areas; const a = T && T[title + "|" + yr]; return a ? { slugs: a.slugs, rings: a.rings } : null; };
   function fi2PointInRings(rings, lon, lat) { let inside = false; for (const ring of rings) for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const yi = ring[i][1], yj = ring[j][1]; if ((yi > lat) !== (yj > lat)) { const xi = ring[i][0], xj = ring[j][0]; if (lon < (xj - xi) * (lat - yi) / (yj - yi) + xi) inside = !inside; } } return inside; }
   function fi2CountryDesc(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_INFO || {})[k] || ""; }
   function fi2Pools() {
-    const reg = atlasRegisterAll(true), avail = availableCardIdSet();
+    const reg = finditRegister(X), avail = availableCardIdSet();
     const bbA = (rings) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; rings.forEach((ring) => ring.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; })); return (x1 - x0) * (y1 - y0); };
     const countryNames = new Set();
     reg.names.forEach((v, lk) => { if ((v.ids || [v.id]).some((id) => avail.has(id))) countryNames.add(lk); });
@@ -422,22 +480,22 @@
       if (!avail.has(m.id) || !CARD_BY_ID[m.id]) return;
       const placeDot = m.kind === "dot" && (m.modern ? m.cap : Array.isArray(m.at));
       if (m.kind !== "area" && !placeDot) return;
-      const k = atlasStackKey(m); if (!stacks.has(k)) stacks.set(k, []); stacks.get(k).push(m);
+      const k = stackKey(m); if (!stacks.has(k)) stacks.set(k, []); stacks.get(k).push(m);
     });
     const areas = [], places = [];
     stacks.forEach((ms) => {
       const bar = ms[0].kind === "area" ? FI2_AREA_MAX_DIFFICULTY : GAME_MAX_DIFFICULTY;
       if (!ms.some((m) => { const d = cardDifficulty(m.id); return d > 0 && d <= bar; })) return;
-      const ids = atlasStackOrder(ms.map((m) => m.id)), first = ms.find((m) => m.id === ids[0]) || ms[0];
+      const ids = stackOrder(X, ms.map((m) => m.id)), first = ms.find((m) => m.id === ids[0]) || ms[0];
       if (first.kind === "dot") {
-        let at = first.at; if (first.modern) { const row = layerPoint(first.points, first.dot); at = row && row.c; }
+        let at = first.at; if (first.modern) { const row = dotRow(first.layer, first.dot); at = row && [row[0], row[1]]; }
         if (!Array.isArray(at) || !isFinite(at[0]) || !isFinite(at[1])) return;
         places.push({ n: first.title, lon: at[0], lat: at[1], tol: first.cap ? 300 : 150, cap: !!first.cap, ids: ids }); return;
       }
       const y0s = ms.map((m) => m.y0).filter((v) => v != null), y1s = ms.map((m) => m.y1).filter((v) => v != null);
       if (!y0s.length) return;
       const y0 = Math.min.apply(null, y0s), y1 = y1s.length === ms.length ? Math.max.apply(null, y1s) : y0, yr = Math.round((y0 + y1) / 2);
-      const slugs = fi2PolityLink({ ids: ids }, "area"), dated = fi2PolityRings(slugs, yr), rings = dated ? dated.rings : first.area;
+      const dated = datedAreas(first.title, yr), slugs = dated ? dated.slugs : null, rings = dated ? dated.rings : first.area;
       if (!rings || !rings.length || bbA(rings) <= 20) return;
       let x0 = 180, yy0 = 90, x1 = -180, yy1 = -90; rings.forEach((ring) => ring.forEach((q) => { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < yy0) yy0 = q[1]; if (q[1] > yy1) yy1 = q[1]; }));
       const ctr = Array.isArray(first.at) && isFinite(first.at[0]) ? first.at : [(x0 + x1) / 2, (yy0 + yy1) / 2];
@@ -450,9 +508,8 @@
   function fi2Rounds() {
     const MAXY2 = new Date().getFullYear();
     const rngC = mulberry32(hashStr("findit-c-" + todayStr())), rngT = mulberry32(hashStr("findit-t-" + todayStr())), rngK = mulberry32(hashStr("findit-k-" + todayStr()));
-    const bbA = (t) => { let best = 0; (t.p || []).forEach((ring) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; ring.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }); const a = (x1 - x0) * (y1 - y0); if (a > best) best = a; }); return best; };
-    const pools = fi2Pools(), GEO2 = window.WORLD_GEO || [];
-    const countries = seededShuffle(GEO2.filter((g) => g.n && pools.countryNames.has(g.n.toLowerCase()) && fi2CountryDesc(g.n) && bbA(g) > 30), rngC);
+    const WL = (window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.layers.world) || {}, pools = fi2Pools(), GEO2 = Object.keys(WL).map((n) => ({ n, a: WL[n][7] }));   // the world's shapes in the order v1's file listed them, each with the largest ring's box area (frozen from it)
+    const countries = seededShuffle(GEO2.filter((g) => g.n && pools.countryNames.has(g.n.toLowerCase()) && fi2CountryDesc(g.n) && g.a > 30), rngC);
     const areas = seededShuffle(pools.areas, rngT), places = seededShuffle(pools.places, rngK);
     const used = new Set(); const pick = (pool) => { for (let i = 0; i < pool.length; i++) { const k = pool[i].n.toLowerCase(); if (!used.has(k)) { used.add(k); return pool[i]; } } return null; };
     const c1 = pick(countries), a1 = pick(areas), c2 = pick(countries), a2 = pick(areas), p1 = pick(places);
@@ -490,11 +547,11 @@
         <div class="data-loading fi2-loading" id="fi2Loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five places</strong></div>
       </div>`;
     const board = root.querySelector("#fi2Board"), cart = root.querySelector("#mapCartouche"), mgEl = root.querySelector("#mapGame"), roundEl = root.querySelector("#mgRound"), scoreEl = root.querySelector("#mgScore"), qEl = root.querySelector("#mgQ"), fbEl = root.querySelector("#mgFeedback"), nextEl = root.querySelector("#mgNext"), confirmEl = root.querySelector("#mgConfirm"), clearEl = root.querySelector("#mgClear"), revealEl = root.querySelector("#fiReveal"), loadEl = root.querySelector("#fi2Loading");
-    let rounds = [], ri = 0, tries = 0, found = 0, firstTry = 0, lock = false, over = false, pick = null, win = null, hubRef = null, marks = [], pin = null, pickPin = null, pulse = null, disposed = false;
+    let rounds = [], ri = 0, tries = 0, found = 0, firstTry = 0, lock = false, over = false, pick = null, win = null, hubRef = null, marks = [], pin = null, pickPin = null, pulse = null, disposed = false, shown = null;   // shown: an area round's rings, drawn by the window on the still renderer
     const reduced = () => prefersReducedMotion();
     const MAXY2 = new Date().getFullYear();
-    const need = [ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2cards"), ensureData("atlas2prose"), ensureData("world"), ensureData("worldcaps"), ensureData("polities")];
-    const fail = () => { if (!root.isConnected) return; root.innerHTML = ""; X.PAGES.map(root, { game: true }); };   // the engine could not start: the v1 board plays the same day
+    const need = [ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2cards"), ensureData("atlas2prose"), ensureData("atlas2findit"), ensureData("atlas2countries")];
+    const fail = () => { if (!root.isConnected) return; root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>Find it could not be set up</strong><span class="dl-note">The map did not load. Check your connection and try again.</span><button class="btn" type="button" id="fi2Retry">Reload</button></div>'; const b = root.querySelector("#fi2Retry"); if (b) b.addEventListener("click", () => location.reload()); };   // the engine could not start at all (a refused bundle): a sentence, never a blank page
     Promise.all(need).then((ok) => {
       if (!root.isConnected) return;
       if (!ok.every(Boolean) || !window.AtlasEmbed) { fail(); return; }
@@ -537,6 +594,11 @@
     function overlay(st, api, ctx) {
       ctx.save(); ctx.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
       const ring = (x, y, r, col, w) => { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.strokeStyle = col; ctx.lineWidth = w; ctx.stroke(); };
+      if (shown && shown.rings) {   // the still renderer's area round: the extent as it stood, filled and outlined (the engine's own tint of a state of the year needs WebGL2 and the history)
+        ctx.save(); ctx.beginPath();
+        for (const rg of shown.rings) { let pen = false; for (const q of rg) { const p = api.project(q[0], q[1]); if (p[2] < 0) { pen = false; continue; } if (pen) ctx.lineTo(p[0], p[1]); else { ctx.moveTo(p[0], p[1]); pen = true; } } }
+        ctx.fillStyle = "rgba(" + shown.tint.rgb.join(",") + "," + shown.tint.a + ")"; ctx.strokeStyle = "rgba(" + shown.tint.rgb.join(",") + ",1)"; ctx.lineWidth = 2; ctx.fill("evenodd"); ctx.stroke(); ctx.restore();
+      }
       if (pickPin) { const p = api.project(pickPin[0], pickPin[1]); if (p[2] >= 0) { ctx.strokeStyle = BLUE; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(p[0], p[1], 9, 0, Math.PI * 2); ctx.moveTo(p[0] - 15, p[1]); ctx.lineTo(p[0] - 5, p[1]); ctx.moveTo(p[0] + 5, p[1]); ctx.lineTo(p[0] + 15, p[1]); ctx.moveTo(p[0], p[1] - 15); ctx.lineTo(p[0], p[1] - 5); ctx.moveTo(p[0], p[1] + 5); ctx.lineTo(p[0], p[1] + 15); ctx.stroke(); } }
       if (pin) { const p = api.project(pin.lon, pin.lat); if (p[2] >= 0) { ctx.beginPath(); ctx.arc(p[0], p[1], 6, 0, Math.PI * 2); ctx.fillStyle = pin.col; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke(); ctx.font = "600 13px system-ui, sans-serif"; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.lineWidth = 3; ctx.strokeStyle = "rgba(255,255,255,0.94)"; ctx.strokeText(pin.name, p[0] + 11, p[1]); ctx.fillStyle = "#221808"; ctx.fillText(pin.name, p[0] + 11, p[1]); } }
       if (pulse) { const k = reduced() ? 0.5 : Math.min(1, (performance.now() - pulse.t0) / 900); const p = api.project(pulse.lon, pulse.lat); if (p[2] >= 0) ring(p[0], p[1], 8 + 36 * k, pulse.col.replace(/1\)$/, (1 - k).toFixed(2) + ")"), 3); if (k < 1) { win.schedule(); } else pulse = null; }
@@ -545,7 +607,7 @@
     // ---- the game (rules, scoring and wording as v1's) ----
     function clearPick() { pick = null; pickPin = null; marks = marks.filter((m) => !m.pick); confirmEl.hidden = true; clearEl.hidden = true; }
     function showRound() {
-      const r = rounds[ri]; tries = 0; lock = false; pulse = null; marks = []; pin = null; clearPick(); revealEl.hidden = true;
+      const r = rounds[ri]; tries = 0; lock = false; pulse = null; marks = []; pin = null; shown = null; clearPick(); revealEl.hidden = true;
       roundEl.textContent = "Round " + (ri + 1) + " / " + rounds.length; scoreEl.textContent = found + " found";
       qEl.innerHTML = r.kind === "area" ? "Find <b>" + esc(r.n) + "</b> — as it stood in " + fi2Year(r.shown) : (r.kind === "point" && r.cap ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(fi2Name(r.n)) + "</b>") + " on today's map";
       cart.textContent = r.kind === "area" ? "FULL ATLAS · " + fi2Year(r.shown) : "TODAY";
@@ -553,7 +615,7 @@
       if (r.kind === "area") fly(r.lon, r.lat, 1.6); else fly(15, 20, 1);
       win.schedule();
     }
-    const targetIds = (r) => { if (r.kind === "entity") { const L = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.layers.world; const t = L && L[r.n]; return t ? [t[0]] : []; } if (r.kind === "area" && r.slugs) return r.slugs.map((s) => "pol:" + s); return []; };
+    const targetIds = (r) => { if (r.kind === "entity") { const L = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.layers.world; const t = L && L[r.n]; return t ? [t[0]] : []; } if (r.kind === "area" && r.slugs && !(hubRef && hubRef.canvas2d)) return r.slugs.map((s) => "pol:" + s); return []; };   // the still renderer draws no history: an area round is scored on, and drawn from, its rings
     function tapAt(e) {
       const r = roundNow(); if (!r || over || lock || !hubRef) return;
       const rect = board.getBoundingClientRect(), x = e.clientX - rect.left, y = e.clientY - rect.top, spec = Object.assign({ w: rect.width, h: rect.height, lon: win.st.lon, lat: win.st.lat, zoom: win.st.zoom }, specNow());
@@ -588,12 +650,12 @@
       if (tries === 0) { tries = 1; sfx("bad"); fbEl.textContent = (distKm != null ? Math.round(distKm).toLocaleString("en-US") + " km away — " : "Not there — ") + "one more try!"; fbEl.hidden = false; win.schedule(); }
       else { sfx("bad"); reveal(r, false); }
     }
-    function fi2Target(r) { if (r.kind !== "entity") return [r.lon, r.lat]; const k = r.n.toLowerCase(); const g = (window.WORLD_GEO || []).find((x) => (x.n || "").toLowerCase() === k && x.c); return g ? [g.c[0], g.c[1]] : null; }
+    function fi2Target(r) { if (r.kind !== "entity") return [r.lon, r.lat]; const L = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.layers.world, g = L && L[r.n]; return g ? [g[1], g[2]] : null; }
     function reveal(r, ok) {
       lock = true; clearPick();
       const tgt = fi2Target(r), tint = ok ? TINT.found : TINT.answer, col = ok ? GREEN : GOLD;
       if (r.kind === "entity") { const t = targetIds(r); if (t.length) marks.push({ ids: t, tint }); }
-      else if (r.kind === "area") { const t = targetIds(r); if (t.length) marks.push({ ids: t, tint }); }
+      else if (r.kind === "area") { const t = targetIds(r); if (t.length) marks.push({ ids: t, tint }); else if (hubRef && hubRef.canvas2d && r.rings) shown = { rings: r.rings, tint }; }
       else { pin = { lon: r.lon, lat: r.lat, name: r.n, col }; }
       pulse = { lon: tgt ? tgt[0] : r.lon, lat: tgt ? tgt[1] : r.lat, t0: performance.now(), col };
       if (tgt) fly(tgt[0], tgt[1], Math.max(win.st.zoom, r.kind === "point" ? 2.8 : 1.5));
@@ -619,7 +681,7 @@
     let learnLimit = 0, learnRound = null, learnNew = false;
     const cardsOf = (r) => {   // the card ids this round teaches: a country's by the register, anything else's as the round was dealt
       let ids = [];
-      if (r.kind === "entity") { try { const reg = atlasRegisterAll(true), v = reg.names.get(r.n.toLowerCase()); if (v) ids = (v.ids || [v.id]).filter(Boolean); } catch (e) { ids = []; } }
+      if (r.kind === "entity") { try { const reg = finditRegister(X), v = reg.names.get(r.n.toLowerCase()); if (v) ids = (v.ids || [v.id]).filter(Boolean); } catch (e) { ids = []; } }
       else ids = (r.ids || []).slice();
       const avail = availableCardIdSet(); return ids.filter((id, i) => CARD_BY_ID[id] && avail.has(id) && ids.indexOf(id) === i);
     };
@@ -646,7 +708,7 @@
       html += '<div class="fi2-reveal-acts">' + (t ? '<button type="button" class="btn ghost fi2-reveal-go" data-place="' + esc(t) + '">Read about it on the Atlas</button>' : "") + '<button type="button" class="btn fi2-reveal-next" id="fiRevealNext">' + esc(ri + 1 >= rounds.length ? "See your score" : "Next round") + "</button></div>";
       revealEl.setAttribute("role", "dialog"); revealEl.setAttribute("aria-label", "What you found: " + name);
       revealEl.innerHTML = html; revealEl.hidden = false;
-      revealEl.querySelectorAll(".fi2-reveal-go").forEach((b) => b.addEventListener("click", () => route("map2", { place: b.getAttribute("data-place") })));
+      revealEl.querySelectorAll(".fi2-reveal-go").forEach((b) => b.addEventListener("click", () => route("map", { place: b.getAttribute("data-place") })));
       const nx = revealEl.querySelector(".fi2-reveal-next"); if (nx) nx.addEventListener("click", () => { if (!nextEl.hidden) nextEl.click(); });
       const cl = revealEl.querySelector(".fi2-reveal-close"); if (cl) cl.addEventListener("click", () => { revealEl.hidden = true; board.focus({ preventScroll: true }); });
       const more = revealEl.querySelector(".fi2-learn-more"); if (more) more.addEventListener("click", () => { learnLimit = (learnLimit || (AStudy ? AStudy.LIST_CAP : 8)) + 20; revealPanel(learnRound, true); });

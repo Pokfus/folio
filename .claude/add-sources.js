@@ -154,11 +154,7 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
   const win = require("./gloss-io.js").loadGlossary();
   const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = win.GLOSSARY_ALIASES || {},
     CASE = win.GLOSSARY_CASESENSITIVE || {}, TAGS = win.GLOSSARY_TAGS || {}, IMAGES = win.GLOSSARY_IMAGES || {},
-    VIDEOS = win.GLOSSARY_VIDEOS || {}, SOURCES = win.GLOSSARY_SOURCES || {},
-    // the Atlas tables, written by .claude/fetch-place-coords.js. This writer rebuilds glossary.js from a
-    // FIXED list of tables, so a table it does not know about is silently dropped — which is exactly what
-    // happened to these two the first time a citation batch ran after they were added. Carry every table.
-    PLACES = win.GLOSSARY_PLACES || {}, MAPC = win.GLOSSARY_MAP_COUNTRY || {};
+    VIDEOS = win.GLOSSARY_VIDEOS || {}, SOURCES = win.GLOSSARY_SOURCES || {};
   for (const slug of Object.keys(batch.glossary)) {
     const u = batch.glossary[slug];
     if (!(slug in GLOSS)) die("no glossary term with slug " + slug);
@@ -196,8 +192,6 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
   out += section(CASE, "Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven).", "GLOSSARY_CASESENSITIVE");
   out += section(TAGS, "Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar.", "GLOSSARY_TAGS");
   out += section(VIDEOS, "Optional video per term (slug -> { src, title, desc, credit }) — a YouTube/Vimeo or direct file link, shown in the term's popup.", "GLOSSARY_VIDEOS");
-  out += section(PLACES, "Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's\n   own primary coordinates by .claude/fetch-place-coords.js. Never hand-written.", "GLOSSARY_PLACES");
-  out += section(MAPC, "Glossary terms that name a country the Atlas draws: slug -> the name world.js uses. Joined at build\n   time by the same script, because world.js is lazy and the popup must decide without it.", "GLOSSARY_MAP_COUNTRY");
   /* GLOSSARY_IMAGES and GLOSSARY_SOURCES are deliberately absent from `out`: they live in the
      lazy glossary-extra.js, being 54% of a file on the EAGER path that nothing reads until a
      popup opens. writeGlossary writes both files and strips either block from glossary.js if one
