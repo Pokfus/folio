@@ -18356,7 +18356,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          "Next streak chest" box, so this step is where a reader first meets the chest. */
       body: "A day with any study at all keeps your <b>streak</b>. Every seventh day in a row earns a " +
         "<b>chest</b>, and each week after that is worth one more; the ribbon under the banner shows the " +
-        "week filling up, and on the seventh day its chest unlocks \u2014 press it to open it.",
+        "week filling up, and on the seventh day its chest unlocks. Press it to open it.",
       target: [".streak-ribbon", "#b-review"],
     },
     {
