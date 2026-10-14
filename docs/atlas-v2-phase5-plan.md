@@ -89,6 +89,7 @@ Deleted with their output (the build script of a deleted file has nothing to wri
 Kept and re-pointed at the frozen tables: `build-card-faces.js`, `build-history.js`, `check-history.js`, `add-card.js`, `add-card-wars.js`, `add-glossary.js`,
 `add-sources.js`, `card-war.js`, `geo-util.js`, `fetch-place-coords.js`, `measure-atlas-embed.js`.
 Kept as they are: `build-rivers.js` and `build-hires-rivers.js` (rivers.js and `rivers/` stay, §3).
+Also deleted at the end of the phase: `measure-atlas-holes.js` (it compared the engine's tinted state with v1's `US_STATES` / `RUSSIA_SUBJECTS` polygons, which are gone; `measure-atlas-embed.js` keeps its engine mode, its v1 mode can no longer run).
 
 ### 2.4 Styles, markup, worker, headers
 
@@ -255,7 +256,7 @@ once, on the engine, and `test-window-fallbacks.js` (new) runs the fallback v1's
 
 `test-sources.js` §4 (the place panel's Sources → the v2 card's `.atlas2-srcnote`; the per-year list is gone), `test-tour.js` §6 (the Atlas coach strip is gone: the page opens without a card over the globe),
 `test-csp.js` (routes `map` and `map2`), `test-discovery.js` (country names from `country-names.js`, places from `card-places.js`), `test-panels.js` §2 (the frozen neighbour table),
-`test-study.js` (two assertions), `test-atlas-perf.js` (v1 reference as constants). The subagent-migrated suites (`test-atlas-*.js`, the window suites, `test-minigames.js`) are listed in §9.
+`test-study.js` (two assertions), `test-date-line.js` (its last assertion compared the test's polity kinds with v1's `MINE_POLITY` in app.js; the set is deleted, so the assertion is too — **gone**, nothing replaces it), `test-atlas-perf.js` (v1 reference as constants). The subagent-migrated suites (`test-atlas-*.js`, the window suites, `test-minigames.js`) are listed in §9.
 
 ## 9. As built
 
