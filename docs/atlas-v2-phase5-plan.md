@@ -185,9 +185,77 @@ Decision 2 removes `history.bin.js` (the 2b pilot twin; no v1 data twin exists):
 most air in it (`history-wars.bin` is 1,755,600 B, gzip −9 628,167 B): it is written gzip-compressed (`enc: "gzip"`, decoded with `DecompressionStream`, which every browser that runs the
 engine has), about −1.5 MB, so the total lands near **10.7 MB**. Final figure in §9.
 
-## 8. The test mapping (filled in as the suites change; the table is complete at the end)
+## 8. The test mapping — every deleted assertion and its successor
 
-See the table at the end of this file once built.
+A row says where an assertion of a deleted suite (or of a deleted section of a kept one) is now held. "**gone**" means the thing it guarded no longer exists *by a decision recorded in the design*
+(the third column says which), not that it was dropped; the suites are named so each can be opened and the assertion found by its topic. The numbers in the first column are the assertion's order in the old file at `f7aca62`.
+
+### 8.1 `test-personal-atlas.js` (78 assertions; the personal atlas, v1's second tab)
+
+| old assertions | successor |
+|---|---|
+| 1–2, 21–23, 28 (two tabs, opens on the reader's own, no world tab, tab kept) | **gone**: v2 has one page and a Map / Personal / Full *switch*. Its default (Personal when the reader has cards, Map when none), its persistence per viewer and its keyboard are held by `test-atlas-study.js` ("a reader with cards opens on their Personal Atlas", "a reader with no cards opens on the plain Map", "the choice is remembered per viewer", "the radios follow the arrow keys") |
+| 3–4, 22, 24 (no legend, no search on the personal tab; the full tab's search) | **gone** (v2's legend and search are on every view: Q-A3); `test-atlas-search.js` and `test-atlas-card.js` ("the legend is a chip on a phone …") hold the v2 controls |
+| 5, 25, 46–49 (the rail from 4000 BCE, personal rail marks, narrowing, five starts) | `test-atlas-time.js` (the knee, the scale inverts exactly, the pin, fine mode, arrows, `]`/`[`, the ticks are the change years); the rail starts at 3400 BCE — Cliopatria's limit — by design (design §2.4) |
+| 6–9 (an empty register says so, nothing marked over a drawn earth, the note gone once there is a card) | `test-atlas-study.js` ("a reader with no cards …", "one card with no place is told so in the singular", "with every collection of theirs switched off the globe is empty and says why") |
+| 10–11, 30–32 (the reader's countries in the earned shade, bordered, no name; a Shang place marked today) | `test-atlas-study.js` ("the places drawn are exactly the union of their cards' own places", "everything else is muted", "every mark on the Personal globe is the reader's"); `test-study.js` (the studied set, no browser, 101 assertions) |
+| 12–17, 42–43, 55–56 (a click opens the panel headed with the card's answer; its footnotes live; sources collapsed) | `test-atlas-card.js` (the card opens, official name, footnote markers numbered and pointing at listed sources, Wikipedia link, deep link) and `test-atlas-study.js` ("Enter on a button opens that place's card", "a tap 9 px from a lone mark picks it"). The v2 card lists the reader's cards for the place (`appendStudyCards`) instead of one card's answer side |
+| 18–20, 44–45 (any year; a modern state absent before its founding, present from it) | `test-atlas-time.js` ("at 100 BCE no present-day country", "a tap on Rome at 100 BCE names Rome (the polity) and no present-day country", "no two adjacent alive polities share a colour"); the founding-year rule is Cliopatria's steps |
+| 26–27 (the full tab draws places not studied) | `test-atlas-study.js` ("the Full globe draws the reader's marks and the others' together") |
+| 29 (the unearned-land factor is still in app.js) | **gone**: the dim-land shade was a v1 drawing pass |
+| 33 (one click the country, a second the province) | `test-atlas-card.js` ("a tap on Lake Victoria stacks the lake and a country", "a second tap at the same spot cycles to the next of the stack") |
+| 34–38 (a culture inside its span, in blue; a state in the earned shade; not a people's wash) | `test-peoples.js` (the presence arithmetic and mesh) and `test-atlas-render.js`/`test-atlas-time.js` (colours per palette slot and theme, the label ink) |
+| 39 (a river card puts no dot) | `test-atlas-study.js` ("PROPERTY: at nine views every flagged place on screen … one mark each … every mark one of three shapes") + `test-places.js` (a river's mark is a line place) |
+| 40 (a chevron press moves the year by one) | `test-atlas-time.js` ("arrows ±1") |
+| 41 (the Atlas zooms deeper) | `test-atlas-render.js` / `test-atlas-stages.js` (levels of detail down to the finest tiles) |
+| 50–54 (the world view thins the reader's marks; names arrive with marks; no stray border) | **gone by decision**: stacks and clustering were removed on 2026-10-14 (every flagged place is its own mark); `test-atlas-study.js` ("a mark is a dot 4 px across", "the keyboard list is one button per drawn mark and placed name", "no name is placed under the panel") and `test-atlas-labels.js` hold the successor |
+| 57–62 (a glossary term in the panel; the phone sheet opens shut; armed by the chevron) | `test-atlas-card.js` ("at 390 px the card is a bottom sheet with a grip", "the grip expands it"); the glossary term inside a card is `test-glossary-page.js` / `test-panels.js`' domain |
+| 63–70 (three Rome cards as one place; arrows and swipe between them; no stack bar for one; a capital beats an easier place) | **gone by decision** (stack bar removed with stacks); the v2 card lists a place's cards together (`test-atlas-study.js` "the cards on a place card") |
+| 71–77 (the fronts are one map a year, 1939–45, no months; 1941 too; none in a year with none) | `test-atlas-time.js` (the front stepper, "a year with no plate shows no front" in `test-atlas-render.js`) and `test-war-sides.js`; the v2 fronts are 138 dated plates (Phase 2d), so "no month control" is replaced by a stepper |
+| 78 (no console or page errors) | every v2 suite ends with "no page errors" |
+
+### 8.2 `test-atlas-places.js` (20 assertions)
+
+| old | successor |
+|---|---|
+| 1–3 (glossary point-locations ship, are plausible, the country join ships) | `check-places.js` (`glossary-places.js` is what `glossary-places-input.json` and the registry build) + `test-places.js` |
+| 4–5 (city labels thin out with zoom) | `test-atlas-labels.js` (the placed-name count is capped at about 40 at the globe and 120 at country scale, no two overlap, curved labels stay upright) |
+| 6–8 (the heightmap strength slider) | **gone**: the heightmap layer is deleted; relief is `test-atlas-relief.js` |
+| 9–10 (a glossary point is findable in the search and listed as a Place) | `test-atlas-search.js` (the search covers the whole registry, every result carries a kind chip) |
+| 11–17 (the marker in the popup; it flies to the Atlas, closes the popup, opens no panel) | `test-atlas-study.js` §7c ("the glossary popup's button opens #map at the term's registry place"; every id in the glossary table resolves in the registry; 181 country terms and 30 of 31 point terms have a place) |
+| 18–20 (the reader's text size reaches the canvas) | **NOT HELD, AND NOT TRUE OF v2**: the new Atlas's *chrome* scales with Text size (`calc(px × --fs)`, design §2.9) but its canvas labels do not — a reader on "Very large" gets the same label size as on "Medium". This was already so on `#map2`; the swap makes it the only Atlas, so it is reported to the owner as a regression of v1 behaviour (see §9 "Decisions needed"). No test was written for a behaviour that does not exist |
+
+### 8.3 `test-polities.js` (29 assertions; the dated-border bundle files)
+
+| old | successor |
+|---|---|
+| 1–11 (every series sorted, non-overlapping, valid rings; every link resolves to a card, a side and a slug) | `check-history.js` (the step topology, per-epoch partition, every entity's steps), `test-war-sides.js` (every `card.war` side resolves to an entity with a step inside the card's years) and `build-wars.js --check` |
+| 12–14, 22–23, 29 (the header credits Cliopatria under CC BY 4.0; the help card credits it) | `check-credits.js` + `test-atlas-credits.js` (every source of every file on the page with its licence; the page is generated from the headers) and the About sheet's credits link (`test-atlas-phone.js` "About open") |
+| 15–21, 22 (the fronts file: its card, one map a year, four sets, the Pacific from 1943, Berlin) | `fronts-plates.json` + `check-history.js` (138 plates, the uncertainty on every plate) and `test-war-sides.js`; the retired `fronts.js` is not shipped |
+| 24–28 (country steps resolve through the era maps; Germany 1960–94; the USSR gone in 1992) | `check-history.js` (Cliopatria's own steps, e.g. West Germany, the USSR's end) and `test-atlas-time.js` |
+
+### 8.4 `test-engine-switch.js` and the `FOLIO_ENGINE=v1` passes
+
+The switch existed to run the three v1 window suites (`test-map-cards.js`, `test-card-locator.js`, `test-war-cards.js`) on v1's windows too. v1's windows are deleted, so CI no longer runs the second pass; the suites run
+once, on the engine, and `test-window-fallbacks.js` (new) runs the fallback v1's windows used to be: no WebGL2 (Canvas 2D), the bundle refused (the plain sentence). `test-window-env.js` keeps the three exports
+(`launch`, `serve`, `v2()`) the suites imported from the switch. `test-card-windows-fixes.js` lost its `FOLIO_ENGINE=v1` pass (the CI step is gone).
+
+### 8.5 `test-layout.js`
+
+| old section | successor |
+|---|---|
+| 2 (the globe stage, timebar and tab bar stack by arithmetic) | section 2 (the Atlas block ends clear of the tab bar at three widths) + `test-atlas-phone.js` ("no control under the bottom tab bar") |
+| 3 (the rail's year labels never overlap) | `test-atlas-time.js` ("the ticks are the change years on screen") + `test-atlas-phone.js` |
+| 4 (the Atlas chrome; the world tab's search; legend on neither tab; Copy link gone; `#map/1938/france`) | **gone** (tabs); the chrome is `test-atlas-phone.js` / `test-atlas-card.js`; the deep links are section 3 (a smoke of the two old forms) and `test-atlas-redirects.js` (all of them) |
+| 7c (the discovery chip shares the popup title's row; the × keeps the corner) | `test-discovery.js` (the chip's rule, the register) and `test-atlas-card.js` (the card's head); v2's card has no separate chip row |
+| 7e (the Atlas sheet's height: floor, ceiling, remembered) | **gone** (v1's `#countryPop` sheet); v2's sheet is `test-atlas-card.js` ("at 390 px the card is a bottom sheet with a grip", "the grip expands it") and `test-atlas-phone.js` ("card open / card expanded — no overlap, nothing under the bar") |
+| the swipe test ("a swipe on the Atlas turns the globe rather than leaving it") | kept, on the v2 page (the helper `atlas()` waits for `.atlas2[data-ready]`) |
+
+### 8.6 Other suites edited for the swap
+
+`test-sources.js` §4 (the place panel's Sources → the v2 card's `.atlas2-srcnote`; the per-year list is gone), `test-tour.js` §6 (the Atlas coach strip is gone: the page opens without a card over the globe),
+`test-csp.js` (routes `map` and `map2`), `test-discovery.js` (country names from `country-names.js`, places from `card-places.js`), `test-panels.js` §2 (the frozen neighbour table),
+`test-study.js` (two assertions), `test-atlas-perf.js` (v1 reference as constants). The subagent-migrated suites (`test-atlas-*.js`, the window suites, `test-minigames.js`) are listed in §9.
 
 ## 9. As built
 

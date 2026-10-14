@@ -1833,7 +1833,7 @@
   function glossTotalCount() { return Object.keys(window.GLOSSARY || {}).length; }
   /* Present-day countries opened on the Atlas. placesSeen also holds the historical eras' territories —
      an open-ended set with no honest total — so anything counting towards completion filters to the 258
-     shipped countries. world.js is lazy: before it loads this is 0, never wrong-but-confident. */
+     shipped countries. country-names.js is lazy: before it loads this is 0, never wrong-but-confident. */
   let _countrySet = null, _countryV2V1 = null;
   function countryNameSet() {
     const C = window.ATLAS_COUNTRIES; if (!C || !C.countries) return null;
@@ -3648,7 +3648,7 @@
     fields.forEach((f) => { if (tr[f]) o[f] = tr[f]; });
     return o;
   }
-  // Place names — countries (world.js), era territories and era capitals (timeline.js). Content, not
+  // Place names — countries, era territories and era capitals (the names v1's maps carried). Content, not
   // chrome: they are read through placeName() rather than the I18N exact table because most of them are
   // ALSO glossary terms and card answers, where a global key would override wording the card and glossary
   // pipelines already translate — the same reason nodeTitle() exists for deck titles. English is the
@@ -10837,11 +10837,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Phase 0). Three plain scripts, each assigning one global (AtlasFormat, AtlasGL, AtlasV2); the worker
        and earcut are fetched by atlas.js itself, and the topology (atlas/data/topology.bin) by fetch(), so
        nothing here touches the eager path. v1's `atlas` bundle below is untouched until Phase 5. */
-    atlas2gloss: { files: ["atlas/data/glossary-places.js"] },   // the glossary popup's "show on the Atlas" table for the v2 preview (Phase 3c), read at the click
+    atlas2gloss: { files: ["atlas/data/glossary-places.js"] },   // the glossary popup's "show on the Atlas" table for the Atlas (Phase 3c), read at the click
     atlas2: { files: ["atlas/atlas-format.js", "atlas/study.js", "atlas/atlas-gl.js", "atlas/atlas-canvas.js", "atlas/atlas.js"] },   // atlas-canvas.js: the still 2D view for a browser without WebGL2 (Phase 1d)
     /* …and the PROSE its place card shows for a present-day country (Phase 1c): the same four files v1's
-       `atlas` bundle carries for its popup — descriptions, figures, spans, citations — WITHOUT timeline.js
-       or the v1 geometry, so opening a country on #map2 never pulls the old eras in. The two bundles share
+       `atlas` bundle carried for its popup — descriptions, figures, spans, citations — without any geometry,
+       so opening a country on the Atlas never pulls the old eras in (they are deleted). The two bundles share
        files; ensureData loads a file once, whichever bundle asked first. */
     atlas2prose: { files: ["countries.js", "country-stats.js", "country-spans.js", "country-sources.js"] },
     /* THE CARD WINDOWS ON THE ENGINE (Oct 2026, Phase 4): the embed host (atlas/atlas-embed.js, ~20 KB), the join from a map card's layer and key to an engine entity, its label point and its
@@ -10959,7 +10959,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      AFTER boot, where PRISTINE_GLOSS_SOURCES / PRISTINE_GLOSS_IMAGES were snapshotted from empty
      objects -- so without the re-seed the admin editor's Revert would compare a real citation list
      against nothing and DELETE it rather than restore it, silently. Re-applying ADMIN_EDITS on top
-     is the same rule the atlas bundle's hook follows for window.TIMELINE: a lazy file overwrites
+     is the same rule any lazy file's hook follows: a lazy file overwrites
      what applyAdminEdits() already did, so the overlay has to go back on afterwards.
      A QUEUE rather than a slot, like the i18n files, so nothing is lost if the file lands twice. */
   /* THE ARTEFACT POOL'S HEAVY HALF, arriving after boot (bundle "artefactExtra").
@@ -15384,7 +15384,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const old = view.firstElementChild;
     if (!old || !old.classList.contains("page")) return null;
     if (current.name === "admin" || current.name === "map" || current.name === "findit") return null;
-    if (old.querySelector(".atlas")) return null;
+    if (old.querySelector(".atlas, .atlas2")) return null;   // the Atlas (since Phase 5 the v2 page, `.atlas2`) is full-bleed and holds live canvases: no copy of it
     if (!dir && old.offsetHeight > 2600) return null;   // a very long page fading over a short one is a smear, not a transition
     if (old.querySelectorAll("*").length > 2000) return null;   // not worth cloning; that page is a list, and lists don't need a ghost
     /* A CLONE, not the element itself. Two reasons, and the second is the one that bites.
@@ -34149,9 +34149,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      stair on a state's edge, which is the price the request pays knowingly. The hi-res coasts a history
      card gets (see CMAP_HIRES) are four decimals and hold to the ceiling. */
   const CMAP_ZMIN = 0.85, CMAP_ZMAX = 400;
-  /* Which collections' locator windows warm a hi-res coast bundle, by collection root — see DATA_BUNDLES
-     and .claude/build-hires-coasts.js. A window substitutes the bundle's rings for world.js's, ring by
-     ring, the moment it lands; a collection with no row here draws world.js and nothing else. */
+  /* Which collections' locator windows get a finer region (a finer water level and the region's own rivers), by collection root. Phase 5: the hi-res coast bundles (coast/*.js) and their splice are
+     deleted — the engine draws the coast from topology.bin — so the value is only the region's name, read by atlas/atlas-windows.js (`hiRegion`). */
   const CMAP_HIRES = { "col-40": "italy", "col-13": "greece", china: "china", "col-42": "russia" };
   /* AND THE SAME FOR A MAP CARD, KEYED BY ITS LAYER (Sep 2026, on request: "ensure that in the China
      geography collection, rivers are visible in China, and China's borders are of a higher resolution,
@@ -34161,7 +34160,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      geography collection, so the table is the honest key rather than a second list to keep in step.
      THE WORLD LAYER IS DELIBERATELY ABSENT. `gw-` cards frame any country on earth, so there is no
      frame to build a coast for and no country whose rivers could be the point; a world-wide hi-res coast
-     is a second world.js, which is exactly what the splice exists to avoid.
+     is a second world map, which a region's finer water was never meant to be.
      A ROW HERE ALSO TURNS THE RIVERS ON, and the two are one decision rather than two: both requests ask
      for the same window a history card already draws, and every layer that wants the finer coast wants
      the water on it. */
