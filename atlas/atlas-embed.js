@@ -69,7 +69,10 @@
         historyKind: () => E.historyKind(),   // null (not started), "wars" (the war-window slice) or "full"
         historyOK: () => E.historyOK(),
         warView: (id, short, share) => E.warFrame(id, short, share),
-        warSides: (id) => E.warSides(id),
+        warSides: (id, year) => E.warSides(id, year),
+        /* a point inside each of the faces, on the visible part of the view the hub is in now (the worker's label anchor): Promise of [{ face, v: unit vector | null (the best point), pts: [{ v, clear }] (up to twelve, best first), clear (px of the view it was asked in), vis, km2 }] — a point on the sphere, not a screen
+           point, so a window can carry it through its next pan or pinch and ask again at rest */
+        faceAnchors: (faces) => new Promise((res) => E.faceAnchors(faces, (rows, q) => res(q ? rows.map((r) => ({ face: r.face, vis: r.vis, km2: r.km2, clear: r.clear, v: r.anchor ? unitAt(q, r.anchor[0], r.anchor[1]) : null, pts: (r.pts || []).map((p) => ({ v: unitAt(q, p[0], p[1]), clear: p[2] })).filter((p) => p.v) })) : []))),
         warColours: () => E.warColours(),
         facesOf: (id) => { let f = h.faces.get(id); if (!f) h.faces.set(id, f = E.facesOfId(id)); return f; },
         dispose: () => dispose(h),
@@ -145,6 +148,12 @@
     if (h.year !== want) { E.setYearNow(want); h.year = want; }
     void ctl;
   }
+  /* the unit vector under a screen point of an orthographic view { rot, radius, cx, cy } (the inverse of `project`; the rotation's rows are the view's axes in world coordinates) */
+  function unitAt(q, x, y) {
+    const a = (x - q.cx) / q.radius, b = -(y - q.cy) / q.radius, d2 = 1 - a * a - b * b; if (d2 < 0) return null;
+    const d = Math.sqrt(d2), r = q.rot;
+    return [r[0] * a + r[3] * b + r[6] * d, r[1] * a + r[4] * b + r[7] * d, r[2] * a + r[5] * b + r[8] * d];
+  }
   const rgb01 = (c) => [c[0] / 255, c[1] / 255, c[2] / 255];
 
   function project(rot, radius, cx, cy) {
@@ -187,7 +196,8 @@
     const pr = project(rot, v.radius, v.cx, v.cy);
     h.last = { rot, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
     const settled = E.landSettled() && ctl.tilesSettled() && ctl.waterSettled() && (spec.year == null || (E.historyOK() && h.year === spec.year));
-    return { settled, landMask: (water) => landMask(h, spec, water), project: pr, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
+    const projectV = (X, Y, Z) => [v.cx + v.radius * (rot[0] * X + rot[1] * Y + rot[2] * Z), v.cy - v.radius * (rot[3] * X + rot[4] * Y + rot[5] * Z), rot[6] * X + rot[7] * Y + rot[8] * Z];   // a point on the sphere (a unit vector) → the window's CSS px and its depth
+    return { settled, landMask: (water) => landMask(h, spec, water), project: pr, projectV, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
   }
 
   /* the mask pass: the same view with only the group's faces white on black, read back, and turned into a ±width/2 band round the edge plus a soft glow */
@@ -238,12 +248,11 @@
     let n = 0; const edge = (i) => mask[i] && !(mask[i - 1] && mask[i + 1] && mask[i - w] && mask[i + w]);
     for (let y = 1; y < hh - 1; y++) for (let x = 1, i = y * w + 1; x < w - 1; x++, i++) if (edge(i)) n++;
     const stride = Math.max(1, Math.ceil(n / RIM_MAX)), out = new Float32Array(3 * Math.ceil(n / stride)); let k = 0, c = 0;
-    const kx = spec.w / w, ky = spec.h / hh;   // mask pixel → CSS px of the window
+    const kx = spec.w / w, ky = spec.h / hh, q = { rot, radius: v.radius, cx: v.cx, cy: v.cy };   // mask pixel → CSS px of the window
     for (let y = 1; y < hh - 1; y++) for (let x = 1, i = y * w + 1; x < w - 1; x++, i++) {
       if (!edge(i) || (c++ % stride)) continue;
-      const a = ((x + 0.5) * kx - v.cx) / v.radius, b = -((y + 0.5) * ky - v.cy) / v.radius, d2 = 1 - a * a - b * b; if (d2 < 0) continue;
-      const d = Math.sqrt(d2);   // the view is orthographic: screen (a, b) and the depth d are the point's coordinates in the view's frame; the rotation's rows are those axes in world coordinates
-      out[3 * k] = rot[0] * a + rot[3] * b + rot[6] * d; out[3 * k + 1] = rot[1] * a + rot[4] * b + rot[7] * d; out[3 * k + 2] = rot[2] * a + rot[5] * b + rot[8] * d; k++;
+      const u = unitAt(q, (x + 0.5) * kx, (y + 0.5) * ky); if (!u) continue;
+      out[3 * k] = u[0]; out[3 * k + 1] = u[1]; out[3 * k + 2] = u[2]; k++;
     }
     return { pts: out, n: k };
   }
@@ -320,8 +329,8 @@
         spec.lon = st.lon; spec.lat = st.lat; spec.zoom = st.zoom; spec.w = cw; spec.h = ch;
         const fast = performance.now() < fastUntil;
         const res = hb.draw(spec, ctx, { dpr, fast, lowRes: fast && !w.painted, rims: w.rims }); w.painted = true;
-        settled = res.settled && !fast;
-        w.api = { project: res.project, landMask: res.landMask, cw, ch, dpr, radius: res.radius, cx: res.cx, cy: res.cy, kmpp: res.kmpp, settled, fast, spec };
+        settled = res.settled && !fast && (!opts.extraSettled || !!opts.extraSettled(st, { cw, ch, level: res.level }));   // the window's own conditions (a war window's names wait for the worker's anchors)
+        w.api = { project: res.project, projectV: res.projectV, level: res.level, landMask: res.landMask, cw, ch, dpr, radius: res.radius, cx: res.cx, cy: res.cy, kmpp: res.kmpp, settled, fast, spec };
         if (opts.draw) opts.draw(st, w.api, ctx);
         if (!w.firstMarked) { w.firstMarked = true; try { performance.mark("a2:first-draw"); } catch (e) {} }
         if (fast) { if (!w.fastTimer) w.fastTimer = setTimeout(() => { w.fastTimer = 0; dirty = true; schedule(); }, 140); }

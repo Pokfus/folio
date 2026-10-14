@@ -33,7 +33,7 @@
       ready() { return isReady; },
       settled() { return !!(win && win.isSettled()); },
       names() { return lastNames.slice(); },
-      labels() { return lastLabels.map((l) => Object.assign({}, l)); },   // the war window's two names as drawn: { k: "v" | "l", n, x, y (the text's centre, CSS px of the window), w (its width) } — for the suites
+      labels() { return lastLabels.map((l) => Object.assign({}, l)); },   // the war window's two names as drawn: { k: "v" | "l", n, x, y (the LABEL'S POINT, CSS px of the window: inside a face of the side when `ground`), tx, ty (the text's centre: the point itself, or beside it when `beside`), w (its width), ground, beside } — for the suites
       probe() { return win && win.api ? { spec: win.api.spec, dpr: win.api.dpr, cw: win.api.cw, ch: win.api.ch } : null; },   // the frame the window last drew: its engine spec and size — for the suites   // Phase 4b: the war window's two sides as drawn on it ("Rome", "Carthage"), for the suites   // Phase 4b: the engine's levels, tiles and water for THIS view are all in (ready() is the window being mounted)
       view() { return win ? { lon: win.st.lon, lat: win.st.lat, zoom: win.st.zoom, home: [win.st.home.lon, win.st.home.lat, win.st.home.zoom] } : { lon: 0, lat: 0, zoom: 1, home: [0, 0, 1] }; },
       pan(dx, dy) { if (win) win.panBy(dx, dy); },
@@ -147,22 +147,68 @@
     /* WAR WINDOWS: THE TWO PRINCIPAL SIDES ARE NAMED ON THE MAP and nothing else is written over it. `ATLAS_WARS` carries the card's name for each side ("Rome", "Carthage", "Han, Zhao, Wei, Chu, Yan and Qi"); the names stand where
        each side stands in the war's years (the engine's `warSides`: the mean direction of the side's faces). THE ONE LEGEND is the plain-text one under the window (`cardWarKeyHTML`, app.js: the swatches, "victors" and "defeated", the card's own
        words); Phase 4b drew a second one, a pill over the foot of the map, and the owner (a real phone, Oct 2026, decision 2) asked for it to go — it covered ground. */
-    let warSides = null, lastNames = [], lastLabels = [];
-    function warMarks(ctx, api) {
+    /* WHERE EACH SIDE'S NAME STANDS (Oct 2026, the owner's phone: on the Second Punic War "Rome" sat over a red area of southern Italy and "Carthage" over a green strip, because each name was at the centroid of the UNION of its side's faces,
+       and a union of scattered states has a centroid on somebody else's ground). Now: a point INSIDE one of the side's own faces — the engine's label anchor, asked of the worker at rest (`faceAnchors`: the face's visible polygon's centre when
+       it is inside, else the nearest inside point along its axes) — on the side's biggest face on screen that has room: the name's box wholly inside the frame, clear of the zoom controls and of the other side's name; the next face when it has
+       not; and only when no face of the side has room the best face's point pushed in (and `ground: false` in `labels()`). The point is kept as a point on the sphere, so a pan or a pinch carries it with the map and the next rest asks again.
+       Until the first answer (a worker round trip after the first full frame) the window is not settled and draws no names; if the worker never answers the old centroid stands. `labels()` is what the suites read. */
+    let warSides = null, lastNames = [], lastLabels = [], warHub = null;
+    const anch = { asked: "", key: "", rows: null, state: "none", timer: 0 };   // state: none | wait | have | failed
+    const viewKey = (st, cw, ch, level) => [st.lon.toFixed(4), st.lat.toFixed(4), st.zoom.toFixed(4), cw, ch, level].join();   // the level is in it: the faces are asked for at the level the view draws
+    const anchorsCurrent = (st, o) => !isWar || !warSides || !warHub || anch.state === "failed" || (anch.state === "have" && anch.key === viewKey(st, o.cw, o.ch, o.level));
+    function askAnchors(st, api) {
+      const key = viewKey(st, api.cw, api.ch, api.level); if (anch.asked === key) return; anch.asked = key;
+      const faces = [].concat(warSides.v ? warSides.v.faces || [] : [], warSides.l ? warSides.l.faces || [] : []);
+      if (!faces.length || !warHub || !warHub.faceAnchors) { anch.state = "failed"; return; }
+      if (anch.state !== "have") anch.state = "wait";
+      clearTimeout(anch.timer); anch.timer = setTimeout(() => { if (stopped || anch.asked !== key || anch.key === key) return; if (!anch.rows) anch.state = "failed"; anch.key = key; if (win) win.schedule(); }, 6000);   // a worker that never answers must not hold the window unsettled for ever
+      warHub.faceAnchors(faces).then((rows) => { if (stopped || anch.asked !== key) return; anch.rows = rows; anch.key = key; anch.state = "have"; if (win) win.schedule(); }, () => { if (anch.asked === key && !anch.rows) { anch.state = "failed"; anch.key = key; if (win) win.schedule(); } });
+    }
+    function warMarks(st, ctx, api) {
       if (!warSides) return;
       const W = api.cw, H = api.ch;
+      if (!api.fast) askAnchors(st, api);
+      if (anch.state === "wait" && !anch.rows) { lastNames = []; lastLabels = []; return; }   // not yet: a name at the centroid would flash on the wrong ground and jump
       const sides = [["v", "victors"], ["l", "defeated"]].filter((q) => warSides[q[0]]);
-      // the names, at the sides' centres, kept apart from each other and inside the window
+      // the zoom controls' box in the window's CSS px (refreshed at rest), kept clear
+      const cvR = cv.getBoundingClientRect(), zc = host.querySelector(".mc-zoom");
+      if (!api.fast || !warMarks.ctl) { const zr = zc ? zc.getBoundingClientRect() : null; warMarks.ctl = zr && zr.width ? [zr.left - cvR.left - 6, zr.top - cvR.top - 6, zr.right - cvR.left + 6, zr.bottom - cvR.top + 6] : null; }
+      const ctl = warMarks.ctl;
       ctx.save(); ctx.font = "600 12.5px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
       const placed2 = [], named = [], labelsNow = [];
-      for (const [k] of sides) {
-        const sd = warSides[k], p = api.project(sd.lon, sd.lat); if (p[2] < 0) continue;
-        const text = String(sd.n || "").trim(); if (!text) continue;
-        const w = ctx.measureText(text).width; let x = Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, p[0])), y = Math.max(14, Math.min(H - 14, p[1]));
-        for (let tries = 0; tries < 4 && placed2.some((b) => x - w / 2 < b[2] && x + w / 2 > b[0] && y - 8 < b[3] && y + 8 > b[1]); tries++) y += 17;
-        placed2.push([x - w / 2, y - 8, x + w / 2, y + 8]);
-        ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.strokeStyle = halo; ctx.strokeText(text, x, y); ctx.fillStyle = ink; ctx.fillText(text, x, y); named.push(text); labelsNow.push({ k, n: text, x, y, w });
+      const hit = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1];
+      // per side: its name, the name's width, and the points inside its faces (the biggest face on screen first, each face's best point first) that are on the globe's near side
+      const info = sides.map(([k]) => {
+        const sd = warSides[k], text = String(sd.n || "").trim(); if (!text) return null;
+        const faceSet = new Set(sd.faces || []), w = ctx.measureText(text).width;
+        const cands = (anch.rows || []).filter((r) => r.v && faceSet.has(r.face)).sort((a, b2) => (b2.km2 || 1) * Math.max(0.02, b2.vis) - (a.km2 || 1) * Math.max(0.02, a.vis));
+        const pts = []; for (const r of cands) for (const q of r.pts && r.pts.length ? r.pts : [{ v: r.v }]) { const p = api.projectV(q.v[0], q.v[1], q.v[2]); if (p[2] > 0.02) pts.push(p); }
+        return { k, sd, text, w, bw: w / 2 + 3, bh: 9, pts };
+      }).filter(Boolean);
+      const boxAt = (o, x, y) => [x - o.bw, y - o.bh, x + o.bw, y + o.bh];
+      const roomy = (o, x, y) => { const b = boxAt(o, x, y); return b[0] >= 3 && b[2] <= W - 3 && b[1] >= 3 && b[3] <= H - 3 && !(ctl && hit(b, ctl)); };
+      /* where the name's text goes for a point inside a face: centred on it; and, when the faces are small and the names crowd, beside it with the point at the box's edge (right, left, above, below) — the point is still on the
+         side's ground, the text is next to it, as a name stands beside a dot. Ranked: every point with the name ON it first (best point first), and only then the names beside a point (a name over somebody else's ground is the thing to avoid). */
+      for (const o of info) { o.opts = []; o.pts.forEach((p, n) => { [[0, 0], [o.bw, 0], [-o.bw, 0], [0, -o.bh], [0, o.bh]].forEach((d, v) => { const tx = p[0] + d[0], ty = p[1] + d[1]; if (roomy(o, tx, ty)) o.opts.push({ p, t: [tx, ty], rank: (v ? 1000 : 0) + n, beside: v > 0 }); }); }); }
+      // two names: the pair of placements (best-ranked first) whose boxes do not meet
+      let chosen = null;
+      if (info.length === 2) {
+        const [a, b2] = info; let best = null;
+        for (const x of a.opts) for (const y of b2.opts) if ((!best || x.rank + y.rank < best[0]) && !hit(boxAt(a, x.t[0], x.t[1]), boxAt(b2, y.t[0], y.t[1]))) best = [x.rank + y.rank, x, y];
+        if (best) chosen = [best[1], best[2]];
       }
+      info.forEach((o, n) => {
+        let pick = chosen ? chosen[n] : o.opts.find((q) => !placed2.some((bx) => hit(boxAt(o, q.t[0], q.t[1]), bx))) || null, at = pick ? pick.t : null, ground = !!pick, beside = !!(pick && pick.beside), pt = pick ? pick.p : null;
+        if (!at) {   // no point inside the side's faces has room for its name: the centroid, or the biggest face's best point, pushed in (it may then stand off its own ground — `ground: false`)
+          const p = o.pts.length ? o.pts[0] : api.project(o.sd.lon, o.sd.lat); if (!o.pts.length && p[2] < 0) return;
+          let x = Math.max(o.bw + 3, Math.min(W - o.bw - 3, p[0])), y = Math.max(o.bh + 3, Math.min(H - o.bh - 3, p[1]));
+          const free = (xx, yy) => roomy(o, xx, yy) && !placed2.some((q) => hit(boxAt(o, xx, yy), q));
+          for (let tries = 0; tries < 8 && !free(x, y); tries++) { const bb = boxAt(o, x, y); if (ctl && hit(bb, ctl)) x = Math.max(o.bw + 3, ctl[0] - o.bw - 1); else y = y + 17 > H - o.bh - 3 ? Math.max(o.bh + 3, y - 34) : y + 17; }
+          at = [x, y]; pt = p; ground = false;
+        }
+        placed2.push(boxAt(o, at[0], at[1]));
+        ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.strokeStyle = halo; ctx.strokeText(o.text, at[0], at[1]); ctx.fillStyle = ink; ctx.fillText(o.text, at[0], at[1]); named.push(o.text); labelsNow.push({ k: o.k, n: o.text, x: pt[0], y: pt[1], tx: at[0], ty: at[1], w: o.w, ground, beside });
+      });
       lastNames = named; lastLabels = labelsNow;
       ctx.restore();
     }
@@ -239,7 +285,7 @@
         }
       }
       ctx.beginPath(); ctx.arc(api.cx, api.cy, api.radius, 0, Math.PI * 2); ctx.strokeStyle = "rgba(0,0,0,0.28)"; ctx.lineWidth = 1; ctx.stroke();
-      if (isWar) warMarks(ctx, api);
+      if (isWar) warMarks(st, ctx, api);
       if (revealed) {
         const at = locLabelPt && locLabelPt.length ? locLabelPt[0] : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })() : dot ? dot.c : targets.length ? targets[0].c : null;
         if (at && nm0 && !(locKind === "river" && ownRiver)) {
@@ -278,7 +324,7 @@
     }).catch(() => { unhold(); if (!stopped) v1(); });
     function mountWindow(hub, warYear) {
         host.classList.remove("mc-loading"); host.setAttribute("data-map-engine", "v2");
-        if (isWar) { try { warSides = hub.warSides(sibCard); } catch (e) { warSides = null; } }
+        if (isWar) { try { warHub = hub; warSides = hub.warSides(sibCard, warYear); } catch (e) { warSides = null; } }
         fit();
         if (isWar) {
           const cr = cv.getBoundingClientRect(), short = Math.max(1, Math.min(cr.width, cr.height)), f = hub.warView(sibCard, short, 0.45);   // 0.45: half of a face's bounding cap counts, so a polity with far islands does not frame the planet
@@ -292,6 +338,7 @@
             highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9 }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
+          extraSettled: (st, o) => anchorsCurrent(st, o),
           onTap: () => { if (key && !revealed) return; openFromWindow(host, sibCard); },
         });
         mark("a2:window-mounted");

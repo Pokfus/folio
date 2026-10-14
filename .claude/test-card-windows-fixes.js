@@ -16,6 +16,7 @@
 const http = require("http"), fs = require("fs"), path = require("path");
 const { chromium } = require("playwright");
 const ES = require("./test-engine-switch.js");
+let Hq0 = null; const Hq = () => Hq0 || (Hq0 = require("./atlas-build/lib/historyq.js").open());   /* opened on first use: it reads the 9 MB history file */
 const { isNoise } = require("./test-noise.js");
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -134,6 +135,53 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
       for (let i = 0; i < 8; i++) { await D.page.mouse.wheel(0, -90); await sleep(60); wh.push(await outlinePixels(D.page)); }
       check(label + ": ...and DURING a wheel zoom", Math.min.apply(null, wh.slice(1)) > 300, JSON.stringify(wh));
       await D.ctx.close();
+    }
+  }
+
+  /* ---------------- 2) a war window's labels stand on their own ground ---------------- */
+  if (want(2) && !ENGINE) { sect("2) war labels — engine only"); console.log("  (skipped: v1's window draws no names)"); }
+  if (want(2) && ENGINE) {
+    sect("2) every war window's two names stand inside a face of their own side, whole inside the frame, off the controls and apart");
+    for (const [label, vp] of [["desktop 1100", { mobile: false }], ["phone 390", { mobile: true }]]) {
+      const { ctx, page } = await newPage(browser, vp);
+      await page.goto(url("#card/rm-209"), { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
+      await windowUp(page, ".map-card");
+      const ids = await page.evaluate(() => Object.keys(window.ATLAS_WARS.wars));
+      const bad = [], rows = [], noGround = [];
+      for (const id of ids) {
+        await page.evaluate((cid) => { location.hash = "#card/" + cid; }, id);
+        try {
+          await page.waitForFunction((cid) => { const h = document.querySelector(".map-card.map-war"); return h && h.getAttribute("data-map-card") === cid && h.getAttribute("data-map-engine") === "v2" && h._folioMap && h._folioMap.ready() && h._folioMap.settled(); }, id, { timeout: 60000 });
+        } catch (e) { bad.push(id + ": the window did not settle"); continue; }
+        await sleep(250);
+        const r = await page.evaluate(([cid]) => {
+          const h = document.querySelector(".map-card.map-war"), F = h._folioMap, P = F.probe(), W = window.ATLAS_WARS.wars[cid], hub = AtlasEmbed.hub();
+          const cvR = h.querySelector(".mc-canvas").getBoundingClientRect(), zr = h.querySelector(".mc-zoom").getBoundingClientRect(), ctl = [zr.left - cvR.left, zr.top - cvR.top, zr.right - cvR.left, zr.bottom - cvR.top];
+          const out = { id: cid, year: Number(h.getAttribute("data-map-year")), labels: [], cw: P.cw, ch: P.ch, ctl };
+          for (const l of F.labels()) {
+            const side = W[l.k], ll = hub.lonLatAt(P.spec, l.x, l.y);
+            out.labels.push({ k: l.k, n: l.n, x: l.x, y: l.y, w: l.w, ground: l.ground, lonlat: ll, sideIds: side.m.map((m) => m[0]).concat(side.x ? [side.x] : []), box: [l.tx - l.w / 2, l.ty - 8, l.tx + l.w / 2, l.ty + 8], beside: l.beside });
+          }
+          return out;
+        }, [id]);
+        rows.push(r);
+        const hitB = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+        if (r.labels.length !== 2) bad.push(id + ": " + r.labels.length + " names drawn, not two");
+        for (const l of r.labels) {
+          /* THE PROPERTY, read from the pinned data and not from the picture: the label's point (the window's pixel turned back into longitude and latitude) is inside a face of its own side in the war's display year — the built
+             history's faces, the finest level, the same machinery check-history.js uses (lib/historyq.js) */
+          const found = l.lonlat ? Hq().entityAt(l.lonlat[0], l.lonlat[1], r.year, { layer: "all" }) : [];
+          /* a side none of whose entities has a face in the display year (a gap in the source: England and Normandy in 1076, Ethiopia in 1936) has no ground to stand on: its name is drawn at its centroid, `ground: false`, and the window tints nothing for it */
+          const drawn = l.sideIds.some((e) => Hq().aliveAt(e, r.year));
+          if (!drawn) { noGround.push(id + " " + l.n); if (l.ground) bad.push(id + ": \"" + l.n + "\" claims ground though no face of its side stands in " + r.year); continue; }
+          if (!l.sideIds.some((e) => Hq().holds(e, found))) bad.push(id + ": \"" + l.n + "\" (" + l.k + ") at " + Math.round(l.x) + "," + Math.round(l.y) + " (" + (l.lonlat ? l.lonlat.map((v) => v.toFixed(2)).join(",") : "off the globe") + ") is not inside a face of its own side (the faces there: " + found.map((e) => e.id).join("|") + ")");
+          if (l.box[0] < 0 || l.box[2] > r.cw || l.box[1] < 0 || l.box[3] > r.ch) bad.push(id + ": \"" + l.n + "\" runs outside the frame");
+          if (hitB(l.box, r.ctl)) bad.push(id + ": \"" + l.n + "\" is under the zoom controls");
+        }
+        if (r.labels.length === 2 && hitB(r.labels[0].box, r.labels[1].box)) bad.push(id + ": the two names overlap");
+      }
+      check(label + ": " + rows.length + " war windows: every side's name is on ground of its own side, whole inside the frame, off the controls, apart from the other", rows.length >= 45 && bad.length === 0, rows.length + " windows" + (noGround.length ? "; no face in the display year, so no ground: " + noGround.join(", ") : "") + (bad.length ? "; " + bad.length + " faults: " + bad.slice(0, 12).join(" | ") : ""));
+      await ctx.close();
     }
   }
 

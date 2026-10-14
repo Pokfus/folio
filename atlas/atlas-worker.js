@@ -574,6 +574,7 @@
     if (msg.type === "polity-names") { POLITY_NAMES = msg.names || null; return null; }   // Phase 4 / 0c: dated display names
     if (msg.type === "metrics") { METRICS = msg.styles; return null; }
     if (msg.type === "layout") { handleLayout(msg, post); return null; }
+    if (msg.type === "face-anchors") { handleFaceAnchors(msg, post); return null; }
     /* a lost GL context (Phase 1c): the main thread keeps nothing after upload, so the resident levels are
        rebuilt here from the raw files this worker kept — the same code path as the first load */
     if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); if (RAW.history) { HIST = null; await handleHistory({ type: "history", buffer: RAW.history }, post); } })(); }
@@ -1211,6 +1212,51 @@
     }
     const transfer = []; for (const m of meshes) transfer.push(m.pos.buffer, m.idx.buffer, m.coast.buffer, m.border.buffer);
     post({ type: "history-faces", level, meshes, seq: msg.seq, ms: Math.round(now() - t0) }, transfer);
+  }
+  /* PHASE 4 PHONE FIXES (Oct 2026): a point INSIDE each of the given history faces, as far from its edge as the visible part of the face allows (a pole of inaccessibility, in screen pixels) — what a card window's war labels
+     stand on (atlas-windows.js: each side is named on ground of its own tint, not at the centroid of the union of its faces, which fell on the other side's ground). The face's rings are the level the view draws (`msg.level`),
+     projected with the message's view; the point is searched on a grid over the part of the face that is inside the frame (and the globe's disc) by an even-odd test, then refined three times round the best cell. Answers
+     { seq, rows: [{ face, anchor: [x, y] | null, clear (px to the nearest edge), vis (the share of the face's vertices in the frame), km2 }] }; the view is the message's. */
+  function histPole(fi, proj, W, H, q, level) {
+    const L = histLevel(level), T = HIST.T;
+    const rings = faceRings(L.T, T.faces[fi], level).map((ring) => ring.map((i) => proj([L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2]])));
+    const rr = q.radius ? (q.radius * 0.985) * (q.radius * 0.985) : Infinity, inDisc = (x, y) => (x - q.cx) * (x - q.cx) + (y - q.cy) * (y - q.cy) < rr, M = 4;
+    const segs = []; let nAll = 0, nIn = 0, x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (const r of rings) {
+      for (let i = 0; i < r.length; i++) { nAll++; const p = r[i]; if (p[2] > 0.02 && p[0] >= 0 && p[0] <= W && p[1] >= 0 && p[1] <= H && inDisc(p[0], p[1])) nIn++; }
+      for (let i = 0, j = r.length - 1; i < r.length; j = i++) { const a = r[i], b = r[j]; if (a[2] <= 0.02 || b[2] <= 0.02) continue; segs.push([a[0], a[1], b[0], b[1]]); }
+    }
+    if (!segs.length) return null;
+    for (const sg of segs) { x0 = Math.min(x0, sg[0], sg[2]); x1 = Math.max(x1, sg[0], sg[2]); y0 = Math.min(y0, sg[1], sg[3]); y1 = Math.max(y1, sg[1], sg[3]); }
+    x0 = Math.max(x0, M); y0 = Math.max(y0, M); x1 = Math.min(x1, W - M); y1 = Math.min(y1, H - M);
+    if (x1 <= x0 || y1 <= y0) return null;
+    const inside = (x, y) => { let c = false; for (const s of segs) { const yi = s[1], yj = s[3]; if ((yi > y) !== (yj > y) && x < (s[2] - s[0]) * (y - yi) / (yj - yi) + s[0]) c = !c; } return c; };
+    const clearance = (x, y) => { let m = Infinity; for (const s of segs) { const dx = s[2] - s[0], dy = s[3] - s[1], l2 = dx * dx + dy * dy; let t = l2 ? ((x - s[0]) * dx + (y - s[1]) * dy) / l2 : 0; t = t < 0 ? 0 : t > 1 ? 1 : t; const ex = s[0] + t * dx - x, ey = s[1] + t * dy - y, d = ex * ex + ey * ey; if (d < m) m = d; } return Math.sqrt(m); };
+    let best = null, step = Math.max(1, Math.max(x1 - x0, y1 - y0) / 28);
+    const cells = [], tryAt = (x, y, keep) => { if (x < x0 || x > x1 || y < y0 || y > y1 || !inDisc(x, y) || !inside(x, y)) return; const c = clearance(x, y); if (keep) cells.push({ x, y, c }); if (!best || c > best.c) best = { x, y, c }; };
+    for (let y = y0 + step / 2; y <= y1; y += step) for (let x = x0 + step / 2; x <= x1; x += step) tryAt(x, y, true);
+    if (!best) {   // a face thinner than a cell: its midpoints along the edges it shows (an even-odd test on a point of the boundary's own inside)
+      for (const s of segs) for (const t of [0.25, 0.5, 0.75]) { const mx = s[0] + (s[2] - s[0]) * t, my = s[1] + (s[3] - s[1]) * t; for (const [ox, oy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) tryAt(mx + ox * 1.5, my + oy * 1.5); }
+      if (!best) return null;
+    }
+    for (let k = 0; k < 3; k++) { const c0 = best, st = step / 2; step = st; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (dx || dy) tryAt(c0.x + dx * st, c0.y + dy * st); }
+    // a few more points inside, best first and apart from one another (the window tries them in turn when the first has no room for its name): those at least a third as far from the edge as the best, 10 px or an eighth of the face apart
+    const pts = [[best.x, best.y, best.c]], sp = Math.max(10, Math.max(x1 - x0, y1 - y0) / 8);
+    cells.sort((a, b) => b.c - a.c);
+    for (const c of cells) { if (pts.length >= 12 || c.c < Math.max(1.5, best.c / 3)) break; if (pts.every((p) => Math.hypot(p[0] - c.x, p[1] - c.y) >= sp)) pts.push([c.x, c.y, c.c]); }
+    return { anchor: [best.x, best.y], pts, clear: best.c, vis: nAll ? nIn / nAll : 0 };
+  }
+  function handleFaceAnchors(msg, post) {
+    const rows = [];
+    if (HIST) {
+      const rot = msg.rot, radius = msg.radius, cx = msg.cx, cy = msg.cy, W = msg.W, H = msg.H, level = Math.max(0, Math.min(2, msg.level | 0));
+      const proj = (v) => { const x = rot[0] * v[0] + rot[1] * v[1] + rot[2] * v[2], y = rot[3] * v[0] + rot[4] * v[1] + rot[5] * v[2], z = rot[6] * v[0] + rot[7] * v[1] + rot[8] * v[2]; return [cx + x * radius, cy - y * radius, z]; };
+      for (const fi of msg.faces || []) {
+        let r = null; try { r = HIST.T.faces[fi] ? histPole(fi, proj, W, H, { radius, cx, cy }, level) : null; } catch (e) { r = null; }
+        rows.push({ face: fi, anchor: r ? r.anchor : null, pts: r ? r.pts : [], clear: r ? r.clear : 0, vis: r ? r.vis : 0, km2: HIST.H.faceKm2 ? HIST.H.faceKm2[fi] : 0 });
+      }
+    }
+    post({ type: "face-anchors", seq: msg.seq, rows });
   }
   /* the label path of an alive face on screen: the area-weighted centre of its LOD 0 fill and the principal axis of its
      projected vertices, walked both ways from the centre while inside the projected rings (even-odd) — a straight run of
