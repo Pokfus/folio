@@ -708,11 +708,27 @@ const SETTINGS = {
      that reason: both are about which phrasing a card is asked with, and this one is invisible from the
      outside, a second phrasing being a perfectly good sentence. */
   {
-    const page = await newPage({ active: [deckA, deckB], settings: SETTINGS, cards: {} });
-    await page.goto(base + "#challenge", { waitUntil: "load" });
-    await page.reload({ waitUntil: "load" });
-    await page.waitForTimeout(1400);
-    const q = await page.evaluate(() => {
+    /* THE DAY IS PINNED, AND SCANNED (Oct 2026). Multiple Choice deals its five rounds with `dayPick`, which
+       is seeded on the reader's DAY, so "which five cards" was a function of the date the suite ran on.
+       That matters because a card's `questions` pool is the LAZY half of the card (see CARD_EXTRA_FIELDS in
+       app.js): the page only holds it for collections it has warmed, here the two active decks', so the
+       "genuinely carry other phrasings" guard below was true only on days when one of the five cards came
+       from such a collection and false when all five came from wh-, rm-, gr- or bio- (every one of which
+       does carry the pool on disk). Measured over 14 to 23 October 2026, 7 of 10 days dealt no such card,
+       so the suite flipped between red and green with nothing in the code changing. The guard exists to
+       prove the first-phrasing assertion is not vacuous, so it stays exactly as strong: what changes is
+       that the date is now ours. `page.clock.setFixedTime` fixes `Date` (timers keep running) and the
+       suite walks forward from a fixed day until one deals a card whose pool is in the page. The answer
+       depends on the shipped cards and nothing else, so it is the same on every run; if no day in the
+       window deals one, the guard fails. */
+    let page, q, day = null;
+    for (let i = 0; i < 30; i++) {
+      page = await newPage({ active: [deckA, deckB], settings: SETTINGS, cards: {} });
+      await page.clock.setFixedTime(new Date(2026, 9, 14 + i, 12, 0, 0));
+      await page.goto(base + "#challenge", { waitUntil: "load" });
+      await page.reload({ waitUntil: "load" });
+      await page.waitForTimeout(1400);
+      q = await page.evaluate(() => {
       /* The rendered question is NOT byte-identical to the stored one, and an exact match here is a test
          that passes on luck: the units pass rewrites every text node on the page, so a card asking about
          "140 metres (460 feet)" renders without the bracket in metric mode — 20 of the deck's cards carry
@@ -739,11 +755,14 @@ const SETTINGS = {
         nx.click();
       }
       return out;
-    });
+      });
+      if (q.some((r) => r.extras > 0)) { day = i; break; }
+      await page.close();
+    }
     check("every Multiple Choice round asks its card's first phrasing",
       q.length > 1 && q.every((r) => r.first), JSON.stringify(q));
     // …and the cards it drew really do have extras, or the assertion above passes on cards with one
-    check("...on cards that genuinely carry other phrasings", q.some((r) => r.extras > 0), JSON.stringify(q));
+    check("...on cards that genuinely carry other phrasings", q.some((r) => r.extras > 0), (day === null ? "no day in 30" : "day +" + day) + " " + JSON.stringify(q));
     await page.close();
   }
 

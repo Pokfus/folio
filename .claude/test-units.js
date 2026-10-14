@@ -319,6 +319,8 @@ async function shown(page, html) {
         ["a court, joined by `by`", "a central court 54 by 27 metres (177 by 89 feet).", "a central court 54 by 27 metres.", "a central court 177 by 89 feet."],
         ["an area, qualified `square`", "covers some 7,600 square metres (81,800 square feet),", "covers some 7,600 square metres,", "covers some 81,800 square feet,"],
         ["a volume, qualified `cubic`", "may reach 117 to 129 cubic kilometres (28 to 31 cubic miles),", "may reach 117 to 129 cubic kilometres,", "may reach 28 to 31 cubic miles,"],
+        // `trillion` was the one scale word the engine did not list (Oct 2026): Nord Stream 2's "55 to 110 billion cubic metres (1.9 to 3.9 trillion cubic feet)" showed BOTH figures to every reader
+        ["a bracket in trillions", "from 55 to 110 billion cubic metres (1.9 to 3.9 trillion cubic feet) a year", "from 55 to 110 billion cubic metres a year", "from 1.9 to 3.9 trillion cubic feet a year"],
         ["a `square` abbreviation unit", "reckoned at some 25,000 km² (9,700 square miles) and", "reckoned at some 25,000 km² and", "reckoned at some 9,700 square miles and"],
         // the sign must be CONSUMED, not merely tolerated — left outside the match it survives while the
         // bracket supplies its own, and this rendered "−−129 °F" for an hour while the fix was being made
