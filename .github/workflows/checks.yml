@@ -199,6 +199,10 @@ jobs:
       # test-atlas-render.js (the wars and front pairs) and test-atlas-perf.js (two war-heavy views).
       - name: build-wars --check (atlas/data/wars.js is what the cards and history.bin build)
         run: node .claude/atlas-build/build-wars.js --check
+      # THE WAR-WINDOW SLICE (Oct 2026, Phase 4c): atlas/data/history-wars.bin is a cut of history.bin (the states of each war's display year and the war's sides); --check rebuilds it from the committed
+      # history.bin and wars.js, fails when the installed file or its twin lags, and proves every war's states and sides equal the full file's at all three levels.
+      - name: build-war-slice --check (Atlas v2, the war windows' slice of the history file)
+        run: node --max-old-space-size=4000 .claude/atlas-build/build-war-slice.js --check
       - name: test-war-sides (Atlas v2, the war sides on the built topology)
         run: node --max-old-space-size=4000 .claude/test-war-sides.js
       # THE STEP TOPOLOGY IS A GENERATED FILE WITH THE SAME SILENT FAILURES (Oct 2026, Phase 2a; docs/atlas-v2-design.md §2.3 "The step

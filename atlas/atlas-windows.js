@@ -50,7 +50,12 @@
     const zoomAttr = Number(host.getAttribute("data-map-zoom")) || 0;
     const root0 = sibCard ? cardCollectionRoot(sibCard) : null;
     const hiRegion = sibCard ? (CMAP_HIRES[(root0 || {}).id] || "") : (CMAP_LAYER_HIRES[layerName] || "");
-    const wantWater = !!sibCard || !!hiRegion;
+    /* PHASE 4c, THE OWNER'S DECISION 2 — RIVERS IN WINDOWS. A window draws its rivers at the Atlas's own density for its zoom (about half of V1's length; Phase 4b had asked for one resident level finer everywhere, 107 % of V1's). A
+       card whose SUBJECT is water — a river locator, a sea, a lake — gets the finer level, so the river it is about is drawn in full. Under the reader's data saver or light mode the window asks for no water at all (the
+       finer level is in the same 4.3 MB file as the coarse one, so "never fetched" can only mean the file is not fetched): the card's own river from `rivers.js` is still drawn in gold. */
+    const lightReader = !!(S.settings && S.settings.saveData) || !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.saveData === true);
+    const waterSubject = !!sibCard && (locKind === "river" || locKind === "sea" || (locKind === "point" && /\b(lake|lagoon|loch|lough|bay|gulf|strait|channel|sea|river)\b/i.test(host.getAttribute("data-map-atname") || "")));
+    const wantWater = (!!sibCard || !!hiRegion) && !lightReader;
     const subdiv = sibCard ? (CMAP_SUBDIV[(root0 || {}).id] || null) : null;
     const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], termName: new Map(), own: new Set() };
     const anchor = (() => {
@@ -140,10 +145,10 @@
     }
     /* PHASE 4b, WAR WINDOWS: THE TWO PRINCIPAL SIDES ARE NAMED ON THE WINDOW and a one-line legend is drawn from the card's own sides (`ATLAS_WARS` carries the card's name for each: "Rome", "Carthage",
        "Han, Zhao, Wei, Chu, Yan and Qi"). The names stand where each side stands in the war's years (the engine's `warSides`: the mean direction of the side's faces); the legend is a pill at the foot of the window:
-       a swatch in the engine's own victor / loser colour, the side's name, and — only where the card gives ONE name and the table tints several states for the side (China is the Republic of China and the Communist-led state in 1937–45) — "(2 states)": the card's own words, plus a count the table can vouch for; "and allies" was the owner's example wording and is NOT used, because nothing in the data says the extra states were allies. A side that is only an authored
+       a swatch in the engine's own victor / loser colour, the side's name, and, wherever the table tints more than one state for the side, a count after it — "China · 2 states" (Phase 4c, the owner's decision 1: the card's OWN name verbatim, then the number of states the table draws for it; the legend never says or implies "allies", because nothing in the data says the extra states were allies). A side that is only an authored
        extent (no state of the table in those years) has a hatched swatch and says "approximate extent": the wash the engine draws for it is the card's own claim, never a border. */
     let warSides = null, warCols = null, lastLegend = [], lastNames = [];
-    const sideText = (sd) => { const n = String(sd.n || "").trim(); return sd.members > 1 && !/,| and /.test(n) ? n + " (" + sd.members + " states)" : n; };
+    const sideText = (sd) => { const n = String(sd.n || "").trim(); return sd.members > 1 ? n + " · " + sd.members + " states" : n; };   // Phase 4c, owner's decision 1: the card's own name verbatim, then the count the table can vouch for ("China · 2 states"); never "allies"
     function warMarks(ctx, api) {
       if (!warSides || !warCols) return;
       const W = api.cw, H = api.ch, css = (c, a) => "rgba(" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255)).join(",") + "," + a + ")";
@@ -286,7 +291,7 @@
           const WT = window.ATLAS_WARS && window.ATLAS_WARS.wars && window.ATLAS_WARS.wars[sibCard];
           if (!WT) { v1(); return; }   // a war the table does not carry keeps V1's window
           warYear = Math.round((WT.y[0] + WT.y[1]) / 2); host.setAttribute("data-map-year", String(warYear));
-          hub.startHistory();
+          hub.startHistory("wars");   // Phase 4c: the war-window slice (1.8 MB), not the whole history (9.1 MB)
           return new Promise((res) => {
             let done = false; const fin = (ok) => { if (done) return; done = true; off(); clearTimeout(tm); res(ok); };
             const off = hub.onChange(() => { if (hub.historyOK()) fin(true); }), tm = setTimeout(() => fin(false), 150000);
@@ -307,7 +312,7 @@
         win = window.AtlasEmbed.view(cv, {
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
-            layers: { borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar },
+            layers: { borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: waterSubject },
             year: warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined,
             highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9 }] : [],
           }),
@@ -435,9 +440,9 @@
     Promise.all(need).then((ok) => {
       if (!root.isConnected) return;
       if (!ok.every(Boolean) || !window.AtlasEmbed) { fail(); return; }
-      return window.AtlasEmbed.ensure({ host: {} }).then((hub) => {
+      return window.AtlasEmbed.ensure({ host: {}, needHistory: "full" }).then((hub) => {
         if (!root.isConnected) return; if (!hub) { fail(); return; }
-        hubRef = hub; rounds = fi2Rounds(); root._finditRounds = () => rounds.map((r) => ({ kind: r.kind, n: r.n, year: r.year })); root._finditApi = { win: () => win, rounds: () => rounds, round: () => ri };   // read by test-atlas-embed.js
+        hubRef = hub; rounds = fi2Rounds(); root._finditRounds = () => rounds.map((r) => ({ kind: r.kind, n: r.n, year: r.year })); root._finditApi = { panel: (r) => revealPanel(r), win: () => win, rounds: () => rounds, round: () => ri };   // read by test-atlas-embed.js
         if (!rounds.length) { route("map"); return; }
         loadEl.hidden = true;
         win = window.AtlasEmbed.view(board, {
@@ -539,14 +544,56 @@
       revealPanel(r);
       nextEl.textContent = ri + 1 >= rounds.length ? "See your score" : "Next round"; nextEl.hidden = false; win.schedule();
     }
-    /* the round ends on something learned: the place's cards, easiest first (a country: a link to its card on the Atlas); each opens the card at its own address */
-    function revealPanel(r) {
-      let html = '<div class="fi2-reveal-head"><b>' + esc(r.kind === "entity" ? fi2Name(r.n) : r.n) + "</b></div>";
-      if (r.kind === "entity") { const d = fi2CountryDesc(r.n); if (d) html += '<p class="fi2-reveal-desc">' + esc(String(d).split(/(?<=[.!?])\s/)[0] || "") + "</p>"; const t = targetIds(r)[0]; if (t) html += '<button type="button" class="btn ghost fi2-reveal-go" data-place="' + esc(t) + '">Read about it on the Atlas</button>'; }
-      else { html += '<ul class="fi2-reveal-cards">' + (r.ids || []).slice(0, 4).map((id) => { const c = CARD_BY_ID[id]; return c ? '<li><a href="#card/' + esc(id) + '" class="cp-cardlink">' + esc(String(c.answerText || c.answer || c.question || id).replace(/<[^>]*>/g, "")) + "</a></li>" : ""; }).join("") + "</ul>"; }
+    /* THE LEARN PANEL (Phase 4c, the owner's decision 5) — what v1's `showCountryPopup` and `showMinePopup` did after an answer, on the engine's board. The round ends on something learned:
+       · the place's NAME (a country by its full name), with "New discovery!" the first time a country is opened (the same `placesSeen` register v1's panel wrote, no sound in a game, as v1);
+       · for a country the prose v1 printed (the general description, without the figures and the "(Language: name)" parentheticals v1 strips), for a state or people the years it is shown in;
+       · THE PLACE CARD'S LIST OF CARDS (`AtlasStudy.cardsFor`: the reader's own first, "and N more", the collection beside each, "studied" on the ones the reader has a record for), each a link to the card's own
+         address — for a country the cards the register names for it, for a state, a people or a place the cards the round was dealt for;
+       · how to continue: a Next button in the panel (the same button as the one under the question), a way to read about it on the Atlas, and a close button (Escape too) that puts the panel away and leaves the board.
+       v1's mine popup also swiped through the cards' answers one at a time; here a card is one tap away. */
+    const stripInfoNoise = (t) => {   // = v1's `stripInfoNoise`: no "(Language: name)", no sentence that quotes a figure the number grid shows
+      if (!t) return ""; t = String(t).replace(/\s*\([^)]*:[^)]*\)/g, "");
+      const grid = /[$€£]\s?\d|\d[\d.,]*\s*(?:million|billion|trillion)\b|\d[\d.,]*\s*(?:km²|km2|sq\.?\s?mi|sq\.?\s?km|square\s?kilomet|square\s?mile)/i;
+      const kept = t.split(/(?<=[.!?])\s+/).filter((q) => !grid.test(q));
+      return (kept.length ? kept.join(" ") : t).replace(/\s{2,}/g, " ").trim();
+    };
+    const SU = X.study || null, AStudy = window.AtlasStudy || null;
+    let learnLimit = 0, learnRound = null, learnNew = false;
+    const cardsOf = (r) => {   // the card ids this round teaches: a country's by the register, anything else's as the round was dealt
+      let ids = [];
+      if (r.kind === "entity") { try { const reg = atlasRegisterAll(true), v = reg.names.get(r.n.toLowerCase()); if (v) ids = (v.ids || [v.id]).filter(Boolean); } catch (e) { ids = []; } }
+      else ids = (r.ids || []).slice();
+      const avail = availableCardIdSet(); return ids.filter((id, i) => CARD_BY_ID[id] && avail.has(id) && ids.indexOf(id) === i);
+    };
+    function learnList(r) {
+      const ids = cardsOf(r); if (!ids.length) return "";
+      const info = (id) => (SU && SU.cardInfo ? SU.cardInfo(id) : null);
+      const mine = SU && SU.studiedCards ? SU.studiedCards() : [];
+      let list;
+      if (AStudy && AStudy.cardsFor) { const idx = { cardsOfPlace: new Map([["round", ids]]) }; list = AStudy.cardsFor(idx, "round", { cards: mine }, "full", [], info, learnLimit || AStudy.LIST_CAP); }
+      else list = { shown: ids.slice(0, learnLimit || 8).map((id) => ({ id, mine: mine.indexOf(id) >= 0 })), more: Math.max(0, ids.length - (learnLimit || 8)), others: 0, total: ids.length };
+      const li = (c) => { const i = info(c.id) || {}; return '<li><a class="cp-cardlink fi2-learn-card" href="' + esc(SU && SU.cardHref ? SU.cardHref(c.id) : "#card/" + c.id) + '" data-card="' + esc(c.id) + '"><span class="fi2-learn-title">' + esc(i.title || c.id) + "</span>" + (i.coll ? '<span class="fi2-learn-chip">' + esc(i.coll) + "</span>" : "") + (c.mine ? '<span class="fi2-learn-mine" title="You have studied this card">studied</span>' : "") + "</a></li>"; };
+      return '<section class="fi2-learn-cards" aria-label="Cards about this place"><h3 class="fi2-learn-h">Cards about this place</h3><ul class="fi2-reveal-cards">' + list.shown.map(li).join("") + "</ul>" + (list.more ? '<button type="button" class="fi2-learn-more" data-more="1">and ' + list.more + " more</button>" : "") + "</section>";
+    }
+    function revealPanel(r, again) {
+      learnRound = r;
+      if (!again) { learnLimit = 0; learnNew = false; if (r.kind === "entity" && SU && SU.discover) { try { learnNew = !!SU.discover(r.n); } catch (e) { learnNew = false; } } }
+      const name = r.kind === "entity" ? fi2Name(r.n) : r.n;
+      let html = '<div class="fi2-reveal-head"><b>' + esc(name) + "</b>" + (learnNew ? '<span class="fi2-learn-new">New discovery!</span>' : "") + '<button type="button" class="fi2-reveal-close" aria-label="Close this panel">&times;</button></div>';
+      html += '<div class="fi2-reveal-body">';
+      if (r.kind === "entity") { const d = stripInfoNoise(fi2CountryDesc(r.n)); if (d) html += '<p class="fi2-reveal-desc">' + (X.sanitizeHTML ? X.sanitizeHTML(d) : esc(d.replace(/<[^>]*>/g, ""))) + "</p>"; }   // the country prose carries <b> and <i> (v1 sets it through sanitizeHTML too)
+      else if (r.kind === "area") html += '<p class="fi2-reveal-desc fi2-reveal-when">As it stood in ' + esc(fi2Year(r.shown != null ? r.shown : r.year)) + ".</p>";
+      html += learnList(r) + "</div>";
+      const t = targetIds(r)[0];
+      html += '<div class="fi2-reveal-acts">' + (t ? '<button type="button" class="btn ghost fi2-reveal-go" data-place="' + esc(t) + '">Read about it on the Atlas</button>' : "") + '<button type="button" class="btn fi2-reveal-next" id="fiRevealNext">' + esc(ri + 1 >= rounds.length ? "See your score" : "Next round") + "</button></div>";
+      revealEl.setAttribute("role", "dialog"); revealEl.setAttribute("aria-label", "What you found: " + name);
       revealEl.innerHTML = html; revealEl.hidden = false;
       revealEl.querySelectorAll(".fi2-reveal-go").forEach((b) => b.addEventListener("click", () => route("map2", { place: b.getAttribute("data-place") })));
+      const nx = revealEl.querySelector(".fi2-reveal-next"); if (nx) nx.addEventListener("click", () => { if (!nextEl.hidden) nextEl.click(); });
+      const cl = revealEl.querySelector(".fi2-reveal-close"); if (cl) cl.addEventListener("click", () => { revealEl.hidden = true; board.focus({ preventScroll: true }); });
+      const more = revealEl.querySelector(".fi2-learn-more"); if (more) more.addEventListener("click", () => { learnLimit = (learnLimit || (AStudy ? AStudy.LIST_CAP : 8)) + 20; revealPanel(learnRound, true); });
     }
+    root.addEventListener("keydown", (e) => { if (e.key === "Escape" && !revealEl.hidden) { revealEl.hidden = true; e.stopPropagation(); } });
     function end() {
       over = true; const n = rounds.length, perfect = n >= 5 && found >= n;
       markGamePlayed("findit", perfect, found, n); save(); checkAchievements();

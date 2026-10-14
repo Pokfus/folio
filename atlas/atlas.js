@@ -1194,7 +1194,11 @@
     const PI = { mode: "map", flags: new Map() };   // the study layer's answer to "does a card of the reader's link it?" (applyStudy keeps it); "map" until the cards are read
     let histStarted = false, histWanted = false, coreIn = false;
     // the first touch of the rail, a year before today, a deep link's year or a suite: fetch the history file now (once)
-    function ensureHistory() { histWanted = true; if (!histStarted && coreIn) startHistory(); }
+    /* Phase 4c: a card window's war needs only the war-window slice (atlas/data/history-wars.bin, build-war-slice.js: the states of each war's display year and the war's own sides, 1.8 MB of the 9.1);
+       `kind` is "wars" for that and "full" (the default) for everything else — the Atlas page, Find it's area round. The kind of the FIRST request is the file's; a hub that began on the slice is
+       recreated by atlas-embed.js when something needs the whole history. */
+    let histKind = "full";
+    function ensureHistory(kind) { if (!histWanted && !histStarted) histKind = kind === "wars" ? "wars" : "full"; histWanted = true; if (!histStarted && coreIn) startHistory(); }
     const reducedNow = () => reduced();
     const fmtYear = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");   // every year with its era ("1 CE", "300 BCE", "2026 CE"): a bare "1" in the year box read as nothing (the 2a phone review)
     // "500 BCE", "500 BC", "-44", "44", "44 CE", "AD 70", "1066": null when it is none of these
@@ -1214,8 +1218,8 @@
       histStarted = true; time.histStarted = true;
       railNote.hidden = false; railNote.textContent = "Loading the years…";   // the quiet loading state: never a blank rail while the file is on its way
       const t = performance.now();
-      const url = opts.historyUrl || "atlas/data/history.bin";
-      (FILE ? loadTwin("history.bin", "the borders of the past") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
+      const SLICE = histKind === "wars", url = opts.historyUrl || (SLICE ? "atlas/data/history-wars.bin" : "atlas/data/history.bin");
+      (FILE ? loadTwin(SLICE ? "history-wars.bin" : "history.bin", SLICE ? "the states of the wars" : "the borders of the past") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
         if (disposed) return;
         time.loadMs = Math.round(performance.now() - t); time.bytes = buffer.byteLength;
         postToWorker({ type: "history", buffer });
@@ -1513,6 +1517,18 @@
       time.onScreen = onScreen;
       return [...ys].filter((y) => y >= RAIL_FROM && y <= TODAY).sort((a, b) => a - b);
     }
+    /* A STEPPED YEAR'S LAYOUT AND ADDRESS WAIT FOR THE FRAME (Phase 4c, task 0d). A year change that is not a drag — a step, a jump, the pin's release — asked for its
+       layout at once, which measures the controls (`chromeRects`) and writes the address. Those reads come straight after `applyYear` has written the rail's pin
+       and year, so the browser had to lay the page out again inside the call: 1.4–2.2 ms against 0.2 ms on a clean page, and 0.8 ms for `replaceState`, the whole
+       of the 3.1–4.3 ms p95 the gate read (13 of 172 changes in a scrub, every one of them the tail). The same two steps now run once at the start of the next
+       frame — where the frame's own layout was due anyway, and several changes in one frame make one request — with a timer behind it for a hidden tab. */
+    let yearFlush = 0, yearFlushTimer = 0;
+    function yearFlushLater() {
+      if (EMBED || yearFlush) return;
+      const run = () => { if (!yearFlush) return; yearFlush = 0; clearTimeout(yearFlushTimer); if (disposed) return; requestLayout("year", true); writeHash(false); };
+      yearFlush = requestAnimationFrame(run);
+      yearFlushTimer = setTimeout(() => { cancelAnimationFrame(yearFlush); run(); }, 120);
+    }
     /* THE YEAR: the alive set, the style tables, the meshes wanted (and the look-ahead), the layout */
     function applyYear(y, o) {
       hideSearchNote();   // a note that says a polity is not on the map in the OLD year is stale
@@ -1555,7 +1571,7 @@
       if (!o.drag && !EMBED) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
       plan(); invalidate();
       if (o.why === "play") { const now = performance.now(); if (now - (time.lastPlayLayout || 0) > 500) { time.lastPlayLayout = now; requestLayout("year", true); } else requestLayout("year"); writeHash(false); }   // playing: a layout twice a second at most (one per frame starved the frame on a software rasteriser)
-      else if (!o.drag) { requestLayout("year", true); writeHash(false); if (o.why !== "peoples") announce(fmtYear(y)); }   // the Peoples switch re-applies the year: it is not a year change to a screen reader
+      else if (!o.drag) { yearFlushLater(); if (o.why !== "peoples") announce(fmtYear(y)); }   // the Peoples switch re-applies the year: it is not a year change to a screen reader
       else requestLayout("year");
       const ms = performance.now() - t0; time.yearChange.push(ms); if (time.yearChange.length > 600) time.yearChange.shift();
     }
@@ -1809,7 +1825,8 @@
       plan();
       const seq = ++layoutSeq;
       L.sentAt = performance.now();
-      postToWorker({ type: "layout", seq, reason, chrome: chromeRects(), year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
+      L.chrome = chromeRects();   // kept for the painter: between layouts a label that slid under a control or past the frame is not drawn (Phase 4c)
+      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
       if (reason === "settle" || reason === "level") writeHash(false);
     }
     function applyLayout(m) {
@@ -1895,6 +1912,22 @@
     }
     /* every frame: each placed label at its anchor's CURRENT position (a translation — the layout is only
        recomputed on settle), skipped behind the horizon, faded near the limb; the live hit rects are kept */
+    /* A LABEL IS ALWAYS WHOLE AND CLEAR OF THE CONTROLS (Phase 4c; the owner's phone showed "ille" for Lille, "Strasbour", and Essen under the "?"
+       button). The layout puts every label inside the frame and off every control — but only when the view settles; during a drag, a
+       wheel or a pinch each label is drawn at its layout position plus the pan since, so it slid out under the frame's edge and under
+       the chrome until the next layout landed. The rule the layout applies is applied again here, to the label's rectangles at their
+       CURRENT place: one that no longer fits wholly inside the frame, or touches a control (the rectangles of the last layout), is not
+       drawn this frame and cannot be tapped — dropped, never clipped or covered; the next layout brings the right ones back. */
+    function labelFits(p, dx, dy) {
+      const rs = p.rects; if (!rs) return true;
+      const ch = L.chrome || [];
+      for (let i = 0; i < rs.length; i++) {
+        const q = rs[i], x0 = q[0] + dx, y0 = q[1] + dy, x1 = q[2] + dx, y1 = q[3] + dy;
+        if (x0 < 0 || y0 < 0 || x1 > cssW || y1 > cssH) return false;
+        for (let j = 0; j < ch.length; j++) { const c = ch[j]; if (x0 < c[2] && x1 > c[0] && y0 < c[3] && y1 > c[1]) return false; }
+      }
+      return true;
+    }
     function drawLabels() {
       const t = performance.now();
       const ctx = lctx;
@@ -1910,6 +1943,7 @@
         if (z < 0.005) continue;
         const sx = cx + (rot[0] * a[0] + rot[1] * a[1] + rot[2] * a[2]) * r, sy = cy - (rot[3] * a[0] + rot[4] * a[1] + rot[5] * a[2]) * r;
         const dx = sx - p.sx, dy = sy - p.sy;
+        if ((dx || dy) && !labelFits(p, dx, dy)) continue;
         ctx.globalAlpha = Math.min(1, z / 0.2) * (muteOthers && !p.st ? 0.4 : 1);   // the Personal Atlas mutes everything that is not the reader's (Phase 3b)
         if (p.marker) drawMarker(ctx, p.marker[0] + dx, p.marker[1] + dy, p.marker[2], p.marker[3], p.id === sel.id, p);
         if (p.sprite) ctx.drawImage(p.sprite.c, p.sprite.x0 + dx, p.sprite.y0 + dy, p.sprite.w, p.sprite.h);
@@ -2686,7 +2720,7 @@
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: () => ensureHistory(), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id) => warSidesOf(id), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id) => warSidesOf(id), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {
