@@ -5,7 +5,7 @@
    one has already broken once:
 
      · the phone's bottom tab bar and the chain of things anchored to the bottom of the viewport. The bar,
-       the Atlas timebar and the globe stage are stacked by arithmetic (--tabbar-h / --timebar-h). Get one
+       the Atlas page and the tab bar are joined by arithmetic (--tabbar-h). Get one
        wrong and a bar sits ON another, or a page's last line hides under the tab bar — which looks like a
        scrolling bug, not a layout one, so it gets reported as "the page is cut off".
      · the Atlas rail's year labels. They are absolutely positioned off year2frac and thinned by
@@ -50,24 +50,14 @@ function serve() {
   });
 }
 
-// the Atlas's first-visit coach marks cover the whole globe; every Atlas section here needs them gone
-/* THE ATLAS OPENS ON THE READER'S OWN TAB NOW (Sep 2026), AND EVERY SECTION BELOW IS ABOUT THE WORLD
-   ONE. The personal atlas hides the search and the legend outright — they are the world atlas's index and
-   its layer switches, neither of which that tab has — so once `#map` started landing there, eight
-   assertions about the chip layout began reading `{"w":0,"shown":false}` and failing on a feature that was
-   working perfectly one press away. This helper presses that press. Both coach-mark keys are set, since
-   each tab carries its own and an undismissed card sits over the chrome being measured. */
-async function atlas(page, base, ms, tab) {
+/* THE ATLAS IS THE v2 PAGE (Phase 5, Oct 2026). The first-visit coach marks are dismissed through their stored keys, and the helper waits for the engine's own "ready" flag instead of a fixed pause.
+   `tab` and `ms` are kept in the signature only so the call sites that pass them (the swipe test) read as before; v2 has no tabs. */
+async function atlas(page, base, ms) {
   await page.goto(base, { waitUntil: "load" });
   await page.evaluate(() => { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); });
   await page.goto(base + "#map", { waitUntil: "load" });
-  await page.waitForTimeout(ms || 4500);
-  // the world atlas tab was removed (Oct 2026, on request); the page opens on the reader's own, and "full"
-  // is the only other tab there is
-  const want = tab || "mine";
-  const sel = '[data-atlastab="' + want + '"]';
-  const need = await page.evaluate((s) => { const b = document.querySelector(s); return !!b && !b.classList.contains("on"); }, sel);
-  if (need) { await page.click(sel); await page.waitForTimeout(2200); }
+  await page.waitForSelector('.atlas2[data-ready="1"]', { timeout: 60000 }).catch(() => {});
+  await page.waitForTimeout(ms || 800);
 }
 /* Put a collection in the daily review, the way a reader does. The first-run hero routes to the
    COLLECTIONS now (Aug 2026, on request) rather than picking a subject on the reader's behalf, so nothing
@@ -261,29 +251,23 @@ function scrimCheck() {
     await page.close();
   }
 
-  /* ================= 2. everything anchored to the bottom, stacked without overlap =================
-     The globe stage, the Atlas timebar and the tab bar are three fixed elements whose positions are pure
-     arithmetic over --timebar-h and --tabbar-h. Nothing throws when that arithmetic is wrong: one bar just
-     sits on top of another, or a gap opens under the last one. */
+  /* ================= 2. the Atlas page fills the stage down to the tab bar =================
+     v1's globe stage, timebar and rail were three fixed bars stacked by arithmetic; v2 is ONE page block (.atlas2, `height: calc(100vh - 150px)`) with its own chrome inside it (docs/atlas.md; the chrome's
+     placement is asserted by test-atlas-phone.js and test-atlas-card.js). What is left for this file to guard is the join with the page's own bar: the Atlas ends ABOVE the tab bar (or the viewport
+     floor where there is none), never under it, and not so far above that a band of nothing opens (under 120 px). */
   for (const vp of [PHONE, { width: 560, height: 820 }, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp });
     await watch(page);
     await atlas(page, base);
     const g = await page.evaluate(() => {
       const r = (s) => { const e = document.querySelector(s); if (!e || !e.checkVisibility()) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bottom: Math.round(b.bottom), h: Math.round(b.height) }; };
-      return { stage: r(".globe-stage"), timebar: r(".atlas-timebar"), tabbar: r(".tabbar"), vh: window.innerHeight };
+      return { atlas: r(".atlas2"), canvas: r(".atlas2-canvas"), tabbar: r(".tabbar"), vh: window.innerHeight };
     });
     const tag = vp.width + "px";
-    const bottomMost = g.tabbar || g.timebar;
-    check("[" + tag + "] the globe stage ends exactly where the timeline begins",
-      !!g.stage && !!g.timebar && near(g.stage.bottom, g.timebar.top), JSON.stringify({ stage: g.stage && g.stage.bottom, timebar: g.timebar && g.timebar.top }));
-    if (g.tabbar) {
-      check("[" + tag + "] ...the timeline ends exactly where the tab bar begins",
-        near(g.timebar.bottom, g.tabbar.top), JSON.stringify({ timebar: g.timebar.bottom, tabbar: g.tabbar.top }));
-    } else {
-      check("[" + tag + "] ...and with no tab bar the timeline sits on the viewport floor", near(g.timebar.bottom, g.vh), g.timebar.bottom + " vs " + g.vh);
-    }
-    check("[" + tag + "] nothing is left over below the last bar", near(bottomMost.bottom, g.vh), bottomMost.bottom + " vs " + g.vh);
+    check("[" + tag + "] the Atlas page is on screen with a drawn canvas", !!g.atlas && !!g.canvas && g.canvas.h > 200, JSON.stringify(g));
+    const floor = g.tabbar ? g.tabbar.top : g.vh;
+    check("[" + tag + "] ...and ends clear of the " + (g.tabbar ? "tab bar" : "viewport floor") + ", not under it and not far above it", !!g.atlas && g.atlas.bottom <= floor + 1 && floor - g.atlas.bottom < 120, JSON.stringify({ atlas: g.atlas && g.atlas.bottom, floor }));
+    if (g.tabbar) check("[" + tag + "] ...the tab bar is the last thing on the page", near(g.tabbar.bottom, g.vh), g.tabbar.bottom + " vs " + g.vh);
     await page.close();
   }
   {
@@ -302,89 +286,19 @@ function scrimCheck() {
     await page.close();
   }
 
-  /* ================= 3. the Atlas rail's year labels never overlap =================
-     They are positioned off year2frac, so a label that would collide is DROPPED by layoutTicks() rather
-     than nudged — moving one off its year would make it a lie. The two ENDS are what fix the scale and
-     are always kept. */
-  for (const vp of [PHONE, { width: 480, height: 820 }, { width: 900, height: 900 }, DESKTOP]) {
-    const page = await browser.newPage({ viewport: vp });
-    await watch(page);
-    await atlas(page, base);
-    const t = await page.evaluate(() => {
-      const all = [...document.querySelectorAll(".tl-tick")];
-      const box = document.querySelector(".tl-ticks").getBoundingClientRect();
-      const vis = all.filter((e) => e.checkVisibility()).map((e) => { const b = e.getBoundingClientRect(); return { txt: e.textContent.trim(), l: b.left, r: b.right }; });
-      return { n: all.length, vis: vis, first: all[0].checkVisibility(), last: all[all.length - 1].checkVisibility(), box: { l: box.left, r: box.right } };
-    });
-    const tag = vp.width + "px";
-    let overlap = null;
-    for (let i = 1; i < t.vis.length; i++) if (t.vis[i].l < t.vis[i - 1].r) overlap = t.vis[i - 1].txt + " / " + t.vis[i].txt;
-    check("[" + tag + "] no two year labels overlap", !overlap, overlap || t.vis.map((v) => v.txt).join(" · "));
-    check("[" + tag + "] ...the two ends are always kept", t.first && t.last, JSON.stringify({ first: t.first, last: t.last }));
-    check("[" + tag + "] ...and at least three of them survive", t.vis.length >= 3, String(t.vis.length));
-    check("[" + tag + "] ...none hanging outside the rail", t.vis.every((v) => v.l >= t.box.l - 2 && v.r <= t.box.r + 2),
-      JSON.stringify({ box: [Math.round(t.box.l), Math.round(t.box.r)], out: t.vis.filter((v) => v.l < t.box.l - 2 || v.r > t.box.r + 2).map((v) => v.txt) }));
-    await page.close();
-  }
-
-  /* ================= 4. the Atlas chrome ================= */
-  /* THE SEARCH AND THE LEGEND WERE THE WORLD ATLAS'S, and that tab was removed (Oct 2026, on request: "we'll
-     only use the personal atlas from now on"). This section measured them as chips on a phone and as a field
-     and an open panel on a desktop; what is left to assert is that the legend shows on neither tab, at
-     either width — a control left visible from a removed page is a control that does nothing.
-     THE SEARCH IS THE EXCEPTION, AND ONLY ON THE FULL ATLAS (docs/atlas.md, "The Full atlas has a search
-     again"): the world atlas's box came back there, indexed over the whole register, while Your atlas still
-     has none. So the search is asserted PRESENT on the full tab and ABSENT on the reader's own — a search
-     on Your atlas would be a control for finding places the reader has not yet unlocked, and a Full atlas
-     without one would be a register with no way in. */
-  for (const vp of [PHONE, DESKTOP]) {
-    for (const tab of ["mine", "full"]) {
-      const page = await browser.newPage({ viewport: vp, hasTouch: vp === PHONE });
-      await watch(page);
-      await atlas(page, base, null, tab);
-      const tag = (vp === PHONE ? "phone" : "desktop") + " · " + tab;
-      const d = await page.evaluate(() => ({
-        search: document.querySelector("#globeSearch").checkVisibility(),
-        legend: document.querySelector("#globeLegend").checkVisibility(),
-        world: !!document.querySelector('[data-atlastab="world"]'),
-      }));
-      check("[" + tag + "] " + (tab === "full" ? "the search is on the full atlas, and no legend" : "no search and no legend on your atlas"),
-        d.search === (tab === "full") && !d.legend, JSON.stringify(d));
-      check("[" + tag + "] ...and no world atlas tab to reach them by", !d.world);
-      await page.close();
-    }
-  }
-  {
-    const page = await browser.newPage({ viewport: DESKTOP });
-    await watch(page);
-    await atlas(page, base);
-    // Copy link was taken off the place panel (Aug 2026, on request). The #map/<year>/<slug> deep link
-    // itself stays — links already shared have to go on working, and nothing on screen says they do.
-    // reached through that deep link rather than the search box, which went with the world atlas tab
-    await page.evaluate(() => { location.hash = "#map/2026/france"; });
-    await page.waitForTimeout(2500);
-    const cp = await page.evaluate(() => ({
-      open: !!document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden,
-      tools: [...document.querySelectorAll(".cp-tools .cp-tool")].map((b) => b.textContent.trim()),
-      copy: !!document.querySelector("#cpCopyLink"),
-    }));
-    check("a place panel opens", cp.open, JSON.stringify(cp));
-    check("...carrying no Copy link chip", !cp.copy && !cp.tools.some((t) => /copy/i.test(t)), cp.tools.join(" · "));
-    check("...but keeping Through the ages", cp.tools.some((t) => /ages/i.test(t)), cp.tools.join(" · "));
-    await page.close();
-  }
-  {
+  /* ================= 3. an old Atlas link still opens the Atlas =================
+     v1's rail (.tl-tick labels), search chip and place panel (#countryPop) are gone with v1 (sections 3 and 4 of this file asserted them; docs/atlas-v2-phase5-plan.md §8 maps each to its v2 suite). The
+     links readers already hold are the part of that which must keep working: "#map/<year>/<slug>" (v1's address) and "#map2…" (the unlinked preview) open the Atlas, at that year and on that place.
+     The full set is test-atlas-redirects.js; this is the layout file's own smoke of it. */
+  for (const [hash, want] of [["#map/2026/france", /fran|french/i], ["#map/1938/france", /fran|french/i]]) {
     const page = await browser.newPage({ viewport: DESKTOP });
     await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.evaluate(() => localStorage.setItem("folio_atlas_tour_v1", "1"));
-    await page.goto(base + "#map/1938/france", { waitUntil: "load" });
-    await page.waitForTimeout(5000);
-    const deep = await page.evaluate(() => ({
-      open: !!document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden,
-      name: ((document.querySelector("#cpName") || {}).textContent || "").trim(),
-    }));
-    check("a link shared before the chip was removed still resolves", deep.open && /fren|fran/i.test(deep.name), JSON.stringify(deep));
+    await page.goto(base + hash, { waitUntil: "load" });
+    await page.waitForFunction(() => { const c = document.querySelector(".atlas2-card"); return c && !c.hidden && ((c.querySelector(".atlas2-card-title") || {}).textContent || "").trim(); }, null, { timeout: 60000 }).catch(() => {});
+    const deep = await page.evaluate(() => { const c = document.querySelector(".atlas2-card"); return { open: !!c && !c.hidden, name: ((c && c.querySelector(".atlas2-card-title")) || {}).textContent || "", hash: location.hash }; });
+    check("a link shared before the swap (" + hash + ") opens the Atlas on that place", deep.open && want.test(deep.name) && /^#map/.test(deep.hash), JSON.stringify(deep));
     await page.close();
   }
 
@@ -2058,55 +1972,6 @@ function scrimCheck() {
     await page.close();
   }
 
-  /* ================= 7c. the Atlas panel's discovery chip and its title row ================= */
-  {
-    const page = await browser.newPage({ viewport: PHONE });
-    await watch(page);
-    await atlas(page, base);
-    const cp = await page.evaluate(() => {
-      const el = document.querySelector("#countryPop");
-      const name = document.querySelector("#cpName"), chip = document.querySelector("#cpNew");
-      // the chip only shows on a place's FIRST opening, so it is filled by hand here — its POSITION is what
-      // this asserts, and the first-sight path is covered by test-discovery.js
-      chip.innerHTML = '<span class="disc-chip"><b>New place!</b></span>';
-      chip.hidden = false;
-      name.textContent = "France";
-      el.hidden = false;
-      const a = name.getBoundingClientRect(), b = chip.getBoundingClientRect();
-      return {
-        sameRow: b.top < a.bottom - 2 && b.bottom > a.top + 2,   // vertically overlapping = one horizontal bar
-        beside: b.left >= a.right - 1,
-        headed: !!document.querySelector(".cp-titlemain #cpName") && !!document.querySelector(".cp-titlemain #cpNew"),
-        counter: !!chip.querySelector(".disc-n"),
-      };
-    });
-    check("the discovery chip shares the popup title's row", cp.sameRow && cp.beside, JSON.stringify(cp));
-    check("...as its sibling in the title row", cp.headed);
-    /* THE CONTROLS KEEP THE TOP-RIGHT CORNER AT EVERY NAME LENGTH (Sep 2026, on a bug report). The row
-       wrapped, so a long name — with the chip beside it — pushed the chevron and the × onto a second line,
-       where they appeared at the BOTTOM LEFT of the sheet: the close button of a panel, as far from where a
-       reader looks for it as the box allows. Asserted with the longest name the Atlas actually carries. */
-    const corner = await page.evaluate(() => {
-      const el = document.querySelector("#countryPop");
-      document.querySelector("#cpName").textContent = "United Kingdom of Great Britain and Northern Ireland";
-      const p = el.getBoundingClientRect();
-      const x = document.querySelector("#cpClose").getBoundingClientRect();
-      const m = document.querySelector("#cpMore").getBoundingClientRect();
-      const n = document.querySelector("#cpName").getBoundingClientRect();
-      return {
-        wrapped: n.height > 30,                      // the name really did take more than one line
-        right: Math.round(p.right - x.right),        // …and the × is still at the panel's right edge
-        top: Math.round(x.top - p.top),              // …and at its TOP, not centred against two lines
-        sameLine: Math.abs(x.top - m.top) < 2,
-        afterChev: x.left >= m.right - 1,
-      };
-    });
-    check("a long name never pushes the × off the title's line", corner.wrapped && corner.sameLine && corner.afterChev,
-      JSON.stringify(corner));
-    check("...and it keeps the panel's top-right corner", corner.right < 26 && corner.top < 26, JSON.stringify(corner));
-    await page.close();
-  }
-
   /* ================= 7d. the whiteboard marker on a phone =================
      Three failures that all look like something else. A marker parked ON the tab bar looks like a design
      decision. A pen you cannot put down without also putting the tools away is a state machine bug that
@@ -2401,271 +2266,6 @@ function scrimCheck() {
     // "#home" or "" — the app only clears the hash when it ROUTES home, and booting there leaves what was typed
     check("the swipe is phone-only", /^(#home)?$/.test(await page.evaluate(() => location.hash)),
       await page.evaluate(() => location.hash));
-    await page.close();
-  }
-
-  /* ================= 7e. the Atlas sheet's height =================
-     TWO rules, and the second was added Aug 2026 on request. The height is the reader's to drag — shorter
-     must still show the title (the floor is measured through offsetTop, since the head is a scroller inside
-     the box being shrunk and its rect collapses along with it), and what it is left at carries to the next
-     place, which is the only reason to set it. And the CEILING is what the page on screen actually needs:
-     "the max height should always be the point where everything is displayed fully, so we are never left
-     with empty space at the bottom." So a drag upward stops at the content, not at the top of the screen,
-     and swiping to a shorter page pulls the sheet down to fit it. Both failures are silent — a sheet half
-     full of nothing looks like a sheet. */
-  {
-    const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
-    await watch(page);
-    /* AT THE PHONE'S OWN TEXT SIZE THE FIXTURE NO LONGER OVERFLOWS (Oct 2026: a phone renders every stop one
-       lower, so Medium is .9). This section's shape is "fold one section, still too much, fold the other, now
-       it fits", and France's sheet at .9 fitted after the FIRST fold — a fixture failure, not a sheet one.
-       Large is the old Medium on a phone, so the measurements below stand on the numbers they were written
-       against; what is being measured is the two-stage re-fit, not the size of the type. */
-    await page.addInitScript(() => { try { localStorage.setItem("folio_v1", JSON.stringify({ settings: { fontSize: "large" } })); } catch (e) {} });
-    await atlas(page, base);
-    await page.evaluate(() => { location.hash = "#map/2026/france"; });
-    await page.waitForTimeout(2500);
-    // how much of the scroller is NOT filled by what is in it — the "empty space at the bottom". The
-    // sections are added up rather than read off the scroller's own scrollHeight, which can never be less
-    // than the box we have just given a height (see cpColsContentH).
-    const slack = () => page.evaluate(() => {
-      const cols = document.querySelector(".cp-cols");
-      const secs = [...cols.children].filter((c) => !c.hidden && getComputedStyle(c).display !== "none");
-      const gap = parseFloat(getComputedStyle(cols).rowGap) || 0;
-      const need = secs.reduce((a, c) => a + c.offsetHeight, 0) + gap * Math.max(0, secs.length - 1);
-      const p = document.querySelector("#countryPop").getBoundingClientRect();
-      return { slack: Math.round(cols.clientHeight - need), h: Math.round(p.height), top: Math.round(p.top), secs: secs.length };
-    });
-    /* THE DRAG IS GONE (Aug 2026, on request — "remove the size dragging system, and keep only the
-       chevron"). Asserted as an ABSENCE from the DOM rather than as a hidden element: a grip that is
-       merely display:none is still a pointer target on any width where the rule stops matching, and the
-       whole point of removing it is that there is one control and not two. */
-    const start = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop");
-      return { hidden: p.hidden, grip: !!document.querySelector("#cpGrab"), h: Math.round(p.getBoundingClientRect().height) };
-    });
-    check("the place sheet has no resize grip", !start.hidden && !start.grip, JSON.stringify(start));
-
-    /* SHUT BY DEFAULT since Aug 2026, on request: "the popup panel at the bottom should only open far
-       enough to reveal the name of the state, but have a chevron that can reveal the information sections,
-       which should always be collapsed by default." Asserted BEFORE the content-fit checks below, and they
-       are made to open it first — with the sheet shut `.cp-cols` is display:none, so every measurement of
-       it reads zero and the fit assertions pass on nothing at all, which is the shape this file keeps
-       warning about. */
-    const shut = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop"), t = document.querySelector(".cp-titlerow");
-      const more = document.querySelector("#cpMore");
-      const pr = p.getBoundingClientRect(), tr = t.getBoundingClientRect();
-      const cs = getComputedStyle(more);
-      const mr = more.getBoundingClientRect();
-      return {
-        h: Math.round(pr.height),
-        shut: p.classList.contains("cp-shut"),
-        titleShown: tr.top >= pr.top - 1 && tr.bottom <= pr.bottom + 1,
-        name: (document.querySelector("#cpName") || {}).textContent || "",
-        chevron: !!more && !more.hidden && cs.display !== "none",
-        expanded: more && more.getAttribute("aria-expanded"),
-        colsShown: getComputedStyle(document.querySelector(".cp-cols")).display !== "none",
-        border: parseFloat(cs.borderTopWidth) || 0,
-        bg: cs.backgroundColor,
-        cw: Math.round(mr.width), ch: Math.round(mr.height),
-      };
-    });
-    check("a place opens SHUT — its name and nothing else", shut.shut && !shut.colsShown, JSON.stringify(shut));
-    check("...still showing the name it was opened for", shut.titleShown && shut.name.length > 0, shut.name);
-    check("...with a chevron offering the rest", shut.chevron && shut.expanded === "false", JSON.stringify(shut));
-    check("...and covering a fraction of the map", shut.h < PHONE.height * 0.3, shut.h + " of " + PHONE.height);
-    /* No border and no fill (Aug 2026, on request — "remove the darkened background square behind the
-       chevron"), and still a real target: the box was never what made it tappable, so losing it must not
-       shrink the hit area. */
-    check("...drawn bare rather than as a boxed tile",
-      shut.border === 0 && /rgba\(0, 0, 0, 0\)|transparent/.test(shut.bg), JSON.stringify({ border: shut.border, bg: shut.bg }));
-    check("...at a tappable size all the same", shut.cw >= 28 && shut.ch >= 28, shut.cw + "x" + shut.ch);
-
-    await page.click("#cpMore");
-    await page.waitForTimeout(500);
-    const opened = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop");
-      return {
-        h: Math.round(p.getBoundingClientRect().height),
-        shut: p.classList.contains("cp-shut"),
-        expanded: document.querySelector("#cpMore").getAttribute("aria-expanded"),
-        colsShown: getComputedStyle(document.querySelector(".cp-cols")).display !== "none",
-      };
-    });
-    check("...pressing it reveals the sections", !opened.shut && opened.colsShown && opened.expanded === "true"
-      && opened.h > shut.h, JSON.stringify({ shut: shut.h, opened: opened.h }));
-
-    const s0 = await slack();
-    check("...and opens no taller than the sections in it need", s0.slack <= 24, JSON.stringify(s0));
-
-    /* THE FIGURES ARE READ WITHOUT A GESTURE (Sep 2026, on request: "users currently need to swipe right to
-       see the country data boxes — instead, move them to above the country background paragraphs so it is
-       all in one page"). Three things, and each fails in its own silent way: a horizontal scroller left
-       behind would put the figures back behind a swipe; the figures BELOW the description would be the
-       fault the pager was built to fix; and a figures grid whose bottom edge falls outside the sheet is a
-       page that fits on paper and not on the screen. */
-    const onepage = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop").getBoundingClientRect();
-      const cols = document.querySelector(".cp-cols");
-      const st = document.querySelector("#cpStatsSec").getBoundingClientRect();
-      const de = document.querySelector("#cpDescSec").getBoundingClientRect();
-      return {
-        horiz: cols.scrollWidth - cols.clientWidth,
-        statsTop: Math.round(st.top), descTop: Math.round(de.top),
-        statsIn: st.top >= p.top - 1 && st.bottom <= p.bottom + 1,
-        dots: !!document.querySelector(".cp-dots"),
-      };
-    });
-    check("the sheet scrolls one way only — there are no pages to swipe",
-      onepage.horiz <= 1 && !onepage.dots, JSON.stringify(onepage));
-    check("...the figures are read ABOVE the description", onepage.statsTop < onepage.descTop, JSON.stringify(onepage));
-    check("...and are wholly on screen when the sheet opens", onepage.statsIn, JSON.stringify(onepage));
-
-    /* IT FOLDS RATHER THAN CUTTING (Aug 2026, on request), and both halves are measured MID-FLIGHT — a
-       settled fold and a jumpcut end in exactly the same place, so anything asserted afterwards passes on
-       either. The height must genuinely be BETWEEN the two states part way through; and the sections must
-       still be on the page while it shrinks, since `display:none` cannot be transitioned and taking the
-       content away before the box closes is the jumpcut the request is about. */
-    const folding = await page.evaluate(async () => {
-      const p = document.querySelector("#countryPop");
-      const from = p.getBoundingClientRect().height;
-      document.querySelector("#cpMore").click();
-      await new Promise((r) => setTimeout(r, 90));
-      const mid = p.getBoundingClientRect().height;
-      const colsShown = getComputedStyle(document.querySelector(".cp-cols")).display !== "none";
-      await new Promise((r) => setTimeout(r, 600));
-      return { from: Math.round(from), mid: Math.round(mid), to: Math.round(p.getBoundingClientRect().height), colsShown };
-    });
-    check("...and shutting it EASES rather than cutting", folding.mid < folding.from - 4 && folding.mid > folding.to + 4,
-      JSON.stringify(folding));
-    check("...with its sections still on the page while it closes", folding.colsShown, JSON.stringify(folding));
-
-    await page.click("#cpMore");
-    await page.waitForTimeout(600);
-    /* …and folding a section away re-fits it. The heads do nothing on the sheet while the sections are
-       pages — they are folds again now, and a fold that leaves the box the size of the paragraph it just
-       took away is a fold that has only made a gap. It measured as a no-op when this shipped, because a
-       scroller's `scrollHeight` is never less than the box it is in.
-
-       BUT THE HEIGHT IS THE SMALLER OF TWO THINGS, AND ONLY ONE OF THEM IS THE CONTENT (`cpMaxH` =
-       min(room, need)). This was asserted as "fold one section and the sheet gets shorter", which is only
-       true where what is LEFT fits in the room — and on France at 390×800 it does not: the room is 602px
-       and folding the 552px description still leaves 567px of sections under ~90px of chrome. So the sheet
-       stayed at 602 and the check failed, on a sheet doing exactly the right thing. It failed on main for
-       as long as it existed, which is what a suite that is a second opinion rather than a gate can hide.
-       BOTH HALVES ARE ASSERTED NOW, because they fail in opposite directions: a sheet that shrank while
-       its content still overflowed would be showing empty space over a scroller with more to give, and one
-       that would not shrink once its content DID fit is the gap this check was written for. The second
-       half is what actually exercises the re-fit, so it names the numbers it is standing on.
-
-       THE CITATIONS NOW OPEN SHUT (Sep 2026, on request: "all atlas popups should have their sources
-       section collapsed by default"), and this section needs BOTH open before it starts: its whole shape
-       is fold one, still too much, fold the other, now it fits. Left as it was, folding the description
-       alone already fitted (183px of content in a 602px room) and the second fold OPENED the sources
-       instead of shutting them — two failures, both of them the fixture rather than the sheet. It is
-       opened here rather than by relaxing the assertions, since what is being measured is the two-stage
-       re-fit and there is no second long section to spend on it. */
-    await page.evaluate(() => { const h = document.querySelector("#cpSrcSec .cp-sec-head"); if (h && document.querySelector("#cpSrcSec").classList.contains("collapsed")) h.click(); });
-    await page.waitForTimeout(550);
-    const tall = await slack();
-    /* The room is the stage's height less the sheet's own two clearances, and those are SLICED OUT OF
-       app.js rather than copied: a test carrying its own 22 would fail on the day either constant moved,
-       and the message would be about a fold rather than about the clearance that had changed. */
-    const cpGaps = /const CP_TOP_GAP = (\d+), CP_BOTTOM_GAP = (\d+)/
-      .exec(fs.readFileSync(path.join(ROOT, "app.js"), "utf8"));
-    check("the sheet's two clearances are still declared where this test reads them", !!cpGaps);
-    const cpGap = cpGaps ? Number(cpGaps[1]) + Number(cpGaps[2]) : 22;
-    const foldSec = async (id) => {
-      await page.evaluate(async (sel) => {
-        document.querySelector(sel + " .cp-sec-head").click();
-        await new Promise((r) => setTimeout(r, 450));
-      }, id);
-      await page.waitForTimeout(400);
-      return page.evaluate((a) => {
-        const p = document.querySelector("#countryPop");
-        const stage = p.closest(".globe-stage");
-        return { h: Math.round(p.getBoundingClientRect().height),
-                 room: Math.round((stage ? stage.clientHeight : 0) - a.gap),   // CP_TOP_GAP + CP_BOTTOM_GAP
-                 // how much of what is left the sheet still cannot show. Measured against the SCROLLER's
-                 // box rather than against the room, since the room has to hold the head and the padding
-                 // too — comparing the sections' own height with the room reads ~90px of chrome as slack.
-                 over: Math.round(slackNeed() - cols().clientHeight),
-                 need: Math.round(slackNeed()), collapsed: document.querySelector(a.sel).classList.contains("collapsed") };
-        function cols() { return document.querySelector(".cp-cols"); }
-        function slackNeed() {
-          const c0 = cols();
-          const secs = [...c0.children].filter((c) => !c.hidden && getComputedStyle(c).display !== "none");
-          const gap = parseFloat(getComputedStyle(c0).rowGap) || 0;
-          return secs.reduce((a, c) => a + c.offsetHeight, 0) + gap * Math.max(0, secs.length - 1);
-        }
-      }, { sel: id, gap: cpGap });
-    };
-    const oneShut = await foldSec("#cpDescSec");
-    check("...folding a section that still leaves too much keeps the sheet at the room's height",
-      oneShut.collapsed && oneShut.over > 0 && oneShut.h === oneShut.room,
-      JSON.stringify({ tall: tall.h, oneShut }));
-    const bothShut = await foldSec("#cpSrcSec");
-    check("...and folding until it fits shrinks the sheet to what is left",
-      /* `over <= 0` rather than `< 0`: once the content fits, the sheet is sized TO the content, so the
-         scroller's box and what is in it are the same number and the slack is exactly zero — which is the
-         whole of what "fit what is left" means. */
-      bothShut.collapsed && bothShut.over <= 0 && bothShut.h < oneShut.h - 20,
-      JSON.stringify({ oneShut: oneShut.h, bothShut }));
-    await page.evaluate(() => { document.querySelector("#cpSrcSec .cp-sec-head").click(); });
-    await page.waitForTimeout(500);
-
-    /* THE NEXT PLACE OPENS SHUT, AND THEN TO ITS OWN CONTENT'S HEIGHT — there is nothing remembered now, which
-       is what removing the drag bought. Both halves are asserted because they fail in opposite directions:
-       a sheet still carrying a height from the last place would be the thing the grip was removed for, and
-       one that would not open at all is worse than either. */
-    await page.evaluate(() => { location.hash = "#map/2026/spain"; });
-    await page.waitForTimeout(1800);
-    const next = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop");
-      return { h: Math.round(p.getBoundingClientRect().height), shut: p.classList.contains("cp-shut") };
-    });
-    check("...and the NEXT place opens shut too", next.shut && next.h < PHONE.height * 0.3,
-      JSON.stringify(next));
-    await page.click("#cpMore");
-    await page.waitForTimeout(600);
-    const reopened = await slack();
-    check("...and opens to what ITS own sections need", reopened.slack <= 24 && reopened.h > next.h,
-      JSON.stringify({ shut: next.h, opened: reopened }));
-
-    /* A LONG PLACE IS CAPPED BY THE STAGE, NOT BY THE SCREEN (Sep 2026, on a bug report: on mobile the
-       popup expanded "too tall … i can't see the top of the popup or the button to close it"). The sheet
-       is absolutely positioned inside `.globe-stage`, which stops above the timeline and the tab bar and
-       CLIPS what overflows it — so a ceiling measured against `documentElement.clientHeight` overshot by
-       about 154px on a phone and pushed the title row, the breadcrumb and the × off the top, where they
-       were cut away with no way back but the chevron the reader could no longer see. Measured on the
-       United States, whose sections run past the room a phone has; France and Spain above both fit
-       comfortably, so neither of them can see this at all — which is why it is asserted on a place chosen
-       for being TOO LONG rather than on the one already open. The × is checked as a RECT inside the sheet
-       rather than by its height, since a control clipped by an ancestor's overflow still measures its full
-       size and reports itself perfectly visible. */
-    await page.evaluate(() => { location.hash = "#map/2026/united-states-of-america"; });
-    await page.waitForTimeout(1800);
-    await page.click("#cpMore");
-    await page.waitForTimeout(600);
-    const big = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop"), stage = p.closest(".globe-stage");
-      const pr = p.getBoundingClientRect(), sr = stage.getBoundingClientRect();
-      const tr = document.querySelector(".cp-titlerow").getBoundingClientRect();
-      const x = p.querySelector(".cp-close").getBoundingClientRect();
-      return {
-        top: Math.round(pr.top), bottom: Math.round(pr.bottom),
-        stageTop: Math.round(sr.top), stageBottom: Math.round(sr.bottom),
-        titleTop: Math.round(tr.top), xTop: Math.round(x.top), xBottom: Math.round(x.bottom),
-        overflow: Math.round(document.querySelector(".cp-cols").scrollHeight - document.querySelector(".cp-cols").clientHeight),
-      };
-    });
-    check("a long place's sheet stays inside the globe stage",
-      big.top >= big.stageTop - 1 && big.bottom <= big.stageBottom + 1, JSON.stringify(big));
-    check("...so its name is on screen", big.titleTop >= big.stageTop - 1, JSON.stringify(big));
-    check("...and so is the button that closes it",
-      big.xTop >= big.stageTop - 1 && big.xBottom <= big.stageBottom + 1, JSON.stringify(big));
-    check("...with the rest reached by scrolling rather than by growing", big.overflow > 0, JSON.stringify(big));
     await page.close();
   }
 

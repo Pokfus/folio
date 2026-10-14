@@ -469,47 +469,26 @@ async function requireTerm(page) {
   } else check("a bare card was reachable", false);
   await bare.close();
 
-  /* ================= 4. the Atlas place panel ================= */
-  // country-sources.js only Object.assigns onto whatever is already there, so a seed placed before the
-  // lazy atlas bundle lands survives it
+  /* ================= 4. the Atlas place card =================
+     v1's #countryPop and its #cpSrcSec are gone (Phase 5); the v2 country card carries the same apparatus as `.atlas2-srcnote` (atlas/atlas.js renderCountryProse), fed by COUNTRY_SOURCES through the host's
+     sourceListHTML. country-sources.js only Object.assigns onto whatever is already there, so a seed placed before the lazy bundle lands survives it. The per-YEAR list (COUNTRY_YEAR_SOURCES) is v1's:
+     the card shows the general list only, and a shared work must still be listed once. */
   await page.goto(base, { waitUntil: "load" });
   await page.waitForTimeout(500);
   await page.evaluate((src) => {
-    window.COUNTRY_SOURCES = { france: [src[0], src[1]] };
-    window.COUNTRY_YEAR_SOURCES = { france: { 1938: [src[1], src[2]] } };   // [1] is in BOTH — it must fold into one footnote
+    window.COUNTRY_SOURCES = { france: [src[0], src[1], src[1]] };   // [1] twice — it must fold into one entry
+    try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); } catch (e) {}
   }, SRC);
-  await page.goto(base + "#map", { waitUntil: "load" });
-  await page.waitForFunction(() => !!window.WORLD_GEO && !!window.COUNTRY_INFO, { timeout: 60000 });
-  await page.waitForTimeout(1500);
-  /* The coach marks are dismissed for the reason `test-layout.js` dismisses them: an undismissed card
-     sits over the chrome. */
-  await page.evaluate(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); } catch (e) {} });
-  check("the panel has a Sources section", await page.locator("#cpSrcSec").count() === 1);
-  check("...hidden while nothing is selected", await page.evaluate(() => document.querySelector("#cpSrcSec").hidden === true));
-  /* REACHED THROUGH THE DEEP LINK NOW (Oct 2026). The world atlas TAB, whose search box this used, was
-     removed on request; the place panel and its citations are still what `#map/<year>/<slug>` opens, so
-     that is the one public entry point left, and it needs no canvas hit-test either. */
-  await page.evaluate(() => { location.hash = "#map/2026/france"; });
-  await page.waitForTimeout(2500);
-  const picked = true;
-  if (picked && await page.evaluate(() => document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden)) {
-    check("selecting a place opens its panel", true);
-    check("the panel's Sources section is shown", await page.evaluate(() => document.querySelector("#cpSrcSec").hidden === false));
-    /* …AND SHUT, WHICH REVERSES WHAT THIS ASSERTED (Sep 2026, on request: "all atlas popups should have
-       their sources section collapsed by default"). It followed the reader's own `srcCollapsed`, a
-       setting written for a CARD — where the citations sit at the foot of three hundred words the reader
-       chose to open — and on a place panel it put a list of works between the prose and the bottom of a
-       sheet a phone shows about a third of. The apparatus is all still THERE, which the count below is
-       what says; this is about what the reader meets first. */
-    check("...and shut, which is how every Atlas popup now opens",
-      await page.evaluate(() => document.querySelector("#cpSrcSec").classList.contains("collapsed")));
-    const n = await page.locator("#cpSrc .src-item").count();
-    // present-day France: the general sources only (2). The shared work must not be listed twice.
+  await page.goto(base + "#map/2026/france", { waitUntil: "load" });
+  await page.waitForFunction(() => { const c = document.querySelector(".atlas2-card"); return c && !c.hidden && c.querySelector(".atlas2-card-desc"); }, null, { timeout: 60000 }).catch(() => {});
+  const opened = await page.evaluate(() => { const c = document.querySelector(".atlas2-card"); return !!c && !c.hidden; });
+  check("selecting a place (the #map/<year>/<slug> deep link) opens its card", opened);
+  if (opened) {
+    check("the card has a Sources section", await page.locator(".atlas2-srcnote").count() === 1);
+    const n = await page.locator(".atlas2-srcnote .src-item").count();
     check("the general sources are listed", n >= 2, String(n));
-    const texts = await page.evaluate(() => [...document.querySelectorAll("#cpSrc .src-item")].map((i) => i.textContent));
+    const texts = await page.evaluate(() => [...document.querySelectorAll(".atlas2-srcnote .src-item")].map((i) => i.textContent));
     check("no citation appears twice", new Set(texts).size === texts.length, texts.join(" | "));
-  } else {
-    check("selecting a place opens its panel", false, "the #map/<year>/<slug> deep link opened no panel");
   }
 
   /* ================= 5. a stranger's deck is sanitized on ingest ================= */

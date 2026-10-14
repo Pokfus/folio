@@ -465,20 +465,17 @@ const CARD = () => {
     await page.close();
   }
 
-  /* ================= 6. the Atlas's card ================= */
-  console.log("\n6. The Atlas says the marker works there too");
+  /* ================= 6. the Atlas has no coach-mark card of its own =================
+     v1's first-visit strip (#atlasHelp, three tips) went with v1 (Phase 5); the v2 page explains itself in its About sheet (the "?" button; `.atlas2-about-use`, asserted by test-atlas-phone.js), and a
+     first visit meets the globe, not a card over it. */
+  console.log("\n6. The Atlas opens clean on a first visit");
   {
     const page = await browser.newPage({ viewport: DESKTOP });
     watch(page);
     await page.goto(base + "#map", { waitUntil: "load" });
-    await page.waitForTimeout(4500);
-    const a = await page.evaluate(() => {
-      const h = document.querySelector("#atlasHelp");
-      return h ? { shown: !h.hidden, tips: h.querySelectorAll(".ah-tip").length, text: h.textContent } : null;
-    });
-    check("a first visit to the Atlas still explains it", !!(a && a.shown));
-    check("...and now says the marker draws on the globe", !!(a && /marker/i.test(a.text)));
-    check("...pinned to the map rather than to the screen", !!(a && /pinned to the map|turn with it/i.test(a.text)));
+    await page.waitForSelector('.atlas2[data-ready="1"]', { timeout: 60000 }).catch(() => {});
+    const a = await page.evaluate(() => ({ help: !!document.querySelector("#atlasHelp"), atlas: !!document.querySelector(".atlas2") }));
+    check("a first visit to the Atlas shows the globe and no coach-mark card over it", a.atlas && !a.help, JSON.stringify(a));
     await page.close();
   }
 
