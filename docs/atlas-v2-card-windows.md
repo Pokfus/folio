@@ -307,3 +307,8 @@ War window, the second Punic War (rm-209), same runner, 4b → 4c: desktop cold 
 | Find it's game mode in `PAGES.map` (`finditPools` … `gameEnd`, 46185–46530) and `drawGameMarks` | ≈ 24.6 KB + 4.9 KB | Phase 5 |
 | `hiresCoastIngest` and `hiresRiverIngest` (34454–34487) | 2,122 B (and the `CMAP_*` tables beside them) | Phase 5 |
 | the five `coast/*.js` bundles and `rivers/greece.js`, `rivers/italy.js` (lazy, never on the eager path) | 1,367,513 B + 138,966 B | Phase 5 |
+
+
+## Stage B, item 2 — the idle warm-up and the connection
+
+The idle warm-up (the engine's code, `topology.bin` and the hub, 60 s; `app.js`) does not run under the browser's save-data hint, Folio's light mode, **or `navigator.connection.type === "cellular"`** (`onCellular()`, where the browser reports it — Chromium on Android; Safari and Firefox do not, and are not held back). The first window then pays when a reader opens one (`test-atlas-windows.js` §10: the control warms, the three constrained cases fetch no engine code, no `topology.bin` and no `water.bin`, wifi and a browser with no connection API warm as before, and a cellular reader's window is still the engine's). `water.bin` is not part of the warm-up at all: a window asks for it after its land is on the screen.

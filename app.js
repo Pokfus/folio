@@ -38086,6 +38086,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function lightMode() {
     return !!(S.settings && S.settings.saveData) || !!(navigator.connection && navigator.connection.saveData === true);
   }
+  /* A CELLULAR CONNECTION, where the browser reports one (`navigator.connection.type`, Chromium on Android; Safari and Firefox do not report it, so there the rule is simply not triggered): the
+     engine's idle warm-up (topology.bin, the hub) does not run on it — the first window then pays when a reader opens one. Not part of lightMode(): the reader has not asked for less data everywhere. */
+  function onCellular() {
+    try { return !!(navigator.connection && navigator.connection.type === "cellular"); } catch (e) { return false; }
+  }
   function cardImageHTML(img) {
     /* UNDER LIGHT MODE THE PICTURE IS HELD BACK, and the frame says so rather than vanishing: an
        illustration silently absent looks like a card that has none, where a held one is the reader's own
@@ -53615,8 +53620,8 @@ let prev = null;
   whenIdle(() => {
     /* Phase 4b: the preview's engine is warmed at idle — the bytes (as before) AND the hub itself (the worker parses topology.bin and builds the coarse levels while the reader reads), so the first
        window the reader meets is a draw and not a parse. Not under lightMode() (the reader asked for less data); the hub is disposed again after a minute with no window. */
-    if (!atlas2Preview() || lightMode()) return;
-    Promise.all([ensureData("atlas2"), ensureData("atlas2embed")]).then((ok) => { if (ok.every(Boolean) && window.AtlasEmbed && window.AtlasEmbed.warm && !lightMode()) window.AtlasEmbed.warm({ host: {} }, 60000); });
+    if (!atlas2Preview() || lightMode() || onCellular()) return;   // nor on a cellular connection (Stage B, item 2)
+    Promise.all([ensureData("atlas2"), ensureData("atlas2embed")]).then((ok) => { if (ok.every(Boolean) && window.AtlasEmbed && window.AtlasEmbed.warm && !lightMode() && !onCellular()) window.AtlasEmbed.warm({ host: {} }, 60000); });
     ensureData("atlas2cards");
   });
   whenIdle(() => { storagePersistAsk(false); });   // see KEEPING THE READER'S DATA

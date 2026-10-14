@@ -422,6 +422,51 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     }
   }
 
+  /* ---------------- 10) the idle warm-up and the connection (Stage B, item 2) ---------------- */
+  if (want(10)) {
+    sect("10) the engine's idle warm-up does not run on a cellular connection, under the data saver or in light mode — and the first window then pays when it is opened");
+    const warmed = async (label, setup, home) => {
+      const reqs0 = requests.length;
+      const { ctx, page } = await newPage(browser, {});
+      if (setup) await ctx.addInitScript(setup);
+      await page.goto(url(home || "#home"), { waitUntil: "load" });
+      await page.waitForTimeout(7500);   // the idle warm-up runs a moment after the page is quiet
+      const got = requests.slice(reqs0);
+      const r = { engine: got.some((u) => /atlas\/atlas\.js$|atlas\/atlas-embed\.js$/.test(u)), topology: got.some((u) => /atlas\/data\/topology\.bin$/.test(u)), water: got.some((u) => /atlas\/data\/water\.bin$/.test(u)) };
+      return { ctx, page, r };
+    };
+    {
+      const { ctx, r } = await warmed("control", null);
+      check("control — a reader on the home page with the engine on and no constraint: the idle warm-up fetches the engine and topology.bin", r.engine && r.topology, JSON.stringify(r));
+      await ctx.close();
+    }
+    for (const [what, setup] of [
+      ["on a cellular connection (navigator.connection.type = \"cellular\")", () => { try { Object.defineProperty(navigator, "connection", { value: { type: "cellular", saveData: false }, configurable: true }); } catch (e) {} }],
+      ["with the browser's save-data hint", () => { try { Object.defineProperty(navigator, "connection", { value: { type: "wifi", saveData: true }, configurable: true }); } catch (e) {} }],
+      ["with Folio's own light mode (Settings → use less data)", () => { try { const k = "folio_v1"; localStorage.setItem(k, JSON.stringify({ settings: { saveData: true } })); } catch (e) {} }],
+    ]) {
+      const { ctx, r } = await warmed(what, setup);
+      check("the idle warm-up does not run " + what + ": no engine code, no topology.bin, no water.bin", !r.engine && !r.topology && !r.water, JSON.stringify(r));
+      await ctx.close();
+    }
+    {   // wifi is not cellular; a reader who reports nothing (no Network Information API) is not held back
+      const { ctx, r } = await warmed("wifi", () => { try { Object.defineProperty(navigator, "connection", { value: { type: "wifi", saveData: false }, configurable: true }); } catch (e) {} });
+      check("a reported wifi connection warms as before", r.engine && r.topology, JSON.stringify(r));
+      await ctx.close();
+      const n = await warmed("no API", () => { try { Object.defineProperty(navigator, "connection", { value: undefined, configurable: true }); } catch (e) {} });
+      check("a browser that reports no connection at all (Safari, Firefox) warms as before", n.r.engine && n.r.topology, JSON.stringify(n.r));
+      await n.ctx.close();
+    }
+    {   // the first window pays when it is opened: on a cellular connection a map card still draws on the engine
+      const { ctx, page } = await newPage(browser, {});
+      await ctx.addInitScript(() => { try { Object.defineProperty(navigator, "connection", { value: { type: "cellular", saveData: false }, configurable: true }); } catch (e) {} });
+      await page.goto(url("#card/rm-003"), { waitUntil: "load" });
+      await windowReady(page); await windowSettled(page).catch(() => {});
+      check("on a cellular connection the window a reader opens is still the engine's, and pays for it then", await page.evaluate(() => document.querySelector(".map-card").getAttribute("data-map-engine") === "v2"));
+      await ctx.close();
+    }
+  }
+
   sect("errors");
   check("no console or page errors anywhere in this suite", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
