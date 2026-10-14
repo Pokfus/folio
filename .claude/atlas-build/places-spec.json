@@ -3998,7 +3998,7 @@
   },
   "pl:q1483542": {
    "name": "Runnymede",
-   "kind": "sea",
+   "kind": "region",
    "sub": "",
    "qid": "Q1483542",
    "at": [
@@ -4017,7 +4017,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "sea"
   },
   "pl:q1485667": {
    "name": "Semna (Nubia)",
@@ -5502,7 +5503,7 @@
   },
   "pl:q1756937": {
    "name": "Sydney Cove",
-   "kind": "strait",
+   "kind": "gulf",
    "sub": "",
    "qid": "Q1756937",
    "at": [
@@ -5520,7 +5521,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "strait"
   },
   "pl:q1760467": {
    "name": "Prima Porta",
@@ -8346,7 +8348,7 @@
   },
   "pl:q2344806": {
    "name": "Hakata Bay",
-   "kind": "strait",
+   "kind": "gulf",
    "sub": "",
    "qid": "Q2344806",
    "at": [
@@ -8364,7 +8366,8 @@
     "via": "title",
     "km": 3.7
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "strait"
   },
   "pl:q2369687": {
    "name": "Susiana",
@@ -12276,7 +12279,7 @@
   },
   "pl:q477137": {
    "name": "Humen",
-   "kind": "gulf",
+   "kind": "strait",
    "sub": "",
    "qid": "Q477137",
    "at": [
@@ -12294,7 +12297,8 @@
     "via": "title",
     "km": 1.2
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "gulf"
   },
   "pl:q47863": {
    "name": "Midway Atoll",
@@ -16656,7 +16660,7 @@
   },
   "pl:q79883": {
    "name": "Strait of Hormuz",
-   "kind": "gulf",
+   "kind": "strait",
    "sub": "",
    "qid": "Q79883",
    "at": [
@@ -16674,7 +16678,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "gulf"
   },
   "pl:q798844": {
    "name": "Badarian culture",

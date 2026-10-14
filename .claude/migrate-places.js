@@ -74,10 +74,10 @@ const TOPS = [
   ["mountain", "", ["Q8502", "Q7944", "Q8072"]],                                // mountain, volcano (and Q7944, kept as 3a wrote it)
   ["hill", "", ["Q54050"]],                                                     // hill (3c, decision 3): AFTER mountain, so an item Wikidata classes as both is the mountain
   ["cape", "", ["Q185113"]],                                                    // cape
-  ["strait", "", ["Q39594"]],
-  ["gulf", "", ["Q1322134", "Q39594", "Q37901", "Q47053"]],                     // gulf, bay, fjord
+  ["strait", "", ["Q37901"]],                                                   // strait (Q37901; this row held Q39594, which is BAY, until 2026-10-14: every bay was a strait and every strait a gulf)
+  ["gulf", "", ["Q1322134", "Q39594", "Q47053"]],                               // gulf, bay, fjord
   ["ocean", "", ["Q9430"]],
-  ["sea", "", ["Q165", "Q15324", "Q1370598"]],                                  // sea, body of water
+  ["sea", "", ["Q165"]],                                                        // sea (Q15324, body of water, is no top: a water-meadow, a cove or a rapids reaches it by subclass-of and none is a sea; Q1370598 here was PLACE OF WORSHIP, a duplicate of the building row's)
   ["region", "", ["Q82794", "Q1620908", "Q8514", "Q39816", "Q34763", "Q188628", "Q107425", "Q190429", "Q1048835", "Q3502482", "Q1970725", "Q4835091", "Q484170", "Q12284", "Q2221906"]],   // geographic region, historical region, desert, valley, peninsula, (continental) shelf, landscape, depression, territorial entity, cultural region, natural region, territory, commune, canal, geographic location
   ["polity", "", ["Q3024240", "Q7275", "Q6256", "Q3624078", "Q1763527", "Q133442", "Q28171280", "Q417175", "Q1048835"]],   // historical country, state, country, sovereign state, confederation, duchy, ancient civilisation, kingdom (reported, never a row: a polity is an entity)
   ["people", "", ["Q41710", "Q2472587", "Q465299", "Q11514315", "Q1792644"]],   // ethnic group, people, archaeological culture, historical period, art style (reported, never a row)

@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":81,"town":106,"sea":1,"strait":2,"gulf":2,"lake":6,"river":6,"island":25,"island-group":3,"range":6,"region":93,"site":407,"mountain":12,"cape":4,"hill":9},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":81,"town":106,"strait":2,"gulf":2,"lake":6,"river":6,"island":25,"island-group":3,"range":6,"region":94,"site":407,"mountain":12,"cape":4,"hill":9},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -245,11 +245,10 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio at
 ["pl:q938699","Yorktown, Virginia","town",0,938699,0,[-76.5097,37.2344],
 ["Yorktown"],1],
 ["pl:q13659137","Zhoukoudian","town",0,13659137,0,[115.946,39.6797],0,1],
-["pl:q1483542","Runnymede","sea",0,1483542,0,[-0.5654,51.4445],0,1],
-["pl:q2344806","Hakata Bay","strait",0,2344806,"city:1159149927",[130.3734,33.632],0,1],
-["pl:q1756937","Sydney Cove","strait",0,1756937,0,[151.2117,-33.8586],0,1],
-["pl:q477137","Humen","gulf",0,477137,0,[113.6052,22.8018],0,1],
-["pl:q79883","Strait of Hormuz","gulf",0,79883,0,[56.5,26.6],0,1],
+["pl:q477137","Humen","strait",0,477137,0,[113.6052,22.8018],0,1],
+["pl:q79883","Strait of Hormuz","strait",0,79883,0,[56.5,26.6],0,1],
+["pl:q2344806","Hakata Bay","gulf",0,2344806,"city:1159149927",[130.3734,33.632],0,1],
+["pl:q1756937","Sydney Cove","gulf",0,1756937,0,[151.2117,-33.8586],0,1],
 ["pl:q1234240","Lake Copais","lake",0,1234240,0,[23.05,38.45],0,1],
 ["pl:q17051922","Lake Regillus","lake",0,17051922,0,[12.6931,41.8797],0,1],
 ["pl:q183360","Lake Toba","lake",0,183360,0,[98.8875,2.67],0,1],
@@ -397,6 +396,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-12","generator":"folio at
 ["Raynham"],1],
 ["pl:q2277","Roman Empire","region",0,2277,0,[12.5,41.9],0,1],
 ["pl:q1025459","Ruijin","region",0,1025459,0,[116.0333,25.8833],0,1],
+["pl:q1483542","Runnymede","region",0,1483542,0,[-0.5654,51.4445],0,1],
 ["pl:q2418927","Sahiwal District","region",0,2418927,0,[72.9137,30.5482],0,1],
 ["pl:q19658174","Sambia","region",0,19658174,0,[20.2693,54.8327]],
 ["pl:q463459","Samnium","region",0,463459,0,[14.6228,41.4322],0,1],
