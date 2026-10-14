@@ -681,7 +681,7 @@
       // a merged river (Phase 1d: one row per Wikidata item) names every stretch it is made of: `rivers` is all of them
       return { i, id: g("id"), name: g("name"), kind: g("kind"), rank: g("rank"), within: g("within"), len: g("len"), z: g("z"), a: at ? unitOf(at[0], at[1]) : null, p: path && path.length > 1 ? path.map((q) => unitOf(q[0], q[1])) : null, river, rivers: river >= 0 ? [river].concat(Array.isArray(alt) ? alt : []) : null };
     });
-    GZ = { rows };
+    GZ = { rows, byId: new Map(rows.map((r) => [r.id, r])) };
   }
   // the style a row is drawn in, by kind and by how much room it has (CSS px of chord)
   function styleFor(row, chordPx) {
@@ -916,61 +916,73 @@
     const polyline = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return cum; };
     const reads = (S) => { const dx = S[S.length - 1][0] - S[0][0], dy = S[S.length - 1][1] - S[0][1]; return Math.abs(dx) >= Math.abs(dy) * 0.35 ? dx >= 0 : dy <= 0; };   // left to right, else upward
     /* ---- PHASE 3b: THE STUDY PASS — before the ordinary labels, so the places a reader studies take their ground first ----
-       Marks (a capital, city, town, site, mountain, hill, cape): the places within STACK_PX of one another on screen become ONE marker
-       with a count (they separate as the reader zooms, and a tap zooms to them); a place alone is a mark of its own shape — a diamond,
-       a triangle for a mountain or a cape, a smaller one for a hill — never the dot of a city — with its name beside it where a side is free. Areas and waters of
-       places.js (a region, an island, a range …) are a name at a point, no mark. A mark never lies under a control (the chrome is
-       already taken) or off the frame; a place is dropped only for that, and the drop reason says so. */
-    const STACK_PX = q.phone ? 34 : 30;   // > the radii of two marks and the gap between them: see AtlasStudy.cluster
+       STACKS ARE GONE (2026-10-14, the owner's decision; docs/atlas-v2-design.md §7 "Stacks removed"): every place and every polity the
+       layer flags is ONE MARK at its own position, at any zoom — never a count standing in for neighbours, and no clustering. This
+       pass builds the list of marks (`marks`, posted with the labels and drawn by the page, which re-projects them every frame, so a
+       mark is always at its true place and sized for the zoom of the moment: AtlasStudy.markHalf) and places the NAMES the study
+       layer owns — a settlement's, a site's, a mountain's, an island's, a region's … name beside its mark.
+       What a mark is to a NAME, which is the label engine's business: the reader's own marks (flag 2) take their ground (`take`)
+       before any ordinary name, so nothing is laid over them; the others' marks (flag 1) are SOFT — an ordinary name may lie over a
+       small dot, because a hard obstacle per place would blank the Full Atlas's map (1,300 places, 190 polities), but a study name
+       clears every mark of higher priority than its own (`softFree`), and every name is clear of the controls and wholly in the frame.
+       A mark is dropped for nothing a name does: only a control or the frame's edge (decided per frame by the page) hides one. */
+    const marks = [], markById = new Map();
+    const soft = new Map(), softRects = [];
+    const softFree = (r) => { let ok = true; cellsOf(r, (c) => { if (!ok) return; const list = soft.get(c); if (!list) return; for (const i of list) { const o = softRects[i]; if (r[0] < o[2] + pad && r[2] > o[0] - pad && r[1] < o[3] + pad && r[3] > o[1] - pad) { ok = false; return; } } }); return ok; };
+    const softTake = (r) => { const i = softRects.length; softRects.push(r); cellsOf(r, (c) => { let list = soft.get(c); if (!list) soft.set(c, list = []); list.push(i); }); };
+    const unitAt = (x, y) => { const ax = (x - cx) / radius, ay = -(y - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay)); return [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az]; };
+    const GAZ_PRESENT = { country: 1, admin1: 1, capital: 1, city: 1, town: 1 };   // alive only in the present year, as the ordinary pass has it
     if (study) {
-      const pts = [], names = [];
+      const AS = root.AtlasStudy, h0 = AS.markHalf(kmpp), MARGIN = 120;
+      const histAt = new Map();
+      for (const hr of histRows) if (!histAt.has(hr.id)) histAt.set(hr.id, hr);   // sorted by on-screen area: a polity's mark is on its largest face in view
+      const list = [];
       for (const [id, f] of study.flags) {
-        const row = study.rows.get(id); if (!row) continue;
-        if (!present && row.pd) continue;   // a present-day city is not alive in a past year
-        const a = proj(row.a); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 0)) continue;
-        (STUDY_POINT[row.kind] ? pts : names).push({ id, row, f, a, x: a[0], y: a[1], w: f * 1e6 + row.n });
-      }
-      const byW = (p, r) => r.w - p.w || (p.id < r.id ? -1 : 1);
-      pts.sort(byW); names.sort(byW);
-      const byId = new Map(pts.map((p) => [p.id, p]));
-      const unitAt = (x, y) => { const ax = (x - cx) / radius, ay = -(y - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay)); return [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az]; };
-      const groups = root.AtlasStudy.cluster(pts.map((p) => ({ id: p.id, x: p.x, y: p.y })), STACK_PX);
-      for (const g of groups) {
-        const mem = g.ids.map((i) => byId.get(i)), top = mem[0], f = Math.max(...mem.map((m) => m.f));
-        if (g.n > 1) {
-          dropping = { name: "stack of " + g.n };
-          const r = g.n > 9 ? 11 : 9, x = g.x, y = g.y, mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
-          if (!fullyOn(mrect) || !free(mrect)) { drop("a stack of " + g.n + " places has no free ground (a control, a capital's mark or the frame's edge)"); continue; }
-          take(mrect);
-          placed.push({ id: "stack:" + top.id, kind: "stack", style: "", text: "", score: -300 - f * 10, selected: false, hist: false, st: f, n: g.n, members: g.ids.slice(0, 60), a: unitAt(x, y), sx: x, sy: y, alpha: Math.min(1, top.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, "stack"], hit: mrect });
-          continue;
+        let kind, name = "", n = 0, a, x, y, z, unit, own = null;
+        const srow = study.rows.get(id);
+        if (srow) {
+          if (!present && srow.pd) continue;   // a present-day city is not alive in a past year
+          kind = srow.kind; name = srow.name; n = srow.n; unit = srow.a; own = srow;
+          a = proj(unit); x = a[0]; y = a[1]; z = a[2];
+        } else if (histAt.has(id)) {
+          const hr = histAt.get(id), an = hr.path.anchor;
+          kind = hr.kind; x = an[0]; y = an[1]; z = 1; unit = unitAt(x, y);
+        } else {
+          const g = GZ.byId.get(id); if (!g || !g.a) continue;
+          if (!present && GAZ_PRESENT[g.kind]) continue;
+          kind = g.kind; unit = g.a; a = proj(unit); x = a[0]; y = a[1]; z = a[2];
         }
-        const row = top.row, markShape = row.kind === "mountain" || row.kind === "hill" || row.kind === "cape" ? "triangle" : "diamond", r = row.kind === "hill" ? 4 : 6,   /* a hill is the smaller triangle (Phase 3c) */ x = top.x, y = top.y;
-        const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
-        dropping = row;
-        if (!fullyOn(mrect) || !free(mrect)) { drop("study mark has no free ground (a control, a capital's mark or the frame's edge)"); continue; }
-        take(mrect);
-        const base = { id: row.id, kind: row.kind, style: row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town", text: "", score: -300 - f * 10, selected: row.id === q.selected, hist: false, st: f };
-        const st2 = METRICS[base.style];
-        let got = null, sh = null;
-        if (show.places && st2 && row.name) {
-          sh = shape(row.name, st2, missing); sh.style = base.style;
-          for (const [tx, ty] of [[x + r + 3 + sh.w / 2, y], [x - r - 3 - sh.w / 2, y], [x, y - r - 3 - sh.h / 2], [x, y + r + 3 + sh.h / 2]]) { const g2 = straight(sh, tx, ty, 0); if (fullyOn(g2.rects[0]) && free(g2.rects[0])) { got = g2; break; } }
-        }
-        if (got) { take(got.rects[0]); base.text = sh.chars.join(""); }
-        const box = got ? union([got.rects[0], mrect]) : mrect;
-        placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, top.a[2] / 0.2), glyphs: got ? got.glyphs : [], box, rects: got ? [got.rects[0], mrect] : [mrect], marker: [x, y, r, markShape], hit: box }));
+        if (z < 0.02 || !onScreen(x, y, MARGIN)) continue;
+        list.push({ id, kind, name, n, f, unit, x, y, z, own, shape: AS.markShape(kind), layer: AS.markLayer(kind, f), h: h0 * AS.markScale(kind) });
       }
-      for (const nm of names) {
-        const row = nm.row; dropping = row;
-        if (!show.places) continue;
-        const style = styleFor(row, 0), st2 = METRICS[style]; if (!st2 || !row.name) continue;
-        const sh = shape(row.name, st2, missing); sh.style = style;
-        const g2 = straight(sh, nm.x, nm.y, 0);
-        if (!fullyOn(g2.rects[0])) { drop("study name is not wholly on screen"); continue; }
-        if (!free(g2.rects[0])) { drop("study name collides"); continue; }
-        take(g2.rects[0]);
-        placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: -300 - nm.f * 10, selected: row.id === q.selected, hist: false, st: nm.f, a: row.a, sx: nm.x, sy: nm.y, alpha: Math.min(1, nm.a[2] / 0.2), glyphs: g2.glyphs, box: g2.rects[0], rects: g2.rects, marker: null, hit: g2.rects[0], curved: false, meanAngle: 0 });
+      list.sort((p, r) => r.f - p.f || r.n - p.n || (p.id < r.id ? -1 : 1));
+      for (const m of list) {
+        const hh = m.h, mrect = [m.x - hh - 1, m.y - hh - 1, m.x + hh + 1, m.y + hh + 1];
+        m.rect = mrect; m.clear = fullyOn(mrect) && !hitsChrome(mrect);
+        dropping = m.own || { name: m.id };
+        const base = { id: m.id, kind: m.kind, shape: m.shape, layer: m.layer, st: m.f, a: m.unit, sx: m.x, sy: m.y, h: hh, n: m.n, clear: m.clear, score: -300 - m.f * 10 - Math.min(9, m.n / 100) };
+        marks.push(base); markById.set(m.id, base);
+        if (!m.clear) continue;   // under a control or past the frame's edge: no name either (the page checks the mark again on every frame)
+        if (m.f === 2) take(mrect);   // the reader's own mark takes its ground before the ordinary names
+        const row = m.own;
+        if (row && show.places && row.name) {
+          const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
+          if (st2) {
+            const sh = shape(row.name, st2, missing); sh.style = style;
+            // beside the mark, with the ground between them that the pad asks of any two names (a 2 px gap never fitted a 4 px pad)
+            const gap = hh + 1 + pad + 1;
+            let got = null;
+            for (const [tx, ty] of [[m.x + gap + sh.w / 2, m.y], [m.x - gap - sh.w / 2, m.y], [m.x, m.y - gap - sh.h / 2], [m.x, m.y + gap + sh.h / 2]]) {
+              const g2 = straight(sh, tx, ty, 0);
+              if (fullyOn(g2.rects[0]) && free(g2.rects[0]) && softFree(g2.rects[0])) { got = g2; break; }
+            }
+            if (got) {
+              take(got.rects[0]);
+              placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: got.rects[0], rects: got.rects, marker: null, hit: got.rects[0] });
+            } else drop("study name finds no free side clear of the names and marks of higher priority");
+          }
+        }
+        if (m.f !== 2) softTake(mrect);
       }
     }
     const capAll = cap + placed.length;   // the density cap counts the ordinary labels only: the study pass is the reader's own
@@ -983,6 +995,8 @@
       const text = row.name;
       const sh = shape(text, st, missing); sh.style = styleId;
       const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
+      /* a flagged area or polity has a MARK at its anchor (the study pass): its name stands just above it, so the dot is read as the place and the name as its label */
+      const mk0 = markById.get(row.id), up = mk0 ? -(mk0.h + 2 + sh.h / 2) : 0;
       if (k === "polity" || k === "people" || k === "culture" || k === "extent") {
         // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
         const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
@@ -993,7 +1007,7 @@
         if (!got) {
           const wide = row.path.len * (row.rank <= CAPITAL_AFTER_RANK ? POLITY_WIDE_LARGE : POLITY_WIDE);
           let clipped = 0, collided = 0;
-          const straightTry = (make, w) => { for (const n of POLITY_NUDGE) for (const f of POLITY_SIDE) { const g = intoFrame(make(c.a[0] + f * w, c.a[1] + n * sh.h), sh.h); if (!g) { clipped++; continue; } if (!g.rects.every(free)) { collided++; continue; } return g; } return null; };
+          const straightTry = (make, w) => { for (const n of POLITY_NUDGE) for (const f of POLITY_SIDE) { const g = intoFrame(make(c.a[0] + f * w, c.a[1] + n * sh.h + up), sh.h); if (!g) { clipped++; continue; } if (!g.rects.every(free)) { collided++; continue; } return g; } return null; };
           if (sh.w <= wide) got = straightTry((x, y) => straight(sh, x, y, 0), sh.w);
           let two = null;
           if (!got) { two = splitName(text, st, styleId); if (two && two.wide <= wide) { got = straightTry((x, y) => stacked(two, x, y), two.wide); if (got) lines = 2; } }
@@ -1087,12 +1101,16 @@
       }
       if (!got) {
         if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") { drop(k + " name wider than its shape"); continue; }   // the name would overhang the shape by most of its length
-        const g0 = straight(sh, c.a[0], c.a[1], 0);
         if (!onScreen(c.a[0], c.a[1], 0)) { drop(k + " anchor off screen"); continue; }
-        const g = intoFrame(g0, sh.h);   // Phase 3c, decision 3: a sea's, a region's name stays inside the frame like a polity's — slid back by at most a third of its width, or not placed
-        if (!g) { drop(k + " label would hang out of the frame"); continue; }
-        if (!free(g.rects[0])) { drop(k + " collides"); continue; }
-        got = g;
+        // with a mark at the anchor: just above it, else just below it, else (a soft mark only) over it
+        let hung = false, hit = false;
+        for (const dy of mk0 ? (mk0.st === 2 ? [up, -up] : [up, -up, 0]) : [0]) {
+          const g = intoFrame(straight(sh, c.a[0], c.a[1] + dy, 0), sh.h);   // Phase 3c, decision 3: a sea's, a region's name stays inside the frame like a polity's — slid back by at most a third of its width, or not placed
+          if (!g) { hung = true; continue; }
+          if (!free(g.rects[0])) { hit = true; continue; }
+          got = g; break;
+        }
+        if (!got) { drop(hit || !hung ? k + " collides" : k + " label would hang out of the frame"); continue; }
       }
       // a label whose every glyph lies beyond the viewport (its anchor was within the 200 px margin) is not placed: it
       // would hold a slot of the density cap and draw nothing
@@ -1102,7 +1120,7 @@
       placed.push(Object.assign(base, { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
     }
     void hitsChrome;
-    return { placed, candidates: cands.length, cap, chrome: chrome.length, missing: [...missing].map((m) => m.split("\u0001")), rivers: riverLabels, why };
+    return { placed, marks, candidates: cands.length, cap, chrome: chrome.length, missing: [...missing].map((m) => m.split("\u0001")), rivers: riverLabels, why };
   }
   /* ================= Phase 2a: the step topology (atlas/data/history.bin) =================
      The file's faces are rings of signed arc references; an arc is either its own vertices (a historical border, with
