@@ -185,6 +185,54 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
     }
   }
 
+  /* ---------------- 3) a locator window's names do not collide ---------------- */
+  if (want(3)) {
+    sect("3) a locator window with many siblings (rm-003, the Tiber, with the Roman cards studied): no two names or a name and a mark overlap");
+    const ids = (() => { const w0 = global.window; global.window = {}; require("../data.js"); const out = window.CARD_DATA.map((c) => c.id).filter((i) => /^rm-/.test(i)); global.window = w0; return out; })();
+    for (const [label, vp] of [["desktop 1100", { mobile: false }], ["phone 390", { mobile: true }]]) {
+      const { ctx, page } = await newPage(browser, vp);
+      await ctx.addInitScript((list) => { try { const cards = {}; for (const id of list) cards[id] = { due: Date.now() + 864e5 * 5, ivl: 5, ease: 2.5, reps: 3, lapses: 0, state: "review", lastReview: Date.now() - 864e5 }; localStorage.setItem("folio_v1", JSON.stringify({ active: [], cards, settings: { marker: false } })); } catch (e) {} }, ids);
+      /* the drawing is READ, not asked: every fillText, every small arc and square the window's canvas receives in its last frame (the same for v1's window and the engine's) */
+      await ctx.addInitScript(() => {
+        const P = CanvasRenderingContext2D.prototype, rec = window.__rec = { calls: [], target: null };
+        const mine = (c) => rec.target && c.canvas === rec.target;
+        const css = (c, x, y) => { const m = c.getTransform(), k = c.canvas.width / (c.canvas.getBoundingClientRect().width || 1); return [(m.a * x + m.c * y + m.e) / k, (m.b * x + m.d * y + m.f) / k, m.a / k]; };
+        const cr = P.clearRect; P.clearRect = function (x, y, w, h) { if (mine(this) && w >= this.canvas.width - 1) rec.calls = []; return cr.apply(this, arguments); };
+        const ft = P.fillText; P.fillText = function (t, x, y) { if (mine(this)) { const q = css(this, x, y), px = parseFloat((/(\d+(\.\d+)?)px/.exec(this.font) || [0, 12])[1]) * q[2], w = this.measureText(t).width * q[2], al = this.textAlign; rec.calls.push({ k: "name", t, box: al === "left" || al === "start" ? [q[0], q[1] - px * 0.6, q[0] + w, q[1] + px * 0.6] : al === "right" || al === "end" ? [q[0] - w, q[1] - px * 0.6, q[0], q[1] + px * 0.6] : [q[0] - w / 2, q[1] - px * 0.6, q[0] + w / 2, q[1] + px * 0.6] }); } return ft.apply(this, arguments); };
+        const ar = P.arc; P.arc = function (x, y, r) { if (mine(this) && r > 1 && r < 9 && Math.abs(arguments[4] - arguments[3] - Math.PI * 2) < 1e-6) { const q = css(this, x, y), rr = r * q[2]; rec.calls.push({ k: "mark", box: [q[0] - rr, q[1] - rr, q[0] + rr, q[1] + rr] }); } return ar.apply(this, arguments); };
+        const fr = P.fillRect; P.fillRect = function (x, y, w, h) { if (mine(this) && w > 4 && w < 14 && Math.abs(w - h) < 0.01) { const q = css(this, x, y); rec.calls.push({ k: "mark", box: [q[0], q[1], q[0] + w * q[2], q[1] + h * q[2]] }); } return fr.apply(this, arguments); };
+      });
+      await page.goto(url("#card/rm-003"), { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
+      await windowUp(page, ".card-loc .map-card");
+      await page.evaluate(() => { window.__rec.target = document.querySelector(".card-loc .mc-canvas"); document.querySelector(".card-loc .map-card")._folioMap.pan(1, 0); });
+      await sleep(1500);
+      if (ENGINE) await page.waitForFunction(() => document.querySelector(".card-loc .map-card")._folioMap.settled(), null, { timeout: 120000 }).catch(() => {});
+      await sleep(800);
+      const r = await page.evaluate(() => { const c = window.__rec.target, b = c.getBoundingClientRect(), z = document.querySelector(".card-loc .mc-zoom").getBoundingClientRect(); return { calls: window.__rec.calls.slice(), cw: b.width, ch: b.height, ctl: [z.left - b.left, z.top - b.top, z.right - b.left, z.bottom - b.top] }; });
+      const names = r.calls.filter((c) => c.k === "name"), marks = r.calls.filter((c) => c.k === "mark");
+      const hitB = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+      const nn = [], nm = [], out = [];
+      for (let i = 0; i < names.length; i++) {
+        for (let j = i + 1; j < names.length; j++) if (hitB(names[i].box, names[j].box)) nn.push(names[i].t + " × " + names[j].t);
+        for (const m of marks) if (hitB(names[i].box, m.box)) { nm.push(names[i].t); break; }
+        const b = names[i].box; if (b[0] < 0 || b[2] > r.cw || b[1] < 0 || b[3] > r.ch || hitB(b, r.ctl)) out.push(names[i].t);
+      }
+      console.log("        " + names.length + " names drawn: " + names.map((n) => n.t).join(", ") + "; " + marks.length + " marks");
+      check(label + ": the window has many siblings (at least twelve marks) and names on them", marks.length >= 12 && names.length >= 4, marks.length + " marks, " + names.length + " names");
+      check(label + ": no two names overlap", nn.length === 0, nn.slice(0, 8).join(" | "));
+      check(label + ": no name overlaps a mark (a sibling's dot, the home square, the card's own dot)", nm.length === 0, nm.slice(0, 8).join(", "));
+      check(label + ": every name is wholly inside the frame and off the zoom controls", out.length === 0, out.slice(0, 8).join(", "));
+      check(label + ": the card's own names are still there (the Tiber; its own place is the river)", names.some((n) => /Tiber/i.test(n.t)), names.map((n) => n.t).join(", "));
+      if (ENGINE && await page.evaluate(() => typeof document.querySelector(".card-loc .map-card")._folioMap.boxes === "function")) {
+        const bx = await page.evaluate(() => document.querySelector(".card-loc .map-card")._folioMap.boxes());
+        console.log("        engine: " + bx.names.length + " names placed, " + bx.dropped.length + " dropped for want of room (" + bx.dropped.join(", ") + ")");
+        const clash = []; bx.names.forEach((n, i) => { for (let j = i + 1; j < bx.names.length; j++) if (hitB(n.box, bx.names[j].box)) clash.push(n.text + " × " + bx.names[j].text); for (const m of bx.marks) if (hitB(n.box, m.box)) clash.push(n.text + " × a " + m.kind); });
+        check(label + ": the engine's own record agrees: its " + bx.names.length + " names and " + bx.marks.length + " marks have no overlap between a name and anything", clash.length === 0, clash.slice(0, 6).join(" | "));
+      }
+      await ctx.close();
+    }
+  }
+
   await browser.close(); server.close();
   console.log("\n" + (errors.length ? "\x1b[31m" + errors.length + " console/page errors:\x1b[0m\n  " + errors.slice(0, 6).join("\n  ") : "no console or page errors"));
   check("no console or page errors", errors.length === 0);
