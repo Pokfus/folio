@@ -13,7 +13,7 @@
                          dot tables exactly as the old files held them, and the NEIGHBOURS of every single shape and of every key-list a card uses (the same grid-proximity rule as app.js's old
                          `mapNeighbours`, two cells to count, so the "describe the map" sentence is what it was)
      v1-names.json       every name the old maps carried: the world's, and each of the thirteen eras' (card-war.js checks an old `war` field against them)
-     state-capitals.json the table STATE_CAPITALS (build-history.js reads it for the pilot polities' period capitals)
+     state-capitals.json { retrieved, table: STATE_CAPITALS } (build-history.js reads it for the pilot polities' period capitals, and the retrieval date it records)
 
    `--check` re-reads the shape files (while they still exist) and says whether the frozen files are what they would write. After Phase 5 the shape files are gone from the tree: this script then
    only documents how the tables were made (`git show <the last commit with them>:world.js`). It is deleted with them. */
@@ -103,7 +103,10 @@ function build() {
     eras[e.year] = [...set].sort();
   });
   const names = { format: 1, world: [...world].sort(), eras };
-  const caps = loadWin("state-capitals.js").STATE_CAPITALS || {};
+  /* the capitals' retrieval date is the one the committed history.bin records (a shallow clone reports the grafted boundary commit as the file's last, a day off the truth: build-history.js had the same rule) */
+  const F = require("./lib/format.js"), hh = F.read(new Uint8Array(fs.readFileSync(path.join(ROOT, "atlas", "data", "history.bin"))), { headerOnly: true }).header, wd = (hh.sources || []).find((x) => x.id === "wikidata-capitals");
+  if (!wd || !/^\d{4}-\d{2}-\d{2}$/.test(wd.retrieved || "")) throw new Error("the committed history.bin has no Wikidata retrieval date");
+  const caps = { retrieved: wd.retrieved, table: loadWin("state-capitals.js").STATE_CAPITALS || {} };
   return { layers: { format: 1, layers }, names, caps, problems };
 }
 const stable = (o) => JSON.stringify(o, null, 0).replace(/\},\{/g, "},\n{");

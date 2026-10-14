@@ -75,21 +75,12 @@ function readRings(v, where) {
 let _names = null;
 function mapNames() {
   if (_names) return _names;
-  const win = {};
-  new Function("window", fs.readFileSync(path.join(ROOT, "world.js"), "utf8"))(win);
-  new Function("window", fs.readFileSync(path.join(ROOT, "timeline.js"), "utf8"))(win);
-  const geo = win.WORLD_GEO || [];
-  const world = new Set();
-  geo.forEach((g) => { if (g.n) world.add(String(g.n).toLowerCase()); if (g.a) world.add(String(g.a).toLowerCase()); });
+  // Phase 5: world.js and timeline.js are gone from the tree; the names they carried were frozen into .claude/atlas-build/frozen/v1-names.json (freeze-v1.js) — the old `war` field is still read by the card windows (docs/atlas-v2-phase5-plan.md, decision 1)
+  const N = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "frozen", "v1-names.json"), "utf8"));
+  const world = new Set(N.world);
   const all = new Set(world);
   const eras = new Map();
-  (win.TIMELINE || []).forEach((e) => {
-    const set = new Set();
-    if (e.geo) e.geo.forEach((t) => { if (t.n) set.add(String(t.n).toLowerCase()); });
-    else geo.forEach((g) => { const nm = (e.groups || {})[g.n] || g.n; if (nm) set.add(String(nm).toLowerCase()); });
-    set.forEach((n) => all.add(n));
-    eras.set(e.year, set);
-  });
+  Object.keys(N.eras).forEach((y) => { const set = new Set(N.eras[y]); set.forEach((n) => all.add(n)); eras.set(Number(y), set); });
   _names = { world: world, all: all, eras: eras };
   return _names;
 }

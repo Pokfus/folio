@@ -43,7 +43,7 @@ function corpus() {
   _corpus = {
     G: w.GLOSSARY || {},
     TAGS: w.GLOSSARY_TAGS || {},
-    COUNTRY: w.GLOSSARY_MAP_COUNTRY || {},
+    COUNTRY: (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, "atlas-build", "glossary-places-input.json"), "utf8")).countries || {}; } catch (e) { return {}; } })(),   // Phase 5: an offline input, no longer at the foot of glossary.js
     TITLES: w.GLOSSARY_TITLES || {},
     ALIASES: w.GLOSSARY_ALIASES || {},
     CARDS: w.CARD_DATA || [],

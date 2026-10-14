@@ -60,7 +60,8 @@ function build(opts) {
   const log = opts.log || console.log;
   const R = require(path.join(ROOT, ".claude", "places-registry.js"));
   const reg = R.loadRegistry({ entities: false });
-  const w = {}; new Function("window", fs.readFileSync(path.join(ROOT, "glossary.js"), "utf8"))(w);
+  /* the two input tables: since Phase 5 an offline file (glossary-places-input.json), no longer shipped at the foot of glossary.js */
+  const w = JSON.parse(fs.readFileSync(path.join(HERE, "glossary-places-input.json"), "utf8")); w.GLOSSARY_PLACES = w.points; w.GLOSSARY_MAP_COUNTRY = w.countries;
   const spec = JSON.parse(fs.readFileSync(SPEC, "utf8"));
   const T = tableOf({ points: w.GLOSSARY_PLACES, countries: w.GLOSSARY_MAP_COUNTRY, resolved: spec.glossary, reg, fold: R.fold });
   const body = render(T.ids);

@@ -22,8 +22,12 @@ const ARG = (n, d) => { const a = process.argv.find((x) => x.startsWith("--" + n
 const REV = ARG("rev", "aff237d");
 const win = spawnSync("git", ["show", REV + ":atlas/atlas-windows.js"], { cwd: ROOT, maxBuffer: 1 << 26 });
 if (win.status !== 0) { console.error("git show " + REV + ":atlas/atlas-windows.js failed"); process.exit(1); }
-const WINDOWS = win.stdout.toString("utf8").replace("const FI2_NAMES = {", "window.__fi2 = { pools: fi2Pools };\n  const FI2_NAMES = {");
-if (WINDOWS.indexOf("window.__fi2") < 0) { console.error("could not hook fi2Pools in " + REV); process.exit(1); }
+/* the hook records EVERY area stack's polity lookup, before the size filter: an area whose dated rings are too small (`bbA(rings) <= 20`) is dropped from the pool, and the frozen table must still hold those rings or the area would
+   come back on its authored extent and the day's deal would move */
+const LOOKUP = 'const slugs = fi2PolityLink({ ids: ids }, "area"), dated = fi2PolityRings(slugs, yr), rings = dated ? dated.rings : first.area;';
+let WINDOWS = win.stdout.toString("utf8");
+if (WINDOWS.indexOf(LOOKUP) < 0 || WINDOWS.indexOf("const FI2_NAMES = {") < 0) { console.error("could not hook fi2Pools in " + REV); process.exit(1); }
+WINDOWS = WINDOWS.replace(LOOKUP, LOOKUP + " (window.__fzAll = window.__fzAll || []).push({ n: first.title, shown: yr, slugs: dated ? slugs : null, rings: dated ? dated.rings : null });").replace("const FI2_NAMES = {", "window.__fi2 = { pools: fi2Pools };\n  const FI2_NAMES = {");
 const appjs = spawnSync("git", ["show", REV + ":app.js"], { cwd: ROOT, maxBuffer: 1 << 28 });
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream", ".woff2": "font/woff2" };
 const server = http.createServer((req, res) => {
@@ -39,7 +43,7 @@ const server = http.createServer((req, res) => {
   await page.goto(`http://127.0.0.1:${server.address().port}/#findit`, { waitUntil: "load" });
   await page.waitForFunction(() => window.__fi2, null, { timeout: 120000 });
   await page.waitForFunction(() => window.POLITIES && window.POLITY_LINKS, null, { timeout: 120000 });
-  const rows = await page.evaluate(() => window.__fi2.pools().areas.map((a) => ({ n: a.n, shown: a.shown, slugs: a.slugs, rings: a.slugs ? a.rings : null })));
+  const rows = await page.evaluate(() => { window.__fzAll = []; window.__fi2.pools(); return window.__fzAll; });
   await browser.close(); server.close();
   const dated = rows.filter((a) => a.slugs && a.rings);
   const areas = {}; let pts = 0;
@@ -49,7 +53,7 @@ const server = http.createServer((req, res) => {
     "/* atlas/data/findit-areas.js — FROZEN by .claude/atlas-build/freeze-findit.js from polities.js (Phase 5 deleted that file; docs/atlas-v2-phase5-plan.md §4.1). Do not edit. Find it's area rounds that have a Cliopatria series behind them:\n" +
     "   \"<card title>|<year shown>\" → the series' slugs and the rings it had that year, the geometry a round is scored on and drawn from where the engine's history is not drawn. */\n" +
     "window.ATLAS_FINDIT_AREAS = " + JSON.stringify({ format: 1, digest, areas }).replace(/\},"/g, '},\n"') + ";\n";
-  console.log(`area stacks ${rows.length}, with a series ${dated.length}, ring points ${pts}, ${body.length} bytes`);
+  console.log(`area stacks looked up ${rows.length}, with a series ${dated.length}, ring points ${pts}, ${body.length} bytes`);
   if (process.argv.includes("--check")) { const cur = fs.existsSync(OUT) ? fs.readFileSync(OUT, "utf8") : ""; if (cur !== body) { console.error("atlas/data/findit-areas.js differs"); process.exit(1); } console.log("freeze-findit --check ok"); return; }
   fs.writeFileSync(OUT, body); console.log("wrote atlas/data/findit-areas.js");
 })().catch((e) => { console.error(e); process.exit(1); });
