@@ -1,28 +1,26 @@
 /* test-card-windows-fixes.js — the five fixes the owner found on a real phone after the Stage B flip (Atlas v2 card windows; docs/atlas-v2-card-windows.md "Phone fixes", docs/atlas-v2-design.md §7 "Phone fixes — as built")
 
-     NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-card-windows-fixes.js                 the engine's windows (the default)
-     FOLIO_ENGINE=v1 NODE_PATH=... node .claude/test-card-windows-fixes.js                         v1's windows (the fallback); the sections that have a v1 twin run, the engine-only ones say so
+     NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-card-windows-fixes.js                 the engine's windows (Phase 5: the only ones; CI runs it once)
      --only=1,3                                                                                      some sections
 
      1  THE HIGHLIGHT STAYS THROUGH A GESTURE: the shaded place's outline (the selection gold) is on the canvas before a drag, DURING it (several samples across a CDP touch drag), during a two-finger pinch
         and a wheel zoom, and after — for a state card (geo-002) and a country card (gw-001).
-     2  A WAR WINDOW'S LABELS STAND ON THEIR OWN GROUND (engine only): for every war card in the pinned set, each side's label point lies inside a face of that side; rm-209 "Rome" is on green, "Carthage" on red.
+     2  A WAR WINDOW'S LABELS STAND ON THEIR OWN GROUND: for every war card in the pinned set, each side's label point lies inside a face of that side; rm-209 "Rome" is on green, "Carthage" on red.
      3  A LOCATOR WINDOW'S NAMES DO NOT COLLIDE: no two drawn names or marks overlap in a window with many siblings (rm-003), at desktop and at 390 px.
-     4  A WAR WINDOW HAS ONE LEGEND (engine only): the plain-text one below the window; nothing is drawn over the bottom of the map; the two sides' names are still on it.
+     4  A WAR WINDOW HAS ONE LEGEND: the plain-text one below the window; nothing is drawn over the bottom of the map; the two sides' names are still on it.
      5  TAPS NEVER NAVIGATE: a tap, a double tap, a mouse click and a drag end on a map card (revealed and not), a locator and a war window change nothing in the address and open no Atlas; the window's own
         globe button still does (and Back returns to the same card with its reveal state).
      6  No console or page errors. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
 const { chromium } = require("playwright");
-const ES = require("./test-engine-switch.js");
+const ES = require("./test-window-env.js");
 let Hq0 = null; const Hq = () => Hq0 || (Hq0 = require("./atlas-build/lib/historyq.js").open());   /* opened on first use: it reads the 9 MB history file */
 const { isNoise } = require("./test-noise.js");
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream", ".woff2": "font/woff2" };
 const PORT = 5631;
-const ENGINE = ES.v2();
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]); if (p === "/") p = "/index.html";
   const file = path.join(ROOT, p);
@@ -52,13 +50,12 @@ async function newPage(browser, o) {
   return { ctx, page };
 }
 const sessionFor = (id, rev) => ({ scope: { type: "card", id }, queue: [id], id, qi: 0, rev: !!rev, studied: 0 });
-const isV2 = (page) => page.evaluate(() => { const h = document.querySelector(".map-card"); return h && h.getAttribute("data-map-engine"); });
-/* the window is mounted and has drawn (the engine: ready, then settled — its tiles in; v1: ready and a moment) */
+/* the window is mounted and has drawn (ready, then settled — its tiles in) */
 async function windowUp(page, sel) {
   sel = sel || ".map-card";
   await page.waitForSelector(sel, { timeout: 60000 });
   await page.waitForFunction((s) => { const h = document.querySelector(s); return h && h._folioMap && h._folioMap.ready() && !h.classList.contains("mc-loading"); }, sel, { timeout: 180000 });
-  if (ENGINE) await page.waitForFunction((s) => { const h = document.querySelector(s); return h && h._folioMap && h._folioMap.settled && h._folioMap.settled(); }, sel, { timeout: 180000 }).catch(() => {});
+  await page.waitForFunction((s) => { const h = document.querySelector(s); return h && h._folioMap && h._folioMap.settled && h._folioMap.settled(); }, sel, { timeout: 180000 }).catch(() => {});
   await sleep(700);
 }
 async function openCard(page, id, sel) {
@@ -87,7 +84,6 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
 (async () => {
   await new Promise((r) => server.listen(PORT, r));
   const browser = await ES.launch(chromium, LAUNCH);
-  console.log("windows under test: " + (ENGINE ? "the engine's (default)" : "v1's (FOLIO_ENGINE=v1)"));
 
   /* ---------------- 1) the highlight stays through a gesture ---------------- */
   if (want(1)) {
@@ -105,7 +101,7 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
       const dragMin = Math.min.apply(null, during.slice(2));
       check(label + ": ...and DURING a touch drag, at every one of " + (during.length - 2) + " samples (a plain outline: no glow, so fewer pixels than at rest)", dragMin > 300 && dragMin > before * 0.1, JSON.stringify(during) + " (at rest " + before + ")");
       await touchEnd(cdp); await sleep(400);
-      if (ENGINE) await page.waitForFunction(() => document.querySelector(".map-card")._folioMap.settled(), null, { timeout: 120000 }).catch(() => {});
+      await page.waitForFunction(() => document.querySelector(".map-card")._folioMap.settled(), null, { timeout: 120000 }).catch(() => {});
       await sleep(600);
       const afterDrag = await outlinePixels(page);
       check(label + ": ...and after it", afterDrag > before * 0.5, afterDrag + " (before " + before + ")");
@@ -139,8 +135,7 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
   }
 
   /* ---------------- 2) a war window's labels stand on their own ground ---------------- */
-  if (want(2) && !ENGINE) { sect("2) war labels — engine only"); console.log("  (skipped: v1's window draws no names)"); }
-  if (want(2) && ENGINE) {
+  if (want(2)) {
     sect("2) every war window's two names stand inside a face of their own side, whole inside the frame, off the controls and apart");
     for (const [label, vp] of [["desktop 1100", { mobile: false }], ["phone 390", { mobile: true }]]) {
       const { ctx, page } = await newPage(browser, vp);
@@ -186,8 +181,7 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
   }
 
   /* ---------------- 3) a locator window's names do not collide ---------------- */
-  if (want(3) && !ENGINE) { sect("3) locator names — engine only"); console.log("  (skipped: the fix is in the engine's window; v1's window, the fallback, keeps its old layout)"); }
-  if (want(3) && ENGINE) {
+  if (want(3)) {
     sect("3) a locator window with many siblings (rm-003, the Tiber, with the Roman cards studied): no two names or a name and a mark overlap");
     const ids = (() => { const w0 = global.window; global.window = {}; require("../data.js"); const out = window.CARD_DATA.map((c) => c.id).filter((i) => /^rm-/.test(i)); global.window = w0; return out; })();
     for (const [label, vp] of [["desktop 1100", { mobile: false }], ["phone 390", { mobile: true }]]) {
@@ -207,7 +201,7 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
       await windowUp(page, ".card-loc .map-card");
       await page.evaluate(() => { window.__rec.target = document.querySelector(".card-loc .mc-canvas"); document.querySelector(".card-loc .map-card")._folioMap.pan(1, 0); });
       await sleep(1500);
-      if (ENGINE) await page.waitForFunction(() => document.querySelector(".card-loc .map-card")._folioMap.settled(), null, { timeout: 120000 }).catch(() => {});
+      await page.waitForFunction(() => document.querySelector(".card-loc .map-card")._folioMap.settled(), null, { timeout: 120000 }).catch(() => {});
       await sleep(800);
       const r = await page.evaluate(() => { const c = window.__rec.target, b = c.getBoundingClientRect(), z = document.querySelector(".card-loc .mc-zoom").getBoundingClientRect(); return { calls: window.__rec.calls.slice(), cw: b.width, ch: b.height, ctl: [z.left - b.left, z.top - b.top, z.right - b.left, z.bottom - b.top] }; });
       const names = r.calls.filter((c) => c.k === "name"), marks = r.calls.filter((c) => c.k === "mark");
@@ -224,7 +218,7 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
       check(label + ": no name overlaps a mark (a sibling's dot, the home square, the card's own dot)", nm.length === 0, nm.slice(0, 8).join(", "));
       check(label + ": every name is wholly inside the frame and off the zoom controls", out.length === 0, out.slice(0, 8).join(", "));
       check(label + ": the card's own names are still there (the Tiber; its own place is the river)", names.some((n) => /Tiber/i.test(n.t)), names.map((n) => n.t).join(", "));
-      if (ENGINE && await page.evaluate(() => typeof document.querySelector(".card-loc .map-card")._folioMap.boxes === "function")) {
+      if (await page.evaluate(() => typeof document.querySelector(".card-loc .map-card")._folioMap.boxes === "function")) {
         const bx = await page.evaluate(() => document.querySelector(".card-loc .map-card")._folioMap.boxes());
         console.log("        engine: " + bx.names.length + " names placed, " + bx.dropped.length + " dropped for want of room (" + bx.dropped.join(", ") + ")");
         const clash = []; bx.names.forEach((n, i) => { for (let j = i + 1; j < bx.names.length; j++) if (hitB(n.box, bx.names[j].box)) clash.push(n.text + " × " + bx.names[j].text); for (const m of bx.marks) if (hitB(n.box, m.box)) clash.push(n.text + " × a " + m.kind); });
@@ -270,8 +264,8 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
           await page.focus(sel + ' [data-mc="go"]'); await page.keyboard.press("Enter");   // the keyboard route to the button
           await page.waitForFunction((was) => location.hash !== was, h0, { timeout: 20000 }).catch(() => {});
           const hh = await page.evaluate(() => location.hash);
-          check(label + ": the globe button (Enter on it) opens the Atlas, with the window's view" + (/war/.test(label) ? " and the war's year" : ""), ENGINE ? (/^#map2\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(hh) && (!/war/.test(label) || /\?y=-209/.test(hh) /* the Atlas then writes its own hash; the war's card rides on the link as &war= (test-atlas-embed.js §5 follows it) */)) : /^#map/.test(hh), hh);
-          if (ENGINE) {
+          check(label + ": the globe button (Enter on it) opens the Atlas, with the window's view" + (/war/.test(label) ? " and the war's year" : ""), /^#map\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(hh) && (!/war/.test(label) || /\?y=-209/.test(hh) /* the Atlas then writes its own hash; the war's card rides on the link as &war= (test-atlas-embed.js §5 follows it) */), hh);
+          {
             await page.waitForSelector(".atlas2", { timeout: 60000 }).catch(() => {});
             await page.goBack(); await page.waitForSelector(".map-card", { timeout: 30000 });
             const back = await page.evaluate(() => ({ hash: location.hash, id: (document.querySelector(".map-card") || {}).getAttribute && document.querySelector(".map-card").getAttribute("data-map-card") }));
@@ -286,7 +280,7 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
       await page.goto(url("#study"), { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
       await windowUp(page, ".card-loc .map-card");
       await page.click('.card-loc .map-card [data-mc="go"]');
-      if (ENGINE) {
+      {
         await page.waitForSelector(".atlas2-back", { timeout: 60000 });
         await page.click(".atlas2-back"); await page.waitForSelector(".card-loc .map-card", { timeout: 30000 });
         const st = await page.evaluate(() => ({ hash: location.hash, rec: JSON.parse(sessionStorage.getItem("folio_study_v1") || "null"), reveal: !!document.querySelector("#reveal-btn") }));

@@ -252,14 +252,15 @@ check("the two tints are module-level, beside TINT_SEL", /const TINT_WIN = \{[\s
    own colours is a key that will one day disagree with the map it explains. */
 check("...and the legend's swatches are built from them", /cardWarSwatch\(TINT_WIN\)|row\(TINT_WIN/.test(APP) && /background:rgba\(' \+ t\.rgb/.test(APP));
 check("...so the stylesheet states no colour of its own", !/\.war-key[^{]*\{[^}]*#[0-9a-fA-F]{3,6}/.test(CSS) && /\.war-key\{/.test(CSS));
-check("the personal atlas explains what green and red mean", /Green and red are a war/.test(APP));
+// DELETED (Phase 5): "the personal atlas explains what green and red mean" pinned a sentence of the earlier Personal Atlas page, which is gone; the card's own key under the window is asserted in section 4.
 
 if (process.argv.includes("--data-only")) { console.log("\n" + pass + " passed, " + fail + " failed (data only)"); process.exit(fail ? 1 : 0); }
 
 /* ---------- the browser half ---------- */
 const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
-let url = require("url").pathToFileURL(path.join(ROOT, "index.html")).href;   // FOLIO_ENGINE=v2 serves the site over http instead (see test-engine-switch.js)
+const WE = require("./test-window-env.js");
+let url = "";   // the site served over http by WE.serve: the engine needs fetch() and a Worker, which a file:// page cannot do
 
 /* GREEN AND RED, counted as HUE DOMINANCE rather than as a particular value. The tints are translucent,
    so what lands on the canvas is the tint composited over whatever land, sea or coast is underneath, and
@@ -285,7 +286,7 @@ const COUNT = (sel) => `(() => {
    session seeded with its own card in `cards` opens on "All caught up" and every assertion below reports
    a missing window. The card-window sections put the card in `cotd` and give it NO record; the personal
    atlas needs the opposite, since its whole register is derived from `S.cards`. */
-/* On the ENGINE (FOLIO_ENGINE=v2) a window is settled when its levels, tiles and history are in — the war window waits for the 9 MB history file — so wait for that, then the same pause V1 needed. V1's window has no `settled`, and the wait is a no-op. */
+/* A window is settled when its levels, tiles and history are in — the war window waits for the 9 MB history file — so wait for that, then a short pause. */
 const engineSettle = async (pg, ms) => { await pg.waitForFunction(() => { const h = document.querySelector(".map-card.map-loc"); return !h || !h._folioMap || !h._folioMap.settled || h._folioMap.settled(); }, null, { timeout: 150000 }).catch(() => {}); await pg.waitForTimeout(ms); };
 const seed = (cotd, studied) => `localStorage.setItem("folio_v1", JSON.stringify({
   active: ["cotd:added"], cotd: ${JSON.stringify(cotd || [])},
@@ -297,8 +298,9 @@ localStorage.setItem("folio_atlas_tour_v1", "1");
 localStorage.setItem("folio_tour_v1", "1");`;
 
 (async () => {
-  const browser = await require("./test-engine-switch.js").launch(chromium, { executablePath: process.env.FOLIO_CHROMIUM });
-  if (require("./test-engine-switch.js").v2()) url = (await require("./test-engine-switch.js").serve(ROOT)).base;
+  const browser = await WE.launch(chromium, { executablePath: process.env.FOLIO_CHROMIUM });
+  const server = await WE.serve(ROOT);
+  url = server.base;
   const errs = [];
   const newPage = async (cotd, studied) => {
     const p = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
@@ -371,51 +373,14 @@ localStorage.setItem("folio_tour_v1", "1");`;
   check("...and the window frames the war rather than the planet", !!view && view.zoom > 1.3 && view.lon > 90 && view.lon < 145, JSON.stringify(view));
   check("...with the window reporting itself ready", await page.evaluate(() => { const h = document.querySelector(".map-card.map-loc"); return !!(h && h._folioMap && h._folioMap.ready()); }));
 
-  /* ---------- 6) the personal atlas, in the war's years and no others ---------- */
-  console.log("\n6) the personal atlas");
-  await page.close();
-  page = await newPage([], ["rm-209"]);
-  await page.goto(url + "#map", { waitUntil: "load" });
-  await page.reload({ waitUntil: "load" });
-  await page.waitForTimeout(4200);
-  const setYear = async (y) => {
-    const b = await page.$eval("#tlTrack", (e) => { const x = e.getBoundingClientRect(); return { x: x.x, y: x.y, w: x.width, h: x.height }; });
-    const now = new Date().getFullYear();
-    await page.mouse.click(b.x + b.w * ((y + 4000) / (now + 4000)), b.y + b.h / 2);
-    await page.waitForTimeout(1200);
-  };
-  await setYear(-210);
-  const a1 = await page.evaluate(COUNT("#globe"));
-  check("in a year the war was fought, both sides are on the globe", !!a1 && a1.green > 200 && a1.red > 200, JSON.stringify({ g: a1.green, r: a1.red }));
-  await setYear(-400);
-  const a0 = await page.evaluate(COUNT("#globe"));
-  check("...and two centuries before it, neither is", !!a0 && a0.green < 60 && a0.red < 60, JSON.stringify({ g: a0.green, r: a0.red }));
-  await setYear(-100);
-  const a2 = await page.evaluate(COUNT("#globe"));
-  check("...nor a century after it ended", !!a2 && a2.green < 60 && a2.red < 60, JSON.stringify({ g: a2.green, r: a2.red }));
-
-  /* EVERYTHING DRAWN ON THIS TAB ANSWERS A CLICK, and a war's shading is drawn where the reader has
-     unlocked no country at all — so it is the only thing under the pointer and must answer. */
-  await setYear(-210);
-  const r = await page.$eval("#globe", (e) => { const b = e.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
-  let title = "";
-  for (let dx = -300; dx <= 300 && !title; dx += 24) {
-    for (let dy = -240; dy <= 240 && !title; dy += 24) {
-      await page.mouse.click(r.x + r.w / 2 + dx, r.y + r.h / 2 + dy);
-      await page.waitForTimeout(60);
-      title = await page.evaluate(() => { const e = document.getElementById("countryPop"); return e && !e.hidden ? document.getElementById("cpName").textContent : ""; });
-    }
-  }
-  check("clicking a side opens the war's own card", /Second Punic War/i.test(title), title || "nothing opened");
-  /* The popup body fills a moment after the title (the card's tiles are built once the lazy bundles land), so wait for the
-     legend before reading and read BOTH conditions in ONE evaluate: two separate reads raced the fill in CI. */
-  const popReady = await page.waitForFunction(() => { const d = document.getElementById("cpDesc"); return !!(d && d.querySelector(".war-key")); }, null, { timeout: 15000 }).then(() => true, () => false);
-  const pop = await page.evaluate(() => { const d = document.getElementById("cpDesc"); return d ? { key: !!d.querySelector(".war-key"), loc: !!d.querySelector(".card-loc"), html: d.innerHTML.slice(0, 160).replace(/\s+/g, " ") } : null; });
-  check("...and the popup keeps the legend that explains the colours", !!pop && pop.key && !pop.loc,
-    pop ? "war-key " + pop.key + ", card-loc " + pop.loc + ", waited " + popReady + ", html " + pop.html : "no #cpDesc");
+  /* ---------- 6) DELETED (Phase 5) ----------
+     The former section 6 drove the earlier Personal Atlas PAGE (`#map` with `#globe`, `#tlTrack`, `#countryPop`): both sides in the war's years and none outside, a click on a side opening the war's card, the
+     popup keeping the legend. That page is deleted; `#map` is the v2 Atlas. The counterpart of "both sides in the war's years and none outside" is test-atlas-render.js (Rome victor, Carthage loser in 216 BCE; the
+     tint ends with the years) and, in a card window, test-atlas-embed.js section 5 (green and red at 209 BCE, nothing at 100 BCE). A click on a side opening the war's card has no counterpart: the v2 Atlas selects
+     a polity, and the war is reached from its place card ("war windows" of test-atlas-windows.js). */
 
   check("no console errors anywhere", errs.length === 0, errs.slice(0, 3).join(" | "));
-  await browser.close();
+  await browser.close(); server.close();
   console.log("\n" + pass + " passed, " + fail + " failed");
   process.exit(fail ? 1 : 0);
 })().catch((e) => { console.error(e); process.exit(1); });

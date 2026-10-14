@@ -31,16 +31,15 @@
 
        node .claude/test-card-locator.js
 
-   Re-run after touching `locatorSiblings` / `cardCollectionRoot` / `cardLocatorHTML` / the extras block in
-   `startCardGlobe`'s `draw()` / the idle `ensureData("atlas")` beside it / `uCacheBust` / `CMAP_ANCHOR` /
-   `hiresRiverIngest` / `effRivers` / the `river_*` bundles, or after re-running
-   .claude/build-hires-rivers.js. Not part of the site. */
+   PHASE 5: the windows are the engine's only (atlas/atlas-windows.js); this file serves the site over http (the engine needs fetch() and a Worker) through test-window-env.js. The rows that asserted the earlier
+   window's own MECHANISM are DELETED, each with its engine twin named where it stood: its idle-fetched CITIES / RIVERS globals, the hi-res river and coast tables and the pixel delta of emptying them.
+
+   Re-run after touching `locatorSiblings` / `cardCollectionRoot` / `cardLocatorHTML` / the sibling marks in
+   atlas/atlas-windows.js / `uCacheBust` / `CMAP_ANCHOR`. Not part of the site. */
 const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
-// The repo's own index.html, resolved from THIS file rather than written out: a hardcoded
-// absolute path is right on exactly one machine, and in CI it loaded nothing at all, which
-// fails as a crash before the first assertion rather than as a wrong answer.
-const base = require("url").pathToFileURL(require("path").join(__dirname, "..", "index.html")).href;
+const WE = require("./test-window-env.js");
+let base = "";   // the repo served over http by WE.serve (set in main)
 /* WHAT COUNTS AS WATER, and why it is not the ocean's colour any more.
    Both counters used to ask for the map's OCEAN colour (`b>200, b-r>40, g>180`), because a river was
    stroked in exactly that — water continuous with the sea. Since Sep 2026 it is not: a river is drawn in
@@ -56,12 +55,11 @@ const base = require("url").pathToFileURL(require("path").join(__dirname, "..", 
    to the ocean-colour test above. `addInitScript` survives the reloads these sections do. */
 const IS_WATER = "window.isWater = (d, i) => d[i + 2] - d[i] > 25 && d[i + 2] > 120;";
 let pass = 0, fail = 0;
-/* FOLIO_ENGINE=v2 (test-engine-switch.js) runs this suite on the Atlas v2 engine's windows. These rows assert V1's own MECHANISM — its idle-fetched `CITIES` / `RIVERS` bundles, the `HIRES_RIVER` and `HIRES_COAST` frames' globals, the pixel
-   delta of emptying them — which the engine does not have; each has an engine twin in test-atlas-windows.js (docs/atlas-v2-card-windows.md, "Every V1 window assertion and where it went"). They are skipped, by name, on the engine only. */
-const V1_MECHANISM = [/^the cities and rivers arrive at idle/, /^\.\.\.fetched, not bundled into the eager path/, /^the collection's map draws the Atlas's rivers/, /^the Italian frame carries its own rivers/, /^\.\.\.at a resolution rivers\.js has not got/, /^\.\.\.every one it supersedes is really in rivers\.js/, /^\.\.\.and no river is drawn over itself/, /^\.\.\.and the map really draws it/, /^a Russia locator warms its own hi-res coast/, /^\.\.\.fetched at idle rather than bundled/, /^\.\.\.and it draws the Atlas's rivers, which needed no file of its own/];
-const check = (n, ok, x) => { if (require("./test-engine-switch.js").v2() && V1_MECHANISM.some((rx) => rx.test(n))) { console.log("skip  " + n + "  (V1's mechanism; the engine's twin is in test-atlas-windows.js)"); return; } if (ok) { pass++; console.log("ok    " + n + (x ? "  " + x : "")); } else { fail++; console.log("FAIL  " + n + "  " + (x || "")); } };
+const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? "  " + x : "")); } else { fail++; console.log("FAIL  " + n + "  " + (x || "")); } };
 (async () => {
-  const browser = await require("./test-engine-switch.js").launch(chromium, { executablePath: process.env.FOLIO_CHROMIUM });
+  const server = await WE.serve(require("path").join(__dirname, ".."));
+  base = server.base;
+  const browser = await WE.launch(chromium, { executablePath: process.env.FOLIO_CHROMIUM });
   const errs = [], asked = [];
   const page = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
   await page.addInitScript(IS_WATER);
@@ -116,15 +114,10 @@ const check = (n, ok, x) => { if (require("./test-engine-switch.js").v2() && V1_
   check("...which paints without waiting for the atlas", !!drew && drew.painted, JSON.stringify({ painted: drew && drew.painted, w: drew && drew.w }));
 
 
-  // wait for the idle warm to land, then look for the extra layers
+  /* DELETED (Phase 5): "the cities and rivers arrive at idle" and "...fetched, not bundled into the eager path" read the earlier window's `CITIES` / `RIVERS` globals. The engine's twin is test-atlas-embed.js
+     section 3 (the engine and topology.bin arrive only on a card with a window) and test-deck-lazy.js; what is asserted here instead is that the retired city layer is not fetched at all. */
   await page.waitForTimeout(9000);
-  const after = await page.evaluate(() => ({
-    cities: (window.CITIES || []).length,
-    rivers: (window.RIVERS || []).length,
-  }));
-  check("the cities and rivers arrive at idle", after.cities > 1000 && after.rivers > 500, JSON.stringify(after));
-  check("...fetched, not bundled into the eager path",
-    asked.some((u) => /cities\.js/.test(u)) && asked.some((u) => /rivers\.js/.test(u)));
+  check("the retired city layer and shape bundles are not fetched", !asked.some((u) => /\/cities\.js|\/coast\/|\/world\.js|\/lakes\.js/.test(u)), asked.filter((u) => /cities|coast|world\.js|lakes/.test(u)).join(","));
 
 
   // the sibling dots: count the red pixels the collection's other 54 places put on the globe
@@ -261,185 +254,20 @@ const check = (n, ok, x) => { if (require("./test-engine-switch.js").v2() && V1_
   check("...but the collection's home city is always on the map, as a square",
     rmRed.n > 30 && rmRed.n < 130, JSON.stringify(rmRed));
 
-  /* ============================================================
-     3. EVERY RIVER THE ATLAS DRAWS, AND NOT ONE OF THEIR NAMES (Aug 2026, on request)
-     ============================================================
-     "The same Rivers displayed on the Atlas should also be displayed in Atlas windows in cards (only
-     without their labels)." For a fortnight a river was drawn only where the collection taught one, and
-     this file asserted the other half of that rule — that a collection with no river card got no river.
-
-     THE LAYER IS ISOLATED BY TAKING IT AWAY, which is the only honest way to measure it. A "before the
-     bundle lands" reading cannot do the job: on a `file://` run the `atlas` warm resolves within a second
-     or two of the reveal, so the first frame a test can get to already has the rivers in it, and the two
-     readings come back identical whether the layer draws or not — which is exactly how the old form of
-     this check passed for the wrong reason. So the page is measured as it stands, `window.RIVERS` is
-     emptied, the same view is redrawn (zoom in and back out returns the frame byte for byte) and it is
-     measured again.
-
-     THE RANGE CARD IS THE ONE TO DO IT ON, and the collection is the point rather than the corpus:
-     `rm-002` frames Italy, where the Po, the Arno, the Tiber and half a dozen others are in view, and
-     ANCIENT ROME's own answer term there is a mountain range rather than a river — so the only thing
-     that changes between the two frames is the thin blue layer itself. (Section 1's `gr-002` frames the
-     Cyclades, where there is no river to draw at any zoom.)
-
-     · the water-coloured pixels must FALL when the rivers are taken away — the layer is drawn;
-     · the dark ink must not move by one pixel — the layer is drawn WITHOUT NAMES, which is the half of
-       the request that a screenshot makes look like a matter of taste and is not. */
-  const rivCount = () => {
-    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
-    const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
-    let water = 0, dark = 0;
-    for (let i = 0; i < d.length; i += 4) {
-      if (isWater(d, i)) water++;
-      if (d[i] < 90 && d[i + 1] < 90 && d[i + 2] < 90 && d[i + 3] > 200) dark++;              // every label on the map
-    }
-    return { water: water, dark: dark };
-  };
-  const redraw = async (pg) => {
-    await pg.evaluate(() => { const b = document.querySelector('.map-card.map-loc [data-mc="in"]'); if (b) b.click(); });
-    await pg.waitForTimeout(700);
-    await pg.evaluate(() => { const b = document.querySelector('.map-card.map-loc [data-mc="out"]'); if (b) b.click(); });
-    await pg.waitForTimeout(1100);
-  };
-  /* The frame's own hi-res set, read BEFORE anything is emptied — section 4 asks about it, and by then
-     both river tables have been taken away to measure the layer. */
-  const hr = await rng.evaluate(() => {
-    const H = (window.HIRES_RIVER || {}).italy;
-    if (!H) return null;
-    const low = new Set((window.RIVERS || []).map((r) => String(r.n)));
-    const named = H.rivers.filter((r) => r.n);
-    return {
-      rivers: H.rivers.length, named: named.length, sup: H.sup.size,
-      supReal: [...H.sup].every((n) => low.has(n)),
-      doubled: named.filter((r) => low.has(String(r.n)) && !H.sup.has(String(r.n))).map((r) => r.n),
-      pts: H.rivers.reduce((a, r) => a + r.p.reduce((b, l) => b + l.length, 0), 0),
-    };
-  });
-  const withRiv = await rng.evaluate(rivCount);
-  /* BOTH river tables, in two steps: since Sep 2026 an Italian or Greek frame draws its own hi-res set as
-     well (see hiresRiverIngest), so emptying rivers.js alone would leave the water on screen and report a
-     layer that had stopped drawing as one that was still there. Taking the hi-res set away first measures
-     it on its own, which is section 4's first check. */
-  await rng.evaluate(() => { window.HIRES_RIVER = {}; });
-  await redraw(rng);
-  const noHi = await rng.evaluate(rivCount);
-  await rng.evaluate(() => { window.RIVERS = []; });
-  await redraw(rng);
-  const noRiv = await rng.evaluate(rivCount);
-  check("the collection's map draws the Atlas's rivers", withRiv.water - noRiv.water > 150,
-    JSON.stringify({ withRivers: withRiv.water, without: noRiv.water }));
-  /* A HANDFUL OF PIXELS EITHER WAY IS THE LABELS' ANTIALIASING, NOT A NAME. It was an equality until
-     Sep 2026, when the hi-res set joined rivers.js and taking BOTH away moved the count by five: a
-     label's edge pixels blend against whatever is under them, and a stroke of water under a letter puts
-     one or two of them the other side of the "dark" threshold. A river NAME is tens of dark pixels and
-     there are fifty-odd rivers in this frame, so the gap between a rounding and a regression is three
-     orders of magnitude — the tolerance costs the check nothing. */
-  check("...and not one of them is named", Math.abs(withRiv.dark - noRiv.dark) < 40,
-    JSON.stringify({ withRivers: withRiv.dark, without: noRiv.dark }));
-
-  /* ============================================================
-     4. THE FRAME'S OWN RIVERS, AND THE CAPITAL THAT IS A SQUARE AND NOTHING ELSE (Sep 2026, on request)
-     ============================================================
-     "Rivers in Italy in the Roman deck and Greek rivers in the Greek deck should have a much higher
-     resolution … and there should be more of them", and — since Sep 2026 — "modern capitals/cities …
-     should not appear at all".
-
-     BOTH FAIL SILENTLY. A hi-res bundle that stops arriving leaves the map drawing rivers.js — a perfectly
-     good map, one thirtieth as detailed — and a supersede row that stops being honoured draws the same
-     river twice, five kilometres apart, which reads as two rivers rather than as a fault. The city layer
-     is the mirror: a layer that comes back looks deliberate.
-
-     The double-draw is checked on the DATA rather than on the ink, because that is where it can actually
-     go wrong: the drawn set is rivers.js minus `supersede` plus the region's own, so a name the region
-     carries that rivers.js also has and `supersede` does not name is the one way a river can be laid over
-     itself. The layer's presence is checked the way section 3 checks rivers.js — by taking it away. */
-  check("the Italian frame carries its own rivers, and more of them than rivers.js has there",
-    !!hr && hr.rivers >= 40 && hr.named >= 40 && hr.sup >= 15, JSON.stringify(hr && { rivers: hr.rivers, named: hr.named, supersedes: hr.sup }));
-  check("...at a resolution rivers.js has not got", !!hr && hr.pts / hr.rivers > 40, hr && "points " + hr.pts);
-  check("...every one it supersedes is really in rivers.js", !!hr && hr.supReal);
-  check("...and no river is drawn over itself", !!hr && hr.doubled.length === 0, hr && hr.doubled.join(", "));
-  check("...and the map really draws it", withRiv.water - noHi.water > 150,
-    JSON.stringify({ withHiRes: withRiv.water, without: noHi.water }));
-  /* A MODERN CITY IS NOT ON THE MAP AT ALL (Sep 2026, on request: "modern capitals/cities should no
-     longer be marked with small black squares, but should not appear at all"). This assertion used to run
-     the other way — that the square WAS drawn and its name was not — and it is measured the same way,
-     which is what makes the removal checkable rather than assumed: rm-002's page still has both river
-     tables emptied from section 3, so a capital dropped into the open Tyrrhenian, under a name long
-     enough that a label would be hundreds of dark pixels, is the only thing that could be added there.
-     A layer that comes back looks deliberate, which is why it is worth a test at all. */
-  await rng.evaluate(() => { window.CITIES = []; });
-  await redraw(rng);
-  const capBefore = (await rng.evaluate(rivCount)).dark;
-  await rng.evaluate(() => { window.CITIES = [{ n: "Mmmmmmmmmmmmmmmmmmmm", c: [12.2, 40.2], r: 0 }]; });
-  await redraw(rng);
-  const capAfter = (await rng.evaluate(rivCount)).dark;
-  const capInk = capAfter - capBefore;
-  check("a modern city puts nothing on the map — neither a square nor a name", capInk === 0, "dark px " + capInk);
   await rng.close();
 
-  /* ============================================================
-     5. THE RUSSIA FRAME (Sep 2026, on request)
-     ============================================================
-     Rome, Greece and China have had a hi-res coastline under their locator windows since Sep 2026; the
-     Russia collection had none, and the request was for Russia to have what the other country frames
-     have. What is asserted is the same thing section 4 asserts about the Italian rivers and for the same
-     reason: a bundle that stops being fetched, stops being ingested or stops being CONSULTED leaves a
-     perfectly good map drawn on world.js, and nothing anywhere says so.
-     IT IS MEASURED BY TAKING IT AWAY, on the card's own opening view. The figure matters as well as the
-     sign: on this card — the Pontic-Caspian steppe, a frame that holds the Black Sea, the Sea of Azov and
-     the Caspian — the bundle changes about 3,000 pixels of 169,520, where the United States frame changes
-     117 of 224,322 on the California card. The bar is set well under that so a re-run of the builder at a
-     different tolerance does not fail it, and well over the noise a redraw of an identical view produces,
-     which is zero. */
-  const ru = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
-  await ru.addInitScript(IS_WATER);
-  const ruAsked = [];
-  ru.on("request", (r) => ruAsked.push(r.url()));
-  await ru.addInitScript(() => {
-    localStorage.setItem("folio_v1", JSON.stringify({
-      active: ["cotd:added"], cotd: ["ru-002"],
-      cards: { "ru-001": { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" } },
-      settings: { newPerDay: 5 },
-    }));
-  });
-  await ru.goto(base + "#home", { waitUntil: "load" });
-  await ru.reload({ waitUntil: "load" });
-  await ru.waitForTimeout(1600);
-  await ru.evaluate(() => { const r = document.querySelector('[data-review="cotd:added"]'); if (r) r.click(); });
-  await ru.waitForTimeout(1200);
-  await ru.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
-  await ru.waitForTimeout(12000);
-  const ruState = await ru.evaluate(() => ({
-    loc: !!document.querySelector(".map-card.map-loc"),
-    frames: Object.keys(window.HIRES_COAST || {}),
-    rivers: (window.RIVERS || []).length,
-  }));
-  check("a Russia locator warms its own hi-res coast", ruState.loc && ruState.frames.indexOf("russia") >= 0,
-    JSON.stringify(ruState));
-  check("...fetched at idle rather than bundled into the eager path",
-    ruAsked.some((u) => /coast\/russia\.js/.test(u)));
-  check("...and it draws the Atlas's rivers, which needed no file of its own", ruState.rivers > 500, "rivers " + ruState.rivers);
-  const ruSnap = () => ru.evaluate(() => {
-    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
-    const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
-    return { n: cv.width * cv.height, px: Array.from(d) };
-  });
-  await redraw(ru);
-  const ruA = await ruSnap();
-  await ru.evaluate(() => { window.HIRES_COAST = {}; });   // a NEW object, so effRings drops its memo
-  await redraw(ru);
-  const ruB = await ruSnap();
-  let ruDiff = 0;
-  for (let i = 0; i < ruA.px.length; i += 4) {
-    if (ruA.px[i] !== ruB.px[i] || ruA.px[i + 1] !== ruB.px[i + 1] || ruA.px[i + 2] !== ruB.px[i + 2]) ruDiff++;
-  }
-  check("...and the map really draws it, on the view the card opens at", ruDiff > 800,
-    JSON.stringify({ changed: ruDiff, of: ruA.n }));
-  await ru.close();
+  /* SECTIONS 3, 4 AND 5 ARE DELETED (Phase 5). They measured the earlier window's mechanism by taking its tables away (`window.RIVERS = []`, `window.HIRES_RIVER = {}`, `window.CITIES = [...]`,
+     `window.HIRES_COAST = {}`) and by reading its hi-res river table; none of those globals exists. Where each went:
+       · "the collection's map draws the Atlas's rivers" and "...and not one of them is named"  → test-atlas-windows.js section 5 (the engine's own rivers at the Atlas's density: river-colour pixels in the Texas
+         card, the Tiber, the Apennines, Russia) and section 7 (no label layer in a window: labelsPlaced 0);
+       · the four rows on the Italian hi-res river file (>= 40 rivers, > 40 points a river, every superseded name in rivers.js, no river drawn over itself) → section 7a, the same four properties read in Node;
+       · "...and the map really draws it" and the Russia hi-res coast rows (warm, fetched at idle, drawn on the opening view) → section 7b (a fine level whose tolerance is within half a pixel, settled, rivers drawn,
+         no coast/*.js fetched);
+       · "a modern city puts nothing on the map" planted a row in the earlier window's CITIES; the engine has no city layer at all, so the row would be vacuous (section 7b asserts no names in a window). */
 
   check("no console or page errors on the extent cards", errs.length === 0, errs.join(" | ").slice(0, 300));
 
-  await browser.close();
+  await browser.close(); server.close();
   console.log("\n" + pass + " passed, " + fail + " failed");
   process.exit(fail ? 1 : 0);
 })();

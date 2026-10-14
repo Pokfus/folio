@@ -46,112 +46,71 @@ function serve() {
 
 /* ---- 1. the data and the wiring, with no browser ---- */
 function staticChecks() {
-  sect("1. data.js, us-states.js and the serializer");
-  const win = {};
-  new Function("window", fs.readFileSync(path.join(ROOT, "us-states.js"), "utf8"))(win);
-  const ST = win.US_STATES || [];
-  ok(ST.length === 51, "us-states.js carries 51 states (50 + DC)", ST.length);
+  sect("1. the layers' frozen tables (.claude/atlas-build/frozen/layers.json), data.js and the serializer");
+  /* PHASE 5: the shape files (us-states.js, world.js, china-provinces.js, russia-subjects.js, world-capitals.js, us-cities.js) are DELETED; the shapes are drawn from topology.bin by the engine. What a card's
+     key and dot are checked against is the table the join was built from: every shape's name, short code, label point and near-ring box, and every dot — layers.json (freeze-v1.js). The rows that read a
+     ring (every ring closed, at least four points, Rhode Island traced finely, 25,000 vertices in all) are DELETED, not ported: the rings no longer exist in any file this suite can read, and the fineness of
+     what is drawn is guarded where it is drawn — test-atlas-windows.js section 6 (the fit and the drawn outline of all 51 states) and section 7, and the topology checkers in CI. */
+  const FZ = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "frozen", "layers.json"), "utf8")).layers;
+  const names = (l) => FZ[l].keys.map((k) => k.n);
+  const ST = FZ["us-states"].keys;
+  ok(ST.length === 51, "the us-states layer carries 51 states (50 + DC)", ST.length);
   ok(new Set(ST.map((s) => s.n)).size === 51, "state names are unique");
   ok(new Set(ST.map((s) => s.a)).size === 51, "postal abbreviations are unique");
   ok(ST.every((s) => Array.isArray(s.c) && s.c.length === 2 && isFinite(s.c[0]) && isFinite(s.c[1])), "every state has a finite label point");
-  ok(ST.every((s) => Array.isArray(s.p) && s.p.length && s.p.every((r) => r.length >= 4)), "every state has rings of at least four points");
-  // rings are stored CLOSED, which is what lets the renderer stroke the closing edge without a modular index
-  ok(ST.every((s) => s.p.every((r) => r[0][0] === r[r.length - 1][0] && r[0][1] === r[r.length - 1][1])), "every ring is closed");
-  /* THE TOLERANCE IS THE POINT OF THIS FILE AND IS EASY TO LOSE. It was copied from world.js at first, and
-     at 0.02/2dp Rhode Island was 49 points — the bay three spikes, Block Island a triangle — which is not
-     an error any count can see, only a shape. The floor here is well under what the builder produces and
-     well over what world.js's tolerance would: it fails if somebody re-coarsens the file. */
-  const ri = ST.find((s) => s.a === "RI");
-  ok(ri && ri.p.reduce((n, r) => n + r.length, 0) >= 120, "Rhode Island is traced finely enough to read as a coastline", ri && ri.p.reduce((n, r) => n + r.length, 0));
-  const verts = ST.reduce((n, s) => n + s.p.reduce((m, r) => m + r.length, 0), 0);
-  ok(verts >= 25000, "the layer as a whole is finely traced", verts);
+  ok(ST.every((s) => Array.isArray(s.box) && s.box.length === 4 && s.box.every(isFinite) && s.box[0] < s.box[2] && s.box[1] < s.box[3]), "every state has a real bounding box");
+  ok(ST.every((s) => s.c[0] >= s.box[0] && s.c[0] <= s.box[2] && s.c[1] >= s.box[1] && s.c[1] <= s.box[3]), "…and its label point is inside it");
 
-  /* THE CAPITALS ARE GENERATED, NEVER TYPED, and this is what says so. Fifty hand-entered coordinates are
-     fifty chances to put a city in the wrong state, and a dot a degree out still draws — inside the shaded
-     state, on a card that looks entirely correct. They are keyed by city and carry the state they are IN,
-     so the card's claim is machine-checkable, which is the whole reason the table has an `s` at all. */
-  const CAP = win.US_CAPITALS || {};
-  const capNames = Object.keys(CAP);
-  ok(capNames.length === 50, "us-states.js carries the 50 state capitals", capNames.length);
-  ok(capNames.every((n) => CAP[n] && Array.isArray(CAP[n].c) && CAP[n].c.length === 2 && isFinite(CAP[n].c[0]) && isFinite(CAP[n].c[1])), "every capital has a finite coordinate");
-  ok(new Set(capNames.map((n) => CAP[n].s)).size === 50, "one capital per state, and fifty states", new Set(capNames.map((n) => CAP[n].s)).size);
-  const stByName = new Map(ST.map((s) => [s.n, s]));
-  ok(capNames.every((n) => stByName.has(CAP[n].s)), "every capital names a state the layer actually has");
-  /* …AND THE SECOND POINT TABLE, THE LARGEST NON-CAPITAL CITIES (us-cities.js, Sep 2026). Its keys may not
-     collide with a capital's — a dot is looked up in the capitals FIRST, so a clash would silently mark the
-     capital — and a row keyed "<city>, <state>" must carry the bare name its label prints. */
-  new Function("window", fs.readFileSync(path.join(ROOT, "us-cities.js"), "utf8"))(win);
-  const UCITY = win.US_CITIES || {};
-  const ucNames = Object.keys(UCITY);
-  ok(ucNames.length >= 30, "us-cities.js carries the largest non-capital cities", ucNames.length);
-  ok(ucNames.every((n) => !CAP[n]), "…no key of which is also a capital's", ucNames.filter((n) => CAP[n]).join(", "));
-  ok(ucNames.every((n) => stByName.has(UCITY[n].s) && Array.isArray(UCITY[n].c) && isFinite(UCITY[n].c[0]) && isFinite(UCITY[n].c[1])), "…each in a real state with a finite coordinate");
-  ok(ucNames.every((n) => n.indexOf(",") < 0 || (UCITY[n].n && n.indexOf(UCITY[n].n + ", ") === 0)), "…and a disambiguated key carries the name to print");
-  /* AND EACH ONE FALLS INSIDE ITS OWN STATE'S BOX. A capital keyed to the wrong state paints its dot
-     somewhere else entirely on the globe — off the shaded shape, or off the visible hemisphere — so this
-     is the cheap check that catches a source whose fields have moved under the builder. A bounding box
-     rather than a point-in-polygon: it is enough to separate fifty states and needs no geometry. */
-  const outside = capNames.filter((n) => {
-    const st = stByName.get(CAP[n].s); if (!st) return true;
-    let lo0 = Infinity, hi0 = -Infinity, lo1 = Infinity, hi1 = -Infinity;
-    st.p.forEach((r) => r.forEach((p) => { if (p[0] < lo0) lo0 = p[0]; if (p[0] > hi0) hi0 = p[0]; if (p[1] < lo1) lo1 = p[1]; if (p[1] > hi1) hi1 = p[1]; }));
-    const c = CAP[n].c;
-    return c[0] < lo0 - 0.3 || c[0] > hi0 + 0.3 || c[1] < lo1 - 0.3 || c[1] > hi1 + 0.3;
-  });
-  ok(outside.length === 0, "every capital sits inside its own state", outside.join(", "));
+  /* THE DOTS ARE GENERATED, NEVER TYPED (the capitals and, for the US, the largest other cities, merged into one table in layers.json: name → [lon, lat, the shape it is in]). Fifty hand-entered
+     coordinates are fifty chances to put a city in the wrong state, and a dot a degree out still draws — inside the shaded state, on a card that looks entirely correct. */
+  const dots = (l) => FZ[l].dots;
+  const US = dots("us-states"), usNames = Object.keys(US), stByName = new Map(ST.map((s) => [s.n, s]));
+  ok(usNames.length >= 80, "the us-states layer carries the 50 state capitals and the largest other cities", usNames.length);
+  ok(usNames.every((n) => Array.isArray(US[n]) && (US[n].length === 3 || US[n].length === 4) && isFinite(US[n][0]) && isFinite(US[n][1])), "every dot has a finite coordinate and the shape it is in");
+  /* a row keyed "<city>, <state>" carries the bare name its label prints as a fourth element (and only such a row does) */
+  ok(usNames.every((n) => (US[n].length === 4) === (n.indexOf(",") >= 0) && (US[n].length < 4 || n.indexOf(US[n][3] + ", ") === 0)), "…a disambiguated key carries the name to print, and a plain one carries none");
+  ok(usNames.every((n) => stByName.has(US[n][2])), "every dot names a state the layer actually has");
+  ok(ST.filter((s) => s.n !== "District of Columbia").every((s) => usNames.some((n) => US[n][2] === s.n)), "every state has at least one dot (its capital)");
+  /* AND EACH ONE FALLS INSIDE ITS OWN STATE'S BOX. A capital keyed to the wrong state paints its dot somewhere else entirely on the globe. A bounding box rather than a point-in-polygon: enough to separate fifty states. */
+  const outside = usNames.filter((n) => { const b = stByName.get(US[n][2]).box, c = US[n]; return c[0] < b[0] - 0.3 || c[0] > b[2] + 0.3 || c[1] < b[1] - 0.3 || c[1] > b[3] + 0.3; });
+  ok(outside.length === 0, "every dot sits inside its own state", outside.join(", "));
 
-  /* THE WORLD LAYER, which the second geography collection shades. It is checked more lightly than
-     us-states above because world.js is the ATLAS's file and has its own suite; what matters here is
-     that its capitals table joins to it, which is the claim a capital card makes. */
-  const wwin = {};
-  new Function("window", fs.readFileSync(path.join(ROOT, "world.js"), "utf8"))(wwin);
-  new Function("window", fs.readFileSync(path.join(ROOT, "world-capitals.js"), "utf8"))(wwin);
-  const WG = wwin.WORLD_GEO || [], WCAP = wwin.WORLD_CAPITALS || {};
-  const wgNames = new Set(WG.map((c) => c.n));
-  ok(WG.length > 200, "world.js carries the world's countries and territories", WG.length);
-  ok(Object.keys(WCAP).length > 200, "world-capitals.js carries a capital for most of them", Object.keys(WCAP).length);
-  ok(Object.keys(WCAP).every((n) => WCAP[n] && Array.isArray(WCAP[n].c) && WCAP[n].c.length === 2 && isFinite(WCAP[n].c[0]) && isFinite(WCAP[n].c[1])), "every world capital has a finite coordinate");
-  const wOrphan = Object.keys(WCAP).filter((n) => !wgNames.has(WCAP[n].s));
+  /* THE WORLD LAYER, which the second geography collection shades. */
+  const WG = FZ.world.keys, WCAP = dots("world"), wgNames = new Set(WG.map((c) => c.n));
+  ok(WG.length > 200, "the world layer carries the world's countries and territories", WG.length);
+  ok(Object.keys(WCAP).length > 200, "…and a capital for most of them", Object.keys(WCAP).length);
+  ok(Object.keys(WCAP).every((n) => Array.isArray(WCAP[n]) && WCAP[n].length === 3 && isFinite(WCAP[n][0]) && isFinite(WCAP[n][1])), "every world capital has a finite coordinate");
+  const wOrphan = Object.keys(WCAP).filter((n) => !wgNames.has(WCAP[n][2]));
   ok(!wOrphan.length, "every world capital names a country the layer actually has", wOrphan.slice(0, 5).join(", "));
 
-  /* THE LAYERS, KEYED AS app.js KEYS THEM. This used to be hard-coded to "us-states", which was a true
-     statement about the only layer there was and became a false one the day a second collection shipped —
-     the repo's own "a hard-coded label in a test is not an assertion about the label" fault. Each card is
-     now checked against ITS OWN layer's shapes and points. */
-  /* the third layer: China's provincial-level divisions, whose capitals live in the SAME file as its
-     shapes rather than in one of their own — see the chinaprov bundle in app.js for why. Its point table
-     is DELIBERATELY short of four divisions (Beijing, Shanghai, Tianjin and Chongqing are cities that are
-     themselves divisions), which is asserted below rather than left to read as a gap. */
-  const cwin = {};
-  new Function("window", fs.readFileSync(path.join(ROOT, "china-provinces.js"), "utf8"))(cwin);
-  const CP = cwin.CHINA_PROVINCES || [], CPCAP = cwin.CHINA_CAPITALS || {};
-  const cpNames = new Set(CP.map((p) => p.n));
-  ok(CP.length === 31, "china-provinces.js carries the census's 31 provincial-level divisions", CP.length);
-  ok(Object.keys(CPCAP).length === 27, "china-provinces.js carries 27 provincial capitals, not 31", Object.keys(CPCAP).length);
-  ok(["Beijing", "Shanghai", "Tianjin", "Chongqing"].every((m) => cpNames.has(m) && !Object.values(CPCAP).some((v) => v.s === m)),
+  /* THE LAYERS, KEYED AS app.js KEYS THEM. Each card is checked against ITS OWN layer's shapes and points. */
+  /* the third layer: China's provincial-level divisions. Its point table is DELIBERATELY short of four divisions (Beijing, Shanghai, Tianjin and Chongqing are cities that are themselves divisions), which is
+     asserted below rather than left to read as a gap. */
+  const CP = FZ["china-provinces"].keys, CPCAP = dots("china-provinces"), cpNames = new Set(CP.map((p) => p.n));
+  ok(CP.length === 31, "the china-provinces layer carries the census's 31 provincial-level divisions", CP.length);
+  ok(Object.keys(CPCAP).length === 27, "…and 27 provincial capitals, not 31", Object.keys(CPCAP).length);
+  ok(["Beijing", "Shanghai", "Tianjin", "Chongqing"].every((m) => cpNames.has(m) && !Object.values(CPCAP).some((v) => v[2] === m)),
      "...the four missing are the municipalities, whose shape would be their own answer");
-  const cpOrphan = Object.keys(CPCAP).filter((n) => !cpNames.has(CPCAP[n].s));
+  const cpOrphan = Object.keys(CPCAP).filter((n) => !cpNames.has(CPCAP[n][2]));
   ok(!cpOrphan.length, "every China capital names a division the layer actually has", cpOrphan.slice(0, 5).join(", "));
 
-  /* the fourth layer: Russia's federal subjects, built exactly as China's is (see
-     .claude/build-russia-subjects.js). Its point table is DELIBERATELY short of three subjects — Moscow
-     and Saint Petersburg are cities that are themselves subjects, and Abakan is refused because Natural
-     Earth draws it outside its own republic — which is asserted below rather than left to read as a gap. */
-  const rwin = {};
-  new Function("window", fs.readFileSync(path.join(ROOT, "russia-subjects.js"), "utf8"))(rwin);
-  const RS = rwin.RUSSIA_SUBJECTS || [], RCEN = rwin.RUSSIA_CENTRES || {};
-  const rsNames = new Set(RS.map((s) => s.n));
-  ok(RS.length === 83, "russia-subjects.js carries the 83 subjects with an ISO 3166-2:RU code", RS.length);
-  ok(Object.keys(RCEN).length === 80, "russia-subjects.js carries 80 administrative centres, not 83", Object.keys(RCEN).length);
-  ok(["Moscow", "Saint Petersburg"].every((m) => rsNames.has(m) && !Object.values(RCEN).some((v) => v.s === m)),
+  /* the fourth layer: Russia's federal subjects. Its point table is DELIBERATELY short of three subjects — Moscow and Saint Petersburg are cities that are themselves subjects, and Abakan is refused because
+     Natural Earth draws it outside its own republic — which is asserted below rather than left to read as a gap. */
+  const RS = FZ["russia-subjects"].keys, RCEN = dots("russia-subjects"), rsNames = new Set(RS.map((s) => s.n));
+  ok(RS.length === 83, "the russia-subjects layer carries the 83 subjects with an ISO 3166-2:RU code", RS.length);
+  ok(Object.keys(RCEN).length === 80, "…and 80 administrative centres, not 83", Object.keys(RCEN).length);
+  ok(["Moscow", "Saint Petersburg"].every((m) => rsNames.has(m) && !Object.values(RCEN).some((v) => v[2] === m)),
      "...two of the three missing are the cities of federal significance, whose shape would be their own answer");
-  ok(rsNames.has("Khakassia") && !Object.values(RCEN).some((v) => v.s === "Khakassia"),
+  ok(rsNames.has("Khakassia") && !Object.values(RCEN).some((v) => v[2] === "Khakassia"),
      "...and the third is Khakassia, whose published capital falls outside the source's own polygon");
-  const rOrphan = Object.keys(RCEN).filter((n) => !rsNames.has(RCEN[n].s));
+  const rOrphan = Object.keys(RCEN).filter((n) => !rsNames.has(RCEN[n][2]));
   ok(!rOrphan.length, "every Russian centre names a subject the layer actually has", rOrphan.slice(0, 5).join(", "));
 
+  /* the card words the engine's window prints come from the same table: a state is a "state", a country a "country" */
+  ok(FZ["us-states"].what === "state" && FZ.world.what === "country" && FZ["china-provinces"].what === "province" && FZ["russia-subjects"].what === "federal subject", "each layer carries the singular its card prints");
+
   const LAYERS = {
-    "us-states": { shapes: new Set(ST.map((s) => s.n)), points: Object.assign({}, UCITY, CAP), what: "state" },
+    "us-states": { shapes: new Set(names("us-states")), points: US, what: "state" },
     world: { shapes: wgNames, points: WCAP, what: "country" },
     "china-provinces": { shapes: cpNames, points: CPCAP, what: "province" },
     "russia-subjects": { shapes: rsNames, points: RCEN, what: "federal subject" },
@@ -182,7 +141,7 @@ function staticChecks() {
     if (c.map.dot) {
       const P = L.points[c.map.dot];
       ok(!!P, c.id + ": its dot is a capital the layer actually has", c.map.dot);
-      ok(P && mkeys.indexOf(P.s) >= 0, c.id + ": …in the " + L.what + " the card shades", P && P.s);
+      ok(P && mkeys.indexOf(P[2]) >= 0, c.id + ": …in the " + L.what + " the card shades", P && P[2]);
       /* THE DOT'S LABEL MAY CARRY A DISAMBIGUATOR THE ANSWER DOES NOT, and three cards on the shelf are
          exactly that: a city-state whose capital shares the country's name. Natural Earth files them as
          "Djibouti City", "Luxembourg City" and "City of San Marino" — the label a MAP needs, so that the
@@ -191,7 +150,7 @@ function staticChecks() {
          three and cannot admit a card pointing at a different city: no two capitals in the table differ
          only by that word. */
       const dotBare = String(c.map.dot).replace(/^City of /, "").replace(/ City$/, "");
-      ok((c.answerText || "").trim() === c.map.dot || (c.answerText || "").trim() === dotBare || (P && (c.answerText || "").trim() === P.n),
+      ok((c.answerText || "").trim() === c.map.dot || (c.answerText || "").trim() === dotBare || (P && P[3] && (c.answerText || "").trim() === P[3]),
         c.id + ": …and the answer is that city", c.answerText + " / " + c.map.dot);
     }
   });
@@ -223,16 +182,14 @@ function staticChecks() {
      there. A slice keyed on the line that does the work cannot drift that way. */
   const gline = (app.match(/^\s*availableCardIdSet\(\)\.forEach\(\(id\) => \{ const c = cardById\(id\);.*$/m) || [""])[0];
   ok(/!cardMapSpec\(/.test(gline), "gameCardIdSet excludes map cards", gline.slice(0, 120));
-  // and the bundle really is lazy — a 600 KB file in the eager path would slow the site for every visitor
-  ok(!/<script[^>]+us-states\.js/.test(fs.readFileSync(path.join(ROOT, "index.html"), "utf8")), "us-states.js is NOT in index.html's eager path");
-  const usb = /usstates:\s*\{\s*files:\s*\[([^\]]*)\]/.exec(app);
-  ok(usb && /"us-states\.js"/.test(usb[1]), "us-states.js is registered as a lazy bundle");
-  /* `lakes.js` rides with it because world.js has NO LAKE HOLES: the Great Lakes sit inside the USA
-     polygon, so without this the card map draws five inland seas as grey fields with an outline round
-     each (reported Aug 2026). Pinned here because the symptom is a map that renders perfectly and is
-     wrong, and because the obvious tidy — trimming this bundle back to the one file its name suggests —
-     would put it straight back. */
-  ok(usb && /"lakes\.js"/.test(usb[1]), "...and lakes.js rides with it, so the Great Lakes are water");
+  /* Phase 5: the map layers' shape bundles (usstates with lakes.js riding on it, world, chinaprov, russubj) are retired with their files; the Great Lakes are water the engine draws from water.bin (checked in a window,
+     test-atlas-windows.js sections 5 and 7). What stays pinned here is the other half of "lazy": nothing of a window is in the eager path, and the engine's bundle is the lazy one that carries it. */
+  const indexHtml = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+  ok(!/<script[^>]+(us-states|world|china-provinces|russia-subjects|world-capitals|us-cities|lakes)\.js/.test(indexHtml), "none of the retired shape files is in index.html");
+  ok(!/<script[^>]+atlas\/atlas-(embed|windows)\.js/.test(indexHtml), "the engine's window code is NOT in index.html's eager path");
+  const eb = /atlas2embed:\s*\{\s*files:\s*\[([^\]]*)\]/.exec(app);
+  ok(eb && /"atlas\/atlas-embed\.js"/.test(eb[1]) && /"atlas\/atlas-windows\.js"/.test(eb[1]), "atlas-embed.js and atlas-windows.js are registered as the lazy atlas2embed bundle");
+  ok(!/\busstates:\s*\{/.test(app) && !/\bchinaprov:\s*\{/.test(app), "…and the retired shape bundles are no longer registered");
 
   /* THE LOCATOR'S DATA (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place. It
      rides in the same whitelist and is lost the same way — a field the serializer does not name is
@@ -302,62 +259,8 @@ async function browserChecks(page) {
     await settle();
   };
 
-  sect("3. the fit: every state frames itself");
-  await study("geo-001");
-  /* THE SWEEP. A card opens at whatever zoom frames its own state, so the fifty-one states are fifty-one
-     different views and only four of them have cards today. What a wrong fit produces is a globe with a
-     speck on it, or a state running off both edges — neither of which throws, and neither of which anybody
-     sees until that card is written.
-     The formula is re-run here rather than driven through the renderer, because the renderer's fit lives
-     inside startCardGlobe's closure with no way in from outside. A copy is exactly the thing this file's
-     own header warns about, so the copy is PINNED: the three expressions it depends on are grepped out of
-     app.js first, and a change to any of them fails here instead of leaving a stale formula passing. */
-  if (!require("./test-engine-switch.js").v2()) {   // FOLIO_ENGINE=v2: see the else below
-  const appSrc = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
-  const pin = (re, what) => { ok(re.test(appSrc), "the fit sweep is still pinned to app.js: " + what); };
-  pin(/const span = Math\.max\(y1 - y0, \(x1 - x0\) \* Math\.cos\(homeLat \* CMAP_DEG\), 0\.2\);/, "the span");
-  pin(/z = 0\.55 \/ \(0\.46 \* CMAP_DEG \* span\);/, "the zoom");
-  pin(/Math\.abs\(b\[4\] - st\.c\[0\]\) < 25 && Math\.abs\(b\[5\] - st\.c\[1\]\) < 25/, "the near-ring test");
-  pin(/baseR = Math\.min\(W, H\) \* 0\.46/, "the disk radius");
-  const ZMIN = Number((appSrc.match(/CMAP_ZMIN = ([\d.]+)/) || [])[1]);
-  const ZMAX = Number((appSrc.match(/CMAP_ZMAX = ([\d.]+)/) || [])[1]);
-  ok(isFinite(ZMIN) && isFinite(ZMAX) && ZMAX > ZMIN, "the zoom limits were read out of app.js", ZMIN + ".." + ZMAX);
-
-  const calc = await page.evaluate(({ ZMIN, ZMAX }) => {
-    const DEG = Math.PI / 180;
-    const bb = (r) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const p of r) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; } return [x0, y0, x1, y1, (x0 + x1) / 2, (y0 + y1) / 2]; };
-    return window.US_STATES.map((s) => {
-      // the fit is taken from the rings NEAR the label point — Alaska crosses the antimeridian
-      let near = s.p.filter((r) => { const b = bb(r); return Math.abs(b[4] - s.c[0]) < 25 && Math.abs(b[5] - s.c[1]) < 25; });
-      if (!near.length) near = s.p;
-      let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
-      for (const r of near) { const b = bb(r); if (b[0] < x0) x0 = b[0]; if (b[1] < y0) y0 = b[1]; if (b[2] > x1) x1 = b[2]; if (b[3] > y1) y1 = b[3]; }
-      const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(s.c[1] * DEG), 0.2);
-      const z = Math.min(Math.max(0.55 / (0.46 * DEG * span), ZMIN), ZMAX);
-      // how much of the window's half-height the state takes at that zoom; 1.0 would exactly fill it
-      return { n: s.n, span, zoom: z, fill: (0.46 * DEG * span * z) / 0.55 };
-    });
-  }, { ZMIN, ZMAX });
-
-  ok(calc.length === 51, "the fit was computed for all 51 states", calc.length);
-  const bad = calc.filter((c) => !isFinite(c.zoom) || c.zoom <= 0);
-  ok(!bad.length, "every state fits to a finite positive zoom", bad.map((b) => b.n).join(", "));
-  const tiny = calc.filter((c) => c.fill < 0.45);
-  ok(!tiny.length, "no state opens too small to see (a speck on a globe)", tiny.map((b) => b.n + " " + b.fill.toFixed(2)).join(", "));
-  const cut = calc.filter((c) => c.fill > 1.02);
-  ok(!cut.length, "no state opens too large for its window", cut.map((b) => b.n + " " + b.fill.toFixed(2)).join(", "));
-  /* Alaska is the one the near-ring rule exists for: read across the raw longitude of all its rings its
-     span is nearly the globe, and it would open on the whole planet. */
-  const ak = calc.find((c) => c.n === "Alaska");
-  ok(ak && ak.span < 40, "Alaska's fit ignores the rings across the antimeridian", ak && ak.span.toFixed(1));
-  /* The ceiling is a real limit rather than a formality — the District of Columbia is 0.15 degrees across
-     and wants roughly twice what the polygons support. Reported BY NAME instead of asserted away, so a
-     second one joining it is noticed rather than absorbed. */
-  const capped = calc.filter((c) => c.zoom >= ZMAX - 1e-9).map((c) => c.n);
-  console.log("  (at the zoom ceiling: " + (capped.join(", ") || "none") + ")");
-  ok(capped.length <= 1, "at most one entry needs more zoom than the polygons support", capped.join(", "));
-  } else console.log("  (the V1 fit sweep copies a formula over window.US_STATES, which the engine path never loads: the engine's fit is swept through the real windows by test-atlas-windows.js section 6)");
-
+  /* PHASE 5: the former section 3 (a sweep that copied the earlier window's fit formula over window.US_STATES and pinned five expressions of its code in app.js) is DELETED: the formula, the rings and the code
+     are gone. The fit of all 51 states is swept through the real windows by test-atlas-windows.js section 6 (the engine's actual zoom and card-faces box, the drawn outline measured). */
   sect("4. the map is a map: it turns, it zooms, and it selects nothing");
   await study("geo-004");   // Rhode Island — the deepest ordinary zoom in the deck
   const v0 = await page.evaluate(() => document.querySelector(".map-card")._folioMap.view());
@@ -557,7 +460,8 @@ async function browserChecks(page) {
      on request), which changes nothing on a map card — a state and a capital are already capitalised —
      but does change this line, so the pattern names it rather than being loosened to match anything. */
   ok(dotBack.png !== dotBefore, "the reveal repainted the map");
-  ok(/const nm = gameCapFirst\(dot \? dot\.n : target \? target\.n : ""\)/.test(APP), "the revealed label names the dot where there is one");
+  const WIN = fs.readFileSync(path.join(ROOT, "atlas", "atlas-windows.js"), "utf8");   // the engine's window (Phase 5: the earlier window's expression `const nm = gameCapFirst(dot ? dot.n : target ? target.n : "")` is gone with it)
+  ok(/const nm0 = gameCapFirst\(dot \? dot\.n : targets\.length \? targets\[0\]\.n : ""\)/.test(WIN), "the revealed label names the dot where there is one");
 
   /* 8. THE LOCATOR (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place, saying
      where it is. It is not a map card — it has no shape to shade and no question to hold back — and the
@@ -614,13 +518,42 @@ async function browserChecks(page) {
     ok(loc.beforeSrc, "…and before the citations, which stay last");
   }
 
+  /* 9. DESCRIBE GEOGRAPHY MAPS (Settings → Study, `S.settings.mapAlt`, off by default). Until Phase 5 only the earlier window could print the neighbours sentence (it computed them from its shape files) and the
+     engine's window handed such a reader to it; the sentence now comes from atlas/data/card-neighbours.js (window.ATLAS_CARD_NEIGHBOURS) and is printed by the engine's own window into `.mc-alt`. Asserted: off by default
+     the slot stays hidden; on, the window is still the engine's (not a fallback), and the sentence is exactly the table's neighbours of the card's own shape, in the layer's own words. */
+  sect("9. describe geography maps: the engine's window prints the neighbours");
+  await study("geo-004");
+  const altOff = await page.evaluate(() => { const a = document.querySelector(".map-card .mc-alt"); return { present: !!a, hidden: a ? a.hidden : null, text: a ? a.textContent : "" }; });
+  ok(altOff.present && altOff.hidden && altOff.text === "", "off by default: the slot is there and stays hidden and empty", JSON.stringify(altOff));
+  const ctx2 = await page.context().browser().newContext({ viewport: { width: 420, height: 900 } });
+  const p2 = await ctx2.newPage();
+  p2.on("pageerror", (e) => errs.push("PAGEERROR " + e.message));
+  await p2.addInitScript(() => {
+    localStorage.setItem("folio_tour_v1", "1"); localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1");
+    localStorage.setItem("folio_v1", JSON.stringify({ active: [], cards: {}, settings: { mapAlt: true } }));
+  });
+  for (const [cid, layer, key, one, many] of [["geo-004", "us-states", "Rhode Island", "state", "states"], ["geo-001", "us-states", null, "state", "states"], ["gw-503", "world", null, "country", "countries"]]) {
+    await p2.addInitScript((c) => sessionStorage.setItem("folio_study_v1", JSON.stringify({ scope: { type: "card", id: c }, queue: [c], id: c, qi: 0, rev: false, studied: 0 })), cid);
+    await p2.goto("http://localhost:" + PORT + "/?alt=" + cid + "#study");
+    await p2.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h._folioMap && h._folioMap.ready(); }, null, { timeout: 60000 });
+    await p2.waitForFunction(() => { const a = document.querySelector(".map-card .mc-alt"); return a && !a.hidden && a.textContent; }, null, { timeout: 30000 }).catch(() => {});
+    const r = await p2.evaluate(() => { const h = document.querySelector(".map-card"), a = h.querySelector(".mc-alt"); return { eng: h.getAttribute("data-map-engine"), layer: h.getAttribute("data-map-layer"), key: h.getAttribute("data-map-key"), hidden: a.hidden, text: a.textContent, table: window.ATLAS_CARD_NEIGHBOURS && window.ATLAS_CARD_NEIGHBOURS.layers }; });
+    const want = r.table && r.table[r.layer] && r.table[r.layer][r.key];
+    const andList = (a) => (a.length === 1 ? a[0] : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]);
+    ok(r.eng === "v2", cid + ": with the setting on the window is still the engine's (not handed to anything else)", r.eng);
+    ok(!r.hidden && Array.isArray(want) && r.text === (want.length ? "The shaded " + one + " borders, among the " + many + " on this map: " + andList(want) + "." : "The shaded " + one + " borders no other " + one + " on this map."), cid + ": the sentence is the table's neighbours of " + r.key, r.text.slice(0, 120));
+    if (key === "Rhode Island") ok(/Connecticut/.test(r.text) && /Massachusetts/.test(r.text), "…and Rhode Island's neighbours are the ones on a real map", r.text);
+    if (cid === "gw-503") ok(want && want.length > 0 && !r.text.includes(r.key), "…a country's sentence never names the country itself", r.text.slice(0, 120));
+  }
+  await ctx2.close();
+
   ok(!errs.length, "no console errors", errs.join(" | "));
 }
 
 (async () => {
   staticChecks();
   const server = await serve();
-  const browser = await require("./test-engine-switch.js").launch(chromium, { executablePath: process.env.FOLIO_CHROMIUM || undefined });
+  const browser = await require("./test-window-env.js").launch(chromium, { executablePath: process.env.FOLIO_CHROMIUM || undefined });
   const page = await browser.newPage({ viewport: { width: 420, height: 900 } });
   try { await browserChecks(page); } finally {
     await browser.close();
