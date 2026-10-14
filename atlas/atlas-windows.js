@@ -32,8 +32,9 @@
       reveal() { revealed = true; if (win) win.schedule(); },
       ready() { return isReady; },
       settled() { return !!(win && win.isSettled()); },
-      legend() { return lastLegend.slice(); },
-      names() { return lastNames.slice(); },   // Phase 4b: the war window's two sides as drawn on it ("Rome — victors"), for the suites and a screen-reader alternative   // Phase 4b: the engine's levels, tiles and water for THIS view are all in (ready() is the window being mounted)
+      names() { return lastNames.slice(); },
+      labels() { return lastLabels.map((l) => Object.assign({}, l)); },   // the war window's two names as drawn: { k: "v" | "l", n, x, y (the text's centre, CSS px of the window), w (its width) } — for the suites
+      probe() { return win && win.api ? { spec: win.api.spec, dpr: win.api.dpr, cw: win.api.cw, ch: win.api.ch } : null; },   // the frame the window last drew: its engine spec and size — for the suites   // Phase 4b: the war window's two sides as drawn on it ("Rome", "Carthage"), for the suites   // Phase 4b: the engine's levels, tiles and water for THIS view are all in (ready() is the window being mounted)
       view() { return win ? { lon: win.st.lon, lat: win.st.lat, zoom: win.st.zoom, home: [win.st.home.lon, win.st.home.lat, win.st.home.zoom] } : { lon: 0, lat: 0, zoom: 1, home: [0, 0, 1] }; },
       pan(dx, dy) { if (win) win.panBy(dx, dy); },
     };
@@ -143,52 +144,26 @@
       if (mask) { a.setTransform(1, 0, 0, 1, 0, 0); a.globalCompositeOperation = "destination-in"; a.drawImage(mask, 0, 0, mask.width, mask.height, 0, 0, areaCv.width, areaCv.height); a.globalCompositeOperation = "source-over"; }
       ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(areaCv, 0, 0); ctx.restore();
     }
-    /* PHASE 4b, WAR WINDOWS: THE TWO PRINCIPAL SIDES ARE NAMED ON THE WINDOW and a one-line legend is drawn from the card's own sides (`ATLAS_WARS` carries the card's name for each: "Rome", "Carthage",
-       "Han, Zhao, Wei, Chu, Yan and Qi"). The names stand where each side stands in the war's years (the engine's `warSides`: the mean direction of the side's faces); the legend is a pill at the foot of the window:
-       a swatch in the engine's own victor / loser colour, the side's name, and, wherever the table tints more than one state for the side, a count after it — "China · 2 states" (Phase 4c, the owner's decision 1: the card's OWN name verbatim, then the number of states the table draws for it; the legend never says or implies "allies", because nothing in the data says the extra states were allies). A side that is only an authored
-       extent (no state of the table in those years) has a hatched swatch and says "approximate extent": the wash the engine draws for it is the card's own claim, never a border. */
-    let warSides = null, warCols = null, lastLegend = [], lastNames = [];
-    const sideText = (sd) => { const n = String(sd.n || "").trim(); return sd.members > 1 ? n + " · " + sd.members + " states" : n; };   // Phase 4c, owner's decision 1: the card's own name verbatim, then the count the table can vouch for ("China · 2 states"); never "allies"
+    /* WAR WINDOWS: THE TWO PRINCIPAL SIDES ARE NAMED ON THE MAP and nothing else is written over it. `ATLAS_WARS` carries the card's name for each side ("Rome", "Carthage", "Han, Zhao, Wei, Chu, Yan and Qi"); the names stand where
+       each side stands in the war's years (the engine's `warSides`: the mean direction of the side's faces). THE ONE LEGEND is the plain-text one under the window (`cardWarKeyHTML`, app.js: the swatches, "victors" and "defeated", the card's own
+       words); Phase 4b drew a second one, a pill over the foot of the map, and the owner (a real phone, Oct 2026, decision 2) asked for it to go — it covered ground. */
+    let warSides = null, lastNames = [], lastLabels = [];
     function warMarks(ctx, api) {
-      if (!warSides || !warCols) return;
-      const W = api.cw, H = api.ch, css = (c, a) => "rgba(" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255)).join(",") + "," + a + ")";
-      const sides = [["v", warCols.victor, "victors"], ["l", warCols.loser, "defeated"]].filter((q) => warSides[q[0]]);
+      if (!warSides) return;
+      const W = api.cw, H = api.ch;
+      const sides = [["v", "victors"], ["l", "defeated"]].filter((q) => warSides[q[0]]);
       // the names, at the sides' centres, kept apart from each other and inside the window
       ctx.save(); ctx.font = "600 12.5px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      const placed2 = [], named = [];
+      const placed2 = [], named = [], labelsNow = [];
       for (const [k] of sides) {
         const sd = warSides[k], p = api.project(sd.lon, sd.lat); if (p[2] < 0) continue;
         const text = String(sd.n || "").trim(); if (!text) continue;
-        const w = ctx.measureText(text).width; let x = Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, p[0])), y = Math.max(14, Math.min(H - 34, p[1]));
+        const w = ctx.measureText(text).width; let x = Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, p[0])), y = Math.max(14, Math.min(H - 14, p[1]));
         for (let tries = 0; tries < 4 && placed2.some((b) => x - w / 2 < b[2] && x + w / 2 > b[0] && y - 8 < b[3] && y + 8 > b[1]); tries++) y += 17;
         placed2.push([x - w / 2, y - 8, x + w / 2, y + 8]);
-        ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.strokeStyle = halo; ctx.strokeText(text, x, y); ctx.fillStyle = ink; ctx.fillText(text, x, y); named.push(text);
+        ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.strokeStyle = halo; ctx.strokeText(text, x, y); ctx.fillStyle = ink; ctx.fillText(text, x, y); named.push(text); labelsNow.push({ k, n: text, x, y, w });
       }
-      lastNames = named;
-      ctx.restore();
-      // the legend: one line, at the foot, from the card's own sides
-      ctx.save(); ctx.textAlign = "left"; ctx.textBaseline = "middle";
-      let px = 11.5; ctx.font = "600 " + px + "px " + font;
-      /* four wordings, longest first; the first that fits on one line at 10 px or more is used: the full line, then without "victors / defeated" (the swatch colour and the legend under the window say it), then "approx." for
-         "approximate extent", then the names cut short — an extent's own word is the last thing to go */
-      const word = (k) => (k === "v" ? "victors" : "defeated");
-      const wording = (lvl) => sides.map(([k, c]) => { const sd = warSides[k], nm = sideText(sd); return { c, ext: sd.extent, text: nm + (sd.extent ? (lvl >= 2 ? " (approx.)" : " (approximate extent)") : "") + (lvl >= 1 ? "" : " — " + word(k)) }; });
-      const sw = 11, gap = 6, between = 14, pad = 9;
-      let parts = wording(0);
-      const total = () => parts.reduce((a, q) => a + sw + gap + ctx.measureText(q.text).width, 0) + between * Math.max(0, parts.length - 1) + pad * 2;
-      for (let lvl = 0; lvl <= 2; lvl++) { parts = wording(lvl); px = 11.5; ctx.font = "600 " + px + "px " + font; while (total() > W - 18 && px > 10) { px -= 0.5; ctx.font = "600 " + px + "px " + font; } if (total() <= W - 18) break; }
-      if (total() > W - 18) for (const q of parts) { const ext = / \(approx\.\)$/.test(q.text) ? " (approx.)" : ""; let base = q.text.replace(/ \(approx\.\)$/, ""); while (base.length > 6 && total() > W - 18) { base = base.slice(0, -2).replace(/\s+$/, ""); q.text = base + "…" + ext; } }
-      lastLegend = parts.map((q) => q.text);
-      const tw = total(), bx = 9, by = H - 9 - 22;
-      ctx.fillStyle = halo; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(bx, by, tw, 22, 11); else ctx.rect(bx, by, tw, 22); ctx.fill();
-      let x = bx + pad;
-      for (const q of parts) {
-        const y = by + 11;
-        if (q.ext) { ctx.save(); ctx.fillStyle = css(q.c, 0.18); ctx.fillRect(x, y - sw / 2, sw, sw); ctx.strokeStyle = css(q.c, 0.95); ctx.lineWidth = 1.2; ctx.setLineDash([2.5, 2]); ctx.strokeRect(x + 0.6, y - sw / 2 + 0.6, sw - 1.2, sw - 1.2); ctx.restore(); }
-        else { ctx.fillStyle = css(q.c, 0.85); ctx.fillRect(x, y - sw / 2, sw, sw); ctx.strokeStyle = "rgba(0,0,0,.35)"; ctx.lineWidth = 0.8; ctx.strokeRect(x + 0.4, y - sw / 2 + 0.4, sw - 0.8, sw - 0.8); }
-        ctx.fillStyle = ink; ctx.fillText(q.text, x + sw + gap, y + 0.5);
-        x += sw + gap + ctx.measureText(q.text).width + between;
-      }
+      lastNames = named; lastLabels = labelsNow;
       ctx.restore();
     }
     function marks(st, api, ctx) {
@@ -303,7 +278,7 @@
     }).catch(() => { unhold(); if (!stopped) v1(); });
     function mountWindow(hub, warYear) {
         host.classList.remove("mc-loading"); host.setAttribute("data-map-engine", "v2");
-        if (isWar) { try { warSides = hub.warSides(sibCard); warCols = hub.warColours(); } catch (e) { warSides = null; } }
+        if (isWar) { try { warSides = hub.warSides(sibCard); } catch (e) { warSides = null; } }
         fit();
         if (isWar) {
           const cr = cv.getBoundingClientRect(), short = Math.max(1, Math.min(cr.width, cr.height)), f = hub.warView(sibCard, short, 0.45);   // 0.45: half of a face's bounding cap counts, so a polity with far islands does not frame the planet
