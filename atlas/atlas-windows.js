@@ -4,8 +4,8 @@
    v1's page closure) and compared with v1's by test-atlas-embed.js. */
   /* ---------- (1) CARD WINDOWS ON THE ATLAS v2 ENGINE (Oct 2026, Atlas v2 Phase 4; docs/atlas-v2-card-windows.md) ----------
      The same windows — a map card, a locator, a war — drawn by `atlas/atlas-embed.js` (ONE headless engine and one WebGL context for every window on the page) instead of by
-     `startCardGlobeV1`'s own 2D canvas. STAGE A: behind the per-viewer preview switch (`atlas2Preview()`, localStorage `folio.atlas2.preview`), OFF by default, so v1's window stays what a
-     reader gets until the owner has looked at this one on a phone. The host contract is the V1 window's, attribute for attribute and method for method (`_folioMap`), so the nine surfaces that
+     `startCardGlobeV1`'s own 2D canvas. STAGE B (Oct 2026): this is the DEFAULT (`atlas2Engine()` in app.js: localStorage `folio.atlas2.preview` is "0" only for a reader who went back with `#map2?preview=0`, kept for one release);
+     v1's window is what a reader gets when the engine cannot start (no WebGL2, a refused bundle) or that way back is taken, until Phase 5. The host contract is the V1 window's, attribute for attribute and method for method (`_folioMap`), so the nine surfaces that
      mount a window and the suites that read one do not know which engine drew it; `data-map-engine` on the host says ("v2", or "v1" when the engine could not start and V1 took over).
      WHAT THE ENGINE DRAWS: the coast, the borders, the admin-1 lines of the three layers, the rivers and lakes (a locator, and the two layers with a hi-res row in v1), and the shaded place — its
      FACE, from the entity table of topology.bin (`atlas/data/card-faces.js` is the join from a layer's key to an entity id), with the Atlas's selection gold as a translucent tint and a gold
@@ -51,10 +51,10 @@
     const root0 = sibCard ? cardCollectionRoot(sibCard) : null;
     const hiRegion = sibCard ? (CMAP_HIRES[(root0 || {}).id] || "") : (CMAP_LAYER_HIRES[layerName] || "");
     /* PHASE 4c, THE OWNER'S DECISION 2 — RIVERS IN WINDOWS. A window draws its rivers at the Atlas's own density for its zoom (about half of V1's length; Phase 4b had asked for one resident level finer everywhere, 107 % of V1's). A
-       card whose SUBJECT is water — a river locator, a sea, a lake — gets the finer level, so the river it is about is drawn in full. Under the reader's data saver or light mode the window asks for no water at all (the
+       card whose SUBJECT is water — the registry's kind for the locator's place is a river, lake, sea, strait or bay (`ATLAS_CARD_FACES.water`, build-card-faces.js) — gets the finer level, so the river it is about is drawn in full. Under the reader's data saver or light mode the window asks for no water at all (the
        finer level is in the same 4.3 MB file as the coarse one, so "never fetched" can only mean the file is not fetched): the card's own river from `rivers.js` is still drawn in gold. */
     const lightReader = !!(S.settings && S.settings.saveData) || !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.saveData === true);
-    const waterSubject = !!sibCard && (locKind === "river" || locKind === "sea" || (locKind === "point" && /\b(lake|lagoon|loch|lough|bay|gulf|strait|channel|sea|river)\b/i.test(host.getAttribute("data-map-atname") || "")));
+    const isWaterSubject = () => { const w = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.water; return !!sibCard && !!w && w.cards.indexOf(sibCard) >= 0; };   // the registry kind of the locator's place (build-card-faces.js); a name only for a locator with no resolved place, decided there
     const wantWater = (!!sibCard || !!hiRegion) && !lightReader;
     const subdiv = sibCard ? (CMAP_SUBDIV[(root0 || {}).id] || null) : null;
     const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], termName: new Map(), own: new Set() };
@@ -312,7 +312,7 @@
         win = window.AtlasEmbed.view(cv, {
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
-            layers: { borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: waterSubject },
+            layers: { borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject() },
             year: warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined,
             highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9 }] : [],
           }),

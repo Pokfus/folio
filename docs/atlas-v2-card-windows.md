@@ -266,7 +266,7 @@ What is left is the same floor 4b named for the desktop (a WebGL2 context, the s
 
 ## Rivers in windows (decision 2) — before and after (`.claude/compare-window-rivers.js`)
 
-The default is the Atlas's own density for the window's zoom; a card whose subject is water (a locator of kind river or sea, or a point locator whose name has lake / bay / gulf / strait / channel / sea / river in it) gets one resident level finer where one exists; under the data saver (`S.settings.saveData` or `navigator.connection.saveData`) a window draws no rivers or lakes and does not fetch the water file.
+The default is the Atlas's own density for the window's zoom; a card whose subject is water gets one resident level finer where one exists — **which cards is decided in `build-card-faces.js` (Stage B, item 1) from the places registry's kind for the locator's place (river, lake, sea, ocean, strait, gulf = a bay), written to `ATLAS_CARD_FACES.water`**: 30 locator cards, 23 by the registry kind, 2 by a declared river or sea kind where the card has no resolved place, **5 by the name fallback** (rm-043, rm-999, wh-092, wh-094, wh-744 — a point locator with no resolved place whose name has lake / bay / strait / sea / river in it); the old name test of this phase is gone from the window; under the data saver (`S.settings.saveData` or `navigator.connection.saveData`) a window draws no rivers or lakes and does not fetch the water file.
 
 | window | view | V1 (km) | 4b: one level finer everywhere (km, × V1) | 4c (km, × V1) |
 |---|---|---|---|---|
@@ -307,3 +307,8 @@ War window, the second Punic War (rm-209), same runner, 4b → 4c: desktop cold 
 | Find it's game mode in `PAGES.map` (`finditPools` … `gameEnd`, 46185–46530) and `drawGameMarks` | ≈ 24.6 KB + 4.9 KB | Phase 5 |
 | `hiresCoastIngest` and `hiresRiverIngest` (34454–34487) | 2,122 B (and the `CMAP_*` tables beside them) | Phase 5 |
 | the five `coast/*.js` bundles and `rivers/greece.js`, `rivers/italy.js` (lazy, never on the eager path) | 1,367,513 B + 138,966 B | Phase 5 |
+
+
+## Stage B, item 2 — the idle warm-up and the connection
+
+The idle warm-up (the engine's code, `topology.bin` and the hub, 60 s; `app.js`) does not run under the browser's save-data hint, Folio's light mode, **or `navigator.connection.type === "cellular"`** (`onCellular()`, where the browser reports it — Chromium on Android; Safari and Firefox do not, and are not held back). The first window then pays when a reader opens one (`test-atlas-windows.js` §10: the control warms, the three constrained cases fetch no engine code, no `topology.bin` and no `water.bin`, wifi and a browser with no connection API warm as before, and a cellular reader's window is still the engine's). `water.bin` is not part of the warm-up at all: a window asks for it after its land is on the screen.

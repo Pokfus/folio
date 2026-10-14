@@ -24,7 +24,7 @@ const CARDS = FLAG("cards", "") ? FLAG("cards", "").split(",").map((id) => [id])
   for (const [dev, vp] of [["desktop", { width: 1100, height: 900 }], ["phone", { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }]]) {
     for (const on of (ONLY_V2 ? [true] : [false, true])) {
       const ctx = await browser.newContext({ viewport: vp });
-      await ctx.addInitScript((on) => { try { if (on) localStorage.setItem("folio.atlas2.preview", "1"); } catch (e) {} }, on);
+      await ctx.addInitScript((on) => { try { localStorage.setItem("folio.atlas2.preview", on ? "1" : "0"); } catch (e) {} }, on);
       const page = await ctx.newPage();
       for (const [id] of CARDS) {
         await page.goto("http://127.0.0.1:5623/#card/" + id, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });

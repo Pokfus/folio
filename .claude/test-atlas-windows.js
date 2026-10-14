@@ -246,6 +246,19 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       check("...at " + (bias ? "one resident level finer (the card's subject is water)" : "the Atlas's own density (the card's subject is not water)"), info.bias === bias, "riverLevelBias " + info.bias);
       await ctx.close();
     }
+    {   // WHICH cards get the finer level: the registry's kind of the locator's place, not the card's name (Phase 4c)
+      const F = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/card-faces.js"), "utf8"))(F);
+      const W = F.ATLAS_CARD_FACES.water;
+      check("the water-subject list is built from the registry: 23 cards by their place's kind, 2 by a declared river/sea kind with no place, 5 by the name fallback", W.cards.length === 30 && W.declared.length === 2 && W.byName.length === 5, JSON.stringify({ cards: W.cards.length, declared: W.declared, byName: W.byName }));
+      check("...a site named for a river (wh-096) and a town named for a bay (pea-172) are NOT on it; a lake, a strait and a river are (wh-064, gga-161, eg-002)", !W.cards.includes("wh-096") && !W.cards.includes("pea-172") && ["wh-064", "gga-161", "eg-002"].every((id) => W.cards.includes(id)));
+      for (const [id, what, bias] of [["wh-096", "Mal'ta, Belaya River (a site: the name says river, the registry says site)", 0], ["rm-043", "the Gulf of Tarentum (no resolved place: the name fallback)", 1]]) {
+        const { ctx, page } = await newPage(browser, {});
+        await page.goto(url("#card/" + id), { waitUntil: "load" });
+        await windowReady(page); await windowSettled(page).catch(() => {}); await page.waitForTimeout(400);
+        check(what + ": riverLevelBias " + bias, (await page.evaluate(() => AtlasEmbed.hub().ctl.view.riverLevelBias)) === bias);
+        await ctx.close();
+      }
+    }
     {   // the reader's data saver: no water file at all (the finer level is in the same file as the coarse one), and the card's own gold river still draws
       const reqs0 = requests.length;
       const { ctx, page } = await newPage(browser, {});
@@ -405,6 +418,51 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       check("on file:// a war card's window is the engine's, drawn from history-wars.bin.js (and not the 11-entity pilot twin)", info.engine === "v2" && info.kind === "wars" && info.names.join() === "Rome,Carthage" && seen.some((u) => /history-wars\.bin\.js$/.test(u)) && !seen.some((u) => /\/history\.bin\.js$/.test(u)), JSON.stringify(info));
       const g2 = await count(page, ".map-card .mc-canvas", "g > r + 40 && g > b + 25", [0, 0, 1, 0.8]), r2 = await count(page, ".map-card .mc-canvas", "r > g + 60 && r > b + 50", [0, 0, 1, 0.8]);
       check("...with both sides tinted", g2 > 300 && r2 > 300, JSON.stringify({ green: g2, red: r2 }));
+      await ctx.close();
+    }
+  }
+
+  /* ---------------- 10) the idle warm-up and the connection (Stage B, item 2) ---------------- */
+  if (want(10)) {
+    sect("10) the engine's idle warm-up does not run on a cellular connection, under the data saver or in light mode — and the first window then pays when it is opened");
+    const warmed = async (label, setup, home) => {
+      const reqs0 = requests.length;
+      const { ctx, page } = await newPage(browser, {});
+      if (setup) await ctx.addInitScript(setup);
+      await page.goto(url(home || "#home"), { waitUntil: "load" });
+      await page.waitForTimeout(7500);   // the idle warm-up runs a moment after the page is quiet
+      const got = requests.slice(reqs0);
+      const r = { engine: got.some((u) => /atlas\/atlas\.js$|atlas\/atlas-embed\.js$/.test(u)), topology: got.some((u) => /atlas\/data\/topology\.bin$/.test(u)), water: got.some((u) => /atlas\/data\/water\.bin$/.test(u)) };
+      return { ctx, page, r };
+    };
+    {
+      const { ctx, r } = await warmed("control", null);
+      check("control — a reader on the home page with the engine on and no constraint: the idle warm-up fetches the engine and topology.bin", r.engine && r.topology, JSON.stringify(r));
+      await ctx.close();
+    }
+    for (const [what, setup] of [
+      ["on a cellular connection (navigator.connection.type = \"cellular\")", () => { try { Object.defineProperty(navigator, "connection", { value: { type: "cellular", saveData: false }, configurable: true }); } catch (e) {} }],
+      ["with the browser's save-data hint", () => { try { Object.defineProperty(navigator, "connection", { value: { type: "wifi", saveData: true }, configurable: true }); } catch (e) {} }],
+      ["with Folio's own light mode (Settings → use less data)", () => { try { const k = "folio_v1"; localStorage.setItem(k, JSON.stringify({ settings: { saveData: true } })); } catch (e) {} }],
+    ]) {
+      const { ctx, r } = await warmed(what, setup);
+      check("the idle warm-up does not run " + what + ": no engine code, no topology.bin, no water.bin", !r.engine && !r.topology && !r.water, JSON.stringify(r));
+      await ctx.close();
+    }
+    {   // wifi is not cellular; a reader who reports nothing (no Network Information API) is not held back
+      const { ctx, r } = await warmed("wifi", () => { try { Object.defineProperty(navigator, "connection", { value: { type: "wifi", saveData: false }, configurable: true }); } catch (e) {} });
+      check("a reported wifi connection warms as before", r.engine && r.topology, JSON.stringify(r));
+      await ctx.close();
+      const n = await warmed("no API", () => { try { Object.defineProperty(navigator, "connection", { value: undefined, configurable: true }); } catch (e) {} });
+      check("a browser that reports no connection at all (Safari, Firefox) warms as before", n.r.engine && n.r.topology, JSON.stringify(n.r));
+      await n.ctx.close();
+    }
+    {   // the first window pays when it is opened: on a cellular connection a map card still draws on the engine
+      const { ctx, page } = await newPage(browser, {});
+      await ctx.addInitScript(() => { try { Object.defineProperty(navigator, "connection", { value: { type: "cellular", saveData: false }, configurable: true }); } catch (e) {} });
+      await page.goto(url("#card/rm-003"), { waitUntil: "load" });
+      await windowReady(page); await windowSettled(page).catch(() => {});
+      check("on a cellular connection the window a reader opens is still the engine's, and pays for it then", await page.evaluate(() => document.querySelector(".map-card").getAttribute("data-map-engine") === "v2"));
       await ctx.close();
     }
   }

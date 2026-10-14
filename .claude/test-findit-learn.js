@@ -33,7 +33,7 @@ const TOURS = `localStorage.setItem("folio_tour_v1","1");localStorage.setItem("f
 
 async function open(browser, engine, vp) {
   const ctx = await browser.newContext({ viewport: vp || { width: 1280, height: 900 }, isMobile: !!(vp && vp.mobile), hasTouch: !!(vp && vp.mobile), deviceScaleFactor: vp && vp.mobile ? 2 : 1 });
-  await ctx.addInitScript(`${TOURS} try { ${engine === "v2" ? 'localStorage.setItem("folio.atlas2.preview","1");' : 'localStorage.removeItem("folio.atlas2.preview");'} } catch (e) {}`);
+  await ctx.addInitScript(`${TOURS} try { ${engine === "v2" ? 'localStorage.removeItem("folio.atlas2.preview");' : 'localStorage.setItem("folio.atlas2.preview","0");'} } catch (e) {}`);
   const page = await ctx.newPage();
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text()) && !/GL_INVALID|WebGL/.test(m.text())) errors.push("console: " + m.text().slice(0, 200)); });

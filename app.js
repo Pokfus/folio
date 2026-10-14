@@ -1383,6 +1383,17 @@
      is unlinked until Phase 5, so a reader's button keeps opening the old globe; Phase 5 deletes the switch with v1. Terms do not
      contribute to the Personal Atlas (Q-P3 c): the button only opens a place. */
   function atlas2Preview() { try { return localStorage.getItem("folio.atlas2.preview") === "1"; } catch (e) { return false; } }
+  /* STAGE B (Oct 2026): THE ENGINE IS THE DEFAULT for the card windows, Find it and the study Back — `localStorage["folio.atlas2.preview"]`: "0" is the per-viewer way back to v1's windows (set by
+     `#map2?preview=0`, kept for one release), anything else — unset, or "1" — is the engine. The glossary pin above stays behind the strict "1" until Phase 5: it opens `#map2`, which is still unlinked.
+     v1's window and v1's Find it are what a reader gets when the engine cannot start (no WebGL2, a refused bundle) or `"0"` is set, until Phase 5 replaces them with the engine's Canvas 2D path. */
+  function atlas2Engine() { try { return localStorage.getItem("folio.atlas2.preview") !== "0"; } catch (e) { return true; } }
+  /* `#map2?preview=0|1` sets the per-viewer switch ("0" the way back, "1" the engine and the glossary pin) and says so. It is read from the address at TWO moments: when the page is first loaded (PAGES.map2) and at the
+     start of the hashchange handler — a reader who types the address into a tab that is already open makes a hashchange, and route() rewrites the hash to "#map2" before PAGES.map2 can read the query. */
+  function atlas2ApplyPreviewHash() {
+    const pm = /^#map2\?(?:.*&)?preview=(0|1)\b/.exec(location.hash || ""); if (!pm) return;
+    try { localStorage.setItem("folio.atlas2.preview", pm[1]); } catch (e) {}
+    try { toast(pm[1] === "1" ? "The new globe is on for this device: card windows and Find it use it." : "Card windows and Find it use the earlier globe on this device. Open #map2?preview=1 to go back."); } catch (e) {}
+  }
   function glossPlaceId(key) { const t = window.ATLAS_GLOSSARY_PLACES; return key && !isDeckGlossKey(key) && t && t.ids && t.ids[key] || null; }
   /* Does this term name a book the LIBRARY actually holds? (Aug 2026, on request: "for gloss that are
      about books or documents we hold in the library … a small version of the book banner of the library
@@ -35799,7 +35810,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      (#map2/<lon>/<lat>/<zoom level>?y=<year>). A war window carries the war's year and the card (`&war=<id>`), so the Atlas opens on that war in its years. Used by the go button and by a
      tap on the window (a map card's tap only once it is revealed: until then nothing on it may be answerable). */
   function atlas2OpenFromWindow(host, id) {
-    if (!host || !host._folioMap || host.getAttribute("data-map-engine") !== "v2" || !atlas2Preview()) return false;
+    if (!host || !host._folioMap || host.getAttribute("data-map-engine") !== "v2" || !atlas2Engine()) return false;
     const v = host._folioMap.view(), cv0 = host.querySelector(".mc-canvas"), base0 = 0.46 * Math.min(cv0.clientWidth || 300, cv0.clientHeight || 220);
     const kmpp = 6371.0088 / (Math.max(1, base0) * v.zoom), zl = Math.max(0, Math.min(18, Math.log2(156.543 / kmpp)));
     const yr = host.getAttribute("data-map-year");
@@ -35812,7 +35823,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      context (atlas/atlas-embed.js), and Find it plays on a board the engine draws. The code is atlas/atlas-windows.js, lazy (the `atlas2embed` bundle), reaching this closure only through `atlas2Ctx()` below;
      what stays here is the dispatcher, the context, and the link out to the Atlas. Off, or when the engine cannot start (no WebGL2, a refused bundle), V1's window and v1's Find it are what a reader gets. */
   function startCardGlobe(host) {
-    if (!atlas2Preview() || !host.querySelector(".mc-canvas")) { host.setAttribute("data-map-engine", "v1"); return startCardGlobeV1(host); }
+    if (!atlas2Engine() || !host.querySelector(".mc-canvas")) { host.setAttribute("data-map-engine", "v1"); return startCardGlobeV1(host); }
     let stopped = false, revealed = host.hasAttribute("data-map-named");
     host.classList.add("mc-loading");
     host._folioMap = { stop() { stopped = true; host._folioMap = null; }, reveal() { revealed = true; }, ready() { return false; }, settled() { return false; }, view() { return { lon: 0, lat: 0, zoom: 1, home: [0, 0, 1] }; }, pan() {} };   // until the engine's bundle lands
@@ -38085,6 +38096,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      ONE predicate rather than six copies, so a seventh warm added later is covered by asking it. */
   function lightMode() {
     return !!(S.settings && S.settings.saveData) || !!(navigator.connection && navigator.connection.saveData === true);
+  }
+  /* A CELLULAR CONNECTION, where the browser reports one (`navigator.connection.type`, Chromium on Android; Safari and Firefox do not report it, so there the rule is simply not triggered): the
+     engine's idle warm-up (topology.bin, the hub) does not run on it — the first window then pays when a reader opens one. Not part of lightMode(): the reader has not asked for less data everywhere. */
+  function onCellular() {
+    try { return !!(navigator.connection && navigator.connection.type === "cellular"); } catch (e) { return false; }
   }
   function cardImageHTML(img) {
     /* UNDER LIGHT MODE THE PICTURE IS HELD BACK, and the frame says so rather than vanishing: an
@@ -46650,9 +46666,10 @@ let prev = null;
      bundle and hands the root element to atlas/atlas.js, which fetches the topology, drives the worker and
      renders. Unlisted and unlinked until Phase 1; v1 at #map is untouched. */
   PAGES.map2 = function (root) {
-    /* the per-viewer preview switch, reachable from a phone: #map2?preview=1 turns the engine's card windows, Find-it and the glossary pin on for this device, #map2?preview=0 turns them off
-       (localStorage `folio.atlas2.preview`; Phase 5 deletes the switch with v1). Nothing links here: the owner opens the address. */
-    { const pm = /[?&]preview=(0|1)\b/.exec(location.hash || ""); if (pm) { try { if (pm[1] === "1") localStorage.setItem("folio.atlas2.preview", "1"); else localStorage.removeItem("folio.atlas2.preview"); } catch (e) {} try { toast(pm[1] === "1" ? "Atlas preview on for this device: card windows and Find it use the new globe." : "Atlas preview off for this device."); } catch (e) {} } }
+    /* the per-viewer switch, reachable from a phone: #map2?preview=0 is the WAY BACK to v1's card windows and Find it on this device (Stage B keeps it for one release), #map2?preview=1 puts the engine back
+       (and turns the glossary pin on); localStorage `folio.atlas2.preview`, "0" off, "1" on, unset the default — the engine. Phase 5 deletes the switch with v1. Nothing links here: the address is typed. */
+    atlas2ApplyPreviewHash();
+    try { if (window.AtlasEmbed && window.AtlasEmbed.release) window.AtlasEmbed.release(1); } catch (e) {}   // the Atlas page has its own controller: a hub left over from a card window (no window left on it) is let go now, not after its idle time
     if (!dataReady("atlas2")) {
       root.innerHTML = `
         <div class="data-loading" role="status" aria-live="polite">
@@ -46797,7 +46814,7 @@ let prev = null;
   };
   PAGES.findit = function (root) {
     if (gameLockedToday(root, "findit")) return;
-    if (atlas2Preview()) { PAGES.findit2(root); return; }   // Phase 4, Stage A: the board on the engine, behind the preview switch
+    if (atlas2Engine()) { PAGES.findit2(root); return; }   // Stage B: the board on the engine; v1's board (PAGES.map in game mode) is the way back and the fallback until Phase 5
     PAGES.map(root, { game: true });
   };
 
@@ -53615,8 +53632,8 @@ let prev = null;
   whenIdle(() => {
     /* Phase 4b: the preview's engine is warmed at idle — the bytes (as before) AND the hub itself (the worker parses topology.bin and builds the coarse levels while the reader reads), so the first
        window the reader meets is a draw and not a parse. Not under lightMode() (the reader asked for less data); the hub is disposed again after a minute with no window. */
-    if (!atlas2Preview() || lightMode()) return;
-    Promise.all([ensureData("atlas2"), ensureData("atlas2embed")]).then((ok) => { if (ok.every(Boolean) && window.AtlasEmbed && window.AtlasEmbed.warm && !lightMode()) window.AtlasEmbed.warm({ host: {} }, 60000); });
+    if (!atlas2Engine() || lightMode() || onCellular() || current.name === "map2") return;   // nor on a cellular connection (Stage B, item 2), nor on the engine's own Atlas page, which has a controller of its own
+    Promise.all([ensureData("atlas2"), ensureData("atlas2embed")]).then((ok) => { if (ok.every(Boolean) && window.AtlasEmbed && window.AtlasEmbed.warm && !lightMode() && !onCellular() && current.name !== "map2") window.AtlasEmbed.warm({ host: {} }, 60000); });
     ensureData("atlas2cards");
   });
   whenIdle(() => { storagePersistAsk(false); });   // see KEEPING THE READER'S DATA
@@ -53820,6 +53837,7 @@ let prev = null;
   });
 
   window.addEventListener("hashchange", () => {
+    atlas2ApplyPreviewHash();   // before route() rewrites the address (see the function)
     const hh = (location.hash || "").replace("#", "");
     if (hh === "admin" && !isAdmin()) { route("home"); return; }
     const parts = hh.split("/");
@@ -53869,7 +53887,7 @@ let prev = null;
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
-      const rec = readStudySession() || (atlas2Preview() ? atlasHold : null);   // …or, with the preview switch on, the session a card window's tap left behind (Phase 4b; with the switch off the live site is exactly what it was)
+      const rec = readStudySession() || (atlas2Engine() ? atlasHold : null);   // …or, with the preview switch on, the session a card window's tap left behind (Phase 4b; with the switch off the live site is exactly what it was)
       atlasHold = null;
       if (rec) { writeStudySession(rec); route("study", { scope: rec.scope, resume: rec }); } else route("home");
       return;
