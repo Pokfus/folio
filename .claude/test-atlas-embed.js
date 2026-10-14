@@ -45,8 +45,10 @@ const COUNT_CONTEXTS = () => { const orig = HTMLCanvasElement.prototype.getConte
 async function newPage(browser, o) {
   o = o || {};
   const ctx = await browser.newContext({ viewport: o.viewport || { width: 1100, height: 900 }, reducedMotion: o.reduced ? "reduce" : "no-preference" });
-  /* Stage B: the engine is the DEFAULT. `preview`: true → "1", false → "0" (the way back to v1's windows), "default" → the key is not set at all */
-  await ctx.addInitScript((pre) => { try { if (pre === "default") localStorage.removeItem("folio.atlas2.preview"); else localStorage.setItem("folio.atlas2.preview", pre ? "1" : "0"); } catch (e) {} }, o.preview === "default" ? "default" : o.preview !== false);
+  /* Stage B: the engine is the DEFAULT. `preview`: true → "1", false → "0" (the way back to v1's windows), "default" → the key is not set at all.
+     "default" clears the key ONCE per tab (a sessionStorage marker, which a reload keeps), not on every navigation: an init script runs again on a reload, and the page's own `#map2?preview=0` stores "0" and
+     then rewrites the address to `#map2` (route()), so a reload has nothing left to store it again and a clear-on-every-load script wiped the very value section 1 asserts. */
+  await ctx.addInitScript((pre) => { try { if (pre === "default") { if (!sessionStorage.getItem("__previewCleared")) { localStorage.removeItem("folio.atlas2.preview"); sessionStorage.setItem("__previewCleared", "1"); } } else localStorage.setItem("folio.atlas2.preview", pre ? "1" : "0"); } catch (e) {} }, o.preview === "default" ? "default" : o.preview !== false);
   if (o.noWebGL2) await ctx.addInitScript(() => { const orig = HTMLCanvasElement.prototype.getContext; HTMLCanvasElement.prototype.getContext = function (type, ...rest) { if (type === "webgl2") return null; return orig.call(this, type, ...rest); }; });
   await ctx.addInitScript(COUNT_CONTEXTS);
   const page = await ctx.newPage();
