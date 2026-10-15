@@ -159,7 +159,7 @@ in plan order unless the user says otherwise.
 | B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | **done 2026-10-15** |
 | B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | **done 2026-10-15** |
 | B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | **done 2026-10-15** |
-| B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | open |
+| B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | **done 2026-10-15** |
 | B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | open |
 | B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | open |
 | B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | open |
@@ -1849,6 +1849,38 @@ with `wh-448` on c. 880 and 1240 and with `ru-057` on Yaroslav's 1036 – 1054; 
 Church*, *Cyril and Methodius*, *First Bulgarian Empire*, *Battle of Manzikert*); the *East–West Schism* and *Kievan Rus'*
 entries already agreed and were kept.
 
+### B46 — `wh-451`–`wh-460`, Byzantium and the Christian East and the Islamic world (2026-10-15)
+
+Run as B45; the religious cards (`wh-455`, `wh-457`–`wh-460`) were drafted with belief attributed to believers ("Muslim
+tradition says…") and the earliest sources told from later tradition. Pictures skipped. Checks:
+`wh-audit.js --range=wh-451:wh-460` clean (ten of ten); `check-citations --card` first reported mismatches on `wh-457` and
+`wh-458`, where a Brill volume (online 2023, print 2024) is now cited "2024; published online 2023" and the check is 0. An
+MDPI DOI answers 403 to the URL checker (MDPI refuses the sandbox); the articles were read as the publisher's
+PDF and are cited by DOI. No new locators: the events, institutions and persons here have none by design, and `wh-454` kept its region.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-451` Sack of Constantinople | 7 | 5 → 7 | **The old card was about the wrong subject**: an Old Russian chronicle's account, Clari's clergy and Trebizond (whose date row, 1204 – 1461, belongs to another state). Rebuilt on Villehardouin (the 85,000 marks, the 34,000 shortfall, Zara, Alexios's offer of 200,000 marks), Choniates (written for his own purposes), the first entry in July 1203, the storming on 12 April 1204, the Latin Empire to 1261. |
+| `wh-452` Fall of Constantinople | 8 | 5 → 8 | **The old card never described the siege** (it was about four Greek historians); one of them, the long chronicle under Sphrantzes's name, is a 16th-century forgery following Leonard's letter. Forces as eyewitnesses give them (Sphrantzes 4,773 Greeks, 200,000 Ottomans; Barbaro 160,000), Orban's gun (a study's model, 600 kg), the boom, ships over Pera, Giustiniani, Constantine's unknown fate. |
+| `wh-453` Christianisation of Armenia | 7 | 5 → 7 | **301 CE is Armenian tradition and 314 is Toumanoff's and Young's**; the "first Christian nation" a title resting on one story written long afterwards (Agathangelos, late 5th century, hagiography). A Nisibis 298 claim dropped; Mashtots's alphabet c. 405 as the later phase. |
+| `wh-454` Kingdom of Georgia | 7 | 5 → 7 | **Half the old abstract was about David IV's daughter Tamar of Shirvan and Tevdore's murals**, with a mural date row. Now 1008, Tbilisi taken in 1122, Didgori on 12 August 1121 (the royal chronicle's account), Queen Tamar styled both king and queen (so "king not queen" is unsupported), the Golden Age a historians' label, the Mongols, the 1490 division, the 1801 annexation. |
+| `wh-455` Ethiopian Orthodox Church | 7 | 5 → 7 | **"Proclaimed c. 333 CE, read as 340 by the Ethiopian calendar" had no source**: Ezana reigned c. 330 – 360 (Butts), crosses only on his gold coins; Frumentius through Athanasius's letter of 356 and Rufinus's later Latin tale; the Nine Saints tradition; the abuna from Alexandria until 1959; the *Kebra Nagast* an early 14th-century epic, so the Ark story legend. |
+| `wh-456` pre-Islamic Arabia | 7 | 5 → 7 | **"From c. 1000 BCE", the Hubal detail and "nearly 8,500 inscriptions" had no source.** Saba attested from c. 800 BCE and gone by c. 275 CE, Himyar leading c. 350 – 570 CE, its turn from the old gods (380 – 384) to Judaism then Christianity; Abraha's dated raid of 552; *jahiliyya* a later label; no source read gives the traditional c. 570 Elephant year. |
+| `wh-457` Muhammad | 9 | 5 → 10 | **All five old sources were unreadable**, and a question carried "a century". Born in the Year of the Elephant, which later reckoning equates with about 570 CE; the first revelation, Hijra, Badr, Uhud, the Trench, Mecca and death are tradition's account; the Constitution of Medina; the earliest non-Muslim witnesses (Sebeos, the *Doctrina Iacobi* dated 634 or decades later); the sceptical and minimalist views. |
+| `wh-458` Hijra | 7 | 5 → 7 | **Two questions carried 622 and 638**, and "Calendar fixed 17 AH / 638 CE" was a translator's conversion: Donner has the calendar introduced in AH 16, Ibn Ishaq and al-Tabari in 17 or 18. Era begins 16 July 622; the Aqaba pledges; Quba on 12 Rabi' I (24 September 622); the Constitution of Medina composite. |
+| `wh-459` Quran | 9 | 5 → 9 | **"Readings fixed: Ibn Mujahid, d. 936" was a death date, and his seven were probably not meant as exclusive** (ten are now canonical). Tradition's two collections (Abu Bakr, Uthman) attributed; the Sanaa palimpsest's different lower text; the Birmingham parchment's 568 – 645 CE as the parchment's date; 14 copies sharing one spelling. |
+| `wh-460` Islam | 9 | 5 → 10 | **A question duplicated `wh-463`'s conquests clue and carried years**; a Jordan-inscription claim (dated to the 8th century by Lindstedt) and a revisionist assertion dropped. The line of prophets, hadith (Bukhari d. 870, Muslim d. 874), the four Sunni schools, Pew's 2009 figures (1.57 billion), conversion pace; "called itself the believers" is now one proposal, in the card and the glossary. |
+
+**Read by eye.** *Article:* "the Sack of Constantinople", "the Fall of Constantinople", "the Christianisation of Armenia", "the Kingdom of
+Georgia", "the Ethiopian Orthodox Church", "pre-Islamic Arabia"; "Muhammad", "Hijra", "Quran" and "Islam" bare.
+*Confusability:* `wh-451`/`wh-452` the two Latin and Ottoman captures, Zara and the horses only on `wh-451`, the boom and Giustiniani only on
+`wh-452`; `wh-457`/`wh-458` the man and his move, Badr and the earliest outside accounts only on `wh-457`, the calendar and Aqaba only on `wh-458`;
+`wh-459`/`wh-460` the book and the religion, the Sanaa palimpsest only on `wh-459`, the schools of law only on `wh-460`.
+*Against other cards:* `wh-436`'s Constantinople dates agree; `rm-502` agrees on the Nabataean annexation of 106 CE. None edited.
+
+**Glossary.** Nine terms rewritten and the *Islam* entry corrected (its "called itself the believers" is now "one proposal
+is"); *Quran* already agreed and was kept.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2034,3 +2066,7 @@ pass once it answers. Filled batch by batch.
 | `wh-449` | one ceramic icon from Preslav, with no author or licence in its credit |
 | `wh-450` | **locator** not written ("Malazgirt" and "Battle of Manzikert" found no coordinate or were rate-limited) |
 | `wh-447`, `wh-441`, `wh-444` | description ends on an interpretive clause; judged from title and description only |
+| `wh-452` | a 19th-century painting with Greek captions burned in |
+| `wh-454` | Gelati's apse mosaic; its description calls Gelati David IV's foundation, which no source on the card gives |
+| `wh-455` | the Ezana Stone's Greek face, not the church |
+| `wh-451`, `wh-453`, `wh-456`–`wh-460` | judged from title and description only |

@@ -441,6 +441,16 @@ Filled batch by batch, from the source each row names.
 | Kievan Rus': Kyiv the seat / Yaroslav ruled / Mongol sack | c. 880 CE / 1036 – 1054 CE / 1240 CE | Zhdan; Hillerdal (`wh-448`) |
 | First Bulgarian Empire: founded / Boris baptised / Symeon reigned / ends | 681 CE / 864 – 865 CE / 893 – 927 CE / 1018 CE | Antonov; Bury; Marinow (`wh-449`) |
 | Battle of Manzikert | 26 August 1071 CE | Shliakhtin; Lau (`wh-450`) |
+| Sack of Constantinople: first entered / stormed / Latin Empire | July 1203 / 12 April 1204 / 1204 – 1261 CE | Villehardouin; Bell; Barabanov (`wh-451`) |
+| Fall of Constantinople: siege began / city taken | early April (4 or 5) 1453 / 29 May 1453 CE | Sphrantzes; Barbaro (`wh-452`) |
+| Christianisation of Armenia: conversion (tradition 301; Toumanoff and Young 314) / alphabet | c. 301 – 314 CE / c. 405 CE | Young; Thomson; Toumanoff (`wh-453`) |
+| Kingdom of Georgia: united / at its height / divided / eastern kingdom annexed | 1008 / 1089 – 1213 / 1490 / 1801 CE | Toumanoff; Rayfield; Morkva (`wh-454`) |
+| Ethiopian Orthodox Church: Ezana reigns / own patriarch | c. 330 – 360 CE / 1959 | Butts; Ghali (`wh-455`) |
+| Pre-Islamic Arabia: Saba attested / Himyar leads / Abraha's raid | c. 800 BCE – 275 CE / c. 350 – 570 CE / 552 CE | Schiettecatte; Robin; Hatke (`wh-456`) |
+| Muhammad: lived (birth by later reckoning) / revelation begins / Hijra | c. 570 – 632 CE / from c. 610 CE / 622 CE | Watt; Lindstedt; Donner (`wh-457`) |
+| Hijra: emigration / era begins (calendar introduced AH 16, 17 or 18) | 622 CE / 16 July 622 CE | Watt; Donner; al-Tabari (`wh-458`) |
+| Quran: revealed (tradition) / standard text (Uthman) | c. 610 – 632 CE / c. 650 CE | Wheeler; van Putten; Albayrak (`wh-459`) |
+| Islam: revelations / early expansion | c. 610 – 632 CE / 632 – 751 CE | Wheeler; Calder; Pew 2009 (`wh-460`) |
 
 ## Chronology pins
 
@@ -866,4 +876,14 @@ wh-447: 863; 869; 885
 wh-448: 880; 1036; 1054; 1240
 wh-449: 681; 864; 865; 893; 927; 1018
 wh-450: 1071
+wh-451: 1204; 1261; 1203
+wh-452: 1453
+wh-453: 301; 314; 405
+wh-454: 1008; 1089; 1213; 1490; 1801
+wh-455: 330; 360; 1959
+wh-456: 800; 275; 350; 570; 552
+wh-457: 570; 632; 610; 622
+wh-458: 622
+wh-459: 610; 632; 650
+wh-460: 610; 632; 751
 ```
