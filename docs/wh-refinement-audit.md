@@ -154,7 +154,7 @@ in plan order unless the user says otherwise.
 | B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | **done 2026-10-04** |
 | B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | **done 2026-10-04** |
 | B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | **done 2026-10-04** |
-| B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | open |
+| B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | **done 2026-10-15** |
 | B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | open |
 | B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | open |
 | B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | open |
@@ -1671,6 +1671,43 @@ ends the Spring and Autumn c. 476 BCE against `wh-397`'s c. 475, a one-year conv
 *Confucianism*); the shared Zhou entries now agree with both collections. **`wh-301`–`wh-400` are done: the Greece,
 Rome and Ancient India decks are complete, and Ancient China continues at `wh-401` (B41).**
 
+### B41 — `wh-401`–`wh-410`, Ancient China (2026-10-15)
+
+Run as B40 (WH_S harness, two cards to an agent, the China cards read against `cnh-`). Commons refused the sandbox at once
+(the one check, "too many requests"), so **pictures were skipped** and the judgements are in "Pictures to redo". Checks:
+`wh-audit.js --range=wh-401:wh-410` clean but for `W.not-why` notes on `wh-407`, `wh-408` and `wh-410`; the rest as B31; all
+74 distinct URLs 2xx on a second look (a DOI and a UCL PDF answered 503/520 once); `check-citations --card` 0 mismatched on
+all ten. New locators: `wh-406` (Lintong, for the mausoleum) and `wh-407` (Badaling). `wh-403` has only 4 modern sources of 9
+(the rest early-20th-century translations and Han–Tang texts), because Meyer and the other recent work was behind bot walls.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-401` Taoism | 9 | 5 → 9 | **"Born 604 BCE" for Laozi was a later tradition stated as fact**, and a "five major religions" sentence came from a paper that was not about the term. *Daojia* is now Sima Tan's Han label (so no Warring States school of that name); Guodian slips and an anthology view of the *Daodejing*; the Celestial Masters (traditional 142 CE); *wu wei* as effortless action, not "doing nothing". `""` and `undatable`. |
+| `wh-402` Legalism | 8 | 5 → 8 | **A date line made Shang Yang's, Han Fei's and Sima Tan's dates the school's own**; now `""` and `undatable`. "Legalism" is *fajia*, a Han label coined by Sima Tan, and no early thinker was a member; Shang Yang's inn story and Han Fei's death are Sima Qian's; Qin law from the Shuihudi and Yuelu slips. "Confucian outside, Legalist inside" could not be sourced and is not used. |
+| `wh-403` The Art of War | 9 | 5 → 9 | **A 6th-century Sun Tzu and Helü's reign stood on the date line as the book's date.** Now c. 475 – 221 BCE as the scholars' span, the Yinqueshan tombs (c. 140 – 118 BCE, found 1972), Sima Qian's drill story as his and the book itself silent on drilling, the Han catalogue's 82 *pian*, Amiot's 1772 French. |
+| `wh-404` Qin Shi Huang | 9 | 5 → 9 | **"Aged 51" at his death fits neither Sima Qian's 259 nor 210 BCE**; dropped. The paternity (Lü Buwei) is the dynasty's critics'; *huang* + *di* as the title's parts, Chavannes's gloss for the "three sovereigns" dropped; the 460 men put to death and "burying the scholars" a *Shiji* figure and story; a Han Fei claim dropped. |
+| `wh-405` Qin dynasty | 8 | 5 → 9 | **"221 – 206 BCE" and "about 15 years" were stated flat**; Sima Qian's Ziying surrender converts to 207 BCE, and 206 is shown as the other count. "The Han kept Qin's commandery system" dropped (the slips show three separate offices in each Qin commandery); Jia Yi's verdict a Han writer's judgement. |
+| `wh-406` Terracotta Army | 9 | 5 → 9 | **"8,000 soldiers" is in no source read**: now about 7,000 as an estimate and a little over 2,000 excavated. "Every face unique" not stated (moulds assembled in many combinations); the chromium "anti-rust coating" refuted in 2019; the mausoleum's start 247 or 246 BCE. |
+| `wh-407` Great Wall of China | 9 | 5 → 10 | **A question said Meng Tian led 300,000 men north in 214 BCE; in Sima Qian the campaign comes first, and the river wall is the emperor's.** Many walls of 20+ states over almost 2,000 years; the 21,196 km survey total beside the Ming 8,851.8 km; the "visible from space" belief called a myth by NASA; a biocrust claim (Ming earthen wall only) dropped. |
+| `wh-408` Han dynasty | 8 | 5 → 8 | **"Wudi made a Confucian state" and "the Xiongnu story is a Han myth" were claims from a first page**; now the debate (van Ess), heqin as the history reports it, the 2 CE census (59,594,978 in the *Han shu*; about 57.7 million by modern reckoning), the 81 BCE salt-and-iron debate. Wudi 141 – 87 BCE, others 140 or 86. |
+| `wh-409` Silk Road | 9 | 5 → 9 | **A question carried the year 1877**; the name is Richthofen's, used sparingly, plural as well as singular. "Carried disease" hedged: very little concrete evidence before the Xuanquanzhi latrine, and how plague reached the west is unknown. Zhang Qian, Pliny's sesterces, the Shiji on silk's absence west of Ferghana added. Date line `""` (rows were other events'). |
+| `wh-410` scholar-official | 7 | 6 → 8 | **The Han route was recommendation (*xiaolian*), not examination** ("filial and incorruptible" 120 times in the *Hou Han shu*); the examination sequence now Sui – Tang – Song – 1905. An iron-production paper cited for the state's technology dropped; three of four French sources dropped; Kim and Massey's British-influence claim one study's case. |
+
+**Read by eye.** *Article:* "the Art of War", "the Terracotta Army", "the Great Wall of China", "the Han dynasty", "the Silk
+Road", "the Qin dynasty"; "Taoism", "Legalism", "scholar-official" and "Qin Shi Huang" bare. *Confusability:*
+`wh-404`/`wh-405`/`wh-406` the man, his state and his army, the unified measures on `wh-404` and `wh-405` only, crossbow
+ink marks and chromium only on `wh-406`; `wh-405`/`wh-408` the first and the second imperial house, the Xin interregnum only
+on `wh-408`; `wh-401`/`wh-402` two schools, the butterfly only on `wh-401`, the fa label only on `wh-402`; `wh-409`/`wh-408`
+the routes and the dynasty, Zhang Qian on both but the latrine only on `wh-409`. *Against the cnh- cards:* `cnh-191` and
+`cnh-212` end the Qin in 206 BCE where `wh-405` gives 207 with 206 beside it; `cnh-169` begins Shang Yang's reforms in 356
+where `wh-402` has 359 "on one reckoning"; `cnh-229` has Zhang Qian set out c. 138 BCE where `wh-409` prints no departure
+year (the *Shiji* gives only the Jianyuan period). None edited.
+
+**Glossary.** Eight terms rewritten (*Taoism*, *Legalism*, *The Art of War*, *Qin dynasty*, *Terracotta Army*, *Great Wall*,
+*Silk Road*, *Scholar-official*); the old *Taoism* date ("from the 6th century BCE") rested on the legend. `wh-404` and
+`wh-408`'s entries already agreed and were kept; the Terracotta Army entry's picture description said "no two faces are
+alike" and was corrected.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1824,3 +1861,7 @@ pass once it answers. Filled batch by batch.
 | `wh-386` | the Dhauli elephant, a site rather than the king |
 | `wh-394` | the Gwalior temple building, not the numerals |
 | `wh-398` | a 1935 atlas plate with dated labels, also `cnh-111`'s (audit `I.duplicate`) |
+| `wh-401` | Laozi on an ox, a picture of the legend rather than of the term |
+| `wh-403` | the caption names the wrong holder and says "printed 1190 to 1193"; the Library of Congress record says National Central Library, a lost original |
+| `wh-405` | one Qin coin for a whole dynasty |
+| `wh-404`, `wh-406`–`wh-410` | judged from title and description only, not re-viewed |

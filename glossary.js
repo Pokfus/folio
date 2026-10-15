@@ -7623,7 +7623,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Huangdi": "coined 221 BCE",
 "Li_Si": "d. 208 or 207 BCE",
 "Qin_Shi_Huang": "259–210 BCE",
-"Qin_dynasty": "221–206 BCE",
+"Qin_dynasty": "221–207 BCE",
 "Qin_law": "221–206 BCE",
 "Qin_standardisation": "221 BCE",
 "Standardisation_of_the_Chinese_script": "from 221 BCE",
@@ -7681,8 +7681,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Confucianism": "from the 5th century BCE",
 "Taoism": "from the 6th century BCE",
 "Legalism_(Chinese_philosophy)": "4th – 3rd centuries BCE",
-"The_Art_of_War": "traditionally 6th century BCE",
-"Terracotta_Army": "buried by 210 BCE",
+"The_Art_of_War": "c. 475 – 221 BCE",
+"Terracotta_Army": "by 210 BCE",
 "Han_dynasty": "206 BCE – 220 CE",
 "End_of_the_Han_dynasty": "184 – 220 CE",
 "Three_Kingdoms": "220 – 280 CE",
@@ -11558,7 +11558,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Terracotta_Army": ["terracotta warriors","Bingmayong"],
 "Great_Wall_of_China": ["Great Wall","Changcheng"],
 "Han_dynasty": ["Han empire","Western Han","Eastern Han","Former Han","Later Han"],
-"Silk_Road": ["Silk Routes"],
+"Silk_Road": ["Silk Routes","Silk Roads"],
 "Scholar-official": ["shi dafu","scholar official"],
 "Papermaking": ["paper making","papermaker"],
 "End_of_the_Han_dynasty": ["fall of the Han dynasty","fall of the Han","end of the Han"],
@@ -20187,7 +20187,6 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Friendshoring": ["concept","economics","trade","international relations","security"],
 "Reshoring": ["concept","economics","trade","international relations","development"]
 });
-
 
 /* ============================================================================
    NODE-ONLY: rejoin the lazy half, so a helper that requires this file sees WHOLE terms.

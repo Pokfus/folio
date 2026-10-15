@@ -394,6 +394,16 @@ Filled batch by batch, from the source each row names.
 | Spring and Autumn period / the Annals | c. 770 – 475 BCE (`cnh-142`: c. 476) / 722 – 481 BCE | Asia for Educators; Chavannes (`wh-397`) |
 | Warring States period / other starts | c. 475 – 221 BCE / 453 or 403 BCE (`cnh-163`: 480, 403 or 376) | Asia for Educators; Pines (`wh-398`) |
 | Confucius: born / died | 551 (Sima Qian) or 552 BCE (the commentaries) / 479 BCE | Kononchuk; Sima Qian (`wh-399`) |
+| Taoism: Guodian slips / *daojia* coined (Sima Tan died) / Celestial Masters (traditional) | c. 300 BCE / 110 BCE / 142 CE (`wh-401` is `undatable`) | Chan; Littlejohn; Pregadio (`wh-401`) |
+| Legalism: Shang Yang in office / Han Fei died / Sima Tan died | 359 – 338 BCE (`cnh-169`: from 356) / 233 BCE / 110 BCE (`wh-402` is `undatable`) | Pines; Duyvendak (`wh-402`) |
+| The Art of War: made / Yinqueshan tombs / slips found / first French version | c. 475 – 221 BCE / c. 140 – 118 BCE / 1972 / 1772 | Mair; Theobald (`wh-403`) |
+| Qin Shi Huang: born / King of Qin / First Emperor / died | 259 / 247 / 221 / 210 BCE | Sima Qian (Chavannes) (`wh-404`) |
+| Qin dynasty / lordship (tradition) / revolts began | 221 – 207 BCE (206 also counted; `cnh-191`: 206) / 770 BCE / 209 BCE | Pines; Chavannes; Bevan et al. (`wh-405`) |
+| Terracotta Army / mausoleum begun / found | by 210 BCE / 247 or 246 BCE / 1974 | Quinn et al.; Ma et al. (`wh-406`) |
+| Great Wall: earliest walls / Qin river wall / Ming building / 2012 survey | c. 475 – 221 BCE / 214 BCE / 1465 – 1620 CE / 21,196 km | Li et al.; Chavannes; Yang et al.; Xinhua (`wh-407`) |
+| Han dynasty: Western / Xin / Eastern / Emperor Wu | 206 BCE – 9 CE / 9 – 23 CE / 25 – 220 CE / 141 – 87 BCE (140 or 86 also given) | Asia for Educators; van Ess; Alfani et al. (`wh-408`) |
+| Silk Road: name coined / Zhang Qian returned / Xuanquanzhi relay station (`wh-409` is `undatable`) | 1877 / 126 BCE / 111 BCE – 109 CE | Waugh; Hirth; Yeh et al. (`wh-409`) |
+| Scholar-officials: Classics academicians / examinations ended | 136 BCE / 1905 | Liu; Theobald (`wh-410`) |
 
 ## Chronology pins
 
@@ -775,4 +785,11 @@ wh-396: 770; 256; 481; 475; 453; 403; 249
 wh-397: 770; 475; 722; 481
 wh-398: 475; 221; 453; 403
 wh-399: 551; 552; 479
+wh-403: 475; 221; 140; 118; 1972; 1772
+wh-404: 259; 247; 221; 210
+wh-405: 221; 207; 770; 209
+wh-406: 210; 1974
+wh-407: 475; 221; 214; 1465; 1620
+wh-408: 206; 9; 23; 25; 220
+wh-410: 136; 1905
 ```
