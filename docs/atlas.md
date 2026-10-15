@@ -32,10 +32,13 @@ There is **no per-viewer preview switch** any more: `localStorage["folio.atlas2.
   borders it can, names and the selected face's tint; it does not draw history.
 * `atlas-worker.js` — geometry (earcut triangulation, simplification, label placement); on `file://` a main-thread shim. `CORE_CACHE_REV` in `atlas.js` keys the IndexedDB first-frame cache: **run
   `node .claude/atlas-build/check-core-cache.js --install` after ANY edit to `atlas-worker.js`, `atlas-format.js`, `vendor/earcut.js` or `topology.bin`** (CI fails when it lags).
+* **The names follow Text size** (Oct 2026). `labelScaleNow()` (`atlas.js`) reads `--fs` off `<body>` (Settings → Text size, `body[data-fs]` in `styles.css`) and divides by what Medium is on the device (1; 0.9 under 641 px), so the default is exactly what it was and the five stops give 0.8 · 0.9 · 1 · 1.14 · 1.32 (phone 0.78 · 0.89 · 1 · 1.11 · 1.27). The factor multiplies the style sizes, tracking and glyph advances (`measureMetrics`), the halo widths, the fan's labels and the study marks; sent as `fs` with each layout it scales the worker's collision padding, frame margin, city/capital dots and study marks (a name that grows takes its box with it). `data-fs` on `<body>` and a viewport crossing the 640 px breakpoint re-measure and re-lay out. The card windows' own names (`atlas-windows.js`) do not follow it. Guard: `test-atlas-labels.js` §12; `controller.labelScale()` is the factor.
+* **The cold load, in the order a reader waits for it** (Oct 2026): the coarse globe first, then everything else. (1) The idle pre-loading of the glossary's citations, the artefacts and the studied collections' card extras (about 11.6 MB) is `whenIdleAfterGlobe` in `app.js`: on a page booted on `#map` it waits for the Atlas's first painted frame (`host.firstDraw`), or the reader leaving the Atlas, or two minutes; every saveData / light-mode / cellular rule stays inside the held function. (2) The water file (`startWater`) starts once `topology.bin` has arrived (`topologyIn`), not beside it. (3) A return visit paints the coarse level from IndexedDB (`core0`, keyed by `CORE_CACHE_REV` — the same first-frame cache the hubs use, now the page's too) while the file is still on its way; messages the page sends before its worker exists (a stored past year's history request, the gazetteer) are kept in `preWorker` and sent right after `load`. `measure-atlas-cold.js` prints two figures: `firstGlobeMs` (the first frame with the coarse land on the canvas) and the old "ready" (every level in, names laid out). Guard: `test-atlas-first-globe.js`.
 * `atlas-embed.js` + `atlas-windows.js` (bundle `atlas2embed`, lazy) — the card windows and Find it. `docs/atlas-v2-card-windows.md` is the contract; `app.js` keeps only the dispatcher
   `startCardGlobe`, `atlas2Ctx()` and `atlas2OpenFromWindow`.
 * **The frame gate** (`test-atlas-perf.js`, its own CI job) must be green on every head. On a slow GPU the view degrades in two sticky stages during a gesture (half resolution, then one coarser
   level — `gestureFrame` in `atlas.js`; design §7 Phase 1d). Since Phase 5 the gate no longer runs v1 beside v2: its "at most 40 % of v1's p90" bounds are against `V1_REF`, v1's last measured numbers kept as constants in the suite; the drag's frames over 100 ms are at most 0.5 % of the sample and none over 200 ms.
+  **The heap rule is an absolute budget read off CI** (`HEAP_BUDGET_MB` = 38: the frame-gate job of run 3567 printed 30 MB after the gestures and after the rail scrub, + 25 %; `FOLIO_HEAP_BUDGET_MB` overrides it on a machine whose Chromium reads differently). The sandbox's older Chromium reads 87 MB for the same page: 38 MB of that is memory V8 holds for the idle-loaded prose (glossary citations, artefacts, card extras — compiled and run as data scripts) for the seconds after a burst of gestures and gives back when the page is quiet (45 MB twenty seconds later; 46–49 MB with the three prose files refused). It is a peak, not retained data, and the same file against the Phase 4c tree reads the same 84–88 MB, so it is not a code change. Re-read the budget from CI's log when a deliberate change moves it.
 
 ## 3. Data (everything under `atlas/data/` is GENERATED)
 
@@ -71,6 +74,7 @@ pair corrected by `polity-qids.json` (`docs/atlas-v2-polity-qids.md`); rebuild `
 * **Discovery**: a place card's "New discovery" chip and the account page's meters read and write the existing `placesSeen` register (`markSeen`). Its keys are the *names* of present-day countries
   (and open-ended others); for 55 countries v1 spelled the name differently from the gazetteer, and `atlasPlacesSeenMigrate()` adds the new key with the old key's time at boot (§8).
 * **The glossary pin** ("show on the Atlas") asks `glossary-places.js` and opens `#map/…/<place>`.
+* **Sources on a polity's or people's card.** v1's per-year sources on a country (`COUNTRY_YEAR_SOURCES`) are not shown; a provenance view is a later phase. What the card does say, for every one of the 233 history entities (`test-atlas-card.js` §3b opens each and checks): the source it was drawn from, by name, with its version and licence (Cliopatria v0.2.0, CC BY 4.0 for the 157 polities, 31 contested and 11 nested entities and the 8 peoples; Hosner et al. (2016) and the OpenStreetMap land polygons for the 4 cultures; "Folio’s own authored extent" and its note — which names OpenHistoricalMap or the Royce Schedule where an extent is derived — for the 18 extents; the Wikimedia Commons maps and the US Army’s atlas for the 4 front entities), plus the Wikipedia link where the source gives one (4 cultures have none). It is a sentence, not a linked citation list: the full citation, DOI and URL are on `#credits`.
 * **Settings**: "Atlas home" (the country the Atlas opens on; the picker is filled from `country-names.js`), "Describe geography maps" (`mapAlt`, the sentence under a map window).
 
 ## 5. Card windows and Find it
@@ -102,8 +106,7 @@ show their key and a sentence; Find it plays (country and point rounds are score
 | the Personal-Atlas register (`atlasRegister*`) | deleted, except Find it's pool builder (moved into `atlas-windows.js`, same deal) |
 | `startCardGlobeV1`, v1's Find it | the Canvas 2D path (§5) |
 
-`.claude/atlas-build/freeze-*.js` were run once and deleted with the files they read; `frozen/README.md` names the commit that last held the sources. The cards' old `locator`, `war` and `map` fields **stay** (the
-windows read them); removing them is a later phase (`migrate-places.js --finish` is not run).
+`.claude/atlas-build/freeze-*.js` were run once and deleted with the files they read; `frozen/README.md` names the commit that last held the sources. The cards' old `locator`, `war` and `map` fields **stay**: they are the card windows' drawing spec (`CARD_MAP_LAYERS`, the `card-faces.js` join), not leftovers of v1. **No migration removes them** — `migrate-places.js --finish` is not run, and nothing is to run it without a new decision; removing them is a later phase that has to teach the windows to read `places` first.
 
 ## 8. Reader data
 
@@ -129,7 +132,9 @@ every old spelling and proves it.
 | progress or `placesSeen` | `test-progress-registers.js`, `test-discovery.js` |
 | the credits page | `test-atlas-credits.js` |
 | a long session (memory, caches) | `test-atlas-session.js` (five minutes) |
-| the cold-load cost | `node .claude/measure-atlas-cold.js --route=map --profile=desktop|phone` (a tool, not a gate) |
+| the cold-load order (`whenIdleAfterGlobe`, `topologyIn`, the cached first frame, `preWorker`) | `test-atlas-first-globe.js`, `test-atlas-embed.js`, `test-atlas-fallbacks.js` |
+| the names' size (`labelScaleNow`, `fs` in the layout message, the worker's literals) | `test-atlas-labels.js` §12 (then `check-core-cache.js --install` if the worker moved) |
+| the cold-load cost | `node .claude/measure-atlas-cold.js --route=map --profile=desktop|phone` (a tool, not a gate; prints `firstGlobeMs` and "ready") |
 
 `test-atlas-review.js` holds the regressions of the Phase 2a review; `test-atlas-relief.js` the relief's land/sea rule. CI runs every browser suite in the `browser` job except `test-atlas-perf.js` and
 `test-card-windows-fixes.js`, each of which has a job of its own.

@@ -20,6 +20,8 @@ archive of why, and **none of the following exists any more**: `PAGES.map`'s v1 
 successor: `docs/atlas-v2-phase5-plan.md` §8). Where an entry says "re-run `test-personal-atlas.js`" read `test-atlas-study.js` + `test-study.js`; "re-run `test-polities.js`" read `test-peoples.js` + `test-war-sides.js` +
 `check-history.js`; "re-run the three window suites with `FOLIO_ENGINE=v1`" read `test-window-fallbacks.js`. The git history keeps every deleted file (`git show f7aca62:<path>`).
 
+**The cards' old `locator`, `war` and `map` fields stay** (decision of 2026-10-15). They are the card windows' drawing spec — `CARD_MAP_LAYERS` reads them and `atlas/data/card-faces.js` joins them to an engine entity — not v1 leftovers, and the Atlas v2 `places` ids are a second, additive field beside them. No migration removes them: `migrate-places.js --finish` is not run (and is not to be without a new decision that first teaches the windows to read `places`). Where an entry below says a field is "v1's", read "the windows' spec".
+
 ---
 
 ## (Original title: Folio — project guide for Claude Code)

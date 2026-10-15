@@ -290,3 +290,19 @@ So against what the route was before the swap, the page asks for **28 % fewer by
 * The rails start at 3400 BCE (Cliopatria), not 4000 BCE.
 * Find it's area rounds linked to a Cliopatria series AFTER this phase have no frozen rings and play on the card's authored extent.
 * Not verified on a real GPU, a real phone, Safari or Firefox.
+
+**Follow-up of 2026-10-15 (the owner's decisions on the list above; branch `claude/atlas-v2-polish-perf-g2omvu`).**
+* The canvas labels now follow Text size (`labelScaleNow`, `docs/atlas.md` §2; `test-atlas-labels.js` §12); a reader on the default sees exactly what they saw, because the factor is `--fs` over what Medium is on the device.
+* The first globe: the idle pre-loading waits for the first painted frame, the water file for the land, and a return visit paints the coarse level from IndexedDB (`docs/atlas.md` §2, `test-atlas-first-globe.js`). Measured here with `measure-atlas-cold.js` on a quiet 4-core container (software GL), the same machine for every row, three runs each on the desktop (the median is printed), one on the phone profile:
+
+| | v1 `#map` | `#map` at origin/main (first globe / ready) | `#map` now (first globe / ready) |
+|---|---:|---:|---:|
+| desktop 1280×800 | 3,730 ms (3,538–3,755) | 2,343 / 5,340 ms | **1,990 / 5,012 ms** |
+| phone 390×844 @3×, CPU ×4, slow 4G | 152,292 ms | 113,078 / 116,277 ms | **79,351 / 83,090 ms** |
+| files requested by the time of "ready" (phone) | 49 | 39 | 34 (the three prose files wait for the globe) |
+
+  "First globe" is the first frame with the coarse land on the canvas (the tool's new `firstGlobeMs`); "ready" is the figure this plan's table above printed (every level in, the names laid out), and v1 painted one flat canvas from one file so its "drawn" and its first globe were one instant. The desktop first globe is faster than v1's on the same machine (1,990 against 3,730 ms; the thread's runner read v1 at 2,923); the desktop "ready" is NOT faster than v1's (5,012 against 3,730 ms here): that is the worker building levels 1 and 2 (3 s) and it was not touched. Cost: +5.6 KB of code, one 2.6 MB IndexedDB write at idle on the first visit, and the water file (4.3 MB) starts about 0.1 s after the land on a fast link.
+* The heap gate is an absolute budget read off CI (`docs/atlas.md` §2) and the 54 → 89 MB the sandbox read was V8 holding the idle-loaded prose's compile residue for the seconds after a burst of gestures, not a code change.
+* Per-year sources stay out (a provenance view is a later phase); every polity's, people's, culture's, extent's and front's card names its source (`test-atlas-card.js` §3b opens all 233).
+* The cards' `locator`, `war` and `map` fields stay: they are the windows' drawing spec, and no migration removes them (`docs/atlas.md` §7, `docs/reference.md`).
+* Not verified: a real GPU, a real phone, Safari, Firefox. Two sticky consequences worth knowing: the page now writes `core0` to IndexedDB (an unavailable or blocked IndexedDB changes nothing: the read and the write are both swallowed), and a stored past year's history request made before the worker exists is kept and sent after `load` (it used to be dropped in that state, which only a hub could reach).
