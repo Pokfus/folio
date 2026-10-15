@@ -2334,3 +2334,35 @@ The Clouds (the resolver had Cloud), `gr-614` Skene (theatre), `gr-617` none (th
 technique, `gr-659` Battle of Coronea (394 BC), `gr-662` Peace of Antalcidas, `gr-664` Battle of Sardis (395 BC),
 `gr-676` Social War (357–355 BC), `gr-678` Platonic Academy, `gr-683` Lyceum (classical), `gr-692` Demosthenes (the resolver
 had the general). **Locators** fetched through `add-locators.js` for the battles, sites and cities among these cards.
+
+**Pictures for `gr-601`–`gr-700`** (own commit). 64 of the 100 cards now carry one, each with a description of what is shown, a
+visual alt and an author-and-licence credit; every `src` is a 960-, 1280- or 1920-pixel thumbnail on `thumb.wikimedia.org`
+(the web client `cm2.py` did the searching, because the Commons action API refused the shared address; the wikitext head and
+the licence categories were read for author and licence), every candidate was checked with `check-image-free.js` and looked at,
+and every link answers 200.
+- **New (11):** `gr-601` Medea in the Sun's chariot (an Italian bowl), `gr-603` Leighton's captive Andromache (painted about
+  1886 – 1888, imagined), `gr-604` Hippolytus and Phaedra on a sarcophagus, `gr-611` the bird-chorus jug, `gr-614` the theatre
+  at Priene, `gr-621` a manuscript of the *Anabasis*, `gr-630` the 895 CE manuscript of the *Apology*, `gr-633` a medieval page
+  of the Hippocratic writings, `gr-642` the Doryphoros as the face of Classical sculpture, `gr-643` the bronze god from Cape
+  Artemision, `gr-649` the Diadumenos.
+- **Replaced (30):** among them `gr-602` a Pompeian fresco of Pentheus for a lekanis photographed with its museum tag,
+  `gr-605` a satyr-play bowl for the Pronomos Vase that `gr-589` already shows (the open item of B62 – B63 is closed),
+  `gr-607` the uncropped Uffizi herm for a cropped bust, `gr-632` a Roman herm for a mezzotint with a burned-in caption,
+  `gr-634` the Oxyrhynchus papyrus of the Oath, `gr-644` the Kritios Boy (a standard thumbnail for a 900-pixel original),
+  `gr-615` a Hellenistic terracotta actor holding a mask for a Roman mosaic, `gr-657` an Athenian memorial relief for a Diolkos
+  picture whose description overclaimed.
+- **Kept (19):** with the description and credit re-checked, `gr-612`, `gr-613`, `gr-616` (the Lysicrates monument is still
+  the choregos' own), `gr-648`, `gr-650`, `gr-670`, `gr-671`, `gr-673`, `gr-678`, `gr-683`, `gr-692`, `gr-694` – `gr-699`
+  and others.
+- **Removed (15):** pictures that are labelled, cropped, under 960 pixels or of a different subject: the Delos Diadumenos and the
+  Westmacott Athlete (museum labels, `gr-651`, `gr-652`), a ruin at Sparta (`gr-656`), a modern marina for Conon (`gr-661`), a
+  Persepolis relief (`gr-662`), the Eurotas valley (`gr-663`), the Sardis acropolis crop (`gr-664`), the Electran Gate
+  (`gr-665`), a 1910 engraving of Pelopidas (`gr-666`), a Messene gate and an 1881 engraving for Epaminondas and Pelopidas
+  (`gr-668`, `gr-669`), a map with its own legend for the Theban hegemony (`gr-672`), Mausolus for the Social War (`gr-676`),
+  a printed title page for the *Philippics* (`gr-693`), a road photograph with a printed site sign (`gr-700`).
+- **No picture (21 + the removals):** men with no ancient likeness, treaties, concepts and wars. Four pictures that are later
+  paintings or a bust of one man stay (`gr-629`, `gr-680`, `gr-681`, `gr-690`), as the earlier batches' later paintings did.
+
+**Locators for `gr-601`–`gr-700`**, fetched through `add-locators.js`: the battles (`gr-658` – `gr-660`, `gr-664`, `gr-671`,
+`gr-675`, `gr-699`, all as battles), `gr-612`, `gr-646`, `gr-665`, `gr-666`, `gr-674` and `gr-678`. `gr-673` and `gr-683` still
+lack one (Wikipedia's coordinate service refused the shared address three times).
