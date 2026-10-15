@@ -155,7 +155,7 @@ in plan order unless the user says otherwise.
 | B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | **done 2026-10-04** |
 | B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | **done 2026-10-04** |
 | B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | **done 2026-10-15** |
-| B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | open |
+| B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | **done 2026-10-15** |
 | B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | open |
 | B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | open |
 | B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | open |
@@ -1708,6 +1708,43 @@ year (the *Shiji* gives only the Jianyuan period). None edited.
 `wh-408`'s entries already agreed and were kept; the Terracotta Army entry's picture description said "no two faces are
 alike" and was corrected.
 
+### B42 — `wh-411`–`wh-420`, Ancient China and Africa and the Americas in antiquity (2026-10-15)
+
+Run as B41, the China cards read against `cnh-`, the Kush and Punt cards against `eg-`; pictures skipped (Commons still
+refused). Checks: `wh-audit.js --range=wh-411:wh-420` clean but for `I.duplicate` on `wh-414` (its picture is also
+`ko-089`'s); `check-citations --card` 0 mismatched on all ten; all 68 distinct URLs 2xx. New locators: `wh-417`
+(Meroë, at Begrawiya) and `wh-419` (the Jos Plateau, a region, some 100 km from the Nok sites). `wh-419` has Peter Breunig
+as an author of four sources (precheck counts first authors only), and the Brill abstract page (source 6) could be swapped
+if a stricter reading is wanted.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-411` Sima Qian | 7 | 5 → 7 | **"Written privately" and "from the legendary Xia" were wrong**: he held the court post, and the *Shiji* opens with the Yellow Emperor. Birth 145 (a commentator of 737) to 135 BCE, death between 86 and 74 BCE, castration about 98 BCE, the letter to Ren An 91 BCE, each hedged; the 526,500-character count and the "father of Chinese history" label dropped. |
+| `wh-412` papermaking | 8 | 5 → 8 | **Talas 751 stood as fact, with a date-line row**; now a tale from later Arabic writers (via Bloom) beside Sogdian letters on paper. Cai Lun's 105 CE is the *Hou Han shu*'s report, not a first sheet; blank paper from tombs of 140 – 87 BCE; fixed-screen and movable-screen sheets told apart. |
+| `wh-413` fall of the Han dynasty | 7 | 5 → 7 | **Offices were sold for Ling's own purse, not "divided with the eunuchs"; "condemned by the hundred" was the purges of 166–167 and 169** and a ban lasting to 184. The end is dated three ways (184, 189, 220) and whose each is; no 156 CE census or plague analogy (unsourced). |
+| `wh-414` Three Kingdoms | 7 | 5 → 7 | **Wu's imperial title is 229, not 222**, which was a kingship; Shu fell in 263, Wei ended 266, Jin took Wu 280. Chen Shou and Pei Songzhi kept apart from the novel (the Empty City is recorded of Wen Ping); a "China's best novel" vote and a Shu/Wu head-count dropped. |
+| `wh-415` Chinese Buddhism | 7 | 5 → 7 | **The dream of Emperor Ming is a legend**; the firmer evidence is the 65 CE edict to the Prince of Chu. An Shigao (c. 148 – 170), Kumarajiva at Chang'an in 402, Faxian in 399, Yungang (460 – 524), 845; "eighteen men", "about 67 CE" and the Northern Wei monk counts dropped; sinification as a contested idea. |
+| `wh-416` Kingdom of Kush | 7 | 5 → 7 | **"About 900 BCE" and "750 – 650" for the 25th dynasty were no source's**: the Napatan phase c. 1070 – 300 BCE (one study) beside a late 9th century BCE view, Meroitic to c. 350 CE, the dynasty c. 742 – 656 BCE. Kerma a precursor, not the same kingdom; the end by Aksum's raid debated. |
+| `wh-417` Meroë | 7 | 5 → 10 | **The Persée papers behind the old card could not be read**; rebuilt on Strabo, Pliny and the *Res Gestae* for Candace and the Roman war, and on radiocarbon dating for "the Birmingham of ancient Africa" (smelting for over 1,000 years, mostly outside its time as capital). The script read in sound but not understood; the pyramid count and Psamtik II dropped. |
+| `wh-418` Kingdom of Aksum | 7 | 5 → 7 | **The stela "33 m, 520 tons" stood in a heritage paper**; Phillipson's standing one is 23 m, and the largest fell while being raised. c. 150 BCE – 700 CE is one study's frame (no settlement on the site before the 1st century CE); coinage from c. 270 CE, Ezana c. 340 CE; "only polity to mint coins" one authority's. |
+| `wh-419` Nok culture | 6 | 5 → 6 | **"Earliest large sculpture outside Egypt" was fact and the end date "1 BCE" no source's**; now one ranking, and c. 1500 BCE (the Frankfurt project), figures c. 900 – 400 BCE, found 1928. Iron "oldest in West Africa" contested (Taruga charcoal as early as 280 BCE); looting and function debated. |
+| `wh-420` Bantu expansion | 7 | 5 → 7 | **"Some 240 million" speakers was one count** (350 and 300 million elsewhere); the start is "6,000 – 4,000 years ago, depending on the study". The environmental claim narrowed to diversification rate; the early- and late-split, forest-crossing and savanna-corridor routes; gene flow with local groups instead of conquest. |
+
+**Read by eye.** *Article:* "the fall of the Han dynasty", "the Three Kingdoms", "the Kingdom of Kush", "the Kingdom of
+Aksum", "the Nok culture", "the Bantu expansion"; "Sima Qian", "papermaking", "Chinese Buddhism" and "Meroë" bare.
+*Confusability:* `wh-413`/`wh-414` the fall and the states after it, Dong Zhuo and Cao Cao on both, the Yellow Turbans only on
+`wh-413`, Chen Shou and the novel only on `wh-414`; `wh-416`/`wh-417`/`wh-418` the kingdom, its city and its neighbour,
+Candace and the Roman war only on `wh-417`, the 25th dynasty only on `wh-416`, coins and stelae only on `wh-418`;
+`wh-419`/`wh-420` iron on both but Taruga only on `wh-419`. *Against the cnh- cards:* `cnh-240` gives Sima Qian's birth as
+"from 163" (Mayers, no authority per Chavannes) and a 526,500-character count; `cnh-270` has Dong Zhuo enter Luoyang on
+22 September 189 where de Crespigny has the 24th; Theobald ends Wei in 265 where de Crespigny (and `cnh-277`/`cnh-293`) have
+266; `cnh-291` carries the 1901 "best novel" remark. None edited. `docs/wh-chronology.md` had no Kush row; the sources differ
+by a few years on the 25th dynasty (742, 747, 751), and the card follows one.
+
+**Glossary.** Ten terms rewritten (*Sima Qian*, *Papermaking*, *End of the Han dynasty*, *Three Kingdoms*, *Chinese
+Buddhism*, *Kingdom of Kush*, *Meroë*, *Kingdom of Aksum*, *Nok culture*, *Bantu expansion*); the old *Kingdom of Kush*,
+*Nok culture* and *Bantu expansion* dates (c. 900 BCE, "1 BCE", "c. 4000 – 2000 BCE onwards") agreed with no source.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1865,3 +1902,9 @@ pass once it answers. Filled batch by batch.
 | `wh-403` | the caption names the wrong holder and says "printed 1190 to 1193"; the Library of Congress record says National Central Library, a lost original |
 | `wh-405` | one Qin coin for a whole dynasty |
 | `wh-404`, `wh-406`–`wh-410` | judged from title and description only, not re-viewed |
+| `wh-412` | a Ming woodcut with a burned-in caption |
+| `wh-413` | a fragment of the Xiping stone classics, a cultural object, not the fall |
+| `wh-414` | a torn leaf of the Records, also `ko-089`'s (audit `I.duplicate`); its description dates the script unchecked |
+| `wh-417` | an 1826 lithograph with "in 1821" in its title; the glossary's photograph of the royal cemetery is better |
+| `wh-419` | one head; **locator** is the Jos Plateau, a region some 100 km from the Nok sites |
+| `wh-420` | a map whose description says "fewer than a fifth of the languages" (no source) and whose alt is unchecked |

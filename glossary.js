@@ -6357,7 +6357,7 @@ window.GLOSSARY = {
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
 window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
-"Sima_Qian": "c. 145 – c. 86 BCE",
+"Sima_Qian": "c. 145 – 86 BCE",
 "Paleolithic": "c. 2.6 Mya – 11,500 BP",
 "Stone_Age": "from c. 3.3 Mya",
 "Bronze_Age": "c. 3300 – 1200 BCE",
@@ -7686,10 +7686,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Han_dynasty": "206 BCE – 220 CE",
 "End_of_the_Han_dynasty": "184 – 220 CE",
 "Three_Kingdoms": "220 – 280 CE",
-"Kingdom_of_Kush": "c. 900 BCE – c. 350 CE",
-"Kingdom_of_Aksum": "c. 150 BCE – c. 700 CE",
-"Nok_culture": "c. 1500 – 1 BCE",
-"Bantu_expansion": "c. 4000 – 2000 BCE onwards",
+"Kingdom_of_Kush": "c. 1070 BCE – 350 CE",
+"Kingdom_of_Aksum": "c. 150 BCE – 700 CE",
+"Nok_culture": "c. 1500 BCE",
+"Bantu_expansion": "c. 6,000 – 4,000 years ago",
 "Olmecs": "c. 1500 – 400 BCE",
 "Mesoamerican_ballgame": "from c. 1650 BCE",
 "Monte_Albán": "founded c. 500 BCE",

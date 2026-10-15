@@ -404,6 +404,16 @@ Filled batch by batch, from the source each row names.
 | Han dynasty: Western / Xin / Eastern / Emperor Wu | 206 BCE – 9 CE / 9 – 23 CE / 25 – 220 CE / 141 – 87 BCE (140 or 86 also given) | Asia for Educators; van Ess; Alfani et al. (`wh-408`) |
 | Silk Road: name coined / Zhang Qian returned / Xuanquanzhi relay station (`wh-409` is `undatable`) | 1877 / 126 BCE / 111 BCE – 109 CE | Waugh; Hirth; Yeh et al. (`wh-409`) |
 | Scholar-officials: Classics academicians / examinations ended | 136 BCE / 1905 | Liu; Theobald (`wh-410`) |
+| Sima Qian: born / castrated / letter to Ren An / died | c. 145 – 135 BCE / 98 BCE / 91 BCE / c. 86 – 74 BCE | Chavannes; Yang; Utah (`wh-411`) |
+| Papermaking: earliest finds / Cai Lun's report | c. 140 – 87 BCE / 105 CE | Drège; Hamburg CSMC; *Hou Han shu* via Carter (`wh-412`) |
+| Fall of the Han: Yellow Turbans / Dong Zhuo takes the capital / abdication | 184 / 189 / 220 CE | de Crespigny; Theobald (`wh-413`) |
+| Three Kingdoms: span / Wu's emperor / Shu fell / Wei ended | 220 – 280 CE / 229 / 263 / 266 CE (Theobald ends Wei in 265) | de Crespigny; Theobald (`wh-414`) |
+| Buddhism in China: first evidence / An Shigao / Yungang / persecution | by 65 CE / c. 148 – 170 CE / 460 – 524 CE / 845 CE | Theobald; Zacchetti (`wh-415`) |
+| Kush: Napatan / Meroitic / 25th Dynasty | c. 1070 – 300 BCE (one study; a late 9th century BCE start also given) / c. 300 BCE – 350 CE / c. 742 – 656 BCE | Peeters et al.; Adams; EBSCO (`wh-416`) |
+| Meroë: settled / capital / Roman war | c. 800 – 600 BCE / c. 300 BCE – 300 CE / c. 25 BCE | Humphris and Scheibner; Carey et al. (`wh-417`) |
+| Aksum: common frame / coinage / Ezana converts | c. 150 BCE – 700 CE (Hagos's frame) / c. 270 CE / c. 340 CE | Hagos; Phillipson (`wh-418`) |
+| Nok culture: began / figures made / first found | c. 1500 BCE / c. 900 – 400 BCE / 1928 | Breunig; Dunne et al.; Atwood (`wh-419`) |
+| Bantu expansion: began / forest crossing (one model) / Great Lakes | c. 6,000 – 4,000 / c. 4,420 / c. 2,600 years ago | Fortes-Lima et al.; Koile et al.; Semo et al. (`wh-420`) |
 
 ## Chronology pins
 
@@ -792,4 +802,14 @@ wh-406: 210; 1974
 wh-407: 475; 221; 214; 1465; 1620
 wh-408: 206; 9; 23; 25; 220
 wh-410: 136; 1905
+wh-411: 145; 135; 98; 91; 86; 74
+wh-412: 140; 87; 105
+wh-413: 184; 189; 220
+wh-414: 220; 280; 229; 263; 266
+wh-415: 65; 148; 170; 460; 524; 845
+wh-416: 1070; 300; 350; 742; 656
+wh-417: 800; 600; 300; 25
+wh-418: 150; 700; 270; 340
+wh-419: 1500; 900; 400; 1928
+wh-420: 6,000; 4,000; 4,420; 2,600
 ```
