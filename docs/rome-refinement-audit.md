@@ -390,16 +390,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-118` quaestorship | not changed | acceptable |
 | `rm-119` legion | an Etruscan bronze situla from Bologna | not a legion; the description carries an unsourced inference |
 | `rm-120` siege of Veii | the Portonaccio sanctuary | acceptable photograph; the description overclaims ("most of what is left of the city")
-| `rm-121` Camillus | a later painting of one anecdote | illustration only; the description makes an unsourced claim about the eagle |
-| `rm-122` stipendium | a coin or weight with a label | the description says the label reads "metal by weight", which the alt text contradicts |
+| `rm-121` Camillus | an 18th-century painting of the Falerii schoolmaster | one anecdote; the description makes an unsourced claim about the eagle |
+| `rm-122` stipendium | aes rude and aes signatum with a balance, in the Palazzo Massimo | shows bronze by weight, not pay; the description says a label reads "metal by weight", which the alt text contradicts |
 | `rm-123` battle of the Allia | a Luminais painting | an editorial description no source supports |
-| `rm-124` Gallic sack of Rome | a Jamin painting of Brennus | a painting, and Brennus is `rm-125`'s subject |
+| `rm-124` Gallic sack of Rome | Jamin's painting of Brennus and his share of the loot | a painting of `rm-125`'s subject; the description is the file title |
 | `rm-125` Brennus | an engraving | right in kind; the description names its source book |
-| `rm-126` geese of the Capitol | a painting | right in kind; the description is full of commentary |
-| `rm-127` Aius Locutius | a picture whose description names Livy and Cicero | claims nothing of the altar survives, which no source says |
+| `rm-126` geese of the Capitol | an 1889 painting of Juno's geese | right in kind (it shows the birds, not the alarm); the description is full of commentary |
+| `rm-127` Aius Locutius | the Nova Via | the description names Livy and Cicero and claims nothing of the altar survives, which no source says |
 | `rm-128` Licinio-Sextian laws | the Concord temple site | the description names Plutarch |
 | `rm-129` Lex Genucia | a page of a Livy manuscript | the description says everything comes from Livy |
-| `rm-130` nobiles | wax masks or a funeral relief | subject fits; the description names sources |
+| `rm-130` nobiles | the Togatus Barberini holding two ancestral portraits | subject fits; the description names sources |
 
 ## Glossary candidates
 
