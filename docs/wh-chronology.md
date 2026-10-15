@@ -459,6 +459,13 @@ Filled batch by batch, from the source each row names.
 | al-Andalus: conquest / emirate / caliphate / Granada falls | 711 / 756 / 929 CE / 2 January 1492 | Al-Tamimi (Chronicle of 754); Calvo Capilla; Drayson (`wh-468`) |
 | Abbasid Caliphate / Samarra the seat | 750 – 1258 CE / 836 – 892 CE | Marín-Guzmán; Muir; Brown (`wh-469`) |
 | Baghdad: founded / Mongol sack / Ottoman capture | 762 CE / 1258 CE / 1534 CE | Le Strange; Petersen; Neggaz (`wh-470`; `wh-461` and `wh-466` are `undatable`) |
+| Islamic Golden Age: usual / narrow (a 1921 book) | c. 750 – 1258 CE / 750 – 850 CE (a modern label) | Qidwai; Browne (`wh-472`; `wh-471` is `undatable`) |
+| al-Khwarizmi lived | c. 780 – 850 CE | MacTutor; Karpinski (`wh-473`) |
+| Avicenna: born / Canon finished / died | c. 970 – 980 / c. 1025 / 1037 CE | Gutas; Chamsi-Pasha (`wh-474`) |
+| Islamic medicine: began / first hospital in Cairo / Mansuri finished | from c. 750 / 872 / 1284 CE | Savage-Smith; Browne (`wh-475`; `wh-476` is `undatable`) |
+| Great Mosque of Córdoba: begun / mihrab wing / cathedral built | 785 or 786 CE / 961 – 971 CE / from 1523 CE | González-Gutiérrez; Utrero Agudo; Arnold (`wh-477`) |
+| Fatimid Caliphate: founded / Egypt conquered / moved to Cairo / ended | 909 (proclaimed 910) / 969 / 973 / 1171 CE | Jiwa; Ashmolean (`wh-478`) |
+| al-Azhar: built / school / revived / reformed | 970 – 972 CE (972 on the Ashmolean's reckoning) / 988 CE / 1266 CE / 1961 | Qantara; Eccel and Reid (`wh-479`; `wh-480` is `undatable`) |
 
 ## Chronology pins
 
@@ -902,4 +909,11 @@ wh-467: 732
 wh-468: 711; 756; 929; 1492
 wh-469: 750; 1258; 836; 892
 wh-470: 762; 1258; 1534
+wh-472: 750; 1258; 850
+wh-473: 780; 850
+wh-474: 970; 980; 1025; 1037
+wh-475: 750; 872; 1284
+wh-477: 785; 786; 961; 971; 1523
+wh-478: 909; 910; 973; 969; 1171
+wh-479: 970; 972; 988; 1266; 1961
 ```

@@ -161,7 +161,7 @@ in plan order unless the user says otherwise.
 | B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | **done 2026-10-15** |
 | B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | **done 2026-10-15** |
 | B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | **done 2026-10-15** |
-| B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | open |
+| B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | **done 2026-10-15** |
 | B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | open |
 | B50 | Medieval Europe (`wh-medieval-europe`) | `wh-491`–`wh-500` | 10 | 99 | open |
 | B51 | Medieval Europe (`wh-medieval-europe`) | `wh-501`–`wh-510` | 10 | 65 | open |
@@ -1918,6 +1918,37 @@ the state, the governor killed only on `wh-467`; `wh-469`/`wh-470` the dynasty a
 **Glossary.** Nine terms rewritten (*Five Pillars*, *Rashidun Caliphate*, *Early Muslim conquests*, *Sunni–Shia split*,
 *Umayyad Caliphate*, *Battle of Tours*, *al-Andalus*, *Abbasid Caliphate*, *Baghdad*); *Damascus* already agreed.
 
+### B48 — `wh-471`–`wh-480`, The Islamic world (2026-10-15)
+
+Run as B47 (the usage limit cut the first five agents off mid-batch; each was resumed from its transcript, as the
+"Lessons from `wh-301`–`wh-400`" say, and nothing was lost). Pictures skipped. Checks: `wh-audit.js --range=wh-471:wh-480`
+clean (ten of ten); `check-cards` all pass; `check-citations --card` 0 mismatched on all ten; of the 12 URLs the checker
+counted non-2xx, ten are MDPI DOIs and two a Saudi medical journal's DOIs (403 to the checker, read as publisher PDFs or
+Europe PMC copies and cited by DOI). New locators: `wh-477` (Córdoba) and `wh-479` (Islamic Cairo). `wh-478` kept its region.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-471` House of Wisdom | 8 | 5 → 8 | **The old card had it as a grand research academy where Greek and Sanskrit works were turned into Arabic, and "disappears after 833".** Now Gutas's reading (the name is a Sasanian term for a palace library; the early reports show a Persian translator and a scribe there for Harun and al-Ma'mun; none shows Greek translation there) set beside the conventional picture; the 1258 destruction a story. `""` and `undatable`. |
+| `wh-472` Islamic Golden Age | 8 | 5 → 8 | **The label is a modern one**, shaped by 19th-century European writers (Qidwai); usually 750 – 1258 CE, narrowly 750 – 850 in a book of 1921. The al-Ghazali myth, the Mongol sack as an exaggerated end, paper (751, one historian's account) and the translation movement; "one book in a thousand survives" (Browne's hyperbole) dropped. |
+| `wh-473` al-Khwarizmi | 7 | 5 → 7 | **The date line held the caliph's reign and the *Fihrist*'s date instead of his own.** Lived c. 780 – 850 (neither end firmly dated); his birthplace and the House of Wisdom attributed; "algebra" from *al-jabr*, "algorithm" from the Latin form of his name; predecessors in Egypt, Babylonia, India and Greece; "revise Ptolemy's tables" dropped (one source only). |
+| `wh-474` Avicenna | 6 | 5 → 8 | **Born "c. 980" was stated flat**; SEP puts it in the 970s. Now c. 970 – 980, died 1037; the autobiography (completed by al-Juzjani) a literary construction; the Canon c. 1025 and Gerard of Cremona's Latin; the flying man; lists of his works from under a hundred to nearly three hundred titles; a 1544 year and "falls under no genus" dropped. |
+| `wh-475` Islamic medicine | 7 | 5 → 7 | **Jundishapur as "immediate parent" and "examined, salaried doctors" were overstated.** The 931 examination order is al-Qifti's, via Browne (Savage-Smith doubts it was carried out uniformly); the first Baghdad hospital's origin uncertain; al-Razi, al-Zahrawi, Ibn al-Nafis (found in Berlin in 1924), Cairo 872 and the Mansuri 1284. |
+| `wh-476` Islamic art | 8 | 5 → 8 | **"Figures everywhere except in its mosques" is contradicted by the ship with two men in the Damascus mosaics**; "inhabitants left out" and a writing-only coin reform of 696 dropped. The label is ambiguous (art made by or for Muslims, secular too); the Quran only warns against idols (a museum's account); the quasi-crystalline tilings one study's view. `""` and `undatable`. |
+| `wh-477` Great Mosque of Córdoba | 8 | 5 → 9 | **Questions and the date line carried years** (962, 756 – 788); the shared-church story is Ibn Idhari's, written long afterwards, and San Vicente is a live argument. Begun 785 or 786 by different studies; the mihrab wing under al-Hakam II (961 – 971); the cathedral inserted from 1523 with the king's permission. The 856 columns and al-Mansur's 987 – 988 dates had no open source. |
+| `wh-478` Fatimid Caliphate | 7 | 5 → 7 | **"Sicily held 909 – 1061" and the Mars naming story as fact had no source** (Fatimid rule in Sicily 909 – 965, Kalbid allies to 1053). 909 declared, 5 January 910 proclaimed; Jawhar's conquest 969, al-Mu'izz in Cairo 973; al-Hakim (1009, 1021, the Druze); the Copts as officials; Saladin in 1171. |
+| `wh-479` al-Azhar | 7 | 5 → 7 | **Three of five sources never mention al-Azhar**; the 1901 figures stood as present-tense facts. Built 970 – 972, an official school from 988, the Ayyubids' loss of patronage, Baybars's 1266 restoration, Law 103 of 1961; the name from Fatima only "may"; the oldest-university claim attributed to its makers against the Qarawiyyin's. |
+| `wh-480` Sufism | 8 | 5 → 8 | **Half the old abstract was al-Fudayl, Bishr, Ibn Arabi and the Chishti order**, leaving out the name's origin and the central practices. Wool the likely source of the name; Rabi'a (d. 801), al-Hallaj (922), al-Ghazali; the Qadiriyya and Mevlevi orders; dhikr and sama; Salafi criticism stated neutrally. `""` and `undatable`. |
+
+**Read by eye.** *Article:* "the House of Wisdom", "the Islamic Golden Age", "the Great Mosque of Córdoba", "the Fatimid
+Caliphate"; "al-Khwarizmi", "Avicenna", "Islamic medicine", "Islamic art", "al-Azhar" and "Sufism" bare. *Confusability:*
+`wh-471`/`wh-472` the library and the age, translators on both, Sasanian name only on `wh-471`, the al-Ghazali myth only on
+`wh-472`; `wh-473`/`wh-474` the mathematician and the physician; `wh-475`/`wh-474` Canon on `wh-474`, bimaristan on `wh-475`;
+`wh-478`/`wh-479` the dynasty and its mosque-school, al-Hakim only on `wh-478`, Law 103 only on `wh-479`; `wh-477`/`wh-468`
+Córdoba's mosque and its state. *Against other cards:* `wh-478` has al-Azhar as 972 where `wh-479` has built 970 – 972; none edited.
+
+**Glossary.** Nine terms rewritten (*House of Wisdom*, *Islamic Golden Age*, *al-Khwarizmi*, *Avicenna*, *Islamic medicine*,
+*Islamic art*, *Fatimid Caliphate*, *al-Azhar*, *Sufism*); the *Great Mosque of Córdoba* entry already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2112,3 +2143,8 @@ pass once it answers. Filled batch by batch.
 | `wh-465` | a gold dinar; its description names a museum |
 | `wh-466` | **locator** not written (the Damascus request was refused and rate-limited); a courtyard mosaic of the Great Mosque, not the city |
 | `wh-462`, `wh-464`, `wh-467`–`wh-470` | one building, shrine or painting each: acceptable, a map would show more |
+| `wh-473` | the description carries a shelfmark (and the glossary picture's does too) |
+| `wh-476` | one Qusayr Amra painting, not the tradition |
+| `wh-477` | only the mihrab niche, not the mosque |
+| `wh-480` | one Chishti tomb at Ajmer, not Sufism |
+| `wh-471`, `wh-472`, `wh-474`, `wh-475`, `wh-478`, `wh-479` | judged from title and description only |
