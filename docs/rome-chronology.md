@@ -163,6 +163,93 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Horatius at the bridge; the war with Porsena | 508 BCE; 508 – 507 BCE (tradition; the Loeb Livy's margin and Livius) | `rm-097`, `rm-098` |
 | Lake Regillus / the Castor temple dedicated | 499 BCE (Livy) or 496 BCE (Dionysius), tradition / 484 BCE | `rm-099` |
 | Foedus Cassianum | 493 BCE (tradition), to the Latin War, 340 – 338 BCE | `rm-100`, `rm-011` |
+| the Conflict of the Orders / the plebeian breakthrough | 494 – 287 BCE (tradition) / 367 BCE (the laws; the first plebeian consul is 366 BCE, `rm-106`, `rm-128`) | `rm-101` |
+| the first secession | 494 BCE (tradition; Livy's Sacred Mount, Piso's Aventine) | `rm-102` |
+| tribunes: first / raised to ten / Octavius deposed | 494 BCE (tradition) / 457 BCE (tradition, Livy 3.30) / 133 BCE | `rm-103` |
+| sacrosanctity: the oath / the Valerio-Horatian law | 494 BCE / 449 BCE (tradition) | `rm-104` |
+| concilium plebis: Volero's law / binding on all | 471 BCE (tradition, Livy) / 287 BCE | `rm-105` |
+| aediles: plebeian / senate decrees lodged / curule pair | 494 BCE, 449 BCE (tradition) / 366 BCE (Abbott; Smith prints 365; 367 is the year of the Licinio-Sextian laws, not of the office) | `rm-106` |
+| Coriolanus | 493 BCE (tradition) | `rm-107` |
+| Cincinnatus: first / second dictatorship | 458 BCE / 439 BCE (tradition) | `rm-108` |
+| the dictatorship: first / last named for a war / last of the old kind / Sulla | 501 BCE (Livy's tradition; Dionysius three years later) / 216 BCE / 202 BCE / 82 BCE | `rm-109` |
+| the Twelve Tables: the two boards / ratified | 451 – 450 BCE / 449 BCE (tradition) | `rm-110`, `rm-111`, `rm-112`, `rm-085` |
+| Verginia | 449 BCE (tradition; Varronian) | `rm-113` |
+| the Valerio-Horatian laws / said repeated | 449 BCE (tradition) / 339 BCE and 287 BCE | `rm-114` |
+| Lex Canuleia | 445 BCE (tradition) | `rm-115` |
+| consular tribunes | 444 – 367 BCE (tradition); Livy's plebeian tribune is in a year the list gives as 400 BCE, which Greenidge reports as disputed | `rm-116` |
+| the censorship: created / term limited / first plebeian / last censors | 443 BCE (tradition; 435 BCE is a rival view) / 434 BCE (Greenidge, Ramsay; Smith prints 433) / 351 BCE / 22 BCE | `rm-117`, `rm-073` |
+| the quaestorship: elected / opened to the plebs / first plebeians | 447 BCE (Tacitus's 63rd year after the kings, as modern books convert it) / 421 BCE / 409 BCE | `rm-118` |
+| the legion: change from phalanx to maniples / Livy's setting | c. 396 – 264 BCE (one modern summary) / 340 BCE (the Latin War) | `rm-119` |
+| the siege of Veii / winter quarters | 406 – 396 BCE (tradition) / 403 BCE | `rm-120` |
+| the Veii spoils; Camillus's exile; the sack | 396 BCE / 391 BCE / 390 BCE (tradition; Lendering puts Veii's fall nearer 393) | `rm-121` |
+| the first pay for soldiers / the knights paid | 406 BCE (Forsythe and Smith's 1890 edition; the 1875 edition prints 405) / 403 BCE; Livy gives no BCE year | `rm-122` |
+| the Allia; the Gallic sack | 390 BCE (Varro) / 387 – 386 BCE (Polybius's Greek year, the Peace of Antalcidas) | `rm-123`, `rm-124`, `rm-125`, `rm-126` |
+| Aius Locutius: the voice / the altar ordered | 391 BCE / 390 BCE (tradition) | `rm-127` |
+| the Licinio-Sextian laws / the first plebeian consul | 367 BCE / 366 BCE (tradition; `wh-343` says the law "opened the consulship in 367", the year of the law) | `rm-128`, `rm-101`, `rm-106`, `rm-132` |
+| the measures called the Lex Genucia / the first pair of plebeian consuls | 342 BCE (Varro's reckoning) / 172 BCE | `rm-129` |
+| the two plebiscites on repeating an office / the lex Villia annalis / Sulla's law | 342 BCE (Varro's reckoning) / 180 BCE (Livy 40.44; Abbott, Smith) / 81 BCE | `rm-131`, `rm-129` |
+| the praetorship: created / first plebeian / second praetor / Sicily and Sardinia | 366 BCE (Greenidge; Abbott prints 367) / 337 BCE / 242 BCE / 227 BCE; two more for Spain in 197 BCE (Smith) | `rm-132` |
+| the Lex Ovinia | no date in any source; older handbooks place it after 339 BCE and before 312 BCE, an inference the card keeps in prose and off the line | `rm-133` |
+| the Lex Poetelia | 326 BCE (Livy) / 313 BCE (Varro, with Poetelius as dictator); Cicero names none | `rm-134` |
+| the Lex Hortensia | 287 BCE (the modern convention) | `rm-135`, `rm-101` |
+| the Lex Ogulnia | 300 BCE (Livy 10.6-9) | `rm-136` |
+| Appius Claudius Caecus: censor / consul | 312 BCE (Diodorus's count 311 BCE) / 307 BCE and 296 BCE | `rm-137` |
+| the Via Appia: begun / stone laid by aediles / extended to Venusia, Tarentum, Brundisium | 312 BCE (Diodorus's count 311) / 296 BCE and 293 BCE (Livy) / 291, 281 and 264 BCE (Platner and Ashby only) | `rm-138` |
+| the Aqua Appia: built / repaired / Augustan repairs | 312 BCE (the date modern books give for the censorship) / 144 – 140 BCE / 11 – 4 BCE | `rm-139` |
+| aes grave: cast from / Pliny's first silver / the as cut to two ounces / bronze and silver one system | c. 300 BCE (Mattingly) / 269 BCE (Forsythe; Mattingly 269 or 268) / c. 245 BCE (Mattingly) / 218 – 201 BCE | `rm-140` |
+| the conquest of Italy: Polybius's start / the Pyrrhic War / Italy held | 387 – 386 BCE (Polybius's Greek year, the Peace of Antalcidas; Varro's is 390) / 280 – 275 BCE / 264 BCE | `rm-141` |
+| the Latin War | 340 – 338 BCE (tradition: the Varronian scheme; Forsythe and Lendering find Varro's years before 300 BCE several years out) | `rm-142` |
+| the Feriae Latinae: Tarquin's law / the list of dates begins / the leagues ended | 534 – 509 BCE (Tarquin's reign as the card's source prints it; `rm-074` prints Dionysius's 532 – 507 BCE) / 451 BCE / 338 BCE | `rm-143` |
+| prefects sent to Capua / Capua stripped of its council / the Lex Julia | 318 BCE (Livy 9.20, by the usual list) / 211 BCE / 90 BCE | `rm-144` |
+| Latin rights: the migration quarrel / Latin rights for the Gauls beyond the Po / Spain | 177 BCE (Livy 41.8) / 89 BCE / c. 74 CE (Pliny; Abbott) | `rm-145` |
+| municipium: Tusculum / Livy's grants / the citizenship law / the Salpensa law | 381 BCE (conventional) / 338 BCE / 90 BCE / 81 – 84 CE | `rm-146` |
+| citizenship without the vote: Caere / Livy's grants / the vote granted to Formiae, Fundi, Arpinum / the full franchise | c. 353 BCE (the 1890 Smith dictionary's reckoning; Gellius gives no year) / 338 BCE / 188 BCE / 90 BCE onward | `rm-147` |
+| citizen colonies: Antium / Terracina / the larger colonies / Sulla's veterans at Pompeii | 338 BCE / 329 BCE / from 184 BCE / 80 BCE | `rm-148` |
+| Latin colonies: Cales / Aquileia | 334 BCE (the usual list) / 181 BCE | `rm-149` |
+| ager publicus: the 500-iugera limit / the Latin War land / the Gracchan law / the land law | 367 BCE (tradition) / 338 BCE / 133 BCE / 111 BCE | `rm-150`, `rm-128` |
+| the Samnite Wars: first / second / third | 343 – 341 BCE / 326 – 304 BCE / 298 – 290 BCE (tradition: the numbering is modern, Stek; Varro's years before 300 BCE may run several years out) | `rm-151`, `rm-152`, `rm-153`, `rm-156` |
+| the earlier treaty with the Samnites | 354 BCE (tradition) | `rm-152` |
+| the Second Samnite War / the Caudine Forks | 326 – 304 BCE / 321 BCE (conventional) | `rm-153`, `rm-154` |
+| the maniple: in use / Livy's setting | c. 350 – 100 BCE (Taylor, 2020) / 340 BCE (the Latin War) | `rm-155` |
+| the Battle of Sentinum | 295 BCE (conventional) | `rm-157`, `rm-156` |
+| the conquest of Etruria: Veii / the Ciminian forest / Volsinii | 396 BCE (tradition) / 310 BCE / 264 BCE | `rm-158` |
+| Umbria and Picenum: Mevania / the Picene treaty / the Picene war / Firmum | 308 BCE (tradition) / 299 BCE (one modern account) / 268 BCE / 264 BCE | `rm-159` |
+| the Senones: Arretium / final defeat / the land shared | 284 BCE / 283 BCE (one recent study) / 232 BCE; Sena Gallica between 290 and 284 BCE in the sources | `rm-160` |
+| the Battle of Telamon / Aemilius's triumph | 225 BCE / 224 BCE (firm: Polybius names both consuls; the lists of consuls and triumphs agree) | `rm-161` |
+| the conquest of Cisalpine Gaul: the war / the colonies Placentia and Cremona / the Boii beaten | 225 – 222 BCE / 218 BCE / 191 BCE; Marcellus's triumph 221 BCE (Smith) | `rm-162` |
+| Tarentum: the founding / the war began / surrendered | 706 BCE (Eusebius, via Dunbabin; Jerome has 708 BCE) / 282 – 281 BCE / 272 BCE | `rm-163`, `rm-169` |
+| Pyrrhus: lived / in Italy | c. 319 – 272 BCE / 280 – 275 BCE | `rm-164` |
+| the Battle of Heraclea / Asculum | 280 BCE / 279 BCE (modern histories; the sources conflict on who won at Asculum) | `rm-165`, `rm-166` |
+| the "one more such victory" remark | 279 BCE after Asculum (Plutarch) / 280 BCE after Heraclea (Diodorus, Dio) | `rm-167` |
+| the Battle of Beneventum / the Latin colony | 275 BCE (Smith prints 274) / 268 BCE | `rm-168` |
+| the socii: burdens felt / status ended | 173 BCE (Livy 42.1, as Schmitz and Long give it) / 90 BCE | `rm-171` |
+| the formula togatorum: twelve colonies refuse / the senate's penalty / named in the land law | 209 BCE / 204 BCE / 111 BCE (Livy; the Lex Agraria) | `rm-172` |
+| the Via Flaminia / the Augustan work | 220 BCE (the modern date; a passage of Festus seems to give 223 BCE; the Periochae give no year) / 27 BCE (the arch at Ariminum) | `rm-173` |
+| the Via Aemilia / the colonies on it | 187 BCE (modern accounts of Livy) / Bononia 189 BCE, Parma and Mutina 183 BCE | `rm-174` |
+| Roman roads: the Appian Way begun / oldest milestone | 312 BCE (gravel; footpath 296 BCE, paving to Bovillae 293 BCE) / c. 250 BCE | `rm-175`, `rm-138` |
+| the triumph: Romulus's (tradition) / Paullus's | 753 BCE / 167 BCE (November, per Plutarch's editor) | `rm-176` |
+| evocatio: Juno vowed at Veii / her temple dedicated / Carthage / Isaura | 396 BCE / 392 BCE (both tradition; Platner and Ashby print both) / 146 BCE / 75 BCE | `rm-177` |
+| the Romanisation of Italy: Livy's settlement / Haverfield's essay | 338 BCE / 1905 | `rm-178` |
+| Rhegium retaken | 271 BCE (the marginal date in Shuckburgh's Polybius) / 270 BCE (Smith) | `rm-180` |
+| Carthage: traditional founding / oldest excavated levels / destroyed | 814 – 813 BCE (Timaeus' count, as later authors report it; Velleius' "65 years before Rome") / c. 800 – 750 BCE / 146 BCE | `rm-181` |
+| the Carthaginian empire: dominant / Sicily lost / ended | c. 550 BCE / 241 BCE / 146 BCE | `rm-182` |
+| the Carthaginian constitution: Aristotle's Politics (Gsell) / Hannibal's reform | c. 335 BCE / 196 BCE (a modern summary of Livy) | `rm-183` |
+| the Carthaginian navy: the First Punic War / the fleet limited | 264 – 241 BCE / 201 BCE | `rm-184` |
+| the Roman–Carthaginian treaties: the first / Diodorus's and Livy's / renewals | 509 BCE (Varro's reckoning of Polybius's "first consuls") / 348 BCE / 306 BCE and 279 BCE (Livy) | `rm-185` |
+| the First Punic War | 264 – 241 BCE | `rm-186`, `wh-345` |
+| the Mamertines: Agathocles died / Rhegium retaken / the consul crosses | 289 BCE / 271 or 270 BCE (the marginal date in Shuckburgh; Smith) / 264 BCE; the Longanus 268 BCE (Frank) or 265 BCE (Giannelli; Livius.org) | `rm-187`, `rm-189` |
+| Messana: the Samians / Anaxilas died / the consul crosses | c. 493 BCE (not before) / 476 BCE / 264 BCE (`gr-237` says about 490 BCE for the rename, inside this window) | `rm-188` |
+| Hiero II: reigned / peace with Rome | c. 269 – 215 BCE (Polybius's 54 years counted back from 215; the kingship 270 – 264 by other scholars) / 263 BCE | `rm-189` |
+| the siege of Agrigentum | 262 BCE | `rm-190` |
+| the first Roman fleet: decided / the squadron lost at Lipara | 261 BCE / 260 BCE (the usual chronology, Livius.org) | `rm-191` |
+| the corvus: first used / last named | 260 BCE (Mylae) / 256 BCE (Ecnomus), both in Polybius's narrative | `rm-192` |
+| the Battle of Mylae / Cape Ecnomus | 260 BCE / 256 BCE | `rm-193`, `rm-194` |
+| the African expedition: landed / the army defeated / the fleet wrecked | 256 BCE / 255 BCE / 255 BCE | `rm-195` |
+| Regulus: consul / consul again / captured | 267 BCE / 256 BCE / 255 BCE | `rm-196` |
+| the siege of Lilybaeum / Drepana | 250 – 241 BCE / 249 BCE | `rm-197` |
+| Hamilcar Barca: at Hercte / at Eryx / landed in Iberia / died | c. 247 – 244 BCE (Scullard, Frank; Polybius gives only durations) / c. 244 – 241 BCE / 237 BCE (Schulten) / 229 – 228 BCE (disputed: Schulten 229/8; Frank 229) | `rm-198` |
+| the Battle of the Aegates Islands | 10 March 241 BCE (the day from Eutropius, accepted by Walbank and Morgan; the Egadi survey prints it) | `rm-199` |
+| the Treaty of Lutatius | 241 BCE (the first draft; the commissioners' revision the same year) | `rm-200` |
 
 ## The middle and late Republic
 
@@ -277,4 +364,100 @@ rm-097: 508
 rm-098: 508; 507
 rm-099: 499; 496; 484
 rm-100: 493; 340; 338
+rm-101: 494; 287; 367
+rm-102: 494
+rm-103: 494; 457; 133
+rm-104: 494; 449
+rm-105: 471; 287
+rm-106: 494; 449; 366
+rm-107: 493
+rm-108: 458; 439
+rm-109: 501; 216; 202; 82
+rm-110: 451; 450; 449
+rm-111: 451; 450; 449
+rm-112: 451; 450; 449
+rm-113: 449
+rm-114: 449; 339; 287
+rm-115: 445
+rm-116: 444; 367
+rm-117: 443; 434; 351; 22
+rm-118: 447; 421; 409
+rm-119: 396; 264; 340
+rm-120: 406; 396; 403
+rm-121: 396; 391; 390
+rm-122: 406; 403
+rm-123: 390; 387; 386
+rm-124: 390; 387; 386
+rm-125: 390; 387; 386
+rm-126: 390; 387; 386
+rm-127: 391; 390
+rm-128: 367; 366
+rm-129: 342; 172
+rm-131: 342; 180; 81
+rm-132: 366; 337; 242; 227
+rm-134: 326; 313
+rm-135: 287
+rm-136: 300
+rm-137: 312; 311; 307; 296; 280
+rm-138: 312; 311; 296; 293; 291; 264
+rm-139: 312; 144; 140; 11; 4
+rm-140: 300; 269; 245; 218; 201
+rm-141: 387; 386; 280; 275; 264
+rm-142: 340; 338
+rm-143: 534; 509; 451; 338
+rm-144: 318; 211; 90
+rm-145: 338; 177; 89; 74
+rm-146: 381; 338; 90; 81; 84
+rm-147: 353; 338; 188; 90
+rm-148: 338; 329; 184; 80
+rm-149: 334; 181
+rm-150: 367; 338; 133; 111
+rm-151: 343; 341; 326; 304; 298; 290
+rm-152: 343; 341; 354
+rm-153: 326; 304; 321
+rm-154: 321
+rm-155: 350; 100; 340
+rm-156: 298; 290
+rm-157: 295
+rm-158: 396; 310; 264
+rm-159: 308; 299; 268; 264
+rm-160: 284; 283; 232
+rm-161: 225; 224
+rm-162: 225; 222; 218; 191
+rm-163: 706; 282; 281; 272
+rm-164: 319; 272; 280; 275
+rm-165: 280
+rm-166: 279
+rm-167: 279; 280
+rm-168: 275; 268
+rm-169: 272
+rm-171: 173; 90
+rm-172: 209; 204; 111
+rm-173: 220; 27
+rm-174: 187; 189; 183
+rm-175: 312; 250
+rm-176: 753; 167
+rm-177: 396; 392; 146; 75
+rm-178: 338; 1905
+rm-180: 271; 270; 264
+rm-181: 814; 813; 800; 750; 146
+rm-182: 550; 241; 146
+rm-183: 335; 196
+rm-184: 264; 241; 201
+rm-185: 509; 348; 306; 279
+rm-186: 264; 241
+rm-187: 289; 271; 270; 264
+rm-188: 493; 476; 264
+rm-189: 269; 215; 263
+rm-190: 262
+rm-191: 261; 260
+rm-192: 260; 256
+rm-193: 260
+rm-194: 256
+rm-195: 256; 255
+rm-196: 267; 256; 255
+rm-197: 250; 241; 249
+rm-198: 247; 244; 241; 237; 229; 228
+rm-199: 241; 264
+rm-200: 241
 ```
