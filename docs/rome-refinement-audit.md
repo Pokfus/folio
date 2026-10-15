@@ -151,7 +151,7 @@ order unless the user says otherwise.
 | B17 | The conquest of Italy (`rm-conquest-italy`) | `rm-161`–`rm-170` | 10 | 110 | **done 2026-10-15** |
 | B18 | The conquest of Italy (`rm-conquest-italy`) | `rm-171`–`rm-180` | 10 | 104 | **done 2026-10-15** |
 | B19 | The Punic Wars (`rm-punic-wars`) | `rm-181`–`rm-190` | 10 | 129 | **done 2026-10-15** |
-| B20 | The Punic Wars (`rm-punic-wars`) | `rm-191`–`rm-200` | 10 | 127 | open |
+| B20 | The Punic Wars (`rm-punic-wars`) | `rm-191`–`rm-200` | 10 | 127 | **done 2026-10-15** |
 | B21 | The Punic Wars (`rm-punic-wars`) | `rm-201`–`rm-210` | 10 | 128 | open |
 | B22 | The Punic Wars (`rm-punic-wars`) | `rm-211`–`rm-220` | 10 | 115 | open |
 | B23 | The Punic Wars (`rm-punic-wars`) | `rm-221`–`rm-230` | 10 | 113 | open |
@@ -460,6 +460,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-188` Messana | a silver tetradrachm of Zancle | one coin cannot show a city; the description names the Berlin cabinet and a date range |
 | `rm-189` Hiero II | a silver 32-litra piece of Syracuse | the right kind of picture; the description wants rewording (it names the museum and its dates disagree with the card) |
 | `rm-190` siege of Agrigentum | a 1727 engraving from Thuillier's French Polybius | usable (no photograph can show the siege); the description names its source. **No locator: Agrigento is wanted** |
+| `rm-191` first Roman fleet | an undated Roman as with a galley prow | a symbol of sea-power, not the fleet; the description admits the museum gives no date |
+| `rm-192` corvus | a 1926 line engraving of the boarding bridge | the description says it departs from Polybius (a hooked spike for a pestle, a pivot for the hole) |
+| `rm-193` Battle of Mylae | the museum copy of the Duilius inscription base | acceptable (the lettering is legible) but shows the monument, not the battle. **No locator: Milazzo is wanted** |
+| `rm-194` Cape Ecnomus | a three-panel diagram of the battle | the description admits it "departs from the text in places"; one reconstruction among several. **No locator: the site is uncertain (Heraclea Minoa is the nearest fixed point)** |
+| `rm-195` African expedition | a map of the campaign in Africa | burned-in Spanish labels and numbered stages; the description names its provenance. **No locator: Aspis (Kelibia, an identification no page read confirms) is wanted** |
+| `rm-196` Regulus | Rosa's painting of Regulus in the spiked barrel | acceptable but second-best: it shows the later legend, not anything in Polybius |
+| `rm-197` siege of Lilybaeum | a plate from Thuillier's French Polybius | an 18th-century imagining of the relief; the description names its source. **No locator: Marsala is wanted** |
+| `rm-198` Hamilcar Barca | Monte Erice, the ancient Eryx | a mountain, not the man; the description asserts "seized in 244 BCE" and "each side was besieging the other" as fact |
+| `rm-199` Aegates Islands | a Carthaginian bronze ram from the Egadi | suits the battle but is also on `wh-345` (`I.duplicate`); one of the two cards needs another picture. **No locator: the Aegadian Islands are wanted** |
+| `rm-200` Treaty of Lutatius | none | no picture (`I.none`) |
 
 ## Glossary candidates
 
@@ -1056,3 +1066,34 @@ Run as B18. Checks: `rm-audit.js --range=rm-181:rm-190` reads clean on seven car
 | `rm-190` siege of Agrigentum | 6 | 5 → 6 | **The 25,000 slaves, 30,000 Roman dead and "six months" are Diodorus 23.9, not Polybius, who says only "many slaves"**; the old "over seven months" came via Smith. Polybius's 50,000 are "people cooped up", not Carthaginians. |
 
 **Read by eye.** *Legend as legend:* Dido and Elissa (Velleius and Justin), the founding date and the Rhegium garrison are each an ancient author's. *Confusability:* `rm-181`–`rm-184` are city, power, constitution and navy; `rm-185`/`rm-186`/`rm-187`/`rm-188` are treaties, war, soldiers and city, with each phrasing naming only its term's clues. *Chronology:* the Longanus (268 or 265) and Rhegium (271 or 270) years carry across `rm-180`, `rm-187` and `rm-189`; each is given with its author. *Overlap:* `wh-345` agrees with `rm-186`; `gr-237` gives "about 490 BCE" for Messana's rename, inside `rm-188`'s window.
+
+### B20 — `rm-191`–`rm-200`, the Punic Wars: the fleet, Regulus and the peace of 241 BCE (2026-10-15)
+
+Run as B19. One agent (`rm-197`/`rm-198`) died on a usage-limit error after writing both drafts; the files were complete and passed `precheck.js`, so they were read and applied without resuming it. Checks: `rm-audit.js --range=rm-191:rm-200` reads clean on five cards; the rest are `L.missing` on `rm-193`, `rm-194`, `rm-197` and `rm-199` (the resolver needs Wikipedia coordinates, which the sandbox cannot reach, so their drafts' locator requests were dropped; each is in "Pictures to redo"), `rm-199`'s real picture duplicate with `wh-345` and `rm-200`'s missing picture. `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card. The ancient source is Polybius almost throughout, so there is little legend to hunt but plenty of **figures**: every fleet, army and indemnity figure is now his, Diodorus's or a modern estimate, said so.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-191` first Roman fleet | 7 | 5 → 7 | **"Voted 120 ships" dropped: Polybius names no vote, only 100 quinqueremes and 20 triremes, and prints no BCE years**; 261 and 260 cite Livius.org's chronology. The totals differ (Polybius 120, Orosius 130, a 1907 study about 160); "built in 60 days" is Pliny's. The "first navy" claim is doubted. |
+| `rm-192` corvus | 6 | 5 → 6 | **Polybius says only "someone suggested" the device**, and names the "ravens" at 1.22 – 23 and 1.27 – 28; the "gangway length" date row and the "rather than anything the ships carried" inference gone. The sizes are his; a 1907 study and Steinby (through a BMCR review) doubt the two-abreast bridge. |
+| `rm-193` Battle of Mylae | 6 | 5 → 7 | **The "200 ships" was Diodorus's anecdote about Hannibal's defence, not a count of the battle fleet**; "30, then 50 more" is one reading of Polybius (Rankov reads 50 as the total). The Duilius column's inscription is treated as restored; unsourced claims about Greek marble, the torch-and-flute privilege and Pliny's column dropped. |
+| `rm-194` Cape Ecnomus | 6 | 5 → 6 | Polybius's 330 and 350 ships, 140,000 and 150,000 men are his, with how he got them; **the old "mouth of the Himera" is dropped: the site is uncertain** (Rankov and Dio near Heraclea, Livius.org near Licata). |
+| `rm-195` African expedition | 6 | 6 → 6 | The old line printed a count and a place as dates and gave "20,000 slaves" as fact; now dates only (256, 255, 255 BCE) and Polybius's figures are his. **Polybius says Regulus opened the talks; Diodorus has Carthage ask.** |
+| `rm-196` Regulus | 7 | 6 → 8 | The embassy and torture are later tradition, with the modern doubt attributed. **The "barrel with nails" is not first in Gellius (his spiked chest holds Carthaginian captives); the earliest source verified for Regulus in a nailed chest is Tertullian, *To the Martyrs* 4**, so the card says "later", not "first". The old serpent sentence and "no source of his own century" dropped. |
+| `rm-197` siege of Lilybaeum | 6 | 6 → 7 | Six Polybius chapters → Polybius, Diodorus, Cicero and four modern items. Fleet sizes are Polybius's 200, Diodorus's 240 plus 60 light vessels and Scullard's 120. **The sacred-chicken story is one clause in legend voice: Polybius does not mention it, and Scullard says Claudius "is said to have" done it.** |
+| `rm-198` Hamilcar Barca | 7 | 5 → 8 | **The old Iberian span ended in 228; Polybius gives only durations, and the BCE years are Scullard's, Frank's and Schulten's.** Hercte's identity is a debate (Monte Pellegrino, Monte Castellaccio, or unknown). The oath is Hannibal's own later account (Polybius 3.11). "Barca = lightning" is Mommsen's alone. His death (Diodorus: drowned fleeing the Orissi; Livy: nine years only) is disputed. |
+| `rm-199` Aegates Islands | 7 | 5 → 7 | The old line carried counts; now 10 March 241 BCE (Eutropius's day, accepted by Walbank and Morgan) and the war span. **The loan-funded fleet is Polybius's; his 50 sunk and 70 taken are set beside Diodorus's 117 and 80.** The rams on the seabed suggest triremes, not quinqueremes. Falto's wound rests on Smith alone and is hedged. |
+| `rm-200` Treaty of Lutatius | 6 | 5 → 6 | **The old card ran Polybius's Book 1 draft (2,200 talents over 20 years) and his Book 3 ratified text (2,200 within ten years plus 1,000 at once) together as one text**; they are now kept apart, with Frank and Mommsen on the commissioners. Diodorus's arms-and-deserters story dropped. |
+
+**Read by eye.** *Confusability:* `rm-191`–`rm-194` are fleet, device and two battles, with each phrasing naming only its term's clue; `rm-195`/`rm-196` split the expedition and the man; `rm-197`–`rm-200` are siege, general, battle and treaty. *Chronology:* the Longanus, Rhegium and Regulus years agree with `rm-187`/`rm-189`; `rm-198`'s death year (229 – 228) follows the dispute, not one author. *Overlap:* `wh-345` gives only the war's dates and agrees; its picture is shared with `rm-199`.
+
+### The second hundred, in sum
+
+`rm-101`–`rm-200` (the rest of the early Republic, the conquest of Italy and the first of the Punic Wars) are done: 549 sources became 714 and 90 glossary entries were rewritten. `rm-audit.js --range=rm-101:rm-200` reads 72 of 100 cards clean; what remains is 13 cards with no picture, 5 real picture duplicates, 2 `I.caption-source` hits, 5 `S.chip?` false positives (English BMCR reviews of foreign-titled books) and 5 battle cards with no locator. Every picture is still the bulk-written one; the "Pictures to redo" table holds a verdict for each of the two hundred, and the locator list is in the same table.
+
+What the second hundred found, again and again:
+- **The early Republic's heroes and laws as events.** Coriolanus, Cincinnatus, Verginia, the decemvirs, the Valerio-Horatian laws, Camillus, the Gallic sack and the Samnite devotiones were told in the card's voice and are now Livy's, Dionysius's or Plutarch's, with Varro's years labelled and the other reckoning (Polybius's 387 – 386 BCE for the sack) set beside them.
+- **A year no source prints, or a year belonging to another event.** 367 BCE for the first plebeian consul (366), "18 months" as the length of a censorship, "338 BCE" as the first citizenship without the vote (Gellius makes Caere first), "306 BCE" and "310 BCE" as colony dates, "Pyrrhus invited 280 BCE" and the sack's "usual dating".
+- **A translator's heading or margin read as the author's.** Polybius's treaties, the Longanus, Rhegium and "261 BCE" for the fleet were all Shuckburgh's or Smith's.
+- **A figure no source gives.** "A million foot" at Sentinum, "300 senators", "290 km", the Appian Way's length, "20,000 slaves", "200 ships" and every Polybian or Diodoran army count that stood as fact; each is now an author's figure, or gone.
+- **A handbook's inference as ancient fact.** Smith's account of why consular tribunes were created, the quaestor's seat in the senate, the "ten-year" rule's date, the Lex Ovinia's window and the tithe on public land.
+- **Modern scholarship was often out of reach.** For `rm-117`, `rm-118` and several others the modern half is Smith, Greenidge, Abbott and Mommsen (out of copyright); Raaflaub's and Forsythe's volumes were read in archive.org scans and cited by their Wiley or Berkeley DOIs, tagged `[Paywalled]`. A later pass with a library could replace them.

@@ -241,6 +241,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Messana: the Samians / Anaxilas died / the consul crosses | c. 493 BCE (not before) / 476 BCE / 264 BCE (`gr-237` says about 490 BCE for the rename, inside this window) | `rm-188` |
 | Hiero II: reigned / peace with Rome | c. 269 – 215 BCE (Polybius's 54 years counted back from 215; the kingship 270 – 264 by other scholars) / 263 BCE | `rm-189` |
 | the siege of Agrigentum | 262 BCE | `rm-190` |
+| the first Roman fleet: decided / the squadron lost at Lipara | 261 BCE / 260 BCE (the usual chronology, Livius.org) | `rm-191` |
+| the corvus: first used / last named | 260 BCE (Mylae) / 256 BCE (Ecnomus), both in Polybius's narrative | `rm-192` |
+| the Battle of Mylae / Cape Ecnomus | 260 BCE / 256 BCE | `rm-193`, `rm-194` |
+| the African expedition: landed / the army defeated / the fleet wrecked | 256 BCE / 255 BCE / 255 BCE | `rm-195` |
+| Regulus: consul / consul again / captured | 267 BCE / 256 BCE / 255 BCE | `rm-196` |
+| the siege of Lilybaeum / Drepana | 250 – 241 BCE / 249 BCE | `rm-197` |
+| Hamilcar Barca: at Hercte / at Eryx / landed in Iberia / died | c. 247 – 244 BCE (Scullard, Frank; Polybius gives only durations) / c. 244 – 241 BCE / 237 BCE (Schulten) / 229 – 228 BCE (disputed: Schulten 229/8; Frank 229) | `rm-198` |
+| the Battle of the Aegates Islands | 10 March 241 BCE (the day from Eutropius, accepted by Walbank and Morgan; the Egadi survey prints it) | `rm-199` |
+| the Treaty of Lutatius | 241 BCE (the first draft; the commissioners' revision the same year) | `rm-200` |
 
 ## The middle and late Republic
 
@@ -441,4 +450,14 @@ rm-187: 289; 271; 270; 264
 rm-188: 493; 476; 264
 rm-189: 269; 215; 263
 rm-190: 262
+rm-191: 261; 260
+rm-192: 260; 256
+rm-193: 260
+rm-194: 256
+rm-195: 256; 255
+rm-196: 267; 256; 255
+rm-197: 250; 241; 249
+rm-198: 247; 244; 241; 237; 229; 228
+rm-199: 241; 264
+rm-200: 241
 ```

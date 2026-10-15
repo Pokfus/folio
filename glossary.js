@@ -7173,7 +7173,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Mylae": "260 BCE",
 "Battle_of_Cape_Ecnomus": "256 BCE",
 "African_expedition_of_256_BCE": "256 – 255 BCE",
-"Marcus_Atilius_Regulus": "consul in 256 BCE",
+"Marcus_Atilius_Regulus": "consul in 267 BCE and 256 BCE",
 "Siege_of_Lilybaeum": "250 – 241 BCE",
 "Hamilcar_Barca": "general from 247 BCE",
 "Battle_of_the_Aegates_Islands": "241 BCE",
