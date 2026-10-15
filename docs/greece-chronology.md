@@ -608,6 +608,48 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | *Philoctetes* | staged 409 BCE, first prize | Jebb's introduction (`gr-599`) |
 | Euripides | born 485 BCE on the Parian Marble, 480 BCE by the tradition (two rows); first staged 455 BCE; died 406 BCE | Norwood; Suda; Lendering, Livius (`gr-600`) |
 
+## Classical arts and thought, tragedy to Prodicus (confirmed by B63–B65, `gr-601` – `gr-630`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Medea: Staged | 431 BCE (archon Pythodorus; third prize) | Markus Dubischar, review of Euripides: Medea, by William Allan, Bryn Mawr Classical… (`gr-601`) |
+| Bacchae: Staged | c. 405 BCE (posthumous; Euripides died 406 BCE) | Michael R. Halleran, review of Euripides: Bacchae, by William Allan and Laura Swift, Bryn… (`gr-602`) |
+| Trojan Women: Staged | 415 BCE (City Dionysia of 416/5; Melos winter 416/415; Sicilian expedition sailed 415 BCE) | Melissa Funke, review of Euripides: Troades, by David Kovacs, Bryn Mawr Classical Review… (`gr-603`) |
+| Hippolytus: Produced | 428 BCE (archon Epameinon 429/428; first prize) | Gilbert Norwood, Greek Tragedy (London: Methuen, 1920), 205–8 and 214–15, Project… (`gr-604`) |
+| satyr play: Pratinas (Suda) | 500 – 497 BCE (70th Olympiad) | Suda pi 2230, s.v. “Pratinas,” trans. Elizabeth Vandiver, Suda On Line (`gr-605`) |
+| Old Comedy: Flourished | 458 – 404 BCE | Charles Peter Mason, “Comoedia,” in A Dictionary of Greek and Roman Antiquities, ed.… (`gr-606`) |
+| Old Comedy: Oldest surviving | 425 BCE | Gilbert Murray, A History of Ancient Greek Literature (New York: D. Appleton, 1897),… (`gr-606`) |
+| Aristophanes: First play | 427 BCE | [G. E. L. C.], “Aristophanes,” in A Dictionary of Greek and Roman Biography and… (`gr-607`) |
+| Aristophanes: Last surviving | 388 BCE | Gilbert Murray, A History of Ancient Greek Literature (New York: D. Appleton, 1897),… (`gr-607`) |
+| Clouds: Staged | 423 BCE | Alan H. Sommerstein, review of Aristophanes and the Cloak of Comedy: Affect, Aesthetics,… (`gr-608`) |
+| Lysistrata: Staged | 411 BCE | Peter Thonemann, “Lysimache and Lysistrata,” Journal of Hellenic Studies 140 (2020):… (`gr-609`) |
+| Frogs: Staged | 405 BCE | Carlo Ferdinando Russo, “The Revision of Aristophanes’ Frogs,” Greece & Rome 13, no. 1… (`gr-610`) |
+| Birds: Produced | 414 BCE | Benjamin Bickley Rogers, The Birds of Aristophanes (London: George Bell and Sons, 1906),… (`gr-611`) |
+| Theatre of Dionysus: Earth banks | c. 499 BCE | Roy C. Flickinger, The Greek Theater and Its Drama, 2nd ed. (Chicago: University of… (`gr-612`) |
+| Theatre of Dionysus: Lycurgus’ term | 338 – 326 BCE | A. E. Haigh, The Attic Theatre: A Description of the Stage and Theatre of the Athenians,… (`gr-612`) |
+| choregos: Tripod prizes | from c. 508 BCE (Csapo) | Eric Csapo, “Choregic Dedications and What They Tell Us about Comic Performance in the… (`gr-616`) |
+| choregos: Earliest record | the Fasti's first preserved entry 473/472 BCE | Stephen D. Lambert, review of Inscriptional Records for the Dramatic Festivals in Athens:… (`gr-616`) |
+| choregos: Agonothesia | first attested 307/306 BCE; liturgical choregia gone by then (Csapo); about 316 BCE (Ackermann and Sarrazanas) | Delphine Ackermann and Clément Sarrazanas, “The Abolition of the Liturgical Chorēgia and… (`gr-616`) |
+| Xenophon | Born 430 BCE (IEP); c. 427 BCE (Lee 2005) (prose only) | Eve A. Browning, “Xenophon,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-619`) |
+| Xenophon: Cunaxa | 401 BCE | John W. I. Lee, “Xenophon’s Anabasis and the Origins of Military Autobiography,” in Arms… (`gr-619`) |
+| Xenophon | Died 354 BCE (IEP); around 355 BCE (Lee 2005) (prose only) | Eve A. Browning, “Xenophon,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-619`) |
+| Hellenica | Covers 411 – 362 BCE | Eve A. Browning, “Xenophon,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-620`) |
+| Anabasis: Marched | 401 – 399 BCE | John W. I. Lee, “Xenophon’s Anabasis and the Origins of Military Autobiography,” in Arms… (`gr-621`) |
+| Anabasis: Cunaxa | 401 BCE | John W. I. Lee, “Xenophon’s Anabasis and the Origins of Military Autobiography,” in Arms… (`gr-621`) |
+| Anabasis: Reached the sea | 400 BCE | John W. I. Lee, “Xenophon’s Anabasis and the Origins of Military Autobiography,” in Arms… (`gr-621`) |
+| Protagoras | Lived c. 490 – 420 BCE (SEP, Bonazzi; IEP, Poster) (prose only) | Mauro Bonazzi, “Protagoras,” Stanford Encyclopedia of Philosophy, rev. 10 September 2024 (`gr-623`) |
+| Protagoras: Thurii laws | 444/3 BCE | C. C. W. Taylor and Mi-Kyoung Lee, “The Sophists,” Stanford Encyclopedia of Philosophy,… (`gr-623`) |
+| Gorgias | Lived c. 485 – 380 BCE (SEP, Taylor and Lee) (prose only) | C. C. W. Taylor and Mi-Kyoung Lee, “The Sophists,” Stanford Encyclopedia of Philosophy,… (`gr-624`) |
+| Gorgias | Lived 483 – 375 BCE (IEP, Higgins) (prose only) | C. Francis Higgins, “Gorgias,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-624`) |
+| Gorgias: Embassy to Athens | 427 BCE | Diodorus Siculus, Library of History 12.53, trans. C. H. Oldfather, Perseus Digital… (`gr-624`) |
+| Prodicus: Socrates executed | 399 BCE (Prodicus still living, per Smith) | William Smith, ed., “Prodicus,” in A Dictionary of Greek and Roman Biography and… (`gr-625`) |
+| Antiphon: Four Hundred | 411 BCE | Michael Gagarin, review of Gerard J. Pendrick, ed., Antiphon the Sophist: The Fragments… (`gr-626`) |
+| Socrates | born 469 BCE; Potidaea 432 BCE; Delium 424 BCE; executed 399 BCE | Debra Nails and S. Sara Monoson, “Socrates,” Stanford Encyclopedia of Philosophy, first… (`gr-627`) |
+| Socrates executed | 399 BCE | James M. Ambury, “Socrates,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-627`) |
+| trial of Socrates: Socrates executed | 399 BCE | Debra Nails and S. Sara Monoson, “Socrates,” Stanford Encyclopedia of Philosophy, first… (`gr-629`) |
+| trial of Socrates: Amnesty | 403 BCE (the Thirty overthrown) | James M. Ambury, “Socrates,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-629`) |
+| Apology: Socrates executed | 399 BCE (the trial) | Debra Nails and S. Sara Monoson, “Socrates,” Stanford Encyclopedia of Philosophy, first… (`gr-630`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -635,7 +677,7 @@ sources when its batch comes round, and a disputed one given as a range.
 | Peace of Nicias | 421 BCE (confirmed by B56, `gr-545`) |
 | Sicilian Expedition | 415 – 413 BCE (confirmed by B57, `gr-552`) |
 | Aegospotami | 405 BCE (confirmed by B60, `gr-577`) |
-| Socrates executed | 399 BCE |
+| Socrates executed | 399 BCE (confirmed by B65–B66, `gr-627`, `gr-629`, `gr-630`) |
 | Leuctra | 371 BCE |
 | Philip II | 359 – 336 BCE |
 | Chaeronea | 338 BCE |
@@ -1190,4 +1232,27 @@ gr-595: 468; 441; 413; 406
 gr-597: 442; 441
 gr-599: 409
 gr-600: 485; 480; 455; 406
+gr-601: 431
+gr-602: 405
+gr-603: 415
+gr-604: 428
+gr-605: 500; 497
+gr-606: 458; 404; 425
+gr-607: 427; 388
+gr-608: 423
+gr-609: 411
+gr-610: 405
+gr-611: 414
+gr-612: 499; 338; 326
+gr-616: 508; 473/472; 307/306
+gr-619: 401
+gr-620: 411; 362
+gr-621: 401; 399; 400
+gr-623: 444/3
+gr-624: 427
+gr-625: 399
+gr-626: 411
+gr-627: 469; 432; 424; 399
+gr-629: 399
+gr-630: 399
 ```

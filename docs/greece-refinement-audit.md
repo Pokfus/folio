@@ -232,10 +232,10 @@ one changelog line and a version bump; commit and push.
 | B60 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-571`–`gr-580` | 10 | **done 2026-10-04** |
 | B61 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-581`–`gr-585` | 5 | **done 2026-10-04** |
 | B62 | Classical arts and thought (`gr-classical-culture`) | `gr-586`–`gr-595` | 10 | **done 2026-10-04** |
-| B63 | Classical arts and thought (`gr-classical-culture`) | `gr-596`–`gr-605` | 10 | **`gr-596`–`gr-600` done 2026-10-04**; `gr-601`–`gr-605` open |
-| B64 | Classical arts and thought (`gr-classical-culture`) | `gr-606`–`gr-615` | 10 | open |
-| B65 | Classical arts and thought (`gr-classical-culture`) | `gr-616`–`gr-625` | 10 | open |
-| B66 | Classical arts and thought (`gr-classical-culture`) | `gr-626`–`gr-635` | 10 | open |
+| B63 | Classical arts and thought (`gr-classical-culture`) | `gr-596`–`gr-605` | 10 | **`gr-596`–`gr-600` done 2026-10-04; `gr-601`–`gr-605` done 2026-10-15** |
+| B64 | Classical arts and thought (`gr-classical-culture`) | `gr-606`–`gr-615` | 10 | **done 2026-10-15** |
+| B65 | Classical arts and thought (`gr-classical-culture`) | `gr-616`–`gr-625` | 10 | **done 2026-10-15** |
+| B66 | Classical arts and thought (`gr-classical-culture`) | `gr-626`–`gr-635` | 10 | **`gr-626`–`gr-630` done 2026-10-15**; `gr-631`–`gr-635` open |
 | B67 | Classical arts and thought (`gr-classical-culture`) | `gr-636`–`gr-645` | 10 | open |
 | B68 | Classical arts and thought (`gr-classical-culture`) | `gr-646`–`gr-655` | 10 | open |
 | B69 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-656`–`gr-665` | 10 | open |
@@ -2187,3 +2187,50 @@ and looked at on a contact sheet.
 
 **Locators for `gr-561`–`gr-600`**, fetched through `add-locators.js`: `gr-567` (← Colonus (Attica)), `gr-571`,
 `gr-572`, `gr-574`, `gr-577` and `gr-584`, the last five as battles.
+
+### B63–B65, and the first half of B66 — `gr-601`–`gr-630`, the plays of Euripides to the trial of Socrates (2026-10-15)
+
+Thirty cards: the last five tragedies (*Medea*, *Bacchae*, *Trojan Women*, *Hippolytus*, the satyr play), Old Comedy and
+Aristophanes with four of his plays, the theatre (the Theatre of Dionysus, the *theatron*, the *skene*, the mask, the
+*choregos*), the historians' words (*historiē*, *ktēma es aei*) with Xenophon, the *Hellenica* and the *Anabasis*, the
+sophists with three of them, and Antiphon, Socrates, the elenchus, the trial and the *Apology*. Method as before: one
+research agent per five cards working to the same brief (`.claude/wh-refine/`, Greek addendum), every quote checked
+against a saved copy of its source, every draft linted with all drafts merged, then read by eye here.
+
+Checks: `greece-audit.js` over `gr-601`–`gr-630` finds only `S.chip?` on three English texts (the LSJ entry on
+`gr-613`, and BMCR reviews of German-titled books on `gr-620` and `gr-624`) and `W.not-why` on question wording;
+`check-questions`, `check-cards --prefix=gr-`, `split-cards --check` and `check-citations --card` pass; `check-style`
+adds nothing to main's standing alarms; every citation URL (153 distinct) answers 200.
+
+**Date lines:**
+- **Empty and `undatable`:** `gr-613` (*theatron*), `gr-614` (*skene*), `gr-615` (the mask), `gr-617` (*historiē*),
+  `gr-618` (*ktēma es aei*), `gr-622` (the sophist: a profession located only as "the later 5th century BCE"),
+  `gr-628` (the elenchus).
+- **Estimated life spans kept in prose only** ("about"): Xenophon (IEP 430 – 354 BCE; Lee about 427 and about 355),
+  Protagoras (about 490 – 420 BCE on the Stanford and Internet encyclopedias), Gorgias (about 485 – 380 BCE; 483 – 375 BCE),
+  Antiphon (born about 480 BCE) and Aristophanes (a birth between 460 and 444 BCE; the old "Lived c. 446" row had no source).
+  The agents' first drafts of `gr-619`, `gr-623` and `gr-624` printed them as rows; they were taken off in review.
+- **Two rows saying whose:** none new; `gr-612` prints the Suda's date for the collapse of the wooden benches (about 499 BCE)
+  beside Lycurgus' term of office (338 – 326 BCE), which is not a building date.
+- **Non-dates removed from lines:** counts ("Children 2", "Choregoi 5", "Plays surviving 11", "Books 7"), a cost, and rows
+  naming an event of another card.
+
+**Corrected in the old cards:**
+- **Ancient-only citations:** most of the old lists were all Perseus pages of the play or of Aristotle; each card now meets the
+  bar with at least half modern (BMCR, Stanford and Internet Encyclopedias, JHS, GRBS, Histos, *Greece & Rome*, Murray, Norwood,
+  Haigh, Jebb and the Smith dictionaries). Perseus serves David Kovacs for the *Medea* pages the old card credited to Coleridge.
+- **Unsourced claims dropped:** "four hundred years older", the Sicilian fleet's figures (`gr-603`); the Aristotle ties of
+  `gr-602`; "a year before the surrender" and "the earliest sustained literary criticism" (`gr-610`); "never staged because it
+  did badly" (`gr-608`); the vote tallies of `gr-629`; "the earliest orator" (`gr-626`); the claimed descent of English "history"
+  from *historiē* (`gr-617`); the 1906 papyrus year (`gr-620`).
+- **A tradition said as one:** the abolition of the liturgical *choregia* (`gr-616`: a debated 316 – 307 BCE, with no ancient
+  writer saying why); the posthumous *Bacchae* (about 405 BCE); the trial and book-burning of Protagoras (probable legend,
+  `gr-623`); Prodicus' atheism (`gr-625`).
+- **Other cards' ground given back:** the *Hellenica*'s Cunaxa and the march to `gr-621`; the Thirty's amnesty to `gr-629`.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Thebes` (`gr-602`, `gr-620`), `Lycurgus` the orator (`gr-612`),
+`Cyrus` the younger (`gr-619`, `gr-621`), `marble` (`gr-612`), `Hippias` the sophist, `Genealogies` (`gr-617`), `censors`
+(`gr-609`), `embassy` and `Concord` (`gr-626`), `horse` (`gr-630`).
+
+**Chronology.** A new section, "Classical arts and thought, tragedy to Prodicus", holds a row for every date the 30 cards
+print, with pins. The Events and reigns row for Socrates' execution (399 BCE) is confirmed by `gr-627` and `gr-629`.
