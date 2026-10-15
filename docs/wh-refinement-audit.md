@@ -162,7 +162,7 @@ in plan order unless the user says otherwise.
 | B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | **done 2026-10-15** |
 | B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | **done 2026-10-15** |
 | B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | **done 2026-10-15** |
-| B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | open |
+| B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | **done 2026-10-15** |
 | B50 | Medieval Europe (`wh-medieval-europe`) | `wh-491`–`wh-500` | 10 | 99 | open |
 | B51 | Medieval Europe (`wh-medieval-europe`) | `wh-501`–`wh-510` | 10 | 65 | open |
 | B52 | Medieval Europe (`wh-medieval-europe`) | `wh-511`–`wh-520` | 10 | 89 | open |
@@ -1949,6 +1949,40 @@ Córdoba's mosque and its state. *Against other cards:* `wh-478` has al-Azhar as
 **Glossary.** Nine terms rewritten (*House of Wisdom*, *Islamic Golden Age*, *al-Khwarizmi*, *Avicenna*, *Islamic medicine*,
 *Islamic art*, *Fatimid Caliphate*, *al-Azhar*, *Sufism*); the *Great Mosque of Córdoba* entry already agreed.
 
+### B49 — `wh-481`–`wh-490`, The Islamic world and Medieval Europe (2026-10-15)
+
+Run as B48. Pictures skipped. Checks: `wh-audit.js --range=wh-481:wh-490` clean but for `W.not-why` notes on `wh-487`
+and `wh-488`; `check-cards` first flagged same-language sources on `wh-481` (two English articles in Italian-titled
+journals) and `wh-489` (English articles in the *Revue belge*, beside one tagged French source), which are now declared in
+`SAME_LANGUAGE_OK` with their reasons, as earlier batches did; `check-citations --card` 0 mismatched on nine cards, and
+`wh-484` reports one it cannot clear: Crossref prints "Maher Y. Abu-Munshar (Corresponding Author)", where the citation
+gives the author's name. New locators: `wh-490` (England, a country-level mark for a kingdom with no single point) and
+the retried `wh-466` (Damascus). `wh-481`'s and `wh-482`'s book scans on archive.org are tagged `[Paywalled]` (in
+copyright); `wh-486`'s early-20th-century and encyclopaedic sources are the best open ones reached.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-481` Ibn Battuta | 7 | 5 → 8 | **"The Rihla was written in 1356" and "died 1368 or 1377" were wrong**: finished December 1355 (Dunn; 1356 is the earliest manuscript's date), died 1368 or 1369, 1377 one study's figure. The doubts about the Volga, China and Constantinople are attributed (Gibb, Dunn, Almonte); Delhi about eight or seven years; the distance figure dropped. |
+| `wh-482` Ibn Khaldun | 7 | 5 → 7 | **"First office 1352 under Abu Inan" and "born 2 May 1332" were wrong**: his first post was at Tunis, and Fez came in 1354; only 1332 is given. His Yemeni descent is "claimed"; the Muqaddima's draft by 1377, the 120-year cycle and the "founder of sociology" label attributed to modern readers; Timur in 1401. |
+| `wh-483` Seljuk Empire | 7 | 5 → 7 | **"In 1055 they reunited Muslim Asia from Afghanistan to the Mediterranean" was Malik-Shah's later reach (Humphreys)**; 1055 only ended Buyid rule at Baghdad. Dandanqan 1040; the sultan's title through the caliph's sermon and coinage; Nizam al-Mulk's colleges; fragmentation among princes and atabegs; 1157 ends the eastern line only. |
+| `wh-484` Saladin | 9 | 5 → 9 | **Two phrasings carried years, and a proteomics paper was cited for Arsuf.** Born 1137 or 1138 (Ibn Shaddad's year 532); vizier 1169; the Fatimid end (September 1171); Hattin 4 July and Jerusalem 2 October 1187; "the whole Transjordan system abandoned" overstated Vannini, now Shawbak; Richard's courtesy and Saladin's European and Muslim memory. |
+| `wh-485` Mamluk Sultanate | 7 | 5 → 7 | **All three phrasings carried years, and "the Bahris on a Nile island until 1382" was wrong**: Roda barracks named the Bahri regiment, and the Burjis were a brigade of Qalawun's mamluks (Barquq founded the line in 1382). 1250 – 1517; the Abbasid in Cairo; Acre, the Black Death and the 1260 battle (a date on Lane-Poole alone). |
+| `wh-486` Middle Ages | 9 | 5 → 10 | **Century-only date rows ("15th century", "17th century") replaced**, and Bury's pages were wrong. A label made afterwards (Petrarch, the humanists, Cellarius's 1688 history); conventionally c. 500 – 1500; "Dark Ages" avoided for the early part; the early/high/late boundaries move; awkward outside Europe; the Soviet ending in 1640 – 60. |
+| `wh-487` Migration Period | 7 | 5 → 8 | **Ammianus's story of the Huns was fact, and "the Visigoths crossed" was anachronistic.** The usual span c. 375 – 568; the Danube crossing 376; Vandals to Africa 429; the cause debated (the Huns restored to a leading role by some); the groups mixed bands and their size unknowable; cemetery genomes show kin and mixed ancestry. |
+| `wh-488` Ostrogoths and Visigoths | 9 | 5 → 9 | **"The Visigoths won Adrianople" read the later names back**: the 4th-century groups were Tervingi and Greuthungi, and the east–west gloss is Jordanes's (from Ablabius). Homoian "Arian" creed; Wulfila's Bible; 376, 410; Italy 489 – 526 and Visigothic Spain 507 – 711; Euric and "the whole west" dropped. |
+| `wh-489` Clovis I | 7 | 5 → 8 | **A baptism straight after a 496 war and "the title augustus" stood as fact.** Birth c. 466 from Gregory's age of 45; the Alamanni war traditionally 496, the baptism date disputed (508 proposed); Gregory a Catholic bishop who made Clovis his hero; Syagrius 486, Vouillé 507; the "3,000 baptised" and the Tolbiac name dropped. |
+| `wh-490` Anglo-Saxon England | 7 | 5 → 8 | **The term is a later label** (rare after the 10th century, back in the 16th); Bede's three-peoples story of 449 is simplified; the Heptarchy a late-16th-century term. The two genetic figures (38 per cent from ten genomes near Cambridge, up to 76 per cent in eastern England) are kept apart; 597, 627, 664, 731, 927. |
+
+**Read by eye.** *Article:* "the Seljuk Empire", "the Mamluk Sultanate", "the Middle Ages", "the Migration Period", "Anglo-Saxon
+England" (question 2: "the story of Anglo-Saxon England"); "Ibn Battuta", "Ibn Khaldun", "Saladin" and "Clovis I" bare.
+*Confusability:* `wh-483`/`wh-484`/`wh-485` the Seljuks, the Ayyubid founder and the Mamluks, Hattin only on `wh-484`, Ain Jalut
+only on `wh-485`; `wh-486`/`wh-487`/`wh-488` the label, the age of movement and two of its peoples, Adrianople on `wh-488` only,
+the humanists only on `wh-486`; `wh-481`/`wh-482` two travellers' books, the Rihla only on `wh-481`, the Muqaddima only on `wh-482`.
+*Against other cards:* `wh-465`'s Great Mosque and `wh-466`'s agree on 705 – 715; none edited.
+
+**Glossary.** Ten terms rewritten (*Ibn Battuta*, *Ibn Khaldun*, *Seljuk Empire*, *Saladin*, *Mamluk Sultanate*, *Middle
+Ages*, *Migration Period*, *Ostrogoths and Visigoths*, *Clovis I*, *Anglo-Saxon England*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2148,3 +2182,7 @@ pass once it answers. Filled batch by batch.
 | `wh-477` | only the mihrab niche, not the mosque |
 | `wh-480` | one Chishti tomb at Ajmer, not Sufism |
 | `wh-471`, `wh-472`, `wh-474`, `wh-475`, `wh-478`, `wh-479` | judged from title and description only |
+| `wh-487` | a Darum bracteate, one Scandinavian jewellery type; its description ends on an interpretive clause |
+| `wh-488` | a Visigothic votive crown only (the glossary's Domagnano gold is Ostrogothic) |
+| `wh-490` | the Sutton Hoo helmet, `wh-491`'s subject; a map of the kingdoms would fit |
+| `wh-481`–`wh-486`, `wh-489` | judged from title and description only; no portrait of Ibn Battuta or Ibn Khaldun exists |

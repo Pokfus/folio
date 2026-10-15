@@ -466,6 +466,16 @@ Filled batch by batch, from the source each row names.
 | Great Mosque of Córdoba: begun / mihrab wing / cathedral built | 785 or 786 CE / 961 – 971 CE / from 1523 CE | González-Gutiérrez; Utrero Agudo; Arnold (`wh-477`) |
 | Fatimid Caliphate: founded / Egypt conquered / moved to Cairo / ended | 909 (proclaimed 910) / 969 / 973 / 1171 CE | Jiwa; Ashmolean (`wh-478`) |
 | al-Azhar: built / school / revived / reformed | 970 – 972 CE (972 on the Ashmolean's reckoning) / 988 CE / 1266 CE / 1961 | Qantara; Eccel and Reid (`wh-479`; `wh-480` is `undatable`) |
+| Ibn Battuta: born / travelled / Rihla finished / died | 1304 / 1325 – 1354 / December 1355 / 1368 or 1369 CE | Gibb; Dunn (`wh-481`) |
+| Ibn Khaldun: born / Muqaddima draft / met Timur / died | 1332 / 1377 / 1401 / 1406 CE | Irwin; Alatas; Mahdi (`wh-482`) |
+| Seljuk Empire: Dandanqan / Baghdad / Malik-Shah / Sanjar died | 1040 / December 1055 / 1072 – 1092 / 1157 CE | Brett; Humphreys; Bosworth (`wh-483`) |
+| Saladin: lived / vizier / Hattin / Jerusalem | 1137 or 1138 – 1193 / 1169 / 4 July 1187 / 2 October 1187 CE | Humphreys; Brett; Ibn Shaddad (`wh-484`) |
+| Mamluk Sultanate / Bahri / Burji | 1250 – 1517 / 1250 – 1382 / 1382 – 1517 CE | Lane-Poole; Troadec; Pradines (`wh-485`) |
+| Middle Ages: convention / Cellarius | c. 500 – 1500 CE / 1688 | Hallam; Shank and Lindberg (`wh-486`) |
+| Migration Period: usual span / Danube crossed / Vandals landed in Africa | c. 375 – 568 / 376 / 429 CE | Pohl; Teeter; Kasperski (`wh-487`) |
+| Ostrogoths and Visigoths: Danube / Rome sacked / Italy / Visigothic Spain | 376 / 410 / 489 – 526 / 507 – 711 CE | Ammianus; Jordanes; Cecconi (`wh-488`) |
+| Clovis I: lived / reigned / Syagrius beaten / Vouillé | c. 466 – 511 / 481 – 511 / 486 / 507 CE (baptism 496 or 508, disputed) | Gregory; Wood; Hen (`wh-489`) |
+| Anglo-Saxon England: traditional span / mission to Kent / Bede's last year / York taken | c. 449 – 1066 / 597 / 731 / 927 CE | Naismith; Bede; Gretzinger (`wh-490`) |
 
 ## Chronology pins
 
@@ -916,4 +926,14 @@ wh-475: 750; 872; 1284
 wh-477: 785; 786; 961; 971; 1523
 wh-478: 909; 910; 973; 969; 1171
 wh-479: 970; 972; 988; 1266; 1961
+wh-481: 1304; 1325; 1354; 1355; 1368; 1369
+wh-482: 1332; 1377; 1401; 1406
+wh-483: 1040; 1055; 1072; 1092; 1157
+wh-484: 1137; 1138; 1193; 1169; 1187
+wh-485: 1250; 1517; 1382
+wh-486: 500; 1500; 1688
+wh-487: 375; 568; 376; 429
+wh-488: 376; 410; 489; 526; 507; 711
+wh-489: 466; 511; 481; 486; 507
+wh-490: 449; 1066; 597; 731; 927
 ```
