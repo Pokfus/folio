@@ -9,8 +9,11 @@
    of ids Phase 3a settled on: the ROLES and the WINDOWS live only here, in the one table a war card's meaning is read from.
 
        window.ATLAS_WARS = { format: 1, digest, counts, wars: { "rm-209": { t: "Second Punic War", y: [-218, -201], g: 0,
-           v: { n: "Rome",     m: [["pol:rome", -218, -201]], x: "", u: [] },
-           l: { n: "Carthage", m: [["pol:carthage", -218, -201]], x: "", u: [] } } } }
+           v: { n: "Rome",     m: [["pol:rome", -218, -201]], x: "", u: [], p: "pol:rome" },
+           l: { n: "Carthage", m: [["pol:carthage", -218, -201]], x: "", u: [], p: "pol:carthage" } } } }
+
+   `p`: the side's PRINCIPAL entity -- the one its name stands for (lib/war-resolve.js `principalOf`), "" when no rule settles it. A war window puts the name on that entity's own face in the display year, and
+   on the side's largest face only when the principal has none there (atlas-windows.js).
 
    `g` 1 = the card GROUPS other war cards (war.group): such a war is not drawn on the Personal or Full Atlas (the owner's rule of Oct 2026, so
    the same ground is not drawn twice in the same years) — it is drawn when it is chosen, from a place card or a deep link. `x`: the id of the
@@ -51,7 +54,7 @@ function tableOf(wars, ents) {
       if (!m.length && !x) empty = side;
       for (const mm of m) { if (ents && !ents.has(mm[0])) problems.push(`${w.id}: ${side} names ${mm[0]}, which history.bin does not hold`); if (mm[1] < w.y[0] || mm[2] > w.y[1] || mm[1] > mm[2]) problems.push(`${w.id}: ${mm[0]} is a member over ${mm[1]}..${mm[2]}, outside the war's ${w.y[0]}..${w.y[1]}`); }
       if (x && ents && !ents.has(x)) problems.push(`${w.id}: ${side} names the extent ${x}, which history.bin does not hold`);
-      row[k] = { n: S.name, m, x, u: S.unresolved.slice() };
+      row[k] = { n: S.name, m, x, u: S.unresolved.slice(), p: S.principal ? idOf(S.principal) : "" };
     }
     if (empty) { problems.push(`${w.id}: the ${empty} side resolves to nothing — a war with an empty side is not drawn (docs/war-cards.md: both sides or neither)`); continue; }
     // a name may not stand on both sides in overlapping years (war-cards.md, rule 4)

@@ -171,7 +171,9 @@
       if (!faces.length || !warHub || !warHub.faceAnchors) { anch.state = "failed"; return; }
       if (anch.state !== "have") anch.state = "wait";
       clearTimeout(anch.timer); anch.timer = setTimeout(() => { if (stopped || anch.asked !== key || anch.key === key) return; if (!anch.rows) anch.state = "failed"; anch.key = key; if (win) win.schedule(); }, 6000);   // a worker that never answers must not hold the window unsettled for ever
-      warHub.faceAnchors(faces).then((rows) => { if (stopped || anch.asked !== key) return; anch.rows = rows; anch.key = key; anch.state = "have"; if (win) win.schedule(); }, () => { if (anch.asked === key && !anch.rows) { anch.state = "failed"; anch.key = key; if (win) win.schedule(); } });
+      // each side's principal entity is asked in the piece of its face that holds its own capital of the year (Rome's Italy, not the strip of North Africa an ally held in the same face)
+      const near = [warSides.v, warSides.l].filter((sd) => sd && sd.pface >= 0 && sd.pcap).map((sd) => ({ face: sd.pface, lon: sd.pcap[0], lat: sd.pcap[1] }));
+      warHub.faceAnchors(faces, near).then((rows) => { if (stopped || anch.asked !== key) return; anch.rows = rows; anch.key = key; anch.state = "have"; if (win) win.schedule(); }, () => { if (anch.asked === key && !anch.rows) { anch.state = "failed"; anch.key = key; if (win) win.schedule(); } });
     }
     function warMarks(st, ctx, api) {
       if (!warSides) return;
@@ -190,9 +192,13 @@
       const info = sides.map(([k]) => {
         const sd = warSides[k], text = String(sd.n || "").trim(); if (!text) return null;
         const faceSet = new Set(sd.faces || []), w = ctx.measureText(text).width;
-        const cands = (anch.rows || []).filter((r) => r.v && faceSet.has(r.face)).sort((a, b2) => (b2.km2 || 1) * Math.max(0.02, b2.vis) - (a.km2 || 1) * Math.max(0.02, a.vis));
-        const pts = []; for (const r of cands) for (const q of r.pts && r.pts.length ? r.pts : [{ v: r.v }]) { const p = api.projectV(q.v[0], q.v[1], q.v[2]); if (p[2] > 0.02) pts.push(p); }
-        return { k, sd, text, w, bw: w / 2 + 3, bh: 9, pts };
+        let cands = (anch.rows || []).filter((r) => r.v && faceSet.has(r.face)).sort((a, b2) => (b2.km2 || 1) * Math.max(0.02, b2.vis) - (a.km2 || 1) * Math.max(0.02, a.vis));
+        /* THE NAME STANDS ON THE PRINCIPAL ENTITY'S OWN FACE (Oct 2026): "Rome" on Rome's face, not on an ally's strip that happens to be bigger on screen. Only when the principal has no face in the display year (or none of it
+           is on the visible globe, so no point of it can be asked) does the name fall back to the side's biggest face, as before. */
+        const own = sd.pface != null && sd.pface >= 0 ? cands.filter((r) => r.face === sd.pface) : [];
+        if (own.length) cands = own;
+        const pts = []; for (const r of cands) for (const q of r.pts && r.pts.length ? r.pts : [{ v: r.v }]) { const p = api.projectV(q.v[0], q.v[1], q.v[2]); if (p[2] > 0.02) { p.face = r.face; pts.push(p); } }
+        return { k, sd, text, w, bw: w / 2 + 3, bh: 9, pts, principal: !!own.length };
       }).filter(Boolean);
       const boxAt = (o, x, y) => [x - o.bw, y - o.bh, x + o.bw, y + o.bh];
       const roomy = (o, x, y) => { const b = boxAt(o, x, y); return b[0] >= 3 && b[2] <= W - 3 && b[1] >= 3 && b[3] <= H - 3 && !(ctl && hit(b, ctl)); };
@@ -216,7 +222,7 @@
           at = [x, y]; pt = p; ground = false;
         }
         placed2.push(boxAt(o, at[0], at[1]));
-        ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.strokeStyle = halo; ctx.strokeText(o.text, at[0], at[1]); ctx.fillStyle = ink; ctx.fillText(o.text, at[0], at[1]); named.push(o.text); labelsNow.push({ k: o.k, n: o.text, x: pt[0], y: pt[1], tx: at[0], ty: at[1], w: o.w, ground, beside });
+        ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.strokeStyle = halo; ctx.strokeText(o.text, at[0], at[1]); ctx.fillStyle = ink; ctx.fillText(o.text, at[0], at[1]); named.push(o.text); labelsNow.push({ k: o.k, n: o.text, x: pt[0], y: pt[1], tx: at[0], ty: at[1], w: o.w, ground, beside, face: pt.face == null ? -1 : pt.face, pface: o.sd.pface == null ? -1 : o.sd.pface, principal: o.principal });
       });
       lastNames = named; lastLabels = labelsNow;
       ctx.restore();

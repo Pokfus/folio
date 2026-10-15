@@ -10,8 +10,8 @@ name: checks
 #
 #   fast   -- the eight suites and four checkers that need no browser. Seconds, no
 #             install, no network. This is the gate: it must stay green.
-#   browser-- the Playwright suites. Slower and heavier, so it is allowed to be the
-#             second opinion rather than the gate.
+#   browser-- the Playwright suites, in three shards (Oct 2026). Slower and heavier than the gate; a red
+#             suite fails its shard and the run, and is named (see the job).
 #
 # Playwright is installed HERE and never into the repo: the zero-dependency rule is
 # about what the SITE ships, and node_modules/ is gitignored. Nothing in this workflow
@@ -108,6 +108,10 @@ jobs:
       # the shipped corpus; check-docs guards the CLAUDE.md/docs split in both directions.
       - name: check-docs
         run: node .claude/check-docs.js
+      # THE BROWSER SHARDS COVER EVERY SUITE (Oct 2026): ci-shards.js scans .claude/ for the Playwright suites and fails when one would be in no shard (or two) or when the heaviest shard is
+      # predicted past its 35-minute cap. Offline, a second.
+      - name: ci-shards --check (every Playwright suite is in exactly one browser shard)
+        run: node .claude/ci-shards.js --check
       # THE ATLAS v2 TOPOLOGY IS A GENERATED FILE WITH INVARIANTS THAT FAIL SILENTLY (Oct 2026;
       # docs/atlas-v2-design.md §2.11): a border two faces walk the same way still draws, a coast arc
       # no face claims still draws, a crossing at one level of detail is a sliver nobody sees until a
@@ -332,30 +336,28 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
         continue-on-error: true
 
+  # THE PLAYWRIGHT SUITES, IN THREE SHARDS (Oct 2026). One job ran all 67 suites (and, until Phase 5, the v1 pass of three of them) back to back: 75 minutes in run 3558 (85-90 on
+  # main's busier runs) against a 90-minute cap, so a new suite or a slow runner meant a cancelled job, and the card-window phone-fix suite had to be split off into a job of its
+  # own just to fit. The suites are now a matrix of three jobs, each about 25 minutes of suites plus the install, balanced by the durations MEASURED in that run
+  # (.claude/ci-shards.js holds them; it finds the suites by scanning .claude/, so a new suite is in a shard the day it is written, and `--check` in the `fast` job fails when one is in
+  # none or the heaviest shard is predicted past its cap). Every suite still runs as a unit of the same plan. test-atlas-perf (the frame gate) and test-card-windows-fixes keep their jobs of their own, below.
+  #
+  # A RED SUITE FAILS ITS SHARD AND THE RUN, AND NAMES ITSELF. `ci-shards.js --run` does not stop at the first red suite: it prints `FAIL <suite>`, one `::error title=Playwright suite failed::<suite>`
+  # annotation each (they appear on the run's front page), a table in the job summary and a closing line that lists every failed suite, and exits 1. `fail-fast: false` so one red shard does not
+  # cancel the other two. This job no longer carries `continue-on-error` (it did from Aug 2026, "a slow second opinion, not the gate"): the owner asked that a failing suite in any shard fail the
+  # workflow. A red suite therefore means a red run; it is named, not hidden.
   browser:
-    name: Playwright suites
+    name: Playwright suites (shard ${{ matrix.shard }} of 3)
     runs-on: ubuntu-latest
-    # A CEILING, BECAUSE THE DEFAULT IS SIX HOURS AND THE RUNNER COUNT IS ONE (Sep 2026).
-    # Measured on this branch: the browser step took 43m15s for all 47 suites on a GitHub
-    # runner, against about forty minutes in a dev container. So 90 minutes is roughly
-    # double the real figure -- wide enough that a slow runner never fails on time alone,
-    # and narrow enough that a suite which HANGS (a `page.waitFor` on something that never
-    # appears is the shape) gives the runner back inside the hour instead of holding it
-    # until the afternoon. Without it, one hung suite blocks every later run on the repo,
-    # and the symptom is the same one `concurrency` above was added for: not a red build,
-    # but an answer that never arrives.
-    timeout-minutes: 90
-    # A slow second opinion, not the gate. If the fast job is red the answer is already
-    # known, so don't spend ten minutes confirming it.
+    # A CEILING, BECAUSE THE DEFAULT IS SIX HOURS AND THE RUNNER COUNT IS ONE (Sep 2026). A shard is about 28 minutes with its install, so 40 is wide enough that a slow runner never fails on time
+    # alone and narrow enough that a suite which HANGS (a `page.waitFor` on something that never appears is the shape) gives the runner back inside the hour instead of holding it until the afternoon.
+    timeout-minutes: 40
+    # If the fast job is red the answer is already known, so don't spend the minutes confirming it.
     needs: fast
-    # AND THE JOB IS WRITTEN THE WAY THE PARAGRAPH ABOVE DESCRIBES IT (Aug 2026, on request).
-    # It said "not the gate" and then exited 1, which fails the RUN -- so every push mailed a
-    # failure, and with three content branches pushing every ten minutes that is a mailbox
-    # rather than a signal. The job still runs and a red suite is still red in the run's job
-    # list; what changes is that it no longer speaks for the whole run, which is what `fast`
-    # is for. Do NOT put this on the steps: `continue-on-error` there makes the JOB green too,
-    # which hides the failure instead of declassifying it.
-    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@v4
 
@@ -373,28 +375,13 @@ jobs:
           npm i --no-audit --no-fund playwright@latest >/dev/null
           npx playwright install --with-deps chromium
 
-      # test-atlas-perf.js is NOT in this loop (Oct 2026, Phase 1b): it has a job of its own below, so its
-      # verdict is not lost in a job that three unrelated suites keep red. Everything else that says
-      # "playwright" runs here — including Phase 1c's five Atlas v2 suites (test-atlas-render.js,
-      # test-atlas-labels.js, test-atlas-card.js, test-atlas-search.js, test-atlas-a11y.js) and Phase 1d's four
-      # (test-atlas-credits.js, test-atlas-fallbacks.js — file://, no WebGL2, context loss, a failed worker —,
-      # test-atlas-phone.js and the five-minute test-atlas-session.js) and Phase 3b's test-atlas-study.js (the Map / Personal / Full
-      # switch, collection switches, every place its own mark and the fan, the cards on a place card, the empty states, the phone), which the loop picks up by name
-      # like any other.
-      - name: Run the browser suites
+      # test-atlas-perf.js and test-card-windows-fixes.js are NOT in the plan: each has a job of its own. Everything else that says "playwright" is — including Phase 1c's five Atlas v2 suites
+      # (test-atlas-render.js, test-atlas-labels.js, test-atlas-card.js, test-atlas-search.js, test-atlas-a11y.js), Phase 1d's four (test-atlas-credits.js, test-atlas-fallbacks.js — file://, no
+      # WebGL2, context loss, a failed worker —, test-atlas-phone.js and the five-minute test-atlas-session.js) and Phase 3b's test-atlas-study.js, which the scan picks up by name like any other.
+      - name: Run shard ${{ matrix.shard }} of the browser suites
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
-        run: |
-          fails=0
-          for f in $(grep -l playwright .claude/test-*.js | grep -v test-atlas-perf.js | grep -v test-card-windows-fixes.js | sort); do
-            echo "::group::$(basename "$f")"
-            if node "$f"; then echo "PASS $(basename "$f")"
-            else echo "FAIL $(basename "$f")"; fails=$((fails+1)); fi
-            echo "::endgroup::"
-          done
-          echo "----"
-          if [ "$fails" -gt 0 ]; then echo "$fails browser suite(s) failed"; exit 1; fi
-          echo "all browser suites passed"
+        run: node .claude/ci-shards.js --run ${{ matrix.shard }}
 
   # THE ATLAS v2 FRAME GATE, IN A JOB OF ITS OWN (Oct 2026, docs/atlas-v2-design.md §2.2 "the frame gate",
   # §7 Phase 1b–1d). The browser job above is red on main because of three suites that fail for reasons of
