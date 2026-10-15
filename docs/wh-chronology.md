@@ -414,6 +414,14 @@ Filled batch by batch, from the source each row names.
 | Aksum: common frame / coinage / Ezana converts | c. 150 BCE – 700 CE (Hagos's frame) / c. 270 CE / c. 340 CE | Hagos; Phillipson (`wh-418`) |
 | Nok culture: began / figures made / first found | c. 1500 BCE / c. 900 – 400 BCE / 1928 | Breunig; Dunne et al.; Atwood (`wh-419`) |
 | Bantu expansion: began / forest crossing (one model) / Great Lakes | c. 6,000 – 4,000 / c. 4,420 / c. 2,600 years ago | Fortes-Lima et al.; Koile et al.; Semo et al. (`wh-420`) |
+| Garamantes: phase frame / Balbus's campaign / Maternus | c. 1000 BCE – 700 CE (Fezzan Project) / c. 20 BCE / c. 88 – 92 CE | Mattingly et al. (`wh-421`) |
+| Trade with Punt (first mention in Sahure's annal to Ramesses III) | c. 2500 – 1170 BCE | Dominy et al.; Breasted (`wh-422`; `wh-423` is `undatable`) |
+| Olmec era / San Lorenzo peak / La Venta | c. 1500 – 400 BCE (one source 1500 – 600) / c. 1400 – 1000 BCE / c. 900 – 400 BCE | Stark and Stoner; Blomster and Salazar; Šprajc et al. (`wh-424`; `wh-425` is `undatable`) |
+| Ballgame: earliest court (Paso de la Amada) / rubber balls (El Manatí) / highland court (Etlatongo) | c. 1650 / c. 1600 / c. 1374 BCE (midpoint) | Blomster and Salazar (`wh-426`) |
+| Monte Albán: founded / Monte Albán I / Monte Albán II / fragmentation | c. 500 BCE / 500 – 100 BCE / 100 BCE – 200 CE / c. 700 – 800 CE | Nicholas and Feinman; Pacheco-Forés et al.; Hoyer et al. (`wh-427`) |
+| Maya: first cities / Classic / Terminal Classic / Postclassic | c. 700 BCE – 250 CE / 250 – 1000 CE / 800 – 1000 CE / 1000 – 1500 CE (Chase gives other limits) | McCool et al.; Sánchez-Morales et al. (`wh-428`) |
+| Maya script: first attested (San Bartolo) / Classic texts | c. 300 – 200 BCE / c. 250 – 900 CE | Stuart et al.; Jobbová et al. (`wh-429`) |
+| Long Count: earliest firm date (Chiapa de Corzo; Tres Zapotes 32 BCE) / day zero (GMT, 584,283 or 584,285) | 36 BCE / 11 – 13 August 3114 BCE | Kennett et al.; Kettunen and Helmke; Stuart et al. (`wh-430`) |
 
 ## Chronology pins
 
@@ -812,4 +820,12 @@ wh-417: 800; 600; 300; 25
 wh-418: 150; 700; 270; 340
 wh-419: 1500; 900; 400; 1928
 wh-420: 6,000; 4,000; 4,420; 2,600
+wh-421: 1000; 700; 20
+wh-422: 2500; 1170
+wh-424: 1500; 400; 1400; 1000; 900
+wh-426: 1650; 1600; 1374
+wh-427: 500; 100; 200; 700; 800
+wh-428: 700; 250; 1000; 800; 1500
+wh-429: 300; 200; 250; 900
+wh-430: 36; 3114
 ```

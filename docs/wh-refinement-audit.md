@@ -156,7 +156,7 @@ in plan order unless the user says otherwise.
 | B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | **done 2026-10-04** |
 | B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | **done 2026-10-15** |
 | B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | **done 2026-10-15** |
-| B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | open |
+| B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | **done 2026-10-15** |
 | B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | open |
 | B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | open |
 | B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | open |
@@ -1745,6 +1745,40 @@ by a few years on the 25th dynasty (742, 747, 751), and the card follows one.
 Buddhism*, *Kingdom of Kush*, *Meroë*, *Kingdom of Aksum*, *Nok culture*, *Bantu expansion*); the old *Kingdom of Kush*,
 *Nok culture* and *Bantu expansion* dates (c. 900 BCE, "1 BCE", "c. 4000 – 2000 BCE onwards") agreed with no source.
 
+### B43 — `wh-421`–`wh-430`, Africa and the Americas in antiquity (2026-10-15)
+
+Run as B42; no collection of ours covers these subjects, so `related.js` found nothing to disagree with but `eg-`'s Sahure
+and Yam cards. Pictures skipped. Checks: `wh-audit.js --range=wh-421:wh-430` clean but for `L.missing` on `wh-422` (Punt's
+place is disputed, so none was requested) and `wh-425` (a culture area; a retry of the locator said "rate limited") and a
+`W.not-why` on `wh-429`; the rest as B31; all 70 distinct URLs 2xx; `check-citations --card` 0 mismatched on all ten. New
+locators: `wh-421` (Germa) and `wh-427` (the Oaxaca Valley).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-421` Garamantes | 6 | 5 → 7 | **"Defeated by Quirinius about 20 CE" and "Maternus about 100 CE" were wrongly dated**: the Fezzan Project volume has Balbus c. 20 BCE, Quirinius c. 15 BCE (doubtful) and Maternus c. 88 – 92 CE. c. 1000 BCE – 700 CE is that project's phase frame; the foggaras' origin (probably Egypt, late 1st millennium BCE) is its view; Herodotus's chariot hunt is what he says. |
+| `wh-422` Land of Punt | 7 | 5 → 7 | **A "c. 2800 BCE" row had no source, and Hatshepsut's reign stood as the expedition's date.** One sourced span, c. 2500 – 1170 BCE, from Sahure's annal to Ramesses III; Hatshepsut's voyage is one of several; the site is placed by whom (Somali coast, Upper Nile, eastern Sudan and Eritrea, Arabia); the baboon study is Dominy et al. 2020. |
+| `wh-423` trans-Saharan trade | 8 | 5 → 8 | **"No West African object in the Garamantian oases" was reversed** (a haematite lip-plug and a cowrie in a Fezzan burial); the 3rd-century camel date and the gold-by-the-8th-century row had no source. Now `""` and `undatable`; kept before Islam (the Fatimid gold and Sijilmasa belong to `wh-566`/`wh-567`); the chariot-route idea and the camel dating are views, whose. |
+| `wh-424` Olmecs | 8 | 5 → 8 | **"The earliest ballcourt is at Etlatongo" was only the earliest highland one.** The head count, sizes, "severed heads" reading and "humid" had no source; dates are Stark and Stoner's and Blomster's, whose; the name is Nahuatl and later; mother culture against sister cultures; the Cascajal Block disputed. |
+| `wh-425` Mesoamerica | 8 | 5 → 8 | **One southern-edge rockshelter's maize date stood for the region** (El Gigante, about 4,400 BP; Tehuacán cobs about 5,600 BP) and a 2021 study's zero proposal was fact. Kirchhoff 1943 as the term's origin, the trait list, two period schemes; `""` and `undatable`. |
+| `wh-426` Mesoamerican ballgame | 8 | 5 → 8 | **"One to seven players", "three forms of ulama" and a length-to-width rule rested on a source that would not open.** The losers' sacrifice is now debated (captives and beheading myths, not clearly a defeated team); Paso de la Amada c. 1650 BCE, rubber balls c. 1600 BCE, Etlatongo 1374 BCE midpoint; over 2,300 probable courts. |
+| `wh-427` Monte Albán | 7 | 5 → 7 | **The Danzantes were "shamans"; several researchers read them as sacrificed captives, not all agree.** Founded c. 500 BCE with its phases; 17,000 people at the city and over 50,000 in the valley by 150 BCE (one estimate); a Zapotec enclave at Teotihuacan; Tomb 7's Mixtec treasure a later reuse; partial abandonment after 700 – 800 CE, not a collapse. |
+| `wh-428` Maya civilisation | 9 | 5 → 9 | **A question carried a figure of years, and "no defensive works anywhere in the Puuc" outran the lidar sample.** Many rival polities, not an empire; period dates whose; 3 – 10 million with the warning that lidar density was extrapolated; drought debated; the Pacunam "60,000 structures" and a 562 CE defeat of Tikal dropped (no open source). |
+| `wh-429` Maya script | 8 | 5 → 8 | **"The earliest securely dated Maya script" at San Bartolo was the 260-day-count sign, not the script**; the plaster is "one of the earliest" from a well-dated setting. Sign counts (over 1,000, about 500 at once, about 200 syllabic), Landa's "alphabet" and the 1562 burning, four codices with the Grolier now widely accepted, decipherment credited to several. |
+| `wh-430` Long Count | 7 | 5 → 7 | **The date line held another event's date and a constant**: now the earliest firm Long Count date (36 BCE, Chiapa de Corzo, not Maya) and day zero 11 – 13 August 3114 BCE (584,283 or 584,285; "584,284" had no source). The 2012 doomsday a modern idea (Tortuguero names it, Palenque counts to 4772 CE). |
+
+**Read by eye.** *Article:* "the Garamantes", "the Olmecs", "the Mesoamerican ballgame", "the Maya civilisation" (in
+question 3 "the Maya civilisation lost its great cities"), "the Maya script", "the Long Count"; "Land of Punt",
+"Mesoamerica", "Monte Albán" and "trans-Saharan trade" bare. *Confusability:* `wh-424`/`wh-425`/`wh-426` the people, the
+region and the game, the ballcourt at Etlatongo only on `wh-426`, the Tuxtla basalt only on `wh-424`; `wh-428`/`wh-429`/`wh-430`
+the civilisation, its writing and its calendar, San Bartolo on `wh-429` only, the doomsday reading only on `wh-430`;
+`wh-421`/`wh-423` the people and the trade, foggaras only on `wh-421`. *Against other cards:* `wh-428` gives the Classic
+as 250 – 1000 CE (McCool) where `wh-425` cites other schemes (Preclassic 2500 BCE – 150 CE; Classic from about 250 or 150);
+`eg-122` dates Sahure c. 2494 – 2345 BCE where Dominy gives about 2480, so `wh-422` prints no Sahure year. None edited.
+
+**Glossary.** Nine terms rewritten (*Garamantes*, *Land of Punt*, *Trans-Saharan trade*, *Olmecs*, the ballgame, *Monte Albán*,
+*Maya civilisation*, *Maya script*, *Long Count*); the *Mesoamerica* entry was kept as it stood. The old *Long Count* entry
+called 584,283 "the accepted answer" and the old *Maya script* entry dated the script by the calendar sign.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1908,3 +1942,12 @@ pass once it answers. Filled batch by batch.
 | `wh-417` | an 1826 lithograph with "in 1821" in its title; the glossary's photograph of the royal cemetery is better |
 | `wh-419` | one head; **locator** is the Jos Plateau, a region some 100 km from the Nok sites |
 | `wh-420` | a map whose description says "fewer than a fifth of the languages" (no source) and whose alt is unchecked |
+| `wh-422` | the hand of a mummified baboon, not Punt; the glossary's picture of Hatshepsut's fleet at Punt fits better; **locator** not written (Punt has no primary coordinate) |
+| `wh-423` | a foggara at Tala, an irrigation technique, not the trade |
+| `wh-424` | a San Lorenzo head; its description says "all seventeen known heads" (unsourced) |
+| `wh-425` | one Codex Borgia page, not the culture area; **locator** not written (Wikipedia rate-limited the retry) |
+| `wh-427` | one stairway of the South Platform, not the city |
+| `wh-428` | the Great Plaza at Tikal, one site |
+| `wh-429` | title says Yaxchilan, description says the panel is in Mexico City: unverified |
+| `wh-430` | Tres Zapotes Stela C; its description gives a file-name range of 600 – 100 BCE against Stuart's 32 BCE |
+| `wh-421`, `wh-426` | judged from title and description only |

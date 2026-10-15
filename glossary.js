@@ -7695,7 +7695,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Monte_Albán": "founded c. 500 BCE",
 "Maya_civilisation": "c. 700 BCE – 1500 CE",
 "Maya_script": "attested from c. 300 BCE",
-"Mesoamerican_Long_Count_calendar": "day zero 11 August 3114 BCE",
+"Mesoamerican_Long_Count_calendar": "day zero 11 – 13 August 3114 BCE",
 "Teotihuacan": "c. 100 – 550 CE",
 "Chavín_culture": "c. 1200 – 400 BCE",
 "Nazca_Lines": "c. 100 BCE – 15th century CE",
