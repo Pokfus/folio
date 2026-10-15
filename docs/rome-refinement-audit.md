@@ -147,7 +147,7 @@ order unless the user says otherwise.
 | B13 | The early Republic (`rm-early-republic`) | `rm-121`–`rm-130` | 10 | 121 | **done 2026-10-15** |
 | B14 | The early Republic (`rm-early-republic`) | `rm-131`–`rm-140` | 10 | 104 | **done 2026-10-15** |
 | B15 | The conquest of Italy (`rm-conquest-italy`) | `rm-141`–`rm-150` | 10 | 109 | **done 2026-10-15** |
-| B16 | The conquest of Italy (`rm-conquest-italy`) | `rm-151`–`rm-160` | 10 | 119 | open |
+| B16 | The conquest of Italy (`rm-conquest-italy`) | `rm-151`–`rm-160` | 10 | 119 | **done 2026-10-15** |
 | B17 | The conquest of Italy (`rm-conquest-italy`) | `rm-161`–`rm-170` | 10 | 110 | open |
 | B18 | The conquest of Italy (`rm-conquest-italy`) | `rm-171`–`rm-180` | 10 | 104 | open |
 | B19 | The Punic Wars (`rm-punic-wars`) | `rm-181`–`rm-190` | 10 | 129 | open |
@@ -420,6 +420,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-148` colonia | the wall of Cosa | wrong: Cosa is a Latin colony, the opposite of the card's term |
 | `rm-149` Latin colony | the main gate of Norba | acceptable but weak; one town, and an older League colony |
 | `rm-150` ager publicus | the Orange cadastre | wrong-ish: an imperial survey of colony land in Gaul; the description claims it records who held each plot |
+| `rm-151` Samnite Wars | Samnite warriors on a tomb frieze from Nola | acceptable in kind (a contemporary painting); the title asserts "Samnite" and a 4th-century date more than the source does. The glossary's Rothert map is wrong (first war only, German labels) |
+| `rm-152` First Samnite War | the rock of Saticula | acceptable photograph; the description states Livy's story as fact |
+| `rm-153` Second Samnite War | a 1906 German atlas plate | German commentary and the compiler's own arrows burned in; the description names the atlas |
+| `rm-154` Caudine Forks | the Stretta di Arpaia seen from Forchia | a good photograph; the description says it is "the ground Livy describes", which is disputed |
+| `rm-155` maniple | two soldiers on the Altar of Domitius Ahenobarbus | weak: two soldiers, not a formation; the description's claims are unsourced |
+| `rm-156` Third Samnite War | a 1906 German atlas plate | burned-in labels; the title names the atlas |
+| `rm-157` Battle of Sentinum | a 19th-century engraving of modern Sassoferrato | not the battle or the Roman town |
+| `rm-158` Roman conquest of Etruria | a beech wood on Monte Cimino | weak: one episode (the Ciminian crossing), not the conquest |
+| `rm-159` conquest of Umbria and Picenum | the upper Tronto valley | weak: a modern village with a clock tower; the description makes unsourced claims |
+| `rm-160` Senones | a gold torque from the Montefortino necropolis | acceptable but weak: one object; the burials are disputed |
 
 ## Glossary candidates
 
@@ -940,3 +950,22 @@ Run as B14. Checks: `rm-audit.js --range=rm-141:rm-150` reads clean on nine card
 | `rm-150` ager publicus | 7 | 5 → 7 | **The tenth/fifth tithe is Appian alone, a late sole source**, and Smith notes no other ancient source reports it; the 500-iugera limit is hedged as tradition; Livy's two iugera a head after the Latin War is his figure. Gracchan problem one clause. |
 
 **Read by eye.** *Confusability:* the settlement cards are a tight cluster (`rm-144`–`rm-150`); each phrasing names only what its term has, and the old confusion of Latin rights with citizenship without the vote is gone. *Chronology:* `rm-141` and the Allia cards print 387 – 386 for Polybius's year; `rm-143`'s 534 – 509 BCE for Tarquin disagrees with `rm-074`'s Dionysian 532 – 507 BCE, and both are said to be the source's. *Overlap:* `rm-164` (not yet refined) says Tarentum invited Pyrrhus after Rome declared war, which Polybius 1.6 does not.
+
+### B16 — `rm-151`–`rm-160`, the conquest of Italy: the Samnite Wars to the Senones (2026-10-15)
+
+Run as B15. Checks: `rm-audit.js --range=rm-151:rm-160` reads clean on seven cards; the rest are `S.chip?` on `rm-151`, `rm-152` and `rm-156`, all the documented false positive (Wheeler's English BMCR review of a German-titled book). `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card. The Samnite pages in Salmon, Oakley and Cornell were unreadable here, so the modern half rests on Forsythe, Stek, Adcock (CAH VII), two BMCR reviews and, on `rm-155`, a university thesis.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-151` Samnite Wars | 7 | 5 → 7 | Livy's story of 343 BCE is Livy's, set beside the doubts about the Campanian surrender and whether the war happened. **The count of three wars is labelled both traditional and modern: Stek says it goes back to Niebuhr, and ancient authors speak of one long war.** The unsourced "Embratur" and the Caudium and Polybius material dropped. |
+| `rm-152` First Samnite War | 6 | 5 → 6 | No mountain is named (the Roberts translation prints "Glaurus"); the Gaurus, Falerii and Carthage-crown details dropped. **Livy's causes are shown as Thucydides-shaped, and the Decius tale is called fiction by Forsythe.** The 354 BCE treaty is the earlier line. |
+| `rm-153` Second Samnite War | 6 | 5 → 6 | **The old abstract rested almost wholly on Smith's 1854 entry**; his unread claims (two theatres, a Lucanian alliance, Bovianum sacked in 311 and 305 BCE) dropped. Conventional 326 – 304 BCE with the Varronian caveat; Livy cut from four pages to two. |
+| `rm-154` Caudine Forks | 7 | 5 → 7 | Livy's story attributed; **the repudiation is a debate (Forsythe: unhistorical, modelled on a later surrender in Spain; Aston: questioned on legal grounds).** No army size is printed: no "two legions" figure was found in Livy 9.2 – 9.11. Conventional 321 BCE. |
+| `rm-155` maniple | 7 | 5 → 8 | **The old card told Livy's and Polybius's armies as one**; they are two accounts about two centuries apart (Livy's fifteen maniples against Polybius's ten, the one explanation Smith's). An unsourced hay-wisp etymology gone. The Samnite-borrowing debate and the articulated-phalanx split are reported as debates. No per-maniple numbers. |
+| `rm-156` Third Samnite War | 6 | 5 → 7 | Livy's Lucanian embassy and the Aquilonia oath are "Livy tells", with the 40,000 his; the oath's historicity and the Etruscan and Umbrian share are debates. "Forty years", "second front" and "auxiliaries" were unsourced. |
+| `rm-157` Battle of Sentinum | 6 | 5 → 6 | **"A million foot" came from Roberts's translation; the Loeb reads 600,000 foot, 46,000 horse and 1,000 chariots, with the manuscript reading disputed; "8,700 Roman dead" is a sum Livy never prints.** The devotio is Livy's story, copied onto the father in Forsythe's view. The year is out of the question. |
+| `rm-158` conquest of Etruria | 6 | 5 → 7 | "Last to submit" and "Rome razed Volsinii and moved its people" unsourced (now "reportedly" slaves or clients). **The 2,000 statues are Metrodorus's charge as Pliny preserves it; the Fasti Triumphales are an Augustan compilation, not contemporary.** The Livy doublet on the Etruscan truces noted. |
+| `rm-159` conquest of Umbria and Picenum | 6 | 5 → 7 | "Two consuls in a single campaign", Ocriculum's "favourable terms", "never in arms again" and the Gauls of Livy 10.10 as Senones were unsourced. Livy has the Umbrians leaving Decius behind, not "a consul". Rebuilt line: Mevania 308 (tradition), the Picene treaty 299, the war 268 and Firmum 264 BCE. |
+| `rm-160` Senones | 6 | 5 → 7 | **The old card gave Polybius's 30-year treaty to the Senones and "broken 299"**; Polybius says "the Gauls", and the 299 and 283 on the old card were Shuckburgh's marginal notes. Dates now rest on modern authors (Arretium 284, final defeat 283, the land law of 232 BCE). |
+
+**Read by eye.** *Legend as legend:* the Campanian surrender, Decius's devotio (twice, father and son), the Caudine repudiation and the Aquilonia oath are each Livy's. *Confusability:* the three-war cluster (`rm-151`–`rm-153`, `rm-156`) is told apart by cause (Campania, Palaepolis, the Lucanians) and `rm-154`/`rm-157` by their battles. *Chronology:* all Samnite years are Varro's and said to be conventional; `rm-157`'s 295 BCE is the same year `rm-142` gives for the son's devotio. *Overlap:* `wh-337` (Etruscan civilisation) was read for `rm-158` and does not disagree.

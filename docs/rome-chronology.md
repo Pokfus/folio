@@ -207,6 +207,14 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | citizen colonies: Antium / Terracina / the larger colonies / Sulla's veterans at Pompeii | 338 BCE / 329 BCE / from 184 BCE / 80 BCE | `rm-148` |
 | Latin colonies: Cales / Aquileia | 334 BCE (the usual list) / 181 BCE | `rm-149` |
 | ager publicus: the 500-iugera limit / the Latin War land / the Gracchan law / the land law | 367 BCE (tradition) / 338 BCE / 133 BCE / 111 BCE | `rm-150`, `rm-128` |
+| the Samnite Wars: first / second / third | 343 – 341 BCE / 326 – 304 BCE / 298 – 290 BCE (tradition: the numbering is modern, Stek; Varro's years before 300 BCE may run several years out) | `rm-151`, `rm-152`, `rm-153`, `rm-156` |
+| the earlier treaty with the Samnites | 354 BCE (tradition) | `rm-152` |
+| the Second Samnite War / the Caudine Forks | 326 – 304 BCE / 321 BCE (conventional) | `rm-153`, `rm-154` |
+| the maniple: in use / Livy's setting | c. 350 – 100 BCE (Taylor, 2020) / 340 BCE (the Latin War) | `rm-155` |
+| the Battle of Sentinum | 295 BCE (conventional) | `rm-157`, `rm-156` |
+| the conquest of Etruria: Veii / the Ciminian forest / Volsinii | 396 BCE (tradition) / 310 BCE / 264 BCE | `rm-158` |
+| Umbria and Picenum: Mevania / the Picene treaty / the Picene war / Firmum | 308 BCE (tradition) / 299 BCE (one modern account) / 268 BCE / 264 BCE | `rm-159` |
+| the Senones: Arretium / final defeat / the land shared | 284 BCE / 283 BCE (one recent study) / 232 BCE; Sena Gallica between 290 and 284 BCE in the sources | `rm-160` |
 
 ## The middle and late Republic
 
@@ -369,4 +377,14 @@ rm-147: 353; 338; 188; 90
 rm-148: 338; 329; 184; 80
 rm-149: 334; 181
 rm-150: 367; 338; 133; 111
+rm-151: 343; 341; 326; 304; 298; 290
+rm-152: 343; 341; 354
+rm-153: 326; 304; 321
+rm-154: 321
+rm-155: 350; 100; 340
+rm-156: 298; 290
+rm-157: 295
+rm-158: 396; 310; 264
+rm-159: 308; 299; 268; 264
+rm-160: 284; 283; 232
 ```
