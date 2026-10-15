@@ -197,6 +197,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Via Appia: begun / stone laid by aediles / extended to Venusia, Tarentum, Brundisium | 312 BCE (Diodorus's count 311) / 296 BCE and 293 BCE (Livy) / 291, 281 and 264 BCE (Platner and Ashby only) | `rm-138` |
 | the Aqua Appia: built / repaired / Augustan repairs | 312 BCE (the date modern books give for the censorship) / 144 – 140 BCE / 11 – 4 BCE | `rm-139` |
 | aes grave: cast from / Pliny's first silver / the as cut to two ounces / bronze and silver one system | c. 300 BCE (Mattingly) / 269 BCE (Forsythe; Mattingly 269 or 268) / c. 245 BCE (Mattingly) / 218 – 201 BCE | `rm-140` |
+| the conquest of Italy: Polybius's start / the Pyrrhic War / Italy held | 387 – 386 BCE (Polybius's Greek year, the Peace of Antalcidas; Varro's is 390) / 280 – 275 BCE / 264 BCE | `rm-141` |
+| the Latin War | 340 – 338 BCE (tradition: the Varronian scheme; Forsythe and Lendering find Varro's years before 300 BCE several years out) | `rm-142` |
+| the Feriae Latinae: Tarquin's law / the list of dates begins / the leagues ended | 534 – 509 BCE (Tarquin's reign as the card's source prints it; `rm-074` prints Dionysius's 532 – 507 BCE) / 451 BCE / 338 BCE | `rm-143` |
+| prefects sent to Capua / Capua stripped of its council / the Lex Julia | 318 BCE (Livy 9.20, by the usual list) / 211 BCE / 90 BCE | `rm-144` |
+| Latin rights: the migration quarrel / Latin rights for the Gauls beyond the Po / Spain | 177 BCE (Livy 41.8) / 89 BCE / c. 74 CE (Pliny; Abbott) | `rm-145` |
+| municipium: Tusculum / Livy's grants / the citizenship law / the Salpensa law | 381 BCE (conventional) / 338 BCE / 90 BCE / 81 – 84 CE | `rm-146` |
+| citizenship without the vote: Caere / Livy's grants / the vote granted to Formiae, Fundi, Arpinum / the full franchise | c. 353 BCE (the 1890 Smith dictionary's reckoning; Gellius gives no year) / 338 BCE / 188 BCE / 90 BCE onward | `rm-147` |
+| citizen colonies: Antium / Terracina / the larger colonies / Sulla's veterans at Pompeii | 338 BCE / 329 BCE / from 184 BCE / 80 BCE | `rm-148` |
+| Latin colonies: Cales / Aquileia | 334 BCE (the usual list) / 181 BCE | `rm-149` |
+| ager publicus: the 500-iugera limit / the Latin War land / the Gracchan law / the land law | 367 BCE (tradition) / 338 BCE / 133 BCE / 111 BCE | `rm-150`, `rm-128` |
 
 ## The middle and late Republic
 
@@ -349,4 +359,14 @@ rm-137: 312; 311; 307; 296; 280
 rm-138: 312; 311; 296; 293; 291; 264
 rm-139: 312; 144; 140; 11; 4
 rm-140: 300; 269; 245; 218; 201
+rm-141: 387; 386; 280; 275; 264
+rm-142: 340; 338
+rm-143: 534; 509; 451; 338
+rm-144: 318; 211; 90
+rm-145: 338; 177; 89; 74
+rm-146: 381; 338; 90; 81; 84
+rm-147: 353; 338; 188; 90
+rm-148: 338; 329; 184; 80
+rm-149: 334; 181
+rm-150: 367; 338; 133; 111
 ```

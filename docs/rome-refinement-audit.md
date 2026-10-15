@@ -146,7 +146,7 @@ order unless the user says otherwise.
 | B12 | The early Republic (`rm-early-republic`) | `rm-111`–`rm-120` | 10 | 121 | **done 2026-10-15** |
 | B13 | The early Republic (`rm-early-republic`) | `rm-121`–`rm-130` | 10 | 121 | **done 2026-10-15** |
 | B14 | The early Republic (`rm-early-republic`) | `rm-131`–`rm-140` | 10 | 104 | **done 2026-10-15** |
-| B15 | The conquest of Italy (`rm-conquest-italy`) | `rm-141`–`rm-150` | 10 | 109 | open |
+| B15 | The conquest of Italy (`rm-conquest-italy`) | `rm-141`–`rm-150` | 10 | 109 | **done 2026-10-15** |
 | B16 | The conquest of Italy (`rm-conquest-italy`) | `rm-151`–`rm-160` | 10 | 119 | open |
 | B17 | The conquest of Italy (`rm-conquest-italy`) | `rm-161`–`rm-170` | 10 | 110 | open |
 | B18 | The conquest of Italy (`rm-conquest-italy`) | `rm-171`–`rm-180` | 10 | 104 | open |
@@ -410,6 +410,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-138` Via Appia | the paving today | acceptable photograph; the description names Procopius |
 | `rm-139` Aqua Appia | a map of Latium with the aqueduct lines | wrong: French caption naming the map's source, burned-in labels |
 | `rm-140` aes grave | a cast prow-series piece in Berlin | acceptable; the locator (the Capitoline) looks unsupported |
+| `rm-141` Roman expansion in Italy | a map of the stages of the conquest | the right subject, but a map with a burned-in key, dates and names; the glossary's Rothert map is also labelled |
+| `rm-142` Latin War | a 1641 painting of Decius Mus's death | one Livy episode, not the war; the description names the painter and the museum |
+| `rm-143` Feriae Latinae | the Alban Mount across Lake Albano | fine as a view; the description asserts a temple on the summit, which Hermans says is debated |
+| `rm-144` praefectura | none | no picture (`I.none`); the glossary has none either |
+| `rm-145` Latin rights | an 1858 facsimile of the Salpensa charter | acceptable; a drawing where the bronze could be photographed |
+| `rm-146` municipium | the excavated town of Tusculum | fine; one site for a whole type; the description's "abandoned in the Middle Ages" wants trimming |
+| `rm-147` civitas sine suffragio | the main street of the Banditaccia cemetery at Caere | acceptable as a place; the description states Gellius's story as fact |
+| `rm-148` colonia | the wall of Cosa | wrong: Cosa is a Latin colony, the opposite of the card's term |
+| `rm-149` Latin colony | the main gate of Norba | acceptable but weak; one town, and an older League colony |
+| `rm-150` ager publicus | the Orange cadastre | wrong-ish: an imperial survey of colony land in Gaul; the description claims it records who held each plot |
 
 ## Glossary candidates
 
@@ -911,3 +921,22 @@ Run as B13. Checks: `rm-audit.js --range=rm-131:rm-140` reads clean on eight car
 | `rm-140` aes grave | 6 | 5 → 6 | "Worth their weight" is an open question; Pliny's first silver (269 BCE) and Mattingly's reductions (c. 245 BCE) are separate rows, each labelled. **The denarius's 211 BCE is not given: no source reachable here prints it** (CRRO, nomisma and numismatics.org were unreachable and Crawford is restricted). |
 
 **Read by eye.** *Legend as legend:* Papirius and the debtor, the Hortensian secession and the Aqua Appia's founding by two censors are each an ancient author's. *Confusability:* `rm-131`/`rm-132` and `rm-133`/`rm-136` are pairs by subject, with each phrasing naming only its term's clues. `rm-122` covers pay and `rm-140` the bronze; neither repeats the other. *Chronology:* the praetorship's 366 BCE agrees with `rm-106`, `rm-128`; Abbott's 367 is said in prose. *Overlap:* `wh-341` (Lex Ovinia, "around 318 BCE") is the only disagreement, left alone.
+
+### B15 — `rm-141`–`rm-150`, the conquest of Italy: the Latin War and the settlement (2026-10-15)
+
+Run as B14. Checks: `rm-audit.js --range=rm-141:rm-150` reads clean on nine cards; the one finding is `rm-144`'s missing picture. `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card. **`rm-148`'s locator could not be corrected:** its stored place is Alba Fucens, a Latin colony, the opposite of the card's term; its agent asked for Minturnae and the apply asked for Terracina as a second try, and both stopped at "no primary coordinate" because the resolver needs Wikipedia, which the sandbox cannot reach. The old locator and its `places` id (`pl:q944515`) stay, and the card goes into "Pictures to redo" with its picture.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-141` Roman expansion in Italy | 7 | 5 → 7 | **"Pyrrhus invited 280 BCE" is gone: no source opened gives that year, and 280 is the battle of the Siris.** The 387 start is Polybius's, set beside Varro's 390; "conquest of Italy" is a modern label whose start varies (340, 299). The "a third of each territory" figure and a false "treaty rather than annexation" claim dropped. |
+| `rm-142` Latin War | 7 | 8 → 7 | The Capitol demand, Torquatus's son, Decius's devotio and the Antium beaks are Livy's voice; **the devotio is flagged as a doublet of the Sentinum one**, and only the settlement is stated as history. One row, Traditional 340 – 338 BCE. |
+| `rm-143` Feriae Latinae | 6 | 6 → 6 | **Dionysius's Tarquin founding and the Latin magistrate presiding were Smith's/Niebuhr's inference told as fact**; both attributed. "White bull" dropped (no source read says white). Dionysius's 47 cities and Pliny's list of 30 peoples are reported as two documents. Dates: Tarquin 534 – 509 BCE (the source's figure), the list from 451, the leagues' end 338. |
+| `rm-144` praefectura | 5 | 5 → 6 | **About 40% of the old abstract was Latin-settlement material that belongs to `rm-142`, `rm-147` and `rm-150`.** Now Livy 9.20 (318 BCE), Livy 26.16 (211), Festus read in Müller's Latin edition (chipped), Smith, Staveley and Abbott and Johnson. Sherwin-White and Oakley were borrow-locked. |
+| `rm-145` Latin rights | 7 | 5 → 7 | **The old question and glossary defined it as "the private half of citizenship", which is `rm-147`'s term.** The three-rights list is "one modern account"; "narrowed to commercium only in 268" (Abbott, Greenidge and Forsythe disagree) and 187 dropped. Added the 177 BCE migration quarrel (Livy 41.8), 89 BCE and Vespasian's grant to Spain (c. 74 CE). |
+| `rm-146` municipium | 7 | 5 → 7 | **Festus's definition has three senses in Paul's epitome, not two.** The "hospitality" etymology, a claim that municipium people lacked the full vote and "earliest grants 338" (Tusculum is put at 381) corrected. Gellius's colony-and-municipium contrast (Hadrian and Italica, Praeneste and Tiberius) added. |
+| `rm-147` civitas sine suffragio | 6 | 5 → 7 | **The old line gave 338 BCE as the "first grants", but Gellius makes Caere first**; his story is Gellius's, and c. 353 BCE is the 1890 dictionary's reckoning. "306 BCE" for Anagnia dropped. Livy 8.14 prints "private rights of citizens", not the Latin phrase. The modern view that the term was coined after the Social War added. |
+| `rm-148` colonia | 7 | 6 → 7 | **Ariminum, Cales, Alba and Sora are Latin colonies (`rm-149`), not citizen colonies**; removed. "Veterans from 201 BCE" dropped: Scipio's veterans got land, not a colony. The "300 settlers on two iugera" rule is hedged to Terracina and later. Gellius's "miniatures" quoted as his words. |
+| `rm-149` Latin colony | 6 | 5 → 7 | **The old line (338 and 306 BCE) gave the ends of two wars, not colony dates**; now Cales 334 BCE and Aquileia 181 BCE. Smith's colony counts and "almost invariably inland" (which Cosa, Paestum and Ariminum contradict) dropped. Livy's settler figures are his. |
+| `rm-150` ager publicus | 7 | 5 → 7 | **The tenth/fifth tithe is Appian alone, a late sole source**, and Smith notes no other ancient source reports it; the 500-iugera limit is hedged as tradition; Livy's two iugera a head after the Latin War is his figure. Gracchan problem one clause. |
+
+**Read by eye.** *Confusability:* the settlement cards are a tight cluster (`rm-144`–`rm-150`); each phrasing names only what its term has, and the old confusion of Latin rights with citizenship without the vote is gone. *Chronology:* `rm-141` and the Allia cards print 387 – 386 for Polybius's year; `rm-143`'s 534 – 509 BCE for Tarquin disagrees with `rm-074`'s Dionysian 532 – 507 BCE, and both are said to be the source's. *Overlap:* `rm-164` (not yet refined) says Tarentum invited Pyrrhus after Rome declared war, which Polybius 1.6 does not.
