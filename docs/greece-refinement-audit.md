@@ -2366,5 +2366,6 @@ and every link answers 200.
 The new titles Battle of Coronea (394 BC), Battle of Sardis (395 BC) and Social War (357–355 BC) join the Wikipedia article names with "BC" that `check-style` already reports on main (they are the articles' names, not prose).
 
 **Locators for `gr-601`–`gr-700`**, fetched through `add-locators.js`: the battles (`gr-658` – `gr-660`, `gr-664`, `gr-671`,
-`gr-675`, `gr-699`, all as battles), `gr-612`, `gr-646`, `gr-665`, `gr-666`, `gr-674` and `gr-678`. `gr-673` and `gr-683` still
-lack one (Wikipedia's coordinate service refused the shared address three times).
+`gr-675`, `gr-699`, all as battles), `gr-612`, `gr-646`, `gr-665`, `gr-666`, `gr-674` and `gr-678`. `gr-673` was fetched on a later try; `gr-683`'s
+coordinate (23.7435, 37.9741) was read from the `wgCoordinates` of the English Wikipedia article "Lyceum (classical)" itself
+after the coordinate service refused the shared address five times, and written through `add-card.js`.
