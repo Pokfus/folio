@@ -665,6 +665,53 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Kritios Boy: Tyrannicides | replacement group 477/6 BCE | Catherine M. Keesling, review of Les Tyrannicides d’Athènes: vie et mort de deux statues,… (`gr-644`) |
 | Pythian chariot win at Delphi | Won (Polyzalos) 478 or 474 BCE; Won (Hieron) 470 BCE | Museum of Delphi, “Selected Exhibits: The Charioteer,” accessed 15 October 2026 (`gr-645`) |
 
+## Classical arts and the Corinthian War to Mantinea (confirmed by B68–B70, `gr-646` – `gr-675`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Riace bronzes | no date line (empty, undatable); style dates 460 – 450 BCE (A) and 440 – 430 BCE (B) in prose only, as the dates most commonly proposed | R. Jones, D. Brunelli, V. Cannavò, S. T. Levi and M. Vidale, “The Riace Bronzes: Recent… (`gr-646`) |
+| Polykleitos | Olympic victors 452 BCE (two statue bases, Pythocles and Aristion; Oxyrhynchus victor list per Gardner) | Ernest Arthur Gardner, A Handbook of Greek Sculpture, new ed. (London: Macmillan, 1915),… (`gr-649`) |
+| Sparta | empire 404 – 371 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-656`) |
+| Spartan hegemony: Battle of Cnidus | 394 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-656`) |
+| Corinthian War | 395 – 387 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-657`) |
+| Corinthian War: Battle of Haliartus | 395 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-657`) |
+| Battle of Nemea | 394 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-658`) |
+| Battle of Coronea | 394 BCE | Peter Green, review of Aegean Greece in the Fourth Century BC, by John Buckler, Bryn Mawr… (`gr-659`) |
+| Battle of Cnidus | 394 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-660`) |
+| Conon: Aegospotami | 405 BCE | “Conon,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William Smith… (`gr-661`) |
+| Conon: Cnidus | 394 BCE | “Conon,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William Smith… (`gr-661`) |
+| Conon: Walls rebuilt | 393 BCE | “Conon,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William Smith… (`gr-661`) |
+| Conon: Arrested | 392 BCE | David Branscome, review of Persian Interventions: The Achaemenid Empire, Athens, and… (`gr-661`) |
+| King's Peace | 387 BCE; 386 BCE on another reckoning | “Antalcidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-662`) |
+| Agesilaus in Asia | 396 BCE | Larisa Pechatnova, “King Agesilaus and the Trial of Phoebidas,” Studia Antiqua et… (`gr-663`) |
+| Agesilaus II: Sardis | 395 BCE | Mark Cartwright, “Agesilaus II,” World History Encyclopedia, accessed 15 October 2026 (`gr-663`) |
+| Agesilaus II: Cadmea | 382 BCE | Larisa Pechatnova, “King Agesilaus and the Trial of Phoebidas,” Studia Antiqua et… (`gr-663`) |
+| Agesilaus died | 359 BCE | Mark Cartwright, “Agesilaus II,” World History Encyclopedia, accessed 15 October 2026 (`gr-663`) |
+| battle of Sardis: Sardis | 395 BCE | Xenophon, Hellenica 3.4.24, trans. Carleton L. Brownson, Perseus Digital Library (`gr-664`) |
+| battle of Sardis: Tissaphernes executed | 395 BCE | David Branscome, review of Persian Interventions: The Achaemenid Empire, Athens, and… (`gr-664`) |
+| seizure of the Cadmea: Cadmea seized | 382 BCE | Larisa Pechatnova, “King Agesilaus and the Trial of Phoebidas,” Studia Antiqua et… (`gr-665`) |
+| seizure of the Cadmea: Garrison expelled | 379 BCE | Xenophon, Hellenica 5.4.1, trans. Carleton L. Brownson, Perseus Digital Library (`gr-665`) |
+| Liberation of Thebes | winter 379/8 BCE | “Decree inviting states to join the Second Athenian League, 378/7 BC” (RO 22), trans.… (`gr-666`) |
+| Second Athenian League: Decree of Aristoteles | 378/7 BCE | “Decree inviting states to join the Second Athenian League, 378/7 BC” (RO 22), trans.… (`gr-667`) |
+| Second Athenian League: Battle of Naxos | 376 BCE | J. Rickard, “Battle of Naxos, September 376 BC,” History of War, 22 June 2016 (`gr-667`) |
+| Epaminondas: Leuctra | 371 BCE | J. Rickard, “War of the Theban Hegemony, 371-362 BC,” History of War, 20 May 2016 (`gr-668`) |
+| Epaminondas: Messene founded | 369 BCE | “Epaminondas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-668`) |
+| Epaminondas: Died at Mantinea | 362 BCE | “Epaminondas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-668`) |
+| Pelopidas: Liberation of Thebes | winter 379/8 BCE | “Pelopidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-669`) |
+| Pelopidas: Tegyra | 375 BCE | “Pelopidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-669`) |
+| Pelopidas: Leuctra | 371 BCE | “Pelopidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-669`) |
+| Pelopidas: Died at Cynoscephalae | 364 BCE | “Pelopidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-669`) |
+| Sacred Band of Thebes: Tegyra | 375 BCE | Joshua J. Mark, “Sacred Band of Thebes,” World History Encyclopedia, 17 June 2021 (`gr-670`) |
+| Sacred Band of Thebes: Leuctra | 371 BCE | Joshua J. Mark, “Sacred Band of Thebes,” World History Encyclopedia, 17 June 2021 (`gr-670`) |
+| Sacred Band of Thebes: Chaeronea | 338 BCE | Plutarch, Pelopidas 16–19, trans. Bernadotte Perrin, Perseus Digital Library (`gr-670`) |
+| battle of Leuctra: Leuctra | 371 BCE | Mark Cartwright, “Battle of Leuctra,” World History Encyclopedia, published 26 June 2013,… (`gr-671`) |
+| Theban hegemony: Leuctra | 371 BCE | J. Rickard, “War of the Theban Hegemony, 371-362 BC,” HistoryofWar.org, 20 May 2016 (`gr-672`) |
+| Theban hegemony: Mantinea, death of Epaminondas | 362 BCE | J. Rickard, “War of the Theban Hegemony, 371-362 BC,” HistoryofWar.org, 20 May 2016 (`gr-672`) |
+| Theban hegemony: Death of Pelopidas | 364 BCE | J. Rickard, “War of the Theban Hegemony, 371-362 BC,” HistoryofWar.org, 20 May 2016 (`gr-672`) |
+| liberation of Messenia: Messenia freed | 370 – 369 BCE | James Roy, review of The Ancient Messenians: Constructions of Ethnicity and Memory, by… (`gr-673`) |
+| Megalopolis | 371 BCE | Simon Hornblower, “When Was Megalopolis Founded?,” Annual of the British School at Athens… (`gr-674`) |
+| Mantinea (second battle) | 362 BCE | Donald Kagan, “Lecture 23: Twilight of the Polis,” Introduction to Ancient Greek History… (`gr-675`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -693,7 +740,7 @@ sources when its batch comes round, and a disputed one given as a range.
 | Sicilian Expedition | 415 – 413 BCE (confirmed by B57, `gr-552`) |
 | Aegospotami | 405 BCE (confirmed by B60, `gr-577`) |
 | Socrates executed | 399 BCE (confirmed by B65–B66, `gr-627`, `gr-629`, `gr-630`) |
-| Leuctra | 371 BCE |
+| Leuctra | 371 BCE (confirmed by B70, `gr-671`; `gr-668` – `gr-672` agree) |
 | Philip II | 359 – 336 BCE |
 | Chaeronea | 338 BCE |
 | Alexander III | born 356 BCE; reigned 336 – 323 BCE |
@@ -1277,4 +1324,25 @@ gr-642: 480; 323; 450
 gr-643: 480; 450
 gr-644: 480; 1865; 1866; 1888
 gr-645: 478; 474; 470; 1892
+gr-649: 452
+gr-656: 404; 371; 394
+gr-657: 395; 387
+gr-658: 394
+gr-659: 394
+gr-660: 394
+gr-661: 405; 394; 393; 392
+gr-662: 387; 386
+gr-663: 396; 395; 382; 359
+gr-664: 395
+gr-665: 382; 379
+gr-666: 379
+gr-667: 378; 376
+gr-668: 371; 369; 362
+gr-669: 379; 375; 371; 364
+gr-670: 375; 371; 338
+gr-671: 371
+gr-672: 371; 362; 364
+gr-673: 370; 369
+gr-674: 371; 368
+gr-675: 362
 ```

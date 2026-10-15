@@ -237,9 +237,9 @@ one changelog line and a version bump; commit and push.
 | B65 | Classical arts and thought (`gr-classical-culture`) | `gr-616`–`gr-625` | 10 | **done 2026-10-15** |
 | B66 | Classical arts and thought (`gr-classical-culture`) | `gr-626`–`gr-635` | 10 | **done 2026-10-15** |
 | B67 | Classical arts and thought (`gr-classical-culture`) | `gr-636`–`gr-645` | 10 | **done 2026-10-15** |
-| B68 | Classical arts and thought (`gr-classical-culture`) | `gr-646`–`gr-655` | 10 | open |
-| B69 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-656`–`gr-665` | 10 | open |
-| B70 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-666`–`gr-675` | 10 | open |
+| B68 | Classical arts and thought (`gr-classical-culture`) | `gr-646`–`gr-655` | 10 | **done 2026-10-15** |
+| B69 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-656`–`gr-665` | 10 | **done 2026-10-15** |
+| B70 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-666`–`gr-675` | 10 | **done 2026-10-15** |
 | B71 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-676`–`gr-685` | 10 | open |
 | B72 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-686`–`gr-695` | 10 | open |
 | B73 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-696`–`gr-700` | 5 | open |
@@ -2258,3 +2258,35 @@ red-hot iron); unsourced claims about the discovery of irrationals and the Hippo
 
 **Wrong auto-links:** none new beyond the `ans-term` wraps of `compass` (`gr-637`), the Pythagorean theorem
 (`gr-636`) and `Cyrus` (`gr-631`).
+
+### B68–B70 (`gr-646`–`gr-675`) — sculptors and vase painters, the Corinthian War, Thebes' day (2026-10-15)
+
+Thirty cards: the Riace bronzes, Myron and the Discobolus, Polykleitos and the Doryphoros, symmetria, contrapposto,
+Euthymides, Euphronios and the white-ground lekythos; then the Spartan hegemony, the Corinthian War with its battles
+(Nemea, Coronea, Cnidus), Conon, the King's Peace, Agesilaus II and the battle of Sardis, the seizure of the Cadmea,
+the liberation of Thebes, the Second Athenian League, Epaminondas, Pelopidas and the Sacred Band, Leuctra, the Theban
+hegemony, the liberation of Messenia, Megalopolis and the second battle of Mantinea. Method as before.
+
+Checks: `greece-audit.js` finds only `S.chip?` / `W.not-why`; `check-questions`, `check-cards --prefix=gr-`,
+`split-cards --check`, `check-gloss-links` and `check-style` add nothing to main's standing alarms (the BC-titled
+Wikipedia articles `check-style` already reports are article names); every citation URL (119 distinct) answers 200.
+
+**Date lines:** `gr-646` – `gr-648`, `gr-650` – `gr-655` are empty and `undatable` (every date for a statue or a vase style is
+an estimate: Riace 460 – 430 BCE by style only, the Discobolus about 450 BCE, the Doryphoros 450 – 440 BCE); `gr-649` carries
+the one pinned fact, Polykleitos' statues for Olympic victors of 452 BCE. The battles each carry one row; `gr-662` keeps the
+387/386 BCE split (sworn at Sparta in 387, elsewhere in 386); `gr-674` gives Pausanias' 371 BCE and Diodorus' 368 BCE for
+the founding of Megalopolis as two rows saying whose; `gr-663` and `gr-668` – `gr-669` carry event dates only.
+Estimated life spans of Myron, Polykleitos, Euphronios, Euthymides, Epaminondas and Pelopidas are prose only.
+
+**Corrected in the old cards:** the two-workshop claim for the Riace bronzes (a 2016 study excludes Athens and Corinth);
+the Lancellotti Discobolus as a restored head (the British Museum copy is the one whose head does not belong);
+"five" signed vases of Euthymides (four survive); "ten signed vases" of Euphronios (ten to twelve, by count);
+Plutarch's dogs and nets set beside Xenophon's seven exiles for the liberation of Thebes; "eight years later"
+for Conon's fleet (405 to 394 BCE is eleven); the founding of the Second Athenian League as 378 BCE (the decree is
+378/7 BCE); and an unsourced "nine years" for the Corinthian War.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Thebes` throughout `gr-656` – `gr-675`, `marble` copies
+(`gr-642` – `gr-650`), `Pythagoras` of Rhegion (`gr-649`), `compass` (`gr-637`).
+
+**Chronology.** A new section, "Classical arts and the Corinthian War to Mantinea", holds rows and pins; Leuctra (371 BCE)
+in Events and reigns is confirmed by `gr-671`.
