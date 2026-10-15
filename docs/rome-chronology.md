@@ -222,6 +222,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Battle of Heraclea / Asculum | 280 BCE / 279 BCE (modern histories; the sources conflict on who won at Asculum) | `rm-165`, `rm-166` |
 | the "one more such victory" remark | 279 BCE after Asculum (Plutarch) / 280 BCE after Heraclea (Diodorus, Dio) | `rm-167` |
 | the Battle of Beneventum / the Latin colony | 275 BCE (Smith prints 274) / 268 BCE | `rm-168` |
+| the socii: burdens felt / status ended | 173 BCE (Livy 42.1, as Schmitz and Long give it) / 90 BCE | `rm-171` |
+| the formula togatorum: twelve colonies refuse / the senate's penalty / named in the land law | 209 BCE / 204 BCE / 111 BCE (Livy; the Lex Agraria) | `rm-172` |
+| the Via Flaminia / the Augustan work | 220 BCE (the modern date; a passage of Festus seems to give 223 BCE; the Periochae give no year) / 27 BCE (the arch at Ariminum) | `rm-173` |
+| the Via Aemilia / the colonies on it | 187 BCE (modern accounts of Livy) / Bononia 189 BCE, Parma and Mutina 183 BCE | `rm-174` |
+| Roman roads: the Appian Way begun / oldest milestone | 312 BCE (gravel; footpath 296 BCE, paving to Bovillae 293 BCE) / c. 250 BCE | `rm-175`, `rm-138` |
+| the triumph: Romulus's (tradition) / Paullus's | 753 BCE / 167 BCE (November, per Plutarch's editor) | `rm-176` |
+| evocatio: Juno vowed at Veii / her temple dedicated / Carthage / Isaura | 396 BCE / 392 BCE (both tradition; Platner and Ashby print both) / 146 BCE / 75 BCE | `rm-177` |
+| the Romanisation of Italy: Livy's settlement / Haverfield's essay | 338 BCE / 1905 | `rm-178` |
+| Rhegium retaken | 271 BCE (the marginal date in Shuckburgh's Polybius) / 270 BCE (Smith) | `rm-180` |
 
 ## The middle and late Republic
 
@@ -403,4 +412,13 @@ rm-166: 279
 rm-167: 279; 280
 rm-168: 275; 268
 rm-169: 272
+rm-171: 173; 90
+rm-172: 209; 204; 111
+rm-173: 220; 27
+rm-174: 187; 189; 183
+rm-175: 312; 250
+rm-176: 753; 167
+rm-177: 396; 392; 146; 75
+rm-178: 338; 1905
+rm-180: 271; 270; 264
 ```

@@ -149,7 +149,7 @@ order unless the user says otherwise.
 | B15 | The conquest of Italy (`rm-conquest-italy`) | `rm-141`–`rm-150` | 10 | 109 | **done 2026-10-15** |
 | B16 | The conquest of Italy (`rm-conquest-italy`) | `rm-151`–`rm-160` | 10 | 119 | **done 2026-10-15** |
 | B17 | The conquest of Italy (`rm-conquest-italy`) | `rm-161`–`rm-170` | 10 | 110 | **done 2026-10-15** |
-| B18 | The conquest of Italy (`rm-conquest-italy`) | `rm-171`–`rm-180` | 10 | 104 | open |
+| B18 | The conquest of Italy (`rm-conquest-italy`) | `rm-171`–`rm-180` | 10 | 104 | **done 2026-10-15** |
 | B19 | The Punic Wars (`rm-punic-wars`) | `rm-181`–`rm-190` | 10 | 129 | open |
 | B20 | The Punic Wars (`rm-punic-wars`) | `rm-191`–`rm-200` | 10 | 127 | open |
 | B21 | The Punic Wars (`rm-punic-wars`) | `rm-201`–`rm-210` | 10 | 128 | open |
@@ -440,6 +440,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-168` Battle of Beneventum | a war elephant on a 3rd-century plate | shows an elephant, not the battle; the description names Commons (`I.caption-source`) |
 | `rm-169` siege of Tarentum | a didrachm of Taras | one coin for a siege; the description names the collection and dating authority |
 | `rm-170` Roman confederation | a 1911 map of the growth of Roman power | a burned-in legend and labels, naming its author, and it shows the allies about 100 BCE |
+| `rm-171` socii | none | no picture (`I.none`) |
+| `rm-172` formula togatorum | none | no picture (`I.none`) |
+| `rm-173` Via Flaminia | the arch of Augustus at Rimini | the terminus, not the road; the description names Smith's dictionary |
+| `rm-174` Via Aemilia | Bologna from above | the description names Smith's dictionary and asserts a Bologna street keeps the road's line, which no source read says |
+| `rm-175` Roman roads | the first milestone of the Appian Way | the description says it is the object Plutarch describes Gracchus planting, which no source supports |
+| `rm-176` Roman triumph | spoils carried in a triumph on the Arch of Titus | a fair, free picture; the description wants rewording (it names the card and Paullus) |
+| `rm-177` evocatio | none | no picture (`I.none`); the Portonaccio sanctuary at Veii or the Aventine would do |
+| `rm-178` Romanisation of Italy | the Latin colony of Alba Fucens | acceptable photograph of one colony; the description names Velleius and carries an unsourced claim |
+| `rm-179` Latin | the Lapis Niger | `rm-089`'s subject standing for the whole language; the title states a century no source read supports |
+| `rm-180` Roman Italy | none | no picture (`I.none`); a map of the Augustan regions would do |
 
 ## Glossary candidates
 
@@ -998,3 +1008,22 @@ Run as B16, with B18's and B19's agents alongside. Checks: `rm-audit.js --range=
 | `rm-170` Roman confederation | 7 | 5 → 7 | **The old "census 225" was Polybius's returns, not a census**; the figures (over 700,000 foot, 70,000 horse; the Latins 80,000) are his, traced by Brunt to Fabius Pictor, whose grand totals Brunt calls "without value". Undated. The old text repeated the levy details that `rm-171` carries. |
 
 **Read by eye.** *Confusability:* `rm-165`/`rm-166`/`rm-168` each name the elephants and the terrain differently; `rm-163`/`rm-164`/`rm-169` split city, king and siege. `rm-170`/`rm-171`/`rm-172` split the system, the status and the register. *Chronology:* the 387 – 386 BCE Polybian year is not used here. *Overlap:* `gr-846`, `gr-847` and `gr-214` were read; `gr-847` says the Beneventum battle was "without result" and gives the "ruin" remark to Diodorus, which the sources read here only partly support.
+
+### B18 — `rm-171`–`rm-180`, the conquest of Italy: the allies, the roads and Roman Italy (2026-10-15)
+
+Run as B17. Checks: `rm-audit.js --range=rm-171:rm-180` reads clean on five cards; the rest are four missing pictures (`rm-171`, `rm-172`, `rm-177`, `rm-180`) and `rm-176`'s `S.chip?` false positive (Östenberg's English BMCR review of a German-titled book). `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card. `rm-172`'s second phrasing nearly gave its answer away through the word "toga" and was reworded. EDCS, EDH and Pleiades would not load, so the Furlo and Rimini inscriptions on `rm-173` are not read and no tunnel date is given.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-171` socii | 6 | 5 → 6 | **"Allied states paid and clothed their own soldiers" is not in Polybius**; gone, with two Gellius and Appian items not re-read. Polybius's levy orders (6.21), ratio and *extraordinarii* (6.26) and rations (6.39) are his; the modern debate is cited from Dzino's review of the Pfeilschifter/Keller essays. The glossary said the Julian law closed the Social War; it came during it. |
+| `rm-172` formula togatorum | 6 | 5 → 6 | **No source gives the register's contents or any army size.** The Lex Agraria is cited from Bruns's Latin edition, where "milites … solent" is a restoration, and the card says so. Mommsen's reconstruction is his alone; 209, 204 and 111 BCE from a modern study. Brunt doubts that the 225 returns relate to the formula (see `rm-170`). |
+| `rm-173` Via Flaminia | 7 | 5 → 7 | The censorship date, the purpose and the lengths were stated as fact; **the Periochae give no year, 220 BCE is the modern date, and a passage of Festus seems to date the work to 223 BCE**. A German reference work warns that Livy's 217 BCE march does not prove the road existed in 220. No kilometres: only Smith's itinerary figures in Roman miles. |
+| `rm-174` Via Aemilia | 7 | 5 → 7 | **"About 290 km (180 Roman miles)" dropped everywhere: Smith says only "180 miles", not Roman.** Strabo's and Livy's differing lines for the road are each given; the colonies (Bononia 189, Parma and Mutina 183 BCE) rest on the Princeton Encyclopedia and the Cambridge Ancient History. |
+| `rm-175` Roman roads | 9 | 5 → 9 | **"Paved from 312 BCE" was wrong: the Appian Way was gravelled first, with a footpath in 296 BCE and paving to Bovillae three years later.** The four layers are Ramsay's 1875 reconstruction by analogy with Vitruvius's floor rules, and a northern Italian study found one or two. The network's certainty (2.737% certain) is Itiner-e's. |
+| `rm-176` Roman triumph | 9 | 5 → 9 | **The 5,000-dead rule was stated as fact; it is Valerius Maximus's, "obviously of recent date" in the 1890 dictionary and doubted by Beard and Itgenshorst.** Romulus's triumph and the Fasti Triumphales are in the sources' voice; the two dictionary editions disagree on whether the slave's whisper has earlier support, and the card says so. No Fasti corpus record was reachable. |
+| `rm-177` evocatio | 6 | 5 → 8 | **The old line merged the vow (396 BCE) and the dedication (392 BCE)**; now two rows, both by tradition. Whether the Juno story shows the rite at all is a debate; Macrobius's Carthage formula is late (5th century CE) and doubtful. "The Aventine temple stood until the end of paganism" dropped (Platner and Ashby: restored by Augustus, then unmentioned). |
+| `rm-178` Romanisation of Italy | 7 | 5 → 10 | **The old "towns taken into Rome" misdescribed the 338 BCE settlement.** The word is shown to be modern (Haverfield 1905), with the Hingley, Mattingly and Terrenato views attributed; Stek and Bispham are reported through reviews. "A third of the land" and "a new colony every few years" dropped. Three sources over the bar, each carrying a named view. |
+| `rm-179` Latin | 9 | 5 → 9 | **Livy names no body: the old "asked the senate" is cut**; the Latin text says permission was granted (180 BCE, Cumae). Smith's "shrinking Greek element" is his inference. The Manios fibula is left out: nothing read settles its authenticity. Undated. |
+| `rm-180` Roman Italy | 8 | 5 → 8 | **"From the Po to the strait" is wrong**: the Celts held the Po plain and official Italy excluded Cisalpine Gaul; Ariminum (268 BCE) was the northern post. Rhegium follows Polybius (over 300 prisoners executed), not Frontinus's 4,000; the Mamertine material moved to `rm-187`. The name Italia and Corfinium are new angles. |
+
+**Read by eye.** *Confusability:* `rm-171`/`rm-172`/`rm-170` are system, status and register, with each phrasing naming only its own term; `rm-138`/`rm-173`/`rm-174`/`rm-175` are one road cluster, each with its own clue (Gracchus's milestones, the Furlo tunnel, Strabo's line). *Chronology:* `rm-141` and `gr-847` disagree on when the Pyrrhic War ended; `rm-180` uses Polybius's Rhegium. *Overlap:* none beyond that.
