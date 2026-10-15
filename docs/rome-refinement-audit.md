@@ -417,7 +417,7 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-145` Latin rights | an 1858 facsimile of the Salpensa charter | acceptable; a drawing where the bronze could be photographed |
 | `rm-146` municipium | the excavated town of Tusculum | fine; one site for a whole type; the description's "abandoned in the Middle Ages" wants trimming |
 | `rm-147` civitas sine suffragio | the main street of the Banditaccia cemetery at Caere | acceptable as a place; the description states Gellius's story as fact |
-| `rm-148` colonia | the wall of Cosa | wrong: Cosa is a Latin colony, the opposite of the card's term |
+| `rm-148` colonia | the wall of Cosa | wrong: Cosa is a Latin colony, the opposite of the card's term. **Its locator and `places` id are Alba Fucens, also a Latin colony; a citizen colony (Antium, Terracina) is wanted** |
 | `rm-149` Latin colony | the main gate of Norba | acceptable but weak; one town, and an older League colony |
 | `rm-150` ager publicus | the Orange cadastre | wrong-ish: an imperial survey of colony land in Gaul; the description claims it records who held each plot |
 | `rm-151` Samnite Wars | Samnite warriors on a tomb frieze from Nola | acceptable in kind (a contemporary painting); the title asserts "Samnite" and a 4th-century date more than the source does. The glossary's Rothert map is wrong (first war only, German labels) |
@@ -459,7 +459,7 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-187` Mamertines | a Mamertine bronze coin | a fair single object for a people who struck coins; the description names the Berlin cabinet and its own dating |
 | `rm-188` Messana | a silver tetradrachm of Zancle | one coin cannot show a city; the description names the Berlin cabinet and a date range |
 | `rm-189` Hiero II | a silver 32-litra piece of Syracuse | the right kind of picture; the description wants rewording (it names the museum and its dates disagree with the card) |
-| `rm-190` siege of Agrigentum | a 1727 engraving from Thuillier's French Polybius | usable (no photograph can show the siege); the description names its source |
+| `rm-190` siege of Agrigentum | a 1727 engraving from Thuillier's French Polybius | usable (no photograph can show the siege); the description names its source. **No locator: Agrigento is wanted** |
 
 ## Glossary candidates
 
