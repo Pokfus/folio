@@ -4343,3 +4343,175 @@ rumu or the meltage fee).
 - **Land reform (`cnh-657`) still carries only the high estimate.** Stavis 1978 is on archive.org as a
   lending copy whose search-inside is closed, and Gao and Liu's article gives no other figure.
 - **No pictures** were added to any of the hundred.
+
+## cnh-802 – cnh-901, land, trade and money, Chinese philosophy, religion and ritual (Oct 2026)
+
+A fourth hundred in one session, twenty batches of five imported in id order: the rest of `cn-economy`
+(`cnh-802`–`cnh-825`), all of `cn-thought` (`cnh-826`–`cnh-867`) and `cn-religion` (`cnh-868`–`cnh-901`).
+Category "State, Society and Economy" for the first 24, "Thought and Religion" for the rest. **100 glossary
+terms** were written. **93 plan lines were retitled** to the concrete answer the sources supported; seven
+plan lines already were an answer and were kept (`Qianzhuang`, `Mozi`, `Wu Xing`, `Zou Yan`, `Kumarajiva`,
+`Mogao Caves`, `Three teachings`).
+
+**How the batch was steered.** As for `cnh-702`–`801`: each plan line was given one suggested answer checked
+against every card answer, glossary key and alias, and plan line of every plan, before twenty writers started.
+Twenty-three plan lines already matched something. The Philosophy plan (`ph-286`–`ph-313`) has a line for
+nearly every Chinese school and thinker, so the cards took another angle and say so in their notes:
+Chinese philosophy → **Huang–Lao**, Hundred Schools → **Lüshi Chunqiu**, Confucius → **Yan Hui**,
+Analects → **Zilu**, Ren → **Shu (reciprocity)**, Li → **Liji**, Junzi → **Zhongyong**, Confucianism →
+**Wenmiao**, Mencius → **Four Beginnings**, Xunzi → **Discourse on Heaven**, Laozi → **Hangu Pass**, Dao →
+**Heshang Gong**, Wu wei → **Cook Ding**, Taoism → **Liezi**, Zhuangzi → **Qiwulun**, Mohism → **Gongshu
+Ban**, Legalism → **Shen Buhai**, Han Feizi → **Two Handles**, School of Names → **Hui Shi**, Yin and yang →
+**He Tu and Luo Shu**. Other overlaps: Silk Road → **Sogdian Ancient Letters**, Temple of Heaven (`arch-356`)
+→ **Mingtang**, Chinese Buddhism (`wh-415`) → **Liu Ying**, Chan (glossary `Zen`) → **Platform Sutra**.
+Retitles forced by research or by a collision found after the table was written: Hundred Schools' Jixia
+Academy is `cnh-183`; Champa rice, Tael, jiaozi, huizi, Diyu, Guandi, Kitchen God (glossary `Zao_Jun`) and the
+White Horse Temple were all already taken, which is why `cnh-803` is **Hemudu culture**, `cnh-811`
+**Sycee**, `cnh-810` **Great Ming Treasure Note**, `cnh-870` **Dongyue Dadi**, `cnh-868` **Wenchang Wang**
+and `cnh-882` **Liu Ying**. `cnh-895` took **Emperor Taiwu of Northern Wei** because the Huichang persecution
+is `cnh-389`. `cnh-867` took the **Science and Metaphysics debate** because New Confucianism is `ph-336`.
+
+**What carried the batch.** Chinese Wikisource for the dynastic histories and the classics (the juan URLs differ
+per work: 卷006 for some, 卷6 for others, and a few titles 404), archive.org full texts for Legge, Giles,
+Needham, Yule, Hobson-Jobson and the Digital Library of India scans of Hummel and *Sources of Chinese
+Tradition* (through `/download/<id>/<id>_djvu.txt`; `/stream/` returns only a wrapper), the Stanford and Internet
+Encyclopedias of Philosophy, the Encyclopedia of Taoism entries reproduced on goldenelixir.com, UNESCO's
+nomination dossiers for Dazu (912) and Mount Wutai (1279) as direct PDF downloads, and Crossref and Europe PMC
+for abstracts.
+
+**Hosts shut or unusable from here.** ctext.org (empty), JSTOR, Sage, Brill, De Gruyter, Springer, MDPI,
+Wiley, Project MUSE, OUP, Duke, ScienceDirect, britannica.com, iranicaonline.org, sogdians.si.edu,
+asia.si.edu, metmuseum.org (429), whc.unesco.org HTML pages (the PDFs under `/uploads/nominations/` opened),
+Heidelberg's JIABS pages (500 or a bot check), cross-currents.berkeley.edu (TLS then 503), terebess.hu
+(503 for the fetch tool, curl opened it), chinaknowledge.de (503), sacred-texts.com (403). Borrow-only on
+archive.org, so not cited: Zürcher, Rowe's *Hankow*, Ware's *Baopuzi*, Soothill's *Hall of Light*, Eitel,
+Gallagher's Ricci journals, Overmyer, Naquin, Jones's *Documents of the Three-Self Movement*.
+
+**Contested figures, with owners.**
+- `cnh-803` Hemudu: whether it was a farming society (Liu Jun 1985: large-scale rice growing; Xie et al. 2017: no
+  more than half the scapulae were spades) and when rice was domesticated (Fuller et al. 2007: cultivation
+  from about 5000 BC, domestication about 4000 BC; Fuller et al. 2009: 27–39 per cent non-shattering bases at
+  Tianluoshan; Zheng et al. 2016: a prolonged process). Tianluoshan as a Hemudu-culture site rests on the
+  writer's knowledge, not on a source that could be opened.
+- `cnh-807` Ming land survey: 1387 (*Ming shi* 77) against a nationwide survey of 1379 (a Zhenjiang gazetteer
+  quoted by Gu Yanwu, via Yee). `cnh-809` Ban liang: Empress Gao's 8-zhu coin 186 BCE (Lacouperie) against 185
+  BCE (Vissering). `cnh-810`: the informer's reward 25 taels (*Ming shi* 81) against 250 (Vissering), so none is given.
+- `cnh-817` Belitung: a bowl dated 826 "thought to be" (Kan, Singapore Heritage Board) against the earliest known
+  dated Changsha ware being 838 and "not part of this cargo" (Flecker); an Arab-built ship (Flecker) against a
+  Southeast Asian build (Haw 2019, abstract only); cargo 60,000 / 70,000 (Flecker), 57,500 (Kan), 58,000
+  (Trafficking Culture). `cnh-818`: the Ming abolition of the offices 1522 (*Ming shi* 75) or 1523 (*Ming shi* 81).
+- `cnh-825` Great Divergence: from 1800 (Goldstone 2021) against well under way in the first half of the 18th
+  century (Broadberry, Guan and Li 2017); `cnh-823` Yunnan miners 60,000–70,000 (*Qing shi gao*) against 200,000–
+  300,000 "said to" (Vogel; not used).
+- `cnh-812` Hankou's population: eight million (Huc), under one million (a Shanghai merchant of 1861, in
+  Blakiston) and one million (Little, who misreports Huc as five million). `cnh-814`: the letters' date 313–314 CE
+  (Sims-Williams) and an earlier attribution to the 2nd century on archaeological grounds (Henning, first page only).
+- `cnh-838` Guodian: about 800 slips (Kirkland) against more than 800 (World Humanities Report); "31 of 81 chapters" is
+  **the writer's own tally** from the chapter lists. `cnh-839`: Heshang Gong's commentary, early Han (tradition),
+  end of the Han (recent Chinese studies), 6th century (some Japanese scholars), probably 2nd century (Chan, SEP).
+- `cnh-851` Ten Wings: authorship (Sima Qian, Ban Gu and Kong Yingda give them to Confucius; Ouyang Xiu denied it
+  for the Xici, Wenyan and Shuogua); the Mawangdui copy about 175 BCE (Shaughnessy) against 168 BCE (SEP). `cnh-848`:
+  which of the two diagrams has nine and which ten (Liu Mu against Zhu Xi and Shao Kangjie, as Zhang Yuchu reports).
+- `cnh-857` Li Ao: death in the Huichang years (*Jiu Tang shu*), 774?–836 (Chen), c. 772–833 (Kirkland); no dates given.
+  `cnh-859`: the first line of the Taijitu shuo, *wuji er taiji* (*Song shi*) against *zi wuji er wei taiji* (Zhou's
+  collected works). `cnh-865`: the *Mingyi daifanglu* begun 1662 and finished in the winter of 1663 (the author's
+  preface) against 1662 (Hummel); `cnh-866`: "about a million copies" is the translator's estimate (Woodbridge).
+- `cnh-872` Luopan: Needham's reading of the staggered rings as recording declination; `cnh-874` Fengshan: the
+  First Emperor's 219 BCE rite as Sima Qian's insertion, first certain performance 110 BCE (Chavannes);
+  `cnh-876` Lingbao: the catalogue 437 (Bokenkamp) against 471; `cnh-878` Ge Hong's dates 283–343 (Pregadio),
+  about 364 (*Jin shu*, age 81), about 281–361 (Davis); `cnh-879` Daozang title counts (Boltz lists 1,473 to 1,527;
+  "some 1,400"); `cnh-881`: the burning of the Quanzhen canon 1281 (Goossaert) against 1280 (*Yuan shi* 11).
+- `cnh-882`–`886`: Kumarajiva's death 409 (Huijiao) against 413 (Robinson) and 350–409 (Tsukamoto); Dharmaraksa's
+  works 149 (Sengyou's biography), 154 (his catalogue; Felbur) and 165 (Huijiao); An Shigao's 30+, 35 and 39 works.
+- `cnh-889`–`891`: Baizhang died aged 66 (Chen Xu's epitaph; Poceski 749–814) or 95 (Zanning); the Platform Sutra's
+  c. 780 Dunhuang text, Huixin's 967 edition and the ten-chapter edition before 1290 are Schlütter's.
+- `cnh-892` Dazu: Beishan ended 1146 (UNESCO) against 1162 (China Daily, Bradshaw). `cnh-893` Mogao: 735 caves in all
+  (Moretti) against 492 decorated (Getty). `cnh-894`: the 68 CE founding of Wutai is a Ming tradition repeated by
+  the UNESCO dossier. `cnh-895`: Taiwu's death in the 3rd month (*Wei shu*) or the 2nd (*Zizhi tongjian*) of 452.
+- `cnh-896` Great Cloud Sutra: ten monks forged it (*Jiu Tang shu* 6) against Fa Ming and nine commentators
+  ennobled (*Zizhi tongjian*, *Jiu Tang shu* 183); the scholarly readings (Onishi 2026, Rothschild 2021) were
+  read as abstracts and attributed to "one study".
+- `cnh-897`–`901`: "harmonious symbiosis" is Fokin's thesis; the Nestorian Stele's find year 1623 (Saeki, Moule)
+  or 1625; `cnh-900` the Eternal Venerable Mother's origin (Pu Wenqi: Luo Qing and Shi Daning; Chang 2025's
+  survey: the Queen Mother of the West), her figures (9.6 billion children, 200 million saved) are the scripture's own
+  as Pu summarises them; `cnh-901` Wu Yaozong born 1895 (*Biographical Dictionary of Christian Missions*) or 1893
+  (the Chinese University Press), so none is given; "over 10,000 house meetings against 1,600 reopened churches" is
+  Bishop Ding's, in Hong Kong in April 1984, as Morrison reports. Document 19 and Article 36 are attributed as
+  the Party's and the Constitution's own accounts.
+
+**Sensitive topics.** Millenarian movements (`cnh-900`): the Qing word *xiejiao* is attributed to the officials and
+nothing is said about the truth of the sects' beliefs. Religion in the PRC (`cnh-901`): state texts are the state's
+own accounts. The persecution of Buddhism is the Northern Wei one (`cnh-895`, the histories' own account; no modern
+article was open); the Tang one is `cnh-389`. Christianity (`cnh-898`, `cnh-899`) rests on the Jesuits' own
+catalogue entry and on Saeki's and Moule's readings of the stele.
+
+**Glossary keys with no English Wikipedia article of their own** (keyed by the answer, as for `ru-073`):
+`He_Tu_and_Luo_Shu`, `Four_Beginnings` (a redirect to *Mencius (book)*), `Discourse_on_Heaven`, `Cook_Ding`,
+`Qiwulun`, `Two_Handles`, `Fish-scale_registers`, `Rent_resistance`, `Shu_(reciprocity)`,
+`Maritime_Trade_Supervisorate`, `Yangzhou_salt_merchants`, `Yunnan_copper`, `Caoyun`, `Sogdian_Ancient_Letters`,
+`Investigation_of_things`, `Quanxue_pian`, `Science_and_Metaphysics_debate`, `Mingtang`, `Great_Cloud_Sutra`,
+`Tianzhu_shiyi` (a redirect to Matteo Ricci), `Eternal_Venerable_Mother` (a redirect to the Queen Mother of the
+West: the Learn-more tile is deliberately empty). `Taijitu_shuo` redirects to a section of *Wuji (philosophy)* and
+`Shu_brocade` to *Sichuan Textiles*. Slugs that are not the answer: `Zhong_You` (Zilu), `Book_of_Rites` (Liji),
+`Doctrine_of_the_Mean`, `Temple_of_Confucius` (Wenmiao), `Bamboo_Texts_of_Guodian`, `Lu_Ban` (Gongshu Ban),
+`Bai_Hu_Tong`, `Wuxing_(Chinese_philosophy)`, `Tung_Shing` (Chinese almanac), `Feng_Shan`, `Lingbao_School`,
+`Lushan_Huiyuan` (Huiyuan), `Xi'an_Stele` (Nestorian Stele), `Liu_Ying_(prince)`, `Cheng_Yi_(philosopher)`,
+`Liu_Xin_(scholar)`, `Junk_(ship)`, `City_God_(China)`, `Banliang`.
+
+**Aliases dropped before import** because they already mean something else in the corpus: "Five Phases"
+(a volcano's and a gold coin's "five phases"), "Wuxing" (a place in Zhejiang, `cnh-329`), "Shiyi" (personal
+names), "Huangli" (a place in Changsha), "Li Ji" (Duke Xian's consort, `cnh-149`), "Two Levers" (Shang Yang's, `wh-402`),
+"Chunqiu" (the existing alias of the Annals), "Shenzi" (Shen Dao's text), "Qingming" alone (an alias of the
+*Along the River* entry), "Chongyang" (the Double Ninth). Case-sensitive entries so that common words stay
+unlinked: `Two_Handles` (Greek amphorae), `City_God_(China)` (Babylonian and Greek city gods), `Book_of_Rites`
+("Sanwu liji"), `Junk_(ship)` ("junk"). Left as known mislinks: `Zhiyi` (`cnh-780` has a Tuyuhun prince Zhiyi),
+`Jiangnan` (`cnh-406` calls Li Yu's state "Jiangnan"), and "Liu Ying" as a bare alias of the Prince of Chu.
+
+**Fixed after the import.**
+- Learn-more links set by hand (`"manual": true`): `cnh-809` Banliang, `cnh-844` Lu Ban, `cnh-849` Wuxing (Chinese
+  philosophy), `cnh-854` Bai Hu Tong, `cnh-874` Feng Shan, `cnh-876` Lingbao School, `cnh-881` Wang Zhe, `cnh-889`
+  Lushan Huiyuan (all had resolved to a disambiguation page or nothing), and `cnh-900` set to none (the resolver
+  had sent the Eternal Venerable Mother to the Queen Mother of the West).
+- Locators: all 42 carry an explicit `name`. `import-batch.js` prints "added N locator(s)" for the number it
+  *asked* for, not the number written: nine were silently skipped (rate limits, and `cnh-812` because the Wikipedia
+  article **Hankou** has no primary coordinate) and `cnh-861` was refused outright. All ten were written on retries
+  (`add-locators.js` prints what it skipped; read its output when re-running). Hankou stands on the Jianghan
+  District article's coordinate, labelled Hankou. Check `cards carrying a locator` against what the batch asked for. Three are birthplaces or sites of association rather than the thing itself (`cnh-805` Pan Jixun at
+  Huzhou, `cnh-862` Lu Jiuyuan at Fuzhou, `cnh-865` Huang Zongxi at Yuyao); `cnh-837` Hangu Pass stands on the
+  article's own coordinate (Sanmenxia), labelled Lingbao, and the card does not say which of the two historic
+  passes is meant; `cnh-870` and `cnh-874` stand on Mount Tai.
+- `add-card.js` read the "An" of **An Shigao** as the article "an"; "an shigao" joins "an lushan" in `ARTICLE_IS_NAME`.
+- `check-questions.js`: six phrasings had a blank at the end of the sentence or opened on a pronoun (`cnh-851`,
+  `cnh-866`, `cnh-870`, `cnh-879`, `cnh-893`) or ran to 36 words (`cnh-882`); `check-cards.js` flagged ancient names in five
+  questions (`cnh-813`, `cnh-846`, `cnh-854`, `cnh-863`, `cnh-882`), reworded. `check-style.js`: book titles
+  left plain (*Analects*, *Daodejing*, *Huainanzi*, *Book of Rites*, "the Zhuangzi", "the Mencius", "the Xunzi",
+  "the Liezi") were set in italics across the hundred and their glossary entries; "Seventy-one" became 71.
+- `check-citations.js`: the 1985 BIPPA paper prints "Liu Jun" and Crossref deposits "Jun LIU" (`cnh-803`); J-STAGE's
+  Crossref record for Newhall has the given and family names swapped (`cnh-886`). Both are `CROSSREF_WRONG`
+  rows, after reading the article's own byline (the 1985 scan's first page; J-STAGE's page prints "NEWHALL Thomas").
+- `migrate-places.js` derived the Atlas places for the 17 new locators, so `card-places.js` was regenerated.
+
+**Left for a human decision.**
+- **Plan lines that now need another answer or care**: `cnh-995` (Chinese agricultural treatises) should not
+  take **Qimin yaoshu** (`cnh-802`); `cnh-980` (Compass) should take the invention and navigation, since
+  **Luopan** (`cnh-872`) stays on the geomancer's disc; `cnh-937` (Dunhuang manuscripts) and `cnh-958` (Jingdezhen)
+  must not repeat **Mogao Caves** (`cnh-893`) and the **Belitung shipwreck** (`cnh-817`); `cnh-992` (Dujiangyan)
+  is free because `cnh-804` took the Zhengguo Canal; `ph-294` (the rectification of names), `ph-305` (the butterfly
+  dream), `ph-307`/`ph-308` (universal love, Mohist logic), `ph-312` (Gongsun Long) and `ph-336` (New Confucianism)
+  were deliberately left alone.
+- **Dates the writers converted from reign years** (the sources give only reign years): Zhang Di's visit 85 CE, the
+  Tang decrees 619, 630 and 739 (`cnh-833`); Hou Hanshu dates for Liu Ying (39–71 CE); 290 CE for the Dharmaraksa
+  colophon; Zilu's death 480 BCE and the *Xuyi* c. 239 BCE (`cnh-827`, `cnh-829`); the Qimin yaoshu printing 1020 and
+  Shaoxing jiazi 1144 (`cnh-802`); Longshuo 661–663 and 673 (`cnh-894`). `cnh-831` carries a deliberately wide
+  "c. 100 BCE – 200 CE" date line that no source states; `cnh-841`'s "265 – 316 CE" Western Jin span is the standard
+  one and is not in the sources (IEP says only "Western Jin").
+- **Characters the writers gave from their own knowledge**: 大分流 (`cnh-825`), 粟特文古信札 (`cnh-814`) and
+  銀錠 (`cnh-811`, an ordinary Chinese name for the ingot, not the word "sycee"). `cnh-868` carries 文昌帝君 against
+  the answer "Wenchang Wang" (Wikipedia's title); 文昌王 could not be confirmed as a Chinese form.
+- **Abstract-only sources** (cited for what the abstract says, some with no access tag because it was not checked):
+  Fuller 2007 and 2009, Haw 2019, Nishimura 2005, Hao 1970, Goldstone 2021, Broadberry 2021, Li and van Zanden 2012,
+  Peerenboom 1991, Cui 2023, Shaughnessy 1994, Williams 2023, Hou Chong, Rothschild 2021, Onishi 2026, Andrews 2024
+  and 2025, Ma Shichang 1995, Fan Jingjing 2025.
+- The *Atlantis* paper on Huang Daopo prints its first author "Qiang LI" in the PDF and "Qiang Lo" in Crossref; the
+  note reads "Bin Li et al." and was not checked further.
+- **No pictures** were added to any of the hundred.
