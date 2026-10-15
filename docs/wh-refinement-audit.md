@@ -157,7 +157,7 @@ in plan order unless the user says otherwise.
 | B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | **done 2026-10-15** |
 | B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | **done 2026-10-15** |
 | B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | **done 2026-10-15** |
-| B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | open |
+| B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | **done 2026-10-15** |
 | B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | open |
 | B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | open |
 | B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | open |
@@ -1779,6 +1779,42 @@ as 250 – 1000 CE (McCool) where `wh-425` cites other schemes (Preclassic 2500 
 *Maya civilisation*, *Maya script*, *Long Count*); the *Mesoamerica* entry was kept as it stood. The old *Long Count* entry
 called 584,283 "the accepted answer" and the old *Maya script* entry dated the script by the calendar sign.
 
+### B44 — `wh-431`–`wh-440`, Africa and the Americas in antiquity and Byzantium (2026-10-15)
+
+Run as B43, the Byzantine cards read against `rm-`/`gr-`. Pictures skipped. Checks: `wh-audit.js --range=wh-431:wh-440` clean
+but for `L.missing` on `wh-431` (the locator request "Teotihuacan" found no primary coordinate) and an `S.chip?` false
+positive on `wh-439` (source 5 is an English article whose title carries a Greek phrase); the rest as B31; 83 distinct URLs
+2xx (a PNAS DOI answered 403 to the checker but is a Crossref-confirmed DOI the saved page was read from).
+`check-citations --card` is 0 mismatched on nine cards; `wh-440` reports one it cannot clear: its source 6 is a Greek-script
+byline (Τζενη ΑΛΜΠΑΝΗ, exactly as Crossref has it) that the checker's author parser cannot split. New locators: `wh-432`
+(Chavín de Huántar), `wh-433` (the Nazca Pampa), `wh-435` (Caral), `wh-437` (Istanbul's historic peninsula) and `wh-440`
+(Sultanahmet). `wh-436` rests on six `De Imperatoribus Romanis` entries by different authors, so one encyclopedia supplies
+most of the card's sources.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-431` Teotihuacan | 8 | 5 → 8 | **"Many archaeologists argue for collective rule" was the marginal view** (a central-rulers view is widely held): now a stated debate. 80,000 – 100,000 was one conservative estimate; now 75,000 to over 200,000 with each method; the name is Nahuatl and its gloss debated; the 378 CE arrival is Maya inscriptions' report; no start in the 100s BCE or 150 – 450 CE peak could be sourced. |
+| `wh-432` Chavín culture | 7 | 5 → 7 | **1200 – 400 BCE was a period, not the site**; now Burger's radiocarbon sequence (founded c. 950, abandoned by 400 BCE) beside Rick's end of use as a temple c. 500. The vilca "carried from far" and cinnabar claims dropped (vilca need not come from far); Tello's "mother culture" disputed; San Pedro only a reading of one plaque. |
+| `wh-433` Nazca Lines | 9 | 5 → 9 | **The date line said the lines were in use "to the 15th century"** and a Greek etymology had no source; now c. 100 BCE – 650 CE, two Palpa sites dated 400 – 650 CE by luminescence, a Paracas start c. 750 BCE. The purposes are proposals; the 2019 and 2024 surveys' counts sourced; no "800 lines" figure (none read). |
+| `wh-434` Moche culture | 7 | 5 → 8 | **100 – 800 CE stood as fact**; now three attributed ranges (100 – 800, 200 – 900 radiocarbon, 300 – 950). One state, two polities or independent valleys is argued; sacrifice at Huaca de la Luna and the Sipán tombs; an El Niño end disproved at Huacas de Moche (Uceda). |
+| `wh-435` Norte Chico civilisation | 6 | 5 → 9 | **"c. 2600 BCE" and a 2900 row were no source's**; c. 3000 – 1800 BCE is the Nature 2004 radiocarbon span, 2627 BCE Mesoweb's date for Caral's earliest parts. Civilisation or society, the 2005 quipu claim (Shady's), the marine-foundations idea challenged by isotopes, the decline hypothesis. |
+| `wh-436` Byzantine Empire | 9 | 5 → 9 | **The end was 1430 (Thessaloniki's fall), not 1453**, and the card never said the people called themselves Romans. The start is dated three ways (330, 395, the 280s); the Latin-to-Greek shift; Manzikert as "the mortal blow" set against a ten-year civil war; 1204 – 1261. Hieronymus Wolf not named (no read source does). |
+| `wh-437` Constantinople | 9 | 5 → 9 | **A bombard question duplicated `wh-686`/`wh-688`**; a harbour figure rested on a 403 page; "eleven centuries" and the 600 kg ball were model inputs. Byzas a pseudo-historical founder, 11 May 330, the 413 wall (sixty days after the 447 quake, by the inscriptions), the chain, 1204, 1261, 1453. |
+| `wh-438` Justinian I | 8 | 5 → 8 | **The plague reached the capital in 542, not 541, and the Gothic War ended in 552, not 554**; a death day had no source and a silk-smuggling story rested on a page that would not open. Procopius's three works told apart (the *Secret History* hostile); the Nika toll of more than 30,000 is his. |
+| `wh-439` Corpus Juris Civilis | 7 | 5 → 8 | **"Three years" for the Digest was Justinian's claim (about six on Weber's count)**, and "sent to Italy in 554" and the Bologna revival were unhedged (about 1100, not the 1070s). The Amalfi tale is unsupported; the Novels are in Greek; why English law grew apart. |
+| `wh-440` Hagia Sophia | 9 | 5 → 9 | **It was the third church on its site, not the second**, and "the rebuilt dome was higher" is contradicted by recent work (sources differ); the "five-year build" is not in Procopius. Dome fell 7 May 558, reconsecrated 24 December 562; mosque 1453, museum decree 1934 and the 2020 ruling stated neutrally. |
+
+**Read by eye.** *Article:* "the Byzantine Empire", "the Corpus Juris Civilis", "the Norte Chico civilisation", "the Moche
+culture", "the Chavín culture", "the Nazca Lines"; "Teotihuacan", "Constantinople", "Hagia Sophia" and "Justinian I" bare.
+*Confusability:* `wh-436`/`wh-437` the state and its capital, Latin-to-Greek only on `wh-436`, the walls only on `wh-437`;
+`wh-437`/`wh-438`/`wh-439`/`wh-440` city, emperor, law and church, the Nika riot on `wh-438` and `wh-440` (as the riot that burned
+the church on `wh-440` only); `wh-431`/`wh-433`/`wh-434` three American cultures, no shared fact. *Against the rm- cards:*
+`rm-586` dates a senate to Constantine where Berger credits Constantius (`wh-437` follows Berger); `rm-729` says the
+commissioners read "almost 2,000 books" where Baldi counts 1,528 (`wh-439` gives neither). None edited.
+
+**Glossary.** Ten terms rewritten (*Teotihuacan*, *Chavín culture*, *Nazca Lines*, *Moche culture*, *Norte Chico
+civilisation*, *Byzantine Empire*, *Constantinople*, *Justinian I*, *Corpus Juris Civilis*, *Hagia Sophia*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1951,3 +1987,8 @@ pass once it answers. Filled batch by batch.
 | `wh-429` | title says Yaxchilan, description says the panel is in Mexico City: unverified |
 | `wh-430` | Tres Zapotes Stela C; its description gives a file-name range of 600 – 100 BCE against Stuart's 32 BCE |
 | `wh-421`, `wh-426` | judged from title and description only |
+| `wh-432` | a laser-scan render of one carving, not the temple |
+| `wh-431` | **locator** not written ("Teotihuacan" has no primary coordinate) |
+| `wh-436` | a Justinian mosaic, one emperor, not the empire |
+| `wh-440` | a dome-only view from below; its description says about 30.6 m where the measured dome is 31.19 × 32.55 m |
+| `wh-433`, `wh-434`, `wh-435`, `wh-437` | a single figure, one vessel, one pyramid and the walls: acceptable, a wider view would show more |

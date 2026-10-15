@@ -422,6 +422,16 @@ Filled batch by batch, from the source each row names.
 | Maya: first cities / Classic / Terminal Classic / Postclassic | c. 700 BCE – 250 CE / 250 – 1000 CE / 800 – 1000 CE / 1000 – 1500 CE (Chase gives other limits) | McCool et al.; Sánchez-Morales et al. (`wh-428`) |
 | Maya script: first attested (San Bartolo) / Classic texts | c. 300 – 200 BCE / c. 250 – 900 CE | Stuart et al.; Jobbová et al. (`wh-429`) |
 | Long Count: earliest firm date (Chiapa de Corzo; Tres Zapotes 32 BCE) / day zero (GMT, 584,283 or 584,285) | 36 BCE / 11 – 13 August 3114 BCE | Kennett et al.; Kettunen and Helmke; Stuart et al. (`wh-430`) |
+| Teotihuacan: rapid growth / apogee / collapse | c. 100 CE / c. 250 – 550 CE / c. 550 CE | Froese et al.; Sugiyama et al.; Manzanilla (`wh-431`) |
+| Chavín de Huántar: site in use / Janabarriu / temple ends / Gallery 3 | c. 950 – 400 BCE / c. 700 – 400 BCE / c. 500 BCE / c. 800 – 350 BCE | Burger; Rick et al. (`wh-432`) |
+| Nasca period / two Palpa sites / Paracas lines | c. 100 BCE – 650 CE / c. 400 – 650 CE / from c. 750 BCE | Sakai et al.; Rink and Bartoll; García Soto (`wh-433`) |
+| Moche: usual / radiocarbon / later estimate | c. 100 – 800 CE / c. 200 – 900 CE / c. 300 – 950 CE | Dumbarton Oaks; Koons and Alex; Quilter et al. (`wh-434`) |
+| Norte Chico (Late Archaic) / earliest Caral | c. 3000 – 1800 BCE / 2627 BCE | Haas, Creamer and Ruiz; Mesoweb (`wh-435`) |
+| Byzantine Empire: often dated / capital lost | 330 – 1453 CE (395 and the 280s also given) / 1204 – 1261 CE | Kaldellis via Neville; Pohlsander; Woods (`wh-436`) |
+| Constantinople: inaugurated / land walls / Latin rule / Ottoman assault | 11 May 330 CE / 413 CE / 1204 – 1261 CE / 29 May 1453 CE | Berger; Van Millingen (`wh-437`) |
+| Justinian I: born / reigned / Vandal War / Gothic War | c. 482 CE / 527 – 565 CE / 533 – 534 CE / 535 – 552 CE | Evans (`wh-438`) |
+| Corpus Juris Civilis: compiled / Code (revised) / Digest | 528 – 534 CE / 529 CE (534) / 533 CE | Wallinga; Weber (`wh-439`) |
+| Hagia Sophia: built / dome fell / reconsecrated / mosque | 532 – 537 CE / 558 CE / 562 CE / 1453 CE | Diker et al.; Garnczarska (`wh-440`) |
 
 ## Chronology pins
 
@@ -828,4 +838,14 @@ wh-427: 500; 100; 200; 700; 800
 wh-428: 700; 250; 1000; 800; 1500
 wh-429: 300; 200; 250; 900
 wh-430: 36; 3114
+wh-431: 100; 250; 550
+wh-432: 950; 400; 700; 500; 800; 350
+wh-433: 100; 650; 400; 750
+wh-434: 100; 800; 200; 900; 300; 950
+wh-435: 3000; 1800
+wh-436: 330; 1453; 1204; 1261
+wh-437: 330; 413; 1204; 1261; 1453
+wh-438: 482; 527; 565; 533; 534; 535; 552
+wh-439: 528; 534; 529; 533
+wh-440: 532; 537; 558; 562; 1453
 ```
