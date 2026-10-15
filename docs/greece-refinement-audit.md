@@ -232,17 +232,17 @@ one changelog line and a version bump; commit and push.
 | B60 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-571`–`gr-580` | 10 | **done 2026-10-04** |
 | B61 | Peloponnesian War (`gr-peloponnesian-war`) | `gr-581`–`gr-585` | 5 | **done 2026-10-04** |
 | B62 | Classical arts and thought (`gr-classical-culture`) | `gr-586`–`gr-595` | 10 | **done 2026-10-04** |
-| B63 | Classical arts and thought (`gr-classical-culture`) | `gr-596`–`gr-605` | 10 | **`gr-596`–`gr-600` done 2026-10-04**; `gr-601`–`gr-605` open |
-| B64 | Classical arts and thought (`gr-classical-culture`) | `gr-606`–`gr-615` | 10 | open |
-| B65 | Classical arts and thought (`gr-classical-culture`) | `gr-616`–`gr-625` | 10 | open |
-| B66 | Classical arts and thought (`gr-classical-culture`) | `gr-626`–`gr-635` | 10 | open |
-| B67 | Classical arts and thought (`gr-classical-culture`) | `gr-636`–`gr-645` | 10 | open |
-| B68 | Classical arts and thought (`gr-classical-culture`) | `gr-646`–`gr-655` | 10 | open |
-| B69 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-656`–`gr-665` | 10 | open |
-| B70 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-666`–`gr-675` | 10 | open |
-| B71 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-676`–`gr-685` | 10 | open |
-| B72 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-686`–`gr-695` | 10 | open |
-| B73 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-696`–`gr-700` | 5 | open |
+| B63 | Classical arts and thought (`gr-classical-culture`) | `gr-596`–`gr-605` | 10 | **`gr-596`–`gr-600` done 2026-10-04; `gr-601`–`gr-605` done 2026-10-15** |
+| B64 | Classical arts and thought (`gr-classical-culture`) | `gr-606`–`gr-615` | 10 | **done 2026-10-15** |
+| B65 | Classical arts and thought (`gr-classical-culture`) | `gr-616`–`gr-625` | 10 | **done 2026-10-15** |
+| B66 | Classical arts and thought (`gr-classical-culture`) | `gr-626`–`gr-635` | 10 | **done 2026-10-15** |
+| B67 | Classical arts and thought (`gr-classical-culture`) | `gr-636`–`gr-645` | 10 | **done 2026-10-15** |
+| B68 | Classical arts and thought (`gr-classical-culture`) | `gr-646`–`gr-655` | 10 | **done 2026-10-15** |
+| B69 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-656`–`gr-665` | 10 | **done 2026-10-15** |
+| B70 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-666`–`gr-675` | 10 | **done 2026-10-15** |
+| B71 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-676`–`gr-685` | 10 | **done 2026-10-15** |
+| B72 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-686`–`gr-695` | 10 | **done 2026-10-15** |
+| B73 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-696`–`gr-700` | 5 | **gr-696–700 done 2026-10-15** |
 | B74 | Alexander the Great (`gr-alexander`) | `gr-701`–`gr-710` | 10 | open |
 | B75 | Alexander the Great (`gr-alexander`) | `gr-711`–`gr-720` | 10 | open |
 | B76 | Alexander the Great (`gr-alexander`) | `gr-721`–`gr-730` | 10 | open |
@@ -2187,3 +2187,185 @@ and looked at on a contact sheet.
 
 **Locators for `gr-561`–`gr-600`**, fetched through `add-locators.js`: `gr-567` (← Colonus (Attica)), `gr-571`,
 `gr-572`, `gr-574`, `gr-577` and `gr-584`, the last five as battles.
+
+### B63–B65, and the first half of B66 — `gr-601`–`gr-630`, the plays of Euripides to the trial of Socrates (2026-10-15)
+
+Thirty cards: the last five tragedies (*Medea*, *Bacchae*, *Trojan Women*, *Hippolytus*, the satyr play), Old Comedy and
+Aristophanes with four of his plays, the theatre (the Theatre of Dionysus, the *theatron*, the *skene*, the mask, the
+*choregos*), the historians' words (*historiē*, *ktēma es aei*) with Xenophon, the *Hellenica* and the *Anabasis*, the
+sophists with three of them, and Antiphon, Socrates, the elenchus, the trial and the *Apology*. Method as before: one
+research agent per five cards working to the same brief (`.claude/wh-refine/`, Greek addendum), every quote checked
+against a saved copy of its source, every draft linted with all drafts merged, then read by eye here.
+
+Checks: `greece-audit.js` over `gr-601`–`gr-630` finds only `S.chip?` on three English texts (the LSJ entry on
+`gr-613`, and BMCR reviews of German-titled books on `gr-620` and `gr-624`) and `W.not-why` on question wording;
+`check-questions`, `check-cards --prefix=gr-`, `split-cards --check` and `check-citations --card` pass; `check-style`
+adds nothing to main's standing alarms; every citation URL (153 distinct) answers 200.
+
+**Date lines:**
+- **Empty and `undatable`:** `gr-613` (*theatron*), `gr-614` (*skene*), `gr-615` (the mask), `gr-617` (*historiē*),
+  `gr-618` (*ktēma es aei*), `gr-622` (the sophist: a profession located only as "the later 5th century BCE"),
+  `gr-628` (the elenchus).
+- **Estimated life spans kept in prose only** ("about"): Xenophon (IEP 430 – 354 BCE; Lee about 427 and about 355),
+  Protagoras (about 490 – 420 BCE on the Stanford and Internet encyclopedias), Gorgias (about 485 – 380 BCE; 483 – 375 BCE),
+  Antiphon (born about 480 BCE) and Aristophanes (a birth between 460 and 444 BCE; the old "Lived c. 446" row had no source).
+  The agents' first drafts of `gr-619`, `gr-623` and `gr-624` printed them as rows; they were taken off in review.
+- **Two rows saying whose:** none new; `gr-612` prints the Suda's date for the collapse of the wooden benches (about 499 BCE)
+  beside Lycurgus' term of office (338 – 326 BCE), which is not a building date.
+- **Non-dates removed from lines:** counts ("Children 2", "Choregoi 5", "Plays surviving 11", "Books 7"), a cost, and rows
+  naming an event of another card.
+
+**Corrected in the old cards:**
+- **Ancient-only citations:** most of the old lists were all Perseus pages of the play or of Aristotle; each card now meets the
+  bar with at least half modern (BMCR, Stanford and Internet Encyclopedias, JHS, GRBS, Histos, *Greece & Rome*, Murray, Norwood,
+  Haigh, Jebb and the Smith dictionaries). Perseus serves David Kovacs for the *Medea* pages the old card credited to Coleridge.
+- **Unsourced claims dropped:** "four hundred years older", the Sicilian fleet's figures (`gr-603`); the Aristotle ties of
+  `gr-602`; "a year before the surrender" and "the earliest sustained literary criticism" (`gr-610`); "never staged because it
+  did badly" (`gr-608`); the vote tallies of `gr-629`; "the earliest orator" (`gr-626`); the claimed descent of English "history"
+  from *historiē* (`gr-617`); the 1906 papyrus year (`gr-620`).
+- **A tradition said as one:** the abolition of the liturgical *choregia* (`gr-616`: a debated 316 – 307 BCE, with no ancient
+  writer saying why); the posthumous *Bacchae* (about 405 BCE); the trial and book-burning of Protagoras (probable legend,
+  `gr-623`); Prodicus' atheism (`gr-625`).
+- **Other cards' ground given back:** the *Hellenica*'s Cunaxa and the march to `gr-621`; the Thirty's amnesty to `gr-629`.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Thebes` (`gr-602`, `gr-620`), `Lycurgus` the orator (`gr-612`),
+`Cyrus` the younger (`gr-619`, `gr-621`), `marble` (`gr-612`), `Hippias` the sophist, `Genealogies` (`gr-617`), `censors`
+(`gr-609`), `embassy` and `Concord` (`gr-626`), `horse` (`gr-630`).
+
+**Chronology.** A new section, "Classical arts and thought, tragedy to Prodicus", holds a row for every date the 30 cards
+print, with pins. The Events and reigns row for Socrates' execution (399 BCE) is confirmed by `gr-627` and `gr-629`.
+
+### B66–B68 (to `gr-645`) — the Memorabilia and medicine, mathematics and atomism, the Severe Style (2026-10-15)
+
+Fifteen cards: Xenophon's *Memorabilia*, Hippocrates, the Hippocratic Corpus and Oath, humoral theory, incommensurability,
+Hippocrates of Chios, Anaxagoras, Democritus, Leucippus, atomism, Classical sculpture, the Severe Style, the Kritios Boy and
+the Charioteer of Delphi. Method as for `gr-601`–`gr-630`.
+
+Checks: `greece-audit.js` finds only `S.chip?` (English BMCR reviews of German-titled books on `gr-643` and `gr-644`) and
+`W.not-why`; `check-questions`, `check-cards --prefix=gr-`, `split-cards --check`, `check-gloss-links` and `check-style`
+add nothing; every citation URL (71 distinct) answers 200.
+
+**Date lines:** empty and `undatable` for `gr-633`, `gr-635`, `gr-636` (the discovery of incommensurability is dated
+from about 500 BCE to the 430s – 410s BCE by different scholars, prose only), `gr-637`, `gr-638`, `gr-640` and `gr-641`;
+`gr-639` has two rows, Apollodorus 460 – 457 BCE and Thrasyllus 470/469 BCE, each saying whose; `gr-645` has the Polyzalos
+and Hieron victories (478 or 474 BCE; 470 BCE). Estimated life spans of Hippocrates (the "c. 460 – 370" row), Anaxagoras
+and Democritus are prose only.
+
+**Corrected in the old cards:** the Hippocratic Corpus' "two dialects" (all Ionic) and unsourced 430 – 200 BCE range;
+Galen as the maker of the fourfold scheme; "c. 400 BCE" for the Oath; "found 1896" and "c. 475 BCE" for the Charioteer;
+the "conjecture of 1895" behind the Kritios Boy's name; the sun as a "stone" for Anaxagoras (Burnet and Diogenes have
+red-hot iron); unsourced claims about the discovery of irrationals and the Hippocratic lunes.
+
+**Wrong auto-links:** none new beyond the `ans-term` wraps of `compass` (`gr-637`), the Pythagorean theorem
+(`gr-636`) and `Cyrus` (`gr-631`).
+
+### B68–B70 (`gr-646`–`gr-675`) — sculptors and vase painters, the Corinthian War, Thebes' day (2026-10-15)
+
+Thirty cards: the Riace bronzes, Myron and the Discobolus, Polykleitos and the Doryphoros, symmetria, contrapposto,
+Euthymides, Euphronios and the white-ground lekythos; then the Spartan hegemony, the Corinthian War with its battles
+(Nemea, Coronea, Cnidus), Conon, the King's Peace, Agesilaus II and the battle of Sardis, the seizure of the Cadmea,
+the liberation of Thebes, the Second Athenian League, Epaminondas, Pelopidas and the Sacred Band, Leuctra, the Theban
+hegemony, the liberation of Messenia, Megalopolis and the second battle of Mantinea. Method as before.
+
+Checks: `greece-audit.js` finds only `S.chip?` / `W.not-why`; `check-questions`, `check-cards --prefix=gr-`,
+`split-cards --check`, `check-gloss-links` and `check-style` add nothing to main's standing alarms (the BC-titled
+Wikipedia articles `check-style` already reports are article names); every citation URL (119 distinct) answers 200.
+
+**Date lines:** `gr-646` – `gr-648`, `gr-650` – `gr-655` are empty and `undatable` (every date for a statue or a vase style is
+an estimate: Riace 460 – 430 BCE by style only, the Discobolus about 450 BCE, the Doryphoros 450 – 440 BCE); `gr-649` carries
+the one pinned fact, Polykleitos' statues for Olympic victors of 452 BCE. The battles each carry one row; `gr-662` keeps the
+387/386 BCE split (sworn at Sparta in 387, elsewhere in 386); `gr-674` gives Pausanias' 371 BCE and Diodorus' 368 BCE for
+the founding of Megalopolis as two rows saying whose; `gr-663` and `gr-668` – `gr-669` carry event dates only.
+Estimated life spans of Myron, Polykleitos, Euphronios, Euthymides, Epaminondas and Pelopidas are prose only.
+
+**Corrected in the old cards:** the two-workshop claim for the Riace bronzes (a 2016 study excludes Athens and Corinth);
+the Lancellotti Discobolus as a restored head (the British Museum copy is the one whose head does not belong);
+"five" signed vases of Euthymides (four survive); "ten signed vases" of Euphronios (ten to twelve, by count);
+Plutarch's dogs and nets set beside Xenophon's seven exiles for the liberation of Thebes; "eight years later"
+for Conon's fleet (405 to 394 BCE is eleven); the founding of the Second Athenian League as 378 BCE (the decree is
+378/7 BCE); and an unsourced "nine years" for the Corinthian War.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Thebes` throughout `gr-656` – `gr-675`, `marble` copies
+(`gr-642` – `gr-650`), `Pythagoras` of Rhegion (`gr-649`), `compass` (`gr-637`).
+
+**Chronology.** A new section, "Classical arts and the Corinthian War to Mantinea", holds rows and pins; Leuctra (371 BCE)
+in Events and reigns is confirmed by `gr-671`.
+
+### B71–B73 (`gr-676`–`gr-700`) — Plato and Aristotle, the Cynics and the orators, Philip's Macedon (2026-10-15)
+
+Twenty-five cards: the Social War, Plato, the Academy, the *Republic*, the theory of Forms, the *Symposium*'s ladder
+of love, Aristotle, the Lyceum, the *Politics*, the *Nicomachean Ethics*, the *History of Animals*, Diogenes and
+Cynicism, Isocrates, the Attic orators, Lysias, Demosthenes, the Philippics, Aeschines, Philip II, the Macedonian
+phalanx, the sarissa, the Third Sacred War, Chaeronea and the League of Corinth. Method as before.
+
+Checks: `greece-audit.js` finds only `S.chip?` (the English BMCR review of a German-titled book on `gr-686`) and
+`W.not-why`; `check-questions`, `check-cards --prefix=gr-`, `split-cards --check`, `check-gloss-links` and `check-style`
+add nothing to main's standing alarms; every citation URL answers 200 (Perseus answered 503 once on `Diod. 16.60`
+and 200 on three retries).
+
+**Date lines:** empty and `undatable` for `gr-679` – `gr-681`, `gr-685` and `gr-686` (works whose dates are estimates)
+and `gr-688` (Cynicism, a school with no pinned start). The estimated life spans of Plato's tradition (`gr-677`
+keeps the two-row device: born 428/427 BCE in the tradition, died 348/347 BCE on Hermippus), Demosthenes (born about
+384 BCE, prose only; `gr-692` carries Chaeronea 338, the crown speech 330 and his death 322 BCE), Isocrates and Lysias
+are otherwise pinned only where an ancient source or event fixes them (`gr-691`: his brother's death 404 and the
+citizenship vote 403 BCE).
+
+**Corrected in the old cards:** the Perseus *Symposium* text is Fowler's, not Lamb's (`gr-681`); the *Republic* is not
+Plato's longest dialogue, the *Laws* is (`gr-679`); the "Alexandrian canon" of ten orators is stated as an assumption,
+not a fact (`gr-690`); the sixteen-deep Macedonian phalanx belongs to Polybius 18.30, not Diodorus 16.3, and the
+invented "c. 150 BCE" and "16 ranks" date-line rows are gone (`gr-696`); the unsourced "inherited seat" of the League
+of Corinth (`gr-700`) and the "hinge" claim of the Third Sacred War (`gr-698`) were dropped; the Athenian Constitution's
+authorship is hedged on `gr-684`; Diogenes' death on the day Alexander died is kept as one row naming Demetrius and the
+prose calls it a modern historian's "invention" (`gr-687`).
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Sulla` (`gr-678`), `reconstruction` (`gr-680`), `concord`
+(`gr-689`) and `hegemon` (the Chinese system, `gr-700`).
+
+**Open, for the glossary pass:** `gr-692`'s card still maps to the key `Demosthenes_(general)` through its answer, so its
+popup shows the Peloponnesian War general; its own key `Demosthenes_(orator)` has not been written. `gr-679`'s answer
+`Republic` opens the generic state's key.
+
+**Chronology.** A new section, "Fourth-century thinkers, orators and Macedon", holds rows and pins; the Events and reigns
+rows for Philip II (359 – 336 BCE) and Chaeronea (338 BCE) are confirmed.
+
+**Wikipedia links for `gr-601`–`gr-700`** corrected in `.claude/wiki-links.json` (marked `manual`): `gr-604` Hippolytus (play), `gr-608`
+The Clouds (the resolver had Cloud), `gr-614` Skene (theatre), `gr-617` none (the resolver had a French film, Historié),
+`gr-628` Socratic method, `gr-631` Memorabilia (Xenophon), `gr-636` Commensurability (mathematics), `gr-655` White-ground
+technique, `gr-659` Battle of Coronea (394 BC), `gr-662` Peace of Antalcidas, `gr-664` Battle of Sardis (395 BC),
+`gr-676` Social War (357–355 BC), `gr-678` Platonic Academy, `gr-683` Lyceum (classical), `gr-692` Demosthenes (the resolver
+had the general). **Locators** fetched through `add-locators.js` for the battles, sites and cities among these cards.
+
+**Pictures for `gr-601`–`gr-700`** (own commit). 64 of the 100 cards now carry one, each with a description of what is shown, a
+visual alt and an author-and-licence credit; every `src` is a 960-, 1280- or 1920-pixel thumbnail on `thumb.wikimedia.org`
+(the web client `cm2.py` did the searching, because the Commons action API refused the shared address; the wikitext head and
+the licence categories were read for author and licence), every candidate was checked with `check-image-free.js` and looked at,
+and every link answers 200.
+- **New (11):** `gr-601` Medea in the Sun's chariot (an Italian bowl), `gr-603` Leighton's captive Andromache (painted about
+  1886 – 1888, imagined), `gr-604` Hippolytus and Phaedra on a sarcophagus, `gr-611` the bird-chorus jug, `gr-614` the theatre
+  at Priene, `gr-621` a manuscript of the *Anabasis*, `gr-630` the 895 CE manuscript of the *Apology*, `gr-633` a medieval page
+  of the Hippocratic writings, `gr-642` the Doryphoros as the face of Classical sculpture, `gr-643` the bronze god from Cape
+  Artemision, `gr-649` the Diadumenos.
+- **Replaced (30):** among them `gr-602` a Pompeian fresco of Pentheus for a lekanis photographed with its museum tag,
+  `gr-605` a satyr-play bowl for the Pronomos Vase that `gr-589` already shows (the open item of B62 – B63 is closed),
+  `gr-607` the uncropped Uffizi herm for a cropped bust, `gr-632` a Roman herm for a mezzotint with a burned-in caption,
+  `gr-634` the Oxyrhynchus papyrus of the Oath, `gr-644` the Kritios Boy (a standard thumbnail for a 900-pixel original),
+  `gr-615` a Hellenistic terracotta actor holding a mask for a Roman mosaic, `gr-657` an Athenian memorial relief for a Diolkos
+  picture whose description overclaimed.
+- **Kept (19):** with the description and credit re-checked, `gr-612`, `gr-613`, `gr-616` (the Lysicrates monument is still
+  the choregos' own), `gr-648`, `gr-650`, `gr-670`, `gr-671`, `gr-673`, `gr-678`, `gr-683`, `gr-692`, `gr-694` – `gr-699`
+  and others.
+- **Removed (15):** pictures that are labelled, cropped, under 960 pixels or of a different subject: the Delos Diadumenos and the
+  Westmacott Athlete (museum labels, `gr-651`, `gr-652`), a ruin at Sparta (`gr-656`), a modern marina for Conon (`gr-661`), a
+  Persepolis relief (`gr-662`), the Eurotas valley (`gr-663`), the Sardis acropolis crop (`gr-664`), the Electran Gate
+  (`gr-665`), a 1910 engraving of Pelopidas (`gr-666`), a Messene gate and an 1881 engraving for Epaminondas and Pelopidas
+  (`gr-668`, `gr-669`), a map with its own legend for the Theban hegemony (`gr-672`), Mausolus for the Social War (`gr-676`),
+  a printed title page for the *Philippics* (`gr-693`), a road photograph with a printed site sign (`gr-700`).
+- **No picture (21 + the removals):** men with no ancient likeness, treaties, concepts and wars. Four pictures that are later
+  paintings or a bust of one man stay (`gr-629`, `gr-680`, `gr-681`, `gr-690`), as the earlier batches' later paintings did.
+
+The new titles Battle of Coronea (394 BC), Battle of Sardis (395 BC) and Social War (357–355 BC) join the Wikipedia article names with "BC" that `check-style` already reports on main (they are the articles' names, not prose).
+
+**Locators for `gr-601`–`gr-700`**, fetched through `add-locators.js`: the battles (`gr-658` – `gr-660`, `gr-664`, `gr-671`,
+`gr-675`, `gr-699`, all as battles), `gr-612`, `gr-646`, `gr-665`, `gr-666`, `gr-674` and `gr-678`. `gr-673` was fetched on a later try; `gr-683`'s
+coordinate (23.7435, 37.9741) was read from the `wgCoordinates` of the English Wikipedia article "Lyceum (classical)" itself
+after the coordinate service refused the shared address five times, and written through `add-card.js`.

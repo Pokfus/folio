@@ -608,6 +608,141 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | *Philoctetes* | staged 409 BCE, first prize | Jebb's introduction (`gr-599`) |
 | Euripides | born 485 BCE on the Parian Marble, 480 BCE by the tradition (two rows); first staged 455 BCE; died 406 BCE | Norwood; Suda; Lendering, Livius (`gr-600`) |
 
+## Classical arts and thought, tragedy to Prodicus (confirmed by B63–B65, `gr-601` – `gr-630`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Medea: Staged | 431 BCE (archon Pythodorus; third prize) | Markus Dubischar, review of Euripides: Medea, by William Allan, Bryn Mawr Classical… (`gr-601`) |
+| Bacchae: Staged | c. 405 BCE (posthumous; Euripides died 406 BCE) | Michael R. Halleran, review of Euripides: Bacchae, by William Allan and Laura Swift, Bryn… (`gr-602`) |
+| Trojan Women: Staged | 415 BCE (City Dionysia of 416/5; Melos winter 416/415; Sicilian expedition sailed 415 BCE) | Melissa Funke, review of Euripides: Troades, by David Kovacs, Bryn Mawr Classical Review… (`gr-603`) |
+| Hippolytus: Produced | 428 BCE (archon Epameinon 429/428; first prize) | Gilbert Norwood, Greek Tragedy (London: Methuen, 1920), 205–8 and 214–15, Project… (`gr-604`) |
+| satyr play: Pratinas (Suda) | 500 – 497 BCE (70th Olympiad) | Suda pi 2230, s.v. “Pratinas,” trans. Elizabeth Vandiver, Suda On Line (`gr-605`) |
+| Old Comedy: Flourished | 458 – 404 BCE | Charles Peter Mason, “Comoedia,” in A Dictionary of Greek and Roman Antiquities, ed.… (`gr-606`) |
+| Old Comedy: Oldest surviving | 425 BCE | Gilbert Murray, A History of Ancient Greek Literature (New York: D. Appleton, 1897),… (`gr-606`) |
+| Aristophanes: First play | 427 BCE | [G. E. L. C.], “Aristophanes,” in A Dictionary of Greek and Roman Biography and… (`gr-607`) |
+| Aristophanes: Last surviving | 388 BCE | Gilbert Murray, A History of Ancient Greek Literature (New York: D. Appleton, 1897),… (`gr-607`) |
+| Clouds: Staged | 423 BCE | Alan H. Sommerstein, review of Aristophanes and the Cloak of Comedy: Affect, Aesthetics,… (`gr-608`) |
+| Lysistrata: Staged | 411 BCE | Peter Thonemann, “Lysimache and Lysistrata,” Journal of Hellenic Studies 140 (2020):… (`gr-609`) |
+| Frogs: Staged | 405 BCE | Carlo Ferdinando Russo, “The Revision of Aristophanes’ Frogs,” Greece & Rome 13, no. 1… (`gr-610`) |
+| Birds: Produced | 414 BCE | Benjamin Bickley Rogers, The Birds of Aristophanes (London: George Bell and Sons, 1906),… (`gr-611`) |
+| Theatre of Dionysus: Earth banks | c. 499 BCE | Roy C. Flickinger, The Greek Theater and Its Drama, 2nd ed. (Chicago: University of… (`gr-612`) |
+| Theatre of Dionysus: Lycurgus’ term | 338 – 326 BCE | A. E. Haigh, The Attic Theatre: A Description of the Stage and Theatre of the Athenians,… (`gr-612`) |
+| choregos: Tripod prizes | from c. 508 BCE (Csapo) | Eric Csapo, “Choregic Dedications and What They Tell Us about Comic Performance in the… (`gr-616`) |
+| choregos: Earliest record | the Fasti's first preserved entry 473/472 BCE | Stephen D. Lambert, review of Inscriptional Records for the Dramatic Festivals in Athens:… (`gr-616`) |
+| choregos: Agonothesia | first attested 307/306 BCE; liturgical choregia gone by then (Csapo); about 316 BCE (Ackermann and Sarrazanas) | Delphine Ackermann and Clément Sarrazanas, “The Abolition of the Liturgical Chorēgia and… (`gr-616`) |
+| Xenophon | Born 430 BCE (IEP); c. 427 BCE (Lee 2005) (prose only) | Eve A. Browning, “Xenophon,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-619`) |
+| Xenophon: Cunaxa | 401 BCE | John W. I. Lee, “Xenophon’s Anabasis and the Origins of Military Autobiography,” in Arms… (`gr-619`) |
+| Xenophon | Died 354 BCE (IEP); around 355 BCE (Lee 2005) (prose only) | Eve A. Browning, “Xenophon,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-619`) |
+| Hellenica | Covers 411 – 362 BCE | Eve A. Browning, “Xenophon,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-620`) |
+| Anabasis: Marched | 401 – 399 BCE | John W. I. Lee, “Xenophon’s Anabasis and the Origins of Military Autobiography,” in Arms… (`gr-621`) |
+| Anabasis: Cunaxa | 401 BCE | John W. I. Lee, “Xenophon’s Anabasis and the Origins of Military Autobiography,” in Arms… (`gr-621`) |
+| Anabasis: Reached the sea | 400 BCE | John W. I. Lee, “Xenophon’s Anabasis and the Origins of Military Autobiography,” in Arms… (`gr-621`) |
+| Protagoras | Lived c. 490 – 420 BCE (SEP, Bonazzi; IEP, Poster) (prose only) | Mauro Bonazzi, “Protagoras,” Stanford Encyclopedia of Philosophy, rev. 10 September 2024 (`gr-623`) |
+| Protagoras: Thurii laws | 444/3 BCE | C. C. W. Taylor and Mi-Kyoung Lee, “The Sophists,” Stanford Encyclopedia of Philosophy,… (`gr-623`) |
+| Gorgias | Lived c. 485 – 380 BCE (SEP, Taylor and Lee) (prose only) | C. C. W. Taylor and Mi-Kyoung Lee, “The Sophists,” Stanford Encyclopedia of Philosophy,… (`gr-624`) |
+| Gorgias | Lived 483 – 375 BCE (IEP, Higgins) (prose only) | C. Francis Higgins, “Gorgias,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-624`) |
+| Gorgias: Embassy to Athens | 427 BCE | Diodorus Siculus, Library of History 12.53, trans. C. H. Oldfather, Perseus Digital… (`gr-624`) |
+| Prodicus: Socrates executed | 399 BCE (Prodicus still living, per Smith) | William Smith, ed., “Prodicus,” in A Dictionary of Greek and Roman Biography and… (`gr-625`) |
+| Antiphon: Four Hundred | 411 BCE | Michael Gagarin, review of Gerard J. Pendrick, ed., Antiphon the Sophist: The Fragments… (`gr-626`) |
+| Socrates | born 469 BCE; Potidaea 432 BCE; Delium 424 BCE; executed 399 BCE | Debra Nails and S. Sara Monoson, “Socrates,” Stanford Encyclopedia of Philosophy, first… (`gr-627`) |
+| Socrates executed | 399 BCE | James M. Ambury, “Socrates,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-627`) |
+| trial of Socrates: Socrates executed | 399 BCE | Debra Nails and S. Sara Monoson, “Socrates,” Stanford Encyclopedia of Philosophy, first… (`gr-629`) |
+| trial of Socrates: Amnesty | 403 BCE (the Thirty overthrown) | James M. Ambury, “Socrates,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-629`) |
+| Apology: Socrates executed | 399 BCE (the trial) | Debra Nails and S. Sara Monoson, “Socrates,” Stanford Encyclopedia of Philosophy, first… (`gr-630`) |
+
+## Classical arts and thought, Hippocrates to the Charioteer (confirmed by B66–B68, `gr-631` – `gr-645`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Memorabilia: Socrates executed | 399 BCE | John Burnet, Greek Philosophy, Part I: Thales to Plato (London: Macmillan, 1914), chap.… (`gr-631`) |
+| Memorabilia written | after 399 BCE (Socrates already dead; composed by the exiled Xenophon) | John Burnet, Greek Philosophy, Part I: Thales to Plato (London: Macmillan, 1914), chap.… (`gr-631`) |
+| Hippocrates born | 460 BCE (Soranus, via Adams’ Preliminary Discourse; Aulus Gellius says older than Socrates) | Francis Adams, “Preliminary Discourse,” in The Genuine Works of Hippocrates (New York:… (`gr-632`) |
+| Democritus: Born | 460 – 457 BCE | Thomas Heath, A History of Greek Mathematics, vol. 1, From Thales to Euclid (Oxford:… (`gr-639`) |
+| Democritus: Born | 470/469 BCE | Thomas Heath, A History of Greek Mathematics, vol. 1, From Thales to Euclid (Oxford:… (`gr-639`) |
+| Classical period | Period 480 – 323 BCE; Early Classical 480 – 450 BCE; later phase 450 – 323 BCE | Fiona Greenland, review of Ancient Greece: Art, Architecture, and History, by Marina… (`gr-642`) |
+| Severe style: Early Classical in art history | Period 480 – 450 BCE | Fiona Greenland, review of Ancient Greece: Art, Architecture, and History, by Marina… (`gr-643`) |
+| Kritios Boy | Made after 480 BCE (the Acropolis Museum) | Acropolis Museum, “Youth statue. The ‘Kritios Boy’,” Explore Collections, accessed 15… (`gr-644`) |
+| Kritios Boy: Tyrannicides | replacement group 477/6 BCE | Catherine M. Keesling, review of Les Tyrannicides d’Athènes: vie et mort de deux statues,… (`gr-644`) |
+| Pythian chariot win at Delphi | Won (Polyzalos) 478 or 474 BCE; Won (Hieron) 470 BCE | Museum of Delphi, “Selected Exhibits: The Charioteer,” accessed 15 October 2026 (`gr-645`) |
+
+## Classical arts and the Corinthian War to Mantinea (confirmed by B68–B70, `gr-646` – `gr-675`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Riace bronzes | no date line (empty, undatable); style dates 460 – 450 BCE (A) and 440 – 430 BCE (B) in prose only, as the dates most commonly proposed | R. Jones, D. Brunelli, V. Cannavò, S. T. Levi and M. Vidale, “The Riace Bronzes: Recent… (`gr-646`) |
+| Polykleitos | Olympic victors 452 BCE (two statue bases, Pythocles and Aristion; Oxyrhynchus victor list per Gardner) | Ernest Arthur Gardner, A Handbook of Greek Sculpture, new ed. (London: Macmillan, 1915),… (`gr-649`) |
+| Sparta | empire 404 – 371 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-656`) |
+| Spartan hegemony: Battle of Cnidus | 394 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-656`) |
+| Corinthian War | 395 – 387 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-657`) |
+| Corinthian War: Battle of Haliartus | 395 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-657`) |
+| Battle of Nemea | 394 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-658`) |
+| Battle of Coronea | 394 BCE | Peter Green, review of Aegean Greece in the Fourth Century BC, by John Buckler, Bryn Mawr… (`gr-659`) |
+| Battle of Cnidus | 394 BCE | Open Yale Courses, “Week 12: The Struggle for Hegemony in Fourth-Century Greece,” Yale… (`gr-660`) |
+| Conon: Aegospotami | 405 BCE | “Conon,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William Smith… (`gr-661`) |
+| Conon: Cnidus | 394 BCE | “Conon,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William Smith… (`gr-661`) |
+| Conon: Walls rebuilt | 393 BCE | “Conon,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William Smith… (`gr-661`) |
+| Conon: Arrested | 392 BCE | David Branscome, review of Persian Interventions: The Achaemenid Empire, Athens, and… (`gr-661`) |
+| King's Peace | 387 BCE; 386 BCE on another reckoning | “Antalcidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-662`) |
+| Agesilaus in Asia | 396 BCE | Larisa Pechatnova, “King Agesilaus and the Trial of Phoebidas,” Studia Antiqua et… (`gr-663`) |
+| Agesilaus II: Sardis | 395 BCE | Mark Cartwright, “Agesilaus II,” World History Encyclopedia, accessed 15 October 2026 (`gr-663`) |
+| Agesilaus II: Cadmea | 382 BCE | Larisa Pechatnova, “King Agesilaus and the Trial of Phoebidas,” Studia Antiqua et… (`gr-663`) |
+| Agesilaus died | 359 BCE | Mark Cartwright, “Agesilaus II,” World History Encyclopedia, accessed 15 October 2026 (`gr-663`) |
+| battle of Sardis: Sardis | 395 BCE | Xenophon, Hellenica 3.4.24, trans. Carleton L. Brownson, Perseus Digital Library (`gr-664`) |
+| battle of Sardis: Tissaphernes executed | 395 BCE | David Branscome, review of Persian Interventions: The Achaemenid Empire, Athens, and… (`gr-664`) |
+| seizure of the Cadmea: Cadmea seized | 382 BCE | Larisa Pechatnova, “King Agesilaus and the Trial of Phoebidas,” Studia Antiqua et… (`gr-665`) |
+| seizure of the Cadmea: Garrison expelled | 379 BCE | Xenophon, Hellenica 5.4.1, trans. Carleton L. Brownson, Perseus Digital Library (`gr-665`) |
+| Liberation of Thebes | winter 379/8 BCE | “Decree inviting states to join the Second Athenian League, 378/7 BC” (RO 22), trans.… (`gr-666`) |
+| Second Athenian League: Decree of Aristoteles | 378/7 BCE | “Decree inviting states to join the Second Athenian League, 378/7 BC” (RO 22), trans.… (`gr-667`) |
+| Second Athenian League: Battle of Naxos | 376 BCE | J. Rickard, “Battle of Naxos, September 376 BC,” History of War, 22 June 2016 (`gr-667`) |
+| Epaminondas: Leuctra | 371 BCE | J. Rickard, “War of the Theban Hegemony, 371-362 BC,” History of War, 20 May 2016 (`gr-668`) |
+| Epaminondas: Messene founded | 369 BCE | “Epaminondas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-668`) |
+| Epaminondas: Died at Mantinea | 362 BCE | “Epaminondas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-668`) |
+| Pelopidas: Liberation of Thebes | winter 379/8 BCE | “Pelopidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-669`) |
+| Pelopidas: Tegyra | 375 BCE | “Pelopidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-669`) |
+| Pelopidas: Leuctra | 371 BCE | “Pelopidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-669`) |
+| Pelopidas: Died at Cynoscephalae | 364 BCE | “Pelopidas,” in A Dictionary of Greek and Roman Biography and Mythology, ed. William… (`gr-669`) |
+| Sacred Band of Thebes: Tegyra | 375 BCE | Joshua J. Mark, “Sacred Band of Thebes,” World History Encyclopedia, 17 June 2021 (`gr-670`) |
+| Sacred Band of Thebes: Leuctra | 371 BCE | Joshua J. Mark, “Sacred Band of Thebes,” World History Encyclopedia, 17 June 2021 (`gr-670`) |
+| Sacred Band of Thebes: Chaeronea | 338 BCE | Plutarch, Pelopidas 16–19, trans. Bernadotte Perrin, Perseus Digital Library (`gr-670`) |
+| battle of Leuctra: Leuctra | 371 BCE | Mark Cartwright, “Battle of Leuctra,” World History Encyclopedia, published 26 June 2013,… (`gr-671`) |
+| Theban hegemony: Leuctra | 371 BCE | J. Rickard, “War of the Theban Hegemony, 371-362 BC,” HistoryofWar.org, 20 May 2016 (`gr-672`) |
+| Theban hegemony: Mantinea, death of Epaminondas | 362 BCE | J. Rickard, “War of the Theban Hegemony, 371-362 BC,” HistoryofWar.org, 20 May 2016 (`gr-672`) |
+| Theban hegemony: Death of Pelopidas | 364 BCE | J. Rickard, “War of the Theban Hegemony, 371-362 BC,” HistoryofWar.org, 20 May 2016 (`gr-672`) |
+| liberation of Messenia: Messenia freed | 370 – 369 BCE | James Roy, review of The Ancient Messenians: Constructions of Ethnicity and Memory, by… (`gr-673`) |
+| Megalopolis | 371 BCE | Simon Hornblower, “When Was Megalopolis Founded?,” Annual of the British School at Athens… (`gr-674`) |
+| Mantinea (second battle) | 362 BCE | Donald Kagan, “Lecture 23: Twilight of the Polis,” Introduction to Ancient Greek History… (`gr-675`) |
+
+## Fourth-century thinkers, orators and Macedon (confirmed by B71–B73, `gr-676` – `gr-700`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Social War | 357 – 355 BCE | J. Rickard, “Social War 357–55 BC (Greece),” History of War, 17 November 2016 (`gr-676`) |
+| Plato | Born (tradition) 428/427 BCE; Died 348/347 BCE (Hermippus) (prose only) | Thomas Brickhouse and Nicholas D. Smith, “Plato,” Internet Encyclopedia of Philosophy,… (`gr-677`) |
+| Academy | founded c. 388 – 387 BCE; Plato died 348/347 BCE; Sulla's siege 86 BCE | Rafael Ferber, review of Carl Séan O’Brien, Plato’s Unwritten Doctrines (Cambridge:… (`gr-678`) |
+| Aristotle | born 384 BCE; school founded 335 BCE; died 322 BCE | Christopher Shields, “Aristotle,” The Stanford Encyclopedia of Philosophy, first… (`gr-682`) |
+| Lyceum | Aristotle begins 335 BCE; leaves 323 BCE; Sulla's sack 86 BCE | William Morison, “The Lyceum,” Internet Encyclopedia of Philosophy (`gr-683`) |
+| Politics | mentions Philip's murder 336 BCE; Aristotle died 322 BCE | Jona Lendering, “Philip II of Macedonia (6),” Livius.org (`gr-684`) |
+| Diogenes of Sinope: old man | 328 – 325 BCE (113th Olympiad) | D. R. Dudley, A History of Cynicism from Diogenes to the 6th Century A.D. (London:… (`gr-687`) |
+| Diogenes of Sinope: died | 323 BCE (Demetrius: the day Alexander died) | Eduard Zeller, Socrates and the Socratic Schools, trans. Oswald J. Reichel (London:… (`gr-687`) |
+| Cynicism: Diogenes an old man | 328 – 325 BCE (113th Olympiad) | D. R. Dudley, A History of Cynicism from Diogenes to the 6th Century A.D. (London:… (`gr-688`) |
+| Cynicism: Julian's orations | 361 CE | Julie Piering, “Cynics,” Internet Encyclopedia of Philosophy, accessed 15 October 2026 (`gr-688`) |
+| Isocrates: born | 436 BCE (Ol. 86.1) | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 2 (London: Macmillan, 1876),… (`gr-689`) |
+| Isocrates: To Philip | 346 BCE | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 2 (London: Macmillan, 1876),… (`gr-689`) |
+| Isocrates: died | 338 BCE (just after Chaeronea) | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 2 (London: Macmillan, 1876),… (`gr-689`) |
+| Attic orators: Antiphon: Four Hundred | 411 BCE | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 1, 2nd ed. (London:… (`gr-690`) |
+| Attic orators: Demosthenes the orator: died | 322 BCE | Casper C. de Jonge, “Challenging the Canon of the Ten Attic Orators: From kanôn to… (`gr-690`) |
+| Lysias | brother Polemarchus killed 404 BCE; citizenship vote 403 BCE | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 1 (London: Macmillan, 1876),… (`gr-691`) |
+| Demosthenes | born 384 BCE; Chaeronea 338 BCE; On the Crown 330 BCE; died 322 BCE | Johannes Engels, review of Demosthenes of Athens and the Fall of Classical Greece, by Ian… (`gr-692`) |
+| Philippics | First Philippic 351 BCE; Third Philippic 341 BCE; Chaeronea 338 BCE | J. B. Bury, A History of Greece to the Death of Alexander the Great (London: Macmillan,… (`gr-693`) |
+| Aeschines | Peace of Philocrates 346 BCE; On the Embassy trial 343 BCE; Against Ctesiphon / Crown trial 330 BCE | Johannes Engels, review of Demosthenes of Athens and the Fall of Classical Greece, by Ian… (`gr-694`) |
+| Philip II | reigned 359 – 336 BCE; Chaeronea 338 BCE; assassinated 336 BCE | Donald L. Wasson, “Philip II of Macedon,” World History Encyclopedia, published 31 July… (`gr-695`) |
+| Macedonian phalanx: Philip II | 359 – 336 BCE | J. B. Bury, A History of Greece to the Death of Alexander the Great (London: Macmillan,… (`gr-696`) |
+| sarissa: Philip II | 359 – 336 BCE | Diodorus Siculus, Library of History 16.3, Loeb Classical Library, Perseus Digital… (`gr-697`) |
+| Third Sacred War | 356 – 346 BCE | Ian Worthington, review of Matthew Trundle, Greek Mercenaries: From the Late Archaic… (`gr-698`) |
+| Third Sacred War: Crocus Field | 352 BCE | Jona Lendering, “Philip II of Macedonia (3),” Livius.org, accessed 15 October 2026 (`gr-698`) |
+| battle of Chaeronea: Chaeronea | 338 BCE | Jona Lendering, “Chaeronea (338 BCE),” Livius.org, accessed 15 October 2026 (`gr-699`) |
+| League of Corinth | 337 BCE | Ian Worthington, review of Stephen Usher, Demosthenes, On the Crown (Warminster: Aris &… (`gr-700`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -635,10 +770,10 @@ sources when its batch comes round, and a disputed one given as a range.
 | Peace of Nicias | 421 BCE (confirmed by B56, `gr-545`) |
 | Sicilian Expedition | 415 – 413 BCE (confirmed by B57, `gr-552`) |
 | Aegospotami | 405 BCE (confirmed by B60, `gr-577`) |
-| Socrates executed | 399 BCE |
-| Leuctra | 371 BCE |
-| Philip II | 359 – 336 BCE |
-| Chaeronea | 338 BCE |
+| Socrates executed | 399 BCE (confirmed by B65–B66, `gr-627`, `gr-629`, `gr-630`) |
+| Leuctra | 371 BCE (confirmed by B70, `gr-671`; `gr-668` – `gr-672` agree) |
+| Philip II | 359 – 336 BCE (confirmed by B72–B73, `gr-695` – `gr-700`) |
+| Chaeronea | 338 BCE (confirmed by B73, `gr-699`; `gr-670`, `gr-692` – `gr-695` agree) |
 | Alexander III | born 356 BCE; reigned 336 – 323 BCE |
 | Ipsus | 301 BCE |
 | Sack of Corinth | 146 BCE |
@@ -1190,4 +1325,74 @@ gr-595: 468; 441; 413; 406
 gr-597: 442; 441
 gr-599: 409
 gr-600: 485; 480; 455; 406
+gr-601: 431
+gr-602: 405
+gr-603: 415
+gr-604: 428
+gr-605: 500; 497
+gr-606: 458; 404; 425
+gr-607: 427; 388
+gr-608: 423
+gr-609: 411
+gr-610: 405
+gr-611: 414
+gr-612: 499; 338; 326
+gr-616: 508; 473/472; 307/306
+gr-619: 401
+gr-620: 411; 362
+gr-621: 401; 399; 400
+gr-623: 444/3
+gr-624: 427
+gr-625: 399
+gr-626: 411
+gr-627: 469; 432; 424; 399
+gr-629: 399
+gr-630: 399
+gr-631: 399
+gr-632: 460
+gr-639: 460; 457; 470; 469
+gr-642: 480; 323; 450
+gr-643: 480; 450
+gr-644: 480; 1865; 1866; 1888
+gr-645: 478; 474; 470; 1892
+gr-649: 452
+gr-656: 404; 371; 394
+gr-657: 395; 387
+gr-658: 394
+gr-659: 394
+gr-660: 394
+gr-661: 405; 394; 393; 392
+gr-662: 387; 386
+gr-663: 396; 395; 382; 359
+gr-664: 395
+gr-665: 382; 379
+gr-666: 379
+gr-667: 378; 376
+gr-668: 371; 369; 362
+gr-669: 379; 375; 371; 364
+gr-670: 375; 371; 338
+gr-671: 371
+gr-672: 371; 362; 364
+gr-673: 370; 369
+gr-674: 371; 368
+gr-675: 362
+gr-676: 357; 355
+gr-677: 428; 427; 348; 347
+gr-678: 388; 387; 348; 347; 86
+gr-682: 384; 335; 322
+gr-683: 335; 323; 86
+gr-684: 336; 322
+gr-687: 323
+gr-689: 436; 346; 338
+gr-690: 411; 322
+gr-691: 404; 403
+gr-692: 338; 330; 322
+gr-693: 351; 341; 338
+gr-694: 346; 343; 330
+gr-695: 359; 336; 338
+gr-696: 359; 336
+gr-697: 359; 336
+gr-698: 356; 346; 353; 352
+gr-699: 338
+gr-700: 337; 334; 324
 ```

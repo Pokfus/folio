@@ -23068,11 +23068,12 @@
   },
   "gr-604": {
    "answer": "Hippolytus",
-   "title": "Hippolytus of Athens",
-   "url": "https://en.wikipedia.org/wiki/Hippolytus_of_Athens",
+   "title": "Hippolytus (play)",
+   "url": "https://en.wikipedia.org/wiki/Hippolytus_(play)",
    "via": "disambiguation",
    "status": "disambig-resolved",
-   "from": "Hippolytus"
+   "from": "Hippolytus",
+   "manual": true
   },
   "gr-605": {
    "answer": "satyr play",
@@ -23097,11 +23098,12 @@
   },
   "gr-608": {
    "answer": "Clouds",
-   "title": "Cloud",
-   "url": "https://en.wikipedia.org/wiki/Cloud",
+   "title": "The Clouds",
+   "url": "https://en.wikipedia.org/wiki/The_Clouds",
    "via": "answer",
    "status": "redirect-variant",
-   "from": "Clouds"
+   "from": "Clouds",
+   "manual": true
   },
   "gr-609": {
    "answer": "Lysistrata",
@@ -23143,8 +23145,8 @@
   },
   "gr-614": {
    "answer": "skene",
-   "title": null,
-   "url": null,
+   "title": "Skene (theatre)",
+   "url": "https://en.wikipedia.org/wiki/Skene_(theatre)",
    "via": null,
    "status": "disambiguation",
    "from": "Skene",
@@ -23155,7 +23157,8 @@
     "Skene (automobile)",
     "Skene Boats",
     "Clan Skene"
-   ]
+   ],
+   "manual": true
   },
   "gr-615": {
    "answer": "tragic mask",
@@ -23180,10 +23183,11 @@
   },
   "gr-617": {
    "answer": "historiē",
-   "title": "Historié",
-   "url": "https://en.wikipedia.org/wiki/Histori%C3%A9",
+   "title": null,
+   "url": null,
    "via": "search",
-   "status": "ok"
+   "status": "ok",
+   "manual": true
   },
   "gr-618": {
    "answer": "ktēma es aei",
@@ -23262,8 +23266,8 @@
   },
   "gr-628": {
    "answer": "elenchus",
-   "title": null,
-   "url": null,
+   "title": "Socratic method",
+   "url": "https://en.wikipedia.org/wiki/Socratic_method",
    "via": null,
    "status": "disambiguation",
    "from": "Elenchus",
@@ -23271,7 +23275,8 @@
     "Elenchus (brachiopod)",
     "Method of elenchus",
     "Elenchus (insect)"
-   ]
+   ],
+   "manual": true
   },
   "gr-629": {
    "answer": "trial of Socrates",
@@ -23289,12 +23294,13 @@
   },
   "gr-631": {
    "answer": "Memorabilia",
-   "title": null,
-   "url": null,
+   "title": "Memorabilia (Xenophon)",
+   "url": "https://en.wikipedia.org/wiki/Memorabilia_(Xenophon)",
    "via": null,
    "status": "section-redirect",
    "from": "Memorabilia",
-   "target": "Souvenir#As memorabilia"
+   "target": "Souvenir#As memorabilia",
+   "manual": true
   },
   "gr-632": {
    "answer": "Hippocrates",
@@ -23327,12 +23333,13 @@
   },
   "gr-636": {
    "answer": "incommensurability",
-   "title": null,
-   "url": null,
+   "title": "Commensurability (mathematics)",
+   "url": "https://en.wikipedia.org/wiki/Commensurability_(mathematics)",
    "via": null,
    "status": "disambiguation",
    "from": "Commensurability",
-   "suggestions": []
+   "suggestions": [],
+   "manual": true
   },
   "gr-637": {
    "answer": "Hippocrates of Chios",
@@ -23464,8 +23471,8 @@
   },
   "gr-655": {
    "answer": "white-ground lekythos",
-   "title": null,
-   "url": null,
+   "title": "White-ground technique",
+   "url": "https://en.wikipedia.org/wiki/White-ground_technique",
    "via": null,
    "status": "none",
    "suggestions": [
@@ -23474,7 +23481,8 @@
     "Pottery of ancient Greece",
     "Achilles Painter",
     "Thanatos Painter"
-   ]
+   ],
+   "manual": true
   },
   "gr-656": {
    "answer": "Spartan hegemony",
@@ -23499,15 +23507,16 @@
   },
   "gr-659": {
    "answer": "Battle of Coronea",
-   "title": null,
-   "url": null,
+   "title": "Battle of Coronea (394 BC)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Coronea_(394_BC)",
    "via": null,
    "status": "disambiguation",
    "from": "Battle of Coronea",
    "suggestions": [
     "Battle of Coronea (447 BC)",
     "Battle of Coronea (394 BC)"
-   ]
+   ],
+   "manual": true
   },
   "gr-660": {
    "answer": "Battle of Cnidus",
@@ -23525,15 +23534,16 @@
   },
   "gr-662": {
    "answer": "King's Peace",
-   "title": null,
-   "url": null,
+   "title": "Peace of Antalcidas",
+   "url": "https://en.wikipedia.org/wiki/Peace_of_Antalcidas",
    "via": null,
    "status": "disambiguation",
    "from": "King's peace",
    "suggestions": [
     "King's peace (law)",
     "The King's Peace (novel)"
-   ]
+   ],
+   "manual": true
   },
   "gr-663": {
    "answer": "Agesilaus II",
@@ -23544,11 +23554,12 @@
   },
   "gr-664": {
    "answer": "battle of Sardis",
-   "title": "Siege of Sardis (547 BC)",
-   "url": "https://en.wikipedia.org/wiki/Siege_of_Sardis_(547_BC)",
+   "title": "Battle of Sardis (395 BC)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Sardis_(395_BC)",
    "via": "glossary",
    "status": "redirect-broader",
-   "from": "Battle of Sardis"
+   "from": "Battle of Sardis",
+   "manual": true
   },
   "gr-665": {
    "answer": "seizure of the Cadmea",
@@ -23651,8 +23662,8 @@
   },
   "gr-676": {
    "answer": "Social War",
-   "title": null,
-   "url": null,
+   "title": "Social War (357–355 BC)",
+   "url": "https://en.wikipedia.org/wiki/Social_War_(357%E2%80%93355_BC)",
    "via": null,
    "status": "disambiguation",
    "from": "Social War",
@@ -23661,7 +23672,8 @@
     "Social War (357–355 BC)",
     "Social War (220–217 BC)",
     "Social War (91–87 BC)"
-   ]
+   ],
+   "manual": true
   },
   "gr-677": {
    "answer": "Plato",
@@ -23672,10 +23684,11 @@
   },
   "gr-678": {
    "answer": "Academy",
-   "title": "Academy",
-   "url": "https://en.wikipedia.org/wiki/Academy",
+   "title": "Platonic Academy",
+   "url": "https://en.wikipedia.org/wiki/Platonic_Academy",
    "via": "glossary",
-   "status": "ok"
+   "status": "ok",
+   "manual": true
   },
   "gr-679": {
    "answer": "Republic",
@@ -23709,10 +23722,11 @@
   },
   "gr-683": {
    "answer": "Lyceum",
-   "title": "Lyceum",
-   "url": "https://en.wikipedia.org/wiki/Lyceum",
+   "title": "Lyceum (classical)",
+   "url": "https://en.wikipedia.org/wiki/Lyceum_(classical)",
    "via": "glossary",
-   "status": "ok"
+   "status": "ok",
+   "manual": true
   },
   "gr-684": {
    "answer": "Politics",
@@ -23774,10 +23788,11 @@
   },
   "gr-692": {
    "answer": "Demosthenes",
-   "title": "Demosthenes (general)",
-   "url": "https://en.wikipedia.org/wiki/Demosthenes_(general)",
+   "title": "Demosthenes",
+   "url": "https://en.wikipedia.org/wiki/Demosthenes",
    "via": "glossary",
-   "status": "ok"
+   "status": "ok",
+   "manual": true
   },
   "gr-693": {
    "answer": "Philippics",
