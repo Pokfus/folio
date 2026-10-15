@@ -2912,10 +2912,13 @@
       if (l.year != null && isFinite(l.year)) applyYear(clampYear(l.year), { why: "hash" });
       const norm = (s) => fold(s).replace(/[^a-z0-9]+/g, " ").trim(), want = norm(String(l.name || "").replace(/-/g, " "));
       if (!want) return;
-      let tries = 0;
+      /* THE WAIT IS FOR THE DATA, NOT FOR A COUNT OF TRIES (Oct 2026). It used to give up after 200 tries (about 20 s) and leave the default view: a main-thread shim on a slow device (a file:// copy, or a Worker that
+         failed) is `ready` well after that — a CPU slowed 8× opens `#map/1/Rome` from a file after 90 s — and so would a slow network, so the link opened the year and no place. It now waits until the Atlas has failed
+         or been left, or ten minutes have passed. */
+      const giveUp = performance.now() + 10 * 60 * 1000;
       const attempt = () => {
-        if (disposed) return;
-        if (!(G.ready && stats.ready) || (PX.state === 1) || (PX.state === 0 && (loadPolityIndex(), true))) { if (++tries < 200) setTimeout(attempt, 100); return; }
+        if (disposed || status.classList.contains("atlas2-fail")) return;
+        if (!(G.ready && stats.ready) || (PX.state === 1) || (PX.state === 0 && (loadPolityIndex(), true))) { if (performance.now() < giveUp) setTimeout(attempt, 100); return; }
         const rows = searchRows();
         const hit = rows.find((r) => norm(r.name) === want) || rows.find((r) => (r.akeys || []).some((a) => norm(a) === want));
         if (!hit) return;
