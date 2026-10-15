@@ -495,6 +495,8 @@ const SAME_LANGUAGE_OK = new Map([
   ["cnh-001|French|2", "Cahiers d'Extrême-Asie and the Revue de l'histoire des religions — French sinology"],
   ["wh-416|French|3",  "CRAI: Rilly on Meroitic and the Swiss-French mission's reports from Kerma and El-Hassa"],
   ["wh-429|Spanish|2", "Estudios de Cultura Maya, where Maya epigraphy is published"],
+  ["wh-481|Italian|2", "Two English-language articles in Italian-titled journals (Rivista degli Studi Orientali; Quaderni di Linguistica e Studi Orientali), read on the page Oct 2026"],
+  ["wh-489|French|2", "Wood and Hen are English-language articles in the Revue belge de philologie et d'histoire (the checker reads the journal name as French); Renard is the one French source, tagged, read Oct 2026"],
   ["wh-433|Spanish|3", "Boletín de Arqueología PUCP: the Palpa and Chincha surveys behind the Nazca lines"],
   ["wh-434|Spanish|2", "Peruvian ceramic analyses published in Spanish"],
   ["gw-566|Spanish|2", "Chilean journals on a Chilean city: the Revista de Urbanismo on a century of Mapocho corridor planning and the Revista de Teledetección on the San Ramón fault — neither has an English counterpart"],

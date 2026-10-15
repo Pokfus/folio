@@ -154,16 +154,16 @@ in plan order unless the user says otherwise.
 | B38 | Rome (`wh-rome`) / Ancient India (`wh-ancient-india`) | `wh-371`–`wh-380` | 10 | 97 | **done 2026-10-04** |
 | B39 | Ancient India (`wh-ancient-india`) | `wh-381`–`wh-390` | 10 | 91 | **done 2026-10-04** |
 | B40 | Ancient India (`wh-ancient-india`) / Ancient China (`wh-ancient-china`) | `wh-391`–`wh-400` | 10 | 88 | **done 2026-10-04** |
-| B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | open |
-| B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | open |
-| B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | open |
-| B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | open |
-| B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | open |
-| B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | open |
-| B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | open |
-| B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | open |
-| B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | open |
-| B50 | Medieval Europe (`wh-medieval-europe`) | `wh-491`–`wh-500` | 10 | 99 | open |
+| B41 | Ancient China (`wh-ancient-china`) | `wh-401`–`wh-410` | 10 | 98 | **done 2026-10-15** |
+| B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | **done 2026-10-15** |
+| B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | **done 2026-10-15** |
+| B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | **done 2026-10-15** |
+| B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | **done 2026-10-15** |
+| B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | **done 2026-10-15** |
+| B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | **done 2026-10-15** |
+| B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | **done 2026-10-15** |
+| B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | **done 2026-10-15** |
+| B50 | Medieval Europe (`wh-medieval-europe`) | `wh-491`–`wh-500` | 10 | 99 | **done 2026-10-15** |
 | B51 | Medieval Europe (`wh-medieval-europe`) | `wh-501`–`wh-510` | 10 | 65 | open |
 | B52 | Medieval Europe (`wh-medieval-europe`) | `wh-511`–`wh-520` | 10 | 89 | open |
 | B53 | East Asia (`wh-east-asia`) | `wh-521`–`wh-530` | 10 | 106 | open |
@@ -1671,6 +1671,350 @@ ends the Spring and Autumn c. 476 BCE against `wh-397`'s c. 475, a one-year conv
 *Confucianism*); the shared Zhou entries now agree with both collections. **`wh-301`–`wh-400` are done: the Greece,
 Rome and Ancient India decks are complete, and Ancient China continues at `wh-401` (B41).**
 
+### B41 — `wh-401`–`wh-410`, Ancient China (2026-10-15)
+
+Run as B40 (WH_S harness, two cards to an agent, the China cards read against `cnh-`). Commons refused the sandbox at once
+(the one check, "too many requests"), so **pictures were skipped** and the judgements are in "Pictures to redo". Checks:
+`wh-audit.js --range=wh-401:wh-410` clean but for `W.not-why` notes on `wh-407`, `wh-408` and `wh-410`; the rest as B31; all
+74 distinct URLs 2xx on a second look (a DOI and a UCL PDF answered 503/520 once); `check-citations --card` 0 mismatched on
+all ten. New locators: `wh-406` (Lintong, for the mausoleum) and `wh-407` (Badaling). `wh-403` has only 4 modern sources of 9
+(the rest early-20th-century translations and Han–Tang texts), because Meyer and the other recent work was behind bot walls.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-401` Taoism | 9 | 5 → 9 | **"Born 604 BCE" for Laozi was a later tradition stated as fact**, and a "five major religions" sentence came from a paper that was not about the term. *Daojia* is now Sima Tan's Han label (so no Warring States school of that name); Guodian slips and an anthology view of the *Daodejing*; the Celestial Masters (traditional 142 CE); *wu wei* as effortless action, not "doing nothing". `""` and `undatable`. |
+| `wh-402` Legalism | 8 | 5 → 8 | **A date line made Shang Yang's, Han Fei's and Sima Tan's dates the school's own**; now `""` and `undatable`. "Legalism" is *fajia*, a Han label coined by Sima Tan, and no early thinker was a member; Shang Yang's inn story and Han Fei's death are Sima Qian's; Qin law from the Shuihudi and Yuelu slips. "Confucian outside, Legalist inside" could not be sourced and is not used. |
+| `wh-403` The Art of War | 9 | 5 → 9 | **A 6th-century Sun Tzu and Helü's reign stood on the date line as the book's date.** Now c. 475 – 221 BCE as the scholars' span, the Yinqueshan tombs (c. 140 – 118 BCE, found 1972), Sima Qian's drill story as his and the book itself silent on drilling, the Han catalogue's 82 *pian*, Amiot's 1772 French. |
+| `wh-404` Qin Shi Huang | 9 | 5 → 9 | **"Aged 51" at his death fits neither Sima Qian's 259 nor 210 BCE**; dropped. The paternity (Lü Buwei) is the dynasty's critics'; *huang* + *di* as the title's parts, Chavannes's gloss for the "three sovereigns" dropped; the 460 men put to death and "burying the scholars" a *Shiji* figure and story; a Han Fei claim dropped. |
+| `wh-405` Qin dynasty | 8 | 5 → 9 | **"221 – 206 BCE" and "about 15 years" were stated flat**; Sima Qian's Ziying surrender converts to 207 BCE, and 206 is shown as the other count. "The Han kept Qin's commandery system" dropped (the slips show three separate offices in each Qin commandery); Jia Yi's verdict a Han writer's judgement. |
+| `wh-406` Terracotta Army | 9 | 5 → 9 | **"8,000 soldiers" is in no source read**: now about 7,000 as an estimate and a little over 2,000 excavated. "Every face unique" not stated (moulds assembled in many combinations); the chromium "anti-rust coating" refuted in 2019; the mausoleum's start 247 or 246 BCE. |
+| `wh-407` Great Wall of China | 9 | 5 → 10 | **A question said Meng Tian led 300,000 men north in 214 BCE; in Sima Qian the campaign comes first, and the river wall is the emperor's.** Many walls of 20+ states over almost 2,000 years; the 21,196 km survey total beside the Ming 8,851.8 km; the "visible from space" belief called a myth by NASA; a biocrust claim (Ming earthen wall only) dropped. |
+| `wh-408` Han dynasty | 8 | 5 → 8 | **"Wudi made a Confucian state" and "the Xiongnu story is a Han myth" were claims from a first page**; now the debate (van Ess), heqin as the history reports it, the 2 CE census (59,594,978 in the *Han shu*; about 57.7 million by modern reckoning), the 81 BCE salt-and-iron debate. Wudi 141 – 87 BCE, others 140 or 86. |
+| `wh-409` Silk Road | 9 | 5 → 9 | **A question carried the year 1877**; the name is Richthofen's, used sparingly, plural as well as singular. "Carried disease" hedged: very little concrete evidence before the Xuanquanzhi latrine, and how plague reached the west is unknown. Zhang Qian, Pliny's sesterces, the Shiji on silk's absence west of Ferghana added. Date line `""` (rows were other events'). |
+| `wh-410` scholar-official | 7 | 6 → 8 | **The Han route was recommendation (*xiaolian*), not examination** ("filial and incorruptible" 120 times in the *Hou Han shu*); the examination sequence now Sui – Tang – Song – 1905. An iron-production paper cited for the state's technology dropped; three of four French sources dropped; Kim and Massey's British-influence claim one study's case. |
+
+**Read by eye.** *Article:* "the Art of War", "the Terracotta Army", "the Great Wall of China", "the Han dynasty", "the Silk
+Road", "the Qin dynasty"; "Taoism", "Legalism", "scholar-official" and "Qin Shi Huang" bare. *Confusability:*
+`wh-404`/`wh-405`/`wh-406` the man, his state and his army, the unified measures on `wh-404` and `wh-405` only, crossbow
+ink marks and chromium only on `wh-406`; `wh-405`/`wh-408` the first and the second imperial house, the Xin interregnum only
+on `wh-408`; `wh-401`/`wh-402` two schools, the butterfly only on `wh-401`, the fa label only on `wh-402`; `wh-409`/`wh-408`
+the routes and the dynasty, Zhang Qian on both but the latrine only on `wh-409`. *Against the cnh- cards:* `cnh-191` and
+`cnh-212` end the Qin in 206 BCE where `wh-405` gives 207 with 206 beside it; `cnh-169` begins Shang Yang's reforms in 356
+where `wh-402` has 359 "on one reckoning"; `cnh-229` has Zhang Qian set out c. 138 BCE where `wh-409` prints no departure
+year (the *Shiji* gives only the Jianyuan period). None edited.
+
+**Glossary.** Eight terms rewritten (*Taoism*, *Legalism*, *The Art of War*, *Qin dynasty*, *Terracotta Army*, *Great Wall*,
+*Silk Road*, *Scholar-official*); the old *Taoism* date ("from the 6th century BCE") rested on the legend. `wh-404` and
+`wh-408`'s entries already agreed and were kept; the Terracotta Army entry's picture description said "no two faces are
+alike" and was corrected.
+
+### B42 — `wh-411`–`wh-420`, Ancient China and Africa and the Americas in antiquity (2026-10-15)
+
+Run as B41, the China cards read against `cnh-`, the Kush and Punt cards against `eg-`; pictures skipped (Commons still
+refused). Checks: `wh-audit.js --range=wh-411:wh-420` clean but for `I.duplicate` on `wh-414` (its picture is also
+`ko-089`'s); `check-citations --card` 0 mismatched on all ten; all 68 distinct URLs 2xx. New locators: `wh-417`
+(Meroë, at Begrawiya) and `wh-419` (the Jos Plateau, a region, some 100 km from the Nok sites). `wh-419` has Peter Breunig
+as an author of four sources (precheck counts first authors only), and the Brill abstract page (source 6) could be swapped
+if a stricter reading is wanted.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-411` Sima Qian | 7 | 5 → 7 | **"Written privately" and "from the legendary Xia" were wrong**: he held the court post, and the *Shiji* opens with the Yellow Emperor. Birth 145 (a commentator of 737) to 135 BCE, death between 86 and 74 BCE, castration about 98 BCE, the letter to Ren An 91 BCE, each hedged; the 526,500-character count and the "father of Chinese history" label dropped. |
+| `wh-412` papermaking | 8 | 5 → 8 | **Talas 751 stood as fact, with a date-line row**; now a tale from later Arabic writers (via Bloom) beside Sogdian letters on paper. Cai Lun's 105 CE is the *Hou Han shu*'s report, not a first sheet; blank paper from tombs of 140 – 87 BCE; fixed-screen and movable-screen sheets told apart. |
+| `wh-413` fall of the Han dynasty | 7 | 5 → 7 | **Offices were sold for Ling's own purse, not "divided with the eunuchs"; "condemned by the hundred" was the purges of 166–167 and 169** and a ban lasting to 184. The end is dated three ways (184, 189, 220) and whose each is; no 156 CE census or plague analogy (unsourced). |
+| `wh-414` Three Kingdoms | 7 | 5 → 7 | **Wu's imperial title is 229, not 222**, which was a kingship; Shu fell in 263, Wei ended 266, Jin took Wu 280. Chen Shou and Pei Songzhi kept apart from the novel (the Empty City is recorded of Wen Ping); a "China's best novel" vote and a Shu/Wu head-count dropped. |
+| `wh-415` Chinese Buddhism | 7 | 5 → 7 | **The dream of Emperor Ming is a legend**; the firmer evidence is the 65 CE edict to the Prince of Chu. An Shigao (c. 148 – 170), Kumarajiva at Chang'an in 402, Faxian in 399, Yungang (460 – 524), 845; "eighteen men", "about 67 CE" and the Northern Wei monk counts dropped; sinification as a contested idea. |
+| `wh-416` Kingdom of Kush | 7 | 5 → 7 | **"About 900 BCE" and "750 – 650" for the 25th dynasty were no source's**: the Napatan phase c. 1070 – 300 BCE (one study) beside a late 9th century BCE view, Meroitic to c. 350 CE, the dynasty c. 742 – 656 BCE. Kerma a precursor, not the same kingdom; the end by Aksum's raid debated. |
+| `wh-417` Meroë | 7 | 5 → 10 | **The Persée papers behind the old card could not be read**; rebuilt on Strabo, Pliny and the *Res Gestae* for Candace and the Roman war, and on radiocarbon dating for "the Birmingham of ancient Africa" (smelting for over 1,000 years, mostly outside its time as capital). The script read in sound but not understood; the pyramid count and Psamtik II dropped. |
+| `wh-418` Kingdom of Aksum | 7 | 5 → 7 | **The stela "33 m, 520 tons" stood in a heritage paper**; Phillipson's standing one is 23 m, and the largest fell while being raised. c. 150 BCE – 700 CE is one study's frame (no settlement on the site before the 1st century CE); coinage from c. 270 CE, Ezana c. 340 CE; "only polity to mint coins" one authority's. |
+| `wh-419` Nok culture | 6 | 5 → 6 | **"Earliest large sculpture outside Egypt" was fact and the end date "1 BCE" no source's**; now one ranking, and c. 1500 BCE (the Frankfurt project), figures c. 900 – 400 BCE, found 1928. Iron "oldest in West Africa" contested (Taruga charcoal as early as 280 BCE); looting and function debated. |
+| `wh-420` Bantu expansion | 7 | 5 → 7 | **"Some 240 million" speakers was one count** (350 and 300 million elsewhere); the start is "6,000 – 4,000 years ago, depending on the study". The environmental claim narrowed to diversification rate; the early- and late-split, forest-crossing and savanna-corridor routes; gene flow with local groups instead of conquest. |
+
+**Read by eye.** *Article:* "the fall of the Han dynasty", "the Three Kingdoms", "the Kingdom of Kush", "the Kingdom of
+Aksum", "the Nok culture", "the Bantu expansion"; "Sima Qian", "papermaking", "Chinese Buddhism" and "Meroë" bare.
+*Confusability:* `wh-413`/`wh-414` the fall and the states after it, Dong Zhuo and Cao Cao on both, the Yellow Turbans only on
+`wh-413`, Chen Shou and the novel only on `wh-414`; `wh-416`/`wh-417`/`wh-418` the kingdom, its city and its neighbour,
+Candace and the Roman war only on `wh-417`, the 25th dynasty only on `wh-416`, coins and stelae only on `wh-418`;
+`wh-419`/`wh-420` iron on both but Taruga only on `wh-419`. *Against the cnh- cards:* `cnh-240` gives Sima Qian's birth as
+"from 163" (Mayers, no authority per Chavannes) and a 526,500-character count; `cnh-270` has Dong Zhuo enter Luoyang on
+22 September 189 where de Crespigny has the 24th; Theobald ends Wei in 265 where de Crespigny (and `cnh-277`/`cnh-293`) have
+266; `cnh-291` carries the 1901 "best novel" remark. None edited. `docs/wh-chronology.md` had no Kush row; the sources differ
+by a few years on the 25th dynasty (742, 747, 751), and the card follows one.
+
+**Glossary.** Ten terms rewritten (*Sima Qian*, *Papermaking*, *End of the Han dynasty*, *Three Kingdoms*, *Chinese
+Buddhism*, *Kingdom of Kush*, *Meroë*, *Kingdom of Aksum*, *Nok culture*, *Bantu expansion*); the old *Kingdom of Kush*,
+*Nok culture* and *Bantu expansion* dates (c. 900 BCE, "1 BCE", "c. 4000 – 2000 BCE onwards") agreed with no source.
+
+### B43 — `wh-421`–`wh-430`, Africa and the Americas in antiquity (2026-10-15)
+
+Run as B42; no collection of ours covers these subjects, so `related.js` found nothing to disagree with but `eg-`'s Sahure
+and Yam cards. Pictures skipped. Checks: `wh-audit.js --range=wh-421:wh-430` clean but for `L.missing` on `wh-422` (Punt's
+place is disputed, so none was requested) and `wh-425` (a culture area; a retry of the locator said "rate limited") and a
+`W.not-why` on `wh-429`; the rest as B31; all 70 distinct URLs 2xx; `check-citations --card` 0 mismatched on all ten. New
+locators: `wh-421` (Germa) and `wh-427` (the Oaxaca Valley).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-421` Garamantes | 6 | 5 → 7 | **"Defeated by Quirinius about 20 CE" and "Maternus about 100 CE" were wrongly dated**: the Fezzan Project volume has Balbus c. 20 BCE, Quirinius c. 15 BCE (doubtful) and Maternus c. 88 – 92 CE. c. 1000 BCE – 700 CE is that project's phase frame; the foggaras' origin (probably Egypt, late 1st millennium BCE) is its view; Herodotus's chariot hunt is what he says. |
+| `wh-422` Land of Punt | 7 | 5 → 7 | **A "c. 2800 BCE" row had no source, and Hatshepsut's reign stood as the expedition's date.** One sourced span, c. 2500 – 1170 BCE, from Sahure's annal to Ramesses III; Hatshepsut's voyage is one of several; the site is placed by whom (Somali coast, Upper Nile, eastern Sudan and Eritrea, Arabia); the baboon study is Dominy et al. 2020. |
+| `wh-423` trans-Saharan trade | 8 | 5 → 8 | **"No West African object in the Garamantian oases" was reversed** (a haematite lip-plug and a cowrie in a Fezzan burial); the 3rd-century camel date and the gold-by-the-8th-century row had no source. Now `""` and `undatable`; kept before Islam (the Fatimid gold and Sijilmasa belong to `wh-566`/`wh-567`); the chariot-route idea and the camel dating are views, whose. |
+| `wh-424` Olmecs | 8 | 5 → 8 | **"The earliest ballcourt is at Etlatongo" was only the earliest highland one.** The head count, sizes, "severed heads" reading and "humid" had no source; dates are Stark and Stoner's and Blomster's, whose; the name is Nahuatl and later; mother culture against sister cultures; the Cascajal Block disputed. |
+| `wh-425` Mesoamerica | 8 | 5 → 8 | **One southern-edge rockshelter's maize date stood for the region** (El Gigante, about 4,400 BP; Tehuacán cobs about 5,600 BP) and a 2021 study's zero proposal was fact. Kirchhoff 1943 as the term's origin, the trait list, two period schemes; `""` and `undatable`. |
+| `wh-426` Mesoamerican ballgame | 8 | 5 → 8 | **"One to seven players", "three forms of ulama" and a length-to-width rule rested on a source that would not open.** The losers' sacrifice is now debated (captives and beheading myths, not clearly a defeated team); Paso de la Amada c. 1650 BCE, rubber balls c. 1600 BCE, Etlatongo 1374 BCE midpoint; over 2,300 probable courts. |
+| `wh-427` Monte Albán | 7 | 5 → 7 | **The Danzantes were "shamans"; several researchers read them as sacrificed captives, not all agree.** Founded c. 500 BCE with its phases; 17,000 people at the city and over 50,000 in the valley by 150 BCE (one estimate); a Zapotec enclave at Teotihuacan; Tomb 7's Mixtec treasure a later reuse; partial abandonment after 700 – 800 CE, not a collapse. |
+| `wh-428` Maya civilisation | 9 | 5 → 9 | **A question carried a figure of years, and "no defensive works anywhere in the Puuc" outran the lidar sample.** Many rival polities, not an empire; period dates whose; 3 – 10 million with the warning that lidar density was extrapolated; drought debated; the Pacunam "60,000 structures" and a 562 CE defeat of Tikal dropped (no open source). |
+| `wh-429` Maya script | 8 | 5 → 8 | **"The earliest securely dated Maya script" at San Bartolo was the 260-day-count sign, not the script**; the plaster is "one of the earliest" from a well-dated setting. Sign counts (over 1,000, about 500 at once, about 200 syllabic), Landa's "alphabet" and the 1562 burning, four codices with the Grolier now widely accepted, decipherment credited to several. |
+| `wh-430` Long Count | 7 | 5 → 7 | **The date line held another event's date and a constant**: now the earliest firm Long Count date (36 BCE, Chiapa de Corzo, not Maya) and day zero 11 – 13 August 3114 BCE (584,283 or 584,285; "584,284" had no source). The 2012 doomsday a modern idea (Tortuguero names it, Palenque counts to 4772 CE). |
+
+**Read by eye.** *Article:* "the Garamantes", "the Olmecs", "the Mesoamerican ballgame", "the Maya civilisation" (in
+question 3 "the Maya civilisation lost its great cities"), "the Maya script", "the Long Count"; "Land of Punt",
+"Mesoamerica", "Monte Albán" and "trans-Saharan trade" bare. *Confusability:* `wh-424`/`wh-425`/`wh-426` the people, the
+region and the game, the ballcourt at Etlatongo only on `wh-426`, the Tuxtla basalt only on `wh-424`; `wh-428`/`wh-429`/`wh-430`
+the civilisation, its writing and its calendar, San Bartolo on `wh-429` only, the doomsday reading only on `wh-430`;
+`wh-421`/`wh-423` the people and the trade, foggaras only on `wh-421`. *Against other cards:* `wh-428` gives the Classic
+as 250 – 1000 CE (McCool) where `wh-425` cites other schemes (Preclassic 2500 BCE – 150 CE; Classic from about 250 or 150);
+`eg-122` dates Sahure c. 2494 – 2345 BCE where Dominy gives about 2480, so `wh-422` prints no Sahure year. None edited.
+
+**Glossary.** Nine terms rewritten (*Garamantes*, *Land of Punt*, *Trans-Saharan trade*, *Olmecs*, the ballgame, *Monte Albán*,
+*Maya civilisation*, *Maya script*, *Long Count*); the *Mesoamerica* entry was kept as it stood. The old *Long Count* entry
+called 584,283 "the accepted answer" and the old *Maya script* entry dated the script by the calendar sign.
+
+### B44 — `wh-431`–`wh-440`, Africa and the Americas in antiquity and Byzantium (2026-10-15)
+
+Run as B43, the Byzantine cards read against `rm-`/`gr-`. Pictures skipped. Checks: `wh-audit.js --range=wh-431:wh-440` clean
+but for `L.missing` on `wh-431` (the locator request "Teotihuacan" found no primary coordinate) and an `S.chip?` false
+positive on `wh-439` (source 5 is an English article whose title carries a Greek phrase); the rest as B31; 83 distinct URLs
+2xx (a PNAS DOI answered 403 to the checker but is a Crossref-confirmed DOI the saved page was read from).
+`check-citations --card` is 0 mismatched on nine cards; `wh-440` reports one it cannot clear: its source 6 is a Greek-script
+byline (Τζενη ΑΛΜΠΑΝΗ, exactly as Crossref has it) that the checker's author parser cannot split. New locators: `wh-432`
+(Chavín de Huántar), `wh-433` (the Nazca Pampa), `wh-435` (Caral), `wh-437` (Istanbul's historic peninsula) and `wh-440`
+(Sultanahmet). `wh-436` rests on six `De Imperatoribus Romanis` entries by different authors, so one encyclopedia supplies
+most of the card's sources.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-431` Teotihuacan | 8 | 5 → 8 | **"Many archaeologists argue for collective rule" was the marginal view** (a central-rulers view is widely held): now a stated debate. 80,000 – 100,000 was one conservative estimate; now 75,000 to over 200,000 with each method; the name is Nahuatl and its gloss debated; the 378 CE arrival is Maya inscriptions' report; no start in the 100s BCE or 150 – 450 CE peak could be sourced. |
+| `wh-432` Chavín culture | 7 | 5 → 7 | **1200 – 400 BCE was a period, not the site**; now Burger's radiocarbon sequence (founded c. 950, abandoned by 400 BCE) beside Rick's end of use as a temple c. 500. The vilca "carried from far" and cinnabar claims dropped (vilca need not come from far); Tello's "mother culture" disputed; San Pedro only a reading of one plaque. |
+| `wh-433` Nazca Lines | 9 | 5 → 9 | **The date line said the lines were in use "to the 15th century"** and a Greek etymology had no source; now c. 100 BCE – 650 CE, two Palpa sites dated 400 – 650 CE by luminescence, a Paracas start c. 750 BCE. The purposes are proposals; the 2019 and 2024 surveys' counts sourced; no "800 lines" figure (none read). |
+| `wh-434` Moche culture | 7 | 5 → 8 | **100 – 800 CE stood as fact**; now three attributed ranges (100 – 800, 200 – 900 radiocarbon, 300 – 950). One state, two polities or independent valleys is argued; sacrifice at Huaca de la Luna and the Sipán tombs; an El Niño end disproved at Huacas de Moche (Uceda). |
+| `wh-435` Norte Chico civilisation | 6 | 5 → 9 | **"c. 2600 BCE" and a 2900 row were no source's**; c. 3000 – 1800 BCE is the Nature 2004 radiocarbon span, 2627 BCE Mesoweb's date for Caral's earliest parts. Civilisation or society, the 2005 quipu claim (Shady's), the marine-foundations idea challenged by isotopes, the decline hypothesis. |
+| `wh-436` Byzantine Empire | 9 | 5 → 9 | **The end was 1430 (Thessaloniki's fall), not 1453**, and the card never said the people called themselves Romans. The start is dated three ways (330, 395, the 280s); the Latin-to-Greek shift; Manzikert as "the mortal blow" set against a ten-year civil war; 1204 – 1261. Hieronymus Wolf not named (no read source does). |
+| `wh-437` Constantinople | 9 | 5 → 9 | **A bombard question duplicated `wh-686`/`wh-688`**; a harbour figure rested on a 403 page; "eleven centuries" and the 600 kg ball were model inputs. Byzas a pseudo-historical founder, 11 May 330, the 413 wall (sixty days after the 447 quake, by the inscriptions), the chain, 1204, 1261, 1453. |
+| `wh-438` Justinian I | 8 | 5 → 8 | **The plague reached the capital in 542, not 541, and the Gothic War ended in 552, not 554**; a death day had no source and a silk-smuggling story rested on a page that would not open. Procopius's three works told apart (the *Secret History* hostile); the Nika toll of more than 30,000 is his. |
+| `wh-439` Corpus Juris Civilis | 7 | 5 → 8 | **"Three years" for the Digest was Justinian's claim (about six on Weber's count)**, and "sent to Italy in 554" and the Bologna revival were unhedged (about 1100, not the 1070s). The Amalfi tale is unsupported; the Novels are in Greek; why English law grew apart. |
+| `wh-440` Hagia Sophia | 9 | 5 → 9 | **It was the third church on its site, not the second**, and "the rebuilt dome was higher" is contradicted by recent work (sources differ); the "five-year build" is not in Procopius. Dome fell 7 May 558, reconsecrated 24 December 562; mosque 1453, museum decree 1934 and the 2020 ruling stated neutrally. |
+
+**Read by eye.** *Article:* "the Byzantine Empire", "the Corpus Juris Civilis", "the Norte Chico civilisation", "the Moche
+culture", "the Chavín culture", "the Nazca Lines"; "Teotihuacan", "Constantinople", "Hagia Sophia" and "Justinian I" bare.
+*Confusability:* `wh-436`/`wh-437` the state and its capital, Latin-to-Greek only on `wh-436`, the walls only on `wh-437`;
+`wh-437`/`wh-438`/`wh-439`/`wh-440` city, emperor, law and church, the Nika riot on `wh-438` and `wh-440` (as the riot that burned
+the church on `wh-440` only); `wh-431`/`wh-433`/`wh-434` three American cultures, no shared fact. *Against the rm- cards:*
+`rm-586` dates a senate to Constantine where Berger credits Constantius (`wh-437` follows Berger); `rm-729` says the
+commissioners read "almost 2,000 books" where Baldi counts 1,528 (`wh-439` gives neither). None edited.
+
+**Glossary.** Ten terms rewritten (*Teotihuacan*, *Chavín culture*, *Nazca Lines*, *Moche culture*, *Norte Chico
+civilisation*, *Byzantine Empire*, *Constantinople*, *Justinian I*, *Corpus Juris Civilis*, *Hagia Sophia*).
+
+### B45 — `wh-441`–`wh-450`, Byzantium and the Christian East (2026-10-15)
+
+Run as B44, read against `rm-`, `gr-` and `ru-`. Pictures skipped. Checks: `wh-audit.js --range=wh-441:wh-450` clean but for
+`I.duplicate` on `wh-443` (its picture is also `ru-044`'s) and `L.missing` on `wh-450` (the Malazgirt request, and a retry as
+"Battle of Manzikert", found no coordinate or was rate-limited); the rest as B31; `check-citations --card` 0 mismatched
+on all ten. `wh-446`'s Eastern Orthodox glossary entry is a general term: its draft only corrects the old "c. 500 CE –
+present" date, which made 500 look like a founding. `wh-450` was cut from one Kurdish and five Turkish sources to one
+Turkish (app.js cannot tag Kurdish).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-441` Theodora | 8 | 5 → 8 | **Half the old abstract was about the date of the *Secret History*, not the empress.** Procopius is now attributed work by work (the hostile *Secret History*, the flattering *Buildings*, the *Wars*' Nika speech, which one historian thinks his invention); the marriage is "521 or 522" on one biography, not 525; no birthplace or birth year; cancer a report of Victor of Tunnuna. |
+| `wh-442` Plague of Justinian | 7 | 5 → 7 | **"15 to a hundred million" was a gloss of the maximalist case.** First outbreak 541 – 544, pandemic 541 – 750, Constantinople 542; Procopius's five then ten thousand a day his own figure; Aschheim 2013 DNA, and the dispute over scale (Mordechai et al.: 505 papyri show no break) attributed. |
+| `wh-443` Greek fire | 8 | 5 → 8 | **Three of five sources said nothing of Greek fire**, and "siege lifted 15 August 718" was Kokoszko and Leszka's date, not Theophanes's. First use c. 672 – 678 (Theophanes's Kallinikos entry; the long siege of 674 – 678 doubted); "Greek fire" a Western name; the recipe unknown (petroleum the majority view); "cannot be put out by water" only "said to". |
+| `wh-444` Byzantine Iconoclasm | 7 | 5 → 7 | **726 and the Chalke Gate image were the old card's start**; now c. 730 (Barber), the image story doubted, and the debated causes (Muslim and Jewish influence, military failure) as proposals. Hieria 754, Nicaea II 787, 815 and 843; nearly all sources are the iconophile victors'; a monk-martyr figure had no source. |
+| `wh-445` East–West Schism | 8 | 5 → 8 | **"Error lists began in the later 12th century" was wrong**: from the second half of the 11th. The 1054 bull and the synod's answer struck persons, not churches; Photios 858 – 880 on one account; failed unions 1274 and 1439; the bans lifted on 7 December 1965. |
+| `wh-446` Eastern Orthodox Church | 8 | 5 → 8 | **The date line held four other events' dates** (Dionysian corpus, Basil's anaphora, Palamas, Crete 2016) and 500 CE read as a founding; now `""` and `undatable`. Pew's nearly 260 million include the Oriental Orthodox; Ukraine's 2019 recognition stated neutrally; Neoplatonism in the corpus one scholar's thesis. "First among equals" not used (no source). |
+| `wh-447` Cyril and Methodius | 7 | 5 → 7 | **"Constantine the elder brother" had no source** (and the Blatnograd inscriptions and Glagolitic-origin theories were unverified). Glagolitic is Constantine's; Cyrillic a later adaptation, probably Preslav; the two Lives hagiography; Hadrian's blessing; Cyril d. 14 February 869, Methodius 885, the pupils expelled and welcomed by Boris. |
+| `wh-448` Kievan Rus' | 7 | 6 → 7 | **The date line led with 941, a raid, and "1110s", a decade.** Now c. 880, Yaroslav 1036 – 1054, the 1240 sack; the *Primary Chronicle*'s early dates are its own reckoning; Normanists and anti-Normanists both stated, with the 1749 Academy quarrel; Oleg's 907 raid only in Russian annals; 1132 and 1169. |
+| `wh-449` First Bulgarian Empire | 7 | 6 → 7 | **One scholar's "komitats resemble the Frankish marches" was fact** and Bardola's marriage plan a hypothesis; both dropped. 681 the conventional start, Boris 864 – 865, Symeon 893 – 927 (tsar title 913, denied, recognised for Peter in 927), the end 1018; Basil's 14,000 – 15,000 blinded "clearly exaggerated". |
+| `wh-450` Battle of Manzikert | 7 | 6 → 7 | **"Passed over until the 1950s" is the claim Develi examines and doubts**; an Alexios 1081 row was another event. Release terms from Arabic sources (payment, tribute, captives, probably no land); Psellos writing to shield Michael VII; Matthew of Edessa on traitors and Uz and Pecheneg defectors; the civil war; Bari 1071; armies' sizes unsettled. |
+
+**Read by eye.** *Article:* "the Plague of Justinian", "Byzantine Iconoclasm", "the East–West Schism", "the Eastern Orthodox
+Church", "the First Bulgarian Empire", "the Battle of Manzikert" (question 3 "after the Battle of Manzikert"), "the
+Kievan Rus'"; "Theodora", "Greek fire" and "Cyril and Methodius" bare. *Confusability:* `wh-444`/`wh-445`/`wh-446` the image
+quarrel, the schism and the church, the Filioque only on `wh-445`, theosis only on `wh-446`; `wh-447`/`wh-448`/`wh-449` the
+saints, Rus' and Bulgaria, Boris and Cyrillic on `wh-447` and `wh-449` but the exiled pupils only on `wh-447`; `wh-441`/
+`wh-438` the empress and the emperor, the Nika speech only on `wh-441`. *Against other cards:* `rm-586` and `wh-437` differ on who gave Constantinople a senate (`wh-437` follows Berger); `ru-036` agrees
+with `wh-448` on c. 880 and 1240 and with `ru-057` on Yaroslav's 1036 – 1054; `ru-058` dates the *Russkaya Pravda* 1000 – 1100. None edited.
+
+**Glossary.** Eight terms rewritten (*Theodora*, *Plague of Justinian*, *Greek fire*, *Byzantine Iconoclasm*, *Eastern Orthodox
+Church*, *Cyril and Methodius*, *First Bulgarian Empire*, *Battle of Manzikert*); the *East–West Schism* and *Kievan Rus'*
+entries already agreed and were kept.
+
+### B46 — `wh-451`–`wh-460`, Byzantium and the Christian East and the Islamic world (2026-10-15)
+
+Run as B45; the religious cards (`wh-455`, `wh-457`–`wh-460`) were drafted with belief attributed to believers ("Muslim
+tradition says…") and the earliest sources told from later tradition. Pictures skipped. Checks:
+`wh-audit.js --range=wh-451:wh-460` clean (ten of ten); `check-citations --card` first reported mismatches on `wh-457` and
+`wh-458`, where a Brill volume (online 2023, print 2024) is now cited "2024; published online 2023" and the check is 0. An
+MDPI DOI answers 403 to the URL checker (MDPI refuses the sandbox); the articles were read as the publisher's
+PDF and are cited by DOI. No new locators: the events, institutions and persons here have none by design, and `wh-454` kept its region.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-451` Sack of Constantinople | 7 | 5 → 7 | **The old card was about the wrong subject**: an Old Russian chronicle's account, Clari's clergy and Trebizond (whose date row, 1204 – 1461, belongs to another state). Rebuilt on Villehardouin (the 85,000 marks, the 34,000 shortfall, Zara, Alexios's offer of 200,000 marks), Choniates (written for his own purposes), the first entry in July 1203, the storming on 12 April 1204, the Latin Empire to 1261. |
+| `wh-452` Fall of Constantinople | 8 | 5 → 8 | **The old card never described the siege** (it was about four Greek historians); one of them, the long chronicle under Sphrantzes's name, is a 16th-century forgery following Leonard's letter. Forces as eyewitnesses give them (Sphrantzes 4,773 Greeks, 200,000 Ottomans; Barbaro 160,000), Orban's gun (a study's model, 600 kg), the boom, ships over Pera, Giustiniani, Constantine's unknown fate. |
+| `wh-453` Christianisation of Armenia | 7 | 5 → 7 | **301 CE is Armenian tradition and 314 is Toumanoff's and Young's**; the "first Christian nation" a title resting on one story written long afterwards (Agathangelos, late 5th century, hagiography). A Nisibis 298 claim dropped; Mashtots's alphabet c. 405 as the later phase. |
+| `wh-454` Kingdom of Georgia | 7 | 5 → 7 | **Half the old abstract was about David IV's daughter Tamar of Shirvan and Tevdore's murals**, with a mural date row. Now 1008, Tbilisi taken in 1122, Didgori on 12 August 1121 (the royal chronicle's account), Queen Tamar styled both king and queen (so "king not queen" is unsupported), the Golden Age a historians' label, the Mongols, the 1490 division, the 1801 annexation. |
+| `wh-455` Ethiopian Orthodox Church | 7 | 5 → 7 | **"Proclaimed c. 333 CE, read as 340 by the Ethiopian calendar" had no source**: Ezana reigned c. 330 – 360 (Butts), crosses only on his gold coins; Frumentius through Athanasius's letter of 356 and Rufinus's later Latin tale; the Nine Saints tradition; the abuna from Alexandria until 1959; the *Kebra Nagast* an early 14th-century epic, so the Ark story legend. |
+| `wh-456` pre-Islamic Arabia | 7 | 5 → 7 | **"From c. 1000 BCE", the Hubal detail and "nearly 8,500 inscriptions" had no source.** Saba attested from c. 800 BCE and gone by c. 275 CE, Himyar leading c. 350 – 570 CE, its turn from the old gods (380 – 384) to Judaism then Christianity; Abraha's dated raid of 552; *jahiliyya* a later label; no source read gives the traditional c. 570 Elephant year. |
+| `wh-457` Muhammad | 9 | 5 → 10 | **All five old sources were unreadable**, and a question carried "a century". Born in the Year of the Elephant, which later reckoning equates with about 570 CE; the first revelation, Hijra, Badr, Uhud, the Trench, Mecca and death are tradition's account; the Constitution of Medina; the earliest non-Muslim witnesses (Sebeos, the *Doctrina Iacobi* dated 634 or decades later); the sceptical and minimalist views. |
+| `wh-458` Hijra | 7 | 5 → 7 | **Two questions carried 622 and 638**, and "Calendar fixed 17 AH / 638 CE" was a translator's conversion: Donner has the calendar introduced in AH 16, Ibn Ishaq and al-Tabari in 17 or 18. Era begins 16 July 622; the Aqaba pledges; Quba on 12 Rabi' I (24 September 622); the Constitution of Medina composite. |
+| `wh-459` Quran | 9 | 5 → 9 | **"Readings fixed: Ibn Mujahid, d. 936" was a death date, and his seven were probably not meant as exclusive** (ten are now canonical). Tradition's two collections (Abu Bakr, Uthman) attributed; the Sanaa palimpsest's different lower text; the Birmingham parchment's 568 – 645 CE as the parchment's date; 14 copies sharing one spelling. |
+| `wh-460` Islam | 9 | 5 → 10 | **A question duplicated `wh-463`'s conquests clue and carried years**; a Jordan-inscription claim (dated to the 8th century by Lindstedt) and a revisionist assertion dropped. The line of prophets, hadith (Bukhari d. 870, Muslim d. 874), the four Sunni schools, Pew's 2009 figures (1.57 billion), conversion pace; "called itself the believers" is now one proposal, in the card and the glossary. |
+
+**Read by eye.** *Article:* "the Sack of Constantinople", "the Fall of Constantinople", "the Christianisation of Armenia", "the Kingdom of
+Georgia", "the Ethiopian Orthodox Church", "pre-Islamic Arabia"; "Muhammad", "Hijra", "Quran" and "Islam" bare.
+*Confusability:* `wh-451`/`wh-452` the two Latin and Ottoman captures, Zara and the horses only on `wh-451`, the boom and Giustiniani only on
+`wh-452`; `wh-457`/`wh-458` the man and his move, Badr and the earliest outside accounts only on `wh-457`, the calendar and Aqaba only on `wh-458`;
+`wh-459`/`wh-460` the book and the religion, the Sanaa palimpsest only on `wh-459`, the schools of law only on `wh-460`.
+*Against other cards:* `wh-436`'s Constantinople dates agree; `rm-502` agrees on the Nabataean annexation of 106 CE. None edited.
+
+**Glossary.** Nine terms rewritten and the *Islam* entry corrected (its "called itself the believers" is now "one proposal
+is"); *Quran* already agreed and was kept.
+
+### B47 — `wh-461`–`wh-470`, The Islamic world (2026-10-15)
+
+Run as B46, the religious cards (`wh-461`, `wh-462`, `wh-464`) drafted with each side's account attributed. Pictures
+skipped. Checks: `wh-audit.js --range=wh-461:wh-470` clean but for `L.missing` on `wh-466` (the locator request
+"Old City of Damascus" was refused and a retry rate-limited) and `wh-468` (a region; none requested); `check-cards` first
+flagged "Ibn Umar" in a phrasing of `wh-461` (a companion, but the check reads it as a scholar) and the phrasing now says
+"one of Muhammad's companions"; `check-citations --card` 0 mismatched on all ten; the 17 URLs the checker counted non-2xx
+are MDPI DOIs (403 to the checker, read as the publisher's PDF and cited by DOI), one PNAS DOI and a Russian journal that
+answered 000 once and 200 on a second look. New locators: `wh-467` (between Poitiers and Tours), `wh-470` (the Tigris
+plain); a retry also wrote the `wh-431` and `wh-450` locators left open in B44 and B45. `wh-461`'s sources are thin (a CREST guide, a
+PhD thesis, two studies using the pillars as a frame) because the open-access religious-studies literature was behind bot
+walls; every claim carries a quote read on the page.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-461` Five Pillars of Islam | 8 | 5 → 8 | **All five old sources were MDPI pages (unreadable), two off the term.** "The one rite of entry" is now "the main step"; the Ibn Umar saying with its two versions (the order of fasting and pilgrimage differs); zakat about 2.5 per cent above the nisab; Ramadan the ninth month; 2,489,406 pilgrims in 2019; the Twelver Shia roots and branches and khums. `""` and `undatable`. |
+| `wh-462` Rashidun Caliphate | 8 | 5 → 8 | **"Tribes revolted when Abu Bakr, not Ali, was chosen" was the Shia framing**; the Ridda wars are tribes wishing to break ties with Medina. 632 – 661; Uthman's copies of the Quran are tradition (a manuscript study finds one early archetype, another scholar puts the official text under Abd al-Malik); Camel 656, Siffin 657; al-Tabari's reports set side by side. |
+| `wh-463` early Muslim conquests | 7 | 6 → 8 | **The old card framed the cause as migration against religion and put Talas and Poitiers in as the end.** Counted 632 – 711 CE; the battle dates differ between Arabic chronicles written 150 – 200 years later and contemporary Syriac notes; war-weariness and the plague debated (one survey finds no clear link); conversion slow and not forced; army sizes dropped. |
+| `wh-464` Sunni–Shia split | 8 | 5 → 8 | **A question carried a year and a figure, and a hypothesis about a compiler cutting Ali's remarks on A'isha stood as fact.** Succession accounts attributed to each side, Ghadir Khumm read two ways (mawla), Karbala 680, identities forming gradually, Pew's 87 – 90 and 10 – 13 per cent as Pew's broad ranges. |
+| `wh-465` Umayyad Caliphate | 7 | 5 → 7 | **Half the old abstract was Cyprus and the Ifriqiya ribats.** 661 – 750 (one recent book counts the empire from 644); Abd al-Malik's Arabic accounts and all-script dinar of 696 – 697; the Second Fitna (680 – 692); the mawali as a long-standing explanation of the fall; no Sind or Dome of the Rock year (sources conflict). |
+| `wh-466` Damascus | 9 | 5 → 9 | **A Damascus-mint claim rested on two coins that "may" be from Damascus or Qinnasrin.** "Oldest still inhabited capital" is a modern author's claim on an older scholar's reading; Thutmose III's list in the 15th century BCE; the Umayyad capital 661 – 750; the Great Mosque 705 – 715; the conquest year disputed (635 or AH 14 – 15); no 732 BCE Assyrian year. `""` and `undatable`. |
+| `wh-467` Battle of Tours | 8 | 6 → 8 | **A "Raids end c. 800" row was another event, and a French review (unreadable) carried the abstract.** October 732 (10 or 25 October, 733 an Arabic misdating); the Chronicle of 754 and Fredegar's Continuator; Paul the Deacon's 375,000 against 1,500 flagged doubtful; "saved Europe" a 19th-century moment; the field unnamed (Moussais proposed). |
+| `wh-468` al-Andalus | 7 | 5 → 9 | **The question carried 711 and "a frontier for eight centuries" (no source), and the abstract was the Mosque of Córdoba.** 711 by the Chronicle of 754; 756, 929, 2 January 1492; no early mosque has been found over a church; convivencia a hope as well as a description. The taifas, 1031 and the Almoravids dropped (no fetchable source). |
+| `wh-469` Abbasid Caliphate | 7 | 5 → 8 | **The old abstract was about Baghdad's Round City and a Jewish academy.** 750 – 1258 CE: the Khurasan revolution, descent from al-Abbas, the Zab, the reported feast massacre (attributed, number dropped); Samarra 836 – 892; real power to the Buyids and Turkish sultans; Baybars's shadow caliph in Cairo. |
+| `wh-470` Baghdad | 9 | 5 → 9 | **"About 7 million" and "three rings of wall" were off** (a double wall in Le Strange). Founded 762, finished by 766; the Round City known only from texts; about 500,000 as one estimate; the 1258 toll attributed; the "ink" story not used; Ottoman 1534. |
+
+**Read by eye.** *Article:* "the Five Pillars of Islam", "the Rashidun Caliphate", "the early Muslim conquests", "the
+Sunni–Shia split", "the Umayyad Caliphate", "the Battle of Tours", "the Abbasid Caliphate"; "Damascus", "Baghdad" and
+"al-Andalus" bare. *Confusability:* `wh-462`/`wh-463`/`wh-464` the first caliphs, their conquests and the split, Uthman's Quran
+on `wh-462` only, Ghadir Khumm and Karbala only on `wh-464`, battle dates only on `wh-463`; `wh-465`/`wh-466` the dynasty and
+its capital, Abd al-Malik on `wh-465` only, the Great Mosque on `wh-466` (and `wh-477`); `wh-467`/`wh-468` the battle and
+the state, the governor killed only on `wh-467`; `wh-469`/`wh-470` the dynasty and its city, the Round City only on `wh-470`.
+*Against other cards:* none contradicted; `cnh-376` covers Talas and `wh-469` leaves it out.
+
+**Glossary.** Nine terms rewritten (*Five Pillars*, *Rashidun Caliphate*, *Early Muslim conquests*, *Sunni–Shia split*,
+*Umayyad Caliphate*, *Battle of Tours*, *al-Andalus*, *Abbasid Caliphate*, *Baghdad*); *Damascus* already agreed.
+
+### B48 — `wh-471`–`wh-480`, The Islamic world (2026-10-15)
+
+Run as B47 (the usage limit cut the first five agents off mid-batch; each was resumed from its transcript, as the
+"Lessons from `wh-301`–`wh-400`" say, and nothing was lost). Pictures skipped. Checks: `wh-audit.js --range=wh-471:wh-480`
+clean (ten of ten); `check-cards` all pass; `check-citations --card` 0 mismatched on all ten; of the 12 URLs the checker
+counted non-2xx, ten are MDPI DOIs and two a Saudi medical journal's DOIs (403 to the checker, read as publisher PDFs or
+Europe PMC copies and cited by DOI). New locators: `wh-477` (Córdoba) and `wh-479` (Islamic Cairo). `wh-478` kept its region.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-471` House of Wisdom | 8 | 5 → 8 | **The old card had it as a grand research academy where Greek and Sanskrit works were turned into Arabic, and "disappears after 833".** Now Gutas's reading (the name is a Sasanian term for a palace library; the early reports show a Persian translator and a scribe there for Harun and al-Ma'mun; none shows Greek translation there) set beside the conventional picture; the 1258 destruction a story. `""` and `undatable`. |
+| `wh-472` Islamic Golden Age | 8 | 5 → 8 | **The label is a modern one**, shaped by 19th-century European writers (Qidwai); usually 750 – 1258 CE, narrowly 750 – 850 in a book of 1921. The al-Ghazali myth, the Mongol sack as an exaggerated end, paper (751, one historian's account) and the translation movement; "one book in a thousand survives" (Browne's hyperbole) dropped. |
+| `wh-473` al-Khwarizmi | 7 | 5 → 7 | **The date line held the caliph's reign and the *Fihrist*'s date instead of his own.** Lived c. 780 – 850 (neither end firmly dated); his birthplace and the House of Wisdom attributed; "algebra" from *al-jabr*, "algorithm" from the Latin form of his name; predecessors in Egypt, Babylonia, India and Greece; "revise Ptolemy's tables" dropped (one source only). |
+| `wh-474` Avicenna | 6 | 5 → 8 | **Born "c. 980" was stated flat**; SEP puts it in the 970s. Now c. 970 – 980, died 1037; the autobiography (completed by al-Juzjani) a literary construction; the Canon c. 1025 and Gerard of Cremona's Latin; the flying man; lists of his works from under a hundred to nearly three hundred titles; a 1544 year and "falls under no genus" dropped. |
+| `wh-475` Islamic medicine | 7 | 5 → 7 | **Jundishapur as "immediate parent" and "examined, salaried doctors" were overstated.** The 931 examination order is al-Qifti's, via Browne (Savage-Smith doubts it was carried out uniformly); the first Baghdad hospital's origin uncertain; al-Razi, al-Zahrawi, Ibn al-Nafis (found in Berlin in 1924), Cairo 872 and the Mansuri 1284. |
+| `wh-476` Islamic art | 8 | 5 → 8 | **"Figures everywhere except in its mosques" is contradicted by the ship with two men in the Damascus mosaics**; "inhabitants left out" and a writing-only coin reform of 696 dropped. The label is ambiguous (art made by or for Muslims, secular too); the Quran only warns against idols (a museum's account); the quasi-crystalline tilings one study's view. `""` and `undatable`. |
+| `wh-477` Great Mosque of Córdoba | 8 | 5 → 9 | **Questions and the date line carried years** (962, 756 – 788); the shared-church story is Ibn Idhari's, written long afterwards, and San Vicente is a live argument. Begun 785 or 786 by different studies; the mihrab wing under al-Hakam II (961 – 971); the cathedral inserted from 1523 with the king's permission. The 856 columns and al-Mansur's 987 – 988 dates had no open source. |
+| `wh-478` Fatimid Caliphate | 7 | 5 → 7 | **"Sicily held 909 – 1061" and the Mars naming story as fact had no source** (Fatimid rule in Sicily 909 – 965, Kalbid allies to 1053). 909 declared, 5 January 910 proclaimed; Jawhar's conquest 969, al-Mu'izz in Cairo 973; al-Hakim (1009, 1021, the Druze); the Copts as officials; Saladin in 1171. |
+| `wh-479` al-Azhar | 7 | 5 → 7 | **Three of five sources never mention al-Azhar**; the 1901 figures stood as present-tense facts. Built 970 – 972, an official school from 988, the Ayyubids' loss of patronage, Baybars's 1266 restoration, Law 103 of 1961; the name from Fatima only "may"; the oldest-university claim attributed to its makers against the Qarawiyyin's. |
+| `wh-480` Sufism | 8 | 5 → 8 | **Half the old abstract was al-Fudayl, Bishr, Ibn Arabi and the Chishti order**, leaving out the name's origin and the central practices. Wool the likely source of the name; Rabi'a (d. 801), al-Hallaj (922), al-Ghazali; the Qadiriyya and Mevlevi orders; dhikr and sama; Salafi criticism stated neutrally. `""` and `undatable`. |
+
+**Read by eye.** *Article:* "the House of Wisdom", "the Islamic Golden Age", "the Great Mosque of Córdoba", "the Fatimid
+Caliphate"; "al-Khwarizmi", "Avicenna", "Islamic medicine", "Islamic art", "al-Azhar" and "Sufism" bare. *Confusability:*
+`wh-471`/`wh-472` the library and the age, translators on both, Sasanian name only on `wh-471`, the al-Ghazali myth only on
+`wh-472`; `wh-473`/`wh-474` the mathematician and the physician; `wh-475`/`wh-474` Canon on `wh-474`, bimaristan on `wh-475`;
+`wh-478`/`wh-479` the dynasty and its mosque-school, al-Hakim only on `wh-478`, Law 103 only on `wh-479`; `wh-477`/`wh-468`
+Córdoba's mosque and its state. *Against other cards:* `wh-478` has al-Azhar as 972 where `wh-479` has built 970 – 972; none edited.
+
+**Glossary.** Nine terms rewritten (*House of Wisdom*, *Islamic Golden Age*, *al-Khwarizmi*, *Avicenna*, *Islamic medicine*,
+*Islamic art*, *Fatimid Caliphate*, *al-Azhar*, *Sufism*); the *Great Mosque of Córdoba* entry already agreed.
+
+### B49 — `wh-481`–`wh-490`, The Islamic world and Medieval Europe (2026-10-15)
+
+Run as B48. Pictures skipped. Checks: `wh-audit.js --range=wh-481:wh-490` clean but for `W.not-why` notes on `wh-487`
+and `wh-488`; `check-cards` first flagged same-language sources on `wh-481` (two English articles in Italian-titled
+journals) and `wh-489` (English articles in the *Revue belge*, beside one tagged French source), which are now declared in
+`SAME_LANGUAGE_OK` with their reasons, as earlier batches did; `check-citations --card` 0 mismatched on nine cards, and
+`wh-484` reports one it cannot clear: Crossref prints "Maher Y. Abu-Munshar (Corresponding Author)", where the citation
+gives the author's name. New locators: `wh-490` (England, a country-level mark for a kingdom with no single point) and
+the retried `wh-466` (Damascus). `wh-481`'s and `wh-482`'s book scans on archive.org are tagged `[Paywalled]` (in
+copyright); `wh-486`'s early-20th-century and encyclopaedic sources are the best open ones reached.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-481` Ibn Battuta | 7 | 5 → 8 | **"The Rihla was written in 1356" and "died 1368 or 1377" were wrong**: finished December 1355 (Dunn; 1356 is the earliest manuscript's date), died 1368 or 1369, 1377 one study's figure. The doubts about the Volga, China and Constantinople are attributed (Gibb, Dunn, Almonte); Delhi about eight or seven years; the distance figure dropped. |
+| `wh-482` Ibn Khaldun | 7 | 5 → 7 | **"First office 1352 under Abu Inan" and "born 2 May 1332" were wrong**: his first post was at Tunis, and Fez came in 1354; only 1332 is given. His Yemeni descent is "claimed"; the Muqaddima's draft by 1377, the 120-year cycle and the "founder of sociology" label attributed to modern readers; Timur in 1401. |
+| `wh-483` Seljuk Empire | 7 | 5 → 7 | **"In 1055 they reunited Muslim Asia from Afghanistan to the Mediterranean" was Malik-Shah's later reach (Humphreys)**; 1055 only ended Buyid rule at Baghdad. Dandanqan 1040; the sultan's title through the caliph's sermon and coinage; Nizam al-Mulk's colleges; fragmentation among princes and atabegs; 1157 ends the eastern line only. |
+| `wh-484` Saladin | 9 | 5 → 9 | **Two phrasings carried years, and a proteomics paper was cited for Arsuf.** Born 1137 or 1138 (Ibn Shaddad's year 532); vizier 1169; the Fatimid end (September 1171); Hattin 4 July and Jerusalem 2 October 1187; "the whole Transjordan system abandoned" overstated Vannini, now Shawbak; Richard's courtesy and Saladin's European and Muslim memory. |
+| `wh-485` Mamluk Sultanate | 7 | 5 → 7 | **All three phrasings carried years, and "the Bahris on a Nile island until 1382" was wrong**: Roda barracks named the Bahri regiment, and the Burjis were a brigade of Qalawun's mamluks (Barquq founded the line in 1382). 1250 – 1517; the Abbasid in Cairo; Acre, the Black Death and the 1260 battle (a date on Lane-Poole alone). |
+| `wh-486` Middle Ages | 9 | 5 → 10 | **Century-only date rows ("15th century", "17th century") replaced**, and Bury's pages were wrong. A label made afterwards (Petrarch, the humanists, Cellarius's 1688 history); conventionally c. 500 – 1500; "Dark Ages" avoided for the early part; the early/high/late boundaries move; awkward outside Europe; the Soviet ending in 1640 – 60. |
+| `wh-487` Migration Period | 7 | 5 → 8 | **Ammianus's story of the Huns was fact, and "the Visigoths crossed" was anachronistic.** The usual span c. 375 – 568; the Danube crossing 376; Vandals to Africa 429; the cause debated (the Huns restored to a leading role by some); the groups mixed bands and their size unknowable; cemetery genomes show kin and mixed ancestry. |
+| `wh-488` Ostrogoths and Visigoths | 9 | 5 → 9 | **"The Visigoths won Adrianople" read the later names back**: the 4th-century groups were Tervingi and Greuthungi, and the east–west gloss is Jordanes's (from Ablabius). Homoian "Arian" creed; Wulfila's Bible; 376, 410; Italy 489 – 526 and Visigothic Spain 507 – 711; Euric and "the whole west" dropped. |
+| `wh-489` Clovis I | 7 | 5 → 8 | **A baptism straight after a 496 war and "the title augustus" stood as fact.** Birth c. 466 from Gregory's age of 45; the Alamanni war traditionally 496, the baptism date disputed (508 proposed); Gregory a Catholic bishop who made Clovis his hero; Syagrius 486, Vouillé 507; the "3,000 baptised" and the Tolbiac name dropped. |
+| `wh-490` Anglo-Saxon England | 7 | 5 → 8 | **The term is a later label** (rare after the 10th century, back in the 16th); Bede's three-peoples story of 449 is simplified; the Heptarchy a late-16th-century term. The two genetic figures (38 per cent from ten genomes near Cambridge, up to 76 per cent in eastern England) are kept apart; 597, 627, 664, 731, 927. |
+
+**Read by eye.** *Article:* "the Seljuk Empire", "the Mamluk Sultanate", "the Middle Ages", "the Migration Period", "Anglo-Saxon
+England" (question 2: "the story of Anglo-Saxon England"); "Ibn Battuta", "Ibn Khaldun", "Saladin" and "Clovis I" bare.
+*Confusability:* `wh-483`/`wh-484`/`wh-485` the Seljuks, the Ayyubid founder and the Mamluks, Hattin only on `wh-484`, Ain Jalut
+only on `wh-485`; `wh-486`/`wh-487`/`wh-488` the label, the age of movement and two of its peoples, Adrianople on `wh-488` only,
+the humanists only on `wh-486`; `wh-481`/`wh-482` two travellers' books, the Rihla only on `wh-481`, the Muqaddima only on `wh-482`.
+*Against other cards:* `wh-465`'s Great Mosque and `wh-466`'s agree on 705 – 715; none edited.
+
+**Glossary.** Ten terms rewritten (*Ibn Battuta*, *Ibn Khaldun*, *Seljuk Empire*, *Saladin*, *Mamluk Sultanate*, *Middle
+Ages*, *Migration Period*, *Ostrogoths and Visigoths*, *Clovis I*, *Anglo-Saxon England*).
+
+### B50 — `wh-491`–`wh-500`, Medieval Europe (2026-10-15)
+
+Run as B49, which ends this thread's range: **`wh-401`–`wh-500` are done, and Medieval Europe continues at `wh-501` (B51)** (the rest of Ancient China, Africa and the Americas
+in antiquity, Byzantium and the Christian East, the Islamic world and the start of Medieval Europe). Pictures skipped.
+Checks: `wh-audit.js --range=wh-491:wh-500` clean but for `L.missing` on `wh-497` (a polity across central Europe, none
+requested) and, before a retry wrote its locator, on `wh-491`; `check-cards` all pass; `check-citations --card` 0 mismatched on
+all ten; of 81 distinct URLs two were non-2xx (an Italian journal's DOI that answered 000 and a PNAS DOI). New locators:
+`wh-491` (Sutton Hoo, marked at the River Deben) and `wh-499` (Holy Island).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-491` Sutton Hoo | 7 | 5 → 9 | **"Ship burial c. 625 CE" had no source I could open**; the latest coins date c. 610 – 635, Rædwald died 624 or 625, excavated 1939. "The two oldest ship graves with Snape" contradicted by Bonde and Stylegar and dropped. The Wuffingas probably buried here; the grave goods; no body (acid soil); the Rædwald link usual but unproven. |
+| `wh-492` Christian monasticism | 7 | 5 → 10 | **"Begins in Egypt c. 300 CE" and "Cenobitic rules 6th century" were a bare century and an unsourced start.** Antony in the desert c. 285 – 356 (the *Life* credited to Athanasius, c. 356 – 362), Pachomius c. 292 – 346; Paul of Thebes is Jerome's claim; Iona through Bede; women; hermit against cenobite. |
+| `wh-493` Rule of Saint Benedict | 7 | 5 → 7 | **The old card said no dish or drink is banned, not even meat: wrong**, RB 39 withholds the flesh of four-footed animals from the healthy. Written c. 530; Benedict's life only from Gregory's *Dialogues*, an edifying book; 73 chapters; made the one rule of Frankish monasteries 816 – 819. |
+| `wh-494` Medieval papacy | 7 | 5 → 10 | **The old card covered only the *Liber Pontificalis*, Gregory I and Charlemagne.** Now Pepin's gift, the Donation of Constantine and its forgery, Canossa and Worms, Innocent III, Avignon and the Schism; an "11th-century" in a question and an unsourced sun-and-moon letter dropped. `""` and `undatable`. |
+| `wh-495` Charlemagne | 9 | 5 → 9 | **"Never learned to write" and a Saint-Denis boyhood anointing had no source.** Birth 742 or 748; Verden's 4,500 is the Annals' figure and its size disputed; Roncesvalles was Gascons; the coronation on Christmas Day 800 told by Einhard as unplanned; he practised letters under his pillow too late. |
+| `wh-496` Carolingian Renaissance | 8 | 5 → 8 | **"Most classical texts survive via Carolingian copies" had no source.** The minuscule's origin disputed (Tours or Corbie); the schools decree of 789, Alcuin at Tours 796 – 804, the Mars letters of 798. |
+| `wh-497` Holy Roman Empire | 8 | 5 → 9 | **A question carried "1356", and a missionary-war duty, a Bryce verdict and a two-century quarrel from 1076 had no source.** Otto crowned 2 February 962 against Charlemagne in 800; the name arriving gradually (1157, 1184, 1254); Voltaire's jibe from his own text; seven electors; Worms 1122; Westphalia; dissolved 6 August 1806. |
+| `wh-498` Vikings | 9 | 5 → 11 | **"Most Scandinavians farmed", "not Vikings" and "three centuries later" had no source.** 793 – 1066 as one frame beside c. 750 – 1050; the sources are the victims' and the later sagas; Iceland 870 or 877; Greenland c. 985; L'Anse aux Meadows by tree rings, 1021; the horned-helmet myth; DNA flowing both ways. |
+| `wh-499` Lindisfarne raid | 7 | 5 → 7 | **"Wearmouth sacked 794" was a second row (the site is uncertain)**, and two sources said nothing of the raid. The Chronicle's 8 January is a miscount, June is Simeon of Durham's and modern accounts' (8 June); Alcuin's letters; the monks' fates are Simeon's; no homeland named for the raiders. |
+| `wh-500` Alfred the Great | 9 | 5 → 9 | **Two phrasings carried 878 and 899.** Born 849 by Asser's account; king 871 – 899; Edington and Guthrum's baptism at Aller; the half-at-home levy is the Chronicle's, not Asser's; the Burghal Hidage date debated; Asser's authenticity argued; the cakes a later legend; "the Great" a later byname. |
+
+**Read by eye.** *Article:* "the Rule of Saint Benedict", "the Medieval papacy", "the Carolingian Renaissance", "the Holy Roman
+Empire", "the Vikings", "the Lindisfarne raid"; "Sutton Hoo", "Christian monasticism", "Charlemagne" and "Alfred the Great"
+bare. *Confusability:* `wh-492`/`wh-493` the movement and its Rule, Antony and Pachomius only on `wh-492`; `wh-494`/`wh-495`/
+`wh-497` pope, emperor and empire, the Donation only on `wh-494`, Canossa on `wh-494` only, Voltaire only on `wh-497`;
+`wh-498`/`wh-499`/`wh-500` the people, the first raid and the king who beat them, Alcuin's letters on `wh-496` and `wh-499`;
+`wh-490`/`wh-491` the kingdoms and the burial. *Against other cards:* none contradicted; none edited.
+
+**Glossary.** Nine terms rewritten (*Sutton Hoo*, *Christian monasticism*, *Rule of Saint Benedict*, *Medieval papacy*,
+*Charlemagne*, *Carolingian Renaissance*, *Holy Roman Empire*, *Vikings*, *Alfred the Great*; *Lindisfarne raid* kept as it stood).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1824,3 +2168,58 @@ pass once it answers. Filled batch by batch.
 | `wh-386` | the Dhauli elephant, a site rather than the king |
 | `wh-394` | the Gwalior temple building, not the numerals |
 | `wh-398` | a 1935 atlas plate with dated labels, also `cnh-111`'s (audit `I.duplicate`) |
+| `wh-401` | Laozi on an ox, a picture of the legend rather than of the term |
+| `wh-403` | the caption names the wrong holder and says "printed 1190 to 1193"; the Library of Congress record says National Central Library, a lost original |
+| `wh-405` | one Qin coin for a whole dynasty |
+| `wh-404`, `wh-406`–`wh-410` | judged from title and description only, not re-viewed |
+| `wh-412` | a Ming woodcut with a burned-in caption |
+| `wh-413` | a fragment of the Xiping stone classics, a cultural object, not the fall |
+| `wh-414` | a torn leaf of the Records, also `ko-089`'s (audit `I.duplicate`); its description dates the script unchecked |
+| `wh-417` | an 1826 lithograph with "in 1821" in its title; the glossary's photograph of the royal cemetery is better |
+| `wh-419` | one head; **locator** is the Jos Plateau, a region some 100 km from the Nok sites |
+| `wh-420` | a map whose description says "fewer than a fifth of the languages" (no source) and whose alt is unchecked |
+| `wh-422` | the hand of a mummified baboon, not Punt; the glossary's picture of Hatshepsut's fleet at Punt fits better; **locator** not written (Punt has no primary coordinate) |
+| `wh-423` | a foggara at Tala, an irrigation technique, not the trade |
+| `wh-424` | a San Lorenzo head; its description says "all seventeen known heads" (unsourced) |
+| `wh-425` | one Codex Borgia page, not the culture area; **locator** not written (Wikipedia rate-limited the retry) |
+| `wh-427` | one stairway of the South Platform, not the city |
+| `wh-428` | the Great Plaza at Tikal, one site |
+| `wh-429` | title says Yaxchilan, description says the panel is in Mexico City: unverified |
+| `wh-430` | Tres Zapotes Stela C; its description gives a file-name range of 600 – 100 BCE against Stuart's 32 BCE |
+| `wh-421`, `wh-426` | judged from title and description only |
+| `wh-432` | a laser-scan render of one carving, not the temple |
+| `wh-431` | **locator** not written ("Teotihuacan" has no primary coordinate) |
+| `wh-436` | a Justinian mosaic, one emperor, not the empire |
+| `wh-440` | a dome-only view from below; its description says about 30.6 m where the measured dome is 31.19 × 32.55 m |
+| `wh-433`, `wh-434`, `wh-435`, `wh-437` | a single figure, one vessel, one pyramid and the walls: acceptable, a wider view would show more |
+| `wh-442` | a micrograph of the bacterium, not the event |
+| `wh-443` | a Madrid Skylitzes fire-ship miniature, also `ru-044`'s (audit `I.duplicate`) |
+| `wh-445` | Photios before a tribunal, only the 9th-century episode |
+| `wh-446` | primates at the 2016 council in Chania, one meeting |
+| `wh-448` | the Orans mosaic at St Sophia; its description gives tesserae and height figures no card source has; `wh-448` **locator** is the card's own region |
+| `wh-449` | one ceramic icon from Preslav, with no author or licence in its credit |
+| `wh-450` | **locator** not written ("Malazgirt" and "Battle of Manzikert" found no coordinate or were rate-limited) |
+| `wh-447`, `wh-441`, `wh-444` | description ends on an interpretive clause; judged from title and description only |
+| `wh-452` | a 19th-century painting with Greek captions burned in |
+| `wh-454` | Gelati's apse mosaic; its description calls Gelati David IV's foundation, which no source on the card gives |
+| `wh-455` | the Ezana Stone's Greek face, not the church |
+| `wh-451`, `wh-453`, `wh-456`–`wh-460` | judged from title and description only |
+| `wh-461` | shows only the hajj, and its description calls the pilgrimage "the fifth of the pillars" (the order varies) |
+| `wh-463` | the ribat at Sousse, one small strand, not the conquests |
+| `wh-465` | a gold dinar; its description names a museum |
+| `wh-466` | **locator** not written (the Damascus request was refused and rate-limited); a courtyard mosaic of the Great Mosque, not the city |
+| `wh-462`, `wh-464`, `wh-467`–`wh-470` | one building, shrine or painting each: acceptable, a map would show more |
+| `wh-473` | the description carries a shelfmark (and the glossary picture's does too) |
+| `wh-476` | one Qusayr Amra painting, not the tradition |
+| `wh-477` | only the mihrab niche, not the mosque |
+| `wh-480` | one Chishti tomb at Ajmer, not Sufism |
+| `wh-471`, `wh-472`, `wh-474`, `wh-475`, `wh-478`, `wh-479` | judged from title and description only |
+| `wh-487` | a Darum bracteate, one Scandinavian jewellery type; its description ends on an interpretive clause |
+| `wh-488` | a Visigothic votive crown only (the glossary's Domagnano gold is Ostrogothic) |
+| `wh-490` | the Sutton Hoo helmet, `wh-491`'s subject; a map of the kingdoms would fit |
+| `wh-481`–`wh-486`, `wh-489` | judged from title and description only; no portrait of Ibn Battuta or Ibn Khaldun exists |
+| `wh-494` | the Lateran basilica façade, a church and not the office |
+| `wh-495` | the Aachen throne, not the man; its description carries an unsourced "six centuries" claim |
+| `wh-492` | one monk at a monastery gate, a person and not the movement |
+| `wh-496` | one manuscript leaf; its description carries a shelfmark |
+| `wh-491`, `wh-493`, `wh-497`–`wh-500` | judged from title and description only |

@@ -394,6 +394,97 @@ Filled batch by batch, from the source each row names.
 | Spring and Autumn period / the Annals | c. 770 – 475 BCE (`cnh-142`: c. 476) / 722 – 481 BCE | Asia for Educators; Chavannes (`wh-397`) |
 | Warring States period / other starts | c. 475 – 221 BCE / 453 or 403 BCE (`cnh-163`: 480, 403 or 376) | Asia for Educators; Pines (`wh-398`) |
 | Confucius: born / died | 551 (Sima Qian) or 552 BCE (the commentaries) / 479 BCE | Kononchuk; Sima Qian (`wh-399`) |
+| Taoism: Guodian slips / *daojia* coined (Sima Tan died) / Celestial Masters (traditional) | c. 300 BCE / 110 BCE / 142 CE (`wh-401` is `undatable`) | Chan; Littlejohn; Pregadio (`wh-401`) |
+| Legalism: Shang Yang in office / Han Fei died / Sima Tan died | 359 – 338 BCE (`cnh-169`: from 356) / 233 BCE / 110 BCE (`wh-402` is `undatable`) | Pines; Duyvendak (`wh-402`) |
+| The Art of War: made / Yinqueshan tombs / slips found / first French version | c. 475 – 221 BCE / c. 140 – 118 BCE / 1972 / 1772 | Mair; Theobald (`wh-403`) |
+| Qin Shi Huang: born / King of Qin / First Emperor / died | 259 / 247 / 221 / 210 BCE | Sima Qian (Chavannes) (`wh-404`) |
+| Qin dynasty / lordship (tradition) / revolts began | 221 – 207 BCE (206 also counted; `cnh-191`: 206) / 770 BCE / 209 BCE | Pines; Chavannes; Bevan et al. (`wh-405`) |
+| Terracotta Army / mausoleum begun / found | by 210 BCE / 247 or 246 BCE / 1974 | Quinn et al.; Ma et al. (`wh-406`) |
+| Great Wall: earliest walls / Qin river wall / Ming building / 2012 survey | c. 475 – 221 BCE / 214 BCE / 1465 – 1620 CE / 21,196 km | Li et al.; Chavannes; Yang et al.; Xinhua (`wh-407`) |
+| Han dynasty: Western / Xin / Eastern / Emperor Wu | 206 BCE – 9 CE / 9 – 23 CE / 25 – 220 CE / 141 – 87 BCE (140 or 86 also given) | Asia for Educators; van Ess; Alfani et al. (`wh-408`) |
+| Silk Road: name coined / Zhang Qian returned / Xuanquanzhi relay station (`wh-409` is `undatable`) | 1877 / 126 BCE / 111 BCE – 109 CE | Waugh; Hirth; Yeh et al. (`wh-409`) |
+| Scholar-officials: Classics academicians / examinations ended | 136 BCE / 1905 | Liu; Theobald (`wh-410`) |
+| Sima Qian: born / castrated / letter to Ren An / died | c. 145 – 135 BCE / 98 BCE / 91 BCE / c. 86 – 74 BCE | Chavannes; Yang; Utah (`wh-411`) |
+| Papermaking: earliest finds / Cai Lun's report | c. 140 – 87 BCE / 105 CE | Drège; Hamburg CSMC; *Hou Han shu* via Carter (`wh-412`) |
+| Fall of the Han: Yellow Turbans / Dong Zhuo takes the capital / abdication | 184 / 189 / 220 CE | de Crespigny; Theobald (`wh-413`) |
+| Three Kingdoms: span / Wu's emperor / Shu fell / Wei ended | 220 – 280 CE / 229 / 263 / 266 CE (Theobald ends Wei in 265) | de Crespigny; Theobald (`wh-414`) |
+| Buddhism in China: first evidence / An Shigao / Yungang / persecution | by 65 CE / c. 148 – 170 CE / 460 – 524 CE / 845 CE | Theobald; Zacchetti (`wh-415`) |
+| Kush: Napatan / Meroitic / 25th Dynasty | c. 1070 – 300 BCE (one study; a late 9th century BCE start also given) / c. 300 BCE – 350 CE / c. 742 – 656 BCE | Peeters et al.; Adams; EBSCO (`wh-416`) |
+| Meroë: settled / capital / Roman war | c. 800 – 600 BCE / c. 300 BCE – 300 CE / c. 25 BCE | Humphris and Scheibner; Carey et al. (`wh-417`) |
+| Aksum: common frame / coinage / Ezana converts | c. 150 BCE – 700 CE (Hagos's frame) / c. 270 CE / c. 340 CE | Hagos; Phillipson (`wh-418`) |
+| Nok culture: began / figures made / first found | c. 1500 BCE / c. 900 – 400 BCE / 1928 | Breunig; Dunne et al.; Atwood (`wh-419`) |
+| Bantu expansion: began / forest crossing (one model) / Great Lakes | c. 6,000 – 4,000 / c. 4,420 / c. 2,600 years ago | Fortes-Lima et al.; Koile et al.; Semo et al. (`wh-420`) |
+| Garamantes: phase frame / Balbus's campaign / Maternus | c. 1000 BCE – 700 CE (Fezzan Project) / c. 20 BCE / c. 88 – 92 CE | Mattingly et al. (`wh-421`) |
+| Trade with Punt (first mention in Sahure's annal to Ramesses III) | c. 2500 – 1170 BCE | Dominy et al.; Breasted (`wh-422`; `wh-423` is `undatable`) |
+| Olmec era / San Lorenzo peak / La Venta | c. 1500 – 400 BCE (one source 1500 – 600) / c. 1400 – 1000 BCE / c. 900 – 400 BCE | Stark and Stoner; Blomster and Salazar; Šprajc et al. (`wh-424`; `wh-425` is `undatable`) |
+| Ballgame: earliest court (Paso de la Amada) / rubber balls (El Manatí) / highland court (Etlatongo) | c. 1650 / c. 1600 / c. 1374 BCE (midpoint) | Blomster and Salazar (`wh-426`) |
+| Monte Albán: founded / Monte Albán I / Monte Albán II / fragmentation | c. 500 BCE / 500 – 100 BCE / 100 BCE – 200 CE / c. 700 – 800 CE | Nicholas and Feinman; Pacheco-Forés et al.; Hoyer et al. (`wh-427`) |
+| Maya: first cities / Classic / Terminal Classic / Postclassic | c. 700 BCE – 250 CE / 250 – 1000 CE / 800 – 1000 CE / 1000 – 1500 CE (Chase gives other limits) | McCool et al.; Sánchez-Morales et al. (`wh-428`) |
+| Maya script: first attested (San Bartolo) / Classic texts | c. 300 – 200 BCE / c. 250 – 900 CE | Stuart et al.; Jobbová et al. (`wh-429`) |
+| Long Count: earliest firm date (Chiapa de Corzo; Tres Zapotes 32 BCE) / day zero (GMT, 584,283 or 584,285) | 36 BCE / 11 – 13 August 3114 BCE | Kennett et al.; Kettunen and Helmke; Stuart et al. (`wh-430`) |
+| Teotihuacan: rapid growth / apogee / collapse | c. 100 CE / c. 250 – 550 CE / c. 550 CE | Froese et al.; Sugiyama et al.; Manzanilla (`wh-431`) |
+| Chavín de Huántar: site in use / Janabarriu / temple ends / Gallery 3 | c. 950 – 400 BCE / c. 700 – 400 BCE / c. 500 BCE / c. 800 – 350 BCE | Burger; Rick et al. (`wh-432`) |
+| Nasca period / two Palpa sites / Paracas lines | c. 100 BCE – 650 CE / c. 400 – 650 CE / from c. 750 BCE | Sakai et al.; Rink and Bartoll; García Soto (`wh-433`) |
+| Moche: usual / radiocarbon / later estimate | c. 100 – 800 CE / c. 200 – 900 CE / c. 300 – 950 CE | Dumbarton Oaks; Koons and Alex; Quilter et al. (`wh-434`) |
+| Norte Chico (Late Archaic) / earliest Caral | c. 3000 – 1800 BCE / 2627 BCE | Haas, Creamer and Ruiz; Mesoweb (`wh-435`) |
+| Byzantine Empire: often dated / capital lost | 330 – 1453 CE (395 and the 280s also given) / 1204 – 1261 CE | Kaldellis via Neville; Pohlsander; Woods (`wh-436`) |
+| Constantinople: inaugurated / land walls / Latin rule / Ottoman assault | 11 May 330 CE / 413 CE / 1204 – 1261 CE / 29 May 1453 CE | Berger; Van Millingen (`wh-437`) |
+| Justinian I: born / reigned / Vandal War / Gothic War | c. 482 CE / 527 – 565 CE / 533 – 534 CE / 535 – 552 CE | Evans (`wh-438`) |
+| Corpus Juris Civilis: compiled / Code (revised) / Digest | 528 – 534 CE / 529 CE (534) / 533 CE | Wallinga; Weber (`wh-439`) |
+| Hagia Sophia: built / dome fell / reconsecrated / mosque | 532 – 537 CE / 558 CE / 562 CE / 1453 CE | Diker et al.; Garnczarska (`wh-440`) |
+| Theodora: empress / died (marriage 521 or 522 on one biography) | 527 – 548 CE / 548 CE | Holum; Evans (`wh-441`) |
+| Plague of Justinian: first outbreak / Constantinople / First Pandemic / DNA confirmed | 541 – 544 CE / 542 CE / 541 – 750 CE / 2013 | Keller et al.; Harbeck et al. (`wh-442`) |
+| Greek fire: first use (Theophanes's Kallinikos entry; long siege doubted) / second siege / gone by | c. 672 – 678 CE / 717 – 718 CE / 1204 CE | Theophanes; Haldon; Theotokis (`wh-443`) |
+| Byzantine Iconoclasm: first phase / Hieria / second phase / images restored | c. 730 – 787 CE (726 doubted) / 754 CE / 815 – 843 CE / 843 CE | Barber; McMichael (`wh-444`) |
+| East–West Schism: Photian rift / legates' bull / failed unions / bans lifted | 858 – 880 CE / 16 July 1054 CE / 1274 and 1439 CE / 7 December 1965 | Carcione; Whalen; Holy See (`wh-445`; `wh-446` is `undatable`) |
+| Cyril and Methodius: mission begins / Cyril died / Methodius died | 863 CE / 14 February 869 CE / 885 CE | Jakobson; Dostal (`wh-447`) |
+| Kievan Rus': Kyiv the seat / Yaroslav ruled / Mongol sack | c. 880 CE / 1036 – 1054 CE / 1240 CE | Zhdan; Hillerdal (`wh-448`) |
+| First Bulgarian Empire: founded / Boris baptised / Symeon reigned / ends | 681 CE / 864 – 865 CE / 893 – 927 CE / 1018 CE | Antonov; Bury; Marinow (`wh-449`) |
+| Battle of Manzikert | 26 August 1071 CE | Shliakhtin; Lau (`wh-450`) |
+| Sack of Constantinople: first entered / stormed / Latin Empire | July 1203 / 12 April 1204 / 1204 – 1261 CE | Villehardouin; Bell; Barabanov (`wh-451`) |
+| Fall of Constantinople: siege began / city taken | early April (4 or 5) 1453 / 29 May 1453 CE | Sphrantzes; Barbaro (`wh-452`) |
+| Christianisation of Armenia: conversion (tradition 301; Toumanoff and Young 314) / alphabet | c. 301 – 314 CE / c. 405 CE | Young; Thomson; Toumanoff (`wh-453`) |
+| Kingdom of Georgia: united / at its height / divided / eastern kingdom annexed | 1008 / 1089 – 1213 / 1490 / 1801 CE | Toumanoff; Rayfield; Morkva (`wh-454`) |
+| Ethiopian Orthodox Church: Ezana reigns / own patriarch | c. 330 – 360 CE / 1959 | Butts; Ghali (`wh-455`) |
+| Pre-Islamic Arabia: Saba attested / Himyar leads / Abraha's raid | c. 800 BCE – 275 CE / c. 350 – 570 CE / 552 CE | Schiettecatte; Robin; Hatke (`wh-456`) |
+| Muhammad: lived (birth by later reckoning) / revelation begins / Hijra | c. 570 – 632 CE / from c. 610 CE / 622 CE | Watt; Lindstedt; Donner (`wh-457`) |
+| Hijra: emigration / era begins (calendar introduced AH 16, 17 or 18) | 622 CE / 16 July 622 CE | Watt; Donner; al-Tabari (`wh-458`) |
+| Quran: revealed (tradition) / standard text (Uthman) | c. 610 – 632 CE / c. 650 CE | Wheeler; van Putten; Albayrak (`wh-459`) |
+| Islam: revelations / early expansion | c. 610 – 632 CE / 632 – 751 CE | Wheeler; Calder; Pew 2009 (`wh-460`) |
+| Rashidun Caliphate: span / Uthman | 632 – 661 CE / 644 – 656 CE | Dale; Hawting (`wh-462`) |
+| Early Muslim conquests: counted / Yarmuk / Egypt | 632 – 711 CE / 636 CE / 639 – 642 CE (December 639 entry, April 641 Babylon, September 642 Alexandria on one reconstruction) | Cory; Ehrlich; Butler (`wh-463`) |
+| Sunni–Shia split: succession / Ali caliph / Karbala | 632 CE / 656 – 661 CE / 680 CE | Amir-Moezzi; Cory; Ayoub (`wh-464`) |
+| Umayyad Caliphate / Abd al-Malik / coin reform | 661 – 750 CE (one book counts from 644) / 685 – 705 CE / 696 – 697 CE | Wellhausen; Marsham; Erkoçoğlu (`wh-465`) |
+| Battle of Tours | October 732 CE (10 or 25 October; one source 733) | Watson; Brill; Hailon (`wh-467`) |
+| al-Andalus: conquest / emirate / caliphate / Granada falls | 711 / 756 / 929 CE / 2 January 1492 | Al-Tamimi (Chronicle of 754); Calvo Capilla; Drayson (`wh-468`) |
+| Abbasid Caliphate / Samarra the seat | 750 – 1258 CE / 836 – 892 CE | Marín-Guzmán; Muir; Brown (`wh-469`) |
+| Baghdad: founded / Mongol sack / Ottoman capture | 762 CE / 1258 CE / 1534 CE | Le Strange; Petersen; Neggaz (`wh-470`; `wh-461` and `wh-466` are `undatable`) |
+| Islamic Golden Age: usual / narrow (a 1921 book) | c. 750 – 1258 CE / 750 – 850 CE (a modern label) | Qidwai; Browne (`wh-472`; `wh-471` is `undatable`) |
+| al-Khwarizmi lived | c. 780 – 850 CE | MacTutor; Karpinski (`wh-473`) |
+| Avicenna: born / Canon finished / died | c. 970 – 980 / c. 1025 / 1037 CE | Gutas; Chamsi-Pasha (`wh-474`) |
+| Islamic medicine: began / first hospital in Cairo / Mansuri finished | from c. 750 / 872 / 1284 CE | Savage-Smith; Browne (`wh-475`; `wh-476` is `undatable`) |
+| Great Mosque of Córdoba: begun / mihrab wing / cathedral built | 785 or 786 CE / 961 – 971 CE / from 1523 CE | González-Gutiérrez; Utrero Agudo; Arnold (`wh-477`) |
+| Fatimid Caliphate: founded / Egypt conquered / moved to Cairo / ended | 909 (proclaimed 910) / 969 / 973 / 1171 CE | Jiwa; Ashmolean (`wh-478`) |
+| al-Azhar: built / school / revived / reformed | 970 – 972 CE (972 on the Ashmolean's reckoning) / 988 CE / 1266 CE / 1961 | Qantara; Eccel and Reid (`wh-479`; `wh-480` is `undatable`) |
+| Ibn Battuta: born / travelled / Rihla finished / died | 1304 / 1325 – 1354 / December 1355 / 1368 or 1369 CE | Gibb; Dunn (`wh-481`) |
+| Ibn Khaldun: born / Muqaddima draft / met Timur / died | 1332 / 1377 / 1401 / 1406 CE | Irwin; Alatas; Mahdi (`wh-482`) |
+| Seljuk Empire: Dandanqan / Baghdad / Malik-Shah / Sanjar died | 1040 / December 1055 / 1072 – 1092 / 1157 CE | Brett; Humphreys; Bosworth (`wh-483`) |
+| Saladin: lived / vizier / Hattin / Jerusalem | 1137 or 1138 – 1193 / 1169 / 4 July 1187 / 2 October 1187 CE | Humphreys; Brett; Ibn Shaddad (`wh-484`) |
+| Mamluk Sultanate / Bahri / Burji | 1250 – 1517 / 1250 – 1382 / 1382 – 1517 CE | Lane-Poole; Troadec; Pradines (`wh-485`) |
+| Middle Ages: convention / Cellarius | c. 500 – 1500 CE / 1688 | Hallam; Shank and Lindberg (`wh-486`) |
+| Migration Period: usual span / Danube crossed / Vandals landed in Africa | c. 375 – 568 / 376 / 429 CE | Pohl; Teeter; Kasperski (`wh-487`) |
+| Ostrogoths and Visigoths: Danube / Rome sacked / Italy / Visigothic Spain | 376 / 410 / 489 – 526 / 507 – 711 CE | Ammianus; Jordanes; Cecconi (`wh-488`) |
+| Clovis I: lived / reigned / Syagrius beaten / Vouillé | c. 466 – 511 / 481 – 511 / 486 / 507 CE (baptism 496 or 508, disputed) | Gregory; Wood; Hen (`wh-489`) |
+| Anglo-Saxon England: traditional span / mission to Kent / Bede's last year / York taken | c. 449 – 1066 / 597 / 731 / 927 CE | Naismith; Bede; Gretzinger (`wh-490`) |
+| Sutton Hoo: latest coins / Rædwald died / excavated | c. 610 – 635 CE / 624 or 625 CE / 1939 | Grierson; Sutton Hoo Society (`wh-491`) |
+| Christian monasticism: Antony in the desert / Pachomius / Life of Antony | c. 285 – 356 / c. 292 – 346 / 356 – 362 CE | Robertson; Gould (`wh-492`) |
+| Rule of Saint Benedict: written / made standard | c. 530 CE / 816 – 819 CE | Hagan; Gregory (`wh-493`; `wh-494` is `undatable`) |
+| Charlemagne: reigned / Saxon wars / took Lombardy / crowned emperor | 768 – 814 / 772 – 804 / 774 / 800 CE (born 742 or 748) | Einhard; Royal Frankish Annals (`wh-495`) |
+| Carolingian Renaissance: schools decree / Alcuin at Tours / Mars letters | 789 / 796 – 804 / 798 CE | Admonitio generalis; Alcuin (`wh-496`) |
+| Holy Roman Empire: Otto crowned / Charles crowned / dissolved | 2 February 962 / 800 / 6 August 1806 CE | Sulovsky; Lück (`wh-497`) |
+| Vikings: Viking Age / also dated | 793 – 1066 CE / c. 750 – 1050 CE | Ashby; Heen-Pettersen (`wh-498`) |
+| Lindisfarne raid | 793 CE (Chronicle's 8 January is a miscount; 8 June by Simeon of Durham and modern accounts) | Anglo-Saxon Chronicle; Simeon; English Heritage (`wh-499`) |
+| Alfred the Great: born (Asser) / reigned / Edington | 849 / 871 – 899 / 878 CE | Asser; Anglo-Saxon Chronicle (`wh-500`) |
 
 ## Chronology pins
 
@@ -775,4 +866,92 @@ wh-396: 770; 256; 481; 475; 453; 403; 249
 wh-397: 770; 475; 722; 481
 wh-398: 475; 221; 453; 403
 wh-399: 551; 552; 479
+wh-403: 475; 221; 140; 118; 1972; 1772
+wh-404: 259; 247; 221; 210
+wh-405: 221; 207; 770; 209
+wh-406: 210; 1974
+wh-407: 475; 221; 214; 1465; 1620
+wh-408: 206; 9; 23; 25; 220
+wh-410: 136; 1905
+wh-411: 145; 135; 98; 91; 86; 74
+wh-412: 140; 87; 105
+wh-413: 184; 189; 220
+wh-414: 220; 280; 229; 263; 266
+wh-415: 65; 148; 170; 460; 524; 845
+wh-416: 1070; 300; 350; 742; 656
+wh-417: 800; 600; 300; 25
+wh-418: 150; 700; 270; 340
+wh-419: 1500; 900; 400; 1928
+wh-420: 6,000; 4,000; 4,420; 2,600
+wh-421: 1000; 700; 20
+wh-422: 2500; 1170
+wh-424: 1500; 400; 1400; 1000; 900
+wh-426: 1650; 1600; 1374
+wh-427: 500; 100; 200; 700; 800
+wh-428: 700; 250; 1000; 800; 1500
+wh-429: 300; 200; 250; 900
+wh-430: 36; 3114
+wh-431: 100; 250; 550
+wh-432: 950; 400; 700; 500; 800; 350
+wh-433: 100; 650; 400; 750
+wh-434: 100; 800; 200; 900; 300; 950
+wh-435: 3000; 1800
+wh-436: 330; 1453; 1204; 1261
+wh-437: 330; 413; 1204; 1261; 1453
+wh-438: 482; 527; 565; 533; 534; 535; 552
+wh-439: 528; 534; 529; 533
+wh-440: 532; 537; 558; 562; 1453
+wh-441: 527; 548
+wh-442: 541; 544; 542; 750; 2013
+wh-443: 672; 678; 717; 718; 1204
+wh-444: 730; 787; 754; 815; 843
+wh-445: 858; 880; 1054; 1274; 1439; 1965
+wh-447: 863; 869; 885
+wh-448: 880; 1036; 1054; 1240
+wh-449: 681; 864; 865; 893; 927; 1018
+wh-450: 1071
+wh-451: 1204; 1261; 1203
+wh-452: 1453
+wh-453: 301; 314; 405
+wh-454: 1008; 1089; 1213; 1490; 1801
+wh-455: 330; 360; 1959
+wh-456: 800; 275; 350; 570; 552
+wh-457: 570; 632; 610; 622
+wh-458: 622
+wh-459: 610; 632; 650
+wh-460: 610; 632; 751
+wh-462: 632; 661; 644; 656
+wh-463: 632; 711; 636; 639; 642
+wh-464: 632; 656; 661; 680
+wh-465: 661; 750; 685; 705; 696; 697
+wh-467: 732
+wh-468: 711; 756; 929; 1492
+wh-469: 750; 1258; 836; 892
+wh-470: 762; 1258; 1534
+wh-472: 750; 1258; 850
+wh-473: 780; 850
+wh-474: 970; 980; 1025; 1037
+wh-475: 750; 872; 1284
+wh-477: 785; 786; 961; 971; 1523
+wh-478: 909; 910; 973; 969; 1171
+wh-479: 970; 972; 988; 1266; 1961
+wh-481: 1304; 1325; 1354; 1355; 1368; 1369
+wh-482: 1332; 1377; 1401; 1406
+wh-483: 1040; 1055; 1072; 1092; 1157
+wh-484: 1137; 1138; 1193; 1169; 1187
+wh-485: 1250; 1517; 1382
+wh-486: 500; 1500; 1688
+wh-487: 375; 568; 376; 429
+wh-488: 376; 410; 489; 526; 507; 711
+wh-489: 466; 511; 481; 486; 507
+wh-490: 449; 1066; 597; 731; 927
+wh-491: 610; 635; 624; 625; 1939
+wh-492: 285; 356; 292; 346; 362
+wh-493: 530; 816; 819
+wh-495: 768; 814; 772; 804; 774; 800
+wh-496: 789; 796; 804; 798
+wh-497: 962; 800; 1806
+wh-498: 793; 1066; 750; 1050
+wh-499: 793
+wh-500: 849; 871; 899; 878
 ```
