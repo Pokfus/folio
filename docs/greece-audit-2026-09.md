@@ -752,6 +752,33 @@ the Spartan lawgiver (`gr-587`, `gr-600` mean the Athenian statesman, wrapped); 
 `rm-222`, and the Athenian siege and classical Thebes each need an entry of their own, written and sourced, plus
 hand-keys on the cards that now wrap them; a rename alone would only move the claim to the bare name.
 
+**Added by the refinement's B63–B73 (2026-10-15)**, counted the same way after `gr-601`–`gr-700` were rewritten (prose,
+questions and Think-it-through answers; each name checked against the glossary's keys AND aliases, so a name that is only a
+part of a key counts as missing). `Diodorus` has no key under any form, though the ancient historian is cited on 26 of the 100.
+
+| cards | term | note |
+|---|---|---|
+| 26 | Diodorus | Diodorus of Sicily, the historian; the most-cited ancient author of the fourth-century cards |
+| 15 | Macedon · Macedonia | the kingdom (only `Macedonian_phalanx` begins with the word) |
+| 13 | Alexander | bare "Alexander" has no alias on `Alexander_the_Great`; Alexander of Pherae (`gr-669`) is a different man |
+| 9 | Leuctra | the place; the battle's key may be wanted as `Battle_of_Leuctra` with this alias |
+| 8 | Diogenes Laertius | the biographer of the philosophers |
+| 7 | Cnidus · Chaeronea | the battles' places |
+| 6 | Pliny | `Pliny_the_Elder`; Pliny the Younger is a different man |
+| 5 | Quintilian · Cleombrotus | |
+| 4 | Messene · Lysippus · Lenaia · Dionysius · Cos · Coronea · Charon · Cadmea · Antisthenes · Aegospotami | Dionysius the Younger of Syracuse (`gr-677`) and the elder; Cos the island |
+| 3 | Theopompus · Theaetetus · Pythagoras of Rhegion · Leontiades · Eudemus · Abdera | Theopompus the historian (the comic poet Theopompus is another man) |
+| 2 | Xenocles · Varro · Trapezus · Tithraustes · Tiribazus · Timotheus · Theophrastus · Ten Thousand · Tegea · Sphodrias · Smikros · Sicyon · Sacred Disease · Phoebidas · Phintias · Olynthus · Olympiad · Nesiotes · Nature of Man · Middle Comedy · Meno · Melon · Lemnos · Lancellotti · Iphicrates · Imbros · Hegesias · Hecuba · Gorgidas · Epidemics · Cunaxa · Creon · Crates · Clazomenae · Chaerephon · Chabrias · Callon · Callistratus · Calamis · Bosporus · Asclepiad · Ameipsias · Ageladas | Zeno (4 cards) is both Zeno of Elea and Zeno of Citium; Creon is the king of Thebes and the king of Corinth in the *Medea* |
+| 1 | Thessalus · Theodorus · Meletus · Ismenias · Hippasus · Hipparchia · Hermogenes · Eudoxus · Ephorus · Aristodemus · Anytus | |
+
+Two keys the cards depend on are missing or wrong-sensed: `gr-692` is answered by the orator, and the card's auto-linked popup is
+`Demosthenes_(general)` (the answer-term join), so `Demosthenes_(orator)` (the plan line's key) needs writing; `gr-679`'s answer
+`Republic` opens the generic state, so a Plato key (for instance `Republic_(Plato)`) is wanted. Keys that open the wrong sense,
+stopped on these cards with `<span class="ans-term">`: `Thebes` (Mycenaean Thebes), `Sulla` (`gr-678`), `reconstruction`
+(`gr-680`: the American era), `concord` (`gr-689`), `hegemon` (`gr-700`: the Chinese hegemon system), `Cyrus` (the Younger,
+`gr-619`, `gr-621`, `gr-631`), `Lycurgus` the orator (`gr-612`), `marble` (`gr-612`) and `Hippias` the sophist (`gr-622`). None
+is fixed here, on purpose, for the reason given under B53–B63.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
