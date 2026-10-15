@@ -2327,3 +2327,10 @@ popup shows the Peloponnesian War general; its own key `Demosthenes_(orator)` ha
 
 **Chronology.** A new section, "Fourth-century thinkers, orators and Macedon", holds rows and pins; the Events and reigns
 rows for Philip II (359 – 336 BCE) and Chaeronea (338 BCE) are confirmed.
+
+**Wikipedia links for `gr-601`–`gr-700`** corrected in `.claude/wiki-links.json` (marked `manual`): `gr-604` Hippolytus (play), `gr-608`
+The Clouds (the resolver had Cloud), `gr-614` Skene (theatre), `gr-617` none (the resolver had a French film, Historié),
+`gr-628` Socratic method, `gr-631` Memorabilia (Xenophon), `gr-636` Commensurability (mathematics), `gr-655` White-ground
+technique, `gr-659` Battle of Coronea (394 BC), `gr-662` Peace of Antalcidas, `gr-664` Battle of Sardis (395 BC),
+`gr-676` Social War (357–355 BC), `gr-678` Platonic Academy, `gr-683` Lyceum (classical), `gr-692` Demosthenes (the resolver
+had the general). **Locators** fetched through `add-locators.js` for the battles, sites and cities among these cards.
