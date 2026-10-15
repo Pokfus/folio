@@ -187,6 +187,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Aius Locutius: the voice / the altar ordered | 391 BCE / 390 BCE (tradition) | `rm-127` |
 | the Licinio-Sextian laws / the first plebeian consul | 367 BCE / 366 BCE (tradition; `wh-343` says the law "opened the consulship in 367", the year of the law) | `rm-128`, `rm-101`, `rm-106`, `rm-132` |
 | the measures called the Lex Genucia / the first pair of plebeian consuls | 342 BCE (Varro's reckoning) / 172 BCE | `rm-129` |
+| the two plebiscites on repeating an office / the lex Villia annalis / Sulla's law | 342 BCE (Varro's reckoning) / 180 BCE (Livy 40.44; Abbott, Smith) / 81 BCE | `rm-131`, `rm-129` |
+| the praetorship: created / first plebeian / second praetor / Sicily and Sardinia | 366 BCE (Greenidge; Abbott prints 367) / 337 BCE / 242 BCE / 227 BCE; two more for Spain in 197 BCE (Smith) | `rm-132` |
+| the Lex Ovinia | no date in any source; older handbooks place it after 339 BCE and before 312 BCE, an inference the card keeps in prose and off the line | `rm-133` |
+| the Lex Poetelia | 326 BCE (Livy) / 313 BCE (Varro, with Poetelius as dictator); Cicero names none | `rm-134` |
+| the Lex Hortensia | 287 BCE (the modern convention) | `rm-135`, `rm-101` |
+| the Lex Ogulnia | 300 BCE (Livy 10.6-9) | `rm-136` |
+| Appius Claudius Caecus: censor / consul | 312 BCE (Diodorus's count 311 BCE) / 307 BCE and 296 BCE | `rm-137` |
+| the Via Appia: begun / stone laid by aediles / extended to Venusia, Tarentum, Brundisium | 312 BCE (Diodorus's count 311) / 296 BCE and 293 BCE (Livy) / 291, 281 and 264 BCE (Platner and Ashby only) | `rm-138` |
+| the Aqua Appia: built / repaired / Augustan repairs | 312 BCE (the date modern books give for the censorship) / 144 – 140 BCE / 11 – 4 BCE | `rm-139` |
+| aes grave: cast from / Pliny's first silver / the as cut to two ounces / bronze and silver one system | c. 300 BCE (Mattingly) / 269 BCE (Forsythe; Mattingly 269 or 268) / c. 245 BCE (Mattingly) / 218 – 201 BCE | `rm-140` |
 
 ## The middle and late Republic
 
@@ -330,4 +340,13 @@ rm-126: 390; 387; 386
 rm-127: 391; 390
 rm-128: 367; 366
 rm-129: 342; 172
+rm-131: 342; 180; 81
+rm-132: 366; 337; 242; 227
+rm-134: 326; 313
+rm-135: 287
+rm-136: 300
+rm-137: 312; 311; 307; 296; 280
+rm-138: 312; 311; 296; 293; 291; 264
+rm-139: 312; 144; 140; 11; 4
+rm-140: 300; 269; 245; 218; 201
 ```

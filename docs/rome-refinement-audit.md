@@ -145,7 +145,7 @@ order unless the user says otherwise.
 | B11 | The early Republic (`rm-early-republic`) | `rm-101`–`rm-110` | 10 | 126 | **done 2026-10-15** |
 | B12 | The early Republic (`rm-early-republic`) | `rm-111`–`rm-120` | 10 | 121 | **done 2026-10-15** |
 | B13 | The early Republic (`rm-early-republic`) | `rm-121`–`rm-130` | 10 | 121 | **done 2026-10-15** |
-| B14 | The early Republic (`rm-early-republic`) | `rm-131`–`rm-140` | 10 | 104 | open |
+| B14 | The early Republic (`rm-early-republic`) | `rm-131`–`rm-140` | 10 | 104 | **done 2026-10-15** |
 | B15 | The conquest of Italy (`rm-conquest-italy`) | `rm-141`–`rm-150` | 10 | 109 | open |
 | B16 | The conquest of Italy (`rm-conquest-italy`) | `rm-151`–`rm-160` | 10 | 119 | open |
 | B17 | The conquest of Italy (`rm-conquest-italy`) | `rm-161`–`rm-170` | 10 | 110 | open |
@@ -400,6 +400,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-128` Licinio-Sextian laws | the Concord temple site | the description names Plutarch |
 | `rm-129` Lex Genucia | a page of a Livy manuscript | the description says everything comes from Livy |
 | `rm-130` nobiles | the Togatus Barberini holding two ancestral portraits | subject fits; the description names sources |
+| `rm-131` cursus honorum | Scipio Barbatus's sarcophagus | one man's epitaph for the whole term; the credit names no author or licence |
+| `rm-132` praetorship | an empty curule chair on a funerary relief | a fair picture of the chair, not the office; the description names the comitium, which no source supports |
+| `rm-133` Lex Ovinia | the senate house in the Forum | the Curia Iulia front, a late rebuilding; also on `wh-340` (`I.duplicate`) |
+| `rm-134` Lex Poetelia | aes rude, bronze weighed out as money | acceptable in kind but weak; one lump of bronze for a law, and the description wants trimming |
+| `rm-135` Lex Hortensia | none | no picture (`I.none`) |
+| `rm-136` Lex Ogulnia | a bronze veiled man making an offering | acceptable but generic; one sacrificant, not a pontiff or augur |
+| `rm-137` Appius Claudius Caecus | a 19th-century painting of Appius led into the senate house | the right scene; the description names Plutarch |
+| `rm-138` Via Appia | the paving today | acceptable photograph; the description names Procopius |
+| `rm-139` Aqua Appia | a map of Latium with the aqueduct lines | wrong: French caption naming the map's source, burned-in labels |
+| `rm-140` aes grave | a cast prow-series piece in Berlin | acceptable; the locator (the Capitoline) looks unsupported |
 
 ## Glossary candidates
 
@@ -882,3 +892,22 @@ Run as B12. Checks: `rm-audit.js --range=rm-121:rm-130` reads clean on all ten c
 | `rm-130` nobiles | 6 | 5 → 7 | **"Curule descent" was Mommsen's test given as fact**; the card says whose test is whose (Gelzer's descent from a consul is the usual one) and that the nobiles were a status, never an order. Polybius's masks are worn by men resembling the dead, not by relatives. "First new man L. Sextius" cut. Undated (`""`). Gelzer's own definition could not be read first-hand. |
 
 **Read by eye.** *Legend as legend:* Camillus's exile and return, the ransom scene, the geese, the voice and the Genucian mutiny are each an ancient author's. *Chronology:* four cards now print 390 BCE (Varro) beside 387 – 386 BCE (Polybius); `rm-141` prints 387 for the Polybian date, a harmless difference. *Overlap:* `wh-343` says the Licinio-Sextian law "opened the consulship in 367", which is the law's passing; `gr-787` (Delphi Brennus) agrees with `rm-125`.
+
+### B14 — `rm-131`–`rm-140`, the early Republic: the cursus honorum to the first Roman roads and coinage (2026-10-15)
+
+Run as B13. Checks: `rm-audit.js --range=rm-131:rm-140` reads clean on eight cards; the rest are `rm-133`'s picture shared with `wh-340` and `rm-135`'s missing picture. `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. Three citation URLs answer 403 to a script (the Wiley chapter DOI of Raaflaub's volume on `rm-135`, and an MDPI article on `rm-138`); Crossref confirms both. **`rm-133` has no date line on purpose:** no source prints the law's date. Forsythe and Ungern-Sternberg were read in archive.org scans and are cited by their Wiley or Berkeley DOIs, tagged `[Paywalled]`.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-131` cursus honorum | 7 | 5 → 7 | **"Cursus honorum" is a handbook's name**; no source says the Romans did or did not use it for the Republic. Polybius's ten years of service is his; the lex Villia is Livy 40.44 (180 BCE as Abbott and Smith print it), and the ages (30, 31, 37) are modern reconstructions that disagree. Claims the cited Smith page does not make ("centuries vs tribes", "potestas only") and the lictor and count rows are gone. |
+| `rm-132` praetorship | 7 | 5 → 7 | Created with the curule aedileship as Livy's "own interest" bargain, 366 BCE (Greenidge; Abbott prints 367); first plebeian praetor 337 BCE; each praetor count is given with its year and author. **Smith's Praetor entry misprints 356 and 246**; the card uses neither. The existing Praetor glossary entry cites the 1890 edition of that article and may carry them. |
+| `rm-133` Lex Ovinia | 6 | 5 → 8 | **"After 339 BCE, before 312 BCE" is a handbook inference**, now prose ("older handbooks placed it…"); Festus is the only direct witness. **Appius's roll was said to come "under" the law; no one can say whether the law came before or after it.** `wh-341` prints "around 318 BCE", which none of the sources read prints. |
+| `rm-134` Lex Poetelia | 6 | 5 → 6 | Livy's year 326 BCE and Varro's 313 BCE (Poetelius as dictator) are two rows; **the loop of sixty days is the Twelve Tables' procedure, not nexum**. The Papirius story is Livy's, and moderns read it as a stock tale; the law eased bondage rather than ended it. **Cicero, De re publica 2.59, names no year (a corrupt clause), not "after the decemvirs".** |
+| `rm-135` Lex Hortensia | 6 | 5 → 7 | 287 BCE labelled **Conventional**; the secession to the Janiculum is what the sources report (Pliny, a summary of Livy, Dio's fragment). The two earlier laws (449 and 339 BCE) are Livy's; whether one formula underlies all three, and how much it changed, is a debate. Unsourced claims about the plebs' "claimed from the beginning" power cut. |
+| `rm-136` Lex Ogulnia | 6 | 5 → 6 | **"The last places still shut" was false: the chief pontificate stayed patrician until 254 BCE.** Livy's figures (four and four before; four pontiffs and five augurs added; eight and nine after) are his, and the moderns' doubts are Smith's, Forsythe's and Botsford's. |
+| `rm-137` Appius Claudius Caecus | 7 | 5 → 7 | **"18 months" is the Aemilian law's limit (Livy 9.33), not the time he held office.** The Flavius paragraph and a wrong "half a century later" cut. Diodorus says he only professed blindness (Livy: struck blind); Forsythe's and Mitchell's doubts about the freedmen's sons added. A source in Polish carries its chip. |
+| `rm-138` Via Appia | 9 | 5 → 8 | **Diodorus says Appius paved most of it; Livy dates the stone paving to 296 and 293 BCE; Platner and Ashby call the first road gravel.** Procopius says "unencumbered traveller", not "on foot", and calls Appius a consul; the extension dates (291, 281, 264 BCE) are Platner and Ashby's alone and Livy 9.29 does not carry them. |
+| `rm-139` Aqua Appia | 7 | 5 → 7 | Frontinus's 11,190 paces and sixty above ground are his, with 16.6 km as Ashby's conversion; Lanciani's different length (16,445 m) and springs are shown as disagreement. **No daily output is given: the figure in the handbooks is Frontinus's gauging at a later point, and Lanciani prints a third.** The glossary entry needed no change. |
+| `rm-140` aes grave | 6 | 5 → 6 | "Worth their weight" is an open question; Pliny's first silver (269 BCE) and Mattingly's reductions (c. 245 BCE) are separate rows, each labelled. **The denarius's 211 BCE is not given: no source reachable here prints it** (CRRO, nomisma and numismatics.org were unreachable and Crawford is restricted). |
+
+**Read by eye.** *Legend as legend:* Papirius and the debtor, the Hortensian secession and the Aqua Appia's founding by two censors are each an ancient author's. *Confusability:* `rm-131`/`rm-132` and `rm-133`/`rm-136` are pairs by subject, with each phrasing naming only its term's clues. `rm-122` covers pay and `rm-140` the bronze; neither repeats the other. *Chronology:* the praetorship's 366 BCE agrees with `rm-106`, `rm-128`; Abbott's 367 is said in prose. *Overlap:* `wh-341` (Lex Ovinia, "around 318 BCE") is the only disagreement, left alone.

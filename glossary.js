@@ -7139,7 +7139,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Licinio-Sextian_rogations": "carried 367 BCE, by the usual dating",
 "Leges_Genuciae": "carried 342 BCE, by the usual dating",
 "Praetor": "office created 366 BCE, by the usual dating",
-"Lex_Ovinia": "carried between 339 and 312 BCE",
+"Lex_Ovinia": "date uncertain",
 "Lex_Poetelia_Papiria": "326 BCE, by Livy's dating",
 "Lex_Hortensia": "287 BCE",
 "Lex_Ogulnia": "300 BCE",
