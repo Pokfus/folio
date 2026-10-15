@@ -7159,7 +7159,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Senones": "c. 4th – 3rd century BCE",
 "Battle_of_Telamon": "225 BCE",
 "Roman_conquest_of_Cisalpine_Gaul": "225 – 218 BCE",
-"Pyrrhus_of_Epirus": "died 272 BCE",
+"Pyrrhus_of_Epirus": "c. 319 – 272 BCE",
 "Battle_of_Heraclea": "280 BCE",
 "Battle_of_Asculum": "279 BCE",
 "Battle_of_Beneventum_(275_BC)": "275 BCE",

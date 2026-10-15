@@ -148,7 +148,7 @@ order unless the user says otherwise.
 | B14 | The early Republic (`rm-early-republic`) | `rm-131`–`rm-140` | 10 | 104 | **done 2026-10-15** |
 | B15 | The conquest of Italy (`rm-conquest-italy`) | `rm-141`–`rm-150` | 10 | 109 | **done 2026-10-15** |
 | B16 | The conquest of Italy (`rm-conquest-italy`) | `rm-151`–`rm-160` | 10 | 119 | **done 2026-10-15** |
-| B17 | The conquest of Italy (`rm-conquest-italy`) | `rm-161`–`rm-170` | 10 | 110 | open |
+| B17 | The conquest of Italy (`rm-conquest-italy`) | `rm-161`–`rm-170` | 10 | 110 | **done 2026-10-15** |
 | B18 | The conquest of Italy (`rm-conquest-italy`) | `rm-171`–`rm-180` | 10 | 104 | open |
 | B19 | The Punic Wars (`rm-punic-wars`) | `rm-181`–`rm-190` | 10 | 129 | open |
 | B20 | The Punic Wars (`rm-punic-wars`) | `rm-191`–`rm-200` | 10 | 127 | open |
@@ -430,6 +430,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-158` Roman conquest of Etruria | a beech wood on Monte Cimino | weak: one episode (the Ciminian crossing), not the conquest |
 | `rm-159` conquest of Umbria and Picenum | the upper Tronto valley | weak: a modern village with a clock tower; the description makes unsourced claims |
 | `rm-160` Senones | a gold torque from the Montefortino necropolis | acceptable but weak: one object; the burials are disputed |
+| `rm-161` Battle of Telamon | the Dying Gaul in the Capitoline Museums | a Roman copy of a statue made for another war; it shows neither the battle nor the place |
+| `rm-162` conquest of Cisalpine Gaul | an 1865 engraving of Casteggio (Clastidium) | one town, not the conquest; the description says Marcellus won the spolia opima there as fact |
+| `rm-163` Tarentum | the Doric columns of the temple at Taranto | acceptable photograph; the description's "oldest Greek architecture in southern Italy" is unsourced |
+| `rm-164` Pyrrhus | the Herculaneum bust identified as Pyrrhus | acceptable (public domain); the identification rests on comparison |
+| `rm-165` Battle of Heraclea | the excavated streets of Heraclea | a photograph of the city, not the battle; the description's "the kind of ground the battle was fought on" has no support |
+| `rm-166` Battle of Asculum | a Daunian marble table support from Ascoli Satriano | unrelated to the battle |
+| `rm-167` Pyrrhic victory | none | no picture (`I.none`); a bust of Pyrrhus would do |
+| `rm-168` Battle of Beneventum | a war elephant on a 3rd-century plate | shows an elephant, not the battle; the description names Commons (`I.caption-source`) |
+| `rm-169` siege of Tarentum | a didrachm of Taras | one coin for a siege; the description names the collection and dating authority |
+| `rm-170` Roman confederation | a 1911 map of the growth of Roman power | a burned-in legend and labels, naming its author, and it shows the allies about 100 BCE |
 
 ## Glossary candidates
 
@@ -969,3 +979,22 @@ Run as B15. Checks: `rm-audit.js --range=rm-151:rm-160` reads clean on seven car
 | `rm-160` Senones | 6 | 5 → 7 | **The old card gave Polybius's 30-year treaty to the Senones and "broken 299"**; Polybius says "the Gauls", and the 299 and 283 on the old card were Shuckburgh's marginal notes. Dates now rest on modern authors (Arretium 284, final defeat 283, the land law of 232 BCE). |
 
 **Read by eye.** *Legend as legend:* the Campanian surrender, Decius's devotio (twice, father and son), the Caudine repudiation and the Aquilonia oath are each Livy's. *Confusability:* the three-war cluster (`rm-151`–`rm-153`, `rm-156`) is told apart by cause (Campania, Palaepolis, the Lucanians) and `rm-154`/`rm-157` by their battles. *Chronology:* all Samnite years are Varro's and said to be conventional; `rm-157`'s 295 BCE is the same year `rm-142` gives for the son's devotio. *Overlap:* `wh-337` (Etruscan civilisation) was read for `rm-158` and does not disagree.
+
+### B17 — `rm-161`–`rm-170`, the conquest of Italy: Telamon, Pyrrhus and the confederation (2026-10-15)
+
+Run as B16, with B18's and B19's agents alongside. Checks: `rm-audit.js --range=rm-161:rm-170` reads clean on eight cards; the rest are `rm-167`'s missing picture and `rm-168`'s `I.caption-source` (the description names Commons). `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card. Every modern source on `rm-165` and `rm-166` is of 1898 – 1935; the 2026 De Gruyter chapters would not open. From `rm-161` on the dates are firm (Polybius is near-contemporary), so the line carries no "Traditional" label; the Pyrrhic War's dates are modern histories' conventions.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-161` Battle of Telamon | 6 | 6 → 6 | Five Polybius chapters → one Loeb text; **"vanity and bravado" was Shuckburgh's wording, the Loeb has "proud confidence"**. Every figure (about 50,000 foot, 20,000 horse and chariots; 6,000 Romans at Faesulae) is Polybius's. Frontinus puts the fight near Populonia; Polybius near Telamon. The triumph (224 BCE) added; date line only 225 and 224. |
+| `rm-162` conquest of Cisalpine Gaul | 6 | 5 → 8 | Four Polybius chapters → Polybius 2 and 3, Plutarch's Marcellus and five modern items. **Plutarch's Mediolanum story (Marcellus joins Scipio) is set beside Polybius's**; the 224 and 191 BCE campaigns and the Boii revolt against the new colonies added. The province point is stated as Smith has it and nothing on Sulla. |
+| `rm-163` Tarentum | 7 | 5 → 9 | **The "greatest Greek city" claim and the 1854 Smith dates (302, 281, 274) are gone.** Founding by the Partheniae is Antiochus's and Ephorus's (Strabo), 706 BCE Eusebius's and 708 BCE Jerome's. The insult to the envoys is Appian's story, with Fronda's and Forsythe's doubts. The glossary's "invited Pyrrhus in 280" and two superlatives fixed. |
+| `rm-164` Pyrrhus | 8 | 5 → 9 | **The order of the invitation and the war is not stated: Polybius (after the insult), Plutarch (war already begun) and Appian (after an invasion) are each reported as theirs.** "First Hellenistic army" and "some 25,000 men" dropped; the forces are Plutarch's list. Dodona's oracle is Dio's. |
+| `rm-165` Battle of Heraclea | 6 | 5 → 6 | "Rome's first defeat by a Hellenistic army" was fact; it is now one modern history's claim. **The casualty figures are Dionysius's and Hieronymus's, via Plutarch; the "wounds in front" remark is in none of the texts read and is gone.** 280 BCE out of the question. |
+| `rm-166` Battle of Asculum | 6 | 5 → 6 | Told as Plutarch's two days against Dionysius's one action with no admitted Roman defeat, then the modern verdict of a costly victory. The "ruin" remark left to `rm-167`; Frank's consul Decius death left out. |
+| `rm-167` Pyrrhic victory | 8 | 5 → 9 | **Plutarch puts the remark after Asculum with "we are told"; Diodorus and Dio put a similar one after Heraclea**, and the card gives both rows. Hieronymus stands behind the casualty figures only, not the remark. Merriam-Webster's definition and Diodorus's "Cadmean" added. |
+| `rm-168` Battle of Beneventum | 6 | 5 → 7 | Plutarch's and the Dionysius excerpt's accounts of the elephants differ and are both given; the "Roman camp origin" rested on Frontinus alone and is gone. Smith prints 274 BCE; the card uses 275. `gr-847` says "without result", which the sources read do not support. |
+| `rm-169` siege of Tarentum | 6 | 5 → 6 | **The old card blended contradictory accounts of the fleet and the terms**; Zonaras, Mommsen, Smith and Frank are now set against one another. Milo's 3,000 men, "own laws" and the tile story dropped. 272 BCE only. |
+| `rm-170` Roman confederation | 7 | 5 → 7 | **The old "census 225" was Polybius's returns, not a census**; the figures (over 700,000 foot, 70,000 horse; the Latins 80,000) are his, traced by Brunt to Fabius Pictor, whose grand totals Brunt calls "without value". Undated. `rm-170` still pointed at the levy details that `rm-171` now carries. |
+
+**Read by eye.** *Confusability:* `rm-165`/`rm-166`/`rm-168` each name the elephants and the terrain differently; `rm-163`/`rm-164`/`rm-169` split city, king and siege. `rm-170`/`rm-171`/`rm-172` split the system, the status and the register. *Chronology:* the 387 – 386 BCE Polybian year is not used here. *Overlap:* `gr-846`, `gr-847` and `gr-214` were read; `gr-847` says the Beneventum battle was "without result" and gives the "ruin" remark to Diodorus, which the sources read here only partly support.

@@ -215,6 +215,13 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the conquest of Etruria: Veii / the Ciminian forest / Volsinii | 396 BCE (tradition) / 310 BCE / 264 BCE | `rm-158` |
 | Umbria and Picenum: Mevania / the Picene treaty / the Picene war / Firmum | 308 BCE (tradition) / 299 BCE (one modern account) / 268 BCE / 264 BCE | `rm-159` |
 | the Senones: Arretium / final defeat / the land shared | 284 BCE / 283 BCE (one recent study) / 232 BCE; Sena Gallica between 290 and 284 BCE in the sources | `rm-160` |
+| the Battle of Telamon / Aemilius's triumph | 225 BCE / 224 BCE (firm: Polybius names both consuls; the lists of consuls and triumphs agree) | `rm-161` |
+| the conquest of Cisalpine Gaul: the war / the colonies Placentia and Cremona / the Boii beaten | 225 – 222 BCE / 218 BCE / 191 BCE; Marcellus's triumph 221 BCE (Smith) | `rm-162` |
+| Tarentum: the founding / the war began / surrendered | 706 BCE (Eusebius, via Dunbabin; Jerome has 708 BCE) / 282 – 281 BCE / 272 BCE | `rm-163`, `rm-169` |
+| Pyrrhus: lived / in Italy | c. 319 – 272 BCE / 280 – 275 BCE | `rm-164` |
+| the Battle of Heraclea / Asculum | 280 BCE / 279 BCE (modern histories; the sources conflict on who won at Asculum) | `rm-165`, `rm-166` |
+| the "one more such victory" remark | 279 BCE after Asculum (Plutarch) / 280 BCE after Heraclea (Diodorus, Dio) | `rm-167` |
+| the Battle of Beneventum / the Latin colony | 275 BCE (Smith prints 274) / 268 BCE | `rm-168` |
 
 ## The middle and late Republic
 
@@ -387,4 +394,13 @@ rm-157: 295
 rm-158: 396; 310; 264
 rm-159: 308; 299; 268; 264
 rm-160: 284; 283; 232
+rm-161: 225; 224
+rm-162: 225; 222; 218; 191
+rm-163: 706; 282; 281; 272
+rm-164: 319; 272; 280; 275
+rm-165: 280
+rm-166: 279
+rm-167: 279; 280
+rm-168: 275; 268
+rm-169: 272
 ```
