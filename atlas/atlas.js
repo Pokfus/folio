@@ -265,7 +265,7 @@
      has made them once, in IndexedDB — the worker's own output (typed arrays, structured-cloned), keyed by CORE_CACHE_REV — and the next hub reads them back while the file is still on its way to the
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
-     if its build id differs. The Atlas page itself does not use it (it needs every level before it is `ready`, and its first paint is not a card window's). */
+     if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
   const CORE_CACHE_REV = "8fa3e9a360:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
@@ -716,7 +716,7 @@
         } else { timed(() => R.render(view), "render"); if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
         if (globe) { stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift(); }
         timed(drawLabels, "labelsDraw");
-        if (!stats.firstPaintMs && R.levelLoaded(0)) stats.firstPaintMs = Math.round(performance.now() - t0);
+        if (!stats.firstPaintMs && R.levelLoaded(0)) { stats.firstPaintMs = Math.round(performance.now() - t0); if (!EMBED && H.firstDraw) { try { H.firstDraw(); } catch (e) { /* the host may not care */ } } }   // the coarse globe is on screen: the host may start its idle warm-ups now (app.js whenIdleAfterGlobe)
         if (perfOn && t - lastPerfText > 200) { lastPerfText = t; timed(perfText, "perfText"); }   // five times a second: the overlay is a DOM text block, and its relayout every frame cost more than the frame on a software rasteriser
       }
       frameSpans.push([fs0, performance.now()]); if (frameSpans.length > 8) frameSpans.shift();
@@ -780,7 +780,7 @@
         if (view.level === 4) landTiles.want(view.parents);
       } else { view.tiles = []; view.parents = []; }
       // water: fetched the first time rivers or lakes are on; tiles for the lakes past 1 km/px
-      if ((view.rivers || view.lakes) && !waterStarted) startWater();
+      if ((view.rivers || view.lakes) && !waterStarted && topologyIn) startWater();   // after the land has arrived (topologyIn): the water file (4.3 MB) must not share a slow link with the 3 MB the first globe is waiting for
       view.rivers = layers.rivers && k >= RIVER_MIN_KM_PER_PX;
       view.lakes = layers.lakes;
       view.smoothRivers = view.level >= 3;
@@ -994,7 +994,11 @@
 
     /* ---------- data + worker ---------- */
     let worker = null, shim = null;
-    function postToWorker(m, transfer) { if (worker) worker.postMessage(m, transfer || []); else if (shim) setTimeout(() => shim.handle(m, onMessage), 0); }
+    /* A message sent before the worker exists is KEPT and sent right after the `load` message that starts it (it used to be dropped silently: only a hub could reach that state, from its cached first frame, and its
+       first requests came later than its worker). The Atlas page now draws from the cache too (below), so a stored past year's history request, a gazetteer or a layout can be asked for first. */
+    const preWorker = [];
+    function postToWorker(m, transfer) { if (worker) worker.postMessage(m, transfer || []); else if (shim) setTimeout(() => shim.handle(m, onMessage), 0); else if (m.type !== "load" && m.type !== "rebuild") preWorker.push([m, transfer]); }
+    function flushPreWorker() { while (preWorker.length) { const [m, tr] = preWorker.shift(); postToWorker(m, tr); } }
     function onMessage(m) {
       if (disposed) return;
       if (m.type === "error") {
@@ -1006,7 +1010,7 @@
       if (m.type === "meta") {
         if (coreCached && !m.fromCache && header && header.buildId === m.header.buildId) { coreStore = null; return; }   // the cached header already applied is this build's: nothing to redo
         if (coreCached && header && header.buildId !== m.header.buildId) { coreCached = null; header = null; }   // a stale cache: the worker's own header (and level 0) replace it
-        if (EMBED && !coreCached && typeof indexedDB !== "undefined") coreStore = { rev: CORE_CACHE_REV, meta: { header: m.header, faceEntity: m.faceEntity }, lod0: null };
+        if (!coreCached && !FILE && typeof indexedDB !== "undefined") coreStore = { rev: CORE_CACHE_REV, meta: { header: m.header, faceEntity: m.faceEntity }, lod0: null };
         header = m.header; faceEntity = m.faceEntity; R.setFaceCount(faceEntity.length);
         if (header.tiles && !FILE && !STATIC2D) { tileIndex = {}; for (const z of Object.keys(header.tiles)) { const t = header.tiles[z]; tileIndex[z] = { cols: t.cols, rows: t.rows, present: new Set(t.present) }; } }   // no tile is fetched from a file or drawn by the still view
         faceOfEntity = new Map(); for (let i = 0; i < faceEntity.length; i++) if (!faceOfEntity.has(faceEntity[i])) faceOfEntity.set(faceEntity[i], i);
@@ -1094,6 +1098,7 @@
         if (disposed) return;
         shim = root.AtlasWorkerMain;
         shim.handle({ type: "load", buffer }, onMessage, (text, frac) => { if (!stats.ready) say(text, frac); });
+        flushPreWorker();
         if (waterBuffer) { const wb = waterBuffer; waterBuffer = null; postToWorker({ type: "water", buffer: wb }); }
         else if (waterKeep && !waterHeader) postToWorker({ type: "water", buffer: waterKeep });   // the worker had it and died with it
       }, () => fail("The Atlas worker could not be loaded."));
@@ -1108,6 +1113,7 @@
         // a worker that fails before the land is in (its script refused, a syntax error, an exception) is replaced by the shim
         worker.onerror = (e) => { if (e && e.preventDefault) e.preventDefault(); if (stats.ready || shim) return; try { worker.terminate(); } catch (x) {} worker = null; stats.workerError = String(e && e.message || "error"); say("Shaping the land here instead…", 0.32); startShim(loadBuffer, "worker failed: " + stats.workerError); };
         worker.postMessage({ type: "load", buffer });   // a copy, not a transfer: the original stays here for the fallback above
+        flushPreWorker();
       } catch (e) {
         startShim(buffer, FILE ? "file://" : "no Worker: " + (e && e.message || e));
       }
@@ -1134,7 +1140,7 @@
     }
     /* the cached first frame (a hub only): read it while the file travels; applied unless the worker has already delivered */
     let coreCached = null, coreStore = null;
-    if (EMBED && !FILE && typeof indexedDB !== "undefined") {
+    if (!FILE && typeof indexedDB !== "undefined") {   // the Atlas page too (Oct 2026, owner decision 2b): a return visit draws the coarse globe from this read, while the file is still on its way and before the worker has parsed a byte
       idbGet("core0").then((hit) => {
         if (disposed || !hit || hit.rev !== CORE_CACHE_REV || header || !hit.meta || !hit.lod0) return;
         coreCached = hit; stats.fromCache = true;
@@ -1151,6 +1157,7 @@
           if (disposed) return;
           say("Shaping the land…", 0.32);
           startWorker(buffer);
+          topologyIn = true; if ((layers.rivers || layers.lakes) && !waterStarted) startWater();
           return;
         }
         const res = await fetch(dataUrl);
@@ -1168,10 +1175,11 @@
         if (disposed) return;
         say("Shaping the land…", 0.32);
         startWorker(buffer);
+        topologyIn = true; if ((layers.rivers || layers.lakes) && !waterStarted) startWater();   // the water file now (see plan(): it queued behind nothing on a fast link and in front of the land on a slow one)
       } catch (e) { fail("The Atlas data didn’t arrive (" + (e && e.message ? e.message : e) + "). Check your connection and try again."); }
     })();
     // the water file, once: parsed by the same worker (after the land, which it queues behind)
-    let waterStarted = false, waterFailed = false, waterBuffer = null, waterKeep = null;   // waterKeep: the file until `water-meta`, so a worker that dies can be replaced
+    let topologyIn = FILE, waterStarted = false, waterFailed = false, waterBuffer = null, waterKeep = null;   // waterKeep: the file until `water-meta`, so a worker that dies can be replaced
     function startWater() {
       waterStarted = true;
       const t = performance.now();

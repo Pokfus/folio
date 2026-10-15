@@ -10918,7 +10918,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      pays for three files and a reader with none pays for nothing — which is the whole reason the
      split is per collection. */
   function warmActiveCardExtra() {
-    whenIdle(() => {
+    whenIdleAfterGlobe(() => {
       try {
         if (lightMode()) return;
         const pre = new Set();
@@ -15052,6 +15052,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (window.requestIdleCallback) requestIdleCallback(fn, { timeout: 2500 });
     else setTimeout(fn, 300);
   }
+  /* THE GLOBE BEFORE THE PROSE (Oct 2026, owner decision 2a). A cold load of #map used to start the idle warm of the glossary's citations, the artefacts and the studied collections' card extras (about 11.6 MB)
+     within 2.5 s of boot, on the same connection as the Atlas's own topology, water and tiles: on a slow-4G phone the globe waited behind prose nobody had asked for yet. `whenIdleAfterGlobe` is `whenIdle` for
+     those warms: on any other page it is exactly `whenIdle`, and when the page the reader booted on is the Atlas it holds the warm until the Atlas reports its first painted frame (`host.firstDraw`, the coarse
+     level on screen), the reader leaves the Atlas (`render` flushes), or two minutes pass (a globe that never draws must not stop the prose for ever). Every saveData / light-mode / cellular rule stays INSIDE
+     the held function, so nothing a rule skipped before runs now. */
+  let atlasGlobeDrawn = false, afterGlobeTimer = 0;
+  const afterGlobeQ = [];
+  function flushAfterGlobe() {
+    atlasGlobeDrawn = true;
+    if (afterGlobeTimer) { clearTimeout(afterGlobeTimer); afterGlobeTimer = 0; }
+    while (afterGlobeQ.length) { const fn = afterGlobeQ.shift(); whenIdle(fn); }
+  }
+  function whenIdleAfterGlobe(fn) {
+    whenIdle(() => {
+      if (atlasGlobeDrawn || current.name !== "map" || location.protocol === "file:") { fn(); return; }   // from a file there is no link to share, and the Atlas's main-thread shim must not meet the prose scripts' parse in the middle of its levels (test-atlas-fallbacks)
+      afterGlobeQ.push(fn);
+      if (!afterGlobeTimer) afterGlobeTimer = setTimeout(flushAfterGlobe, 120000);
+    });
+  }
 
   /* ============================================================
      ROUTER
@@ -15296,6 +15315,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     closeCtxMenu();   // …and dismisses the selection context menu
     closeCharWin();   // …and the character-network panel, which lives on document.body like the rest
     closeAllGloss();
+    if (current.name !== "map" && afterGlobeQ.length) flushAfterGlobe();   // a reader who left the Atlas before its globe drew gets the held warms now (whenIdleAfterGlobe)
     closeImageViewer();   // the fullscreen image viewer never outlives its page
     closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
     closeChestPop();      // …nor an artefact chest, which IS the level-up celebration and lives on the body too
@@ -39324,7 +39344,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const legacy = atlasLegacy; atlasLegacy = null;
     const home = S.settings && S.settings.home && isFinite(S.settings.home.lon) && isFinite(S.settings.home.lat) ? { lon: S.settings.home.lon, lat: S.settings.home.lat } : null;
     atlasHiddenCollectionsCarryOver();
-    const atlas = window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion, study: studyHost, back: backHost, home, legacy } });
+    const atlas = window.AtlasV2.mount(root, { dataUrl: "atlas/data/topology.bin", host: { ensureData, dataReady, wireFootnotes, sanitizeHTML, sourceListHTML, esc, reducedMotion: prefersReducedMotion, study: studyHost, back: backHost, home, legacy, firstDraw: flushAfterGlobe } });
     if (current.params && current.params.place && atlas && atlas.showPlace) atlas.showPlace(current.params.place);   // the glossary popup's button, Find it's "Read about it on the Atlas"
   };
   /* An OLD address, v1's: #map/<year> or #map/<year>/<name-slug> ("#map/1938/france"). The new address is #map/<lon>/<lat>/<zoom>[/<place>][?y=<year>] — three numbers after the name — so anything else with a number first is the old form.
@@ -45988,7 +46008,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      stop it blocking first paint, not to make a reader wait for a definition. A reader who beats the
      warm still gets both: openGlossWin re-fills its picture and Sources slots when the file lands.
      Skipped under Save-Data, like the mini globe was. */
-  whenIdle(() => { if (!lightMode()) ensureData("glossExtra"); });
+  whenIdleAfterGlobe(() => { if (!lightMode()) ensureData("glossExtra"); });
   /* The card windows and Find-it run on the engine, so the engine is warmed at idle — its code bundle, the card-faces join, and topology.bin (3 MB, into the HTTP
      cache, so the first window does not wait on the network) — and never awaited. Light mode (the reader's "use less data" or the browser's save-data hint) skips the warm, exactly as it skips the other
      warms: the first window then pays for the engine when it is shown. */
@@ -46013,14 +46033,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      artefacts together, and an artwork card's background IS that round's reveal. It is 0.04 MB across
      ten cards — the whole collection — so warming it for everybody costs less than the branch that
      would avoid it. The artefacts' own half is warmed on the line above for the same reason. */
-  whenIdle(() => { if (!lightMode()) ensureCardExtra("art-000"); });
+  whenIdleAfterGlobe(() => { if (!lightMode()) ensureCardExtra("art-000"); });
   /* …and the artefact pool's descriptions, citations and pictures (artefacts-extra.js), which used to
      sit on the EAGER path inside artefacts.js and were 94% of it. Same bargain as the line above: a
      chest arrives unasked, in the middle of a study session, and the reader should not watch a spinner
      at the one moment the site is congratulating them — but it has no business blocking first paint
      either. The four surfaces that render an artefact's prose or picture await the bundle for the
      reader who beats the warm. Skipped under Save-Data. */
-  whenIdle(() => { if (!lightMode()) ensureData("artefactExtra"); });
+  whenIdleAfterGlobe(() => { if (!lightMode()) ensureData("artefactExtra"); });
 
   /* THE OLD ADDRESS SENDS READERS TO THE NEW ONE (Oct 2026, on request — Folio moved to folio.study).
      A strip, not an automatic redirect, because browser storage belongs to one hostname: a reader who

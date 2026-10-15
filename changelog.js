@@ -40,9 +40,10 @@ window.FOLIO_VERSION = { v: "1.1008", released: "2026-10-15T12:28Z" };
 window.CHANGELOG = [
   {
     d: "2026-10-15",
-    t: "The Atlas follows your text size",
+    t: "The Atlas follows your text size and draws its globe sooner",
     items: [
       "<b>Text size on the Atlas</b>: the names on the globe now grow and shrink with Settings → Text size, like the rest of the page.",
+      "<b>A quicker first globe</b>: the Atlas draws its first, coarse globe before the glossary and artefacts finish downloading, and a return visit paints it at once.",
     ],
   },
   {
