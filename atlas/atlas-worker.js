@@ -730,7 +730,8 @@
     const shift = (q.density === "sparse" ? -1 : q.density === "dense" ? 1.5 : 0) + (q.phone ? -0.75 : 0);
     const t = Math.max(0, Math.min(1, (Math.log(24) - Math.log(kmpp)) / Math.log(24)));
     const cap = Math.round((40 + 80 * t) * (q.density === "sparse" ? 0.6 : q.density === "dense" ? 1.5 : 1) * (q.phone ? 0.6 : 1));
-    const pad = q.density === "sparse" ? 8 : q.density === "dense" ? 2 : 4;
+    const FS = q.fs > 0 ? q.fs : 1;   // the reader's Text size as a factor of the names (atlas.js labelScaleNow): the METRICS already carry it in sizes, tracking and advances; these are the literals that must grow with the names
+    const pad = (q.density === "sparse" ? 8 : q.density === "dense" ? 2 : 4) * FS;
     const show = q.show || {};
     const proj = (v) => { const x = rot[0] * v[0] + rot[1] * v[1] + rot[2] * v[2], y = rot[3] * v[0] + rot[4] * v[1] + rot[5] * v[2], z = rot[6] * v[0] + rot[7] * v[1] + rot[8] * v[2]; return [cx + x * radius, cy - y * radius, z]; };
     const onScreen = (x, y, m) => x >= -m && y >= -m && x <= W + m && y <= H + m;
@@ -822,7 +823,7 @@
        river's, a region's: no quarter hangs over the edge any more. A name is a title a reader needs whole, so it is slid back inside the frame by at most a third of its
        own width (and two lines' height) or it is not placed, and a name wider than its polity may break at a space onto two
        lines, which keeps it over the polity at a zoom where one line would hang far past the border. */
-    const FRAME_PAD = 2;
+    const FRAME_PAD = 2 * FS;
     const inFrame = (rs) => rs.every((r) => r[0] >= FRAME_PAD && r[1] >= FRAME_PAD && r[2] <= W - FRAME_PAD && r[3] <= H - FRAME_PAD);
     const intoFrame = (g, lineH) => {
       let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -855,7 +856,7 @@
     // round them, and the marker itself cannot be lost to a name; the capital's own name is placed in its turn
     // (with the study layer on, a PRESENT-DAY capital's dot is not reserved: the reader's own marks take the ground first, and the dot yields)
     const reservedMarker = new Map();
-    for (const c of cands) { if (c.row.kind !== "capital" || (study && !c.hist)) continue; const r = MARKER_R.capital, x = c.a[0], y = c.a[1]; const m = [x - r - 1, y - r - 1, x + r + 1, y + r + 1]; if (fullyOn(m) && free(m)) { take(m); reservedMarker.set(c.row.id, m); } }
+    for (const c of cands) { if (c.row.kind !== "capital" || (study && !c.hist)) continue; const r = MARKER_R.capital * FS, x = c.a[0], y = c.a[1]; const m = [x - r - 1, y - r - 1, x + r + 1, y + r + 1]; if (fullyOn(m) && free(m)) { take(m); reservedMarker.set(c.row.id, m); } }
     const union = (list) => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const r of list) { if (r[0] < x0) x0 = r[0]; if (r[1] < y0) y0 = r[1]; if (r[2] > x1) x1 = r[2]; if (r[3] > y1) y1 = r[3]; } return [x0, y0, x1, y1]; };
     /* a straight run of glyphs centred at (x, y) at angle `ang` (radians, screen y down): glyph origins and one rect */
     const straight = (sh, x, y, ang) => {
@@ -934,7 +935,7 @@
     const unitAt = (x, y) => { const ax = (x - cx) / radius, ay = -(y - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay)); return [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az]; };
     const GAZ_PRESENT = { country: 1, admin1: 1, capital: 1, city: 1, town: 1 };   // alive only in the present year, as the ordinary pass has it
     if (study) {
-      const AS = root.AtlasStudy, h0 = AS.markHalf(kmpp), MARGIN = 120;
+      const AS = root.AtlasStudy, h0 = AS.markHalf(kmpp) * FS, MARGIN = 120;
       const histAt = new Map();
       for (const hr of histRows) if (!histAt.has(hr.id)) histAt.set(hr.id, hr);   // sorted by on-screen area: a polity's mark is on its largest face in view
       const list = [];
@@ -1023,13 +1024,13 @@
         continue;
       }
       if (k === "capital" || k === "city" || k === "town") {
-        const r = MARKER_R[k], x = c.a[0], y = c.a[1];
+        const r = MARKER_R[k] * FS, x = c.a[0], y = c.a[1];
         const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
         const own = reservedMarker.has(row.id);   // a capital's marker was reserved above and is its own ground
         if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
         if (!own && !free(mrect)) { drop("marker collides"); continue; }
         if (!show.places) { if (!own) take(mrect); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
-        const tries = [[x + r + 3 + sh.w / 2, y, 0], [x - r - 3 - sh.w / 2, y, 0], [x, y - r - 3 - sh.h / 2, 0], [x, y + r + 3 + sh.h / 2, 0]];
+        const g3 = 3 * FS, tries = [[x + r + g3 + sh.w / 2, y, 0], [x - r - g3 - sh.w / 2, y, 0], [x, y - r - g3 - sh.h / 2, 0], [x, y + r + g3 + sh.h / 2, 0]];
         let got = null;
         for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (fullyOn(g.rects[0]) && free(g.rects[0])) { got = g; break; } }
         if (!got) {

@@ -11,6 +11,7 @@
      · a slug that names nothing still lands on the Atlas at that year (no card, no error);
      · the new address form `#map/<lon>/<lat>/<zoom>/<place>?y=<year>` is not mistaken for an old one (three numbers after `map/`);
      · `#map2?preview=0` — the way back from the engine — does nothing any more: the engine page loads, and a stored `folio.atlas2.preview` = "0" does not turn the windows' engine off;
+     · an old link whose data arrives late (topology.bin held 26 s) still opens its place: the lookup waits for the data, not for a count of tries (the file:// report of Oct 2026);
      · every one of them with no console error. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -122,6 +123,25 @@ const check = (name, ok, extra) => { if (ok) { pass++; console.log("  \x1b[32mok
     check("app.js no longer reads folio.atlas2.preview", !/folio\.atlas2\.preview/.test(fs.readFileSync(path.join(ROOT, "app.js"), "latin1")));
     check("...nor does the engine's own page", !/folio\.atlas2\.preview/.test(fs.readFileSync(path.join(ROOT, "atlas", "atlas.js"), "utf8")));
     check("...nor atlas-windows.js", !/folio\.atlas2\.preview/.test(fs.readFileSync(path.join(ROOT, "atlas", "atlas-windows.js"), "utf8")));
+  }
+
+  /* ---- 5. an old link opens its place however late the data is (Oct 2026, owner's file:// report) ---- */
+  console.log("\n5. an old link waits for slow data (topology.bin held 26 s)");
+  {
+    /* `#map/1/Rome` opened the year and not the place from a file:// copy. Root cause: the lookup waited for the Atlas to be ready in 200 tries of 100 ms and gave up silently, and a main-thread shim on a slow device
+       is ready much later (a CPU slowed 8× opens the link after 90 s). Held here on http so the cause, not the file, is what is tested; test-atlas-fallbacks.js opens the same link from a file. */
+    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    const errs = [];
+    page.on("pageerror", (e) => errs.push(String(e.message || e)));
+    page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errs.push(m.text().slice(0, 200)); });
+    await page.route("**/atlas/data/topology.bin", async (route) => { await new Promise((r) => setTimeout(r, 26000)); try { await route.continue(); } catch (e) { /* the page closed */ } });
+    await page.goto(base, { waitUntil: "load" });
+    await page.evaluate(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); } catch (e) {} });
+    await page.goto(base + "#map/1/Rome", { waitUntil: "load" });
+    const got = await page.waitForFunction(() => { const a = document.querySelector(".atlas2"), c = a && a.__atlas2; return c && c.selectedId() ? { id: c.selectedId(), title: c.card().title, year: c.year() } : false; }, null, { timeout: 150000 }).then((h) => h.jsonValue(), () => null);
+    check("#map/1/Rome opens the place although the data arrives 26 s after the page (the wait used to end at about 20 s)", !!got && /rome/i.test(got.title) && got.year === 1, JSON.stringify(got));
+    check("...with no console error", errs.length === 0, errs.join(" | "));
+    await page.close();
   }
 
   await browser.close(); server.close();

@@ -80,6 +80,15 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
     check("relief is declined and the sentence says what is left out and why", st.relief && /file/.test(st.note) && /relief/i.test(st.note), st.note.slice(0, 90));
     check("no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
     console.log(`        ready in ${readyMs} ms from a file`);
+    /* an OLD LINK from a file (Oct 2026): `#map/1/Rome` resolves the place from the file copy too — the gazetteer, the polity index and the shim are all twins/plain scripts there — and not only over http */
+    {
+      const lp = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+      await lp.goto("file://" + path.join(ROOT, "index.html") + "#map/1/Rome", { waitUntil: "load" });
+      await lp.waitForSelector(".atlas2", { timeout: 60000 });
+      const got = await lp.waitForFunction(() => { const a = document.querySelector(".atlas2"), c = a && a.__atlas2; return c && c.selectedId() ? { id: c.selectedId(), title: c.card().title, year: c.year(), hash: location.hash } : false; }, null, { timeout: 240000 }).then((h) => h.jsonValue(), () => null);
+      check("from a file, the old link #map/1/Rome opens Rome at year 1 (and the address becomes the new form)", !!got && /rome/i.test(got.title) && got.year === 1 && /^#map\/[\d.-]+\/[\d.-]+\/[\d.]+\//.test(got.hash), JSON.stringify(got));
+      await lp.close();
+    }
     await browser.close();
   }
 

@@ -3264,6 +3264,8 @@ Tests that prove the phase: the whole CI; `check-sizes.js` (eager path smaller t
 
 **Not verified.** A real GPU, a real phone, Safari, Firefox. The intermediate commits are not each green (the swap is one change); the head is.
 
+**Decided and done on 2026-10-15** (the five decisions above; the numbers are in `docs/atlas-v2-phase5-plan.md` §9 "Follow-up"): (1) the canvas labels follow Text size; (2) the first globe — the idle pre-loading waits for the first painted frame, the water for the land, a return visit paints the coarse level from IndexedDB — measured faster than v1's on the same machine, while the desktop "ready" (every level in) is still slower than v1's; (3) per-year sources stay out, every polity's and people's card names its source; (4) the old `locator`/`war`/`map` fields stay as the windows' drawing spec and no migration removes them; (5) the idle-warmed prose no longer competes with the globe.
+
 ### Phase 6 — After the swap (each item its own thread)
 
 In the order of value to readers: "keep offline" (Q-M2 a) · the entity's own timeline bar · "what

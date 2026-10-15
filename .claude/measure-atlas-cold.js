@@ -7,7 +7,7 @@
 
    Two profiles, as .claude/measure-atlas-embed.js has them: a desktop (1280×800) and a phone (390×844 at 3×, touch, the CPU slowed 4× and the network held to "slow 4G": 1.6 Mbit/s, 150 ms). Each opens the
    route in a fresh context (nothing cached: the first navigation IS the cold load) and records every response the CONTEXT sees (a dedicated worker's own requests included), as the local server sent it
-   (raw) and gzip -9 of the same file (what a compressing host sends). "A drawn globe" is v1: #globe holds a painted pixel at its centre with the data landed; v2: `.atlas2[data-ready="1"]` and a painted
+   (raw) and gzip -9 of the same file (what a compressing host sends). Two figures are printed. `firstGlobeMs` (since Oct 2026) is the first frame with the coarse land on the canvas. "A drawn globe" (`drawnMs`, the figure this tool has always printed) is, for v1: #globe holds a painted pixel at its centre with the data landed; v2: `.atlas2[data-ready="1"]` and a painted
    frame (the controller's frame count above zero). The software GL of a headless runner (SwiftShader) draws; the numbers are that machine's, not a phone's GPU. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path"), zlib = require("zlib");
@@ -32,6 +32,9 @@ async function run(browser, profile, throttle) {
     window.__t = {};
     try { localStorage.setItem("folio_atlas_tour_v1", "1"); } catch (e) {}
     const check = () => {
+      /* the FIRST GLOBE (Oct 2026): the first frame with the coarse land on the canvas (`stats.firstPaintMs`, the controller's own note). The Atlas then goes on to its finer levels, the names and the water, and says
+         "ready" only when they are in — that is `drawn` below, the figure this tool has always printed. v1 painted one flat canvas from one file, so its "drawn" and its first globe were the same instant. */
+      if (window.__t.first == null) { try { const a0 = document.querySelector(".atlas2"); if (a0 && a0.__atlas2 && a0.__atlas2.stats && a0.__atlas2.stats.firstPaintMs > 0 && a0.__atlas2.statsNow().frames > 0) window.__t.first = performance.now(); } catch (e) {} }
       if (window.__t.drawn != null) return;
       try {
         if (route === "map" && document.querySelector("#globe") && !document.querySelector(".atlas2")) {
@@ -59,7 +62,7 @@ async function run(browser, profile, throttle) {
   const got = rec.filter((u, i, a) => a.indexOf(u) === i);
   const by = {}; let raw = 0, gz = 0;
   for (const u of got) { const k = kind(u); const full = fs.existsSync(path.join(ROOT, u)) && fs.statSync(path.join(ROOT, u)).isFile() ? fs.statSync(path.join(ROOT, u)).size : 0; raw += full; gz += gzSize(u); by[k] = (by[k] || 0) + full; }
-  out.drawnMs = t.drawn != null ? Math.round(t.drawn) : null; out.files = got.length; out.raw = raw; out.gz = gz; out.by = by; out.errors = errors.filter((e) => !/Failed to load resource/.test(e)); out.list = got;
+  out.drawnMs = t.drawn != null ? Math.round(t.drawn) : null; out.firstGlobeMs = t.first != null ? Math.round(t.first) : null; out.files = got.length; out.raw = raw; out.gz = gz; out.by = by; out.errors = errors.filter((e) => !/Failed to load resource/.test(e)); out.list = got;
   await page.close(); await ctx.close();
   return out;
 }
@@ -75,7 +78,7 @@ async function run(browser, profile, throttle) {
     const kb = (n) => (n / 1024).toFixed(0) + " KB", mb = (n) => (n / 1048576).toFixed(2) + " MB";
     console.log(`\n${name} — #${ROUTE}, cold cache`);
     if (r.failed) console.log("  FAILED: " + r.failed);
-    console.log(`  a drawn globe ${r.drawnMs} ms after navigation; ${r.files} files, ${mb(r.raw)} as served, ${mb(r.gz)} gzip -9`);
+    console.log(`  first globe (coarse land painted) ${r.firstGlobeMs == null ? "n/a (v1)" : r.firstGlobeMs + " ms"}; ready (every level in, names laid out) / v1's drawn globe ${r.drawnMs} ms after navigation; ${r.files} files, ${mb(r.raw)} as served, ${mb(r.gz)} gzip -9`);
     console.log("  by kind: " + Object.keys(r.by).sort((a, b) => r.by[b] - r.by[a]).map((k) => `${k} ${kb(r.by[k])}`).join(" · "));
     if (r.errors.length) console.log("  console errors: " + r.errors.slice(0, 5).join(" | "));
   }

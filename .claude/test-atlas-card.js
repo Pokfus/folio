@@ -107,6 +107,38 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   const sel3 = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.selectedId());
   check("Escape closes the card and clears the selection", c.hidden && !c.open && sel3 === null);
 
+  /* ---- Oct 2026, owner decision 3: v1 showed a year's sources on a country; v2 does not (a provenance view is a later phase). What the owner asked instead is that every polity's and people's card NAMES ITS SOURCE ---- */
+  console.log("\n\x1b[1m3b) every polity, people, culture, extent and front card names its source\x1b[0m\n");
+  {
+    global.window = global; require(path.join(ROOT, "atlas/atlas-format.js"));
+    const HH = global.AtlasFormat.read(new Uint8Array(fs.readFileSync(path.join(ROOT, "atlas/data/history.bin"))), { headerOnly: true }).header;
+    const have = new Set(HH.sources.map((x) => x.id));
+    /* what the card must say for a source id: a row per id in the built file (a new source is a new row — the test fails until it has one, so a card can never go to a reader unattributed) */
+    const SAYS = { cliopatria: /Cliopatria/, "hosner-2016": /Hosner/, "osm-land-polygons": /OpenStreetMap/, "folio-authored-extents": /authored extent/i, "ohm-lacedaemon": /OpenHistoricalMap/, "usfs-royce-cessions": /Royce/, "ww2-atlas-control": /Wikimedia Commons/ };
+    const LICENCE = /CC BY|ODbL|CC0|public domain/i;
+    const ents = HH.entities.filter((e) => e.kind !== "capital");
+    const usedSrc = new Set(ents.map((e) => ((e.kind === "people" || e.kind === "culture" || e.kind === "extent" || e.kind === "front") && e.src) || "cliopatria"));
+    const unknownSrc = [...usedSrc].filter((id) => !SAYS[id] || !have.has(id));
+    check(`every source id the ${ents.length} history entities use is in the file's source list and has an expected wording here`, unknownSrc.length === 0, unknownSrc.join(", ") || [...usedSrc].join(", "));
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.ensureHistory());
+    await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyStarted() && c.historyReady(); }, null, { timeout: 180000 });
+    const bad = [], unreachable = [];
+    const byKind = {};
+    for (const e of ents) {
+      const ok = await page.evaluate((id) => document.querySelector(".atlas2").__atlas2.select(id, { open: true, push: false }), e.id);
+      if (!ok) { unreachable.push(e.id); continue; }
+      await page.waitForFunction((id) => { const c = document.querySelector(".atlas2").__atlas2; return c.card().id === id; }, e.id, { timeout: 10000 }).catch(() => {});
+      const text = await page.evaluate(() => document.querySelector(".atlas2-card-body").textContent.replace(/\s+/g, " "));
+      const src = ((e.kind === "people" || e.kind === "culture" || e.kind === "extent" || e.kind === "front") && e.src) || "cliopatria";
+      const named = SAYS[src] && SAYS[src].test(text), licensed = e.kind === "extent" || e.kind === "front" || LICENCE.test(text);
+      byKind[e.kind] = (byKind[e.kind] || 0) + 1;
+      if (!named || !licensed) bad.push(`${e.id} (${e.kind}, ${src}${named ? "" : ", source not named"}${licensed ? "" : ", no licence"})`);
+    }
+    check(`all ${ents.length - unreachable.length} entity cards name their source (${Object.entries(byKind).map(([k, n]) => n + " " + k).join(", ")}); polities, peoples and cultures also say its licence`, bad.length === 0, bad.slice(0, 5).join("; ") || "none missing");
+    check("every history entity can be opened as a card", unreachable.length === 0, unreachable.slice(0, 8).join(", "));
+    await page.keyboard.press("Escape"); await sleep(100);
+  }
+
   console.log("\n\x1b[1m4) the phone sheet\x1b[0m\n");
   await page.close();
   const P = await open(await browser.newContext({ viewport: { width: 390, height: 700 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 }));

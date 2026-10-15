@@ -144,6 +144,19 @@
     { id: "people-s", face: "serif", size: 11.5, weight: 400, italic: true, caps: false, track: 2.4 },
   ];
   const SMALL_SCALE = 0.78;
+  /* TEXT SIZE REACHES THE NAMES (Oct 2026, owner decision; v1's canvas labels followed it, v2's did not until now). Settings → Text size sets `--fs` on <body> (styles.css `body[data-fs]`: .8 … 1.32, one stop lower on a
+     phone). The labels are painted, so the stylesheet cannot reach them; this reads the same variable and divides by what MEDIUM is on this device (1, or .9 under 641 px), so the default looks exactly as it always
+     has and every other stop grows or shrinks the names by the ratio the chrome does. The factor multiplies the style sizes, the tracking, the glyph advances the worker shapes with, the halo widths, and — sent with each
+     layout — the collision padding, the dot beside a city, the frame margin and the study marks, so a name that grows takes its box with it (a bigger name in the old box is a map that overlaps itself). */
+  const FS_PHONE_QUERY = "(max-width:640px)";
+  function labelScaleNow() {
+    try {
+      const v = parseFloat(getComputedStyle(document.body).getPropertyValue("--fs"));
+      if (!(v > 0)) return 1;
+      const medium = matchMedia(FS_PHONE_QUERY).matches ? 0.9 : 1;
+      return Math.max(0.6, Math.min(1.6, Math.round(v / medium * 100) / 100));
+    } catch (e) { return 1; }
+  }
   // the characters measured per style: the Latin alphabet with its diacritics, digits and the punctuation the
   // sources use; anything else is measured on demand when the worker reports it missing
   const ALPHABET = (() => { let s = " .,'’-–()/&"; for (let c = 0x30; c <= 0x39; c++) s += String.fromCharCode(c); for (let c = 0x41; c <= 0x5a; c++) s += String.fromCharCode(c); for (let c = 0x61; c <= 0x7a; c++) s += String.fromCharCode(c); for (let c = 0xc0; c <= 0x17f; c++) s += String.fromCharCode(c); return [...new Set([...s])]; })();
@@ -252,8 +265,8 @@
      has made them once, in IndexedDB — the worker's own output (typed arrays, structured-cloned), keyed by CORE_CACHE_REV — and the next hub reads them back while the file is still on its way to the
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
-     if its build id differs. The Atlas page itself does not use it (it needs every level before it is `ready`, and its first paint is not a card window's). */
-  const CORE_CACHE_REV = "c1f0b606c1:9bde0dc16ffce93f";
+     if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
+  const CORE_CACHE_REV = "8fa3e9a360:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -542,6 +555,7 @@
       dprNow = Math.min(2, window.devicePixelRatio || 1);
       R.resize(cssW, cssH, (window.devicePixelRatio || 1) * resScale);
       labelCanvas.width = Math.round(cssW * dprNow); labelCanvas.height = Math.round(cssH * dprNow);
+      if (G.ready && Math.abs(labelScaleNow() - LS) > 0.001) { spriteGen++; spriteCache.clear(); measureMetrics(); }   // the viewport crossed the phone breakpoint: Medium is a different --fs there (labelScaleNow)
       base = Math.min(cssW, cssH) * 0.46;
       view.cx = cssW / 2; view.cy = cssH / 2;
       needs = true; needsGlobe = true;
@@ -702,7 +716,7 @@
         } else { timed(() => R.render(view), "render"); if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
         if (globe) { stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift(); }
         timed(drawLabels, "labelsDraw");
-        if (!stats.firstPaintMs && R.levelLoaded(0)) stats.firstPaintMs = Math.round(performance.now() - t0);
+        if (!stats.firstPaintMs && R.levelLoaded(0)) { stats.firstPaintMs = Math.round(performance.now() - t0); if (!EMBED && H.firstDraw) { try { H.firstDraw(); } catch (e) { /* the host may not care */ } } }   // the coarse globe is on screen: the host may start its idle warm-ups now (app.js whenIdleAfterGlobe)
         if (perfOn && t - lastPerfText > 200) { lastPerfText = t; timed(perfText, "perfText"); }   // five times a second: the overlay is a DOM text block, and its relayout every frame cost more than the frame on a software rasteriser
       }
       frameSpans.push([fs0, performance.now()]); if (frameSpans.length > 8) frameSpans.shift();
@@ -766,7 +780,7 @@
         if (view.level === 4) landTiles.want(view.parents);
       } else { view.tiles = []; view.parents = []; }
       // water: fetched the first time rivers or lakes are on; tiles for the lakes past 1 km/px
-      if ((view.rivers || view.lakes) && !waterStarted) startWater();
+      if ((view.rivers || view.lakes) && !waterStarted && topologyIn) startWater();   // after the land has arrived (topologyIn): the water file (4.3 MB) must not share a slow link with the 3 MB the first globe is waiting for
       view.rivers = layers.rivers && k >= RIVER_MIN_KM_PER_PX;
       view.lakes = layers.lakes;
       view.smoothRivers = view.level >= 3;
@@ -980,7 +994,11 @@
 
     /* ---------- data + worker ---------- */
     let worker = null, shim = null;
-    function postToWorker(m, transfer) { if (worker) worker.postMessage(m, transfer || []); else if (shim) setTimeout(() => shim.handle(m, onMessage), 0); }
+    /* A message sent before the worker exists is KEPT and sent right after the `load` message that starts it (it used to be dropped silently: only a hub could reach that state, from its cached first frame, and its
+       first requests came later than its worker). The Atlas page now draws from the cache too (below), so a stored past year's history request, a gazetteer or a layout can be asked for first. */
+    const preWorker = [];
+    function postToWorker(m, transfer) { if (worker) worker.postMessage(m, transfer || []); else if (shim) setTimeout(() => shim.handle(m, onMessage), 0); else if (m.type !== "load" && m.type !== "rebuild") preWorker.push([m, transfer]); }
+    function flushPreWorker() { while (preWorker.length) { const [m, tr] = preWorker.shift(); postToWorker(m, tr); } }
     function onMessage(m) {
       if (disposed) return;
       if (m.type === "error") {
@@ -992,7 +1010,7 @@
       if (m.type === "meta") {
         if (coreCached && !m.fromCache && header && header.buildId === m.header.buildId) { coreStore = null; return; }   // the cached header already applied is this build's: nothing to redo
         if (coreCached && header && header.buildId !== m.header.buildId) { coreCached = null; header = null; }   // a stale cache: the worker's own header (and level 0) replace it
-        if (EMBED && !coreCached && typeof indexedDB !== "undefined") coreStore = { rev: CORE_CACHE_REV, meta: { header: m.header, faceEntity: m.faceEntity }, lod0: null };
+        if (!coreCached && !FILE && typeof indexedDB !== "undefined") coreStore = { rev: CORE_CACHE_REV, meta: { header: m.header, faceEntity: m.faceEntity }, lod0: null };
         header = m.header; faceEntity = m.faceEntity; R.setFaceCount(faceEntity.length);
         if (header.tiles && !FILE && !STATIC2D) { tileIndex = {}; for (const z of Object.keys(header.tiles)) { const t = header.tiles[z]; tileIndex[z] = { cols: t.cols, rows: t.rows, present: new Set(t.present) }; } }   // no tile is fetched from a file or drawn by the still view
         faceOfEntity = new Map(); for (let i = 0; i < faceEntity.length; i++) if (!faceOfEntity.has(faceEntity[i])) faceOfEntity.set(faceEntity[i], i);
@@ -1080,6 +1098,7 @@
         if (disposed) return;
         shim = root.AtlasWorkerMain;
         shim.handle({ type: "load", buffer }, onMessage, (text, frac) => { if (!stats.ready) say(text, frac); });
+        flushPreWorker();
         if (waterBuffer) { const wb = waterBuffer; waterBuffer = null; postToWorker({ type: "water", buffer: wb }); }
         else if (waterKeep && !waterHeader) postToWorker({ type: "water", buffer: waterKeep });   // the worker had it and died with it
       }, () => fail("The Atlas worker could not be loaded."));
@@ -1094,6 +1113,7 @@
         // a worker that fails before the land is in (its script refused, a syntax error, an exception) is replaced by the shim
         worker.onerror = (e) => { if (e && e.preventDefault) e.preventDefault(); if (stats.ready || shim) return; try { worker.terminate(); } catch (x) {} worker = null; stats.workerError = String(e && e.message || "error"); say("Shaping the land here instead…", 0.32); startShim(loadBuffer, "worker failed: " + stats.workerError); };
         worker.postMessage({ type: "load", buffer });   // a copy, not a transfer: the original stays here for the fallback above
+        flushPreWorker();
       } catch (e) {
         startShim(buffer, FILE ? "file://" : "no Worker: " + (e && e.message || e));
       }
@@ -1120,7 +1140,7 @@
     }
     /* the cached first frame (a hub only): read it while the file travels; applied unless the worker has already delivered */
     let coreCached = null, coreStore = null;
-    if (EMBED && !FILE && typeof indexedDB !== "undefined") {
+    if (!FILE && typeof indexedDB !== "undefined") {   // the Atlas page too (Oct 2026, owner decision 2b): a return visit draws the coarse globe from this read, while the file is still on its way and before the worker has parsed a byte
       idbGet("core0").then((hit) => {
         if (disposed || !hit || hit.rev !== CORE_CACHE_REV || header || !hit.meta || !hit.lod0) return;
         coreCached = hit; stats.fromCache = true;
@@ -1137,6 +1157,7 @@
           if (disposed) return;
           say("Shaping the land…", 0.32);
           startWorker(buffer);
+          topologyIn = true; if ((layers.rivers || layers.lakes) && !waterStarted) startWater();
           return;
         }
         const res = await fetch(dataUrl);
@@ -1154,10 +1175,11 @@
         if (disposed) return;
         say("Shaping the land…", 0.32);
         startWorker(buffer);
+        topologyIn = true; if ((layers.rivers || layers.lakes) && !waterStarted) startWater();   // the water file now (see plan(): it queued behind nothing on a fast link and in front of the land on a slow one)
       } catch (e) { fail("The Atlas data didn’t arrive (" + (e && e.message ? e.message : e) + "). Check your connection and try again."); }
     })();
     // the water file, once: parsed by the same worker (after the land, which it queues behind)
-    let waterStarted = false, waterFailed = false, waterBuffer = null, waterKeep = null;   // waterKeep: the file until `water-meta`, so a worker that dies can be replaced
+    let topologyIn = FILE, waterStarted = false, waterFailed = false, waterBuffer = null, waterKeep = null;   // waterKeep: the file until `water-meta`, so a worker that dies can be replaced
     function startWater() {
       waterStarted = true;
       const t = performance.now();
@@ -1772,7 +1794,7 @@
     function faceOfId(id) { const i = entityOf(id); return i == null || !faceOfEntity ? null : (faceOfEntity.has(i) ? faceOfEntity.get(i) : null); }
 
     /* ---- glyph metrics: every style's advances, measured on the label canvas, posted to the worker ---- */
-    let faces = themeFaces(), metricsSent = 0;
+    let faces = themeFaces(), metricsSent = 0, LS = labelScaleNow();   // LS: the Text-size factor of the names (see labelScaleNow)
     const extraChars = new Set();
     function themeFaces() {
       const cs = getComputedStyle(document.body);
@@ -1781,15 +1803,15 @@
     }
     const fontOf = (st, px) => `${st.italic ? "italic " : ""}${st.weight} ${px}px ${faces[st.face]}`;   // ctx.font must carry a pixel size
     function measureMetrics() {
-      faces = themeFaces();
+      faces = themeFaces(); LS = labelScaleNow();
       const styles = {};
       const chars = [...ALPHABET, ...extraChars];
       for (const st of STYLES) {
-        const adv = {}, advSmall = {};
-        lctx.font = fontOf(st, st.size);
+        const adv = {}, advSmall = {}, px = st.size * LS;
+        lctx.font = fontOf(st, px);
         for (const ch of chars) adv[ch] = lctx.measureText(ch).width;
-        if (st.caps) { lctx.font = fontOf(st, st.size * SMALL_SCALE); for (const ch of chars) advSmall[ch] = lctx.measureText(ch).width; }
-        styles[st.id] = { id: st.id, size: st.size, caps: !!st.caps, smallScale: SMALL_SCALE, track: st.track, adv, advSmall };
+        if (st.caps) { lctx.font = fontOf(st, px * SMALL_SCALE); for (const ch of chars) advSmall[ch] = lctx.measureText(ch).width; }
+        styles[st.id] = { id: st.id, size: px, caps: !!st.caps, smallScale: SMALL_SCALE, track: st.track * LS, adv, advSmall };
       }
       metricsSent++;
       postToWorker({ type: "metrics", styles });
@@ -1832,7 +1854,7 @@
       const seq = ++layoutSeq;
       L.sentAt = performance.now();
       L.chrome = chromeRects();   // kept for the painter: between layouts a label that slid under a control or past the frame is not drawn (Phase 4c)
-      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
+      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, fs: LS, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
       if (reason === "settle" || reason === "level") writeHash(false);
     }
     function applyLayout(m) {
@@ -1881,8 +1903,8 @@
       const x = c.getContext("2d");
       x.scale(dprNow, dprNow); x.translate(-x0, -y0);
       x.textBaseline = "middle"; x.textAlign = "left"; x.lineJoin = "round"; x.lineCap = "round";
-      x.lineWidth = p.id === sel.id ? 3.4 : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : 2.6; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
-      const fontBig = fontOf(st, st.size), fontSmall = st.caps ? fontOf(st, st.size * SMALL_SCALE) : fontBig;
+      x.lineWidth = (p.id === sel.id ? 3.4 : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : 2.6) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
+      const fontBig = fontOf(st, st.size * LS), fontSmall = st.caps ? fontOf(st, st.size * LS * SMALL_SCALE) : fontBig;
       for (const pass of [0, 1]) {   // every halo first, then every glyph, so a halo never bites a neighbour
         for (let i = 0; i < p.glyphs.length; i++) {
           const g = p.glyphs[i], ch = p.chars[i]; if (ch == null) continue;
@@ -1942,7 +1964,7 @@
       if (!marks.length || !A || !L.mA) { L.lastMarkMs = 0; return; }
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy, ch = L.chrome || [], nch = ch.length;
       const r0 = rot[0], r1 = rot[1], r2 = rot[2], r3 = rot[3], r4 = rot[4], r5 = rot[5], r6 = rot[6], r7 = rot[7], r8 = rot[8];
-      const half = A.markHalf(view.kmpp), lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH;
+      const half = A.markHalf(view.kmpp) * LS, lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH;
       const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : -1, aliveEnt = time.aliveEnt;
       let ln = 0, selK = -1;
       const faint = [];
@@ -2013,9 +2035,9 @@
     function closeFan(silent) { if (!fan) return false; fan = null; if (!silent) invalidateLabels(); return true; }
     function openFan(x, y, near) {
       const A = root.AtlasStudy, ctx = lctx, st = STYLE_BY_ID.town || STYLE_BY_ID.city;
-      ctx.font = fontOf(st, 12);
+      ctx.font = fontOf(st, 12 * LS);
       const mem = near.slice(0, FAN_MAX).map((e) => { const row = G.byId.get(e.m.id); const name = row ? row.name : e.m.id; return { e, name, x: e.x, y: e.y, w: ctx.measureText(name).width }; });
-      const f = A.fanOut(mem, { x, y }, { W: cssW, H: cssH, chrome: L.chrome || [], max: FAN_MAX, half: 9 });
+      const f = A.fanOut(mem, { x, y }, { W: cssW, H: cssH, chrome: L.chrome || [], max: FAN_MAX, half: 9 * LS });
       fan = { x, y, sig: fanSig(), mem, slots: f.slots.map((sl) => Object.assign({}, sl, { mem: mem[sl.i] })), clear: f.clear };
       sel.stack = []; sel.at = null; stackBtn.hidden = true;
       announce("Choose one: " + mem.map((m) => m.name).join(", "));
@@ -2034,10 +2056,10 @@
       }
       for (const sl of fan.slots) {
         const m = sl.mem, mk = m.e.m, path = new Path2D(), hot = mk.id === sel.id;
-        markInto(path, mk.shape, sl.x, sl.y, 8, 2);
+        markInto(path, mk.shape, sl.x, sl.y, 8 * LS, 2);
         ctx.lineWidth = 2; ctx.strokeStyle = hot ? selCss : inkCss; ctx.fillStyle = mk.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
-        ctx.font = fontOf(st, 12); ctx.textBaseline = "middle"; ctx.textAlign = sl.right ? "left" : "right";
-        const tx = sl.right ? sl.x + 13 : sl.x - 13;
+        ctx.font = fontOf(st, 12 * LS); ctx.textBaseline = "middle"; ctx.textAlign = sl.right ? "left" : "right";
+        const tx = sl.right ? sl.x + 13 * LS : sl.x - 13 * LS;
         ctx.lineWidth = 3; ctx.strokeStyle = haloCss; ctx.strokeText(m.name, tx, sl.y); ctx.fillStyle = inkCss; ctx.fillText(m.name, tx, sl.y);
       }
       ctx.textAlign = "left";
@@ -2675,7 +2697,7 @@
     mo.observe(viewHost, { childList: true });
     // a theme change (data-theme, or the night class) re-reads the tokens: the palette and the relief ramp follow
     const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); drawTicks(); } if (G.ready) measureMetrics(); invalidate(); });
-    themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme"] });
+    themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme", "data-fs"] });   // data-fs: Settings → Text size (the names follow it, labelScaleNow)
     /* ============================================================================================================
        PHASE 3b — THE STUDY LAYER (docs/atlas-v2-design.md §2.8, §7 "Phase 3b — as built")
        The host (app.js) hands over `H.study`: the ids of the cards the reader has a record for (studied: v1's own definition, see
@@ -2890,10 +2912,13 @@
       if (l.year != null && isFinite(l.year)) applyYear(clampYear(l.year), { why: "hash" });
       const norm = (s) => fold(s).replace(/[^a-z0-9]+/g, " ").trim(), want = norm(String(l.name || "").replace(/-/g, " "));
       if (!want) return;
-      let tries = 0;
+      /* THE WAIT IS FOR THE DATA, NOT FOR A COUNT OF TRIES (Oct 2026). It used to give up after 200 tries (about 20 s) and leave the default view: a main-thread shim on a slow device (a file:// copy, or a Worker that
+         failed) is `ready` well after that — a CPU slowed 8× opens `#map/1/Rome` from a file after 90 s — and so would a slow network, so the link opened the year and no place. It now waits until the Atlas has failed
+         or been left, or ten minutes have passed. */
+      const giveUp = performance.now() + 10 * 60 * 1000;
       const attempt = () => {
-        if (disposed) return;
-        if (!(G.ready && stats.ready) || (PX.state === 1) || (PX.state === 0 && (loadPolityIndex(), true))) { if (++tries < 200) setTimeout(attempt, 100); return; }
+        if (disposed || status.classList.contains("atlas2-fail")) return;
+        if (!(G.ready && stats.ready) || (PX.state === 1) || (PX.state === 0 && (loadPolityIndex(), true))) { if (performance.now() < giveUp) setTimeout(attempt, 100); return; }
         const rows = searchRows();
         const hit = rows.find((r) => norm(r.name) === want) || rows.find((r) => (r.akeys || []).some((a) => norm(a) === want));
         if (!hit) return;
@@ -2943,7 +2968,7 @@
         index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0 },
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
-      labels: () => L.placed, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
+      labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
       gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, shut: cardEl.classList.contains("atlas2-card-shut") }),

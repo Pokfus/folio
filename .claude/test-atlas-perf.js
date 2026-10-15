@@ -1,8 +1,14 @@
 /* test-atlas-perf.js — frame-time budgets for the Atlas (#map).
 
    PHASE 5 (2026-10-14): v1 was DELETED. This suite used to run v1's globe and v2 in the same run and gate v2's pooled p90 at
-   ≤ 40 % of v1's (and its heap at ≤ 50 % of v1's). Every such gate is now ABSOLUTE with the same strength: the reference is
+   ≤ 40 % of v1's (and its heap at ≤ 50 % of v1's). Every frame gate is now ABSOLUTE with the same strength: the reference is
    V1_REF, v1's last measured numbers (CI run 3559 at f7aca62, pooled p90 ms), so "v1" in the text below means those constants.
+   THE HEAP GATE IS NOT AGAINST v1 ANY MORE (2026-10-15): "50 % of v1's last heap (150 MB)" was a ratio to a deleted browser page and had
+   gone slack (v2 reads 30 MB on CI). It is an absolute budget, HEAP_BUDGET_MB, measured on CI: the frame-gate job of run 3567 (checks.yml, a
+   push to main at 10fbbf0, 2026-10-15) printed "v2 JS heap after its gestures … v2 30 MB" and, after the rail scrub, "heap 30 MB"; 30 MB × 1.25
+   is 37.5, kept as 38. The figure belongs to CI's runner and its Chromium: the sandbox's older Chromium reads 49 MB for the same page with the
+   idle-loaded prose held back and 87 MB with it (see the HEAP_BUDGET_MB note), so run the suite elsewhere with FOLIO_HEAP_BUDGET_MB set to
+   that machine's own reading × 1.25, and re-read the budget from CI's log when a deliberate change moves it.
    There is no v1 measurement, no "v1 heightmap" comparison and no RELIEF_VS_V1 switch any more; the relief gate (≤ RELIEF_FACTOR ×
    relief off) never depended on v1 and is unchanged, as are the worst-frame rule, the release limit and the primitive budgets.
 
@@ -59,8 +65,7 @@
        gesture of v1, so no measured window pays a tile's fetch either. The rehearsal is also where a slow GPU
        learns its gesture stages (atlas.js `gestureFrame`: half resolution, then one coarser level, sticky for the
        session), so the measured repeats run as a reader's second gesture would; the report prints the stage.
-     · HEAP: v2's JS heap after its gestures is at most HEAP_RATIO (50 %) of v1's in the same run, the
-       absolute value reported; the old absolute ceiling (48 MB) is gone.
+     · HEAP: v2's JS heap after its gestures and a forced collection is at most HEAP_BUDGET_MB (an absolute figure read off CI, see the head of this file).
      · unchanged: v2 pooled p90 ≤ RATIO of v1's for drag, wheel and pinch; the drag's worst frame ≤ WORST_MS
        with 1 ms of timestamp slack; the primitive budgets.
 
@@ -92,14 +97,16 @@ const LAUNCH = Object.assign(process.env.FOLIO_CHROMIUM ? { executablePath: proc
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream" };
 /* v1 was deleted in Phase 5 (2026-10-14); these are its last numbers — CI run 3559 at f7aca62, the Full atlas on the runner, POOLED p90 in ms over the repeats
    of each gesture, and its JS heap after the gestures. The gates below read them where they used to read a v1 measured in the same run. */
-const V1_REF = { drag: 200.0, wheel: 333.2, pinch: 350.0, scrub: 150.0, heapMB: 150 };
+const V1_REF = { drag: 200.0, wheel: 333.2, pinch: 350.0, scrub: 150.0 };
 const RATIO = 0.40;             // v2 pooled p90 ≤ 40 % of V1_REF's (was: of v1's, measured in the same run)
 const WORST_MS = 100;           // worst frame during drag and pinch, relief off (Phase 2a, task 0c; restated in Phase 3a, task 0b: at most WORST_SHARE of the gesture frames over it across the repeats, none over WORST_CAP_MS)
 const WORST_SHARE = 0.005;      // the owner's worst-frame rule (2026-10-10, Phase 3a): across the repeats at most 0.5 % of a gesture's frames over WORST_MS and none over WORST_CAP_MS; the same for the pinch's during-gesture frames. It replaced "at most 2 frames" (Phase 2a), which on the two-core CI runner read 4 of 1,177 (0.34 %) and failed a renderer that was not slower; the share scales with the sample, a count did not. Nothing else loosened.
 const WORST_CAP_MS = 200;
 const RELIEF_FACTOR = 2.0;      // relief on: v2 pooled p90 ≤ this × v2's own relief-off pooled p90, patches warmed first (Phase 1d; 1.5 before, with the fetch inside the gesture)
 const REPEATS = 3;              // every gesture runs this many times; the relative gates read the pooled p90 (see the header)
-const HEAP_RATIO = 0.5;         // v2's JS heap after its gestures and a forced collection ≤ this × V1_REF.heapMB (Phase 1d, v1's heap was measured in the same run; measured 28–82 MB against 228–257 — the absolute 48 MB ceiling is gone)
+/* HEAP_BUDGET_MB: the JS heap after the gestures and a forced collection, absolute. CI read 30 MB (run 3567, frame-gate job, 2026-10-15); × 1.25 = 37.5 → 38. What the page holds at that point is the Atlas's own state
+   AND the idle-loaded prose (glossary citations, artefacts, card extras: about 38 MB of heap on the sandbox's Chromium, 49 MB → 87 MB); it is the sum a reader's tab carries, so the budget is for both. */
+const HEAP_BUDGET_MB = Number(process.env.FOLIO_HEAP_BUDGET_MB) || 38;
 const RELEASE_MS = 300;         // the first full-screen frame after a pinch's fingers lift (Phase 1d), reported with its primitive count
 const RELEASE_WINDOW_MS = 450;  // a frame ending within this of a touchEnd mark is a release frame, not a gesture frame
 const RELEASE_SETTLE_MS = 500;  // how long the pinch waits after each release before the next touch (longer than the window)
@@ -437,7 +444,7 @@ async function fixedMarks(page) {
   console.log(`\n  ready: v2 ${results.v2.ready} ms (fetch ${results.v2.load.fetchMs} ms, ${results.v2.load.bytes} bytes, first paint ${results.v2.load.firstPaintMs} ms, worker ${results.v2.load.workerMs} ms; water ${results.v2.load.waterBytes} bytes in ${results.v2.load.waterFetchMs} ms)`);
   console.log(`  v2 levels: ${results.v2.load.levels}; uploads ms ${JSON.stringify(results.v2.load.uploads)}; water levels: ${results.v2.load.water}`);
   console.log(`  v2 renderer draw time (CPU side, ms): p50 ${results.v2.draw.p50 && results.v2.draw.p50.toFixed(2)}, max ${results.v2.draw.max && results.v2.draw.max.toFixed(2)}; last frame: level ${results.v2.draw.level}, ${results.v2.draw.triangles} triangles + ${results.v2.draw.segments} segments in ${results.v2.draw.draws} draw calls; gesture stage ${results.v2.draw.stage} (0 none, 1 half resolution, 2 half resolution and one coarser level during a gesture — learnt in the rehearsals)`);
-  console.log(`  JS heap: v2 ${results.v2.heapMB} MB (v1's last: ${V1_REF.heapMB} MB); v2 pick at centre: "${results.v2.pick}"; v2 relief loaded: ${results.v2relief.ready} (${results.v2relief.stats.reliefResident} textures, ${(results.v2relief.stats.reliefBytes / 1048576).toFixed(1)} MB)`);
+  console.log(`  JS heap: v2 ${results.v2.heapMB} MB (budget ${HEAP_BUDGET_MB} MB, read off CI); v2 pick at centre: "${results.v2.pick}"; v2 relief loaded: ${results.v2relief.ready} (${results.v2relief.stats.reliefResident} textures, ${(results.v2relief.stats.reliefBytes / 1048576).toFixed(1)} MB)`);
   const printViews = (title, vs) => {
     console.log(`\n${title}\n`);
     console.log("  view                 km/px   LOD  tiles   triangles  segments   rivers  lakeSeg  lakeTri  relief   draws    mean     p95     max   history tri/seg/faces");
@@ -456,7 +463,7 @@ async function fixedMarks(page) {
   let fails = 0;
   const check = (name, ok, detail) => { console.log(`  ${ok ? "\x1b[32mok\x1b[0m  " : "\x1b[31mFAIL\x1b[0m"}  ${name}${detail ? "  \x1b[2m" + detail + "\x1b[0m" : ""}`); if (!ok) fails++; };
   const pctS = (x) => (100 * x).toFixed(2) + " %";
-  console.log(`\nThe gate (owner's redefinition 2026-10-08, extended for Phase 1b, sampled over ${REPEATS} repeats since Phase 1c, the Phase 1d rules of 2026-10-09): relief off — v2 pooled p90 ≤ ${RATIO * 100} % of v1's last numbers (V1_REF) for drag, wheel, pinch, scrub; the drag's frames over ${WORST_MS} ms at most ${pctS(WORST_SHARE)} of the sample and none over ${WORST_CAP_MS}; the same for the pinch's frames DURING the gesture, and its first frame after release ≤ ${RELEASE_MS} ms; primitive budgets per view; relief on, patches warmed — v2 pooled p90 ≤ ${RELIEF_FACTOR} × its own relief-off pooled p90; heap ≤ ${HEAP_RATIO * 100} % of v1's last heap (${V1_REF.heapMB} MB)\n`);
+  console.log(`\nThe gate (owner's redefinition 2026-10-08, extended for Phase 1b, sampled over ${REPEATS} repeats since Phase 1c, the Phase 1d rules of 2026-10-09): relief off — v2 pooled p90 ≤ ${RATIO * 100} % of v1's last numbers (V1_REF) for drag, wheel, pinch, scrub; the drag's frames over ${WORST_MS} ms at most ${pctS(WORST_SHARE)} of the sample and none over ${WORST_CAP_MS}; the same for the pinch's frames DURING the gesture, and its first frame after release ≤ ${RELEASE_MS} ms; primitive budgets per view; relief on, patches warmed — v2 pooled p90 ≤ ${RELIEF_FACTOR} × its own relief-off pooled p90; heap ≤ ${HEAP_BUDGET_MB} MB (absolute, read off CI)\n`);
   for (const g of ["drag", "wheel", "pinch"]) {
     const a = V1_REF[g], b = results.v2[g];
     check(`${g}: v2 pooled p90 ≤ ${RATIO * 100} % of v1's last pooled p90 (${a} ms, deleted in Phase 5)`, b.p90 <= a * RATIO, `v2 ${b.p90.toFixed(1)} ms vs v1 ${a.toFixed(1)} ms (${(100 * b.p90 / a).toFixed(0)} %); per-repeat p95 median v2 ${b.p95med.toFixed(1)}`);
@@ -499,7 +506,7 @@ async function fixedMarks(page) {
     const b = results.v2relief[g], off = results.v2[g];
     check(`${g}, relief on: v2 pooled p90 ≤ ${RELIEF_FACTOR} × its relief-off pooled p90`, b.p90 <= Math.max(off.p90, 16.7) * RELIEF_FACTOR, `v2 ${b.p90.toFixed(1)} ms on vs ${off.p90.toFixed(1)} ms off (per-repeat p95s on ${b.p95s.map((v) => v.toFixed(1)).join(" / ")}, off ${off.p95s.map((v) => v.toFixed(1)).join(" / ")}); v2 worst ${b.max.toFixed(1)} ms (reported, not gated)`);
   }
-  check(`v2 JS heap after its gestures ≤ ${HEAP_RATIO * 100} % of v1's last heap (${V1_REF.heapMB} MB, deleted in Phase 5)`, Number.isFinite(results.v2.heapMB) && results.v2.heapMB <= V1_REF.heapMB * HEAP_RATIO, `v2 ${results.v2.heapMB} MB, v1 ${V1_REF.heapMB} MB (${(100 * results.v2.heapMB / V1_REF.heapMB).toFixed(0)} %)`);
+  check(`v2 JS heap after its gestures and a forced collection ≤ ${HEAP_BUDGET_MB} MB (the CI reading of 2026-10-15 was 30 MB, plus 25 %)`, Number.isFinite(results.v2.heapMB) && results.v2.heapMB <= HEAP_BUDGET_MB, `v2 ${results.v2.heapMB} MB of ${HEAP_BUDGET_MB} (${(100 * results.v2.heapMB / HEAP_BUDGET_MB).toFixed(0)} %)`);
   { const c = (results.v2relief.cost || []).filter((x) => x.uploadMs != null); check("relief first-use cost measured (fetch + compose + upload per patch; reported, not gated)", c.length > 0, c.length ? `${c.length} patches, worst ${Math.max(...c.map((x) => x.fetchMs + x.composeMs + x.uploadMs)).toFixed(0)} ms` : "none recorded"); }
   check("v2 relief loaded (L0 and the view's L1 patches)", results.v2relief.ready, `${results.v2relief.stats.reliefResident} textures`);
   for (const { V, settled } of viewsRelief) check(`${V.name}, relief on: tiles and relief settled`, settled);
