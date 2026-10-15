@@ -386,6 +386,14 @@ const CROSSREF_WRONG = [
   // (and ICCT's author page) read "Méryl Demuynck": Crossref has dropped the accent and a letter.
   // Folio follows the spelling a reader meets on the PDF the citation points at (gga-022).
   ["10.19165/2021.2.08", "Méryl Demuynck", "Meryl Demuynk"],
+  // BIPPA deposits Liu Jun's byline as "Jun LIU" (given name first, family name capitalised), but the
+  // 1985 paper's own first page prints "Liu Jun, Zhejiang Provincial Museum" in the Chinese order
+  // (cnh-803). Folio follows the spelling on the page the citation points at.
+  ["10.7152/bippa.v6i0.11235", "Liu Jun", "Jun LIU"],
+  // J-STAGE's Crossref record for Newhall (Indogaku Bukkyogaku Kenkyu 66, no. 3) has the given and
+  // family fields swapped ("NEWHALL" as the given name, "Thomas" as the family name). J-STAGE's own
+  // article page prints the byline "NEWHALL Thomas", surname first in capitals: Thomas Newhall (cnh-886).
+  ["10.4259/ibk.66.3_1157", "Thomas Newhall", "NEWHALL Thomas"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
