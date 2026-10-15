@@ -2363,6 +2363,8 @@ and every link answers 200.
 - **No picture (21 + the removals):** men with no ancient likeness, treaties, concepts and wars. Four pictures that are later
   paintings or a bust of one man stay (`gr-629`, `gr-680`, `gr-681`, `gr-690`), as the earlier batches' later paintings did.
 
+The new titles Battle of Coronea (394 BC), Battle of Sardis (395 BC) and Social War (357–355 BC) join the Wikipedia article names with "BC" that `check-style` already reports on main (they are the articles' names, not prose).
+
 **Locators for `gr-601`–`gr-700`**, fetched through `add-locators.js`: the battles (`gr-658` – `gr-660`, `gr-664`, `gr-671`,
 `gr-675`, `gr-699`, all as battles), `gr-612`, `gr-646`, `gr-665`, `gr-666`, `gr-674` and `gr-678`. `gr-673` and `gr-683` still
 lack one (Wikipedia's coordinate service refused the shared address three times).
