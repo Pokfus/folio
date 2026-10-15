@@ -1278,114 +1278,114 @@ already shipped before adding it.
 ### Land, trade and money — `cn-economy`
 
     cnh-801  Song economic revolution
-    cnh-802  Chinese agriculture
-    cnh-803  Rice cultivation in China
-    cnh-804  Chinese irrigation and water control
-    cnh-805  The Yellow River and its floods
-    cnh-806  The Yangtze and the south
-    cnh-807  Land tenure in China
-    cnh-808  Landlordism and tenancy in China
-    cnh-809  Chinese coinage
-    cnh-810  Paper money in China
-    cnh-811  Silver in the Chinese economy
-    cnh-812  Chinese domestic trade
-    cnh-813  Chinese canals and river transport
-    cnh-814  Silk Road
-    cnh-815  Chinese silk
-    cnh-816  The Chinese tea trade
-    cnh-817  The Chinese porcelain trade
-    cnh-818  Chinese maritime trade
-    cnh-819  The Chinese junk
-    cnh-820  Ningbo merchants
+    cnh-802  Qimin yaoshu
+    cnh-803  Hemudu culture
+    cnh-804  Zhengguo Canal
+    cnh-805  Pan Jixun
+    cnh-806  Jiangnan
+    cnh-807  Fish-scale registers
+    cnh-808  Rent resistance
+    cnh-809  Ban liang
+    cnh-810  Great Ming Treasure Note
+    cnh-811  Sycee
+    cnh-812  Hankou
+    cnh-813  Caoyun
+    cnh-814  Sogdian Ancient Letters
+    cnh-815  Shu brocade
+    cnh-816  Tea Horse Road
+    cnh-817  Belitung shipwreck
+    cnh-818  Maritime Trade Supervisorate
+    cnh-819  Junk
+    cnh-820  Comprador
     cnh-821  Qianzhuang
-    cnh-822  The Chinese salt administration
-    cnh-823  Chinese mining
-    cnh-824  Chinese textile production
-    cnh-825  The great divergence
+    cnh-822  Yangzhou salt merchants
+    cnh-823  Yunnan copper
+    cnh-824  Huang Daopo
+    cnh-825  Great Divergence
 
 ## Thought and Religion
 
 ### Chinese philosophy — `cn-thought`
 
-    cnh-826  Chinese philosophy
-    cnh-827  Hundred Schools of Thought
-    cnh-828  Confucius
-    cnh-829  Analects
-    cnh-830  Ren
-    cnh-831  Li (ritual propriety)
-    cnh-832  Junzi
-    cnh-833  Confucianism
-    cnh-834  Mencius
-    cnh-835  Xunzi
-    cnh-836  The debate on human nature
-    cnh-837  Laozi
-    cnh-838  Tao Te Ching
-    cnh-839  Dao
-    cnh-840  Wu wei
-    cnh-841  Taoism
-    cnh-842  Zhuangzi
+    cnh-826  Huang–Lao
+    cnh-827  Lüshi Chunqiu
+    cnh-828  Yan Hui
+    cnh-829  Zilu
+    cnh-830  Shu (reciprocity)
+    cnh-831  Liji
+    cnh-832  Zhongyong
+    cnh-833  Wenmiao
+    cnh-834  Four Beginnings
+    cnh-835  Discourse on Heaven
+    cnh-836  Gaozi
+    cnh-837  Hangu Pass
+    cnh-838  Guodian Chu Slips
+    cnh-839  Heshang Gong
+    cnh-840  Cook Ding
+    cnh-841  Liezi
+    cnh-842  Qiwulun
     cnh-843  Mozi
-    cnh-844  Mohism
-    cnh-845  Legalism
-    cnh-846  Han Feizi
-    cnh-847  School of Names
-    cnh-848  Yin and yang
+    cnh-844  Gongshu Ban
+    cnh-845  Shen Buhai
+    cnh-846  Two Handles
+    cnh-847  Hui Shi
+    cnh-848  He Tu and Luo Shu
     cnh-849  Wu Xing
     cnh-850  Zou Yan
-    cnh-851  I Ching
-    cnh-852  Chinese classic texts
-    cnh-853  Four Books and Five Classics
-    cnh-854  Han Confucianism
-    cnh-855  New Text and Old Text schools
-    cnh-856  Xuanxue
-    cnh-857  The Confucian revival of the Tang
-    cnh-858  Neo-Confucian metaphysics
-    cnh-859  Zhou Dunyi
-    cnh-860  Cheng–Zhu school
-    cnh-861  Li (principle) and qi
-    cnh-862  Lu–Wang school
-    cnh-863  The investigation of things
-    cnh-864  Qing evidential scholarship
-    cnh-865  Chinese political thought
-    cnh-866  Chinese thought and the modern world
-    cnh-867  Chinese philosophy since 1900
+    cnh-851  Ten Wings
+    cnh-852  Xiping Stone Classics
+    cnh-853  Great Learning
+    cnh-854  White Tiger Discussions
+    cnh-855  Liu Xin
+    cnh-856  Wang Bi
+    cnh-857  Li Ao
+    cnh-858  Zhang Zai
+    cnh-859  Taijitu shuo
+    cnh-860  Cheng Yi
+    cnh-861  Wang Fuzhi
+    cnh-862  Lu Jiuyuan
+    cnh-863  Investigation of things
+    cnh-864  Yan Ruoju
+    cnh-865  Huang Zongxi
+    cnh-866  Quanxue pian
+    cnh-867  Science and Metaphysics debate
 
 ### Religion and ritual — `cn-religion`
 
-    cnh-868  Chinese folk religion
-    cnh-869  Chinese ancestor veneration
-    cnh-870  The celestial bureaucracy
-    cnh-871  Chinese temples
-    cnh-872  Feng shui
-    cnh-873  Divination in China
-    cnh-874  Chinese state ritual and sacrifice
-    cnh-875  Temple of Heaven
-    cnh-876  Taoist religion
-    cnh-877  Way of the Celestial Masters
-    cnh-878  Chinese alchemy and the search for immortality
-    cnh-879  Taoist canon
-    cnh-880  Taoist monasticism
-    cnh-881  Quanzhen School
-    cnh-882  Chinese Buddhism
-    cnh-883  The transmission of Buddhism into China
-    cnh-884  Chinese Buddhist translation
+    cnh-868  Wenchang Wang
+    cnh-869  Qingming Festival
+    cnh-870  Dongyue Dadi
+    cnh-871  City God
+    cnh-872  Luopan
+    cnh-873  Chinese almanac
+    cnh-874  Fengshan
+    cnh-875  Mingtang
+    cnh-876  Lingbao
+    cnh-877  Zhang Daoling
+    cnh-878  Baopuzi
+    cnh-879  Daozang
+    cnh-880  White Cloud Temple
+    cnh-881  Wang Zhe
+    cnh-882  Liu Ying
+    cnh-883  An Shigao
+    cnh-884  Dharmaraksa
     cnh-885  Kumarajiva
-    cnh-886  The schools of Chinese Buddhism
-    cnh-887  Tiantai
-    cnh-888  Huayan
-    cnh-889  Pure Land Buddhism
-    cnh-890  Chan Buddhism
-    cnh-891  Chinese Buddhist monasteries
-    cnh-892  Chinese Buddhist cave temples
+    cnh-886  Daoxuan
+    cnh-887  Zhiyi
+    cnh-888  Fazang
+    cnh-889  Huiyuan
+    cnh-890  Platform Sutra
+    cnh-891  Baizhang Huaihai
+    cnh-892  Dazu Rock Carvings
     cnh-893  Mogao Caves
-    cnh-894  Chinese Buddhist pilgrimage
-    cnh-895  The persecutions of Buddhism in China
-    cnh-896  Buddhism and the Chinese state
+    cnh-894  Mount Wutai
+    cnh-895  Emperor Taiwu of Northern Wei
+    cnh-896  Great Cloud Sutra
     cnh-897  Three teachings
-    cnh-898  Christianity in China
-    cnh-899  Church of the East in China
-    cnh-900  Chinese millenarian movements
-    cnh-901  Religion in the People's Republic
+    cnh-898  Tianzhu shiyi
+    cnh-899  Nestorian Stele
+    cnh-900  Eternal Venerable Mother
+    cnh-901  Three-Self Patriotic Movement
     cnh-902  Chinese religion today
 
 ## Learning, Arts and Invention
