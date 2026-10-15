@@ -650,6 +650,21 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | trial of Socrates: Amnesty | 403 BCE (the Thirty overthrown) | James M. Ambury, “Socrates,” Internet Encyclopedia of Philosophy, accessed 15 October… (`gr-629`) |
 | Apology: Socrates executed | 399 BCE (the trial) | Debra Nails and S. Sara Monoson, “Socrates,” Stanford Encyclopedia of Philosophy, first… (`gr-630`) |
 
+## Classical arts and thought, Hippocrates to the Charioteer (confirmed by B66–B68, `gr-631` – `gr-645`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Memorabilia: Socrates executed | 399 BCE | John Burnet, Greek Philosophy, Part I: Thales to Plato (London: Macmillan, 1914), chap.… (`gr-631`) |
+| Memorabilia written | after 399 BCE (Socrates already dead; composed by the exiled Xenophon) | John Burnet, Greek Philosophy, Part I: Thales to Plato (London: Macmillan, 1914), chap.… (`gr-631`) |
+| Hippocrates born | 460 BCE (Soranus, via Adams’ Preliminary Discourse; Aulus Gellius says older than Socrates) | Francis Adams, “Preliminary Discourse,” in The Genuine Works of Hippocrates (New York:… (`gr-632`) |
+| Democritus: Born | 460 – 457 BCE | Thomas Heath, A History of Greek Mathematics, vol. 1, From Thales to Euclid (Oxford:… (`gr-639`) |
+| Democritus: Born | 470/469 BCE | Thomas Heath, A History of Greek Mathematics, vol. 1, From Thales to Euclid (Oxford:… (`gr-639`) |
+| Classical period | Period 480 – 323 BCE; Early Classical 480 – 450 BCE; later phase 450 – 323 BCE | Fiona Greenland, review of Ancient Greece: Art, Architecture, and History, by Marina… (`gr-642`) |
+| Severe style: Early Classical in art history | Period 480 – 450 BCE | Fiona Greenland, review of Ancient Greece: Art, Architecture, and History, by Marina… (`gr-643`) |
+| Kritios Boy | Made after 480 BCE (the Acropolis Museum) | Acropolis Museum, “Youth statue. The ‘Kritios Boy’,” Explore Collections, accessed 15… (`gr-644`) |
+| Kritios Boy: Tyrannicides | replacement group 477/6 BCE | Catherine M. Keesling, review of Les Tyrannicides d’Athènes: vie et mort de deux statues,… (`gr-644`) |
+| Pythian chariot win at Delphi | Won (Polyzalos) 478 or 474 BCE; Won (Hieron) 470 BCE | Museum of Delphi, “Selected Exhibits: The Charioteer,” accessed 15 October 2026 (`gr-645`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -1255,4 +1270,11 @@ gr-626: 411
 gr-627: 469; 432; 424; 399
 gr-629: 399
 gr-630: 399
+gr-631: 399
+gr-632: 460
+gr-639: 460; 457; 470; 469
+gr-642: 480; 323; 450
+gr-643: 480; 450
+gr-644: 480; 1865; 1866; 1888
+gr-645: 478; 474; 470; 1892
 ```

@@ -235,8 +235,8 @@ one changelog line and a version bump; commit and push.
 | B63 | Classical arts and thought (`gr-classical-culture`) | `gr-596`–`gr-605` | 10 | **`gr-596`–`gr-600` done 2026-10-04; `gr-601`–`gr-605` done 2026-10-15** |
 | B64 | Classical arts and thought (`gr-classical-culture`) | `gr-606`–`gr-615` | 10 | **done 2026-10-15** |
 | B65 | Classical arts and thought (`gr-classical-culture`) | `gr-616`–`gr-625` | 10 | **done 2026-10-15** |
-| B66 | Classical arts and thought (`gr-classical-culture`) | `gr-626`–`gr-635` | 10 | **`gr-626`–`gr-630` done 2026-10-15**; `gr-631`–`gr-635` open |
-| B67 | Classical arts and thought (`gr-classical-culture`) | `gr-636`–`gr-645` | 10 | open |
+| B66 | Classical arts and thought (`gr-classical-culture`) | `gr-626`–`gr-635` | 10 | **done 2026-10-15** |
+| B67 | Classical arts and thought (`gr-classical-culture`) | `gr-636`–`gr-645` | 10 | **done 2026-10-15** |
 | B68 | Classical arts and thought (`gr-classical-culture`) | `gr-646`–`gr-655` | 10 | open |
 | B69 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-656`–`gr-665` | 10 | open |
 | B70 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-666`–`gr-675` | 10 | open |
@@ -2234,3 +2234,27 @@ adds nothing to main's standing alarms; every citation URL (153 distinct) answer
 
 **Chronology.** A new section, "Classical arts and thought, tragedy to Prodicus", holds a row for every date the 30 cards
 print, with pins. The Events and reigns row for Socrates' execution (399 BCE) is confirmed by `gr-627` and `gr-629`.
+
+### B66–B68 (to `gr-645`) — the Memorabilia and medicine, mathematics and atomism, the Severe Style (2026-10-15)
+
+Fifteen cards: Xenophon's *Memorabilia*, Hippocrates, the Hippocratic Corpus and Oath, humoral theory, incommensurability,
+Hippocrates of Chios, Anaxagoras, Democritus, Leucippus, atomism, Classical sculpture, the Severe Style, the Kritios Boy and
+the Charioteer of Delphi. Method as for `gr-601`–`gr-630`.
+
+Checks: `greece-audit.js` finds only `S.chip?` (English BMCR reviews of German-titled books on `gr-643` and `gr-644`) and
+`W.not-why`; `check-questions`, `check-cards --prefix=gr-`, `split-cards --check`, `check-gloss-links` and `check-style`
+add nothing; every citation URL (71 distinct) answers 200.
+
+**Date lines:** empty and `undatable` for `gr-633`, `gr-635`, `gr-636` (the discovery of incommensurability is dated
+from about 500 BCE to the 430s – 410s BCE by different scholars, prose only), `gr-637`, `gr-638`, `gr-640` and `gr-641`;
+`gr-639` has two rows, Apollodorus 460 – 457 BCE and Thrasyllus 470/469 BCE, each saying whose; `gr-645` has the Polyzalos
+and Hieron victories (478 or 474 BCE; 470 BCE). Estimated life spans of Hippocrates (the "c. 460 – 370" row), Anaxagoras
+and Democritus are prose only.
+
+**Corrected in the old cards:** the Hippocratic Corpus' "two dialects" (all Ionic) and unsourced 430 – 200 BCE range;
+Galen as the maker of the fourfold scheme; "c. 400 BCE" for the Oath; "found 1896" and "c. 475 BCE" for the Charioteer;
+the "conjecture of 1895" behind the Kritios Boy's name; the sun as a "stone" for Anaxagoras (Burnet and Diogenes have
+red-hot iron); unsourced claims about the discovery of irrationals and the Hippocratic lunes.
+
+**Wrong auto-links:** none new beyond the `ans-term` wraps of `compass` (`gr-637`), the Pythagorean theorem
+(`gr-636`) and `Cyrus` (`gr-631`).
