@@ -142,8 +142,8 @@ order unless the user says otherwise.
 | B8 | Rome under the kings (`rm-kings`) | `rm-071`–`rm-080` | 10 | 123 | **done 2026-10-04** |
 | B9 | Rome under the kings (`rm-kings`) | `rm-081`–`rm-090` | 10 | 125 | **done 2026-10-04** |
 | B10 | The early Republic (`rm-early-republic`) | `rm-091`–`rm-100` | 10 | 126 | **done 2026-10-04** |
-| B11 | The early Republic (`rm-early-republic`) | `rm-101`–`rm-110` | 10 | 126 | open |
-| B12 | The early Republic (`rm-early-republic`) | `rm-111`–`rm-120` | 10 | 121 | open |
+| B11 | The early Republic (`rm-early-republic`) | `rm-101`–`rm-110` | 10 | 126 | **done 2026-10-15** |
+| B12 | The early Republic (`rm-early-republic`) | `rm-111`–`rm-120` | 10 | 121 | **done 2026-10-15** |
 | B13 | The early Republic (`rm-early-republic`) | `rm-121`–`rm-130` | 10 | 121 | open |
 | B14 | The early Republic (`rm-early-republic`) | `rm-131`–`rm-140` | 10 | 104 | open |
 | B15 | The conquest of Italy (`rm-conquest-italy`) | `rm-141`–`rm-150` | 10 | 109 | open |
@@ -370,6 +370,26 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-098` Lars Porsena | a Rubens-workshop Mucius Scaevola | shows Mucius rather than Porsena |
 | `rm-099` Battle of Lake Regillus | a fresco by Laureti | shows the room's plaques and statues too |
 | `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
+| `rm-101` Conflict of the Orders | a wood engraving of the first secession | shows one episode (`rm-102`'s), not the whole struggle |
+| `rm-102` first secession | a river photograph | weak; the description argues and gives a derived figure; the audit's `I.caption-source` hit is the word "commons" |
+| `rm-103` tribune of the plebs | a Renaissance costume plate | burned-in text; the description names its source |
+| `rm-104` sacrosanctity | none | no picture (`I.none`) |
+| `rm-105` concilium plebis | none | no picture (`I.none`) |
+| `rm-106` aedileship | a single curule chair | weak; the description names the museum |
+| `rm-107` Coriolanus | an 1803 engraving of Shakespeare's scene | the description names the engraver and the gallery |
+| `rm-108` Cincinnatus | an 1843 painting | the description names the painter and the museum |
+| `rm-109` Roman dictator | Caesar's perpetual-dictator denarius | the exception to the old office, not the office |
+| `rm-110` Twelve Tables | a 1555 woodcut | burned-in lettering; also on `wh-342` (`I.duplicate`) |
+| `rm-111` decemvirate | none | no picture (`I.none`) |
+| `rm-112` Appius Claudius Crassus | an 18th-century painting of Verginia's death | Appius is small in a corner |
+| `rm-113` Verginia | a 15th-century painting of three scenes | acceptable (public domain); the description leans on the museum's title. Also a false `I.duplicate` |
+| `rm-114` Valerio-Horatian laws | a denarius of Porcius Laeca | commemorates the Porcian appeal legislation, three centuries later |
+| `rm-115` Lex Canuleia | a 3rd-century CE marriage relief | illustrates marriage, not the law; the description repeats an arithmetic of its own |
+| `rm-116` consular tribunes | a later stretch of the Fasti | acceptable but weak; the description makes a causal claim no source gives |
+| `rm-117` censorship | the census frieze of the "Altar of Domitius Ahenobarbus" | also on `wh-344` (`I.duplicate`) |
+| `rm-118` quaestorship | not changed | acceptable |
+| `rm-119` legion | an Etruscan bronze situla from Bologna | not a legion; the description carries an unsourced inference |
+| `rm-120` siege of Veii | the Portonaccio sanctuary | acceptable photograph; the description overclaims ("most of what is left of the city")
 
 ## Glossary candidates
 
@@ -795,3 +815,41 @@ What the hundred found, again and again:
   single excavator's Palatine wall, one genetics paper's Umbrian identity.
 - **Persée.** A large share of the old sources sat on Persée, which this sandbox cannot open; every claim
   resting only there was re-sourced or dropped.
+
+### B11 — `rm-101`–`rm-110`, the early Republic: the Conflict of the Orders to the dictator and the Twelve Tables (2026-10-15)
+
+Run as B10: two cards to an agent, five agents a batch. Branched from `origin/main` (PR #423, the first hundred, is merged). Checks: `rm-audit.js --range=rm-101:rm-110` reads clean on six cards; the rest are `rm-102`'s `I.caption-source` (the word "commons" in the old picture's description), two cards with no picture, `rm-105`'s language-chip false positive (an English BMCR review of a French-titled book) and `rm-110`'s picture shared with `wh-342`. `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. Nine Wiley chapter DOIs (Raaflaub's volume on `rm-101` and `rm-102`) answer 403 to a script, as every Wiley link does here; Crossref confirms each, and the text was read in an archive.org scan, so they are tagged `[Paywalled]`. The leadsTo texts of `rm-101`–`rm-103` were reworded to say "by tradition" or name the author.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-101` Conflict of the Orders | 7 | 11 → 9 | Livy had nine chapters; now two, with Raaflaub, Cornell, von Ungern-Sternberg and Koptev. **The old "plebeian consul 367 BCE, L. Sextius" row gave the year of the laws for the consulship (366).** The line is Traditional 494 – 287 BCE and the breakthrough of 367 BCE; whether it was one struggle at all is given as a debate. Phrasings with "two centuries" gone. |
+| `rm-102` first secession | 7 | 6 → 8 | Told as Livy's and Dionysius's story: Livy's Sacred Mount against Piso's Aventine, Livy's tribunes against Dionysius's five, Menenius Agrippa's fable "by Livy's report". The old `leadsTo` to `rm-100` said Livy sets the treaty "in the middle of the secession"; now the same consular year. |
+| `rm-103` tribune of the plebs | 8 | 7 → 9 | "The ancient writers agree there were two at first" was untrue (Dionysius has five); Livy's, Dionysius's and the moderns' counts are each given. **The one-mile limit was credited to Livy as the consuls' remark; it is Livy's narration of what the tribunes feared (3.20).** Line: Traditional 494 BCE, ten tribunes 457 BCE by tradition, Octavius ousted 133 BCE. |
+| `rm-104` sacrosanctity | 7 | 5 → 7 | The oath and the 449 law are Dionysius's and Livy's, not events; the "bargain between the orders" claim and "four centuries" in a question gone. The 131 BCE case of the tribune who tried to throw a censor from the rock added from Botsford. |
+| `rm-105` concilium plebis | 6 | 7 → 7 | **Laelius Felix's rule (a part-of-the-people meeting is a *concilium*, its vote a *scitum*) was told as law; it is a jurist quoted by Gellius, and late-Republican writers did not keep it.** Volero's law is Livy's story. Who could vote is a modern disagreement. |
+| `rm-106` aedileship | 7 | 6 → 7 | **"Curule pair 367 BCE, with the praetorship" gave the year of the laws, not of the office**: now 366 BCE (Abbott). Aediles named from Ceres' temple on one account (Dionysius: overseers of sacred places). The sacrosanctity dispute moved to `rm-104`. |
+| `rm-107` Coriolanus | 8 | 9 → 8 | A legend, now "Livy tells", "Plutarch has", with Forsythe's and Salmon's views (a Volscian advance with a native leader; surnames from a conquered town unknown before the late 4th century BCE). Livy, Plutarch and Dionysius each give a different death. Traditional 493 BCE. |
+| `rm-108` Cincinnatus | 8 | 7 → 8 | Livy was five of the seven sources. **The 458 tale is argued to be built from rescue stories and the second dictatorship (439) from the Maelius affair**; "standing ideal", an iugera area and "180" gone. |
+| `rm-109` Roman dictator | 8 | 5 → 8 | **The old line gave a 449 BCE law ending freedom from appeal; Smith's own text calls the date undetermined**: cut, and the question is left open. The first dictator is Livy's 501 BCE (Larcius or Cloelius, and Dionysius three years later). Sulla's and Caesar's dictatorships told as breaks with the office. |
+| `rm-110` Twelve Tables | 8 | 9 → 8 | Livy had six of the nine sources. The Athens embassy is "Livy tells", with the dispute; the 454 BCE row cut. The fragments are cited as Gellius and Cicero quote them; about 105 provisions by one count; the order of twelve tables is a modern arrangement. |
+
+**Read by eye.** *Legend as legend:* the secession, Menenius, Coriolanus, Cincinnatus and the Athens embassy are each an ancient author's. *Confusability:* `rm-103`/`rm-104`/`rm-105`/`rm-106` are one cluster around the tribunate; each phrasing names only what its term has, with the veto left to `rm-096`. *Chronology:* the plebeian consulship is 366 BCE on `rm-106` and `rm-101` (the laws, 367 BCE); `rm-083` still prints 367 for the consulship opening, and `rm-128` will say which. *Overlap:* `wh-342` gives the Twelve Tables as 451 – 449 BCE and agrees.
+
+### B12 — `rm-111`–`rm-120`, the early Republic: the decemvirs to the siege of Veii (2026-10-15)
+
+Run as B11, with B13's agents alongside. Checks: `rm-audit.js --range=rm-111:rm-120` reads clean on seven cards; the rest are `rm-111`'s missing picture, `rm-113`'s false thumbnail `I.duplicate` and `rm-117`'s picture shared with `wh-344`. `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. Three drafts carried a doubled full stop before every footnote marker (an agent habit that `precheck.js` does not catch); fixed before applying, and every later draft is searched for `..<sup`. `rm-116`'s third phrasing named an ancient annalist, which `check-cards` counts as a scholar, and was reworded. **No recent open-access scholarship could be reached for `rm-117` and `rm-118`: their modern half is Smith (1875), Greenidge, Abbott, Ramsay and Tighe, all out of copyright.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-111` decemvirate | 7 | 7 → 7 | Ancient 6 → 2, modern 1 → 5. Livy's story of a fair first board and a tyrannical second is told as his, with the scholarly split on the second board; the "120 lictors" count is Livy's and in prose. Traditional 451, 450 and 449 BCE. |
+| `rm-112` Appius Claudius Crassus | 6 | 8 → 6 | Seven ancient sources → two; never called a tyrant in the card's voice; the Claudian pride, the Lucretia doublet and later fears are scholars' views. The "charge 1 only" row is prose. |
+| `rm-113` Verginia | 7 | 7 → 7 | **Her death was stated as fact with "Killed 449 BCE"**; now Livy's and Dionysius's story, Traditional 449 BCE. Livy has her mother dead (3.50), which the old text contradicted. The Lucretia doublet is a debate. |
+| `rm-114` Valerio-Horatian laws | 6 | 6 → 6 | **449 BCE is not claimed to have made plebiscites binding**; the three laws are Livy's, the acceptance and doubt views each given, and 339 and 287 BCE are "said repeated". The locator (the Campus Martius) is an inference and was kept. |
+| `rm-115` Lex Canuleia | 6 | 7 → 6 | **Dionysius was cited for the law and never mentions a marriage law** (Forsythe); the card now says so and uses Livy's voice. The decemvirs' ban is a debated invention. |
+| `rm-116` consular tribunes | 6 | 5 → 7 | The number of tribunes per period attributed to Forsythe (three, four from 426 and six from 405 on his reading); Livy's own doubt about which years had consuls; **the first plebeian tribune is Livy's, in a year the list gives as 400 BCE, which Mommsen is reported to have called an error**. |
+| `rm-117` censorship | 7 | 5 → 7 | Four of five sources were Livy. **"Tribunes might be plebeian" as the motive was Smith's inference, not Livy's**; gone. Mamercus's law is 434 BCE (Greenidge, Ramsay) or 433 (Smith), and 435 is a rival date for the creation; counts off the line. |
+| `rm-118` quaestorship | 7 | 5 → 7 | **"A seat in the senate" in 421 BCE was Smith's inference**, centuries too early; the "only office left open" words are the Icilii's, not Livy's. Tacitus's regal origin and Smith's contrary view are each attributed; eight before Sulla, twenty under him, forty under Caesar. |
+| `rm-119` legion | 9 | 5 → 9 | The line printed counts as dates; now the one span a source gives for the change to maniples and Livy's Latin War setting. **The old questions were `rm-155`'s and `wh-344`'s, and a Polybius "fossil" claim no opened source confirms.** Ancient figures (3,000, 4,000, 4,200, 5,000 foot) are Plutarch's and Livy's. The span rests on a thesis (see below). |
+| `rm-120` siege of Veii | 7 | 6 → 7 | Livy was cited five times. **"Executed the men who had fled" is Livy's "military punishment"**; the tale is Livy's and Plutarch's throughout, the Troy patterning and the Alban Lake tunnel are a modern view, and the archaeology (continuity at lower intensity) is kept apart. The 562 square kilometres is one estimate. |
+
+**Read by eye.** *Legend as legend:* the decemvirs' two boards, Appius, Verginia, the Athens embassy and the Veii mine are each an ancient author's. *Confusability:* `rm-111`/`rm-112`/`rm-113` share one story, one episode each; `rm-114` and `rm-115` are laws about orders and marriage. *Carry-over:* `rm-119`'s "396 – 264 BCE" is a university thesis's summary and the weakest line on the date lines so far; read again if a better source appears. *Overlap:* no `gr-` or `wh-` card disagrees; `rm-119`'s old questions were duplicates of `rm-155` and `wh-344`.

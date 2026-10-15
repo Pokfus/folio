@@ -7118,18 +7118,18 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Carthage": "c. 814 – 146 BCE",
 "Urartu": "c. 800 – 550 BCE",
 "Medes": "c. 858 – 550 BCE",
-"Conflict_of_the_Orders": "c. 494 – 287 BCE",
-"Gnaeus_Marcius_Coriolanus": "fl. c. 493 BCE",
-"Lucius_Quinctius_Cincinnatus": "c. 519 – after 439 BCE",
+"Conflict_of_the_Orders": "494 – 287 BCE",
+"Gnaeus_Marcius_Coriolanus": "by tradition, 493 BCE",
+"Lucius_Quinctius_Cincinnatus": "by tradition, 458 and 439 BCE",
 "Twelve_Tables": "451 – 449 BCE",
-"Appius_Claudius_Crassus_Inregillensis_Sabinus": "fl. 451 – 449 BCE",
+"Appius_Claudius_Crassus_Inregillensis_Sabinus": "451 – 449 BCE, by tradition",
 "Verginia": "449 BCE, by tradition",
-"Valerio-Horatian_Laws": "449 BCE",
+"Valerio-Horatian_Laws": "449 BCE, by tradition",
 "Lex_Canuleia": "445 BCE",
 "Consular_tribune": "444 – 367 BCE",
 "Roman_censor": "443 BCE – 22 BCE",
 "Quaestor": "447 BCE onwards",
-"Siege_of_Veii": "ended 396 BCE",
+"Siege_of_Veii": "traditionally 406 – 396 BCE",
 "Stipendium": "from 405 BCE",
 "Battle_of_the_Allia": "390 BCE, by the usual dating",
 "Sack_of_Rome_(390_BC)": "390 BCE, by the usual dating",
@@ -10983,7 +10983,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gnaeus_Marcius_Coriolanus": ["Coriolanus","Marcius Coriolanus","Caius Marcius Coriolanus"],
 "Lucius_Quinctius_Cincinnatus": ["Cincinnatus","L. Quinctius Cincinnatus"],
 "Twelve_Tables": ["Lex Duodecim Tabularum","Law of the Twelve Tables"],
-"Decemviri": ["decemvirate","decemvir","decemviri legibus scribundis"],
+"Decemviri": ["decemvirate","decemvir","decemviri legibus scribundis","decemviri legibus scribendis"],
 "Appius_Claudius_Crassus_Inregillensis_Sabinus": ["Appius Claudius Crassus","Appius Claudius the decemvir"],
 "Valerio-Horatian_Laws": ["Valerio-Horatian laws","leges Valeriae Horatiae"],
 "Lex_Canuleia": ["lex Canuleia","Canuleian law"],
@@ -20187,7 +20187,6 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Friendshoring": ["concept","economics","trade","international relations","security"],
 "Reshoring": ["concept","economics","trade","international relations","development"]
 });
-
 
 /* ============================================================================
    NODE-ONLY: rejoin the lazy half, so a helper that requires this file sees WHOLE terms.

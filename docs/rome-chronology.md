@@ -163,6 +163,24 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Horatius at the bridge; the war with Porsena | 508 BCE; 508 – 507 BCE (tradition; the Loeb Livy's margin and Livius) | `rm-097`, `rm-098` |
 | Lake Regillus / the Castor temple dedicated | 499 BCE (Livy) or 496 BCE (Dionysius), tradition / 484 BCE | `rm-099` |
 | Foedus Cassianum | 493 BCE (tradition), to the Latin War, 340 – 338 BCE | `rm-100`, `rm-011` |
+| the Conflict of the Orders / the plebeian breakthrough | 494 – 287 BCE (tradition) / 367 BCE (the laws; the first plebeian consul is 366 BCE, `rm-106`, `rm-128`) | `rm-101` |
+| the first secession | 494 BCE (tradition; Livy's Sacred Mount, Piso's Aventine) | `rm-102` |
+| tribunes: first / raised to ten / Octavius deposed | 494 BCE (tradition) / 457 BCE (tradition, Livy 3.30) / 133 BCE | `rm-103` |
+| sacrosanctity: the oath / the Valerio-Horatian law | 494 BCE / 449 BCE (tradition) | `rm-104` |
+| concilium plebis: Volero's law / binding on all | 471 BCE (tradition, Livy) / 287 BCE | `rm-105` |
+| aediles: plebeian / senate decrees lodged / curule pair | 494 BCE, 449 BCE (tradition) / 366 BCE (Abbott; Smith prints 365; 367 is the year of the Licinio-Sextian laws, not of the office) | `rm-106` |
+| Coriolanus | 493 BCE (tradition) | `rm-107` |
+| Cincinnatus: first / second dictatorship | 458 BCE / 439 BCE (tradition) | `rm-108` |
+| the dictatorship: first / last named for a war / last of the old kind / Sulla | 501 BCE (Livy's tradition; Dionysius three years later) / 216 BCE / 202 BCE / 82 BCE | `rm-109` |
+| the Twelve Tables: the two boards / ratified | 451 – 450 BCE / 449 BCE (tradition) | `rm-110`, `rm-111`, `rm-112`, `rm-085` |
+| Verginia | 449 BCE (tradition; Varronian) | `rm-113` |
+| the Valerio-Horatian laws / said repeated | 449 BCE (tradition) / 339 BCE and 287 BCE | `rm-114` |
+| Lex Canuleia | 445 BCE (tradition) | `rm-115` |
+| consular tribunes | 444 – 367 BCE (tradition); Livy's plebeian tribune is in a year the list gives as 400 BCE, which Greenidge reports as disputed | `rm-116` |
+| the censorship: created / term limited / first plebeian / last censors | 443 BCE (tradition; 435 BCE is a rival view) / 434 BCE (Greenidge, Ramsay; Smith prints 433) / 351 BCE / 22 BCE | `rm-117`, `rm-073` |
+| the quaestorship: elected / opened to the plebs / first plebeians | 447 BCE (Tacitus's 63rd year after the kings, as modern books convert it) / 421 BCE / 409 BCE | `rm-118` |
+| the legion: change from phalanx to maniples / Livy's setting | c. 396 – 264 BCE (one modern summary) / 340 BCE (the Latin War) | `rm-119` |
+| the siege of Veii / winter quarters | 406 – 396 BCE (tradition) / 403 BCE | `rm-120` |
 
 ## The middle and late Republic
 
@@ -277,4 +295,24 @@ rm-097: 508
 rm-098: 508; 507
 rm-099: 499; 496; 484
 rm-100: 493; 340; 338
+rm-101: 494; 287; 367
+rm-102: 494
+rm-103: 494; 457; 133
+rm-104: 494; 449
+rm-105: 471; 287
+rm-106: 494; 449; 366
+rm-107: 493
+rm-108: 458; 439
+rm-109: 501; 216; 202; 82
+rm-110: 451; 450; 449
+rm-111: 451; 450; 449
+rm-112: 451; 450; 449
+rm-113: 449
+rm-114: 449; 339; 287
+rm-115: 445
+rm-116: 444; 367
+rm-117: 443; 434; 351; 22
+rm-118: 447; 421; 409
+rm-119: 396; 264; 340
+rm-120: 406; 396; 403
 ```
