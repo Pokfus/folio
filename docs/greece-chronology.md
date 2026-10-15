@@ -712,6 +712,37 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Megalopolis | 371 BCE | Simon Hornblower, “When Was Megalopolis Founded?,” Annual of the British School at Athens… (`gr-674`) |
 | Mantinea (second battle) | 362 BCE | Donald Kagan, “Lecture 23: Twilight of the Polis,” Introduction to Ancient Greek History… (`gr-675`) |
 
+## Fourth-century thinkers, orators and Macedon (confirmed by B71–B73, `gr-676` – `gr-700`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Social War | 357 – 355 BCE | J. Rickard, “Social War 357–55 BC (Greece),” History of War, 17 November 2016 (`gr-676`) |
+| Plato | Born (tradition) 428/427 BCE; Died 348/347 BCE (Hermippus) (prose only) | Thomas Brickhouse and Nicholas D. Smith, “Plato,” Internet Encyclopedia of Philosophy,… (`gr-677`) |
+| Academy | founded c. 388 – 387 BCE; Plato died 348/347 BCE; Sulla's siege 86 BCE | Rafael Ferber, review of Carl Séan O’Brien, Plato’s Unwritten Doctrines (Cambridge:… (`gr-678`) |
+| Aristotle | born 384 BCE; school founded 335 BCE; died 322 BCE | Christopher Shields, “Aristotle,” The Stanford Encyclopedia of Philosophy, first… (`gr-682`) |
+| Lyceum | Aristotle begins 335 BCE; leaves 323 BCE; Sulla's sack 86 BCE | William Morison, “The Lyceum,” Internet Encyclopedia of Philosophy (`gr-683`) |
+| Politics | mentions Philip's murder 336 BCE; Aristotle died 322 BCE | Jona Lendering, “Philip II of Macedonia (6),” Livius.org (`gr-684`) |
+| Diogenes of Sinope: old man | 328 – 325 BCE (113th Olympiad) | D. R. Dudley, A History of Cynicism from Diogenes to the 6th Century A.D. (London:… (`gr-687`) |
+| Diogenes of Sinope: died | 323 BCE (Demetrius: the day Alexander died) | Eduard Zeller, Socrates and the Socratic Schools, trans. Oswald J. Reichel (London:… (`gr-687`) |
+| Cynicism: Diogenes an old man | 328 – 325 BCE (113th Olympiad) | D. R. Dudley, A History of Cynicism from Diogenes to the 6th Century A.D. (London:… (`gr-688`) |
+| Cynicism: Julian's orations | 361 CE | Julie Piering, “Cynics,” Internet Encyclopedia of Philosophy, accessed 15 October 2026 (`gr-688`) |
+| Isocrates: born | 436 BCE (Ol. 86.1) | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 2 (London: Macmillan, 1876),… (`gr-689`) |
+| Isocrates: To Philip | 346 BCE | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 2 (London: Macmillan, 1876),… (`gr-689`) |
+| Isocrates: died | 338 BCE (just after Chaeronea) | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 2 (London: Macmillan, 1876),… (`gr-689`) |
+| Attic orators: Antiphon: Four Hundred | 411 BCE | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 1, 2nd ed. (London:… (`gr-690`) |
+| Attic orators: Demosthenes the orator: died | 322 BCE | Casper C. de Jonge, “Challenging the Canon of the Ten Attic Orators: From kanôn to… (`gr-690`) |
+| Lysias | brother Polemarchus killed 404 BCE; citizenship vote 403 BCE | R. C. Jebb, The Attic Orators from Antiphon to Isaeos, vol. 1 (London: Macmillan, 1876),… (`gr-691`) |
+| Demosthenes | born 384 BCE; Chaeronea 338 BCE; On the Crown 330 BCE; died 322 BCE | Johannes Engels, review of Demosthenes of Athens and the Fall of Classical Greece, by Ian… (`gr-692`) |
+| Philippics | First Philippic 351 BCE; Third Philippic 341 BCE; Chaeronea 338 BCE | J. B. Bury, A History of Greece to the Death of Alexander the Great (London: Macmillan,… (`gr-693`) |
+| Aeschines | Peace of Philocrates 346 BCE; On the Embassy trial 343 BCE; Against Ctesiphon / Crown trial 330 BCE | Johannes Engels, review of Demosthenes of Athens and the Fall of Classical Greece, by Ian… (`gr-694`) |
+| Philip II | reigned 359 – 336 BCE; Chaeronea 338 BCE; assassinated 336 BCE | Donald L. Wasson, “Philip II of Macedon,” World History Encyclopedia, published 31 July… (`gr-695`) |
+| Macedonian phalanx: Philip II | 359 – 336 BCE | J. B. Bury, A History of Greece to the Death of Alexander the Great (London: Macmillan,… (`gr-696`) |
+| sarissa: Philip II | 359 – 336 BCE | Diodorus Siculus, Library of History 16.3, Loeb Classical Library, Perseus Digital… (`gr-697`) |
+| Third Sacred War | 356 – 346 BCE | Ian Worthington, review of Matthew Trundle, Greek Mercenaries: From the Late Archaic… (`gr-698`) |
+| Third Sacred War: Crocus Field | 352 BCE | Jona Lendering, “Philip II of Macedonia (3),” Livius.org, accessed 15 October 2026 (`gr-698`) |
+| battle of Chaeronea: Chaeronea | 338 BCE | Jona Lendering, “Chaeronea (338 BCE),” Livius.org, accessed 15 October 2026 (`gr-699`) |
+| League of Corinth | 337 BCE | Ian Worthington, review of Stephen Usher, Demosthenes, On the Crown (Warminster: Aris &… (`gr-700`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -741,8 +772,8 @@ sources when its batch comes round, and a disputed one given as a range.
 | Aegospotami | 405 BCE (confirmed by B60, `gr-577`) |
 | Socrates executed | 399 BCE (confirmed by B65–B66, `gr-627`, `gr-629`, `gr-630`) |
 | Leuctra | 371 BCE (confirmed by B70, `gr-671`; `gr-668` – `gr-672` agree) |
-| Philip II | 359 – 336 BCE |
-| Chaeronea | 338 BCE |
+| Philip II | 359 – 336 BCE (confirmed by B72–B73, `gr-695` – `gr-700`) |
+| Chaeronea | 338 BCE (confirmed by B73, `gr-699`; `gr-670`, `gr-692` – `gr-695` agree) |
 | Alexander III | born 356 BCE; reigned 336 – 323 BCE |
 | Ipsus | 301 BCE |
 | Sack of Corinth | 146 BCE |
@@ -1345,4 +1376,23 @@ gr-672: 371; 362; 364
 gr-673: 370; 369
 gr-674: 371; 368
 gr-675: 362
+gr-676: 357; 355
+gr-677: 428; 427; 348; 347
+gr-678: 388; 387; 348; 347; 86
+gr-682: 384; 335; 322
+gr-683: 335; 323; 86
+gr-684: 336; 322
+gr-687: 323
+gr-689: 436; 346; 338
+gr-690: 411; 322
+gr-691: 404; 403
+gr-692: 338; 330; 322
+gr-693: 351; 341; 338
+gr-694: 346; 343; 330
+gr-695: 359; 336; 338
+gr-696: 359; 336
+gr-697: 359; 336
+gr-698: 356; 346; 353; 352
+gr-699: 338
+gr-700: 337; 334; 324
 ```

@@ -240,9 +240,9 @@ one changelog line and a version bump; commit and push.
 | B68 | Classical arts and thought (`gr-classical-culture`) | `gr-646`–`gr-655` | 10 | **done 2026-10-15** |
 | B69 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-656`–`gr-665` | 10 | **done 2026-10-15** |
 | B70 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-666`–`gr-675` | 10 | **done 2026-10-15** |
-| B71 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-676`–`gr-685` | 10 | open |
-| B72 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-686`–`gr-695` | 10 | open |
-| B73 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-696`–`gr-700` | 5 | open |
+| B71 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-676`–`gr-685` | 10 | **done 2026-10-15** |
+| B72 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-686`–`gr-695` | 10 | **done 2026-10-15** |
+| B73 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-696`–`gr-700` | 5 | **gr-696–700 done 2026-10-15** |
 | B74 | Alexander the Great (`gr-alexander`) | `gr-701`–`gr-710` | 10 | open |
 | B75 | Alexander the Great (`gr-alexander`) | `gr-711`–`gr-720` | 10 | open |
 | B76 | Alexander the Great (`gr-alexander`) | `gr-721`–`gr-730` | 10 | open |
@@ -2290,3 +2290,40 @@ for Conon's fleet (405 to 394 BCE is eleven); the founding of the Second Athenia
 
 **Chronology.** A new section, "Classical arts and the Corinthian War to Mantinea", holds rows and pins; Leuctra (371 BCE)
 in Events and reigns is confirmed by `gr-671`.
+
+### B71–B73 (`gr-676`–`gr-700`) — Plato and Aristotle, the Cynics and the orators, Philip's Macedon (2026-10-15)
+
+Twenty-five cards: the Social War, Plato, the Academy, the *Republic*, the theory of Forms, the *Symposium*'s ladder
+of love, Aristotle, the Lyceum, the *Politics*, the *Nicomachean Ethics*, the *History of Animals*, Diogenes and
+Cynicism, Isocrates, the Attic orators, Lysias, Demosthenes, the Philippics, Aeschines, Philip II, the Macedonian
+phalanx, the sarissa, the Third Sacred War, Chaeronea and the League of Corinth. Method as before.
+
+Checks: `greece-audit.js` finds only `S.chip?` (the English BMCR review of a German-titled book on `gr-686`) and
+`W.not-why`; `check-questions`, `check-cards --prefix=gr-`, `split-cards --check`, `check-gloss-links` and `check-style`
+add nothing to main's standing alarms; every citation URL answers 200 (Perseus answered 503 once on `Diod. 16.60`
+and 200 on three retries).
+
+**Date lines:** empty and `undatable` for `gr-679` – `gr-681`, `gr-685` and `gr-686` (works whose dates are estimates)
+and `gr-688` (Cynicism, a school with no pinned start). The estimated life spans of Plato's tradition (`gr-677`
+keeps the two-row device: born 428/427 BCE in the tradition, died 348/347 BCE on Hermippus), Demosthenes (born about
+384 BCE, prose only; `gr-692` carries Chaeronea 338, the crown speech 330 and his death 322 BCE), Isocrates and Lysias
+are otherwise pinned only where an ancient source or event fixes them (`gr-691`: his brother's death 404 and the
+citizenship vote 403 BCE).
+
+**Corrected in the old cards:** the Perseus *Symposium* text is Fowler's, not Lamb's (`gr-681`); the *Republic* is not
+Plato's longest dialogue, the *Laws* is (`gr-679`); the "Alexandrian canon" of ten orators is stated as an assumption,
+not a fact (`gr-690`); the sixteen-deep Macedonian phalanx belongs to Polybius 18.30, not Diodorus 16.3, and the
+invented "c. 150 BCE" and "16 ranks" date-line rows are gone (`gr-696`); the unsourced "inherited seat" of the League
+of Corinth (`gr-700`) and the "hinge" claim of the Third Sacred War (`gr-698`) were dropped; the Athenian Constitution's
+authorship is hedged on `gr-684`; Diogenes' death on the day Alexander died is kept as one row naming Demetrius and the
+prose calls it a modern historian's "invention" (`gr-687`).
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Sulla` (`gr-678`), `reconstruction` (`gr-680`), `concord`
+(`gr-689`) and `hegemon` (the Chinese system, `gr-700`).
+
+**Open, for the glossary pass:** `gr-692`'s card still maps to the key `Demosthenes_(general)` through its answer, so its
+popup shows the Peloponnesian War general; its own key `Demosthenes_(orator)` has not been written. `gr-679`'s answer
+`Republic` opens the generic state's key.
+
+**Chronology.** A new section, "Fourth-century thinkers, orators and Macedon", holds rows and pins; the Events and reigns
+rows for Philip II (359 – 336 BCE) and Chaeronea (338 BCE) are confirmed.
