@@ -451,6 +451,14 @@ Filled batch by batch, from the source each row names.
 | Hijra: emigration / era begins (calendar introduced AH 16, 17 or 18) | 622 CE / 16 July 622 CE | Watt; Donner; al-Tabari (`wh-458`) |
 | Quran: revealed (tradition) / standard text (Uthman) | c. 610 – 632 CE / c. 650 CE | Wheeler; van Putten; Albayrak (`wh-459`) |
 | Islam: revelations / early expansion | c. 610 – 632 CE / 632 – 751 CE | Wheeler; Calder; Pew 2009 (`wh-460`) |
+| Rashidun Caliphate: span / Uthman | 632 – 661 CE / 644 – 656 CE | Dale; Hawting (`wh-462`) |
+| Early Muslim conquests: counted / Yarmuk / Egypt | 632 – 711 CE / 636 CE / 639 – 642 CE (December 639 entry, April 641 Babylon, September 642 Alexandria on one reconstruction) | Cory; Ehrlich; Butler (`wh-463`) |
+| Sunni–Shia split: succession / Ali caliph / Karbala | 632 CE / 656 – 661 CE / 680 CE | Amir-Moezzi; Cory; Ayoub (`wh-464`) |
+| Umayyad Caliphate / Abd al-Malik / coin reform | 661 – 750 CE (one book counts from 644) / 685 – 705 CE / 696 – 697 CE | Wellhausen; Marsham; Erkoçoğlu (`wh-465`) |
+| Battle of Tours | October 732 CE (10 or 25 October; one source 733) | Watson; Brill; Hailon (`wh-467`) |
+| al-Andalus: conquest / emirate / caliphate / Granada falls | 711 / 756 / 929 CE / 2 January 1492 | Al-Tamimi (Chronicle of 754); Calvo Capilla; Drayson (`wh-468`) |
+| Abbasid Caliphate / Samarra the seat | 750 – 1258 CE / 836 – 892 CE | Marín-Guzmán; Muir; Brown (`wh-469`) |
+| Baghdad: founded / Mongol sack / Ottoman capture | 762 CE / 1258 CE / 1534 CE | Le Strange; Petersen; Neggaz (`wh-470`; `wh-461` and `wh-466` are `undatable`) |
 
 ## Chronology pins
 
@@ -886,4 +894,12 @@ wh-457: 570; 632; 610; 622
 wh-458: 622
 wh-459: 610; 632; 650
 wh-460: 610; 632; 751
+wh-462: 632; 661; 644; 656
+wh-463: 632; 711; 636; 639; 642
+wh-464: 632; 656; 661; 680
+wh-465: 661; 750; 685; 705; 696; 697
+wh-467: 732
+wh-468: 711; 756; 929; 1492
+wh-469: 750; 1258; 836; 892
+wh-470: 762; 1258; 1534
 ```

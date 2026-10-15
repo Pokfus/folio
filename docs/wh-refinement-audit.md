@@ -160,7 +160,7 @@ in plan order unless the user says otherwise.
 | B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | **done 2026-10-15** |
 | B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | **done 2026-10-15** |
 | B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | **done 2026-10-15** |
-| B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | open |
+| B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | **done 2026-10-15** |
 | B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | open |
 | B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | open |
 | B50 | Medieval Europe (`wh-medieval-europe`) | `wh-491`–`wh-500` | 10 | 99 | open |
@@ -1881,6 +1881,43 @@ Georgia", "the Ethiopian Orthodox Church", "pre-Islamic Arabia"; "Muhammad", "Hi
 **Glossary.** Nine terms rewritten and the *Islam* entry corrected (its "called itself the believers" is now "one proposal
 is"); *Quran* already agreed and was kept.
 
+### B47 — `wh-461`–`wh-470`, The Islamic world (2026-10-15)
+
+Run as B46, the religious cards (`wh-461`, `wh-462`, `wh-464`) drafted with each side's account attributed. Pictures
+skipped. Checks: `wh-audit.js --range=wh-461:wh-470` clean but for `L.missing` on `wh-466` (the locator request
+"Old City of Damascus" was refused and a retry rate-limited) and `wh-468` (a region; none requested); `check-cards` first
+flagged "Ibn Umar" in a phrasing of `wh-461` (a companion, but the check reads it as a scholar) and the phrasing now says
+"one of Muhammad's companions"; `check-citations --card` 0 mismatched on all ten; the 17 URLs the checker counted non-2xx
+are MDPI DOIs (403 to the checker, read as the publisher's PDF and cited by DOI), one PNAS DOI and a Russian journal that
+answered 000 once and 200 on a second look. New locators: `wh-467` (between Poitiers and Tours), `wh-470` (the Tigris
+plain); a retry also wrote the `wh-431` and `wh-450` locators left open in B44 and B45. `wh-461`'s sources are thin (a CREST guide, a
+PhD thesis, two studies using the pillars as a frame) because the open-access religious-studies literature was behind bot
+walls; every claim carries a quote read on the page.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-461` Five Pillars of Islam | 8 | 5 → 8 | **All five old sources were MDPI pages (unreadable), two off the term.** "The one rite of entry" is now "the main step"; the Ibn Umar saying with its two versions (the order of fasting and pilgrimage differs); zakat about 2.5 per cent above the nisab; Ramadan the ninth month; 2,489,406 pilgrims in 2019; the Twelver Shia roots and branches and khums. `""` and `undatable`. |
+| `wh-462` Rashidun Caliphate | 8 | 5 → 8 | **"Tribes revolted when Abu Bakr, not Ali, was chosen" was the Shia framing**; the Ridda wars are tribes wishing to break ties with Medina. 632 – 661; Uthman's copies of the Quran are tradition (a manuscript study finds one early archetype, another scholar puts the official text under Abd al-Malik); Camel 656, Siffin 657; al-Tabari's reports set side by side. |
+| `wh-463` early Muslim conquests | 7 | 6 → 8 | **The old card framed the cause as migration against religion and put Talas and Poitiers in as the end.** Counted 632 – 711 CE; the battle dates differ between Arabic chronicles written 150 – 200 years later and contemporary Syriac notes; war-weariness and the plague debated (one survey finds no clear link); conversion slow and not forced; army sizes dropped. |
+| `wh-464` Sunni–Shia split | 8 | 5 → 8 | **A question carried a year and a figure, and a hypothesis about a compiler cutting Ali's remarks on A'isha stood as fact.** Succession accounts attributed to each side, Ghadir Khumm read two ways (mawla), Karbala 680, identities forming gradually, Pew's 87 – 90 and 10 – 13 per cent as Pew's broad ranges. |
+| `wh-465` Umayyad Caliphate | 7 | 5 → 7 | **Half the old abstract was Cyprus and the Ifriqiya ribats.** 661 – 750 (one recent book counts the empire from 644); Abd al-Malik's Arabic accounts and all-script dinar of 696 – 697; the Second Fitna (680 – 692); the mawali as a long-standing explanation of the fall; no Sind or Dome of the Rock year (sources conflict). |
+| `wh-466` Damascus | 9 | 5 → 9 | **A Damascus-mint claim rested on two coins that "may" be from Damascus or Qinnasrin.** "Oldest still inhabited capital" is a modern author's claim on an older scholar's reading; Thutmose III's list in the 15th century BCE; the Umayyad capital 661 – 750; the Great Mosque 705 – 715; the conquest year disputed (635 or AH 14 – 15); no 732 BCE Assyrian year. `""` and `undatable`. |
+| `wh-467` Battle of Tours | 8 | 6 → 8 | **A "Raids end c. 800" row was another event, and a French review (unreadable) carried the abstract.** October 732 (10 or 25 October, 733 an Arabic misdating); the Chronicle of 754 and Fredegar's Continuator; Paul the Deacon's 375,000 against 1,500 flagged doubtful; "saved Europe" a 19th-century moment; the field unnamed (Moussais proposed). |
+| `wh-468` al-Andalus | 7 | 5 → 9 | **The question carried 711 and "a frontier for eight centuries" (no source), and the abstract was the Mosque of Córdoba.** 711 by the Chronicle of 754; 756, 929, 2 January 1492; no early mosque has been found over a church; convivencia a hope as well as a description. The taifas, 1031 and the Almoravids dropped (no fetchable source). |
+| `wh-469` Abbasid Caliphate | 7 | 5 → 8 | **The old abstract was about Baghdad's Round City and a Jewish academy.** 750 – 1258 CE: the Khurasan revolution, descent from al-Abbas, the Zab, the reported feast massacre (attributed, number dropped); Samarra 836 – 892; real power to the Buyids and Turkish sultans; Baybars's shadow caliph in Cairo. |
+| `wh-470` Baghdad | 9 | 5 → 9 | **"About 7 million" and "three rings of wall" were off** (a double wall in Le Strange). Founded 762, finished by 766; the Round City known only from texts; about 500,000 as one estimate; the 1258 toll attributed; the "ink" story not used; Ottoman 1534. |
+
+**Read by eye.** *Article:* "the Five Pillars of Islam", "the Rashidun Caliphate", "the early Muslim conquests", "the
+Sunni–Shia split", "the Umayyad Caliphate", "the Battle of Tours", "the Abbasid Caliphate"; "Damascus", "Baghdad" and
+"al-Andalus" bare. *Confusability:* `wh-462`/`wh-463`/`wh-464` the first caliphs, their conquests and the split, Uthman's Quran
+on `wh-462` only, Ghadir Khumm and Karbala only on `wh-464`, battle dates only on `wh-463`; `wh-465`/`wh-466` the dynasty and
+its capital, Abd al-Malik on `wh-465` only, the Great Mosque on `wh-466` (and `wh-477`); `wh-467`/`wh-468` the battle and
+the state, the governor killed only on `wh-467`; `wh-469`/`wh-470` the dynasty and its city, the Round City only on `wh-470`.
+*Against other cards:* none contradicted; `cnh-376` covers Talas and `wh-469` leaves it out.
+
+**Glossary.** Nine terms rewritten (*Five Pillars*, *Rashidun Caliphate*, *Early Muslim conquests*, *Sunni–Shia split*,
+*Umayyad Caliphate*, *Battle of Tours*, *al-Andalus*, *Abbasid Caliphate*, *Baghdad*); *Damascus* already agreed.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2070,3 +2107,8 @@ pass once it answers. Filled batch by batch.
 | `wh-454` | Gelati's apse mosaic; its description calls Gelati David IV's foundation, which no source on the card gives |
 | `wh-455` | the Ezana Stone's Greek face, not the church |
 | `wh-451`, `wh-453`, `wh-456`–`wh-460` | judged from title and description only |
+| `wh-461` | shows only the hajj, and its description calls the pilgrimage "the fifth of the pillars" (the order varies) |
+| `wh-463` | the ribat at Sousse, one small strand, not the conquests |
+| `wh-465` | a gold dinar; its description names a museum |
+| `wh-466` | **locator** not written (the Damascus request was refused and rate-limited); a courtyard mosaic of the Great Mosque, not the city |
+| `wh-462`, `wh-464`, `wh-467`–`wh-470` | one building, shrine or painting each: acceptable, a map would show more |
