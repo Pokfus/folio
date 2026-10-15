@@ -163,7 +163,7 @@ in plan order unless the user says otherwise.
 | B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | **done 2026-10-15** |
 | B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | **done 2026-10-15** |
 | B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | **done 2026-10-15** |
-| B50 | Medieval Europe (`wh-medieval-europe`) | `wh-491`–`wh-500` | 10 | 99 | open |
+| B50 | Medieval Europe (`wh-medieval-europe`) | `wh-491`–`wh-500` | 10 | 99 | **done 2026-10-15** |
 | B51 | Medieval Europe (`wh-medieval-europe`) | `wh-501`–`wh-510` | 10 | 65 | open |
 | B52 | Medieval Europe (`wh-medieval-europe`) | `wh-511`–`wh-520` | 10 | 89 | open |
 | B53 | East Asia (`wh-east-asia`) | `wh-521`–`wh-530` | 10 | 106 | open |
@@ -1983,6 +1983,38 @@ the humanists only on `wh-486`; `wh-481`/`wh-482` two travellers' books, the Rih
 **Glossary.** Ten terms rewritten (*Ibn Battuta*, *Ibn Khaldun*, *Seljuk Empire*, *Saladin*, *Mamluk Sultanate*, *Middle
 Ages*, *Migration Period*, *Ostrogoths and Visigoths*, *Clovis I*, *Anglo-Saxon England*).
 
+### B50 — `wh-491`–`wh-500`, Medieval Europe (2026-10-15)
+
+Run as B49, which ends this thread's range: **`wh-401`–`wh-500` are done, and Medieval Europe continues at `wh-501` (B51)** (the rest of Ancient China, Africa and the Americas
+in antiquity, Byzantium and the Christian East, the Islamic world and the start of Medieval Europe). Pictures skipped.
+Checks: `wh-audit.js --range=wh-491:wh-500` clean but for `L.missing` on `wh-497` (a polity across central Europe, none
+requested) and, before a retry wrote its locator, on `wh-491`; `check-cards` all pass; `check-citations --card` 0 mismatched on
+all ten; of 81 distinct URLs two were non-2xx (an Italian journal's DOI that answered 000 and a PNAS DOI). New locators:
+`wh-491` (Sutton Hoo, marked at the River Deben) and `wh-499` (Holy Island).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-491` Sutton Hoo | 7 | 5 → 9 | **"Ship burial c. 625 CE" had no source I could open**; the latest coins date c. 610 – 635, Rædwald died 624 or 625, excavated 1939. "The two oldest ship graves with Snape" contradicted by Bonde and Stylegar and dropped. The Wuffingas probably buried here; the grave goods; no body (acid soil); the Rædwald link usual but unproven. |
+| `wh-492` Christian monasticism | 7 | 5 → 10 | **"Begins in Egypt c. 300 CE" and "Cenobitic rules 6th century" were a bare century and an unsourced start.** Antony in the desert c. 285 – 356 (the *Life* credited to Athanasius, c. 356 – 362), Pachomius c. 292 – 346; Paul of Thebes is Jerome's claim; Iona through Bede; women; hermit against cenobite. |
+| `wh-493` Rule of Saint Benedict | 7 | 5 → 7 | **The old card said no dish or drink is banned, not even meat: wrong**, RB 39 withholds the flesh of four-footed animals from the healthy. Written c. 530; Benedict's life only from Gregory's *Dialogues*, an edifying book; 73 chapters; made the one rule of Frankish monasteries 816 – 819. |
+| `wh-494` Medieval papacy | 7 | 5 → 10 | **The old card covered only the *Liber Pontificalis*, Gregory I and Charlemagne.** Now Pepin's gift, the Donation of Constantine and its forgery, Canossa and Worms, Innocent III, Avignon and the Schism; an "11th-century" in a question and an unsourced sun-and-moon letter dropped. `""` and `undatable`. |
+| `wh-495` Charlemagne | 9 | 5 → 9 | **"Never learned to write" and a Saint-Denis boyhood anointing had no source.** Birth 742 or 748; Verden's 4,500 is the Annals' figure and its size disputed; Roncesvalles was Gascons; the coronation on Christmas Day 800 told by Einhard as unplanned; he practised letters under his pillow too late. |
+| `wh-496` Carolingian Renaissance | 8 | 5 → 8 | **"Most classical texts survive via Carolingian copies" had no source.** The minuscule's origin disputed (Tours or Corbie); the schools decree of 789, Alcuin at Tours 796 – 804, the Mars letters of 798. |
+| `wh-497` Holy Roman Empire | 8 | 5 → 9 | **A question carried "1356", and a missionary-war duty, a Bryce verdict and a two-century quarrel from 1076 had no source.** Otto crowned 2 February 962 against Charlemagne in 800; the name arriving gradually (1157, 1184, 1254); Voltaire's jibe from his own text; seven electors; Worms 1122; Westphalia; dissolved 6 August 1806. |
+| `wh-498` Vikings | 9 | 5 → 11 | **"Most Scandinavians farmed", "not Vikings" and "three centuries later" had no source.** 793 – 1066 as one frame beside c. 750 – 1050; the sources are the victims' and the later sagas; Iceland 870 or 877; Greenland c. 985; L'Anse aux Meadows by tree rings, 1021; the horned-helmet myth; DNA flowing both ways. |
+| `wh-499` Lindisfarne raid | 7 | 5 → 7 | **"Wearmouth sacked 794" was a second row (the site is uncertain)**, and two sources said nothing of the raid. The Chronicle's 8 January is a miscount, June is Simeon of Durham's and modern accounts' (8 June); Alcuin's letters; the monks' fates are Simeon's; no homeland named for the raiders. |
+| `wh-500` Alfred the Great | 9 | 5 → 9 | **Two phrasings carried 878 and 899.** Born 849 by Asser's account; king 871 – 899; Edington and Guthrum's baptism at Aller; the half-at-home levy is the Chronicle's, not Asser's; the Burghal Hidage date debated; Asser's authenticity argued; the cakes a later legend; "the Great" a later byname. |
+
+**Read by eye.** *Article:* "the Rule of Saint Benedict", "the Medieval papacy", "the Carolingian Renaissance", "the Holy Roman
+Empire", "the Vikings", "the Lindisfarne raid"; "Sutton Hoo", "Christian monasticism", "Charlemagne" and "Alfred the Great"
+bare. *Confusability:* `wh-492`/`wh-493` the movement and its Rule, Antony and Pachomius only on `wh-492`; `wh-494`/`wh-495`/
+`wh-497` pope, emperor and empire, the Donation only on `wh-494`, Canossa on `wh-494` only, Voltaire only on `wh-497`;
+`wh-498`/`wh-499`/`wh-500` the people, the first raid and the king who beat them, Alcuin's letters on `wh-496` and `wh-499`;
+`wh-490`/`wh-491` the kingdoms and the burial. *Against other cards:* none contradicted; none edited.
+
+**Glossary.** Nine terms rewritten (*Sutton Hoo*, *Christian monasticism*, *Rule of Saint Benedict*, *Medieval papacy*,
+*Charlemagne*, *Carolingian Renaissance*, *Holy Roman Empire*, *Vikings*, *Alfred the Great*; *Lindisfarne raid* kept as it stood).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2186,3 +2218,8 @@ pass once it answers. Filled batch by batch.
 | `wh-488` | a Visigothic votive crown only (the glossary's Domagnano gold is Ostrogothic) |
 | `wh-490` | the Sutton Hoo helmet, `wh-491`'s subject; a map of the kingdoms would fit |
 | `wh-481`–`wh-486`, `wh-489` | judged from title and description only; no portrait of Ibn Battuta or Ibn Khaldun exists |
+| `wh-494` | the Lateran basilica façade, a church and not the office |
+| `wh-495` | the Aachen throne, not the man; its description carries an unsourced "six centuries" claim |
+| `wh-492` | one monk at a monastery gate, a person and not the movement |
+| `wh-496` | one manuscript leaf; its description carries a shelfmark |
+| `wh-491`, `wh-493`, `wh-497`–`wh-500` | judged from title and description only |

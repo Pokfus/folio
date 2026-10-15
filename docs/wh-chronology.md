@@ -476,6 +476,15 @@ Filled batch by batch, from the source each row names.
 | Ostrogoths and Visigoths: Danube / Rome sacked / Italy / Visigothic Spain | 376 / 410 / 489 – 526 / 507 – 711 CE | Ammianus; Jordanes; Cecconi (`wh-488`) |
 | Clovis I: lived / reigned / Syagrius beaten / Vouillé | c. 466 – 511 / 481 – 511 / 486 / 507 CE (baptism 496 or 508, disputed) | Gregory; Wood; Hen (`wh-489`) |
 | Anglo-Saxon England: traditional span / mission to Kent / Bede's last year / York taken | c. 449 – 1066 / 597 / 731 / 927 CE | Naismith; Bede; Gretzinger (`wh-490`) |
+| Sutton Hoo: latest coins / Rædwald died / excavated | c. 610 – 635 CE / 624 or 625 CE / 1939 | Grierson; Sutton Hoo Society (`wh-491`) |
+| Christian monasticism: Antony in the desert / Pachomius / Life of Antony | c. 285 – 356 / c. 292 – 346 / 356 – 362 CE | Robertson; Gould (`wh-492`) |
+| Rule of Saint Benedict: written / made standard | c. 530 CE / 816 – 819 CE | Hagan; Gregory (`wh-493`; `wh-494` is `undatable`) |
+| Charlemagne: reigned / Saxon wars / took Lombardy / crowned emperor | 768 – 814 / 772 – 804 / 774 / 800 CE (born 742 or 748) | Einhard; Royal Frankish Annals (`wh-495`) |
+| Carolingian Renaissance: schools decree / Alcuin at Tours / Mars letters | 789 / 796 – 804 / 798 CE | Admonitio generalis; Alcuin (`wh-496`) |
+| Holy Roman Empire: Otto crowned / Charles crowned / dissolved | 2 February 962 / 800 / 6 August 1806 CE | Sulovsky; Lück (`wh-497`) |
+| Vikings: Viking Age / also dated | 793 – 1066 CE / c. 750 – 1050 CE | Ashby; Heen-Pettersen (`wh-498`) |
+| Lindisfarne raid | 793 CE (Chronicle's 8 January is a miscount; 8 June by Simeon of Durham and modern accounts) | Anglo-Saxon Chronicle; Simeon; English Heritage (`wh-499`) |
+| Alfred the Great: born (Asser) / reigned / Edington | 849 / 871 – 899 / 878 CE | Asser; Anglo-Saxon Chronicle (`wh-500`) |
 
 ## Chronology pins
 
@@ -936,4 +945,13 @@ wh-487: 375; 568; 376; 429
 wh-488: 376; 410; 489; 526; 507; 711
 wh-489: 466; 511; 481; 486; 507
 wh-490: 449; 1066; 597; 731; 927
+wh-491: 610; 635; 624; 625; 1939
+wh-492: 285; 356; 292; 346; 362
+wh-493: 530; 816; 819
+wh-495: 768; 814; 772; 804; 774; 800
+wh-496: 789; 796; 804; 798
+wh-497: 962; 800; 1806
+wh-498: 793; 1066; 750; 1050
+wh-499: 793
+wh-500: 849; 871; 899; 878
 ```
