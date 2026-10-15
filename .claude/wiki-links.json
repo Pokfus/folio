@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-10T16:39Z",
+ "generated": "2026-10-15T12:52Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4782,
-  "redirect-broader": 439,
+  "ok": 4844,
+  "redirect-broader": 449,
   "redirect-variant": 326,
-  "section-redirect": 102,
-  "disambiguation": 139,
-  "none": 937,
+  "section-redirect": 103,
+  "disambiguation": 144,
+  "none": 959,
   "disambig-resolved": 75,
   "list-page": 6,
   "search-match": 6,
@@ -55894,6 +55894,834 @@
    "answer": "Sudan",
    "title": "Sudan",
    "url": "https://en.wikipedia.org/wiki/Sudan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-802": {
+   "answer": "Qimin yaoshu",
+   "title": "Qimin Yaoshu",
+   "url": "https://en.wikipedia.org/wiki/Qimin_Yaoshu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-803": {
+   "answer": "Hemudu culture",
+   "title": "Hemudu culture",
+   "url": "https://en.wikipedia.org/wiki/Hemudu_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-804": {
+   "answer": "Zhengguo Canal",
+   "title": "Zhengguo Canal",
+   "url": "https://en.wikipedia.org/wiki/Zhengguo_Canal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-805": {
+   "answer": "Pan Jixun",
+   "title": "Pan Jixun",
+   "url": "https://en.wikipedia.org/wiki/Pan_Jixun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-806": {
+   "answer": "Jiangnan",
+   "title": "Jiangnan",
+   "url": "https://en.wikipedia.org/wiki/Jiangnan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-807": {
+   "answer": "Fish-scale registers",
+   "title": "Fish-Scale Registers",
+   "url": "https://en.wikipedia.org/wiki/Fish-Scale_Registers",
+   "via": "search",
+   "status": "ok"
+  },
+  "cnh-808": {
+   "answer": "Rent resistance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Second Sino-Japanese War",
+    "Taiwan",
+    "History of China",
+    "Rebellion",
+    "Chinese Communist Revolution"
+   ]
+  },
+  "cnh-809": {
+   "answer": "Ban liang",
+   "title": "Banliang",
+   "url": "https://en.wikipedia.org/wiki/Banliang",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-810": {
+   "answer": "Great Ming Treasure Note",
+   "title": "Great Ming Treasure Note",
+   "url": "https://en.wikipedia.org/wiki/Great_Ming_Treasure_Note",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-811": {
+   "answer": "Sycee",
+   "title": "Sycee",
+   "url": "https://en.wikipedia.org/wiki/Sycee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-812": {
+   "answer": "Hankou",
+   "title": "Hankou",
+   "url": "https://en.wikipedia.org/wiki/Hankou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-813": {
+   "answer": "Caoyun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of canals in China",
+    "Grand Canal (China)",
+    "First Opium War",
+    "Battle of Chinkiang",
+    "Yunnan Lvshan Landscape"
+   ]
+  },
+  "cnh-814": {
+   "answer": "Sogdian Ancient Letters",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sogdian language",
+    "Sogdian alphabet",
+    "Sogdia",
+    "Indians in China",
+    "Miwnay"
+   ]
+  },
+  "cnh-815": {
+   "answer": "Shu brocade",
+   "title": "Sichuan Textiles",
+   "url": "https://en.wikipedia.org/wiki/Sichuan_Textiles",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Shu brocade"
+  },
+  "cnh-816": {
+   "answer": "Tea Horse Road",
+   "title": "Tea Horse Road",
+   "url": "https://en.wikipedia.org/wiki/Tea_Horse_Road",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-817": {
+   "answer": "Belitung shipwreck",
+   "title": "Belitung shipwreck",
+   "url": "https://en.wikipedia.org/wiki/Belitung_shipwreck",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-818": {
+   "answer": "Maritime Trade Supervisorate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "cnh-819": {
+   "answer": "Junk",
+   "title": "Junk (ship)",
+   "url": "https://en.wikipedia.org/wiki/Junk_(ship)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-820": {
+   "answer": "Comprador",
+   "title": "Comprador",
+   "url": "https://en.wikipedia.org/wiki/Comprador",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-821": {
+   "answer": "Qianzhuang",
+   "title": "Qianzhuang",
+   "url": "https://en.wikipedia.org/wiki/Qianzhuang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-822": {
+   "answer": "Yangzhou salt merchants",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "cnh-823": {
+   "answer": "Yunnan copper",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "cnh-824": {
+   "answer": "Huang Daopo",
+   "title": "Huang Daopo",
+   "url": "https://en.wikipedia.org/wiki/Huang_Daopo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-825": {
+   "answer": "Great Divergence",
+   "title": "Great Divergence",
+   "url": "https://en.wikipedia.org/wiki/Great_Divergence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-826": {
+   "answer": "Huang–Lao",
+   "title": "Huang–Lao",
+   "url": "https://en.wikipedia.org/wiki/Huang%E2%80%93Lao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-827": {
+   "answer": "Lüshi Chunqiu",
+   "title": "Lüshi Chunqiu",
+   "url": "https://en.wikipedia.org/wiki/L%C3%BCshi_Chunqiu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-828": {
+   "answer": "Yan Hui",
+   "title": "Yan Hui",
+   "url": "https://en.wikipedia.org/wiki/Yan_Hui",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-829": {
+   "answer": "Zilu",
+   "title": "Zhong You",
+   "url": "https://en.wikipedia.org/wiki/Zhong_You",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Zilu"
+  },
+  "cnh-830": {
+   "answer": "Shu (reciprocity)",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Golden Rule",
+    "Religion in China",
+    "Chinese folk religion",
+    "China–United States relations",
+    "History of religion in China"
+   ]
+  },
+  "cnh-831": {
+   "answer": "Liji",
+   "title": "Book of Rites",
+   "url": "https://en.wikipedia.org/wiki/Book_of_Rites",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Liji"
+  },
+  "cnh-832": {
+   "answer": "Zhongyong",
+   "title": "Doctrine of the Mean",
+   "url": "https://en.wikipedia.org/wiki/Doctrine_of_the_Mean",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Zhongyong"
+  },
+  "cnh-833": {
+   "answer": "Wenmiao",
+   "title": "Temple of Confucius",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Confucius",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Wenmiao"
+  },
+  "cnh-834": {
+   "answer": "Four Beginnings",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Four Great Inventions",
+    "China",
+    "Gang of Four",
+    "Four Greats (China)",
+    "Chengyu"
+   ]
+  },
+  "cnh-835": {
+   "answer": "Discourse on Heaven",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tale of King Mu, Son of Heaven",
+    "Tianxia",
+    "Ruguanxue",
+    "Seven heavens",
+    "Chinese theology"
+   ]
+  },
+  "cnh-836": {
+   "answer": "Gaozi",
+   "title": "Gaozi",
+   "url": "https://en.wikipedia.org/wiki/Gaozi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-837": {
+   "answer": "Hangu Pass",
+   "title": "Hangu Pass",
+   "url": "https://en.wikipedia.org/wiki/Hangu_Pass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-838": {
+   "answer": "Guodian Chu Slips",
+   "title": "Bamboo Texts of Guodian",
+   "url": "https://en.wikipedia.org/wiki/Bamboo_Texts_of_Guodian",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Guodian Chu Slips"
+  },
+  "cnh-839": {
+   "answer": "Heshang Gong",
+   "title": "Heshang Gong",
+   "url": "https://en.wikipedia.org/wiki/Heshang_Gong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-840": {
+   "answer": "Cook Ding",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Dream of Ding Village",
+    "China",
+    "King Ding of Zhou",
+    "Margaret Hie Ding Lin",
+    "Kung Pao chicken"
+   ]
+  },
+  "cnh-841": {
+   "answer": "Liezi",
+   "title": "Liezi",
+   "url": "https://en.wikipedia.org/wiki/Liezi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-842": {
+   "answer": "Qiwulun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mount Tai",
+    "Zhang Binglin",
+    "Glossary of Zhuangzi exegesis",
+    "Zuowang"
+   ]
+  },
+  "cnh-843": {
+   "answer": "Mozi",
+   "title": "Mozi",
+   "url": "https://en.wikipedia.org/wiki/Mozi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-844": {
+   "answer": "Gongshu Ban",
+   "title": "Lu Ban",
+   "url": "https://en.wikipedia.org/wiki/Lu_Ban",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-845": {
+   "answer": "Shen Buhai",
+   "title": "Shen Buhai",
+   "url": "https://en.wikipedia.org/wiki/Shen_Buhai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-846": {
+   "answer": "Two Handles",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Legalism (Chinese philosophy)",
+    "China",
+    "Taiwan",
+    "Handle System",
+    "Wooden ox"
+   ]
+  },
+  "cnh-847": {
+   "answer": "Hui Shi",
+   "title": "Hui Shi",
+   "url": "https://en.wikipedia.org/wiki/Hui_Shi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-848": {
+   "answer": "He Tu and Luo Shu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Cartography of China",
+    "Resurrection (2025 film)",
+    "Zhang He",
+    "List of gods in the Investiture of the Gods",
+    "Penghou"
+   ]
+  },
+  "cnh-849": {
+   "answer": "Wu Xing",
+   "title": "Wuxing (Chinese philosophy)",
+   "url": "https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-850": {
+   "answer": "Zou Yan",
+   "title": "Zou Yan",
+   "url": "https://en.wikipedia.org/wiki/Zou_Yan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-851": {
+   "answer": "Ten Wings",
+   "title": "Ten Wings",
+   "url": "https://en.wikipedia.org/wiki/Ten_Wings",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-852": {
+   "answer": "Xiping Stone Classics",
+   "title": "Xiping Stone Classics",
+   "url": "https://en.wikipedia.org/wiki/Xiping_Stone_Classics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-853": {
+   "answer": "Great Learning",
+   "title": "Great Learning",
+   "url": "https://en.wikipedia.org/wiki/Great_Learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-854": {
+   "answer": "White Tiger Discussions",
+   "title": "Bai Hu Tong",
+   "url": "https://en.wikipedia.org/wiki/Bai_Hu_Tong",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-855": {
+   "answer": "Liu Xin",
+   "title": "Liu Xin (scholar)",
+   "url": "https://en.wikipedia.org/wiki/Liu_Xin_(scholar)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-856": {
+   "answer": "Wang Bi",
+   "title": "Wang Bi",
+   "url": "https://en.wikipedia.org/wiki/Wang_Bi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-857": {
+   "answer": "Li Ao",
+   "title": "Li Ao",
+   "url": "https://en.wikipedia.org/wiki/Li_Ao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-858": {
+   "answer": "Zhang Zai",
+   "title": "Zhang Zai",
+   "url": "https://en.wikipedia.org/wiki/Zhang_Zai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-859": {
+   "answer": "Taijitu shuo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Taijitu shuo",
+   "target": "Wuji (philosophy)#Taijitu shuo"
+  },
+  "cnh-860": {
+   "answer": "Cheng Yi",
+   "title": "Cheng Yi (philosopher)",
+   "url": "https://en.wikipedia.org/wiki/Cheng_Yi_(philosopher)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-861": {
+   "answer": "Wang Fuzhi",
+   "title": "Wang Fuzhi",
+   "url": "https://en.wikipedia.org/wiki/Wang_Fuzhi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-862": {
+   "answer": "Lu Jiuyuan",
+   "title": "Lu Jiuyuan",
+   "url": "https://en.wikipedia.org/wiki/Lu_Jiuyuan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-863": {
+   "answer": "Investigation of things",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Federal Bureau of Investigation",
+    "Internet of things",
+    "Taiwan",
+    "China Initiative",
+    "Great Learning"
+   ]
+  },
+  "cnh-864": {
+   "answer": "Yan Ruoju",
+   "title": "Yan Ruoqu",
+   "url": "https://en.wikipedia.org/wiki/Yan_Ruoqu",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Yan Ruoju"
+  },
+  "cnh-865": {
+   "answer": "Huang Zongxi",
+   "title": "Huang Zongxi",
+   "url": "https://en.wikipedia.org/wiki/Huang_Zongxi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-866": {
+   "answer": "Quanxue pian",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Chinese Learning as Substance, Western Learning for Application",
+    "Shizi (book)"
+   ]
+  },
+  "cnh-867": {
+   "answer": "Science and Metaphysics debate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Metaphysics",
+    "Ontology",
+    "Philosophy",
+    "East–West cultural debate",
+    "History of metaphysics"
+   ]
+  },
+  "cnh-868": {
+   "answer": "Wenchang Wang",
+   "title": "Wenchang Wang",
+   "url": "https://en.wikipedia.org/wiki/Wenchang_Wang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-869": {
+   "answer": "Qingming Festival",
+   "title": "Qingming Festival",
+   "url": "https://en.wikipedia.org/wiki/Qingming_Festival",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-870": {
+   "answer": "Dongyue Dadi",
+   "title": "Dongyue Dadi",
+   "url": "https://en.wikipedia.org/wiki/Dongyue_Dadi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-871": {
+   "answer": "City God",
+   "title": "City God (China)",
+   "url": "https://en.wikipedia.org/wiki/City_God_(China)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-872": {
+   "answer": "Luopan",
+   "title": "Luopan",
+   "url": "https://en.wikipedia.org/wiki/Luopan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-873": {
+   "answer": "Chinese almanac",
+   "title": "Tung Shing",
+   "url": "https://en.wikipedia.org/wiki/Tung_Shing",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Chinese almanac"
+  },
+  "cnh-874": {
+   "answer": "Fengshan",
+   "title": "Feng Shan",
+   "url": "https://en.wikipedia.org/wiki/Feng_Shan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-875": {
+   "answer": "Mingtang",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "1911 Revolution",
+    "Wei-ming temple",
+    "CCTV-10",
+    "Wu Zetian",
+    "Old City of Luoyang"
+   ]
+  },
+  "cnh-876": {
+   "answer": "Lingbao",
+   "title": "Lingbao School",
+   "url": "https://en.wikipedia.org/wiki/Lingbao_School",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-877": {
+   "answer": "Zhang Daoling",
+   "title": "Zhang Daoling",
+   "url": "https://en.wikipedia.org/wiki/Zhang_Daoling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-878": {
+   "answer": "Baopuzi",
+   "title": "Baopuzi",
+   "url": "https://en.wikipedia.org/wiki/Baopuzi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-879": {
+   "answer": "Daozang",
+   "title": "Daozang",
+   "url": "https://en.wikipedia.org/wiki/Daozang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-880": {
+   "answer": "White Cloud Temple",
+   "title": "White Cloud Temple",
+   "url": "https://en.wikipedia.org/wiki/White_Cloud_Temple",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-881": {
+   "answer": "Wang Zhe",
+   "title": "Wang Zhe",
+   "url": "https://en.wikipedia.org/wiki/Wang_Zhe",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-882": {
+   "answer": "Liu Ying",
+   "title": "Liu Ying (prince)",
+   "url": "https://en.wikipedia.org/wiki/Liu_Ying_(prince)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-883": {
+   "answer": "An Shigao",
+   "title": "An Shigao",
+   "url": "https://en.wikipedia.org/wiki/An_Shigao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-884": {
+   "answer": "Dharmaraksa",
+   "title": "Dharmarakṣa",
+   "url": "https://en.wikipedia.org/wiki/Dharmarak%E1%B9%A3a",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-885": {
+   "answer": "Kumarajiva",
+   "title": "Kumārajīva",
+   "url": "https://en.wikipedia.org/wiki/Kum%C4%81raj%C4%ABva",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-886": {
+   "answer": "Daoxuan",
+   "title": "Daoxuan",
+   "url": "https://en.wikipedia.org/wiki/Daoxuan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-887": {
+   "answer": "Zhiyi",
+   "title": "Zhiyi",
+   "url": "https://en.wikipedia.org/wiki/Zhiyi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-888": {
+   "answer": "Fazang",
+   "title": "Fazang",
+   "url": "https://en.wikipedia.org/wiki/Fazang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-889": {
+   "answer": "Huiyuan",
+   "title": "Lushan Huiyuan",
+   "url": "https://en.wikipedia.org/wiki/Lushan_Huiyuan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "cnh-890": {
+   "answer": "Platform Sutra",
+   "title": "Platform Sutra",
+   "url": "https://en.wikipedia.org/wiki/Platform_Sutra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-891": {
+   "answer": "Baizhang Huaihai",
+   "title": "Baizhang Huaihai",
+   "url": "https://en.wikipedia.org/wiki/Baizhang_Huaihai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-892": {
+   "answer": "Dazu Rock Carvings",
+   "title": "Dazu Rock Carvings",
+   "url": "https://en.wikipedia.org/wiki/Dazu_Rock_Carvings",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-893": {
+   "answer": "Mogao Caves",
+   "title": "Mogao Caves",
+   "url": "https://en.wikipedia.org/wiki/Mogao_Caves",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-894": {
+   "answer": "Mount Wutai",
+   "title": "Mount Wutai",
+   "url": "https://en.wikipedia.org/wiki/Mount_Wutai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-895": {
+   "answer": "Emperor Taiwu of Northern Wei",
+   "title": "Emperor Taiwu of Northern Wei",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Taiwu_of_Northern_Wei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-896": {
+   "answer": "Great Cloud Sutra",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mahāmegha Sūtra",
+    "Diamond Sutra",
+    "Mahayana sutras",
+    "Sukhavati",
+    "Prajnaparamita"
+   ]
+  },
+  "cnh-897": {
+   "answer": "Three teachings",
+   "title": "Three teachings",
+   "url": "https://en.wikipedia.org/wiki/Three_teachings",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "cnh-898": {
+   "answer": "Tianzhu shiyi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tianzhu (Chinese name of God)",
+    "Christianity in China",
+    "Alessandro Valignano",
+    "Catholic missions",
+    "Lotus Sutra"
+   ]
+  },
+  "cnh-899": {
+   "answer": "Nestorian Stele",
+   "title": "Xi'an Stele",
+   "url": "https://en.wikipedia.org/wiki/Xi'an_Stele",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Nestorian Stele"
+  },
+  "cnh-900": {
+   "answer": "Eternal Venerable Mother",
+   "title": null,
+   "url": null,
+   "via": "manual",
+   "status": "no-article",
+   "manual": true
+  },
+  "cnh-901": {
+   "answer": "Three-Self Patriotic Movement",
+   "title": "Three-Self Patriotic Movement",
+   "url": "https://en.wikipedia.org/wiki/Three-Self_Patriotic_Movement",
    "via": "glossary",
    "status": "ok"
   }
