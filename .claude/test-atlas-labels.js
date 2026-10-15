@@ -88,7 +88,7 @@ async function layoutAt(page, V, density) {
      placement the caller never saw); otherwise the layout is asked for again. No timer decides anything, and nothing about the assertions is loosened. */
   let placed, stats;
   for (let attempt = 0; attempt < 6; attempt++) {
-    const got = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return c.layoutNow().then((p) => ({ seq: c.layoutSeq(), frames: c.statsNow().frames, placed: p.map((x) => ({ id: x.id, kind: x.kind, text: x.text, rects: x.rects, box: x.box, marker: !!x.marker, curved: !!x.curved, score: x.score, glyphs: x.glyphs ? x.glyphs.map((g) => g[2]) : [], meanAngle: x.meanAngle || 0 })) })); });
+    const got = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return c.layoutNow().then((p) => ({ seq: c.layoutSeq(), frames: c.statsNow().frames, placed: p.map((x) => ({ id: x.id, kind: x.kind, style: x.style, text: x.text, rects: x.rects, box: x.box, marker: !!x.marker, curved: !!x.curved, score: x.score, glyphs: x.glyphs ? x.glyphs.map((g) => g[2]) : [], meanAngle: x.meanAngle || 0 })) })); });
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate());
     await page.waitForFunction((f0) => document.querySelector(".atlas2").__atlas2.statsNow().frames > f0, got.frames, { timeout: 60000 });
     stats = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.statsNow());
@@ -247,6 +247,50 @@ async function inkInBoxes(page, placed) {
     check(`${label}: every curved label reads upright (mean rotation within ±90°, no glyph beyond)`, upside.length === 0, upside.slice(0, 4).join(", ") || `${placed.filter((p) => p.curved).length} curved`);
     return placed;
   }
+  /* ---- Oct 2026, owner decision 1: the names follow the reader's Text size (Settings → Text size, `body[data-fs]` → `--fs`) ---- */
+  /* WHAT IT PROVES. At the smallest, the default and the largest stop, on a 1280×800 desktop and a 390×844 phone: (1) the factor the Atlas reads is the stylesheet's own --fs over what Medium is on that device
+     (desktop .8 / 1 / 1.32; phone .78 / 1 / 1.27 — the phone's Medium is the default look, so a reader who never touched the slider sees exactly what they saw); (2) the city names' boxes grow with it
+     (the rectangle the worker lays out is 1.2 × the style's size × the factor), so the collision arithmetic is scaled with the type; (3) the INK is as wide as its box at every stop — a font that did not follow
+     the advances would read 0.76 or 1.25 of it; (4) at every stop no two names overlap, none leaves the frame and none lies under a control (the chrome checks of 8a/8b, run again at each stop). */
+  const FS_EXPECT = { desktop: { tiny: 0.8, medium: 1, huge: 1.32 }, phone: { tiny: 0.78, medium: 1, huge: 1.27 } };
+  async function textSizeSection(pg, label, kind) {
+    console.log(`\n\x1b[1m12) Text size reaches the names — ${label}\x1b[0m\n`);
+    const V = { lon: 10, lat: 50, k: 3 };
+    await pg.evaluate(() => document.querySelector(".atlas2").__atlas2.setYear(new Date().getUTCFullYear()));
+    await pg.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historySettled(), null, { timeout: 120000 }).catch(() => {});
+    const CITY_H = 1.2 * 11.5;   // a city name's rectangle at scale 1: the style's 11.5 px × the shaper's 1.2
+    const mean = {};
+    for (const fs of ["tiny", "medium", "huge"]) {
+      const want = FS_EXPECT[kind][fs];
+      await pg.evaluate((f) => { document.body.dataset.fs = f; }, fs);
+      const got = await pg.waitForFunction((w) => document.querySelector(".atlas2").__atlas2.labelScale() === w, want, { timeout: 15000 }).then(() => want, () => pg.evaluate(() => document.querySelector(".atlas2").__atlas2.labelScale()));
+      check(`${label}, ${fs}: the Atlas reads ×${want} off --fs`, got === want, "read ×" + got);
+      const placed = await chromeChecks(pg, `${label}, ${fs}`, V, "dense");
+      const bad = overlaps(placed);
+      check(`${label}, ${fs}: ${placed.length} names, none overlapping`, placed.length > 0 && bad.length === 0, bad.slice(0, 3).join("; "));
+      const cities = placed.filter((p) => p.kind === "city" && p.style === "city" && !p.curved && p.text && p.rects.length >= 1);
+      const hs = cities.map((p) => p.rects[0][3] - p.rects[0][1]);
+      mean[fs] = hs.length ? hs.reduce((a, b) => a + b, 0) / hs.length : 0;
+      check(`${label}, ${fs}: the ${cities.length} city names' boxes are ${(CITY_H * want).toFixed(1)} px tall (the style's size × ${want})`, cities.length >= 3 && Math.abs(mean[fs] - CITY_H * want) < 0.15, mean[fs].toFixed(2) + " px");
+      const ratios = await pg.evaluate((boxes) => {
+        const c = document.querySelector(".atlas2-labels"), x = c.getContext("2d"), dpr = c.width / c.clientWidth, out = [];
+        for (const b of boxes) {
+          const x0 = Math.max(0, Math.floor((b[0] - 1) * dpr)), y0 = Math.max(0, Math.floor(b[1] * dpr)), x1 = Math.min(c.width, Math.ceil((b[2] + 1) * dpr)), y1 = Math.min(c.height, Math.ceil(b[3] * dpr));
+          if (x1 - x0 < 4 || y1 - y0 < 4) continue;
+          const d = x.getImageData(x0, y0, x1 - x0, y1 - y0).data, w = x1 - x0; let lo = w, hi = -1;
+          for (let i = 3, k = 0; i < d.length; i += 4, k++) if (d[i] > 90) { const col = k % w; if (col < lo) lo = col; if (col > hi) hi = col; }
+          if (hi > lo) out.push(((hi - lo + 1) / dpr) / (b[2] - b[0]));
+        }
+        return out;
+      }, cities.slice(0, 8).map((p) => p.rects[0]));
+      ratios.sort((a, b) => a - b); const med = ratios.length ? ratios[Math.floor(ratios.length / 2)] : 0;
+      check(`${label}, ${fs}: the ink is as wide as its box (median ink ÷ box over ${ratios.length} city names)`, ratios.length >= 3 && med > 0.88 && med < 1.16, med.toFixed(3));
+    }
+    check(`${label}: the boxes follow the setting (tiny ${mean.tiny.toFixed(1)} < medium ${mean.medium.toFixed(1)} < huge ${mean.huge.toFixed(1)} px)`, mean.tiny < mean.medium && mean.medium < mean.huge && Math.abs(mean.huge / mean.tiny - FS_EXPECT[kind].huge / FS_EXPECT[kind].tiny) < 0.04, (mean.huge / mean.tiny).toFixed(3) + " × between the ends");
+    await pg.evaluate(() => { document.body.dataset.fs = "medium"; });
+    await pg.waitForFunction(() => document.querySelector(".atlas2").__atlas2.labelScale() === 1, null, { timeout: 15000 }).catch(() => {});
+  }
+
   console.log("\n\x1b[1m8a) the chrome and the orientation, desktop 1280×800\x1b[0m\n");
   {
     await chromeChecks(page, "desktop, Europe (Berlin by the zoom stack)", { lon: 13.4, lat: 52.5, k: 3 }, "dense");
@@ -394,6 +438,7 @@ async function inkInBoxes(page, placed) {
     const placed = (await layoutAt(D.page, V, "normal")).placed, row = await D.page.evaluate((i) => document.querySelector(".atlas2").__atlas2.rowName(i), id), lab = placed.find((p) => p.id === id);
     check(`${yr}: ${id.replace("pol:", "")} is "${want}" (the place card and stack read "${row}"; the label reads "${lab ? lab.text : "not named"}")`, row === want && (!lab || lab.text.replace(/\s+/g, " ").toLowerCase() === want.toLowerCase()), `${row} / ${lab ? lab.text : "-"}`);
   }
+  await textSizeSection(D.page, "desktop 1280×800", "desktop");
   await D.page.close();
   const PH = await open(phone);
   await PH.page.setViewportSize({ width: 390, height: 844 }); await sleep(300);
@@ -410,6 +455,7 @@ async function inkInBoxes(page, placed) {
   // a sweep of phone views over the 1500 map: no polity name, in any of them, cut by an edge
   for (const V of [{ lon: -5, lat: 15, k: 12 }, { lon: 30, lat: 40, k: 16 }, { lon: 30, lat: 38, k: 12 }, { lon: 10, lat: 50, k: 12 }, { lon: 35, lat: 40, k: 24 }]) await polityView(PH.page, `phone 390×844, 1500 at ${V.lon}°, ${V.lat}°, ${V.k} km/px`, V, 1500, null, null);
   await areaSweep(PH.page, "phone 390×844");
+  await textSizeSection(PH.page, "phone 390×844", "phone");
   check("no page errors on #map (phone, the history loaded)", PH.errors.length === 0, PH.errors.slice(0, 3).join(" | "));
   await PH.page.close();
   check("no page errors on #map (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));

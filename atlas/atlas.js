@@ -144,6 +144,19 @@
     { id: "people-s", face: "serif", size: 11.5, weight: 400, italic: true, caps: false, track: 2.4 },
   ];
   const SMALL_SCALE = 0.78;
+  /* TEXT SIZE REACHES THE NAMES (Oct 2026, owner decision; v1's canvas labels followed it, v2's did not until now). Settings → Text size sets `--fs` on <body> (styles.css `body[data-fs]`: .8 … 1.32, one stop lower on a
+     phone). The labels are painted, so the stylesheet cannot reach them; this reads the same variable and divides by what MEDIUM is on this device (1, or .9 under 641 px), so the default looks exactly as it always
+     has and every other stop grows or shrinks the names by the ratio the chrome does. The factor multiplies the style sizes, the tracking, the glyph advances the worker shapes with, the halo widths, and — sent with each
+     layout — the collision padding, the dot beside a city, the frame margin and the study marks, so a name that grows takes its box with it (a bigger name in the old box is a map that overlaps itself). */
+  const FS_PHONE_QUERY = "(max-width:640px)";
+  function labelScaleNow() {
+    try {
+      const v = parseFloat(getComputedStyle(document.body).getPropertyValue("--fs"));
+      if (!(v > 0)) return 1;
+      const medium = matchMedia(FS_PHONE_QUERY).matches ? 0.9 : 1;
+      return Math.max(0.6, Math.min(1.6, Math.round(v / medium * 100) / 100));
+    } catch (e) { return 1; }
+  }
   // the characters measured per style: the Latin alphabet with its diacritics, digits and the punctuation the
   // sources use; anything else is measured on demand when the worker reports it missing
   const ALPHABET = (() => { let s = " .,'’-–()/&"; for (let c = 0x30; c <= 0x39; c++) s += String.fromCharCode(c); for (let c = 0x41; c <= 0x5a; c++) s += String.fromCharCode(c); for (let c = 0x61; c <= 0x7a; c++) s += String.fromCharCode(c); for (let c = 0xc0; c <= 0x17f; c++) s += String.fromCharCode(c); return [...new Set([...s])]; })();
@@ -253,7 +266,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. The Atlas page itself does not use it (it needs every level before it is `ready`, and its first paint is not a card window's). */
-  const CORE_CACHE_REV = "c1f0b606c1:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "8fa3e9a360:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -542,6 +555,7 @@
       dprNow = Math.min(2, window.devicePixelRatio || 1);
       R.resize(cssW, cssH, (window.devicePixelRatio || 1) * resScale);
       labelCanvas.width = Math.round(cssW * dprNow); labelCanvas.height = Math.round(cssH * dprNow);
+      if (G.ready && Math.abs(labelScaleNow() - LS) > 0.001) { spriteGen++; spriteCache.clear(); measureMetrics(); }   // the viewport crossed the phone breakpoint: Medium is a different --fs there (labelScaleNow)
       base = Math.min(cssW, cssH) * 0.46;
       view.cx = cssW / 2; view.cy = cssH / 2;
       needs = true; needsGlobe = true;
@@ -1772,7 +1786,7 @@
     function faceOfId(id) { const i = entityOf(id); return i == null || !faceOfEntity ? null : (faceOfEntity.has(i) ? faceOfEntity.get(i) : null); }
 
     /* ---- glyph metrics: every style's advances, measured on the label canvas, posted to the worker ---- */
-    let faces = themeFaces(), metricsSent = 0;
+    let faces = themeFaces(), metricsSent = 0, LS = labelScaleNow();   // LS: the Text-size factor of the names (see labelScaleNow)
     const extraChars = new Set();
     function themeFaces() {
       const cs = getComputedStyle(document.body);
@@ -1781,15 +1795,15 @@
     }
     const fontOf = (st, px) => `${st.italic ? "italic " : ""}${st.weight} ${px}px ${faces[st.face]}`;   // ctx.font must carry a pixel size
     function measureMetrics() {
-      faces = themeFaces();
+      faces = themeFaces(); LS = labelScaleNow();
       const styles = {};
       const chars = [...ALPHABET, ...extraChars];
       for (const st of STYLES) {
-        const adv = {}, advSmall = {};
-        lctx.font = fontOf(st, st.size);
+        const adv = {}, advSmall = {}, px = st.size * LS;
+        lctx.font = fontOf(st, px);
         for (const ch of chars) adv[ch] = lctx.measureText(ch).width;
-        if (st.caps) { lctx.font = fontOf(st, st.size * SMALL_SCALE); for (const ch of chars) advSmall[ch] = lctx.measureText(ch).width; }
-        styles[st.id] = { id: st.id, size: st.size, caps: !!st.caps, smallScale: SMALL_SCALE, track: st.track, adv, advSmall };
+        if (st.caps) { lctx.font = fontOf(st, px * SMALL_SCALE); for (const ch of chars) advSmall[ch] = lctx.measureText(ch).width; }
+        styles[st.id] = { id: st.id, size: px, caps: !!st.caps, smallScale: SMALL_SCALE, track: st.track * LS, adv, advSmall };
       }
       metricsSent++;
       postToWorker({ type: "metrics", styles });
@@ -1832,7 +1846,7 @@
       const seq = ++layoutSeq;
       L.sentAt = performance.now();
       L.chrome = chromeRects();   // kept for the painter: between layouts a label that slid under a control or past the frame is not drawn (Phase 4c)
-      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
+      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, fs: LS, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
       if (reason === "settle" || reason === "level") writeHash(false);
     }
     function applyLayout(m) {
@@ -1881,8 +1895,8 @@
       const x = c.getContext("2d");
       x.scale(dprNow, dprNow); x.translate(-x0, -y0);
       x.textBaseline = "middle"; x.textAlign = "left"; x.lineJoin = "round"; x.lineCap = "round";
-      x.lineWidth = p.id === sel.id ? 3.4 : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : 2.6; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
-      const fontBig = fontOf(st, st.size), fontSmall = st.caps ? fontOf(st, st.size * SMALL_SCALE) : fontBig;
+      x.lineWidth = (p.id === sel.id ? 3.4 : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : 2.6) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
+      const fontBig = fontOf(st, st.size * LS), fontSmall = st.caps ? fontOf(st, st.size * LS * SMALL_SCALE) : fontBig;
       for (const pass of [0, 1]) {   // every halo first, then every glyph, so a halo never bites a neighbour
         for (let i = 0; i < p.glyphs.length; i++) {
           const g = p.glyphs[i], ch = p.chars[i]; if (ch == null) continue;
@@ -1942,7 +1956,7 @@
       if (!marks.length || !A || !L.mA) { L.lastMarkMs = 0; return; }
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy, ch = L.chrome || [], nch = ch.length;
       const r0 = rot[0], r1 = rot[1], r2 = rot[2], r3 = rot[3], r4 = rot[4], r5 = rot[5], r6 = rot[6], r7 = rot[7], r8 = rot[8];
-      const half = A.markHalf(view.kmpp), lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH;
+      const half = A.markHalf(view.kmpp) * LS, lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH;
       const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : -1, aliveEnt = time.aliveEnt;
       let ln = 0, selK = -1;
       const faint = [];
@@ -2013,9 +2027,9 @@
     function closeFan(silent) { if (!fan) return false; fan = null; if (!silent) invalidateLabels(); return true; }
     function openFan(x, y, near) {
       const A = root.AtlasStudy, ctx = lctx, st = STYLE_BY_ID.town || STYLE_BY_ID.city;
-      ctx.font = fontOf(st, 12);
+      ctx.font = fontOf(st, 12 * LS);
       const mem = near.slice(0, FAN_MAX).map((e) => { const row = G.byId.get(e.m.id); const name = row ? row.name : e.m.id; return { e, name, x: e.x, y: e.y, w: ctx.measureText(name).width }; });
-      const f = A.fanOut(mem, { x, y }, { W: cssW, H: cssH, chrome: L.chrome || [], max: FAN_MAX, half: 9 });
+      const f = A.fanOut(mem, { x, y }, { W: cssW, H: cssH, chrome: L.chrome || [], max: FAN_MAX, half: 9 * LS });
       fan = { x, y, sig: fanSig(), mem, slots: f.slots.map((sl) => Object.assign({}, sl, { mem: mem[sl.i] })), clear: f.clear };
       sel.stack = []; sel.at = null; stackBtn.hidden = true;
       announce("Choose one: " + mem.map((m) => m.name).join(", "));
@@ -2034,10 +2048,10 @@
       }
       for (const sl of fan.slots) {
         const m = sl.mem, mk = m.e.m, path = new Path2D(), hot = mk.id === sel.id;
-        markInto(path, mk.shape, sl.x, sl.y, 8, 2);
+        markInto(path, mk.shape, sl.x, sl.y, 8 * LS, 2);
         ctx.lineWidth = 2; ctx.strokeStyle = hot ? selCss : inkCss; ctx.fillStyle = mk.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
-        ctx.font = fontOf(st, 12); ctx.textBaseline = "middle"; ctx.textAlign = sl.right ? "left" : "right";
-        const tx = sl.right ? sl.x + 13 : sl.x - 13;
+        ctx.font = fontOf(st, 12 * LS); ctx.textBaseline = "middle"; ctx.textAlign = sl.right ? "left" : "right";
+        const tx = sl.right ? sl.x + 13 * LS : sl.x - 13 * LS;
         ctx.lineWidth = 3; ctx.strokeStyle = haloCss; ctx.strokeText(m.name, tx, sl.y); ctx.fillStyle = inkCss; ctx.fillText(m.name, tx, sl.y);
       }
       ctx.textAlign = "left";
@@ -2675,7 +2689,7 @@
     mo.observe(viewHost, { childList: true });
     // a theme change (data-theme, or the night class) re-reads the tokens: the palette and the relief ramp follow
     const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); drawTicks(); } if (G.ready) measureMetrics(); invalidate(); });
-    themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme"] });
+    themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme", "data-fs"] });   // data-fs: Settings → Text size (the names follow it, labelScaleNow)
     /* ============================================================================================================
        PHASE 3b — THE STUDY LAYER (docs/atlas-v2-design.md §2.8, §7 "Phase 3b — as built")
        The host (app.js) hands over `H.study`: the ids of the cards the reader has a record for (studied: v1's own definition, see
@@ -2943,7 +2957,7 @@
         index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0 },
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
-      labels: () => L.placed, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
+      labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
       gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, shut: cardEl.classList.contains("atlas2-card-shut") }),
