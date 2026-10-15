@@ -150,7 +150,7 @@ order unless the user says otherwise.
 | B16 | The conquest of Italy (`rm-conquest-italy`) | `rm-151`–`rm-160` | 10 | 119 | **done 2026-10-15** |
 | B17 | The conquest of Italy (`rm-conquest-italy`) | `rm-161`–`rm-170` | 10 | 110 | **done 2026-10-15** |
 | B18 | The conquest of Italy (`rm-conquest-italy`) | `rm-171`–`rm-180` | 10 | 104 | **done 2026-10-15** |
-| B19 | The Punic Wars (`rm-punic-wars`) | `rm-181`–`rm-190` | 10 | 129 | open |
+| B19 | The Punic Wars (`rm-punic-wars`) | `rm-181`–`rm-190` | 10 | 129 | **done 2026-10-15** |
 | B20 | The Punic Wars (`rm-punic-wars`) | `rm-191`–`rm-200` | 10 | 127 | open |
 | B21 | The Punic Wars (`rm-punic-wars`) | `rm-201`–`rm-210` | 10 | 128 | open |
 | B22 | The Punic Wars (`rm-punic-wars`) | `rm-211`–`rm-220` | 10 | 115 | open |
@@ -450,6 +450,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-178` Romanisation of Italy | the Latin colony of Alba Fucens | acceptable photograph of one colony; the description names Velleius and carries an unsourced claim |
 | `rm-179` Latin | the Lapis Niger | `rm-089`'s subject standing for the whole language; the title states a century no source read supports |
 | `rm-180` Roman Italy | none | no picture (`I.none`); a map of the Augustan regions would do |
+| `rm-181` Carthage | an 1847 engraved plan of the site | burned-in labels; a drawing where photographs exist; the description names its source book |
+| `rm-182` Carthaginian empire | Reclus's 1905 plate of the Carthaginian empire | a stippled engraving with burned-in French labels, showing a loose sphere of activity |
+| `rm-183` Carthaginian constitution | none | no picture (`I.none`) |
+| `rm-184` Carthaginian navy | the naval harbour at Carthage from the air | a hand-coloured postcard of unknown authorship whose public-domain status is unverified; the description names Appian |
+| `rm-185` Roman–Carthaginian treaties | none | no picture (`I.none`) |
+| `rm-186` First Punic War | a 1906 line map of the Punic theatre | lettered with place names; the description names the book and author |
+| `rm-187` Mamertines | a Mamertine bronze coin | a fair single object for a people who struck coins; the description names the Berlin cabinet and its own dating |
+| `rm-188` Messana | a silver tetradrachm of Zancle | one coin cannot show a city; the description names the Berlin cabinet and a date range |
+| `rm-189` Hiero II | a silver 32-litra piece of Syracuse | the right kind of picture; the description wants rewording (it names the museum and its dates disagree with the card) |
+| `rm-190` siege of Agrigentum | a 1727 engraving from Thuillier's French Polybius | usable (no photograph can show the siege); the description names its source |
 
 ## Glossary candidates
 
@@ -1027,3 +1037,22 @@ Run as B17. Checks: `rm-audit.js --range=rm-171:rm-180` reads clean on five card
 | `rm-180` Roman Italy | 8 | 5 → 8 | **"From the Po to the strait" is wrong**: the Celts held the Po plain and official Italy excluded Cisalpine Gaul; Ariminum (268 BCE) was the northern post. Rhegium follows Polybius (over 300 prisoners executed), not Frontinus's 4,000; the Mamertine material moved to `rm-187`. The name Italia and Corfinium are new angles. |
 
 **Read by eye.** *Confusability:* `rm-171`/`rm-172`/`rm-170` are system, status and register, with each phrasing naming only its own term; `rm-138`/`rm-173`/`rm-174`/`rm-175` are one road cluster, each with its own clue (Gracchus's milestones, the Furlo tunnel, Strabo's line). *Chronology:* `rm-141` and `gr-847` disagree on when the Pyrrhic War ended; `rm-180` uses Polybius's Rhegium. *Overlap:* none beyond that.
+
+### B19 — `rm-181`–`rm-190`, the Punic Wars: Carthage, the origins and the first campaigns (2026-10-15)
+
+Run as B18. Checks: `rm-audit.js --range=rm-181:rm-190` reads clean on seven cards; the rest are `I.none` on `rm-183` and `rm-185` and `rm-190`'s `L.missing`. **`rm-190`'s locator could not be added**: the draft asked for Agrigento, and the resolver needs Wikipedia coordinates, which the sandbox cannot reach (the same "no primary coordinate" as `rm-148`); it is listed under "Pictures to redo" with its picture. `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card. From `rm-186` on, the ancient source is mostly Polybius, a near-contemporary, so these cards carry few "Traditional" labels: the legend here is Dido, the Rhegium garrison's story and the origin of Hiero's rise.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-181` Carthage | 9 | 5 → 9 | **The old "65 years before Rome" was Velleius' count with no attribution**: now Traditional 814 – 813 BCE (Timaeus' count) beside the oldest excavated layers, c. 800 – 750 BCE (bone dates matching the traditional year are criticised as coming from mixed deposits). **360 stadia is Strabo's figure; Appian, Libyca 95 gives no such number.** 700,000 inhabitants is Strabo's unsourced estimate. The Tophet debate added. |
+| `rm-182` Carthaginian empire | 8 | 6 → 8 | No modern scholarship before; it also carried the Mercenary War material that belongs to `rm-203`. **"Empire" is said to be a modern label and no Carthaginian source survives**; the 310 BCE and 241 – 237 BCE rows dropped. Its locator omits Iberia. |
+| `rm-183` Carthaginian constitution | 7 | 5 → 7 | **"Senate 300" is Movers's 1849 reconstruction, which Gsell calls arbitrary**, not an ancient figure; gone, with "in decline by 218 BCE". Aristotle (c. 335 BCE as Gsell dates the Politics) and Polybius are the two ancient witnesses; Hannibal's reform of 196 BCE is a modern summary of Livy. |
+| `rm-184` Carthaginian navy | 7 | 5 → 7 | **The 220 is Appian's figure for the harbour in the second century CE, and it counts slips, not ships**; "261 BCE" was the translator's heading, not Polybius's date. Polybius's 680 ships and 290,000 men at Ecnomus are set beside Tarn's judgement that they are impossible. |
+| `rm-185` Roman–Carthaginian treaties | 6 | 5 → 6 | **The old "509 – 508 / c. 306 / 279" gave three Polybian treaties; Polybius dates only the first (to the first consuls) and the third (to Pyrrhus's time), and his second is undated.** 348 BCE is Diodorus's and Livy's; 306 and 279 are Livy's renewals. The Philinus claim is attributed to Philinus. `undatable` is now false. |
+| `rm-186` First Punic War | 8 | 6 → 8 | "24 years", "In Africa 255 BCE" and the indemnity row were counts or not dates; the line is 264 – 241 BCE. Polybius is the only ancient source (the other seven are modern); Regulus, the fleet and the peace get a clause each. `wh-345` agrees. |
+| `rm-187` Mamertines | 6 | 5 → 6 | **The old line printed "after 289", "c. 280", "271" and "264" as if Polybius gave them; those BCE figures are the translator's margins or Smith's inferences**, now credited to the modern writer who prints each. The Longanus is 268 (Frank) or 265 (Giannelli, Livius.org); `rm-189` prints 268. "Jubellius" is not in Polybius. |
+| `rm-188` Messana | 7 | 5 → 7 | Dates are Smith's inferences (Samians not before 493, Anaxilas died 476, crossing 264). **The old question said "renamed Messana"; the rename is Messene, with Messana its Doric form.** "Treaty renewed at the peace" was Smith's inference; replaced by Cicero's federate-city line. |
+| `rm-189` Hiero II | 7 | 5 → 7 | **The reign start "269" is Polybius's 54 years counted back from a death in 215 BCE**, with the kingship put 270 – 264 by different scholars and Smith's death before the end of 216. The first treaty ran fifteen years and was renewed in 248 BCE. "268 BCE" and "silver" dropped; the Lex Hieronica and the Syracusia added. |
+| `rm-190` siege of Agrigentum | 6 | 5 → 6 | **The 25,000 slaves, 30,000 Roman dead and "six months" are Diodorus 23.9, not Polybius, who says only "many slaves"**; the old "over seven months" came via Smith. Polybius's 50,000 are "people cooped up", not Carthaginians. |
+
+**Read by eye.** *Legend as legend:* Dido and Elissa (Velleius and Justin), the founding date and the Rhegium garrison are each an ancient author's. *Confusability:* `rm-181`–`rm-184` are city, power, constitution and navy; `rm-185`/`rm-186`/`rm-187`/`rm-188` are treaties, war, soldiers and city, with each phrasing naming only its term's clues. *Chronology:* the Longanus (268 or 265) and Rhegium (271 or 270) years carry across `rm-180`, `rm-187` and `rm-189`; each is given with its author. *Overlap:* `wh-345` agrees with `rm-186`; `gr-237` gives "about 490 BCE" for Messana's rename, inside `rm-188`'s window.

@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1014", released: "2026-10-15T13:15Z" };
+window.FOLIO_VERSION = { v: "1.1015", released: "2026-10-15T13:29Z" };
 
 window.CHANGELOG = [
   {
@@ -148,7 +148,7 @@ window.CHANGELOG = [
       "<b>Continue with</b>: the completion screen now shows every banner of your active decks list still unfinished today, as those banners, skipping anything folded away.",
       "<b>100 more Ancient Greece cards are rewritten</b>, finishing the Athenian Empire and the Peloponnesian War and starting Classical arts and thought, with more sources and new pictures.",
       "<b>A hundred more World History cards are rewritten</b>, from Persia through Greece, Rome and Ancient India to early China, with more sources and corrected dates.",
-      "<b>180 Ancient Rome cards are rewritten</b>, in Italy before Rome, Rome under the kings, the early Republic and the conquest of Italy, with more sources, corrected dates and legend told as legend.",
+      "<b>190 Ancient Rome cards are rewritten</b>, in Italy before Rome, Rome under the kings, the early Republic, the conquest of Italy and the Punic Wars, with more sources, corrected dates and legend told as legend.",
       "<b>Daily study banner</b>: no Start button and nothing to press; its counts and time estimate now total what every active collection still has left today.",
       "<b>Unfolded collections show no counts of their own</b>: only the decks inside carry them, and the daily study banner now totals just the rows you can see.",
       "<b>Card preview</b>: the fanned cards beside the daily study banner are now shown on desktop only; on a tablet the banner's level bar and figures spread across the full width instead.",

@@ -231,6 +231,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | evocatio: Juno vowed at Veii / her temple dedicated / Carthage / Isaura | 396 BCE / 392 BCE (both tradition; Platner and Ashby print both) / 146 BCE / 75 BCE | `rm-177` |
 | the Romanisation of Italy: Livy's settlement / Haverfield's essay | 338 BCE / 1905 | `rm-178` |
 | Rhegium retaken | 271 BCE (the marginal date in Shuckburgh's Polybius) / 270 BCE (Smith) | `rm-180` |
+| Carthage: traditional founding / oldest excavated levels / destroyed | 814 – 813 BCE (Timaeus' count, as later authors report it; Velleius' "65 years before Rome") / c. 800 – 750 BCE / 146 BCE | `rm-181` |
+| the Carthaginian empire: dominant / Sicily lost / ended | c. 550 BCE / 241 BCE / 146 BCE | `rm-182` |
+| the Carthaginian constitution: Aristotle's Politics (Gsell) / Hannibal's reform | c. 335 BCE / 196 BCE (a modern summary of Livy) | `rm-183` |
+| the Carthaginian navy: the First Punic War / the fleet limited | 264 – 241 BCE / 201 BCE | `rm-184` |
+| the Roman–Carthaginian treaties: the first / Diodorus's and Livy's / renewals | 509 BCE (Varro's reckoning of Polybius's "first consuls") / 348 BCE / 306 BCE and 279 BCE (Livy) | `rm-185` |
+| the First Punic War | 264 – 241 BCE | `rm-186`, `wh-345` |
+| the Mamertines: Agathocles died / Rhegium retaken / the consul crosses | 289 BCE / 271 or 270 BCE (the marginal date in Shuckburgh; Smith) / 264 BCE; the Longanus 268 BCE (Frank) or 265 BCE (Giannelli; Livius.org) | `rm-187`, `rm-189` |
+| Messana: the Samians / Anaxilas died / the consul crosses | c. 493 BCE (not before) / 476 BCE / 264 BCE (`gr-237` says about 490 BCE for the rename, inside this window) | `rm-188` |
+| Hiero II: reigned / peace with Rome | c. 269 – 215 BCE (Polybius's 54 years counted back from 215; the kingship 270 – 264 by other scholars) / 263 BCE | `rm-189` |
+| the siege of Agrigentum | 262 BCE | `rm-190` |
 
 ## The middle and late Republic
 
@@ -421,4 +431,14 @@ rm-176: 753; 167
 rm-177: 396; 392; 146; 75
 rm-178: 338; 1905
 rm-180: 271; 270; 264
+rm-181: 814; 813; 800; 750; 146
+rm-182: 550; 241; 146
+rm-183: 335; 196
+rm-184: 264; 241; 201
+rm-185: 509; 348; 306; 279
+rm-186: 264; 241
+rm-187: 289; 271; 270; 264
+rm-188: 493; 476; 264
+rm-189: 269; 215; 263
+rm-190: 262
 ```

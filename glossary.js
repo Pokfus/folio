@@ -7166,7 +7166,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Siege_of_Tarentum_(272_BC)": "272 BCE",
 "Via_Aemilia": "built 187 BCE",
 "First_Punic_War": "264 – 241 BCE",
-"Hiero_II_of_Syracuse": "269 – 215 BCE",
+"Hiero_II_of_Syracuse": "c. 269 – 215 BCE",
 "Siege_of_Agrigentum": "262 BCE",
 "First_Roman_fleet": "261 – 260 BCE",
 "Corvus_(boarding_device)": "260 – 256 BCE",
