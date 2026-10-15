@@ -432,6 +432,15 @@ Filled batch by batch, from the source each row names.
 | Justinian I: born / reigned / Vandal War / Gothic War | c. 482 CE / 527 – 565 CE / 533 – 534 CE / 535 – 552 CE | Evans (`wh-438`) |
 | Corpus Juris Civilis: compiled / Code (revised) / Digest | 528 – 534 CE / 529 CE (534) / 533 CE | Wallinga; Weber (`wh-439`) |
 | Hagia Sophia: built / dome fell / reconsecrated / mosque | 532 – 537 CE / 558 CE / 562 CE / 1453 CE | Diker et al.; Garnczarska (`wh-440`) |
+| Theodora: empress / died (marriage 521 or 522 on one biography) | 527 – 548 CE / 548 CE | Holum; Evans (`wh-441`) |
+| Plague of Justinian: first outbreak / Constantinople / First Pandemic / DNA confirmed | 541 – 544 CE / 542 CE / 541 – 750 CE / 2013 | Keller et al.; Harbeck et al. (`wh-442`) |
+| Greek fire: first use (Theophanes's Kallinikos entry; long siege doubted) / second siege / gone by | c. 672 – 678 CE / 717 – 718 CE / 1204 CE | Theophanes; Haldon; Theotokis (`wh-443`) |
+| Byzantine Iconoclasm: first phase / Hieria / second phase / images restored | c. 730 – 787 CE (726 doubted) / 754 CE / 815 – 843 CE / 843 CE | Barber; McMichael (`wh-444`) |
+| East–West Schism: Photian rift / legates' bull / failed unions / bans lifted | 858 – 880 CE / 16 July 1054 CE / 1274 and 1439 CE / 7 December 1965 | Carcione; Whalen; Holy See (`wh-445`; `wh-446` is `undatable`) |
+| Cyril and Methodius: mission begins / Cyril died / Methodius died | 863 CE / 14 February 869 CE / 885 CE | Jakobson; Dostal (`wh-447`) |
+| Kievan Rus': Kyiv the seat / Yaroslav ruled / Mongol sack | c. 880 CE / 1036 – 1054 CE / 1240 CE | Zhdan; Hillerdal (`wh-448`) |
+| First Bulgarian Empire: founded / Boris baptised / Symeon reigned / ends | 681 CE / 864 – 865 CE / 893 – 927 CE / 1018 CE | Antonov; Bury; Marinow (`wh-449`) |
+| Battle of Manzikert | 26 August 1071 CE | Shliakhtin; Lau (`wh-450`) |
 
 ## Chronology pins
 
@@ -848,4 +857,13 @@ wh-437: 330; 413; 1204; 1261; 1453
 wh-438: 482; 527; 565; 533; 534; 535; 552
 wh-439: 528; 534; 529; 533
 wh-440: 532; 537; 558; 562; 1453
+wh-441: 527; 548
+wh-442: 541; 544; 542; 750; 2013
+wh-443: 672; 678; 717; 718; 1204
+wh-444: 730; 787; 754; 815; 843
+wh-445: 858; 880; 1054; 1274; 1439; 1965
+wh-447: 863; 869; 885
+wh-448: 880; 1036; 1054; 1240
+wh-449: 681; 864; 865; 893; 927; 1018
+wh-450: 1071
 ```

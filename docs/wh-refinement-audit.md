@@ -158,7 +158,7 @@ in plan order unless the user says otherwise.
 | B42 | Ancient China (`wh-ancient-china`) / Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-411`–`wh-420` | 10 | 114 | **done 2026-10-15** |
 | B43 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) | `wh-421`–`wh-430` | 10 | 112 | **done 2026-10-15** |
 | B44 | Africa and the Americas in antiquity (`wh-antiquity-beyond`) / Byzantium and the Christian East (`wh-byzantium`) | `wh-431`–`wh-440` | 10 | 101 | **done 2026-10-15** |
-| B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | open |
+| B45 | Byzantium and the Christian East (`wh-byzantium`) | `wh-441`–`wh-450` | 10 | 99 | **done 2026-10-15** |
 | B46 | Byzantium and the Christian East (`wh-byzantium`) / The Islamic world (`wh-islam`) | `wh-451`–`wh-460` | 10 | 108 | open |
 | B47 | The Islamic world (`wh-islam`) | `wh-461`–`wh-470` | 10 | 97 | open |
 | B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | open |
@@ -1815,6 +1815,40 @@ commissioners read "almost 2,000 books" where Baldi counts 1,528 (`wh-439` gives
 **Glossary.** Ten terms rewritten (*Teotihuacan*, *Chavín culture*, *Nazca Lines*, *Moche culture*, *Norte Chico
 civilisation*, *Byzantine Empire*, *Constantinople*, *Justinian I*, *Corpus Juris Civilis*, *Hagia Sophia*).
 
+### B45 — `wh-441`–`wh-450`, Byzantium and the Christian East (2026-10-15)
+
+Run as B44, read against `rm-`, `gr-` and `ru-`. Pictures skipped. Checks: `wh-audit.js --range=wh-441:wh-450` clean but for
+`I.duplicate` on `wh-443` (its picture is also `ru-044`'s) and `L.missing` on `wh-450` (the Malazgirt request, and a retry as
+"Battle of Manzikert", found no coordinate or was rate-limited); the rest as B31; `check-citations --card` 0 mismatched
+on all ten. `wh-446`'s Eastern Orthodox glossary entry is a general term: its draft only corrects the old "c. 500 CE –
+present" date, which made 500 look like a founding. `wh-450` was cut from one Kurdish and five Turkish sources to one
+Turkish (app.js cannot tag Kurdish).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-441` Theodora | 8 | 5 → 8 | **Half the old abstract was about the date of the *Secret History*, not the empress.** Procopius is now attributed work by work (the hostile *Secret History*, the flattering *Buildings*, the *Wars*' Nika speech, which one historian thinks his invention); the marriage is "521 or 522" on one biography, not 525; no birthplace or birth year; cancer a report of Victor of Tunnuna. |
+| `wh-442` Plague of Justinian | 7 | 5 → 7 | **"15 to a hundred million" was a gloss of the maximalist case.** First outbreak 541 – 544, pandemic 541 – 750, Constantinople 542; Procopius's five then ten thousand a day his own figure; Aschheim 2013 DNA, and the dispute over scale (Mordechai et al.: 505 papyri show no break) attributed. |
+| `wh-443` Greek fire | 8 | 5 → 8 | **Three of five sources said nothing of Greek fire**, and "siege lifted 15 August 718" was Kokoszko and Leszka's date, not Theophanes's. First use c. 672 – 678 (Theophanes's Kallinikos entry; the long siege of 674 – 678 doubted); "Greek fire" a Western name; the recipe unknown (petroleum the majority view); "cannot be put out by water" only "said to". |
+| `wh-444` Byzantine Iconoclasm | 7 | 5 → 7 | **726 and the Chalke Gate image were the old card's start**; now c. 730 (Barber), the image story doubted, and the debated causes (Muslim and Jewish influence, military failure) as proposals. Hieria 754, Nicaea II 787, 815 and 843; nearly all sources are the iconophile victors'; a monk-martyr figure had no source. |
+| `wh-445` East–West Schism | 8 | 5 → 8 | **"Error lists began in the later 12th century" was wrong**: from the second half of the 11th. The 1054 bull and the synod's answer struck persons, not churches; Photios 858 – 880 on one account; failed unions 1274 and 1439; the bans lifted on 7 December 1965. |
+| `wh-446` Eastern Orthodox Church | 8 | 5 → 8 | **The date line held four other events' dates** (Dionysian corpus, Basil's anaphora, Palamas, Crete 2016) and 500 CE read as a founding; now `""` and `undatable`. Pew's nearly 260 million include the Oriental Orthodox; Ukraine's 2019 recognition stated neutrally; Neoplatonism in the corpus one scholar's thesis. "First among equals" not used (no source). |
+| `wh-447` Cyril and Methodius | 7 | 5 → 7 | **"Constantine the elder brother" had no source** (and the Blatnograd inscriptions and Glagolitic-origin theories were unverified). Glagolitic is Constantine's; Cyrillic a later adaptation, probably Preslav; the two Lives hagiography; Hadrian's blessing; Cyril d. 14 February 869, Methodius 885, the pupils expelled and welcomed by Boris. |
+| `wh-448` Kievan Rus' | 7 | 6 → 7 | **The date line led with 941, a raid, and "1110s", a decade.** Now c. 880, Yaroslav 1036 – 1054, the 1240 sack; the *Primary Chronicle*'s early dates are its own reckoning; Normanists and anti-Normanists both stated, with the 1749 Academy quarrel; Oleg's 907 raid only in Russian annals; 1132 and 1169. |
+| `wh-449` First Bulgarian Empire | 7 | 6 → 7 | **One scholar's "komitats resemble the Frankish marches" was fact** and Bardola's marriage plan a hypothesis; both dropped. 681 the conventional start, Boris 864 – 865, Symeon 893 – 927 (tsar title 913, denied, recognised for Peter in 927), the end 1018; Basil's 14,000 – 15,000 blinded "clearly exaggerated". |
+| `wh-450` Battle of Manzikert | 7 | 6 → 7 | **"Passed over until the 1950s" is the claim Develi examines and doubts**; an Alexios 1081 row was another event. Release terms from Arabic sources (payment, tribute, captives, probably no land); Psellos writing to shield Michael VII; Matthew of Edessa on traitors and Uz and Pecheneg defectors; the civil war; Bari 1071; armies' sizes unsettled. |
+
+**Read by eye.** *Article:* "the Plague of Justinian", "Byzantine Iconoclasm", "the East–West Schism", "the Eastern Orthodox
+Church", "the First Bulgarian Empire", "the Battle of Manzikert" (question 3 "after the Battle of Manzikert"), "the
+Kievan Rus'"; "Theodora", "Greek fire" and "Cyril and Methodius" bare. *Confusability:* `wh-444`/`wh-445`/`wh-446` the image
+quarrel, the schism and the church, the Filioque only on `wh-445`, theosis only on `wh-446`; `wh-447`/`wh-448`/`wh-449` the
+saints, Rus' and Bulgaria, Boris and Cyrillic on `wh-447` and `wh-449` but the exiled pupils only on `wh-447`; `wh-441`/
+`wh-438` the empress and the emperor, the Nika speech only on `wh-441`. *Against other cards:* `rm-586` and `wh-437` differ on who gave Constantinople a senate (`wh-437` follows Berger); `ru-036` agrees
+with `wh-448` on c. 880 and 1240 and with `ru-057` on Yaroslav's 1036 – 1054; `ru-058` dates the *Russkaya Pravda* 1000 – 1100. None edited.
+
+**Glossary.** Eight terms rewritten (*Theodora*, *Plague of Justinian*, *Greek fire*, *Byzantine Iconoclasm*, *Eastern Orthodox
+Church*, *Cyril and Methodius*, *First Bulgarian Empire*, *Battle of Manzikert*); the *East–West Schism* and *Kievan Rus'*
+entries already agreed and were kept.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -1992,3 +2026,11 @@ pass once it answers. Filled batch by batch.
 | `wh-436` | a Justinian mosaic, one emperor, not the empire |
 | `wh-440` | a dome-only view from below; its description says about 30.6 m where the measured dome is 31.19 × 32.55 m |
 | `wh-433`, `wh-434`, `wh-435`, `wh-437` | a single figure, one vessel, one pyramid and the walls: acceptable, a wider view would show more |
+| `wh-442` | a micrograph of the bacterium, not the event |
+| `wh-443` | a Madrid Skylitzes fire-ship miniature, also `ru-044`'s (audit `I.duplicate`) |
+| `wh-445` | Photios before a tribunal, only the 9th-century episode |
+| `wh-446` | primates at the 2016 council in Chania, one meeting |
+| `wh-448` | the Orans mosaic at St Sophia; its description gives tesserae and height figures no card source has; `wh-448` **locator** is the card's own region |
+| `wh-449` | one ceramic icon from Preslav, with no author or licence in its credit |
+| `wh-450` | **locator** not written ("Malazgirt" and "Battle of Manzikert" found no coordinate or were rate-limited) |
+| `wh-447`, `wh-441`, `wh-444` | description ends on an interpretive clause; judged from title and description only |
