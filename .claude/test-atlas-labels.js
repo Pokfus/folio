@@ -66,6 +66,8 @@ const intersects = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] >
 async function open(context, hash) {
   const page = await context.newPage();
   const errors = [];
+  /* FOLIO_SLOW_FRAMES=<ms> makes the race of layoutAt (below) happen on any machine: requestAnimationFrame callbacks arrive that many ms late WITHOUT blocking the page's JavaScript, as they do when a software rasteriser's previous frame still holds the compositor (a CI runner: 100+ ms). Unset, nothing changes. */
+  if (process.env.FOLIO_SLOW_FRAMES) await page.addInitScript((d) => { const raf = window.requestAnimationFrame.bind(window); window.requestAnimationFrame = (cb) => setTimeout(() => raf(cb), d); }, Number(process.env.FOLIO_SLOW_FRAMES));
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
   await page.goto(`http://127.0.0.1:${PORT}/${hash || "#map"}`, { waitUntil: "load" });
@@ -79,10 +81,21 @@ async function layoutAt(page, V, density) {
   if (density) await page.evaluate((d) => document.querySelector(".atlas2").__atlas2.setLayers({ density: d }), density);
   await page.evaluate((v) => document.querySelector(".atlas2").__atlas2.setView(v.lon, v.lat, v.k), V);
   await settle(page); await sleep(100);
-  const placed = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow().then((p) => p.map((x) => ({ id: x.id, kind: x.kind, text: x.text, rects: x.rects, box: x.box, marker: !!x.marker, curved: !!x.curved, score: x.score, glyphs: x.glyphs ? x.glyphs.map((g) => g[2]) : [], meanAngle: x.meanAngle || 0 }))));
-  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate()); await sleep(60);
-  const s = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.statsNow());
-  return { placed, stats: s };
+  /* THE LAYOUT AND ITS PAINT ARE TWO EVENTS, AND THIS HELPER USED TO READ THE SECOND AFTER A TIMER (the Songhai flake, CI 2026-10-14/15). `layoutNow()` resolves inside applyLayout, which sets the new
+     placement and only ASKS for a repaint (invalidateLabels → requestAnimationFrame): the label canvas still shows the PREVIOUS layout until a frame has run. The old code waited 60 ms and read the ink; a frame
+     with a history year on screen costs well over that on a software rasteriser, so a name the second layout placed and the first did not (Songhai at Europe in 1500) had no ink yet. The read now happens only
+     when (1) a frame has completed after the layout was applied and (2) the layout on the canvas is still the one returned (`layoutSeq` unchanged — a later layout, a water or gazetteer one, would be a new
+     placement the caller never saw); otherwise the layout is asked for again. No timer decides anything, and nothing about the assertions is loosened. */
+  let placed, stats;
+  for (let attempt = 0; attempt < 6; attempt++) {
+    const got = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return c.layoutNow().then((p) => ({ seq: c.layoutSeq(), frames: c.statsNow().frames, placed: p.map((x) => ({ id: x.id, kind: x.kind, text: x.text, rects: x.rects, box: x.box, marker: !!x.marker, curved: !!x.curved, score: x.score, glyphs: x.glyphs ? x.glyphs.map((g) => g[2]) : [], meanAngle: x.meanAngle || 0 })) })); });
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate());
+    await page.waitForFunction((f0) => document.querySelector(".atlas2").__atlas2.statsNow().frames > f0, got.frames, { timeout: 60000 });
+    stats = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.statsNow());
+    placed = got.placed;
+    if (await page.evaluate((seq) => document.querySelector(".atlas2").__atlas2.layoutSeq() === seq, got.seq)) break;
+  }
+  return { placed, stats };
 }
 function overlaps(placed) {
   const bad = [];
