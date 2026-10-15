@@ -101,7 +101,7 @@ async function inkInBoxes(page, placed) {
       const w = x1 - x0, h = y1 - y0;
       if (w <= 2 || h <= 2) { empty.push(id + " (off the canvas)"); continue; }
       const d = x.getImageData(x0, y0, w, h).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 40) n++;
-      if (n > 4) painted++; else empty.push(id);
+      if (n > 4) painted++; else { let mx = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > mx) mx = d[i]; empty.push(id + " (box " + b.map(Math.round).join(",") + " on a " + c.clientWidth + "×" + c.clientHeight + " canvas: " + n + " px over alpha 40, strongest alpha " + mx + ")"); }
     }
     return { painted, empty };
   }, placed.filter((p) => p.text).map((p) => [p.id, p.box]));
@@ -325,7 +325,10 @@ async function inkInBoxes(page, placed) {
     check(`${label}: every polity name lies wholly inside the ${Math.round(frame[0])}×${Math.round(frame[1])} frame`, out.length === 0, out.map((p) => p.text + " " + JSON.stringify(p.box.map(Math.round))).join("; ") || names.length + " names");
     const skew = names.filter((p) => p.glyphs.length !== [...p.text].length);
     check(`${label}: every polity name has one glyph per character (a name on two lines too)`, skew.length === 0, skew.map((p) => p.text).join(", "));
-    if (names.length) { const ink = await inkInBoxes(pg, names); check(`${label}: every polity name is painted where the layout puts it`, ink.empty.length === 0, ink.empty.join(", ") || ink.painted + " painted"); }
+    /* PHASE 5 (CI, 2026-10-15): the second layout above can place a name the first did not (the year's meshes had not settled), and `invalidate()` only ASKS for a repaint: on a slow runner the next frame
+       had not landed 60 ms later and the canvas still showed the first layout's names, so one name (Songhai) read as unpainted in two CI attempts while it painted at once on a quiet machine. The ink is
+       now read once a frame has landed — polled for up to 3 s — and the assertion is unchanged: every named polity has ink where the layout puts it. */
+    if (names.length) { let ink = await inkInBoxes(pg, names); for (let i = 0; i < 20 && ink.empty.length; i++) { await sleep(150); ink = await inkInBoxes(pg, names); } check(`${label}: every polity name is painted where the layout puts it`, ink.empty.length === 0, ink.empty.join(", ") || ink.painted + " painted"); }
     if (polity) check(`${label}: ${polity.name} is named`, again.some((p) => p.id === polity.id), names.map((p) => p.text).join(", ") || "no polity named");
     if (capital) { const m = again.find((p) => p.kind === "capital" && p.id.startsWith("cap:" + polity.id + ":") && p.marker); check(`${label}: ${capital}'s marker is still drawn inside the named polity`, !!m, m ? (m.text ? "with its name" : "marker alone, the name yielded to the polity's") : again.filter((p) => p.kind === "capital").map((p) => p.id).join(", ") || "no capital placed"); }
     return placed;
