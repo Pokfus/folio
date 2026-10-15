@@ -181,6 +181,12 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the quaestorship: elected / opened to the plebs / first plebeians | 447 BCE (Tacitus's 63rd year after the kings, as modern books convert it) / 421 BCE / 409 BCE | `rm-118` |
 | the legion: change from phalanx to maniples / Livy's setting | c. 396 – 264 BCE (one modern summary) / 340 BCE (the Latin War) | `rm-119` |
 | the siege of Veii / winter quarters | 406 – 396 BCE (tradition) / 403 BCE | `rm-120` |
+| the Veii spoils; Camillus's exile; the sack | 396 BCE / 391 BCE / 390 BCE (tradition; Lendering puts Veii's fall nearer 393) | `rm-121` |
+| the first pay for soldiers / the knights paid | 406 BCE (Forsythe and Smith's 1890 edition; the 1875 edition prints 405) / 403 BCE; Livy gives no BCE year | `rm-122` |
+| the Allia; the Gallic sack | 390 BCE (Varro) / 387 – 386 BCE (Polybius's Greek year, the Peace of Antalcidas) | `rm-123`, `rm-124`, `rm-125`, `rm-126` |
+| Aius Locutius: the voice / the altar ordered | 391 BCE / 390 BCE (tradition) | `rm-127` |
+| the Licinio-Sextian laws / the first plebeian consul | 367 BCE / 366 BCE (tradition; `wh-343` says the law "opened the consulship in 367", the year of the law) | `rm-128`, `rm-101`, `rm-106`, `rm-132` |
+| the measures called the Lex Genucia / the first pair of plebeian consuls | 342 BCE (Varro's reckoning) / 172 BCE | `rm-129` |
 
 ## The middle and late Republic
 
@@ -315,4 +321,13 @@ rm-117: 443; 434; 351; 22
 rm-118: 447; 421; 409
 rm-119: 396; 264; 340
 rm-120: 406; 396; 403
+rm-121: 396; 391; 390
+rm-122: 406; 403
+rm-123: 390; 387; 386
+rm-124: 390; 387; 386
+rm-125: 390; 387; 386
+rm-126: 390; 387; 386
+rm-127: 391; 390
+rm-128: 367; 366
+rm-129: 342; 172
 ```

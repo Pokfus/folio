@@ -144,7 +144,7 @@ order unless the user says otherwise.
 | B10 | The early Republic (`rm-early-republic`) | `rm-091`–`rm-100` | 10 | 126 | **done 2026-10-04** |
 | B11 | The early Republic (`rm-early-republic`) | `rm-101`–`rm-110` | 10 | 126 | **done 2026-10-15** |
 | B12 | The early Republic (`rm-early-republic`) | `rm-111`–`rm-120` | 10 | 121 | **done 2026-10-15** |
-| B13 | The early Republic (`rm-early-republic`) | `rm-121`–`rm-130` | 10 | 121 | open |
+| B13 | The early Republic (`rm-early-republic`) | `rm-121`–`rm-130` | 10 | 121 | **done 2026-10-15** |
 | B14 | The early Republic (`rm-early-republic`) | `rm-131`–`rm-140` | 10 | 104 | open |
 | B15 | The conquest of Italy (`rm-conquest-italy`) | `rm-141`–`rm-150` | 10 | 109 | open |
 | B16 | The conquest of Italy (`rm-conquest-italy`) | `rm-151`–`rm-160` | 10 | 119 | open |
@@ -390,6 +390,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-118` quaestorship | not changed | acceptable |
 | `rm-119` legion | an Etruscan bronze situla from Bologna | not a legion; the description carries an unsourced inference |
 | `rm-120` siege of Veii | the Portonaccio sanctuary | acceptable photograph; the description overclaims ("most of what is left of the city")
+| `rm-121` Camillus | a later painting of one anecdote | illustration only; the description makes an unsourced claim about the eagle |
+| `rm-122` stipendium | a coin or weight with a label | the description says the label reads "metal by weight", which the alt text contradicts |
+| `rm-123` battle of the Allia | a Luminais painting | an editorial description no source supports |
+| `rm-124` Gallic sack of Rome | a Jamin painting of Brennus | a painting, and Brennus is `rm-125`'s subject |
+| `rm-125` Brennus | an engraving | right in kind; the description names its source book |
+| `rm-126` geese of the Capitol | a painting | right in kind; the description is full of commentary |
+| `rm-127` Aius Locutius | a picture whose description names Livy and Cicero | claims nothing of the altar survives, which no source says |
+| `rm-128` Licinio-Sextian laws | the Concord temple site | the description names Plutarch |
+| `rm-129` Lex Genucia | a page of a Livy manuscript | the description says everything comes from Livy |
+| `rm-130` nobiles | wax masks or a funeral relief | subject fits; the description names sources |
 
 ## Glossary candidates
 
@@ -853,3 +863,22 @@ Run as B11, with B13's agents alongside. Checks: `rm-audit.js --range=rm-111:rm-
 | `rm-120` siege of Veii | 7 | 6 → 7 | Livy was cited five times. **"Executed the men who had fled" is Livy's "military punishment"**; the tale is Livy's and Plutarch's throughout, the Troy patterning and the Alban Lake tunnel are a modern view, and the archaeology (continuity at lower intensity) is kept apart. The 562 square kilometres is one estimate. |
 
 **Read by eye.** *Legend as legend:* the decemvirs' two boards, Appius, Verginia, the Athens embassy and the Veii mine are each an ancient author's. *Confusability:* `rm-111`/`rm-112`/`rm-113` share one story, one episode each; `rm-114` and `rm-115` are laws about orders and marriage. *Carry-over:* `rm-119`'s "396 – 264 BCE" is a university thesis's summary and the weakest line on the date lines so far; read again if a better source appears. *Overlap:* no `gr-` or `wh-` card disagrees; `rm-119`'s old questions were duplicates of `rm-155` and `wh-344`.
+
+### B13 — `rm-121`–`rm-130`, the early Republic: Camillus and the Gallic sack to the nobiles (2026-10-15)
+
+Run as B12. Checks: `rm-audit.js --range=rm-121:rm-130` reads clean on all ten cards (every picture is the bulk-written one, still to be redone). `check-questions`, `check-cards`, `check-style`, `check-docs`, `split-cards --check`, `test-card-plans` pass; every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card. `rm-127`'s first phrasing duplicated its third and was rewritten from the altar's site.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-121` Camillus | 7 | 5 → 7 | Livy x4 and no modern scholarship; now every act is Livy's or Plutarch's, and the line is Veii 396, exile 391 and the sack 390 BCE, each by tradition. Livy gives the fine of 15,000 asses; Plutarch converts it to 1,500 drachmas. **The old card merged two versions of "iron, not gold"**; Livy's, spoken to his men, is used. |
+| `rm-122` stipendium | 6 | 6 → 7 | **Livy prints no BCE year for the first pay**; Forsythe and Smith's 1890 edition convert it to 406 BCE and the 1875 edition to 405 (each said in prose). Polybius's rates are reported as his, and as the army of his own day. The "sixteen years earlier" clue is gone from the questions. |
+| `rm-123` battle of the Allia | 7 | 5 → 7 | Traditional 390 BCE and Polybius's Greek date, 387 or 386 BCE, replace "by the usual dating"; the "16 km" count row is prose. Army sizes are Plutarch's (40,000) and Diodorus's (24,000 against 70,000); Livy gives none. |
+| `rm-124` Gallic sack of Rome | 8 | 5 → 8 | The old men, the beard and the burning are Livy's or Plutarch's telling; the endings are set side by side (Livy and Camillus, Polybius and the Veneti treaty, Diodorus and the ransom). **No source on a Gallic burnt layer was found; the card reports only Forsythe's statement that no incontrovertible evidence has been found.** |
+| `rm-125` Brennus | 7 | 5 → 7 | **The scale scene was told as an event and Polybius was credited with the seven months**; Plutarch gives the months, Polybius 2.22 reports them as the Gauls' own boast, and Livy gives no length. The Delphi Brennus of 279 BCE is one clause, a different man. |
+| `rm-126` geese of the Capitol | 8 | 5 → 8 | Livy was cited three times. **Livy 5.47 has no golden or silver goose**; the dogs and the censors' contract are Pliny's, and Forsythe's view is that the tale was invented to explain two customs. Manlius's trial dropped to keep the card apart from its sibling. |
+| `rm-127` Aius Locutius | 5 | 6 → 6 | The voice is 391 BCE and the altar's ordering 390, both by tradition; the unsourced "aio and loquor" etymology and "Cicero three centuries later" are gone. Livy's named plebeian and Cicero's voice from the grove of Vesta are the two versions. |
+| `rm-128` Licinio-Sextian laws | 7 | 8 → 7 | **The law (367 BCE) and the first plebeian consul (366 BCE) are kept apart.** Livy's ten tribunates and five empty years are his story, which Forsythe rejects; the 500 iugera cap is uncertain, and so is whether a plebeian consul was required. |
+| `rm-129` Lex Genucia | 6 | 5 → 6 | **Livy credits Genucius only with the bill on lending and found the rest in unnamed authorities**; the one law of that name is modern. The mutiny, the ten-year rule and the "both consuls plebeian" clause are contested; 172 BCE, the first pair of plebeian consuls, is on the line. The Fabius episode and the "10-year" count row cut. |
+| `rm-130` nobiles | 6 | 5 → 7 | **"Curule descent" was Mommsen's test given as fact**; the card says whose test is whose (Gelzer's descent from a consul is the usual one) and that the nobiles were a status, never an order. Polybius's masks are worn by men resembling the dead, not by relatives. "First new man L. Sextius" cut. Undated (`""`). Gelzer's own definition could not be read first-hand. |
+
+**Read by eye.** *Legend as legend:* Camillus's exile and return, the ransom scene, the geese, the voice and the Genucian mutiny are each an ancient author's. *Chronology:* four cards now print 390 BCE (Varro) beside 387 – 386 BCE (Polybius); `rm-141` prints 387 for the Polybian date, a harmless difference. *Overlap:* `wh-343` says the Licinio-Sextian law "opened the consulship in 367", which is the law's passing; `gr-787` (Delphi Brennus) agrees with `rm-125`.
