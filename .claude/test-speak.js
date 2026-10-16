@@ -416,6 +416,28 @@ const holdRow = (page, match) => page.evaluate((m) => {
     live.spoke.length === 1 && live.spoke[0].text === "hablar", JSON.stringify(live.spoke));
   check("\u2026and the reader is told nothing at all", live.toasts.length === 0, JSON.stringify(live.toasts));
 
+  // 4. the Question / Answer / Background play buttons: History, Science and Special collections only
+  await page.evaluate(() => {
+    window.__spoken = [];
+    speechSynthesis.speak = (u) => { window.__spoken.push(u.text); setTimeout(() => u.onstart && u.onstart({}), 20); };
+  });
+  const sectionBtns = async (id) => {
+    await page.evaluate((c) => { location.hash = "#card/" + c; }, id);
+    await page.waitForTimeout(1500);
+    return page.evaluate(() => [...document.querySelectorAll(".tts-play[data-tts]")].map((b) => b.dataset.tts));
+  };
+  for (const id of ["wh-001", "ps-001", "eep-001"]) {
+    const got = await sectionBtns(id);
+    check("section play buttons on " + id + " (History / Science / Special)", got.join() === "question,answer,background", got.join());
+  }
+  for (const id of ["gw-001", "geo-001"]) {
+    const got = await sectionBtns(id);
+    check("no section play buttons on " + id + " (Geography)", got.length === 0, got.join());
+  }
+  await sectionBtns("wh-001");
+  const bgSpoken = await page.evaluate(() => { window.__spoken = []; document.querySelector('.tts-play[data-tts="background"]').click(); return new Promise((r) => setTimeout(() => r(window.__spoken.slice()), 400)); });
+  check("the Background button reads the background aloud in English", bgSpoken.length > 0 && /Prehistory/.test(bgSpoken[0]), (bgSpoken[0] || "").slice(0, 60));
+
   const own = errs.filter((e) => !/fonts\.googleapis|gstatic|ERR_CONNECTION_RESET/.test(e));
   check("no same-origin console errors", own.length === 0, own.slice(0, 3).join(" | "));
 
