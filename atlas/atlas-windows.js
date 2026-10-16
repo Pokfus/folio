@@ -528,8 +528,10 @@
   const fi2Name = (n) => FI2_NAMES[String(n || "").trim().toLowerCase()] || n;
   const fi2Year = (y) => (y >= new Date().getFullYear() ? "today" : y < 0 ? -y + " BCE" : String(y));
   function run(root) {
-    const GREEN = "rgba(46,164,90,1)", RED = "rgba(224,68,56,1)", GOLD = "rgba(255,178,46,1)", BLUE = "rgba(59,110,214,1)";
-    const TINT = { pick: { rgb: [59, 110, 214], a: 0.30 }, miss: { rgb: [224, 68, 56], a: 0.34 }, found: { rgb: [46, 164, 90], a: 0.34 }, answer: { rgb: [255, 178, 46], a: 0.38 } };
+    const GREEN = "rgba(46,164,90,1)", RED = "rgba(224,68,56,1)", GOLD = "rgba(255,178,46,1)";
+    /* THE PICK is the card windows' own selection: the gold tint (TINT_SEL), its outline and its glow, on a country or a state of the year alike (Oct 2026, the owner's phone: a pick was a blue wash that, on an area round, was one more colour among the states' own) */
+    const SEL = X.TINT_SEL || { rgb: "255,178,46", fillA: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)" };
+    const TINT = { pick: { rgb: SEL.rgb.split(",").map(Number), a: SEL.fillA, line: SEL.line, glow: SEL.glow }, miss: { rgb: [224, 68, 56], a: 0.34 }, found: { rgb: [46, 164, 90], a: 0.34 }, answer: { rgb: [255, 178, 46], a: 0.38 } };
     root.innerHTML = `
       <div class="findit2" id="findit2">
         <canvas class="fi2-board" id="fi2Board" tabindex="0" role="application" aria-label="Interactive globe — drag to turn it, scroll or pinch to zoom, arrow keys turn it, plus and minus zoom. Tap a place to pick it, then press Guess."></canvas>
@@ -582,8 +584,8 @@
     const roundNow = () => rounds[ri] || null;
     function specNow() {
       const r = roundNow(), area = r && r.kind === "area";
-      const hl = []; for (const m of marks) if (m.ids && m.ids.length) hl.push({ ids: m.ids, rgb: m.tint.rgb, a: m.tint.a, line: area ? null : "rgba(" + m.tint.rgb.join(",") + ",1)", lineWidth: 2.6, glow: area ? null : "rgba(" + m.tint.rgb.join(",") + ",0.7)", glowBlur: 9 });
-      return { layers: { borders: true, provinces: false, peoples: area ? "all" : "off" }, year: area ? r.shown : undefined, highlights: hl };
+      const hl = []; for (const m of marks) if (m.ids && m.ids.length) hl.push({ ids: m.ids, rgb: m.tint.rgb, a: m.tint.a, exact: true, line: m.tint.line || "rgba(" + m.tint.rgb.join(",") + ",1)", lineWidth: 2.6, glow: m.tint.glow || "rgba(" + m.tint.rgb.join(",") + ",0.7)", glowBlur: 9 });
+      return { layers: { borders: true, provinces: false, peoples: area ? "all" : "off", flat: area }, year: area ? r.shown : undefined, highlights: hl };
     }
     let flyId = 0;   // a reader who touches the board mid-flight takes it over: the flight stops
     function fly(lon, lat, zoom) {
@@ -599,7 +601,9 @@
         for (const rg of shown.rings) { let pen = false; for (const q of rg) { const p = api.project(q[0], q[1]); if (p[2] < 0) { pen = false; continue; } if (pen) ctx.lineTo(p[0], p[1]); else { ctx.moveTo(p[0], p[1]); pen = true; } } }
         ctx.fillStyle = "rgba(" + shown.tint.rgb.join(",") + "," + shown.tint.a + ")"; ctx.strokeStyle = "rgba(" + shown.tint.rgb.join(",") + ",1)"; ctx.lineWidth = 2; ctx.fill("evenodd"); ctx.stroke(); ctx.restore();
       }
-      if (pickPin) { const p = api.project(pickPin[0], pickPin[1]); if (p[2] >= 0) { ctx.strokeStyle = BLUE; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(p[0], p[1], 9, 0, Math.PI * 2); ctx.moveTo(p[0] - 15, p[1]); ctx.lineTo(p[0] - 5, p[1]); ctx.moveTo(p[0] + 5, p[1]); ctx.lineTo(p[0] + 15, p[1]); ctx.moveTo(p[0], p[1] - 15); ctx.lineTo(p[0], p[1] - 5); ctx.moveTo(p[0], p[1] + 5); ctx.lineTo(p[0], p[1] + 15); ctx.stroke(); } }
+      if (pickPin) { const p = api.project(pickPin[0], pickPin[1]); if (p[2] >= 0) {   // the pick where there is no region to light (a place round, a tap on no state of the year): the selection's gold, its tint, its glow
+        ctx.save(); ctx.fillStyle = "rgba(" + SEL.rgb + "," + SEL.fillA + ")"; ctx.beginPath(); ctx.arc(p[0], p[1], 9, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = SEL.line; ctx.lineWidth = 2.6; ctx.shadowColor = SEL.glow; ctx.shadowBlur = 9; ctx.beginPath(); ctx.arc(p[0], p[1], 9, 0, Math.PI * 2); ctx.moveTo(p[0] - 15, p[1]); ctx.lineTo(p[0] - 5, p[1]); ctx.moveTo(p[0] + 5, p[1]); ctx.lineTo(p[0] + 15, p[1]); ctx.moveTo(p[0], p[1] - 15); ctx.lineTo(p[0], p[1] - 5); ctx.moveTo(p[0], p[1] + 5); ctx.lineTo(p[0], p[1] + 15); ctx.stroke(); ctx.restore(); } }
       if (pin) { const p = api.project(pin.lon, pin.lat); if (p[2] >= 0) { ctx.beginPath(); ctx.arc(p[0], p[1], 6, 0, Math.PI * 2); ctx.fillStyle = pin.col; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke(); ctx.font = "600 13px system-ui, sans-serif"; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.lineWidth = 3; ctx.strokeStyle = "rgba(255,255,255,0.94)"; ctx.strokeText(pin.name, p[0] + 11, p[1]); ctx.fillStyle = "#221808"; ctx.fillText(pin.name, p[0] + 11, p[1]); } }
       if (pulse) { const k = reduced() ? 0.5 : Math.min(1, (performance.now() - pulse.t0) / 900); const p = api.project(pulse.lon, pulse.lat); if (p[2] >= 0) ring(p[0], p[1], 8 + 36 * k, pulse.col.replace(/1\)$/, (1 - k).toFixed(2) + ")"), 3); if (k < 1) { win.schedule(); } else pulse = null; }
       ctx.restore();
@@ -627,8 +631,8 @@
       pick = { ll, ids, country };
       if (r.kind === "entity" && country) marks.push({ ids: [country], tint: TINT.pick, pick: true });
       else if (r.kind === "area") { const s = ids.filter((id) => /^(pol|ext):/.test(id)); if (s.length) marks.push({ ids: s, tint: TINT.pick, pick: true }); }
-      pickPin = r.kind === "point" ? [ll[0], ll[1]] : null;
-      confirmEl.textContent = "Guess"; confirmEl.hidden = false; clearEl.hidden = false; sfx("click"); win.schedule();
+      pickPin = marks.some((m) => m.pick) ? null : [ll[0], ll[1]];   // only the picked place is lit: a region where there is one under the tap, else the marker (a place round; a tap on no state of the year; an area round on the still renderer, which has no states to light)
+      confirmEl.textContent = "Guess"; confirmEl.hidden = false; clearEl.hidden = false; sfx("click"); win.flash();   // the fill at once; the outline and glow follow within a few frames
     }
     function edgeKm(rings, lon, lat) { let best = Infinity; for (const ring of rings) for (const q of ring) { const d = fi2Hav(lon, lat, q[0], q[1]); if (d < best) best = d; } return best; }
     function commit() {
