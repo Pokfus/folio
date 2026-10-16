@@ -438,6 +438,125 @@ const holdRow = (page, match) => page.evaluate((m) => {
   const bgSpoken = await page.evaluate(() => { window.__spoken = []; document.querySelector('.tts-play[data-tts="background"]').click(); return new Promise((r) => setTimeout(() => r(window.__spoken.slice()), 400)); });
   check("the Background button reads the background aloud in English", bgSpoken.length > 0 && /Prehistory/.test(bgSpoken[0]), (bgSpoken[0] || "").slice(0, 60));
 
+  // 4b. while a section is playing a pause button appears beside its play button, and toggles pause / resume
+  await page.evaluate(() => {
+    window.__ps = [];
+    speechSynthesis.pause = () => window.__ps.push("pause");
+    speechSynthesis.resume = () => window.__ps.push("resume");
+    speechSynthesis.cancel = () => {};
+  });
+  await sectionBtns("wh-001");
+  const pauseVis = () => page.evaluate(() => { const p = document.querySelector('.tts-play[data-tts="answer"] + .tts-pause'); return !!p && getComputedStyle(p).display !== "none"; });
+  check("no pause button while nothing is playing", !(await pauseVis()));
+  await page.click('.tts-play[data-tts="answer"]');
+  await page.waitForTimeout(300);
+  check("a pause button appears beside the play button while it plays", await pauseVis());
+  await page.click('.tts-play[data-tts="answer"] + .tts-pause');
+  const paused = await page.evaluate(() => ({ calls: window.__ps.slice(), label: document.querySelector('.tts-play[data-tts="answer"] + .tts-pause').getAttribute("aria-label") }));
+  check("pressing it pauses the speech and offers to resume", paused.calls.join() === "pause" && /Resume/.test(paused.label), JSON.stringify(paused));
+  await page.click('.tts-play[data-tts="answer"] + .tts-pause');
+  const resumed = await page.evaluate(() => ({ calls: window.__ps.slice(), label: document.querySelector('.tts-play[data-tts="answer"] + .tts-pause').getAttribute("aria-label") }));
+  check("pressing it again resumes", resumed.calls.join() === "pause,resume" && /Pause/.test(resumed.label), JSON.stringify(resumed));
+  await page.click('.tts-play[data-tts="answer"]');
+  await page.waitForTimeout(200);
+  check("the play button stops the reading and the pause button goes away", !(await pauseVis()));
+
+  // 5. with the whiteboard marker down the section play buttons still answer a real pointer, the Background one
+  //    (inside the .bg-head button) without folding the section
+  await page.evaluate(() => { try { localStorage.setItem("folio_marker_tour_v1", "1"); } catch (e) {} });
+  await sectionBtns("wh-001");
+  await page.click("#cpgStudy");
+  await page.waitForTimeout(1500);
+  await page.click("text=Reveal answer");
+  await page.waitForTimeout(800);
+  const pen2 = await page.evaluate(() => {
+    const t = document.querySelector(".wb-toggle");
+    if (!t) return "no marker button";
+    t.click();
+    const pen = document.querySelector(".wb-panel .wb-size, .wb-panel .wb-btn");
+    if (!pen) return "no tool to choose";
+    pen.click();
+    return document.querySelector(".draw-canvas") ? "" : "no canvas";
+  });
+  check("the marker is down over a study card", pen2 === "", pen2);
+  if (pen2 === "") {
+    await page.waitForTimeout(400);
+    for (const k of ["question", "answer", "background"]) {
+      const box = await page.evaluate((kind) => {
+        const el = document.querySelector('.tts-play[data-tts="' + kind + '"]');
+        el.scrollIntoView({ block: "center" });
+        return new Promise((r) => setTimeout(() => { const b = el.getBoundingClientRect(); r({ x: b.x + b.width / 2, y: b.y + b.height / 2 }); }, 300));
+      }, k);
+      await page.evaluate(() => { window.__spoken = []; });
+      await page.mouse.move(box.x, box.y);
+      await page.mouse.down();
+      await page.mouse.up();
+      await page.waitForTimeout(400);
+      const got = await page.evaluate(() => window.__spoken.length);
+      check("with the pen down, a tap on the " + k + " play button reads it", got > 0, String(got));
+    }
+    // with the pen down the pause button is a control too (the Background tap above left it playing)
+    const pbox = await page.evaluate(() => {
+      const el = document.querySelector('.tts-play[data-tts="background"] + .tts-pause');
+      if (!el || getComputedStyle(el).display === "none") return null;
+      const b = el.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+    });
+    check("with the pen down the pause button is showing", !!pbox);
+    if (pbox) {
+      await page.evaluate(() => { window.__ps = []; });
+      await page.mouse.move(pbox.x, pbox.y);
+      await page.mouse.down();
+      await page.mouse.up();
+      await page.waitForTimeout(300);
+      check("\u2026and a tap on it pauses", (await page.evaluate(() => window.__ps)).join() === "pause");
+    }
+    check("\u2026and the Background tap did not fold the section",
+      await page.evaluate(() => !document.querySelector(".bg-collapse.collapsed")));
+  }
+
+  // 6. Settings → Audio: the buttons switch, the voice list, the speed and a sample
+  await page.evaluate(() => {
+    Object.defineProperty(speechSynthesis, "getVoices", { configurable: true, value: () => [
+      { name: "Test GB", lang: "en-GB", voiceURI: "gb", localService: true },
+      { name: "Test US", lang: "en-US", voiceURI: "us", localService: true },
+      { name: "Fr", lang: "fr-FR", voiceURI: "fr", localService: true }] });
+    window.SpeechSynthesisUtterance = class { constructor(t) { this.text = t; } };
+    speechSynthesis.speak = (u) => { window.__spoken.push({ text: u.text, rate: u.rate, voice: u.voice && u.voice.name }); setTimeout(() => u.onstart && u.onstart({}), 20); };
+    location.hash = "#settings";
+  });
+  await page.waitForTimeout(1200);
+  const voiceOpts = await page.evaluate(() => [...document.querySelectorAll("#ttsVoiceSel option")].map((o) => o.textContent));
+  check("Settings lists Automatic plus the English voices only", voiceOpts.length === 3 && /Automatic/.test(voiceOpts[0]) && !voiceOpts.some((o) => /Fr/.test(o)), voiceOpts.join(" | "));
+  // choosing a voice previews it at once, and the utterance carries the VOICE'S language, not a fixed en-US
+  await page.evaluate(() => {
+    window.SpeechSynthesisUtterance = class { constructor(t) { this.text = t; } };
+    speechSynthesis.speak = (u) => { window.__spoken.push({ text: u.text, rate: u.rate, lang: u.lang, voice: u.voice && u.voice.name }); setTimeout(() => u.onstart && u.onstart({}), 20); };
+    window.__spoken = [];
+  });
+  await page.selectOption("#ttsVoiceSel", "gb");
+  await page.waitForTimeout(400);
+  const gbSample = await page.evaluate(() => window.__spoken.splice(0));
+  check("choosing a voice plays the sample with that voice",
+    gbSample.length === 1 && gbSample[0].voice === "Test GB", JSON.stringify(gbSample));
+  check("\u2026and the utterance's language is the voice's own (en-GB)", gbSample.length === 1 && gbSample[0].lang === "en-GB", JSON.stringify(gbSample));
+  await page.selectOption("#ttsVoiceSel", "us");
+  await page.waitForTimeout(400);
+  const usSample = await page.evaluate(() => window.__spoken.splice(0));
+  check("switching to another voice switches the sample to it (en-US)",
+    usSample.length === 1 && usSample[0].voice === "Test US" && usSample[0].lang === "en-US", JSON.stringify(usSample));
+  await page.click('[data-ttsrate="fast"]');
+  await page.waitForTimeout(400);
+  const fastSample = await page.evaluate(() => window.__spoken.splice(0));
+  check("the speed applies to the sample", fastSample.length === 1 && fastSample[0].rate > 0.85 && fastSample[0].voice === "Test US", JSON.stringify(fastSample));
+  await page.click("#ttsTry");
+  await page.waitForTimeout(300);
+  check("Play sample stops a sample that is playing", (await page.evaluate(() => window.__spoken.length)) === 0);
+  await page.click("#sw-tts");
+  await page.evaluate(() => { location.hash = "#card/wh-001"; });
+  await page.waitForTimeout(1200);
+  check("switching the buttons off in Settings removes them from cards",
+    (await page.evaluate(() => document.querySelectorAll(".tts-play").length)) === 0);
+
   const own = errs.filter((e) => !/fonts\.googleapis|gstatic|ERR_CONNECTION_RESET/.test(e));
   check("no same-origin console errors", own.length === 0, own.slice(0, 3).join(" | "));
 
