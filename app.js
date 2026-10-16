@@ -24438,10 +24438,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      home page, read fresh at the moment it is drawn rather than copied from a list drawn before the
      session. No grip and no chevron: it is a single row standing alone, not a list to fold or reorder.
      `r` is a record of `adRowOrder` (id, title, parent, hue, langhead, group). */
-  /* "12 days left" after a deck's title when it is being paced to a date (see deckDeadlineLive) */
-  function deadlineTagHTML(id) {
-    const d = deckDeadlineLive(id);
-    return d ? `<span class="dk-sup dk-days" title="Ready by ${esc(d.date)}">\u00b7 ${d.days} day${d.days === 1 ? "" : "s"} left</span>` : "";
+  /* "12 days left" after a deck's title when it is being paced to a date (see deckDeadlineLive). A row ABOVE a
+     paced deck (the collection banner on the home list) has no date of its own, so it carries the nearest
+     one beneath it, named in its tooltip. */
+  function deadlineTagHTML(id, cls) {
+    let d = deckDeadlineLive(id), via = "";
+    if (!d && S.deckOpts) {
+      Object.keys(S.deckOpts).forEach((k) => {
+        if (k === id || !S.deckOpts[k] || typeof S.deckOpts[k].deadline !== "string") return;
+        const x = deckDeadlineLive(k);
+        if (x && (!d || x.days < d.days) && entryChain(k).indexOf(id) > 0) { d = x; via = entryInfo(k).title; }
+      });
+    }
+    return d ? `<span class="${cls || "dk-sup"} dk-days" title="Ready by ${esc(d.date)}${via ? " \u2014 " + esc(via) : ""}">\u00b7 ${d.days} day${d.days === 1 ? "" : "s"} left</span>` : "";
   }
   function adRowBannerHTML(r) {
     const day = adDay(r.id);
@@ -25006,7 +25015,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             ${grip}
             ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
-              <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
+              <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
             </div>
             ${chev}
           </div>`;
@@ -27261,7 +27270,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <span class="node-num">${num}</span>
           <div class="node-main">
             <div class="node-title-row">
-              <span class="node-title">${esc(nodeTitle(node))}</span>
+              <span class="node-title">${esc(nodeTitle(node))}</span>${deadlineTagHTML(node.id, "collection-span")}
               ${nodeEmptyPill}
               ${soon ? '<span class="pill soon">Planned</span>' : ""}
             </div>
@@ -27295,7 +27304,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       <span class="node-num">${num}</span>
       <div class="node-main">
         <div class="node-title-row">
-          <span class="node-title">${esc(nodeTitle(node))}</span>
+          <span class="node-title">${esc(nodeTitle(node))}</span>${deadlineTagHTML(node.id, "collection-span")}
           ${nodeEmptyPill}
           ${soon ? '<span class="pill soon">Planned</span>' : ""}
         </div>
@@ -27901,6 +27910,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="collection-main">
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
+              ${deadlineTagHTML(d.id, "collection-span")}
               ${spanHTML}
               ${/* …AND HOW FAR THROUGH ITS PLAN IT IS (Sep 2026). The card COUNT alone cannot say whether
                     a collection is finished: 700 is most of the way through Ancient Greece's planned
@@ -31291,7 +31301,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         symbolIconMarkup("speech") +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
-            '<span class="collection-title">' + esc(lang) + '</span>' +
+            '<span class="collection-title">' + esc(lang) + '</span>' + deadlineTagHTML(id, "collection-span") +
             '<span class="collection-span">' + specs.length + (specs.length === 1 ? " deck" : " decks") + '</span>' +
           '</div>' +
           deckProgMarkup(studied, cards) +
