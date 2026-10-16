@@ -266,7 +266,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "8fa3e9a360:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "8a631dab3b:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -302,7 +302,8 @@
         <canvas class="atlas2-canvas" tabindex="0" role="application" aria-label="Interactive globe — drag to turn, scroll or pinch to zoom, arrow keys turn, plus and minus zoom, Home resets; Tab walks the names on the map"></canvas>
         <canvas class="atlas2-labels" aria-hidden="true"></canvas>
         <div class="atlas2-search">
-          <input type="search" class="atlas2-search-in" placeholder="Find a place" aria-label="Find a place" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="atlas2-results" aria-autocomplete="list">
+          <button type="button" class="atlas2-search-btn" aria-label="Find a place" aria-expanded="false" aria-controls="atlas2-search-field" title="Find a place"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 15l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+          <input type="search" class="atlas2-search-in" id="atlas2-search-field" placeholder="Find a place" aria-label="Find a place" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="atlas2-results" aria-autocomplete="list">
           <ul class="atlas2-results" id="atlas2-results" role="listbox" aria-label="Places found" hidden></ul>
           <div class="atlas2-search-note" role="status" hidden><span class="atlas2-sn-t"></span><span class="atlas2-sn-b"><button type="button" class="atlas2-link atlas2-sn-go"></button><button type="button" class="atlas2-sn-x" aria-label="Dismiss" title="Dismiss">×</button></span></div>
         </div>${H.back && !opts.embed ? '<button type="button" class="atlas2-back" aria-label="Back to studying" title="Back to studying">&#8617; Back</button>' : ""}${studyPanel}
@@ -310,6 +311,15 @@
           <button type="button" class="atlas2-btn" data-zoom="in" title="Zoom in" aria-label="Zoom in">+</button>
           <button type="button" class="atlas2-btn" data-zoom="out" title="Zoom out" aria-label="Zoom out">−</button>
           <button type="button" class="atlas2-btn" data-zoom="home" title="Whole earth" aria-label="Whole earth">⌂</button>
+        </div>
+        <button type="button" class="atlas2-btn atlas2-menu-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="atlas2-menu" aria-label="Map menu" title="Map menu"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <div class="atlas2-menu" id="atlas2-menu" role="dialog" aria-label="Map menu" hidden>
+          <div class="atlas2-menu-head"><strong>Map</strong><button type="button" class="atlas2-menu-close" aria-label="Close the menu">×</button></div>
+          <div class="atlas2-menu-body">
+            <div class="atlas2-menu-study"></div>
+            <section class="atlas2-menu-sec" data-sec="layers"><button type="button" class="atlas2-menu-row" aria-expanded="false" aria-controls="atlas2-sheet"><span>Layers and legend</span><i aria-hidden="true"></i></button><div class="atlas2-menu-sec-body"></div></section>
+            <section class="atlas2-menu-sec" data-sec="help"><button type="button" class="atlas2-menu-row" aria-expanded="false" aria-controls="atlas2-about"><span>Help</span><i aria-hidden="true"></i></button><div class="atlas2-menu-sec-body"></div></section>
+          </div>
         </div>
         <div class="atlas2-layers">
           <button type="button" class="atlas2-btn atlas2-layers-btn" aria-expanded="false" aria-controls="atlas2-sheet" title="Legend">${PHONE ? "Legend" : "≡"}</button>
@@ -363,7 +373,7 @@
           <button type="button" class="atlas2-btn atlas2-about-btn" aria-expanded="false" aria-controls="atlas2-about" aria-label="About this map" title="About this map">?</button>
           <div class="atlas2-sheet atlas2-about" id="atlas2-about" role="dialog" aria-labelledby="atlas2-about-title" hidden>
             <div class="atlas2-sheet-head"><strong id="atlas2-about-title">About this map</strong><button type="button" class="atlas2-sheet-close atlas2-about-close" aria-label="Close">×</button></div>
-            <p class="atlas2-about-p atlas2-about-use"><b>Folio’s Atlas.</b> Drag the globe, scroll or pinch to zoom, and tap any place for its card — a country’s story, a battle, a city, a people. The <b>year rail</b> along the bottom takes you back through the states the cards teach, as they stood. The panel at the top left switches between the plain <b>Map</b>, <b>your atlas</b> (the places on the cards you have studied) and the <b>full atlas</b> (every place any card is about); a place card lists its cards. Search finds places, rivers, battles and states of any age. The same globe draws the maps on the cards and plays Find it.</p>
+            <p class="atlas2-about-p atlas2-about-use"><b>Folio’s Atlas.</b> Drag the globe, scroll or pinch to zoom, and tap any place for its card — a country’s story, a battle, a city, a people. The <b>year rail</b> along the bottom takes you back through the states the cards teach, as they stood. The switch at the top left — on a phone, under the menu button at the top right — chooses between the plain <b>Map</b>, <b>your atlas</b> (the places on the cards you have studied) and the <b>full atlas</b> (every place any card is about); a place card lists its cards. Search (the magnifier on a phone) finds places, rivers, battles and states of any age. The same globe draws the maps on the cards and plays Find it.</p>
             <p class="atlas2-about-p">The present-day earth from open data: coastlines from OpenStreetMap, borders and places from Natural Earth, lakes from HydroLAKES, relief from ETOPO 2022, names checked against Wikidata. <a class="atlas2-about-credits" href="#credits">Sources and credits</a> lists every source with its licence.</p>
             <p class="atlas2-about-p atlas2-about-history">The years before today draw <b>the states Folio’s cards teach</b> — their borders from Cliopatria (Seshat), conflated onto today’s coast — not every state of the period: plain land in a past year is a state no card covers yet, or one the source does not draw.</p>
             <p class="atlas2-about-p atlas2-about-caution">Every border and coastline here is a reconstruction from those sources, drawn at the resolution each allows and as it stood on the day it was retrieved; a border is a guide to where a boundary runs, not a judgement on where it lies.</p>
@@ -398,12 +408,13 @@
             <span class="atlas2-front-label" aria-live="polite"></span>
             <button type="button" class="atlas2-rail-btn atlas2-front-next" aria-label="Next front plate" title="Next plate of the front line">›</button>
           </div>
-          <div class="atlas2-rail-row">
+          <div class="atlas2-rail-row" id="atlas2-rail-row">
             <button type="button" class="atlas2-rail-btn atlas2-rail-prev" aria-label="Previous change year" title="Previous change year ([)">‹</button>
             <div class="atlas2-rail-track"><canvas class="atlas2-rail-ticks" aria-hidden="true"></canvas><div class="atlas2-rail-pin" role="slider" tabindex="0" aria-label="Year" aria-valuemin="${RAIL_FROM}" aria-valuemax="${TODAY}" aria-valuenow="${TODAY}" aria-valuetext="${TODAY}" aria-orientation="horizontal"></div><div class="atlas2-rail-mag" hidden aria-hidden="true"></div></div>
             <button type="button" class="atlas2-rail-btn atlas2-rail-next" aria-label="Next change year" title="Next change year (])">›</button>
             <input class="atlas2-rail-year" type="text" inputmode="text" aria-label="Year — for example 500 BCE, 1066 or -44" autocomplete="off" spellcheck="false">
             <button type="button" class="atlas2-rail-btn atlas2-rail-play" aria-label="Play" aria-pressed="false" title="Play every year">▶</button>
+            <button type="button" class="atlas2-rail-btn atlas2-rail-more" aria-expanded="false" aria-controls="atlas2-rail-row" aria-label="More time controls: step arrows and speed" title="More: step arrows and speed"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="5" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="19" cy="12" r="2" fill="currentColor"/></svg></button>
             <select class="atlas2-rail-speed" aria-label="Playback speed, years per second">${SPEEDS.map((v) => '<option value="' + v + '"' + (v === 25 ? ' selected' : '') + '>' + v + '/s</option>').join("")}</select>
           </div>
         </div>
@@ -860,16 +871,52 @@
     }
     reflectLayers();
     const sheetOpenClass = () => el.classList.toggle("atlas2-sheet-open", !sheet.hidden || !el.querySelector(".atlas2-about").hidden);
-    const openSheet = (open) => { sheet.hidden = !open; layersBtn.setAttribute("aria-expanded", String(open)); if (open) { const ab = el.querySelector(".atlas2-about"); if (ab && !ab.hidden) { ab.hidden = true; el.querySelector(".atlas2-about-btn").setAttribute("aria-expanded", "false"); } } if (open && PHONE) closeCard(); sheetOpenClass(); };
+    const openSheet = (open) => { sheet.hidden = !open; layersBtn.setAttribute("aria-expanded", String(open)); if (menuRows) menuRows.layers.setAttribute("aria-expanded", String(open)); if (open) { const ab = el.querySelector(".atlas2-about"); if (ab && !ab.hidden) { ab.hidden = true; el.querySelector(".atlas2-about-btn").setAttribute("aria-expanded", "false"); if (menuRows) menuRows.help.setAttribute("aria-expanded", "false"); } } if (open && PHONE) { closeCard(); showMenu(true, true); } sheetOpenClass(); };
     layersBtn.addEventListener("click", () => { openSheet(sheet.hidden); requestLayout("chrome"); });
     el.querySelector(".atlas2-sheet .atlas2-sheet-close").addEventListener("click", () => { openSheet(false); requestLayout("chrome"); });
     /* About this map (Phase 1d): the `?` control, keyboard help, the caution sentence, the credits link. Opening it shuts
        the legend (one sheet at a time, on a phone they share the bottom); focus goes to its title and comes back to the
        button on close */
     const aboutBtn = el.querySelector(".atlas2-about-btn"), aboutEl = el.querySelector(".atlas2-about");
-    const openAbout = (open) => { aboutEl.hidden = !open; aboutBtn.setAttribute("aria-expanded", String(open)); if (open) { openSheet(false); if (PHONE) closeCard(); aboutEl.querySelector(".atlas2-about-close").focus({ preventScroll: true }); } else if (aboutEl.contains(document.activeElement)) aboutBtn.focus({ preventScroll: true }); sheetOpenClass(); };
+    const openAbout = (open) => { aboutEl.hidden = !open; aboutBtn.setAttribute("aria-expanded", String(open)); if (menuRows) menuRows.help.setAttribute("aria-expanded", String(open)); if (open) { openSheet(false); if (PHONE) { closeCard(); showMenu(true, true); menuRows.help.focus({ preventScroll: true }); aboutEl.scrollIntoView({ block: "nearest" }); } else aboutEl.querySelector(".atlas2-about-close").focus({ preventScroll: true }); } else if (aboutEl.contains(document.activeElement)) (PHONE && menuRows ? menuRows.help : aboutBtn).focus({ preventScroll: true }); sheetOpenClass(); };
     aboutBtn.addEventListener("click", () => { openAbout(aboutEl.hidden); requestLayout("chrome"); });
     el.querySelector(".atlas2-about-close").addEventListener("click", () => { openAbout(false); requestLayout("chrome"); });
+    /* ---------- THE PHONE'S CHROME, DECLUTTERED (Oct 2026; the owner's phone, 2026-10-16: "the overlays take too much of the screen") ----------
+       On a phone (PHONE) the controls are: top left ONE search button that opens into the input; top right ONE menu button that opens a sheet holding the
+       Map / Personal / Full switch and its count line, the layers and legend, and the help (the study panel, the legend's sheet and the About sheet are MOVED
+       into it — the same elements, so every handler, id and test hook stays); the zoom stack is one vertical pill on the right edge; the year rail is one row
+       (scrubber, year, play, "more") with the step arrows and the speed behind the "more" toggle; and while the map is dragged or pinched everything fades to
+       35 % and comes back 1.5 s after the last finger lifts. Nothing here exists on a desktop: its buttons are `display:none` there and the Atlas's own
+       frame is the same one (styles.css "the phone, decluttered"). */
+    const menuBtn = el.querySelector(".atlas2-menu-btn"), menuEl = el.querySelector(".atlas2-menu"), searchBox = el.querySelector(".atlas2-search"), searchBtn = el.querySelector(".atlas2-search-btn"), railMore = el.querySelector(".atlas2-rail-more");
+    const menuRows = { layers: menuEl.querySelector('[data-sec="layers"] .atlas2-menu-row'), help: menuEl.querySelector('[data-sec="help"] .atlas2-menu-row') };
+    let menuOpen = false, searchOpen = false, fadeTimer = 0;
+    if (PHONE) {
+      const sp = el.querySelector(".atlas2-study"); if (sp) menuEl.querySelector(".atlas2-menu-study").appendChild(sp);
+      menuEl.querySelector('[data-sec="layers"] .atlas2-menu-sec-body').appendChild(sheet);
+      menuEl.querySelector('[data-sec="help"] .atlas2-menu-sec-body').appendChild(aboutEl);
+    }
+    // the menu: opened by its button, shut by its own ×, Escape, a tap on the map, or the search opening; `quiet` opens it for a caller that asks for a layout itself
+    function showMenu(open, quiet) {
+      if (!PHONE || open === menuOpen) return;
+      menuOpen = open; menuEl.hidden = !open; menuBtn.setAttribute("aria-expanded", String(open)); el.classList.toggle("atlas2-menu-open", open);
+      if (open) { closeCard(); collapseSearch(); if (!quiet) menuEl.querySelector(".atlas2-menu-close").focus({ preventScroll: true }); }
+      else { if (!sheet.hidden) openSheet(false); if (!aboutEl.hidden) openAbout(false); if (menuEl.contains(document.activeElement)) menuBtn.focus({ preventScroll: true }); }
+      requestLayout("chrome", true);
+    }
+    menuBtn.addEventListener("click", () => showMenu(!menuOpen));
+    menuEl.querySelector(".atlas2-menu-close").addEventListener("click", () => showMenu(false));
+    menuRows.layers.addEventListener("click", () => { openSheet(sheet.hidden); if (!sheet.hidden) sheet.scrollIntoView({ block: "nearest" }); requestLayout("chrome"); });
+    menuRows.help.addEventListener("click", () => { openAbout(aboutEl.hidden); requestLayout("chrome"); });
+    // the search: a button that opens into the input (and shuts again with Escape, its button, a tap on the map or a chosen place)
+    function openSearchBox() { if (!PHONE) return; if (menuOpen) showMenu(false); searchOpen = true; searchBox.classList.add("atlas2-search-open"); searchBtn.setAttribute("aria-expanded", "true"); requestLayout("chrome", true); }
+    function collapseSearch() { if (!PHONE || !searchOpen) return; searchOpen = false; searchBox.classList.remove("atlas2-search-open"); searchBtn.setAttribute("aria-expanded", "false"); closeResults(); searchIn.value = ""; searchIn.blur(); requestLayout("chrome", true); }
+    searchBtn.addEventListener("click", () => { if (searchOpen) collapseSearch(); else { openSearchBox(); searchIn.focus({ preventScroll: true }); } });
+    if (PHONE) railYear.addEventListener("focus", () => { try { railYear.select(); } catch (e) { /* a year typed over the old one */ } });   // tap to type: the year is selected, so typing replaces it
+    // the rail's "more": the step arrows and the speed on a second line
+    railMore.addEventListener("click", () => { const on = !el.classList.contains("atlas2-rail-more-open"); el.classList.toggle("atlas2-rail-more-open", on); railMore.setAttribute("aria-expanded", String(on)); requestLayout("chrome", true); });
+    // the fade: to 35 % while a finger is down on the map (a drag or a pinch), back 1.5 s after the last one lifts
+    function overlaysFade(down) { if (fadeTimer) { clearTimeout(fadeTimer); fadeTimer = 0; } if (down) el.classList.add("atlas2-gesturing"); else fadeTimer = setTimeout(() => { fadeTimer = 0; if (!ptrs.size) el.classList.remove("atlas2-gesturing"); }, 1500); }
     sheet.addEventListener("change", (e) => { const k = e.target.getAttribute("data-layer"); if (!k) return; setLayers({ [k]: e.target.type === "checkbox" ? e.target.checked : e.target.type === "radio" ? e.target.value : Number(e.target.value) }); });
     sheet.addEventListener("input", (e) => { if (e.target.getAttribute("data-layer") === "strength") { layers.strength = Number(e.target.value); invalidate(); } });
 
@@ -882,6 +929,7 @@
       if (e.button !== 0 && e.pointerType === "mouse") return;
       try { canvas.setPointerCapture(e.pointerId); } catch (x) {}
       ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (PHONE) { overlaysFade(true); if (menuOpen) showMenu(false); }
       coasting = false; velLon = 0; velLat = 0;
       if (ptrs.size === 1) { dragging = true; last = { x: e.clientX, y: e.clientY }; downAt = { x: e.clientX, y: e.clientY }; moved = false; lastMoveT = e.timeStamp; }
       else if (ptrs.size === 2) { dragging = false; moved = true; const p = [...ptrs.values()]; pinch = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y); pinchMid = { x: (p[0].x + p[1].x) / 2, y: (p[0].y + p[1].y) / 2 }; }
@@ -926,6 +974,7 @@
     function ptrUp(e) {
       if (!ptrs.has(e.pointerId)) return;
       ptrs.delete(e.pointerId);
+      if (!ptrs.size && PHONE) overlaysFade(false);
       if (ptrs.size === 1) { const p = [...ptrs.values()][0]; dragging = true; last = { x: p.x, y: p.y }; pinch = 0; return; }
       if (ptrs.size > 1) return;
       const wasDrag = dragging; dragging = false;
@@ -968,9 +1017,9 @@
       else if (e.key === "ArrowUp") view.lat += step; else if (e.key === "ArrowDown") view.lat -= step;
       else if (e.key === "+" || e.key === "=") zoomAt(1.25); else if (e.key === "-" || e.key === "_") zoomAt(1 / 1.25);
       else if (e.key === "Home" || e.key === "0") { view.lon = 10; view.lat = 20; view.zoom = 1; }
-      else if (e.key === "Escape") { if (fan) closeFan(); else if (!aboutEl.hidden) openAbout(false); else if (!sheet.hidden) openSheet(false); else clearSelection(); }
+      else if (e.key === "Escape") { if (fan) closeFan(); else if (!aboutEl.hidden) openAbout(false); else if (!sheet.hidden) openSheet(false); else if (menuOpen) showMenu(false); else if (searchOpen) collapseSearch(); else clearSelection(); }
       else if (e.key === "?") openAbout(aboutEl.hidden);
-      else if (e.key === "/") { searchIn.focus(); searchIn.select(); }
+      else if (e.key === "/") { openSearchBox(); searchIn.focus(); searchIn.select(); }
       else if (e.key === "p" || e.key === "P") setPerf(!perfOn, true);
       else if (e.key === "r" || e.key === "R") setLayers({ relief: !layers.relief });
       else if (e.key === "[") stepChange(-1); else if (e.key === "]") stepChange(1);
@@ -982,8 +1031,10 @@
       if (e.key !== "Escape" || e.target === canvas) return;
       if (fan) { closeFan(); return; }                                                    // the fan first (stacks removed): it is the newest thing on the map
       if (e.target === searchIn && !resultsUl.hidden) { closeResults(); return; }
+      if (searchOpen && searchBox.contains(e.target)) { collapseSearch(); canvas.focus({ preventScroll: true }); return; }   // a phone's search box shuts like the sheets
       if (!aboutEl.hidden) { openAbout(false); return; }                                   // the About sheet first (Phase 1d)
-      if (!sheet.hidden && sheet.contains(e.target)) { openSheet(false); layersBtn.focus({ preventScroll: true }); return; }   // then the legend, focus back on its button
+      if (!sheet.hidden && sheet.contains(e.target)) { openSheet(false); (PHONE ? menuRows.layers : layersBtn).focus({ preventScroll: true }); return; }   // then the legend, focus back on its button
+      if (menuOpen) { showMenu(false); return; }                                            // then the phone's menu
       const inCard = cardEl.contains(e.target);
       clearSelection();                                   // closeCard sends focus back to the card's opener
       if (!inCard) canvas.focus({ preventScroll: true });
@@ -1846,7 +1897,7 @@
        layout as occupied ground — the search box and its list, the zoom stack, the Legend and ? chips, an open sheet, the
        card (or its phone strip), the stack chip, the status line, the mode note, the year rail. A sheet opening or closing
        asks for a layout, so the names step out from under it. */
-    const CHROME = [".atlas2-search-in", ".atlas2-results", ".atlas2-search-note", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
+    const CHROME = [".atlas2-search-btn", ".atlas2-search-in", ".atlas2-results", ".atlas2-menu-btn", ".atlas2-menu", ".atlas2-search-note", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
     function chromeRects() {
       const base = el.getBoundingClientRect(), out = [], seen = new Set();
       for (const sel of CHROME) for (const node of el.querySelectorAll(sel)) {
@@ -2276,6 +2327,7 @@
     const kindLine = (row) => { const w = row.within ? G.byId.get(row.within) : null; return (KIND_LABEL[row.kind] || row.kind) + (w ? " · " + w.name : ""); };
     const wikiUrl = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(String(title).replace(/ /g, "_"));
     function openCard(row) {
+      if (PHONE && menuOpen) showMenu(false);   // the card is a bottom sheet too: one at a time
       const wasOpen = cardOpen;
       if (!wasOpen) sheetUp = false;   // a phone's sheet opens shut every time (§7 Phase 1c); a second place while it is up keeps its height
       cardRow = row; cardOpen = true;
@@ -2583,6 +2635,7 @@
       } else flyToRow(row, true);
       if (n) showSearchNote(row, n);
       canvas.focus({ preventScroll: true });
+      collapseSearch();
     }
     noteEl.addEventListener("click", (e) => {
       if (e.target.closest(".atlas2-sn-x")) { hideSearchNote(); return; }
@@ -2599,7 +2652,7 @@
       else if (e.key === "Enter") { if (!results.length) runSearch(searchIn.value); if (results.length) { e.preventDefault(); chooseResult(Math.max(0, active)); } }
     });
     resultsUl.addEventListener("pointerdown", (e) => { const li = e.target.closest("li[data-i]"); if (li) { e.preventDefault(); chooseResult(Number(li.getAttribute("data-i"))); } });
-    document.addEventListener("pointerdown", (e) => { if (!resultsUl.hidden && !e.target.closest(".atlas2-search")) closeResults(); }, true);
+    document.addEventListener("pointerdown", (e) => { if (e.target.closest && !e.target.closest(".atlas2-search")) { if (!resultsUl.hidden) closeResults(); if (searchOpen && !searchIn.value.trim()) collapseSearch(); } }, true);
 
     /* ---- flying to a place: an eased move, instant under reduced motion ---- */
     const PLACES_KMPP = { region: 8, range: 6, island: 3, "island-group": 8, sea: 10, gulf: 4, strait: 3, lake: 3, river: 6, ocean: 24, city: 1.5, town: 0.8, site: 0.8, mountain: 3, hill: 1.5, cape: 2 };   // a places.js row has a point and no extent: its zoom is by kind (Phase 3b)

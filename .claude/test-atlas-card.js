@@ -149,17 +149,16 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   await P.page.click(".atlas2-grip"); await sleep(150);
   const up = await P.page.evaluate(() => { const el = document.querySelector(".atlas2-card"); return { shut: el.classList.contains("atlas2-card-shut"), bodyShown: getComputedStyle(el.querySelector(".atlas2-card-body")).display !== "none", h: el.getBoundingClientRect().height }; });
   check("the grip expands it", !up.shut && up.bodyShown && up.h > 200, JSON.stringify(up));
-  const legend = await P.page.evaluate(() => { const b = document.querySelector(".atlas2-layers-btn"); return { text: b.textContent.trim(), shown: getComputedStyle(b.closest(".atlas2-layers")).display !== "none" }; });
-  check("the legend is a chip on a phone", legend.text === "Legend", legend.text);
-  // Phase 1d: while a card is open on a phone the Legend and About chips step aside (the sheet and the chips shared the
-  // bottom of a 360×640 screen); closing the card brings them back
-  check("…hidden while the card sheet is open", !legend.shown, JSON.stringify(legend));
+  /* Oct 2026, the decluttered phone: the Legend and ? chips are gone from the map (hidden, their handlers kept); one menu button opens a sheet holding the legend
+     and the help. The menu button stays while a card sheet is open; a card opening shuts an open menu (one bottom sheet at a time). */
+  const legend = await P.page.evaluate(() => { const b = document.querySelector(".atlas2-layers-btn"), m = document.querySelector(".atlas2-menu-btn"); const r = m.getBoundingClientRect(); return { text: b.textContent.trim(), chipShown: getComputedStyle(b.closest(".atlas2-layers")).display !== "none", menuBtn: r.width >= 44 && r.height >= 44 }; });
+  check("on a phone the Legend chip is not on the map: one menu button (44 px) stands in its place", legend.text === "Legend" && !legend.chipShown && legend.menuBtn, JSON.stringify(legend));
   await P.page.click(".atlas2-card-close"); await sleep(150);
-  const back = await P.page.evaluate(() => { const b = document.querySelector(".atlas2-layers-btn"); return getComputedStyle(b.closest(".atlas2-layers")).display !== "none"; });
-  check("…and back once the card is closed", back);
-  await P.page.click(".atlas2-layers-btn"); await sleep(100);
-  const sheetOpen = await P.page.evaluate(() => { const s = document.querySelector(".atlas2-sheet"); const r = s.getBoundingClientRect(); return { hidden: s.hidden, fixed: getComputedStyle(s).position === "fixed", bottom: Math.abs(r.bottom - innerHeight) < 2, density: s.querySelectorAll('[data-layer="density"]').length }; });
-  check("…which opens the legend as a sheet with the density stops", !sheetOpen.hidden && sheetOpen.fixed && sheetOpen.density === 3, JSON.stringify(sheetOpen));
+  await P.page.click(".atlas2-menu-btn"); await sleep(150); await P.page.click('[data-sec="layers"] .atlas2-menu-row'); await sleep(150);
+  const sheetOpen = await P.page.evaluate(() => { const s = document.querySelector(".atlas2-sheet"); const r = s.getBoundingClientRect(), m = document.querySelector(".atlas2-menu").getBoundingClientRect(); return { hidden: s.hidden, inMenu: !!s.closest(".atlas2-menu"), inside: r.bottom <= m.bottom + 1 && r.top >= m.top - 1 || s.scrollHeight > 0, density: s.querySelectorAll('[data-layer="density"]').length }; });
+  check("…which opens the legend inside the menu's sheet, with the density stops", !sheetOpen.hidden && sheetOpen.inMenu && sheetOpen.density === 3, JSON.stringify(sheetOpen));
+  await P.page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:fra", { open: true })); await sleep(250);
+  check("…and a place card opening shuts the menu (one sheet at a time)", await P.page.evaluate(() => document.querySelector(".atlas2-menu").hidden && !document.querySelector(".atlas2-card").hidden));
   check("no page errors on #map (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));
   check("no page errors on #map (phone)", P.errors.length === 0, P.errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();

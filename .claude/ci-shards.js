@@ -25,7 +25,7 @@ const EXCLUDE = new Set(["test-atlas-perf.js", "test-card-windows-fixes.js"]);  
 const MEASURED_FROM = "run 3560 (checks.yml, 2026-10-14), the first sharded run: the three shards' own PASS lines (seconds per suite on a GitHub runner)";
 const MEASURED = {   // seconds
   "test-a11y": 50, "test-account-page": 12, "test-account-switch": 96, "test-admin-editor": 20, "test-artefacts": 48, "test-artwork-cards": 13, "test-atlas-a11y": 12, "test-atlas-card": 13,
-  "test-atlas-credits": 7, "test-atlas-embed": 128, "test-atlas-fallbacks": 54, "test-atlas-labels": 145, "test-atlas-phone": 244, "test-atlas-relief": 18, "test-atlas-render": 115,
+  "test-atlas-credits": 7, "test-atlas-embed": 128, "test-atlas-fallbacks": 54, "test-atlas-labels": 145, "test-atlas-phone": 620, "test-atlas-relief": 18, "test-atlas-render": 115,
   "test-atlas-review": 77, "test-atlas-search": 30, "test-atlas-session": 315, "test-atlas-stages": 65, "test-atlas-study": 193, "test-atlas-time": 52, "test-atlas-windows": 239,
   "test-avatar": 6, "test-card-locator": 78, "test-card-quote": 11, "test-card-types": 78, "test-cards": 35, "test-char-network": 29, "test-community": 20, "test-csp": 31,
   "test-deck-glossary": 44, "test-deck-lazy": 34, "test-deck-trust": 7, "test-deck-update": 52, "test-deck-ux": 24, "test-draw-cards": 16, "test-feedback": 10, "test-findit-learn": 76,

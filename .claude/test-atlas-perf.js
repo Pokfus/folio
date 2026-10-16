@@ -110,6 +110,75 @@ const HEAP_BUDGET_MB = Number(process.env.FOLIO_HEAP_BUDGET_MB) || 38;
 const RELEASE_MS = 300;         // the first full-screen frame after a pinch's fingers lift (Phase 1d), reported with its primitive count
 const RELEASE_WINDOW_MS = 450;  // a frame ending within this of a touchEnd mark is a release frame, not a gesture frame
 const RELEASE_SETTLE_MS = 500;  // how long the pinch waits after each release before the next touch (longer than the window)
+/* THE DRAG'S RULE IS SPLIT THE WAY THE PINCH'S ALREADY WAS (2026-10-16, the owner's decision; CI runs 3627 and 3635). A CORRECTION OF WHERE THE RELEASE FRAMES ARE
+   COUNTED, NOT A LOOSENING: no frame was made cheaper to pass and no limit moved — the frames DURING the drag (fingers or mouse down) still count against the 0.5 %
+   over 100 ms and none over 200 ms, and the frames after the release are now measured by the pinch's own release rule, "the first full frame after release ≤ 300 ms and
+   none over 300 ms". The facts that made the old pooled count the wrong place for them: on CI's software compositor the first frame after a drag is released costs
+   82-93 ms (one BeginMainFrame whose commit spends its time in GLES2::ReadPixels, a whole-canvas readback — the held gesture level giving way to the full picture, by
+   design, once), and its names landing a moment later cost another (docs/atlas-v2-design.md §7 "Red suites and flaky gates", item b); three repeats of the drag therefore
+   spent 3 of the 5 frames the 0.5 % rule allows (0.5 % of ~1,170) on frames no drag produced, so any further stall failed the gate (runs 3627 and 3635: 7 of ~1,170 frames
+   over 100 ms, worst 150 ms). The rule below is a pure function of the frames and its self-test (`--rule-selftest`, also run first by every run of the suite) feeds it those numbers. */
+function splitByMarks(d, ts, marks) {   // frames ending within RELEASE_WINDOW_MS after a release mark are release frames (per mark), the others are "during"
+  const during = [], release = marks.map(() => []);
+  d.forEach((dt, i) => { const t = ts[i]; const k = marks.findIndex((m) => t > m && t <= m + RELEASE_WINDOW_MS); if (k < 0) during.push(dt); else release[k].push(dt); });
+  return { during, release };
+}
+// the drag's gate over a gesture's repeats: `during` is every repeat's during-gesture frames pooled, `releases` one array of frames per release
+function dragRule(during, releases) {
+  const over = during.filter((x) => x > WORST_MS + 1).length, share = during.length ? over / during.length : 0, max = during.length ? Math.max(...during) : 0;
+  const firsts = releases.filter((r) => r.length).map((r) => r[0]), relMax = releases.length ? Math.max(0, ...releases.map((r) => (r.length ? Math.max(...r) : 0))) : 0;
+  const firstMax = firsts.length ? Math.max(...firsts) : 0;
+  return { n: during.length, over, share, max, firstMax, relMax, releases: releases.length,
+    duringOK: share <= WORST_SHARE && max <= WORST_CAP_MS + 1,
+    releaseOK: releases.length > 0 && firsts.length === releases.length && firstMax <= RELEASE_MS + 1 && relMax <= RELEASE_MS + 1 };
+}
+// what the drag's rule was until 2026-10-16: every frame of the repeats, release frames inside the count (kept only so the self-test can show it failing)
+const oldDragRule = (all) => { const over = all.filter((x) => x > WORST_MS + 1).length; return { over, share: all.length ? over / all.length : 0, max: Math.max(...all), ok: all.length > 0 && over / all.length <= WORST_SHARE && Math.max(...all) <= WORST_CAP_MS + 1 }; };
+/* THE RULE'S SELF-TEST (no browser): CI's numbers fed to the old rule and to the new one, and what the new one still catches. The synthetic drag is three repeats of ~390 frames
+   (1,172 in all) — 16.7 ms steps with a few 33-50 ms ones, the shape of CI's — with the stalled release-window frames each repeat has on a software compositor (the readback frame
+   straight after the release and the names' frame a moment later: a 93 ms commit reads 116.7 ms at 60 Hz) and the run's worst, 150.1 ms, also in a release window: 7 frames over 100 ms of 1,172, worst 150 ms, which is what
+   runs 3627 and 3635 printed. The release marks sit where the page puts them (the mouse-up). */
+function ruleSelfTest() {
+  let bad = 0;
+  const ok = (name, cond, detail) => { console.log(`  ${cond ? "\x1b[32mok\x1b[0m  " : "\x1b[31mFAIL\x1b[0m"}  ${name}${detail ? "  \x1b[2m" + detail + "\x1b[0m" : ""}`); if (!cond) bad++; };
+  console.log("\nThe drag rule's self-test (synthetic frames with CI's numbers: runs 3627 and 3635 — 7 of 1,172 frames over 100 ms, worst 150 ms, the release frames inside the count)\n");
+  const N = [391, 391, 390], REL = [[116.7, 116.7, 116.7], [150.1, 116.7], [116.7, 116.7]];   // frames per repeat; the stalled release frames of each repeat
+  const build = (extraDuring) => {   // → { all, during, releases } for the three repeats
+    const all = [], during = [], releases = [];
+    N.forEach((n, r) => {
+      const d = [], ts = []; let t = 1000;
+      const nRel = REL[r].length + 5, nDur = n - nRel;
+      for (let i = 0; i < nDur; i++) { const dt = i % 37 === 0 ? 50.0 : i % 11 === 0 ? 33.4 : 16.7; if (extraDuring && extraDuring[r] && extraDuring[r][i] != null) d.push(extraDuring[r][i]); else d.push(dt); t += d[d.length - 1]; ts.push(t); }
+      const mark = t + 5;
+      // the release window: the stalled frames at +100 ms and +260 ms, the rest ordinary frames
+      const rel = REL[r].slice(); let tt = mark;
+      for (let k = 0; k < nRel; k++) { const dt = k < rel.length ? rel[k] : 16.7; tt += dt; d.push(dt); ts.push(tt); }
+      const sp = splitByMarks(d, ts, [mark]);
+      all.push(...d); during.push(...sp.during); releases.push(sp.release[0]);
+    });
+    return { all, during, releases };
+  };
+  const base = build(null);
+  const old = oldDragRule(base.all);
+  ok(`the old rule on CI's frames FAILS: ${old.over} frames over 100 ms of ${base.all.length} = ${(100 * old.share).toFixed(2)} % (limit ${(100 * WORST_SHARE).toFixed(2)} %), worst ${old.max} ms`, !old.ok && base.all.length === 1172 && old.over === 7 && old.max === 150.1);
+  const nw = dragRule(base.during, base.releases);
+  ok(`the new rule on the same frames PASSES: during the drag ${nw.over} of ${nw.n} over 100 ms (${(100 * nw.share).toFixed(2)} %), worst ${nw.max.toFixed(1)} ms; release: first frame ≤ ${nw.firstMax.toFixed(1)} ms, worst ${nw.relMax.toFixed(1)} ms (limit ${RELEASE_MS})`, nw.duringOK && nw.releaseOK && nw.over === 0);
+  // a stall DURING the drag is counted: one 150 ms frame is 1 of ~1,150 (inside the 0.5 % allowance, exactly as under the old rule), six are not, and 210 ms is over the 200 ms cap on its own
+  const stall = (frames) => build(frames);
+  { const one = stall([{ 100: 150.1 }]), r = dragRule(one.during, one.releases);
+    ok(`a synthetic 150 ms stall in ONE drag frame is counted (${r.over} over 100 ms, ${(100 * r.share).toFixed(2)} %) and is within the 0.5 % allowance, as before the split`, r.over === 1 && r.duringOK); }
+  { const six = stall([{ 50: 150.1, 100: 150.1 }, { 50: 150.1, 100: 150.1 }, { 50: 150.1, 100: 150.1 }]), r = dragRule(six.during, six.releases), o = oldDragRule(six.all);
+    ok(`six 150 ms stalls DURING the drag FAIL the new rule (${r.over} of ${r.n} = ${(100 * r.share).toFixed(2)} %)`, r.over === 6 && !r.duringOK && !o.ok); }
+  { const big = stall([{ 100: 210.1 }]), r = dragRule(big.during, big.releases);
+    ok(`one 210 ms stall DURING the drag FAILS the new rule (over the ${WORST_CAP_MS} ms cap, worst ${r.max.toFixed(1)} ms)`, !r.duringOK && r.max > WORST_CAP_MS); }
+  // the release frames are measured too: a first frame over 300 ms, or any release frame over 300 ms, fails; a missing release fails
+  { const slow = build(null); slow.releases[1] = slow.releases[1].slice(); slow.releases[1][0] = 310.1; const r = dragRule(slow.during, slow.releases);
+    ok(`a release whose first full frame takes 310 ms FAILS the release rule (limit ${RELEASE_MS} ms)`, !r.releaseOK && r.firstMax > RELEASE_MS); }
+  { const slow = build(null); slow.releases[2] = slow.releases[2].slice(); slow.releases[2][5] = 320.1; const r = dragRule(slow.during, slow.releases);
+    ok("a later release frame over 300 ms FAILS the release rule", !r.releaseOK && r.relMax > RELEASE_MS && r.firstMax <= RELEASE_MS + 1); }
+  { const r = dragRule(base.during, []); ok("no release recorded FAILS (the mark must be there)", !r.releaseOK); }
+  return bad;
+}
 /* STACKS REMOVED (2026-10-14): `marks` on each view is its budget of study marks — the marks drawn in a still frame of the FULL Atlas at 1280×800, measured
    2026-10-14 (globe 1,028; Europe 171; the Aegean 60; the Aegean at the cap 1; the Mediterranean in 1 CE 466; Europe in 1500 and 1900 116 and 112; the steppe in 450 CE 236;
    the Black Sea in 450 BCE 204; the steppe in 660 CE 239; the Western Front 109; the Mediterranean in 216 BCE 474), each rounded up by a quarter.
@@ -184,10 +253,9 @@ async function measure(page, fn) {
   s.ts = r.ts; s.marks = r.marks; s.extra = extra || null;
   // Phase 1d: frames split by the touchEnd marks — a frame ending within RELEASE_WINDOW_MS of a mark is a release frame
   if (r.marks.length) {
-    const during = [], release = r.marks.map(() => []);
-    r.d.forEach((dt, i) => { const t = r.ts[i]; const k = r.marks.findIndex((m) => t > m && t <= m + RELEASE_WINDOW_MS); if (k < 0) during.push(dt); else release[k].push(dt); });
+    const { during, release } = splitByMarks(r.d, r.ts, r.marks);
     s.during = summary(during);
-    s.release = release.map((arr, k) => ({ max: arr.length ? Math.max(...arr) : 0, n: arr.length, stats: extra && extra.releases ? extra.releases[k] : null }));
+    s.release = release.map((arr, k) => ({ max: arr.length ? Math.max(...arr) : 0, first: arr.length ? arr[0] : 0, frames: arr, n: arr.length, stats: extra && extra.releases ? extra.releases[k] : null }));
   }
   return s;
 }
@@ -200,6 +268,7 @@ async function drag(page, cx, cy) {
     await page.mouse.move(cx + Math.sin(a) * 140 + i * 0.5, cy + Math.cos(a) * 60);
     await sleep(16);
   }
+  await page.evaluate(() => { if (window.__ft) window.__ft.marks.push(performance.now()); });   // the release mark: frames after it are the release frames (the pinch's rule), not the drag's
   await page.mouse.up();
   await sleep(600);   // let a coast settle outside the measured window
 }
@@ -360,6 +429,8 @@ async function fixedMarks(page) {
 }
 
 (async () => {
+  if (ruleSelfTest()) { console.log("\nthe drag rule's self-test failed\n"); process.exit(1); }
+  if (process.argv.includes("--rule-selftest")) { console.log(""); process.exit(0); }
   await new Promise((r) => server.listen(PORT, r));
   const base = "http://127.0.0.1:" + PORT + "/";
   const browser = await chromium.launch(LAUNCH);
@@ -438,8 +509,8 @@ async function fixedMarks(page) {
   row("drag", "v2 stage0", results.v2.drag0);
   console.log(`  (v2 stage0: the drag with the gesture stage forced to 0 and locked — full resolution, the view's own level — reported, not gated; the learnt stage after the gestures was ${results.v2.stage && results.v2.stage.learnt}, escalations ${results.v2.stage && results.v2.stage.escalations}, stalls ignored ${results.v2.stage && results.v2.stage.stallsIgnored}, GPU timer ${results.v2.stage && results.v2.stage.gpuTimer})`);
   for (const g of ["drag", "wheel", "pinch", "scrub"]) { row(g, "v2", results.v2[g]); if (g !== "scrub") row(g, "v2+relief", results.v2relief[g]); }
-  const relRow = (name, s) => { if (!s || !s.during) return; const w = s.releaseWorst; console.log(`  ${"pinch".padEnd(9)} ${name.padEnd(9)}  during the gesture: n ${s.during.n} p90 ${fmt(s.during.p90)} max ${fmt(s.during.max)};  release frames: ${s.release.map((x) => x.max.toFixed(1)).join(" / ")} ms, worst ${w.max.toFixed(1)} ms${w.stats ? ` at LOD ${w.stats.level}: ${w.stats.triangles} tri + ${w.stats.segments} seg, ${w.stats.riverSegments} river, ${w.stats.lakeSegments} lake seg, ${w.stats.lakeTriangles} lake tri, ${w.stats.draws} draws` : ""}`); };
-  relRow("v2", results.v2.pinch); relRow("v2+relief", results.v2relief.pinch);
+  const relRow = (name, s, g = "pinch") => { if (!s || !s.during) return; const w = s.releaseWorst; console.log(`  ${g.padEnd(9)} ${name.padEnd(9)}  during the gesture: n ${s.during.n} p90 ${fmt(s.during.p90)} max ${fmt(s.during.max)};  release frames: ${s.release.map((x) => x.max.toFixed(1)).join(" / ")} ms, worst ${w.max.toFixed(1)} ms${w.stats ? ` at LOD ${w.stats.level}: ${w.stats.triangles} tri + ${w.stats.segments} seg, ${w.stats.riverSegments} river, ${w.stats.lakeSegments} lake seg, ${w.stats.lakeTriangles} lake tri, ${w.stats.draws} draws` : ""}`); };
+  relRow("v2", results.v2.drag, "drag"); relRow("v2+relief", results.v2relief.drag, "drag"); relRow("v2", results.v2.pinch); relRow("v2+relief", results.v2relief.pinch);
   { const c = results.v2relief.cost || []; const done = c.filter((x) => x.uploadMs != null); if (done.length) { const med = (k) => { const a = done.map((x) => x[k]).sort((p, q) => p - q); return a[Math.floor(a.length / 2)]; }; const mx = (k) => Math.max(...done.map((x) => x[k])); console.log(`  relief first-use cost per patch (${done.length} patches, ungated): fetch+decode p50 ${Math.round(med("fetchMs"))} ms max ${Math.round(mx("fetchMs"))}; compose p50 ${med("composeMs")} ms max ${mx("composeMs")}; upload p50 ${med("uploadMs")} ms max ${mx("uploadMs")}; ${done.map((x) => `${x.key} ${(x.bytes / 1048576).toFixed(1)} MB ${Math.round(x.fetchMs)}+${x.composeMs}+${x.uploadMs} ms`).join(", ")}`); } }
   console.log(`\n  ready: v2 ${results.v2.ready} ms (fetch ${results.v2.load.fetchMs} ms, ${results.v2.load.bytes} bytes, first paint ${results.v2.load.firstPaintMs} ms, worker ${results.v2.load.workerMs} ms; water ${results.v2.load.waterBytes} bytes in ${results.v2.load.waterFetchMs} ms)`);
   console.log(`  v2 levels: ${results.v2.load.levels}; uploads ms ${JSON.stringify(results.v2.load.uploads)}; water levels: ${results.v2.load.water}`);
@@ -476,8 +547,10 @@ async function fixedMarks(page) {
   // renderer regression, and a share scales with the sample where the old count of two did not
   const overCount = (raw) => raw.filter((x) => x > WORST_MS + 1).length;
   const overShare = (raw) => (raw.length ? overCount(raw) / raw.length : 0);
-  { const d = results.v2.drag;
-    check(`drag: across ${REPEATS} repeats (${d.n} frames) at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms (relief off)`, overShare(d.raw) <= WORST_SHARE && d.max <= WORST_CAP_MS + 1, `${overCount(d.raw)} over ${WORST_MS} (${pctS(overShare(d.raw))}), worst ${d.max.toFixed(1)} ms (per repeat ${d.runs.map((s) => s.max.toFixed(1)).join(" / ")})`); }
+  { const d = results.v2.drag, dr = d.during ? dragRule(d.during.raw, d.release.map((x) => x.frames)) : null;
+    // THE DRAG'S RULE, SPLIT (2026-10-16; see dragRule): the frames DURING the drag against the 0.5 % and the 200 ms cap, the release frames by the pinch's own rule
+    check(`drag: DURING the gesture, across ${REPEATS} repeats at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms (relief off)`, !!dr && dr.duringOK, dr ? `${dr.over} over ${WORST_MS} (${pctS(dr.share)}), worst ${dr.max.toFixed(1)} ms over ${dr.n} frames (per repeat ${d.runs.map((s) => s.during ? s.during.max.toFixed(1) : "?").join(" / ")})` : "no release marks recorded");
+    check(`drag: the first full frame after release ≤ ${RELEASE_MS} ms and no release frame over ${RELEASE_MS} ms (relief off)`, !!dr && dr.releaseOK, dr ? `first frames ${d.release.map((x) => x.first.toFixed(1)).join(" / ")} ms, worst release frame ${dr.relMax.toFixed(1)} ms (${d.release.map((x) => x.max.toFixed(1)).join(" / ")}); the release frames over ${WORST_MS} ms, counted in the old pooled rule: ${d.release.reduce((n, x) => n + x.frames.filter((v) => v > WORST_MS + 1).length, 0)} of ${d.n} frames` : "no release recorded"); }
   { const p = results.v2.pinch, w = p.releaseWorst;
     check(`pinch: DURING the gesture, across ${REPEATS} repeats at most ${pctS(WORST_SHARE)} of frames over ${WORST_MS} ms and none over ${WORST_CAP_MS} ms (relief off)`, !!p.during && overShare(p.during.raw) <= WORST_SHARE && p.during.max <= WORST_CAP_MS + 1, p.during ? `${overCount(p.during.raw)} over ${WORST_MS} (${pctS(overShare(p.during.raw))}), worst ${p.during.max.toFixed(1)} ms over ${p.during.n} frames (per repeat ${p.runs.map((s) => s.during ? s.during.max.toFixed(1) : "?").join(" / ")})` : "no marks recorded");
     check(`pinch: v2 first full-screen frame after release ≤ ${RELEASE_MS} ms (relief off)`, !!w && w.max <= RELEASE_MS + 1, w ? `${w.max.toFixed(1)} ms (${p.release.map((x) => x.max.toFixed(1)).join(" / ")})${w.stats ? ` — that frame: LOD ${w.stats.level}, ${w.stats.triangles} triangles + ${w.stats.segments} segments, ${w.stats.lakeTriangles} lake triangles, ${w.stats.draws} draw calls` : ""}` : "no release frame recorded"); }
@@ -497,9 +570,10 @@ async function fixedMarks(page) {
        on this runner a gate of 0.5 % is two frames of a 400-frame pinch: the plain Map's own pinch read 0.48 % in one run and the Full Atlas's
        0.49 % and 0.96 % in two (docs/atlas-v2-design.md §7 "Stacks removed"), which is the renderer's noise and not the marks'. Each gesture's
        share is printed beside it, and none may pass 200 ms on its own. */
-    const pool = d.raw.concat(p.during ? p.during.raw : []);
-    check(`Full Atlas (${f.marks.drawn} marks at the widest view): the gesture frames of the drag and the pinch together (${pool.length}) — at most ${pctS(WORST_SHARE)} over ${WORST_MS} ms`, f.marks.mode === "full" && f.marks.drawn > 500 && !!p.during && overShare(pool) <= WORST_SHARE, `${overCount(pool)} over ${WORST_MS} (${pctS(overShare(pool))}); drag ${overCount(d.raw)} of ${d.raw.length}, worst ${d.max.toFixed(1)} ms; pinch ${p.during ? overCount(p.during.raw) + " of " + p.during.raw.length + ", worst " + p.during.max.toFixed(1) + " ms" : "no during frames"}`);
-    check(`Full Atlas: no drag frame and no pinch frame over ${WORST_CAP_MS} ms`, d.max <= WORST_CAP_MS + 1 && !!p.during && p.during.max <= WORST_CAP_MS + 1, `drag worst ${d.max.toFixed(1)} ms, pinch worst ${p.during ? p.during.max.toFixed(1) : "—"} ms`);
+    const dd = d.during || { raw: [], n: 0, max: NaN }, pool = dd.raw.concat(p.during ? p.during.raw : []), dr = d.during ? dragRule(d.during.raw, d.release.map((x) => x.frames)) : null;   // the drag's DURING frames (2026-10-16: the release frames are the release rule's)
+    check(`Full Atlas (${f.marks.drawn} marks at the widest view): the gesture frames of the drag and the pinch together (${pool.length}) — at most ${pctS(WORST_SHARE)} over ${WORST_MS} ms`, f.marks.mode === "full" && f.marks.drawn > 500 && !!p.during && !!d.during && overShare(pool) <= WORST_SHARE, `${overCount(pool)} over ${WORST_MS} (${pctS(overShare(pool))}); drag ${overCount(dd.raw)} of ${dd.raw.length}, worst ${dd.max.toFixed(1)} ms; pinch ${p.during ? overCount(p.during.raw) + " of " + p.during.raw.length + ", worst " + p.during.max.toFixed(1) + " ms" : "no during frames"}`);
+    check(`Full Atlas: no drag frame and no pinch frame over ${WORST_CAP_MS} ms during the gestures`, !!d.during && dd.max <= WORST_CAP_MS + 1 && !!p.during && p.during.max <= WORST_CAP_MS + 1, `drag worst ${dd.max.toFixed(1)} ms, pinch worst ${p.during ? p.during.max.toFixed(1) : "—"} ms`);
+    check(`Full Atlas: the drag's first full frame after release ≤ ${RELEASE_MS} ms and no release frame over ${RELEASE_MS} ms`, !!dr && dr.releaseOK, dr ? `first ${d.release.map((x) => x.first.toFixed(1)).join(" / ")} ms, worst ${dr.relMax.toFixed(1)} ms` : "no release recorded");
     check("Full Atlas: the marks' own pass costs under 4 ms at p95 on this runner (software canvas; reported per view above)", f.cost.n > 50 && f.cost.marksP95 < 4, `p95 ${f.cost.marksP95.toFixed(2)} ms, mean ${f.cost.marksMean.toFixed(2)} ms`); }
   for (const { V, s } of viewMarks) if (V.marks != null) check(`${V.name}: marks drawn in the Full Atlas ≤ ${V.marks}`, s.drawn <= V.marks, `${s.drawn} drawn of ${s.laid} laid out`);
   for (const g of ["drag", "wheel", "pinch"]) {

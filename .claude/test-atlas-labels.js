@@ -79,7 +79,7 @@ async function open(context, hash) {
   return { page, errors };
 }
 const settle = (page) => page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.tilesSettled() && c.waterSettled(); }, null, { timeout: 120000 }).then(() => true, () => false);
-const CHROME_SELECTORS = [".atlas2-search-in", ".atlas2-results", ".atlas2-search-note", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];   // atlas.js CHROME, for the failure report only
+const CHROME_SELECTORS = [".atlas2-search-btn", ".atlas2-search-in", ".atlas2-menu-btn", ".atlas2-menu", ".atlas2-results", ".atlas2-search-note", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];   // atlas.js CHROME, for the failure report only
 const INK_ATTEMPTS = 6;
 const inkStats = { reads: 0, retries: 0, exhausted: 0 };   // printed at the end: how often the seq moved between the layout and the read
 /* layoutAt(page, V, density, { ink: true }) → { placed, stats, ink }.
@@ -391,9 +391,9 @@ function overlaps(placed) {
   await chromeChecks(P.page, "phone, the Baltic (NORTH EUROPE, SCANDINAVIA by the search box)", { lon: 20, lat: 59, k: 6 }, "dense");
   await chromeChecks(P.page, "phone, the Alps 1.5 km/px (Danube, Rhône)", { lon: 9, lat: 46.5, k: 1.5 }, "dense");
   await chromeChecks(P.page, "phone, Iraq and Kuwait", { lon: 45, lat: 32, k: 5 }, "dense");
-  await P.page.click(".atlas2-about-btn"); await sleep(300);
-  await chromeChecks(P.page, "phone, the Baltic with the About sheet open", { lon: 20, lat: 59, k: 6 }, "dense");
-  await P.page.keyboard.press("Escape"); await sleep(150);
+  await P.page.click(".atlas2-menu-btn"); await sleep(250); await P.page.click('[data-sec="help"] .atlas2-menu-row'); await sleep(300);   // Oct 2026: the About text is the menu's Help section on a phone
+  await chromeChecks(P.page, "phone, the Baltic with the menu's Help section open", { lon: 20, lat: 59, k: 6 }, "dense");
+  await P.page.keyboard.press("Escape"); await sleep(150); await P.page.keyboard.press("Escape"); await sleep(150);
   await P.page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:deu", { open: true, push: false })); await sleep(300);
   await chromeChecks(P.page, "phone, central Europe with Germany's card strip open", { lon: 13.4, lat: 51.5, k: 3 }, "dense");
   await P.page.keyboard.press("Escape"); await sleep(150);

@@ -160,14 +160,15 @@ async function strokePixelsFarFromWater(page) {
       const el = document.querySelector(".atlas2"), row = el.querySelector(".atlas2-rail-row");
       const R = (e) => { const r = e.getBoundingClientRect(); return { x: r.left, y: r.top, r: r.right, b: r.bottom }; };
       const host = R(el), rowR = R(row);
-      const ctrls = [".atlas2-rail-prev", ".atlas2-rail-track", ".atlas2-rail-next", ".atlas2-rail-year", ".atlas2-rail-play", ".atlas2-rail-speed"].map((s) => Object.assign({ sel: s }, R(el.querySelector(s))));
+      const isPhone = el.classList.contains("atlas2-phone"), sels = isPhone ? [".atlas2-rail-track", ".atlas2-rail-year", ".atlas2-rail-play", ".atlas2-rail-more"] : [".atlas2-rail-prev", ".atlas2-rail-track", ".atlas2-rail-next", ".atlas2-rail-year", ".atlas2-rail-play", ".atlas2-rail-speed"];   // Oct 2026: on a phone the rail is one row and the arrows and speed are behind "more"
+      const ctrls = sels.map((s) => Object.assign({ sel: s }, R(el.querySelector(s))));
       return { phone: el.classList.contains("atlas2-phone"), narrow: el.classList.contains("atlas2-narrow"), host, row: rowR, overflow: row.scrollWidth - row.clientWidth, lines: new Set(ctrls.map((c) => Math.round((c.y + c.b) / 20))).size, ctrls, year: el.querySelector(".atlas2-rail-year").value, railH: getComputedStyle(el).getPropertyValue("--atlas2-rail-h").trim() };
     });
     const inside = (c, box) => c.x >= box.x - 1 && c.y >= box.y - 1 && c.r <= box.r + 1 && c.b <= box.b + 1;
     const tag = `${W} px, ${mobile ? "phone flag" : "no phone flag"}`;
     const m0 = await measure();
     const bad0 = m0.ctrls.filter((c) => !inside(c, m0.row) || !inside(c, m0.host));
-    check(`${tag}: the rail takes two lines and no control leaves its row`, m0.narrow && m0.lines === 2 && bad0.length === 0 && m0.overflow <= 0, `phone ${m0.phone}, narrow ${m0.narrow}, lines ${m0.lines}, overflow ${m0.overflow}` + (bad0.length ? "; outside: " + bad0.map((c) => c.sel).join(" ") : ""));
+    check(`${tag}: the rail takes ${m0.phone ? "one row (scrubber, year, play, more; the arrows and the speed behind \"more\")" : "two lines"} and no control leaves its row`, m0.narrow && m0.lines === (m0.phone ? 1 : 2) && bad0.length === 0 && m0.overflow <= 0, `phone ${m0.phone}, narrow ${m0.narrow}, lines ${m0.lines}, overflow ${m0.overflow}` + (bad0.length ? "; outside: " + bad0.map((c) => c.sel).join(" ") : ""));
     check(`${tag}: the year box reads "1 CE"`, m0.year === "1 CE", JSON.stringify(m0.year));
     // task 0c (Phase 3a): the ticks thin with the width — read the ticks canvas back, column by column, above the baseline
     const tk = await C(page, () => {

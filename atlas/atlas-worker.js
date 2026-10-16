@@ -917,6 +917,26 @@
     };
     const polyline = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return cum; };
     const reads = (S) => { const dx = S[S.length - 1][0] - S[0][0], dy = S[S.length - 1][1] - S[0][1]; return Math.abs(dx) >= Math.abs(dy) * 0.35 ? dx >= 0 : dy <= 0; };   // left to right, else upward
+    /* THE 28 PX RULE (2026-10-16; the owner's phone: Dmanisi's name over the Ottoman Empire, far from its marker). NO NAME IS PLACED FARTHER FROM ITS
+       ANCHOR THAN ITS OWN HALF-HEIGHT PLUS 28 PX (measured from the anchor to the nearest rectangle of the name's text): a name that cannot be put that
+       close is not placed. The page draws a name at its layout position moved by the anchor's own motion since (never a sprite's old corner, never a
+       stale offset), so the distance is the same in every frame of a drag, a wheel or a pinch — it is decided here, once per layout, and the Atlas page
+       suite measures it in every frame. THE ANCHOR is where the name belongs: a city's and a study place's marker, a straight name's own point (the gazetteer's
+       or a polity's), and — for a name that runs along a guide line (a river's course, a country's or polity's label path) — the point of that line under the
+       name's middle (a river vertex can be 100 px from the name at a high zoom, so it is interpolated; before this, the anchor of a path name was the
+       place's centre point, up to 120 px from where the name stood, and a river's was its nearest vertex). The same point is what the name follows between layouts. */
+    const NEAR_PX = 28;
+    const nearAnchor = (rs, x, y) => {
+      let gap = Infinity, hh = 0;
+      for (const r of rs) { const dx = Math.max(r[0] - x, 0, x - r[2]), dy = Math.max(r[1] - y, 0, y - r[3]); const d = Math.hypot(dx, dy); if (d < gap) gap = d; const h = (r[3] - r[1]) / 2; if (h > hh) hh = h; }
+      return gap <= hh + NEAR_PX;
+    };
+    // the point at arc length s of a screen polyline: [x, y, the segment it lies on, the fraction along that segment]
+    const pointAt = (S, cum, s) => {
+      let seg = 0; while (seg + 1 < cum.length - 1 && cum[seg + 1] < s) seg++;
+      const L = cum[seg + 1] - cum[seg] || 1, u = Math.max(0, Math.min(1, (s - cum[seg]) / L));
+      return [S[seg][0] + (S[seg + 1][0] - S[seg][0]) * u, S[seg][1] + (S[seg + 1][1] - S[seg][1]) * u, seg, u];
+    };
     /* ---- PHASE 3b: THE STUDY PASS — before the ordinary labels, so the places a reader studies take their ground first ----
        STACKS ARE GONE (2026-10-14, the owner's decision; docs/atlas-v2-design.md §7 "Stacks removed"): every place and every polity the
        layer flags is ONE MARK at its own position, at any zoom — never a count standing in for neighbours, and no clustering. This
@@ -1003,24 +1023,23 @@
         // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
         const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
         const cum = polyline(S2), Ls = cum[cum.length - 1];
-        let got = null, curved = false, lines = 1;
+        let got = null, curved = false, lines = 1, mid = null;   // mid: the point of the guide line under a name that runs along it — that name's anchor (the 28 px rule)
         // along the path: at its middle first, then slid either way (task 0a: the one trial at the middle was where the capital sat)
-        if (Ls >= sh.w * 1.02) for (const f of POLITY_SLIDE) { const s0 = Ls / 2 + f * Ls; if (s0 - sh.w / 2 < 0 || s0 + sh.w / 2 > Ls) continue; const g = alongEither(sh, S2, cum, s0, st); if (g && g.rects.every(free) && inFrame(g.rects)) { got = g; curved = true; break; } }
+        if (Ls >= sh.w * 1.02) for (const f of POLITY_SLIDE) { const s0 = Ls / 2 + f * Ls; if (s0 - sh.w / 2 < 0 || s0 + sh.w / 2 > Ls) continue; const g = alongEither(sh, S2, cum, s0, st); if (g && g.rects.every(free) && inFrame(g.rects)) { got = g; curved = true; mid = pointAt(S2, cum, s0); break; } }
         if (!got) {
           const wide = row.path.len * (row.rank <= CAPITAL_AFTER_RANK ? POLITY_WIDE_LARGE : POLITY_WIDE);
-          let clipped = 0, collided = 0;
-          const straightTry = (make, w) => { for (const n of POLITY_NUDGE) for (const f of POLITY_SIDE) { const g = intoFrame(make(c.a[0] + f * w, c.a[1] + n * sh.h + up), sh.h); if (!g) { clipped++; continue; } if (!g.rects.every(free)) { collided++; continue; } return g; } return null; };
+          let clipped = 0, collided = 0, far = 0;
+          const straightTry = (make, w) => { for (const n of POLITY_NUDGE) for (const f of POLITY_SIDE) { const g = intoFrame(make(c.a[0] + f * w, c.a[1] + n * sh.h + up), sh.h); if (!g) { clipped++; continue; } if (!g.rects.every(free)) { collided++; continue; } if (!nearAnchor(g.rects, c.a[0], c.a[1])) { far++; continue; } return g; } return null; };
           if (sh.w <= wide) got = straightTry((x, y) => straight(sh, x, y, 0), sh.w);
           let two = null;
           if (!got) { two = splitName(text, st, styleId); if (two && two.wide <= wide) { got = straightTry((x, y) => stacked(two, x, y), two.wide); if (got) lines = 2; } }
-          if (!got) { drop(sh.w > wide && !(two && two.wide <= wide) ? "polity name wider than its path (" + Math.round(sh.w) + " px, " + (two ? Math.round(two.wide) + " px on two lines" : "no space to break at") + ", against " + Math.round(row.path.len) + ", rank " + row.rank + ")" : clipped > collided ? "polity label clipped" : "polity collides"); continue; }
+          if (!got) { drop(sh.w > wide && !(two && two.wide <= wide) ? "polity name wider than its path (" + Math.round(sh.w) + " px, " + (two ? Math.round(two.wide) + " px on two lines" : "no space to break at") + ", against " + Math.round(row.path.len) + ", rank " + row.rank + ")" : far > clipped + collided ? "polity name finds no free place within " + NEAR_PX + " px of its anchor" : clipped > collided ? "polity label clipped" : "polity collides"); continue; }
         }
         const ub = union(got.rects); if (offScreen(ub)) { drop("polity label wholly off screen"); continue; }
         got.rects.forEach(take);
-        // the anchor's unit vector: unproject the screen anchor (the label follows the globe between layouts)
-        const ax = (c.a[0] - cx) / radius, ay = -(c.a[1] - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay));
-        const aw = [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az];
-        placed.push(Object.assign(base, { a: aw, sx: c.a[0], sy: c.a[1], alpha: 1, glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
+        // the anchor's unit vector: unproject the screen anchor (the label follows the globe between layouts) — the guide line's point under the name when it runs along one, else the polity's own point
+        const ap = mid || c.a, aw = unitAt(ap[0], ap[1]);
+        placed.push(Object.assign(base, { a: aw, sx: ap[0], sy: ap[1], alpha: 1, glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
         continue;
       }
       if (k === "capital" || k === "city" || k === "town") {
@@ -1061,21 +1080,22 @@
           const LrS = cumS[cumS.length - 1];
           for (let s0 = LrS < RIVER_REPEAT_PX ? LrS / 2 : RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < LrS && placed.length < capAll; s0 += RIVER_REPEAT_PX) {
             // a spot that bends or collides is not the stretch's last word: the text slides up to 120 px either way
-            let g = null, s1 = s0;
+            let g = null, s1 = s0, av = null, apt = null;
             for (const off of [0, 60, -60, 120, -120]) {
               s1 = s0 + off; if (s1 - sh.w / 2 < 10 || s1 + sh.w / 2 + 10 > LrS) continue;
               tried++;
               const t = alongEither(sh, runS, cumS, s1, st); if (!t) { bent++; continue; }
               if (!t.rects.every(free)) { collided++; continue; }
               if (!inFrame(t.rects)) continue;   // a run reaches 60 px past the canvas; the text stays inside the frame like a polity's name (Phase 3c), another stretch or offset is tried
+              // the anchor: the river's own point under the label's middle, between the two vertices it lies between (a vertex alone can be 100 px away at a high zoom: the 28 px rule)
+              const pa = pointAt(runS, cumS, s1), v0 = runV[pa[2]], v1 = runV[pa[2] + 1] || v0;
+              av = norm3([v0[0] + (v1[0] - v0[0]) * pa[3], v0[1] + (v1[1] - v0[1]) * pa[3], v0[2] + (v1[2] - v0[2]) * pa[3]]); apt = proj(av);
+              if (!nearAnchor(t.rects, apt[0], apt[1])) { av = null; continue; }
               g = t; break;
             }
             if (!g) continue;
             g.rects.forEach(take);
-            // the anchor: the vertex nearest the label's centre
-            let seg = 0; while (seg + 1 < cumS.length - 1 && cumS[seg + 1] < s1) seg++;
-            const av = runV[seg];
-            placed.push(Object.assign({}, base, { a: av, sx: run[seg][0], sy: run[seg][1], alpha: 1, glyphs: g.glyphs, box: union(g.rects), rects: g.rects, marker: null, hit: union(g.rects), curved: true, meanAngle: g.meanAngle }));
+            placed.push(Object.assign({}, base, { a: av, sx: apt[0], sy: apt[1], alpha: 1, glyphs: g.glyphs, box: union(g.rects), rects: g.rects, marker: null, hit: union(g.rects), curved: true, meanAngle: g.meanAngle }));
             perRiver++; riverLabels++;
           }
           run = []; runV = [];
@@ -1091,14 +1111,14 @@
         continue;
       }
       // an area kind: along its path when the path is long enough and gentle, else straight at the anchor
-      let got = null, curved = false;
+      let got = null, curved = false, mid = null, far = false;
       if (row.p) {
         const S = row.p.map(proj);
         if (S.every((p) => p[2] > 0.01)) {
           const S2 = S.map((p) => [p[0], p[1]]);
           if (!reads(S2)) S2.reverse();
           const cum = polyline(S2), Ls = cum[cum.length - 1];
-          if (Ls >= sh.w * 1.02) { const g = alongEither(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && inFrame(g.rects)) { got = g; curved = true; } }   // a run that leaves the frame at all falls back to the straight name at the anchor, which is slid back inside it (Phase 3c)
+          if (Ls >= sh.w * 1.02) { const g = alongEither(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && inFrame(g.rects)) { got = g; curved = true; mid = pointAt(S2, cum, Ls / 2); } }   // a run that leaves the frame at all falls back to the straight name at the anchor, which is slid back inside it (Phase 3c)
         }
       }
       if (!got) {
@@ -1110,16 +1130,17 @@
           const g = intoFrame(straight(sh, c.a[0], c.a[1] + dy, 0), sh.h);   // Phase 3c, decision 3: a sea's, a region's name stays inside the frame like a polity's — slid back by at most a third of its width, or not placed
           if (!g) { hung = true; continue; }
           if (!free(g.rects[0])) { hit = true; continue; }
+          if (!nearAnchor(g.rects, c.a[0], c.a[1])) { far = true; continue; }
           got = g; break;
         }
-        if (!got) { drop(hit || !hung ? k + " collides" : k + " label would hang out of the frame"); continue; }
+        if (!got) { drop(far && !hit && !hung ? k + " name finds no free place within " + NEAR_PX + " px of its anchor" : hit || !hung ? k + " collides" : k + " label would hang out of the frame"); continue; }
       }
       // a label whose every glyph lies beyond the viewport (its anchor was within the 200 px margin) is not placed: it
       // would hold a slot of the density cap and draw nothing
       const ub = union(got.rects);
       if (offScreen(ub)) { drop(k + " label wholly off screen"); continue; }
       got.rects.forEach(take);
-      placed.push(Object.assign(base, { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
+      placed.push(Object.assign(base, mid ? { a: unitAt(mid[0], mid[1]), sx: mid[0], sy: mid[1], alpha: Math.min(1, c.a[2] / 0.2) } : { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2) }, { glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
     }
     void hitsChrome;
     return { placed, marks, candidates: cands.length, cap, chrome: chrome.length, missing: [...missing].map((m) => m.split("\u0001")), rivers: riverLabels, why };

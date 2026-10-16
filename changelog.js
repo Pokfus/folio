@@ -51,6 +51,8 @@ window.CHANGELOG = [
       "<b>Read aloud</b>: a small play button beside Question, Answer and Background on history, science and special cards reads that section in an English voice.",
       "<b>Read-aloud settings</b>: Settings → Audio now lets you switch the play buttons off, pick the voice and speed (heard as you choose), and play a sample; the buttons also work with the marker down, and a pause button shows while one is reading.",
       "<b>Find it</b>: a country or state you tap now lights up gold with an outline at once, and every state of a past year is drawn in the same land colour as today's countries.",
+      "<b>The Atlas on a phone</b> now fills the whole screen above the tab bar, with one search button, one menu button, one zoom pill and a one-row year bar; the controls fade while you drag.",
+      "<b>Atlas names</b> stay beside the place they name, even while you drag or pinch: a name that cannot sit close to its place is left off.",
     ],
   },
   {

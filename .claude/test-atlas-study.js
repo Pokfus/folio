@@ -350,13 +350,14 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
   console.log("\n\x1b[1m7) the phone, 390 px\x1b[0m\n");
   {
     const { ctx, page, errors } = await open(browser, READER_ALL, { phone: true });
+    await page.tap(".atlas2-menu-btn"); await sleep(300);   // Oct 2026: on a phone the study panel lives in the menu's sheet
     const R = await page.evaluate(() => {
       const r = (s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom]; };
-      return { frame: r(".atlas2"), panel: r(".atlas2-study"), search: r(".atlas2-search-in"), zoom: r(".atlas2-zoom"), layers: r(".atlas2-layers-btn"), help: r(".atlas2-about-btn"), rail: r(".atlas2-rail"), vw: window.innerWidth };
+      return { frame: r(".atlas2"), panel: r(".atlas2-study"), search: r(".atlas2-search-btn"), zoom: r(".atlas2-zoom"), layers: r(".atlas2-menu-btn"), help: null, rail: null, vw: window.innerWidth };
     });
     const hit = (a, b) => a && b && a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
     check("the panel lies wholly inside the Atlas's frame and the viewport", R.panel[0] >= R.frame[0] - 0.5 && R.panel[2] <= R.frame[2] + 0.5 && R.panel[2] <= R.vw && R.panel[1] >= R.frame[1], JSON.stringify(R.panel.map(Math.round)));
-    check("…and clear of the search box, the zoom stack, the legend, the ? chip and the year rail", ![R.search, R.zoom, R.layers, R.help, R.rail].some((b) => hit(R.panel, b)), "no overlap");
+    check("…and clear of the search button, the zoom pill and the menu button (the sheet stands over the year rail by design)", ![R.search, R.zoom, R.layers, R.help, R.rail].some((b) => hit(R.panel, b)), "no overlap");
     const targets = await page.$$eval(".atlas2-study button", (b) => b.filter((x) => x.offsetParent).map((x) => { const r = x.getBoundingClientRect(); return Math.round(Math.min(r.width, r.height)); }));
     check("every control in it is at least 44 px high, a touch target", targets.length >= 4 && targets.every((t) => t >= 44), targets.join(","));
     // Phase 3c, decision 7: the panel is collapsible, and on a phone it starts collapsed to the switch and the count line
@@ -374,6 +375,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     check("the panel is among the chrome the label engine keeps names out of", placed.chrome.some((c) => c[0] <= panelRect[0] + 1 && c[1] <= panelRect[1] + 1 && c[2] >= panelRect[2] - 1 && c[3] >= panelRect[3] - 1), placed.chrome.length + " chrome rectangles");
     const under = placed.labels.filter((p) => p.rects.some((r) => hit([r[0], r[1], r[2], r[3]], panelRect)));
     check("no name is placed under the panel (or under any other control)", under.length === 0 && placed.labels.every((p) => p.rects.every((r) => !placed.chrome.some((c) => hit([r[0], r[1], r[2], r[3]], c)))), under.map((p) => p.id).join(", ") || placed.labels.length + " placed");
+    await page.click(".atlas2-menu-close"); await sleep(300);   // the menu shut, the map is the map again
     // NO MARK UNDER A CONTROL OR PAST THE FRAME, at 390 px here and 360 px below, at four views
     const markGeometry = async (pg, W, Hh, tag) => {
       let bad = [], n = 0;
@@ -422,7 +424,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
   console.log("\n\x1b[1m7a) the phone, 360 px: no mark under a control\x1b[0m\n");
   {
     const { ctx, page, errors } = await open(browser, READER_ALL, { phone: true, w: 360, h: 640 });
-    await page.click('.atlas2-study [data-mode="full"]'); await sleep(250);
+    await A(page, (c) => c.study.setMode("full")); await sleep(250);   // the switch is in the menu's sheet on a phone now: the controller's own setter
     const fr = await A(page, (c) => c.frame());
     let bad = [], n = 0;
     for (const [lon, lat, k] of [[23, 38, 12], [12.5, 41.9, 6], [4.6, 51.2, 1.5], [10, 25, 90]]) {
