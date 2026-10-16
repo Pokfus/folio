@@ -548,6 +548,29 @@ function run() {
     failed.length ? bad(`the capitals of Wikidata lie inside their states (${cities.length} capitals, ${okN + known + failed.length} facts)`, `${failed.length} failing and not listed: ${(verbose ? failed : failed.slice(0, 15)).join("; ")}`) : ok(`the capitals of Wikidata lie inside their states (${cities.length} capitals, ${okN + known + failed.length} facts)`, `${okN} hold, ${known} known source faults listed; per millennium ${perM}`);
     if (thin.length) note(`millennia with under 25 capital facts (the source has no more capitals there; stated, not padded): ${thin.join(", ")}`);
   }
+  /* SEATS (border audit of 2026-10-16, docs/atlas-v2-border-audit.md): a card-linked polity's SEAT — its capital in the registry (Wikidata P36,
+     dated), else the card's own place — lies inside the polity's face, or within 2 km of its edge, at EVERY step. The first and last year of
+     a capital's range are not enough: the Roman Kingdom's Rome was out for 270 years while the three years the capitals check reads held.
+     A failure is listed in seats-known.json with its cause (source: Cliopatria's own row; clip; snap; other) — the same list
+     audit-seats.js --write-known writes — and any other failure fails; an entry that no longer fails must be removed. The rule needs no
+     raw source: the cause is read at audit time, the check only holds the line. */
+  try {
+    const S = require("./lib/seats.js"), Hq = require("./lib/historyq.js").open({ file });
+    const facts = S.seatFacts(Hq.header, S.loadContext(ROOT));
+    const rows = S.audit(Hq, facts), failing = S.intervals(rows);
+    const KN = JSON.parse(fs.readFileSync(path.join(__dirname, "seats-known.json"), "utf8")), known = KN.entries || {};
+    const merge = (l) => { const o = []; for (const iv of l.slice().sort((a, b) => a[0] - b[0])) { const last = o[o.length - 1]; if (last && iv[0] <= last[1] + 1) last[1] = Math.max(last[1], iv[1]); else o.push([iv[0], iv[1]]); } return o; };   // a seat listed under two causes over adjacent years is one run
+    const within = (iv, list) => list.some((l) => l[0] <= iv[0] && iv[1] <= l[1]);
+    const unlisted = [], fixed = [], badCause = [];
+    for (const [key, ivs] of failing) { const parts = known[key] || []; const listed = merge(parts.flatMap((p) => p.years)); for (const iv of ivs) if (!within(iv, listed)) unlisted.push(`${key} ${iv[0]}..${iv[1]}`); }
+    for (const [key, parts] of Object.entries(known)) { for (const p of parts) if (!S.CAUSES.includes(p.cause) || !p.why) badCause.push(key); if (!failing.has(key)) fixed.push(key); }
+    const byCause = {}; for (const parts of Object.values(known)) for (const p of parts) byCause[p.cause] = (byCause[p.cause] || 0) + 1;
+    const nCap = facts.filter((f) => f.src === "capital").length, nCard = facts.filter((f) => f.src === "card").length;
+    if (unlisted.length) bad(`seats: every polity's seat lies in its faces (or within ${S.SEAT_TOL_M / 1000} km) at every step`, `${unlisted.length} not listed in seats-known.json: ${(verbose ? unlisted : unlisted.slice(0, 8)).join("; ")}`);
+    else if (fixed.length) bad("seats: seats-known.json lists only seats that still fail", `now holding, remove: ${fixed.join("; ")} (node .claude/atlas-build/audit-seats.js --write-known)`);
+    else if (badCause.length) bad("seats: every listed seat carries a cause class and a reason", [...new Set(badCause)].join("; "));
+    else ok(`seats: every polity's seat lies in its faces (or within ${S.SEAT_TOL_M / 1000} km) at every step (${facts.length} seat facts: ${nCap} capital statements, ${nCard} card-place years)`, `${failing.size} (polity, seat) pairs fail in some years and every one is listed with its cause: ${JSON.stringify(byCause)}`);
+  } catch (e) { bad("seats could be audited", e.message); }
   /* the repo's own extent assertions, through the cards' links */
   try {
     const src = fs.readFileSync(path.join(ROOT, ".claude", "test-war-cards.js"), "utf8");

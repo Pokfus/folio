@@ -55,7 +55,7 @@ The historical layer draws **the states Folio's cards teach** — the card-linke
 | 1000 CE | 20 | 6.8 % | 0.0 % | 0.0 % | Chola dynasty, Dai Viet, Eastern Roman Empire, England, Fatimid Caliphate, First Bulgarian Empire, France, Ghana Empire, Goryeo, Khmer Empire, Kievan Rus', Makuria, Normandy, Pagan Kingdom, Papal States, Song dynasty, Srivijaya, Venice, Volga Bulgaria, Zagwe dynasty | — |
 | 1100 CE | 25 | 8.3 % | 0.1 % | 0.3 % | Chola dynasty, Dai Viet, Eastern Roman Empire, Fatimid Caliphate, France, Genoa, Ghana Empire, Goryeo, Kanem-Bornu, Khmer Empire, Kievan Rus', Kingdom of Georgia, Makuria, Pagan Kingdom, Papal States, Pisa, Principality of Chernigov, Principality of Polotsk, Seljuk Empire, Song dynasty, Srivijaya, Venice, Vladimir-Suzdal, Volga Bulgaria, Zagwe dynasty | — |
 | 1200 CE | 25 | 6.1 % | 0.3 % | 0.1 % | Chola dynasty, Dai Viet, Eastern Roman Empire, France, Genoa, Ghana Empire, Goryeo, Kamakura shogunate, Kanem-Bornu, Khmer Empire, Kievan Rus', Kingdom of Georgia, Makuria, Novgorod Republic, Pagan Kingdom, Papal States, Pisa, Principality of Chernigov, Seljuk Empire, Song dynasty, Srivijaya, Venice, Vladimir-Suzdal, Volga Bulgaria, Zagwe dynasty | — |
-| 1300 CE | 23 | 19.0 % | 0.0 % | 0.0 % | Dai Viet, Delhi Sultanate, Eastern Roman Empire, England, Florence, France, Galicia–Volhynia, Genoa, Golden Horde, Kamakura shogunate, Kanem-Bornu, Khmer Empire, Majapahit, Makuria, Mali Empire, Mamluk Sultanate, Novgorod Republic, Papal States, Pisa, Savoy, Venice, Vladimir-Suzdal, Yuan dynasty | — |
+| 1300 CE | 23 | 19.1 % | 0.0 % | 0.0 % | Dai Viet, Delhi Sultanate, Eastern Roman Empire, England, Florence, France, Galicia–Volhynia, Genoa, Golden Horde, Kamakura shogunate, Kanem-Bornu, Khmer Empire, Majapahit, Makuria, Mali Empire, Mamluk Sultanate, Novgorod Republic, Papal States, Pisa, Savoy, Venice, Vladimir-Suzdal, Yuan dynasty | — |
 | 1400 CE | 24 | 12.3 % | 0.0 % | 0.0 % | Dai Viet, Delhi Sultanate, Eastern Roman Empire, England, Florence, France, Genoa, Golden Horde, Kanem-Bornu, Khmer Empire, Kingdom of Georgia, Majapahit, Makuria, Mali Empire, Mamluk Sultanate, Ming dynasty, Novgorod Republic, Ottoman Empire, Papal States, Pisa, Savoy, Venice, Vijayanagara Empire, Vladimir-Suzdal | — |
 | 1500 CE | 24 | 9.5 % | 0.0 % | 0.0 % | Aztec Empire, Crimean Khanate, Delhi Sultanate, England, Florence, France, Genoa, Golden Horde, Inca Empire, Kanem-Bornu, Kingdom of Georgia, Kingdom of Kongo, Majapahit, Malacca Sultanate, Mali Empire, Mamluk Sultanate, Milan, Ming dynasty, Ottoman Empire, Papal States, Savoy, Songhai Empire, Venice, Vijayanagara Empire | — |
 | 1600 CE | 18 | 16.1 % | 0.0 % | 0.0 % | Crimean Khanate, England, Florence, France, Genoa, Kanem-Bornu, Kingdom of Kongo, Mali Empire, Ming dynasty, Mughal Empire, Ottoman Empire, Papal States, Portuguese Empire, Safavid Empire, Songhai Empire, Spanish Empire, Tokugawa shogunate, Venice | — |
@@ -110,7 +110,7 @@ Deferred to later phases (not in this file): .
 | `byzantium` | assembled from 2 Cliopatria series | Eastern Roman Empire, Byzantine Empire | 395 CE – 1467 CE | 134 | wh-436, wh-463 | built |
 | `sasanian` | Cliopatria state | Sasanian Empire | 215 CE – 643 CE | 47 | rm-553, wh-463 | built |
 | `normandy` | Cliopatria state | Duchy of Normandy | 922 CE – 1071 CE | 5 | wh-504 | built |
-| `england` | Cliopatria state | Kingdom of England | 936 CE – 1708 CE | 59 | wh-504, wh-518 | built |
+| `england` | Cliopatria state | Kingdom of England | 936 CE – 1708 CE | 60 | wh-504, wh-518 | built |
 | `france` | Cliopatria state | Kingdom of France | 990 CE – 1791 CE | 98 | wh-518 | built |
 | `usa` | Cliopatria state | United States of America | 1776 CE – 1800 CE | 13 | us-071, us-072 | built |
 | `italy` | Cliopatria state | Kingdom of Italy | 1862 CE – 1946 CE | 30 | ww2-042, ww2-001 | built |
@@ -133,13 +133,13 @@ Deferred to later phases (not in this file): .
 | `magyars` | Cliopatria state (a people: drawn as a presence) | Magyars | 840 CE – 910 CE | 9 | ru-019 | built |
 | `zhou` | assembled from 2 Cliopatria series | Zhou Dynasty, Later Zhou | 1000 BCE – 257 BCE | 6 | cnh-111, wh-251, wh-396 | built |
 | `indo_greeks` | Cliopatria state | Indo-Greeks | 126 BCE – 13 CE | 8 | gr-784, wh-390 | built |
-| `venice` | Cliopatria state | Republic of Venice | 705 CE – 1796 CE | 82 | wh-622 | built |
-| `genoa` | Cliopatria state | Republic of Genoa | 1010 CE – 1795 CE | 54 | wh-622 | built |
+| `venice` | Cliopatria state | Republic of Venice | 705 CE – 1796 CE | 85 | wh-622 | built |
+| `genoa` | Cliopatria state | Republic of Genoa | 1010 CE – 1795 CE | 57 | wh-622 | built |
 | `pisa` | Cliopatria state | Republic of Pisa | 1010 CE – 1401 CE | 13 | wh-622 | built |
 | `florence` | Cliopatria state | Republic of Florence | 1260 CE – 1737 CE | 19 | wh-622 | built |
 | `milan` | Cliopatria state | Duchy of Milan | 1402 CE – 1539 CE | 12 | wh-622 | built |
 | `papal_states` | Cliopatria state | Papal States | 755 CE – 1870 CE | 59 | wh-622 | built |
-| `savoy` | Cliopatria state | County of Savoy | 1260 CE – 1539 CE | 18 | wh-622 | built |
+| `savoy` | Cliopatria state | County of Savoy | 1260 CE – 1539 CE | 22 | wh-622 | built |
 | `cyclades` | coastline (a culture: drawn as a presence) | — | 3100 BCE – 2000 BCE | 1 | gr-002 | built |
 | `crete` | coastline (a culture: drawn as a presence) | — | 3100 BCE – 1050 BCE | 1 | gr-006, gr-047, wh-262 | built |
 | `yangshao` | site hull (a culture: drawn as a presence) | — | 5000 BCE – 3000 BCE | 3 | cnh-045, wh-147 | built |
@@ -158,7 +158,7 @@ Deferred to later phases (not in this file): .
 | `kush` | Cliopatria state | Kingdom of Kush | 1000 BCE – 346 CE | 13 | wh-416 | built |
 | `aksum` | Cliopatria state | Kingdom of Axum | 50 BCE – 946 CE | 5 | wh-418 | built |
 | `bulgaria_first` | Cliopatria state | First Bulgarian Empire | 682 CE – 1017 CE | 30 | wh-449 | built |
-| `georgia` | Cliopatria state | Kingdom of Georgia | 1010 CE – 1802 CE | 40 | wh-454 | built |
+| `georgia` | Cliopatria state | Kingdom of Georgia | 1010 CE – 1802 CE | 41 | wh-454 | built |
 | `umayyad` | Cliopatria state | Umayyad Caliphate | 656 CE – 756 CE | 15 | wh-465 | built |
 | `abbasid` | Cliopatria state | Abbasid Caliphate | 750 CE – 1259 CE | 38 | wh-469 | built |
 | `fatimid` | Cliopatria state | Fatimid Caliphate | 911 CE – 1176 CE | 19 | wh-478 | built |
@@ -202,14 +202,14 @@ Deferred to later phases (not in this file): .
 | `kongo` | Cliopatria state | Kingdom of Kongo | 1440 CE – 1669 CE | 1 | wh-580 | built |
 | `zagwe` | Cliopatria state | Zagwe dynasty | 947 CE – 1271 CE | 1 | wh-581 | built |
 | `makuria` | Cliopatria state | Makuria | 347 CE – 1414 CE | 10 | wh-585 | built |
-| `golden_horde` | Cliopatria state | Golden Horde | 1294 CE – 1501 CE | 15 | wh-598 | built |
+| `golden_horde` | Cliopatria state | Golden Horde | 1294 CE – 1501 CE | 16 | wh-598 | built |
 | `spanish_empire` | Cliopatria state | (Spanish Empire) | 1516 CE – 1931 CE | 103 | wh-674 | built |
 | `portuguese_empire` | Cliopatria state | (Portuguese Empire) | 1502 CE – 1823 CE | 67 | wh-675 | built |
 | `ottoman` | Cliopatria state | Ottoman Empire | 1305 CE – 1923 CE | 134 | wh-687 | built |
 | `safavid` | Cliopatria state | Safavid Dynasty | 1502 CE – 1737 CE | 30 | wh-695 | built |
 | `mughal` | Cliopatria state | Mughal Empire | 1529 CE – 1858 CE | 53 | wh-699 | built |
 | `maratha` | Cliopatria state | Maratha Empire | 1677 CE – 1845 CE | 28 | wh-707 | built |
-| `crimean_khanate` | Cliopatria state | Crimean Khanate | 1450 CE – 1782 CE | 21 | wh-710 | built |
+| `crimean_khanate` | Cliopatria state | Crimean Khanate | 1450 CE – 1782 CE | 23 | wh-710 | built |
 | `ming` | Cliopatria state | Ming Dynasty | 1375 CE – 1644 CE | 28 | wh-711 | built |
 | `qing` | assembled from 2 Cliopatria series | Later Jin Dynasty, Qing Dynasty | 1619 CE – 1911 CE | 67 | wh-716 | built |
 | `tokugawa` | Cliopatria state | Tokugawa Shogunate | 1600 CE – 1869 CE | 9 | wh-723 | built |
