@@ -122,9 +122,9 @@ to `-028`), `Council` (`pea-008`, `-026`, `-033`), `censorship` (the Roman censo
 `Stockholm` (`pea-036`), `Socialist` (`pea-040`, `-041`), `Iron` (`pea-043`), `settlement` (`pea-049`), `credentials`
 (`pea-016`). The generic `Constitution` link is left where the bare word is the generic concept.
 
-**Open.** Two citation URLs answered `000` (connection reset) from this sandbox at the check and are re-tried at the end of
-the session: the Shenzhen Daily reprint on sz.gov.cn (`pea-008`) and the China.org.cn text of the 17th Congress report
-(`pea-018`). The agents saved both pages earlier in the day.
+**Citation URLs.** Two answered `000` (connection reset) over https from this sandbox, the Shenzhen Daily reprint on sz.gov.cn
+(`pea-008`) and the China.org.cn text of the 17th Congress report (`pea-018`); both answer 200 over plain http, which is now the
+cited address (the same page, same length as the copy the agent saved). Every other citation URL (407 in the first fifty cards, 436 in the second) answered 200, after `pea-055`'s Wiley DOI (403 to bots) was replaced by the open Europe PMC copy of the same paper.
 
 Per card (sources old → new; the `SLIDE-VS-RECORD` lines are condensed, the full text is in the PR):
 
