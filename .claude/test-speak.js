@@ -438,6 +438,71 @@ const holdRow = (page, match) => page.evaluate((m) => {
   const bgSpoken = await page.evaluate(() => { window.__spoken = []; document.querySelector('.tts-play[data-tts="background"]').click(); return new Promise((r) => setTimeout(() => r(window.__spoken.slice()), 400)); });
   check("the Background button reads the background aloud in English", bgSpoken.length > 0 && /Prehistory/.test(bgSpoken[0]), (bgSpoken[0] || "").slice(0, 60));
 
+  // 5. with the whiteboard marker down the section play buttons still answer a real pointer, the Background one
+  //    (inside the .bg-head button) without folding the section
+  await page.evaluate(() => { try { localStorage.setItem("folio_marker_tour_v1", "1"); } catch (e) {} });
+  await sectionBtns("wh-001");
+  await page.click("#cpgStudy");
+  await page.waitForTimeout(1500);
+  await page.click("text=Reveal answer");
+  await page.waitForTimeout(800);
+  const pen2 = await page.evaluate(() => {
+    const t = document.querySelector(".wb-toggle");
+    if (!t) return "no marker button";
+    t.click();
+    const pen = document.querySelector(".wb-panel .wb-size, .wb-panel .wb-btn");
+    if (!pen) return "no tool to choose";
+    pen.click();
+    return document.querySelector(".draw-canvas") ? "" : "no canvas";
+  });
+  check("the marker is down over a study card", pen2 === "", pen2);
+  if (pen2 === "") {
+    await page.waitForTimeout(400);
+    for (const k of ["question", "answer", "background"]) {
+      const box = await page.evaluate((kind) => {
+        const el = document.querySelector('.tts-play[data-tts="' + kind + '"]');
+        el.scrollIntoView({ block: "center" });
+        return new Promise((r) => setTimeout(() => { const b = el.getBoundingClientRect(); r({ x: b.x + b.width / 2, y: b.y + b.height / 2 }); }, 300));
+      }, k);
+      await page.evaluate(() => { window.__spoken = []; });
+      await page.mouse.move(box.x, box.y);
+      await page.mouse.down();
+      await page.mouse.up();
+      await page.waitForTimeout(400);
+      const got = await page.evaluate(() => window.__spoken.length);
+      check("with the pen down, a tap on the " + k + " play button reads it", got > 0, String(got));
+    }
+    check("\u2026and the Background tap did not fold the section",
+      await page.evaluate(() => !document.querySelector(".bg-collapse.collapsed")));
+  }
+
+  // 6. Settings → Audio: the buttons switch, the voice list, the speed and a sample
+  await page.evaluate(() => {
+    Object.defineProperty(speechSynthesis, "getVoices", { configurable: true, value: () => [
+      { name: "Test GB", lang: "en-GB", voiceURI: "gb", localService: true },
+      { name: "Test US", lang: "en-US", voiceURI: "us", localService: true },
+      { name: "Fr", lang: "fr-FR", voiceURI: "fr", localService: true }] });
+    window.SpeechSynthesisUtterance = class { constructor(t) { this.text = t; } };
+    speechSynthesis.speak = (u) => { window.__spoken.push({ text: u.text, rate: u.rate, voice: u.voice && u.voice.name }); setTimeout(() => u.onstart && u.onstart({}), 20); };
+    location.hash = "#settings";
+  });
+  await page.waitForTimeout(1200);
+  const voiceOpts = await page.evaluate(() => [...document.querySelectorAll("#ttsVoiceSel option")].map((o) => o.textContent));
+  check("Settings lists Automatic plus the English voices only", voiceOpts.length === 3 && /Automatic/.test(voiceOpts[0]) && !voiceOpts.some((o) => /Fr/.test(o)), voiceOpts.join(" | "));
+  await page.selectOption("#ttsVoiceSel", "gb");
+  await page.click('[data-ttsrate="fast"]');
+  await page.evaluate(() => { window.__spoken = []; });
+  await page.click("#ttsTry");
+  await page.waitForTimeout(400);
+  const tried = await page.evaluate(() => window.__spoken);
+  check("the sample speaks with the chosen voice and speed",
+    tried.length === 1 && tried[0].voice === "Test GB" && tried[0].rate > 0.85, JSON.stringify(tried));
+  await page.click("#sw-tts");
+  await page.evaluate(() => { location.hash = "#card/wh-001"; });
+  await page.waitForTimeout(1200);
+  check("switching the buttons off in Settings removes them from cards",
+    (await page.evaluate(() => document.querySelectorAll(".tts-play").length)) === 0);
+
   const own = errs.filter((e) => !/fonts\.googleapis|gstatic|ERR_CONNECTION_RESET/.test(e));
   check("no same-origin console errors", own.length === 0, own.slice(0, 3).join(" | "));
 

@@ -20022,7 +20022,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const ctl = el && el.closest ? el.closest(sel) : null;
       return ctl && ctl !== canvas ? ctl : null;
     };
-    const controlUnder = (e) => hitUnder(e, CTL_SEL);
+    /* THE SECTION PLAY BUTTONS (`.tts-play`, Oct 2026, on request: "allow the tts play button to be clicked even
+       when the whiteboard marker is selected") are real controls — but spans with role="button", which CTL_SEL
+       cannot see, and the Background one sits INSIDE the `.bg-head` button, which CTL_SEL would find first and
+       so a tap meant for the speaker folded the section instead. They are asked about first, and activate as a
+       click at pointerup like any other control. They draw no ink; the 6px halo `.tts-play::before` gives them
+       is the target, a 9px triangle being too small for a pen. */
+    const controlUnder = (e) => hitUnder(e, ".tts-play") || hitUnder(e, CTL_SEL);
     /* …and a term INSIDE a control is that control's (a gloss link cannot be, but the test costs nothing
        and keeps the two kinds from both claiming one press). */
     const tipUnder = (e) => (hitUnder(e, CTL_SEL) ? null : hitUnder(e, TIP_SEL));
@@ -20354,6 +20360,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      "Text-to-speech" toggle (S.settings.tts — off hides every TTS control) and the per-card mute (S.settings.ttsMuted,
      persisted so leaving a card muted keeps every future card muted until the user unmutes). */
   const TTS_RATE_EN = 0.85, TTS_RATE_ZH = 0.7;   // "slow" voices
+  // Settings → Audio → Reading speed: the English read-aloud's pace (the Chinese voice stays at its own slow rate)
+  const TTS_RATES = { slow: 0.7, normal: TTS_RATE_EN, fast: 1.05 };
+  function ttsRateEn() { return TTS_RATES[S.settings.ttsRate] || TTS_RATE_EN; }
   function ttsSupported() { return !!(window.speechSynthesis && typeof SpeechSynthesisUtterance !== "undefined"); }
   // TTS is SET ASIDE site-wide for now: the whole read-aloud system is disabled — no play buttons, no card mute
   // button, no auto-read, no Settings controls. The machinery below stays dormant so it can be revived later.
@@ -20503,7 +20512,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     chunks.forEach((chunk, i) => {
       const u = new SpeechSynthesisUtterance(chunk);
       if (p.zh) { u.lang = "zh-CN"; u.rate = TTS_RATE_ZH; const v = ttsVoiceZh(); if (v) u.voice = v; }
-      else { u.lang = "en-US"; u.rate = TTS_RATE_EN; u.pitch = 0.9; const v = ttsVoiceEn(); if (v) u.voice = v; }
+      else { u.lang = "en-US"; u.rate = ttsRateEn(); u.pitch = 0.9; const v = ttsVoiceEn(); if (v) u.voice = v; }
       if (p.btn && i === 0) u.onstart = () => p.btn.classList.add("tts-playing");
       if (i === chunks.length - 1) {
         const fin = () => { if (p.btn) p.btn.classList.remove("tts-playing"); if (gen === _ttsSeq) done(); };
@@ -20567,7 +20576,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      arrives asynchronously; a press that comes back silent says why instead. */
   const TTS_SECTIONS = new Set(["History", "Science", "Special"]);
   function ttsSectionOk(c) {
-    if (!c || !c.id || !ttsSupported()) return false;
+    if (!c || !c.id || !ttsSupported() || S.settings.ttsButtons === false) return false;   // Settings → Audio → Read-aloud buttons
     const root = cardCollectionRoot(c.id);
     return !!root && TTS_SECTIONS.has(sectionOf(root.id));
   }
@@ -42176,6 +42185,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="info"><h3>Sound effects</h3><p>Soft clicks and chimes for buttons, card reveals, grades and level-ups.</p></div>
             <div class="ctl"><div class="switch ${S.settings.sfx !== false ? "on" : ""}" id="sw-sfx" role="switch" aria-label="Sound effects" tabindex="0" aria-checked="${S.settings.sfx !== false}"></div></div>
           </div>
+          ${/* READ ALOUD (Oct 2026, on request). The play triangles beside Question, Answer and Background on history,
+                science and special cards — see ttsSectionOk. The voice list arrives asynchronously, so the select
+                is re-filled by `_ttsVoicesHook` rather than read once; it is never hidden on an empty list, which
+                is what the device reports before its voices load. */""}
+          <div class="set-row">
+            <div class="info"><h3>Read-aloud buttons</h3><p>Show a small play button beside Question, Answer and Background on history, science and special cards. It reads that section aloud in an English voice.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.ttsButtons !== false ? "on" : ""}" id="sw-tts" role="switch" aria-label="Read-aloud buttons" tabindex="0" aria-checked="${S.settings.ttsButtons !== false}"></div></div>
+          </div>
+          <div class="set-row set-row-stack">
+            <div class="info"><h3>Read-aloud voice</h3><p id="ttsVoiceNote">Which English voice your device uses. Automatic picks the most natural one it has.</p></div>
+            <div class="ctl"><select class="set-sel" id="ttsVoiceSel" aria-label="Read-aloud voice"></select></div>
+          </div>
+          <div class="set-row set-row-block">
+            <div class="info"><h3>Reading speed</h3><p>How fast the English voice reads.</p></div>
+            <div class="ctl"><div class="fs-pick units-pick" id="ttsRatePick" role="group" aria-label="Reading speed">${
+              [["slow", "Slow"], ["normal", "Normal"], ["fast", "Fast"]].map((r) => { const on = (TTS_RATES[S.settings.ttsRate] ? S.settings.ttsRate : "normal") === r[0]; return `<button type="button" data-ttsrate="${r[0]}" class="${on ? "on" : ""}" aria-pressed="${on}">${r[1]}</button>`; }).join("")
+            }</div></div>
+          </div>
+          <div class="set-row">
+            <div class="info"><h3>Try the voice</h3><p>Plays a sample sentence with the voice and speed above.</p></div>
+            <div class="ctl"><button type="button" class="btn ghost" id="ttsTry">Play sample</button></div>
+          </div>
         </div>
         </div>
         <div class="set-col">
@@ -42310,6 +42341,45 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (S.settings.sfx !== false) sfx("toggle");
     };
     if (swSfx) { swSfx.addEventListener("click", toggleSfx); swSfx.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSfx(); } }); }
+
+    // read-aloud: the buttons switch, the voice list, the speed and a sample
+    const swTts = root.querySelector("#sw-tts");
+    const toggleTts = () => {
+      S.settings.ttsButtons = S.settings.ttsButtons === false;   // flip: false -> true, anything else -> false
+      save();
+      swTts.classList.toggle("on", S.settings.ttsButtons !== false);
+      swTts.setAttribute("aria-checked", String(S.settings.ttsButtons !== false));
+      if (S.settings.ttsButtons === false) ttsStop();
+    };
+    if (swTts) { swTts.addEventListener("click", toggleTts); swTts.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleTts(); } }); }
+    const ttsSel = root.querySelector("#ttsVoiceSel");
+    const fillTtsVoices = () => {
+      if (!ttsSel || !ttsSel.isConnected) return;
+      const vs = ttsEnVoices(), cur = S.settings.ttsVoiceEn || "";
+      let h = '<option value="">Automatic (best available)</option>';
+      vs.forEach((v) => { h += '<option value="' + esc(v.voiceURI || v.name) + '">' + esc(v.name + " (" + v.lang + ")") + "</option>"; });
+      // a stored choice this device no longer has stays selectable rather than silently flipping to Automatic
+      if (cur && !vs.some((v) => (v.voiceURI || v.name) === cur || v.name === cur)) h += '<option value="' + esc(cur) + '">' + esc(cur) + " (not on this device)</option>";
+      ttsSel.innerHTML = h;
+      ttsSel.value = cur;
+      const note = root.querySelector("#ttsVoiceNote");
+      if (note) note.textContent = !ttsSupported() ? "This browser has no speech engine, so the play buttons are not shown."
+        : vs.length ? "Which English voice your device uses. Automatic picks the most natural one it has."
+        : "No English voice found yet — if none appears, add one in your device's settings.";
+    };
+    fillTtsVoices();
+    _ttsVoicesHook = fillTtsVoices;
+    if (ttsSel) ttsSel.addEventListener("change", () => { S.settings.ttsVoiceEn = ttsSel.value; save(); });
+    const ratePick = root.querySelector("#ttsRatePick");
+    if (ratePick) ratePick.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-ttsrate]");
+      if (!b) return;
+      S.settings.ttsRate = b.dataset.ttsrate;
+      save();
+      ratePick.querySelectorAll("[data-ttsrate]").forEach((x) => { const on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-pressed", String(on)); });
+    });
+    const ttsTry = root.querySelector("#ttsTry");
+    if (ttsTry) ttsTry.addEventListener("click", () => ttsSectionClick([{ text: "This is how Folio will read a card aloud." }], ttsTry));
 
     /* The grid is absent until a theme has been won (see the gate above), so every reader of it is
        guarded — a settings page that throws on its own first paint takes every control below it with it. */

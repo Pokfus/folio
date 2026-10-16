@@ -6575,6 +6575,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     go through `ttsSectionClick` (a second press stops; a silent press toasts `ttsSilentNote`; the Chinese
     part of an Answer is dropped — English voice only) and need only the API (`ttsSupported()`), never a voice
     list. Baked `audio/` stays dormant, so it is always the device's English voice. Guarded by `test-speak.js` §4.
+    **Settings → Audio** carries their three controls: `S.settings.ttsButtons` (default on; `ttsSectionOk` reads it),
+    `ttsVoiceEn` (the select, re-filled by `_ttsVoicesHook` because voices arrive async; a stored voice the device
+    lacks stays selectable) and `ttsRate` (`slow`/`normal`/`fast` → `TTS_RATES`, read by `ttsRateEn()`), plus a
+    "Play sample". **With the marker down** `.tts-play` is asked about FIRST in `controlUnder` (before `CTL_SEL`):
+    it is a `role="button"` span that `CTL_SEL` cannot see, and the Background one sits inside the `.bg-head`
+    button, which `CTL_SEL` would find first and fold instead. `.tts-play::before` gives it a 6px halo as the tap
+    target. Guarded by `test-speak.js` §5–6 (real mouse input; reverting `controlUnder` fails them).
   · **A COMMUNITY CARD TYPE'S `.uc-tts` IS NOT PART OF THAT AND IS LIVE** — it deliberately bypasses
     `ttsEnabled()`, being a control a reader presses rather than something Folio does to them. So
     "read-aloud does nothing" reported on a LANGUAGE DECK is never the site-wide switch, and answering it
