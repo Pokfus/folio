@@ -6906,6 +6906,35 @@
      because the review is MEANT to cap a reader's whole day; a language is not.) It is also the honest
      answer to what the sheet asks — how many new cards a day this language currently offers.
      Set a figure and it wins outright, exactly as a deck's does over the global default. */
+  /* READY BY A DATE IS A LIVE PACE (Oct 2026, on request: "that count should automatically update every day").
+     `openDeadline` stores the DATE on the deck (`deckOpts[id].deadline`), not a figure, and the allowance is
+     worked out afresh each day: the cards not yet met, plus those met today (so the number does not shrink
+     while the reader works through it), over the days left counting today. Skip a day and the same cards
+     are spread over fewer days, so the figure rises; study ahead with Custom study and fewer remain, so it
+     falls. Nothing is written back: it is derived, like deckDoneToday, and a day that has passed with no
+     deadline left (the date itself, or after) falls back to the figure stored when the pace was set. */
+  const REV_PER_NEW = 2.2;   // reviews a day a card in its first weeks generates, roughly — Anki's own rough figure
+  const LEAD_DAYS = 7;       // a card met inside this many days of the date has not been learned, only seen
+  let DL_MEMO = {};
+  function deadlineDaysLeft(dateStr) {
+    const t = new Date(dateStr + "T12:00:00"), n = new Date(todayStr() + "T12:00:00");
+    return Math.round((t.getTime() - n.getTime()) / DAY);
+  }
+  function deckDeadlineLive(id) {
+    const o = S.deckOpts && S.deckOpts[id];
+    if (!o || typeof o.deadline !== "string") return null;
+    const days = deadlineDaysLeft(o.deadline);
+    if (!(days >= 1)) return null;
+    const key = id + "|" + todayStr() + "|" + o.deadline;
+    let m = DL_MEMO[key];
+    if (m) return m;
+    const left = entryCardIds(id).filter((c) => !isSeen(c) && !isSuspended(c)).length + deckDoneToday(id).nw;
+    const perDay = Math.ceil(left / days);
+    m = { date: o.deadline, days: days, perDay: perDay, revDay: Math.round(perDay * REV_PER_NEW * Math.min(days, 10) / 2) || 0 };
+    // a deck with nothing to count (its file not loaded yet) is not remembered, or the day would keep a zero
+    if (left > 0) DL_MEMO[key] = m;
+    return m;
+  }
   function langCtxLimits(id) {
     const o = (S.deckOpts && S.deckOpts[id]) || {};
     let nw = 0, rv = 0;
@@ -6919,9 +6948,10 @@
        says a language can deal nothing today is its ROW, whose piles read 0, and the "not on this device"
        line on each deck under it. */
     langCtxEntries(id).forEach((e) => { const L = deckLimits(e); nw += L.newPerDay; rv += L.maxReviews; });
+    const dl = deckDeadlineLive(id);
     return {
-      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : nw,
-      maxReviews: Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : rv,
+      newPerDay: dl ? dl.perDay : Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : nw,
+      maxReviews: Math.max(dl ? dl.revDay : 0, Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : rv),
       newIgnoresReview: o.newIgnoresReview !== false,
     };
   }
@@ -6932,17 +6962,20 @@
     // the first-day four applies only to a curated deck following the kind default
     if (!S.settings.limitsCustom && !Number.isFinite(o.newPerDay) && collectionFirstDay(id))
       G.newPerDay = Math.max(G.newPerDay, FIRST_DAY_NEW);
+    const dl = deckDeadlineLive(id);
     return {
       // the global setting is the DEFAULT rather than a competing limit — a deck the reader has never
       // opened the sheet on simply follows the "All decks" figures, as it always did
-      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : G.newPerDay,
-      maxReviews: Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : G.maxReviews,
+      newPerDay: dl ? dl.perDay : Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : G.newPerDay,
+      maxReviews: Math.max(dl ? dl.revDay : 0, Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : G.maxReviews),
       newIgnoresReview: o.newIgnoresReview !== false,
     };
   }
   function setDeckLimits(id, patch) {
     if (!S.deckOpts || typeof S.deckOpts !== "object") S.deckOpts = {};
     S.deckOpts[id] = Object.assign({}, S.deckOpts[id] || {}, patch);
+    if ("deadline" in patch && !patch.deadline) delete S.deckOpts[id].deadline;
+    DL_MEMO = {};
     save();
   }
   /* Give a deck back to the default. It DELETES the three keys rather than writing the global's current
@@ -6952,7 +6985,8 @@
   function clearDeckLimits(id) {
     const o = S.deckOpts && S.deckOpts[id];
     if (!o) return;
-    delete o.newPerDay; delete o.maxReviews; delete o.newIgnoresReview;
+    delete o.newPerDay; delete o.maxReviews; delete o.newIgnoresReview; delete o.deadline;
+    DL_MEMO = {};
     save();
   }
   /* ---------- ONE WALK: A SETTING SET ON A DECK GOVERNS ITS SUBDECKS ----------
@@ -17921,7 +17955,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            are DELETED, so a later change to the default reaches it again */
         const cleared = !wantOwn && !changed && hasOwn;
         if (cleared) clearDeckLimits(id);
-        else if (wantOwn || changed) setDeckLimits(id, { newPerDay: dN, maxReviews: dR, newIgnoresReview: dI });
+        else if (wantOwn || changed) {
+          const patch = { newPerDay: dN, maxReviews: dR, newIgnoresReview: dI };
+          // a figure typed over the live "ready by" pace is the reader taking the pace back by hand
+          if (dN !== base.n) patch.deadline = null;
+          setDeckLimits(id, patch);
+        }
         close();
         render();
         toast(cleared ? (isLang ? "No longer capping " + info.title : "Following the default for all decks") : "Daily limits saved");
@@ -17947,8 +17986,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      that deck's review ceiling with it — a plan that quietly throttles itself on the other limit is the
      failure this is meant to prevent.
      It is per DECK, like every other quantity here (see DECK_OPT_INHERIT: a quantity does not cascade). */
-  const REV_PER_NEW = 2.2;   // reviews a day a card in its first weeks generates, roughly — Anki's own rough figure
-  const LEAD_DAYS = 7;       // a card met inside this many days of the date has not been learned, only seen
   function deadlinePlan(id, dateStr) {
     const ids = entryCardIds(id);
     const left = ids.filter((c) => !isSeen(c) && !isSuspended(c)).length;
@@ -17968,11 +18005,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const info = entryInfo(id);
     const iso = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
     const soon = new Date(Date.now() + 30 * DAY);
+    const cur = deckDeadlineLive(id);
     const html =
       '<div class="dm-head"><span class="dm-title">Ready by a date</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
-      '<label class="dm-field"><span>I need to know this by</span><input class="dm-num dl-date" type="date" min="' + esc(iso(new Date())) + '" value="' + esc(iso(soon)) + '"></label>' +
+      '<label class="dm-field"><span>I need to know this by</span><input class="dm-num dl-date" type="date" min="' + esc(iso(new Date())) + '" value="' + esc(cur ? cur.date : iso(soon)) + '"></label>' +
       '<div class="dl-out" id="dlOut"></div>' +
       '<div class="dm-actions"><button type="button" class="btn ghost" data-act="cancel">Cancel</button>' +
+      (cur ? '<button type="button" class="btn ghost" data-act="stop">Stop pacing</button>' : "") +
       '<button type="button" class="btn" data-act="save">Set the pace</button></div>';
     deckSheet("Ready by a date", html, (ov, close) => {
       const inp = ov.querySelector(".dl-date"), out = ov.querySelector("#dlOut");
@@ -18002,15 +18041,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       inp.addEventListener("change", paint);
       paint();
       ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
+      const stopBtn = ov.querySelector('[data-act="stop"]');
+      if (stopBtn) stopBtn.addEventListener("click", () => {
+        setDeckLimits(id, { deadline: null });
+        close(); render();
+        toast("No longer pacing " + info.title + " to a date.");
+      });
       saveBtn.addEventListener("click", () => {
         if (!plan || !plan.perDay) return;
         const L = deckLimits(id);
-        const patch = { newPerDay: plan.perDay };
+        const patch = { newPerDay: plan.perDay, deadline: inp.value };
         // …and the review ceiling with it, where the plan would otherwise be throttled by the other limit
         if (plan.revDay > L.maxReviews) patch.maxReviews = plan.revDay;
         setDeckLimits(id, patch);
         close(); render();
-        toast(plan.perDay + " new cards a day in " + info.title + (patch.maxReviews ? ", with the review ceiling raised to match." : "."));
+        toast(plan.perDay + " new cards a day in " + info.title + (patch.maxReviews ? ", with the review ceiling raised to match" : "") + " \u2014 it adjusts itself each day.");
       });
     });
   }
@@ -24393,6 +24438,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      home page, read fresh at the moment it is drawn rather than copied from a list drawn before the
      session. No grip and no chevron: it is a single row standing alone, not a list to fold or reorder.
      `r` is a record of `adRowOrder` (id, title, parent, hue, langhead, group). */
+  /* "12 days left" after a deck's title when it is being paced to a date (see deckDeadlineLive) */
+  function deadlineTagHTML(id) {
+    const d = deckDeadlineLive(id);
+    return d ? `<span class="dk-sup dk-days" title="Ready by ${esc(d.date)}">\u00b7 ${d.days} day${d.days === 1 ? "" : "s"} left</span>` : "";
+  }
   function adRowBannerHTML(r) {
     const day = adDay(r.id);
     const kind = r.langhead ? " dk-langhead" : r.group ? " deck-group" : "";
@@ -24401,7 +24451,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ${adIcon(r.id, r.parent)}
       ${day.counts}
       <div class="dk-body">
-        <div class="dk-line"><span class="dk-title">${esc(r.title)}</span></div>
+        <div class="dk-line"><span class="dk-title">${esc(r.title)}</span>${deadlineTagHTML(r.id)}</div>
         ${adProg(entryCardIds(r.id))}
       </div>
       <span class="dk-chev-gap" aria-hidden="true"></span>
@@ -24866,7 +24916,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
               ${r.dlAll && r.dlAll.length
@@ -24933,7 +24983,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}${deadlineTagHTML(r.drag)}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
               ${up}
@@ -24946,7 +24996,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${adIcon(r.node.id, r.parent)}
               ${day.counts}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.node.id)}</div>
                 ${adProg(entryCardIds(r.node.id))}
               </div>
               ${chev}
