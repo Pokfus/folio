@@ -24439,9 +24439,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      session. No grip and no chevron: it is a single row standing alone, not a list to fold or reorder.
      `r` is a record of `adRowOrder` (id, title, parent, hue, langhead, group). */
   /* "12 days left" after a deck's title when it is being paced to a date (see deckDeadlineLive) */
-  function deadlineTagHTML(id) {
+  function deadlineTagHTML(id, cls) {
     const d = deckDeadlineLive(id);
-    return d ? `<span class="dk-sup dk-days" title="Ready by ${esc(d.date)}">\u00b7 ${d.days} day${d.days === 1 ? "" : "s"} left</span>` : "";
+    return d ? `<span class="${cls || "dk-sup"} dk-days" title="Ready by ${esc(d.date)}">\u00b7 ${d.days} day${d.days === 1 ? "" : "s"} left</span>` : "";
   }
   function adRowBannerHTML(r) {
     const day = adDay(r.id);
@@ -27261,7 +27261,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <span class="node-num">${num}</span>
           <div class="node-main">
             <div class="node-title-row">
-              <span class="node-title">${esc(nodeTitle(node))}</span>
+              <span class="node-title">${esc(nodeTitle(node))}</span>${deadlineTagHTML(node.id, "collection-span")}
               ${nodeEmptyPill}
               ${soon ? '<span class="pill soon">Planned</span>' : ""}
             </div>
@@ -27295,7 +27295,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       <span class="node-num">${num}</span>
       <div class="node-main">
         <div class="node-title-row">
-          <span class="node-title">${esc(nodeTitle(node))}</span>
+          <span class="node-title">${esc(nodeTitle(node))}</span>${deadlineTagHTML(node.id, "collection-span")}
           ${nodeEmptyPill}
           ${soon ? '<span class="pill soon">Planned</span>' : ""}
         </div>
@@ -27901,6 +27901,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="collection-main">
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
+              ${deadlineTagHTML(d.id, "collection-span")}
               ${spanHTML}
               ${/* …AND HOW FAR THROUGH ITS PLAN IT IS (Sep 2026). The card COUNT alone cannot say whether
                     a collection is finished: 700 is most of the way through Ancient Greece's planned
@@ -31291,7 +31292,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         symbolIconMarkup("speech") +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
-            '<span class="collection-title">' + esc(lang) + '</span>' +
+            '<span class="collection-title">' + esc(lang) + '</span>' + deadlineTagHTML(id, "collection-span") +
             '<span class="collection-span">' + specs.length + (specs.length === 1 ? " deck" : " decks") + '</span>' +
           '</div>' +
           deckProgMarkup(studied, cards) +
