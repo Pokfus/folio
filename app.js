@@ -20520,6 +20520,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (btn) (Array.isArray(parts) ? parts : [parts]).forEach((p) => { if (p && !p.btn) p.btn = btn; });   // keep the pressed control lit through the whole read
     ttsSay(parts, 0);
   }
+  /* A section play button's press: reads the section in the English voice, a second press stops it, and a
+     press never comes back as silence (the same measure-afterwards rule as `cardSpeak`). The Chinese part
+     of an Answer is dropped — the request is for an English voice. */
+  function ttsSectionClick(parts, btn) {
+    if (!ttsSupported()) { toast(ttsSilentNote(), TTS_NOTE_MS); return; }
+    if (btn && btn.classList.contains("tts-playing")) { ttsStop(); return; }
+    const list = (Array.isArray(parts) ? parts : [parts]).filter((p) => p && !p.zh);
+    list.forEach((p) => { if (btn && !p.btn) p.btn = btn; });
+    ttsSay(list, 0);
+    const gen = _ttsSeq;
+    setTimeout(() => {
+      if (gen !== _ttsSeq) return;
+      let live = !!(btn && btn.classList.contains("tts-playing"));
+      try { live = live || !!(speechSynthesis.speaking || speechSynthesis.pending); } catch (e) {}
+      if (!live) toast(ttsSilentNote(), TTS_NOTE_MS);
+    }, 60 + TTS_SILENT_MS);
+  }
   function ttsStrip(html) { const d = document.createElement("div"); d.innerHTML = html || ""; return (d.textContent || "").replace(/\s+/g, " ").trim(); }
   function ttsQuestionText(c) { return ttsStrip(String((c && c.question) || "").replace(/<span class="blank"[^>]*>[\s\S]*?<\/span>/g, " blank ")); }   // the cloze ____ is read as "blank"
   // the parts a section play-button reads (container = where the rendered .abstract lives, for the background).
@@ -20534,13 +20551,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return parts;
     }
     const abs = container && container.querySelector(".abstract");
-    const t = abs ? (abs.textContent || "").replace(/\s+/g, " ").trim() : ttsStrip(c && c.abstract);
+    let t;
+    if (abs) { const cl = abs.cloneNode(true); cl.querySelectorAll("sup.fn").forEach((m) => m.remove()); t = (cl.textContent || "").replace(/\s+/g, " ").trim(); }
+    else t = ttsStrip(c && c.abstract);
     return [{ text: t, baked: bakedUrl(id, "bg", t) }];
   }
   const TTS_PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 4 19 12 7 20"/></svg>';
   // tiny play control behind a section title; span=true renders a role=button span (for inside the .bg-head <button>)
-  function ttsPlayHTML(kind, span) {
-    if (!ttsEnabled()) return "";
+  /* THE SECTION PLAY BUTTONS ARE LIVE ON HISTORY, SCIENCE AND SPECIAL COLLECTIONS ONLY (Oct 2026, on request),
+     and they are NOT the set-aside read-aloud system: `ttsEnabled()` is still false, so auto-read, the card
+     mute button, the gloss popup's speaker and the selection menu stay off. Like `.uc-tts` this is a control
+     a reader presses, so it deliberately bypasses that switch (see `ttsSectionClick`). The section is the
+     card's collection ROOT's, via `sectionOf`; a card in no collection (a community or language deck's) has
+     no root and gets no button. Offered wherever the API exists — never hidden on an empty voice list, which
+     arrives asynchronously; a press that comes back silent says why instead. */
+  const TTS_SECTIONS = new Set(["History", "Science", "Special"]);
+  function ttsSectionOk(c) {
+    if (!c || !c.id || !ttsSupported()) return false;
+    const root = cardCollectionRoot(c.id);
+    return !!root && TTS_SECTIONS.has(sectionOf(root.id));
+  }
+  function ttsPlayHTML(kind, span, c) {
+    if (!ttsEnabled() && !ttsSectionOk(c)) return "";
     const aria = 'aria-label="Read this section aloud" title="Read aloud"';
     return span
       ? '<span class="tts-play" role="button" tabindex="0" data-tts="' + kind + '" ' + aria + ">" + TTS_PLAY_SVG + "</span>"
@@ -20552,7 +20584,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     container.querySelectorAll("[data-tts]").forEach((b) => {
       if (b._ttsWired) return;
       b._ttsWired = true;
-      const act = (e) => { e.stopPropagation(); ttsPlayClick(ttsPartsFor(b.dataset.tts, c, container), b); };
+      const act = (e) => { e.stopPropagation(); ttsSectionClick(ttsPartsFor(b.dataset.tts, c, container), b); };
       b.addEventListener("click", act);
       if (b.tagName !== "BUTTON") b.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act(e); } });
     });
@@ -26160,7 +26192,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <h1>${esc(term)}</h1>
       </div>
       <div class="study-card cardpg-card">
-        <span class="label">Question</span>
+        <span class="label">Question${ttsPlayHTML("question", true, c)}</span>
         <div class="question">${cardFrontHTML(c) || ""}</div>
         <div class="reveal show"><div class="reveal-inner" id="cpgBack"></div></div>
       </div>
@@ -26178,6 +26210,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        dead grey box for as long as it has existed. It is REVEALED at once, unlike a study card's: the
        answer is the heading of the page. */
     mountCardMaps(root); cardMapReveal(root);
+    wireTTS(root, c);   // the Question button sits outside #cpgBack, which mountCardBack wired
     root.querySelectorAll("[data-kin]").forEach((b) =>
       b.addEventListener("click", () => route("card", { id: b.dataset.kin })));
     root.querySelector("#cpgStudy").addEventListener("click", () => route("study", { scope: { type: "card", id: id } }));
@@ -26255,7 +26288,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <div class="page-head"><span class="eyebrow">${esc(title)} \u00b7 a taste</span><h1>Card ${i + 1} of ${ids.length}</h1>
         <p class="smp-note">Nothing here is scheduled, counted or remembered \u2014 it is a look at the deck, not a study session.</p></div>
         <div class="study-card cardpg-card">
-          <span class="label">Question</span>
+          <span class="label">Question${ttsPlayHTML("question", true, c)}</span>
           <div class="question">${cardFrontHTML(c) || ""}</div>
           <div class="reveal" id="smpReveal"><div class="reveal-inner" id="smpBack"></div></div>
         </div>
@@ -26270,6 +26303,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is NOT revealed here: the answer is behind a button, and the map naming what it shades would give
          it away, so `cardMapReveal` waits for `show()` exactly as the study page's does. */
       mountCardMaps(root);
+      wireTTS(root, c);   // the Question button; the Answer and Background ones are wired by mountCardBack in show()
       const show = () => {
         const inner = root.querySelector("#smpBack");
         if (!inner || inner.innerHTML) return;
@@ -32516,7 +32550,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     know the other's offset. The successive-relearning row sits BETWEEN them (Sep 2026,
                     on request) — see critPipsHTML for why it moved and how it shortens on a phone. */""}
               <div class="q-head">
-              <div class="q-lead">${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? qCycleHTML(qIdx, pool.length) : ""}${ttsPlayHTML("question", true)}</span></div>
+              <div class="q-lead">${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? qCycleHTML(qIdx, pool.length) : ""}${ttsPlayHTML("question", true, c)}</span></div>
               ${critInBar ? "" : critHTML}
               ${cardStarsHTML(c)}
               </div>
@@ -35923,7 +35957,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (typed != null) return typed + sourcesHTML(cardSources(c));
     let html = "";
     if (c.answer) {
-      html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true) + "</span>";
+      html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true, c) + "</span>";
       /* The flag, where the card has one, sits BESIDE the term inside `.answer-av` — so the wrapper is
          emitted only when there is one, and every card without a flag keeps byte-identical markup. */
       const flagHTML = answerFlagHTML(c);
@@ -35962,7 +35996,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<span class="label">Background</span>' +
         '<span class="bg-toggle' + (bgCol ? " collapsed" : "") + '">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
-        "</span>" + ttsPlayHTML("background", true) + "</button>";
+        "</span>" + ttsPlayHTML("background", true, c) + "</button>";
       html += '<div class="bg-collapse' + (bgCol ? " collapsed" : "") + '"><div class="bg-collapse-inner">';
       /* THE ILLUSTRATION IS FLOATED TO THE TOP-RIGHT OF THE PROSE (Aug 2026, on request), which is what
          the glossary popup has always done with a term's picture — the opening sentences run down its
@@ -36726,7 +36760,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!cardExtraLoaded(c && c.id)) { ensureCardExtra(c.id).then(() => renderCardPreviewInto(box, c)); return; }
     box.innerHTML =
       '<div class="study-card admin-pv-card">' +
-        '<span class="label">Question</span>' +
+        '<span class="label">Question' + ttsPlayHTML("question", true, c) + '</span>' +
         '<div class="question">' + (cardFrontHTML(c) || '<em style="color:var(--ink-faint)">(no question)</em>') + '</div>' +
         '<div class="reveal show"><div class="reveal-inner">' + buildBack(c) + '</div></div>' +
       '</div>';
@@ -36742,7 +36776,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (bgHead && bgCollapse) bgHead.addEventListener("click", () => { const col = bgCollapse.classList.toggle("collapsed"); if (bgToggle) bgToggle.classList.toggle("collapsed", col); bgHead.setAttribute("aria-expanded", col ? "false" : "true"); });
     inner.querySelectorAll(".tr-play").forEach((btn) => btn.addEventListener("click", () => speak(btn.dataset.say, btn)));
     wireAnswerSay(inner);
-    wireTTS(inner, c);
+    wireTTS(box, c);   // box, not inner: the Question button sits above the back
   }
 
   /* ---------- global keyboard plumbing for study ---------- */
