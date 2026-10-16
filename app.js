@@ -24438,10 +24438,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      home page, read fresh at the moment it is drawn rather than copied from a list drawn before the
      session. No grip and no chevron: it is a single row standing alone, not a list to fold or reorder.
      `r` is a record of `adRowOrder` (id, title, parent, hue, langhead, group). */
-  /* "12 days left" after a deck's title when it is being paced to a date (see deckDeadlineLive) */
+  /* "12 days left" after a deck's title when it is being paced to a date (see deckDeadlineLive). A row ABOVE a
+     paced deck (the collection banner on the home list) has no date of its own, so it carries the nearest
+     one beneath it, named in its tooltip. */
   function deadlineTagHTML(id, cls) {
-    const d = deckDeadlineLive(id);
-    return d ? `<span class="${cls || "dk-sup"} dk-days" title="Ready by ${esc(d.date)}">\u00b7 ${d.days} day${d.days === 1 ? "" : "s"} left</span>` : "";
+    let d = deckDeadlineLive(id), via = "";
+    if (!d && S.deckOpts) {
+      Object.keys(S.deckOpts).forEach((k) => {
+        if (k === id || !S.deckOpts[k] || typeof S.deckOpts[k].deadline !== "string") return;
+        const x = deckDeadlineLive(k);
+        if (x && (!d || x.days < d.days) && entryChain(k).indexOf(id) > 0) { d = x; via = entryInfo(k).title; }
+      });
+    }
+    return d ? `<span class="${cls || "dk-sup"} dk-days" title="Ready by ${esc(d.date)}${via ? " \u2014 " + esc(via) : ""}">\u00b7 ${d.days} day${d.days === 1 ? "" : "s"} left</span>` : "";
   }
   function adRowBannerHTML(r) {
     const day = adDay(r.id);
@@ -25006,7 +25015,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             ${grip}
             ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
-              <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
+              <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
             </div>
             ${chev}
           </div>`;
