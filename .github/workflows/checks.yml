@@ -6,7 +6,7 @@ name: checks
 # parses. Suites like that are worth exactly as much as the discipline of running them,
 # and they were run by hand.
 #
-# Two jobs, deliberately split:
+# Jobs, deliberately split (and, since Oct 2026, INDEPENDENT: a red `fast` step no longer skips the later steps or the browser jobs; see `needs: fast` / `if: !cancelled()` below):
 #
 #   fast   -- the eight suites and four checkers that need no browser. Seconds, no
 #             install, no network. This is the gate: it must stay green.
@@ -59,11 +59,13 @@ jobs:
       # Cheapest possible failure first: a syntax error in app.js breaks every page,
       # and `node --check` finds it before a browser is even considered.
       - name: Syntax-check the site's JS
+        if: ${{ !cancelled() }}
         run: |
           for f in *.js; do node --check "$f" || exit 1; done
           echo "all root .js files parse"
 
       - name: Syntax-check the helper scripts
+        if: ${{ !cancelled() }}
         run: |
           for f in .claude/*.js; do node --check "$f" || exit 1; done
           echo "all .claude/*.js parse"
@@ -72,34 +74,45 @@ jobs:
       # earcut are site code like any other root file; the build pipeline under .claude/atlas-build/
       # needs `npm ci` to RUN but not to PARSE, so it is syntax-checked here and nothing more.
       - name: Syntax-check the Atlas v2 bundle and build scripts
+        if: ${{ !cancelled() }}
         run: |
           for f in atlas/*.js atlas/vendor/*.js .claude/atlas-build/*.js .claude/atlas-build/lib/*.js; do node --check "$f" || exit 1; done
           echo "atlas/ and .claude/atlas-build/ parse"
 
       # The suites that need no browser. Each exits non-zero on failure.
       - name: test-card-plans
+        if: ${{ !cancelled() }}
         run: node .claude/test-card-plans.js
       - name: test-daily-quote
+        if: ${{ !cancelled() }}
         run: node .claude/test-daily-quote.js
       - name: test-date-line
+        if: ${{ !cancelled() }}
         run: node .claude/test-date-line.js
       - name: test-difficulty
+        if: ${{ !cancelled() }}
         run: node .claude/test-difficulty.js
       - name: test-discovery
+        if: ${{ !cancelled() }}
         run: node .claude/test-discovery.js
       - name: test-scheduler
+        if: ${{ !cancelled() }}
         run: node .claude/test-scheduler.js
       - name: test-streak-chest
+        if: ${{ !cancelled() }}
         run: node .claude/test-streak-chest.js
       - name: test-tense-notes
+        if: ${{ !cancelled() }}
         run: node .claude/test-tense-notes.js
       - name: test-panels
+        if: ${{ !cancelled() }}
         run: node .claude/test-panels.js
       # test-learning is half no-browser: FOLIO_SKIP_BROWSER runs sections 1-5 here, in seconds,
       # and the browser job below picks the same file up again for the rest. The cheap half is
       # worth gating on -- it holds the relearning criterion's arithmetic, the answer matcher, and
       # the static checks that the pretest never writes a card record.
       - name: test-learning (no-browser half)
+        if: ${{ !cancelled() }}
         env:
           FOLIO_SKIP_BROWSER: "1"
         run: node .claude/test-learning.js
@@ -107,10 +120,12 @@ jobs:
       # The content checkers. check-style and check-questions guard the house rules over
       # the shipped corpus; check-docs guards the CLAUDE.md/docs split in both directions.
       - name: check-docs
+        if: ${{ !cancelled() }}
         run: node .claude/check-docs.js
       # THE BROWSER SHARDS COVER EVERY SUITE (Oct 2026): ci-shards.js scans .claude/ for the Playwright suites and fails when one would be in no shard (or two) or when the heaviest shard is
       # predicted past its 35-minute cap. Offline, a second.
       - name: ci-shards --check (every Playwright suite is in exactly one browser shard)
+        if: ${{ !cancelled() }}
         run: node .claude/ci-shards.js --check
       # THE ATLAS v2 TOPOLOGY IS A GENERATED FILE WITH INVARIANTS THAT FAIL SILENTLY (Oct 2026;
       # docs/atlas-v2-design.md §2.11): a border two faces walk the same way still draws, a coast arc
@@ -122,6 +137,7 @@ jobs:
       # ceiling is the core's measured 2026-10-08 size (OSM coast at LOD 0–2, admin-0 + admin-1) plus
       # headroom; raise it deliberately when Phase 2 adds the steps.
       - name: check-topology (Atlas v2, core and tiles)
+        if: ${{ !cancelled() }}
         run: node .claude/atlas-build/check-topology.js --tiles --max-bytes 3145728
       # THE WATER AND THE RELIEF ARE GENERATED FILES TOO (Oct 2026, Phase 1b; docs/atlas-v2-design.md §7
       # "Phase 1b — as built"). check-water.js reads atlas/data/water.bin and every water tile with the same
@@ -131,8 +147,10 @@ jobs:
       # 10 km of a river, every file's sources, and the 12 MB budget. check-relief.js (no --source: the ETOPO
       # grid is not in CI) proves the pyramid's structure, every plane's folio header and the 45 MB budget.
       - name: check-water (Atlas v2, rivers and lakes)
+        if: ${{ !cancelled() }}
         run: node --max-old-space-size=8000 .claude/atlas-build/check-water.js
       - name: check-relief (Atlas v2, relief pyramid)
+        if: ${{ !cancelled() }}
         run: node .claude/atlas-build/check-relief.js
       # THE GAZETTEER IS A GENERATED FILE TOO (Oct 2026, Phase 1c; docs/atlas-v2-design.md §7 "Phase 1c — as
       # built"). check-gazetteer.js reads atlas/data/gazetteer.js as the browser does and proves its header,
@@ -140,12 +158,14 @@ jobs:
       # States over Europe was v1's fault), that every Wikipedia title is the cached Wikidata sitelink of its
       # item, and the 0.6 MB budget.
       - name: check-gazetteer (Atlas v2, the places registry)
+        if: ${{ !cancelled() }}
         run: node --max-old-space-size=8000 .claude/atlas-build/check-gazetteer.js
       # THE CREDITS PAGE IS GENERATED FROM THE DATA FILES' OWN HEADERS (Oct 2026, Phase 1d; docs/atlas-v2-design.md §2.10a).
       # check-credits.js regenerates atlas/data/credits.js in memory from every header under atlas/data/ and fails when the
       # committed file lags the data, when a licence is not an accepted identifier, when a link is not https, or when a
       # share-alike (ODbL) file is missing from the statement — a stale credits page is a licence problem nobody sees.
       - name: check-credits (Atlas v2, the Sources and credits page)
+        if: ${{ !cancelled() }}
         run: node .claude/atlas-build/check-credits.js
       # THE PLACES REGISTRY AND THE CARDS' `places` FIELD (Oct 2026, Atlas v2 Phase 3a; docs/atlas-v2-design.md §2.8, §7
       # "Phase 3a — as built"). check-places.js proves atlas/data/places.js against its spec and the Wikidata cache (every row's
@@ -161,6 +181,7 @@ jobs:
       # polity-qids.json allows it with a reason; it also proves history.bin carries every fix of polity-qids.json. --qid-table --check proves
       # docs/atlas-v2-polity-qids.md is what the spec and the cache build. Offline.
       - name: audit-polity-names and build-polity-names --check (Atlas v2, dated display names, the polities' Wikidata items)
+        if: ${{ !cancelled() }}
         run: |
           node .claude/atlas-build/audit-polity-names.js --check
           node .claude/atlas-build/audit-polity-names.js --qid-table --check
@@ -168,19 +189,25 @@ jobs:
       # THE CARD WINDOWS' JOIN (Oct 2026, Atlas v2 Phase 4; Phase 5 re-based it on the frozen tables): build-card-faces.js --check proves atlas/data/card-faces.js and card-neighbours.js are what
       # .claude/atlas-build/frozen/layers.json, the engine's entity table and the cards build, and that every map card's layer, keys and dot resolve to an engine entity. Offline.
       - name: build-card-faces --check (Atlas v2, the map cards' faces)
+        if: ${{ !cancelled() }}
         run: node .claude/atlas-build/build-card-faces.js --check
       # THE COUNTRIES THE SITE COUNTS (Phase 5): atlas/data/country-names.js is the 257 present-day countries, their label points and the 55 v1 spellings the progress migration maps. Offline.
       - name: build-country-names --check (Atlas v2, the countries and the v1 spellings)
+        if: ${{ !cancelled() }}
         run: node .claude/atlas-build/build-country-names.js --check
       # THE CARD WINDOWS' FIRST-FRAME CACHE (Oct 2026, Atlas v2 Phase 4b): check-core-cache.js proves CORE_CACHE_REV in atlas/atlas.js is what the worker, the format reader,
       # earcut and topology.bin's build id make, so a hub never draws a cached first level that an edit to any of them has made stale. Offline.
       - name: check-core-cache (Atlas v2, the card windows' first-frame cache key)
+        if: ${{ !cancelled() }}
         run: node .claude/atlas-build/check-core-cache.js
       - name: check-places (Atlas v2, the Phase 3 places file)
+        if: ${{ !cancelled() }}
         run: node .claude/atlas-build/check-places.js
       - name: migrate-places --check (every card's places resolve, nothing derived lost)
+        if: ${{ !cancelled() }}
         run: node .claude/migrate-places.js --check
       - name: test-places
+        if: ${{ !cancelled() }}
         run: node .claude/test-places.js
       # THE STUDY INTEGRATION'S ARITHMETIC (Oct 2026, Atlas v2 Phase 3b; docs/atlas-v2-design.md §2.8, §7 "Phase 3b — as built").
       # check-places.js (above) also proves atlas/data/card-places.js — the light card-to-places index — is exactly what the cards'
@@ -188,6 +215,7 @@ jobs:
       # definition), the flags, the sentences, the place card's list and the marks (sizes, shapes, the fan; no stacks since 2026-10-14). test-atlas-study.js is a Playwright suite and
       # is picked up by name in the browser job below.
       - name: test-study (Atlas v2, the study integration, no browser)
+        if: ${{ !cancelled() }}
         run: node .claude/test-study.js
       # PEOPLES AND CULTURES (Oct 2026, Atlas v2 Phase 2c; docs/atlas-v2-design.md §2.5, §7 "Phase 2c — as built"). test-peoples.js is the
       # Node-only suite over the classification (a state is a territory, a people or a culture a presence — one function), the Peoples
@@ -195,6 +223,7 @@ jobs:
       # presenceMesh, run on the committed file at the three resident levels). The browser side is test-atlas-render.js (five pairs),
       # test-atlas-study.js (7h, the switch for a seeded reader) and test-atlas-perf.js (two peoples-heavy views).
       - name: test-peoples (Atlas v2, peoples and cultures, no browser)
+        if: ${{ !cancelled() }}
         run: node .claude/test-peoples.js
       # WARS AND THE FRONT LINE (Oct 2026, Atlas v2 Phase 2d; docs/atlas-v2-design.md §7 "Phase 2d — as built", docs/atlas-v2-coverage.md).
       # build-wars.js --check proves atlas/data/wars.js (every war card's sides as entities of history.bin) is exactly what the cards,
@@ -203,12 +232,15 @@ jobs:
       # test-war-cards.js on the built topology (each failure listed with its cause in test-war-sides-known.js). The browser side is
       # test-atlas-render.js (the wars and front pairs) and test-atlas-perf.js (two war-heavy views).
       - name: build-wars --check (atlas/data/wars.js is what the cards and history.bin build)
+        if: ${{ !cancelled() }}
         run: node .claude/atlas-build/build-wars.js --check
       # THE WAR-WINDOW SLICE (Oct 2026, Phase 4c): atlas/data/history-wars.bin is a cut of history.bin (the states of each war's display year and the war's sides); --check rebuilds it from the committed
       # history.bin and wars.js, fails when the installed file or its twin lags, and proves every war's states and sides equal the full file's at all three levels.
       - name: build-war-slice --check (Atlas v2, the war windows' slice of the history file)
+        if: ${{ !cancelled() }}
         run: node --max-old-space-size=4000 .claude/atlas-build/build-war-slice.js --check
       - name: test-war-sides (Atlas v2, the war sides on the built topology)
+        if: ${{ !cancelled() }}
         run: node --max-old-space-size=4000 .claude/test-war-sides.js
       # THE STEP TOPOLOGY IS A GENERATED FILE WITH THE SAME SILENT FAILURES (Oct 2026, Phase 2a; docs/atlas-v2-design.md §2.3 "The step
       # topology file", §2.4, §7 "Phase 2a — as built"). check-history.js reads atlas/data/history.bin and the core beside it and proves:
@@ -217,25 +249,31 @@ jobs:
       # reference by one face forward, no two drawn segments of the alive faces cross at any level, and the point assertions —
       # the repo's own extent assertions and an independent list — hold or are listed as known source faults.
       - name: check-history (Atlas v2, the step topology)
+        if: ${{ !cancelled() }}
         run: node --max-old-space-size=4000 .claude/atlas-build/check-history.js
       # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
       # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
       # for every visitor -- and the only symptom is a slower site.
       - name: glossary split intact
+        if: ${{ !cancelled() }}
         run: node .claude/split-glossary.js --check
       # …and the artefacts' descriptions, citations and pictures live in the lazy artefacts-extra.js,
       # which were 94% of artefacts.js. Same failure and same lack of a symptom; --check also asserts
       # the join holds in both directions, since a row nothing indexes is content no reader can reach.
       - name: artefact split intact
+        if: ${{ !cancelled() }}
         run: node .claude/split-artefacts.js --check
       - name: check-questions
+        if: ${{ !cancelled() }}
         run: node .claude/check-questions.js
       - name: check-style
+        if: ${{ !cancelled() }}
         run: node .claude/check-style.js
 
       # A map card's background may not restate its own facts grid. Cheap, no network, and the
       # fault it guards renders perfectly: every figure is correctly cited and simply printed twice.
       - name: facts-echo
+        if: ${{ !cancelled() }}
         run: node .claude/facts-echo.js
 
       # EVERY CARD COMES WITH ITS LEARN-MORE LINK, WHERE ONE EXISTS (Oct 2026). add-card.js and
@@ -243,6 +281,7 @@ jobs:
       # card that was written some other way, or whose lookup could not reach Wikipedia. Offline, writes
       # nothing, and its failure message names the command that fixes it.
       - name: wikipedia links in step
+        if: ${{ !cancelled() }}
         run: node .claude/apply-wiki-links.js --check
 
       # THE SIZE GOES IN THE JOB SUMMARY, NOT ONLY IN THE LOG (Sep 2026). It ran here with
@@ -293,6 +332,7 @@ jobs:
       # this figure at all; what a card still spends here is its question pool, its answer,
       # its date line, its tags and its locator.
       - name: eager path size
+        if: ${{ !cancelled() }}
         env:
           EAGER_GZ_MAX_KB: "3400"
         run: |
@@ -325,6 +365,7 @@ jobs:
       # a month it tells you nothing about the day it moved. Written into the summary on every
       # push, a regression is visible the day it lands.
       - name: card findings (report only)
+        if: ${{ !cancelled() }}
         run: |
           node .claude/check-cards.js --report | tee /tmp/cards.txt || true
           {
@@ -352,8 +393,14 @@ jobs:
     # A CEILING, BECAUSE THE DEFAULT IS SIX HOURS AND THE RUNNER COUNT IS ONE (Sep 2026). A shard is about 28 minutes with its install, so 40 is wide enough that a slow runner never fails on time
     # alone and narrow enough that a suite which HANGS (a `page.waitFor` on something that never appears is the shape) gives the runner back inside the hour instead of holding it until the afternoon.
     timeout-minutes: 40
-    # If the fast job is red the answer is already known, so don't spend the minutes confirming it.
+    # RUN EVEN WHEN THE FAST GATE IS RED (Oct 2026): one red check must never hide the others. Until now `needs: fast` alone skipped all three
+    # browser shards, the frame gate and the card-window job whenever any step of `fast` failed, and a gate that stopped at the first red step also
+    # skipped every step after it (main sat red at test-war-sides while more checks, in the later steps and in the shards, were red behind it and nobody could see them). `needs: fast`
+    # is kept for ORDER (the cheap answer comes first); `!cancelled()` lets the job start whether `fast` passed or failed, but not when a newer push has
+    # cancelled the run (cancel-in-progress still frees the runner). The workflow still reports RED when `fast` is red: this job's own result is
+    # independent of it, and a failed `fast` fails the run.
     needs: fast
+    if: ${{ !cancelled() }}
     strategy:
       fail-fast: false
       matrix:
@@ -399,6 +446,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: fast
+    if: ${{ !cancelled() }}
     steps:
       - uses: actions/checkout@v4
 
@@ -427,6 +475,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     needs: fast
+    if: ${{ !cancelled() }}
     steps:
       - uses: actions/checkout@v4
 
