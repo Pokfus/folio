@@ -20028,7 +20028,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        so a tap meant for the speaker folded the section instead. They are asked about first, and activate as a
        click at pointerup like any other control. They draw no ink; the 6px halo `.tts-play::before` gives them
        is the target, a 9px triangle being too small for a pen. */
-    const controlUnder = (e) => hitUnder(e, ".tts-play") || hitUnder(e, CTL_SEL);
+    const controlUnder = (e) => hitUnder(e, ".tts-play, .tts-pause") || hitUnder(e, CTL_SEL);
     /* …and a term INSIDE a control is that control's (a gloss link cannot be, but the test costs nothing
        and keeps the two kinds from both claiming one press). */
     const tipUnder = (e) => (hitUnder(e, CTL_SEL) ? null : hitUnder(e, TIP_SEL));
@@ -20456,11 +20456,36 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return "audio/cards/" + ttsNarrator() + "/" + cardId + "-" + sec + ".mp3";
   }
   let _ttsAudio = null;   // the <audio> playing a baked file (null while the speech engine is talking)
+  let _ttsPaused = false;   // the section reader is paused (see ttsPauseToggle); ttsStop clears it
   function ttsStop() {
     _ttsSeq++;
     if (_ttsAudio) { try { _ttsAudio.onended = _ttsAudio.onerror = null; _ttsAudio.pause(); } catch (e) {} _ttsAudio = null; }
-    if (ttsSupported()) try { speechSynthesis.cancel(); } catch (e) {}
+    if (ttsSupported()) try {
+      speechSynthesis.cancel();
+      /* Chrome keeps a cancelled-while-paused queue paused, so the NEXT utterance would sit silent: resume it. */
+      if (_ttsPaused) speechSynthesis.resume();
+    } catch (e) {}
+    _ttsPaused = false;
     document.querySelectorAll(".tts-playing").forEach((b) => b.classList.remove("tts-playing"));
+    ttsPausedMarks();
+  }
+  // mirror _ttsPaused onto the controls: the playing button stops pulsing, the pause button says Resume
+  function ttsPausedMarks() {
+    document.querySelectorAll(".tts-playing, .tts-paused").forEach((b) => b.classList.toggle("tts-paused", _ttsPaused && b.classList.contains("tts-playing")));
+    document.querySelectorAll(".tts-pause").forEach((b) => {
+      b.classList.toggle("on", _ttsPaused);
+      b.setAttribute("aria-label", _ttsPaused ? "Resume reading" : "Pause reading");
+      b.setAttribute("title", _ttsPaused ? "Resume" : "Pause");
+    });
+  }
+  function ttsPauseToggle() {
+    if (!ttsSupported() || !document.querySelector(".tts-playing")) return;
+    try {
+      if (_ttsPaused) { speechSynthesis.resume(); if (_ttsAudio) _ttsAudio.play(); }
+      else { speechSynthesis.pause(); if (_ttsAudio) _ttsAudio.pause(); }
+      _ttsPaused = !_ttsPaused;
+    } catch (e) {}
+    ttsPausedMarks();
   }
   // split long English text into sentence-ish chunks (~220 chars) — Chrome's synthesis cuts out on very long utterances
   function ttsChunks(text) {
@@ -20534,6 +20559,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      of an Answer is dropped — the request is for an English voice. */
   function ttsSectionClick(parts, btn) {
     if (!ttsSupported()) { toast(ttsSilentNote(), TTS_NOTE_MS); return; }
+    if (btn && btn.classList.contains("tts-paused")) { ttsPauseToggle(); return; }   // paused: the play button resumes
     if (btn && btn.classList.contains("tts-playing")) { ttsStop(); return; }
     const list = (Array.isArray(parts) ? parts : [parts]).filter((p) => p && !p.zh);
     list.forEach((p) => { if (btn && !p.btn) p.btn = btn; });
@@ -20566,6 +20592,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return [{ text: t, baked: bakedUrl(id, "bg", t) }];
   }
   const TTS_PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 4 19 12 7 20"/></svg>';
+  const TTS_PAUSE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4.5" height="16" rx="1"/><rect x="13.5" y="4" width="4.5" height="16" rx="1"/></svg>';
   // tiny play control behind a section title; span=true renders a role=button span (for inside the .bg-head <button>)
   /* THE SECTION PLAY BUTTONS ARE LIVE ON HISTORY, SCIENCE AND SPECIAL COLLECTIONS ONLY (Oct 2026, on request),
      and they are NOT the set-aside read-aloud system: `ttsEnabled()` is still false, so auto-read, the card
@@ -20583,9 +20610,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function ttsPlayHTML(kind, span, c) {
     if (!ttsEnabled() && !ttsSectionOk(c)) return "";
     const aria = 'aria-label="Read this section aloud" title="Read aloud"';
-    return span
+    // the pause control sits right after the play one and is shown only while that one is playing (see styles.css)
+    const pause = span
+      ? '<span class="tts-pause" role="button" tabindex="0" aria-label="Pause reading" title="Pause">' + TTS_PAUSE_SVG + "</span>"
+      : '<button class="tts-pause" type="button" aria-label="Pause reading" title="Pause">' + TTS_PAUSE_SVG + "</button>";
+    return (span
       ? '<span class="tts-play" role="button" tabindex="0" data-tts="' + kind + '" ' + aria + ">" + TTS_PLAY_SVG + "</span>"
-      : '<button class="tts-play" type="button" data-tts="' + kind + '" ' + aria + ">" + TTS_PLAY_SVG + "</button>";
+      : '<button class="tts-play" type="button" data-tts="' + kind + '" ' + aria + ">" + TTS_PLAY_SVG + "</button>") + pause;
   }
   // wire every [data-tts] play control inside container to read its section of card c
   function wireTTS(container, c) {
@@ -20596,6 +20627,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const act = (e) => { e.stopPropagation(); ttsSectionClick(ttsPartsFor(b.dataset.tts, c, container), b); };
       b.addEventListener("click", act);
       if (b.tagName !== "BUTTON") b.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act(e); } });
+      const pb = b.nextElementSibling;
+      if (pb && pb.classList.contains("tts-pause") && !pb._ttsWired) {
+        pb._ttsWired = true;
+        const pact = (e) => { e.stopPropagation(); ttsPauseToggle(); };
+        pb.addEventListener("click", pact);
+        if (pb.tagName !== "BUTTON") pb.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pact(e); } });
+      }
     });
   }
   function ttsMuteIconSVG(muted) {

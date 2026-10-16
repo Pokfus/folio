@@ -5643,10 +5643,16 @@ button.game-tile .gt-glyph{opacity:.14;}
 .tts-play{appearance:none; border:none; background:transparent; padding:2px; margin-left:7px; color:var(--ink-faint); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; vertical-align:-1px; opacity:.8; border-radius:4px;}
 .tts-play svg{width:9px; height:9px; fill:currentColor; display:block;}
 /* a wider tap target than the 9px triangle, which a pen or a thumb cannot hit (and which the whiteboard marker hit-tests) */
-.tts-play{position:relative;}
-.tts-play::before{content:""; position:absolute; inset:-6px;}
+.tts-play, .tts-pause{position:relative;}
+.tts-play::before, .tts-pause::before{content:""; position:absolute; inset:-6px;}
 .tts-play:hover{color:var(--indigo); opacity:1;}
 .tts-play.tts-playing{color:var(--indigo); opacity:1; animation:tts-pulse 1.1s ease-in-out infinite;}
+.tts-play.tts-paused{animation:none;}
+/* the pause control: drawn like the play one, but only while its neighbour is playing */
+.tts-pause{appearance:none; border:none; background:transparent; padding:2px; margin-left:2px; color:var(--ink-faint); cursor:pointer; display:none; align-items:center; justify-content:center; vertical-align:-1px; opacity:.8; border-radius:4px;}
+.tts-play.tts-playing + .tts-pause{display:inline-flex;}
+.tts-pause svg{width:9px; height:9px; fill:currentColor; display:block;}
+.tts-pause:hover, .tts-pause.on{color:var(--indigo); opacity:1;}
 @keyframes tts-pulse{50%{opacity:.45;}}
 .gloss-bar .tts-play{margin-left:2px; flex:none;}
 .gloss-bar .tts-play svg{width:10px; height:10px;}

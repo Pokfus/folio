@@ -6582,6 +6582,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     it is a `role="button"` span that `CTL_SEL` cannot see, and the Background one sits inside the `.bg-head`
     button, which `CTL_SEL` would find first and fold instead. `.tts-play::before` gives it a 6px halo as the tap
     target. Guarded by `test-speak.js` §5–6 (real mouse input; reverting `controlUnder` fails them).
+    **PAUSE**: `ttsPlayHTML` emits a `.tts-pause` right after each `.tts-play`, shown by CSS only while that
+    play button has `.tts-playing`; `ttsPauseToggle` calls `speechSynthesis.pause()`/`resume()` (`_ttsPaused`,
+    mirrored by `ttsPausedMarks`), a press on the play button while paused resumes, and `ttsStop` resumes the
+    queue after `cancel()` (Chrome keeps a cancelled-while-paused queue paused). It is in `controlUnder` too.
+    Some mobile engines ignore `pause()`; nothing detects that. Guarded by `test-speak.js` §4b.
   · **A COMMUNITY CARD TYPE'S `.uc-tts` IS NOT PART OF THAT AND IS LIVE** — it deliberately bypasses
     `ttsEnabled()`, being a control a reader presses rather than something Folio does to them. So
     "read-aloud does nothing" reported on a LANGUAGE DECK is never the site-wide switch, and answering it

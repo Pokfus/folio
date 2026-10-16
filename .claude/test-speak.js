@@ -438,6 +438,29 @@ const holdRow = (page, match) => page.evaluate((m) => {
   const bgSpoken = await page.evaluate(() => { window.__spoken = []; document.querySelector('.tts-play[data-tts="background"]').click(); return new Promise((r) => setTimeout(() => r(window.__spoken.slice()), 400)); });
   check("the Background button reads the background aloud in English", bgSpoken.length > 0 && /Prehistory/.test(bgSpoken[0]), (bgSpoken[0] || "").slice(0, 60));
 
+  // 4b. while a section is playing a pause button appears beside its play button, and toggles pause / resume
+  await page.evaluate(() => {
+    window.__ps = [];
+    speechSynthesis.pause = () => window.__ps.push("pause");
+    speechSynthesis.resume = () => window.__ps.push("resume");
+    speechSynthesis.cancel = () => {};
+  });
+  await sectionBtns("wh-001");
+  const pauseVis = () => page.evaluate(() => { const p = document.querySelector('.tts-play[data-tts="answer"] + .tts-pause'); return !!p && getComputedStyle(p).display !== "none"; });
+  check("no pause button while nothing is playing", !(await pauseVis()));
+  await page.click('.tts-play[data-tts="answer"]');
+  await page.waitForTimeout(300);
+  check("a pause button appears beside the play button while it plays", await pauseVis());
+  await page.click('.tts-play[data-tts="answer"] + .tts-pause');
+  const paused = await page.evaluate(() => ({ calls: window.__ps.slice(), label: document.querySelector('.tts-play[data-tts="answer"] + .tts-pause').getAttribute("aria-label") }));
+  check("pressing it pauses the speech and offers to resume", paused.calls.join() === "pause" && /Resume/.test(paused.label), JSON.stringify(paused));
+  await page.click('.tts-play[data-tts="answer"] + .tts-pause');
+  const resumed = await page.evaluate(() => ({ calls: window.__ps.slice(), label: document.querySelector('.tts-play[data-tts="answer"] + .tts-pause').getAttribute("aria-label") }));
+  check("pressing it again resumes", resumed.calls.join() === "pause,resume" && /Pause/.test(resumed.label), JSON.stringify(resumed));
+  await page.click('.tts-play[data-tts="answer"]');
+  await page.waitForTimeout(200);
+  check("the play button stops the reading and the pause button goes away", !(await pauseVis()));
+
   // 5. with the whiteboard marker down the section play buttons still answer a real pointer, the Background one
   //    (inside the .bg-head button) without folding the section
   await page.evaluate(() => { try { localStorage.setItem("folio_marker_tour_v1", "1"); } catch (e) {} });
@@ -471,6 +494,21 @@ const holdRow = (page, match) => page.evaluate((m) => {
       await page.waitForTimeout(400);
       const got = await page.evaluate(() => window.__spoken.length);
       check("with the pen down, a tap on the " + k + " play button reads it", got > 0, String(got));
+    }
+    // with the pen down the pause button is a control too (the Background tap above left it playing)
+    const pbox = await page.evaluate(() => {
+      const el = document.querySelector('.tts-play[data-tts="background"] + .tts-pause');
+      if (!el || getComputedStyle(el).display === "none") return null;
+      const b = el.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+    });
+    check("with the pen down the pause button is showing", !!pbox);
+    if (pbox) {
+      await page.evaluate(() => { window.__ps = []; });
+      await page.mouse.move(pbox.x, pbox.y);
+      await page.mouse.down();
+      await page.mouse.up();
+      await page.waitForTimeout(300);
+      check("\u2026and a tap on it pauses", (await page.evaluate(() => window.__ps)).join() === "pause");
     }
     check("\u2026and the Background tap did not fold the section",
       await page.evaluate(() => !document.querySelector(".bg-collapse.collapsed")));
