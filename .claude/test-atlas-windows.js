@@ -235,7 +235,35 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     {   // WHICH cards get the finer level: the registry's kind of the locator's place, not the card's name (Phase 4c)
       const F = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/card-faces.js"), "utf8"))(F);
       const W = F.ATLAS_CARD_FACES.water;
-      check("the water-subject list is built from the registry: 22 cards by their place's kind, 2 by a declared river/sea kind with no place, 5 by the name fallback", W.cards.length === 29 && W.declared.length === 2 && W.byName.length === 5, JSON.stringify({ cards: W.cards.length, declared: W.declared, byName: W.byName }));
+      /* THE LIST IS PINNED BY ITS STRUCTURE, NOT BY HOW MANY CARDS THERE ARE (Oct 2026): this assertion used to say "29 cards, 2 declared, 5 by name", so every new water card (wh-491 made it 30 and 6)
+         failed a suite that has nothing to say about how many water cards the corpus holds. What it must say is the RULE: each card on the list is there for exactly one of the three reasons
+         build-card-faces.js documents, the three reasons' lists do not overlap, and the union is exactly the locator cards the registry and the cards define as water. The rule is re-derived here
+         from the registry and the cards themselves, not read back from the file it checks. */
+      const R = require("./places-registry.js"), { loadCards } = require("./card-io.js");
+      const reg = R.loadRegistry(), WATER_KINDS = new Set(["river", "lake", "sea", "ocean", "strait", "gulf"]), NAME = /\b(lake|lagoon|loch|lough|bay|gulf|strait|channel|sea|river)\b/i;
+      const expReg = [], expDecl = [], expName = [], resolvedKind = {};
+      for (const c of loadCards().cards) {
+        if (!c.locator) continue;
+        const rows = (c.places || []).map((id) => reg.rows.get(id)).filter(Boolean), kind = c.locator.kind || "point";
+        if (rows.length) {
+          const f = R.fold(c.locator.name || ""), pick = rows.find((q) => R.fold(q.name || "") === f || (q.aliases || []).some((a) => R.fold(a) === f)) || rows[0];
+          resolvedKind[c.id] = pick.kind;
+          if (WATER_KINDS.has(pick.kind)) expReg.push(c.id);
+        } else if (kind === "river" || kind === "sea") expDecl.push(c.id);
+        else if (kind === "point" && NAME.test(c.locator.name || "")) expName.push(c.id);
+      }
+      const inList = new Set(W.cards), declSet = new Set(W.declared), nameSet = new Set(W.byName);
+      const byKind = W.cards.filter((id) => !declSet.has(id) && !nameSet.has(id));
+      const sortJ = (l) => JSON.stringify(l.slice().sort());
+      check("the water-subject list is well formed: no card twice, the declared and by-name lists are on it and share no card",
+        inList.size === W.cards.length && W.declared.every((id) => inList.has(id)) && W.byName.every((id) => inList.has(id)) && !W.declared.some((id) => nameSet.has(id)),
+        JSON.stringify({ cards: W.cards.length, declared: W.declared.length, byName: W.byName.length }));
+      check("...every card on it is there for its reason: by the registry kind of its place (a river, lake, sea, ocean, strait or gulf), or declared (a river or sea locator with no resolved place), or by name (a point locator with no resolved place)",
+        byKind.every((id) => WATER_KINDS.has(resolvedKind[id])) && W.declared.every((id) => !(id in resolvedKind)) && W.byName.every((id) => !(id in resolvedKind)),
+        JSON.stringify({ byKind: byKind.length, wrongKind: byKind.filter((id) => !WATER_KINDS.has(resolvedKind[id])).slice(0, 5), declaredButPlaced: W.declared.filter((id) => id in resolvedKind).slice(0, 5), byNameButPlaced: W.byName.filter((id) => id in resolvedKind).slice(0, 5) }));
+      check("...and the three lists are exactly the water cards the registry and the cards define (none missing, none extra)",
+        sortJ(byKind) === sortJ(expReg) && sortJ(W.declared) === sortJ(expDecl) && sortJ(W.byName) === sortJ(expName),
+        JSON.stringify({ byKind: byKind.length + "/" + expReg.length, declared: W.declared.length + "/" + expDecl.length, byName: W.byName.length + "/" + expName.length }));
       check("...Runnymede (wh-513) is a water-meadow, not a sea: it is not on it (Wikidata reaches \"body of water\" from it by subclass-of; the registry no longer reads that as a sea)", !W.cards.includes("wh-513"));
       check("...a site named for a river (wh-096) and a town named for a bay (pea-172) are NOT on it; a lake, a strait and a river are (wh-064, gga-161, eg-002)", !W.cards.includes("wh-096") && !W.cards.includes("pea-172") && ["wh-064", "gga-161", "eg-002"].every((id) => W.cards.includes(id)));
       for (const [id, what, bias] of [["wh-096", "Mal'ta, Belaya River (a site: the name says river, the registry says site)", 0], ["rm-043", "the Gulf of Tarentum (no resolved place: the name fallback)", 1]]) {

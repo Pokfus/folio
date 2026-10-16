@@ -91,6 +91,19 @@ the line counts something other than the war: **`wh-345` "Punic Wars" names one 
 and without an override a 118-year subject would appear on the personal atlas for a single year. That is
 `map.zoom`'s bargain exactly — an override no ordinary card needs.
 
+**A refinement that adds a dated row to a war card's date line can move its war (Oct 2026).** The Rome refinement
+(B16, B17) added an earlier treaty (354 BCE) to `rm-152`, a Firmum colony (264) to `rm-159`, a colonies row (218) and
+the Boii (191) to `rm-162`, and moved `rm-158`'s Volsinii from 265 to 264; each moved the derived span, so the war was
+drawn over years it did not run (`rm-152` from 354, `rm-159` into the First Punic War, `rm-162` to 191), the pinned
+first-year places failed and `test-war-cards.js` found the personal atlas painting Etruria and Umbria as beaten and as
+Rome's at once in 264. The four blocks now carry `years` (`rm-152` 343–341, `rm-158` 396–265, `rm-159` 308–268, `rm-162`
+225–222 BCE — the dates their own abstracts give for the war; `rm-158` stops a year before Volsinii's 264 so the picture of the
+conquest never shares a year with `rm-186`'s opening, the date line still says 264). **When a refinement batch touches a war
+card's date line, run `node .claude/add-card-wars.js --check` and `node .claude/test-war-sides.js`**, and
+re-run `build-wars.js --install` and `build-war-slice.js --install`; an authored extent's life in `history.bin`
+follows the war's years, so `build-history.js --no-cache` and a copy of `out/history.bin` are needed when the years of a card with an
+authored extent move (`rm-162`'s Cisalpine Gauls was alive 223–218 and is now 225–222; the rebuild changed that one step row and nothing else).
+
 ---
 
 ### 6. …and two cards' blocks may not contradict each other

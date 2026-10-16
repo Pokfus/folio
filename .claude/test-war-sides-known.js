@@ -42,6 +42,9 @@ module.exports = {
  "rm-156 victors Capua in": {
   "cause": "cliopatria-excludes"
  },
+ "rm-162 victors Florence in": {
+  "cause": "cliopatria-excludes"
+ },
  "rm-237 victors Florence in": {
   "cause": "cliopatria-excludes"
  },

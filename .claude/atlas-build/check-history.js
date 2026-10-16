@@ -172,6 +172,8 @@ const KNOWN_FAULTS = {
   "Neapolis -343 in pol:rome": "Cliopatria's Roman Republic -480..-338 leaves Neapolis unmapped where the card's extent has it in (rm-152)",
   "Capua -326 in pol:rome": "Cliopatria's Roman Republic -326..-324 leaves Capua unmapped where the card's extent has it in (rm-153)",
   "Capua -298 in pol:rome": "Cliopatria's Roman Republic -301..-292 leaves Capua unmapped where the card's extent has it in (rm-156)",
+  "Florence -225 in pol:rome": "Cliopatria's Roman Republic -225..-224 leaves Florence unmapped where the card's extent has it in (rm-162); the row of -223 holds it",
+  "Palermo -225 out pol:rome": "Cliopatria's Roman Republic -225..-224 includes Palermo where the card's extent leaves it out (rm-162)",
   "Florence -229 in pol:rome": "Cliopatria's Roman Republic -230..-226 leaves Florence unmapped where the card's extent has it in (rm-237)",
   "Milan -192 out pol:rome": "Cliopatria's Roman Republic -197..-189 includes Milan where the card's extent leaves it out (rm-245)",
   "Bologna -192 out pol:rome": "Cliopatria's Roman Republic -197..-189 includes Bologna where the card's extent leaves it out (rm-245)",

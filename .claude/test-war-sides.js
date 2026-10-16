@@ -69,7 +69,11 @@ const DERIVED = new Set(["ext_sparta", "ext_messenia", "ext_western_confederacy"
   check("each of the 24 war sides of the 2c inventory ends in the status docs/atlas-v2-coverage.md gives it", wrong.length === 0, wrong.join("; ") || "24 sides");
 }
 const warHash = crypto.createHash("sha256").update(JSON.stringify(warCards.map((c) => [c.id, c.war]))).digest("hex");
-const WAR_FIELD_SHA = "6ad97d323deb90e336963c233b1b62271eb3fe36712efbc7f3dad6a6f0c040ce";   // sha256 of JSON.stringify of every war card [id, war] on main at 352d151 (2d changed none)
+/* Re-pinned 2026-10-15 for ONE deliberate change, and only that one: the Rome refinement (B16, B17) added dated rows to the date lines of rm-152, rm-158, rm-159 and rm-162
+   (an earlier treaty, a later colony, a later foundation), and a war's years come off its card's date line unless the block carries `years` (docs/war-cards.md §5), so each
+   war drew over years it did not run (rm-152 from 354, rm-159 to 264, rm-162 to 191, rm-158 into the first year of the First Punic War). The four blocks now carry `years` (343–341, 308–268,
+   225–222 and 396–265 BCE); nothing else in any block moved. Before it: 6ad97d32… (sha256 of JSON.stringify of every war card [id, war] on main at 352d151; 2d changed none). */
+const WAR_FIELD_SHA = "61e5ff91fe3d4e75796c7695493a9ccfd870aa5eeeb61935bb5fb354f399df18";
 check("the cards' `war` blocks are byte-identical to main's (v1 reads them until Phase 5)", warHash === WAR_FIELD_SHA, warHash.slice(0, 16));
 
 console.log("\n2) the table is derived\n");
