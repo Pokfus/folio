@@ -1896,14 +1896,19 @@
     labelColours();
     const WATER_KINDS = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1 };
     const inkFor = (p) => (p.id === sel.id || p.st === 2 ? selCss : WATER_KINDS[p.kind] ? waterCss : inkCss);   // the reader's own places (Phase 3b) take the accent the selection has
+    const SPRITE_PAD = 4;   // CSS px of margin round a sprite's box (the halo's reach)
     const spriteCache = new Map(); let spriteGen = 0;   // key → sprite; spriteGen bumps on a theme or font change
     function spriteKey(p) { if (!p.glyphs || !p.glyphs.length) return null; const x0 = Math.floor(p.box[0]), y0 = Math.floor(p.box[1]); let g = ""; for (const q of p.glyphs) g += (Math.round((q[0] - x0) * 4) + "," + Math.round((q[1] - y0) * 4) + "," + (q[2] ? Math.round(q[2] * 100) : 0) + "," + (q[3] ? 1 : 0) + ";"); return p.id + "|" + p.style + "|" + p.text + "|" + (p.id === sel.id ? 1 : 0) + (p.st === 2 ? "m" : "") + "|" + dprNow + "|" + spriteGen + "|" + g; }
-    function spriteFor(p) { const k = spriteKey(p); if (!k) return null; let sp = spriteCache.get(k); if (sp) { spriteCache.delete(k); spriteCache.set(k, sp); return sp; } sp = renderSprite(p); if (sp) { spriteCache.set(k, sp); if (spriteCache.size > 600) spriteCache.delete(spriteCache.keys().next().value); } return sp; }
+    /* A CACHED SPRITE IS THE PICTURE, NOT THE PLACE (2026-10-16; the Songhai flake, CI runs 3564, 3627, 3628, 3630). The key above holds the glyphs RELATIVE to the box's floor, so the same name laid out again at another
+       position with the same quarter-pixel offsets (about one in sixteen, and any label that moves between two layouts can do it) is a hit — and the cached sprite carries the x0/y0 of the layout that first drew it, so the
+       name was painted where it used to be and nothing at all where the layout now puts it. CI's log of run 3630 showed it: "drawn from 288,467, expected 117,539". A hit now returns the same canvas with THIS label's own corner. */
+    const spriteAt = (sp, p) => ({ c: sp.c, w: sp.w, h: sp.h, x0: Math.floor(p.box[0]) - SPRITE_PAD, y0: Math.floor(p.box[1]) - SPRITE_PAD });
+    function spriteFor(p) { const k = spriteKey(p); if (!k) return null; let sp = spriteCache.get(k); if (sp) { spriteCache.delete(k); spriteCache.set(k, sp); return spriteAt(sp, p); } sp = renderSprite(p); if (sp) { spriteCache.set(k, sp); if (spriteCache.size > 600) spriteCache.delete(spriteCache.keys().next().value); } return sp; }
     const PEOPLE_HALO = 5.4;   // CSS px of stroke: 2.7 px each side of a glyph, so the stipple (dots 1.35 px in radius) never touches an ink pixel
     function renderSprite(p) {
       if (!p.glyphs || !p.glyphs.length) return null;
       const st = STYLE_BY_ID[p.style]; if (!st) return null;
-      const pad = 4, x0 = Math.floor(p.box[0]) - pad, y0 = Math.floor(p.box[1]) - pad;
+      const pad = SPRITE_PAD, x0 = Math.floor(p.box[0]) - pad, y0 = Math.floor(p.box[1]) - pad;
       const w = Math.ceil(p.box[2]) - x0 + pad, h = Math.ceil(p.box[3]) - y0 + pad;
       const c = document.createElement("canvas"); c.width = Math.max(1, Math.ceil(w * dprNow)); c.height = Math.max(1, Math.ceil(h * dprNow));
       const x = c.getContext("2d");

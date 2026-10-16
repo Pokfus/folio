@@ -195,6 +195,21 @@ function overlaps(placed) {
     if (V.name === "Europe" && d === "normal") check("Europe, normal: some labels run along a path (curved)", placed.some((p) => p.curved), placed.filter((p) => p.curved).slice(0, 4).map((p) => p.text).join(", "));
   }
 
+  console.log("\n\x1b[1m1b) a cached sprite is painted where ITS layout puts the name (the Songhai flake of CI runs 3564-3630: a cache hit returned the first layout's corner)\x1b[0m\n");
+  {
+    await layoutAt(page, VIEWS[1], "normal");
+    const r = await page.evaluate(async () => {
+      const c = document.querySelector(".atlas2").__atlas2; let checked = 0; const stale = [];
+      for (let i = 0; i < 40; i++) {   // forty small pans: a name seen again at another place with the same quarter-pixel offsets is a cache hit
+        c.setView(10 + i * 0.173, 50 + (i % 7) * 0.121, 3);
+        await c.layoutNow();
+        for (const p of c.labels()) { if (!p.sprite) continue; checked++; if (p.sprite.x0 !== Math.floor(p.box[0]) - 4 || p.sprite.y0 !== Math.floor(p.box[1]) - 4) stale.push(p.id + " in layout " + i + ": sprite at " + p.sprite.x0 + "," + p.sprite.y0 + ", box says " + (Math.floor(p.box[0]) - 4) + "," + (Math.floor(p.box[1]) - 4)); }
+      }
+      return { checked, stale };
+    });
+    check(`${r.checked} sprites over 40 layouts: every one is drawn from its own label's corner`, r.checked > 500 && r.stale.length === 0, r.stale.slice(0, 3).join("; ") || r.checked + " checked");
+  }
+
   console.log("\n\x1b[1m2) the density stops\x1b[0m\n");
   for (const V of ["globe", "Europe", "Aegean"]) {
     const s = counts[V + "/sparse"].placed, n = counts[V + "/normal"].placed, d = counts[V + "/dense"].placed;
