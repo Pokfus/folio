@@ -37,7 +37,7 @@ There is **no per-viewer preview switch** any more: `localStorage["folio.atlas2.
 * `atlas-embed.js` + `atlas-windows.js` (bundle `atlas2embed`, lazy) — the card windows and Find it. `docs/atlas-v2-card-windows.md` is the contract; `app.js` keeps only the dispatcher
   `startCardGlobe`, `atlas2Ctx()` and `atlas2OpenFromWindow`.
 * **The frame gate** (`test-atlas-perf.js`, its own CI job) must be green on every head. On a slow GPU the view degrades in two sticky stages during a gesture (half resolution, then one coarser
-  level — `gestureFrame` in `atlas.js`; design §7 Phase 1d). Since Phase 5 the gate no longer runs v1 beside v2: its "at most 40 % of v1's p90" bounds are against `V1_REF`, v1's last measured numbers kept as constants in the suite; the drag's frames over 100 ms are at most 0.5 % of the sample and none over 200 ms.
+  level — `gestureFrame` in `atlas.js`; design §7 Phase 1d). Since Phase 5 the gate no longer runs v1 beside v2: its "at most 40 % of v1's p90" bounds are against `V1_REF`, v1's last measured numbers kept as constants in the suite; the drag's frames DURING the gesture over 100 ms are at most 0.5 % of the sample and none over 200 ms, and its release frames (after the mouse-up) are held apart, as the pinch's are: the first full frame ≤ 300 ms, none over 300 (2026-10-16; `--rule-selftest`).
   **The heap rule is an absolute budget read off CI** (`HEAP_BUDGET_MB` = 38: the frame-gate job of run 3567 printed 30 MB after the gestures and after the rail scrub, + 25 %; `FOLIO_HEAP_BUDGET_MB` overrides it on a machine whose Chromium reads differently). The sandbox's older Chromium reads 87 MB for the same page: 38 MB of that is memory V8 holds for the idle-loaded prose (glossary citations, artefacts, card extras — compiled and run as data scripts) for the seconds after a burst of gestures and gives back when the page is quiet (45 MB twenty seconds later; 46–49 MB with the three prose files refused). It is a peak, not retained data, and the same file against the Phase 4c tree reads the same 84–88 MB, so it is not a code change. Re-read the budget from CI's log when a deliberate change moves it.
 
 ## 3. Data (everything under `atlas/data/` is GENERATED)
@@ -139,7 +139,11 @@ every old spelling and proves it.
 `test-atlas-review.js` holds the regressions of the Phase 2a review; `test-atlas-relief.js` the relief's land/sea rule. CI runs every browser suite in the `browser` job except `test-atlas-perf.js` and
 `test-card-windows-fixes.js`, each of which has a job of its own.
 
+## 9b. The phone (Oct 2026)
+
+Up to 640 px the frame is full-bleed (no padding, no radius, flush to the tab bar; the page cannot scroll while the map is dragged). On a phone (`.atlas2-phone`) the controls are one search button, one menu button (a bottom sheet holding Map / Personal / Full, the count line, the layers and legend, the help — the study panel, the legend and About elements are *moved* into it, not copied), one vertical zoom pill and a one-row year rail with a "more" toggle for the step arrows and the speed; they fade to 35 % while the map is dragged or pinched. Every name is placed within its own half-height + 28 px of its anchor or not at all (worker `nearAnchor`). `docs/atlas-v2-design.md` §7 "The phone, decluttered — as built (2026-10-16)" has the measurements; `test-atlas-phone.js` guards all of it.
+
 ## 10. The in-app help
 
 The "?" button opens the **About this map** sheet (`atlas.js`): what the colours mean, how to move (drag, pinch, wheel, arrow keys, `Home`), what the rail does, the study view, the Sources and credits link,
-and — in `.atlas2-about-use` — a short paragraph on how to use it. A first visit shows no coach-mark card over the globe (v1's strip went with v1). Update the sheet in the same commit as any control it names.
+and — in `.atlas2-about-use` — a short paragraph on how to use it. A first visit shows no coach-mark card over the globe (v1's strip went with v1). Update the sheet in the same commit as any control it names (on a phone the sheet is the menu's "Help" section).

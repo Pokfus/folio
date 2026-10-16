@@ -10364,9 +10364,9 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-layers, .atlas2-help{max-height:none;}
 .atlas2-phone .atlas2-layers .atlas2-sheet, .atlas2-phone .atlas2-help .atlas2-about{position:fixed; right:0; top:auto;}
 .atlas2-phone .atlas2-layers .atlas2-sheet, .atlas2-phone .atlas2-help .atlas2-about{max-height:42vh;}   /* Phase 2a: well under half the screen on a phone, so the map above an open sheet keeps its labels */
-.atlas2-phone.atlas2-sheet-open .atlas2-zoom, .atlas2-phone.atlas2-sheet-open .atlas2-layers-btn, .atlas2-phone.atlas2-sheet-open .atlas2-about-btn, .atlas2-phone.atlas2-sheet-open .atlas2-caption, .atlas2-phone.atlas2-sheet-open .atlas2-stack, .atlas2-phone.atlas2-sheet-open .atlas2-study{display:none;}
+.atlas2-phone.atlas2-sheet-open .atlas2-zoom, .atlas2-phone.atlas2-sheet-open .atlas2-layers-btn, .atlas2-phone.atlas2-sheet-open .atlas2-about-btn, .atlas2-phone.atlas2-sheet-open .atlas2-caption, .atlas2-phone.atlas2-sheet-open .atlas2-stack{display:none;}   /* (Oct 2026: not .atlas2-study — on a phone it lives in the menu, which holds the legend and About) */
 /* the expanded card sheet stops short of the zoom stack (three 44 px buttons from the top on a phone) */
-.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 184px - var(--atlas2-rail-h, 62px) - 12px));}
+.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 204px - var(--atlas2-rail-h, 62px) - 12px));}
 /* a phone on its side (the 844×390 audit): the atlas is under 300 px tall and the rule above left the up sheet 96 px — a title
    and no body. There the up sheet takes the height below the search box and the zoom stack steps out from under it */
 @media (orientation: landscape) and (max-height: 500px){
@@ -10390,6 +10390,78 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 /* a desktop with the card column open and under about 900 px (a tablet): the search box yields to the zoom stack the column pushed left */
 .atlas2-has-card .atlas2-search{width:min(300px, calc(100% - 486px));}
 .atlas2-phone.atlas2-has-card .atlas2-search{width:calc(100% - 80px - env(safe-area-inset-left) - env(safe-area-inset-right));}
+
+/* ---------- Atlas v2, Oct 2026: the phone, decluttered (the owner's phone, 2026-10-16) ----------
+   (a) FULL-BLEED. Up to 640 px — the width at which the tab bar replaces the top bar — the Atlas is the whole page between the top safe area and the
+   tab bar's top edge: no page padding, no rounded card, no gap above the bar; the controls float over it (overflow of the page is nil, so a drag of the map
+   cannot scroll it). The frame was 358 px wide at 390 (16 px of padding each side), began 20 px down and stopped 72 px above the bar (the stage's 76 px
+   bottom padding less the bar's 4).
+   (b) DECLUTTERED, on a phone (the `.atlas2-phone` flag, atlas.js PHONE): top left ONE search button that opens into the input; top right ONE menu button
+   whose sheet holds the Map / Personal / Full switch and its count line, the layers and the legend, and the help (the same study panel, legend and About
+   elements, moved in by atlas.js); the zoom stack as one vertical pill on the right edge; the year rail as ONE row — scrubber, year (an input: tap to
+   type), play, "more" — with the step arrows and the speed on a second line behind "more". While the map is dragged or pinched the controls fade to 35 %
+   and return 1.5 s after the last finger lifts. Every target is 44 px (the brief asked for 40 at least); every size that is text follows Text size. */
+.atlas2-search-btn, .atlas2-menu-btn, .atlas2-menu, .atlas2-rail-more{display:none;}
+@media (max-width:640px){
+  .stage:has(.atlas2){padding:0; max-width:none;}
+  html:has(.atlas2), body:has(.atlas2){overscroll-behavior:none;}
+  .atlas2{border-radius:0; min-height:0; margin-top:env(safe-area-inset-top); height:calc(100vh - var(--tabbar-h) - env(safe-area-inset-top) - env(safe-area-inset-bottom)); height:calc(100dvh - var(--tabbar-h) - env(safe-area-inset-top) - env(safe-area-inset-bottom));}
+}
+.atlas2.atlas2-phone{--atlas2-sl:max(12px, env(safe-area-inset-left)); --atlas2-sr:max(12px, env(safe-area-inset-right)); --atlas2-tl:var(--atlas2-sl); --atlas2-rail-h:54px;}   /* 4 + 44 + 4 + the border */
+.atlas2.atlas2-phone.atlas2-has-back{--atlas2-tl:calc(max(12px, env(safe-area-inset-left)) + 80px);}   /* the Back button (a window's way home) takes the top-left corner and the search button steps right of it */
+.atlas2.atlas2-phone.atlas2-rail-more-open{--atlas2-rail-h:106px;}   /* two rows of 44 */
+.atlas2-phone .atlas2-layers, .atlas2-phone .atlas2-help{display:none;}   /* their buttons are the menu's rows now; the legend and About elements live in the menu */
+.atlas2-phone .atlas2-back{left:var(--atlas2-sl); min-height:44px;}
+/* the search: a button, then the input beside it */
+.atlas2.atlas2-phone .atlas2-search{left:var(--atlas2-tl); top:12px; width:auto; display:flex; align-items:center; gap:8px;}
+.atlas2.atlas2-phone .atlas2-search-open{width:calc(100% - var(--atlas2-tl) - var(--atlas2-sr) - 52px);}   /* up to the menu button */
+.atlas2-phone .atlas2-search-btn, .atlas2-phone .atlas2-menu-btn{display:inline-flex; align-items:center; justify-content:center; flex:none; box-sizing:border-box; width:44px; height:44px; padding:0; border-radius:999px; border:1px solid var(--rule); background:var(--card); color:var(--ink); box-shadow:var(--shadow-sm); cursor:pointer;}
+.atlas2-phone .atlas2-search-btn:focus-visible, .atlas2-phone .atlas2-menu-btn:focus-visible, .atlas2-menu-row:focus-visible, .atlas2-menu-close:focus-visible, .atlas2-rail-more:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.atlas2-phone .atlas2-search:not(.atlas2-search-open) .atlas2-search-in{display:none;}
+.atlas2-phone .atlas2-search-in{flex:1 1 0; width:auto; min-width:0;}
+.atlas2-phone .atlas2-search-note{right:auto; width:max-content; max-width:min(340px, calc(100vw - 24px));}   /* under the button when the input is shut */
+.atlas2-phone .atlas2-menu-btn{position:absolute; top:12px; right:var(--atlas2-sr); z-index:4;}
+/* the zoom stack: one vertical pill (46 × 134) on the right edge, under the menu button */
+.atlas2.atlas2-phone .atlas2-zoom{top:68px; right:var(--atlas2-sr); gap:0; padding:0; border-radius:23px; border:1px solid var(--rule); background:var(--card); box-shadow:var(--shadow-sm); overflow:hidden; z-index:3;}
+.atlas2-phone .atlas2-zoom .atlas2-btn{width:44px; height:44px; border:0; border-radius:0; background:none;}
+.atlas2-phone .atlas2-zoom .atlas2-btn + .atlas2-btn{border-top:1px solid var(--rule);}
+.atlas2-phone .atlas2-zoom .atlas2-btn:focus-visible{outline-offset:-4px;}
+/* the year rail: one row */
+.atlas2.atlas2-phone .atlas2-rail{left:var(--atlas2-sl); right:var(--atlas2-sr); bottom:12px;}
+.atlas2.atlas2-phone .atlas2-rail-row{flex-wrap:wrap; align-items:center; gap:4px 6px; padding:4px 6px;}
+.atlas2.atlas2-phone .atlas2-rail-track{order:1; flex:1 1 0; min-width:56px; height:44px;}
+.atlas2.atlas2-phone .atlas2-rail-year{order:2; flex:none; width:6.4em; min-width:0; min-height:44px; padding:0 4px;}
+.atlas2.atlas2-phone .atlas2-rail-play{order:3;}
+.atlas2.atlas2-phone .atlas2-rail-more{order:4; display:inline-flex;}
+.atlas2.atlas2-phone .atlas2-rail-prev{order:6;} .atlas2.atlas2-phone .atlas2-rail-speed{order:7; flex:1 1 0; min-width:0; min-height:44px;} .atlas2.atlas2-phone .atlas2-rail-next{order:8;}
+.atlas2.atlas2-phone .atlas2-rail-prev, .atlas2.atlas2-phone .atlas2-rail-next, .atlas2.atlas2-phone .atlas2-rail-speed{display:none;}
+.atlas2.atlas2-phone.atlas2-rail-more-open .atlas2-rail-prev, .atlas2.atlas2-phone.atlas2-rail-more-open .atlas2-rail-next{display:inline-flex;}
+.atlas2.atlas2-phone.atlas2-rail-more-open .atlas2-rail-speed{display:block;}
+.atlas2.atlas2-phone.atlas2-rail-more-open .atlas2-rail-row::before{content:""; order:5; flex:0 0 100%; height:0;}   /* the line break between the two rows */
+.atlas2-rail-more[aria-expanded="true"]{background:var(--indigo-wash); border-color:var(--indigo);}
+.atlas2.atlas2-phone .atlas2-status, .atlas2.atlas2-phone .atlas2-caption, .atlas2.atlas2-phone .atlas2-mode{left:var(--atlas2-sl); right:auto; bottom:calc(12px + var(--atlas2-rail-h) + 8px); max-width:calc(100% - var(--atlas2-sl) - var(--atlas2-sr));}
+/* the menu's sheet */
+.atlas2-phone .atlas2-menu{position:absolute; left:0; right:0; bottom:0; z-index:6; display:flex; flex-direction:column; box-sizing:border-box; max-height:calc(100% - 208px); border-radius:16px 16px 0 0; border:1px solid var(--rule); border-bottom:0; background:var(--card); color:var(--ink); font:calc(14px * var(--fs, 1))/1.3 var(--sans); box-shadow:0 -8px 24px rgba(0,0,0,.18);}
+.atlas2-phone .atlas2-menu[hidden]{display:none;}
+.atlas2-menu-head{flex:none; display:flex; align-items:center; justify-content:space-between; gap:8px; padding:4px 8px 0 16px; font-family:var(--display);}
+.atlas2-menu-close{appearance:none; flex:none; min-width:44px; min-height:44px; border:0; background:none; color:var(--ink-soft); font:calc(22px * var(--fs, 1))/1 var(--sans); cursor:pointer;}
+.atlas2-menu-body{flex:1 1 auto; min-height:0; overflow:auto; overscroll-behavior:contain; display:flex; flex-direction:column; gap:8px; padding:0 12px 12px;}
+.atlas2-phone .atlas2-menu .atlas2-study{position:static; width:auto; max-height:none; overflow:visible; box-shadow:none; border:0; padding:0; background:none;}
+.atlas2-menu-row{appearance:none; display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; box-sizing:border-box; min-height:44px; padding:0 12px; border:1px solid var(--rule); border-radius:10px; background:var(--paper); color:var(--ink); font:600 calc(14px * var(--fs, 1))/1.2 var(--sans); text-align:left; cursor:pointer;}
+.atlas2-menu-row i{flex:none; display:inline-block; width:.5em; height:.5em; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:translateY(-.12em) rotate(45deg); transition:transform .15s;}
+.atlas2-menu-row[aria-expanded="true"] i{transform:translateY(.12em) rotate(-135deg);}
+.atlas2-menu-sec-body{margin-top:6px;}
+.atlas2-phone .atlas2-menu .atlas2-sheet, .atlas2-phone .atlas2-menu .atlas2-about{position:static; min-width:0; max-width:none; max-height:none; overflow:visible; border:0; border-radius:0; background:none; box-shadow:none; padding:0 4px;}
+.atlas2-phone .atlas2-menu .atlas2-sheet[hidden], .atlas2-phone .atlas2-menu .atlas2-about[hidden]{display:none;}
+.atlas2-menu .atlas2-sheet-head{display:none;}
+.atlas2-phone.atlas2-menu-open .atlas2-caption, .atlas2-phone.atlas2-menu-open .atlas2-stack{display:none;}
+/* the fade while the map is dragged or pinched (atlas.js overlaysFade) */
+.atlas2-phone .atlas2-search, .atlas2-phone .atlas2-menu-btn, .atlas2-phone .atlas2-zoom, .atlas2-phone .atlas2-rail{transition:opacity .4s ease;}
+.atlas2-phone.atlas2-gesturing .atlas2-search, .atlas2-phone.atlas2-gesturing .atlas2-menu-btn, .atlas2-phone.atlas2-gesturing .atlas2-zoom, .atlas2-phone.atlas2-gesturing .atlas2-rail{opacity:.35; transition-duration:.12s;}
+@media (forced-colors:active){
+  .atlas2-search-btn, .atlas2-menu-btn, .atlas2-menu, .atlas2-menu-row, .atlas2-rail-more, .atlas2-zoom{border:1px solid CanvasText; box-shadow:none; background:Canvas; color:CanvasText;}
+  .atlas2-search-btn:focus-visible, .atlas2-menu-btn:focus-visible, .atlas2-menu-row:focus-visible, .atlas2-menu-close:focus-visible, .atlas2-rail-more:focus-visible{outline:2px solid Highlight;}
+}
 
 /* axe (Phase 1d): the licence chip's link read 3.5:1 in indigo at 10 px — ink, and a size up */
 .cred-list .cr-lic{font-size:calc(11px * var(--fs)); color:var(--ink-soft);}
