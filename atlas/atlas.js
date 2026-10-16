@@ -688,7 +688,7 @@
     /* ---------- frame loop ---------- */
     const stats = { frames: [], draw: [], uploads: {}, worker: null, escalations: 0, recoveries: 0, stallsIgnored: 0, longTasks: 0, stage: 0, learnt: 0, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, reliefCost: [], labelLayout: [], labelSprite: [], labelDraw: [], markDraw: [], gazetteer: null };
     const perfInHash = /[?&#/]perf\b/.test(location.hash || "");
-    let needs = true, needsGlobe = true, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
+    let needs = true, needsGlobe = true, globeDrawn = false, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
     const t0 = performance.now();
     let lastPerfText = 0, lastTraceT = 0;
     function frame(t) {
@@ -701,7 +701,7 @@
       lastT = t; lastTraceT = t;
       const fs0 = performance.now();
       gestureFrame(t);
-      if (time.fade && !STATIC2D) { timed(() => fadeStep(t), "fade"); needs = true; }
+      if (time.fade && !STATIC2D) { timed(() => fadeStep(t), "fade"); needs = true; needsGlobe = true; }
       if (time.playing) { timed(() => playStep(t), "play"); }
       if (needs) {
         needs = false;
@@ -709,11 +709,17 @@
         const globe = needsGlobe; needsGlobe = false;
         if (STATIC2D && !globe && stillAt) {
           // names only: the globe on screen is already the true one
+        } else if (!STATIC2D && !globe && globeDrawn) {
+          /* names only on WebGL too (2026-10-16, the frame gate's release frames): a layout landing after a drag asks for a repaint of the NAMES
+             (invalidateLabels), and the frame used to redraw the whole globe with them. A canvas drawn into again is presented again, and on a
+             software compositor that is a synchronous read-back of the whole canvas inside the commit (measured: GLES2::ReadPixels, 82-93 ms of a
+             93 ms frame) — the second of the two 100 ms frames after every drag. The WebGL canvas keeps showing its last frame while nothing
+             draws into it; everything that changes the globe (a view, a year, a level, a resize, a lost context) calls invalidate(), which sets needsGlobe. */
         } else if (STATIC2D && ((dragging && moved) || coasting) && stillAt) {
           // the still view during a drag: the last frame blitted by the pointer's travel; the true frame comes on release
           const k = R2D / view.radius; let dl = view.lon - stillAt.lon; if (dl > 180) dl -= 360; else if (dl < -180) dl += 360;
           R.shift(-dl / k, (view.lat - stillAt.lat) / k);
-        } else { timed(() => R.render(view), "render"); if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
+        } else { timed(() => R.render(view), "render"); globeDrawn = true; if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
         if (globe) { stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift(); }
         timed(drawLabels, "labelsDraw");
         if (!stats.firstPaintMs && R.levelLoaded(0)) { stats.firstPaintMs = Math.round(performance.now() - t0); if (!EMBED && H.firstDraw) { try { H.firstDraw(); } catch (e) { /* the host may not care */ } } }   // the coarse globe is on screen: the host may start its idle warm-ups now (app.js whenIdleAfterGlobe)
@@ -1890,14 +1896,19 @@
     labelColours();
     const WATER_KINDS = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1 };
     const inkFor = (p) => (p.id === sel.id || p.st === 2 ? selCss : WATER_KINDS[p.kind] ? waterCss : inkCss);   // the reader's own places (Phase 3b) take the accent the selection has
+    const SPRITE_PAD = 4;   // CSS px of margin round a sprite's box (the halo's reach)
     const spriteCache = new Map(); let spriteGen = 0;   // key → sprite; spriteGen bumps on a theme or font change
     function spriteKey(p) { if (!p.glyphs || !p.glyphs.length) return null; const x0 = Math.floor(p.box[0]), y0 = Math.floor(p.box[1]); let g = ""; for (const q of p.glyphs) g += (Math.round((q[0] - x0) * 4) + "," + Math.round((q[1] - y0) * 4) + "," + (q[2] ? Math.round(q[2] * 100) : 0) + "," + (q[3] ? 1 : 0) + ";"); return p.id + "|" + p.style + "|" + p.text + "|" + (p.id === sel.id ? 1 : 0) + (p.st === 2 ? "m" : "") + "|" + dprNow + "|" + spriteGen + "|" + g; }
-    function spriteFor(p) { const k = spriteKey(p); if (!k) return null; let sp = spriteCache.get(k); if (sp) { spriteCache.delete(k); spriteCache.set(k, sp); return sp; } sp = renderSprite(p); if (sp) { spriteCache.set(k, sp); if (spriteCache.size > 600) spriteCache.delete(spriteCache.keys().next().value); } return sp; }
+    /* A CACHED SPRITE IS THE PICTURE, NOT THE PLACE (2026-10-16; the Songhai flake, CI runs 3564, 3627, 3628, 3630). The key above holds the glyphs RELATIVE to the box's floor, so the same name laid out again at another
+       position with the same quarter-pixel offsets (about one in sixteen, and any label that moves between two layouts can do it) is a hit — and the cached sprite carries the x0/y0 of the layout that first drew it, so the
+       name was painted where it used to be and nothing at all where the layout now puts it. CI's log of run 3630 showed it: "drawn from 288,467, expected 117,539". A hit now returns the same canvas with THIS label's own corner. */
+    const spriteAt = (sp, p) => ({ c: sp.c, w: sp.w, h: sp.h, x0: Math.floor(p.box[0]) - SPRITE_PAD, y0: Math.floor(p.box[1]) - SPRITE_PAD });
+    function spriteFor(p) { const k = spriteKey(p); if (!k) return null; let sp = spriteCache.get(k); if (sp) { spriteCache.delete(k); spriteCache.set(k, sp); return spriteAt(sp, p); } sp = renderSprite(p); if (sp) { spriteCache.set(k, sp); if (spriteCache.size > 600) spriteCache.delete(spriteCache.keys().next().value); } return sp; }
     const PEOPLE_HALO = 5.4;   // CSS px of stroke: 2.7 px each side of a glyph, so the stipple (dots 1.35 px in radius) never touches an ink pixel
     function renderSprite(p) {
       if (!p.glyphs || !p.glyphs.length) return null;
       const st = STYLE_BY_ID[p.style]; if (!st) return null;
-      const pad = 4, x0 = Math.floor(p.box[0]) - pad, y0 = Math.floor(p.box[1]) - pad;
+      const pad = SPRITE_PAD, x0 = Math.floor(p.box[0]) - pad, y0 = Math.floor(p.box[1]) - pad;
       const w = Math.ceil(p.box[2]) - x0 + pad, h = Math.ceil(p.box[3]) - y0 + pad;
       const c = document.createElement("canvas"); c.width = Math.max(1, Math.ceil(w * dprNow)); c.height = Math.max(1, Math.ceil(h * dprNow));
       const x = c.getContext("2d");
