@@ -20,7 +20,9 @@
    rgb: [0–255], a: fill alpha, line: css colour, lineWidth, glow: css colour, glowBlur }] }. A highlight's FILL is the face colour of the Atlas's own
    selection mechanism (R.highlight: one texel per face), blended with the palette's land at `a` so that it reads exactly as a translucent tint over
    land; its OUTLINE and GLOW are drawn here from a mask pass — the same view rendered with only the highlighted faces white — because the renderer's
-   arcs are shared between neighbours and carry no "this one is selected".
+   arcs are shared between neighbours and carry no "this one is selected". A past year's highlight is states of that year (tinted through the history's own style table); with `exact: true` the tint carries the
+   highlight's own alpha (so it reads as the same translucent blend over the land as a modern country's) and the outline and glow come from a mask pass of those states (atlas.js `setMask`). `layers.flat` (Find-it's
+   area round) draws every state of the year in the land colour with the modern borders' colour and width. The still renderer (no WebGL2) outlines a highlight only when it says `exact`.
 
    No names are drawn by the hub (the gazetteer is not loaded, `countries/places/physical/cities` are off): a window names what it marks itself. */
 (function (root) {
@@ -64,6 +66,7 @@
         landRGB: () => ctl.palette().land.slice(),
         draw: (spec, ctx, o) => draw(h, spec, ctx, o || {}),
         pick: (spec, x, y) => pickAt(h, spec, x, y),
+        kindOfId: (id) => (E.kindOfId ? E.kindOfId(id) : null),
         idsAt: (spec, x, y) => { setup(h, spec); return E.idsAt(x, y); },
         lonLatAt: (spec, x, y) => { setup(h, spec); return E.lonLatAt(x, y); },
         startHistory: (kind) => E.startHistory(kind),
@@ -128,6 +131,7 @@
     const lay = spec.layers || {};
     L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.admin1Max = lay.admin1Max || 0; L.neutral = !!lay.neutral;
     { const pw = lay.peoples || "off"; if (L.peoples !== pw) { L.peoples = pw; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too
+    if (!h.canvas2d && h.E.setFlat) h.E.setFlat(!!lay.flat);   // Find-it's area round: every state of the year in the land colour, borders as a modern country's
     L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;   // (Phase 4b: these four sat at the end of the comment line above in Phase 4, so no window ever drew a river or a lake)
     v.graticule = false; v.rivers = L.rivers; v.lakes = L.lakes;
     v.riverLevelBias = lay.riverFine ? 1 : 0;   // Phase 4c: the Atlas's own density by default; one resident level finer only for a card whose subject is water (atlas-windows.js)
@@ -173,8 +177,13 @@
     counters.draws++;
     // the fills of the highlights: one Map of face index → colour, blended over the palette's land at the highlight's alpha
     const land = h.landRGB(), fills = new Map(), groups = [], histYear = spec.year != null && !h.canvas2d;
-    if (histYear) {   // a past year: the highlighted entities are states of that year, tinted in the history's own style (their fill only; the faces have no mask pass)
-      const tm = new Map(); for (const hl of spec.highlights || []) { const c = rgb01(hl.rgb || [255, 200, 40]); for (const id of hl.ids || []) tm.set(id, c); }
+    if (histYear) {   // a past year: the highlighted entities are states of that year, tinted in the history's own style (`exact`: the highlight's own alpha over the land, as a modern country's); the outline comes from a mask pass of those states
+      const tm = new Map();
+      for (const hl of spec.highlights || []) {
+        const c = rgb01(hl.rgb || [255, 200, 40]), col = hl.exact ? [c[0], c[1], c[2], hl.a == null ? 0.24 : hl.a] : c;
+        for (const id of hl.ids || []) tm.set(id, col);
+        if (hl.line || hl.glow) groups.push({ hl, faces: [], ids: hl.ids || [], hist: true });
+      }
       E.setTints(tm);
     } else if (!h.canvas2d) E.setTints(null);
     for (const hl of histYear ? [] : spec.highlights || []) {
@@ -193,7 +202,7 @@
     if (low) E.setRes(1);
     // the outline and the glow of each group, from a mask pass (only on request: a gesture frame skips the pass — and keeps the outline: the rim the last full frame left, laid on the new view)
     const rot = Array.from(E.rotation());
-    if (!o.fast) { for (const g of groups) if (g.hl.line || g.hl.glow) outline(h, g, ctx, spec, dpr, o.rims, rot); }
+    if (!o.fast) { for (const g of groups) if ((g.hl.line || g.hl.glow) && (!h.canvas2d || g.hl.exact)) outline(h, g, ctx, spec, dpr, o.rims, rot); }   // the still renderer outlines only a highlight that asks (`exact`: Find-it's pick), as the card windows' fallback has none
     else if (o.rims) for (const g of groups) if (g.hl.line) drawRim(h, g, ctx, spec, dpr, o.rims, rot);
     const pr = project(rot, v.radius, v.cx, v.cy);
     h.last = { rot, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
@@ -204,21 +213,23 @@
 
   /* the mask pass: the same view with only the group's faces white on black, read back, and turned into a ±width/2 band round the edge plus a soft glow */
   function outline(h, g, ctx, spec, dpr, rims, rot) {
-    const ctl = h.ctl, R = ctl.renderer, v = ctl.view, gl = R.gl; if (!gl) return;
+    const ctl = h.ctl, R = ctl.renderer, v = ctl.view, gl = R.gl, E = h.E; if (!gl && !R.static2d) return;
     counters.masks++;
     const keep = { borders: v.borders, admin1: v.admin1, rivers: v.rivers, lakes: v.lakes, graticule: v.graticule };
     const pal = ctl.palette(), black = [0, 0, 0], white = [1, 1, 1];
     R.setPalette(Object.assign({}, pal, { ocean: black, land: black, coast: black, border: black, admin1: black, river: black, lake: black, lakeShore: black, rim: black, halo: black, grat: black, selected: white }));
     v.borders = false; v.admin1 = false; v.rivers = false; v.lakes = false; v.graticule = false;
-    const m = new Map(); for (const f of g.faces) m.set(f, white);
-    R.highlight(m); R.render(v);
-    const w = gl.drawingBufferWidth, hh = gl.drawingBufferHeight, px = new Uint8Array(w * hh * 4);
-    gl.readPixels(0, 0, w, hh, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    if (g.hist) { const tm = new Map(); for (const id of g.ids) tm.set(id, [1, 1, 1, 1]); E.setMask(tm); R.highlight(null); }   // a past year: the group's states white at full alpha, every other state black (atlas.js setMask)
+    else { const m = new Map(); for (const f of g.faces) m.set(f, white); R.highlight(m); }
+    R.render(v);
+    let w, hh, px;   // the still renderer (no WebGL2) draws on a 2D canvas: read it back top-down; the engine's GL read-back is bottom-up
+    if (gl) { w = gl.drawingBufferWidth; hh = gl.drawingBufferHeight; px = new Uint8Array(w * hh * 4); gl.readPixels(0, 0, w, hh, gl.RGBA, gl.UNSIGNED_BYTE, px); }
+    else { w = h.glCanvas.width; hh = h.glCanvas.height; px = h.glCanvas.getContext("2d").getImageData(0, 0, w, hh).data; }
     // restore the hub's state for the next window
-    R.setPalette(pal); Object.assign(v, keep);
-    // mask[y][x] = 1 where the pixel is white (readPixels is bottom-up)
+    R.setPalette(pal); Object.assign(v, keep); if (g.hist) E.setMask(null);
+    // mask[y][x] = 1 where the pixel is white
     const mask = new Uint8Array(w * hh);
-    for (let y = 0; y < hh; y++) { const src = (hh - 1 - y) * w * 4, dst = y * w; for (let x = 0; x < w; x++) mask[dst + x] = px[src + 4 * x] > 127 && px[src + 4 * x + 3] > 127 ? 1 : 0; }
+    for (let y = 0; y < hh; y++) { const src = (gl ? hh - 1 - y : y) * w * 4, dst = y * w; for (let x = 0; x < w; x++) mask[dst + x] = px[src + 4 * x] > 127 && px[src + 4 * x + 3] > 127 ? 1 : 0; }
     const lw = Math.max(1, (g.hl.lineWidth || 2.6) * dpr), r = Math.max(1, Math.round(lw / 2));
     const dilate = (src, rad, inv) => {   // separable max filter over `src` (or its complement), radius rad
       const tmp = new Uint8Array(w * hh), out = new Uint8Array(w * hh);
@@ -245,7 +256,7 @@
      no render, no read-back, the outline exactly on the shape at any pan, pinch or turn (the points were found on the shape; at the next full frame they are found again, at the level the view then has). It has
      no glow — that follows with the full frame, within 140 ms of the last move (view(): `fastTimer`). A window that has not had a full frame yet has no rim and, as before, no outline. */
   const RIM_MAX = 5000;
-  const rimKey = (g) => (g.hl.line || "") + "|" + g.faces.length + ":" + g.faces[0] + ":" + g.faces[g.faces.length - 1];
+  const rimKey = (g) => (g.hl.line || "") + "|" + (g.hist ? "h:" + g.ids.join(",") : g.faces.length + ":" + g.faces[0] + ":" + g.faces[g.faces.length - 1]);
   function rimOf(mask, w, hh, spec, v, rot) {
     let n = 0; const edge = (i) => mask[i] && !(mask[i - 1] && mask[i + 1] && mask[i - w] && mask[i + w]);
     for (let y = 1; y < hh - 1; y++) for (let x = 1, i = y * w + 1; x < w - 1; x++, i++) if (edge(i)) n++;
@@ -344,6 +355,7 @@
     }
     function schedule() { if (stopped || raf) return; dirty = true; raf = requestAnimationFrame(paint); }
     w.schedule = schedule; w.paint = paint;
+    w.flash = () => { if (!canvas2d) fastUntil = performance.now() + 60; schedule(); };   // a change the reader must see AT ONCE (Find-it's pick): one fast frame (the fills, no mask pass), the full frame with the outline and glow follows within 140 ms
     w.setView = (lon, lat, zoom, o) => { if (o && o.fast) fastUntil = performance.now() + 140; st.lon = ((lon + 180) % 360 + 360) % 360 - 180; st.lat = Math.max(-85, Math.min(85, lat)); st.zoom = clamp(zoom); if (!o || !o.silent) { if (opts.onView) opts.onView(st); schedule(); } };
     w.setHome = (lon, lat, zoom) => { st.home = { lon, lat, zoom: clamp(zoom) }; };
     w.goHome = () => w.setView(st.home.lon, st.home.lat, st.home.zoom);

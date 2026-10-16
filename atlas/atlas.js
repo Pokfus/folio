@@ -1375,7 +1375,7 @@
       time.slots = hist;
     }
     const slotAt = (ent, y) => { const h = time.slots && time.slots.get(ent); if (!h || !h.length) return ent % SLOTS; let s = h[0][1]; for (const [from, sl] of h) { if (from > y) break; s = sl; } return s; };
-    let histRGB = [], histBorderCss = "", histDark = false;   // histDark: the theme's darkness, read by histColours() when the theme changes (a year change reads it, never the computed style: 0d)
+    let histRGB = [], histBorderCss = "", histDark = false, flatBorderOn = false;   // histDark: the theme's darkness, read by histColours() when the theme changes (a year change reads it, never the computed style: 0d)
     function histColours() {
       const { ink, paper, dark } = themeTokens(); histDark = dark;
       const hsl = (h, sat, lum) => { const c = (1 - Math.abs(2 * lum - 1)) * sat, x = c * (1 - Math.abs((h / 60) % 2 - 1)), mm = lum - c / 2; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [r + mm, g + mm, b + mm]; };
@@ -1386,7 +1386,7 @@
       warRGB = { victor: dark ? mix(hsl(138, 0.6, 0.55), paper, 0.08) : mix(hsl(138, 0.62, 0.34), ink, 0.1), loser: dark ? mix(hsl(4, 0.75, 0.6), paper, 0.08) : mix(hsl(4, 0.72, 0.44), ink, 0.1) };
       try { paintWarsKey(); } catch (e) { /* the legend is built before the time block on a first call */ }
       const hb = dark ? mix(paper, ink, 0.35) : mix(paper, ink, 0.58);
-      histBorderCss = hb; R.setHistoryBorderColor(hb); presRGB = null; R.setPresenceTheme(dark);   // 2c: the presences' hues follow the theme too (screen on a dark one, multiply on a light one)
+      histBorderCss = hb; presRGB = null; histBorderStyle();   // 2c: the presences' hues follow the theme too (screen on a dark one, multiply on a light one)
       void paper;
     }
     // the colour of an entity in a year: a polity's slot; a contested face its first partner's; a nested face its member's
@@ -1398,10 +1398,13 @@
     const warRoleOf = (i) => { if (!time.warRoles.size) return 0; const e = time.ents[i]; if (!e) return 0; const id = e.kind === "polity" || e.kind === "extent" ? e.id : e.partners && e.partners[0]; const r = id ? time.warRoles.get(id) : null; return r ? r.role : 0; };
     const warColourOf = (i) => { const r = warRoleOf(i); return r === 1 ? warRGB.victor : r === 2 ? warRGB.loser : null; };
     /* Phase 4 (Find-it): a guess, a miss, a find and the answer are tinted entities of the year — `time.gameTints`: entity id → [r, g, b] (0–1), set by atlas-embed.js; stronger than a state's own hue and a war's tint */
-    time.gameTints = null;
+    time.gameTints = null; time.gameMask = false; time.gameStash = null;   /* an entry may carry a 4th number, its OWN fill alpha (Find-it's pick: the card windows' translucent tint, exactly as a modern country's); `gameMask` is the outline's mask pass (atlas-embed.js): the tinted states white at full alpha, every other state black */
     const gameIdOf = (i) => { const e = time.ents[i]; if (!e) return null; return e.kind === "polity" || e.kind === "extent" ? e.id : e.partners && e.partners[0]; };
     const gameColourOf = (i) => { if (!time.gameTints) return null; const id = gameIdOf(i); return id ? time.gameTints.get(id) || null : null; };
-    const entColour = (i) => gameColourOf(i) || warColourOf(i) || (EMBED && layers.neutral ? palette.land : entColourAt(i, time.year));   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
+    const entColour = (i) => time.gameMask ? (gameColourOf(i) || [0, 0, 0]) : gameColourOf(i) || warColourOf(i) || (EMBED && (layers.neutral || layers.flat) ? palette.land : entColourAt(i, time.year));   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
+    /* Find-it (atlas-embed.js): `layers.flat` draws every state of a year in the land colour with the modern borders' colour and width, and the outline's mask pass blacks the borders and the peoples out */
+    function histBorderStyle() { if (!R.setHistoryBorderColor) return; R.setHistoryBorderColor(time.gameMask ? [0, 0, 0] : flatBorderOn ? palette.border : histBorderCss); if (R.setHistoryBorderWidth) R.setHistoryBorderWidth(flatBorderOn ? 0.9 : 1.1); if (R.setPresenceTheme) R.setPresenceTheme(time.gameMask ? false : histDark); }
+    function restyleHist() { if (!time.hist || !time.view) return; time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })); time.view.pfaces = presenceDraw(null, 1); uploadStyle(); }
     const hatchOf = (i) => (time.ents[i].kind === "contested" ? entColour(entityIndexOfId(time.ents[i].partners[1])) : null);
     const entityIndexOfId = (id) => { if (!time.entIndex) { time.entIndex = new Map(time.ents.map((e, i) => [e.id, i])); } const i = time.entIndex.get(id); return i == null ? -1 : i; };
     // the arcs of a set of faces as flags, one byte an arc (2b: a Set of tens of thousands of entries was a millisecond a year change)
@@ -1428,6 +1431,7 @@
     const WAR_WASH = 0.5;   // an authored extent: a flat soft wash in its side's tint (alpha at the solid centre; the mesh fades it to nothing at the edge)
     let presRGB = null;   // the hues of every presence in the current theme (reset by histColours on a theme change): the draw list is rebuilt every frame of a crossfade
     function presHue(ent) {
+      if (EMBED && layers.flat) return palette.border;   // Find-it's area round: peoples and cultures are one neutral stipple, not a hue each (no state, and no people, is told from another by its colour)
       if (!presRGB) { presRGB = new Map(); for (const i2 of time.presEnts) presRGB.set(i2, presHueOf(i2)); }
       return presRGB.get(ent) || presHueOf(ent);
     }
@@ -1669,7 +1673,7 @@
       time.style.fill(0); time.arcTab.fill(0);
       const dark = histDark; const base = dark ? HIST_FILL_ALPHA_DARK : HIST_FILL_ALPHA;
       let tNow = 1; if (time.fade) tNow = Math.min(1, (performance.now() - time.fade.t0) / FADE_MS);
-      const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const a = (time.selected === ent ? HIST_SEL_ALPHA : base) * alphaScale * (warRoleOf(ent) === 1 || warRoleOf(ent) === 2 ? WAR_FILL_BOOST : 1) * (gameColourOf(ent) ? 1.7 : 1); const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
+      const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const gc = gameColourOf(ent); const a = time.gameMask ? alphaScale : gc && gc.length > 3 ? gc[3] * alphaScale : (time.selected === ent ? HIST_SEL_ALPHA : base) * alphaScale * (warRoleOf(ent) === 1 || warRoleOf(ent) === 2 ? WAR_FILL_BOOST : 1) * (gc ? 1.7 : 1); const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
       if (time.fade) for (const a of time.fade.from) if (!time.aliveSet.has(a.face)) put(a.face, 1 - tNow);
       for (const a of (time.onScreenAlive || time.alive)) put(a.face, time.fade ? tNow : 1);
       const alive = time.aliveArcs, from = time.fade ? time.fade.fromArcs : null, aOn = Math.round((time.fade ? tNow : 1) * 255), aOff = Math.round((1 - tNow) * 255);
@@ -2999,7 +3003,7 @@
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
     const waterSettled = () => !waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2));
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {
