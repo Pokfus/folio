@@ -38,6 +38,7 @@ const ALL_VIEWPORTS = [{ name: "360x640", width: 360, height: 640 }, { name: "39
 const VIEWPORTS = process.env.FOLIO_PHONE_ONLY === "drift" ? [] : process.env.FOLIO_VIEWPORTS ? ALL_VIEWPORTS.filter((v) => process.env.FOLIO_VIEWPORTS.split(",").includes(v.name)) : ALL_VIEWPORTS;   // FOLIO_VIEWPORTS=360x640,844x390 for a quick look
 const THEMES = [{ name: "folio", theme: "folio", night: false }, { name: "folio-night", theme: "folio", night: true }, { name: "synth", theme: "synth", night: false }];
 const CONTROLS = [".atlas2-search", ".atlas2-study", ".atlas2-zoom", ".atlas2-menu-btn", ".atlas2-layers-btn", ".atlas2-about-btn", ".atlas2-caption", ".atlas2-stack", ".atlas2-card", ".atlas2-sheet", ".atlas2-about", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];   // the year rail joined the list with the decluttered phone (Oct 2026): one row, it can overlap nothing
+const DESK_CONTROLS = CONTROLS.filter((c) => c !== ".atlas2-rail");   // the tablet's desktop layout is unchanged and was never held to the rail (its legend sheet reaches the rail at 768×1024: not this change's)
 const MENU_CONTROLS = [".atlas2-search", ".atlas2-menu-btn", ".atlas2-zoom", ".atlas2-menu"];   // with the menu's sheet open it stands over the year rail by design: what it must clear is the buttons and the zoom pill
 const ONLY_DRIFT = process.env.FOLIO_PHONE_ONLY === "drift";
 const OVERLAY_BEFORE_390 = 73704;   // px² the controls covered at 390×844 in the default state BEFORE the decluttered layout (search, study panel, five buttons, two-row rail), measured 2026-10-16 as the union of their boxes
@@ -96,7 +97,7 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
       await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.tilesSettled(), null, { timeout: 60000 });
       await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(150);
       // state 1: the globe with its chrome
-      let R = await rectsOf(page, CONTROLS);
+      let R = await rectsOf(page, phoneClass ? CONTROLS : DESK_CONTROLS);
       let bad = pairs(R.rects);
       const underBar = (rects, tb) => (tb ? rects.filter((r) => overlaps(r, tb)).map((r) => r.sel) : []);
       check(`${T.name}: globe — no control overlaps another`, bad.length === 0, bad.join("; ") || `${R.rects.length} controls`);
@@ -105,12 +106,12 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
       await page.screenshot({ path: path.join(OUT, `${V.name}-${T.name}-globe.png`) });
       // state 2: the card open (shut sheet on a phone), then expanded
       await page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:fra", { open: true, fly: false, push: false })); await sleep(300);
-      R = await rectsOf(page, CONTROLS); bad = pairs(R.rects);
+      R = await rectsOf(page, phoneClass ? CONTROLS : DESK_CONTROLS); bad = pairs(R.rects);
       check(`${T.name}: card open — no overlap, nothing under the bar`, bad.length === 0 && underBar(R.rects, R.tabbar).length === 0, bad.concat(underBar(R.rects, R.tabbar)).join("; "));
       await page.screenshot({ path: path.join(OUT, `${V.name}-${T.name}-card.png`) });
       if (phoneClass) {
         await page.click(".atlas2-grip"); await sleep(300);
-        R = await rectsOf(page, CONTROLS); bad = pairs(R.rects);
+        R = await rectsOf(page, phoneClass ? CONTROLS : DESK_CONTROLS); bad = pairs(R.rects);
         check(`${T.name}: card expanded — no overlap, nothing under the bar`, bad.length === 0 && underBar(R.rects, R.tabbar).length === 0, bad.concat(underBar(R.rects, R.tabbar)).join("; "));
         await page.screenshot({ path: path.join(OUT, `${V.name}-${T.name}-card-expanded.png`) });
       }
@@ -119,13 +120,13 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
       if (phoneClass) { await page.click(".atlas2-menu-btn"); await sleep(250); await page.click('[data-sec="layers"] .atlas2-menu-row'); }
       else await page.click(".atlas2-layers-btn");
       await sleep(250);
-      R = await rectsOf(page, phoneClass ? MENU_CONTROLS : CONTROLS); bad = pairs(R.rects);
+      R = await rectsOf(page, phoneClass ? MENU_CONTROLS : DESK_CONTROLS); bad = pairs(R.rects);
       check(`${T.name}: legend open${phoneClass ? " (in the menu)" : ""} — no overlap, nothing under the bar, sheet inside the viewport`, bad.length === 0 && underBar(R.rects, R.tabbar).length === 0 && R.rects.every((r) => r.b <= R.vh + 1), bad.concat(underBar(R.rects, R.tabbar), R.rects.filter((r) => r.b > R.vh + 1).map((r) => `${r.sel} bottom ${Math.round(r.b)} > ${R.vh}`)).join("; "));
       await page.screenshot({ path: path.join(OUT, `${V.name}-${T.name}-legend.png`) });
       if (phoneClass) { await page.click('[data-sec="help"] .atlas2-menu-row'); }
       else { await page.click("#atlas2-sheet .atlas2-sheet-close"); await sleep(150); await page.click(".atlas2-about-btn"); }
       await sleep(250);
-      R = await rectsOf(page, phoneClass ? MENU_CONTROLS : CONTROLS); bad = pairs(R.rects);
+      R = await rectsOf(page, phoneClass ? MENU_CONTROLS : DESK_CONTROLS); bad = pairs(R.rects);
       check(`${T.name}: About open${phoneClass ? " (in the menu)" : ""} — no overlap, nothing under the bar`, bad.length === 0 && underBar(R.rects, R.tabbar).length === 0, bad.concat(underBar(R.rects, R.tabbar)).join("; "));
       await page.screenshot({ path: path.join(OUT, `${V.name}-${T.name}-about.png`) });
       if (phoneClass) { await page.click(".atlas2-menu-close"); await sleep(250); } else { await page.click(".atlas2-about-close"); await sleep(150); }
