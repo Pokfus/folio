@@ -4515,3 +4515,220 @@ unlinked: `Two_Handles` (Greek amphorae), `City_God_(China)` (Babylonian and Gre
 - The *Atlantis* paper on Huang Daopo prints its first author "Qiang LI" in the PDF and "Qiang Lo" in Crossref; the
   note reads "Bin Li et al." and was not checked further.
 - **No pictures** were added to any of the hundred.
+
+## cnh-902 – cnh-1000, learning, arts and invention: the last China batch (Oct 2026)
+
+The last 99 cards, written as twenty batches of five (the last four), imported in id order, one glossary term each:
+`cn-religion` (`cnh-902`), `cn-language` (`cnh-903`–`942`), `cn-arts` (`cnh-943`–`972`) and `cn-science`
+(`cnh-973`–`1000`). Category "Thought and Religion" for `cnh-902`, "Learning, Arts and Invention" for the rest.
+**THE PLAN IS COMPLETE.** `cnh-001`–`cnh-1000` are all written except `cnh-070`, which stays retired and is never
+reused: 999 cards. No plan line was deferred. **99 glossary terms** were written (none refused). **78 plan lines were
+retitled** to the concrete answer; 19 already were an answer and were kept (`Clerical script`, `Regular script`, `Classical
+Chinese`, `Shuowen Jiezi`, `Simplified Chinese characters`, `Pinyin`, `Four Great Classical Novels`, `Water Margin`, `Journey to
+the West`, `Jin Ping Mei`, `Dream of the Red Chamber`, `Strange Tales from a Chinese Studio`, `Four Treasures of the Study`,
+`Blue and white pottery`, `Chinese embroidery`, `Guqin`, `Dujiangyan`, `Traditional Chinese medicine`, `Acupuncture`), and two
+more changed only a capital or a leading "The" (`Needham Question`, `Nine Chapters on the Mathematical Art`).
+
+**How the batch was steered.** As for `cnh-802`–`901`: each plan line was given a primary answer and two fallbacks, checked
+against every card answer, glossary key and alias, and plan line of every plan, before twenty writers started. The check
+was exact, by substring both ways, and by the existing-text corpus; a second pass ignored spaces and diacritics, which found
+the one miss (the fallback `Chu Ci` is `cnh-029` `Chuci`). Three assignments were wrong when the writers met them:
+`cnh-941`'s primary `Hundred Flowers Campaign` is `cnh-662` and its second fallback `Zeng Jing` is in `cnh-549`, so
+**Hu Feng** (the first fallback) was written; `cnh-962`'s **Fujian tulou** is the building type of the unwritten plan line
+`arch-366` "The tulou" (my substring check was too short to see it; the card is angled on the UNESCO property, the dating
+and the 'Hakka tulou' label); and `cnh-960`'s primary **Su embroidery** could not be sourced, so fallback 2, **Chinese
+embroidery**, was written. Where a plan line collided with an existing subject the card took another angle and says so in its
+notes: Chinese language → **four tones of Middle Chinese** (`cnh-341` Shen Yue keeps the Yongming story), Seal script →
+**small seal script** (`cnh-199` keeps the 221 BCE edict), Compass → **Dream Pool Essays** (`wh-531` is the compass),
+Dunhuang manuscripts → **Wang Yuanlu** (`cnh-893` is the Mogao Caves), Jingdezhen → **François Xavier d'Entrecolles**
+(`cnh-817` is the Belitung wreck), Agricultural treatises → **Fan Shengzhi shu** (`cnh-802` is the Qimin yaoshu),
+Hydraulic engineering → **Ximen Bao** (`cnh-204` Lingqu, `cnh-804` Zhengguo), Papermaking → **Fangmatan** (`cnh-262` Cai Lun),
+Woodblock printing → **Diamond Sutra**, Gunpowder → **Wujing Zongyao**, Movable type → **Hua Sui** (`cnh-439` Bi Sheng),
+Chinese architecture → **Fujian tulou**, Dougong → **Nanchan Temple** (`arch-346`), Chinese pagoda → **Giant Wild Goose
+Pagoda**, Chinese garden → **Yuanye**, Chinese tombs → **Wu Liang Shrine**, Chinese painting → **Wu Daozi**, Chinese
+ceramics → **Ding ware** (`cnh-408` Yue ware, `cnh-456` Guan ware), Jingdezhen's blue and white → **Blue and white pottery**
+(`cnh-500` is the David Vases), Chinese astronomy → **Dunhuang Star Chart** (`astro-069`, `astro-932`/`933` left alone),
+comets and supernovae → **SN 185** (`astro-461`/`468` are unwritten plan lines in an empty collection). Titles the
+writers had to move because the primary was a redirect or a disambiguation page are listed under "Glossary keys" below.
+
+**What carried the batch.** Chinese Wikisource for the dynastic histories, the classics and the 20th-century documents
+(the juan URLs differ per work, and Wikisource answers 429 when fetched fast: every writer paced it), archive.org
+full texts for Giles, Legge, Karlgren, Wieger, Bushell, Hirth, Stein, Chavannes, Sirén, Wylie, Mikami, Smith, Needham and
+Hummel (through `/download/<id>/<id>_djvu.txt`), the Siku quanshu catalogue as printed on Wikisource, UNESCO's nomination
+dossiers (as PDFs under `/uploads/nominations/`), the Stanford and Internet Encyclopedias, MacTutor, the Nobel lecture of
+Tu Youyou and Crossref/Europe PMC for abstracts. Chinese-language scholarship was cited where it was open (KCI, Persée,
+aisixiang, Chinese Wikisource headers).
+
+**Hosts shut or unusable from here.** ctext.org, JSTOR, Sage, T&F, Brill, De Gruyter, Springer, MDPI, Wiley, Project MUSE,
+OUP, Duke, ScienceDirect, britannica.com, the Met (429), Smarthistory (403), the British Library's IDP (Cloudflare),
+iso.org, scio.gov.cn, whc.unesco.org HTML and ICOMOS evaluation PDFs (403), Harvard, MFA Boston and LoC HTML pages (403;
+LoC answered with `?fo=json`), OpenAlex (quota gone by mid-session), PMC (a bot check on some fetches; Europe PMC's REST
+text worked), saac.gov.cn, ihp.sinica.edu.tw, Gallica. Borrow-only on archive.org, so not cited: Waley's translations,
+Tsien's *Written on Bamboo and Silk*, van Gulik's *Hsi K'ang*, Kinney, O'Hara, C. K. Yang, Soper, Sze, the Jenyns and
+DeFrancis scans. **The Needham, Tsien and Stein volumes cited from archive.org are z-lib style uploads, probably
+unauthorised scans of in-copyright books; they were cited because the brief names Needham as an open host.** A human may
+want to replace them with the publisher's own pages.
+
+**Contested figures, with owners.**
+- `cnh-902` Chinese folk religion: 10 per cent of adults named a religion and three-quarters visited a family grave (the
+  2018 Chinese General Social Survey as Pew reports it; Pew's own range is under 10 to over 50 per cent). The English
+  translation of the 2017 Regulations was searched for folk belief and the card says only that it does not mention it.
+- `cnh-903`/`904`: 206 rhymes in the Guangyun is the writer's own count; Karlgren (1923) 'about nine tenths' of characters are
+  phonetic compounds, Theobald 'about 90 per cent'; the 364/125/1,167/7,697 tally is Wieger's and sums to the postface's 9,353.
+- `cnh-905` Stone Drums: 5th century BCE (Mattos, via Wagner) against Guo Moruo's 770 BCE (reported refuted); the date line
+  says 'disputed'. `cnh-907`/`908`: the origin of regular script (a Wei official, 151–230, against Wang Cizhong, whom a Jin
+  writer names as first). `cnh-910` Fangyan: Yang Xiong's authorship (the late-Han account, the Han history's silence, Hong
+  Mai's denial, the Qing editors' draw).
+- `cnh-912`–`916`: Kangxi dictionary 47,035 (Theobald), 47,043 or 49,030, so 'about 47,000'; Guangyun completed 1011 (Siku
+  catalogue) or 1008, so only 'ordered in 1007'; the 1956 reform issued by the Ministry of Education (Han et al. 2022)
+  or the State Council (the resolution), the resolution followed. 'About 200,000 participants' and the 1986 declaration are
+  the State Council's own accounts; the Latinisation claims are the 1931 congress's as reported in 1935.
+- `cnh-917` Pinyin: the 1965 Foreign Languages Press history (the Congress resolution, the Premier's three functions) is the
+  state's own account and the card says nothing about replacing characters.
+- `cnh-919`/`920`/`921`: poems in the Tang anthology 311 by 77 poets (Bynner and Kiang), 310 (Jiang Yin), 320 (the
+  Gutenberg numbering); its date 1763 or 1764; the Complete Tang Poems 1703 (Wylie), 1705 or 1707 (Giles); the Qilüe total
+  13,269 juan (*Han shu* 30) against 33,090 (*Sui shu* 32); the Nineteen Old Poems' authors and date left open (the *Wen xuan*
+  commentary, Liu Xie, Zhong Rong, Giles).
+- `cnh-922`–`926`: the *Tianjingsha* song unsigned in two early sources and first given to Ma Zhiyuan by a Ming work (Wang
+  Guowei); a Ming prince's ranking of Ma first, Guan Hanqing tenth, which Wang calls unsound; who split the *Lienü zhuan* into
+  14 sections (Zeng Gong); the Siku catalogue's 14 names against Wang Hui's 15 lives per section.
+- `cnh-927`–`935`: *Water Margin* authorship (Luo Guanzhong, Shi Nai'an, Li Zhi, Jin Shengtan, with Gregory: little is known of either);
+  *Jin Ping Mei* first printed 1610 (Lu Xun) against a surviving preface of 1617, its author unnamed; Wu Cheng'en dead 'around
+  1580' (Lu Xun c. 1510–1580, Hu Shih c. 1520–1580); Xuanzang's departure 629 (Beal 1884) or 630 (Beal 1911); Cao Xueqin's
+  death 12 February 1763 (Hummel) against about 1765 (Hu Shi); Pu Songling 1640–1715 (Hummel), 1630 (Lu Xun), born 1622 (Giles);
+  the *Liaozhai* first printing 1766 (Hummel) against 1740 (Giles); the *Liaozhai* preface 1679 (Giles, Hummel) against 1680
+  (the Wikisource header); the *Liang shu*'s 50 chapters against the postface's 49 plus itself.
+- `cnh-937`–`941`: the cave's discovery in 1900 (Rong, Doumy) against 'about two years before 1907' (Stein); Wang Yuanlu's
+  origin and birth year (given neither); the Party's 1981 Resolution on the Cultural Revolution and Deng's 1979 speech
+  (attributed to them); the 1978 story's 1.8 million print run is one online feature's claim; Hu Feng's 'clique' charge is
+  Mao's, the 1965 sentence of 14 years is Lin Mohan's statement, and the 1980 notice and 1988 rehabilitation come from a
+  1991 US-government translation (JPRS-CAR-91-037); Mei Zhi's challenge is set against Lin Mohan's reply, neither endorsed.
+- `cnh-943`–`951`: 27 painters in the *Guhua pinlu* (the text, Hirth) or 26 (Giles); Xie He's date (Hirth, Giles); the *Lantingji
+  Xu* original's fate (He Yanzhi against Liu Su, not adjudicated) and the 1965 debate (an Oxford abstract); the Mustard Seed
+  Garden's owner Li Yu (Princeton, Berlin) or Shen Xinyou (Sainsbury) and parts two and three dated 1701 or 1687; Huang
+  Quan's dragon teacher (Sun Wei or Sun Yu) and which ruler first named him *daizhao*; the Beijing *Night Revels* as a
+  Southern Song copy is a 2026 Hangzhou government news item quoting a curator.
+- `cnh-952`–`961`: the Mao Gong ding's characters 500 (National Palace Museum Chinese page), 499 (its English page) or 497
+  (Heibonsha, the Library of Congress), its date the museum's own 827–782 BCE; Liu Sheng's suit 700 g and 5 parts (Henan Museum)
+  against 2.5 lb and 12 sections (Washington sourcebook), so neither is given; the Xiling founders; Xuande blue as imported
+  *su-ni-bo* (Zhu Yan in Bushell, Lan Pu) against local cobalt (Tai); *huali* = *huanghuali* is an inference nowhere stated.
+- `cnh-962`–`966`: tulou from the 11th–13th century (the Chinese dossier), the 13th–20th (the World Heritage Committee) or the
+  14th–20th (Colafranceschi et al.); the Giant Wild Goose Pagoda's storeys 5, 6 or 7 and the dossier's own three dates;
+  *Yuanye* c. 1634 or 1635; the Wu Liang Shrine's name against Chavannes's 'pseudo-Wu Liang' chamber.
+- `cnh-967`–`972`: where the pipa came from (five accounts, none picked); who made the qin (Shennong and King Wen, or Fuxi
+  and King Wu); two lists of 'four' Anhui troupes; the Zeng bells (65, not before 433 BCE) are the Hubei museum's own; the
+  1905 *Dingjun Mountain* print's fate (1909 fire or later loss) is not stated.
+- `cnh-973`–`976`: **the Needham question** is given only as attributed statements (Needham, Spence 2008, Goodman's letter,
+  Sivin as Spence quotes him, Perdue 2024); no answer is endorsed or dismissed; the Four Great Inventions list's coiner is not
+  named; Fangmatan's Tomb 5 date 179–141 BCE and hemp identification come from one 2020 Gansu Daily piece, so they are 'Gansu's
+  own dating'; the Diamond Sutra as the 'earliest dated complete printed book' (the Japanese charms of the 760s long counted older).
+- `cnh-977`–`981`: Hua Sui's metal (a tin-in-bronze-frames argument in a Tsien footnote, left out) and Korean influence
+  (Carter 1925 against Tsien: no concrete evidence); the *Wujing zongyao*'s date (1040–1044, or begun in the Kangding years);
+  Li Ting's 1288 passage (Needham reads 'gun-soldiers', the Wikisource text says only 'huo pao', so the card says 'fire
+  weapons'); the Heilongjiang gun's date rests on context (Jin-style finds, the 1287–88 campaigns; Needham 'almost
+  certainly 13th century', Haw: firearms probably by 1200); the Mao Kun map c. 1422 (Mills) or the last voyage; the
+  *Dream Pool Essays* c. 1088 (Needham gives 1086, 'about 1088' and 1089).
+- `cnh-982`–`986`: the Dunhuang chart c. 940 (Needham), 649–684 (Bonnet-Bidaud and others), c. 705–710 (Ma Shichang) or a
+  10th-century copy (Pan Nai), stated without choosing; SN 185 as comet (Chin and Huang 1994), nova plus comet (Schaefer
+  1995) or supernova (Zhao, Strom and Jiang 2006); the *Zhoubi*'s date (Needham, MacTutor, Cullen: no single date).
+- `cnh-987`–`991`: the Nine Chapters about 200 BCE (most historians, MacTutor) or 100 BCE–50 CE; whether Zhu Shijie knew Qin
+  Jiushao, Li Ye or Yang Hui (MacTutor, Mikami, Needham); the Anji bridge designed 595–605 (Berkshire) or about 610 (Needham);
+  the Zhang canals credited to Ximen Bao (*Shiji*) or Shi Qi (*Lüshi chunqiu*, *Han shu*), Needham's reconciliation his own.
+- `cnh-992`–`996`: Dujiangyan 256 BCE (UNESCO dossier) or 250 BCE (Needham from the *Huayang guozhi*), the dossier itself
+  inconsistent on the century; Fan Shengzhi's date (Bray: early 1st century BCE); the 'nie' of the loom anecdote (a part
+  allowing 120 moves in Kuhn, or treadles) left untranslated. **TCM (`cnh-996`)**: the state's account is the 2016 white
+  paper's, Needham's judgement is his, Tu Youyou's story is the Nobel Assembly's, the ICD-11 'milestone' is one 2019
+  commentary read from a paywalled abstract; no efficacy figure is stated.
+- `cnh-997`–`1000`: **acupuncture**: Harper's reading (documented from the 2nd–1st century BCE; the Mawangdui texts of 168
+  BCE do not mention it) is given as his; the *Huangdi neijing*'s date (Harper: Former Han, best the 1st century BCE; Tu's
+  lecture: 770–207 BCE); the credit for artemisinin (Tu's lecture credits her institute's team, Faurant's history the whole
+  '523' programme, Liao's review ascribes it to her); the Linnaeus comparison for the *Bencao gangmu* is Tsai's (2026) and hedged
+  as he hedges it; Li Shizhen's thirty years of work (three accounts) is not given.
+
+**Sensitive topics.** Chinese religion today (`cnh-902`) is Pew's reading of survey data plus the State Council's and the
+Constitution's own texts. Script reform (`cnh-915`–`917`) attributes each state account to the state. Literature after 1949
+and censorship (`cnh-940`, `941`) give the Party's resolutions as the Party's and Hu Feng's case through its owners. Medicine
+(`cnh-996`–`999`) gives each claim and its evidence with the owner and neither endorses nor dismisses it.
+
+**Glossary keys with no English Wikipedia article of their own** (keyed by the answer, or by the title the writer found):
+`Lienü_zhuan` (redirects to *Biographies of Exemplary Women*), `Soushen_ji` (*In Search of the Supernatural*),
+`Four_Great_Classical_Novels` (*Classic Chinese Novels*), `Wenxin_Diaolong` (*The Literary Mind and the Carving of Dragons*),
+`Needham_Question` (a redirect to *Joseph Needham*; the Learn-more tile is deliberately empty), `Taichu_calendar` and
+`Drawloom` (sections of *Chinese calendar* and *Loom*; no tile), `Yuanye` (the book is *The Craft of Gardens*; the Learn-more
+tile was set by hand). Slugs that are not the plain title: `Fangyan_(book)` (the plain title is a disambiguation page),
+`Ma_Jun_(mechanical_engineer)`, `Diary_of_a_Madman_(Lu_Xun)`, `Dingjun_Mountain_(film)` (the plain title is the mountain),
+`Tianyi_Pavilion` (*Tianyi Ge*), `Stone_Drums` (*Stone Drums of Qin*), `Zhaozhou_Bridge` (*Anji Bridge*),
+`Xiling_Seal_Society` (*Xiling Seal Engravers' Society*), `Mustard_Seed_Garden_Manual_of_Painting` (*Manual of the Mustard
+Seed Garden*), `Night_Revels_of_Han_Xizai`, `Wu_Liang_Shrine` (*Wu Family Shrines*), `Huanghuali` (*Dalbergia odorifera*),
+`The_Peony_Pavilion`, `The_Peach_Blossom_Spring`, `The_Nine_Chapters_on_the_Mathematical_Art`,
+`Eight_Masters_of_the_Tang_and_Song`, `Classical_Chinese` (*Literary Chinese* redirects to it), `Giant_Wild_Goose_Pagoda`.
+
+**Aliases dropped before import** because they already mean something else in the corpus: "Wenyan" (the *Ten Wings*' chapter),
+"Zhong You" (Zilu's key, which is why `cnh-908` does not name the calligrapher at all), "Orchid Pavilion" alone and "Preface to
+the Orchid Pavilion Collection" (already text in `cnh-319`), "Guwen movement" (`cnh-909`'s fallback), "Han Yu" (`cnh-394`),
+"liu shu" (Liu Shu in the *Zizhi tongjian* card), bare "four tones", "seal script", "popular religion", "Monkey" (16 hits),
+"Golden Lotus", "Shuihu" (Shuihudi), "Nine Chapters" (lowercase in `pea-163`, `cnh-866`), "Great Stone Bridge", "Dayan"
+(`cnh-781`), "Wild Goose Pagoda" (the Small one too), "tulou" (`arch-366`), "Huangdi" (`cnh-194`), "Yellow Emperor" (`cnh-007`),
+"Materia medica" (`me-886`), "Qi", "Traditional Chinese medicine", "Chinese medicine", "Guanxian", "Hanshu Yiwenzhi" (an alias
+of the *Book of Han*), "Treatise on Literature", "blue-and-white porcelain" (already in the Kraak ware text), "celadon", "Ding",
+"Four Great Masters" (Gu Kaizhi's four) and bare personal names. Case-sensitive entries so that common words stay unlinked:
+`Water_Margin`, `Journey_to_the_West`, `Classical_Chinese` ("Literary Chinese"), `Strange_Tales_from_a_Chinese_Studio`,
+`Bamboo_and_wooden_slips`, `Diary_of_a_Madman_(Lu_Xun)`, `Simplified_Chinese_characters`, TCM. The audit of every alias read
+the whole-word hits in existing text (20 aliases have hits, all the same meaning: Chinese popular religion in the kitchen god,
+Diyu and Menshen entries; small seal, clerical and regular script in `cnh-060`/`094`/`wh-253`; Soushen ji, *Wenxin diaolong*, *Mengxi
+bitan*, *Dream of the Red Chamber*, "A Madman's Diary", Handscroll, Diamond Sutra, Wu Liang Shrine and Dujiangyan in the
+cards that name them). **Known cross-links**: the alias "Mengxi bitan" now links the work in `cnh-439` and the *Bi Sheng*
+entry; "Handscroll" links the generic word in the *Qingming* card; "Li Yu" in `cnh-947` is the playwright and the glossary
+key `Li_Yu_(Southern_Tang)` is another man.
+
+**Fixed after the import.**
+- Learn-more links set by hand (`"manual": true`): `cnh-965` (*The Craft of Gardens*) and `cnh-974` (none). The other
+  redirects were read and are the same work or a dedicated article (`cnh-903` *Four tones (Middle Chinese)*, `cnh-905`, `926`–`928`,
+  `935`, `938`, `939` *Diary of a Madman (Lu Xun short story)*, `947`, `948` *Huang Quan (painter)*, `949`, `952`, `966`, `990`);
+  `cnh-961` links *Dalbergia odorifera*, the tree, which the card keeps apart from the *huali* of the texts.
+- Locators: 30 were asked for; `import-batch.js` printed 'added N' for what it asked, and nine were missing (rate limits).
+  Six were written on a retry and three more on a second (`cnh-956` Longquan on the article *Longquan celadon*, which has the
+  coordinate that *Longquan* lacks; `cnh-979` on *Acheng District*). Every locator has an explicit `name`. Three stand on a
+  place of association: `cnh-948` Huang Quan at Chengdu, `cnh-921` Sima Xiangru at Chengdu, `cnh-937` Wang Yuanlu at the Mogao Caves.
+  `cnh-952` West Lake and `cnh-992` Dujiangyan are water-subject locators by the name fallback, so `card-faces.js` was
+  regenerated (`build-card-faces.js --install`); `migrate-places.js` derived the Atlas places and `card-places.js` was regenerated.
+- `check-style.js`: bolded work titles were italicised for 20 cards (`<b><i>…</i></b>`, as in the earlier hundreds); the
+  dry-run helper's own check for 'Shiji' also matched inside 'Zhu Shijie' and was given a word boundary. `check-cards.js`:
+  `cnh-933` cited Pu Songling in three of seven sources, two Wikisource entries were recited under the title.
+- No `check-citations.js` finding fell on a new card.
+
+**Dates the writers converted from reign years** (the sources give only the reign): Huajian ji preface 940, Kangxi 54 = 1715,
+Zhishun 1 = 1330, Jiayou 2/8 = 1057/1063, Wanli 29 = 1601 (`cnh-922`–`926`); Hongwu 3 = 1370, Taiding jiazi = 1324 (`cnh-909`,
+`911`); Yongming 483–493 and the First Emperor's 28th year = 219 BCE (`cnh-903`, `906`); Renshou 1 = 601, Yifeng 2 = 677,
+Tianbao 10 = 751, Jingde 4 = 1007, Kangxi 49 = 1710, Yongyuan 12 = c. 100 CE, Republic year 24 = 1935 (`cnh-912`–`916`);
+Yonghe 9 = 353, Yongxi 3 = 986 (`cnh-944`, `945`); Guangzheng jiachen = 944, Xuanhe gengzi = 1120, Hongwu 7 = 1374
+(`cnh-948`–`950`); Huangchu 3 = 222 CE (`cnh-954`); Yuanfu 3 = 1100, Chang'an period 701–704, Yonghui 3 = 652 (`cnh-962`–`964`);
+gengxu = 1790, Yuanhe 10's autumn = 816 (`cnh-968`, `971`); Zhiyuan 24/25 = 1287/1288, Yongle 3 = 1405, Qingli 4 = 1044,
+Tianqi xinyou = 1621 (`cnh-977`–`981`); Zhengtong 2 = 1437, Hongzhi 2 = 1489, Yuanfeng 7 = 104 BCE, Yuanhe 2 = 85 CE
+(`cnh-982`–`986`); Jingyuan 4 = 263, the preface year-names of 1299 and 1303 (`cnh-987`, `988`); the 'c. 100 – 1 BCE' of
+`cnh-995` and `cnh-999` is a century written as a span; `cnh-926`'s 'compiled c. 32 – 9 BCE' and `cnh-960`'s lack of any date are the
+writers' inference or choice; `cnh-918`'s collation 26 BCE rests on He Ping 1 = 28 BCE from the writer's own knowledge.
+
+**Characters and pinyin the writers gave from their own knowledge** (the rest were read off opened pages): all tone-marked
+pinyin on most cards; 詞牌/词牌, 馬致遠/马致远 (`cnh-922`, `923`); 簡牘/简牍 (`cnh-936`, from no opened source); 胡風/胡风 (`cnh-941`);
+古琴, 昆曲, 梅蘭芳/梅兰芳, 编钟 (`cnh-967`–`971`); 都江堰, 中醫/中医 (`cnh-992`, `996`); 殷弘绪/殷弘緒, 黄花梨/黃花梨, 雕漆
+(`cnh-958`, `961`, `959`); 敦煌星圖, 北京古觀象臺, 太初曆, 周髀算經 (`cnh-982`–`986`); 手卷 (`cnh-951`); 李約瑟難題 (`cnh-974`);
+the simplified forms 艺文志, 唐诗三百首, 古诗十九首, 司马相如, 切韵, 说文解字, 简化字, 红楼梦, 聊斋志异, 文心雕龙, 兰亭集序, 文房四宝,
+吴道子, 芥子园画传, 黄筌, 韩熙载夜宴图, 搜神记, 水浒传, 西游记, 民間信仰, 四声, 六书, 王圆箓, 天一阁. The compilers of the
+dynastic histories named in several notes (Fang Xuanling, Wei Zheng, Zhang Tingyu, Ban Gu, Fan Ye and others) are from
+general knowledge; the Wikisource pages do not print them. English renderings of a few Chinese terms are the writers' own
+(the seven sections of the *Lienü zhuan*, 'Mourning-the-Red Studio', 'Historian of the Strange', 'Return of the Soul').
+
+**Abstract-only sources** (cited for what the abstract says, tagged `[Paywalled]` where it was not checked): Kornicki on
+the Diamond Sutra, Haw 2013, Xu Duo 2026, Lam on Kunqu, Cullen on the *Zhoubi*, Silberstein on embroidery, Huang Hanmin
+on the tulou, Doumy 2025, Ng 2020, Yin 2022, Vedal 2013, Wang 2022 and the Korean KCI papers on the Tang anthology.
+
+**Left for a human decision.**
+- **`arch-366` "The tulou"** is the same building type as `cnh-962` Fujian tulou. Retitle `arch-366` to a single tulou
+  (for example one named building) before writing it, or retire it.
+- **The glossary key `Fangyan_(book)`, `Drawloom`, `Taichu_calendar` and `Needham_Question`** have no dedicated English
+  article; the Learn-more tile is empty for the last three.
+- **The Needham, Tsien and Stein archive.org items** (above) are probably unauthorised scans.
+- Cross-listing: the old plan note that Gunpowder and Woodblock printing be cross-listed in the Song decks no longer
+  names those subjects (now the *Wujing zongyao* and the *Diamond Sutra*); nothing was cross-listed.
+- **No pictures** were added to any of the 99.
