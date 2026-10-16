@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1019", released: "2026-10-16T21:41Z" };
+window.FOLIO_VERSION = { v: "1.1020", released: "2026-10-16T21:44Z" };
 
 window.CHANGELOG = [
   {
@@ -49,6 +49,7 @@ window.CHANGELOG = [
       "<b>Atlas borders</b>: small early states such as the Roman Kingdom and Carthage keep their drawn shape instead of being pulled onto the coast.",
       "<b>Read aloud</b>: a small play button beside Question, Answer and Background on history, science and special cards reads that section in an English voice.",
       "<b>Read-aloud settings</b>: Settings → Audio now lets you switch the play buttons off, pick the voice and speed (heard as you choose), and play a sample; the buttons also work with the marker down, and a pause button shows while one is reading.",
+      "<b>Find it</b>: a country or state you tap now lights up gold with an outline at once, and every state of a past year is drawn in the same land colour as today's countries.",
     ],
   },
   {

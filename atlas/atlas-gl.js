@@ -506,7 +506,7 @@
       }
     }
     let faceCount = 0, selected = -1, selMap = null;   // selMap (Phase 4): face index → [r,g,b] for a HIGHLIGHT of many faces in their own colours (a card window's state, a war's two sides)
-    let histBorderColor = [0.4, 0.4, 0.45];
+    let histBorderColor = [0.4, 0.4, 0.45], histBorderWidth = 1.1;
     let presenceDark = false;                 // 2c: screen instead of multiply on a dark theme
     let pickOpts = null;                      // 2c: an ID pass may draw one layer only ("states" | "presence") and skip faces already found
     let dpr = 1, W = 0, H = 0;
@@ -709,7 +709,7 @@
       gl.uniform1f(P.u.uHeight, H);
       gl.uniform1f(P.u.uIdPad, idPad || 0);
       gl.uniform2f(P.u.uPickOff, pickOff[0], pickOff[1]);
-      widths[0] = 1.0 * dpr; widths[1] = 0.9 * dpr; widths[2] = 0.8 * dpr; widths[3] = 0.6 * dpr; widths[4] = 0.9 * dpr; widths[5] = 0.6 * dpr; widths[6] = 0; widths[7] = 1.1 * dpr;
+      widths[0] = 1.0 * dpr; widths[1] = 0.9 * dpr; widths[2] = 0.8 * dpr; widths[3] = 0.6 * dpr; widths[4] = 0.9 * dpr; widths[5] = 0.6 * dpr; widths[6] = 0; widths[7] = histBorderWidth * dpr;
       gl.uniform1fv(P.u.uWidth, widths);
       gl.uniform1f(P.u.uArcTabOn, 0); gl.uniform1f(P.u.uBorders, view.history && view.history.present === false ? 0 : 1);
       const C = [palette.coast, palette.border, palette.river, palette.lakeShore, palette.border, palette.admin1, palette.border, histBorderColor];
@@ -1169,6 +1169,7 @@
       setHistoryStyle(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.sIdx = (hist.sIdx | 0) ^ 1; hist.sTex = hist.sTex || [null, null]; hist.sTex[hist.sIdx] = uploadTable(hist.sTex[hist.sIdx], 256, h, px); hist.styleTex = hist.sTex[hist.sIdx]; hist.styleN = n; },   // two textures in turn: an upload never touches the one the last frame still reads (a scrub re-uploads every frame)
       setHistoryArcTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h ? bytes : (() => { const b = new Uint8Array(256 * h); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.aIdx = (hist.aIdx | 0) ^ 1; hist.aTex = hist.aTex || [null, null]; hist.aTex[hist.aIdx] = uploadTable(hist.aTex[hist.aIdx], 256, h, px, true); hist.arcTex = hist.aTex[hist.aIdx]; hist.arcN = n; },
       setPresenceTheme(dark) { presenceDark = !!dark; },
+      setHistoryBorderWidth(w) { histBorderWidth = w; },
       setHistoryBorderColor(c) { histBorderColor = typeof c === "string" ? hex2rgb(c) : c; },
       clearHistory() { for (const k of [...hist.meshes.keys()]) this.dropHistoryMesh(k); },
       setFaceCount(n) { faceCount = n; if (!lost) buildStyle(); },

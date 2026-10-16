@@ -176,6 +176,10 @@ const zoomTrail = async (page, btn, n) => { const z = []; for (let i = 0; i < n;
     check("a round opens with nothing picked: Guess and Clear collapsed, score 0", (await page.isHidden("#mgConfirm")) && (await page.isHidden("#mgClear")) && (await page.textContent("#mgScore")) === "0 found");
     // a wrong country first (Egypt for whatever is asked), then the right one
     await viewTo(30, 26, 2.2); await tapCentre();
+    {   // Oct 2026 (the owner's phone): the pick LIGHTS UP on the still renderer too, in the card windows' gold, with its outline; and an area round (no states to light) shows the gold marker
+      const rd = await page.evaluate(() => { const c = document.getElementById("fi2Board"), d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; let n = 0, wash = 0; for (let i = 0; i < d.length; i += 4) { if (d[i] > 235 && d[i + 1] > 170 && d[i + 1] < 215 && d[i + 2] > 40 && d[i + 2] < 120) n++; if (d[i] > d[i + 2] + 30 && d[i + 1] > d[i + 2] + 15 && d[i] > 200) wash++; } return { line: n, wash }; });
+      check("a tap LIGHTS the picked country on the still renderer: the card windows' gold wash is on the canvas, and its gold outline", rd.wash > 1500 && rd.line > 40, JSON.stringify(rd));
+    }
     check("a tap only PICKS: the Guess button appears and the score has not moved", (await page.textContent("#mgConfirm")) === "Guess" && !(await page.isHidden("#mgConfirm")) && (await page.textContent("#mgScore")) === "0 found");
     await page.click("#mgConfirm"); await sleep(500);
     const fb1 = await page.textContent("#mgFeedback");
@@ -198,6 +202,8 @@ const zoomTrail = async (page, btn, n) => { const z = []; for (let i = 0; i < n;
       const q = await page.textContent("#mgQ");
       check("...the question names the area and its year", /as it stood in/.test(q) && q.includes(r2.n), q);
       await viewTo(inside[0], inside[1], 3); await tapCentre();
+      const mk = await page.evaluate(() => { const c = document.getElementById("fi2Board"), d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; let gold = 0, blue = 0; for (let i = 0; i < d.length; i += 4) { if (d[i] > 235 && d[i + 1] > 170 && d[i + 1] < 215 && d[i + 2] > 40 && d[i + 2] < 120) gold++; if (d[i] < 90 && d[i + 1] > 90 && d[i + 1] < 130 && d[i + 2] > 190) blue++; } return { gold, blue }; });
+      check("an area round on the still renderer (no states of the year to light) shows the pick as the gold marker, never the old blue cross, and lights nothing else (no answer leaks)", mk.gold > 20 && mk.blue === 0, JSON.stringify(mk));
       check("a tap inside the area picks it (Guess appears)", (await page.textContent("#mgConfirm")) === "Guess" && !(await page.isHidden("#mgConfirm")));
       await page.click("#mgConfirm"); await sleep(700);
       const fb2 = await page.textContent("#mgFeedback");
