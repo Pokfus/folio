@@ -246,10 +246,11 @@ a real unit. The rule the Rome, Russia and India plans use holds: **no person is
 of cards.** Several cards carry Qin Shi Huang's or Mao's name; they are policies, campaigns and
 consequences, not episodes of a biography.
 
-**Modern scholars are capped at two in the thousand and this plan now spends one.** `cnh-937 Dunhuang
-manuscripts` is an event with consequences on the scale of the Linear B decipherment that earns Greece
-its `gr-075`: the library cave rewrote what was known of Chinese Buddhism and of vernacular writing. It
-is a card about what changed, not about who changed it.
+**Modern scholars are capped at two in the thousand and this plan now spends one.** `cnh-937` was planned as *Dunhuang
+manuscripts*, an event with consequences on the scale of the Linear B decipherment that earns Greece its `gr-075`: the
+library cave rewrote what was known of Chinese Buddhism and of vernacular writing. It is written as **Wang Yuanlu**, the
+custodian who opened the cave (the Mogao Caves are `cnh-893`), so the card is about the man at the door and what he did with
+the find; the foreign scholars who followed him appear only in its background.
 
 **`cnh-070` USED TO SPEND THE OTHER, AND IT WAS RETIRED IN SEP 2026, ON REQUEST** ("delete the card
 'discovery of oracle bone script' … and ensure the card 'oracle bone script' covers the topic
@@ -332,7 +333,8 @@ second home at writing time where it genuinely earns one — the obvious cases:
 - `cnh-240 Sima Qian`, `cnh-241 Records of the Grand Historian` → also `cn-government`, where
   historiography is taught
 - `cnh-459 Zhu Xi`, `cnh-460 Neo-Confucianism` → also `cn-thought`
-- `cnh-978 Gunpowder`, `cnh-976 Woodblock printing` → also the Song decks, where they land
+- `cnh-978 Wujing Zongyao` (planned as *Gunpowder*), `cnh-976 Diamond Sutra` (planned as *Woodblock printing*) → could also
+  go in the Song and Tang decks; not cross-listed when they were written
 
 Do not cross-list wholesale. A deck that contains everything relevant is a deck nobody finishes.
 
@@ -1386,113 +1388,113 @@ already shipped before adding it.
     cnh-899  Nestorian Stele
     cnh-900  Eternal Venerable Mother
     cnh-901  Three-Self Patriotic Movement
-    cnh-902  Chinese religion today
+    cnh-902  Chinese folk religion
 
 ## Learning, Arts and Invention
 
 ### Language and literature — `cn-language`
 
-    cnh-903  Chinese language
-    cnh-904  Chinese characters
-    cnh-905  The development of the Chinese script
-    cnh-906  Seal script
+    cnh-903  four tones of Middle Chinese
+    cnh-904  Chinese character classification
+    cnh-905  Stone Drums
+    cnh-906  small seal script
     cnh-907  Clerical script
     cnh-908  Regular script
     cnh-909  Classical Chinese
-    cnh-910  Varieties of Chinese
-    cnh-911  Mandarin Chinese
-    cnh-912  Chinese rhyme books
-    cnh-913  Chinese dictionaries
+    cnh-910  Fangyan
+    cnh-911  Zhongyuan Yinyun
+    cnh-912  Qieyun
+    cnh-913  Kangxi Dictionary
     cnh-914  Shuowen Jiezi
-    cnh-915  Chinese script reform
+    cnh-915  Latinxua Sin Wenz
     cnh-916  Simplified Chinese characters
     cnh-917  Pinyin
-    cnh-918  Chinese literature
-    cnh-919  Chinese poetry
-    cnh-920  Shi poetry
-    cnh-921  Fu
-    cnh-922  Ci poetry
-    cnh-923  Sanqu and dramatic verse
-    cnh-924  Chinese prose
-    cnh-925  The Chinese essay
-    cnh-926  Biography in Chinese writing
-    cnh-927  Chinese fiction
+    cnh-918  Yiwenzhi
+    cnh-919  Three Hundred Tang Poems
+    cnh-920  Nineteen Old Poems
+    cnh-921  Sima Xiangru
+    cnh-922  Cipai
+    cnh-923  Ma Zhiyuan
+    cnh-924  Eight Masters of the Tang and Song
+    cnh-925  Peach Blossom Spring
+    cnh-926  Lienü zhuan
+    cnh-927  Soushen ji
     cnh-928  Four Great Classical Novels
     cnh-929  Water Margin
     cnh-930  Journey to the West
     cnh-931  Jin Ping Mei
     cnh-932  Dream of the Red Chamber
     cnh-933  Strange Tales from a Chinese Studio
-    cnh-934  Chinese drama
-    cnh-935  Chinese literary criticism
-    cnh-936  The Chinese book
-    cnh-937  Dunhuang manuscripts
-    cnh-938  Chinese libraries and book collecting
-    cnh-939  Modern Chinese literature
-    cnh-940  Chinese literature after 1949
-    cnh-941  Literature and censorship in China
-    cnh-942  Chinese literature in translation
+    cnh-934  Peony Pavilion
+    cnh-935  Wenxin Diaolong
+    cnh-936  Bamboo and wooden slips
+    cnh-937  Wang Yuanlu
+    cnh-938  Tianyi Pavilion
+    cnh-939  Diary of a Madman
+    cnh-940  Scar literature
+    cnh-941  Hu Feng
+    cnh-942  Arthur Waley
 
 ### Art, architecture and music — `cn-arts`
 
-    cnh-943  Chinese art
-    cnh-944  Chinese calligraphy
+    cnh-943  Six principles of Chinese painting
+    cnh-944  Lantingji Xu
     cnh-945  Four Treasures of the Study
-    cnh-946  Chinese painting
-    cnh-947  Shan shui
-    cnh-948  Chinese bird-and-flower painting
-    cnh-949  Chinese figure painting
-    cnh-950  The literati painter
-    cnh-951  Chinese handscrolls and hanging scrolls
-    cnh-952  Chinese seals and collectors' marks
-    cnh-953  Chinese bronzes as art
-    cnh-954  Chinese jade
-    cnh-955  Chinese ceramics
-    cnh-956  Celadon
+    cnh-946  Wu Daozi
+    cnh-947  Mustard Seed Garden Manual of Painting
+    cnh-948  Huang Quan
+    cnh-949  Night Revels of Han Xizai
+    cnh-950  Four Masters of the Yuan dynasty
+    cnh-951  Handscroll
+    cnh-952  Xiling Seal Society
+    cnh-953  Mao Gong ding
+    cnh-954  Jade burial suit
+    cnh-955  Ding ware
+    cnh-956  Longquan celadon
     cnh-957  Blue and white pottery
-    cnh-958  Jingdezhen
-    cnh-959  Chinese lacquerware
+    cnh-958  François Xavier d'Entrecolles
+    cnh-959  Carved lacquer
     cnh-960  Chinese embroidery
-    cnh-961  Chinese furniture
-    cnh-962  Chinese architecture
-    cnh-963  Dougong
-    cnh-964  Chinese pagoda
-    cnh-965  Chinese garden
-    cnh-966  Chinese tombs and their art
-    cnh-967  Chinese music
-    cnh-968  Chinese musical instruments
+    cnh-961  Huanghuali
+    cnh-962  Fujian tulou
+    cnh-963  Nanchan Temple
+    cnh-964  Giant Wild Goose Pagoda
+    cnh-965  Yuanye
+    cnh-966  Wu Liang Shrine
+    cnh-967  Bianzhong
+    cnh-968  Pipa
     cnh-969  Guqin
-    cnh-970  Chinese opera
-    cnh-971  Peking opera
-    cnh-972  Cinema of China
+    cnh-970  Kunqu
+    cnh-971  Mei Lanfang
+    cnh-972  Dingjun Mountain
 
 ### Science, technology and medicine — `cn-science`
 
-    cnh-973  Science and technology in China
-    cnh-974  The Needham question
-    cnh-975  Papermaking
-    cnh-976  Woodblock printing
-    cnh-977  Movable type in China
-    cnh-978  Gunpowder
-    cnh-979  Early Chinese firearms
-    cnh-980  Compass
-    cnh-981  Chinese navigation
-    cnh-982  Chinese astronomy
-    cnh-983  The Chinese astronomical bureau
-    cnh-984  Chinese records of comets and supernovae
-    cnh-985  Chinese calendrical science
-    cnh-986  Chinese mathematics
-    cnh-987  The Nine Chapters on the Mathematical Art
-    cnh-988  Chinese algebra
-    cnh-989  Chinese engineering
-    cnh-990  Chinese bridges
-    cnh-991  Chinese hydraulic engineering
+    cnh-973  Four Great Inventions
+    cnh-974  Needham Question
+    cnh-975  Fangmatan
+    cnh-976  Diamond Sutra
+    cnh-977  Hua Sui
+    cnh-978  Wujing Zongyao
+    cnh-979  Heilongjiang hand cannon
+    cnh-980  Dream Pool Essays
+    cnh-981  Mao Kun map
+    cnh-982  Dunhuang Star Chart
+    cnh-983  Beijing Ancient Observatory
+    cnh-984  SN 185
+    cnh-985  Taichu calendar
+    cnh-986  Zhoubi Suanjing
+    cnh-987  Nine Chapters on the Mathematical Art
+    cnh-988  Zhu Shijie
+    cnh-989  Ma Jun
+    cnh-990  Zhaozhou Bridge
+    cnh-991  Ximen Bao
     cnh-992  Dujiangyan
-    cnh-993  Chinese cast iron
-    cnh-994  Chinese textile machinery
-    cnh-995  Chinese agricultural treatises
+    cnh-993  Du Shi
+    cnh-994  Drawloom
+    cnh-995  Fan Shengzhi shu
     cnh-996  Traditional Chinese medicine
     cnh-997  Acupuncture
-    cnh-998  Chinese materia medica
-    cnh-999  Chinese medical classics
-    cnh-1000 Science in modern China
+    cnh-998  Bencao Gangmu
+    cnh-999  Huangdi Neijing
+    cnh-1000 Tu Youyou
