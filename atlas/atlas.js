@@ -688,7 +688,7 @@
     /* ---------- frame loop ---------- */
     const stats = { frames: [], draw: [], uploads: {}, worker: null, escalations: 0, recoveries: 0, stallsIgnored: 0, longTasks: 0, stage: 0, learnt: 0, fetchMs: 0, firstPaintMs: 0, ready: false, level: 0, tiles: [], tileErrors: 0, water: null, waterFetchMs: 0, relief: null, reliefCost: [], labelLayout: [], labelSprite: [], labelDraw: [], markDraw: [], gazetteer: null };
     const perfInHash = /[?&#/]perf\b/.test(location.hash || "");
-    let needs = true, needsGlobe = true, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
+    let needs = true, needsGlobe = true, globeDrawn = false, raf = 0, lastT = 0, disposed = false, perfOn = perfInHash || (() => { try { return localStorage.getItem(PERF_KEY) === "1"; } catch (e) { return false; } })(), stillAt = null;
     const t0 = performance.now();
     let lastPerfText = 0, lastTraceT = 0;
     function frame(t) {
@@ -701,7 +701,7 @@
       lastT = t; lastTraceT = t;
       const fs0 = performance.now();
       gestureFrame(t);
-      if (time.fade && !STATIC2D) { timed(() => fadeStep(t), "fade"); needs = true; }
+      if (time.fade && !STATIC2D) { timed(() => fadeStep(t), "fade"); needs = true; needsGlobe = true; }
       if (time.playing) { timed(() => playStep(t), "play"); }
       if (needs) {
         needs = false;
@@ -709,11 +709,17 @@
         const globe = needsGlobe; needsGlobe = false;
         if (STATIC2D && !globe && stillAt) {
           // names only: the globe on screen is already the true one
+        } else if (!STATIC2D && !globe && globeDrawn) {
+          /* names only on WebGL too (2026-10-16, the frame gate's release frames): a layout landing after a drag asks for a repaint of the NAMES
+             (invalidateLabels), and the frame used to redraw the whole globe with them. A canvas drawn into again is presented again, and on a
+             software compositor that is a synchronous read-back of the whole canvas inside the commit (measured: GLES2::ReadPixels, 82-93 ms of a
+             93 ms frame) — the second of the two 100 ms frames after every drag. The WebGL canvas keeps showing its last frame while nothing
+             draws into it; everything that changes the globe (a view, a year, a level, a resize, a lost context) calls invalidate(), which sets needsGlobe. */
         } else if (STATIC2D && ((dragging && moved) || coasting) && stillAt) {
           // the still view during a drag: the last frame blitted by the pointer's travel; the true frame comes on release
           const k = R2D / view.radius; let dl = view.lon - stillAt.lon; if (dl > 180) dl -= 360; else if (dl < -180) dl += 360;
           R.shift(-dl / k, (view.lat - stillAt.lat) / k);
-        } else { timed(() => R.render(view), "render"); if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
+        } else { timed(() => R.render(view), "render"); globeDrawn = true; if (STATIC2D) stillAt = { lon: view.lon, lat: view.lat }; }
         if (globe) { stats.draw.push(R.rawStats.lastMs); if (stats.draw.length > 600) stats.draw.shift(); }
         timed(drawLabels, "labelsDraw");
         if (!stats.firstPaintMs && R.levelLoaded(0)) { stats.firstPaintMs = Math.round(performance.now() - t0); if (!EMBED && H.firstDraw) { try { H.firstDraw(); } catch (e) { /* the host may not care */ } } }   // the coarse globe is on screen: the host may start its idle warm-ups now (app.js whenIdleAfterGlobe)

@@ -40,7 +40,7 @@ const { isNoise } = require("./test-noise.js");
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream" };
-const PORT = 5616;
+const PORT = Number(process.env.FOLIO_PORT) || 5616;   // FOLIO_PORT lets several copies run at once (the stress runs of the flake hunt)
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]); if (p === "/") p = "/index.html";
   const file = path.join(ROOT, p);
@@ -66,6 +66,8 @@ const intersects = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] >
 async function open(context, hash) {
   const page = await context.newPage();
   const errors = [];
+  /* FOLIO_CPU_THROTTLE=<n> slows the page's CPU n-fold through CDP (the flake hunt: the race of layoutAt is a slow-runner race). Unset, nothing changes. */
+  if (process.env.FOLIO_CPU_THROTTLE) { const cdp = await context.newCDPSession(page); await cdp.send("Emulation.setCPUThrottlingRate", { rate: Number(process.env.FOLIO_CPU_THROTTLE) }); }
   /* FOLIO_SLOW_FRAMES=<ms> makes the race of layoutAt (below) happen on any machine: requestAnimationFrame callbacks arrive that many ms late WITHOUT blocking the page's JavaScript, as they do when a software rasteriser's previous frame still holds the compositor (a CI runner: 100+ ms). Unset, nothing changes. */
   if (process.env.FOLIO_SLOW_FRAMES) await page.addInitScript((d) => { const raf = window.requestAnimationFrame.bind(window); window.requestAnimationFrame = (cb) => setTimeout(() => raf(cb), d); }, Number(process.env.FOLIO_SLOW_FRAMES));
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
@@ -77,25 +79,75 @@ async function open(context, hash) {
   return { page, errors };
 }
 const settle = (page) => page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.tilesSettled() && c.waterSettled(); }, null, { timeout: 120000 }).then(() => true, () => false);
-async function layoutAt(page, V, density) {
+const CHROME_SELECTORS = [".atlas2-search-in", ".atlas2-results", ".atlas2-search-note", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];   // atlas.js CHROME, for the failure report only
+const INK_ATTEMPTS = 6;
+const inkStats = { reads: 0, retries: 0, exhausted: 0 };   // printed at the end: how often the seq moved between the layout and the read
+/* layoutAt(page, V, density, { ink: true }) → { placed, stats, ink }.
+   THE LAYOUT, ITS PAINT AND THE READ OF THE PAINT ARE ONE ATOMIC STEP (the Songhai flake, CI 2026-10-14/15 and again 2026-10-16). `layoutNow()` resolves inside applyLayout, which sets the new placement and only ASKS for a
+   repaint (invalidateLabels → requestAnimationFrame): the label canvas still shows the PREVIOUS layout until a frame has run. Waiting for that frame was the first fix (PR #474); the second hole was that the ink was then read
+   by a LATER page.evaluate, and a layout that landed in between (a water, gazetteer or history one repaints the canvas with a placement the caller never saw) made the read compare the old boxes with the new paint.
+   Now, once a frame has completed after the layout was applied, ONE page.evaluate checks that the layout on the canvas is still the one returned (`layoutSeq` unchanged) and reads the canvas pixels of every
+   label's box in the same task — no frame or layout can run between the check and the read. If the seq moved, the layout is asked for again (INK_ATTEMPTS at most). No timer decides anything and no assertion is loosened:
+   a name whose box is empty in a settled, matching paint is still a failure, and `ink.report` says what is needed to diagnose it from a CI log alone. */
+async function layoutAt(page, V, density, opts) {
   if (density) await page.evaluate((d) => document.querySelector(".atlas2").__atlas2.setLayers({ density: d }), density);
   await page.evaluate((v) => document.querySelector(".atlas2").__atlas2.setView(v.lon, v.lat, v.k), V);
   await settle(page); await sleep(100);
-  /* THE LAYOUT AND ITS PAINT ARE TWO EVENTS, AND THIS HELPER USED TO READ THE SECOND AFTER A TIMER (the Songhai flake, CI 2026-10-14/15). `layoutNow()` resolves inside applyLayout, which sets the new
-     placement and only ASKS for a repaint (invalidateLabels → requestAnimationFrame): the label canvas still shows the PREVIOUS layout until a frame has run. The old code waited 60 ms and read the ink; a frame
-     with a history year on screen costs well over that on a software rasteriser, so a name the second layout placed and the first did not (Songhai at Europe in 1500) had no ink yet. The read now happens only
-     when (1) a frame has completed after the layout was applied and (2) the layout on the canvas is still the one returned (`layoutSeq` unchanged — a later layout, a water or gazetteer one, would be a new
-     placement the caller never saw); otherwise the layout is asked for again. No timer decides anything, and nothing about the assertions is loosened. */
-  let placed, stats;
-  for (let attempt = 0; attempt < 6; attempt++) {
+  const wantInk = !!(opts && opts.ink);
+  let placed, stats, ink = null, attempt = 0;
+  for (; attempt < INK_ATTEMPTS; attempt++) {
     const got = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return c.layoutNow().then((p) => ({ seq: c.layoutSeq(), frames: c.statsNow().frames, placed: p.map((x) => ({ id: x.id, kind: x.kind, style: x.style, text: x.text, rects: x.rects, box: x.box, marker: !!x.marker, curved: !!x.curved, score: x.score, glyphs: x.glyphs ? x.glyphs.map((g) => g[2]) : [], meanAngle: x.meanAngle || 0 })) })); });
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.invalidate());
     await page.waitForFunction((f0) => document.querySelector(".atlas2").__atlas2.statsNow().frames > f0, got.frames, { timeout: 60000 });
-    stats = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.statsNow());
-    placed = got.placed;
-    if (await page.evaluate((seq) => document.querySelector(".atlas2").__atlas2.layoutSeq() === seq, got.seq)) break;
+    const boxes = wantInk ? got.placed.filter((p) => p.text).map((p) => [p.id, p.box]) : [];
+    const r = await page.evaluate(({ boxes, selectors, wantInk }) => {
+      const a = document.querySelector(".atlas2"), c = a.__atlas2, seqNow = c.layoutSeq(), stats = c.statsNow();
+      if (!wantInk) return { seqNow, stats, ink: null };
+      const cv = document.querySelector(".atlas2-labels"), x = cv.getContext("2d"), dpr = cv.width / cv.clientWidth;
+      const base = a.getBoundingClientRect(), ctrls = [];
+      for (const sel of selectors) for (const node of a.querySelectorAll(sel)) {
+        if (node.hidden || node.closest("[hidden]")) continue;
+        const cs = getComputedStyle(node); if (cs.display === "none" || cs.visibility === "hidden") continue;
+        const q = node.getBoundingClientRect(); if (q.width < 1 || q.height < 1) continue;
+        ctrls.push([sel, [q.left - base.left, q.top - base.top, q.right - base.left, q.bottom - base.top]]);
+      }
+      const fr = a.querySelector(".atlas2-canvas").getBoundingClientRect();
+      const live = new Map(c.labelsLive().map((l) => [l.p.id, [l.dx, l.dy]]));
+      const per = {};
+      for (const [id, b] of boxes) {
+        // the visible part of the box (a label may run off an edge; one wholly outside is not placed)
+        const x0 = Math.max(0, Math.floor(b[0] * dpr)), y0 = Math.max(0, Math.floor(b[1] * dpr)), x1 = Math.min(cv.width, Math.ceil(b[2] * dpr)), y1 = Math.min(cv.height, Math.ceil(b[3] * dpr));
+        const w = x1 - x0, h = y1 - y0;
+        const over = ctrls.filter(([, q]) => b[0] < q[2] && b[2] > q[0] && b[1] < q[3] && b[3] > q[1]).map(([s, q]) => s + "[" + q.map(Math.round) + "]");
+        if (w <= 2 || h <= 2) { per[id] = { off: true, n: 0, px: Math.max(0, w) * Math.max(0, h), live: live.has(id), shift: live.get(id) || null, over }; continue; }
+        const d = x.getImageData(x0, y0, w, h).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 40) n++;
+        per[id] = { off: false, n, px: w * h, live: live.has(id), shift: live.get(id) || null, over };
+      }
+      return { seqNow, stats, ink: { per, canvas: [cv.width, cv.height], client: [cv.clientWidth, cv.clientHeight], dpr, frame: [fr.width, fr.height], liveCount: live.size } };
+    }, { boxes, selectors: CHROME_SELECTORS, wantInk });
+    placed = got.placed; stats = r.stats;
+    if (wantInk) inkStats.reads++;
+    if (r.seqNow === got.seq) { if (r.ink) ink = Object.assign(r.ink, { seqLayout: got.seq, seqRead: r.seqNow, attempts: attempt + 1, boxes: new Map(got.placed.filter((p) => p.text).map((p) => [p.id, p.box])) }); break; }
+    if (wantInk) inkStats.retries++;
+    if (attempt === INK_ATTEMPTS - 1) { inkStats.exhausted++; if (r.ink) ink = Object.assign(r.ink, { seqLayout: got.seq, seqRead: r.seqNow, attempts: INK_ATTEMPTS, unsettled: true, boxes: new Map(got.placed.filter((p) => p.text).map((p) => [p.id, p.box])) }); }
   }
-  return { placed, stats };
+  return { placed, stats, ink };
+}
+/* the ink verdict for a set of placed labels (default: all with a text): { painted, empty: [id], report } — `report` is the multi-line diagnosis, printed when a check fails */
+function inkOf(res, subset) {
+  const ink = res.ink; if (!ink) throw new Error("layoutAt was not asked for the ink");
+  const ids = (subset || res.placed.filter((p) => p.text)).map((p) => p.id);
+  let painted = 0; const empty = [], lines = [];
+  for (const id of ids) {
+    const m = ink.per[id]; if (!m) { empty.push(id + " (not read)"); continue; }
+    if (m.off) { empty.push(id + " (off the canvas)"); }
+    else if (m.n > 4) { painted++; continue; }
+    else empty.push(id);
+    const b = ink.boxes.get(id);
+    lines.push(`      ${id}: box [${b.map((v) => v.toFixed(1))}], ${m.n} painted pixels of ${m.px} in the box (need > 4), drawn by the last frame: ${m.live ? "yes, shifted by " + JSON.stringify(m.shift) : "NO (the painter skipped it: behind the horizon, no longer alive, or labelFits failed)"}, controls overlapping the box: ${m.over.length ? m.over.join("; ") : "none"}`);
+  }
+  const report = empty.length ? `    ink read: layoutSeq at layout ${ink.seqLayout}, at read ${ink.seqRead}${ink.unsettled ? " (STILL MOVING after " + ink.attempts + " attempts)" : ""}, attempt ${ink.attempts} of ${INK_ATTEMPTS}; frame ${ink.frame.map(Math.round).join("×")} css px, label canvas ${ink.canvas.join("×")} px (client ${ink.client.join("×")}, dpr ${ink.dpr.toFixed(3)}), ${ink.liveCount} labels drawn by the last frame, ${Object.keys(ink.per).length} read\n` + lines.join("\n") : "";
+  return { painted, empty, report };
 }
 function overlaps(placed) {
   const bad = [];
@@ -104,22 +156,6 @@ function overlaps(placed) {
   }
   return bad;
 }
-async function inkInBoxes(page, placed) {
-  return page.evaluate((boxes) => {
-    const c = document.querySelector(".atlas2-labels"), x = c.getContext("2d"), dpr = c.width / c.clientWidth;
-    let painted = 0, empty = [];
-    for (const [id, b] of boxes) {
-      // the visible part of the box (a label may run off an edge; one wholly outside is not placed)
-      const x0 = Math.max(0, Math.floor(b[0] * dpr)), y0 = Math.max(0, Math.floor(b[1] * dpr)), x1 = Math.min(c.width, Math.ceil(b[2] * dpr)), y1 = Math.min(c.height, Math.ceil(b[3] * dpr));
-      const w = x1 - x0, h = y1 - y0;
-      if (w <= 2 || h <= 2) { empty.push(id + " (off the canvas)"); continue; }
-      const d = x.getImageData(x0, y0, w, h).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 40) n++;
-      if (n > 4) painted++; else empty.push(id);
-    }
-    return { painted, empty };
-  }, placed.filter((p) => p.text).map((p) => [p.id, p.box]));
-}
-
 (async () => {
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
@@ -132,12 +168,13 @@ async function inkInBoxes(page, placed) {
   console.log("\n\x1b[1m1) no two label rectangles intersect; ink where the layout says; no marker on an area kind\x1b[0m\n");
   const counts = {};
   for (const V of VIEWS) for (const d of DENSITIES) {
-    const { placed, stats } = await layoutAt(page, V, d);
+    const lay = await layoutAt(page, V, d, { ink: true }), { placed, stats } = lay;
     counts[V.name + "/" + d] = { placed: placed.length, cap: stats.labelCap, candidates: stats.labelCandidates };
     const bad = overlaps(placed);
     check(`${V.name}, ${d}: ${placed.length} labels of ${stats.labelCandidates} candidates (cap ${stats.labelCap}), none overlapping`, placed.length > 0 && bad.length === 0, bad.slice(0, 3).join("; "));
-    const ink = await inkInBoxes(page, placed);
+    const ink = inkOf(lay);
     check(`${V.name}, ${d}: ink inside every label's box`, ink.empty.length === 0, `${ink.painted} painted` + (ink.empty.length ? "; empty: " + ink.empty.slice(0, 3).join(", ") : ""));
+    if (ink.report) console.log(ink.report);
     const marked = placed.filter((p) => AREA_KINDS.test(p.kind) && p.marker);
     check(`${V.name}, ${d}: no area kind carries a marker`, marked.length === 0, marked.slice(0, 3).map((p) => p.text).join(", "));
     if (V.name === "Europe" && d === "normal") check("Europe, normal: some labels run along a path (curved)", placed.some((p) => p.curved), placed.filter((p) => p.curved).slice(0, 4).map((p) => p.text).join(", "));
@@ -372,7 +409,7 @@ async function inkInBoxes(page, placed) {
     await pg.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historySettled(), null, { timeout: 120000 }).catch(() => {});
     const { placed } = await layoutAt(pg, V, "normal");
     await pg.waitForFunction(() => document.querySelector(".atlas2").__atlas2.historySettled(), null, { timeout: 120000 }).catch(() => {});
-    const again = (await layoutAt(pg, V, "normal")).placed;   // a second layout once the year's meshes have settled: the first may precede them
+    const lay2 = await layoutAt(pg, V, "normal", { ink: true }), again = lay2.placed;   // a second layout once the year's meshes have settled: the first may precede them
     const names = again.filter((p) => p.kind === "polity");
     const bad = overlaps(again);
     check(`${label}: ${names.length} polities named, none overlapping`, names.length >= 1 && bad.length === 0, names.map((p) => p.text).join(", ") + (bad.length ? "; overlaps: " + bad.slice(0, 3).join("; ") : ""));
@@ -382,7 +419,7 @@ async function inkInBoxes(page, placed) {
     check(`${label}: every polity name lies wholly inside the ${Math.round(frame[0])}×${Math.round(frame[1])} frame`, out.length === 0, out.map((p) => p.text + " " + JSON.stringify(p.box.map(Math.round))).join("; ") || names.length + " names");
     const skew = names.filter((p) => p.glyphs.length !== [...p.text].length);
     check(`${label}: every polity name has one glyph per character (a name on two lines too)`, skew.length === 0, skew.map((p) => p.text).join(", "));
-    if (names.length) { const ink = await inkInBoxes(pg, names); check(`${label}: every polity name is painted where the layout puts it`, ink.empty.length === 0, ink.empty.join(", ") || ink.painted + " painted"); }
+    if (names.length) { const ink = inkOf(lay2, names); check(`${label}: every polity name is painted where the layout puts it`, ink.empty.length === 0, ink.empty.join(", ") || ink.painted + " painted"); if (ink.report) console.log(ink.report); }
     if (polity) check(`${label}: ${polity.name} is named`, again.some((p) => p.id === polity.id), names.map((p) => p.text).join(", ") || "no polity named");
     if (capital) { const m = again.find((p) => p.kind === "capital" && p.id.startsWith("cap:" + polity.id + ":") && p.marker); check(`${label}: ${capital}'s marker is still drawn inside the named polity`, !!m, m ? (m.text ? "with its name" : "marker alone, the name yielded to the polity's") : again.filter((p) => p.kind === "capital").map((p) => p.id).join(", ") || "no capital placed"); }
     return placed;
@@ -461,6 +498,7 @@ async function inkInBoxes(page, placed) {
   check("no page errors on #map (desktop)", errors.length === 0, errors.slice(0, 3).join(" | "));
   check("no page errors on #map (phone)", P.errors.length === 0, P.errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
+  console.log(`\nink reads: ${inkStats.reads}, layouts retaken because layoutSeq moved before the read: ${inkStats.retries}, reads that never settled: ${inkStats.exhausted}`);
   console.log(`\n${pass} ok, ${fail} failed\n`);
   process.exit(fail ? 1 : 0);
 })().catch((e) => { console.error(e); process.exit(1); });
