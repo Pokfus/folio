@@ -527,14 +527,30 @@ const holdRow = (page, match) => page.evaluate((m) => {
   await page.waitForTimeout(1200);
   const voiceOpts = await page.evaluate(() => [...document.querySelectorAll("#ttsVoiceSel option")].map((o) => o.textContent));
   check("Settings lists Automatic plus the English voices only", voiceOpts.length === 3 && /Automatic/.test(voiceOpts[0]) && !voiceOpts.some((o) => /Fr/.test(o)), voiceOpts.join(" | "));
+  // choosing a voice previews it at once, and the utterance carries the VOICE'S language, not a fixed en-US
+  await page.evaluate(() => {
+    window.SpeechSynthesisUtterance = class { constructor(t) { this.text = t; } };
+    speechSynthesis.speak = (u) => { window.__spoken.push({ text: u.text, rate: u.rate, lang: u.lang, voice: u.voice && u.voice.name }); setTimeout(() => u.onstart && u.onstart({}), 20); };
+    window.__spoken = [];
+  });
   await page.selectOption("#ttsVoiceSel", "gb");
-  await page.click('[data-ttsrate="fast"]');
-  await page.evaluate(() => { window.__spoken = []; });
-  await page.click("#ttsTry");
   await page.waitForTimeout(400);
-  const tried = await page.evaluate(() => window.__spoken);
-  check("the sample speaks with the chosen voice and speed",
-    tried.length === 1 && tried[0].voice === "Test GB" && tried[0].rate > 0.85, JSON.stringify(tried));
+  const gbSample = await page.evaluate(() => window.__spoken.splice(0));
+  check("choosing a voice plays the sample with that voice",
+    gbSample.length === 1 && gbSample[0].voice === "Test GB", JSON.stringify(gbSample));
+  check("\u2026and the utterance's language is the voice's own (en-GB)", gbSample.length === 1 && gbSample[0].lang === "en-GB", JSON.stringify(gbSample));
+  await page.selectOption("#ttsVoiceSel", "us");
+  await page.waitForTimeout(400);
+  const usSample = await page.evaluate(() => window.__spoken.splice(0));
+  check("switching to another voice switches the sample to it (en-US)",
+    usSample.length === 1 && usSample[0].voice === "Test US" && usSample[0].lang === "en-US", JSON.stringify(usSample));
+  await page.click('[data-ttsrate="fast"]');
+  await page.waitForTimeout(400);
+  const fastSample = await page.evaluate(() => window.__spoken.splice(0));
+  check("the speed applies to the sample", fastSample.length === 1 && fastSample[0].rate > 0.85 && fastSample[0].voice === "Test US", JSON.stringify(fastSample));
+  await page.click("#ttsTry");
+  await page.waitForTimeout(300);
+  check("Play sample stops a sample that is playing", (await page.evaluate(() => window.__spoken.length)) === 0);
   await page.click("#sw-tts");
   await page.evaluate(() => { location.hash = "#card/wh-001"; });
   await page.waitForTimeout(1200);

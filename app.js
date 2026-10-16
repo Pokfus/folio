@@ -20537,7 +20537,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     chunks.forEach((chunk, i) => {
       const u = new SpeechSynthesisUtterance(chunk);
       if (p.zh) { u.lang = "zh-CN"; u.rate = TTS_RATE_ZH; const v = ttsVoiceZh(); if (v) u.voice = v; }
-      else { u.lang = "en-US"; u.rate = ttsRateEn(); u.pitch = 0.9; const v = ttsVoiceEn(); if (v) u.voice = v; }
+      else {
+        u.lang = "en-US"; u.rate = ttsRateEn(); u.pitch = 0.9;
+        const v = ttsVoiceEn();
+        if (v) {
+          u.voice = v;
+          /* THE UTTERANCE'S LANGUAGE MUST BE THE VOICE'S OWN. Chrome (its network voices) and some Android engines
+             choose the voice from `lang` and ignore `voice` when the two disagree, so a reader who picked a British
+             voice in Settings kept hearing the default American one because this said en-US. Android reports
+             `en_GB`, which the API wants as `en-GB`. */
+          if (v.lang) u.lang = String(v.lang).replace(/_/g, "-");
+        }
+      }
       if (p.btn && i === 0) u.onstart = () => p.btn.classList.add("tts-playing");
       if (i === chunks.length - 1) {
         const fin = () => { if (p.btn) p.btn.classList.remove("tts-playing"); if (gen === _ttsSeq) done(); };
@@ -42407,7 +42418,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     };
     fillTtsVoices();
     _ttsVoicesHook = fillTtsVoices;
-    if (ttsSel) ttsSel.addEventListener("change", () => { S.settings.ttsVoiceEn = ttsSel.value; save(); });
+    // choosing a voice plays the sample at once: a voice you cannot hear is a choice you cannot make
+    const ttsSample = () => { const b = root.querySelector("#ttsTry"); if (b) { ttsStop(); ttsSectionClick([{ text: "This is how Folio will read a card aloud." }], b); } };
+    if (ttsSel) ttsSel.addEventListener("change", () => { S.settings.ttsVoiceEn = ttsSel.value; save(); ttsSample(); });
     const ratePick = root.querySelector("#ttsRatePick");
     if (ratePick) ratePick.addEventListener("click", (e) => {
       const b = e.target.closest("[data-ttsrate]");
@@ -42415,6 +42428,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       S.settings.ttsRate = b.dataset.ttsrate;
       save();
       ratePick.querySelectorAll("[data-ttsrate]").forEach((x) => { const on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-pressed", String(on)); });
+      if (ttsCanSpeak()) ttsSample();   // never nag a device with no voice every time the speed is touched
     });
     const ttsTry = root.querySelector("#ttsTry");
     if (ttsTry) ttsTry.addEventListener("click", () => ttsSectionClick([{ text: "This is how Folio will read a card aloud." }], ttsTry));

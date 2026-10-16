@@ -6582,6 +6582,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     it is a `role="button"` span that `CTL_SEL` cannot see, and the Background one sits inside the `.bg-head`
     button, which `CTL_SEL` would find first and fold instead. `.tts-play::before` gives it a 6px halo as the tap
     target. Guarded by `test-speak.js` §5–6 (real mouse input; reverting `controlUnder` fails them).
+    **THE UTTERANCE'S `lang` IS THE CHOSEN VOICE'S OWN** (`speakTTSPart`): Chrome's network voices and some Android
+    engines pick the voice from `lang` and ignore `voice` when they disagree, so a fixed `en-US` made every
+    voice in Settings sound like the default one. Choosing a voice or a speed plays the sample at once
+    (`ttsSample`; the speed only where `ttsCanSpeak()`). Guarded by `test-speak.js` §6.
     **PAUSE**: `ttsPlayHTML` emits a `.tts-pause` right after each `.tts-play`, shown by CSS only while that
     play button has `.tts-playing`; `ttsPauseToggle` calls `speechSynthesis.pause()`/`resume()` (`_ttsPaused`,
     mirrored by `ttsPausedMarks`), a press on the play button while paused resumes, and `ttsStop` resumes the
