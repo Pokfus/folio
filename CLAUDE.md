@@ -257,6 +257,8 @@ have not this session.
 | The EU as an External Power | `eep` | `eep-` | `docs/eu-external-power-card-plan.md` | 14 / 14 | live, a course in the Special section: 292 of 300 planned cards written; Reading 3 (8 cards) waits for its PDF |
 | Gateway to Global Affairs | `gga` | `gga-` | `docs/gateway-to-global-affairs-card-plan.md` | 21 / 21 | a COURSE (Leiden), 297 of 300 cards written over Lectures 1–6 and 14 readings (from `gga-057` on, from the course texts only); Lecture 7 awaits slides |
 
+📖 `docs/course-refinement-audit.md` — READ BEFORE TOUCHING ANY `pea-`, `eep-` OR `gga-` CARD (the Oct 2026 refinement of the three courses: Greece's rules plus course material, each collection's source bar, `SLIDE-VS-RECORD`, ledger). 📖 `docs/course-chronology.md` — READ BEFORE WRITING A DATE ON A COURSE CARD.
+
 The lowest unused id for a prefix (substitute it); `next-cards.js` does this and also prints the topic:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='jp-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"

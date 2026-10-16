@@ -9769,7 +9769,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "On_the_Cult_of_Personality_and_Its_Consequences": "1956",
 "Kimilsungism–Kimjongilism": "2012–",
 "Xi_Jinping": "2012–present",
-"Central_Commission_for_Discipline_Inspection": "1978–present",
+"Central_Commission_for_Discipline_Inspection": "1949–present",
 "National_People's_Congress": "1954–present",
 "Article_9_of_the_Constitution_of_Japan": "1947–present",
 "National_Diet": "1947–present",
