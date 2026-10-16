@@ -370,8 +370,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       const fr = await A(() => document.querySelector(".atlas2").__atlas2.fronts());
       check("30 November 1942: the front line is drawn from the monthly plate of that date (Europe only), four sets on screen", fr.on && fr.date === 19421130 && fr.standing.join() === "eur:1942-11-30" && fr.drawn.length >= 2 && fr.visible, `${fr.label}; ${fr.drawn.length} faces`);
       const moscow = tone(await px(37.6, 55.75)), kiev = tone(await px(30.5, 50.4)), berlin = tone(await px(13.4, 52.5));
-      check("Moscow is Allied-held ground (green), Kyiv ground the Axis occupied (red-orange) and Berlin Axis-held (red) — the plate's own classes", moscow.gr > 3 && kiev.rg > 3 && berlin.rg > 3, `Moscow ${moscow.r},${moscow.g},${moscow.b}; Kyiv ${kiev.r},${kiev.g},${kiev.b}; Berlin ${berlin.r},${berlin.g},${berlin.b}`);
-      await setF(false); const k2 = tone(await px(30.5, 50.4)); await setF(true);
+      await setF(false); const k2 = tone(await px(30.5, 50.4)), m2 = tone(await px(37.6, 55.75)), b2 = tone(await px(13.4, 52.5)); await setF(true);
+      // the tint is judged against the SAME ground with the front off: the state's own hue under it is a slot of the palette, which a rebuild that adds an entity reassigns (the USSR of 1942 went from a hue that left Moscow green to one that left it grey)
+      check("Moscow is Allied-held ground (green), Kyiv ground the Axis occupied (red-orange) and Berlin Axis-held (red) — the plate's own classes", moscow.gr - m2.gr > 3 && kiev.rg - k2.rg > 3 && berlin.rg - b2.rg > 3, `Moscow ${moscow.r},${moscow.g},${moscow.b} (front off ${m2.r},${m2.g},${m2.b}); Kyiv ${kiev.r},${kiev.g},${kiev.b} (off ${k2.r},${k2.g},${k2.b}); Berlin ${berlin.r},${berlin.g},${berlin.b} (off ${b2.r},${b2.g},${b2.b})`);
       check("the front switch off removes it (Kyiv returns to plain land)", Math.abs(k2.rg - kiev.rg) + Math.abs(k2.gr - kiev.gr) > 3 || k2.r !== kiev.r, `${k2.r},${k2.g},${k2.b}`);
       const fe = await A(() => { const c = document.querySelector(".atlas2").__atlas2; return c.fronts().label; });
       check("the stepper says the date, the theatre and its uncertainty in a sentence", /30 Nov 1942/.test(fe) && /Europe/.test(fe) && /approximate/.test(fe), fe);

@@ -113,7 +113,7 @@ CC0, through `state-capitals-spec.json`) is the way to bring them under the rule
 | ottoman | Edirne (capital, wh-687) | 1365 CE–1374 CE | 98.8 | 98.8 | source | the raw row leaves it 98.8 km outside; the point lies in byzantium |
 | pagan | Bagan (capital, wh-558) | 850 CE–859 CE | 6.1 | 6.1 | source | the raw row leaves it 6.1 km outside |
 | portuguese_empire | Lisbon (capital, wh-675) | 1582 CE–1639 CE | 5529.0–7410.8 | 5526.5 | source | the raw row leaves it 7403.8 km outside; the point lies in spanish_empire; **the build adds 2.5 km** |
-| ptolemaic | Alexandria (capital, gr-767) | 171 BCE–166 BCE | 14.9 | 14.0 | source | the raw row leaves it 14.0 km outside; the point lies in seleucid |
+| ptolemaic | Alexandria (capital, gr-767) | 171 BCE–166 BCE | 6.3 | 14.0 | source | the raw row leaves it 14.0 km outside; the point lies in seleucid |
 | qin | Xianyang (capital, cnh-191) | 751 BCE–352 BCE | 11.8–51.5 | 11.4 | other | the Xianyang row of the Qin-dynasty card (cnh-191) has no start or end qualifier and is read across the whole series (750 BCE on), while the dated Wikidata statement for the Qin state (cnh-155) reads 350–221 BCE: before 350 BCE the registry itself does not say Xianyang was Qin's seat |
 | qin | Xianyang (capital, cnh-191) | 351 BCE–317 BCE | 51.5 | 51.5 | source | the raw row leaves it 51.5 km outside |
 | qing | Beijing (capital, wh-716) | 1644 CE | 99.5 | 99.5 | source | the raw row leaves it 99.5 km outside; the point lies in ming |
@@ -151,36 +151,46 @@ The audit found **one** conflation fault where the raw row holds the seat and th
   lost 4.1 km to it (§1); Chola's Puhar (1241–59 CE) 12.4 km, Byzantium's Constantinople 7.1 km, Malacca 5.8 km, Lisbon 4.2 km — all
   of those were already outside the source, so the audit still files them as *source*, but the build made each worse.
 
-**The fix, in `build-history.js` (`RING_SNAP_FRAC = 0.2`).** A vertex may travel to the coast (D1), a present-day border (D3) or a
-neighbour's line (D2) no farther than **one fifth of the scale of the smallest ring it belongs to** (the square root of the ring's
-area). A vertex over the cap stays where the source put it; the land clip and the sea-chord rule treat it as they treat any vertex
-farther than D1 from the coast. For a polygon over about 75 km across the cap is above D1 and changes nothing.
+**The fix, in `build-history.js` (`RING_SNAP_FRAC = 0.2`, `SMALL_RING_M = 40000`).** A vertex of a **small ring** — scale (√area) under
+40 km, a polygon of under 1,600 km² — may travel to the coast (D1), a present-day border (D3) or a neighbour's line (D2) no farther than
+**one fifth of that scale**; a hole takes its parent's scale. A vertex over the cap stays where the source put it; the land clip and the
+sea-chord rule treat it as they treat any vertex farther than D1 from the coast. Rings of 40 km and over, the presence layer (peoples,
+cultures) and the Second World War fronts are untouched. (Two wider versions were built and measured: a cap on every ring refused
+51,000 snaps and a 60 km cutoff changed the same overlaps; neither improved the audit, and the wider one recoloured nothing less.)
 
 | | before | after |
 |---|---|---|
-| D1 snaps (vertex → coast) | 1,008,668 | 965,506 (**51,264** vertex visits refused by the cap, which is 43,162 fewer snaps) |
-| D2 / D3 snaps | 3,961 / 21,678 | 3,896 / 21,680 (3,005 / 58 refused) |
-| `history.bin` | 9,096,400 bytes | 9,128,436 bytes (§3.1) |
+| D1 snaps (vertex → coast) | 1,008,668 | 970,274 (**45,388** vertex visits refused by the cap) |
+| D2 / D3 snaps | 3,961 / 21,678 | 3,879 / 21,691 (3,005 / 46 refused) |
+| `history.bin` | 9,096,400 bytes | 9,125,408 bytes (§3.1) |
 | seat failures: entries (rows) | 50 (118) | 50 (121) |
-| Carthage 650–631 BCE | 4.5 km, ring gone | holds |
+| Carthage 650–631 BCE | 4.5 km, ring gone | holds (1.3 km from the edge) |
 | Roman Kingdom 550–481 BCE | 6.48 km | 2.76 km (= the source) |
 | Rome, Roman Republic 480–338 BCE | 5.8 km | 2.8 km (= the source) |
 
-**What the cap costs, said plainly.** Three coastal seats were inside 2 km only because the old 15 km snap pulled a coarse polygon onto
-the coast: Byzantium's Constantinople in 674–681 CE (now 2.6 km; the raw row is 6.2 km out), Ptolemaic Egypt's Alexandria in 170–165
-BCE (now 14.9 km; the raw row is 14.0 km out) and the Golden Horde's card place in 1332/34/41 CE (now 5.1 km = the raw row). They are
-*source* faults the old snap had been hiding; they are now listed as such. I judged an honest raw edge better than a seat rescued by a
-12 km move of a corner, but it is a trade, and the cap is one constant if the owner weighs it differently.
+**What the cap costs, said plainly.** Two coastal seats were inside 2 km only because the old 15 km snap pulled a coarse polygon onto the
+coast: Byzantium's Constantinople in 674–681 CE (now 2.6 km; the raw row is 6.2 km out) and the Golden Horde's card place in 1332/34/41 CE
+(now 5.1 km = the raw row). They are *source* faults the old snap had been hiding; they are now listed as such. I judged an honest raw edge
+better than a seat rescued by a 12 km move of a corner, but it is a trade, and the cap is one constant if the owner weighs it differently.
 
-### 3.1 Size and files
+**What else it changed, and why a test moved.** The cap also restores Cliopatria's other small city squares the snap had dropped — three
+4-vertex squares 7 km across in the Mongol Empire of 1245 (two side by side at 53.0–53.2° E 45.9–46.0° N, one at 29.6° E 45.4° N).
+`test-atlas-review.js` counts "pixels in runs beyond the fill's tone" at that view; each square is a pixel or two of border ink at 6 km/px
+(15 pixels in all), so its ceiling went from 8 to 24 with the reason written beside it. A fold is hundreds of pixels long.
 
-`history.bin` is **9,096,400 → 9,128,436 bytes** (+32,036, +0.35 %); the entity table gains three contested overlap entities
+### 3.1 Size, entities, colours and files
+
+`history.bin` is **9,096,400 → 9,125,408 bytes** (+29,008, +0.32 %). The entity table gains three contested overlap entities
 (233 → 236: Pergamon with Rome 164–127 BCE, Byzantium with the Ottomans and Venice 1463–67, Italy with Japan and the Republic of China
-1930–31) and the steps go 3,159 → 3,181, because a polygon that keeps its corners overlaps its neighbours slightly differently and
-three overlaps now clear the 120 km² sliver bar. The cap is not applied to the presence layer (peoples, cultures: no seat, and
-`test-peoples.js` pins their meshes) or to the Second World War fronts; those faces are as before.
-Everything derived was regenerated with the repo's scripts (`build-war-slice.js`, `build-wars.js`, `build-polity-index.js`, `build-credits.js`, the
-`file://` twins); the land, water and relief files are byte-identical.
+1930–31) and the steps go 3,159 → 3,181: a small polygon that keeps its corners overlaps its neighbours, and three overlaps now clear the
+120 km² sliver bar. **Consequence a reader can see: the Atlas gives each polity a colour slot from its index in the entity table
+(`assignSlots`, `atlas.js`), and the contested entities are interleaved in that table, so 182 of 233 indices shifted and most polities
+changed hue** (the Mongol Empire of 1245 went from teal to olive, the USSR of 1942 from a hue that left Moscow green under the front tint to one
+that left it grey). The map is as correct as before — a polity's colour has no meaning — but `test-atlas-render.js` pinned that Moscow
+pixel's hue and now judges the front tint against the same ground with the front off. Any rebuild that adds or removes a contested entity does this;
+making the slot independent of the table order would stop it for good and is not done here.
+Everything derived was regenerated with the repo's scripts (`build-war-slice.js`, `build-wars.js` (unchanged), `build-polity-index.js`
+(unchanged), the `file://` twins); the land, water and relief files are byte-identical.
 
 ## 4. Source faults that need the owner's decision
 

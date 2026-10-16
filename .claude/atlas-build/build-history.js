@@ -153,13 +153,15 @@ const FRONT_SNAP = "ww2-fronts", TOLERANCE_SNAP = Object.assign({ [FRONT_SNAP]: 
    12 km inland parallel to the coast is not a coastline, a border 7 km from a neighbour's drawn twice is one border. */
 const D1_M = 15000, D1_SURE_M = 4000;   // vertex → OSM coast
 const D2_M = 8000, D2_SURE_M = 1000;    // vertex → a neighbour's line in the same epoch
-/* RING_SNAP_FRAC (border audit of 2026-10-16, docs/atlas-v2-border-audit.md §3): a vertex may travel to the coast (D1), a present-day border (D3) or a neighbour's line (D2) no farther than this fraction of the
-   SCALE of the smallest ring it belongs to (the square root of the ring's area). D1's 15 km fits a Cliopatria polygon hundreds of km across and
-   ruins one 30 km across: the Roman Kingdom's 859 km² pentagon had two corners carried 8.8 km and 11.8 km onto the coast (Rome 2.8 km outside the
-   source, 6.5 km after the snap), and Carthage's 7 km square had all four corners snapped onto the coast and vanished. A vertex over the cap stays
-   where the source put it; the land clip and the sea-chord rule do the rest, exactly as for any vertex farther than D1 from the coast. A presence (peoples, cultures) and the
-   Second World War fronts are not capped: they are not territories, have no seat, and test-peoples.js pins their meshes. */
-const RING_SNAP_FRAC = 0.2;
+/* RING_SNAP_FRAC and SMALL_RING_M (border audit of 2026-10-16, docs/atlas-v2-border-audit.md §3): a vertex of a SMALL ring — one whose scale (the square root of
+   its area) is under SMALL_RING_M, 40 km, a polygon of under 1,600 km² — may travel to the coast (D1), a present-day border (D3) or a neighbour's line (D2) no farther
+   than RING_SNAP_FRAC (a fifth) of that scale; a hole takes its parent's scale. D1's 15 km and D2's 8 km fit a Cliopatria polygon hundreds of km across and ruin one
+   30 km across: the Roman Kingdom's 859 km² pentagon had two corners carried 8.8 and 12.4 km onto the coast (Rome 2.8 km outside the source, 6.5 km after the snap),
+   and Carthage's 7 km square — like three squares of the Mongol Empire of 1245 — had its corners snapped onto the coast and vanished. A vertex over the cap stays
+   where the source put it; the land clip and the sea-chord rule treat it as they treat any vertex farther than D1 from the coast. Rings of 40 km and over are not
+   touched, and neither are a presence (peoples, cultures: no seat, a soft cover) or the Second World War fronts (test-peoples.js pins their meshes). Capping every
+   ring instead (tried) refused 51,000 snaps and changed no more of the audit; this refuses far fewer. */
+const RING_SNAP_FRAC = 0.2, SMALL_RING_M = 40000;
 const SEA_M = 120000;    // a sea chord's middle is judged against the nearest coast within this distance (the Adriatic is under 200 km wide)
 const D3_M = 2000;                      // vertex → a present-day border: runs only, never a lone vertex
 const RUN_FACTOR = 3;     // a chord between two junctions on one line follows that line when the short way along it is ≤ this × the chord
@@ -533,7 +535,7 @@ say(`rows: ${allRows.length}, vertices ${allRows.reduce((s, r) => s + r.nv, 0)} 
 /* ================= 2. --measure: the distributions behind D1, D2, D3 ================= */
 const hist = (vals, bins) => { const out = {}; let lo = 0; const sorted = vals.slice().sort((a, b) => a - b); for (const b of bins) { out[(b === Infinity ? "beyond" : lo + "–" + b) + " m"] = sorted.filter((v) => v >= lo && v < b).length; lo = b; } const p = (q) => sorted.length ? Math.round(sorted[Math.min(sorted.length - 1, Math.floor(q * sorted.length))]) : null; return { n: sorted.length, p50: p(0.5), p75: p(0.75), p90: p(0.9), p95: p(0.95), p99: p(0.99), bins: out }; };
 const BINS = [250, 500, 1000, 2000, 3000, 4000, 6000, 8000, 10000, 15000, 20000, 30000, 50000, Infinity];
-const report = { scope: { years: [Y0, Y1], band: BAND, peoples: PEOPLES, nest: { share: NEST_SHARE, ratio: NEST_RATIO } }, slice: SLICE, tolerances_m: TOLERANCE_M, d1_m: D1_M, ring_snap_frac: RING_SNAP_FRAC, d2_m: D2_M, d3_m: D3_M, run_factor: RUN_FACTOR, sliver_km2: SLIVER_KM2, sliver_width_m: SLIVER_WIDTH_M, lod_m: LOD_M };
+const report = { scope: { years: [Y0, Y1], band: BAND, peoples: PEOPLES, nest: { share: NEST_SHARE, ratio: NEST_RATIO } }, slice: SLICE, tolerances_m: TOLERANCE_M, d1_m: D1_M, ring_snap_frac: RING_SNAP_FRAC, small_ring_m: SMALL_RING_M, d2_m: D2_M, d3_m: D3_M, run_factor: RUN_FACTOR, sliver_km2: SLIVER_KM2, sliver_width_m: SLIVER_WIDTH_M, lod_m: LOD_M };
 /* epochs: the change years of every row; alive sets keyed so identical sets are conflated once */
 const years = new Set();
 for (const r of allRows) { years.add(r.from); years.add(r.to + 1); }
@@ -588,6 +590,28 @@ const CLS = { FIRM: 0, APPROX: 1, SOFT: 2, DISPUTED: 3, CONTESTED: 4, NESTED: 5 
 const stat = { near: new Set(), arcsOwn: 0, arcsCoast: 0, arcsBorderRef: 0, contestedFaces: 0, unmappedKm2: 0, unmappedPieces: 0, slivers: 0, sliverKm2: 0, runsDropped: 0, runsBorder: 0, crossings: 0, d1: 0, d1Capped: 0, d2: 0, d2Capped: 0, d3: 0, d3Capped: 0, open: 0, touches: new Map() };
 
 const followsRingPos = (pa, pb) => { const L = pa.ring.lenM; const dF = ((pb.pos - pa.pos) % L + L) % L, dB = L - dF; return Math.min(dF, dB); };
+/* The scale of each of a row's rings, in metres: the square root of its area (a planar sum on the quantised plane, longitudes unwrapped and scaled by cos φ);
+   a HOLE (a ring inside an odd number of the row's other rings) takes its parent's scale. Cached on the row: a row's rings are the same in every epoch it lives. */
+function ringScalesOf(r) {
+  if (r.ringScaleM) return r.ringScaleM;
+  const info = r.rings.map((ring) => {
+    const n = ring.length, xs = new Array(n), ys = new Array(n); let cx = ring[0][0], ym = 0, area = 0, x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (let i = 0; i < n; i++) { if (i) { let dx = ring[i][0] - ring[i - 1][0]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; cx += dx; } xs[i] = cx; ys[i] = ring[i][1]; ym += ys[i]; if (cx < x0) x0 = cx; if (cx > x1) x1 = cx; if (ys[i] < y0) y0 = ys[i]; if (ys[i] > y1) y1 = ys[i]; }
+    for (let i = 0, j = n - 1; i < n; j = i++) area += (xs[j] - xs[i]) * (ys[j] + ys[i]) / 2;
+    const k = Math.cos((ym / n) * Q * D2R) * Q * Q * 111195 * 111195;
+    return { xs, ys, n, x0, x1, y0, y1, area: Math.abs(area), own: n < 3 ? 0 : Math.sqrt(Math.abs(area) * k) };
+  });
+  const inside = (P, px, py) => { for (const off of [0, 2 * X180, -2 * X180]) { const qx = px + off; if (qx < P.x0 || qx > P.x1 || py < P.y0 || py > P.y1) continue; let c = false; for (let i = 0, j = P.n - 1; i < P.n; j = i++) if ((P.ys[i] > py) !== (P.ys[j] > py) && qx < (P.xs[j] - P.xs[i]) * (py - P.ys[i]) / (P.ys[j] - P.ys[i]) + P.xs[i]) c = !c; if (c) return true; } return false; };
+  r.ringScaleM = info.map((a, i) => {
+    if (info.length < 2) return a.own;
+    let depth = 0, parent = -1, pa = Infinity;
+    // five sample vertices, a majority: a hole may share a vertex with its parent's line
+    const pick = [0, 1, 2, 3, 4].map((t) => Math.min(a.n - 1, Math.floor(t * a.n / 5)));
+    for (let j = 0; j < info.length; j++) { if (j === i || info[j].area <= a.area) continue; let votes = 0; for (const t of pick) if (inside(info[j], a.xs[t], a.ys[t])) votes++; if (votes * 2 > pick.length) { depth++; if (info[j].area < pa) { pa = info[j].area; parent = j; } } }
+    return depth % 2 && parent >= 0 ? info[parent].own : a.own;
+  });
+  return r.ringScaleM;
+}
 /* ================= 4. one epoch ================= */
 function conflate(alive, label) {
   /* ---- the rings this epoch can touch: a ring whose box meets an alive row's box grown by D1 (an island inside a polity, a coast a
@@ -601,22 +625,14 @@ function conflate(alive, label) {
   const VX = [], VY = [], vkey = new Map(), VON = [];   // VON[v]: null | { coast: { k, t } } | { bord: { k, t } } (a junction on a core line)
   const vertAt = (x, y) => { const k = pkey(x, y); let v = vkey.get(k); if (v == null) { v = VX.length; vkey.set(k, v); VX.push(x); VY.push(y); VON.push(null); } return v; };
   const lines = [];   // { row, ring, v: [vertex…] (closed: last === first is NOT repeated), ownerRow }
-  for (const r of alive) for (const ring of r.rings) lines.push({ row: r, v: ring.map(([x, y]) => vertAt(x, y)) });
+  for (const r of alive) r.rings.forEach((ring, idx) => lines.push({ row: r, idx, v: ring.map(([x, y]) => vertAt(x, y)) }));
   for (const L of lines) { const out = []; for (const v of L.v) if (!out.length || out[out.length - 1] !== v) out.push(v); if (out.length > 1 && out[0] === out[out.length - 1]) out.pop(); L.v = out; }
   const rowOfLine = new Map(); lines.forEach((L, i) => rowOfLine.set(i, L.row));
-  /* ---- the scale cap of D1: sqrt(area) of the smallest ring a vertex belongs to, times RING_SNAP_FRAC (metres) ---- */
-  const ringScaleM = (L) => {
-    const n = L.v.length; if (n < 3) return 0;
-    let cx = VX[L.v[0]], area = 0, ymean = 0; const xs = new Array(n), ys = new Array(n);
-    for (let i = 0; i < n; i++) { let x = VX[L.v[i]]; if (i) { let dx = x - VX[L.v[i - 1]]; if (dx > X180) dx -= 2 * X180; else if (dx < -X180) dx += 2 * X180; cx += dx; } xs[i] = cx; ys[i] = VY[L.v[i]]; ymean += ys[i]; }
-    ymean /= n;
-    const kx = Math.cos(ymean * Q * D2R) * Q * 111195, ky = Q * 111195;
-    for (let i = 0, j = n - 1; i < n; j = i++) area += (xs[j] - xs[i]) * (ys[j] + ys[i]) / 2;   // the trapezoid sum: the ring's signed area
-    return Math.sqrt(Math.abs(area) * kx * ky);
-  };
+  /* ---- the scale cap of D1, D2 and D3: RING_SNAP_FRAC × the scale (√area, metres) of the ring a vertex belongs to — a hole's scale is its parent's:
+     a lake hole in a polygon 2,000 km across is not a polygon 5 km across ---- */
   const capM = new Map();   // vertex → metres; empty for a presence (peoples, cultures: a soft cover that has no seat and is conflated alone) and for a front
   const capped = !PRES && !(alive.length && alive.every((r) => r.series.kind === "front"));
-  if (capped) for (const L of lines) { const c = RING_SNAP_FRAC * ringScaleM(L); for (const v of L.v) { const o = capM.get(v); if (o == null || c < o) capM.set(v, c); } }
+  if (capped) for (const L of lines) { const sc = ringScalesOf(L.row)[L.idx]; if (sc >= SMALL_RING_M) continue; const c = RING_SNAP_FRAC * sc; for (const v of L.v) { const o = capM.get(v); if (o == null || c < o) capM.set(v, c); } }
   /* ---- d1: coast junctions ---- */
   const snapTo = (v, px, py, kind, src0) => {
     const src = alive.length && alive.every((r) => r.series.kind === "front") ? FRONT_SNAP : src0;
@@ -1235,7 +1251,7 @@ function conflate(alive, label) {
    the same functions in the same order) */
 const CACHE_DIR = (() => {
   const h = crypto.createHash("sha256");
-  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).update(fs.readFileSync(path.join(HERE, "war-series.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, RING_SNAP_FRAC, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, MAX_CHORD_M, v: 7 }));
+  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).update(fs.readFileSync(path.join(HERE, "war-series.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, RING_SNAP_FRAC, SMALL_RING_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, MAX_CHORD_M, v: 7 }));
   return path.join(OUT, "history-cache", h.digest("hex").slice(0, 16));
 })();
 if (USE_CACHE) { fs.mkdirSync(CACHE_DIR, { recursive: true }); say(`epoch cache: ${path.relative(HERE, CACHE_DIR)} (${fs.readdirSync(CACHE_DIR).length} epochs cached)`); }
@@ -1287,7 +1303,7 @@ for (const e of epochs) {
    their own whose hash covers the state layer's size (a changed state layer invalidates it) and the rows themselves. */
 const statesDone = { arcs: ARCS.length, faces: FACES.length, ents: ENT.length, steps: STEPS.length };
 const statStates = statSnap();
-const CACHE_DIR_P = path.join(OUT, "history-cache", "presence-" + crypto.createHash("sha256").update(JSON.stringify({ CACHE: path.basename(CACHE_DIR), statesDone, rows: presenceRows.map((r) => [r.series.key, r.name, r.from, r.to, r.nv, r.series.src]), D1_M, D1_SURE_M, RING_SNAP_FRAC, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, SEA_M, MAX_CHORD_M, v: 2 })).digest("hex").slice(0, 16));
+const CACHE_DIR_P = path.join(OUT, "history-cache", "presence-" + crypto.createHash("sha256").update(JSON.stringify({ CACHE: path.basename(CACHE_DIR), statesDone, rows: presenceRows.map((r) => [r.series.key, r.name, r.from, r.to, r.nv, r.series.src]), D1_M, D1_SURE_M, RING_SNAP_FRAC, SMALL_RING_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, SEA_M, MAX_CHORD_M, v: 2 })).digest("hex").slice(0, 16));
 if (USE_CACHE) fs.mkdirSync(CACHE_DIR_P, { recursive: true });
 {
   let n = 0, replayedP = 0;

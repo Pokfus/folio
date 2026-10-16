@@ -135,6 +135,9 @@ async function strokePixelsFarFromWater(page) {
   console.log("\n\x1b[1m1b) a fill is drawn once: no pixel beyond the fill's tone where the coast stroke is off\x1b[0m\n");
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    // the ceiling is 24, not 8 (border audit, 2026-10-16): Cliopatria's Mongol Empire of 1245 has three 4-vertex squares 7 km across (two side by side at 53.0–53.2°E 45.9–46.0°N, one at
+    // 29.6°E 45.4°N) that the 15 km coast snap used to collapse onto the coast and drop, as it dropped Carthage's; the capped snap keeps them, and at 6 km/px each is a pixel or two of
+    // border ink, about 5 pixels in runs. A fold is hundreds of pixels long (the 2a worker's thick chord across Latium).
     for (const v of [{ name: "the Mongol Empire about the Ob, 1245, 6 km/px", hash: "#map/72/62/4.71?y=1245" }, { name: "the Russian Empire over Europe, 1900, 3 km/px", hash: "#map/30/52/5.71?y=1900" }]) {
       const { page, errors } = await open(context, v.hash, true);
       // only the fills, the borders and the polity names: a river or a lake shore is a blue stroke, and a blue polity's axis passes through it
@@ -142,7 +145,7 @@ async function strokePixelsFarFromWater(page) {
       await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.labelsReady() && c.tilesSettled() && c.historySettled(); }, null, { timeout: 60000 }); await sleep(300);
       const r = await strokePixelsFarFromWater(page);
       check(`${v.name}: polities drawn, the coast stroke off`, r.faces > 0 && r.strokePx === 0 && r.colours > 0, `${r.faces} faces, ${r.colours} colours, ${r.kmPerPx.toFixed(2)} km/px`);
-      check(`${v.name}: no run of pixels beyond the fill's tone (a fold in the mesh)`, r.darkRuns <= 8, `${r.darkRuns} pixels in runs of ${r.strokey} beyond the tone` + (r.darkAt.length ? "; at " + r.darkAt.map((p) => p.join(",")).join(" ") : ""));
+      check(`${v.name}: no run of pixels beyond the fill's tone (a fold in the mesh)`, r.darkRuns <= 24, `${r.darkRuns} pixels in runs of ${r.strokey} beyond the tone` + (r.darkAt.length ? "; at " + r.darkAt.map((p) => p.join(",")).join(" ") : ""));
       check(`${v.name}: no run of land pixels inside a fill (a crack in the mesh)`, r.crackRuns <= 8, `${r.crackRuns} pixels in runs` + (r.crackAt.length ? "; at " + r.crackAt.map((p) => p.join(",")).join(" ") : ""));
       errorsAll.push(...errors); await page.close();
     }
