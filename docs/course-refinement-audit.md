@@ -211,12 +211,12 @@ registration under public security, not "the party" (`pea-093`); the party dates
 October 1976, not Mao's death in September (`pea-095`); the centre funded about 30% of the 4-trillion-yuan stimulus
 (`pea-099`).
 
-**Date lines.** Empty and `undatable`: `pea-052`, `pea-065`, `pea-075`, `pea-085`, `pea-089`, `pea-091`, `pea-092`.
+**Date lines.** Empty (and `undatable`): `pea-052`, `pea-062`, `pea-065`, `pea-066`, `pea-067`, `pea-069`, `pea-070`, `pea-075`, `pea-085`, `pea-089`, `pea-091`, `pea-092`.
 `pea-057`'s Supreme Court keeps its 1947 start (the constitution fixes it), and `pea-087`'s Democratic Party keeps two
 dated rows (predecessor March 2014; the English name 2016).
 
-**Glossary.** Corrected entries went in for `pea-062` (Chaebol) and `pea-053`/`pea-056` were left as they were; `pea-040`
-(1955 System) reads "elected Prime Minister", not "took office". `pea-090`'s glossary gives 27 April 1960 for Rhee's
+**Glossary.** One corrected entry went in, for `pea-062` (Chaebol: the paywalled 1970s claim replaced); the other glossary entries agreed
+with their cards. `pea-090`'s glossary gives 27 April 1960 for Rhee's
 resignation where the Library of Congress says 26 April: the card says only "April 1960" and the entry is left for the
 glossary pass.
 
@@ -280,4 +280,20 @@ Per card (sources old → new; the `SLIDE-VS-RECORD` lines are condensed, the fu
 - `pea-098` Red capitalists — sources 5 → 8; SLIDE-VS-RECORD · question 1 'often former officials' -> Carnegie summary of Dickson: two-thirds of red capitalists were party members before going into business (not former officials; no opened source for officials) -> card says that. · 'run many of China's largest firms' …
 - `pea-099` Advance of the state, retreat of the private — sources 5 → 7; SLIDE-VS-RECORD · lecture 'the 2008 stimulus went overwhelmingly to state firms' -> centre funded ~30 percent of the 4 trillion yuan; the bulk of credit (bank lending) went mainly to SOEs and local governments (Naughton CLM 28/30, Pearson et al.); card says that. · 'private …
 - `pea-100` Reds and experts — sources 5 → 7; SLIDE-VS-RECORD · lecture 'the reform era settled the argument in favour of expertise' -> Doyon and Yang (Walder): redness never replaced by expertise; 1980 document 'be both red and expert'; 2019 rules put political standards first -> card says that. · 'radical phases …
+
+
+**Pictures for `pea-051`–`pea-100`, and the second pass over `pea-001`–`pea-050`** (own commit). Same rules and client as
+the first pass. The second pass (up to 8 requests a card) went back to the people, places and events the first pass had emptied
+for want of requests, and found a picture for `pea-006` (Xi Jinping, Kremlin portrait, CC BY 4.0), `pea-021` (the Great Hall
+of the People, where the Congress meets, said so in the description), `pea-033` (the Dai-Ichi Building, from 1953, which the
+description says), `pea-035` (a panorama of Okinawa's west coast, very wide) and `pea-039` (Emperor Naruhito, CC0). It found
+none for `pea-002`, `pea-016` (no free photograph of Xu Zhangrun on Commons), `pea-036` (the only free parade photograph carries
+a banner and shows one branch), `pea-063`, `pea-094` (every furnace photograph is under 960 px) and `pea-073`/`pea-074`: for the
+last two the only usable files are under the Korean government's KOGL Type 1 licence, which this audit's list of free
+licences (PD, CC0, CC BY, CC BY-SA) does not include, so they have **no picture and are an owner decision** (a ready candidate
+exists for each). `pea-082` (Roh Moo-hyun) lost an under-960-pixel picture and was not retried. `pea-064` shows Park Chung-hee
+with the Kennedys (the only free file at 960 px or more), `pea-095` is portrait-shaped, `pea-059`'s and `pea-077`'s portraits
+are tight crops by their publishers; each is a judgement call listed in the PR.
+- **Pictures kept or replaced (19):** `pea-052` The Kishida cabinet, 2021; `pea-057` Supreme Court of Japan; `pea-058` Fumio Kishida, 2021; `pea-059` Takaichi Sanae, 2025; `pea-060` Yuriko Koike; `pea-061` Candlelight protest, Seoul, December 2016; `pea-064` Park Chung-hee at the White House, 1961; `pea-070` Cheong Wa Dae, Seoul; `pea-071` The Constitutional Court of Korea; `pea-076` Protest against martial law, December 2024; `pea-077` Yoon Suk Yeol; `pea-078` Park Geun-hye at the White House, 2013; `pea-079` The raised MV Sewol, Mokpo, 2017; `pea-081` Moon Jae-in, May 2017; `pea-083` Lee Myung-bak, New Year 2010; `pea-084` Lee Jae-myung, president of South Korea; `pea-085` National Assembly Building, Seoul; `pea-090` Syngman Rhee, 1931; `pea-095` Mass rally of Red Guards, 1967.
+- **No picture (31):** `pea-051` (picture removed), `pea-053` (picture removed), `pea-054`, `pea-055`, `pea-056` (picture removed), `pea-062`, `pea-063` (picture removed), `pea-065`, `pea-066`, `pea-067`, `pea-068`, `pea-069`, `pea-072` (picture removed), `pea-073` (picture removed), `pea-074`, `pea-075` (picture removed), `pea-080`, `pea-082` (picture removed), `pea-086` (picture removed), `pea-087`, `pea-088` (picture removed), `pea-089`, `pea-091` (picture removed), `pea-092`, `pea-093` (picture removed), `pea-094` (picture removed), `pea-096` (picture removed), `pea-097`, `pea-098`, `pea-099`, `pea-100`.
 
