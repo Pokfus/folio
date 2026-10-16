@@ -160,6 +160,8 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `wh-chronology.md` | The dates and conventions the World History collection commits to, with the pins `wh-audit.js` checks. |
 | `rome-refinement-audit.md` | The Oct 2026 refinement of all 1,000 Ancient Rome cards: the rules (Greece's, plus tradition against fact), the 100 batches with their baseline finding counts, pictures to redo, glossary candidates and the ledger. **Open.** |
 | `rome-chronology.md` | The dates, conventions (AUC, consular and legendary years) and spellings the Ancient Rome collection commits to, with the pins `rm-audit.js` checks. |
+| `course-refinement-audit.md` | The Oct 2026 refinement of the three Special-section courses (`pea-`, `eep-`, `gga-`, 809 cards): what differs from Greece (course material, the source bars, the date trap), the settled rules, the method and the ledger. **Open.** |
+| `course-chronology.md` | The treaties, summits, votes and dated events the course collections print, with the pins the audit checks. |
 | `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and what is still open — the Athens deck's register and the coverage gaps. **The Rutter concentration, its loudest finding, is CLEARED**: no `gr-` card cites that course website in more than two of its sources. |
 | `learning-science.md` | What the learning-science literature says works and does not, and twenty proposals for Folio. **Thirteen shipped Sep 2026; seven still proposals.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
