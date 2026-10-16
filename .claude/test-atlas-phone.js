@@ -68,8 +68,11 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
   const browser = await chromium.launch(LAUNCH);
   const css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8");
   console.log("\n\x1b[1m0) the stylesheet's phone rules carry the safe-area insets\x1b[0m\n");
-  const phoneRules = css.split("\n").filter((l) => l.startsWith(".atlas2-phone")).join("\n");
-  for (const what of [".atlas2-zoom", ".atlas2-status", ".atlas2-card", ".atlas2-sheet", ".atlas2-mode", ".atlas2-search"]) check(`${what} on a phone is written against env(safe-area-inset-*)`, phoneRules.split("\n").some((l) => l.includes(what) && /env\(safe-area-inset-(left|right|bottom)\)/.test(l)));
+  const phoneRules = css.split("\n").filter((l) => l.startsWith(".atlas2-phone") || l.startsWith(".atlas2.atlas2-phone")).join("\n");
+  // since the decluttered phone (Oct 2026) the side insets are two custom properties on .atlas2-phone (--atlas2-sl, --atlas2-sr), written against env(); a rule that reads them is written against the insets too
+  const insetVars = /--atlas2-sl:max\(12px, env\(safe-area-inset-left\)\)/.test(phoneRules) && /--atlas2-sr:max\(12px, env\(safe-area-inset-right\)\)/.test(phoneRules);
+  check("the phone's side insets are defined once, against env(safe-area-inset-left / right)", insetVars);
+  for (const what of [".atlas2-zoom", ".atlas2-status", ".atlas2-card", ".atlas2-menu", ".atlas2-mode", ".atlas2-search", ".atlas2-rail"]) check(`${what} on a phone is written against env(safe-area-inset-*) (directly or through --atlas2-sl / --atlas2-sr)`, phoneRules.split("\n").some((l) => l.includes(what) && (/env\(safe-area-inset-(left|right|bottom)\)/.test(l) || /var\(--atlas2-(sl|sr|tl)\)/.test(l))) || css.split("\n").some((l) => l.includes(what + "-body") && /env\(safe-area-inset-/.test(l)));
 
   for (const V of VIEWPORTS) {
     const mobile = !V.tablet;

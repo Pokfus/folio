@@ -10403,9 +10403,9 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 /* the menu's sheet */
 .atlas2-phone .atlas2-menu{position:absolute; left:0; right:0; bottom:0; z-index:6; display:flex; flex-direction:column; box-sizing:border-box; max-height:calc(100% - 208px); border-radius:16px 16px 0 0; border:1px solid var(--rule); border-bottom:0; background:var(--card); color:var(--ink); font:calc(14px * var(--fs, 1))/1.3 var(--sans); box-shadow:0 -8px 24px rgba(0,0,0,.18);}
 .atlas2-phone .atlas2-menu[hidden]{display:none;}
-.atlas2-menu-head{flex:none; display:flex; align-items:center; justify-content:space-between; gap:8px; padding:4px 8px 0 16px; font-family:var(--display);}
+.atlas2-menu-head{flex:none; display:flex; align-items:center; justify-content:space-between; gap:8px; padding:4px max(8px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); font-family:var(--display);}
 .atlas2-menu-close{appearance:none; flex:none; min-width:44px; min-height:44px; border:0; background:none; color:var(--ink-soft); font:calc(22px * var(--fs, 1))/1 var(--sans); cursor:pointer;}
-.atlas2-menu-body{flex:1 1 auto; min-height:0; overflow:auto; overscroll-behavior:contain; display:flex; flex-direction:column; gap:8px; padding:0 12px 12px;}
+.atlas2-menu-body{flex:1 1 auto; min-height:0; overflow:auto; overscroll-behavior:contain; display:flex; flex-direction:column; gap:8px; padding:0 max(12px, env(safe-area-inset-right)) 12px max(12px, env(safe-area-inset-left));}
 .atlas2-phone .atlas2-menu .atlas2-study{position:static; width:auto; max-height:none; overflow:visible; box-shadow:none; border:0; padding:0; background:none;}
 .atlas2-menu-row{appearance:none; display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; box-sizing:border-box; min-height:44px; padding:0 12px; border:1px solid var(--rule); border-radius:10px; background:var(--paper); color:var(--ink); font:600 calc(14px * var(--fs, 1))/1.2 var(--sans); text-align:left; cursor:pointer;}
 .atlas2-menu-row i{flex:none; display:inline-block; width:.5em; height:.5em; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:translateY(-.12em) rotate(45deg); transition:transform .15s;}
