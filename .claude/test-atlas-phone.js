@@ -323,13 +323,13 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
     check("the menu button opens a sheet holding the Map / Personal / Full switch, its count line, the layers and legend, and the help", mn.open && mn.expanded === "true" && mn.modes && mn.sum && /place/.test(mn.sumText) && mn.layers && mn.help && mn.b <= mn.tabTop + 0.5 && mn.radios.every((h) => h >= 44), `${JSON.stringify(mn.sumText)}; sheet ${Math.round(mn.top)}–${Math.round(mn.b)} (tab bar ${Math.round(mn.tabTop)}); focus on ${mn.focus}`);
     await page.screenshot({ path: path.join(OUT, `${V.name}-declutter-menu.png`) });
     await page.click('[data-mode="personal"]'); await sleep(900);
-    check("the switch in the menu works: Personal marks the reader's places", (await page.evaluate(() => document.querySelector(".atlas2").__atlas2.study.mode())) === "personal" && (await page.evaluate(() => document.querySelector(".atlas2").__atlas2.marks().length)) > 0);
+    check("the switch in the menu works: Personal marks the reader's places", (await page.evaluate(() => document.querySelector(".atlas2").__atlas2.study.mode())) === "personal" && (await page.evaluate(() => document.querySelector(".atlas2").__atlas2.study.marks().length)) > 0);
     await page.tap('[data-sec="layers"] .atlas2-menu-row'); await sleep(300);
     const lg = await page.evaluate(() => { const r = document.querySelector('input[data-layer="rivers"]'); const rb = r && r.getBoundingClientRect(); const body = document.querySelector(".atlas2-menu-body"); return { rivers: !!rb && rb.width > 0, scrolls: body.scrollHeight > body.clientHeight, expanded: document.querySelector('[data-sec="layers"] .atlas2-menu-row').getAttribute("aria-expanded"), menuTop: document.querySelector(".atlas2-menu").getBoundingClientRect().top }; });
     check("\"Layers and legend\" opens the layer switches inside the sheet (and the sheet scrolls inside itself)", lg.rivers && lg.expanded === "true" && lg.scrolls && lg.menuTop >= 60, JSON.stringify(lg));
     await page.screenshot({ path: path.join(OUT, `${V.name}-declutter-layers.png`) });
     await page.tap('input[data-layer="rivers"]'); await sleep(200);
-    check("a layer switch in the menu changes the map's layers", (await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layers.rivers)) === false);
+    check("a layer switch in the menu changes the map's layers", (await page.evaluate(() => document.querySelector('input[data-layer="rivers"]').checked)) === false);
     await page.tap('input[data-layer="rivers"]'); await sleep(200);
     await page.tap('[data-sec="help"] .atlas2-menu-row'); await sleep(300);
     check("\"Help\" opens the About text inside the sheet, and the legend closes (one at a time)", (await vis(page, ".atlas2-about")) && !(await vis(page, "#atlas2-sheet")));

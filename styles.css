@@ -10058,7 +10058,6 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-back:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 /* Phase 4b: "Back" to the card a window's tap or go button left; the search steps aside for it (the only time the two share the top-left) */
 .atlas2-has-back .atlas2-search{left:76px; width:min(300px, calc(100% - 76px - 62px));}
-.atlas2-phone.atlas2-has-back .atlas2-search{left:76px; width:calc(100% - 76px - 80px);}
 .atlas2-search-in{width:100%; box-sizing:border-box; padding:8px 12px; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:calc(15px * var(--fs, 1))/1.3 var(--sans); outline:none;}
 .atlas2-search-in:focus-visible{box-shadow:0 0 0 2px var(--indigo);}
 .atlas2-results{position:absolute; left:0; right:0; top:calc(100% + 4px); margin:0; padding:4px 0; list-style:none; border-radius:10px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:calc(14px * var(--fs, 1))/1.3 var(--sans); box-shadow:0 8px 24px rgba(0,0,0,.14); max-height:min(360px, 60vh, var(--atlas2-list-max, 100vh)); overflow:auto;}   /* --atlas2-list-max: the room between the list's top and the visual viewport's bottom, so the list stays above a soft keyboard (Phase 1d) */
@@ -10134,11 +10133,6 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-phone .atlas2-card-shut .atlas2-card-body{display:none;}
 .atlas2-phone .atlas2-grip{display:block; appearance:none; border:0; background:none; padding:8px 0 2px; cursor:pointer; width:100%;}
 .atlas2-phone .atlas2-grip i{display:block; width:42px; height:5px; margin:0 auto; border-radius:3px; background:var(--rule);}
-.atlas2-phone.atlas2-has-card .atlas2-zoom, .atlas2-phone.atlas2-has-card .atlas2-layers, .atlas2-phone.atlas2-has-card .atlas2-help{right:max(12px, env(safe-area-inset-right));}   /* the first selector read `.atlas2-phone .atlas2-has-card` (a descendant) until Phase 1d and never matched: with a card open the zoom stack sat 400 px off the left edge of a phone */
-.atlas2-phone .atlas2-layers-btn{width:auto; padding:0 12px; font:600 calc(14px * var(--fs, 1))/1 var(--sans); border-radius:999px;}
-.atlas2-phone .atlas2-sheet{position:fixed; left:0; right:0; bottom:0; z-index:6; border-radius:16px 16px 0 0; max-height:70vh; overflow:auto; box-shadow:0 -8px 24px rgba(0,0,0,.18);}
-.atlas2-phone .atlas2-search{width:calc(100% - 80px);}
-.atlas2-phone .atlas2-caption{bottom:12px;}
 .atlas2-keys{position:absolute;}
 .atlas2-keys ul{margin:0; padding:0; list-style:none;}
 .atlas2-keys button{appearance:none; border:0; background:none; padding:0; font:inherit;}
@@ -10147,8 +10141,6 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-study{position:absolute; left:12px; top:58px; z-index:3; box-sizing:border-box; width:min(300px, calc(100% - 90px)); display:flex; flex-direction:column; gap:5px; padding:6px; border-radius:12px; border:1px solid var(--rule); background:var(--card); color:var(--ink); font:calc(13px * var(--fs, 1))/1.35 var(--sans); box-shadow:0 2px 10px rgba(0,0,0,.1);}
 .atlas2-study[hidden]{display:none;}
 .atlas2-has-card .atlas2-study{width:min(300px, calc(100% - 486px));}
-.atlas2-phone .atlas2-study{left:max(12px, env(safe-area-inset-left)); top:68px; width:min(300px, calc(100% - 112px - env(safe-area-inset-left) - env(safe-area-inset-right)));}   /* the Legend pill is the widest control of the right-hand column on a phone (69 px at 16 px text): the panel stops short of it */
-.atlas2-phone .atlas2-study{max-height:calc(var(--atlas2-h, 100vh) - 68px - var(--atlas2-rail-h, 62px) - 24px); overflow-y:auto;}   /* Phase 3c: opened on a phone on its side it stops above the year rail and scrolls inside itself */
 .atlas2-study-modes{display:flex; gap:2px; padding:2px; border-radius:9px; background:var(--paper-2);}
 .atlas2-study-modes button{flex:1 1 0; min-width:0; min-height:34px; appearance:none; border:0; border-radius:7px; padding:5px 6px; background:none; color:var(--ink-soft); font:600 calc(13px * var(--fs, 1))/1.2 var(--sans); cursor:pointer;}
 .atlas2-phone .atlas2-study-modes button{min-height:44px;}
@@ -10230,12 +10222,9 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-keys-help dt{font-family:var(--mono); font-size:calc(11.5px * var(--fs, 1)); color:var(--ink-quiet); white-space:nowrap;}
 .atlas2-keys-help dd{margin:0; color:var(--ink-soft);}
 .atlas2-about-perf{display:flex; align-items:center; gap:8px; margin:8px 0 0; font-size:calc(13px * var(--fs, 1)); color:var(--ink-soft); cursor:pointer;}   /* Phase 2a: the frame-statistics switch */
-.atlas2-phone .atlas2-help{top:auto; bottom:calc(60px + env(safe-area-inset-bottom)); right:12px;}
-.atlas2-phone .atlas2-about{position:fixed; left:0; right:0; bottom:calc(var(--atlas2-rail-h, 62px) + 12px); max-width:none; z-index:6; border-radius:16px 16px 0 0; max-height:70vh; overflow:auto; box-shadow:0 -8px 24px rgba(0,0,0,.18); padding-bottom:calc(12px + env(safe-area-inset-bottom));}
 .atlas2-announce{position:absolute;}
 .atlas2-mode{position:absolute; left:12px; right:12px; bottom:12px; margin:0; padding:8px 12px; border-radius:10px; background:var(--card); color:var(--ink-soft); font:calc(13px * var(--fs, 1))/1.4 var(--sans); max-width:520px; box-shadow:0 2px 8px rgba(0,0,0,.08);}
 .atlas2-mode[hidden]{display:none;}
-.atlas2-phone .atlas2-mode{bottom:calc(12px + env(safe-area-inset-bottom)); right:12px; left:12px;}
 
 /* ---------- Atlas v2, Phase 2a: the year rail, the historical place card (Oct 2026; docs/atlas-v2-design.md §2.4, §2.9) ---------- */
 /* The rail sits along the foot of the Atlas (the design: "along the bottom runs a year rail"); the status line, the caption, the
@@ -10262,10 +10251,9 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-rail-year.atlas2-rail-bad{border-color:var(--zh); color:var(--zh);}
 .atlas2-rail-speed{flex:none; appearance:auto; padding:4px 4px; border-radius:8px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); font:calc(12.5px * var(--fs, 1))/1.3 var(--sans);}
 .atlas2-status, .atlas2-mode{bottom:calc(12px + var(--atlas2-rail-h) + 8px);}
-.atlas2-caption, .atlas2-phone .atlas2-caption{bottom:calc(12px + var(--atlas2-rail-h) + 8px);}
+.atlas2-caption{bottom:calc(12px + var(--atlas2-rail-h) + 8px);}
 .atlas2-perf{bottom:calc(12px + var(--atlas2-rail-h) + 8px); max-height:calc(100% - 24px - var(--atlas2-rail-h) - 8px);}
 .atlas2-has-card .atlas2-rail{right:calc(min(380px, calc(100% - 24px)) + 24px);}
-.atlas2-phone .atlas2-rail{left:max(12px, env(safe-area-inset-left)); right:max(12px, env(safe-area-inset-right)); bottom:calc(12px + env(safe-area-inset-bottom));}
 /* two lines under 600 px (atlas.js sets .atlas2-narrow from the container's width, phone flag or not — Phase 2b, the 2a review): ‹ track ›
    above, then year · play · speed. The track's basis is the whole first line, so the wrap is forced rather than left to the content
    (at 390 px the controls fitted one line at their minimum widths and the speed select was clipped to "25/"); nothing shrinks below
@@ -10275,18 +10263,9 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-narrow .atlas2-rail-year{flex:1 1 6.2em; width:auto; min-width:5.5em;}
 .atlas2-narrow .atlas2-rail-speed, .atlas2-narrow .atlas2-rail-play{flex:none;}
 .atlas2-narrow:not(.atlas2-phone){--atlas2-rail-h:90px;}   /* 5 + 36 + 4 + 36 + 5 + the border, with the desktop's 36 px targets */
-.atlas2-phone.atlas2-narrow .atlas2-rail-track{flex-basis:calc(100% - 88px - 8px);}   /* 44 px targets */
 .atlas2-phone .atlas2-rail-btn{width:44px; height:44px;}   /* the phone target size (test-atlas-phone) */
-.atlas2-phone .atlas2-rail-track{height:40px;}
-.atlas2-phone .atlas2-rail-year{min-height:40px;}
-.atlas2-phone .atlas2-rail-speed{min-height:40px;}
-.atlas2-phone.atlas2-narrow{--atlas2-rail-h:104px;}   /* 5 + 44 + 4 + 44 + 5 + the border */
-.atlas2-phone:not(.atlas2-narrow){--atlas2-rail-h:56px;}   /* a phone on its side keeps one line of 44 px targets (the 2a note) */
-.atlas2-phone.atlas2-has-card .atlas2-rail{right:max(12px, env(safe-area-inset-right));}
 .atlas2-narrow.atlas2-has-card .atlas2-rail{right:12px;}   /* a narrow screen the phone flag missed: the card covers the width, the rail keeps its own */
 .atlas2-phone.atlas2-has-card .atlas2-card{z-index:5;}
-.atlas2-phone .atlas2-help{bottom:calc(60px + var(--atlas2-rail-h) + env(safe-area-inset-bottom));}
-.atlas2-phone .atlas2-mode{bottom:calc(12px + var(--atlas2-rail-h) + 8px + env(safe-area-inset-bottom));}
 /* the historical place card */
 .atlas2-steps{position:relative; height:18px; margin:4px 0 6px; border-radius:4px; background:var(--paper-2);}
 .atlas2-step{position:absolute; top:3px; height:12px; appearance:none; border:0; padding:0; border-radius:2px; background:var(--ink-faint); cursor:pointer; min-width:2px;}
@@ -10334,22 +10313,14 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 /* 44 px targets on a coarse pointer; the chips, sheets and notes respect the safe-area insets; the About chip sits under the
    Legend chip; while a card is up the right-hand chips step aside (one sheet at a time), so nothing overlaps the sheet */
 .atlas2-phone .atlas2-btn{width:44px; height:44px;}
-.atlas2-phone .atlas2-layers-btn{height:44px; width:auto; min-width:44px;}   /* the "Legend" word is wider than a 44 px square (the audit's synth shot had it clipped) */
-.atlas2-phone .atlas2-zoom{right:max(12px, env(safe-area-inset-right)); gap:8px;}
-.atlas2-phone .atlas2-layers{top:168px; right:max(12px, env(safe-area-inset-right));}
-.atlas2-phone .atlas2-help{top:220px; bottom:auto; right:max(12px, env(safe-area-inset-right));}
-.atlas2-phone .atlas2-search{left:max(12px, env(safe-area-inset-left)); width:calc(100% - 80px - env(safe-area-inset-left) - env(safe-area-inset-right));}
 .atlas2-phone .atlas2-search-in{min-height:44px;}
 .atlas2-phone .atlas2-results li{min-height:44px; box-sizing:border-box; align-items:center;}
 .atlas2-phone .atlas2-sheet label{min-height:40px;}
 .atlas2-phone .atlas2-sheet-close, .atlas2-phone .atlas2-card-close{min-width:44px; min-height:44px;}
 .atlas2-phone .atlas2-grip{min-height:44px; padding:0;}
 .atlas2-phone .atlas2-stack{min-height:44px;}
-.atlas2-phone .atlas2-status, .atlas2-phone .atlas2-caption{left:max(12px, env(safe-area-inset-left)); bottom:calc(12px + env(safe-area-inset-bottom)); right:auto; max-width:calc(100% - 80px);}
-.atlas2-phone .atlas2-mode{bottom:calc(64px + env(safe-area-inset-bottom)); left:max(12px, env(safe-area-inset-left)); right:max(12px, env(safe-area-inset-right));}
 .atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 140px - var(--atlas2-rail-h, 62px) - 12px)); padding-bottom:env(safe-area-inset-bottom);}   /* Phase 2a: the rail below the card takes its share */
-.atlas2-phone .atlas2-sheet, .atlas2-phone .atlas2-about{max-height:42vh;   /* Phase 2a: well under half the screen, so the map above an open sheet keeps its labels (min() with a percentage resolved against the wrong box) */ padding-bottom:calc(12px + env(safe-area-inset-bottom));}
-.atlas2-phone.atlas2-has-card .atlas2-layers, .atlas2-phone.atlas2-has-card .atlas2-help, .atlas2-phone.atlas2-has-card .atlas2-caption{display:none;}
+.atlas2-phone.atlas2-has-card .atlas2-caption{display:none;}
 
 /* the two sheets open to the LEFT of the right-hand chip column on a desktop, never over it (Phase 1d, the phone audit found
    the legend's sheet covering the About chip and the About sheet covering the Legend chip); on a phone they are bottom sheets
@@ -10362,8 +10333,6 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-layers .atlas2-sheet{max-height:calc(var(--atlas2-h, 100vh) - 150px);}
 .atlas2-help .atlas2-about{max-height:calc(var(--atlas2-h, 100vh) - 192px - var(--atlas2-rail-h, 52px) - 12px);}   /* Phase 2a: the rail's height too, so the sheet never runs under it */
 .atlas2-layers, .atlas2-help{max-height:none;}
-.atlas2-phone .atlas2-layers .atlas2-sheet, .atlas2-phone .atlas2-help .atlas2-about{position:fixed; right:0; top:auto;}
-.atlas2-phone .atlas2-layers .atlas2-sheet, .atlas2-phone .atlas2-help .atlas2-about{max-height:42vh;}   /* Phase 2a: well under half the screen on a phone, so the map above an open sheet keeps its labels */
 .atlas2-phone.atlas2-sheet-open .atlas2-zoom, .atlas2-phone.atlas2-sheet-open .atlas2-layers-btn, .atlas2-phone.atlas2-sheet-open .atlas2-about-btn, .atlas2-phone.atlas2-sheet-open .atlas2-caption, .atlas2-phone.atlas2-sheet-open .atlas2-stack{display:none;}   /* (Oct 2026: not .atlas2-study — on a phone it lives in the menu, which holds the legend and About) */
 /* the expanded card sheet stops short of the zoom stack (three 44 px buttons from the top on a phone) */
 .atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 204px - var(--atlas2-rail-h, 62px) - 12px));}
@@ -10374,22 +10343,13 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
   .atlas2-phone.atlas2-card-up .atlas2-zoom{display:none;}
   /* Phase 2a: the rail is one line again on a phone on its side (844 px holds it; two lines put the ? button under the rail),
      and it stops 68 px short of the right edge, where the control stack (search, zoom, home, legend, ?) reaches the bottom */
-  .atlas2-phone .atlas2-rail-row{flex-wrap:nowrap;}
-  .atlas2-phone .atlas2-rail-track{flex:1 1 auto;}
-  .atlas2-phone .atlas2-rail-year{flex:none;}
-  .atlas2-phone{--atlas2-rail-h:56px;}   /* 5 + 44 + 5 + the border */
-  .atlas2-phone .atlas2-rail, .atlas2-phone.atlas2-has-card .atlas2-rail{right:calc(68px + env(safe-area-inset-right));}
   /* the legend chip sits in a flex column 32 px tall here (top 168, bottom 24 + the rail, in a 280 px atlas) and shrank to it:
      a button never shrinks; the About sheet is bounded by the atlas height less the search box and the rail (42vh ran 8 px
      under the search box); the zoom stack steps out while any card is open (the shut strip alone covers it — pinch zooms) */
-  .atlas2-phone .atlas2-layers-btn, .atlas2-phone .atlas2-about-btn{flex:none;}
-  .atlas2-phone .atlas2-help .atlas2-about{max-height:calc(var(--atlas2-h, 100vh) - 68px - var(--atlas2-rail-h, 56px) - 24px);}
   .atlas2-phone.atlas2-has-card .atlas2-zoom{display:none;}
-  .atlas2-phone.atlas2-has-card .atlas2-study{display:none;}   /* Phase 3c: the card takes the whole side of a phone on its side, and the study panel steps out like the chips */
 }
 /* a desktop with the card column open and under about 900 px (a tablet): the search box yields to the zoom stack the column pushed left */
 .atlas2-has-card .atlas2-search{width:min(300px, calc(100% - 486px));}
-.atlas2-phone.atlas2-has-card .atlas2-search{width:calc(100% - 80px - env(safe-area-inset-left) - env(safe-area-inset-right));}
 
 /* ---------- Atlas v2, Oct 2026: the phone, decluttered (the owner's phone, 2026-10-16) ----------
    (a) FULL-BLEED. Up to 640 px — the width at which the tab bar replaces the top bar — the Atlas is the whole page between the top safe area and the
@@ -10458,6 +10418,10 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 /* the fade while the map is dragged or pinched (atlas.js overlaysFade) */
 .atlas2-phone .atlas2-search, .atlas2-phone .atlas2-menu-btn, .atlas2-phone .atlas2-zoom, .atlas2-phone .atlas2-rail{transition:opacity .4s ease;}
 .atlas2-phone.atlas2-gesturing .atlas2-search, .atlas2-phone.atlas2-gesturing .atlas2-menu-btn, .atlas2-phone.atlas2-gesturing .atlas2-zoom, .atlas2-phone.atlas2-gesturing .atlas2-rail{opacity:.35; transition-duration:.12s;}
+@media (orientation: landscape) and (max-height: 500px){   /* a phone on its side: the menu's sheet takes the height under the buttons and the zoom pill steps out while it is open */
+  .atlas2-phone .atlas2-menu{max-height:calc(100% - 68px);}
+  .atlas2-phone.atlas2-menu-open .atlas2-zoom{display:none;}
+}
 @media (forced-colors:active){
   .atlas2-search-btn, .atlas2-menu-btn, .atlas2-menu, .atlas2-menu-row, .atlas2-rail-more, .atlas2-zoom{border:1px solid CanvasText; box-shadow:none; background:Canvas; color:CanvasText;}
   .atlas2-search-btn:focus-visible, .atlas2-menu-btn:focus-visible, .atlas2-menu-row:focus-visible, .atlas2-menu-close:focus-visible, .atlas2-rail-more:focus-visible{outline:2px solid Highlight;}
