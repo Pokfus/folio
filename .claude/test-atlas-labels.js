@@ -122,6 +122,20 @@ async function layoutAt(page, V, density, opts) {
         if (w <= 2 || h <= 2) { per[id] = { off: true, n: 0, px: Math.max(0, w) * Math.max(0, h), live: live.has(id), shift: live.get(id) || null, over }; continue; }
         const d = x.getImageData(x0, y0, w, h).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 40) n++;
         per[id] = { off: false, n, px: w * h, live: live.has(id), shift: live.get(id) || null, over };
+        if (n <= 4) {
+          /* the box is empty although the layout is the one on the canvas (CI run 3628, Songhai: seq equal, "drawn by the last frame: yes", 0 pixels): say what the sprite and the canvas hold, and keep a picture of both */
+          const pl = c.labels().find((q) => q.id === id), sp = pl && pl.sprite, dbg = { sprite: !!sp };
+          if (sp) {
+            dbg.spriteSize = [sp.c.width, sp.c.height]; dbg.spriteAt = [sp.x0, sp.y0]; dbg.expectedAt = [Math.floor(b[0]) - 4, Math.floor(b[1]) - 4];
+            try { const sd = sp.c.getContext("2d").getImageData(0, 0, sp.c.width, sp.c.height).data; let k = 0; for (let i = 3; i < sd.length; i += 4) if (sd[i] > 40) k++; dbg.spriteInk = k; dbg.spritePng = sp.c.toDataURL("image/png"); } catch (e) { dbg.spriteErr = String(e).slice(0, 80); }
+          }
+          const ex0 = Math.max(0, x0 - 60), ey0 = Math.max(0, y0 - 30), ex1 = Math.min(cv.width, x1 + 60), ey1 = Math.min(cv.height, y1 + 30);
+          const ed = x.getImageData(ex0, ey0, ex1 - ex0, ey1 - ey0).data; let en = 0; for (let i = 3; i < ed.length; i += 4) if (ed[i] > 40) en++;
+          dbg.aroundInk = en; dbg.aroundRect = [ex0, ey0, ex1, ey1];
+          const tmp = document.createElement("canvas"); tmp.width = ex1 - ex0; tmp.height = ey1 - ey0; tmp.getContext("2d").drawImage(cv, ex0, ey0, ex1 - ex0, ey1 - ey0, 0, 0, ex1 - ex0, ey1 - ey0); dbg.canvasPng = tmp.toDataURL("image/png");
+          dbg.labelCount = c.labels().length; dbg.sameTextLabels = c.labels().filter((q) => q.text === (pl && pl.text)).length;
+          per[id].dbg = dbg;
+        }
       }
       return { seqNow, stats, ink: { per, canvas: [cv.width, cv.height], client: [cv.clientWidth, cv.clientHeight], dpr, frame: [fr.width, fr.height], liveCount: live.size } };
     }, { boxes, selectors: CHROME_SELECTORS, wantInk });
@@ -144,6 +158,7 @@ function inkOf(res, subset) {
     else if (m.n > 4) { painted++; continue; }
     else empty.push(id);
     const b = ink.boxes.get(id);
+    if (m.dbg) { const d = m.dbg; lines.push(`      ${id} sprite: ${d.sprite ? `${d.spriteSize} px, ${d.spriteInk} ink pixels${d.spriteErr ? " (" + d.spriteErr + ")" : ""}, drawn from ${d.spriteAt}, expected ${d.expectedAt}` : "NONE (renderSprite returned null)"}; canvas ink within 60×30 px around the box: ${d.aroundInk} (rect ${d.aroundRect}); ${d.sameTextLabels} placed label(s) with this text of ${d.labelCount}\n      PNG canvas around the box: ${d.canvasPng}\n      PNG sprite: ${d.spritePng || "-"}`); }
     lines.push(`      ${id}: box [${b.map((v) => v.toFixed(1))}], ${m.n} painted pixels of ${m.px} in the box (need > 4), drawn by the last frame: ${m.live ? "yes, shifted by " + JSON.stringify(m.shift) : "NO (the painter skipped it: behind the horizon, no longer alive, or labelFits failed)"}, controls overlapping the box: ${m.over.length ? m.over.join("; ") : "none"}`);
   }
   const report = empty.length ? `    ink read: layoutSeq at layout ${ink.seqLayout}, at read ${ink.seqRead}${ink.unsettled ? " (STILL MOVING after " + ink.attempts + " attempts)" : ""}, attempt ${ink.attempts} of ${INK_ATTEMPTS}; frame ${ink.frame.map(Math.round).join("×")} css px, label canvas ${ink.canvas.join("×")} px (client ${ink.client.join("×")}, dpr ${ink.dpr.toFixed(3)}), ${ink.liveCount} labels drawn by the last frame, ${Object.keys(ink.per).length} read\n` + lines.join("\n") : "";
