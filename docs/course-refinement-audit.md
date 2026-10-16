@@ -183,13 +183,19 @@ Per card (sources old → new; the `SLIDE-VS-RECORD` lines are condensed, the fu
 **Pictures for `pea-001`–`pea-050`** (first pass, own commit). Each candidate went through the shared Commons web client
 (≥ 6 s a request; the action API is not used), `check-image-free.js`, and a look at the thumb; every kept `src` is a 960-,
 1280- or 1920-pixel thumbnail on `thumb.wikimedia.org`, with a visual alt, a description of what is shown and an
-author-and-licence credit. The first pass spent at most 5 requests a card and **removed 17 pictures that were logos, labelled
+author-and-licence credit. The first pass spent at most 5 requests a card and **removed pictures that were logos, labelled
 signs, slogans, party emblems, charts, document pages or a different subject**; for the people, places and events among them a
 second pass with a larger budget follows (below). `pea-013`'s author (Dong Fang, Voice of America, public domain) was read off the
 file page. `pea-018` is Commons' processed portrait from a larger summit photograph, kept as the portrait it is.
 - **Pictures kept or replaced (10):** `pea-001` Zhongguancun Street, Beijing, June 1989; `pea-005` PLA honour guard, Nanjing; `pea-008` Futian, Shenzhen; `pea-013` 12th National People's Congress, 2013; `pea-018` Hu Jintao, 2012; `pea-020` Signing of the Belovezha Accords, 1991; `pea-024` Jiang Zemin with Vladimir Putin, 2002; `pea-037` National Diet Building, Tokyo; `pea-044` Fukushima Daiichi after the tsunami; `pea-046` Shinzō Abe.
 - **No picture (40):** `pea-002` (picture removed), `pea-003`, `pea-004`, `pea-006` (picture removed), `pea-007`, `pea-009`, `pea-010` (picture removed), `pea-011`, `pea-012` (picture removed), `pea-014`, `pea-015` (picture removed), `pea-016` (picture removed), `pea-017` (picture removed), `pea-019`, `pea-021` (picture removed), `pea-022` (picture removed), `pea-023`, `pea-025`, `pea-026`, `pea-027`, `pea-028`, `pea-029`, `pea-030`, `pea-031` (picture removed), `pea-032` (picture removed), `pea-033` (picture removed), `pea-034` (picture removed), `pea-035` (picture removed), `pea-036` (picture removed), `pea-038`, `pea-039` (picture removed), `pea-040`, `pea-041` (picture removed), `pea-042` (picture removed), `pea-043`, `pea-045`, `pea-047`, `pea-048` (picture removed), `pea-049` (picture removed), `pea-050`.
 
+
+### Pictures, in total, for `pea-001`–`pea-100`
+
+Before the audit 63 of the 100 cards carried a picture; 34 do now. 29 were removed (logos, party emblems, labelled signs,
+slogans, charts, document pages, files under 960 pixels, a picture of a different subject); several of the 34 replace a worse
+file with an honest photograph. The first-pass and second-pass details are under each batch.
 
 ### B6–B10 — `pea-051`–`pea-100`, Lectures 2 to 3 and Extra 1 (Japan Socialist Party to Reds and experts) (2026-10-16)
 
