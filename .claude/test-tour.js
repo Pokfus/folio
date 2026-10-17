@@ -116,6 +116,9 @@ const CARD = () => {
       } : null;
     });
     check("a first-time reader is offered the walkthrough", !!(o && o.vis), o ? "" : "no .tour-offer");
+    // …and is NOT yet told they are signed out (Oct 2026, on request): the notice waits for the first studied card
+    check("...and meets no signed-out notice before studying a card",
+      await page.evaluate(() => !document.querySelector(".guest-notice")));
     check("...it says how long it takes", !!(o && /few minutes|three-minute|3-minute/i.test(o.text)), o && o.text.slice(0, 60));
     check("...INLINE, never a modal over the first paint", !!(o && o.pos === "static" && !o.overlay), o && o.pos);
     check("...at the head of the day's work", !!(o && o.first));

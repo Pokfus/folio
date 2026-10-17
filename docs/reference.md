@@ -6855,7 +6855,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       pool**, since the per-entry checks read a snapshot in which two rewrites landing on one wording
       both pass. A rewrite MOVES THE KEY: a later batch addresses that statement by its new `q`.
     · **📖 `docs/truefalse-citation-plan.md` — READ BEFORE CITING A STATEMENT OR ADDING ONE.** The bar
-      (one openable source per statement, against a card's five, and why it is lower), the recipe for
+      (**three DIFFERENT works per statement since Oct 2026, on request — counted on the URL and REFUSED
+      under three by `check-truefalse.js` and `add-truefalse.js`**; one openable source before that,
+      against a card's five, and why it was lower), the recipe for
       lifting a citation out of a card that already makes the claim — **by marker and index,
       programmatically, never retyped** — the standing to run rather than quote, and the three statements
       known to need work, of which one asserts more than Folio's own cited prose does. **RUN `node
@@ -6968,6 +6970,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A term excluded loses one group, not the grid** — Water still answers for Chemistry, Vikings for
     Europe, Attila for Warfare. **Re-measured after: 730 days, 0 blank, 730 distinct grids, 61 categories
     in rotation** (the baseline was 726 of 730).
+  · **…AND SINCE OCT 2026 A CATEGORY MUST DESCRIBE THE TERM, NOT MERELY TOUCH IT** (`THREAD_NARROWS` /
+    `THREAD_DESCRIBES` / the Oct 2026 rows of `THREAD_NOT`; on request — "'Feudalism' is not a law, but is in
+    the Law category; Ancient Rome is in the culture category … the category Hominins is perfect, as it
+    actually only contains hominins"). A kind is the FIRST tag, or the second only under the kind it narrows; a
+    subject is a category only with a declared row of the kinds it describes, and a subject with no row is not
+    a category; `culture` is in `THREAD_BROAD`. Measured: 96 → 84 seatable categories, 0 blank days in 730,
+    730 distinct grids. 📖 `docs/minigames.md` has the rule in full. Re-run `test-minigames.js` after touching any of the three tables.
   · **`THREAD_FAMILY` HAD HOLES AND THEY WERE REAL** (same batch). It is the list of tags that NEST, at most
     one per puzzle — and it named `italy` without `rome`, `greece` without `athens`, `asia` without `iran`,
     `iraq` or `korea`, `north america` without `mexico` or `americas`, `britain` without `england`, and the
