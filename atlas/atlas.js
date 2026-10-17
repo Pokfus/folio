@@ -401,7 +401,7 @@
         <p class="atlas2-mode" hidden></p>
         <aside class="atlas2-card" hidden aria-label="Place">
           <button type="button" class="atlas2-grip" aria-label="Expand or collapse the place card"><i></i></button>
-          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title" tabindex="-1"></h2><p class="atlas2-card-kind"></p><div class="atlas2-pager" hidden role="group" aria-label="The places of this city"><button type="button" class="atlas2-pager-prev" aria-label="Previous place">‹</button><span class="atlas2-pager-mid"><span class="atlas2-pager-name"></span><span class="atlas2-pager-n"></span></span><button type="button" class="atlas2-pager-next" aria-label="Next place">›</button></div></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
+          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title" tabindex="-1"></h2><p class="atlas2-card-kind"></p><div class="atlas2-pager" hidden role="group" aria-label="The places of this city"><ul class="atlas2-pager-list" hidden aria-label="Jump to a place"></ul><div class="atlas2-pager-row"><button type="button" class="atlas2-pager-prev" aria-label="Previous place">‹</button><span class="atlas2-pager-mid"><span class="atlas2-pager-name"></span><span class="atlas2-pager-n"></span></span><button type="button" class="atlas2-pager-next" aria-label="Next place">›</button></div></div></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
           <div class="atlas2-card-body"></div>
         </aside>
         <div class="atlas2-keys vh" aria-label="Places named on the map"><ul></ul></div>
@@ -2468,7 +2468,23 @@
        right, the arrow buttons, the keyboard's arrows while the card has focus, and a "2 of 7" indicator — each page the place's own card with its cards.
        The address follows the page's place (replaced, not pushed). A selection from anywhere else (a search, a tap on another mark) ends the stack. */
     let cardStack = null;
-    const pagerEl = cardEl.querySelector(".atlas2-pager");
+    const pagerEl = cardEl.querySelector(".atlas2-pager"), pagerList = pagerEl.querySelector(".atlas2-pager-list");
+    /* THE STACK'S LIST (2026-10-17, decision f; the owner's phone: Rome's 39 central sites cannot separate at the closest zoom, so the only way through them
+       was a 39-page swipe). A stack of more than STACK_LIST_MIN places also shows a scrollable list of its places' names above the pager; a tap on a name
+       jumps to that place. The swipe, the arrows and the "n of N" indicator stay. The list is built once per stack and its current row marked on each page. */
+    const STACK_LIST_MIN = 8;
+    let pagerListFor = null;
+    function reflectStackList(row) {
+      const n = cardStack.ids.length;
+      if (n <= STACK_LIST_MIN) { pagerList.hidden = true; pagerList.innerHTML = ""; pagerListFor = null; return; }
+      if (pagerListFor !== cardStack.id) {
+        pagerListFor = cardStack.id;
+        pagerList.innerHTML = cardStack.ids.map((id, k) => { const r = G.byId.get(id); return `<li><button type="button" data-i="${k}">${escText(r ? r.name : id)}<span class="atlas2-pager-kind">${escText(r ? KIND_LABEL[r.kind] || r.kind : "")}</span></button></li>`; }).join("");
+      }
+      pagerList.hidden = false;
+      for (const b of pagerList.querySelectorAll("button[data-i]")) { const on = b.getAttribute("data-i") === String(cardStack.i); b.setAttribute("aria-current", on ? "true" : "false"); if (on) { const top = b.offsetTop, bottom = top + b.offsetHeight; if (top < pagerList.scrollTop || bottom > pagerList.scrollTop + pagerList.clientHeight) pagerList.scrollTop = Math.max(0, top - pagerList.clientHeight / 2 + b.offsetHeight / 2); } }
+    }
+    pagerList.addEventListener("click", (e) => { const b = e.target.closest("button[data-i]"); if (!b || !cardStack) return; stackTo(Number(b.getAttribute("data-i"))); });
     function openStack(m) {
       if (!m || !m.members || !m.members.length) return;
       cardStack = { id: m.id, name: m.name || "", ids: m.members.slice(), i: 0 };
@@ -2481,14 +2497,16 @@
       const on = !!(cardStack && cardStack.ids.includes(row.id));
       if (!on) cardStack = null;
       pagerEl.hidden = !on;
-      if (!on) return;
+      if (!on) { pagerList.hidden = true; pagerList.innerHTML = ""; pagerListFor = null; return; }
       const i = cardStack.ids.indexOf(row.id), n = cardStack.ids.length; cardStack.i = i;
       cardTitle.textContent = cardStack.name + " — " + n + " places";
       cardKind.textContent = kindLine(row);
       pagerEl.querySelector(".atlas2-pager-name").textContent = row.name;
       pagerEl.querySelector(".atlas2-pager-n").textContent = (i + 1) + " of " + n;
+      reflectStackList(row);
     }
-    function stackStep(d) {
+    function stackStep(d) { if (cardStack && cardOpen) stackTo((cardStack.i + d + cardStack.ids.length) % cardStack.ids.length); }
+    function stackTo(i) {
       if (!cardStack || !cardOpen) return;
       const n = cardStack.ids.length; i = ((i % n) + n) % n; const row = G.byId.get(cardStack.ids[i]);
       if (!row) return;
@@ -2508,7 +2526,7 @@
     cardEl.addEventListener("touchend", (e) => { if (!swipe || !cardStack || !e.changedTouches.length) return; const dx = e.changedTouches[0].clientX - swipe.x, dy = e.changedTouches[0].clientY - swipe.y, dt = performance.now() - swipe.t; swipe = null; if (Math.abs(dx) >= 40 && Math.abs(dx) > 2 * Math.abs(dy) && dt < 1500) stackStep(dx < 0 ? 1 : -1); }, { passive: true });
     function closeCard(returnFocus) {
       const had = cardOpen;
-      cardStack = null; pagerEl.hidden = true;
+      cardStack = null; pagerEl.hidden = true; pagerList.hidden = true; pagerList.innerHTML = ""; pagerListFor = null;
       discId = null; discFresh = false;
       cardOpen = false; cardRow = null; cardEl.hidden = true; el.classList.remove("atlas2-has-card"); el.classList.remove("atlas2-card-up");
       if (had && returnFocus !== false) {

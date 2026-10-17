@@ -294,6 +294,9 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await view(page, 12.49, 41.89, 3);
     lv = await live(page); const sm = lv.find((m) => m.members && m.city === ROME);
     check("the stack is on screen to tap", !!sm);
+    // the keyboard's hidden list, read while the stack is in the clear (its popup's sheet, taller since decision f's list, covers the ring once open: a mark under the chrome is not a key)
+    const keys = await A(page, (c) => c.study.keys());
+    check("the hidden list names the stack for the keyboard: \"Rome, N places\"", keys.some((k) => k.id === sm.id && /^Rome, \d+ places/.test(k.text)), keys.filter((k) => /^stk:/.test(k.id)).map((k) => k.text).join(" | "));
     const b = await box(page);
     await page.touchscreen.tap(b.x + sm.x, b.y + sm.y); await sleep(600);
     const pg = async () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { title: document.querySelector(".atlas2-card-title").textContent, n: document.querySelector(".atlas2-pager-n").textContent, name: document.querySelector(".atlas2-pager-name").textContent, hidden: document.querySelector(".atlas2-pager").hidden, stack: c.study.stack(), sel: c.selectedId(), rows: document.querySelectorAll(".atlas2-study-card").length, cardOpen: !document.querySelector(".atlas2-card").hidden }; });
@@ -319,8 +322,6 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     check("the pages wrap round: N steps forward is the same page again", p3.n === "2 of " + sm.count, p3.n);
     check("the popup's own address names the page's place", /#map\/.*pl%3A|#map\/.*city%3A/.test(await page.evaluate(() => location.hash)));
     await shot(page, "rome-popup");
-    const keys = await A(page, (c) => c.study.keys());
-    check("the hidden list names the stack for the keyboard: \"Rome, N places\"", keys.some((k) => k.id === sm.id && /^Rome, \d+ places/.test(k.text)), keys.filter((k) => /^stk:/.test(k.id)).map((k) => k.text).join(" | "));
     await page.keyboard.press("Escape"); await sleep(200);
     check("Escape closes the popup and ends the stack", !(await pg()).cardOpen && (await A(page, (c) => c.study.stack())) === null);
     // the Full Atlas: the stack holds every linked place of Rome in view
@@ -434,6 +435,42 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     allErrors.push(...errors); await ctx.close();
   }
 
+  /* ------------------------------------------------------------------ 8  the stack's list (decision f, 2026-10-17) */
+  console.log("\n\x1b[1m8) a stack of more than 8 places lists its places' names above the pager; a tap jumps to the place; the swipe, the arrows and \"n of N\" stay\x1b[0m\n");
+  {
+    const ROME = "city:1159151593", VAT = "city:1159127243";
+    const { ctx, page, errors } = await open(browser, READER, { phone: true });
+    await mode(page, "full"); await year(page, 2025); await view(page, 12.49, 41.89, 3);
+    const lv = await live(page), sm = lv.find((m) => m.members && m.city === ROME);
+    check("Rome's stack in the Full Atlas holds more than 8 places", !!sm && sm.count > 8, sm ? String(sm.count) : "no stack");
+    const b = await box(page);
+    await page.touchscreen.tap(b.x + sm.x, b.y + sm.y); await sleep(600);
+    const st = async () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, ul = document.querySelector(".atlas2-pager-list"), rows = [...ul.querySelectorAll("button[data-i]")]; return { hidden: ul.hidden, n: rows.length, names: rows.map((r) => r.firstChild.textContent), current: rows.findIndex((r) => r.getAttribute("aria-current") === "true"), scrolls: ul.scrollHeight > ul.clientHeight + 2, h: ul.getBoundingClientRect().height, pagerN: document.querySelector(".atlas2-pager-n").textContent, pagerHidden: document.querySelector(".atlas2-pager").hidden, sel: c.selectedId(), stack: c.study.stack(), listBottom: ul.getBoundingClientRect().bottom, rowTop: document.querySelector(".atlas2-pager-row").getBoundingClientRect().top }; });
+    let s = await st();
+    check(`the popup shows a list of the stack's ${sm.count} names, the first marked current, above the pager row`, !s.hidden && s.n === sm.count && s.current === 0 && s.listBottom <= s.rowTop + 1, JSON.stringify({ hidden: s.hidden, n: s.n, current: s.current }));
+    check("…every row is the place's own full name", s.names.every((n, i) => REG.get(s.stack.ids[i]) && REG.get(s.stack.ids[i]).name === n), s.names.slice(0, 4).join(" | "));
+    check("…and the list scrolls (five rows tall) rather than pushing the pager down", s.scrolls && s.h <= 180, `height ${Math.round(s.h)} px`);
+    await page.click(".atlas2-pager-list button[data-i='4']"); await sleep(350); s = await st();
+    check("a tap on the fifth name jumps to page 5: that place is selected, the row current, \"5 of N\" shown", s.pagerN === "5 of " + sm.count && s.sel === s.stack.ids[4] && s.current === 4, JSON.stringify({ n: s.pagerN, sel: s.sel, current: s.current }));
+    await page.click(".atlas2-pager-next"); await sleep(300); s = await st();
+    check("the › arrow still turns the page (6 of N) and the list's current row follows", s.pagerN === "6 of " + sm.count && s.current === 5);
+    const cdp = await ctx.newCDPSession(page);
+    const cr = await page.$eval(".atlas2-card-head", (e) => { const r = e.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+    const swipe = async (dir) => { const x0 = cr.x + 60 * dir, y0 = cr.y; await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: x0, y: y0 }] }); for (let i = 1; i <= 5; i++) await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: x0 - 24 * i * dir, y: y0 + i }] }); await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] }); await sleep(350); };
+    await swipe(1); s = await st();
+    check("a swipe still turns the page (7 of N)", s.pagerN === "7 of " + sm.count && s.current === 6, s.pagerN);
+    const last = sm.count - 1; await page.click(`.atlas2-pager-list button[data-i='${last}']`); await sleep(350); s = await st();
+    const seen = await page.$eval(".atlas2-pager-list", (ul) => { const b = ul.querySelector("button[aria-current='true']"), r = b.getBoundingClientRect(), u = ul.getBoundingClientRect(); return r.top >= u.top - 1 && r.bottom <= u.bottom + 1; });
+    check("the last name, tapped, is page N and the list has scrolled it into view", s.pagerN === sm.count + " of " + sm.count && seen);
+    await shot(page, "rome-stack-list");
+    await page.keyboard.press("Escape"); await sleep(200);
+    // a small stack has no list: Vatican City's (3 places) at 0.3 km/px
+    await view(page, 12.455, 41.903, 0.3);
+    const lv2 = await live(page), vm = lv2.find((m) => m.members && m.city === VAT);
+    check("Vatican City's stack (≤ 8 places) is on screen to tap", !!vm, vm ? String(vm.count) : "none");
+    if (vm) { await page.touchscreen.tap(b.x + vm.x, b.y + vm.y); await sleep(600); s = await st(); check("…its popup pages without a list (8 or fewer places)", !s.pagerHidden && s.hidden && s.n === 0 && /^1 of \d+$/.test(s.pagerN), JSON.stringify({ hidden: s.hidden, n: s.n, pagerN: s.pagerN })); }
+    allErrors.push(...errors); await ctx.close();
+  }
 
   /* ------------------------------------------------------------------ 9  a name never covers its own mark (decision d, 2026-10-17) */
   console.log("\n\x1b[1m9) a place's name never covers its own mark: in the Full Atlas at Rome, Athens and Jerusalem no label box covers more than 10 % of its own mark's box\x1b[0m\n");
@@ -458,7 +495,6 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     check(`over ${pairs} name-and-mark pairs no label box covers more than 10 % of its own mark's box`, pairs >= 20 && bad.length === 0, JSON.stringify(bad.slice(0, 5)));
     allErrors.push(...errors); await ctx.close();
   }
-
 
   /* ------------------------------------------------------------------ done */
   console.log("\n" + pass + " ok, " + fail + " failed");
