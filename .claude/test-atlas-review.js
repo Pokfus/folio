@@ -60,7 +60,10 @@ async function open(context, hash, full) {
 /* the stroke test: a screenshot of the atlas, read back in the page; the alive polities' full colours; water by the palette */
 async function strokePixelsFarFromWater(page) {
   /* 2d: the Wars switch is on by default and tints a war's sides (a green and a red over the state's own hue), which this test's colour line from the land to the state's hue would read as stroke: it measures the state styling, so the tints are off */
-  await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ wars: "off", fronts: false }); c.invalidate(); }); await sleep(500);
+  /* 2026-10-17, decision a: the rivers are drawn to the cap now, and a river's blue under a blue polity's tint sits on that polity's colour line (what §1b
+     below already says of rivers and lake shores) — the coast stroke is what this measures, so the rivers are off for the shot; the lakes stay (they are water) */
+  await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ wars: "off", fronts: false, rivers: false }); c.invalidate(); }); await sleep(500);
+  await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.tilesSettled(), null, { timeout: 60000 }).catch(() => {}); await sleep(300);
   const png = (await page.locator(".atlas2").screenshot()).toString("base64");
   return C(page, async (b64) => {
     const c = document.querySelector(".atlas2").__atlas2;
