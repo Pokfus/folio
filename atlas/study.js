@@ -340,8 +340,14 @@
     }
     return best ? [text.slice(0, best.i), text.slice(best.i + 1)] : null;
   }
-  function labelText(name, aliases) {
+  /* THE BARE NAME (2026-10-17, decision d; the owner's phone: "Kirchberg, Luxembourg" should not name its country): a trailing ", <country>",
+     ", <state or province>" or ", <region>" qualifier is not part of the name a label shows — "Kirchberg", "Folsom", "Cures". The popup and the
+     search keep the full, qualified name. `o.qualified` keeps the qualifier: the worker sets it when two names on one layout share a bare name
+     (two "Alexandria"s on screen at once keep "Alexandria, Egypt" and "Alexandria, Virginia"). */
+  function bareName(text) { const t = stripParen(String(text || "")), i = t.indexOf(", "); return i > 0 ? t.slice(0, i) : t; }   // "Abydos, Egypt" and "Abydos (Hellespont)" share the bare name "Abydos"
+  function labelText(name, aliases, o) {
     const full = String(name || ""); let text = stripParen(full);
+    if (!(o && o.qualified)) text = bareName(text);
     if (text.length > LABEL_SHORT) { const s = shortName(full, aliases); if (s) text = s; }
     const lines = text.length > LABEL_WRAP ? splitAtMiddle(text) : null;
     return { text, lines, full };
@@ -553,7 +559,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, LABEL_WRAP, LABEL_SHORT, labelText, shortName, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);
