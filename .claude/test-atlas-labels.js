@@ -249,12 +249,12 @@ function overlaps(placed) {
     check(`${name}: the anchor (${r.at.join(", ")}) is on its own land`, stack.includes(r.id), stack.join(" > "));
   }
 
-  console.log("\n\x1b[1m5) a river label disappears when its line does\x1b[0m\n");
+  console.log("\n\x1b[1m5) a river's line and its label reach the zoom cap (2026-10-17, decision a: rivers were switched off below 0.35 km/px)\x1b[0m\n");
   {
     const a = await layoutAt(page, { lon: 7.5, lat: 50.5, k: 0.5 }, "dense");   // the Rhine at 0.5 km/px: rivers drawn
-    const b = await layoutAt(page, { lon: 7.5, lat: 50.5, k: 0.3 }, "dense");   // 0.3: under RIVER_MIN_KM_PER_PX, no river line
+    const b = await layoutAt(page, { lon: 7.5, lat: 50.5, k: 0.3 }, "dense");   // 0.3: under the old RIVER_MIN_KM_PER_PX — the line is still drawn, so its label may stand
     check("rivers labelled at 0.5 km/px", a.placed.some((p) => p.kind === "river"), a.placed.filter((p) => p.kind === "river").map((p) => p.text).slice(0, 4).join(", "));
-    check("no river label at 0.3 km/px, where no river is drawn", !b.placed.some((p) => p.kind === "river") && !b.stats.riversOn, `riversOn ${b.stats.riversOn}`);
+    check("rivers still drawn at 0.3 km/px, and the Rhine still labelled (test-atlas-zoom-layers.js proves the pixels down to the cap)", b.stats.riversOn && b.placed.some((p) => p.kind === "river"), `riversOn ${b.stats.riversOn}; ${b.placed.filter((p) => p.kind === "river").map((p) => p.text).slice(0, 4).join(", ")}`);
   }
 
   console.log("\n\x1b[1m6) label contrast in every theme\x1b[0m\n");

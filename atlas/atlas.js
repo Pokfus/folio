@@ -52,9 +52,10 @@
         createImageBitmap (colorSpaceConversion "none", premultiplyAlpha "none"), composed into one
         RGB array by the worker (an OffscreenCanvas) and uploaded; L1 tiles for the view likewise, in
         the same LRU. A phone (coarse pointer, short side under 768 px) never fetches level 2 (Q-M1 a)
-        — a level the shipped pyramid does not carry anyway (§7 "Phase 1b — as built"). Relief fades
-        out as the zoom passes the finest level's texel: full at RELIEF_FADE[0] km/px, gone at
-        RELIEF_FADE[1]; it is a regional-scale wash, not terrain at street zoom.
+        — a level the shipped pyramid does not carry anyway (§7 "Phase 1b — as built"). The relief is
+        drawn at EVERY zoom down to the cap (the owner's decision of 2026-10-17, a): past the finest
+        level's texel the finest level is drawn, bilinear, as a regional-scale wash — it is never faded
+        out (RELIEF_FADE, which took it to nothing below 1 km/px, is gone).
 
    THE VIEW is a centre (lon, lat), a zoom and the layer flags. The rotation matrix R maps a unit
    vector on the earth to view space (x right, y up, z toward the viewer): R's rows are the right,
@@ -64,7 +65,7 @@
    follows kilometres per pixel: a level is used while its simplification tolerance is at most half
    a pixel — LOD 0 above 16 km/px, 1 above 5, 2 above 1, 3 above 0.5, 4 to the cap of 0.15 km/px
    (Q-A6 a), where the finest tolerance (75 m) is half a pixel and the quantum a fifth. Rivers are
-   drawn down to RIVER_MIN_KM_PER_PX and smoothed past LOD 2 (§7 "Phase 1b — as built" says where
+   drawn at every zoom down to the cap (2026-10-17, decision a) and smoothed past LOD 2 (§7 "Phase 1b — as built" says where
    their chords would show and why).
 
    FRAME ACCOUNTING for .claude/test-atlas-perf.js: the controller keeps the last 600 frame times
@@ -84,9 +85,7 @@
   const ADMIN1_KM_PER_PX = 4;                // admin-1 borders are drawn below this
   const TILE_CACHE = 96, TILE_PARALLEL = 6;
   const WATER_TILE_CACHE = 64;
-  const RIVER_MIN_KM_PER_PX = 0.35;          // rivers are not drawn closer than this (chords of a 1:10M line would show; §7 Phase 1b)
   const RELIEF_L1_KM_PER_PX = 6;             // L1 patches are wanted below this (L0's texel is 9.8 km: under two pixels here)
-  const RELIEF_FADE = [2.5, 1.0];            // km/px: full strength above the first, gone below the second (L1's texel is 4.9 km)
   const RELIEF_CACHE = 10;                   // L0 + up to nine L1 tiles resident (2048² RGB is 12 MB each on the GPU)
   const LAYERS_KEY = "folio_atlas2_layers_v2";   // v2 (Phase 1c): the legend's fields replace the layers control's
   const PERF_KEY = "folio_atlas2_perf";           // Phase 2a: the About sheet's "Show frame statistics" switch
@@ -808,18 +807,18 @@
       } else { view.tiles = []; view.parents = []; }
       // water: fetched the first time rivers or lakes are on; tiles for the lakes past 1 km/px
       if ((view.rivers || view.lakes) && !waterStarted && topologyIn) startWater();   // after the land has arrived (topologyIn): the water file (4.3 MB) must not share a slow link with the 3 MB the first globe is waiting for
-      view.rivers = layers.rivers && k >= RIVER_MIN_KM_PER_PX;
+      view.rivers = layers.rivers;   // at every zoom down to the cap (2026-10-17, decision a; the smoothed level-2 list is the finest the data has — it was switched off below 0.35 km/px)
       view.lakes = layers.lakes;
       view.smoothRivers = view.level >= 3;
       if (view.lakes && view.level >= 3 && waterIndex) { view.waterTiles = cellsFor(waterIndex.cols, waterIndex.rows, waterIndex.present, box).map((x) => "w:" + x); waterTiles.want(view.waterTiles); }
       else view.waterTiles = [];
-      // relief: L0 once on; L1 patches for the view; the fade past the finest level's texel
+      // relief: L0 once on; L1 patches for the view; never faded out — the finest level is drawn down to the cap (2026-10-17, decision a)
       // at stage 2 of the adaptive degradation a live gesture draws no relief either (the hillshade is two full-disc passes on a
       // software GPU); it returns with the release frame, as the finer level does
       view.relief.on = layers.relief && !bias; view.relief.strength = layers.strength;
       if (layers.relief && !reliefStarted) startRelief();
-      view.relief.fade = Math.max(0, Math.min(1, (k - RELIEF_FADE[1]) / (RELIEF_FADE[0] - RELIEF_FADE[1])));
-      if (layers.relief && reliefIndex && view.relief.fade > 0 && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
+      view.relief.fade = 1;
+      if (layers.relief && reliefIndex && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
       else view.relief.tiles = [];
       stats.level = view.level;
       refreshOnScreen();   // with the rotation and the level of THIS view (the ticks, [ ] and the "no states" note follow the view)
