@@ -1153,12 +1153,16 @@
             }
             if (got) {
               for (const r of got.rects) take(r);
-              placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: union(got.rects), rects: got.rects, marker: null, hit: union(got.rects), lines: two ? 2 : 1 });
+              placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: union(got.rects), rects: got.rects, marker: null, hit: union(got.rects), lines: two ? 2 : 1, study: true });   // `study`: laid by the study pass (decision b: the order is explicit and guarded)
             } else drop(`study name finds no free side clear of the names and the marks (${tried} tries: ${frame} left the frame, ${byName} met a name or a control, ${byMark} met a mark, ${byPad} only a mark's pad, ${far} too far from the point)`);
           }
         }
       }
     }
+    /* A POLITY'S OR A COUNTRY'S NAME RANKS BELOW THE STUDY NAMES NEAR IT (2026-10-17, decision b: Vatican City as a state label against the places'
+       names round Rome). The ordinary pass — the polities, the countries, the provinces, the cities, the water and the relief — begins only here, after
+       every study name is laid, flagged or not; a state's name that would collide with a study name is the one dropped. test-atlas-overlaps.js
+       asserts the order on the placed list. */
     const capAll = cap + placed.length;   // the density cap counts the ordinary labels only: the study pass is the reader's own
     let riverLabels = 0;
     for (const c of cands) {
