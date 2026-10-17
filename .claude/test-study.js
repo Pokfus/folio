@@ -135,10 +135,12 @@ console.log("\n5) the marks: every flagged place is its own mark, and nothing st
   check("…and is smooth: no two zoom steps a quarter-octave apart differ by more than a pixel", (() => { let worst = 0; for (let k = 20; k > 1; k /= Math.pow(2, 0.25)) worst = Math.max(worst, Math.abs(AS.markHalf(k / Math.pow(2, 0.25)) - AS.markHalf(k))); return worst <= 1; })());
   // THE SHAPE AND THE LAYER of every kind of place any card is about (the property over the Full Atlas's flags)
   const kinds = new Set([...full.keys()].map(kindOf));
-  const shapeOK = [...kinds].every((k) => ["diamond", "triangle", "disc"].includes(AS.markShape(k)));
-  check("every kind the Full Atlas flags (" + kinds.size + ") has one of the three shapes", shapeOK, [...kinds].sort().join(", "));
-  check("a mountain, a hill and a cape are triangles; a polity, a people, a culture and an extent are discs; a city, a site, an island and a country are diamonds",
-    ["mountain", "hill", "cape"].every((k) => AS.markShape(k) === "triangle") && ["polity", "people", "culture", "extent"].every((k) => AS.markShape(k) === "disc") && ["city", "capital", "town", "site", "island", "country", "region", "river"].every((k) => AS.markShape(k) === "diamond"));
+  // (decision e, 2026-10-17: seven shapes by class, and an AREA has none — its name stands alone; the full table is §13)
+  const SHAPES = ["diamond", "triangle", "disc", "square", "cross", "star", "stack"];
+  const shapeOK = [...kinds].every((k) => AS.markShape(k) === null || SHAPES.includes(AS.markShape(k)));
+  check("every kind the Full Atlas flags (" + kinds.size + ") has one of the seven shapes, or none (an area is a name only)", shapeOK, [...kinds].sort().join(", "));
+  check("a mountain, a hill and a cape are triangles; a polity, a people, a culture and an extent are stars; a city a disc, a site a diamond; an island, a country, a region and a river carry no mark",
+    ["mountain", "hill", "cape"].every((k) => AS.markShape(k) === "triangle") && ["polity", "people", "culture", "extent"].every((k) => AS.markShape(k) === "star") && ["city", "capital", "town"].every((k) => AS.markShape(k) === "disc") && AS.markShape("site") === "diamond" && ["island", "country", "region", "river"].every((k) => AS.markShape(k) === null));
   check("a hill is the smaller triangle, nothing else is scaled", AS.markScale("hill") === 0.75 && ["mountain", "city", "polity", "cape"].every((k) => AS.markScale(k) === 1));
   const order = [AS.markLayer("city", 1), AS.markLayer("city", 2), AS.markLayer("polity", 1), AS.markLayer("polity", 2)];
   check("the draw order is places not studied (0), places studied (1), polities (2), whether or not studied", order.join() === "0,1,2,2", order.join());
@@ -322,6 +324,21 @@ console.log("\n12) city stacks: membership by the registry's parent or the neare
   check("PROPERTY (300 layouts): two points within 28 px are in one group, every group chains within 28 px, a group has two or more", okP);
   check("the groups never cross cities: the worker groups per city (a text guard on atlas-worker.js)", /for \(const \[cid, idxs\] of byCity\)/.test(fs.readFileSync(path.join(ROOT, "atlas/atlas-worker.js"), "utf8")) && /study\.city\.get\(list\[i\]\.id\)/.test(fs.readFileSync(path.join(ROOT, "atlas/atlas-worker.js"), "utf8")));
   check("STACK_PX is the owner's 28", AS.STACK_PX === 28);
+}
+
+console.log("\n13) the glyph classes: every card-linked kind has a class and a shape of its own; an area has none\n");
+{
+  const by = new Map(); const G = window.ATLAS_GAZETTEER, gi = {}; G.cols.forEach((c, i) => { gi[c] = i; });
+  for (const r of G.rows) by.set(r[gi.id], { kind: r[gi.kind], sub: "" });
+  const T = window.ATLAS_PLACES; for (const r of T.rows) { const o = {}; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; }); by.set(o.id, { kind: o.kind, sub: o.sub || "" }); }
+  const kinds = new Map(); for (const id of idx.ids) { const r = id.startsWith("pol:") ? { kind: "polity", sub: "" } : by.get(id); if (!r) continue; kinds.set(r.kind + "/" + r.sub, AS.markClass(r.kind, r.sub)); }
+  const classes = new Set([...kinds.values()].filter(Boolean));
+  console.log("  (" + [...kinds].map(([k, c]) => k.replace(/\/$/, "") + " → " + (c || "name only")).join(", ") + ")");
+  check("at most eight classes, and every one in the Legend's list", classes.size <= 8 && [...classes].every((c) => AS.MARK_CLASSES.some((m) => m.cls === c)), [...classes].join(","));
+  check("a city, a town and a capital are one class (settlement); a site and a cave another; a battle, a building each their own; a mountain, a hill and a cape one (peak); a polity, a people and a culture one", AS.markClass("city") === "settlement" && AS.markClass("capital") === "settlement" && AS.markClass("town") === "settlement" && AS.markClass("site", "site") === "site" && AS.markClass("site", "cave") === "site" && AS.markClass("site", "battle") === "battle" && AS.markClass("site", "building") === "building" && AS.markClass("mountain") === "peak" && AS.markClass("hill") === "peak" && AS.markClass("cape") === "peak" && AS.markClass("polity") === "polity" && AS.markClass("people") === "polity" && AS.markClass("culture") === "polity" && AS.markClass("stack") === "stack");
+  check("an area is a name only: river, lake, sea, ocean, strait, gulf, island, island-group, range, region, country, admin1 have no class", ["river", "lake", "sea", "ocean", "strait", "gulf", "island", "island-group", "range", "region", "country", "admin1"].every((k) => AS.markClass(k) === null && AS.markShape(k) === null));
+  const shapes = AS.MARK_CLASSES.map((m) => m.shape);
+  check("seven classes, seven different shapes, each with its word for the Legend", AS.MARK_CLASSES.length === 7 && new Set(shapes).size === 7 && AS.MARK_CLASSES.every((m) => m.word && AS.markShape(m.cls === "settlement" ? "city" : m.cls === "site" ? "site" : m.cls === "battle" ? "site" : m.cls === "peak" ? "hill" : m.cls === "building" ? "site" : m.cls === "polity" ? "polity" : "stack", m.cls === "battle" ? "battle" : m.cls === "building" ? "building" : "") === m.shape));
 }
 
 console.log(`\n${pass} ok, ${fail} failed\n`);

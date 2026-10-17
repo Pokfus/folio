@@ -54,7 +54,8 @@ const greekPol = cards.filter((c) => /^gr-/.test(c.id) && linksPol(c, /^pol:(ath
 const romeSites = ["pl:q180212", "pl:q10285", "pl:q207808", "pl:q200642", "pl:q34925", "pl:q194103", "pl:q586468", "pl:q192784", "pl:q211295", "pl:q478642", "pl:q281330", "pl:q746102"];
 const romeCards = cards.filter((c) => (c.places || []).some((p) => romeSites.includes(p))).slice(0, 16).map((c) => c.id);
 const farRome = cards.filter((c) => (c.places || []).some((p) => p === "pl:q677935" || p === "pl:q1729630")).slice(0, 3).map((c) => c.id);   // Veii, Monte Cavo: Rome's by the registry, far from its centre
-const READER = [...new Set([...greekPol, ...romeCards, ...farRome, ...cards.filter((c) => /^gr-/.test(c.id) && c.places && c.places.length).slice(0, 12).map((c) => c.id)])];
+const fcCards = (IDX.cardsOfPlace.get("pl:q170526") || []).slice(0, 1);   // the Fertile Crescent: a region, a name with no dot
+const READER = [...new Set([...greekPol, ...romeCards, ...farRome, ...fcCards, ...cards.filter((c) => /^gr-/.test(c.id) && c.places && c.places.length).slice(0, 12).map((c) => c.id)])];
 const ST = AS.studied(IDX, READER);
 const flagsPersonal = AS.flags(IDX, ST, "personal", [], (id) => { const c = cards.find((x) => x.id === id); return c ? { collId: "x" } : null; });
 
@@ -325,6 +326,47 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const full = mk.filter((m) => m.members && m.city === ROME);
     const allRome = IDX.ids.filter((id) => cm.of.get(id) === ROME);
     check("in the Full Atlas Rome's stack holds every card-linked place of Rome (" + allRome.length + ")", full.length === 1 && full[0].count === allRome.length, JSON.stringify(full.map((m) => m.count)));
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 5  a glyph per class */
+  console.log("\n\x1b[1m5) glyphs: a shape per class, told apart by shape, legible at 12–16 px, a 32 px hit area; areas have no mark; the Legend lists them\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, READER);
+    await mode(page, "full"); await year(page, 2025);
+    // the glyphs' pixels: a bitmap of the ink round each mark on the label canvas, compared pairwise (Jaccard) — a shape, not a colour, tells them apart.
+    // Sampled over three views at one zoom (3 km/px: marks 12–13 px across): the eastern Mediterranean (El Alamein's battle, Cairo), Greece (Olympus
+    // and Sounion's peaks, the sites), central Europe (Dunkirk's battle, the Kahlenberg, Vienna; the Berlin Wall's building class is in Berlin's stack)
+    // the INK of a glyph: the pixels that are not the paper's colour (a hollow mark's fill is the paper, its outline the ink; the reader's own are filled with the accent)
+    const mask = (m) => page.evaluate((m) => { const c = document.querySelector(".atlas2").__atlas2, halo = c.colours().halo, hr = parseInt(halo.slice(1, 3), 16), hg = parseInt(halo.slice(3, 5), 16), hb = parseInt(halo.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), d = cv.width / cv.getBoundingClientRect().width, r = Math.ceil((m.h + 3) * d), cx = Math.round(m.x * d), cy = Math.round(m.y * d); const img = cv.getContext("2d").getImageData(cx - r, cy - r, 2 * r + 1, 2 * r + 1); const out = []; let n = 0; for (let i = 0; i < img.data.length; i += 4) { const a = img.data[i + 3]; const on = a > 100 && (Math.abs(img.data[i] - hr) + Math.abs(img.data[i + 1] - hg) + Math.abs(img.data[i + 2] - hb) > 60) ? 1 : 0; out.push(on); n += on; } return { w: 2 * r + 1, bits: out, n }; }, m);
+    const jaccard = (a, b) => { const w = Math.min(a.w, b.w); let inter = 0, uni = 0; for (let y = 0; y < w; y++) for (let x = 0; x < w; x++) { const p = a.bits[y * a.w + x], q = b.bits[y * b.w + x]; if (p && q) inter++; if (p || q) uni++; } return uni ? inter / uni : 1; };
+    const sample = {}, seenCls = {}; let lone = null, mk = [];
+    for (const [lon, lat] of [[31, 27.5], [22.5, 38.5], [9.4, 49.7]]) {
+      await view(page, lon, lat, 3);
+      const lv = await live(page);
+      for (const m of lv) if (m.cls && m.h >= 6) seenCls[m.cls] = (seenCls[m.cls] || 0) + 1;
+      for (const m of lv) { if (!m.cls || m.h < 6 || sample[m.cls]) continue; if (lv.some((o) => o !== m && Math.hypot(o.x - m.x, o.y - m.y) < 2 * m.h + 6)) continue; sample[m.cls] = { m, mask: await mask(m) }; }   // a mark with no other within its box
+      if (!lone) { const l = lv.find((m) => m.cls && m.cls !== "stack" && !lv.some((o) => o !== m && Math.hypot(o.x - m.x, o.y - m.y) < 40)); if (l) lone = { id: l.id, hit: (await A(page, (c, p) => c.study.near(p[0] + 15, p[1], false), [l.x, l.y])).includes(l.id) }; }   // asked in this view, before the next moves it
+      mk = mk.concat(await marks(page));
+    }
+    check("three views at 3 km/px draw marks of the settlement, site, battle and peak classes (and a stack) at 12 px or larger", ["settlement", "site", "battle", "peak", "stack"].every((c) => seenCls[c]), Object.entries(seenCls).map(([c, n]) => c + " " + n).join(", "));
+    check("each sampled glyph has ink (at least 20 outline pixels at 12–16 px): " + Object.keys(sample).join(", "), Object.keys(sample).length >= 4 && Object.values(sample).every((s) => s.mask.n >= 20), Object.entries(sample).map(([c, s]) => c + " " + s.mask.n + "px").join(", "));
+    const pairs = []; const cs = Object.keys(sample); for (let i = 0; i < cs.length; i++) for (let j = i + 1; j < cs.length; j++) pairs.push([cs[i], cs[j], jaccard(sample[cs[i]].mask, sample[cs[j]].mask)]);
+    check("every pair of classes differs by SHAPE: the ink bitmaps overlap by at most 75 % (Jaccard)", pairs.length >= 6 && pairs.every((p) => p[2] <= 0.75), pairs.map((p) => p[0] + "/" + p[1] + " " + p[2].toFixed(2)).join(", "));
+    // the hit area: a tap 15 px from a lone mark picks it (a 32 px target), with a mouse
+    check("a tap 15 px from a lone mark (a mouse) picks it: a hit area of at least 32 px", !!lone && lone.hit, lone ? lone.id : "no lone mark");
+    // areas: a name, no mark
+    check("no mark of an area kind anywhere in the three layouts (river, lake, sea, region, range, island, country, province)", !mk.some((m) => /^(river|lake|sea|ocean|strait|gulf|region|range|island|island-group|country|admin1)$/.test(m.kind)), mk.filter((m) => /^(river|lake|sea|ocean|strait|gulf|region|range|island|island-group|country|admin1)$/.test(m.kind)).map((m) => m.id).join(","));
+    await view(page, 40, 34, 6);
+    check("the Fertile Crescent (a region) carries no mark in the Full Atlas", !(await marks(page)).some((m) => m.id === "pl:q170526"));
+    await mode(page, "personal");
+    const fc = (await labels(page)).find((p) => p.id === "pl:q170526");
+    check("…and on the reader's Personal Atlas its name stands alone — placed, flagged, no dot (in the crowded Full Atlas the name may lose its ground to names of higher priority, as any name may)", fcCards.length === 1 && !!fc && fc.st === 2 && !(await marks(page)).some((m) => m.id === "pl:q170526"), fc ? fc.text : "not placed");
+    await mode(page, "full");
+    // the Legend
+    const key = await page.$$eval(".atlas2-marks-key > div", (ds) => ds.map((d) => ({ cls: d.getAttribute("data-cls"), word: d.querySelector("dd").textContent.trim(), svg: !!d.querySelector("svg path"), d: d.querySelector("svg path").getAttribute("d").length })));
+    check("the Legend lists the seven classes, each with its glyph drawn (an SVG path) and its words", key.length === 7 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
+    await shot(page, "glyphs-east-med");
     allErrors.push(...errors); await ctx.close();
   }
 

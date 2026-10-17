@@ -266,7 +266,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "53fa1de5e6:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "e45d8511f7:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -342,6 +342,10 @@
               <label><input type="radio" name="atlas2-density" data-layer="density" value="sparse"> Sparse</label>
               <label><input type="radio" name="atlas2-density" data-layer="density" value="normal"> Normal</label>
               <label><input type="radio" name="atlas2-density" data-layer="density" value="dense"> Dense</label>
+            </fieldset>
+            <fieldset class="atlas2-group atlas2-marks"><legend>Marks</legend>
+              <dl class="atlas2-marks-key" aria-label="What the marks mean"></dl>
+              <p class="atlas2-peoples-hint">Filled in the accent: a place of your own cards. Rivers, lakes, seas, regions and countries are names only.</p>
             </fieldset>
             <fieldset class="atlas2-group atlas2-peoples"><legend>Peoples</legend>
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="off"> Off</label>
@@ -2008,16 +2012,34 @@
        the others hollow, a thin ink outline on both so two marks that touch still read as two. DRAW ORDER, back to front: places not
        studied, places studied, polities, and the selected mark last. The marks of one kind in one layer are one path (a fill and a
        stroke for all of them), so a Full Atlas of 1,300 places and 190 polities is a handful of canvas calls a frame. */
+    /* THE SEVEN GLYPHS (decision e, 2026-10-17; AtlasStudy.MARK_CLASSES): a disc (a city or town), a diamond (a site or cave), a saltire (a battle),
+       a triangle (a mountain, hill or cape), a square (a building, monument or wall), a star (a state, people or culture), a ring with a count (a city
+       stack). Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
+       The same geometry draws the Legend's key (`glyphSVG`), so the key cannot drift from the map. */
+    const SQ = Math.SQRT1_2, CROSS_T = 0.34;   // the saltire's bar half-width, as a share of the half-extent
     function markInto(path, shape, x, y, h, lw) {
       const q = h - lw / 2;   // the outline is drawn inside the half-extent, so a mark never exceeds its size
       if (shape === "diamond") { path.moveTo(x, y - q); path.lineTo(x + q, y); path.lineTo(x, y + q); path.lineTo(x - q, y); path.lineTo(x, y - q); }
       else if (shape === "triangle") { path.moveTo(x, y - q); path.lineTo(x + q, y + q * 0.85); path.lineTo(x - q, y + q * 0.85); path.lineTo(x, y - q); }
+      else if (shape === "square") { const s = q * 0.86; path.moveTo(x - s, y - s); path.lineTo(x + s, y - s); path.lineTo(x + s, y + s); path.lineTo(x - s, y + s); path.lineTo(x - s, y - s); }
+      else if (shape === "cross") { const t = q * CROSS_T, s = q * 1.08; let first = true; for (const [px, py] of [[-t, -s], [t, -s], [t, -t], [s, -t], [s, t], [t, t], [t, s], [-t, s], [-t, t], [-s, t], [-s, -t], [-t, -t], [-t, -s]]) { const rx = (px - py) * SQ, ry = (px + py) * SQ; if (first) { path.moveTo(x + rx, y + ry); first = false; } else path.lineTo(x + rx, y + ry); } }
+      else if (shape === "star") { const ro = q * 1.08, ri = q * 0.46; for (let i = 0; i <= 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? ri : ro; if (i) path.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); else path.moveTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); } }
       else { const rr = q * 0.92; path.moveTo(x + rr, y); path.arc(x, y, rr, 0, Math.PI * 2); }   // a disc, and a stack's ring (its count is drawn over it)
+    }
+    /* the Legend's key: the same glyph as an SVG path at 16 px (hollow, as a place not the reader's is drawn) */
+    function glyphSVG(shape) {
+      const h = 7.5, lw = 1.5, q = h - lw / 2, x = 9, y = 9, pts = [];
+      const P = { moveTo: (a, b) => pts.push("M" + a.toFixed(2) + " " + b.toFixed(2)), lineTo: (a, b) => pts.push("L" + a.toFixed(2) + " " + b.toFixed(2)), arc: () => {} };
+      if (shape === "disc" || shape === "stack") { const rr = q * 0.92; pts.push(`M${(x + rr).toFixed(2)} ${y} A${rr.toFixed(2)} ${rr.toFixed(2)} 0 1 0 ${(x - rr).toFixed(2)} ${y} A${rr.toFixed(2)} ${rr.toFixed(2)} 0 1 0 ${(x + rr).toFixed(2)} ${y}`); }
+      else markInto(P, shape, x, y, h, lw);
+      const count = shape === "stack" ? `<text x="${x}" y="${y + 0.5}" text-anchor="middle" dominant-baseline="middle" font-size="8" font-weight="700" fill="currentColor" font-family="system-ui, sans-serif">3</text>` : "";
+      return `<svg class="atlas2-marks-sw" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true" focusable="false"><path d="${pts.join(" ")}" fill="none" stroke="currentColor" stroke-width="${lw}" stroke-linejoin="round"/>${count}</svg>`;
     }
     /* NO closePath: in this Chromium a path built with moveTo / lineTo / closePath per mark cost 5.3 ms per thousand marks against 0.3 ms
        for the same shapes ending in an explicit lineTo to their start (measured, headless, 2026-10-14) — a Full Atlas of a thousand marks
        is the difference between a third of a frame and none of it. The round line cap closes the outline's corner. */
     const markLine = (half) => (half < 3 ? 1 : half < 6 ? 1.5 : 2);
+    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, star: 5, stack: 6 };   // seven shapes, a batch each
     /* the marks of a layout, indexed for the frame loop: one flat array of unit vectors and the groups (layer, reader's own or not, shape,
        hill or not) each drawn as ONE path — so a frame projects each mark once, allocates nothing, and is a fill and a stroke per group */
     function indexMarks() {
@@ -2025,7 +2047,7 @@
       L.markIndex = new Map();
       for (let i = 0; i < n; i++) {
         const m = marks[i]; ax[3 * i] = m.a[0]; ax[3 * i + 1] = m.a[1]; ax[3 * i + 2] = m.a[2]; L.markIndex.set(m.id, i);
-        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (m.shape === "diamond" ? 0 : m.shape === "triangle" ? 8 : m.shape === "stack" ? 24 : 16) + (m.kind === "hill" ? 4 : 0);
+        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);
         let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, scale: m.kind === "hill" ? 0.75 : 1, layer: m.layer, idx: [] });
         g.idx.push(i);
       }
@@ -2064,7 +2086,8 @@
           if (z < 0.2) { faint.push(ln - 1); continue; }   // near the limb: faded, drawn singly below
           if (shape === "diamond") { ctx.moveTo(x, y - q); ctx.lineTo(x + q, y); ctx.lineTo(x, y + q); ctx.lineTo(x - q, y); ctx.lineTo(x, y - q); }
           else if (shape === "triangle") { ctx.moveTo(x, y - q); ctx.lineTo(x + q, y + q * 0.85); ctx.lineTo(x - q, y + q * 0.85); ctx.lineTo(x, y - q); }
-          else { const rr = q * 0.92; ctx.moveTo(x + rr, y); ctx.arc(x, y, rr, 0, 6.283185307179586); }
+          else if (shape === "disc" || shape === "stack") { const rr = q * 0.92; ctx.moveTo(x + rr, y); ctx.arc(x, y, rr, 0, 6.283185307179586); }
+          else markInto(ctx, shape, x, y, h, lw);   // a square, a saltire, a star: the same geometry as a single mark (moveTo/lineTo onto the batch's path)
         }
         ctx.fillStyle = g.mine ? accentCss : haloCss; ctx.fill(); ctx.stroke();
       }
@@ -2112,7 +2135,7 @@
        true positions would no longer be under the lines). No count and no cycling chip: the reader chooses from what is drawn. */
     const FAN_MAX = 14;
     let fan = null;
-    function markRadius(touch) { return touch || PHONE ? 22 : 12; }
+    function markRadius(touch) { return touch || PHONE ? 22 : 16; }   // a hit area of at least 32 px (decision e); a finger reaches 22
     /* THE TAP RULES (2026-10-17; the owner's phone, decision b). A mark, a name or a face opens a popup ONLY IF IT HAS AT LEAST ONE CARD — in the
        Personal Atlas one of the reader's own, in the Full Atlas any card of a collection that is on, on the plain Map any card at all (study.js
        `tappableSet`). Everything else is not tappable: no hit area, no highlight, no popup — its name is still drawn. That holds for places, for
@@ -3053,6 +3076,8 @@
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
       R.dispose();
     }
+    // the Legend's key of the seven glyphs (decision e): built from AtlasStudy.MARK_CLASSES with the map's own geometry
+    { const key = el.querySelector(".atlas2-marks-key"), A0 = root.AtlasStudy; if (key && A0 && A0.MARK_CLASSES) key.innerHTML = A0.MARK_CLASSES.map((c) => `<div data-cls="${escText(c.cls)}"><dt>${glyphSVG(c.shape)}</dt><dd>${escText(c.word)}</dd></div>`).join(""); }
     setPerf(perfOn);   // after the label state exists: the overlay reads it (Phase 1c)
     try { paintWarsKey(); } catch (e) { /* before the time block */ }
     layout();
@@ -3112,8 +3137,9 @@
       study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, open: () => ST.open, setOpen: setStudyOpen, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
         flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl,
         /* the layout's marks (every flagged place or polity within the view and its margin, with whether its ground was clear at layout), the marks drawn in the last frame, the fan, the hidden list */
-        marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "" })); },
-        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "" })),
+        marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, cls: m.cls || "", st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "" })); },
+        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "" })),
+        glyphSVG, markRadius,
         stack: () => (cardStack ? { id: cardStack.id, name: cardStack.name, ids: cardStack.ids.slice(), i: cardStack.i } : null), stackStep, openStack: (id) => { const m = stackMark(id); if (m) openStack(m); return !!m; },
         layoutChrome: () => (L.chrome || []).map((r) => r.slice()),
         near: (x, y, touch) => marksNear(x, y, markRadius(touch)).map((e) => e.m.id),

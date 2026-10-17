@@ -987,7 +987,8 @@
           kind = g.kind; unit = g.a; a = proj(unit); x = a[0]; y = a[1]; z = a[2];
         }
         if (z < 0.02 || !onScreen(x, y, MARGIN)) continue;
-        list.push({ id, kind, name, n, f, unit, x, y, z, own, shape: AS.markShape(kind), layer: AS.markLayer(kind, f), h: h0 * AS.markScale(kind) });
+        const sub = srow ? srow.sub : "", cls = AS.markClass(kind, sub);   // the glyph class (decision e); null for an area: a name, no mark
+        list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind) : 0 });
       }
       /* CITY STACKS (2026-10-17, decision d): the marks of ONE CITY within STACK_PX (28) of one another on screen become one mark with a count,
          at their mean position, named for the city; its members are not drawn (the page's popup pages through them). Never across cities, never
@@ -995,7 +996,7 @@
          members lie farther apart than 28 px they are drawn singly again — this is decided per layout, so a pinch holds the last decision. */
       if (study.city && study.city.size && list.length > 1) {
         const byCity = new Map();
-        for (let i = 0; i < list.length; i++) { const cid = study.city.get(list[i].id); if (!cid) continue; let l = byCity.get(cid); if (!l) byCity.set(cid, l = []); l.push(i); }
+        for (let i = 0; i < list.length; i++) { if (!list[i].cls) continue; const cid = study.city.get(list[i].id); if (!cid) continue; let l = byCity.get(cid); if (!l) byCity.set(cid, l = []); l.push(i); }
         const drop2 = new Set(), stacks = [];
         for (const [cid, idxs] of byCity) {
           if (idxs.length < 2) continue;
@@ -1005,7 +1006,7 @@
             sx /= mem.length; sy /= mem.length;
             const name = study.cityName.get(cid) || cid, id = "stk:" + cid + ":" + stacks.length;
             const hh = Math.max(h0 * 1.4, 6.5 * FS);   // a count must fit inside: never under 13 px across
-            stacks.push({ id, kind: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: "stack", layer: AS.markLayer("stack", f), h: hh });
+            stacks.push({ id, kind: "stack", sub: "", cls: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: "stack", layer: AS.markLayer("stack", f), h: hh });
           }
         }
         if (drop2.size) list = list.filter((mm) => !drop2.has(mm.id)).concat(stacks);
@@ -1015,20 +1016,21 @@
         const hh = m.h, mrect = [m.x - hh - 1, m.y - hh - 1, m.x + hh + 1, m.y + hh + 1];
         m.rect = mrect; m.clear = fullyOn(mrect) && !hitsChrome(mrect);
         dropping = m.own || { name: m.id };
-        const base = { id: m.id, kind: m.kind, shape: m.shape, layer: m.layer, st: m.f, a: m.unit, sx: m.x, sy: m.y, h: hh, n: m.n, clear: m.clear, score: -300 - m.f * 10 - Math.min(9, m.n / 100) };
+        const base = { id: m.id, kind: m.kind, cls: m.cls, shape: m.shape, layer: m.layer, st: m.f, a: m.unit, sx: m.x, sy: m.y, h: hh, n: m.n, clear: m.clear, score: -300 - m.f * 10 - Math.min(9, m.n / 100) };
         if (m.members) { base.members = m.members; base.count = m.count; base.name = m.name; base.city = m.city; }   // a city stack (decision d)
-        marks.push(base); markById.set(m.id, base);
+        if (m.cls) { marks.push(base); markById.set(m.id, base); }   // an AREA (no class) has no mark: its name stands at its point (decision e)
         if (!m.clear) continue;   // under a control or past the frame's edge: no name either (the page checks the mark again on every frame)
-        if (m.f === 2) take(mrect);   // the reader's own mark takes its ground before the ordinary names
+        if (m.f === 2 && m.cls) take(mrect);   // the reader's own mark takes its ground before the ordinary names
         const row = m.own;
         if (row && show.places && row.name) {
           const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
           if (st2) {
             const sh = shape(row.name, st2, missing); sh.style = style;
-            // beside the mark, with the ground between them that the pad asks of any two names (a 2 px gap never fitted a 4 px pad)
+            // beside the mark, with the ground between them that the pad asks of any two names (a 2 px gap never fitted a 4 px pad); an area's name on its point first
             const gap = hh + 1 + pad + 1;
             let got = null;
-            for (const [tx, ty] of [[m.x + gap + sh.w / 2, m.y], [m.x - gap - sh.w / 2, m.y], [m.x, m.y - gap - sh.h / 2], [m.x, m.y + gap + sh.h / 2]]) {
+            const tries = m.cls ? [[m.x + gap + sh.w / 2, m.y], [m.x - gap - sh.w / 2, m.y], [m.x, m.y - gap - sh.h / 2], [m.x, m.y + gap + sh.h / 2]] : [[m.x, m.y], [m.x, m.y - sh.h], [m.x, m.y + sh.h], [m.x + sh.w / 2 + pad, m.y], [m.x - sh.w / 2 - pad, m.y]];
+            for (const [tx, ty] of tries) {
               const g2 = straight(sh, tx, ty, 0);
               if (fullyOn(g2.rects[0]) && free(g2.rects[0]) && softFree(g2.rects[0])) { got = g2; break; }
             }
@@ -1038,7 +1040,7 @@
             } else drop("study name finds no free side clear of the names and marks of higher priority");
           }
         }
-        if (m.f !== 2) softTake(mrect);
+        if (m.f !== 2 && m.cls) softTake(mrect);
       }
     }
     const capAll = cap + placed.length;   // the density cap counts the ordinary labels only: the study pass is the reader's own

@@ -158,10 +158,38 @@
     const t = Math.max(0, Math.min(1, (Math.log(MARK_WIDE_KMPP) - Math.log(k)) / (Math.log(MARK_WIDE_KMPP) - Math.log(MARK_NEAR_KMPP))));
     return MARK_WIDE_PX + (MARK_NEAR_PX - MARK_WIDE_PX) * t;
   }
-  function markShape(kind) {
-    if (POLITY_KIND.test(kind || "")) return "disc";
-    return kind === "mountain" || kind === "hill" || kind === "cape" ? "triangle" : "diamond";
+  /* THE GLYPH CLASSES (2026-10-17; the owner's phone, decision e — "battles, hills and so on have the same icons as cities"). Every kind the
+     card-linked places have in the registry falls into one of SEVEN classes, each its own SHAPE (not only a colour; a canvas path the page draws
+     in one batch per class; the Legend lists them):
+       settlement  capital, city, town                        disc
+       site        site (an archaeological site), a cave      diamond
+       battle      site/battle                                cross (a saltire)
+       peak        mountain, hill, cape                       triangle
+       building    site/building (a monument, a wall, a hall) square
+       polity      polity, people, culture, extent …          star
+       stack       several places of one city                 ring, with the count inside
+     An AREA — a river, a lake, a sea, an ocean, a strait, a gulf, an island, a range, a region, a cultural area, a country, a province — has NO
+     mark (class null): it is a name only. `markClass(kind, sub)` is the one classification; `markShape` its shape; MARK_CLASSES the Legend's rows. */
+  const MARK_SHAPE = { settlement: "disc", site: "diamond", battle: "cross", peak: "triangle", building: "square", polity: "star", stack: "stack" };
+  const MARK_CLASSES = [
+    { cls: "settlement", shape: "disc", word: "City or town" },
+    { cls: "site", shape: "diamond", word: "Archaeological site or cave" },
+    { cls: "battle", shape: "cross", word: "Battle" },
+    { cls: "peak", shape: "triangle", word: "Mountain, hill or cape" },
+    { cls: "building", shape: "square", word: "Building, monument or wall" },
+    { cls: "polity", shape: "star", word: "State, people or culture" },
+    { cls: "stack", shape: "stack", word: "Several places of one city, with their count" },
+  ];
+  function markClass(kind, sub) {
+    kind = kind || "";
+    if (POLITY_KIND.test(kind)) return "polity";
+    if (kind === "stack") return "stack";
+    if (kind === "capital" || kind === "city" || kind === "town") return "settlement";
+    if (kind === "mountain" || kind === "hill" || kind === "cape") return "peak";
+    if (kind === "site") return sub === "battle" ? "battle" : sub === "building" ? "building" : "site";
+    return null;
   }
+  function markShape(kind, sub) { const c = markClass(kind, sub); return c ? MARK_SHAPE[c] : null; }
   function markScale(kind) { return kind === "hill" ? 0.75 : 1; }   // a hill is the smaller triangle, as it was
   function markLayer(kind, f) { return POLITY_KIND.test(kind || "") ? 2 : f === 2 ? 1 : 0; }   // a stack is a place's layer (its own or the reader's)
   /* the marks within `radius` px of (x, y): `pts` [{ x, y }] → indices, nearest first (a tie keeps the order given) */
@@ -456,7 +484,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);
