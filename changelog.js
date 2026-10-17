@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1024", released: "2026-10-17T00:48Z" };
+window.FOLIO_VERSION = { v: "1.1025", released: "2026-10-17T09:40Z" };
 
 window.CHANGELOG = [
   {
@@ -48,6 +48,11 @@ window.CHANGELOG = [
       "<b>Atlas city stacks</b>: the places of one city that crowd together are one mark with a count (never across cities); its popup, “Rome — 7 places”, pages through them by swiping or with the arrows.",
       "<b>Atlas marks</b>: each kind of place has its own shape — a disc for a city, a diamond for a site, a saltire for a battle, a triangle for a hill, a square for a building, a star for a state — listed in the Legend; rivers, seas and regions are names only.",
       "<b>Atlas names</b>: a label never shows a bracketed note (“Malia”, not “Malia (archaeological site)”), a long name wraps onto two lines or uses its short form, and the popup keeps the full name.",
+      "<b>Atlas pinch</b>: pinching the Full Atlas is smoother — each mark's shape is drawn once and reused, and the names wait for your fingers to lift.",
+      "<b>Atlas stacks</b>: two city rings, or a ring and a mark, that would overlap are nudged apart, with a hairline to the ring's true place (Rome and Vatican City).",
+      "<b>Atlas names</b>: a place's name is never laid over a mark — its own or another's — and a city's name finds room among its neighbours' marks.",
+      "<b>Atlas marks</b>: Reate is Rieti, a town, not the Roman mint there; seven more places wear the right shape (Fatehpur Sikri, Gliwice, Murom, Shahjahanabad, Izborsk, Bogolyubovo, New Echota).",
+      "<b>Atlas stacks</b>: a city stack of more than eight places lists their names above the pager; a tap on a name jumps straight to that place.",
     ],
   },
   {

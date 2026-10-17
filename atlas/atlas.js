@@ -266,7 +266,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "b618f12ecb:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "88317a7d1e:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -401,7 +401,7 @@
         <p class="atlas2-mode" hidden></p>
         <aside class="atlas2-card" hidden aria-label="Place">
           <button type="button" class="atlas2-grip" aria-label="Expand or collapse the place card"><i></i></button>
-          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title" tabindex="-1"></h2><p class="atlas2-card-kind"></p><div class="atlas2-pager" hidden role="group" aria-label="The places of this city"><button type="button" class="atlas2-pager-prev" aria-label="Previous place">‹</button><span class="atlas2-pager-mid"><span class="atlas2-pager-name"></span><span class="atlas2-pager-n"></span></span><button type="button" class="atlas2-pager-next" aria-label="Next place">›</button></div></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
+          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title" tabindex="-1"></h2><p class="atlas2-card-kind"></p><div class="atlas2-pager" hidden role="group" aria-label="The places of this city"><ul class="atlas2-pager-list" hidden aria-label="Jump to a place"></ul><div class="atlas2-pager-row"><button type="button" class="atlas2-pager-prev" aria-label="Previous place">‹</button><span class="atlas2-pager-mid"><span class="atlas2-pager-name"></span><span class="atlas2-pager-n"></span></span><button type="button" class="atlas2-pager-next" aria-label="Next place">›</button></div></div></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
           <div class="atlas2-card-body"></div>
         </aside>
         <div class="atlas2-keys vh" aria-label="Places named on the map"><ul></ul></div>
@@ -512,7 +512,13 @@
     const stalled = (t0, t1) => longTasks.some(([a, b]) => b > t0 && a < t1);
     const gestureLive = () => ptrs.size > 0 || coasting || !!flying || (performance.now() - lastWheelT < 200) || !!(time && time.dragging);   // a rail scrub is a gesture too: its frames re-rasterise every fill, and a slow GPU drops to half resolution for it as for a pan
     const lodBias = () => (stage >= 2 && !STATIC2D && gestureLive() ? 1 : 0);
-    function setRes(sc) { if (sc === resScale) return; resScale = sc; R.resize(cssW, cssH, (window.devicePixelRatio || 1) * resScale); stats.resDrops = (stats.resDrops || 0) + (sc < 1 ? 1 : 0); invalidate(); }
+    function setRes(sc) { if (sc === resScale) return; resScale = sc; R.resize(cssW, cssH, (window.devicePixelRatio || 1) * resScale); sizeLabelCanvas(); stats.resDrops = (stats.resDrops || 0) + (sc < 1 ? 1 : 0); invalidate(); }
+    /* THE NAMES' CANVAS FOLLOWS THE GESTURE'S RESOLUTION (2026-10-17, the frame gate). At stage 1 a gesture draws the globe at half resolution; the
+       names and marks were still rastered at full — a Full Atlas frame of 640 blits and a hundred names on a software rasteriser, which is what the
+       compositor's commit paid for (the pinch's last 100–150 ms frames carried 1–2 ms of script). The label canvas now takes the same scale while
+       the gesture is live (`resScale`), and its full size back with the release frame, as the globe does. The CSS size never changes. */
+    function sizeLabelCanvas() { const k = labelRes(); const w = Math.round(cssW * k), h = Math.round(cssH * k); if (labelCanvas.width !== w || labelCanvas.height !== h) { labelCanvas.width = w; labelCanvas.height = h; } }
+    const labelRes = () => dprNow * (resScale < 1 ? Math.max(0.5, resScale) : 1);
     function gestureEnded() { wasLive = false; if (resScale < 1 && !gestureLive()) setRes(1); if (stage >= 2 && !gestureLive()) invalidate(); }
     function applyStage(s) { stage = s; stats.stage = stage; stats.learnt = learnt; if (gestureLive()) setRes(stage >= 1 ? 0.5 : 1); invalidate(); }
     function escalate() { if (stageLocked || stage >= 2) return; slowFrames = 0; fastRun = 0; trialFast = 0; stats.escalations++; if (stage + 1 > learnt) learnt = stage + 1; applyStage(stage + 1); }
@@ -569,7 +575,7 @@
       el.classList.toggle("atlas2-narrow", cssW < NARROW_PX);   // the rail in two lines under NARROW_PX, whatever the pointer (the 2a review: a phone the flag missed clipped the speed control)
       dprNow = Math.min(2, window.devicePixelRatio || 1);
       R.resize(cssW, cssH, (window.devicePixelRatio || 1) * resScale);
-      labelCanvas.width = Math.round(cssW * dprNow); labelCanvas.height = Math.round(cssH * dprNow);
+      sizeLabelCanvas();
       if (G.ready && Math.abs(labelScaleNow() - LS) > 0.001) { spriteGen++; spriteCache.clear(); measureMetrics(); }   // the viewport crossed the phone breakpoint: Medium is a different --fs there (labelScaleNow)
       base = Math.min(cssW, cssH) * 0.46;
       view.cx = cssW / 2; view.cy = cssH / 2;
@@ -1010,7 +1016,7 @@
       const f = Math.exp(-Math.max(-120, Math.min(120, e.deltaY)) * 0.0025);
       lastWheelT = performance.now();
       if (wheelTimer) clearTimeout(wheelTimer);
-      wheelTimer = setTimeout(() => { wheelTimer = 0; gestureEnded(); }, 220);
+      wheelTimer = setTimeout(() => { wheelTimer = 0; gestureEnded(); touched(); }, 220);   // the burst is over (past WHEEL_BURST_MS): the held layout goes now
       zoomAt(f, e.clientX - rect.left, e.clientY - rect.top);
       invalidate(); touched();
     }, { passive: false });
@@ -1897,11 +1903,18 @@
     let layoutTimer = 0, layoutSeq = 0, lastLevelLayout = 0, layoutHeld = null;
     // "moving" is the pointer's state, not a quiet clock: on a slow machine a drag's moves can be 150 ms apart
     // and a settle timer would lay out between them (measured: one layout per move on the CI-class runner)
-    const moving = () => dragging || ptrs.size > 0 || coasting || !!flying || !!time.dragging;   // a rail scrub holds the layout too: the names move when the pin drops
+    const WHEEL_BURST_MS = 200;   // a wheel step within this of the last is one zoom burst (gestureLive's own window): its layouts wait for the burst's end, like a pinch's
+    const moving = () => dragging || ptrs.size > 0 || coasting || !!flying || !!time.dragging || performance.now() - lastWheelT < WHEEL_BURST_MS;   // a rail scrub holds the layout too: the names move when the pin drops; a wheel burst too (2026-10-17, the frame gate: twelve steps asked for a level layout every 100 ms, and the worker's Full Atlas layouts (35–95 ms each) held back the tiles the zoom had asked for until the next gesture's frames)
     function requestLayout(reason, now) {
       if (disposed || EMBED) return;
       if (reason === "level") { const t = performance.now(); if (t - lastLevelLayout < 100) return; lastLevelLayout = t; now = true; }
-      if (moving() && reason !== "level") { layoutHeld = reason; return; }
+      /* A LEVEL LAYOUT WAITS FOR THE GESTURE TOO (2026-10-17, the frame gate). It used to be sent at once even mid-gesture (a pinch zooming OUT takes the
+         coarser level at once, and asked for its names at once). The worker's layout of the Full Atlas at the widest view costs it 35–95 ms of a core
+         (1,300 flagged places, their names, the stacks) against 3–6 ms for the plain Map, and on the gate's four-core sandbox that computation,
+         alongside the compositor's own read-back of every gesture frame, is what tipped the Full Atlas's pinch frames from 83 to 100–150 ms — 9–11 of
+         ~415 over 100 ms where the plain Map read 0–2 (the marks' raster was the other half: markSprite). Nothing is added or dropped while the globe
+         moves (§2.9) in any case: the held layout is sent by `touched()` the moment the fingers lift — the release frame, where a level's names belong. */
+      if (moving()) { layoutHeld = reason === "level" ? "level" : (layoutHeld === "level" ? "level" : reason); return; }
       if (layoutTimer) { clearTimeout(layoutTimer); layoutTimer = 0; }
       if (now) { sendLayout(reason); return; }
       layoutTimer = setTimeout(() => { layoutTimer = 0; if (moving()) { layoutHeld = reason; return; } sendLayout(reason); }, SETTLE_MS);
@@ -1951,6 +1964,7 @@
 
     /* ---- sprites: a label rendered once, glyph by glyph, halo then ink, at its layout position ---- */
     let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "";
+    const markSprites = new Map(), MARK_SPRITE_MAX = 400;   // the study marks' glyph bitmaps (markSprite, below); cleared with the colours
     function labelColours() {
       const { ink, paper, paper2, indigo, ochre, dark } = themeTokens();
       const hex = (c) => "#" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255).toString(16).padStart(2, "0")).join("");
@@ -1960,6 +1974,7 @@
       waterCss = hex(dark ? mix([0.55, 0.8, 1], paper, 0.12) : mix(ink, [31 / 255, 122 / 255, 170 / 255], 0.5));
       selCss = hex(dark ? mix(paper, ochre, 0.5) : mix(ink, ochre, 0.55));
       accentCss = hex(ochre);   // the fill of the reader's own marks (Phase 3b)
+      markSprites.clear();   // the glyph sprites carry these colours (the frame gate, 2026-10-17)
       void paper2; void indigo;
     }
     labelColours();
@@ -2056,65 +2071,97 @@
       if (!L.lx || L.lx.length < n) { L.lx = new Float32Array(n + 64); L.ly = new Float32Array(n + 64); L.lh = new Float32Array(n + 64); L.li = new Int32Array(n + 64); }
       L.ln = 0;
     }
+    /* MARK SPRITES (2026-10-17, the frame gate). A glyph is rasterised ONCE per (shape, size, fill, count) into a small canvas and blitted per
+       mark. Measured on the gate's sandbox (SwiftShader, 1280 × 800, the Full Atlas at the widest view): with the marks drawn as paths the pinch
+       read 1–4 of ~405 gesture frames over 100 ms (117 ms: a frame two vsyncs longer than the 83 ms the plain Map reads), with the marks pass
+       switched off 0 — while the main thread's own share of the marks and the names was 1–3 ms a frame. The cost was the canvas RASTER at the
+       compositor's commit: decision e (2026-10-17) made the 340 settlements DISCS drawn through arc() where they had been four-segment diamonds,
+       added the stacks' rings with a count written in text every frame, the stars and the saltires — and every arc is tessellated, filled and
+       stroked again in every frame of a gesture. A blit of a cached bitmap costs the rasteriser almost nothing, whatever the shape, so a frame
+       of 640 marks is 640 drawImage calls of 8–24 px bitmaps. Sizes are quantised to a quarter pixel (a pinch changes the size every frame; the
+       cache stays small), positions snap to the device pixel (crisp, no resampling), the cache is cleared when the theme's colours change
+       (labelColours) and when it grows past MARK_SPRITE_MAX. The selected mark and the fan keep drawing paths: one each. The geometry is
+       markInto's, the same as the Legend's. City stack membership is computed once per layout in the worker (stackGroups), never per frame. */
+    function markSprite(shape, h, lw, mine, count) {
+      const hq = Math.round(h * 4) / 4, dpr = labelRes(), key = shape + "|" + hq + "|" + lw + "|" + (mine ? 1 : 0) + "|" + (count || 0) + "|" + dpr;
+      let s = markSprites.get(key); if (s) return s;
+      if (markSprites.size >= MARK_SPRITE_MAX) markSprites.clear();
+      const pad = 2, half = hq + pad, size = Math.max(1, Math.ceil(2 * half * dpr));
+      const c = document.createElement("canvas"); c.width = c.height = size;
+      const x = c.getContext("2d"); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+      x.lineJoin = "round"; x.lineCap = "round"; x.lineWidth = lw; x.strokeStyle = inkCss; x.fillStyle = mine ? accentCss : haloCss;
+      x.beginPath(); markInto(x, shape, half, half, hq, lw); x.fill(); x.stroke();
+      if (count) {   // a city stack's count, inside its ring (decision d)
+        x.textAlign = "center"; x.textBaseline = "middle";
+        x.font = `700 ${Math.max(8, Math.min(hq * 1.1, 13)).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
+        x.fillStyle = mine ? haloCss : inkCss; x.fillText(String(count), half, half + 0.5);
+      }
+      s = { c, half, w: 2 * half }; markSprites.set(key, s); return s;
+    }
     function drawMarks(ctx) {
       const t0 = performance.now(), marks = L.marks, A = root.AtlasStudy;
       L.ln = 0;
       if (!marks.length || !A || !L.mA) { L.lastMarkMs = 0; return; }
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy, ch = L.chrome || [], nch = ch.length;
       const r0 = rot[0], r1 = rot[1], r2 = rot[2], r3 = rot[3], r4 = rot[4], r5 = rot[5], r6 = rot[6], r7 = rot[7], r8 = rot[8];
-      const half = A.markHalf(view.kmpp) * LS, lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH;
+      const half = A.markHalf(view.kmpp) * LS, lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH, dpr = labelRes();
+      const snap = (v) => Math.round(v * dpr) / dpr;
       const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : cardStack && L.markIndex.has(cardStack.id) ? L.markIndex.get(cardStack.id) : -1, aliveEnt = time.aliveEnt;   // the open stack is the selected mark
       let ln = 0, selK = -1;
-      const faint = [], stacksK = [];
-      ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = lw; ctx.strokeStyle = inkCss; ctx.globalAlpha = 1;
+      const faint = [], hair = [];
+      ctx.globalAlpha = 1;
       for (const g of L.markGroups) {
-        const shape = g.shape, stack = shape === "stack", h = stack ? Math.max(half * 1.4, 6.5 * LS) : half * g.scale, e = h + 1, q = h - lw / 2, idx = g.idx, polity = g.layer === 2;
-        ctx.beginPath();
+        const shape = g.shape, stack = shape === "stack", h = stack ? Math.max(half * 1.4, 6.5 * LS) : half * g.scale, e = h + 1, idx = g.idx, polity = g.layer === 2;
+        const sp = stack ? null : markSprite(shape, h, lw, g.mine, 0);   // a stack's sprite carries its count: fetched per mark
         for (let k = 0; k < idx.length; k++) {
           const i = idx[k], j = 3 * i, a0 = ax[j], a1 = ax[j + 1], a2 = ax[j + 2];
           const z = r6 * a0 + r7 * a1 + r8 * a2;
           if (z < 0.005) continue;
-          const x = cx + (r0 * a0 + r1 * a1 + r2 * a2) * r, y = cy - (r3 * a0 + r4 * a1 + r5 * a2) * r;
+          const mk = marks[i], ox = mk.ox || 0, oy = mk.oy || 0;   // a stack nudged off another mark (decision c): a pixel offset, held through a gesture
+          const x = cx + (r0 * a0 + r1 * a1 + r2 * a2) * r + ox, y = cy - (r3 * a0 + r4 * a1 + r5 * a2) * r + oy;
           if (x - e < 0 || y - e < 0 || x + e > W || y + e > H) continue;
           let hidden = false;
           for (let c = 0; c < nch; c++) { const cr = ch[c]; if (x - e < cr[2] && x + e > cr[0] && y - e < cr[3] && y + e > cr[1]) { hidden = true; break; } }
           if (hidden) continue;
-          if (polity && aliveEnt && !aliveEnt.has(marks[i].id)) continue;   // a polity no longer alive (the layout is held while the pin is dragged)
+          if (polity && aliveEnt && !aliveEnt.has(mk.id)) continue;   // a polity no longer alive (the layout is held while the pin is dragged)
           lx[ln] = x; ly[ln] = y; lh[ln] = h; li[ln] = i; ln++;
-          if (stack) stacksK.push(ln - 1);
+          if (ox || oy) hair.push(ln - 1);
           if (i === selI) { selK = ln - 1; continue; }
           if (z < 0.2) { faint.push(ln - 1); continue; }   // near the limb: faded, drawn singly below
-          if (shape === "diamond") { ctx.moveTo(x, y - q); ctx.lineTo(x + q, y); ctx.lineTo(x, y + q); ctx.lineTo(x - q, y); ctx.lineTo(x, y - q); }
-          else if (shape === "triangle") { ctx.moveTo(x, y - q); ctx.lineTo(x + q, y + q * 0.85); ctx.lineTo(x - q, y + q * 0.85); ctx.lineTo(x, y - q); }
-          else if (shape === "disc" || shape === "stack") { const rr = q * 0.92; ctx.moveTo(x + rr, y); ctx.arc(x, y, rr, 0, 6.283185307179586); }
-          else markInto(ctx, shape, x, y, h, lw);   // a square, a saltire, a star: the same geometry as a single mark (moveTo/lineTo onto the batch's path)
+          const s = sp || markSprite(shape, h, lw, g.mine, marks[i].count || (marks[i].members ? marks[i].members.length : 0));
+          ctx.drawImage(s.c, snap(x - s.half), snap(y - s.half), s.w, s.w);
         }
-        ctx.fillStyle = g.mine ? accentCss : haloCss; ctx.fill(); ctx.stroke();
       }
       L.ln = ln;
+      if (hair.length) {   // drawn after the rings' blits in frame order, but a hairline is 1 px and ends at the ring's edge, so it never crosses a ring
+        ctx.lineCap = "round";
+        for (const k of hair) {
+          const m = marks[li[k]], ox = m.ox || 0, oy = m.oy || 0, d = Math.hypot(ox, oy), hh = lh[k];
+          if (d <= hh - 1) continue;   // the true point still lies under the ring
+          const x1 = lx[k] - ox, y1 = ly[k] - oy, x0 = lx[k] - ox / d * (hh - lw / 2), y0 = ly[k] - oy / d * (hh - lw / 2);
+          ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1);
+          ctx.lineWidth = 3; ctx.strokeStyle = haloCss; ctx.stroke(); ctx.lineWidth = 1; ctx.strokeStyle = inkCss; ctx.stroke();
+          ctx.beginPath(); ctx.arc(x1, y1, 1.5, 0, 6.283185307179586); ctx.fillStyle = inkCss; ctx.fill();
+        }
+      }
       if (faint.length) {
         for (const k of faint) {
-          const m = marks[li[k]], path = new Path2D();
-          markInto(path, m.shape, lx[k], ly[k], lh[k], lw);
+          const m = marks[li[k]], s = markSprite(m.shape, lh[k], lw, m.st === 2, m.count || (m.members ? m.members.length : 0));
           const z = rot[6] * m.a[0] + rot[7] * m.a[1] + rot[8] * m.a[2];
-          ctx.globalAlpha = Math.max(0.05, Math.min(1, z / 0.2)); ctx.fillStyle = m.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
+          ctx.globalAlpha = Math.max(0.05, Math.min(1, z / 0.2)); ctx.drawImage(s.c, snap(lx[k] - s.half), snap(ly[k] - s.half), s.w, s.w);
         }
         ctx.globalAlpha = 1;
       }
       if (selK >= 0) {
         const m = marks[li[selK]], path = new Path2D();
         markInto(path, m.shape, lx[selK], ly[selK], lh[selK] + 1, 2);
-        ctx.lineWidth = 2; ctx.strokeStyle = selCss; ctx.fillStyle = m.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
-      }
-      // a city stack's count, over its ring (decision d): a few per frame, so drawn singly
-      if (stacksK.length) {
-        ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.globalAlpha = 1;
-        for (const k of stacksK) {
-          const m = marks[li[k]], hh = lh[k], t = String(m.count || (m.members ? m.members.length : 0));
+        ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = 2; ctx.strokeStyle = selCss; ctx.fillStyle = m.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
+        if (m.members) {   // the open stack's count, over its highlighted ring
+          const hh = lh[selK] + 1; ctx.textAlign = "center"; ctx.textBaseline = "middle";
           ctx.font = `700 ${Math.max(8, Math.min(hh * 1.1, 13)).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
-          ctx.fillStyle = m.st === 2 ? haloCss : inkCss; ctx.fillText(t, lx[k], ly[k] + 0.5);
+          ctx.fillStyle = m.st === 2 ? haloCss : inkCss; ctx.fillText(String(m.count || m.members.length), lx[selK], ly[selK] + 0.5);
+          ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
         }
-        ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
       }
       if (focusId && L.markIndex.has(focusId)) {
         const fi = L.markIndex.get(focusId);
@@ -2231,7 +2278,7 @@
     function drawLabels() {
       const t = performance.now();
       const ctx = lctx;
-      ctx.setTransform(dprNow, 0, 0, dprNow, 0, 0);
+      { const k = labelRes(); ctx.setTransform(k, 0, 0, k, 0, 0); }   // the gesture's resolution (sizeLabelCanvas)
       ctx.clearRect(0, 0, cssW, cssH);
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy;
       const live = [];
@@ -2301,7 +2348,8 @@
       // the nearest mark within a finger; several within it fan out round the tap (no count, no chip), one picks at once
       const near = marksNear(x, y, markRadius(touch));
       if (near.length === 1) { pickMark(near[0].m); return; }
-      if (near.length > 1) { openFan(x, y, near); return; }
+      // a tap INSIDE a city ring opens the ring (the stack is the one target a reader aims at; a nudged ring stands among its neighbours' dots — decision c — and a fan every time would hide the stack behind a choice)
+      if (near.length > 1) { const ring = near.find((e) => e.m.members && Math.hypot(e.x - x, e.y - y) <= e.h); if (ring) { pickMark(ring.m); return; } openFan(x, y, near); return; }
       const hs = hitAt(x, y).find((h) => h.p.id.startsWith("stk:")); if (hs) { const m = stackMark(hs.p.id); if (m) { pickMark(m); return; } }   // the stack's own name
       const again = sel.at && Math.hypot(sel.at[0] - x, sel.at[1] - y) < 10 && performance.now() - sel.t < 5000 && sel.stack.length > 1;
       if (again) { sel.index = (sel.index + 1) % sel.stack.length; sel.t = performance.now(); showStack(); selectRow(sel.stack[sel.index], { open: true, push: true }); return; }
@@ -2420,7 +2468,23 @@
        right, the arrow buttons, the keyboard's arrows while the card has focus, and a "2 of 7" indicator — each page the place's own card with its cards.
        The address follows the page's place (replaced, not pushed). A selection from anywhere else (a search, a tap on another mark) ends the stack. */
     let cardStack = null;
-    const pagerEl = cardEl.querySelector(".atlas2-pager");
+    const pagerEl = cardEl.querySelector(".atlas2-pager"), pagerList = pagerEl.querySelector(".atlas2-pager-list");
+    /* THE STACK'S LIST (2026-10-17, decision f; the owner's phone: Rome's 39 central sites cannot separate at the closest zoom, so the only way through them
+       was a 39-page swipe). A stack of more than STACK_LIST_MIN places also shows a scrollable list of its places' names above the pager; a tap on a name
+       jumps to that place. The swipe, the arrows and the "n of N" indicator stay. The list is built once per stack and its current row marked on each page. */
+    const STACK_LIST_MIN = 8;
+    let pagerListFor = null;
+    function reflectStackList(row) {
+      const n = cardStack.ids.length;
+      if (n <= STACK_LIST_MIN) { pagerList.hidden = true; pagerList.innerHTML = ""; pagerListFor = null; return; }
+      if (pagerListFor !== cardStack.id) {
+        pagerListFor = cardStack.id;
+        pagerList.innerHTML = cardStack.ids.map((id, k) => { const r = G.byId.get(id); return `<li><button type="button" data-i="${k}">${escText(r ? r.name : id)}<span class="atlas2-pager-kind">${escText(r ? KIND_LABEL[r.kind] || r.kind : "")}</span></button></li>`; }).join("");
+      }
+      pagerList.hidden = false;
+      for (const b of pagerList.querySelectorAll("button[data-i]")) { const on = b.getAttribute("data-i") === String(cardStack.i); b.setAttribute("aria-current", on ? "true" : "false"); if (on) { const top = b.offsetTop, bottom = top + b.offsetHeight; if (top < pagerList.scrollTop || bottom > pagerList.scrollTop + pagerList.clientHeight) pagerList.scrollTop = Math.max(0, top - pagerList.clientHeight / 2 + b.offsetHeight / 2); } }
+    }
+    pagerList.addEventListener("click", (e) => { const b = e.target.closest("button[data-i]"); if (!b || !cardStack) return; stackTo(Number(b.getAttribute("data-i"))); });
     function openStack(m) {
       if (!m || !m.members || !m.members.length) return;
       cardStack = { id: m.id, name: m.name || "", ids: m.members.slice(), i: 0 };
@@ -2433,16 +2497,18 @@
       const on = !!(cardStack && cardStack.ids.includes(row.id));
       if (!on) cardStack = null;
       pagerEl.hidden = !on;
-      if (!on) return;
+      if (!on) { pagerList.hidden = true; pagerList.innerHTML = ""; pagerListFor = null; return; }
       const i = cardStack.ids.indexOf(row.id), n = cardStack.ids.length; cardStack.i = i;
       cardTitle.textContent = cardStack.name + " — " + n + " places";
       cardKind.textContent = kindLine(row);
       pagerEl.querySelector(".atlas2-pager-name").textContent = row.name;
       pagerEl.querySelector(".atlas2-pager-n").textContent = (i + 1) + " of " + n;
+      reflectStackList(row);
     }
-    function stackStep(d) {
+    function stackStep(d) { if (cardStack && cardOpen) stackTo((cardStack.i + d + cardStack.ids.length) % cardStack.ids.length); }
+    function stackTo(i) {
       if (!cardStack || !cardOpen) return;
-      const n = cardStack.ids.length, i = (cardStack.i + d + n) % n, row = G.byId.get(cardStack.ids[i]);
+      const n = cardStack.ids.length; i = ((i % n) + n) % n; const row = G.byId.get(cardStack.ids[i]);
       if (!row) return;
       cardStack.i = i;
       const keepUp = sheetUp;
@@ -2460,7 +2526,7 @@
     cardEl.addEventListener("touchend", (e) => { if (!swipe || !cardStack || !e.changedTouches.length) return; const dx = e.changedTouches[0].clientX - swipe.x, dy = e.changedTouches[0].clientY - swipe.y, dt = performance.now() - swipe.t; swipe = null; if (Math.abs(dx) >= 40 && Math.abs(dx) > 2 * Math.abs(dy) && dt < 1500) stackStep(dx < 0 ? 1 : -1); }, { passive: true });
     function closeCard(returnFocus) {
       const had = cardOpen;
-      cardStack = null; pagerEl.hidden = true;
+      cardStack = null; pagerEl.hidden = true; pagerList.hidden = true; pagerList.innerHTML = ""; pagerListFor = null;
       discId = null; discFresh = false;
       cardOpen = false; cardRow = null; cardEl.hidden = true; el.classList.remove("atlas2-has-card"); el.classList.remove("atlas2-card-up");
       if (had && returnFocus !== false) {
@@ -3137,8 +3203,8 @@
       study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, open: () => ST.open, setOpen: setStudyOpen, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
         flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl,
         /* the layout's marks (every flagged place or polity within the view and its margin, with whether its ground was clear at layout), the marks drawn in the last frame, the fan, the hidden list */
-        marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, cls: m.cls || "", st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "" })); },
-        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "" })),
+        marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, cls: m.cls || "", st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "", ox: m.ox || 0, oy: m.oy || 0 })); },
+        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "", ox: e.m.ox || 0, oy: e.m.oy || 0 })),
         glyphSVG, markRadius,
         stack: () => (cardStack ? { id: cardStack.id, name: cardStack.name, ids: cardStack.ids.slice(), i: cardStack.i } : null), stackStep, openStack: (id) => { const m = stackMark(id); if (m) openStack(m); return !!m; },
         layoutChrome: () => (L.chrome || []).map((r) => r.slice()),
