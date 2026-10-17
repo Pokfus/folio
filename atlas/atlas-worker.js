@@ -864,11 +864,13 @@
     /* ---- the grid ---- */
     const CELL = 64, cols = Math.ceil(W / CELL) + 2, rows = Math.ceil(H / CELL) + 2;
     const cells = new Map();
-    const rects = [];
+    const rects = [], rectMark = [];   // rectMark[i]: the rect is a MARK's (a dot, a ring, a reserved capital square) — a city ring's name may stand a pixel from one as its last resort (decision a)
     const clampC = (v, n) => Math.max(0, Math.min(n - 1, v));
     const cellsOf = (r, fn) => { const x0 = clampC(Math.floor(r[0] / CELL) + 1, cols), x1 = clampC(Math.floor(r[2] / CELL) + 1, cols), y0 = clampC(Math.floor(r[1] / CELL) + 1, rows), y1 = clampC(Math.floor(r[3] / CELL) + 1, rows); for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) fn(y * cols + x); };   // a rectangle beyond the viewport shares the edge cells, so off-screen labels still collide with each other
-    const free = (r) => { let ok = true; cellsOf(r, (c) => { if (!ok) return; const list = cells.get(c); if (!list) return; for (const i of list) { const o = rects[i]; if (r[0] < o[2] + pad && r[2] > o[0] - pad && r[1] < o[3] + pad && r[3] > o[1] - pad) { ok = false; return; } } }); return ok; };
-    const take = (r) => { const i = rects.length; rects.push(r); cellsOf(r, (c) => { let list = cells.get(c); if (!list) cells.set(c, list = []); list.push(i); }); };
+    // what blocks a rectangle: 0 nothing, 1 a mark (with `markPad` in place of the pad against marks, when given), 2 a name or a control
+    const blocker = (r, markPad) => { let hit = 0; cellsOf(r, (c) => { if (hit === 2) return; const list = cells.get(c); if (!list) return; for (const i of list) { const o = rects[i], p = markPad != null && rectMark[i] ? markPad : pad; if (r[0] < o[2] + p && r[2] > o[0] - p && r[1] < o[3] + p && r[3] > o[1] - p) { hit = rectMark[i] ? Math.max(hit, 1) : 2; if (hit === 2) return; } } }); return hit; };
+    const free = (r, markPad) => blocker(r, markPad) === 0;
+    const take = (r, mark) => { const i = rects.length; rects.push(r); rectMark.push(!!mark); cellsOf(r, (c) => { let list = cells.get(c); if (!list) cells.set(c, list = []); list.push(i); }); };
     /* THE CHROME IS OCCUPIED GROUND (Phase 2a, task 0d). atlas.js measures the rectangles of its controls — the search box
        and its list, the zoom stack, the Legend and ? chips, an open sheet, the card or its phone strip, the stack chip, the
        year rail — at every layout and resize and sends them as `chrome`; they are taken before any label is placed, so no
@@ -916,7 +918,7 @@
     // round them, and the marker itself cannot be lost to a name; the capital's own name is placed in its turn
     // (with the study layer on, a PRESENT-DAY capital's dot is not reserved: the reader's own marks take the ground first, and the dot yields)
     const reservedMarker = new Map();
-    for (const c of cands) { if (c.row.kind !== "capital" || (study && !c.hist)) continue; const r = MARKER_R.capital * FS, x = c.a[0], y = c.a[1]; const m = [x - r - 1, y - r - 1, x + r + 1, y + r + 1]; if (fullyOn(m) && free(m)) { take(m); reservedMarker.set(c.row.id, m); } }
+    for (const c of cands) { if (c.row.kind !== "capital" || (study && !c.hist)) continue; const r = MARKER_R.capital * FS, x = c.a[0], y = c.a[1]; const m = [x - r - 1, y - r - 1, x + r + 1, y + r + 1]; if (fullyOn(m) && free(m)) { take(m, true); reservedMarker.set(c.row.id, m); } }
     const union = (list) => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const r of list) { if (r[0] < x0) x0 = r[0]; if (r[1] < y0) y0 = r[1]; if (r[2] > x1) x1 = r[2]; if (r[3] > y1) y1 = r[3]; } return [x0, y0, x1, y1]; };
     /* a straight run of glyphs centred at (x, y) at angle `ang` (radians, screen y down): glyph origins and one rect */
     const straight = (sh, x, y, ang) => {
@@ -1003,15 +1005,14 @@
        pass builds the list of marks (`marks`, posted with the labels and drawn by the page, which re-projects them every frame, so a
        mark is always at its true place and sized for the zoom of the moment: AtlasStudy.markHalf) and places the NAMES the study
        layer owns — a settlement's, a site's, a mountain's, an island's, a region's … name beside its mark.
-       What a mark is to a NAME, which is the label engine's business: the reader's own marks (flag 2) take their ground (`take`)
-       before any ordinary name, so nothing is laid over them; the others' marks (flag 1) are SOFT — an ordinary name may lie over a
-       small dot, because a hard obstacle per place would blank the Full Atlas's map (1,300 places, 190 polities), but a study name
-       clears every mark of higher priority than its own (`softFree`), and every name is clear of the controls and wholly in the frame.
-       A mark is dropped for nothing a name does: only a control or the frame's edge (decided per frame by the page) hides one. */
+       What a mark is to a NAME, which is the label engine's business (2026-10-17, decision a — the owner's phone over Rome at 1.2 km/px: "Ostia
+       Antica" crossed by a mark, "Mount Vesuvius" over the marks near Naples): EVERY mark drawn clear is hard ground (`take`) before any name
+       is laid, the reader's own and the others' alike, so NO name of any pass — a study name, a city's, a sea's, a polity's — ever covers a mark
+       that is not its own, and every name is clear of the controls and wholly in the frame. The soft marks of Phase 3b (an ordinary name's
+       licence over a small flag-1 dot) and decision d's fallback (a mark's own name over any lesser mark) are gone: the price is names dropped in
+       a crowded Full Atlas, which test-atlas-overlaps.js counts per view. A mark is dropped for nothing a name does: only a control or the
+       frame's edge (decided per frame by the page) hides one. */
     const marks = [], markById = new Map();
-    const soft = new Map(), softRects = [], softRank = [];   // softRank: the mark's place in the study pass's priority order (decision d: a mark's own name may fall back to clearing only the marks above it)
-    const softFree = (r, rank) => { let ok = true; cellsOf(r, (c) => { if (!ok) return; const list = soft.get(c); if (!list) return; for (const i of list) { if (rank != null && softRank[i] > rank) continue; const o = softRects[i]; if (r[0] < o[2] + pad && r[2] > o[0] - pad && r[1] < o[3] + pad && r[3] > o[1] - pad) { ok = false; return; } } }); return ok; };
-    const softTake = (r, rank) => { const i = softRects.length; softRects.push(r); softRank.push(rank == null ? -1 : rank); cellsOf(r, (c) => { let list = soft.get(c); if (!list) soft.set(c, list = []); list.push(i); }); };
     const unitAt = (x, y) => { const ax = (x - cx) / radius, ay = -(y - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay)); return [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az]; };
     const GAZ_PRESENT = { country: 1, admin1: 1, capital: 1, city: 1, town: 1 };   // alive only in the present year, as the ordinary pass has it
     if (study) {
@@ -1066,18 +1067,23 @@
            Why a nudge and not a merge: the registry has no city extents to say when two cities "share" one (membership is the parent or the 3 km rule),
            and Vatican City is a sovereign capital, not a part of Rome — one ring for both would misname the places. Decided per layout, in the worker. */
         if (stacks.length) nudgeStacks(list, W, H, hitsChrome);
+        /* A NUDGED RING'S NAME STANDS BESIDE THE RING AS DRAWN (2026-10-17, decision a; the owner's phone: "VATICAN CITY" over "Collatia", and Rome's "41"
+           with no name beside it). The name is laid beside the nudged position, so its anchor — the point the page projects and moves it with — must be
+           that position too: anchored at the ring's true mean, the page drew the name moved back by the whole nudge (up to 20 px), onto whatever lay
+           there. The MARK keeps the true mean (the page adds ox, oy and draws the hairline from it). */
+        for (const s of stacks) if (s.ox || s.oy) s.own.a = unitAt(s.x, s.y);
       }
-      list.sort((p, r) => r.f - p.f || r.n - p.n || (p.id < r.id ? -1 : 1));
+      /* THE STACKS' NAMES COME FIRST (decision a): a city's ring is named before any other name — "Rome" beside the "41" — and the names that would
+         collide with it yield; then the reader's own, then the rest by their cards */
+      list.sort((p, r) => (r.members ? 1 : 0) - (p.members ? 1 : 0) || r.f - p.f || r.n - p.n || (p.id < r.id ? -1 : 1));
       for (const m of list) if (m.own && m.own.name && !m.members) addBare(m.own.name);   // the study names count toward the bare names of this layout (decision d, 2026-10-17)
-      /* EVERY MARK IS AN OBSTACLE TO EVERY STUDY NAME (2026-10-17, decision d; the owner's phone: "Lake Regillus" and "Appian Way", area names laid
-         centred on their points, sat on the diamonds of other places). The marks' ground is taken BEFORE any study name is laid — the reader's own
-         hard (`take`), the rest soft (`softTake`, which only a study name consults) — so a name, centred or beside, never covers a mark of the layer,
-         its own or another's; the ordinary names keep their old licence over a small dot (the design's tradeoff for a Full Atlas of 1,300 places). */
-      list.forEach((m, rank) => {
+      /* EVERY MARK IS AN OBSTACLE TO EVERY NAME (2026-10-17, decision d: "Lake Regillus" and "Appian Way", area names laid centred on their points,
+         sat on the diamonds of other places; then decision a: every name of every pass). The marks' ground is taken BEFORE any name is laid, all of
+         it hard, so a name, centred or beside, never covers a mark of the layer, its own or another's. */
+      list.forEach((m) => {
         const hh = m.h, mrect = [m.x - hh - 1, m.y - hh - 1, m.x + hh + 1, m.y + hh + 1];
-        m.rect = mrect; m.rank = rank; m.clear = fullyOn(mrect) && !hitsChrome(mrect);
-        if (!m.cls || !m.clear) return;
-        if (m.f === 2) take(mrect); else softTake(mrect, rank);
+        m.rect = mrect; m.clear = fullyOn(mrect) && !hitsChrome(mrect);
+        if (m.cls && m.clear) take(mrect, true);
       });
       for (const m of list) {
         const hh = m.h, mrect = m.rect;
@@ -1092,31 +1098,63 @@
           const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
           if (st2) {
             /* THE LABEL'S TEXT (decision f): no parenthetical, the short name past 28 characters, two lines past 22 (AtlasStudy.labelText); the popup keeps the full name */
-            const lt = AS.labelText(row.name, row.aliases, { qualified: qualified(row.name) }), two = lt.lines ? (() => { const a = shape(lt.lines[0], st2, missing), b = shape(lt.lines[1], st2, missing); a.style = b.style = style; return { a, b, wide: Math.max(a.w, b.w), h: a.h + b.h }; })() : null;
-            const sh = two ? { w: two.wide, h: two.h, chars: [...lt.lines[0], " ", ...lt.lines[1]] } : shape(lt.text, st2, missing); sh.style = style;
+            const lt = AS.labelText(row.name, row.aliases, { qualified: qualified(row.name) });
+            let two = null, sh = null;
+            const setText = (lines) => {   // one line, or two meeting at the point
+              if (lines) { const a = shape(lines[0], st2, missing), b = shape(lines[1], st2, missing); a.style = b.style = style; two = { a, b, wide: Math.max(a.w, b.w), h: a.h + b.h }; sh = { w: two.wide, h: two.h, chars: [...lines[0], " ", ...lines[1]] }; }
+              else { two = null; sh = shape(lt.text, st2, missing); }
+              sh.style = style;
+            };
+            setText(lt.lines);
             const lay = (tx, ty) => (two ? stacked(two, tx, ty) : straight(sh, tx, ty, 0));
-            const okAt = (g2, rank) => g2.rects.every((r) => fullyOn(r) && free(r) && softFree(r, rank)) && nearAnchor(g2.rects, m.x, m.y);
+            // the box a try would take (what `lay` would return as rects: one line centred at the point, or two lines meeting at it), without the glyphs
+            const boxAt = (tx, ty) => (two ? [[tx - two.a.w / 2, ty - two.a.h, tx + two.a.w / 2, ty], [tx - two.b.w / 2, ty, tx + two.b.w / 2, ty + two.b.h]] : [[tx - sh.w / 2, ty - sh.h / 2, tx + sh.w / 2, ty + sh.h / 2]]);
+            const okAt = (rs, markPad) => rs.every((r) => fullyOn(r) && free(r, markPad)) && nearAnchor(rs, m.x, m.y);
             // beside the mark, with the ground between them that the pad asks of any two names (a 2 px gap never fitted a 4 px pad); an area's name on its point first
             const gap = hh + 1 + pad + 1;
-            let got = null;
-            /* the four sides first, then the four corners, then both again 10 px farther out (decision d, 2026-10-17: with every mark an obstacle, a city
-               ring's four sides are often taken by its neighbours' dots — "Rome" lost its name at 3 km/px until the corners were tried); an area's name on
-               its point first, then above, below and beside, then farther. Every try is within the 28 px rule (nearAnchor: the edge at most hh + 28 from the point) */
-            const tries = [];
-            if (m.cls) { for (const g2 of [gap, gap + 10]) { const c2 = g2 * 0.8 + 2; tries.push([m.x + g2 + sh.w / 2, m.y], [m.x - g2 - sh.w / 2, m.y], [m.x, m.y - g2 - sh.h / 2], [m.x, m.y + g2 + sh.h / 2], [m.x + c2 + sh.w / 2, m.y - c2 - sh.h / 2], [m.x - c2 - sh.w / 2, m.y - c2 - sh.h / 2], [m.x + c2 + sh.w / 2, m.y + c2 + sh.h / 2], [m.x - c2 - sh.w / 2, m.y + c2 + sh.h / 2]); } }
-            else { tries.push([m.x, m.y]); for (const g2 of [0, 10]) tries.push([m.x, m.y - sh.h - g2], [m.x, m.y + sh.h + g2], [m.x + sh.w / 2 + pad + g2, m.y], [m.x - sh.w / 2 - pad - g2, m.y]); }
-            for (const [tx, ty] of tries) {
-              const g2 = lay(tx, ty);
-              if (okAt(g2)) { got = g2; break; }
+            /* A MARK'S NAME: the four sides first, then the four corners, then the eight directions between, then the name slid along each side — each at the
+               gap and again 10 px farther out (decision d, 2026-10-17: with every mark an obstacle, a ring's four sides are often taken by its neighbours' dots;
+               decision a: no name ever lies over a lesser mark any more, so the tries are the only room there is). The name's box has its corner on the square
+               of half-side g round the point (one axis is then a full g clear, as the pad asks), never on the circle. An AREA's name: on its point first, then
+               above, below and beside, then farther. Every try is within the 28 px rule (nearAnchor: the edge at most hh + 28 from the point) */
+            const triesFor = () => {
+              const tries = [], w2 = sh.w / 2, h2 = sh.h / 2;
+              if (!m.cls) { tries.push([m.x, m.y]); for (const g2 of [0, 10]) tries.push([m.x, m.y - sh.h - g2], [m.x, m.y + sh.h + g2], [m.x + w2 + pad + g2, m.y], [m.x - w2 - pad - g2, m.y]); return tries; }
+              for (const g2 of [gap, gap + 10]) {
+                // the four sides and the four corners (the corner tries of decision d)
+                tries.push([m.x + g2 + w2, m.y], [m.x - g2 - w2, m.y], [m.x, m.y - g2 - h2], [m.x, m.y + g2 + h2], [m.x + g2 + w2, m.y - g2 - h2], [m.x - g2 - w2, m.y - g2 - h2], [m.x + g2 + w2, m.y + g2 + h2], [m.x - g2 - w2, m.y + g2 + h2]);
+                // the eight directions between them, the box's corner on the square of half-side g2
+                for (let i = 0; i < 8; i++) { const th = (i * 2 + 1) * Math.PI / 8, cx2 = Math.cos(th), cy2 = Math.sin(th), mx = Math.max(Math.abs(cx2), Math.abs(cy2)), dx2 = cx2 / mx, dy2 = cy2 / mx; tries.push([m.x + dx2 * g2 + (dx2 > 0 ? w2 : -w2), m.y + dy2 * g2 + (dy2 > 0 ? h2 : -h2)]); }
+                // the name slid along its side: above and below by a quarter and a half of its width, beside by half its height and its height
+                for (const sx of [-0.25, 0.25, -0.5, 0.5]) tries.push([m.x + sx * sh.w, m.y - g2 - h2], [m.x + sx * sh.w, m.y + g2 + h2]);
+                for (const sy of [-0.5, 0.5, -1, 1]) tries.push([m.x + g2 + w2, m.y + sy * sh.h], [m.x - g2 - w2, m.y + sy * sh.h]);
+              }
+              return tries;
+            };
+            let got = null, tried = 0, frame = 0, far = 0, byName = 0, byMark = 0, byPad = 0;   // why each try failed, for the drop reason (labelWhy)
+            const search = (markPad) => {
+              for (const [tx, ty] of triesFor()) {
+                const rs = boxAt(tx, ty); tried++;
+                if (okAt(rs, markPad)) return lay(tx, ty);
+                if (!why) continue;
+                if (!rs.every(fullyOn)) frame++; else { const b = Math.max(...rs.map((r) => blocker(r, markPad))); if (b === 2) byName++; else if (b === 1) { if (markPad == null && rs.every((r) => free(r, 1))) byPad++; else byMark++; } else far++; }
+              }
+              return null;
+            };
+            got = search();
+            /* A CITY RING'S LAST RESORTS (decision a: a stack's city name has priority over every other name near its ring and is drawn beside it — "Rome" beside
+               the "41"): the same tries with the full pad against every name and the controls but a single pixel against the MARKS (the name stands a pixel from a
+               dot, never on it); then, for a name of more than one word, the name on two lines ("Vatican / City"), with the pad and then without. Rome's "41" at
+               1.2 km/px has forty dots within 30 px; the pad alone cost "Vatican City" its name there. A ring whose every try meets a mark or the frame stays
+               unnamed: no name covers a mark that is not its own. */
+            if (!got && m.members) {
+              got = search(1);
+              if (!got && !two && lt.text.indexOf(" ") > 0) { const alt = splitName(lt.text, st2, style); if (alt) { setText([lt.text.slice(0, alt.at), lt.text.slice(alt.at + 1)]); got = search() || search(1); } }
             }
-            /* the fallback, for a MARK's own name only (a city ring, a dot): the old rule — clear of the marks above it in priority, free to lie over a lesser
-               dot — so "Rome" keeps its name at 3 km/px among Latium's forty dots. An AREA's name (a lake, a road, a region: no mark of its own) has no
-               fallback: it never covers a mark, which is what the owner saw (decision d) */
-            if (!got && m.cls) for (const [tx, ty] of tries) { const g2 = lay(tx, ty); if (okAt(g2, m.rank)) { got = g2; break; } }
             if (got) {
               for (const r of got.rects) take(r);
               placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: union(got.rects), rects: got.rects, marker: null, hit: union(got.rects), lines: two ? 2 : 1 });
-            } else drop("study name finds no free side clear of the names and the marks");
+            } else drop(`study name finds no free side clear of the names and the marks (${tried} tries: ${frame} left the frame, ${byName} met a name or a control, ${byMark} met a mark, ${byPad} only a mark's pad, ${far} too far from the point)`);
           }
         }
       }
@@ -1162,7 +1200,7 @@
         const own = reservedMarker.has(row.id);   // a capital's marker was reserved above and is its own ground
         if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
         if (!own && !free(mrect)) { drop("marker collides"); continue; }
-        if (!show.places) { if (!own) take(mrect); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
+        if (!show.places) { if (!own) take(mrect, true); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
         const g3 = 3 * FS, tries = [[x + r + g3 + sh.w / 2, y, 0], [x - r - g3 - sh.w / 2, y, 0], [x, y - r - g3 - sh.h / 2, 0], [x, y + r + g3 + sh.h / 2, 0]];
         let got = null;
         for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (fullyOn(g.rects[0]) && free(g.rects[0])) { got = g; break; } }
@@ -1172,7 +1210,7 @@
           if (own) { placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
           drop(onScreen(x, y, 0) ? "city label collides on all four sides, or is not wholly on screen" : "city off screen"); continue;
         }
-        take(got.rects[0]); if (!own) take(mrect);
+        take(got.rects[0]); if (!own) take(mrect, true);
         placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
         continue;
       }
@@ -1238,9 +1276,9 @@
       if (!got) {
         if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") { drop(k + " name wider than its shape"); continue; }   // the name would overhang the shape by most of its length
         if (!onScreen(c.a[0], c.a[1], 0)) { drop(k + " anchor off screen"); continue; }
-        // with a mark at the anchor: just above it, else just below it, else (a soft mark only) over it
+        // with a mark at the anchor: just above it, else just below it — never over it (decision a: no name covers a mark that is not its own)
         let hung = false, hit = false;
-        for (const dy of mk0 ? (mk0.st === 2 ? [up, -up] : [up, -up, 0]) : [0]) {
+        for (const dy of mk0 ? [up, -up] : [0]) {
           const g = intoFrame(straight(sh, c.a[0], c.a[1] + dy, 0), sh.h);   // Phase 3c, decision 3: a sea's, a region's name stays inside the frame like a polity's — slid back by at most a third of its width, or not placed
           if (!g) { hung = true; continue; }
           if (!free(g.rects[0])) { hit = true; continue; }

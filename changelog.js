@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1027", released: "2026-10-17T16:01Z" };
+window.FOLIO_VERSION = { v: "1.1028", released: "2026-10-17T19:54Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-17",
     t: "The Personal Atlas shows only your own states",
     items: [
+      "<b>Atlas names</b>: no two names overprint each other any more and no name sits on another place's mark — a name with no clear room is left out, and a city's ring (“Rome 41”) is named before everything around it.",
       "<b>Atlas rivers and relief</b>: both stay drawn all the way in to the closest zoom — rivers used to vanish past 0.35 km a pixel and the relief faded out past 1 km.",
       "<b>Atlas in dark mode</b>: the names of your own places and of the selected place are light on a dark halo like every other name (they were a muddy brown), and the halo is a little wider.",
       "<b>Atlas names</b>: a place's label shows its own name only — “Kirchberg”, not “Kirchberg, Luxembourg” — unless two places of that name are on screen together; the popup and the search keep the full name.",
