@@ -435,6 +435,31 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
   }
 
 
+  /* ------------------------------------------------------------------ 9  a name never covers its own mark (decision d, 2026-10-17) */
+  console.log("\n\x1b[1m9) a place's name never covers its own mark: in the Full Atlas at Rome, Athens and Jerusalem no label box covers more than 10 % of its own mark's box\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, READER, { phone: true });
+    await mode(page, "full"); await year(page, 2025);
+    const inter = (r, b) => Math.max(0, Math.min(r[2], b[2]) - Math.max(r[0], b[0])) * Math.max(0, Math.min(r[3], b[3]) - Math.max(r[1], b[1]));
+    let pairs = 0; const bad = [];
+    for (const [name, lon, lat] of [["Rome", 12.4964, 41.9028], ["Athens", 23.7275, 37.9838], ["Jerusalem", 35.2137, 31.7683]]) for (const k of [3, 0.5, 0.15]) {
+      await view(page, lon, lat, k);
+      const lv = await live(page), lb = await labels(page), byId = new Map(lv.map((m) => [m.id, m]));
+      let here = 0;
+      for (const p of lb) {
+        const m = byId.get(p.id); if (!m || !p.rects) continue;   // a name whose place has a drawn mark (a single mark or a stack)
+        const mb = [m.x - m.h, m.y - m.h, m.x + m.h, m.y + m.h], area = (2 * m.h) * (2 * m.h);
+        const cover = p.rects.reduce((s, r) => s + inter(r, mb), 0) / area;
+        pairs++; here++;
+        if (cover > 0.10) bad.push({ at: name + " " + k, id: p.id, text: p.text, cover: Math.round(cover * 100) + " %" });
+      }
+      console.log(`  (${name} at ${k} km/px: ${here} names with a mark of their own among ${lb.length} names and ${lv.length} marks)`);
+    }
+    check(`over ${pairs} name-and-mark pairs no label box covers more than 10 % of its own mark's box`, pairs >= 20 && bad.length === 0, JSON.stringify(bad.slice(0, 5)));
+    allErrors.push(...errors); await ctx.close();
+  }
+
+
   /* ------------------------------------------------------------------ done */
   console.log("\n" + pass + " ok, " + fail + " failed");
   check("no console error", allErrors.length === 0, allErrors.slice(0, 3).join(" | "));

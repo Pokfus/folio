@@ -1000,9 +1000,9 @@
        clears every mark of higher priority than its own (`softFree`), and every name is clear of the controls and wholly in the frame.
        A mark is dropped for nothing a name does: only a control or the frame's edge (decided per frame by the page) hides one. */
     const marks = [], markById = new Map();
-    const soft = new Map(), softRects = [];
-    const softFree = (r) => { let ok = true; cellsOf(r, (c) => { if (!ok) return; const list = soft.get(c); if (!list) return; for (const i of list) { const o = softRects[i]; if (r[0] < o[2] + pad && r[2] > o[0] - pad && r[1] < o[3] + pad && r[3] > o[1] - pad) { ok = false; return; } } }); return ok; };
-    const softTake = (r) => { const i = softRects.length; softRects.push(r); cellsOf(r, (c) => { let list = soft.get(c); if (!list) soft.set(c, list = []); list.push(i); }); };
+    const soft = new Map(), softRects = [], softRank = [];   // softRank: the mark's place in the study pass's priority order (decision d: a mark's own name may fall back to clearing only the marks above it)
+    const softFree = (r, rank) => { let ok = true; cellsOf(r, (c) => { if (!ok) return; const list = soft.get(c); if (!list) return; for (const i of list) { if (rank != null && softRank[i] > rank) continue; const o = softRects[i]; if (r[0] < o[2] + pad && r[2] > o[0] - pad && r[1] < o[3] + pad && r[3] > o[1] - pad) { ok = false; return; } } }); return ok; };
+    const softTake = (r, rank) => { const i = softRects.length; softRects.push(r); softRank.push(rank == null ? -1 : rank); cellsOf(r, (c) => { let list = soft.get(c); if (!list) soft.set(c, list = []); list.push(i); }); };
     const unitAt = (x, y) => { const ax = (x - cx) / radius, ay = -(y - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay)); return [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az]; };
     const GAZ_PRESENT = { country: 1, admin1: 1, capital: 1, city: 1, town: 1 };   // alive only in the present year, as the ordinary pass has it
     if (study) {
@@ -1059,40 +1059,56 @@
         if (stacks.length) nudgeStacks(list, W, H);
       }
       list.sort((p, r) => r.f - p.f || r.n - p.n || (p.id < r.id ? -1 : 1));
-      for (const m of list) {
+      /* EVERY MARK IS AN OBSTACLE TO EVERY STUDY NAME (2026-10-17, decision d; the owner's phone: "Lake Regillus" and "Appian Way", area names laid
+         centred on their points, sat on the diamonds of other places). The marks' ground is taken BEFORE any study name is laid — the reader's own
+         hard (`take`), the rest soft (`softTake`, which only a study name consults) — so a name, centred or beside, never covers a mark of the layer,
+         its own or another's; the ordinary names keep their old licence over a small dot (the design's tradeoff for a Full Atlas of 1,300 places). */
+      list.forEach((m, rank) => {
         const hh = m.h, mrect = [m.x - hh - 1, m.y - hh - 1, m.x + hh + 1, m.y + hh + 1];
-        m.rect = mrect; m.clear = fullyOn(mrect) && !hitsChrome(mrect);
+        m.rect = mrect; m.rank = rank; m.clear = fullyOn(mrect) && !hitsChrome(mrect);
+        if (!m.cls || !m.clear) return;
+        if (m.f === 2) take(mrect); else softTake(mrect, rank);
+      });
+      for (const m of list) {
+        const hh = m.h, mrect = m.rect;
         dropping = m.own || { name: m.id };
         const base = { id: m.id, kind: m.kind, cls: m.cls, shape: m.shape, layer: m.layer, st: m.f, a: m.unit, sx: m.x, sy: m.y, h: hh, n: m.n, clear: m.clear, score: -300 - m.f * 10 - Math.min(9, m.n / 100) };
         if (m.members) { base.members = m.members; base.count = m.count; base.name = m.name; base.city = m.city; }   // a city stack (decision d)
+        if (m.ox || m.oy) { base.ox = Math.round(m.ox * 10) / 10; base.oy = Math.round(m.oy * 10) / 10; }   // nudged off its true point (decision c): the page adds the offset and draws the hairline
         if (m.cls) { marks.push(base); markById.set(m.id, base); }   // an AREA (no class) has no mark: its name stands at its point (decision e)
         if (!m.clear) continue;   // under a control or past the frame's edge: no name either (the page checks the mark again on every frame)
-        if (m.f === 2 && m.cls) take(mrect);   // the reader's own mark takes its ground before the ordinary names
         const row = m.own;
         if (row && show.places && row.name) {
           const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
           if (st2) {
             /* THE LABEL'S TEXT (decision f): no parenthetical, the short name past 28 characters, two lines past 22 (AtlasStudy.labelText); the popup keeps the full name */
             const lt = AS.labelText(row.name, row.aliases), two = lt.lines ? (() => { const a = shape(lt.lines[0], st2, missing), b = shape(lt.lines[1], st2, missing); a.style = b.style = style; return { a, b, wide: Math.max(a.w, b.w), h: a.h + b.h }; })() : null;
-        if (m.ox || m.oy) { base.ox = Math.round(m.ox * 10) / 10; base.oy = Math.round(m.oy * 10) / 10; }   // nudged off its true point (decision c): the page adds the offset and draws the hairline
             const sh = two ? { w: two.wide, h: two.h, chars: [...lt.lines[0], " ", ...lt.lines[1]] } : shape(lt.text, st2, missing); sh.style = style;
             const lay = (tx, ty) => (two ? stacked(two, tx, ty) : straight(sh, tx, ty, 0));
-            const okAt = (g2) => g2.rects.every((r) => fullyOn(r) && free(r) && softFree(r));
+            const okAt = (g2, rank) => g2.rects.every((r) => fullyOn(r) && free(r) && softFree(r, rank)) && nearAnchor(g2.rects, m.x, m.y);
             // beside the mark, with the ground between them that the pad asks of any two names (a 2 px gap never fitted a 4 px pad); an area's name on its point first
             const gap = hh + 1 + pad + 1;
             let got = null;
-            const tries = m.cls ? [[m.x + gap + sh.w / 2, m.y], [m.x - gap - sh.w / 2, m.y], [m.x, m.y - gap - sh.h / 2], [m.x, m.y + gap + sh.h / 2]] : [[m.x, m.y], [m.x, m.y - sh.h], [m.x, m.y + sh.h], [m.x + sh.w / 2 + pad, m.y], [m.x - sh.w / 2 - pad, m.y]];
+            /* the four sides first, then the four corners, then both again 10 px farther out (decision d, 2026-10-17: with every mark an obstacle, a city
+               ring's four sides are often taken by its neighbours' dots — "Rome" lost its name at 3 km/px until the corners were tried); an area's name on
+               its point first, then above, below and beside, then farther. Every try is within the 28 px rule (nearAnchor: the edge at most hh + 28 from the point) */
+            const tries = [];
+            if (m.cls) { for (const g2 of [gap, gap + 10]) { const c2 = g2 * 0.8 + 2; tries.push([m.x + g2 + sh.w / 2, m.y], [m.x - g2 - sh.w / 2, m.y], [m.x, m.y - g2 - sh.h / 2], [m.x, m.y + g2 + sh.h / 2], [m.x + c2 + sh.w / 2, m.y - c2 - sh.h / 2], [m.x - c2 - sh.w / 2, m.y - c2 - sh.h / 2], [m.x + c2 + sh.w / 2, m.y + c2 + sh.h / 2], [m.x - c2 - sh.w / 2, m.y + c2 + sh.h / 2]); } }
+            else { tries.push([m.x, m.y]); for (const g2 of [0, 10]) tries.push([m.x, m.y - sh.h - g2], [m.x, m.y + sh.h + g2], [m.x + sh.w / 2 + pad + g2, m.y], [m.x - sh.w / 2 - pad - g2, m.y]); }
             for (const [tx, ty] of tries) {
               const g2 = lay(tx, ty);
               if (okAt(g2)) { got = g2; break; }
             }
+            /* the fallback, for a MARK's own name only (a city ring, a dot): the old rule — clear of the marks above it in priority, free to lie over a lesser
+               dot — so "Rome" keeps its name at 3 km/px among Latium's forty dots. An AREA's name (a lake, a road, a region: no mark of its own) has no
+               fallback: it never covers a mark, which is what the owner saw (decision d) */
+            if (!got && m.cls) for (const [tx, ty] of tries) { const g2 = lay(tx, ty); if (okAt(g2, m.rank)) { got = g2; break; } }
             if (got) {
               for (const r of got.rects) take(r);
               placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: union(got.rects), rects: got.rects, marker: null, hit: union(got.rects), lines: two ? 2 : 1 });
-            } else drop("study name finds no free side clear of the names and marks of higher priority");
+            } else drop("study name finds no free side clear of the names and the marks");
           }
         }
-        if (m.f !== 2 && m.cls) softTake(mrect);
       }
     }
     const capAll = cap + placed.length;   // the density cap counts the ordinary labels only: the study pass is the reader's own
