@@ -12,10 +12,17 @@ nothing behind it is the one thing this site must not produce.
 
 ## The bar
 
-**At least one openable source per statement**, cited in the site's Chicago note form and pointed at by
-an empty `<sup class="fn" data-fn="N">` marker in the `why`. That is lower than a card's five and lower
-than a glossary term's two, deliberately: a statement makes ONE claim, and the second source a card
-needs is for its second through tenth sentences.
+**At least THREE DIFFERENT works per statement** (Oct 2026, on request: "The 'True or False' minigame
+should use at least three different sources per question answer"), each cited in the site's Chicago note
+form and each pointed at by an empty `<sup class="fn" data-fn="N">` marker on the claim it bears out.
+"Different" is counted on the URL — lower-cased, without scheme, trailing slash or fragment — so two notes
+to one page are one source; `check-truefalse.js` REFUSES a statement under three and `add-truefalse.js`
+refuses a `cite` that would leave one there. The pool was brought to three everywhere in the pass that made
+this a rule (nine batches, every new URL curl-verified, walled DOIs confirmed against Crossref; the
+explanations grew by a clause or a sentence where a new source needed a claim to sit on, never past four
+sentences). Until then the bar was **one openable source**, lower than a card's five and a glossary
+term's two on the argument that a statement makes ONE claim; the request judged that too thin for the
+only thing a reader of the game is ever told.
 
 Everything else is the house rule already written down for cards and glossary terms and is not restated
 here — real scholarship, never Wikipedia, never an invented page number, a URL a reader can open, and a

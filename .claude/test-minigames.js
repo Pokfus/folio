@@ -909,9 +909,21 @@ function crosswordForPage(cells) {
     const src = require("fs").readFileSync(require("path").join(__dirname, "..", "app.js"), "utf8");
     const a = src.indexOf("const THREAD_KINDS = new Set([");
     const b = src.indexOf("  // may this term stand FOR this group?", a);
-    if (a < 0 || b < 0) { console.log("FAIL  [ct] could not slice THREAD_KINDS / THREAD_NOT out of app.js"); fail++; }
+    /* …AND, SINCE OCT 2026, THE WHOLE RULE AS WRITTEN (on request: "a term should only be in a category
+       if that category describes the term specifically, and there is not just a relation. I.e.
+       'Feudalism' is not a law, but is in the Law category; Ancient Rome is in the culture category").
+       `threadFits` itself is sliced out with every table it reads — THREAD_FAMILY's building code, the
+       kinds, THREAD_NARROWS, THREAD_DESCRIBES, THREAD_NOT — and asked the user's own two questions against
+       the shipped tags, so the answer is the function's and not a paraphrase of it. */
+    const fa = src.indexOf("  const THREAD_FAMILY = {};");
+    const fb = src.indexOf("  const THREAD_GROUP_MIN =", fa);
+    const ba = src.indexOf("  const THREAD_BROAD = new Set([");
+    const bb = src.indexOf("]);", ba);
+    if (a < 0 || b < 0 || fa < 0 || fb < 0 || ba < 0 || bb < 0) { console.log("FAIL  [ct] could not slice THREAD_KINDS / THREAD_NOT / threadFits out of app.js"); fail++; }
     else {
-      const T = new Function(src.slice(a, b) + "\nreturn { THREAD_KINDS, THREAD_NOT };")();
+      const T = new Function(src.slice(a, b) + "\nreturn { THREAD_KINDS, THREAD_NOT, THREAD_NARROWS, THREAD_DESCRIBES };")();
+      const F = new Function(src.slice(fa, fb) + "\nreturn { threadFits, THREAD_FAMILY };")();
+      const BROAD = new Function(src.slice(ba, bb + 3) + "\nreturn THREAD_BROAD;")();
       const ctx2 = await browser.newContext({ viewport: { width: 1280, height: 900 } });
       const p2 = await ctx2.newPage();
       watch(p2);
@@ -941,6 +953,30 @@ function crosswordForPage(cells) {
         return out.length;
       }, [...T.THREAD_KINDS]);
       check("[ct] …and the kind rule has something to do", kindBad > 0, "terms carrying a late kind tag: " + kindBad);
+
+      // the Oct 2026 strictness pass, pinned on the user's own examples
+      const fits = (k, tag) => F.threadFits({ key: k, tags: tagsOf[k] || [] }, tag);
+      check("[ct] Cultures is no longer a category", BROAD.has("culture") && !T.THREAD_DESCRIBES.culture);
+      check("[ct] …Feudalism is tagged law and is a concept, as the rule assumes",
+        (tagsOf["Feudalism"] || []).includes("law") && (tagsOf["Feudalism"] || [])[0] === "concept", JSON.stringify(tagsOf["Feudalism"]));
+      check("[ct] …and Feudalism may not stand for Laws, while the Napoleonic Code may",
+        !fits("Feudalism", "law") && fits("Napoleonic_Code", "law"));
+      check("[ct] …Patrician (people, institution) is out of Institutions; Troy (place, city) stays in Cities",
+        !fits("Patrician", "institution") && fits("Troy", "city"), JSON.stringify({ p: tagsOf["Patrician"], t: tagsOf["Troy"] }));
+      check("[ct] …a subject tag with no row is not a category (society)",
+        !T.THREAD_DESCRIBES.society && !F.THREAD_FAMILY.society && !fits("Feudalism", "society"));
+      check("[ct] …Pax Romana is not Warfare and a hominin is a Hominin",
+        !fits("Pax_Romana", "warfare") && fits("Neanderthal", "hominin"));
+      // every kind a subject row names is a kind some term actually opens with — a misspelt kind admits nothing, silently
+      const kinds0 = new Set(Object.keys(tagsOf).map((k) => (tagsOf[k] || [])[0]).filter(Boolean));
+      const deadKinds = [];
+      for (const g of Object.keys(T.THREAD_DESCRIBES)) {
+        const d = T.THREAD_DESCRIBES[g];
+        if (d !== "*") d.forEach((k) => { if (!kinds0.has(k)) deadKinds.push(g + "/" + k); });
+      }
+      check("[ct] …and every kind a subject row names is a kind some term opens with", deadKinds.length === 0, deadKinds.join(", "));
+      const deadNarrow = Object.keys(T.THREAD_NARROWS).filter((k) => !T.THREAD_KINDS.has(k) || !kinds0.has(T.THREAD_NARROWS[k]));
+      check("[ct] …and every narrowing names a kind and a parent kind", deadNarrow.length === 0, deadNarrow.join(", "));
       await ctx2.close();
     }
     await ctx.close();

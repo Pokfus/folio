@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1025", released: "2026-10-17T09:40Z" };
+window.FOLIO_VERSION = { v: "1.1026", released: "2026-10-17T14:41Z" };
 
 window.CHANGELOG = [
   {
@@ -53,6 +53,10 @@ window.CHANGELOG = [
       "<b>Atlas names</b>: a place's name is never laid over a mark — its own or another's — and a city's name finds room among its neighbours' marks.",
       "<b>Atlas marks</b>: Reate is Rieti, a town, not the Roman mint there; seven more places wear the right shape (Fatehpur Sikri, Gliwice, Murom, Shahjahanabad, Izborsk, Bogolyubovo, New Echota).",
       "<b>Atlas stacks</b>: a city stack of more than eight places lists their names above the pager; a tap on a name jumps straight to that place.",
+      "<b>Home page</b>: the “You are not signed in” notice now waits until you have studied at least one card, so a first visit is not met with a warning.",
+      "<b>Common Thread</b>: the Cultures category is gone, and a term joins a category only when that category describes it — a law is a law, not a concept about law.",
+      "<b>Streak on a phone</b>: the week is “X of 7” and a row of dashes running out to the chest, like the minigame bar; the “days for a chest” line is gone.",
+      "<b>True or False</b>: every statement's explanation now rests on at least three different sources, each cited where it bears on the text.",
     ],
   },
   {

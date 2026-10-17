@@ -43,9 +43,14 @@
                         one-way trap rule 2 already states about spelling, one rule down. Its first
                         finding was real: a statement comparing the Wright brothers' first flight to a
                         jumbo jet's wingspan was written in feet throughout and showed feet to everybody.
-    6. CITATIONS      — how many entries carry a source. A `why` is one to three sentences, so the bar is
-                        ONE work a reader can open, and it is stated here rather than enforced while the
-                        pool still carries entries written before the field existed.
+    6. CITATIONS      — how many entries carry a source (reported), and — REFUSED since Oct 2026, on
+                        request ("The 'True or False' minigame should use at least three different sources
+                        per question answer") — that every statement carries at least THREE DIFFERENT
+                        works. "Different" is checked on the URL, lower-cased and stripped of its scheme,
+                        a trailing slash and a fragment: two notes to one page are one source, and so are a
+                        DOI and the same DOI with a different case. The pool reached three everywhere in
+                        the same pass that made this a rule, so the rule costs nothing it did not already
+                        have and catches the statement added tomorrow with one.
 
   Zero dependencies. Not part of the site.
 */
@@ -73,6 +78,7 @@ new Function("window", fs.readFileSync(path.join(ROOT, "truefalse.js"), "utf8"))
 const POOL = win.TRUEFALSE || [];
 
 const strip = (s) => String(s || "").replace(/<[^>]*>/g, "");
+const MIN_SOURCES = 3;   // different works per statement, Oct 2026 (see 6 above)
 const errs = [], notes = [];
 const say = (id, msg) => errs.push("  " + id + ": " + msg);
 
@@ -134,6 +140,12 @@ const QUOTED_RX = /\u201c[^\u201d]*\u201d/g;
 const PROPER_NOUNS = [
   ["Elisha Gray", "the inventor who filed a caveat for the telephone on the same day as Bell"],
   ["Registry of Tumors in Lower Animals", "the NCI-funded registry's own name — it is the institution that holds the shark tumour cases"],
+  // the Oct 2026 three-source pass (names, a title and a possessive the one-way transform would otherwise anglicise)
+  ["Gray's", "Elisha Gray's caveat and fee, named by surname alone after the first mention"],
+  ["Fred Gray", "the Montgomery lawyer who filed Browder v. Gayle"],
+  ["World Health Organization", "the organisation's own name"],
+  ["Gods in Color", "the Liebieghaus exhibition's title"],
+  ["Stanford Solar Center", "the centre's own name"],
 ];
 
 const seen = new Map();
@@ -171,6 +183,9 @@ POOL.forEach((it, i) => {
     if (typeof s !== "string" || !/https?:\/\/[^\s<>"']+/.test(s)) say(id, "source " + (k + 1) + " carries no URL a reader can open");
     if (marks.indexOf(k + 1) < 0) say(id, "source " + (k + 1) + " is cited by no marker — a reading list, not a footnote");
   });
+  // 6. at least three DIFFERENT works (Oct 2026, on request) — counted on the URL, not the note's wording
+  const works = new Set(src.map((s) => { const m = /https?:\/\/([^\s<>"']+)/.exec(String(s)); return m ? m[1].toLowerCase().replace(/#.*$/, "").replace(/\/+$/, "") : ""; }).filter(Boolean));
+  if (works.size < MIN_SOURCES) say(id, "carries " + works.size + " different source" + (works.size === 1 ? "" : "s") + " — a statement ships with at least " + MIN_SOURCES);
   const tags = [...String(it.why || "").matchAll(/<\/?([a-z][a-z0-9]*)/gi)].map((m) => m[1].toLowerCase());
   tags.forEach((t) => { if (["i", "b", "sup"].indexOf(t) < 0) say(id, "`<" + t + ">` in the explanation — sanitizeHTML will drop it"); });
 

@@ -22332,12 +22332,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     try { const st = JSON.parse(localStorage.getItem(SUPA_SESS_KEY) || "null"); if (st && st.user && st.user.id) return false; } catch (e) {}
     return true;
   }
+  /* …BUT NOT BEFORE THE READER HAS STUDIED A CARD (Oct 2026, on request: "for first time visitors, the
+     'you are not logged in' warning should not appear until they have studied at least one card"). A
+     first visit has nothing to lose yet, and a caution about losing progress before there is any progress
+     reads as a sign-up nag — the one thing this notice must not be if the reader who has a day's work in
+     the browser is still to believe it. So it waits for the first record in `S.cards`, the same measure
+     the sentence below already counts; from the first card on it is every visit and undismissable, as
+     before. `test-tour.js` checks the first-visit page without it. */
   function guestNoticeHTML() {
     if (!guestNow()) return "";
     const n = Object.keys(S.cards || {}).length;
-    const what = n
-      ? (n === 1 ? "The one card you have studied is" : "The " + n.toLocaleString() + " cards you have studied are") + " saved only in this browser."
-      : "Anything you study will be saved only in this browser.";
+    if (!n) return "";
+    const what = (n === 1 ? "The one card you have studied is" : "The " + n.toLocaleString() + " cards you have studied are") + " saved only in this browser.";
     return '<div class="guest-notice" role="status">' +
       '<span class="gn-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg></span>' +
       '<span class="gn-body"><b>You are not signed in.</b> ' + what + " Clearing it, or opening Folio on another device, starts you again from nothing.</span>" +
@@ -23511,7 +23517,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const chestLabel = owed ? (owed === 1 ? "Open the chest for " + art + count + "-day streak" : "Open " + owed + " chests for " + art + count + "-day streak")
       : claimed ? "This week's streak chest is opened \u2014 it is in your account"
       : "Locked: " + (n <= 0 ? "seven days in a row unlock a chest" : p.left + (p.left === 1 ? " more day" : " more days") + " in a row unlock a chest");
-    let days = "";
+    /* THE PHONE SHOWS THE WEEK AS A RAIL (Oct 2026, on request: "In the weekly streak banner, remove the line
+       'X days for a chest'. Replace the 7 squares by the same dashes we use in the minigame progress bar, with
+       a 'X of 7' before it and the bar extending all the way to the right of the banner where the chest is").
+       The count is the green cells of the week drawn below — the same figure, so the two can never disagree —
+       and it is in the markup at every width; styles.css shows it, hides the note and turns the squares into
+       the minigame rail's segments below 640px only. */
+    const lit = Math.max(0, Math.min(every, n - (weeks - 1) * every));
+    let days = '<span class="sr-of" aria-hidden="true"><b>' + lit + "</b> of " + every + "</span>";
     for (let w = weeks - 1; w < weeks; w++) {
       const cells = [];
       for (let i = 0; i < every; i++) { const d = w * every + i + 1; cells.push('<i class="' + (d <= n ? "b" : (d === slot ? "t" : "o")) + '"></i>'); }
@@ -37969,11 +37982,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      `literature` FOLLOWED IN OCT 2026, ON REQUEST ("Remove the Literature category from the game"). The
      tag reaches past the works themselves to the myths and figures inside them — the Judgement of Paris,
      Orestes, Deucalion and Patroclus made one day's row — and a solver is not told whether the group wants
-     the poem, the character or the story, which is the ambiguity the other rules exist to remove. */
+     the poem, the character or the story, which is the ambiguity the other rules exist to remove.
+     `culture` FOLLOWED IN OCT 2026, ON REQUEST ("remove the category Cultures"). It is the kind tag the
+     glossary gives a civilisation — Sumer, the Olmecs, the Minoans — but it sat on Ancient Rome and Ancient
+     Greece too, and those terms name a state, a period, a people and a literature as much as a culture: a
+     reader asked to put Ancient Rome in the "Cultures" row is being asked to agree to one reading of a word
+     that has several. The same request asked for every category to be read that strictly — see
+     THREAD_DESCRIBES below — and this was the one it named outright. */
   const THREAD_BROAD = new Set([
     "history", "place", "archaeology", "geography", "science", "prehistory", "concept", "object",
     "era", "person", "nature", "palaeontology", "geology", "evolution", "politics", "technology",
-    "event", "literature",
+    "event", "literature", "culture",
   ]);
   // At most ONE group per family, because these are the tags that NEST — a region inside a region, a period
   // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
@@ -37986,12 +38005,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      ages are. The seating's own overlap guard hides most of that most of the time — an Athens term
      almost always carries `greece` too — which is precisely why it was never noticed, and "almost
      always" is not the guarantee this rule exists to give. */
+  /* …and the Oct 2026 strictness pass (THREAD_DESCRIBES below) found eleven more of each that had been
+     seated as if they were subjects: `judaea` nests inside `rome`'s world, `troy` inside `greece`, `second
+     world war` and `cold war` inside `20th century`, `three kingdoms` inside `china`'s run of dynasties.
+     `archaic greece` is a PERIOD (Sappho's and Thales' century), not a second Greece. */
   ("greece,united states,south africa,africa,tanzania,kenya,ethiopia,france,spain,germany,china,india,japan," +
    "italy,russia,egypt,europe,asia,north america,south america,oceania,middle east,britain,mediterranean,denmark," +
-   "rome,athens,archaic greece,iran,iraq,korea,mexico,americas,england")
+   "rome,athens,iran,iraq,korea,mexico,americas,england,judaea,syria,peru,portugal,turkey,troy")
     .split(",").forEach((x) => { THREAD_FAMILY[x] = "where"; });
   ("bronze age,iron age,stone age,neolithic,paleolithic,mesolithic,holocene,pleistocene,classical antiquity," +
-   "middle ages,modern,archaic,classical,20th century").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
+   "middle ages,modern,archaic,archaic greece,classical,hellenistic,19th century,20th century,cold war," +
+   "second world war,three kingdoms").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
   /* A tag with fewer clean terms than this makes the same row too often — it was 6 while the pool was the
      whole glossary, and came down to 5 when the pool became the well-known terms alone (Aug 2026). The
      number is a trade between two kinds of sameness and both were MEASURED over 730 days rather than
@@ -38034,13 +38058,84 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Chemistry, Vikings for Europe, Attila for Warfare. */
   const THREAD_KINDS = new Set([
     "person", "ruler", "deity", "creature", "place", "mountain", "river", "city", "state", "dynasty",
-    "era", "event", "battle", "text", "festival", "food", "plant", "animal", "object", "concept",
-    "practice", "title", "institution", "school of thought", "symbol", "culture", "building", "people",
-    "hominin", "fossil", "industry", "artwork", "artefact",
+    "era", "event", "battle", "war", "text", "festival", "food", "plant", "animal", "object", "concept",
+    "theory", "practice", "title", "institution", "school of thought", "symbol", "building", "people",
+    "hero", "empire", "hominin", "fossil", "industry", "artwork", "artefact",
   ]);
+  /* ---------- A CATEGORY MUST DESCRIBE THE TERM, NOT MERELY TOUCH IT ----------
+     (Oct 2026, on request: "Make the classification for categories stricter; a term should only be in a
+     category if that category describes the term specifically, and there is not just a relation. I.e.
+     'Feudalism' is not a law, but is in the Law category; Ancient Rome is in the culture category, but the
+     term refers to much more than just a culture; the category Hominins is perfect, as it actually only
+     contains hominins.")
+
+     The request names the test exactly: Hominins is right because every tile IS a hominin, and Law was
+     wrong because Feudalism is merely ABOUT law. The two-tags kind rule above let the first kind of error
+     in through its second position — `Patrician` is tagged `people, institution` and `Cao Wei` `state,
+     dynasty`, so the patricians sat in Institutions and a kingdom in Dynasties — and it had nothing at all
+     to say about a SUBJECT tag like `law`, `religion` or `warfare`, which a term carries for being about
+     the subject and which therefore admitted Pax Romana to Warfare and Byzantium to Religion. So the rule
+     is now in three parts, each mechanical where the data lets it be:
+
+     · A KIND is the term's FIRST tag, or its second only where the first is the kind this one NARROWS
+       (`THREAD_NARROWS`: `person, ruler`; `place, city`; `event, battle`). `people, institution` is not a
+       narrowing, so Patrician leaves Institutions and Cao Wei leaves Dynasties, while Troy — `place,
+       city` — stays in Cities.
+     · A SUBJECT may be a category only where this table says so, and then only for terms whose kind
+       is one the subject DESCRIBES (`THREAD_DESCRIBES`). "Laws" describes a law, a treaty, a legal text —
+       not a concept, so Feudalism is out and the Napoleonic Code stays; "Warfare" describes a weapon, a
+       tactic, an army, a soldier — not an emperor or a wall. A subject tag with no row is not a category
+       at all: `society`, `islam`, `economy` and `homer` fell out that way, each being a relation ("in a
+       society", "Muslim", "about the economy", "appears in Homer") rather than a description. The kind
+       sets were written by reading every seatable group in the shipped pool, not guessed.
+     · A PLACE or a PERIOD stays a category — "Greece" describes Pericles and "20th century" the Somme as
+       exactly as a kind does — with the relational cases declared in THREAD_NOT: Battle of Marathon is
+       tagged `iran` for the side it was fought against and Nanjing `japan` for the army that did it.
+
+     The cost was MEASURED before it shipped (see the sweep under the Testing section of docs/minigames.md):
+     the seatable categories fall from 96 to the number recorded there, every one of them now answering
+     the reader's question "why do these four belong together?" with a description rather than a
+     connection; and the 730-day sweep still deals a grid every day. */
+  const THREAD_NARROWS = {
+    ruler: "person", hero: "person", city: "place", mountain: "place", river: "place", building: "place",
+    battle: "event", war: "event", theory: "concept", empire: "state",
+    fossil: "object", artefact: "object", artwork: "object",
+  };
+  // the subject categories, each with the kinds it describes; "*" where every term tagged with it is of it
+  const THREAD_DESCRIBES = {
+    agriculture: ["practice", "plant", "object", "concept"],
+    architecture: ["building", "architecture"],
+    art: ["object", "person", "practice", "concept", "text"],
+    astronomy: ["person", "theory", "concept", "object"],
+    biology: ["concept", "object", "theory", "person", "practice", "text"],
+    chemistry: ["concept", "object", "practice", "theory"],
+    communism: ["person", "state", "event", "institution", "politics", "concept", "party"],
+    diplomacy: ["concept", "event", "text", "politics", "person", "institution", "treaty"],
+    economics: ["concept", "economics", "event", "institution", "industry", "policy", "politics"],
+    education: ["institution", "practice"],
+    engineering: ["object", "practice", "person"],
+    exploration: ["person", "event", "era"],
+    ideology: ["concept", "politics"],
+    language: ["language", "concept"],
+    law: ["law", "treaty", "text"],
+    mathematics: ["person", "text", "concept", "theory"],
+    medicine: ["person", "text", "concept", "theory", "practice"],
+    migration: ["event", "concept", "practice"],
+    mythology: "*",
+    philosophy: ["person", "concept", "school of thought", "text", "institution"],
+    poetry: ["concept", "person", "text"],
+    psychology: ["concept", "person", "theory"],
+    religion: ["religion", "deity", "person", "practice", "text", "title", "institution", "building", "concept",
+               "school of thought", "event"],
+    "research methods": ["concept"],
+    revolution: ["event"],
+    slavery: "*",
+    trade: ["institution", "concept", "object", "practice", "person", "event"],
+    warfare: ["object", "practice", "concept", "institution", "technology", "people", "title"],
+    writing: ["concept", "object"],
+  };
   const THREAD_NOT = {
-    asia: ["Genealogy",            // a universal practice; tagged asia for the Korean card that teaches it
-           "Shamanism"],           // practised in Siberia, the Americas and Africa alike
+    // ---- the Sep 2026 rows: a tag right about the CARD and wrong for a solver ----
     biology: ["Water", "Ice", "Molecule", "Chemical_bond", "Covalent_bond", "Ionic_bonding",
               "Hydrogen_bond", "Electrolyte", "Solvent", "Specific_heat_capacity", "Thermodynamics",
               "Activation_energy", "Microscope", "Electron_microscope", "Chromatography"],
@@ -38053,30 +38148,95 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     agriculture: ["Zoonotic_disease"],   // a disease, not a crop
     genetics: ["Anglo-Saxon_England", "Black_Death", "Vikings", "Huns", "Neolithic_Europe", "Horse",
                "Ötzi"],            // tagged for the ancient-DNA evidence about them, not their subject
-    psychology: ["Charles_Darwin", "Immanuel_Kant"],   // a naturalist and a philosopher
-    philosophy: ["Eastern_Orthodox_Church"],           // a church
     literature: ["Genealogy", "Latin", "Sanskrit", "Lesbos", "Vedic_period"],  // two languages, an island, a period
-    language: ["Koreans", "Ancient_Italy"],            // a people and a place
-    art: ["Nazi_book_burnings", "Scythians", "Olmecs", "Kingdom_of_Benin"],    // an event, two peoples, a state
     china: ["Kanji"],              // the Japanese writing system, tagged for the characters' origin
-    germany: ["Bombing_of_Guernica"],                  // in Spain, by German aircraft
-    rome: ["Attila"],              // a Hun, tagged for invading it
-    religion: ["Goths", "Mongol_conquests", "Capitoline_geese"],
-    migration: ["Silk_Road", "Syracuse"],              // a trade route and a city
-    trade: ["Golden_Horde", "Mongol_Empire", "Mali_Empire", "Songhai_Empire"],  // states, tagged for their trade
-    law: ["Cato_the_Elder", "Gaius_Gracchus", "Tiberius_Gracchus", "League_of_Nations"],
-                                   // three Roman politicians, tagged for the laws they carried
-    warfare: ["Comanche"],         // a people
-    africa: ["War_elephant"],      // Indian as much as Carthaginian
     "20th century": ["Gold_standard"],                 // a 19th-century arrangement
     "research methods": ["Francis_Galton"],            // a person
     ideology: ["Adolf_Hitler", "Benito_Mussolini", "March_on_Rome"],  // two men and an event
     architecture: ["Great_Fire_of_Rome",   // a fire (Sep 2026, on request), tagged for the buildings it destroyed
                    "Zagwe_dynasty"],        // a dynasty, tagged for the churches built under it
+    /* ---- the Oct 2026 strictness pass: what the kind sets above still let through, read group by group.
+       A tag has ONE row — a second row for the same key would silently replace the first. ---- */
+    // kinds
+    city: ["Ancient_Agora_of_Athens"],                // a square in a city (`place, city`)
+    war: ["Battle_of_Leuctra", "Battle_of_Waterloo"], // battles, tagged `event, war`
+    people: ["Marius_and_Sulla"],                     // two men, tagged `people` for want of a pair kind
+    // subjects
+    art: ["Nazi_book_burnings", "Scythians", "Olmecs", "Kingdom_of_Benin",   // an event, two peoples, a state (Sep 2026)
+          "Jade"],                                    // a stone
+    astronomy: ["Thales"],                            // a philosopher, tagged for one predicted eclipse
+    mathematics: ["Johannes_Kepler",                  // an astronomer
+                  "Archimedes'_principle"],           // physics
+    medicine: ["Asclepius"],                          // the god of it
+    migration: ["Silk_Road", "Syracuse",              // a trade route and a city (Sep 2026)
+                "Indo-European", "Depopulation", "Columbian_exchange", "Mongol_conquests"],
+                                                      // a language family, a decline, an exchange, a conquest
+    exploration: ["Treaty_of_Tordesillas"],           // a treaty dividing what the explorers found
+    language: ["Koreans", "Ancient_Italy",            // a people and a place (Sep 2026)
+               "Barbarian"],                          // a concept, tagged for its etymology
+    law: ["Cato_the_Elder", "Gaius_Gracchus", "Tiberius_Gracchus", "League_of_Nations",
+                                                      // three Roman politicians, tagged for the laws they carried (Sep 2026)
+          "Domesday_Book", "Will_of_Julius_Caesar"],  // a survey and a will — legal texts that are not laws
+    economics: ["Home_front", "World's_fair"],        // a war's civilian side and an exhibition
+    education: ["Society_of_Jesus"],                  // a religious order, tagged for the schools it ran
+    philosophy: ["Eastern_Orthodox_Church",           // a church (Sep 2026)
+                 "Buddhism", "Jainism",               // religions
+                 "The_Art_of_War", "Cato_the_Younger"],  // a military treatise and a politician
+    psychology: ["Charles_Darwin", "Immanuel_Kant",   // a naturalist and a philosopher (Sep 2026)
+                 "Empiricism", "Rationalism", "Tabula_rasa", "Materialism",   // philosophy, tagged for the debate psychology inherited
+                 "Eugenics"],                         // a programme, tagged for Galton
+    diplomacy: ["Crimean_War"],                       // a war
+    trade: ["Golden_Horde", "Mongol_Empire", "Mali_Empire", "Songhai_Empire",  // states, tagged for their trade (Sep 2026)
+            "Porcelain", "Steamship"],                // a traded good and the ship that carried it
+    warfare: ["Comanche",                             // a people (Sep 2026)
+              "Pax_Romana",                           // a peace
+              "Conquistador", "Mass_deportation",     // a conqueror and a punishment
+              "NKVD",                                 // a secret police
+              "Marius_and_Sulla", "Scythians", "Goths", "Vikings", "Huns", "Varangians"],
+                                                      // two generals and peoples, tagged for fighting
+    religion: ["Goths", "Mongol_conquests", "Capitoline_geese",   // (Sep 2026)
+               "Olympic_Games", "Founding_of_Rome", "Pueblo_Revolt", "Yellow_Turban_Rebellion", "Boxer_Rebellion",
+               "Thirty_Years'_War", "Peace_of_Westphalia", "First_Jewish–Roman_War", "Sack_of_Rome_(410)",
+                                                      // events with a religious side, not religious events
+               "Greek_theatre", "Islamic_art", "Dragon_Boat_Festival", "Chinese_New_Year", "Crucifixion",
+                                                      // an art, a festival and an execution, tagged for their religious origin
+               "Chinese_zodiac", "Minjung", "Pharaoh", "Pyramid_of_Djoser", "Journey_to_the_West",
+                                                      // a calendar, a movement, a king, a tomb and a novel
+               "Heracles", "Phidias", "Pythagoras", "Henry_VIII", "Akbar", "Vladimir_the_Great", "Pandora", "Deucalion",
+               "Romulus_and_Remus", "Aeneas"],        // a hero, a sculptor, a mathematician, three kings and figures of legend
+    // places: tagged for the other side, the distant possession or the place the thing was done TO
+    africa: ["War_elephant",                          // Indian as much as Carthaginian (Sep 2026)
+             "Henry_the_Navigator", "Donkey"],        // a Portuguese prince; an animal, tagged for where it was domesticated
+    asia: ["Genealogy",            // a universal practice; tagged asia for the Korean card that teaches it (Sep 2026)
+           "Shamanism",            // practised in Siberia, the Americas and Africa alike (Sep 2026)
+           "Portuguese_Empire"],   // tagged for its Asian possessions
+    britain: ["Battle_of_the_Somme", "Dunkirk_evacuation", "North_African_campaign", "Phoney_War"],  // fought elsewhere
+    england: ["Jamestown,_Virginia", "New_England", "Castle"],   // two colonies and a building type found everywhere
+    europe: ["Scramble_for_Africa"],                  // done to Africa
+    france: ["Cro-Magnon", "Phoney_War"],             // a population named for a French site; a period of waiting
+    germany: ["Bombing_of_Guernica",                  // in Spain, by German aircraft (Sep 2026)
+              "Battle_of_Britain", "Phoney_War"],     // fought over Britain; a period of waiting
+    greece: ["Heinrich_Schliemann", "Troy", "Xerxes_I", "Aeneas"],   // a German, a city in Anatolia, a Persian king, a Trojan
+    india: ["Vasco_da_Gama", "East_India_Company"],   // a Portuguese sailor and an English company
+    iran: ["Battle_of_Marathon", "Battle_of_Thermopylae", "Battle_of_Salamis", "Battle_of_Plataea"],  // fought in Greece
+    italy: ["Circe"],                                 // a goddess, tagged for the island tradition put her on
+    japan: ["Nanjing_Massacre"],                      // in China, by the Japanese army
+    korea: ["Emperor_Wu_of_Han", "Russo-Japanese_War"],   // a Chinese emperor; a war fought over Korea by others
+    syria: ["First_Crusade"],                         // passed through it
+    turkey: ["Siege_of_Vienna", "Battle_of_Vienna", "Battle_of_Lepanto"],   // Ottoman defeats, all elsewhere
+    judaea: ["Arch_of_Titus"],                        // in Rome, commemorating the war
+    rome: ["Attila",               // a Hun, tagged for invading it (Sep 2026)
+           "Hannibal", "Vercingetorix", "Boudica", "Zenobia"],   // its enemies
   };
-  // may this term stand FOR this group? — the two rules above, asked in one place
+  // may this term stand FOR this group? — the three rules above, asked in one place
   function threadFits(it, tag) {
-    if (THREAD_KINDS.has(tag) && it.tags.indexOf(tag) > 1) return false;
+    if (THREAD_KINDS.has(tag)) {
+      const i = it.tags.indexOf(tag);
+      if (i > 1 || (i === 1 && THREAD_NARROWS[tag] !== it.tags[0])) return false;
+    } else if (!THREAD_FAMILY[tag]) {
+      const d = THREAD_DESCRIBES[tag];
+      if (!d || (d !== "*" && d.indexOf(it.tags[0]) < 0)) return false;
+    }
     const no = THREAD_NOT[tag];
     return !(no && no.indexOf(it.key) >= 0);
   }
@@ -38154,8 +38314,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         // a group already seated must not contain a term carrying THIS tag either — the test runs both ways
         if (groups.some((g) => g.terms.some((it) => it.tags.includes(tag)))) continue;
         const taken = groups.map((g) => g.tag);
+        // …nor its own group's LABEL: "Trojan War" under "The Trojan War" gives the row away as surely as
+        // "Africa" under `africa` (Oct 2026, when the label stopped being the tag for a few groups)
+        const lab = threadNorm(threadLabel(tag)).replace(/^the /, "");
         const clean = byTag[tag].filter((it) =>
-          it.n !== tag && !taken.some((o) => it.tags.includes(o)) && !it.stems.some((s) => stems.has(s))
+          it.n !== tag && it.n !== lab && !taken.some((o) => it.tags.includes(o)) && !it.stems.some((s) => stems.has(s))
         );
         if (clean.length < THREAD_ROWS) continue;
         const picked = [];
@@ -38178,9 +38341,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const THREAD_LABELS = {
     title: "Titles and offices", text: "Texts", ruler: "Rulers", industry: "Stone industries",
     building: "Buildings", art: "Art", fossil: "Fossils", animal: "Animals",
-    practice: "Practices", people: "Peoples", culture: "Cultures",
+    practice: "Practices", people: "Peoples and groups",   // the kind holds a class, a family and a movement too
     warfare: "Warfare", religion: "Religion", biology: "Biology", hominin: "Hominins",
     deity: "Deities", city: "Cities", state: "States", institution: "Institutions",
+    // the Oct 2026 strictness pass narrowed these three to what their kind sets admit, and the label says so
+    law: "Laws", language: "Languages and scripts", troy: "The Trojan War", war: "Wars", theory: "Theories",
+    hero: "Heroes", creature: "Creatures", battle: "Battles", dynasty: "Dynasties",
   };
   function threadLabel(tag) {
     return THREAD_LABELS[tag] || tag.replace(/\b[a-z]/g, (c) => c.toUpperCase());
