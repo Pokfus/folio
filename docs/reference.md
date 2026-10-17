@@ -6968,6 +6968,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A term excluded loses one group, not the grid** — Water still answers for Chemistry, Vikings for
     Europe, Attila for Warfare. **Re-measured after: 730 days, 0 blank, 730 distinct grids, 61 categories
     in rotation** (the baseline was 726 of 730).
+  · **…AND SINCE OCT 2026 A CATEGORY MUST DESCRIBE THE TERM, NOT MERELY TOUCH IT** (`THREAD_NARROWS` /
+    `THREAD_DESCRIBES` / the Oct 2026 rows of `THREAD_NOT`; on request — "'Feudalism' is not a law, but is in
+    the Law category; Ancient Rome is in the culture category … the category Hominins is perfect, as it
+    actually only contains hominins"). A kind is the FIRST tag, or the second only under the kind it narrows; a
+    subject is a category only with a declared row of the kinds it describes, and a subject with no row is not
+    a category; `culture` is in `THREAD_BROAD`. Measured: 96 → 84 seatable categories, 0 blank days in 730,
+    730 distinct grids. 📖 `docs/minigames.md` has the rule in full. Re-run `test-minigames.js` after touching any of the three tables.
   · **`THREAD_FAMILY` HAD HOLES AND THEY WERE REAL** (same batch). It is the list of tags that NEST, at most
     one per puzzle — and it named `italy` without `rome`, `greece` without `athens`, `asia` without `iran`,
     `iraq` or `korea`, `north america` without `mexico` or `americas`, `britain` without `england`, and the

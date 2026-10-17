@@ -17,6 +17,11 @@
   check can see it. NOTE that a rewrite moves the KEY — a later batch addresses the statement by its NEW
   `q`.
 
+  A STATEMENT SHIPS WITH AT LEAST THREE DIFFERENT SOURCES (Oct 2026, on request: "The 'True or False'
+  minigame should use at least three different sources per question answer"). Counted on the URL, as
+  check-truefalse.js counts it, so a `cite` that leaves a statement on two is refused here before it is
+  refused there.
+
   WHY A HELPER RATHER THAN AN EDIT. `truefalse.js` is the one content pool with no writer of its own, and
   it is about to gain a source per statement: a hand edit has nothing checking that a marker points at a
   citation that exists, that a citation ends in a URL, that a new statement is not already in the pool, or
@@ -66,6 +71,9 @@ function checkSrc(where, why, list) {
     // label into a chip at render time.
     if (typeof s !== "string" || !/https?:\/\/[^\s<>"']+/.test(s)) errs.push(where + ": source " + (k + 1) + " carries no URL a reader can open");
   });
+  // at least THREE different works (Oct 2026, on request) — the same count check-truefalse.js makes, on the URL
+  const works = new Set(list.map((s) => { const m = /https?:\/\/([^\s<>"']+)/.exec(String(s)); return m ? m[1].toLowerCase().replace(/#.*$/, "").replace(/\/+$/, "") : ""; }).filter(Boolean));
+  if (works.size < 3) errs.push(where + ": " + works.size + " different source(s) — a statement ships with at least three");
   const marks = [...String(why || "").matchAll(/<sup[^>]*data-fn="(\d+)"/g)].map((m) => +m[1]);
   if (!marks.length) errs.push(where + ": the explanation points at nothing — put a marker on the claim each source carries");
   marks.forEach((n) => { if (!(n >= 1 && n <= list.length)) errs.push(where + ": a marker points at source " + n + " and there are " + list.length); });

@@ -184,6 +184,20 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
   · **"One away"** is counted over the four submitted, so it can only ever report a genuine 3-of-4. Without it
     a wrong guess teaches nothing, which is most of the texture of a grouping puzzle.
   · `won` (the gold tile) is **solved with NO mistakes**; `score` is groups found, out of 4.
+  · **A CATEGORY MUST DESCRIBE THE TERM, NOT MERELY TOUCH IT** (`THREAD_NARROWS` / `THREAD_DESCRIBES` and the
+    Oct 2026 rows of `THREAD_NOT`; on request: "a term should only be in a category if that category describes
+    the term specifically, and there is not just a relation. I.e. 'Feudalism' is not a law, but is in the Law
+    category; Ancient Rome is in the culture category, but the term refers to much more than just a culture;
+    the category Hominins is perfect"). Three rules, in `threadFits`: **a KIND is the term's first tag**, or
+    its second only where the first is the kind it narrows (`person, ruler`; `place, city` — so Patrician,
+    `people, institution`, leaves Institutions and Cao Wei, `state, dynasty`, leaves Dynasties); **a SUBJECT
+    is a category only with a row in `THREAD_DESCRIBES`**, and then only for terms whose kind the subject
+    describes (Laws takes a law, a treaty or a legal text, so Feudalism is out and the Napoleonic Code stays;
+    a subject with no row — `society`, `islam`, `economy`, `homer` — is a relation, not a category); **a
+    PLACE or PERIOD stays a category** with the relational members declared (Battle of Marathon is tagged
+    `iran` for the side it was fought against). `culture` joined `THREAD_BROAD` by name. **Measured over the
+    shipped pool (1,158 terms) and 730 days**: seatable categories 96 → 84, 0 blank days, 730 distinct grids.
+    `test-minigames.js` asks `threadFits` the user's own questions against the shipped tags.
 - **CROSSWORD — the seventh daily game, and the first whose CLUE IS A CARD'S OWN QUESTION** (`PAGES.crossword`
   at `#crossword`, the `PAGE: CROSSWORD` block in app.js; 2026-08-09, on request). Nine entries clued from
   the cards' answer terms. It needed no authored content at all, and that is the point of it: a Folio
