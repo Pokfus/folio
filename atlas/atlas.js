@@ -1962,7 +1962,8 @@
     }
 
     /* ---- sprites: a label rendered once, glyph by glyph, halo then ink, at its layout position ---- */
-    let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "";
+    let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "", haloDark = false;
+    const HALO_W = 2.6, HALO_W_DARK = 3.2;   // CSS px of halo stroke (both sides of a glyph): wider in a dark theme (decision c, 2026-10-17), where the dark halo is what keeps a light name legible over the lighter sea and the relief
     const markSprites = new Map(), MARK_SPRITE_MAX = 400;   // the study marks' glyph bitmaps (markSprite, below); cleared with the colours
     function labelColours() {
       const { ink, paper, paper2, indigo, ochre, dark } = themeTokens();
@@ -1971,7 +1972,17 @@
       inkCss = hex(ink);
       // water names: a deep blue-ink in a light theme, a pale blue in a dark one — read against both the sea and the land
       waterCss = hex(dark ? mix([0.55, 0.8, 1], paper, 0.12) : mix(ink, [31 / 255, 122 / 255, 170 / 255], 0.5));
-      selCss = hex(dark ? mix(paper, ochre, 0.5) : mix(ink, ochre, 0.55));
+      /* the reader's own and the selected names (2026-10-17, decision c; the owner's phone: "brown text with a black outline" in dark mode): in a light
+         theme the ochre darkened toward the ink; in a DARK theme it was the ochre darkened toward the paper — #6b5b4d on folio's night, 2.8:1 against
+         its own halo. Now the ochre is lightened toward white until it reads at least 7:1 against the halo and 4.5:1 against the land and the sea
+         (`readPalette`'s fills) — light text on a dark halo, as every other name is; the marks keep the ochre fill and the ink outline */
+      if (dark) {
+        const pal = readPalette(), lum = (c) => { const f = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
+        const cr = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+        let c = ochre; for (let i = 0; i < 24 && (cr(c, paper) < 7.2 || cr(c, pal.land) < 4.7 || cr(c, pal.ocean) < 4.7); i++) c = mix(c, [1, 1, 1], 0.1);
+        selCss = hex(c);
+      } else selCss = hex(mix(ink, ochre, 0.55));
+      haloDark = dark;
       accentCss = hex(ochre);   // the fill of the reader's own marks (Phase 3b)
       markSprites.clear();   // the glyph sprites carry these colours (the frame gate, 2026-10-17)
       void paper2; void indigo;
@@ -1997,7 +2008,7 @@
       const x = c.getContext("2d");
       x.scale(dprNow, dprNow); x.translate(-x0, -y0);
       x.textBaseline = "middle"; x.textAlign = "left"; x.lineJoin = "round"; x.lineCap = "round";
-      x.lineWidth = (p.id === sel.id ? 3.4 : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : 2.6) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
+      x.lineWidth = (p.id === sel.id ? (haloDark ? 4 : 3.4) : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : haloDark ? HALO_W_DARK : HALO_W) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
       const fontBig = fontOf(st, st.size * LS), fontSmall = st.caps ? fontOf(st, st.size * LS * SMALL_SCALE) : fontBig;
       for (const pass of [0, 1]) {   // every halo first, then every glyph, so a halo never bites a neighbour
         for (let i = 0; i < p.glyphs.length; i++) {
@@ -3226,7 +3237,7 @@
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
-      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss }),
+      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, shut: cardEl.classList.contains("atlas2-card-shut") }),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,
