@@ -2102,9 +2102,21 @@
     const FAN_MAX = 14;
     let fan = null;
     function markRadius(touch) { return touch || PHONE ? 22 : 12; }
+    /* THE TAP RULES (2026-10-17; the owner's phone, decision b). A mark, a name or a face opens a popup ONLY IF IT HAS AT LEAST ONE CARD — in the
+       Personal Atlas one of the reader's own, in the Full Atlas any card of a collection that is on, on the plain Map any card at all (study.js
+       `tappableSet`). Everything else is not tappable: no hit area, no highlight, no popup — its name is still drawn. That holds for places, for
+       polities and peoples (a face under the finger answers only when its entity has a card) and for water (the nearest-sea fallback is gone:
+       a sea opens from its own name when that has cards, and a tap on open water does nothing). THE ATLAS PAGE ONLY: a hub (`EMBED`) — Find it
+       and the card windows — keeps every face tappable, and a host without a study layer (`SU`) keeps v1's answer. Before the study index is
+       read nothing is tappable; a deep link, a search result and the glossary's pin open a place as before (they are not taps). */
+    function tappable(id) {
+      if (EMBED || !SU) return true;
+      if (!ST.ready || !ST.tappable) return false;
+      return ST.tappable.has(id);
+    }
     function marksNear(x, y, radius) {
       const A = root.AtlasStudy; if (!A || !L.ln) return [];
-      const near = liveEntries(x, y, radius);
+      const near = liveEntries(x, y, radius).filter((e) => tappable(e.m.id));
       return near.length < 2 ? near : A.nearMarks(near, x, y, radius).map((i) => near[i]);
     }
     function fanSig() { return view.lon.toFixed(5) + "," + view.lat.toFixed(5) + "," + view.zoom.toFixed(5) + "," + cssW + "x" + cssH; }
@@ -2212,6 +2224,7 @@
     function hitAt(x, y) {
       const out = [];
       for (const e of L.live) {
+        if (!tappable(e.p.id)) continue;   // a name with no card is not a hit target (the tap rules)
         const h = e.hit; const ex = Math.max(0, (HIT_MIN - (h[2] - h[0])) / 2), ey = Math.max(0, (HIT_MIN - (h[3] - h[1])) / 2);
         if (x >= h[0] - ex && x <= h[2] + ex && y >= h[1] - ey && y <= h[3] + ey) out.push(e);
       }
@@ -2221,7 +2234,7 @@
     /* ---- picking: labels and markers under the finger, the water ID pass, the faces pass, the nearest sea ---- */
     function stackAt(x, y) {
       const out = [], seen = new Set();
-      const add = (row) => { if (row && !seen.has(row.id)) { seen.add(row.id); out.push(row); } };
+      const add = (row) => { if (row && !seen.has(row.id) && tappable(row.id)) { seen.add(row.id); out.push(row); } };   // only what has a card (the tap rules)
       for (const h of hitAt(x, y)) add(G.byId.get(h.p.id));
       if (R.levelLoaded(0)) {
         const w = R.pick(view, x, y, "water");
@@ -2241,13 +2254,8 @@
         if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(G.byId.get(p)); add(G.byId.get(e.id)); } else add(G.byId.get(e.id)); } }
         else if (f && f.face != null && header && faceEntity && time.present) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(G.byId.get(ent.id)); if (ent.parent) add(G.byId.get(ent.parent)); } }
       }
-      if (!out.length) {
-        // open water: the nearest sea or ocean label on screen, else the nearest sea or ocean by angle
-        let best = null, bd = Infinity;
-        for (const e of L.live) { if (!/^(sea|ocean|gulf|strait)$/.test(e.p.kind)) continue; const h = e.hit, d = Math.hypot((h[0] + h[2]) / 2 - x, (h[1] + h[3]) / 2 - y); if (d < bd) { bd = d; best = G.byId.get(e.p.id); } }
-        if (!best) { const ll = unproject(x, y); if (ll) { const la = ll.lat * D2R, lo = ll.lon * D2R, c = Math.cos(la), u = [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; let bdot = -2; for (const row of G.rows) { if (!/^(sea|ocean)$/.test(row.kind) || !row.at) continue; const lb = row.at[1] * D2R, lob = row.at[0] * D2R, cb = Math.cos(lb); const d = u[0] * cb * Math.cos(lob) + u[1] * cb * Math.sin(lob) + u[2] * Math.sin(lb); if (d > bdot) { bdot = d; best = row; } } } }
-        add(best);
-      }
+      // open water, a stateless land or a desert: NOTHING (2026-10-17). The nearest-sea fallback — the nearest sea or ocean name on screen, else the
+      // nearest by angle, for ANY tap that found nothing — opened a sea's card from a tap in the Sahara; a sea now opens from its own name only.
       return out;
     }
     function pickAt(x, y, touch) {
@@ -2730,8 +2738,8 @@
       /* one button per DRAWN mark and per placed name, best first, capped (stacks removed: the old zoom-in-on-a-stack
          button is gone). A mark whose name is placed is one button, not two. */
       const seen = new Set(), items = [];
-      for (const p of L.placed) if (p.text) { seen.add(p.id); items.push({ id: p.id, kind: p.kind, score: p.score, name: p.text }); }   // one per placed label, as it always was (a river's name may stand on several stretches)
-      for (const m of L.marks) if (m.clear && !seen.has(m.id)) { seen.add(m.id); items.push({ id: m.id, kind: m.kind, score: m.score, name: "" }); }
+      for (const p of L.placed) if (p.text && tappable(p.id)) { seen.add(p.id); items.push({ id: p.id, kind: p.kind, score: p.score, name: p.text }); }   // one per placed label, as it always was (a river's name may stand on several stretches); only what a tap may open (the tap rules)
+      for (const m of L.marks) if (m.clear && !seen.has(m.id) && tappable(m.id)) { seen.add(m.id); items.push({ id: m.id, kind: m.kind, score: m.score, name: "" }); }
       const list = items.sort((a, b) => a.score - b.score).slice(0, KEY_LIST_MAX);
       const ids = list.map((p) => p.id).join("\n");
       if (ids === L.keyIds) return;
@@ -2789,7 +2797,7 @@
     const AS = root.AtlasStudy;
     const SU = H.study || null;
     const MODE_KEY = "folio.atlas2.study", COLL_KEY = "folio.atlas2.studyOff", OPEN_KEY = "folio.atlas2.studyOpen";
-    const ST = { ready: false, loading: false, failed: false, open: !PHONE, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), colls: [], rev: 0, limit: new Map() };
+    const ST = { ready: false, loading: false, failed: false, open: !PHONE, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), tappable: null, colls: [], rev: 0, limit: new Map() };
     const stRead = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
     { const v = stRead(OPEN_KEY); if (v === "1" || v === "0") ST.open = v === "1"; }   // a stored choice wins over the phone default (collapsed)
     const stWrite = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
@@ -2866,6 +2874,7 @@
     }
     function applyStudy() {
       ST.flags = ST.ready ? AS.flags(ST.idx, ST.st, ST.mode, ST.hidden, info) : new Map();
+      ST.tappable = AS.tappableSet(ST.ready ? ST.idx : null, ST.mode, ST.flags);   // what a tap may open (the tap rules, 2026-10-17)
       PI.mode = ST.ready ? ST.mode : "map"; PI.flags = ST.flags; refreshWars(); refreshPresence();   // 4/0a: the Automatic wars position follows the mode   // 2c: the Personal and Full Atlas decide which peoples a reader sees
       ST.rev++;
       postToWorker({ type: "study-flags", mode: ST.mode === "map" ? "" : ST.mode, entries: [...ST.flags], rev: ST.rev });
@@ -3043,7 +3052,8 @@
         near: (x, y, touch) => marksNear(x, y, markRadius(touch)).map((e) => e.m.id),
         fan: () => (fan ? { x: fan.x, y: fan.y, clear: fan.clear, items: fan.slots.map((sl) => ({ id: sl.mem.e.m.id, name: sl.mem.name, x: sl.mem.x, y: sl.mem.y, fx: sl.x, fy: sl.y, right: sl.right, rect: sl.rect })) } : null), closeFan: () => closeFan(),
         keys: () => [...keysUl.querySelectorAll("button[data-id]")].map((b) => ({ id: b.getAttribute("data-id"), text: b.textContent })),
-        index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0 },
+        index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0,
+        tappable: (id) => tappable(id), tappableIds: () => (ST.tappable ? [...ST.tappable] : null) },
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,

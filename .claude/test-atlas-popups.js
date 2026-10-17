@@ -92,7 +92,7 @@ async function year(page, y) {
 }
 async function mode(page, m) {
   await A(page, (c, m) => c.study.setMode(m), m); await sleep(150);
-  await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return !c.historyOK || c.historyOK(); }, null, { timeout: 120000 });   // the faces' meshes at the view's level
+  await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.year() >= 2000 || !c.historyOK || c.historyOK(); }, null, { timeout: 120000 });   // the faces' meshes at the view's level (a present year draws no history)
   await sleep(450);   // the fade between the two colourings (FADE_MS) is over before a pixel is read
   await settle(page);
 }
@@ -152,6 +152,77 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
       await year(page, -483); await mode(page, "personal");
     } else check("an unflagged polity to probe", false);
     await shot(page, "personal-483");
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 2  the tap rules */
+  console.log("\n\x1b[1m2) the tap rules: a popup only for what has a card; a desert, a bare polity, open water and a plain name do nothing\x1b[0m\n");
+  {
+    const AF = require("../atlas/atlas-format.js");
+    const HH = AF.read(new Uint8Array(fs.readFileSync(path.join(ROOT, "atlas/data/history.bin"))), { headerOnly: true }).header;
+    const entLose = HH.entities.filter((e) => !IDX.cardsOfPlace.has(e.id)), placeLose = [...REG.keys()].filter((id) => !IDX.cardsOfPlace.has(id));
+    console.log("  \x1b[2m(the numbers: of " + HH.entities.length + " history entities " + entLose.length + " have no card and lose their popup [" + Object.entries(entLose.reduce((a, e) => { a[e.kind] = (a[e.kind] || 0) + 1; return a; }, {})).map(([k, n]) => n + " " + k).join(", ") + "]; of " + REG.size + " registry places " + placeLose.length + " have no card and lose theirs; the data of every one stays)\x1b[0m");
+    const { ctx, page, errors } = await open(browser, READER);
+    const tapCentre = async (touch) => { const b = await box(page); const x = b.w / 2, y = b.h / 2; await A(page, (c, p) => c.pickAt(p[0], p[1], p[2]), [x, y, !!touch]); await sleep(300); return [x, y]; };
+    const nothing = (s) => s.id == null && !s.cardOpen && !s.chip;
+    // (i) a stateless desert at 483 BCE: the Sahara
+    await year(page, -483); await view(page, 5, 24, 5);
+    let b = await box(page), c0 = [b.w / 2, b.h / 2];
+    const under = await A(page, (c, p) => ({ stack: c.stackAt(p[0], p[1]), hit: c.hitAt(p[0], p[1]), near: c.study.near(p[0], p[1], true) }), c0);
+    check("the Sahara in 483 BCE: nothing is under the centre of the frame (no name, no mark, no face with a card)", !under.stack.length && !under.hit.length && !under.near.length, JSON.stringify(under));
+    await tapCentre(true); let s1 = await sel(page);
+    check("a tap on it does NOTHING: no selection, no card, no chip — not the nearest sea (the Mediterranean) as before", nothing(s1), JSON.stringify(s1));
+    // (ii) open water: the mid-Atlantic
+    await view(page, -35, 25, 20);
+    await tapCentre(true); s1 = await sel(page);
+    check("a tap on open water far from any name does nothing (the nearest-ocean fallback is gone)", nothing(s1), JSON.stringify(s1));
+    // (iii) a polity with no card of the reader's: Carthage in Personal, which the Full Atlas names and opens
+    await view(page, 27, 38, 5); await mode(page, "full");
+    const fullPol = (await labels(page)).filter((p) => p.hist && p.kind === "polity");
+    const flagged2 = new Set((await study(page)).flags.filter(([, f]) => f === 2).map(([id]) => id));
+    const bare = fullPol.find((p) => !flagged2.has(p.id) && IDX.cardsOfPlace.has(p.id));
+    check("a polity the Full Atlas names that the reader has no card for, though some card has: " + (bare ? bare.text : "none"), !!bare);
+    if (bare) {
+      await A(page, (c, p) => c.pickAt(p[0], p[1], true), [bare.sx, bare.sy]); await sleep(300); s1 = await sel(page);
+      check("in the FULL Atlas a tap on its face opens it (a card links it)", s1.id === bare.id && s1.cardOpen, JSON.stringify(s1));
+      await A(page, (c) => c.clearSelection());
+      await mode(page, "personal");
+      await A(page, (c, p) => c.pickAt(p[0], p[1], true), [bare.sx, bare.sy]); await sleep(300); s1 = await sel(page);
+      check("in the PERSONAL Atlas the same tap does nothing: no card of the reader's links it", nothing(s1), JSON.stringify(s1));
+      check("…and it is not in the hidden list of places the keyboard reaches", !(await A(page, (c) => c.study.keys())).some((k) => k.id === bare.id));
+    }
+    // (iv) a name with no card at all: an ordinary town of the gazetteer, in the Full Atlas (present day)
+    await year(page, 2025); await mode(page, "full"); await view(page, 23, 38, 2);
+    const plain = (await labels(page)).find((p) => !p.hist && /^(city|town)$/.test(p.kind) && !IDX.cardsOfPlace.has(p.id) && p.text);
+    check("a town named on the map that no card is about: " + (plain ? plain.text : "none in view"), !!plain);
+    if (plain) {
+      const cx = (plain.hit[0] + plain.hit[2]) / 2, cy = (plain.hit[1] + plain.hit[3]) / 2;
+      check("…its name is not a hit target", !(await A(page, (c, p) => c.hitAt(p[0], p[1]), [cx, cy])).includes(plain.id));
+      await A(page, (c, p) => c.pickAt(p[0], p[1], true), [cx, cy]); await sleep(300); s1 = await sel(page);
+      check("…and a tap on its name opens no popup for it", s1.id !== plain.id && (!s1.cardOpen || s1.id !== plain.id), JSON.stringify(s1));
+      await A(page, (c) => c.clearSelection());
+    }
+    // (v) a water body's own name, with cards: the Strait of Hormuz (a places.js row three cards are about; the gazetteer's Aegean name is not placed at any zoom of this view — a label-engine matter, not a tap one)
+    await view(page, 56, 26, 8);
+    const WATER = "pl:q79883";
+    const aeg = (await labels(page)).find((p) => p.id === WATER);
+    check("the Strait of Hormuz is named in view (a card is about it)", !!aeg && IDX.cardsOfPlace.has(WATER));
+    if (aeg) {
+      const cx = (aeg.hit[0] + aeg.hit[2]) / 2, cy = (aeg.hit[1] + aeg.hit[3]) / 2;
+      await A(page, (c, p) => c.pickAt(p[0], p[1], true), [cx, cy]); await sleep(300); s1 = await sel(page);
+      check("a tap on the water body's own name opens its popup (the one way a water body opens)", s1.id === WATER && s1.cardOpen, JSON.stringify(s1));
+      await A(page, (c) => c.clearSelection());
+    }
+    await view(page, 23, 38, 2);
+    // (vi) a mark with cards still opens; (vii) the hidden list holds only what a tap may open
+    const lv = await live(page);
+    const mk = lv.find((m) => !/^pol:/.test(m.id) && m.st > 0 && !lv.some((o) => o !== m && Math.hypot(o.x - m.x, o.y - m.y) < 30));   // a lone mark: two within a finger fan out instead
+    if (mk) { await A(page, (c, p) => c.pickAt(p[0], p[1], true), [mk.x, mk.y]); await sleep(300); s1 = await sel(page); check("a tap on a mark that has cards opens its popup, as before", s1.id === mk.id && s1.cardOpen, JSON.stringify(s1)); await A(page, (c) => c.clearSelection()); }
+    const tappable = new Set(await A(page, (c) => c.study.tappableIds()));
+    const keys = await A(page, (c) => c.study.keys());
+    check("the hidden list is one button per name or mark a tap may open — " + keys.length + " buttons, every one tappable", keys.length > 0 && keys.every((k) => tappable.has(k.id)));
+    const tappableFull = AS.tappableSet(IDX, "full", AS.flags(IDX, ST, "full", [], (id) => ({ collId: "x" })));
+    check("…the Full Atlas's tappable set is exactly the ids any card links (" + tappableFull.size + ")", tappable.size === tappableFull.size && [...tappable].every((id) => tappableFull.has(id)));
     allErrors.push(...errors); await ctx.close();
   }
 

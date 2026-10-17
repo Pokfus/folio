@@ -275,5 +275,19 @@ console.log("\n10) the wars (Phase 2d): which wars are drawn, which entities are
   check("the extent kind is its own layer and word (not a people, not a state)", AS.layerOf("extent") === "war-extent" && AS.kindWord("extent") === "authored extent" && AS.isPresence("extent") === false && AS.normalizeWars("bogus") === "auto" && AS.normalizeWars("off") === "off");
 }
 
+/* ---------------------------------------------------------------- the owner's phone, 2026-10-17 */
+console.log("\n11) the tap rules: what a tap may open (tappableSet)\n");
+{
+  const fP = AS.flags(idx, st, "personal", [], info), fF = AS.flags(idx, st, "full", [], info);
+  const tP = AS.tappableSet(idx, "personal", fP), tF = AS.tappableSet(idx, "full", fF), tM = AS.tappableSet(idx, "map", new Map());
+  check("before the index is read nothing is tappable (null)", AS.tappableSet(null, "full", fF) === null);
+  check("Personal: exactly the ids a studied card links (flag 2)", tP.size === [...fP].filter(([, f]) => f === 2).length && [...tP].every((id) => fP.get(id) === 2) && tP.size > 0, tP.size + " ids");
+  check("Full: every id any card of a collection that is on links (flag 1 or 2)", tF.size === fF.size && [...fF.keys()].every((id) => tF.has(id)), tF.size + " ids");
+  check("the plain Map: every id of the index (any card at all)", tM.size === idx.ids.length && idx.ids.every((id) => tM.has(id)));
+  const off = AS.flags(idx, st, "full", [info(reader[0]).collId], info), tOff = AS.tappableSet(idx, "full", off);
+  check("a collection switched off takes its own places out of the Full set", tOff.size < tF.size && tOff.size === off.size);
+  check("an id no card links is in no set (a desert, an ocean, a town with no card)", !tP.has("sea:1159115079") && !tF.has("sea:1159115079") && !tM.has("sea:1159115079") && !tM.has("nothing"));
+}
+
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);

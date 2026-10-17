@@ -43,6 +43,7 @@ window.CHANGELOG = [
     t: "The Personal Atlas shows only your own states",
     items: [
       "<b>Personal Atlas</b>: a state or a people is named, marked and coloured only when a card you have studied links it; the rest is plain land with its borders, and the Full Atlas shows everything.",
+      "<b>Atlas tapping</b>: a place, a state or a sea opens a popup only when a card is about it (in the Personal Atlas, one of yours); a tap on a desert, open water or a name with no card does nothing.",
     ],
   },
   {

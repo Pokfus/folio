@@ -92,6 +92,17 @@
     return out;
   }
 
+  /* THE TAP RULES (2026-10-17; the owner's phone, decision b): the registry ids a tap may open — those with at least one card. Personal: one of the
+     reader's own (flag 2 is the only flag Personal sets); Full: any card of a collection that is on (flag > 0); the plain Map: any card at all
+     (every id of the index). null before the index is read (nothing is tappable). A pure function of `flags()`'s result, so the page, the
+     hidden list and the tests cannot disagree. */
+  function tappableSet(idx, mode, flagMap) {
+    if (!idx) return null;
+    if (mode !== "personal" && mode !== "full") return new Set(idx.ids);
+    const out = new Set(); if (flagMap) for (const [id, f] of flagMap) if (f > 0 && (mode === "full" || f === 2)) out.add(id);
+    return out;
+  }
+
   /* the sentences. `mode` personal|full|map. Returns { text, note, empty } — `text` the count line ("N places from M cards"), `note` the
      honest second sentence (studied cards with no place yet), `empty` the empty-state sentence for the Personal Atlas, or "" */
   function summary(st, mode, flagMap) {
@@ -401,7 +412,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);
