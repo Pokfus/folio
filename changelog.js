@@ -49,6 +49,7 @@ window.CHANGELOG = [
       "<b>Atlas marks</b>: each kind of place has its own shape — a disc for a city, a diamond for a site, a saltire for a battle, a triangle for a hill, a square for a building, a star for a state — listed in the Legend; rivers, seas and regions are names only.",
       "<b>Atlas names</b>: a label never shows a bracketed note (“Malia”, not “Malia (archaeological site)”), a long name wraps onto two lines or uses its short form, and the popup keeps the full name.",
       "<b>Atlas pinch</b>: pinching the Full Atlas is smoother — each mark's shape is drawn once and reused, and the names wait for your fingers to lift.",
+      "<b>Atlas stacks</b>: two city rings, or a ring and a mark, that would overlap are nudged apart, with a hairline to the ring's true place (Rome and Vatican City).",
       "<b>Atlas marks</b>: Reate is Rieti, a town, not the Roman mint there; seven more places wear the right shape (Fatehpur Sikri, Gliwice, Murom, Shahjahanabad, Izborsk, Bogolyubovo, New Echota).",
     ],
   },

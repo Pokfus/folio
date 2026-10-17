@@ -665,6 +665,45 @@
   let STUDY = null;
   const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, hill: 1, cape: 1 };
   const SETTLE = { capital: 1, city: 1, town: 1 };
+  /* the nudge of decision c (see the study pass): `list` is the layout's marks with their on-screen positions and half-extents; a stack (`members`) that
+     overlaps another mark's box moves along the line between the two centres by the overlap (both move, half each, when both are stacks), never more than
+     STACK_NUDGE_PX in all, and records the offset as `ox`, `oy`; a single mark never moves. Four passes settle a cluster. */
+  const STACK_NUDGE_PX = 20, STACK_GAP_PX = 2;
+  function nudgeStacks(list, W, H) {
+    const ms = list.filter((m) => m.cls), st = ms.filter((m) => m.members);
+    if (!st.length) return;
+    for (const m of st) { m.ox = 0; m.oy = 0; m.x0 = m.x; m.y0 = m.y; }
+    /* each pass sums, per ring, the pushes of every overlap it is in (two rings share theirs; a single mark pushes the ring alone — the ring over a
+       ring weighs double, so two rings one dot pushes the same way still part along their own line), then moves the ring by the sum, clamped to
+       STACK_NUDGE_PX from its true point. Eight passes settle Rome's cluster; a ring that has used its room stays where it is. */
+    for (let pass = 0; pass < 8; pass++) {
+      let moved = false;
+      for (const s of st) { s.px = 0; s.py = 0; }
+      for (let i = 0; i < st.length; i++) {
+        const s = st[i];
+        for (const m of ms) {
+          if (m === s || (m.members && ms.indexOf(m) < ms.indexOf(s))) continue;   // a ring pair once
+          const sep = s.h + m.h + STACK_GAP_PX; let dx = s.x - m.x, dy = s.y - m.y, d = Math.hypot(dx, dy);
+          if (d >= sep) continue;
+          if (d < 1e-6) { dx = 1; dy = 0; d = 1; }
+          const over = sep - d, ux = dx / d, uy = dy / d;
+          if (m.members) { s.px += ux * over; s.py += uy * over; m.px -= ux * over; m.py -= uy * over; }   // a ring pair: each pushed by the whole overlap (weighs double a dot's push)
+          else { s.px += ux * over * 0.5; s.py += uy * over * 0.5; }
+        }
+      }
+      for (const s of st) {
+        if (Math.abs(s.px) < 0.01 && Math.abs(s.py) < 0.01) continue;
+        let nx = s.ox + s.px, ny = s.oy + s.py; const dn = Math.hypot(nx, ny);
+        if (dn > STACK_NUDGE_PX) { nx *= STACK_NUDGE_PX / dn; ny *= STACK_NUDGE_PX / dn; }
+        // a ring whose true point is on screen stays on screen: the nudge never pushes it past the frame's edge (test-atlas-study's property: a flagged place in the clear has its mark, or its city's ring, drawn)
+        if (W && H) { const r = s.h + 2, x1 = Math.max(r, Math.min(W - r, s.x0 + nx)), y1 = Math.max(r, Math.min(H - r, s.y0 + ny)); if (s.x0 >= r && s.x0 <= W - r) nx = x1 - s.x0; if (s.y0 >= r && s.y0 <= H - r) ny = y1 - s.y0; }
+        if (Math.abs(nx - s.ox) > 0.01 || Math.abs(ny - s.oy) > 0.01) moved = true;
+        s.ox = nx; s.oy = ny; s.x = s.x0 + nx; s.y = s.y0 + ny;
+      }
+      if (!moved) break;
+    }
+    for (const s of st) { delete s.px; delete s.py; delete s.x0; delete s.y0; }
+  }
   function setStudyRows(rows, names) {
     const m = new Map(), points = new Set();
     for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", aliases: Array.isArray(r.aliases) ? r.aliases : [], kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd, within: r.within || "", pk: r.pk || "" }); if (STUDY_POINT[r.kind]) points.add(r.id); }
@@ -1010,6 +1049,14 @@
           }
         }
         if (drop2.size) list = list.filter((mm) => !drop2.has(mm.id)).concat(stacks);
+        /* STACKS NEVER OVERLAP (2026-10-17, decision c; the owner's phone: the Vatican City ring ("3") sat on Rome's ("39") at the closest zoom). Two
+           rings, or a ring and a single mark, whose boxes would overlap are NUDGED apart along the line between their centres by the overlap — a ring
+           by at most STACK_NUDGE_PX (20); a ring moves (its position is a mean, not a point) and a single mark stays on its point; two rings share the
+           overlap. The ring's offset (`ox`, `oy`, CSS px) goes to the page, which adds it after projecting the true position every frame and draws a
+           HAIRLINE from the ring to the true point — so a gesture holds the rings apart at any zoom until the next layout, as it holds the stacks.
+           Why a nudge and not a merge: the registry has no city extents to say when two cities "share" one (membership is the parent or the 3 km rule),
+           and Vatican City is a sovereign capital, not a part of Rome — one ring for both would misname the places. Decided per layout, in the worker. */
+        if (stacks.length) nudgeStacks(list, W, H);
       }
       list.sort((p, r) => r.f - p.f || r.n - p.n || (p.id < r.id ? -1 : 1));
       for (const m of list) {
@@ -1027,6 +1074,7 @@
           if (st2) {
             /* THE LABEL'S TEXT (decision f): no parenthetical, the short name past 28 characters, two lines past 22 (AtlasStudy.labelText); the popup keeps the full name */
             const lt = AS.labelText(row.name, row.aliases), two = lt.lines ? (() => { const a = shape(lt.lines[0], st2, missing), b = shape(lt.lines[1], st2, missing); a.style = b.style = style; return { a, b, wide: Math.max(a.w, b.w), h: a.h + b.h }; })() : null;
+        if (m.ox || m.oy) { base.ox = Math.round(m.ox * 10) / 10; base.oy = Math.round(m.oy * 10) / 10; }   // nudged off its true point (decision c): the page adds the offset and draws the hairline
             const sh = two ? { w: two.wide, h: two.h, chars: [...lt.lines[0], " ", ...lt.lines[1]] } : shape(lt.text, st2, missing); sh.style = style;
             const lay = (tx, ty) => (two ? stacked(two, tx, ty) : straight(sh, tx, ty, 0));
             const okAt = (g2) => g2.rects.every((r) => fullyOn(r) && free(r) && softFree(r));

@@ -402,6 +402,39 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     allErrors.push(...errors); await ctx.close();
   }
 
+  /* ------------------------------------------------------------------ 7  stacks never overlap (decision c, 2026-10-17) */
+  console.log("\n\x1b[1m7) stacks never overlap: a ring that would sit on another ring or mark is nudged apart along the centre line (≤ 20 px) with a hairline to its true point — Rome and Vatican City at the closest zoom\x1b[0m\n");
+  {
+    const ROME = "city:1159151593", VAT = "city:1159127243";
+    const { ctx, page, errors } = await open(browser, READER, { phone: true });
+    await mode(page, "full"); await year(page, 2025);
+    const overlapsAt = async (k) => {   // the live (drawn) marks: every pair with a ring among them, the gap between their boxes
+      await view(page, 12.475, 41.9, k);
+      const lv = await live(page), rings = lv.filter((m) => m.members);
+      const pairs = []; for (const a of rings) for (const b of lv) { if (a === b) continue; const d = Math.hypot(a.x - b.x, a.y - b.y); pairs.push({ a: a.name || a.id, b: b.name || b.id, d: Math.round(d * 10) / 10, need: a.h + b.h, over: Math.max(0, a.h + b.h - d) }); }
+      return { lv, rings, pairs, bad: pairs.filter((p) => p.over > 0.5) };
+    };
+    for (const k of [0.15, 0.3]) {
+      const o = await overlapsAt(k);
+      const rome = o.rings.find((m) => m.city === ROME), vat = o.rings.find((m) => m.city === VAT);
+      check(`at ${k} km/px Rome's ring and Vatican City's ring are both drawn`, !!rome && !!vat, o.rings.map((m) => m.name + ":" + m.count).join(", "));
+      check(`…and no ring overlaps another ring or a mark (${o.pairs.length} pairs read)`, o.pairs.length > 0 && o.bad.length === 0, JSON.stringify(o.bad.slice(0, 3)));
+      if (rome && vat) check(`…the two rings are ${Math.round(Math.hypot(rome.x - vat.x, rome.y - vat.y))} px apart, at least their two half-extents (${rome.h + vat.h})`, Math.hypot(rome.x - vat.x, rome.y - vat.y) >= rome.h + vat.h - 0.5);
+      const nudged = o.rings.filter((m) => m.ox || m.oy);
+      check(`…a nudged ring moved at most 20 px (${nudged.length} nudged: ${nudged.map((m) => m.name + " " + Math.round(Math.hypot(m.ox, m.oy) * 10) / 10 + " px").join(", ")})`, nudged.every((m) => Math.hypot(m.ox, m.oy) <= 20.01));
+      if (k === 0.15) check("…at the closest zoom at least one of the two was nudged (they overlapped before)", nudged.some((m) => m.city === ROME || m.city === VAT));
+    }
+    // the hairline: ink pixels on the label canvas between a nudged ring's edge and its true point
+    { const lv = await live(page); const m = lv.find((x) => x.members && (x.ox || x.oy) && Math.hypot(x.ox, x.oy) > x.h);
+      if (m) { const d = Math.hypot(m.ox, m.oy), mx = m.x - m.ox / d * (m.h + (d - m.h) / 2), my = m.y - m.oy / d * (m.h + (d - m.h) / 2);
+        const ink = await A(page, (c, p) => { const halo = c.colours().halo, hr = parseInt(halo.slice(1, 3), 16), hg = parseInt(halo.slice(3, 5), 16), hb = parseInt(halo.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), k = cv.width / cv.getBoundingClientRect().width, x = cv.getContext("2d"); let n = 0; const dd = x.getImageData(Math.round((p[0] - 2) * k), Math.round((p[1] - 2) * k), Math.round(5 * k), Math.round(5 * k)).data; for (let i = 0; i < dd.length; i += 4) if (dd[i + 3] > 40 && (Math.abs(dd[i] - hr) > 40 || Math.abs(dd[i + 1] - hg) > 40 || Math.abs(dd[i + 2] - hb) > 40)) n++; return n; }, [mx, my]);
+        check(`the hairline from ${m.name}'s ring to its true point is drawn (ink pixels midway: ${ink})`, ink > 0); }
+      else console.log("  (no ring nudged farther than its own half-extent at this view: the hairline is not read)"); }
+    await shot(page, "rome-vatican-closest");
+    allErrors.push(...errors); await ctx.close();
+  }
+
+
   /* ------------------------------------------------------------------ done */
   console.log("\n" + pass + " ok, " + fail + " failed");
   check("no console error", allErrors.length === 0, allErrors.slice(0, 3).join(" | "));
