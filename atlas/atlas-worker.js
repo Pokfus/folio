@@ -569,7 +569,7 @@
     if (msg.type === "history-faces") return guard(handleHistoryFaces(msg, post), "history faces: ");
     if (msg.type === "history-evict") { if (HIST) for (const k of msg.keys || []) HIST.resident.delete(k); return null; }
     if (msg.type === "gazetteer") { loadGazetteer(msg.table); post({ type: "gazetteer", rows: GZ.rows.length }); return null; }
-    if (msg.type === "study-rows") { setStudyRows(msg.rows); post({ type: "study-rows", n: STUDY ? STUDY.rows.size : 0 }); return null; }
+    if (msg.type === "study-rows") { setStudyRows(msg.rows, msg.names); post({ type: "study-rows", n: STUDY ? STUDY.rows.size : 0, cities: STUDY && STUDY.cityHow ? STUDY.cityHow : null }); return null; }
     if (msg.type === "study-flags") { setStudyFlags(msg); return null; }
     if (msg.type === "polity-names") { POLITY_NAMES = msg.names || null; return null; }   // Phase 4 / 0c: dated display names
     if (msg.type === "metrics") { METRICS = msg.styles; return null; }
@@ -664,10 +664,19 @@
      draws them in their own shape and the flag lifts them past the density rules, raises their score and tints them. */
   let STUDY = null;
   const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, hill: 1, cape: 1 };
-  function setStudyRows(rows) {
+  const SETTLE = { capital: 1, city: 1, town: 1 };
+  function setStudyRows(rows, names) {
     const m = new Map(), points = new Set();
-    for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd }); if (STUDY_POINT[r.kind]) points.add(r.id); }
-    STUDY = Object.assign(STUDY || { flags: new Map(), mode: "", rev: 0 }, { rows: m, points });
+    for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", aliases: Array.isArray(r.aliases) ? r.aliases : [], kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd, within: r.within || "", pk: r.pk || "" }); if (STUDY_POINT[r.kind]) points.add(r.id); }
+    /* CITY MEMBERSHIP (2026-10-17, decision d): which city each study place belongs to — the registry's parent, else the nearest settlement of the
+       whole registry (the gazetteer's capitals, cities and towns and the study rows' own) within 3 km (AtlasStudy.cityMembership). Computed once,
+       here, off the main thread; `cityName` is what a stack is called. */
+    const AS = root.AtlasStudy, cities = [], cityName = new Map();
+    if (GZ) for (const g of GZ.rows) if (SETTLE[g.kind] && g.a) { cities.push({ id: g.id, kind: g.kind, a: g.a }); cityName.set(g.id, g.name); }
+    for (const r of m.values()) { if (SETTLE[r.kind]) cities.push({ id: r.id, kind: r.kind, a: r.a }); cityName.set(r.id, r.name); }
+    for (const id of Object.keys(names || {})) if (!cityName.has(id)) cityName.set(id, names[id]);
+    const cm = AS ? AS.cityMembership([...m.values()], cities, { km: 3 }) : { of: new Map(), how: null };
+    STUDY = Object.assign(STUDY || { flags: new Map(), mode: "", rev: 0 }, { rows: m, points, city: cm.of, cityHow: cm.how, cityName });
   }
   function setStudyFlags(msg) {
     const f = new Map(); for (const [id, v] of msg.entries || []) if (v) f.set(id, v);
@@ -763,7 +772,10 @@
       }
       histRows.sort((p, q) => q.px2 - p.px2);
     }
-    for (const row of histRows) { const chordPx = row.path.len; const hl = study ? (study.flags.get(row.id) || 0) : 0; if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + (hl ? -400 - (hl === 2 ? 40 : 0) : 0) + row.rank * 10 + (row.kind === "polity" ? KW.country : KW.people), hist: true, hl }); }   // one pool (2c): a people's name is ranked with the states' — after a polity of its rank, before a region of it — and placed by the same grid, so it never collides with one
+    /* THE PERSONAL ATLAS NAMES ONLY THE READER'S OWN POLITIES AND PEOPLES (2026-10-17, the owner's phone: "the Personal Atlas shows polities with no card the
+       reader has studied — those belong only in the Full Atlas"): a state, a people or a culture no studied card links (flag 2) is not a candidate at all in
+       Personal — not named, not marked, not muted. Its face is drawn plain (the page's `entColour`) and it is not tappable (the page's `tappable`). */
+    for (const row of histRows) { const chordPx = row.path.len; const hl = study ? (study.flags.get(row.id) || 0) : 0; if (study && study.mode === "personal" && hl !== 2) continue; if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + (hl ? -400 - (hl === 2 ? 40 : 0) : 0) + row.rank * 10 + (row.kind === "polity" ? KW.country : KW.people), hist: true, hl }); }   // one pool (2c): a people's name is ranked with the states' — after a polity of its rank, before a region of it — and placed by the same grid, so it never collides with one
     /* A LARGE POLITY'S NAME OUTRANKS THE CAPITAL MARKERS INSIDE IT (Phase 3a, task 0a; the 2b review's Ottoman Empire of 1500
        and Mongol Empire of 1245 drew a fill and their capitals but no name). The period capitals scored 0 — before every
        polity, whose best score is KW.country — so Constantinople's marker and name took the cells at the Ottoman label's one
@@ -958,7 +970,7 @@
       const AS = root.AtlasStudy, h0 = AS.markHalf(kmpp) * FS, MARGIN = 120;
       const histAt = new Map();
       for (const hr of histRows) if (!histAt.has(hr.id)) histAt.set(hr.id, hr);   // sorted by on-screen area: a polity's mark is on its largest face in view
-      const list = [];
+      let list = [];
       for (const [id, f] of study.flags) {
         let kind, name = "", n = 0, a, x, y, z, unit, own = null;
         const srow = study.rows.get(id);
@@ -975,36 +987,64 @@
           kind = g.kind; unit = g.a; a = proj(unit); x = a[0]; y = a[1]; z = a[2];
         }
         if (z < 0.02 || !onScreen(x, y, MARGIN)) continue;
-        list.push({ id, kind, name, n, f, unit, x, y, z, own, shape: AS.markShape(kind), layer: AS.markLayer(kind, f), h: h0 * AS.markScale(kind) });
+        const sub = srow ? srow.sub : "", cls = AS.markClass(kind, sub);   // the glyph class (decision e); null for an area: a name, no mark
+        list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind) : 0 });
+      }
+      /* CITY STACKS (2026-10-17, decision d): the marks of ONE CITY within STACK_PX (28) of one another on screen become one mark with a count,
+         at their mean position, named for the city; its members are not drawn (the page's popup pages through them). Never across cities, never
+         by raw proximity: `study.city` is the membership (the registry's parent, else the nearest settlement within 3 km). Zoomed in until the
+         members lie farther apart than 28 px they are drawn singly again — this is decided per layout, so a pinch holds the last decision. */
+      if (study.city && study.city.size && list.length > 1) {
+        const byCity = new Map();
+        for (let i = 0; i < list.length; i++) { if (!list[i].cls) continue; const cid = study.city.get(list[i].id); if (!cid) continue; let l = byCity.get(cid); if (!l) byCity.set(cid, l = []); l.push(i); }
+        const drop2 = new Set(), stacks = [];
+        for (const [cid, idxs] of byCity) {
+          if (idxs.length < 2) continue;
+          for (const g of AS.stackGroups(idxs.map((i) => list[i]), AS.STACK_PX)) {
+            const mem = g.map((j) => list[idxs[j]]); let sx = 0, sy = 0, f = 0, z = 0, n = 0;
+            for (const mm of mem) { sx += mm.x; sy += mm.y; if (mm.f > f) f = mm.f; if (mm.z > z) z = mm.z; n += mm.n; drop2.add(mm.id); }
+            sx /= mem.length; sy /= mem.length;
+            const name = study.cityName.get(cid) || cid, id = "stk:" + cid + ":" + stacks.length;
+            const hh = Math.max(h0 * 1.4, 6.5 * FS);   // a count must fit inside: never under 13 px across
+            stacks.push({ id, kind: "stack", sub: "", cls: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: "stack", layer: AS.markLayer("stack", f), h: hh });
+          }
+        }
+        if (drop2.size) list = list.filter((mm) => !drop2.has(mm.id)).concat(stacks);
       }
       list.sort((p, r) => r.f - p.f || r.n - p.n || (p.id < r.id ? -1 : 1));
       for (const m of list) {
         const hh = m.h, mrect = [m.x - hh - 1, m.y - hh - 1, m.x + hh + 1, m.y + hh + 1];
         m.rect = mrect; m.clear = fullyOn(mrect) && !hitsChrome(mrect);
         dropping = m.own || { name: m.id };
-        const base = { id: m.id, kind: m.kind, shape: m.shape, layer: m.layer, st: m.f, a: m.unit, sx: m.x, sy: m.y, h: hh, n: m.n, clear: m.clear, score: -300 - m.f * 10 - Math.min(9, m.n / 100) };
-        marks.push(base); markById.set(m.id, base);
+        const base = { id: m.id, kind: m.kind, cls: m.cls, shape: m.shape, layer: m.layer, st: m.f, a: m.unit, sx: m.x, sy: m.y, h: hh, n: m.n, clear: m.clear, score: -300 - m.f * 10 - Math.min(9, m.n / 100) };
+        if (m.members) { base.members = m.members; base.count = m.count; base.name = m.name; base.city = m.city; }   // a city stack (decision d)
+        if (m.cls) { marks.push(base); markById.set(m.id, base); }   // an AREA (no class) has no mark: its name stands at its point (decision e)
         if (!m.clear) continue;   // under a control or past the frame's edge: no name either (the page checks the mark again on every frame)
-        if (m.f === 2) take(mrect);   // the reader's own mark takes its ground before the ordinary names
+        if (m.f === 2 && m.cls) take(mrect);   // the reader's own mark takes its ground before the ordinary names
         const row = m.own;
         if (row && show.places && row.name) {
           const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
           if (st2) {
-            const sh = shape(row.name, st2, missing); sh.style = style;
-            // beside the mark, with the ground between them that the pad asks of any two names (a 2 px gap never fitted a 4 px pad)
+            /* THE LABEL'S TEXT (decision f): no parenthetical, the short name past 28 characters, two lines past 22 (AtlasStudy.labelText); the popup keeps the full name */
+            const lt = AS.labelText(row.name, row.aliases), two = lt.lines ? (() => { const a = shape(lt.lines[0], st2, missing), b = shape(lt.lines[1], st2, missing); a.style = b.style = style; return { a, b, wide: Math.max(a.w, b.w), h: a.h + b.h }; })() : null;
+            const sh = two ? { w: two.wide, h: two.h, chars: [...lt.lines[0], " ", ...lt.lines[1]] } : shape(lt.text, st2, missing); sh.style = style;
+            const lay = (tx, ty) => (two ? stacked(two, tx, ty) : straight(sh, tx, ty, 0));
+            const okAt = (g2) => g2.rects.every((r) => fullyOn(r) && free(r) && softFree(r));
+            // beside the mark, with the ground between them that the pad asks of any two names (a 2 px gap never fitted a 4 px pad); an area's name on its point first
             const gap = hh + 1 + pad + 1;
             let got = null;
-            for (const [tx, ty] of [[m.x + gap + sh.w / 2, m.y], [m.x - gap - sh.w / 2, m.y], [m.x, m.y - gap - sh.h / 2], [m.x, m.y + gap + sh.h / 2]]) {
-              const g2 = straight(sh, tx, ty, 0);
-              if (fullyOn(g2.rects[0]) && free(g2.rects[0]) && softFree(g2.rects[0])) { got = g2; break; }
+            const tries = m.cls ? [[m.x + gap + sh.w / 2, m.y], [m.x - gap - sh.w / 2, m.y], [m.x, m.y - gap - sh.h / 2], [m.x, m.y + gap + sh.h / 2]] : [[m.x, m.y], [m.x, m.y - sh.h], [m.x, m.y + sh.h], [m.x + sh.w / 2 + pad, m.y], [m.x - sh.w / 2 - pad, m.y]];
+            for (const [tx, ty] of tries) {
+              const g2 = lay(tx, ty);
+              if (okAt(g2)) { got = g2; break; }
             }
             if (got) {
-              take(got.rects[0]);
-              placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: got.rects[0], rects: got.rects, marker: null, hit: got.rects[0] });
+              for (const r of got.rects) take(r);
+              placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: union(got.rects), rects: got.rects, marker: null, hit: union(got.rects), lines: two ? 2 : 1 });
             } else drop("study name finds no free side clear of the names and marks of higher priority");
           }
         }
-        if (m.f !== 2) softTake(mrect);
+        if (m.f !== 2 && m.cls) softTake(mrect);
       }
     }
     const capAll = cap + placed.length;   // the density cap counts the ordinary labels only: the study pass is the reader's own
@@ -1014,7 +1054,7 @@
       const row = c.row, k = row.kind; dropping = row;
       const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
       if (!st) { drop(k + " no metrics for style " + styleId); continue; }
-      const text = row.name;
+      const text = (k === "capital" || k === "city" || k === "town") && !c.hist && root.AtlasStudy ? root.AtlasStudy.labelText(row.name).text : row.name;   // a settlement's name shows no parenthetical (decision f)
       const sh = shape(text, st, missing); sh.style = styleId;
       const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
       /* a flagged area or polity has a MARK at its anchor (the study pass): its name stands just above it, so the dot is read as the place and the name as its label */

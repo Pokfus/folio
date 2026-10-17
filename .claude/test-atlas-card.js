@@ -98,10 +98,11 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   await page.mouse.click(cx, cy); await sleep(400);
   const chip = await page.evaluate(() => { const b = document.querySelector(".atlas2-stack"); return { hidden: b.hidden, text: b.textContent }; });
   const stack1 = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.stack());
-  check("a tap on Lake Victoria stacks the lake and a country, and the chip says so", stack1.length >= 2 && /^lake:/.test(stack1[0]) && !chip.hidden && /^\d+ here/.test(chip.text), `${stack1.join(" > ")}; "${chip.text}"`);
+  // since 2026-10-17 (the tap rules) a face answers only when a card is about it: Lake Victoria has none, so the tap names the country under it alone — no stack, no chip
+  check("a tap on Lake Victoria (no card is about the lake) names the country under it alone: no stack, no chip", stack1.length === 1 && /^adm0:/.test(stack1[0]) && chip.hidden, `${stack1.join(" > ")}; "${chip.text}"`);
   await page.mouse.click(cx, cy); await sleep(300);
   const sel2 = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.selectedId());
-  check("a second tap at the same spot cycles to the next of the stack", sel2 === stack1[1], sel2);
+  check("a second tap at the same spot keeps the country (there is nothing to cycle to)", sel2 === stack1[0], sel2);
   await page.keyboard.press("Escape"); await sleep(150);
   c = await cardState(page);
   const sel3 = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.selectedId());

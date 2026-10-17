@@ -100,22 +100,24 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   check("a point in Texas stacks the state above the country", us[0] === "adm1:usa:us-tx" && us[1] === "adm0:usa", us.join(" > "));
 
   console.log("\n\x1b[1mlakes, the open ocean, a river\x1b[0m\n");
-  for (const [name, lon, lat, id, countries] of LAKES) {
+  // THE TAP RULES (2026-10-17; docs/atlas-v2-design.md §7 "Popups and stacks"): a face answers only when a card is about it. None of these lakes has a card, so a tap
+  // names the country (and its province) under the lake alone; open water names NOTHING (the nearest-sea fallback is gone); a river answers only when it is card-linked (the Nile is, the Danube is not)
+  for (const [name, lon, lat, , countries] of LAKES) {
     const stack = await stackAtPlace(lon, lat, 3);
     const lake = stack.find((x) => /^lake:/.test(x)), ctry = countryOf(stack);
-    check(`${name} at 3 km/px: a lake, then its country`, !!lake && (!id || lake === id) && countries.includes(ctry), stack.join(" > "));
+    check(`${name} at 3 km/px (no card is about the lake): its country alone, no lake`, !lake && countries.includes(ctry), stack.join(" > "));
   }
   for (const [name, lon, lat] of OCEAN) {
     const stack = await stackAtPlace(lon, lat, 24);
-    check(`${name}: a sea or ocean alone`, stack.length === 1 && /^sea:/.test(stack[0]), stack.join(" > "));
+    check(`${name}: open water names nothing (no nearest-sea fallback)`, stack.length === 0, stack.join(" > "));
   }
   {
-    // the Danube at Vienna: NE 10m rivers' line passes the city; 1 km/px, the view centred on the line's own vertex
-    const G = await page.evaluate(() => { const g = document.querySelector(".atlas2").__atlas2.gazetteer(); const r = g.rows.find((x) => x.kind === "river" && x.name === "Danube"); return r ? { id: r.id, at: r.at } : null; });
-    check("the Danube is in the gazetteer", !!G, G && G.id);
+    // the Nile (card-linked): 1 km/px, the view centred on the line's own vertex
+    const G = await page.evaluate(() => { const g = document.querySelector(".atlas2").__atlas2.gazetteer(); const r = g.rows.find((x) => x.kind === "river" && x.name === "Nile"); return r ? { id: r.id, at: r.at } : null; });
+    check("the Nile is in the gazetteer", !!G, G && G.id);
     if (G) {
       const stack = await stackAtPlace(G.at[0], G.at[1], 1);
-      check("a tap on the Danube's midpoint at 1 km/px stacks the river", stack.includes(G.id), stack.join(" > "));
+      check("a tap on the Nile's midpoint at 1 km/px stacks the river", stack.includes(G.id), stack.join(" > "));
       // 6 px beside the line still picks it; 30 px away does not
       const near = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return c.stackAt(c.view.cx + 6, c.view.cy); });
       const far = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return c.stackAt(c.view.cx + 60, c.view.cy + 60); });

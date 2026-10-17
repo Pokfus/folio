@@ -35,9 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1023", released: "2026-10-16T22:31Z" };
+window.FOLIO_VERSION = { v: "1.1024", released: "2026-10-17T00:48Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-10-17",
+    t: "The Personal Atlas shows only your own states",
+    items: [
+      "<b>Personal Atlas</b>: a state or a people is named, marked and coloured only when a card you have studied links it; the rest is plain land with its borders, and the Full Atlas shows everything.",
+      "<b>Atlas tapping</b>: a place, a state or a sea opens a popup only when a card is about it (in the Personal Atlas, one of yours); a tap on a desert, open water or a name with no card does nothing.",
+      "<b>Atlas popups</b>: a place's popup lists its cards as rows — the title, the deck and whether it is due — each opening the card; the Personal Atlas says how many more the Full Atlas has.",
+      "<b>Atlas city stacks</b>: the places of one city that crowd together are one mark with a count (never across cities); its popup, “Rome — 7 places”, pages through them by swiping or with the arrows.",
+      "<b>Atlas marks</b>: each kind of place has its own shape — a disc for a city, a diamond for a site, a saltire for a battle, a triangle for a hill, a square for a building, a star for a state — listed in the Legend; rivers, seas and regions are names only.",
+      "<b>Atlas names</b>: a label never shows a bracketed note (“Malia”, not “Malia (archaeological site)”), a long name wraps onto two lines or uses its short form, and the popup keeps the full name.",
+    ],
+  },
   {
     d: "2026-10-16",
     t: "War map years and two measurement fixes",

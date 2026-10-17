@@ -266,7 +266,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "8a631dab3b:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "b618f12ecb:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -343,6 +343,10 @@
               <label><input type="radio" name="atlas2-density" data-layer="density" value="normal"> Normal</label>
               <label><input type="radio" name="atlas2-density" data-layer="density" value="dense"> Dense</label>
             </fieldset>
+            <fieldset class="atlas2-group atlas2-marks"><legend>Marks</legend>
+              <dl class="atlas2-marks-key" aria-label="What the marks mean"></dl>
+              <p class="atlas2-peoples-hint">Filled in the accent: a place of your own cards. Rivers, lakes, seas, regions and countries are names only.</p>
+            </fieldset>
             <fieldset class="atlas2-group atlas2-peoples"><legend>Peoples</legend>
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="off"> Off</label>
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="linked"> Peoples a card links</label>
@@ -397,7 +401,7 @@
         <p class="atlas2-mode" hidden></p>
         <aside class="atlas2-card" hidden aria-label="Place">
           <button type="button" class="atlas2-grip" aria-label="Expand or collapse the place card"><i></i></button>
-          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title" tabindex="-1"></h2><p class="atlas2-card-kind"></p></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
+          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title" tabindex="-1"></h2><p class="atlas2-card-kind"></p><div class="atlas2-pager" hidden role="group" aria-label="The places of this city"><button type="button" class="atlas2-pager-prev" aria-label="Previous place">‹</button><span class="atlas2-pager-mid"><span class="atlas2-pager-name"></span><span class="atlas2-pager-n"></span></span><button type="button" class="atlas2-pager-next" aria-label="Next place">›</button></div></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
           <div class="atlas2-card-body"></div>
         </aside>
         <div class="atlas2-keys vh" aria-label="Places named on the map"><ul></ul></div>
@@ -1401,7 +1405,17 @@
     time.gameTints = null; time.gameMask = false; time.gameStash = null;   /* an entry may carry a 4th number, its OWN fill alpha (Find-it's pick: the card windows' translucent tint, exactly as a modern country's); `gameMask` is the outline's mask pass (atlas-embed.js): the tinted states white at full alpha, every other state black */
     const gameIdOf = (i) => { const e = time.ents[i]; if (!e) return null; return e.kind === "polity" || e.kind === "extent" ? e.id : e.partners && e.partners[0]; };
     const gameColourOf = (i) => { if (!time.gameTints) return null; const id = gameIdOf(i); return id ? time.gameTints.get(id) || null : null; };
-    const entColour = (i) => time.gameMask ? (gameColourOf(i) || [0, 0, 0]) : gameColourOf(i) || warColourOf(i) || (EMBED && (layers.neutral || layers.flat) ? palette.land : entColourAt(i, time.year));   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
+    const entColour = (i) => time.gameMask ? (gameColourOf(i) || [0, 0, 0]) : gameColourOf(i) || warColourOf(i) || (EMBED && (layers.neutral || layers.flat) ? palette.land : personalPlain(i) ? palette.land : entColourAt(i, time.year));   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
+    /* THE PERSONAL ATLAS SHOWS ONLY THE READER'S OWN POLITIES (2026-10-17; the owner's phone): a state no studied card links — flag 2 of the study layer, the one
+       definition of "studied" (atlas/study.js) — is drawn as plain land with its border, not named (the worker's study pass), not marked and not tappable
+       (`tappable`, below). A contested or nested face follows its partners: it is the reader's if any partner is. The Full Atlas and the plain Map draw every state. */
+    const personalPlain = (i) => {
+      if (EMBED || PI.mode !== "personal" || !PI.flags.size) return false;
+      const e = time.ents[i]; if (!e) return false;
+      if (PI.flags.get(e.id) === 2) return false;
+      if (e.partners) for (const p of e.partners) if (PI.flags.get(p) === 2) return false;
+      return true;
+    };
     /* Find-it (atlas-embed.js): `layers.flat` draws every state of a year in the land colour with the modern borders' colour and width, and the outline's mask pass blacks the borders and the peoples out */
     function histBorderStyle() { if (!R.setHistoryBorderColor) return; R.setHistoryBorderColor(time.gameMask ? [0, 0, 0] : flatBorderOn ? palette.border : histBorderCss); if (R.setHistoryBorderWidth) R.setHistoryBorderWidth(flatBorderOn ? 0.9 : 1.1); if (R.setPresenceTheme) R.setPresenceTheme(time.gameMask ? false : histDark); }
     function restyleHist() { if (!time.hist || !time.view) return; time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })); time.view.pfaces = presenceDraw(null, 1); uploadStyle(); }
@@ -1998,16 +2012,34 @@
        the others hollow, a thin ink outline on both so two marks that touch still read as two. DRAW ORDER, back to front: places not
        studied, places studied, polities, and the selected mark last. The marks of one kind in one layer are one path (a fill and a
        stroke for all of them), so a Full Atlas of 1,300 places and 190 polities is a handful of canvas calls a frame. */
+    /* THE SEVEN GLYPHS (decision e, 2026-10-17; AtlasStudy.MARK_CLASSES): a disc (a city or town), a diamond (a site or cave), a saltire (a battle),
+       a triangle (a mountain, hill or cape), a square (a building, monument or wall), a star (a state, people or culture), a ring with a count (a city
+       stack). Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
+       The same geometry draws the Legend's key (`glyphSVG`), so the key cannot drift from the map. */
+    const SQ = Math.SQRT1_2, CROSS_T = 0.34;   // the saltire's bar half-width, as a share of the half-extent
     function markInto(path, shape, x, y, h, lw) {
       const q = h - lw / 2;   // the outline is drawn inside the half-extent, so a mark never exceeds its size
       if (shape === "diamond") { path.moveTo(x, y - q); path.lineTo(x + q, y); path.lineTo(x, y + q); path.lineTo(x - q, y); path.lineTo(x, y - q); }
       else if (shape === "triangle") { path.moveTo(x, y - q); path.lineTo(x + q, y + q * 0.85); path.lineTo(x - q, y + q * 0.85); path.lineTo(x, y - q); }
-      else { const rr = q * 0.92; path.moveTo(x + rr, y); path.arc(x, y, rr, 0, Math.PI * 2); }
+      else if (shape === "square") { const s = q * 0.86; path.moveTo(x - s, y - s); path.lineTo(x + s, y - s); path.lineTo(x + s, y + s); path.lineTo(x - s, y + s); path.lineTo(x - s, y - s); }
+      else if (shape === "cross") { const t = q * CROSS_T, s = q * 1.08; let first = true; for (const [px, py] of [[-t, -s], [t, -s], [t, -t], [s, -t], [s, t], [t, t], [t, s], [-t, s], [-t, t], [-s, t], [-s, -t], [-t, -t], [-t, -s]]) { const rx = (px - py) * SQ, ry = (px + py) * SQ; if (first) { path.moveTo(x + rx, y + ry); first = false; } else path.lineTo(x + rx, y + ry); } }
+      else if (shape === "star") { const ro = q * 1.08, ri = q * 0.46; for (let i = 0; i <= 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? ri : ro; if (i) path.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); else path.moveTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); } }
+      else { const rr = q * 0.92; path.moveTo(x + rr, y); path.arc(x, y, rr, 0, Math.PI * 2); }   // a disc, and a stack's ring (its count is drawn over it)
+    }
+    /* the Legend's key: the same glyph as an SVG path at 16 px (hollow, as a place not the reader's is drawn) */
+    function glyphSVG(shape) {
+      const h = 7.5, lw = 1.5, q = h - lw / 2, x = 9, y = 9, pts = [];
+      const P = { moveTo: (a, b) => pts.push("M" + a.toFixed(2) + " " + b.toFixed(2)), lineTo: (a, b) => pts.push("L" + a.toFixed(2) + " " + b.toFixed(2)), arc: () => {} };
+      if (shape === "disc" || shape === "stack") { const rr = q * 0.92; pts.push(`M${(x + rr).toFixed(2)} ${y} A${rr.toFixed(2)} ${rr.toFixed(2)} 0 1 0 ${(x - rr).toFixed(2)} ${y} A${rr.toFixed(2)} ${rr.toFixed(2)} 0 1 0 ${(x + rr).toFixed(2)} ${y}`); }
+      else markInto(P, shape, x, y, h, lw);
+      const count = shape === "stack" ? `<text x="${x}" y="${y + 0.5}" text-anchor="middle" dominant-baseline="middle" font-size="8" font-weight="700" fill="currentColor" font-family="system-ui, sans-serif">3</text>` : "";
+      return `<svg class="atlas2-marks-sw" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true" focusable="false"><path d="${pts.join(" ")}" fill="none" stroke="currentColor" stroke-width="${lw}" stroke-linejoin="round"/>${count}</svg>`;
     }
     /* NO closePath: in this Chromium a path built with moveTo / lineTo / closePath per mark cost 5.3 ms per thousand marks against 0.3 ms
        for the same shapes ending in an explicit lineTo to their start (measured, headless, 2026-10-14) — a Full Atlas of a thousand marks
        is the difference between a third of a frame and none of it. The round line cap closes the outline's corner. */
     const markLine = (half) => (half < 3 ? 1 : half < 6 ? 1.5 : 2);
+    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, star: 5, stack: 6 };   // seven shapes, a batch each
     /* the marks of a layout, indexed for the frame loop: one flat array of unit vectors and the groups (layer, reader's own or not, shape,
        hill or not) each drawn as ONE path — so a frame projects each mark once, allocates nothing, and is a fill and a stroke per group */
     function indexMarks() {
@@ -2015,7 +2047,7 @@
       L.markIndex = new Map();
       for (let i = 0; i < n; i++) {
         const m = marks[i]; ax[3 * i] = m.a[0]; ax[3 * i + 1] = m.a[1]; ax[3 * i + 2] = m.a[2]; L.markIndex.set(m.id, i);
-        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (m.shape === "diamond" ? 0 : m.shape === "triangle" ? 8 : 16) + (m.kind === "hill" ? 4 : 0);
+        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);
         let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, scale: m.kind === "hill" ? 0.75 : 1, layer: m.layer, idx: [] });
         g.idx.push(i);
       }
@@ -2031,12 +2063,12 @@
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy, ch = L.chrome || [], nch = ch.length;
       const r0 = rot[0], r1 = rot[1], r2 = rot[2], r3 = rot[3], r4 = rot[4], r5 = rot[5], r6 = rot[6], r7 = rot[7], r8 = rot[8];
       const half = A.markHalf(view.kmpp) * LS, lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH;
-      const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : -1, aliveEnt = time.aliveEnt;
+      const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : cardStack && L.markIndex.has(cardStack.id) ? L.markIndex.get(cardStack.id) : -1, aliveEnt = time.aliveEnt;   // the open stack is the selected mark
       let ln = 0, selK = -1;
-      const faint = [];
+      const faint = [], stacksK = [];
       ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = lw; ctx.strokeStyle = inkCss; ctx.globalAlpha = 1;
       for (const g of L.markGroups) {
-        const h = half * g.scale, e = h + 1, q = h - lw / 2, idx = g.idx, shape = g.shape, polity = g.layer === 2;
+        const shape = g.shape, stack = shape === "stack", h = stack ? Math.max(half * 1.4, 6.5 * LS) : half * g.scale, e = h + 1, q = h - lw / 2, idx = g.idx, polity = g.layer === 2;
         ctx.beginPath();
         for (let k = 0; k < idx.length; k++) {
           const i = idx[k], j = 3 * i, a0 = ax[j], a1 = ax[j + 1], a2 = ax[j + 2];
@@ -2049,11 +2081,13 @@
           if (hidden) continue;
           if (polity && aliveEnt && !aliveEnt.has(marks[i].id)) continue;   // a polity no longer alive (the layout is held while the pin is dragged)
           lx[ln] = x; ly[ln] = y; lh[ln] = h; li[ln] = i; ln++;
+          if (stack) stacksK.push(ln - 1);
           if (i === selI) { selK = ln - 1; continue; }
           if (z < 0.2) { faint.push(ln - 1); continue; }   // near the limb: faded, drawn singly below
           if (shape === "diamond") { ctx.moveTo(x, y - q); ctx.lineTo(x + q, y); ctx.lineTo(x, y + q); ctx.lineTo(x - q, y); ctx.lineTo(x, y - q); }
           else if (shape === "triangle") { ctx.moveTo(x, y - q); ctx.lineTo(x + q, y + q * 0.85); ctx.lineTo(x - q, y + q * 0.85); ctx.lineTo(x, y - q); }
-          else { const rr = q * 0.92; ctx.moveTo(x + rr, y); ctx.arc(x, y, rr, 0, 6.283185307179586); }
+          else if (shape === "disc" || shape === "stack") { const rr = q * 0.92; ctx.moveTo(x + rr, y); ctx.arc(x, y, rr, 0, 6.283185307179586); }
+          else markInto(ctx, shape, x, y, h, lw);   // a square, a saltire, a star: the same geometry as a single mark (moveTo/lineTo onto the batch's path)
         }
         ctx.fillStyle = g.mine ? accentCss : haloCss; ctx.fill(); ctx.stroke();
       }
@@ -2071,6 +2105,16 @@
         const m = marks[li[selK]], path = new Path2D();
         markInto(path, m.shape, lx[selK], ly[selK], lh[selK] + 1, 2);
         ctx.lineWidth = 2; ctx.strokeStyle = selCss; ctx.fillStyle = m.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
+      }
+      // a city stack's count, over its ring (decision d): a few per frame, so drawn singly
+      if (stacksK.length) {
+        ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.globalAlpha = 1;
+        for (const k of stacksK) {
+          const m = marks[li[k]], hh = lh[k], t = String(m.count || (m.members ? m.members.length : 0));
+          ctx.font = `700 ${Math.max(8, Math.min(hh * 1.1, 13)).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
+          ctx.fillStyle = m.st === 2 ? haloCss : inkCss; ctx.fillText(t, lx[k], ly[k] + 0.5);
+        }
+        ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
       }
       if (focusId && L.markIndex.has(focusId)) {
         const fi = L.markIndex.get(focusId);
@@ -2091,10 +2135,24 @@
        true positions would no longer be under the lines). No count and no cycling chip: the reader chooses from what is drawn. */
     const FAN_MAX = 14;
     let fan = null;
-    function markRadius(touch) { return touch || PHONE ? 22 : 12; }
+    function markRadius(touch) { return touch || PHONE ? 22 : 16; }   // a hit area of at least 32 px (decision e); a finger reaches 22
+    /* THE TAP RULES (2026-10-17; the owner's phone, decision b). A mark, a name or a face opens a popup ONLY IF IT HAS AT LEAST ONE CARD — in the
+       Personal Atlas one of the reader's own, in the Full Atlas any card of a collection that is on, on the plain Map any card at all (study.js
+       `tappableSet`). Everything else is not tappable: no hit area, no highlight, no popup — its name is still drawn. That holds for places, for
+       polities and peoples (a face under the finger answers only when its entity has a card) and for water (the nearest-sea fallback is gone:
+       a sea opens from its own name when that has cards, and a tap on open water does nothing). THE ATLAS PAGE ONLY: a hub (`EMBED`) — Find it
+       and the card windows — keeps every face tappable, and a host without a study layer (`SU`) keeps v1's answer. Before the study index is
+       read nothing is tappable; a deep link, a search result and the glossary's pin open a place as before (they are not taps). */
+    function tappable(id) {
+      if (EMBED || !SU) return true;
+      if (typeof id === "string" && id.charCodeAt(0) === 115 && id.startsWith("stk:")) return true;   // a city stack: made only of places with cards
+      if (!ST.ready || !ST.tappable) return false;
+      return ST.tappable.has(id);
+    }
+    const stackMark = (id) => (L.markIndex.has(id) ? L.marks[L.markIndex.get(id)] : null);
     function marksNear(x, y, radius) {
       const A = root.AtlasStudy; if (!A || !L.ln) return [];
-      const near = liveEntries(x, y, radius);
+      const near = liveEntries(x, y, radius).filter((e) => tappable(e.m.id));
       return near.length < 2 ? near : A.nearMarks(near, x, y, radius).map((i) => near[i]);
     }
     function fanSig() { return view.lon.toFixed(5) + "," + view.lat.toFixed(5) + "," + view.zoom.toFixed(5) + "," + cssW + "x" + cssH; }
@@ -2102,7 +2160,7 @@
     function openFan(x, y, near) {
       const A = root.AtlasStudy, ctx = lctx, st = STYLE_BY_ID.town || STYLE_BY_ID.city;
       ctx.font = fontOf(st, 12 * LS);
-      const mem = near.slice(0, FAN_MAX).map((e) => { const row = G.byId.get(e.m.id); const name = row ? row.name : e.m.id; return { e, name, x: e.x, y: e.y, w: ctx.measureText(name).width }; });
+      const mem = near.slice(0, FAN_MAX).map((e) => { const row = G.byId.get(e.m.id); const name = e.m.members ? e.m.name + " — " + e.m.count + " places" : row ? A.labelText(row.name, row.aliases).text : e.m.id; return { e, name, x: e.x, y: e.y, w: ctx.measureText(name).width }; });
       const f = A.fanOut(mem, { x, y }, { W: cssW, H: cssH, chrome: L.chrome || [], max: FAN_MAX, half: 9 * LS });
       fan = { x, y, sig: fanSig(), mem, slots: f.slots.map((sl) => Object.assign({}, sl, { mem: mem[sl.i] })), clear: f.clear };
       sel.stack = []; sel.at = null; stackBtn.hidden = true;
@@ -2134,6 +2192,7 @@
       const row = G.byId.get(m.id);
       closeFan(true);
       sel.stack = []; sel.index = 0; sel.at = null; stackBtn.hidden = true;
+      if (m.members) { openStack(m); return; }
       if (row) selectRow(row, { open: true, push: true });
     }
     // a tap while the fan is open: one of its copies or names picks that mark; anywhere else closes the fan, and a tap that lands on
@@ -2202,6 +2261,7 @@
     function hitAt(x, y) {
       const out = [];
       for (const e of L.live) {
+        if (!tappable(e.p.id)) continue;   // a name with no card is not a hit target (the tap rules)
         const h = e.hit; const ex = Math.max(0, (HIT_MIN - (h[2] - h[0])) / 2), ey = Math.max(0, (HIT_MIN - (h[3] - h[1])) / 2);
         if (x >= h[0] - ex && x <= h[2] + ex && y >= h[1] - ey && y <= h[3] + ey) out.push(e);
       }
@@ -2211,7 +2271,7 @@
     /* ---- picking: labels and markers under the finger, the water ID pass, the faces pass, the nearest sea ---- */
     function stackAt(x, y) {
       const out = [], seen = new Set();
-      const add = (row) => { if (row && !seen.has(row.id)) { seen.add(row.id); out.push(row); } };
+      const add = (row) => { if (row && !seen.has(row.id) && tappable(row.id)) { seen.add(row.id); out.push(row); } };   // only what has a card (the tap rules)
       for (const h of hitAt(x, y)) add(G.byId.get(h.p.id));
       if (R.levelLoaded(0)) {
         const w = R.pick(view, x, y, "water");
@@ -2231,13 +2291,8 @@
         if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(G.byId.get(p)); add(G.byId.get(e.id)); } else add(G.byId.get(e.id)); } }
         else if (f && f.face != null && header && faceEntity && time.present) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(G.byId.get(ent.id)); if (ent.parent) add(G.byId.get(ent.parent)); } }
       }
-      if (!out.length) {
-        // open water: the nearest sea or ocean label on screen, else the nearest sea or ocean by angle
-        let best = null, bd = Infinity;
-        for (const e of L.live) { if (!/^(sea|ocean|gulf|strait)$/.test(e.p.kind)) continue; const h = e.hit, d = Math.hypot((h[0] + h[2]) / 2 - x, (h[1] + h[3]) / 2 - y); if (d < bd) { bd = d; best = G.byId.get(e.p.id); } }
-        if (!best) { const ll = unproject(x, y); if (ll) { const la = ll.lat * D2R, lo = ll.lon * D2R, c = Math.cos(la), u = [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; let bdot = -2; for (const row of G.rows) { if (!/^(sea|ocean)$/.test(row.kind) || !row.at) continue; const lb = row.at[1] * D2R, lob = row.at[0] * D2R, cb = Math.cos(lb); const d = u[0] * cb * Math.cos(lob) + u[1] * cb * Math.sin(lob) + u[2] * Math.sin(lb); if (d > bdot) { bdot = d; best = row; } } } }
-        add(best);
-      }
+      // open water, a stateless land or a desert: NOTHING (2026-10-17). The nearest-sea fallback — the nearest sea or ocean name on screen, else the
+      // nearest by angle, for ANY tap that found nothing — opened a sea's card from a tap in the Sahara; a sea now opens from its own name only.
       return out;
     }
     function pickAt(x, y, touch) {
@@ -2247,6 +2302,7 @@
       const near = marksNear(x, y, markRadius(touch));
       if (near.length === 1) { pickMark(near[0].m); return; }
       if (near.length > 1) { openFan(x, y, near); return; }
+      const hs = hitAt(x, y).find((h) => h.p.id.startsWith("stk:")); if (hs) { const m = stackMark(hs.p.id); if (m) { pickMark(m); return; } }   // the stack's own name
       const again = sel.at && Math.hypot(sel.at[0] - x, sel.at[1] - y) < 10 && performance.now() - sel.t < 5000 && sel.stack.length > 1;
       if (again) { sel.index = (sel.index + 1) % sel.stack.length; sel.t = performance.now(); showStack(); selectRow(sel.stack[sel.index], { open: true, push: true }); return; }
       const stack = stackAt(x, y);
@@ -2315,7 +2371,7 @@
       const t = performance.now(); if (t - hoverT < 50) return; hoverT = t;
       if (hoverTimer) { clearTimeout(hoverTimer); hoverTimer = 0; }
       const mk = marksNear(x, y, 8)[0];
-      if (mk) { const row = G.byId.get(mk.m.id); caption.textContent = row ? row.name : ""; canvas.style.cursor = "pointer"; return; }
+      if (mk) { const row = G.byId.get(mk.m.id); caption.textContent = mk.m.members ? mk.m.name + " — " + mk.m.count + " places" : row ? row.name : ""; canvas.style.cursor = "pointer"; return; }
       const h = hitAt(x, y)[0];
       if (h) { const row = G.byId.get(h.p.id); caption.textContent = row ? row.name : h.p.text; canvas.style.cursor = "pointer"; return; }
       canvas.style.cursor = "";
@@ -2334,6 +2390,7 @@
       cardEl.hidden = false;
       reflectSheet();
       cardTitle.textContent = row.name; cardKind.textContent = kindLine(row);
+      reflectStack(row);
       cardBody.innerHTML = "";
       cardBody.scrollTop = 0;
       if (row.kind === "country") renderCountryCard(row); else renderPlaceCard(row);
@@ -2359,8 +2416,51 @@
       const chip = document.createElement("span"); chip.className = "disc-chip atlas2-disc"; chip.title = "A place from your cards, opened on the Atlas for the first time"; chip.innerHTML = "<b>New discovery!</b>";
       cardKind.insertAdjacentElement("afterend", chip);
     }
+    /* THE STACK'S POPUP (2026-10-17, decision d): opens with the city's name ("Rome — 7 places") and pages through the stack's places — swiping left and
+       right, the arrow buttons, the keyboard's arrows while the card has focus, and a "2 of 7" indicator — each page the place's own card with its cards.
+       The address follows the page's place (replaced, not pushed). A selection from anywhere else (a search, a tap on another mark) ends the stack. */
+    let cardStack = null;
+    const pagerEl = cardEl.querySelector(".atlas2-pager");
+    function openStack(m) {
+      if (!m || !m.members || !m.members.length) return;
+      cardStack = { id: m.id, name: m.name || "", ids: m.members.slice(), i: 0 };
+      const row = G.byId.get(cardStack.ids[0]);
+      if (!row) { cardStack = null; return; }
+      selectRow(row, { open: true, push: true });
+      announce(cardStack.name + ", " + cardStack.ids.length + " places; showing " + row.name);
+    }
+    function reflectStack(row) {
+      const on = !!(cardStack && cardStack.ids.includes(row.id));
+      if (!on) cardStack = null;
+      pagerEl.hidden = !on;
+      if (!on) return;
+      const i = cardStack.ids.indexOf(row.id), n = cardStack.ids.length; cardStack.i = i;
+      cardTitle.textContent = cardStack.name + " — " + n + " places";
+      cardKind.textContent = kindLine(row);
+      pagerEl.querySelector(".atlas2-pager-name").textContent = row.name;
+      pagerEl.querySelector(".atlas2-pager-n").textContent = (i + 1) + " of " + n;
+    }
+    function stackStep(d) {
+      if (!cardStack || !cardOpen) return;
+      const n = cardStack.ids.length, i = (cardStack.i + d + n) % n, row = G.byId.get(cardStack.ids[i]);
+      if (!row) return;
+      cardStack.i = i;
+      const keepUp = sheetUp;
+      selectRow(row, { open: true, push: false });
+      sheetUp = keepUp; reflectSheet();
+      cardBody.scrollTop = 0;
+      announce(row.name + ", " + (i + 1) + " of " + n);
+    }
+    pagerEl.querySelector(".atlas2-pager-prev").addEventListener("click", () => stackStep(-1));
+    pagerEl.querySelector(".atlas2-pager-next").addEventListener("click", () => stackStep(1));
+    cardEl.addEventListener("keydown", (e) => { if (!cardStack || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return; if (e.key === "ArrowLeft") { e.preventDefault(); stackStep(-1); } else if (e.key === "ArrowRight") { e.preventDefault(); stackStep(1); } });
+    // a real swipe: a touch that travels 40 px sideways and more sideways than up or down
+    let swipe = null;
+    cardEl.addEventListener("touchstart", (e) => { if (!cardStack || e.touches.length !== 1) { swipe = null; return; } swipe = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: performance.now() }; }, { passive: true });
+    cardEl.addEventListener("touchend", (e) => { if (!swipe || !cardStack || !e.changedTouches.length) return; const dx = e.changedTouches[0].clientX - swipe.x, dy = e.changedTouches[0].clientY - swipe.y, dt = performance.now() - swipe.t; swipe = null; if (Math.abs(dx) >= 40 && Math.abs(dx) > 2 * Math.abs(dy) && dt < 1500) stackStep(dx < 0 ? 1 : -1); }, { passive: true });
     function closeCard(returnFocus) {
       const had = cardOpen;
+      cardStack = null; pagerEl.hidden = true;
       discId = null; discFresh = false;
       cardOpen = false; cardRow = null; cardEl.hidden = true; el.classList.remove("atlas2-has-card"); el.classList.remove("atlas2-card-up");
       if (had && returnFocus !== false) {
@@ -2720,17 +2820,17 @@
       /* one button per DRAWN mark and per placed name, best first, capped (stacks removed: the old zoom-in-on-a-stack
          button is gone). A mark whose name is placed is one button, not two. */
       const seen = new Set(), items = [];
-      for (const p of L.placed) if (p.text) { seen.add(p.id); items.push({ id: p.id, kind: p.kind, score: p.score, name: p.text }); }   // one per placed label, as it always was (a river's name may stand on several stretches)
-      for (const m of L.marks) if (m.clear && !seen.has(m.id)) { seen.add(m.id); items.push({ id: m.id, kind: m.kind, score: m.score, name: "" }); }
+      for (const p of L.placed) if (p.text && tappable(p.id)) { seen.add(p.id); items.push({ id: p.id, kind: p.kind, score: p.score, name: p.text }); }   // one per placed label, as it always was (a river's name may stand on several stretches); only what a tap may open (the tap rules)
+      for (const m of L.marks) if (m.clear && !seen.has(m.id) && tappable(m.id)) { seen.add(m.id); items.push({ id: m.id, kind: m.kind, score: m.score, name: "" }); }
       const list = items.sort((a, b) => a.score - b.score).slice(0, KEY_LIST_MAX);
       const ids = list.map((p) => p.id).join("\n");
       if (ids === L.keyIds) return;
       L.keyIds = ids;
       const had = document.activeElement && keysUl.contains(document.activeElement) ? document.activeElement.getAttribute("data-id") : null;
-      keysUl.innerHTML = list.map((p) => { const row = G.byId.get(p.id); return `<li><button type="button" data-id="${escText(p.id)}">${escText(row ? row.name : p.name)}, ${escText(KIND_LABEL[p.kind] || p.kind)}</button></li>`; }).join("");
+      keysUl.innerHTML = list.map((p) => { const row = G.byId.get(p.id), sm = row ? null : stackMark(p.id); return `<li><button type="button" data-id="${escText(p.id)}">${escText(sm ? sm.name + ", " + sm.count + " places" : row ? row.name : p.name)}, ${escText(sm ? "several places of one city" : KIND_LABEL[p.kind] || p.kind)}</button></li>`; }).join("");
       if (had) { const b = keysUl.querySelector(`button[data-id="${had.replace(/"/g, '\\"')}"]`); if (b) b.focus({ preventScroll: true }); }
     }
-    keysUl.addEventListener("click", (e) => { const b = e.target.closest("button[data-id]"); if (!b) return; closeFan(); const row = G.byId.get(b.getAttribute("data-id")); if (row) selectRow(row, { open: true, push: true }); });
+    keysUl.addEventListener("click", (e) => { const b = e.target.closest("button[data-id]"); if (!b) return; closeFan(); const id = b.getAttribute("data-id"), row = G.byId.get(id); if (row) selectRow(row, { open: true, push: true }); else { const m = stackMark(id); if (m) openStack(m); } });
     keysUl.addEventListener("focusin", (e) => { const b = e.target.closest("button[data-id]"); focusId = b ? b.getAttribute("data-id") : null; if (focusId) { const row = G.byId.get(focusId); caption.textContent = row ? row.name : ""; } invalidate(); });
     keysUl.addEventListener("focusout", () => { focusId = null; invalidate(); });
 
@@ -2779,7 +2879,7 @@
     const AS = root.AtlasStudy;
     const SU = H.study || null;
     const MODE_KEY = "folio.atlas2.study", COLL_KEY = "folio.atlas2.studyOff", OPEN_KEY = "folio.atlas2.studyOpen";
-    const ST = { ready: false, loading: false, failed: false, open: !PHONE, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), colls: [], rev: 0, limit: new Map() };
+    const ST = { ready: false, loading: false, failed: false, open: !PHONE, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), tappable: null, colls: [], rev: 0, limit: new Map() };
     const stRead = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
     { const v = stRead(OPEN_KEY); if (v === "1" || v === "0") ST.open = v === "1"; }   // a stored choice wins over the phone default (collapsed)
     const stWrite = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
@@ -2806,13 +2906,16 @@
     // what the worker needs of a place it has no geometry for: a mark (a point kind, from either file) or a name at a point (an area of places.js)
     function sendStudyRows() {
       const rows = [];
+      const names = {};   // the parents (a city a site is within) that are not study rows themselves: what a stack is called
       for (const id of ST.idx.ids) {
         const row = G.byId.get(id); if (!row || !row.at || id.startsWith("pol:")) continue;
         const own = row.src === "places";
         if (!POINT_KIND.test(row.kind) && !own) continue;   // a gazetteer area is drawn by the ordinary pass, flagged only
-        rows.push({ id, name: row.name, kind: row.kind, sub: row.sub || "", lon: row.at[0], lat: row.at[1], n: (ST.idx.cardsOfPlace.get(id) || []).length, pd: !own && POINT_KIND.test(row.kind) });
+        const par = row.within && typeof row.within === "string" ? G.byId.get(row.within) : null;   // a gazetteer row's `within` is a country index, not a parent place
+        if (par) names[par.id] = par.name;
+        rows.push({ id, name: row.name, aliases: Array.isArray(row.aliases) ? row.aliases.slice(0, 8) : [], kind: row.kind, sub: row.sub || "", lon: row.at[0], lat: row.at[1], n: (ST.idx.cardsOfPlace.get(id) || []).length, pd: !own && POINT_KIND.test(row.kind), within: par ? par.id : "", pk: par ? par.kind : "" });
       }
-      postToWorker({ type: "study-rows", rows });
+      postToWorker({ type: "study-rows", rows, names });
     }
     function loadStudy() {
       if (!SU || !AS || ST.ready || ST.loading) return;
@@ -2856,6 +2959,7 @@
     }
     function applyStudy() {
       ST.flags = ST.ready ? AS.flags(ST.idx, ST.st, ST.mode, ST.hidden, info) : new Map();
+      ST.tappable = AS.tappableSet(ST.ready ? ST.idx : null, ST.mode, ST.flags);   // what a tap may open (the tap rules, 2026-10-17)
       PI.mode = ST.ready ? ST.mode : "map"; PI.flags = ST.flags; refreshWars(); refreshPresence();   // 4/0a: the Automatic wars position follows the mode   // 2c: the Personal and Full Atlas decide which peoples a reader sees
       ST.rev++;
       postToWorker({ type: "study-flags", mode: ST.mode === "map" ? "" : ST.mode, entries: [...ST.flags], rev: ST.rev });
@@ -2941,13 +3045,17 @@
       if (!r.total && !r.others) return;
       const sec = document.createElement("section"); sec.className = "atlas2-study-cards"; sec.setAttribute("aria-label", "Cards about this place");
       const head = mode === "personal" ? "From your cards" : "Cards about this place";
-      const li = (c) => { const i = info(c.id) || {}; return `<li><a class="atlas2-study-card" href="${escText(SU.cardHref ? SU.cardHref(c.id) : "#card/" + c.id)}" data-card="${escText(c.id)}"><span class="atlas2-study-title">${escText(i.title || c.id)}</span>${i.coll ? `<span class="atlas2-chip atlas2-study-chip">${escText(i.coll)}</span>` : ""}${c.mine && mode === "full" ? '<span class="atlas2-study-mine" title="You have studied this card">studied</span>' : ""}</a></li>`; };
+      /* EACH CARD IS A ROW, AS V1'S POPUP HAD IT (2026-10-17, decision c): its title, its deck and whether it is due now (the host's `cardInfo`:
+         `deck` the leaf it is filed in, `due` isDueNow); a tap opens the card. The Personal Atlas lists the reader's own and says how many more the Full
+         Atlas has; the Full Atlas lists all of them, the reader's first and marked. */
+      const li = (c) => { const i = info(c.id) || {}; return `<li><a class="atlas2-study-card${i.due ? " atlas2-study-isdue" : ""}" href="${escText(SU.cardHref ? SU.cardHref(c.id) : "#card/" + c.id)}" data-card="${escText(c.id)}" data-due="${i.due ? "1" : "0"}"><span class="atlas2-study-title">${escText(i.title || c.id)}</span><span class="atlas2-study-meta">${i.deck ? `<span class="atlas2-chip atlas2-study-chip atlas2-study-deck" title="${escText(i.coll ? i.coll + " · " + i.deck : i.deck)}">${escText(i.deck)}</span>` : i.coll ? `<span class="atlas2-chip atlas2-study-chip">${escText(i.coll)}</span>` : ""}${i.due ? '<span class="atlas2-study-due" title="Due for review now">due</span>' : ""}${c.mine && mode === "full" ? '<span class="atlas2-study-mine" title="You have studied this card">studied</span>' : ""}</span></a></li>`; };
       sec.innerHTML = `<h3 class="atlas2-study-h">${escText(head)}</h3>` + (r.shown.length ? `<ul class="atlas2-study-list">${r.shown.map(li).join("")}</ul>` : "") +
         (r.more ? `<button type="button" class="atlas2-link atlas2-study-more" data-more="${escText(row.id)}">and ${r.more} more</button>` : "") +
-        (r.others ? `<p class="atlas2-study-others">${r.others} more ${r.others === 1 ? "card is" : "cards are"} about this place that you haven’t studied yet.</p>` : "");
+        (r.others ? `<p class="atlas2-study-others">${r.others} more ${r.others === 1 ? "card" : "cards"} about this place in the Full Atlas. <button type="button" class="atlas2-link atlas2-study-tofull" data-mode="full">Show the Full Atlas</button></p>` : "");
       cardBody.appendChild(sec);
     }
     cardBody.addEventListener("click", (e) => {
+      const toFull = e.target.closest("button.atlas2-study-tofull"); if (toFull) { setStudyMode("full"); return; }
       const more = e.target.closest("button[data-more]");
       if (more) { const id = more.getAttribute("data-more"); ST.limit.set(id, (ST.limit.get(id) || AS.LIST_CAP) + 20); const keep = cardBody.scrollTop; if (cardRow && cardRow.id === id) appendStudyCards(cardRow); cardBody.scrollTop = keep; }
     });
@@ -2968,6 +3076,8 @@
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
       R.dispose();
     }
+    // the Legend's key of the seven glyphs (decision e): built from AtlasStudy.MARK_CLASSES with the map's own geometry
+    { const key = el.querySelector(".atlas2-marks-key"), A0 = root.AtlasStudy; if (key && A0 && A0.MARK_CLASSES) key.innerHTML = A0.MARK_CLASSES.map((c) => `<div data-cls="${escText(c.cls)}"><dt>${glyphSVG(c.shape)}</dt><dd>${escText(c.word)}</dd></div>`).join(""); }
     setPerf(perfOn);   // after the label state exists: the overlay reads it (Phase 1c)
     try { paintWarsKey(); } catch (e) { /* before the time block */ }
     layout();
@@ -3027,13 +3137,16 @@
       study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, open: () => ST.open, setOpen: setStudyOpen, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
         flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl,
         /* the layout's marks (every flagged place or polity within the view and its margin, with whether its ground was clear at layout), the marks drawn in the last frame, the fan, the hidden list */
-        marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "" })); },
-        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h })),
+        marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, cls: m.cls || "", st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "" })); },
+        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "" })),
+        glyphSVG, markRadius,
+        stack: () => (cardStack ? { id: cardStack.id, name: cardStack.name, ids: cardStack.ids.slice(), i: cardStack.i } : null), stackStep, openStack: (id) => { const m = stackMark(id); if (m) openStack(m); return !!m; },
         layoutChrome: () => (L.chrome || []).map((r) => r.slice()),
         near: (x, y, touch) => marksNear(x, y, markRadius(touch)).map((e) => e.m.id),
         fan: () => (fan ? { x: fan.x, y: fan.y, clear: fan.clear, items: fan.slots.map((sl) => ({ id: sl.mem.e.m.id, name: sl.mem.name, x: sl.mem.x, y: sl.mem.y, fx: sl.x, fy: sl.y, right: sl.right, rect: sl.rect })) } : null), closeFan: () => closeFan(),
         keys: () => [...keysUl.querySelectorAll("button[data-id]")].map((b) => ({ id: b.getAttribute("data-id"), text: b.textContent })),
-        index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0 },
+        index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0,
+        tappable: (id) => tappable(id), tappableIds: () => (ST.tappable ? [...ST.tappable] : null) },
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,

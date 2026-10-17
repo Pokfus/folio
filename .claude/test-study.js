@@ -123,9 +123,9 @@ console.log("\n5) the marks: every flagged place is its own mark, and nothing st
   const full = AS.flags(idx, AS.studied(idx, []), "full", none, info);
   const kindOf = (id) => (REG.rows.get(id) || {}).kind;
   // NO CLUSTERING ANYWHERE: the function is gone from the module, and no source names a stack marker, its radius or its count
-  check("AtlasStudy has no cluster (and nothing like it): a mark is never a count", AS.cluster === undefined && !Object.keys(AS).some((k) => /cluster|stack/i.test(k)));
+  check("AtlasStudy has no cluster by screen proximity: the only grouping is a CITY's (stackGroups, per city — decision d of 2026-10-17)", AS.cluster === undefined && !Object.keys(AS).some((k) => /cluster/i.test(k)) && typeof AS.stackGroups === "function" && typeof AS.cityMembership === "function");
   const worker = fs.readFileSync(path.join(ROOT, "atlas", "atlas-worker.js"), "utf8"), atlasJs = fs.readFileSync(path.join(ROOT, "atlas", "atlas.js"), "utf8"), css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8");
-  check("the worker has no STACK_PX, no \"stack\" marker kind and no call to cluster", !/STACK_PX|kind: "stack"|AtlasStudy\.cluster|"stack:"/.test(worker));
+  check("the worker never calls cluster and groups marks only within one city (byCity)", !/AtlasStudy\.cluster|\.cluster\(/.test(worker) && /for \(const \[cid, idxs\] of byCity\)/.test(worker));
   check("the page has no stack mark, no expandStack and no \"N places here, activate to zoom in\" button", !/kind === "stack"|expandStack|places here, activate|"stack:"|startsWith\("stack:/.test(atlasJs));
   check("…and no setting brings it back (nothing stored under a key that names clusters or stacks)", !/folio\.atlas2\.[a-zA-Z]*(stack|cluster)/i.test(atlasJs));
   // THE SIZE: a dot about 4 px across at the widest view, today's 16 px by city scale, never shrinking as the reader zooms in
@@ -135,10 +135,12 @@ console.log("\n5) the marks: every flagged place is its own mark, and nothing st
   check("…and is smooth: no two zoom steps a quarter-octave apart differ by more than a pixel", (() => { let worst = 0; for (let k = 20; k > 1; k /= Math.pow(2, 0.25)) worst = Math.max(worst, Math.abs(AS.markHalf(k / Math.pow(2, 0.25)) - AS.markHalf(k))); return worst <= 1; })());
   // THE SHAPE AND THE LAYER of every kind of place any card is about (the property over the Full Atlas's flags)
   const kinds = new Set([...full.keys()].map(kindOf));
-  const shapeOK = [...kinds].every((k) => ["diamond", "triangle", "disc"].includes(AS.markShape(k)));
-  check("every kind the Full Atlas flags (" + kinds.size + ") has one of the three shapes", shapeOK, [...kinds].sort().join(", "));
-  check("a mountain, a hill and a cape are triangles; a polity, a people, a culture and an extent are discs; a city, a site, an island and a country are diamonds",
-    ["mountain", "hill", "cape"].every((k) => AS.markShape(k) === "triangle") && ["polity", "people", "culture", "extent"].every((k) => AS.markShape(k) === "disc") && ["city", "capital", "town", "site", "island", "country", "region", "river"].every((k) => AS.markShape(k) === "diamond"));
+  // (decision e, 2026-10-17: seven shapes by class, and an AREA has none — its name stands alone; the full table is §13)
+  const SHAPES = ["diamond", "triangle", "disc", "square", "cross", "star", "stack"];
+  const shapeOK = [...kinds].every((k) => AS.markShape(k) === null || SHAPES.includes(AS.markShape(k)));
+  check("every kind the Full Atlas flags (" + kinds.size + ") has one of the seven shapes, or none (an area is a name only)", shapeOK, [...kinds].sort().join(", "));
+  check("a mountain, a hill and a cape are triangles; a polity, a people, a culture and an extent are stars; a city a disc, a site a diamond; an island, a country, a region and a river carry no mark",
+    ["mountain", "hill", "cape"].every((k) => AS.markShape(k) === "triangle") && ["polity", "people", "culture", "extent"].every((k) => AS.markShape(k) === "star") && ["city", "capital", "town"].every((k) => AS.markShape(k) === "disc") && AS.markShape("site") === "diamond" && ["island", "country", "region", "river"].every((k) => AS.markShape(k) === null));
   check("a hill is the smaller triangle, nothing else is scaled", AS.markScale("hill") === 0.75 && ["mountain", "city", "polity", "cape"].every((k) => AS.markScale(k) === 1));
   const order = [AS.markLayer("city", 1), AS.markLayer("city", 2), AS.markLayer("polity", 1), AS.markLayer("polity", 2)];
   check("the draw order is places not studied (0), places studied (1), polities (2), whether or not studied", order.join() === "0,1,2,2", order.join());
@@ -273,6 +275,92 @@ console.log("\n10) the wars (Phase 2d): which wars are drawn, which entities are
   const sw = AS.warSentence(T["ww2-001"]);
   check("a side's unresolved names are said, not drawn, and a member's narrower window is said", /no entity for: Poland/.test(sw) && /ussr 1941 CE – 1945 CE|ussr 1941 – 1945 CE/.test(sw) || /ussr/.test(sw), sw.slice(0, 200));
   check("the extent kind is its own layer and word (not a people, not a state)", AS.layerOf("extent") === "war-extent" && AS.kindWord("extent") === "authored extent" && AS.isPresence("extent") === false && AS.normalizeWars("bogus") === "auto" && AS.normalizeWars("off") === "off");
+}
+
+/* ---------------------------------------------------------------- the owner's phone, 2026-10-17 */
+console.log("\n11) the tap rules: what a tap may open (tappableSet)\n");
+{
+  const fP = AS.flags(idx, st, "personal", [], info), fF = AS.flags(idx, st, "full", [], info);
+  const tP = AS.tappableSet(idx, "personal", fP), tF = AS.tappableSet(idx, "full", fF), tM = AS.tappableSet(idx, "map", new Map());
+  check("before the index is read nothing is tappable (null)", AS.tappableSet(null, "full", fF) === null);
+  check("Personal: exactly the ids a studied card links (flag 2)", tP.size === [...fP].filter(([, f]) => f === 2).length && [...tP].every((id) => fP.get(id) === 2) && tP.size > 0, tP.size + " ids");
+  check("Full: every id any card of a collection that is on links (flag 1 or 2)", tF.size === fF.size && [...fF.keys()].every((id) => tF.has(id)), tF.size + " ids");
+  check("the plain Map: every id of the index (any card at all)", tM.size === idx.ids.length && idx.ids.every((id) => tM.has(id)));
+  const off = AS.flags(idx, st, "full", [info(reader[0]).collId], info), tOff = AS.tappableSet(idx, "full", off);
+  check("a collection switched off takes its own places out of the Full set", tOff.size < tF.size && tOff.size === off.size);
+  check("an id no card links is in no set (a desert, an ocean, a town with no card)", !tP.has("sea:1159115079") && !tF.has("sea:1159115079") && !tM.has("sea:1159115079") && !tM.has("nothing"));
+}
+
+console.log("\n12) city stacks: membership by the registry's parent or the nearest settlement within 3 km, groups within 28 px, never across cities\n");
+{
+  global.window = global.window || {};
+  require(path.join(ROOT, "atlas/data/gazetteer.js")); require(path.join(ROOT, "atlas/data/places.js"));
+  const by = new Map(); const G = window.ATLAS_GAZETTEER, gi = {}; G.cols.forEach((c, i) => { gi[c] = i; });
+  for (const r of G.rows) by.set(r[gi.id], { id: r[gi.id], name: r[gi.name], kind: r[gi.kind], at: r[gi.at] || null, within: "" });   // a gazetteer row's `within` is a country index, not a parent place
+  const T = window.ATLAS_PLACES; for (const r of T.rows) { const o = {}; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; }); o.within = o.within || ""; by.set(o.id, o); }
+  const linked = idx.ids.filter((id) => !id.startsWith("pol:") && by.has(id)).map((id) => { const r = by.get(id), p = r.within ? by.get(r.within) : null; return { id, kind: r.kind, within: p ? p.id : "", pk: p ? p.kind : "", at: r.at }; });
+  const cities = [...by.values()].filter((r) => /^(capital|city|town)$/.test(r.kind) && r.at);
+  const cm = AS.cityMembership(linked, cities, { km: 3 });
+  const perCity = new Map(); for (const [, c] of cm.of) perCity.set(c, (perCity.get(c) || 0) + 1);
+  const top = [...perCity].filter(([c, n]) => n >= 2 && c !== undefined).sort((a, b) => b[1] - a[1]).map(([c, n]) => (by.get(c) ? by.get(c).name : c) + " " + n);
+  const rome = "city:1159151593";
+  console.log("  (membership over the " + linked.length + " card-linked places: by the registry's parent " + cm.how.parent + ", by the 3 km rule " + cm.how.near + ", settlements their own city " + cm.how.self + "; cities with two or more members: " + top.slice(0, 12).join(", ") + ")");
+  check("Rome has the most members, and more than 20 of them", perCity.get(rome) >= 20 && [...perCity].every(([c, n]) => c === rome || n <= perCity.get(rome)), perCity.get(rome) + " in Rome");
+  check("every member of Rome is within Rome by the registry's parent or within 3 km of its centre", [...cm.of].filter(([, c]) => c === rome).every(([id]) => { const r = by.get(id); if (r.within === rome) return true; const d = ((a, b) => { const R = 6371, dLa = (b[1] - a[1]) * Math.PI / 180, dLo = (b[0] - a[0]) * Math.PI / 180, x = Math.sin(dLa / 2) ** 2 + Math.cos(a[1] * Math.PI / 180) * Math.cos(b[1] * Math.PI / 180) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(x)); })(r.at, by.get(rome).at); return d <= 3; }));
+  check("the registry's parent wins over distance (Veii, 'within' Rome though 16 km from its centre, is Rome's; so is the Lapis Niger)", cm.of.get("pl:q677935") === rome && cm.of.get("pl:q841388") === rome);
+  const RK = { capital: 0, city: 1, town: 2 };
+  check("a settlement with no parent is its own city unless a LARGER kind lies within 3 km (a town joins the capital it is in; two towns stay two)", linked.filter((p) => /^(capital|city|town)$/.test(p.kind) && !p.within).every((p) => { const c = cm.of.get(p.id); return c === p.id || (by.has(c) && RK[by.get(c).kind] < RK[p.kind]); }));
+  check("the largest settlement within 3 km wins: the Acropolis's sites — and the 'Acropolis (neighbourhood)' row itself — are Athens's (a capital)", [...cm.of].some(([, c]) => by.get(c) && by.get(c).name === "Athens") && ![...cm.of].some(([, c]) => by.get(c) && /^Acropolis/.test(by.get(c).name)));
+  check("a place with no parent and no settlement within 3 km belongs to no city (a mountain, a cave in the hills)", [...cm.of].every(([id, c]) => by.has(c)) && linked.some((p) => !cm.of.has(p.id) && /^(mountain|site)$/.test(p.kind)));
+  // the groups: a property over random layouts — every member of a group chains within 28 px, two groups never within 28 px of each other, singles never within 28 px of any other
+  let okP = true, rnd = 12345; const rand = () => { rnd = (rnd * 1103515245 + 12345) & 0x7fffffff; return rnd / 0x7fffffff; };
+  for (let t = 0; t < 300 && okP; t++) {
+    const pts = []; const n = 2 + Math.floor(rand() * 20); for (let i = 0; i < n; i++) pts.push({ x: rand() * 200, y: rand() * 200 });
+    const gs = AS.stackGroups(pts, 28), inG = new Map(); gs.forEach((g, k) => g.forEach((i) => inG.set(i, k)));
+    const d = (i, j) => Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+    for (let i = 0; i < n && okP; i++) for (let j = i + 1; j < n; j++) { const near = d(i, j) <= 28; if (near && inG.get(i) !== inG.get(j)) okP = false; if (near && !inG.has(i)) okP = false; }
+    for (const g of gs) { if (g.length < 2) okP = false; const seen = new Set([g[0]]); let grew = true; while (grew) { grew = false; for (const a of [...seen]) for (const b of g) if (!seen.has(b) && d(a, b) <= 28) { seen.add(b); grew = true; } } if (seen.size !== g.length) okP = false; }
+  }
+  check("PROPERTY (300 layouts): two points within 28 px are in one group, every group chains within 28 px, a group has two or more", okP);
+  check("the groups never cross cities: the worker groups per city (a text guard on atlas-worker.js)", /for \(const \[cid, idxs\] of byCity\)/.test(fs.readFileSync(path.join(ROOT, "atlas/atlas-worker.js"), "utf8")) && /study\.city\.get\(list\[i\]\.id\)/.test(fs.readFileSync(path.join(ROOT, "atlas/atlas-worker.js"), "utf8")));
+  check("STACK_PX is the owner's 28", AS.STACK_PX === 28);
+}
+
+console.log("\n13) the glyph classes: every card-linked kind has a class and a shape of its own; an area has none\n");
+{
+  const by = new Map(); const G = window.ATLAS_GAZETTEER, gi = {}; G.cols.forEach((c, i) => { gi[c] = i; });
+  for (const r of G.rows) by.set(r[gi.id], { kind: r[gi.kind], sub: "" });
+  const T = window.ATLAS_PLACES; for (const r of T.rows) { const o = {}; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; }); by.set(o.id, { kind: o.kind, sub: o.sub || "" }); }
+  const kinds = new Map(); for (const id of idx.ids) { const r = id.startsWith("pol:") ? { kind: "polity", sub: "" } : by.get(id); if (!r) continue; kinds.set(r.kind + "/" + r.sub, AS.markClass(r.kind, r.sub)); }
+  const classes = new Set([...kinds.values()].filter(Boolean));
+  console.log("  (" + [...kinds].map(([k, c]) => k.replace(/\/$/, "") + " → " + (c || "name only")).join(", ") + ")");
+  check("at most eight classes, and every one in the Legend's list", classes.size <= 8 && [...classes].every((c) => AS.MARK_CLASSES.some((m) => m.cls === c)), [...classes].join(","));
+  check("a city, a town and a capital are one class (settlement); a site and a cave another; a battle, a building each their own; a mountain, a hill and a cape one (peak); a polity, a people and a culture one", AS.markClass("city") === "settlement" && AS.markClass("capital") === "settlement" && AS.markClass("town") === "settlement" && AS.markClass("site", "site") === "site" && AS.markClass("site", "cave") === "site" && AS.markClass("site", "battle") === "battle" && AS.markClass("site", "building") === "building" && AS.markClass("mountain") === "peak" && AS.markClass("hill") === "peak" && AS.markClass("cape") === "peak" && AS.markClass("polity") === "polity" && AS.markClass("people") === "polity" && AS.markClass("culture") === "polity" && AS.markClass("stack") === "stack");
+  check("an area is a name only: river, lake, sea, ocean, strait, gulf, island, island-group, range, region, country, admin1 have no class", ["river", "lake", "sea", "ocean", "strait", "gulf", "island", "island-group", "range", "region", "country", "admin1"].every((k) => AS.markClass(k) === null && AS.markShape(k) === null));
+  const shapes = AS.MARK_CLASSES.map((m) => m.shape);
+  check("seven classes, seven different shapes, each with its word for the Legend", AS.MARK_CLASSES.length === 7 && new Set(shapes).size === 7 && AS.MARK_CLASSES.every((m) => m.word && AS.markShape(m.cls === "settlement" ? "city" : m.cls === "site" ? "site" : m.cls === "battle" ? "site" : m.cls === "peak" ? "hill" : m.cls === "building" ? "site" : m.cls === "polity" ? "polity" : "stack", m.cls === "battle" ? "battle" : m.cls === "building" ? "building" : "") === m.shape));
+}
+
+console.log("\n14) the labels' text: no parenthetical, two lines past 22 characters, the short name past 28\n");
+{
+  const L = AS.labelText;
+  check("a parenthetical never shows: 'Malia (archaeological site)' → 'Malia', the full name kept for the popup", L("Malia (archaeological site)").text === "Malia" && L("Malia (archaeological site)").lines === null && L("Malia (archaeological site)").full === "Malia (archaeological site)" && L("Ji (Beijing)").text === "Ji");
+  check("22 characters or fewer stay on one line", L("Temple of Olympian Zeus").lines === null && L("Temple of Olympian Zeus").text.length === 23 || L("Bhimbetka rock shelter").lines === null);
+  check("over 22: two lines at the space nearest the middle ('Second Battle of El Alamein' → 'Second Battle' / 'of El Alamein')", JSON.stringify(L("Second Battle of El Alamein").lines) === JSON.stringify(["Second Battle", "of El Alamein"]) && JSON.stringify(L("Kabul International Airport").lines) === JSON.stringify(["Kabul International", "Airport"]));
+  check("a tie between two spaces goes to the split whose lines are most nearly equal ('Bhimbetka rock shelters' → 'Bhimbetka' / 'rock shelters')", JSON.stringify(L("Bhimbetka rock shelters").lines) === JSON.stringify(["Bhimbetka", "rock shelters"]));
+  check("over 28 with a short name in the registry (an alias the name begins with): the short name ('Boma, Democratic Republic of the Congo' → 'Boma'), on one line", L("Boma, Democratic Republic of the Congo", ["Boma"]).text === "Boma" && L("Boma, Democratic Republic of the Congo", ["Boma"]).lines === null && L("Presidential Office Building, Taipei", ["Presidential Office Building"]).text === "Presidential Office Building");
+  check("…a period name is not a short name ('Kabul International Airport' with alias 'Hamid Karzai International Airport' wraps instead)", L("Kabul International Airport", ["Hamid Karzai International Airport"]).text === "Kabul International Airport" && L("Kabul International Airport", ["Hamid Karzai International Airport"]).lines !== null);
+  check("over 28 with no short name: two lines ('Temple of Jupiter Optimus Maximus' → 'Temple of Jupiter' / 'Optimus Maximus')", JSON.stringify(L("Temple of Jupiter Optimus Maximus").lines) === JSON.stringify(["Temple of Jupiter", "Optimus Maximus"]));
+  check("a name with no space never wraps, however long", L("Llanfairpwllgwyngyllgogerychwyrndrobwll").lines === null);
+  // the report: what changes over the card-linked places
+  const by = new Map(); const T = window.ATLAS_PLACES; for (const r of T.rows) { const o = {}; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; }); by.set(o.id, o); }
+  const G = window.ATLAS_GAZETTEER, gi = {}; G.cols.forEach((c, i) => { gi[c] = i; }); for (const r of G.rows) if (/^(capital|city|town|site|mountain|hill|cape)$/.test(r[gi.kind])) by.set(r[gi.id], { id: r[gi.id], name: r[gi.name], kind: r[gi.kind], aliases: r[gi.aliases] || [] });
+  const rows = idx.ids.filter((id) => by.has(id) && /^(capital|city|town|site|mountain|hill|cape|region|island|island-group|range|lake|river|strait|gulf)$/.test(by.get(id).kind)).map((id) => by.get(id));
+  const changed = rows.map((r) => ({ r, t: L(r.name, Array.isArray(r.aliases) ? r.aliases : []) })).filter((x) => x.t.text !== x.r.name || x.t.lines);
+  const strip = changed.filter((x) => /\(/.test(x.r.name)), short = changed.filter((x) => !/\(/.test(x.r.name) && x.t.text !== x.r.name), wrap = changed.filter((x) => x.t.lines);
+  console.log("  (over " + rows.length + " card-linked places: " + strip.length + " lose a parenthetical, " + short.length + " use their short name, " + wrap.length + " wrap onto two lines; e.g. " + changed.slice(0, 6).map((x) => "'" + x.r.name + "' → " + (x.t.lines ? x.t.lines.join(" / ") : x.t.text)).join("; ") + ")");
+  check("the report's numbers are the registry's (28 parentheticals among the places; some short names; some wraps)", strip.length >= 25 && short.length >= 2 && wrap.length >= 15, strip.length + " / " + short.length + " / " + wrap.length);
+  check("every label text is at most 28 characters a line", changed.every((x) => (x.t.lines ? Math.max(x.t.lines[0].length, x.t.lines[1].length) : x.t.text.length) <= 28 || !/ /.test(x.t.text)));
 }
 
 console.log(`\n${pass} ok, ${fail} failed\n`);
