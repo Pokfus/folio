@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-12",
+ "retrieved": "2026-10-17",
  "titles": {
   "Lomekwi 3": null,
   "Olduvai Gorge": {
@@ -91541,6 +91541,17 @@
    ],
    "label": "",
    "title": "Bretton Woods, New Hampshire"
+  },
+  "Q13396": {
+   "coord": [
+    12.8567,
+    42.4044
+   ],
+   "classes": [
+    "Q747074"
+   ],
+   "label": "Rieti",
+   "title": "Rieti"
   }
  },
  "links": {
