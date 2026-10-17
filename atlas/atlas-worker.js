@@ -708,7 +708,7 @@
   }
   function setStudyRows(rows, names) {
     const m = new Map(), points = new Set();
-    for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", aliases: Array.isArray(r.aliases) ? r.aliases : [], kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd, within: r.within || "", pk: r.pk || "" }); if (STUDY_POINT[r.kind]) points.add(r.id); }
+    for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", aliases: Array.isArray(r.aliases) ? r.aliases : [], kind: r.kind, sub: r.sub || "", cap: !!r.cap, a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd, within: r.within || "", pk: r.pk || "" }); if (STUDY_POINT[r.kind]) points.add(r.id); }
     /* CITY MEMBERSHIP (2026-10-17, decision d): which city each study place belongs to — the registry's parent, else the nearest settlement of the
        whole registry (the gazetteer's capitals, cities and towns and the study rows' own) within 3 km (AtlasStudy.cityMembership). Computed once,
        here, off the main thread; `cityName` is what a stack is called. */
@@ -854,6 +854,13 @@
       cands.push({ row, chordPx, a, score, hl });
     }
     cands.sort((p, r) => p.score - r.score);
+    /* THE BARE NAMES ON THIS LAYOUT (2026-10-17, decision d): a settlement's label drops its ", <country or region>" qualifier (AtlasStudy.labelText)
+       UNLESS two candidates of one layout share the bare name — those two keep their qualifier. Counted over the ordinary settlements here and the
+       study names once they are listed (below); asked by both passes through `qualified` */
+    const bareCount = new Map(), AS0 = root.AtlasStudy;
+    const addBare = (name) => { if (!AS0 || !name) return; const b = AS0.bareName(name); bareCount.set(b, (bareCount.get(b) || 0) + 1); };
+    const qualified = (name) => !!(AS0 && name && (bareCount.get(AS0.bareName(name)) || 0) > 1);
+    for (const c of cands) if (!c.hist && (c.row.kind === "capital" || c.row.kind === "city" || c.row.kind === "town")) addBare(c.row.name);
     /* ---- the grid ---- */
     const CELL = 64, cols = Math.ceil(W / CELL) + 2, rows = Math.ceil(H / CELL) + 2;
     const cells = new Map();
@@ -1028,8 +1035,8 @@
           kind = g.kind; unit = g.a; a = proj(unit); x = a[0]; y = a[1]; z = a[2];
         }
         if (z < 0.02 || !onScreen(x, y, MARGIN)) continue;
-        const sub = srow ? srow.sub : "", cls = AS.markClass(kind, sub);   // the glyph class (decision e); null for an area: a name, no mark
-        list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind) : 0 });
+        const sub = srow ? srow.sub : "", cap = !!(srow && srow.cap), cls = AS.markClass(kind, sub, cap);   // the glyph class (decision e; a capital's square, decision b of 2026-10-17); null for an area: a name, no mark
+        list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub, cap) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind) : 0 });
       }
       /* CITY STACKS (2026-10-17, decision d): the marks of ONE CITY within STACK_PX (28) of one another on screen become one mark with a count,
          at their mean position, named for the city; its members are not drawn (the page's popup pages through them). Never across cities, never
@@ -1061,6 +1068,7 @@
         if (stacks.length) nudgeStacks(list, W, H, hitsChrome);
       }
       list.sort((p, r) => r.f - p.f || r.n - p.n || (p.id < r.id ? -1 : 1));
+      for (const m of list) if (m.own && m.own.name && !m.members) addBare(m.own.name);   // the study names count toward the bare names of this layout (decision d, 2026-10-17)
       /* EVERY MARK IS AN OBSTACLE TO EVERY STUDY NAME (2026-10-17, decision d; the owner's phone: "Lake Regillus" and "Appian Way", area names laid
          centred on their points, sat on the diamonds of other places). The marks' ground is taken BEFORE any study name is laid — the reader's own
          hard (`take`), the rest soft (`softTake`, which only a study name consults) — so a name, centred or beside, never covers a mark of the layer,
@@ -1084,7 +1092,7 @@
           const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
           if (st2) {
             /* THE LABEL'S TEXT (decision f): no parenthetical, the short name past 28 characters, two lines past 22 (AtlasStudy.labelText); the popup keeps the full name */
-            const lt = AS.labelText(row.name, row.aliases), two = lt.lines ? (() => { const a = shape(lt.lines[0], st2, missing), b = shape(lt.lines[1], st2, missing); a.style = b.style = style; return { a, b, wide: Math.max(a.w, b.w), h: a.h + b.h }; })() : null;
+            const lt = AS.labelText(row.name, row.aliases, { qualified: qualified(row.name) }), two = lt.lines ? (() => { const a = shape(lt.lines[0], st2, missing), b = shape(lt.lines[1], st2, missing); a.style = b.style = style; return { a, b, wide: Math.max(a.w, b.w), h: a.h + b.h }; })() : null;
             const sh = two ? { w: two.wide, h: two.h, chars: [...lt.lines[0], " ", ...lt.lines[1]] } : shape(lt.text, st2, missing); sh.style = style;
             const lay = (tx, ty) => (two ? stacked(two, tx, ty) : straight(sh, tx, ty, 0));
             const okAt = (g2, rank) => g2.rects.every((r) => fullyOn(r) && free(r) && softFree(r, rank)) && nearAnchor(g2.rects, m.x, m.y);
@@ -1120,7 +1128,7 @@
       const row = c.row, k = row.kind; dropping = row;
       const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
       if (!st) { drop(k + " no metrics for style " + styleId); continue; }
-      const text = (k === "capital" || k === "city" || k === "town") && !c.hist && root.AtlasStudy ? root.AtlasStudy.labelText(row.name).text : row.name;   // a settlement's name shows no parenthetical (decision f)
+      const text = (k === "capital" || k === "city" || k === "town") && !c.hist && root.AtlasStudy ? root.AtlasStudy.labelText(row.name, null, { qualified: qualified(row.name) }).text : row.name;   // a settlement's name shows no parenthetical (decision f) and no ", <country>" qualifier unless two share the bare name (decision d, 2026-10-17)
       const sh = shape(text, st, missing); sh.style = styleId;
       const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
       /* a flagged area or polity has a MARK at its anchor (the study pass): its name stands just above it, so the dot is read as the place and the name as its label */

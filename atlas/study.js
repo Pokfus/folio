@@ -165,31 +165,71 @@
        site        site (an archaeological site), a cave      diamond
        battle      site/battle                                cross (a saltire)
        peak        mountain, hill, cape                       triangle
-       building    site/building (a monument, a wall, a hall) square
+       building    site/building (a monument, a wall, a hall) house (a pointed-top pentagon)
+       capital     a settlement that is or was the capital of a  square
+                   state or polity of the registry (2026-10-17, decision b:
+                   the gazetteer's present-day capitals, and every period
+                   capital of polity-index.js joined to its registry row by
+                   `capitalIds`); a site that was a capital is a capital
        polity      polity, people, culture, extent …          star
        stack       several places of one city                 ring, with the count inside
      An AREA — a river, a lake, a sea, an ocean, a strait, a gulf, an island, a range, a region, a cultural area, a country, a province — has NO
      mark (class null): it is a name only. `markClass(kind, sub)` is the one classification; `markShape` its shape; MARK_CLASSES the Legend's rows. */
-  const MARK_SHAPE = { settlement: "disc", site: "diamond", battle: "cross", peak: "triangle", building: "square", polity: "star", stack: "stack" };
+  const MARK_SHAPE = { capital: "square", settlement: "disc", site: "diamond", battle: "cross", peak: "triangle", building: "house", polity: "star", stack: "stack" };
   const MARK_CLASSES = [
+    { cls: "capital", shape: "square", word: "Capital, present or past" },
     { cls: "settlement", shape: "disc", word: "City or town" },
     { cls: "site", shape: "diamond", word: "Archaeological site or cave" },
     { cls: "battle", shape: "cross", word: "Battle" },
     { cls: "peak", shape: "triangle", word: "Mountain, hill or cape" },
-    { cls: "building", shape: "square", word: "Building, monument or wall" },
+    { cls: "building", shape: "house", word: "Building, monument or wall" },
     { cls: "polity", shape: "star", word: "State, people or culture" },
     { cls: "stack", shape: "stack", word: "Several places of one city, with their count" },
   ];
-  function markClass(kind, sub) {
+  /* `cap` (2026-10-17, decision b): the place is or was a capital (the gazetteer's kind, or a period capital joined by `capitalIds`). The
+     capital square wins over a settlement's disc and a site's diamond, house or cave (a site that was a capital); never over a battle or a peak */
+  function markClass(kind, sub, cap) {
     kind = kind || "";
     if (POLITY_KIND.test(kind)) return "polity";
     if (kind === "stack") return "stack";
-    if (kind === "capital" || kind === "city" || kind === "town") return "settlement";
+    if (kind === "capital") return "capital";
+    if (kind === "city" || kind === "town") return cap ? "capital" : "settlement";
     if (kind === "mountain" || kind === "hill" || kind === "cape") return "peak";
-    if (kind === "site") return sub === "battle" ? "battle" : sub === "building" ? "building" : "site";
+    if (kind === "site") return sub === "battle" ? "battle" : cap ? "capital" : sub === "building" ? "building" : "site";
     return null;
   }
-  function markShape(kind, sub) { const c = markClass(kind, sub); return c ? MARK_SHAPE[c] : null; }
+  function markShape(kind, sub, cap) { const c = markClass(kind, sub, cap); return c ? MARK_SHAPE[c] : null; }
+  /* THE CAPITALS OF THE REGISTRY (2026-10-17, decision b). `capitals` are the registry's capital statements — polity-index.js's rows
+     [entity, name, lon, lat, from, to] (history.bin's own header, from each state's P36 statements) — and `rows` the registry's places
+     [{ id, kind, name, aliases, at: [lon, lat] }]. A statement names the registry row that bears its name (the name or an alias, folded:
+     the period names are aliases of the one place) within CAP_NAME_KM, else the nearest capital, city or town within CAP_NEAR_KM (the
+     same site under a spelling the registry lacks); a statement that matches nothing marks nothing (never a guess by distance alone past
+     that). The gazetteer's own `capital` rows (the present-day capitals) are capitals by kind and need no statement. Returns the Set of ids. */
+  const CAP_NAME_KM = 25, CAP_NEAR_KM = 2;
+  const foldName = (s) => String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const CAP_KINDS = { capital: 1, city: 1, town: 1, site: 1 };
+  function capitalIds(rows, capitals) {
+    const out = new Set(); if (!Array.isArray(rows) || !Array.isArray(capitals)) return out;
+    const pts = [];
+    for (const r of rows) {
+      if (!r || !CAP_KINDS[r.kind] || r.sub === "battle" || !Array.isArray(r.at) || !isFinite(r.at[0]) || !isFinite(r.at[1])) continue;   // a battle is never a capital, whatever it is named
+      if (r.kind === "capital") out.add(r.id);
+      pts.push({ id: r.id, kind: r.kind, keys: [foldName(r.name)].concat((r.aliases || []).map(foldName)).filter(Boolean), u: unitOf({ at: r.at }) });
+    }
+    for (const c of capitals) {
+      if (!Array.isArray(c) || !isFinite(c[2]) || !isFinite(c[3])) continue;
+      const key = foldName(c[1]), u = unitOf({ at: [c[2], c[3]] }); if (!key) continue;
+      const cosName = Math.cos(CAP_NAME_KM / R_EARTH), cosNear = Math.cos(CAP_NEAR_KM / R_EARTH);
+      let named = false, nearest = null, nd = -2;
+      for (const p of pts) {
+        const d = p.u[0] * u[0] + p.u[1] * u[1] + p.u[2] * u[2];
+        if (d >= cosName && p.keys.includes(key)) { out.add(p.id); named = true; }
+        if (p.kind !== "site" && d >= cosNear && d > nd) { nd = d; nearest = p; }
+      }
+      if (!named && nearest) out.add(nearest.id);
+    }
+    return out;
+  }
   function markScale(kind) { return kind === "hill" ? 0.75 : 1; }   // a hill is the smaller triangle, as it was
   function markLayer(kind, f) { return POLITY_KIND.test(kind || "") ? 2 : f === 2 ? 1 : 0; }   // a stack is a place's layer (its own or the reader's)
   /* the marks within `radius` px of (x, y): `pts` [{ x, y }] → indices, nearest first (a tie keeps the order given) */
@@ -300,8 +340,14 @@
     }
     return best ? [text.slice(0, best.i), text.slice(best.i + 1)] : null;
   }
-  function labelText(name, aliases) {
+  /* THE BARE NAME (2026-10-17, decision d; the owner's phone: "Kirchberg, Luxembourg" should not name its country): a trailing ", <country>",
+     ", <state or province>" or ", <region>" qualifier is not part of the name a label shows — "Kirchberg", "Folsom", "Cures". The popup and the
+     search keep the full, qualified name. `o.qualified` keeps the qualifier: the worker sets it when two names on one layout share a bare name
+     (two "Alexandria"s on screen at once keep "Alexandria, Egypt" and "Alexandria, Virginia"). */
+  function bareName(text) { const t = stripParen(String(text || "")), i = t.indexOf(", "); return i > 0 ? t.slice(0, i) : t; }   // "Abydos, Egypt" and "Abydos (Hellespont)" share the bare name "Abydos"
+  function labelText(name, aliases, o) {
     const full = String(name || ""); let text = stripParen(full);
+    if (!(o && o.qualified)) text = bareName(text);
     if (text.length > LABEL_SHORT) { const s = shortName(full, aliases); if (s) text = s; }
     const lines = text.length > LABEL_WRAP ? splitAtMiddle(text) : null;
     return { text, lines, full };
@@ -513,7 +559,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, LABEL_WRAP, LABEL_SHORT, labelText, shortName, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);

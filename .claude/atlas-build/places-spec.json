@@ -1549,8 +1549,8 @@
   },
   "pl:q1163924": {
    "name": "Celaenae",
-   "kind": "site",
-   "sub": "site",
+   "kind": "city",
+   "sub": "",
    "qid": "Q1163924",
    "at": [
     30.1656,
@@ -1579,7 +1579,8 @@
      "how": "site",
      "km": 0.1
     }
-   ]
+   ],
+   "kindWas": "site/site"
   },
   "pl:q1165562": {
    "name": "Kuk Swamp",
@@ -3095,8 +3096,8 @@
   },
   "pl:q13498": {
    "name": "Taranto",
-   "kind": "site",
-   "sub": "site",
+   "kind": "city",
+   "sub": "",
    "qid": "Q13498",
    "at": [
     17.2431,
@@ -3128,7 +3129,8 @@
      "name": "Taras, Italy",
      "how": "toponym"
     }
-   ]
+   ],
+   "kindWas": "site/site"
   },
   "pl:q1349884": {
    "name": "Shou County",
@@ -3499,8 +3501,8 @@
   },
   "pl:q13670": {
    "name": "Syracuse, Sicily",
-   "kind": "site",
-   "sub": "site",
+   "kind": "city",
+   "sub": "",
    "qid": "Q13670",
    "at": [
     15.2875,
@@ -3531,7 +3533,8 @@
      "name": "Ancient Syracuse",
      "how": "toponym"
     }
-   ]
+   ],
+   "kindWas": "site/site"
   },
   "pl:q13695": {
    "name": "Tenochtitlan",
@@ -4923,8 +4926,8 @@
   },
   "pl:q16869": {
    "name": "Constantinople",
-   "kind": "site",
-   "sub": "site",
+   "kind": "city",
+   "sub": "",
    "qid": "Q16869",
    "at": [
     28.976,
@@ -4953,7 +4956,8 @@
      "how": "site",
      "km": 0.7
     }
-   ]
+   ],
+   "kindWas": "site/site"
   },
   "pl:q168782": {
    "name": "Tobolsk",
@@ -9678,8 +9682,8 @@
   },
   "pl:q290097": {
    "name": "Baiae",
-   "kind": "site",
-   "sub": "site",
+   "kind": "city",
+   "sub": "",
    "qid": "Q290097",
    "at": [
     14.0697,
@@ -9698,7 +9702,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q29019": {
    "name": "Dendera",
@@ -10063,8 +10068,8 @@
   },
   "pl:q3138": {
    "name": "Trier",
-   "kind": "site",
-   "sub": "site",
+   "kind": "city",
+   "sub": "",
    "qid": "Q3138",
    "at": [
     6.6394,
@@ -10086,7 +10091,8 @@
     "via": "title",
     "km": 0.2
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q319114": {
    "name": "Dunhuang",
@@ -11096,8 +11102,8 @@
   },
   "pl:q3782078": {
    "name": "Isandlwana",
-   "kind": "mountain",
-   "sub": "",
+   "kind": "site",
+   "sub": "battle",
    "qid": "Q3782078",
    "at": [
     30.6528,
@@ -11115,7 +11121,10 @@
     "via": "title",
     "km": 0.8
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "mountain",
+   "forced": true,
+   "reason": "Isandlwana is the battle of 1879 the card is about, not the hill (owner's decision e, 2026-10-17)"
   },
   "pl:q3792526": {
    "name": "Ikuvium",
@@ -11360,8 +11369,8 @@
   },
   "pl:q3869982": {
    "name": "Naissus",
-   "kind": "site",
-   "sub": "site",
+   "kind": "city",
+   "sub": "",
    "qid": "Q3869982",
    "at": [
     21.8939,
@@ -11381,7 +11390,8 @@
     "via": "title",
     "km": 0.5
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "site/site"
   },
   "pl:q38888": {
    "name": "Olympia, Greece",
@@ -12558,8 +12568,8 @@
   },
   "pl:q49693597": {
    "name": "Mesa Verde",
-   "kind": "hill",
-   "sub": "",
+   "kind": "site",
+   "sub": "site",
    "qid": "Q49693597",
    "at": [
     -108.5172,
@@ -12577,7 +12587,10 @@
     "km": 4.5
    },
    "cards": 1,
-   "kindWas3c": "mountain"
+   "kindWas3c": "mountain",
+   "kindWas": "hill",
+   "forced": true,
+   "reason": "Mesa Verde is the archaeological site of the cliff dwellings the cards are about, not the mesa as a hill (owner's decision e, 2026-10-17)"
   },
   "pl:q497115": {
    "name": "Frombork",
@@ -16280,31 +16293,6 @@
    },
    "cards": 2
   },
-  "pl:q751907": {
-   "name": "Heian-kyō",
-   "kind": "site",
-   "sub": "building",
-   "qid": "Q751907",
-   "at": [
-    135.7667,
-    35
-   ],
-   "within": "city:1159149967",
-   "aliases": [],
-   "wiki": "Heian-kyō",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q27554677",
-     "Q11643523",
-     "Q1074523",
-     "Q1025961"
-    ],
-    "via": "title",
-    "km": 1.3
-   },
-   "cards": 1
-  },
   "pl:q75203": {
    "name": "Liaoyang",
    "kind": "city",
@@ -18462,6 +18450,18 @@
     }
    ]
   },
+  "city:1159149967": {
+   "aliases": [
+    "Heian-kyō"
+   ],
+   "merged": [
+    {
+     "qid": "Q751907",
+     "name": "Heian-kyō",
+     "how": "site"
+    }
+   ]
+  },
   "city:1159150037": {
    "aliases": [
     "Massalia"
@@ -18552,7 +18552,12 @@
    ]
   }
  },
- "merges": {},
+ "merges": {
+  "pl:q751907": {
+   "into": "city:1159149967",
+   "reason": "Heian-kyō is the Heian-period name of Kyoto: one place, one set of cards (owner's decision e, 2026-10-17)"
+  }
+ },
  "glossary": {
   "Afar_Region": "pl:q193494",
   "Alaska": "reg:1159104349",

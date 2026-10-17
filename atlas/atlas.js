@@ -52,9 +52,10 @@
         createImageBitmap (colorSpaceConversion "none", premultiplyAlpha "none"), composed into one
         RGB array by the worker (an OffscreenCanvas) and uploaded; L1 tiles for the view likewise, in
         the same LRU. A phone (coarse pointer, short side under 768 px) never fetches level 2 (Q-M1 a)
-        — a level the shipped pyramid does not carry anyway (§7 "Phase 1b — as built"). Relief fades
-        out as the zoom passes the finest level's texel: full at RELIEF_FADE[0] km/px, gone at
-        RELIEF_FADE[1]; it is a regional-scale wash, not terrain at street zoom.
+        — a level the shipped pyramid does not carry anyway (§7 "Phase 1b — as built"). The relief is
+        drawn at EVERY zoom down to the cap (the owner's decision of 2026-10-17, a): past the finest
+        level's texel the finest level is drawn, bilinear, as a regional-scale wash — it is never faded
+        out (RELIEF_FADE, which took it to nothing below 1 km/px, is gone).
 
    THE VIEW is a centre (lon, lat), a zoom and the layer flags. The rotation matrix R maps a unit
    vector on the earth to view space (x right, y up, z toward the viewer): R's rows are the right,
@@ -64,7 +65,7 @@
    follows kilometres per pixel: a level is used while its simplification tolerance is at most half
    a pixel — LOD 0 above 16 km/px, 1 above 5, 2 above 1, 3 above 0.5, 4 to the cap of 0.15 km/px
    (Q-A6 a), where the finest tolerance (75 m) is half a pixel and the quantum a fifth. Rivers are
-   drawn down to RIVER_MIN_KM_PER_PX and smoothed past LOD 2 (§7 "Phase 1b — as built" says where
+   drawn at every zoom down to the cap (2026-10-17, decision a) and smoothed past LOD 2 (§7 "Phase 1b — as built" says where
    their chords would show and why).
 
    FRAME ACCOUNTING for .claude/test-atlas-perf.js: the controller keeps the last 600 frame times
@@ -84,9 +85,7 @@
   const ADMIN1_KM_PER_PX = 4;                // admin-1 borders are drawn below this
   const TILE_CACHE = 96, TILE_PARALLEL = 6;
   const WATER_TILE_CACHE = 64;
-  const RIVER_MIN_KM_PER_PX = 0.35;          // rivers are not drawn closer than this (chords of a 1:10M line would show; §7 Phase 1b)
   const RELIEF_L1_KM_PER_PX = 6;             // L1 patches are wanted below this (L0's texel is 9.8 km: under two pixels here)
-  const RELIEF_FADE = [2.5, 1.0];            // km/px: full strength above the first, gone below the second (L1's texel is 4.9 km)
   const RELIEF_CACHE = 10;                   // L0 + up to nine L1 tiles resident (2048² RGB is 12 MB each on the GPU)
   const LAYERS_KEY = "folio_atlas2_layers_v2";   // v2 (Phase 1c): the legend's fields replace the layers control's
   const PERF_KEY = "folio_atlas2_perf";           // Phase 2a: the About sheet's "Show frame statistics" switch
@@ -266,7 +265,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "88317a7d1e:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "854809d277:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -808,18 +807,18 @@
       } else { view.tiles = []; view.parents = []; }
       // water: fetched the first time rivers or lakes are on; tiles for the lakes past 1 km/px
       if ((view.rivers || view.lakes) && !waterStarted && topologyIn) startWater();   // after the land has arrived (topologyIn): the water file (4.3 MB) must not share a slow link with the 3 MB the first globe is waiting for
-      view.rivers = layers.rivers && k >= RIVER_MIN_KM_PER_PX;
+      view.rivers = layers.rivers;   // at every zoom down to the cap (2026-10-17, decision a; the smoothed level-2 list is the finest the data has — it was switched off below 0.35 km/px)
       view.lakes = layers.lakes;
       view.smoothRivers = view.level >= 3;
       if (view.lakes && view.level >= 3 && waterIndex) { view.waterTiles = cellsFor(waterIndex.cols, waterIndex.rows, waterIndex.present, box).map((x) => "w:" + x); waterTiles.want(view.waterTiles); }
       else view.waterTiles = [];
-      // relief: L0 once on; L1 patches for the view; the fade past the finest level's texel
+      // relief: L0 once on; L1 patches for the view; never faded out — the finest level is drawn down to the cap (2026-10-17, decision a)
       // at stage 2 of the adaptive degradation a live gesture draws no relief either (the hillshade is two full-disc passes on a
       // software GPU); it returns with the release frame, as the finer level does
       view.relief.on = layers.relief && !bias; view.relief.strength = layers.strength;
       if (layers.relief && !reliefStarted) startRelief();
-      view.relief.fade = Math.max(0, Math.min(1, (k - RELIEF_FADE[1]) / (RELIEF_FADE[0] - RELIEF_FADE[1])));
-      if (layers.relief && reliefIndex && view.relief.fade > 0 && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
+      view.relief.fade = 1;
+      if (layers.relief && reliefIndex && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
       else view.relief.tiles = [];
       stats.level = view.level;
       refreshOnScreen();   // with the rotation and the level of THIS view (the ticks, [ ] and the "no states" note follow the view)
@@ -1963,7 +1962,8 @@
     }
 
     /* ---- sprites: a label rendered once, glyph by glyph, halo then ink, at its layout position ---- */
-    let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "";
+    let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "", haloDark = false;
+    const HALO_W = 2.6, HALO_W_DARK = 3.2;   // CSS px of halo stroke (both sides of a glyph): wider in a dark theme (decision c, 2026-10-17), where the dark halo is what keeps a light name legible over the lighter sea and the relief
     const markSprites = new Map(), MARK_SPRITE_MAX = 400;   // the study marks' glyph bitmaps (markSprite, below); cleared with the colours
     function labelColours() {
       const { ink, paper, paper2, indigo, ochre, dark } = themeTokens();
@@ -1972,7 +1972,17 @@
       inkCss = hex(ink);
       // water names: a deep blue-ink in a light theme, a pale blue in a dark one — read against both the sea and the land
       waterCss = hex(dark ? mix([0.55, 0.8, 1], paper, 0.12) : mix(ink, [31 / 255, 122 / 255, 170 / 255], 0.5));
-      selCss = hex(dark ? mix(paper, ochre, 0.5) : mix(ink, ochre, 0.55));
+      /* the reader's own and the selected names (2026-10-17, decision c; the owner's phone: "brown text with a black outline" in dark mode): in a light
+         theme the ochre darkened toward the ink; in a DARK theme it was the ochre darkened toward the paper — #6b5b4d on folio's night, 2.8:1 against
+         its own halo. Now the ochre is lightened toward white until it reads at least 7:1 against the halo and 4.5:1 against the land and the sea
+         (`readPalette`'s fills) — light text on a dark halo, as every other name is; the marks keep the ochre fill and the ink outline */
+      if (dark) {
+        const pal = readPalette(), lum = (c) => { const f = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
+        const cr = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+        let c = ochre; for (let i = 0; i < 24 && (cr(c, paper) < 7.2 || cr(c, pal.land) < 4.7 || cr(c, pal.ocean) < 4.7); i++) c = mix(c, [1, 1, 1], 0.1);
+        selCss = hex(c);
+      } else selCss = hex(mix(ink, ochre, 0.55));
+      haloDark = dark;
       accentCss = hex(ochre);   // the fill of the reader's own marks (Phase 3b)
       markSprites.clear();   // the glyph sprites carry these colours (the frame gate, 2026-10-17)
       void paper2; void indigo;
@@ -1998,7 +2008,7 @@
       const x = c.getContext("2d");
       x.scale(dprNow, dprNow); x.translate(-x0, -y0);
       x.textBaseline = "middle"; x.textAlign = "left"; x.lineJoin = "round"; x.lineCap = "round";
-      x.lineWidth = (p.id === sel.id ? 3.4 : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : 2.6) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
+      x.lineWidth = (p.id === sel.id ? (haloDark ? 4 : 3.4) : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : haloDark ? HALO_W_DARK : HALO_W) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
       const fontBig = fontOf(st, st.size * LS), fontSmall = st.caps ? fontOf(st, st.size * LS * SMALL_SCALE) : fontBig;
       for (const pass of [0, 1]) {   // every halo first, then every glyph, so a halo never bites a neighbour
         for (let i = 0; i < p.glyphs.length; i++) {
@@ -2027,9 +2037,9 @@
        the others hollow, a thin ink outline on both so two marks that touch still read as two. DRAW ORDER, back to front: places not
        studied, places studied, polities, and the selected mark last. The marks of one kind in one layer are one path (a fill and a
        stroke for all of them), so a Full Atlas of 1,300 places and 190 polities is a handful of canvas calls a frame. */
-    /* THE SEVEN GLYPHS (decision e, 2026-10-17; AtlasStudy.MARK_CLASSES): a disc (a city or town), a diamond (a site or cave), a saltire (a battle),
-       a triangle (a mountain, hill or cape), a square (a building, monument or wall), a star (a state, people or culture), a ring with a count (a city
-       stack). Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
+    /* THE EIGHT GLYPHS (decision e, 2026-10-17, and decision b of the same day; AtlasStudy.MARK_CLASSES): a square (a capital, present or past), a disc (a city or
+       town), a diamond (a site or cave), a saltire (a battle), a triangle (a mountain, hill or cape), a house — a pointed-top pentagon — (a building, monument or
+       wall), a star (a state, people or culture), a ring with a count (a city stack). Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
        The same geometry draws the Legend's key (`glyphSVG`), so the key cannot drift from the map. */
     const SQ = Math.SQRT1_2, CROSS_T = 0.34;   // the saltire's bar half-width, as a share of the half-extent
     function markInto(path, shape, x, y, h, lw) {
@@ -2037,6 +2047,7 @@
       if (shape === "diamond") { path.moveTo(x, y - q); path.lineTo(x + q, y); path.lineTo(x, y + q); path.lineTo(x - q, y); path.lineTo(x, y - q); }
       else if (shape === "triangle") { path.moveTo(x, y - q); path.lineTo(x + q, y + q * 0.85); path.lineTo(x - q, y + q * 0.85); path.lineTo(x, y - q); }
       else if (shape === "square") { const s = q * 0.86; path.moveTo(x - s, y - s); path.lineTo(x + s, y - s); path.lineTo(x + s, y + s); path.lineTo(x - s, y + s); path.lineTo(x - s, y - s); }
+      else if (shape === "house") { const s = q * 0.8, t = q * 0.3; path.moveTo(x, y - q); path.lineTo(x + s, y - t); path.lineTo(x + s, y + q * 0.9); path.lineTo(x - s, y + q * 0.9); path.lineTo(x - s, y - t); path.lineTo(x, y - q); }   // a pointed-top pentagon: the building (decision b, 2026-10-17 — the square is the capital's)
       else if (shape === "cross") { const t = q * CROSS_T, s = q * 1.08; let first = true; for (const [px, py] of [[-t, -s], [t, -s], [t, -t], [s, -t], [s, t], [t, t], [t, s], [-t, s], [-t, t], [-s, t], [-s, -t], [-t, -t], [-t, -s]]) { const rx = (px - py) * SQ, ry = (px + py) * SQ; if (first) { path.moveTo(x + rx, y + ry); first = false; } else path.lineTo(x + rx, y + ry); } }
       else if (shape === "star") { const ro = q * 1.08, ri = q * 0.46; for (let i = 0; i <= 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? ri : ro; if (i) path.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); else path.moveTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); } }
       else { const rr = q * 0.92; path.moveTo(x + rr, y); path.arc(x, y, rr, 0, Math.PI * 2); }   // a disc, and a stack's ring (its count is drawn over it)
@@ -2054,7 +2065,7 @@
        for the same shapes ending in an explicit lineTo to their start (measured, headless, 2026-10-14) — a Full Atlas of a thousand marks
        is the difference between a third of a frame and none of it. The round line cap closes the outline's corner. */
     const markLine = (half) => (half < 3 ? 1 : half < 6 ? 1.5 : 2);
-    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, star: 5, stack: 6 };   // seven shapes, a batch each
+    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, star: 5, stack: 6, house: 7 };   // eight shapes, a batch each
     /* the marks of a layout, indexed for the frame loop: one flat array of unit vectors and the groups (layer, reader's own or not, shape,
        hill or not) each drawn as ONE path — so a frame projects each mark once, allocates nothing, and is a fill and a stroke per group */
     function indexMarks() {
@@ -2726,10 +2737,11 @@
        step data, never a guess (`yearsNote`). */
     let results = [], active = -1;
     const KIND_ORDER = { country: 0, capital: 1, polity: 1, people: 1, culture: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5, site: 5, mountain: 5, hill: 6, cape: 6 };
-    const PX = { state: 0, rows: [], caps: [], ranges: new Map() };   // state 0 not asked, 1 loading, 2 in, 3 failed
-    function loadPolityIndex() {
-      if (PX.state) return; PX.state = 1;
-      loadScript(opts.polityIndexUrl || "atlas/data/polity-index.js").then(() => {
+    const PX = { state: 0, rows: [], caps: [], ranges: new Map(), promise: null };   // state 0 not asked, 1 loading, 2 in, 3 failed
+    function loadPolityIndex() {   // returns a promise that never rejects (the study layer waits for it: the capitals' squares, decision b of 2026-10-17)
+      if (PX.state) return PX.promise || Promise.resolve();
+      PX.state = 1;
+      return PX.promise = loadScript(opts.polityIndexUrl || "atlas/data/polity-index.js").then(() => {
         if (disposed) return;
         const X = root.ATLAS_POLITY_INDEX; if (!X || !Array.isArray(X.polities)) { PX.state = 3; return; }
         const taken = new Set(G.rows.map((r) => r.key));
@@ -2969,9 +2981,18 @@
       return n;
     }
     const POINT_KIND = /^(capital|city|town|site|mountain|hill|cape)$/;
+    /* the registry's capitals (decision b, 2026-10-17): the gazetteer's present-day capitals by kind, and every period capital of polity-index.js
+       (history.bin's own capital statements) joined to its registry row by name — AtlasStudy.capitalIds. Computed once the index is in (loadStudy
+       waits for it); a copy that never arrives (file://, a refused fetch) leaves only the gazetteer's capitals square */
+    let capSet = null;
+    function registryCapitals() {
+      if (capSet) return capSet;
+      const X = root.ATLAS_POLITY_INDEX, caps = X && Array.isArray(X.capitals) ? X.capitals : [];
+      return capSet = AS.capitalIds(G.rows.filter((r) => r.at && POINT_KIND.test(r.kind)), caps);
+    }
     // what the worker needs of a place it has no geometry for: a mark (a point kind, from either file) or a name at a point (an area of places.js)
     function sendStudyRows() {
-      const rows = [];
+      const rows = [], caps = registryCapitals();
       const names = {};   // the parents (a city a site is within) that are not study rows themselves: what a stack is called
       for (const id of ST.idx.ids) {
         const row = G.byId.get(id); if (!row || !row.at || id.startsWith("pol:")) continue;
@@ -2979,14 +3000,14 @@
         if (!POINT_KIND.test(row.kind) && !own) continue;   // a gazetteer area is drawn by the ordinary pass, flagged only
         const par = row.within && typeof row.within === "string" ? G.byId.get(row.within) : null;   // a gazetteer row's `within` is a country index, not a parent place
         if (par) names[par.id] = par.name;
-        rows.push({ id, name: row.name, aliases: Array.isArray(row.aliases) ? row.aliases.slice(0, 8) : [], kind: row.kind, sub: row.sub || "", lon: row.at[0], lat: row.at[1], n: (ST.idx.cardsOfPlace.get(id) || []).length, pd: !own && POINT_KIND.test(row.kind), within: par ? par.id : "", pk: par ? par.kind : "" });
+        rows.push({ id, name: row.name, aliases: Array.isArray(row.aliases) ? row.aliases.slice(0, 8) : [], kind: row.kind, sub: row.sub || "", cap: caps.has(id), lon: row.at[0], lat: row.at[1], n: (ST.idx.cardsOfPlace.get(id) || []).length, pd: !own && POINT_KIND.test(row.kind), within: par ? par.id : "", pk: par ? par.kind : "" });
       }
       postToWorker({ type: "study-rows", rows, names });
     }
     function loadStudy() {
       if (!SU || !AS || ST.ready || ST.loading) return;
       ST.loading = true; renderStudyPanel();
-      Promise.all([loadScript(opts.placesUrl || "atlas/data/places.js"), loadScript(opts.cardPlacesUrl || "atlas/data/card-places.js")]).then(() => {
+      Promise.all([loadScript(opts.placesUrl || "atlas/data/places.js"), loadScript(opts.cardPlacesUrl || "atlas/data/card-places.js"), loadPolityIndex()]).then(() => {   // the index (20 KB) for the capitals' squares (decision b); its promise never rejects
         if (disposed) return;
         const t0 = performance.now();
         registerPlaces(root.ATLAS_PLACES); const t1 = performance.now();
@@ -3142,7 +3163,7 @@
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
       R.dispose();
     }
-    // the Legend's key of the seven glyphs (decision e): built from AtlasStudy.MARK_CLASSES with the map's own geometry
+    // the Legend's key of the eight glyphs (decision e; the capital's square and the building's house, decision b): built from AtlasStudy.MARK_CLASSES with the map's own geometry
     { const key = el.querySelector(".atlas2-marks-key"), A0 = root.AtlasStudy; if (key && A0 && A0.MARK_CLASSES) key.innerHTML = A0.MARK_CLASSES.map((c) => `<div data-cls="${escText(c.cls)}"><dt>${glyphSVG(c.shape)}</dt><dd>${escText(c.word)}</dd></div>`).join(""); }
     setPerf(perfOn);   // after the label state exists: the overlay reads it (Phase 1c)
     try { paintWarsKey(); } catch (e) { /* before the time block */ }
@@ -3216,7 +3237,7 @@
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
-      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss }),
+      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, shut: cardEl.classList.contains("atlas2-card-shut") }),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,

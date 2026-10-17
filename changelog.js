@@ -35,13 +35,18 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1026", released: "2026-10-17T14:41Z" };
+window.FOLIO_VERSION = { v: "1.1027", released: "2026-10-17T16:01Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-17",
     t: "The Personal Atlas shows only your own states",
     items: [
+      "<b>Atlas rivers and relief</b>: both stay drawn all the way in to the closest zoom — rivers used to vanish past 0.35 km a pixel and the relief faded out past 1 km.",
+      "<b>Atlas in dark mode</b>: the names of your own places and of the selected place are light on a dark halo like every other name (they were a muddy brown), and the halo is a little wider.",
+      "<b>Atlas names</b>: a place's label shows its own name only — “Kirchberg”, not “Kirchberg, Luxembourg” — unless two places of that name are on screen together; the popup and the search keep the full name.",
+      "<b>Atlas places</b>: Heian-kyō is a name of Kyoto; Taranto, Syracuse and Trier are living cities, not sites; Mesa Verde is a site and Isandlwana a battle.",
+      "<b>Atlas marks</b>: a capital, present or past, is a square (Babylon, Constantinople and Chang'an included), and a building, monument or wall is a little house — the Legend lists both.",
       "<b>Personal Atlas</b>: a state or a people is named, marked and coloured only when a card you have studied links it; the rest is plain land with its borders, and the Full Atlas shows everything.",
       "<b>Atlas tapping</b>: a place, a state or a sea opens a popup only when a card is about it (in the Personal Atlas, one of yours); a tap on a desert, open water or a name with no card does nothing.",
       "<b>Atlas popups</b>: a place's popup lists its cards as rows — the title, the deck and whether it is due — each opening the card; the Personal Atlas says how many more the Full Atlas has.",

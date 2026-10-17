@@ -368,7 +368,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await mode(page, "full");
     // the Legend
     const key = await page.$$eval(".atlas2-marks-key > div", (ds) => ds.map((d) => ({ cls: d.getAttribute("data-cls"), word: d.querySelector("dd").textContent.trim(), svg: !!d.querySelector("svg path"), d: d.querySelector("svg path").getAttribute("d").length })));
-    check("the Legend lists the seven classes, each with its glyph drawn (an SVG path) and its words", key.length === 7 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
+    check("the Legend lists the eight classes (a capital's square since decision b, 2026-10-17), each with its glyph drawn (an SVG path) and its words", key.length === 8 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
     await shot(page, "glyphs-east-med");
     allErrors.push(...errors); await ctx.close();
   }
@@ -493,6 +493,46 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
       console.log(`  (${name} at ${k} km/px: ${here} names with a mark of their own among ${lb.length} names and ${lv.length} marks)`);
     }
     check(`over ${pairs} name-and-mark pairs no label box covers more than 10 % of its own mark's box`, pairs >= 20 && bad.length === 0, JSON.stringify(bad.slice(0, 5)));
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 10  the owner's feedback of 2026-10-17: capitals, the house, bare names, the kinds */
+  console.log("\n\x1b[1m10) 2026-10-17: a capital is a square and a building a house (b); a label drops its ', <country>' qualifier, the popup keeps it (d); the kinds decided (e)\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, READER);
+    await mode(page, "full"); await year(page, 2025);
+    const markOf = async (id) => (await marks(page)).find((m) => m.id === id) || null;
+    // (b) Babylon: a site that was a capital (the registry's statements) wears the capital's square; Rome's stack still a ring
+    await view(page, 44.42, 32.54, 3);
+    const bab = await markOf("pl:q5684");
+    check("Babylon (a site, the capital of Babylonia by the registry's statements) is drawn as a SQUARE: the capital class wins over the site's diamond", !!bab && bab.cls === "capital" && bab.marker === "square", JSON.stringify(bab));
+    // a building is a house: the Pantheon's region holds buildings — any building mark on screen is a house, and no mark is a building square
+    await view(page, 12.5, 41.9, 3);
+    const mk = await marks(page);
+    const houses = mk.filter((m) => m.cls === "building"), caps = mk.filter((m) => m.cls === "capital");
+    check("over Latium every building mark is a HOUSE (a pointed-top pentagon) and every capital mark a square (" + houses.length + " buildings, " + caps.length + " capitals)", houses.length >= 1 && houses.every((m) => m.marker === "house") && caps.length >= 1 && caps.every((m) => m.marker === "square"), houses.slice(0, 3).map((m) => m.id + ":" + m.marker).join(" ") + " | " + caps.slice(0, 3).map((m) => m.id + ":" + m.marker).join(" "));
+    const key = await page.evaluate(() => [...document.querySelectorAll(".atlas2-marks-key > div")].map((d) => ({ cls: d.dataset.cls, d: (d.querySelector("path") || {}).getAttribute ? d.querySelector("path").getAttribute("d") : "", word: d.querySelector("dd").textContent })));
+    const kc = key.find((k) => k.cls === "capital"), kb = key.find((k) => k.cls === "building");
+    check("the Legend lists the capital (a square) and the building (a house) with different glyphs", !!kc && !!kb && kc.d !== kb.d && /capital/i.test(kc.word) && /building/i.test(kb.word), key.map((k) => k.cls).join(","));
+    // (d) the bare name on the label, the full name in the popup
+    for (const c of [{ id: "pl:q583718", name: "Kirchberg, Luxembourg", text: "Kirchberg", view: [6.1456, 49.6275, 1.5] }, { id: "pl:q1435589", name: "Folsom, New Mexico", text: "Folsom", view: [-103.9181, 36.8481, 1.5] }, { id: "pl:q2246183", name: "Cures, Sabinum", text: "Cures", view: [12.6866, 42.1825, 0.7] }]) {
+      await view(page, c.view[0], c.view[1], c.view[2]);
+      const lab = (await labels(page)).find((p) => p.id === c.id);
+      check("'" + c.name + "' is labelled \"" + c.text + "\"", !!lab && lab.text === c.text, lab ? lab.text : "not placed");
+      await A(page, (c, id) => c.select(id, { open: true }), c.id); await sleep(250);
+      check("…its popup carries the full name", (await page.$eval(".atlas2-card-title", (e) => e.textContent)) === c.name, await page.$eval(".atlas2-card-title", (e) => e.textContent));
+      await A(page, (c) => c.clearSelection());
+    }
+    // (e) the kinds: Taranto a city (its mark a settlement's or a capital's, never a site's), Isandlwana a battle, Mesa Verde a site
+    await view(page, 17.2431, 40.4711, 3);
+    const tar = await markOf("pl:q13498");
+    check("Taranto is a living city: a disc (or a capital's square), not a site's diamond", !!tar && (tar.cls === "settlement" || tar.cls === "capital") && tar.marker !== "diamond", JSON.stringify(tar));
+    await view(page, 30.6528, -28.3589, 3);
+    const isa = await markOf("pl:q3782078");
+    check("Isandlwana is a battle: a saltire", !!isa && isa.cls === "battle" && isa.marker === "cross", JSON.stringify(isa));
+    await view(page, -108.5172, 37.15, 3);
+    const mv = await markOf("pl:q49693597");
+    check("Mesa Verde is a site: a diamond", !!mv && mv.cls === "site" && mv.marker === "diamond", JSON.stringify(mv));
     allErrors.push(...errors); await ctx.close();
   }
 

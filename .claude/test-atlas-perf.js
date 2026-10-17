@@ -186,14 +186,14 @@ function ruleSelfTest() {
    segments measured 2026-10-08 on the Phase 1a build (globe 42,529 / 19,917; Europe 133,348 / 101,049;
    the Aegean 25,892 / 22,750; the Aegean at the cap 20,366 / 18,297); river segments, lake-shore segments
    and lake-fill triangles measured 2026-10-08 on the Phase 1b build (globe 2,674 / 3,002 / 2,612; Europe
-   22,173 / 71,465 / 64,628; the Aegean 4,390 / 2,381 / 2,157; the cap 0 / 1,708 / 1,553 — rivers are not
-   drawn at the cap), each rounded up by a quarter. A view is (lon, lat, km per pixel). */
+   22,173 / 71,465 / 64,628; the Aegean 4,390 / 2,381 / 2,157; the cap 0 / 1,708 / 1,553 — rivers were not
+   drawn at the cap until 2026-10-17, decision a: 3,268 since), each rounded up by a quarter. A view is (lon, lat, km per pixel). */
 const HIST_BUDGET_1500 = [36000, 1400], HIST_BUDGET_1900 = [32000, 1500];   // measured 2026-10-10 on the 2b file at 1280×800, 3 km/px, with the on-screen faces' meshes and borders: 28,783 fill triangles and 1,078 border segments in 1500 (14 of 27 alive faces on screen), 25,547 and 1,131 in 1900, each rounded up by a quarter
 const VIEWS = [
   { name: "globe", marks: 1300, lon: 10, lat: 20, kmpp: 24.0, tri: 54000, seg: 25000, river: 3400, lakeSeg: 3800, lakeTri: 3300 },
   { name: "Europe", marks: 220, lon: 10, lat: 50, kmpp: 3.0, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600 },
   { name: "Aegean", marks: 80, lon: 25, lat: 38, kmpp: 0.5, tri: 33000, seg: 29000, river: 5500, lakeSeg: 3000, lakeTri: 2700 },
-  { name: "Aegean at the cap", marks: 3, lon: 25, lat: 38, kmpp: 0.15, tri: 26000, seg: 23000, river: 0, lakeSeg: 2200, lakeTri: 2000 },
+  { name: "Aegean at the cap", marks: 3, lon: 25, lat: 38, kmpp: 0.15, tri: 26000, seg: 23000, river: 4100, lakeSeg: 2200, lakeTri: 2000 },   // river: 3,268 smoothed segments measured 2026-10-17, + a quarter — the rivers are drawn to the cap since decision a (the budget was 0: "rivers are not drawn at the cap")
   { name: "Mediterranean, 1 CE", marks: 600, lon: 15, lat: 38, kmpp: 6.0, year: 1, tri: 90000, seg: 60000, river: 13000, lakeSeg: 30000, lakeTri: 27000, histTri: 8800, histSeg: 700 },   // 2b: 6,974 fill triangles in 8 faces, 542 border segments (the borders of the faces on screen only; 2a drew every border of the level's buckets: 20,988)
   // Phase 2b: Europe in 1500 and in 1900 at 3 km/px (the land budgets are Europe's above; the history budgets measured on the 2b file, × 1.25)
   { name: "Europe, 1500", marks: 150, lon: 10, lat: 50, kmpp: 3.0, year: 1500, tri: 167000, seg: 127000, river: 27700, lakeSeg: 69900, lakeTri: 63600, histTri: HIST_BUDGET_1500[0], histSeg: HIST_BUDGET_1500[1] },

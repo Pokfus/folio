@@ -245,6 +245,18 @@ console.log("\n2c) Phase 3c: island and polis, Wikidata-linked period settlement
   check("3c: the real registry's period-pair folds are at a fixed point (the idempotence check above)", realUsed.length > 0);
 }
 
+console.log("\n2d) decision e (2026-10-17): a living city never becomes a site because it carries \"tourist destination\" or \"ancient city\"\n");
+{
+  const real = M.loadCache().classes, K = (cls) => M.kindOf({ classes: real }, cls);
+  const POLIS = "Q148837", ANCIENT = "Q15661340", TOURIST = "Q1200957", CITY = "Q515", BIG = "Q1549591", COMUNE = "Q747074", ARCH = "Q839954";
+  check("Taranto and Syracuse (city, polis, comune, tourist destination, big city) are cities, not sites of the tourist-destination top", K([CITY, POLIS, COMUNE, TOURIST, BIG]).kind === "city");
+  check("Trier (an urban district and urban municipality of Germany, an ancient city, a big city) is a city: the ancient-city class and what it reaches are set aside for a living city", K(["Q85632032", "Q42744322", ANCIENT, BIG, "Q134626"]).kind === "city");
+  check("an item that is nothing but an ancient city, or a polis, stays the ancient city it is (a site)", K([ANCIENT]).kind === "site" && K([POLIS]).kind === "site" && K([ANCIENT, TOURIST]).kind === "site");
+  check("an archaeological-site class carried DIRECTLY still makes a city a site", K([CITY, ARCH]).kind === "site");
+  check("a 'former settlement' (Saticula), a 'submerged settlement' with no living class, a 'historical country' or a 'city-state' (Alba Longa) is not a living city: it stays a site", K(["Q22674925", ANCIENT]).kind === "site" && K([ANCIENT, "Q3024240", "Q133442"]).kind === "site" && K(["Q20616831", ANCIENT]).kind === "site");
+  check("a frazione (Baiae) or a Serbian city (Naissus) beside the ancient-city class is a living settlement — Wikidata's own word", K(["Q20616831", ANCIENT, "Q1134686"]).kind !== "site" && K(["Q37800986", ANCIENT, BIG, "Q56061"]).kind === "city");
+}
+
 console.log("\n3) the migration is additive\n");
 {
   // the base is HEAD (the working tree against the last commit: a migration run must not have touched an old field), or the
