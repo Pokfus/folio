@@ -242,9 +242,30 @@ function kindOf(cache, classes) {
      destination, and the site row's tops hold "tourist destination" (3a read it as a `site`); a mountain that is also a "tourist
      destination" is a mountain. Only the clean natural rows are read this way. */
   for (const [kind, sub, tops] of TOPS) if (DIRECT_NATURAL.includes(kind) && classes.some((c) => tops.includes(c))) return { kind, sub };
+  /* A LIVING CITY NEVER BECOMES A SITE because it carries "tourist destination" or "ancient city" (the owner's decision e, 2026-10-17: Taranto, Syracuse
+     and Trier are cities). An item is LIVING when its classes OTHER than the period and site ones (a polis, an ancient city, an archaeological site, a
+     tourist destination) reach a settlement top — a city, a town, a municipality, a district (Trier is an "urban district" and an "urban municipality").
+     For such an item those classes are set aside before the first-match rule (not merely their tops: an ancient city reaches "archaeological site"), so
+     its own settlement class decides; an archaeological-site or ruins class carried directly still makes it a site, and an item that is nothing but an
+     ancient city or a polis stays the ancient city it is. */
+  const living = isLiving(cache, classes);
+  const reach = (cls) => reachedOf(living ? cls.filter((c) => !SET_ASIDE.has(c)) : cls);   // a living city's "tourist destination" and "ancient city" (and a polis) decide nothing — nor what they reach (an ancient city reaches "archaeological site")
   const others = classes.filter((c) => c !== Q_POLIS);
-  if (others.length !== classes.length) { const k = first(reachedOf(others)); if (k && !R.ENTITY_KINDS.includes(k.kind)) return k; return { kind: "site", sub: "site" }; }
-  return first(reachedOf(classes));
+  if (others.length !== classes.length) { const k = first(reach(others)); if (k && !R.ENTITY_KINDS.includes(k.kind)) return k; return { kind: "site", sub: "site" }; }
+  return first(reach(classes));
+}
+const Q_TOURIST = "Q1200957";
+const SET_ASIDE = new Set([Q_POLIS, Q_ANCIENT_CITY, Q_TOURIST]);   // a polis, an ancient city, a tourist destination: the classes a living city carries beside its own (an archaeological-site or ruins class carried directly still counts)
+const SETTLEMENT_TOPS = new Set(["Q515", "Q1549591", "Q5119", "Q3957", "Q532", "Q486972", "Q15284", "Q123705", "Q702492"]);   // city, big city, capital, town, village, human settlement, municipality, neighbourhood, urban area
+const NOT_LIVING_LABEL = /\b(former|historical|historic|ancient|submerged|abandoned|ruined|ruins|lost|destroyed|archaeological|deserted|medieval|state|country|polity|empire|kingdom|republic)\b/i;   // a class of a settlement that is no more reaches "human settlement" too, and a polity's class (a city-state, a historical country) reaches "city": each one's own label says so
+function isLiving(cache, classes) {
+  const own = (classes || []).filter((c) => !SET_ASIDE.has(c) && c !== "Q839954" && c !== "Q109577"); if (!own.length) return false;
+  for (const c of own) {
+    if (SETTLEMENT_TOPS.has(c)) return true;   // Wikidata's own word: the item IS a city, a town, a village, a municipality
+    if (NOT_LIVING_LABEL.test((cache.classes[c] || {}).label || "")) continue;   // a former settlement, a submerged settlement, a historical country
+    for (const t of ((cache.classes[c] || {}).tops || [])) if (SETTLEMENT_TOPS.has(t)) return true;
+  }
+  return false;
 }
 /* a candidate that is not a place at all (3a's own rule, stated once): every class it has is one of these — a mint, a diocese, a
    titular see, a conservation area, a museum, a railway or metro station */
