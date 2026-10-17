@@ -50,8 +50,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(100);
 
   console.log("\n\x1b[1m1) the hidden list mirrors the labels\x1b[0m\n");
-  const list = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const placed = c.labels().filter((p) => p.text).slice().sort((a, b) => a.score - b.score).map((p) => p.id); const btns = [...document.querySelectorAll(".atlas2-keys button")]; const box = document.querySelector(".atlas2-keys").getBoundingClientRect(); return { placed, btns: btns.map((b) => ({ id: b.getAttribute("data-id"), text: b.textContent })), w: box.width, h: box.height, clip: getComputedStyle(document.querySelector(".atlas2-keys")).clip }; });
-  check("one button per visible label in rank order, at most 60", list.btns.length === Math.min(60, list.placed.length) && list.btns.every((b, i) => b.id === list.placed[i]), `${list.btns.length} buttons for ${list.placed.length} labels`);
+  const list = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const placed = c.labels().filter((p) => p.text && c.study.tappable(p.id)).slice().sort((a, b) => a.score - b.score).map((p) => p.id); const btns = [...document.querySelectorAll(".atlas2-keys button")]; const box = document.querySelector(".atlas2-keys").getBoundingClientRect(); return { placed, btns: btns.map((b) => ({ id: b.getAttribute("data-id"), text: b.textContent })), w: box.width, h: box.height, clip: getComputedStyle(document.querySelector(".atlas2-keys")).clip }; });
+  // since 2026-10-17 (the tap rules) the list holds only the names a tap may open — those with a card (study.tappable) — in rank order
+  check("one button per visible label a tap may open (a card is about it), in rank order, at most 60", list.btns.length === Math.min(60, list.placed.length) && list.btns.every((b, i) => b.id === list.placed[i]), `${list.btns.length} buttons for ${list.placed.length} labels`);
   check('each button is named "<place>, <kind>"', list.btns.every((b) => /^.+, .+$/.test(b.text)), list.btns.slice(0, 2).map((b) => b.text).join(" | "));
   check("the list is visually hidden (1 px, clipped)", list.w <= 1 && list.h <= 1, `${list.w}×${list.h} ${list.clip}`);
 
@@ -99,7 +100,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const wholly = dropped.filter((l) => after.rects.some((r) => hit(l.box, r))).length;
   const stayed = after.labels.filter((l) => inChrome(l));
   check("every name the list lost lay at the card or a control it moved, and no name in the new layout is more than 12 px inside one", dropped.every(nearChrome) && !stayed.length, `${dropped.length} lost (${wholly} wholly inside a rectangle), ${after.labels.length} placed, ${after.rects.length} chrome rectangles` + (dropped.every(nearChrome) ? "" : " lost far from any: " + JSON.stringify(dropped.filter((l) => !nearChrome(l)).map((l) => [l.id, l.box.map(Math.round)]))) + (stayed.length ? " placed inside: " + JSON.stringify(stayed.map((l) => [l.id, l.box.map(Math.round)])) : ""));
-  check("the list is again one button per visible label in rank order, at most 60", after.ids.length === Math.min(60, after.labels.length) && after.ids.join() === after.labels.slice().sort((a, b) => a.score - b.score).slice(0, 60).map((l) => l.id).join(), `${after.ids.length} buttons`);
+  const tapp = new Set(await page.evaluate(() => document.querySelector(".atlas2").__atlas2.study.tappableIds() || []));
+  const afterTap = after.labels.filter((l) => tapp.has(l.id) || /^stk:/.test(l.id));
+  check("the list is again one button per visible label a tap may open, in rank order, at most 60", after.ids.length === Math.min(60, afterTap.length) && after.ids.join() === afterTap.slice().sort((a, b) => a.score - b.score).slice(0, 60).map((l) => l.id).join(), `${after.ids.length} buttons`);
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(150);
   const again = await snap();
   check("the list is stable once the card is open (a second layout leaves it as it was)", JSON.stringify(again.ids) === JSON.stringify(after.ids), `${again.ids.length} buttons`);

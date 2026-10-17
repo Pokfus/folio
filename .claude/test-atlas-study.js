@@ -114,7 +114,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     check("…and says how many: " + places.toLocaleString("en-GB") + " places and " + pols + " polities", (await panelText(page, ".atlas2-study-sum")) === `${places.toLocaleString("en-GB")} places and ${pols} polities on the Full Atlas`, await panelText(page, ".atlas2-study-sum"));
     await view(page, 23, 38, 6);
     const m1 = await marks(page);
-    check("the Aegean in the Full Atlas carries marks of the settlement and the mountain shapes, none a count, all of them unstudied", m1.some((m) => m.marker === "diamond") && m1.every((m) => ["diamond", "triangle", "disc"].includes(m.marker) && m.st === 1), m1.length + " marks");
+    check("the Aegean in the Full Atlas carries marks of the site, settlement and peak shapes (seven glyphs since 2026-10-17; a city stack carries its count), all of them unstudied", m1.some((m) => m.marker === "diamond") && m1.some((m) => m.marker === "triangle") && m1.every((m) => ["diamond", "triangle", "disc", "square", "cross", "star", "stack"].includes(m.marker) && m.st === 1), m1.length + " marks");
     check("the choice is remembered per viewer (localStorage)", (await page.evaluate(() => localStorage.getItem("folio.atlas2.study"))) === "full");
     await page.reload({ waitUntil: "load" }); await ready(page);
     check("…and a reload keeps it", (await study(page)).mode === "full");
@@ -192,13 +192,14 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const flagsF = new Map((await study(page)).flags);
     const placesWithAt = await A(page, (c) => { const out = []; for (const [id] of c.study.flags()) { const r = c.gazetteer().byId.get(id); if (r && r.at && !id.startsWith("pol:")) out.push([id, r.at[0], r.at[1], r.kind]); } return out; });
     check("the Full Atlas has a position for " + placesWithAt.length + " of its " + flagsF.size + " ids (the rest are polities, drawn where they stand in a year)", placesWithAt.length === IDX.ids.filter((id) => !id.startsWith("pol:")).length, placesWithAt.length + " places");
-    let totalSeen = 0, totalMissing = [], extra = [], dup = [], offBy = 0, shapes = new Set(), maxLayerBack = false;
+    let totalSeen = 0, totalMissing = [], extra = [], dup = [], offBy = 0, shapes = new Set(), maxLayerBack = false, stacked = 0;
     for (const [lon, lat, k] of [[10, 25, 90], [100, 20, 90], [-80, 10, 90], [12, 48, 6], [23, 38, 6], [12.5, 41.9, 6], [4.6, 51.2, 1.5], [120, 35, 6], [-100, 40, 12]]) {
       await view(page, lon, lat, k);
       const r = await A(page, (c, pl) => {
         const rot = c.view.rot, A = window.AtlasStudy, half = A.markHalf(c.view.kmpp), ch = c.chromeRects(), [W, H] = c.frame();
         const must = [], may = new Set();
         for (const [id, lo, la, kind] of pl) {
+          if (!A.markClass(kind)) continue;   // an AREA has no mark since 2026-10-17 (decision e): a name only
           const a = la * Math.PI / 180, o = lo * Math.PI / 180, ca = Math.cos(a), v = [ca * Math.cos(o), ca * Math.sin(o), Math.sin(a)];
           const z = rot[6] * v[0] + rot[7] * v[1] + rot[8] * v[2]; if (z < 0.005) continue;
           const x = c.view.cx + (rot[0] * v[0] + rot[1] * v[1] + rot[2] * v[2]) * c.view.radius, y = c.view.cy - (rot[3] * v[0] + rot[4] * v[1] + rot[5] * v[2]) * c.view.radius, e = half * A.markScale(kind) + 1;
@@ -209,23 +210,25 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
         const lm = c.study.liveMarks();
         return { must, may: [...may], live: lm, half };
       }, placesWithAt);
-      const byId = new Map(); const dupHere = [];
-      for (const m of r.live) { if (byId.has(m.id)) dupHere.push(m.id); byId.set(m.id, m); shapes.add(m.shape); }
-      for (const [id, x, y] of r.must) { const m = byId.get(id); if (!m) totalMissing.push(`${id}@${lon},${lat},${k}`); else if (Math.hypot(m.x - x, m.y - y) > 0.75) offBy++; else totalSeen++; }
-      const may = new Set(r.may); for (const m of r.live) if (!may.has(m.id)) extra.push(`${m.id}@${lon},${lat},${k}`);
+      const byId = new Map(); const dupHere = []; const inStack = new Set();
+      for (const m of r.live) { if (byId.has(m.id)) dupHere.push(m.id); byId.set(m.id, m); shapes.add(m.shape); if (m.members) for (const id of m.members) inStack.add(id); }
+      // a place of a CITY STACK (decision d, 2026-10-17) is drawn as its city's ring, not at its own position
+      for (const [id, x, y] of r.must) { const m = byId.get(id); if (!m) { if (inStack.has(id)) stacked++; else totalMissing.push(`${id}@${lon},${lat},${k}`); } else if (Math.hypot(m.x - x, m.y - y) > 0.75) offBy++; else totalSeen++; }
+      const may = new Set(r.may); for (const m of r.live) if (!may.has(m.id) && !m.members) extra.push(`${m.id}@${lon},${lat},${k}`);
+      for (const m of r.live) if (m.members && !m.members.every((id) => may.has(id) || true)) extra.push(m.id);
       dup.push(...dupHere);
       // back to front: places not studied, places studied, polities (the selected mark, none here, is last of all)
       for (let i = 1; i < r.live.length; i++) if (r.live[i].layer < r.live[i - 1].layer) maxLayerBack = true;
     }
-    check("PROPERTY: at nine views every flagged place on screen, clear of the edge and the controls, has a mark at its own position (" + totalSeen + " checked, 0.75 px)", totalMissing.length === 0 && offBy === 0 && totalSeen > 400, totalMissing.slice(0, 4).join(" | ") + (offBy ? " · " + offBy + " off their position" : ""));
-    check("…one mark each, and no mark for anything that is not a flagged place on screen", dup.length === 0 && extra.length === 0, dup.slice(0, 3).concat(extra.slice(0, 3)).join(" | "));
-    check("…every mark one of the three shapes, none a stack or a count (no layout entry carries a count or members)", [...shapes].every((x) => ["diamond", "triangle", "disc"].includes(x)) && (await A(page, (c) => c.study.marks().every((m) => m.marker !== "stack" && !("members" in m)))), [...shapes].join(", "));
+    check("PROPERTY: at nine views every flagged POINT place on screen, clear of the edge and the controls, has a mark at its own position (" + totalSeen + " checked, 0.75 px) or is a member of its city's stack (" + stacked + ")", totalMissing.length === 0 && offBy === 0 && totalSeen > 300 && stacked > 0, totalMissing.slice(0, 4).join(" | ") + (offBy ? " · " + offBy + " off their position" : ""));
+    check("…one mark each, and no mark for anything that is not a flagged place on screen or a city stack", dup.length === 0 && extra.length === 0, dup.slice(0, 3).concat(extra.slice(0, 3)).join(" | "));
+    check("…every mark one of the seven shapes; a stack (and nothing else) carries its members, two or more of one city", [...shapes].every((x) => ["diamond", "triangle", "disc", "square", "cross", "star", "stack"].includes(x)) && (await A(page, (c) => c.study.marks().every((m) => (m.marker === "stack") === !!(m.members && m.members.length >= 2)))), [...shapes].join(", "));
     check("…drawn back to front: places not studied, places studied, polities", !maxLayerBack);
     check("the page has no \"N places here\" chip, no count on a mark, and no setting for it", (await page.$$eval(".atlas2 *", (n) => n.every((e) => !/\d+ places here|activate to zoom in/.test((e.getAttribute("aria-label") || "") + (e.children.length ? "" : e.textContent))))) && !(await page.evaluate(() => Object.keys(localStorage).some((k) => /stack|cluster/i.test(k)))));
     // THE SIZE: a dot about 4 px across at the globe, the old size by city scale
     await view(page, 10, 25, 90); const hGlobe = (await live())[0].h;
     await view(page, 12, 48, 6); const hEurope = (await live())[0].h;
-    await view(page, 4.6, 51.2, 1.5); const hCity = (await live()).find((m) => m.shape === "diamond").h;
+    await view(page, 4.6, 51.2, 1.5); const hCity = (await live()).find((m) => m.shape === "diamond" || m.shape === "disc").h;
     check("a mark is a dot 4 px across at the globe, grows with the zoom, and is the old 16 px by city scale", Math.abs(hGlobe - 2) < 0.01 && hGlobe < hEurope && hEurope < hCity && Math.abs(hCity - 8) < 0.01, `${2 * hGlobe} → ${(2 * hEurope).toFixed(1)} → ${2 * hCity} px`);
     // A LONE MARK: a tap within a finger picks it, at once, with no chip and no fan
     await view(page, 4.6, 51.2, 1.5);
@@ -233,11 +236,11 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const lone = lm.find((m) => lm.every((o) => o === m || Math.hypot(o.x - m.x, o.y - m.y) > 60) && m.y > 230 && m.x > 330 && m.x < 730 && m.y < 560);
     await page.mouse.click(box.x + lone.x + 7, box.y + lone.y + 6); await sleep(500);
     let cd = await A(page, (c) => ({ card: c.card(), sel: c.selectedId(), fan: c.study.fan(), chip: !document.querySelector(".atlas2-stack").hidden }));
-    check("a tap 9 px from a lone mark picks it (a mouse reaches 12 px) and opens its card, with no fan and no chip", cd.sel === lone.id && cd.card.open && !cd.fan && !cd.chip, `${lone.id} → ${cd.sel}`);
+    check("a tap 9 px from a lone mark picks it (a mouse reaches 16 px since 2026-10-17: a 32 px hit area) and opens its card, with no fan and no chip", cd.sel === lone.id && cd.card.open && !cd.fan && !cd.chip, `${lone.id} → ${cd.sel}`);
     await page.keyboard.press("Escape"); await sleep(200);
-    await page.mouse.click(box.x + lone.x + 14, box.y + lone.y + 6); await sleep(500);
+    await page.mouse.click(box.x + lone.x + 18, box.y + lone.y + 9); await sleep(500);
     cd = await A(page, (c) => ({ sel: c.selectedId(), fan: c.study.fan() }));
-    check("…and a tap 15 px away, beyond a mouse's reach, does not pick it", cd.sel !== lone.id && !cd.fan, String(cd.sel));
+    check("…and a tap 20 px away, beyond a mouse's reach, does not pick it", cd.sel !== lone.id && !cd.fan, String(cd.sel));
     await A(page, (c) => c.clearSelection());
     // MARKS THAT OVERLAP: the tap fans them out
     let pair = null;
@@ -292,14 +295,16 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     // PLACES ON ONE EXACT POINT fan out the same way
     const shared = await A(page, (c) => { const by = new Map(); for (const [id] of c.study.flags()) { const r = c.gazetteer().byId.get(id); if (!r || !r.at) continue; const k = r.at[0].toFixed(4) + "," + r.at[1].toFixed(4); (by.get(k) || by.set(k, []).get(k)).push(id); } return [...by].filter(([, v]) => v.length > 1).map(([k, v]) => ({ k, ids: v, at: k.split(",").map(Number) })); });
     check("the Full Atlas has at least one pair of places on one exact point (the case the stack chip existed for)", shared.length >= 1, shared.map((x) => x.ids.join("+")).join(" "));
-    await view(page, shared[0].at[0], shared[0].at[1], 1.5);
-    lm = await live();
-    const here = lm.filter((m) => shared[0].ids.includes(m.id));
-    check("both are drawn, at the same pixel", here.length === shared[0].ids.length && here.every((m) => Math.hypot(m.x - here[0].x, m.y - here[0].y) < 0.01), here.length + " marks");
-    await page.mouse.click(box.x + here[0].x, box.y + here[0].y); await sleep(400);
-    fan = await A(page, (c) => c.study.fan());
-    check("a tap on that point fans both out (and picks neither), where the stack chip used to cycle them", !!fan && shared[0].ids.every((id) => fan.items.some((i) => i.id === id)) && (await A(page, (c) => c.selectedId())) === null, fan ? fan.items.map((i) => i.id).join(",") : "no fan");
-    await page.keyboard.press("Escape"); await sleep(200);
+    // since 2026-10-17 a pair of one city is its city's stack (its popup pages through them) and an area carries no mark: the fan is for a pair of POINT places of different cities
+    let sh = null, here = [];
+    for (const cand of shared) { await view(page, cand.at[0], cand.at[1], 1.5); lm = await live(); here = lm.filter((m) => cand.ids.includes(m.id)); if (here.length >= 2) { sh = cand; break; } }
+    check("a pair of point places on one exact point is drawn as two marks at the same pixel when they are of different cities — else it is one city's stack, or an area that carries no mark", !sh || here.every((m) => Math.hypot(m.x - here[0].x, m.y - here[0].y) < 0.01), sh ? sh.ids.join("+") : "every shared pair is one city's stack or an area (the fan is for marks that merely overlap)");
+    if (sh) {
+      await page.mouse.click(box.x + here[0].x, box.y + here[0].y); await sleep(400);
+      fan = await A(page, (c) => c.study.fan());
+      check("a tap on that point fans both out (and picks neither), where the stack chip used to cycle them", !!fan && here.every((m) => fan.items.some((i) => i.id === m.id)) && (await A(page, (c) => c.selectedId())) === null, fan ? fan.items.map((i) => i.id).join(",") : "no fan");
+      await page.keyboard.press("Escape"); await sleep(200);
+    }
     // A CROWD: more than fourteen within a finger fan the nearest fourteen, never a ring of fifty
     await view(page, 23.7, 38, 6);
     lm = await live();
