@@ -126,6 +126,8 @@ every old spelling and proves it.
 | phones | `test-atlas-phone.js`, `test-card-windows-fixes.js` |
 | the study layer | `test-study.js` (no browser), `test-atlas-study.js`, `test-places.js`, `test-discovery.js` |
 | the tap rules, the popup's rows, city stacks, the glyphs, the labels' text (2026-10-17) | `test-atlas-popups.js`, `test-study.js` §11–14 (`docs/atlas-v2-design.md` §7 "Popups and stacks") |
+| the marks' sprites (`markSprite`), the stacks' nudge (`nudgeStacks`, `ox`/`oy`), the stack's list, a registry kind (2026-10-17) | `test-atlas-popups.js` §7–9, `test-study.js` §13, then `test-atlas-perf.js` (the marks' raster is what the Full Atlas pinch pays for; `docs/atlas-v2-design.md` §7 "Marks, stacks and the pick test") |
+| Find it's pick (`flash`, the fast frame and the full frame's outline) | `test-findit-pick.js` at `FOLIO_SLOW_FRAMES=0`, `60` and `120` (the sample point is beyond the glow's reach) |
 | the fallbacks (no WebGL2, context loss, `file://`) | `test-atlas-fallbacks.js`, `test-window-fallbacks.js` |
 | a card window or Find it | `test-atlas-embed.js`, `test-atlas-windows.js`, `test-map-cards.js`, `test-card-locator.js`, `test-war-cards.js`, `test-findit-learn.js`, `test-panels.js` |
 | the worker, the format reader, earcut, `topology.bin` | `check-core-cache.js --install`, then the render suites |
