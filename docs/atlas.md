@@ -27,7 +27,7 @@ There is **no per-viewer preview switch** any more: `localStorage["folio.atlas2.
 
 * `atlas.js` — the controller and the page: view, gestures, the rail and year, the registry and search, the place card, the legend, the About sheet, the study panel, the address bar.
   `opts.embed` makes the same controller a **headless hub** (no address bar, no saved layers, no gazetteer, no frame loop) for the windows.
-* `atlas-gl.js` — WebGL2: faces, borders, the ID pass that names what is under a finger, relief, water, the history faces and the soft presence of peoples.
+* `atlas-gl.js` — WebGL2: faces, borders, the ID pass that names what is under a finger, relief, water, the history faces and the soft presence of peoples. **Rivers and relief are drawn at every zoom down to the cap** (0.15 km/px; 2026-10-17, decision a): the smoothed level-2 rivers and the relief's L1 patches are the finest the data has and are drawn to the cap — the old floor at 0.35 km/px and the fade below 1 km/px are gone (`test-atlas-zoom-layers.js`).
 * `atlas-canvas.js` — the **still 2D view** a browser without WebGL2 gets (the Atlas page's own fallback, Q-R3 a; since Phase 5 also the card windows' and Find it's). It draws land, the
   borders it can, names and the selected face's tint; it does not draw history.
 * `atlas-worker.js` — geometry (earcut triangulation, simplification, label placement); on `file://` a main-thread shim. `CORE_CACHE_REV` in `atlas.js` keys the IndexedDB first-frame cache: **run
@@ -127,6 +127,9 @@ every old spelling and proves it.
 | the study layer | `test-study.js` (no browser), `test-atlas-study.js`, `test-places.js`, `test-discovery.js` |
 | the tap rules, the popup's rows, city stacks, the glyphs, the labels' text (2026-10-17) | `test-atlas-popups.js`, `test-study.js` §11–14 (`docs/atlas-v2-design.md` §7 "Popups and stacks") |
 | the marks' sprites (`markSprite`), the stacks' nudge (`nudgeStacks`, `ox`/`oy`), the stack's list, a registry kind (2026-10-17) | `test-atlas-popups.js` §7–9, `test-study.js` §13, then `test-atlas-perf.js` (the marks' raster is what the Full Atlas pinch pays for; `docs/atlas-v2-design.md` §7 "Marks, stacks and the pick test") |
+| the water or relief layers' zoom rules (`view.rivers`, `view.relief.fade`, `RELIEF_L1_KM_PER_PX`, the cap) | `test-atlas-zoom-layers.js` (rivers and relief draw pixels at every zoom to the cap, phone and desktop, WebGL2 and Canvas 2D; 2026-10-17 a) |
+| the names' colours or halo (`labelColours`, `renderSprite`, `HALO_W_DARK`), a theme's tokens | `test-atlas-dark-labels.js` (the label canvas's pixels in folio's night: light text on a dark halo, 7:1 and 4.5:1), `test-atlas-labels.js` §6 (every theme) |
+| the capital class (`capitalIds`, `markClass`'s `cap`), the house glyph, a label's qualifier (`bareName`, the worker's `qualified`) | `test-study.js` §13–15, `test-atlas-popups.js` §5 and §10 |
 | Find it's pick (`flash`, the fast frame and the full frame's outline) | `test-findit-pick.js` at `FOLIO_SLOW_FRAMES=0`, `60` and `120` (the sample point is beyond the glow's reach) |
 | the fallbacks (no WebGL2, context loss, `file://`) | `test-atlas-fallbacks.js`, `test-window-fallbacks.js` |
 | a card window or Find it | `test-atlas-embed.js`, `test-atlas-windows.js`, `test-map-cards.js`, `test-card-locator.js`, `test-war-cards.js`, `test-findit-learn.js`, `test-panels.js` |
