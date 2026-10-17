@@ -2960,13 +2960,17 @@
       if (!r.total && !r.others) return;
       const sec = document.createElement("section"); sec.className = "atlas2-study-cards"; sec.setAttribute("aria-label", "Cards about this place");
       const head = mode === "personal" ? "From your cards" : "Cards about this place";
-      const li = (c) => { const i = info(c.id) || {}; return `<li><a class="atlas2-study-card" href="${escText(SU.cardHref ? SU.cardHref(c.id) : "#card/" + c.id)}" data-card="${escText(c.id)}"><span class="atlas2-study-title">${escText(i.title || c.id)}</span>${i.coll ? `<span class="atlas2-chip atlas2-study-chip">${escText(i.coll)}</span>` : ""}${c.mine && mode === "full" ? '<span class="atlas2-study-mine" title="You have studied this card">studied</span>' : ""}</a></li>`; };
+      /* EACH CARD IS A ROW, AS V1'S POPUP HAD IT (2026-10-17, decision c): its title, its deck and whether it is due now (the host's `cardInfo`:
+         `deck` the leaf it is filed in, `due` isDueNow); a tap opens the card. The Personal Atlas lists the reader's own and says how many more the Full
+         Atlas has; the Full Atlas lists all of them, the reader's first and marked. */
+      const li = (c) => { const i = info(c.id) || {}; return `<li><a class="atlas2-study-card${i.due ? " atlas2-study-isdue" : ""}" href="${escText(SU.cardHref ? SU.cardHref(c.id) : "#card/" + c.id)}" data-card="${escText(c.id)}" data-due="${i.due ? "1" : "0"}"><span class="atlas2-study-title">${escText(i.title || c.id)}</span><span class="atlas2-study-meta">${i.deck ? `<span class="atlas2-chip atlas2-study-chip atlas2-study-deck" title="${escText(i.coll ? i.coll + " · " + i.deck : i.deck)}">${escText(i.deck)}</span>` : i.coll ? `<span class="atlas2-chip atlas2-study-chip">${escText(i.coll)}</span>` : ""}${i.due ? '<span class="atlas2-study-due" title="Due for review now">due</span>' : ""}${c.mine && mode === "full" ? '<span class="atlas2-study-mine" title="You have studied this card">studied</span>' : ""}</span></a></li>`; };
       sec.innerHTML = `<h3 class="atlas2-study-h">${escText(head)}</h3>` + (r.shown.length ? `<ul class="atlas2-study-list">${r.shown.map(li).join("")}</ul>` : "") +
         (r.more ? `<button type="button" class="atlas2-link atlas2-study-more" data-more="${escText(row.id)}">and ${r.more} more</button>` : "") +
-        (r.others ? `<p class="atlas2-study-others">${r.others} more ${r.others === 1 ? "card is" : "cards are"} about this place that you haven’t studied yet.</p>` : "");
+        (r.others ? `<p class="atlas2-study-others">${r.others} more ${r.others === 1 ? "card" : "cards"} about this place in the Full Atlas. <button type="button" class="atlas2-link atlas2-study-tofull" data-mode="full">Show the Full Atlas</button></p>` : "");
       cardBody.appendChild(sec);
     }
     cardBody.addEventListener("click", (e) => {
+      const toFull = e.target.closest("button.atlas2-study-tofull"); if (toFull) { setStudyMode("full"); return; }
       const more = e.target.closest("button[data-more]");
       if (more) { const id = more.getAttribute("data-more"); ST.limit.set(id, (ST.limit.get(id) || AS.LIST_CAP) + 20); const keep = cardBody.scrollTop; if (cardRow && cardRow.id === id) appendStudyCards(cardRow); cardBody.scrollTop = keep; }
     });

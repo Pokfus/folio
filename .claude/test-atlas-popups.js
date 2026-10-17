@@ -226,6 +226,40 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     allErrors.push(...errors); await ctx.close();
   }
 
+  /* ------------------------------------------------------------------ 3  the popup's rows */
+  console.log("\n\x1b[1m3) the popup lists each card as a row: title, deck, due; Personal says how many more the Full Atlas has\x1b[0m\n");
+  {
+    const PLACE = "pl:q180212";   // the Roman Forum: several of the reader's Roman cards are about it, and more that are not
+    const all = IDX.cardsOfPlace.get(PLACE) || [], own = all.filter((id) => ST.cardSet.has(id)), dueSet = new Set(READER.filter((id, i) => i % 3 === 0));
+    check("the Forum has cards of the reader's and cards that are not (" + own.length + " of " + all.length + ")", own.length >= 2 && all.length > own.length);
+    const rows = (page) => page.$$eval(".atlas2-study-cards .atlas2-study-card", (as) => as.map((a) => ({ id: a.getAttribute("data-card"), href: a.getAttribute("href"), title: a.querySelector(".atlas2-study-title").textContent.trim(), deck: (a.querySelector(".atlas2-study-deck") || {}).textContent || "", due: a.getAttribute("data-due") === "1", badge: !!a.querySelector(".atlas2-study-due"), studied: !!a.querySelector(".atlas2-study-mine") })));
+    const others = (page) => page.$eval(".atlas2-study-cards", (e) => { const o = e.querySelector(".atlas2-study-others"); return o ? o.textContent.trim() : ""; });
+    const { ctx, page, errors } = await open(browser, READER);
+    const openPlace = async (pg) => { await A(pg, (c, id) => c.select(id, { open: true }), PLACE); await pg.waitForSelector(".atlas2-study-cards", { state: "attached", timeout: 20000 }); await sleep(200); };
+    await openPlace(page);
+    let r = await rows(page);
+    check("Personal: one row per card of the reader's about the Forum, in the Node order", r.length === own.length && r.every((x, i) => x.id === own[i]), r.map((x) => x.id).join(","));
+    check("…each row has a title and a deck chip", r.every((x) => x.title.length > 2 && x.deck.length > 1), r.map((x) => x.deck).join(" / "));
+    check("…and says which are due now (the seed makes every third card due)", r.every((x) => x.due === dueSet.has(x.id) && x.badge === x.due), r.map((x) => x.id + (x.due ? " due" : "")).join(", "));
+    check("…each row is a link to the card's own page", r.every((x) => x.href === "#card/" + x.id));
+    const o = await others(page);
+    check("…and the Personal popup says how many more the Full Atlas has: " + (all.length - own.length), new RegExp("^" + (all.length - own.length) + " more cards? about this place in the Full Atlas").test(o), o);
+    await page.click(".atlas2-study-tofull"); await sleep(500);
+    r = await rows(page);
+    check("the sentence's button switches to the Full Atlas, which lists every card, the reader's first and marked", (await study(page)).mode === "full" && r.length === Math.min(all.length, AS.LIST_CAP) && r.slice(0, own.length).every((x, i) => x.id === own[i] && x.studied) && r.slice(own.length).every((x) => !x.studied), r.length + " rows");
+    check("…with no 'more in the Full Atlas' sentence", (await others(page)) === "");
+    allErrors.push(...errors); await ctx.close();
+    // the phone: the sheet with its rows fits the full-bleed frame, above the year rail
+    const ph = await open(browser, READER, { phone: true });
+    await openPlace(ph.page);
+    await ph.page.click(".atlas2-grip"); await sleep(300);
+    const geo = await ph.page.evaluate(() => { const f = document.querySelector(".atlas2").getBoundingClientRect(), c = document.querySelector(".atlas2-card").getBoundingClientRect(), rail = document.querySelector(".atlas2-rail").getBoundingClientRect(), rows = [...document.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect()); return { frame: [f.left, f.top, f.right, f.bottom], card: [c.left, c.top, c.right, c.bottom], rail: [rail.left, rail.top, rail.right, rail.bottom], rows: rows.map((r) => [r.left, r.top, r.right, r.bottom, r.height]), vw: innerWidth, vh: innerHeight }; });
+    check("390 × 844: the open sheet lies wholly inside the frame and ends above the year rail", geo.card[0] >= geo.frame[0] - 0.5 && geo.card[2] <= geo.frame[2] + 0.5 && geo.card[1] >= geo.frame[1] && geo.card[3] <= geo.rail[1] + 0.5, JSON.stringify({ card: geo.card, rail: geo.rail, frame: geo.frame }));
+    check("…its rows are at least 30 px tall (a finger's row) and inside the sheet's width", geo.rows.length === own.length && geo.rows.every((r) => r[4] >= 30 && r[0] >= geo.card[0] && r[2] <= geo.card[2]), JSON.stringify(geo.rows.slice(0, 2)));
+    await shot(ph.page, "popup-cards-phone");
+    allErrors.push(...ph.errors); await ph.ctx.close();
+  }
+
   /* ------------------------------------------------------------------ done */
   console.log("\n" + pass + " ok, " + fail + " failed");
   check("no console error", allErrors.length === 0, allErrors.slice(0, 3).join(" | "));

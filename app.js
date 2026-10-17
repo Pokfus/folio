@@ -34579,7 +34579,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const c = CARD_BY_ID[id]; if (!c) return null;
         const plain = (x) => String(x == null ? "" : x).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
         const root0 = cardCollectionRoot(id);
-        return { title: plain(c.answerText) || plain(c.answer) || plain(c.question) || id, collId: root0 ? root0.id : "", coll: root0 ? nodeTitle(root0) : "" };
+        // the popup's rows (2026-10-17, decision c; as v1's popup had them): the deck the card is filed in and whether it is due now
+        const leaf = cardLeaves(id)[0];
+        return { title: plain(c.answerText) || plain(c.answer) || plain(c.question) || id, collId: root0 ? root0.id : "", coll: root0 ? nodeTitle(root0) : "", deck: leaf ? nodeTitle(leaf) : "", due: !!isDueNow(id) };
       },
       cardHref: (id) => "#card/" + id,
       // "New discovery" on a place card (Phase 3c): the existing `placesSeen` register v1's Atlas panels write — read, and written on first sight

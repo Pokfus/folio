@@ -10189,6 +10189,9 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-study-title{min-width:0; overflow-wrap:anywhere;}
 .atlas2-study-chip{white-space:nowrap;}
 .atlas2-study-mine{color:var(--indigo-bright); font:calc(11px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.03em;}
+.atlas2-study-meta{display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap;}   /* the row's deck chip and its due badge (2026-10-17) */
+.atlas2-study-due{color:var(--paper, #fff); background:var(--ochre, #b7791f); border-radius:999px; padding:1px 7px; font:600 calc(10.5px * var(--fs, 1))/1.5 var(--mono); letter-spacing:.04em; text-transform:uppercase;}
+.atlas2-study-tofull{font-size:inherit;}
 .atlas2-study-more{margin:0 4px 4px; font-size:calc(13.5px * var(--fs, 1));}
 .atlas2-study-others{margin:4px 4px 0; color:var(--ink-quiet); font:calc(12.5px * var(--fs, 1))/1.4 var(--sans);}
 @media (forced-colors:active){
