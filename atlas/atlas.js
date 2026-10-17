@@ -265,7 +265,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "88317a7d1e:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "854809d277:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -2026,9 +2026,9 @@
        the others hollow, a thin ink outline on both so two marks that touch still read as two. DRAW ORDER, back to front: places not
        studied, places studied, polities, and the selected mark last. The marks of one kind in one layer are one path (a fill and a
        stroke for all of them), so a Full Atlas of 1,300 places and 190 polities is a handful of canvas calls a frame. */
-    /* THE SEVEN GLYPHS (decision e, 2026-10-17; AtlasStudy.MARK_CLASSES): a disc (a city or town), a diamond (a site or cave), a saltire (a battle),
-       a triangle (a mountain, hill or cape), a square (a building, monument or wall), a star (a state, people or culture), a ring with a count (a city
-       stack). Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
+    /* THE EIGHT GLYPHS (decision e, 2026-10-17, and decision b of the same day; AtlasStudy.MARK_CLASSES): a square (a capital, present or past), a disc (a city or
+       town), a diamond (a site or cave), a saltire (a battle), a triangle (a mountain, hill or cape), a house — a pointed-top pentagon — (a building, monument or
+       wall), a star (a state, people or culture), a ring with a count (a city stack). Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
        The same geometry draws the Legend's key (`glyphSVG`), so the key cannot drift from the map. */
     const SQ = Math.SQRT1_2, CROSS_T = 0.34;   // the saltire's bar half-width, as a share of the half-extent
     function markInto(path, shape, x, y, h, lw) {
@@ -2036,6 +2036,7 @@
       if (shape === "diamond") { path.moveTo(x, y - q); path.lineTo(x + q, y); path.lineTo(x, y + q); path.lineTo(x - q, y); path.lineTo(x, y - q); }
       else if (shape === "triangle") { path.moveTo(x, y - q); path.lineTo(x + q, y + q * 0.85); path.lineTo(x - q, y + q * 0.85); path.lineTo(x, y - q); }
       else if (shape === "square") { const s = q * 0.86; path.moveTo(x - s, y - s); path.lineTo(x + s, y - s); path.lineTo(x + s, y + s); path.lineTo(x - s, y + s); path.lineTo(x - s, y - s); }
+      else if (shape === "house") { const s = q * 0.8, t = q * 0.3; path.moveTo(x, y - q); path.lineTo(x + s, y - t); path.lineTo(x + s, y + q * 0.9); path.lineTo(x - s, y + q * 0.9); path.lineTo(x - s, y - t); path.lineTo(x, y - q); }   // a pointed-top pentagon: the building (decision b, 2026-10-17 — the square is the capital's)
       else if (shape === "cross") { const t = q * CROSS_T, s = q * 1.08; let first = true; for (const [px, py] of [[-t, -s], [t, -s], [t, -t], [s, -t], [s, t], [t, t], [t, s], [-t, s], [-t, t], [-s, t], [-s, -t], [-t, -t], [-t, -s]]) { const rx = (px - py) * SQ, ry = (px + py) * SQ; if (first) { path.moveTo(x + rx, y + ry); first = false; } else path.lineTo(x + rx, y + ry); } }
       else if (shape === "star") { const ro = q * 1.08, ri = q * 0.46; for (let i = 0; i <= 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? ri : ro; if (i) path.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); else path.moveTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); } }
       else { const rr = q * 0.92; path.moveTo(x + rr, y); path.arc(x, y, rr, 0, Math.PI * 2); }   // a disc, and a stack's ring (its count is drawn over it)
@@ -2053,7 +2054,7 @@
        for the same shapes ending in an explicit lineTo to their start (measured, headless, 2026-10-14) — a Full Atlas of a thousand marks
        is the difference between a third of a frame and none of it. The round line cap closes the outline's corner. */
     const markLine = (half) => (half < 3 ? 1 : half < 6 ? 1.5 : 2);
-    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, star: 5, stack: 6 };   // seven shapes, a batch each
+    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, star: 5, stack: 6, house: 7 };   // eight shapes, a batch each
     /* the marks of a layout, indexed for the frame loop: one flat array of unit vectors and the groups (layer, reader's own or not, shape,
        hill or not) each drawn as ONE path — so a frame projects each mark once, allocates nothing, and is a fill and a stroke per group */
     function indexMarks() {
@@ -2725,10 +2726,11 @@
        step data, never a guess (`yearsNote`). */
     let results = [], active = -1;
     const KIND_ORDER = { country: 0, capital: 1, polity: 1, people: 1, culture: 1, ocean: 1, sea: 2, admin1: 2, city: 3, region: 3, range: 3, island: 4, "island-group": 4, lake: 4, gulf: 4, strait: 4, town: 5, river: 5, site: 5, mountain: 5, hill: 6, cape: 6 };
-    const PX = { state: 0, rows: [], caps: [], ranges: new Map() };   // state 0 not asked, 1 loading, 2 in, 3 failed
-    function loadPolityIndex() {
-      if (PX.state) return; PX.state = 1;
-      loadScript(opts.polityIndexUrl || "atlas/data/polity-index.js").then(() => {
+    const PX = { state: 0, rows: [], caps: [], ranges: new Map(), promise: null };   // state 0 not asked, 1 loading, 2 in, 3 failed
+    function loadPolityIndex() {   // returns a promise that never rejects (the study layer waits for it: the capitals' squares, decision b of 2026-10-17)
+      if (PX.state) return PX.promise || Promise.resolve();
+      PX.state = 1;
+      return PX.promise = loadScript(opts.polityIndexUrl || "atlas/data/polity-index.js").then(() => {
         if (disposed) return;
         const X = root.ATLAS_POLITY_INDEX; if (!X || !Array.isArray(X.polities)) { PX.state = 3; return; }
         const taken = new Set(G.rows.map((r) => r.key));
@@ -2968,9 +2970,18 @@
       return n;
     }
     const POINT_KIND = /^(capital|city|town|site|mountain|hill|cape)$/;
+    /* the registry's capitals (decision b, 2026-10-17): the gazetteer's present-day capitals by kind, and every period capital of polity-index.js
+       (history.bin's own capital statements) joined to its registry row by name — AtlasStudy.capitalIds. Computed once the index is in (loadStudy
+       waits for it); a copy that never arrives (file://, a refused fetch) leaves only the gazetteer's capitals square */
+    let capSet = null;
+    function registryCapitals() {
+      if (capSet) return capSet;
+      const X = root.ATLAS_POLITY_INDEX, caps = X && Array.isArray(X.capitals) ? X.capitals : [];
+      return capSet = AS.capitalIds(G.rows.filter((r) => r.at && POINT_KIND.test(r.kind)), caps);
+    }
     // what the worker needs of a place it has no geometry for: a mark (a point kind, from either file) or a name at a point (an area of places.js)
     function sendStudyRows() {
-      const rows = [];
+      const rows = [], caps = registryCapitals();
       const names = {};   // the parents (a city a site is within) that are not study rows themselves: what a stack is called
       for (const id of ST.idx.ids) {
         const row = G.byId.get(id); if (!row || !row.at || id.startsWith("pol:")) continue;
@@ -2978,14 +2989,14 @@
         if (!POINT_KIND.test(row.kind) && !own) continue;   // a gazetteer area is drawn by the ordinary pass, flagged only
         const par = row.within && typeof row.within === "string" ? G.byId.get(row.within) : null;   // a gazetteer row's `within` is a country index, not a parent place
         if (par) names[par.id] = par.name;
-        rows.push({ id, name: row.name, aliases: Array.isArray(row.aliases) ? row.aliases.slice(0, 8) : [], kind: row.kind, sub: row.sub || "", lon: row.at[0], lat: row.at[1], n: (ST.idx.cardsOfPlace.get(id) || []).length, pd: !own && POINT_KIND.test(row.kind), within: par ? par.id : "", pk: par ? par.kind : "" });
+        rows.push({ id, name: row.name, aliases: Array.isArray(row.aliases) ? row.aliases.slice(0, 8) : [], kind: row.kind, sub: row.sub || "", cap: caps.has(id), lon: row.at[0], lat: row.at[1], n: (ST.idx.cardsOfPlace.get(id) || []).length, pd: !own && POINT_KIND.test(row.kind), within: par ? par.id : "", pk: par ? par.kind : "" });
       }
       postToWorker({ type: "study-rows", rows, names });
     }
     function loadStudy() {
       if (!SU || !AS || ST.ready || ST.loading) return;
       ST.loading = true; renderStudyPanel();
-      Promise.all([loadScript(opts.placesUrl || "atlas/data/places.js"), loadScript(opts.cardPlacesUrl || "atlas/data/card-places.js")]).then(() => {
+      Promise.all([loadScript(opts.placesUrl || "atlas/data/places.js"), loadScript(opts.cardPlacesUrl || "atlas/data/card-places.js"), loadPolityIndex()]).then(() => {   // the index (20 KB) for the capitals' squares (decision b); its promise never rejects
         if (disposed) return;
         const t0 = performance.now();
         registerPlaces(root.ATLAS_PLACES); const t1 = performance.now();
@@ -3141,7 +3152,7 @@
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
       R.dispose();
     }
-    // the Legend's key of the seven glyphs (decision e): built from AtlasStudy.MARK_CLASSES with the map's own geometry
+    // the Legend's key of the eight glyphs (decision e; the capital's square and the building's house, decision b): built from AtlasStudy.MARK_CLASSES with the map's own geometry
     { const key = el.querySelector(".atlas2-marks-key"), A0 = root.AtlasStudy; if (key && A0 && A0.MARK_CLASSES) key.innerHTML = A0.MARK_CLASSES.map((c) => `<div data-cls="${escText(c.cls)}"><dt>${glyphSVG(c.shape)}</dt><dd>${escText(c.word)}</dd></div>`).join(""); }
     setPerf(perfOn);   // after the label state exists: the overlay reads it (Phase 1c)
     try { paintWarsKey(); } catch (e) { /* before the time block */ }

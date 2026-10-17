@@ -135,12 +135,12 @@ console.log("\n5) the marks: every flagged place is its own mark, and nothing st
   check("…and is smooth: no two zoom steps a quarter-octave apart differ by more than a pixel", (() => { let worst = 0; for (let k = 20; k > 1; k /= Math.pow(2, 0.25)) worst = Math.max(worst, Math.abs(AS.markHalf(k / Math.pow(2, 0.25)) - AS.markHalf(k))); return worst <= 1; })());
   // THE SHAPE AND THE LAYER of every kind of place any card is about (the property over the Full Atlas's flags)
   const kinds = new Set([...full.keys()].map(kindOf));
-  // (decision e, 2026-10-17: seven shapes by class, and an AREA has none — its name stands alone; the full table is §13)
-  const SHAPES = ["diamond", "triangle", "disc", "square", "cross", "star", "stack"];
+  // (decision e, 2026-10-17: seven shapes by class, and an AREA has none — its name stands alone; the full table is §13; decision b of the same day: a capital's square, a building's house)
+  const SHAPES = ["diamond", "triangle", "disc", "square", "cross", "star", "stack", "house"];
   const shapeOK = [...kinds].every((k) => AS.markShape(k) === null || SHAPES.includes(AS.markShape(k)));
-  check("every kind the Full Atlas flags (" + kinds.size + ") has one of the seven shapes, or none (an area is a name only)", shapeOK, [...kinds].sort().join(", "));
-  check("a mountain, a hill and a cape are triangles; a polity, a people, a culture and an extent are stars; a city a disc, a site a diamond; an island, a country, a region and a river carry no mark",
-    ["mountain", "hill", "cape"].every((k) => AS.markShape(k) === "triangle") && ["polity", "people", "culture", "extent"].every((k) => AS.markShape(k) === "star") && ["city", "capital", "town"].every((k) => AS.markShape(k) === "disc") && AS.markShape("site") === "diamond" && ["island", "country", "region", "river"].every((k) => AS.markShape(k) === null));
+  check("every kind the Full Atlas flags (" + kinds.size + ") has one of the eight shapes, or none (an area is a name only)", shapeOK, [...kinds].sort().join(", "));
+  check("a mountain, a hill and a cape are triangles; a polity, a people, a culture and an extent are stars; a city a disc, a capital a square, a site a diamond; an island, a country, a region and a river carry no mark",
+    ["mountain", "hill", "cape"].every((k) => AS.markShape(k) === "triangle") && ["polity", "people", "culture", "extent"].every((k) => AS.markShape(k) === "star") && ["city", "town"].every((k) => AS.markShape(k) === "disc") && AS.markShape("capital") === "square" && AS.markShape("site") === "diamond" && ["island", "country", "region", "river"].every((k) => AS.markShape(k) === null));
   check("a hill is the smaller triangle, nothing else is scaled", AS.markScale("hill") === 0.75 && ["mountain", "city", "polity", "cape"].every((k) => AS.markScale(k) === 1));
   const order = [AS.markLayer("city", 1), AS.markLayer("city", 2), AS.markLayer("polity", 1), AS.markLayer("polity", 2)];
   check("the draw order is places not studied (0), places studied (1), polities (2), whether or not studied", order.join() === "0,1,2,2", order.join());
@@ -334,8 +334,8 @@ console.log("\n13) the glyph classes: every card-linked kind has a class and a s
   const kinds = new Map(); for (const id of idx.ids) { const r = id.startsWith("pol:") ? { kind: "polity", sub: "" } : by.get(id); if (!r) continue; kinds.set(r.kind + "/" + r.sub, AS.markClass(r.kind, r.sub)); }
   const classes = new Set([...kinds.values()].filter(Boolean));
   console.log("  (" + [...kinds].map(([k, c]) => k.replace(/\/$/, "") + " → " + (c || "name only")).join(", ") + ")");
-  check("at most eight classes, and every one in the Legend's list", classes.size <= 8 && [...classes].every((c) => AS.MARK_CLASSES.some((m) => m.cls === c)), [...classes].join(","));
-  check("a city, a town and a capital are one class (settlement); a site and a cave another; a battle, a building each their own; a mountain, a hill and a cape one (peak); a polity, a people and a culture one", AS.markClass("city") === "settlement" && AS.markClass("capital") === "settlement" && AS.markClass("town") === "settlement" && AS.markClass("site", "site") === "site" && AS.markClass("site", "cave") === "site" && AS.markClass("site", "battle") === "battle" && AS.markClass("site", "building") === "building" && AS.markClass("mountain") === "peak" && AS.markClass("hill") === "peak" && AS.markClass("cape") === "peak" && AS.markClass("polity") === "polity" && AS.markClass("people") === "polity" && AS.markClass("culture") === "polity" && AS.markClass("stack") === "stack");
+  check("at most nine classes, and every one in the Legend's list", classes.size <= 9 && [...classes].every((c) => AS.MARK_CLASSES.some((m) => m.cls === c)), [...classes].join(","));
+  check("a city and a town are one class (settlement) and a capital its own (decision b, 2026-10-17); a site and a cave another; a battle, a building each their own; a mountain, a hill and a cape one (peak); a polity, a people and a culture one", AS.markClass("city") === "settlement" && AS.markClass("capital") === "capital" && AS.markClass("town") === "settlement" && AS.markClass("site", "site") === "site" && AS.markClass("site", "cave") === "site" && AS.markClass("site", "battle") === "battle" && AS.markClass("site", "building") === "building" && AS.markClass("mountain") === "peak" && AS.markClass("hill") === "peak" && AS.markClass("cape") === "peak" && AS.markClass("polity") === "polity" && AS.markClass("people") === "polity" && AS.markClass("culture") === "polity" && AS.markClass("stack") === "stack");
   check("an area is a name only: river, lake, sea, ocean, strait, gulf, island, island-group, range, region, country, admin1 have no class", ["river", "lake", "sea", "ocean", "strait", "gulf", "island", "island-group", "range", "region", "country", "admin1"].every((k) => AS.markClass(k) === null && AS.markShape(k) === null));
   /* decision e, 2026-10-17 (the owner's phone: "Reate is drawn with the building square though it is a town"): the kind-to-glyph audit over the card-linked places. The migration had matched
      rm-465's locator "Reate" to Q127431116, the Roman MINT at Reate (class mint → a building), so the town wore a square; the place is now Rieti (Q13396, a manual row, alias Reate), a town.
@@ -345,7 +345,44 @@ console.log("\n13) the glyph classes: every card-linked kind has a class and a s
   check("rm-465's place is Rieti, a town (a disc), not the mint at Reate (a building square)", rm465.includes("pl:q13396") && !idx.ids.includes("pl:q127431116") && AS.markClass(kindsOf("pl:q13396").kind, kindsOf("pl:q13396").sub) === "settlement", JSON.stringify(rm465));
   check("Fatehpur Sikri, Gliwice and Murom are cities, Shahjahanabad, Izborsk and Bogolyubovo towns (settlement discs), New Echota a site (a diamond) — not buildings or sites of the first-match rule", ["pl:q179046", "pl:q105084", "pl:q162677", "pl:q3242297", "pl:q1135534", "pl:q762099"].every((id) => AS.markClass(kindsOf(id).kind, kindsOf(id).sub) === "settlement") && AS.markClass(kindsOf("pl:q7007061").kind, kindsOf("pl:q7007061").sub) === "site", ["pl:q179046", "pl:q105084", "pl:q162677", "pl:q3242297", "pl:q1135534", "pl:q762099", "pl:q7007061"].map((id) => id + ":" + kindsOf(id).kind + "/" + kindsOf(id).sub).join(" "));
   const shapes = AS.MARK_CLASSES.map((m) => m.shape);
-  check("seven classes, seven different shapes, each with its word for the Legend", AS.MARK_CLASSES.length === 7 && new Set(shapes).size === 7 && AS.MARK_CLASSES.every((m) => m.word && AS.markShape(m.cls === "settlement" ? "city" : m.cls === "site" ? "site" : m.cls === "battle" ? "site" : m.cls === "peak" ? "hill" : m.cls === "building" ? "site" : m.cls === "polity" ? "polity" : "stack", m.cls === "battle" ? "battle" : m.cls === "building" ? "building" : "") === m.shape));
+  check("eight classes, eight different shapes, each with its word for the Legend", AS.MARK_CLASSES.length === 8 && new Set(shapes).size === 8 && AS.MARK_CLASSES.every((m) => m.word && AS.markShape(m.cls === "capital" ? "capital" : m.cls === "settlement" ? "city" : m.cls === "site" ? "site" : m.cls === "battle" ? "site" : m.cls === "peak" ? "hill" : m.cls === "building" ? "site" : m.cls === "polity" ? "polity" : "stack", m.cls === "battle" ? "battle" : m.cls === "building" ? "building" : "") === m.shape));
+}
+
+console.log("\n15) capitals (decision b, 2026-10-17): the registry's capital statements joined to its rows; the square wins over a disc, a diamond or a house, never over a battle or a peak\n");
+{
+  const K = AS.capitalIds;
+  const rows = [
+    { id: "cap:1", kind: "capital", name: "Rome", aliases: [], at: [12.48, 41.89] },
+    { id: "city:1", kind: "city", name: "Kyoto", aliases: ["Heian-kyō"], at: [135.77, 35.01] },
+    { id: "pl:q1", kind: "site", sub: "site", name: "Babylon", aliases: [], at: [44.42, 32.54] },
+    { id: "pl:q2", kind: "site", sub: "building", name: "Forbidden City", aliases: [], at: [116.39, 39.92] },
+    { id: "town:1", kind: "town", name: "Nanjing", aliases: [], at: [118.78, 32.06] },
+    { id: "pl:q3", kind: "site", sub: "battle", name: "Jiankang", aliases: [], at: [118.79, 32.05] },
+    { id: "pl:q4", kind: "mountain", name: "Olympus", aliases: [], at: [22.35, 40.09] },
+    { id: "town:2", kind: "town", name: "Olympia", aliases: [], at: [21.63, 37.64] },
+  ];
+  const caps = [["pol:japan", "Heian-kyō", 135.76, 35.0, 794, 1868], ["pol:neo_babylonia", "Babylon", 44.42, 32.54, -626, -539], ["pol:liang", "Jiankang", 118.79, 32.05, 502, 557], ["pol:x", "Olympus", 22.35, 40.09, 1, 2], ["pol:y", "Olympia", 150, -30, 1, 2], ["pol:z", "Nowhere", 0, 0, 1, 2]];
+  const got = K(rows, caps);
+  check("a gazetteer capital is a capital by kind, without a statement", got.has("cap:1"));
+  check("a statement names the row whose name or ALIAS it is, within 25 km (Heian-kyō → Kyoto)", got.has("city:1"));
+  check("a site that was a capital is a capital (Babylon)", got.has("pl:q1") && AS.markClass("site", "site", true) === "capital" && AS.markShape("site", "site", true) === "square");
+  check("a statement with no row of its name takes the nearest capital, city or town within 2 km (Jiankang → Nanjing), never a site or a battle", got.has("town:1") && !got.has("pl:q3"));
+  check("a peak is never a capital, and a statement 2 km or more from any settlement row marks nothing (Olympia, Nowhere)", !got.has("pl:q4") && !got.has("town:2") && got.size === 4, [...got].join(","));
+  check("the capital square wins over a disc, a diamond and a house; a battle and a peak keep their own shape", AS.markClass("city", "", true) === "capital" && AS.markClass("town", "", true) === "capital" && AS.markClass("site", "building", true) === "capital" && AS.markClass("site", "battle", true) === "battle" && AS.markClass("hill", "", true) === "peak" && AS.markShape("site", "building") === "house" && AS.markShape("capital") === "square");
+  check("the Legend's first row is the capital's square and the building's is the house", AS.MARK_CLASSES[0].cls === "capital" && AS.MARK_CLASSES[0].shape === "square" && AS.MARK_CLASSES.find((m) => m.cls === "building").shape === "house");
+  // over the real registry and the real statements: the report's figures
+  const w2 = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas", "data", "polity-index.js"), "utf8"))(w2);
+  const PX = w2.ATLAS_POLITY_INDEX, G = window.ATLAS_GAZETTEER, gi = {}; G.cols.forEach((c, i) => { gi[c] = i; });
+  const reg = new Map(); for (const r of G.rows) reg.set(r[gi.id], { id: r[gi.id], kind: r[gi.kind], name: r[gi.name], aliases: r[gi.aliases] || [], at: r[gi.at] || null });
+  const T = window.ATLAS_PLACES, ti = {}; T.cols.forEach((c, i) => { ti[c] = i; });
+  for (const r of T.rows) reg.set(r[ti.id], { id: r[ti.id], kind: r[ti.kind], sub: r[ti.sub] || "", name: r[ti.name], aliases: r[ti.aliases] || [], at: r[ti.at] || null });
+  for (const [id, names] of Object.entries(T.alias || {})) if (reg.has(id)) reg.get(id).aliases = reg.get(id).aliases.concat(names);
+  const real = K([...reg.values()].filter((r) => r.at && /^(capital|city|town|site|mountain|hill|cape)$/.test(r.kind)), PX.capitals);
+  const linked = idx.ids.filter((id) => real.has(id));
+  const was = {}; for (const id of linked) { const r = reg.get(id); const c = r.kind === "capital" ? "present-day capital" : AS.markClass(r.kind, r.sub); was[c] = (was[c] || 0) + 1; }
+  console.log("  (" + linked.length + " of the card-linked places are capitals: " + Object.entries(was).map(([k, n]) => n + " were " + k).join(", ") + "; " + real.size + " over the whole registry, " + PX.capitals.length + " statements)");
+  const byName = (n) => [...reg.values()].find((r) => r.name === n);
+  check("over the real registry: Babylon, Constantinople, Chang'an and Carthage (sites) and Nanjing, Luoyang and Isfahan (cities) are capitals; Marathon (a battle) and Mount Olympus are not", ["Babylon", "Constantinople", "Chang'an", "Carthage", "Nanjing", "Luoyang", "Isfahan"].every((n) => byName(n) && real.has(byName(n).id)) && !["Mount Olympus"].some((n) => byName(n) && real.has(byName(n).id)) && linked.length >= 60, linked.length + " linked");
 }
 
 console.log("\n14) the labels' text: no parenthetical, two lines past 22 characters, the short name past 28\n");
