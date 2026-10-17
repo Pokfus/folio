@@ -652,7 +652,7 @@
   const MARKER_R = { capital: 4, city: 3, town: 2.2 };
   const CAPITAL_AFTER_RANK = 1;       // a period capital is placed after the polities of on-screen area rank 0..this (task 0a, Phase 3a)
   const POLITY_WIDE = 1.8, POLITY_WIDE_LARGE = 3.0;   // a polity name may be this much wider than its label path and still sit straight at the anchor (the larger figure for the rank 0..CAPITAL_AFTER_RANK polities, whose name at globe scale is the one thing the view is for)
-  const POLITY_SLIDE = [0, -0.12, 0.12, -0.24, 0.24, -0.36, 0.36];   // the fractions of the path's length a polity name slides from the middle when the middle is taken
+  const POLITY_SLIDE = [0].concat(...Array.from({ length: 15 }, (_, i) => [-(i + 1) * 0.03, (i + 1) * 0.03]));   // the fractions of the path's length a polity name slides from the middle when the middle is taken: 0, ±3 % … ±45 % (seven steps of 12 % until decision a of 2026-10-17 — with every mark and every study name hard ground, an empire's name must find a clear stretch of its path, and "Achaemenid Empire" at the Aegean in 483 BCE found none in seven)
   const POLITY_SIDE = [0, -0.25, 0.25, -0.45, 0.45];                                // the fractions of its own width a straight polity name moves sideways from its anchor when the anchor's place is taken (3b)
   const POLITY_NUDGE = [0, -1.2, 1.2, -2.4, 2.4, -3.6, 3.6];                    // the lines a straight polity name moves up or down from its anchor when the anchor is taken
   function unitOf(lon, lat) { const la = lat * D2R_, lo = lon * D2R_, c = Math.cos(la); return [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; }
@@ -868,8 +868,9 @@
     const clampC = (v, n) => Math.max(0, Math.min(n - 1, v));
     const cellsOf = (r, fn) => { const x0 = clampC(Math.floor(r[0] / CELL) + 1, cols), x1 = clampC(Math.floor(r[2] / CELL) + 1, cols), y0 = clampC(Math.floor(r[1] / CELL) + 1, rows), y1 = clampC(Math.floor(r[3] / CELL) + 1, rows); for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) fn(y * cols + x); };   // a rectangle beyond the viewport shares the edge cells, so off-screen labels still collide with each other
     // what blocks a rectangle: 0 nothing, 1 a mark (with `markPad` in place of the pad against marks, when given), 2 a name or a control
-    const blocker = (r, markPad) => { let hit = 0; cellsOf(r, (c) => { if (hit === 2) return; const list = cells.get(c); if (!list) return; for (const i of list) { const o = rects[i], p = markPad != null && rectMark[i] ? markPad : pad; if (r[0] < o[2] + p && r[2] > o[0] - p && r[1] < o[3] + p && r[3] > o[1] - p) { hit = rectMark[i] ? Math.max(hit, 1) : 2; if (hit === 2) return; } } }); return hit; };
-    const free = (r, markPad) => blocker(r, markPad) === 0;
+    const blocker = (r, markPad, skip) => { let hit = 0; cellsOf(r, (c) => { if (hit === 2) return; const list = cells.get(c); if (!list) return; for (const i of list) { if (i === skip) continue; const o = rects[i], p = markPad != null && rectMark[i] ? markPad : pad; if (r[0] < o[2] + p && r[2] > o[0] - p && r[1] < o[3] + p && r[3] > o[1] - p) { hit = rectMark[i] ? Math.max(hit, 1) : 2; lastBlock = i; if (hit === 2) return; } } }); return hit; };
+    let lastBlock = -1;   // the rect the last blocked query met (the debug reasons)
+    const free = (r, markPad, skip) => blocker(r, markPad, skip) === 0;   // `skip`: the index of the name's OWN mark's rect, which its name may lie over (decision a: a name never covers a mark that is not its own)
     const take = (r, mark) => { const i = rects.length; rects.push(r); rectMark.push(!!mark); cellsOf(r, (c) => { let list = cells.get(c); if (!list) cells.set(c, list = []); list.push(i); }); };
     /* THE CHROME IS OCCUPIED GROUND (Phase 2a, task 0d). atlas.js measures the rectangles of its controls — the search box
        and its list, the zoom stack, the Legend and ? chips, an open sheet, the card or its phone strip, the stack chip, the
@@ -1012,13 +1013,154 @@
        licence over a small flag-1 dot) and decision d's fallback (a mark's own name over any lesser mark) are gone: the price is names dropped in
        a crowded Full Atlas, which test-atlas-overlaps.js counts per view. A mark is dropped for nothing a name does: only a control or the
        frame's edge (decided per frame by the page) hides one. */
-    const marks = [], markById = new Map();
+    const marks = [], markById = new Map(), markRect = new Map();   // markRect: id → the index of the mark's rect in the grid (the ordinary pass lets a flagged polity's or area's own name lie over its own star)
     const unitAt = (x, y) => { const ax = (x - cx) / radius, ay = -(y - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay)); return [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az]; };
     const GAZ_PRESENT = { country: 1, admin1: 1, capital: 1, city: 1, town: 1 };   // alive only in the present year, as the ordinary pass has it
+    /* ONE CANDIDATE OF THE ORDINARY KIND (a polity, a period capital, a country, a city, a river, an area), laid or dropped. A function since decision b
+       (2026-10-17): a CARD-LINKED polity's or country's name — one the study layer flags — ranks with the study names and is laid by the study pass at its
+       flag's turn (after the places of that flag that have cards, since it has no card count), through this same code; the unflagged ones are laid by the
+       ordinary pass below. The body is the old loop body unchanged, in a do … while (false) so its `continue`s still mean "next candidate". */
+    const done = new Set();   // the candidates the study pass laid
+    let capAll = Infinity, riverLabels = 0;   // set once the study pass has laid its names
+    const layCand = (c, studyPass) => { do {
+      const row = c.row, k = row.kind; dropping = row;
+      const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
+      if (!st) { drop(k + " no metrics for style " + styleId); continue; }
+      const text = (k === "capital" || k === "city" || k === "town") && !c.hist && root.AtlasStudy ? root.AtlasStudy.labelText(row.name, null, { qualified: qualified(row.name) }).text : row.name;   // a settlement's name shows no parenthetical (decision f) and no ", <country>" qualifier unless two share the bare name (decision d, 2026-10-17)
+      const sh = shape(text, st, missing); sh.style = styleId;
+      const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
+      if (studyPass) base.study = true;   // laid by the study pass (decision b)
+      /* a flagged area or polity has a MARK at its anchor (the study pass): its name stands just above it, so the dot is read as the place and the name as its label */
+      const mk0 = markById.get(row.id), up = mk0 ? -(mk0.h + 2 + sh.h / 2) : 0, own0 = markRect.get(row.id), freeOwn = (r) => free(r, null, own0);   // a flagged polity's or area's name may lie over its OWN star (a name along its path crosses its anchor), never over another's mark
+      if (k === "polity" || k === "people" || k === "culture" || k === "extent") {
+        // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
+        const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
+        const cum = polyline(S2), Ls = cum[cum.length - 1];
+        let got = null, curved = false, lines = 1, mid = null;   // mid: the point of the guide line under a name that runs along it — that name's anchor (the 28 px rule)
+        let cvTried = 0, cvBent = 0, cvName = 0, cvMark = 0, cvFrame = 0;   // what the tries along the path met (the drop reason)
+        // along the path: at its middle first, then slid either way (task 0a: the one trial at the middle was where the capital sat)
+        if (Ls >= sh.w * 1.02) for (const f of POLITY_SLIDE) { const s0 = Ls / 2 + f * Ls; if (s0 - sh.w / 2 < 0 || s0 + sh.w / 2 > Ls) continue; cvTried++; const g = alongEither(sh, S2, cum, s0, st); if (!g) { cvBent++; continue; } if (g.rects.every(freeOwn) && inFrame(g.rects)) { got = g; curved = true; mid = pointAt(S2, cum, s0); break; } if (why) { const b = Math.max(...g.rects.map((r) => blocker(r, null, own0))); if (b === 2) cvName++; else if (b === 1) cvMark++; else cvFrame++; } }
+        if (!got) {
+          const wide = row.path.len * (row.rank <= CAPITAL_AFTER_RANK ? POLITY_WIDE_LARGE : POLITY_WIDE);
+          let clipped = 0, collided = 0, far = 0, stMark = 0;
+          const straightTry = (make, w) => { for (const n of POLITY_NUDGE) for (const f of POLITY_SIDE) { const g = intoFrame(make(c.a[0] + f * w, c.a[1] + n * sh.h + up), sh.h); if (!g) { clipped++; continue; } if (!g.rects.every(freeOwn)) { collided++; if (why && Math.max(...g.rects.map((r) => blocker(r, null, own0))) === 1) stMark++; continue; } if (!nearAnchor(g.rects, c.a[0], c.a[1])) { far++; continue; } return g; } return null; };
+          if (sh.w <= wide) got = straightTry((x, y) => straight(sh, x, y, 0), sh.w);
+          let two = null;
+          if (!got) { two = splitName(text, st, styleId); if (two && two.wide <= wide) { got = straightTry((x, y) => stacked(two, x, y), two.wide); if (got) lines = 2; } }
+          if (!got) { drop(sh.w > wide && !(two && two.wide <= wide) ? "polity name wider than its path (" + Math.round(sh.w) + " px, " + (two ? Math.round(two.wide) + " px on two lines" : "no space to break at") + ", against " + Math.round(row.path.len) + ", rank " + row.rank + ")" : far > clipped + collided ? "polity name finds no free place within " + NEAR_PX + " px of its anchor" : clipped > collided ? "polity label clipped" : `polity collides (along the path ${cvTried} tries: ${cvBent} too bent, ${cvName} met a name or a control, ${cvMark} met a mark, ${cvFrame} left the frame; straight ${collided} collided, ${stMark} of them with a mark, ${clipped} clipped, ${far} too far; last met rect #${lastBlock} ${JSON.stringify((rects[lastBlock] || []).map(Math.round))} mark=${rectMark[lastBlock]} of ${rects.length}, chrome ${chrome.length})`); continue; }
+        }
+        const ub = union(got.rects); if (offScreen(ub)) { drop("polity label wholly off screen"); continue; }
+        for (const r of got.rects) take(r);
+        // the anchor's unit vector: unproject the screen anchor (the label follows the globe between layouts) — the guide line's point under the name when it runs along one, else the polity's own point
+        const ap = mid || c.a, aw = unitAt(ap[0], ap[1]);
+        placed.push(Object.assign(base, { a: aw, sx: ap[0], sy: ap[1], alpha: 1, glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
+        continue;
+      }
+      if (k === "capital" || k === "city" || k === "town") {
+        const r = MARKER_R[k] * FS, x = c.a[0], y = c.a[1];
+        const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
+        const own = reservedMarker.has(row.id);   // a capital's marker was reserved above and is its own ground
+        if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
+        if (!own && !free(mrect)) { drop("marker collides"); continue; }
+        if (!show.places) { if (!own) take(mrect, true); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
+        const g3 = 3 * FS, tries = [[x + r + g3 + sh.w / 2, y, 0], [x - r - g3 - sh.w / 2, y, 0], [x, y - r - g3 - sh.h / 2, 0], [x, y + r + g3 + sh.h / 2, 0]];
+        let got = null;
+        for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (fullyOn(g.rects[0]) && free(g.rects[0])) { got = g; break; } }
+        if (!got) {
+          // a reserved capital marker whose name finds no free side keeps its marker (task 0a): the square under the empire's
+          // name still says where the capital is, and a tap answers with the name; an unreserved one drops as before
+          if (own) { placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
+          drop(onScreen(x, y, 0) ? "city label collides on all four sides, or is not wholly on screen" : "city off screen"); continue;
+        }
+        take(got.rects[0]); if (!own) take(mrect, true);
+        placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
+        continue;
+      }
+      if (k === "river") {
+        const parts = RIVER_LINES ? row.rivers.flatMap((ei) => RIVER_LINES.get(ei) || []) : null; if (!parts || !parts.length) { drop("river has no line at this level"); continue; }
+        // runs of consecutive on-screen vertices, part by part
+        let run = [], runV = [], n = 0, perRiver = 0, maxLr = 0, tried = 0, collided = 0, bent = 0; const before = riverLabels;
+        const flush = () => {
+          if (run.length < 2 || perRiver >= 6) { run = []; runV = []; return; }
+          if (!reads(run)) { run.reverse(); runV.reverse(); }
+          const cum = polyline(run), Lr = cum[cum.length - 1]; if (Lr > maxLr) maxLr = Lr;
+          // the text follows a SMOOTHED copy of the run (each vertex averaged with its neighbours within two text
+          // sizes of arc length): at 0.5 km/px the LOD 1 vertices sit 10–15 px apart on a meander, closer than the
+          // glyphs, and every try on the Rhine, the Moselle and the Weser bent past the 23° a reader can follow
+          // (Phase 1d, found by the labels suite once the rank-8 rivers left the gazetteer); the text straddles the
+          // channel's course rather than its every bend, and the anchor stays a vertex of the real line
+          const runS = smoothRun(run, cum, st.size * 2), cumS = polyline(runS);
+          // the name every RIVER_REPEAT_PX along the run; a run shorter than that carries it once, at its middle
+          const LrS = cumS[cumS.length - 1];
+          for (let s0 = LrS < RIVER_REPEAT_PX ? LrS / 2 : RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < LrS && placed.length < capAll; s0 += RIVER_REPEAT_PX) {
+            // a spot that bends or collides is not the stretch's last word: the text slides up to 120 px either way
+            let g = null, s1 = s0, av = null, apt = null;
+            for (const off of [0, 60, -60, 120, -120]) {
+              s1 = s0 + off; if (s1 - sh.w / 2 < 10 || s1 + sh.w / 2 + 10 > LrS) continue;
+              tried++;
+              const t = alongEither(sh, runS, cumS, s1, st); if (!t) { bent++; continue; }
+              if (!t.rects.every(free)) { collided++; continue; }
+              if (!inFrame(t.rects)) continue;   // a run reaches 60 px past the canvas; the text stays inside the frame like a polity's name (Phase 3c), another stretch or offset is tried
+              // the anchor: the river's own point under the label's middle, between the two vertices it lies between (a vertex alone can be 100 px away at a high zoom: the 28 px rule)
+              const pa = pointAt(runS, cumS, s1), v0 = runV[pa[2]], v1 = runV[pa[2] + 1] || v0;
+              av = norm3([v0[0] + (v1[0] - v0[0]) * pa[3], v0[1] + (v1[1] - v0[1]) * pa[3], v0[2] + (v1[2] - v0[2]) * pa[3]]); apt = proj(av);
+              if (!nearAnchor(t.rects, apt[0], apt[1])) { av = null; continue; }
+              g = t; break;
+            }
+            if (!g) continue;
+            for (const r of g.rects) take(r);
+            placed.push(Object.assign({}, base, { a: av, sx: apt[0], sy: apt[1], alpha: 1, glyphs: g.glyphs, box: union(g.rects), rects: g.rects, marker: null, hit: union(g.rects), curved: true, meanAngle: g.meanAngle }));
+            perRiver++; riverLabels++;
+          }
+          run = []; runV = [];
+        };
+        for (const line of parts) {
+          for (let i = 0; i < line.length; i += 3) {
+            const v = [line[i], line[i + 1], line[i + 2]], p = proj(v);
+            if (p[2] > 0.02 && onScreen(p[0], p[1], 60)) { run.push([p[0], p[1]]); runV.push(v); n++; } else flush();
+          }
+          flush();
+        }
+        if (riverLabels === before) drop(n ? `river run too short or collides (${n} vertices on screen, longest run ${Math.round(maxLr)} px, label ${Math.round(sh.w)} px, ${tried} tried, ${bent} too bent, ${collided} collided)` : "river line off screen");
+        continue;
+      }
+      // an area kind: along its path when the path is long enough and gentle, else straight at the anchor
+      let got = null, curved = false, mid = null, far = false;
+      if (row.p) {
+        const S = row.p.map(proj);
+        if (S.every((p) => p[2] > 0.01)) {
+          const S2 = S.map((p) => [p[0], p[1]]);
+          if (!reads(S2)) S2.reverse();
+          const cum = polyline(S2), Ls = cum[cum.length - 1];
+          if (Ls >= sh.w * 1.02) { const g = alongEither(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(freeOwn) && inFrame(g.rects)) { got = g; curved = true; mid = pointAt(S2, cum, Ls / 2); } }   // a run that leaves the frame at all falls back to the straight name at the anchor, which is slid back inside it (Phase 3c)
+        }
+      }
+      if (!got) {
+        if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") { drop(k + " name wider than its shape"); continue; }   // the name would overhang the shape by most of its length
+        if (!onScreen(c.a[0], c.a[1], 0)) { drop(k + " anchor off screen"); continue; }
+        // with a mark at the anchor: just above it, else just below it, else over it (its OWN star, which a name may cover — decision a forbids another's only)
+        let hung = false, hit = false;
+        for (const dy of mk0 ? [up, -up, 0] : [0]) {
+          const g = intoFrame(straight(sh, c.a[0], c.a[1] + dy, 0), sh.h);   // Phase 3c, decision 3: a sea's, a region's name stays inside the frame like a polity's — slid back by at most a third of its width, or not placed
+          if (!g) { hung = true; continue; }
+          if (!freeOwn(g.rects[0])) { hit = true; continue; }
+          if (!nearAnchor(g.rects, c.a[0], c.a[1])) { far = true; continue; }
+          got = g; break;
+        }
+        if (!got) { drop(far && !hit && !hung ? k + " name finds no free place within " + NEAR_PX + " px of its anchor" : hit || !hung ? k + " collides" : k + " label would hang out of the frame"); continue; }
+      }
+      // a label whose every glyph lies beyond the viewport (its anchor was within the 200 px margin) is not placed: it
+      // would hold a slot of the density cap and draw nothing
+      const ub = union(got.rects);
+      if (offScreen(ub)) { drop(k + " label wholly off screen"); continue; }
+      for (const r of got.rects) take(r);
+      placed.push(Object.assign(base, mid ? { a: unitAt(mid[0], mid[1]), sx: mid[0], sy: mid[1], alpha: Math.min(1, c.a[2] / 0.2) } : { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2) }, { glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
+    } while (false); };
     if (study) {
       const AS = root.AtlasStudy, h0 = AS.markHalf(kmpp) * FS, MARGIN = 120;
       const histAt = new Map();
-      for (const hr of histRows) if (!histAt.has(hr.id)) histAt.set(hr.id, hr);   // sorted by on-screen area: a polity's mark is on its largest face in view
+      for (const hr of histRows) if (!histAt.has(hr.id)) histAt.set(hr.id, hr);
+      const candById = new Map(); for (const c of cands) if (c.hl && !candById.has(c.row.id)) candById.set(c.row.id, c);   // the flagged candidates of the ordinary kind, laid by this pass (decision b)   // sorted by on-screen area: a polity's mark is on its largest face in view
       let list = [];
       for (const [id, f] of study.flags) {
         let kind, name = "", n = 0, a, x, y, z, unit, own = null;
@@ -1083,7 +1225,7 @@
       list.forEach((m) => {
         const hh = m.h, mrect = [m.x - hh - 1, m.y - hh - 1, m.x + hh + 1, m.y + hh + 1];
         m.rect = mrect; m.clear = fullyOn(mrect) && !hitsChrome(mrect);
-        if (m.cls && m.clear) take(mrect, true);
+        if (m.cls && m.clear) { markRect.set(m.id, rects.length); take(mrect, true); }
       });
       for (const m of list) {
         const hh = m.h, mrect = m.rect;
@@ -1092,6 +1234,7 @@
         if (m.members) { base.members = m.members; base.count = m.count; base.name = m.name; base.city = m.city; }   // a city stack (decision d)
         if (m.ox || m.oy) { base.ox = Math.round(m.ox * 10) / 10; base.oy = Math.round(m.oy * 10) / 10; }   // nudged off its true point (decision c): the page adds the offset and draws the hairline
         if (m.cls) { marks.push(base); markById.set(m.id, base); }   // an AREA (no class) has no mark: its name stands at its point (decision e)
+        if (!m.own) { const c2 = candById.get(m.id); if (c2) { done.add(c2); layCand(c2, true); } continue; }   // a flagged polity, country, sea or river: its name is laid HERE, at its flag's turn, by the ordinary code (decision b)
         if (!m.clear) continue;   // under a control or past the frame's edge: no name either (the page checks the mark again on every frame)
         const row = m.own;
         if (row && show.places && row.name) {
@@ -1159,144 +1302,16 @@
         }
       }
     }
-    /* A POLITY'S OR A COUNTRY'S NAME RANKS BELOW THE STUDY NAMES NEAR IT (2026-10-17, decision b: Vatican City as a state label against the places'
-       names round Rome). The ordinary pass — the polities, the countries, the provinces, the cities, the water and the relief — begins only here, after
-       every study name is laid, flagged or not; a state's name that would collide with a study name is the one dropped. test-atlas-overlaps.js
-       asserts the order on the placed list. */
-    const capAll = cap + placed.length;   // the density cap counts the ordinary labels only: the study pass is the reader's own
-    let riverLabels = 0;
+    /* A POLITY'S OR A COUNTRY'S NAME THAT IS NOT A CARD-LINKED PLACE RANKS BELOW THE STUDY NAMES NEAR IT (2026-10-17, decision b: Vatican City as a
+       state label against the places' names round Rome). The ordinary pass — the unflagged polities, countries and provinces, the cities, the water
+       and the physical names — begins only here, after every study name is laid; a state's name that would collide with a study name is the one
+       dropped. A CARD-LINKED polity or country (flagged by the study layer) was laid by the study pass above, at its flag's turn (`layCand`).
+       test-atlas-overlaps.js asserts the order on the placed list. */
+    capAll = cap + placed.length;   // the density cap counts the ordinary labels only: the study pass is the reader's own
     for (const c of cands) {
       if (placed.length >= capAll) break;
-      const row = c.row, k = row.kind; dropping = row;
-      const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
-      if (!st) { drop(k + " no metrics for style " + styleId); continue; }
-      const text = (k === "capital" || k === "city" || k === "town") && !c.hist && root.AtlasStudy ? root.AtlasStudy.labelText(row.name, null, { qualified: qualified(row.name) }).text : row.name;   // a settlement's name shows no parenthetical (decision f) and no ", <country>" qualifier unless two share the bare name (decision d, 2026-10-17)
-      const sh = shape(text, st, missing); sh.style = styleId;
-      const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
-      /* a flagged area or polity has a MARK at its anchor (the study pass): its name stands just above it, so the dot is read as the place and the name as its label */
-      const mk0 = markById.get(row.id), up = mk0 ? -(mk0.h + 2 + sh.h / 2) : 0;
-      if (k === "polity" || k === "people" || k === "culture" || k === "extent") {
-        // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
-        const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
-        const cum = polyline(S2), Ls = cum[cum.length - 1];
-        let got = null, curved = false, lines = 1, mid = null;   // mid: the point of the guide line under a name that runs along it — that name's anchor (the 28 px rule)
-        // along the path: at its middle first, then slid either way (task 0a: the one trial at the middle was where the capital sat)
-        if (Ls >= sh.w * 1.02) for (const f of POLITY_SLIDE) { const s0 = Ls / 2 + f * Ls; if (s0 - sh.w / 2 < 0 || s0 + sh.w / 2 > Ls) continue; const g = alongEither(sh, S2, cum, s0, st); if (g && g.rects.every(free) && inFrame(g.rects)) { got = g; curved = true; mid = pointAt(S2, cum, s0); break; } }
-        if (!got) {
-          const wide = row.path.len * (row.rank <= CAPITAL_AFTER_RANK ? POLITY_WIDE_LARGE : POLITY_WIDE);
-          let clipped = 0, collided = 0, far = 0;
-          const straightTry = (make, w) => { for (const n of POLITY_NUDGE) for (const f of POLITY_SIDE) { const g = intoFrame(make(c.a[0] + f * w, c.a[1] + n * sh.h + up), sh.h); if (!g) { clipped++; continue; } if (!g.rects.every(free)) { collided++; continue; } if (!nearAnchor(g.rects, c.a[0], c.a[1])) { far++; continue; } return g; } return null; };
-          if (sh.w <= wide) got = straightTry((x, y) => straight(sh, x, y, 0), sh.w);
-          let two = null;
-          if (!got) { two = splitName(text, st, styleId); if (two && two.wide <= wide) { got = straightTry((x, y) => stacked(two, x, y), two.wide); if (got) lines = 2; } }
-          if (!got) { drop(sh.w > wide && !(two && two.wide <= wide) ? "polity name wider than its path (" + Math.round(sh.w) + " px, " + (two ? Math.round(two.wide) + " px on two lines" : "no space to break at") + ", against " + Math.round(row.path.len) + ", rank " + row.rank + ")" : far > clipped + collided ? "polity name finds no free place within " + NEAR_PX + " px of its anchor" : clipped > collided ? "polity label clipped" : "polity collides"); continue; }
-        }
-        const ub = union(got.rects); if (offScreen(ub)) { drop("polity label wholly off screen"); continue; }
-        got.rects.forEach(take);
-        // the anchor's unit vector: unproject the screen anchor (the label follows the globe between layouts) — the guide line's point under the name when it runs along one, else the polity's own point
-        const ap = mid || c.a, aw = unitAt(ap[0], ap[1]);
-        placed.push(Object.assign(base, { a: aw, sx: ap[0], sy: ap[1], alpha: 1, glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
-        continue;
-      }
-      if (k === "capital" || k === "city" || k === "town") {
-        const r = MARKER_R[k] * FS, x = c.a[0], y = c.a[1];
-        const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
-        const own = reservedMarker.has(row.id);   // a capital's marker was reserved above and is its own ground
-        if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
-        if (!own && !free(mrect)) { drop("marker collides"); continue; }
-        if (!show.places) { if (!own) take(mrect, true); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
-        const g3 = 3 * FS, tries = [[x + r + g3 + sh.w / 2, y, 0], [x - r - g3 - sh.w / 2, y, 0], [x, y - r - g3 - sh.h / 2, 0], [x, y + r + g3 + sh.h / 2, 0]];
-        let got = null;
-        for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (fullyOn(g.rects[0]) && free(g.rects[0])) { got = g; break; } }
-        if (!got) {
-          // a reserved capital marker whose name finds no free side keeps its marker (task 0a): the square under the empire's
-          // name still says where the capital is, and a tap answers with the name; an unreserved one drops as before
-          if (own) { placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
-          drop(onScreen(x, y, 0) ? "city label collides on all four sides, or is not wholly on screen" : "city off screen"); continue;
-        }
-        take(got.rects[0]); if (!own) take(mrect, true);
-        placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
-        continue;
-      }
-      if (k === "river") {
-        const parts = RIVER_LINES ? row.rivers.flatMap((ei) => RIVER_LINES.get(ei) || []) : null; if (!parts || !parts.length) { drop("river has no line at this level"); continue; }
-        // runs of consecutive on-screen vertices, part by part
-        let run = [], runV = [], n = 0, perRiver = 0, maxLr = 0, tried = 0, collided = 0, bent = 0; const before = riverLabels;
-        const flush = () => {
-          if (run.length < 2 || perRiver >= 6) { run = []; runV = []; return; }
-          if (!reads(run)) { run.reverse(); runV.reverse(); }
-          const cum = polyline(run), Lr = cum[cum.length - 1]; if (Lr > maxLr) maxLr = Lr;
-          // the text follows a SMOOTHED copy of the run (each vertex averaged with its neighbours within two text
-          // sizes of arc length): at 0.5 km/px the LOD 1 vertices sit 10–15 px apart on a meander, closer than the
-          // glyphs, and every try on the Rhine, the Moselle and the Weser bent past the 23° a reader can follow
-          // (Phase 1d, found by the labels suite once the rank-8 rivers left the gazetteer); the text straddles the
-          // channel's course rather than its every bend, and the anchor stays a vertex of the real line
-          const runS = smoothRun(run, cum, st.size * 2), cumS = polyline(runS);
-          // the name every RIVER_REPEAT_PX along the run; a run shorter than that carries it once, at its middle
-          const LrS = cumS[cumS.length - 1];
-          for (let s0 = LrS < RIVER_REPEAT_PX ? LrS / 2 : RIVER_REPEAT_PX / 2; s0 + sh.w / 2 + 10 < LrS && placed.length < capAll; s0 += RIVER_REPEAT_PX) {
-            // a spot that bends or collides is not the stretch's last word: the text slides up to 120 px either way
-            let g = null, s1 = s0, av = null, apt = null;
-            for (const off of [0, 60, -60, 120, -120]) {
-              s1 = s0 + off; if (s1 - sh.w / 2 < 10 || s1 + sh.w / 2 + 10 > LrS) continue;
-              tried++;
-              const t = alongEither(sh, runS, cumS, s1, st); if (!t) { bent++; continue; }
-              if (!t.rects.every(free)) { collided++; continue; }
-              if (!inFrame(t.rects)) continue;   // a run reaches 60 px past the canvas; the text stays inside the frame like a polity's name (Phase 3c), another stretch or offset is tried
-              // the anchor: the river's own point under the label's middle, between the two vertices it lies between (a vertex alone can be 100 px away at a high zoom: the 28 px rule)
-              const pa = pointAt(runS, cumS, s1), v0 = runV[pa[2]], v1 = runV[pa[2] + 1] || v0;
-              av = norm3([v0[0] + (v1[0] - v0[0]) * pa[3], v0[1] + (v1[1] - v0[1]) * pa[3], v0[2] + (v1[2] - v0[2]) * pa[3]]); apt = proj(av);
-              if (!nearAnchor(t.rects, apt[0], apt[1])) { av = null; continue; }
-              g = t; break;
-            }
-            if (!g) continue;
-            g.rects.forEach(take);
-            placed.push(Object.assign({}, base, { a: av, sx: apt[0], sy: apt[1], alpha: 1, glyphs: g.glyphs, box: union(g.rects), rects: g.rects, marker: null, hit: union(g.rects), curved: true, meanAngle: g.meanAngle }));
-            perRiver++; riverLabels++;
-          }
-          run = []; runV = [];
-        };
-        for (const line of parts) {
-          for (let i = 0; i < line.length; i += 3) {
-            const v = [line[i], line[i + 1], line[i + 2]], p = proj(v);
-            if (p[2] > 0.02 && onScreen(p[0], p[1], 60)) { run.push([p[0], p[1]]); runV.push(v); n++; } else flush();
-          }
-          flush();
-        }
-        if (riverLabels === before) drop(n ? `river run too short or collides (${n} vertices on screen, longest run ${Math.round(maxLr)} px, label ${Math.round(sh.w)} px, ${tried} tried, ${bent} too bent, ${collided} collided)` : "river line off screen");
-        continue;
-      }
-      // an area kind: along its path when the path is long enough and gentle, else straight at the anchor
-      let got = null, curved = false, mid = null, far = false;
-      if (row.p) {
-        const S = row.p.map(proj);
-        if (S.every((p) => p[2] > 0.01)) {
-          const S2 = S.map((p) => [p[0], p[1]]);
-          if (!reads(S2)) S2.reverse();
-          const cum = polyline(S2), Ls = cum[cum.length - 1];
-          if (Ls >= sh.w * 1.02) { const g = alongEither(sh, S2, cum, Ls / 2, st); if (g && g.rects.every(free) && inFrame(g.rects)) { got = g; curved = true; mid = pointAt(S2, cum, Ls / 2); } }   // a run that leaves the frame at all falls back to the straight name at the anchor, which is slid back inside it (Phase 3c)
-        }
-      }
-      if (!got) {
-        if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") { drop(k + " name wider than its shape"); continue; }   // the name would overhang the shape by most of its length
-        if (!onScreen(c.a[0], c.a[1], 0)) { drop(k + " anchor off screen"); continue; }
-        // with a mark at the anchor: just above it, else just below it — never over it (decision a: no name covers a mark that is not its own)
-        let hung = false, hit = false;
-        for (const dy of mk0 ? [up, -up] : [0]) {
-          const g = intoFrame(straight(sh, c.a[0], c.a[1] + dy, 0), sh.h);   // Phase 3c, decision 3: a sea's, a region's name stays inside the frame like a polity's — slid back by at most a third of its width, or not placed
-          if (!g) { hung = true; continue; }
-          if (!free(g.rects[0])) { hit = true; continue; }
-          if (!nearAnchor(g.rects, c.a[0], c.a[1])) { far = true; continue; }
-          got = g; break;
-        }
-        if (!got) { drop(far && !hit && !hung ? k + " name finds no free place within " + NEAR_PX + " px of its anchor" : hit || !hung ? k + " collides" : k + " label would hang out of the frame"); continue; }
-      }
-      // a label whose every glyph lies beyond the viewport (its anchor was within the 200 px margin) is not placed: it
-      // would hold a slot of the density cap and draw nothing
-      const ub = union(got.rects);
-      if (offScreen(ub)) { drop(k + " label wholly off screen"); continue; }
-      got.rects.forEach(take);
-      placed.push(Object.assign(base, mid ? { a: unitAt(mid[0], mid[1]), sx: mid[0], sy: mid[1], alpha: Math.min(1, c.a[2] / 0.2) } : { a: row.a, sx: c.a[0], sy: c.a[1], alpha: Math.min(1, c.a[2] / 0.2) }, { glyphs: got.glyphs, box: ub, rects: got.rects, marker: null, hit: ub, curved, meanAngle: curved ? got.meanAngle : 0 }));
+      if (done.has(c)) continue;   // laid by the study pass (decision b)
+      layCand(c, false);
     }
     void hitsChrome;
     return { placed, marks, candidates: cands.length, cap, chrome: chrome.length, missing: [...missing].map((m) => m.split("\u0001")), rivers: riverLabels, why };

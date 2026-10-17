@@ -12,8 +12,9 @@
      · no name's box intersects a mark that is not its own — the study layer's marks as drawn (`liveMarks`) and the ordinary city dots;
      · every city stack's ring that is drawn has its city's name drawn beside it ("Rome" beside the "41") — or, where the marks and the frame alone leave
        no clear box (the worker's drop reason counts what each try met), the ring stays unnamed rather than cover a mark;
-     · a polity's or a country's name ranks below the study names (decision b): in the layout's own placement order every one of them comes after the
-       last study name, and the rings' names come first of all.
+     · a polity's or a country's name that is not a card-linked place ranks below the study names (decision b): in the layout's own placement order
+       every unflagged one comes after the last study name, a card-linked one is laid by the study pass at its flag's turn, and the rings' names come
+       first of all.
    It also prints, per view, how many names the layout placed and how many it dropped (the worker's own drop reasons, `labelWhy`), so the cost
    of the rule can be read.
    THE FAULT IT WAS WRITTEN FOR (2026-10-17, a 390 × 844 phone, the Full Atlas at lon 12.5, lat 41.9, 1.2 km/px): "VATICAN CITY" over "Collatia",
@@ -90,7 +91,7 @@ const read = (page) => A(page, (c) => {
   const names = c.labelsLive().map((e) => ({ id: e.p.id, kind: e.p.kind, text: e.p.text, hist: !!e.p.hist, st: e.p.st || 0, stack: /^stk:/.test(e.p.id), rects: (e.p.rects || []).slice(0, e.p.marker ? -1 : undefined).map((q) => [q[0] + e.dx, q[1] + e.dy, q[2] + e.dx, q[3] + e.dy]), marker: e.p.marker ? [e.p.marker[0] + e.dx, e.p.marker[1] + e.dy, e.p.marker[2]] : null }));
   const marks = c.study.liveMarks().map((m) => ({ id: m.id, name: m.name || m.id, x: m.x, y: m.y, h: m.h, stack: !!m.members, count: m.count }));
   const why = c.labelWhy() || [];
-  const order = c.labels().map((p) => ({ id: p.id, text: p.text, study: !!p.study, stack: /^stk:/.test(p.id), polity: !!p.hist || p.kind === "country" || p.kind === "admin1" }));   // the layout's own placement order
+  const order = c.labels().map((p) => ({ id: p.id, text: p.text, study: !!p.study, stack: /^stk:/.test(p.id), st: p.st || 0, polity: !!p.hist || p.kind === "country" || p.kind === "admin1" }));   // the layout's own placement order
   return { names, marks, placed: order.length, dropped: why.length, why, order };
 });
 const inter = (r, b) => Math.max(0, Math.min(r[2], b[2]) - Math.max(r[0], b[0])) * Math.max(0, Math.min(r[3], b[3]) - Math.max(r[1], b[1]));
@@ -116,11 +117,13 @@ function judge(d) {
     const w = d.why.find((x) => x.startsWith(m.name + ": study name finds no free side")), mt = w && /\((\d+) tries: (\d+) left the frame, (\d+) met a name or a control, (\d+) met a mark/.exec(w);
     if (mt && mt[3] === "0" && Number(mt[2]) + Number(mt[4]) > 0) lawful.push(m.name + " (" + m.count + "): " + mt[1] + " tries, " + mt[2] + " left the frame, " + mt[4] + " met a mark"); else unnamed.push(m.name + " (" + m.count + ")" + (w ? " — " + w.slice(w.indexOf("(")) : " — no drop reason"));
   }
-  /* decision b: a polity's or a country's name ranks below the study names — in the layout's placement order every one of them comes after the last study
-     name, and the city rings' names come before every other study name (decision a) */
-  const lastStudy = d.order.reduce((k, p, i) => (p.study ? i : k), -1), firstPolity = d.order.findIndex((p) => p.polity), firstPlain = d.order.findIndex((p) => p.study && !p.stack);
+  /* decision b: a polity's or a country's name that is NOT a card-linked place ranks below the study names — in the layout's placement order every unflagged
+     one comes after the last study name; a card-linked one is laid by the study pass itself (study: true); and the city rings' names come before every other
+     study name (decision a) */
+  const lastStudy = d.order.reduce((k, p, i) => (p.study ? i : k), -1), firstPolity = d.order.findIndex((p) => p.polity && !p.st), firstPlain = d.order.findIndex((p) => p.study && !p.stack);
   const orderBad = [];
-  if (firstPolity >= 0 && firstPolity < lastStudy) orderBad.push(`"${d.order[firstPolity].text}" (a polity or country) is laid before "${d.order[lastStudy].text}" (a study name)`);
+  if (firstPolity >= 0 && firstPolity < lastStudy) orderBad.push(`"${d.order[firstPolity].text}" (a polity or country with no card) is laid before "${d.order[lastStudy].text}" (a study name)`);
+  for (const p of d.order) if (p.polity && p.st && !p.study) orderBad.push(`"${p.text}" (a card-linked polity or country) was not laid by the study pass`);
   for (const p of d.order) if (p.stack && firstPlain >= 0 && d.order.indexOf(p) > firstPlain) orderBad.push(`the ring "${p.text}" is laid after "${d.order[firstPlain].text}"`);
   if (!d.order.some((p) => p.study) && d.marks.length) orderBad.push("no name is marked as the study pass's");
   return { nameBad, markBad, unnamed, lawful, orderBad };
@@ -142,7 +145,7 @@ function judge(d) {
       const at = `${name} at ${k} km/px`;
       check(`${at}: no two drawn names overlap (${d.names.length} names drawn, ${d.placed} placed, ${d.dropped} dropped)`, j.nameBad.length === 0, j.nameBad.slice(0, 4).map((x) => `"${x.a}" × "${x.b}" ${x.px2} px²`).join("; ") + (j.nameBad.length > 4 ? ` … ${j.nameBad.length} pairs` : ""));
       check(`${at}: no name covers a mark that is not its own (${d.marks.length} marks drawn)`, j.markBad.length === 0, j.markBad.slice(0, 4).map((x) => `"${x.name}" over ${x.mark} ${x.px2} px²`).join("; ") + (j.markBad.length > 4 ? ` … ${j.markBad.length} pairs` : ""));
-      check(`${at}: every polity's and country's name is laid after the study names, and the rings' names first (${d.order.filter((p) => p.polity).length} polity or country names, ${d.order.filter((p) => p.study).length} study names)`, j.orderBad.length === 0, j.orderBad.slice(0, 3).join("; "));
+      check(`${at}: every unflagged polity's and country's name is laid after the study names, a card-linked one by the study pass, and the rings' names first (${d.order.filter((p) => p.polity && !p.st).length} + ${d.order.filter((p) => p.polity && p.st).length} polity or country names, ${d.order.filter((p) => p.study).length} study names)`, j.orderBad.length === 0, j.orderBad.slice(0, 3).join("; "));
       if (rings.length) check(`${at}: every city stack's ring is named (${rings.map((m) => m.name + " " + m.count).join(", ")})${j.lawful.length ? " — but for the ring the marks and the frame alone box in: " + j.lawful.join("; ") : ""}`, j.unnamed.length === 0, j.unnamed.join(", ") + " unnamed");
       if (SHOTS && prof[0] === "phone" && ((name === "Rome" && k === 1.2) || name === "Naples")) { fs.mkdirSync(SHOTS, { recursive: true }); await page.screenshot({ path: path.join(SHOTS, `${name.toLowerCase()}-${k}-${theme}.png`) }); }
     }
