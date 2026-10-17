@@ -23517,7 +23517,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const chestLabel = owed ? (owed === 1 ? "Open the chest for " + art + count + "-day streak" : "Open " + owed + " chests for " + art + count + "-day streak")
       : claimed ? "This week's streak chest is opened \u2014 it is in your account"
       : "Locked: " + (n <= 0 ? "seven days in a row unlock a chest" : p.left + (p.left === 1 ? " more day" : " more days") + " in a row unlock a chest");
-    let days = "";
+    /* THE PHONE SHOWS THE WEEK AS A RAIL (Oct 2026, on request: "In the weekly streak banner, remove the line
+       'X days for a chest'. Replace the 7 squares by the same dashes we use in the minigame progress bar, with
+       a 'X of 7' before it and the bar extending all the way to the right of the banner where the chest is").
+       The count is the green cells of the week drawn below — the same figure, so the two can never disagree —
+       and it is in the markup at every width; styles.css shows it, hides the note and turns the squares into
+       the minigame rail's segments below 640px only. */
+    const lit = Math.max(0, Math.min(every, n - (weeks - 1) * every));
+    let days = '<span class="sr-of" aria-hidden="true"><b>' + lit + "</b> of " + every + "</span>";
     for (let w = weeks - 1; w < weeks; w++) {
       const cells = [];
       for (let i = 0; i < every; i++) { const d = w * every + i + 1; cells.push('<i class="' + (d <= n ? "b" : (d === slot ? "t" : "o")) + '"></i>'); }

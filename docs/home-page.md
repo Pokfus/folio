@@ -343,7 +343,10 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   column is sized to its content's one-line width before the flexible week column gets anything, so the
   sentence took ~315px off the top at every width and the chest spilt across it on a tablet. **Today's cell is
   green the moment a card is studied** (same request): the ring marks the day still to be kept — the slot after
-  the run while `S.streak.last` is not today — and nowhere once `bumpStreak` has run.
+  the run while `S.streak.last` is not today — and nowhere once `bumpStreak` has run. **On a phone (≤640px)
+  the week is a rail** (Oct 2026, on request): the "X days for a chest" note is hidden, `.sr-of` ("X of 7",
+  counted from the same cells) leads the second row, and the seven squares are the minigame rail's dashes
+  stretched to the chest at the right; today's slot to keep is a half-lit dash. Markup is one at every width.
 - **"Your collections"** is a header row (`.rv-sec-h`) with the legend and the **"+ Add decks" link**;
   it never counts cards (on request). Each row is tinted by its own progress: the `.dk-prog .track` is
   absolutely positioned under the row and is `pointer-events:none` — it sat over the drag grip and

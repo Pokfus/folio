@@ -9483,6 +9483,7 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .streak-ribbon{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:12px; background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:12px 18px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet);}
 .sr-n{font-family:var(--sans); font-size:calc(24px * var(--fs)); font-weight:800; color:var(--good); letter-spacing:-.03em; line-height:1;}
 .sr-days{display:flex; gap:10px; align-items:center;}
+.sr-of{display:none;}   /* the phone's "X of 7" (below 640px, further down) */
 .sr-wk{display:inline-flex; gap:4px; align-items:center;}
 .sr-wk i{display:block; width:14px; height:14px; border-radius:4px; background:var(--good); box-sizing:border-box;}
 .sr-wk i.o{background:var(--paper-2); border:1px solid var(--rule);}
@@ -9821,9 +9822,23 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .page .rv-banner .stat.st-est{padding-left:12px;}
   .page .rv-banner .stat.st-est b{font-size:calc(18px * var(--fs));}
   .streak-ribbon{padding:12px 14px;}
-  .sr-wk i{width:12px; height:12px;} .sr-chest{width:24px;}
   /* a phone keeps its two-row layout (Oct 2026, on request: "don't apply the streak changes to mobile") — the
      grid itself is in the max-width:767px block above, shared with a phone on its side */
+  /* THE WEEK IS A RAIL (Oct 2026, on request: "remove the line 'X days for a chest'. Replace the 7 squares by
+     the same dashes we use in the minigame progress bar, with a 'X of 7' before it and the bar extending all
+     the way to the right of the banner where the chest is"). The note goes, the week takes the whole second
+     row, and the seven squares become the sweep rail's segments (`.games-sec .sr-step` on a phone, further
+     down): the count at the left, the dashes stretched between it and the chest, today's slot to keep a
+     half-lit dash where the square wore a ring. */
+  .streak-ribbon > .sr-note, .streak-ribbon:not(:has(> .sr-best)) > .sr-note{display:none;}
+  .streak-ribbon > .sr-days{grid-column:1 / 4; gap:10px;}
+  .sr-of{display:inline; white-space:nowrap; font-size:calc(11.5px * var(--fs));}
+  .sr-of b{color:var(--ink); font-weight:700;}
+  .sr-wk{flex:1 1 auto; min-width:0; gap:3px;}
+  .sr-wk i, .sr-wk i.o, .sr-wk i.t{flex:1 1 0; width:auto; height:calc(6px * var(--fs)); border-radius:99px; border:0; background:var(--rule);}
+  .sr-wk i.b{background:var(--good);}
+  .sr-wk i.t{background:color-mix(in srgb, var(--good) 38%, var(--rule));}
+  .sr-chest{flex:0 0 auto; width:calc(34px * var(--fs)); margin-left:7px;}
   .review-group .active-deck{padding-right:12px; gap:10px;}
   .review-group .active-deck .dk-counts{grid-template-columns:repeat(3, 28px);}
   .review-group .active-deck .dkc{height:26px; font-size:calc(12px * var(--fs));}
