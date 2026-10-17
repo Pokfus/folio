@@ -22,17 +22,18 @@ const fs = require("fs"), path = require("path"), cp = require("child_process");
 const DIR = __dirname;
 const SHARDS = 3, SHARD_CAP_MIN = 35, SETUP_MIN = 3, DEFAULT_SEC = 120;   // SETUP_MIN: checkout + the Playwright and Chromium install, measured 0.7-1.5 min; 3 is generous
 const EXCLUDE = new Set(["test-atlas-perf.js", "test-card-windows-fixes.js"]);   // each has a job of its own
-const MEASURED_FROM = "run 3560 (checks.yml, 2026-10-14), the first sharded run: the three shards' own PASS lines (seconds per suite on a GitHub runner)";
+const MEASURED_FROM = "run 3705 (checks.yml, 2026-10-17), the three shards' own PASS lines (seconds per suite on a GitHub runner; run 3560 of 2026-10-14 before)";
 const MEASURED = {   // seconds
-  "test-a11y": 50, "test-account-page": 12, "test-account-switch": 96, "test-admin-editor": 20, "test-artefacts": 48, "test-artwork-cards": 13, "test-atlas-a11y": 12, "test-atlas-card": 13,
-  "test-atlas-credits": 7, "test-atlas-embed": 128, "test-atlas-fallbacks": 54, "test-atlas-labels": 145, "test-atlas-phone": 620, "test-atlas-relief": 18, "test-atlas-render": 115,
-  "test-atlas-review": 77, "test-atlas-search": 30, "test-atlas-session": 315, "test-atlas-stages": 65, "test-atlas-study": 193, "test-atlas-time": 52, "test-atlas-windows": 239,
-  "test-avatar": 6, "test-card-locator": 78, "test-card-quote": 11, "test-card-types": 78, "test-cards": 35, "test-char-network": 29, "test-community": 20, "test-csp": 31,
-  "test-deck-glossary": 44, "test-deck-lazy": 34, "test-deck-trust": 7, "test-deck-update": 52, "test-deck-ux": 24, "test-draw-cards": 16, "test-feedback": 10, "test-findit-learn": 76,
-  "test-flag-cards": 17, "test-gloss-image": 26, "test-glossary-page": 10, "test-i18n-lang": 10, "test-lang-decks": 44, "test-layout": 438, "test-learning": 204, "test-library": 141,
-  "test-map-cards": 11, "test-media-source": 33, "test-minigames": 98, "test-publish": 186, "test-reset": 10, "test-review-decks": 182, "test-revlog": 28, "test-sanitize": 1,
-  "test-sources": 37, "test-speak": 40, "test-spelling": 23, "test-subdecks": 45, "test-tour": 69, "test-truefalse": 14, "test-units": 20, "test-video": 61, "test-war-cards": 49,
-  "test-whiteboard": 10, "test-why-markers": 0,
+  "test-a11y": 47, "test-account-page": 11, "test-account-switch": 97, "test-admin-editor": 18, "test-artefacts": 44, "test-artwork-cards": 13, "test-atlas-a11y": 8, "test-atlas-card": 22,
+  "test-atlas-credits": 6, "test-atlas-dark-labels": 11, "test-atlas-embed": 129, "test-atlas-fallbacks": 67, "test-atlas-first-globe": 32, "test-atlas-labels": 128,
+  "test-atlas-overlaps": 60, "test-atlas-phone": 312, "test-atlas-popups": 102, "test-atlas-redirects": 73, "test-atlas-relief": 11, "test-atlas-render": 93, "test-atlas-review": 93,
+  "test-atlas-search": 26, "test-atlas-session": 310, "test-atlas-stages": 62, "test-atlas-study": 184, "test-atlas-time": 33, "test-atlas-windows": 295, "test-atlas-zoom-layers": 196,
+  "test-avatar": 5, "test-card-locator": 44, "test-card-quote": 11, "test-card-types": 73, "test-cards": 35, "test-char-network": 28, "test-community": 21, "test-csp": 31,
+  "test-deck-glossary": 43, "test-deck-lazy": 34, "test-deck-trust": 7, "test-deck-update": 51, "test-deck-ux": 22, "test-draw-cards": 14, "test-feedback": 9, "test-findit-learn": 41,
+  "test-findit-pick": 89, "test-flag-cards": 16, "test-gloss-image": 27, "test-glossary-page": 9, "test-i18n-lang": 10, "test-lang-decks": 44, "test-layout": 358, "test-learning": 203,
+  "test-library": 128, "test-map-cards": 16, "test-media-source": 29, "test-minigames": 52, "test-progress-registers": 18, "test-publish": 178, "test-reset": 10, "test-review-decks": 183,
+  "test-revlog": 28, "test-sanitize": 1, "test-sources": 36, "test-speak": 61, "test-spelling": 22, "test-subdecks": 45, "test-tour": 58, "test-truefalse": 19, "test-units": 18,
+  "test-video": 58, "test-war-cards": 23, "test-whiteboard": 10, "test-why-markers": 1, "test-window-fallbacks": 217,
 };
 
 function units() {
