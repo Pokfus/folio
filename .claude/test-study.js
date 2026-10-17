@@ -341,5 +341,27 @@ console.log("\n13) the glyph classes: every card-linked kind has a class and a s
   check("seven classes, seven different shapes, each with its word for the Legend", AS.MARK_CLASSES.length === 7 && new Set(shapes).size === 7 && AS.MARK_CLASSES.every((m) => m.word && AS.markShape(m.cls === "settlement" ? "city" : m.cls === "site" ? "site" : m.cls === "battle" ? "site" : m.cls === "peak" ? "hill" : m.cls === "building" ? "site" : m.cls === "polity" ? "polity" : "stack", m.cls === "battle" ? "battle" : m.cls === "building" ? "building" : "") === m.shape));
 }
 
+console.log("\n14) the labels' text: no parenthetical, two lines past 22 characters, the short name past 28\n");
+{
+  const L = AS.labelText;
+  check("a parenthetical never shows: 'Malia (archaeological site)' → 'Malia', the full name kept for the popup", L("Malia (archaeological site)").text === "Malia" && L("Malia (archaeological site)").lines === null && L("Malia (archaeological site)").full === "Malia (archaeological site)" && L("Ji (Beijing)").text === "Ji");
+  check("22 characters or fewer stay on one line", L("Temple of Olympian Zeus").lines === null && L("Temple of Olympian Zeus").text.length === 23 || L("Bhimbetka rock shelter").lines === null);
+  check("over 22: two lines at the space nearest the middle ('Second Battle of El Alamein' → 'Second Battle' / 'of El Alamein')", JSON.stringify(L("Second Battle of El Alamein").lines) === JSON.stringify(["Second Battle", "of El Alamein"]) && JSON.stringify(L("Kabul International Airport").lines) === JSON.stringify(["Kabul International", "Airport"]));
+  check("a tie between two spaces goes to the split whose lines are most nearly equal ('Bhimbetka rock shelters' → 'Bhimbetka' / 'rock shelters')", JSON.stringify(L("Bhimbetka rock shelters").lines) === JSON.stringify(["Bhimbetka", "rock shelters"]));
+  check("over 28 with a short name in the registry (an alias the name begins with): the short name ('Boma, Democratic Republic of the Congo' → 'Boma'), on one line", L("Boma, Democratic Republic of the Congo", ["Boma"]).text === "Boma" && L("Boma, Democratic Republic of the Congo", ["Boma"]).lines === null && L("Presidential Office Building, Taipei", ["Presidential Office Building"]).text === "Presidential Office Building");
+  check("…a period name is not a short name ('Kabul International Airport' with alias 'Hamid Karzai International Airport' wraps instead)", L("Kabul International Airport", ["Hamid Karzai International Airport"]).text === "Kabul International Airport" && L("Kabul International Airport", ["Hamid Karzai International Airport"]).lines !== null);
+  check("over 28 with no short name: two lines ('Temple of Jupiter Optimus Maximus' → 'Temple of Jupiter' / 'Optimus Maximus')", JSON.stringify(L("Temple of Jupiter Optimus Maximus").lines) === JSON.stringify(["Temple of Jupiter", "Optimus Maximus"]));
+  check("a name with no space never wraps, however long", L("Llanfairpwllgwyngyllgogerychwyrndrobwll").lines === null);
+  // the report: what changes over the card-linked places
+  const by = new Map(); const T = window.ATLAS_PLACES; for (const r of T.rows) { const o = {}; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; }); by.set(o.id, o); }
+  const G = window.ATLAS_GAZETTEER, gi = {}; G.cols.forEach((c, i) => { gi[c] = i; }); for (const r of G.rows) if (/^(capital|city|town|site|mountain|hill|cape)$/.test(r[gi.kind])) by.set(r[gi.id], { id: r[gi.id], name: r[gi.name], kind: r[gi.kind], aliases: r[gi.aliases] || [] });
+  const rows = idx.ids.filter((id) => by.has(id) && /^(capital|city|town|site|mountain|hill|cape|region|island|island-group|range|lake|river|strait|gulf)$/.test(by.get(id).kind)).map((id) => by.get(id));
+  const changed = rows.map((r) => ({ r, t: L(r.name, Array.isArray(r.aliases) ? r.aliases : []) })).filter((x) => x.t.text !== x.r.name || x.t.lines);
+  const strip = changed.filter((x) => /\(/.test(x.r.name)), short = changed.filter((x) => !/\(/.test(x.r.name) && x.t.text !== x.r.name), wrap = changed.filter((x) => x.t.lines);
+  console.log("  (over " + rows.length + " card-linked places: " + strip.length + " lose a parenthetical, " + short.length + " use their short name, " + wrap.length + " wrap onto two lines; e.g. " + changed.slice(0, 6).map((x) => "'" + x.r.name + "' → " + (x.t.lines ? x.t.lines.join(" / ") : x.t.text)).join("; ") + ")");
+  check("the report's numbers are the registry's (28 parentheticals among the places; some short names; some wraps)", strip.length >= 25 && short.length >= 2 && wrap.length >= 15, strip.length + " / " + short.length + " / " + wrap.length);
+  check("every label text is at most 28 characters a line", changed.every((x) => (x.t.lines ? Math.max(x.t.lines[0].length, x.t.lines[1].length) : x.t.text.length) <= 28 || !/ /.test(x.t.text)));
+}
+
 console.log(`\n${pass} ok, ${fail} failed\n`);
 process.exit(fail ? 1 : 0);

@@ -125,6 +125,7 @@ every old spelling and proves it.
 | the keyboard and screen-reader path | `test-atlas-a11y.js` |
 | phones | `test-atlas-phone.js`, `test-card-windows-fixes.js` |
 | the study layer | `test-study.js` (no browser), `test-atlas-study.js`, `test-places.js`, `test-discovery.js` |
+| the tap rules, the popup's rows, city stacks, the glyphs, the labels' text (2026-10-17) | `test-atlas-popups.js`, `test-study.js` §11–14 (`docs/atlas-v2-design.md` §7 "Popups and stacks") |
 | the fallbacks (no WebGL2, context loss, `file://`) | `test-atlas-fallbacks.js`, `test-window-fallbacks.js` |
 | a card window or Find it | `test-atlas-embed.js`, `test-atlas-windows.js`, `test-map-cards.js`, `test-card-locator.js`, `test-war-cards.js`, `test-findit-learn.js`, `test-panels.js` |
 | the worker, the format reader, earcut, `topology.bin` | `check-core-cache.js --install`, then the render suites |

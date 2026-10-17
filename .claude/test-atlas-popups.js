@@ -55,7 +55,9 @@ const romeSites = ["pl:q180212", "pl:q10285", "pl:q207808", "pl:q200642", "pl:q3
 const romeCards = cards.filter((c) => (c.places || []).some((p) => romeSites.includes(p))).slice(0, 16).map((c) => c.id);
 const farRome = cards.filter((c) => (c.places || []).some((p) => p === "pl:q677935" || p === "pl:q1729630")).slice(0, 3).map((c) => c.id);   // Veii, Monte Cavo: Rome's by the registry, far from its centre
 const fcCards = (IDX.cardsOfPlace.get("pl:q170526") || []).slice(0, 1);   // the Fertile Crescent: a region, a name with no dot
-const READER = [...new Set([...greekPol, ...romeCards, ...farRome, ...fcCards, ...cards.filter((c) => /^gr-/.test(c.id) && c.places && c.places.length).slice(0, 12).map((c) => c.id)])];
+const nameIds = ["pl:q1615560", "pl:q223917", "pl:q189685"].concat([...REG.values()].filter((r) => /^(Malia \(archaeological site\)|Second Battle of El Alamein|Bhimbetka rock shelters)$/.test(r.name)).map((r) => r.id));   // the names (decision f): Caesarea (modern town), Boma, …, Malia, El Alamein, Bhimbetka
+const nameCards = nameIds.map((id) => (IDX.cardsOfPlace.get(id) || [])[0]).filter(Boolean);
+const READER = [...new Set([...greekPol, ...romeCards, ...farRome, ...fcCards, ...nameCards, ...cards.filter((c) => /^gr-/.test(c.id) && c.places && c.places.length).slice(0, 12).map((c) => c.id)])];
 const ST = AS.studied(IDX, READER);
 const flagsPersonal = AS.flags(IDX, ST, "personal", [], (id) => { const c = cards.find((x) => x.id === id); return c ? { collId: "x" } : null; });
 
@@ -367,6 +369,36 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const key = await page.$$eval(".atlas2-marks-key > div", (ds) => ds.map((d) => ({ cls: d.getAttribute("data-cls"), word: d.querySelector("dd").textContent.trim(), svg: !!d.querySelector("svg path"), d: d.querySelector("svg path").getAttribute("d").length })));
     check("the Legend lists the seven classes, each with its glyph drawn (an SVG path) and its words", key.length === 7 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
     await shot(page, "glyphs-east-med");
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 6  the labels' text */
+  console.log("\n\x1b[1m6) names: no parenthetical on a label, two lines past 22 characters, the short name past 28; the popup keeps the full name; the 28 px rule holds\x1b[0m\n");
+  {
+    const { ctx, page, errors } = await open(browser, READER);
+    await year(page, 2025);
+    const find = (name) => [...REG.values()].find((r) => r.name === name);
+    const cases = [
+      { name: "Malia (archaeological site)", view: [25.5, 35.3, 1.5], text: "Malia", lines: 1 },
+      { name: "Second Battle of El Alamein", view: [28.9, 30.8, 1.5], text: "Second Battle of El Alamein", lines: 2 },
+      { name: "Bhimbetka rock shelters", view: [77.6, 22.9, 1.5], text: "Bhimbetka rock shelters", lines: 2 },
+      { name: "Boma, Democratic Republic of the Congo", view: [13.05, -5.85, 1.5], text: "Boma", lines: 1 },
+    ];
+    for (const c of cases) {
+      const row = find(c.name);
+      if (!row || !READER.some((id) => (IDX.cardsOfPlace.get(row.id) || []).includes(id))) { check(c.name + ": a card of the reader's is about it", false); continue; }
+      await view(page, c.view[0], c.view[1], c.view[2]);
+      const lab = (await labels(page)).find((p) => p.id === row.id);
+      check("'" + c.name + "' is labelled \"" + c.text + "\"" + (c.lines === 2 ? " on two lines" : ""), !!lab && lab.text === c.text && lab.rects.length === c.lines && lab.glyphs === c.text.length, lab ? JSON.stringify([lab.text, lab.rects.length, lab.glyphs]) : "not placed");
+      if (lab) {
+        const h = Math.max(...lab.rects.map((r) => r[3] - r[1])) / 2, gap = Math.min(...lab.rects.map((r) => Math.hypot(Math.max(r[0] - lab.sx, 0, lab.sx - r[2]), Math.max(r[1] - lab.sy, 0, lab.sy - r[3]))));
+        check("…and stands within half its height + 28 px of its mark (the 28 px rule)", gap <= h + 28, gap.toFixed(1) + " px, half-height " + h.toFixed(1));
+        await A(page, (c, id) => c.select(id, { open: true }), row.id); await sleep(250);
+        check("…its popup carries the full name", (await page.$eval(".atlas2-card-title", (e) => e.textContent)) === c.name);
+        await A(page, (c) => c.clearSelection());
+      }
+    }
+    await shot(page, "names");
     allErrors.push(...errors); await ctx.close();
   }
 

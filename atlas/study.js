@@ -278,6 +278,35 @@
     return out;
   }
 
+  /* THE LABEL'S TEXT (2026-10-17; the owner's phone, decision f — "labels are inconsistent or too long"). A label NEVER shows a parenthetical
+     ("Malia (archaeological site)" is "Malia" on the map; the full name, with its disambiguation, is the popup's). A name longer than LABEL_WRAP (22)
+     characters wraps onto two lines at the space nearest its middle (a tie: the split whose lines are most nearly equal, then the earlier); one still
+     longer than LABEL_SHORT (28) uses the registry's SHORT NAME if it has one — an alias the full name begins with ("Boma" for "Boma, Democratic
+     Republic of the Congo"; "Presidential Office Building" for "…, Taipei"), never a period name (an alias that is another name altogether).
+     Returns { text, lines, full }: `text` the one-line text (the short name, or the stripped name), `lines` [a, b] when it wraps, else null. */
+  const LABEL_WRAP = 22, LABEL_SHORT = 28;
+  const stripParen = (s) => String(s || "").replace(/\s*\([^)]*\)/g, "").replace(/\s{2,}/g, " ").trim();
+  function shortName(full, aliases) {
+    const base = stripParen(full); let best = null;
+    for (const a of aliases || []) { const t = stripParen(a); if (!t || t.length >= base.length) continue; if (base === t || base.startsWith(t + ",") || base.startsWith(t + " ")) { if (!best || t.length < best.length) best = t; } }
+    return best;
+  }
+  function splitAtMiddle(text) {
+    const mid = text.length / 2; let best = null;
+    for (let i = 1; i < text.length - 1; i++) {
+      if (text[i] !== " ") continue;
+      const d = Math.abs(i - mid), eq = Math.abs(i - (text.length - 1 - i));
+      if (!best || d < best.d - 1e-9 || (Math.abs(d - best.d) < 1e-9 && eq < best.eq)) best = { i, d, eq };
+    }
+    return best ? [text.slice(0, best.i), text.slice(best.i + 1)] : null;
+  }
+  function labelText(name, aliases) {
+    const full = String(name || ""); let text = stripParen(full);
+    if (text.length > LABEL_SHORT) { const s = shortName(full, aliases); if (s) text = s; }
+    const lines = text.length > LABEL_WRAP ? splitAtMiddle(text) : null;
+    return { text, lines, full };
+  }
+
   /* THE YEARS A PLACE HAS (Phase 3c, search across years). `ranges` are the [from, to] year ranges a polity is on the map (its steps, joined
      — a gap between two is a real gap). Returns null when `y` lies in one, or when there are none (a place with no years on record is never
      said to be absent); else { ranges, go }, `go` the nearest year it IS on the map: the end of the range before `y` or the start of the
@@ -484,7 +513,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, LABEL_WRAP, LABEL_SHORT, labelText, shortName, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);

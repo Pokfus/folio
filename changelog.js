@@ -47,6 +47,7 @@ window.CHANGELOG = [
       "<b>Atlas popups</b>: a place's popup lists its cards as rows — the title, the deck and whether it is due — each opening the card; the Personal Atlas says how many more the Full Atlas has.",
       "<b>Atlas city stacks</b>: the places of one city that crowd together are one mark with a count (never across cities); its popup, “Rome — 7 places”, pages through them by swiping or with the arrows.",
       "<b>Atlas marks</b>: each kind of place has its own shape — a disc for a city, a diamond for a site, a saltire for a battle, a triangle for a hill, a square for a building, a star for a state — listed in the Legend; rivers, seas and regions are names only.",
+      "<b>Atlas names</b>: a label never shows a bracketed note (“Malia”, not “Malia (archaeological site)”), a long name wraps onto two lines or uses its short form, and the popup keeps the full name.",
     ],
   },
   {

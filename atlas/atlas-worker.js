@@ -667,7 +667,7 @@
   const SETTLE = { capital: 1, city: 1, town: 1 };
   function setStudyRows(rows, names) {
     const m = new Map(), points = new Set();
-    for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd, within: r.within || "", pk: r.pk || "" }); if (STUDY_POINT[r.kind]) points.add(r.id); }
+    for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", aliases: Array.isArray(r.aliases) ? r.aliases : [], kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd, within: r.within || "", pk: r.pk || "" }); if (STUDY_POINT[r.kind]) points.add(r.id); }
     /* CITY MEMBERSHIP (2026-10-17, decision d): which city each study place belongs to — the registry's parent, else the nearest settlement of the
        whole registry (the gazetteer's capitals, cities and towns and the study rows' own) within 3 km (AtlasStudy.cityMembership). Computed once,
        here, off the main thread; `cityName` is what a stack is called. */
@@ -1025,18 +1025,22 @@
         if (row && show.places && row.name) {
           const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
           if (st2) {
-            const sh = shape(row.name, st2, missing); sh.style = style;
+            /* THE LABEL'S TEXT (decision f): no parenthetical, the short name past 28 characters, two lines past 22 (AtlasStudy.labelText); the popup keeps the full name */
+            const lt = AS.labelText(row.name, row.aliases), two = lt.lines ? (() => { const a = shape(lt.lines[0], st2, missing), b = shape(lt.lines[1], st2, missing); a.style = b.style = style; return { a, b, wide: Math.max(a.w, b.w), h: a.h + b.h }; })() : null;
+            const sh = two ? { w: two.wide, h: two.h, chars: [...lt.lines[0], " ", ...lt.lines[1]] } : shape(lt.text, st2, missing); sh.style = style;
+            const lay = (tx, ty) => (two ? stacked(two, tx, ty) : straight(sh, tx, ty, 0));
+            const okAt = (g2) => g2.rects.every((r) => fullyOn(r) && free(r) && softFree(r));
             // beside the mark, with the ground between them that the pad asks of any two names (a 2 px gap never fitted a 4 px pad); an area's name on its point first
             const gap = hh + 1 + pad + 1;
             let got = null;
             const tries = m.cls ? [[m.x + gap + sh.w / 2, m.y], [m.x - gap - sh.w / 2, m.y], [m.x, m.y - gap - sh.h / 2], [m.x, m.y + gap + sh.h / 2]] : [[m.x, m.y], [m.x, m.y - sh.h], [m.x, m.y + sh.h], [m.x + sh.w / 2 + pad, m.y], [m.x - sh.w / 2 - pad, m.y]];
             for (const [tx, ty] of tries) {
-              const g2 = straight(sh, tx, ty, 0);
-              if (fullyOn(g2.rects[0]) && free(g2.rects[0]) && softFree(g2.rects[0])) { got = g2; break; }
+              const g2 = lay(tx, ty);
+              if (okAt(g2)) { got = g2; break; }
             }
             if (got) {
-              take(got.rects[0]);
-              placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: got.rects[0], rects: got.rects, marker: null, hit: got.rects[0] });
+              for (const r of got.rects) take(r);
+              placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: union(got.rects), rects: got.rects, marker: null, hit: union(got.rects), lines: two ? 2 : 1 });
             } else drop("study name finds no free side clear of the names and marks of higher priority");
           }
         }
@@ -1050,7 +1054,7 @@
       const row = c.row, k = row.kind; dropping = row;
       const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
       if (!st) { drop(k + " no metrics for style " + styleId); continue; }
-      const text = row.name;
+      const text = (k === "capital" || k === "city" || k === "town") && !c.hist && root.AtlasStudy ? root.AtlasStudy.labelText(row.name).text : row.name;   // a settlement's name shows no parenthetical (decision f)
       const sh = shape(text, st, missing); sh.style = styleId;
       const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
       /* a flagged area or polity has a MARK at its anchor (the study pass): its name stands just above it, so the dot is read as the place and the name as its label */
