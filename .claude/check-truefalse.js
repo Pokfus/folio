@@ -140,6 +140,12 @@ const QUOTED_RX = /\u201c[^\u201d]*\u201d/g;
 const PROPER_NOUNS = [
   ["Elisha Gray", "the inventor who filed a caveat for the telephone on the same day as Bell"],
   ["Registry of Tumors in Lower Animals", "the NCI-funded registry's own name — it is the institution that holds the shark tumour cases"],
+  // the Oct 2026 three-source pass (names, a title and a possessive the one-way transform would otherwise anglicise)
+  ["Gray's", "Elisha Gray's caveat and fee, named by surname alone after the first mention"],
+  ["Fred Gray", "the Montgomery lawyer who filed Browder v. Gayle"],
+  ["World Health Organization", "the organisation's own name"],
+  ["Gods in Color", "the Liebieghaus exhibition's title"],
+  ["Stanford Solar Center", "the centre's own name"],
 ];
 
 const seen = new Map();

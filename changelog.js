@@ -56,6 +56,7 @@ window.CHANGELOG = [
       "<b>Home page</b>: the “You are not signed in” notice now waits until you have studied at least one card, so a first visit is not met with a warning.",
       "<b>Common Thread</b>: the Cultures category is gone, and a term joins a category only when that category describes it — a law is a law, not a concept about law.",
       "<b>Streak on a phone</b>: the week is “X of 7” and a row of dashes running out to the chest, like the minigame bar; the “days for a chest” line is gone.",
+      "<b>True or False</b>: every statement's explanation now rests on at least three different sources, each cited where it bears on the text.",
     ],
   },
   {

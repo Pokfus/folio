@@ -132,7 +132,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 
 | file | what is left |
 |---|---|
-| `truefalse-citation-plan.md` | The daily True-or-False pool, at one openable source per statement. **Run `node .claude/check-truefalse.js` for the standing rather than quoting one.** T1 (Prehistory) is done and written cited; T2–T4 are part done off the corpus; T5–T10 need research. **Two** statements are carried as open (the 1974 terracotta discovery and who built the Giza pyramids); the third, gunpowder, was settled in T2b by rewriting it. |
+| `truefalse-citation-plan.md` | The daily True-or-False pool, at three different sources per statement (Oct 2026; one before). **Run `node .claude/check-truefalse.js` for the standing rather than quoting one.** T1 (Prehistory) is done and written cited; T2–T4 are part done off the corpus; T5–T10 need research. **Two** statements are carried as open (the 1974 terracotta discovery and who built the Giza pyramids); the third, gunpowder, was settled in T2b by rewriting it. |
 | `history-focus-plan.md` | 45 cards flagged on the question and historiography rules; batches F1–F5. |
 | `book-text-plan.md` | Correcting errors baked into the Library's source texts. |
 | `atlas-v1-archive.md` | ARCHIVE: the v1 Atlas's documentation as it stood when Phase 5 deleted v1 (render path, eras, timeline, the personal atlas, the map editor). Read only to learn why something was once so; no rule in it applies to shipped code. |

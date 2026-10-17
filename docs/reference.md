@@ -6855,7 +6855,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       pool**, since the per-entry checks read a snapshot in which two rewrites landing on one wording
       both pass. A rewrite MOVES THE KEY: a later batch addresses that statement by its new `q`.
     · **📖 `docs/truefalse-citation-plan.md` — READ BEFORE CITING A STATEMENT OR ADDING ONE.** The bar
-      (one openable source per statement, against a card's five, and why it is lower), the recipe for
+      (**three DIFFERENT works per statement since Oct 2026, on request — counted on the URL and REFUSED
+      under three by `check-truefalse.js` and `add-truefalse.js`**; one openable source before that,
+      against a card's five, and why it was lower), the recipe for
       lifting a citation out of a card that already makes the claim — **by marker and index,
       programmatically, never retyped** — the standing to run rather than quote, and the three statements
       known to need work, of which one asserts more than Folio's own cited prose does. **RUN `node
