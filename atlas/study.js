@@ -59,6 +59,7 @@
     return { cards, cardSet: new Set(cards), places, polities, noPlace, total, all: new Set([...places, ...polities]) };
   }
 
+  const D2R = Math.PI / 180, R_EARTH = 6371;
   /* the collections that have places: [{ id, name, places, mine }] — `places` the distinct registry ids any of the collection's
      cards carries, `mine` how many of those the reader has studied. Only a collection with at least one place is listed. The order
      is by size, then name, so it is stable. `info(cardId)` → { collId, coll } or null. */
@@ -162,7 +163,7 @@
     return kind === "mountain" || kind === "hill" || kind === "cape" ? "triangle" : "diamond";
   }
   function markScale(kind) { return kind === "hill" ? 0.75 : 1; }   // a hill is the smaller triangle, as it was
-  function markLayer(kind, f) { return POLITY_KIND.test(kind || "") ? 2 : f === 2 ? 1 : 0; }
+  function markLayer(kind, f) { return POLITY_KIND.test(kind || "") ? 2 : f === 2 ? 1 : 0; }   // a stack is a place's layer (its own or the reader's)
   /* the marks within `radius` px of (x, y): `pts` [{ x, y }] → indices, nearest first (a tie keeps the order given) */
   function nearMarks(pts, x, y, radius) {
     const out = [], r2 = radius * radius;
@@ -205,6 +206,50 @@
     return { R: best.R, slots: best.slots, clear: false };
   }
 
+  /* CITY STACKS (2026-10-17; the owner's phone, decision d — "Rome and similar places are cluttered with marks"). The places of ONE CITY that lie
+     within STACK_PX of one another on screen are drawn as one mark with a count; zoomed in until they separate they are drawn singly. NEVER across
+     cities and NEVER by raw screen proximity (the owner removed screen-proximity stacks on 2026-10-14): membership is by the city a place belongs to.
+       `cityMembership(places, cities, o)` → { of: Map placeId → cityId, how: { parent, near, self } }:
+         rule 1 — the registry's own parent (`within`, when it is a settlement: a capital, a city, a town or an ancient city kept as a site);
+         rule 2 — a point place with no such parent belongs to the settlement (a capital, a city or a town; never a site) within `km` (3) of
+                  its centre — the largest kind first (a capital before a city before a town: the Acropolis's sites are Athens's, not the
+                  "Acropolis (neighbourhood)" row's), the nearest among equals (the registry has no city extents, so the centre is all there is);
+         a settlement joins only a LARGER kind of settlement within `km` (a town or a neighbourhood row joins the capital it lies in; two towns
+         3 km apart stay two), else it is its own city — so a stack can carry the city's own mark.
+       `places` [{ id, kind, within, pk (the parent's kind), a (unit vector) | at ([lon, lat]) }], `cities` [{ id, kind, a | at }].
+       `stackGroups(items, px)` → the groups of two or more among `items` [{ x, y }] whose members chain within `px` of one another (single
+       linkage, so a group is what a reader sees as one cluster), each as an array of indices in the input order. */
+  const STACK_PX = 28;
+  const SETTLEMENT = /^(capital|city|town)$/, CITY_PARENT = /^(capital|city|town|site)$/, POINT_PLACE = /^(capital|city|town|site|mountain|hill|cape)$/;
+  const unitOf = (p) => { if (p.a) return p.a; const lo = p.at[0] * D2R, la = p.at[1] * D2R, c = Math.cos(la); return [c * Math.cos(lo), c * Math.sin(lo), Math.sin(la)]; };
+  function cityMembership(places, cities, o) {
+    o = o || {}; const km = o.km == null ? 3 : o.km, cosMax = Math.cos(km / R_EARTH);
+    const of = new Map(), how = { parent: 0, near: 0, self: 0 };
+    const RANK = { capital: 0, city: 1, town: 2 };
+    const cs = (cities || []).filter((c) => c && c.id && SETTLEMENT.test(c.kind || "") && (c.a || c.at)).map((c) => ({ id: c.id, u: unitOf(c), r: RANK[c.kind] }));
+    for (const p of places || []) {
+      if (!p || !p.id || !POINT_PLACE.test(p.kind || "")) continue;
+      if (p.within && p.within !== p.id && CITY_PARENT.test(p.pk || "")) { of.set(p.id, p.within); how.parent++; continue; }
+      const own = SETTLEMENT.test(p.kind) ? RANK[p.kind] : 9;   // a settlement joins only a larger kind
+      if (!(p.a || p.at)) { if (own < 9) { of.set(p.id, p.id); how.self++; } continue; }
+      const u = unitOf(p); let best = null, bd = cosMax, br = 9;
+      for (const c of cs) { if (c.id === p.id || c.r >= own) continue; const d = u[0] * c.u[0] + u[1] * c.u[1] + u[2] * c.u[2]; if (d < cosMax) continue; if (c.r < br || (c.r === br && d > bd)) { bd = d; br = c.r; best = c.id; } }
+      if (best) { of.set(p.id, best); how.near++; }
+      else if (own < 9) { of.set(p.id, p.id); how.self++; }
+    }
+    return { of, how };
+  }
+  function stackGroups(items, px) {
+    const n = (items || []).length, r2 = (px == null ? STACK_PX : px) ** 2, seen = new Array(n).fill(false), out = [];
+    for (let i = 0; i < n; i++) {
+      if (seen[i]) continue;
+      const g = [i]; seen[i] = true;
+      for (let k = 0; k < g.length; k++) for (let j = 0; j < n; j++) { if (seen[j]) continue; const dx = items[j].x - items[g[k]].x, dy = items[j].y - items[g[k]].y; if (dx * dx + dy * dy <= r2) { seen[j] = true; g.push(j); } }
+      if (g.length >= 2) out.push(g.sort((a, b) => a - b));
+    }
+    return out;
+  }
+
   /* THE YEARS A PLACE HAS (Phase 3c, search across years). `ranges` are the [from, to] year ranges a polity is on the map (its steps, joined
      — a gap between two is a real gap). Returns null when `y` lies in one, or when there are none (a place with no years on record is never
      said to be absent); else { ranges, go }, `go` the nearest year it IS on the map: the end of the range before `y` or the start of the
@@ -223,7 +268,6 @@
      place does not stretch the frame over the globe; the scale is the km a pixel must span for that circle, with a margin, to fit half of
      `shortPx` (the frame's shorter side), clamped to [minKmpp, maxKmpp]. null when there are none, or when they spread right round the
      globe (the mean vector shorter than 0.25: no one direction frames them) — the caller then keeps its default. */
-  const D2R = Math.PI / 180, R_EARTH = 6371;
   function framing(points, o) {
     o = o || {};
     const pts = (points || []).filter((p) => p && isFinite(p[0]) && isFinite(p[1]));
@@ -412,7 +456,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);

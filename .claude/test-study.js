@@ -123,9 +123,9 @@ console.log("\n5) the marks: every flagged place is its own mark, and nothing st
   const full = AS.flags(idx, AS.studied(idx, []), "full", none, info);
   const kindOf = (id) => (REG.rows.get(id) || {}).kind;
   // NO CLUSTERING ANYWHERE: the function is gone from the module, and no source names a stack marker, its radius or its count
-  check("AtlasStudy has no cluster (and nothing like it): a mark is never a count", AS.cluster === undefined && !Object.keys(AS).some((k) => /cluster|stack/i.test(k)));
+  check("AtlasStudy has no cluster by screen proximity: the only grouping is a CITY's (stackGroups, per city — decision d of 2026-10-17)", AS.cluster === undefined && !Object.keys(AS).some((k) => /cluster/i.test(k)) && typeof AS.stackGroups === "function" && typeof AS.cityMembership === "function");
   const worker = fs.readFileSync(path.join(ROOT, "atlas", "atlas-worker.js"), "utf8"), atlasJs = fs.readFileSync(path.join(ROOT, "atlas", "atlas.js"), "utf8"), css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8");
-  check("the worker has no STACK_PX, no \"stack\" marker kind and no call to cluster", !/STACK_PX|kind: "stack"|AtlasStudy\.cluster|"stack:"/.test(worker));
+  check("the worker never calls cluster and groups marks only within one city (byCity)", !/AtlasStudy\.cluster|\.cluster\(/.test(worker) && /for \(const \[cid, idxs\] of byCity\)/.test(worker));
   check("the page has no stack mark, no expandStack and no \"N places here, activate to zoom in\" button", !/kind === "stack"|expandStack|places here, activate|"stack:"|startsWith\("stack:/.test(atlasJs));
   check("…and no setting brings it back (nothing stored under a key that names clusters or stacks)", !/folio\.atlas2\.[a-zA-Z]*(stack|cluster)/i.test(atlasJs));
   // THE SIZE: a dot about 4 px across at the widest view, today's 16 px by city scale, never shrinking as the reader zooms in
@@ -287,6 +287,41 @@ console.log("\n11) the tap rules: what a tap may open (tappableSet)\n");
   const off = AS.flags(idx, st, "full", [info(reader[0]).collId], info), tOff = AS.tappableSet(idx, "full", off);
   check("a collection switched off takes its own places out of the Full set", tOff.size < tF.size && tOff.size === off.size);
   check("an id no card links is in no set (a desert, an ocean, a town with no card)", !tP.has("sea:1159115079") && !tF.has("sea:1159115079") && !tM.has("sea:1159115079") && !tM.has("nothing"));
+}
+
+console.log("\n12) city stacks: membership by the registry's parent or the nearest settlement within 3 km, groups within 28 px, never across cities\n");
+{
+  global.window = global.window || {};
+  require(path.join(ROOT, "atlas/data/gazetteer.js")); require(path.join(ROOT, "atlas/data/places.js"));
+  const by = new Map(); const G = window.ATLAS_GAZETTEER, gi = {}; G.cols.forEach((c, i) => { gi[c] = i; });
+  for (const r of G.rows) by.set(r[gi.id], { id: r[gi.id], name: r[gi.name], kind: r[gi.kind], at: r[gi.at] || null, within: "" });   // a gazetteer row's `within` is a country index, not a parent place
+  const T = window.ATLAS_PLACES; for (const r of T.rows) { const o = {}; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; }); o.within = o.within || ""; by.set(o.id, o); }
+  const linked = idx.ids.filter((id) => !id.startsWith("pol:") && by.has(id)).map((id) => { const r = by.get(id), p = r.within ? by.get(r.within) : null; return { id, kind: r.kind, within: p ? p.id : "", pk: p ? p.kind : "", at: r.at }; });
+  const cities = [...by.values()].filter((r) => /^(capital|city|town)$/.test(r.kind) && r.at);
+  const cm = AS.cityMembership(linked, cities, { km: 3 });
+  const perCity = new Map(); for (const [, c] of cm.of) perCity.set(c, (perCity.get(c) || 0) + 1);
+  const top = [...perCity].filter(([c, n]) => n >= 2 && c !== undefined).sort((a, b) => b[1] - a[1]).map(([c, n]) => (by.get(c) ? by.get(c).name : c) + " " + n);
+  const rome = "city:1159151593";
+  console.log("  (membership over the " + linked.length + " card-linked places: by the registry's parent " + cm.how.parent + ", by the 3 km rule " + cm.how.near + ", settlements their own city " + cm.how.self + "; cities with two or more members: " + top.slice(0, 12).join(", ") + ")");
+  check("Rome has the most members, and more than 20 of them", perCity.get(rome) >= 20 && [...perCity].every(([c, n]) => c === rome || n <= perCity.get(rome)), perCity.get(rome) + " in Rome");
+  check("every member of Rome is within Rome by the registry's parent or within 3 km of its centre", [...cm.of].filter(([, c]) => c === rome).every(([id]) => { const r = by.get(id); if (r.within === rome) return true; const d = ((a, b) => { const R = 6371, dLa = (b[1] - a[1]) * Math.PI / 180, dLo = (b[0] - a[0]) * Math.PI / 180, x = Math.sin(dLa / 2) ** 2 + Math.cos(a[1] * Math.PI / 180) * Math.cos(b[1] * Math.PI / 180) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(x)); })(r.at, by.get(rome).at); return d <= 3; }));
+  check("the registry's parent wins over distance (Veii, 'within' Rome though 16 km from its centre, is Rome's; so is the Lapis Niger)", cm.of.get("pl:q677935") === rome && cm.of.get("pl:q841388") === rome);
+  const RK = { capital: 0, city: 1, town: 2 };
+  check("a settlement with no parent is its own city unless a LARGER kind lies within 3 km (a town joins the capital it is in; two towns stay two)", linked.filter((p) => /^(capital|city|town)$/.test(p.kind) && !p.within).every((p) => { const c = cm.of.get(p.id); return c === p.id || (by.has(c) && RK[by.get(c).kind] < RK[p.kind]); }));
+  check("the largest settlement within 3 km wins: the Acropolis's sites — and the 'Acropolis (neighbourhood)' row itself — are Athens's (a capital)", [...cm.of].some(([, c]) => by.get(c) && by.get(c).name === "Athens") && ![...cm.of].some(([, c]) => by.get(c) && /^Acropolis/.test(by.get(c).name)));
+  check("a place with no parent and no settlement within 3 km belongs to no city (a mountain, a cave in the hills)", [...cm.of].every(([id, c]) => by.has(c)) && linked.some((p) => !cm.of.has(p.id) && /^(mountain|site)$/.test(p.kind)));
+  // the groups: a property over random layouts — every member of a group chains within 28 px, two groups never within 28 px of each other, singles never within 28 px of any other
+  let okP = true, rnd = 12345; const rand = () => { rnd = (rnd * 1103515245 + 12345) & 0x7fffffff; return rnd / 0x7fffffff; };
+  for (let t = 0; t < 300 && okP; t++) {
+    const pts = []; const n = 2 + Math.floor(rand() * 20); for (let i = 0; i < n; i++) pts.push({ x: rand() * 200, y: rand() * 200 });
+    const gs = AS.stackGroups(pts, 28), inG = new Map(); gs.forEach((g, k) => g.forEach((i) => inG.set(i, k)));
+    const d = (i, j) => Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+    for (let i = 0; i < n && okP; i++) for (let j = i + 1; j < n; j++) { const near = d(i, j) <= 28; if (near && inG.get(i) !== inG.get(j)) okP = false; if (near && !inG.has(i)) okP = false; }
+    for (const g of gs) { if (g.length < 2) okP = false; const seen = new Set([g[0]]); let grew = true; while (grew) { grew = false; for (const a of [...seen]) for (const b of g) if (!seen.has(b) && d(a, b) <= 28) { seen.add(b); grew = true; } } if (seen.size !== g.length) okP = false; }
+  }
+  check("PROPERTY (300 layouts): two points within 28 px are in one group, every group chains within 28 px, a group has two or more", okP);
+  check("the groups never cross cities: the worker groups per city (a text guard on atlas-worker.js)", /for \(const \[cid, idxs\] of byCity\)/.test(fs.readFileSync(path.join(ROOT, "atlas/atlas-worker.js"), "utf8")) && /study\.city\.get\(list\[i\]\.id\)/.test(fs.readFileSync(path.join(ROOT, "atlas/atlas-worker.js"), "utf8")));
+  check("STACK_PX is the owner's 28", AS.STACK_PX === 28);
 }
 
 console.log(`\n${pass} ok, ${fail} failed\n`);

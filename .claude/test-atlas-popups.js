@@ -53,7 +53,8 @@ const linksPol = (c, re) => (c.places || []).some((p) => re.test(p));
 const greekPol = cards.filter((c) => /^gr-/.test(c.id) && linksPol(c, /^pol:(athens|sparta|achaemenid|persia|thebes|corinth|macedon|argos|aegina|syracuse)/)).slice(0, 30).map((c) => c.id);
 const romeSites = ["pl:q180212", "pl:q10285", "pl:q207808", "pl:q200642", "pl:q34925", "pl:q194103", "pl:q586468", "pl:q192784", "pl:q211295", "pl:q478642", "pl:q281330", "pl:q746102"];
 const romeCards = cards.filter((c) => (c.places || []).some((p) => romeSites.includes(p))).slice(0, 16).map((c) => c.id);
-const READER = [...new Set([...greekPol, ...romeCards, ...cards.filter((c) => /^gr-/.test(c.id) && c.places && c.places.length).slice(0, 12).map((c) => c.id)])];
+const farRome = cards.filter((c) => (c.places || []).some((p) => p === "pl:q677935" || p === "pl:q1729630")).slice(0, 3).map((c) => c.id);   // Veii, Monte Cavo: Rome's by the registry, far from its centre
+const READER = [...new Set([...greekPol, ...romeCards, ...farRome, ...cards.filter((c) => /^gr-/.test(c.id) && c.places && c.places.length).slice(0, 12).map((c) => c.id)])];
 const ST = AS.studied(IDX, READER);
 const flagsPersonal = AS.flags(IDX, ST, "personal", [], (id) => { const c = cards.find((x) => x.id === id); return c ? { collId: "x" } : null; });
 
@@ -87,7 +88,7 @@ async function view(page, lon, lat, k) {
 async function settle(page) { await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(150); }
 async function year(page, y) {
   await A(page, (c, y) => c.setYear(y), y);
-  await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyOK && c.historyOK(); }, null, { timeout: 120000 });
+  await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.year() >= 2000 || (c.historyOK && c.historyOK()); }, null, { timeout: 120000 });
   await settle(page);
 }
 async function mode(page, m) {
@@ -193,7 +194,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     }
     // (iv) a name with no card at all: an ordinary town of the gazetteer, in the Full Atlas (present day)
     await year(page, 2025); await mode(page, "full"); await view(page, 23, 38, 2);
-    const plain = (await labels(page)).find((p) => !p.hist && /^(city|town)$/.test(p.kind) && !IDX.cardsOfPlace.has(p.id) && p.text);
+    const plain = (await labels(page)).find((p) => !p.hist && /^(city|town)$/.test(p.kind) && !/^stk:/.test(p.id) && !IDX.cardsOfPlace.has(p.id) && p.text);   // not a city stack's name
     check("a town named on the map that no card is about: " + (plain ? plain.text : "none in view"), !!plain);
     if (plain) {
       const cx = (plain.hit[0] + plain.hit[2]) / 2, cy = (plain.hit[1] + plain.hit[3]) / 2;
@@ -220,7 +221,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     if (mk) { await A(page, (c, p) => c.pickAt(p[0], p[1], true), [mk.x, mk.y]); await sleep(300); s1 = await sel(page); check("a tap on a mark that has cards opens its popup, as before", s1.id === mk.id && s1.cardOpen, JSON.stringify(s1)); await A(page, (c) => c.clearSelection()); }
     const tappable = new Set(await A(page, (c) => c.study.tappableIds()));
     const keys = await A(page, (c) => c.study.keys());
-    check("the hidden list is one button per name or mark a tap may open — " + keys.length + " buttons, every one tappable", keys.length > 0 && keys.every((k) => tappable.has(k.id)));
+    check("the hidden list is one button per name or mark a tap may open — " + keys.length + " buttons, every one tappable (a city stack is made of places with cards)", keys.length > 0 && keys.every((k) => tappable.has(k.id) || /^stk:/.test(k.id)));
     const tappableFull = AS.tappableSet(IDX, "full", AS.flags(IDX, ST, "full", [], (id) => ({ collId: "x" })));
     check("…the Full Atlas's tappable set is exactly the ids any card links (" + tappableFull.size + ")", tappable.size === tappableFull.size && [...tappable].every((id) => tappableFull.has(id)));
     allErrors.push(...errors); await ctx.close();
@@ -258,6 +259,73 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     check("…its rows are at least 30 px tall (a finger's row) and inside the sheet's width", geo.rows.length === own.length && geo.rows.every((r) => r[4] >= 30 && r[0] >= geo.card[0] && r[2] <= geo.card[2]), JSON.stringify(geo.rows.slice(0, 2)));
     await shot(ph.page, "popup-cards-phone");
     allErrors.push(...ph.errors); await ph.ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 4  city stacks and the pager */
+  console.log("\n\x1b[1m4) city stacks: one mark with a count for the places of one city within 28 px; the popup pages through them\x1b[0m\n");
+  {
+    const ROME = "city:1159151593";
+    const cities = [...REG.values()].filter((r) => /^(capital|city|town)$/.test(r.kind) && r.at);
+    const linkedRows = IDX.ids.filter((id) => !id.startsWith("pol:") && REG.has(id)).map((id) => { const r = REG.get(id), p = r.src === "places" && r.within ? REG.get(r.within) : null; return { id, kind: r.kind, within: p ? p.id : "", pk: p ? p.kind : "", at: r.at }; });
+    const cm = AS.cityMembership(linkedRows, cities, { km: 3 });
+    const mineRome = [...flagsPersonal].filter(([id, f]) => f === 2 && cm.of.get(id) === ROME).map(([id]) => id);
+    check("the seeded reader has studied cards on " + mineRome.length + " places of Rome (Veii and Monte Cavo among them, far from the centre)", mineRome.length >= 6 && mineRome.includes("pl:q677935"), mineRome.join(","));
+    const { ctx, page, errors } = await open(browser, READER, { phone: true });
+    await year(page, 2025); await view(page, 12.49, 41.89, 3);
+    let mk = await marks(page), lv = await live(page);
+    const stacks = mk.filter((m) => m.members), romeStacks = stacks.filter((m) => m.city === ROME);
+    check("at 3 km/px Rome's places are ONE stack mark, named for the city, with the reader's " + mineRome.length + " places as its members", romeStacks.length === 1 && romeStacks[0].count === mineRome.length && romeStacks[0].members.every((id) => mineRome.includes(id)) && romeStacks[0].name === "Rome", JSON.stringify(romeStacks.map((m) => [m.name, m.count])));
+    check("…none of its members is drawn as a mark of its own", !mk.some((m) => mineRome.includes(m.id)) && !lv.some((m) => mineRome.includes(m.id)));
+    check("…the stack is drawn, and its name 'Rome' is placed beside it", lv.some((m) => m.id === romeStacks[0].id) && (await labels(page)).some((p) => p.id === romeStacks[0].id && p.text === "Rome"));
+    check("…and no stack carries a place of another city (never across cities)", stacks.every((m) => m.members.every((id) => cm.of.get(id) === m.city)));
+    await shot(page, "rome-stacked");
+    // zoomed in: the far members separate (Veii is 16 km out: 53 px at 0.3 km/px), the centre's sites stay one stack
+    await view(page, 12.49, 41.89, 0.3);
+    mk = await marks(page); lv = await live(page);
+    const inView = (id) => mk.some((m) => m.id === id) || mk.some((m) => m.members && m.members.includes(id));
+    const single = mk.filter((m) => !m.members && mineRome.includes(m.id)), st2 = mk.filter((m) => m.members && m.city === ROME);
+    check("at 0.3 km/px Veii is drawn singly (farther than 28 px from the rest) while the centre's sites are still one stack", single.some((m) => m.id === "pl:q677935") && st2.length >= 1 && st2.every((m) => m.count >= 2), single.map((m) => m.id).join(",") + " | stacks " + st2.map((m) => m.count).join(","));
+    check("…every stack's members lie within 28 px of one another (chained) at this layout", (await A(page, (c) => { const ms = c.study.marks().filter((m) => m.members); return ms.every((m) => m.count >= 2); })));
+    await shot(page, "rome-unstacked");
+    // the popup: a touch tap on the stack
+    await view(page, 12.49, 41.89, 3);
+    lv = await live(page); const sm = lv.find((m) => m.members && m.city === ROME);
+    check("the stack is on screen to tap", !!sm);
+    const b = await box(page);
+    await page.touchscreen.tap(b.x + sm.x, b.y + sm.y); await sleep(600);
+    const pg = async () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { title: document.querySelector(".atlas2-card-title").textContent, n: document.querySelector(".atlas2-pager-n").textContent, name: document.querySelector(".atlas2-pager-name").textContent, hidden: document.querySelector(".atlas2-pager").hidden, stack: c.study.stack(), sel: c.selectedId(), rows: document.querySelectorAll(".atlas2-study-card").length, cardOpen: !document.querySelector(".atlas2-card").hidden }; });
+    let p0 = await pg();
+    check("a tap on it opens the popup titled for the city: \"Rome — N places\"", p0.cardOpen && p0.title === "Rome — " + sm.count + " places" && !p0.hidden, JSON.stringify(p0));
+    check("…on page 1 of N: the first place's name, its cards as rows", p0.n === "1 of " + sm.count && p0.stack && p0.sel === p0.stack.ids[0] && REG.get(p0.sel).name === p0.name && p0.rows >= 1, JSON.stringify(p0));
+    await page.click(".atlas2-pager-next"); await sleep(300); let p1 = await pg();
+    check("the › button turns to page 2: another place, its own cards", p1.n === "2 of " + sm.count && p1.sel === p0.stack.ids[1] && p1.sel !== p0.sel && REG.get(p1.sel).name === p1.name, JSON.stringify(p1));
+    await page.focus(".atlas2-card-title"); await page.keyboard.press("ArrowRight"); await sleep(300); let p2 = await pg();
+    check("the keyboard's → turns to page 3", p2.n === "3 of " + sm.count && p2.sel === p0.stack.ids[2], JSON.stringify(p2));
+    await page.keyboard.press("ArrowLeft"); await sleep(300); p2 = await pg();
+    check("…and ← back to page 2", p2.n === "2 of " + sm.count);
+    // a REAL touch swipe on the sheet, through CDP: touchStart, five touchMoves, touchEnd
+    const cdp = await ctx.newCDPSession(page);
+    const cr = await page.$eval(".atlas2-card-head", (e) => { const r = e.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+    const swipe = async (dir) => { const x0 = cr.x + 60 * dir, y0 = cr.y; await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: x0, y: y0 }] }); for (let i = 1; i <= 5; i++) await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: x0 - 24 * i * dir, y: y0 + i }] }); await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] }); await sleep(350); };
+    await swipe(1); let p3 = await pg();
+    check("a swipe LEFT (a real touch, 120 px) turns to the next page", p3.n === "3 of " + sm.count, JSON.stringify(p3));
+    await swipe(-1); p3 = await pg();
+    check("a swipe RIGHT turns back", p3.n === "2 of " + sm.count, JSON.stringify(p3));
+    for (let i = 0; i < sm.count; i++) { await page.click(".atlas2-pager-next"); await sleep(120); }
+    p3 = await pg();
+    check("the pages wrap round: N steps forward is the same page again", p3.n === "2 of " + sm.count, p3.n);
+    check("the popup's own address names the page's place", /#map\/.*pl%3A|#map\/.*city%3A/.test(await page.evaluate(() => location.hash)));
+    await shot(page, "rome-popup");
+    const keys = await A(page, (c) => c.study.keys());
+    check("the hidden list names the stack for the keyboard: \"Rome, N places\"", keys.some((k) => k.id === sm.id && /^Rome, \d+ places/.test(k.text)), keys.filter((k) => /^stk:/.test(k.id)).map((k) => k.text).join(" | "));
+    await page.keyboard.press("Escape"); await sleep(200);
+    check("Escape closes the popup and ends the stack", !(await pg()).cardOpen && (await A(page, (c) => c.study.stack())) === null);
+    // the Full Atlas: the stack holds every linked place of Rome in view
+    await mode(page, "full"); mk = await marks(page);
+    const full = mk.filter((m) => m.members && m.city === ROME);
+    const allRome = IDX.ids.filter((id) => cm.of.get(id) === ROME);
+    check("in the Full Atlas Rome's stack holds every card-linked place of Rome (" + allRome.length + ")", full.length === 1 && full[0].count === allRome.length, JSON.stringify(full.map((m) => m.count)));
+    allErrors.push(...errors); await ctx.close();
   }
 
   /* ------------------------------------------------------------------ done */

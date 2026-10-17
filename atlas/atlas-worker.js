@@ -569,7 +569,7 @@
     if (msg.type === "history-faces") return guard(handleHistoryFaces(msg, post), "history faces: ");
     if (msg.type === "history-evict") { if (HIST) for (const k of msg.keys || []) HIST.resident.delete(k); return null; }
     if (msg.type === "gazetteer") { loadGazetteer(msg.table); post({ type: "gazetteer", rows: GZ.rows.length }); return null; }
-    if (msg.type === "study-rows") { setStudyRows(msg.rows); post({ type: "study-rows", n: STUDY ? STUDY.rows.size : 0 }); return null; }
+    if (msg.type === "study-rows") { setStudyRows(msg.rows, msg.names); post({ type: "study-rows", n: STUDY ? STUDY.rows.size : 0, cities: STUDY && STUDY.cityHow ? STUDY.cityHow : null }); return null; }
     if (msg.type === "study-flags") { setStudyFlags(msg); return null; }
     if (msg.type === "polity-names") { POLITY_NAMES = msg.names || null; return null; }   // Phase 4 / 0c: dated display names
     if (msg.type === "metrics") { METRICS = msg.styles; return null; }
@@ -664,10 +664,19 @@
      draws them in their own shape and the flag lifts them past the density rules, raises their score and tints them. */
   let STUDY = null;
   const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, hill: 1, cape: 1 };
-  function setStudyRows(rows) {
+  const SETTLE = { capital: 1, city: 1, town: 1 };
+  function setStudyRows(rows, names) {
     const m = new Map(), points = new Set();
-    for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd }); if (STUDY_POINT[r.kind]) points.add(r.id); }
-    STUDY = Object.assign(STUDY || { flags: new Map(), mode: "", rev: 0 }, { rows: m, points });
+    for (const r of rows || []) { if (!r || !r.id || !isFinite(r.lon) || !isFinite(r.lat)) continue; m.set(r.id, { id: r.id, name: r.name || "", kind: r.kind, sub: r.sub || "", a: unitOf(r.lon, r.lat), n: r.n || 0, pd: !!r.pd, within: r.within || "", pk: r.pk || "" }); if (STUDY_POINT[r.kind]) points.add(r.id); }
+    /* CITY MEMBERSHIP (2026-10-17, decision d): which city each study place belongs to — the registry's parent, else the nearest settlement of the
+       whole registry (the gazetteer's capitals, cities and towns and the study rows' own) within 3 km (AtlasStudy.cityMembership). Computed once,
+       here, off the main thread; `cityName` is what a stack is called. */
+    const AS = root.AtlasStudy, cities = [], cityName = new Map();
+    if (GZ) for (const g of GZ.rows) if (SETTLE[g.kind] && g.a) { cities.push({ id: g.id, kind: g.kind, a: g.a }); cityName.set(g.id, g.name); }
+    for (const r of m.values()) { if (SETTLE[r.kind]) cities.push({ id: r.id, kind: r.kind, a: r.a }); cityName.set(r.id, r.name); }
+    for (const id of Object.keys(names || {})) if (!cityName.has(id)) cityName.set(id, names[id]);
+    const cm = AS ? AS.cityMembership([...m.values()], cities, { km: 3 }) : { of: new Map(), how: null };
+    STUDY = Object.assign(STUDY || { flags: new Map(), mode: "", rev: 0 }, { rows: m, points, city: cm.of, cityHow: cm.how, cityName });
   }
   function setStudyFlags(msg) {
     const f = new Map(); for (const [id, v] of msg.entries || []) if (v) f.set(id, v);
@@ -961,7 +970,7 @@
       const AS = root.AtlasStudy, h0 = AS.markHalf(kmpp) * FS, MARGIN = 120;
       const histAt = new Map();
       for (const hr of histRows) if (!histAt.has(hr.id)) histAt.set(hr.id, hr);   // sorted by on-screen area: a polity's mark is on its largest face in view
-      const list = [];
+      let list = [];
       for (const [id, f] of study.flags) {
         let kind, name = "", n = 0, a, x, y, z, unit, own = null;
         const srow = study.rows.get(id);
@@ -980,12 +989,34 @@
         if (z < 0.02 || !onScreen(x, y, MARGIN)) continue;
         list.push({ id, kind, name, n, f, unit, x, y, z, own, shape: AS.markShape(kind), layer: AS.markLayer(kind, f), h: h0 * AS.markScale(kind) });
       }
+      /* CITY STACKS (2026-10-17, decision d): the marks of ONE CITY within STACK_PX (28) of one another on screen become one mark with a count,
+         at their mean position, named for the city; its members are not drawn (the page's popup pages through them). Never across cities, never
+         by raw proximity: `study.city` is the membership (the registry's parent, else the nearest settlement within 3 km). Zoomed in until the
+         members lie farther apart than 28 px they are drawn singly again — this is decided per layout, so a pinch holds the last decision. */
+      if (study.city && study.city.size && list.length > 1) {
+        const byCity = new Map();
+        for (let i = 0; i < list.length; i++) { const cid = study.city.get(list[i].id); if (!cid) continue; let l = byCity.get(cid); if (!l) byCity.set(cid, l = []); l.push(i); }
+        const drop2 = new Set(), stacks = [];
+        for (const [cid, idxs] of byCity) {
+          if (idxs.length < 2) continue;
+          for (const g of AS.stackGroups(idxs.map((i) => list[i]), AS.STACK_PX)) {
+            const mem = g.map((j) => list[idxs[j]]); let sx = 0, sy = 0, f = 0, z = 0, n = 0;
+            for (const mm of mem) { sx += mm.x; sy += mm.y; if (mm.f > f) f = mm.f; if (mm.z > z) z = mm.z; n += mm.n; drop2.add(mm.id); }
+            sx /= mem.length; sy /= mem.length;
+            const name = study.cityName.get(cid) || cid, id = "stk:" + cid + ":" + stacks.length;
+            const hh = Math.max(h0 * 1.4, 6.5 * FS);   // a count must fit inside: never under 13 px across
+            stacks.push({ id, kind: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: "stack", layer: AS.markLayer("stack", f), h: hh });
+          }
+        }
+        if (drop2.size) list = list.filter((mm) => !drop2.has(mm.id)).concat(stacks);
+      }
       list.sort((p, r) => r.f - p.f || r.n - p.n || (p.id < r.id ? -1 : 1));
       for (const m of list) {
         const hh = m.h, mrect = [m.x - hh - 1, m.y - hh - 1, m.x + hh + 1, m.y + hh + 1];
         m.rect = mrect; m.clear = fullyOn(mrect) && !hitsChrome(mrect);
         dropping = m.own || { name: m.id };
         const base = { id: m.id, kind: m.kind, shape: m.shape, layer: m.layer, st: m.f, a: m.unit, sx: m.x, sy: m.y, h: hh, n: m.n, clear: m.clear, score: -300 - m.f * 10 - Math.min(9, m.n / 100) };
+        if (m.members) { base.members = m.members; base.count = m.count; base.name = m.name; base.city = m.city; }   // a city stack (decision d)
         marks.push(base); markById.set(m.id, base);
         if (!m.clear) continue;   // under a control or past the frame's edge: no name either (the page checks the mark again on every frame)
         if (m.f === 2) take(mrect);   // the reader's own mark takes its ground before the ordinary names

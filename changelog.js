@@ -45,6 +45,7 @@ window.CHANGELOG = [
       "<b>Personal Atlas</b>: a state or a people is named, marked and coloured only when a card you have studied links it; the rest is plain land with its borders, and the Full Atlas shows everything.",
       "<b>Atlas tapping</b>: a place, a state or a sea opens a popup only when a card is about it (in the Personal Atlas, one of yours); a tap on a desert, open water or a name with no card does nothing.",
       "<b>Atlas popups</b>: a place's popup lists its cards as rows — the title, the deck and whether it is due — each opening the card; the Personal Atlas says how many more the Full Atlas has.",
+      "<b>Atlas city stacks</b>: the places of one city that crowd together are one mark with a count (never across cities); its popup, “Rome — 7 places”, pages through them by swiping or with the arrows.",
     ],
   },
   {
