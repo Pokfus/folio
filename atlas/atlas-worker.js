@@ -669,7 +669,7 @@
      overlaps another mark's box moves along the line between the two centres by the overlap (both move, half each, when both are stacks), never more than
      STACK_NUDGE_PX in all, and records the offset as `ox`, `oy`; a single mark never moves. Four passes settle a cluster. */
   const STACK_NUDGE_PX = 20, STACK_GAP_PX = 2;
-  function nudgeStacks(list, W, H) {
+  function nudgeStacks(list, W, H, hitsChrome) {
     const ms = list.filter((m) => m.cls), st = ms.filter((m) => m.members);
     if (!st.length) return;
     for (const m of st) { m.ox = 0; m.oy = 0; m.x0 = m.x; m.y0 = m.y; }
@@ -697,6 +697,8 @@
         if (dn > STACK_NUDGE_PX) { nx *= STACK_NUDGE_PX / dn; ny *= STACK_NUDGE_PX / dn; }
         // a ring whose true point is on screen stays on screen: the nudge never pushes it past the frame's edge (test-atlas-study's property: a flagged place in the clear has its mark, or its city's ring, drawn)
         if (W && H) { const r = s.h + 2, x1 = Math.max(r, Math.min(W - r, s.x0 + nx)), y1 = Math.max(r, Math.min(H - r, s.y0 + ny)); if (s.x0 >= r && s.x0 <= W - r) nx = x1 - s.x0; if (s.y0 >= r && s.y0 <= H - r) ny = y1 - s.y0; }
+        // nor under a control (the page hides a mark under the chrome): a nudge that would land there is shortened until it clears, or dropped
+        if (hitsChrome) { const r = s.h + 2, box = (x, y) => [x - r, y - r, x + r, y + r]; if (!hitsChrome(box(s.x0, s.y0))) for (const f of [1, 0.75, 0.5, 0.25, 0]) { if (!hitsChrome(box(s.x0 + nx * f, s.y0 + ny * f))) { nx *= f; ny *= f; break; } } }
         if (Math.abs(nx - s.ox) > 0.01 || Math.abs(ny - s.oy) > 0.01) moved = true;
         s.ox = nx; s.oy = ny; s.x = s.x0 + nx; s.y = s.y0 + ny;
       }
@@ -1056,7 +1058,7 @@
            HAIRLINE from the ring to the true point — so a gesture holds the rings apart at any zoom until the next layout, as it holds the stacks.
            Why a nudge and not a merge: the registry has no city extents to say when two cities "share" one (membership is the parent or the 3 km rule),
            and Vatican City is a sovereign capital, not a part of Rome — one ring for both would misname the places. Decided per layout, in the worker. */
-        if (stacks.length) nudgeStacks(list, W, H);
+        if (stacks.length) nudgeStacks(list, W, H, hitsChrome);
       }
       list.sort((p, r) => r.f - p.f || r.n - p.n || (p.id < r.id ? -1 : 1));
       /* EVERY MARK IS AN OBSTACLE TO EVERY STUDY NAME (2026-10-17, decision d; the owner's phone: "Lake Regillus" and "Appian Way", area names laid
