@@ -763,7 +763,10 @@
       }
       histRows.sort((p, q) => q.px2 - p.px2);
     }
-    for (const row of histRows) { const chordPx = row.path.len; const hl = study ? (study.flags.get(row.id) || 0) : 0; if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + (hl ? -400 - (hl === 2 ? 40 : 0) : 0) + row.rank * 10 + (row.kind === "polity" ? KW.country : KW.people), hist: true, hl }); }   // one pool (2c): a people's name is ranked with the states' — after a polity of its rank, before a region of it — and placed by the same grid, so it never collides with one
+    /* THE PERSONAL ATLAS NAMES ONLY THE READER'S OWN POLITIES AND PEOPLES (2026-10-17, the owner's phone: "the Personal Atlas shows polities with no card the
+       reader has studied — those belong only in the Full Atlas"): a state, a people or a culture no studied card links (flag 2) is not a candidate at all in
+       Personal — not named, not marked, not muted. Its face is drawn plain (the page's `entColour`) and it is not tappable (the page's `tappable`). */
+    for (const row of histRows) { const chordPx = row.path.len; const hl = study ? (study.flags.get(row.id) || 0) : 0; if (study && study.mode === "personal" && hl !== 2) continue; if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; cands.push({ row, chordPx, a: [row.path.anchor[0], row.path.anchor[1], 1], score: (row.id === q.selected ? -1000 : 0) + (hl ? -400 - (hl === 2 ? 40 : 0) : 0) + row.rank * 10 + (row.kind === "polity" ? KW.country : KW.people), hist: true, hl }); }   // one pool (2c): a people's name is ranked with the states' — after a polity of its rank, before a region of it — and placed by the same grid, so it never collides with one
     /* A LARGE POLITY'S NAME OUTRANKS THE CAPITAL MARKERS INSIDE IT (Phase 3a, task 0a; the 2b review's Ottoman Empire of 1500
        and Mongol Empire of 1245 drew a fill and their capitals but no name). The period capitals scored 0 — before every
        polity, whose best score is KW.country — so Constantinople's marker and name took the cells at the Ottoman label's one
