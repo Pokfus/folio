@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1043", released: "2026-10-18T19:59Z" };
+window.FOLIO_VERSION = { v: "1.1045", released: "2026-10-18T22:21Z" };
 
 window.CHANGELOG = [
   {
@@ -49,7 +49,10 @@ window.CHANGELOG = [
       "<b>Home</b>: the <i>Suggested reading</i> passage now loads when its box scrolls into view, so opening Folio no longer downloads a whole book.",
       "<b>Atlas</b>: the Atlas now opens on your Personal Atlas the first time, with a note explaining that it fills in as you study geography and history cards.",
       "<b>Home</b>: the \u2018Not sure yet? Try ten cards\u2019 line under the first visitor\u2019s welcome is gone.",
+      "<b>Atlas</b>: a state on the map no longer has any colour of its own — the land and its relief show through at full strength, with only its border and the darker ground beyond it.",
+      "<b>Atlas marks</b>: by day every mark is now a dark glyph on the same light outline as the names, mirroring the dark theme, instead of a pale dot with a thin dark ring.",
       "<b>Atlas marks</b>: a capital's stack of places (Rome, Athens) is now the capital's square with the count inside, instead of a ring.",
+      "<b>Atlas marks</b>: in the years Rome was a capital, a small square no longer sits over the number in its capital square.",
       "<b>Atlas names</b>: a place's name now stands directly right or left of its mark, or is not drawn — above or below only at the closest zoom — so no name drifts to another mark.",
       "<b>Atlas names</b>: a people's name no longer wears a thicker halo than any other name — no halo is wider than the ordinary names' 3.2 px.",
       "<b>Atlas</b>: in a dark theme every mark is now a light glyph on the same dark halo as the names, instead of a dark dot with a white ring.",
@@ -64,6 +67,10 @@ window.CHANGELOG = [
       "<b>Atlas borders</b>: Rome now lies inside the Roman Kingdom in every year from 750 to 481 BCE — the source drew the city 3 km outside it, and Folio's correction (named on Sources and credits) opens the border around the city.",
       "Atlas: the Wieringermeer, the Noordoostpolder and the two Flevoland polders are water until the year each fell dry (1930, 1942, 1957, 1968), with the coast of the day.",
       "Atlas: every lake island — Flevoland, Manitoulin, Olkhon — is drawn as land again; a winding fault had filled all of them as lake.",
+      "<b>Atlas</b>: the label for Messapia now stands in Salento, the heel of Italy, instead of in Calabria.",
+      "<b>Atlas</b>: a state is now named for its own period — Rome reads Roman Republic, then Roman Empire, and eleven other states (Song, Qin, Rus’ …) change name in the year the source does.",
+      "<b>Atlas</b>: public squares, parks, streets, stations and gates (Tiananmen, Gwanghwamun, Liberty Square …) are now places with a mark and an ordinary name, not area labels; 29 places moved.",
+      "<b>Atlas</b>: the Zuiderzee polders no longer leave stray dots, lines and short outlines in the water, and the water is named Zuiderzee before 1932 and IJsselmeer after.",
       "<b>Your atlas</b>: on the present-day map the Personal Atlas now draws only the countries your studied cards discovered, with their borders; every other country is the darker empty land.",
     ],
   },

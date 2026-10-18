@@ -54,10 +54,17 @@ const SPEC_FILE = path.join(BUILD, "places-spec.json");
 const REPORT_FILE = path.join(ROOT, "docs", "atlas-places-report.md");
 const POLITY_SPEC = path.join(__dirname, "polity-spec.json");
 const argv = process.argv.slice(2);
+const REFETCH_CLASSES = argv.includes("--refetch-classes");   // re-ask the service which of the CURRENT tops every cached class reaches (after a row is added to TOPS)
 const FETCH = argv.includes("--fetch"), CHECK = argv.includes("--check"), DRY = argv.includes("--dry"), VERBOSE = argv.includes("--verbose");
 const fold = R.fold, km = R.km;
 const log = (...a) => console.log(...a);
 
+/* the point-like classes (2026-10-18; the comment above the TOPS rows that use them): a square, a street, a road, a hutong, an urban park, a Chinese garden, an airport, an aerodrome, a railway station, a metro station */
+const POINT_SITE = ["Q174782", "Q79007", "Q34442", "Q1065367", "Q22746", "Q47692", "Q1248784", "Q62447", "Q55488", "Q928830"];
+/* a bridge, a city gate, a gate, an arch, a tower, a lighthouse, a palace complex, a cultural-heritage-of-China entry */
+const POINT_BUILDING = ["Q12280", "Q82117", "Q53060", "Q12277", "Q12518", "Q39715", "Q4156067", "Q10300916"];
+/* a deme, a civil parish, a shiyakha, a county-level city of China, a subprefecture-level city: settlements, not areas */
+const POINT_TOWN = ["Q672490", "Q1115575", "Q7495728", "Q1070990", "Q1044880"];
 /* ---------- the taxonomy's kinds from Wikidata's classes: the first row whose top the class reaches (P279*) wins ---------- */
 const TOPS = [
   ["site", "battle", ["Q178561"]],                                             // battle
@@ -78,6 +85,15 @@ const TOPS = [
   ["gulf", "", ["Q1322134", "Q39594", "Q47053"]],                               // gulf, bay, fjord
   ["ocean", "", ["Q9430"]],
   ["sea", "", ["Q165"]],                                                        // sea (Q15324, body of water, is no top: a water-meadow, a cove or a rapids reaches it by subclass-of and none is a sea; Q1370598 here was PLACE OF WORSHIP, a duplicate of the building row's)
+  /* POINT-LIKE FEATURES ARE NOT AREAS (2026-10-18, the owner's phone: Tiananmen Square, Gwanghwamun Square and Liberty Square were drawn as areas — spaced capitals, no mark).
+     Wikidata's catch-all tops below (geographic region Q82794, geographic location Q2221906, territory Q4835091 …) are reached by a square, a street, a bridge, a garden, a station
+     and by a county-level city alike, so the first-match rule filed them as `region`, which draws a NAME and no mark (atlas/study.js markClass). These rows sit BEFORE the catch-alls:
+     a feature that is a square, a street, a road, a hutong, an urban park, a Chinese garden, an airport or a station is a `site` (a diamond); a bridge, a city gate, a gate, an arch, a tower, a
+     lighthouse, a palace complex or a heritage-list entry is a `site/building` (a house); a deme, a civil parish, a shiyakha, a county-level or subprefecture-level city of China is a `town` (a disc).
+     Every QID is the class Wikidata's own English label names (read from the cache or the service on 2026-10-18); the P279* reach of each is stored in `classes` like the others' (--refetch-classes, for the registry's own items). */
+  ["site", "", POINT_SITE],
+  ["site", "building", POINT_BUILDING],
+  ["town", "", POINT_TOWN],
   ["region", "", ["Q82794", "Q1620908", "Q8514", "Q39816", "Q34763", "Q188628", "Q107425", "Q190429", "Q1048835", "Q3502482", "Q1970725", "Q4835091", "Q484170", "Q12284", "Q2221906"]],   // geographic region, historical region, desert, valley, peninsula, (continental) shelf, landscape, depression, territorial entity, cultural region, natural region, territory, commune, canal, geographic location
   ["polity", "", ["Q3024240", "Q7275", "Q6256", "Q3624078", "Q1763527", "Q133442", "Q28171280", "Q417175", "Q1048835"]],   // historical country, state, country, sovereign state, confederation, duchy, ancient civilisation, kingdom (reported, never a row: a polity is an entity)
   ["people", "", ["Q41710", "Q2472587", "Q465299", "Q11514315", "Q1792644"]],   // ethnic group, people, archaeological culture, historical period, art style (reported, never a row)
@@ -217,8 +233,8 @@ function fetchLinks(cache, qids) {
   return n;
 }
 /* which of the taxonomy's tops each class reaches by subclass-of */
-function fetchClasses(cache, classes) {
-  const want = classes.filter((c) => !(c in cache.classes));
+function fetchClasses(cache, classes, again) {
+  const want = classes.filter((c) => again || !(c in cache.classes));
   for (let i = 0; i < want.length; i += 40) {
     const batch = want.slice(i, i + 40);
     const q = "SELECT ?cls ?label (GROUP_CONCAT(DISTINCT ?top; separator=\" \") AS ?tops) WHERE { VALUES ?cls { " + batch.map((c) => "wd:" + c).join(" ") + " } OPTIONAL { VALUES ?top { " + TOP_IDS.map((c) => "wd:" + c).join(" ") + " } ?cls wdt:P279* ?top } OPTIONAL { ?cls rdfs:label ?label FILTER(lang(?label) = \"en\") } } GROUP BY ?cls ?label";
@@ -576,6 +592,7 @@ function run() {
   for (const [id, o] of Object.entries(spec.overlay || {})) for (const m of o.merged || []) mergedQ.set(m.qid, id);
   for (const [loser, v] of Object.entries(spec.merges || {})) if (v && v.into && /^pl:q\d+$/.test(loser)) mergedQ.set("Q" + loser.slice(4), v.into);
   const resolver = makeResolver(reg, cache, mergedQ);
+  if (REFETCH_CLASSES) { log("refetch: the tops every cached class reaches, against the current TOPS"); const mine = new Set(); for (const it of Object.values(cache.items || {})) for (const q of it.classes || []) mine.add(q); for (const r of Object.values(spec.rows || {})) for (const q of ((r.evidence || {}).classes) || []) mine.add(q); fetchClasses(cache, [...mine].filter((q) => q in cache.classes), true); }   // the classes of the registry's own items (the others were fetched under an older TOPS and are re-asked when a toponym needs them: delete the entry)
   /* --fetch: titles for every toponym the gazetteer does not answer, then around for what is still open, then the classes */
   if (FETCH) {
     const open = [...topo.values()].concat(gloss.map((g) => ({ name: g.name, label: "", kind: "point", at: g.at, cards: [] }))).filter((t) => { const r0 = resolver.resolve(t); return !r0.id && !r0.ambiguous; });
@@ -815,5 +832,5 @@ function run() {
   log(`hills (decision 3): ${hills.length} rows of kind hill, ${hills.filter(([, r]) => r.kindWas3c).length} reclassified from mountain: ${hills.map(([, r]) => r.name + (r.kindWas3c ? "" : " (new)")).join(", ")}`);
   log(`resolved ${resolvedTopo}/${topo.size} toponyms, ${ambiguousTopo.length} ambiguous, ${unresolvedTopo.length} unresolved; ${derived.size} cards derive a place; ${noPlaceOld.length} cards with an old field get none`);
 }
-module.exports = { TOPS, TOP_IDS, RADIUS, SAME_SITE_KM, CROSS_SITE_KM, familyOf, kindOf, crossMerge, fetchLinks, collect, makeResolver, loadCache, CACHE_FILE, SPEC_FILE, REPORT_FILE };
+module.exports = { TOPS, TOP_IDS, POINT_SITE, POINT_BUILDING, POINT_TOWN, RADIUS, SAME_SITE_KM, CROSS_SITE_KM, familyOf, kindOf, crossMerge, fetchLinks, collect, makeResolver, loadCache, CACHE_FILE, SPEC_FILE, REPORT_FILE };
 if (require.main === module) run();

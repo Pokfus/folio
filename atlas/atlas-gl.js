@@ -269,6 +269,7 @@
       if (uUseFlat > 0.5) { o = vec4(uFlat.rgb * uFlat.a, uFlat.a); return; }   // lakes: one colour, no style texel
       vec4 s = texelFetch(uStyle, ivec2(id & 255, id >> 8), 0);
       if (s.a < 0.002) discard;
+      if (s.a < 0.006) { o = vec4(0.0); return; }   // a state with NO fill (BARE_ALPHA in atlas.js, 2026-10-18 c): nothing is drawn, but the fragment is not discarded, so the stencil still says HIST
       vec3 c = s.rgb;
       if (uHatch > 0.5) { float d = mod(gl_FragCoord.x + gl_FragCoord.y, 12.0); c = d < 6.0 ? s.rgb : uHatchB; }
       o = vec4(c * s.a, s.a);
@@ -882,13 +883,17 @@
       if (mark) { gl.stencilMask(0); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); }
       // the coast stroke in the fill colour (its alpha), as wide as the level's tolerance: the fill never stops short of the finer coast
       if (strokes.length) {
+        let colorOff = false;
         const A = prog.arc; arcUniforms(A, view, R, false, 0);
         widths[HIST_KIND] = Math.max(1, hv.strokePx) * dpr; gl.uniform1fv(A.u.uWidth, widths);
         for (const { m, f } of strokes) {
+          // a face with NO fill (f.bare): its coast stroke writes the HIST bit and no colour — a stroke in the land colour would paint over the relief along every coast
+          if (!!f.bare !== colorOff) { colorOff = !!f.bare; gl.colorMask(!colorOff, !colorOff, !colorOff, !colorOff); if (mark) { gl.stencilMask(colorOff ? ST_HIST : 0); gl.stencilOp(gl.KEEP, gl.KEEP, colorOff ? gl.REPLACE : gl.KEEP); } }
           const c = f.rgb || histBorderColor; colors[3 * HIST_KIND] = c[0]; colors[3 * HIST_KIND + 1] = c[1]; colors[3 * HIST_KIND + 2] = c[2]; gl.uniform3fv(A.u.uColor, colors);
           gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, m.gpu.coast.tex); gl.uniform1i(A.u.uSeg, 1);
           gl.bindVertexArray(emptyVao); gl.drawArrays(gl.TRIANGLES, 0, m.gpu.coast.count * 3); stats.draws++;
         }
+        if (colorOff) { gl.colorMask(true, true, true, true); if (mark) { gl.stencilMask(0); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); } }
       }
       if (useStencil) { gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilMask(0xff); }
       stats.historyTriangles = tris; stats.historyFaces = drawn;
