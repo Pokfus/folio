@@ -529,7 +529,8 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const kc = key.find((k) => k.cls === "capital"), kb = key.find((k) => k.cls === "building");
     check("the Legend lists the capital (a square) and the building (a house) with different glyphs", !!kc && !!kb && kc.d !== kb.d && /capital/i.test(kc.word) && /building/i.test(kb.word), key.map((k) => k.cls).join(","));
     // (d) the bare name on the label, the full name in the popup
-    for (const c of [{ id: "pl:q583718", name: "Kirchberg, Luxembourg", text: "Kirchberg", view: [6.1456, 49.6275, 1.5] }, { id: "pl:q1435589", name: "Folsom, New Mexico", text: "Folsom", view: [-103.9181, 36.8481, 1.5] }, { id: "pl:q2246183", name: "Cures, Sabinum", text: "Cures", view: [12.6866, 42.1825, 0.7] }]) {
+    // Kirchberg at the zoom cap: at 1.5 km/px Luxembourg's marks stand on both its sides and the name is not drawn (decision c, 2026-10-18)
+    for (const c of [{ id: "pl:q583718", name: "Kirchberg, Luxembourg", text: "Kirchberg", view: [6.1456, 49.6275, 0.15] }, { id: "pl:q1435589", name: "Folsom, New Mexico", text: "Folsom", view: [-103.9181, 36.8481, 1.5] }, { id: "pl:q2246183", name: "Cures, Sabinum", text: "Cures", view: [12.6866, 42.1825, 0.7] }]) {
       await view(page, c.view[0], c.view[1], c.view[2]);
       const lab = (await labels(page)).find((p) => p.id === c.id);
       check("'" + c.name + "' is labelled \"" + c.text + "\"", !!lab && lab.text === c.text, lab ? lab.text : "not placed");

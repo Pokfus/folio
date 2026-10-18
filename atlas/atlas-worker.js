@@ -1076,8 +1076,10 @@
           if (own) { placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
           drop(onScreen(x, y, 0) ? "city label collides on all four sides, or is not wholly on screen" : "city off screen"); continue;
         }
-        take(got.rects[0]); if (!own) take(mrect, true);
-        placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
+        // a FLAGGED settlement's dot is the study layer's own mark, already drawn and already taken: no second dot under it (a filled-looking disc would read as the reader's own), the name alone (2026-10-18)
+        const studyDot = !!(studyPass && mk0);
+        take(got.rects[0]); if (!own && !studyDot) take(mrect, true);
+        placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: studyDot ? got.rects[0] : union([got.rects[0], mrect]), rects: studyDot ? [got.rects[0]] : [got.rects[0], mrect], marker: studyDot ? null : [x, y, r, k], hit: union([got.rects[0], mrect]) }));
         continue;
       }
       if (k === "river") {
