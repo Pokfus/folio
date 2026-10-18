@@ -23550,8 +23550,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     let best = null, at = 0;
     Object.keys(R).forEach((id) => { const r = R[id]; const t = r ? (+r.at || 0) : 0; if (t > at && BOOKS.some((b) => b.id === id)) { at = t; best = id; } });
     const b = best ? BOOKS.find((x) => x.id === best) : null;
-    if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Continue reading</span>' +
-      '<span class="hb-empty">Nothing open yet \u2014 the Library holds ' + BOOKS.length + ' whole books, free to read.</span></button>';
+    if (!b) return homeSuggestedHTML();
     const pct = readingPct(b), pos = readingPos(b.id);
     // the chapter the reader is in; a book still on its front matter names the author alone (Oct 2026, on
     // request: the "About this book" line is gone)
@@ -23563,6 +23562,36 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<span class="hb-bar"><span style="width:' + pct + '%"></span></span><em>' + pct + "% read</em></span></span>" +
       homeReadingNextHTML(b, pos) + "</button>";
   }
+  /* A READER WHO HAS NEVER OPENED A BOOK IS OFFERED ONE (Oct 2026, on request: "if a user has never opened a
+     book, e.g. a first time visitor, the 'Continue reading' banner on the home page should instead be a
+     'Suggested reading' banner with a randomly selected book passage, while still explaining that the library
+     holds fully free historical books with their original languages and english translation"). The box used to
+     say "Nothing open yet" and send the reader to the shelf. Now a book is drawn at random from the shelf each
+     time the page is built, and the box is the Continue reading box's own markup — the spine in the book's
+     colour, the title, the author — with the shelf's promise in the place of the progress bar: how many whole
+     books there are, that each is in English translation, and which original languages stand beside them
+     (`origName`, in shelf order, the first three named). The passage is homeReadingNextHTML in its random
+     mode (a paragraph of some chapter, not the preface's first line), filled in by homeReadingNextFill once the
+     book's lazy file arrives — at idle, and never in light mode or on cellular, because the file is a whole
+     book and nobody asked for this one. A press opens the book at its start (the click handler reads
+     `data-book` as it does for a book in progress); a press on the passage opens its chapter. */
+  function homeSuggestedHTML() {
+    const b = BOOKS.length ? BOOKS[Math.floor(Math.random() * BOOKS.length)] : null;
+    const langs = [];
+    BOOKS.forEach((x) => { if (x.origLang && x.origName && !langs.includes(x.origName)) langs.push(x.origName); });
+    const withOrig = BOOKS.filter((x) => x.origLang).length;
+    const named = langs.slice(0, 3).join(", ") + (langs.length > 3 ? " and more" : "");
+    const promise = "The Library holds " + BOOKS.length + " whole historical books, completely free to read \u2014 each in English translation" +
+      (withOrig ? ", " + withOrig + " of them beside their original text: " + named + "." : ".");
+    if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Suggested reading</span>' +
+      '<span class="hb-empty">' + esc(promise) + "</span></button>";
+    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" data-suggest="1" style="--tile:' + esc(bookColor(b)) + '">' +
+      '<span class="hb-k">Suggested reading</span>' +
+      '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
+        "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + (b.written ? " \u00b7 " + esc(b.written) : "") + "</span>" +
+        "<em>Free to read \u00b7 " + (b.origLang && b.origName ? esc(b.origName) + " and English" : "English translation") + "</em></span></span>" +
+      '<span class="hb-empty">' + esc(promise) + "</span></button>";
+  }
   /* A GLIMPSE OF THE NEXT PARAGRAPH (Oct 2026, on request: "show a brief preview of a next paragraph to read in
      the book, which fades out vertically downwards and can be clicked to go straight to that chapter"). The place
      is a chapter number and a fraction of that chapter's height (readingPos), so the paragraph shown is the one
@@ -23573,16 +23602,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      on the element (`data-n`) and the box's click handler reads it: a press on the preview opens that chapter
      at its top, as any addressed chapter does, where a press anywhere else resumes at the saved depth. It is
      a span, not a button, because the box is a button and a button cannot hold another. */
-  function homeReadingNextHTML(b, pos) {
+  function homeReadingNextHTML(b, pos, opts) {
     const shipped = bookChapters(b.id);
     if (!shipped || !shipped.length) return "";
-    const c = (pos && shipped.find((x) => x.n === pos.ch)) || shipped[0];
-    const same = !!(pos && c.n === pos.ch);
+    const random = !!(opts && opts.random);   // the Suggested reading box: a random chapter, a random paragraph of some length
+    const c = random ? shipped[Math.floor(Math.random() * shipped.length)] : (pos && shipped.find((x) => x.n === pos.ch)) || shipped[0];
+    const same = !random && !!(pos && c.n === pos.ch);
     const d = document.createElement("div");
     d.innerHTML = c.html || "";
     const ps = d.querySelectorAll("p");
     if (!ps.length) return "";
-    const i = same ? Math.min(ps.length - 1, Math.floor((pos.y || 0) * ps.length)) : 0;
+    let i = same ? Math.min(ps.length - 1, Math.floor((pos.y || 0) * ps.length)) : 0;
+    if (random) {   // a paragraph long enough to read as a passage, where the chapter has one; else any
+      const long = []; ps.forEach((x, j) => { if ((x.textContent || "").trim().length >= 160) long.push(j); });
+      i = long.length ? long[Math.floor(Math.random() * long.length)] : Math.floor(Math.random() * ps.length);
+    }
     const p = ps[i];
     p.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
     p.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
@@ -23592,19 +23626,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const num = b.chapterWord + " " + c.n;
     const label = num + (c.t && c.t.trim().toLowerCase() !== num.toLowerCase() ? " \u00b7 " + c.t : "");   // a title that is only the number is said once
     return '<span class="hb-next" data-n="' + esc(String(c.n)) + '" title="Open ' + esc(label) + '">' +
-      '<span class="hb-next-k">' + (same ? "Next up" : "Begin") + " \u00b7 " + esc(label) + "</span>" +
+      '<span class="hb-next-k">' + (random ? "A passage" : same ? "Next up" : "Begin") + " \u00b7 " + esc(label) + "</span>" +
       '<span class="hb-next-p">' + esc(text) + "</span></span>";
   }
   function homeReadingNextFill(root) {
     const rd = root.querySelector("#b-reading");
     const id = rd && rd.dataset.book;
     if (!id || rd.querySelector(".hb-next")) return;
-    ensureData(bookBundle(id)).then((ok) => {
+    const suggest = rd.dataset.suggest === "1";   // the Suggested reading box: a random passage, fetched at idle, never in light mode (homeSuggestedHTML)
+    if (suggest && (lightMode() || onCellular())) return;
+    const fill = () => ensureData(bookBundle(id)).then((ok) => {
       const b = ok && rd.isConnected ? BOOK_BY_ID[id] : null;
       if (!b) return;
-      const h = homeReadingNextHTML(b, readingPos(id));
+      const h = homeReadingNextHTML(b, suggest ? null : readingPos(id), { random: suggest });
       if (h) rd.insertAdjacentHTML("beforeend", h);
     });
+    if (suggest) whenIdle(fill); else fill();
   }
   /* The day's and the week's figures: cards from the daily totals, time and recall from the per-answer
      log. TODAY IS A SECTION OF THIS BOX (Oct 2026, on request), where it replaces the "studied 13m today"
@@ -25484,19 +25521,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        timer it held is a section of the This week box now, and the row had nothing else to hold.
        THE "SHORT ON TIME?" CHIPS THAT FOLLOWED THE ROW ARE GONE TOO (Oct 2026, on request, a day after
        they arrived). The study bar's own Time button still opens the same box once a session has begun. */
-    /* A FIRST VISITOR CAN TRY TEN CARDS BEFORE CHOOSING ANYTHING (Oct 2026, same review: "a first-time
-       user should experience a complete learning cycle before configuring anything"). The sampler already
-       exists and writes nothing — no deck added, no card scheduled, no XP — so it is the one way to show
-       how a card works without asking for a decision first. It is a quiet line under the hero rather than a
-       second button inside it, which keeps the hero's one way in. World History is the default sample,
-       being the broadest collection on the shelf; any other open collection stands in if it is gone. */
-    const sampleColl = fresh ? (NODE_BY_ID["col-8"] && !isComingSoon(NODE_BY_ID["col-8"]) ? NODE_BY_ID["col-8"] : (TREE.collections || []).find((c) => !isComingSoon(c) && sectionOf(c.id) === "History")) : null;
-    const sampleLine = sampleColl && sampleIds(sampleColl.id).length
-      ? `<p class="hero-sample">Not sure yet? <button type="button" class="linkbtn" id="heroSample" data-sample="${esc(sampleColl.id)}">Try ten cards from ${esc(nodeTitle(sampleColl))}</button> — nothing is saved.</p>`
-      : "";
+    /* THE "Not sure yet? Try ten cards from World History — nothing is saved." LINE UNDER THE HERO IS GONE
+       (Oct 2026, on request: "For first time visitors, remove the 'Not sure yet? Try ten... saved.' line"). It
+       stood here for a fortnight as the first visitor's way to see a card before choosing a collection; the
+       sampler page itself (#sample) stays, reached from a collection's own row. */
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
-            ${sampleLine}
             ${fresh ? "" : streakRibbonHTML()}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu, gone since Oct 2026) — see the comment there. Its old corner is where the
@@ -25632,7 +25662,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         route("decks");
       }
     });
-    { const hs = root.querySelector("#heroSample"); if (hs) hs.addEventListener("click", () => route("sample", { id: hs.dataset.sample })); }
     /* The waiting-chests notice above the banner. It is a real <button> now that it is no longer nested
        inside the banner, so it needs no keydown handler of its own — which is the whole reason for
        getting it out of there. ("+ New group" was wired here too, and went with the control.) */

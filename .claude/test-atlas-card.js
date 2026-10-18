@@ -36,6 +36,7 @@ let pass = 0, fail = 0;
 const check = (name, ok, extra) => { if (ok) { pass++; console.log("  \x1b[32mok\x1b[0m    " + name + (extra ? "  \x1b[2m" + extra + "\x1b[0m" : "")); } else { fail++; console.log("  \x1b[31mFAIL\x1b[0m  " + name + (extra ? "  \x1b[2m" + extra + "\x1b[0m" : "")); } };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function open(context) {
+  await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the Map view: this suite taps places with no cards seeded, and the Atlas opens on Personal by default since Oct 2026
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));

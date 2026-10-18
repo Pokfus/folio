@@ -49,6 +49,7 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
   {
     const browser = await chromium.launch(EXE);
     const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the Map view: this suite taps places with no cards seeded, and the Atlas opens on Personal by default since Oct 2026
     const errors = errorsOf(page);
     const t0 = Date.now();
     await page.goto("file://" + path.join(ROOT, "index.html") + "#map", { waitUntil: "load" });
@@ -83,6 +84,7 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
     /* an OLD LINK from a file (Oct 2026): `#map/1/Rome` resolves the place from the file copy too — the gazetteer, the polity index and the shim are all twins/plain scripts there — and not only over http */
     {
       const lp = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+      await lp.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the Map view: this suite taps places with no cards seeded, and the Atlas opens on Personal by default since Oct 2026
       await lp.goto("file://" + path.join(ROOT, "index.html") + "#map/1/Rome", { waitUntil: "load" });
       await lp.waitForSelector(".atlas2", { timeout: 60000 });
       const got = await lp.waitForFunction(() => { const a = document.querySelector(".atlas2"), c = a && a.__atlas2; return c && c.selectedId() ? { id: c.selectedId(), title: c.card().title, year: c.year(), hash: location.hash } : false; }, null, { timeout: 240000 }).then((h) => h.jsonValue(), () => null);
@@ -97,6 +99,7 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
   {
     const browser = await chromium.launch(Object.assign({}, EXE, { args: ["--disable-webgl", "--disable-3d-apis"] }));
     const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the Map view: this suite taps places with no cards seeded, and the Atlas opens on Personal by default since Oct 2026
     const errors = errorsOf(page);
     const gl = await page.evaluate(() => !!document.createElement("canvas").getContext("webgl2"));
     check("the browser really has no WebGL2 under the launch flags", !gl);
@@ -147,6 +150,7 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
   console.log("\n\x1b[1m(c) a lost and restored WebGL context\x1b[0m\n");
   {
     const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the Map view: this suite taps places with no cards seeded, and the Atlas opens on Personal by default since Oct 2026
     const errors = errorsOf(page);
     await page.goto(base + "#map", { waitUntil: "load" });
     await ready(page);
@@ -176,6 +180,7 @@ const tapCentre = async (page) => { const box = await (await page.$(".atlas2-can
   console.log("\n\x1b[1m(d) a worker that fails to start\x1b[0m\n");
   {
     const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the Map view: this suite taps places with no cards seeded, and the Atlas opens on Personal by default since Oct 2026
     const errors = errorsOf(page);
     let hits = 0;
     // the first fetch of the worker's script (the Worker's own) throws at once; the shim's <script> load of it afterwards passes

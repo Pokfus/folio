@@ -61,6 +61,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
   const page = await browser.newPage({ viewport: { width: 1100, height: 760 } });
+  await page.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the Map view: this suite taps places with no cards seeded, and the Atlas opens on Personal by default since Oct 2026
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
