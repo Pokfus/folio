@@ -64,6 +64,7 @@ window.CHANGELOG = [
       "Atlas: the Wieringermeer, the Noordoostpolder and the two Flevoland polders are water until the year each fell dry (1930, 1942, 1957, 1968), with the coast of the day.",
       "Atlas: every lake island — Flevoland, Manitoulin, Olkhon — is drawn as land again; a winding fault had filled all of them as lake.",
       "<b>Atlas</b>: the label for Messapia now stands in Salento, the heel of Italy, instead of in Calabria.",
+      "<b>Atlas</b>: a state is now named for its own period — Rome reads Roman Republic, then Roman Empire, and eleven other states (Song, Qin, Rus’ …) change name in the year the source does.",
     ],
   },
   {
