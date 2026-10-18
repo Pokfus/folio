@@ -63,6 +63,7 @@ async function open(browser, ids, o) {
   o = o || {};
   const ctx = await browser.newContext(o.phone ? { viewport: { width: o.w || 390, height: o.h || 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 } : { viewport: { width: 1280, height: 800 } });
   await ctx.addInitScript(seed(ids));
+  if (o.map) await ctx.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // open on the plain Map (the Atlas opens on Personal by default since Oct 2026, where a reader with no cards sees no state: decision a of 2026-10-18)
   const page = await ctx.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
@@ -533,7 +534,9 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const PXs = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/polity-index.js"), "utf8"))(PXs);
     const pol = new Map(PXs.ATLAS_POLITY_INDEX.polities.map((r) => [r[0], r]));
     const ranges = (id) => pol.get(id)[5];
-    const { ctx, page, errors } = await open(browser, []);
+    // the plain Map: this block is about the search across years, and "the polity is on the map" below reads the alive set — which on the PERSONAL Atlas
+    // holds only the reader's own states since 2026-10-18 (decision a; test-atlas-personal.js), and this reader has no cards
+    const { ctx, page, errors } = await open(browser, [], { map: true });
     const list = () => page.evaluate(() => [...document.querySelectorAll(".atlas2-results li")].map((li) => ({ name: li.querySelector(".atlas2-res-name").textContent, chip: li.querySelector(".atlas2-chip").textContent, yrs: (li.querySelector(".atlas2-res-yrs") || {}).textContent || "" })));
     const note = () => page.evaluate(() => { const n = document.querySelector(".atlas2-search-note"); return n && !n.hidden ? { text: n.querySelector(".atlas2-sn-t").textContent, go: n.querySelector(".atlas2-sn-go").textContent, year: Number(n.querySelector(".atlas2-sn-go").getAttribute("data-year")) } : null; });
     const hs0 = await A(page, (c) => c.historyStarted());

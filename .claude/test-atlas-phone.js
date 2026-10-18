@@ -78,6 +78,7 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
   for (const V of VIEWPORTS) {
     const mobile = !V.tablet;
     const context = await browser.newContext({ viewport: { width: V.width, height: V.height }, isMobile: mobile, hasTouch: true, deviceScaleFactor: 2 });
+    await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: no cards seeded here, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
     const page = await context.newPage();
     const errors = [];
     page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
@@ -434,6 +435,7 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
       const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
       await context.addInitScript(HOOK);
       if (sc.seed) await context.addInitScript(seed);
+      else await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map for the unseeded scenarios (the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn: decision a, 2026-10-18)
       const page = await context.newPage();
       const errors = [];
       page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
@@ -464,7 +466,9 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
       }
       const frames = runs.reduce((a, r) => a + r.frames, 0), labels = runs.reduce((a, r) => a + r.labels, 0), stale = runs.reduce((a, r) => a + r.stale, 0);
       const w = runs.reduce((a, r) => (r.worst > a.worst ? r : a), runs[0]);
-      check(`${sc.name}: ${labels} label draws in ${frames} frames of 6 drags and 2 pinches — none farther from its anchor than its half-height + 28 px`, frames > 100 && labels > 500 && w.worst <= 0.5, `worst: ${w.who ? w.who.text + " (" + w.who.kind + ") " + w.who.dist + " px against a limit of " + w.who.limit : "none"}, ${w.worst > -1e8 ? w.worst.toFixed(1) : "?"} px over, in ${w.g}`);
+      // the Personal scenario draws the reader's names alone since 2026-10-18 (decision a of the owner's sixth look: nothing undiscovered is named — Dmanisi and
+      // little else at this view), so its floor is one draw per frame where the plain Map's is 500 draws; the rule on every draw is the same
+      check(`${sc.name}: ${labels} label draws in ${frames} frames of 6 drags and 2 pinches — none farther from its anchor than its half-height + 28 px`, frames > 100 && labels > (sc.mode === "personal" ? frames * 0.9 : 500) && w.worst <= 0.5, `worst: ${w.who ? w.who.text + " (" + w.who.kind + ") " + w.who.dist + " px against a limit of " + w.who.limit : "none"}, ${w.worst > -1e8 ? w.worst.toFixed(1) : "?"} px over, in ${w.g}`);
       check(`${sc.name}: every draw lands at its own layout's corner moved by its anchor's motion (no stale sprite)`, stale === 0, stale ? `${stale} stale: ${runs.filter((r) => r.stale).map((r) => r.g + " " + r.stale + " " + JSON.stringify(r.staleWho)).join("; ")}` : `0 of ${labels}`);
       check(`${sc.name}: no page errors`, errors.length === 0, errors.slice(0, 2).join(" | "));
       await context.close();

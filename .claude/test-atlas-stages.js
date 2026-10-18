@@ -72,6 +72,7 @@ async function touchDrag(page, cdp, steps) {
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+  await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
   const { page, errors } = await open(context, "#map?perf");
   const gl = await page.evaluate(() => { const c = document.createElement("canvas"); const g = c.getContext("webgl2"); if (!g) return "none"; const d = g.getExtension("WEBGL_debug_renderer_info"); return d ? g.getParameter(d.UNMASKED_RENDERER_WEBGL) : g.getParameter(g.RENDERER); }).catch(() => "?");
   const software = /swiftshader|llvmpipe|software/i.test(gl);
@@ -149,6 +150,7 @@ async function touchDrag(page, cdp, steps) {
   await page.close();
   {
     const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
+    await phone.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
     const P = await open(phone, "#map?perf");
     const cdp = await phone.newCDPSession(P.page);
     await touchDrag(P.page, cdp, 30);
@@ -164,6 +166,7 @@ async function touchDrag(page, cdp, steps) {
   console.log("\n\x1b[1m5) the About sheet's switch\x1b[0m\n");
   {
     const ctx2 = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    await ctx2.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
     const S = await open(ctx2, "#map");
     const off = await S.page.evaluate(() => ({ hidden: document.querySelector(".atlas2-perf").hidden, hash: location.hash }));
     check("without ?perf and no preference the overlay is off", off.hidden, off.hash);

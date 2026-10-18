@@ -175,6 +175,7 @@ function overlaps(placed) {
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+  await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
   const { page, errors } = await open(context);
   const gl = await page.evaluate(() => { const c = document.createElement("canvas"); const g = c.getContext("webgl2"); if (!g) return "none"; const d = g.getExtension("WEBGL_debug_renderer_info"); return d ? g.getParameter(d.UNMASKED_RENDERER_WEBGL) : g.getParameter(g.RENDERER); }).catch(() => "?");
   const software = /swiftshader|llvmpipe|software/i.test(gl);
@@ -376,6 +377,7 @@ function overlaps(placed) {
   console.log("\n\x1b[1m8) a 390 px phone\x1b[0m\n");
   await page.close();
   const phone = await browser.newContext({ viewport: { width: 390, height: 700 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
+  await phone.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
   const P = await open(phone);
   // the Aegean on a phone is centred a little south (37.3°, not 38°): the study panel (Phase 3b) is chrome across the top 120 px of a 700 px
   // frame, and at 0.5 km/px the Aegean Sea's own name sits under it from 38° — the engine rightly keeps every name out from under a control

@@ -800,7 +800,7 @@
        towns are not alive and are not named (the owner's decision: hide the anachronistic ones; the physical names stay);
        the alive polities are named along a path of their own, and the period capitals of the year are marked and named */
     const present = q.present !== false;
-    const study = STUDY && STUDY.mode && STUDY.flags.size ? STUDY : null;   // the study layer is on (3b)
+    const study = STUDY && STUDY.mode ? STUDY : null;   // the study layer is on (3b); with NO flags Personal is still Personal — an empty one (decision a, 2026-10-18: land, water and the empty-state sentence, no name of any kind), where before it fell back to the plain map's names
     const histRows = [];
     if (HIST && q.aliveFaces && q.aliveFaces.length) {
       for (const fi of q.aliveFaces) {
@@ -836,6 +836,12 @@
          no present-day country); a settlement the study pass draws as a mark is not drawn twice */
       const hl = study ? (study.flags.get(row.id) || 0) : 0;
       if (hl && study.points.has(row.id)) continue;
+      /* THE PERSONAL ATLAS NAMES NOTHING A STUDIED CARD HAS NOT DISCOVERED (2026-10-18, the owner's sixth look, decision a): a country, a province, a
+         base-map city or town (Bologna's dot and name), a sea, an ocean, a gulf, a strait, a lake, an island, a range, a region (a continent, a desert)
+         is a candidate in Personal ONLY with flag 2 — no name, no dot, no muted copy; not for orientation. The Map and the Full Atlas are unchanged.
+         A river's LINE is drawn whatever its name (the lines are the renderer's, drawn whenever the layer is on); its NAME follows the same rule — in
+         Personal only a river a studied card discovered is named (decision c); the Map and the Full Atlas name rivers as before. */
+      if (study && study.mode === "personal" && hl !== 2) continue;
       let chordPx = row.len / kmpp;
       if (k === "country") { if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; if (!hl && row.z && zl > row.z[1] + 2) continue; }
       else if (k === "admin1") { if (!hl && (!show.countries || !show.provinces || !q.admin1 || chordPx < MIN_CHORD_PX)) continue; }
