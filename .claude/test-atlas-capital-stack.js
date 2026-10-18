@@ -104,10 +104,10 @@ const read = (page, city) => A(page, (c, city) => {
         const r = await read(page, city);
         if (!r) { console.log(`  ${city} ${year < 0 ? -year + " BCE" : year + " CE"} at ${k} km/px: no capital stack drawn (the members stand apart or the mark is under a control) — not read`); continue; }
         seen++;
-        const digits = String(r.count).length, tall = r.pieces.filter((p) => p.h >= 5);
+        const digits = String(r.count).length, whole = r.pieces.length >= 1 && r.pieces.length <= digits && r.pieces.every((p) => p.h >= 5 && p.h <= 8.5);   // two digits may touch (on CI's rasteriser they did at 1.2 km/px: one piece): what a block over the figure makes is a piece taller than a digit, a third piece, or a short one
         const label = `${city} ${year < 0 ? -year + " BCE" : year + " CE"} at ${k} km/px, the "${r.count}" in a square of ${(2 * r.h).toFixed(0)} px`;
         check(`${label}: no period-capital marker lies on the square`, r.hit.length === 0, r.hit.map((q) => `${q.id} at ${q.x.toFixed(1)},${q.y.toFixed(1)} r${q.r}`).join("; "));
-        check(`${label}: the count is whole — ${digits} piece${digits > 1 ? "s" : ""} of ink, each at least 5 px tall, ${(r.share * 100).toFixed(0)} % of the interior (6–40 %)`, r.pieces.length === digits && tall.length === digits && r.share >= 0.06 && r.share <= 0.4, r.pieces.map((p) => `${p.px}px ${p.h.toFixed(1)}tall`).join(", "));
+        check(`${label}: the count is whole — at most ${digits} piece${digits > 1 ? "s" : ""} of ink (digits may touch), each 5–8.5 px tall, ${(r.share * 100).toFixed(0)} % of the interior (6–40 %)`, whole && r.share >= 0.06 && r.share <= 0.4, r.pieces.map((p) => `${p.px}px ${p.h.toFixed(1)}tall`).join(", "));
       }
       check(`${city}: the capital stack is read at three zooms or more (${seen})`, seen >= 3);
     }

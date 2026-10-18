@@ -24,8 +24,8 @@ const SHARDS = 3, SHARD_CAP_MIN = 35, SETUP_MIN = 3, DEFAULT_SEC = 120;   // SET
 const EXCLUDE = new Set(["test-atlas-perf.js", "test-card-windows-fixes.js"]);   // each has a job of its own
 const MEASURED_FROM = "run 3705 (checks.yml, 2026-10-17), the three shards' own PASS lines (seconds per suite on a GitHub runner; run 3560 of 2026-10-14 before)";
 const MEASURED = {   // seconds
-  "test-a11y": 47, "test-account-page": 11, "test-account-switch": 97, "test-admin-editor": 18, "test-artefacts": 44, "test-artwork-cards": 13, "test-atlas-a11y": 8, "test-atlas-card": 22,
-  "test-atlas-credits": 6, "test-atlas-dark-labels": 11, "test-atlas-embed": 129, "test-atlas-fallbacks": 67, "test-atlas-first-globe": 32, "test-atlas-labels": 128,
+  "test-a11y": 47, "test-account-page": 11, "test-account-switch": 97, "test-admin-editor": 18, "test-artefacts": 44, "test-artwork-cards": 13, "test-atlas-a11y": 8, "test-atlas-capital-stack": 45, "test-atlas-card": 22,
+  "test-atlas-credits": 6, "test-atlas-dark-labels": 11, "test-atlas-embed": 129, "test-atlas-fallbacks": 67, "test-atlas-first-globe": 32, "test-atlas-labels": 128, "test-atlas-mark-outline": 60, "test-atlas-neutral": 115,
   "test-atlas-overlaps": 60, "test-atlas-phone": 312, "test-atlas-popups": 102, "test-atlas-redirects": 73, "test-atlas-relief": 11, "test-atlas-render": 93, "test-atlas-review": 93,
   "test-atlas-search": 26, "test-atlas-session": 310, "test-atlas-stages": 62, "test-atlas-study": 184, "test-atlas-time": 33, "test-atlas-windows": 295, "test-atlas-zoom-layers": 196,
   "test-avatar": 5, "test-card-locator": 44, "test-card-quote": 11, "test-card-types": 73, "test-cards": 35, "test-char-network": 28, "test-community": 21, "test-csp": 31,
