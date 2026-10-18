@@ -103,7 +103,8 @@
   const RAIL_FROM = -10000, RAIL_KNEE_YEAR = TODAY - 2500, RAIL_KNEE_X = 0.30;
   const FADE_MS = 250;                            // the crossfade at a step when the reader steps or plays (none while dragging, none under reduced motion)
   const MESH_BYTES = 48 * 1024 * 1024;            // (face, level) meshes kept on the GPU, by their bytes (2b: a count let forty empires cost what forty islets did)
-  const HIST_FILL_ALPHA = 0.42, HIST_FILL_ALPHA_DARK = 0.5;
+  const HIST_FILL_ALPHA = 0.42, HIST_FILL_ALPHA_DARK = 0.5;   // a state with a reason to be tinted (a war's side, a game's pick, a suite's debugFill): a plain state has no fill since 2026-10-18 c
+  const BARE_ALPHA = 1 / 255;   // the style texel of a state with NO fill: the fill shader draws nothing for it (atlas-gl.js FS_FACE) but the fragment still writes the stencil
   /* THE WHOLE-STATE SELECTION (2026-10-18; the owner: "like in Atlas v1"): the card windows' own gold (atlas-windows.js TINT_SEL) — the fill is the land blended with
      the gold at 0.24 (the history fill's own alpha does the blend), the outline 2.6 px and the glow 9 px are stroked on the label canvas from the face's rings */
   const SEL_GOLD = { rgb: [1, 178 / 255, 46 / 255], a: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)", width: 2.6, blur: 9 };
@@ -362,6 +363,7 @@
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="linked"> Peoples a card links</label>
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="all"> All with a dated source <span class="atlas2-peoples-hint">Adds nothing until more peoples are built: every one built so far is linked by a card.</span></label>
               <p class="atlas2-peoples-note" aria-live="polite"></p>
+              <p class="atlas2-peoples-hint atlas2-ground-key">Darker ground: no state or people in this year. A state has no colour of its own, only its border.</p>
             </fieldset>
             <fieldset class="atlas2-group atlas2-wars"><legend>Wars</legend>
               <label><input type="radio" name="atlas2-wars" data-layer="wars" value="auto"> Automatic <span class="atlas2-peoples-hint">Tints wars in your Personal Atlas, and the one war you open from a card. The plain Map tints no war, so nothing changes colour as you scrub.</span></label>
@@ -785,7 +787,7 @@
           time.aliveArcs = arcFlags(now);
           time.prevArcs = time.aliveArcs;
           wantMeshes(now.map((a) => a.face).concat(nowP.map((a) => a.face)), true);
-          if (time.view) { time.view.faces = now.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })).concat(time.fade ? time.view.faces.filter((f) => !time.aliveSet.has(f.face)) : []); time.view.pfaces = presenceDraw(time.fade ? time.fade.fromP : null, time.fade ? Math.min(1, (performance.now() - time.fade.t0) / FADE_MS) : 1); }
+          if (time.view) { time.view.faces = now.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent), bare: isBare(a.ent) })).concat(time.fade ? time.view.faces.filter((f) => !time.aliveSet.has(f.face)) : []); time.view.pfaces = presenceDraw(time.fade ? time.fade.fromP : null, time.fade ? Math.min(1, (performance.now() - time.fade.t0) / FADE_MS) : 1); }
           uploadStyle(); invalidate();
         }
         time.onScreenKey = (time.aliveKey || "") + "@" + k;
@@ -1420,13 +1422,19 @@
     const gameColourOf = (i) => { if (!time.gameTints) return null; const id = gameIdOf(i); return id ? time.gameTints.get(id) || null : null; };
     let debugFill = null;   // the suites only (test-atlas-review.js): a visible fill in place of the neutral, so a fold or a crack in a mesh can still be read off the pixels
     const entColour = (i) => time.gameMask ? (gameColourOf(i) || [0, 0, 0]) : gameColourOf(i) || warColourOf(i) || (!EMBED && time.selected === i ? SEL_GOLD.rgb : debugFill || palette.land);   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
+    /* A STATE HAS NO FILL (2026-10-18 c; the owner's phone: "states, instead of having a grey hue, should have no hue at all"). Until now a state was the land colour at
+       0.42 / 0.5 over the land — invisible on flat land, but a wash over the relief inside it, so a state looked greyer than the hills beside it. A state that no war tints,
+       no game tints, no selection and no suite colours (`debugFill`) is BARE: uploadStyle gives it the mark-only alpha (BARE_ALPHA — the fill shader draws nothing,
+       but the HIST stencil bit is still written, so the empty-land darkening still leaves it alone), and its coast stroke is a stencil write with the colour masked
+       (atlas-gl.js). The land and the relief show through at full opacity; the border line stays. */
+    const isBare = (i) => !time.gameMask && !gameColourOf(i) && !warColourOf(i) && (EMBED || time.selected !== i) && !debugFill;
     /* THE PERSONAL ATLAS SHOWS ONLY THE READER'S OWN POLITIES (2026-10-17; the owner's phone): a state no studied card links — flag 2 of the study layer, the one
        definition of "studied" (atlas/study.js) — is not named (the worker's study pass), not marked and not tappable (`tappable`, below). Until 2026-10-18 its face was
        still drawn, plain land with its border; since decision a of the owner's sixth look it is not alive at all in Personal (`aliveShown`, above): no face, no border,
        its ground the darker empty land. The Full Atlas and the plain Map name, mark and draw every state. */
     /* Find-it (atlas-embed.js): `layers.flat` draws every state of a year in the land colour with the modern borders' colour and width, and the outline's mask pass blacks the borders and the peoples out */
     function histBorderStyle() { if (!R.setHistoryBorderColor) return; R.setHistoryBorderColor(time.gameMask ? [0, 0, 0] : flatBorderOn ? palette.border : histBorderCss); if (R.setHistoryBorderWidth) R.setHistoryBorderWidth(flatBorderOn ? 0.9 : 1.1); if (R.setPresenceTheme) R.setPresenceTheme(time.gameMask ? false : histDark); }
-    function restyleHist() { if (!time.hist || !time.view) return; time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })); time.view.pfaces = presenceDraw(null, 1); uploadStyle(); }
+    function restyleHist() { if (!time.hist || !time.view) return; time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent), bare: isBare(a.ent) })); time.view.pfaces = presenceDraw(null, 1); uploadStyle(); }
     const hatchOf = (i) => (time.ents[i].kind === "contested" ? entColour(entityIndexOfId(time.ents[i].partners[1])) : null);
     const entityIndexOfId = (id) => { if (!time.entIndex) { time.entIndex = new Map(time.ents.map((e, i) => [e.id, i])); } const i = time.entIndex.get(id); return i == null ? -1 : i; };
     // the arcs of a set of faces as flags, one byte an arc (2b: a Set of tens of thousands of entries was a millisecond a year change)
@@ -1677,7 +1685,7 @@
           if (!o.drag) lookAhead();
         }
         if (changed || time.fade || wasPresent !== time.present || o.force) uploadStyle(changed ? 1 : 1);
-        time.view = { faces: time.onScreenAlive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })), pfaces: presenceDraw(time.fade ? time.fade.fromP : null, 0), present: time.present, strokePx: 0 };
+        time.view = { faces: time.onScreenAlive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent), bare: isBare(a.ent) })), pfaces: presenceDraw(time.fade ? time.fade.fromP : null, 0), present: time.present, strokePx: 0 };
         time.capitals = (time.hist.header.cities || []).filter((c) => c.from <= y && c.to >= y && alive.some((a) => time.ents[a.ent].id === c.entity)).map((c) => ({ entity: c.entity, name: c.name, lon: c.lon, lat: c.lat }));
         refreshOnScreen();   // the change years and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
         if (changed) reflectPeoplesNote();
@@ -1700,7 +1708,7 @@
       time.style.fill(0); time.arcTab.fill(0);
       const dark = histDark; const base = dark ? HIST_FILL_ALPHA_DARK : HIST_FILL_ALPHA;
       let tNow = 1; if (time.fade) tNow = Math.min(1, (performance.now() - time.fade.t0) / FADE_MS);
-      const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const gc = gameColourOf(ent); const a = time.gameMask ? alphaScale : gc && gc.length > 3 ? gc[3] * alphaScale : (time.selected === ent ? SEL_GOLD.a : base) * alphaScale * (warRoleOf(ent) === 1 || warRoleOf(ent) === 2 ? WAR_FILL_BOOST : 1) * (gc ? 1.7 : 1); const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
+      const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const gc = gameColourOf(ent); const a = isBare(ent) ? BARE_ALPHA : time.gameMask ? alphaScale : gc && gc.length > 3 ? gc[3] * alphaScale : (time.selected === ent ? SEL_GOLD.a : base) * alphaScale * (warRoleOf(ent) === 1 || warRoleOf(ent) === 2 ? WAR_FILL_BOOST : 1) * (gc ? 1.7 : 1); const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
       if (time.fade) for (const a of time.fade.from) if (!time.aliveSet.has(a.face)) put(a.face, 1 - tNow);
       for (const a of (time.onScreenAlive || time.alive)) put(a.face, time.fade ? tNow : 1);
       const alive = time.aliveArcs, from = time.fade ? time.fade.fromArcs : null, aOn = Math.round((time.fade ? tNow : 1) * 255), aOff = Math.round((1 - tNow) * 255);
@@ -1711,10 +1719,10 @@
       if (!time.fade) return;
       const u = (t - time.fade.t0) / FADE_MS;
       // the fading faces stay in the draw list until the fade ends
-      const fromFaces = time.fade.from.filter((a) => !time.aliveSet.has(a.face)).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: null, fading: true }));   // fading: last year's face — its land is empty for the darkening pass
-      if (time.view) { time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })).concat(fromFaces); time.view.pfaces = presenceDraw(time.fade.fromP, Math.min(1, u)); }
+      const fromFaces = time.fade.from.filter((a) => !time.aliveSet.has(a.face)).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: null, fading: true, bare: isBare(a.ent) }));   // fading: last year's face — its land is empty for the darkening pass
+      if (time.view) { time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent), bare: isBare(a.ent) })).concat(fromFaces); time.view.pfaces = presenceDraw(time.fade.fromP, Math.min(1, u)); }
       uploadStyle();
-      if (u >= 1) { time.fade = null; if (time.view) { time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })); time.view.pfaces = presenceDraw(null, 1); } uploadStyle(); }
+      if (u >= 1) { time.fade = null; if (time.view) { time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent), bare: isBare(a.ent) })); time.view.pfaces = presenceDraw(null, 1); } uploadStyle(); }
     }
     /* the meshes: ask the worker for what the year needs at the view's level, keep an LRU on the GPU */
     // the history level: the resident level, one coarser while a gesture (a pan, a scrub) runs at stage ≥ 1 — the fills are masked by the
@@ -3060,7 +3068,7 @@
     const mo = new MutationObserver(() => { if (!el.isConnected) dispose(); });
     mo.observe(viewHost, { childList: true });
     // a theme change (data-theme, or the night class) re-reads the tokens: the palette and the relief ramp follow
-    const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); } if (G.ready) measureMetrics(); invalidate(); });
+    const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null, bare: isBare(a.ent) })); } if (G.ready) measureMetrics(); invalidate(); });
     themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme", "data-fs"] });   // data-fs: Settings → Text size (the names follow it, labelScaleNow)
     /* ============================================================================================================
        PHASE 3b — THE STUDY LAYER (docs/atlas-v2-design.md §2.8, §7 "Phase 3b — as built")
@@ -3413,9 +3421,9 @@
          neutral fill and against the darker land no state covers, in the theme the page is in (test-atlas-time.js runs it over every theme) */
       fillAudit: () => {
         if (!time.hist) return { entities: 0, neutral: null, same: 0, differing: [] };
-        const land = palette.land, differing = []; let same = 0; const seen = new Set();
-        for (const a of time.alive) { if (seen.has(a.ent)) continue; seen.add(a.ent); if (warColourOf(a.ent) || time.selected === a.ent) continue; const c = entColour(a.ent); if (c.every((v, k) => Math.abs(v - land[k]) < 1 / 255)) same++; else differing.push(time.ents[a.ent].id); }
-        return { entities: seen.size, neutral: land.slice(), same, differing, presInk: presInk.slice() };
+        const land = palette.land, differing = []; let same = 0, bare = 0; const seen = new Set();
+        for (const a of time.alive) { if (seen.has(a.ent)) continue; seen.add(a.ent); if (warColourOf(a.ent) || time.selected === a.ent) continue; const c = entColour(a.ent); if (c.every((v, k) => Math.abs(v - land[k]) < 1 / 255)) same++; else differing.push(time.ents[a.ent].id); if (isBare(a.ent)) bare++; }
+        return { entities: seen.size, neutral: land.slice(), same, bare, differing, presInk: presInk.slice() };   // `bare` (2026-10-18 c): the states drawn with NO fill — every one of them but a war side's, the selection and a game's tint
       },
       contrastAudit: () => {
         const pal = readPalette(); const landC = pal.land, dim = landC.map((v) => v * HIST_DIM);
