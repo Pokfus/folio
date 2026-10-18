@@ -266,7 +266,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "d4a3260d31:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "c5e0bcb2df:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -2000,7 +2000,7 @@
        stroke for all of them), so a Full Atlas of 1,300 places and 190 polities is a handful of canvas calls a frame. */
     /* THE SEVEN GLYPHS (decision e, 2026-10-17, and decision b of the same day; the star removed 2026-10-18, decision b; AtlasStudy.MARK_CLASSES): a square (a capital, present or past), a disc (a city or
        town), a diamond (a site or cave), a saltire (a battle), a triangle (a mountain, hill or cape), a house — a pointed-top pentagon — (a building, monument or
-       wall), a ring with a count (a city stack). A state, a people or a culture has NO mark: its name and its face are what a reader taps. Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
+       wall), a ring with a count (a city stack; a capital's stack is the capital's SQUARE with the count inside — decision d, 2026-10-18 — sized by AtlasStudy.squareHalf). A state, a people or a culture has NO mark: its name and its face are what a reader taps. Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
        The same geometry draws the Legend's key (`glyphSVG`), so the key cannot drift from the map. */
     const SQ = Math.SQRT1_2, CROSS_T = 0.34;   // the saltire's bar half-width, as a share of the half-extent
     function markInto(path, shape, x, y, h, lw) {
@@ -2033,8 +2033,8 @@
       L.markIndex = new Map();
       for (let i = 0; i < n; i++) {
         const m = marks[i]; ax[3 * i] = m.a[0]; ax[3 * i + 1] = m.a[1]; ax[3 * i + 2] = m.a[2]; L.markIndex.set(m.id, i);
-        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);   // the shape decides the class (a square is the capital's), so the scale is one per key
-        let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, scale: A.markScale(m.kind, m.cls), layer: m.layer, idx: [] });
+        const key = m.layer * 128 + (m.members ? 64 : 0) + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);   // the shape decides the class (a square is the capital's), so the scale is one per key; a stack (a ring, or a capital's square with its count: decision d, 2026-10-18) is sized apart
+        let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, stack: !!m.members, scale: A.markScale(m.kind, m.cls), layer: m.layer, idx: [] });
         g.idx.push(i);
       }
       L.markGroups = [...groups.values()].sort((p, q) => p.key - q.key);
@@ -2082,7 +2082,7 @@
       const faint = [], hair = [];
       ctx.globalAlpha = 1;
       for (const g of L.markGroups) {
-        const shape = g.shape, stack = shape === "stack", h = stack ? A.ringHalf(half, LS) : half * g.scale, lw = markLine(h), e = h + 1, idx = g.idx;   // the drawn size (decision a, 2026-10-18): half for every class but the capital; the outline follows it
+        const shape = g.shape, stack = g.stack, h = stack ? (shape === "square" ? A.squareHalf(half, LS) : A.ringHalf(half, LS)) : half * g.scale, lw = markLine(h), e = h + 1, idx = g.idx;   // the drawn size (decision a, 2026-10-18): half for every class but the capital; a stack the ring's size, or the capital square's when its city is a capital (decision d); the outline follows it
         const sp = stack ? null : markSprite(shape, h, lw, g.mine, 0);   // a stack's sprite carries its count: fetched per mark
         for (let k = 0; k < idx.length; k++) {
           const i = idx[k], j = 3 * i, a0 = ax[j], a1 = ax[j + 1], a2 = ax[j + 2];
@@ -3182,7 +3182,7 @@
         flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl,
         /* the layout's marks (every flagged place or polity within the view and its margin, with whether its ground was clear at layout), the marks drawn in the last frame, the fan, the hidden list */
         marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, cls: m.cls || "", st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "", ox: m.ox || 0, oy: m.oy || 0 })); },
-        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "", ox: e.m.ox || 0, oy: e.m.oy || 0 })),
+        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "", ox: e.m.ox || 0, oy: e.m.oy || 0, cap: !!e.m.cap })),
         glyphSVG, markRadius,
         stack: () => (cardStack ? { id: cardStack.id, name: cardStack.name, ids: cardStack.ids.slice(), i: cardStack.i } : null), stackStep, openStack: (id) => { const m = stackMark(id); if (m) openStack(m); return !!m; },
         layoutChrome: () => (L.chrome || []).map((r) => r.slice()),

@@ -550,6 +550,31 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     allErrors.push(...errors); await ctx.close();
   }
 
+  /* ------------------------------------------------------------------ 11  a capital's stack is the capital's square with its count (decision d, 2026-10-18) */
+  console.log("\n\x1b[1m11) 2026-10-18 d: a stack whose city is a capital is drawn as the capital's SQUARE with the count inside (Rome, Athens); any other city's stack stays the ring\x1b[0m\n");
+  {
+    const ROME = "city:1159151593", ATHENS_RE = /^city:/;
+    const { ctx, page, errors } = await open(browser, READER, { phone: true });
+    await mode(page, "full"); await year(page, 2025);
+    // the ink inside a stack's glyph: pixels that are neither transparent nor the glyph's fill (the count's digits and the outline), read off the label canvas within the inner square
+    const inner = (m) => A(page, (c, m) => { const col = c.colours(), fill = col.markFill || col.halo, fr = parseInt(fill.slice(1, 3), 16), fg = parseInt(fill.slice(3, 5), 16), fb = parseInt(fill.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), k = cv.width / c.frame()[0], x = cv.getContext("2d"); const r = Math.max(1, Math.floor((m.h - 3.5) * k)), d = x.getImageData(Math.round(m.x * k) - r, Math.round(m.y * k) - r, 2 * r + 1, 2 * r + 1).data; let ink = 0, fillPx = 0; for (let i = 0; i < d.length; i += 4) { if (d[i + 3] < 100) continue; if (Math.abs(d[i] - fr) + Math.abs(d[i + 1] - fg) + Math.abs(d[i + 2] - fb) <= 60) fillPx++; else ink++; } return { ink, fillPx, k }; }, m);
+    for (const [name, lon, lat, k, cityRe] of [["Rome at 1.2 km/px", 12.5, 41.9, 1.2, (m) => m.city === ROME], ["Athens at 0.6 km/px", 23.7275, 37.9838, 0.6, (m) => m.name === "Athens"]]) {
+      await view(page, lon, lat, k);
+      const lv = await live(page), stacks = lv.filter((m) => m.members), cap = stacks.find(cityRe), rings = stacks.filter((m) => m.shape === "stack"), squares = stacks.filter((m) => m.shape === "square");
+      check(`${name}: the capital's stack is drawn (${stacks.map((m) => m.name + " " + m.count + " " + m.shape).join(", ")})`, !!cap, "no stack for the capital");
+      if (!cap) continue;
+      check(`${name}: ${cap.name}'s stack (${cap.count} places) is a SQUARE, not a ring`, cap.shape === "square" && cap.cls === "stack", cap.shape + " / " + cap.cls);
+      check(`${name}: the square is 20 px across (half-extent 10, AtlasStudy.squareHalf) — the ring is 19`, Math.abs(cap.h - 10) < 0.01, cap.h + " px half");
+      const px = await inner(cap);
+      check(`${name}: the count is written inside it (${px.ink} ink pixels among ${px.fillPx} of the fill within the inner square at ${px.k} device px per CSS px)`, px.ink >= 8 && px.fillPx >= 8, JSON.stringify(px));
+      if (name.startsWith("Rome")) check("Rome's count has two digits, which the square is sized for", cap.count >= 10, String(cap.count));
+      check(`${name}: every other stack on screen whose city is not a capital is still the ring (${rings.map((m) => m.name + " " + m.count).join(", ") || "none on screen"}), and every square stack's city is a capital (${squares.map((m) => m.name).join(", ")})`, squares.every((m) => m.cap) && rings.every((m) => !m.cap), JSON.stringify(stacks.map((m) => [m.name, m.shape, !!m.cap])));
+    }
+    await shot(page, "capital-square-stacks");
+    allErrors.push(...errors); await ctx.close();
+    void ATHENS_RE;
+  }
+
   /* ------------------------------------------------------------------ done */
   console.log("\n" + pass + " ok, " + fail + " failed");
   check("no console error", allErrors.length === 0, allErrors.slice(0, 3).join(" | "));

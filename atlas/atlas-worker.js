@@ -1200,8 +1200,13 @@
             for (const mm of mem) { sx += mm.x; sy += mm.y; if (mm.f > f) f = mm.f; if (mm.z > z) z = mm.z; n += mm.n; drop2.add(mm.id); }
             sx /= mem.length; sy /= mem.length;
             const name = study.cityName.get(cid) || cid, id = "stk:" + cid + ":" + stacks.length;
-            const hh = AS.ringHalf(h0, FS);   // a count must fit inside, in a 9 px bold figure: never under 19 px across (decision a, 2026-10-18)
-            stacks.push({ id, kind: "stack", sub: "", cls: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: "stack", layer: AS.markLayer("stack", f), h: hh });
+            /* A STACK WHOSE CITY IS A CAPITAL IS THE CAPITAL'S SQUARE WITH THE COUNT INSIDE (2026-10-18, the owner's fifth look, decision d: "some capital cities, like
+               Rome or Athens, still appear with circles instead of squares"): the city's row is a capital by the gazetteer's kind or the registry's capital
+               statements (`cap`, decision b of 2026-10-17); any other city's stack is the ring. The square is sized to hold a two-digit count in the 9 px bold
+               figure (AtlasStudy.squareHalf: 20 px across at every zoom; the ring's 19), its class is still the stack's (the popup pages through the members). */
+            const crow = study.rows.get(cid), grow = GZ && GZ.byId ? GZ.byId.get(cid) : null, capCity = !!((crow && (crow.cap || crow.kind === "capital")) || (grow && grow.kind === "capital"));
+            const hh = capCity ? AS.squareHalf(h0, FS) : AS.ringHalf(h0, FS);   // a count must fit inside, in a 9 px bold figure: never under 19 px across (decision a, 2026-10-18)
+            stacks.push({ id, kind: "stack", sub: "", cls: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: capCity ? "square" : "stack", cap: capCity, layer: AS.markLayer("stack", f), h: hh });
           }
         }
         if (drop2.size) list = list.filter((mm) => !drop2.has(mm.id)).concat(stacks);
@@ -1235,7 +1240,7 @@
         const hh = m.h, mrect = m.rect;
         dropping = m.own || { name: m.id };
         const base = { id: m.id, kind: m.kind, cls: m.cls, shape: m.shape, layer: m.layer, st: m.f, a: m.unit, sx: m.x, sy: m.y, h: hh, n: m.n, clear: m.clear, score: -300 - m.f * 10 - Math.min(9, m.n / 100) };
-        if (m.members) { base.members = m.members; base.count = m.count; base.name = m.name; base.city = m.city; }   // a city stack (decision d)
+        if (m.members) { base.members = m.members; base.count = m.count; base.name = m.name; base.city = m.city; base.cap = !!m.cap; }   // a city stack (decision d); `cap`: a capital's, drawn as the square (decision d of 2026-10-18)
         if (m.ox || m.oy) { base.ox = Math.round(m.ox * 10) / 10; base.oy = Math.round(m.oy * 10) / 10; }   // nudged off its true point (decision c): the page adds the offset and draws the hairline
         if (m.cls) { marks.push(base); markById.set(m.id, base); }   // an AREA (no class) has no mark: its name stands at its point (decision e)
         if (!m.own) { const c2 = candById.get(m.id); if (c2) { done.add(c2); layCand(c2, true); } continue; }   // a flagged polity, country, sea or river: its name is laid HERE, at its flag's turn, by the ordinary code (decision b)

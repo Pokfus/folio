@@ -243,6 +243,14 @@
      geometry's 0.92 that is a half-extent of 9.5 px (19 px across), where today's ring was 22 px across at city scale and 13 at the widest view
      (its 8 px figure touching the ring). Above that floor the ring follows the halved marks (1.4 × the halved half), which no zoom reaches. */
   const MARK_SMALL = 0.5, MARK_LINE_MIN = 1.25, RING_MIN_PX = 9.5, STACK_FONT_PX = 9;
+  /* A CAPITAL'S STACK IS THE SQUARE WITH THE COUNT INSIDE (2026-10-18, the owner's fifth look, decision d: "some capital cities, like Rome or Athens, still
+     appear with circles instead of squares, presumably because they have stacked locations within"). The square must hold the same two-digit 9 px bold
+     count as the ring ("88": 12 px wide, 7 tall): the square's side inside the outline is 0.86 of (half − line / 2) each way (markInto), and the 2 px line
+     takes a pixel of that, so at a half-extent of SQUARE_STACK_PX (10 px, 20 across) the clear width inside is 2 × ((10 − 1) × 0.86 − 1) = 13.5 px — the
+     figure with 0.75 px of air each side, as the ring's inner diameter (13.6 px) gives it. A plain capital's square is 16 px across at city scale; a
+     capital's stack 20 at every zoom (the floor wins at every zoom, as the ring's does). `squareHalf(half, scale)` mirrors `ringHalf`. */
+  const SQUARE_STACK_PX = 10;
+  function squareHalf(half, scale) { return Math.max(half * 1.4 * MARK_SMALL, SQUARE_STACK_PX * (scale > 0 ? scale : 1)); }   // `half` is markHalf × the text scale, `scale` the text scale
   function markScale(kind, cls) { return (cls === "capital" ? 1 : MARK_SMALL) * (kind === "hill" ? 0.75 : 1); }   // a hill is the smaller triangle, as it was
   function ringHalf(half, scale) { return Math.max(half * 1.4 * MARK_SMALL, RING_MIN_PX * (scale > 0 ? scale : 1)); }   // `half` is markHalf × the text scale, `scale` the text scale
   const markLine = (half) => Math.max(MARK_LINE_MIN, half < 3 ? 1 : half < 6 ? 1.5 : 2);   // the outline's width for a glyph of that drawn half-extent
@@ -574,7 +582,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLine, ringHalf, MARK_SMALL, MARK_LINE_MIN, RING_MIN_PX, STACK_FONT_PX, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLine, ringHalf, squareHalf, MARK_SMALL, MARK_LINE_MIN, RING_MIN_PX, SQUARE_STACK_PX, STACK_FONT_PX, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);
