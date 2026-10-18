@@ -208,10 +208,13 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
           if (inside(1.5) && z >= 0.21) must.push([id, x, y]);
         }
         const lm = c.study.liveMarks();
-        return { must, may: [...may], live: lm, half };
+        // a city stack the layout built but the page does not draw (its ring or square, larger than a member's mark, meets a control or the frame's edge): its members are lawfully absent too
+        const layStacks = c.study.marks().filter((m) => m.members && !m.clear).map((m) => m.members);
+        return { must, may: [...may], live: lm, half, layStacks };
       }, placesWithAt);
       const byId = new Map(); const dupHere = []; const inStack = new Set();
       for (const m of r.live) { if (byId.has(m.id)) dupHere.push(m.id); byId.set(m.id, m); shapes.add(m.shape); if (m.members) for (const id of m.members) inStack.add(id); }
+      for (const ms of r.layStacks || []) for (const id of ms) inStack.add(id);   // Datong's square (20 px) under the study panel at 120 E 35 N, 6 km/px, whose two members' own marks would clear it (2026-10-18)
       // a place of a CITY STACK (decision d, 2026-10-17) is drawn as its city's ring, not at its own position
       for (const [id, x, y] of r.must) { const m = byId.get(id); if (!m) { if (inStack.has(id)) stacked++; else totalMissing.push(`${id}@${lon},${lat},${k}`); } else if (Math.hypot(m.x - x, m.y - y) > 0.75) offBy++; else totalSeen++; }
       const may = new Set(r.may); for (const m of r.live) if (!may.has(m.id) && !m.members) extra.push(`${m.id}@${lon},${lat},${k}`);
