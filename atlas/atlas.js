@@ -176,17 +176,17 @@
   function readPalette() {
     const { ink, paper, paper2, indigo, ochre, dark } = themeTokens();
     const ocean = dark ? mix(paper2, indigo, 0.30) : [0.70, 0.92, 1.0];
-    // the same derivation v1 uses (readColors in app.js), so the two globes sit in one theme. THE RIVER (2026-10-18, the owner's sixth look,
-    // decision b: "rivers are displayed very thinly, hard to see, especially in dark mode"): in a light theme v1's deeper blue of the sea's family
-    // mixed 15 % toward the ink (v1's #1f7aaa alone read 2.74:1 against gazette's grey-cream land; now at least 3.3:1 against the land and 4.4:1
-    // against the sea in every light theme); in a dark theme the sea's own hue lightened toward white — v1's rule, the ocean mixed a quarter
-    // toward the paper, measured 1.17:1 against the land and 1.18:1 against the sea on folio's night — now at least 4.4:1 against both in every
-    // dark theme (.claude/test-atlas-rivers.js measures it off the pixels). `riverWidth` is the line's width in CSS px (1.5 light, 2 dark; the
-    // renderer widens the larger rivers from it): it was 0.8 in both.
+    // the same derivation v1 uses (readColors in app.js), so the two globes sit in one theme; the river takes
+    // v1's rule in a light theme — a deeper blue of the sea's family, where the pale cyan sea was 1.03:1 against the
+    // land (v1's bug report, Sep 2026) — and in a DARK theme the sea's own hue lightened toward white (2026-10-18, the
+    // owner: "make rivers in dark mode a somewhat lighter colour to help them stand out"; the ocean mixed a quarter toward
+    // the paper read 1.17:1 against the land and 1.18:1 against the sea on folio's night; at 0.40 toward white it reads
+    // 4.3:1 and 3.1:1 there, and at least 3:1 against both in every dark theme — .claude/test-atlas-rivers.js measures it
+    // off the pixels). The width is the renderer's 0.8 px, as it was: the owner asked for the colour alone.
     return {
       ocean, lake: ocean,
       land: mix(paper, ink, 0.10), coast: mix(paper, ink, 0.32), border: mix(paper, ink, 0.46), admin1: mix(paper, ink, 0.26), rim: mix(paper, ink, 0.32),
-      river: dark ? mix(ocean, [1, 1, 1], 0.55) : mix([31 / 255, 122 / 255, 170 / 255], ink, 0.15), riverWidth: dark ? 2 : 1.5, lakeShore: dark ? mix(ocean, paper, 0.3) : mix(ocean, ink, 0.35),
+      river: dark ? mix(ocean, [1, 1, 1], 0.40) : [31 / 255, 122 / 255, 170 / 255], lakeShore: dark ? mix(ocean, paper, 0.3) : mix(ocean, ink, 0.35),
       halo: dark ? mix(paper2, indigo, 0.6) : mix(paper, indigo, 0.35), grat: ink, selected: mix(paper, ochre, 0.55),
     };
   }
@@ -273,7 +273,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "d2b78a8c51:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "1d75d327eb:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));

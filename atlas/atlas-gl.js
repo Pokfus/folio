@@ -14,9 +14,7 @@
      R.setRelief(key, { w, h, rgb, tile })      one relief texture (Phase 1b): "0" is the resident L0 sheet, "1:x-y"
                                                 an L1 tile drawn as a patch on the sphere
      R.setRamp(bytes)                           the 256-texel hypsometric ramp, RGB, built from the theme's tokens
-     R.setPalette({ ocean, land, coast, border, admin1, river, riverWidth, lake, lakeShore, rim, halo, grat, selected })
-                                                  riverWidth: the rivers' line in CSS px (2026-10-18; 0.8 when absent) — a
-                                                  level-2 river's; a level-1 river is ×1.3, a level-0 (major) river ×1.6
+     R.setPalette({ ocean, land, coast, border, admin1, river, lake, lakeShore, rim, halo, grat, selected })
      R.resize(cssW, cssH, dpr)
      R.render(view)                             view = { rot: Float32Array(9) row-major, radius, cx, cy (CSS px),
                                                          level (0–4), graticule, admin1, rivers, lakes (bool),
@@ -387,9 +385,6 @@
       float kind = mod(tag, 8.0);
       float flags = floor(mod(tag, 64.0) / 8.0);
       float w = uWidth[int(kind + 0.5)];
-      // a RIVER is wider for its size (2026-10-18, decision b): the second texel's w carries the arc's minLod — 0 the major rivers (drawn at the
-      // globe), 1 the next, 2 the rest — written by the worker's bucketSegments; uWidth[2] is the smallest river's
-      if (kind > 1.5 && kind < 2.5) w *= B.w < 0.5 ? 1.6 : B.w < 1.5 ? 1.3 : 1.0;
       float hw = w * 0.5 + 1.0 + uIdPad;                  // a pixel of anti-aliasing margin
       vec2 d = sb - sa; float L = length(d);
       vec2 dir = L > 1e-6 ? d / L : vec2(1.0, 0.0);
@@ -740,7 +735,7 @@
       gl.uniform1f(P.u.uHeight, H);
       gl.uniform1f(P.u.uIdPad, idPad || 0);
       gl.uniform2f(P.u.uPickOff, pickOff[0], pickOff[1]);
-      widths[0] = 1.0 * dpr; widths[1] = 0.9 * dpr; widths[2] = (palette.riverWidth || 0.8) * dpr; widths[3] = 0.6 * dpr;   // the river: the palette's width (1.5 light / 2 dark CSS px since 2026-10-18; 0.8 before, in both) widths[4] = 0.9 * dpr; widths[5] = 0.6 * dpr; widths[6] = 0; widths[7] = histBorderWidth * dpr;
+      widths[0] = 1.0 * dpr; widths[1] = 0.9 * dpr; widths[2] = 0.8 * dpr; widths[3] = 0.6 * dpr; widths[4] = 0.9 * dpr; widths[5] = 0.6 * dpr; widths[6] = 0; widths[7] = histBorderWidth * dpr;
       if (flat) for (let i = 0; i < 8; i++) widths[i] = flat.width * dpr;
       gl.uniform1fv(P.u.uWidth, widths);
       gl.uniform1f(P.u.uArcTabOn, 0); gl.uniform1f(P.u.uBorders, view.history && view.history.present === false ? 0 : 1);

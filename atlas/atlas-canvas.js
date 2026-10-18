@@ -68,7 +68,7 @@
       ctx.beginPath();
       for (let i = 0; i < S.length; i += 8) {
         const tag = S[i + 3], kind = tag % 8, flags = Math.floor(tag / 8) % 8;
-        if (!want(kind, flags, S[i + 7])) continue;   // the eighth float: a river's size class (0 major … 2), 0 for every other kind
+        if (!want(kind, flags)) continue;
         const za = m6 * S[i] + m7 * S[i + 1] + m8 * S[i + 2]; if (za < 0.002) continue;
         const zb = m6 * S[i + 4] + m7 * S[i + 5] + m8 * S[i + 6]; if (zb < 0.002) continue;
         ctx.moveTo(cx + (m0 * S[i] + m1 * S[i + 1] + m2 * S[i + 2]) * r, cy - (m3 * S[i] + m4 * S[i + 1] + m5 * S[i + 2]) * r);
@@ -140,10 +140,7 @@
         }
       }
       if (Wl) {
-        if (view.rivers && Wl.riverSegs) {   // the rivers by size (2026-10-18, decision b): the palette's width for the smallest, ×1.3 and ×1.6 for the larger (the segment's class, as the WebGL2 path reads it); 0.8 px for all before
-          const rw = palette.riverWidth || 0.8; ctx.strokeStyle = css(palette.river);
-          for (const [cls, f] of [[2, 1], [1, 1.3], [0, 1.6]]) { ctx.lineWidth = rw * f; stats.riverSegments += strokeSegments(Wl.riverSegs, rot, cx, cy, r, (k, fl, c) => (cls === 2 ? c >= 2 : c === cls)); }
-        }
+        if (view.rivers && Wl.riverSegs) { ctx.lineWidth = 0.8; ctx.strokeStyle = css(palette.river); stats.riverSegments += strokeSegments(Wl.riverSegs, rot, cx, cy, r, () => true); }
       }
       if (view.graticule) { ctx.lineWidth = 0.5; ctx.strokeStyle = css(palette.grat, 0.45); ctx.setLineDash([2, 4]); graticule(rot, cx, cy, r); ctx.setLineDash([]); }
       ctx.lineWidth = 1.2; ctx.strokeStyle = css(palette.rim); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke(); stats.draws++;

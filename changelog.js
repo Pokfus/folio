@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1038", released: "2026-10-18T12:12Z" };
+window.FOLIO_VERSION = { v: "1.1039", released: "2026-10-18T13:28Z" };
 
 window.CHANGELOG = [
   {
@@ -43,7 +43,7 @@ window.CHANGELOG = [
     t: "Atlas: neutral fill, darker empty land, smaller marks, popups redesigned",
     items: [
       "<b>Your atlas</b>: the Personal Atlas now shows only what your studied cards discovered — no undiscovered state, capital, city, sea, ocean or continent is drawn, named or faint.",
-      "<b>Atlas rivers</b>: rivers are drawn twice as wide as before (the larger ones wider still) and, in a dark theme, in a pale water colour you can see against the land and the sea.",
+      "<b>Atlas rivers</b>: in a dark theme rivers are now drawn in a lighter water colour, so they stand out against the land and the sea.",
       "<b>Your atlas</b>: in the Personal Atlas a river is named only when one of your studied cards discovered it; its line is drawn whenever rivers are on.",
       "<b>Atlas marks</b>: a capital's stack of places (Rome, Athens) is now the capital's square with the count inside, instead of a ring.",
       "<b>Atlas names</b>: a place's name now stands directly right or left of its mark, or is not drawn — above or below only at the closest zoom — so no name drifts to another mark.",
