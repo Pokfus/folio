@@ -78,6 +78,7 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
   for (const V of VIEWPORTS) {
     const mobile = !V.tablet;
     const context = await browser.newContext({ viewport: { width: V.width, height: V.height }, isMobile: mobile, hasTouch: true, deviceScaleFactor: 2 });
+    await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: no cards seeded here, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
     const page = await context.newPage();
     const errors = [];
     page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
@@ -269,6 +270,7 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
   const seeded = (fontSize) => `try { if (!localStorage.getItem("folio_v1_seeded")) { localStorage.setItem("folio_v1", JSON.stringify({ cards: Object.fromEntries(["wh-023","wh-001","wh-002","gr-001","gr-002","rm-001"].map((id) => [id, { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" }])), settings: { newPerDay: 5${fontSize ? ', fontSize: "' + fontSize + '"' : ""} } })); localStorage.setItem("folio_v1_seeded", "1"); } } catch (e) {}`;
   for (const V of VIEWPORTS.filter((v) => !v.tablet && v.width <= 640 && v.height > v.width)) {
     const context = await browser.newContext({ viewport: { width: V.width, height: V.height }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
+    await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: no cards seeded here, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
     await context.addInitScript(seeded());
     const page = await context.newPage();
     const errors = [];
@@ -434,6 +436,7 @@ const pairs = (rects) => { const out = []; for (let i = 0; i < rects.length; i++
       const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
       await context.addInitScript(HOOK);
       if (sc.seed) await context.addInitScript(seed);
+      else await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map for the unseeded scenarios (the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn: decision a, 2026-10-18)
       const page = await context.newPage();
       const errors = [];
       page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));

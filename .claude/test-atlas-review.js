@@ -127,6 +127,7 @@ async function strokePixelsFarFromWater(page) {
   console.log("\n\x1b[1m1) the coast stroke stays at the coast (the 2a review's two artefact views)\x1b[0m\n");
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
     for (const v of [{ name: "Tuscany and Latium at the cap, 1 CE", hash: "#map/12.5/41.9/12?y=1" }, { name: "Sicily and Calabria at 0.6 km/px, 250 BCE", hash: "#map/14/37.5/8?y=-250" }]) {
       const { page, errors } = await open(context, v.hash, true);
       await C(page, () => document.querySelector(".atlas2").__atlas2.invalidate()); await sleep(300);
@@ -141,6 +142,7 @@ async function strokePixelsFarFromWater(page) {
   console.log("\n\x1b[1m1b) a fill is drawn once: no pixel beyond the fill's tone where the coast stroke is off\x1b[0m\n");
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
     // the ceiling is 24, not 8 (border audit, 2026-10-16): Cliopatria's Mongol Empire of 1245 has three 4-vertex squares 7 km across (two side by side at 53.0–53.2°E 45.9–46.0°N, one at
     // 29.6°E 45.4°N) that the 15 km coast snap used to collapse onto the coast and drop, as it dropped Carthage's; the capped snap keeps them, and at 6 km/px each is a pixel or two of
     // border ink, about 5 pixels in runs. A fold is hundreds of pixels long (the 2a worker's thick chord across Latium).
@@ -161,6 +163,7 @@ async function strokePixelsFarFromWater(page) {
   console.log("\n\x1b[1m2) the rail on narrow screens: every control inside its row, with and without the phone flag, with and without a card\x1b[0m\n");
   for (const W of [360, 390, 430]) for (const mobile of [true, false]) {
     const context = await browser.newContext({ viewport: { width: W, height: 844 }, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: 2 });
+    await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
     const { page, errors } = await open(context, "#map/12.5/41.9/5?y=1", false);
     const measure = () => C(page, () => {
       const el = document.querySelector(".atlas2"), row = el.querySelector(".atlas2-rail-row");
@@ -208,6 +211,7 @@ async function strokePixelsFarFromWater(page) {
   console.log("\n\x1b[1m3) every year carries its era\x1b[0m\n");
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
     const { page, errors } = await open(context, "#map/12.5/41.9/5?y=1", false);
     const r = await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; return { f: [1, -300, 2026, 0, 1066].map((y) => c.fmtYear(y)), p: ["1 CE", "300 BCE", "2026 CE", "1066 CE", "AD 1066", "1066"].map((t) => c.parseYear(t)), box: document.querySelector(".atlas2-rail-year").value, pin: document.querySelector(".atlas2-rail-pin").getAttribute("aria-valuetext") }; });
     check("fmtYear: 1 → \"1 CE\", −300 → \"300 BCE\", 2026 → \"2026 CE\", 0 → \"1 BCE\", 1066 → \"1066 CE\"", r.f.join("|") === "1 CE|300 BCE|2026 CE|1 BCE|1066 CE", r.f.join("|"));

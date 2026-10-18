@@ -49,6 +49,7 @@ const SEARCHES = ["paris", "danube", "baikal", "andes", "tokyo", "sahara", "amaz
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 }, hasTouch: true });
+  await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: this suite reads the base map's names and faces with no cards seeded, and the Atlas opens on Personal by default since Oct 2026, where nothing undiscovered is drawn (decision a, 2026-10-18)
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
