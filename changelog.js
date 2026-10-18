@@ -35,9 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1028", released: "2026-10-17T19:54Z" };
+window.FOLIO_VERSION = { v: "1.1029", released: "2026-10-18T00:29Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-10-18",
+    t: "Rome inside the Roman Kingdom",
+    items: [
+      "<b>Atlas borders</b>: Rome now lies inside the Roman Kingdom in every year from 750 to 481 BCE — the source drew the city 3 km outside it, and Folio's correction (named on Sources and credits) opens the border around the city.",
+    ],
+  },
   {
     d: "2026-10-17",
     t: "The Personal Atlas shows only your own states",

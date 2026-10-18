@@ -39729,6 +39729,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="cred-top"><b class="cred-name">${esc(v.name)}</b> <span class="cr-lic">${ext(v.licenceUrl, esc(LIC[v.licence] || v.licence))}</span></div>
             <p class="cred-meta">Version ${esc(v.version)}. Retrieved ${when(v.retrieved)}. ${ext(v.url, "Where it was taken from")}.</p>
             <p class="cred-attr">${esc(v.attribution)}</p>
+            ${(v.adaptations || []).length ? `<p class="cred-adapt"><b>Adapted by Folio</b> (the licence allows it, with this attribution): ${v.adaptations.map((a) => esc(a.what) + " (" + esc(a.date) + ")").join(" ")}</p>` : ""}
             <p class="cred-files">Folio files derived from it: ${fileList(v.files)}.</p>
           </li>`).join("")).join("");
     const share = C.sources.filter((s) => s.variants.some((v) => v.shareAlike));

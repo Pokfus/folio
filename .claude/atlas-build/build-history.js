@@ -36,8 +36,10 @@
    OSM geometry and references the OSM coast, so it is an ODbL derivative with Cliopatria's CC BY 4.0 attribution kept; the
    header says so and the credits page lists it under the ODbL statement (flagged for counsel in the report).
 
-   Known source faults are left as the source draws them (Rome's early 900 km² block leaves the city 3 km outside) and
-   classed approximate; the assertions in check-history.js list them rather than force them.
+   Known source faults are left as the source draws them and classed approximate; the assertions in check-history.js list
+   them rather than force them. The ONE exception is a dated, documented geometry correction in geometry-fixes.json (2026-10-18:
+   the Roman Kingdom's polygon, which left Rome 2.8 km outside the kingdom named after it — docs/atlas-v2-border-audit.md §7),
+   applied where the row is read, verified there, and named as Folio's adaptation of CC BY data in the header's sources.
 
    AT FULL SCALE (Phase 2b). An epoch conflates only the rings its alive rows can touch (a ring's box against the rows' boxes
    grown by D1), so the Pacific costs a Mediterranean epoch nothing; the global registries (arcs, faces, entities) are keyed and
@@ -345,10 +347,39 @@ const allRows = [];
    the pair the entity takes below (the rows covering the most years) and the secondary pairs are the corrected ones. A fix that matches no row stops the build: a stale fix is a silent fault. Geometry is untouched. */
 const QID_FIXES = new Map();
 for (const f of JSON.parse(fs.readFileSync(path.join(HERE, "polity-qids.json"), "utf8")).fixes) { const k = f.series + "|" + f.from.qid + "|" + f.from.wiki; if (QID_FIXES.has(k)) throw new Error("polity-qids.json: two fixes for " + k); QID_FIXES.set(k, { to: f.to, used: 0 }); }
+/* GEOMETRY FIXES (border audit, 2026-10-18; docs/atlas-v2-border-audit.md §7): geometry-fixes.json replaces one row's polygon — every Cliopatria row of `series`
+   named `name` — with `ring`, HERE, where the row is read, and only while the source's ring is still `from` (rounded to 4 decimals): a changed source makes the fix
+   stale and stops the build, as a stale QID fix does. Each fix is checked before it is used (`check`: the point lies at least minInsideM inside the corrected ring,
+   the area is within maxAreaChange of the source's, both on the raw ring) and the build fails otherwise. `over` names the series whose overlapping row yields to the
+   fixed one in the labelling (the Roman Kingdom over the Etruscans: an overlap under SLIVER_KM2 would otherwise go to the neighbour with the longest shared edge,
+   which handed Rome to the Etruscans for 750–551 BCE). A fix is Folio's adaptation of CC BY 4.0 data and the header's sources entry for Cliopatria names it
+   (`adaptations`), so the credits page does. Nothing else is bent by hand: one fix, one polity, the smallest edit that meets its check. */
+const GEOM_FIXES = JSON.parse(fs.readFileSync(path.join(HERE, "geometry-fixes.json"), "utf8")).fixes.map((f) => Object.assign({ used: 0 }, f));
+const GEOM_FIXES_SHA = crypto.createHash("sha256").update(fs.readFileSync(path.join(HERE, "geometry-fixes.json"))).digest("hex");
+const ringKm2Deg = (ring) => { let a = 0; const lat0 = ring.reduce((t, p) => t + p[1], 0) / ring.length, k = Math.cos(lat0 * D2R); for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) a += (ring[j][0] - ring[i][0]) * k * (ring[j][1] + ring[i][1]) / 2; return Math.abs(a) * 111195 * 111195 / 1e6; };
+const ringHoldsDeg = (ring, p) => { let c = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) if ((ring[i][1] > p[1]) !== (ring[j][1] > p[1]) && p[0] < (ring[j][0] - ring[i][0]) * (p[1] - ring[i][1]) / (ring[j][1] - ring[i][1]) + ring[i][0]) c = !c; return c; };
+const ringEdgeM = (ring, p) => { const k = Math.cos(p[1] * D2R); let best = Infinity; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const ax = (ring[i][0] - p[0]) * k, ay = ring[i][1] - p[1], bx = (ring[j][0] - p[0]) * k, by = ring[j][1] - p[1]; const dx = bx - ax, dy = by - ay, L = dx * dx + dy * dy; let t = L ? -(ax * dx + ay * dy) / L : 0; t = Math.max(0, Math.min(1, t)); best = Math.min(best, Math.hypot(ax + t * dx, ay + t * dy)); } return best * 111195; };
+for (const fx of GEOM_FIXES) {
+  if (!spec.polities[fx.series] || !(spec.polities[fx.series].cliopatria || []).includes(fx.name)) throw new Error(`geometry-fixes.json: ${fx.series} has no Cliopatria row named "${fx.name}" in polity-spec.json`);
+  const c = fx.check, km2 = ringKm2Deg(fx.ring), km2From = ringKm2Deg(fx.from), inside = ringHoldsDeg(fx.ring, c.point), edge = ringEdgeM(fx.ring, c.point);
+  if (!inside || edge < c.minInsideM) throw new Error(`geometry-fixes.json: ${fx.series}: ${c.name} is ${inside ? "" : "NOT "}inside the corrected ring, ${(edge / 1000).toFixed(2)} km from its edge (at least ${c.minInsideM / 1000} km asked)`);
+  if (Math.abs(km2 - km2From) / km2From > c.maxAreaChange) throw new Error(`geometry-fixes.json: ${fx.series}: the corrected ring is ${km2.toFixed(1)} km² against the source's ${km2From.toFixed(1)} (over ${c.maxAreaChange * 100} %)`);
+  fx.km2 = km2; fx.km2From = km2From; fx.edgeM = edge;
+  say(`geometry fix ${fx.series} (${fx.name}, ${fx.date}): ${km2From.toFixed(1)} → ${km2.toFixed(1)} km² (${(100 * (km2 - km2From) / km2From).toFixed(1)} %), ${c.name} ${(edge / 1000).toFixed(2)} km inside`);
+}
+const r4 = (p) => [Math.round(p[0] * 1e4) / 1e4, Math.round(p[1] * 1e4) / 1e4];
+const sameRing4 = (a, b) => a.length === b.length && a.every((p, i) => { const q = r4(p), w = r4(b[i]); return q[0] === w[0] && q[1] === w[1]; });
 function prepareRow(s, r) {
   let rs = r.rings;
   if (!rs) {
-    const g = r.f.geometry, polys = g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : [];
+    const g = r.f.geometry; let polys = g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : [];
+    const fx = GEOM_FIXES.find((x) => x.series === s.key && x.name === r.name);
+    if (fx) {
+      if (polys.length !== 1 || polys[0].length !== 1) throw new Error(`geometry-fixes.json: ${fx.series}: the row ${r.from}..${r.to} is not one ring (stale fix)`);
+      const src = polys[0][0].slice(); if (src.length > 1 && src[0][0] === src[src.length - 1][0] && src[0][1] === src[src.length - 1][1]) src.pop();
+      if (!sameRing4(src, fx.from)) throw new Error(`geometry-fixes.json: ${fx.series}: the source's ring of ${r.from}..${r.to} is no longer \`from\` (stale fix): ${JSON.stringify(src.map(r4))}`);
+      polys = [[fx.ring.concat([fx.ring[0]])]]; r.fix = fx; r.over = fx.over || []; fx.used++;
+    }
     rs = [];
     for (const poly of polys) for (const ring of poly) {
       let pts = ring.map((p) => R.qpt(p));
@@ -365,6 +396,7 @@ function prepareRow(s, r) {
   const qfix = QID_FIXES.get(s.key + "|" + r.wd + "|" + r.wiki); if (qfix) { r.wd = qfix.to.qid; r.wiki = qfix.to.wiki; qfix.used++; }
 }
 for (const s of series) for (const r of s.rows) { prepareRow(s, r); allRows.push(r); }
+for (const fx of GEOM_FIXES) if (!fx.used && !BAND) throw new Error("geometry-fixes.json: the fix for " + fx.series + " (" + fx.name + ") matches no row of Cliopatria (stale, or the name is wrong)");
 /* ---- the coastline series (cyclades, crete) and the site-hull series (yangshao, longshan): the presence layer's cultures (2c) ----
    COASTLINE (docs/atlas-borders-audit.md C3, C4, C25): "a multipolygon of the islands instead of a blob — no tracing". Each spec point
    (`coast.points`) names an island: the closed OSM coast ring that CONTAINS the point (land on its left, counter-clockwise), else the
@@ -1102,6 +1134,8 @@ function conflate(alive, label) {
     if (grid.length >= 4) { let mx = 0, my = 0; for (const q of grid) { mx += q[0]; my += q[1]; } mx /= grid.length; my /= grid.length; let best = null, bd = Infinity; for (const q of grid) { const d = (q[0] - mx) * (q[0] - mx) + (q[1] - my) * (q[1] - my); if (d < bd) { bd = d; best = q; } } p.anchor = best; } else p.anchor = edgeSamples[0] || null;
     if (!samples.length) { p.owners = []; log.event("piece-without-sample", { epoch: label, km2: Math.round(p.km2) }); continue; }
     p.owners = alive.filter((r) => { let n = 0; for (const q of samples) if (rowContains(r, q[0], q[1])) n++; return n * 2 >= samples.length && n > 0; });
+    // a geometry fix's `over`: where the fixed row and the named row both claim a piece, the piece is the fixed row's (geometry-fixes.json; the Roman Kingdom over the Etruscans, 750–551 BCE)
+    if (p.owners.length > 1) for (const r of p.owners) { if (!r.over || !r.over.length) continue; const drop = p.owners.filter((o) => o !== r && r.over.includes(o.series.key)); if (drop.length) { p.owners = p.owners.filter((o) => !drop.includes(o)); stat.fixPrevails = (stat.fixPrevails || 0) + 1; stat.fixPrevailsKm2 = (stat.fixPrevailsKm2 || 0) + p.km2; log.event("geometry-fix-prevails", { epoch: label, series: r.series.key, over: drop.map((o) => o.series.key), km2: +p.km2.toFixed(2) }); } }
   }
   // DEBUG_POINT="lon,lat,year": the piece holding the point in that year, its owners, its samples, every alive row's verdict
   if (process.env.DEBUG_POINT) { const [dlon, dlat, dy] = process.env.DEBUG_POINT.split(",").map(Number); const [y0, y1] = label.split("..").map(Number); if (dy >= y0 && dy <= y1) {
@@ -1251,7 +1285,7 @@ function conflate(alive, label) {
    the same functions in the same order) */
 const CACHE_DIR = (() => {
   const h = crypto.createHash("sha256");
-  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).update(fs.readFileSync(path.join(HERE, "war-series.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, RING_SNAP_FRAC, SMALL_RING_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, MAX_CHORD_M, v: 7 }));
+  h.update(JSON.stringify({ buildId, clio: clioSrc.sha256, spec: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"))).update(fs.readFileSync(path.join(HERE, "war-series.json"))).digest("hex"), years: [Y0, Y1], PEOPLES, D1_M, D1_SURE_M, RING_SNAP_FRAC, SMALL_RING_M, D2_M, D2_SURE_M, D3_M, SEA_M, RUN_FACTOR, RUN_MIN_M, SLIVER_KM2, SLIVER_WIDTH_M, LOD_M, DUP_U, NEST_SHARE, NEST_RATIO, TOLERANCE_M, MAX_CHORD_M, fixes: GEOM_FIXES_SHA, v: 8 }));
   return path.join(OUT, "history-cache", h.digest("hex").slice(0, 16));
 })();
 if (USE_CACHE) { fs.mkdirSync(CACHE_DIR, { recursive: true }); say(`epoch cache: ${path.relative(HERE, CACHE_DIR)} (${fs.readdirSync(CACHE_DIR).length} epochs cached)`); }
@@ -1512,6 +1546,8 @@ const arcEmpty = coreRef.map((r) => (r.empty ? 1 : 0));
 const same = (p, seg) => { const l = []; for (let L = 0; L + 1 < LOD_M.length; L++) l.push([p[0], p[1], seg || 0]); return l; };   // a junction at a core arc's own endpoint never moves
 const jpos = arcsOut.map((a) => (a.core ? { a: JPOS_OUT.get(a.va.join(",")) || same(a.va, a.core.segA), b: JPOS_OUT.get(a.vb.join(",")) || same(a.vb, a.core.segB) } : null));
 const sources = [clioSrc, coastSrc, adm0Src].map((s) => ({ id: s.id, name: s.name, version: s.version, url: s.url, licence: s.licence, licenceUrl: s.licenceUrl, attribution: s.attribution, retrieved: s.retrieved, sha256: s.sha256 }));
+// Folio's adaptations of Cliopatria's CC BY 4.0 rows (geometry-fixes.json): named here so the credits page, which reads only the files' headers, says so too
+if (GEOM_FIXES.length) sources[0].adaptations = GEOM_FIXES.map((fx) => ({ series: fx.series, date: fx.date, what: fx.what, doc: "docs/atlas-v2-border-audit.md §7" }));
 // the retrieval date of the capitals: the day the generated state-capitals.js was last committed, frozen with the table (Phase 5 deleted the file; docs/atlas-v2-phase5-plan.md §4.6)
 const scRetrieved = FROZEN_CAPS.retrieved; if (!/^\d{4}-\d{2}-\d{2}$/.test(scRetrieved || "")) throw new Error("frozen/state-capitals.json has no retrieval date");
 sources.push({ id: SRC.wd, name: "Wikidata — the period capitals of the pilot polities (each state's P36 statements with their qualifiers, via state-capitals.js)", version: "state-capitals.js as committed", url: "https://www.wikidata.org/", licence: "CC0", licenceUrl: "https://creativecommons.org/publicdomain/zero/1.0/", attribution: "Wikidata, CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/).", retrieved: scRetrieved });
@@ -1547,7 +1583,7 @@ let allSteps = 0, allNames = 0;
 for (const [key, p] of Object.entries(spec.polities)) { if (!p.cliopatria) continue; for (const n of p.cliopatria) { const rows = byName.get(n) || []; allNames += rows.length ? 1 : 0; for (const f of rows) { let from = f.properties.FromYear, to = f.properties.ToYear; if (p.years) { from = Math.max(from, p.years[0]); to = Math.min(to, p.years[1]); } from = Math.max(from, YEAR_MIN); to = Math.min(to, YEAR_MAX); if (from <= to) allSteps++; } } }
 const perStep = bytes.length / Math.max(1, stepsOut.length), forecast = perStep * allSteps;
 const sourceSteps = allRows.length;
-report.result = { entities: entsOut.length, steps: stepsOut.length, sourceRows: sourceSteps, faces: facesOut.length, contestedFaces: facesOut.filter((f) => f.cls === CLS.CONTESTED).length, nestedFaces: facesOut.filter((f) => f.cls === CLS.NESTED).length, arcs: arcsOut.length, arcsCoastRef: arcsOut.filter((a) => a.core && a.kind === KIND.COAST).length, arcsBorderRef: arcsOut.filter((a) => a.core && a.kind === KIND.BORDER).length, arcsOwn: arcsOut.filter((a) => !a.core).length, ownVertices: arcsOut.filter((a) => !a.core).reduce((s, a) => s + a.own.length, 0), bytes: bytes.length, sha256: sha, snaps: log.summary(), d1: stat.d1, d1Capped: stat.d1Capped, d2Capped: stat.d2Capped, d3Capped: stat.d3Capped, d2: stat.d2, d3: stat.d3, runsDropped: stat.runsDropped, runsBorder: stat.runsBorder, crossings: stat.crossings, slivers: stat.slivers, sliverKm2: Math.round(stat.sliverKm2), unmappedGapPiecesOverEpochs: stat.unmappedPieces, unmappedGapKm2OverEpochs: Math.round(stat.unmappedKm2), continentRemainderPiecesOverEpochs: stat.remainderPieces || 0, refCut: stat.refCut || 0, series: keptSeries.map((s) => s.key), droppedSeries: droppedSeries.map((s) => s.key) };
+report.result = { entities: entsOut.length, steps: stepsOut.length, sourceRows: sourceSteps, faces: facesOut.length, contestedFaces: facesOut.filter((f) => f.cls === CLS.CONTESTED).length, nestedFaces: facesOut.filter((f) => f.cls === CLS.NESTED).length, arcs: arcsOut.length, arcsCoastRef: arcsOut.filter((a) => a.core && a.kind === KIND.COAST).length, arcsBorderRef: arcsOut.filter((a) => a.core && a.kind === KIND.BORDER).length, arcsOwn: arcsOut.filter((a) => !a.core).length, ownVertices: arcsOut.filter((a) => !a.core).reduce((s, a) => s + a.own.length, 0), bytes: bytes.length, sha256: sha, snaps: log.summary(), d1: stat.d1, d1Capped: stat.d1Capped, d2Capped: stat.d2Capped, d3Capped: stat.d3Capped, d2: stat.d2, d3: stat.d3, runsDropped: stat.runsDropped, runsBorder: stat.runsBorder, crossings: stat.crossings, slivers: stat.slivers, sliverKm2: Math.round(stat.sliverKm2), geometryFixes: GEOM_FIXES.map((fx) => ({ series: fx.series, name: fx.name, date: fx.date, rows: fx.used, km2From: +fx.km2From.toFixed(1), km2: +fx.km2.toFixed(1), insideM: Math.round(fx.edgeM), prevails: stat.fixPrevails || 0, prevailsKm2: Math.round(stat.fixPrevailsKm2 || 0) })), unmappedGapPiecesOverEpochs: stat.unmappedPieces, unmappedGapKm2OverEpochs: Math.round(stat.unmappedKm2), continentRemainderPiecesOverEpochs: stat.remainderPieces || 0, refCut: stat.refCut || 0, series: keptSeries.map((s) => s.key), droppedSeries: droppedSeries.map((s) => s.key) };
 { const pd = stat.pieceDist || []; const gaps = pd.filter((p) => p[0] === 0), overlaps = pd.filter((p) => p[0] > 1); const h = (vals) => { const bins = [1, 5, 20, 50, 120, 300, 1000, 5000, Infinity]; const out = {}; let lo = 0; for (const b of bins) { out[(b === Infinity ? "beyond" : lo + "–" + b) + " km²"] = vals.filter((v) => v >= lo && v < b).length; lo = b; } return out; }; report.pieces = { gapsByArea: h(gaps.map((p) => p[1])), overlapsByArea: h(overlaps.map((p) => p[1])), overlapsOver120: overlaps.filter((p) => p[1] >= 120).length, gapsOver120: gaps.filter((p) => p[1] >= 120).length }; console.log("gap pieces by area: " + JSON.stringify(report.pieces.gapsByArea)); console.log("overlap pieces by area: " + JSON.stringify(report.pieces.overlapsByArea)); }
 report.forecast = { bytesPerStep: Math.round(perStep), stepsPilot: stepsOut.length, sourceRowsPilot: sourceSteps, stepsAllSeries: allSteps, seriesWithRows: allNames, bytes: Math.round(forecast), mb: +(forecast / 1e6).toFixed(2), stop: forecast > 12e6 };
 say(`forecast: ${Math.round(perStep)} bytes/step × ${allSteps} steps of every spec series = ${(forecast / 1e6).toFixed(2)} MB decimal${forecast > 12e6 ? " — OVER 12 MB: STOP RULE" : ""}`);

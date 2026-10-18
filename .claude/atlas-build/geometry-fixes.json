@@ -1,0 +1,24 @@
+{
+ "_about": "Dated corrections to the GEOMETRY of a Cliopatria row (Atlas v2, docs/atlas-v2-border-audit.md §7). build-history.js replaces one row's polygon with `ring` at the point it reads the row (`prepareRow`), for every Cliopatria row of `series` named `name`, and only when the source's ring is still `from` (a changed source makes the fix stale and stops the build, as a stale polity-qids.json fix does). The build verifies `check` on the corrected ring before it is used — the point lies at least `minInsideM` inside and the area is within `maxAreaChange` of the source's — and fails otherwise. `over` names the series whose overlapping Cliopatria row yields to this one where the two overlap (an overlap sliver would otherwise go to the neighbour with the longest shared edge, SLIVER_KM2). Each fix is Folio's adaptation of CC BY 4.0 data: it is named as such in history.bin's header (`sources[].adaptations`), on the Sources and credits page and in the audit doc. A fix is the smallest edit that meets its check; it is never a claim about where the border ran, and a seat is never moved to fit a border.",
+ "fixes": [
+  {
+   "series": "roman_kingdom",
+   "name": "Roman Kingdom",
+   "date": "2026-10-18",
+   "what": "Roman Kingdom, 750–481 BCE: the five-vertex polygon's east edge is opened around Rome by a notch of 5.8 × 6.0 km (34.6 km², +4.0 %), so the city lies 3.0 km inside instead of 2.8 km outside; and where the corrected polygon overlaps Cliopatria's Etruscan row (750–551 BCE) the overlap is the Kingdom's.",
+   "why": "Cliopatria v0.2.0 draws the Roman Kingdom as one 859 km² pentagon for all of 750–481 BCE whose east edge runs along 12.45° E; Rome (Wikidata Q220, P625: 12.4828, 41.8931 — the capital the registry carries for cards rm-046, wh-339 and wh-340) lies 2.77 km east of that edge, outside the Kingdom named after it, and inside Cliopatria's own Etruscans polygon of 750–551 BCE. The source has no other polygon for the Kingdom. The fix moves the one edge, around the one city, by the least that leaves the seat 3 km inside (the seats rule asks 2 km).",
+   "evidence": [
+    "Cliopatria v0.2.0 (the pinned source), rows Name=\"Roman Kingdom\" (Wikidata Q201038) 750–701, 700–501 and 500–481 BCE: the same polygon (12.1305, 41.9114) (12.4482, 41.7816) (12.4517, 42.1063) (11.9725, 42.1063) (12.1311, 41.9764), 859 km²",
+    "Wikidata Q220 (Rome), P625 coordinate 12.4828 E 41.8931 N, and P36 of Q201038 (Roman Kingdom): capital Rome — the registry's capital statement (.claude/atlas-build/frozen/state-capitals.json, cards rm-046, wh-339, wh-340)",
+    "Cliopatria v0.2.0, row Name=\"Etruscans\" 750–651 BCE (and 650–601, 600–551): its 34-vertex ring contains Rome 6.3 km inside its own edge and shares the Kingdom's north-east corner (12.4517, 42.1063)",
+    "docs/atlas-v2-border-audit.md §1 (the measurements) and §7 (this correction, with the text of the upstream issue)"
+   ],
+   "licence": "Cliopatria is CC BY 4.0, which permits adaptation with attribution; the adaptation is named in history.bin's sources header and on the Sources and credits page.",
+   "from": [[12.1305, 41.9114], [12.4482, 41.7816], [12.4517, 42.1063], [11.9725, 42.1063], [12.1311, 41.9764]],
+   "ring": [[12.130502700805664, 41.911441802978516], [12.448186874389648, 41.781593322753906], [12.44909, 41.866], [12.519, 41.866], [12.519, 41.92], [12.44967, 41.92], [12.451669692993164, 42.10627746582031], [11.972548484802246, 42.10627746582031], [12.131085395812988, 41.97637939453125]],
+   "over": ["etruscans"],
+   "overWhy": "Cliopatria's Etruscans row of 750–551 BCE overlaps the Kingdom's east wedge and, after the notch, Rome's surroundings; the build gives an overlap under SLIVER_KM2 to the claimant with the longest shared edge, which handed Rome to the Etruscans. Where the Kingdom's corrected polygon and the Etruscan row overlap, the land is the Kingdom's: it is land Cliopatria itself draws as the Kingdom's (plus the notch), and the Etruscan row is the one whose overlap the correction exists to undo.",
+   "check": { "point": [12.4828, 41.8931], "name": "Rome", "minInsideM": 2000, "maxAreaChange": 0.15 }
+  }
+ ]
+}

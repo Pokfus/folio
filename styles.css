@@ -10250,7 +10250,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .credits .cred-src:first-child{border-top:0; padding-top:0;}
 .cred-top{display:flex; align-items:baseline; flex-wrap:wrap; gap:6px 10px;}
 .cred-name{font-family:var(--serif); font-size:calc(15.5px * var(--fs)); color:var(--ink);}
-.cred-meta, .cred-attr, .cred-files, .cred-foot{margin:6px 0 0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft); overflow-wrap:anywhere;}
+.cred-meta, .cred-attr, .cred-adapt, .cred-files, .cred-foot{margin:6px 0 0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft); overflow-wrap:anywhere;}
 .cred-attr{font-family:var(--serif); font-style:italic; color:var(--ink);}
 .cred-files code, .cred-odbl-files code{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft); background:var(--paper-2); padding:1px 5px; border-radius:4px; overflow-wrap:anywhere;}
 .cred-odbl-files{margin:10px 0 0; padding-left:18px; display:flex; flex-direction:column; gap:4px; font-size:calc(13px * var(--fs));}
