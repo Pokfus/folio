@@ -68,7 +68,7 @@
       ctx.beginPath();
       for (let i = 0; i < S.length; i += 8) {
         const tag = S[i + 3], kind = tag % 8, flags = Math.floor(tag / 8) % 8;
-        if (!want(kind, flags)) continue;
+        if (!want(kind, flags, Math.floor(tag / 64))) continue;
         const za = m6 * S[i] + m7 * S[i + 1] + m8 * S[i + 2]; if (za < 0.002) continue;
         const zb = m6 * S[i + 4] + m7 * S[i + 5] + m8 * S[i + 6]; if (zb < 0.002) continue;
         ctx.moveTo(cx + (m0 * S[i] + m1 * S[i + 1] + m2 * S[i + 2]) * r, cy - (m3 * S[i] + m4 * S[i + 1] + m5 * S[i + 2]) * r);
@@ -86,6 +86,8 @@
       for (let lat = -75; lat <= 75; lat += 15) { let first = true; for (let lon = -180; lon <= 180; lon += 2) first = !put(lon, lat, first); }
       ctx.stroke(); stats.draws++;
     }
+    let personal = null, personalKeep = new Set();   // { keep, arcMask } (setPersonalPresent), as the WebGL2 renderer's
+    const drawnArc = (view, k, a) => !(personal && view.landDim > 0) || personal.arcMask[a] === 1;
     function render(view) {
       const t0 = performance.now();
       stats.draws = 0; stats.trianglesDrawn = 0; stats.segmentsDrawn = 0; stats.riverSegments = 0; stats.lakeSegments = 0; stats.lakeTriangles = 0; stats.level = view.level;
@@ -100,8 +102,10 @@
       stats.coreLevel = L;
       if (L >= 0) {
         const D = levels[L].data;
-        ctx.fillStyle = css(palette.land);
+        const pers = personal && view.landDim > 0;   // the Personal Atlas's present day (2026-10-18): the countries the reader has not met are the darker empty land, the reader's the plain land
+        ctx.fillStyle = pers ? css(palette.land.map((v) => v * view.landDim)) : css(palette.land);
         stats.trianglesDrawn += fillTriangles(D.facePos, D.faceIdx, rot, cx, cy, r, null);
+        if (pers && personalKeep.size) { ctx.fillStyle = css(palette.land); fillTriangles(D.facePos, D.faceIdx, rot, cx, cy, r, personalKeep); }
         if (selected >= 0) { ctx.fillStyle = css(palette.selected); fillTriangles(D.facePos, D.faceIdx, rot, cx, cy, r, selected); }
         if (tints && tints.size) {   // the faces a window highlights: one path per colour (the colour is already blended over the land, as the WebGL2 path's texel is)
           const by = new Map(); for (const [f, c] of tints) { const k = css(c); let g = by.get(k); if (!g) by.set(k, g = new Set()); g.add(f); }
@@ -120,11 +124,11 @@
         stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k) => k === KIND_COAST);
         if (view.borders) {
           ctx.lineWidth = 0.8; ctx.strokeStyle = css(palette.border);
-          stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k, f) => (k === KIND_BORDER || k === 4) && !(f & FLAG_DISPUTED));
+          stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k, f, a) => (k === KIND_BORDER || k === 4) && !(f & FLAG_DISPUTED) && drawnArc(view, k, a));
           ctx.setLineDash([3, 3]);
-          stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k, f) => (k === KIND_BORDER || k === 4) && !!(f & FLAG_DISPUTED));
+          stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k, f, a) => (k === KIND_BORDER || k === 4) && !!(f & FLAG_DISPUTED) && drawnArc(view, k, a));
           ctx.setLineDash([]);
-          if (view.admin1) { ctx.lineWidth = 0.6; ctx.strokeStyle = css(palette.admin1); stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k) => k === KIND_ADMIN1); }
+          if (view.admin1) { ctx.lineWidth = 0.6; ctx.strokeStyle = css(palette.admin1); stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k, f, a) => k === KIND_ADMIN1 && drawnArc(view, k, a)); }
         }
       }
       if (Wl) {
@@ -178,6 +182,7 @@
       setRamp() {}, setFaceCount(n) { faceCount = n; },
       setPalette(p) { for (const k of Object.keys(p)) palette[k] = typeof p[k] === "string" ? hex2rgb(p[k]) : p[k]; },
       select(face) { selected = face == null ? -1 : face; },
+      setPersonalPresent(p) { personal = p; personalKeep = new Set(); if (p) for (let i = 0; i < p.keep.length; i++) if (p.keep[i]) personalKeep.add(i); },
       highlight(map) { tints = map && map.size ? map : null; },
       resize(cssW, cssH, ratio) { dpr = Math.min(2, ratio || 1); W = Math.max(1, Math.round(cssW * dpr)); H = Math.max(1, Math.round(cssH * dpr)); if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; snapshot = null; } },
       render,

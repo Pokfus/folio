@@ -53,6 +53,7 @@ const VIEWS = [["the globe", 10, 20, 24], ["Europe", 10, 50, 3], ["the cap, the 
 async function open(browser) {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, deviceScaleFactor: 2 });
   await ctx.addInitScript(`localStorage.setItem("folio_tour_v1","1");localStorage.setItem("folio_atlas_tour_v1","1");`);
+  await ctx.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the plain Map: the river is measured against the plain land; in the Personal Atlas (the default since Oct 2026) an undiscovered country is the darker empty land, present day included (2026-10-18)
   const page = await ctx.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));

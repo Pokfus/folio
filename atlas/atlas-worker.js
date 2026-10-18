@@ -601,6 +601,16 @@
     const faceEntity = new Uint32Array(T.faces.length);
     T.faces.forEach((f, i) => { faceEntity[i] = f.entity; });
     post({ type: "meta", header: T.header, faceEntity, parseMs: now() - t0 }, [faceEntity.buffer]);
+    {   /* THE FACES EACH ARC BOUNDS (2026-10-18): the Personal Atlas draws a present-day border or admin-1 line only where a face of the reader's lies on a side of it (a border shared
+           with a state the reader has not met is drawn as the met state's edge), so the page needs arc → faces. CSR: `off[a] .. off[a + 1]` index `faces`; the country faces and the
+           admin-1 faces that overlap them share their arcs, so there can be several on a side, and a face is listed once for every ring that walks the arc. */
+      const nA = T.arcKind.length, off = new Uint32Array(nA + 1);
+      for (const f of T.faces) for (const ring of f.rings) for (const ref of ring) off[Math.abs(ref)]++;
+      for (let a = 0; a < nA; a++) off[a + 1] += off[a];
+      const fill = off.slice(0, nA), arcFaces = new Uint16Array(off[nA]);
+      T.faces.forEach((f, i) => { for (const ring of f.rings) for (const ref of ring) arcFaces[fill[Math.abs(ref) - 1]++] = i; });
+      post({ type: "arc-faces", off, faces: arcFaces }, [off.buffer, arcFaces.buffer]);
+    }
     const stats = { parseMs: Math.round(now() - t0), levels: [] };
     const nF = T.faces.length;
     for (let level = 0; level < T.lodCount; level++) {

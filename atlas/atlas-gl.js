@@ -404,6 +404,7 @@
     flat in vec2 vA; flat in vec2 vB; flat in float vHw; flat in float vKind; flat in float vFlags; flat in float vArc; flat in vec2 vZ;
     uniform float uHeight; uniform vec3 uColor[8]; uniform float uIdPass; uniform float uIdBase; uniform float uIdPad;
     uniform sampler2D uArcTab; uniform float uArcTabOn;   // Phase 2a: per-arc alpha for the historical borders (0 = not alive this year)
+    uniform sampler2D uMask; uniform float uMaskOn;       // 2026-10-18: the Personal Atlas's present day — a border or admin-1 arc is drawn only where a face of the reader's lies on a side of it (1 = drawn); the table is indexed by the arc id the tag carries (a tile piece carries its core arc's)
     uniform vec2 uPickOff;           // a pick shifts the viewport so one device pixel lands on a 1×1 target: gl_FragCoord is then
                                      // the target's, and the device pixel is this much further along (0 in an ordinary frame)
     out vec4 o;
@@ -423,6 +424,7 @@
       float a = 1.0 - smoothstep(vHw - 0.5, vHw + 0.5, dist);
       if (a <= 0.003) discard;
       if (uArcTabOn > 0.5) { int ai = int(vArc + 0.5); float ta = texelFetch(uArcTab, ivec2(ai & 255, ai >> 8), 0).r; if (ta < 0.004) discard; a *= ta; }
+      if (uMaskOn > 0.5 && ((vKind > 0.5 && vKind < 1.5) || (vKind > 4.5 && vKind < 5.5))) { int mi = int(vArc + 0.5); if (texelFetch(uMask, ivec2(mi & 255, mi >> 8), 0).r < 0.5) discard; }
       // a DISPUTED line (flag 1) and an INTERMITTENT river (flag 4) are dashed: 6 px on, 4 px off
       if (mod(vFlags, 2.0) >= 1.0 || mod(floor(vFlags / 4.0), 2.0) >= 1.0) { float along = t * sqrt(l2); if (mod(along, 10.0) > 6.0) discard; }
       a *= smoothstep(-0.002, 0.03, z);                   // fade a line into the horizon instead of cutting it
@@ -501,6 +503,10 @@
     let ramp = null, rampTex = null;
     let palette = { ocean: [0.70, 0.92, 1.0], land: [0.9, 0.9, 0.92], coast: [0.55, 0.55, 0.6], border: [0.45, 0.45, 0.5], admin1: [0.6, 0.6, 0.66], river: [0.3, 0.55, 0.8], lake: [0.70, 0.92, 1.0], lakeShore: [0.55, 0.55, 0.6], rim: [0.5, 0.5, 0.55], halo: [0.6, 0.65, 0.9], grat: [0.2, 0.2, 0.3], selected: [0.95, 0.75, 0.3] };
     let prog = null, styleTex = null, emptyVao = null, idFbo = null, idTex = null, lost = false;
+    /* THE PERSONAL ATLAS'S PRESENT DAY (2026-10-18; the owner: modern countries are states like any other): `personal` = { keep: a byte a core face (1 = the reader's), arcMask: a byte an arc (1 = a face of the
+       reader's on a side) } or null. `keepTex` is a style texture of the same shape as `styleTex` with only the reader's faces opaque — a pass writes the HIST stencil bit through it, so the one empty-land darkening
+       (drawHistoryDim: LAND and not HIST) shades every other country, and `maskTex` the arc table the border shader reads. `styleOverride` swaps the face pass's texture for that pass. */
+    let personal = null, keepTex = null, maskTex = null, styleOverride = null, pGen = 0;
     /* THE GPU'S OWN TIME PER FRAME (Phase 2a, task 0b): where EXT_disjoint_timer_query_webgl2 exists, every rendered frame is
        bracketed by a TIME_ELAPSED query and the oldest query is polled each frame; the latest answer (ms) is what atlas.js's
        stage logic reads instead of the frame delta, so a main-thread stall cannot read as a slow GPU. Software GL and most
@@ -538,7 +544,7 @@
       cover.fbo = null; cover.tex = null; cover.none = null; cover.w = 0; cover.h = 0;   // the cover target is rebuilt on first use after a restore
       prog = { blit: compile(gl, VS_BLIT, FS_BLIT, "blit"), sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), presence: compile(gl, VS_PRES, FS_PRES, "presence"), extent: compile(gl, VS_FACE, FS_EXTENT, "extent"), arc: compile(gl, VS_ARC, FS_ARC, "arc"), reliefL0: compile(gl, VS_SPHERE, FS_RELIEF, "relief"), reliefPatch: compile(gl, VS_PATCH, FS_RELIEF, "relief patch"), dim: compile(gl, VS_BLIT, FS_DIM, "dim") };
       emptyVao = gl.createVertexArray();
-      styleTex = gl.createTexture();
+      styleTex = gl.createTexture(); keepTex = gl.createTexture(); maskTex = gl.createTexture();
       rampTex = gl.createTexture();
       idTex = gl.createTexture();
       gl.bindTexture(gl.TEXTURE_2D, idTex);
@@ -552,6 +558,7 @@
       gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
       if (ramp) uploadRamp();
       if (faceCount) buildStyle();
+      uploadPersonal();
     }
     /* MEMORY (Phase 1c). Until 1c every level, tile, water level and relief sheet kept its arrays beside the
        GPU copy "for context loss" — 150 MB of typed arrays on the main thread (the runner read a 307 MB heap
@@ -634,6 +641,15 @@
     function warmSegs(tex) { const P = prog.arc; gl.useProgram(P.p); gl.uniformMatrix3fv(P.u.uRot, false, IDENT); gl.uniform2f(P.u.uCenter, 0, 0); gl.uniform2f(P.u.uSize, 1, 1); gl.uniform1f(P.u.uRadius, 0.0001); gl.uniform1f(P.u.uHeight, 1); gl.uniform1fv(P.u.uWidth, WIDTH1); gl.uniform1f(P.u.uAdmin1, 1); gl.uniform1f(P.u.uIdPass, 1); gl.uniform1f(P.u.uIdBase, 0); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, tex); gl.uniform1i(P.u.uSeg, 1); gl.uniform1i(P.u.uTexW, SEG_TEX_W); gl.bindVertexArray(emptyVao); gl.drawArrays(gl.TRIANGLES, 0, 3); }
     function warm(Lv) { const g = Lv.gpu; warmBegin(); if (g.faceCount) warmFill(g.vaoFace, false); if (g.segCount) warmSegs(g.segTex); gl.bindFramebuffer(gl.FRAMEBUFFER, null); }
     function warmWater(Wl) { const g = Wl.gpu; warmBegin(); if (g.fill) warmFill(g.fill.vao, g.fill.u16); for (const s of [g.lake, g.river, g.smooth]) if (s) warmSegs(s.tex); gl.bindFramebuffer(gl.FRAMEBUFFER, null); }
+    function uploadPersonal() {
+      if (!personal || lost || !keepTex) return;
+      const n = Math.max(faceCount, personal.keep.length), h = Math.max(1, Math.ceil(n / 256)), px = new Uint8Array(256 * h * 4), land = palette.land;
+      for (let i = 0; i < personal.keep.length; i++) if (personal.keep[i]) { px[4 * i] = land[0] * 255; px[4 * i + 1] = land[1] * 255; px[4 * i + 2] = land[2] * 255; px[4 * i + 3] = 255; }
+      const tex = (t, fmt, ifmt, w, hh, bytes) => { gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, ifmt, w, hh, 0, fmt, gl.UNSIGNED_BYTE, bytes); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE); };
+      tex(keepTex, gl.RGBA, gl.RGBA, 256, h, px);
+      const mh = Math.max(1, Math.ceil(personal.arcMask.length / 256)), mb = new Uint8Array(256 * mh); mb.set(personal.arcMask);
+      gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1); tex(maskTex, gl.RED, gl.R8, 256, mh, mb); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
+    }
     function buildStyle() {
       const styleH = Math.max(1, Math.ceil(faceCount / 256));
       const px = new Uint8Array(256 * styleH * 4);
@@ -718,7 +734,7 @@
       const P = prog.face; common(P, view, R);
       gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0); gl.uniform1f(P.u.uIdOffset, 0); gl.uniform1f(P.u.uHatch, 0);
       if (flat) { gl.uniform1f(P.u.uUseFlat, 1); gl.uniform4f(P.u.uFlat, flat[0], flat[1], flat[2], 1); } else gl.uniform1f(P.u.uUseFlat, 0);
-      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, styleTex); gl.uniform1i(P.u.uStyle, 0);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, styleOverride || styleTex); gl.uniform1i(P.u.uStyle, 0);
       gl.bindVertexArray(vao);
       for (const [start, count] of visibleRuns(range, cap, rot, radius, cx, cy, margin)) { gl.drawElements(gl.TRIANGLES, count, u16 ? gl.UNSIGNED_SHORT : gl.UNSIGNED_INT, start * (u16 ? 2 : 4)); stats.draws++; stats[counter] += count / 3; }
       gl.bindVertexArray(null);
@@ -744,6 +760,9 @@
       for (let i = 0; i < 8; i++) { colors[3 * i] = C[i][0]; colors[3 * i + 1] = C[i][1]; colors[3 * i + 2] = C[i][2]; }
       gl.uniform3fv(P.u.uColor, colors);
       gl.uniform1f(P.u.uAdmin1, view.admin1 ? 1 : 0);
+      const masked = !flat && !idPass && personal && view.landDim > 0;
+      if (masked) { gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D, maskTex); gl.uniform1i(P.u.uMask, 4); gl.activeTexture(gl.TEXTURE0); }
+      gl.uniform1f(P.u.uMaskOn, masked ? 1 : 0);
       gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0); gl.uniform1f(P.u.uIdBase, idBase);
       gl.uniform1i(P.u.uTexW, SEG_TEX_W);
     }
@@ -898,10 +917,11 @@
       cover.w = W; cover.h = H; return true;
     }
     function drawHistoryDim(view, R, target) {
-      const hv = view.history; if (!hv || !(hv.dim > 0) || !hist.styleTex) return;
+      const hv = view.history, pastDim = hv && hv.dim > 0 && hist.styleTex, dim = pastDim ? hv.dim : personal && view.landDim > 0 ? view.landDim : 0;   // a past year's empty land, or the present day's undiscovered countries in the Personal Atlas
+      if (!(dim > 0)) return;
       const level = view.historyLevel != null ? view.historyLevel : view.level;
       let coverOn = false;
-      const pf = (hv.pfaces || []).filter((f) => !f.fading);
+      const pf = pastDim ? (hv.pfaces || []).filter((f) => !f.fading) : [];
       if (pf.length && coverTarget()) {
         gl.bindFramebuffer(gl.FRAMEBUFFER, cover.fbo); gl.viewport(0, 0, W, H);
         gl.disable(gl.STENCIL_TEST);
@@ -922,7 +942,7 @@
       if (!cover.none) { cover.none = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, cover.none); gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, 1, 1, 0, gl.RED, gl.UNSIGNED_BYTE, new Uint8Array([0])); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); }
       const P = prog.dim; gl.useProgram(P.p); gl.bindVertexArray(emptyVao);
       gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, coverOn ? cover.tex : cover.none); gl.uniform1i(P.u.uCover, 3);
-      gl.uniform1f(P.u.uDim, hv.dim); gl.uniform1f(P.u.uCoverOn, coverOn ? 1 : 0);
+      gl.uniform1f(P.u.uDim, dim); gl.uniform1f(P.u.uCoverOn, coverOn ? 1 : 0);
       gl.stencilFunc(gl.EQUAL, ST_LAND, ST_LAND | ST_HIST); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0);   // land no state's fill marked
       gl.blendFuncSeparate(gl.DST_COLOR, gl.ZERO, gl.ZERO, gl.ONE);   // multiply: the colour scaled, the alpha kept
       gl.drawArrays(gl.TRIANGLES, 0, 3); stats.draws++;
@@ -1046,6 +1066,15 @@
         if (parents.length) { faceStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
         if (own.length) { faceStencil(2); for (const t of own) drawFaces(t, view, idPass, R); }
         if (useStencil) { gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff); }
+        /* THE PERSONAL ATLAS'S PRESENT DAY: the reader's countries (and admin-1 faces) mark the HIST bit through `keepTex` — colour writes off — so the empty-land pass after the relief darkens all the rest */
+        if (useStencil && !idPass && personal && view.landDim > 0) {
+          const keepStencil = (ref) => { gl.stencilFunc(tileStencil ? gl.EQUAL : gl.ALWAYS, (tileStencil ? ref : 0) | ST_HIST, tileStencil ? ST_TILE : 0); gl.stencilOp(gl.KEEP, gl.KEEP, gl.REPLACE); gl.stencilMask(ST_HIST); };
+          gl.colorMask(false, false, false, false); styleOverride = keepTex;
+          if (Lv && !complete) { keepStencil(0); drawFaces(Lv, view, idPass, R); }
+          if (parents.length) { keepStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
+          if (own.length) { keepStencil(2); for (const t of own) drawFaces(t, view, idPass, R); }
+          styleOverride = null; gl.colorMask(true, true, true, true); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff);
+        }
         // Phase 4b: the overlapping parent and child faces are two draw lists (drawFaces), children last, so a selected or highlighted state is whole in one pass — the second pass Phase 4 added is gone
       }
       /* RELIEF, EVERY PIXEL SHADED ONCE (Phase 1c). Until 1c the sphere pass sampled the L0 sheet for every
@@ -1141,7 +1170,7 @@
       const drawLinesLayer = (target) => {
       // the line layer: a texture while the view is still (its key: the view, the sizes, every upload), else drawn here
       if (!idPass && lines.on) {
-        const key = Array.from(rot).map((v) => v.toFixed(6)).join(",") + "|" + radius.toFixed(2) + "|" + cx.toFixed(1) + "|" + cy.toFixed(1) + "|" + W + "x" + H + "|" + view.level + "|" + (view.kmpp || 0).toFixed(4) + "|" + (view.tiles || []).join(",") + "|" + (view.waterTiles || []).join(",") + "|" + (view.rivers ? 1 : 0) + (view.lakes ? 1 : 0) + (view.smoothRivers ? 1 : 0) + (debug.water ? 1 : 0) + (debug.arcs ? 1 : 0) + "|" + (view.landChanges || []).join(",") + "|" + dataGen;
+        const key = Array.from(rot).map((v) => v.toFixed(6)).join(",") + "|" + radius.toFixed(2) + "|" + cx.toFixed(1) + "|" + cy.toFixed(1) + "|" + W + "x" + H + "|" + view.level + "|" + (view.kmpp || 0).toFixed(4) + "|" + (view.tiles || []).join(",") + "|" + (view.waterTiles || []).join(",") + "|" + (view.rivers ? 1 : 0) + (view.lakes ? 1 : 0) + (view.smoothRivers ? 1 : 0) + (debug.water ? 1 : 0) + (debug.arcs ? 1 : 0) + "|" + (view.landChanges || []).join(",") + "|" + dataGen + "|" + (personal && view.landDim > 0 ? pGen : 0);
         if (linesTarget()) {
           if (lines.key !== key) {
             const before = snapCounts();
@@ -1164,7 +1193,7 @@
         } else drawWaterAndArcs();
       } else drawWaterAndArcs();
       };
-      const stillKey = !idPass && still.on ? Array.from(rot).map((v) => v.toFixed(6)).join(",") + "|" + radius.toFixed(2) + "|" + cx.toFixed(1) + "|" + cy.toFixed(1) + "|" + W + "x" + H + "|" + view.level + "|" + (view.kmpp || 0).toFixed(4) + "|" + (view.tiles || []).join(",") + "|" + (view.parents || []).join(",") + "|" + (view.graticule ? 1 : 0) + (debug.sphere ? 1 : 0) + (debug.faces ? 1 : 0) + "|" + (rel ? strength.toFixed(3) + "/" + fade.toFixed(3) + "/" + patches.map((r) => r.key || "").join(",") : "-") + "|" + dataGen : null;
+      const stillKey = !idPass && still.on ? Array.from(rot).map((v) => v.toFixed(6)).join(",") + "|" + radius.toFixed(2) + "|" + cx.toFixed(1) + "|" + cy.toFixed(1) + "|" + W + "x" + H + "|" + view.level + "|" + (view.kmpp || 0).toFixed(4) + "|" + (view.tiles || []).join(",") + "|" + (view.parents || []).join(",") + "|" + (view.graticule ? 1 : 0) + (debug.sphere ? 1 : 0) + (debug.faces ? 1 : 0) + "|" + (rel ? strength.toFixed(3) + "/" + fade.toFixed(3) + "/" + patches.map((r) => r.key || "").join(",") : "-") + "|" + dataGen + "|" + (personal && view.landDim > 0 ? pGen : 0) : null;
       if (stillKey && stillKey === still.lastKey && stillTargets()) {
         if (still.key !== stillKey) {
           const before = snapCounts();
@@ -1284,7 +1313,8 @@
       setHistoryBorderWidth(w) { histBorderWidth = w; },
       setHistoryBorderColor(c) { histBorderColor = typeof c === "string" ? hex2rgb(c) : c; },
       clearHistory() { for (const k of [...hist.meshes.keys()]) this.dropHistoryMesh(k); },
-      setFaceCount(n) { faceCount = n; if (!lost) buildStyle(); },
+      setFaceCount(n) { faceCount = n; if (!lost) { buildStyle(); uploadPersonal(); } },
+      setPersonalPresent(p) { personal = p; pGen++; dataGen++; uploadPersonal(); },   // 2026-10-18: { keep, arcMask } for the Personal Atlas's present day, or null
       setPalette(p) { dataGen++;
         for (const k of Object.keys(p)) palette[k] = typeof p[k] === "string" ? hex2rgb(p[k]) : p[k];
         if (faceCount && !lost) buildStyle();
