@@ -162,6 +162,41 @@ const stats = (page) => A(page, (c) => { const s = c.statsNow(); return { faces:
     }
   }
 
+  /* ------------------------------------------------------------------ 3  the whole state is the tap target */
+  console.log("\n\x1b[1m3) a tap on any land inside a discovered state selects it and opens its popup — five interior points each; inside an undiscovered state it does nothing\x1b[0m\n");
+  {
+    const READER = ["rm-091", "gr-755", "cnh-213", "gw-001"];   // Rome, Macedon, the Han, India
+    const { ctx, page, errors } = await open(browser, READER);
+    const bb = await box(page);
+    const tap = async (x, y) => { await page.touchscreen.tap(bb.x + x, bb.y + y); await sleep(1000); };
+    const state = () => A(page, (c) => ({ id: c.selectedId(), open: c.card().open, cid: c.card().id }));
+    /* interior points: a pixel of the state's PLAIN ground (read off the canvas in Personal, where only a discovered state is plain), clear of every mark, name and control — nothing here asks the page which state is under it */
+    const clearOf = (pts) => A(page, (c, p) => { const ch = c.chromeRects(); const inChrome = (x, y) => ch.some((r) => x >= r[0] - 8 && x <= r[2] + 8 && y >= r[1] - 8 && y <= r[3] + 8); return p.filter(([x, y]) => !inChrome(x, y) && !c.study.near(x, y, true).length && !c.hitAt(x, y).length); }, pts);
+    const spread = (pts, n) => { if (pts.length <= n) return pts; const out = []; for (let i = 0; i < n; i++) out.push(pts[Math.floor((i + 0.5) * pts.length / n)]); return out; };
+    const cases = [["the Roman Republic", -200, 12.5, 41.9, 3, "pol:rome"], ["a Greek polity (Macedon)", -200, 22.5, 41, 1.5, "pol:macedon"], ["a Chinese dynasty (the Han)", -200, 108, 34, 7, "pol:han"], ["a modern country (India)", 2026, 79, 22, 8, "adm0:ind"]];
+    for (const [name, y, lon, lat, k, id] of cases) {
+      await mode(page, "personal"); await go(page, y, lon, lat, k);
+      const s = await scan(page), own = await clearOf(s.plainPts), pts0 = spread(own, 5);
+      check(`${name}: five interior points of its plain ground, clear of every mark, name and control (${s.plainPts.length} candidates)`, pts0.length === 5, String(pts0.length));
+      for (const m of ["personal", "map"]) {
+        let pts = pts0;
+        if (m === "map") { await mode(page, "map"); pts = spread(await clearOf(own), 5); }   // the plain Map names every state, so the points are chosen again clear of ITS names (a tap on a name opens that name's popup)
+        const res = [];
+        for (const [x, yy] of pts) { await A(page, (c) => c.clearSelection()); await sleep(200); await tap(x, yy); res.push(await state()); }
+        check(`${m}: ${name} — a tap on each of the five selects ${id} and opens its popup`, res.length === 5 && res.every((r) => r.id === id && r.open && r.cid === id), JSON.stringify(res));
+        if (m === "personal" && id === "pol:rome") await shot(page, "select-rome-200bce");
+      }
+    }
+    // an undiscovered state's interior does nothing in Personal: Carthage in 200 BCE, China in 2026 (the reader has India only) — points of the EMPTY land
+    for (const [name, y, lon, lat, k] of [["Carthage (200 BCE)", -200, 10, 35, 3], ["China (2026)", 2026, 105, 33, 8]]) {
+      await mode(page, "personal"); await go(page, y, lon, lat, k);
+      const s = await scan(page), pts = spread(await clearOf(s.emptyPts), 3), res = [];
+      for (const [x, yy] of pts) { await A(page, (c) => c.clearSelection()); await sleep(200); await tap(x, yy); res.push(await state()); }
+      check(`personal: three interior points of ${name}'s empty land do nothing — no selection, no popup`, pts.length === 3 && res.every((r) => r.id === null && !r.open), JSON.stringify({ pts, res }));
+    }
+    allErrors.push(...errors); await ctx.close();
+  }
+
   console.log("\n" + pass + " ok, " + fail + " failed");
   check("no console error", allErrors.length === 0, allErrors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
