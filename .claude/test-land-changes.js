@@ -14,7 +14,9 @@
        fix build-water.js left every lake island wound like an outer ring, so the worker filled all 16,699 of them as lake and the
        Flevopolder (HydroLAKES 117's hole) drew as IJsselmeer water with a shore round it; Manitoulin Island in Lake Huron is the
        same fault's largest case and is asserted too;
-     · the alive set follows the year (landChangesAlive()), and a reader's lakes switch does not remove a patch.
+     · the alive set follows the year (landChangesAlive()), and a reader's lakes switch does not remove a patch;
+   · THE STRAYS (2026-10-18, WebGL2 at the zoom cap): the Ketelmeer dyke's 99 m strip and two specks of land inside the Oostelijk row read as water at 1660 and in the years
+     the rows are still water; Schokland, a real island, stays land (test-land-change-rings.js holds the arithmetic of the rule).
    The still view's zoom cap is coarse (LOD 0, 5 km/px); the probes are the polders' middles, at least 4 px from any shore there.
    --report prints every probe's pixel. */
 "use strict";
@@ -30,6 +32,9 @@ const PORT = 5672;
 const PROBES = {   // lon, lat — the middle of each polder, a lake, an old land, and the largest lake island
   wieringermeer: [5.02, 52.84], noordoostpolder: [5.78, 52.72], oostelijk: [5.62, 52.52], zuidelijk: [5.36, 52.36],
   ijsselmeer: [5.35, 52.75], friesland: [5.85, 53.10], manitoulin: [-82.106, 45.675],
+  /* the strays of 2026-10-18 (a cache before the cleanup, interior points of rings the build now drops): the 99 m wide strip of the Noordoostpolder's Ketelmeer dyke, a 0.025 km² and a 0.021 km² speck of land inside the Oostelijk row,
+     and Schokland, a real island 394 m wide that stays (the three probes are at the zoom cap, 0.15 km/px, WebGL2 only: the still view cannot resolve a 100 m strip) */
+  ketelDyke: [5.75362, 52.61225], speckA: [5.85787, 52.52275], speckB: [5.78725, 52.4305], schokland: [5.77262, 52.63462],
 };
 const YEARS = { 1900: { wieringermeer: "water", noordoostpolder: "water", oostelijk: "water", zuidelijk: "water" }, 1950: { wieringermeer: "land", noordoostpolder: "land", oostelijk: "water", zuidelijk: "water" }, today: { wieringermeer: "land", noordoostpolder: "land", oostelijk: "land", zuidelijk: "land" } };
 const server = http.createServer((req, res) => {
@@ -99,6 +104,14 @@ async function run(browser, mode) {
       check(`${mode} ${year}: ${name} is ${state}`, state === "water" ? isWater && !isLand : isLand && !isWater, `${px} (lake ${lake}, land ${land})`);
       if (REPORT) console.log(`      ${name} ${year}: ${px}`);
     }
+  }
+  // the strays (WebGL2 only, at the zoom cap): at 1660 and between the reclamations the strip and the specks are water, Schokland is still an island
+  if (mode === "WebGL2") {
+    for (const [year, names] of [[1660, ["ketelDyke", "speckA", "speckB"]], [1935, ["ketelDyke"]], [1950, ["speckA", "speckB"]]]) {
+      const lake = await probe(page, "ijsselmeer", year, 0.15), land = await probe(page, "friesland", year, 0.15);
+      for (const name of names) { const px = await probe(page, name, year, 0.15); check(`${mode} ${year}: ${name} is open water (no stray dot or line)`, same(px, lake, 8), `${px} (lake ${lake}, land ${land})`); }
+    }
+    { const lake = await probe(page, "ijsselmeer", 1660, 0.15), land = await probe(page, "friesland", 1660, 0.15), px = await probe(page, "schokland", 1660, 0.15); check(`${mode} 1660: Schokland (an island of the old sea, 394 m wide) is still land`, same(px, land, 8) && !same(px, lake, 8), `${px} (lake ${lake}, land ${land})`); }
   }
   // the island fault (the hole winding): Manitoulin is land today
   { const lake = await probe(page, "ijsselmeer", today, kmpp), land = await probe(page, "friesland", today, kmpp), px = await probe(page, "manitoulin", today, kmpp); check(`${mode}: Manitoulin Island (Lake Huron's largest island) is land, not lake`, same(px, land, 8) && !same(px, lake, 8), `${px}`); }

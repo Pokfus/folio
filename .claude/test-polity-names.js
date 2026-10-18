@@ -8,8 +8,9 @@
         which holds exactly the rows' Name / FromYear / ToYear — re-read here from the Cliopatria file when src/ has it; no two dated names of an entity overlap; the Wikidata
         overrides (Hungary 1920–43, Austria 1934–37) are untouched and beat a row name where they overlap; every dated name is one of history.bin's `sourceNames`.
         Rome: Roman Republic to 32 BCE, Roman Empire from 31 BCE to 394, Western Roman Empire from 395 (Cliopatria's boundary years); the Roman Kingdom is its own series.
+     1b DATED PLACE NAMES (place-names.json): the IJsselmeer's lake, lake:117, is the Zuiderzee to 1931 and the IJsselmeer from 1932 (the dam's year, Wikidata Q4121 inception 1932).
      2  THE PAGE (Chromium, a 390 × 844 phone, the Full Atlas): Rome at 600 BCE, 200 BCE and 18 CE reads Roman Kingdom, Roman Republic and Roman Empire in the controller's row name,
-        a polity label placed on the map reads ROMAN REPUBLIC (100 BCE) and ROMAN EMPIRE (18 CE) and never "ROME", and the search finds the row by every one of its names.
+        a polity label placed on the map reads ROMAN REPUBLIC (100 BCE) and ROMAN EMPIRE (18 CE) and never "ROME", and the search finds the row by every one of its names; the lake's label reads Zuiderzee at 1500 and 1660 and IJsselmeer at 1960.
    Re-run after touching build-polity-names.js, atlas/data/polity-names.js, the name application in atlas.js (applyNames) or the worker's nameIn. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -44,6 +45,10 @@ check("Rome: Roman Republic at 200 BCE, Roman Empire at 18 CE, Western Roman Emp
   nameIn("pol:rome", -200, "Rome") === "Roman Republic" && nameIn("pol:rome", 18, "Rome") === "Roman Empire" && nameIn("pol:rome", 400, "Rome") === "Western Roman Empire" && byId.get("pol:roman_kingdom").name === "Roman Kingdom" && !N["pol:roman_kingdom"]);
 check("Cliopatria's boundary years for Rome: the Republic's last year 32 BCE, the Empire's first 31 BCE (Actium; a boundary a year either side is the source's)", nameIn("pol:rome", -32, "Rome") === "Roman Republic" && nameIn("pol:rome", -31, "Rome") === "Roman Empire");
 
+check("the IJsselmeer's lake (lake:117) is the Zuiderzee in every year to 1931 (1500, 1660, 1931) and the IJsselmeer from 1932 (Wikidata Q4121 inception 1932)",
+  ["-10000", "1500", "1660", "1931"].every((y) => nameIn("lake:117", Number(y), "Ijsselmeer") === "Zuiderzee") && ["1932", "1960", "2026"].every((y) => nameIn("lake:117", Number(y), "Ijsselmeer") === "IJsselmeer"));
+check("every place-names.json id is a registry row and is in the table", JSON.parse(fs.readFileSync(path.join(ROOT, ".claude/atlas-build/place-names.json"), "utf8")).names.every((o) => (N[o.id] || []).some((x) => x[2] === o.name && x[0] === o.from && x[1] === o.to)));
+
 if (process.env.FOLIO_SKIP_BROWSER) { console.log(`\n${pass} ok, ${fail} failed\n`); process.exit(fail ? 1 : 0); }
 console.log("\n2) the page\n");
 const { chromium } = require("playwright");
@@ -71,6 +76,10 @@ const server = http.createServer((req, res) => { let p = decodeURIComponent(req.
   check("a polity label on the map reads ROMAN EMPIRE at 18 CE, and never ROME", e.labels.includes("pol:rome:ROMAN EMPIRE") && !e.labels.some((x) => /^pol:(rome|roman_kingdom):ROME$/.test(x)), e.labels.join(" | "));
   const found = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const names = ["Roman Republic", "Roman Empire", "Western Roman Empire"]; return names.map((n) => { const r = c.search ? c.search(n) : null; return Array.isArray(r) ? r.includes("pol:rome") : null; }); });
   check("the search finds the row by every one of its names", found.every((x) => x === true), JSON.stringify(found));
+  const lake = async (year) => { await at(year, 5.43, 52.645, 0.3); return page.evaluate(() => document.querySelector(".atlas2").__atlas2.labels().filter((p) => p.id === "lake:117").map((p) => p.text)); };
+  const l1500 = await lake(1500), l1660 = await lake(1660), l1960 = await lake(1960);
+  check("the water reads Zuiderzee on the map at 1500 and 1660 (not the post-1932 IJsselmeer)", l1500.join() === "Zuiderzee" && l1660.join() === "Zuiderzee", JSON.stringify([l1500, l1660]));
+  check("and IJsselmeer at 1960", l1960.join() === "IJsselmeer", JSON.stringify(l1960));
   check("no page error", errors.length === 0, errors.join(" | "));
   await browser.close(); server.close();
   console.log(`\n${pass} ok, ${fail} failed\n`); process.exit(fail ? 1 : 0);

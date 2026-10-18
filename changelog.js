@@ -66,6 +66,7 @@ window.CHANGELOG = [
       "<b>Atlas</b>: the label for Messapia now stands in Salento, the heel of Italy, instead of in Calabria.",
       "<b>Atlas</b>: a state is now named for its own period — Rome reads Roman Republic, then Roman Empire, and eleven other states (Song, Qin, Rus’ …) change name in the year the source does.",
       "<b>Atlas</b>: public squares, parks, streets, stations and gates (Tiananmen, Gwanghwamun, Liberty Square …) are now places with a mark and an ordinary name, not area labels; 29 places moved.",
+      "<b>Atlas</b>: the Zuiderzee polders no longer leave stray dots, lines and short outlines in the water, and the water is named Zuiderzee before 1932 and IJsselmeer after.",
     ],
   },
   {

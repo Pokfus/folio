@@ -203,7 +203,9 @@ jobs:
       # land-changes.json, its committed CBS cache and the committed water tile build (the Zuiderzee polders as water until the year each fell dry). Offline.
       - name: build-land-changes --check (Atlas v2, the dated land-change layer)
         if: ${{ !cancelled() }}
-        run: node .claude/atlas-build/build-land-changes.js --check
+        run: |
+          node .claude/atlas-build/build-land-changes.js --check
+          node .claude/test-land-change-rings.js
       # THE CARD WINDOWS' FIRST-FRAME CACHE (Oct 2026, Atlas v2 Phase 4b): check-core-cache.js proves CORE_CACHE_REV in atlas/atlas.js is what the worker, the format reader,
       # earcut and topology.bin's build id make, so a hub never draws a cached first level that an edit to any of them has made stale. Offline.
       - name: check-core-cache (Atlas v2, the card windows' first-frame cache key)

@@ -11,6 +11,8 @@
        selects a series' rows (every row of the series' `cliopatria` names, clipped to the series' `years`; rows of one series never overlap) and writes polity-row-names.json,
        the committed cache that makes this build and --check offline. Nothing is typed: a name and a year are a row's `Name`, `FromYear` and `ToYear`. A year the rows give a
        name for and no other source disputes is the row's; the boundary between two rows is Cliopatria's (Rome: the Republic's last year is 32 BCE, the Empire's first 31 BCE).
+     · PLACE NAMES (2026-10-18): place-names.json dates the name of a REGISTRY row (a gazetteer or places.js id) — the IJsselmeer's lake is the Zuiderzee to 1931 and the IJsselmeer from 1932 — each
+       entry with its Wikidata evidence; the id must be a registry row and the years may not overlap. The table is keyed by id, so the page and the worker apply it to polities and places alike.
      · WIKIDATA OVERRIDES (Phase 4): polity-names.json, written by a person from audit-polity-names.js's report, each naming its Wikidata evidence (Kingdom of Hungary from 1920,
        Federal State of Austria from 1934). An override beats a row name in the years it covers (the row's run is cut around it).
    `sources` is Cliopatria's entry copied from history.bin's header (the row names and years are CC BY 4.0 data); the overrides' evidence is in each entry (Wikidata, CC0).
@@ -20,7 +22,7 @@
 const fs = require("fs"), path = require("path"), cp = require("child_process");
 const HERE = __dirname, ROOT = path.join(HERE, "..", "..");
 const SPEC = JSON.parse(fs.readFileSync(path.join(HERE, "polity-names.json"), "utf8")), OUT = path.join(ROOT, "atlas", "data", "polity-names.js");
-const ROWS_FILE = path.join(HERE, "polity-row-names.json");
+const ROWS_FILE = path.join(HERE, "polity-row-names.json"), PLACES_FILE = path.join(HERE, "place-names.json");
 const F = require("./lib/format.js");
 const header = () => F.read(fs.readFileSync(path.join(ROOT, "atlas", "data", "history.bin")), { headerOnly: true }).header;
 
@@ -51,8 +53,9 @@ function deriveRows() {
 const rowsText = (o) => JSON.stringify(o, null, 1) + "\n";
 
 /* pure: the table from the overrides, the row runs and history.bin's entities; { names, evidence } */
-function tableOf(overrides, rowNames, H) {
+function tableOf(overrides, rowNames, H, places) {
   const names = {}, evidence = {};
+  for (const o of (places || []).slice().sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : a.from - b.from))) { (names[o.id] = names[o.id] || []).push([o.from, o.to, o.name, o.qid]); evidence[o.qid] = o.evidence; }
   for (const o of overrides.slice().sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : a.from - b.from))) { (names[o.id] = names[o.id] || []).push([o.from, o.to, o.name, o.qid]); evidence[o.qid] = o.evidence; }
   const have = new Map(H.entities.map((e) => [e.id, e]));
   for (const [id, runs] of Object.entries(rowNames.entities)) {
@@ -68,7 +71,10 @@ function tableOf(overrides, rowNames, H) {
 function build() {
   const H = header();
   const rowNames = JSON.parse(fs.readFileSync(ROWS_FILE, "utf8"));
-  const { names, evidence } = tableOf(SPEC.overrides, rowNames, H);
+  const places = JSON.parse(fs.readFileSync(PLACES_FILE, "utf8")).names;
+  const R = require(path.join(ROOT, ".claude", "places-registry.js")), reg = R.loadRegistry({ entities: false });
+  for (const o of places) { const row = reg.rows.get(o.id); if (!row) throw new Error("place-names.json: " + o.id + " is not a registry row"); if (!o.evidence || !/^Q\d+$/.test(o.qid) || !(o.from <= o.to) || !o.name) throw new Error("place-names.json: " + o.id + " " + o.name + " needs a name, years, a Wikidata item and its evidence"); }
+  const { names, evidence } = tableOf(SPEC.overrides, rowNames, H, places);
   const clio = (H.sources || []).find((s) => s.id === "cliopatria");
   if (!clio) throw new Error("history.bin's header has no cliopatria source");
   const sources = [{ id: clio.id, name: clio.name, version: clio.version, url: clio.url, licence: clio.licence, licenceUrl: clio.licenceUrl, attribution: clio.attribution, retrieved: clio.retrieved, sha256: clio.sha256 }];
