@@ -175,7 +175,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
         /* a DOT is a pixel more than 50 levels darker than the window's own brightest quarter with the people ON (2026-10-18: it used to be "darker than the same pixel with the
            people off", but the land under a people with the people switched OFF is now the darker empty land — docs/atlas.md §2 (b) — so the texture is read within the on shot) */
         const tOn = top(b); let dots = 0, diff = 0; for (let i = 0; i < a.length; i++) { if (b[i] < tOn - 50) dots++; if (Math.abs(b[i] - a[i]) > 0.5) diff++; }
-        out.push({ n: a.length, meanOff: mean(a), meanOn: mean(b), sdOff: sd(a), sdOn: sd(b), dots: dots / a.length, changed: diff / a.length, topOn: tOn, topOff: top(a) });
+        out.push({ n: a.length, meanOff: mean(a), meanOn: mean(b), sdOff: sd(a), sdOn: sd(b), dots: dots / a.length, changed: diff / a.length, topOn: tOn, topOff: top(a), minOn: Math.min(...b) });
       }
       return out;
     }, { off: offB64, on: onB64, wins });
@@ -187,8 +187,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // (`most`), or the least change (`least`, for a window that must stay as it was)
   /* 2026-10-18: a window is taken from the INTERIOR of its class — a grid point whose eight neighbours at 12 and 24 px answer the same class — because the land now grades from the darker
      empty land to the plain land over a presence's soft edge (docs/atlas.md §2 (b)), and a window on that edge read the gradient as dots */
-  const best = async (offB64, onB64, pts, r, how) => { if (!pts.length) return null; const key = new Set(pts.map((q) => Math.round(q[0]) + "," + Math.round(q[1]))); const inner = pts.filter((q) => [[12, 0], [-12, 0], [0, 12], [0, -12], [24, 0], [-24, 0], [0, 24], [0, -24]].every(([dx, dy]) => key.has(Math.round(q[0] + dx) + "," + Math.round(q[1] + dy)))); const use = inner.length >= 3 ? inner : pts; const cand = use.filter((q, i) => i % Math.max(1, Math.floor(use.length / 80)) === 0).slice(0, 100); const st = await windowStats(offB64, onB64, cand.map((q) => [Math.round(q[0]), Math.round(q[1]), r])); let top = null; st.forEach((v, i) => { if (v.sdOff > 2) return; const score = how === "least" ? -v.changed : v.dots; if (!top || score > top.score) top = { v, at: cand[i], score }; }); return top; };
+  const best = async (offB64, onB64, pts, r, how) => { if (!pts.length) return null; const key = new Set(pts.map((q) => Math.round(q[0]) + "," + Math.round(q[1]))); const inner = pts.filter((q) => [[12, 0], [-12, 0], [0, 12], [0, -12], [24, 0], [-24, 0], [0, 24], [0, -24]].every(([dx, dy]) => key.has(Math.round(q[0] + dx) + "," + Math.round(q[1] + dy)))); const use = inner.length >= 3 ? inner : pts; const cand = use.filter((q, i) => i % Math.max(1, Math.floor(use.length / 80)) === 0).slice(0, 100); const st = await windowStats(offB64, onB64, cand.map((q) => [Math.round(q[0]), Math.round(q[1]), r])); let top = null; st.forEach((v, i) => { if (v.sdOff > 2) return; if (v.minOn < 0.55 * LAND_L) return; /* a pixel at the darker empty land's level (0.5 of the land): the window reaches past the presence's edge — the darkest a dot gets is about 0.6 */ const score = how === "least" ? -v.changed : v.dots; if (!top || score > top.score) top = { v, at: cand[i], score }; }); return top; };
   const D_MIN = 0.06, D_MAX = 0.30;
+  const LAND_L = await A(() => { const p = document.querySelector(".atlas2").__atlas2.palette().land; return 255 * (0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2]); });   // the land's luminance, as __lumOf measures it
 
   // PAIR 1 — 400 BCE, the Kerch strait: Scythia (a people) beside the Bosporan Kingdom (a state), the Achaemenid Empire's flat fill to the south
   {
