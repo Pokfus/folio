@@ -64,6 +64,11 @@
     const lightReader = !!(S.settings && S.settings.saveData) || !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.saveData === true);
     const isWaterSubject = () => { const w = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.water; return !!sibCard && !!w && w.cards.indexOf(sibCard) >= 0; };   // the registry kind of the locator's place (build-card-faces.js); a name only for a locator with no resolved place, decided there
     const wantWater = (!!sibCard || !!hiRegion) && !lightReader;
+    /* RELIEF FOLLOWS THE ATLAS (2026-10-18, the owner's decision c): a map card, a locator and a war window draw relief when the reader has it on in the Atlas's Legend, at the
+       strength set there (AtlasEmbed.reliefSetting: the Atlas's saved layers, re-read on change), and never under light mode or on a cellular connection — the idle warm-up's own
+       two rules (app.js lightMode / onCellular), since the L0 sheet alone is 9 MB. Find it never asks for it. */
+    const onCellular = (() => { try { return !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.type === "cellular"); } catch (e) { return false; } })();
+    const reliefNow = () => { const r = !lightReader && !onCellular && window.AtlasEmbed && window.AtlasEmbed.reliefSetting ? window.AtlasEmbed.reliefSetting() : null; return r && r.on ? { relief: true, strength: r.strength } : { relief: false }; };
     const subdiv = sibCard ? (CMAP_SUBDIV[(root0 || {}).id] || null) : null;
     const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], termName: new Map(), own: new Set() };
     const anchor = (() => {
@@ -391,7 +396,7 @@
         win = window.AtlasEmbed.view(cv, {
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
-            layers: { borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject() },
+            layers: Object.assign({ borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject() }, reliefNow()),
             year: warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined,
             highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9 }] : [],
           }),

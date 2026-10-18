@@ -876,7 +876,8 @@
       if (!/^(auto|off|on)$/.test(layers.wars)) layers.wars = "auto";
       layers.fronts = layers.fronts !== false;
       view.graticule = layers.graticule;
-      if (!EMBED) saveLayers(layers); reflectLayers(); invalidate();
+      if (!EMBED) { saveLayers(layers); try { window.dispatchEvent(new CustomEvent("atlas2:layers", { detail: { relief: layers.relief, strength: layers.strength } })); } catch (e) {} }   // 2026-10-18: the card windows follow the relief switch and its strength (atlas-embed.js reliefSetting)
+      reflectLayers(); invalidate();
       if (JSON.stringify(layers) !== before) { if (before.indexOf('"peoples":"' + layers.peoples + '"') < 0) refreshPresence(true); if (before.indexOf('"wars":"' + layers.wars + '"') < 0) refreshWars(); if (before.indexOf('"fronts":' + layers.fronts) < 0) refreshFronts(); requestLayout("legend", true); }
     }
     reflectLayers();
@@ -3243,5 +3244,5 @@
     return controller;
   }
 
-  root.AtlasV2 = { mount };
+  root.AtlasV2 = { mount, layersStored: loadLayers };   // layersStored (2026-10-18): the Atlas's saved layers as the page would load them — the card windows read the relief switch and its strength from it (atlas-embed.js reliefSetting)
 })(typeof window !== "undefined" ? window : globalThis);

@@ -16,7 +16,12 @@
         between the dots is NOT darkened (the brightest quarter of its pixels is the land); in the present day nothing darkens (every land window, the
         Antarctic included, is the land); and in every light theme a name over the darker land keeps its contrast — the ink on its paper halo ≥ 7:1, the halo on the
         darker land ≥ 3:1 (`contrastAudit`; the ink against the darker land itself is reported: 2.9–3.7:1 at half the luminance).
-   Before the change the states sampled to sixteen golden-angle hues, each people had a hue of its own, and empty land was the land. */
+     3  RELIEF IN THE CARD WINDOWS FOLLOWS THE ATLAS (the owner: "if relief is turned on in the personal Atlas, it should also be on in the Atlas windows, at the
+        opacity the user set"): with the Atlas's saved layers saying relief on, a map card's window (geo-002) fetches the relief files and its land pixels carry the
+        hillshade (they differ from the same window drawn with relief off); with it off nothing of the relief is requested and the two draws are the same; at strength
+        1 the shade is stronger than at 0.4; a window that is open when the setting changes (the `atlas2:layers` event the Atlas sends) redraws with relief; Find it
+        never fetches the relief, whatever the setting says.
+   Before the change the states sampled to sixteen golden-angle hues, each people had a hue of its own, empty land was the land, and a window had no relief. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
 const { chromium } = require("playwright");
@@ -168,6 +173,60 @@ const near = (a, b, t) => a.every((v, i) => Math.abs(v - b[i]) <= t);
       console.log(`        reported, not gated: the ink against the darker land itself, ${Math.min(...contrast.map((r) => r.dim)).toFixed(2)}–${Math.max(...contrast.map((r) => r.dim)).toFixed(2)}:1 over the ${contrast.length} light themes`);
     }
     await ctx.close();
+  }
+
+  sect("3) relief in a card window follows the Atlas's switch and strength; Find it never draws it");
+  {
+    const LAYERS = (on, strength) => `localStorage.setItem("folio_atlas2_layers_v2", JSON.stringify({ relief: ${on}, strength: ${strength} }));`;
+    const openCard = async (id, on, strength) => {
+      const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+      await ctx.addInitScript(TOURS + LAYERS(on, strength));
+      const page = await ctx.newPage();
+      page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
+      page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text()) && !/GL_INVALID|WebGL/.test(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
+      const from = requests.length;
+      await page.goto(`http://127.0.0.1:${PORT}/#card/${id}`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
+      await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h.getAttribute("data-map-engine") === "v2" && h._folioMap && h._folioMap.settled && h._folioMap.settled(); }, null, { timeout: 180000 }).catch(() => {});
+      await sleep(800);
+      return { ctx, page, from };
+    };
+    const winPixels = (page) => page.evaluate(() => { const c = document.querySelector(".map-card .mc-canvas"), d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; return { w: c.width, h: c.height, d: Array.from(d) }; });
+    const reliefReqs = (from) => requests.slice(from).filter((u) => /atlas\/data\/relief\//.test(u));
+    const differ = (a, b) => { let n = 0, sum = 0, tot = 0; for (let i = 0; i < a.d.length; i += 4) { if (a.d[i + 3] < 200 || b.d[i + 3] < 200) continue; tot++; const dd = Math.max(Math.abs(a.d[i] - b.d[i]), Math.abs(a.d[i + 1] - b.d[i + 1]), Math.abs(a.d[i + 2] - b.d[i + 2])); sum += dd; if (dd > 6) n++; } return { share: tot ? n / tot : 0, mean: tot ? sum / tot : 0, tot }; };
+    const off1 = await openCard("geo-002", false, 0.7); const pOff1 = await winPixels(off1.page); const rOff1 = reliefReqs(off1.from);
+    check(`relief off: the map card's window asks for none of the relief (${rOff1.length} requests under atlas/data/relief/)`, rOff1.length === 0, rOff1.slice(0, 3).join(" "));
+    const off2 = await openCard("geo-002", false, 0.7); const pOff2 = await winPixels(off2.page); await off2.ctx.close();
+    const same = differ(pOff1, pOff2);
+    check(`...and two draws of it are the same picture (${(same.share * 100).toFixed(2)} % of pixels differ by more than 6)`, same.tot > 1000 && same.share < 0.005);
+    const on = await openCard("geo-002", true, 1); const pOn = await winPixels(on.page); const rOn = reliefReqs(on.from);
+    check(`relief on at strength 1: the window fetched the relief (${rOn.length} requests: ${rOn.slice(0, 4).map((u) => u.replace(/^.*relief\//, "")).join(", ")}${rOn.length > 4 ? "…" : ""})`, rOn.length >= 4 && rOn.some((u) => /relief\.json$/.test(u)) && rOn.some((u) => /L0\./.test(u)));
+    const dOn = differ(pOff1, pOn);
+    check(`...and its pixels carry the shade: ${(dOn.share * 100).toFixed(1)} % of the window differs from the relief-off draw by more than 6 (mean difference ${dOn.mean.toFixed(1)})`, dOn.share > 0.1);
+    const on4 = await openCard("geo-002", true, 0.4); const pOn4 = await winPixels(on4.page); await on4.ctx.close();
+    const dOn4 = differ(pOff1, pOn4);
+    check(`at strength 0.4 the shade is weaker (mean difference ${dOn4.mean.toFixed(1)} against ${dOn.mean.toFixed(1)} at 1)`, dOn4.mean > 0.5 && dOn4.mean < dOn.mean * 0.8);
+    await on.ctx.close();
+    // a window that is open when the Atlas's setting changes follows it
+    const fromLive = requests.length;
+    await off1.page.evaluate((js) => { eval(js); window.dispatchEvent(new Event("atlas2:layers")); }, LAYERS(true, 0.8));
+    await off1.page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h._folioMap && h._folioMap.settled && h._folioMap.settled(); }, null, { timeout: 120000 }).catch(() => {});
+    await sleep(1500);
+    const pLive = await winPixels(off1.page); const dLive = differ(pOff1, pLive), rLive = reliefReqs(fromLive);
+    check(`an open window follows the switch: after the Atlas's layers event it fetched the relief (${rLive.length} requests) and ${(dLive.share * 100).toFixed(1)} % of its pixels changed`, rLive.length >= 4 && dLive.share > 0.1);
+    await off1.ctx.close();
+    // Find it: never
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+      await ctx.addInitScript(TOURS + LAYERS(true, 1));
+      const page = await ctx.newPage(); const from = requests.length;
+      await page.goto(`http://127.0.0.1:${PORT}/#findit`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
+      await page.waitForFunction(() => { const m = document.querySelector("#mapGame"); return m && !m.hidden && document.querySelector("#findit2") && document.querySelector("#mgQ").textContent.length > 3; }, null, { timeout: 180000 }).catch(() => {});
+      await page.waitForFunction(() => { const h = [...document.querySelectorAll("*")].find((e) => e._finditApi); const w = h && h._finditApi.win(); return w && w.isSettled(); }, null, { timeout: 60000 }).catch(() => {});
+      await sleep(1000);
+      const r = reliefReqs(from);
+      check(`Find it, with the Atlas's relief on: the board asks for none of the relief (${r.length} requests)`, r.length === 0, r.slice(0, 3).join(" "));
+      await ctx.close();
+    }
   }
 
   check("no console or page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
