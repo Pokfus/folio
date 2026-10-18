@@ -121,12 +121,13 @@ every old spelling and proves it.
 | you touched | re-run |
 |---|---|
 | `atlas.js`, `atlas-gl.js`, `atlas-canvas.js` (render, labels, picking) | `test-atlas-render.js`, `test-atlas-labels.js`, then `test-atlas-perf.js` (the frame gate) |
-| the rail, the year, the history | `test-atlas-time.js`, `test-atlas-stages.js`, `test-peoples.js`, `test-war-sides.js` |
+| the rail, the year, the history | `test-atlas-time.js`, `test-atlas-stages.js`, `test-peoples.js`, `test-war-sides.js`; the rail's plain track (no ticks, 2026-10-18) `test-atlas-review.js` §2 |
 | the place card, the search, the address | `test-atlas-card.js`, `test-atlas-search.js`, `test-atlas-redirects.js`, `test-layout.js` (the deep-link smoke) |
 | the keyboard and screen-reader path | `test-atlas-a11y.js` |
 | phones | `test-atlas-phone.js`, `test-card-windows-fixes.js` |
 | the study layer | `test-study.js` (no browser), `test-atlas-study.js`, `test-places.js`, `test-discovery.js` |
 | the tap rules, the popup's rows, city stacks, the glyphs, the labels' text (2026-10-17) | `test-atlas-popups.js`, `test-study.js` §11–14 (`docs/atlas-v2-design.md` §7 "Popups and stacks") |
+| the marks' drawn sizes, the ring, no star for a state (2026-10-18) | `test-atlas-popups.js` §5, `test-study.js` (`docs/atlas-v2-design.md` §7 "Smaller marks, no stars, no ticks") |
 | the marks' sprites (`markSprite`), the stacks' nudge (`nudgeStacks`, `ox`/`oy`), the stack's list, a registry kind (2026-10-17) | `test-atlas-popups.js` §7–9, `test-study.js` §13, then `test-atlas-perf.js` (the marks' raster is what the Full Atlas pinch pays for; `docs/atlas-v2-design.md` §7 "Marks, stacks and the pick test") |
 | the water or relief layers' zoom rules (`view.rivers`, `view.relief.fade`, `RELIEF_L1_KM_PER_PX`, the cap) | `test-atlas-zoom-layers.js` (rivers and relief draw pixels at every zoom to the cap, phone and desktop, WebGL2 and Canvas 2D; 2026-10-17 a) |
 | the history's fill (`entColour`, `presHue`, `histColours`), the empty-land darkening (`HIST_DIM`, `drawHistoryDim`, the HIST stencil bit, the cover target), relief in a window (`reliefSetting`, `reliefNow`) (2026-10-18) | `test-atlas-neutral.js` (one fill ±1 across six states, a people's achromatic stipple, empty land at half the luminance in light and dark, the present day untouched, the window's relief on/off/strength/live change, Find it never), then `test-atlas-time.js` (`fillAudit`, `contrastAudit` over every theme), `test-atlas-review.js` (`debugFill`), `test-findit-pick.js`, `test-atlas-perf.js` |
