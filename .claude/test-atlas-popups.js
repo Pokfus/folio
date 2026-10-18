@@ -19,6 +19,9 @@
         (rivers, lakes, seas, regions …) carry no mark; the Legend lists them
      6  NAMES: no parenthetical on a label ("Malia", not "Malia (archaeological site)"); a name over 22 characters on two lines at the space nearest
         its middle; over 28, the registry's short name; the popup keeps the full name; the 28 px rule (test-atlas-phone) still holds
+    11 THE SHEET (2026-10-18): on a phone the popup is a bottom sheet docked on the frame's bottom edge with three snap heights (peek ≈ 28 %, half, full), a real
+        touch drag between them, a flick down that closes it, 48 px card rows first in the body, a kind chip, the key facts, the sources folded, no sideways
+        scroll at 360 px; a 360 px side panel on a desktop (docs/atlas-v2-design.md §7 "The popup as a bottom sheet")
    Re-run after touching atlas/study.js, the study block of atlas.js, the study pass of atlas-worker.js, or the place card. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -257,8 +260,9 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await openPlace(ph.page);
     await ph.page.click(".atlas2-grip"); await sleep(300);
     const geo = await ph.page.evaluate(() => { const f = document.querySelector(".atlas2").getBoundingClientRect(), c = document.querySelector(".atlas2-card").getBoundingClientRect(), rail = document.querySelector(".atlas2-rail").getBoundingClientRect(), rows = [...document.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect()); return { frame: [f.left, f.top, f.right, f.bottom], card: [c.left, c.top, c.right, c.bottom], rail: [rail.left, rail.top, rail.right, rail.bottom], rows: rows.map((r) => [r.left, r.top, r.right, r.bottom, r.height]), vw: innerWidth, vh: innerHeight }; });
-    check("390 × 844: the open sheet lies wholly inside the frame and ends above the year rail", geo.card[0] >= geo.frame[0] - 0.5 && geo.card[2] <= geo.frame[2] + 0.5 && geo.card[1] >= geo.frame[1] && geo.card[3] <= geo.rail[1] + 0.5, JSON.stringify({ card: geo.card, rail: geo.rail, frame: geo.frame }));
-    check("…its rows are at least 30 px tall (a finger's row) and inside the sheet's width", geo.rows.length === own.length && geo.rows.every((r) => r[4] >= 30 && r[0] >= geo.card[0] && r[2] <= geo.card[2]), JSON.stringify(geo.rows.slice(0, 2)));
+    // 2026-10-18: the sheet is DOCKED on the frame's bottom edge (the year rail steps aside under it, as under the menu) — it used to end above the rail
+    check("390 × 844: the open sheet lies wholly inside the frame, docked on its bottom edge, the year rail stepped aside", geo.card[0] >= geo.frame[0] - 0.5 && geo.card[2] <= geo.frame[2] + 0.5 && geo.card[1] >= geo.frame[1] && Math.abs(geo.card[3] - geo.frame[3]) <= 1 && geo.rail[3] - geo.rail[1] < 1, JSON.stringify({ card: geo.card, rail: geo.rail, frame: geo.frame }));
+    check("…its rows are at least 48 px tall (a finger's row, 2026-10-18) and inside the sheet's width", geo.rows.length === own.length && geo.rows.every((r) => r[4] >= 48 && r[0] >= geo.card[0] && r[2] <= geo.card[2]), JSON.stringify(geo.rows.slice(0, 2)));
     await shot(ph.page, "popup-cards-phone");
     allErrors.push(...ph.errors); await ph.ctx.close();
   }
@@ -547,6 +551,55 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await view(page, -108.5172, 37.15, 3);
     const mv = await markOf("pl:q49693597");
     check("Mesa Verde is a site: a diamond", !!mv && mv.cls === "site" && mv.marker === "diamond", JSON.stringify(mv));
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 11  the popup as a bottom sheet (2026-10-18) */
+  console.log("\n\x1b[1m11) the popup is a bottom sheet on a phone: docked on the frame's bottom edge, three snap heights, a touch drag, 48 px rows, no sideways scroll; a 360 px panel on a desktop\x1b[0m\n");
+  for (const [w, h] of [[390, 844], [360, 740]]) {
+    const { ctx, page, errors } = await open(browser, READER, { phone: true, w, h });
+    await mode(page, "full"); await year(page, -100); await view(page, 12.5, 41.9, 40);
+    await A(page, (c) => c.select("pol:rome", { open: true })); await page.waitForSelector(".atlas2-study-cards", { state: "attached", timeout: 20000 }); await sleep(400);
+    const geo = () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, f = document.querySelector(".atlas2").getBoundingClientRect(), el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"), rows = [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height); const first = body.firstElementChild; const d = el.querySelector(".atlas2-card-sources"); return { card: c.card(), sel: c.selectedId(), frame: [f.left, f.top, f.right, f.bottom], rect: [r.left, r.top, r.right, r.bottom], h: r.height, fh: c.frame()[1], rows, firstIsCards: !!first && first.classList.contains("atlas2-study-cards"), chip: (el.querySelector(".atlas2-card-chip") || {}).textContent || "", years: (el.querySelector(".atlas2-card-years") || {}).textContent || "", kindText: el.querySelector(".atlas2-card-kind").textContent, facts: [...el.querySelectorAll(".atlas2-card-facts dt")].map((x) => x.textContent), sources: d ? { open: d.open, text: d.textContent.length } : null, scrollX: body.scrollWidth - body.clientWidth, docX: document.documentElement.scrollWidth - innerWidth, railShown: getComputedStyle(document.querySelector(".atlas2-rail")).display !== "none", zoomShown: getComputedStyle(document.querySelector(".atlas2-zoom")).display !== "none", heights: c.sheetHeights(), bodyShown: getComputedStyle(body).display !== "none", scrollTop: body.scrollTop }; });
+    let g = await geo(); const hs = g.heights;
+    check(`${w}×${h}: the sheet opens at its peek — docked on the frame's bottom edge, about 28 % of the frame tall, the body showing`, g.card.snap === "peek" && Math.abs(g.rect[3] - g.frame[3]) <= 1 && g.h >= g.fh * 0.27 && g.h <= g.fh * 0.34 && g.bodyShown, JSON.stringify({ snap: g.card.snap, h: Math.round(g.h), frame: Math.round(g.fh), bottom: [Math.round(g.rect[3]), Math.round(g.frame[3])] }));
+    check("…the head: the name, a kind chip and the years, which still read as one line", g.chip === "Polity" && /BCE/.test(g.years) && /^Polity · /.test(g.kindText), JSON.stringify({ chip: g.chip, years: g.years, kindText: g.kindText }));
+    check("…the body: the card rows first, each at least 48 px tall, then the key facts (years, the capital) with the sources folded", g.firstIsCards && g.rows.length >= 3 && g.rows.every((x) => x >= 48) && g.facts[0] === "Years" && g.facts.some((f) => /^Capital/.test(f)) && !!g.sources && !g.sources.open && g.sources.text > 40, JSON.stringify({ rows: g.rows.slice(0, 3).map(Math.round), facts: g.facts, sources: g.sources }));
+    check("…no sideways scroll in the sheet or the page; the year rail steps aside under the docked sheet; the zoom pill stays at the peek", g.scrollX <= 0 && g.docX <= 0 && !g.railShown && g.zoomShown, JSON.stringify({ scrollX: g.scrollX, docX: g.docX, rail: g.railShown, zoom: g.zoomShown }));
+    await A(page, (c) => c.sheetSnap("half")); await sleep(400); g = await geo();
+    check("half: about half the frame, still docked", g.card.snap === "half" && Math.abs(g.h - g.fh * 0.5) <= 2 && Math.abs(g.rect[3] - g.frame[3]) <= 1 && !g.zoomShown, `${Math.round(g.h)} of ${Math.round(g.fh)}`);
+    await A(page, (c) => c.sheetSnap("full")); await sleep(400); g = await geo();
+    check("full: the frame less the 68 px of the search and menu buttons, the zoom pill hidden under it", g.card.snap === "full" && Math.abs(g.h - (g.fh - 68)) <= 2 && !g.zoomShown, `${Math.round(g.h)} of ${Math.round(g.fh)}`);
+    // REAL TOUCH DRAGS through CDP (touchStart, touchMoves, touchEnd): on the handle, down from full to half, down again to the peek, then a flick down that closes
+    const cdp = await ctx.newCDPSession(page);
+    const at = (sel) => page.$eval(sel, (e) => { const r = e.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + Math.min(20, r.height / 2) }; });
+    const drag = async (sel, dy, steps, ms) => { const p = await at(sel); await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: p.x, y: p.y }] }); for (let i = 1; i <= steps; i++) { await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: p.x, y: p.y + dy * i / steps }] }); await sleep(ms); } await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] }); await sleep(500); };
+    await drag(".atlas2-grip", hs.full - hs.half + 10, 8, 40); g = await geo();
+    check("a touch drag of the handle down from full settles at half", g.card.snap === "half", g.card.snap);
+    await drag(".atlas2-grip", hs.half - hs.peek + 10, 8, 40); g = await geo();
+    check("…and down again at the peek", g.card.snap === "peek", g.card.snap);
+    await drag(".atlas2-grip", 90, 3, 8); g = await geo();
+    check("a flick down from the peek closes the sheet and clears the selection", !g.card.open && g.sel === null, JSON.stringify({ open: g.card.open, sel: g.sel }));
+    // the body: pulled up it raises the sheet; once the sheet is full the body scrolls instead
+    await A(page, (c) => c.select("pol:rome", { open: true })); await sleep(400);
+    await drag(".atlas2-card-body", -(hs.full - hs.peek + 10), 8, 40); g = await geo();
+    check("a pull up on the body raises the sheet to full", g.card.snap === "full", g.card.snap);
+    const st0 = g.scrollTop; await drag(".atlas2-card-body", -160, 8, 40); g = await geo();
+    check("…and at full the body scrolls (the sheet stays full)", g.card.snap === "full" && g.scrollTop > st0, `scrollTop ${st0} → ${g.scrollTop}`);
+    // a city stack keeps its pager and its list, in the head, at the peek
+    await A(page, (c) => c.clearSelection()); await year(page, 2025); await view(page, 12.49, 41.89, 3);
+    const sm = await A(page, (c) => (c.study.liveMarks().find((m) => m.members && m.count > 8) || {}).id);
+    if (sm) {
+      await A(page, (c, id) => c.study.openStack(id), sm); await sleep(500);
+      const st = await page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), p = el.querySelector(".atlas2-pager-row").getBoundingClientRect(), l = el.querySelector(".atlas2-pager-list"); return { snap: document.querySelector(".atlas2").__atlas2.card().snap, pagerIn: p.top >= r.top && p.bottom <= r.bottom + 0.5, list: !l.hidden && l.getBoundingClientRect().height <= 130, n: el.querySelector(".atlas2-pager-n").textContent, h: r.height }; });
+      check("a stack's sheet keeps its pager and its list at the peek (the peek grows to show them)", st.snap === "peek" && st.pagerIn && st.list && /^1 of /.test(st.n), JSON.stringify(st));
+    } else check("a stack at Rome", false, "no ring found");
+    allErrors.push(...errors); await ctx.close();
+  }
+  {   // the desktop: a 360 px side panel with the same body
+    const { ctx, page, errors } = await open(browser, READER); await mode(page, "full"); await year(page, -100); await A(page, (c) => c.select("pol:rome", { open: true })); await sleep(400);
+    const d = await page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"); return { w: r.width, snap: document.querySelector(".atlas2").__atlas2.card().snap, firstIsCards: body.firstElementChild.classList.contains("atlas2-study-cards"), chip: el.querySelector(".atlas2-card-chip").textContent, rows: [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height) }; });
+    check("a desktop shows a 360 px side panel with the same body (the rows first, 48 px each, the kind chip)", Math.abs(d.w - 360) <= 1 && d.snap === null && d.firstIsCards && d.chip === "Polity" && d.rows.every((x) => x >= 48), JSON.stringify(d));
     allErrors.push(...errors); await ctx.close();
   }
 

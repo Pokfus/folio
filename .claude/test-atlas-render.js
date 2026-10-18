@@ -222,8 +222,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     check("404 CE at the overlap: the stack names the people first, then the state", stack[0] === "pol:huns" && stack.includes("pol:byzantium"), stack.join(" > "));
     const bb = await canvasBox(), cx = await A(() => document.querySelector(".atlas2").__atlas2.view.cx), cy = await A(() => document.querySelector(".atlas2").__atlas2.view.cy);
     await page.mouse.click(bb.x + cx, bb.y + cy); await sleep(500);
-    const chip = await A(() => { const b = document.querySelector(".atlas2-stack"); return { hidden: b.hidden, text: b.textContent, aria: b.getAttribute("aria-label"), kind: document.querySelector(".atlas2-card-kind").textContent, title: document.querySelector(".atlas2-card-title").textContent }; });
-    check("a tap lists every entity under the point in the chip: \"Huns · people\" and \"" + HH.entities.find((e) => e.id === "pol:byzantium").name + " · state\"", !chip.hidden && /^\d+ here/.test(chip.text) && /Huns · people/.test(chip.text) && new RegExp(HH.entities.find((e) => e.id === "pol:byzantium").name + " · state").test(chip.text), chip.text);
+    // 2026-10-18: the other entities under the point are listed in the popup's "Also here" section (a button each, with the kind word); the floating "N here" chip is gone
+    const chip = await A(() => { const b = document.querySelector(".atlas2-stack"); return { hidden: b.hidden, here: [...document.querySelectorAll(".atlas2-card-here .atlas2-here")].map((x) => x.textContent), kind: document.querySelector(".atlas2-card-kind").textContent, title: document.querySelector(".atlas2-card-title").textContent }; });
+    check("a tap lists the other entity under the point in the popup's \"Also here\": \"" + HH.entities.find((e) => e.id === "pol:byzantium").name + " · state\", and no chip floats on the map", chip.hidden && chip.here.length === 1 && new RegExp("^" + HH.entities.find((e) => e.id === "pol:byzantium").name + "state$").test(chip.here[0]), JSON.stringify(chip.here));
     check("the card opens on the topmost (the people): its title, and a kind line that says People", chip.title === "Huns" && /^People ·/.test(chip.kind), chip.title + " / " + chip.kind);
     await page.mouse.click(bb.x + cx, bb.y + cy); await sleep(400);
     const sel2 = await A(() => document.querySelector(".atlas2").__atlas2.selectedId());
