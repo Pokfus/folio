@@ -171,9 +171,11 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
         const a = [], b = [];
         for (let y = Math.max(0, cy - r); y <= Math.min(off.h - 1, cy + r); y++) for (let x = Math.max(0, cx - r); x <= Math.min(off.w - 1, cx + r); x++) { a.push(off.L[y * off.w + x]); b.push(on.L[y * off.w + x]); }
         const mean = (q) => q.reduce((s2, z) => s2 + z, 0) / q.length, sd = (q) => { const m = mean(q); return Math.sqrt(q.reduce((s2, z) => s2 + (z - m) * (z - m), 0) / q.length); };
-        let dots = 0, diff = 0; for (let i = 0; i < a.length; i++) { if (b[i] < a[i] - 50) dots++; if (Math.abs(b[i] - a[i]) > 0.5) diff++; }
         const top = (q) => { const t = q.slice().sort((p1, p2) => p2 - p1).slice(0, Math.ceil(q.length / 4)); return t.reduce((s2, z) => s2 + z, 0) / t.length; };
-        out.push({ n: a.length, meanOff: mean(a), meanOn: mean(b), sdOff: sd(a), sdOn: sd(b), dots: dots / a.length, changed: diff / a.length, topOn: top(b), topOff: top(a) });
+        /* a DOT is a pixel more than 50 levels darker than the window's own brightest quarter with the people ON (2026-10-18: it used to be "darker than the same pixel with the
+           people off", but the land under a people with the people switched OFF is now the darker empty land — docs/atlas.md §2 (b) — so the texture is read within the on shot) */
+        const tOn = top(b); let dots = 0, diff = 0; for (let i = 0; i < a.length; i++) { if (b[i] < tOn - 50) dots++; if (Math.abs(b[i] - a[i]) > 0.5) diff++; }
+        out.push({ n: a.length, meanOff: mean(a), meanOn: mean(b), sdOff: sd(a), sdOn: sd(b), dots: dots / a.length, changed: diff / a.length, topOn: tOn, topOff: top(a) });
       }
       return out;
     }, { off: offB64, on: onB64, wins });
@@ -201,7 +203,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       const gc = await A(() => { const c = document.querySelector(".atlas2").__atlas2; return [Math.round(c.view.cx), Math.round(c.view.cy)]; }), K = (await windowStats(off, on, [[gc[0], gc[1], 3]]))[0];
       check("the screenshot diff, people on against off: the people's window gains a stipple of dots (6–30 % of its pixels), the state's window does not change", P.v.dots > D_MIN && P.v.dots < D_MAX && S.v.changed < 0.001, `people ${(P.v.dots * 100).toFixed(0)} % dots, state ${(S.v.changed * 100).toFixed(2)} % changed`);
       check("in MONOCHROME a people is a texture and a state a flat fill: the people's luminance spread goes from ~0 to ≥ 15, the state's stays ~0", P.v.sdOff < 2 && P.v.sdOn >= 15 && S.v.sdOff < 2 && S.v.sdOn < 2, `people ${P.v.sdOff.toFixed(1)} → ${P.v.sdOn.toFixed(1)}, state ${S.v.sdOff.toFixed(1)} → ${S.v.sdOn.toFixed(1)}`);
-      check("under the dots the people's faint wash tints the land (its mean luminance falls by a few levels to a third of the fill)", P.v.meanOn < P.v.meanOff - 4 && P.v.meanOn > P.v.meanOff * 0.5, `mean ${P.v.meanOff.toFixed(0)} → ${P.v.meanOn.toFixed(0)}`);
+      // 2026-10-18: the land is read off the palette, not the people-off shot (which is the darker empty land there now)
+      const landL = await A(() => { const p = document.querySelector(".atlas2").__atlas2.palette().land; return 255 * (0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2]); });
+      check("under the dots the people's faint wash tints the land (the ground between the dots is a few levels below the land, above half of it)", P.v.topOn < landL - 4 && P.v.topOn > landL * 0.5, `land ${landL.toFixed(0)}, between the dots ${P.v.topOn.toFixed(0)}, mean ${P.v.meanOn.toFixed(0)} (off: ${P.v.meanOff.toFixed(0)}, the darker empty land)`);
       check("the kingdom, beside the people and not under it, is left as it was", K.changed < 0.02, `${(K.changed * 100).toFixed(1)} % of its pixels changed`);
     }
   }
