@@ -265,7 +265,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "0fc15857a0:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "23988ac9ed:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -344,7 +344,7 @@
             </fieldset>
             <fieldset class="atlas2-group atlas2-marks"><legend>Marks</legend>
               <dl class="atlas2-marks-key" aria-label="What the marks mean"></dl>
-              <p class="atlas2-peoples-hint">Filled in the accent: a place of your own cards. Rivers, lakes, seas, regions and countries are names only.</p>
+              <p class="atlas2-peoples-hint">Filled in the accent: a place of your own cards. Rivers, lakes, seas, regions, countries, states, peoples and cultures are names only.</p>
             </fieldset>
             <fieldset class="atlas2-group atlas2-peoples"><legend>Peoples</legend>
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="off"> Off</label>
@@ -413,7 +413,7 @@
           </div>
           <div class="atlas2-rail-row" id="atlas2-rail-row">
             <button type="button" class="atlas2-rail-btn atlas2-rail-prev" aria-label="Previous change year" title="Previous change year ([)">‹</button>
-            <div class="atlas2-rail-track"><canvas class="atlas2-rail-ticks" aria-hidden="true"></canvas><div class="atlas2-rail-pin" role="slider" tabindex="0" aria-label="Year" aria-valuemin="${RAIL_FROM}" aria-valuemax="${TODAY}" aria-valuenow="${TODAY}" aria-valuetext="${TODAY}" aria-orientation="horizontal"></div><div class="atlas2-rail-mag" hidden aria-hidden="true"></div></div>
+            <div class="atlas2-rail-track"><div class="atlas2-rail-pin" role="slider" tabindex="0" aria-label="Year" aria-valuemin="${RAIL_FROM}" aria-valuemax="${TODAY}" aria-valuenow="${TODAY}" aria-valuetext="${TODAY}" aria-orientation="horizontal"></div><div class="atlas2-rail-mag" hidden aria-hidden="true"></div></div>
             <button type="button" class="atlas2-rail-btn atlas2-rail-next" aria-label="Next change year" title="Next change year (])">›</button>
             <input class="atlas2-rail-year" type="text" inputmode="text" aria-label="Year — for example 500 BCE, 1066 or -44" autocomplete="off" spellcheck="false">
             <button type="button" class="atlas2-rail-btn atlas2-rail-play" aria-label="Play" aria-pressed="false" title="Play every year">▶</button>
@@ -429,7 +429,7 @@
     const stackBtn = el.querySelector(".atlas2-stack"), cardEl = el.querySelector(".atlas2-card"), cardTitle = el.querySelector(".atlas2-card-title"), cardKind = el.querySelector(".atlas2-card-kind"), cardBody = el.querySelector(".atlas2-card-body"), keysUl = el.querySelector(".atlas2-keys ul");
     { const bk = el.querySelector(".atlas2-back"); if (bk && H.back) bk.addEventListener("click", () => H.back()); }   // Phase 4b: the way back to the card a window's tap or go button left
     const searchIn = el.querySelector(".atlas2-search-in"), resultsUl = el.querySelector(".atlas2-results");
-    const railEl = el.querySelector(".atlas2-rail"), railTrack = el.querySelector(".atlas2-rail-track"), railPin = el.querySelector(".atlas2-rail-pin"), railTicks = el.querySelector(".atlas2-rail-ticks"), railMag = el.querySelector(".atlas2-rail-mag"), railYear = el.querySelector(".atlas2-rail-year"), railPlay = el.querySelector(".atlas2-rail-play"), railSpeed = el.querySelector(".atlas2-rail-speed"), railNote = el.querySelector(".atlas2-rail-note");
+    const railEl = el.querySelector(".atlas2-rail"), railTrack = el.querySelector(".atlas2-rail-track"), railPin = el.querySelector(".atlas2-rail-pin"), railMag = el.querySelector(".atlas2-rail-mag"), railYear = el.querySelector(".atlas2-rail-year"), railPlay = el.querySelector(".atlas2-rail-play"), railSpeed = el.querySelector(".atlas2-rail-speed"), railNote = el.querySelector(".atlas2-rail-note");
     const say = (t, frac) => { note.textContent = t; if (frac != null) { bar.style.width = Math.round(frac * 100) + "%"; bar.parentNode.hidden = false; } };
     const fail = (t) => { status.classList.add("atlas2-fail"); bar.parentNode.hidden = true; note.textContent = t; };
 
@@ -754,13 +754,13 @@
     // relief it wants. Run by every frame and by setView, so `tilesSettled()` right after a setView already asks
     // about the NEW tiles
     let onScreenKey = "";
-    function refreshOnScreen() {   // the change years, the ticks and the "no states" note follow the VIEW as well as the year
+    function refreshOnScreen() {   // the change years ([ and ]) and the "no states" note follow the VIEW as well as the year
       if (!time.hist || !time.hist.ready || !time.faceCap) return;
-      // keyed by the view and the ALIVE SET, not the year: the ticks are DOM (177 of them), and rebuilding them on every year of a
-      // scrub cost a third of the frame (measured: 100 ms pointer frames against 67 ms for the same year changes without the DOM)
+      // keyed by the view and the ALIVE SET, not the year: the change years are a scan of every step on screen, and redoing it on every
+      // year of a scrub cost a third of the frame when they were drawn as DOM ticks (measured: 100 ms pointer frames against 67 ms)
       const k = view.lon.toFixed(2) + "," + view.lat.toFixed(2) + "," + view.zoom.toFixed(3) + "," + (time.aliveKey || "") + "," + (time.present ? 1 : 0) + "," + cssW + "x" + cssH;
       if (k === onScreenKey) return; onScreenKey = k;
-      const ys = changeYearsOnScreen(); const same = ys.length === time.changeYears.length && ys.every((y, i) => y === time.changeYears[i]); time.changeYears = ys; if (!same) drawTicks();
+      time.changeYears = changeYearsOnScreen();   // read by [ and ] (stepChange) and the tests; no longer drawn (decision c, 2026-10-18)
       // the alive faces now on screen (a pan since the last year change): their meshes, their arcs, the draw list
       if ((time.alive.length || time.palive.length) && time.onScreenKey !== (time.aliveKey || "") + "@" + k) {
         const va = viewAngleNow(); const now = time.alive.filter((a) => faceOnScreen(a.face, va)); const nowP = time.palive.filter((a) => faceOnScreen(a.face, va)); const nowKey = now.map((a) => a.face).join(",") + "|" + nowP.map((a) => a.face).join(",");
@@ -821,7 +821,7 @@
       if (layers.relief && reliefIndex && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
       else view.relief.tiles = [];
       stats.level = view.level;
-      refreshOnScreen();   // with the rotation and the level of THIS view (the ticks, [ ] and the "no states" note follow the view)
+      refreshOnScreen();   // with the rotation and the level of THIS view (the change years, [ ] and the "no states" note follow the view)
     }
     function invalidate() { needs = true; needsGlobe = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
     /* a redraw of the NAMES alone (a layout arrived, the study layer changed what is marked): the labels have their own canvas, so the
@@ -1466,7 +1466,7 @@
       if (fromSet) for (const a of fadeFrom) if (!time.pSet.has(a.face)) one(a, 1 - tNow);
       return out;
     }
-    /* the Peoples switch or the study mode moved: the alive presences of the year change, so the year is applied again (meshes, labels, ticks) */
+    /* the Peoples switch or the study mode moved: the alive presences of the year change, so the year is applied again (meshes, labels, change years) */
     function refreshPresence() { if (!time.hist || !time.hist.ready) return; applyYear(time.year, { force: true, why: "peoples" }); }
     /* ---- Phase 2d: the FRONT LINE (event faces dated to the day; study.js does the arithmetic) ---- */
     const frontEl = el.querySelector(".atlas2-front"), frontLabel = el.querySelector(".atlas2-front-label");
@@ -1567,7 +1567,7 @@
       }).catch((e) => { time.warLoading = false; time.warFailed = true; if (typeof console !== "undefined") console.warn("atlas2 wars table failed: " + (e && e.message || e)); });
     }
     const FILE_OK_WARS = () => true;
-    /* the wars drawn, from the switch, the study mode and the card; then the year is applied again (the tints, the washes, the ticks) */
+    /* the wars drawn, from the switch, the study mode and the card; then the year is applied again (the tints, the washes, the change years) */
     function computeWarShown() {
       const A = AS2(); if (!A || !time.wars) { time.warShown = new Set(); return; }
       time.warShown = A.warsShown(time.wars, { pos: layers.wars, mode: PI.mode, cardSet: typeof ST !== "undefined" && ST.st ? ST.st.cardSet : null, hidden: typeof ST !== "undefined" ? ST.hidden : null, info: typeof ST !== "undefined" && ST.ready ? info : null, focus: time.warFocus });
@@ -1607,7 +1607,7 @@
        world over, and a Mediterranean view owes nothing to the Han dynasty's mesh or the Inca's borders */
     const viewAngleNow = () => Math.min(Math.PI / 2, (Math.hypot(cssW, cssH) / 2 + 80) / view.radius) + 0.02;
     const faceOnScreen = (fi, viewAngle) => { const rot = view.rot; const d = Math.max(-1, Math.min(1, time.faceCap[4 * fi] * rot[6] + time.faceCap[4 * fi + 1] * rot[7] + time.faceCap[4 * fi + 2] * rot[8])); return Math.acos(d) - time.faceCap[4 * fi + 3] <= (viewAngle != null ? viewAngle : viewAngleNow()); };
-    /* the change years of the faces on screen (the rail's ticks and [ ]) */
+    /* the change years of the faces on screen ([ and ]; drawn as the rail's ticks until 2026-10-18, decision c) */
     function changeYearsOnScreen() {
       if (!time.faceCap) return [];
       const rot = view.rot, viewAngle = Math.min(Math.PI / 2, (Math.hypot(cssW, cssH) / 2 + 80) / view.radius) + 0.02;
@@ -1671,7 +1671,7 @@
         if (changed || time.fade || wasPresent !== time.present || o.force) uploadStyle(changed ? 1 : 1);
         time.view = { faces: time.onScreenAlive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })), pfaces: presenceDraw(time.fade ? time.fade.fromP : null, 0), present: time.present, strokePx: 0 };
         time.capitals = (time.hist.header.cities || []).filter((c) => c.from <= y && c.to >= y && alive.some((a) => time.ents[a.ent].id === c.entity)).map((c) => ({ entity: c.entity, name: c.name, lon: c.lon, lat: c.lat }));
-        refreshOnScreen();   // the ticks and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
+        refreshOnScreen();   // the change years and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
         if (changed) reflectPeoplesNote();
         reflectFront(); reflectWarsNote();
       } else { time.view = { faces: [], pfaces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
@@ -1740,33 +1740,12 @@
     }
     const historySettled = () => !histStarted || time.failed || (!!time.hist && time.hist.ready && (time.onScreenAlive || []).concat(time.pOnScreen || []).every((a) => time.resident.has(a.face + ":" + Math.min(2, view.level))));
     /* ---- the rail ---- */
-    function drawTicks() {
-      const r = railTrack.getBoundingClientRect(); const w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
-      const d = Math.min(2, window.devicePixelRatio || 1);
-      if (railTicks.width !== Math.round(w * d) || railTicks.height !== Math.round(h * d)) { railTicks.width = Math.round(w * d); railTicks.height = Math.round(h * d); }
-      const x = railTicks.getContext("2d"); x.setTransform(d, 0, 0, d, 0, 0); x.clearRect(0, 0, w, h);
-      const { ink, dark } = themeTokens(); const hex = (c) => "#" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255).toString(16).padStart(2, "0")).join("");
-      x.strokeStyle = hex(mix(ink, [0.5, 0.5, 0.5], dark ? 0.3 : 0.5)); x.lineWidth = 1;
-      // the knee and the big marks
-      x.globalAlpha = 0.45; x.beginPath(); x.moveTo(0, h / 2 + 0.5); x.lineTo(w, h / 2 + 0.5); x.stroke();
-      x.globalAlpha = 0.7;
-      for (const y of [-10000, -5000, -3000, -2000, -1000, -500, 1, 500, 1000, 1500, 2000]) { const px = Math.round(railX(y) * w) + 0.5; x.beginPath(); x.moveTo(px, h / 2 - 4); x.lineTo(px, h / 2 + 4); x.stroke(); }
-      x.globalAlpha = 1; x.strokeStyle = hex(ink);
-      // at most about TICKS_MAX ticks a view (2b), AND NEVER MORE THAN THE WIDTH CAN SHOW APART (Phase 3a, task 0c): change years
-      // closer than a bucket merge into one tick, drawn taller the more it stands for; the bucket is at least TICK_PX wide, so on a
-      // 390 px phone (a 224 px track) the view's 177 change years become at most 56 ticks instead of a solid bar (measured: runs of
-      // 9 and 28 CSS px of unbroken ink at 390 and 360 px). The entities in view still decide WHICH years tick; [ and ] still step
-      // through every change year (stepChange reads the full list)
-      const TICKS_MAX = 200, TICK_PX = 4; const bucket = Math.max(w / TICKS_MAX, TICK_PX); const merged = new Map();
-      for (const y of time.changeYears) { const px = railX(y) * w; const b = Math.floor(px / bucket); let m = merged.get(b); if (!m) merged.set(b, m = { sx: 0, n: 0 }); m.sx += px; m.n++; }
-      // two buckets' means can still sit a pixel apart across their boundary (measured: a run of 3 px at 430 px); ticks closer
-      // than TICK_GAP merge too, so every tick has blank pixels on both sides
-      const TICK_GAP = 3; const ticks = [];
-      for (const [, m] of [...merged].sort((p, q) => p[1].sx / p[1].n - q[1].sx / q[1].n)) { const px = m.sx / m.n; const last = ticks[ticks.length - 1]; if (last && px - last.px < TICK_GAP) { last.px = (last.px * last.n + px * m.n) / (last.n + m.n); last.n += m.n; } else ticks.push({ px, n: m.n }); }
-      let maxN = 0, minGap = Infinity;
-      for (let i = 0; i < ticks.length; i++) { const t = ticks[i], px = Math.round(t.px) + 0.5, hh = t.n > 1 ? 5 : 3; x.beginPath(); x.moveTo(px, h / 2 - hh); x.lineTo(px, h / 2 + hh); x.stroke(); if (t.n > maxN) maxN = t.n; if (i && Math.round(t.px) - Math.round(ticks[i - 1].px) < minGap) minGap = Math.round(t.px) - Math.round(ticks[i - 1].px); }
-      time.tickStats = { years: time.changeYears.length, ticks: ticks.length, width: w, bucket, minGap: ticks.length > 1 ? minGap : null, maxMerged: maxN };   // for the suites (test-atlas-review.js section 2)
-    }
+    /* NO TICKS (2026-10-18; the owner's phone, decision c: "on the timeline are a number of vertical lines at seemingly random places along the
+       line — there should not be any"). The rail drew, on a canvas under the pin, a tick at every CHANGE YEAR of what is on screen — the years at
+       which a state, a people or a war on the screen begins or ends (`changeYearsOnScreen`, bucketed to the width since Phase 3a) — and eleven
+       larger marks at the epochs of the rail's knee (10,000 BCE … 2000 CE). To a reader they were lines at random places. The track is now a
+       plain line (CSS, `.atlas2-rail-track::before`) with the pin; nothing else is drawn along it. The change years STAY as data: `[` and `]`
+       (`stepChange`) still jump to the previous and next one, and the "no state is mapped" note still reads them. */
     function stepChange(dir) {
       if (!time.hist) { ensureHistory(); if (dir < 0 && time.present) setYear(PRESENT_YEAR - 1); return; }   // the file loads on the first step back (2b); the change years follow once it is in
       const ys = time.changeYears.length ? time.changeYears : changeYearsOnScreen();
@@ -1835,9 +1814,6 @@
     }
     railPlay.addEventListener("click", togglePlay);
     railSpeed.addEventListener("change", () => { time.speed = Number(railSpeed.value) || 25; });
-    /* the rail's chrome follows the card on a phone (the sheet sits above it) */
-    const railResize = () => { drawTicks(); };
-    window.addEventListener("resize", railResize);
     // the initial year: the deep link's, else the last used, else today
     { let y = null; if (!EMBED) try { const v = localStorage.getItem(YEAR_KEY); if (v != null && v !== "" && isFinite(Number(v))) y = clampYear(Number(v)); } catch (e) {} time.year = y == null ? TODAY : y; time.lastYear = time.year; time.present = time.year >= PRESENT_YEAR; railPin.style.left = (railX(time.year) * 100) + "%"; railYear.value = fmtYear(time.year); railPin.setAttribute("aria-valuenow", String(time.year)); railPin.setAttribute("aria-valuetext", fmtYear(time.year)); }
 
@@ -2030,16 +2006,16 @@
        Every place and every polity the layer flags is ONE mark at its own position, at any zoom: no cluster, no count (the owner's
        decision, docs/atlas-v2-design.md §7 "Stacks removed"). The worker posts the list at each layout (`L.marks`, unit vectors); the
        page projects every mark EVERY FRAME, so a mark is at its true place and sized for the zoom of the moment (AtlasStudy.markHalf: a
-       dot about 4 px across at the widest view, 16 px by city scale) whatever a gesture is doing. A mark that would lie past the
+       dot about 4 px across at the widest view, 16 px by city scale; since 2026-10-18, decision a, every glyph but the capital's square is
+       DRAWN at half of that — AtlasStudy.markScale — and the city ring at the size its 9 px count needs, AtlasStudy.ringHalf) whatever a gesture is doing. A mark that would lie past the
        frame's edge or under a control (the chrome the last layout measured: the study panel, the rail, the card …) is not drawn in
-       that frame and cannot be tapped. THREE SHAPES AND THEIR COLOURS ARE THE OLD ONES: a diamond for a settlement, a site and any
-       other place, a triangle for a mountain, a hill (smaller) or a cape, a disc for a polity; the reader's own filled with the accent,
+       that frame and cannot be tapped. The shapes are the glyph classes below; the reader's own filled with the accent,
        the others hollow, a thin ink outline on both so two marks that touch still read as two. DRAW ORDER, back to front: places not
-       studied, places studied, polities, and the selected mark last. The marks of one kind in one layer are one path (a fill and a
+       studied, places studied, and the selected mark last (a polity has had no mark since 2026-10-18, decision b). The marks of one kind in one layer are one path (a fill and a
        stroke for all of them), so a Full Atlas of 1,300 places and 190 polities is a handful of canvas calls a frame. */
-    /* THE EIGHT GLYPHS (decision e, 2026-10-17, and decision b of the same day; AtlasStudy.MARK_CLASSES): a square (a capital, present or past), a disc (a city or
+    /* THE SEVEN GLYPHS (decision e, 2026-10-17, and decision b of the same day; the star removed 2026-10-18, decision b; AtlasStudy.MARK_CLASSES): a square (a capital, present or past), a disc (a city or
        town), a diamond (a site or cave), a saltire (a battle), a triangle (a mountain, hill or cape), a house — a pointed-top pentagon — (a building, monument or
-       wall), a star (a state, people or culture), a ring with a count (a city stack). Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
+       wall), a ring with a count (a city stack). A state, a people or a culture has NO mark: its name and its face are what a reader taps. Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
        The same geometry draws the Legend's key (`glyphSVG`), so the key cannot drift from the map. */
     const SQ = Math.SQRT1_2, CROSS_T = 0.34;   // the saltire's bar half-width, as a share of the half-extent
     function markInto(path, shape, x, y, h, lw) {
@@ -2049,7 +2025,6 @@
       else if (shape === "square") { const s = q * 0.86; path.moveTo(x - s, y - s); path.lineTo(x + s, y - s); path.lineTo(x + s, y + s); path.lineTo(x - s, y + s); path.lineTo(x - s, y - s); }
       else if (shape === "house") { const s = q * 0.8, t = q * 0.3; path.moveTo(x, y - q); path.lineTo(x + s, y - t); path.lineTo(x + s, y + q * 0.9); path.lineTo(x - s, y + q * 0.9); path.lineTo(x - s, y - t); path.lineTo(x, y - q); }   // a pointed-top pentagon: the building (decision b, 2026-10-17 — the square is the capital's)
       else if (shape === "cross") { const t = q * CROSS_T, s = q * 1.08; let first = true; for (const [px, py] of [[-t, -s], [t, -s], [t, -t], [s, -t], [s, t], [t, t], [t, s], [-t, s], [-t, t], [-s, t], [-s, -t], [-t, -t], [-t, -s]]) { const rx = (px - py) * SQ, ry = (px + py) * SQ; if (first) { path.moveTo(x + rx, y + ry); first = false; } else path.lineTo(x + rx, y + ry); } }
-      else if (shape === "star") { const ro = q * 1.08, ri = q * 0.46; for (let i = 0; i <= 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? ri : ro; if (i) path.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); else path.moveTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); } }
       else { const rr = q * 0.92; path.moveTo(x + rr, y); path.arc(x, y, rr, 0, Math.PI * 2); }   // a disc, and a stack's ring (its count is drawn over it)
     }
     /* the Legend's key: the same glyph as an SVG path at 16 px (hollow, as a place not the reader's is drawn) */
@@ -2064,17 +2039,17 @@
     /* NO closePath: in this Chromium a path built with moveTo / lineTo / closePath per mark cost 5.3 ms per thousand marks against 0.3 ms
        for the same shapes ending in an explicit lineTo to their start (measured, headless, 2026-10-14) — a Full Atlas of a thousand marks
        is the difference between a third of a frame and none of it. The round line cap closes the outline's corner. */
-    const markLine = (half) => (half < 3 ? 1 : half < 6 ? 1.5 : 2);
-    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, star: 5, stack: 6, house: 7 };   // eight shapes, a batch each
+    const markLine = (half) => root.AtlasStudy.markLine(half);   // the outline for a glyph of that DRAWN half-extent: scales with it, never under 1.25 px (study.js, decision a of 2026-10-18)
+    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, stack: 6, house: 7 };   // seven shapes, a batch each (the star, 5, was the polity's until 2026-10-18, decision b)
     /* the marks of a layout, indexed for the frame loop: one flat array of unit vectors and the groups (layer, reader's own or not, shape,
        hill or not) each drawn as ONE path — so a frame projects each mark once, allocates nothing, and is a fill and a stroke per group */
     function indexMarks() {
-      const marks = L.marks, n = marks.length, groups = new Map(), ax = new Float32Array(3 * n);
+      const marks = L.marks, n = marks.length, groups = new Map(), ax = new Float32Array(3 * n), A = root.AtlasStudy;
       L.markIndex = new Map();
       for (let i = 0; i < n; i++) {
         const m = marks[i]; ax[3 * i] = m.a[0]; ax[3 * i + 1] = m.a[1]; ax[3 * i + 2] = m.a[2]; L.markIndex.set(m.id, i);
-        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);
-        let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, scale: m.kind === "hill" ? 0.75 : 1, layer: m.layer, idx: [] });
+        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);   // the shape decides the class (a square is the capital's), so the scale is one per key
+        let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, scale: A.markScale(m.kind, m.cls), layer: m.layer, idx: [] });
         g.idx.push(i);
       }
       L.markGroups = [...groups.values()].sort((p, q) => p.key - q.key);
@@ -2104,7 +2079,7 @@
       x.beginPath(); markInto(x, shape, half, half, hq, lw); x.fill(); x.stroke();
       if (count) {   // a city stack's count, inside its ring (decision d)
         x.textAlign = "center"; x.textBaseline = "middle";
-        x.font = `700 ${Math.max(8, Math.min(hq * 1.1, 13)).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
+        x.font = `700 ${(root.AtlasStudy.STACK_FONT_PX * LS).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;   // a 9 px bold figure (decision a, 2026-10-18): the ring is sized to hold two digits of it
         x.fillStyle = mine ? haloCss : inkCss; x.fillText(String(count), half, half + 0.5);
       }
       s = { c, half, w: 2 * half }; markSprites.set(key, s); return s;
@@ -2115,14 +2090,14 @@
       if (!marks.length || !A || !L.mA) { L.lastMarkMs = 0; return; }
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy, ch = L.chrome || [], nch = ch.length;
       const r0 = rot[0], r1 = rot[1], r2 = rot[2], r3 = rot[3], r4 = rot[4], r5 = rot[5], r6 = rot[6], r7 = rot[7], r8 = rot[8];
-      const half = A.markHalf(view.kmpp) * LS, lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH, dpr = labelRes();
+      const half = A.markHalf(view.kmpp) * LS, ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH, dpr = labelRes();
       const snap = (v) => Math.round(v * dpr) / dpr;
-      const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : cardStack && L.markIndex.has(cardStack.id) ? L.markIndex.get(cardStack.id) : -1, aliveEnt = time.aliveEnt;   // the open stack is the selected mark
+      const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : cardStack && L.markIndex.has(cardStack.id) ? L.markIndex.get(cardStack.id) : -1;   // the open stack is the selected mark
       let ln = 0, selK = -1;
       const faint = [], hair = [];
       ctx.globalAlpha = 1;
       for (const g of L.markGroups) {
-        const shape = g.shape, stack = shape === "stack", h = stack ? Math.max(half * 1.4, 6.5 * LS) : half * g.scale, e = h + 1, idx = g.idx, polity = g.layer === 2;
+        const shape = g.shape, stack = shape === "stack", h = stack ? A.ringHalf(half, LS) : half * g.scale, lw = markLine(h), e = h + 1, idx = g.idx;   // the drawn size (decision a, 2026-10-18): half for every class but the capital; the outline follows it
         const sp = stack ? null : markSprite(shape, h, lw, g.mine, 0);   // a stack's sprite carries its count: fetched per mark
         for (let k = 0; k < idx.length; k++) {
           const i = idx[k], j = 3 * i, a0 = ax[j], a1 = ax[j + 1], a2 = ax[j + 2];
@@ -2134,7 +2109,6 @@
           let hidden = false;
           for (let c = 0; c < nch; c++) { const cr = ch[c]; if (x - e < cr[2] && x + e > cr[0] && y - e < cr[3] && y + e > cr[1]) { hidden = true; break; } }
           if (hidden) continue;
-          if (polity && aliveEnt && !aliveEnt.has(mk.id)) continue;   // a polity no longer alive (the layout is held while the pin is dragged)
           lx[ln] = x; ly[ln] = y; lh[ln] = h; li[ln] = i; ln++;
           if (ox || oy) hair.push(ln - 1);
           if (i === selI) { selK = ln - 1; continue; }
@@ -2147,7 +2121,7 @@
       if (hair.length) {   // drawn after the rings' blits in frame order, but a hairline is 1 px and ends at the ring's edge, so it never crosses a ring
         ctx.lineCap = "round";
         for (const k of hair) {
-          const m = marks[li[k]], ox = m.ox || 0, oy = m.oy || 0, d = Math.hypot(ox, oy), hh = lh[k];
+          const m = marks[li[k]], ox = m.ox || 0, oy = m.oy || 0, d = Math.hypot(ox, oy), hh = lh[k], lw = markLine(hh);
           if (d <= hh - 1) continue;   // the true point still lies under the ring
           const x1 = lx[k] - ox, y1 = ly[k] - oy, x0 = lx[k] - ox / d * (hh - lw / 2), y0 = ly[k] - oy / d * (hh - lw / 2);
           ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1);
@@ -2157,7 +2131,7 @@
       }
       if (faint.length) {
         for (const k of faint) {
-          const m = marks[li[k]], s = markSprite(m.shape, lh[k], lw, m.st === 2, m.count || (m.members ? m.members.length : 0));
+          const m = marks[li[k]], s = markSprite(m.shape, lh[k], markLine(lh[k]), m.st === 2, m.count || (m.members ? m.members.length : 0));
           const z = rot[6] * m.a[0] + rot[7] * m.a[1] + rot[8] * m.a[2];
           ctx.globalAlpha = Math.max(0.05, Math.min(1, z / 0.2)); ctx.drawImage(s.c, snap(lx[k] - s.half), snap(ly[k] - s.half), s.w, s.w);
         }
@@ -2168,8 +2142,8 @@
         markInto(path, m.shape, lx[selK], ly[selK], lh[selK] + 1, 2);
         ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = 2; ctx.strokeStyle = selCss; ctx.fillStyle = m.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
         if (m.members) {   // the open stack's count, over its highlighted ring
-          const hh = lh[selK] + 1; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-          ctx.font = `700 ${Math.max(8, Math.min(hh * 1.1, 13)).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
+          ctx.textAlign = "center"; ctx.textBaseline = "middle";
+          ctx.font = `700 ${(A.STACK_FONT_PX * LS).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
           ctx.fillStyle = m.st === 2 ? haloCss : inkCss; ctx.fillText(String(m.count || m.members.length), lx[selK], ly[selK] + 0.5);
           ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
         }
@@ -2942,7 +2916,7 @@
     const mo = new MutationObserver(() => { if (!el.isConnected) dispose(); });
     mo.observe(viewHost, { childList: true });
     // a theme change (data-theme, or the night class) re-reads the tokens: the palette and the relief ramp follow
-    const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); drawTicks(); } if (G.ready) measureMetrics(); invalidate(); });
+    const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); } if (G.ready) measureMetrics(); invalidate(); });
     themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme", "data-fs"] });   // data-fs: Settings → Text size (the names follow it, labelScaleNow)
     /* ============================================================================================================
        PHASE 3b — THE STUDY LAYER (docs/atlas-v2-design.md §2.8, §7 "Phase 3b — as built")
@@ -3149,7 +3123,6 @@
     function dispose() {
       if (disposed) return;
       disposed = true;
-      window.removeEventListener("resize", railResize);
       try { mo.disconnect(); themeObs.disconnect(); if (sizeObs) sizeObs.disconnect(); } catch (e) {}
       window.removeEventListener("resize", onResize);
       if (vv) { vv.removeEventListener("resize", onVisual); vv.removeEventListener("scroll", onVisual); }
@@ -3163,7 +3136,7 @@
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
       R.dispose();
     }
-    // the Legend's key of the eight glyphs (decision e; the capital's square and the building's house, decision b): built from AtlasStudy.MARK_CLASSES with the map's own geometry
+    // the Legend's key of the seven glyphs (decision e; the capital's square and the building's house, decision b; no star since 2026-10-18): built from AtlasStudy.MARK_CLASSES with the map's own geometry
     { const key = el.querySelector(".atlas2-marks-key"), A0 = root.AtlasStudy; if (key && A0 && A0.MARK_CLASSES) key.innerHTML = A0.MARK_CLASSES.map((c) => `<div data-cls="${escText(c.cls)}"><dt>${glyphSVG(c.shape)}</dt><dd>${escText(c.word)}</dd></div>`).join(""); }
     setPerf(perfOn);   // after the label state exists: the overlay reads it (Phase 1c)
     try { paintWarsKey(); } catch (e) { /* before the time block */ }
@@ -3192,7 +3165,6 @@
       attempt();
     }
     if (!EMBED && H.legacy) { deepView = true; openLegacy(H.legacy); }
-    drawTicks();
     invalidate();
     // the view set from outside (the perf suite's fixed views): centre, zoom, then wait for `tilesSettled()`
     function setView(lon, lat, kmPerPixel) { view.lon = lon; view.lat = lat; view.zoom = R_KM / (kmPerPixel * base); flying = null; coasting = false; plan(); invalidate(); touched(); }
@@ -3243,7 +3215,7 @@
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,
       chromeRects, showPlace, framing: () => lastFrame, discovery: () => ({ id: discId, fresh: discFresh }), hash: hashNow, readHash, metricsCount: () => metricsSent,
       /* Phase 2a: time */
-      setYear: (y, o) => setYear(y, o), year: () => time.year, railTicks: () => time.tickStats || null, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
+      setYear: (y, o) => setYear(y, o), year: () => time.year, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
       alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })),
       // Phase 2c, for the suites: the presences the Peoples switch lets through in the year, the ones on screen, what is handed to the renderer, the switch
       presence: () => ({ alive: time.palive.filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreen: (time.pOnScreen || []).filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => a.face), drawn: ((time.view && time.view.pfaces) || []).filter((f) => !f.ext && !f.front).map((f) => ({ face: f.face, angle: f.angle, fade: f.fade })), position: layers.peoples, mode: PI.mode, all: time.presEnts.filter((i) => !time.isExt[i]).map((i) => time.ents[i].id), shown: time.presEnts.filter((i) => !time.isExt[i] && presShown(i)).map((i) => time.ents[i].id) }),
