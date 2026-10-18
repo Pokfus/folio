@@ -245,7 +245,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   {
     const ov = overlapPoint("pol:yangshao", "pol:longshan", -3000);
     check("the file has the two cultures overlapping in 3000 BCE (their dated steps share that year)", !!ov && ov.n > 20, ov ? String(ov.n) : "none");
-    await viewAt(ov.at[0], ov.at[1], 2.5, -3000);   // 2.5 km/px (was 5; 2026-10-18): the two outlines are small, and a window must fit inside one clear of the darker empty land past its edge
+    await viewAt(ov.at[0], ov.at[1], 1.5, -3000);   // 1.5 km/px (was 5; 2026-10-18): the two outlines are small and their overlap narrow, and a window must fit inside clear of the darker empty land past the edge
     const pres = await A(() => document.querySelector(".atlas2").__atlas2.presence());
     const onScr = pres.alive.filter((a) => pres.onScreen.includes(a.face)), angles = onScr.map((a) => pres.drawn.find((d) => d.face === a.face).angle);
     check("both are drawn, each at its own stipple angle", onScr.map((a) => a.entity).sort().join() === "pol:longshan,pol:yangshao" && new Set(angles).size === 2, onScr.map((a) => a.entity).join() + " at " + angles.join("°, ") + "°");
