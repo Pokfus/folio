@@ -143,9 +143,11 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     check("…and none of the " + unflagged.length + " polities the Full Atlas named that are not theirs is named (not even muted)", unflagged.every((u) => !lpers.some((p) => p.id === u.id)), unflagged.map((u) => u.text).join(", "));
     const mk = await marks(page);
     check("no polity carries a mark on the Personal globe (the star is gone, decision b of 2026-10-18): the reader's polities are named and have no mark", !mk.some((m) => /^pol:/.test(m.id) || m.marker === "star" || m.cls === "polity") && lpers.length >= 1, mk.filter((m) => /^pol:/.test(m.id)).length + " polity marks, " + lpers.length + " polity names");
-    // the FILL (2026-10-18, one neutral fill): an unflagged state's face is the plain land in Personal AND in Full — nothing paints a state apart from its neighbours but its
-    // border (docs/atlas.md §2 (a)); what the Personal Atlas withholds from a state that is not the reader's is its name, its mark and its tap. The probe is the polity's own label
-    // anchor (inside its face); the points around it that read as land in the present and are not the darker empty land in Full are the face's, and they read the land in both modes
+    // the FILL (2026-10-18, one neutral fill): an unflagged state's face is the plain land in Full — nothing paints a state apart from its neighbours but its border (docs/atlas.md
+    // §2 (a)). In PERSONAL the state is not drawn at all since decision a of the owner's sixth look (2026-10-18, later the same day): no face, no border, its ground the darker
+    // EMPTY land of `drawHistoryDim` (HIST_DIM, half the land's luminance) — the check below asserted the plain land in Personal until then and was changed deliberately
+    // (test-atlas-personal.js holds the rule for every kind). The probe is the polity's own label anchor (inside its face); the points around it that read as land in the
+    // present and are not the darker empty land in Full are the face's
     const probe = unflagged.find((p) => p.kind === "polity");   // a state (a people is a stipple: its ground reads as land either way)
     if (probe) {
       const pts = [[0, 0], [0, 14], [0, -14], [14, 0], [-14, 0], [10, 10], [-10, 10], [10, -10], [-10, -10]].map(([dx, dy]) => [probe.sx + dx, probe.sy + dy]);
@@ -157,8 +159,9 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
       const inFace = pts.map((_, i) => landish[i] && near(pFull[i], pLand[i], 6));   // the face's points: the land colour in Full (the darker empty land outside the face, a border's stroke, are not)
       const nF = inFace.filter(Boolean).length;
       check(probe.text + " (not theirs): its face is the plain land in Full (at " + nF + " of 9 probe points)", nF >= 3, "full " + pFull[0] + " · land " + pLand[0]);
-      const nPlain = pts.filter((_, i) => inFace[i] && near(pPers[i], pLand[i], 6)).length;
-      check("…and the plain land in Personal at every one of those points (" + nPlain + " of " + nF + ")", nF >= 3 && nPlain === nF, pts.map((_, i) => inFace[i] ? "personal " + pPers[i] + " / land " + pLand[i] : "").filter(Boolean).join(" | "));
+      const dimmed = (a, b) => a && b && [0, 1, 2].every((j) => Math.abs(a[j] - b[j] * 0.5) <= 10);   // the darker empty land: every channel half the plain land's (HIST_DIM = 0.5)
+      const nDim = pts.filter((_, i) => inFace[i] && dimmed(pPers[i], pLand[i])).length;
+      check("…and the darker EMPTY land in Personal at every one of those points — the state is not drawn there (" + nDim + " of " + nF + ")", nF >= 3 && nDim === nF, pts.map((_, i) => inFace[i] ? "personal " + pPers[i] + " / land " + pLand[i] : "").filter(Boolean).join(" | "));
       await year(page, -483); await mode(page, "personal");
     } else check("an unflagged polity to probe", false);
     await shot(page, "personal-483");

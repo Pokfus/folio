@@ -269,7 +269,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "832db27a63:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "4f9e56215b:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -1408,9 +1408,9 @@
     let debugFill = null;   // the suites only (test-atlas-review.js): a visible fill in place of the neutral, so a fold or a crack in a mesh can still be read off the pixels
     const entColour = (i) => time.gameMask ? (gameColourOf(i) || [0, 0, 0]) : gameColourOf(i) || warColourOf(i) || (!EMBED && time.selected === i ? SEL_GOLD.rgb : debugFill || palette.land);   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
     /* THE PERSONAL ATLAS SHOWS ONLY THE READER'S OWN POLITIES (2026-10-17; the owner's phone): a state no studied card links — flag 2 of the study layer, the one
-       definition of "studied" (atlas/study.js) — is not named (the worker's study pass), not marked and not tappable (`tappable`, below); its face is plain land with its
-       border, which since 2026-10-18 is what every state's face is (the fill is the land colour in every mode), so nothing here paints it apart. The Full Atlas and the
-       plain Map name and mark every state. */
+       definition of "studied" (atlas/study.js) — is not named (the worker's study pass), not marked and not tappable (`tappable`, below). Until 2026-10-18 its face was
+       still drawn, plain land with its border; since decision a of the owner's sixth look it is not alive at all in Personal (`aliveShown`, above): no face, no border,
+       its ground the darker empty land. The Full Atlas and the plain Map name, mark and draw every state. */
     /* Find-it (atlas-embed.js): `layers.flat` draws every state of a year in the land colour with the modern borders' colour and width, and the outline's mask pass blacks the borders and the peoples out */
     function histBorderStyle() { if (!R.setHistoryBorderColor) return; R.setHistoryBorderColor(time.gameMask ? [0, 0, 0] : flatBorderOn ? palette.border : histBorderCss); if (R.setHistoryBorderWidth) R.setHistoryBorderWidth(flatBorderOn ? 0.9 : 1.1); if (R.setPresenceTheme) R.setPresenceTheme(time.gameMask ? false : histDark); }
     function restyleHist() { if (!time.hist || !time.view) return; time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })); time.view.pfaces = presenceDraw(null, 1); uploadStyle(); }
@@ -1424,6 +1424,14 @@
       for (const [ent, l] of time.stepsOf) { if (time.isPres[ent] || time.isFront[ent]) continue; let lo = 0, hi = l.length - 1; while (lo <= hi) { const m = (lo + hi) >> 1; if (l[m][1] < y) lo = m + 1; else if (l[m][0] > y) hi = m - 1; else { out.push({ face: l[m][2], ent, from: l[m][0], to: l[m][1] }); break; } } }
       return out;
     }
+    /* THE PERSONAL ATLAS DRAWS ONLY THE STATES A STUDIED CARD DISCOVERED (2026-10-18, the owner's sixth look, decision a: "they should not appear at all in
+       the Personal Atlas unless discovered through a card"). The alive set of a year is filtered to the entities with flag 2 of the study layer (atlas/study.js,
+       the one definition of "studied") — so an undiscovered state has no face, no border, no period capital and no name, and its ground is EMPTY land: the
+       darker land `drawHistoryDim` paints where no state is (docs/atlas.md §2 (b)). A nested or contested face is kept when any of its partners is the
+       reader's. The Map and the Full Atlas draw every state of the year, as before. The Atlas page only: a card window and Find it have no reader. */
+    const personalOnly = () => !EMBED && !!SU && ST.ready && ST.mode === "personal";
+    const entMine = (i) => { const e = time.ents[i]; if (!e) return false; if (ST.flags.get(e.id) === 2) return true; return Array.isArray(e.partners) && e.partners.some((id) => ST.flags.get(id) === 2); };
+    function aliveShown(y) { const all = aliveAt(y); return personalOnly() ? all.filter((a) => entMine(a.ent)) : all; }
     /* ---- Phase 2c: the PEOPLES AND CULTURES (design §2.5; study.js decides what a presence IS and what the switch lets through) ---- */
     function AS2() { return root.AtlasStudy || null; }
     const presShown = (ent) => { if (time.isExt[ent]) return time.warRoles.has(time.ents[ent].id) || extInAnyShownWar(ent); const a = AS2(); const id = time.ents[ent].id; return a ? a.peoplesShown(layers.peoples, PI.mode, id, PI.flags, time.linkedIds) : layers.peoples === "all" || (layers.peoples === "linked" && time.linkedIds.has(id)); };
@@ -1639,7 +1647,7 @@
       railPin.style.left = (railX(y) * 100) + "%";
       if (document.activeElement !== railYear) railYear.value = fmtYear(y);
       if (time.hist) {
-        const tq = performance.now(); computeWarRoles(y); const alive = aliveAt(y); if (time.frontDate != null && Math.floor(time.frontDate / 10000) !== y) time.frontDate = null; const pVis = (time.presEnts.length ? presAliveShown(y) : []).concat(time.frontEnts.length ? frontAliveAt(curFrontDate()) : []); time.yearQuery.push(performance.now() - tq); if (time.yearQuery.length > 600) time.yearQuery.shift();   // the query alone (2b): what the 5 ms rule names — the presences' too (2c)
+        const tq = performance.now(); computeWarRoles(y); const alive = aliveShown(y); if (time.frontDate != null && Math.floor(time.frontDate / 10000) !== y) time.frontDate = null; const pVis = (time.presEnts.length ? presAliveShown(y) : []).concat(time.frontEnts.length ? frontAliveAt(curFrontDate()) : []); time.yearQuery.push(performance.now() - tq); if (time.yearQuery.length > 600) time.yearQuery.shift();   // the query alone (2b): what the 5 ms rule names — the presences' too (2c)
         const key = alive.map((a) => a.face).join(",") + (pVis.length ? "|" + pVis.map((a) => a.face).join(",") : "") + (time.warKey ? "#" + time.warKey : "");
         const changed = key !== time.aliveKey;
         if (changed) {
@@ -1713,7 +1721,7 @@
       const ys = time.changeYears.length ? time.changeYears : changeYearsOnScreen();
       const next = time.dir > 0 ? ys.find((y) => y > time.year) : ys.slice().reverse().find((y) => y < time.year);
       if (next == null) return;
-      const va = viewAngleNow(); wantMeshes(aliveAt(next).concat(time.presEnts.length ? presAliveShown(next) : []).filter((a) => faceOnScreen(a.face, va)).map((a) => a.face), false);
+      const va = viewAngleNow(); wantMeshes(aliveShown(next).concat(time.presEnts.length ? presAliveShown(next) : []).filter((a) => faceOnScreen(a.face, va)).map((a) => a.face), false);
     }
     function onHistoryFaces(m) {
       time.pending = Math.max(0, time.pending - 1);
