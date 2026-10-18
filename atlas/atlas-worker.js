@@ -1179,7 +1179,7 @@
         }
         if (z < 0.02 || !onScreen(x, y, MARGIN)) continue;
         const sub = srow ? srow.sub : "", cap = !!(srow && srow.cap), cls = AS.markClass(kind, sub, cap);   // the glyph class (decision e; a capital's square, decision b of 2026-10-17); null for an area: a name, no mark
-        list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub, cap) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind) : 0 });
+        list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub, cap) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind, cls) : 0 });   // the drawn size: half for every class but the capital (decision a, 2026-10-18)
       }
       /* CITY STACKS (2026-10-17, decision d): the marks of ONE CITY within STACK_PX (28) of one another on screen become one mark with a count,
          at their mean position, named for the city; its members are not drawn (the page's popup pages through them). Never across cities, never
@@ -1196,7 +1196,7 @@
             for (const mm of mem) { sx += mm.x; sy += mm.y; if (mm.f > f) f = mm.f; if (mm.z > z) z = mm.z; n += mm.n; drop2.add(mm.id); }
             sx /= mem.length; sy /= mem.length;
             const name = study.cityName.get(cid) || cid, id = "stk:" + cid + ":" + stacks.length;
-            const hh = Math.max(h0 * 1.4, 6.5 * FS);   // a count must fit inside: never under 13 px across
+            const hh = AS.ringHalf(h0, FS);   // a count must fit inside, in a 9 px bold figure: never under 19 px across (decision a, 2026-10-18)
             stacks.push({ id, kind: "stack", sub: "", cls: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: "stack", layer: AS.markLayer("stack", f), h: hh });
           }
         }

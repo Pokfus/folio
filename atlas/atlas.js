@@ -2030,7 +2030,8 @@
        Every place and every polity the layer flags is ONE mark at its own position, at any zoom: no cluster, no count (the owner's
        decision, docs/atlas-v2-design.md §7 "Stacks removed"). The worker posts the list at each layout (`L.marks`, unit vectors); the
        page projects every mark EVERY FRAME, so a mark is at its true place and sized for the zoom of the moment (AtlasStudy.markHalf: a
-       dot about 4 px across at the widest view, 16 px by city scale) whatever a gesture is doing. A mark that would lie past the
+       dot about 4 px across at the widest view, 16 px by city scale; since 2026-10-18, decision a, every glyph but the capital's square is
+       DRAWN at half of that — AtlasStudy.markScale — and the city ring at the size its 9 px count needs, AtlasStudy.ringHalf) whatever a gesture is doing. A mark that would lie past the
        frame's edge or under a control (the chrome the last layout measured: the study panel, the rail, the card …) is not drawn in
        that frame and cannot be tapped. THREE SHAPES AND THEIR COLOURS ARE THE OLD ONES: a diamond for a settlement, a site and any
        other place, a triangle for a mountain, a hill (smaller) or a cape, a disc for a polity; the reader's own filled with the accent,
@@ -2064,17 +2065,17 @@
     /* NO closePath: in this Chromium a path built with moveTo / lineTo / closePath per mark cost 5.3 ms per thousand marks against 0.3 ms
        for the same shapes ending in an explicit lineTo to their start (measured, headless, 2026-10-14) — a Full Atlas of a thousand marks
        is the difference between a third of a frame and none of it. The round line cap closes the outline's corner. */
-    const markLine = (half) => (half < 3 ? 1 : half < 6 ? 1.5 : 2);
+    const markLine = (half) => root.AtlasStudy.markLine(half);   // the outline for a glyph of that DRAWN half-extent: scales with it, never under 1.25 px (study.js, decision a of 2026-10-18)
     const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, star: 5, stack: 6, house: 7 };   // eight shapes, a batch each
     /* the marks of a layout, indexed for the frame loop: one flat array of unit vectors and the groups (layer, reader's own or not, shape,
        hill or not) each drawn as ONE path — so a frame projects each mark once, allocates nothing, and is a fill and a stroke per group */
     function indexMarks() {
-      const marks = L.marks, n = marks.length, groups = new Map(), ax = new Float32Array(3 * n);
+      const marks = L.marks, n = marks.length, groups = new Map(), ax = new Float32Array(3 * n), A = root.AtlasStudy;
       L.markIndex = new Map();
       for (let i = 0; i < n; i++) {
         const m = marks[i]; ax[3 * i] = m.a[0]; ax[3 * i + 1] = m.a[1]; ax[3 * i + 2] = m.a[2]; L.markIndex.set(m.id, i);
-        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);
-        let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, scale: m.kind === "hill" ? 0.75 : 1, layer: m.layer, idx: [] });
+        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);   // the shape decides the class (a square is the capital's), so the scale is one per key
+        let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, scale: A.markScale(m.kind, m.cls), layer: m.layer, idx: [] });
         g.idx.push(i);
       }
       L.markGroups = [...groups.values()].sort((p, q) => p.key - q.key);
@@ -2104,7 +2105,7 @@
       x.beginPath(); markInto(x, shape, half, half, hq, lw); x.fill(); x.stroke();
       if (count) {   // a city stack's count, inside its ring (decision d)
         x.textAlign = "center"; x.textBaseline = "middle";
-        x.font = `700 ${Math.max(8, Math.min(hq * 1.1, 13)).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
+        x.font = `700 ${(root.AtlasStudy.STACK_FONT_PX * LS).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;   // a 9 px bold figure (decision a, 2026-10-18): the ring is sized to hold two digits of it
         x.fillStyle = mine ? haloCss : inkCss; x.fillText(String(count), half, half + 0.5);
       }
       s = { c, half, w: 2 * half }; markSprites.set(key, s); return s;
@@ -2115,14 +2116,14 @@
       if (!marks.length || !A || !L.mA) { L.lastMarkMs = 0; return; }
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy, ch = L.chrome || [], nch = ch.length;
       const r0 = rot[0], r1 = rot[1], r2 = rot[2], r3 = rot[3], r4 = rot[4], r5 = rot[5], r6 = rot[6], r7 = rot[7], r8 = rot[8];
-      const half = A.markHalf(view.kmpp) * LS, lw = markLine(half), ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH, dpr = labelRes();
+      const half = A.markHalf(view.kmpp) * LS, ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH, dpr = labelRes();
       const snap = (v) => Math.round(v * dpr) / dpr;
       const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : cardStack && L.markIndex.has(cardStack.id) ? L.markIndex.get(cardStack.id) : -1, aliveEnt = time.aliveEnt;   // the open stack is the selected mark
       let ln = 0, selK = -1;
       const faint = [], hair = [];
       ctx.globalAlpha = 1;
       for (const g of L.markGroups) {
-        const shape = g.shape, stack = shape === "stack", h = stack ? Math.max(half * 1.4, 6.5 * LS) : half * g.scale, e = h + 1, idx = g.idx, polity = g.layer === 2;
+        const shape = g.shape, stack = shape === "stack", h = stack ? A.ringHalf(half, LS) : half * g.scale, lw = markLine(h), e = h + 1, idx = g.idx, polity = g.layer === 2;   // the drawn size (decision a, 2026-10-18): half for every class but the capital; the outline follows it
         const sp = stack ? null : markSprite(shape, h, lw, g.mine, 0);   // a stack's sprite carries its count: fetched per mark
         for (let k = 0; k < idx.length; k++) {
           const i = idx[k], j = 3 * i, a0 = ax[j], a1 = ax[j + 1], a2 = ax[j + 2];
@@ -2147,7 +2148,7 @@
       if (hair.length) {   // drawn after the rings' blits in frame order, but a hairline is 1 px and ends at the ring's edge, so it never crosses a ring
         ctx.lineCap = "round";
         for (const k of hair) {
-          const m = marks[li[k]], ox = m.ox || 0, oy = m.oy || 0, d = Math.hypot(ox, oy), hh = lh[k];
+          const m = marks[li[k]], ox = m.ox || 0, oy = m.oy || 0, d = Math.hypot(ox, oy), hh = lh[k], lw = markLine(hh);
           if (d <= hh - 1) continue;   // the true point still lies under the ring
           const x1 = lx[k] - ox, y1 = ly[k] - oy, x0 = lx[k] - ox / d * (hh - lw / 2), y0 = ly[k] - oy / d * (hh - lw / 2);
           ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1);
@@ -2157,7 +2158,7 @@
       }
       if (faint.length) {
         for (const k of faint) {
-          const m = marks[li[k]], s = markSprite(m.shape, lh[k], lw, m.st === 2, m.count || (m.members ? m.members.length : 0));
+          const m = marks[li[k]], s = markSprite(m.shape, lh[k], markLine(lh[k]), m.st === 2, m.count || (m.members ? m.members.length : 0));
           const z = rot[6] * m.a[0] + rot[7] * m.a[1] + rot[8] * m.a[2];
           ctx.globalAlpha = Math.max(0.05, Math.min(1, z / 0.2)); ctx.drawImage(s.c, snap(lx[k] - s.half), snap(ly[k] - s.half), s.w, s.w);
         }
@@ -2168,8 +2169,8 @@
         markInto(path, m.shape, lx[selK], ly[selK], lh[selK] + 1, 2);
         ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = 2; ctx.strokeStyle = selCss; ctx.fillStyle = m.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
         if (m.members) {   // the open stack's count, over its highlighted ring
-          const hh = lh[selK] + 1; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-          ctx.font = `700 ${Math.max(8, Math.min(hh * 1.1, 13)).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
+          ctx.textAlign = "center"; ctx.textBaseline = "middle";
+          ctx.font = `700 ${(A.STACK_FONT_PX * LS).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
           ctx.fillStyle = m.st === 2 ? haloCss : inkCss; ctx.fillText(String(m.count || m.members.length), lx[selK], ly[selK] + 0.5);
           ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
         }

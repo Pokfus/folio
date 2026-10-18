@@ -144,7 +144,8 @@
      The owner's decision: a number standing in for nearby places is gone for good — no clustering, no count, at any zoom, in the Personal
      or the Full Atlas, with no setting to bring it back. What replaced `cluster` is the arithmetic of a mark that is always one place:
        · its SIZE grows with the zoom — `markHalf` is the half-extent in CSS px (outline included): a dot about 4 px across at the widest
-         view, today's 16 px by city scale — so a wide view of 1,300 places is dots, not a wall of diamonds;
+         view, 16 px by city scale — so a wide view of 1,300 places is dots, not a wall of diamonds; since 2026-10-18 (decision a) every
+         glyph but the capital's square is DRAWN at half of that (`markScale`), the capital at the full size;
        · its SHAPE is `markShape` (a diamond for a settlement or a site and any other place, a triangle for a mountain, a hill or a cape,
          a disc for a polity, a people, a culture or an authored extent) and its LAYER `markLayer` is the draw order, back to front:
          places not studied (0), places studied (1), polities (2); the selected mark is drawn last of all;
@@ -230,7 +231,20 @@
     }
     return out;
   }
-  function markScale(kind) { return kind === "hill" ? 0.75 : 1; }   // a hill is the smaller triangle, as it was
+  /* THE DRAWN SIZES (2026-10-18; the owner's phone, decision a: "circles, diamonds and every other icon except the capital-city squares should be
+     about 50 % smaller"). Every glyph but the capital's square is drawn at HALF the half-extent markHalf gives, at every zoom (linear ×0.5); the
+     capital's square keeps its full size; a hill is still the smaller triangle (×0.75 of its class). `markScale(kind, cls)` is that factor, shared
+     by the worker (the obstacle a mark is to the names) and the page (the sprite drawn). The HIT AREA is not the drawn size: the page's `markRadius`
+     is 16 px with a mouse and 22 with a finger whatever is drawn, so a tap target stays at least 32 px. An outline scales with its glyph but never
+     under MARK_LINE_MIN (1.25 px), so a 2 px disc at the widest view still reads. The city ring (`ringHalf`) is the one glyph that may stay larger
+     than half: it must hold its count in a STACK_FONT_PX (9 px) bold figure of two digits — "88" at 9 px bold is 12 px wide and 7 px tall in
+     Chromium's system face, its widest point on the centre line, so the ring's inner radius must be about 7 px; with a 2 px outline and the disc
+     geometry's 0.92 that is a half-extent of 9.5 px (19 px across), where today's ring was 22 px across at city scale and 13 at the widest view
+     (its 8 px figure touching the ring). Above that floor the ring follows the halved marks (1.4 × the halved half), which no zoom reaches. */
+  const MARK_SMALL = 0.5, MARK_LINE_MIN = 1.25, RING_MIN_PX = 9.5, STACK_FONT_PX = 9;
+  function markScale(kind, cls) { return (cls === "capital" ? 1 : MARK_SMALL) * (kind === "hill" ? 0.75 : 1); }   // a hill is the smaller triangle, as it was
+  function ringHalf(half, scale) { return Math.max(half * 1.4 * MARK_SMALL, RING_MIN_PX * (scale > 0 ? scale : 1)); }   // `half` is markHalf × the text scale, `scale` the text scale
+  const markLine = (half) => Math.max(MARK_LINE_MIN, half < 3 ? 1 : half < 6 ? 1.5 : 2);   // the outline's width for a glyph of that drawn half-extent
   function markLayer(kind, f) { return POLITY_KIND.test(kind || "") ? 2 : f === 2 ? 1 : 0; }   // a stack is a place's layer (its own or the reader's)
   /* the marks within `radius` px of (x, y): `pts` [{ x, y }] → indices, nearest first (a tie keeps the order given) */
   function nearMarks(pts, x, y, radius) {
@@ -559,7 +573,7 @@
     return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
   }
 
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLine, ringHalf, MARK_SMALL, MARK_LINE_MIN, RING_MIN_PX, STACK_FONT_PX, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);
