@@ -13,6 +13,9 @@
                 province; aliases distinct and never the name; names plain (no markup)
      Wikidata   every row's item is in the cache (places-wikidata.json `items`) with a coordinate within 1 km of the row's `at`
                 and with classes — the row was checked against the service, never typed; a manual row the same
+     anchors    (2026-10-18) every area place a card links (a region, an island, a sea, a lake …) has its label anchor inside the area the linking card
+                draws, or within 25 km of its outline or of the locator's own coordinate (lib/place-anchors.js); an exception is an `allow` entry with a
+                reason in place-anchors.json, a decision of the owner's. The gazetteer's own label points are listed, not gated
      size       the file is under 0.3 MB (decimal), so the registry's two files stay under 0.9 MB together */
 "use strict";
 const fs = require("fs"), path = require("path");
@@ -77,6 +80,18 @@ for (const r of rows) { const it = items[r.qid]; if (!it) { unchecked.push(r.id)
 unchecked.length ? bad("every row's item is in the Wikidata cache", unchecked.length + ": " + unchecked.slice(0, 5).join(", ")) : ok("every row's item is in the Wikidata cache", rows.length + " items, retrieved " + (cache.retrieved || "never"));
 far.length ? bad("every row's `at` is the item's coordinate (within 1 km)", far.slice(0, 5).join("; ")) : ok("every row's `at` is the item's coordinate (within 1 km)");
 noClass.length ? bad("every row's item carries classes", noClass.slice(0, 5).join(", ")) : ok("every row's item carries classes");
+/* the area places' label anchors (2026-10-18): a region matched to a homonym stands in the wrong country */
+{
+  const A = require("./lib/place-anchors.js");
+  const ALLOW = JSON.parse(fs.readFileSync(path.join(__dirname, "place-anchors.json"), "utf8")).allow || {};
+  const { loadCards } = require(path.join(ROOT, ".claude", "card-io.js"));
+  const res = A.audit(reg, loadCards().cards, ALLOW);
+  const unallowed = res.offenders.filter((o) => !o.allowed);
+  unallowed.length ? bad("every area place's label anchor lies in the area its card draws (or within " + A.ANCHOR_KM + " km of it)", unallowed.slice(0, 6).map((o) => o.name + " (" + o.id + ") " + Math.round(o.km) + " km off, " + o.card).join("; ")) : ok("every area place's label anchor lies in the area its card draws (or within " + A.ANCHOR_KM + " km of it)", res.checked + " places.js rows checked, " + res.offenders.length + " allowed with a reason");
+  const stale = Object.keys(ALLOW).filter((id) => !res.offenders.some((o) => o.id === id));
+  stale.length ? bad("every place-anchors.json entry still fires", stale.join(", ")) : ok("every place-anchors.json entry still fires");
+  if (!quiet) for (const g of res.gazetteerBeyond) console.log("  note  gazetteer " + g.name + " (" + g.id + ", " + g.kind + ") " + Math.round(g.km) + " km from " + g.card + "'s area — a label point, listed not gated");
+}
 /* the glossary's "show on the Atlas" table (Phase 3c, task 2): atlas/data/glossary-places.js is a pure function of glossary.js, the spec and the registry */
 {
   const GP = require("./build-glossary-places.js");

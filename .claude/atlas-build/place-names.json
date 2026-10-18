@@ -1,0 +1,21 @@
+{
+ "_about": "Dated display names of REGISTRY places (a gazetteer or places.js row, by id), the way polity-names.json dates a polity's: the Atlas shows `name` in the years from–to and the row's own name in every other (build-polity-names.js merges this file into atlas/data/polity-names.js; the label layout, the place card and the search read it). Nothing is typed from memory: `evidence` names the Wikidata items and the dates they carry, and build-polity-names.js refuses an entry whose id is not a registry row or whose years overlap another's.",
+ "names": [
+  {
+   "id": "lake:117",
+   "from": -10000,
+   "to": 1931,
+   "name": "Zuiderzee",
+   "qid": "Q228655",
+   "evidence": "Wikidata Q228655, label \"Zuiderzee\": \"former bay of the North Sea in the Netherlands, now a separate inland sea or artificial lake divided among the Wadden Sea, Ijsselmeer, and Markermeer\"; the IJsselmeer (Q4121) has inception 1932 and the Afsluitdijk (Q240960) inception 1932 (read 2026-10-18). The gazetteer's lake:117 is HydroLAKES polygon 117, the IJsselmeer with the Markermeer and the randmeren. From -10000 (the Atlas's first year): the layer draws this water as the Zuiderzee in every year before the dam (docs/atlas-v2-historical-coastlines.md); English Wikipedia's article says the bay existed 'from roughly 1170' and was historically called Lake Almere and Lake Flevo — the owner is asked whether the older names should be dated."
+  },
+  {
+   "id": "lake:117",
+   "from": 1932,
+   "to": 9999,
+   "name": "IJsselmeer",
+   "qid": "Q4121",
+   "evidence": "Wikidata Q4121, English label \"IJsselmeer\" (the gazetteer spells it \"Ijsselmeer\", HydroLAKES' own capitalisation), inception 1932, \"artificial lake in the Netherlands\"; Q240960 (Afsluitdijk) inception 1932 (read 2026-10-18)."
+  }
+ ]
+}

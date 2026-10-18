@@ -412,6 +412,57 @@ function run() {
     (fine || coarse > COARSE_BUDGET) ? bad("per epoch: no two drawn segments of the alive faces cross at the finest level, and under " + COARSE_BUDGET + " at the coarser levels", `${crossBad} (${crossSites.size} distinct arc pairs × LOD; per LOD ${crossByLod.join("/")}); ${(verbose ? samples : samples.slice(0, 6)).filter((s) => s.startsWith("crossing")).join("; ")}`) : ok("per epoch: no two drawn segments of the alive faces cross at the finest level; coarser levels within budget", `${coarse} coarse-level crossings over all alive sets (budget ${COARSE_BUDGET}; per LOD ${crossByLod.join("/")}, ${crossSites.size} distinct arc pairs × LOD)`);
     contestedBad ? bad("per epoch: a contested face's partners are alive", `${contestedBad}`) : ok("per epoch: a contested face's partners are alive");
   }
+  /* NO BORDER EDGE WITHOUT A FACE ON BOTH SIDES, UNLESS IT IS A COAST OR AN OUTER LIMIT (2026-10-18, the owner's phone: "two stray straight grey lines in Italy at 1660 CE").
+     The per-epoch block above lets an arc used by ONE alive face through when the arc is flagged OPEN (unmapped land on the other side) — but a flag is a claim, and it is
+     a claim per arc over every epoch, so an arc flagged OPEN for one year passes in a year its other side IS another state's face (two borders that nearly coincide and
+     are drawn twice) or a face lies on both its sides (a seam inside one state). Here the claim is tested in every epoch: for every non-coast arc one alive face uses once,
+     a point OFF_DEG (0.0012°, about 135 m) off the middle of its longest segment on each side must be inside the arc's own face on one side and in NO alive face on the
+     other (the outer limit); a point inside another alive face is a border edge the other face does not share, a point inside the own face on both sides a seam. The faces
+     are tested with the even-odd rule on the finest level's rings, longitudes unwrapped about the point. KNOWN_ONE_SIDED lists what the check found in the committed
+     file — Cliopatria's own overlaps and near-coincident rows, each with its cause — and a new one fails; a listed one that no longer fires fails too. */
+  {
+    const OFF_DEG = 0.0012, MIN_SEG_M = 300;
+    const KNOWN_ONE_SIDED = {
+      "pol:macedon|self|73.5,35.7": "Cliopatria carries the Macedonian Empire's polygon twice in -323..-319 (the rows \"(Macedonian Empire)\" and \"Macedonian Empire\" both hold the point): the conflation leaves a seam inside the face",
+      "pol:rome|pol:ptolemaic|20.8,42.4": "the Ptolemaic Kingdom's row of -31 reaches the Balkan coast at 20.8 E 42.4 N, within 135 m of the Roman border without sharing its line (a near-coincident pair of source borders)",
+      "pol:byzantium|pol:venice|22.7,37.6": "the Venetian enclave at Methoni/Koroni (1395–1429) lies inside the Byzantine Morea, the two borders within 135 m of each other and unshared (a near-coincident pair of source borders)",
+      "pol:ottoman|pol:venice|22.7,37.6": "the same Venetian enclave in 1402, bordering the Ottoman row",
+      "pol:ussr|pol:estonia_1918|27.5,58.5": "the Soviet row of 1922–1934 and Estonia's meet along the Narva–Pskov line within 135 m without sharing it (a near-coincident pair of source borders)",
+    };
+    const wx = (x, px) => { let d = x - px; if (d > X180) d -= 2 * X180; else if (d < -X180) d += 2 * X180; return d; };
+    const ringCache = new Map();
+    const ringOf = (fi, ri) => { const k = fi + ":" + ri; let r = ringCache.get(k); if (r) return r; const pts = []; for (const ref of T.faces[fi].rings[ri]) { let g = geom(Math.abs(ref) - 1, LODS - 1); if (ref < 0) g = g.slice().reverse(); for (let i = pts.length ? 1 : 0; i < g.length; i++) pts.push(g[i]); } let y0 = Infinity, y1 = -Infinity, x0 = Infinity, x1 = -Infinity, wrap = false; for (let i = 0; i < pts.length; i++) { if (pts[i][1] < y0) y0 = pts[i][1]; if (pts[i][1] > y1) y1 = pts[i][1]; if (pts[i][0] < x0) x0 = pts[i][0]; if (pts[i][0] > x1) x1 = pts[i][0]; if (i && Math.abs(pts[i][0] - pts[i - 1][0]) > X180) wrap = true; } r = { pts, y0, y1, x0, x1, wrap }; ringCache.set(k, r); return r; };
+    const inRing = (px, py, pts) => { let c = false; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) { const ax = wx(pts[i][0], px), ay = pts[i][1], bx = wx(pts[j][0], px), by = pts[j][1]; if ((ay > py) !== (by > py) && 0 < ((bx - ax) * (py - ay)) / (by - ay) + ax) c = !c; } return c; };
+    const inFace = (px, py, fi) => { let c = false; const rs = T.faces[fi].rings; for (let ri = 0; ri < rs.length; ri++) { const r = ringOf(fi, ri); if (py < r.y0 || py > r.y1 || (!r.wrap && (px < r.x0 || px > r.x1))) continue; if (inRing(px, py, r.pts)) c = !c; } return c; };
+    const seen = new Set(), found = new Map(); let epochs = 0, tested = 0, skipped = 0;
+    for (let yi = 0; yi + 1 < years.length; yi++) {
+      const y = years[yi]; const faces = aliveAt(y); if (!faces.length) continue; const key = faces.join(","); if (seen.has(key)) continue; seen.add(key); epochs++;
+      const uses = new Map();
+      for (const fi of faces) for (const r of T.faces[fi].rings) for (const ref of r) { const a = Math.abs(ref) - 1; let l = uses.get(a); if (!l) uses.set(a, l = []); l.push(fi); }
+      for (const [a, l] of uses) {
+        if (T.arcKind[a] === KIND.COAST || l.length !== 1) continue;
+        const g = geom(a, LODS - 1); let best = 0, bi = 1; for (let i = 1; i < g.length; i++) { const d = G.chordMetres(arcVec(g[i - 1]), arcVec(g[i])); if (d > best) { best = d; bi = i; } }
+        if (best < MIN_SEG_M) { skipped++; continue; }
+        const p = g[bi - 1], q = g[bi], mx = p[0] + wx(q[0], p[0]) / 2, my = (p[1] + q[1]) / 2;
+        const lat = (my * Q) * Math.PI / 180, dx = wx(q[0], p[0]) * Math.cos(lat), dy = q[1] - p[1], len = Math.hypot(dx, dy) || 1, nx = -dy / len, ny = dx / len, off = OFF_DEG / Q;
+        const A = [mx + (nx * off) / Math.cos(lat), my + ny * off], B = [mx - (nx * off) / Math.cos(lat), my - ny * off];
+        tested++;
+        const own = l[0], fa = inFace(A[0], A[1], own), fb = inFace(B[0], B[1], own);
+        let why = null, other = null;
+        if (fa && fb) { why = "the face lies on both sides"; other = "self"; }
+        else if (fa || fb) { const pt = fa ? B : A; for (const fj of faces) if (fj !== own && inFace(pt[0], pt[1], fj)) { other = H.entities[T.faces[fj].entity].id; why = "the other side lies inside " + other; break; } }
+        if (!why) continue;
+        const ent = H.entities[T.faces[own].entity].id;
+        const rk = `${ent}|${other}|${(Math.round(mx * Q * 10) / 10).toFixed(1)},${(Math.round(my * Q * 10) / 10).toFixed(1)}`;
+        let e = found.get(rk); if (!e) found.set(rk, e = { why, arc: a, years: [] }); e.years.push(y);
+      }
+    }
+    const fresh = [...found].filter(([k]) => !KNOWN_ONE_SIDED[k]), stale = Object.keys(KNOWN_ONE_SIDED).filter((k) => !found.has(k));
+    fresh.length ? bad("no border edge lacks a face on both sides unless it is a coast or an outer limit (the other side of every one-sided arc is unmapped)", fresh.slice(0, 6).map(([k, e]) => `${k} (arc ${e.arc}, ${e.why}, ${e.years[0]}..${e.years[e.years.length - 1]})`).join("; ")) : ok("no border edge lacks a face on both sides unless it is a coast or an outer limit: the other side of every one-sided arc is unmapped", `${tested} one-sided arcs over ${epochs} alive sets; ${found.size} known source overlap(s) listed`);
+    stale.length ? bad("every KNOWN_ONE_SIDED entry still fires (remove the ones the build no longer shows)", stale.join("; ")) : ok("every KNOWN_ONE_SIDED entry still fires");
+    for (const [k, e] of found) note(`one-sided, known: ${k} — ${e.why}, ${e.years.length} alive set(s) from ${e.years[0]}: ${KNOWN_ONE_SIDED[k] || "NOT LISTED"}`);
+    void skipped;
+  }
   /* the PRESENCE layer (Phase 2c): peoples and cultures are drawn over the states with no border, so they are checked ALONE — the
      state partition above ignores them. Every presence face is class SOFT; its ring is the coast (a core reference walked forward,
      land on its left) and its own SOFT arcs, never a present-day border and never an own BORDER arc; each face is planar by itself at

@@ -87,6 +87,10 @@ renderer has only the `water` state; §6 says what the other state would take.
 (the fault); Manitoulin is land; the alive set follows the year; the lakes switch does not remove a patch. `build-land-changes.js --check`
 in CI's fast job; `check-water.js` holds the 12 MB; `check-core-cache.js --install` after the worker edit.
 
+### 1.3 The strays of 2026-10-18 (the owner's phone: "stray lines and double outlines in the sea", the IJsselmeer at 1660 CE)
+
+The strips of §1.2 are unioned into each row at `--fetch`, and the union left specks: of 34 rings, 20 were under 0.05 km² (three single triangles — present-day land inside a water patch, drawn as a dot with an outline), one hole was the 99 m wide strip of the Noordoostpolder's Ketelmeer dyke (the horizontal line), and 29 stroked edges sat in runs under 1.5 km. `build-land-changes.js` now applies three rules to the cached rings (`cleanRings`, `trimShoreRuns`; also at `--fetch`): every ring at least `MIN_RING_KM2` (0.05 km²); every hole at least `MIN_ISLAND_WIDTH_M` (150 m) wide on average (2 × area ÷ perimeter) — the dykes of the works are under it (the Afsluitdijk 90 m), Schokland (394 m) is over it; a thin OUTER ring is kept, it is the Houtribdijk made water; no stroked run under `MIN_SHORE_RUN_M` (1.5 km). 34 rings became 13. `test-land-change-rings.js` holds the arithmetic for 1660 and every interval between reclamations, `test-land-changes.js` the pixels. **Still land at every year: the Afsluitdijk (in no row) and, from 1957, the Houtribdijk** — making either a row needs a geometry cut (the Houtribdijk joins the Oostelijk polygon by a neck the 75 m simplification severs; CBS has no unit for the Afsluitdijk). The water's NAME is dated by `place-names.json` (the Zuiderzee to 1931, the IJsselmeer from 1932).
+
 ## 2. The question: can historical coastlines be applied systematically, 10,000 BCE to today?
 
 Three different things change a coast, and they need three different kinds of data:

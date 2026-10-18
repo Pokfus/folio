@@ -660,7 +660,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     // THE KEYBOARD ROUTE: the hidden list of names holds Rome's; Enter on it makes the same selection
     await A(page, (c) => c.clearSelection()); await sleep(300); await settle(page);
     const key = await page.evaluate(() => { const b = document.querySelector('.atlas2-keys button[data-id="pol:rome"]'); if (!b) return null; b.focus(); return b.textContent; });
-    check("the hidden list of names on the map has a button for Rome", /^Rome, /.test(key || ""), key);
+    check("the hidden list of names on the map has a button for Rome (named for its row of the year since 2026-10-18: Roman Republic, Roman Empire …)", /^(Rome|Roman Republic|Roman Empire|Western Roman Empire), /.test(key || ""), key);
     if (key) { await page.keyboard.press("Enter"); await sleep(900); const s5 = await A(page, (c, p) => ({ id: c.selectedId(), card: c.card(), rings: c.selection().rings, px: c.pixelAt(p[0], p[1]) }), clear), ink5 = await goldInk(); check("Enter on it selects the whole state the same way: the gold fill, the outline, the popup", s5.id === "pol:rome" && s5.card.open && s5.rings > 0 && ink5 > 200 && tinted(s5.px, before), JSON.stringify({ id: s5.id, rings: s5.rings, ink5, px: s5.px })); }
     // NO CARD, NO SELECTION: in the Personal Atlas Rome is not the reader's (no studied card links it) — the same tap does nothing
     await A(page, (c) => c.clearSelection()); await sleep(200); await mode(page, "personal");
