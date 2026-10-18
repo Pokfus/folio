@@ -23572,8 +23572,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      be (a sentence counting the shelf's books stood under the row for a day and was removed on request). The
      passage is homeReadingNextHTML in its random
      mode (a paragraph of some chapter, not the preface's first line), filled in by homeReadingNextFill once the
-     book's lazy file arrives — at idle, and never in light mode or on cellular, because the file is a whole
-     book and nobody asked for this one. A press opens the book at its start (the click handler reads
+     book's lazy file arrives — once the box is in view (not on boot), and never in light mode or on cellular,
+     because the file is a whole book and nobody asked for this one. A press opens the book at its start (the click handler reads
      `data-book` as it does for a book in progress); a press on the passage opens its chapter. */
   function homeSuggestedHTML() {
     const b = BOOKS.length ? BOOKS[Math.floor(Math.random() * BOOKS.length)] : null;
@@ -23634,7 +23634,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const h = homeReadingNextHTML(b, suggest ? null : readingPos(id), { random: suggest });
       if (h) rd.insertAdjacentHTML("beforeend", h);
     });
-    if (suggest) whenIdle(fill); else fill();
+    if (!suggest) { fill(); return; }
+    /* THE SUGGESTED PASSAGE IS FETCHED WHEN THE BOX IS SEEN, NEVER ON BOOT (Oct 2026, a CI fault: the first cut
+       fetched a random book's whole file at idle on every home load, which broke the rule that no book text
+       loads with the page — test-library §2). The box itself (title, author, languages) needs only the light
+       shelf index; the passage waits until the box is in the viewport, and a browser without
+       IntersectionObserver shows the box without one. */
+    if (!("IntersectionObserver" in window)) return;
+    const obs = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      obs.disconnect();
+      whenIdle(fill);
+    });
+    obs.observe(rd);
   }
   /* The day's and the week's figures: cards from the daily totals, time and recall from the per-answer
      log. TODAY IS A SECTION OF THIS BOX (Oct 2026, on request), where it replaces the "studied 13m today"
