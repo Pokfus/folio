@@ -847,8 +847,9 @@
       /* THE PERSONAL ATLAS NAMES NOTHING A STUDIED CARD HAS NOT DISCOVERED (2026-10-18, the owner's sixth look, decision a): a country, a province, a
          base-map city or town (Bologna's dot and name), a sea, an ocean, a gulf, a strait, a lake, an island, a range, a region (a continent, a desert)
          is a candidate in Personal ONLY with flag 2 — no name, no dot, no muted copy; not for orientation. The Map and the Full Atlas are unchanged.
-         A river's line is drawn whatever its name (the lines are the renderer's). */
-      if (study && study.mode === "personal" && hl !== 2 && k !== "river") continue;
+         A river's LINE is drawn whatever its name (the lines are the renderer's, drawn whenever the layer is on); its NAME follows the same rule — in
+         Personal only a river a studied card discovered is named (decision c); the Map and the Full Atlas name rivers as before. */
+      if (study && study.mode === "personal" && hl !== 2) continue;
       let chordPx = row.len / kmpp;
       if (k === "country") { if (!hl && (!show.countries || chordPx < MIN_CHORD_PX)) continue; if (!hl && row.z && zl > row.z[1] + 2) continue; }
       else if (k === "admin1") { if (!hl && (!show.countries || !show.provinces || !q.admin1 || chordPx < MIN_CHORD_PX)) continue; }
