@@ -445,6 +445,9 @@ const CARD = () => {
     const sug = await page.evaluate(() => { const b = document.querySelector("#b-reading"); return b ? { k: (b.querySelector(".hb-k") || {}).textContent, book: b.dataset.book, suggest: b.dataset.suggest, title: (b.querySelector(".hb-body b") || {}).textContent, empty: !!b.querySelector(".hb-empty") } : null; });
     check("a reader who has never opened a book meets a Suggested reading box naming a random book of the shelf", !!sug && sug.k === "Suggested reading" && !!sug.book && sug.suggest === "1" && !!sug.title, JSON.stringify(sug));
     check("...with no sentence counting the shelf's books under it (removed on request)", !!sug && !sug.empty);
+    /* The passage is fetched when the box is SEEN, never on boot (app.js homeReadingNextFill; test-library §2 holds the other half),
+       so the reader scrolls it into view before the book's file is asked for. */
+    await page.evaluate(() => document.querySelector("#b-reading").scrollIntoView({ block: "center" }));
     await page.waitForFunction(() => !!document.querySelector("#b-reading .hb-next"), null, { timeout: 60000 }).catch(() => {});
     const pas = await page.evaluate(() => { const n = document.querySelector("#b-reading .hb-next"); return n ? { k: n.querySelector(".hb-next-k").textContent, len: n.querySelector(".hb-next-p").textContent.length, n: n.dataset.n } : null; });
     check("...and a passage from one of its chapters arrives once the book's file does", !!pas && /^A passage \u00b7 /.test(pas.k) && pas.len > 40 && !!pas.n, JSON.stringify(pas));
