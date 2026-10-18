@@ -6,7 +6,7 @@
    The owner's two reports: (1) "clicking countries to select them does not light them up as it should"; (2) "historical states are displayed in varying colours; they should all be the same colour,
    like modern states". THE CAUSES: (1) the pick was a BLUE wash at alpha 0.30 with an outline only on a country round — on an area round the pick was the state's own fill REPLACED by the pick's colour
    (atlas.js `put` used the tint at the history's 1.7 × fill alpha, no outline, no glow: embed.js's past-year branch had no mask pass), which, among states in a dozen hues of their own, was one more hue, not
-   a selection; a place round showed a thin blue cross. (2) an area round drew the year's states in the history's own golden-angle hues (`entColourAt`), as the Atlas page does; Find it needs no hue to tell
+   a selection; a place round showed a thin blue cross. (2) an area round drew the year's states in the history's own golden-angle hues (`entColourAt`; gone since 2026-10-18, when the Atlas page too went to one neutral fill), as the Atlas page then did; Find it needs no hue to tell
    states apart (their borders do) and a hue is a clue. THE FIX: the pick is the card windows' own selection (TINT_SEL: gold, alpha 0.24, outline, glow) on a country and on a state of the year (embed.js `exact`
    highlights, an outline from a mask pass of the year's states: atlas.js `setMask`), lit by a fast frame at once and outlined within 140 ms; an area round is `layers.flat` (every state in the land colour,
    borders as a modern country's, atlas.js `setFlat`); where there is no region to light (a place round, a tap on no state, the still renderer's area round) the same gold marker.
