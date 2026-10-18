@@ -120,12 +120,13 @@ every old spelling and proves it.
 | you touched | re-run |
 |---|---|
 | `atlas.js`, `atlas-gl.js`, `atlas-canvas.js` (render, labels, picking) | `test-atlas-render.js`, `test-atlas-labels.js`, then `test-atlas-perf.js` (the frame gate) |
-| the rail, the year, the history | `test-atlas-time.js`, `test-atlas-stages.js`, `test-peoples.js`, `test-war-sides.js` |
+| the rail, the year, the history | `test-atlas-time.js`, `test-atlas-stages.js`, `test-peoples.js`, `test-war-sides.js`; the rail's plain track (no ticks, 2026-10-18) `test-atlas-review.js` §2 |
 | the place card, the search, the address | `test-atlas-card.js`, `test-atlas-search.js`, `test-atlas-redirects.js`, `test-layout.js` (the deep-link smoke) |
 | the keyboard and screen-reader path | `test-atlas-a11y.js` |
 | phones | `test-atlas-phone.js`, `test-card-windows-fixes.js` |
 | the study layer | `test-study.js` (no browser), `test-atlas-study.js`, `test-places.js`, `test-discovery.js` |
 | the tap rules, the popup's rows, city stacks, the glyphs, the labels' text (2026-10-17) | `test-atlas-popups.js`, `test-study.js` §11–14 (`docs/atlas-v2-design.md` §7 "Popups and stacks") |
+| the marks' drawn sizes, the ring, no star for a state (2026-10-18) | `test-atlas-popups.js` §5, `test-study.js` (`docs/atlas-v2-design.md` §7 "Smaller marks, no stars, no ticks") |
 | the marks' sprites (`markSprite`), the stacks' nudge (`nudgeStacks`, `ox`/`oy`), the stack's list, a registry kind (2026-10-17) | `test-atlas-popups.js` §7–9, `test-study.js` §13, then `test-atlas-perf.js` (the marks' raster is what the Full Atlas pinch pays for; `docs/atlas-v2-design.md` §7 "Marks, stacks and the pick test") |
 | the water or relief layers' zoom rules (`view.rivers`, `view.relief.fade`, `RELIEF_L1_KM_PER_PX`, the cap) | `test-atlas-zoom-layers.js` (rivers and relief draw pixels at every zoom to the cap, phone and desktop, WebGL2 and Canvas 2D; 2026-10-17 a) |
 | the names' colours or halo (`labelColours`, `renderSprite`, `HALO_W_DARK`), a theme's tokens | `test-atlas-dark-labels.js` (the label canvas's pixels in folio's night: light text on a dark halo, 7:1 and 4.5:1), `test-atlas-labels.js` §6 (every theme) |

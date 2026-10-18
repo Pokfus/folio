@@ -35,9 +35,18 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1028", released: "2026-10-17T19:54Z" };
+window.FOLIO_VERSION = { v: "1.1029", released: "2026-10-18T00:24Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-10-18",
+    t: "Smaller marks, no state stars and a plain timeline on the Atlas",
+    items: [
+      "<b>Atlas marks</b>: circles, diamonds and every other place mark are half the size they were — only a capital's square keeps its size, and a city's ring stays large enough for its count.",
+      "<b>Atlas states</b>: a state, a people or a culture no longer carries a star — it is named on the map, and its border or its name is what you tap.",
+      "<b>Atlas timeline</b>: the small vertical lines along the year track are gone; the track is a plain line with the pin, and [ and ] still jump between the years something on screen changes.",
+    ],
+  },
   {
     d: "2026-10-17",
     t: "The Personal Atlas shows only your own states",

@@ -344,7 +344,7 @@
             </fieldset>
             <fieldset class="atlas2-group atlas2-marks"><legend>Marks</legend>
               <dl class="atlas2-marks-key" aria-label="What the marks mean"></dl>
-              <p class="atlas2-peoples-hint">Filled in the accent: a place of your own cards. Rivers, lakes, seas, regions and countries are names only.</p>
+              <p class="atlas2-peoples-hint">Filled in the accent: a place of your own cards. Rivers, lakes, seas, regions, countries, states, peoples and cultures are names only.</p>
             </fieldset>
             <fieldset class="atlas2-group atlas2-peoples"><legend>Peoples</legend>
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="off"> Off</label>
@@ -413,7 +413,7 @@
           </div>
           <div class="atlas2-rail-row" id="atlas2-rail-row">
             <button type="button" class="atlas2-rail-btn atlas2-rail-prev" aria-label="Previous change year" title="Previous change year ([)">‹</button>
-            <div class="atlas2-rail-track"><canvas class="atlas2-rail-ticks" aria-hidden="true"></canvas><div class="atlas2-rail-pin" role="slider" tabindex="0" aria-label="Year" aria-valuemin="${RAIL_FROM}" aria-valuemax="${TODAY}" aria-valuenow="${TODAY}" aria-valuetext="${TODAY}" aria-orientation="horizontal"></div><div class="atlas2-rail-mag" hidden aria-hidden="true"></div></div>
+            <div class="atlas2-rail-track"><div class="atlas2-rail-pin" role="slider" tabindex="0" aria-label="Year" aria-valuemin="${RAIL_FROM}" aria-valuemax="${TODAY}" aria-valuenow="${TODAY}" aria-valuetext="${TODAY}" aria-orientation="horizontal"></div><div class="atlas2-rail-mag" hidden aria-hidden="true"></div></div>
             <button type="button" class="atlas2-rail-btn atlas2-rail-next" aria-label="Next change year" title="Next change year (])">›</button>
             <input class="atlas2-rail-year" type="text" inputmode="text" aria-label="Year — for example 500 BCE, 1066 or -44" autocomplete="off" spellcheck="false">
             <button type="button" class="atlas2-rail-btn atlas2-rail-play" aria-label="Play" aria-pressed="false" title="Play every year">▶</button>
@@ -429,7 +429,7 @@
     const stackBtn = el.querySelector(".atlas2-stack"), cardEl = el.querySelector(".atlas2-card"), cardTitle = el.querySelector(".atlas2-card-title"), cardKind = el.querySelector(".atlas2-card-kind"), cardBody = el.querySelector(".atlas2-card-body"), keysUl = el.querySelector(".atlas2-keys ul");
     { const bk = el.querySelector(".atlas2-back"); if (bk && H.back) bk.addEventListener("click", () => H.back()); }   // Phase 4b: the way back to the card a window's tap or go button left
     const searchIn = el.querySelector(".atlas2-search-in"), resultsUl = el.querySelector(".atlas2-results");
-    const railEl = el.querySelector(".atlas2-rail"), railTrack = el.querySelector(".atlas2-rail-track"), railPin = el.querySelector(".atlas2-rail-pin"), railTicks = el.querySelector(".atlas2-rail-ticks"), railMag = el.querySelector(".atlas2-rail-mag"), railYear = el.querySelector(".atlas2-rail-year"), railPlay = el.querySelector(".atlas2-rail-play"), railSpeed = el.querySelector(".atlas2-rail-speed"), railNote = el.querySelector(".atlas2-rail-note");
+    const railEl = el.querySelector(".atlas2-rail"), railTrack = el.querySelector(".atlas2-rail-track"), railPin = el.querySelector(".atlas2-rail-pin"), railMag = el.querySelector(".atlas2-rail-mag"), railYear = el.querySelector(".atlas2-rail-year"), railPlay = el.querySelector(".atlas2-rail-play"), railSpeed = el.querySelector(".atlas2-rail-speed"), railNote = el.querySelector(".atlas2-rail-note");
     const say = (t, frac) => { note.textContent = t; if (frac != null) { bar.style.width = Math.round(frac * 100) + "%"; bar.parentNode.hidden = false; } };
     const fail = (t) => { status.classList.add("atlas2-fail"); bar.parentNode.hidden = true; note.textContent = t; };
 
@@ -754,13 +754,13 @@
     // relief it wants. Run by every frame and by setView, so `tilesSettled()` right after a setView already asks
     // about the NEW tiles
     let onScreenKey = "";
-    function refreshOnScreen() {   // the change years, the ticks and the "no states" note follow the VIEW as well as the year
+    function refreshOnScreen() {   // the change years ([ and ]) and the "no states" note follow the VIEW as well as the year
       if (!time.hist || !time.hist.ready || !time.faceCap) return;
-      // keyed by the view and the ALIVE SET, not the year: the ticks are DOM (177 of them), and rebuilding them on every year of a
-      // scrub cost a third of the frame (measured: 100 ms pointer frames against 67 ms for the same year changes without the DOM)
+      // keyed by the view and the ALIVE SET, not the year: the change years are a scan of every step on screen, and redoing it on every
+      // year of a scrub cost a third of the frame when they were drawn as DOM ticks (measured: 100 ms pointer frames against 67 ms)
       const k = view.lon.toFixed(2) + "," + view.lat.toFixed(2) + "," + view.zoom.toFixed(3) + "," + (time.aliveKey || "") + "," + (time.present ? 1 : 0) + "," + cssW + "x" + cssH;
       if (k === onScreenKey) return; onScreenKey = k;
-      const ys = changeYearsOnScreen(); const same = ys.length === time.changeYears.length && ys.every((y, i) => y === time.changeYears[i]); time.changeYears = ys; if (!same) drawTicks();
+      time.changeYears = changeYearsOnScreen();   // read by [ and ] (stepChange) and the tests; no longer drawn (decision c, 2026-10-18)
       // the alive faces now on screen (a pan since the last year change): their meshes, their arcs, the draw list
       if ((time.alive.length || time.palive.length) && time.onScreenKey !== (time.aliveKey || "") + "@" + k) {
         const va = viewAngleNow(); const now = time.alive.filter((a) => faceOnScreen(a.face, va)); const nowP = time.palive.filter((a) => faceOnScreen(a.face, va)); const nowKey = now.map((a) => a.face).join(",") + "|" + nowP.map((a) => a.face).join(",");
@@ -821,7 +821,7 @@
       if (layers.relief && reliefIndex && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
       else view.relief.tiles = [];
       stats.level = view.level;
-      refreshOnScreen();   // with the rotation and the level of THIS view (the ticks, [ ] and the "no states" note follow the view)
+      refreshOnScreen();   // with the rotation and the level of THIS view (the change years, [ ] and the "no states" note follow the view)
     }
     function invalidate() { needs = true; needsGlobe = true; if (!raf && !disposed) raf = requestAnimationFrame(frame); }
     /* a redraw of the NAMES alone (a layout arrived, the study layer changed what is marked): the labels have their own canvas, so the
@@ -1466,7 +1466,7 @@
       if (fromSet) for (const a of fadeFrom) if (!time.pSet.has(a.face)) one(a, 1 - tNow);
       return out;
     }
-    /* the Peoples switch or the study mode moved: the alive presences of the year change, so the year is applied again (meshes, labels, ticks) */
+    /* the Peoples switch or the study mode moved: the alive presences of the year change, so the year is applied again (meshes, labels, change years) */
     function refreshPresence() { if (!time.hist || !time.hist.ready) return; applyYear(time.year, { force: true, why: "peoples" }); }
     /* ---- Phase 2d: the FRONT LINE (event faces dated to the day; study.js does the arithmetic) ---- */
     const frontEl = el.querySelector(".atlas2-front"), frontLabel = el.querySelector(".atlas2-front-label");
@@ -1567,7 +1567,7 @@
       }).catch((e) => { time.warLoading = false; time.warFailed = true; if (typeof console !== "undefined") console.warn("atlas2 wars table failed: " + (e && e.message || e)); });
     }
     const FILE_OK_WARS = () => true;
-    /* the wars drawn, from the switch, the study mode and the card; then the year is applied again (the tints, the washes, the ticks) */
+    /* the wars drawn, from the switch, the study mode and the card; then the year is applied again (the tints, the washes, the change years) */
     function computeWarShown() {
       const A = AS2(); if (!A || !time.wars) { time.warShown = new Set(); return; }
       time.warShown = A.warsShown(time.wars, { pos: layers.wars, mode: PI.mode, cardSet: typeof ST !== "undefined" && ST.st ? ST.st.cardSet : null, hidden: typeof ST !== "undefined" ? ST.hidden : null, info: typeof ST !== "undefined" && ST.ready ? info : null, focus: time.warFocus });
@@ -1607,7 +1607,7 @@
        world over, and a Mediterranean view owes nothing to the Han dynasty's mesh or the Inca's borders */
     const viewAngleNow = () => Math.min(Math.PI / 2, (Math.hypot(cssW, cssH) / 2 + 80) / view.radius) + 0.02;
     const faceOnScreen = (fi, viewAngle) => { const rot = view.rot; const d = Math.max(-1, Math.min(1, time.faceCap[4 * fi] * rot[6] + time.faceCap[4 * fi + 1] * rot[7] + time.faceCap[4 * fi + 2] * rot[8])); return Math.acos(d) - time.faceCap[4 * fi + 3] <= (viewAngle != null ? viewAngle : viewAngleNow()); };
-    /* the change years of the faces on screen (the rail's ticks and [ ]) */
+    /* the change years of the faces on screen ([ and ]; drawn as the rail's ticks until 2026-10-18, decision c) */
     function changeYearsOnScreen() {
       if (!time.faceCap) return [];
       const rot = view.rot, viewAngle = Math.min(Math.PI / 2, (Math.hypot(cssW, cssH) / 2 + 80) / view.radius) + 0.02;
@@ -1671,7 +1671,7 @@
         if (changed || time.fade || wasPresent !== time.present || o.force) uploadStyle(changed ? 1 : 1);
         time.view = { faces: time.onScreenAlive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })), pfaces: presenceDraw(time.fade ? time.fade.fromP : null, 0), present: time.present, strokePx: 0 };
         time.capitals = (time.hist.header.cities || []).filter((c) => c.from <= y && c.to >= y && alive.some((a) => time.ents[a.ent].id === c.entity)).map((c) => ({ entity: c.entity, name: c.name, lon: c.lon, lat: c.lat }));
-        refreshOnScreen();   // the ticks and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
+        refreshOnScreen();   // the change years and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
         if (changed) reflectPeoplesNote();
         reflectFront(); reflectWarsNote();
       } else { time.view = { faces: [], pfaces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
@@ -1740,33 +1740,12 @@
     }
     const historySettled = () => !histStarted || time.failed || (!!time.hist && time.hist.ready && (time.onScreenAlive || []).concat(time.pOnScreen || []).every((a) => time.resident.has(a.face + ":" + Math.min(2, view.level))));
     /* ---- the rail ---- */
-    function drawTicks() {
-      const r = railTrack.getBoundingClientRect(); const w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
-      const d = Math.min(2, window.devicePixelRatio || 1);
-      if (railTicks.width !== Math.round(w * d) || railTicks.height !== Math.round(h * d)) { railTicks.width = Math.round(w * d); railTicks.height = Math.round(h * d); }
-      const x = railTicks.getContext("2d"); x.setTransform(d, 0, 0, d, 0, 0); x.clearRect(0, 0, w, h);
-      const { ink, dark } = themeTokens(); const hex = (c) => "#" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255).toString(16).padStart(2, "0")).join("");
-      x.strokeStyle = hex(mix(ink, [0.5, 0.5, 0.5], dark ? 0.3 : 0.5)); x.lineWidth = 1;
-      // the knee and the big marks
-      x.globalAlpha = 0.45; x.beginPath(); x.moveTo(0, h / 2 + 0.5); x.lineTo(w, h / 2 + 0.5); x.stroke();
-      x.globalAlpha = 0.7;
-      for (const y of [-10000, -5000, -3000, -2000, -1000, -500, 1, 500, 1000, 1500, 2000]) { const px = Math.round(railX(y) * w) + 0.5; x.beginPath(); x.moveTo(px, h / 2 - 4); x.lineTo(px, h / 2 + 4); x.stroke(); }
-      x.globalAlpha = 1; x.strokeStyle = hex(ink);
-      // at most about TICKS_MAX ticks a view (2b), AND NEVER MORE THAN THE WIDTH CAN SHOW APART (Phase 3a, task 0c): change years
-      // closer than a bucket merge into one tick, drawn taller the more it stands for; the bucket is at least TICK_PX wide, so on a
-      // 390 px phone (a 224 px track) the view's 177 change years become at most 56 ticks instead of a solid bar (measured: runs of
-      // 9 and 28 CSS px of unbroken ink at 390 and 360 px). The entities in view still decide WHICH years tick; [ and ] still step
-      // through every change year (stepChange reads the full list)
-      const TICKS_MAX = 200, TICK_PX = 4; const bucket = Math.max(w / TICKS_MAX, TICK_PX); const merged = new Map();
-      for (const y of time.changeYears) { const px = railX(y) * w; const b = Math.floor(px / bucket); let m = merged.get(b); if (!m) merged.set(b, m = { sx: 0, n: 0 }); m.sx += px; m.n++; }
-      // two buckets' means can still sit a pixel apart across their boundary (measured: a run of 3 px at 430 px); ticks closer
-      // than TICK_GAP merge too, so every tick has blank pixels on both sides
-      const TICK_GAP = 3; const ticks = [];
-      for (const [, m] of [...merged].sort((p, q) => p[1].sx / p[1].n - q[1].sx / q[1].n)) { const px = m.sx / m.n; const last = ticks[ticks.length - 1]; if (last && px - last.px < TICK_GAP) { last.px = (last.px * last.n + px * m.n) / (last.n + m.n); last.n += m.n; } else ticks.push({ px, n: m.n }); }
-      let maxN = 0, minGap = Infinity;
-      for (let i = 0; i < ticks.length; i++) { const t = ticks[i], px = Math.round(t.px) + 0.5, hh = t.n > 1 ? 5 : 3; x.beginPath(); x.moveTo(px, h / 2 - hh); x.lineTo(px, h / 2 + hh); x.stroke(); if (t.n > maxN) maxN = t.n; if (i && Math.round(t.px) - Math.round(ticks[i - 1].px) < minGap) minGap = Math.round(t.px) - Math.round(ticks[i - 1].px); }
-      time.tickStats = { years: time.changeYears.length, ticks: ticks.length, width: w, bucket, minGap: ticks.length > 1 ? minGap : null, maxMerged: maxN };   // for the suites (test-atlas-review.js section 2)
-    }
+    /* NO TICKS (2026-10-18; the owner's phone, decision c: "on the timeline are a number of vertical lines at seemingly random places along the
+       line — there should not be any"). The rail drew, on a canvas under the pin, a tick at every CHANGE YEAR of what is on screen — the years at
+       which a state, a people or a war on the screen begins or ends (`changeYearsOnScreen`, bucketed to the width since Phase 3a) — and eleven
+       larger marks at the epochs of the rail's knee (10,000 BCE … 2000 CE). To a reader they were lines at random places. The track is now a
+       plain line (CSS, `.atlas2-rail-track::before`) with the pin; nothing else is drawn along it. The change years STAY as data: `[` and `]`
+       (`stepChange`) still jump to the previous and next one, and the "no state is mapped" note still reads them. */
     function stepChange(dir) {
       if (!time.hist) { ensureHistory(); if (dir < 0 && time.present) setYear(PRESENT_YEAR - 1); return; }   // the file loads on the first step back (2b); the change years follow once it is in
       const ys = time.changeYears.length ? time.changeYears : changeYearsOnScreen();
@@ -1835,9 +1814,6 @@
     }
     railPlay.addEventListener("click", togglePlay);
     railSpeed.addEventListener("change", () => { time.speed = Number(railSpeed.value) || 25; });
-    /* the rail's chrome follows the card on a phone (the sheet sits above it) */
-    const railResize = () => { drawTicks(); };
-    window.addEventListener("resize", railResize);
     // the initial year: the deep link's, else the last used, else today
     { let y = null; if (!EMBED) try { const v = localStorage.getItem(YEAR_KEY); if (v != null && v !== "" && isFinite(Number(v))) y = clampYear(Number(v)); } catch (e) {} time.year = y == null ? TODAY : y; time.lastYear = time.year; time.present = time.year >= PRESENT_YEAR; railPin.style.left = (railX(time.year) * 100) + "%"; railYear.value = fmtYear(time.year); railPin.setAttribute("aria-valuenow", String(time.year)); railPin.setAttribute("aria-valuetext", fmtYear(time.year)); }
 
@@ -2940,7 +2916,7 @@
     const mo = new MutationObserver(() => { if (!el.isConnected) dispose(); });
     mo.observe(viewHost, { childList: true });
     // a theme change (data-theme, or the night class) re-reads the tokens: the palette and the relief ramp follow
-    const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); drawTicks(); } if (G.ready) measureMetrics(); invalidate(); });
+    const themeObs = new MutationObserver(() => { if (!el.isConnected) return; spriteGen++; spriteCache.clear(); palette = readPalette(); R.setPalette(palette); R.setRamp(buildRamp()); labelColours(); if (time.hist) { histColours(); uploadStyle(); if (time.view) time.view.faces = time.alive.map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: time.ents[a.ent].kind === "contested" ? entColour(entityIndexOfId(time.ents[a.ent].partners[1])) : null })); } if (G.ready) measureMetrics(); invalidate(); });
     themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme", "data-fs"] });   // data-fs: Settings → Text size (the names follow it, labelScaleNow)
     /* ============================================================================================================
        PHASE 3b — THE STUDY LAYER (docs/atlas-v2-design.md §2.8, §7 "Phase 3b — as built")
@@ -3147,7 +3123,6 @@
     function dispose() {
       if (disposed) return;
       disposed = true;
-      window.removeEventListener("resize", railResize);
       try { mo.disconnect(); themeObs.disconnect(); if (sizeObs) sizeObs.disconnect(); } catch (e) {}
       window.removeEventListener("resize", onResize);
       if (vv) { vv.removeEventListener("resize", onVisual); vv.removeEventListener("scroll", onVisual); }
@@ -3190,7 +3165,6 @@
       attempt();
     }
     if (!EMBED && H.legacy) { deepView = true; openLegacy(H.legacy); }
-    drawTicks();
     invalidate();
     // the view set from outside (the perf suite's fixed views): centre, zoom, then wait for `tilesSettled()`
     function setView(lon, lat, kmPerPixel) { view.lon = lon; view.lat = lat; view.zoom = R_KM / (kmPerPixel * base); flying = null; coasting = false; plan(); invalidate(); touched(); }
@@ -3241,7 +3215,7 @@
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,
       chromeRects, showPlace, framing: () => lastFrame, discovery: () => ({ id: discId, fresh: discFresh }), hash: hashNow, readHash, metricsCount: () => metricsSent,
       /* Phase 2a: time */
-      setYear: (y, o) => setYear(y, o), year: () => time.year, railTicks: () => time.tickStats || null, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
+      setYear: (y, o) => setYear(y, o), year: () => time.year, stepChange, play: () => startPlay(), stop: () => stopPlay(), playing: () => time.playing, setSpeed: (v) => { time.speed = v; railSpeed.value = String(v); },
       alive: () => time.alive.map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })),
       // Phase 2c, for the suites: the presences the Peoples switch lets through in the year, the ones on screen, what is handed to the renderer, the switch
       presence: () => ({ alive: time.palive.filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreen: (time.pOnScreen || []).filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => a.face), drawn: ((time.view && time.view.pfaces) || []).filter((f) => !f.ext && !f.front).map((f) => ({ face: f.face, angle: f.angle, fade: f.fade })), position: layers.peoples, mode: PI.mode, all: time.presEnts.filter((i) => !time.isExt[i]).map((i) => time.ents[i].id), shown: time.presEnts.filter((i) => !time.isExt[i] && presShown(i)).map((i) => time.ents[i].id) }),
