@@ -135,7 +135,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     check("the Personal Atlas names ONLY the reader's polities: every polity name placed is flagged 2", lpers.length >= 1 && lpers.every((p) => flagged2.has(p.id) && p.st === 2), lpers.map((p) => p.text + (flagged2.has(p.id) ? "" : " (NOT THEIRS)")).join(", "));
     check("…and none of the " + unflagged.length + " polities the Full Atlas named that are not theirs is named (not even muted)", unflagged.every((u) => !lpers.some((p) => p.id === u.id)), unflagged.map((u) => u.text).join(", "));
     const mk = await marks(page);
-    check("every polity mark on the Personal globe is the reader's", mk.filter((m) => /^pol:/.test(m.id)).every((m) => flagged2.has(m.id)) && mk.some((m) => /^pol:/.test(m.id)), mk.filter((m) => /^pol:/.test(m.id)).length + " polity marks");
+    check("no polity carries a mark on the Personal globe (the star is gone, decision b of 2026-10-18): the reader's polities are named and have no mark", !mk.some((m) => /^pol:/.test(m.id) || m.marker === "star" || m.cls === "polity") && lpers.length >= 1, mk.filter((m) => /^pol:/.test(m.id)).length + " polity marks, " + lpers.length + " polity names");
     // the FILL: an unflagged state's face is plain land in Personal (its pixel is the land's), a colour of its own in Full
     const probe = unflagged.find((p) => p.kind === "polity");   // a state (a people is a stipple: its ground reads as land either way)
     if (probe) {
@@ -376,7 +376,14 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await mode(page, "full");
     // the Legend
     const key = await page.$$eval(".atlas2-marks-key > div", (ds) => ds.map((d) => ({ cls: d.getAttribute("data-cls"), word: d.querySelector("dd").textContent.trim(), svg: !!d.querySelector("svg path"), d: d.querySelector("svg path").getAttribute("d").length })));
-    check("the Legend lists the eight classes (a capital's square since decision b, 2026-10-17), each with its glyph drawn (an SVG path) and its words", key.length === 8 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
+    check("the Legend lists the seven classes (a capital's square since decision b, 2026-10-17; no polity row since 2026-10-18), each with its glyph drawn (an SVG path) and its words", key.length === 7 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
+    // NO STAR ANYWHERE (decision b, 2026-10-18; the owner's phone: "remove all star (state) icons"): not drawn, not in the Legend, not in the hit list
+    await view(page, 12, 48, 9); await year(page, 1500);
+    const eu = await A(page, (c) => { const live = c.study.liveMarks(), all = c.study.marks(); const names = c.labels().filter((p) => p.hist && /^pol:/.test(p.id) && p.text); const hits = []; for (const p of names.slice(0, 12)) for (const id of c.study.near(p.sx, p.sy, true)) hits.push(id); return { live: live.length, stars: live.filter((m) => m.shape === "star" || m.cls === "polity" || /^pol:/.test(m.id)).length, laid: all.filter((m) => m.marker === "star" || m.cls === "polity" || /^pol:/.test(m.id)).length, names: names.length, hits: hits.filter((id) => /^pol:/.test(id)).length, tried: hits.length }; });
+    // (in the Full Atlas of 396 marks a state's name that no card links comes after the study names and few find room — one or two here; the names' rules are untouched)
+    check("Europe in 1500, the Full Atlas: a state is named (" + eu.names + ") but none has a mark — no star drawn, none in the layout, and a tap at a state's name finds no polity in the marks' hit list", eu.names >= 1 && eu.stars === 0 && eu.laid === 0 && eu.hits === 0 && eu.live > 100, JSON.stringify(eu));
+    check("…and the Legend has no state row and no star (every key is one of the seven classes, none a polity, none worded as a state, people or culture)", !key.some((k) => k.cls === "polity" || /state|people|culture/i.test(k.word)) && key.every((k) => ["capital", "settlement", "site", "battle", "peak", "building", "stack"].includes(k.cls)), key.map((k) => k.cls).join(","));
+    await year(page, 2025);
     await shot(page, "glyphs-east-med");
     allErrors.push(...errors); await ctx.close();
   }

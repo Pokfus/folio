@@ -2033,14 +2033,13 @@
        dot about 4 px across at the widest view, 16 px by city scale; since 2026-10-18, decision a, every glyph but the capital's square is
        DRAWN at half of that — AtlasStudy.markScale — and the city ring at the size its 9 px count needs, AtlasStudy.ringHalf) whatever a gesture is doing. A mark that would lie past the
        frame's edge or under a control (the chrome the last layout measured: the study panel, the rail, the card …) is not drawn in
-       that frame and cannot be tapped. THREE SHAPES AND THEIR COLOURS ARE THE OLD ONES: a diamond for a settlement, a site and any
-       other place, a triangle for a mountain, a hill (smaller) or a cape, a disc for a polity; the reader's own filled with the accent,
+       that frame and cannot be tapped. The shapes are the glyph classes below; the reader's own filled with the accent,
        the others hollow, a thin ink outline on both so two marks that touch still read as two. DRAW ORDER, back to front: places not
-       studied, places studied, polities, and the selected mark last. The marks of one kind in one layer are one path (a fill and a
+       studied, places studied, and the selected mark last (a polity has had no mark since 2026-10-18, decision b). The marks of one kind in one layer are one path (a fill and a
        stroke for all of them), so a Full Atlas of 1,300 places and 190 polities is a handful of canvas calls a frame. */
-    /* THE EIGHT GLYPHS (decision e, 2026-10-17, and decision b of the same day; AtlasStudy.MARK_CLASSES): a square (a capital, present or past), a disc (a city or
+    /* THE SEVEN GLYPHS (decision e, 2026-10-17, and decision b of the same day; the star removed 2026-10-18, decision b; AtlasStudy.MARK_CLASSES): a square (a capital, present or past), a disc (a city or
        town), a diamond (a site or cave), a saltire (a battle), a triangle (a mountain, hill or cape), a house — a pointed-top pentagon — (a building, monument or
-       wall), a star (a state, people or culture), a ring with a count (a city stack). Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
+       wall), a ring with a count (a city stack). A state, a people or a culture has NO mark: its name and its face are what a reader taps. Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
        The same geometry draws the Legend's key (`glyphSVG`), so the key cannot drift from the map. */
     const SQ = Math.SQRT1_2, CROSS_T = 0.34;   // the saltire's bar half-width, as a share of the half-extent
     function markInto(path, shape, x, y, h, lw) {
@@ -2050,7 +2049,6 @@
       else if (shape === "square") { const s = q * 0.86; path.moveTo(x - s, y - s); path.lineTo(x + s, y - s); path.lineTo(x + s, y + s); path.lineTo(x - s, y + s); path.lineTo(x - s, y - s); }
       else if (shape === "house") { const s = q * 0.8, t = q * 0.3; path.moveTo(x, y - q); path.lineTo(x + s, y - t); path.lineTo(x + s, y + q * 0.9); path.lineTo(x - s, y + q * 0.9); path.lineTo(x - s, y - t); path.lineTo(x, y - q); }   // a pointed-top pentagon: the building (decision b, 2026-10-17 — the square is the capital's)
       else if (shape === "cross") { const t = q * CROSS_T, s = q * 1.08; let first = true; for (const [px, py] of [[-t, -s], [t, -s], [t, -t], [s, -t], [s, t], [t, t], [t, s], [-t, s], [-t, t], [-s, t], [-s, -t], [-t, -t], [-t, -s]]) { const rx = (px - py) * SQ, ry = (px + py) * SQ; if (first) { path.moveTo(x + rx, y + ry); first = false; } else path.lineTo(x + rx, y + ry); } }
-      else if (shape === "star") { const ro = q * 1.08, ri = q * 0.46; for (let i = 0; i <= 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? ri : ro; if (i) path.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); else path.moveTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); } }
       else { const rr = q * 0.92; path.moveTo(x + rr, y); path.arc(x, y, rr, 0, Math.PI * 2); }   // a disc, and a stack's ring (its count is drawn over it)
     }
     /* the Legend's key: the same glyph as an SVG path at 16 px (hollow, as a place not the reader's is drawn) */
@@ -2066,7 +2064,7 @@
        for the same shapes ending in an explicit lineTo to their start (measured, headless, 2026-10-14) — a Full Atlas of a thousand marks
        is the difference between a third of a frame and none of it. The round line cap closes the outline's corner. */
     const markLine = (half) => root.AtlasStudy.markLine(half);   // the outline for a glyph of that DRAWN half-extent: scales with it, never under 1.25 px (study.js, decision a of 2026-10-18)
-    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, star: 5, stack: 6, house: 7 };   // eight shapes, a batch each
+    const SHAPE_CODE = { diamond: 0, triangle: 1, disc: 2, square: 3, cross: 4, stack: 6, house: 7 };   // seven shapes, a batch each (the star, 5, was the polity's until 2026-10-18, decision b)
     /* the marks of a layout, indexed for the frame loop: one flat array of unit vectors and the groups (layer, reader's own or not, shape,
        hill or not) each drawn as ONE path — so a frame projects each mark once, allocates nothing, and is a fill and a stroke per group */
     function indexMarks() {
@@ -2118,12 +2116,12 @@
       const r0 = rot[0], r1 = rot[1], r2 = rot[2], r3 = rot[3], r4 = rot[4], r5 = rot[5], r6 = rot[6], r7 = rot[7], r8 = rot[8];
       const half = A.markHalf(view.kmpp) * LS, ax = L.mA, lx = L.lx, ly = L.ly, lh = L.lh, li = L.li, W = cssW, H = cssH, dpr = labelRes();
       const snap = (v) => Math.round(v * dpr) / dpr;
-      const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : cardStack && L.markIndex.has(cardStack.id) ? L.markIndex.get(cardStack.id) : -1, aliveEnt = time.aliveEnt;   // the open stack is the selected mark
+      const selI = sel.id != null && L.markIndex.has(sel.id) ? L.markIndex.get(sel.id) : cardStack && L.markIndex.has(cardStack.id) ? L.markIndex.get(cardStack.id) : -1;   // the open stack is the selected mark
       let ln = 0, selK = -1;
       const faint = [], hair = [];
       ctx.globalAlpha = 1;
       for (const g of L.markGroups) {
-        const shape = g.shape, stack = shape === "stack", h = stack ? A.ringHalf(half, LS) : half * g.scale, lw = markLine(h), e = h + 1, idx = g.idx, polity = g.layer === 2;   // the drawn size (decision a, 2026-10-18): half for every class but the capital; the outline follows it
+        const shape = g.shape, stack = shape === "stack", h = stack ? A.ringHalf(half, LS) : half * g.scale, lw = markLine(h), e = h + 1, idx = g.idx;   // the drawn size (decision a, 2026-10-18): half for every class but the capital; the outline follows it
         const sp = stack ? null : markSprite(shape, h, lw, g.mine, 0);   // a stack's sprite carries its count: fetched per mark
         for (let k = 0; k < idx.length; k++) {
           const i = idx[k], j = 3 * i, a0 = ax[j], a1 = ax[j + 1], a2 = ax[j + 2];
@@ -2135,7 +2133,6 @@
           let hidden = false;
           for (let c = 0; c < nch; c++) { const cr = ch[c]; if (x - e < cr[2] && x + e > cr[0] && y - e < cr[3] && y + e > cr[1]) { hidden = true; break; } }
           if (hidden) continue;
-          if (polity && aliveEnt && !aliveEnt.has(mk.id)) continue;   // a polity no longer alive (the layout is held while the pin is dragged)
           lx[ln] = x; ly[ln] = y; lh[ln] = h; li[ln] = i; ln++;
           if (ox || oy) hair.push(ln - 1);
           if (i === selI) { selK = ln - 1; continue; }
@@ -3164,7 +3161,7 @@
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
       R.dispose();
     }
-    // the Legend's key of the eight glyphs (decision e; the capital's square and the building's house, decision b): built from AtlasStudy.MARK_CLASSES with the map's own geometry
+    // the Legend's key of the seven glyphs (decision e; the capital's square and the building's house, decision b; no star since 2026-10-18): built from AtlasStudy.MARK_CLASSES with the map's own geometry
     { const key = el.querySelector(".atlas2-marks-key"), A0 = root.AtlasStudy; if (key && A0 && A0.MARK_CLASSES) key.innerHTML = A0.MARK_CLASSES.map((c) => `<div data-cls="${escText(c.cls)}"><dt>${glyphSVG(c.shape)}</dt><dd>${escText(c.word)}</dd></div>`).join(""); }
     setPerf(perfOn);   // after the label state exists: the overlay reads it (Phase 1c)
     try { paintWarsKey(); } catch (e) { /* before the time block */ }

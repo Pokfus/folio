@@ -146,9 +146,9 @@
        · its SIZE grows with the zoom — `markHalf` is the half-extent in CSS px (outline included): a dot about 4 px across at the widest
          view, 16 px by city scale — so a wide view of 1,300 places is dots, not a wall of diamonds; since 2026-10-18 (decision a) every
          glyph but the capital's square is DRAWN at half of that (`markScale`), the capital at the full size;
-       · its SHAPE is `markShape` (a diamond for a settlement or a site and any other place, a triangle for a mountain, a hill or a cape,
-         a disc for a polity, a people, a culture or an authored extent) and its LAYER `markLayer` is the draw order, back to front:
-         places not studied (0), places studied (1), polities (2); the selected mark is drawn last of all;
+       · its SHAPE is `markShape` (the glyph classes below; a polity, a people, a culture or an authored extent has NO mark since 2026-10-18,
+         decision b — it is named, and its face or its name is tapped) and its LAYER `markLayer` is the draw order, back to front:
+         places not studied (0), places studied (1); the selected mark is drawn last of all;
        · a TAP picks the nearest mark within a finger (`nearMarks`), and where several lie within it they FAN OUT around the tap point
          (`fanOut`), each at its true position joined to its fanned copy — so the reader chooses, and nothing is ever hidden behind a count.
      All three are pure, shared by the worker (the sizes), the page (the drawing, the picking) and the Node tests. */
@@ -160,8 +160,8 @@
     return MARK_WIDE_PX + (MARK_NEAR_PX - MARK_WIDE_PX) * t;
   }
   /* THE GLYPH CLASSES (2026-10-17; the owner's phone, decision e — "battles, hills and so on have the same icons as cities"). Every kind the
-     card-linked places have in the registry falls into one of SEVEN classes, each its own SHAPE (not only a colour; a canvas path the page draws
-     in one batch per class; the Legend lists them):
+     card-linked places have in the registry falls into one of SEVEN classes (six glyphs and the ring; the polity's star of decision e is gone since
+     2026-10-18, decision b), each its own SHAPE (not only a colour; a canvas path the page draws in one batch per class; the Legend lists them):
        settlement  capital, city, town                        disc
        site        site (an archaeological site), a cave      diamond
        battle      site/battle                                cross (a saltire)
@@ -172,11 +172,13 @@
                    the gazetteer's present-day capitals, and every period
                    capital of polity-index.js joined to its registry row by
                    `capitalIds`); a site that was a capital is a capital
-       polity      polity, people, culture, extent …          star
        stack       several places of one city                 ring, with the count inside
+     A POLITY, A PEOPLE, A CULTURE OR AN EXTENT HAS NO MARK (2026-10-18; the owner's phone, decision b: "remove all star (state) icons"). It is still
+     named (its name is laid at its flag's turn by the study pass when a card links it), still counted on the count line, still tappable through its
+     FACE or its NAME where it has a card (the tap rules of 2026-10-17); the Legend no longer lists it. `markClass` returns null for it, as for an area.
      An AREA — a river, a lake, a sea, an ocean, a strait, a gulf, an island, a range, a region, a cultural area, a country, a province — has NO
      mark (class null): it is a name only. `markClass(kind, sub)` is the one classification; `markShape` its shape; MARK_CLASSES the Legend's rows. */
-  const MARK_SHAPE = { capital: "square", settlement: "disc", site: "diamond", battle: "cross", peak: "triangle", building: "house", polity: "star", stack: "stack" };
+  const MARK_SHAPE = { capital: "square", settlement: "disc", site: "diamond", battle: "cross", peak: "triangle", building: "house", stack: "stack" };
   const MARK_CLASSES = [
     { cls: "capital", shape: "square", word: "Capital, present or past" },
     { cls: "settlement", shape: "disc", word: "City or town" },
@@ -184,14 +186,13 @@
     { cls: "battle", shape: "cross", word: "Battle" },
     { cls: "peak", shape: "triangle", word: "Mountain, hill or cape" },
     { cls: "building", shape: "house", word: "Building, monument or wall" },
-    { cls: "polity", shape: "star", word: "State, people or culture" },
     { cls: "stack", shape: "stack", word: "Several places of one city, with their count" },
   ];
   /* `cap` (2026-10-17, decision b): the place is or was a capital (the gazetteer's kind, or a period capital joined by `capitalIds`). The
      capital square wins over a settlement's disc and a site's diamond, house or cave (a site that was a capital); never over a battle or a peak */
   function markClass(kind, sub, cap) {
     kind = kind || "";
-    if (POLITY_KIND.test(kind)) return "polity";
+    if (POLITY_KIND.test(kind)) return null;   // no mark for a state, a people, a culture or an extent (decision b, 2026-10-18): a name, a face
     if (kind === "stack") return "stack";
     if (kind === "capital") return "capital";
     if (kind === "city" || kind === "town") return cap ? "capital" : "settlement";
@@ -245,7 +246,7 @@
   function markScale(kind, cls) { return (cls === "capital" ? 1 : MARK_SMALL) * (kind === "hill" ? 0.75 : 1); }   // a hill is the smaller triangle, as it was
   function ringHalf(half, scale) { return Math.max(half * 1.4 * MARK_SMALL, RING_MIN_PX * (scale > 0 ? scale : 1)); }   // `half` is markHalf × the text scale, `scale` the text scale
   const markLine = (half) => Math.max(MARK_LINE_MIN, half < 3 ? 1 : half < 6 ? 1.5 : 2);   // the outline's width for a glyph of that drawn half-extent
-  function markLayer(kind, f) { return POLITY_KIND.test(kind || "") ? 2 : f === 2 ? 1 : 0; }   // a stack is a place's layer (its own or the reader's)
+  function markLayer(kind, f) { return POLITY_KIND.test(kind || "") ? 2 : f === 2 ? 1 : 0; }   // a stack is a place's layer (its own or the reader's); layer 2 is kept for a polity, which has had no mark since 2026-10-18
   /* the marks within `radius` px of (x, y): `pts` [{ x, y }] → indices, nearest first (a tie keeps the order given) */
   function nearMarks(pts, x, y, radius) {
     const out = [], r2 = radius * radius;
