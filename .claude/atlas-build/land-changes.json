@@ -1,0 +1,180 @@
+{
+  "_about": [
+    "land-changes.json — THE DATED LAND-CHANGE LAYER's spec (2026-10-18; docs/atlas-v2-historical-coastlines.md §1).",
+    "The Atlas draws ONE present-day coast (OSM) at every year. A row here is a patch applied on top of it for a range of years:",
+    "an area that was WATER until the year it fell dry (a polder), drawn in the lake colour with a shore, over the land, in every",
+    "year from `from` to `to` inclusive (`from: null` = from the Atlas's first year). build-land-changes.js turns the rows into",
+    "atlas/data/land-changes.js; the runtime (atlas.js → the worker → atlas-gl.js / atlas-canvas.js) draws the rows alive in the year.",
+    "RULES. Every year comes from a cited source (`dateSource`), never from memory. A row's geometry is a RECIPE over a pinned open",
+    "source (the `geometry` block; the fetched, unioned geometry is cached in land-changes-source.json so the build is reproducible",
+    "offline and `--check` is exact). `accuracy` says honestly where the recipe departs from the real line. A later reclamation",
+    "A row's `geometry` is either `units` (fetched and unioned by --fetch into the cache) or `from: <row id>` (another row's cached union); `polygonsWithin` / `polygonsOutside` keep or drop the union's polygons whose bounding box lies inside a box [lon0, lat0, lon1, lat1] — applied at build time, so the cache is unchanged.",
+    "(the Fens, the Haarlemmermeer, the Beemster …) is one more row with its own source; a drained lake or a shrunk sea would be a",
+    "row of state `water` too; a LOST land (a land bridge, an eroded coast) would need the opposite state, `land` over the sea,",
+    "which the renderer does not draw yet — docs/atlas-v2-historical-coastlines.md says what that would take."
+  ],
+  "format": 1,
+  "geometrySource": {
+    "id": "cbs-wijken-buurten-2024",
+    "name": "CBS Wijken en Buurten 2024 (Statistics Netherlands districts and neighbourhoods), through PDOK's WFS",
+    "url": "https://service.pdok.nl/cbs/wijkenbuurten/2024/wfs/v1_0",
+    "licence": "CC0",
+    "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.nl",
+    "licenceText": "Verified 2026-10-18 in the service's GetCapabilities: <ows:Fees>none</ows:Fees> and <ows:AccessConstraints>https://creativecommons.org/publicdomain/zero/1.0/deed.nl</ows:AccessConstraints> — CC0 1.0.",
+    "attribution": "CBS Wijken en Buurten 2024, Statistics Netherlands (CBS) and the Kadaster through PDOK, CC0 1.0",
+    "why": "The polders are municipalities (the Noordoostpolder), former municipalities (the Wieringermeer: the four districts of Hollands Kroon that were it until 2012) or sets of municipalities and neighbourhoods (the two Flevoland polders), and every CBS unit carries a `water` flag, so a polder's LAND is the union of its land units. Natural Earth has only provinces; OSM's boundaries are ODbL and the Overpass API is not reachable from the build; Wikidata has no polygons."
+  },
+  "rows": [
+    {
+      "id": "lc:wieringermeer",
+      "name": "Wieringermeer",
+      "qid": "Q428517",
+      "kind": "polder",
+      "state": "water",
+      "from": null,
+      "to": 1929,
+      "dry": 1930,
+      "dateSource": "Rijkswaterstaat, \"100 jaar Zuiderzeewerken\" (https://www.rijkswaterstaat.nl/water/waterbeheer/bescherming-tegen-het-water/100-jaar-zuiderzeewet, read 2026-10-18): \"Met de aanleg van Wieringermeer (1930), Noordoostpolder (1942), oostelijk Flevoland (1957) en zuidelijk Flevoland (1968) ontstond er 165.000 hectare nieuw land.\" Wikidata Q428517 carries no inception date.",
+      "geometry": {
+        "units": [
+          {
+            "layer": "wijken",
+            "gemeentenaam": "Hollands Kroon",
+            "names": [
+              "Wieringerwerf",
+              "Kreileroord",
+              "Slootdorp",
+              "Middenmeer"
+            ]
+          }
+        ]
+      },
+      "accuracy": "The four CBS districts of Hollands Kroon that were the municipality of Wieringermeer until 2012 (their land parts, 195 km²; the polder is given as about 200 km²). The polder dykes are the districts' outer line to within the CBS line's own precision; the Amsteldiepdijk (1924) joining Wieringen to the mainland is not a row."
+    },
+    {
+      "id": "lc:noordoostpolder",
+      "name": "Noordoostpolder",
+      "qid": "Q69262",
+      "kind": "polder",
+      "state": "water",
+      "from": null,
+      "to": 1941,
+      "dry": 1942,
+      "dateSource": "Rijkswaterstaat, \"100 jaar Zuiderzeewerken\" (read 2026-10-18): \"… Noordoostpolder (1942) …\" (the sentence quoted on lc:wieringermeer). Wikidata Q69262's inception (1962) is the municipality's, not the polder's.",
+      "geometry": {
+        "units": [
+          {
+            "layer": "wijken",
+            "gemeentenaam": "Noordoostpolder",
+            "names": "all-land",
+            "except": [
+              "Wijk 12 Schokland"
+            ]
+          }
+        ]
+      },
+      "accuracy": "The municipality's eleven land districts (593 km²); Schokland (the former island, a district of its own, 2.2 km²) and Urk (a municipality of its own) stay land at every year. The district lines are the polder dyke on the lake side and the former Zuiderzee shore on the land side; Schokland's district is a little larger than the island was."
+    },
+    {
+      "id": "lc:oostelijk-flevoland",
+      "name": "Oostelijk Flevoland",
+      "qid": "Q2482369",
+      "kind": "polder",
+      "state": "water",
+      "from": null,
+      "to": 1956,
+      "dry": 1957,
+      "dateSource": "Rijkswaterstaat, \"100 jaar Zuiderzeewerken\" (read 2026-10-18): \"… oostelijk Flevoland (1957) …\" (the sentence quoted on lc:wieringermeer). Wikidata Q2482369 carries no date.",
+      "geometry": {
+        "units": [
+          {
+            "layer": "wijken",
+            "gemeentenaam": "Dronten",
+            "names": "all-land"
+          },
+          {
+            "layer": "buurten",
+            "gemeentenaam": "Lelystad",
+            "names": "all-land",
+            "except": [
+              "Oostvaardersplassen"
+            ]
+          }
+        ],
+        "polygonsOutside": {
+          "bbox": [
+            5.33,
+            52.56,
+            5.42,
+            52.62
+          ],
+          "why": "the Marker Wadden (lc:marker-wadden), artificial islands in Lelystad's land units, are not polder land"
+        }
+      },
+      "accuracy": "Dronten's land districts and Lelystad's land neighbourhoods except the Oostvaardersplassen (518 km²; the polder is given as 540 km²). The boundary with Zuidelijk Flevoland is the Knardijk (nl.wikipedia \"Zuidelijk Flevoland\": \"Aan de noordoostkant wordt het begrensd door de Knardijk\"; the Oostvaardersplassen lie in Zuidelijk Flevoland by the same article). The Lelystad–Zeewolde line through Wikidata's Knardijk point (Q2547295, 5.4867 E 52.4119 N) IS the dyke (2 m rms over 1.5 km, 65 m over 4.5 km); away from it the CBS lines depart from the dyke by up to about 3 km (the Oostvaardersplassen' north-eastern corner, Zeewolde's Knardijkgebied), which this row inherits. The Marker Wadden, which CBS counts as Lelystad land, are taken out (their own row)."
+    },
+    {
+      "id": "lc:zuidelijk-flevoland",
+      "name": "Zuidelijk Flevoland",
+      "qid": "Q2199768",
+      "kind": "polder",
+      "state": "water",
+      "from": null,
+      "to": 1967,
+      "dry": 1968,
+      "dateSource": "Rijkswaterstaat, \"100 jaar Zuiderzeewerken\" (read 2026-10-18): \"… zuidelijk Flevoland (1968) …\" (the sentence quoted on lc:wieringermeer); nl.wikipedia \"Zuidelijk Flevoland\" (read 2026-10-18): \"Op 23 mei 1968 viel Zuidelijk Flevoland droog.\" Wikidata Q2199768 carries no date.",
+      "geometry": {
+        "units": [
+          {
+            "layer": "wijken",
+            "gemeentenaam": "Almere",
+            "names": "all-land"
+          },
+          {
+            "layer": "wijken",
+            "gemeentenaam": "Zeewolde",
+            "names": "all-land"
+          },
+          {
+            "layer": "buurten",
+            "gemeentenaam": "Lelystad",
+            "names": [
+              "Oostvaardersplassen"
+            ]
+          }
+        ]
+      },
+      "accuracy": "Almere's and Zeewolde's land districts and Lelystad's Oostvaardersplassen neighbourhood (421 km²; the polder is given as 430 km²). The Knardijk boundary: see lc:oostelijk-flevoland."
+    },
+    {
+      "id": "lc:marker-wadden",
+      "name": "Marker Wadden",
+      "qid": "Q12015812",
+      "kind": "artificial islands",
+      "state": "water",
+      "from": null,
+      "to": 2015,
+      "dry": 2016,
+      "dateSource": "NOS, \"Vier nieuwe eilanden bij Marker Wadden, moerasandijvie al gespot\" (https://nos.nl/artikel/2161878, March 2017) and BNNVARA Vroege Vogels, \"Eerste land Marker Wadden boven water\" (https://www.bnnvara.nl/vroegevogels/artikelen/eerste-land-marker-wadden-boven-water, read 2026-10-18): \"Op 11 mei 2016 kwam het eerste eiland boven water.\" Wikidata Q12015812 carries no inception date.",
+      "geometry": {
+        "from": "lc:oostelijk-flevoland",
+        "polygonsWithin": {
+          "bbox": [
+            5.33,
+            52.56,
+            5.42,
+            52.62
+          ],
+          "why": "the islands lie in the Markermeer off Lelystad, inside this box; every other polygon of the union is polder land"
+        }
+      },
+      "accuracy": "The islands as CBS 2024 draws Lelystad's land there (2.2 km²; later islands and the islands' growth since 2024 are not drawn). Water until 2015; the first island rose in May 2016 and the archipelago grew after, so 2016–2024 is drawn as the 2024 outline."
+    }
+  ],
+  "notDrawn": [
+    "The Afsluitdijk (closed 28 May 1932; Wikidata Q240960, Rijkswaterstaat) is 32 km long and about 90 m wide — under a pixel at the Atlas's finest zoom — so the dam is not a row; before 1932 the IJsselmeer (Wikidata Q4121, inception 1932) was the Zuiderzee, a sea: the Atlas draws it in the lake colour at every year, which is the same water colour in every theme.",
+    "The province of Flevoland (Wikidata Q707, inception 1986-01-01) has no face and no name in the Atlas (the Netherlands carries no admin-1 units in topology.bin), so there is nothing to date; when provinces are added it starts in 1986.",
+    "The Markerwaard (Wikidata Q2152491, a plan) was never built: no row.",
+    "Lake Flevo / the Almere before the Zuiderzee formed (the 12th–13th centuries) and the Holocene coast: docs/atlas-v2-historical-coastlines.md."
+  ]
+}

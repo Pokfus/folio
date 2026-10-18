@@ -530,6 +530,27 @@
       "usedBy": [
         "../../.claude/ww2-plates/ (Phase 2d: the fortnightly fronts of July 1943 – August 1945, run by hand; build-history.js reads the committed .claude/atlas-build/fronts-plates.json and checks it against this pin)"
       ]
+    },
+    {
+      "id": "cbs-wijken-buurten-2024",
+      "name": "CBS Wijken en Buurten 2024 (Statistics Netherlands districts and neighbourhoods), through PDOK's WFS",
+      "version": "2024 edition; a WFS service, not an archive — build-land-changes.js --fetch pages it (bbox 52.2–53.1 N, 4.6–6.2 E) and records each page's sha256 in land-changes-source.json",
+      "url": "https://service.pdok.nl/cbs/wijkenbuurten/2024/wfs/v1_0",
+      "sha256": "fc040b1494a334da2aee24a515961ac67b092f91e3f78356e04010c27cbe5784",
+      "bytes": 94441756,
+      "licence": "CC0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.nl",
+      "licenceText": "Verified 2026-10-18 in the service's GetCapabilities: <ows:Fees>none</ows:Fees> and <ows:AccessConstraints>https://creativecommons.org/publicdomain/zero/1.0/deed.nl</ows:AccessConstraints> — CC0 1.0.",
+      "attribution": "CBS Wijken en Buurten 2024, Statistics Netherlands (CBS) and the Kadaster through PDOK, CC0 1.0",
+      "retrieved": "2026-10-18",
+      "reachable": "2026-10-18 200 through the agent proxy",
+      "files": [
+        "(a WFS answer: wijken and buurten as GeoJSON, EPSG:4326; cached unioned per row in land-changes-source.json)"
+      ],
+      "usedBy": [
+        "build-land-changes.js (the dated land-change layer: the Zuiderzee polders' land outlines and the CBS water units)"
+      ],
+      "fetchedBy": "build-land-changes.js --fetch — not fetch-sources.js (the service has no archive to hash once; the page hashes are in the cache)"
     }
   ],
   "blocked": [

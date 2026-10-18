@@ -34,7 +34,8 @@
     const levels = {}, water = {};
     let palette = { ocean: [0.70, 0.92, 1.0], land: [0.9, 0.9, 0.92], coast: [0.55, 0.55, 0.6], border: [0.45, 0.45, 0.5], admin1: [0.6, 0.6, 0.66], river: [0.3, 0.55, 0.8], lake: [0.70, 0.92, 1.0], lakeShore: [0.55, 0.55, 0.6], rim: [0.5, 0.5, 0.55], halo: [0.6, 0.65, 0.9], grat: [0.2, 0.2, 0.3], selected: [0.95, 0.75, 0.3] };
     let dpr = 1, W = 0, H = 0, selected = -1, faceCount = 0, snapshot = null, tints = null;   // tints: Phase 5, face index → [r, g, b] 0..1 — a card window's tint without WebGL2
-    const stats = { frames: 0, lastMs: 0, draws: 0, trianglesDrawn: 0, segmentsDrawn: 0, riverSegments: 0, lakeSegments: 0, lakeTriangles: 0, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, visibleAngle: 0, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, level: 0, coreLevel: -1, waterLevel: -1, restores: 0, reliefL0: -1, static2d: true };
+    const stats = { frames: 0, lastMs: 0, draws: 0, trianglesDrawn: 0, segmentsDrawn: 0, riverSegments: 0, lakeSegments: 0, lakeTriangles: 0, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, visibleAngle: 0, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, landChangesDrawn: 0, level: 0, coreLevel: -1, waterLevel: -1, restores: 0, reliefL0: -1, static2d: true };
+    const landChanges = new Map();   // id → { data } (the dated land-change layer, 2026-10-18)
     const debug = { sphere: true, faces: true, arcs: true, water: true, relief: false, cull: true };
 
     // the finest level loaded that the view may use (atlas.js asks for 0; a later caller could load more)
@@ -110,6 +111,9 @@
       const Wl = water[0] && (view.lakes || view.rivers) ? water[0].data : null;
       stats.waterLevel = Wl ? 0 : -1;
       if (Wl && view.lakes && Wl.faceIdx) { ctx.fillStyle = css(palette.lake); stats.lakeTriangles += fillTriangles(Wl.facePos, Wl.faceIdx, rot, cx, cy, r, null); }
+      // the dated land-change layer (2026-10-18): the rows alive in the year, lake-coloured over the land, whatever the lakes switch says
+      stats.landChangesDrawn = 0;
+      for (const id of view.landChanges || []) { const L = landChanges.get(id); if (!L) continue; ctx.fillStyle = css(palette.lake); stats.lakeTriangles += fillTriangles(L.data.facePos, L.data.faceIdx, rot, cx, cy, r, null); stats.landChangesDrawn++; }
       if (L >= 0) {
         const D = levels[L].data;
         ctx.lineWidth = 0.9; ctx.strokeStyle = css(palette.coast); ctx.setLineDash([]);
@@ -125,6 +129,17 @@
       }
       if (Wl) {
         if (view.lakes && Wl.lakeSegs) { ctx.lineWidth = 0.6; ctx.strokeStyle = css(palette.lakeShore); stats.lakeSegments += strokeSegments(Wl.lakeSegs, rot, cx, cy, r, () => true); }
+      }
+      if (view.landChanges && view.landChanges.length) {   // the erasing stroke over the present-day shore along the boundary, then the shore of the day (atlas-gl.js's order)
+        const alive = new Set(view.landChanges);
+        for (const id of view.landChanges) { const L = landChanges.get(id); if (!L || !L.data.all) continue; ctx.lineWidth = 1.8; ctx.strokeStyle = css(palette.lake); strokeSegments(L.data.all.segs, rot, cx, cy, r, () => true); }
+        for (const id of view.landChanges) {
+          const L = landChanges.get(id); if (!L) continue; ctx.lineWidth = 0.6; ctx.strokeStyle = css(palette.lakeShore);
+          if (L.data.land) stats.lakeSegments += strokeSegments(L.data.land.segs, rot, cx, cy, r, () => true);
+          for (const k of Object.keys(L.data.byRow || {})) { const nb = view.landChangeIds ? view.landChangeIds[k] : null; if (nb && alive.has(nb)) continue; stats.lakeSegments += strokeSegments(L.data.byRow[k].segs, rot, cx, cy, r, () => true); }
+        }
+      }
+      if (Wl) {
         if (view.rivers && Wl.riverSegs) { ctx.lineWidth = 0.8; ctx.strokeStyle = css(palette.river); stats.riverSegments += strokeSegments(Wl.riverSegs, rot, cx, cy, r, () => true); }
       }
       if (view.graticule) { ctx.lineWidth = 0.5; ctx.strokeStyle = css(palette.grat, 0.45); ctx.setLineDash([2, 4]); graticule(rot, cx, cy, r); ctx.setLineDash([]); }
@@ -156,6 +171,7 @@
       setLevel(level, data) { levels[level] = { data }; },
       setTile() {}, dropTile() {}, tileLoaded() { return true; }, tileCount() { return 0; },
       setWaterLevel(level, data) { water[level] = { data }; },
+      setLandChange(id, data) { landChanges.set(id, { data }); }, dropLandChange(id) { landChanges.delete(id); }, landChangeLoaded(id) { return landChanges.has(id); },
       waterLevelLoaded(l) { return !!water[l]; },
       setWaterTile() {}, dropWaterTile() {}, waterTileLoaded() { return true; },
       setRelief() {}, dropRelief() {}, reliefLoaded() { return false; }, reliefCount() { return 0; },
@@ -174,7 +190,7 @@
         const D = levels[L].data; const f = pickIn(D.facePos, D.faceIdx, rot, cx, cy, r, x, y);
         return f >= 0 ? { face: f } : null;
       },
-      stats() { return { triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, complete: true, tilesResident: 0, waterTilesResident: 0, reliefResident: 0, reliefL0: -1, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: 0, restores: 0, static2d: true }; },
+      stats() { return { triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, landChangesDrawn: stats.landChangesDrawn, complete: true, tilesResident: 0, waterTilesResident: 0, reliefResident: 0, reliefL0: -1, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: 0, restores: 0, static2d: true }; },
       // Phase 2a: the still view draws no history (the year rail still works; the fills come with WebGL2) — the main thread calls these on any renderer
       setPresenceTheme() {}, setHistorySegs() {}, historySegsLoaded() { return false; }, setHistoryMesh() {}, dropHistoryMesh() {}, historyMeshLoaded() { return false; }, historyMeshCount() { return 0; },
       setHistoryStyle() {}, setHistoryArcTable() {}, setHistoryBorderColor() {}, clearHistory() {}, linesCache() {}, stillCache() {},

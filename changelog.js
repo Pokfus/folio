@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1033", released: "2026-10-18T07:05Z" };
+window.FOLIO_VERSION = { v: "1.1034", released: "2026-10-18T08:16Z" };
 
 window.CHANGELOG = [
   {
@@ -51,6 +51,8 @@ window.CHANGELOG = [
       "<b>Atlas states</b>: a state, a people or a culture no longer carries a star — it is named on the map, and its border or its name is what you tap.",
       "<b>Atlas timeline</b>: the small vertical lines along the year track are gone; the track is a plain line with the pin, and [ and ] still jump between the years something on screen changes.",
       "<b>Atlas borders</b>: Rome now lies inside the Roman Kingdom in every year from 750 to 481 BCE — the source drew the city 3 km outside it, and Folio's correction (named on Sources and credits) opens the border around the city.",
+      "Atlas: the Wieringermeer, the Noordoostpolder and the two Flevoland polders are water until the year each fell dry (1930, 1942, 1957, 1968), with the coast of the day.",
+      "Atlas: every lake island — Flevoland, Manitoulin, Olkhon — is drawn as land again; a winding fault had filled all of them as lake.",
     ],
   },
   {

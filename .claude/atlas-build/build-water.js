@@ -105,9 +105,13 @@ const lakes = [];   // { id, name, area, type, country, rings: [{ pts: [[x,y]…
       const ring = R.dedupeRing(pts); R.cutSpikes(ring);
       if (ring.length < 3) continue;
       const { area: A } = R.ringAreaAndTurn(ring);
-      // shapefile: outer rings clockwise (negative planar area), holes counter-clockwise. Ours: water on the left.
+      // shapefile: outer rings clockwise (negative planar area), holes counter-clockwise. Ours: water on the left — so BOTH
+      // are reversed: an outer ring walked counter-clockwise has the lake on its left, and a hole (an island) walked clockwise
+      // has the lake on its left too. Until 2026-10-18 only the outer ring was reversed, so every island kept the source's
+      // counter-clockwise turn and the worker (which classes a ring by its signed area) filled all 16,699 of them as lake —
+      // the Flevopolder, HydroLAKES 117's hole, drew as IJsselmeer water with a shore round it (the owner's "thin outline").
       const outer = A < 0;
-      if (outer) ring.reverse();
+      ring.reverse();
       rings.push({ pts: ring, outer, area_u2: Math.abs(A) });
     }
     if (!rings.some((g) => g.outer)) { degenerate++; continue; }
