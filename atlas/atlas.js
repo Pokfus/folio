@@ -376,6 +376,11 @@
             <p class="atlas2-layers-note" hidden></p>
           </div>
         </div>
+        <div class="atlas2-sheet atlas2-intro" role="dialog" aria-labelledby="atlas2-intro-title" hidden>
+          <div class="atlas2-sheet-head"><strong id="atlas2-intro-title">Your Personal Atlas</strong><button type="button" class="atlas2-sheet-close atlas2-intro-close" aria-label="Close">×</button></div>
+          <p class="atlas2-about-p">The Atlas opens on your <b>Personal Atlas</b>. It starts almost empty and fills in as you study: every place a geography or history card teaches is marked here once you have reviewed that card. <b>Full</b> shows every place the cards cover; <b>Map</b> is the plain globe.</p>
+          <button type="button" class="atlas2-btn atlas2-intro-ok">Got it</button>
+        </div>
         <div class="atlas2-help">
           <button type="button" class="atlas2-btn atlas2-about-btn" aria-expanded="false" aria-controls="atlas2-about" aria-label="About this map" title="About this map">?</button>
           <div class="atlas2-sheet atlas2-about" id="atlas2-about" role="dialog" aria-labelledby="atlas2-about-title" hidden>
@@ -1034,7 +1039,7 @@
       else if (e.key === "ArrowUp") view.lat += step; else if (e.key === "ArrowDown") view.lat -= step;
       else if (e.key === "+" || e.key === "=") zoomAt(1.25); else if (e.key === "-" || e.key === "_") zoomAt(1 / 1.25);
       else if (e.key === "Home" || e.key === "0") { view.lon = 10; view.lat = 20; view.zoom = 1; }
-      else if (e.key === "Escape") { if (fan) closeFan(); else if (!aboutEl.hidden) openAbout(false); else if (!sheet.hidden) openSheet(false); else if (menuOpen) showMenu(false); else if (searchOpen) collapseSearch(); else clearSelection(); }
+      else if (e.key === "Escape") { if (fan) closeFan(); else if (introEl && !introEl.hidden) closeIntro(true); else if (!aboutEl.hidden) openAbout(false); else if (!sheet.hidden) openSheet(false); else if (menuOpen) showMenu(false); else if (searchOpen) collapseSearch(); else clearSelection(); }
       else if (e.key === "?") openAbout(aboutEl.hidden);
       else if (e.key === "/") { openSearchBox(); searchIn.focus(); searchIn.select(); }
       else if (e.key === "p" || e.key === "P") setPerf(!perfOn, true);
@@ -1047,6 +1052,7 @@
     el.addEventListener("keydown", (e) => {
       if (e.key !== "Escape" || e.target === canvas) return;
       if (fan) { closeFan(); return; }                                                    // the fan first (stacks removed): it is the newest thing on the map
+      if (introEl && !introEl.hidden) { closeIntro(true); return; }                          // then the first-visit note
       if (e.target === searchIn && !resultsUl.hidden) { closeResults(); return; }
       if (searchOpen && searchBox.contains(e.target)) { collapseSearch(); canvas.focus({ preventScroll: true }); return; }   // a phone's search box shuts like the sheets
       if (!aboutEl.hidden) { openAbout(false); return; }                                   // the About sheet first (Phase 1d)
@@ -1886,7 +1892,7 @@
        layout as occupied ground — the search box and its list, the zoom stack, the Legend and ? chips, an open sheet, the
        card (or its phone strip), the stack chip, the status line, the mode note, the year rail. A sheet opening or closing
        asks for a layout, so the names step out from under it. */
-    const CHROME = [".atlas2-search-btn", ".atlas2-search-in", ".atlas2-results", ".atlas2-menu-btn", ".atlas2-menu", ".atlas2-search-note", ".atlas2-study", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
+    const CHROME = [".atlas2-search-btn", ".atlas2-search-in", ".atlas2-results", ".atlas2-menu-btn", ".atlas2-menu", ".atlas2-search-note", ".atlas2-study", ".atlas2-intro", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
     function chromeRects() {
       const base = el.getBoundingClientRect(), out = [], seen = new Set();
       for (const sel of CHROME) for (const node of el.querySelectorAll(sel)) {
@@ -3058,6 +3064,34 @@
     { const v = stRead(OPEN_KEY); if (v === "1" || v === "0") ST.open = v === "1"; }   // a stored choice wins over the phone default (collapsed)
     const stWrite = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
     const studyEl = el.querySelector(".atlas2-study");
+    /* THE FIRST OPENING IS THE PERSONAL ATLAS, AND A NOTE SAYS WHY (Oct 2026, on request: "Opening the Atlas for the first time should open on
+       the personal atlas by default, and a popup should explain that it's filled in as the user studies geography and history cards"). Until
+       then a reader with no studied card opened on the plain Map (refreshStudy below chose Personal only when the studied set was not empty).
+       Now a reader who has never chosen a view opens on Personal whatever they have studied — so the first visit meets an almost empty globe
+       that explains itself — and the note (.atlas2-intro, a sheet under the study panel; on a phone across the top of the frame) is shown
+       ONCE per viewer (INTRO_KEY, localStorage behind try/catch like MODE_KEY) and goes on "Got it", Escape, a press on any view, or the first
+       touch of the globe. A reader who has chosen a view (MODE_KEY stored) never sees it; the hub (EMBED) never draws it. */
+    const INTRO_KEY = "folio.atlas2.intro";
+    const introEl = el.querySelector(".atlas2-intro");
+    function showIntro() {
+      if (EMBED || !introEl || stRead(INTRO_KEY) === "1") return;
+      stWrite(INTRO_KEY, "1");
+      introEl.hidden = false; placeIntro(); requestLayout("chrome");
+    }
+    function placeIntro() {   // under the study panel on a desktop, however tall the panel is; a phone places it by CSS alone
+      if (!introEl || introEl.hidden) return;
+      introEl.style.top = PHONE || !studyEl ? "" : (studyEl.offsetTop + studyEl.offsetHeight + 8) + "px";
+    }
+    function closeIntro(focus) {
+      if (!introEl || introEl.hidden) return;
+      introEl.hidden = true; requestLayout("chrome");
+      if (focus || introEl.contains(document.activeElement)) canvas.focus({ preventScroll: true });
+    }
+    if (introEl) {
+      introEl.querySelector(".atlas2-intro-ok").addEventListener("click", () => closeIntro(true));
+      introEl.querySelector(".atlas2-intro-close").addEventListener("click", () => closeIntro(true));
+      for (const t of ["pointerdown", "touchstart"]) el.addEventListener(t, (e) => { if (!introEl.hidden && !introEl.contains(e.target)) closeIntro(false); }, { capture: true, passive: true });
+    }
     const infoCache = new Map();
     const info = (cid) => { let v = infoCache.get(cid); if (v === undefined) { try { v = SU.cardInfo(cid) || null; } catch (e) { v = null; } infoCache.set(cid, v); } return v; };
     // the places.js rows join the gazetteer's in G (selectable, searchable, openable by hash); a gazetteer-shaped row with `src: "places"`
@@ -3136,7 +3170,8 @@
         const known = new Set(ST.colls.map((c) => c.id));
         ST.hidden = new Set((Array.isArray(hidden) ? hidden : []).filter((h) => typeof h === "string" && known.has(h)));
         const m = stRead(MODE_KEY);
-        ST.mode = m === "personal" || m === "full" || m === "map" ? m : (ST.st.total > 0 ? "personal" : "map");
+        ST.mode = m === "personal" || m === "full" || m === "map" ? m : "personal";   // a reader who has not chosen opens on Personal (Oct 2026; was Map with nothing studied)
+        if (!m) showIntro();
       }
       applyStudy();
     }
@@ -3151,6 +3186,7 @@
       invalidateLabels(); requestLayout("study", true);
     }
     function setStudyMode(m) {
+      closeIntro(false);   // a press on any view, the current one included, is the note read
       if (!ST.ready || !/^(map|personal|full)$/.test(m) || m === ST.mode) return;
       ST.mode = m; stWrite(MODE_KEY, m); applyStudy();
     }
@@ -3203,6 +3239,7 @@
       toggleEl.hidden = !hasMore; moreEl.hidden = !(hasMore && ST.open);
       toggleEl.setAttribute("aria-expanded", String(hasMore && ST.open)); { const t = (hasMore && ST.open ? "Hide" : "Show") + (list.length ? " the collections" : " the details"); toggleEl.setAttribute("aria-label", t); toggleEl.title = t; }
       studyEl.setAttribute("data-open", hasMore && ST.open ? "1" : "0");
+      placeIntro();
       requestLayout("chrome");   // the panel's height moved: the names step out from under it
     }
     if (studyEl) {

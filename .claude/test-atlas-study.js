@@ -102,7 +102,15 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const { ctx, page, errors } = await open(browser, []);
     const s0 = await study(page);
     check("the panel is there, with three radios named Map, Personal and Full", JSON.stringify(await page.$$eval(".atlas2-study [role=radio]", (b) => b.map((x) => x.textContent.trim()))) === '["Map","Personal","Full"]');
-    check("a reader with no cards opens on the plain Map (the study layer off) and the globe carries no study mark", s0.mode === "map" && s0.flags.length === 0 && (await marks(page)).length === 0, JSON.stringify(s0.mode));
+    check("a reader with no cards opens on the Personal Atlas (Oct 2026, on request; it was the plain Map), empty — the globe carries no study mark", s0.mode === "personal" && s0.flags.length === 0 && (await marks(page)).length === 0, JSON.stringify(s0.mode));
+    // the first visit's note (showIntro): shown once, under the study panel, saying the Personal Atlas fills in as the reader studies
+    const intro = await page.evaluate(() => { const n = document.querySelector(".atlas2-intro"); if (!n || n.hidden) return null; const r = n.getBoundingClientRect(), p = document.querySelector(".atlas2-study").getBoundingClientRect(); return { text: n.textContent.replace(/\s+/g, " ").trim(), under: r.top >= p.bottom && Math.abs(r.left - p.left) < 2, remembered: localStorage.getItem("folio.atlas2.intro") }; });
+    check("…and a note explains that the Personal Atlas fills in as the reader studies geography and history cards", !!intro && /Personal Atlas/.test(intro.text) && /fills in as you study/.test(intro.text) && /geography or history card/.test(intro.text), intro && intro.text);
+    check("…standing directly under the study panel, remembered per viewer", !!intro && intro.under && intro.remembered === "1", JSON.stringify(intro));
+    await page.click(".atlas2-intro-ok"); await sleep(150);
+    check("\"Got it\" closes the note", await page.$eval(".atlas2-intro", (n) => n.hidden));
+    await page.reload({ waitUntil: "load" }); await ready(page);
+    check("…and a reload does not show it again, the view still Personal", (await page.$eval(".atlas2-intro", (n) => n.hidden)) && (await study(page)).mode === "personal");
     await page.click('.atlas2-study [data-mode="personal"]'); await sleep(200);
     const e1 = await panelText(page, ".atlas2-study-empty");
     check("Personal says, honestly, that nothing is theirs yet — and the Full Atlas is one tap away", /haven’t studied any cards yet/.test(e1 || "") && /Full Atlas/.test(e1 || ""), e1);

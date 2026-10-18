@@ -435,6 +435,7 @@ async function fixedMarks(page) {
   const base = "http://127.0.0.1:" + PORT + "/";
   const browser = await chromium.launch(LAUNCH);
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 }, hasTouch: true });
+  await context.addInitScript(() => { try { localStorage.setItem("folio.atlas2.study", "map"); } catch (e) {} });   // the Map view: this suite taps places with no cards seeded, and the Atlas opens on Personal by default since Oct 2026
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 200)));
