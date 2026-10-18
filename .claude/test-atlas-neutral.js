@@ -169,7 +169,7 @@ const near = (a, b, t) => a.every((v, i) => Math.abs(v - b[i]) <= t);
          ≥ 7:1 and the halo on the darker land ≥ 3:1 (WCAG's floor for a text's own outline) in every theme. The ink against the darker land itself is REPORTED, not
          gated: at half the land's luminance it is 2.9–3.7:1 in the light themes (it would need the factor at about 0.65 to reach 4.5:1), which is the owner's call. */
       const contrast = await A(page, (c, ths) => { const out = []; for (const t of ths) { document.body.dataset.theme = t; const r = c.contrastAudit(); out.push({ theme: t, dim: r.dim, fill: r.fill, haloDim: r.haloDim, inkHalo: r.inkHalo }); } delete document.body.dataset.theme; return out; }, THEMES);
-      const low = contrast.filter((r) => r.inkHalo < 7 || r.haloDim < 3 || r.fill < 4.5);
+      const low = contrast.filter((r) => !(r.inkHalo >= 7) || !(r.haloDim >= 3) || !(r.fill >= 4.5));   // a missing figure (a build without the audit) fails, never passes
       check(`in every light theme a name over the darker land keeps its contrast: the ink on its halo ≥ 7:1 (lowest ${Math.min(...contrast.map((r) => r.inkHalo)).toFixed(2)}), the halo on the darker land ≥ 3:1 (lowest ${Math.min(...contrast.map((r) => r.haloDim)).toFixed(2)}), the ink on the fill ≥ 4.5:1 (lowest ${Math.min(...contrast.map((r) => r.fill)).toFixed(2)})`, low.length === 0, low.map((r) => `${r.theme} ${r.inkHalo.toFixed(2)} / ${r.haloDim.toFixed(2)}`).join("; "));
       console.log(`        reported, not gated: the ink against the darker land itself, ${Math.min(...contrast.map((r) => r.dim)).toFixed(2)}–${Math.max(...contrast.map((r) => r.dim)).toFixed(2)}:1 over the ${contrast.length} light themes`);
     }
