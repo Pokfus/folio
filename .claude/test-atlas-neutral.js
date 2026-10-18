@@ -69,6 +69,7 @@ async function pixels(page) {
    software GL — so the grid is coarse) and the 3 × 3 device-pixel window around it when that window is one flat colour (±1) */
 const scan = (page, step) => page.evaluate((step) => {
   const c = document.querySelector(".atlas2").__atlas2, [W, H] = c.frame(), px = window.__px, k = px.w / W, out = [];
+  if (typeof c.probeAt !== "function") return out;   // a build before 2026-10-18 has no probe: every check below then fails on an empty scan instead of throwing
   const chrome = (c.study && c.study.layoutChrome ? c.study.layoutChrome() : []);   // the controls over the canvas (the search box, the study panel, the rail): an element screenshot shows them
   const inChrome = (x, y) => chrome.some((r) => x >= r[0] - 8 && x <= r[2] + 8 && y >= r[1] - 8 && y <= r[3] + 8);
   for (let y = 80; y < H - 120; y += step) for (let x = 20; x < W - 20; x += step) {
@@ -114,7 +115,7 @@ const near = (a, b, t) => a.every((v, i) => Math.abs(v - b[i]) <= t);
     const same = states.filter((s) => near(s.rgb, first, 1));
     check(`...and every one samples to the SAME colour (±1 per channel): ${same.length} of ${states.length}`, states.length >= 6 && same.length === states.length, states.map((s) => s.state + " " + s.rgb.join(",")).join("; "));
     check(`...which is the land colour ${land.join(",")} (the fill at its alpha over the land is the land)`, states.length >= 6 && states.every((s) => near(s.rgb, land, 1)), first.join(","));
-    const audit = await A(page, (c) => c.fillAudit());
+    const audit = await A(page, (c) => (c.fillAudit ? c.fillAudit() : { entities: 0, same: 0, differing: [] }));
     check(`the controller hands the renderer the land colour for every alive state (${audit.same} of ${audit.entities})`, audit.entities >= 6 && audit.same === audit.entities, audit.differing.slice(0, 5).join(", "));
     // a people: the Scythians over the Black Sea, 450 BCE (peoples "all")
     await viewAt(page, 34, 45, 4, -450);
