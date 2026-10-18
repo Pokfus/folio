@@ -128,8 +128,10 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
       const land = await C(page, () => { const p = document.querySelector(".atlas2").__atlas2.palette().land; return p.map((v) => Math.round(v * 255)); });
       check(`${e.name}: not alive in its gap year ${gap.y} (steps ${gap.before[1]}–${gap.before[2]} and ${gap.after[1]}–${gap.after[2]})`, !aliveGap.includes(e.id));
       check(`${e.name}: the ID pass under its last face's anchor names it in ${gap.before[2]} and not in ${gap.y}`, stackBefore.includes(e.id) && !stackGap.includes(e.id), `before ${stackBefore.join(">")}, gap ${stackGap.join(">") || "nothing"}`);
-      // in the gap year the pixel is plain land, or another polity's tint (Macedon holds Egypt in 323 BCE) — never the same tint
-      check(`${e.name}: the pixel there is tinted in ${gap.before[2]} and not with its tint in ${gap.y}`, !near(pxBefore, land, 6) && !near(pxGap, pxBefore, 6), `before ${pxBefore}, gap ${pxGap}, land ${land}`);
+      // 2026-10-18 (one neutral fill, darker empty land): alive, the pixel is the land colour (the fill at its alpha over the land IS the land); in the gap year it is the
+      // darker empty land where no other polity holds the spot, or the land again where one does (Macedon holds Egypt in 323 BCE) — read off the stack
+      const otherState = stackGap.some((id) => /^pol:/.test(id) && id !== e.id);
+      check(`${e.name}: its fill in ${gap.before[2]} is the land colour, and in ${gap.y} the spot is ${otherState ? "another polity's, the land again" : "empty, the darker land"}`, near(pxBefore, land, 6) && (otherState ? near(pxGap, land, 6) : !near(pxGap, land, 6) && pxGap[1] < land[1] * 0.7), `before ${pxBefore}, gap ${pxGap}, land ${land}`);
     }
   }
 
@@ -368,20 +370,16 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
       check(`${name}: ${ti.alive} faces alive; the year query costs at most 5 ms at p95 (${ti.yearQueryP95.toFixed(2)} ms over ${ti.yearChangeN - before} changes)`, ti.yearQueryP95 <= 5, `${ti.yearQueryP95.toFixed(2)} ms`);
       check(`${name}: the whole year change on the main thread at most 2 ms at its median (${ti.yearChangeMedian.toFixed(2)} ms; p95 ${ti.yearChangeP95.toFixed(2)} ms, reported)`, ti.yearChangeMedian <= 2, `${ti.yearChangeMedian.toFixed(2)} ms`);
     }
-    // the colours: in every year of the file no two alive faces that share a border arc show one colour, and an entity keeps its
-    // colour across its years wherever a neighbour did not force a change (the slot timeline is read from the controller)
-    const col = await C(page, () => {
-      const c = document.querySelector(".atlas2").__atlas2; const ys = new Set(); for (const st of c.timeInfo().entities ? [] : []) ys.add(st);
-      return c.colourAudit();
-    });
-    check(`no two adjacent alive polities share a colour in any epoch (${col.epochs} epochs, ${col.pairs} adjacent pairs checked)`, col.clashes === 0, `${col.clashes} clashes` + (col.sample.length ? ": " + col.sample.join("; ") : ""));
-    check(`entities keep their colour across the years (${col.entities} entities, ${col.changes} forced changes in all)`, col.changes <= col.entities, `${col.changes} changes`);
-    // label contrast per theme: the theme's ink against every palette slot's fill (the fill at its alpha over the land), WCAG ≥ 4.5
+    // the fills (2026-10-18): every alive state is drawn in the ONE neutral fill, the land colour — the golden-angle slots of Phase 2b no longer
+    // paint anything (docs/atlas.md §2) — and the peoples' stipple is the border ink, not a hue each
+    const col = await C(page, () => document.querySelector(".atlas2").__atlas2.fillAudit());
+    check(`every alive state of the year is the one neutral fill, the land colour (${col.same} of ${col.entities})`, col.entities > 0 && col.same === col.entities, col.differing.slice(0, 5).join(", "));
+    // label contrast per theme: the theme's ink against the neutral fill (the fill at its alpha over the land IS the land), WCAG ≥ 4.5
     const THEMES = ["academy", "amber", "amethyst", "aquamarine", "arcade", "bloodstone", "carnelian", "diamond", "emerald", "folio", "gazette", "jade", "marble", "ruby", "synth"];   // styles.css's fifteen, as test-atlas-labels.js lists them
     const list = THEMES.map((t) => ({ t, night: false })).concat([{ t: "folio", night: true }]);
-    const contrast = await C(page, (ths) => { const c = document.querySelector(".atlas2").__atlas2; const out = []; for (const { t, night } of ths) { document.body.dataset.theme = t; document.body.classList.toggle("night", night); const r = c.contrastAudit(); out.push({ theme: t + (night ? " night" : ""), min: r.min, worst: r.worst }); } delete document.body.dataset.theme; document.body.classList.remove("night"); return out; }, list);
-    const low = contrast.filter((r) => r.min < 4.5);
-    check(`the label ink reads on every palette slot's fill in every theme (${contrast.length} themes; the lowest contrast ${Math.min(...contrast.map((r) => r.min)).toFixed(2)})`, low.length === 0, low.map((r) => `${r.theme} ${r.min.toFixed(2)} (${r.worst})`).join("; "));
+    const contrast = await C(page, (ths) => { const c = document.querySelector(".atlas2").__atlas2; const out = []; for (const { t, night } of ths) { document.body.dataset.theme = t; document.body.classList.toggle("night", night); const r = c.contrastAudit(); out.push({ theme: t + (night ? " night" : ""), min: r.min, fill: r.fill }); } delete document.body.dataset.theme; document.body.classList.remove("night"); return out; }, list);
+    const low = contrast.filter((r) => r.fill < 4.5);   // the ink on the FILL; the darker empty land and the halo are test-atlas-neutral.js §2's
+    check(`the label ink reads on the neutral fill in every theme (${contrast.length} themes; the lowest contrast ${Math.min(...contrast.map((r) => r.fill)).toFixed(2)})`, low.length === 0, low.map((r) => `${r.theme} ${r.fill.toFixed(2)}`).join("; "));
     // labels ranked by area on screen: at Europe in 1500 the largest alive face on screen is named
     await at(page, 10, 50, 3, 1500);
     const placed = await layoutNow(page); const big = await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; return c.largestOnScreen(); });

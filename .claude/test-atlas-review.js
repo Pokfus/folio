@@ -61,9 +61,12 @@ async function strokePixelsFarFromWater(page) {
   /* 2d: the Wars switch is on by default and tints a war's sides (a green and a red over the state's own hue), which this test's colour line from the land to the state's hue would read as stroke: it measures the state styling, so the tints are off */
   /* 2026-10-17, decision a: the rivers are drawn to the cap now, and a river's blue under a blue polity's tint sits on that polity's colour line (what §1b
      below already says of rivers and lake shores) — the coast stroke is what this measures, so the rivers are off for the shot; the lakes stay (they are water) */
-  await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ wars: "off", fronts: false, rivers: false }); c.invalidate(); }); await sleep(500);
+  /* 2026-10-18: every state is drawn in the land colour (one neutral fill; docs/atlas.md §2), so a fold or a crack in a mesh is invisible by construction — the fill over the land is the land.
+     The measurement keeps its meaning through `debugFill`, the controller's test-only override: one visible blue stands in for the neutral while the shot is taken, and is cleared after */
+  await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.debugFill([0.22, 0.32, 0.78]); c.setLayers({ wars: "off", fronts: false, rivers: false }); c.invalidate(); }); await sleep(500);
   await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.tilesSettled(), null, { timeout: 60000 }).catch(() => {}); await sleep(300);
   const png = (await page.locator(".atlas2").screenshot()).toString("base64");
+  await C(page, () => document.querySelector(".atlas2").__atlas2.debugFill(null));
   return C(page, async (b64) => {
     const c = document.querySelector(".atlas2").__atlas2;
     const img = new Image(); img.src = "data:image/png;base64," + b64; await img.decode();
@@ -73,7 +76,8 @@ async function strokePixelsFarFromWater(page) {
     const dpr = cv.width / c.view.cx / 2;   // device pixels per CSS pixel in the shot (the view's centre is half the width)
     // the polities' full colours (the stroke's colour), contested faces left out (their hatch is the partner's colour)
     const faces = c.alive(), seen = new Set(), cols = [];
-    for (const a of faces) { if (seen.has(a.entity) || a.entity.startsWith("contested:")) continue; seen.add(a.entity); const rgb = c.histColour(a.entity); if (rgb) cols.push(rgb.map((v) => Math.round(v * 255))); }
+    const dbg = [0.22, 0.32, 0.78].map((v) => Math.round(v * 255));   // the override the shot was taken with (histColour reads the live fill, which is the land again by now)
+    for (const a of faces) { if (seen.has(a.entity) || a.entity.startsWith("contested:")) continue; seen.add(a.entity); cols.push(dbg); }
     // water and plain land by the palette, as the renderer draws them (relief off). A fill is the polity's colour at its alpha over
     // the land; the stroke is the colour at full strength; an antialiased thin stroke lands between. A pixel counts as STROKE-TINTED
     // when it sits on the line from the land colour to the polity's colour (within 24 of it) at least 0.62 of the way along — the
