@@ -150,7 +150,7 @@
   },
   "pl:q1025459": {
    "name": "Ruijin",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q1025459",
    "at": [
@@ -169,7 +169,8 @@
     "via": "title",
     "km": 0.7
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q1025625": {
    "name": "Khuldabad",
@@ -329,7 +330,7 @@
   },
   "pl:q1046818": {
    "name": "Chengde Mountain Resort",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q1046818",
    "at": [
@@ -348,7 +349,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q1047061": {
    "name": "Giant Wild Goose Pagoda",
@@ -719,8 +721,8 @@
   },
   "pl:q109412796": {
    "name": "Gaixia Site",
-   "kind": "region",
-   "sub": "",
+   "kind": "site",
+   "sub": "building",
    "qid": "Q109412796",
    "at": [
     117.551,
@@ -739,7 +741,8 @@
     "via": "label",
     "km": 0.2
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q109535880": {
    "name": "Wadi Kubbaniya",
@@ -1504,7 +1507,7 @@
   },
   "pl:q1159699": {
    "name": "Dangyang",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q1159699",
    "at": [
@@ -1522,7 +1525,8 @@
     "via": "title",
     "km": 0.6
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q1160195": {
    "name": "Mantinea",
@@ -1944,7 +1948,7 @@
   },
   "pl:q1201091": {
    "name": "Xingping",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q1201091",
    "at": [
@@ -1962,7 +1966,8 @@
     "via": "title",
     "km": 0.8
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q1204909": {
    "name": "Liangzhu culture",
@@ -2151,7 +2156,7 @@
   },
   "pl:q1235930": {
    "name": "Colonus (Attica)",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q1235930",
    "at": [
@@ -2171,7 +2176,8 @@
     "via": "label",
     "km": 0.7
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q1236078": {
    "name": "Lerna",
@@ -3319,9 +3325,33 @@
    },
    "cards": 1
   },
+  "pl:q1357977": {
+   "name": "Battle of the Caudine Forks",
+   "kind": "site",
+   "sub": "battle",
+   "qid": "Q1357977",
+   "at": [
+    14.5333,
+    41.15
+   ],
+   "within": "",
+   "aliases": [
+    "Caudine Forks"
+   ],
+   "wiki": "Battle of the Caudine Forks",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q178561"
+    ],
+    "via": "label",
+    "km": 14.8
+   },
+   "cards": 1
+  },
   "pl:q1360089": {
    "name": "Xingyang",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q1360089",
    "at": [
@@ -3339,7 +3369,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q1360503": {
    "name": "Issus (Cilicia)",
@@ -3367,7 +3398,7 @@
   },
   "pl:q1363661": {
    "name": "Gaoping",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q1363661",
    "at": [
@@ -3385,7 +3416,8 @@
     "via": "title",
     "km": 0.8
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q1363688": {
    "name": "Ancient Corinth",
@@ -4808,7 +4840,7 @@
   },
   "pl:q164055": {
    "name": "Tiananmen Square",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q164055",
    "at": [
@@ -4826,7 +4858,8 @@
     "via": "title",
     "km": 0.1
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q16470": {
    "name": "Normandy landings",
@@ -4877,7 +4910,7 @@
   },
   "pl:q1669492": {
    "name": "Prince Edward station",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q1669492",
    "at": [
@@ -4896,7 +4929,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q168518": {
    "name": "Uruk",
@@ -6170,7 +6204,7 @@
   },
   "pl:q189417": {
    "name": "Appian Way",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q189417",
    "at": [
@@ -6190,7 +6224,8 @@
     "via": "label",
     "km": 2.2
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q189685": {
    "name": "Abomey",
@@ -9084,7 +9119,7 @@
   },
   "pl:q2663651": {
    "name": "Peking Legation Quarter",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q2663651",
    "at": [
@@ -9106,7 +9141,8 @@
     "via": "label",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q267258": {
    "name": "Odawara",
@@ -10096,7 +10132,7 @@
   },
   "pl:q319114": {
    "name": "Dunhuang",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q319114",
    "at": [
@@ -10114,7 +10150,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 3
+   "cards": 3,
+   "kindWas": "region"
   },
   "pl:q31918813": {
    "name": "Mérida",
@@ -11901,8 +11938,8 @@
   },
   "pl:q4390891": {
    "name": "Du Fu Thatched Cottage",
-   "kind": "region",
-   "sub": "",
+   "kind": "site",
+   "sub": "building",
    "qid": "Q4390891",
    "at": [
     104.0263,
@@ -11920,7 +11957,8 @@
     "via": "title",
     "km": 0.1
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q4406882": {
    "name": "Samosdelka",
@@ -13331,7 +13369,7 @@
   },
   "pl:q5623300": {
    "name": "Gwanghwamun Square",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q5623300",
    "at": [
@@ -13349,7 +13387,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q5642706": {
    "name": "Hall of Mental Cultivation",
@@ -13658,7 +13697,7 @@
   },
   "pl:q576319": {
    "name": "Acharnae",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q576319",
    "at": [
@@ -13676,7 +13715,8 @@
     "via": "title",
     "km": 0.2
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q5776": {
    "name": "Bethlehem",
@@ -14006,7 +14046,7 @@
   },
   "pl:q589934": {
    "name": "Maadi",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q589934",
    "at": [
@@ -14024,7 +14064,8 @@
     "via": "title",
     "km": 1.4
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q59164": {
    "name": "Zhaoqing",
@@ -14255,7 +14296,7 @@
   },
   "pl:q607961": {
    "name": "Guanghan",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q607961",
    "at": [
@@ -14273,7 +14314,8 @@
     "via": "title",
     "km": 7.8
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q614510": {
    "name": "Gabii",
@@ -14859,7 +14901,7 @@
   },
   "pl:q63785": {
    "name": "Piazza Colonna",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q63785",
    "at": [
@@ -14877,7 +14919,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q637954": {
    "name": "Betar (ancient city)",
@@ -15048,7 +15091,7 @@
   },
   "pl:q6541958": {
    "name": "Liberty Square (Taipei)",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q6541958",
    "at": [
@@ -15068,11 +15111,12 @@
     "via": "label",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q656999": {
    "name": "Raynham, Norfolk",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q656999",
    "at": [
@@ -15092,7 +15136,8 @@
     "via": "label",
     "km": 1.5
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q661559": {
    "name": "Ambracia",
@@ -15900,7 +15945,7 @@
   },
   "pl:q734499": {
    "name": "Jingshan Park",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q734499",
    "at": [
@@ -15920,7 +15965,8 @@
     "via": "label",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q735628": {
    "name": "Messapia",
@@ -16176,7 +16222,7 @@
   },
   "pl:q744802": {
    "name": "Kabul International Airport",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q744802",
    "at": [
@@ -16198,7 +16244,8 @@
     "via": "label",
     "km": 0.1
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q746102": {
    "name": "Cloaca Maxima",
@@ -16534,7 +16581,7 @@
   },
   "pl:q778784": {
    "name": "Place de la Bastille",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q778784",
    "at": [
@@ -16552,7 +16599,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q781463": {
    "name": "Phoenice",
@@ -16983,7 +17031,7 @@
   },
   "pl:q838542": {
    "name": "Shaoshan",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q838542",
    "at": [
@@ -17000,6 +17048,29 @@
     ],
     "via": "title",
     "km": 4.6
+   },
+   "cards": 1,
+   "kindWas": "region"
+  },
+  "pl:q83973": {
+   "name": "Tiananmen",
+   "kind": "site",
+   "sub": "building",
+   "qid": "Q83973",
+   "at": [
+    116.3912,
+    39.9074
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Tiananmen",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q53060"
+    ],
+    "via": "title",
+    "km": 0
    },
    "cards": 1
   },
@@ -17052,7 +17123,7 @@
   },
   "pl:q842071": {
    "name": "Yuen Long station",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q842071",
    "at": [
@@ -17071,7 +17142,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q842587": {
    "name": "Liugong Island",
@@ -17216,7 +17288,7 @@
   },
   "pl:q855228": {
    "name": "Dali City",
-   "kind": "region",
+   "kind": "town",
    "sub": "",
    "qid": "Q855228",
    "at": [
@@ -17236,7 +17308,8 @@
     "via": "label",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q85762876": {
    "name": "Gebel Ramlah",
@@ -17336,7 +17409,7 @@
   },
   "pl:q863759": {
    "name": "Maidan Nezalezhnosti",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q863759",
    "at": [
@@ -17354,7 +17427,8 @@
     "via": "title",
     "km": 0
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q8777773": {
    "name": "Scotussa",
@@ -17427,7 +17501,7 @@
   },
   "pl:q907894": {
    "name": "Old Summer Palace",
-   "kind": "region",
+   "kind": "site",
    "sub": "",
    "qid": "Q907894",
    "at": [
@@ -17449,7 +17523,8 @@
     "via": "title",
     "km": 1.3
    },
-   "cards": 1
+   "cards": 1,
+   "kindWas": "region"
   },
   "pl:q911049": {
    "name": "Bretton Woods, New Hampshire",

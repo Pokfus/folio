@@ -276,6 +276,25 @@ console.log("\n2e) the area anchors (2026-10-18): a homonym 260 km away is caugh
   check("the live registry has no area anchor off its card's area but the allowed ones", live.offenders.every((o) => o.allowed), live.offenders.filter((o) => !o.allowed).map((o) => o.name).join(", "));
   check("Messapia is the Salento row, pl:q735628, and card rm-020 carries it", reg2.rows.has("pl:q735628") && !reg2.rows.has("pl:q3234653") && cards2.find((c) => c.id === "rm-020").places.includes("pl:q735628"));
 }
+console.log("\n2f) point-like features are sites and settlements, not areas (2026-10-18; the owner's phone: Tiananmen Square drawn as an area, no mark)\n");
+{
+  const AS = require("../atlas/study.js");
+  const cache = { classes: { Q174782: { label: "square", tops: ["Q174782", "Q82794", "Q2221906"] }, Q111027585: { label: "", tops: ["Q82794", "Q2221906", "Q174782"] }, Q12280: { label: "bridge", tops: ["Q12280"] }, Q672490: { label: "deme", tops: ["Q82794", "Q4835091", "Q1620908", "Q2221906", "Q672490"] }, Q1620908: { label: "historical region", tops: ["Q1620908", "Q82794", "Q2221906"] }, Q8514: { label: "desert", tops: ["Q8514", "Q82794", "Q2221906"] }, Q23442: { label: "island", tops: ["Q23442", "Q2221906"] } } };
+  const k = (cls) => { const r = M.kindOf(cache, cls); return r ? r.kind + (r.sub ? "/" + r.sub : "") : null; };
+  check("a square (Q174782) is a site, not a region", k(["Q174782"]) === "site");
+  check("a class whose parent is square (Maidan Nezalezhnosti's Q111027585) is a site", k(["Q111027585"]) === "site");
+  check("a bridge is a site/building, a deme a town", k(["Q12280"]) === "site/building" && k(["Q672490"]) === "town");
+  check("a historical region and a desert stay regions; an island stays an island", k(["Q1620908"]) === "region" && k(["Q8514"]) === "region" && k(["Q23442"]) === "island");
+  check("the point-like class lists have no class in two lists, and none is a catch-all top", [].concat(M.POINT_SITE, M.POINT_BUILDING, M.POINT_TOWN).every((q, i, a) => a.indexOf(q) === i && !["Q82794", "Q2221906", "Q4835091", "Q1048835"].includes(q)));
+  const rows = R.readTable(B.TARGET, "ATLAS_PLACES").rows, C = M.loadCache();
+  for (const name of ["Tiananmen Square", "Gwanghwamun Square", "Liberty Square (Taipei)"]) { const r = rows.find((x) => x.name === name); check(name + " is a site with a mark (markClass site), not a region", !!r && r.kind === "site" && AS.markClass(r.kind, r.sub, false) === "site", r ? r.kind + "/" + (r.sub || "") + " → " + AS.markClass(r.kind, r.sub, false) : "no row"); }
+  const POINT = new Set([].concat(M.POINT_SITE, M.POINT_BUILDING, M.POINT_TOWN));
+  const stale = rows.filter((r) => r.kind === "region" && (C.items[r.qid] ? C.items[r.qid].classes : []).some((c) => POINT.has(c) || ((C.classes[c] || {}).tops || []).some((t) => POINT.has(t))));
+  check("no region row of the registry carries a point-like class (own or reached by subclass-of)", stale.length === 0, stale.map((r) => r.name).join(", "));
+  const spec = JSON.parse(fs.readFileSync(path.join(__dirname, "atlas-build", "places-spec.json"), "utf8")).rows;
+  const off = Object.entries(spec).filter(([, r]) => !r.manual && !r.forced && r.evidence && (r.evidence.classes || []).length && R.PLACE_KINDS.includes(r.kind)).filter(([, r]) => { const x = M.kindOf(C, r.evidence.classes); return x && R.PLACE_KINDS.includes(x.kind) && !(x.kind === "region" && /^(town|city|site)$/.test(r.kind)) && (x.kind !== r.kind || (x.sub || "") !== (r.sub || "")); });
+  check("every generated row's kind is what its classes give now (the migration recomputes it each run)", off.length === 0, off.slice(0, 4).map(([id, r]) => id + " " + r.kind).join(", "));
+}
 console.log("\n3) the migration is additive\n");
 {
   // the base is HEAD (the working tree against the last commit: a migration run must not have touched an old field), or the
