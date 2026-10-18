@@ -52,7 +52,8 @@ const { cards } = loadCards();
 const w = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/card-places.js"), "utf8"))(w);
 const IDX = AS.parse(w.ATLAS_CARD_PLACES);
 const withPlaces = cards.filter((c) => c.places && c.places.length);
-const READER = [...withPlaces.filter((c) => /^gr-/.test(c.id)).slice(0, 8), ...withPlaces.filter((c) => /^gw-/.test(c.id)).slice(0, 3), ...withPlaces.filter((c) => /^rm-/.test(c.id)).slice(0, 3)].map((c) => c.id);
+const READER = [...withPlaces.filter((c) => /^gr-/.test(c.id)).slice(0, 8), ...withPlaces.filter((c) => /^gw-/.test(c.id)).slice(0, 3), ...withPlaces.filter((c) => /^rm-/.test(c.id)).slice(0, 3)].map((c) => c.id)
+  .concat(["gr-381", "gr-383", "gr-755"]);   // test-atlas-study's reader, plus the cards that link the Achaemenids, Lydia and Macedon — states alive in 483 BCE, so Personal has faces to count
 const info = (id) => { const c = cards.find((x) => x.id === id); return c ? { collId: "x" } : null; };
 const flagged2 = (ids) => new Set([...AS.flags(IDX, AS.studied(IDX, ids), "personal", [], info)].filter(([, f]) => f === 2).map(([id]) => id));
 const AEGEAN = "sea:1159117123", NILE = "river:1159121589", NILE_CARD = "eg-002";
@@ -117,7 +118,7 @@ const YEARS = [-483, 2025];
       check(where + ", Personal: every name placed is the reader's (" + lPers.length + " names: " + byKind(lPers) + ")", bad.length === 0, bad.length ? "NOT theirs: " + bad.slice(0, 12).map((p) => p.text + " [" + p.kind + "]").join(", ") : "");
       check(where + ", Personal: every mark drawn is a flagged place of theirs (" + mk.length + ")", mk.every((m) => m.st === 2 && isMine(m.id)));
       check(where + ", Personal: the hidden list holds only what is visible and theirs (" + ks.length + ")", ks.every((kk) => isMine(kk.id)) && ks.every((kk) => lPers.some((p) => p.id === kk.id) || mk.some((m) => m.id === kk.id)), ks.filter((kk) => !isMine(kk.id)).map((kk) => kk.text).join(", "));
-      if (y < 0) check(where + ", Personal: the history draws only the reader's faces (" + fPers.faces + " of Full's " + fFull.faces + ")", fPers.faces < fFull.faces && fPers.faces <= [...mine].filter((id) => /^pol:/.test(id)).length);
+      if (y < 0) check(where + ", Personal: the history draws only the reader's faces (" + fPers.faces + " of Full's " + fFull.faces + ")", fPers.faces < fFull.faces && fPers.faces <= [...mine].filter((id) => /^pol:/.test(id)).length && (name !== "the Aegean" || fPers.faces >= 1));   // the Aegean in 483 BCE: the Achaemenids are theirs, so at least one face
     }
     /* 3: the darker EMPTY land under an undiscovered state in Personal. The probe is an undiscovered state's label anchor in Full and eight points round it;
        the points that share the modal colour are its face — the plain land, what Full draws every face in (one neutral fill); a coast, a river or a border
