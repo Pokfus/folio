@@ -6,8 +6,10 @@
 
    THE FAULT IT WAS WRITTEN FOR: in a dark theme a river was the ocean mixed a quarter toward the paper — 1.17:1 against the land and 1.18:1 against
    the sea on folio's night (measured off the palette on 2026-10-18 before the change), so the lines were there and could not be seen. Now the dark
-   river is the sea's own hue lightened toward white (0.40 of the way): 4.3:1 and 3.1:1 on folio's night, at least 3:1 against both in every dark
-   theme. The width is the renderer's 0.8 CSS px in both themes, as before; the light theme's colour (v1's deeper blue) is unchanged.
+   river is a light blue of the sea's family — the ocean pulled three quarters of the way to the accent token and a tenth toward white, #97a1cf on
+   folio's night: 5.7:1 against the land, 4.1:1 against the sea, and 91 RGB units from the border grey (the owner's second word: "ensure the rivers
+   are still light blue … indistinguishable from country borders" — a plain lightening toward white had read as a grey 34 units from it). The width
+   is the renderer's 0.8 CSS px in both themes, as before; the light theme's colour (v1's deeper blue) is unchanged.
 
    HOW IT MEASURES (nothing read from the page's own palette): the frame with rivers on against the frame with them off, read from the renderer's own
    context in one task (as test-atlas-zoom-layers.js reads them), at device scale 2. Along every row and every column, a run of pixels the river changed
