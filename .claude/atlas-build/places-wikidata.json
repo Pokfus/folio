@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-17",
+ "retrieved": "2026-10-18",
  "titles": {
   "Lomekwi 3": null,
   "Olduvai Gorge": {
@@ -91552,6 +91552,17 @@
    ],
    "label": "Rieti",
    "title": "Rieti"
+  },
+  "Q735628": {
+   "coord": [
+    18,
+    40.3333
+   ],
+   "classes": [
+    "Q34763"
+   ],
+   "label": "Salento",
+   "title": "Salento"
   }
  },
  "links": {

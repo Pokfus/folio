@@ -10176,28 +10176,6 @@
    },
    "cards": 1
   },
-  "pl:q3234653": {
-   "name": "Messapia",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q3234653",
-   "at": [
-    16.2362,
-    38.5535
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q82794"
-    ],
-    "via": "label",
-    "km": 259.6
-   },
-   "cards": 1
-  },
   "pl:q323813": {
    "name": "Jamestown",
    "kind": "town",
@@ -15943,6 +15921,29 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q735628": {
+   "name": "Messapia",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q735628",
+   "at": [
+    18,
+    40.3333
+   ],
+   "within": "",
+   "aliases": [
+    "Salento"
+   ],
+   "wiki": "Salento",
+   "manual": true,
+   "reason": "Messapia: the migration matched the locator's name to Q3234653, an item whose Wikidata coordinate is 38.55 N 16.24 E (Calabria), 260 km from the card's coordinate and outside the locator's own area; English Wikipedia's Messapia page says the ancient region is roughly the modern Salento (Q735628), whose Wikidata coordinate (40.33 N 18.0 E) lies inside the locator's area",
+   "evidence": {
+    "classes": [
+     "Q34763"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q735914": {
    "name": "Jokhang",

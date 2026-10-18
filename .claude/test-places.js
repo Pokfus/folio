@@ -257,6 +257,25 @@ console.log("\n2d) decision e (2026-10-17): a living city never becomes a site b
   check("a frazione (Baiae) or a Serbian city (Naissus) beside the ancient-city class is a living settlement — Wikidata's own word", K(["Q20616831", ANCIENT, "Q1134686"]).kind !== "site" && K(["Q37800986", ANCIENT, BIG, "Q56061"]).kind === "city");
 }
 
+console.log("\n2e) the area anchors (2026-10-18): a homonym 260 km away is caught, a point in the card's area is not\n");
+{
+  const A = require("./atlas-build/lib/place-anchors.js");
+  const L = { name: "Messapia", at: [18.1667, 40.35], kind: "region", area: [[17.25, 40.47], [17.6, 40.68], [17.95, 40.72], [18.35, 40.55], [18.52, 40.15], [18.36, 39.79], [18, 39.98], [17.75, 40.25]] };
+  check("the Calabrian homonym (16.24 E 38.55 N) is 25 km or more outside Messapia's area", !A.agrees([16.2362, 38.5535], L).ok, Math.round(A.agrees([16.2362, 38.5535], L).km) + " km");
+  check("Salento's coordinate (18.0 E 40.33 N) is inside it", A.agrees([18, 40.3333], L).ok && A.agrees([18, 40.3333], L).inside);
+  check("a point 10 km outside the outline passes, 60 km outside does not", A.agrees([18.52 + 0.1, 40.15], L).ok && !A.agrees([18.52 + 0.7, 40.15], L).ok);
+  check("without an area the locator's own coordinate decides, 25 km", A.agrees([18.3, 40.35], { at: [18.1667, 40.35] }).ok && !A.agrees([18.6, 40.35], { at: [18.1667, 40.35] }).ok);
+  const reg = { rows: new Map([["pl:q1", { id: "pl:q1", name: "Messapia", aliases: [], kind: "region", at: [16.2362, 38.5535] }]]), source: () => "places" };
+  const cards = [{ id: "t-1", locator: L, places: ["pl:q1"] }];
+  const r0 = A.audit(reg, cards, {}), r1 = A.audit(reg, cards, { "pl:q1": "because" });
+  check("the audit names the offender and carries an allow reason through", r0.offenders.length === 1 && !r0.offenders[0].allowed && r1.offenders[0].allowed === "because");
+  reg.rows.get("pl:q1").at = [18, 40.3333];
+  check("the audit passes once the anchor is Salento's", A.audit(reg, cards, {}).offenders.length === 0);
+  const reg2 = R.loadRegistry(), cards2 = loadCards().cards;
+  const live = A.audit(reg2, cards2, JSON.parse(fs.readFileSync(path.join(__dirname, "atlas-build", "place-anchors.json"), "utf8")).allow);
+  check("the live registry has no area anchor off its card's area but the allowed ones", live.offenders.every((o) => o.allowed), live.offenders.filter((o) => !o.allowed).map((o) => o.name).join(", "));
+  check("Messapia is the Salento row, pl:q735628, and card rm-020 carries it", reg2.rows.has("pl:q735628") && !reg2.rows.has("pl:q3234653") && cards2.find((c) => c.id === "rm-020").places.includes("pl:q735628"));
+}
 console.log("\n3) the migration is additive\n");
 {
   // the base is HEAD (the working tree against the last commit: a migration run must not have touched an old field), or the
