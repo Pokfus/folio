@@ -10,7 +10,9 @@
        pixels of its TEXT colour and pixels of its HALO colour (the halo is drawn and the glyphs are inked);
      · per label class (cities, study names, polity names, rivers, seas, areas, peoples where present) the text colour the page uses
        reads at least 7:1 against the halo and at least 4.5:1 against the theme's land and sea fills, and is LIGHTER than the halo;
-     · the marks keep their light outline (the ink) and the dark halo is wider than the light theme's.
+     · the marks (2026-10-18, decision a) are a LIGHT fill — the ink, the reader's own the lightened ochre of their names — with the names' dark halo
+       round them, read off the canvas pixel by pixel: fill, then about 1.6 px of halo, then the land; the fill at least 3:1 against the land; and the
+       dark halo is wider than the light theme's.
    THE FAULT IT WAS WRITTEN FOR: in a dark theme the reader's own and the selected names took the ochre darkened toward the PAPER —
    #6b5b4d on folio's night, 2.8:1 against its own halo — where every other name was light; light mode is unchanged (the labels suite's
    §6 covers every theme's ink and water names). */
@@ -126,14 +128,53 @@ async function view(page, lon, lat, k) {
   }
   check("the dark halo is wider than the light theme's 2.6 px", col.haloWidth > 2.6, `${col.haloWidth} px`);
 
-  console.log("\n\x1b[1m2) the marks keep their light outline\x1b[0m\n");
-  const mk = await A(page, (c) => { const col = c.colours(); return { ink: col.ink, accent: col.accent, halo: col.halo }; });
-  check("the marks' outline is the ink (light) and their fill the ochre or the paper: the outline reads at least 7:1 against the halo", contrast(mk.ink, mk.halo) >= 7, `${mk.ink} on ${mk.halo}: ${contrast(mk.ink, mk.halo).toFixed(1)}:1`);
+  /* 2) THE MARKS (2026-10-18, the owner's fifth look, decision a: "in dark mode, circles, squares and the other marks should have dark outlines like their
+     text labels, not white"). A mark in a dark theme is a LIGHT fill — the ink; the reader's own the lightened ochre of their names — with the names' dark halo
+     stroked under it, HALO_W_DARK wide (1.6 px of it showing round the shape), as a glyph is painted (atlas.js paintMark). Read off the label canvas at Rome
+     in 2025 at 1.5 km/px: the row through each lone mark's centre, from the centre outward, must be a run of fill pixels, then a run of halo pixels about
+     1.6 CSS px long, then the land; and the fill reads at least 3:1 against the land. Before the change a mark was a dark (paper) fill with a light ring. */
+  console.log("\n\x1b[1m2) the marks: a light fill with the names' dark halo round it, 3:1 against the land (decision a, 2026-10-18)\x1b[0m\n");
+  await A(page, (c) => c.setYear(2025));
+  await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.year() >= 2000; }, null, { timeout: 120000 });
+  await view(page, 12.5, 41.9, 1.5); await sleep(400);
+  await page.evaluate(() => document.querySelector(".atlas2").__atlas2.layoutNow()); await sleep(400);
+  const mk = await A(page, (c) => {
+    const col = c.colours(), cv = document.querySelector(".atlas2-labels"), dpr = cv.width / c.frame()[0], x = cv.getContext("2d");   // device px per CSS px of the page's own frame width (the bitmap is cssW × the resolution; the element can be a few px wider)
+    const hex = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+    const fillOf = (m) => (m.st === 2 ? col.markOwnFill || col.accent : col.markFill || col.halo), lineOf = col.markLine || col.ink;
+    // every opaque pixel projected onto the outline → fill axis (as readLabels does for a name): past 0.6 the fill, under 0.4 the outline, between an anti-aliased edge
+    const axis = (m) => { const F = hex(fillOf(m)), Lc = hex(lineOf), ax = [F[0] - Lc[0], F[1] - Lc[1], F[2] - Lc[2]]; return { Lc, ax, len: ax[0] * ax[0] + ax[1] * ax[1] + ax[2] * ax[2] || 1 }; };
+    const cls = (p, a) => { const t = ((p[0] - a.Lc[0]) * a.ax[0] + (p[1] - a.Lc[1]) * a.ax[1] + (p[2] - a.Lc[2]) * a.ax[2]) / a.len; return t > 0.6 ? "F" : t < 0.4 ? "L" : "?"; };
+    const marks = c.study.liveMarks(), boxes = c.labelsLive().flatMap((e) => (e.p.rects || []).map((q) => [q[0] + e.dx, q[1] + e.dy, q[2] + e.dx, q[3] + e.dy]));
+    // the row read runs from the centre to m.h + 3 px right of it: nothing else (a mark, a name) may reach that strip, grown by 4 px either way
+    const strip = (m) => [m.x - 4, m.y - 4, m.x + m.h + 8, m.y + 4], meets = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+    const clear = (m) => { const s = strip(m); return marks.every((o) => o === m || !meets(s, [o.x - o.h - 2, o.y - o.h - 2, o.x + o.h + 2, o.y + o.h + 2])) && boxes.every((b) => !meets(s, [b[0] - 3, b[1] - 3, b[2] + 3, b[3] + 3])); };
+    const out = [];
+    for (const m of marks) {
+      if (m.members || m.h < 3 || !clear(m)) continue;   // a lone mark, no count written over its centre
+      const n = Math.ceil((m.h + 3) * dpr), d = x.getImageData(Math.round(m.x * dpr), Math.round(m.y * dpr), n, 1).data;
+      const ax = axis(m); let run = ""; for (let i = 0; i < n; i++) { const p = [d[4 * i], d[4 * i + 1], d[4 * i + 2]]; run += d[4 * i + 3] < 100 ? "." : cls(p, ax); }
+      out.push({ id: m.id, name: m.name || m.id, st: m.st, shape: m.shape, h: m.h, run });
+    }
+    return { col, dpr, land: c.palette().land, n: marks.length, out };
+  });
+  const landD = hexOf(mk.land), fillD = mk.col.markFill || mk.col.halo, ownD = mk.col.markOwnFill || mk.col.accent, lineD = mk.col.markLine || mk.col.ink;
+  // the row from the centre outward: the fill (a diamond's edge pixels at 1 device px per CSS px are mostly anti-aliased, so '?' may sit among the F's), then the halo's run, then the land or nothing
+  const RUN = /^F[F?]*(L+)/, haloRun = (r) => { const m2 = RUN.exec(r.run); return m2 ? m2[1].length / mk.dpr : 0; };
+  const good = mk.out.filter((r) => RUN.test(r.run)), bad = mk.out.filter((r) => !RUN.test(r.run));
+  console.log(`  marks: fill ${fillD} (own ${ownD}), outline ${lineD} ${mk.col.markLineWidth} px; ${mk.out.length} lone marks of ${mk.n} read, e.g. ${mk.out.slice(0, 3).map((r) => r.name + " " + r.shape + " " + r.run).join(" | ")}`);
+  check("a mark's fill is the ink (light) and its outline the names' halo (dark), the halo's width (" + mk.col.haloWidth + " px)", fillD === mk.col.ink && lineD === mk.col.halo && mk.col.markLineWidth === mk.col.haloWidth && lum(fillD) > lum(lineD), `fill ${fillD} outline ${lineD} ${mk.col.markLineWidth} px`);
+  check("the reader's own marks are filled with the colour of their names (the lightened ochre), lighter than the halo", ownD === mk.col.selected && lum(ownD) > lum(mk.col.halo), `own fill ${ownD}, selected ${mk.col.selected}`);
+  check("the fill reads at least 3:1 against the land (the ink and the reader's ochre alike)", contrast(fillD, landD) >= 3 && contrast(ownD, landD) >= 3, `ink ${contrast(fillD, landD).toFixed(1)}:1, ochre ${contrast(ownD, landD).toFixed(1)}:1 on ${landD}`);
+  check(`every lone mark on the canvas (${mk.out.length} of ${mk.n}; ${mk.out.filter((r) => r.st === 2).length} the reader's own) is a light fill at its centre with a run of the dark halo round it, then the land`, mk.out.length >= 6 && bad.length === 0, bad.slice(0, 4).map((r) => `${r.name} ${r.shape} st${r.st}: ${r.run}`).join("; "));
+  const widths = good.map(haloRun);
+  check("the halo round a mark is about 1.6 CSS px wide (half of HALO_W_DARK: 1.0–3 px with anti-aliasing at 1 device px per CSS px) on every lone mark", widths.length > 0 && widths.every((w) => w >= 1 && w <= 3), widths.map((w) => w.toFixed(1)).join(", "));
 
   console.log("\n\x1b[1m3) light mode is unchanged\x1b[0m\n");
   await page.evaluate(() => document.body.classList.remove("night")); await sleep(300);
   const light = await A(page, (c) => c.colours());
   check("folio's light theme: the selected colour is the ochre darkened toward the ink (#625041), the halo the paper, the halo 2.6 px", light.selected === "#625041" && light.halo === "#f7f6fb" && light.haloWidth === 2.6 && !light.dark, JSON.stringify(light));
+  check("…and a mark is the paper filled with the ink outline (the reader's own the ochre), as before — the ink at least 3:1 against the land", light.markFill === light.halo && light.markLine === light.ink && light.markOwnFill === light.accent && light.markLineWidth == null && contrast(light.ink, hexOf(await A(page, (c) => c.palette().land))) >= 3, JSON.stringify({ fill: light.markFill, line: light.markLine, own: light.markOwnFill }));
 
   const unexpected = errors.filter((e) => !/favicon/.test(e));
   check("no page errors", unexpected.length === 0, unexpected.slice(0, 3).join(" | "));
