@@ -10,7 +10,13 @@
         state's fill is the land colour. A PEOPLE (the Scythians over the Black Sea, 450 BCE) is handed to the renderer in the same neutral ink as every
         other people (`probeAt().peopleFill`), and its pixels are that ink's stipple over the land: the per-channel darkening at every sampled pixel
         agrees across the channels (an achromatic ink multiplied over the land), where a hue would pull one channel apart from the others.
-   Before the change the states sampled to sixteen golden-angle hues, and each people had a hue of its own. */
+     2  THE EMPTY LAND IS HALF AS BRIGHT (the owner: "areas of the map that do not have any states or peoples or anything should be 50 % darker, like in
+        Atlas v1"): at Europe in 1500, light theme and folio's night, every flat window of land the ID pass puts under NO state and NO people reads at
+        half the land's luminance (HIST_DIM = 0.5, ±3 %) while a state's reads at the land's; under a people (the Scythians, 450 BCE) the ground
+        between the dots is NOT darkened (the brightest quarter of its pixels is the land); in the present day nothing darkens (every land window, the
+        Antarctic included, is the land); and in every light theme a name over the darker land keeps its contrast — the ink on its paper halo ≥ 7:1, the halo on the
+        darker land ≥ 3:1 (`contrastAudit`; the ink against the darker land itself is reported: 2.9–3.7:1 at half the luminance).
+   Before the change the states sampled to sixteen golden-angle hues, each people had a hue of its own, and empty land was the land. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
 const { chromium } = require("playwright");
@@ -120,6 +126,47 @@ const near = (a, b, t) => a.every((v, i) => Math.abs(v - b[i]) <= t);
     const spread = dotted.map((q) => { const a = q.map((v, i) => (1 - v / land[i]) / Math.max(0.05, 1 - ink[i])); return Math.max(...a) - Math.min(...a); });
     const off = spread.filter((sp) => sp > 0.14).length;
     check(`...and its pixels are that ink over the land, achromatic: the per-channel darkening agrees at ${dotted.length - off} of ${dotted.length} darkened pixels (spread ≤ 0.14)`, dotted.length >= 50 && off <= Math.ceil(dotted.length * 0.05), `worst spread ${spread.length ? Math.max(...spread).toFixed(2) : "-"}`);
+    await ctx.close();
+  }
+
+  sect("2) the land no state or people covers is half as bright; a state's, a people's and the present day's are not");
+  for (const night of [false, true]) {
+    const th = night ? "folio night" : "folio light";
+    const { ctx, page } = await openAtlas(browser, [960, 640], night);
+    const land = await A(page, (c) => c.palette().land.map((v) => Math.round(v * 255)));
+    const lum = (c) => 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2], landL = lum(land);
+    await viewAt(page, 10, 50, 3, 1500);
+    await pixels(page);
+    const all2 = await scan(page, 30), empty = ofKind(all2, "empty").filter((r) => r.flat), states = ofKind(all2, "state").filter((r) => r.flat);
+    const ratios = empty.map((r) => lum(r.rgb) / landL), offE = ratios.filter((q) => Math.abs(q - 0.5) > 0.03).length;
+    check(`${th}, Europe in 1500: ${empty.length} flat windows of empty land (≥ 20)`, empty.length >= 20);
+    check(`${th}: every one reads at half the land's luminance (0.5 ± 0.03): ${empty.length - offE} of ${empty.length}`, empty.length >= 20 && offE === 0, ratios.length ? `min ${Math.min(...ratios).toFixed(3)} max ${Math.max(...ratios).toFixed(3)}` : "");
+    const offS = states.filter((r) => !near(r.rgb, land, 1)).length;
+    check(`${th}: a state's ground is still the land colour (${states.length - offS} of ${states.length} windows)`, states.length >= 6 && offS === 0);
+    // under a people: the land between the dots
+    await viewAt(page, 34, 45, 4, -450); await pixels(page);
+    const pplRows2 = ofKind(await scan(page, 24), "people"), ppl = await blocks(page, pplRows2, 24);
+    // the ground between the dots is the quarter the stipple touched least: the BRIGHTEST on a light theme (the pass multiplies: the wash alone, alpha 0.14 of the ink, takes
+    // it to about 0.92 of the land) and the DARKEST on a dark one (the pass screens: nothing under a presence is darker than the land). The darkening pass would take it to 0.5.
+    const sorted = ppl.map((q) => lum(q)).sort((a, b) => (night ? a - b : b - a)), quarter = sorted.slice(0, Math.max(1, Math.ceil(sorted.length / 4)));
+    const qMean = quarter.reduce((p, q) => p + q, 0) / quarter.length;
+    check(`${th}, the Scythians in 450 BCE: the ground between the stipple's dots is the land under its wash, not the darkened land (${night ? "darkest" : "brightest"} quarter of ${ppl.length} pixels at ${(qMean / landL).toFixed(3)} of the land; the darkening would give 0.5)`, ppl.length >= 200 && qMean / landL > (night ? 0.97 : 0.85) && qMean / landL <= (night ? 1.6 : 1.01));
+    // the present day: nothing darkens, the Antarctic included
+    for (const [name, lon, lat, k] of [["Europe", 10, 50, 3], ["the Antarctic", 0, -78, 12]]) {
+      await viewAt(page, lon, lat, k, 2026); await pixels(page);
+      const now = ofKind(await scan(page, 40), "empty").filter((r) => r.flat), offN = now.filter((r) => !near(r.rgb, land, 1)).length;
+      check(`${th}, ${name} today: every flat land window is the land colour (${now.length - offN} of ${now.length})`, now.length >= 10 && offN === 0, offN ? now.filter((r) => !near(r.rgb, land, 1)).slice(0, 3).map((r) => r.rgb.join(",")).join(" ") : "");
+    }
+    if (!night) {
+      const THEMES = ["academy", "amber", "amethyst", "aquamarine", "arcade", "bloodstone", "carnelian", "diamond", "emerald", "folio", "gazette", "jade", "marble", "ruby", "synth"];
+      /* the names in a light theme are the ink on a PAPER halo (labelColours), so what a name reads against is its halo first and the ground second: the ink on the halo
+         ≥ 7:1 and the halo on the darker land ≥ 3:1 (WCAG's floor for a text's own outline) in every theme. The ink against the darker land itself is REPORTED, not
+         gated: at half the land's luminance it is 2.9–3.7:1 in the light themes (it would need the factor at about 0.65 to reach 4.5:1), which is the owner's call. */
+      const contrast = await A(page, (c, ths) => { const out = []; for (const t of ths) { document.body.dataset.theme = t; const r = c.contrastAudit(); out.push({ theme: t, dim: r.dim, fill: r.fill, haloDim: r.haloDim, inkHalo: r.inkHalo }); } delete document.body.dataset.theme; return out; }, THEMES);
+      const low = contrast.filter((r) => r.inkHalo < 7 || r.haloDim < 3 || r.fill < 4.5);
+      check(`in every light theme a name over the darker land keeps its contrast: the ink on its halo ≥ 7:1 (lowest ${Math.min(...contrast.map((r) => r.inkHalo)).toFixed(2)}), the halo on the darker land ≥ 3:1 (lowest ${Math.min(...contrast.map((r) => r.haloDim)).toFixed(2)}), the ink on the fill ≥ 4.5:1 (lowest ${Math.min(...contrast.map((r) => r.fill)).toFixed(2)})`, low.length === 0, low.map((r) => `${r.theme} ${r.inkHalo.toFixed(2)} / ${r.haloDim.toFixed(2)}`).join("; "));
+      console.log(`        reported, not gated: the ink against the darker land itself, ${Math.min(...contrast.map((r) => r.dim)).toFixed(2)}–${Math.max(...contrast.map((r) => r.dim)).toFixed(2)}:1 over the ${contrast.length} light themes`);
+    }
     await ctx.close();
   }
 

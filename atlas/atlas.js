@@ -104,6 +104,7 @@
   const FADE_MS = 250;                            // the crossfade at a step when the reader steps or plays (none while dragging, none under reduced motion)
   const MESH_BYTES = 48 * 1024 * 1024;            // (face, level) meshes kept on the GPU, by their bytes (2b: a count let forty empires cost what forty islets did)
   const HIST_FILL_ALPHA = 0.42, HIST_FILL_ALPHA_DARK = 0.5, HIST_SEL_ALPHA = 0.72;
+  const HIST_DIM = 0.5;   // 2026-10-18: the land no state or people covers in a past year is drawn at half its luminance (the owner's 50 %; v1's Full Atlas measured 0.78, outside the 10 points that would have kept its number), on the Atlas page only — a card window and Find it never darken
   const WAR_FILL_BOOST = 1.3;   // a side's tint is read against a state's own colour: 30 % stronger than a state's fill (2d)
   const SPEEDS = [1, 5, 25, 100];                 // years per second (Q-T4 b: every year is played)
   const PHONE = (() => { try { return matchMedia("(pointer: coarse)").matches && Math.min(screen.width, screen.height) < 768; } catch (e) { return false; } })();
@@ -795,7 +796,7 @@
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
       view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
-      view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0;   // the coast stroke at the tile zooms: the resident level's tolerance, both sides
+      view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready ? HIST_DIM : 0; }   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
       view.borders = layers.borders;
       const box = view.level >= 3 || (view.relief.on && k < RELIEF_L1_KM_PER_PX) ? viewBox() : null;
       if (view.level >= 3 && tileIndex) {
@@ -1352,7 +1353,7 @@
        people or a culture is the same land under its stipple, which is set in the states' border ink (`presInk`), so a state and a people stay
        distinguishable by texture, not hue. What still colours a face: a war's role (victor green, loser red), Find it's tints, and the selected
        state, which takes the palette's selection colour (the ochre a selected country wears) at HIST_SEL_ALPHA — with one fill for all, the
-       stronger alpha alone would show nothing. */
+       stronger alpha alone would show nothing. The land no state or people covers is darker instead (`view.history.dim`, atlas-gl.js). */
     let histBorderCss = "", histDark = false, flatBorderOn = false, presInk = [0.5, 0.5, 0.5];   // histDark: the theme's darkness, read by histColours() when the theme changes (a year change reads it, never the computed style: 0d)
     function histColours() {
       const { ink, paper, dark } = themeTokens(); histDark = dark;
@@ -1419,7 +1420,7 @@
       const one = (a, fade) => { if (time.isFront[a.ent]) { const set = (time.ents[a.ent].front && time.ents[a.ent].front.set) || ""; out.push({ face: a.face, rgb: /^axis/.test(set) ? warRGB.loser : warRGB.victor, front: true, frame: frontFrame, wash: /occupied/.test(set) ? FRONT_WASH.occupied : FRONT_WASH.held, dotA: 0, fade }); return; } if (time.isExt[a.ent]) { const c = warColourOf(a.ent) || warRGB.loser; out.push({ face: a.face, rgb: c, ext: true, wash: WAR_WASH, dotA: 0, fade }); return; } const k = time.presEnts.indexOf(a.ent); out.push({ face: a.face, rgb: presHue(a.ent), angle: PRES_ANGLES[k % PRES_ANGLES.length], pitch: 1 + 0.07 * (k % 3), phase: [k * 2.7, k * 1.9], dotA: time.selected === a.ent ? 0.9 : null, fade }); };
       const fromSet = fadeFrom ? new Set(fadeFrom.map((a) => a.face)) : null;
       for (const a of time.pOnScreen || []) one(a, fromSet && !fromSet.has(a.face) ? tNow : 1);
-      if (fromSet) for (const a of fadeFrom) if (!time.pSet.has(a.face)) one(a, 1 - tNow);
+      if (fromSet) for (const a of fadeFrom) if (!time.pSet.has(a.face)) { one(a, 1 - tNow); out[out.length - 1].fading = true; }   // fading: last year's presence — not a cover for the darkening
       return out;
     }
     /* the Peoples switch or the study mode moved: the alive presences of the year change, so the year is applied again (meshes, labels, ticks) */
@@ -1659,7 +1660,7 @@
       if (!time.fade) return;
       const u = (t - time.fade.t0) / FADE_MS;
       // the fading faces stay in the draw list until the fade ends
-      const fromFaces = time.fade.from.filter((a) => !time.aliveSet.has(a.face)).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: null }));
+      const fromFaces = time.fade.from.filter((a) => !time.aliveSet.has(a.face)).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: null, fading: true }));   // fading: last year's face — its land is empty for the darkening pass
       if (time.view) { time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })).concat(fromFaces); time.view.pfaces = presenceDraw(time.fade.fromP, Math.min(1, u)); }
       uploadStyle();
       if (u >= 1) { time.fade = null; if (time.view) { time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent) })); time.view.pfaces = presenceDraw(null, 1); } uploadStyle(); }
@@ -3217,7 +3218,7 @@
       parseYear, fmtYear, railX, railYearAt, histColour: (id) => { const i = entityIndexOfId(id); return i < 0 ? null : entColour(i); },
       /* Phase 2b, for the suites: the colouring over every epoch, the label contrast per theme, the largest face on screen */
       /* 2026-10-18: the fills. `fillAudit` — every alive entity's fill in the year against the one neutral (the land colour); `contrastAudit` — the label ink against the
-         neutral fill, in the theme the page is in (test-atlas-time.js runs it over every theme) */
+         neutral fill and against the darker land no state covers, in the theme the page is in (test-atlas-time.js runs it over every theme) */
       fillAudit: () => {
         if (!time.hist) return { entities: 0, neutral: null, same: 0, differing: [] };
         const land = palette.land, differing = []; let same = 0; const seen = new Set();
@@ -3225,11 +3226,11 @@
         return { entities: seen.size, neutral: land.slice(), same, differing, presInk: presInk.slice() };
       },
       contrastAudit: () => {
-        const pal = readPalette(); const landC = pal.land;
+        const pal = readPalette(); const landC = pal.land, dim = landC.map((v) => v * HIST_DIM);
         const lum = (c) => { const f = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
         const ratio = (p, q) => { const a1 = lum(p) + 0.05, b1 = lum(q) + 0.05; return a1 > b1 ? a1 / b1 : b1 / a1; };
-        const { ink, dark } = themeTokens();
-        return { fill: ratio(ink, landC), dark, min: ratio(ink, landC) };
+        const { ink, paper, dark } = themeTokens();   // paper: the names' halo in a light theme (labelColours)
+        return { fill: ratio(ink, landC), dim: ratio(ink, dim), haloDim: ratio(paper, dim), inkHalo: ratio(ink, paper), dark, min: Math.min(ratio(ink, landC), ratio(ink, dim)) };
       },
       /* the suites: what the ID pass answers at a CSS point — the history face's entity (and a presence's, asked separately), whether the point is land, the fill the controller hands the renderer for it */
       debugFill: (c) => { debugFill = Array.isArray(c) && c.length === 3 ? c.slice() : null; restyleHist(); invalidate(); },
