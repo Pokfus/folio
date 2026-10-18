@@ -276,7 +276,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "1d75d327eb:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "19208779cc:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -811,7 +811,8 @@
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
       view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
-      view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready ? HIST_DIM : 0; }   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
+      view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready ? HIST_DIM : 0; }
+      view.landDim = !EMBED && time.present && ppKey ? HIST_DIM : 0;   // the Personal Atlas's present day: the countries the reader has not met, darker (refreshPersonalPresent)   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
       view.borders = layers.borders;
       const box = view.level >= 3 || (view.relief.on && k < RELIEF_L1_KM_PER_PX) ? viewBox() : null;
       if (view.level >= 3 && tileIndex) {
@@ -1107,6 +1108,7 @@
         coreIn = true; if (!histStarted && (histWanted || time.year < PRESENT_YEAR)) startHistory();   // 2b: the borders of the past load the first time the rail leaves today, not at boot
         say("Shaping the land…", 0.35); return;
       }
+      if (m.type === "arc-faces") { arcFaceCSR = { off: m.off, faces: m.faces }; refreshPersonalPresent(); return; }
       if (m.type === "gazetteer") { gazInWorker = true; requestLayout("gazetteer", true); return; }
       if (m.type === "progress") { if (!stats.ready) say(m.text, m.frac); return; }
       if (m.type === "layout") { applyLayout(m); return; }
@@ -1445,6 +1447,20 @@
     const personalOnly = () => !EMBED && !!SU && ST.ready && ST.mode === "personal";
     const entMine = (i) => { const e = time.ents[i]; if (!e) return false; if (ST.flags.get(e.id) === 2) return true; return Array.isArray(e.partners) && e.partners.some((id) => ST.flags.get(id) === 2); };
     function aliveShown(y) { const all = aliveAt(y); return personalOnly() ? all.filter((a) => entMine(a.ent)) : all; }
+    /* THE PERSONAL ATLAS'S PRESENT DAY (2026-10-18; the owner: "modern countries are states like any other"). The present-day country and admin-1 faces follow the same rule as a past year's states: a face
+       is drawn plain only if a studied card discovered it (flag 2 of the study layer; an admin-1 face also when its country is the reader's), every other country's ground is the darker EMPTY land, and a
+       border or admin-1 line is drawn only where a face of the reader's lies on a side of it — a border shared with a country the reader has not met is the met country's edge. The renderer gets two byte
+       tables (`R.setPersonalPresent`: a byte a core face, a byte an arc) and `view.landDim` switches them on in a present year; the names and marks were already the reader's (the worker's gazetteer loop). */
+    let arcFaceCSR = null, ppKey = "";
+    function refreshPersonalPresent() {
+      if (EMBED || !R.setPersonalPresent) return;
+      const on = !!(personalOnly() && header && faceEntity && arcFaceCSR);
+      if (!on) { if (ppKey) { ppKey = ""; R.setPersonalPresent(null); invalidate(); } return; }
+      const nF = faceEntity.length, keep = new Uint8Array(nF), nA = arcFaceCSR.off.length - 1, arcMask = new Uint8Array(nA);
+      for (let f = 0; f < nF; f++) { const e = header.entities[faceEntity[f]]; if (e && (ST.flags.get(e.id) === 2 || (e.parent && ST.flags.get(e.parent) === 2))) keep[f] = 1; }
+      for (let a = 0; a < nA; a++) for (let k = arcFaceCSR.off[a]; k < arcFaceCSR.off[a + 1]; k++) if (keep[arcFaceCSR.faces[k]]) { arcMask[a] = 1; break; }
+      ppKey = "on"; R.setPersonalPresent({ keep, arcMask }); invalidate();
+    }
     /* ---- Phase 2c: the PEOPLES AND CULTURES (design §2.5; study.js decides what a presence IS and what the switch lets through) ---- */
     function AS2() { return root.AtlasStudy || null; }
     const presShown = (ent) => { if (time.isExt[ent]) return time.warRoles.has(time.ents[ent].id) || extInAnyShownWar(ent); const a = AS2(); const id = time.ents[ent].id; return a ? a.peoplesShown(layers.peoples, PI.mode, id, PI.flags, time.linkedIds) : layers.peoples === "all" || (layers.peoples === "linked" && time.linkedIds.has(id)); };
@@ -3195,7 +3211,7 @@
       ST.flags = ST.ready ? AS.flags(ST.idx, ST.st, ST.mode, ST.hidden, info) : new Map();
       ST.tappable = AS.tappableSet(ST.ready ? ST.idx : null, ST.mode, ST.flags);   // what a tap may open (the tap rules, 2026-10-17)
       PI.mode = ST.ready ? ST.mode : "map"; PI.flags = ST.flags; refreshWars(); refreshPresence();   // 4/0a: the Automatic wars position follows the mode   // 2c: the Personal and Full Atlas decide which peoples a reader sees
-      ST.rev++;
+      ST.rev++; refreshPersonalPresent();
       postToWorker({ type: "study-flags", mode: ST.mode === "map" ? "" : ST.mode, entries: [...ST.flags], rev: ST.rev });
       renderStudyPanel();
       if (cardOpen && cardRow) appendStudyCards(cardRow);

@@ -127,6 +127,41 @@ const stats = (page) => A(page, (c) => { const s = c.statsNow(); return { faces:
     }
   }
 
+  /* ------------------------------------------------------------------ 2  2026 */
+  console.log("\n\x1b[1m2) 2026: only the countries a studied card discovered are drawn — fill, border and name; every other country is the empty land\x1b[0m\n");
+  {
+    const READER = ["gw-001", "gw-002", "geo-001"];   // India, China, California
+    const VIEWS = [["the world", 10, 20, 24], ["Europe", 10, 50, 3], ["East Asia", 105, 32, 7], ["California", -118, 38, 9]];
+    for (const [who, ids] of [["the reader of three cards (India, China, California)", READER], ["the reader with no card", []]]) {
+      const { ctx, page, errors } = await open(browser, ids);
+      const mine = new Set((await A(page, (c) => c.study.flags())).filter(([, f]) => f === 2).map(([id]) => id));
+      for (const [name, lon, lat, k] of VIEWS) {
+        await mode(page, "personal"); await go(page, 2026, lon, lat, k);
+        const s = await scan(page);
+        await shot(page, "2026-" + (ids.length ? "three-" : "none-") + name.replace(/\W+/g, "-").toLowerCase());
+        const where = who.split(" (")[0] + ", " + name;
+        if (!ids.length) check(`${where}: Personal draws empty land and no border at all (${counts(s)})`, s.plain === 0 && s.border === 0, counts(s));
+        else {
+          check(`${where}: no border-coloured pixel lies away from a discovered country's edge or a coast (${counts(s)})`, awayN(s) === 0, JSON.stringify(s.borderAway.slice(0, 4)));
+          const plain = await A(page, (c, pts) => pts.slice(0, 40).map((p) => c.stackAt(p[0], p[1])), s.plainPts);
+          const empty = await A(page, (c, pts) => pts.slice(0, 40).map((p) => c.stackAt(p[0], p[1])), s.emptyPts);
+          const isMine = (l) => l.some((id) => mine.has(id)) || l.some((id) => /^adm1:/.test(id) && mine.has(id.replace(/^adm1:([a-z]+):.*/, "adm0:$1")));
+          check(`${where}: every sampled plain pixel lies in a discovered country (${plain.length}), every sampled empty one in none (${empty.length})`, plain.every(isMine) && empty.every((l) => !isMine(l)), JSON.stringify([plain.filter((l) => !isMine(l)).slice(0, 2), empty.filter(isMine).slice(0, 2)]));
+          const bad = (await A(page, (c) => c.labels().map((p) => ({ id: p.id, kind: p.kind, text: p.text })))).filter((p) => !(mine.has(p.id) || /^stk:/.test(p.id)));
+          check(`${where}: every name placed is the reader's`, bad.length === 0, bad.slice(0, 6).map((p) => p.text + " [" + p.kind + "]").join(", "));
+        }
+        if (ids.length && (name === "East Asia" || name === "California")) {
+          check(`${where}: …and the discovered country IS drawn (plain land)`, s.plain > 100, counts(s));
+          await mode(page, "map"); const m = await scan(page);
+          check(`${where}: the plain Map at the same view draws every country's border and plain land (${counts(m)}) — so the check above is not vacuous`, m.empty === 0 && m.plain > s.plain && m.border > 40, counts(m));
+          await mode(page, "full"); const f = await scan(page);
+          check(`${where}: the Full Atlas at the same view likewise (${counts(f)})`, f.empty === 0 && f.plain > s.plain && f.border > 40, counts(f));
+        }
+      }
+      allErrors.push(...errors); await ctx.close();
+    }
+  }
+
   console.log("\n" + pass + " ok, " + fail + " failed");
   check("no console error", allErrors.length === 0, allErrors.slice(0, 3).join(" | "));
   await browser.close(); server.close();
