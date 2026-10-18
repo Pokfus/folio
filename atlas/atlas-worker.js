@@ -575,6 +575,7 @@
     if (msg.type === "metrics") { METRICS = msg.styles; return null; }
     if (msg.type === "layout") { handleLayout(msg, post); return null; }
     if (msg.type === "face-anchors") { handleFaceAnchors(msg, post); return null; }
+    if (msg.type === "face-rings") { handleFaceRings(msg, post); return null; }
     /* a lost GL context (Phase 1c): the main thread keeps nothing after upload, so the resident levels are
        rebuilt here from the raw files this worker kept — the same code path as the first load */
     if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); if (RAW.history) { HIST = null; await handleHistory({ type: "history", buffer: RAW.history }, post); } })(); }
@@ -1405,6 +1406,20 @@
     }
     const transfer = []; for (const m of meshes) transfer.push(m.pos.buffer, m.idx.buffer, m.coast.buffer, m.border.buffer);
     post({ type: "history-faces", level, meshes, seq: msg.seq, ms: Math.round(now() - t0) }, transfer);
+  }
+  /* THE SELECTED STATE'S OUTLINE (2026-10-18, whole-state selection): the rings of the given history faces at a level, as unit vectors on the sphere (one Float32Array
+     of xyz per ring, the walk `faceRings` makes — coast arcs included, which the face's border list leaves out), for the page to stroke on its label canvas every frame
+     with the view's own projection: no mask pass, no read-back, exact at any pan, pinch or turn. A ring an arc of the level leaves out (arcMinLod) is left out. */
+  function handleFaceRings(msg, post) {
+    const rings = [], faces = [], transfer = [];
+    if (HIST) {
+      const level = Math.max(0, Math.min(2, msg.level | 0)), L = histLevel(level);
+      for (const fi of msg.faces || []) {
+        const f = HIST.T.faces[fi]; if (!f) continue; faces.push(fi);
+        for (const ring of faceRings(L.T, f, level)) { const a = new Float32Array(ring.length * 3); let k = 0; for (const i of ring) { a[k++] = L.pos[3 * i]; a[k++] = L.pos[3 * i + 1]; a[k++] = L.pos[3 * i + 2]; } rings.push(a); transfer.push(a.buffer); }
+      }
+    }
+    post({ type: "face-rings", seq: msg.seq, faces, rings }, transfer);
   }
   /* PHASE 4 PHONE FIXES (Oct 2026): a point INSIDE each of the given history faces, as far from its edge as the visible part of the face allows (a pole of inaccessibility, in screen pixels) — what a card window's war labels
      stand on (atlas-windows.js: each side is named on ground of its own tint, not at the centroid of the union of its faces, which fell on the other side's ground). The face's rings are the level the view draws (`msg.level`),
