@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1043", released: "2026-10-18T19:23Z" };
+window.FOLIO_VERSION = { v: "1.1044", released: "2026-10-18T22:10Z" };
 
 window.CHANGELOG = [
   {
@@ -49,7 +49,10 @@ window.CHANGELOG = [
       "<b>Home</b>: the <i>Suggested reading</i> passage now loads when its box scrolls into view, so opening Folio no longer downloads a whole book.",
       "<b>Atlas</b>: the Atlas now opens on your Personal Atlas the first time, with a note explaining that it fills in as you study geography and history cards.",
       "<b>Home</b>: the \u2018Not sure yet? Try ten cards\u2019 line under the first visitor\u2019s welcome is gone.",
+      "<b>Atlas</b>: a state on the map no longer has any colour of its own — the land and its relief show through at full strength, with only its border and the darker ground beyond it.",
+      "<b>Atlas marks</b>: by day every mark is now a dark glyph on the same light outline as the names, mirroring the dark theme, instead of a pale dot with a thin dark ring.",
       "<b>Atlas marks</b>: a capital's stack of places (Rome, Athens) is now the capital's square with the count inside, instead of a ring.",
+      "<b>Atlas marks</b>: in the years Rome was a capital, a small square no longer sits over the number in its capital square.",
       "<b>Atlas names</b>: a place's name now stands directly right or left of its mark, or is not drawn — above or below only at the closest zoom — so no name drifts to another mark.",
       "<b>Atlas names</b>: a people's name no longer wears a thicker halo than any other name — no halo is wider than the ordinary names' 3.2 px.",
       "<b>Atlas</b>: in a dark theme every mark is now a light glyph on the same dark halo as the names, instead of a dark dot with a white ring.",

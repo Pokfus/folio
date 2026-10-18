@@ -1070,9 +1070,15 @@
         const r = MARKER_R[k] * FS, x = c.a[0], y = c.a[1];
         const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
         const own = reservedMarker.has(row.id);   // a capital's marker was reserved above and is its own ground
+        /* A PERIOD CAPITAL'S SQUARE UNDER A STUDY MARK IS THAT MARK (2026-10-18 c; the owner's phone: "inside the capital square of Rome there is a small square that blocks the stack number").
+           Rome in the Roman Empire's years is a capital by the history's own statements, so this branch laid a second, 4 px-half square at the polity-index's coordinates for it — and where
+           the study layer draws the city's capital square with its count (a stack, 10 px half) or a lone mark of its own, the small one lay over the count (at 0.15 km/px it hid the "8" of
+           "38"). A marker whose box meets the box of a study mark drawn clear (its `sx`, `sy` are the nudged position) is not drawn: the study mark IS the capital's square; the capital's name is laid as before. */
+        const underMark = marks.some((mk) => mk.clear && mk.cls && Math.abs(mk.sx - x) < mk.h + r + 1 && Math.abs(mk.sy - y) < mk.h + r + 1);
+        const dotOf = underMark ? null : [x, y, r, k];
         if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
         if (!own && !free(mrect, null, own0)) { drop("marker collides"); continue; }   // a flagged settlement's dot lies on its own study mark, which is not a collision (2026-10-18)
-        if (!show.places) { if (!own) take(mrect, true); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
+        if (!show.places) { if (!own) take(mrect, true); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: dotOf, hit: mrect })); continue; }
         // a FLAGGED settlement's name (laid by the study pass beside the study layer's own mark, drawn over this dot) follows decision c of 2026-10-18: right or left of the
         // larger of the two glyphs at the 3 px gap, above or below only at the zoom cap; the plain Map's city names keep their four sides
         const g3 = 3 * FS, rr = studyPass && mk0 ? Math.max(r, mk0.h) : r;
@@ -1082,11 +1088,11 @@
         if (!got) {
           // a reserved capital marker whose name finds no free side keeps its marker (task 0a): the square under the empire's
           // name still says where the capital is, and a tap answers with the name; an unreserved one drops as before
-          if (own) { placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
+          if (own) { placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: dotOf, hit: mrect })); continue; }
           drop(onScreen(x, y, 0) ? "city label collides on all four sides, or is not wholly on screen" : "city off screen"); continue;
         }
         // a FLAGGED settlement's dot is the study layer's own mark, already drawn and already taken: no second dot under it (a filled-looking disc would read as the reader's own), the name alone (2026-10-18)
-        const studyDot = !!(studyPass && mk0);
+        const studyDot = !!(studyPass && mk0) || underMark;
         take(got.rects[0]); if (!own && !studyDot) take(mrect, true);
         placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: studyDot ? got.rects[0] : union([got.rects[0], mrect]), rects: studyDot ? [got.rects[0]] : [got.rects[0], mrect], marker: studyDot ? null : [x, y, r, k], hit: union([got.rects[0], mrect]) }));
         continue;
