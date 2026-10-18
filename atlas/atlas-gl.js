@@ -58,6 +58,8 @@
      bit 2     a loaded water tile covers this pixel
      bit 3     an L1 relief patch shaded this land pixel
      bit 4     a land face was drawn here (the land/sea mask for relief)
+     bit 5     an L1 relief patch painted this sea pixel
+     bit 6     a state's fill was drawn here in a past year (the cover for the empty-land darkening, 2026-10-18)
    A pass tests only the bits it is about (the mask argument), so the passes do not disturb each other.
 
    TILES (Phase 1a, §2.3). Past the resident levels the view is covered by tiles, each uploaded like a
@@ -313,6 +315,7 @@
     uniform float uIdPass; uniform float uIdValue;
     uniform vec3 uColor; uniform float uWash; uniform float uDotA; uniform float uPitch; uniform float uDotR;
     uniform vec2 uAng; uniform vec2 uPhase; uniform float uFrame;
+    uniform float uCover;            // 1: the cover pass (2026-10-18) — the face's edge alpha alone, into the R8 cover target, MAX-blended
     out vec4 o;
     float frameFade(vec3 p) {
       float lon = atan(p.y, p.x), lat = max(asin(clamp(p.z, -1.0, 1.0)), -1.4);
@@ -330,6 +333,7 @@
         o = vec4(float(v & 255) / 255.0, float((v >> 8) & 255) / 255.0, float((v >> 16) & 255) / 255.0, 1.0);
         return;
       }
+      if (uCover > 0.5) { float ca = vA; if (uFrame > 0.5) ca *= frameFade(vP); o = vec4(ca, 0.0, 0.0, 1.0); return; }
       vec2 p = gl_FragCoord.xy + uPhase;
       vec2 q = vec2(uAng.x * p.x + uAng.y * p.y, -uAng.y * p.x + uAng.x * p.y) / uPitch;
       float d = length(fract(q) - 0.5) * uPitch;
@@ -350,6 +354,17 @@
   precision mediump float;
   uniform sampler2D uTex; in vec2 vUv; out vec4 o;
   void main() { o = texture(uTex, vUv); }`;
+  /* THE EMPTY LAND OF A PAST YEAR (2026-10-18; the owner: "areas of the map that do not have any states or peoples or anything should be 50 % darker,
+     like in Atlas v1"). One triangle over the disc, blended by MULTIPLY (dst × src, the alpha kept) where the stencil says LAND and not HIST — the
+     land no state's fill covered this frame — so every channel is scaled by `uDim` (0.5: hue kept, luminance halved) and sea, lakes, borders and
+     names are untouched (the lines layer and the borders come after). A people's or a culture's soft face is a COVER texture, not a stencil bit:
+     the presences are drawn once more into an R8 target with MAX blending, each fragment its edge alpha, and the factor is dim + (1 − dim) × cover,
+     so the land grades from dark to plain over a presence's fade width instead of stepping at its ring (and two overlapping peoples take the larger
+     cover, never a fringe). Relief lies under the fills, so the relief on empty land is darkened with it — the same shade v1 laid under its heightmap. */
+  const FS_DIM = `#version 300 es
+  precision mediump float;
+  uniform sampler2D uCover; uniform float uDim, uCoverOn; in vec2 vUv; out vec4 o;
+  void main() { float c = uCoverOn > 0.5 ? texture(uCover, vUv).r : 0.0; float f = uDim + (1.0 - uDim) * c; o = vec4(f, f, f, 1.0); }`;
   const VS_ARC = `#version 300 es
     precision highp float;
     uniform sampler2D uSeg;          // RGBA32F, two texels per segment: (a.xyz, tag) (b.xyz, 0)
@@ -435,7 +450,7 @@
 
   const SEG_TEX_W = 4096;
   const D2R = Math.PI / 180;
-  const ST_TILE = 0x03, ST_WATER = 0x04, ST_PATCH = 0x08, ST_LAND = 0x10, ST_SEAP = 0x20;
+  const ST_TILE = 0x03, ST_WATER = 0x04, ST_PATCH = 0x08, ST_LAND = 0x10, ST_SEAP = 0x20, ST_HIST = 0x40;
   const ID_LAND_ARC = 1048576, ID_WATER_ARC = 2097152;
   const LAKE_FACE_BASE = 524288;   // the worker's: a lake fill's face id is this + its core face index
   const HIST_FACE_BASE = 262144;   // Phase 2a: a historical face's id is this + its index in history.bin + 1
@@ -481,6 +496,7 @@
     const hist = { segs: {}, meshes: new Map(), styleTex: null, styleN: 0, arcTex: null, arcN: 0 };
     const lines = { fbo: null, tex: null, rb: null, w: 0, h: 0, key: "", on: true, reused: 0, rendered: 0 }; let dataGen = 0;   // the cached line layer; dataGen bumps on every upload that could change it
     const still = { fbo: null, tex: null, rb: null, scratch: null, scratchTex: null, scratchRb: null, w: 0, h: 0, key: "", lastKey: "", on: true, reused: 0, rendered: 0 };   // the still cache: the base while the view does not move
+    const cover = { fbo: null, tex: null, none: null, w: 0, h: 0, on: true };   // the presences' cover for the empty-land darkening (FS_DIM): an R8 target at the canvas's size, made on first use; `none` a 1 × 1 zero texture bound when no presence is on screen
     let ramp = null, rampTex = null;
     let palette = { ocean: [0.70, 0.92, 1.0], land: [0.9, 0.9, 0.92], coast: [0.55, 0.55, 0.6], border: [0.45, 0.45, 0.5], admin1: [0.6, 0.6, 0.66], river: [0.3, 0.55, 0.8], lake: [0.70, 0.92, 1.0], lakeShore: [0.55, 0.55, 0.6], rim: [0.5, 0.5, 0.55], halo: [0.6, 0.65, 0.9], grat: [0.2, 0.2, 0.3], selected: [0.95, 0.75, 0.3] };
     let prog = null, styleTex = null, emptyVao = null, idFbo = null, idTex = null, lost = false;
@@ -518,7 +534,8 @@
     function setup() {
       lines.fbo = null; lines.tex = null; lines.rb = null; lines.key = "";   // a restored context rebuilds the line layer
       still.fbo = null; still.tex = null; still.rb = null; still.scratch = null; still.scratchTex = null; still.scratchRb = null; still.key = ""; still.lastKey = "";
-      prog = { blit: compile(gl, VS_BLIT, FS_BLIT, "blit"), sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), presence: compile(gl, VS_PRES, FS_PRES, "presence"), extent: compile(gl, VS_FACE, FS_EXTENT, "extent"), arc: compile(gl, VS_ARC, FS_ARC, "arc"), reliefL0: compile(gl, VS_SPHERE, FS_RELIEF, "relief"), reliefPatch: compile(gl, VS_PATCH, FS_RELIEF, "relief patch") };
+      cover.fbo = null; cover.tex = null; cover.none = null; cover.w = 0; cover.h = 0;   // the cover target is rebuilt on first use after a restore
+      prog = { blit: compile(gl, VS_BLIT, FS_BLIT, "blit"), sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), presence: compile(gl, VS_PRES, FS_PRES, "presence"), extent: compile(gl, VS_FACE, FS_EXTENT, "extent"), arc: compile(gl, VS_ARC, FS_ARC, "arc"), reliefL0: compile(gl, VS_SPHERE, FS_RELIEF, "relief"), reliefPatch: compile(gl, VS_PATCH, FS_RELIEF, "relief patch"), dim: compile(gl, VS_BLIT, FS_DIM, "dim") };
       emptyVao = gl.createVertexArray();
       styleTex = gl.createTexture();
       rampTex = gl.createTexture();
@@ -827,12 +844,15 @@
       const P = prog.face; common(P, view, R);
       gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0); gl.uniform1f(P.u.uIdOffset, idPass ? HIST_FACE_BASE : 0); gl.uniform1f(P.u.uUseFlat, 0);
       gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, hist.styleTex); gl.uniform1i(P.u.uStyle, 0);
-      // only where the land fills wrote the LAND bit: the fill is masked by the land, whatever level drew it
-      if (useStencil) { gl.stencilFunc(gl.EQUAL, ST_LAND, ST_LAND); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0); }
-      let tris = 0, drawn = 0;
+      // only where the land fills wrote the LAND bit: the fill is masked by the land, whatever level drew it. With the darkening on (hv.dim, a past year on the Atlas
+      // page), a fill that is not fading out also marks the HIST bit — the cover the darkening pass leaves alone (a fading fill is last year's: its land darkens at once)
+      const mark = useStencil && !idPass && hv.dim > 0;
+      if (useStencil) { gl.stencilFunc(gl.EQUAL, ST_LAND | (mark ? ST_HIST : 0), ST_LAND); gl.stencilOp(gl.KEEP, gl.KEEP, mark ? gl.REPLACE : gl.KEEP); gl.stencilMask(0); }
+      let tris = 0, drawn = 0, marking = false;
       const strokes = [];
       for (const f of hv.faces) {
         const m = histMeshFor(f.face, view.historyLevel != null ? view.historyLevel : view.level); if (!m) continue;   // one level coarser during a gesture at stage ≥ 1 (atlas.js)
+        if (mark && marking !== !f.fading) { marking = !f.fading; gl.stencilMask(marking ? ST_HIST : 0); }
         gl.uniform1f(P.u.uHatch, f.hatch ? 1 : 0); if (f.hatch) gl.uniform3f(P.u.uHatchB, f.hatch[0], f.hatch[1], f.hatch[2]);
         gl.bindVertexArray(m.gpu.vao); gl.drawElements(gl.TRIANGLES, m.gpu.count, m.gpu.u16 ? gl.UNSIGNED_SHORT : gl.UNSIGNED_INT, 0); stats.draws++;
         tris += m.gpu.count / 3; drawn++;
@@ -840,6 +860,7 @@
       }
       gl.bindVertexArray(null);
       gl.uniform1f(P.u.uHatch, 0); gl.uniform1f(P.u.uIdOffset, 0);
+      if (mark) { gl.stencilMask(0); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); }
       // the coast stroke in the fill colour (its alpha), as wide as the level's tolerance: the fill never stops short of the finer coast
       if (strokes.length) {
         const A = prog.arc; arcUniforms(A, view, R, false, 0);
@@ -852,6 +873,58 @@
       }
       if (useStencil) { gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilMask(0xff); }
       stats.historyTriangles = tris; stats.historyFaces = drawn;
+    }
+    /* the empty-land darkening of a past year (2026-10-18; FS_DIM above): after the states' fills, before the presences' stipple and the lines. `target` is the framebuffer the
+       frame draws into (null, or the still cache's scratch), to come back to after the cover target. Only on the Atlas page (atlas.js sets hv.dim; a hub never does). */
+    function coverTarget() {
+      if (!cover.on) return false;
+      if (cover.fbo && cover.w === W && cover.h === H) return true;
+      if (!cover.fbo) { cover.fbo = gl.createFramebuffer(); cover.tex = gl.createTexture(); }
+      gl.bindTexture(gl.TEXTURE_2D, cover.tex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, W, H, 0, gl.RED, gl.UNSIGNED_BYTE, null);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, cover.fbo);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, cover.tex, 0);
+      const ok = gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      if (!ok) { cover.on = false; stats.coverOff = "incomplete framebuffer"; return false; }
+      stats.gpuBytes += W * H - (cover.w * cover.h); stats.gpuTextureBytes += W * H - (cover.w * cover.h);   // one byte a pixel
+      cover.w = W; cover.h = H; return true;
+    }
+    function drawHistoryDim(view, R, target) {
+      const hv = view.history; if (!hv || !(hv.dim > 0) || !hist.styleTex) return;
+      const level = view.historyLevel != null ? view.historyLevel : view.level;
+      let coverOn = false;
+      const pf = (hv.pfaces || []).filter((f) => !f.fading);
+      if (pf.length && coverTarget()) {
+        gl.bindFramebuffer(gl.FRAMEBUFFER, cover.fbo); gl.viewport(0, 0, W, H);
+        gl.disable(gl.STENCIL_TEST);
+        gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.blendEquation(gl.MAX); gl.blendFunc(gl.ONE, gl.ONE);
+        const P = prog.presence; common(P, view, R); gl.uniform1f(P.u.uIdPass, 0); gl.uniform1f(P.u.uCover, 1);
+        for (const f of pf) {
+          const m = histMeshFor(f.face, level); if (!m) continue;
+          gl.uniform1f(P.u.uFrame, f.frame ? 1 : 0);
+          gl.bindVertexArray(m.gpu.vao); gl.drawElements(gl.TRIANGLES, m.gpu.count, m.gpu.u16 ? gl.UNSIGNED_SHORT : gl.UNSIGNED_INT, 0); stats.draws++;
+        }
+        gl.bindVertexArray(null); gl.uniform1f(P.u.uCover, 0);
+        gl.blendEquation(gl.FUNC_ADD); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, target); gl.viewport(0, 0, W, H);
+        gl.enable(gl.STENCIL_TEST);
+        coverOn = true;
+      }
+      if (!cover.none) { cover.none = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, cover.none); gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, 1, 1, 0, gl.RED, gl.UNSIGNED_BYTE, new Uint8Array([0])); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); }
+      const P = prog.dim; gl.useProgram(P.p); gl.bindVertexArray(emptyVao);
+      gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, coverOn ? cover.tex : cover.none); gl.uniform1i(P.u.uCover, 3);
+      gl.uniform1f(P.u.uDim, hv.dim); gl.uniform1f(P.u.uCoverOn, coverOn ? 1 : 0);
+      gl.stencilFunc(gl.EQUAL, ST_LAND, ST_LAND | ST_HIST); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0);   // land no state's fill marked
+      gl.blendFuncSeparate(gl.DST_COLOR, gl.ZERO, gl.ZERO, gl.ONE);   // multiply: the colour scaled, the alpha kept
+      gl.drawArrays(gl.TRIANGLES, 0, 3); stats.draws++;
+      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+      gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilMask(0xff);
+      gl.bindVertexArray(null);
+      stats.dimPass = coverOn ? 2 : 1;
     }
     /* the presence pass (2c): the soft faces of the peoples and cultures on screen, over the states' fills. `hv.pfaces`: [{ face, rgb, angle, phase }]
        in drawing order (the entity order, so the stipple never flickers as a year changes). A stencil, as for the fills, keeps them on land. */
@@ -1100,7 +1173,7 @@
         gl.blitFramebuffer(0, 0, W, H, 0, 0, W, H, gl.COLOR_BUFFER_BIT | gl.STENCIL_BUFFER_BIT, gl.NEAREST);
         gl.bindFramebuffer(gl.FRAMEBUFFER, still.scratch); gl.viewport(0, 0, W, H);
         gl.enable(gl.STENCIL_TEST); gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff);
-        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); drawHistoryPresence(view, idPass, R, useStencil); }
+        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); drawHistoryDim(view, R, still.scratch); drawHistoryPresence(view, idPass, R, useStencil); }
         drawLinesLayer(still.scratch);
         if (debug.arcs) drawHistoryBorders(view, R);
         gl.disable(gl.STENCIL_TEST);
@@ -1110,7 +1183,7 @@
         gl.drawArrays(gl.TRIANGLES, 0, 3); stats.draws++;
       } else {
         drawBase();
-        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); drawHistoryPresence(view, idPass, R, useStencil); }
+        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); if (!idPass) drawHistoryDim(view, R, null); drawHistoryPresence(view, idPass, R, useStencil); }
         drawLinesLayer(null);
         if (debug.arcs && !idPass) drawHistoryBorders(view, R);
         if (useStencil) gl.disable(gl.STENCIL_TEST);

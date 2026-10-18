@@ -19,9 +19,8 @@
      · THE RAIL ON NARROW SCREENS. At 360, 390 and 430 px wide — with the phone flag (a coarse pointer) and WITHOUT it (the owner's
        phone took one clipped line: the flag had missed it) — every rail control is wholly inside the rail's row and the atlas, the
        row does not overflow, and a card open does not squeeze the rail away. AND THE TICKS DO NOT MERGE INTO A BAR (Phase 3a, task 0c):
-       the ticks canvas, read back column by column, has no run of ink wider than one tick (2 CSS px), the ticks drawn number at
-       most the track's width over 4 px, more than one change year stands behind some tick, and the view's change years still
-       outnumber the ticks (merged, not dropped) — at 390 px the 2b rail drew runs of 9 CSS px of unbroken ink, at 360 px 28.
+       the track draws NO ticks (2026-10-18, decision c: no tick canvas, no DOM tick, no vertical ink along the track but the pin's),
+       while the change years stay as data and [ and ] still jump between them.
      · EVERY YEAR CARRIES ITS ERA: "1 CE", "300 BCE", "2026 CE" in the year box, the pin's text and fmtYear; parseYear reads them back.
 
    Exit 1 on any failure. */
@@ -62,9 +61,12 @@ async function strokePixelsFarFromWater(page) {
   /* 2d: the Wars switch is on by default and tints a war's sides (a green and a red over the state's own hue), which this test's colour line from the land to the state's hue would read as stroke: it measures the state styling, so the tints are off */
   /* 2026-10-17, decision a: the rivers are drawn to the cap now, and a river's blue under a blue polity's tint sits on that polity's colour line (what §1b
      below already says of rivers and lake shores) — the coast stroke is what this measures, so the rivers are off for the shot; the lakes stay (they are water) */
-  await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.setLayers({ wars: "off", fronts: false, rivers: false }); c.invalidate(); }); await sleep(500);
+  /* 2026-10-18: every state is drawn in the land colour (one neutral fill; docs/atlas.md §2), so a fold or a crack in a mesh is invisible by construction — the fill over the land is the land.
+     The measurement keeps its meaning through `debugFill`, the controller's test-only override: one visible blue stands in for the neutral while the shot is taken, and is cleared after */
+  await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.debugFill([0.22, 0.32, 0.78]); c.setLayers({ wars: "off", fronts: false, rivers: false }); c.invalidate(); }); await sleep(500);
   await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.tilesSettled(), null, { timeout: 60000 }).catch(() => {}); await sleep(300);
   const png = (await page.locator(".atlas2").screenshot()).toString("base64");
+  await C(page, () => document.querySelector(".atlas2").__atlas2.debugFill(null));
   return C(page, async (b64) => {
     const c = document.querySelector(".atlas2").__atlas2;
     const img = new Image(); img.src = "data:image/png;base64," + b64; await img.decode();
@@ -74,7 +76,8 @@ async function strokePixelsFarFromWater(page) {
     const dpr = cv.width / c.view.cx / 2;   // device pixels per CSS pixel in the shot (the view's centre is half the width)
     // the polities' full colours (the stroke's colour), contested faces left out (their hatch is the partner's colour)
     const faces = c.alive(), seen = new Set(), cols = [];
-    for (const a of faces) { if (seen.has(a.entity) || a.entity.startsWith("contested:")) continue; seen.add(a.entity); const rgb = c.histColour(a.entity); if (rgb) cols.push(rgb.map((v) => Math.round(v * 255))); }
+    const dbg = [0.22, 0.32, 0.78].map((v) => Math.round(v * 255));   // the override the shot was taken with (histColour reads the live fill, which is the land again by now)
+    for (const a of faces) { if (seen.has(a.entity) || a.entity.startsWith("contested:")) continue; seen.add(a.entity); cols.push(dbg); }
     // water and plain land by the palette, as the renderer draws them (relief off). A fill is the polity's colour at its alpha over
     // the land; the stroke is the colour at full strength; an antialiased thin stroke lands between. A pixel counts as STROKE-TINTED
     // when it sits on the line from the land colour to the polity's colour (within 24 of it) at least 0.62 of the way along — the
@@ -173,15 +176,28 @@ async function strokePixelsFarFromWater(page) {
     const bad0 = m0.ctrls.filter((c) => !inside(c, m0.row) || !inside(c, m0.host));
     check(`${tag}: the rail takes ${m0.phone ? "one row (scrubber, year, play, more; the arrows and the speed behind \"more\")" : "two lines"} and no control leaves its row`, m0.narrow && m0.lines === (m0.phone ? 1 : 2) && bad0.length === 0 && m0.overflow <= 0, `phone ${m0.phone}, narrow ${m0.narrow}, lines ${m0.lines}, overflow ${m0.overflow}` + (bad0.length ? "; outside: " + bad0.map((c) => c.sel).join(" ") : ""));
     check(`${tag}: the year box reads "1 CE"`, m0.year === "1 CE", JSON.stringify(m0.year));
-    // task 0c (Phase 3a): the ticks thin with the width — read the ticks canvas back, column by column, above the baseline
+    // NO TICKS (2026-10-18, decision c; until then task 0c of Phase 3a thinned the change-year ticks to the width): the track holds the pin
+    // and the magnifier only — no canvas, no tick element, and no vertical ink along the track but the pin's own
     const tk = await C(page, () => {
-      const c = document.querySelector(".atlas2-rail-ticks"), x = c.getContext("2d"), w = c.width, h = c.height, dpr = w / Math.max(1, c.clientWidth);
-      const d = x.getImageData(0, 0, w, h).data, row = Math.round(h / 2) - Math.round(h / 8);
-      let run = 0, longest = 0, cols = 0; for (let i = 0; i < w; i++) { if (d[(row * w + i) * 4 + 3] > 40) { cols++; run++; if (run > longest) longest = run; } else run = 0; }
-      return { longest, cols, dpr, stats: document.querySelector(".atlas2").__atlas2.railTicks() };
+      const c = document.querySelector(".atlas2").__atlas2, track = document.querySelector(".atlas2-rail-track"), pin = track.querySelector(".atlas2-rail-pin");
+      const kids = [...track.children].map((e) => e.className).filter((k) => !/atlas2-rail-(pin|mag)/.test(k));
+      const canvases = track.querySelectorAll("canvas").length, ticks = document.querySelectorAll(".atlas2-rail-ticks, .atlas2-rail-tick, [class*='rail-tick']").length;
+      const cs = getComputedStyle(track, "::before"), line = cs.content !== "none" && cs.borderTopWidth !== "0px";
+      const ys = c.changeYears(); const y0 = c.year();
+      return { kids, canvases, ticks, api: typeof c.railTicks, line, years: ys.length, pinW: pin.getBoundingClientRect().width, year: y0 };
     });
-    const st = tk.stats || {};
-    check(`${tag}: the rail's ticks are thinned to the width — no ink run wider than a tick, at most width/4 ticks, merged not dropped`, !!tk.stats && tk.longest <= 2 * tk.dpr && st.ticks > 0 && st.ticks <= Math.floor(st.width / 4) + 1 && st.maxMerged >= 2 && st.years > st.ticks, `${st.ticks} ticks for ${st.years} change years over ${st.width} px (bucket ${st.bucket} px, up to ${st.maxMerged} years a tick); longest ink run ${tk.longest} device px at dpr ${tk.dpr}`);
+    check(`${tag}: the rail draws no ticks — no canvas and no tick element in the track, nothing but the pin and the magnifier, the track a plain line`, tk.canvases === 0 && tk.ticks === 0 && tk.kids.length === 0 && tk.api === "undefined" && tk.line, JSON.stringify(tk));
+    // the ink along the track, read off a screenshot of it: every column with a dark pixel lies within the pin's own width (the line is lighter than the ink)
+    const strip = await page.$eval(".atlas2-rail-track", (e) => { const r = e.getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; });
+    const png = await page.screenshot({ clip: { x: strip.x, y: strip.y, width: strip.w, height: strip.h } });
+    const dark = await C(page, async ({ b64, w0, h0 }) => { const img = new Image(); img.src = "data:image/png;base64," + b64; await img.decode(); const cv = document.createElement("canvas"); cv.width = img.width; cv.height = img.height; const x = cv.getContext("2d"); x.drawImage(img, 0, 0); const d = x.getImageData(0, 0, cv.width, cv.height).data; const cols = []; for (let i = 0; i < cv.width; i++) { let dk = 0; for (let j = 0; j < cv.height; j++) { const o = (j * cv.width + i) * 4; if (d[o] + d[o + 1] + d[o + 2] < 3 * 140 && d[o + 3] > 200) dk++; } if (dk >= 3) cols.push(i / (cv.width / w0)); } return { cols, w: w0, h: h0 }; }, { b64: png.toString("base64"), w0: strip.w, h0: strip.h });
+    const pinX = await page.$eval(".atlas2-rail-pin", (e, sx) => { const r = e.getBoundingClientRect(); return [r.left - sx, r.right - sx]; }, strip.x);
+    const stray = dark.cols.filter((x) => x < pinX[0] - 1 || x > pinX[1] + 1);
+    check(`${tag}: no vertical ink along the track outside the pin (${dark.cols.length} dark columns, all within the pin at ${pinX.map(Math.round).join("–")} px)`, stray.length === 0, stray.length ? "stray dark columns at " + stray.slice(0, 12).map(Math.round).join(", ") + " px" : "");
+    // the change years are still data: [ and ] jump between them
+    const jump = await (async () => { await page.focus(".atlas2-rail-pin"); const y0 = await C(page, () => document.querySelector(".atlas2").__atlas2.year()); const ys = await C(page, () => document.querySelector(".atlas2").__atlas2.changeYears()); await page.keyboard.press("]"); const y1 = await C(page, () => document.querySelector(".atlas2").__atlas2.year()); await page.keyboard.press("["); const y2 = await C(page, () => document.querySelector(".atlas2").__atlas2.year()); const next = ys.find((y) => y > y0); return { y0, y1, y2, next, n: ys.length }; })();
+    check(`${tag}: the change years stay as data (${jump.n} on screen) and ] and [ still jump to the next and back`, jump.n > 5 && jump.y1 === jump.next && jump.y2 < jump.y1 && jump.y2 <= jump.y0, JSON.stringify(jump));
+    await C(page, (y) => document.querySelector(".atlas2").__atlas2.setYear(y), 1);
     await C(page, () => document.querySelector(".atlas2").__atlas2.select("pol:rome")); await sleep(300);
     const m1 = await measure();
     const bad1 = m1.ctrls.filter((c) => !inside(c, m1.row) || !inside(c, m1.host));

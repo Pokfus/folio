@@ -10135,10 +10135,30 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-fronts-sw{margin-top:6px;}
 .atlas2-peoples-hint{display:block; margin:1px 0 0 22px; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.35 var(--sans);}
 /* the place card: a side column on a desktop… */
-.atlas2-card{position:absolute; right:12px; top:12px; bottom:12px; width:min(380px, calc(100% - 24px)); z-index:5; display:flex; flex-direction:column; border-radius:14px; border:1px solid var(--rule); background:var(--card); color:var(--ink); box-shadow:0 10px 30px rgba(0,0,0,.16); overflow:hidden;}
+.atlas2-card{position:absolute; right:12px; top:12px; bottom:12px; width:min(360px, calc(100% - 24px)); z-index:5; display:flex; flex-direction:column; border-radius:14px; border:1px solid var(--rule); background:var(--card); color:var(--ink); box-shadow:0 10px 30px rgba(0,0,0,.16); overflow:hidden;}
 .atlas2-card[hidden]{display:none;}
-.atlas2-has-card .atlas2-zoom, .atlas2-has-card .atlas2-layers, .atlas2-has-card .atlas2-help{right:calc(min(380px, calc(100% - 24px)) + 24px);}
+.atlas2-has-card .atlas2-zoom, .atlas2-has-card .atlas2-layers, .atlas2-has-card .atlas2-help{right:calc(min(360px, calc(100% - 24px)) + 24px);}
 .atlas2-grip{display:none;}
+/* THE ONE POPUP DESIGN (2026-10-18): a chip for the kind beside the years; the key facts as a two-column list; "Also here" as rows; the sources folded. The card rows
+   are at least 48 px tall (a finger's row), the title on one line and the deck and DUE badge on the next. */
+.atlas2-card-chip{display:inline-block; vertical-align:middle; margin:0 6px 0 0; padding:1px 8px; border-radius:999px; border:1px solid var(--rule); background:var(--paper-2); color:var(--ink-soft); font:600 calc(11px * var(--fs, 1))/1.5 var(--mono); letter-spacing:.05em; text-transform:uppercase;}
+.atlas2-card-years{display:inline-block; vertical-align:middle; color:var(--ink-quiet); font:calc(12.5px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.03em; overflow-wrap:anywhere;}
+.atlas2-card-facts{display:grid; grid-template-columns:max-content minmax(0, 1fr); gap:5px 12px; margin:0 0 12px; font:calc(14px * var(--fs, 1))/1.45 var(--sans);}
+.atlas2-card-facts > div{display:contents;}
+.atlas2-card-facts dt{color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.6 var(--mono); letter-spacing:.05em; text-transform:uppercase; max-width:9em; overflow-wrap:anywhere;}
+.atlas2-card-facts dd{margin:0; min-width:0; overflow-wrap:anywhere;}
+.atlas2-card-facts dd a{color:var(--indigo-bright);}
+.atlas2-card-here{margin:0 0 12px;}
+.atlas2-card-here ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;}
+.atlas2-here{appearance:none; display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; min-height:44px; box-sizing:border-box; padding:6px 8px; border:0; border-radius:8px; background:none; color:var(--ink); font:calc(14.5px * var(--fs, 1))/1.35 var(--sans); text-align:left; cursor:pointer;}
+.atlas2-here:hover{background:var(--indigo-wash);}
+.atlas2-here:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.atlas2-here-name{min-width:0; overflow-wrap:anywhere;}
+.atlas2-card-sources{margin:8px 0 0; font:calc(13px * var(--fs, 1))/1.45 var(--sans); color:var(--ink-soft);}
+.atlas2-card-sources > summary{cursor:pointer; color:var(--indigo); font:600 calc(12px * var(--fs, 1))/1.6 var(--mono); letter-spacing:.05em; text-transform:uppercase; padding:6px 0; list-style-position:inside;}
+.atlas2-card-sources[open] > summary{margin-bottom:6px;}
+.atlas2-card-sources .atlas2-srcnote{margin-top:4px;}
+.atlas2-card-sources .atlas2-src-h{display:none;}
 .atlas2-card-head{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; padding:14px 16px 10px; border-bottom:1px solid var(--rule);}
 .atlas2-card-title{margin:0; font:700 calc(19px * var(--fs, 1))/1.25 var(--display); letter-spacing:-.01em;}
 .atlas2-card-kind{margin:3px 0 0; color:var(--ink-quiet); font:calc(12px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.04em;}
@@ -10162,7 +10182,8 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-pager-n{color:var(--ink-quiet); font:calc(11.5px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.04em;}
 .atlas2-phone .atlas2-pager-row button{width:44px; height:44px;}
 .atlas2-phone .atlas2-pager-list button{min-height:40px;}
-.atlas2-card-body{padding:12px 16px 16px; overflow:auto; font:calc(15px * var(--fs, 1))/1.55 var(--serif);}
+.atlas2-phone .atlas2-pager-list{max-height:122px;}   /* three rows on a phone (2026-10-18): the stack's list sits in the head, and the peek grows with it */
+.atlas2-card-body{padding:12px 16px 16px; overflow:auto; overflow-x:hidden; overscroll-behavior:contain; font:calc(15px * var(--fs, 1))/1.55 var(--serif);}
 .atlas2-card-span{margin:0 0 8px; color:var(--ink-quiet); font:calc(13px * var(--fs, 1))/1.4 var(--sans);}
 .atlas2-card-desc{margin:0 0 12px;}
 .atlas2-card-none{color:var(--ink-soft); font-style:italic;}
@@ -10178,9 +10199,15 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-src-h{margin:0; color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
 .atlas2-card-loading{color:var(--ink-soft); font:calc(14px * var(--fs, 1))/1.4 var(--sans);}
 /* …and a bottom sheet with a grip on a phone, opening shut (the title strip alone) like v1's */
-.atlas2-phone .atlas2-card{left:0; right:0; top:auto; bottom:calc(var(--atlas2-rail-h, 62px) + 12px); width:auto; max-height:60%; border-radius:16px; border-bottom:1px solid var(--rule);}   /* Phase 2a: above the rail, which stays in reach */
-.atlas2-phone .atlas2-card-shut{max-height:none; height:auto;}
-.atlas2-phone .atlas2-card-shut .atlas2-card-body{display:none;}
+/* THE BOTTOM SHEET (2026-10-18; atlas.js reflectSheet sets the height to the snap — peek, half or full): docked on the frame's bottom edge, which on a phone is the top
+   of the site's tab bar; the year rail steps aside under it (as under the menu's sheet) and the zoom pill under a raised sheet; the safe-area insets pad it */
+.atlas2-phone .atlas2-card{left:0; right:0; top:auto; bottom:0; width:auto; height:28%; max-height:calc(100% - 68px); box-sizing:border-box; border-radius:16px 16px 0 0; border-bottom:0; box-shadow:0 -8px 24px rgba(0,0,0,.18); transition:height .22s ease; touch-action:pan-y;}
+.atlas2-phone .atlas2-card-dragging{transition:none;}
+.atlas2-phone .atlas2-grip, .atlas2-phone .atlas2-card-head{touch-action:none;}
+.atlas2-phone .atlas2-card-head{padding:4px max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left));}
+.atlas2-phone .atlas2-card-body{padding:12px max(16px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));}
+.atlas2-phone.atlas2-has-card .atlas2-rail{display:none;}
+.atlas2-phone.atlas2-card-up .atlas2-zoom{display:none;}
 .atlas2-phone .atlas2-grip{display:block; appearance:none; border:0; background:none; padding:8px 0 2px; cursor:pointer; width:100%;}
 .atlas2-phone .atlas2-grip i{display:block; width:42px; height:5px; margin:0 auto; border-radius:3px; background:var(--rule);}
 .atlas2-keys{position:absolute;}
@@ -10223,11 +10250,13 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-study-coll-n{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .atlas2-study-coll i{font:normal calc(11px * var(--fs, 1))/1.3 var(--mono); color:var(--ink-quiet);}
 .atlas2-study-cards{margin-top:14px; padding-top:10px; border-top:1px solid var(--rule);}
+.atlas2-study-cards:first-child{margin-top:0; padding-top:0; border-top:0;}   /* first in the body since 2026-10-18 */
+.atlas2-study-cards + .atlas2-card-here, .atlas2-study-cards + .atlas2-card-facts{margin-top:12px; padding-top:10px; border-top:1px solid var(--rule);}
 .atlas2-study-h{margin:0 0 6px; color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
 .atlas2-study-list{margin:0 0 6px; padding:0; list-style:none; display:flex; flex-direction:column; gap:2px;}
-.atlas2-study-card{display:flex; align-items:baseline; flex-wrap:wrap; gap:4px 8px; padding:7px 4px; min-height:30px; border-radius:8px; color:var(--ink); text-decoration:none; font:calc(14.5px * var(--fs, 1))/1.35 var(--sans);}
+.atlas2-study-card{display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:3px; padding:6px 8px; min-height:48px; box-sizing:border-box; border-radius:8px; color:var(--ink); text-decoration:none; font:calc(14.5px * var(--fs, 1))/1.35 var(--sans);}   /* 48 px rows (2026-10-18) */
 .atlas2-study-card:hover{background:var(--indigo-wash);}
-.atlas2-study-title{min-width:0; overflow-wrap:anywhere;}
+.atlas2-study-title{min-width:0; max-width:100%; overflow-wrap:anywhere;}
 .atlas2-study-chip{white-space:nowrap;}
 .atlas2-study-mine{color:var(--indigo-bright); font:calc(11px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.03em;}
 .atlas2-study-meta{display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap;}   /* the row's deck chip and its due badge (2026-10-17) */
@@ -10250,7 +10279,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .credits .cred-src:first-child{border-top:0; padding-top:0;}
 .cred-top{display:flex; align-items:baseline; flex-wrap:wrap; gap:6px 10px;}
 .cred-name{font-family:var(--serif); font-size:calc(15.5px * var(--fs)); color:var(--ink);}
-.cred-meta, .cred-attr, .cred-files, .cred-foot{margin:6px 0 0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft); overflow-wrap:anywhere;}
+.cred-meta, .cred-attr, .cred-adapt, .cred-files, .cred-foot{margin:6px 0 0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft); overflow-wrap:anywhere;}
 .cred-attr{font-family:var(--serif); font-style:italic; color:var(--ink);}
 .cred-files code, .cred-odbl-files code{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft); background:var(--paper-2); padding:1px 5px; border-radius:4px; overflow-wrap:anywhere;}
 .cred-odbl-files{margin:10px 0 0; padding-left:18px; display:flex; flex-direction:column; gap:4px; font-size:calc(13px * var(--fs));}
@@ -10293,7 +10322,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-rail-play{font-size:calc(13px * var(--fs, 1));}
 .atlas2-rail-play[aria-pressed="true"]{background:var(--indigo-wash); border-color:var(--indigo);}
 .atlas2-rail-track{position:relative; flex:1 1 auto; height:30px; min-width:80px; cursor:pointer; touch-action:none;}
-.atlas2-rail-ticks{position:absolute; inset:0; width:100%; height:100%; display:block;}
+.atlas2-rail-track::before{content:""; position:absolute; left:0; right:0; top:50%; border-top:1px solid var(--ink-soft); opacity:.45; pointer-events:none;}   /* the track is a plain line with the pin — no ticks of any kind (Oct 2026, decision c) */
 .atlas2-rail-pin{position:absolute; top:50%; left:0; width:14px; height:22px; margin:-11px 0 0 -7px; border-radius:7px; border:2px solid var(--indigo); background:var(--card); box-sizing:border-box; cursor:grab; outline:none;}
 .atlas2-rail-pin:focus-visible{box-shadow:0 0 0 3px var(--indigo-wash), 0 0 0 4px var(--indigo);}
 .atlas2-rail-pin.atlas2-rail-live{background:var(--indigo); cursor:grabbing;}
@@ -10372,7 +10401,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-phone .atlas2-sheet-close, .atlas2-phone .atlas2-card-close{min-width:44px; min-height:44px;}
 .atlas2-phone .atlas2-grip{min-height:44px; padding:0;}
 .atlas2-phone .atlas2-stack{min-height:44px;}
-.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 140px - var(--atlas2-rail-h, 62px) - 12px)); padding-bottom:env(safe-area-inset-bottom);}   /* Phase 2a: the rail below the card takes its share */
+.atlas2-phone .atlas2-card-body{-webkit-overflow-scrolling:touch;}   /* (2026-10-18: the sheet's own height rule is with the bottom-sheet block above; the safe-area inset pads its body) */
 .atlas2-phone.atlas2-has-card .atlas2-caption{display:none;}
 
 /* the two sheets open to the LEFT of the right-hand chip column on a desktop, never over it (Phase 1d, the phone audit found
@@ -10387,13 +10416,11 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-help .atlas2-about{max-height:calc(var(--atlas2-h, 100vh) - 192px - var(--atlas2-rail-h, 52px) - 12px);}   /* Phase 2a: the rail's height too, so the sheet never runs under it */
 .atlas2-layers, .atlas2-help{max-height:none;}
 .atlas2-phone.atlas2-sheet-open .atlas2-zoom, .atlas2-phone.atlas2-sheet-open .atlas2-layers-btn, .atlas2-phone.atlas2-sheet-open .atlas2-about-btn, .atlas2-phone.atlas2-sheet-open .atlas2-caption, .atlas2-phone.atlas2-sheet-open .atlas2-stack{display:none;}   /* (Oct 2026: not .atlas2-study — on a phone it lives in the menu, which holds the legend and About) */
-/* the expanded card sheet stops short of the zoom stack (three 44 px buttons from the top on a phone) */
-.atlas2-phone .atlas2-card{max-height:min(70%, calc(100% - 204px - var(--atlas2-rail-h, 62px) - 12px));}
+/* (2026-10-18: the raised sheet hides the zoom pill instead of stopping short of it — pinch zooms; see the bottom-sheet block) */
 /* a phone on its side (the 844×390 audit): the atlas is under 300 px tall and the rule above left the up sheet 96 px — a title
    and no body. There the up sheet takes the height below the search box and the zoom stack steps out from under it */
 @media (orientation: landscape) and (max-height: 500px){
-  .atlas2-phone .atlas2-card{max-height:calc(100% - 68px - var(--atlas2-rail-h, 56px) - 12px);}
-  .atlas2-phone.atlas2-card-up .atlas2-zoom{display:none;}
+  /* (2026-10-18: the sheet's full height is the frame less 68 px on its side too, set by atlas.js) */
   /* Phase 2a: the rail is one line again on a phone on its side (844 px holds it; two lines put the ? button under the rail),
      and it stops 68 px short of the right edge, where the control stack (search, zoom, home, legend, ?) reaches the bottom */
   /* the legend chip sits in a flex column 32 px tall here (top 168, bottom 24 + the rail, in a 280 px atlas) and shrank to it:

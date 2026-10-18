@@ -19,6 +19,13 @@
         (rivers, lakes, seas, regions …) carry no mark; the Legend lists them
      6  NAMES: no parenthetical on a label ("Malia", not "Malia (archaeological site)"); a name over 22 characters on two lines at the space nearest
         its middle; over 28, the registry's short name; the popup keeps the full name; the 28 px rule (test-atlas-phone) still holds
+    11 THE SHEET (2026-10-18): on a phone the popup is a bottom sheet docked on the frame's bottom edge with three snap heights (peek ≈ 28 %, half, full), a real
+        touch drag between them, a flick down that closes it, 48 px card rows first in the body, a kind chip, the key facts, the sources folded, no sideways
+        scroll at 360 px; a 360 px side panel on a desktop (docs/atlas-v2-design.md §7 "The popup as a bottom sheet")
+    12 WHOLE-STATE SELECTION (2026-10-18): a tap on empty land inside a state, a people or a culture that has a card selects the whole of it in the card
+        windows' gold — the fill (the land blended with gold at 0.24), the outline and the glow — kept through a drag and a year it is alive in; a state with
+        no card by the rule gives nothing; marks and names keep priority; the hidden keys list is the keyboard route (docs/atlas-v2-design.md §7 "Whole-state
+        selection")
    Re-run after touching atlas/study.js, the study block of atlas.js, the study pass of atlas-worker.js, or the place card. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -135,24 +142,23 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     check("the Personal Atlas names ONLY the reader's polities: every polity name placed is flagged 2", lpers.length >= 1 && lpers.every((p) => flagged2.has(p.id) && p.st === 2), lpers.map((p) => p.text + (flagged2.has(p.id) ? "" : " (NOT THEIRS)")).join(", "));
     check("…and none of the " + unflagged.length + " polities the Full Atlas named that are not theirs is named (not even muted)", unflagged.every((u) => !lpers.some((p) => p.id === u.id)), unflagged.map((u) => u.text).join(", "));
     const mk = await marks(page);
-    check("every polity mark on the Personal globe is the reader's", mk.filter((m) => /^pol:/.test(m.id)).every((m) => flagged2.has(m.id)) && mk.some((m) => /^pol:/.test(m.id)), mk.filter((m) => /^pol:/.test(m.id)).length + " polity marks");
-    // the FILL: an unflagged state's face is plain land in Personal (its pixel is the land's), a colour of its own in Full
+    check("no polity carries a mark on the Personal globe (the star is gone, decision b of 2026-10-18): the reader's polities are named and have no mark", !mk.some((m) => /^pol:/.test(m.id) || m.marker === "star" || m.cls === "polity") && lpers.length >= 1, mk.filter((m) => /^pol:/.test(m.id)).length + " polity marks, " + lpers.length + " polity names");
+    // the FILL (2026-10-18, one neutral fill): an unflagged state's face is the plain land in Personal AND in Full — nothing paints a state apart from its neighbours but its
+    // border (docs/atlas.md §2 (a)); what the Personal Atlas withholds from a state that is not the reader's is its name, its mark and its tap. The probe is the polity's own label
+    // anchor (inside its face); the points around it that read as land in the present and are not the darker empty land in Full are the face's, and they read the land in both modes
     const probe = unflagged.find((p) => p.kind === "polity");   // a state (a people is a stipple: its ground reads as land either way)
     if (probe) {
-      // nine points round the name's anchor (the GL canvas only: the names are on their own canvas); the ones that are land in the present
       const pts = [[0, 0], [0, 14], [0, -14], [14, 0], [-14, 0], [10, 10], [-10, 10], [10, -10], [-10, -10]].map(([dx, dy]) => [probe.sx + dx, probe.sy + dy]);
       const read = async () => { const out = []; for (const p of pts) out.push(await pixel(page, p[0], p[1])); return out; };
       const pPers = await read();
       await mode(page, "full"); const pFull = await read();
       await year(page, 2025); await mode(page, "map"); const pLand = await read();
       const landish = pts.map((_, i) => near(pLand[i], pLand[0], 4) || near(pLand[i], pLand[1], 4));   // the land's own colour: what most points read in the present
-      // the FILL is the colour most of the non-land points read in Full (a border's dark stroke crosses one or two points and is not the fill)
-      const cand = pts.map((_, i) => (landish[i] && !near(pFull[i], pLand[i], 8) ? pFull[i] : null)).filter(Boolean);
-      const fill = cand.map((c) => [c, cand.filter((d) => near(c, d, 6)).length]).sort((a, b) => b[1] - a[1]).map((x) => x[0])[0] || null;
-      const tinted = pts.map((_, i) => !!fill && landish[i] && near(pFull[i], fill, 6));
-      check(probe.text + " (not theirs): its face takes a colour of its own in Full (at " + tinted.filter(Boolean).length + " of 9 probe points)", tinted.some(Boolean), "full " + pFull[0] + " · land " + pLand[0]);
-      const nT = tinted.filter(Boolean).length, nPlain = pts.filter((_, i) => tinted[i] && near(pPers[i], pLand[i], 6)).length;
-      check("…and is plain land in Personal at every one of those points (" + nPlain + " of " + nT + ")", nT > 0 && nPlain === nT, pts.map((_, i) => tinted[i] ? "personal " + pPers[i] + " / land " + pLand[i] : "").filter(Boolean).join(" | "));
+      const inFace = pts.map((_, i) => landish[i] && near(pFull[i], pLand[i], 6));   // the face's points: the land colour in Full (the darker empty land outside the face, a border's stroke, are not)
+      const nF = inFace.filter(Boolean).length;
+      check(probe.text + " (not theirs): its face is the plain land in Full (at " + nF + " of 9 probe points)", nF >= 3, "full " + pFull[0] + " · land " + pLand[0]);
+      const nPlain = pts.filter((_, i) => inFace[i] && near(pPers[i], pLand[i], 6)).length;
+      check("…and the plain land in Personal at every one of those points (" + nPlain + " of " + nF + ")", nF >= 3 && nPlain === nF, pts.map((_, i) => inFace[i] ? "personal " + pPers[i] + " / land " + pLand[i] : "").filter(Boolean).join(" | "));
       await year(page, -483); await mode(page, "personal");
     } else check("an unflagged polity to probe", false);
     await shot(page, "personal-483");
@@ -258,8 +264,9 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await openPlace(ph.page);
     await ph.page.click(".atlas2-grip"); await sleep(300);
     const geo = await ph.page.evaluate(() => { const f = document.querySelector(".atlas2").getBoundingClientRect(), c = document.querySelector(".atlas2-card").getBoundingClientRect(), rail = document.querySelector(".atlas2-rail").getBoundingClientRect(), rows = [...document.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect()); return { frame: [f.left, f.top, f.right, f.bottom], card: [c.left, c.top, c.right, c.bottom], rail: [rail.left, rail.top, rail.right, rail.bottom], rows: rows.map((r) => [r.left, r.top, r.right, r.bottom, r.height]), vw: innerWidth, vh: innerHeight }; });
-    check("390 × 844: the open sheet lies wholly inside the frame and ends above the year rail", geo.card[0] >= geo.frame[0] - 0.5 && geo.card[2] <= geo.frame[2] + 0.5 && geo.card[1] >= geo.frame[1] && geo.card[3] <= geo.rail[1] + 0.5, JSON.stringify({ card: geo.card, rail: geo.rail, frame: geo.frame }));
-    check("…its rows are at least 30 px tall (a finger's row) and inside the sheet's width", geo.rows.length === own.length && geo.rows.every((r) => r[4] >= 30 && r[0] >= geo.card[0] && r[2] <= geo.card[2]), JSON.stringify(geo.rows.slice(0, 2)));
+    // 2026-10-18: the sheet is DOCKED on the frame's bottom edge (the year rail steps aside under it, as under the menu) — it used to end above the rail
+    check("390 × 844: the open sheet lies wholly inside the frame, docked on its bottom edge, the year rail stepped aside", geo.card[0] >= geo.frame[0] - 0.5 && geo.card[2] <= geo.frame[2] + 0.5 && geo.card[1] >= geo.frame[1] && Math.abs(geo.card[3] - geo.frame[3]) <= 1 && geo.rail[3] - geo.rail[1] < 1, JSON.stringify({ card: geo.card, rail: geo.rail, frame: geo.frame }));
+    check("…its rows are at least 48 px tall (a finger's row, 2026-10-18) and inside the sheet's width", geo.rows.length === own.length && geo.rows.every((r) => r[4] >= 48 && r[0] >= geo.card[0] && r[2] <= geo.card[2]), JSON.stringify(geo.rows.slice(0, 2)));
     await shot(ph.page, "popup-cards-phone");
     allErrors.push(...ph.errors); await ph.ctx.close();
   }
@@ -333,27 +340,35 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
   }
 
   /* ------------------------------------------------------------------ 5  a glyph per class */
-  console.log("\n\x1b[1m5) glyphs: a shape per class, told apart by shape, legible at 12–16 px, a 32 px hit area; areas have no mark; the Legend lists them\x1b[0m\n");
+  console.log("\n\x1b[1m5) glyphs: a shape per class, told apart by shape, legible at 8 px (the capital's square at 16), a 32 px hit area; areas have no mark; the Legend lists them\x1b[0m\n");
   {
     const { ctx, page, errors } = await open(browser, READER);
     await mode(page, "full"); await year(page, 2025);
     // the glyphs' pixels: a bitmap of the ink round each mark on the label canvas, compared pairwise (Jaccard) — a shape, not a colour, tells them apart.
-    // Sampled over three views at one zoom (3 km/px: marks 12–13 px across): the eastern Mediterranean (El Alamein's battle, Cairo), Greece (Olympus
-    // and Sounion's peaks, the sites), central Europe (Dunkirk's battle, the Kahlenberg, Vienna; the Berlin Wall's building class is in Berlin's stack)
+    // Sampled over three views at one zoom (1.5 km/px, where markHalf is 8: since decision a of 2026-10-18 the capital's square is 16 px across and every
+    // other glyph 8, a hill 6): the eastern Mediterranean (El Alamein's battle, Cairo), Greece (Olympus and Sounion's peaks, the sites), central Europe
+    // (Dunkirk's battle, the Kahlenberg, Vienna; the Berlin Wall's building class is in Berlin's stack)
     // the INK of a glyph: the pixels that are not the paper's colour (a hollow mark's fill is the paper, its outline the ink; the reader's own are filled with the accent)
     const mask = (m) => page.evaluate((m) => { const c = document.querySelector(".atlas2").__atlas2, halo = c.colours().halo, hr = parseInt(halo.slice(1, 3), 16), hg = parseInt(halo.slice(3, 5), 16), hb = parseInt(halo.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), d = cv.width / cv.getBoundingClientRect().width, r = Math.ceil((m.h + 3) * d), cx = Math.round(m.x * d), cy = Math.round(m.y * d); const img = cv.getContext("2d").getImageData(cx - r, cy - r, 2 * r + 1, 2 * r + 1); const out = []; let n = 0; for (let i = 0; i < img.data.length; i += 4) { const a = img.data[i + 3]; const on = a > 100 && (Math.abs(img.data[i] - hr) + Math.abs(img.data[i + 1] - hg) + Math.abs(img.data[i + 2] - hb) > 60) ? 1 : 0; out.push(on); n += on; } return { w: 2 * r + 1, bits: out, n }; }, m);
     const jaccard = (a, b) => { const w = Math.min(a.w, b.w); let inter = 0, uni = 0; for (let y = 0; y < w; y++) for (let x = 0; x < w; x++) { const p = a.bits[y * a.w + x], q = b.bits[y * b.w + x]; if (p && q) inter++; if (p || q) uni++; } return uni ? inter / uni : 1; };
     const sample = {}, seenCls = {}; let lone = null, mk = [];
     for (const [lon, lat] of [[31, 27.5], [22.5, 38.5], [9.4, 49.7]]) {
-      await view(page, lon, lat, 3);
+      await view(page, lon, lat, 1.5);
       const lv = await live(page);
-      for (const m of lv) if (m.cls && m.h >= 6) seenCls[m.cls] = (seenCls[m.cls] || 0) + 1;
-      for (const m of lv) { if (!m.cls || m.h < 6 || sample[m.cls]) continue; if (lv.some((o) => o !== m && Math.hypot(o.x - m.x, o.y - m.y) < 2 * m.h + 6)) continue; sample[m.cls] = { m, mask: await mask(m) }; }   // a mark with no other within its box
+      for (const m of lv) if (m.cls && m.h >= 3) seenCls[m.cls] = (seenCls[m.cls] || 0) + 1;
+      for (const m of lv) { if (!m.cls || m.h < 3 || sample[m.cls]) continue; if (lv.some((o) => o !== m && Math.hypot(o.x - m.x, o.y - m.y) < 2 * m.h + 6)) continue; sample[m.cls] = { m, mask: await mask(m) }; }   // a mark with no other within its box
       if (!lone) { const l = lv.find((m) => m.cls && m.cls !== "stack" && !lv.some((o) => o !== m && Math.hypot(o.x - m.x, o.y - m.y) < 40)); if (l) lone = { id: l.id, hit: (await A(page, (c, p) => c.study.near(p[0] + 15, p[1], false), [l.x, l.y])).includes(l.id) }; }   // asked in this view, before the next moves it
       mk = mk.concat(await marks(page));
     }
-    check("three views at 3 km/px draw marks of the settlement, site, battle and peak classes (and a stack) at 12 px or larger", ["settlement", "site", "battle", "peak", "stack"].every((c) => seenCls[c]), Object.entries(seenCls).map(([c, n]) => c + " " + n).join(", "));
-    check("each sampled glyph has ink (at least 20 outline pixels at 12–16 px): " + Object.keys(sample).join(", "), Object.keys(sample).length >= 4 && Object.values(sample).every((s) => s.mask.n >= 20), Object.entries(sample).map(([c, s]) => c + " " + s.mask.n + "px").join(", "));
+    check("three views at 1.5 km/px draw marks of the settlement, site, battle and peak classes (and a stack) at 6 px or larger", ["settlement", "site", "battle", "peak", "stack"].every((c) => seenCls[c]), Object.entries(seenCls).map(([c, n]) => c + " " + n).join(", "));
+    check("each sampled glyph has ink (at least 12 outline pixels at 8 px, 16 for the capital's square): " + Object.keys(sample).join(", "), Object.keys(sample).length >= 4 && Object.values(sample).every((s) => s.mask.n >= 12), Object.entries(sample).map(([c, s]) => c + " " + s.mask.n + "px").join(", "));
+    // THE DRAWN SIZES (decision a, 2026-10-18; the owner's phone: "circles, diamonds and every other icon except the capital-city squares should be about
+    // 50 % smaller"): the ink's span, read off the canvas — a disc's and a diamond's are about half the capital square's (before: the same 15–16 px)
+    const span = (mk) => { let x0 = mk.w, x1 = -1, y0 = mk.w, y1 = -1; for (let y = 0; y < mk.w; y++) for (let x = 0; x < mk.w; x++) if (mk.bits[y * mk.w + x]) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } return x1 < 0 ? 0 : Math.max(x1 - x0, y1 - y0) + 1; };
+    const spans = Object.fromEntries(Object.entries(sample).map(([c, s]) => [c, span(s.mask)]));
+    const ratio = (c) => spans.capital ? spans[c] / spans.capital : NaN;
+    check("the capital's square is drawn at its full size (14–17 px across at 1.5 km/px) and a city's disc and a site's diamond at about half of it (0.35–0.65)", spans.capital >= 14 && spans.capital <= 17 && ["settlement", "site"].every((c) => spans[c] > 0 && ratio(c) >= 0.35 && ratio(c) <= 0.65), Object.entries(spans).map(([c, v]) => c + " " + v + "px").join(", ") + "; disc/capital " + ratio("settlement").toFixed(2) + ", diamond/capital " + ratio("site").toFixed(2));
+    check("…and the city ring stays large enough for its count: 16–20 px of ink across (a 9.5 px half-extent, its 2 px outline inside it: a 9 px bold two-digit figure needs an inner radius of about 7 px)", spans.stack >= 16 && spans.stack <= 20, spans.stack + " px");
     const pairs = []; const cs = Object.keys(sample); for (let i = 0; i < cs.length; i++) for (let j = i + 1; j < cs.length; j++) pairs.push([cs[i], cs[j], jaccard(sample[cs[i]].mask, sample[cs[j]].mask)]);
     check("every pair of classes differs by SHAPE: the ink bitmaps overlap by at most 75 % (Jaccard)", pairs.length >= 6 && pairs.every((p) => p[2] <= 0.75), pairs.map((p) => p[0] + "/" + p[1] + " " + p[2].toFixed(2)).join(", "));
     // the hit area: a tap 15 px from a lone mark picks it (a 32 px target), with a mouse
@@ -368,7 +383,14 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await mode(page, "full");
     // the Legend
     const key = await page.$$eval(".atlas2-marks-key > div", (ds) => ds.map((d) => ({ cls: d.getAttribute("data-cls"), word: d.querySelector("dd").textContent.trim(), svg: !!d.querySelector("svg path"), d: d.querySelector("svg path").getAttribute("d").length })));
-    check("the Legend lists the eight classes (a capital's square since decision b, 2026-10-17), each with its glyph drawn (an SVG path) and its words", key.length === 8 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
+    check("the Legend lists the seven classes (a capital's square since decision b, 2026-10-17; no polity row since 2026-10-18), each with its glyph drawn (an SVG path) and its words", key.length === 7 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
+    // NO STAR ANYWHERE (decision b, 2026-10-18; the owner's phone: "remove all star (state) icons"): not drawn, not in the Legend, not in the hit list
+    await view(page, 12, 48, 9); await year(page, 1500);
+    const eu = await A(page, (c) => { const live = c.study.liveMarks(), all = c.study.marks(); const names = c.labels().filter((p) => p.hist && /^pol:/.test(p.id) && p.text); const hits = []; for (const p of names.slice(0, 12)) for (const id of c.study.near(p.sx, p.sy, true)) hits.push(id); return { live: live.length, stars: live.filter((m) => m.shape === "star" || m.cls === "polity" || /^pol:/.test(m.id)).length, laid: all.filter((m) => m.marker === "star" || m.cls === "polity" || /^pol:/.test(m.id)).length, names: names.length, hits: hits.filter((id) => /^pol:/.test(id)).length, tried: hits.length }; });
+    // (in the Full Atlas of 396 marks a state's name that no card links comes after the study names and few find room — one or two here; the names' rules are untouched)
+    check("Europe in 1500, the Full Atlas: a state is named (" + eu.names + ") but none has a mark — no star drawn, none in the layout, and a tap at a state's name finds no polity in the marks' hit list", eu.names >= 1 && eu.stars === 0 && eu.laid === 0 && eu.hits === 0 && eu.live > 100, JSON.stringify(eu));
+    check("…and the Legend has no state row and no star (every key is one of the seven classes, none a polity, none worded as a state, people or culture)", !key.some((k) => k.cls === "polity" || /state|people|culture/i.test(k.word)) && key.every((k) => ["capital", "settlement", "site", "battle", "peak", "building", "stack"].includes(k.cls)), key.map((k) => k.cls).join(","));
+    await year(page, 2025);
     await shot(page, "glyphs-east-med");
     allErrors.push(...errors); await ctx.close();
   }
@@ -533,6 +555,114 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await view(page, -108.5172, 37.15, 3);
     const mv = await markOf("pl:q49693597");
     check("Mesa Verde is a site: a diamond", !!mv && mv.cls === "site" && mv.marker === "diamond", JSON.stringify(mv));
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 11  the popup as a bottom sheet (2026-10-18) */
+  console.log("\n\x1b[1m11) the popup is a bottom sheet on a phone: docked on the frame's bottom edge, three snap heights, a touch drag, 48 px rows, no sideways scroll; a 360 px panel on a desktop\x1b[0m\n");
+  for (const [w, h] of [[390, 844], [360, 740]]) {
+    const { ctx, page, errors } = await open(browser, READER, { phone: true, w, h });
+    await mode(page, "full"); await year(page, -100); await view(page, 12.5, 41.9, 40);
+    await A(page, (c) => c.select("pol:rome", { open: true })); await page.waitForSelector(".atlas2-study-cards", { state: "attached", timeout: 20000 }); await sleep(400);
+    const geo = () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, f = document.querySelector(".atlas2").getBoundingClientRect(), el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"), rows = [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height); const first = body.firstElementChild; const d = el.querySelector(".atlas2-card-sources"); return { card: c.card(), sel: c.selectedId(), frame: [f.left, f.top, f.right, f.bottom], rect: [r.left, r.top, r.right, r.bottom], h: r.height, fh: c.frame()[1], rows, firstIsCards: !!first && first.classList.contains("atlas2-study-cards"), chip: (el.querySelector(".atlas2-card-chip") || {}).textContent || "", years: (el.querySelector(".atlas2-card-years") || {}).textContent || "", kindText: el.querySelector(".atlas2-card-kind").textContent, facts: [...el.querySelectorAll(".atlas2-card-facts dt")].map((x) => x.textContent), sources: d ? { open: d.open, text: d.textContent.length } : null, scrollX: body.scrollWidth - body.clientWidth, docX: document.documentElement.scrollWidth - innerWidth, railShown: getComputedStyle(document.querySelector(".atlas2-rail")).display !== "none", zoomShown: getComputedStyle(document.querySelector(".atlas2-zoom")).display !== "none", heights: c.sheetHeights(), bodyShown: getComputedStyle(body).display !== "none", scrollTop: body.scrollTop }; });
+    let g = await geo(); const hs = g.heights;
+    check(`${w}×${h}: the sheet opens at its peek — docked on the frame's bottom edge, about 28 % of the frame tall, the body showing`, g.card.snap === "peek" && Math.abs(g.rect[3] - g.frame[3]) <= 1 && g.h >= g.fh * 0.27 && g.h <= g.fh * 0.34 && g.bodyShown, JSON.stringify({ snap: g.card.snap, h: Math.round(g.h), frame: Math.round(g.fh), bottom: [Math.round(g.rect[3]), Math.round(g.frame[3])] }));
+    check("…the head: the name, a kind chip and the years, which still read as one line", g.chip === "Polity" && /BCE/.test(g.years) && /^Polity · /.test(g.kindText), JSON.stringify({ chip: g.chip, years: g.years, kindText: g.kindText }));
+    check("…the body: the card rows first, each at least 48 px tall, then the key facts (years, the capital) with the sources folded", g.firstIsCards && g.rows.length >= 3 && g.rows.every((x) => x >= 48) && g.facts[0] === "Years" && g.facts.some((f) => /^Capital/.test(f)) && !!g.sources && !g.sources.open && g.sources.text > 40, JSON.stringify({ rows: g.rows.slice(0, 3).map(Math.round), facts: g.facts, sources: g.sources }));
+    check("…no sideways scroll in the sheet or the page; the year rail steps aside under the docked sheet; the zoom pill stays at the peek", g.scrollX <= 0 && g.docX <= 0 && !g.railShown && g.zoomShown, JSON.stringify({ scrollX: g.scrollX, docX: g.docX, rail: g.railShown, zoom: g.zoomShown }));
+    await A(page, (c) => c.sheetSnap("half")); await sleep(400); g = await geo();
+    check("half: about half the frame, still docked", g.card.snap === "half" && Math.abs(g.h - g.fh * 0.5) <= 2 && Math.abs(g.rect[3] - g.frame[3]) <= 1 && !g.zoomShown, `${Math.round(g.h)} of ${Math.round(g.fh)}`);
+    await A(page, (c) => c.sheetSnap("full")); await sleep(400); g = await geo();
+    check("full: the frame less the 68 px of the search and menu buttons, the zoom pill hidden under it", g.card.snap === "full" && Math.abs(g.h - (g.fh - 68)) <= 2 && !g.zoomShown, `${Math.round(g.h)} of ${Math.round(g.fh)}`);
+    // REAL TOUCH DRAGS through CDP (touchStart, touchMoves, touchEnd): on the handle, down from full to half, down again to the peek, then a flick down that closes
+    const cdp = await ctx.newCDPSession(page);
+    const at = (sel) => page.$eval(sel, (e) => { const r = e.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + Math.min(20, r.height / 2) }; });
+    const drag = async (sel, dy, steps, ms) => { const p = await at(sel); await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: p.x, y: p.y }] }); for (let i = 1; i <= steps; i++) { await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: p.x, y: p.y + dy * i / steps }] }); await sleep(ms); } await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] }); await sleep(500); };
+    await drag(".atlas2-grip", hs.full - hs.half + 10, 8, 40); g = await geo();
+    check("a touch drag of the handle down from full settles at half", g.card.snap === "half", g.card.snap);
+    await drag(".atlas2-grip", hs.half - hs.peek + 10, 8, 40); g = await geo();
+    check("…and down again at the peek", g.card.snap === "peek", g.card.snap);
+    await drag(".atlas2-grip", 90, 3, 8); g = await geo();
+    check("a flick down from the peek closes the sheet and clears the selection", !g.card.open && g.sel === null, JSON.stringify({ open: g.card.open, sel: g.sel }));
+    // the body: pulled up it raises the sheet; once the sheet is full the body scrolls instead
+    await A(page, (c) => c.select("pol:rome", { open: true })); await sleep(400);
+    await drag(".atlas2-card-body", -(hs.full - hs.peek + 10), 8, 40); g = await geo();
+    check("a pull up on the body raises the sheet to full", g.card.snap === "full", g.card.snap);
+    const st0 = g.scrollTop; await drag(".atlas2-card-body", -160, 8, 40); g = await geo();
+    check("…and at full the body scrolls (the sheet stays full)", g.card.snap === "full" && g.scrollTop > st0, `scrollTop ${st0} → ${g.scrollTop}`);
+    // a city stack keeps its pager and its list, in the head, at the peek
+    await A(page, (c) => c.clearSelection()); await year(page, 2025); await view(page, 12.49, 41.89, 3);
+    const sm = await A(page, (c) => (c.study.liveMarks().find((m) => m.members && m.count > 8) || {}).id);
+    if (sm) {
+      await A(page, (c, id) => c.study.openStack(id), sm); await sleep(500);
+      const st = await page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), p = el.querySelector(".atlas2-pager-row").getBoundingClientRect(), l = el.querySelector(".atlas2-pager-list"); return { snap: document.querySelector(".atlas2").__atlas2.card().snap, pagerIn: p.top >= r.top && p.bottom <= r.bottom + 0.5, list: !l.hidden && l.getBoundingClientRect().height <= 130, n: el.querySelector(".atlas2-pager-n").textContent, h: r.height }; });
+      check("a stack's sheet keeps its pager and its list at the peek (the peek grows to show them)", st.snap === "peek" && st.pagerIn && st.list && /^1 of /.test(st.n), JSON.stringify(st));
+    } else check("a stack at Rome", false, "no ring found");
+    allErrors.push(...errors); await ctx.close();
+  }
+  {   // the desktop: a 360 px side panel with the same body
+    const { ctx, page, errors } = await open(browser, READER); await mode(page, "full"); await year(page, -100); await A(page, (c) => c.select("pol:rome", { open: true })); await sleep(400);
+    const d = await page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"); return { w: r.width, snap: document.querySelector(".atlas2").__atlas2.card().snap, firstIsCards: body.firstElementChild.classList.contains("atlas2-study-cards"), chip: el.querySelector(".atlas2-card-chip").textContent, rows: [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height) }; });
+    check("a desktop shows a 360 px side panel with the same body (the rows first, 48 px each, the kind chip)", Math.abs(d.w - 360) <= 1 && d.snap === null && d.firstIsCards && d.chip === "Polity" && d.rows.every((x) => x >= 48), JSON.stringify(d));
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 12  whole-state selection (2026-10-18) */
+  console.log("\n\x1b[1m12) a tap on empty land inside a state with a card selects the WHOLE state in gold — the fill, the outline, the glow — kept through a drag and a year change; a state with no card gives nothing; marks and names keep priority; the keyboard route\x1b[0m\n");
+  for (const phone of [false, true]) {
+    const who = phone ? "phone" : "desktop";
+    const { ctx, page, errors } = await open(browser, READER, phone ? { phone: true } : {});
+    await mode(page, "full"); await year(page, -100); await view(page, -4, 40.3, 3);   // Roman Spain in 100 BCE: deep inside Rome's face, few marks
+    await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyOK && c.historyOK(); }, null, { timeout: 120000 }); await settle(page);
+    const findClear = (want) => A(page, (c, a) => { const [W, H] = c.frame(), ch = c.chromeRects(); const inChrome = (x, y) => ch.some((r) => x >= r[0] - 8 && x <= r[2] + 8 && y >= r[1] - 8 && y <= r[3] + 8); for (let y = 80; y < H * 0.6; y += 10) for (let x = 20; x < W - 20; x += 10) { if (inChrome(x, y) || c.study.near(x, y, a.touch).length || c.hitAt(x, y).length) continue; const s = c.stackAt(x, y); if (s.length === 1 && s[0] === a.want) return [x, y]; } return null; }, { want, touch: phone });
+    const clear = await findClear("pol:rome");
+    check(`${who}: a point of empty land inside Rome's face, clear of every mark, name and control`, !!clear, JSON.stringify(clear));
+    if (!clear) { allErrors.push(...errors); await ctx.close(); continue; }
+    const bb = await box(page);
+    const tap = async (x, y) => { if (phone) await page.touchscreen.tap(bb.x + x, bb.y + y); else await page.mouse.click(bb.x + x, bb.y + y); await sleep(900); };
+    // the gold line's pixels on the label canvas (the outline; the glow is paler and is not counted)
+    const goldInk = () => page.evaluate(() => { const cv = document.querySelector(".atlas2-labels"), d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data; let n = 0; for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 200 && d[i] > 240 && d[i + 1] > 170 && d[i + 1] < 215 && d[i + 2] < 110) n++; return n; });
+    const tinted = (a, b) => (a[0] - a[2]) - (b[0] - b[2]) >= 20;   // the gold pulls red up and blue down: the land blended with the gold at 0.24
+    const before = await pixel(page, clear[0], clear[1]);
+    await tap(clear[0], clear[1]);
+    const s1 = await A(page, (c, p) => ({ sel: c.selection(), id: c.selectedId(), card: c.card(), px: c.pixelAt(p[0], p[1]), here: document.querySelectorAll(".atlas2-card-here").length }), clear);
+    const ink1 = await goldInk();
+    check("the tap selects the whole state: Rome, its popup open, the tapped pixel the land blended with gold", s1.id === "pol:rome" && s1.card.open && s1.card.id === "pol:rome" && tinted(s1.px, before), JSON.stringify({ id: s1.id, before, after: s1.px, card: s1.card }));
+    check("…its outline is stroked in the gold on the label canvas, from the face's rings at the view's level; one face under the tap, so no \"Also here\"", s1.sel.rings > 0 && s1.sel.points > 100 && ink1 > 200 && s1.here === 0, JSON.stringify({ rings: s1.sel.rings, points: s1.sel.points, level: s1.sel.level, goldPixels: ink1 }));
+    // A DRAG keeps it lit: read with the pointer still down (the line alone — the glow waits for the settled frame), then after the release
+    const v0 = await A(page, (c) => [c.view.lon, c.view.lat]);
+    const d0f = await A(page, (c) => { const [W, H] = c.frame(), ch = c.chromeRects(); const free = (x, y) => !ch.some((r) => x >= r[0] - 8 && x <= r[2] + 8 && y >= r[1] - 8 && y <= r[3] + 8); for (let y = H * 0.3; y < H * 0.75; y += 20) for (let x = 20; x < W - 120; x += 20) if (free(x, y) && free(x + 90, y + 36)) return [x, y]; return null; });   // a start clear of the popup (a desktop's side panel opens over the frame)
+    const d0 = [bb.x + d0f[0], bb.y + d0f[1]];
+    await page.mouse.move(d0[0], d0[1]); await page.mouse.down(); for (let i = 1; i <= 6; i++) { await page.mouse.move(d0[0] + 15 * i, d0[1] + 6 * i); await sleep(40); }
+    await sleep(150); const mid = await A(page, (c) => ({ id: c.selectedId(), v: [c.view.lon, c.view.lat] })), inkMid = await goldInk();
+    await page.mouse.up(); await sleep(900);
+    const s2 = await A(page, (c) => ({ id: c.selectedId(), card: c.card().open, ent: c.selection().ent })), ink2 = await goldInk();
+    check("a drag keeps the selection lit: the view moved, the outline is drawn with the pointer down and after the release, the popup stays open", mid.id === "pol:rome" && (mid.v[0] !== v0[0] || mid.v[1] !== v0[1]) && inkMid > 100 && s2.id === "pol:rome" && s2.ent >= 0 && s2.card && ink2 > 200, JSON.stringify({ mid, v0, inkMid, after: s2, ink2 }));
+    // A YEAR CHANGE that keeps the state alive keeps the selection; one that does not draws nothing, and back again it is drawn again
+    await year(page, -50); const y1 = await A(page, (c) => ({ id: c.selectedId(), faces: c.selection().faces.length, rings: c.selection().rings })), inkY1 = await goldInk();
+    await year(page, 2025); const y2 = await A(page, (c) => ({ id: c.selectedId(), faces: c.selection().faces.length })), inkY2 = await goldInk();
+    await year(page, -100); await sleep(600); const y3 = await A(page, (c) => ({ id: c.selectedId(), faces: c.selection().faces.length })), inkY3 = await goldInk();
+    check("a year change that keeps Rome alive keeps it selected and outlined (50 BCE); the present day draws no face of it; 100 BCE again draws it again", y1.id === "pol:rome" && y1.faces > 0 && y1.rings > 0 && inkY1 > 200 && y2.id === "pol:rome" && y2.faces === 0 && inkY2 < 20 && y3.faces > 0 && inkY3 > 200, JSON.stringify({ y1, inkY1, y2, inkY2, y3, inkY3 }));
+    await view(page, -4, 40.3, 3);   // the view the drag moved, restored: `clear` is the same ground again
+    // a tap on empty land ELSEWHERE closes it (a tap on no state, or on land no state covers)
+    const sea = await A(page, (c, a) => { const [W, H] = c.frame(), ch = c.chromeRects(); const inChrome = (x, y) => ch.some((r) => x >= r[0] - 8 && x <= r[2] + 8 && y >= r[1] - 8 && y <= r[3] + 8); for (let y = 80; y < H * 0.6; y += 10) for (let x = 20; x < W - 20; x += 10) { if (inChrome(x, y) || c.study.near(x, y, a).length || c.hitAt(x, y).length) continue; if (!c.stackAt(x, y).length) return [x, y]; } return null; }, phone);
+    if (sea) { await tap(sea[0], sea[1]); const s3 = await A(page, (c) => ({ id: c.selectedId(), card: c.card().open })), ink3 = await goldInk(); check("a tap where nothing has a card clears it: no selection, no popup, no outline", s3.id === null && !s3.card && ink3 < 20, JSON.stringify({ s3, ink3 })); }
+    // PRIORITY: a mark inside the face is picked, not the state under it
+    const mk = await A(page, (c, touch) => { for (const m of c.study.liveMarks()) { if (m.members || !c.study.tappable(m.id)) continue; const near = c.study.near(m.x, m.y, touch); if (near.length !== 1 || near[0] !== m.id) continue; const s = c.stackAt(m.x, m.y); if (s.includes("pol:rome")) return { id: m.id, x: m.x, y: m.y }; } return null; }, phone);
+    check("a lone mark lying inside Rome's face", !!mk, JSON.stringify(mk));
+    if (mk) { await tap(mk.x, mk.y); const s4 = await A(page, (c) => ({ id: c.selectedId(), card: c.card() })), ink4 = await goldInk(); check("a tap on it picks the MARK, not the state under it: the place's popup, no gold outline", s4.id === mk.id && s4.card.open && s4.card.id === mk.id && ink4 < 20, JSON.stringify({ s4, ink4 })); }
+    // THE KEYBOARD ROUTE: the hidden list of names holds Rome's; Enter on it makes the same selection
+    await A(page, (c) => c.clearSelection()); await sleep(300); await settle(page);
+    const key = await page.evaluate(() => { const b = document.querySelector('.atlas2-keys button[data-id="pol:rome"]'); if (!b) return null; b.focus(); return b.textContent; });
+    check("the hidden list of names on the map has a button for Rome", /^Rome, /.test(key || ""), key);
+    if (key) { await page.keyboard.press("Enter"); await sleep(900); const s5 = await A(page, (c, p) => ({ id: c.selectedId(), card: c.card(), rings: c.selection().rings, px: c.pixelAt(p[0], p[1]) }), clear), ink5 = await goldInk(); check("Enter on it selects the whole state the same way: the gold fill, the outline, the popup", s5.id === "pol:rome" && s5.card.open && s5.rings > 0 && ink5 > 200 && tinted(s5.px, before), JSON.stringify({ id: s5.id, rings: s5.rings, ink5, px: s5.px })); }
+    // NO CARD, NO SELECTION: in the Personal Atlas Rome is not the reader's (no studied card links it) — the same tap does nothing
+    await A(page, (c) => c.clearSelection()); await sleep(200); await mode(page, "personal");
+    const ownPol = (await A(page, (c) => c.study.flags())).filter(([id, f]) => f === 2 && id === "pol:rome").length;
+    check("the seeded reader has no studied card linking Rome (so in Personal it has no card by the rule)", ownPol === 0);
+    const pBefore = await pixel(page, clear[0], clear[1]); await tap(clear[0], clear[1]);
+    const s6 = await A(page, (c, p) => ({ id: c.selectedId(), card: c.card().open, stack: c.stackAt(p[0], p[1]), px: c.pixelAt(p[0], p[1]) }), clear), ink6 = await goldInk();
+    check("in the Personal Atlas the same tap inside Rome does nothing: no selection, no popup, no gold, the pixel unchanged", s6.id === null && !s6.card && s6.stack.length === 0 && ink6 < 20 && !tinted(s6.px, pBefore), JSON.stringify({ s6, ink6, pBefore }));
     allErrors.push(...errors); await ctx.close();
   }
 

@@ -114,7 +114,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     check("…and says how many: " + places.toLocaleString("en-GB") + " places and " + pols + " polities", (await panelText(page, ".atlas2-study-sum")) === `${places.toLocaleString("en-GB")} places and ${pols} polities on the Full Atlas`, await panelText(page, ".atlas2-study-sum"));
     await view(page, 23, 38, 6);
     const m1 = await marks(page);
-    check("the Aegean in the Full Atlas carries marks of the site, settlement and peak shapes (eight glyphs since 2026-10-17; a city stack carries its count), all of them unstudied", m1.some((m) => m.marker === "diamond") && m1.some((m) => m.marker === "triangle") && m1.every((m) => ["diamond", "triangle", "disc", "square", "cross", "star", "stack", "house"].includes(m.marker) && m.st === 1), m1.length + " marks");
+    check("the Aegean in the Full Atlas carries marks of the site, settlement and peak shapes (seven glyphs since 2026-10-18, no star; a city stack carries its count), all of them unstudied", m1.some((m) => m.marker === "diamond") && m1.some((m) => m.marker === "triangle") && m1.every((m) => ["diamond", "triangle", "disc", "square", "cross", "stack", "house"].includes(m.marker) && m.st === 1), m1.length + " marks");
     check("the choice is remembered per viewer (localStorage)", (await page.evaluate(() => localStorage.getItem("folio.atlas2.study"))) === "full");
     await page.reload({ waitUntil: "load" }); await ready(page);
     check("…and a reload keeps it", (await study(page)).mode === "full");
@@ -222,14 +222,16 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     }
     check("PROPERTY: at nine views every flagged POINT place on screen, clear of the edge and the controls, has a mark at its own position (" + totalSeen + " checked, 0.75 px) or is a member of its city's stack (" + stacked + ")", totalMissing.length === 0 && offBy === 0 && totalSeen > 300 && stacked > 0, totalMissing.slice(0, 4).join(" | ") + (offBy ? " · " + offBy + " off their position" : ""));
     check("…one mark each, and no mark for anything that is not a flagged place on screen or a city stack", dup.length === 0 && extra.length === 0, dup.slice(0, 3).concat(extra.slice(0, 3)).join(" | "));
-    check("…every mark one of the eight shapes; a stack (and nothing else) carries its members, two or more of one city", [...shapes].every((x) => ["diamond", "triangle", "disc", "square", "cross", "star", "stack", "house"].includes(x)) && (await A(page, (c) => c.study.marks().every((m) => (m.marker === "stack") === !!(m.members && m.members.length >= 2)))), [...shapes].join(", "));
+    check("…every mark one of the seven shapes (no star: a polity has no mark since 2026-10-18); a stack (and nothing else) carries its members, two or more of one city", [...shapes].every((x) => ["diamond", "triangle", "disc", "square", "cross", "stack", "house"].includes(x)) && (await A(page, (c) => c.study.marks().every((m) => (m.marker === "stack") === !!(m.members && m.members.length >= 2)))), [...shapes].join(", "));
     check("…drawn back to front: places not studied, places studied, polities", !maxLayerBack);
     check("the page has no \"N places here\" chip, no count on a mark, and no setting for it", (await page.$$eval(".atlas2 *", (n) => n.every((e) => !/\d+ places here|activate to zoom in/.test((e.getAttribute("aria-label") || "") + (e.children.length ? "" : e.textContent))))) && !(await page.evaluate(() => Object.keys(localStorage).some((k) => /stack|cluster/i.test(k)))));
     // THE SIZE: a dot about 4 px across at the globe, the old size by city scale
-    await view(page, 10, 25, 90); const hGlobe = (await live())[0].h;
-    await view(page, 12, 48, 6); const hEurope = (await live())[0].h;
-    await view(page, 4.6, 51.2, 1.5); const hCity = (await live()).find((m) => m.shape === "diamond" || m.shape === "disc").h;
-    check("a mark is a dot 4 px across at the globe, grows with the zoom, and is the old 16 px by city scale", Math.abs(hGlobe - 2) < 0.01 && hGlobe < hEurope && hEurope < hCity && Math.abs(hCity - 8) < 0.01, `${2 * hGlobe} → ${(2 * hEurope).toFixed(1)} → ${2 * hCity} px`);
+    // (decision a, 2026-10-18: every glyph but the capital's square is drawn at half the half-extent markHalf gives — a 2 px dot at the globe, 8 px by city scale; the capital's square keeps 4 and 16)
+    const pickH = (l, sq) => (l.find((m) => sq ? m.shape === "square" : m.shape === "diamond" || m.shape === "disc") || {}).h;
+    await view(page, 10, 25, 90); const lg = await live(), hGlobe = pickH(lg), cGlobe = pickH(lg, true);
+    await view(page, 12, 48, 6); const hEurope = pickH(await live());
+    await view(page, 4.6, 51.2, 1.5); const lc = await live(), hCity = pickH(lc), cCity = pickH(lc, true);
+    check("a disc or a diamond is a dot 2 px across at the globe, grows with the zoom, and is 8 px by city scale (half the size of 2026-10-17); a capital's square keeps 4 and 16", Math.abs(hGlobe - 1) < 0.01 && hGlobe < hEurope && hEurope < hCity && Math.abs(hCity - 4) < 0.01 && (cGlobe == null || Math.abs(cGlobe - 2) < 0.01) && (cCity == null || Math.abs(cCity - 8) < 0.01), `${2 * hGlobe} → ${(2 * hEurope).toFixed(1)} → ${2 * hCity} px; a capital ${cGlobe == null ? "none" : 2 * cGlobe} → ${cCity == null ? "none" : 2 * cCity} px`);
     // A LONE MARK: a tap within a finger picks it, at once, with no chip and no fan
     await view(page, 4.6, 51.2, 1.5);
     let lm = await live();

@@ -16,7 +16,7 @@
      AtlasEmbed.stats()            { live, created, disposed, windows, draws } — a suite counts the contexts
      AtlasEmbed.release()          the last window went away: the hub is disposed after IDLE_MS, and recreated by the next `ensure()`
 
-   WHAT A SPEC IS. { w, h (CSS px), lon, lat, zoom, layers: { borders, provinces, rivers, lakes }, year (omitted = today), highlights: [{ ids: [entity ids],
+   WHAT A SPEC IS. { w, h (CSS px), lon, lat, zoom, layers: { borders, provinces, rivers, lakes, relief, strength }, year (omitted = today), highlights: [{ ids: [entity ids],
    rgb: [0–255], a: fill alpha, line: css colour, lineWidth, glow: css colour, glowBlur }] }. A highlight's FILL is the face colour of the Atlas's own
    selection mechanism (R.highlight: one texel per face), blended with the palette's land at `a` so that it reads exactly as a translucent tint over
    land; its OUTLINE and GLOW are drawn here from a mask pass — the same view rendered with only the highlighted faces white — because the renderer's
@@ -132,7 +132,12 @@
     L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.admin1Max = lay.admin1Max || 0; L.neutral = !!lay.neutral;
     { const pw = lay.peoples || "off"; if (L.peoples !== pw) { L.peoples = pw; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too
     if (!h.canvas2d && h.E.setFlat) h.E.setFlat(!!lay.flat);   // Find-it's area round: every state of the year in the land colour, borders as a modern country's
-    L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.relief = false; L.graticule = false;   // (Phase 4b: these four sat at the end of the comment line above in Phase 4, so no window ever drew a river or a lake)
+    L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.graticule = false;   // (Phase 4b: these four sat at the end of the comment line above in Phase 4, so no window ever drew a river or a lake)
+    /* RELIEF IN A WINDOW (2026-10-18; the owner: "if relief is turned on in the personal Atlas, it should also be on in the Atlas windows, at the opacity the user set"). A spec
+       says `relief: true, strength` when the window wants it (atlas-windows.js reads the Atlas's own saved layers through `reliefSetting()` below); the controller then fetches
+       relief.json, the L0 sheet and the L1 patches of the window's view exactly as the page does (atlas.js startRelief / plan), lazily, on the first draw that asks. Never on
+       the still renderer (it has no relief), never for Find it (its spec never asks: its pixel tests read exact tints). With no spec asking, nothing is fetched — same bytes. */
+    L.relief = !!lay.relief && !h.canvas2d; if (lay.relief && lay.strength > 0) L.strength = Math.max(0.2, Math.min(1, Number(lay.strength) || 0.7));
     v.graticule = false; v.rivers = L.rivers; v.lakes = L.lakes;
     v.riverLevelBias = lay.riverFine ? 1 : 0;   // Phase 4c: the Atlas's own density by default; one resident level finer only for a card whose subject is water (atlas-windows.js)
     v.lon = spec.lon; v.lat = spec.lat; v.zoom = spec.zoom;
@@ -215,10 +220,10 @@
   function outline(h, g, ctx, spec, dpr, rims, rot) {
     const ctl = h.ctl, R = ctl.renderer, v = ctl.view, gl = R.gl, E = h.E; if (!gl && !R.static2d) return;
     counters.masks++;
-    const keep = { borders: v.borders, admin1: v.admin1, rivers: v.rivers, lakes: v.lakes, graticule: v.graticule };
+    const keep = { borders: v.borders, admin1: v.admin1, rivers: v.rivers, lakes: v.lakes, graticule: v.graticule }, keepRelief = v.relief ? v.relief.on : false;
     const pal = ctl.palette(), black = [0, 0, 0], white = [1, 1, 1];
     R.setPalette(Object.assign({}, pal, { ocean: black, land: black, coast: black, border: black, admin1: black, river: black, lake: black, lakeShore: black, rim: black, halo: black, grat: black, selected: white }));
-    v.borders = false; v.admin1 = false; v.rivers = false; v.lakes = false; v.graticule = false;
+    v.borders = false; v.admin1 = false; v.rivers = false; v.lakes = false; v.graticule = false; if (v.relief) v.relief.on = false;   // 2026-10-18: with relief in the window the hillshade lit the black land and the mask read the mountains as the shape — the mask pass draws no relief
     if (g.hist) { const tm = new Map(); for (const id of g.ids) tm.set(id, [1, 1, 1, 1]); E.setMask(tm); R.highlight(null); }   // a past year: the group's states white at full alpha, every other state black (atlas.js setMask)
     else { const m = new Map(); for (const f of g.faces) m.set(f, white); R.highlight(m); }
     R.render(v);
@@ -226,7 +231,7 @@
     if (gl) { w = gl.drawingBufferWidth; hh = gl.drawingBufferHeight; px = new Uint8Array(w * hh * 4); gl.readPixels(0, 0, w, hh, gl.RGBA, gl.UNSIGNED_BYTE, px); }
     else { w = h.glCanvas.width; hh = h.glCanvas.height; px = h.glCanvas.getContext("2d").getImageData(0, 0, w, hh).data; }
     // restore the hub's state for the next window
-    R.setPalette(pal); Object.assign(v, keep); if (g.hist) E.setMask(null);
+    R.setPalette(pal); Object.assign(v, keep); if (v.relief) v.relief.on = keepRelief; if (g.hist) E.setMask(null);
     // mask[y][x] = 1 where the pixel is white
     const mask = new Uint8Array(w * hh);
     for (let y = 0; y < hh; y++) { const src = (gl ? hh - 1 - y : y) * w * 4, dst = y * w; for (let x = 0; x < w; x++) mask[dst + x] = px[src + 4 * x] > 127 && px[src + 4 * x + 3] > 127 ? 1 : 0; }
@@ -287,14 +292,14 @@
   function landMask(h, spec, water) {
     const ctl = h.ctl, R = ctl.renderer, v = ctl.view, gl = R.gl; if (!gl) return null;
     setup(h, spec);
-    const keep = { borders: v.borders, admin1: v.admin1, rivers: v.rivers, lakes: v.lakes, graticule: v.graticule };
+    const keep = { borders: v.borders, admin1: v.admin1, rivers: v.rivers, lakes: v.lakes, graticule: v.graticule }, keepRelief = v.relief ? v.relief.on : false;
     const pal = ctl.palette(), black = [0, 0, 0], white = [1, 1, 1];
     R.setPalette(Object.assign({}, pal, { ocean: black, land: white, coast: white, border: white, admin1: white, river: black, lake: black, lakeShore: black, rim: black, halo: black, grat: black, selected: white }));
-    v.borders = false; v.admin1 = false; v.rivers = false; v.lakes = false; v.graticule = false;
+    v.borders = false; v.admin1 = false; v.rivers = false; v.lakes = false; v.graticule = false; if (v.relief) v.relief.on = false;   // no relief in a mask pass (2026-10-18; a shadowed slope would punch a hole in the land)
     R.highlight(null); R.render(v);
     const w = gl.drawingBufferWidth, hh = gl.drawingBufferHeight, px = new Uint8Array(w * hh * 4);
     gl.readPixels(0, 0, w, hh, gl.RGBA, gl.UNSIGNED_BYTE, px);
-    R.setPalette(pal); Object.assign(v, keep);
+    R.setPalette(pal); Object.assign(v, keep); if (v.relief) v.relief.on = keepRelief;
     const cv = document.createElement("canvas"); cv.width = w; cv.height = hh;
     const c = cv.getContext("2d"), img = c.createImageData(w, hh);
     for (let y = 0; y < hh; y++) { const src = (hh - 1 - y) * w * 4, dst = y * w * 4; for (let x = 0; x < w; x++) { const land = px[src + 4 * x] > 127 && px[src + 4 * x + 3] > 127; const on = water ? !land : land; img.data[dst + 4 * x + 3] = on ? 255 : 0; } }
@@ -314,6 +319,20 @@
     const ctl = h.ctl; ctl.renderer.highlight(null);
     return ctl.renderer.pick(ctl.view, x, y, "land") || null;
   }
+
+  /* THE ATLAS'S RELIEF SETTING, SHARED (2026-10-18). The Atlas page keeps its layers in localStorage (`AtlasV2.layersStored()` reads the same key it saves) and announces a change
+     with an `atlas2:layers` event on `window` (atlas.js setLayers); another tab's change arrives as a `storage` event. A window reads the setting when it opens (its spec is built per
+     draw) and every live window is redrawn when it changes, so a window follows the switch and the strength while it is open. The caller decides whether relief is ALLOWED at all
+     (atlas-windows.js: not under light mode, not on a cellular connection — the idle warm-up's own rules). */
+  let reliefCache = null;
+  function reliefSetting() {
+    if (reliefCache) return reliefCache;
+    let l = null; try { l = root.AtlasV2 && root.AtlasV2.layersStored ? root.AtlasV2.layersStored() : null; } catch (e) { l = null; }
+    reliefCache = { on: !!(l && l.relief), strength: l && isFinite(Number(l.strength)) ? Math.max(0.2, Math.min(1, Number(l.strength))) : 0.7 };
+    return reliefCache;
+  }
+  function reliefChanged() { const was = reliefCache; reliefCache = null; const now = reliefSetting(); if (was && was.on === now.on && was.strength === now.strength) return; for (const w of windows) { try { if (w.schedule) w.schedule(); } catch (e) { /* one window's redraw must not stop the others */ } } }
+  if (typeof window !== "undefined") { window.addEventListener("atlas2:layers", reliefChanged); window.addEventListener("storage", (e) => { if (!e || !e.key || /atlas2_layers/.test(e.key)) reliefChanged(); }); }
 
   /* ---- the interaction every window shares ----
      opts: { spec(state) → the spec for the current state, draw(state, api) → called after the base is drawn so the window can add its marks, onView(state),
@@ -396,5 +415,5 @@
   }
   function release0() { release(); }
 
-  root.AtlasEmbed = { ensure, warm, hold, view, release, isCanvas2D: () => canvas2d, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
+  root.AtlasEmbed = { ensure, warm, hold, view, release, reliefSetting, isCanvas2D: () => canvas2d, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
 })(typeof window !== "undefined" ? window : globalThis);

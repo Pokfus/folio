@@ -432,19 +432,6 @@
     "why": "the raw row leaves it 39.1 km outside"
    }
   ],
-  "pol:roman_kingdom|Rome|capital": [
-   {
-    "cause": "source",
-    "years": [
-     [
-      -750,
-      -481
-     ]
-    ],
-    "buildAddsKm": 4.1,
-    "why": "the raw row leaves it 2.8 km outside"
-   }
-  ],
   "pol:rome|Milan|capital": [
    {
     "cause": "source",

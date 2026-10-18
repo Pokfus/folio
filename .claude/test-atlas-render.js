@@ -171,9 +171,11 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
         const a = [], b = [];
         for (let y = Math.max(0, cy - r); y <= Math.min(off.h - 1, cy + r); y++) for (let x = Math.max(0, cx - r); x <= Math.min(off.w - 1, cx + r); x++) { a.push(off.L[y * off.w + x]); b.push(on.L[y * off.w + x]); }
         const mean = (q) => q.reduce((s2, z) => s2 + z, 0) / q.length, sd = (q) => { const m = mean(q); return Math.sqrt(q.reduce((s2, z) => s2 + (z - m) * (z - m), 0) / q.length); };
-        let dots = 0, diff = 0; for (let i = 0; i < a.length; i++) { if (b[i] < a[i] - 50) dots++; if (Math.abs(b[i] - a[i]) > 0.5) diff++; }
         const top = (q) => { const t = q.slice().sort((p1, p2) => p2 - p1).slice(0, Math.ceil(q.length / 4)); return t.reduce((s2, z) => s2 + z, 0) / t.length; };
-        out.push({ n: a.length, meanOff: mean(a), meanOn: mean(b), sdOff: sd(a), sdOn: sd(b), dots: dots / a.length, changed: diff / a.length, topOn: top(b), topOff: top(a) });
+        /* a DOT is a pixel more than 50 levels darker than the window's own brightest quarter with the people ON (2026-10-18: it used to be "darker than the same pixel with the
+           people off", but the land under a people with the people switched OFF is now the darker empty land — docs/atlas.md §2 (b) — so the texture is read within the on shot) */
+        const tOn = top(b); let dots = 0, diff = 0; for (let i = 0; i < a.length; i++) { if (b[i] < tOn - 50) dots++; if (Math.abs(b[i] - a[i]) > 0.5) diff++; }
+        out.push({ n: a.length, meanOff: mean(a), meanOn: mean(b), sdOff: sd(a), sdOn: sd(b), dots: dots / a.length, changed: diff / a.length, topOn: tOn, topOff: top(a), minOn: Math.min(...b) });
       }
       return out;
     }, { off: offB64, on: onB64, wins });
@@ -183,8 +185,11 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const classify = (want) => A((w) => { const c = document.querySelector(".atlas2").__atlas2; const out = {}; for (const k of Object.keys(w)) out[k] = []; for (let y = 230; y < c.view.cy * 2 - 120; y += 12) for (let x = 40; x < c.view.cx * 2 - 70; x += 12) { const s2 = c.stackAt(x, y).filter((i) => /^pol:/.test(i)); for (const [k, f] of Object.entries(w)) { const inc = f.in || [], exc = f.out || [], any = f.anyState; if (inc.every((i) => s2.includes(i)) && !exc.some((i) => s2.includes(i)) && (!any || s2.some((i) => !/^pol:(huns|scythia|gothia|avars|galatia|khazaria|magyars|old_great_bulgaria|yangshao|longshan|crete|cyclades)$/.test(i)))) out[k].push([x, y]); } } return out; }, want);
   // among the candidates, those whose luminance is flat BEFORE the people is drawn (so the measurement is the people's alone): the one with the most dots
   // (`most`), or the least change (`least`, for a window that must stay as it was)
-  const best = async (offB64, onB64, pts, r, how) => { if (!pts.length) return null; const cand = pts.filter((q, i) => i % Math.max(1, Math.floor(pts.length / 80)) === 0).slice(0, 100); const st = await windowStats(offB64, onB64, cand.map((q) => [Math.round(q[0]), Math.round(q[1]), r])); let top = null; st.forEach((v, i) => { if (v.sdOff > 2) return; const score = how === "least" ? -v.changed : v.dots; if (!top || score > top.score) top = { v, at: cand[i], score }; }); return top; };
+  /* 2026-10-18: a window is taken from the INTERIOR of its class — a grid point whose eight neighbours at 12 and 24 px answer the same class — because the land now grades from the darker
+     empty land to the plain land over a presence's soft edge (docs/atlas.md §2 (b)), and a window on that edge read the gradient as dots */
+  const best = async (offB64, onB64, pts, r, how) => { if (!pts.length) return null; const key = new Set(pts.map((q) => Math.round(q[0]) + "," + Math.round(q[1]))); const inner = pts.filter((q) => [[12, 0], [-12, 0], [0, 12], [0, -12], [24, 0], [-24, 0], [0, 24], [0, -24]].every(([dx, dy]) => key.has(Math.round(q[0] + dx) + "," + Math.round(q[1] + dy)))); const use = inner.length >= 3 ? inner : pts; const cand = use.filter((q, i) => i % Math.max(1, Math.floor(use.length / 80)) === 0).slice(0, 100); const st = await windowStats(offB64, onB64, cand.map((q) => [Math.round(q[0]), Math.round(q[1]), r])); let top = null; st.forEach((v, i) => { if (v.sdOff > 2) return; if (v.minOn < 0.55 * LAND_L) return; /* a pixel at the darker empty land's level (0.5 of the land): the window reaches past the presence's edge — the darkest a dot gets is about 0.6 */ const score = how === "least" ? -v.changed : v.dots; if (!top || score > top.score) top = { v, at: cand[i], score }; }); return top; };
   const D_MIN = 0.06, D_MAX = 0.30;
+  const LAND_L = await A(() => { const p = document.querySelector(".atlas2").__atlas2.palette().land; return 255 * (0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2]); });   // the land's luminance, as __lumOf measures it
 
   // PAIR 1 — 400 BCE, the Kerch strait: Scythia (a people) beside the Bosporan Kingdom (a state), the Achaemenid Empire's flat fill to the south
   {
@@ -201,7 +206,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       const gc = await A(() => { const c = document.querySelector(".atlas2").__atlas2; return [Math.round(c.view.cx), Math.round(c.view.cy)]; }), K = (await windowStats(off, on, [[gc[0], gc[1], 3]]))[0];
       check("the screenshot diff, people on against off: the people's window gains a stipple of dots (6–30 % of its pixels), the state's window does not change", P.v.dots > D_MIN && P.v.dots < D_MAX && S.v.changed < 0.001, `people ${(P.v.dots * 100).toFixed(0)} % dots, state ${(S.v.changed * 100).toFixed(2)} % changed`);
       check("in MONOCHROME a people is a texture and a state a flat fill: the people's luminance spread goes from ~0 to ≥ 15, the state's stays ~0", P.v.sdOff < 2 && P.v.sdOn >= 15 && S.v.sdOff < 2 && S.v.sdOn < 2, `people ${P.v.sdOff.toFixed(1)} → ${P.v.sdOn.toFixed(1)}, state ${S.v.sdOff.toFixed(1)} → ${S.v.sdOn.toFixed(1)}`);
-      check("under the dots the people's faint wash tints the land (its mean luminance falls by a few levels to a third of the fill)", P.v.meanOn < P.v.meanOff - 4 && P.v.meanOn > P.v.meanOff * 0.5, `mean ${P.v.meanOff.toFixed(0)} → ${P.v.meanOn.toFixed(0)}`);
+      // 2026-10-18: the land is read off the palette, not the people-off shot (which is the darker empty land there now)
+      const landL = await A(() => { const p = document.querySelector(".atlas2").__atlas2.palette().land; return 255 * (0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2]); });
+      check("under the dots the people's faint wash tints the land (the ground between the dots is a few levels below the land, above half of it)", P.v.topOn < landL - 4 && P.v.topOn > landL * 0.5, `land ${landL.toFixed(0)}, between the dots ${P.v.topOn.toFixed(0)}, mean ${P.v.meanOn.toFixed(0)} (off: ${P.v.meanOff.toFixed(0)}, the darker empty land)`);
       check("the kingdom, beside the people and not under it, is left as it was", K.changed < 0.02, `${(K.changed * 100).toFixed(1)} % of its pixels changed`);
     }
   }
@@ -215,8 +222,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     check("404 CE at the overlap: the stack names the people first, then the state", stack[0] === "pol:huns" && stack.includes("pol:byzantium"), stack.join(" > "));
     const bb = await canvasBox(), cx = await A(() => document.querySelector(".atlas2").__atlas2.view.cx), cy = await A(() => document.querySelector(".atlas2").__atlas2.view.cy);
     await page.mouse.click(bb.x + cx, bb.y + cy); await sleep(500);
-    const chip = await A(() => { const b = document.querySelector(".atlas2-stack"); return { hidden: b.hidden, text: b.textContent, aria: b.getAttribute("aria-label"), kind: document.querySelector(".atlas2-card-kind").textContent, title: document.querySelector(".atlas2-card-title").textContent }; });
-    check("a tap lists every entity under the point in the chip: \"Huns · people\" and \"" + HH.entities.find((e) => e.id === "pol:byzantium").name + " · state\"", !chip.hidden && /^\d+ here/.test(chip.text) && /Huns · people/.test(chip.text) && new RegExp(HH.entities.find((e) => e.id === "pol:byzantium").name + " · state").test(chip.text), chip.text);
+    // 2026-10-18: the other entities under the point are listed in the popup's "Also here" section (a button each, with the kind word); the floating "N here" chip is gone
+    const chip = await A(() => { const b = document.querySelector(".atlas2-stack"); return { hidden: b.hidden, here: [...document.querySelectorAll(".atlas2-card-here .atlas2-here")].map((x) => x.textContent), kind: document.querySelector(".atlas2-card-kind").textContent, title: document.querySelector(".atlas2-card-title").textContent }; });
+    check("a tap lists the other entity under the point in the popup's \"Also here\": \"" + HH.entities.find((e) => e.id === "pol:byzantium").name + " · state\", and no chip floats on the map", chip.hidden && chip.here.length === 1 && new RegExp("^" + HH.entities.find((e) => e.id === "pol:byzantium").name + "state$").test(chip.here[0]), JSON.stringify(chip.here));
     check("the card opens on the topmost (the people): its title, and a kind line that says People", chip.title === "Huns" && /^People ·/.test(chip.kind), chip.title + " / " + chip.kind);
     await page.mouse.click(bb.x + cx, bb.y + cy); await sleep(400);
     const sel2 = await A(() => document.querySelector(".atlas2").__atlas2.selectedId());
@@ -238,7 +246,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   {
     const ov = overlapPoint("pol:yangshao", "pol:longshan", -3000);
     check("the file has the two cultures overlapping in 3000 BCE (their dated steps share that year)", !!ov && ov.n > 20, ov ? String(ov.n) : "none");
-    await viewAt(ov.at[0], ov.at[1], 5, -3000);
+    await viewAt(ov.at[0], ov.at[1], 1.5, -3000);   // 1.5 km/px (was 5; 2026-10-18): the two outlines are small and their overlap narrow, and a window must fit inside clear of the darker empty land past the edge
     const pres = await A(() => document.querySelector(".atlas2").__atlas2.presence());
     const onScr = pres.alive.filter((a) => pres.onScreen.includes(a.face)), angles = onScr.map((a) => pres.drawn.find((d) => d.face === a.face).angle);
     check("both are drawn, each at its own stipple angle", onScr.map((a) => a.entity).sort().join() === "pol:longshan,pol:yangshao" && new Set(angles).size === 2, onScr.map((a) => a.entity).join() + " at " + angles.join("°, ") + "°");
