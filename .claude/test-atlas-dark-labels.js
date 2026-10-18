@@ -170,11 +170,12 @@ async function view(page, lon, lat, k) {
   const widths = good.map(haloRun);
   check("the halo round a mark is about 1.6 CSS px wide (half of HALO_W_DARK: 1.0–3 px with anti-aliasing at 1 device px per CSS px) on every lone mark", widths.length > 0 && widths.every((w) => w >= 1 && w <= 3), widths.map((w) => w.toFixed(1)).join(", "));
 
-  console.log("\n\x1b[1m3) light mode is unchanged\x1b[0m\n");
+  console.log("\n\x1b[1m3) light mode: the names are unchanged; the marks wear the names' halo too (2026-10-18 b)\x1b[0m\n");
   await page.evaluate(() => document.body.classList.remove("night")); await sleep(300);
   const light = await A(page, (c) => c.colours());
   check("folio's light theme: the selected colour is the ochre darkened toward the ink (#625041), the halo the paper, the halo 2.6 px", light.selected === "#625041" && light.halo === "#f7f6fb" && light.haloWidth === 2.6 && !light.dark, JSON.stringify(light));
-  check("…and a mark is the paper filled with the ink outline (the reader's own the ochre), as before — the ink at least 3:1 against the land", light.markFill === light.halo && light.markLine === light.ink && light.markOwnFill === light.accent && light.markLineWidth == null && contrast(light.ink, hexOf(await A(page, (c) => c.palette().land))) >= 3, JSON.stringify({ fill: light.markFill, line: light.markLine, own: light.markOwnFill }));
+  // 2026-10-18 b (the owner's seventh look): by day a mark is the INK filled (the reader's own the dark ochre of their names) with the names' paper halo, 2.6 px, round it — test-atlas-mark-outline.js reads the pixels. Until then: "a mark is the paper filled with the ink outline (the reader's own the ochre)", asserted here.
+  check("…and a mark is the ink with the names' halo round it (the reader's own the colour of their names), the halo's width — the ink at least 3:1 against the land", light.markFill === light.ink && light.markLine === light.halo && light.markOwnFill === light.selected && light.markLineWidth === light.haloWidth && contrast(light.ink, hexOf(await A(page, (c) => c.palette().land))) >= 3, JSON.stringify({ fill: light.markFill, line: light.markLine, own: light.markOwnFill, width: light.markLineWidth }));
 
   const unexpected = errors.filter((e) => !/favicon/.test(e));
   check("no page errors", unexpected.length === 0, unexpected.slice(0, 3).join(" | "));

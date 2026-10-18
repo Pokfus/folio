@@ -356,7 +356,7 @@
             </fieldset>
             <fieldset class="atlas2-group atlas2-marks"><legend>Marks</legend>
               <dl class="atlas2-marks-key" aria-label="What the marks mean"></dl>
-              <p class="atlas2-peoples-hint">Filled in the accent: a place of your own cards. Rivers, lakes, seas, regions, countries, states, peoples and cultures are names only.</p>
+              <p class="atlas2-peoples-hint">Filled in the colour of your own names: a place of your own cards. Rivers, lakes, seas, regions, countries, states, peoples and cultures are names only.</p>
             </fieldset>
             <fieldset class="atlas2-group atlas2-peoples"><legend>Peoples</legend>
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="off"> Off</label>
@@ -2022,8 +2022,7 @@
       ctx.fillStyle = hot ? selCss : inkCss; ctx.strokeStyle = haloCss;
       ctx.beginPath();
       if (kind === "capital") ctx.rect(x - r, y - r, 2 * r, 2 * r); else ctx.arc(x, y, r, 0, Math.PI * 2);
-      if (haloDark) { ctx.lineWidth = HALO_W_DARK * LS; ctx.stroke(); ctx.fill(); }   // a dark theme: the halo under the dot, as under a glyph (decision a, 2026-10-18 b)
-      else { ctx.lineWidth = 1.5; ctx.fill(); ctx.stroke(); }
+      ctx.lineWidth = (haloDark ? HALO_W_DARK : HALO_W) * LS; ctx.stroke(); ctx.fill();   // the names' halo under the dot in every theme, as under a glyph (dark: decision a, 2026-10-18 b; day: 2026-10-18 b of the seventh look)
     }
     /* A MARK IN A DARK THEME IS A LIGHT GLYPH WITH THE NAMES' DARK HALO (2026-10-18, the owner's fifth look, decision a: "in dark mode, circles, squares and the
        other marks should have dark outlines like their text labels, not white"). In a light theme a mark is a paper fill (the reader's own the ochre) with a
@@ -2036,16 +2035,11 @@
        light fill is the light theme's silhouette and the halo lies at most a pixel beyond the half-extent — inside the obstacle the worker reserves). */
     function paintMark(x, path, mine, hot) {
       const op = (m) => (path ? x[m](path) : x[m]());
-      if (haloDark) {
-        x.lineWidth = HALO_W_DARK * LS; x.strokeStyle = haloCss; op("stroke");
-        x.fillStyle = mine ? selCss : inkCss; op("fill");
-        if (hot) { x.lineWidth = 1.5; x.strokeStyle = selCss; op("stroke"); }
-      } else {
-        x.fillStyle = mine ? accentCss : haloCss; op("fill");   // the outline's width is the caller's (markLine, or 2 for the selected mark and the fan)
-        x.strokeStyle = hot ? selCss : inkCss; op("stroke");
-      }
+      x.lineWidth = (haloDark ? HALO_W_DARK : HALO_W) * LS; x.strokeStyle = haloCss; op("stroke");   // the names' halo, stroked first, in either theme
+      x.fillStyle = mine ? selCss : inkCss; op("fill");
+      if (hot) { x.lineWidth = 1.5; x.strokeStyle = haloDark ? selCss : accentCss; op("stroke"); }   // the selected mark: a ring inside its fill's edge — the lightened ochre on a dark theme's light fill, the ochre on a day's dark one
     }
-    const countInk = (mine) => (haloDark ? haloCss : mine ? haloCss : inkCss);   // a ring's or a square's count: dark on a light fill in a dark theme; the paper on the ochre, the ink on the paper, in a light one
+    const countInk = () => haloCss;   // a ring's or a square's count is the halo's colour: dark on a dark theme's light fill, the paper on a day's dark one
     /* ---- THE STUDY LAYER'S MARKS (Phase 3b; stacks removed 2026-10-14) ----
        Every place and every polity the layer flags is ONE mark at its own position, at any zoom: no cluster, no count (the owner's
        decision, docs/atlas-v2-design.md §7 "Stacks removed"). The worker posts the list at each layout (`L.marks`, unit vectors); the
@@ -3394,7 +3388,7 @@
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
-      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W, markFill: haloDark ? inkCss : haloCss, markOwnFill: haloDark ? selCss : accentCss, markLine: haloDark ? haloCss : inkCss, markLineWidth: haloDark ? HALO_W_DARK : null }),
+      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W, markFill: inkCss, markOwnFill: selCss, markLine: haloCss, markLineWidth: haloDark ? HALO_W_DARK : HALO_W }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), selection: () => ({ id: sel.id, ent: time.selected, faces: selectedFaces(), rings: selRings && selRings.faces.every((f) => selectedFaces().indexOf(f) >= 0) ? selRings.rings.length : 0, points: selRings ? selRings.rings.reduce((n, r) => n + r.length / 3, 0) : 0, level: selRings ? selRings.level : null, gold: SEL_GOLD }), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, snap: PHONE && cardOpen ? sheetSnap : null }), sheetSnap: (k) => setSnap(k), sheetHeights: () => (PHONE ? sheetHeights() : null),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,

@@ -49,6 +49,7 @@ window.CHANGELOG = [
       "<b>Atlas</b>: the Atlas now opens on your Personal Atlas the first time, with a note explaining that it fills in as you study geography and history cards.",
       "<b>Home</b>: the \u2018Not sure yet? Try ten cards\u2019 line under the first visitor\u2019s welcome is gone.",
       "<b>Atlas</b>: a state on the map no longer has any colour of its own — the land and its relief show through at full strength, with only its border and the darker ground beyond it.",
+      "<b>Atlas marks</b>: by day every mark is now a dark glyph on the same light outline as the names, mirroring the dark theme, instead of a pale dot with a thin dark ring.",
       "<b>Atlas marks</b>: a capital's stack of places (Rome, Athens) is now the capital's square with the count inside, instead of a ring.",
       "<b>Atlas names</b>: a place's name now stands directly right or left of its mark, or is not drawn — above or below only at the closest zoom — so no name drifts to another mark.",
       "<b>Atlas names</b>: a people's name no longer wears a thicker halo than any other name — no halo is wider than the ordinary names' 3.2 px.",
