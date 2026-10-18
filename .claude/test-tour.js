@@ -440,6 +440,14 @@ const CARD = () => {
       return b ? (b.querySelector(".cta .btn") || {}).textContent : null;
     });
     check("a first-time reader meets the hero", !!hero, String(hero));
+    // Oct 2026, on request: no "Not sure yet? Try ten cards" line under the hero, and the reading box is a Suggested reading box
+    check("...with no \"Not sure yet? Try ten cards\" line under it", await page.evaluate(() => !document.querySelector(".hero-sample") && !document.querySelector("#heroSample")));
+    const sug = await page.evaluate(() => { const b = document.querySelector("#b-reading"); return b ? { k: (b.querySelector(".hb-k") || {}).textContent, book: b.dataset.book, suggest: b.dataset.suggest, title: (b.querySelector(".hb-body b") || {}).textContent, empty: !!b.querySelector(".hb-empty") } : null; });
+    check("a reader who has never opened a book meets a Suggested reading box naming a random book of the shelf", !!sug && sug.k === "Suggested reading" && !!sug.book && sug.suggest === "1" && !!sug.title, JSON.stringify(sug));
+    check("...with no sentence counting the shelf's books under it (removed on request)", !!sug && !sug.empty);
+    await page.waitForFunction(() => !!document.querySelector("#b-reading .hb-next"), null, { timeout: 60000 }).catch(() => {});
+    const pas = await page.evaluate(() => { const n = document.querySelector("#b-reading .hb-next"); return n ? { k: n.querySelector(".hb-next-k").textContent, len: n.querySelector(".hb-next-p").textContent.length, n: n.dataset.n } : null; });
+    check("...and a passage from one of its chapters arrives once the book's file does", !!pas && /^A passage \u00b7 /.test(pas.k) && pas.len > 40 && !!pas.n, JSON.stringify(pas));
     await page.evaluate(() => document.querySelector(".banner.hero").click());
     await page.waitForTimeout(900);
     check("...and its first press goes to the collections, not into a session",

@@ -72,6 +72,8 @@ pair corrected by `polity-qids.json` (`docs/atlas-v2-polity-qids.md`); rebuild `
 
 * **Study layer** (Phase 3b): the Map / Personal / Full switch is COMPUTED from the host's `studiedCards()` — the keys of `S.cards`, a card with a record — and the lazy `card-places.js` +
   `places.js`; never stored, never in the progress blob (only the view and the collections switched off sit in `localStorage`, `folio.atlas2.studyOff`; v1's `S.settings.atlasHidden` is copied there once).
+  **A reader who has never chosen a view opens on the Personal Atlas** (Oct 2026, on request; until then the Map when nothing was studied), and a note under the study panel
+  (`.atlas2-intro`, `showIntro`; once per viewer, `folio.atlas2.intro`) says it fills in as they study; a stored view (`folio.atlas2.study`) is kept and shows no note. `test-atlas-study.js` §1.
   **Every flagged place and polity is its own mark** at its own position at any zoom — no clusters, no count badge, no setting to bring them back (design §7 "Stacks removed"); a tap on marks that
   overlap fans them out. `study.js` is pure and also `require`d by `.claude/test-study.js`.
 * **Discovery**: a place card's "New discovery" chip and the account page's meters read and write the existing `placesSeen` register (`markSeen`). Its keys are the *names* of present-day countries
