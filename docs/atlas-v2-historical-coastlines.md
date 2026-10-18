@@ -39,7 +39,7 @@ names the land under it.
 row's index; inside a drawn lake of `water/16-12.bin` or inside a CBS WATER unit → the lake (no line is ever drawn there: in a year the
 polder is water there is no coast there); else old land — the Zuiderzee's coast of the day, stroked. An edge against another row is stroked
 only in a year that row is dry (the Knardijk is a shore from 1957 to 1967 and nothing before). Because HydroLAKES draws the IJsselmeer's
-shore 0.3–1.1 km inside the dykes (measured against the CBS lines), every lake-side edge is pushed out to just past the drawn shore at build
+shore 0.3–1.1 km inside the dykes (measured against the CBS lines), every lake-side edge is pushed out to just past the drawn shore at fetch
 time, or a rim of present-day land would show round a water-year patch (six pixels at the cap). The renderer first paints the row's whole
 boundary in the lake colour a little wider than a shore — erasing the present-day shore lines along it (the fill erases the ones inside) —
 then strokes the shore of the day.
@@ -59,8 +59,9 @@ of the polders' drainage, which is why the dates are Rijkswaterstaat's. The geom
 its GetCapabilities says `<ows:AccessConstraints>https://creativecommons.org/publicdomain/zero/1.0/deed.nl</ows:AccessConstraints>` (CC0) —
 chosen because the polders are municipalities, former municipalities or sets of neighbourhoods and every unit carries a `water` flag; Natural
 Earth has only provinces, OSM's boundaries would need the Overpass API (not reachable from the build) and Wikidata has no polygons. The
-fetched, unioned geometry is cached in `land-changes-source.json` (committed) so the build is reproducible offline and
-`build-land-changes.js --check` (CI's fast job) is exact.
+fetched geometry — unioned, filtered, simplified and pushed out to the drawn shore, every step that needs polygon-clipping — is cached as
+finished rings in `land-changes-source.json` (committed, 120 KB), so the offline build only classes edges and writes the file, and
+`build-land-changes.js --check` (CI's fast job, no node_modules) is exact.
 
 **Accuracy, honestly.** The polder dykes are the CBS units' land outlines (the Wieringermeer's 208 km² against the "about 200 km²" the
 literature gives; the Noordoostpolder's 464 against 460; Oostelijk 529 against 540; Zuidelijk 461 against 430 — the CBS land excludes the
