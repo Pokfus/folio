@@ -195,6 +195,11 @@ jobs:
       - name: build-country-names --check (Atlas v2, the countries and the v1 spellings)
         if: ${{ !cancelled() }}
         run: node .claude/atlas-build/build-country-names.js --check
+      # THE DATED LAND-CHANGE LAYER (2026-10-18; docs/atlas-v2-historical-coastlines.md §1): build-land-changes.js --check proves atlas/data/land-changes.js is exactly what
+      # land-changes.json, its committed CBS cache and the committed water tile build (the Zuiderzee polders as water until the year each fell dry). Offline.
+      - name: build-land-changes --check (Atlas v2, the dated land-change layer)
+        if: ${{ !cancelled() }}
+        run: node .claude/atlas-build/build-land-changes.js --check
       # THE CARD WINDOWS' FIRST-FRAME CACHE (Oct 2026, Atlas v2 Phase 4b): check-core-cache.js proves CORE_CACHE_REV in atlas/atlas.js is what the worker, the format reader,
       # earcut and topology.bin's build id make, so a hub never draws a cached first level that an edit to any of them has made stale. Offline.
       - name: check-core-cache (Atlas v2, the card windows' first-frame cache key)
