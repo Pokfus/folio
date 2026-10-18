@@ -96,25 +96,32 @@
   /* The tag packs arc id, flags and kind into one float: kind + 8·flags + 64·arc (exact below 2^24, so
      arcs up to 262k). Tile-edge chords (KIND.EDGE) are never segments: they close a fill, not a line. */
   const KIND_EDGE = 6, KIND_ADMIN1 = 5;
-  function buildSegments(T, pos, level, arcIdOf, onlyKind) {
+  /* `classOf(a)`, when given, is a per-arc SIZE CLASS the renderer widens a line by (2026-10-18, decision b: the rivers — their minLod, 0 the major
+     rivers drawn at the globe … 2 the smallest); it rides on the segments as `segs.cls` (one Uint8 per segment, in the segments' order) and
+     bucketSegments writes it into each segment's eighth float, which was 0 */
+  function buildSegments(T, pos, level, arcIdOf, onlyKind, classOf) {
     const nA = T.arcOffset.length - 1;
     const skip = (a) => T.arcMinLod[a] > level || T.arcKind[a] === KIND_EDGE || (onlyKind != null && T.arcKind[a] !== onlyKind);
     let count = 0;
     for (let a = 0; a < nA; a++) { if (skip(a)) continue; for (let i = T.arcOffset[a] + 1; i < T.arcOffset[a + 1]; i++) if (T.rank[i] <= level) count++; }
     const segs = new Float32Array(count * 7);   // ax ay az bx by bz tag
-    let k = 0;
+    const cls = classOf ? new Uint8Array(count) : null;
+    let k = 0, n = 0;
     for (let a = 0; a < nA; a++) {
       if (skip(a)) continue;
       const tag = (arcIdOf ? arcIdOf(a) : a) * 64 + (T.arcFlags[a] & 7) * 8 + T.arcKind[a];
+      const c = classOf ? classOf(a) : 0;
       let last = T.arcOffset[a];
       for (let i = T.arcOffset[a] + 1; i < T.arcOffset[a + 1]; i++) {
         if (T.rank[i] > level) continue;
         segs[k++] = pos[3 * last]; segs[k++] = pos[3 * last + 1]; segs[k++] = pos[3 * last + 2];
         segs[k++] = pos[3 * i]; segs[k++] = pos[3 * i + 1]; segs[k++] = pos[3 * i + 2];
         segs[k++] = tag;
-        last = i;
+        if (cls) cls[n] = c;
+        n++; last = i;
       }
     }
+    if (cls) segs.cls = cls;
     return segs;
   }
 
@@ -494,7 +501,8 @@
   /* BINS (Phase 1c, the lake cull): a bucket table may be repeated per AREA BIN — bucket index = bin × count +
      direction bucket — so the renderer can skip every bin whose lakes would project under about 2 px² at the
      zoom it draws (docs §7 "Phase 1c — as built"). `binOf(item)` names the bin; with nBins 1 nothing changes. */
-  async function bucketSegments(segs, bucketer, binOf, nBins) {
+  async function bucketSegments(segs, bucketer, binOf, nBins) {   // `segs.cls` (buildSegments' size class per segment) goes into the eighth float, else 0
+    const cls = segs.cls || null;
     const B = bucketer || { count: BUCKETS, of: bucketOf };
     nBins = nBins || 1;
     const n = segs.length / 7, NB = B.count * nBins;
@@ -507,7 +515,7 @@
     let k = 0;
     const pack = async (ids, offset) => {
       const { order, range } = await sortByBucket(ids.length, (j) => bk[ids[j]], NB);
-      for (let j = 0; j < ids.length; j++) { const i = ids[order[j]]; out[8 * k] = segs[7 * i]; out[8 * k + 1] = segs[7 * i + 1]; out[8 * k + 2] = segs[7 * i + 2]; out[8 * k + 3] = segs[7 * i + 6]; out[8 * k + 4] = segs[7 * i + 3]; out[8 * k + 5] = segs[7 * i + 4]; out[8 * k + 6] = segs[7 * i + 5]; out[8 * k + 7] = 0; k++; if ((j & 0xffff) === 0xffff) await tick(); }
+      for (let j = 0; j < ids.length; j++) { const i = ids[order[j]]; out[8 * k] = segs[7 * i]; out[8 * k + 1] = segs[7 * i + 1]; out[8 * k + 2] = segs[7 * i + 2]; out[8 * k + 3] = segs[7 * i + 6]; out[8 * k + 4] = segs[7 * i + 3]; out[8 * k + 5] = segs[7 * i + 4]; out[8 * k + 6] = segs[7 * i + 5]; out[8 * k + 7] = cls ? cls[i] : 0; k++; if ((j & 0xffff) === 0xffff) await tick(); }
       const cap = await caps(ids.length, (j) => mid(ids[order[j]]), (j) => ends(ids[order[j]]), (j) => bk[ids[order[j]]], NB);
       for (let b = 0; b < NB; b++) range[2 * b] += offset;
       return { range, cap };
@@ -1549,15 +1557,16 @@
   }
   function norm3(v) { const l = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; }
   function smoothedRiverSegments(T, pos) {
-    const nA = T.arcOffset.length - 1, out = [];
+    const nA = T.arcOffset.length - 1, out = [], cls = [];
     for (let a = 0; a < nA; a++) {
       if (T.arcKind[a] !== KIND_RIVER) continue;
       const tag = a * 64 + (T.arcFlags[a] & 7) * 8 + KIND_RIVER;
       const P = []; for (let i = T.arcOffset[a]; i < T.arcOffset[a + 1]; i++) P.push([pos[3 * i], pos[3 * i + 1], pos[3 * i + 2]]);
       const S = chaikin(P, 2);
-      for (let i = 1; i < S.length; i++) out.push(S[i - 1][0], S[i - 1][1], S[i - 1][2], S[i][0], S[i][1], S[i][2], tag);
+      for (let i = 1; i < S.length; i++) { out.push(S[i - 1][0], S[i - 1][1], S[i - 1][2], S[i][0], S[i][1], S[i][2], tag); cls.push(T.arcMinLod[a]); }   // the size class rides along (decision b, 2026-10-18)
     }
-    return Float32Array.from(out);
+    const segs = Float32Array.from(out); segs.cls = Uint8Array.from(cls);
+    return segs;
   }
   /* THE LAKE-AREA BINS (Phase 1c). At 3 km/px a 12 km² lake is a smear of a pixel, and the Europe view's lake
      primitives were mostly such smears (measured: 71k shore segments and 64k fill triangles). A resident
@@ -1569,7 +1578,7 @@
   const R_KM2 = 6371.0088 * 6371.0088;
   function lakeBinOf(km2) { let b = 0; while (b < LAKE_BIN_EDGES.length && km2 >= LAKE_BIN_EDGES[b]) b++; return b; }
   async function waterLevel(T, pos, level, bucketer, arcIdOf, withSmooth, withBins) {
-    const lakeRaw = buildSegments(T, pos, level, arcIdOf, KIND_LAKE), riverRaw = buildSegments(T, pos, level, arcIdOf, KIND_RIVER);
+    const lakeRaw = buildSegments(T, pos, level, arcIdOf, KIND_LAKE), riverRaw = buildSegments(T, pos, level, arcIdOf, KIND_RIVER, (a) => T.arcMinLod[a]);   // a river's size class: its minLod (decision b, 2026-10-18)
     await tick("Filling the lakes…");
     const sink = Sink();
     let tris = 0;
