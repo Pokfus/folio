@@ -1,6 +1,7 @@
 /* measure-atlas-embed.js — what the FIRST card window costs on the engine (Atlas v2 Phase 4, Task 2). A tool, not a gate: it prints bytes and times for the owner's report and for docs/atlas-v2-design.md §7.
 
-     NODE_PATH="$SCRATCH/pw/node_modules" node .claude/measure-atlas-embed.js [cardId] [--engine=v1|v2] [--profile=desktop|phone] [--after=ms] [--json]
+     NODE_PATH="$SCRATCH/pw/node_modules" node .claude/measure-atlas-embed.js [cardId] [--engine=v1|v2] [--profile=desktop|phone] [--after=ms] [--relief[=strength]] [--json]
+        (--relief: the Atlas's saved layers say relief on, at that strength (0.7 by default), so the window draws relief as the owner's decision of 2026-10-18 has it — the bytes then include relief.json, the L0 sheet and the L1 patches of the view)
         (default geo-002, a map card; rm-003 is a locator with water, rm-209 a war; --engine=v1 leaves the preview switch OFF and times V1's window)
      FOLIO_CHROMIUM=/path/to/chrome
 
@@ -21,18 +22,20 @@ const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream", ".woff2": "font/woff2" };
 const ARGS = process.argv.slice(2), FLAG = (n, d) => { const a = ARGS.find((x) => x.startsWith("--" + n + "=")); return a ? a.split("=")[1] : d; };
 const PORT = 5622 + Math.floor(Math.random() * 300), CARD = ARGS.find((x) => !x.startsWith("--")) || "geo-002", ENGINE = FLAG("engine", "v2"), AFTER = Number(FLAG("after", "0")), ONLY = FLAG("profile", ""), JSONOUT = ARGS.includes("--json");
+const RELIEF = ARGS.includes("--relief") ? 0.7 : Number(FLAG("relief", "0")) || 0;   // > 0: relief on in the Atlas's saved layers, at this strength
 const server = http.createServer((req, res) => {
   const p = decodeURIComponent(req.url.split("?")[0]) === "/" ? "/index.html" : decodeURIComponent(req.url.split("?")[0]);
   const file = path.join(ROOT, p);
   fs.readFile(file, (err, data) => { if (err) { res.writeHead(404); res.end(); return; } res.writeHead(200, { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream", "Content-Length": data.length, "Cache-Control": "max-age=3600" }); res.end(data); });
 });
-const kind = (u) => /atlas-worker|earcut/.test(u) ? "worker" : /atlas\/(atlas|study|atlas-gl|atlas-canvas|atlas-format|atlas-embed|atlas-windows)\.js|card-faces\.js|wars\.js|rivers\.js/.test(u) ? "code" : /topology\.bin/.test(u) ? "topology" : /tiles\//.test(u) ? "tiles" : /water/.test(u) ? "water" : /atlas\//.test(u) ? "atlas other" : /^\/(wikipedia.*|glossary-extra\.js|artefacts-extra\.js|index\.html|app\.js|styles\.css|data\.js|truefalse\.js|quotes\.js|whatyear\.js|crossword\.js|changelog\.js|mission\.js|glossary\.js|artefacts\.js|lang-decks\.js|manifest\.json|favicon.*|icon.*|sw\.js|fonts\/.*|data-extra\/.*)$/.test(u) ? "page" : "other lazy data";
+const kind = (u) => /atlas\/data\/relief\//.test(u) ? "relief" : /atlas-worker|earcut/.test(u) ? "worker" : /atlas\/(atlas|study|atlas-gl|atlas-canvas|atlas-format|atlas-embed|atlas-windows)\.js|card-faces\.js|wars\.js|rivers\.js/.test(u) ? "code" : /topology\.bin/.test(u) ? "topology" : /tiles\//.test(u) ? "tiles" : /water/.test(u) ? "water" : /atlas\//.test(u) ? "atlas other" : /^\/(wikipedia.*|glossary-extra\.js|artefacts-extra\.js|index\.html|app\.js|styles\.css|data\.js|truefalse\.js|quotes\.js|whatyear\.js|crossword\.js|changelog\.js|mission\.js|glossary\.js|artefacts\.js|lang-decks\.js|manifest\.json|favicon.*|icon.*|sw\.js|fonts\/.*|data-extra\/.*)$/.test(u) ? "page" : "other lazy data";
 const gz = (u) => { try { return zlib.gzipSync(fs.readFileSync(path.join(ROOT, u)), { level: 9 }).length; } catch (e) { return 0; } };
 
 async function run(browser, profile, throttle) {
   const ctx = await browser.newContext(profile);
-  await ctx.addInitScript((engine) => {
+  await ctx.addInitScript(([engine, relief]) => {
     try { if (engine === "v2") localStorage.setItem("folio.atlas2.preview", "1"); else localStorage.setItem("folio.atlas2.preview", "0" /* Stage B: "0" is the way back to v1 */); } catch (e) {}
+    try { if (relief > 0) localStorage.setItem("folio_atlas2_layers_v2", JSON.stringify({ relief: true, strength: relief })); } catch (e) {}
     window.__t = {};
     /* the mount is stamped by a MutationObserver (a microtask after the card is inserted), not by the 20 ms poll: V1's window parses its data on the main thread and a poll only runs after that, which read as a first paint at 0 ms */
     const stamp = () => { if (window.__t.mount == null && document.querySelector(".map-card")) { window.__t.mount = performance.now(); window.__t.mountEpoch = Date.now(); } };
@@ -52,7 +55,7 @@ async function run(browser, profile, throttle) {
       }
     };
     setInterval(check, 20);
-  }, ENGINE);
+  }, [ENGINE, RELIEF]);
   const out = {};
   for (const pass of ["cold", "warm"]) {
     const page = await ctx.newPage(), cdp = await ctx.newCDPSession(page);
@@ -88,7 +91,7 @@ async function run(browser, profile, throttle) {
     all[key] = r;
     if (JSONOUT) continue;
     const kb = (n) => (n / 1024).toFixed(0) + " KB";
-    console.log(`\n${name} — card ${CARD}, engine ${ENGINE}`);
+    console.log(`\n${name} — card ${CARD}, engine ${ENGINE}${RELIEF ? ", relief on at " + RELIEF : ", relief off"}`);
     if (r.cold.failed || r.warm.failed) console.log(`  FAILED: ${r.cold.failed || ""} ${r.warm.failed || ""}`);
     console.log(`  cold cache : first paint ${r.cold.firstPaintMs} ms after the window mounted (${r.cold.firstSinceNavMs} ms after navigation), settled ${r.cold.settledMs} ms; ${r.cold.files} files, ${kb(r.cold.raw)} as served, ${kb(r.cold.gz)} gzip -9 — ` + Object.entries(r.cold.by).map(([k, v]) => k + " " + kb(v)).join(", "));
     console.log(`  warm cache : first paint ${r.warm.firstPaintMs} ms, settled ${r.warm.settledMs} ms; ${r.warm.files} files requested, ${kb(r.warm.wire)} on the wire`);

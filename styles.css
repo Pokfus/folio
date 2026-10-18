@@ -10293,7 +10293,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-rail-play{font-size:calc(13px * var(--fs, 1));}
 .atlas2-rail-play[aria-pressed="true"]{background:var(--indigo-wash); border-color:var(--indigo);}
 .atlas2-rail-track{position:relative; flex:1 1 auto; height:30px; min-width:80px; cursor:pointer; touch-action:none;}
-.atlas2-rail-ticks{position:absolute; inset:0; width:100%; height:100%; display:block;}
+.atlas2-rail-track::before{content:""; position:absolute; left:0; right:0; top:50%; border-top:1px solid var(--ink-soft); opacity:.45; pointer-events:none;}   /* the track is a plain line with the pin — no ticks of any kind (Oct 2026, decision c) */
 .atlas2-rail-pin{position:absolute; top:50%; left:0; width:14px; height:22px; margin:-11px 0 0 -7px; border-radius:7px; border:2px solid var(--indigo); background:var(--card); box-sizing:border-box; cursor:grab; outline:none;}
 .atlas2-rail-pin:focus-visible{box-shadow:0 0 0 3px var(--indigo-wash), 0 0 0 4px var(--indigo);}
 .atlas2-rail-pin.atlas2-rail-live{background:var(--indigo); cursor:grabbing;}

@@ -135,24 +135,23 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     check("the Personal Atlas names ONLY the reader's polities: every polity name placed is flagged 2", lpers.length >= 1 && lpers.every((p) => flagged2.has(p.id) && p.st === 2), lpers.map((p) => p.text + (flagged2.has(p.id) ? "" : " (NOT THEIRS)")).join(", "));
     check("…and none of the " + unflagged.length + " polities the Full Atlas named that are not theirs is named (not even muted)", unflagged.every((u) => !lpers.some((p) => p.id === u.id)), unflagged.map((u) => u.text).join(", "));
     const mk = await marks(page);
-    check("every polity mark on the Personal globe is the reader's", mk.filter((m) => /^pol:/.test(m.id)).every((m) => flagged2.has(m.id)) && mk.some((m) => /^pol:/.test(m.id)), mk.filter((m) => /^pol:/.test(m.id)).length + " polity marks");
-    // the FILL: an unflagged state's face is plain land in Personal (its pixel is the land's), a colour of its own in Full
+    check("no polity carries a mark on the Personal globe (the star is gone, decision b of 2026-10-18): the reader's polities are named and have no mark", !mk.some((m) => /^pol:/.test(m.id) || m.marker === "star" || m.cls === "polity") && lpers.length >= 1, mk.filter((m) => /^pol:/.test(m.id)).length + " polity marks, " + lpers.length + " polity names");
+    // the FILL (2026-10-18, one neutral fill): an unflagged state's face is the plain land in Personal AND in Full — nothing paints a state apart from its neighbours but its
+    // border (docs/atlas.md §2 (a)); what the Personal Atlas withholds from a state that is not the reader's is its name, its mark and its tap. The probe is the polity's own label
+    // anchor (inside its face); the points around it that read as land in the present and are not the darker empty land in Full are the face's, and they read the land in both modes
     const probe = unflagged.find((p) => p.kind === "polity");   // a state (a people is a stipple: its ground reads as land either way)
     if (probe) {
-      // nine points round the name's anchor (the GL canvas only: the names are on their own canvas); the ones that are land in the present
       const pts = [[0, 0], [0, 14], [0, -14], [14, 0], [-14, 0], [10, 10], [-10, 10], [10, -10], [-10, -10]].map(([dx, dy]) => [probe.sx + dx, probe.sy + dy]);
       const read = async () => { const out = []; for (const p of pts) out.push(await pixel(page, p[0], p[1])); return out; };
       const pPers = await read();
       await mode(page, "full"); const pFull = await read();
       await year(page, 2025); await mode(page, "map"); const pLand = await read();
       const landish = pts.map((_, i) => near(pLand[i], pLand[0], 4) || near(pLand[i], pLand[1], 4));   // the land's own colour: what most points read in the present
-      // the FILL is the colour most of the non-land points read in Full (a border's dark stroke crosses one or two points and is not the fill)
-      const cand = pts.map((_, i) => (landish[i] && !near(pFull[i], pLand[i], 8) ? pFull[i] : null)).filter(Boolean);
-      const fill = cand.map((c) => [c, cand.filter((d) => near(c, d, 6)).length]).sort((a, b) => b[1] - a[1]).map((x) => x[0])[0] || null;
-      const tinted = pts.map((_, i) => !!fill && landish[i] && near(pFull[i], fill, 6));
-      check(probe.text + " (not theirs): its face takes a colour of its own in Full (at " + tinted.filter(Boolean).length + " of 9 probe points)", tinted.some(Boolean), "full " + pFull[0] + " · land " + pLand[0]);
-      const nT = tinted.filter(Boolean).length, nPlain = pts.filter((_, i) => tinted[i] && near(pPers[i], pLand[i], 6)).length;
-      check("…and is plain land in Personal at every one of those points (" + nPlain + " of " + nT + ")", nT > 0 && nPlain === nT, pts.map((_, i) => tinted[i] ? "personal " + pPers[i] + " / land " + pLand[i] : "").filter(Boolean).join(" | "));
+      const inFace = pts.map((_, i) => landish[i] && near(pFull[i], pLand[i], 6));   // the face's points: the land colour in Full (the darker empty land outside the face, a border's stroke, are not)
+      const nF = inFace.filter(Boolean).length;
+      check(probe.text + " (not theirs): its face is the plain land in Full (at " + nF + " of 9 probe points)", nF >= 3, "full " + pFull[0] + " · land " + pLand[0]);
+      const nPlain = pts.filter((_, i) => inFace[i] && near(pPers[i], pLand[i], 6)).length;
+      check("…and the plain land in Personal at every one of those points (" + nPlain + " of " + nF + ")", nF >= 3 && nPlain === nF, pts.map((_, i) => inFace[i] ? "personal " + pPers[i] + " / land " + pLand[i] : "").filter(Boolean).join(" | "));
       await year(page, -483); await mode(page, "personal");
     } else check("an unflagged polity to probe", false);
     await shot(page, "personal-483");
@@ -333,27 +332,35 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
   }
 
   /* ------------------------------------------------------------------ 5  a glyph per class */
-  console.log("\n\x1b[1m5) glyphs: a shape per class, told apart by shape, legible at 12–16 px, a 32 px hit area; areas have no mark; the Legend lists them\x1b[0m\n");
+  console.log("\n\x1b[1m5) glyphs: a shape per class, told apart by shape, legible at 8 px (the capital's square at 16), a 32 px hit area; areas have no mark; the Legend lists them\x1b[0m\n");
   {
     const { ctx, page, errors } = await open(browser, READER);
     await mode(page, "full"); await year(page, 2025);
     // the glyphs' pixels: a bitmap of the ink round each mark on the label canvas, compared pairwise (Jaccard) — a shape, not a colour, tells them apart.
-    // Sampled over three views at one zoom (3 km/px: marks 12–13 px across): the eastern Mediterranean (El Alamein's battle, Cairo), Greece (Olympus
-    // and Sounion's peaks, the sites), central Europe (Dunkirk's battle, the Kahlenberg, Vienna; the Berlin Wall's building class is in Berlin's stack)
+    // Sampled over three views at one zoom (1.5 km/px, where markHalf is 8: since decision a of 2026-10-18 the capital's square is 16 px across and every
+    // other glyph 8, a hill 6): the eastern Mediterranean (El Alamein's battle, Cairo), Greece (Olympus and Sounion's peaks, the sites), central Europe
+    // (Dunkirk's battle, the Kahlenberg, Vienna; the Berlin Wall's building class is in Berlin's stack)
     // the INK of a glyph: the pixels that are not the paper's colour (a hollow mark's fill is the paper, its outline the ink; the reader's own are filled with the accent)
     const mask = (m) => page.evaluate((m) => { const c = document.querySelector(".atlas2").__atlas2, halo = c.colours().halo, hr = parseInt(halo.slice(1, 3), 16), hg = parseInt(halo.slice(3, 5), 16), hb = parseInt(halo.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), d = cv.width / cv.getBoundingClientRect().width, r = Math.ceil((m.h + 3) * d), cx = Math.round(m.x * d), cy = Math.round(m.y * d); const img = cv.getContext("2d").getImageData(cx - r, cy - r, 2 * r + 1, 2 * r + 1); const out = []; let n = 0; for (let i = 0; i < img.data.length; i += 4) { const a = img.data[i + 3]; const on = a > 100 && (Math.abs(img.data[i] - hr) + Math.abs(img.data[i + 1] - hg) + Math.abs(img.data[i + 2] - hb) > 60) ? 1 : 0; out.push(on); n += on; } return { w: 2 * r + 1, bits: out, n }; }, m);
     const jaccard = (a, b) => { const w = Math.min(a.w, b.w); let inter = 0, uni = 0; for (let y = 0; y < w; y++) for (let x = 0; x < w; x++) { const p = a.bits[y * a.w + x], q = b.bits[y * b.w + x]; if (p && q) inter++; if (p || q) uni++; } return uni ? inter / uni : 1; };
     const sample = {}, seenCls = {}; let lone = null, mk = [];
     for (const [lon, lat] of [[31, 27.5], [22.5, 38.5], [9.4, 49.7]]) {
-      await view(page, lon, lat, 3);
+      await view(page, lon, lat, 1.5);
       const lv = await live(page);
-      for (const m of lv) if (m.cls && m.h >= 6) seenCls[m.cls] = (seenCls[m.cls] || 0) + 1;
-      for (const m of lv) { if (!m.cls || m.h < 6 || sample[m.cls]) continue; if (lv.some((o) => o !== m && Math.hypot(o.x - m.x, o.y - m.y) < 2 * m.h + 6)) continue; sample[m.cls] = { m, mask: await mask(m) }; }   // a mark with no other within its box
+      for (const m of lv) if (m.cls && m.h >= 3) seenCls[m.cls] = (seenCls[m.cls] || 0) + 1;
+      for (const m of lv) { if (!m.cls || m.h < 3 || sample[m.cls]) continue; if (lv.some((o) => o !== m && Math.hypot(o.x - m.x, o.y - m.y) < 2 * m.h + 6)) continue; sample[m.cls] = { m, mask: await mask(m) }; }   // a mark with no other within its box
       if (!lone) { const l = lv.find((m) => m.cls && m.cls !== "stack" && !lv.some((o) => o !== m && Math.hypot(o.x - m.x, o.y - m.y) < 40)); if (l) lone = { id: l.id, hit: (await A(page, (c, p) => c.study.near(p[0] + 15, p[1], false), [l.x, l.y])).includes(l.id) }; }   // asked in this view, before the next moves it
       mk = mk.concat(await marks(page));
     }
-    check("three views at 3 km/px draw marks of the settlement, site, battle and peak classes (and a stack) at 12 px or larger", ["settlement", "site", "battle", "peak", "stack"].every((c) => seenCls[c]), Object.entries(seenCls).map(([c, n]) => c + " " + n).join(", "));
-    check("each sampled glyph has ink (at least 20 outline pixels at 12–16 px): " + Object.keys(sample).join(", "), Object.keys(sample).length >= 4 && Object.values(sample).every((s) => s.mask.n >= 20), Object.entries(sample).map(([c, s]) => c + " " + s.mask.n + "px").join(", "));
+    check("three views at 1.5 km/px draw marks of the settlement, site, battle and peak classes (and a stack) at 6 px or larger", ["settlement", "site", "battle", "peak", "stack"].every((c) => seenCls[c]), Object.entries(seenCls).map(([c, n]) => c + " " + n).join(", "));
+    check("each sampled glyph has ink (at least 12 outline pixels at 8 px, 16 for the capital's square): " + Object.keys(sample).join(", "), Object.keys(sample).length >= 4 && Object.values(sample).every((s) => s.mask.n >= 12), Object.entries(sample).map(([c, s]) => c + " " + s.mask.n + "px").join(", "));
+    // THE DRAWN SIZES (decision a, 2026-10-18; the owner's phone: "circles, diamonds and every other icon except the capital-city squares should be about
+    // 50 % smaller"): the ink's span, read off the canvas — a disc's and a diamond's are about half the capital square's (before: the same 15–16 px)
+    const span = (mk) => { let x0 = mk.w, x1 = -1, y0 = mk.w, y1 = -1; for (let y = 0; y < mk.w; y++) for (let x = 0; x < mk.w; x++) if (mk.bits[y * mk.w + x]) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } return x1 < 0 ? 0 : Math.max(x1 - x0, y1 - y0) + 1; };
+    const spans = Object.fromEntries(Object.entries(sample).map(([c, s]) => [c, span(s.mask)]));
+    const ratio = (c) => spans.capital ? spans[c] / spans.capital : NaN;
+    check("the capital's square is drawn at its full size (14–17 px across at 1.5 km/px) and a city's disc and a site's diamond at about half of it (0.35–0.65)", spans.capital >= 14 && spans.capital <= 17 && ["settlement", "site"].every((c) => spans[c] > 0 && ratio(c) >= 0.35 && ratio(c) <= 0.65), Object.entries(spans).map(([c, v]) => c + " " + v + "px").join(", ") + "; disc/capital " + ratio("settlement").toFixed(2) + ", diamond/capital " + ratio("site").toFixed(2));
+    check("…and the city ring stays large enough for its count: 16–20 px of ink across (a 9.5 px half-extent, its 2 px outline inside it: a 9 px bold two-digit figure needs an inner radius of about 7 px)", spans.stack >= 16 && spans.stack <= 20, spans.stack + " px");
     const pairs = []; const cs = Object.keys(sample); for (let i = 0; i < cs.length; i++) for (let j = i + 1; j < cs.length; j++) pairs.push([cs[i], cs[j], jaccard(sample[cs[i]].mask, sample[cs[j]].mask)]);
     check("every pair of classes differs by SHAPE: the ink bitmaps overlap by at most 75 % (Jaccard)", pairs.length >= 6 && pairs.every((p) => p[2] <= 0.75), pairs.map((p) => p[0] + "/" + p[1] + " " + p[2].toFixed(2)).join(", "));
     // the hit area: a tap 15 px from a lone mark picks it (a 32 px target), with a mouse
@@ -368,7 +375,14 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await mode(page, "full");
     // the Legend
     const key = await page.$$eval(".atlas2-marks-key > div", (ds) => ds.map((d) => ({ cls: d.getAttribute("data-cls"), word: d.querySelector("dd").textContent.trim(), svg: !!d.querySelector("svg path"), d: d.querySelector("svg path").getAttribute("d").length })));
-    check("the Legend lists the eight classes (a capital's square since decision b, 2026-10-17), each with its glyph drawn (an SVG path) and its words", key.length === 8 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
+    check("the Legend lists the seven classes (a capital's square since decision b, 2026-10-17; no polity row since 2026-10-18), each with its glyph drawn (an SVG path) and its words", key.length === 7 && key.every((k) => k.svg && k.word.length > 3 && k.d > 10) && key.map((k) => k.cls).join(",") === AS.MARK_CLASSES.map((m) => m.cls).join(","), key.map((k) => k.cls + ": " + k.word).join(" | "));
+    // NO STAR ANYWHERE (decision b, 2026-10-18; the owner's phone: "remove all star (state) icons"): not drawn, not in the Legend, not in the hit list
+    await view(page, 12, 48, 9); await year(page, 1500);
+    const eu = await A(page, (c) => { const live = c.study.liveMarks(), all = c.study.marks(); const names = c.labels().filter((p) => p.hist && /^pol:/.test(p.id) && p.text); const hits = []; for (const p of names.slice(0, 12)) for (const id of c.study.near(p.sx, p.sy, true)) hits.push(id); return { live: live.length, stars: live.filter((m) => m.shape === "star" || m.cls === "polity" || /^pol:/.test(m.id)).length, laid: all.filter((m) => m.marker === "star" || m.cls === "polity" || /^pol:/.test(m.id)).length, names: names.length, hits: hits.filter((id) => /^pol:/.test(id)).length, tried: hits.length }; });
+    // (in the Full Atlas of 396 marks a state's name that no card links comes after the study names and few find room — one or two here; the names' rules are untouched)
+    check("Europe in 1500, the Full Atlas: a state is named (" + eu.names + ") but none has a mark — no star drawn, none in the layout, and a tap at a state's name finds no polity in the marks' hit list", eu.names >= 1 && eu.stars === 0 && eu.laid === 0 && eu.hits === 0 && eu.live > 100, JSON.stringify(eu));
+    check("…and the Legend has no state row and no star (every key is one of the seven classes, none a polity, none worded as a state, people or culture)", !key.some((k) => k.cls === "polity" || /state|people|culture/i.test(k.word)) && key.every((k) => ["capital", "settlement", "site", "battle", "peak", "building", "stack"].includes(k.cls)), key.map((k) => k.cls).join(","));
+    await year(page, 2025);
     await shot(page, "glyphs-east-med");
     allErrors.push(...errors); await ctx.close();
   }

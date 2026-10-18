@@ -35,13 +35,19 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1029", released: "2026-10-18T00:29Z" };
+window.FOLIO_VERSION = { v: "1.1031", released: "2026-10-18T06:15Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-18",
-    t: "Rome inside the Roman Kingdom",
+    t: "Atlas: neutral fill, darker empty land, smaller marks, relief in windows",
     items: [
+      "<b>Atlas</b>: every historical state is now drawn in one neutral fill, the land colour, and told from its neighbours by its border; peoples keep their stipple in a neutral ink; war tints stay.",
+      "<b>Atlas</b>: in a past year the land no state or people covers is drawn half as bright, as the old Atlas shaded it, so the mapped states stand out.",
+      "<b>Atlas card windows</b>: a map card, a locator and a war window now show relief when the Atlas has it on, at the strength set there.",
+      "<b>Atlas marks</b>: circles, diamonds and every other place mark are half the size they were — only a capital's square keeps its size, and a city's ring stays large enough for its count.",
+      "<b>Atlas states</b>: a state, a people or a culture no longer carries a star — it is named on the map, and its border or its name is what you tap.",
+      "<b>Atlas timeline</b>: the small vertical lines along the year track are gone; the track is a plain line with the pin, and [ and ] still jump between the years something on screen changes.",
       "<b>Atlas borders</b>: Rome now lies inside the Roman Kingdom in every year from 750 to 481 BCE — the source drew the city 3 km outside it, and Folio's correction (named on Sources and credits) opens the border around the city.",
     ],
   },

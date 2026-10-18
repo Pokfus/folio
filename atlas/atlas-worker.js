@@ -1013,7 +1013,7 @@
        licence over a small flag-1 dot) and decision d's fallback (a mark's own name over any lesser mark) are gone: the price is names dropped in
        a crowded Full Atlas, which test-atlas-overlaps.js counts per view. A mark is dropped for nothing a name does: only a control or the
        frame's edge (decided per frame by the page) hides one. */
-    const marks = [], markById = new Map(), markRect = new Map();   // markRect: id → the index of the mark's rect in the grid (the ordinary pass lets a flagged polity's or area's own name lie over its own star)
+    const marks = [], markById = new Map(), markRect = new Map();   // markRect: id → the index of the mark's rect in the grid (the ordinary pass lets a flagged place's own name lie over its own mark)
     const unitAt = (x, y) => { const ax = (x - cx) / radius, ay = -(y - cy) / radius, az = Math.sqrt(Math.max(0, 1 - ax * ax - ay * ay)); return [rot[0] * ax + rot[3] * ay + rot[6] * az, rot[1] * ax + rot[4] * ay + rot[7] * az, rot[2] * ax + rot[5] * ay + rot[8] * az]; };
     const GAZ_PRESENT = { country: 1, admin1: 1, capital: 1, city: 1, town: 1 };   // alive only in the present year, as the ordinary pass has it
     /* ONE CANDIDATE OF THE ORDINARY KIND (a polity, a period capital, a country, a city, a river, an area), laid or dropped. A function since decision b
@@ -1031,7 +1031,7 @@
       const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
       if (studyPass) base.study = true;   // laid by the study pass (decision b)
       /* a flagged area or polity has a MARK at its anchor (the study pass): its name stands just above it, so the dot is read as the place and the name as its label */
-      const mk0 = markById.get(row.id), up = mk0 ? -(mk0.h + 2 + sh.h / 2) : 0, own0 = markRect.get(row.id), freeOwn = (r) => free(r, null, own0);   // a flagged polity's or area's name may lie over its OWN star (a name along its path crosses its anchor), never over another's mark
+      const mk0 = markById.get(row.id), up = mk0 ? -(mk0.h + 2 + sh.h / 2) : 0, own0 = markRect.get(row.id), freeOwn = (r) => free(r, null, own0);   // a flagged place's name may lie over its OWN mark (a name along its path crosses its anchor), never over another's; a polity or an area has none since 2026-10-18 / decision e
       if (k === "polity" || k === "people" || k === "culture" || k === "extent") {
         // along the path computed above (screen space already), else straight at its anchor; a polity's name is a country's style
         const S2 = row.path.pts.map((p) => [p[0], p[1]]); if (!reads(S2)) S2.reverse();
@@ -1138,7 +1138,7 @@
       if (!got) {
         if (c.chordPx > 0 && sh.w > c.chordPx * 1.8 && k !== "island" && k !== "island-group") { drop(k + " name wider than its shape"); continue; }   // the name would overhang the shape by most of its length
         if (!onScreen(c.a[0], c.a[1], 0)) { drop(k + " anchor off screen"); continue; }
-        // with a mark at the anchor: just above it, else just below it, else over it (its OWN star, which a name may cover — decision a forbids another's only)
+        // with a mark at the anchor: just above it, else just below it, else over it (its OWN mark, which a name may cover — decision a forbids another's only)
         let hung = false, hit = false;
         for (const dy of mk0 ? [up, -up, 0] : [0]) {
           const g = intoFrame(straight(sh, c.a[0], c.a[1] + dy, 0), sh.h);   // Phase 3c, decision 3: a sea's, a region's name stays inside the frame like a polity's — slid back by at most a third of its width, or not placed
@@ -1179,7 +1179,7 @@
         }
         if (z < 0.02 || !onScreen(x, y, MARGIN)) continue;
         const sub = srow ? srow.sub : "", cap = !!(srow && srow.cap), cls = AS.markClass(kind, sub, cap);   // the glyph class (decision e; a capital's square, decision b of 2026-10-17); null for an area: a name, no mark
-        list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub, cap) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind) : 0 });
+        list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub, cap) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind, cls) : 0 });   // the drawn size: half for every class but the capital (decision a, 2026-10-18)
       }
       /* CITY STACKS (2026-10-17, decision d): the marks of ONE CITY within STACK_PX (28) of one another on screen become one mark with a count,
          at their mean position, named for the city; its members are not drawn (the page's popup pages through them). Never across cities, never
@@ -1196,7 +1196,7 @@
             for (const mm of mem) { sx += mm.x; sy += mm.y; if (mm.f > f) f = mm.f; if (mm.z > z) z = mm.z; n += mm.n; drop2.add(mm.id); }
             sx /= mem.length; sy /= mem.length;
             const name = study.cityName.get(cid) || cid, id = "stk:" + cid + ":" + stacks.length;
-            const hh = Math.max(h0 * 1.4, 6.5 * FS);   // a count must fit inside: never under 13 px across
+            const hh = AS.ringHalf(h0, FS);   // a count must fit inside, in a 9 px bold figure: never under 19 px across (decision a, 2026-10-18)
             stacks.push({ id, kind: "stack", sub: "", cls: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: "stack", layer: AS.markLayer("stack", f), h: hh });
           }
         }
