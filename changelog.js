@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1042", released: "2026-10-18T18:21Z" };
+window.FOLIO_VERSION = { v: "1.1043", released: "2026-10-18T19:23Z" };
 
 window.CHANGELOG = [
   {
@@ -46,6 +46,7 @@ window.CHANGELOG = [
       "<b>Atlas rivers</b>: in a dark theme rivers are now drawn in the same light blue as their names, so they stand out against the land, the sea and the grey borders.",
       "<b>Your atlas</b>: in the Personal Atlas a river is named only when one of your studied cards discovered it; its line is drawn whenever rivers are on.",
       "<b>Home</b>: a reader who has never opened a book now meets a <i>Suggested reading</i> box with a random passage from the Library, instead of Continue reading.",
+      "<b>Home</b>: the <i>Suggested reading</i> passage now loads when its box scrolls into view, so opening Folio no longer downloads a whole book.",
       "<b>Atlas</b>: the Atlas now opens on your Personal Atlas the first time, with a note explaining that it fills in as you study geography and history cards.",
       "<b>Home</b>: the \u2018Not sure yet? Try ten cards\u2019 line under the first visitor\u2019s welcome is gone.",
       "<b>Atlas marks</b>: a capital's stack of places (Rome, Athens) is now the capital's square with the count inside, instead of a ring.",
