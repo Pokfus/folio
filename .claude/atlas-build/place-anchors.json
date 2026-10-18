@@ -1,0 +1,6 @@
+{
+ "_about": "Area places whose label anchor (the Wikidata coordinate in places.js) lies more than 25 km outside the area the linking card draws, and which the owner has looked at and left (lib/place-anchors.js, check-places.js). An entry is a decision, never a default: say why. Nothing here is a coordinate; a wrong anchor is fixed by pointing the card at the right Wikidata item (add-place.js), not by an entry.",
+ "allow": {
+  "pl:q1123749": "Coele-Syria (Q1123749): Wikidata's coordinate is 36.15 E 36.2 N, 174 km north of the area gr-793 draws (the Beqaa and the coast to Damascus, 36.1 E 34.0 N). Left for the owner (2026-10-18): the card's polygon may be the stronger reading of the region, and no other cited item exists for it."
+ }
+}

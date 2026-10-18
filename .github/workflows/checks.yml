@@ -180,12 +180,16 @@ jobs:
       # dates do not reach any year of its span, or whose class is not a polity (a war, a person, a party, a disambiguation page …), unless
       # polity-qids.json allows it with a reason; it also proves history.bin carries every fix of polity-qids.json. --qid-table --check proves
       # docs/atlas-v2-polity-qids.md is what the spec and the cache build. Offline.
+      # ROW NAMES (2026-10-18): a series Cliopatria carries as several rows with different names (Rome: Roman Republic, Roman Empire …) is labelled by the row alive in the year;
+      # polity-row-names.json is the committed cache of the rows' names and years, build-polity-names.js --check builds the table from it, and the data half of
+      # test-polity-names.js proves it (the page half is a Playwright suite of the shards). Offline.
       - name: audit-polity-names and build-polity-names --check (Atlas v2, dated display names, the polities' Wikidata items)
         if: ${{ !cancelled() }}
         run: |
           node .claude/atlas-build/audit-polity-names.js --check
           node .claude/atlas-build/audit-polity-names.js --qid-table --check
           node .claude/atlas-build/build-polity-names.js --check
+          FOLIO_SKIP_BROWSER=1 node .claude/test-polity-names.js
       # THE CARD WINDOWS' JOIN (Oct 2026, Atlas v2 Phase 4; Phase 5 re-based it on the frozen tables): build-card-faces.js --check proves atlas/data/card-faces.js and card-neighbours.js are what
       # .claude/atlas-build/frozen/layers.json, the engine's entity table and the cards build, and that every map card's layer, keys and dot resolve to an engine entity. Offline.
       - name: build-card-faces --check (Atlas v2, the map cards' faces)
@@ -199,7 +203,9 @@ jobs:
       # land-changes.json, its committed CBS cache and the committed water tile build (the Zuiderzee polders as water until the year each fell dry). Offline.
       - name: build-land-changes --check (Atlas v2, the dated land-change layer)
         if: ${{ !cancelled() }}
-        run: node .claude/atlas-build/build-land-changes.js --check
+        run: |
+          node .claude/atlas-build/build-land-changes.js --check
+          node .claude/test-land-change-rings.js
       # THE CARD WINDOWS' FIRST-FRAME CACHE (Oct 2026, Atlas v2 Phase 4b): check-core-cache.js proves CORE_CACHE_REV in atlas/atlas.js is what the worker, the format reader,
       # earcut and topology.bin's build id make, so a hub never draws a cached first level that an edit to any of them has made stale. Offline.
       - name: check-core-cache (Atlas v2, the card windows' first-frame cache key)

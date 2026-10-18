@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1043", released: "2026-10-18T19:11Z" };
+window.FOLIO_VERSION = { v: "1.1044", released: "2026-10-18T22:10Z" };
 
 window.CHANGELOG = [
   {
@@ -67,6 +67,10 @@ window.CHANGELOG = [
       "<b>Atlas borders</b>: Rome now lies inside the Roman Kingdom in every year from 750 to 481 BCE — the source drew the city 3 km outside it, and Folio's correction (named on Sources and credits) opens the border around the city.",
       "Atlas: the Wieringermeer, the Noordoostpolder and the two Flevoland polders are water until the year each fell dry (1930, 1942, 1957, 1968), with the coast of the day.",
       "Atlas: every lake island — Flevoland, Manitoulin, Olkhon — is drawn as land again; a winding fault had filled all of them as lake.",
+      "<b>Atlas</b>: the label for Messapia now stands in Salento, the heel of Italy, instead of in Calabria.",
+      "<b>Atlas</b>: a state is now named for its own period — Rome reads Roman Republic, then Roman Empire, and eleven other states (Song, Qin, Rus’ …) change name in the year the source does.",
+      "<b>Atlas</b>: public squares, parks, streets, stations and gates (Tiananmen, Gwanghwamun, Liberty Square …) are now places with a mark and an ordinary name, not area labels; 29 places moved.",
+      "<b>Atlas</b>: the Zuiderzee polders no longer leave stray dots, lines and short outlines in the water, and the water is named Zuiderzee before 1932 and IJsselmeer after.",
     ],
   },
   {

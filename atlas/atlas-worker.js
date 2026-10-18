@@ -645,6 +645,7 @@
   /* Phase 4 / 0c: display names that change with the year (atlas/data/polity-names.js, sent by the page): entity id → [[from, to, name, qid]…] */
   let POLITY_NAMES = null;
   const nameIn = (id, y, base) => { const l = POLITY_NAMES && POLITY_NAMES[id]; if (l && y != null) for (const o of l) if (y >= o[0] && y <= o[1]) return o[2]; return base; };
+  const datedRow = (row, y) => { const nm = nameIn(row.id, y, row.name); return nm === row.name ? row : Object.assign({}, row, { name: nm }); };
   const D2R_ = Math.PI / 180;
   const KW = { capital: 0, country: 1, people: 4.5, ocean: 2, sea: 3, admin1: 4, region: 5, range: 5, "island-group": 6, island: 6, gulf: 6, strait: 6, city: 7, lake: 8, town: 9, river: 10 };
   const PHYSICAL = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1, island: 1, "island-group": 1, range: 1, region: 1 };
@@ -860,7 +861,7 @@
       let a = null;
       if (k !== "river") { a = proj(row.a); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; }   // nearer the limb than LIMB_Z a name is foreshortened past reading and faded: not a candidate
       const score = (row.id === q.selected ? -1000 : 0) + (hl ? -400 - (hl === 2 ? 40 : 0) : 0) + row.rank * 10 + (KW[k] || 5);
-      cands.push({ row, chordPx, a, score, hl });
+      cands.push({ row: POLITY_NAMES && POLITY_NAMES[row.id] ? datedRow(row, q.year) : row, chordPx, a, score, hl });   // a registry row whose name changed in history (the Zuiderzee, then the IJsselmeer: place-names.json) is laid under the name of the year
     }
     cands.sort((p, r) => p.score - r.score);
     /* THE BARE NAMES ON THIS LAYOUT (2026-10-17, decision d): a settlement's label drops its ", <country or region>" qualifier (AtlasStudy.labelText)
