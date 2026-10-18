@@ -35,9 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1028", released: "2026-10-17T19:54Z" };
+window.FOLIO_VERSION = { v: "1.1029", released: "2026-10-18T01:29Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-10-18",
+    t: "The Atlas draws the Zuiderzee polders as water before they were drained, and lake islands as land.",
+    items: [
+      "Atlas: the Wieringermeer, the Noordoostpolder and the two Flevoland polders are water until the year each fell dry (1930, 1942, 1957, 1968), with the coast of the day.",
+      "Atlas: every lake island — Flevoland, Manitoulin, Olkhon — is drawn as land again; a winding fault had filled all of them as lake.",
+    ],
+  },
   {
     d: "2026-10-17",
     t: "The Personal Atlas shows only your own states",

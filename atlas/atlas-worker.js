@@ -564,6 +564,7 @@
     if (msg.type === "tile") return guard(handleTile(msg, post), "tile " + msg.key + ": ");
     if (msg.type === "water") return handleWater(msg, post);
     if (msg.type === "water-tile") return handleWaterTile(msg, post);
+    if (msg.type === "land-changes") return guard(handleLandChanges(msg, post), "land changes: ");
     if (msg.type === "relief") { handleRelief(msg, post); return null; }
     if (msg.type === "history") return guard(handleHistory(msg, post), "history: ");
     if (msg.type === "history-faces") return guard(handleHistoryFaces(msg, post), "history faces: ");
@@ -577,7 +578,7 @@
     if (msg.type === "face-anchors") { handleFaceAnchors(msg, post); return null; }
     /* a lost GL context (Phase 1c): the main thread keeps nothing after upload, so the resident levels are
        rebuilt here from the raw files this worker kept — the same code path as the first load */
-    if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); if (RAW.history) { HIST = null; await handleHistory({ type: "history", buffer: RAW.history }, post); } })(); }
+    if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); if (RAW.landChanges) await handleLandChanges(RAW.landChanges, post); if (RAW.history) { HIST = null; await handleHistory({ type: "history", buffer: RAW.history }, post); } })(); }
     if (msg.type === "load") return guard(handleLoad(msg, post), "topology: ");
     return null;
   }
@@ -637,7 +638,7 @@
      path is too short or too bent; a river repeats every ~400 px along its polyline; a city sits beside its
      marker on the first free side of four. Labels behind the horizon are not candidates; those near the limb
      carry an alpha for the fade. */
-  const RAW = { topology: null, water: null, history: null };
+  const RAW = { topology: null, water: null, history: null, landChanges: null };
   let CORE = null, HIST = null, HIST_PENDING = null;
   let GZ = null, RIVER_LINES = null, RIVER_CAPS = null, METRICS = null;
   /* Phase 4 / 0c: display names that change with the year (atlas/data/polity-names.js, sent by the page): entity id → [[from, to, name, qid]…] */
@@ -1635,6 +1636,43 @@
       m.stats.ms = Math.round(now() - t1);
       post(Object.assign({ type: "water-lod", level }, m), transfer);
     }
+  }
+  /* ---------- THE DATED LAND-CHANGE LAYER (2026-10-18; atlas/data/land-changes.js, docs/atlas-v2-historical-coastlines.md §1) ----------
+     Each row is an area that was WATER until a sourced year (the Zuiderzee polders), as quantised rings like the file's. The page
+     posts the rows once; each becomes a one-face topology of its own (every ring a closed LAKE arc, every vertex rank 0) and goes
+     through the very same code as a lake: unitVectors, triangulateFace (holes by signed area, great-circle subdivision at the
+     LOD 2 chord), buildSegments for its shore, and the buckets — so the renderer draws it with the lake's own calls, culled the
+     same way. Kept in RAW for a context-loss rebuild. A row is a few hundred vertices; all five are under 10 ms. */
+  async function handleLandChanges(msg, post) {
+    RAW.landChanges = msg;
+    const rows = [], transfer = [];
+    for (const row of msg.rows || []) {
+      const lon = [], lat = [], arcOffset = [0];
+      for (const ring of row.rings) { for (let i = 0; i < ring.length; i += 2) { lon.push(ring[i]); lat.push(ring[i + 1]); } lon.push(ring[0]); lat.push(ring[1]); arcOffset.push(lon.length); }
+      const nA = row.rings.length; if (!nA) continue;
+      const T = { quantum: msg.quantum, lodCount: 3, lon: Int32Array.from(lon), lat: Int32Array.from(lat), rank: new Uint8Array(lon.length), arcOffset: Int32Array.from(arcOffset),
+        arcKind: new Uint8Array(nA).fill(KIND_LAKE), arcSource: new Uint8Array(nA), arcMinLod: new Uint8Array(nA), arcFlags: new Uint8Array(nA), faces: [{ entity: 0, source: 0, rings: row.rings.map((r, i) => [i + 1]) }], header: { entities: [] } };
+      const pos = await unitVectors(T);
+      const sink = Sink();
+      const triangles = await triangulateFace(T, pos, T.faces[0], LAKE_FACE_BASE, 2, sink);
+      const Fm = sink.result();
+      /* THE SHORE, BY EDGE CLASS (the build's `edges`, one code per edge of each ring, in the ring's order): 0 = water lies outside
+         this edge (the present-day lake or sea — never stroked: in a year the polder is water there is no line there), 1 = old land
+         lies outside (the Zuiderzee's coast of the day — always stroked), 2 + k = the table's row k lies outside (stroked only in a
+         year that row is dry: the Knardijk is a shore from 1957 to 1967 and nothing before). `all` is every edge, for the erasing
+         stroke the renderer lays in the lake colour over the present-day shore lines along the patch's boundary. */
+      const raw = buildSegments(T, pos, 2, null, KIND_LAKE);
+      const codes = []; (row.edges || []).forEach((e) => { for (const c of e) codes.push(c); });
+      const pick = (test) => { const n = raw.length / 7; const keep = []; for (let i = 0; i < n; i++) if (test(codes[i] == null ? 1 : codes[i])) keep.push(i); const out = new Float32Array(keep.length * 7); keep.forEach((i, k) => { for (let j = 0; j < 7; j++) out[7 * k + j] = raw[7 * i + j]; }); return out; };
+      const seg = async (arr) => { const S = await bucketSegments(arr, null); return { segs: S.segs, range: S.segRange, cap: S.segCap }; };
+      const all = await seg(raw), land = await seg(pick((c) => c === 1));
+      const byRow = {}; const nbs = new Set(codes.filter((c) => c >= 2)); for (const c of nbs) byRow[c - 2] = await seg(pick((x) => x === c));
+      const B = await bucketTriangles(Fm.pos, Fm.idx, null);
+      rows.push({ id: row.id, facePos: Fm.pos, faceIdx: B.faceIdx, faceRange: B.faceRange, faceCap: B.faceCap, all, land, byRow, triangles, segments: raw.length / 7, landSegments: land.segs.length / 8 });
+      transfer.push(Fm.pos.buffer, B.faceIdx.buffer, B.faceRange.buffer, B.faceCap.buffer);
+      for (const S of [all, land].concat(Object.values(byRow))) transfer.push(S.segs.buffer, S.range.buffer, S.cap.buffer);
+    }
+    post({ type: "land-changes", rows }, transfer);
   }
   async function handleWaterTile(msg, post) {
     try { await handleWaterTileInner(msg, post); } catch (e) { post({ type: "error", message: "water-tile " + msg.key + ": " + (e && e.message || e) }); }

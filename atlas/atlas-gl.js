@@ -510,6 +510,7 @@
     let presenceDark = false;                 // 2c: screen instead of multiply on a dark theme
     let pickOpts = null;                      // 2c: an ID pass may draw one layer only ("states" | "presence") and skip faces already found
     let dpr = 1, W = 0, H = 0;
+    const landChanges = new Map();   // id → { data, gpu } (the dated land-change layer, 2026-10-18)
     const stats = { frames: 0, lastMs: 0, draws: 0, historyTriangles: 0, historySegments: 0, historyFaces: 0, trianglesDrawn: 0, segmentsDrawn: 0, riverSegments: 0, lakeSegments: 0, lakeTriangles: 0, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, visibleAngle: 0, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, level: 0, coreLevel: -1, waterLevel: -1, restores: 0, reliefL0: -1, gpuBytes: 0, gpuTextureBytes: 0 };   // gpuBytes: every buffer and texture uploaded and not yet deleted (Phase 1d's memory session reads it)
     const onRestore = typeof opts.onRestore === "function" ? opts.onRestore : null;
     const debug = { sphere: true, faces: true, arcs: true, water: true, relief: true, cull: true };   // toggles for the perf suite's breakdown; always on in use
@@ -636,6 +637,14 @@
       stats.gpuBytes -= (g.bytes || 0) + (g.segBytes || 0); stats.gpuTextureBytes -= g.segBytes || 0;
       Lv.gpu = null;
     }
+    // the dated land-change layer (2026-10-18): a row's fill, its whole boundary (the erasing stroke), its old-land shore and its shores against each neighbouring row
+    function uploadLandChange(L) {
+      const D = L.data, g = L.gpu = {};
+      g.fill = D.faceIdx && D.faceIdx.length ? uploadFill(D.facePos, D.faceIdx) : null;
+      const up = (S) => (S && S.segs && S.segs.length ? uploadSegs(S.segs) : null);
+      g.all = up(D.all); g.land = up(D.land); g.byRow = {}; for (const k of Object.keys(D.byRow || {})) g.byRow[k] = up(D.byRow[k]);
+    }
+    function releaseLandChange(L) { const g = L.gpu; if (!g) return; releaseFill(g.fill); releaseSegs(g.all); releaseSegs(g.land); for (const k of Object.keys(g.byRow || {})) releaseSegs(g.byRow[k]); L.gpu = null; }
     function releaseWater(Wl) { const g = Wl.gpu; if (!g) return; releaseFill(g.fill); releaseFill(g.ext); releaseSegs(g.lake); releaseSegs(g.river); releaseSegs(g.smooth); Wl.gpu = null; }
     function releaseRelief(Rl) { const g = Rl.gpu; if (!g) return; gl.deleteTexture(g.tex); releaseFill(g.ext); stats.gpuBytes -= g.bytes || 0; stats.gpuTextureBytes -= g.bytes || 0; Rl.gpu = null; }
 
@@ -644,7 +653,7 @@
       lost = false;
       for (const k of Object.keys(levels)) delete levels[k];
       for (const k of Object.keys(water)) delete water[k];
-      tiles.clear(); waterTiles.clear(); relief.clear();
+      tiles.clear(); waterTiles.clear(); relief.clear(); landChanges.clear();
       stats.gpuBytes = 0; stats.gpuTextureBytes = 0;
       setup(); stats.restores++;
       if (onRestore) onRestore();
@@ -704,15 +713,16 @@
     }
     const widths = new Float32Array(8), colors = new Float32Array(24);
     const pickOff = [0, 0];
-    function arcUniforms(P, view, R, idPass, idBase, idPad) {
+    function arcUniforms(P, view, R, idPass, idBase, idPad, flat) {   // flat (the land-change layer's erasing stroke): one colour and one width for every kind
       common(P, view, R);
       gl.uniform1f(P.u.uHeight, H);
       gl.uniform1f(P.u.uIdPad, idPad || 0);
       gl.uniform2f(P.u.uPickOff, pickOff[0], pickOff[1]);
       widths[0] = 1.0 * dpr; widths[1] = 0.9 * dpr; widths[2] = 0.8 * dpr; widths[3] = 0.6 * dpr; widths[4] = 0.9 * dpr; widths[5] = 0.6 * dpr; widths[6] = 0; widths[7] = histBorderWidth * dpr;
+      if (flat) for (let i = 0; i < 8; i++) widths[i] = flat.width * dpr;
       gl.uniform1fv(P.u.uWidth, widths);
       gl.uniform1f(P.u.uArcTabOn, 0); gl.uniform1f(P.u.uBorders, view.history && view.history.present === false ? 0 : 1);
-      const C = [palette.coast, palette.border, palette.river, palette.lakeShore, palette.border, palette.admin1, palette.border, histBorderColor];
+      const C = flat ? [flat.color, flat.color, flat.color, flat.color, flat.color, flat.color, flat.color, flat.color] : [palette.coast, palette.border, palette.river, palette.lakeShore, palette.border, palette.admin1, palette.border, histBorderColor];
       for (let i = 0; i < 8; i++) { colors[3 * i] = C[i][0]; colors[3 * i + 1] = C[i][1]; colors[3 * i + 2] = C[i][2]; }
       gl.uniform3fv(P.u.uColor, colors);
       gl.uniform1f(P.u.uAdmin1, view.admin1 ? 1 : 0);
@@ -1021,6 +1031,26 @@
             if (useStencil) gl.stencilFunc(gl.ALWAYS, 0, 0xff);
           }
         } else stats.waterTilesDrawn = 0;
+        /* THE DATED LAND-CHANGE LAYER (2026-10-18): the rows alive in the year (view.landChanges, the page's list from land-changes.js),
+           each a lake-coloured fill with a shore, over the land and the lakes, whatever the lakes switch says — a polder that was
+           still the Zuiderzee is water, not a layer a reader turns off. Not in the ID pass: a tap there names the land under it. */
+        stats.landChangesDrawn = 0;
+        if (!idPass && view.landChanges && view.landChanges.length) {
+          if (useStencil) gl.stencilFunc(gl.ALWAYS, 0, 0xff);
+          const alive = new Set(view.landChanges), rowsAlive = [];
+          for (const id of view.landChanges) { const L = landChanges.get(id); if (!L || !L.gpu) continue; rowsAlive.push(L); if (L.gpu.fill) drawFill(L.gpu.fill.vao, L.gpu.fill.u16, L.data.faceRange, L.data.faceCap, view, false, R, 0.01, palette.lake, "lakeTriangles"); stats.landChangesDrawn++; }
+          if (rowsAlive.length) {
+            // 1. the present-day shore lines along the boundary, painted over in the lake colour a little wider than a shore (the fill covers the ones inside)
+            arcUniforms(prog.arc, view, R, false, ID_WATER_ARC, 0, { color: palette.lake, width: 1.8 });
+            for (const L of rowsAlive) if (L.gpu.all) drawSegs(L.gpu.all.tex, L.data.all.range, L.data.all.cap, view, 0.01, "lakeSegments");
+            // 2. the shore of the day: the old land outside the patch, and a neighbouring row where it is dry this year
+            arcUniforms(prog.arc, view, R, false, ID_WATER_ARC);
+            for (const L of rowsAlive) {
+              if (L.gpu.land) drawSegs(L.gpu.land.tex, L.data.land.range, L.data.land.cap, view, 0.01, "lakeSegments");
+              for (const k of Object.keys(L.gpu.byRow)) { const nb = view.landChangeIds ? view.landChangeIds[k] : null; if (nb && alive.has(nb)) continue; const S = L.gpu.byRow[k]; if (S) drawSegs(S.tex, L.data.byRow[k].range, L.data.byRow[k].cap, view, 0.01, "lakeSegments"); }
+            }
+          }
+        }
         // the land's lines over everything — not in an ID pass: a tap on a coast or a lake shore names the face under it
         // (a coastal capital, an atoll at the cap, a lake), and nothing reads a line's id yet
         if (debug.arcs && !idPass) {
@@ -1033,7 +1063,7 @@
       const drawLinesLayer = (target) => {
       // the line layer: a texture while the view is still (its key: the view, the sizes, every upload), else drawn here
       if (!idPass && lines.on) {
-        const key = Array.from(rot).map((v) => v.toFixed(6)).join(",") + "|" + radius.toFixed(2) + "|" + cx.toFixed(1) + "|" + cy.toFixed(1) + "|" + W + "x" + H + "|" + view.level + "|" + (view.kmpp || 0).toFixed(4) + "|" + (view.tiles || []).join(",") + "|" + (view.waterTiles || []).join(",") + "|" + (view.rivers ? 1 : 0) + (view.lakes ? 1 : 0) + (view.smoothRivers ? 1 : 0) + (debug.water ? 1 : 0) + (debug.arcs ? 1 : 0) + "|" + dataGen;
+        const key = Array.from(rot).map((v) => v.toFixed(6)).join(",") + "|" + radius.toFixed(2) + "|" + cx.toFixed(1) + "|" + cy.toFixed(1) + "|" + W + "x" + H + "|" + view.level + "|" + (view.kmpp || 0).toFixed(4) + "|" + (view.tiles || []).join(",") + "|" + (view.waterTiles || []).join(",") + "|" + (view.rivers ? 1 : 0) + (view.lakes ? 1 : 0) + (view.smoothRivers ? 1 : 0) + (debug.water ? 1 : 0) + (debug.arcs ? 1 : 0) + "|" + (view.landChanges || []).join(",") + "|" + dataGen;
         if (linesTarget()) {
           if (lines.key !== key) {
             const before = snapCounts();
@@ -1143,6 +1173,10 @@
       tileLoaded(key) { const t = tiles.get(key); return !!(t && t.gpu); },
       tileCount() { return tiles.size; },
       setWaterLevel(level, data) { dataGen++; if (water[level]) releaseWater(water[level]); water[level] = { data }; if (!lost) uploadWater(water[level]); },
+      // the dated land-change layer (2026-10-18): one row's mesh and shore, the water level's own shape and upload; drawn when view.landChanges names it
+      setLandChange(id, data) { dataGen++; if (landChanges.has(id)) releaseLandChange(landChanges.get(id)); const L = { data }; landChanges.set(id, L); if (!lost) uploadLandChange(L); },
+      dropLandChange(id) { dataGen++; const L = landChanges.get(id); if (!L) return; releaseLandChange(L); landChanges.delete(id); },
+      landChangeLoaded(id) { const L = landChanges.get(id); return !!(L && L.gpu); },
       waterLevelLoaded(l) { return !!(water[l] && water[l].gpu); },
       setWaterTile(key, data, tile) { dataGen++; if (waterTiles.has(key)) releaseWater(waterTiles.get(key)); const t = { data, tile }; waterTiles.set(key, t); if (!lost) uploadWater(t); },
       dropWaterTile(key) { dataGen++; const t = waterTiles.get(key); if (!t) return; releaseWater(t); waterTiles.delete(key); },
@@ -1241,7 +1275,7 @@
       },
       linesCache(on) { lines.on = on !== false; lines.key = ""; },
       stillCache(on) { still.on = on !== false; still.key = ""; still.lastKey = ""; },
-      stats() { return { linesReused: lines.reused, linesRendered: lines.rendered, linesOn: lines.on, baseReused: still.reused, baseRendered: still.rendered, baseOn: still.on, triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, historyTriangles: stats.historyTriangles, presenceTriangles: stats.presenceTriangles || 0, presenceFaces: stats.presenceFaces || 0, historySegments: stats.historySegments, historyFaces: stats.historyFaces, historyMeshes: hist.meshes.size, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores, gpuBytes: stats.gpuBytes, gpuTextureBytes: stats.gpuTextureBytes }; },
+      stats() { return { linesReused: lines.reused, linesRendered: lines.rendered, linesOn: lines.on, baseReused: still.reused, baseRendered: still.rendered, baseOn: still.on, triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, historyTriangles: stats.historyTriangles, presenceTriangles: stats.presenceTriangles || 0, presenceFaces: stats.presenceFaces || 0, historySegments: stats.historySegments, historyFaces: stats.historyFaces, historyMeshes: hist.meshes.size, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, landChangesDrawn: stats.landChangesDrawn || 0, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores, gpuBytes: stats.gpuBytes, gpuTextureBytes: stats.gpuTextureBytes }; },
       rawStats: stats,
       dispose() {
         try { const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); } catch (e) {}
