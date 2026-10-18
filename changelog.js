@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1032", released: "2026-10-18T06:44Z" };
+window.FOLIO_VERSION = { v: "1.1033", released: "2026-10-18T07:05Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-18",
     t: "Atlas: neutral fill, darker empty land, smaller marks, popups redesigned",
     items: [
+      "<b>Atlas states</b>: a tap anywhere inside a state, a people or a culture your cards teach selects the whole of it in gold — fill, outline and glow, as the old Atlas did — and keeps it lit while you drag, zoom or move the year.",
       "<b>Atlas popups</b>: on a phone a place, a state or a city's popup is now a bottom sheet with three heights (peek, half, full) you drag or swipe, its cards first and the sources folded.",
       "<b>Atlas</b>: every historical state is now drawn in one neutral fill, the land colour, and told from its neighbours by its border; peoples keep their stipple in a neutral ink; war tints stay.",
       "<b>Atlas</b>: in a past year the land no state or people covers is drawn half as bright, as the old Atlas shaded it, so the mapped states stand out.",

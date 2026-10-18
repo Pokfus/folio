@@ -103,7 +103,10 @@
   const RAIL_FROM = -10000, RAIL_KNEE_YEAR = TODAY - 2500, RAIL_KNEE_X = 0.30;
   const FADE_MS = 250;                            // the crossfade at a step when the reader steps or plays (none while dragging, none under reduced motion)
   const MESH_BYTES = 48 * 1024 * 1024;            // (face, level) meshes kept on the GPU, by their bytes (2b: a count let forty empires cost what forty islets did)
-  const HIST_FILL_ALPHA = 0.42, HIST_FILL_ALPHA_DARK = 0.5, HIST_SEL_ALPHA = 0.72;
+  const HIST_FILL_ALPHA = 0.42, HIST_FILL_ALPHA_DARK = 0.5;
+  /* THE WHOLE-STATE SELECTION (2026-10-18; the owner: "like in Atlas v1"): the card windows' own gold (atlas-windows.js TINT_SEL) — the fill is the land blended with
+     the gold at 0.24 (the history fill's own alpha does the blend), the outline 2.6 px and the glow 9 px are stroked on the label canvas from the face's rings */
+  const SEL_GOLD = { rgb: [1, 178 / 255, 46 / 255], a: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)", width: 2.6, blur: 9 };
   const HIST_DIM = 0.5;   // 2026-10-18: the land no state or people covers in a past year is drawn at half its luminance (the owner's 50 %; v1's Full Atlas measured 0.78, outside the 10 points that would have kept its number), on the Atlas page only — a card window and Find it never darken
   const WAR_FILL_BOOST = 1.3;   // a side's tint is read against a state's own colour: 30 % stronger than a state's fill (2d)
   const SPEEDS = [1, 5, 25, 100];                 // years per second (Q-T4 b: every year is played)
@@ -266,7 +269,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "23988ac9ed:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "9039dc29d5:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -1135,6 +1138,7 @@
         invalidate(); return;
       }
       if (m.type === "face-anchors") { const r = faceAnchorWait.get(m.seq); faceAnchorWait.delete(m.seq); if (r) r.cb(m.rows, r.q); return; }
+      if (m.type === "face-rings") { if (selRingsPending === m.seq) { selRingsPending = null; selRings = { key: m.seq, faces: m.faces, rings: m.rings, level: Number(String(m.seq).split("@")[1]) }; invalidateLabels(); } return; }
       if (m.type === "history-meta") { onHistoryMeta(m); return; }
       if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
       if (m.type === "history-faces") { onHistoryFaces(m); return; }
@@ -1353,8 +1357,9 @@
        state is drawn in the land colour — its fill at HIST_FILL_ALPHA over the land IS the land — and told from its neighbours by its border; a
        people or a culture is the same land under its stipple, which is set in the states' border ink (`presInk`), so a state and a people stay
        distinguishable by texture, not hue. What still colours a face: a war's role (victor green, loser red), Find it's tints, and the selected
-       state, which takes the palette's selection colour (the ochre a selected country wears) at HIST_SEL_ALPHA — with one fill for all, the
-       stronger alpha alone would show nothing. The land no state or people covers is darker instead (`view.history.dim`, atlas-gl.js). */
+       state, which takes the card windows' gold (SEL_GOLD, 2026-10-18: the land blended with the gold at 0.24, with the outline and glow of
+       `drawSelection`) — with one fill for all, a stronger alpha alone would show nothing. The land no state or people covers is darker instead
+       (`view.history.dim`, atlas-gl.js). */
     let histBorderCss = "", histDark = false, flatBorderOn = false, presInk = [0.5, 0.5, 0.5];   // histDark: the theme's darkness, read by histColours() when the theme changes (a year change reads it, never the computed style: 0d)
     function histColours() {
       const { ink, paper, dark } = themeTokens(); histDark = dark;
@@ -1377,7 +1382,7 @@
     const gameIdOf = (i) => { const e = time.ents[i]; if (!e) return null; return e.kind === "polity" || e.kind === "extent" ? e.id : e.partners && e.partners[0]; };
     const gameColourOf = (i) => { if (!time.gameTints) return null; const id = gameIdOf(i); return id ? time.gameTints.get(id) || null : null; };
     let debugFill = null;   // the suites only (test-atlas-review.js): a visible fill in place of the neutral, so a fold or a crack in a mesh can still be read off the pixels
-    const entColour = (i) => time.gameMask ? (gameColourOf(i) || [0, 0, 0]) : gameColourOf(i) || warColourOf(i) || (!EMBED && time.selected === i ? palette.selected : debugFill || palette.land);   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
+    const entColour = (i) => time.gameMask ? (gameColourOf(i) || [0, 0, 0]) : gameColourOf(i) || warColourOf(i) || (!EMBED && time.selected === i ? SEL_GOLD.rgb : debugFill || palette.land);   // a war window: the states that did not fight are plain land, so a green or a red on the map is a side
     /* THE PERSONAL ATLAS SHOWS ONLY THE READER'S OWN POLITIES (2026-10-17; the owner's phone): a state no studied card links — flag 2 of the study layer, the one
        definition of "studied" (atlas/study.js) — is not named (the worker's study pass), not marked and not tappable (`tappable`, below); its face is plain land with its
        border, which since 2026-10-18 is what every state's face is (the fill is the land colour in every mode), so nothing here paints it apart. The Full Atlas and the
@@ -1418,7 +1423,7 @@
     function frontFrameNow() { const A = AS2(), d = curFrontDate(); if (!A || d == null) return false; const ps = A.platesAt(time.frontPlates, d); return ps.length > 0 && ps.every((p) => A.dateInt(p.date) <= FRAME_LAST); }
     function presenceDraw(fadeFrom, tNow) {
       const out = [], frontFrame = frontFrameNow();
-      const one = (a, fade) => { if (time.isFront[a.ent]) { const set = (time.ents[a.ent].front && time.ents[a.ent].front.set) || ""; out.push({ face: a.face, rgb: /^axis/.test(set) ? warRGB.loser : warRGB.victor, front: true, frame: frontFrame, wash: /occupied/.test(set) ? FRONT_WASH.occupied : FRONT_WASH.held, dotA: 0, fade }); return; } if (time.isExt[a.ent]) { const c = warColourOf(a.ent) || warRGB.loser; out.push({ face: a.face, rgb: c, ext: true, wash: WAR_WASH, dotA: 0, fade }); return; } const k = time.presEnts.indexOf(a.ent); out.push({ face: a.face, rgb: presHue(a.ent), angle: PRES_ANGLES[k % PRES_ANGLES.length], pitch: 1 + 0.07 * (k % 3), phase: [k * 2.7, k * 1.9], dotA: time.selected === a.ent ? 0.9 : null, fade }); };
+      const one = (a, fade) => { if (time.isFront[a.ent]) { const set = (time.ents[a.ent].front && time.ents[a.ent].front.set) || ""; out.push({ face: a.face, rgb: /^axis/.test(set) ? warRGB.loser : warRGB.victor, front: true, frame: frontFrame, wash: /occupied/.test(set) ? FRONT_WASH.occupied : FRONT_WASH.held, dotA: 0, fade }); return; } if (time.isExt[a.ent]) { const c = warColourOf(a.ent) || warRGB.loser; out.push({ face: a.face, rgb: c, ext: true, wash: WAR_WASH, dotA: 0, fade }); return; } const k = time.presEnts.indexOf(a.ent); out.push({ face: a.face, rgb: !EMBED && time.selected === a.ent ? SEL_GOLD.rgb : presHue(a.ent), angle: PRES_ANGLES[k % PRES_ANGLES.length], pitch: 1 + 0.07 * (k % 3), phase: [k * 2.7, k * 1.9], dotA: time.selected === a.ent ? 0.9 : null, fade }); };   // the selected people: its stipple in the selection's gold (2026-10-18)
       const fromSet = fadeFrom ? new Set(fadeFrom.map((a) => a.face)) : null;
       for (const a of time.pOnScreen || []) one(a, fromSet && !fromSet.has(a.face) ? tNow : 1);
       if (fromSet) for (const a of fadeFrom) if (!time.pSet.has(a.face)) { one(a, 1 - tNow); out[out.length - 1].fading = true; }   // fading: last year's presence — not a cover for the darkening
@@ -1650,7 +1655,7 @@
       time.style.fill(0); time.arcTab.fill(0);
       const dark = histDark; const base = dark ? HIST_FILL_ALPHA_DARK : HIST_FILL_ALPHA;
       let tNow = 1; if (time.fade) tNow = Math.min(1, (performance.now() - time.fade.t0) / FADE_MS);
-      const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const gc = gameColourOf(ent); const a = time.gameMask ? alphaScale : gc && gc.length > 3 ? gc[3] * alphaScale : (time.selected === ent ? HIST_SEL_ALPHA : base) * alphaScale * (warRoleOf(ent) === 1 || warRoleOf(ent) === 2 ? WAR_FILL_BOOST : 1) * (gc ? 1.7 : 1); const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
+      const put = (fi, alphaScale) => { const ent = time.faceEntity[fi]; const c = entColour(ent); const gc = gameColourOf(ent); const a = time.gameMask ? alphaScale : gc && gc.length > 3 ? gc[3] * alphaScale : (time.selected === ent ? SEL_GOLD.a : base) * alphaScale * (warRoleOf(ent) === 1 || warRoleOf(ent) === 2 ? WAR_FILL_BOOST : 1) * (gc ? 1.7 : 1); const o = 4 * fi; time.style[o] = Math.round(c[0] * 255); time.style[o + 1] = Math.round(c[1] * 255); time.style[o + 2] = Math.round(c[2] * 255); time.style[o + 3] = Math.max(time.style[o + 3], Math.round(a * 255)); };
       if (time.fade) for (const a of time.fade.from) if (!time.aliveSet.has(a.face)) put(a.face, 1 - tNow);
       for (const a of (time.onScreenAlive || time.alive)) put(a.face, time.fade ? tNow : 1);
       const alive = time.aliveArcs, from = time.fade ? time.fade.fromArcs : null, aOn = Math.round((time.fade ? tNow : 1) * 255), aOff = Math.round((1 - tNow) * 255);
@@ -2218,6 +2223,39 @@
       }
       return true;
     }
+    /* THE SELECTED STATE'S OUTLINE AND GLOW (2026-10-18, whole-state selection; the card windows' selection brought to the Atlas page). The faces the selected entity has
+       in the year (`selectedFaces`: a state's face of the step, a people's presence face) are asked of the worker as rings at the view's resident level (`face-rings`,
+       unit vectors), kept until the faces or the level change, and stroked here every frame under the marks and the names — the line in the gold, the glow only on a
+       settled frame (a gesture frame draws the line alone, as a card window's rim does; `gestureLive`). A point behind the horizon breaks the path. The fill is the
+       history style's (SEL_GOLD in `entColour` / `uploadStyle`). The selection lives in `time.selected` and so survives a drag, a zoom and a year change that keeps
+       the entity alive; a year it is not alive in draws nothing and the next year it is draws it again; a tap elsewhere or Close clears it (`clearSelection`). */
+    let selRings = null, selRingsPending = null;
+    function selectedFaces() { if (EMBED || time.selected < 0 || !time.hist) return []; const out = []; for (const a of time.alive) if (a.ent === time.selected) out.push(a.face); for (const a of time.palive) if (a.ent === time.selected) out.push(a.face); return out; }
+    function wantSelRings(faces) {
+      const key = faces.join(",") + "@" + Math.min(2, view.level);
+      if ((selRings && selRings.key === key) || selRingsPending === key) return;
+      selRingsPending = key; postToWorker({ type: "face-rings", seq: key, faces, level: Math.min(2, view.level) });
+    }
+    function drawSelection(ctx) {
+      const faces = selectedFaces(); if (!faces.length) { if (selRings) selRings = null; return; }
+      wantSelRings(faces);
+      if (!selRings || !selRings.faces.length || !selRings.faces.every((f) => faces.indexOf(f) >= 0)) return;   // the entity's face changed with the year: nothing until the new rings land
+      const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy;
+      ctx.save(); ctx.beginPath();
+      for (const ring of selRings.rings) {
+        const n = ring.length / 3; let up = false;
+        for (let i = 0; i <= n; i++) {
+          const j = (i % n) * 3, X = ring[j], Y = ring[j + 1], Z = ring[j + 2];
+          if (rot[6] * X + rot[7] * Y + rot[8] * Z < 0.002) { up = false; continue; }
+          const x = cx + r * (rot[0] * X + rot[1] * Y + rot[2] * Z), y = cy - r * (rot[3] * X + rot[4] * Y + rot[5] * Z);
+          if (up) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+          up = true;
+        }
+      }
+      ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = SEL_GOLD.width; ctx.strokeStyle = SEL_GOLD.line;
+      if (!gestureLive()) { ctx.shadowColor = SEL_GOLD.glow; ctx.shadowBlur = SEL_GOLD.blur; }
+      ctx.stroke(); ctx.restore();
+    }
     function drawLabels() {
       const t = performance.now();
       const ctx = lctx;
@@ -2226,6 +2264,7 @@
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy;
       const live = [];
       const muteOthers = ST.mode === "personal" && ST.flags.size > 0;
+      drawSelection(ctx);   // the selected state's gold outline, under everything (2026-10-18)
       drawMarks(ctx);   // the study layer's marks, under the names
       for (const p of L.placed) {
         const a = p.a; if (!a) continue;
@@ -2385,7 +2424,7 @@
       const items = sel.stack.filter((r) => r.id !== row.id).map((r) => `<li><button type="button" class="atlas2-here" data-here="${escText(r.id)}"><span class="atlas2-here-name">${escText(r.name)}</span><span class="atlas2-chip">${escText(word(r))}</span></button></li>`);
       return items.length ? `<section class="atlas2-card-here" aria-label="Also here"><h3 class="atlas2-study-h">Also here</h3><ul>${items.join("")}</ul></section>` : "";
     }
-    const factRow = (label, html) => (html ? `<div><dt>${escText(label)}</dt><dd>${html}</dd></div>` : "");
+    const factRow = (label, html, cls) => (html ? `<div><dt>${escText(label)}</dt><dd${cls ? ` class="${cls}"` : ""}>${html}</dd></div>` : "");
     const factsHTML = (rows) => { const h = rows.join(""); return h ? `<dl class="atlas2-card-facts">${h}</dl>` : ""; };
     const wikiUrl = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(String(title).replace(/ /g, "_"));
     function openCard(row) {
@@ -2551,7 +2590,7 @@
       if (row.hist) { renderHistoryCard(row); return; }
       cardBody.innerHTML = hereHTML(row) + placeFacts(row);
     }
-    const placeFacts = (row) => { const w = row.within ? G.byId.get(row.within) : null; const title = row.wiki === 1 ? row.name : row.wiki; return factsHTML([w ? factRow("In", `<button type="button" class="atlas2-link" data-select="${escText(w.id)}">${escText(w.name)}</button>`) : "", title ? factRow("Wikipedia", `<a href="${wikiUrl(title)}" target="_blank" rel="noopener">${escText(title)}</a>`) : ""]); };
+    const placeFacts = (row) => { const w = row.within ? G.byId.get(row.within) : null; const title = row.wiki === 1 ? row.name : row.wiki; return factsHTML([w ? factRow("In", `<button type="button" class="atlas2-link" data-select="${escText(w.id)}">${escText(w.name)}</button>`, "atlas2-card-within") : "", title ? factRow("Wikipedia", `<a href="${wikiUrl(title)}" target="_blank" rel="noopener">${escText(title)}</a>`, "atlas2-card-link") : ""]); };
     /* Phase 2a: a historical place — kind, span, the step list as a small timeline with the source on each step, the
        uncertainty sentence, the gaps in the span, the Wikipedia link from the source's own property; no prose yet */
     function renderHistoryCard(row) {
@@ -2585,7 +2624,7 @@
         if (members.length) facts.push(factRow("Members drawn inside it", members.join(", ")));
         if (overlords.length) facts.push(factRow("Drawn within", overlords.join(", ")));
       }
-      if (e.wiki) facts.push(factRow("Wikipedia", `<a href="${wikiUrl(e.wiki)}" target="_blank" rel="noopener">${escText(e.wiki)}</a>`));
+      if (e.wiki) facts.push(factRow("Wikipedia", `<a href="${wikiUrl(e.wiki)}" target="_blank" rel="noopener">${escText(e.wiki)}</a>`, "atlas2-card-link"));
       html += factsHTML(facts);
       if (e.span) srcs += `<p class="atlas2-card-span">Mapped from ${escText(fmtYear(e.span[0]))} to ${escText(fmtYear(e.span[1]))}, in ${steps.length} step${steps.length === 1 ? "" : "s"}.</p>`;
       // the steps as RANGES (2b): consecutive steps with no gap between them read as one range; the list of every step opens on request
@@ -3243,7 +3282,7 @@
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
       gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W }),
-      select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
+      select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), selection: () => ({ id: sel.id, ent: time.selected, faces: selectedFaces(), rings: selRings && selRings.faces.every((f) => selectedFaces().indexOf(f) >= 0) ? selRings.rings.length : 0, points: selRings ? selRings.rings.reduce((n, r) => n + r.length / 3, 0) : 0, level: selRings ? selRings.level : null, gold: SEL_GOLD }), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, snap: PHONE && cardOpen ? sheetSnap : null }), sheetSnap: (k) => setSnap(k), sheetHeights: () => (PHONE ? sheetHeights() : null),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,
       chromeRects, showPlace, framing: () => lastFrame, discovery: () => ({ id: discId, fresh: discFresh }), hash: hashNow, readHash, metricsCount: () => metricsSent,

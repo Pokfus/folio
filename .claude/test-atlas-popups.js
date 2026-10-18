@@ -22,6 +22,10 @@
     11 THE SHEET (2026-10-18): on a phone the popup is a bottom sheet docked on the frame's bottom edge with three snap heights (peek ≈ 28 %, half, full), a real
         touch drag between them, a flick down that closes it, 48 px card rows first in the body, a kind chip, the key facts, the sources folded, no sideways
         scroll at 360 px; a 360 px side panel on a desktop (docs/atlas-v2-design.md §7 "The popup as a bottom sheet")
+    12 WHOLE-STATE SELECTION (2026-10-18): a tap on empty land inside a state, a people or a culture that has a card selects the whole of it in the card
+        windows' gold — the fill (the land blended with gold at 0.24), the outline and the glow — kept through a drag and a year it is alive in; a state with
+        no card by the rule gives nothing; marks and names keep priority; the hidden keys list is the keyboard route (docs/atlas-v2-design.md §7 "Whole-state
+        selection")
    Re-run after touching atlas/study.js, the study block of atlas.js, the study pass of atlas-worker.js, or the place card. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -600,6 +604,65 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const { ctx, page, errors } = await open(browser, READER); await mode(page, "full"); await year(page, -100); await A(page, (c) => c.select("pol:rome", { open: true })); await sleep(400);
     const d = await page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"); return { w: r.width, snap: document.querySelector(".atlas2").__atlas2.card().snap, firstIsCards: body.firstElementChild.classList.contains("atlas2-study-cards"), chip: el.querySelector(".atlas2-card-chip").textContent, rows: [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height) }; });
     check("a desktop shows a 360 px side panel with the same body (the rows first, 48 px each, the kind chip)", Math.abs(d.w - 360) <= 1 && d.snap === null && d.firstIsCards && d.chip === "Polity" && d.rows.every((x) => x >= 48), JSON.stringify(d));
+    allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 12  whole-state selection (2026-10-18) */
+  console.log("\n\x1b[1m12) a tap on empty land inside a state with a card selects the WHOLE state in gold — the fill, the outline, the glow — kept through a drag and a year change; a state with no card gives nothing; marks and names keep priority; the keyboard route\x1b[0m\n");
+  for (const phone of [false, true]) {
+    const who = phone ? "phone" : "desktop";
+    const { ctx, page, errors } = await open(browser, READER, phone ? { phone: true } : {});
+    await mode(page, "full"); await year(page, -100); await view(page, -4, 40.3, 3);   // Roman Spain in 100 BCE: deep inside Rome's face, few marks
+    await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyOK && c.historyOK(); }, null, { timeout: 120000 }); await settle(page);
+    const findClear = (want) => A(page, (c, a) => { const [W, H] = c.frame(), ch = c.chromeRects(); const inChrome = (x, y) => ch.some((r) => x >= r[0] - 8 && x <= r[2] + 8 && y >= r[1] - 8 && y <= r[3] + 8); for (let y = 80; y < H * 0.6; y += 10) for (let x = 20; x < W - 20; x += 10) { if (inChrome(x, y) || c.study.near(x, y, a.touch).length || c.hitAt(x, y).length) continue; const s = c.stackAt(x, y); if (s.length === 1 && s[0] === a.want) return [x, y]; } return null; }, { want, touch: phone });
+    const clear = await findClear("pol:rome");
+    check(`${who}: a point of empty land inside Rome's face, clear of every mark, name and control`, !!clear, JSON.stringify(clear));
+    if (!clear) { allErrors.push(...errors); await ctx.close(); continue; }
+    const bb = await box(page);
+    const tap = async (x, y) => { if (phone) await page.touchscreen.tap(bb.x + x, bb.y + y); else await page.mouse.click(bb.x + x, bb.y + y); await sleep(900); };
+    // the gold line's pixels on the label canvas (the outline; the glow is paler and is not counted)
+    const goldInk = () => page.evaluate(() => { const cv = document.querySelector(".atlas2-labels"), d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data; let n = 0; for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 200 && d[i] > 240 && d[i + 1] > 170 && d[i + 1] < 215 && d[i + 2] < 110) n++; return n; });
+    const tinted = (a, b) => (a[0] - a[2]) - (b[0] - b[2]) >= 20;   // the gold pulls red up and blue down: the land blended with the gold at 0.24
+    const before = await pixel(page, clear[0], clear[1]);
+    await tap(clear[0], clear[1]);
+    const s1 = await A(page, (c, p) => ({ sel: c.selection(), id: c.selectedId(), card: c.card(), px: c.pixelAt(p[0], p[1]), here: document.querySelectorAll(".atlas2-card-here").length }), clear);
+    const ink1 = await goldInk();
+    check("the tap selects the whole state: Rome, its popup open, the tapped pixel the land blended with gold", s1.id === "pol:rome" && s1.card.open && s1.card.id === "pol:rome" && tinted(s1.px, before), JSON.stringify({ id: s1.id, before, after: s1.px, card: s1.card }));
+    check("…its outline is stroked in the gold on the label canvas, from the face's rings at the view's level; one face under the tap, so no \"Also here\"", s1.sel.rings > 0 && s1.sel.points > 100 && ink1 > 200 && s1.here === 0, JSON.stringify({ rings: s1.sel.rings, points: s1.sel.points, level: s1.sel.level, goldPixels: ink1 }));
+    // A DRAG keeps it lit: read with the pointer still down (the line alone — the glow waits for the settled frame), then after the release
+    const v0 = await A(page, (c) => [c.view.lon, c.view.lat]);
+    const d0f = await A(page, (c) => { const [W, H] = c.frame(), ch = c.chromeRects(); const free = (x, y) => !ch.some((r) => x >= r[0] - 8 && x <= r[2] + 8 && y >= r[1] - 8 && y <= r[3] + 8); for (let y = H * 0.3; y < H * 0.75; y += 20) for (let x = 20; x < W - 120; x += 20) if (free(x, y) && free(x + 90, y + 36)) return [x, y]; return null; });   // a start clear of the popup (a desktop's side panel opens over the frame)
+    const d0 = [bb.x + d0f[0], bb.y + d0f[1]];
+    await page.mouse.move(d0[0], d0[1]); await page.mouse.down(); for (let i = 1; i <= 6; i++) { await page.mouse.move(d0[0] + 15 * i, d0[1] + 6 * i); await sleep(40); }
+    await sleep(150); const mid = await A(page, (c) => ({ id: c.selectedId(), v: [c.view.lon, c.view.lat] })), inkMid = await goldInk();
+    await page.mouse.up(); await sleep(900);
+    const s2 = await A(page, (c) => ({ id: c.selectedId(), card: c.card().open, ent: c.selection().ent })), ink2 = await goldInk();
+    check("a drag keeps the selection lit: the view moved, the outline is drawn with the pointer down and after the release, the popup stays open", mid.id === "pol:rome" && (mid.v[0] !== v0[0] || mid.v[1] !== v0[1]) && inkMid > 100 && s2.id === "pol:rome" && s2.ent >= 0 && s2.card && ink2 > 200, JSON.stringify({ mid, v0, inkMid, after: s2, ink2 }));
+    // A YEAR CHANGE that keeps the state alive keeps the selection; one that does not draws nothing, and back again it is drawn again
+    await year(page, -50); const y1 = await A(page, (c) => ({ id: c.selectedId(), faces: c.selection().faces.length, rings: c.selection().rings })), inkY1 = await goldInk();
+    await year(page, 2025); const y2 = await A(page, (c) => ({ id: c.selectedId(), faces: c.selection().faces.length })), inkY2 = await goldInk();
+    await year(page, -100); await sleep(600); const y3 = await A(page, (c) => ({ id: c.selectedId(), faces: c.selection().faces.length })), inkY3 = await goldInk();
+    check("a year change that keeps Rome alive keeps it selected and outlined (50 BCE); the present day draws no face of it; 100 BCE again draws it again", y1.id === "pol:rome" && y1.faces > 0 && y1.rings > 0 && inkY1 > 200 && y2.id === "pol:rome" && y2.faces === 0 && inkY2 < 20 && y3.faces > 0 && inkY3 > 200, JSON.stringify({ y1, inkY1, y2, inkY2, y3, inkY3 }));
+    await view(page, -4, 40.3, 3);   // the view the drag moved, restored: `clear` is the same ground again
+    // a tap on empty land ELSEWHERE closes it (a tap on no state, or on land no state covers)
+    const sea = await A(page, (c, a) => { const [W, H] = c.frame(), ch = c.chromeRects(); const inChrome = (x, y) => ch.some((r) => x >= r[0] - 8 && x <= r[2] + 8 && y >= r[1] - 8 && y <= r[3] + 8); for (let y = 80; y < H * 0.6; y += 10) for (let x = 20; x < W - 20; x += 10) { if (inChrome(x, y) || c.study.near(x, y, a).length || c.hitAt(x, y).length) continue; if (!c.stackAt(x, y).length) return [x, y]; } return null; }, phone);
+    if (sea) { await tap(sea[0], sea[1]); const s3 = await A(page, (c) => ({ id: c.selectedId(), card: c.card().open })), ink3 = await goldInk(); check("a tap where nothing has a card clears it: no selection, no popup, no outline", s3.id === null && !s3.card && ink3 < 20, JSON.stringify({ s3, ink3 })); }
+    // PRIORITY: a mark inside the face is picked, not the state under it
+    const mk = await A(page, (c, touch) => { for (const m of c.study.liveMarks()) { if (m.members || !c.study.tappable(m.id)) continue; const near = c.study.near(m.x, m.y, touch); if (near.length !== 1 || near[0] !== m.id) continue; const s = c.stackAt(m.x, m.y); if (s.includes("pol:rome")) return { id: m.id, x: m.x, y: m.y }; } return null; }, phone);
+    check("a lone mark lying inside Rome's face", !!mk, JSON.stringify(mk));
+    if (mk) { await tap(mk.x, mk.y); const s4 = await A(page, (c) => ({ id: c.selectedId(), card: c.card() })), ink4 = await goldInk(); check("a tap on it picks the MARK, not the state under it: the place's popup, no gold outline", s4.id === mk.id && s4.card.open && s4.card.id === mk.id && ink4 < 20, JSON.stringify({ s4, ink4 })); }
+    // THE KEYBOARD ROUTE: the hidden list of names holds Rome's; Enter on it makes the same selection
+    await A(page, (c) => c.clearSelection()); await sleep(300); await settle(page);
+    const key = await page.evaluate(() => { const b = document.querySelector('.atlas2-keys button[data-id="pol:rome"]'); if (!b) return null; b.focus(); return b.textContent; });
+    check("the hidden list of names on the map has a button for Rome", /^Rome, /.test(key || ""), key);
+    if (key) { await page.keyboard.press("Enter"); await sleep(900); const s5 = await A(page, (c, p) => ({ id: c.selectedId(), card: c.card(), rings: c.selection().rings, px: c.pixelAt(p[0], p[1]) }), clear), ink5 = await goldInk(); check("Enter on it selects the whole state the same way: the gold fill, the outline, the popup", s5.id === "pol:rome" && s5.card.open && s5.rings > 0 && ink5 > 200 && tinted(s5.px, before), JSON.stringify({ id: s5.id, rings: s5.rings, ink5, px: s5.px })); }
+    // NO CARD, NO SELECTION: in the Personal Atlas Rome is not the reader's (no studied card links it) — the same tap does nothing
+    await A(page, (c) => c.clearSelection()); await sleep(200); await mode(page, "personal");
+    const ownPol = (await A(page, (c) => c.study.flags())).filter(([id, f]) => f === 2 && id === "pol:rome").length;
+    check("the seeded reader has no studied card linking Rome (so in Personal it has no card by the rule)", ownPol === 0);
+    const pBefore = await pixel(page, clear[0], clear[1]); await tap(clear[0], clear[1]);
+    const s6 = await A(page, (c, p) => ({ id: c.selectedId(), card: c.card().open, stack: c.stackAt(p[0], p[1]), px: c.pixelAt(p[0], p[1]) }), clear), ink6 = await goldInk();
+    check("in the Personal Atlas the same tap inside Rome does nothing: no selection, no popup, no gold, the pixel unchanged", s6.id === null && !s6.card && s6.stack.length === 0 && ink6 < 20 && !tinted(s6.px, pBefore), JSON.stringify({ s6, ink6, pBefore }));
     allErrors.push(...errors); await ctx.close();
   }
 
