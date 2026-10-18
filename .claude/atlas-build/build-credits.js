@@ -68,15 +68,18 @@ function collect() {
       const e = byId.get(s.id);
       const key = [s.version, s.retrieved, s.sha256 || ""].join("\u0000");
       let v = e.variants.find((x) => x.key === key);
-      if (!v) { v = { key, files: new Map() }; for (const k of FIELDS) v[k] = s[k] == null ? null : s[k]; e.variants.push(v); }
+      if (!v) { v = { key, files: new Map(), adaptations: [] }; for (const k of FIELDS) v[k] = s[k] == null ? null : s[k]; e.variants.push(v); }
       else for (const k of ["name", "url", "licence", "licenceUrl", "attribution"]) if (v[k] !== (s[k] == null ? null : s[k])) throw new Error(`${h.rel}: source ${s.id} carries a different ${k} from another file of the same version`);
+      // Folio's ADAPTATIONS of a source's data (build-history.js, geometry-fixes.json: a dated geometry correction to one row, allowed by CC BY with attribution): the
+      // union over the files, one line per (series, date), so the page names every adaptation the shipped data carries and nothing it does not
+      for (const a of s.adaptations || []) if (!v.adaptations.some((x) => x.series === a.series && x.date === a.date)) v.adaptations.push({ series: a.series, date: a.date, what: a.what, doc: a.doc });
       // group by directory: the tiles are one line per level, the water tiles one, the relief planes one
       const dir = path.posix.dirname(h.rel), single = /^atlas\/data\/[^/]+$/.test(h.rel) || h.rel.endsWith("relief.json") || !h.rel.startsWith("atlas/data/");
       const g = single ? h.rel : dir + "/";
       v.files.set(g, (v.files.get(g) || 0) + 1);
     }
   }
-  const sources = [...byId.values()].sort((a, b) => (a.id < b.id ? -1 : 1)).map((e) => ({ id: e.id, variants: e.variants.map((v) => { const o = {}; for (const k of FIELDS) o[k] = v[k]; o.shareAlike = !!(LICENCES[v.licence] && LICENCES[v.licence].shareAlike); o.files = [...v.files.entries()].sort().map(([p, n]) => ({ path: p, count: n })); return o; }) }));
+  const sources = [...byId.values()].sort((a, b) => (a.id < b.id ? -1 : 1)).map((e) => ({ id: e.id, variants: e.variants.map((v) => { const o = {}; for (const k of FIELDS) o[k] = v[k]; o.shareAlike = !!(LICENCES[v.licence] && LICENCES[v.licence].shareAlike); if (v.adaptations.length) o.adaptations = v.adaptations.slice().sort((a, b) => (a.date + a.series < b.date + b.series ? -1 : 1)); o.files = [...v.files.entries()].sort().map(([p, n]) => ({ path: p, count: n })); return o; }) }));
   return { sources, filesRead: read, fileSources };
 }
 function render(c) {
@@ -89,7 +92,8 @@ function render(c) {
     "   atlas/data/ (docs/atlas-v2-design.md §2.10a). Do not edit: rebuild. Rendered by the #credits page (app.js, PAGES.credits).\n" +
     "   One entry per source id; `variants` holds each distinct (version, retrieved, sha256) the files carry, with the Folio files\n" +
     "   derived from it (a directory with its file count). `shareAlike` marks ODbL / CC BY-SA / GPL sources, whose derived files\n" +
-    "   are files of their own under that licence. */\n" +
+    "   are files of their own under that licence. `adaptations` lists Folio's own dated corrections to a source's data, as the\n" +
+    "   files' headers name them (build-history.js, geometry-fixes.json). */\n" +
     "window.ATLAS_CREDITS = " + JSON.stringify(table, null, 1) + ";\n";
 }
 const strip = (s) => s.replace(/"generated": "[^"]*"/, '"generated": ""');

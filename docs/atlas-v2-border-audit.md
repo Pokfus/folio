@@ -1,4 +1,4 @@
-# Atlas v2 border audit — is every polity's seat inside its faces? (2026-10-16)
+# Atlas v2 border audit — is every polity's seat inside its faces? (2026-10-16; the Roman Kingdom corrected 2026-10-18, §7)
 
 Owner feedback: *the earliest borders of the Roman Kingdom do not include Rome.* This page answers it (§1), audits every
 card-linked polity the same way (§2), says what the build itself got wrong and what was fixed in the pipeline (§3), lists the
@@ -37,7 +37,8 @@ by design (an overlap is drawn once) and Cliopatria's overlap is the cause; noth
 
 **Verdict.** The root cause is **Cliopatria's geometry** (class *source*): even drawn exactly as Cliopatria draws it, Rome is 2.77 km
 outside, beyond the 2 km the rule allows. The build added 4.1 km of its own (class *snap*, fixed in §3 for 550–481 BCE). The
-**remedy that needs the owner's decision** is in §4.
+**remedy that needs the owner's decision** is in §4 — **decided 2026-10-18: a narrow, documented correction of the row in the build, §7.**
+The table above is the state before it; the Kingdom's row in §2's generated table is gone since.
 
 ## 2. The audit
 
@@ -75,11 +76,11 @@ CC0, through `state-capitals-spec.json`) is the way to bring them under the rule
 
 <!-- generated:begin (audit-seats.js --write-doc; do not edit by hand) -->
 
-**259 seats** (117 capital statements, 142 card-place years) over the card-linked polities; **121 (polity, seat, step) rows fail**, which is **50 entries over 39 polities** once steps are merged into year intervals.
+**259 seats** (117 capital statements, 142 card-place years) over the card-linked polities; **118 (polity, seat, step) rows fail**, which is **49 entries over 38 polities** once steps are merged into year intervals.
 
 | cause | entries | rows |
 |---|---|---|
-| source | 49 | 117 |
+| source | 48 | 114 |
 | clip | 0 | 0 |
 | snap | 0 | 0 |
 | other | 1 | 4 |
@@ -118,7 +119,6 @@ CC0, through `state-capitals-spec.json`) is the way to bring them under the rule
 | qin | Xianyang (capital, cnh-191) | 351 BCE–317 BCE | 51.5 | 51.5 | source | the raw row leaves it 51.5 km outside |
 | qing | Beijing (capital, wh-716) | 1644 CE | 99.5 | 99.5 | source | the raw row leaves it 99.5 km outside; the point lies in ming |
 | qing | Mukden (capital, wh-716) | 1625 CE, 1900 CE–1904 CE | 39.0–155.5 | 39.1 | source | the raw row leaves it 39.1 km outside; the point lies in ming |
-| roman_kingdom | Rome (capital, rm-046) | 751 BCE–482 BCE | 2.8–6.9 | 2.8 | source | the raw row leaves it 2.8 km outside; the point lies in etruscans; **the build adds 4.1 km** |
 | rome | Milan (capital, wh-358) | 402 CE | 18.1 | 17.9 | source | the raw row leaves it 17.9 km outside |
 | rome | Rome (capital, rm-091) | 481 BCE–339 BCE, 407 CE–413 CE, 455 CE–457 CE | 2.8–23.6 | 2.8 | source | the raw row leaves it 2.8 km outside |
 | rus | Kyiv (capital, ru-036) | 1236 CE–1240 CE | 711.8 | 711.1 | source | the raw row leaves it 711.1 km outside |
@@ -210,6 +210,9 @@ outside, or gives the seat to another polity's overlapping row. Two kinds, with 
      city lies 2.8 km outside the kingdom's outline).
 
    Recommendation: **(a) now, (c) meanwhile**; take (b) only if the owner accepts an unsourced-outline relation with its `fixme` shown.
+   **Decision (2026-10-18): (a), in a narrow form — the row is corrected in the build by a dated, verified geometry fix labelled as Folio's
+   adaptation of CC BY data, and the upstream issue is written (§7.1). §7 has the fix, its evidence and its numbers.** The other 48 entries
+   below are untouched by it.
 2. **The other 48 source entries** (table above). They fall into two groups: a seat that lies in *another polity's* row where Cliopatria
    overlaps or hands over territory (Tbilisi under the Seljuks, Didymoteicho and Edirne under Byzantium, Lisbon during the Iberian Union,
    Beijing in 1644 under the Ming …: 20 entries), and a seat that no polity's row holds (29 entries; 2.6 km (Byzantium, 674–81) to 856 km
@@ -237,3 +240,96 @@ polity, and adds the card's own place.
   build draws, which is land only.
 * Cliopatria's span of a series and a capital statement's dates are independent; where they disagree the failure is the *source* class by
   the audit's definition, not necessarily Cliopatria's fault (§4).
+
+## 7. The correction of 2026-10-18: the Roman Kingdom's polygon, adapted
+
+**The decision.** The owner took option (a) of §4 in a narrow form: Cliopatria's row is corrected in the build, for the Roman Kingdom
+ONLY, by a dated, documented geometry fix that the build verifies on every run — and the upstream issue is written (below) rather than
+the row left as it was. Nothing else of §4 is touched: the other 48 *source* entries stand in `seats-known.json` as before, and no seat
+was moved to fit a border.
+
+**The override.** `.claude/atlas-build/geometry-fixes.json` (read by `build-history.js` in `prepareRow`, where the row is read, exactly
+where `polity-qids.json`'s QID fixes are applied) replaces the polygon of every Cliopatria row named `Roman Kingdom` (750–701, 700–501 and
+500–481 BCE, the same five-vertex ring) with the same ring **opened east around Rome by a notch 5.8 km wide and 6.0 km tall**: the east
+edge, which ran along 12.45° E, now runs (12.4482, 41.7816) → (12.4491, 41.866) → (12.519, 41.866) → (12.519, 41.92) → (12.4497, 41.92) →
+(12.4517, 42.1063). Every source vertex is kept; four are added; the three new sides are each 3.0 km from Rome's point. It is the
+smallest edit that meets the brief (the seat at least 2 km inside at every step, the area within 15 % of the source's): moving the whole
+east edge past the city adds 24 % of area, moving the south-east corner alone 15–19 % for 2–3 km inside.
+
+| | the source's ring | the corrected ring |
+|---|---|---|
+| vertices | 5 | 9 |
+| area (planar, at the ring's mean latitude) | 857.7 km² | 892.6 km² (**+4.1 %**) |
+| Rome (12.4828, 41.8931) | 2.77 km **outside** | 2.99 km **inside** (east, north and south sides 3.0 km) |
+
+**Where the build enforces it.** The fix carries the source's ring as `from`: if a later Cliopatria version changes the row, the
+ring no longer matches and the build stops (a stale fix is a silent fault, as a stale QID fix is). Before the corrected ring is used the
+build checks it — the point `check.point` at least `minInsideM` (2 km) inside and the area within `maxAreaChange` (15 %) of the source's —
+and fails otherwise; a fix that matches no row fails the build too. `out/history-report.json` `geometryFixes` records the rows it
+touched, the areas, the inside distance and how often it prevailed (next paragraph).
+
+**The 750–551 BCE step, handled explicitly.** Cliopatria's Etruscans ring of those years contains Rome (§1), so the corrected polygon
+overlaps it around the city. Before the fix the overlap — the Kingdom's east wedge, 91.6 km² on the raw rings — was under `SLIVER_KM2`
+(120 km²) and the sliver rule gave it to the claimant with the longest shared edge, the Etruscans (and the D2 snap had laid the
+Kingdom's east edge on the Etruscan line, so nothing of the wedge was left to argue about). With the notch the raw overlap is 126.2 km²,
+over the sliver bar, which would have made Rome's surroundings a *contested* face of the two. The fix's `over: ["etruscans"]` settles
+it in the labelling, before the sliver and the contested rules: **a piece claimed by the Kingdom's corrected row and by the Etruscan row
+is the Kingdom's** (as built, one piece of 140 km² in each epoch: the whole overlap, between the Etruscan line and the Kingdom's east boundary). And a corrected ring's own vertices are exempt from the D2 neighbour snap (D1 and D3 apply as to any
+ring): the first build of the fix let D2 carry the notch's south-west corner 4.1 km west onto the Etruscan line, which tilted the notch's
+south side (Rome 2.75 km inside instead of 2.99) and left a spike of the wedge below it; the correction is the authority where the two
+rows meet, and `over` decides the overlap. The land that changes hands is land Cliopatria itself draws as the
+Kingdom's, plus the notch; the Etruscan row is the one whose overlap the correction exists to undo. The rule is the fix's own, not a
+general one: no other pair of rows is affected (7 pieces over the whole build, one in each of the seven epochs of 750–551 BCE, every one the Kingdom's against the Etruscans, 978 km² in all; and 118 D2 snaps of the corrected ring's own vertices refused, none elsewhere — `out/history-report.json` `geometryFixes`).
+
+**Built, measured** (`history.bin` after `build-history.js --no-cache --install`; the face at the finest level, `lib/seats.js`'s test;
+the faces' areas are larger than the ring's because the coast run and the D2 snaps are the face's, not the source's):
+
+| step | before: Rome from the face | before: face km² | after: Rome from the face | after: face km² | Rome held by |
+|---|---|---|---|---|---|
+| 750–551 BCE (face 52) | 6.86 km **outside** | 886.9 | **2.99 km inside** | 1026.7 | the Roman Kingdom alone (was the Etruscans) |
+| 550–501 BCE (face 92) | 2.76 km outside | 991.9 | **2.99 km inside** | 1026.6 | the Roman Kingdom alone (was nobody: unmapped land) |
+| 500–481 BCE (face 105) | 2.76 km outside | 991.8 | **2.99 km inside** | 1026.5 | the Roman Kingdom alone (was nobody) |
+
+The face is now the same shape at every step (the three areas differ by a coast vertex or two), and Rome's 2.99 km is the ring's own:
+no snap moves the notch.
+
+`check-history.js`'s **seats** rule passes for the Roman Kingdom with no listed exception: its entry is gone from `seats-known.json`
+(`audit-seats.js --write-known`: 49 entries over 38 polities, 48 *source* and 1 *other*, against 50 over 39 before; nothing else in the list moved), and the three `Rome … in pol:roman_kingdom` lines of `KNOWN_CAPITAL_FAULTS` are
+removed. The Roman Republic's Rome of 480–338 BCE (`pol:rome`, 2.8 km, the source's own row) is a different series and is NOT corrected
+here: it stays listed as *source*, for the owner.
+
+**The licence, said where it counts.** Cliopatria is CC BY 4.0, which permits adaptation with attribution. The adaptation is named in three
+places that cannot drift apart: the fix file itself (`what`, `why`, `evidence`, `licence`); `history.bin`'s header, whose Cliopatria
+source entry carries `adaptations: [{ series, date, what, doc }]` (and the war slice, its twin, `polity-index.js` copy the same header);
+and the **Sources and credits** page, which `build-credits.js` generates from the files' headers alone — it merges the adaptations per
+source variant and the page prints them under the attribution as "Adapted by Folio (the licence allows it, with this attribution): …".
+
+**What this is not.** It is not a claim about where the Kingdom's border ran in 600 BCE: a rectangle 3 km from a modern coordinate is a
+correction to a drawing, made so that the city a kingdom is named after is inside it. The honest fix is upstream, and §7.1 is the issue
+for it. It is also not applied to the Etruscan row (whose ring still contains Rome; only the overlap with the Kingdom is decided), nor to
+any of the 48 other *source* entries of §2, which wait for the owner as §4 says.
+
+### 7.1 The upstream issue (written, not posted)
+
+> **Title:** Roman Kingdom (Q201038), 750–481 BCE: the polygon leaves Rome 2.8 km outside it, inside the Etruscans polygon
+>
+> **Version:** cliopatria v0.2.0 (`cliopatria.geojson.zip`, sha256 d01ae3a2…), rows `Name = "Roman Kingdom"`, Wikidata Q201038, FromYear/ToYear
+> −750/−701, −700/−501 and −500/−481.
+>
+> **What I see.** All three rows carry the same five-vertex polygon, about 859 km²: (12.1305, 41.9114) (12.4482, 41.7816) (12.4517, 42.1063)
+> (11.9725, 42.1063) (12.1311, 41.9764). Its east edge runs along 12.45° E. Rome — Wikidata Q220, P625 12.4828 E 41.8931 N; the capital the
+> item Q201038 itself names (P36) — lies 2.77 km east of that edge, outside the polygon. The `Etruscans` rows of −750/−651, −650/−601 and
+> −600/−551 contain Rome's coordinate (6.3 km inside their own edge); the Etruscans ring shares the Kingdom's north-east corner (12.4517, 42.1063).
+> So, as drawn, the city is not in the kingdom named after it and, for 750–551 BCE, is Etruscan.
+>
+> **How I checked.** Point-in-polygon and point-to-edge distance on the raw rings in the GeoJSON (planar at the ring's latitude), independently
+> of any rendering; the figures above are from the raw rows.
+>
+> **What I would suggest.** Move the east edge (or add vertices) so that the polygon contains Rome's site with some margin — the city on the
+> left bank of the Tiber, the hills, and the river's mouth at Ostia if the row means to include it — and, if the Etruscan rows are meant to
+> stop at the Tiber in these years, trim their south-west tip to the river so the two do not overlap at the city. I have no source of my own
+> for where the Kingdom's border ran, and do not propose one; I am reporting that the polygon excludes its own capital.
+>
+> **What I did meanwhile.** Folio (folio.study), which draws Cliopatria's borders, opens the east edge around Rome by a 5.8 × 6.0 km notch
+> (+4 % of area) and treats that overlap as the Kingdom's, labelled as Folio's adaptation of your CC BY 4.0 data on its credits page. I will
+> drop the adaptation when a corrected row ships.

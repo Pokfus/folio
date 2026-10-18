@@ -3,10 +3,11 @@
    atlas/data/ (docs/atlas-v2-design.md §2.10a). Do not edit: rebuild. Rendered by the #credits page (app.js, PAGES.credits).
    One entry per source id; `variants` holds each distinct (version, retrieved, sha256) the files carry, with the Folio files
    derived from it (a directory with its file count). `shareAlike` marks ODbL / CC BY-SA / GPL sources, whose derived files
-   are files of their own under that licence. */
+   are files of their own under that licence. `adaptations` lists Folio's own dated corrections to a source's data, as the
+   files' headers name them (build-history.js, geometry-fixes.json). */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-10-17T15:31:16.561Z",
+ "generated": "2026-10-18T01:52:46.201Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
  "filesRead": 664,
  "sources": [
@@ -23,6 +24,14 @@ window.ATLAS_CREDITS = {
      "retrieved": "2026-10-08",
      "sha256": "d01ae3a20d358cc5d54f69d9d725d390767d9c8759ac89ad6f90c58d106f3370",
      "shareAlike": false,
+     "adaptations": [
+      {
+       "series": "roman_kingdom",
+       "date": "2026-10-18",
+       "what": "Roman Kingdom, 750–481 BCE: the five-vertex polygon's east edge is opened around Rome by a notch of 5.8 × 6.0 km (34.9 km², +4.1 %), so the city lies 3.0 km inside instead of 2.8 km outside; and where the corrected polygon overlaps Cliopatria's Etruscan row (750–551 BCE) the overlap is the Kingdom's.",
+       "doc": "docs/atlas-v2-border-audit.md §7"
+      }
+     ],
      "files": [
       {
        "path": "atlas/data/findit-areas.js",

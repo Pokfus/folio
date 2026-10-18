@@ -48,6 +48,7 @@ window.CHANGELOG = [
       "<b>Atlas marks</b>: circles, diamonds and every other place mark are half the size they were — only a capital's square keeps its size, and a city's ring stays large enough for its count.",
       "<b>Atlas states</b>: a state, a people or a culture no longer carries a star — it is named on the map, and its border or its name is what you tap.",
       "<b>Atlas timeline</b>: the small vertical lines along the year track are gone; the track is a plain line with the pin, and [ and ] still jump between the years something on screen changes.",
+      "<b>Atlas borders</b>: Rome now lies inside the Roman Kingdom in every year from 750 to 481 BCE — the source drew the city 3 km outside it, and Folio's correction (named on Sources and credits) opens the border around the city.",
     ],
   },
   {
