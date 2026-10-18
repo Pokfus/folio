@@ -348,8 +348,8 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     // Sampled over three views at one zoom (1.5 km/px, where markHalf is 8: since decision a of 2026-10-18 the capital's square is 16 px across and every
     // other glyph 8, a hill 6): the eastern Mediterranean (El Alamein's battle, Cairo), Greece (Olympus and Sounion's peaks, the sites), central Europe
     // (Dunkirk's battle, the Kahlenberg, Vienna; the Berlin Wall's building class is in Berlin's stack)
-    // the INK of a glyph: the pixels that are not the paper's colour (a hollow mark's fill is the paper, its outline the ink; the reader's own are filled with the accent)
-    const mask = (m) => page.evaluate((m) => { const c = document.querySelector(".atlas2").__atlas2, halo = c.colours().halo, hr = parseInt(halo.slice(1, 3), 16), hg = parseInt(halo.slice(3, 5), 16), hb = parseInt(halo.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), d = cv.width / cv.getBoundingClientRect().width, r = Math.ceil((m.h + 3) * d), cx = Math.round(m.x * d), cy = Math.round(m.y * d); const img = cv.getContext("2d").getImageData(cx - r, cy - r, 2 * r + 1, 2 * r + 1); const out = []; let n = 0; for (let i = 0; i < img.data.length; i += 4) { const a = img.data[i + 3]; const on = a > 100 && (Math.abs(img.data[i] - hr) + Math.abs(img.data[i + 1] - hg) + Math.abs(img.data[i + 2] - hb) > 60) ? 1 : 0; out.push(on); n += on; } return { w: 2 * r + 1, bits: out, n }; }, m);
+    // the INK of a glyph: the pixels that are not the paper's colour (a hollow mark's fill is the paper, its outline the ink; the reader's own are filled with the accent), within the glyph's own extent and a pixel — its name stands 3 px off since decision c of 2026-10-18
+    const mask = (m) => page.evaluate((m) => { const c = document.querySelector(".atlas2").__atlas2, halo = c.colours().halo, hr = parseInt(halo.slice(1, 3), 16), hg = parseInt(halo.slice(3, 5), 16), hb = parseInt(halo.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), d = cv.width / c.frame()[0], r = Math.ceil((m.h + 1.5) * d), cx = Math.round(m.x * d), cy = Math.round(m.y * d); const img = cv.getContext("2d").getImageData(cx - r, cy - r, 2 * r + 1, 2 * r + 1); const out = []; let n = 0; for (let i = 0; i < img.data.length; i += 4) { const a = img.data[i + 3]; const on = a > 100 && (Math.abs(img.data[i] - hr) + Math.abs(img.data[i + 1] - hg) + Math.abs(img.data[i + 2] - hb) > 60) ? 1 : 0; out.push(on); n += on; } return { w: 2 * r + 1, bits: out, n }; }, m);
     const jaccard = (a, b) => { const w = Math.min(a.w, b.w); let inter = 0, uni = 0; for (let y = 0; y < w; y++) for (let x = 0; x < w; x++) { const p = a.bits[y * a.w + x], q = b.bits[y * b.w + x]; if (p && q) inter++; if (p || q) uni++; } return uni ? inter / uni : 1; };
     const sample = {}, seenCls = {}; let lone = null, mk = [];
     for (const [lon, lat] of [[31, 27.5], [22.5, 38.5], [9.4, 49.7]]) {
@@ -402,7 +402,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     await year(page, 2025);
     const find = (name) => [...REG.values()].find((r) => r.name === name);
     const cases = [
-      { name: "Malia (archaeological site)", view: [25.5, 35.3, 1.5], text: "Malia", lines: 1 },
+      { name: "Malia (archaeological site)", view: [25.49, 35.293, 0.15], text: "Malia", lines: 1 },   // at the zoom cap: at 1.5 km/px the Cretan sites stand on both its sides and the name is not drawn (decision c, 2026-10-18)
       { name: "Second Battle of El Alamein", view: [28.9, 30.8, 1.5], text: "Second Battle of El Alamein", lines: 2 },
       { name: "Bhimbetka rock shelters", view: [77.6, 22.9, 1.5], text: "Bhimbetka rock shelters", lines: 2 },
       { name: "Boma, Democratic Republic of the Congo", view: [13.05, -5.85, 1.5], text: "Boma", lines: 1 },
@@ -450,7 +450,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     // the hairline: ink pixels on the label canvas between a nudged ring's edge and its true point
     { const lv = await live(page); const m = lv.find((x) => x.members && (x.ox || x.oy) && Math.hypot(x.ox, x.oy) > x.h);
       if (m) { const d = Math.hypot(m.ox, m.oy), mx = m.x - m.ox / d * (m.h + (d - m.h) / 2), my = m.y - m.oy / d * (m.h + (d - m.h) / 2);
-        const ink = await A(page, (c, p) => { const halo = c.colours().halo, hr = parseInt(halo.slice(1, 3), 16), hg = parseInt(halo.slice(3, 5), 16), hb = parseInt(halo.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), k = cv.width / cv.getBoundingClientRect().width, x = cv.getContext("2d"); let n = 0; const dd = x.getImageData(Math.round((p[0] - 2) * k), Math.round((p[1] - 2) * k), Math.round(5 * k), Math.round(5 * k)).data; for (let i = 0; i < dd.length; i += 4) if (dd[i + 3] > 40 && (Math.abs(dd[i] - hr) > 40 || Math.abs(dd[i + 1] - hg) > 40 || Math.abs(dd[i + 2] - hb) > 40)) n++; return n; }, [mx, my]);
+        const ink = await A(page, (c, p) => { const halo = c.colours().halo, hr = parseInt(halo.slice(1, 3), 16), hg = parseInt(halo.slice(3, 5), 16), hb = parseInt(halo.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), k = cv.width / c.frame()[0], x = cv.getContext("2d"); let n = 0; const dd = x.getImageData(Math.round((p[0] - 2) * k), Math.round((p[1] - 2) * k), Math.round(5 * k), Math.round(5 * k)).data; for (let i = 0; i < dd.length; i += 4) if (dd[i + 3] > 40 && (Math.abs(dd[i] - hr) > 40 || Math.abs(dd[i + 1] - hg) > 40 || Math.abs(dd[i + 2] - hb) > 40)) n++; return n; }, [mx, my]);
         check(`the hairline from ${m.name}'s ring to its true point is drawn (ink pixels midway: ${ink})`, ink > 0); }
       else console.log("  (no ring nudged farther than its own half-extent at this view: the hairline is not read)"); }
     await shot(page, "rome-vatican-closest");
@@ -537,7 +537,8 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const kc = key.find((k) => k.cls === "capital"), kb = key.find((k) => k.cls === "building");
     check("the Legend lists the capital (a square) and the building (a house) with different glyphs", !!kc && !!kb && kc.d !== kb.d && /capital/i.test(kc.word) && /building/i.test(kb.word), key.map((k) => k.cls).join(","));
     // (d) the bare name on the label, the full name in the popup
-    for (const c of [{ id: "pl:q583718", name: "Kirchberg, Luxembourg", text: "Kirchberg", view: [6.1456, 49.6275, 1.5] }, { id: "pl:q1435589", name: "Folsom, New Mexico", text: "Folsom", view: [-103.9181, 36.8481, 1.5] }, { id: "pl:q2246183", name: "Cures, Sabinum", text: "Cures", view: [12.6866, 42.1825, 0.7] }]) {
+    // Kirchberg at the zoom cap: at 1.5 km/px Luxembourg's marks stand on both its sides and the name is not drawn (decision c, 2026-10-18)
+    for (const c of [{ id: "pl:q583718", name: "Kirchberg, Luxembourg", text: "Kirchberg", view: [6.1456, 49.6275, 0.15] }, { id: "pl:q1435589", name: "Folsom, New Mexico", text: "Folsom", view: [-103.9181, 36.8481, 1.5] }, { id: "pl:q2246183", name: "Cures, Sabinum", text: "Cures", view: [12.6866, 42.1825, 0.7] }]) {
       await view(page, c.view[0], c.view[1], c.view[2]);
       const lab = (await labels(page)).find((p) => p.id === c.id);
       check("'" + c.name + "' is labelled \"" + c.text + "\"", !!lab && lab.text === c.text, lab ? lab.text : "not placed");
@@ -664,6 +665,31 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const s6 = await A(page, (c, p) => ({ id: c.selectedId(), card: c.card().open, stack: c.stackAt(p[0], p[1]), px: c.pixelAt(p[0], p[1]) }), clear), ink6 = await goldInk();
     check("in the Personal Atlas the same tap inside Rome does nothing: no selection, no popup, no gold, the pixel unchanged", s6.id === null && !s6.card && s6.stack.length === 0 && ink6 < 20 && !tinted(s6.px, pBefore), JSON.stringify({ s6, ink6, pBefore }));
     allErrors.push(...errors); await ctx.close();
+  }
+
+  /* ------------------------------------------------------------------ 13  a capital's stack is the capital's square with its count (decision d, 2026-10-18) */
+  console.log("\n\x1b[1m13) 2026-10-18 d: a stack whose city is a capital is drawn as the capital's SQUARE with the count inside (Rome, Athens); any other city's stack stays the ring\x1b[0m\n");
+  {
+    const ROME = "city:1159151593", ATHENS_RE = /^city:/;
+    const { ctx, page, errors } = await open(browser, READER, { phone: true });
+    await mode(page, "full"); await year(page, 2025);
+    // the ink inside a stack's glyph: pixels that are neither transparent nor the glyph's fill (the count's digits and the outline), read off the label canvas within the inner square
+    const inner = (m) => A(page, (c, m) => { const col = c.colours(), fill = col.markFill || col.halo, fr = parseInt(fill.slice(1, 3), 16), fg = parseInt(fill.slice(3, 5), 16), fb = parseInt(fill.slice(5, 7), 16); const cv = document.querySelector(".atlas2-labels"), k = cv.width / c.frame()[0], x = cv.getContext("2d"); const r = Math.max(1, Math.floor((m.h - 3.5) * k)), d = x.getImageData(Math.round(m.x * k) - r, Math.round(m.y * k) - r, 2 * r + 1, 2 * r + 1).data; let ink = 0, fillPx = 0; for (let i = 0; i < d.length; i += 4) { if (d[i + 3] < 100) continue; if (Math.abs(d[i] - fr) + Math.abs(d[i + 1] - fg) + Math.abs(d[i + 2] - fb) <= 60) fillPx++; else ink++; } return { ink, fillPx, k }; }, m);
+    for (const [name, lon, lat, k, cityRe] of [["Rome at 1.2 km/px", 12.5, 41.9, 1.2, (m) => m.city === ROME], ["Athens at 0.6 km/px", 23.7275, 37.9838, 0.6, (m) => m.name === "Athens"]]) {
+      await view(page, lon, lat, k);
+      const lv = await live(page), stacks = lv.filter((m) => m.members), cap = stacks.find(cityRe), rings = stacks.filter((m) => m.shape === "stack"), squares = stacks.filter((m) => m.shape === "square");
+      check(`${name}: the capital's stack is drawn (${stacks.map((m) => m.name + " " + m.count + " " + m.shape).join(", ")})`, !!cap, "no stack for the capital");
+      if (!cap) continue;
+      check(`${name}: ${cap.name}'s stack (${cap.count} places) is a SQUARE, not a ring`, cap.shape === "square" && cap.cls === "stack", cap.shape + " / " + cap.cls);
+      check(`${name}: the square is 20 px across (half-extent 10, AtlasStudy.squareHalf) — the ring is 19`, Math.abs(cap.h - 10) < 0.01, cap.h + " px half");
+      const px = await inner(cap);
+      check(`${name}: the count is written inside it (${px.ink} ink pixels among ${px.fillPx} of the fill within the inner square at ${px.k} device px per CSS px)`, px.ink >= 8 && px.fillPx >= 8, JSON.stringify(px));
+      if (name.startsWith("Rome")) check("Rome's count has two digits, which the square is sized for", cap.count >= 10, String(cap.count));
+      check(`${name}: every other stack on screen whose city is not a capital is still the ring (${rings.map((m) => m.name + " " + m.count).join(", ") || "none on screen"}), and every square stack's city is a capital (${squares.map((m) => m.name).join(", ")})`, squares.every((m) => m.cap) && rings.every((m) => !m.cap), JSON.stringify(stacks.map((m) => [m.name, m.shape, !!m.cap])));
+    }
+    await shot(page, "capital-square-stacks");
+    allErrors.push(...errors); await ctx.close();
+    void ATHENS_RE;
   }
 
   /* ------------------------------------------------------------------ done */

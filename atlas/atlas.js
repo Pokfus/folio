@@ -269,7 +269,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "21b21c937c:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "832db27a63:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -1904,7 +1904,7 @@
       const seq = ++layoutSeq;
       L.sentAt = performance.now();
       L.chrome = chromeRects();   // kept for the painter: between layouts a label that slid under a control or past the frame is not drawn (Phase 4c)
-      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, level: view.level, density: layers.density, phone: PHONE, fs: LS, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
+      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, kmppFloor: kmFloor(), level: view.level, density: layers.density, phone: PHONE, fs: LS, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
       if (reason === "settle" || reason === "level") writeHash(false);
     }
     function applyLayout(m) {
@@ -1927,6 +1927,12 @@
     /* ---- sprites: a label rendered once, glyph by glyph, halo then ink, at its layout position ---- */
     let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "", haloDark = false;
     const HALO_W = 2.6, HALO_W_DARK = 3.2;   // CSS px of halo stroke (both sides of a glyph): wider in a dark theme (decision c, 2026-10-17), where the dark halo is what keeps a light name legible over the lighter sea and the relief
+    /* NO HALO WIDER THAN THE ORDINARY NAMES' WIDEST (2026-10-18, the owner's fifth look, decision b: "text labels for peoples have an unreasonably thick dark outline").
+       HALO_W_MAX (3.2 px at Text size Medium, × LS like every width) is the cap: the ordinary names' own widest (the dark theme's HALO_W_DARK). The people styles
+       had PEOPLE_HALO, 5.4 px (2d, task 0b: 2.7 px showing each side, so the stipple's dots never touched a stroke) — they now take the ordinary width of the
+       theme, and the selected name, which had 3.4 (4 in a dark theme), the cap. `test-atlas-halos.js` measures the halo each style paints, per theme. */
+    const HALO_W_MAX = 3.2;
+    const haloWidthFor = (p) => (p.id === sel.id ? HALO_W_MAX : haloDark ? HALO_W_DARK : HALO_W);   // CSS px at Medium: the stroke's width, half of it showing round the glyph
     const markSprites = new Map(), MARK_SPRITE_MAX = 400;   // the study marks' glyph bitmaps (markSprite, below); cleared with the colours
     function labelColours() {
       const { ink, paper, paper2, indigo, ochre, dark } = themeTokens();
@@ -1961,7 +1967,6 @@
        name was painted where it used to be and nothing at all where the layout now puts it. CI's log of run 3630 showed it: "drawn from 288,467, expected 117,539". A hit now returns the same canvas with THIS label's own corner. */
     const spriteAt = (sp, p) => ({ c: sp.c, w: sp.w, h: sp.h, x0: Math.floor(p.box[0]) - SPRITE_PAD, y0: Math.floor(p.box[1]) - SPRITE_PAD });
     function spriteFor(p) { const k = spriteKey(p); if (!k) return null; let sp = spriteCache.get(k); if (sp) { spriteCache.delete(k); spriteCache.set(k, sp); return spriteAt(sp, p); } sp = renderSprite(p); if (sp) { spriteCache.set(k, sp); if (spriteCache.size > 600) spriteCache.delete(spriteCache.keys().next().value); } return sp; }
-    const PEOPLE_HALO = 5.4;   // CSS px of stroke: 2.7 px each side of a glyph, so the stipple (dots 1.35 px in radius) never touches an ink pixel
     function renderSprite(p) {
       if (!p.glyphs || !p.glyphs.length) return null;
       const st = STYLE_BY_ID[p.style]; if (!st) return null;
@@ -1971,7 +1976,7 @@
       const x = c.getContext("2d");
       x.scale(dprNow, dprNow); x.translate(-x0, -y0);
       x.textBaseline = "middle"; x.textAlign = "left"; x.lineJoin = "round"; x.lineCap = "round";
-      x.lineWidth = (p.id === sel.id ? (haloDark ? 4 : 3.4) : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : haloDark ? HALO_W_DARK : HALO_W) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
+      x.lineWidth = haloWidthFor(p) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // one width for every style of the theme, the cap for the selected name (decision b, 2026-10-18)
       const fontBig = fontOf(st, st.size * LS), fontSmall = st.caps ? fontOf(st, st.size * LS * SMALL_SCALE) : fontBig;
       for (const pass of [0, 1]) {   // every halo first, then every glyph, so a halo never bites a neighbour
         for (let i = 0; i < p.glyphs.length; i++) {
@@ -1984,11 +1989,33 @@
       return { c, x0, y0, w, h };
     }
     function drawMarker(ctx, x, y, r, kind, hot, p) {
-      ctx.fillStyle = hot ? selCss : inkCss; ctx.strokeStyle = haloCss; ctx.lineWidth = 1.5;
+      ctx.fillStyle = hot ? selCss : inkCss; ctx.strokeStyle = haloCss;
       ctx.beginPath();
       if (kind === "capital") ctx.rect(x - r, y - r, 2 * r, 2 * r); else ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fill(); ctx.stroke();
+      if (haloDark) { ctx.lineWidth = HALO_W_DARK * LS; ctx.stroke(); ctx.fill(); }   // a dark theme: the halo under the dot, as under a glyph (decision a, 2026-10-18 b)
+      else { ctx.lineWidth = 1.5; ctx.fill(); ctx.stroke(); }
     }
+    /* A MARK IN A DARK THEME IS A LIGHT GLYPH WITH THE NAMES' DARK HALO (2026-10-18, the owner's fifth look, decision a: "in dark mode, circles, squares and the
+       other marks should have dark outlines like their text labels, not white"). In a light theme a mark is a paper fill (the reader's own the ochre) with a
+       thin ink outline — unchanged. In a DARK theme it was the inverse of its colours only: a dark fill with a light ring. Now it is painted as a glyph is:
+       the names' halo (haloCss, HALO_W_DARK wide — 1.6 px of it showing round the shape) is stroked first and the LIGHT fill laid over it — the ink for a
+       place, the lightened ochre of the reader's own names (selCss) for a place of theirs — so the mark reads as the names do, light on a dark halo, and the
+       light fill against the land is what carries the contrast (the ink 12.5:1 on folio's night, the ochre 6.8:1; `test-atlas-dark-labels.js` §2 reads the
+       pixels). A count inside a ring or a square is the halo's colour then (dark on the light fill). The selected mark and the fan's copies follow: the halo,
+       the fill, and a thin ring of the selection colour inside the fill's edge. The shape's path is the caller's (built with its own outline width, so the
+       light fill is the light theme's silhouette and the halo lies at most a pixel beyond the half-extent — inside the obstacle the worker reserves). */
+    function paintMark(x, path, mine, hot) {
+      const op = (m) => (path ? x[m](path) : x[m]());
+      if (haloDark) {
+        x.lineWidth = HALO_W_DARK * LS; x.strokeStyle = haloCss; op("stroke");
+        x.fillStyle = mine ? selCss : inkCss; op("fill");
+        if (hot) { x.lineWidth = 1.5; x.strokeStyle = selCss; op("stroke"); }
+      } else {
+        x.fillStyle = mine ? accentCss : haloCss; op("fill");   // the outline's width is the caller's (markLine, or 2 for the selected mark and the fan)
+        x.strokeStyle = hot ? selCss : inkCss; op("stroke");
+      }
+    }
+    const countInk = (mine) => (haloDark ? haloCss : mine ? haloCss : inkCss);   // a ring's or a square's count: dark on a light fill in a dark theme; the paper on the ochre, the ink on the paper, in a light one
     /* ---- THE STUDY LAYER'S MARKS (Phase 3b; stacks removed 2026-10-14) ----
        Every place and every polity the layer flags is ONE mark at its own position, at any zoom: no cluster, no count (the owner's
        decision, docs/atlas-v2-design.md §7 "Stacks removed"). The worker posts the list at each layout (`L.marks`, unit vectors); the
@@ -1997,12 +2024,12 @@
        DRAWN at half of that — AtlasStudy.markScale — and the city ring at the size its 9 px count needs, AtlasStudy.ringHalf) whatever a gesture is doing. A mark that would lie past the
        frame's edge or under a control (the chrome the last layout measured: the study panel, the rail, the card …) is not drawn in
        that frame and cannot be tapped. The shapes are the glyph classes below; the reader's own filled with the accent,
-       the others hollow, a thin ink outline on both so two marks that touch still read as two. DRAW ORDER, back to front: places not
+       the others hollow, a thin ink outline on both so two marks that touch still read as two — in a LIGHT theme; in a dark theme a mark is a light glyph on the names' dark halo (paintMark, decision a of 2026-10-18 b). DRAW ORDER, back to front: places not
        studied, places studied, and the selected mark last (a polity has had no mark since 2026-10-18, decision b). The marks of one kind in one layer are one path (a fill and a
        stroke for all of them), so a Full Atlas of 1,300 places and 190 polities is a handful of canvas calls a frame. */
     /* THE SEVEN GLYPHS (decision e, 2026-10-17, and decision b of the same day; the star removed 2026-10-18, decision b; AtlasStudy.MARK_CLASSES): a square (a capital, present or past), a disc (a city or
        town), a diamond (a site or cave), a saltire (a battle), a triangle (a mountain, hill or cape), a house — a pointed-top pentagon — (a building, monument or
-       wall), a ring with a count (a city stack). A state, a people or a culture has NO mark: its name and its face are what a reader taps. Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
+       wall), a ring with a count (a city stack; a capital's stack is the capital's SQUARE with the count inside — decision d, 2026-10-18 — sized by AtlasStudy.squareHalf). A state, a people or a culture has NO mark: its name and its face are what a reader taps. Told apart by SHAPE: the fill says only whose they are (the reader's own in the accent, the rest hollow). One path per class per frame.
        The same geometry draws the Legend's key (`glyphSVG`), so the key cannot drift from the map. */
     const SQ = Math.SQRT1_2, CROSS_T = 0.34;   // the saltire's bar half-width, as a share of the half-extent
     function markInto(path, shape, x, y, h, lw) {
@@ -2035,8 +2062,8 @@
       L.markIndex = new Map();
       for (let i = 0; i < n; i++) {
         const m = marks[i]; ax[3 * i] = m.a[0]; ax[3 * i + 1] = m.a[1]; ax[3 * i + 2] = m.a[2]; L.markIndex.set(m.id, i);
-        const key = m.layer * 64 + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);   // the shape decides the class (a square is the capital's), so the scale is one per key
-        let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, scale: A.markScale(m.kind, m.cls), layer: m.layer, idx: [] });
+        const key = m.layer * 128 + (m.members ? 64 : 0) + (m.st === 2 ? 32 : 0) + (SHAPE_CODE[m.shape] || 0) * 4 + (m.kind === "hill" ? 2 : 0);   // the shape decides the class (a square is the capital's), so the scale is one per key; a stack (a ring, or a capital's square with its count: decision d, 2026-10-18) is sized apart
+        let g = groups.get(key); if (!g) groups.set(key, g = { key, mine: m.st === 2, shape: m.shape, stack: !!m.members, scale: A.markScale(m.kind, m.cls), layer: m.layer, idx: [] });
         g.idx.push(i);
       }
       L.markGroups = [...groups.values()].sort((p, q) => p.key - q.key);
@@ -2062,12 +2089,12 @@
       const pad = 2, half = hq + pad, size = Math.max(1, Math.ceil(2 * half * dpr));
       const c = document.createElement("canvas"); c.width = c.height = size;
       const x = c.getContext("2d"); x.setTransform(dpr, 0, 0, dpr, 0, 0);
-      x.lineJoin = "round"; x.lineCap = "round"; x.lineWidth = lw; x.strokeStyle = inkCss; x.fillStyle = mine ? accentCss : haloCss;
-      x.beginPath(); markInto(x, shape, half, half, hq, lw); x.fill(); x.stroke();
+      x.lineJoin = "round"; x.lineCap = "round"; x.lineWidth = lw;
+      x.beginPath(); markInto(x, shape, half, half, hq, lw); paintMark(x, null, mine, false);   // the light theme's fill and ink line, or the dark theme's halo and light fill (paintMark)
       if (count) {   // a city stack's count, inside its ring (decision d)
         x.textAlign = "center"; x.textBaseline = "middle";
         x.font = `700 ${(root.AtlasStudy.STACK_FONT_PX * LS).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;   // a 9 px bold figure (decision a, 2026-10-18): the ring is sized to hold two digits of it
-        x.fillStyle = mine ? haloCss : inkCss; x.fillText(String(count), half, half + 0.5);
+        x.fillStyle = countInk(mine); x.fillText(String(count), half, half + 0.5);
       }
       s = { c, half, w: 2 * half }; markSprites.set(key, s); return s;
     }
@@ -2084,7 +2111,7 @@
       const faint = [], hair = [];
       ctx.globalAlpha = 1;
       for (const g of L.markGroups) {
-        const shape = g.shape, stack = shape === "stack", h = stack ? A.ringHalf(half, LS) : half * g.scale, lw = markLine(h), e = h + 1, idx = g.idx;   // the drawn size (decision a, 2026-10-18): half for every class but the capital; the outline follows it
+        const shape = g.shape, stack = g.stack, h = stack ? (shape === "square" ? A.squareHalf(half, LS) : A.ringHalf(half, LS)) : half * g.scale, lw = markLine(h), e = h + 1, idx = g.idx;   // the drawn size (decision a, 2026-10-18): half for every class but the capital; a stack the ring's size, or the capital square's when its city is a capital (decision d); the outline follows it
         const sp = stack ? null : markSprite(shape, h, lw, g.mine, 0);   // a stack's sprite carries its count: fetched per mark
         for (let k = 0; k < idx.length; k++) {
           const i = idx[k], j = 3 * i, a0 = ax[j], a1 = ax[j + 1], a2 = ax[j + 2];
@@ -2127,11 +2154,11 @@
       if (selK >= 0) {
         const m = marks[li[selK]], path = new Path2D();
         markInto(path, m.shape, lx[selK], ly[selK], lh[selK] + 1, 2);
-        ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = 2; ctx.strokeStyle = selCss; ctx.fillStyle = m.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
+        ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = 2; paintMark(ctx, path, m.st === 2, true);
         if (m.members) {   // the open stack's count, over its highlighted ring
           ctx.textAlign = "center"; ctx.textBaseline = "middle";
           ctx.font = `700 ${(A.STACK_FONT_PX * LS).toFixed(1)}px ${faces[(STYLE_BY_ID.city || STYLE_BY_ID.town).face]}`;
-          ctx.fillStyle = m.st === 2 ? haloCss : inkCss; ctx.fillText(String(m.count || m.members.length), lx[selK], ly[selK] + 0.5);
+          ctx.fillStyle = countInk(m.st === 2); ctx.fillText(String(m.count || m.members.length), lx[selK], ly[selK] + 0.5);
           ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
         }
       }
@@ -2200,7 +2227,7 @@
       for (const sl of fan.slots) {
         const m = sl.mem, mk = m.e.m, path = new Path2D(), hot = mk.id === sel.id;
         markInto(path, mk.shape, sl.x, sl.y, 8 * LS, 2);
-        ctx.lineWidth = 2; ctx.strokeStyle = hot ? selCss : inkCss; ctx.fillStyle = mk.st === 2 ? accentCss : haloCss; ctx.fill(path); ctx.stroke(path);
+        ctx.lineWidth = 2; paintMark(ctx, path, mk.st === 2, hot);
         ctx.font = fontOf(st, 12 * LS); ctx.textBaseline = "middle"; ctx.textAlign = sl.right ? "left" : "right";
         const tx = sl.right ? sl.x + 13 * LS : sl.x - 13 * LS;
         ctx.lineWidth = 3; ctx.strokeStyle = haloCss; ctx.strokeText(m.name, tx, sl.y); ctx.fillStyle = inkCss; ctx.fillText(m.name, tx, sl.y);
@@ -3292,8 +3319,8 @@
       study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, open: () => ST.open, setOpen: setStudyOpen, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
         flags: () => [...ST.flags], collections: () => ST.colls.map((c) => Object.assign({ off: ST.hidden.has(c.id) }, c)), hidden: () => [...ST.hidden], toggleColl,
         /* the layout's marks (every flagged place or polity within the view and its margin, with whether its ground was clear at layout), the marks drawn in the last frame, the fan, the hidden list */
-        marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, cls: m.cls || "", st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "", ox: m.ox || 0, oy: m.oy || 0 })); },
-        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "", ox: e.m.ox || 0, oy: e.m.oy || 0 })),
+        marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, cls: m.cls || "", st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "", ox: m.ox || 0, oy: m.oy || 0, cap: !!m.cap })); },
+        liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "", ox: e.m.ox || 0, oy: e.m.oy || 0, cap: !!e.m.cap })),
         glyphSVG, markRadius,
         stack: () => (cardStack ? { id: cardStack.id, name: cardStack.name, ids: cardStack.ids.slice(), i: cardStack.i } : null), stackStep, openStack: (id) => { const m = stackMark(id); if (m) openStack(m); return !!m; },
         layoutChrome: () => (L.chrome || []).map((r) => r.slice()),
@@ -3302,10 +3329,11 @@
         keys: () => [...keysUl.querySelectorAll("button[data-id]")].map((b) => ({ id: b.getAttribute("data-id"), text: b.textContent })),
         index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0,
         tappable: (id) => tappable(id), tappableIds: () => (ST.tappable ? [...ST.tappable] : null) },
+      haloWidths: () => ({ scale: LS, max: HALO_W_MAX * LS, selected: HALO_W_MAX * LS, byStyle: Object.fromEntries(STYLES.map((s) => [s.id, haloWidthFor({ id: null, style: s.id }) * LS])) }),   // the halo stroke each style paints, CSS px at the current Text size (test-atlas-halos.js)   // markFill / markLine: a mark's fill and outline in this theme (paintMark); markLineWidth the dark theme's halo width round a mark (null in a light theme: markLine's per-glyph width)
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
-      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W }),
+      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W, markFill: haloDark ? inkCss : haloCss, markOwnFill: haloDark ? selCss : accentCss, markLine: haloDark ? haloCss : inkCss, markLineWidth: haloDark ? HALO_W_DARK : null }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), selection: () => ({ id: sel.id, ent: time.selected, faces: selectedFaces(), rings: selRings && selRings.faces.every((f) => selectedFaces().indexOf(f) >= 0) ? selRings.rings.length : 0, points: selRings ? selRings.rings.reduce((n, r) => n + r.length / 3, 0) : 0, level: selRings ? selRings.level : null, gold: SEL_GOLD }), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, snap: PHONE && cardOpen ? sheetSnap : null }), sheetSnap: (k) => setSnap(k), sheetHeights: () => (PHONE ? sheetHeights() : null),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,

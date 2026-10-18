@@ -778,6 +778,7 @@
   }
   function layout(q) {
     const rot = q.rot, radius = q.radius, cx = q.cx, cy = q.cy, W = q.W, H = q.H, kmpp = q.kmpp;
+    const atCap = q.kmppFloor > 0 && kmpp <= q.kmppFloor * 1.02;   // the zoom cap, the closest view the page allows (atlas.js kmFloor): a mark's name may stand above or below it there (decision c, 2026-10-18)
     const zl = Math.log2(156.543 / kmpp);                                   // the web-mercator zoom at the equator Natural Earth's hints are in
     const shift = (q.density === "sparse" ? -1 : q.density === "dense" ? 1.5 : 0) + (q.phone ? -0.75 : 0);
     const t = Math.max(0, Math.min(1, (Math.log(24) - Math.log(kmpp)) / Math.log(24)));
@@ -1063,19 +1064,24 @@
         const mrect = [x - r - 1, y - r - 1, x + r + 1, y + r + 1];
         const own = reservedMarker.has(row.id);   // a capital's marker was reserved above and is its own ground
         if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
-        if (!own && !free(mrect)) { drop("marker collides"); continue; }
+        if (!own && !free(mrect, null, own0)) { drop("marker collides"); continue; }   // a flagged settlement's dot lies on its own study mark, which is not a collision (2026-10-18)
         if (!show.places) { if (!own) take(mrect, true); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
-        const g3 = 3 * FS, tries = [[x + r + g3 + sh.w / 2, y, 0], [x - r - g3 - sh.w / 2, y, 0], [x, y - r - g3 - sh.h / 2, 0], [x, y + r + g3 + sh.h / 2, 0]];
+        // a FLAGGED settlement's name (laid by the study pass beside the study layer's own mark, drawn over this dot) follows decision c of 2026-10-18: right or left of the
+        // larger of the two glyphs at the 3 px gap, above or below only at the zoom cap; the plain Map's city names keep their four sides
+        const g3 = 3 * FS, rr = studyPass && mk0 ? Math.max(r, mk0.h) : r;
+        const tries = [[x + rr + g3 + sh.w / 2, y, 0], [x - rr - g3 - sh.w / 2, y, 0]].concat(studyPass && mk0 && !atCap ? [] : [[x, y - rr - g3 - sh.h / 2, 0], [x, y + rr + g3 + sh.h / 2, 0]]);
         let got = null;
-        for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (fullyOn(g.rects[0]) && free(g.rects[0])) { got = g; break; } }
+        for (const [tx, ty, ang] of tries) { const g = straight(sh, tx, ty, ang); if (fullyOn(g.rects[0]) && free(g.rects[0], null, own0)) { got = g; break; } }
         if (!got) {
           // a reserved capital marker whose name finds no free side keeps its marker (task 0a): the square under the empire's
           // name still says where the capital is, and a tap answers with the name; an unreserved one drops as before
           if (own) { placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: [x, y, r, k], hit: mrect })); continue; }
           drop(onScreen(x, y, 0) ? "city label collides on all four sides, or is not wholly on screen" : "city off screen"); continue;
         }
-        take(got.rects[0]); if (!own) take(mrect, true);
-        placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: union([got.rects[0], mrect]), rects: [got.rects[0], mrect], marker: [x, y, r, k], hit: union([got.rects[0], mrect]) }));
+        // a FLAGGED settlement's dot is the study layer's own mark, already drawn and already taken: no second dot under it (a filled-looking disc would read as the reader's own), the name alone (2026-10-18)
+        const studyDot = !!(studyPass && mk0);
+        take(got.rects[0]); if (!own && !studyDot) take(mrect, true);
+        placed.push(Object.assign(base, { a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: got.glyphs, box: studyDot ? got.rects[0] : union([got.rects[0], mrect]), rects: studyDot ? [got.rects[0]] : [got.rects[0], mrect], marker: studyDot ? null : [x, y, r, k], hit: union([got.rects[0], mrect]) }));
         continue;
       }
       if (k === "river") {
@@ -1198,8 +1204,13 @@
             for (const mm of mem) { sx += mm.x; sy += mm.y; if (mm.f > f) f = mm.f; if (mm.z > z) z = mm.z; n += mm.n; drop2.add(mm.id); }
             sx /= mem.length; sy /= mem.length;
             const name = study.cityName.get(cid) || cid, id = "stk:" + cid + ":" + stacks.length;
-            const hh = AS.ringHalf(h0, FS);   // a count must fit inside, in a 9 px bold figure: never under 19 px across (decision a, 2026-10-18)
-            stacks.push({ id, kind: "stack", sub: "", cls: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: "stack", layer: AS.markLayer("stack", f), h: hh });
+            /* A STACK WHOSE CITY IS A CAPITAL IS THE CAPITAL'S SQUARE WITH THE COUNT INSIDE (2026-10-18, the owner's fifth look, decision d: "some capital cities, like
+               Rome or Athens, still appear with circles instead of squares"): the city's row is a capital by the gazetteer's kind or the registry's capital
+               statements (`cap`, decision b of 2026-10-17); any other city's stack is the ring. The square is sized to hold a two-digit count in the 9 px bold
+               figure (AtlasStudy.squareHalf: 20 px across at every zoom; the ring's 19), its class is still the stack's (the popup pages through the members). */
+            const crow = study.rows.get(cid), grow = GZ && GZ.byId ? GZ.byId.get(cid) : null, capCity = !!((crow && (crow.cap || crow.kind === "capital")) || (grow && grow.kind === "capital"));
+            const hh = capCity ? AS.squareHalf(h0, FS) : AS.ringHalf(h0, FS);   // a count must fit inside, in a 9 px bold figure: never under 19 px across (decision a, 2026-10-18)
+            stacks.push({ id, kind: "stack", sub: "", cls: "stack", name, n, f, unit: unitAt(sx, sy), x: sx, y: sy, z, own: { id, name, kind: "city", a: unitAt(sx, sy) }, city: cid, members: mem.map((mm) => mm.id).sort(), count: mem.length, shape: capCity ? "square" : "stack", cap: capCity, layer: AS.markLayer("stack", f), h: hh });
           }
         }
         if (drop2.size) list = list.filter((mm) => !drop2.has(mm.id)).concat(stacks);
@@ -1233,7 +1244,7 @@
         const hh = m.h, mrect = m.rect;
         dropping = m.own || { name: m.id };
         const base = { id: m.id, kind: m.kind, cls: m.cls, shape: m.shape, layer: m.layer, st: m.f, a: m.unit, sx: m.x, sy: m.y, h: hh, n: m.n, clear: m.clear, score: -300 - m.f * 10 - Math.min(9, m.n / 100) };
-        if (m.members) { base.members = m.members; base.count = m.count; base.name = m.name; base.city = m.city; }   // a city stack (decision d)
+        if (m.members) { base.members = m.members; base.count = m.count; base.name = m.name; base.city = m.city; base.cap = !!m.cap; }   // a city stack (decision d); `cap`: a capital's, drawn as the square (decision d of 2026-10-18)
         if (m.ox || m.oy) { base.ox = Math.round(m.ox * 10) / 10; base.oy = Math.round(m.oy * 10) / 10; }   // nudged off its true point (decision c): the page adds the offset and draws the hairline
         if (m.cls) { marks.push(base); markById.set(m.id, base); }   // an AREA (no class) has no mark: its name stands at its point (decision e)
         if (!m.own) { const c2 = candById.get(m.id); if (c2) { done.add(c2); layCand(c2, true); } continue; }   // a flagged polity, country, sea or river: its name is laid HERE, at its flag's turn, by the ordinary code (decision b)
@@ -1254,52 +1265,32 @@
             const lay = (tx, ty) => (two ? stacked(two, tx, ty) : straight(sh, tx, ty, 0));
             // the box a try would take (what `lay` would return as rects: one line centred at the point, or two lines meeting at it), without the glyphs
             const boxAt = (tx, ty) => (two ? [[tx - two.a.w / 2, ty - two.a.h, tx + two.a.w / 2, ty], [tx - two.b.w / 2, ty, tx + two.b.w / 2, ty + two.b.h]] : [[tx - sh.w / 2, ty - sh.h / 2, tx + sh.w / 2, ty + sh.h / 2]]);
-            const okAt = (rs, markPad) => rs.every((r) => fullyOn(r) && free(r, markPad)) && nearAnchor(rs, m.x, m.y);
-            // beside the mark, with the ground between them that the pad asks of any two names (a 2 px gap never fitted a 4 px pad); an area's name on its point first
-            const gap = hh + 1 + pad + 1;
-            /* A MARK'S NAME: the four sides first, then the four corners, then the eight directions between, then the name slid along each side — each at the
-               gap and again 10 px farther out (decision d, 2026-10-17: with every mark an obstacle, a ring's four sides are often taken by its neighbours' dots;
-               decision a: no name ever lies over a lesser mark any more, so the tries are the only room there is). The name's box has its corner on the square
-               of half-side g round the point (one axis is then a full g clear, as the pad asks), never on the circle. An AREA's name: on its point first, then
-               above, below and beside, then farther. Every try is within the 28 px rule (nearAnchor: the edge at most hh + 28 from the point) */
-            const triesFor = () => {
-              const tries = [], w2 = sh.w / 2, h2 = sh.h / 2;
-              if (!m.cls) { tries.push([m.x, m.y]); for (const g2 of [0, 10]) tries.push([m.x, m.y - sh.h - g2], [m.x, m.y + sh.h + g2], [m.x + w2 + pad + g2, m.y], [m.x - w2 - pad - g2, m.y]); return tries; }
-              for (const g2 of [gap, gap + 10]) {
-                // the four sides and the four corners (the corner tries of decision d)
-                tries.push([m.x + g2 + w2, m.y], [m.x - g2 - w2, m.y], [m.x, m.y - g2 - h2], [m.x, m.y + g2 + h2], [m.x + g2 + w2, m.y - g2 - h2], [m.x - g2 - w2, m.y - g2 - h2], [m.x + g2 + w2, m.y + g2 + h2], [m.x - g2 - w2, m.y + g2 + h2]);
-                // the eight directions between them, the box's corner on the square of half-side g2
-                for (let i = 0; i < 8; i++) { const th = (i * 2 + 1) * Math.PI / 8, cx2 = Math.cos(th), cy2 = Math.sin(th), mx = Math.max(Math.abs(cx2), Math.abs(cy2)), dx2 = cx2 / mx, dy2 = cy2 / mx; tries.push([m.x + dx2 * g2 + (dx2 > 0 ? w2 : -w2), m.y + dy2 * g2 + (dy2 > 0 ? h2 : -h2)]); }
-                // the name slid along its side: above and below by a quarter and a half of its width, beside by half its height and its height
-                for (const sx of [-0.25, 0.25, -0.5, 0.5]) tries.push([m.x + sx * sh.w, m.y - g2 - h2], [m.x + sx * sh.w, m.y + g2 + h2]);
-                for (const sy of [-0.5, 0.5, -1, 1]) tries.push([m.x + g2 + w2, m.y + sy * sh.h], [m.x - g2 - w2, m.y + sy * sh.h]);
-              }
-              return tries;
-            };
-            let got = null, tried = 0, frame = 0, far = 0, byName = 0, byMark = 0, byPad = 0;   // why each try failed, for the drop reason (labelWhy)
-            const search = (markPad) => {
-              for (const [tx, ty] of triesFor()) {
-                const rs = boxAt(tx, ty); tried++;
-                if (okAt(rs, markPad)) return lay(tx, ty);
-                if (!why) continue;
-                if (!rs.every(fullyOn)) frame++; else { const b = Math.max(...rs.map((r) => blocker(r, markPad))); if (b === 2) byName++; else if (b === 1) { if (markPad == null && rs.every((r) => free(r, 1))) byPad++; else byMark++; } else far++; }
-              }
-              return null;
-            };
-            got = search();
-            /* A CITY RING'S LAST RESORTS (decision a: a stack's city name has priority over every other name near its ring and is drawn beside it — "Rome" beside
-               the "41"): the same tries with the full pad against every name and the controls but a single pixel against the MARKS (the name stands a pixel from a
-               dot, never on it); then, for a name of more than one word, the name on two lines ("Vatican / City"), with the pad and then without. Rome's "41" at
-               1.2 km/px has forty dots within 30 px; the pad alone cost "Vatican City" its name there. A ring whose every try meets a mark or the frame stays
-               unnamed: no name covers a mark that is not its own. */
-            if (!got && m.members) {
-              got = search(1);
-              if (!got && !two && lt.text.indexOf(" ") > 0) { const alt = splitName(lt.text, st2, style); if (alt) { setText([lt.text.slice(0, alt.at), lt.text.slice(alt.at + 1)]); got = search() || search(1); } }
+            /* A MARK'S NAME STANDS DIRECTLY RIGHT OR LEFT OF ITS MARK (2026-10-18, the owner's fifth look, decision c: "when icons are clustered, their text labels
+               drift and it becomes impossible to tell which text belongs to which icon"). The name is vertically centred on its mark — a place's, a city ring's, a
+               capital's — with NAME_GAP (3 px) between the mark's edge and the text, the right side first, then the left; there is NO other candidate: not above,
+               not below, not a corner, not slid along a side, not farther out. Decision d's 64-box search (2026-10-17), the ring's last resorts (a pixel from a
+               dot; the name on two lines) and the 28 px allowance for a mark's name are gone — a name 3 px from its mark cannot need it (an area's name still
+               keeps the rule). If neither side is clear of every other name, every other mark and the controls, the name is NOT drawn: the reader sees the mark
+               alone rather than a name that could be another's. At the ZOOM CAP (the closest view the page allows: `atCap`, from q.kmppFloor) the name may
+               also stand above or below the mark, centred, at the same gap — there the marks lie as far apart as they ever will. An AREA's name (no mark) keeps
+               its tries: on its point, then above, below and beside, then 10 px farther. The name may lie over its OWN mark only (`free`'s skip; it never
+               does at this gap) and never over another's; test-atlas-overlaps.js reads the drawn boxes against the drawn marks at every view. */
+            const NAME_GAP = 3 * FS, own0 = markRect.get(m.id), w2 = sh.w / 2, h2 = sh.h / 2, g = hh + NAME_GAP;
+            const tries = m.cls
+              ? [[m.x + g + w2, m.y], [m.x - g - w2, m.y]].concat(atCap ? [[m.x, m.y - g - h2], [m.x, m.y + g + h2]] : [])
+              : [[m.x, m.y], [m.x, m.y - sh.h], [m.x, m.y + sh.h], [m.x + w2 + pad, m.y], [m.x - w2 - pad, m.y], [m.x, m.y - sh.h - 10], [m.x, m.y + sh.h + 10], [m.x + w2 + pad + 10, m.y], [m.x - w2 - pad - 10, m.y]];
+            const okAt = (rs) => rs.every((r) => fullyOn(r) && free(r, null, own0)) && (!!m.cls || nearAnchor(rs, m.x, m.y));
+            let got = null, tried = 0, frame = 0, far = 0, byName = 0, byMark = 0;   // why each try failed, for the drop reason (labelWhy)
+            for (const [tx, ty] of tries) {
+              const rs = boxAt(tx, ty); tried++;
+              if (okAt(rs)) { got = lay(tx, ty); break; }
+              if (!why) continue;
+              if (!rs.every(fullyOn)) frame++; else { const bl = Math.max(...rs.map((r) => blocker(r, null, own0))); if (bl === 2) byName++; else if (bl === 1) byMark++; else far++; }
             }
             if (got) {
               for (const r of got.rects) take(r);
               placed.push({ id: row.id, kind: row.kind, style, text: sh.chars.join(""), score: base.score, selected: row.id === q.selected, hist: false, st: m.f, a: row.a, sx: m.x, sy: m.y, alpha: Math.min(1, m.z / 0.2), glyphs: got.glyphs, box: union(got.rects), rects: got.rects, marker: null, hit: union(got.rects), lines: two ? 2 : 1, study: true });   // `study`: laid by the study pass (decision b: the order is explicit and guarded)
-            } else drop(`study name finds no free side clear of the names and the marks (${tried} tries: ${frame} left the frame, ${byName} met a name or a control, ${byMark} met a mark, ${byPad} only a mark's pad, ${far} too far from the point)`);
+            } else drop(`study name finds no free side clear of the names and the marks (${tried} tries: ${frame} left the frame, ${byName} met a name or a control, ${byMark} met a mark, 0 only a mark's pad, ${far} too far from the point)`);   // the format test-atlas-overlaps.js parses
           }
         }
       }

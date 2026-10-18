@@ -208,10 +208,13 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
           if (inside(1.5) && z >= 0.21) must.push([id, x, y]);
         }
         const lm = c.study.liveMarks();
-        return { must, may: [...may], live: lm, half };
+        // a city stack the layout built but the page does not draw (its ring or square, larger than a member's mark, meets a control or the frame's edge): its members are lawfully absent too
+        const layStacks = c.study.marks().filter((m) => m.members && !m.clear).map((m) => m.members);
+        return { must, may: [...may], live: lm, half, layStacks };
       }, placesWithAt);
       const byId = new Map(); const dupHere = []; const inStack = new Set();
       for (const m of r.live) { if (byId.has(m.id)) dupHere.push(m.id); byId.set(m.id, m); shapes.add(m.shape); if (m.members) for (const id of m.members) inStack.add(id); }
+      for (const ms of r.layStacks || []) for (const id of ms) inStack.add(id);   // Datong's square (20 px) under the study panel at 120 E 35 N, 6 km/px, whose two members' own marks would clear it (2026-10-18)
       // a place of a CITY STACK (decision d, 2026-10-17) is drawn as its city's ring, not at its own position
       for (const [id, x, y] of r.must) { const m = byId.get(id); if (!m) { if (inStack.has(id)) stacked++; else totalMissing.push(`${id}@${lon},${lat},${k}`); } else if (Math.hypot(m.x - x, m.y - y) > 0.75) offBy++; else totalSeen++; }
       const may = new Set(r.may); for (const m of r.live) if (!may.has(m.id) && !m.members) extra.push(`${m.id}@${lon},${lat},${k}`);
@@ -222,7 +225,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     }
     check("PROPERTY: at nine views every flagged POINT place on screen, clear of the edge and the controls, has a mark at its own position (" + totalSeen + " checked, 0.75 px) or is a member of its city's stack (" + stacked + ")", totalMissing.length === 0 && offBy === 0 && totalSeen > 300 && stacked > 0, totalMissing.slice(0, 4).join(" | ") + (offBy ? " · " + offBy + " off their position" : ""));
     check("…one mark each, and no mark for anything that is not a flagged place on screen or a city stack", dup.length === 0 && extra.length === 0, dup.slice(0, 3).concat(extra.slice(0, 3)).join(" | "));
-    check("…every mark one of the seven shapes (no star: a polity has no mark since 2026-10-18); a stack (and nothing else) carries its members, two or more of one city", [...shapes].every((x) => ["diamond", "triangle", "disc", "square", "cross", "stack", "house"].includes(x)) && (await A(page, (c) => c.study.marks().every((m) => (m.marker === "stack") === !!(m.members && m.members.length >= 2)))), [...shapes].join(", "));
+    check("…every mark one of the seven shapes (no star: a polity has no mark since 2026-10-18); a stack — a ring, or a capital's square (2026-10-18 d) — and nothing else carries its members, two or more of one city", [...shapes].every((x) => ["diamond", "triangle", "disc", "square", "cross", "stack", "house"].includes(x)) && (await A(page, (c) => c.study.marks().every((m) => (m.marker === "stack" || (m.marker === "square" && m.cap)) === !!(m.members && m.members.length >= 2)))), [...shapes].join(", "));
     check("…drawn back to front: places not studied, places studied, polities", !maxLayerBack);
     check("the page has no \"N places here\" chip, no count on a mark, and no setting for it", (await page.$$eval(".atlas2 *", (n) => n.every((e) => !/\d+ places here|activate to zoom in/.test((e.getAttribute("aria-label") || "") + (e.children.length ? "" : e.textContent))))) && !(await page.evaluate(() => Object.keys(localStorage).some((k) => /stack|cluster/i.test(k)))));
     // THE SIZE: a dot about 4 px across at the globe, the old size by city scale

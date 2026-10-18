@@ -35,13 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1034", released: "2026-10-18T08:16Z" };
+window.FOLIO_VERSION = { v: "1.1035", released: "2026-10-18T11:18Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-18",
     t: "Atlas: neutral fill, darker empty land, smaller marks, popups redesigned",
     items: [
+      "<b>Atlas marks</b>: a capital's stack of places (Rome, Athens) is now the capital's square with the count inside, instead of a ring.",
+      "<b>Atlas names</b>: a place's name now stands directly right or left of its mark, or is not drawn — above or below only at the closest zoom — so no name drifts to another mark.",
+      "<b>Atlas names</b>: a people's name no longer wears a thicker halo than any other name — no halo is wider than the ordinary names' 3.2 px.",
+      "<b>Atlas</b>: in a dark theme every mark is now a light glyph on the same dark halo as the names, instead of a dark dot with a white ring.",
       "<b>Atlas states</b>: a tap anywhere inside a state, a people or a culture your cards teach selects the whole of it in gold — fill, outline and glow, as the old Atlas did — and keeps it lit while you drag, zoom or move the year.",
       "<b>Atlas popups</b>: on a phone a place, a state or a city's popup is now a bottom sheet with three heights (peek, half, full) you drag or swipe, its cards first and the sources folded.",
       "<b>Atlas</b>: every historical state is now drawn in one neutral fill, the land colour, and told from its neighbours by its border; peoples keep their stipple in a neutral ink; war tints stay.",

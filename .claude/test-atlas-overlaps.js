@@ -1,5 +1,5 @@
-/* test-atlas-overlaps.js — no two drawn names overlap on the Atlas, no name covers a mark that is not its own, and every city stack's ring is named
-   (Atlas v2, 2026-10-17; the owner's phone over Rome).
+/* test-atlas-overlaps.js — no two drawn names overlap on the Atlas, no name covers a mark that is not its own, every mark's name stands directly right or
+   left of its mark, and every city stack's ring or square is named or lawfully unnamed (Atlas v2, 2026-10-17 and 2026-10-18; the owner's phone over Rome).
 
      NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-atlas-overlaps.js [shotsDir]
      FOLIO_CHROMIUM=/path/to/chrome  … to pick the browser (otherwise playwright's own)
@@ -10,8 +10,12 @@
      · no two DRAWN names' boxes intersect, whatever pass placed them — a polity's or a country's spaced capitals, a study name, a city's,
        a physical name (the boxes are the layout's own rectangles, moved as the page moves them: `labelsLive`);
      · no name's box intersects a mark that is not its own — the study layer's marks as drawn (`liveMarks`) and the ordinary city dots;
-     · every city stack's ring that is drawn has its city's name drawn beside it ("Rome" beside the "41") — or, where the marks and the frame alone leave
-       no clear box (the worker's drop reason counts what each try met), the ring stays unnamed rather than cover a mark;
+     · A MARK'S NAME STANDS DIRECTLY RIGHT OR LEFT OF ITS MARK (2026-10-18, decision c — the owner: "when icons are clustered, their text labels drift and it
+       becomes impossible to tell which text belongs to which icon"): every drawn name of a drawn mark (a place's, a city stack's, a capital's) is vertically
+       centred on it, 3 px from its edge, on the right or the left — and only at the ZOOM CAP (Rome at 0.15 km/px) may it stand above or below instead; there
+       is no other place for it, so a mark whose two sides are taken has no name (the worker's drop reason says what each of its 2 — or 4 — tries met);
+     · every city stack's ring (or a capital's square) that is drawn has its city's name drawn beside it ("Rome" beside the "41") — or, where its tries all
+       met a name, a mark, a control or the frame, it stays unnamed rather than drift (before 2026-10-18 a ring had 64 tries and two last resorts);
      · a polity's or a country's name that is not a card-linked place ranks below the study names (decision b): in the layout's own placement order
        every unflagged one comes after the last study name, a card-linked one is laid by the study pass at its flag's turn, and the rings' names come
        first of all.
@@ -20,6 +24,9 @@
    THE FAULT IT WAS WRITTEN FOR (2026-10-17, a 390 × 844 phone, the Full Atlas at lon 12.5, lat 41.9, 1.2 km/px): "VATICAN CITY" over "Collatia",
    "Ostia Antica" crossed by a mark, "Mount Vesuvius" over marks near Naples, and Rome's "41" ring with no name at all — the study pass's fallback
    let a mark's own name lie over any lesser mark, and the ordinary names kept their licence over a small dot. At 0.25 km/px the same area was clean.
+   ASSERTIONS CHANGED ON 2026-10-18 (decision c, deliberately): "every ring is named or boxed in by marks and the frame alone" became "named, or every try
+   met something" (a name may now block a ring's name, since only two boxes are tried); the new placement check above fails on the code before (names at the
+   corners, slid along a side, 10 px out, on two lines); Rome at 0.15 km/px (the cap) joins the views.
    Re-run after touching the label layout of atlas-worker.js (the study pass, the ordinary pass, `free`, `take`), `nudgeStacks`, or the label painter. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -48,7 +55,7 @@ const READER = cards.filter((c) => /^(rm|gr|jp|wh)-/.test(c.id) && Array.isArray
 
 /* THE VIEWS (decision c): where the owner saw the fault, and the three other crowded cities */
 const VIEWS = [
-  ["Rome", 12.5, 41.9, 1.2], ["Rome", 12.5, 41.9, 0.6], ["Rome", 12.5, 41.9, 0.3],
+  ["Rome", 12.5, 41.9, 1.2], ["Rome", 12.5, 41.9, 0.6], ["Rome", 12.5, 41.9, 0.3], ["Rome", 12.5, 41.9, 0.15],   // 0.15: the zoom cap, where a name may also stand above or below (decision c, 2026-10-18)
   ["Naples", 14.35, 40.84, 0.6],
   ["Athens", 23.7275, 37.9838, 1.2], ["Athens", 23.7275, 37.9838, 0.6],
   ["Jerusalem", 35.2137, 31.7683, 1.2], ["Jerusalem", 35.2137, 31.7683, 0.6],
@@ -97,8 +104,8 @@ const read = (page) => A(page, (c) => {
 const inter = (r, b) => Math.max(0, Math.min(r[2], b[2]) - Math.max(r[0], b[0])) * Math.max(0, Math.min(r[3], b[3]) - Math.max(r[1], b[1]));
 const EPS = 0.25;   // a quarter pixel each way: float noise, never a real overlap
 const shrink = (r) => [r[0] + EPS, r[1] + EPS, r[2] - EPS, r[3] - EPS];
-function judge(d) {
-  const nameBad = [], markBad = [], unnamed = [];
+function judge(d, atCap) {
+  const nameBad = [], markBad = [], unnamed = [], sideBad = [], sides = { right: 0, left: 0, above: 0, below: 0 };
   for (let i = 0; i < d.names.length; i++) for (let j = i + 1; j < d.names.length; j++) {
     const a = d.names[i], b = d.names[j]; if (a.id === b.id) continue;   // one river's name on two stretches
     let over = 0; for (const r of a.rects) for (const s of b.rects) over += inter(shrink(r), shrink(s));
@@ -110,12 +117,24 @@ function judge(d) {
     let over = 0; for (const r of p.rects) over += inter(shrink(r), shrink(m.box));
     if (over > 0) markBad.push({ name: p.text + " [" + p.kind + (p.hist ? ", polity" : "") + (p.st ? ", study" : "") + "]", mark: m.name, px2: Math.round(over) });
   }
-  /* an unnamed ring is lawful ONLY when the worker's own drop reason says marks and the frame alone blocked every try — the names yielded (decision a: no
-     name covers a mark that is not its own; the ring's name has priority over names, not over marks). A ring dropped for a name, or with no such reason, fails. */
+  /* THE PLACEMENT (decision c, 2026-10-18): a drawn name of a drawn mark is vertically centred on the mark (its box's middle within 0.75 px of the mark's
+     centre) and stands 3 px (± 0.75) from the mark's edge on the right or the left; at the zoom cap it may instead be centred above or below at the same gap.
+     The boxes are the DRAWN ones (moved as the painter moves them) against the DRAWN marks (a nudged ring at its nudged point). */
+  const byId = new Map(d.marks.map((m) => [m.id, m]));
+  for (const p of d.names) {
+    const m = byId.get(p.id); if (!m || !p.rects.length) continue;
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const r of p.rects) { x0 = Math.min(x0, r[0]); y0 = Math.min(y0, r[1]); x1 = Math.max(x1, r[2]); y1 = Math.max(y1, r[3]); }
+    const cy = (y0 + y1) / 2 - m.y, cx = (x0 + x1) / 2 - m.x, gapR = x0 - (m.x + m.h), gapL = (m.x - m.h) - x1, gapA = (m.y - m.h) - y1, gapB = y0 - (m.y + m.h), G = 3, T = 0.75;
+    const side = Math.abs(cy) <= T && Math.abs(gapR - G) <= T ? "right" : Math.abs(cy) <= T && Math.abs(gapL - G) <= T ? "left" : atCap && Math.abs(cx) <= T && Math.abs(gapA - G) <= T ? "above" : atCap && Math.abs(cx) <= T && Math.abs(gapB - G) <= T ? "below" : null;
+    if (side) sides[side]++; else sideBad.push(`"${p.text}" [${p.kind}${p.stack ? ", stack" : ""}] mark ${m.h.toFixed(1)} px at ${m.x.toFixed(1)},${m.y.toFixed(1)}, box ${[x0, y0, x1, y1].map((v) => v.toFixed(1)).join(" ")}: dy ${cy.toFixed(1)}, gaps R ${gapR.toFixed(1)} L ${gapL.toFixed(1)} A ${gapA.toFixed(1)} B ${gapB.toFixed(1)}`);
+  }
+  /* an unnamed ring (or a capital's square) is lawful when the worker's own drop reason says every one of its tries — two, or four at the cap — met a name, a
+     control, a mark or the frame (decision c: a mark's name stands right or left or not at all). A ring with no drop reason, or whose tries were not all met, fails. */
   const lawful = [];
   for (const m of d.marks) if (m.stack && !d.names.some((p) => p.id === m.id)) {
     const w = d.why.find((x) => x.startsWith(m.name + ": study name finds no free side")), mt = w && /\((\d+) tries: (\d+) left the frame, (\d+) met a name or a control, (\d+) met a mark/.exec(w);
-    if (mt && mt[3] === "0" && Number(mt[2]) + Number(mt[4]) > 0) lawful.push(m.name + " (" + m.count + "): " + mt[1] + " tries, " + mt[2] + " left the frame, " + mt[4] + " met a mark"); else unnamed.push(m.name + " (" + m.count + ")" + (w ? " — " + w.slice(w.indexOf("(")) : " — no drop reason"));
+    const tries = mt ? Number(mt[1]) : 0, met = mt ? Number(mt[2]) + Number(mt[3]) + Number(mt[4]) : 0;
+    if (mt && tries >= 2 && tries <= 4 && met >= tries) lawful.push(m.name + " (" + m.count + "): " + mt[1] + " tries, " + mt[2] + " left the frame, " + mt[3] + " met a name or a control, " + mt[4] + " met a mark"); else unnamed.push(m.name + " (" + m.count + ")" + (w ? " — " + w.slice(w.indexOf("(")) : " — no drop reason"));
   }
   /* decision b: a polity's or a country's name that is NOT a card-linked place ranks below the study names — in the layout's placement order every unflagged
      one comes after the last study name; a card-linked one is laid by the study pass itself (study: true); and the city rings' names come before every other
@@ -126,7 +145,7 @@ function judge(d) {
   for (const p of d.order) if (p.polity && p.st && !p.study) orderBad.push(`"${p.text}" (a card-linked polity or country) was not laid by the study pass`);
   for (const p of d.order) if (p.stack && firstPlain >= 0 && d.order.indexOf(p) > firstPlain) orderBad.push(`the ring "${p.text}" is laid after "${d.order[firstPlain].text}"`);
   if (!d.order.some((p) => p.study) && d.marks.length) orderBad.push("no name is marked as the study pass's");
-  return { nameBad, markBad, unnamed, lawful, orderBad };
+  return { nameBad, markBad, unnamed, lawful, orderBad, sideBad, sides };
 }
 
 (async () => {
@@ -139,15 +158,17 @@ function judge(d) {
     const { ctx, page, errors } = await open(browser, READER, prof, theme);
     for (const [name, lon, lat, k] of VIEWS_RUN) {
       await view(page, lon, lat, k);
-      const d = await read(page), j = judge(d);
+      const d = await read(page), j = judge(d, k <= 0.15);
       const rings = d.marks.filter((m) => m.stack);
       table.push({ prof: prof[0], theme, view: `${name} ${k}`, placed: d.placed, drawn: d.names.length, dropped: d.dropped, rings: rings.length, nameBad: j.nameBad.length, markBad: j.markBad.length, unnamed: j.unnamed.length + j.lawful.length });
       const at = `${name} at ${k} km/px`;
       check(`${at}: no two drawn names overlap (${d.names.length} names drawn, ${d.placed} placed, ${d.dropped} dropped)`, j.nameBad.length === 0, j.nameBad.slice(0, 4).map((x) => `"${x.a}" × "${x.b}" ${x.px2} px²`).join("; ") + (j.nameBad.length > 4 ? ` … ${j.nameBad.length} pairs` : ""));
       check(`${at}: no name covers a mark that is not its own (${d.marks.length} marks drawn)`, j.markBad.length === 0, j.markBad.slice(0, 4).map((x) => `"${x.name}" over ${x.mark} ${x.px2} px²`).join("; ") + (j.markBad.length > 4 ? ` … ${j.markBad.length} pairs` : ""));
+      const named = Object.values(j.sides).reduce((a, b) => a + b, 0);
+      check(`${at}: every mark's name stands directly right or left of its mark, centred, 3 px off${k <= 0.15 ? " (or above or below: the zoom cap)" : ""} — ${named} named marks: ${j.sides.right} right, ${j.sides.left} left, ${j.sides.above} above, ${j.sides.below} below`, j.sideBad.length === 0 && (named > 0 || d.marks.length === 0), j.sideBad.slice(0, 3).join("; ") + (j.sideBad.length > 3 ? ` … ${j.sideBad.length} names` : ""));
       check(`${at}: every unflagged polity's and country's name is laid after the study names, a card-linked one by the study pass, and the rings' names first (${d.order.filter((p) => p.polity && !p.st).length} + ${d.order.filter((p) => p.polity && p.st).length} polity or country names, ${d.order.filter((p) => p.study).length} study names)`, j.orderBad.length === 0, j.orderBad.slice(0, 3).join("; "));
-      if (rings.length) check(`${at}: every city stack's ring is named (${rings.map((m) => m.name + " " + m.count).join(", ")})${j.lawful.length ? " — but for the ring the marks and the frame alone box in: " + j.lawful.join("; ") : ""}`, j.unnamed.length === 0, j.unnamed.join(", ") + " unnamed");
-      if (SHOTS && prof[0] === "phone" && ((name === "Rome" && k === 1.2) || name === "Naples")) { fs.mkdirSync(SHOTS, { recursive: true }); await page.screenshot({ path: path.join(SHOTS, `${name.toLowerCase()}-${k}-${theme}.png`) }); }
+      if (rings.length) check(`${at}: every city stack's ring or square is named (${rings.map((m) => m.name + " " + m.count).join(", ")})${j.lawful.length ? " — but for the stack whose every try met something: " + j.lawful.join("; ") : ""}`, j.unnamed.length === 0, j.unnamed.join(", ") + " unnamed");
+      if (SHOTS && prof[0] === "phone" && ((name === "Rome" && (k === 1.2 || k === 0.15)) || name === "Naples")) { fs.mkdirSync(SHOTS, { recursive: true }); await page.screenshot({ path: path.join(SHOTS, `${name.toLowerCase()}-${k}-${theme}.png`) }); }
     }
     allErrors.push(...errors); await ctx.close();
   }
