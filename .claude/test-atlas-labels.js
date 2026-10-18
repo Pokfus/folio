@@ -460,8 +460,10 @@ function overlaps(placed) {
   await polityView(D.page, "desktop, the globe in 1245", { lon: 80, lat: 45, k: 24 }, 1245, { id: "pol:mongol", name: "the Mongol Empire" }, "Karakorum");
   await polityView(D.page, "desktop, Europe in 1500 at 12 km/px", { lon: 20, lat: 45, k: 12 }, 1500, { id: "pol:ottoman", name: "the Ottoman Empire" }, "Constantinople");
   /* 2d, task 0b — a people's name stays legible over its own stipple. The people styles are thin italics tracked wide, and the stipple lies under
-     them (dots 1.35 px in radius): the halo is wide enough (PEOPLE_HALO) that every solid ink pixel of the name has an opaque pixel (ink or halo) on
-     every side for two pixels, so a dot never touches a stroke. Measured on the labels canvas itself, at 1 device px per CSS px. */
+     them (dots 1.35 px in radius): the halo is wide enough that every solid ink pixel of the name has an opaque pixel (ink or halo) on every side
+     for ONE pixel, so a dot never touches a stroke. Measured on the labels canvas itself, at 1 device px per CSS px. (Until 2026-10-18 the people
+     styles had a halo of their own, PEOPLE_HALO, 5.4 px — 2.7 showing — and this read two pixels; decision b of that day caps every halo at the
+     ordinary names' widest, 3.2 px, 1.6 showing, which test-atlas-halos.js measures per style.) */
   {
     const pg = D.page;
     await pg.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ peoples: "linked", countries: true, places: true, physical: true, cities: true }));
@@ -485,14 +487,14 @@ function overlaps(placed) {
         for (let yy = 2; yy < h - 2; yy++) for (let xx = 2; xx < w - 2; xx++) {
           const i = (yy * w + xx) * 4; if (d[i + 3] < 128 || Math.abs(d[i] - I[0]) + Math.abs(d[i + 1] - I[1]) + Math.abs(d[i + 2] - I[2]) < 160) continue;
           solid++; let open = false;
-          for (let dy = -2; dy <= 2 && !open; dy++) for (let dx = -2; dx <= 2; dx++) if (dx * dx + dy * dy <= 4 && d[((yy + dy) * w + xx + dx) * 4 + 3] < 128) { open = true; break; }
+          for (let dy = -1; dy <= 1 && !open; dy++) for (let dx = -1; dx <= 1; dx++) if (dx * dx + dy * dy <= 1 && d[((yy + dy) * w + xx + dx) * 4 + 3] < 128) { open = true; break; }
           if (open) bare++;
         }
         out.push({ id, solid, bare });
       }
       return out;
     }, peoples.map((p) => [p.id, p.box]));
-    for (const r of read) check(`375 CE: ${r.id.replace("pol:", "")}'s name has an opaque halo two pixels deep round every ink pixel (${r.solid} solid ink pixels, ${r.bare} with a gap within 2 px)`, r.solid > 20 && r.bare <= Math.max(2, Math.round(r.solid * 0.05)), JSON.stringify(r));
+    for (const r of read) check(`375 CE: ${r.id.replace("pol:", "")}'s name has an opaque halo a pixel deep round every ink pixel (${r.solid} solid ink pixels, ${r.bare} with a gap within 1 px)`, r.solid > 20 && r.bare <= Math.max(2, Math.round(r.solid * 0.05)), JSON.stringify(r));
   }
   check("no page errors on #map (desktop, the history loaded)", D.errors.length === 0, D.errors.slice(0, 3).join(" | "));
   console.log("\n\x1b[1m10) area and path names stay inside the frame (a sweep of views)\x1b[0m\n");

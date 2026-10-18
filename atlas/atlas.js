@@ -1898,6 +1898,12 @@
     /* ---- sprites: a label rendered once, glyph by glyph, halo then ink, at its layout position ---- */
     let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "", haloDark = false;
     const HALO_W = 2.6, HALO_W_DARK = 3.2;   // CSS px of halo stroke (both sides of a glyph): wider in a dark theme (decision c, 2026-10-17), where the dark halo is what keeps a light name legible over the lighter sea and the relief
+    /* NO HALO WIDER THAN THE ORDINARY NAMES' WIDEST (2026-10-18, the owner's fifth look, decision b: "text labels for peoples have an unreasonably thick dark outline").
+       HALO_W_MAX (3.2 px at Text size Medium, × LS like every width) is the cap: the ordinary names' own widest (the dark theme's HALO_W_DARK). The people styles
+       had PEOPLE_HALO, 5.4 px (2d, task 0b: 2.7 px showing each side, so the stipple's dots never touched a stroke) — they now take the ordinary width of the
+       theme, and the selected name, which had 3.4 (4 in a dark theme), the cap. `test-atlas-halos.js` measures the halo each style paints, per theme. */
+    const HALO_W_MAX = 3.2;
+    const haloWidthFor = (p) => (p.id === sel.id ? HALO_W_MAX : haloDark ? HALO_W_DARK : HALO_W);   // CSS px at Medium: the stroke's width, half of it showing round the glyph
     const markSprites = new Map(), MARK_SPRITE_MAX = 400;   // the study marks' glyph bitmaps (markSprite, below); cleared with the colours
     function labelColours() {
       const { ink, paper, paper2, indigo, ochre, dark } = themeTokens();
@@ -1932,7 +1938,6 @@
        name was painted where it used to be and nothing at all where the layout now puts it. CI's log of run 3630 showed it: "drawn from 288,467, expected 117,539". A hit now returns the same canvas with THIS label's own corner. */
     const spriteAt = (sp, p) => ({ c: sp.c, w: sp.w, h: sp.h, x0: Math.floor(p.box[0]) - SPRITE_PAD, y0: Math.floor(p.box[1]) - SPRITE_PAD });
     function spriteFor(p) { const k = spriteKey(p); if (!k) return null; let sp = spriteCache.get(k); if (sp) { spriteCache.delete(k); spriteCache.set(k, sp); return spriteAt(sp, p); } sp = renderSprite(p); if (sp) { spriteCache.set(k, sp); if (spriteCache.size > 600) spriteCache.delete(spriteCache.keys().next().value); } return sp; }
-    const PEOPLE_HALO = 5.4;   // CSS px of stroke: 2.7 px each side of a glyph, so the stipple (dots 1.35 px in radius) never touches an ink pixel
     function renderSprite(p) {
       if (!p.glyphs || !p.glyphs.length) return null;
       const st = STYLE_BY_ID[p.style]; if (!st) return null;
@@ -1942,7 +1947,7 @@
       const x = c.getContext("2d");
       x.scale(dprNow, dprNow); x.translate(-x0, -y0);
       x.textBaseline = "middle"; x.textAlign = "left"; x.lineJoin = "round"; x.lineCap = "round";
-      x.lineWidth = (p.id === sel.id ? (haloDark ? 4 : 3.4) : st.id.indexOf("people-") === 0 ? PEOPLE_HALO : haloDark ? HALO_W_DARK : HALO_W) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // a people's italic is thin and widely tracked, and its own stipple lies under it: a wider halo (2d, task 0b) keeps the dots a pixel clear of every stroke
+      x.lineWidth = haloWidthFor(p) * LS; x.strokeStyle = haloCss; x.fillStyle = inkFor(p);   // one width for every style of the theme, the cap for the selected name (decision b, 2026-10-18)
       const fontBig = fontOf(st, st.size * LS), fontSmall = st.caps ? fontOf(st, st.size * LS * SMALL_SCALE) : fontBig;
       for (const pass of [0, 1]) {   // every halo first, then every glyph, so a halo never bites a neighbour
         for (let i = 0; i < p.glyphs.length; i++) {
@@ -3186,6 +3191,7 @@
         keys: () => [...keysUl.querySelectorAll("button[data-id]")].map((b) => ({ id: b.getAttribute("data-id"), text: b.textContent })),
         index: () => ST.idx, panel: () => studyEl, refresh: () => refreshStudy(false), info, muted: () => ST.mode === "personal" && ST.flags.size > 0,
         tappable: (id) => tappable(id), tappableIds: () => (ST.tappable ? [...ST.tappable] : null) },
+      haloWidths: () => ({ scale: LS, max: HALO_W_MAX * LS, selected: HALO_W_MAX * LS, byStyle: Object.fromEntries(STYLES.map((s) => [s.id, haloWidthFor({ id: null, style: s.id }) * LS])) }),   // the halo stroke each style paints, CSS px at the current Text size (test-atlas-halos.js)   // markFill / markLine: a mark's fill and outline in this theme (paintMark); markLineWidth the dark theme's halo width round a mark (null in a light theme: markLine's per-glyph width)
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
