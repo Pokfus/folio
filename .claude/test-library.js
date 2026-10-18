@@ -1140,6 +1140,22 @@ function aeneidChecks() {
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1200);
     check("no book text is fetched on boot", !asked.some((u) => u.startsWith("/books/")), asked.filter((u) => u.startsWith("/books/")).join(","));
+    /* THE ONE DELIBERATE EXCEPTION: the Home page's Suggested reading box (a reader who has never opened a book)
+       shows a random passage, which needs its book's text. It is fetched when the box is SEEN, never on boot: the
+       box sits below the fold at this size, so the boot above asked for nothing; scrolling it into view asks for
+       exactly the one book it names, and the passage appears. */
+    {
+      const sug = await page.evaluate(() => { const b = document.querySelector("#b-reading[data-suggest]"); return b ? b.dataset.book : ""; });
+      check("...the home page shows a Suggested reading box for a reader who has opened no book", !!sug, sug);
+      if (sug) {
+        await page.evaluate(() => document.querySelector("#b-reading").scrollIntoView({ block: "center" }));
+        await page.waitForSelector("#b-reading .hb-next", { timeout: 8000 }).catch(() => {});
+        const got = asked.filter((u) => u.startsWith("/books/"));
+        check("...scrolling the box into view fetches that one book, and its passage appears",
+          got.length === 1 && got[0] === "/books/" + sug + ".js" && !!(await page.$("#b-reading .hb-next")), got.join(","));
+      }
+      asked.length = 0;   // the suggested book is accounted for; what follows is judged on its own
+    }
 
     await page.evaluate(() => { location.hash = "library"; });
     await page.waitForTimeout(700);
