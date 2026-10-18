@@ -23568,29 +23568,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      holds fully free historical books with their original languages and english translation"). The box used to
      say "Nothing open yet" and send the reader to the shelf. Now a book is drawn at random from the shelf each
      time the page is built, and the box is the Continue reading box's own markup — the spine in the book's
-     colour, the title, the author — with the shelf's promise in the place of the progress bar: how many whole
-     books there are, that each is in English translation, and which original languages stand beside them
-     (`origName`, in shelf order, the first three named). The passage is homeReadingNextHTML in its random
+     colour, the title, the author — with "Free to read · <language> and English" where the progress bar would
+     be (a sentence counting the shelf's books stood under the row for a day and was removed on request). The
+     passage is homeReadingNextHTML in its random
      mode (a paragraph of some chapter, not the preface's first line), filled in by homeReadingNextFill once the
      book's lazy file arrives — at idle, and never in light mode or on cellular, because the file is a whole
      book and nobody asked for this one. A press opens the book at its start (the click handler reads
      `data-book` as it does for a book in progress); a press on the passage opens its chapter. */
   function homeSuggestedHTML() {
     const b = BOOKS.length ? BOOKS[Math.floor(Math.random() * BOOKS.length)] : null;
-    const langs = [];
-    BOOKS.forEach((x) => { if (x.origLang && x.origName && !langs.includes(x.origName)) langs.push(x.origName); });
-    const withOrig = BOOKS.filter((x) => x.origLang).length;
-    const named = langs.slice(0, 3).join(", ") + (langs.length > 3 ? " and more" : "");
-    const promise = "The Library holds " + BOOKS.length + " whole historical books, completely free to read \u2014 each in English translation" +
-      (withOrig ? ", " + withOrig + " of them beside their original text: " + named + "." : ".");
     if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Suggested reading</span>' +
-      '<span class="hb-empty">' + esc(promise) + "</span></button>";
+      '<span class="hb-empty">Nothing on the shelf yet.</span></button>';
     return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" data-suggest="1" style="--tile:' + esc(bookColor(b)) + '">' +
       '<span class="hb-k">Suggested reading</span>' +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + (b.written ? " \u00b7 " + esc(b.written) : "") + "</span>" +
-        "<em>Free to read \u00b7 " + (b.origLang && b.origName ? esc(b.origName) + " and English" : "English translation") + "</em></span></span>" +
-      '<span class="hb-empty">' + esc(promise) + "</span></button>";
+        "<em>Free to read \u00b7 " + (b.origLang && b.origName ? esc(b.origName) + " and English" : "English translation") + "</em></span></span></button>";
   }
   /* A GLIMPSE OF THE NEXT PARAGRAPH (Oct 2026, on request: "show a brief preview of a next paragraph to read in
      the book, which fades out vertically downwards and can be clicked to go straight to that chapter"). The place

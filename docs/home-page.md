@@ -357,7 +357,7 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   them).
 - **Continue reading** (`homeReadingHTML`, from `S.reading[id].at` — `+r.at || 0`, since `| 0` wraps a
   millisecond stamp; a reader who has never opened a book gets **Suggested reading** instead, `homeSuggestedHTML`: a random book of
-  the shelf, the shelf's promise, and a random passage filled at idle, Oct 2026) and **This week** (`homeWeekHTML`, from `S.reviewLog`; its contents centred, its
+  the shelf and a random passage filled at idle, Oct 2026) and **This week** (`homeWeekHTML`, from `S.reviewLog`; its contents centred, its
   title not, on request).
 - **Nothing dated at the top left** (on request): the version line lives in the page's foot with the
   About and Changelog links, centred on a phone. The tagline under the logo is hidden on a phone.
