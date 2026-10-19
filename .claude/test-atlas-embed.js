@@ -14,7 +14,7 @@
      4  A LOCATOR WINDOW (a point, a river with its own river in gold, a region clipped to land): the gold mark is there, the siblings' red is absent on a fresh profile, and a tap on the window
         does NOT open the Atlas (only the globe button does).
      5  A WAR WINDOW, IN ITS YEARS AND NONE OUTSIDE: the Second Punic War's window is drawn at the middle of its years with green and red on screen, the same hub asked for a year after the war
-        draws neither, and the go button opens #map at that year with &war=<card> (and the Atlas, opened there, has that war in focus).
+        draws neither, and the go button opens #map at that year (CHANGED 2026-10-19: with no war in the address, and the Atlas, opened there, draws none — test-atlas-no-wars.js).
      6  FIND IT: the day is five rounds, the same five whenever it is dealt on one date (the equality with the retired board's deal is `compare-findit-deal.js`), a tap only picks ("Guess" appears, Clear withdraws it), a wrong guess says
         "N km away", a second try that is right counts as found, a place is scored by distance, the score line and the played-today door follow; under reduced motion the fly is instant.
      7  No console or page errors anywhere. */
@@ -217,11 +217,11 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     check("asked for a year after the war (100 BCE), with the war still chosen, it tints nothing", out.after.g < 60 && out.after.r < 60, JSON.stringify(out.after));
     await page.click(".map-card [data-mc='go']"); await sleep(1500);
     const h = await page.evaluate(() => location.hash);
-    check("the go button opens #map at the war's year (the Atlas then writes its own hash; the war's card rides on the link as &war=)", /^#map\/.+\?y=-209/.test(h), h);
+    check("the go button opens #map at the war's year, with no war in the address (the Atlas then writes its own hash)", /^#map\/.+\?y=-209/.test(h) && !/war=/.test(h), h);
     await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
-    await page.waitForFunction(() => { const w = document.querySelector(".atlas2").__atlas2.wars(); return w.ready && w.focus === "rm-209"; }, null, { timeout: 120000 }).catch(() => {});
-    const w = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { focus: c.wars().focus, year: c.year() }; });
-    check("the Atlas, opened there, has that war in focus at that year", w.focus === "rm-209" && w.year === -209, JSON.stringify(w));
+    await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.timeInfo().year === -209, null, { timeout: 120000 }).catch(() => {});
+    const w = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { focus: c.wars().focus, shown: c.wars().shown.length, year: c.timeInfo().year }; });
+    check("the Atlas, opened there, is at that year and draws no war (CHANGED 2026-10-19: it used to have the war in focus)", w.focus === null && w.shown === 0 && w.year === -209, JSON.stringify(w));
     await ctx.close();
   }
 

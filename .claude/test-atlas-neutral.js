@@ -56,7 +56,7 @@ async function openAtlas(browser, vp, night) {
   page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text()) && !/GL_INVALID|WebGL/.test(m.text())) errors.push("console: " + m.text().slice(0, 200)); });
   await page.goto(`http://127.0.0.1:${PORT}/#map`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 180000 });
-  await A(page, (c) => { c.setLayers({ rivers: false, lakes: false, relief: false, countries: false, places: false, physical: false, cities: false, provinces: false, wars: "off", fronts: false, peoples: "all" }); if (c.study && c.study.setMode) c.study.setMode("map"); c.ensureHistory(); });
+  await A(page, (c) => { c.setLayers({ rivers: false, lakes: false, relief: false, countries: false, places: false, physical: false, cities: false, provinces: false, peoples: "all" }); if (c.study && c.study.setMode) c.study.setMode("map"); c.ensureHistory(); });
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyStarted() && c.historyReady(); }, null, { timeout: 180000 });
   return { ctx, page };
 }

@@ -55,7 +55,7 @@ async function open(browser, theme) {
   await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
   if (theme === "dark") { await page.evaluate(() => document.body.classList.add("night")); await sleep(300); }
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady() && c.study.ready(); }, null, { timeout: 120000 });
-  await A(page, (c) => { c.setLayers({ rivers: false, lakes: false, countries: false, wars: "off", peoples: "off" }); c.study.setMode("full"); c.ensureHistory(); });
+  await A(page, (c) => { c.setLayers({ rivers: false, lakes: false, countries: false, peoples: "off" }); c.study.setMode("full"); c.ensureHistory(); });
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyStarted() && c.historyReady(); }, null, { timeout: 180000 });
   return { ctx, page };
 }

@@ -237,9 +237,9 @@
   }
   // the legend (Phase 1c): borders, provinces, the three name groups, cities, rivers, lakes, relief with its
   // strength, graticule, label density — remembered per reader, behind try/catch like every localStorage read
-  const DEFAULT_LAYERS = { borders: true, provinces: true, countries: true, places: true, physical: true, cities: true, rivers: true, lakes: true, relief: false, strength: 0.7, graticule: false, density: "normal", peoples: "linked", wars: "auto", fronts: true };
+  const DEFAULT_LAYERS = { borders: true, provinces: true, countries: true, places: true, physical: true, cities: true, rivers: true, lakes: true, relief: false, strength: 0.7, graticule: false, density: "normal", peoples: "linked" };
   function loadLayers() {
-    try { const v = JSON.parse(localStorage.getItem(LAYERS_KEY) || "null"); if (v && typeof v === "object") { const o = Object.assign({}, DEFAULT_LAYERS, v); if (!/^(sparse|normal|dense)$/.test(o.density)) o.density = "normal"; if (!/^(off|linked|all)$/.test(o.peoples)) o.peoples = "linked"; if (!/^(auto|off|on)$/.test(o.wars)) o.wars = "auto"; o.fronts = o.fronts !== false; return o; } } catch (e) {}
+    try { const v = JSON.parse(localStorage.getItem(LAYERS_KEY) || "null"); if (v && typeof v === "object") { const o = Object.assign({}, DEFAULT_LAYERS, v); if (!/^(sparse|normal|dense)$/.test(o.density)) o.density = "normal"; if (!/^(off|linked|all)$/.test(o.peoples)) o.peoples = "linked"; delete o.wars; delete o.fronts; return o; } } catch (e) {}   /* 2026-10-19: wars left the Atlas page: a saved Wars or front-line choice is dropped */
     return Object.assign({}, DEFAULT_LAYERS);
   }
   function saveLayers(l) { try { localStorage.setItem(LAYERS_KEY, JSON.stringify(l)); } catch (e) {} }
@@ -342,23 +342,6 @@
               <p class="atlas2-peoples-note" aria-live="polite"></p>
               <p class="atlas2-peoples-hint atlas2-ground-key">Darker ground: no state or people in this year. A state has no colour of its own, only its border.</p>
             </fieldset>
-            <fieldset class="atlas2-group atlas2-wars"><legend>Wars</legend>
-              <label><input type="radio" name="atlas2-wars" data-layer="wars" value="auto"> Automatic <span class="atlas2-peoples-hint">Tints wars in your Personal Atlas, and the one war you open from a card. The plain Map tints no war, so nothing changes colour as you scrub.</span></label>
-              <label><input type="radio" name="atlas2-wars" data-layer="wars" value="off"> Off</label>
-              <label><input type="radio" name="atlas2-wars" data-layer="wars" value="on"> On everywhere <span class="atlas2-peoples-hint">Every war a card teaches, in its years, in every view.</span></label>
-              <dl class="atlas2-wars-key" aria-label="What the war tints mean">
-                <div><dt class="atlas2-wars-sw atlas2-wars-sw-victor"></dt><dd>Victors: the ground a war’s winning side held in its years</dd></div>
-                <div><dt class="atlas2-wars-sw atlas2-wars-sw-loser"></dt><dd>Losers: the ground the defeated side held</dd></div>
-                <div><dt class="atlas2-wars-sw atlas2-wars-sw-extent"></dt><dd>A soft, borderless wash: an authored extent, Folio’s own approximation where no dataset draws the side</dd></div>
-              </dl>
-              <label class="atlas2-fronts-sw"><input type="checkbox" data-layer="fronts"> The Second World War’s front line (1939–45)</label>
-              <p class="atlas2-fronts-edge">Where a 1939–42 tint fades out at a straight edge, the source map ends there; the war did not.</p>
-              <dl class="atlas2-wars-key atlas2-fronts-key" aria-label="What the front tints mean">
-                <div><dt class="atlas2-wars-sw atlas2-wars-sw-axis"></dt><dd>Axis-held ground; the lighter tint is ground the Axis occupied</dd></div>
-                <div><dt class="atlas2-wars-sw atlas2-wars-sw-allied"></dt><dd>Allied-held ground; the lighter tint is ground the Allies occupied</dd></div>
-              </dl>
-              <p class="atlas2-wars-note" aria-live="polite"></p>
-            </fieldset>
             <p class="atlas2-layers-note" hidden></p>
           </div>
         </div>
@@ -401,11 +384,6 @@
         <div class="atlas2-keys vh" aria-label="Places named on the map"><ul></ul></div>
         <div class="atlas2-rail" role="group" aria-label="Year">
           <p class="atlas2-rail-note" hidden>No state taught by Folio’s cards is mapped for this year yet.</p>
-          <div class="atlas2-front" role="group" aria-label="The front line: choose a plate" hidden>
-            <button type="button" class="atlas2-rail-btn atlas2-front-prev" aria-label="Previous front plate" title="Previous plate of the front line">‹</button>
-            <span class="atlas2-front-label" aria-live="polite"></span>
-            <button type="button" class="atlas2-rail-btn atlas2-front-next" aria-label="Next front plate" title="Next plate of the front line">›</button>
-          </div>
           <div class="atlas2-rail-row" id="atlas2-rail-row">
             <button type="button" class="atlas2-rail-btn atlas2-rail-prev" aria-label="Previous change year" title="Previous change year ([)">‹</button>
             <div class="atlas2-rail-track"><div class="atlas2-rail-pin" role="slider" tabindex="0" aria-label="Year" aria-valuemin="${RAIL_FROM}" aria-valuemax="${TODAY}" aria-valuenow="${TODAY}" aria-valuetext="${TODAY}" aria-orientation="horizontal"></div><div class="atlas2-rail-mag" hidden aria-hidden="true"></div></div>
@@ -458,7 +436,7 @@
        the canvas into the window's own 2D canvas, so any number of windows share one WebGL context. */
     const EMBED = !!opts.embed;
     let embedHook = null;   // atlas-embed.js: told when a tile, a water level or the history has arrived (the hub has no frame loop of its own)
-    const layers = EMBED ? Object.assign({}, DEFAULT_LAYERS, { countries: false, places: false, physical: false, cities: false, relief: false, graticule: false, rivers: false, lakes: false, wars: "off", fronts: false, peoples: "off" }, opts.layers || {}) : loadLayers();
+    const layers = EMBED ? Object.assign({}, DEFAULT_LAYERS, { countries: false, places: false, physical: false, cities: false, relief: false, graticule: false, rivers: false, lakes: false, peoples: "off" }, opts.layers || {}) : loadLayers();
     const view = { history: null, lon: H.home && isFinite(H.home.lon) ? H.home.lon : 10, lat: H.home && isFinite(H.home.lat) ? H.home.lat : 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, landChanges: [], relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
     let cssW = 0, cssH = 0, base = 100, dprNow = 1;
     /* ADAPTIVE DEGRADATION DURING A GESTURE (Phase 1d). The owner's gate holds every frame of a gesture to 100 ms, and on
@@ -855,15 +833,14 @@
 
     var timeReady = false;   // 2c: set when the time block exists (the legend is reflected before it)
     /* ---------- the legend (Phase 1c; the layers control until then) ---------- */
-    const inputs = {}; sheet.querySelectorAll("[data-layer]").forEach((i) => { const k = i.getAttribute("data-layer"); if (k === "density" || k === "peoples" || k === "wars") (inputs[k] = inputs[k] || []).push(i); else inputs[k] = i; });
+    const inputs = {}; sheet.querySelectorAll("[data-layer]").forEach((i) => { const k = i.getAttribute("data-layer"); if (k === "density" || k === "peoples") (inputs[k] = inputs[k] || []).push(i); else inputs[k] = i; });
     function reflectLayers() {
-      for (const k of ["borders", "provinces", "countries", "places", "physical", "cities", "rivers", "lakes", "relief", "graticule", "fronts"]) inputs[k].checked = !!layers[k];
+      for (const k of ["borders", "provinces", "countries", "places", "physical", "cities", "rivers", "lakes", "relief", "graticule"]) inputs[k].checked = !!layers[k];
       inputs.strength.value = String(layers.strength); inputs.strength.disabled = !layers.relief || STATIC2D || FILE;
       inputs.relief.disabled = STATIC2D || FILE;   // the still view and a file:// page have no relief (the note in the sheet says why)
       for (const r of inputs.density) r.checked = r.value === layers.density;
       for (const r of inputs.peoples) r.checked = r.value === layers.peoples;
-      for (const r of inputs.wars) r.checked = r.value === layers.wars;
-      reflectPeoplesNote(); reflectWarsNote();
+      reflectPeoplesNote();
     }
     function setLayers(patch) {
       const before = JSON.stringify(layers);
@@ -871,12 +848,10 @@
       layers.strength = Math.max(0.2, Math.min(1, Number(layers.strength) || DEFAULT_LAYERS.strength));
       if (!/^(sparse|normal|dense)$/.test(layers.density)) layers.density = "normal";
       if (!/^(off|linked|all)$/.test(layers.peoples)) layers.peoples = "linked";
-      if (!/^(auto|off|on)$/.test(layers.wars)) layers.wars = "auto";
-      layers.fronts = layers.fronts !== false;
       view.graticule = layers.graticule;
       if (!EMBED) { saveLayers(layers); try { window.dispatchEvent(new CustomEvent("atlas2:layers", { detail: { relief: layers.relief, strength: layers.strength } })); } catch (e) {} }   // 2026-10-18: the card windows follow the relief switch and its strength (atlas-embed.js reliefSetting)
       reflectLayers(); invalidate();
-      if (JSON.stringify(layers) !== before) { if (before.indexOf('"peoples":"' + layers.peoples + '"') < 0) refreshPresence(true); if (before.indexOf('"wars":"' + layers.wars + '"') < 0) refreshWars(); if (before.indexOf('"fronts":' + layers.fronts) < 0) refreshFronts(); requestLayout("legend", true); }
+      if (JSON.stringify(layers) !== before) { if (before.indexOf('"peoples":"' + layers.peoples + '"') < 0) refreshPresence(true); requestLayout("legend", true); }
     }
     reflectLayers();
     const sheetOpenClass = () => el.classList.toggle("atlas2-sheet-open", !sheet.hidden || !el.querySelector(".atlas2-about").hidden);
@@ -1302,12 +1277,12 @@
       /* Phase 2c: the PRESENCE layer — the peoples and cultures alive in the year that the Peoples switch lets through (`palive`), the ones on
          screen (`pOnScreen`), the entity indexes of every presence (`presEnts`, `isPres`), the entities a card links (`linkedIds`) */
       presEnts: [], isPres: [], linkedIds: new Set(), palive: [], pSet: new Set(), pOnScreen: [], pKey: "",
-      /* Phase 2d: the WARS — the table (atlas/data/wars.js), the wars drawn (`warShown`, from the switch, the study mode and the card), the entities tinted in the year with their role
+      /* Phase 2d: the WARS — the table (atlas/data/wars.js), the wars drawn (`warShown`: only the war a card window chose, `warFocus` — the Atlas page draws none since 2026-10-19), the entities tinted in the year with their role
          (`warRoles`: entity id → { role: 1 victor | 2 loser | 3 both, wars }), the signature of that map (`warKey`, so a war that starts changes the style), the war chosen from a card (`warFocus`),
          the extents (an authored extent is a presence-class soft face drawn as a wash in its side's tint; `isExt`) */
       wars: null, warShown: new Set(), warRoles: new Map(), warKey: "", warFocus: null, isExt: [], extWars: new Map(), warLoading: false, warFailed: false,
-      /* Phase 2d: the FRONT line — event faces, dated to the day. `isFront` marks the four entities; `frontDate` is the date the reader stepped to (YYYYMMDD) or null for "the end of the year"; `fronts` the header's plates */
-      isFront: [], frontEnts: [], fronts: null, frontDate: null, frontPlates: [], frontAlive: [] };
+      /* Phase 2d: the FRONT line — event faces, dated to the day. `isFront` marks the four entities; `frontDate` is the date a war window's timeline stepped to (YYYYMMDD) or null for "the end of the year"; `fronts` the header's plates; `frontOn` is set by a war window whose card owns the front (the page never draws it) */
+      isFront: [], frontEnts: [], fronts: null, frontDate: null, frontOn: false, frontPlates: [], frontAlive: [] };
     timeReady = true;
     const PI = { mode: "map", flags: new Map() };   // the study layer's answer to "does a card of the reader's link it?" (applyStudy keeps it); "map" until the cards are read
     let histStarted = false, histWanted = false, coreIn = false;
@@ -1365,7 +1340,7 @@
       for (const c of H.cities || []) { const id = "cap:" + c.entity + ":" + c.name; if (!G.byId.has(id)) G.byId.set(id, { id, name: c.name, kind: "capital", hist: true, city: c, at: [c.lon, c.lat], within: c.entity, key: fold(c.name), akeys: [], rank: 0, len: 0, aliases: [] }); }
       if (pendingPlace && G.ready && stats.ready && G.byId.has(pendingPlace) && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null;   // the deep link's history place, now that its row exists
       histColours();   // the war tints and the neutral ink (2026-10-18: every state is one fill, so there is no palette to assign)
-      loadWars();
+      if (EMBED) loadWars();   // 2026-10-19: only a card window reads the wars table; the Atlas page draws no war and never fetches it
       loadPolityNames();
       applyYear(time.year, { why: "meta" });
     }
@@ -1384,7 +1359,6 @@
       const hsl = (h, sat, lum) => { const c = (1 - Math.abs(2 * lum - 1)) * sat, x = c * (1 - Math.abs((h / 60) % 2 - 1)), mm = lum - c / 2; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [r + mm, g + mm, b + mm]; };
       // the war tints (2d): a green and a red (hue 138° and 4°), each blended with the theme's ink (light) or paper (dark)
       warRGB = { victor: dark ? mix(hsl(138, 0.6, 0.55), paper, 0.08) : mix(hsl(138, 0.62, 0.34), ink, 0.1), loser: dark ? mix(hsl(4, 0.75, 0.6), paper, 0.08) : mix(hsl(4, 0.72, 0.44), ink, 0.1) };
-      try { paintWarsKey(); } catch (e) { /* the legend is built before the time block on a first call */ }
       const hb = dark ? mix(paper, ink, 0.35) : mix(paper, ink, 0.58);
       histBorderCss = hb; presInk = hb; histBorderStyle();   // 2c: the presences' stipple is the border ink, so it follows the theme too (screen on a dark one, multiply on a light one)
       void paper;
@@ -1478,8 +1452,7 @@
     /* the Peoples switch or the study mode moved: the alive presences of the year change, so the year is applied again (meshes, labels, change years) */
     function refreshPresence() { if (!time.hist || !time.hist.ready) return; applyYear(time.year, { force: true, why: "peoples" }); }
     /* ---- Phase 2d: the FRONT LINE (event faces dated to the day; study.js does the arithmetic) ---- */
-    const frontEl = el.querySelector(".atlas2-front"), frontLabel = el.querySelector(".atlas2-front-label");
-    const frontShown = (ent) => { const A = AS2(); return !!A && A.frontsShown(layers.fronts, PI.mode, time.ents[ent].id, PI.flags); };
+    const frontShown = () => time.frontOn;   // a war window whose card owns the front (`setWindowFront`); the Atlas page draws none (2026-10-19)
     let autoFrontYear = null, autoFrontVal = null;   // 0d: autoFrontDate walks every plate; the answer for a year never changes while the plates do not
     const curFrontDate = () => { const A = AS2(); if (!A || !time.frontPlates.length) return null; if (time.frontDate != null && Math.floor(time.frontDate / 10000) === time.year) return time.frontDate; if (autoFrontYear !== time.year) { autoFrontVal = A.autoFrontDate(time.frontPlates, time.year); autoFrontYear = time.year; } return autoFrontVal; };
     function frontAliveAt(d) {
@@ -1492,40 +1465,6 @@
       return out;
     }
     const FRONT_WASH = { held: 0.42, occupied: 0.26 };   // a held side's ground is tinted more than the ground it occupies
-    const isoOf = (n) => { const q = String(n); return q.slice(0, 4) + "-" + q.slice(4, 6) + "-" + q.slice(6, 8); };
-    const dayShift = (n, k) => Number(new Date(Date.parse(isoOf(n) + "T00:00:00Z") + k * 86400000).toISOString().slice(0, 10).replace(/-/g, ""));
-    const dayDiff = (a, b) => Math.round((Date.parse(isoOf(b) + "T00:00:00Z") - Date.parse(isoOf(a) + "T00:00:00Z")) / 86400000);
-    function frontText(d) {
-      const A = AS2(); if (d == null || !A) return "";
-      const ps = A.platesAt(time.frontPlates, d);
-      const eur = ps.find((p) => p.theatre === "eur"), pac = ps.find((p) => p.theatre === "pac");
-      const bits = []; if (eur) bits.push("Europe " + (eur.rms_km != null ? "±" + Math.round(eur.rms_km) + " km" : "")); if (pac) bits.push("Pacific ±" + Math.round(pac.rms_km) + " km");
-      // a gap in the sources before this plate (the stepper jumps over it, and says so)
-      const dates = A.plateDates(time.frontPlates), i = dates.indexOf(d);
-      let gap = "";
-      if (i > 0) { const prevEnd = Math.max.apply(null, time.frontPlates.filter((p) => A.dateInt(p.date) === dates[i - 1]).map((p) => A.dateInt(p.end))); if (dayDiff(prevEnd, d) > 1) gap = " · no plate from " + A.fmtDate(dayShift(prevEnd, 1)) + " to " + A.fmtDate(dayShift(d, -1)) + " (no source)"; }
-      return A.fmtDate(d) + (bits.length ? " · approximate " + bits.join(", ") : "") + gap;
-    }
-    function reflectFront() {
-      if (!timeReady || !frontEl) return;
-      const yr = time.year, can = layers.fronts && time.frontEnts.length && time.frontEnts.some(frontShown) && yr >= 1939 && yr <= 1945 && !time.present;
-      const d = can ? curFrontDate() : null;
-      frontEl.hidden = !(can && d != null);
-      if (frontEl.hidden) return;
-      const t = "The front line · " + frontText(d);
-      if (frontLabel.textContent !== t) frontLabel.textContent = t;
-      frontEl.querySelector(".atlas2-front-prev").disabled = AS2().stepPlate(time.frontPlates, d, -1) == null;
-      frontEl.querySelector(".atlas2-front-next").disabled = AS2().stepPlate(time.frontPlates, d, 1) == null;
-    }
-    function stepFront(dir) {
-      const A = AS2(); const d = curFrontDate(); if (!A || d == null) return false;
-      const n = A.stepPlate(time.frontPlates, d, dir); if (n == null) return false;
-      time.frontDate = n; const y = Math.floor(n / 10000);
-      if (y !== time.year) setYear(y, { keepFront: true }); else applyYear(y, { force: true, why: "fronts" });
-      return true;
-    }
-    function refreshFronts() { if (!time.hist || !time.hist.ready) return; applyYear(time.year, { force: true, why: "fronts" }); }
-    if (frontEl) { frontEl.querySelector(".atlas2-front-prev").addEventListener("click", () => stepFront(-1)); frontEl.querySelector(".atlas2-front-next").addEventListener("click", () => stepFront(1)); }
     /* ---- Phase 4, 0c: DISPLAY-NAME OVERRIDES (atlas/data/polity-names.js, from polity-names.json) ----
        Cliopatria names a row once for its whole span; where Wikidata dates a different name for the same ground (the Kingdom of Hungary from 1920, the Federal State of Austria from 1934),
        the row shows that name in those years. Only the display string moves — the id, the faces and the steps are untouched — so `row.name` and `row.key` are set as the year is applied,
@@ -1558,19 +1497,18 @@
         if (disposed) return;
         const W = root.ATLAS_WARS; time.warLoading = false;
         if (!W || !W.wars) { time.warFailed = true; return; }
-        time.wars = W.wars; time.extWars = new Map(); try { tryPendingWar(); } catch (e) { /* the deep link's war is not worth a failed table */ }
+        time.wars = W.wars; time.extWars = new Map();
         for (const [id, w] of Object.entries(W.wars)) for (const k of ["v", "l"]) { const x = w[k] && w[k].x; if (x) { let l = time.extWars.get(x); if (!l) time.extWars.set(x, l = []); l.push(id); } }
         refreshWars();
       }).catch((e) => { time.warLoading = false; time.warFailed = true; if (typeof console !== "undefined") console.warn("atlas2 wars table failed: " + (e && e.message || e)); });
     }
     const FILE_OK_WARS = () => true;
-    /* the wars drawn, from the switch, the study mode and the card; then the year is applied again (the tints, the washes, the change years) */
+    /* the war drawn: only the one a card window chose (`focusWar`, from atlas-embed.js); then the year is applied again (the tints, the washes). Since 2026-10-19 the Atlas page draws no war: there is no switch, no study mode and no deep link that picks one. */
     function computeWarShown() {
-      const A = AS2(); if (!A || !time.wars) { time.warShown = new Set(); return; }
-      time.warShown = A.warsShown(time.wars, { pos: layers.wars, mode: PI.mode, cardSet: typeof ST !== "undefined" && ST.st ? ST.st.cardSet : null, hidden: typeof ST !== "undefined" ? ST.hidden : null, info: typeof ST !== "undefined" && ST.ready ? info : null, focus: time.warFocus });
+      time.warShown = time.warFocus && time.wars && time.wars[time.warFocus] ? new Set([time.warFocus]) : new Set();
     }
     function refreshWars() {
-      computeWarShown(); reflectWarsNote();
+      computeWarShown();
       if (!time.hist || !time.hist.ready) return;
       applyYear(time.year, { force: true, why: "wars" });
     }
@@ -1579,18 +1517,6 @@
       time.warRoles = A.warRoles(time.wars, time.warShown, y);
       let k = ""; for (const [id, r] of time.warRoles) k += id + ":" + r.role + ";";
       time.warKey = k;
-    }
-    var warsNoteText = null;
-    function reflectWarsNote() {
-      if (!timeReady) return;
-      const el2 = sheet.querySelector(".atlas2-wars-note"); if (!el2) return;
-      let t = "";
-      const effW = AS2() ? AS2().warsEffective(layers.wars, PI.mode) : layers.wars;
-      if (effW === "off" && !time.warFocus) t = layers.wars === "auto" ? "Wars are not tinted on the plain Map. Choose On to tint them, or open a war from its card." : "Wars are not tinted.";
-      else if (!time.wars) t = time.warFailed ? "The wars table didn’t arrive." : "Reading the wars…";
-      else if (time.warFocus && time.wars[time.warFocus]) t = "Showing one war: " + (time.wars[time.warFocus].t || time.warFocus) + ".";
-      else { const n = [...time.warRoles.keys()].length; t = (PI.mode === "personal" ? "Wars from the cards you have studied. " : "Every war a card teaches. ") + (n ? (AS2() ? AS2().fmtN(n) : String(n)) + (n === 1 ? " side is" : " sides are") + " tinted in this year." : "None is tinted in this year."); }
-      if (t !== warsNoteText) { warsNoteText = t; el2.textContent = t; }
     }
     var peoplesNoteText = null;
     function reflectPeoplesNote() {
@@ -1611,12 +1537,6 @@
       const visEnt = new Set(), onScreen = [];
       for (const [ent, l] of time.stepsOf) { if (time.isFront[ent]) continue; const pres = time.isPres[ent]; if (pres && !presShown(ent)) continue; for (const st of l) { const fi = st[2]; const d = Math.max(-1, Math.min(1, time.faceCap[4 * fi] * rot[6] + time.faceCap[4 * fi + 1] * rot[7] + time.faceCap[4 * fi + 2] * rot[8])); if (Math.acos(d) - time.faceCap[4 * fi + 3] <= viewAngle) { visEnt.add(ent); if (!pres && st[0] <= time.year && st[1] >= time.year) onScreen.push(fi); } } }   // a people's steps tick like a state's (2c) once the switch lets it through; only a state counts for the "no state is mapped" note
       const ys = new Set();
-      // 2d: a war starting or ending (and a member's window) is a change on screen where one of its entities is
-      if (time.wars && time.warShown.size) for (const id of time.warShown) {
-        const w = time.wars[id]; if (!w) continue;
-        let on = false; for (const k of ["v", "l"]) { for (const m of w[k].m) { const ei = entityIndexOfId(m[0]); if (ei >= 0 && visEnt.has(ei)) { on = true; ys.add(m[1]); if (m[2] + 1 <= TODAY) ys.add(m[2] + 1); } } if (w[k].x) { const ei = entityIndexOfId(w[k].x); if (ei >= 0 && visEnt.has(ei)) on = true; } }
-        if (on) { ys.add(w.y[0]); if (w.y[1] + 1 <= TODAY) ys.add(w.y[1] + 1); }
-      }
       for (const ent of visEnt) for (const st of time.stepsOf.get(ent)) { ys.add(st[0]); if (st[1] + 1 <= TODAY) ys.add(st[1] + 1); }
       ys.add(PRESENT_YEAR);
       time.onScreen = onScreen;
@@ -1660,7 +1580,7 @@
           time.aliveArcs = arcFlags(time.onScreenAlive);
           time.pOnScreen = pVis.filter((a) => faceOnScreen(a.face, va));
           // the crossfade: when stepping or playing, never while the pin is dragged, never under reduced motion
-          if (!o.drag && !reducedNow() && prevFaces.length + alive.length + prevP.length + time.pOnScreen.length && o.why !== "meta" && o.why !== "ready" && o.why !== "peoples") { time.fade = { from: prevFaces, fromP: prevP, fromArcs: time.prevArcs || null, t0: performance.now() }; } else time.fade = null;
+          if (!o.drag && !EMBED && !reducedNow() && prevFaces.length + alive.length + prevP.length + time.pOnScreen.length && o.why !== "meta" && o.why !== "ready" && o.why !== "peoples") { time.fade = { from: prevFaces, fromP: prevP, fromArcs: time.prevArcs || null, t0: performance.now() }; } else time.fade = null;
           time.prevArcs = time.aliveArcs;
           wantMeshes(time.onScreenAlive.map((a) => a.face).concat(time.pOnScreen.map((a) => a.face)), true);
           if (!o.drag) lookAhead();
@@ -1670,7 +1590,6 @@
         time.capitals = (time.hist.header.cities || []).filter((c) => c.from <= y && c.to >= y && alive.some((a) => time.ents[a.ent].id === c.entity)).map((c) => ({ entity: c.entity, name: c.name, lon: c.lon, lat: c.lat }));
         refreshOnScreen();   // the change years and the note: rebuilt only when the alive set or the view changed (not on every year of a scrub)
         if (changed) reflectPeoplesNote();
-        reflectFront(); reflectWarsNote();
       } else { time.view = { faces: [], pfaces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
       if (wasPresent !== time.present) { if (sel.id && !G.byId.get(sel.id)?.hist && !time.present) clearSelection(); }
       if (!o.drag && !EMBED) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
@@ -2642,7 +2561,7 @@
       setSnap(k);
     }, { passive: false });
     cardEl.addEventListener("touchcancel", () => { if (sheetDrag && sheetDrag.moved) { cardEl.classList.remove("atlas2-card-dragging"); reflectSheet(); } sheetDrag = null; }, { passive: true });
-    /* choose a war to draw whatever the switch and the study mode say (the only way a war that groups others is drawn), or null to let go. The year goes to the war's
+    /* choose the war a card window draws (the only way a war is drawn: the Atlas page has none since 2026-10-19), or null to let go. The year goes to the war's
        first year when it is outside its years, and the view to where its sides lie (the union of the faces of its members in those years). */
     function focusWar(id) {
       if (id && !(time.wars && time.wars[id])) return false;
@@ -2695,21 +2614,16 @@
       rotation(); const q = { rot: Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, level: Math.min(2, view.level) }, seq = ++faceAnchorSeq;
       faceAnchorWait.set(seq, { cb, q }); postToWorker(Object.assign({ type: "face-anchors", seq, faces, near: near || [] }, q));
     }
-    let pendingWar = null;
-    function tryPendingWar() { if (pendingWar && time.wars && time.wars[pendingWar]) { const id = pendingWar; pendingWar = null; time.warFocus = id; computeWarShown(); refreshWars(); } }   // a deep link's war: focused where it is, without the jump to the war's first year that the card's button makes
-    function frameWar(id) { const f = warFrame(id); if (f) setView(f.lon, f.lat, f.kmpp); }
-    function paintWarsKey() {
-      const k = sheet.querySelector(".atlas2-wars-key"); if (!k) return;
-      const css = (c, a) => "rgba(" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255)).join(",") + "," + a + ")";
-      const v = k.querySelector(".atlas2-wars-sw-victor"), l = k.querySelector(".atlas2-wars-sw-loser"), x = k.querySelector(".atlas2-wars-sw-extent");
-      if (v) v.style.background = css(warRGB.victor, 0.7);
-      if (l) l.style.background = css(warRGB.loser, 0.7);
-      const ax = k.parentNode.querySelector(".atlas2-wars-sw-axis"), al = k.parentNode.querySelector(".atlas2-wars-sw-allied");
-      if (ax) ax.style.background = "linear-gradient(90deg, " + css(warRGB.loser, 0.7) + " 0 50%, " + css(warRGB.loser, 0.35) + " 50% 100%)";
-      if (al) al.style.background = "linear-gradient(90deg, " + css(warRGB.victor, 0.7) + " 0 50%, " + css(warRGB.victor, 0.35) + " 50% 100%)";
-      if (x) x.style.background = "radial-gradient(circle at 50% 50%, " + css(warRGB.loser, 0.7) + " 0%, " + css(warRGB.loser, 0.2) + " 62%, transparent 100%)";
+    /* A WAR WINDOW'S FRONT LINE (2026-10-19; the window's timeline, atlas-windows.js): `on` draws the front entities of the war's year at `date` (YYYYMMDD; null: the last plate of the year), without a reload —
+       the year and the date are applied once, so a pin that moves from one plate to the next is one `applyYear`. The front needs the whole history file (the war slice carries none: build-war-slice.js). */
+    function setWindowFront(on, date) {
+      on = !!on; const d = date == null ? null : Number(date);
+      if (time.frontOn === on && time.frontDate === d) return;
+      time.frontOn = on; time.frontDate = on ? d : null;
+      if (d != null) { const y = Math.floor(d / 10000); if (y !== time.year) { setYear(y); return; } }
+      if (time.hist && time.hist.ready) applyYear(time.year, { force: true, why: "fronts" });
     }
-
+    function frameWar(id) { const f = warFrame(id); if (f) setView(f.lon, f.lat, f.kmpp); }
     /* ---- search: one input, diacritic-folded prefix then substring over names and aliases ---- */
     /* Phase 3c — the search covers the WHOLE registry whatever year the rail shows: the gazetteer and places.js rows (G), the
        polities of every age and their period capitals (atlas/data/polity-index.js, 20 KB, fetched at the first keystroke — the 4.7 MB
@@ -2849,7 +2763,7 @@
     /* ---- deep links: #map/<lon>/<lat>/<zoom>/<place>, written on settle, pushed on a selection ---- */
     const HASH_RE = /^#map\/(-?[\d.]+)\/(-?[\d.]+)\/(-?[\d.]+)(?:\/([^?]*))?(\?.*)?$/;
     const zoomLevel = () => Math.log2(156.543 / kmPerPx());
-    function readHash() { const m = HASH_RE.exec(location.hash || ""); if (!m) return null; let place = m[4] || null; if (place) { try { place = decodeURIComponent(place); } catch (e) {} } let year = null; const q = /[?&]y=(-?\d{1,5})\b/.exec(m[5] || ""); if (q) year = clampYear(Number(q[1])); const qw = /[?&]war=([A-Za-z0-9_-]+)/.exec(m[5] || ""); return { lon: Number(m[1]), lat: Number(m[2]), z: Number(m[3]), place, year, war: qw ? qw[1] : null }; }   // &war=<card id>: a war card's window opens the Atlas on that war (Phase 4)
+    function readHash() { const m = HASH_RE.exec(location.hash || ""); if (!m) return null; let place = m[4] || null; if (place) { try { place = decodeURIComponent(place); } catch (e) {} } let year = null; const q = /[?&]y=(-?\d{1,5})\b/.exec(m[5] || ""); if (q) year = clampYear(Number(q[1])); return { lon: Number(m[1]), lat: Number(m[2]), z: Number(m[3]), place, year }; }   // an old `&war=<card id>` on the address is ignored: the Atlas draws no war (2026-10-19)
     // the query: ?y=<year> (Phase 2a) and perf; the existing form #map/<lon>/<lat>/<zoom>/<place> is unchanged
     function hashNow() { const q = []; if (time.hist || time.year !== TODAY) q.push("y=" + time.year); if (perfInHash) q.push("perf"); return "#map/" + view.lon.toFixed(2) + "/" + view.lat.toFixed(2) + "/" + zoomLevel().toFixed(2) + (sel.id ? "/" + encodeURIComponent(sel.id) : "") + (q.length ? "?" + q.join("&") : ""); }
     function writeHash(push) {
@@ -2864,7 +2778,6 @@
       const z = R_KM / ((156.543 / Math.pow(2, d.z)) * base);
       view.lon = d.lon; view.lat = d.lat; view.zoom = z; clampView(); flying = null; coasting = false;
       if (d.year != null && d.year !== time.year) applyYear(d.year, { why: "hash" });
-      if (d.war) { pendingWar = d.war; tryPendingWar(); }
       if (!tileIndex) pendingZoom = z;   // the cap is not known until the header arrives: the asked-for zoom is clamped again then
       if (d.place) { const histId = /^(pol|cap|contested):/.test(d.place); if (G.ready && stats.ready && (!histId || time.ents) && selectById(d.place, { open: true, push: false })) pendingPlace = null; else { pendingPlace = d.place; pendingFly = false; } } else if (sel.id) clearSelection();   // a history place (pol:, cap:) waits for the history header
       plan(); invalidate(); requestLayout("hash", true);
@@ -3057,7 +2970,7 @@
     function applyStudy() {
       ST.flags = ST.ready ? AS.flags(ST.idx, ST.st, ST.mode, ST.hidden, info) : new Map();
       ST.tappable = AS.tappableSet(ST.ready ? ST.idx : null, ST.mode, ST.flags);   // what a tap may open (the tap rules, 2026-10-17)
-      PI.mode = ST.ready ? ST.mode : "map"; PI.flags = ST.flags; refreshWars(); refreshPresence();   // 4/0a: the Automatic wars position follows the mode   // 2c: the Personal and Full Atlas decide which peoples a reader sees
+      PI.mode = ST.ready ? ST.mode : "map"; PI.flags = ST.flags; refreshPresence();   // 2c: the Personal and Full Atlas decide which peoples a reader sees
       ST.rev++; refreshPersonalPresent();
       postToWorker({ type: "study-flags", mode: ST.mode === "map" ? "" : ST.mode, entries: [...ST.flags], rev: ST.rev });
       renderStudyPanel();
@@ -3171,7 +3084,6 @@
     // the Legend's key of the seven glyphs (decision e; the capital's square and the building's house, decision b; no star since 2026-10-18): built from AtlasStudy.MARK_CLASSES with the map's own geometry
     { const key = el.querySelector(".atlas2-marks-key"), A0 = root.AtlasStudy; if (key && A0 && A0.MARK_CLASSES) key.innerHTML = A0.MARK_CLASSES.map((c) => `<div data-cls="${escText(c.cls)}"><dt>${glyphSVG(c.shape)}</dt><dd>${escText(c.word)}</dd></div>`).join(""); }
     setPerf(perfOn);   // after the label state exists: the overlay reads it (Phase 1c)
-    try { paintWarsKey(); } catch (e) { /* before the time block */ }
     layout();
     // a deep link (#map/<lon>/<lat>/<zoom>/<place>) sets the first view; the place opens once the data is in
     if (!EMBED) { const d = readHash(); if (d) { deepView = true; lastWrittenHash = location.hash; applyHash(d); } }
@@ -3216,7 +3128,7 @@
           if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(p); add(e.id); } else add(e.id); } }
           else if (f && f.face != null && header && faceEntity && time.present) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(ent.id); if (ent.parent) add(ent.parent); } }
           return out;
-        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0 && (view.level >= 3 || R.levelLoaded(view.level)), levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
+        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), setWindowFront: (on, date) => setWindowFront(on, date), frontPlates: () => time.frontPlates, frontDateNow: () => curFrontDate(), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0 && (view.level >= 3 || R.levelLoaded(view.level)), levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
       stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
       forceStage, feedGesture, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
       perfOn: () => perfOn,
@@ -3253,11 +3165,11 @@
       // Phase 2c, for the suites: the presences the Peoples switch lets through in the year, the ones on screen, what is handed to the renderer, the switch
       presence: () => ({ alive: time.palive.filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreen: (time.pOnScreen || []).filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => a.face), drawn: ((time.view && time.view.pfaces) || []).filter((f) => !f.ext && !f.front).map((f) => ({ face: f.face, angle: f.angle, fade: f.fade })), position: layers.peoples, mode: PI.mode, all: time.presEnts.filter((i) => !time.isExt[i]).map((i) => time.ents[i].id), shown: time.presEnts.filter((i) => !time.isExt[i] && presShown(i)).map((i) => time.ents[i].id) }),
       // Phase 2d, for the suites: the wars table, the wars drawn, the entities tinted in the year with their roles, the washes handed to the renderer, the key's colours
-      wars: () => ({ ready: !!time.wars, count: time.wars ? Object.keys(time.wars).length : 0, position: layers.wars, focus: time.warFocus, shown: [...time.warShown].sort(), roles: [...time.warRoles].map(([id, r]) => [id, r.role, r.wars.slice()]).sort((a, b) => (a[0] < b[0] ? -1 : 1)), washes: ((time.view && time.view.pfaces) || []).filter((f) => f.ext).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), colours: { victor: warRGB.victor.map((v) => Math.round(v * 255)), loser: warRGB.loser.map((v) => Math.round(v * 255)) }, tinted: (time.view && time.view.faces || []).filter((f) => time.warRoles.size && f.tint).length, note: (sheet.querySelector('.atlas2-wars-note') || {}).textContent || '' }),
-      rowName: (id) => { const r = G.byId.get(id); return r ? r.name : null; }, focusWar: (id) => focusWar(id),
-      // Phase 2d, for the suites: the front line — the chosen date, the plates standing on it, the faces drawn and their tints, the stepper's text
-      fronts: () => ({ on: !!layers.fronts, ents: time.frontEnts.map((i) => time.ents[i].id), plates: time.frontPlates.length, date: curFrontDate(), stepped: time.frontDate, standing: (AS2() && curFrontDate() != null ? AS2().platesAt(time.frontPlates, curFrontDate()).map((p) => p.theatre + ":" + p.date) : []), drawn: ((time.view && time.view.pfaces) || []).filter((f) => f.front).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), shown: time.frontEnts.filter(frontShown).map((i) => time.ents[i].id), label: frontEl ? frontLabel.textContent : '', visible: !!frontEl && !frontEl.hidden }), stepFront: (d) => stepFront(d), setFrontDate: (n) => { time.frontDate = n; const y = Math.floor(n / 10000); if (y !== time.year) setYear(y, { keepFront: true }); else applyYear(y, { force: true, why: 'fronts' }); }, onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
-      historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(),   // every on-screen face has its mesh at the view's level (the frame gate waits on it before it counts the history's triangles)
+      wars: () => ({ ready: !!time.wars, count: time.wars ? Object.keys(time.wars).length : 0, focus: time.warFocus, shown: [...time.warShown].sort(), roles: [...time.warRoles].map(([id, r]) => [id, r.role, r.wars.slice()]).sort((a, b) => (a[0] < b[0] ? -1 : 1)), washes: ((time.view && time.view.pfaces) || []).filter((f) => f.ext).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), colours: { victor: warRGB.victor.map((v) => Math.round(v * 255)), loser: warRGB.loser.map((v) => Math.round(v * 255)) }, tinted: (time.view && time.view.faces || []).filter((f) => time.warRoles.size && f.tint).length }),
+      rowName: (id) => { const r = G.byId.get(id); return r ? r.name : null; },
+      // Phase 2d, for the suites: the front line — the chosen date, the plates standing on it, the faces drawn and their tints (a war window's only: the page draws none)
+      fronts: () => ({ on: time.frontOn, ents: time.frontEnts.map((i) => time.ents[i].id), plates: time.frontPlates.length, date: curFrontDate(), stepped: time.frontDate, standing: (AS2() && curFrontDate() != null ? AS2().platesAt(time.frontPlates, curFrontDate()).map((p) => p.theatre + ":" + p.date) : []), drawn: ((time.view && time.view.pfaces) || []).filter((f) => f.front).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), shown: time.frontEnts.filter(frontShown).map((i) => time.ents[i].id) }), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
+      historyOK: () => !!(time.hist && time.hist.ready) && (!EMBED || !!time.wars) && historySettled(),   // every on-screen face has its mesh at the view's level (the frame gate waits on it before it counts the history's triangles)
       timeInfo: () => ({ changeYears: time.changeYears.slice(), year: time.year, present: time.present, alive: time.alive.length, fading: !!time.fade, playing: time.playing, speed: time.speed, resident: time.resident.size, wanted: time.wanted.size, pending: time.pending, entities: time.ents.length, loadMs: time.loadMs, bytes: time.bytes || 0, failed: time.failed, yearChangeP95: pct95(time.yearChange), yearChangeMedian: pct50(time.yearChange), yearQueryP95: pct95(time.yearQuery), yearChangeN: time.yearChange.length, capitals: time.capitals.length, note: !railNote.hidden, onScreen: time.onScreen.length, lru: time.lru.length }),
       // one device pixel of the GL canvas, read right after a render in the same task (the drawing buffer is not preserved between tasks)
       // one CSS row of the GL canvas as [r,g,b,a,…] per CSS pixel (one render, one readback — a scan by pixelAt would render once per pixel)

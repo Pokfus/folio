@@ -58,12 +58,12 @@ async function open(context, hash, full) {
 
 /* the stroke test: a screenshot of the atlas, read back in the page; the alive polities' full colours; water by the palette */
 async function strokePixelsFarFromWater(page) {
-  /* 2d: the Wars switch is on by default and tints a war's sides (a green and a red over the state's own hue), which this test's colour line from the land to the state's hue would read as stroke: it measures the state styling, so the tints are off */
+  /* (2026-10-19: the Atlas page draws no war, so there is no green or red tint over the state's own hue to switch off any more) */
   /* 2026-10-17, decision a: the rivers are drawn to the cap now, and a river's blue under a blue polity's tint sits on that polity's colour line (what §1b
      below already says of rivers and lake shores) — the coast stroke is what this measures, so the rivers are off for the shot; the lakes stay (they are water) */
   /* 2026-10-18: every state is drawn in the land colour (one neutral fill; docs/atlas.md §2), so a fold or a crack in a mesh is invisible by construction — the fill over the land is the land.
      The measurement keeps its meaning through `debugFill`, the controller's test-only override: one visible blue stands in for the neutral while the shot is taken, and is cleared after */
-  await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.debugFill([0.22, 0.32, 0.78]); c.setLayers({ wars: "off", fronts: false, rivers: false }); c.invalidate(); }); await sleep(500);
+  await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; c.debugFill([0.22, 0.32, 0.78]); c.setLayers({ rivers: false }); c.invalidate(); }); await sleep(500);
   await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.tilesSettled(), null, { timeout: 60000 }).catch(() => {}); await sleep(300);
   const png = (await page.locator(".atlas2").screenshot()).toString("base64");
   await C(page, () => document.querySelector(".atlas2").__atlas2.debugFill(null));
