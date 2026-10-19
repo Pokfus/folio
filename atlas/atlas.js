@@ -2133,8 +2133,9 @@
         ctx.lineCap = "round";
         for (const k of hair) {
           const m = marks[li[k]], ox = m.ox || 0, oy = m.oy || 0, d = Math.hypot(ox, oy), hh = lh[k], lw = markLine(hh);
-          if (d <= hh - 1) continue;   // the true point still lies under the ring
-          const x1 = lx[k] - ox, y1 = ly[k] - oy, x0 = lx[k] - ox / d * (hh - lw / 2), y0 = ly[k] - oy / d * (hh - lw / 2);
+          const sq = m.shape === "square", ext = sq ? Math.max(Math.abs(ox), Math.abs(oy)) : d;   // a capital's SQUARE is left at its side, not at the circle through its sides: the line starts on the outline, never inside a corner over the count (2026-10-19, a ring moved again for its name)
+          if (ext <= hh - 1) continue;   // the true point still lies under the ring
+          const r0 = (hh - lw / 2) * d / ext, x1 = lx[k] - ox, y1 = ly[k] - oy, x0 = lx[k] - ox / d * r0, y0 = ly[k] - oy / d * r0;
           ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1);
           ctx.lineWidth = 3; ctx.strokeStyle = haloCss; ctx.stroke(); ctx.lineWidth = 1; ctx.strokeStyle = inkCss; ctx.stroke();
           ctx.beginPath(); ctx.arc(x1, y1, 1.5, 0, 6.283185307179586); ctx.fillStyle = inkCss; ctx.fill();
