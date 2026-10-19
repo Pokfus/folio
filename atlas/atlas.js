@@ -2390,7 +2390,7 @@
     }
     function showStack() {
       const n = sel.stack.length;
-      stackBtn.hidden = true;   // 2026-10-18: the chip is never shown — the popup's "Also here" section lists the stack (hereHTML); the text below is kept for the aria-label
+      stackBtn.hidden = true;   // 2026-10-18: the chip is never shown — the popup's selector of names lists the stack (renderHere); the text below is kept for the aria-label
       if (n < 2 || !sel.at) return;
       const word = (row) => { const a = AS2(); const k = row.kind; const w = a ? a.kindWord(k) : k === "polity" ? "state" : k; return (KIND_LABEL[k] ? (a ? w : w) : w).toLowerCase(); };
       const cur = sel.stack[sel.index], anyPres = sel.stack.some((r) => r.kind === "people" || r.kind === "culture" || r.kind === "extent");

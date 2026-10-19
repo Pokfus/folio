@@ -777,6 +777,18 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
       if (solo) { await A(page, (c, p) => c.pickAt(p[0], p[1], false), solo.at); await sleep(500); const pr = await probe(page); check("one state under the tap: no selector at all", !pr.here); }
       allErrors.push(...errors); await ctx.close();
     }
+    {   // (c) the dead code and the data only the removed parts read are gone (2026-10-19): a source-level check, no browser
+      const css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8"), js = fs.readFileSync(path.join(ROOT, "atlas/atlas.js"), "utf8"), app = fs.readFileSync(path.join(ROOT, "app.js"), "latin1"), study = fs.readFileSync(path.join(ROOT, "atlas/study.js"), "utf8");
+      const gone = ["atlas2-card-chip", "atlas2-card-years", "atlas2-card-facts", "atlas2-card-sources", "atlas2-card-kind", "atlas2-card-span", "atlas2-card-desc", "atlas2-stat", "atlas2-card-link", "atlas2-card-loading", "atlas2-steps", "atlas2-step-pin", "atlas2-card-steplist", "atlas2-card-scope", "atlas2-card-uncert", "atlas2-srcnote", "atlas2-pager-kind", "atlas2-study-others", "atlas2-study-tofull", "atlas2-study-more", "atlas2-study-mine"];
+      const leftCss = gone.filter((c) => new RegExp("\\." + c + "(?![\\w-])").test(css)), leftJs = gone.filter((c) => new RegExp(c + "(?![\\w-])").test(js));
+      check("no CSS rule and no markup for the removed popup parts is left (" + gone.length + " classes checked)", leftCss.length === 0 && leftJs.length === 0, JSON.stringify({ css: leftCss, js: leftJs }));
+      const fns = ["renderCountryProse", "renderCountryCard", "renderHistoryCard", "renderPlaceCard", "warsBlock", "frontCardHtml", "placeFacts", "officialName", "stripInfoNoise", "statNum", "discoveryChip", "setKindLine", "hereHTML"].filter((n) => new RegExp("\\b" + n + "\\b").test(js));
+      check("the functions that built them are gone from atlas.js", fns.length === 0, fns.join(", "));
+      check("the study module no longer carries the wars sentence the place card used (warsOfEntity, warSentence, roleWord)", !/\b(warsOfEntity|warSentence|roleWord)\b/.test(study));
+      const bundle = /atlas2prose: \{ files: \[([^\]]*)\] \}/.exec(app);
+      check("the country stats, spans and sources are loaded by nothing: the atlas2prose bundle is countries.js alone (Find it's descriptions)", !!bundle && bundle[1].replace(/\s/g, "") === '"countries.js"', bundle && bundle[1]);
+      check("nothing in the site reads COUNTRY_STATS, COUNTRY_SPANS or COUNTRY_SOURCES", !/COUNTRY_(STATS|SPANS|SOURCES)/.test(js + fs.readFileSync(path.join(ROOT, "atlas/atlas-windows.js"), "utf8") + fs.readFileSync(path.join(ROOT, "atlas/atlas-embed.js"), "utf8")));
+    }
     {   // the discovery bookkeeping still writes placesSeen — silently, with no chip
       const { ctx, page, errors } = await open(browser, READER14);
       await mode(page, "personal");
