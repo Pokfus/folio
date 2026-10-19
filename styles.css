@@ -10135,7 +10135,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-fronts-sw{margin-top:6px;}
 .atlas2-peoples-hint{display:block; margin:1px 0 0 22px; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.35 var(--sans);}
 /* the place card: a side column on a desktop… */
-.atlas2-card{position:absolute; right:12px; top:12px; bottom:12px; width:min(360px, calc(100% - 24px)); z-index:5; display:flex; flex-direction:column; border-radius:14px; border:1px solid var(--rule); background:var(--card); color:var(--ink); box-shadow:0 10px 30px rgba(0,0,0,.16); overflow:hidden;}
+.atlas2-card{position:absolute; right:12px; top:12px; bottom:auto; max-height:calc(100% - 24px); width:min(360px, calc(100% - 24px)); z-index:5; display:flex; flex-direction:column; border-radius:14px; border:1px solid var(--rule); background:var(--card); color:var(--ink); box-shadow:0 10px 30px rgba(0,0,0,.16); overflow:hidden;}
 .atlas2-card[hidden]{display:none;}
 .atlas2-has-card .atlas2-zoom, .atlas2-has-card .atlas2-layers, .atlas2-has-card .atlas2-help{right:calc(min(360px, calc(100% - 24px)) + 24px);}
 .atlas2-grip{display:none;}
@@ -10161,7 +10161,10 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-card-sources .atlas2-srcnote{margin-top:4px;}
 .atlas2-card-sources .atlas2-src-h{display:none;}
 .atlas2-card-head{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; padding:14px 16px 10px; border-bottom:1px solid var(--rule);}
-.atlas2-card-title{margin:0; font:700 calc(19px * var(--fs, 1))/1.25 var(--display); letter-spacing:-.01em;}
+.atlas2-card-titles{flex:1 1 auto; min-width:0;}
+.atlas2-grip, .atlas2-card-head{flex:none;}   /* the head and the handle never shrink: the peek is measured from them (2026-10-19) */
+.atlas2-card-title{margin:0; min-width:0; font:700 calc(20px * var(--fs, 1))/1.2 var(--display); letter-spacing:-.01em; overflow-wrap:anywhere; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow:hidden;}   /* the name, large, on at most two lines */
+.atlas2-phone .atlas2-card-title{font-size:calc(22px * var(--fs, 1));}
 .atlas2-card-kind{margin:3px 0 0; color:var(--ink-quiet); font:calc(12px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.04em;}
 /* a city stack's pager (2026-10-17): ‹ the place's name · "2 of 7" › — inside the head, so a phone's shut sheet shows it too */
 .atlas2-pager{display:flex; flex-direction:column; gap:6px; margin:6px 0 0;}
@@ -10252,7 +10255,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-study-coll i{font:normal calc(11px * var(--fs, 1))/1.3 var(--mono); color:var(--ink-quiet);}
 .atlas2-study-cards{margin:0;}
 .atlas2-study-list{margin:0; padding:0; list-style:none; display:flex; flex-direction:column;}
-.atlas2-study-card{display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:12px; min-height:56px; box-sizing:border-box; padding:8px 4px; color:var(--ink); text-decoration:none; font:calc(15px * var(--fs, 1))/1.35 var(--sans);}   /* a full-width row, 56 px at least; the whole row is the tap target (2026-10-19) */
+.atlas2-study-card{display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:12px; min-height:56px; box-sizing:border-box; padding:8px 6px; color:var(--ink); text-decoration:none; border-radius:8px; font:calc(15px * var(--fs, 1))/1.35 var(--sans);}   /* a full-width row, 56 px at least; the whole row is the tap target (2026-10-19) */
 .atlas2-study-list li + li{border-top:1px solid var(--rule);}   /* hairline dividers */
 .atlas2-study-text{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:2px;}
 .atlas2-study-deck{color:var(--ink-quiet); font:calc(12px * var(--fs, 1))/1.35 var(--sans); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}   /* the deck, beneath the title, small and muted */

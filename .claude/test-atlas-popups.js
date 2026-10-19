@@ -29,6 +29,9 @@
     14 THE POPUP IS ITS NAME AND ITS CARDS (2026-10-19, the owner's phone, decision a): a whitelist of the elements a popup may hold, for a country, a place, a people and
         a city stack in Personal, Full and Map; the removed content (kind chip, discovery chip, facts grid, Wikipedia link, description, sources, "N more cards") is absent;
         the discovery bookkeeping still writes placesSeen
+    15 THE SHEET'S FORMAT (2026-10-19, decision b): rows at least 56 px with the title on one or two lines (cut off only after the second), the deck beneath in a small muted line, the
+        DUE badge at the right never under the title, hairline dividers; no horizontal overflow at 360, 390 and 412 px at the largest Text size; the peek fits one to three rows; the
+        name large on at most two lines; light and dark contrast
    Re-run after touching atlas/study.js, the study block of atlas.js, the study pass of atlas-worker.js, or the place card. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -570,16 +573,16 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
   }
 
   /* ------------------------------------------------------------------ 11  the popup as a bottom sheet (2026-10-18) */
-  console.log("\n\x1b[1m11) the popup is a bottom sheet on a phone: docked on the frame's bottom edge, three snap heights, a touch drag, 48 px rows, no sideways scroll; a 360 px panel on a desktop\x1b[0m\n");
+  console.log("\n\x1b[1m11) the popup is a bottom sheet on a phone: docked on the frame's bottom edge, three snap heights, a touch drag, 56 px rows, no sideways scroll; a 360 px panel on a desktop\x1b[0m\n");
   for (const [w, h] of [[390, 844], [360, 740]]) {
     const { ctx, page, errors } = await open(browser, READER, { phone: true, w, h });
     await mode(page, "full"); await year(page, -100); await view(page, 12.5, 41.9, 40);
     await A(page, (c) => c.select("pol:rome", { open: true })); await page.waitForSelector(".atlas2-study-cards", { state: "attached", timeout: 20000 }); await sleep(400);
     const geo = () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, f = document.querySelector(".atlas2").getBoundingClientRect(), el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"), rows = [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height); const first = body.firstElementChild; return { card: c.card(), sel: c.selectedId(), frame: [f.left, f.top, f.right, f.bottom], rect: [r.left, r.top, r.right, r.bottom], h: r.height, fh: c.frame()[1], rows, firstIsCards: !!first && first.classList.contains("atlas2-study-cards"), extras: el.querySelectorAll(".atlas2-card-chip, .atlas2-card-years, .atlas2-card-kind, .atlas2-card-facts, .atlas2-card-sources, .atlas2-disc, .atlas2-stats, .atlas2-card-desc").length, bodyKids: [...body.children].map((x) => x.className), scrollX: body.scrollWidth - body.clientWidth, docX: document.documentElement.scrollWidth - innerWidth, railShown: getComputedStyle(document.querySelector(".atlas2-rail")).display !== "none", zoomShown: getComputedStyle(document.querySelector(".atlas2-zoom")).display !== "none", heights: c.sheetHeights(), bodyShown: getComputedStyle(body).display !== "none", scrollTop: body.scrollTop }; });
     let g = await geo(); const hs = g.heights;
-    check(`${w}×${h}: the sheet opens at its peek — docked on the frame's bottom edge, about 28 % of the frame tall, the body showing`, g.card.snap === "peek" && Math.abs(g.rect[3] - g.frame[3]) <= 1 && g.h >= g.fh * 0.27 && g.h <= g.fh * 0.34 && g.bodyShown, JSON.stringify({ snap: g.card.snap, h: Math.round(g.h), frame: Math.round(g.fh), bottom: [Math.round(g.rect[3]), Math.round(g.frame[3])] }));
+    check(`${w}×${h}: the sheet opens at its peek — docked on the frame's bottom edge, the body showing, no taller than the half (CHANGED 2026-10-19: it was about 28 % of the frame whatever it held; §15 tests that the peek fits its rows)`, g.card.snap === "peek" && Math.abs(g.rect[3] - g.frame[3]) <= 1 && g.h <= hs.half + 1 && g.h >= 96 && g.bodyShown, JSON.stringify({ snap: g.card.snap, h: Math.round(g.h), half: hs.half, frame: Math.round(g.fh), bottom: [Math.round(g.rect[3]), Math.round(g.frame[3])] }));
     check("…the head is the name alone and the body is the card rows alone — no kind chip, years, key facts or sources (CHANGED 2026-10-19: the head had a kind chip and the years, the body the key facts and the folded sources)", g.extras === 0 && g.bodyKids.length === 1 && g.bodyKids[0] === "atlas2-study-cards", JSON.stringify({ extras: g.extras, body: g.bodyKids }));
-    check("…the rows: each at least 48 px tall here (b of 2026-10-19 sets 56 and tests it in §14)", g.firstIsCards && g.rows.length >= 3 && g.rows.every((x) => x >= 48), JSON.stringify({ rows: g.rows.slice(0, 3).map(Math.round) }));
+    check("…the rows: each at least 56 px tall (CHANGED 2026-10-19: 48)", g.firstIsCards && g.rows.length >= 3 && g.rows.every((x) => x >= 56), JSON.stringify({ rows: g.rows.slice(0, 3).map(Math.round) }));
     check("…no sideways scroll in the sheet or the page; the year rail steps aside under the docked sheet; the zoom pill stays at the peek", g.scrollX <= 0 && g.docX <= 0 && !g.railShown && g.zoomShown, JSON.stringify({ scrollX: g.scrollX, docX: g.docX, rail: g.railShown, zoom: g.zoomShown }));
     await A(page, (c) => c.sheetSnap("half")); await sleep(400); g = await geo();
     check("half: about half the frame, still docked", g.card.snap === "half" && Math.abs(g.h - g.fh * 0.5) <= 2 && Math.abs(g.rect[3] - g.frame[3]) <= 1 && !g.zoomShown, `${Math.round(g.h)} of ${Math.round(g.fh)}`);
@@ -614,7 +617,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
   {   // the desktop: a 360 px side panel with the same body
     const { ctx, page, errors } = await open(browser, READER); await mode(page, "full"); await year(page, -100); await A(page, (c) => c.select("pol:rome", { open: true })); await sleep(400);
     const d = await page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"); return { w: r.width, snap: document.querySelector(".atlas2").__atlas2.card().snap, firstIsCards: body.firstElementChild.classList.contains("atlas2-study-cards"), chip: (el.querySelector(".atlas2-card-chip") || {}).textContent || "", rows: [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height) }; });
-    check("a desktop shows a 360 px side panel with the same body (the card rows alone, 48 px at least each, no kind chip — CHANGED 2026-10-19)", Math.abs(d.w - 360) <= 1 && d.snap === null && d.firstIsCards && d.chip === "" && d.rows.every((x) => x >= 48), JSON.stringify(d));
+    check("a desktop shows a 360 px side panel with the same body (the card rows alone, 56 px at least each, no kind chip — CHANGED 2026-10-19)", Math.abs(d.w - 360) <= 1 && d.snap === null && d.firstIsCards && d.chip === "" && d.rows.every((x) => x >= 56), JSON.stringify(d));
     allErrors.push(...errors); await ctx.close();
   }
 
@@ -788,6 +791,80 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     }
   }
 
+
+  /* ------------------------------------------------------------------ 15  the sheet's format (2026-10-19) */
+  console.log("\n\x1b[1m15) the sheet: 56 px rows, a title on two lines before it is cut, the deck beneath, DUE at the right; no sideways overflow at 360, 390 and 412 px at the largest Text size; the peek fits its rows\x1b[0m\n");
+  {
+    const READER15 = [...new Set([...READER, ...(IDX.cardsOfPlace.get("pl:q180212") || []).slice(0, 30), ...(IDX.cardsOfPlace.get("adm0:jpn") || [])])];
+    const LONG = [...REG.values()].find((r) => /^Second Battle of El Alamein$/.test(r.name));
+    const oneCard = [...IDX.cardsOfPlace.entries()].find(([id, cs]) => /^pl:/.test(id) && cs.length === 1 && READER15.includes(cs[0]));
+    const probe15 = (page) => page.evaluate(() => {
+      const card = document.querySelector(".atlas2-card"), body = card.querySelector(".atlas2-card-body"), cr = card.getBoundingClientRect(), br = body.getBoundingClientRect();
+      const lines = (el) => { const r = document.createRange(); r.selectNodeContents(el); const tops = new Set([...r.getClientRects()].map((q) => Math.round(q.top))); return tops.size; };
+      const rows = [...card.querySelectorAll(".atlas2-study-card")].map((a) => {
+        const r = a.getBoundingClientRect(), t = a.querySelector(".atlas2-study-title"), tr = t.getBoundingClientRect(), d = a.querySelector(".atlas2-study-deck"), dr = d ? d.getBoundingClientRect() : null, due = a.querySelector(".atlas2-study-due"), ur = due ? due.getBoundingClientRect() : null, tx = a.querySelector(".atlas2-study-text").getBoundingClientRect();
+        const lh = parseFloat(getComputedStyle(t).lineHeight), nat = lines(t);
+        return { h: r.height, l: r.left, r: r.right, top: r.top, bottom: r.bottom, titleLines: nat, shown: Math.round(tr.height / lh), cut: t.scrollHeight > t.clientHeight + 1, deckBelow: !!dr && dr.top >= tr.bottom - 1, deckSize: d ? parseFloat(getComputedStyle(d).fontSize) : 0, deckFits: !d || d.scrollWidth <= d.clientWidth + 1 || getComputedStyle(d).textOverflow === "ellipsis", due: !!due, dueRight: ur ? r.right - ur.right : null, dueBesideText: ur ? ur.left >= tx.right - 1 : null, dueInside: ur ? ur.top >= r.top - 0.5 && ur.bottom <= r.bottom + 0.5 : null, lh };
+      });
+      const lis = [...card.querySelectorAll(".atlas2-study-list > li")], divs = lis.slice(1).map((li) => parseFloat(getComputedStyle(li).borderTopWidth));
+      const title = card.querySelector(".atlas2-card-title"), cs = getComputedStyle(title);
+      return { card: [cr.left, cr.top, cr.right, cr.bottom], body: [br.left, br.top, br.right, br.bottom], bodyX: body.scrollWidth - body.clientWidth, cardX: card.scrollWidth - card.clientWidth, docX: document.documentElement.scrollWidth - innerWidth, rows, divs, titleFs: parseFloat(cs.fontSize), titleLines: lines(title), titleH: title.getBoundingClientRect().height, titleLh: parseFloat(cs.lineHeight), snap: document.querySelector(".atlas2").__atlas2.card().snap, headH: card.querySelector(".atlas2-card-head").getBoundingClientRect().height, gripH: card.querySelector(".atlas2-grip").getBoundingClientRect().height, bodyPad: [parseFloat(getComputedStyle(body).paddingTop), parseFloat(getComputedStyle(body).paddingBottom)], fs: getComputedStyle(document.body).getPropertyValue("--fs") };
+    });
+    for (const [w, h] of [[360, 740], [390, 844], [412, 915]]) {
+      const { ctx, page, errors } = await open(browser, READER15, { phone: true, w, h, fontSize: "huge" });
+      await mode(page, "full");
+      await A(page, (c, id) => c.select(id, { open: true }), "pl:q180212"); await page.waitForSelector(".atlas2-study-cards", { state: "attached", timeout: 20000 }); await sleep(500);
+      let g = await probe15(page);
+      const tag = `${w}×${h}, largest Text size (--fs ${g.fs.trim()})`;
+      check(`${tag}: the Forum's rows (${g.rows.length}) are all at least 56 px tall, full width of the sheet, with hairline dividers between them`, g.rows.length >= 8 && g.rows.every((r) => r.h >= 56 && r.l >= g.card[0] - 0.5 && r.r <= g.card[2] + 0.5) && g.divs.every((d) => d >= 0.5 && d <= 1.5), JSON.stringify({ min: Math.min(...g.rows.map((r) => r.h)), divs: g.divs.slice(0, 3) }));
+      check(`${tag}: no horizontal overflow — the body, the sheet and the page`, g.bodyX <= 0 && g.cardX <= 0 && g.docX <= 0, JSON.stringify({ body: g.bodyX, card: g.cardX, doc: g.docX }));
+      check(`${tag}: a title takes one or two lines and is cut off only after the second (${g.rows.filter((r) => r.titleLines > 2).length} of ${g.rows.length} run past two)`, g.rows.every((r) => r.shown >= Math.min(r.titleLines, 2) && r.shown <= 2 && (r.titleLines <= 2 || r.cut)), JSON.stringify(g.rows.filter((r) => r.shown < Math.min(r.titleLines, 2) || r.shown > 2).slice(0, 2)));
+      check(`${tag}: the deck's name is a small muted line beneath the title (under 14 px × Text size)`, g.rows.every((r) => r.deckBelow && r.deckSize > 0 && r.deckSize <= 14 * parseFloat(g.fs) + 0.5 && r.deckFits), JSON.stringify(g.rows[0]));
+      const dueRows = g.rows.filter((r) => r.due);
+      check(`${tag}: the DUE badge (${dueRows.length} rows) is at the row's right edge, beside the text, never under the title`, dueRows.length >= 2 && dueRows.every((r) => r.dueBesideText && r.dueInside && r.dueRight <= 16), JSON.stringify(dueRows.slice(0, 2)));
+      check(`${tag}: the name is large (at least 20 px) on at most two lines`, g.titleFs >= 20 && g.titleLines <= 2, JSON.stringify({ fs: g.titleFs, lines: g.titleLines }));
+      // the peek fits its content: one row → head and that row; many → head and three rows; never more than the half
+      await A(page, (c) => c.clearSelection()); await sleep(200);
+      await A(page, (c, id) => c.select(id, { open: true }), "pl:q180212"); await sleep(500); g = await probe15(page);
+      const hs = await A(page, (c) => c.sheetHeights()), hgt = g.card[3] - g.card[1];
+      const three = g.rows.slice(0, 3);
+      check(`${tag}: at its peek (${Math.round(hgt)} px) the sheet shows the first three rows whole, no sliver of a fourth beyond its edge being the point — and it is no taller than the half (${hs.half})`, g.snap === "peek" && three.every((r) => r.bottom <= g.body[3] + 1) && hgt <= hs.half + 1, JSON.stringify({ snap: g.snap, hgt, half: hs.half, third: three[2] && three[2].bottom, bodyBottom: g.body[3] }));
+      if (oneCard) {
+        await A(page, (c) => c.clearSelection()); await sleep(200);
+        await A(page, (c, id) => c.select(id, { open: true }), oneCard[0]); await sleep(500); const g1 = await probe15(page), h1 = g1.card[3] - g1.card[1];
+        const fit = g1.gripH + g1.headH + g1.bodyPad[0] + g1.rows.reduce((a, r) => a + r.h, 0) + g1.bodyPad[1] + 2;
+        check(`${tag}: a place with ONE card has a peek that fits it (${Math.round(h1)} px for head + 1 row, not ${Math.round(hs.peek)} for three)`, g1.rows.length === 1 && Math.abs(h1 - fit) <= 4 && g1.bodyX <= 0, JSON.stringify({ h1, fit, rows: g1.rows.length }));
+      }
+      if (LONG) {
+        await A(page, (c) => c.clearSelection()); await sleep(200);
+        await A(page, (c, id) => c.select(id, { open: true }), LONG.id); await sleep(500); const g2 = await probe15(page);
+        check(`${tag}: a long name ("${LONG.name}") is the title on at most two lines, whole`, g2.titleLines <= 2 && g2.titleH >= g2.titleLh * Math.min(g2.titleLines, 2) - 1 && g2.bodyX <= 0 && g2.docX <= 0, JSON.stringify({ lines: g2.titleLines, h: g2.titleH, lh: g2.titleLh }));
+      }
+      allErrors.push(...errors); await ctx.close();
+    }
+    // light and dark: the title, the deck and the DUE badge read against their ground (4.5:1)
+    for (const theme of ["light", "night"]) {
+      const { ctx, page, errors } = await open(browser, READER15, { phone: true });
+      if (theme === "night") await page.evaluate(() => document.body.classList.add("night")); await sleep(300);
+      await mode(page, "full"); await A(page, (c, id) => c.select(id, { open: true }), "pl:q180212"); await sleep(600);
+      const cr = await page.evaluate(() => {
+        const px = (c) => { const m = /rgba?\(([^)]+)\)/.exec(c).slice(1)[0].split(",").map(Number); return { r: m[0], g: m[1], b: m[2], a: m.length > 3 ? m[3] : 1 }; };
+        const bg = (e) => { for (let n = e; n; n = n.parentElement) { const c = px(getComputedStyle(n).backgroundColor); if (c.a > 0.99) return c; } return { r: 255, g: 255, b: 255, a: 1 }; };
+        const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b); };
+        const ratio = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+        const a = document.querySelector(".atlas2-study-card"), pick = (sel) => { const e = a.parentElement.parentElement.parentElement.querySelector(sel) || document.querySelector(sel); return e; };
+        const t = document.querySelector(".atlas2-study-title"), d = document.querySelector(".atlas2-study-deck"), u = document.querySelector(".atlas2-study-isdue .atlas2-study-due"), h = document.querySelector(".atlas2-card-title");
+        void pick;
+        return { night: document.body.classList.contains("night"), title: ratio(px(getComputedStyle(t).color), bg(t)), deck: ratio(px(getComputedStyle(d).color), bg(d)), head: ratio(px(getComputedStyle(h).color), bg(h)), due: u ? ratio(px(getComputedStyle(u).color), px(getComputedStyle(u).backgroundColor)) : null };
+      });
+      check(`${theme}: the name, the title and the deck line read at 4.5:1 or better${cr.due ? " and the DUE badge at 3:1 (bold, small caps)" : ""}`, cr.night === (theme === "night") && cr.title >= 4.5 && cr.deck >= 4.5 && cr.head >= 4.5 && (cr.due == null || cr.due >= 3), JSON.stringify(cr));
+      await shot(page, "popup-rows-" + theme);
+      allErrors.push(...errors); await ctx.close();
+    }
+    // safe-area insets: the head and the body are written against env(safe-area-inset-*) so a notch or the home indicator never covers a row
+    const css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8");
+    check("the sheet's head and body pad themselves with env(safe-area-inset-*) on the sides and the body on the bottom", /\.atlas2-phone \.atlas2-card-head\{[^}]*safe-area-inset-left/.test(css) && /\.atlas2-phone \.atlas2-card-body\{[^}]*safe-area-inset-bottom/.test(css));
+  }
 
   /* ------------------------------------------------------------------ done */
   console.log("\n" + pass + " ok, " + fail + " failed");

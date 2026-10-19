@@ -2574,14 +2574,23 @@
     }
     el.querySelector(".atlas2-card-close").addEventListener("click", () => clearSelection());
     /* THE PHONE'S BOTTOM SHEET (2026-10-18, the popup redesign; docs/atlas-v2-design.md §7 "The popup as a bottom sheet"): the card is docked on the frame's bottom edge
-       (above the site's tab bar; the year rail steps aside under it, as it does under the menu) at one of THREE SNAP HEIGHTS — the peek (about 28 % of the frame, never less
-       than the head and one row), the half (50 %) and the full (the frame less the 68 px of the search and menu buttons). A touch on the handle or the head drags it; a
+       (above the site's tab bar; the year rail steps aside under it, as it does under the menu) at one of THREE SNAP HEIGHTS — the peek (since 2026-10-19 the height of its
+       content: the head and one to three rows, never over the half), the half (50 %) and the full (the frame less the 68 px of the search and menu buttons). A touch on the handle or the head drags it; a
        touch on the body drags it when the body is at its top and pulled down, or the sheet is not full and pulled up — otherwise the body scrolls. On release it snaps
        to the nearest height, a flick carrying it one height further; pulled below the peek it closes. A tap on the handle or the head goes to the next height. The map
        stays usable above it. .atlas2-card-up on the host (half or full) hides the zoom pill under it (styles.css); .atlas2-card-full the same for the full height. */
-    const SNAPS = ["peek", "half", "full"], SHEET_TOP_PX = 68, SHEET_PEEK = 0.28, FLICK = 0.35;   // FLICK: px/ms — faster than this carries the sheet one snap further than the nearest
+    const SNAPS = ["peek", "half", "full"], SHEET_TOP_PX = 68, FLICK = 0.35;   // FLICK: px/ms — faster than this carries the sheet one snap further than the nearest
     const sheetHead = el.querySelector(".atlas2-card-head"), sheetGrip = el.querySelector(".atlas2-grip");
-    function sheetHeights() { const full = Math.max(120, cssH - SHEET_TOP_PX); const headH = sheetGrip.offsetHeight + sheetHead.offsetHeight; return { peek: Math.min(full, Math.max(Math.round(cssH * SHEET_PEEK), headH + 56)), half: Math.min(full, Math.round(cssH * 0.5)), full }; }
+    /* THE PEEK FITS ITS CONTENT (2026-10-19, decision b; it was 28 % of the frame whatever the popup held): the handle, the head (name, selector, pager), the body's padding, the sheet's
+       border and the first one to three card rows — one card, one row; many, three — and never taller than the half. The half and the full are as before. */
+    function sheetHeights() {
+      const full = Math.max(120, cssH - SHEET_TOP_PX), half = Math.min(full, Math.round(cssH * 0.5));
+      if (cardEl.hidden) return { peek: Math.min(half, 160), half, full };
+      const cs = getComputedStyle(cardBody), lis = cardBody.querySelectorAll(".atlas2-study-list > li");
+      let rows = 0; for (let k = 0; k < Math.min(3, lis.length); k++) rows += lis[k].offsetHeight;
+      const fit = sheetGrip.offsetHeight + sheetHead.offsetHeight + (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0) + rows + (cardEl.offsetHeight - cardEl.clientHeight);
+      return { peek: Math.min(half, Math.max(Math.ceil(fit), 96)), half, full };
+    }
     function reflectSheet() {
       const on = PHONE && cardOpen;
       if (!PHONE) { cardEl.style.height = ""; }
