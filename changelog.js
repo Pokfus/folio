@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1046", released: "2026-10-19T07:13Z" };
+window.FOLIO_VERSION = { v: "1.1047", released: "2026-10-19T11:07Z" };
 
 window.CHANGELOG = [
   {
@@ -45,6 +45,7 @@ window.CHANGELOG = [
       "<b>Atlas popups</b> now hold only the place's name and the cards set there — one tidy row per card with its deck and a DUE badge — and no longer the facts, description or Wikipedia link.",
       "<b>Atlas legend</b>: turning off Cities, Places or Physical now hides their icons as well as their names, and the legend says which switch hides which.",
       "<b>Atlas capitals</b>: a capital's ring of places (Rome, Athens) keeps its own name beside it, nudging aside from the small sites that crowd it.",
+      "<b>Who said it?</b>: an American speaker\u2019s quotation is no longer respelled into British English, so \u201ccolor of their skin\u201d reads as King said it.",
     ],
   },
   {
