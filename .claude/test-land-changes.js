@@ -55,8 +55,9 @@ const centrePixel = (page) => page.evaluate(() => new Promise((resolve) => {
     requestAnimationFrame(() => {
       const v = c.view; const x = v.cx, y = v.cy;
       if (c.renderer.gl) { resolve(c.pixelAt(x, y)); return; }
+      /* no render of the suite's own here: c.invalidate() above has already scheduled the engine's frame (its rAF is registered before this callback's), which has drawn the view by now. The suite used to call
+         c.renderer.render(v) as well, a second full Canvas 2D frame per probe (seconds each on a software rasteriser) that drew the same pixels: the Canvas 2D pass with and without it read the same 23 results, every pixel identical, in 8.0 against 11.6 minutes on a slow local machine. */
       const cv = document.querySelector(".atlas2-canvas"); const d = Math.min(2, window.devicePixelRatio || 1);
-      c.renderer.render(v);
       const px = cv.getContext("2d").getImageData(Math.round(x * d), Math.round(y * d), 1, 1).data; resolve([px[0], px[1], px[2], px[3]]);
     });
   });

@@ -9031,8 +9031,13 @@ division-capital city tier are inert dead code.
   `test-date-line`, `test-difficulty`, `test-discovery`, `test-scheduler`, `test-streak-chest`,
   `test-tense-notes`) and the
   three checkers (`check-docs`, `check-questions`, `check-style`). Seconds, no install, no network.
-  **`browser`** runs the Playwright suites, since Oct 2026 as THREE SHARDS (a matrix; `.claude/ci-shards.js` plans them from each suite's measured
-  duration, so the 75-minute single job is three of about 28 with their install, and `ci-shards.js --check` in `fast` fails when a suite is in no shard). It
+  **`browser`** runs the Playwright suites, since Oct 2026 as a matrix of shards (three at first, FOUR since 2026-10-19; `.claude/ci-shards.js` plans them from each suite's
+  measured duration, so the 75-minute single job is four of at most 28 minutes with their install, and `ci-shards.js --check` in `fast` fails when a suite is in no shard or the
+  heaviest is predicted over `SHARD_CAP_MIN` = 28). **Why four (2026-10-19):** nine browser suites were added in a day (land-changes alone is about six minutes) and the plan was re-measured
+  piecemeal; the three-shard plan predicted 35.5 minutes for its heaviest shard, over its own 35-minute cap, and shard 3 of run 3785 ran to the job's 40-minute ceiling. The suites sum to about 107
+  minutes, so four shards of 26.7 is the smallest count that fits 28 with the install (three could not fit under 37). **Cost per push:** the suites' own minutes are the same; the fourth shard pays one
+  more checkout and Playwright install (about a minute), so a push costs about one runner-minute more. **Re-measure** the `MEASURED` rows from
+  the `PASS <suite> (Ns)` lines of the latest full runs when a suite is added or changes by a minute, and never from a single run (a runner varies by 30 % on the same suite: atlas-windows ran 236 s and 368 s on the same code). It
   `needs: fast`, because if the cheap job is red the answer is already known. A red suite fails its shard AND the run (the job's `continue-on-error`
   of Aug 2026 went, on request) and is named by `::error` annotations and the shard's summary table. `check-sizes` runs
   `continue-on-error`, deliberately: a size is not a failure, and the point of it there is that the eager
