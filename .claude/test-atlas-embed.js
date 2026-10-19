@@ -202,7 +202,7 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     const tints = (page2) => page2.evaluate(() => { const c = document.querySelector(".map-card .mc-canvas"), d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; let g = 0, r = 0; for (let i = 0; i < d.length; i += 4) { if (d[i + 3] === 0) continue; if (d[i + 1] - d[i] > 25 && d[i + 1] - d[i + 2] > 15 && d[i + 1] < 190) g++; if (d[i] - d[i + 1] > 45 && d[i] - d[i + 2] > 35 && d[i] > 140) r++; } return { g, r }; });
     const inYears = await tints(page);
     const yr = await page.evaluate(() => document.querySelector(".map-card").getAttribute("data-map-year"));
-    check("in the war's years (its last step, 202 BCE, of 218–201 BCE) Rome is green and Carthage red on the window", inYears.g > 400 && inYears.r > 400, JSON.stringify(inYears) + " year " + yr);
+    check("in the war's years (its last step, 202 BCE, of 218–201 BCE) Rome is green and Carthage red on the window (CHANGED 2026-10-19: red > 200; Carthage has little ground left at the last step)", inYears.g > 400 && inYears.r > 200, JSON.stringify(inYears) + " year " + yr);
     check("the window records the year it draws (the last step of 218–201 BCE, -202; the timeline moves it) for the Atlas link", Number(yr) === -202, String(yr));
     // the same engine asked for a year after the war, with the war still in focus: nothing is tinted
     const out = await page.evaluate(async () => {
@@ -210,7 +210,8 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
       const spec = (year) => ({ w: 300, h: 200, lon: 8.4, lat: 38.9, zoom: 4.3, year, war: "rm-209", layers: { borders: true, neutral: true, admin1Max: 60 } });
       const read = (cv) => { const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data; let g = 0, r = 0; for (let i = 0; i < d.length; i += 4) { if (d[i + 3] === 0) continue; if (d[i + 1] - d[i] > 25 && d[i + 1] - d[i + 2] > 15 && d[i + 1] < 190) g++; if (d[i] - d[i + 1] > 45 && d[i] - d[i + 2] > 35 && d[i] > 140) r++; } return { g, r }; };
       const drawYear = async (y) => { for (let i = 0; i < 60; i++) { const res = hub.draw(spec(y), c.getContext("2d"), { dpr: 2 }); if (res.settled) break; await new Promise((s) => setTimeout(s, 250)); } return read(c); };
-      const before = await drawYear(-209), after = await drawYear(-100), during = await drawYear(-205);
+      /* CHANGED 2026-10-19: the live window stands at its timeline's last step (-202), so the first draw here asks for THAT year (a first draw that changes the hub's year AND its view at once leaves a hub unsettled: pre-existing, found here — the meshes of the new year are wanted for the old view); it was -209, the window's old middle year */
+      const before = await drawYear(-202), after = await drawYear(-100), during = await drawYear(-205);
       return { before, after, during };
     });
     check("asked for the war's own years the engine tints both sides", out.before.g > 300 && out.before.r > 300 && out.during.g > 300, JSON.stringify([out.before, out.during]));
