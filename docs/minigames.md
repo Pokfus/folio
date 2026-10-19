@@ -488,7 +488,7 @@ runs when the page is rendered, and rounds two to five (and the results) are pai
 afterwards, outside `render()`, where a British reader has no observer (`applySpelling` returns early for
 `en-GB`). So nothing was wrong for most of the year, and on 2026-10-19 the draw put King first. The quotation
 (`.ws-quote`) and its row on the results screen now carry **`.verbatim`**, which `spellSkip` leaves alone —
-use the class for any other text that must reach the reader exactly as stored (but NOT for a quotation that is Folio's own translation — `docs/reader-settings.md`; Who said it?'s pool has none, every entry being the speaker's English or a published translator's). `test-minigames.js` section
+use the class for any other text that must reach the reader exactly as stored. EVERY quotation carries it, always (`docs/reader-settings.md`): a quotation is someone's words, in a spelling and units we did not choose; Who said it?'s pool is the speaker's English or a published translator's (named in its `src`), and the rule would hold if it were not. `test-minigames.js` section
 `[sweep]` deals 400 days from 2026-10-01 in Node from the shipped builders (Who said it?, True or False,
 Multiple Choice, the crossword, What year?), names the failing DAY NUMBER and date, and the `[ws]` block
 plays, on the real page and a fixed clock, every pool quotation the spelling pass would change on a day it
