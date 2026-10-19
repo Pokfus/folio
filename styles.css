@@ -10139,29 +10139,20 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-card[hidden]{display:none;}
 .atlas2-has-card .atlas2-zoom, .atlas2-has-card .atlas2-layers, .atlas2-has-card .atlas2-help{right:calc(min(360px, calc(100% - 24px)) + 24px);}
 .atlas2-grip{display:none;}
-/* THE ONE POPUP DESIGN (2026-10-18): a chip for the kind beside the years; the key facts as a two-column list; "Also here" as rows; the sources folded. The card rows
-   are at least 48 px tall (a finger's row), the title on one line and the deck and DUE badge on the next. */
-.atlas2-card-chip{display:inline-block; vertical-align:middle; margin:0 6px 0 0; padding:1px 8px; border-radius:999px; border:1px solid var(--rule); background:var(--paper-2); color:var(--ink-soft); font:600 calc(11px * var(--fs, 1))/1.5 var(--mono); letter-spacing:.05em; text-transform:uppercase;}
-.atlas2-card-years{display:inline-block; vertical-align:middle; color:var(--ink-quiet); font:calc(12.5px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.03em; overflow-wrap:anywhere;}
-.atlas2-card-facts{display:grid; grid-template-columns:max-content minmax(0, 1fr); gap:5px 12px; margin:0 0 12px; font:calc(14px * var(--fs, 1))/1.45 var(--sans);}
-.atlas2-card-facts > div{display:contents;}
-.atlas2-card-facts dt{color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.6 var(--mono); letter-spacing:.05em; text-transform:uppercase; max-width:9em; overflow-wrap:anywhere;}
-.atlas2-card-facts dd{margin:0; min-width:0; overflow-wrap:anywhere;}
-.atlas2-card-facts dd a{color:var(--indigo-bright);}
-.atlas2-card-here{margin:0 0 12px;}
-.atlas2-card-here ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;}
-.atlas2-here{appearance:none; display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; min-height:44px; box-sizing:border-box; padding:6px 8px; border:0; border-radius:8px; background:none; color:var(--ink); font:calc(14.5px * var(--fs, 1))/1.35 var(--sans); text-align:left; cursor:pointer;}
+/* THE POPUP IS ITS NAME AND ITS CARDS (2026-10-19): a name, a close button and one row per card — the title on one or two lines, the deck beneath it, the DUE badge at the right; a
+   small selector of names under the title where two or more states lie under the tap. A row is at least 56 px, a finger's row. */
+.atlas2-card-here{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 0;}   /* the selector of the states under the tap (2026-10-19): names only, shown only with two or more */
+.atlas2-card-here[hidden]{display:none;}
+.atlas2-here{appearance:none; max-width:100%; min-height:36px; box-sizing:border-box; padding:4px 12px; border:1px solid var(--rule); border-radius:999px; background:var(--card); color:var(--ink); font:calc(13.5px * var(--fs, 1))/1.3 var(--sans); text-align:left; overflow-wrap:anywhere; cursor:pointer;}
+.atlas2-here[aria-current="true"]{background:var(--indigo-wash); border-color:var(--indigo); font-weight:600;}
+.atlas2-phone .atlas2-here{min-height:40px;}
 .atlas2-here:hover{background:var(--indigo-wash);}
 .atlas2-here:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
-.atlas2-here-name{min-width:0; overflow-wrap:anywhere;}
-.atlas2-card-sources{margin:8px 0 0; font:calc(13px * var(--fs, 1))/1.45 var(--sans); color:var(--ink-soft);}
-.atlas2-card-sources > summary{cursor:pointer; color:var(--indigo); font:600 calc(12px * var(--fs, 1))/1.6 var(--mono); letter-spacing:.05em; text-transform:uppercase; padding:6px 0; list-style-position:inside;}
-.atlas2-card-sources[open] > summary{margin-bottom:6px;}
-.atlas2-card-sources .atlas2-srcnote{margin-top:4px;}
-.atlas2-card-sources .atlas2-src-h{display:none;}
 .atlas2-card-head{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; padding:14px 16px 10px; border-bottom:1px solid var(--rule);}
-.atlas2-card-title{margin:0; font:700 calc(19px * var(--fs, 1))/1.25 var(--display); letter-spacing:-.01em;}
-.atlas2-card-kind{margin:3px 0 0; color:var(--ink-quiet); font:calc(12px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.04em;}
+.atlas2-card-titles{flex:1 1 auto; min-width:0;}
+.atlas2-grip, .atlas2-card-head{flex:none;}   /* the head and the handle never shrink: the peek is measured from them (2026-10-19) */
+.atlas2-card-title{margin:0; min-width:0; font:700 calc(20px * var(--fs, 1))/1.2 var(--display); letter-spacing:-.01em; overflow-wrap:anywhere; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow:hidden;}   /* the name, large, on at most two lines */
+.atlas2-phone .atlas2-card-title{font-size:calc(22px * var(--fs, 1));}
 /* a city stack's pager (2026-10-17): ‹ the place's name · "2 of 7" › — inside the head, so a phone's shut sheet shows it too */
 .atlas2-pager{display:flex; flex-direction:column; gap:6px; margin:6px 0 0;}
 .atlas2-pager[hidden]{display:none;}
@@ -10176,7 +10167,6 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-pager-list button{appearance:none; display:flex; align-items:baseline; justify-content:space-between; gap:8px; width:100%; min-height:34px; text-align:left; border:0; background:none; color:var(--ink); font:calc(14px * var(--fs, 1))/1.3 var(--sans); padding:7px 10px; cursor:pointer;}
 .atlas2-pager-list button:hover{background:var(--indigo-wash);}
 .atlas2-pager-list button[aria-current="true"]{background:var(--indigo-wash); font-weight:600;}
-.atlas2-pager-kind{color:var(--ink-quiet); font:calc(11.5px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.04em; flex:0 0 auto;}
 .atlas2-pager-mid{display:flex; flex-direction:column; min-width:0; flex:1 1 auto;}
 .atlas2-pager-name{font:600 calc(15px * var(--fs, 1))/1.3 var(--sans); color:var(--ink); overflow-wrap:anywhere;}
 .atlas2-pager-n{color:var(--ink-quiet); font:calc(11.5px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.04em;}
@@ -10184,20 +10174,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-phone .atlas2-pager-list button{min-height:40px;}
 .atlas2-phone .atlas2-pager-list{max-height:122px;}   /* three rows on a phone (2026-10-18): the stack's list sits in the head, and the peek grows with it */
 .atlas2-card-body{padding:12px 16px 16px; overflow:auto; overflow-x:hidden; overscroll-behavior:contain; font:calc(15px * var(--fs, 1))/1.55 var(--serif);}
-.atlas2-card-span{margin:0 0 8px; color:var(--ink-quiet); font:calc(13px * var(--fs, 1))/1.4 var(--sans);}
-.atlas2-card-desc{margin:0 0 12px;}
-.atlas2-card-none{color:var(--ink-soft); font-style:italic;}
-.atlas2-stats{display:grid; grid-template-columns:1fr 1fr; gap:7px; margin:0 0 12px;}
-.atlas2-stats > *{min-width:0;}
-.atlas2-stat{padding:8px 10px; border-radius:10px; background:var(--paper-2); display:flex; flex-direction:column; gap:2px;}
-.atlas2-stat-l{color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.05em; text-transform:uppercase;}
-.atlas2-stat-v{font:600 calc(15px * var(--fs, 1))/1.3 var(--sans); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-.atlas2-card-within, .atlas2-card-link{margin:0 0 8px; font:calc(14px * var(--fs, 1))/1.4 var(--sans);}
 .atlas2-link{appearance:none; border:0; background:none; padding:0; color:var(--indigo-bright); font:inherit; cursor:pointer; text-decoration:underline;}
-.atlas2-card-link a{color:var(--indigo-bright);}
-.atlas2-srcnote{margin-top:14px;}
-.atlas2-src-h{margin:0; color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
-.atlas2-card-loading{color:var(--ink-soft); font:calc(14px * var(--fs, 1))/1.4 var(--sans);}
 /* …and a bottom sheet with a grip on a phone, opening shut (the title strip alone) like v1's */
 /* THE BOTTOM SHEET (2026-10-18; atlas.js reflectSheet sets the height to the snap — peek, half or full): docked on the frame's bottom edge, which on a phone is the top
    of the site's tab bar; the year rail steps aside under it (as under the menu's sheet) and the zoom pill under a raised sheet; the safe-area insets pad it */
@@ -10249,21 +10226,15 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-study-coll.on{background:var(--indigo-wash); border-color:var(--indigo); color:var(--ink);}
 .atlas2-study-coll-n{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .atlas2-study-coll i{font:normal calc(11px * var(--fs, 1))/1.3 var(--mono); color:var(--ink-quiet);}
-.atlas2-study-cards{margin-top:14px; padding-top:10px; border-top:1px solid var(--rule);}
-.atlas2-study-cards:first-child{margin-top:0; padding-top:0; border-top:0;}   /* first in the body since 2026-10-18 */
-.atlas2-study-cards + .atlas2-card-here, .atlas2-study-cards + .atlas2-card-facts{margin-top:12px; padding-top:10px; border-top:1px solid var(--rule);}
-.atlas2-study-h{margin:0 0 6px; color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase;}
-.atlas2-study-list{margin:0 0 6px; padding:0; list-style:none; display:flex; flex-direction:column; gap:2px;}
-.atlas2-study-card{display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:3px; padding:6px 8px; min-height:48px; box-sizing:border-box; border-radius:8px; color:var(--ink); text-decoration:none; font:calc(14.5px * var(--fs, 1))/1.35 var(--sans);}   /* 48 px rows (2026-10-18) */
+.atlas2-study-cards{margin:0;}
+.atlas2-study-list{margin:0; padding:0; list-style:none; display:flex; flex-direction:column;}
+.atlas2-study-card{display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:12px; min-height:56px; box-sizing:border-box; padding:8px 6px; color:var(--ink); text-decoration:none; border-radius:8px; font:calc(15px * var(--fs, 1))/1.35 var(--sans);}   /* a full-width row, 56 px at least; the whole row is the tap target (2026-10-19) */
+.atlas2-study-list li + li{border-top:1px solid var(--rule);}   /* hairline dividers */
+.atlas2-study-text{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:2px;}
+.atlas2-study-deck{color:var(--ink-quiet); font:calc(12px * var(--fs, 1))/1.35 var(--sans); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}   /* the deck, beneath the title, small and muted */
 .atlas2-study-card:hover{background:var(--indigo-wash);}
-.atlas2-study-title{min-width:0; max-width:100%; overflow-wrap:anywhere;}
-.atlas2-study-chip{white-space:nowrap;}
-.atlas2-study-mine{color:var(--indigo-bright); font:calc(11px * var(--fs, 1))/1.4 var(--mono); letter-spacing:.03em;}
-.atlas2-study-meta{display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap;}   /* the row's deck chip and its due badge (2026-10-17) */
-.atlas2-study-due{color:var(--paper, #fff); background:var(--ochre, #b7791f); border-radius:999px; padding:1px 7px; font:600 calc(10.5px * var(--fs, 1))/1.5 var(--mono); letter-spacing:.04em; text-transform:uppercase;}
-.atlas2-study-tofull{font-size:inherit;}
-.atlas2-study-more{margin:0 4px 4px; font-size:calc(13.5px * var(--fs, 1));}
-.atlas2-study-others{margin:4px 4px 0; color:var(--ink-quiet); font:calc(12.5px * var(--fs, 1))/1.4 var(--sans);}
+.atlas2-study-title{min-width:0; max-width:100%; overflow-wrap:anywhere; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow:hidden;}   /* one or two lines, cut only after the second */
+.atlas2-study-due{flex:none; align-self:center; white-space:nowrap; color:var(--paper, #fff); background:var(--ochre, #b7791f); border-radius:999px; padding:2px 8px; font:600 calc(10.5px * var(--fs, 1))/1.5 var(--mono); letter-spacing:.04em; text-transform:uppercase;}   /* at the right, never wrapping under the title */
 @media (forced-colors:active){
   .atlas2-study{border:1px solid CanvasText; box-shadow:none; background:Canvas; color:CanvasText;}
   .atlas2-study-modes button.on, .atlas2-study-coll.on{outline:2px solid Highlight;}
@@ -10355,24 +10326,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-narrow.atlas2-has-card .atlas2-rail{right:12px;}   /* a narrow screen the phone flag missed: the card covers the width, the rail keeps its own */
 .atlas2-phone.atlas2-has-card .atlas2-card{z-index:5;}
 /* the historical place card */
-.atlas2-steps{position:relative; height:18px; margin:4px 0 6px; border-radius:4px; background:var(--paper-2);}
-.atlas2-step{position:absolute; top:3px; height:12px; appearance:none; border:0; padding:0; border-radius:2px; background:var(--ink-faint); cursor:pointer; min-width:2px;}
-.atlas2-step:hover, .atlas2-step:focus-visible{background:var(--indigo-bright); outline:none;}
-.atlas2-step-now{background:var(--indigo);}
-.atlas2-step-pin{position:absolute; top:-2px; width:2px; height:22px; margin-left:-1px; background:var(--zh);}
-.atlas2-card-steps-note, .atlas2-card-uncert, .atlas2-card-gaps, .atlas2-card-ranges, .atlas2-card-scope{margin:0 0 8px; color:var(--ink-soft); font:calc(13px * var(--fs, 1))/1.45 var(--sans);}
-.atlas2-card-dim{color:var(--ink-faint);}
-.atlas2-card-steplist{margin:0 0 8px; font:calc(13px * var(--fs, 1))/1.45 var(--sans);}   /* Phase 2b: every step of a long series, folded */
-.atlas2-card-steplist summary{cursor:pointer; color:var(--indigo);}
-.atlas2-card-steplist ol{margin:4px 0 0; padding-left:1.4em; max-height:180px; overflow:auto; columns:2; column-gap:12px;}
-.atlas2-card-steplist li{break-inside:avoid;}
-.atlas2-card-scope{font-style:italic;}
-.atlas2-card-uncert{color:var(--ink);}
 /* Phase 2c: where a people or a culture is a presence and not a border, and the audit's note on how sure its extent is */
-.atlas2-card-presence, .atlas2-card-extent{margin:0 0 8px; color:var(--ink); font:calc(13px * var(--fs, 1))/1.45 var(--sans);}
-.atlas2-card-presence{font-style:italic;}
-.atlas2-card-extent{color:var(--ink-soft);}
-.atlas2-card-also{color:var(--ink-quiet);}
 
 /* ---------- Atlas v2, Phase 1d: reduced motion and forced colours ---------- */
 /* under reduced motion nothing in the Atlas transitions or animates (the site's own colour transitions included): a sheet appears, a bar jumps, the globe lands */
@@ -10388,7 +10342,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
   .atlas2-results li.active, .atlas2-results li:hover{background:Highlight; color:HighlightText;}
   .atlas2-search-in:focus-visible, .atlas2-btn:focus-visible, .atlas2-link:focus-visible, .atlas2-sheet-close:focus-visible, .atlas2-card-close:focus-visible, .atlas2-grip:focus-visible, .atlas2-card-title:focus-visible{outline:2px solid Highlight; outline-offset:2px; box-shadow:none;}
   .atlas2-bar{border:1px solid CanvasText;} .atlas2-bar i{background:Highlight;}
-  .atlas2-link, .atlas2-about a, .atlas2-card-link a{color:LinkText;}
+  .atlas2-link, .atlas2-about a{color:LinkText;}
 }
 /* the Atlas chrome follows the site's Text size setting (its font sizes are calc(px × --fs), Phase 1d); at 200 % the sheets
    must scroll inside the Atlas rather than run off it */

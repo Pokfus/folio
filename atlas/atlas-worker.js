@@ -676,12 +676,17 @@
      absent = not drawn. A gazetteer AREA (a country, a province, a sea, a river …) and a polity are flagged only: the ordinary pass
      draws them in their own shape and the flag lifts them past the density rules, raises their score and tints them. */
   let STUDY = null;
+  /* THE LEGEND'S SWITCHES OWN THE MARKS (2026-10-19, the owner's phone, decision d: "turning off cities, places etc. should also turn their icons off"). Each glyph class belongs to ONE
+     switch: Cities → the city and town discs, the capital squares and the city stacks; Places → sites, battles and buildings; Physical → peaks (mountain, hill, cape). A class whose switch is
+     off is not a mark of the layout at all — not drawn, not tappable, not in the hidden list, its name not laid — and it leaves the stacks BEFORE they are grouped, so a stack that mixed
+     classes is made of the members whose class is on, its count is theirs, and it is not made at all when none is. Countries, Provinces and Peoples are not marks and keep their meaning. */
+  const CLASS_SWITCH = { capital: "cities", settlement: "cities", stack: "cities", site: "places", battle: "places", building: "places", peak: "physical" };
   const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, hill: 1, cape: 1 };
   const SETTLE = { capital: 1, city: 1, town: 1 };
   /* the nudge of decision c (see the study pass): `list` is the layout's marks with their on-screen positions and half-extents; a stack (`members`) that
      overlaps another mark's box moves along the line between the two centres by the overlap (both move, half each, when both are stacks), never more than
      STACK_NUDGE_PX in all, and records the offset as `ox`, `oy`; a single mark never moves. Four passes settle a cluster. */
-  const STACK_NUDGE_PX = 20, STACK_GAP_PX = 2;
+  const STACK_NUDGE_PX = 20, STACK_GAP_PX = 2, NAME_NUDGE_PX = 12;   // NAME_NUDGE_PX: how far, in each axis, a capital stack's ring may move AGAIN to make room for its own name (decision e, 2026-10-19)
   function nudgeStacks(list, W, H, hitsChrome) {
     const ms = list.filter((m) => m.cls), st = ms.filter((m) => m.members);
     if (!st.length) return;
@@ -1084,11 +1089,11 @@
            Rome in the Roman Empire's years is a capital by the history's own statements, so this branch laid a second, 4 px-half square at the polity-index's coordinates for it — and where
            the study layer draws the city's capital square with its count (a stack, 10 px half) or a lone mark of its own, the small one lay over the count (at 0.15 km/px it hid the "8" of
            "38"). A marker whose box meets the box of a study mark drawn clear (its `sx`, `sy` are the nudged position) is not drawn: the study mark IS the capital's square; the capital's name is laid as before. */
-        const underMark = marks.some((mk) => mk.clear && mk.cls && Math.abs(mk.sx - x) < mk.h + r + 1 && Math.abs(mk.sy - y) < mk.h + r + 1);
+        // (2026-10-19: a ring nudged away from its true point — and again for its own name, decision e — is still the capital's square, so the box is also taken round the ring's TRUE point, `sx - ox`, where the page draws its hairline's dot)
+        const underMark = marks.some((mk) => mk.clear && mk.cls && ((Math.abs(mk.sx - x) < mk.h + r + 1 && Math.abs(mk.sy - y) < mk.h + r + 1) || (mk.members && Math.abs(mk.sx - (mk.ox || 0) - x) < mk.h + r + 1 && Math.abs(mk.sy - (mk.oy || 0) - y) < mk.h + r + 1)));
         const dotOf = underMark ? null : [x, y, r, k];
         if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
         if (!own && !free(mrect, null, own0)) { drop("marker collides"); continue; }   // a flagged settlement's dot lies on its own study mark, which is not a collision (2026-10-18)
-        if (!show.places) { if (!own) take(mrect, true); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: dotOf, hit: mrect })); continue; }
         // a FLAGGED settlement's name (laid by the study pass beside the study layer's own mark, drawn over this dot) follows decision c of 2026-10-18: right or left of the
         // larger of the two glyphs at the 3 px gap, above or below only at the zoom cap; the plain Map's city names keep their four sides
         const g3 = 3 * FS, rr = studyPass && mk0 ? Math.max(r, mk0.h) : r;
@@ -1209,7 +1214,9 @@
           kind = g.kind; unit = g.a; a = proj(unit); x = a[0]; y = a[1]; z = a[2];
         }
         if (z < 0.02 || !onScreen(x, y, MARGIN)) continue;
-        const sub = srow ? srow.sub : "", cap = !!(srow && srow.cap), cls = AS.markClass(kind, sub, cap);   // the glyph class (decision e; a capital's square, decision b of 2026-10-17); null for an area: a name, no mark
+        const sub = srow ? srow.sub : "", cap = !!(srow && srow.cap), cls = AS.markClass(kind, sub, cap);
+        if (cls && show[CLASS_SWITCH[cls]] === false) continue;   // its legend switch is off (decision d, 2026-10-19): no mark, no name, no stack member
+        // the glyph class (decision e; a capital's square, decision b of 2026-10-17); null for an area: a name, no mark
         list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub, cap) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind, cls) : 0 });   // the drawn size: half for every class but the capital (decision a, 2026-10-18)
       }
       /* CITY STACKS (2026-10-17, decision d): the marks of ONE CITY within STACK_PX (28) of one another on screen become one mark with a count,
@@ -1273,7 +1280,7 @@
         if (!m.own) { const c2 = candById.get(m.id); if (c2) { done.add(c2); layCand(c2, true); } continue; }   // a flagged polity, country, sea or river: its name is laid HERE, at its flag's turn, by the ordinary code (decision b)
         if (!m.clear) continue;   // under a control or past the frame's edge: no name either (the page checks the mark again on every frame)
         const row = m.own;
-        if (row && show.places && row.name) {
+        if (row && row.name && !(!m.cls && PHYSICAL[row.kind] && show.physical === false)) {   // (2026-10-19) a mark of an off class never gets here; a flagged physical AREA of places.js (a range, a region) follows Physical
           const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
           if (st2) {
             /* THE LABEL'S TEXT (decision f): no parenthetical, the short name past 28 characters, two lines past 22 (AtlasStudy.labelText); the popup keeps the full name */
@@ -1309,6 +1316,35 @@
               if (okAt(rs)) { got = lay(tx, ty); break; }
               if (!why) continue;
               if (!rs.every(fullyOn)) frame++; else { const bl = Math.max(...rs.map((r) => blocker(r, null, own0))); if (bl === 2) byName++; else if (bl === 1) byMark++; else far++; }
+            }
+            /* A CAPITAL STACK'S OWN NAME HAS PRIORITY (2026-10-19, the owner's phone, decision e; the test case is Rome at 18 CE, 0.3 km/px). The stacks' names are laid first of all, but every mark is
+               hard ground — Gabii's diamond on Rome's right, the Vatican's square on its left — so a capital stack whose two sides were both taken got NO name at all, while smaller places round it
+               were named. Its ring is a mean, not a point (nudgeStacks has moved rings by up to STACK_NUDGE_PX from the true point since decision c of 2026-10-17), so it moves once more, by at most
+               NAME_NUDGE_PX in each axis and never past STACK_NUDGE_PX from the true point: the smallest move, the right-hand ones first, that leaves the ring itself clear of every mark, name and control
+               AND a side clear for the name. Above or below is still only at the zoom cap (the tries above). The ring's old ground is released, the new one taken; the page adds the offset and draws
+               the hairline from the true point as for any nudged ring. */
+            if (!got && m.members && m.cap && own0 != null) {
+              const ox0 = m.ox || 0, oy0 = m.oy || 0, offs = [];
+              for (let dy = -NAME_NUDGE_PX; dy <= NAME_NUDGE_PX; dy++) for (let dx = -NAME_NUDGE_PX; dx <= NAME_NUDGE_PX; dx++) if ((dx || dy) && Math.hypot(ox0 + dx, oy0 + dy) <= STACK_NUDGE_PX) offs.push([dx, dy]);
+              offs.sort((p, r) => Math.hypot(p[0], p[1]) - Math.hypot(r[0], r[1]) || r[0] - p[0] || p[1] - r[1]);
+              let ringBlocked = 0, sideBlocked = 0;   // for the debug reason
+              for (const [dx, dy] of offs) {
+                const nx = m.x + dx, ny = m.y + dy, rr = [nx - hh - 1, ny - hh - 1, nx + hh + 1, ny + hh + 1];
+                // the ring itself must stand clear as nudgeStacks keeps it (centres at least the two half-sizes and STACK_GAP_PX apart, from every other drawn mark), off every name and control; the period capital's own
+                // reserved square under it is not an obstacle (the ring IS the capital's square, see `underMark`)
+                if (!fullyOn(rr) || hitsChrome(rr) || blocker(rr, null, own0) === 2 || !list.every((o) => o === m || !o.cls || !o.clear || Math.hypot(nx - o.x, ny - o.y) >= hh + o.h + STACK_GAP_PX)) { ringBlocked++; continue; }
+                let sideX = null;
+                for (const sg of [1, -1]) { const tx = nx + sg * (g + w2); if (boxAt(tx, ny).every((r) => fullyOn(r) && free(r, null, own0))) { sideX = tx; break; } }
+                if (sideX == null) { sideBlocked++; continue; }
+                rects[own0] = [-1e9, -1e9, -1e9, -1e9];   // the ring's old ground is released: a rectangle that overlaps nothing (the cell index still lists it)
+                markRect.set(m.id, rects.length); take(rr, true);
+                m.x = nx; m.y = ny; m.ox = ox0 + dx; m.oy = oy0 + dy; m.rect = rr;
+                base.sx = nx; base.sy = ny; base.ox = Math.round(m.ox * 10) / 10; base.oy = Math.round(m.oy * 10) / 10;
+                if (m.own) m.own.a = unitAt(nx, ny);   // the name's anchor is where the ring is drawn (as for a ring nudged by nudgeStacks)
+                got = lay(sideX, ny);
+                break;
+              }
+              if (!got) drop(`capital stack found no move of at most ${NAME_NUDGE_PX} px: ${offs.length} tried, ${ringBlocked} left the ring on a mark, a name or a control, ${sideBlocked} left no side for the name`);
             }
             if (got) {
               for (const r of got.rects) take(r);
