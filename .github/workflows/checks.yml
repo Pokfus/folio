@@ -532,6 +532,12 @@ jobs:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
         run: node .claude/test-atlas-capital-names.js
 
+      - name: test-quotes-verbatim
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node .claude/test-quotes-verbatim.js
+
       - name: test-atlas-no-wars
         if: ${{ !cancelled() }}
         env:
