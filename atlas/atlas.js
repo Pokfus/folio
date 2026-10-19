@@ -187,10 +187,18 @@
     // in a light one, where the line keeps v1's blue. The width is the renderer's 0.8 px, as it was: the owner asked for the colour alone;
     // .claude/test-atlas-rivers.js measures the contrast off the pixels.
     const waterInk = dark ? mix([0.55, 0.8, 1], paper, 0.12) : mix(ink, [31 / 255, 122 / 255, 170 / 255], 0.5);
+    /* 2026-10-19 (the owner: "in dark mode, reduce the brightness of the rivers somewhat; they are a little too light blue now"): the dark river is the names' pale blue at 80 % of its
+       relative luminance, hue kept (every linear-light channel times one factor) — #71a4cf on folio's night, 5.5:1 against the land and 4.0:1 against the sea. The factor rises toward 1 in
+       steps of 0.02 on a dark theme where 80 % would read under 3:1 against the land or the sea; the NAMES keep `waterInk` unchanged. test-atlas-rivers.js section 3 reads the figures. */
+    const lin = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)), gam = (v) => (v <= 0.0031308 ? v * 12.92 : 1.055 * Math.pow(v, 1 / 2.4) - 0.055);
+    const lum = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]), ratio = (a, b) => { const x = lum(a) + 0.05, y = lum(b) + 0.05; return x > y ? x / y : y / x; };
+    const land = mix(paper, ink, 0.10);
+    const dim = (f) => waterInk.map((v) => gam(lin(v) * f));
+    let riverDark = dim(0.8); for (let f = 0.8; f < 1 && (ratio(riverDark, land) < 3 || ratio(riverDark, ocean) < 3); f += 0.02) riverDark = dim(Math.min(1, f + 0.02));
     return {
       ocean, lake: ocean,
-      land: mix(paper, ink, 0.10), coast: mix(paper, ink, 0.32), border: mix(paper, ink, 0.46), admin1: mix(paper, ink, 0.26), rim: mix(paper, ink, 0.32),
-      river: dark ? waterInk : [31 / 255, 122 / 255, 170 / 255], waterInk, lakeShore: dark ? mix(ocean, paper, 0.3) : mix(ocean, ink, 0.35),
+      land, coast: mix(paper, ink, 0.32), border: mix(paper, ink, 0.46), admin1: mix(paper, ink, 0.26), rim: mix(paper, ink, 0.32),
+      river: dark ? riverDark : [31 / 255, 122 / 255, 170 / 255], waterInk, lakeShore: dark ? mix(ocean, paper, 0.3) : mix(ocean, ink, 0.35),
       halo: dark ? mix(paper2, indigo, 0.6) : mix(paper, indigo, 0.35), grat: ink, selected: mix(paper, ochre, 0.55),
     };
   }

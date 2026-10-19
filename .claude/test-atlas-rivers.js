@@ -2,7 +2,7 @@
    land and the sea (2026-10-18, the owner's sixth look at the Atlas on a phone; the owner's later word: "never mind about the river thickness,
    return it to what it was previously; instead, make rivers in dark mode a somewhat lighter colour to help them stand out").
 
-     NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-atlas-rivers.js [--report]
+     NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-atlas-rivers.js [--report] [--palette-only]
 
    THE FAULT IT WAS WRITTEN FOR: in a dark theme a river was the ocean mixed a quarter toward the paper — 1.17:1 against the land and 1.18:1 against
    the sea on folio's night (measured off the palette on 2026-10-18 before the change), so the lines were there and could not be seen. Now the dark
@@ -157,16 +157,49 @@ async function run(browser, still) {
   await ctx.close();
 }
 
+/* 3) THE NIGHT RIVER'S COLOUR (2026-10-19, the owner: "in dark mode, reduce the brightness of the rivers somewhat; they are a little too light blue now"): from the palette the page
+   draws with, not from pixels. The river is the water names' pale blue (#7eb6e4, 6.7:1 against the land) scaled to 80 % of its relative luminance with its hue kept (every linear-light
+   channel times the same factor), and still at least 3:1 against the dark land and the dark sea; the names keep #7eb6e4; the light theme's river is unchanged. */
+const lin = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+const lum = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]);
+const cr = (a, b) => { const x = lum(a) + 0.05, y = lum(b) + 0.05; return x > y ? x / y : y / x; };
+const hex = (c) => "#" + c.map((v) => Math.round(v * 255).toString(16).padStart(2, "0")).join("");
+async function palettes(browser) {
+  const { ctx, page, errors } = await open(browser);
+  const out = {};
+  for (const night of [false, true]) {
+    await theme(page, night);
+    out[night ? "night" : "light"] = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, p = c.palette(); return { river: Array.from(p.river), waterInk: Array.from(p.waterInk), ocean: Array.from(p.ocean), land: Array.from(p.land), water: c.colours().water }; });
+  }
+  await ctx.close();
+  const n = out.night, l = out.light, ratio = lum(n.river) / lum(n.waterInk);
+  const hue = [0, 1, 2].map((k) => lin(n.river[k]) / lin(n.waterInk[k]));
+  console.log(`  night river ${hex(n.river)} (was ${hex(n.waterInk)}): luminance ${lum(n.river).toFixed(4)} against ${lum(n.waterInk).toFixed(4)}, x${ratio.toFixed(3)}; against the land ${cr(n.river, n.land).toFixed(2)}:1, against the sea ${cr(n.river, n.ocean).toFixed(2)}:1`);
+  check("night: the river has about 80 % of the names' luminance (0.78 to 0.82 of #7eb6e4's)", ratio > 0.78 && ratio < 0.82, `x${ratio.toFixed(3)}`);
+  check("night: the hue is kept (the three linear channels scale by one factor)", Math.max.apply(null, hue) - Math.min.apply(null, hue) < 0.01, hue.map((v) => v.toFixed(3)).join(" "));
+  check("night: the river is at least 3:1 against the dark land and the dark sea", cr(n.river, n.land) >= 3 && cr(n.river, n.ocean) >= 3, `land ${cr(n.river, n.land).toFixed(2)}, sea ${cr(n.river, n.ocean).toFixed(2)}`);
+  check("night: the river names' own colour is unchanged (#7eb6e4)", n.water === "#7eb6e4" && hex(n.waterInk) === "#7eb6e4", n.water + " / " + hex(n.waterInk));
+  check("light: the river is unchanged (#1f7aaa) and not the names' ink", hex(l.river) === "#1f7aaa" && hex(l.waterInk) !== "#1f7aaa", hex(l.river));
+  const unexpected = errors.filter((e) => !/favicon/.test(e));
+  check("palette: no page errors", unexpected.length === 0, unexpected.slice(0, 3).join(" | "));
+}
+
 (async () => {
   await new Promise((r) => server.listen(PORT, r));
-  console.log("\n\x1b[1m1) WebGL2: the rivers at the globe, Europe and the cap, light and night\x1b[0m\n");
-  const browser = await chromium.launch(LAUNCH);
-  await run(browser, false);
-  await browser.close();
-  console.log("\n\x1b[1m2) Canvas 2D (no WebGL2): the same at the still view's own zooms\x1b[0m\n");
-  const b2 = await chromium.launch(Object.assign({}, LAUNCH, { args: ["--disable-webgl"] }));
-  await run(b2, true);
-  await b2.close();
+  if (!process.argv.includes("--palette-only")) {
+    console.log("\n\x1b[1m1) WebGL2: the rivers at the globe, Europe and the cap, light and night\x1b[0m\n");
+    const browser = await chromium.launch(LAUNCH);
+    await run(browser, false);
+    await browser.close();
+    console.log("\n\x1b[1m2) Canvas 2D (no WebGL2): the same at the still view's own zooms\x1b[0m\n");
+    const b2 = await chromium.launch(Object.assign({}, LAUNCH, { args: ["--disable-webgl"] }));
+    await run(b2, true);
+    await b2.close();
+  }
+  console.log("\n\x1b[1m3) The night river's colour against the names' pale blue\x1b[0m\n");
+  const b3 = await chromium.launch(LAUNCH);
+  await palettes(b3);
+  await b3.close();
   server.close();
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);
