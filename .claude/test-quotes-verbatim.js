@@ -1,31 +1,30 @@
-/* test-quotes-verbatim.js — A QUOTATION IS `.verbatim` ONLY WHERE THE TEXT SHOWN IS THE SPEAKER'S OWN ENGLISH (2026-10-19; narrowed the same day).
+/* test-quotes-verbatim.js — EVERY QUOTATION IS `.verbatim`, ALWAYS (2026-10-19; the per-quote branch of #509 removed the same day).
 
      NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-quotes-verbatim.js
 
-   THE RULE. The spelling pass (British / American) and the units pass are text-node passes over everything rendered; they are for prose Folio authored. `.verbatim` exempts a text from BOTH. It is right for a
-   quotation in the speaker's own English (King's "color of their skin", Du Bois's "color line") and for a published translator's English (Legge's Confucius in a card's quote block, a Library book): that text is not Folio's.
-   It is WRONG for a quotation that is FOLIO'S OWN translation from another language: that is Folio's prose, written in British spelling and metric-first, and an American reader's settings convert it as before.
-   The data says which: a Home daily quote with an `o` block (the original-language form behind the flip) is Folio's translation and is NOT `.verbatim`; one with no `o` (Bacon, Vivekananda — they wrote English) is.
+   THE RULE, stated as a principle and not derived from data: a quotation is someone's words, in a spelling and units we did not choose. The spelling pass (British / American) and the units pass are text-node passes over
+   everything rendered; they are for prose Folio authored. `.verbatim` exempts a text from BOTH, and every quotation carries it: the speaker's own English (King's "color of their skin"), a published translator's
+   (Legge's "labour lost") and the daily pool's entries alike (that pool is standard PUBLISHED translations only, in code and in the admin form, so each entry is a named translator's text). Whether a quotation also
+   has an original-language form (`o`) decides nothing.
 
-   EVERY PLACE A QUOTATION IS SHOWN (`app.js`), and what each does:
-     1  the Home daily quote — `dailyQuoteHTML`: the blockquote is `.verbatim` only when the quote has no `o` (the `.dq-orig` original is `.notranslate` either way)       decided per quotation
-     2  a card's quote block — `cardQuoteHTML`: a passage of a Library book, a published translator's English (Legge, Haines, Murray…)                                          always `.verbatim`
-     3  Who said it? — the round's `blockquote.ws-quote`                                                                                                                       always `.verbatim`
-     4  Who said it? — the results screen's `.tf-sum-q`                                                                                                                        always `.verbatim`
-     5  the admin's Who said it? list — `.q-text` of each entry of quotes.js                                                                                                  always `.verbatim`
-     6  the admin's daily-quote list — `.q-text` of each quote of the pool                                                                                                     `.verbatim` only without `o`
-     7  the Library's pages — `.bk-page`                                                                                                                                       skipped by `spellSkip` already
-   Who said it?'s pool (quotes.js) has no original-language form at all: an entry is the speaker's English or a published translator's (its `src` names the translator), so all of them stay `.verbatim`.
-   NOT quotations, not marked: True or False's statements and results (claims Folio wrote), Find it, What year, the crossword's clues, a card's own abstract.
+   EVERY PLACE A QUOTATION IS SHOWN (`app.js`) — all `.verbatim`:
+     1  the Home daily quote — `dailyQuoteHTML` (the `.dq-orig` original is `.notranslate`)
+     2  a card's quote block — `cardQuoteHTML`: a passage of a Library book, a published translator's English
+     3  Who said it? — the round's `blockquote.ws-quote`
+     4  Who said it? — the results screen's `.tf-sum-q`
+     5  the admin's Who said it? list — `.q-text` of each entry of quotes.js
+     6  the admin's daily-quote list — `.q-text` of each quote of the pool
+     7  the Library's pages — `.bk-page`, skipped by `spellSkip` already
+   NOT quotations, not marked: True or False's statements and results (claims Folio wrote), Find it, What year, the crossword's clues, a card's own abstract, a quotation's caption (its speaker and source line are Folio's).
    THE UNITS PASS honours `.verbatim` (`unitSkip`), like the spelling pass (`spellSkip`).
 
    WHAT IT PROVES (the daily quote on a FIXED CLOCK, the pool reduced to the quotations under test through the overlay `ADMIN_EDITS.quotes`):
-     A  (static) the templates above
-     B  a BRITISH reader (en-GB, metric): King's and Du Bois's "color" is printed as stored (no `o`, `.verbatim`) over two consecutive days
-     C  the four-way table on one synthetic line ("The color of 10 km (6 miles) and a labour of honor."): with an `o` it is converted for BOTH readers (British: "colour", bracket dropped; American: "labor", "6 miles");
-        without an `o` it reaches both exactly as stored
-     D  an AMERICAN reader sees the shipped Confucius ("Learning without thought is labour lost…", `o` present) as "labor lost", and the shipped Bacon (no `o`) is `.verbatim`
-     E  a card's quote block (wh-399, Legge's Confucius, its text rewritten in flight to carry "color" and "10 km (6 miles)") is `.verbatim` and unconverted for both readers — and the card's own prose beside it is still converted
+     A  (static) the templates above, and that no per-quote branch is left
+     B  a BRITISH and an AMERICAN reader: King's and Du Bois's "color" is printed as stored, over two consecutive days
+     C  one synthetic line ("The color of 10 km (6 miles) and a labour of honor."), with an `o` and without one, for both readers: the quotation reaches both exactly as stored, while a Folio-authored sentence
+        with the same words beside it IS converted (British: bracket dropped; American: "labor", "6 miles")
+     D  the shipped Confucius (Legge: "labour lost") and Bacon reach a British AND an American reader exactly as stored
+     E  a card's quote block (wh-399, Legge's Confucius, its text rewritten in flight to carry "color" and "10 km (6 miles)") is `.verbatim` and unconverted for both readers
      F  the passes themselves are live in the same page (a control: a `<div>` of "color" is converted, the same text inside `.verbatim` is not)
    Re-run after touching `spellSkip`, `unitSkip`, `dailyQuoteHTML`, `cardQuoteHTML` or any quotation's markup. */
 "use strict";
@@ -58,10 +57,11 @@ const SHIPPED = (() => { const i = APP.indexOf("const SHIPPED_QUOTES = ["), j = 
 (async () => {
   console.log("\n\x1b[1mA) the audit, as the source has it\x1b[0m\n");
   const has = (a, b) => { const i = APP.indexOf(a); return i >= 0 && APP.slice(i, i + (b || 400)).includes("verbatim"); };
-  check("the Home daily quote's blockquote is `.verbatim` only where the quote has no `o` (Folio's translations are converted)", has("function dailyQuoteHTML", 1900) && /<blockquote' \+ \(o \? "" : ' class="verbatim"'\) \+ ">" \+ pair\(q\.t/.test(APP));
+  check("the Home daily quote's blockquote is `.verbatim` for every entry (no per-quote branch)", has("function dailyQuoteHTML", 1900) && /<blockquote class="verbatim">' \+ pair\(q\.t/.test(APP) && !/<blockquote' \+ \(o \?/.test(APP));
   check("a card's quote block's blockquote is `.verbatim`", /<blockquote class="verbatim">' \+ q\.text/.test(APP));
   check("Who said it?'s round and its results are `.verbatim` (as since October)", /<blockquote class="ws-quote verbatim">/.test(APP) && /<p class="tf-sum-q verbatim">/.test(APP));
-  check("the admin's Who said it? list is `.verbatim`; its daily-quote list only for a quote with no `o`", (APP.match(/<span class="q-text verbatim">/g) || []).length === 1 && /<span class="q-text' \+ \(q\.o \? "" : " verbatim"\) \+ '">/.test(APP));
+  check("both of the admin's quotation lists (Who said it?, the daily pool) are `.verbatim`, with no per-quote branch", (APP.match(/<span class="q-text verbatim">/g) || []).length === 2 && !/<span class="q-text' \+ \(q\.o/.test(APP));
+  check("the admin's daily-quote form says the quote is shown exactly as typed, in the translator's spelling", /Shown exactly as typed, in the translator.s spelling/.test(APP));
   check("the units pass skips `.verbatim` (unitSkip) and so does the spelling pass (spellSkip)", /function unitSkip[\s\S]{0,400}\.notranslate, \.verbatim/.test(APP) && /spellSkip[\s\S]{0,2600}closest\("\.verbatim"\)/.test(APP));
   check("the two quotations are in quotes.js and the daily pool has none with 'color'", !!KING && !!DUBOIS && !SHIPPED.some((q) => /\bcolou?r/i.test(q.t)), `${SHIPPED.length} shipped daily quotes`);
 
@@ -81,79 +81,81 @@ const SHIPPED = (() => { const i = APP.indexOf("const SHIPPED_QUOTES = ["), j = 
     const o = { plain: a.textContent, verbatim: b.textContent }; a.remove(); b.remove(); return o;
   });
 
-  /* ---- B: Home, a British reader, the daily pool is King's and Du Bois's ---- */
-  console.log("\n\x1b[1mB) Home: the daily quote, British reader, fixed clock\x1b[0m\n");
-  {
+  const READERS = [
+    ["British, metric", { spelling: "en-GB", units: "metric", newPerDay: 5 }],
+    ["American, imperial", { spelling: "en-US", units: "imperial", newPerDay: 5 }],
+  ];
+  const SETTINGS = (settings) => `localStorage.setItem("folio_v1", JSON.stringify({ cards: {}, settings: ${JSON.stringify(settings)} }));`;
+
+  /* ---- B: Home, both readers, the daily pool is King's and Du Bois's ---- */
+  console.log("\n\x1b[1mB) Home: the daily quote, a British and an American reader, fixed clock\x1b[0m\n");
+  for (const [who, settings] of READERS) {
     const overlay = { quotes: {} };
     for (const q of SHIPPED) overlay.quotes[q.t] = null;
     overlay.quotes[KING.q] = { t: KING.q, a: KING.who, s: "I Have a Dream, 28 August 1963" };
     overlay.quotes[DUBOIS.q] = { t: DUBOIS.q, a: DUBOIS.who, s: "The Souls of Black Folk, 1903" };
     const seen = [];
     for (const day of ["2026-03-10T12:00:00Z", "2026-03-11T12:00:00Z"]) {
-      const { ctx, page } = await newPage(`localStorage.setItem("folio_tour_v1","1"); localStorage.setItem("folio_admin_v1", ${JSON.stringify(JSON.stringify(overlay))});`);
+      const { ctx, page } = await newPage(`localStorage.setItem("folio_tour_v1","1"); localStorage.setItem("folio_admin_v1", ${JSON.stringify(JSON.stringify(overlay))}); ${SETTINGS(settings)}`);
       await page.clock.setFixedTime(new Date(day));
       await page.goto(`http://127.0.0.1:${PORT}/#home`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
       await page.waitForSelector(".daily-quote .dq-live", { timeout: 60000 }); await sleep(1200);
       const t = await page.evaluate(() => ({ live: document.querySelector(".daily-quote .dq-live").textContent, who: (document.querySelector(".daily-quote figcaption") || {}).textContent || "", verbatim: !!document.querySelector(".daily-quote blockquote.verbatim") }));
       seen.push(t.live);
-      check(`${day.slice(0, 10)}: the daily quote is one of the two and is printed as stored (no "colour")`, [KING.q, DUBOIS.q].includes(t.live) && !/colour/.test(t.live) && t.verbatim, t.live.slice(0, 90) + " … " + t.who.slice(0, 40));
-      if (day.startsWith("2026-03-10")) { const c = await control(page); check("F) the units pass is live in this page (control, added after render: a British reader's spelling observer is not installed): plain text loses its imperial bracket, `.verbatim` keeps it", c.plain === "The color of 10 km and a labour of honor." && c.verbatim === "The color of 10 km (6 miles) and a labour of honor.", JSON.stringify(c)); }
+      check(`${who}, ${day.slice(0, 10)}: the daily quote is one of the two and is printed as stored (no "colour")`, [KING.q, DUBOIS.q].includes(t.live) && !/colour/.test(t.live) && t.verbatim, t.live.slice(0, 90) + " … " + t.who.slice(0, 40));
+      if (day.startsWith("2026-03-10")) { const c = await control(page); check(`${who}: F) the passes are live in this page (control, added after render): plain text is converted, \`.verbatim\` keeps it`, c.plain !== c.verbatim && c.verbatim === "The color of 10 km (6 miles) and a labour of honor.", JSON.stringify(c)); }
       await ctx.close();
     }
-    check("over the two days King's and Du Bois's quotations were both the daily quote", seen.includes(KING.q) && seen.includes(DUBOIS.q), seen.map((s) => s.slice(0, 30)).join(" | "));
+    check(`${who}: over the two days King's and Du Bois's quotations were both the daily quote`, seen.includes(KING.q) && seen.includes(DUBOIS.q), seen.map((s) => s.slice(0, 30)).join(" | "));
   }
 
-  /* ---- C: the four-way table, one synthetic line, fixed clock ---- */
-  console.log("\n\x1b[1mC) Home: Folio's translation (has `o`) against a speaker's own English (no `o`), British and American\x1b[0m\n");
+  /* ---- C: one synthetic line, with and without `o`, both readers, and Folio's own sentence beside it ---- */
+  console.log("\n\x1b[1mC) Home: a quotation with and without an original-language form, British and American; Folio's sentence beside it\x1b[0m\n");
   {
     const LINE = "The color of 10 km (6 miles) and a labour of honor.";
-    const READERS = [
-      ["British, metric", { spelling: "en-GB", units: "metric", newPerDay: 5 }],
-      ["American, imperial", { spelling: "en-US", units: "imperial", newPerDay: 5 }],
-    ];
     const KINDS = [
-      ["Folio's translation (has `o`)", { t: LINE, a: "Test Speaker", s: "Test work", o: { lang: "la", t: "Lorem ipsum.", a: "Test", s: "Test" } }, false],
-      ["the speaker's own English (no `o`)", { t: LINE, a: "Test Speaker", s: "Test work" }, true],
+      ["with an `o`", { t: LINE, a: "Test Speaker", s: "Test work", o: { lang: "la", t: "Lorem ipsum.", a: "Test", s: "Test" } }],
+      ["without an `o`", { t: LINE, a: "Test Speaker", s: "Test work" }],
     ];
-    const EXPECT = {   // [reader][kind]
-      "British, metric": ["The colour of 10 km and a labour of honour.", LINE],
-      "American, imperial": ["The color of 6 miles and a labor of honor.", LINE],
-    };
+    const FOLIO = { "British, metric": "The color of 10 km and a labour of honor.", "American, imperial": "The color of 6 miles and a labor of honor." };   // what Folio's own sentence of the same words becomes once inserted after render (a British reader's spelling pass has no observer, so only the units change; the American one converts both)
     for (const [who, settings] of READERS) {
-      for (let k = 0; k < KINDS.length; k++) {
-        const [kind, quote, verbatim] = KINDS[k];
+      for (const [kind, quote] of KINDS) {
         const overlay = { quotes: {} };
         for (const q of SHIPPED) overlay.quotes[q.t] = null;
         overlay.quotes[LINE] = quote;
-        const { ctx, page } = await newPage(`localStorage.setItem("folio_tour_v1","1"); localStorage.setItem("folio_admin_v1", ${JSON.stringify(JSON.stringify(overlay))}); localStorage.setItem("folio_v1", JSON.stringify({ cards: {}, settings: ${JSON.stringify(settings)} }));`);
+        const { ctx, page } = await newPage(`localStorage.setItem("folio_tour_v1","1"); localStorage.setItem("folio_admin_v1", ${JSON.stringify(JSON.stringify(overlay))}); ${SETTINGS(settings)}`);
         await page.clock.setFixedTime(new Date("2026-03-10T12:00:00Z"));
         await page.goto(`http://127.0.0.1:${PORT}/#home`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
         await page.waitForSelector(".daily-quote .dq-live", { timeout: 60000 }); await sleep(1200);
-        const t = await page.evaluate(() => ({ live: document.querySelector(".daily-quote .dq-live").textContent, verbatim: !!document.querySelector(".daily-quote blockquote.verbatim") }));
-        check(`${who} reader, ${kind}: the blockquote is ${verbatim ? "" : "NOT "}\`.verbatim\``, t.verbatim === verbatim, `verbatim=${t.verbatim}`);
-        check(`${who} reader, ${kind}: the daily quote reads ${JSON.stringify(EXPECT[who][k])}`, t.live === EXPECT[who][k], JSON.stringify(t.live));
-        if (k === 0) { const c = await control(page); check(`${who}: the passes are live in this page (control)`, c.verbatim === "The color of 10 km (6 miles) and a labour of honor." && c.plain !== c.verbatim, JSON.stringify(c)); }
+        // a Folio-authored sentence of the same words, placed next to the quotation
+        await page.evaluate((line) => { const f = document.querySelector(".daily-quote"); const p = document.createElement("p"); p.id = "folio-sentence"; p.textContent = line; f.parentNode.insertBefore(p, f.nextSibling); }, LINE);
+        await sleep(700);
+        const t = await page.evaluate(() => ({ live: document.querySelector(".daily-quote .dq-live").textContent, verbatim: !!document.querySelector(".daily-quote blockquote.verbatim"), sentence: document.getElementById("folio-sentence").textContent }));
+        check(`${who} reader, quotation ${kind}: the blockquote is \`.verbatim\``, t.verbatim, `verbatim=${t.verbatim}`);
+        check(`${who} reader, quotation ${kind}: it reads exactly as stored, units included`, t.live === LINE, JSON.stringify(t.live));
+        check(`${who} reader, quotation ${kind}: a Folio-authored sentence beside it is still converted (${JSON.stringify(FOLIO[who])})`, t.sentence === FOLIO[who], JSON.stringify(t.sentence));
         await ctx.close();
       }
     }
   }
 
-  /* ---- D: the shipped pool, an American reader: Confucius has an `o`, Bacon has none ---- */
-  console.log("\n\x1b[1mD) Home: the shipped Confucius (translation) and Bacon (English), American reader, fixed clock\x1b[0m\n");
-  for (const [name, keep, expectText, verbatim] of [
-    ["Confucius (has `o`)", SHIPPED.find((q) => /labour lost/.test(q.t)), "Learning without thought is labor lost; thought without learning is perilous.", false],
-    ["Bacon (no `o`)", SHIPPED.find((q) => q.a === "Francis Bacon"), "Histories make men wise.", true],
+  /* ---- D: the shipped pool: Legge's Confucius and Bacon, both readers ---- */
+  console.log("\n\x1b[1mD) Home: the shipped Confucius (Legge) and Bacon, British and American, fixed clock\x1b[0m\n");
+  for (const [name, keep, expectText] of [
+    ["Confucius (Legge)", SHIPPED.find((q) => /labour lost/.test(q.t)), "Learning without thought is labour lost; thought without learning is perilous."],
+    ["Bacon", SHIPPED.find((q) => q.a === "Francis Bacon"), "Histories make men wise."],
   ]) {
-    const overlay = { quotes: {} };
-    for (const q of SHIPPED) if (q !== keep) overlay.quotes[q.t] = null;
-    const { ctx, page } = await newPage(`localStorage.setItem("folio_tour_v1","1"); localStorage.setItem("folio_admin_v1", ${JSON.stringify(JSON.stringify(overlay))}); localStorage.setItem("folio_v1", JSON.stringify({ cards: {}, settings: { spelling: "en-US", units: "imperial", newPerDay: 5 } }));`);
-    await page.clock.setFixedTime(new Date("2026-03-10T12:00:00Z"));
-    await page.goto(`http://127.0.0.1:${PORT}/#home`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
-    await page.waitForSelector(".daily-quote .dq-live", { timeout: 60000 }); await sleep(1200);
-    const t = await page.evaluate(() => ({ live: document.querySelector(".daily-quote .dq-live").textContent, verbatim: !!document.querySelector(".daily-quote blockquote.verbatim"), flip: !!document.querySelector(".daily-quote.dq-flip") }));
-    check(`${name}: an American reader sees ${JSON.stringify(expectText)}`, t.live === expectText, t.live.slice(0, 80));
-    check(`${name}: the blockquote is ${verbatim ? "" : "NOT "}\`.verbatim\` (and ${verbatim ? "has no" : "has an"} original-language flip)`, t.verbatim === verbatim && t.flip === !verbatim, JSON.stringify(t));
-    await ctx.close();
+    for (const [who, settings] of READERS) {
+      const overlay = { quotes: {} };
+      for (const q of SHIPPED) if (q !== keep) overlay.quotes[q.t] = null;
+      const { ctx, page } = await newPage(`localStorage.setItem("folio_tour_v1","1"); localStorage.setItem("folio_admin_v1", ${JSON.stringify(JSON.stringify(overlay))}); ${SETTINGS(settings)}`);
+      await page.clock.setFixedTime(new Date("2026-03-10T12:00:00Z"));
+      await page.goto(`http://127.0.0.1:${PORT}/#home`, { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
+      await page.waitForSelector(".daily-quote .dq-live", { timeout: 60000 }); await sleep(1200);
+      const t = await page.evaluate(() => ({ live: document.querySelector(".daily-quote .dq-live").textContent, verbatim: !!document.querySelector(".daily-quote blockquote.verbatim") }));
+      check(`${name}: a ${who} reader sees ${JSON.stringify(expectText)} as stored`, t.live === expectText && t.verbatim, JSON.stringify(t).slice(0, 120));
+      await ctx.close();
+    }
   }
 
   /* ---- E: a card's quote block, a British reader and an American one ---- */

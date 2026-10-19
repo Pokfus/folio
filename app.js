@@ -23271,7 +23271,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const srcPair = (en) => (o && o.s ? pair(en, o.s) : esc(en));
     return '<figure class="daily-quote' + (o ? " dq-flip" : "") + '"' +
       (o ? ' tabindex="0" role="button" title="Show the original" aria-label="Show the original"' : "") + ">" +
-      '<blockquote' + (o ? "" : ' class="verbatim"') + ">" + pair(q.t, o && o.t) + "</blockquote>" +   // `.verbatim` (both passes skip it) only where the line is the speaker's own English: a quote with an `o` is FOLIO'S translation, its prose, so the reader's spelling and units apply (2026-10-19)
+      '<blockquote class="verbatim">' + pair(q.t, o && o.t) + "</blockquote>" +   // a quotation is someone's words, in a spelling and units we did not choose: EVERY entry is `.verbatim` (the pool is published translations only), and both passes skip it (2026-10-19)
       "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
       (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") +
       "</figcaption></figure>";
@@ -45598,7 +45598,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const q = r.q, k = keyOf(q), edited = quoteIsEdited(k), added = !quoteIsShipped(k);
         return '<div class="q-row' + (r.d === today ? " q-today" : "") + (_qEditing === k ? " q-open" : "") + '" data-qk="' + esc(k) + '">' +
           '<button type="button" class="q-main" data-qopen="' + esc(k) + '">' +
-            '<span class="q-text' + (q.o ? "" : " verbatim") + '">' + esc(q.t) + "</span>" +
+            '<span class="q-text verbatim">' + esc(q.t) + "</span>" +
             '<span class="q-meta"><b>' + esc(q.a || "—") + "</b>" + (q.s ? '<span class="q-src">' + esc(q.s) + "</span>" : "") +
               (q.o ? '<span class="q-pill q-orig">' + esc(q.o.lang || "original") + "</span>" : '<span class="q-pill q-noorig">English only</span>') +
               (added ? '<span class="q-pill q-added">added</span>' : edited ? '<span class="q-pill q-edited">edited</span>' : "") +
@@ -45618,7 +45618,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const o = q.o || {};
         return '<div class="q-form" id="qForm">' +
           '<div class="q-form-head"><b>' + (isNew ? "New quote" : "Edit quote") + "</b>" +
-            '<span class="q-form-note">Shown on the home page. Standard published translations of well-documented passages only — never a loose attribution.</span></div>' +
+            '<span class="q-form-note">Shown on the home page. Standard published translations of well-documented passages only — never a loose attribution. Shown exactly as typed, in the translator’s spelling: it is never respelled or converted for the reader.</span></div>' +
           field("qT", "the quote", q.t) +
           field("qA", "who said it", q.a) +
           field("qS", "where it comes from", q.s, "— the work and its book, chapter or letter") +
