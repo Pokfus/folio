@@ -3,19 +3,19 @@
      NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-atlas-card.js
      FOLIO_CHROMIUM=/path/to/chrome  … to pick the browser (otherwise playwright's own)
 
+   CHANGED 2026-10-19 (the owner's phone: a popup is its name and the cards set there, nothing else — docs/atlas-v2-design.md §7 "The popup, simplified"). What it
+   used to prove and no longer can: a country's official name as its title, the description with its wired footnotes, the four-tile figures grid, the Wikipedia link, a river's kind
+   line, "No description for …", and (§3b) that every polity, people, culture, extent and front card names its source and licence — all of that content is gone from the popup. The
+   sources of the history file are named on the #credits page (generated from the data files' own headers; check-credits.js), and §3b keeps the checks that survive: every source id
+   has a wording and every history entity still opens as a card.
+
    WHAT IT PROVES:
-     · a COUNTRY card (France, picked through the gazetteer) carries the official name as its title (v1's
-       officialName rule: "French Republic"), a description with WIRED footnotes — every `sup.fn` numbered and
-       pointing at an entry of the sources list — a figures grid of four tiles, and NO sentence that quotes a
-       figure the grid shows (v1's stripInfoNoise); the prose came through the lazy `atlas2prose` bundle
-       (countries.js and its siblings) and NOT through v1's `atlas` bundle: window.TIMELINE stays undefined;
-     · a RIVER card (the Danube) shows its kind, its Wikipedia link from the gazetteer's sitelink, and nothing
-       invented: no figures grid, no description;
-     · a country WITHOUT a prose entry says so rather than inventing one;
-     · the PHONE SHEET: at 390 px the card is a bottom sheet with a grip that opens SHUT (the title strip
-       alone), expands on the grip, and the legend is a chip that opens a sheet;
-     · Escape closes the card and clears the selection; the stack chip reads "N here" where two places share
-       a tap (Lake Victoria over Uganda) and a second tap cycles.
+     · a COUNTRY card (France) is its name ("France", not the official name) and nothing else but the cards set there: no kind line, no description, no footnote, no figures grid, no
+       Wikipedia link; the lazy `atlas2prose` bundle is NOT loaded for it (countries.js stays for Find it; the stats, spans and sources files are no longer fetched at all);
+     · a RIVER card (the Danube) is its name alone;
+     · a country WITH no card says only its name — no "No description for …" sentence;
+     · the PHONE SHEET: at 390 px the card is a bottom sheet with a grip, opening at a peek that fits its content, expanding on the grip, and the legend is a chip that opens a sheet;
+     · Escape closes the card and clears the selection; a second tap at the same spot keeps the country.
 */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -47,7 +47,7 @@ async function open(context) {
   await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.waterSettled() && c.labelsReady(); }, null, { timeout: 120000 });
   return { page, errors };
 }
-const cardState = (page) => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const el = document.querySelector(".atlas2-card"), body = el.querySelector(".atlas2-card-body"); return Object.assign(c.card(), { hidden: el.hidden, kind: el.querySelector(".atlas2-card-kind").textContent, text: body.textContent, html: body.innerHTML, fn: [...body.querySelectorAll("sup.fn")].map((s) => s.textContent), items: body.querySelectorAll(".src-item").length, stats: body.querySelectorAll(".atlas2-stat").length, desc: (body.querySelector(".atlas2-card-desc") || {}).textContent || "", wiki: (body.querySelector(".atlas2-card-link a") || {}).href || "", within: (body.querySelector(".atlas2-card-within") || {}).textContent || "" }); });
+const cardState = (page) => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const el = document.querySelector(".atlas2-card"), body = el.querySelector(".atlas2-card-body"); return Object.assign(c.card(), { hidden: el.hidden, kind: (el.querySelector(".atlas2-card-kind") || {}).textContent || "", text: body.textContent, html: body.innerHTML, kids: [...body.children].map((x) => x.className), extras: el.querySelectorAll("sup.fn, .src-item, .atlas2-stat, .atlas2-card-desc, .atlas2-card-link, .atlas2-card-facts, .atlas2-card-sources, .atlas2-card-chip, .atlas2-card-kind, .atlas2-card-within, details, dl, a[href^='http']").length }); });
 const waitProse = (page) => page.waitForFunction(() => !document.querySelector(".atlas2-card-loading"), null, { timeout: 60000 }).catch(() => {});
 
 (async () => {
@@ -55,40 +55,32 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   const browser = await chromium.launch(LAUNCH);
   const { page, errors } = await open(await browser.newContext({ viewport: { width: 1280, height: 800 } }));
 
-  console.log("\n\x1b[1m1) a country card\x1b[0m\n");
+  console.log("\n\x1b[1m1) a country card is its name and its cards\x1b[0m\n");
   await page.evaluate(() => document.querySelector(".atlas2").__atlas2.select("adm0:fra", { open: true }));
-  await waitProse(page); await sleep(150);
+  await sleep(300);
   let c = await cardState(page);
   check("the card is open on France", c.open && c.id === "adm0:fra" && !c.hidden, c.title);
-  check("its title is the official name (v1's rule)", /French Republic/i.test(c.title), c.title);
-  check("its kind line says Country", /^Country/.test(c.kind), c.kind);
-  check("the description is there and carries footnote markers", c.desc.length > 200 && c.fn.length >= 3, `${c.desc.length} chars, markers ${c.fn.join(",")}`);
-  check("every marker is numbered and points at a listed source", c.fn.length > 0 && c.fn.every((t) => /^\d+$/.test(t) && Number(t) >= 1 && Number(t) <= c.items), `${c.items} sources`);
-  check("a figures grid of four tiles", c.stats === 4);
-  const grid = /[$€£]\s?\d|\d[\d.,]*\s*(?:million|billion|trillion)\b|\d[\d.,]*\s*(?:km²|km2|sq\.?\s?mi|square\s?kilomet)/i;
-  check("no sentence of the description quotes a grid figure", !grid.test(c.desc), (c.desc.match(grid) || [""])[0]);
-  check("a Wikipedia link from the gazetteer's sitelink", /^https:\/\/en\.wikipedia\.org\/wiki\//.test(c.wiki), c.wiki);
-  // app.js assigns an empty window.TIMELINE at boot (applyAdminEdits); timeline.js is what fills it, and cities.js (the same v1 bundle) what defines CITIES
-  const bundles = await page.evaluate(() => ({ timelineEras: Array.isArray(window.TIMELINE) ? window.TIMELINE.length : (window.TIMELINE === undefined ? 0 : -1), info: typeof window.COUNTRY_INFO, cities: typeof window.CITIES, uk: typeof window.UK }));
-  check("the prose came through its own bundle: countries.js loaded, timeline.js and cities.js not", bundles.info === "object" && bundles.timelineEras === 0 && bundles.cities === "undefined", JSON.stringify(bundles));
+  check("its title is the name, \"France\" (CHANGED: it was the official name, \"French Republic\")", c.title === "France", c.title);
+  check("it holds nothing but the cards set there: no kind line, description, footnote, figures grid, Wikipedia link, folded section (CHANGED: all of them were there)", c.extras === 0 && c.kids.every((k) => k === "atlas2-study-cards"), JSON.stringify({ extras: c.extras, kids: c.kids }));
+  const bundles = await page.evaluate(() => ({ timelineEras: Array.isArray(window.TIMELINE) ? window.TIMELINE.length : (window.TIMELINE === undefined ? 0 : -1), info: typeof window.COUNTRY_INFO, stats: typeof window.COUNTRY_STATS, spans: typeof window.COUNTRY_SPANS, sources: typeof window.COUNTRY_SOURCES, cities: typeof window.CITIES }));
+  check("no prose was fetched for it: the country files (countries.js, country-stats.js, country-spans.js, country-sources.js) are not loaded by a popup, and v1's timeline.js and cities.js are not either (CHANGED: it asserted the prose arrived)", bundles.info === "undefined" && bundles.stats === "undefined" && bundles.spans === "undefined" && bundles.sources === "undefined" && bundles.timelineEras === 0 && bundles.cities === "undefined", JSON.stringify(bundles));
   const sel = await page.evaluate(() => document.querySelector(".atlas2").__atlas2.selectedId());
   check("the country is the selection", sel === "adm0:fra", sel);
   const hash = await page.evaluate(() => location.hash);
   check("the deep link carries the place", /^#map\/-?[\d.]+\/-?[\d.]+\/-?[\d.]+\/adm0(%3A|:)fra(\?y=-?\d+)?$/.test(hash), hash);
 
-  console.log("\n\x1b[1m2) a river card, and a country without prose\x1b[0m\n");
+  console.log("\n\x1b[1m2) a river card, and a country with no card\x1b[0m\n");
   const danube = await page.evaluate(() => { const g = document.querySelector(".atlas2").__atlas2.gazetteer(); const r = g.rows.find((x) => x.kind === "river" && x.name === "Danube"); return r ? r.id : null; });
   await page.evaluate((id) => document.querySelector(".atlas2").__atlas2.select(id, { open: true }), danube);
   await sleep(150);
   c = await cardState(page);
-  check("the Danube's card: title, kind River", c.title === "Danube" && /^River/.test(c.kind), c.kind);
-  check("a Wikipedia link, no figures grid, no description", /en\.wikipedia\.org\/wiki\/Danube/.test(c.wiki) && c.stats === 0 && !c.desc, c.wiki);
+  check("the Danube's card is its name alone (CHANGED: it had its kind and a Wikipedia link)", c.title === "Danube" && c.extras === 0 && !/Wikipedia|River/.test(c.text), c.text.slice(0, 80));
   const noProse = await page.evaluate(() => { const g = document.querySelector(".atlas2").__atlas2.gazetteer(); const r = g.rows.find((x) => x.kind === "country" && !x.v1); return r ? r.id : null; });
   if (noProse) {
     await page.evaluate((id) => document.querySelector(".atlas2").__atlas2.select(id, { open: true }), noProse);
-    await waitProse(page); await sleep(150);
+    await sleep(150);
     c = await cardState(page);
-    check(`a country without a prose entry (${noProse}) says so`, /No description for/.test(c.text) && c.fn.length === 0, c.text.slice(0, 80));
+    check(`a country with no card (${noProse}) says only its name — no "No description for" sentence (CHANGED)`, c.extras === 0 && !/No description/.test(c.text), c.text.slice(0, 80));
   }
 
   console.log("\n\x1b[1m3) the stack chip, Escape\x1b[0m\n");
@@ -110,7 +102,7 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
   check("Escape closes the card and clears the selection", c.hidden && !c.open && sel3 === null);
 
   /* ---- Oct 2026, owner decision 3: v1 showed a year's sources on a country; v2 does not (a provenance view is a later phase). What the owner asked instead is that every polity's and people's card NAMES ITS SOURCE ---- */
-  console.log("\n\x1b[1m3b) every polity, people, culture, extent and front card names its source\x1b[0m\n");
+  console.log("\n\x1b[1m3b) every history entity opens as a card, and every source id has its wording\x1b[0m\n");
   {
     global.window = global; require(path.join(ROOT, "atlas/atlas-format.js"));
     const HH = global.AtlasFormat.read(new Uint8Array(fs.readFileSync(path.join(ROOT, "atlas/data/history.bin"))), { headerOnly: true }).header;
@@ -124,19 +116,15 @@ const waitProse = (page) => page.waitForFunction(() => !document.querySelector("
     check(`every source id the ${ents.length} history entities use is in the file's source list and has an expected wording here`, unknownSrc.length === 0, unknownSrc.join(", ") || [...usedSrc].join(", "));
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.ensureHistory());
     await page.waitForFunction(() => { const c = document.querySelector(".atlas2").__atlas2; return c.historyStarted() && c.historyReady(); }, null, { timeout: 180000 });
+    // CHANGED 2026-10-19: a card no longer names its source and licence (the popup is its name and its cards); the sources are on #credits. What survives: every entity opens, and its popup holds nothing out of place.
     const bad = [], unreachable = [];
-    const byKind = {};
     for (const e of ents) {
       const ok = await page.evaluate((id) => document.querySelector(".atlas2").__atlas2.select(id, { open: true, push: false }), e.id);
       if (!ok) { unreachable.push(e.id); continue; }
-      await page.waitForFunction((id) => { const c = document.querySelector(".atlas2").__atlas2; return c.card().id === id; }, e.id, { timeout: 10000 }).catch(() => {});
-      const text = await page.evaluate(() => document.querySelector(".atlas2-card-body").textContent.replace(/\s+/g, " "));
-      const src = ((e.kind === "people" || e.kind === "culture" || e.kind === "extent" || e.kind === "front") && e.src) || "cliopatria";
-      const named = SAYS[src] && SAYS[src].test(text), licensed = e.kind === "extent" || e.kind === "front" || LICENCE.test(text);
-      byKind[e.kind] = (byKind[e.kind] || 0) + 1;
-      if (!named || !licensed) bad.push(`${e.id} (${e.kind}, ${src}${named ? "" : ", source not named"}${licensed ? "" : ", no licence"})`);
+      const extras = await page.evaluate(() => document.querySelector(".atlas2-card").querySelectorAll("sup.fn, .src-item, .atlas2-stat, .atlas2-card-desc, .atlas2-card-link, .atlas2-card-facts, .atlas2-card-sources, .atlas2-card-chip, .atlas2-card-kind, details, dl, a[href^='http']").length);
+      if (extras) bad.push(e.id);
     }
-    check(`all ${ents.length - unreachable.length} entity cards name their source (${Object.entries(byKind).map(([k, n]) => n + " " + k).join(", ")}); polities, peoples and cultures also say its licence`, bad.length === 0, bad.slice(0, 5).join("; ") || "none missing");
+    check(`all ${ents.length - unreachable.length} entity cards hold only their name and cards (no source line, no facts, no link out)`, bad.length === 0, bad.slice(0, 5).join("; ") || "none");
     check("every history entity can be opened as a card", unreachable.length === 0, unreachable.slice(0, 8).join(", "));
     await page.keyboard.press("Escape"); await sleep(100);
   }

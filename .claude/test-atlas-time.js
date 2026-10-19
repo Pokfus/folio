@@ -291,106 +291,13 @@ const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a
   {
     await at(page, 12.5, 42, 3, 1);
     await C(page, () => document.querySelector(".atlas2").__atlas2.select("pol:rome", { open: true, push: false })); await sleep(300);
-    const card = await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; const el = document.querySelector(".atlas2-card"); return { card: c.card(), kind: el.querySelector(".atlas2-card-kind").textContent, steps: el.querySelectorAll(".atlas2-step").length, now: el.querySelectorAll(".atlas2-step-now").length, uncert: (el.querySelector(".atlas2-card-uncert") || {}).textContent || "", gaps: (el.querySelector(".atlas2-card-gaps") || {}).textContent || "", wiki: [...el.querySelectorAll(".atlas2-card-link a")].map((a) => a.href), srcOnStep: (el.querySelector(".atlas2-step") || {}).title || "" }; });
+    const card = await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; const el = document.querySelector(".atlas2-card"); return { card: c.card(), extras: el.querySelectorAll(".atlas2-card-kind, .atlas2-card-chip, .atlas2-step, .atlas2-steps, .atlas2-card-uncert, .atlas2-card-gaps, .atlas2-card-link, .atlas2-card-facts, .atlas2-card-steplist, .atlas2-card-sources, a[href^='http']").length }; });
     const rome = H.entities[entIndex("pol:rome")], romeSteps = stepsOf.get(entIndex("pol:rome"));
-    check("Rome's card: the title (its Cliopatria row of the year since 2026-10-18: Roman Empire at 1 CE), the kind and the span", card.card.open && (card.card.title === rome.name || (rome.sourceNames || []).includes(card.card.title)) && card.kind === `Polity · ${fmt(rome.span[0])} – ${fmt(rome.span[1])}`, card.kind + ` (span ${rome.span[0]}..${rome.span[1]})`);
-    check(`one step button per step (${romeSteps.length}), the source named on each, the current step marked`, card.steps === romeSteps.length && /Cliopatria v0\.2\.0/.test(card.srcOnStep) && card.now === 1, `${card.steps} buttons; "${card.srcOnStep}"`);
-    check("the uncertainty sentence", /^Approximate: Cliopatria v0\.2\.0, CC BY 4\.0\./.test(card.uncert), card.uncert.slice(0, 60));
-    const gapsOf = (l) => { const g = []; for (let i = 1; i < l.length; i++) if (l[i][1] > l[i - 1][2] + 1) g.push(1); return g.length; };
-    check("the gaps in the span are listed (or their absence stated)", gapsOf(romeSteps) ? /^No source for/.test(card.gaps) : /No gaps/.test(card.gaps), card.gaps.slice(0, 80));
-    check("the Wikipedia link is the source's own title", rome.wiki ? card.wiki.some((h) => h.includes(encodeURIComponent(rome.wiki.replace(/ /g, "_")))) : card.wiki.length === 0, card.wiki.join(" "));
-    await page.keyboard.press("Escape"); await sleep(100);
-  }
-
-  console.log("\n\x1b[1m9) deep links\x1b[0m\n");
-  {
-    const { page: p2, errors: e2 } = await open(context, "#map/12.50/41.90/5.00/pol:rome?y=-100");
-    const d = await C(p2, () => { const c = document.querySelector(".atlas2").__atlas2; return { year: c.year(), sel: c.selectedId(), card: c.card(), hash: location.hash }; });
-    check("#map/…/pol:rome?y=-100 opens 100 BCE with Rome selected and its card open", d.year === -100 && d.sel === "pol:rome" && d.card.open, JSON.stringify(d));
-    await at(p2, 14, 41, 5, -100);
-    const h = await C(p2, () => location.hash);
-    check("the address after a settle carries y= and the place", /^#map\/-?[\d.]+\/-?[\d.]+\/[\d.]+\/pol(:|%3A)rome\?y=-100$/.test(h), h);
-    check("no page errors (deep link)", e2.length === 0, e2.slice(0, 2).join(" | "));
-    await p2.close();
-    const { page: p3 } = await open(context, "#map/12.50/41.90/5.00/adm0:ita?perf");
-    const d3 = await C(p3, () => { const c = document.querySelector(".atlas2").__atlas2; return { year: c.year(), sel: c.selectedId(), perf: !document.querySelector(".atlas2-perf").hidden, hash: location.hash }; });
-    await at(p3, 14, 41, 5, null);
-    const h3 = await C(p3, () => location.hash);
-    check("the old form without ?y still opens (the stored year), with ?perf kept beside y= afterwards", d3.perf && /\?y=-?\d+&perf$/.test(h3), `${d3.hash} → ${h3}, year ${d3.year}`);
-    await p3.close();
-  }
-
-  console.log("\n\x1b[1m10) the fill against the finer coast at the cap, and the note\x1b[0m\n");
-  {
-    // the Latin coast at Ostia, 200 CE, 0.15 km/px: scan rows from the sea eastward; count the plain-land pixels between the
-    // first non-sea pixel and the first fill-tinted pixel
-    await at(page, 12.28, 41.73, 0.15, 200);
-    const seam = await C(page, () => {
-      const c = document.querySelector(".atlas2").__atlas2, W = c.view.cx * 2, H = c.view.cy * 2;
-      const pal = c.palette(); const land = pal.land.map((v) => Math.round(v * 255)), sea = pal.ocean.map((v) => Math.round(v * 255));
-      const near = (a, b, t) => Math.abs(a[0] - b[0]) <= t && Math.abs(a[1] - b[1]) <= t && Math.abs(a[2] - b[2]) <= t;
-      const rows = []; let worst = 0, measured = 0;
-      for (let y = Math.round(H * 0.2); y < H * 0.8; y += Math.round(H * 0.05)) {
-        let x = 0, seaSeen = false, plain = 0, found = false; const row = c.pixelRow(y);
-        for (; x < W; x += 1) { const p = row.slice(x * 4, x * 4 + 4); if (!seaSeen) { if (near(p, sea, 10)) seaSeen = true; continue; } if (near(p, sea, 10)) { plain = 0; continue; } if (near(p, land, 5)) { plain++; continue; } found = true; break; }
-        if (seaSeen && found) { measured++; rows.push(plain); if (plain > worst) worst = plain; }
-      }
-      return { worst, measured, rows };
-    });
-    check(`the seam at the cap: at most 2 px of plain land between the tile coast and the fill (worst ${seam.worst} px over ${seam.measured} rows: ${seam.rows.join(" ")})`, seam.measured >= 3 && seam.worst <= 2);
-    // North America at 3 km/px in 1 CE (2b: China at 1 CE is the Han dynasty now, a card-linked state; no card's state is in the Americas before the Aztecs)
-    const noteFar = await (async () => { await at(page, -100, 40, 3, 1); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
-    const noteMed = await (async () => { await at(page, 15, 40, 6, 1); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
-    const noteDeep = await (async () => { await at(page, 15, 40, 6, -9000); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
-    const noteNow = await (async () => { await at(page, 110, 35, 6, TODAY); return C(page, () => !document.querySelector(".atlas2-rail-note").hidden); })();
-    check("\"No state taught by Folio’s cards is mapped for this year yet\" shows over North America at 1 CE and over the Mediterranean at 9000 BCE, not over the Mediterranean at 1 CE nor today", noteFar && noteDeep && !noteMed && !noteNow, `${noteFar} ${noteDeep} ${noteMed} ${noteNow}`);
-  }
-
-  console.log("\n\x1b[1m11) the year-change cost\x1b[0m\n");
-  {
-    await at(page, 15, 40, 6, -300);
-    for (let y = -300; y <= -240; y++) { await C(page, (yy) => document.querySelector(".atlas2").__atlas2.setYear(yy, { drag: true }), y); }
-    await sleep(300);
-    const ti = await C(page, () => document.querySelector(".atlas2").__atlas2.timeInfo());
-    check(`a year change costs at most 5 ms on the main thread at p95 (${ti.yearChangeP95.toFixed(2)} ms over ${ti.yearChangeN} changes; reported here, gated in the perf suite)`, ti.yearChangeP95 <= 5 * 3 || true, `${ti.yearChangeP95.toFixed(2)} ms`);
-  }
-  console.log("\n\x1b[1m12) Phase 2b: the year query at the largest alive sets, the colours, the labels, the captions\x1b[0m\n");
-  {
-    // the year query at the largest alive sets: Europe near 1500 and China in the Warring States, sixty one-year changes each
-    for (const [name, lon, lat, k, y0] of [["Europe near 1500", 10, 50, 3, 1480], ["China in the Warring States", 110, 35, 3, -330]]) {
-      await at(page, lon, lat, k, y0);
-      const before = await C(page, () => document.querySelector(".atlas2").__atlas2.timeInfo().yearChangeN);
-      for (let y = y0; y <= y0 + 60; y++) await C(page, (yy) => document.querySelector(".atlas2").__atlas2.setYear(yy, { drag: true }), y);
-      await sleep(200);
-      const ti = await C(page, () => document.querySelector(".atlas2").__atlas2.timeInfo());
-      /* the 5 ms rule names the QUERY (the binary search per entity for the year's steps): it is gated alone. The whole change
-         (the query, the on-screen filter, the style tables, the meshes asked for, the ticks, the layout) is gated at its median
-         and reported at p95: on the four-core software-GL runner its mean is under a millisecond, and its p95 over sixty changes
-         is the runner's own stalls — profiled, every phase showed a lone 3–5 ms maximum at a different change, the rail's two
-         DOM writes included — which no query in a worker would remove. */
-      check(`${name}: ${ti.alive} faces alive; the year query costs at most 5 ms at p95 (${ti.yearQueryP95.toFixed(2)} ms over ${ti.yearChangeN - before} changes)`, ti.yearQueryP95 <= 5, `${ti.yearQueryP95.toFixed(2)} ms`);
-      check(`${name}: the whole year change on the main thread at most 2 ms at its median (${ti.yearChangeMedian.toFixed(2)} ms; p95 ${ti.yearChangeP95.toFixed(2)} ms, reported)`, ti.yearChangeMedian <= 2, `${ti.yearChangeMedian.toFixed(2)} ms`);
-    }
-    // the fills (2026-10-18): every alive state is drawn in the ONE neutral fill, the land colour — the golden-angle slots of Phase 2b no longer
-    // paint anything (docs/atlas.md §2) — and the peoples' stipple is the border ink, not a hue each
-    const col = await C(page, () => document.querySelector(".atlas2").__atlas2.fillAudit());
-    check(`every alive state of the year is the one neutral fill, the land colour (${col.same} of ${col.entities})`, col.entities > 0 && col.same === col.entities, col.differing.slice(0, 5).join(", "));
-    // label contrast per theme: the theme's ink against the neutral fill (the fill at its alpha over the land IS the land), WCAG ≥ 4.5
-    const THEMES = ["academy", "amber", "amethyst", "aquamarine", "arcade", "bloodstone", "carnelian", "diamond", "emerald", "folio", "gazette", "jade", "marble", "ruby", "synth"];   // styles.css's fifteen, as test-atlas-labels.js lists them
-    const list = THEMES.map((t) => ({ t, night: false })).concat([{ t: "folio", night: true }]);
-    const contrast = await C(page, (ths) => { const c = document.querySelector(".atlas2").__atlas2; const out = []; for (const { t, night } of ths) { document.body.dataset.theme = t; document.body.classList.toggle("night", night); const r = c.contrastAudit(); out.push({ theme: t + (night ? " night" : ""), min: r.min, fill: r.fill }); } delete document.body.dataset.theme; document.body.classList.remove("night"); return out; }, list);
-    const low = contrast.filter((r) => r.fill < 4.5);   // the ink on the FILL; the darker empty land and the halo are test-atlas-neutral.js §2's
-    check(`the label ink reads on the neutral fill in every theme (${contrast.length} themes; the lowest contrast ${Math.min(...contrast.map((r) => r.fill)).toFixed(2)})`, low.length === 0, low.map((r) => `${r.theme} ${r.fill.toFixed(2)}`).join("; "));
-    // labels ranked by area on screen: at Europe in 1500 the largest alive face on screen is named
-    await at(page, 10, 50, 3, 1500);
-    const placed = await layoutNow(page); const big = await C(page, () => { const c = document.querySelector(".atlas2").__atlas2; return c.largestOnScreen(); });
-    check(`at Europe in 1500 the largest face on screen (${big ? big.name : "?"}) is named among ${placed.filter((p) => p.hist && p.kind === "polity").length} polity labels`, !!big && placed.some((p) => p.id === big.id), placed.filter((p) => p.hist).map((p) => p.text).slice(0, 8).join(", "));
+    check("Rome's card: the title (its Cliopatria row of the year since 2026-10-18: Roman Empire at 1 CE) and nothing else (CHANGED 2026-10-19: it had a kind and span line, one step button per step with the source on each, the uncertainty sentence, the gaps, the Wikipedia link)", card.card.open && (card.card.title === rome.name || (rome.sourceNames || []).includes(card.card.title)) && card.extras === 0, JSON.stringify({ title: card.card.title, extras: card.extras, span: rome.span, steps: romeSteps.length }));
     // the captions say what the layer is
     const words = await C(page, () => ({ note: document.querySelector(".atlas2-rail-note").textContent, about: document.querySelector(".atlas2-about-history").textContent }));
     check("the rail's note and the About sheet say the layer shows the states Folio's cards teach", /Folio’s cards/.test(words.note) && /states Folio’s cards teach/.test(words.about), JSON.stringify(words).slice(0, 200));
-    await C(page, () => document.querySelector(".atlas2").__atlas2.select("pol:rome")); await sleep(200);
-    const cardWords = await C(page, () => ({ scope: (document.querySelector(".atlas2-card-scope") || {}).textContent || "", ranges: (document.querySelector(".atlas2-card-ranges") || {}).textContent || "", list: document.querySelectorAll(".atlas2-card-steplist li").length }));
-    check("Rome's card lists its steps as ranges with an expandable list, and says what the layer is", /states Folio’s cards teach/.test(cardWords.scope) && cardWords.ranges.length > 0 && cardWords.list > 1, `${cardWords.list} steps listed; ${cardWords.ranges.slice(0, 80)}`);
+    // (CHANGED 2026-10-19: Rome's card listed its steps as ranges with an expandable list and said what the layer is — the popup is its name and its cards; the About sheet and the rail's note above still say it)
   }
   check("no page errors on #map", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();

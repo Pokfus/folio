@@ -26,6 +26,9 @@
         windows' gold — the fill (the land blended with gold at 0.24), the outline and the glow — kept through a drag and a year it is alive in; a state with
         no card by the rule gives nothing; marks and names keep priority; the hidden keys list is the keyboard route (docs/atlas-v2-design.md §7 "Whole-state
         selection")
+    14 THE POPUP IS ITS NAME AND ITS CARDS (2026-10-19, the owner's phone, decision a): a whitelist of the elements a popup may hold, for a country, a place, a people and
+        a city stack in Personal, Full and Map; the removed content (kind chip, discovery chip, facts grid, Wikipedia link, description, sources, "N more cards") is absent;
+        the discovery bookkeeping still writes placesSeen
    Re-run after touching atlas/study.js, the study block of atlas.js, the study pass of atlas-worker.js, or the place card. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -68,11 +71,11 @@ const READER = [...new Set([...greekPol, ...romeCards, ...farRome, ...fcCards, .
 const ST = AS.studied(IDX, READER);
 const flagsPersonal = AS.flags(IDX, ST, "personal", [], (id) => { const c = cards.find((x) => x.id === id); return c ? { collId: "x" } : null; });
 
-const seed = (ids) => `try { if (!localStorage.getItem("folio_v1_seeded")) { localStorage.setItem("folio_v1", JSON.stringify({ cards: Object.fromEntries(${JSON.stringify(ids)}.map((id, i) => [id, { due: i % 3 === 0 ? Date.now() - 9e5 : Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" }])), settings: { newPerDay: 5 } })); localStorage.setItem("folio_v1_seeded", "1"); } } catch (e) {}`;
+const seed = (ids, fontSize) => `try { if (!localStorage.getItem("folio_v1_seeded")) { localStorage.setItem("folio_v1", JSON.stringify({ cards: Object.fromEntries(${JSON.stringify(ids)}.map((id, i) => [id, { due: i % 3 === 0 ? Date.now() - 9e5 : Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" }])), settings: { newPerDay: 5${fontSize ? `, fontSize: "${fontSize}"` : ""} } })); localStorage.setItem("folio_v1_seeded", "1"); } } catch (e) {}`;
 async function open(browser, ids, o) {
   o = o || {};
   const ctx = await browser.newContext(o.phone ? { viewport: { width: o.w || 390, height: o.h || 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 } : { viewport: { width: 1280, height: 800 }, deviceScaleFactor: o.dsf || 1 });
-  await ctx.addInitScript(seed(ids));
+  await ctx.addInitScript(seed(ids, o.fontSize));
   await ctx.addInitScript(`localStorage.setItem("folio_tour_v1","1");localStorage.setItem("folio_atlas_tour_v1","1");`);
   const page = await ctx.newPage();
   const errors = [];
@@ -111,7 +114,7 @@ const study = (page) => A(page, (c) => ({ mode: c.study.mode(), flags: c.study.f
 const marks = (page) => A(page, (c) => c.study.marks());
 const live = (page) => A(page, (c) => c.study.liveMarks());
 const labels = (page) => A(page, (c) => c.labels().map((p) => ({ id: p.id, kind: p.kind, text: p.text, hist: !!p.hist, st: p.st || 0, sx: p.sx, sy: p.sy, hit: p.hit, rects: p.rects, glyphs: p.glyphs ? p.glyphs.length : 0 })));
-const sel = (page) => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const card = document.querySelector(".atlas2-card"); return { id: c.selectedId ? c.selectedId() : null, cardOpen: !card.hidden, title: document.querySelector(".atlas2-card-title").textContent, kind: document.querySelector(".atlas2-card-kind").textContent, chip: !document.querySelector(".atlas2-stack").hidden, hash: location.hash }; });
+const sel = (page) => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const card = document.querySelector(".atlas2-card"); return { id: c.selectedId ? c.selectedId() : null, cardOpen: !card.hidden, title: document.querySelector(".atlas2-card-title").textContent, chip: !document.querySelector(".atlas2-stack").hidden, hash: location.hash }; });
 const box = (page) => page.$eval(".atlas2", (e) => { const r = e.getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; });
 const pixel = (page, x, y) => A(page, (c, p) => c.pixelAt(p[0], p[1]), [x, y]);
 const near = (a, b, tol) => a && b && Math.abs(a[0] - b[0]) <= tol && Math.abs(a[1] - b[1]) <= tol && Math.abs(a[2] - b[2]) <= tol;
@@ -246,7 +249,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const all = IDX.cardsOfPlace.get(PLACE) || [], own = all.filter((id) => ST.cardSet.has(id)), dueSet = new Set(READER.filter((id, i) => i % 3 === 0));
     check("the Forum has cards of the reader's and cards that are not (" + own.length + " of " + all.length + ")", own.length >= 2 && all.length > own.length);
     const rows = (page) => page.$$eval(".atlas2-study-cards .atlas2-study-card", (as) => as.map((a) => ({ id: a.getAttribute("data-card"), href: a.getAttribute("href"), title: a.querySelector(".atlas2-study-title").textContent.trim(), deck: (a.querySelector(".atlas2-study-deck") || {}).textContent || "", due: a.getAttribute("data-due") === "1", badge: !!a.querySelector(".atlas2-study-due"), studied: !!a.querySelector(".atlas2-study-mine") })));
-    const others = (page) => page.$eval(".atlas2-study-cards", (e) => { const o = e.querySelector(".atlas2-study-others"); return o ? o.textContent.trim() : ""; });
+    const others = (page) => page.$eval(".atlas2-card", (e) => { const o = e.querySelector(".atlas2-study-others, .atlas2-study-tofull, .atlas2-study-more"); return o ? o.textContent.trim() : ""; });   // 2026-10-19: the "N more cards … Show the Full Atlas" line and the "and N more" button are gone from every popup
     const { ctx, page, errors } = await open(browser, READER);
     const openPlace = async (pg) => { await A(pg, (c, id) => c.select(id, { open: true }), PLACE); await pg.waitForSelector(".atlas2-study-cards", { state: "attached", timeout: 20000 }); await sleep(200); };
     await openPlace(page);
@@ -256,11 +259,11 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     check("…and says which are due now (the seed makes every third card due)", r.every((x) => x.due === dueSet.has(x.id) && x.badge === x.due), r.map((x) => x.id + (x.due ? " due" : "")).join(", "));
     check("…each row is a link to the card's own page", r.every((x) => x.href === "#card/" + x.id));
     const o = await others(page);
-    check("…and the Personal popup says how many more the Full Atlas has: " + (all.length - own.length), new RegExp("^" + (all.length - own.length) + " more cards? about this place in the Full Atlas").test(o), o);
-    await page.click(".atlas2-study-tofull"); await sleep(500);
+    check("…and the Personal popup no longer says how many more the Full Atlas has (CHANGED 2026-10-19: the owner's phone — the popup is its name and its cards)", o === "" && !/more cards? about this place|Show the Full Atlas/.test(await page.$eval(".atlas2-card", (e) => e.textContent)), o);
+    await mode(page, "full"); await sleep(300);
     r = await rows(page);
-    check("the sentence's button switches to the Full Atlas, which lists every card, the reader's first and marked", (await study(page)).mode === "full" && r.length === Math.min(all.length, AS.LIST_CAP) && r.slice(0, own.length).every((x, i) => x.id === own[i] && x.studied) && r.slice(own.length).every((x) => !x.studied), r.length + " rows");
-    check("…with no 'more in the Full Atlas' sentence", (await others(page)) === "");
+    check("the Full Atlas lists every card of the place — no cap and no 'and N more' (CHANGED 2026-10-19: it listed " + AS.LIST_CAP + ") — the reader's first", (await study(page)).mode === "full" && r.length === all.length && r.slice(0, own.length).every((x, i) => x.id === own[i]), r.length + " rows of " + all.length);
+    check("…with no 'more in the Full Atlas' sentence and no button", (await others(page)) === "");
     allErrors.push(...errors); await ctx.close();
     // the phone: the sheet with its rows fits the full-bleed frame, above the year rail
     const ph = await open(browser, READER, { phone: true });
@@ -269,7 +272,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const geo = await ph.page.evaluate(() => { const f = document.querySelector(".atlas2").getBoundingClientRect(), c = document.querySelector(".atlas2-card").getBoundingClientRect(), rail = document.querySelector(".atlas2-rail").getBoundingClientRect(), rows = [...document.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect()); return { frame: [f.left, f.top, f.right, f.bottom], card: [c.left, c.top, c.right, c.bottom], rail: [rail.left, rail.top, rail.right, rail.bottom], rows: rows.map((r) => [r.left, r.top, r.right, r.bottom, r.height]), vw: innerWidth, vh: innerHeight }; });
     // 2026-10-18: the sheet is DOCKED on the frame's bottom edge (the year rail steps aside under it, as under the menu) — it used to end above the rail
     check("390 × 844: the open sheet lies wholly inside the frame, docked on its bottom edge, the year rail stepped aside", geo.card[0] >= geo.frame[0] - 0.5 && geo.card[2] <= geo.frame[2] + 0.5 && geo.card[1] >= geo.frame[1] && Math.abs(geo.card[3] - geo.frame[3]) <= 1 && geo.rail[3] - geo.rail[1] < 1, JSON.stringify({ card: geo.card, rail: geo.rail, frame: geo.frame }));
-    check("…its rows are at least 48 px tall (a finger's row, 2026-10-18) and inside the sheet's width", geo.rows.length === own.length && geo.rows.every((r) => r[4] >= 48 && r[0] >= geo.card[0] && r[2] <= geo.card[2]), JSON.stringify(geo.rows.slice(0, 2)));
+    check("…its rows are at least 56 px tall (CHANGED 2026-10-19: 48) and inside the sheet's width", geo.rows.length === own.length && geo.rows.every((r) => r[4] >= 56 && r[0] >= geo.card[0] && r[2] <= geo.card[2]), JSON.stringify(geo.rows.slice(0, 2)));
     await shot(ph.page, "popup-cards-phone");
     allErrors.push(...ph.errors); await ph.ctx.close();
   }
@@ -572,11 +575,11 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const { ctx, page, errors } = await open(browser, READER, { phone: true, w, h });
     await mode(page, "full"); await year(page, -100); await view(page, 12.5, 41.9, 40);
     await A(page, (c) => c.select("pol:rome", { open: true })); await page.waitForSelector(".atlas2-study-cards", { state: "attached", timeout: 20000 }); await sleep(400);
-    const geo = () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, f = document.querySelector(".atlas2").getBoundingClientRect(), el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"), rows = [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height); const first = body.firstElementChild; const d = el.querySelector(".atlas2-card-sources"); return { card: c.card(), sel: c.selectedId(), frame: [f.left, f.top, f.right, f.bottom], rect: [r.left, r.top, r.right, r.bottom], h: r.height, fh: c.frame()[1], rows, firstIsCards: !!first && first.classList.contains("atlas2-study-cards"), chip: (el.querySelector(".atlas2-card-chip") || {}).textContent || "", years: (el.querySelector(".atlas2-card-years") || {}).textContent || "", kindText: el.querySelector(".atlas2-card-kind").textContent, facts: [...el.querySelectorAll(".atlas2-card-facts dt")].map((x) => x.textContent), sources: d ? { open: d.open, text: d.textContent.length } : null, scrollX: body.scrollWidth - body.clientWidth, docX: document.documentElement.scrollWidth - innerWidth, railShown: getComputedStyle(document.querySelector(".atlas2-rail")).display !== "none", zoomShown: getComputedStyle(document.querySelector(".atlas2-zoom")).display !== "none", heights: c.sheetHeights(), bodyShown: getComputedStyle(body).display !== "none", scrollTop: body.scrollTop }; });
+    const geo = () => page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, f = document.querySelector(".atlas2").getBoundingClientRect(), el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"), rows = [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height); const first = body.firstElementChild; return { card: c.card(), sel: c.selectedId(), frame: [f.left, f.top, f.right, f.bottom], rect: [r.left, r.top, r.right, r.bottom], h: r.height, fh: c.frame()[1], rows, firstIsCards: !!first && first.classList.contains("atlas2-study-cards"), extras: el.querySelectorAll(".atlas2-card-chip, .atlas2-card-years, .atlas2-card-kind, .atlas2-card-facts, .atlas2-card-sources, .atlas2-disc, .atlas2-stats, .atlas2-card-desc").length, bodyKids: [...body.children].map((x) => x.className), scrollX: body.scrollWidth - body.clientWidth, docX: document.documentElement.scrollWidth - innerWidth, railShown: getComputedStyle(document.querySelector(".atlas2-rail")).display !== "none", zoomShown: getComputedStyle(document.querySelector(".atlas2-zoom")).display !== "none", heights: c.sheetHeights(), bodyShown: getComputedStyle(body).display !== "none", scrollTop: body.scrollTop }; });
     let g = await geo(); const hs = g.heights;
     check(`${w}×${h}: the sheet opens at its peek — docked on the frame's bottom edge, about 28 % of the frame tall, the body showing`, g.card.snap === "peek" && Math.abs(g.rect[3] - g.frame[3]) <= 1 && g.h >= g.fh * 0.27 && g.h <= g.fh * 0.34 && g.bodyShown, JSON.stringify({ snap: g.card.snap, h: Math.round(g.h), frame: Math.round(g.fh), bottom: [Math.round(g.rect[3]), Math.round(g.frame[3])] }));
-    check("…the head: the name, a kind chip and the years, which still read as one line", g.chip === "Polity" && /BCE/.test(g.years) && /^Polity · /.test(g.kindText), JSON.stringify({ chip: g.chip, years: g.years, kindText: g.kindText }));
-    check("…the body: the card rows first, each at least 48 px tall, then the key facts (years, the capital) with the sources folded", g.firstIsCards && g.rows.length >= 3 && g.rows.every((x) => x >= 48) && g.facts[0] === "Years" && g.facts.some((f) => /^Capital/.test(f)) && !!g.sources && !g.sources.open && g.sources.text > 40, JSON.stringify({ rows: g.rows.slice(0, 3).map(Math.round), facts: g.facts, sources: g.sources }));
+    check("…the head is the name alone and the body is the card rows alone — no kind chip, years, key facts or sources (CHANGED 2026-10-19: the head had a kind chip and the years, the body the key facts and the folded sources)", g.extras === 0 && g.bodyKids.length === 1 && g.bodyKids[0] === "atlas2-study-cards", JSON.stringify({ extras: g.extras, body: g.bodyKids }));
+    check("…the rows: each at least 48 px tall here (b of 2026-10-19 sets 56 and tests it in §14)", g.firstIsCards && g.rows.length >= 3 && g.rows.every((x) => x >= 48), JSON.stringify({ rows: g.rows.slice(0, 3).map(Math.round) }));
     check("…no sideways scroll in the sheet or the page; the year rail steps aside under the docked sheet; the zoom pill stays at the peek", g.scrollX <= 0 && g.docX <= 0 && !g.railShown && g.zoomShown, JSON.stringify({ scrollX: g.scrollX, docX: g.docX, rail: g.railShown, zoom: g.zoomShown }));
     await A(page, (c) => c.sheetSnap("half")); await sleep(400); g = await geo();
     check("half: about half the frame, still docked", g.card.snap === "half" && Math.abs(g.h - g.fh * 0.5) <= 2 && Math.abs(g.rect[3] - g.frame[3]) <= 1 && !g.zoomShown, `${Math.round(g.h)} of ${Math.round(g.fh)}`);
@@ -610,8 +613,8 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
   }
   {   // the desktop: a 360 px side panel with the same body
     const { ctx, page, errors } = await open(browser, READER); await mode(page, "full"); await year(page, -100); await A(page, (c) => c.select("pol:rome", { open: true })); await sleep(400);
-    const d = await page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"); return { w: r.width, snap: document.querySelector(".atlas2").__atlas2.card().snap, firstIsCards: body.firstElementChild.classList.contains("atlas2-study-cards"), chip: el.querySelector(".atlas2-card-chip").textContent, rows: [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height) }; });
-    check("a desktop shows a 360 px side panel with the same body (the rows first, 48 px each, the kind chip)", Math.abs(d.w - 360) <= 1 && d.snap === null && d.firstIsCards && d.chip === "Polity" && d.rows.every((x) => x >= 48), JSON.stringify(d));
+    const d = await page.evaluate(() => { const el = document.querySelector(".atlas2-card"), r = el.getBoundingClientRect(), body = el.querySelector(".atlas2-card-body"); return { w: r.width, snap: document.querySelector(".atlas2").__atlas2.card().snap, firstIsCards: body.firstElementChild.classList.contains("atlas2-study-cards"), chip: (el.querySelector(".atlas2-card-chip") || {}).textContent || "", rows: [...el.querySelectorAll(".atlas2-study-card")].map((a) => a.getBoundingClientRect().height) }; });
+    check("a desktop shows a 360 px side panel with the same body (the card rows alone, 48 px at least each, no kind chip — CHANGED 2026-10-19)", Math.abs(d.w - 360) <= 1 && d.snap === null && d.firstIsCards && d.chip === "" && d.rows.every((x) => x >= 48), JSON.stringify(d));
     allErrors.push(...errors); await ctx.close();
   }
 
@@ -635,7 +638,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     const tinted = (a, b) => (a[0] - a[2]) - (b[0] - b[2]) >= 20;   // the gold pulls red up and blue down: the land blended with the gold at 0.24
     const before = await pixel(page, clear[0], clear[1]);
     await tap(clear[0], clear[1]);
-    const s1 = await A(page, (c, p) => ({ sel: c.selection(), id: c.selectedId(), card: c.card(), px: c.pixelAt(p[0], p[1]), here: document.querySelectorAll(".atlas2-card-here").length }), clear);
+    const s1 = await A(page, (c, p) => ({ sel: c.selection(), id: c.selectedId(), card: c.card(), px: c.pixelAt(p[0], p[1]), here: [...document.querySelectorAll(".atlas2-card-here")].filter((e) => !e.hidden).length }), clear);
     const ink1 = await goldInk();
     check("the tap selects the whole state: Rome, its popup open, the tapped pixel the land blended with gold", s1.id === "pol:rome" && s1.card.open && s1.card.id === "pol:rome" && tinted(s1.px, before), JSON.stringify({ id: s1.id, before, after: s1.px, card: s1.card }));
     check("…its outline is stroked in the gold on the label canvas, from the face's rings at the view's level; one face under the tap, so no \"Also here\"", s1.sel.rings > 0 && s1.sel.points > 100 && ink1 > 200 && s1.here === 0, JSON.stringify({ rings: s1.sel.rings, points: s1.sel.points, level: s1.sel.level, goldPixels: ink1 }));
@@ -700,6 +703,91 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     allErrors.push(...errors); await ctx.close();
     void ATHENS_RE;
   }
+
+
+  /* ------------------------------------------------------------------ 14  the popup is its name and its cards (2026-10-19) */
+  console.log("\n\x1b[1m14) every popup holds only its name, a close button and the cards set there — a country, a place, a people and a city stack, in all three modes\x1b[0m\n");
+  {
+    const COUNTRY = "adm0:jpn", PEOPLE = "pol:scythia", PLACE14 = "pl:q180212";
+    const extra = [COUNTRY, PEOPLE].flatMap((id) => (IDX.cardsOfPlace.get(id) || []).slice(0, 3));
+    const READER14 = [...new Set([...READER, ...extra])];
+    const mine14 = new Set(READER14);
+    const expectList = (id, m) => { const all = IDX.cardsOfPlace.get(id) || [], own = all.filter((c) => mine14.has(c)), rest = all.filter((c) => !mine14.has(c)); return m === "personal" ? own : own.concat(rest); };
+    // the signature of every element inside the popup: tag + its classes (the sheet's state classes dropped), a class-less element named by its parent's class
+    const ALLOWED = new Set(["aside.atlas2-card", "button.atlas2-grip", "i<atlas2-grip", "div.atlas2-card-head", "div.atlas2-card-titles", "h2.atlas2-card-title", "div.atlas2-card-here", "button.atlas2-here",
+      "div.atlas2-pager", "ul.atlas2-pager-list", "li<atlas2-pager-list", "button<atlas2-pager-list", "div.atlas2-pager-row", "button.atlas2-pager-prev", "span.atlas2-pager-mid", "span.atlas2-pager-name", "span.atlas2-pager-n", "button.atlas2-pager-next",
+      "button.atlas2-card-close", "div.atlas2-card-body", "section.atlas2-study-cards", "ul.atlas2-study-list", "li<atlas2-study-list", "a.atlas2-study-card", "a.atlas2-study-card.atlas2-study-isdue", "span.atlas2-study-text", "span.atlas2-study-title", "span.atlas2-study-deck", "span.atlas2-study-due"]);
+    const probe = (page) => page.evaluate((allowed) => {
+      const card = document.querySelector(".atlas2-card"), A = new Set(allowed), bad = [];
+      for (const e of [card, ...card.querySelectorAll("*")]) {
+        const cl = [...e.classList].filter((c) => !/^atlas2-card-(peek|half|full|dragging)$/.test(c)).sort(), tag = e.tagName.toLowerCase();
+        const sig = cl.length ? tag + "." + cl.join(".") : tag + "<" + (((e.parentElement && e.parentElement.closest("[class]")) || { classList: [] }).classList[0] || "");
+        if (!A.has(sig)) bad.push(sig);
+      }
+      const c = document.querySelector(".atlas2").__atlas2, body = card.querySelector(".atlas2-card-body");
+      const rows = [...card.querySelectorAll(".atlas2-study-card")].map((a) => { const t = a.querySelector(".atlas2-study-title").textContent, d = (a.querySelector(".atlas2-study-deck") || {}).textContent || "", due = !!a.querySelector(".atlas2-study-due"); return { id: a.getAttribute("data-card"), title: t, deck: d, due, only: a.textContent === t + d + (due ? "due" : "") }; });
+      const vis = (e) => !!e && !e.hidden && getComputedStyle(e).display !== "none";
+      return { bad, title: card.querySelector(".atlas2-card-title").textContent, bodyKids: [...body.children].map((x) => x.className), rows, text: card.textContent, links: card.querySelectorAll("a[href^='http'], a[target], dl, details, h3, table, img, svg, p").length, pager: vis(card.querySelector(".atlas2-pager")), here: vis(card.querySelector(".atlas2-card-here")), stack: c.study.stack(), seen: Object.keys((JSON.parse(localStorage.getItem("folio_v1") || "{}").placesSeen) || {}) };
+    }, [...ALLOWED]);
+    const GONE = /Wikipedia|Population|Area|GDP|New discovery|From your cards|Cards about this place|more cards? about|Show the Full Atlas|and \d+ more|Sources|Capital of|Polity|People|Culture|Country|Years|Mapped from|Approximate|description/;
+    for (const m of ["personal", "full", "map"]) {
+      const { ctx, page, errors } = await open(browser, READER14);
+      await mode(page, m);
+      for (const [what, id] of [["a country", COUNTRY], ["a place", PLACE14], ["a people", PEOPLE]]) {
+        if (id === PEOPLE) await year(page, -400);   // a people is a history entity: its row exists once the history is in, in a year it is mapped
+        await A(page, (c, id) => c.select(id, { open: true }), id); await sleep(500);
+        const want = expectList(id, m), pr = await probe(page), name = await A(page, (c, id) => c.rowName(id), id);
+        check(`${m}: ${what} (${id}) opened — the popup is on it`, name !== null && (await A(page, (c) => c.card().id)) === id, String(name));
+        check(`${m}: ${what} (${name}) — every element in the popup is on the whitelist`, pr.bad.length === 0, [...new Set(pr.bad)].join(", "));
+        check(`${m}: …the title is the name alone (no official name, no kind), the body is the card list alone, nothing else — no link out, no grid, no folded section, no paragraph`, pr.title === name && pr.bodyKids.length === (want.length ? 1 : 0) && pr.links === 0 && !pr.pager && !pr.here, JSON.stringify({ title: pr.title, name, body: pr.bodyKids, links: pr.links }));
+        check(`${m}: …the cards set there, ${want.length} of them in order (${m === "personal" ? "the reader's own" : "every card, the reader's first"}); each row is its title, its deck and the DUE badge and nothing else`, pr.rows.length === want.length && pr.rows.every((r, i) => r.id === want[i] && r.title.length > 2 && r.deck.length > 1 && r.only), pr.rows.slice(0, 3).map((r) => r.id + ":" + r.only).join(", "));
+        check(`${m}: …none of the removed content is in its text (kind chip, years, facts, Wikipedia, description, sources, "more cards", "New discovery!")`, !GONE.test(pr.text.replace(/\bdue\b/g, "")) || (console.log("      text: " + pr.text.slice(0, 200)), false), pr.text.slice(0, 120));
+      }
+      allErrors.push(...errors); await ctx.close();
+    }
+    {   // a city stack in each mode: its name, the pager (and over eight places the name list), the current place's cards
+      for (const m of ["personal", "full", "map"]) {
+        const { ctx, page, errors } = await open(browser, READER14);
+        await mode(page, m); await year(page, 2025); await view(page, 12.49, 41.89, 3);
+        const sm = await A(page, (c) => (c.study.liveMarks().find((x) => x.members && x.city === "city:1159151593") || {}).id);
+        if (m === "map") { check("map: the plain Map draws no marks and so no stacks (a popup there is opened by a name or a face, not a stack)", !sm && (await A(page, (c) => c.study.liveMarks().length)) === 0); allErrors.push(...errors); await ctx.close(); continue; }
+        check(`${m}: Rome's stack is drawn at 3 km/px`, !!sm, String(sm));
+        if (!sm) { await ctx.close(); continue; }
+        await A(page, (c, id) => c.study.openStack(id), sm); await sleep(600);
+        const pr = await probe(page), cur = pr.stack && pr.stack.ids[pr.stack.i], want = expectList(cur, m);
+        check(`${m}: the stack's popup — every element on the whitelist (the pager and its name list are navigation)`, pr.bad.length === 0, [...new Set(pr.bad)].join(", "));
+        check(`${m}: …titled "Rome — N places", the pager shown ("1 of N"), the current place's ${want.length} cards as the only body`, /^Rome — \d+ places$/.test(pr.title) && pr.pager && pr.bodyKids.length === (want.length ? 1 : 0) && pr.rows.length === want.length && pr.rows.every((r, i) => r.id === want[i] && r.only) && pr.links === 0, JSON.stringify({ title: pr.title, pager: pr.pager, rows: pr.rows.length, want: want.length }));
+        allErrors.push(...errors); await ctx.close();
+      }
+    }
+    {   // the "Also here" selector: only with two or more states under the tap, names only
+      const { ctx, page, errors } = await open(browser, READER14);
+      await mode(page, "full"); await year(page, -100); await view(page, 12.5, 41.9, 40);
+      const two = await A(page, (c) => { const [W, H] = c.frame(); for (let y = 90; y < H * 0.7; y += 14) for (let x = 20; x < W - 20; x += 14) { const s = c.stackAt(x, y); if (s.length >= 2) return { at: [x, y], ids: s.map((r) => r.id) }; } return null; });
+      if (two) {
+        await A(page, (c, p) => c.pickAt(p[0], p[1], false), two.at); await sleep(500);
+        const pr = await probe(page), names = await page.$$eval(".atlas2-card-here button", (bs) => bs.map((b) => b.textContent));
+        check(`two or more states under the tap: a small selector of their names (${names.join(" / ")}), the shown one marked, nothing else added`, pr.here && names.length === two.ids.length && pr.bad.length === 0 && (await page.$$eval(".atlas2-card-here button[aria-current='true']", (e) => e.length)) === 1, JSON.stringify({ names, ids: two.ids, bad: pr.bad }));
+        await A(page, (c) => c.clearSelection());
+      } else check("a point with two states under it", false, "none found");
+      const solo = await A(page, (c) => { const [W, H] = c.frame(); for (let y = 90; y < H * 0.7; y += 14) for (let x = 20; x < W - 20; x += 14) { const s = c.stackAt(x, y); if (s.length === 1) return { at: [x, y] }; } return null; });
+      if (solo) { await A(page, (c, p) => c.pickAt(p[0], p[1], false), solo.at); await sleep(500); const pr = await probe(page); check("one state under the tap: no selector at all", !pr.here); }
+      allErrors.push(...errors); await ctx.close();
+    }
+    {   // the discovery bookkeeping still writes placesSeen — silently, with no chip
+      const { ctx, page, errors } = await open(browser, READER14);
+      await mode(page, "personal");
+      const before = await A(page, (c) => c.study.summary && 0);
+      void before;
+      const own = (IDX.cardsOfPlace.get(PLACE14) || []).some((c) => mine14.has(c));
+      await A(page, (c, id) => c.select(id, { open: true }), PLACE14); await sleep(600);
+      const d = await A(page, (c) => c.discovery());
+      const chip = await page.evaluate(() => document.querySelectorAll(".atlas2-disc, .disc-chip").length);
+      check("a studied place opened for the first time is still marked seen, with no chip drawn", own && d.id === PLACE14 && d.fresh === true && chip === 0, JSON.stringify({ d, chip }));
+      allErrors.push(...errors); await ctx.close();
+    }
+  }
+
 
   /* ------------------------------------------------------------------ done */
   console.log("\n" + pass + " ok, " + fail + " failed");

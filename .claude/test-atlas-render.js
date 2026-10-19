@@ -223,10 +223,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     check("404 CE at the overlap: the stack names the people first, then the state", stack[0] === "pol:huns" && stack.includes("pol:byzantium"), stack.join(" > "));
     const bb = await canvasBox(), cx = await A(() => document.querySelector(".atlas2").__atlas2.view.cx), cy = await A(() => document.querySelector(".atlas2").__atlas2.view.cy);
     await page.mouse.click(bb.x + cx, bb.y + cy); await sleep(500);
-    // 2026-10-18: the other entities under the point are listed in the popup's "Also here" section (a button each, with the kind word); the floating "N here" chip is gone
-    const chip = await A(() => { const b = document.querySelector(".atlas2-stack"); return { hidden: b.hidden, here: [...document.querySelectorAll(".atlas2-card-here .atlas2-here")].map((x) => x.textContent), kind: document.querySelector(".atlas2-card-kind").textContent, title: document.querySelector(".atlas2-card-title").textContent }; });
-    check("a tap lists the other entity under the point in the popup's \"Also here\": \"" + HH.entities.find((e) => e.id === "pol:byzantium").name + " · state\", and no chip floats on the map", chip.hidden && chip.here.length === 1 && new RegExp("^" + HH.entities.find((e) => e.id === "pol:byzantium").name + "state$").test(chip.here[0]), JSON.stringify(chip.here));
-    check("the card opens on the topmost (the people): its title, and a kind line that says People", chip.title === "Huns" && /^People ·/.test(chip.kind), chip.title + " / " + chip.kind);
+    // 2026-10-19 (CHANGED): the entities under the point are a small SELECTOR of their names under the popup's title, the shown one marked — no "Also here" heading, no kind word; the floating "N here" chip is gone
+    const chip = await A(() => { const b = document.querySelector(".atlas2-stack"), h = document.querySelector(".atlas2-card-here"); return { hidden: b.hidden, shown: !h.hidden, here: [...h.querySelectorAll(".atlas2-here")].map((x) => x.textContent), cur: [...h.querySelectorAll(".atlas2-here[aria-current='true']")].map((x) => x.textContent), title: document.querySelector(".atlas2-card-title").textContent }; });
+    check("a tap on the overlap shows a selector of the names under the point — \"Huns\" (the shown one, marked) and \"" + HH.entities.find((e) => e.id === "pol:byzantium").name + "\" — names only, and no chip floats on the map", chip.hidden && chip.shown && chip.here.length === 2 && chip.here[0] === "Huns" && chip.here.includes(HH.entities.find((e) => e.id === "pol:byzantium").name) && chip.cur.length === 1 && chip.cur[0] === "Huns", JSON.stringify(chip));
+    check("the card opens on the topmost (the people): its title alone (CHANGED: it also had a kind line that said People)", chip.title === "Huns", chip.title);
     await page.mouse.click(bb.x + cx, bb.y + cy); await sleep(400);
     const sel2 = await A(() => document.querySelector(".atlas2").__atlas2.selectedId());
     check("a second tap at the spot cycles to the state", sel2 === "pol:byzantium", sel2);
@@ -332,8 +332,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       await setW("on");
       const stk = await centreStack();
       check("a tap still names the state under the tint (the stack is the entity, not the war)", stk.some((i) => i === "pol:rome" || i === "pol:carthage") || true);
-      const blk = await A(() => document.querySelector(".atlas2").__atlas2.warsBlock("pol:rome"));
-      check("the place card of Rome says which wars it fought, on which side, the years, and offers to show the war", /Second Punic War/.test(blk) && /On the winning side/.test(blk) && /218 BCE – 201 BCE/.test(blk) && /Show this war/.test(blk), blk.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 160));
+      await A(() => document.querySelector(".atlas2").__atlas2.select("pol:rome", { open: true })); await sleep(300);
+      const blk = await A(() => ({ wars: document.querySelectorAll(".atlas2-card-wars, .atlas2-war-go").length, text: document.querySelector(".atlas2-card").textContent }));
+      check("the place card of Rome no longer lists its wars or offers to show one (CHANGED 2026-10-19: it said which wars Rome fought, on which side, the years, with a \"Show this war\" button; the war tint and the Wars switch are untouched)", blk.wars === 0 && !/On the winning side|On the losing side|Show this war/.test(blk.text), blk.text.slice(0, 100));
+      await A(() => document.querySelector(".atlas2").__atlas2.clearSelection());
       await viewAt(12, 38.5, 6, -202); const wr2 = await wars();
       await viewAt(12, 38.5, 6, -200); const wr3 = await wars();
       check("201 BCE is the war's last year and 200 BCE draws nothing of it: the tint ends with the war's years", wr2.roles.some((r) => r[2].includes("rm-209")) && !wr3.roles.some((r) => r[2].includes("rm-209")), `${wr2.roles.length} then ${wr3.roles.length} tinted`);
@@ -369,8 +371,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       check("1795: the Treaty of Greenville cut most of Ohio out of it (the USFS cession polygons dated 3 August 1795): Dayton is outside, the extent remains", !(await inWC()) && wr.roles.some((r) => r[0] === "pol:ext_western_confederacy"), JSON.stringify(wr.roles.map((r) => r[0])));
       const card = await A(() => { const c = document.querySelector(".atlas2").__atlas2; c.select("pol:ext_western_confederacy", { open: true }); return null; });
       await sleep(400);
-      const kind = await A(() => document.querySelector(".atlas2-card-kind").textContent + " | " + document.querySelector(".atlas2-card-body").textContent);
-      check("its card says it is an authored extent, Folio's own approximation, made from the card's limit and Royce's cuts", /Authored extent/.test(kind) && /Royce/.test(kind), kind.slice(0, 200));
+      const kind = await A(() => ({ title: document.querySelector(".atlas2-card-title").textContent, extras: document.querySelectorAll(".atlas2-card-kind, .atlas2-card-extent, .atlas2-card-uncert, .atlas2-card-sources").length, text: document.querySelector(".atlas2-card").textContent }));
+      check("its card is its name alone and does not describe the extent (CHANGED 2026-10-19: it said it was an authored extent, Folio's own approximation, made from the card's limit and Royce's cuts — that note is gone from the popup)", kind.title.length > 3 && kind.extras === 0 && !/Authored extent|Royce/.test(kind.text), JSON.stringify(kind).slice(0, 200));
       await A(() => document.querySelector(".atlas2-card-close").click()); void card;
     }
 
@@ -399,8 +401,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
         const eN = tone(await px(near[0], near[1])), eF = tone(await px(far[0], far[1]));
         await setF(false); const oN = tone(await px(near[0], near[1])), oF = tone(await px(far[0], far[1])); await setF(true);
         check("Phase 4 / 0b: on the 31 December 1942 plate the tint 20 km inside the source map's edge is under a third of the tint 400 km inside it (a soft edge, no line)", dd(eF, oF) > 9 && dd(eN, oN) < dd(eF, oF) / 3, `near ${dd(eN, oN)}, far ${dd(eF, oF)}`);
-        const sentence = await A(() => ({ legend: (document.querySelector(".atlas2-fronts-edge") || {}).textContent || "", card: document.querySelector(".atlas2").__atlas2.frontCardHtml ? document.querySelector(".atlas2").__atlas2.frontCardHtml({ id: "pol:front_axis", name: "Axis-held", front: { set: "axis" } }) : "" }));
-        check("...and the legend and the front's place card each say in one sentence that the source map ends there", /source map ends there; the war did not\./.test(sentence.legend) && /source map ends there; the war did not\./.test(sentence.card), sentence.legend + " | " + sentence.card.replace(/<[^>]+>/g, " ").slice(0, 80));
+        const sentence = await A(() => ({ legend: (document.querySelector(".atlas2-fronts-edge") || {}).textContent || "" }));
+        check("...and the legend says in one sentence that the source map ends there (CHANGED 2026-10-19: the front's place card said it too; the popup is its name and its cards now)", /source map ends there; the war did not\./.test(sentence.legend), sentence.legend);
       }
     }
 
