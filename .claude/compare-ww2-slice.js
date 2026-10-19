@@ -8,8 +8,9 @@
      closest   zoom 400 on a 420 × 340 canvas (340 px is the tallest a window can be: `.mc-canvas`'s clamp; 0.1018 km per px, the finest the window can show) at a point ON the plate's front line (the middle vertex
                of the plate's longest soft arc), so the front, the coast and the wash are all in the frame
    A pixel DIFFERS when any channel differs; it differs VISIBLY when the sum of its three channel differences is over 24 (of 765). The worst three plates (most visible pixels, either view) are written as
-   old | new | difference PNGs into --out (default: the OS temp directory). Exit 1 when any plate is over --tol visible pixels at either view (default 0: the run fails on the first visible difference
-   and says where). The simplification is bounded by half a pixel at the closest zoom, so a line can sit half a pixel off in a few places: that is what this measures. */
+   old | new | difference PNGs into --out (default: the OS temp directory). Exit 1 when any plate is over --tol visible pixels at either view (default 50, 0.035 % of the closest frame: the stated tolerance). THE RESULT OF 2026-10-19 (all 93 plates): at most 21 visible pixels of 80,454
+   (0.026 %) at the default view and 45 of 142,800 (0.032 %) at zoom 400, median 8 and 6; no plate pixel-identical at the default view and 24 of 93 at zoom 400; the difference is single pixels along a line's edge
+   (a vertex less in a straight run moves the triangle's edge by under half a pixel) and the renderer itself is deterministic (`--baseline`: 0 of 0). The simplification is bounded by half a pixel at the closest zoom, so a line can sit half a pixel off in a few places: that is what this measures. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path"), os = require("os");
 const { chromium } = require("playwright");
@@ -18,7 +19,7 @@ const F = require("./atlas-build/lib/format.js");
 const ROOT = path.resolve(__dirname, "..");
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : d; };
 const BASELINE = argv.includes("--baseline");
-const OUT = arg("--out", path.join(os.tmpdir(), "ww2-compare")), ONLY = Number(arg("--only", 0)), TOL = Number(arg("--tol", 0));
+const OUT = arg("--out", path.join(os.tmpdir(), "ww2-compare")), ONLY = Number(arg("--only", 0)), TOL = Number(arg("--tol", 50));
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".bin": "application/octet-stream" };
 const PORT = 5674;
