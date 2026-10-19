@@ -980,7 +980,7 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
         const cy = (r.rect[1] + r.rect[3]) / 2, gapR = r.rect[0] - (r.x + r.h), gapL = (r.x - r.h) - r.rect[2];
         const beside = Math.abs(cy - r.y) <= 1.5 && (Math.abs(gapR - 3) <= 1.6 || Math.abs(gapL - 3) <= 1.6);
         const above = Math.abs(((r.rect[0] + r.rect[2]) / 2) - r.x) <= 1.5 && (r.rect[3] <= r.y - r.h + 0.5 || r.rect[1] >= r.y + r.h - 0.5);
-        check(`${tag}: the name stands directly right or left of the square, vertically centred, 3 px from its edge${k <= 0.16 ? " (at the zoom cap it may also stand above or below)" : " — never above or below"}`, beside || (k <= 0.16 && above), JSON.stringify({ cy, y: r.y, gapR, gapL }));
+        check(`${tag}: the name stands directly right or left of the square (vertically centred, 3 px from its edge) or, CHANGED 2026-10-19 (decision c), above or below it centred — a capital's stack may at any zoom, not only at the zoom cap`, beside || above, JSON.stringify({ cy, y: r.y, gapR, gapL }));
         check(`${tag}: it is laid before every neighbour's name (placement order ${r.idx}, ahead of the first ordinary label ${r.firstOther}) and covers no name or mark`, r.idx >= 0 && (r.firstOther < 0 || r.idx < r.firstOther) && r.others.length === 0 && r.marksOver.length === 0, JSON.stringify({ idx: r.idx, firstOther: r.firstOther, others: r.others, marks: r.marksOver }));
         check(`${tag}: the ring moved from its true point by at most 20 px to make room (${Math.round(Math.hypot(r.ox || 0, r.oy || 0))} px)`, Math.hypot(r.ox || 0, r.oy || 0) <= 20.01);
       }
