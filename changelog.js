@@ -40,9 +40,10 @@ window.FOLIO_VERSION = { v: "1.1046", released: "2026-10-19T07:13Z" };
 window.CHANGELOG = [
   {
     d: "2026-10-19",
-    t: "Atlas: a popup is its name and your cards, in tidy rows",
+    t: "Atlas: popups are a name and your cards; switches hide their icons",
     items: [
       "<b>Atlas popups</b> now hold only the place's name and the cards set there — one tidy row per card with its deck and a DUE badge — and no longer the facts, description or Wikipedia link.",
+      "<b>Atlas legend</b>: turning off Cities, Places or Physical now hides their icons as well as their names, and the legend says which switch hides which.",
     ],
   },
   {

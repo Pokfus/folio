@@ -32,6 +32,10 @@
     15 THE SHEET'S FORMAT (2026-10-19, decision b): rows at least 56 px with the title on one or two lines (cut off only after the second), the deck beneath in a small muted line, the
         DUE badge at the right never under the title, hairline dividers; no horizontal overflow at 360, 390 and 412 px at the largest Text size; the peek fits one to three rows; the
         name large on at most two lines; light and dark contrast
+    16 THE LEGEND'S SWITCHES HIDE THEIR ICONS (2026-10-19, decision d): Cities hides the city and town discs, the capital squares and the city stacks (a stack that mixes classes keeps
+        only the members whose class is on, with its count adjusted, and is gone when none is); Places hides sites, battles and buildings; Physical hides peaks. A hidden class is not
+        drawn (the canvas), not tappable (the hit list, a tap), not in the hidden accessible list, and its names are gone; Countries, Provinces and Peoples keep their meaning; the
+        Legend's help text names the mapping
    Re-run after touching atlas/study.js, the study block of atlas.js, the study pass of atlas-worker.js, or the place card. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -876,6 +880,72 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     // safe-area insets: the head and the body are written against env(safe-area-inset-*) so a notch or the home indicator never covers a row
     const css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8");
     check("the sheet's head and body pad themselves with env(safe-area-inset-*) on the sides and the body on the bottom", /\.atlas2-phone \.atlas2-card-head\{[^}]*safe-area-inset-left/.test(css) && /\.atlas2-phone \.atlas2-card-body\{[^}]*safe-area-inset-bottom/.test(css));
+  }
+
+
+  /* ------------------------------------------------------------------ 16  the legend's switches hide their icons (2026-10-19) */
+  console.log("\n\x1b[1m16) Cities, Places and Physical hide their marks — not drawn, not tappable, not in the hidden list, their names gone; a stack keeps only the members whose class is on\x1b[0m\n");
+  {
+    const READER16 = [...new Set([...READER, ...(IDX.cardsOfPlace.get("pl:q1729630") || []).slice(0, 2)])];
+    const SW = { cities: ["capital", "settlement", "stack"], places: ["site", "battle", "building"], physical: ["peak"] };
+    const { ctx, page, errors } = await open(browser, READER16);
+    await mode(page, "full"); await year(page, 2025); await view(page, 12.49, 41.89, 3);
+    const snap = () => page.evaluate(() => {
+      const c = document.querySelector(".atlas2").__atlas2, cv = document.querySelector(".atlas2-labels"), dpr = cv.width / c.frame()[0], g = cv.getContext("2d", { willReadFrequently: true });
+      const alphaAt = (x, y) => { const d = g.getImageData(Math.round(x * dpr) - 1, Math.round(y * dpr) - 1, 3, 3).data; let a = 0; for (let i = 3; i < d.length; i += 4) a = Math.max(a, d[i]); return a; };
+      const live = c.study.liveMarks(), cls = (id) => c.study.classOf(id);
+      return {
+        marks: live.map((m) => ({ id: m.id, name: m.name, cls: m.cls, x: m.x, y: m.y, h: m.h, members: m.members, count: m.count, city: m.city, ink: alphaAt(m.x, m.y), mc: m.members ? m.members.map((id) => [id, cls(id)]) : null })),
+        rects: c.labelsLive().flatMap((e) => (e.p.rects || []).map((q) => [q[0] + e.dx, q[1] + e.dy, q[2] + e.dx, q[3] + e.dy])),
+        names: c.labels().filter((p) => p.text).map((p) => p.id), keys: c.study.keys().map((k) => k.id), layout: c.study.marks().map((m) => m.id),
+      };
+    });
+    const flip = async (k, on) => { await A(page, (c, a) => c.setLayers({ [a.k]: a.on }), { k, on }); await sleep(300); await settle(page); await sleep(500); await settle(page); };
+    const base = await snap();
+    const singles0 = base.marks.filter((m) => !m.members), stacks0 = base.marks.filter((m) => m.members);
+    const have = (set) => singles0.filter((m) => set.includes(m.cls)).length;
+    check(`the view shows the three kinds of mark: ${have(SW.cities)} city / capital, ${have(SW.places)} site / battle / building, ${have(SW.physical)} peak singles, and ${stacks0.length} stack(s)`, have(SW.cities) + stacks0.length > 0 && have(SW.places) > 0 && have(SW.physical) > 0, JSON.stringify(singles0.map((m) => m.cls)));
+    const mixed = stacks0.find((m) => m.city === "city:1159151593");
+    check("Rome's stack is a MIXED stack — members of at least two classes", !!mixed && new Set(mixed.mc.map((x) => x[1])).size >= 2, mixed ? JSON.stringify([...new Set(mixed.mc.map((x) => x[1]))]) : "none");
+    for (const sw of ["cities", "places", "physical"]) {
+      const off = new Set(SW[sw]);
+      await flip(sw, false);
+      const s = await snap();
+      const bad = s.marks.filter((m) => (m.members ? m.mc.some((x) => off.has(x[1])) : off.has(m.cls) && m.cls !== "stack"));
+      const hiddenSingles = singles0.filter((m) => off.has(m.cls));
+      const stackMembersOff = stacks0.flatMap((m) => m.mc.filter((x) => off.has(x[1])).map((x) => x[0]));
+      const hiddenIds = new Set([...hiddenSingles.map((m) => m.id), ...stackMembersOff]);
+      check(`${sw} off: no mark of the hidden class is drawn (${hiddenSingles.length} singles, ${stackMembersOff.length} stack members gone) and no stack holds a member of it`, bad.length === 0 && (hiddenSingles.length + stackMembersOff.length > 0), JSON.stringify(bad.slice(0, 3).map((m) => m.id)));
+      check(`${sw} off: every stack's count is its member count (a stack that mixed classes shows the members whose class is on)`, s.marks.filter((m) => m.members).every((m) => m.count === m.members.length && m.members.length >= 2), JSON.stringify(s.marks.filter((m) => m.members).map((m) => m.name + m.count)));
+      const keptMembers = stacks0.flatMap((m) => m.mc.filter((x) => !off.has(x[1])).map((x) => x[0]));
+      const drawnIds = new Set(s.marks.flatMap((m) => (m.members ? m.members : [m.id])));
+      const lost = keptMembers.filter((id) => !drawnIds.has(id) && base.marks.some((m) => m.members && m.members.includes(id)));
+      check(`${sw} off: the stack members whose class is on are still drawn, singly or in a smaller stack (${keptMembers.length - lost.length} of ${keptMembers.length} on screen)`, lost.length <= Math.ceil(keptMembers.length * 0.15), "lost " + lost.slice(0, 4).join(","));
+      // not drawn: the pixel under each hidden single mark's centre is empty again — read only where nothing else now stands (another mark within its size, or a name's box: the freed space may take a name)
+      const clean = hiddenSingles.filter((m) => !s.marks.some((o) => Math.hypot(o.x - m.x, o.y - m.y) < o.h + 4) && !s.rects.some((q) => m.x > q[0] - 2 && m.x < q[2] + 2 && m.y > q[1] - 2 && m.y < q[3] + 2));
+      const inkBefore = clean.filter((m) => m.ink > 120).length, stillDrawn = hiddenSingles.filter((m) => s.marks.some((x) => x.id === m.id)).length;
+      const centres = await page.evaluate((pts) => { const c = document.querySelector(".atlas2").__atlas2, cv = document.querySelector(".atlas2-labels"), dpr = cv.width / c.frame()[0], g = cv.getContext("2d", { willReadFrequently: true }); return pts.map(([x, y]) => { const d = g.getImageData(Math.round(x * dpr) - 1, Math.round(y * dpr) - 1, 3, 3).data; let a = 0; for (let i = 3; i < d.length; i += 4) a = Math.max(a, d[i]); return a; }); }, clean.map((m) => [m.x, m.y]));
+      const empty = centres.filter((a) => a < 120).length;
+      check(`${sw} off: the canvas shows no mark where the hidden ones stood — ${empty} of ${clean.length} clear centres empty (all ${inkBefore} were ink before; ${stillDrawn} still in the layout)`, hiddenSingles.length === 0 || (stillDrawn === 0 && clean.length >= 1 && inkBefore === clean.length && empty >= Math.ceil(clean.length * 0.9)), JSON.stringify(centres.slice(0, 8)));
+      // not tappable: near() and the label hit list find none of them, and a tap on the spot opens none of them
+      const nearBad = [];
+      for (const m of hiddenSingles) { const r = await page.evaluate(([x, y]) => { const c = document.querySelector(".atlas2").__atlas2; return { near: c.study.near(x, y, true), hit: c.hitAt(x, y) }; }, [m.x, m.y]); if (r.near.includes(m.id) || r.hit.includes(m.id)) nearBad.push(m.id); }
+      for (const m of hiddenSingles.slice(0, 4)) { await A(page, (c, p) => c.pickAt(p[0], p[1], true), [m.x, m.y]); await sleep(150); const id = await A(page, (c) => c.selectedId()); if (id === m.id) nearBad.push("tap:" + m.id); await A(page, (c) => c.clearSelection()); }
+      check(`${sw} off: the hidden marks are not tappable (no hit area, no popup)`, nearBad.length === 0, nearBad.slice(0, 3).join(","));
+      const keyBad = s.keys.filter((id) => hiddenIds.has(id)), nameBad = s.names.filter((id) => hiddenIds.has(id));
+      check(`${sw} off: none of them is in the hidden accessible list, and their names are not drawn`, keyBad.length === 0 && nameBad.length === 0, JSON.stringify({ keys: keyBad.slice(0, 3), names: nameBad.slice(0, 3) }));
+      await shot(page, "legend-" + sw + "-off");
+      await flip(sw, true);
+    }
+    // the other switches keep their meaning: Countries, Provinces off draw every mark still
+    const before = (await snap()).marks.map((m) => m.id).sort().join(",");
+    for (const sw of ["countries", "provinces"]) { await flip(sw, false); const after = (await snap()).marks.map((m) => m.id).sort().join(","); check(`${sw} off leaves every mark as it was (its meaning is unchanged)`, after === before, ""); await flip(sw, true); }
+    const back = await snap();
+    check("all three back on: the marks are as they were", back.marks.map((m) => m.id).sort().join(",") === before);
+    // the Legend's help text names the mapping
+    const help = await page.evaluate(() => (document.querySelector(".atlas2-layer-map") || {}).textContent || "");
+    check("the Legend's help text says which switch hides which marks", /Cities/.test(help) && /Places/.test(help) && /Physical/.test(help) && /capital/i.test(help) && /battle/i.test(help) && /peak|mountain/i.test(help), help.slice(0, 160));
+    allErrors.push(...errors); await ctx.close();
   }
 
   /* ------------------------------------------------------------------ done */

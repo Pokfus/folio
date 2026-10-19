@@ -245,7 +245,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "073cd509f5:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "0bfc6af24d:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -325,6 +325,7 @@
             <fieldset class="atlas2-group atlas2-marks"><legend>Marks</legend>
               <dl class="atlas2-marks-key" aria-label="What the marks mean"></dl>
               <p class="atlas2-peoples-hint">Filled in the colour of your own names: a place of your own cards. Rivers, lakes, seas, regions, countries, states, peoples and cultures are names only.</p>
+              <p class="atlas2-peoples-hint atlas2-layer-map">Which switch hides which mark: <b>Cities</b> hides the city and town discs, the capital squares and the rings of several places; <b>Places</b> hides sites, battles and buildings; <b>Physical</b> hides peaks (mountains, hills and capes). A ring keeps only the places whose switch is on, and goes when none is. A hidden mark is not drawn, not tappable and its name is gone. Countries, Provinces and Peoples are names and borders, not marks.</p>
             </fieldset>
             <fieldset class="atlas2-group atlas2-peoples"><legend>Peoples</legend>
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="off"> Off</label>
@@ -3220,7 +3221,7 @@
         /* the layout's marks (every flagged place or polity within the view and its margin, with whether its ground was clear at layout), the marks drawn in the last frame, the fan, the hidden list */
         marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, cls: m.cls || "", st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "", ox: m.ox || 0, oy: m.oy || 0, cap: !!m.cap })); },
         liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "", ox: e.m.ox || 0, oy: e.m.oy || 0, cap: !!e.m.cap })),
-        glyphSVG, markRadius,
+        glyphSVG, markRadius, classOf: (id) => { const r = G.byId.get(id); return r && AS ? AS.markClass(r.kind, r.sub || "", registryCapitals().has(id)) : null; },   // the glyph class a place would be drawn as (the legend switches' suite)
         stack: () => (cardStack ? { id: cardStack.id, name: cardStack.name, ids: cardStack.ids.slice(), i: cardStack.i } : null), stackStep, openStack: (id) => { const m = stackMark(id); if (m) openStack(m); return !!m; },
         layoutChrome: () => (L.chrome || []).map((r) => r.slice()),
         near: (x, y, touch) => marksNear(x, y, markRadius(touch)).map((e) => e.m.id),

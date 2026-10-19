@@ -676,6 +676,11 @@
      absent = not drawn. A gazetteer AREA (a country, a province, a sea, a river …) and a polity are flagged only: the ordinary pass
      draws them in their own shape and the flag lifts them past the density rules, raises their score and tints them. */
   let STUDY = null;
+  /* THE LEGEND'S SWITCHES OWN THE MARKS (2026-10-19, the owner's phone, decision d: "turning off cities, places etc. should also turn their icons off"). Each glyph class belongs to ONE
+     switch: Cities → the city and town discs, the capital squares and the city stacks; Places → sites, battles and buildings; Physical → peaks (mountain, hill, cape). A class whose switch is
+     off is not a mark of the layout at all — not drawn, not tappable, not in the hidden list, its name not laid — and it leaves the stacks BEFORE they are grouped, so a stack that mixed
+     classes is made of the members whose class is on, its count is theirs, and it is not made at all when none is. Countries, Provinces and Peoples are not marks and keep their meaning. */
+  const CLASS_SWITCH = { capital: "cities", settlement: "cities", stack: "cities", site: "places", battle: "places", building: "places", peak: "physical" };
   const STUDY_POINT = { capital: 1, city: 1, town: 1, site: 1, mountain: 1, hill: 1, cape: 1 };
   const SETTLE = { capital: 1, city: 1, town: 1 };
   /* the nudge of decision c (see the study pass): `list` is the layout's marks with their on-screen positions and half-extents; a stack (`members`) that
@@ -1088,7 +1093,6 @@
         const dotOf = underMark ? null : [x, y, r, k];
         if (!fullyOn(mrect)) { drop("marker off screen"); continue; }
         if (!own && !free(mrect, null, own0)) { drop("marker collides"); continue; }   // a flagged settlement's dot lies on its own study mark, which is not a collision (2026-10-18)
-        if (!show.places) { if (!own) take(mrect, true); placed.push(Object.assign(base, { text: "", a: row.a, sx: x, sy: y, alpha: Math.min(1, c.a[2] / 0.2), glyphs: [], box: mrect, rects: [mrect], marker: dotOf, hit: mrect })); continue; }
         // a FLAGGED settlement's name (laid by the study pass beside the study layer's own mark, drawn over this dot) follows decision c of 2026-10-18: right or left of the
         // larger of the two glyphs at the 3 px gap, above or below only at the zoom cap; the plain Map's city names keep their four sides
         const g3 = 3 * FS, rr = studyPass && mk0 ? Math.max(r, mk0.h) : r;
@@ -1209,7 +1213,9 @@
           kind = g.kind; unit = g.a; a = proj(unit); x = a[0]; y = a[1]; z = a[2];
         }
         if (z < 0.02 || !onScreen(x, y, MARGIN)) continue;
-        const sub = srow ? srow.sub : "", cap = !!(srow && srow.cap), cls = AS.markClass(kind, sub, cap);   // the glyph class (decision e; a capital's square, decision b of 2026-10-17); null for an area: a name, no mark
+        const sub = srow ? srow.sub : "", cap = !!(srow && srow.cap), cls = AS.markClass(kind, sub, cap);
+        if (cls && show[CLASS_SWITCH[cls]] === false) continue;   // its legend switch is off (decision d, 2026-10-19): no mark, no name, no stack member
+        // the glyph class (decision e; a capital's square, decision b of 2026-10-17); null for an area: a name, no mark
         list.push({ id, kind, sub, cls, name, n, f, unit, x, y, z, own, shape: cls ? AS.markShape(kind, sub, cap) : null, layer: AS.markLayer(kind, f), h: cls ? h0 * AS.markScale(kind, cls) : 0 });   // the drawn size: half for every class but the capital (decision a, 2026-10-18)
       }
       /* CITY STACKS (2026-10-17, decision d): the marks of ONE CITY within STACK_PX (28) of one another on screen become one mark with a count,
@@ -1273,7 +1279,7 @@
         if (!m.own) { const c2 = candById.get(m.id); if (c2) { done.add(c2); layCand(c2, true); } continue; }   // a flagged polity, country, sea or river: its name is laid HERE, at its flag's turn, by the ordinary code (decision b)
         if (!m.clear) continue;   // under a control or past the frame's edge: no name either (the page checks the mark again on every frame)
         const row = m.own;
-        if (row && show.places && row.name) {
+        if (row && row.name && !(!m.cls && PHYSICAL[row.kind] && show.physical === false)) {   // (2026-10-19) a mark of an off class never gets here; a flagged physical AREA of places.js (a range, a region) follows Physical
           const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
           if (st2) {
             /* THE LABEL'S TEXT (decision f): no parenthetical, the short name past 28 characters, two lines past 22 (AtlasStudy.labelText); the popup keeps the full name */
