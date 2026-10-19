@@ -204,11 +204,14 @@ Ten bullets, in the order they appeared in CLAUDE.md:
     here than it does for units: a citation names a published work, and rewriting *The Colour of Prehistory*
     into *Color* invents a title that does not exist. A book is somebody's published translation,
     transcribed rather than edited, so it keeps whatever its translator wrote.
-  · **A QUOTATION IS SKIPPED BY BOTH PASSES (`.verbatim`, 2026-10-19).** The spelling pass was written for prose Folio authored, and `render()` runs it for every reader, a British one's turning an American spelling into the
-    British one: King's "color of their skin" and Du Bois's "color line" were printed "colour". The same class is now honoured by the UNITS pass (`unitSkip`; it skipped only `.notranslate`, so "10 km (6 miles)" inside a
-    quotation lost its bracket for a metric reader). EVERY place a quotation is shown carries it: the Home daily quote's blockquote (`dailyQuoteHTML`), a card's quote block (`cardQuoteHTML`: a passage of a Library
-    translation), Who said it?'s round and results, and the two quotation lists of the admin's Quotes tab; the Library's pages are `.bk-page`. NOT quotations, not marked: True or False's statements, Find it, What year,
-    clues, a card's abstract. **Known consequence:** the daily pool's quotations are mostly Folio's own translations, authored in British spelling; marked, they no longer follow an American reader's spelling ("labour lost").
+  · **A QUOTATION IS SKIPPED BY BOTH PASSES (`.verbatim`, 2026-10-19) — BUT ONLY WHERE THE TEXT SHOWN IS NOT FOLIO'S PROSE.** The spelling pass was written for prose Folio authored, and `render()` runs it for every reader, a British one's turning an American spelling into the
+    British one: King's "color of their skin" and Du Bois's "color line" were printed "colour". The same class is honoured by the UNITS pass (`unitSkip`; it skipped only `.notranslate`, so "10 km (6 miles)" inside a
+    quotation lost its bracket for a metric reader). **THE RULE (narrowed the same day):** `.verbatim` is right for the speaker's own English and for a PUBLISHED translator's English (Legge's Confucius, a Library book's passage: the translator's text,
+    not ours); it is WRONG for a quotation that is FOLIO'S OWN translation from another language, which is Folio's prose, written in British spelling and metric-first, and an American reader's settings convert it as before. **The data decides, per quotation:**
+    a Home daily quote with an `o` block (the original-language form behind the flip) is Folio's translation and is NOT `.verbatim` (`dailyQuoteHTML`); one with no `o` (Bacon and Vivekananda wrote English) is. Where each place stands: the Home daily quote — by `o`;
+    the admin's daily-quote list — by `o`; a card's quote block (`cardQuoteHTML`: a passage of a Library translation) — always; Who said it?'s round and results and the admin's list of it — always (the pool has no original-language form: each entry is the speaker's
+    English or a published translator's, named in its `src`); the Library's pages are `.bk-page`. NOT quotations, not marked: True or False's statements, Find it, What year, clues, a card's abstract. **Limit:** the daily pool does not record WHO translated an `o` quote, so one
+    that is really a published translation (Legge's Confucius II.15, Giles's Sun Tzu, Legge's Mencius, Cohen's Talmud, Sachau's al-Biruni) is converted like Folio's own until a per-quote marker is added.
     To mark a new kind of quotation: put `verbatim` on its element and add it to the list in `test-quotes-verbatim.js`.
   · **AND `gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS.** It is the one place the switch has to reach
     past the DOM: the cloze compares what was typed against the stored `answerText`, which is authored in

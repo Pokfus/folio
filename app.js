@@ -23271,7 +23271,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const srcPair = (en) => (o && o.s ? pair(en, o.s) : esc(en));
     return '<figure class="daily-quote' + (o ? " dq-flip" : "") + '"' +
       (o ? ' tabindex="0" role="button" title="Show the original" aria-label="Show the original"' : "") + ">" +
-      '<blockquote class="verbatim">' + pair(q.t, o && o.t) + "</blockquote>" +   // the speaker's words reach the reader as stored: the spelling and units passes skip `.verbatim` (2026-10-19)
+      '<blockquote' + (o ? "" : ' class="verbatim"') + ">" + pair(q.t, o && o.t) + "</blockquote>" +   // `.verbatim` (both passes skip it) only where the line is the speaker's own English: a quote with an `o` is FOLIO'S translation, its prose, so the reader's spelling and units apply (2026-10-19)
       "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
       (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") +
       "</figcaption></figure>";
@@ -45598,7 +45598,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const q = r.q, k = keyOf(q), edited = quoteIsEdited(k), added = !quoteIsShipped(k);
         return '<div class="q-row' + (r.d === today ? " q-today" : "") + (_qEditing === k ? " q-open" : "") + '" data-qk="' + esc(k) + '">' +
           '<button type="button" class="q-main" data-qopen="' + esc(k) + '">' +
-            '<span class="q-text verbatim">' + esc(q.t) + "</span>" +
+            '<span class="q-text' + (q.o ? "" : " verbatim") + '">' + esc(q.t) + "</span>" +
             '<span class="q-meta"><b>' + esc(q.a || "—") + "</b>" + (q.s ? '<span class="q-src">' + esc(q.s) + "</span>" : "") +
               (q.o ? '<span class="q-pill q-orig">' + esc(q.o.lang || "original") + "</span>" : '<span class="q-pill q-noorig">English only</span>') +
               (added ? '<span class="q-pill q-added">added</span>' : edited ? '<span class="q-pill q-edited">edited</span>' : "") +
