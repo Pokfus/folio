@@ -1302,12 +1302,14 @@
                dot; the name on two lines) and the 28 px allowance for a mark's name are gone — a name 3 px from its mark cannot need it (an area's name still
                keeps the rule). If neither side is clear of every other name, every other mark and the controls, the name is NOT drawn: the reader sees the mark
                alone rather than a name that could be another's. At the ZOOM CAP (the closest view the page allows: `atCap`, from q.kmppFloor) the name may
-               also stand above or below the mark, centred, at the same gap — there the marks lie as far apart as they ever will. An AREA's name (no mark) keeps
+               also stand above or below the mark, centred, at the same gap — there the marks lie as far apart as they ever will; a CAPITAL STACK's own name (the square with the count) may do so at ANY zoom (2026-10-19, decision c),
+               trying right, left, above, then below. An AREA's name (no mark) keeps
                its tries: on its point, then above, below and beside, then 10 px farther. The name may lie over its OWN mark only (`free`'s skip; it never
                does at this gap) and never over another's; test-atlas-overlaps.js reads the drawn boxes against the drawn marks at every view. */
             const NAME_GAP = 3 * FS, own0 = markRect.get(m.id), w2 = sh.w / 2, h2 = sh.h / 2, g = hh + NAME_GAP;
+            const capStack = !!(m.members && m.cap);   // a capital's stack (its square with the count): its own name may stand above or below at ANY zoom (2026-10-19, decision c), never over another mark
             const tries = m.cls
-              ? [[m.x + g + w2, m.y], [m.x - g - w2, m.y]].concat(atCap ? [[m.x, m.y - g - h2], [m.x, m.y + g + h2]] : [])
+              ? [[m.x + g + w2, m.y], [m.x - g - w2, m.y]].concat(atCap || capStack ? [[m.x, m.y - g - h2], [m.x, m.y + g + h2]] : [])
               : [[m.x, m.y], [m.x, m.y - sh.h], [m.x, m.y + sh.h], [m.x + w2 + pad, m.y], [m.x - w2 - pad, m.y], [m.x, m.y - sh.h - 10], [m.x, m.y + sh.h + 10], [m.x + w2 + pad + 10, m.y], [m.x - w2 - pad - 10, m.y]];
             const okAt = (rs) => rs.every((r) => fullyOn(r) && free(r, null, own0)) && (!!m.cls || nearAnchor(rs, m.x, m.y));
             let got = null, tried = 0, frame = 0, far = 0, byName = 0, byMark = 0;   // why each try failed, for the drop reason (labelWhy)
@@ -1321,7 +1323,7 @@
                hard ground — Gabii's diamond on Rome's right, the Vatican's square on its left — so a capital stack whose two sides were both taken got NO name at all, while smaller places round it
                were named. Its ring is a mean, not a point (nudgeStacks has moved rings by up to STACK_NUDGE_PX from the true point since decision c of 2026-10-17), so it moves once more, by at most
                NAME_NUDGE_PX in each axis and never past STACK_NUDGE_PX from the true point: the smallest move, the right-hand ones first, that leaves the ring itself clear of every mark, name and control
-               AND a side clear for the name. Above or below is still only at the zoom cap (the tries above). The ring's old ground is released, the new one taken; the page adds the offset and draws
+               AND a side clear for the name — right, left, above, then below (decision c, 2026-10-19: a capital stack's name may stand above or below at any zoom; every other mark's name only at the zoom cap). The ring's old ground is released, the new one taken; the page adds the offset and draws
                the hairline from the true point as for any nudged ring. */
             if (!got && m.members && m.cap && own0 != null) {
               const ox0 = m.ox || 0, oy0 = m.oy || 0, offs = [];
@@ -1333,15 +1335,14 @@
                 // the ring itself must stand clear as nudgeStacks keeps it (centres at least the two half-sizes and STACK_GAP_PX apart, from every other drawn mark), off every name and control; the period capital's own
                 // reserved square under it is not an obstacle (the ring IS the capital's square, see `underMark`)
                 if (!fullyOn(rr) || hitsChrome(rr) || blocker(rr, null, own0) === 2 || !list.every((o) => o === m || !o.cls || !o.clear || Math.hypot(nx - o.x, ny - o.y) >= hh + o.h + STACK_GAP_PX)) { ringBlocked++; continue; }
-                let sideX = null;
-                for (const sg of [1, -1]) { const tx = nx + sg * (g + w2); if (boxAt(tx, ny).every((r) => fullyOn(r) && free(r, null, own0))) { sideX = tx; break; } }
-                if (sideX == null) { sideBlocked++; continue; }
+                const side = [[nx + g + w2, ny], [nx - g - w2, ny], [nx, ny - g - h2], [nx, ny + g + h2]].find(([tx, ty]) => boxAt(tx, ty).every((r) => fullyOn(r) && free(r, null, own0)));   // right, left, above, below (a capital stack's name may stand above or below at any zoom)
+                if (!side) { sideBlocked++; continue; }
                 rects[own0] = [-1e9, -1e9, -1e9, -1e9];   // the ring's old ground is released: a rectangle that overlaps nothing (the cell index still lists it)
                 markRect.set(m.id, rects.length); take(rr, true);
                 m.x = nx; m.y = ny; m.ox = ox0 + dx; m.oy = oy0 + dy; m.rect = rr;
                 base.sx = nx; base.sy = ny; base.ox = Math.round(m.ox * 10) / 10; base.oy = Math.round(m.oy * 10) / 10;
                 if (m.own) m.own.a = unitAt(nx, ny);   // the name's anchor is where the ring is drawn (as for a ring nudged by nudgeStacks)
-                got = lay(sideX, ny);
+                got = lay(side[0], side[1]);
                 break;
               }
               if (!got) drop(`capital stack found no move of at most ${NAME_NUDGE_PX} px: ${offs.length} tried, ${ringBlocked} left the ring on a mark, a name or a control, ${sideBlocked} left no side for the name`);

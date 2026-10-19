@@ -12,7 +12,7 @@
      · no name's box intersects a mark that is not its own — the study layer's marks as drawn (`liveMarks`) and the ordinary city dots;
      · A MARK'S NAME STANDS DIRECTLY RIGHT OR LEFT OF ITS MARK (2026-10-18, decision c — the owner: "when icons are clustered, their text labels drift and it
        becomes impossible to tell which text belongs to which icon"): every drawn name of a drawn mark (a place's, a city stack's, a capital's) is vertically
-       centred on it, 3 px from its edge, on the right or the left — and only at the ZOOM CAP (Rome at 0.15 km/px) may it stand above or below instead; there
+       centred on it, 3 px from its edge, on the right or the left — and only at the ZOOM CAP (Rome at 0.15 km/px) — or, for a capital's stack, at any zoom (2026-10-19) — may it stand above or below instead; there
        is no other place for it, so a mark whose two sides are taken has no name (the worker's drop reason says what each of its 2 — or 4 — tries met);
      · every city stack's ring (or a capital's square) that is drawn has its city's name drawn beside it ("Rome" beside the "41") — or, where its tries all
        met a name, a mark, a control or the frame, it stays unnamed rather than drift (before 2026-10-18 a ring had 64 tries and two last resorts);
@@ -96,7 +96,7 @@ async function view(page, lon, lat, k) {
    dots, the study layer's marks as drawn, and the layout's count of names placed and dropped */
 const read = (page) => A(page, (c) => {
   const names = c.labelsLive().map((e) => ({ id: e.p.id, kind: e.p.kind, text: e.p.text, hist: !!e.p.hist, st: e.p.st || 0, stack: /^stk:/.test(e.p.id), rects: (e.p.rects || []).slice(0, e.p.marker ? -1 : undefined).map((q) => [q[0] + e.dx, q[1] + e.dy, q[2] + e.dx, q[3] + e.dy]), marker: e.p.marker ? [e.p.marker[0] + e.dx, e.p.marker[1] + e.dy, e.p.marker[2]] : null }));
-  const marks = c.study.liveMarks().map((m) => ({ id: m.id, name: m.name || m.id, x: m.x, y: m.y, h: m.h, stack: !!m.members, count: m.count }));
+  const marks = c.study.liveMarks().map((m) => ({ id: m.id, name: m.name || m.id, x: m.x, y: m.y, h: m.h, stack: !!m.members, cap: !!(m.members && (m.cap || m.shape === "square")), count: m.count }));
   const why = c.labelWhy() || [];
   const order = c.labels().map((p) => ({ id: p.id, text: p.text, study: !!p.study, stack: /^stk:/.test(p.id), st: p.st || 0, polity: !!p.hist || p.kind === "country" || p.kind === "admin1" }));   // the layout's own placement order
   return { names, marks, placed: order.length, dropped: why.length, why, order };
@@ -118,14 +118,15 @@ function judge(d, atCap) {
     if (over > 0) markBad.push({ name: p.text + " [" + p.kind + (p.hist ? ", polity" : "") + (p.st ? ", study" : "") + "]", mark: m.name, px2: Math.round(over) });
   }
   /* THE PLACEMENT (decision c, 2026-10-18): a drawn name of a drawn mark is vertically centred on the mark (its box's middle within 0.75 px of the mark's
-     centre) and stands 3 px (± 0.75) from the mark's edge on the right or the left; at the zoom cap it may instead be centred above or below at the same gap.
+     centre) and stands 3 px (± 0.75) from the mark's edge on the right or the left; at the zoom cap — and, for a CAPITAL's stack, at any zoom (2026-10-19) — it may instead be centred above or below at the same gap.
      The boxes are the DRAWN ones (moved as the painter moves them) against the DRAWN marks (a nudged ring at its nudged point). */
   const byId = new Map(d.marks.map((m) => [m.id, m]));
   for (const p of d.names) {
     const m = byId.get(p.id); if (!m || !p.rects.length) continue;
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const r of p.rects) { x0 = Math.min(x0, r[0]); y0 = Math.min(y0, r[1]); x1 = Math.max(x1, r[2]); y1 = Math.max(y1, r[3]); }
     const cy = (y0 + y1) / 2 - m.y, cx = (x0 + x1) / 2 - m.x, gapR = x0 - (m.x + m.h), gapL = (m.x - m.h) - x1, gapA = (m.y - m.h) - y1, gapB = y0 - (m.y + m.h), G = 3, T = 0.75;
-    const side = Math.abs(cy) <= T && Math.abs(gapR - G) <= T ? "right" : Math.abs(cy) <= T && Math.abs(gapL - G) <= T ? "left" : atCap && Math.abs(cx) <= T && Math.abs(gapA - G) <= T ? "above" : atCap && Math.abs(cx) <= T && Math.abs(gapB - G) <= T ? "below" : null;
+    const vert = atCap || m.cap;   // above or below: at the zoom cap for every mark, at any zoom for a capital's stack (decision c, 2026-10-19; test-atlas-capital-names.js)
+    const side = Math.abs(cy) <= T && Math.abs(gapR - G) <= T ? "right" : Math.abs(cy) <= T && Math.abs(gapL - G) <= T ? "left" : vert && Math.abs(cx) <= T && Math.abs(gapA - G) <= T ? "above" : vert && Math.abs(cx) <= T && Math.abs(gapB - G) <= T ? "below" : null;
     if (side) sides[side]++; else sideBad.push(`"${p.text}" [${p.kind}${p.stack ? ", stack" : ""}] mark ${m.h.toFixed(1)} px at ${m.x.toFixed(1)},${m.y.toFixed(1)}, box ${[x0, y0, x1, y1].map((v) => v.toFixed(1)).join(" ")}: dy ${cy.toFixed(1)}, gaps R ${gapR.toFixed(1)} L ${gapL.toFixed(1)} A ${gapA.toFixed(1)} B ${gapB.toFixed(1)}`);
   }
   /* an unnamed ring (or a capital's square) is lawful when the worker's own drop reason says every one of its tries — two, or four at the cap — met a name, a

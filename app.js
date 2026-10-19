@@ -15854,10 +15854,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      would be saved back that way on the next keystroke. Walking text nodes and skipping anything editable
      means the store is never involved. Skips .notranslate for the reason the i18n engine does — a citation
      names a work, and its wording is not ours to rewrite. */
+  /* the nodes the units pass leaves alone: script, style and form text, what is editable, a citation (`.notranslate`) and a QUOTATION (`.verbatim`, 2026-10-19: the speaker's words and a translator's prose reach the
+     reader exactly as stored — the same class the spelling pass skips, see `spellSkip`) */
+  function unitSkip(p) {
+    if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE" || p.nodeName === "TEXTAREA") return true;
+    return !!(p.isContentEditable || (p.closest && p.closest(".notranslate, .verbatim")));
+  }
   function unitizeTree(root) {
     if (!root) return;
     const imperial = unitSystem() === "imperial";
-    if (root.nodeType === 3) { const v = unitizeText(root.nodeValue, imperial); if (v !== root.nodeValue) root.nodeValue = v; return; }
+    if (root.nodeType === 3) { if (root.parentNode && unitSkip(root.parentNode)) return; const v = unitizeText(root.nodeValue, imperial); if (v !== root.nodeValue) root.nodeValue = v; return; }
     if (!root.querySelectorAll) return;
     const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     const nodes = []; let n;
@@ -15865,9 +15871,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     nodes.forEach((node) => {
       const src = node.nodeValue;
       if (!src || src.indexOf("(") < 0) return;
-      const p = node.parentNode;
-      if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE" || p.nodeName === "TEXTAREA") return;
-      if (p.isContentEditable || (p.closest && p.closest(".notranslate"))) return;
+      if (unitSkip(node.parentNode)) return;
       const v = unitizeText(src, imperial);
       if (v !== src) node.nodeValue = v;
     });
@@ -23267,7 +23271,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const srcPair = (en) => (o && o.s ? pair(en, o.s) : esc(en));
     return '<figure class="daily-quote' + (o ? " dq-flip" : "") + '"' +
       (o ? ' tabindex="0" role="button" title="Show the original" aria-label="Show the original"' : "") + ">" +
-      "<blockquote>" + pair(q.t, o && o.t) + "</blockquote>" +
+      '<blockquote class="verbatim">' + pair(q.t, o && o.t) + "</blockquote>" +   // the speaker's words reach the reader as stored: the spelling and units passes skip `.verbatim` (2026-10-19)
       "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
       (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") +
       "</figcaption></figure>";
@@ -35671,7 +35675,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (q.n && chs && !chs.some((ch) => String(ch.n) === q.n)) return "";
     const who = b.translator ? "translated by " + esc(b.translator) : esc(b.edition || "");
     return '<figure class="card-quote">' +
-      '<blockquote>' + q.text + "</blockquote>" +
+      '<blockquote class="verbatim">' + q.text + "</blockquote>" +   // a published translation, transcribed rather than edited: the spelling and units passes skip `.verbatim` (2026-10-19)
       '<figcaption><cite>' + esc(b.title) + "</cite>" + (who ? '<span class="cq-who">' + who + "</span>" : "") +
       (q.cite ? '<span class="cq-where">' + esc(q.cite) + "</span>" : "") +
       '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
@@ -45461,7 +45465,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="q-list">' + all.map((x) => {
           const isOff = !!off[x.q];
           return '<div class="q-row ws-row' + (isOff ? " ws-off" : "") + '">' +
-            '<div class="q-main"><span class="q-text">' + esc(x.q) + "</span>" +
+            '<div class="q-main"><span class="q-text verbatim">' + esc(x.q) + "</span>" +
               '<span class="q-meta"><b>' + esc(x.who || "—") + "</b>" +
                 (Array.isArray(x.src) && x.src.length ? '<span class="q-pill q-orig">cited</span>' : '<span class="q-pill q-noorig">uncited</span>') +
                 (isOff ? '<span class="q-pill q-edited">removed</span>' : "") + "</span></div>" +
@@ -45594,7 +45598,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const q = r.q, k = keyOf(q), edited = quoteIsEdited(k), added = !quoteIsShipped(k);
         return '<div class="q-row' + (r.d === today ? " q-today" : "") + (_qEditing === k ? " q-open" : "") + '" data-qk="' + esc(k) + '">' +
           '<button type="button" class="q-main" data-qopen="' + esc(k) + '">' +
-            '<span class="q-text">' + esc(q.t) + "</span>" +
+            '<span class="q-text verbatim">' + esc(q.t) + "</span>" +
             '<span class="q-meta"><b>' + esc(q.a || "—") + "</b>" + (q.s ? '<span class="q-src">' + esc(q.s) + "</span>" : "") +
               (q.o ? '<span class="q-pill q-orig">' + esc(q.o.lang || "original") + "</span>" : '<span class="q-pill q-noorig">English only</span>') +
               (added ? '<span class="q-pill q-added">added</span>' : edited ? '<span class="q-pill q-edited">edited</span>' : "") +

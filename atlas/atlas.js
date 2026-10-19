@@ -253,7 +253,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "c010de6251:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "29745878ab:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -1291,7 +1291,9 @@
        `kind` is "wars" for that and "full" (the default) for everything else — the Atlas page, Find it's area round. The kind of the FIRST request is the file's; a hub that began on the slice is
        recreated by atlas-embed.js when something needs the whole history. */
     let histKind = "full";
-    function ensureHistory(kind) { if (!histWanted && !histStarted) histKind = kind === "wars" ? "wars" : "full"; histWanted = true; if (!histStarted && coreIn) startHistory(); }
+    /* 2026-10-19: a third file, "ww2" (atlas/data/history-ww2.bin, build-ww2-slice.js): the front line's plates, the states alive in the years of the plates and the war's sides — what the window of the card that owns the front draws
+       (4.7 MB of the 9.1; it was the whole file). Like "wars" it is a SLICE: a hub that began on one cannot answer a window of the other, nor an area round (any year). */
+    function ensureHistory(kind) { if (!histWanted && !histStarted) histKind = kind === "wars" || kind === "ww2" ? kind : "full"; histWanted = true; if (!histStarted && coreIn) startHistory(); }
     const reducedNow = () => reduced();
     const fmtYear = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");   // every year with its era ("1 CE", "300 BCE", "2026 CE"): a bare "1" in the year box read as nothing (the 2a phone review)
     // "500 BCE", "500 BC", "-44", "44", "44 CE", "AD 70", "1066": null when it is none of these
@@ -1311,8 +1313,8 @@
       histStarted = true; time.histStarted = true;
       railNote.hidden = false; railNote.textContent = "Loading the years…";   // the quiet loading state: never a blank rail while the file is on its way
       const t = performance.now();
-      const SLICE = histKind === "wars", url = opts.historyUrl || (SLICE ? "atlas/data/history-wars.bin" : "atlas/data/history.bin");
-      (FILE ? loadTwin(SLICE ? "history-wars.bin" : "history.bin", SLICE ? "the states of the wars" : "the borders of the past") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
+      const SLICE = histKind !== "full", file = histKind === "wars" ? "history-wars.bin" : histKind === "ww2" ? "history-ww2.bin" : "history.bin", url = opts.historyUrl || "atlas/data/" + file;
+      (FILE ? loadTwin(file, histKind === "wars" ? "the states of the wars" : histKind === "ww2" ? "the Second World War" : "the borders of the past") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
         if (disposed) return;
         time.loadMs = Math.round(performance.now() - t); time.bytes = buffer.byteLength;
         postToWorker({ type: "history", buffer });

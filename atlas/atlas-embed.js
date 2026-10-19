@@ -40,8 +40,10 @@
     prune();
     if (idleTimer) { clearTimeout(idleTimer); idleTimer = 0; }
     if (failed) return Promise.resolve(null);
-    /* Phase 4c: a hub that began on the war-window slice cannot answer an area round (any year): with no window on it, it is disposed and the next hub reads the whole history. */
-    if (opts.needHistory === "full" && hub && !starting && hub.E.historyKind() === "wars" && !windows.size && !holds.size) dispose(hub);
+    /* Phase 4c: a hub that began on a SLICE of the history ("wars": the war windows' states; "ww2": the Second World War window's front, 2026-10-19) cannot answer a window that needs another file — an area round (any year), or the other slice:
+       with no window on it, it is disposed and the next hub reads the file that window needs. A hub on the whole history ("full") answers every request. With a window still open the hub stays as it is and the newcomer takes what it has. */
+    // ownHolds: the asking window's own hold (atlas-windows.js holds the hub from the moment it is made)
+    if (opts.needHistory && hub && !starting && !windows.size && holds.size <= (opts.ownHolds || 0)) { const k = hub.E.historyKind(); if (k && k !== "full" && k !== opts.needHistory) dispose(hub); }
     if (starting) return starting;   // the hub exists but its first level is not on the GPU yet: everyone waits for the same promise
     if (hub) return Promise.resolve(hub.ok ? hub : null);
     if (!root.AtlasV2 || typeof root.AtlasV2.mount !== "function") return Promise.resolve(null);
@@ -70,7 +72,7 @@
         idsAt: (spec, x, y) => { setup(h, spec); return E.idsAt(x, y); },
         lonLatAt: (spec, x, y) => { setup(h, spec); return E.lonLatAt(x, y); },
         startHistory: (kind) => E.startHistory(kind),
-        historyKind: () => E.historyKind(),   // null (not started), "wars" (the war-window slice) or "full"
+        historyKind: () => E.historyKind(),   // null (not started), "wars" (the war-window slice), "ww2" (the Second World War window's) or "full"
         historyOK: () => E.historyOK(),
         warView: (id, short, share) => E.warFrame(id, short, share),
         warSides: (id, year) => E.warSides(id, year),
@@ -153,8 +155,8 @@
     const E = h.E, ctl = h.ctl, want = spec.year == null ? null : spec.year, war = spec.war || null;
     if (h.canvas2d) return;   // the still renderer draws no history: every window is today's map
     if (want == null) { if (h.year != null || h.war) { if (h.war) { E.focusWarNow(null); h.war = null; h.frontDate = null; } E.setYearNow(E.TODAY); h.year = null; } return; }
-    if (!war && E.historyKind() === "wars") return;   // the slice holds the states of the wars' years only: a window of any other year draws today's map until it is given the whole history
-    E.startHistory(war ? "wars" : "full");
+    if (!war && (E.historyKind() === "wars" || E.historyKind() === "ww2")) return;   // a slice holds the states of the wars' years only: a window of any other year draws today's map until it is given the whole history
+    E.startHistory(war ? (spec.history === "ww2" ? "ww2" : "wars") : "full");
     if (!E.historyOK()) return;   // not yet: the window draws today's map and is told (onChange) when the history lands
     if (war !== h.war) { E.focusWarNow(war); h.war = war; h.year = null; if (!war) h.frontDate = null; }
     if (h.year !== want) { E.setYearNow(want); h.year = want; }

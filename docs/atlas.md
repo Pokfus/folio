@@ -53,6 +53,7 @@ never touch `topology.bin`, `tiles/`, `water*` or `relief/` without the land fil
 | `water.bin`, `water/`, `relief/` | lakes, rivers, the relief pyramid | `build-water.js` / `pack-water.js`, `build-relief.js`; `check-water.js`, `check-relief.js` |
 | `history.bin` (9.1 MB) | the borders of the past: Cliopatria series conflated onto the coast, peoples and cultures as soft presences, authored extents, the Second World War front | `build-history.js` (`--no-cache`), `check-history.js` |
 | `history-wars.bin` + `.bin.js` | the war windows' slice of it (1.8 MB) | `build-war-slice.js` (`--install` after any rebuild of `history.bin` or `wars.js`; `--check` in CI) |
+| `history-ww2.bin` + `.bin.js` | the Second World War window's slice of it (4.7 MB: every plate, the states of the plates' years, the war's sides; the front's soft arcs simplified to half a pixel at the window's closest zoom) | `build-ww2-slice.js` (`--install` after any rebuild of `history.bin` or `wars.js`; `--check` in CI) |
 | `gazetteer.js`, `places.js`, `polity-index.js`, `polity-names.js` | the places registry, the places the cards need beyond it, the polities by name, the dated display names | `build-gazetteer.js`, `build-places.js`, `build-polity-index.js`, `build-polity-names.js` |
 | `card-places.js`, `glossary-places.js` | card → places, glossary term → place | `build-card-places.js`, `build-glossary-places.js` (inputs: the cards' heavy `places`, `.claude/atlas-build/glossary-places-input.json`) |
 | `wars.js` | every `card.war` side resolved to entities | `build-wars.js --check` |

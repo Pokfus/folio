@@ -7,9 +7,9 @@
    files' headers name them (build-history.js, geometry-fixes.json). */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-10-18T19:00:07.242Z",
+ "generated": "2026-10-19T15:20:32.646Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
- "filesRead": 665,
+ "filesRead": 667,
  "sources": [
   {
    "id": "cbs-wijken-buurten-2024",
@@ -65,6 +65,14 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
        "count": 1
       },
       {
@@ -125,6 +133,14 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
        "count": 1
       },
       {
@@ -205,6 +221,14 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
        "count": 1
       },
       {
@@ -451,6 +475,14 @@ window.ATLAS_CREDITS = {
        "count": 1
       },
       {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
+       "count": 1
+      },
+      {
        "path": "atlas/data/history.bin",
        "count": 1
       }
@@ -482,6 +514,14 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
        "count": 1
       },
       {
@@ -531,6 +571,14 @@ window.ATLAS_CREDITS = {
        "count": 1
       },
       {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
+       "count": 1
+      },
+      {
        "path": "atlas/data/history.bin",
        "count": 1
       }
@@ -558,6 +606,14 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
        "count": 1
       },
       {
@@ -591,6 +647,14 @@ window.ATLAS_CREDITS = {
        "count": 1
       },
       {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
+       "count": 1
+      },
+      {
        "path": "atlas/data/history.bin",
        "count": 1
       }
@@ -618,6 +682,14 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
        "count": 1
       },
       {
@@ -718,6 +790,14 @@ window.ATLAS_CREDITS = {
       },
       {
        "path": "atlas/data/history-wars.bin.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/history-ww2.bin.js",
        "count": 1
       },
       {
