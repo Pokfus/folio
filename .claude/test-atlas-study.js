@@ -634,7 +634,7 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
   }
 
   /* ------------------------------------------------------------------ 7f  "New discovery" on a place the reader studied (task 4) */
-  console.log("\n\x1b[1m7f) the New discovery chip\x1b[0m\n");
+  console.log("\n\x1b[1m7f) discovery is recorded silently — no chip (CHANGED 2026-10-19)\x1b[0m\n");
   {
     const { ctx, page, errors } = await open(browser, READER);
     const pid = [...stFor(READER).places].find((id) => id.startsWith("pl:")) || [...stFor(READER).places][0];
@@ -642,19 +642,21 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const blob = () => page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1") || "{}"));
     const b0 = await blob();
     await A(page, (c, id) => c.select(id, { open: true, fly: false, push: false }), pid); await sleep(500);
-    const chip = await page.evaluate(() => { const e = document.querySelector(".atlas2-card .atlas2-disc"); return e ? e.textContent.trim() : null; });
+    const chipN = () => page.evaluate(() => document.querySelectorAll(".atlas2-card .atlas2-disc, .atlas2-card .disc-chip").length);
+    const d1 = await A(page, (c) => c.discovery());
     const b1 = await blob();
-    check("a place the reader studied, opened for the first time, carries the chip", chip === "New discovery!", `${prow.name}: ${chip}`);
+    check("a place the reader studied, opened for the first time, is recorded as a new discovery — and draws no chip (CHANGED: it drew \"New discovery!\")", d1.id === pid && d1.fresh === true && (await chipN()) === 0, `${prow.name}: ${JSON.stringify(d1)}`);
     check("…recorded in the existing placesSeen register under its name; no new field, nothing else in the progress changed", !!(b1.placesSeen && b1.placesSeen[prow.name]) && JSON.stringify(Object.keys(b1).filter((k) => !(k in b0))) === JSON.stringify(["placesSeen"].filter((k) => !(k in b0))) && JSON.stringify(b1.cards) === JSON.stringify(b0.cards), JSON.stringify(Object.keys(b1.placesSeen || {})));
     await A(page, (c) => c.openCard ? 0 : c.select(c.card().id, { open: true, fly: false, push: false })); await sleep(200);
-    check("a re-render of the same open card keeps the chip", (await page.evaluate(() => !!document.querySelector(".atlas2-card .atlas2-disc"))) === true);
+    check("a re-render of the same open card does not record it again (and still draws no chip)", (await A(page, (c) => c.discovery())).fresh === true && (await chipN()) === 0);
     await page.click(".atlas2-card-close"); await sleep(300);
     await A(page, (c, id) => c.select(id, { open: true, fly: false, push: false }), pid); await sleep(400);
-    check("opened again, it is no longer new", (await page.evaluate(() => !!document.querySelector(".atlas2-card .atlas2-disc"))) === false);
+    const d2 = await A(page, (c) => c.discovery()), b1b = await blob();
+    check("opened again, it is no longer new, and the register is untouched", d2.id === pid && d2.fresh === false && JSON.stringify(b1b.placesSeen) === JSON.stringify(b1.placesSeen), JSON.stringify(d2));
     const other = [...IDX.ids].find((id) => id.startsWith("pl:") && !stFor(READER).places.has(id));
     await A(page, (c, id) => c.select(id, { open: true, fly: false, push: false }), other); await sleep(500);
     const b2 = await blob();
-    check("a place the reader has NOT studied gets no chip and is not marked seen", (await page.evaluate(() => !!document.querySelector(".atlas2-card .atlas2-disc"))) === false && !(b2.placesSeen || {})[placeRow(other).name], placeRow(other).name);
+    check("a place the reader has NOT studied is not marked seen", (await A(page, (c) => c.discovery())).fresh === false && (await chipN()) === 0 && !(b2.placesSeen || {})[placeRow(other).name], placeRow(other).name);
     allErrors.push(...errors); await ctx.close();
   }
 
@@ -672,8 +674,8 @@ const panelText = (page, sel) => page.evaluate((s) => { const e = document.query
     const mw = mm ? 2 * mm.h : 0;
     check("…and smaller than a mountain's triangle", mm && mm.marker === "triangle" && hw > 0 && hw < mw, `${hw} px against ${mw} px`);
     await A(page, (c) => c.select("pl:q202487", { open: true, fly: false, push: false })); await sleep(400);
-    const kind = await page.evaluate(() => document.querySelector(".atlas2-card-kind").textContent);
-    check('the place card\'s kind line says "Hill"', /^Hill\b/.test(kind), kind);
+    const title = await page.evaluate(() => document.querySelector(".atlas2-card-title").textContent);
+    check("the place card is the hill's name alone (CHANGED 2026-10-19: its kind line said \"Hill\")", title === placeRow("pl:q202487").name && (await page.evaluate(() => !document.querySelector(".atlas2-card-kind"))), title);
     allErrors.push(...errors); await ctx.close();
   }
 

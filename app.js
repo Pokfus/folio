@@ -10873,11 +10873,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        nothing here touches the eager path. v1's `atlas` bundle below is untouched until Phase 5. */
     atlas2gloss: { files: ["atlas/data/glossary-places.js"] },   // the glossary popup's "show on the Atlas" table for the Atlas (Phase 3c), read at the click
     atlas2: { files: ["atlas/atlas-format.js", "atlas/study.js", "atlas/atlas-gl.js", "atlas/atlas-canvas.js", "atlas/atlas.js"] },   // atlas-canvas.js: the still 2D view for a browser without WebGL2 (Phase 1d)
-    /* …and the PROSE its place card shows for a present-day country (Phase 1c): the same four files v1's
-       `atlas` bundle carried for its popup — descriptions, figures, spans, citations — without any geometry,
-       so opening a country on the Atlas never pulls the old eras in (they are deleted). The two bundles share
-       files; ensureData loads a file once, whichever bundle asked first. */
-    atlas2prose: { files: ["countries.js", "country-stats.js", "country-spans.js", "country-sources.js"] },
+    /* …and the country descriptions Find it's reveal panel prints (countries.js, `COUNTRY_INFO`). Since 2026-10-19 the Atlas popup is its name and its cards and reads no prose: country-stats.js, country-spans.js and
+       country-sources.js (the figures grid, the years, the citations) are no longer loaded by anything. */
+    atlas2prose: { files: ["countries.js"] },
     /* THE CARD WINDOWS ON THE ENGINE (Oct 2026, Phase 4): the embed host (atlas/atlas-embed.js, ~20 KB), the join from a map card's layer and key to an engine entity, its label point and its
        bounding box (atlas/data/card-faces.js, generated), and rivers.js alone for a river locator's own river. None is on the eager path; the engine itself is the `atlas2` bundle above and
        topology.bin is fetched by it. A window asks for all of them when it is mounted behind the preview switch (`startCardWindow2`); `warmAtlas2Windows` asks at idle. */

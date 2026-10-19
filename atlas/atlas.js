@@ -237,38 +237,6 @@
   function saveLayers(l) { try { localStorage.setItem(LAYERS_KEY, JSON.stringify(l)); } catch (e) {} }
   // diacritic-folded, lower-cased, for the search box (Phase 1c): "Zürich" and "zurich" are one key
   function fold(s) { try { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); } catch (e) { return String(s || "").toLowerCase(); } }
-  /* v1's rule for a country's title (app.js officialName, which lives inside the Atlas page's closure and is
-     copied here rather than reached): the full legal name from the summary's "officially …", else the name
-     before ", commonly known as …" when it reads like a state's name, else the short name. */
-  function officialName(shortName, desc) {
-    desc = desc || "";
-    let m = /\bofficially\s+(?:the\s+|known\s+as\s+|called\s+)?(.+?)\s*[,(.;:]/i.exec(desc);
-    if (m && m[1]) { const o = m[1].trim().replace(/^the\s+/i, ""); if (o.length >= 3 && o.length <= 80) return o; }
-    m = /^(?:The\s+)?(.+?),\s+(?:commonly|also|sometimes|formally|or\s+simply|or)\s+(?:known\s+as|called)?/i.exec(desc);
-    if (m && m[1]) {
-      const o = m[1].trim().replace(/^the\s+/i, ""), sn = (shortName || "").toLowerCase();
-      const looksOfficial = o.toLowerCase().indexOf(sn) >= 0 || /\b(Republic|Kingdom|Union|Federation|Emirates|States|Commonwealth|Empire|Sultanate|Principality|Confederation|Dominion)\b/i.test(o);
-      if (o.length >= 5 && o.length <= 80 && o.toLowerCase() !== sn && looksOfficial) return o;
-    }
-    return shortName;
-  }
-  // v1's stripInfoNoise: drop "(Language: name)" parentheticals and any sentence quoting a figure the grid shows
-  function stripInfoNoise(s) {
-    if (!s) return "";
-    s = s.replace(/\s*\([^)]*:[^)]*\)/g, "");
-    const parts = s.split(/(?<=[.!?])\s+/);
-    const grid = /[$€£]\s?\d|\d[\d.,]*\s*(?:million|billion|trillion)\b|\d[\d.,]*\s*(?:km²|km2|sq\.?\s?mi|sq\.?\s?km|square\s?kilomet|square\s?mile)/i;
-    const kept = parts.filter((t) => !grid.test(t));
-    return (kept.length ? kept.join(" ") : s).replace(/\s{2,}/g, " ").trim();
-  }
-  // v1's statNum: the leading figure of a formatted stat ("41.45 million", "$20.5B", "49,710"), or NaN
-  function statNum(s) {
-    const t = String(s == null ? "" : s).trim().replace(/^[$€£]\s?/, "").replace(/,/g, "").toLowerCase();
-    const m = /^([\d.]+)\s*(trillion|t|billion|b|million|m|thousand|k)?/.exec(t); if (!m) return NaN;
-    let v = parseFloat(m[1]); if (isNaN(v)) return NaN;
-    const u = m[2] || ""; v *= u === "trillion" || u === "t" ? 1e12 : u === "billion" || u === "b" ? 1e9 : u === "million" || u === "m" ? 1e6 : u === "thousand" || u === "k" ? 1e3 : 1;
-    return v;
-  }
   function escText(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m])); }
 
   /* PHASE 4b — THE FIRST FRAME OF A CARD WINDOW, FROM A CACHE. A hub (opts.embed) parses topology.bin and builds the three resident levels in its worker before the first window can draw;
@@ -277,7 +245,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "073cd509f5:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "c010de6251:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -357,6 +325,7 @@
             <fieldset class="atlas2-group atlas2-marks"><legend>Marks</legend>
               <dl class="atlas2-marks-key" aria-label="What the marks mean"></dl>
               <p class="atlas2-peoples-hint">Filled in the colour of your own names: a place of your own cards. Rivers, lakes, seas, regions, countries, states, peoples and cultures are names only.</p>
+              <p class="atlas2-peoples-hint atlas2-layer-map">Which switch hides which mark: <b>Cities</b> hides the city and town discs, the capital squares and the rings of several places; <b>Places</b> hides sites, battles and buildings; <b>Physical</b> hides peaks (mountains, hills and capes). A ring keeps only the places whose switch is on, and goes when none is. A hidden mark is not drawn, not tappable and its name is gone. Countries, Provinces and Peoples are names and borders, not marks.</p>
             </fieldset>
             <fieldset class="atlas2-group atlas2-peoples"><legend>Peoples</legend>
               <label><input type="radio" name="atlas2-peoples" data-layer="peoples" value="off"> Off</label>
@@ -418,7 +387,7 @@
         <p class="atlas2-mode" hidden></p>
         <aside class="atlas2-card" hidden aria-label="Place">
           <button type="button" class="atlas2-grip" aria-label="Expand or collapse the place card"><i></i></button>
-          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title" tabindex="-1"></h2><p class="atlas2-card-kind"></p><div class="atlas2-pager" hidden role="group" aria-label="The places of this city"><ul class="atlas2-pager-list" hidden aria-label="Jump to a place"></ul><div class="atlas2-pager-row"><button type="button" class="atlas2-pager-prev" aria-label="Previous place">‹</button><span class="atlas2-pager-mid"><span class="atlas2-pager-name"></span><span class="atlas2-pager-n"></span></span><button type="button" class="atlas2-pager-next" aria-label="Next place">›</button></div></div></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
+          <div class="atlas2-card-head"><div class="atlas2-card-titles"><h2 class="atlas2-card-title" tabindex="-1"></h2><div class="atlas2-card-here" hidden role="group" aria-label="Also here"></div><div class="atlas2-pager" hidden role="group" aria-label="The places of this city"><ul class="atlas2-pager-list" hidden aria-label="Jump to a place"></ul><div class="atlas2-pager-row"><button type="button" class="atlas2-pager-prev" aria-label="Previous place">‹</button><span class="atlas2-pager-mid"><span class="atlas2-pager-name"></span><span class="atlas2-pager-n"></span></span><button type="button" class="atlas2-pager-next" aria-label="Next place">›</button></div></div></div><button type="button" class="atlas2-card-close" aria-label="Close">×</button></div>
           <div class="atlas2-card-body"></div>
         </aside>
         <div class="atlas2-keys vh" aria-label="Places named on the map"><ul></ul></div>
@@ -444,7 +413,7 @@
     const el = host.querySelector(".atlas2"), canvas = el.querySelector(".atlas2-canvas"), status = el.querySelector(".atlas2-status"), note = el.querySelector(".atlas2-note"), bar = el.querySelector(".atlas2-bar i"), caption = el.querySelector(".atlas2-caption"), perfEl = el.querySelector(".atlas2-perf");
     const sheet = el.querySelector(".atlas2-sheet"), layersBtn = el.querySelector(".atlas2-layers-btn"), layersNote = el.querySelector(".atlas2-layers-note");
     const labelCanvas = el.querySelector(".atlas2-labels"), lctx = labelCanvas.getContext("2d");
-    const stackBtn = el.querySelector(".atlas2-stack"), cardEl = el.querySelector(".atlas2-card"), cardTitle = el.querySelector(".atlas2-card-title"), cardKind = el.querySelector(".atlas2-card-kind"), cardBody = el.querySelector(".atlas2-card-body"), keysUl = el.querySelector(".atlas2-keys ul");
+    const stackBtn = el.querySelector(".atlas2-stack"), cardEl = el.querySelector(".atlas2-card"), cardTitle = el.querySelector(".atlas2-card-title"), cardBody = el.querySelector(".atlas2-card-body"), keysUl = el.querySelector(".atlas2-keys ul");
     { const bk = el.querySelector(".atlas2-back"); if (bk && H.back) bk.addEventListener("click", () => H.back()); }   // Phase 4b: the way back to the card a window's tap or go button left
     const searchIn = el.querySelector(".atlas2-search-in"), resultsUl = el.querySelector(".atlas2-results");
     const railEl = el.querySelector(".atlas2-rail"), railTrack = el.querySelector(".atlas2-rail-track"), railPin = el.querySelector(".atlas2-rail-pin"), railMag = el.querySelector(".atlas2-rail-mag"), railYear = el.querySelector(".atlas2-rail-year"), railPlay = el.querySelector(".atlas2-rail-play"), railSpeed = el.querySelector(".atlas2-rail-speed"), railNote = el.querySelector(".atlas2-rail-note");
@@ -1549,18 +1518,6 @@
     }
     function refreshFronts() { if (!time.hist || !time.hist.ready) return; applyYear(time.year, { force: true, why: "fronts" }); }
     if (frontEl) { frontEl.querySelector(".atlas2-front-prev").addEventListener("click", () => stepFront(-1)); frontEl.querySelector(".atlas2-front-next").addEventListener("click", () => stepFront(1)); }
-    /* the place card of a front: which ground it is, the plate standing on the chosen date, every plate (each a button that steps to it), the gap, the uncertainty */
-    function frontCardHtml(e) {
-      const A = AS2(); const set = (e.front && e.front.set) || ""; const d = curFrontDate();
-      let html = `<p class="atlas2-card-span">${escText(e.name)} as the plates of the Second World War draw it: ${(time.stepsOf.get(entityIndexOfId(e.id)) || []).length} dated steps, each a plate that stands from its date until the next plate of its theatre replaces it.</p>`;
-      if (d != null && A) { const ps = A.platesAt(time.frontPlates, d); html += `<p class="atlas2-card-front-now"><b>${escText(A.fmtDate(d))}</b>: ${ps.length ? ps.map((p) => escText((p.theatre === "pac" ? "Pacific" : "Europe") + " plate of " + A.fmtDate(A.dateInt(p.date)) + " — " + p.note)).join("<br>") : "no plate stands for this date: nothing is drawn."}</p>`; }
-      html += `<p class="atlas2-card-uncert">Approximate: every plate is the situation on its date, redrawn from a map (the Wikimedia Commons maps of San Jose and the US Army’s atlas of 1945, both public domain), never a surveyed or daily front. A front is a line between two classes of ground, not a border.</p>`;
-      html += `<p class="atlas2-card-frame">Where this ground fades out at a straight edge in 1939–42 (through European Russia, across the Sahara, in the far north), the source map ends there; the war did not.</p>`;
-      html += `<p class="atlas2-card-gaps">No plate exists for January–June 1943 in either source: nothing is drawn between 31 January and 30 June 1943.</p>`;
-      if (A) { const dates = A.plateDates(time.frontPlates); html += `<details class="atlas2-card-steplist"><summary>Every plate (${dates.length} dates)</summary><ol>${dates.map((x) => `<li><button type="button" class="atlas2-link atlas2-front-go" data-front="${x}">${escText(A.fmtDate(x))}</button></li>`).join("")}</ol></details>`; }
-      html += `<p class="atlas2-card-scope">The front line is drawn for the Second World War only (1939–45), and only on the maps of its two sources: Europe to December 1942, then Europe and the Pacific from July 1943.</p>`;
-      return html;
-    }
     /* ---- Phase 4, 0c: DISPLAY-NAME OVERRIDES (atlas/data/polity-names.js, from polity-names.json) ----
        Cliopatria names a row once for its whole span; where Wikidata dates a different name for the same ground (the Kingdom of Hungary from 1920, the Federal State of Austria from 1934),
        the row shows that name in those years. Only the display string moves — the id, the faces and the steps are untouched — so `row.name` and `row.key` are set as the year is applied,
@@ -2176,8 +2133,9 @@
         ctx.lineCap = "round";
         for (const k of hair) {
           const m = marks[li[k]], ox = m.ox || 0, oy = m.oy || 0, d = Math.hypot(ox, oy), hh = lh[k], lw = markLine(hh);
-          if (d <= hh - 1) continue;   // the true point still lies under the ring
-          const x1 = lx[k] - ox, y1 = ly[k] - oy, x0 = lx[k] - ox / d * (hh - lw / 2), y0 = ly[k] - oy / d * (hh - lw / 2);
+          const sq = m.shape === "square", ext = sq ? Math.max(Math.abs(ox), Math.abs(oy)) : d;   // a capital's SQUARE is left at its side, not at the circle through its sides: the line starts on the outline, never inside a corner over the count (2026-10-19, a ring moved again for its name)
+          if (ext <= hh - 1) continue;   // the true point still lies under the ring
+          const r0 = (hh - lw / 2) * d / ext, x1 = lx[k] - ox, y1 = ly[k] - oy, x0 = lx[k] - ox / d * r0, y0 = ly[k] - oy / d * r0;
           ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1);
           ctx.lineWidth = 3; ctx.strokeStyle = haloCss; ctx.stroke(); ctx.lineWidth = 1; ctx.strokeStyle = inkCss; ctx.stroke();
           ctx.beginPath(); ctx.arc(x1, y1, 1.5, 0, 6.283185307179586); ctx.fillStyle = inkCss; ctx.fill();
@@ -2434,7 +2392,7 @@
     }
     function showStack() {
       const n = sel.stack.length;
-      stackBtn.hidden = true;   // 2026-10-18: the chip is never shown — the popup's "Also here" section lists the stack (hereHTML); the text below is kept for the aria-label
+      stackBtn.hidden = true;   // 2026-10-18: the chip is never shown — the popup's selector of names lists the stack (renderHere); the text below is kept for the aria-label
       if (n < 2 || !sel.at) return;
       const word = (row) => { const a = AS2(); const k = row.kind; const w = a ? a.kindWord(k) : k === "polity" ? "state" : k; return (KIND_LABEL[k] ? (a ? w : w) : w).toLowerCase(); };
       const cur = sel.stack[sel.index], anyPres = sel.stack.some((r) => r.kind === "people" || r.kind === "culture" || r.kind === "extent");
@@ -2502,55 +2460,49 @@
 
     /* ---- the place card: a side column, a bottom sheet on a phone that opens shut ---- */
     let cardRow = null, cardOpen = false, sheetSnap = "peek", cardOpener = null;   // cardOpener: where focus was when the card opened; Escape and Close send it back there (§2.9); sheetSnap: the phone sheet's height, "peek" | "half" | "full" (2026-10-18)
-    const kindLine = (row) => { const w = row.within ? G.byId.get(row.within) : null; return (KIND_LABEL[row.kind] || row.kind) + (w ? " · " + w.name : ""); };
-    /* THE KIND LINE AS A CHIP (2026-10-18, the popup redesign): "Polity · 395 CE – 1467 CE" is drawn as a chip for the kind and a line for the years (or the place it is
-       within); the joiner is kept, visually hidden, so the line still READS "Polity · 395 CE – 1467 CE" to a screen reader and to the suites that read its text */
-    function setKind(chip, rest, joiner) { cardKind.innerHTML = `<span class="atlas2-card-chip">${escText(chip)}</span>` + (rest ? `<span class="vh">${escText(joiner == null ? " · " : joiner)}</span><span class="atlas2-card-years">${escText(rest)}</span>` : ""); }
-    function setKindLine(row) { const w = row.within ? G.byId.get(row.within) : null; setKind(KIND_LABEL[row.kind] || row.kind, w ? w.name : ""); }
-    /* "ALSO HERE" (2026-10-18): the other entities under the tap — the claimants of a contested face, a people over a state — listed in the popup, each a button that selects
-       it in the same stack (the floating "N here" chip is gone from the map) */
-    function hereHTML(row) {
-      if (!sel.stack || sel.stack.length < 2) return "";
-      const word = (r) => { const a = AS2(); return (a ? a.kindWord(r.kind) : r.kind === "polity" ? "state" : KIND_LABEL[r.kind] || r.kind).toLowerCase(); };
-      const items = sel.stack.filter((r) => r.id !== row.id).map((r) => `<li><button type="button" class="atlas2-here" data-here="${escText(r.id)}"><span class="atlas2-here-name">${escText(r.name)}</span><span class="atlas2-chip">${escText(word(r))}</span></button></li>`);
-      return items.length ? `<section class="atlas2-card-here" aria-label="Also here"><h3 class="atlas2-study-h">Also here</h3><ul>${items.join("")}</ul></section>` : "";
+    /* THE POPUP HAS THREE PARTS (2026-10-19, the owner's phone, decision a): the place's NAME, a close button, and the list of the cards set there
+       (appendStudyCards). Nothing else — no kind chip, no "New discovery!" chip, no years, key facts, population grid, description, Wikipedia link,
+       sources, or "N more cards in the Full Atlas" line. Two things stand beside them because they are navigation, not content: a city stack's pager
+       (reflectStack) and, where two or more states or peoples lie under the tap, a small selector of their NAMES under the title (renderHere). */
+    const hereEl = el.querySelector(".atlas2-card-here");
+    function renderHere(row) {
+      const list = sel.stack || [];
+      if (list.length < 2 || !list.some((r) => r.id === row.id)) { hereEl.hidden = true; hereEl.innerHTML = ""; return; }
+      hereEl.innerHTML = list.map((r) => `<button type="button" class="atlas2-here" data-here="${escText(r.id)}"${r.id === row.id ? ' aria-current="true"' : ""}>${escText(r.name)}</button>`).join("");
+      hereEl.hidden = false;
     }
-    const factRow = (label, html, cls) => (html ? `<div><dt>${escText(label)}</dt><dd${cls ? ` class="${cls}"` : ""}>${html}</dd></div>` : "");
-    const factsHTML = (rows) => { const h = rows.join(""); return h ? `<dl class="atlas2-card-facts">${h}</dl>` : ""; };
-    const wikiUrl = (title) => "https://en.wikipedia.org/wiki/" + encodeURIComponent(String(title).replace(/ /g, "_"));
+    hereEl.addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-here]"); if (!b) return;
+      const id = b.getAttribute("data-here"), k = sel.stack.findIndex((r) => r.id === id);
+      if (k >= 0) { sel.index = k; sel.t = performance.now(); selectRow(sel.stack[k], { open: true, push: true, stack: true }); }
+    });
     function openCard(row) {
       if (PHONE && menuOpen) showMenu(false);   // the card is a bottom sheet too: one at a time
       const wasOpen = cardOpen;
       if (!wasOpen) sheetSnap = "peek";   // a phone's sheet opens at its peek every time (2026-10-18; it opened shut since §7 Phase 1c); a second place while it is up keeps its height
       cardRow = row; cardOpen = true;
       cardEl.hidden = false;
-      cardTitle.textContent = row.name; setKindLine(row);
+      cardTitle.textContent = row.name;
       reflectStack(row);
+      renderHere(row);
       cardBody.innerHTML = "";
       cardBody.scrollTop = 0;
-      if (row.kind === "country") renderCountryCard(row); else renderPlaceCard(row);
-      appendStudyCards(row);   // the cards about this place (Phase 3b), FIRST in the body (2026-10-18); the country's prose arrives later and puts them first again
-      discoveryChip(row);
+      appendStudyCards(row);   // the cards about this place (Phase 3b): the whole of the body
+      markDiscovery(row);
       el.classList.add("atlas2-has-card");
-      reflectSheet();   // after the content: a phone's peek is measured against the head (a stack's pager makes it taller)
+      reflectSheet();   // after the content: a phone's peek is measured against the head (a stack's pager makes it taller) and the rows
       // focus moves to the heading when the card OPENS (not when a second place replaces the first); the opener is
       // remembered unless focus was already inside the card
       if (!wasOpen) { const a = document.activeElement; cardOpener = a && el.contains(a) && !cardEl.contains(a) ? a : canvas; cardTitle.focus({ preventScroll: true }); }
     }
-    /* "NEW DISCOVERY" (Phase 3c): a place the reader has studied and has not opened on the Atlas before. Read from the existing registers —
-       the studied set (a card with a record) and `placesSeen`, the register v1's panels already write — and written the way v1 writes it
-       (`discover` is the host's markSeen): no new field, the blob's shape and the sync untouched. Only a place the reader studied is marked;
-       a re-render of the same card keeps the chip, closing and opening it again does not. */
+    /* DISCOVERY, SILENTLY (Phase 3c; the chip itself went 2026-10-19): a place the reader has studied and has not opened on the Atlas before is written to the
+       existing `placesSeen` register the way v1 writes it (`discover` is the host's markSeen): no new field, the blob's shape and the sync untouched. Only a
+       place the reader studied is marked; a re-render of the same card does not mark it again, closing and opening it again does not either. */
     let discId = null, discFresh = false;
-    function discoveryChip(row) {
-      for (const old of cardEl.querySelectorAll(".atlas2-disc")) old.remove();
-      if (row.id !== discId) {
-        discId = row.id; discFresh = false;
-        try { if (AS && SU && SU.seenPlace && SU.discover && ST.st && AS.isNewDiscovery(ST.st, row.id, row.name, SU.seenPlace)) { discFresh = true; SU.discover(row.name); } } catch (e) { discFresh = false; }
-      }
-      if (!discFresh) return;
-      const chip = document.createElement("span"); chip.className = "disc-chip atlas2-disc"; chip.title = "A place from your cards, opened on the Atlas for the first time"; chip.innerHTML = "<b>New discovery!</b>";
-      cardKind.insertAdjacentElement("afterend", chip);
+    function markDiscovery(row) {
+      if (row.id === discId) return;
+      discId = row.id; discFresh = false;
+      try { if (AS && SU && SU.seenPlace && SU.discover && ST.st && AS.isNewDiscovery(ST.st, row.id, row.name, SU.seenPlace)) { discFresh = true; SU.discover(row.name); } } catch (e) { discFresh = false; }
     }
     /* THE STACK'S POPUP (2026-10-17, decision d): opens with the city's name ("Rome — 7 places") and pages through the stack's places — swiping left and
        right, the arrow buttons, the keyboard's arrows while the card has focus, and a "2 of 7" indicator — each page the place's own card with its cards.
@@ -2567,7 +2519,7 @@
       if (n <= STACK_LIST_MIN) { pagerList.hidden = true; pagerList.innerHTML = ""; pagerListFor = null; return; }
       if (pagerListFor !== cardStack.id) {
         pagerListFor = cardStack.id;
-        pagerList.innerHTML = cardStack.ids.map((id, k) => { const r = G.byId.get(id); return `<li><button type="button" data-i="${k}">${escText(r ? r.name : id)}<span class="atlas2-pager-kind">${escText(r ? KIND_LABEL[r.kind] || r.kind : "")}</span></button></li>`; }).join("");
+        pagerList.innerHTML = cardStack.ids.map((id, k) => { const r = G.byId.get(id); return `<li><button type="button" data-i="${k}">${escText(r ? r.name : id)}</button></li>`; }).join("");
       }
       pagerList.hidden = false;
       for (const b of pagerList.querySelectorAll("button[data-i]")) { const on = b.getAttribute("data-i") === String(cardStack.i); b.setAttribute("aria-current", on ? "true" : "false"); if (on) { const top = b.offsetTop, bottom = top + b.offsetHeight; if (top < pagerList.scrollTop || bottom > pagerList.scrollTop + pagerList.clientHeight) pagerList.scrollTop = Math.max(0, top - pagerList.clientHeight / 2 + b.offsetHeight / 2); } }
@@ -2588,7 +2540,6 @@
       if (!on) { pagerList.hidden = true; pagerList.innerHTML = ""; pagerListFor = null; return; }
       const i = cardStack.ids.indexOf(row.id), n = cardStack.ids.length; cardStack.i = i;
       cardTitle.textContent = cardStack.name + " — " + n + " places";
-      setKindLine(row);
       pagerEl.querySelector(".atlas2-pager-name").textContent = row.name;
       pagerEl.querySelector(".atlas2-pager-n").textContent = (i + 1) + " of " + n;
       reflectStackList(row);
@@ -2625,14 +2576,23 @@
     }
     el.querySelector(".atlas2-card-close").addEventListener("click", () => clearSelection());
     /* THE PHONE'S BOTTOM SHEET (2026-10-18, the popup redesign; docs/atlas-v2-design.md §7 "The popup as a bottom sheet"): the card is docked on the frame's bottom edge
-       (above the site's tab bar; the year rail steps aside under it, as it does under the menu) at one of THREE SNAP HEIGHTS — the peek (about 28 % of the frame, never less
-       than the head and one row), the half (50 %) and the full (the frame less the 68 px of the search and menu buttons). A touch on the handle or the head drags it; a
+       (above the site's tab bar; the year rail steps aside under it, as it does under the menu) at one of THREE SNAP HEIGHTS — the peek (since 2026-10-19 the height of its
+       content: the head and one to three rows, never over the half), the half (50 %) and the full (the frame less the 68 px of the search and menu buttons). A touch on the handle or the head drags it; a
        touch on the body drags it when the body is at its top and pulled down, or the sheet is not full and pulled up — otherwise the body scrolls. On release it snaps
        to the nearest height, a flick carrying it one height further; pulled below the peek it closes. A tap on the handle or the head goes to the next height. The map
        stays usable above it. .atlas2-card-up on the host (half or full) hides the zoom pill under it (styles.css); .atlas2-card-full the same for the full height. */
-    const SNAPS = ["peek", "half", "full"], SHEET_TOP_PX = 68, SHEET_PEEK = 0.28, FLICK = 0.35;   // FLICK: px/ms — faster than this carries the sheet one snap further than the nearest
+    const SNAPS = ["peek", "half", "full"], SHEET_TOP_PX = 68, FLICK = 0.35;   // FLICK: px/ms — faster than this carries the sheet one snap further than the nearest
     const sheetHead = el.querySelector(".atlas2-card-head"), sheetGrip = el.querySelector(".atlas2-grip");
-    function sheetHeights() { const full = Math.max(120, cssH - SHEET_TOP_PX); const headH = sheetGrip.offsetHeight + sheetHead.offsetHeight; return { peek: Math.min(full, Math.max(Math.round(cssH * SHEET_PEEK), headH + 56)), half: Math.min(full, Math.round(cssH * 0.5)), full }; }
+    /* THE PEEK FITS ITS CONTENT (2026-10-19, decision b; it was 28 % of the frame whatever the popup held): the handle, the head (name, selector, pager), the body's padding, the sheet's
+       border and the first one to three card rows — one card, one row; many, three — and never taller than the half. The half and the full are as before. */
+    function sheetHeights() {
+      const full = Math.max(120, cssH - SHEET_TOP_PX), half = Math.min(full, Math.round(cssH * 0.5));
+      if (cardEl.hidden) return { peek: Math.min(half, 160), half, full };
+      const cs = getComputedStyle(cardBody), lis = cardBody.querySelectorAll(".atlas2-study-list > li");
+      let rows = 0; for (let k = 0; k < Math.min(3, lis.length); k++) rows += lis[k].offsetHeight;
+      const fit = sheetGrip.offsetHeight + sheetHead.offsetHeight + (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0) + rows + (cardEl.offsetHeight - cardEl.clientHeight);
+      return { peek: Math.min(half, Math.max(Math.ceil(fit), 96)), half, full };
+    }
     function reflectSheet() {
       const on = PHONE && cardOpen;
       if (!PHONE) { cardEl.style.height = ""; }
@@ -2674,95 +2634,6 @@
       setSnap(k);
     }, { passive: false });
     cardEl.addEventListener("touchcancel", () => { if (sheetDrag && sheetDrag.moved) { cardEl.classList.remove("atlas2-card-dragging"); reflectSheet(); } sheetDrag = null; }, { passive: true });
-    const safeHTML = (html) => (H.sanitizeHTML ? H.sanitizeHTML(html) : escText(html));
-    function withinButton(row) { const w = row.within ? G.byId.get(row.within) : null; return w ? `<p class="atlas2-card-within">In <button type="button" class="atlas2-link" data-select="${escText(w.id)}">${escText(w.name)}</button></p>` : ""; }
-    function wikiLine(row) { const title = row.wiki === 1 ? row.name : row.wiki; return title ? `<p class="atlas2-card-link"><a href="${wikiUrl(title)}" target="_blank" rel="noopener">Wikipedia: ${escText(title)}</a></p>` : ""; }
-    function renderPlaceCard(row) {
-      if (row.hist) { renderHistoryCard(row); return; }
-      cardBody.innerHTML = hereHTML(row) + placeFacts(row);
-    }
-    const placeFacts = (row) => { const w = row.within ? G.byId.get(row.within) : null; const title = row.wiki === 1 ? row.name : row.wiki; return factsHTML([w ? factRow("In", `<button type="button" class="atlas2-link" data-select="${escText(w.id)}">${escText(w.name)}</button>`, "atlas2-card-within") : "", title ? factRow("Wikipedia", `<a href="${wikiUrl(title)}" target="_blank" rel="noopener">${escText(title)}</a>`, "atlas2-card-link") : ""]); };
-    /* Phase 2a: a historical place — kind, span, the step list as a small timeline with the source on each step, the
-       uncertainty sentence, the gaps in the span, the Wikipedia link from the source's own property; no prose yet */
-    function renderHistoryCard(row) {
-      if (row.kind === "capital" && row.city) { const e = time.ents.find((x) => x.id === row.city.entity); setKind("Capital", "of " + (e ? e.name : row.city.entity) + " · " + fmtYear(row.city.from) + " – " + fmtYear(row.city.to), " "); cardBody.innerHTML = hereHTML(row) + factsHTML([factRow("Years", escText(fmtYear(row.city.from) + " – " + fmtYear(row.city.to))), e ? factRow("Capital of", `<button type="button" class="atlas2-link" data-select="${escText(e.id)}">${escText(e.name)}</button>`) : ""]) + `<details class="atlas2-card-sources"><summary>Sources</summary><p class="atlas2-card-span">A period capital from Wikidata (the state's own capital statements, with their dates; CC0), through the card ${escText(row.city.card || "")}.</p></details>`; return; }
-      const e = time.ents[row.ent]; const steps = time.stepsOf.get(row.ent) || [];
-      const pres = e.kind === "people" || e.kind === "culture";   // 2c: a presence, not a territory
-      const ext = e.kind === "extent";   // 2d: an authored war extent — Folio's own approximation of a side no dataset draws
-      const src = (time.hist.header.sources || []).find((s) => s.id === ((pres || ext) && e.src ? e.src : "cliopatria"));
-      const srcName = ext ? "Folio’s own authored extent" : !src ? "Cliopatria" : src.id === "cliopatria" ? "Cliopatria " + src.version : src.id === "hosner-2016" ? "Hosner et al. (2016)" : src.id === "osm-land-polygons" ? "the OpenStreetMap land polygons" : src.name;
-      const licName = !src ? "CC BY 4.0" : src.licence === "CC-BY-4.0" ? "CC BY 4.0" : src.licence === "CC-BY-3.0" ? "CC BY 3.0" : src.licence === "ODbL-1.0" ? "ODbL" : src.licence;
-      const nameOf = (p) => { const r = G.byId.get(p); return r ? r.name : p; };
-      const yrs = e.span ? fmtYear(e.span[0]) + " – " + fmtYear(e.span[1]) : "";
-      if (e.kind === "front") setKind("Front", "Second World War");
-      else if (e.kind === "contested") setKind("Contested", "between " + e.partners.map(nameOf).join(" and ") + (yrs ? " · " + yrs : ""), " ");
-      else if (e.kind === "nested") setKind("Within", nameOf(e.partners[1]) + (yrs ? " · " + yrs : ""), " ");
-      else setKind(e.kind === "people" ? "People" : e.kind === "culture" ? "Culture" : ext ? "Authored extent" : "Polity", yrs);
-      if (e.kind === "front") { cardBody.innerHTML = hereHTML(row) + frontCardHtml(e); return; }
-      /* THE BODY'S ORDER (2026-10-18, the popup redesign): the cards (prepended by appendStudyCards), "Also here", the KEY FACTS (years, the capital in this year and the
-         others, what it is within or claims, the Wikipedia link), the step bar, the wars, then the sources and the caveats FOLDED under "Sources" */
-      let html = hereHTML(row), srcs = "";
-      const caps = (time.hist.header.cities || []).filter((c) => c.entity === e.id).sort((a, b) => (a.from <= time.year && a.to >= time.year ? -1 : 0) - (b.from <= time.year && b.to >= time.year ? -1 : 0) || a.from - b.from);
-      const capNames = []; for (const c of caps) { const g = capNames.find((x) => x.name === c.name); if (g) g.spans.push(c); else capNames.push({ name: c.name, spans: [c] }); }   // one entry per name, its dated statements listed
-      const capHTML = capNames.slice(0, 3).map((g) => `${escText(g.name)} <span class="atlas2-card-dim">(${g.spans.map((c) => escText(fmtYear(c.from) + " – " + fmtYear(c.to))).join("; ")})</span>`).join(", ") + (capNames.length > 3 ? ` <span class="atlas2-card-dim">and ${capNames.length - 3} more</span>` : "");
-      const facts = [factRow("Years", e.span ? escText(yrs) + ` <span class="atlas2-card-dim">(${steps.length} step${steps.length === 1 ? "" : "s"})</span>` : "")];
-      if (caps.length) facts.push(factRow(capNames.length > 1 ? "Capitals" : "Capital", capHTML));
-      if (e.kind === "contested") facts.push(factRow("Claimed by", e.partners.map((p) => { const r = G.byId.get(p); return r ? `<button type="button" class="atlas2-link" data-select="${escText(r.id)}">${escText(r.name)}</button>` : ""; }).filter(Boolean).join(", ")));
-      if (e.kind === "nested") e.partners.forEach((p, i) => { const r = G.byId.get(p); if (r) facts.push(factRow(i === 0 ? "The member" : "Within", `<button type="button" class="atlas2-link" data-select="${escText(r.id)}">${escText(r.name)}</button>`)); });
-      if (e.kind === "polity") {
-        const rel = (k) => time.ents.map((x, i) => ({ x, i })).filter(({ x }) => x.kind === "nested" && x.partners[k] === e.id && x.span).map(({ x }) => { const other = x.partners[k === 1 ? 0 : 1]; return `<button type="button" class="atlas2-link" data-select="${escText(other)}">${escText(nameOf(other))}</button> <span class="atlas2-card-dim">(${escText(fmtYear(x.span[0]) + " – " + fmtYear(x.span[1]))})</span>`; });
-        const members = rel(1), overlords = rel(0);
-        if (members.length) facts.push(factRow("Members drawn inside it", members.join(", ")));
-        if (overlords.length) facts.push(factRow("Drawn within", overlords.join(", ")));
-      }
-      if (e.wiki) facts.push(factRow("Wikipedia", `<a href="${wikiUrl(e.wiki)}" target="_blank" rel="noopener">${escText(e.wiki)}</a>`, "atlas2-card-link"));
-      html += factsHTML(facts);
-      if (e.span) srcs += `<p class="atlas2-card-span">Mapped from ${escText(fmtYear(e.span[0]))} to ${escText(fmtYear(e.span[1]))}, in ${steps.length} step${steps.length === 1 ? "" : "s"}.</p>`;
-      // the steps as RANGES (2b): consecutive steps with no gap between them read as one range; the list of every step opens on request
-      // (Rome has 123, Byzantium 124), each a button that sets the year
-      if (steps.length > 1) {
-        const ranges = []; for (const st of steps) { const last = ranges[ranges.length - 1]; if (last && st[0] === last.to + 1) { last.to = st[1]; last.n++; } else ranges.push({ from: st[0], to: st[1], n: 1 }); }
-        html += `<p class="atlas2-card-ranges">${ranges.map((r) => escText(fmtYear(r.from) + " – " + fmtYear(r.to)) + (r.n > 1 ? ` <span class="atlas2-card-dim">(${r.n} steps)</span>` : "")).join("; ")}.</p>`;
-        html += `<details class="atlas2-card-steplist"><summary>Every step (${steps.length})</summary><ol>${steps.map((st) => `<li><button type="button" class="atlas2-link atlas2-step-go" data-year="${st[0]}">${escText(fmtYear(st[0]))} – ${escText(fmtYear(st[1]))}</button></li>`).join("")}</ol></details>`;
-      }
-      // the step list as a small timeline: one bar per step across the span, the current year marked
-      if (steps.length && e.span) {
-        const s0 = e.span[0], s1 = e.span[1] + 1, W = Math.max(1, s1 - s0);
-        html += '<div class="atlas2-steps" role="list" aria-label="Steps">';
-        for (const st of steps) { const l = (st[0] - s0) / W * 100, w = Math.max(0.4, (st[1] + 1 - st[0]) / W * 100); const cur = st[0] <= time.year && st[1] >= time.year; html += `<button type="button" role="listitem" class="atlas2-step${cur ? " atlas2-step-now" : ""}" style="left:${l.toFixed(2)}%;width:${w.toFixed(2)}%" data-year="${st[0]}" title="${escText(fmtYear(st[0]))} – ${escText(fmtYear(st[1]))}: ${escText(srcName)}" aria-label="${escText(fmtYear(st[0]))} to ${escText(fmtYear(st[1]))}, ${escText(srcName)}"></button>`; }
-        if (time.year >= s0 && time.year <= e.span[1]) html += `<i class="atlas2-step-pin" style="left:${((time.year - s0) / W * 100).toFixed(2)}%" aria-hidden="true"></i>`;
-        html += "</div>";
-        srcs += `<p class="atlas2-card-steps-note">Each step is a shape the source gives for those years — ${escText(srcName)} — and the map changes only at a step.</p>`;
-      }
-      srcs += ext ? `<p class="atlas2-card-uncert">Authored extent: ${escText(e.note || "Folio’s own approximation, drawn from no dataset.")}</p>` : `<p class="atlas2-card-uncert">Approximate: ${escText(srcName)}, ${escText(licName)}. A border here is one reading of incomplete evidence, drawn at the source's own precision.</p>`;
-      html += warsBlock(e.id);
-      if (pres) {
-        // a presence is not a border: said plainly, with the audit's note on where this one is uncertain
-        html += `<p class="atlas2-card-presence">${e.kind === "people" ? "A people" : "A culture"} is a presence, not a border: the soft, dotted shape is where the source places ${e.kind === "people" ? "them" : "it"} in these years, with no line round it, drawn over any state that held the land.</p>`;
-        if (e.note) html += `<p class="atlas2-card-extent">${escText(e.note)}</p>`;
-      }
-      // the gaps in the span
-      const gaps = []; for (let i = 1; i < steps.length; i++) if (steps[i][0] > steps[i - 1][1] + 1) gaps.push([steps[i - 1][1] + 1, steps[i][0] - 1]);
-      srcs += gaps.length ? `<p class="atlas2-card-gaps">No source for ${gaps.map((g) => escText(fmtYear(g[0]) + (g[1] > g[0] ? "–" + fmtYear(g[1]) : ""))).join(", ")}: nothing is drawn in those years.</p>` : (steps.length > 1 ? '<p class="atlas2-card-gaps">No gaps in the span.</p>' : "");
-      srcs += ext ? `<p class="atlas2-card-scope">An authored extent is drawn only in the years of the war that uses it, and only for a side that no source draws; it is not a state or a people.</p>` : pres ? `<p class="atlas2-card-scope">The past here shows the peoples and cultures Folio’s cards teach, not every people of the period.</p>` : `<p class="atlas2-card-scope">The past here shows the states Folio’s cards teach, not every state of the period.</p>`;
-      if (e.wiki) srcs += `<p class="atlas2-card-link"><a href="${wikiUrl(e.wiki)}" target="_blank" rel="noopener">Wikipedia: ${escText(e.wiki)}</a></p>`;
-      if (e.alsoWiki && e.alsoWiki.length) srcs += `<p class="atlas2-card-link atlas2-card-also">Also in the source: ${e.alsoWiki.filter((w) => w.wiki).map((w) => `<a href="${wikiUrl(w.wiki)}" target="_blank" rel="noopener">${escText(w.wiki)}</a>`).join(", ")}</p>`;
-      html += `<details class="atlas2-card-sources"><summary>Sources</summary>${srcs}</details>`;
-      cardBody.innerHTML = html;
-    }
-    /* 2d — the wars an entity fought in, said on its card: who was on which side, the years, which sides are authored extents, and a button that shows the war
-       (a war that groups others is drawn only this way). The sentence is study.js's, so the card, the tests and a screen reader read the same words. */
-    function warsBlock(entityId) {
-      const A = AS2(); if (!A || !time.wars) return "";
-      const list = A.warsOfEntity(time.wars, entityId); if (!list.length) return "";
-      let html = '<div class="atlas2-card-wars"><h3 class="atlas2-card-wars-h">Wars</h3>';
-      for (const w of list) {
-        const lead = w.role === "victor" ? "On the winning side" : "On the losing side";
-        const on = time.warFocus === w.id;
-        html += `<p class="atlas2-card-war"><b>${escText(w.term)}</b> · ${escText(A.fmtSpan(w.y[0], w.y[1]))} · ${lead}${w.authored ? ", as an authored extent" : ""}.<br><span class="atlas2-card-dim">${escText(A.warSentence(time.wars[w.id]))}</span><br><button type="button" class="atlas2-link atlas2-war-go" data-war="${on ? "" : escText(w.id)}">${on ? "Stop showing this war" : "Show this war"}${w.group ? " (it groups other wars, so it is drawn only when chosen)" : ""}</button></p>`;
-      }
-      return html + "</div>";
-    }
     /* choose a war to draw whatever the switch and the study mode say (the only way a war that groups others is drawn), or null to let go. The year goes to the war's
        first year when it is outside its years, and the view to where its sides lie (the union of the faces of its members in those years). */
     function focusWar(id) {
@@ -2774,7 +2645,6 @@
         else refreshWars();
         frameWar(id);
       } else refreshWars();
-      if (cardRow && cardOpen && cardRow.hist) openCard(cardRow);
       return true;
     }
     function warFrame(id, short, share) {   // the view that fits both sides of a war: { lon, lat, kmpp }; `short` is the short side of the box it is for (Phase 4: a card window asks for its own)
@@ -2831,39 +2701,6 @@
       if (al) al.style.background = "linear-gradient(90deg, " + css(warRGB.victor, 0.7) + " 0 50%, " + css(warRGB.victor, 0.35) + " 50% 100%)";
       if (x) x.style.background = "radial-gradient(circle at 50% 50%, " + css(warRGB.loser, 0.7) + " 0%, " + css(warRGB.loser, 0.2) + " 62%, transparent 100%)";
     }
-    function renderCountryCard(row) {
-      const bundle = "atlas2prose";
-      if (H.dataReady && !H.dataReady(bundle)) {
-        cardBody.innerHTML = '<p class="atlas2-card-loading">Loading…</p>';
-        if (H.ensureData) H.ensureData(bundle).then((ok) => { if (cardRow === row && cardOpen) { if (ok) renderCountryProse(row); else { cardBody.innerHTML = hereHTML(row) + placeFacts(row) + '<p class="atlas2-card-loading">The description didn’t arrive.</p>'; appendStudyCards(row); } } });
-        return;
-      }
-      renderCountryProse(row);
-    }
-    function renderCountryProse(row) {
-      const key = row.v1 || null;
-      const info = key && root.COUNTRY_INFO ? root.COUNTRY_INFO[key] : "";
-      const stat = key && root.COUNTRY_STATS ? root.COUNTRY_STATS[key] : null;
-      const span = key && root.COUNTRY_SPANS ? root.COUNTRY_SPANS[key] : "";
-      const src = key && root.COUNTRY_SOURCES ? root.COUNTRY_SOURCES[key] : null;
-      cardTitle.textContent = officialName(row.name, info);
-      let html = hereHTML(row);
-      if (span) html += `<p class="atlas2-card-span">${escText(span)}</p>`;
-      if (stat) {
-        const tile = (label, v) => { const s = String(v == null ? "" : v).trim(); const pi = s.indexOf("("); const num = (pi >= 0 ? s.slice(0, pi) : s).trim() || "—"; const nu = pi >= 0 ? s.slice(pi + 1).replace(/\)\s*$/, "").trim() : ""; return `<div class="atlas2-stat"${nu ? ` title="${escText(nu)}"` : ""}><span class="atlas2-stat-l">${label}</span><span class="atlas2-stat-v">${escText(num)}</span></div>`; };
-        const popN = statNum(stat.pop), gdpN = statNum(stat.gdp);
-        const pc = popN > 0 && gdpN > 0 ? "$" + Math.round(gdpN / popN).toLocaleString("en-US") : "—";
-        html += `<div class="atlas2-stats">${tile("Population", stat.pop)}${tile("Area", stat.area)}${tile("GDP", stat.gdp)}${tile("GDP per capita", pc)}</div>`;
-      }
-      html += placeFacts(row);
-      const desc = stripInfoNoise(info);
-      html += desc ? `<div class="atlas2-card-desc">${safeHTML(desc)}</div>` : `<p class="atlas2-card-desc atlas2-card-none">No description for ${escText(row.name)} yet.</p>`;
-      if (src && src.length && H.sourceListHTML) html += `<details class="atlas2-card-sources"><summary>Sources</summary><div class="src-note atlas2-srcnote"><h3 class="atlas2-src-h">Sources</h3>${H.sourceListHTML(src)}</div></details>`;   // folded (2026-10-18)
-      cardBody.innerHTML = html;
-      if (H.wireFootnotes) { try { H.wireFootnotes(cardBody); } catch (e) {} }
-      appendStudyCards(row);
-    }
-    cardBody.addEventListener("click", (e) => { const wb = e.target.closest("button[data-war]"); if (wb) { focusWar(wb.getAttribute("data-war") || null); return; } const fb = e.target.closest("button[data-front]"); if (fb) { const n = Number(fb.getAttribute("data-front")); time.frontDate = n; const y = Math.floor(n / 10000); if (y !== time.year) setYear(y, { keepFront: true }); else applyYear(y, { force: true, why: "fronts" }); if (cardRow && cardOpen) openCard(cardRow); return; } const st = e.target.closest("button[data-year]"); if (st) { setYear(Number(st.getAttribute("data-year"))); if (cardRow) openCard(cardRow); return; } const b = e.target.closest("button[data-select]"); if (!b) return; const row = G.byId.get(b.getAttribute("data-select")); if (row) { if (row.hist) selectRow(row, { open: true, push: true }); else flyToRow(row, true); } });
 
     /* ---- search: one input, diacritic-folded prefix then substring over names and aliases ---- */
     /* Phase 3c — the search covers the WHOLE registry whatever year the rail shows: the gazetteer and places.js rows (G), the
@@ -3093,7 +2930,7 @@
     const AS = root.AtlasStudy;
     const SU = H.study || null;
     const MODE_KEY = "folio.atlas2.study", COLL_KEY = "folio.atlas2.studyOff", OPEN_KEY = "folio.atlas2.studyOpen";
-    const ST = { ready: false, loading: false, failed: false, open: !PHONE, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), tappable: null, colls: [], rev: 0, limit: new Map() };
+    const ST = { ready: false, loading: false, failed: false, open: !PHONE, mode: "map", hidden: new Set(), idx: null, st: null, flags: new Map(), tappable: null, colls: [], rev: 0 };
     const stRead = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
     { const v = stRead(OPEN_KEY); if (v === "1" || v === "0") ST.open = v === "1"; }   // a stored choice wins over the phone default (collapsed)
     const stWrite = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
@@ -3289,31 +3126,24 @@
         e.preventDefault(); const n = bs[(i + (e.key === "ArrowRight" ? 1 : bs.length - 1)) % bs.length]; n.focus(); setStudyMode(n.getAttribute("data-mode"));
       });
     }
-    // the cards about a place, appended to whatever the card's own renderer wrote: idempotent (one section), capped with "and N more"
+    /* THE CARDS SET HERE — the whole of the popup's body (2026-10-19, the owner's phone: "only its name and the cards set in that location, formatted nicely for a phone").
+       One row per card, the row itself the tap target (a link to the card): the card's title on one or two lines, the deck's name beneath it in a small muted line, the DUE badge
+       at the right (the host's `cardInfo`: `deck` the leaf it is filed in, `due` isDueNow). The Personal Atlas lists the reader's own cards, the Full Atlas every card of a collection
+       that is on (the reader's first), the plain Map every card. No cap and no "and N more": the sheet scrolls inside. Idempotent (one section). */
     function appendStudyCards(row) {
       for (const old of cardBody.querySelectorAll(".atlas2-study-cards")) old.remove();
-      if (!SU || !AS || !ST.ready || !row) return;
-      const mode = ST.mode === "personal" ? "personal" : "full";
-      const limit = ST.limit.get(row.id) || AS.LIST_CAP;
-      const r = AS.cardsFor(ST.idx, row.id, ST.st, mode, ST.hidden, info, limit);
-      if (!r.total && !r.others) return;
-      const sec = document.createElement("section"); sec.className = "atlas2-study-cards"; sec.setAttribute("aria-label", "Cards about this place");
-      const head = mode === "personal" ? "From your cards" : "Cards about this place";
-      /* EACH CARD IS A ROW, AS V1'S POPUP HAD IT (2026-10-17, decision c): its title, its deck and whether it is due now (the host's `cardInfo`:
-         `deck` the leaf it is filed in, `due` isDueNow); a tap opens the card. The Personal Atlas lists the reader's own and says how many more the Full
-         Atlas has; the Full Atlas lists all of them, the reader's first and marked. */
-      const li = (c) => { const i = info(c.id) || {}; return `<li><a class="atlas2-study-card${i.due ? " atlas2-study-isdue" : ""}" href="${escText(SU.cardHref ? SU.cardHref(c.id) : "#card/" + c.id)}" data-card="${escText(c.id)}" data-due="${i.due ? "1" : "0"}"><span class="atlas2-study-title">${escText(i.title || c.id)}</span><span class="atlas2-study-meta">${i.deck ? `<span class="atlas2-chip atlas2-study-chip atlas2-study-deck" title="${escText(i.coll ? i.coll + " · " + i.deck : i.deck)}">${escText(i.deck)}</span>` : i.coll ? `<span class="atlas2-chip atlas2-study-chip">${escText(i.coll)}</span>` : ""}${i.due ? '<span class="atlas2-study-due" title="Due for review now">due</span>' : ""}${c.mine && mode === "full" ? '<span class="atlas2-study-mine" title="You have studied this card">studied</span>' : ""}</span></a></li>`; };
-      sec.innerHTML = `<h3 class="atlas2-study-h">${escText(head)}</h3>` + (r.shown.length ? `<ul class="atlas2-study-list">${r.shown.map(li).join("")}</ul>` : "") +
-        (r.more ? `<button type="button" class="atlas2-link atlas2-study-more" data-more="${escText(row.id)}">and ${r.more} more</button>` : "") +
-        (r.others ? `<p class="atlas2-study-others">${r.others} more ${r.others === 1 ? "card" : "cards"} about this place in the Full Atlas. <button type="button" class="atlas2-link atlas2-study-tofull" data-mode="full">Show the Full Atlas</button></p>` : "");
-      cardBody.insertBefore(sec, cardBody.firstChild);   // the rows come first (2026-10-18): what the reader tapped the place for
+      if (SU && AS && ST.ready && row) {
+        const mode = ST.mode === "personal" ? "personal" : "full";
+        const r = AS.cardsFor(ST.idx, row.id, ST.st, mode, ST.hidden, info, Infinity);
+        if (r.shown.length) {
+          const li = (c) => { const i = info(c.id) || {}, deck = i.deck || i.coll || ""; return `<li><a class="atlas2-study-card${i.due ? " atlas2-study-isdue" : ""}" href="${escText(SU.cardHref ? SU.cardHref(c.id) : "#card/" + c.id)}" data-card="${escText(c.id)}" data-due="${i.due ? "1" : "0"}"><span class="atlas2-study-text"><span class="atlas2-study-title">${escText(i.title || c.id)}</span>${deck ? `<span class="atlas2-study-deck">${escText(deck)}</span>` : ""}</span>${i.due ? '<span class="atlas2-study-due">due</span>' : ""}</a></li>`; };
+          const sec = document.createElement("section"); sec.className = "atlas2-study-cards"; sec.setAttribute("aria-label", "Cards set here");
+          sec.innerHTML = `<ul class="atlas2-study-list">${r.shown.map(li).join("")}</ul>`;
+          cardBody.appendChild(sec);
+        }
+      }
+      if (cardOpen) reflectSheet();   // the rows set the peek's height
     }
-    cardBody.addEventListener("click", (e) => {
-      const here = e.target.closest("button[data-here]"); if (here) { const id = here.getAttribute("data-here"), k = sel.stack.findIndex((r) => r.id === id); if (k >= 0) { sel.index = k; sel.t = performance.now(); selectRow(sel.stack[k], { open: true, push: true, stack: true }); } return; }
-      const toFull = e.target.closest("button.atlas2-study-tofull"); if (toFull) { setStudyMode("full"); return; }
-      const more = e.target.closest("button[data-more]");
-      if (more) { const id = more.getAttribute("data-more"); ST.limit.set(id, (ST.limit.get(id) || AS.LIST_CAP) + 20); const keep = cardBody.scrollTop; if (cardRow && cardRow.id === id) appendStudyCards(cardRow); cardBody.scrollTop = keep; }
-    });
     function dispose() {
       if (disposed) return;
       disposed = true;
@@ -3392,7 +3222,7 @@
         /* the layout's marks (every flagged place or polity within the view and its margin, with whether its ground was clear at layout), the marks drawn in the last frame, the fan, the hidden list */
         marks: () => { const names = new Map(L.placed.filter((p) => p.st && p.text).map((p) => [p.id, p.text])); return L.marks.map((m) => ({ id: m.id, kind: m.kind, cls: m.cls || "", st: m.st, marker: m.shape, layer: m.layer, h: m.h, n: m.n, score: m.score, clear: !!m.clear, sx: m.sx, sy: m.sy, text: names.get(m.id) || "", members: m.members ? m.members.slice() : null, count: m.count || 0, city: m.city || "", name: m.name || "", ox: m.ox || 0, oy: m.oy || 0, cap: !!m.cap })); },
         liveMarks: () => liveEntries().map((e) => ({ id: e.m.id, kind: e.m.kind, cls: e.m.cls || "", shape: e.m.shape, layer: e.m.layer, st: e.m.st, x: e.x, y: e.y, h: e.h, members: e.m.members ? e.m.members.slice() : null, count: e.m.count || 0, city: e.m.city || "", name: e.m.name || "", ox: e.m.ox || 0, oy: e.m.oy || 0, cap: !!e.m.cap })),
-        glyphSVG, markRadius,
+        glyphSVG, markRadius, classOf: (id) => { const r = G.byId.get(id); return r && AS ? AS.markClass(r.kind, r.sub || "", registryCapitals().has(id)) : null; },   // the glyph class a place would be drawn as (the legend switches' suite)
         stack: () => (cardStack ? { id: cardStack.id, name: cardStack.name, ids: cardStack.ids.slice(), i: cardStack.i } : null), stackStep, openStack: (id) => { const m = stackMark(id); if (m) openStack(m); return !!m; },
         layoutChrome: () => (L.chrome || []).map((r) => r.slice()),
         near: (x, y, touch) => marksNear(x, y, markRadius(touch)).map((e) => e.m.id),
@@ -3416,7 +3246,7 @@
       presence: () => ({ alive: time.palive.filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => ({ face: a.face, entity: time.ents[a.ent].id, from: a.from, to: a.to })), onScreen: (time.pOnScreen || []).filter((a) => !time.isExt[a.ent] && !time.isFront[a.ent]).map((a) => a.face), drawn: ((time.view && time.view.pfaces) || []).filter((f) => !f.ext && !f.front).map((f) => ({ face: f.face, angle: f.angle, fade: f.fade })), position: layers.peoples, mode: PI.mode, all: time.presEnts.filter((i) => !time.isExt[i]).map((i) => time.ents[i].id), shown: time.presEnts.filter((i) => !time.isExt[i] && presShown(i)).map((i) => time.ents[i].id) }),
       // Phase 2d, for the suites: the wars table, the wars drawn, the entities tinted in the year with their roles, the washes handed to the renderer, the key's colours
       wars: () => ({ ready: !!time.wars, count: time.wars ? Object.keys(time.wars).length : 0, position: layers.wars, focus: time.warFocus, shown: [...time.warShown].sort(), roles: [...time.warRoles].map(([id, r]) => [id, r.role, r.wars.slice()]).sort((a, b) => (a[0] < b[0] ? -1 : 1)), washes: ((time.view && time.view.pfaces) || []).filter((f) => f.ext).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), colours: { victor: warRGB.victor.map((v) => Math.round(v * 255)), loser: warRGB.loser.map((v) => Math.round(v * 255)) }, tinted: (time.view && time.view.faces || []).filter((f) => time.warRoles.size && f.tint).length, note: (sheet.querySelector('.atlas2-wars-note') || {}).textContent || '' }),
-      rowName: (id) => { const r = G.byId.get(id); return r ? r.name : null; }, focusWar: (id) => focusWar(id), warsBlock: (id) => warsBlock(id), frontCardHtml: (e) => frontCardHtml(e),
+      rowName: (id) => { const r = G.byId.get(id); return r ? r.name : null; }, focusWar: (id) => focusWar(id),
       // Phase 2d, for the suites: the front line — the chosen date, the plates standing on it, the faces drawn and their tints, the stepper's text
       fronts: () => ({ on: !!layers.fronts, ents: time.frontEnts.map((i) => time.ents[i].id), plates: time.frontPlates.length, date: curFrontDate(), stepped: time.frontDate, standing: (AS2() && curFrontDate() != null ? AS2().platesAt(time.frontPlates, curFrontDate()).map((p) => p.theatre + ":" + p.date) : []), drawn: ((time.view && time.view.pfaces) || []).filter((f) => f.front).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), shown: time.frontEnts.filter(frontShown).map((i) => time.ents[i].id), label: frontEl ? frontLabel.textContent : '', visible: !!frontEl && !frontEl.hidden }), stepFront: (d) => stepFront(d), setFrontDate: (n) => { time.frontDate = n; const y = Math.floor(n / 10000); if (y !== time.year) setYear(y, { keepFront: true }); else applyYear(y, { force: true, why: 'fronts' }); }, onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
       historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(),   // every on-screen face has its mesh at the view's level (the frame gate waits on it before it counts the history's triangles)
