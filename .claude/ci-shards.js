@@ -8,7 +8,7 @@
    WHY (Oct 2026). The one shared Playwright job took 75-85 of its 90 minutes and the card-window phone-fix suite had to be split off just to stay under the cap. It became a matrix of three shards, and then the Atlas threads
    kept adding suites (undiscovered, mark-outline, capital-stack, neutral, halos, overlaps, rivers, relief, land-changes at six minutes): by 2026-10-18 the plan, re-measured piecemeal, predicted 35.5 minutes for its heaviest shard
    against a 35-minute cap, shard 3 of run 3785 ran to the job's 40-minute limit, and shard 2 of run 3775 had been cancelled there before it. The plan is now FOUR shards (.github/workflows/checks.yml, `browser`), re-measured in one piece
-   from the PASS lines of the two last full runs (3784 and 3785, the mean of the two for each suite), each predicted at no more than SHARD_CAP_MIN = 28 minutes with its setup, so a new suite or a slow runner has twelve minutes of room
+   from the PASS lines of the last full runs (3784, 3785 and, once the plan existed, 3787: the mean for each suite), each predicted at no more than SHARD_CAP_MIN = 28 minutes with its setup, so a new suite or a slow runner has twelve minutes of room
    before the job's 40-minute ceiling instead of five and a red shard is a smaller thing to read. The cost is one more runner per push (see docs/reference.md "Testing").
 
    WHAT RUNS. Exactly what the single loop ran: every .claude/test-*.js that mentions playwright, except test-atlas-perf.js (the frame gate's job) and test-card-windows-fixes.js (its own job). (Until Phase 5 the three
@@ -23,23 +23,23 @@
 "use strict";
 const fs = require("fs"), path = require("path"), cp = require("child_process");
 const DIR = __dirname;
-const SHARDS = 4, SHARD_CAP_MIN = 28, SETUP_MIN = 1.5, DEFAULT_SEC = 120;   // SETUP_MIN: checkout + the Playwright and Chromium install, 55-58 s in the eight shard jobs of runs 3774, 3784 and 3785; 1.5 min leaves a margin
+const SHARDS = 4, SHARD_CAP_MIN = 28, SETUP_MIN = 1.2, DEFAULT_SEC = 120;   // SETUP_MIN: checkout + the Playwright and Chromium install, 55-67 s (1.1 min at most) in the twenty shard jobs of runs 3774, 3784, 3785 and 3787; 1.2 min is the longest seen, rounded up
 const EXCLUDE = new Set(["test-atlas-perf.js", "test-card-windows-fixes.js"]);   // each has a job of its own
-const MEASURED_FROM = "runs 3784 and 3785 (checks.yml, 2026-10-18), the mean of each suite's two PASS lines on a GitHub runner; test-tour from run 3774, its last PASS (it is red on main, and its 60 s wait for a passage that never arrives is not its weight); test-land-changes is 351 s less the 81 s that dropping its duplicate Canvas 2D render saves (31 % of the pass locally), PROVISIONAL until its first PASS line on the faster code";
+const MEASURED_FROM = "runs 3784, 3785 and 3787 (checks.yml, 2026-10-18 and 19), the mean of each suite's PASS lines on a GitHub runner (one suite varies by 30-70 % from runner to runner: zoom-layers 192-330 s, findit-pick 105-286 s); test-land-changes from run 3787 alone, the first on its faster code; test-tour from run 3774, its last PASS (it is red on main, and its 60 s wait for a passage that never arrives is not its weight); test-minigames from runs 3784 and 3785 (red since 2026-10-19)";
 const MEASURED = {   // seconds
-  "test-a11y": 49, "test-account-page": 12, "test-account-switch": 94, "test-admin-editor": 21, "test-artefacts": 45, "test-artwork-cards": 15, "test-atlas-a11y": 11,
-  "test-atlas-capital-stack": 50, "test-atlas-card": 19, "test-atlas-credits": 7, "test-atlas-dark-labels": 14, "test-atlas-embed": 133, "test-atlas-fallbacks": 67,
-  "test-atlas-first-globe": 38, "test-atlas-halos": 24, "test-atlas-labels": 158, "test-atlas-mark-outline": 42, "test-atlas-neutral": 151, "test-atlas-overlaps": 53,
-  "test-atlas-personal": 47, "test-atlas-phone": 393, "test-atlas-popups": 205, "test-atlas-redirects": 85, "test-atlas-relief": 15, "test-atlas-render": 98,
-  "test-atlas-review": 83, "test-atlas-rivers": 123, "test-atlas-search": 23, "test-atlas-session": 313, "test-atlas-stages": 56, "test-atlas-study": 197,
-  "test-atlas-time": 43, "test-atlas-undiscovered": 165, "test-atlas-windows": 302, "test-atlas-zoom-layers": 193, "test-avatar": 6, "test-card-locator": 44,
+  "test-a11y": 49, "test-account-page": 12, "test-account-switch": 94, "test-admin-editor": 21, "test-artefacts": 46, "test-artwork-cards": 15, "test-atlas-a11y": 11,
+  "test-atlas-capital-stack": 52, "test-atlas-card": 20, "test-atlas-credits": 7, "test-atlas-dark-labels": 14, "test-atlas-embed": 134, "test-atlas-fallbacks": 69,
+  "test-atlas-first-globe": 39, "test-atlas-halos": 25, "test-atlas-labels": 157, "test-atlas-mark-outline": 42, "test-atlas-neutral": 161, "test-atlas-overlaps": 55,
+  "test-atlas-personal": 47, "test-atlas-phone": 391, "test-atlas-popups": 212, "test-atlas-redirects": 87, "test-atlas-relief": 16, "test-atlas-render": 104,
+  "test-atlas-review": 89, "test-atlas-rivers": 151, "test-atlas-search": 25, "test-atlas-session": 312, "test-atlas-stages": 59, "test-atlas-study": 211,
+  "test-atlas-time": 46, "test-atlas-undiscovered": 168, "test-atlas-windows": 321, "test-atlas-zoom-layers": 238, "test-avatar": 6, "test-card-locator": 45,
   "test-card-quote": 11, "test-card-types": 78, "test-cards": 38, "test-char-network": 29, "test-community": 20, "test-csp": 31, "test-deck-glossary": 44,
-  "test-deck-lazy": 35, "test-deck-trust": 7, "test-deck-update": 52, "test-deck-ux": 23, "test-draw-cards": 16, "test-feedback": 10, "test-findit-learn": 41,
-  "test-findit-pick": 286, "test-flag-cards": 15, "test-gloss-image": 29, "test-glossary-page": 10, "test-i18n-lang": 11, "test-land-changes": 270,
-  "test-lang-decks": 44, "test-layout": 345, "test-learning": 203, "test-library": 135, "test-map-cards": 14, "test-media-source": 32, "test-minigames": 57,
-  "test-polity-names": 22, "test-progress-registers": 23, "test-publish": 195, "test-reset": 9, "test-review-decks": 172, "test-revlog": 28, "test-sanitize": 1,
-  "test-sources": 38, "test-speak": 63, "test-spelling": 23, "test-subdecks": 45, "test-tour": 65, "test-truefalse": 19, "test-units": 18, "test-video": 65,
-  "test-war-cards": 22, "test-whiteboard": 10, "test-why-markers": 1, "test-window-fallbacks": 219,
+  "test-deck-lazy": 35, "test-deck-trust": 7, "test-deck-update": 52, "test-deck-ux": 23, "test-draw-cards": 16, "test-feedback": 10, "test-findit-learn": 42,
+  "test-findit-pick": 226, "test-flag-cards": 15, "test-gloss-image": 29, "test-glossary-page": 10, "test-i18n-lang": 11, "test-land-changes": 244,
+  "test-lang-decks": 44, "test-layout": 350, "test-learning": 203, "test-library": 137, "test-map-cards": 15, "test-media-source": 32, "test-minigames": 57,
+  "test-polity-names": 22, "test-progress-registers": 23, "test-publish": 193, "test-reset": 9, "test-review-decks": 176, "test-revlog": 28, "test-sanitize": 1,
+  "test-sources": 38, "test-speak": 63, "test-spelling": 23, "test-subdecks": 45, "test-tour": 65, "test-truefalse": 20, "test-units": 19, "test-video": 64,
+  "test-war-cards": 22, "test-whiteboard": 10, "test-why-markers": 1, "test-window-fallbacks": 218,
 };
 
 function units() {
